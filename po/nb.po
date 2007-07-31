@@ -3,10 +3,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda FC6\n"
+"Project-Id-Version: anaconda FC7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-05-03 15:13+0100\n"
+"PO-Revision-Date: 2007-07-31 19:49+0200\n"
 "Last-Translator: Espen A. Stefansen <espenas@gmail.com>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -220,7 +220,7 @@ msgid "Requested Partition Does Not Exist"
 msgstr "Forespurt partisjon eksisterer ikke"
 
 #: ../autopart.py:1260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -228,14 +228,14 @@ msgid ""
 msgstr ""
 "Kan ikke finne partisjon %s som skal brukes til %s.\n"
 "\n"
-"Trykk «OK» for å starte systemet på nytt."
+"Trykk «OK» for å avslutte installasjonsprogrammet."
 
 #: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Forespurt RAID-enhet eksisterer ikke"
 
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
@@ -243,14 +243,14 @@ msgid ""
 msgstr ""
 "Kan ikke finne RAID-enhet %s som skal brukes til %s.\n"
 "\n"
-"Trykk «OK» for å starte systemet på nytt."
+"Trykk «OK» for å avslutte installasjonsprogrammet."
 
 #: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Forespurt volumgruppe eksisterer ikke"
 
 #: ../autopart.py:1320
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
@@ -258,14 +258,14 @@ msgid ""
 msgstr ""
 "Kan ikke finne volumgruppe %s som skal brukes til %s.\n"
 "\n"
-"Trykk «OK» for å starte systemet på nytt."
+"Trykk «OK» for å avslutte installasjonsprogrammet."
 
 #: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Forespurt logisk volum eksisterer ikke"
 
 #: ../autopart.py:1358
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
@@ -273,14 +273,14 @@ msgid ""
 msgstr ""
 "Kan ikke finne logisk volum %s som skal brukes til %s.\n"
 "\n"
-"Trykk «OK» for å starte systemet på nytt."
+"Trykk «OK» for å avslutte installasjonsprogrammet."
 
 #: ../autopart.py:1484 ../autopart.py:1531
 msgid "Automatic Partitioning Errors"
 msgstr "Feil under automatisk partisjonering"
 
 #: ../autopart.py:1485
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -292,7 +292,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Trykk «OK» for å starte systemet på nytt."
+"Trykk «OK» for å avslutte installasjonsprogrammet."
 
 #: ../autopart.py:1495
 msgid "Warnings During Automatic Partitioning"
@@ -310,15 +310,11 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to exit the installer."
-msgstr ""
-"\n"
-"\n"
-"Trykk «OK» for å starte systemet på nytt."
+msgstr "\n\nTrykk «OK» for å avslutte installasjonsprogrammet."
 
 #: ../autopart.py:1511 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:239
@@ -511,9 +507,8 @@ msgstr ""
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
 #: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
-#, fuzzy
 msgid "_Exit installer"
-msgstr "Avslutt installering"
+msgstr "A_vslutt installering"
 
 #: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
@@ -525,13 +520,10 @@ msgstr ""
 "Det oppsto et problem under skriving av systemets tilstand til disketten."
 
 #: ../exception.py:430
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
-msgstr ""
-"Systemets tilstand ble skrevet til ekstern vert. Systemet vil nå bli startet "
-"på nytt."
+msgstr "Systemets tilstand ble skrevet til ekstern vert. Installasjonen vil nå avslutte."
 
 #: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
@@ -1076,9 +1068,8 @@ msgid "_Reboot"
 msgstr "Sta_rt på nytt"
 
 #: ../gui.py:1119
-#, fuzzy
 msgid "Exiting"
-msgstr "Avslutt"
+msgstr "Avslutter"
 
 #: ../gui.py:1186
 #, python-format
@@ -1199,9 +1190,8 @@ msgstr ""
 "har sannsynligvis sluppet opp for diskplass."
 
 #: ../image.py:270
-#, fuzzy
 msgid "Change Disc"
-msgstr "Bytt CD-ROM"
+msgstr "Bytt disk"
 
 #: ../image.py:271
 #, python-format
@@ -1209,19 +1199,17 @@ msgid "Please insert %s disc %d to continue."
 msgstr "Sett inn %s CD %d for å fortsette."
 
 #: ../image.py:305
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "Feil CD-ROM"
+msgstr "Feil disk"
 
 #: ../image.py:306
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s disc."
-msgstr "Dette er ikke riktig CD-ROM for %s."
+msgstr "Dette er ikke riktig disk for %s."
 
 #: ../image.py:312
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "Kan ikke aksessere din CD-ROM."
+msgstr "Kan ikke aksessere disken."
 
 #: ../image.py:369
 #, fuzzy, python-format
@@ -2675,12 +2663,11 @@ msgstr "%s av %s pakker er fullført"
 
 #: ../yuminstall.py:195
 msgid "Finishing upgrade"
-msgstr ""
+msgstr "Fullfører oppgraderingen"
 
 #: ../yuminstall.py:196
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr "Starter installasjon. Dette kan ta flere minutter..."
+msgstr "Fullfører oppgraderingsprosessen. Dette kan ta en stund..."
 
 #: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
 #: ../yuminstall.py:796 ../yuminstall.py:1012 ../yuminstall.py:1015
@@ -3617,7 +3604,6 @@ msgstr "IPv4-prefiks må være mellom 0 og 32."
 
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
 #: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
-#, fuzzy
 msgid "IPv4 Network Mask"
 msgstr "IPv4-nettmaske"
 
@@ -3631,9 +3617,8 @@ msgid "Nameserver"
 msgstr "Navnetjener"
 
 #: ../iw/netconfig_dialog.py:255
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "Feil under konfigurasjon av nettverksenhet"
+msgstr "Feil under konfigurasjon av nettverksenhet:"
 
 #: ../iw/netconfig_dialog.py:268
 msgid "Error configuring network device"
@@ -5762,18 +5747,15 @@ msgid "Test"
 msgstr "Test"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-#, fuzzy
 msgid "Eject Disc"
-msgstr "Løs ut CD"
+msgstr "Løs ut disk"
 
 #: ../loader2/cdinstall.c:93
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
-msgstr ""
-"Velg \"%s\" for å teste CDen som er i CD-stasjonen, eller \"%s\" for å bytte "
-"CD."
+msgstr "Velg \"%s\" for å teste disken som er i stasjonen, eller «%s» for å løse ut disken og sette inn en ny for testing."
 
 #: ../loader2/cdinstall.c:114
 #, fuzzy, c-format
@@ -5798,9 +5780,8 @@ msgstr ""
 "press %s for å forsøke på nytt"
 
 #: ../loader2/cdinstall.c:258
-#, fuzzy
 msgid "Disc Found"
-msgstr "CD funnet"
+msgstr "Plate funnet"
 
 #: ../loader2/cdinstall.c:259
 #, fuzzy, c-format
@@ -6140,9 +6121,8 @@ msgid "Choose a Language"
 msgstr "Velg et språk"
 
 #: ../loader2/loader.c:118
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "Lokal CD-ROM"
+msgstr "Lokal CD/DVD"
 
 #: ../loader2/loader.c:120
 msgid "Hard drive"
@@ -7180,861 +7160,3 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "Rebooting System"
-#~ msgstr "Starter maskinen på nytt"
-
-#~ msgid "Re_try"
-#~ msgstr "Prøv igjen"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Fjern installasjonsmedier som ble brukt under installasjonen og klikk på "
-#~ "«Start på nytt» for å starte systemet på nytt.\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Fjern medier som ble brukt under installasjonen og trykk <Linjeskift> for "
-#~ "å starte systemet på nytt.\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Linjeskift> for å starte på nytt"
-
-#~ msgid "NFS image"
-#~ msgstr "NFS-bilde"
-
-#, fuzzy
-#~ msgid ""
-#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
-#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
-#~ "dMB of swap configured, but you may create additional swap space on one "
-#~ "of your file systems now."
-#~ msgstr ""
-#~ "2.4-kjernen trenger vesentlig mer swap enn eldre kjerner. Det dobbelte av "
-#~ "systemets RAM er anbefalt. Du har allerede %d MB swap konfigurert, men "
-#~ "det er mulig å opprette mer swap på et av dine filsystem nå."
-
-#~ msgid "Done [%d/%d]"
-#~ msgstr "Fullført [%d/%d]"
-
-#~ msgid "Installing %s-%s-%s... "
-#~ msgstr "Installerer %s-%s-%s... "
-
-#~ msgid "Please enter the registration key for your version of %s."
-#~ msgstr "Vennligst oppgi registreringsnøkkelen for din versjon av %s."
-
-#~ msgid "Enter Registration Key"
-#~ msgstr "Oppgi registreringsnøkkel"
-
-#~ msgid "Key:"
-#~ msgstr "Nøkkel:"
-
-#~ msgid "_Format drive"
-#~ msgstr "_Formater stasjon"
-
-#~ msgid ""
-#~ "The following critical errors exist with your requested partitioning "
-#~ "scheme."
-#~ msgstr ""
-#~ "Følgende kritiske feil oppsto for ditt forespurte partisjonsopplegg."
-
-#~ msgid "The following warnings exist with your requested partition scheme."
-#~ msgstr "Følgende advarsler oppsto med ditt partisjoneringsopplegg."
-
-#~ msgid "Remaining time: %s minutes"
-#~ msgstr "Tid som gjenstår: %s minutter"
-
-#~ msgid "Downloading %s"
-#~ msgstr "Laster ned %s"
-
-#~ msgid "Installing %s-%s-%s.%s (%s)"
-#~ msgstr "Installerer %s-%s-%s.%s (%s)"
-
-#~ msgid "Package"
-#~ msgstr "Pakke"
-
-#~ msgid "Summary"
-#~ msgstr "Sammendrag"
-
-#~ msgid "Status: "
-#~ msgstr "Status: "
-
-#~ msgid "Description: %s"
-#~ msgstr "Beskrivelse: %s"
-
-#~ msgid "Hardware Address: %s"
-#~ msgstr "Maskinvareadresse: %s"
-
-#~ msgid "Use dynamic IP configuration (DHCP)"
-#~ msgstr "Bruk dynamisk konfigurasjon av IP (DHCP)"
-
-#~ msgid "Address"
-#~ msgstr "Adresse"
-
-#~ msgid "IPv4:"
-#~ msgstr "IPv4:"
-
-#~ msgid "IPv6:"
-#~ msgstr "IPv6:"
-
-#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-#~ msgstr "Ugyldig eller manglende IPv6-prefiks (må være mellom 0 og 128)."
-
-#~ msgid "Must have a / partition to install on."
-#~ msgstr "Må ha en \"/\"-partisjon å installere på."
-
-#~ msgid "Downloading - %s"
-#~ msgstr "Laster ned - %s"
-
-#~ msgid " Name   : "
-#~ msgstr " Navn   : "
-
-#~ msgid " Size   : "
-#~ msgstr " Størr. : "
-
-#~ msgid " Summary: "
-#~ msgstr " Sammendrag: "
-
-#~ msgid "    Packages"
-#~ msgstr "      Pakker"
-
-#~ msgid "      Bytes"
-#~ msgstr "      Bytes"
-
-#~ msgid "        Time"
-#~ msgstr "         Tid"
-
-#~ msgid "Total    :"
-#~ msgstr "Total   :"
-
-#~ msgid "Completed:   "
-#~ msgstr "Ferdig   :   "
-
-#~ msgid "Remaining:  "
-#~ msgstr "Gjenstår :  "
-
-#~ msgid "Acre"
-#~ msgstr "Acre"
-
-#~ msgid "Alagoas, Sergipe"
-#~ msgstr "Alagoas, Sergipe"
-
-#~ msgid "Alaska Time"
-#~ msgstr "Alaska-tid"
-
-#~ msgid "Alaska Time - Alaska panhandle"
-#~ msgstr "Alaska-tid - \"Alaska panhandle\""
-
-#~ msgid "Alaska Time - Alaska panhandle neck"
-#~ msgstr "Alaska-tid - \"Alaska panhandle neck\""
-
-#~ msgid "Alaska Time - west Alaska"
-#~ msgstr "Alaska-tid - vest-Alaska"
-
-#~ msgid "Aleutian Islands"
-#~ msgstr "de Aleutiske øyer"
-
-#~ msgid "Amapa, E Para"
-#~ msgstr "Amapa, østre Para"
-
-#~ msgid "Amundsen-Scott Station, South Pole"
-#~ msgstr "Amundsen-Scott-basen, Sydpolen"
-
-#~ msgid "Aqtobe (Aktobe)"
-#~ msgstr "Aqtobe (Aktobe)"
-
-#~ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-#~ msgstr "Atlanterhavstid - Quebec - Lower North Shore"
-
-#~ msgid "Atlantic Time - Labrador - most locations"
-#~ msgstr "Atlanterhavstid - Labrador - de fleste lokasjoner"
-
-#~ msgid "Atlantic Time - New Brunswick"
-#~ msgstr "\"Atlantic Time\" - New Brunswick"
-
-#~ msgid "Atlantic Time - Nova Scotia (most places), PEI"
-#~ msgstr "Atlanterhavstid - de fleste steder i Nova Scotia, PEI"
-
-#~ msgid ""
-#~ "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-#~ msgstr ""
-#~ "\"Atlantisk Tid\" - steder i Nova Scotia som ikke hadde sommertid i 1966-"
-#~ "1971"
-
-#~ msgid "Atlantic islands"
-#~ msgstr "Atlanterhavsøyene"
-
-#~ msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-#~ msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-
-#~ msgid "Azores"
-#~ msgstr "Azorene"
-
-#~ msgid "Bahia"
-#~ msgstr "Bahia"
-
-#~ msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-#~ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-
-#~ msgid "Buenos Aires (BA, CF)"
-#~ msgstr "Bueno Aires (BA, CF)"
-
-#~ msgid "Canary Islands"
-#~ msgstr "Kanariøyene"
-
-#~ msgid "Casey Station, Bailey Peninsula"
-#~ msgstr "Casey-stasjonen, Bailey-halvøyen"
-
-#~ msgid "Catamarca (CT), Chubut (CH)"
-#~ msgstr "Catamarca (CT), Chubut (CH)"
-
-#~ msgid "Central Standard Time - Saskatchewan - midwest"
-#~ msgstr "\"Central Standard Time\" - Saskatchewan - midtvesten"
-
-#~ msgid "Central Standard Time - Saskatchewan - most locations"
-#~ msgstr "Central Standard Time - de fleste steder i Saskatchewan"
-
-#~ msgid "Central Time"
-#~ msgstr "\"Central Time\""
-
-#~ msgid "Central Time - Campeche, Yucatan"
-#~ msgstr "\"Central Time\" - Campeche, Yucatan"
-
-#~ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-#~ msgstr "\"Central Time\" - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-
-#~ msgid ""
-#~ "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-#~ "Counties"
-#~ msgstr ""
-#~ "«Central Time» - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-#~ "Counties"
-
-#~ msgid "Central Time - Indiana - Pike County"
-#~ msgstr "\"Central Time\" - Indiana - Pike County"
-
-#~ msgid "Central Time - Manitoba & west Ontario"
-#~ msgstr "\"Central Time\" - Manitoba og vest-Ontario"
-
-#~ msgid ""
-#~ "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-#~ msgstr ""
-#~ "\"Central Time\" - Michigan - Dickinson, Gogebic, Iron & Menominee "
-#~ "Counties"
-
-#~ msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-#~ msgstr ""
-#~ "\"Central Time\" - Nord-Dakota, Morton County (unntatt Mandan-området)"
-
-#~ msgid "Central Time - North Dakota - Oliver County"
-#~ msgstr "\"Central Time\" - Nord-Dakota, Oliver County"
-
-#~ msgid "Central Time - Quintana Roo"
-#~ msgstr "\"Central Time\" - Quintana Roo"
-
-#~ msgid "Central Time - Rainy River & Fort Frances, Ontario"
-#~ msgstr "\"Central Time\" - Rainy River og Fort Frances, Ontario"
-
-#~ msgid "Central Time - central Nunavut"
-#~ msgstr "\"Central Time\" - Sentral-Nunavut"
-
-#~ msgid "Central Time - most locations"
-#~ msgstr "De fleste steder med \"Central Time\""
-
-#~ msgid "Central Time - west Nunavut"
-#~ msgstr "\"Central Time\" - vest-Nunavut"
-
-#~ msgid "Ceuta & Melilla"
-#~ msgstr "Ceuta og Melilla"
-
-#~ msgid "Chatham Islands"
-#~ msgstr "Chatham-øyene"
-
-#~ msgid "Davis Station, Vestfold Hills"
-#~ msgstr "Davis-stasjonen, Vestfold-høydene"
-
-#~ msgid "Dornod, Sukhbaatar"
-#~ msgstr "Dornod, Sukhbaatar"
-
-#~ msgid "Dumont-d'Urville Base, Terre Adelie"
-#~ msgstr "Dumont-d'Urville-basen, Terre Adelie"
-
-#~ msgid "E Amazonas"
-#~ msgstr "Østre Amazonas"
-
-#~ msgid "Easter Island & Sala y Gomez"
-#~ msgstr "Påskeøyene & Sala y Gomez"
-
-#~ msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-#~ msgstr ""
-#~ "\"Eastern Standard Time\" - Atikokan, Ontario og Southampton I, Nunavut"
-
-#~ msgid "Eastern Time"
-#~ msgstr "\"Eastern Time\" (USAs østkyst)"
-
-#~ msgid "Eastern Time - Indiana - Crawford County"
-#~ msgstr "\"Eastern Time\" - Indiana - Crawford County"
-
-#~ msgid "Eastern Time - Indiana - Starke County"
-#~ msgstr "\"Eastern Time\" - Indiana - Starke County"
-
-#~ msgid "Eastern Time - Indiana - Switzerland County"
-#~ msgstr "\"Eastern Time\" - Indiana - Switzerland County"
-
-#~ msgid "Eastern Time - Indiana - most locations"
-#~ msgstr "\"Eastern Time\" - de fleste steder i Indiana"
-
-#~ msgid "Eastern Time - Kentucky - Louisville area"
-#~ msgstr "\"Eastern Time\" - Kentucky - Louisville-området"
-
-#~ msgid "Eastern Time - Kentucky - Wayne County"
-#~ msgstr "\"Eastern Time\" - Kentucky - Wayne County"
-
-#~ msgid "Eastern Time - Michigan - most locations"
-#~ msgstr "\"Eastern Time\" - de fleste steder i Michigan."
-
-#~ msgid ""
-#~ "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-"
-#~ "1973"
-#~ msgstr ""
-#~ "Eastern Time - Ontario og Quebec - steder som ikke hadde DST i 1967-1973"
-
-#~ msgid "Eastern Time - Ontario - most locations"
-#~ msgstr "Eastern Time - Ontario - de fleste lokasjoner"
-
-#~ msgid "Eastern Time - Pangnirtung, Nunavut"
-#~ msgstr "\"Eastern Standard Time\" - Pangnirtung, Nunavut"
-
-#~ msgid "Eastern Time - Quebec - most locations"
-#~ msgstr "Eastern Time - Quebec - de fleste lokasjoner"
-
-#~ msgid "Eastern Time - Thunder Bay, Ontario"
-#~ msgstr "Eastern Time - Thunder Bay, Ontario"
-
-#~ msgid "Eastern Time - east Nunavut"
-#~ msgstr "\"Eastern Standard Time\" - østre-Nunavut"
-
-#~ msgid "Galapagos Islands"
-#~ msgstr "Galapagos-øyene"
-
-#~ msgid "Gambier Islands"
-#~ msgstr "Gambier-øyene"
-
-#~ msgid "Gilbert Islands"
-#~ msgstr "Gilbert-øyene"
-
-#~ msgid "Hawaii"
-#~ msgstr "Hawaii"
-
-#~ msgid "Heilongjiang (except Mohe), Jilin"
-#~ msgstr "Heilongjiang (unntatt Mohe), Jilin"
-
-#~ msgid "Irian Jaya & the Moluccas"
-#~ msgstr "Irian Jaya og Molukkene"
-
-#~ msgid "Jan Mayen"
-#~ msgstr "Jan Mayen"
-
-#~ msgid "Java & Sumatra"
-#~ msgstr "Java og Sumatra"
-
-#~ msgid "Johnston Atoll"
-#~ msgstr "Johnston-atollet"
-
-#~ msgid "Jujuy (JY)"
-#~ msgstr "Jujuy (JY)"
-
-#~ msgid "Kosrae"
-#~ msgstr "Kosrae"
-
-#~ msgid "Kwajalein"
-#~ msgstr "Kwajalein"
-
-#~ msgid "La Rioja (LR)"
-#~ msgstr "La Rioja (LR)"
-
-#~ msgid "Line Islands"
-#~ msgstr "Line Islands"
-
-#~ msgid "Lord Howe Island"
-#~ msgstr "Lord Howe-øya"
-
-#~ msgid "Madeira Islands"
-#~ msgstr "Madeira"
-
-#~ msgid "Marquesas Islands"
-#~ msgstr "Marquesas-øyene"
-
-#~ msgid "Mato Grosso"
-#~ msgstr "Mato Grosso"
-
-#~ msgid "Mato Grosso do Sul"
-#~ msgstr "Mato Grosso do Sul"
-
-#~ msgid "Mawson Station, Holme Bay"
-#~ msgstr "Mawson-stasjonen, Holme-bukta"
-
-#~ msgid "McMurdo Station, Ross Island"
-#~ msgstr "McMurdo-stasjonen, Ross Island"
-
-#~ msgid "Mendoza (MZ)"
-#~ msgstr "Mendoza (MZ)"
-
-#~ msgid "Midway Islands"
-#~ msgstr "Midway-øyene"
-
-#~ msgid "Moscow+00 - Caspian Sea"
-#~ msgstr "Moskva+00 - det kaspiske hav"
-
-#~ msgid "Moscow+00 - west Russia"
-#~ msgstr "Moskva+00 - vest-Russland"
-
-#~ msgid "Moscow+01 - Samara, Udmurtia"
-#~ msgstr "Moskva+10 - Samara, Udmurtia"
-
-#~ msgid "Moscow+02 - Urals"
-#~ msgstr "Moskva+02 - Uralfjellene"
-
-#~ msgid "Moscow+03 - Novosibirsk"
-#~ msgstr "Moskva+03 - Novosibirsk"
-
-#~ msgid "Moscow+03 - west Siberia"
-#~ msgstr "Moskva+03 - vest-Sibir"
-
-#~ msgid "Moscow+04 - Yenisei River"
-#~ msgstr "Moskva+04 - Yenisei-elven"
-
-#~ msgid "Moscow+05 - Lake Baikal"
-#~ msgstr "Moskva+05 - Baikal-sjøen"
-
-#~ msgid "Moscow+06 - Lena River"
-#~ msgstr "Moskva+06 - Lena-elven"
-
-#~ msgid "Moscow+07 - Amur River"
-#~ msgstr "Moskva+07 - Amur-elven"
-
-#~ msgid "Moscow+07 - Sakhalin Island"
-#~ msgstr "Moskva+07 - Sakhalin"
-
-#~ msgid "Moscow+08 - Magadan"
-#~ msgstr "Moskva+08 - Magadan"
-
-#~ msgid "Moscow+09 - Kamchatka"
-#~ msgstr "Moskva+10 - Kamchatka"
-
-#~ msgid "Moscow+10 - Bering Sea"
-#~ msgstr "Moskva+10 - Beringstredet"
-
-#~ msgid "Moscow-01 - Kaliningrad"
-#~ msgstr "Moskva-01 - Kaliningrad"
-
-#~ msgid "Mountain Standard Time - Arizona"
-#~ msgstr "«Mountain Standard Time» - Arizona"
-
-#~ msgid ""
-#~ "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-#~ msgstr ""
-#~ "«Mountain Standard Time» - Dawson Creek, Fort Saint John, britisk Columbia"
-
-#~ msgid "Mountain Standard Time - Sonora"
-#~ msgstr "«Mountain Standard Time» - Sonora"
-
-#~ msgid "Mountain Time"
-#~ msgstr "«Mountain Time»"
-
-#~ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-#~ msgstr ""
-#~ "«Mountain Time» - Alberta, østre britisk Columbia og vest-Saskatchewan"
-
-#~ msgid "Mountain Time - Chihuahua"
-#~ msgstr "«Mountain Time» - Chihuahua"
-
-#~ msgid "Mountain Time - Navajo"
-#~ msgstr "«Mountain Time» - Navajo"
-
-#~ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-#~ msgstr "«Mountain Time» - S Baja, Nayarit, Sinaloa"
-
-#~ msgid "Mountain Time - central Northwest Territories"
-#~ msgstr "«Mountain Time» - midtre nordvest-territorier"
-
-#~ msgid "Mountain Time - south Idaho & east Oregon"
-#~ msgstr "«Mountain Time» - sør-Idaho og øst-Oregon"
-
-#~ msgid "Mountain Time - west Northwest Territories"
-#~ msgstr "«Mountain Time» - vestlige nordvestterritorier"
-
-#~ msgid "NE Brazil (MA, PI, CE, RN, PB)"
-#~ msgstr "Nordøstre Brasil (MA, PI, CE, RN, PB)"
-
-#~ msgid "New South Wales - Yancowinna"
-#~ msgstr "New South Wales - Yancowinna"
-
-#~ msgid "New South Wales - most locations"
-#~ msgstr "De fleste steder i New South Wales"
-
-#~ msgid "Newfoundland Time, including SE Labrador"
-#~ msgstr "Newfoundland-tid - inklusive sydøstre Labrador"
-
-#~ msgid "Northern Territory"
-#~ msgstr "Nordterritoriet"
-
-#~ msgid "Pacific Time"
-#~ msgstr "«Pacific Time»"
-
-#~ msgid "Pacific Time - north Yukon"
-#~ msgstr "«Pacific Time» - nord-Yukon"
-
-#~ msgid "Pacific Time - south Yukon"
-#~ msgstr "«Pacific Time» - sør-Yukon"
-
-#~ msgid "Pacific Time - west British Columbia"
-#~ msgstr "«Pacific Time» - vestre Britisk Columbia"
-
-#~ msgid "Palmer Station, Anvers Island"
-#~ msgstr "Palmer Station, Anvers-øya"
-
-#~ msgid "Pernambuco"
-#~ msgstr "Pernambuco"
-
-#~ msgid "Phoenix Islands"
-#~ msgstr "Phoenix-øyene"
-
-#~ msgid "Ponape (Pohnpei)"
-#~ msgstr "Ponape (Pohnpei)"
-
-#~ msgid "Queensland - Holiday Islands"
-#~ msgstr "Queensland - Holiday Islands"
-
-#~ msgid "Queensland - most locations"
-#~ msgstr "De fleste steder i Queensland"
-
-#~ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-#~ msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-
-#~ msgid "Rothera Station, Adelaide Island"
-#~ msgstr "Rothera Station, Adelaide-øya"
-
-#~ msgid "Ruthenia"
-#~ msgstr "Ruthenia"
-
-#~ msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-#~ msgstr "Syd- og Sydøst-Brasil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-
-#~ msgid "Sabah & Sarawak"
-#~ msgstr "Sabah og Sarawak"
-
-#~ msgid "San Juan (SJ)"
-#~ msgstr "San Juan (SJ)"
-
-#~ msgid "Santa Cruz (SC)"
-#~ msgstr "Santa Cruz (SC)"
-
-#~ msgid "Scoresbysund / Ittoqqortoormiit"
-#~ msgstr "Scoresbysund / Ittoqqortoormiit"
-
-#~ msgid "Society Islands"
-#~ msgstr "Society Islands"
-
-#~ msgid "South Australia"
-#~ msgstr "Syd-Australia"
-
-#~ msgid "Svalbard"
-#~ msgstr "Svalbard"
-
-#~ msgid "Syowa Station, E Ongul I"
-#~ msgstr "Syowa Station, østre Ongul I"
-
-#~ msgid "Tasmania - King Island"
-#~ msgstr "Tasmania - King Island"
-
-#~ msgid "Tasmania - most locations"
-#~ msgstr "De fleste steder i Tasmania"
-
-#~ msgid "Thule / Pituffik"
-#~ msgstr "Thule / Pituffik"
-
-#~ msgid "Tierra del Fuego (TF)"
-#~ msgstr "Tierra del Fuego (TF)"
-
-#~ msgid "Tocantins"
-#~ msgstr "Tocantins"
-
-#~ msgid "Truk (Chuuk) and Yap"
-#~ msgstr "Truk (Chuuk) og Yap"
-
-#~ msgid "Tucuman (TM)"
-#~ msgstr "Tucuman (TM)"
-
-#~ msgid "Victoria"
-#~ msgstr "Victoria"
-
-#~ msgid "Vostok Station, S Magnetic Pole"
-#~ msgstr "Vostok-stasjonen, den sydlige magnetiske pol"
-
-#~ msgid "W Amazonas"
-#~ msgstr "vestre Amazonas"
-
-#~ msgid "W Para, Rondonia"
-#~ msgstr "Vest-Para, Rondonia"
-
-#~ msgid "Wake Island"
-#~ msgstr "Wake Island"
-
-#~ msgid "West Kazakhstan"
-#~ msgstr "Vest-Kazakhstan"
-
-#~ msgid "Western Australia - Eucla area"
-#~ msgstr "Vest-Australia - Eucla-området"
-
-#~ msgid "Western Australia - most locations"
-#~ msgstr "Vest-Australia - de fleste steder"
-
-#~ msgid "Zaporozh'ye, E Lugansk"
-#~ msgstr "Zaporozh'ye, østre Lugansk"
-
-#~ msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-#~ msgstr "Sentral-Kina - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-
-#~ msgid "central Crimea"
-#~ msgstr "sentrale Krim"
-
-#~ msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-#~ msgstr "Øst- og syd-Borneo, Celebes, Bali, Nusa Tengarra, vest-Timor"
-
-#~ msgid "east China - Beijing, Guangdong, Shanghai, etc."
-#~ msgstr "øst-Kina - Beijing, Guangdong, Shanghai, etc."
-
-#~ msgid "east Dem. Rep. of Congo"
-#~ msgstr "østre Kongo"
-
-#~ msgid "east Uzbekistan"
-#~ msgstr "Øst-Uzbekistan"
-
-#~ msgid "east coast, north of Scoresbysund"
-#~ msgstr "østkysten, nord for Scoresbysund"
-
-#~ msgid "mainland"
-#~ msgstr "fastland"
-
-#~ msgid "most locations"
-#~ msgstr "de fleste steder"
-
-#~ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-#~ msgstr ""
-#~ "de fleste lokasjoner (CC, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-
-#~ msgid "most of Tibet & Xinjiang"
-#~ msgstr "det meste av Tibet og Xinjiang"
-
-#~ msgid "peninsular Malaysia"
-#~ msgstr "Malaysia"
-
-#~ msgid "west & central Borneo"
-#~ msgstr "Vest- og sentral-Borneo"
-
-#~ msgid "west Dem. Rep. of Congo"
-#~ msgstr "vest-Kongo"
-
-#~ msgid "west Tibet & Xinjiang"
-#~ msgstr "Vest-Tibet og Xinjiang"
-
-#~ msgid "west Uzbekistan"
-#~ msgstr "vest-Uzbekistan"
-
-#~ msgid "Error mounting file system on %s: %s"
-#~ msgstr "Feil under montering av filsystem på %s: %s"
-
-#~ msgid "Upgrade Existing System"
-#~ msgstr "Oppgrader eksisterende system"
-
-#~ msgid "Upgrade"
-#~ msgstr "Oppgrader"
-
-#~ msgid "SCSI Id"
-#~ msgstr "SCSI Id"
-
-#~ msgid "You have not specified a SCSI ID or the ID is invalid."
-#~ msgstr "SCSI ID er ikke gyldig eller ble ikke oppgitt."
-
-#~ msgid "WWPN"
-#~ msgstr "WWPN"
-
-#~ msgid "SCSI LUN"
-#~ msgstr "SCSI-LUN"
-
-#~ msgid "You have not specified a SCSI LUN or the number is invalid."
-#~ msgstr "SCSI-LUN er ugyldig eller ble ikke oppgitt."
-
-#~ msgid "Use dynamic IP configuration (_DHCP)"
-#~ msgstr "Bruk dynamisk konfigurasjon av IP (_DHCP)"
-
-#~ msgid "_Activate on boot"
-#~ msgstr "_Aktiver ved oppstart"
-
-#~ msgid "IPv_4 Address:"
-#~ msgstr "IPv_4-adresse:"
-
-#~ msgid "IPv_6 Address:"
-#~ msgstr "IPv_6-adresse:"
-
-#~ msgid "Configure %s"
-#~ msgstr "Konfigurer %s"
-
-#~ msgid "ZFCP Configuration"
-#~ msgstr "ZFCP-konfigurasjon"
-
-#~ msgid "_Remove"
-#~ msgstr "Fje_rn"
-
-#~ msgid "FCP Devices"
-#~ msgstr "FCP-enheter"
-
-#~ msgid "Edit FCP device %s"
-#~ msgstr "Rediger FCP-enhet %s"
-
-#~ msgid ""
-#~ "You're about to remove a FCP disk from your configuration. Are you sure "
-#~ "that you wish to continue?"
-#~ msgstr ""
-#~ "Du er i ferd med å fjerne en FCP-disk fra din konfigurasjon. Er du sikker "
-#~ "på at du ønsker å fortsette?"
-
-#~ msgid "Invalid IP string"
-#~ msgstr "Ugyldig IP-streng"
-
-#~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "Oppgitt IP «%s» er ikke en gyldig IP-adresse."
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "Punkt til punkt (IP)"
-
-#~ msgid "Network Device: %s"
-#~ msgstr "Nettverksenhet: %s"
-
-#~ msgid "Configure using DHCP"
-#~ msgstr "Konfigurer via DHCP"
-
-#~ msgid "Invalid information"
-#~ msgstr "Ugyldig informasjon"
-
-#~ msgid "You must enter valid IP information to continue"
-#~ msgstr "Du må skrive inn gyldig IP-informasjon for å fortsette"
-
-#~ msgid "Tertiary DNS:"
-#~ msgstr "Tertiær DNS:"
-
-#~ msgid "FCP Device"
-#~ msgstr "FCP-enhet"
-
-#~ msgid "Device #"
-#~ msgstr "Enhetsnr"
-
-#~ msgid "Add"
-#~ msgstr "Legg til"
-
-#~ msgid "Remove"
-#~ msgstr "Fjern"
-
-#~ msgid "_Custom"
-#~ msgstr "_Tilpasset"
-
-#~ msgid ""
-#~ "Select this installation type to gain complete control over the "
-#~ "installation process, including software package selection and "
-#~ "partitioning."
-#~ msgstr ""
-#~ "Velg denne installasjonstypen for å få fullstendig kontroll over "
-#~ "installasjonsprosessen, inkludert utvalg av programvarepakker og "
-#~ "partisjonering."
-
-#~ msgid "_Personal Desktop"
-#~ msgstr "_Personlig skrivebord"
-
-#~ msgid ""
-#~ "Perfect for personal computers or laptops, select this installation type "
-#~ "to install a graphical desktop environment and create a system ideal for "
-#~ "home or desktop use."
-#~ msgstr ""
-#~ "Perfekt for en personlig datamaskin eller en bærbar datamaskin. Velg "
-#~ "denne installasjonstypen for å installere et grafisk skrivebordsmiljø og "
-#~ "et system som er ideelt for hjemmebruk."
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ msgstr ""
-#~ "\tSkrivebordsmiljø (GNOME)\n"
-#~ "\tKontorstøtte (OpenOffice.org)\n"
-#~ "\tNettleser\n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tØyeblikksmeldinger\n"
-#~ "\tProgrammer for lyd og bildebehandling\n"
-#~ "\tSpill\n"
-
-#~ msgid "_Server"
-#~ msgstr "_Tjener"
-
-#~ msgid ""
-#~ "Select this installation type if you would like to set up file sharing, "
-#~ "print sharing, and Web services. Additional services can also be enabled, "
-#~ "and you can choose whether or not to install a graphical environment."
-#~ msgstr ""
-#~ "Velg denne installasjonstypen hvis du ønsker å sette opp fildeling, "
-#~ "deling av skrivere og web-tjenester. Tilleggstjenester kan også aktiveres "
-#~ "og du kan velge om du vil installere et grafisk miljø eller ikke."
-
-#~ msgid "_Workstation"
-#~ msgstr "_Arbeidsstasjon"
-
-#~ msgid ""
-#~ "This option installs a graphical desktop environment with tools for "
-#~ "software development and system administration. "
-#~ msgstr ""
-#~ "Dette valget installerer et grafisk skrivebordsmiljø med verktøy for "
-#~ "programvareutvikling og systemadministrasjon."
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tSkrivebordsmiljø (GNOME)\n"
-#~ "\tKontorstøtte (OpenOffice.org)\n"
-#~ "\tNettleser\n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tØyeblikksmeldinger\n"
-#~ "\tProgrammer for lyd og bildebehandling\n"
-#~ "\tSpill\n"
-#~ "\tVerktøy for programvareutvikling\n"
-#~ "\tAdministrasjonsverktøy\n"
-
-#~ msgid "Avoid unwanted packet collisions"
-#~ msgstr "Unngå uønskede pakkekollisjoner"
-
-#~ msgid "Maximize register values for high speed network traffic"
-#~ msgstr "Maksimer registerverdiene for høyhastighets nettverkstrafikk"
-
-#~ msgid ""
-#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
-#~ "configuration."
-#~ msgstr ""
-#~ "Du må velge minst en protokoll (IPv4 eller IPv6) for manuell "
-#~ "konfigurasjon."
