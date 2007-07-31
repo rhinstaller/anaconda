@@ -1,3 +1,9 @@
+2007-07-31  Peter Jones  <pjones@redhat.com>
+
+	* scripts/upd-instroot (get_dso_deps): only discover which linker is
+	our dynamic linker once, rather than at each invocation, and stick
+	with the first one that works.
+
 2007-07-31  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (commandMap):  Add an entry for the updates command.
