@@ -1,7 +1,14 @@
 2007-08-01  Chris Lumens  <clumens@redhat.com>
 
-	* partRequests.py (RequestSpec.doMountPointLinuxFSChecks):  Certain
-	filesystems must be formatted on live CD installs (#250301).
+	* anaconda.spec: Bump version.
+
+2007-08-01  Chris Lumens  <clumens@redhat.com>
+
+	* flags.py (Flags):  Add a livecd install flag so we can tell that's
+	what we're doing from way down within partition checking code.
+	* livecd.py (LiveCDCopyBackend):  Set flags.livecdInstall here.
+	* partRequests.py (RequestSpec.doMountPointLinuxFSChecks):  Root
+	must be formatted on live CD installs (#250301).
 
 2007-07-31  Bill Nottingham  <notting@redhat.com>
 
