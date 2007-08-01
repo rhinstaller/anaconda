@@ -1073,7 +1073,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
         logMessage("looking for first netDev with link");
         for (rc = 0; rc < 5; rc++) {
             for (i = 0; i < deviceNums; i++) {
-                if (waitForLink(devices[i]) == 1) {
+                if (waitForLink(devices[i]) == 0) {
                     loaderData->netDev = devices[i];
                     logMessage("%s has link, using it", devices[i]);
                     return LOADER_NOOP;
