@@ -1,3 +1,8 @@
+2007-08-01  Chris Lumens  <clumens@redhat.com>
+
+	* partRequests.py (RequestSpec.doMountPointLinuxFSChecks):  Certain
+	filesystems must be formatted on live CD installs (#250301).
+
 2007-07-31  Bill Nottingham  <notting@redhat.com>
 
 	* utils/modlist.c: Remove plip module-info support.

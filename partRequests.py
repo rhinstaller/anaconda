@@ -6,7 +6,7 @@
 # Mike Fulbright <msf@redhat.com>
 # Harald Hoyer <harald@redhat.de>
 #
-# Copyright 2002-2005 Red Hat, Inc.
+# Copyright 2002-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -23,6 +23,7 @@ import string
 import os, sys, math
 
 from constants import *
+from flags import *
 from rhpl.translate import _
 
 import fsset
@@ -244,7 +245,7 @@ class RequestSpec:
         if self.fstype is None:
             return None
 
-        if self.fstype.isMountable():    
+        if self.fstype.isMountable():
             if self.mountpoint in mustbeonroot:
                 return _("This mount point is invalid.  The %s directory must "
                          "be on the / file system.") % (self.mountpoint,)
@@ -253,7 +254,11 @@ class RequestSpec:
 			 "be a symbolic link for proper system "
 			 "operation.  Please select a different "
 			 "mount point.") % (self.mountpoint,)
-		
+
+            if flags.livecd and self.mountpoint in mustbeonlinuxfs and not self.format:
+                return _("The mount point %s must be formatted on live CD "
+                         "installs.") % (self.mountpoint,)
+
         if not self.fstype.isLinuxNativeFS():
             if self.mountpoint in mustbeonlinuxfs:
                 return _("This mount point must be on a linux file system.")
