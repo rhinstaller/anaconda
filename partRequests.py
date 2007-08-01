@@ -245,6 +245,10 @@ class RequestSpec:
         if self.fstype is None:
             return None
 
+        if flags.livecdInstall and self.mountpoint == "/" and not self.format:
+            return _("The mount point %s must be formatted during live CD "
+                     "installs.") % self.mountpoint
+
         if self.fstype.isMountable():
             if self.mountpoint in mustbeonroot:
                 return _("This mount point is invalid.  The %s directory must "
@@ -255,9 +259,7 @@ class RequestSpec:
 			 "operation.  Please select a different "
 			 "mount point.") % (self.mountpoint,)
 
-            if flags.livecd and self.mountpoint in mustbeonlinuxfs and not self.format:
-                return _("The mount point %s must be formatted on live CD "
-                         "installs.") % (self.mountpoint,)
+            return None
 
         if not self.fstype.isLinuxNativeFS():
             if self.mountpoint in mustbeonlinuxfs:

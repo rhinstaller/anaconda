@@ -150,6 +150,7 @@ class LiveCDImageMethod(installmethod.InstallMethod):
 class LiveCDCopyBackend(backend.AnacondaBackend):
     def __init__(self, method, instPath):
         backend.AnacondaBackend.__init__(self, method, instPath)
+        flags.livecdInstall = True
         self.supportsUpgrades = False
         self.supportsPackageSelection = False
         self.skipFormatRoot = True
