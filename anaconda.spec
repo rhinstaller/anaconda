@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.66
+Version: 10.1.1.67
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,7 +77,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Fri Jul 13 2007 Chris Lumens <clumens@redhat.com> 10.1.1.66-1
+* Thu Aug 02 2007 David Cantrell <dcantrell@redhat.com> - 10.1.1.67-1
+- Handle return value from waitLinkSleep() correctly (pjones)
+  Related: rhbz#207546
+- Only show >15 partitions message if there is a user interface (dlehman)
+  Related: rhbz#238708
+
+* Fri Jul 13 2007 Chris Lumens <clumens@redhat.com> - 10.1.1.66-1
 - Don't read filesystem labels from drives we cleared with clearpart.
   Resolves: #209291
 - Don't display an error if mount fails when searching for a root (dlehman).
