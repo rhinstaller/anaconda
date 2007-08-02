@@ -1,6 +1,11 @@
-2007-08-01  Chris Lumens  <clumens@redhat.com>
+2007-08-02  Chris Lumens  <clumens@redhat.com>
 
-	* anaconda.spec: Bump version.
+	* gui.py (ExceptionWindow.__init__):  Remove the debug button on
+	livecd installs.
+	* text.py (ExceptionWindow.__init__):  Likewise.
+
+	* autopart.py (doAutoPartition):  Don't take into consideration drives
+	that have been removed from the diskset (#250148).
 
 2007-08-01  Chris Lumens  <clumens@redhat.com>
 

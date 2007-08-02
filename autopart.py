@@ -3,7 +3,7 @@
 #
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001-2005 Red Hat, Inc.
+# Copyright 2001-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -1230,8 +1230,10 @@ def doAutoPartition(anaconda):
     # XXX clearpartdrives is overloaded as drives we want to use for linux
     drives = []
     initial_free = findFreespace(diskset)
+    initial_free_keys = initial_free.keys()
+
     if partitions.autoClearPartDrives:
-      for drive in partitions.autoClearPartDrives:
+      for drive in filter (lambda d: d in initial_free_keys, partitions.autoClearPartDrives):
         free = 0
         for f in initial_free[drive]:
             size = f.geom.end - f.geom.start
