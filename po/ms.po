@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-07-27 21:02+0800\n"
+"PO-Revision-Date: 2007-08-03 01:11+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -5237,9 +5237,8 @@ msgid "Review Partition Layout"
 msgstr "Edit partisyen: /dev/%s"
 
 #: ../textw/partition_text.py:1658
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "_Semak dan ubahsuai susunatur partisyen"
+msgstr "Semak dan ubahsuai susunatur partisyen?"
 
 #: ../textw/partition_text.py:1679
 #: tmp/adddrive.glade.h:3
@@ -5252,15 +5251,13 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Bagaimana anda hendak mengubah tetapan pemacu anda?"
 
 #: ../textw/partition_text.py:1703
-#, fuzzy
 msgid "Add FCP Device"
-msgstr "Tambah peranti FCP"
+msgstr "Tambah Peranti FCP"
 
 #: ../textw/partition_text.py:1704
 #: tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port Name (WWPN), and a 64 bit FCP LUN for each device."
-msgstr "Mesin zSeries boleh mengakses peranti SCSI standard industri melalui Fibre Channel (FCP). Anda perlu untuk memberikan 5 parameter untuk setiap peranti: 16 bit nombor peranti, 16bit SCSI ID, 64 bit World Wide Port Name (WWPN), 16bit SCSI LUN dan 64 bit FCP LUN."
+msgstr "Mesin zSeries boleh mengakses peranti SCSI standard industri melalui Fibre Channel (FCP). Anda perlu untuk memberikan 16 bit nombor peranti, 64 bit World Wide Port Name (WWPN), dan 64 bit FCP LUN untuk setiap peranti."
 
 #: ../textw/partition_text.py:1727
 #: tmp/iscsi-config.glade.h:5
