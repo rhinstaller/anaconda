@@ -155,7 +155,8 @@ class ExceptionWindow:
         if hasActiveNetDev() or flags.debug:
             self.buttons.append(_("Remote"))
 
-        self.buttons.append(_("Debug"))
+        if not flags.livecdInstall:
+            self.buttons.append(_("Debug"))
 
     def run(self):
         log.info ("in run, screen = %s" % self.screen)

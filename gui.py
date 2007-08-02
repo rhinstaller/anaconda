@@ -659,6 +659,7 @@ class ExceptionWindow:
         expander = exnxml.get_widget("exnExpander")
         info = exnxml.get_widget("info")
         infoImage = exnxml.get_widget("infoImage")
+        buttonBox = exnxml.get_widget("buttonBox")
 
         info.set_text(exceptionText)
 
@@ -671,15 +672,18 @@ class ExceptionWindow:
         textbuf = gtk.TextBuffer()
         textbuf.set_text(shortTraceback)
 
+        # Remove the debug button since it doesn't work in livecd mode anyway
+        if flags.livecdInstall:
+            debugButton = exnxml.get_widget("debugButton")
+            buttonBox.remove(debugButton)
+
         # Remove the floppy button if we don't need it.
         if not floppy.hasFloppyDevice() and not flags.debug:
-            buttonBox = exnxml.get_widget("buttonBox")
             floppyButton = exnxml.get_widget("floppyButton")
             buttonBox.remove(floppyButton)
 
         # Remove the remote button if there's no network.
         if not hasActiveNetDev() and not flags.debug:
-            buttonBox = exnxml.get_widget("buttonBox")
             remoteButton = exnxml.get_widget("remoteButton")
             buttonBox.remove(remoteButton)
 
