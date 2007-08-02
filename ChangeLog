@@ -7,6 +7,9 @@
 	* autopart.py (doAutoPartition):  Don't take into consideration drives
 	that have been removed from the diskset (#250148).
 
+	* loader2/init.c (main):  Add a mode when creating a new file.
+	* loader2/fwloader.c (load_firmware):  Likewise.
+
 2007-08-01  Chris Lumens  <clumens@redhat.com>
 
 	* flags.py (Flags):  Add a livecd install flag so we can tell that's

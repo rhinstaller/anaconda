@@ -451,7 +451,7 @@ static void load_firmware(struct fw_loader *fwl, struct uevent *uevent)
     if (!(tempfile = tempnam("/tmp/", "fw-")))
         return;
 
-    if ((fd = open(tempfile, O_RDWR | O_EXCL | O_CREAT)) < 0) {
+    if ((fd = open(tempfile, O_RDWR | O_EXCL | O_CREAT, 0600)) < 0) {
         free(tempfile);
         return;
     }
