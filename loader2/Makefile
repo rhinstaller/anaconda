@@ -135,7 +135,6 @@ install: all
 	if [ -f keymaps-$(ARCH) ]; then cp keymaps-$(ARCH) $(DESTDIR)/$(RUNTIMEDIR)/keymaps-override-$(ARCH) ; fi
 	install -m 644 unicode-linedraw-chars.txt $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
-	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
 
 dirbrowser: dirbrowser.c
 	gcc -DSTANDALONE -D_FORTIFY_SOURCE=2 -Wall -Werror -ggdb -o dirbrowser dirbrowser.c -lnewt -lslang

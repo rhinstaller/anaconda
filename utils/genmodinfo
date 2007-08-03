@@ -1,0 +1,54 @@
+#!/usr/bin/python
+
+import commands
+import os
+import string
+import sys
+
+uname = os.uname()[2]
+
+if len(sys.argv) > 1:
+    path = sys.argv[1]
+else:
+    path = '/lib/modules/%s' % (uname,)
+    
+mods = {}
+for root, dirs, files in os.walk(path):
+    for file in files:
+        mods[file] = os.path.join(root,file)
+
+modules = { 'scsi_hostadapter' : [ 'block' ], 'eth' : [ 'networking'] }
+
+list = {}
+
+for modtype in modules.keys():
+    list[modtype] = {}
+    for file in modules[modtype]:
+        try:
+            f = open('%s/modules.%s' % (path,file),'r')
+        except:
+            continue
+        lines = f.readlines()
+        f.close()
+        for line in lines:
+            line = line.strip()
+            if mods.has_key(line):
+                desc = commands.getoutput("modinfo -F description %s" % (mods[line]))
+                modname = line[:-3]
+                if desc and len(desc) > 65:
+                    desc = desc[:65]
+                if not desc:
+                    desc = "%s driver" % (modname,)
+                modinfo = """
+%s
+        %s
+        "%s"
+""" % (modname, modtype, desc)
+                list[modtype][modname] = modinfo
+
+print "Version 0"
+for type in list.keys():
+    modlist = list[type].keys()
+    modlist.sort()
+    for m in modlist:
+        print list[type][m]

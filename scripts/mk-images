@@ -109,11 +109,12 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
     TRIMPCIIDS=$IMGPATH/usr/lib/anaconda-runtime/trimpciids
     GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
     GENINITRDSZ=$IMGPATH/usr/lib/anaconda-runtime/geninitrdsz
+    GENMODINFO=$IMGPATH/usr/lib/anaconda-runtime/genmodinfo
     KEYMAPS=$TMPDIR/keymaps-$BUILDARCH.$$
     SCREENFONT=$IMGPATH/usr/lib/anaconda-runtime/screenfont-${BASEARCH}.gz
     GETMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/moddeps
     MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
-    MODINFO=$IMGPATH/usr/lib/anaconda-runtime/loader/module-info
+    MODINFO=$TMPDIR/modinfo-$BUILDARCH.$$
     FILTERMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/filtermoddeps
     LOADERBINDIR=$IMGPATH/usr/lib/anaconda-runtime/loader
     BOOTDISKDIR=$IMGPATH/usr/lib/anaconda-runtime/boot
@@ -126,7 +127,7 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
 
     touch $MODULESUSED
 
-    REQUIREMENTS="$TRIMMODALIAS $TRIMPCIIDS $PCIIDS $XDRIVERDESCS $GETMODDEPS $MODINFO
+    REQUIREMENTS="$TRIMMODALIAS $TRIMPCIIDS $PCIIDS $XDRIVERDESCS $GETMODDEPS $GENMODINFO
 		  $FILTERMODDEPS $LANGTABLE $GETKEYMAPS"
 
     dieLater=
@@ -821,6 +822,7 @@ for KERNELARCH in $arches; do
 
     rundepmod "$allmods" $MODDEPS
     find $KERNELROOT/lib/modules/$version > $CACHE
+    $GENMODINFO $KERNELROOT/lib/modules/$version > $MODINFO
 
     # make the boot images
     makeBootImages

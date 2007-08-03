@@ -57,6 +57,7 @@ depends:
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 genmodinfo $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 trimmodalias $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 trimpciids $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 moddeps $(DESTDIR)/$(RUNTIMEDIR)

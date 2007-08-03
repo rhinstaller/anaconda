@@ -1,3 +1,10 @@
+2007-08-03  Bill Nottingham  <notting@redhat.com>
+
+	* utils/genmodinfo: New file, utility to generate module-info on the fly
+	* utils/Makefile: Install genmodinfo.
+	* scripts/mk-images: Use genmodinfo.
+	* loader2/module-info, loader2/Makefile: Kill it dead.
+
 2007-08-03  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/loader.c (initializeTtys):  Fix call to mknod (patch from
