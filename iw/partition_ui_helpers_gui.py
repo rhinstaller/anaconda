@@ -4,7 +4,7 @@
 #
 # Michael Fulbright <msf@redhat.com>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -219,10 +219,7 @@ def formatOptionCB(widget, data):
     else:
 	setMntPtComboStateFromType(ofstype, mntptcombo)
 
-def noformatCB(widget, badblocks):
-    badblocks.set_sensitive(widget.get_active())
-
-def noformatCB2(widget, data):
+def noformatCB(widget, data):
     (combowidget, mntptcombo, ofstype) = data
     combowidget.set_sensitive(not widget.get_active())
 
@@ -243,10 +240,9 @@ def noformatCB2(widget, data):
        migraterb     - radiobutton for migrate fs
        migfstype     - menu for migrate fs types
        migfstypeMenu - menu for migrate fs types
-       badblocks     - toggle button for badblock check
 """
 def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
-                                  showbadblocks=0, ignorefs=[]):
+                                  ignorefs=[]):
     ofstype = origrequest.fstype
 
     maintable.attach(gtk.HSeparator(), 0, 2, row, row + 1)
@@ -285,7 +281,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     formatrb.connect("toggled", formatOptionCB,
 		     (fstypeCombo, mountCombo, ofstype))
 
-    noformatrb.connect("toggled", noformatCB2,
+    noformatrb.connect("toggled", noformatCB,
 		     (fstypeCombo, mountCombo, origrequest.origfstype))
 
     if origrequest.origfstype.isMigratable():
@@ -310,25 +306,11 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	migraterb = None
 	migfstypeCombo = None
 
-    if showbadblocks:
-        badblocks = gtk.CheckButton(_("Check for _bad blocks?"))
-        badblocks.set_active(0)
-        maintable.attach(badblocks, 0, 1, row, row + 1)
-        formatrb.connect("toggled", noformatCB, badblocks)
-        if not origrequest.format:
-            badblocks.set_sensitive(0)
-
-        if origrequest.badblocks:
-            badblocks.set_active(1)
-
-    else:
-        badblocks = None
-        
     row = row + 1
 
     rc = {}
     for var in ['noformatrb', 'formatrb', 'fstypeCombo',
-                'migraterb', 'migfstypeCombo', 'badblocks' ]:
+                'migraterb', 'migfstypeCombo']:
         if eval("%s" % (var,)) is not None:
             rc[var] = eval("%s" % (var,))
 

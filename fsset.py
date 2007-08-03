@@ -3,7 +3,7 @@
 #
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 2001-2006 Red Hat, Inc.
+# Copyright 2001-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -36,9 +36,6 @@ from rhpl.translate import _, N_
 
 import logging
 log = logging.getLogger("anaconda")
-
-class BadBlocksError(Exception):
-    pass
 
 class SuspendError(Exception):
     pass
@@ -212,100 +209,6 @@ class FileSystemType:
     def registerDeviceArgumentFunction(self, klass, function):
         self.deviceArguments[klass] = function
 
-    def badblocksDevice(self, entry, windowCreator, chroot='/'):
-        if windowCreator:
-            w = windowCreator(_("Checking for Bad Blocks"),
-                              _("Checking for bad blocks on /dev/%s...")
-                         % (entry.device.getDevice(),), 100)
-        else:
-            w = None
-        
-        devicePath = entry.device.setupDevice(chroot)
-        args = [ "badblocks", "-vv", devicePath ]
-
-        # entirely too much cutting and pasting from ext2FormatFileSystem
-        fd = os.open("/dev/tty5", os.O_RDWR | os.O_CREAT | os.O_APPEND)
-        p = os.pipe()
-        childpid = os.fork()
-        if not childpid:
-            os.close(p[0])
-            os.dup2(p[1], 1)
-            os.dup2(p[1], 2)
-            os.close(p[1])
-            os.close(fd)
-            os.execvp(args[0], args)
-            log.critical("failed to exec %s", args)
-            os._exit(1)
-
-        os.close(p[1])
-
-        s = 'a'
-        while s and s != ':':
-            try:
-                s = os.read(p[0], 1)
-            except OSError, args:
-                (num, str) = args
-                if (num != 4):
-                    raise IOError, args
-
-            os.write(fd, s)
-
-        num = ''
-	numbad = 0
-        while s:
-            try:
-                s = os.read(p[0], 1)
-                os.write(fd, s)
-
-                if s not in ['\b', '\n']:
-                    try:
-                        num = num + s
-                    except:
-                        pass
-                else:
-		    if s == '\b':
-			if num:
-			    l = string.split(num, '/')
-			    val = (long(l[0]) * 100) / long(l[1])
-			    w and w.set(val)
-		    else:
-			try:
-			    blocknum = long(num)
-			    numbad = numbad + 1
-			except:
-			    pass
-
-			if numbad > 0:
-			    raise BadBlocksError
-			    
-		    num = ''
-            except OSError, args:
-                (num, str) = args
-                if (num != 4):
-                    raise IOError, args
-
-        try:
-            (pid, status) = os.waitpid(childpid, 0)
-        except OSError, (num, msg):
-            log.critical("exception from waitpid in badblocks: %s %s"
-                         % (num, msg))
-            status = None
-        os.close(fd)
-
-        w and w.pop()
-
-	if numbad > 0:
-	    raise BadBlocksError
-
-        # have no clue how this would happen, but hope we're okay
-        if status is None:
-            return
-
-        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
-            return
-
-        raise SystemError        
-        
     def formatDevice(self, entry, progress, chroot='/'):
         if self.isFormattable():
             raise RuntimeError, "formatDevice method not defined"
@@ -1584,9 +1487,6 @@ MAILADDR root
         entry.fsystem.clobberDevice(entry, chroot)
         entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
 
-    def badblocksEntry(self, entry, chroot):
-        entry.fsystem.badblocksDevice(entry, self.progressWindow, chroot)
-        
     def getMigratableEntries(self):
         retval = []
         for entry in self.entries:
@@ -1601,36 +1501,6 @@ MAILADDR root
             if entry.fsystem.isFormattable():
                 list.append (entry)
         return list
-
-    def checkBadblocks(self, chroot='/'):
-        for entry in self.entries:
-            if (not entry.fsystem.isFormattable() or not entry.getBadblocks()
-                or entry.isMounted()):
-                continue
-            try:
-                self.badblocksEntry(entry, chroot)
-	    except BadBlocksError:
-		    log.error("Bad blocks detected on device %s",entry.device.getDevice())
-		    if self.messageWindow:
-			self.messageWindow(_("Error"),
-					   _("Bad blocks have been detected on "
-					     "device /dev/%s. We do "
-					     "not recommend you use this device."
-					     "\n\n"
-					     "Press <Enter> to exit the installer.") %
-					   (entry.device.getDevice(),))
-		    sys.exit(0)
-		
-            except SystemError:
-                if self.messageWindow:
-                    self.messageWindow(_("Error"),
-                                       _("An error occurred searching for "
-                                         "bad blocks on %s.  This problem is "
-                                         "serious, and the install cannot "
-                                         "continue.\n\n"
-                                         "Press <Enter> to exit the installer.")
-                                       % (entry.device.getDevice(),))
-                sys.exit(0)
 
     def createLogicalVolumes (self, chroot='/'):
         vgs = {}
@@ -1915,7 +1785,7 @@ class FileSystemSetEntry:
                   fsystem=None, options=None,
                   origfsystem=None, migrate=0,
                   order=-1, fsck=-1, format=0,
-                  badblocks = 0, bytesPerInode=4096):
+                  bytesPerInode=4096):
         if not fsystem:
             fsystem = fileSystemTypeGet("ext2")
         self.device = device
@@ -1944,7 +1814,6 @@ class FileSystemSetEntry:
                                  "but has been added to fsset with format "
                                  "flag on" % fsystem.getName())
         self.format = format
-        self.badblocks = badblocks
         self.bytesPerInode = bytesPerInode
 
     def mount(self, chroot='/', devPrefix='/tmp', readOnly = 0):
@@ -1978,12 +1847,6 @@ class FileSystemSetEntry:
 
     def setFileSystemType(self, fstype):
         self.fsystem = fstype
-        
-    def setBadblocks(self, state):
-        self.badblocks = state
-
-    def getBadblocks(self):
-        return self.badblocks
 
     def getMountPoint(self):
 	return self.mountpoint

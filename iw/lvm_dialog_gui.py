@@ -3,7 +3,7 @@
 #
 # Michael Fulbright <msf@redhat.com>
 #
-# Copyright 2002 Red Hat, Inc.
+# Copyright 2002-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -463,7 +463,7 @@ class VolumeGroupEditor:
 
 	self.fsoptionsDict = {}
 	if logrequest.getPreExisting():
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(logrequest, maintable, row, mountCombo, showbadblocks=0, ignorefs = ["software RAID", "physical volume (LVM)", "vfat"])
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(logrequest, maintable, row, mountCombo, ignorefs = ["software RAID", "physical volume (LVM)", "vfat"])
 
         dialog.vbox.pack_start(maintable)
         dialog.show_all()
@@ -622,7 +622,6 @@ class VolumeGroupEditor:
 	    request.size = size
             request.format = format
             request.migrate = migrate
-	    request.badblock = None
             request.grow = 0
 
 	    # this is needed to clear out any cached info about the device

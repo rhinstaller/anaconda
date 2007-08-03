@@ -1132,8 +1132,6 @@ class Partitions:
             # generic options
             if not request.format:
                 args.append("--noformat")
-            if request.badblocks:
-                args.append("--badblocks")
 
             # preexisting only
             if request.type == REQUEST_PREEXIST and request.device:
@@ -1194,8 +1192,6 @@ class Partitions:
                 args.append("--useexisting")
             if request.fstype:
                 args.extend(["--fstype", request.fstype.getName(quoted = 1)])
-            if request.badblocks:
-                args.append("--badblocks")
 
             args.append("--level=%s" % (request.raidlevel))
             args.append("--device=md%s" % (request.raidminor))

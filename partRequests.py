@@ -115,7 +115,7 @@ class DeleteRAIDSpec:
 class RequestSpec:
     """Generic Request specification."""
     def __init__(self, fstype, size = None, mountpoint = None, format = None,
-                 badblocks = None, preexist = 0, fslabel = None,
+                 preexist = 0, fslabel = None,
                  migrate = None, origfstype = None, bytesPerInode = 4096):
         """Create a generic RequestSpec.
 
@@ -126,7 +126,6 @@ class RequestSpec:
         self.mountpoint = mountpoint
         self.size = size
         self.format = format
-        self.badblocks = badblocks
 
         self.migrate = migrate
         self.origfstype = origfstype
@@ -163,11 +162,11 @@ class RequestSpec:
             fsname = "None"
 
         str = ("Generic Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
-               "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
+               "  type: %(fstype)s  format: %(format)s\n"
                "  device: %(dev)s  migrate: %(migrate)s  fslabel: %(fslabel)s\n"
                "  bytesPerInode:  %(bytesPerInode)s  options: '%(fsopts)s'" % 
                {"mount": self.mountpoint, "id": self.uniqueID,
-                "fstype": fsname, "format": self.format, "bb": self.badblocks,
+                "fstype": fsname, "format": self.format,
                 "dev": self.device, "migrate": self.migrate,
                 "fslabel": self.fslabel, "bytesPerInode": self.bytesPerInode,
                 "fsopts": self.fsopts})
@@ -208,9 +207,6 @@ class RequestSpec:
 
         if self.migrate:
             entry.setMigrate(self.migrate)
-
-        if self.badblocks:
-            entry.setBadblocks(self.badblocks)
 
         if self.fslabel:
             entry.setLabel(self.fslabel)
@@ -452,7 +448,7 @@ class PartitionSpec(RequestSpec):
             pre = "Existing"
 
         str = ("%(n)s Part Request -- mountpoint: %(mount)s uniqueID: %(id)s\n"
-               "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
+               "  type: %(fstype)s  format: %(format)s \n"
                "  device: %(dev)s drive: %(drive)s  primary: %(primary)s\n"
                "  size: %(size)s  grow: %(grow)s  maxsize: %(max)s\n"
                "  start: %(start)s  end: %(end)s  migrate: %(migrate)s  "
@@ -462,7 +458,7 @@ class PartitionSpec(RequestSpec):
                 "fstype": fsname, "format": self.format, "dev": self.device,
                 "drive": self.drive, "primary": self.primary,
                 "size": self.size, "grow": self.grow, "max": self.maxSizeMB,
-                "start": self.start, "end": self.end, "bb": self.badblocks,
+                "start": self.start, "end": self.end,
                 "migrate": self.migrate, "fslabel": self.fslabel,
                 "origfs": oldfs, "bytesPerInode": self.bytesPerInode,
                 "fsopts": self.fsopts})
@@ -614,11 +610,11 @@ class RaidRequestSpec(RequestSpec):
                 raidmem.append(i)
                 
         str = ("RAID Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
-               "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
+               "  type: %(fstype)s  format: %(format)s\n"
                "  raidlevel: %(level)s  raidspares: %(spares)s\n"
                "  raidmembers: %(members)s  bytesPerInode: %(bytesPerInode)s" % 
                {"mount": self.mountpoint, "id": self.uniqueID,
-                "fstype": fsname, "format": self.format, "bb": self.badblocks,
+                "fstype": fsname, "format": self.format,
                 "level": self.raidlevel, "spares": self.raidspares,
                 "members": self.raidmembers,
                 "bytesPerInode": self.bytesPerInode})
@@ -882,11 +878,11 @@ class LogicalVolumeRequestSpec(RequestSpec):
             size = "%s percent" %(self.percent,)
         
         str = ("LV Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
-               "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
+               "  type: %(fstype)s  format: %(format)s\n"
                "  size: %(size)s  lvname: %(lvname)s  volgroup: %(vgid)s\n"
                "  bytesPerInode: %(bytesPerInode)s  options: '%(fsopts)s'" %
                {"mount": self.mountpoint, "id": self.uniqueID,
-                "fstype": fsname, "format": self.format, "bb": self.badblocks,
+                "fstype": fsname, "format": self.format,
                 "lvname": self.logicalVolumeName, "vgid": self.volumeGroup,
 		"size": size, "bytesPerInode": self.bytesPerInode,
                 "fsopts": self.fsopts})

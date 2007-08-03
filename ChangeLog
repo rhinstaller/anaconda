@@ -10,6 +10,11 @@
 	* loader2/loader.c (initializeTtys):  Fix call to mknod (patch from
 	HARA Hiroshi <hhara AT miraclelinux DOT com>).
 
+	* autopart.py, fsset.py, lw/lvm_dialog_gui.py,
+	iw/partition_dialog_gui.py, iw/partition_ui_helpers_gui.py,
+	iw/raid_dialog_gui.py, packages.py, partRequests.py, partitions.py,
+	textw/partition_text.py:  Remove disabled badblocks checking code.
+
 2007-08-03  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

@@ -143,7 +143,6 @@ def turnOnFilesystems(anaconda):
             anaconda.id.fsset.setActive(anaconda.id.diskset)
             if not anaconda.id.fsset.isActive():
                 anaconda.id.diskset.savePartitions ()
-            anaconda.id.fsset.checkBadblocks(anaconda.rootPath)
             if not anaconda.id.fsset.volumesCreated:
                 anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)
             anaconda.id.fsset.formatSwap(anaconda.rootPath)

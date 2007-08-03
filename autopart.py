@@ -1270,8 +1270,6 @@ def doAutoPartition(anaconda):
             # preexisting partition's request... ladeda
             if request.mountpoint:
                 req.mountpoint = request.mountpoint
-            if request.badblocks:
-                req.badblocks = request.badblocks
             if request.uniqueID:  # for raid to work
                 req.uniqueID = request.uniqueID
             if request.fsopts:
@@ -1299,8 +1297,6 @@ def doAutoPartition(anaconda):
             # preexisting partition's request... ladeda
             if request.mountpoint:
                 req.mountpoint = request.mountpoint
-            if request.badblocks:
-                req.badblocks = request.badblocks
             if request.uniqueID:  # for raid to work
                 req.uniqueID = request.uniqueID
             if request.fsopts:
@@ -1312,7 +1308,7 @@ def doAutoPartition(anaconda):
                 req.fstype = request.fstype
             # XXX not copying the raid bits because they should be handled
             # automagically (actually, people probably aren't specifying them)
-                
+
         elif (isinstance(request, partRequests.VolumeGroupRequestSpec) and
               request.preexist == 1):
             # get the preexisting partition they want to use

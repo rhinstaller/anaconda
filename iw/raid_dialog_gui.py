@@ -4,7 +4,7 @@
 # Michael Fulbright <msf@redhat.com>
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001-2004 Red Hat, Inc.
+# Copyright 2001-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -127,7 +127,6 @@ class RaidEditor:
 	    request = copy.copy(self.origrequest)
 
 	    # doesn't make sense for RAID device
-	    request.badblocks = None
             if not self.origrequest.getPreExisting():
                 filesystem = self.fstypeCombo.get_active_value()
                 request.fstype = filesystem
@@ -411,7 +410,7 @@ class RaidEditor:
                 maintable.attach(self.formatButton, 0, 2, row, row + 1)
                 row = row + 1
 	else:
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo, showbadblocks=0)
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo)
 
 	# put main table into dialog
 	dialog.vbox.pack_start(maintable)

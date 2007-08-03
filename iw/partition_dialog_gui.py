@@ -3,7 +3,7 @@
 #
 # Michael Fulbright <msf@redhat.com>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -117,21 +117,16 @@ class PartitionEditor:
                 request = copy.copy(self.origrequest)
                 request.fstype = filesystem
                 request.format = True
-                
+
                 if request.fstype.isMountable():
                     request.mountpoint = self.mountCombo.get_children()[0].get_text()
                 else:
                     request.mountpoint = None
-                    
+
                 if self.primonlycheckbutton.get_active():
                     primonly = True
                 else:
                     primonly = None
-
-                if self.badblocks and self.badblocks.get_active():
-                    request.badblocks = True
-                else:
-                    request.badblocks = None
 
                 if not self.newbycyl:
                     if self.fixedrb.get_active():
@@ -204,13 +199,8 @@ class PartitionEditor:
                     request.format = formatrb.get_active()
                     if request.format:
                         request.fstype = self.fsoptionsDict["fstypeCombo"].get_active_value()
-                    if self.fsoptionsDict.has_key("badblocks") and self.fsoptionsDict["badblocks"].get_active():
-                        request.badblocks = True
-                    else:
-                        request.badblocks = None
                 else:
                     request.format = 0
-                    request.badblocks = None
 
 		if self.fsoptionsDict.has_key("migraterb"):
 		    migraterb = self.fsoptionsDict["migraterb"]
@@ -471,17 +461,6 @@ class PartitionEditor:
                 maintable.attach(self.primonlycheckbutton, 0, 2, row, row+1)
                 row = row + 1
 
-	    # disable option for badblocks checking
-	    self.badblocks = None
-
-	    # uncomment to reenable
-            #self.badblocks = gtk.CheckButton(_("Check for _bad blocks"))
-            #self.badblocks.set_active(0)
-            #maintable.attach(self.badblocks, 0, 1, row, row + 1)
-            #row = row + 1
-            #if self.origrequest.badblocks:
-            #    self.badblocks.set_active(1)
-            
         # put main table into dialog
         self.dialog.vbox.pack_start(maintable)
         self.dialog.show_all()

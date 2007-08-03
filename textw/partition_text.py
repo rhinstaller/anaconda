@@ -4,7 +4,7 @@
 #
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001-2006 Red Hat, Inc.
+# Copyright 2001-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -596,15 +596,12 @@ class PartitionWindow:
 	return (subgrid, fsoptLbl, type)
 	
 
-    def fsOptionsDialog(self, origrequest, format, migrate, newfstype, badblocks, showbadblocks=0):
+    def fsOptionsDialog(self, origrequest, format, migrate, newfstype):
 
-        def formatChanged((formatrb, badblocksCB)):
+        def formatChanged((formatrb)):
             flag = FLAGS_SET
             if formatrb.selected():
                 flag = FLAGS_RESET
-
-	    if badblocksCB:
-		badblocksCB.setFlags(FLAG_DISABLED, flag)
 
         poplevel = GridFormHelp(self.screen, _("File System Options"),
                                 "fsoption", 1, 6)
@@ -616,11 +613,6 @@ class PartitionWindow:
         subgrid = Grid(2, 5)
         srow = 0
 
-	if showbadblocks:
-	    badblocksCB = Checkbox(_("Check for bad blocks"))
-	else:
-	    badblocksCB = None
-        
         noformatrb = SingleRadioButton(_("Leave unchanged (preserve data)"),
                                        None, not format and not migrate)
         subgrid.setField(noformatrb, 0, srow, (0,0,0,1),anchorLeft = 1)
@@ -631,8 +623,8 @@ class PartitionWindow:
         else:
             forflag = 0
         formatrb = SingleRadioButton(_("Format as:"), noformatrb, forflag)
-        formatrb.setCallback(formatChanged, (formatrb, badblocksCB))
-        noformatrb.setCallback(formatChanged, (formatrb, badblocksCB))        
+        formatrb.setCallback(formatChanged, (formatrb))
+        noformatrb.setCallback(formatChanged, (formatrb))
        
         subgrid.setField(formatrb, 0, srow, (0,0,0,1), anchorLeft = 1)
 
@@ -651,33 +643,27 @@ class PartitionWindow:
             else:
                 migflag = 0
             migraterb = SingleRadioButton(_("Migrate to:"), formatrb, migflag)
-            migraterb.setCallback(formatChanged, (formatrb, badblocksCB))
+            migraterb.setCallback(formatChanged, (formatrb))
             subgrid.setField(migraterb, 0, srow, (0,0,0,1), anchorLeft = 1)
-            
+
             migtypes = origrequest.origfstype.getMigratableFSTargets()
 
             (migtype, miggrid) = self.makeFsList(origrequest, usecallback = 0,
                                                  uselabel = 0,
                                                  usetypes = migtypes)
-                                                 
+
             if newfstype and newfstype.getName() in migtypes:
                 migtype.setCurrent(newfstype)
             subgrid.setField(miggrid, 1, srow, (0,0,0,1))
         else:
             migraterb = None
-            
+
         poplevel.add(subgrid, 0, row, (0,1,0,1))
 
         row = row + 1
 
-	if badblocksCB:
-	    poplevel.add(badblocksCB, 0, row, (0,1,0,1))
-	    if badblocks:
-		badblocksCB.setValue("*")
-	    row = row + 1
+        formatChanged((formatrb))
 
-        formatChanged((formatrb, badblocksCB))        
-        
         popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON))
         poplevel.add(popbb, 0, row, (0,0,0,0), growx = 1)        
 
@@ -686,7 +672,7 @@ class PartitionWindow:
 
             if popbb.buttonPressed(res) == 'cancel':
                 self.screen.popWindow()
-                return (format, migrate, newfstype, badblocks)
+                return (format, migrate, newfstype)
 
             if noformatrb.selected():
                 format = 0
@@ -703,12 +689,8 @@ class PartitionWindow:
 
             self.screen.popWindow()
 
-	    if badblocksCB:
-		badblockstate = badblocksCB.selected()
-	    else:
-		badblockstate = 0
-            return (format, migrate, newfstype, badblockstate)
-        
+            return (format, migrate, newfstype)
+
     def shutdownUI(self):
         # XXX remove parted object refs
         #     need to put in clear() method for checkboxtree in snack
@@ -757,7 +739,6 @@ class PartitionWindow:
                 row = row + 1
                 (cylopts, start, end, size, cylgrid) = self.makeCylEntries(origrequest)
                 poplevel.add(cylgrid, 0, row, (0,1,0,0))
-                
 
             # primary
             # XXX need to see if cylinder range is in extended or not
@@ -767,14 +748,6 @@ class PartitionWindow:
             if not self.diskset.onlyPrimaryParts():
                 poplevel.add(primary, 0, row, (0,1,0,0))
                 row = row + 1
-
-	    # XXX We are not allowing badblocks checking
-	    badblocksCB = None
-	    # uncomment code to reactivate
-            #badblocksCB = Checkbox(_("Check for bad blocks"))
-            #poplevel.add(badblocksCB, 0, row)
-            #if origrequest.badblocks:
-	    #     badblocksCB.setValue("*")
 
             fsoptLbl = None
 
@@ -790,7 +763,6 @@ class PartitionWindow:
             format = origrequest.format
             migrate = origrequest.migrate
             newfstype = origrequest.fstype
-            badblocks = origrequest.badblocks
 
             (subgrid, fsoptLbl, fstypeLbl) = self.fsOptionsGrid(origrequest, newfstype)
             poplevel.add(subgrid, 0, row, (0,1,0,0))
@@ -815,10 +787,7 @@ class PartitionWindow:
                 return
 
             if popbb.buttonPressed(res) == 'fsopts':
-		# we do not show the badblock option any longer as it is
-		# not supported.
-		showbad = 0
-                (format, migrate, newfstype, badblocks) = self.fsOptionsDialog(origrequest, format, migrate, newfstype, badblocks, showbadblocks = showbad)
+                (format, migrate, newfstype) = self.fsOptionsDialog(origrequest, format, migrate, newfstype)
                 self.fstypeSet((newfstype, self.mount))
                 fstypeLbl.setText(newfstype.getName())
 
@@ -829,7 +798,7 @@ class PartitionWindow:
                         fsoptLbl.setText(_("Migrate to %s") %(newfstype.getName()))
                     else:
                         fsoptLbl.setText(_("Leave unchanged"))
-                
+
                 continue
 
             if origrequest.type == REQUEST_NEW:
@@ -849,18 +818,13 @@ class PartitionWindow:
                 request.format = TRUE
                 request.primary = primonly
 
-		if badblocksCB is not None:
-		    request.badblocks = badblocksCB.selected()
-		else:
-		    request.badblocks = 0
-
                 if origrequest.start == None:
                     if invalidInteger(size.value()):
                         self.intf.messageWindow(_("Invalid Entry for Partition Size"),
                                                 invalidInteger(size.value()))
                         continue
                     request.size = int(size.value())
-                
+
                     growtype = sizeopts.getSelection()
                     if growtype == "fixed":
                         grow = None
@@ -890,13 +854,8 @@ class PartitionWindow:
                         self.intf.messageWindow(_("Invalid Entry for Starting Cylinder"),
                                            invalidInteger(start.value()))
                         continue
-                    
-                    request.start = int(start.value())
 
-		    if badblocksCB is not None:
-			request.badblocks = badblocksCB.selected()
-		    else:
-			request.badblocks = 0
+                    request.start = int(start.value())
 
                     cyltype = cylopts.getSelection()
                     if cyltype == "end":
@@ -937,7 +896,6 @@ class PartitionWindow:
                     request.format = format
                     request.migrate = migrate
                     request.fstype = newfstype
-                    request.badblocks = badblocks
 
                 err = request.sanityCheckRequest(self.partitions)
                 if err:
@@ -993,7 +951,6 @@ class PartitionWindow:
             format = raidrequest.format
             migrate = raidrequest.migrate
             newfstype = raidrequest.fstype
-            badblocks = raidrequest.badblocks
 
             (subgrid, fsoptLbl, fstypeLbl) = self.fsOptionsGrid(raidrequest, newfstype)
             poplevel.add(subgrid, 0, row, (0,1,0,0))
@@ -1055,7 +1012,7 @@ class PartitionWindow:
                 return
 
             if popbb.buttonPressed(res) == 'fsopts':
-                (format, migrate, newfstype, badblocks) = self.fsOptionsDialog(raidrequest, format, migrate, newfstype, badblocks, showbadblocks=0)
+                (format, migrate, newfstype) = self.fsOptionsDialog(raidrequest, format, migrate, newfstype)
                 self.fstypeSet((newfstype, self.mount))
                 fstypeLbl.setText(newfstype.getName())
 
@@ -1108,11 +1065,10 @@ class PartitionWindow:
 					      _("You may not use any spares "
 					      "with a RAID0 array."))
 		    continue
-	    else:                
+	    else:
 		request.format = format
 		request.migrate = migrate
 		request.fstype = newfstype
-		request.badblocks = badblocks
 
             err = request.sanityCheckRequest(self.partitions)
             if err:
@@ -1174,7 +1130,6 @@ class PartitionWindow:
             format = lvrequest.format
             migrate = lvrequest.migrate
             newfstype = lvrequest.fstype
-            badblocks = lvrequest.badblocks
 
             (subgrid, fsoptLbl, fstypeLbl) = self.fsOptionsGrid(lvrequest, newfstype)
             poplevel.add(subgrid, 0, row, (0,1,0,0))
@@ -1227,7 +1182,7 @@ class PartitionWindow:
                 return
 
             if popbb.buttonPressed(res) == 'fsopts':
-                (format, migrate, newfstype, badblocks) = self.fsOptionsDialog(lvrequest, format, migrate, newfstype, badblocks, showbadblocks=0)
+                (format, migrate, newfstype) = self.fsOptionsDialog(lvrequest, format, migrate, newfstype)
                 self.fstypeSet((newfstype, self.mount))
                 fstypeLbl.setText(newfstype.getName())
 
@@ -1238,7 +1193,7 @@ class PartitionWindow:
                         fsoptLbl.setText(_("Migrate to %s") %(newfstype.getName()))
                     else:
                         fsoptLbl.setText(_("Leave unchanged"))
-                
+
                 continue
 
             request = copy.copy(lvrequest)
@@ -1341,11 +1296,10 @@ class PartitionWindow:
                 request.size = size
                 request.grow = 0
                 request.dev = None
-	    else:                
+	    else:
 		request.format = format
 		request.migrate = migrate
 		request.fstype = newfstype
-		request.badblocks = badblocks
 
             err = request.sanityCheckRequest(self.partitions)
             if err:
