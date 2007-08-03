@@ -238,7 +238,7 @@ static void initializeTtys(void) {
 
     for (n = 9; n > 0; n--) {
 	sprintf(dev, "/dev/tty%d", n);
-	mknod(dev, 0600, S_IFCHR | makedev(4, n));
+	mknod(dev, 0600 | S_IFCHR, makedev(4, n));
 	fd = open(dev, O_RDWR|O_NOCTTY);
 	if (fd >= 0) {
 	    ioctl(fd, VT_ACTIVATE, n);
