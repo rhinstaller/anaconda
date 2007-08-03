@@ -784,7 +784,7 @@ int main(int argc, char **argv) {
         doklog("/dev/tty4");
 
     /* write out a pid file */
-    if ((fd = open("/var/run/init.pid", O_WRONLY|O_CREAT)) > 0) {
+    if ((fd = open("/var/run/init.pid", O_WRONLY|O_CREAT, 0644)) > 0) {
         char * buf = malloc(10);
         int ret;
 

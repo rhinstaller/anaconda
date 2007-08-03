@@ -1,3 +1,8 @@
+2007-08-03  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/init.c (main):  Add a mode when creating a new file.
+	* loader2/fwloader.c (load_firmware):  Likewise.
+
 2007-07-25  Peter Jones  <pjones@redhat.com>
 
 	* loader2/module-info: add missing pata_* and sata_* drivers (#249601.)
