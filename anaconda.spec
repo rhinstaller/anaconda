@@ -142,7 +142,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Wed Aug 01 2007 Chris Lumens <clumens@redhat.com> 11.3.0.16-1
+* Fri Aug 03 2007 Chris Lumens <clumens@redhat.com> 11.3.0.16-1
+- Remove debug button from exception dialog on livecd installs.
+- Don't look at removed devices to find free space (#250148).
+- Build fixes.
 - Force formatting / on livecd installs (#250301).
 - Remove plip support (notting).
 - upd-instroot fixes (pjones).
