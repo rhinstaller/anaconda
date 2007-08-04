@@ -9,12 +9,12 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-05-12 08:51+0200\n"
+"PO-Revision-Date: 2007-08-04 09:39+0200\n"
 "Last-Translator: Mike Karas <zoliqe@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -223,7 +223,7 @@ msgid "Requested Partition Does Not Exist"
 msgstr "Požadovaný oddiel neexistuje"
 
 #: ../autopart.py:1260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -231,14 +231,14 @@ msgid ""
 msgstr ""
 "Nepodarilo sa nájsť oddiel %s pre použitie s %s.\n"
 "\n"
-"Stlačte 'Ok' pre reštart vášho systému."
+"Stlačte 'Ok' pre ukončenie inštalačného programu."
 
 #: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Požadované raid zariadenie neexistuje"
 
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
@@ -246,14 +246,14 @@ msgid ""
 msgstr ""
 "Nepodarilo sa nájsť raid zariadenie %s pre použitie s %s.\n"
 "\n"
-"Stlačte 'Ok' pre reštart vášho systému."
+"Stlačte 'Ok' pre ukončenie inštalačného programu."
 
 #: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Požadovaná skupina zväzkov neexistuje"
 
 #: ../autopart.py:1320
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
@@ -261,14 +261,14 @@ msgid ""
 msgstr ""
 "Nepodarilo sa nájsť skupinu zväzkov %s pre použitie s %s.\n"
 "\n"
-"Stlačte 'Ok' pre reštart vášho systému."
+"Stlačte 'Ok' pre ukončenie inštalačného programu."
 
 #: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Požadovaný logický zväzok zariadenie neexistuje"
 
 #: ../autopart.py:1358
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
@@ -276,14 +276,14 @@ msgid ""
 msgstr ""
 "Nepodarilo sa nájsť logický zväzok %s pre použitie s %s.\n"
 "\n"
-"Stlačte 'Ok' pre reštart vášho systému."
+"Stlačte 'Ok' pre ukončenie inštalačného programu."
 
 #: ../autopart.py:1484 ../autopart.py:1531
 msgid "Automatic Partitioning Errors"
 msgstr "Chyby automatického rozdeľovania disku"
 
 #: ../autopart.py:1485
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -295,7 +295,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Stlačte 'Ok' pre reštart vášho systému."
+"Stlačte 'Ok' pre ukončenie inštalačného programu."
 
 #: ../autopart.py:1495
 msgid "Warnings During Automatic Partitioning"
@@ -313,7 +313,6 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -321,7 +320,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Stlačte 'Ok' pre reštart vášho systému."
+"Stlačte 'Ok' pre ukončenie inštalačného programu."
 
 #: ../autopart.py:1511 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:239
@@ -501,20 +500,17 @@ msgid "Dump Written"
 msgstr "Výpis zapísaný"
 
 #: ../exception.py:413
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. The "
 "installer will now exit."
 msgstr ""
-"Stav vášho systému bol úspešne zapísaný na disketu. Váš systém bude teraz "
-"reštartovaný."
+"Stav vášho systému bol úspešne zapísaný na disketu. Inštalačný program sa teraz ukončí."
 
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
 #: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
-#, fuzzy
 msgid "_Exit installer"
-msgstr "Ukončiť inštalátor"
+msgstr "_Ukončiť inštalátor"
 
 #: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
@@ -525,13 +521,11 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "Nastal problém so zápisom stavu systému na disketu."
 
 #: ../exception.py:430
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
 msgstr ""
-"Stav vášho systému bol úspešne zapísaný na vzdialený počítač. Váš systém "
-"bude teraz reštartovaný."
+"Stav vášho systému bol úspešne zapísaný na vzdialený počítač. Inštalačný program sa teraz ukončí."
 
 #: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
@@ -611,7 +605,7 @@ msgid "Master Boot Record (MBR)"
 msgstr "Hlavný zavádzač (MBR)"
 
 #: ../fsset.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -621,7 +615,7 @@ msgstr ""
 "Nastala chyba pri inicializácii odkladacieho priestoru na zariadení %s. "
 "Tento problém je vážny a inštalácia nemôže pokračovať.\n"
 "\n"
-"Stlačte <Enter> pre reštart vášho systému."
+"Stlačte <Enter> pre ukončenie inštalačného programu."
 
 #: ../fsset.py:1457 ../packages.py:282 ../rescue.py:300 ../rescue.py:302
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
@@ -693,7 +687,6 @@ msgstr ""
 "odkladacích oddielov."
 
 #: ../fsset.py:1507
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -703,15 +696,15 @@ msgstr ""
 "\n"
 "\n"
 "Zvoľte Preskočiť, ak chcete aby inštalátor ignoroval tento oddiel počas "
-"inštalácie.  Zvoľte Formátovať na preformátovanie oddielu ako odkladací "
-"priestor.  Zvoľte Reštart pre reštart systému."
+"aktualizácie.  Zvoľte Formátovať na preformátovanie oddielu ako odkladací "
+"priestor."
 
 #: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Formátovať"
 
 #: ../fsset.py:1519
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -722,13 +715,13 @@ msgid ""
 msgstr ""
 "Chyba pri pripájaní odkladacieho zariadenia %s: %s\n"
 "\n"
-"Súbor /etc/fstab na aktualizovanom oddiely neodkazuje na korektný odkladací "
+"Súbor /etc/fstab na aktualizovanom oddiele neodkazuje na korektný odkladací "
 "oddiel.\n"
 "\n"
-"Stlačte Ok pre reštart vášho systému."
+"Stlačte Ok pre ukončenie inštalačného programu."
 
 #: ../fsset.py:1530
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -738,25 +731,25 @@ msgid ""
 msgstr ""
 "Nastala chyba pri povoľovaní odkladacieho priestoru %s: %s\n"
 "\n"
-"Najčastejšie to znamená, ze tento odkladací priestor nebol inicializovaný.\n"
+"Najčastejšie to znamená, že tento odkladací priestor nebol inicializovaný.\n"
 "\n"
-"Stlačte Ok pre reštart vášho systému."
+"Stlačte Ok pre ukončenie inštalačného programu."
 
 #: ../fsset.py:1584
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Boli zdetekované chybné bloky na zariadení /dev/%s. Neodporúčame toto "
+"Boli nájdené chybné bloky na zariadení /dev/%s. Neodporúčame Vám toto "
 "zariadenie používať.\n"
 "\n"
-"Stlačte <Enter> pre reštart vášho systému"
+"Stlačte <Enter> pre ukončenie inštalačného programu."
 
 #: ../fsset.py:1595
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -766,10 +759,10 @@ msgstr ""
 "Vyskytla sa chyba pre vyhľadávaní chybných blokov na %s. Tento problém je "
 "vážny a inštalácia nemôže pokračovať.\n"
 "\n"
-"Stlačte <Enter> pre reštart vášho systému."
+"Stlačte <Enter> pre ukončenie inštalačného programu."
 
 #: ../fsset.py:1635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -779,10 +772,10 @@ msgstr ""
 "Vyskytla sa chyba pri pokuse o formátovanie %s. Tento problém je vážny a "
 "inštalácia nemôže pokračovať.\n"
 "\n"
-"Stlačte <Enter> pre reštart vášho systému."
+"Stlačte <Enter> pre ukončenie inštalačného programu."
 
 #: ../fsset.py:1685
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -792,14 +785,14 @@ msgstr ""
 "Nastala chyba pri pokuse o migráciu %s. Tento problém je vážny a inštalácia "
 "nemôže pokračovať.\n"
 "\n"
-"Stlačte <Enter> pre reštart vášho systému."
+"Stlačte <Enter> pre ukončenie inštalačného programu."
 
 #: ../fsset.py:1711 ../fsset.py:1720
 msgid "Invalid mount point"
 msgstr "Neplatný bod pripojenia"
 
 #: ../fsset.py:1712
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
@@ -809,10 +802,10 @@ msgstr ""
 "Vyskytla sa chyba pri pokuse o vytvorenie %s. Niektorá položka tejto cesty "
 "nie je priečinkom. Toto je závažná chyba a inštalácia nemôže pokračovať.\n"
 "\n"
-"Stlačte <Enter> pre reštart vášho systému."
+"Stlačte <Enter> pre ukončenie inštalačného programu."
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -822,7 +815,7 @@ msgstr ""
 "Vyskytla sa chyba pri pokuse o vytvorenie %s: %s. Toto je závažná chyba a "
 "inštalácia nemôže pokračovať.\n"
 "\n"
-"Stlačte <Enter> pre reštart vášho systému."
+"Stlačte <Enter> pre ukončenie inštalačného programu."
 
 #: ../fsset.py:1734
 msgid "Unable to mount filesystem"
@@ -844,7 +837,7 @@ msgid "_Continue"
 msgstr "_Pokračovať"
 
 #: ../fsset.py:1751
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -857,10 +850,10 @@ msgstr ""
 "Zariadenia v /etc/fstab by mali byť určené pomocou menovky, nie pomocou "
 "názvu zariadenia.\n"
 "\n"
-"Stlačte Ok pre reštart vášho systému."
+"Stlačte Ok pre ukončenie inštalačného programu."
 
 #: ../fsset.py:1758
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -870,12 +863,11 @@ msgid ""
 msgstr ""
 "Chyba pri pripájaní zariadenia %s ako %s: %s\n"
 "\n"
-"Toto väčšinou znamená, že tento oddiel nebol naformátovaný.\n"
+"Toto väčšinou znamená, že tento oddiel nebol formátovaný.\n"
 "\n"
-"Stlačte Ok pre reštart vášho systému."
+"Stlačte Ok pre ukončenie inštalačného programu."
 
 #: ../fsset.py:1778
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -887,7 +879,7 @@ msgstr ""
 "\n"
 "Toto väčšinou znamená, že váš fstab je nesprávny.\n"
 "\n"
-"Stlačte Ok pre reštart vášho systému."
+"Stlačte Ok pre ukončenie inštalačného programu."
 
 #: ../fsset.py:2432
 msgid "Duplicate Labels"
@@ -1073,9 +1065,8 @@ msgid "_Reboot"
 msgstr "_Reštart"
 
 #: ../gui.py:1119
-#, fuzzy
 msgid "Exiting"
-msgstr "Ukončiť"
+msgstr "Ukončujem"
 
 #: ../gui.py:1186
 #, python-format
@@ -1091,7 +1082,7 @@ msgid "Install Window"
 msgstr "Okno inštalácie"
 
 #: ../harddrive.py:44 ../image.py:146 ../image.py:483
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1102,10 +1093,9 @@ msgid ""
 "\n"
 msgstr ""
 "Súbor %s nemohol byť otvorený.  To mohlo byť spôsobené chýbajúcim súborom "
-"alebo možno poškodeným balíkom.  Prosím prekontrolujte si svoje inštalačné "
-"médiá ako aj to, či máte všetky vyžadované médiá.\n"
+"alebo možno poškodeným balíkom.  Prosím, skontrolujte si svoje inštalačné médiá ako aj to, či máte všetky vyžadované médiá.\n"
 "\n"
-"Ak teraz reštartujete, váš systém ostane v nekonzistnom stave, čo bude "
+"Ak teraz skončíte, váš systém zostane v nekonzistentnom stave, čo bude "
 "zrejme vyžadovať reinštaláciu.\n"
 "\n"
 
@@ -1114,7 +1104,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Chýbajúci ISO 9660 obraz"
 
 #: ../harddrive.py:72
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1124,15 +1114,14 @@ msgid ""
 msgstr ""
 "Inštalátor sa pokúsil pripojiť obraz #%s, ale nemohol ho nájsť na disku.\n"
 "\n"
-"Prosím, skopírujte tento obraz na disk a stlačte Opakovať. Stlačte Reštart "
-"pre zrušenie inštalácie."
+"Prosím, skopírujte tento obraz na disk a stlačte Opakovať. Stlačte Ukončiť pre zrušenie inštalácie."
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
 msgstr "Nemôžem pripojiť zdrojové ISO"
 
 #: ../harddrive.py:118
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
@@ -1141,7 +1130,7 @@ msgid ""
 msgstr ""
 "Nastala chyba pri pripájaní zdrojového disku %s.  Toto môže nastať, ak sú "
 "vaše ISO obrazy umiestnené na pokrokovom zariadení ako LVM alebo RAID, alebo "
-"ak nastal problém s pripájaním oddielu.  Kliknite reštart pre ukončenie "
+"ak nastal problém s pripájaním oddielu.  Stlačte ukončiť pre prerušenie "
 "inštalácie."
 
 #: ../image.py:84
@@ -1149,7 +1138,7 @@ msgid "Required Install Media"
 msgstr "Vyžadované inštalačné médium"
 
 #: ../image.py:85
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
 "\n"
@@ -1157,11 +1146,11 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Softvér, ktorý ste zvolili na inštaláciu bude vyžadovať nasledujúce CD:\n"
+"Softvér, ktorý ste zvolili na inštaláciu bude vyžadovať nasledujúce disky:\n"
 "\n"
 "%s\n"
 "Prosím, pripravte si ich skôr ako budete pokračovať v inštalácii. Ak "
-"potrebujete zrušiť inštaláciu a reštartovať, prosím zvoľte \"Reštart\"."
+"potrebujete zrušiť inštaláciu a skončiť, prosím zvoľte \"Reštart\"."
 
 #: ../image.py:93 ../livecd.py:355 ../packages.py:285 ../packages.py:336
 #: ../packages.py:339 ../yuminstall.py:1051 ../iw/confirm_gui.py:32
@@ -1170,13 +1159,13 @@ msgid "_Back"
 msgstr "_Späť"
 
 #: ../image.py:136 ../urlinstall.py:207
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"Vyskytla sa chyba pri odpájaní CD. Prosím, uistite sa, že nepristupujete k %"
-"s zo shellu na tty2 a potom kliknite na Ok pre nový pokus."
+"Vyskytla sa chyba pri odpájaní disku. Prosím, uistite sa, že nepristupujete k %"
+"s z príkazového riadku na tty2 a potom kliknite na Ok pre nový pokus."
 
 #: ../image.py:170 ../urlinstall.py:102
 msgid "Copying File"
@@ -1195,9 +1184,8 @@ msgstr ""
 "Pravdepodobne vám došlo miesto na disku."
 
 #: ../image.py:270
-#, fuzzy
 msgid "Change Disc"
-msgstr "Vymeniť CDROM"
+msgstr "Vymeniť disk"
 
 #: ../image.py:271
 #, python-format
@@ -1205,22 +1193,20 @@ msgid "Please insert %s disc %d to continue."
 msgstr "Pre pokračovanie vložte, prosím, %s disk %d."
 
 #: ../image.py:305
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "Nesprávna CDROM"
+msgstr "Nesprávny disk"
 
 #: ../image.py:306
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s disc."
-msgstr "To je nesprávna CDROM %s."
+msgstr "To je nesprávny disk %s."
 
 #: ../image.py:312
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "Nepodaril sa prístup k CDROM."
+msgstr "Nepodaril sa prístup k disku."
 
 #: ../image.py:369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1234,12 +1220,12 @@ msgstr ""
 "alebo možno poškodeným balíkom.  Prosím, skontrolujte, či váš inštalačný "
 "strom obsahuje všetky vyžadované balíky.\n"
 "\n"
-"Ak teraz reštartujete, váš systém zostane v nekonzistnom stave, čo bude "
+"Ak teraz skončíte, váš systém zostane v nekonzistentnom stave, čo bude "
 "zrejme vyžadovať reinštaláciu.\n"
 "\n"
 
 #: ../image.py:443
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
@@ -1250,11 +1236,11 @@ msgstr ""
 "ISO obraz má veľkosť %s, ktorá nie je deliteľná 2048 bajtmi.  To môže "
 "znamenať, že bol poškodený počas prenosu do počítača.\n"
 "\n"
-"Odporúča sa aby ste prerušili inštaláciu, ale môžete pokračovať ak si "
+"Odporúča sa aby ste ukončili inštaláciu, ale môžete pokračovať ak si "
 "myslíte, že je to omyl."
 
 #: ../image.py:517
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
@@ -1264,8 +1250,8 @@ msgid ""
 msgstr ""
 "Inštalátor sa pokúsil pripojiť obraz #%s, ale nemohol ho nájsť na servri.\n"
 "\n"
-"Prosím, skopírujte tento obraz zdieľaný adresár vzdialeného servra a stlačte "
-"Opakovať. Stlačte Reštart pre zrušenie inštalácie."
+"Prosím, skopírujte tento obraz na zdieľaný adresár vzdialeného servra a stlačte "
+"Opakovať. Stlačte Ukončiť pre zrušenie inštalácie."
 
 #: ../installclass.py:67
 msgid "Install on System"
@@ -1280,7 +1266,7 @@ msgid "Scriptlet Failure"
 msgstr "Chyba skriptu"
 
 #: ../kickstart.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
@@ -1288,9 +1274,9 @@ msgid ""
 "Press the OK button to exit the installer."
 msgstr ""
 "Vyskytla sa chyba pri behu skriptu.  Môžete preveriť výstup v %s.  Toto je "
-"fatálna chyba a vaša inštalácia bude prerušená..\n"
+"fatálna chyba a vaša inštalácia bude prerušená.\n"
 "\n"
-"Stlačte tlačidlo Ok pre reštart vášho systému."
+"Stlačte tlačidlo Ok pre ukončenie inštalačného programu."
 
 #: ../kickstart.py:951 ../kickstart.py:968
 msgid "Running..."
@@ -1554,7 +1540,7 @@ msgstr ""
 "tohto disku alebo používať oddiely nad /dev/%s15 v %s"
 
 #: ../partedUtils.py:1184
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  in "
 "the Linux kernel does not allow for more than 15 partitions at this time.  "
@@ -1562,7 +1548,7 @@ msgid ""
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
 "Zariadenie /dev/%s obsahuje viac ako 15 oddielov.  SCSI podsystém v jadre "
-"Linuxu zatiaľ nepovoľuje viac ako 15 oddielov.Nebudete môcť robiť rozdelenie "
+"Linuxu zatiaľ nepovoľuje viac ako 15 oddielov naraz. Nebudete môcť robiť rozdelenie "
 "tohto disku alebo používať oddiely nad /dev/%s15 v %s"
 
 #: ../partedUtils.py:1276
@@ -2450,7 +2436,7 @@ msgid "Connecting..."
 msgstr "Pripájanie..."
 
 #: ../urlinstall.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2464,7 +2450,7 @@ msgstr ""
 "možno poškodenému balíku.  Prosím, skontrolujte, že váš zrkadlový server "
 "obsahuje všetky vyžadované balíky a skúste použiť iný.\n"
 "\n"
-"Ak teraz reštartujete, váš systém zostane v nekonzistnom stave, čo bude "
+"Ak teraz skončíte, váš systém zostane v nekonzistentnom stave, čo bude "
 "zrejme vyžadovať reinštaláciu.\n"
 "\n"
 
@@ -2663,12 +2649,11 @@ msgstr "%s z %s balíkov dokončených"
 
 #: ../yuminstall.py:195
 msgid "Finishing upgrade"
-msgstr ""
+msgstr "Dokončujem aktualizáciu"
 
 #: ../yuminstall.py:196
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr "Začína proces inštalácie. Toto môže trvať niekoľko minút..."
+msgstr "Dokončujem proces aktualizácie.  Toto môže chvíľku trvať..."
 
 #: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
 #: ../yuminstall.py:796 ../yuminstall.py:1012 ../yuminstall.py:1015
@@ -2758,14 +2743,14 @@ msgid "Uncategorized"
 msgstr "Nezaradené"
 
 #: ../yuminstall.py:1045
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or exit the "
 "installer."
 msgstr ""
 "Zvolené balíky vyžadujú %d MB voľného priestoru pre inštaláciu, ale nemáte "
-"ho dostatok k dispozícii.  Môžete zmeniť váš výber alebo reštartovať."
+"ho dostatok k dispozícii.  Môžete zmeniť váš výber alebo ukončiť inštalačný program."
 
 #: ../yuminstall.py:1206
 #, python-format
@@ -3600,15 +3585,13 @@ msgid "Netmask"
 msgstr "Maska siete"
 
 #: ../iw/netconfig_dialog.py:211
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4 prepona musí byť medzi 0 a 32."
+msgstr "IPv4 CIDR prepona musí byť medzi 0 a 32."
 
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
 #: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
-#, fuzzy
 msgid "IPv4 Network Mask"
-msgstr "IPv4 maska siete"
+msgstr "Maska siete IPv4"
 
 #: ../iw/netconfig_dialog.py:235 ../iw/netconfig_dialog.py:238
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:524
@@ -3620,9 +3603,8 @@ msgid "Nameserver"
 msgstr "Menný server"
 
 #: ../iw/netconfig_dialog.py:255
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "Nastala chyba pri konfigurácii sieťového zariadenia"
+msgstr "Chyba pri konfigurácii sieťového zariadenia:"
 
 #: ../iw/netconfig_dialog.py:268
 msgid "Error configuring network device"
@@ -5746,21 +5728,20 @@ msgid "Test"
 msgstr "Testovať"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-#, fuzzy
 msgid "Eject Disc"
-msgstr "Vysunúť CD"
+msgstr "Vysunúť disk"
 
 #: ../loader2/cdinstall.c:93
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
 msgstr ""
-"Zvoľte \"%s\" pre kontrolu CD v mechanike, alebo \"%s\" pre vysunutie a "
-"vloženie iného CD na kontrolu."
+"Zvoľte \"%s\" pre kontrolu disku v mechanike, alebo \"%s\" pre vysunutie a "
+"vloženie iného disku na kontrolu."
 
 #: ../loader2/cdinstall.c:114
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If you would like to test additional media, insert the next disc and press "
 "\"%s\". Testing each disc is not strictly required, however it is highly "
@@ -5768,59 +5749,54 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each disc prior to using it again."
 msgstr ""
-"Ak chcete kontrolovať ďalšie médium, vložte následujúce CD a kliknite na \"%s"
-"\". Kontrola každého CD nie je nutne požadovaná, aj keď je veľmi odporúčaná. "
-"Minimálne by mali byť skontrolované CD, ktoré sú použité prvý krát. Ak tieto "
-"boli už úspešne overené, nie je nutné opätovne kontrolovať každé CD pri "
+"Ak chcete kontrolovať ďalšie médium, vložte následujúci disk a kliknite na \"%s"
+"\". Kontrola každého disku nie je nutne požadovaná, aj keď je veľmi odporúčaná. "
+"Minimálne by mali byť skontrolované disky, ktoré sú použité prvýkrát. Ak tieto "
+"boli už úspešne overené, nie je nutné opätovne kontrolovať každý disk pri "
 "ďalšom použití."
 
 #: ../loader2/cdinstall.c:137
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
-"V žiadnej z vašich CDROM mechaník nebolo nájdené CD s %s. Vložte prosím %s "
-"CD a stlačte %s pre nový pokus."
+"V žiadnej z vašich mechaník nebolo nájdený disk s %s. Vložte prosím disk %s a stlačte %s pre nový pokus."
 
 #: ../loader2/cdinstall.c:258
-#, fuzzy
 msgid "Disc Found"
-msgstr "CD nájdené"
+msgstr "Disk nájdený"
 
 #: ../loader2/cdinstall.c:259
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"Pre kontrolu CD média pred inštaláciou kliknite na %s.\n"
+"Pre kontrolu média pred inštaláciou kliknite na %s.\n"
 "\n"
 "Zvoľte %s pre preskočenie kontroly média a spustenie inštalácie."
 
 #: ../loader2/cdinstall.c:379
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s disc was found which matches your boot media.  Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"V žiadnej z vašich boot mechaník nebolo nájdené CD s %s.  Vložte prosím %s "
-"CD a stlačte %s pre opakovanie."
+"V žiadnej z vašich zavádzacích mechaník nebolo nájdený disk %s.  Vložte prosím disk %s a stlačte %s pre opakovanie."
 
 #: ../loader2/cdinstall.c:384
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"V žiadnej z vašich CDROM mechaník nebolo nájdené CD s %s. Vložte prosím %s "
-"CD a stlačte %s pre nový pokus."
+"V žiadnej z vašich mechaník nebol nájdený disk %s. Vložte prosím disk %s a stlačte %s pre nový pokus."
 
 #: ../loader2/cdinstall.c:391
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "CD nenájdené"
+msgstr "Disk nenájdený"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
@@ -6129,9 +6105,8 @@ msgid "Choose a Language"
 msgstr "Výber jazyka"
 
 #: ../loader2/loader.c:118
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "Lokálna CDROM"
+msgstr "Lokálne CD/DVD"
 
 #: ../loader2/loader.c:120
 msgid "Hard drive"
