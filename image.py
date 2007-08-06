@@ -157,7 +157,7 @@ class CdromInstallMethod(ImageInstallMethod):
         if not os.path.exists("%s/images/stage2.img" %(self.tree,)):
             log.debug("Not copying non-existent stage2.img")
             return
-        
+
 	self.loopbackFile = "%s%s%s" % (chroot,
                                         fsset.filesystemSpace(chroot)[0][0],
                                         "/rhinstall-stage2.img")
@@ -168,15 +168,22 @@ class CdromInstallMethod(ImageInstallMethod):
 	    shutil.copyfile("%s/images/stage2.img" % (self.tree,), 
 			    self.loopbackFile)
             win.pop()
-	except Exception, e:
+        except Exception, e:
             if win:
                 win.pop()
 
             log.critical("error transferring stage2.img: %s" %(e,))
-	    self.messageWindow(_("Error"),
-		    _("An error occurred transferring the install image "
-		      "to your hard drive. You are probably out of disk "
-		      "space."))
+
+            if isinstance(e, IOError) and e.errno == 5:
+                msg = _("An error occurred transferring the install image "
+                        "to your hard drive.  This is probably due to "
+                        "bad media."))
+            else:
+                msg = _("An error occurred transferring the install image "
+                        "to your hard drive. You are probably out of disk "
+                        "space."))
+
+            self.messageWindow(_("Error", msg))
 	    os.unlink(self.loopbackFile)
 	    return 1
 
