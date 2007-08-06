@@ -1293,7 +1293,7 @@ class YumBackend(AnacondaBackend):
         AnacondaBackend.doPostInstall(self, anaconda)
         w.pop()
 
-    def kernelVersionList(self):
+    def kernelVersionList(self, rootPath="/"):
         kernelVersions = []
         
         # nick is used to generate the lilo name

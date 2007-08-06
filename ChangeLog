@@ -1,3 +1,11 @@
+2007-08-06  Jeremy Katz  <katzj@redhat.com>
+
+	* livecd.py (LiveCDCopyBackend.kernelVersionList): Check the rpmdb
+	of the installed root (based on feedback from Jerry Vonau)
+	* backend.py (AnacondaBackend.kernelVersionList): Take the
+	rootPath as an argument
+	* yuminstall.py (YumBackend.kernelVersionList): Likewise.
+
 2007-08-06  Chris Lumens  <clumens@redhat.com>
 
 	* image.py (CdromInstallMethod.systemMounted):  Add a more specific

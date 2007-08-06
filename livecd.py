@@ -325,13 +325,21 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
     def writeConfiguration(self):
         pass
 
-    def kernelVersionList(self):
+    def kernelVersionList(self, rootPath = "/"):
         versions = []
         
         # FIXME: we should understand more types of kernel versions and not
         # be tied to rpm...  
         import rpm
-        ts = rpm.TransactionSet()
+        ts = rpm.TransactionSet(rootPath)
+
+        # FIXME: and make sure that the rpmdb doesn't have stale locks :/
+        for rpmfile in ["__db.000", "__db.001", "__db.002", "__db.003"]:
+            try:
+                os.unlink("%s/var/lib/rpm/%s" %(rootPath, rpmfile))
+            except:
+                log.debug("failed to unlink /var/lib/rpm/%s" %(rpmfile,))
+                
         mi = ts.dbMatch('name', 'kernel')
         for h in mi:
             v = "%s-%s" %(h['version'], h['release'])

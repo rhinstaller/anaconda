@@ -72,7 +72,7 @@ class AnacondaBackend:
         if anaconda.id.extraModules:
             self.copyFirmware(anaconda)
 
-            for (n, arch, tag) in self.kernelVersionList():
+            for (n, arch, tag) in self.kernelVersionList(anaconda.rootPath):
                 packages.recreateInitrd(n, anaconda.rootPath)
 
         sys.stdout.flush()
@@ -118,7 +118,7 @@ class AnacondaBackend:
         else:
             self.modeText = _("Installing %s\n")
 
-    def kernelVersionList(self):
+    def kernelVersionList(self, rootPath="/"):
         return []
 
     def doInitialSetup(self, anaconda):
