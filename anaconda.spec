@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.60
+Version: 11.1.2.61
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 06 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.61-1
+- Honor ip=<val>/ipv6=<val>/noipv4/noipv6 boot parameters and skip the
+  loader configuration if enough settings are passed on the boot line
+  Resolves: rhbz#246603
+
 * Fri Jul 20 2007 Peter Jones <pjones@redhat.com> - 11.1.2.60-1
 - Hopefully fix usb-storage reloading.  Still needs testing
   Related: rhbz#247830

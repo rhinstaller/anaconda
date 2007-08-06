@@ -1,6 +1,11 @@
 2007-08-06  David Cantrell  <dcantrell@redhat.com>
 
-	* loader2/cdinstall.c: extern int flags -> extern uint64_t flags (#246603)
+	* anaconda.spec: Bump version.
+
+2007-08-06  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/cdinstall.c: extern int flags -> extern uint64_t flags
+	(#246603)
 	* loader2/driverdisk.c: Likewise.
 	* loader2/firewire.c: Likewise.
 	* loader2/hardware.c: Likewise.
