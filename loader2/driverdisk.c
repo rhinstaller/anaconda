@@ -47,7 +47,7 @@
 #include "../isys/eddsupport.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 static char * driverDiskFiles[] = { "modinfo", "modules.dep", 
                                     "modules.cgz", "modules.alias", NULL };

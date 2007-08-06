@@ -32,7 +32,7 @@
 #include "../isys/lang.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep) {
     int num = -1;

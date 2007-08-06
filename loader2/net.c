@@ -51,7 +51,7 @@
 #include "windows.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 char *netServerPrompt = \
     N_("Please enter the following information:\n"
@@ -357,13 +357,6 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     printLoaderDataIPINFO(loaderData);
 #endif
 
-    cfg->noipv4 = 0;
-    if (FL_NOIPV6(flags)) {
-        cfg->noipv6 = 1;
-    } else {
-        cfg->noipv6 = 0;
-    }
-
     if (loaderData->ethtool) {
         parseEthtoolSettings(loaderData);
     }
@@ -411,8 +404,6 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
-                cfg->noipv4 = loaderData->noipv4;
-                cfg->noipv6 = loaderData->noipv6;
                 cfg->noDns = loaderData->noDns;
                 ret = doDhcp(cfg);
             }
@@ -534,8 +525,6 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         cfg->layer2 = strdup(loaderData->layer2);
     }
 
-    cfg->noipv4 = loaderData->noipv4;
-    cfg->noipv6 = loaderData->noipv6;
     cfg->noDns = loaderData->noDns;
 }
 
@@ -591,7 +580,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         if (!cfg->noDns)
             writeResolvConf(cfg);
         return LOADER_NOOP;
-    }        
+    }
 
     /* handle wireless device configuration */
     if (is_wireless_interface(device)) {
@@ -630,9 +619,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         }
     }
 
-    cfg->noipv4 = newCfg.noipv4;
     cfg->ipv4method = newCfg.ipv4method;
-    cfg->noipv6 = newCfg.noipv6;
     cfg->ipv6method = newCfg.ipv6method;
 
     /* preserve extra dns servers for the sake of being nice */
@@ -704,7 +691,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
 int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                    struct networkDeviceConfig * newCfg,
                    struct netconfopts * opts, int methodNum) {
-    int i = 0, z = 0;
+    int i = 0, z = 0, skipForm = 0;
     char *dret = NULL;
     newtComponent f, okay, back, answer;
     newtComponent ipv4Checkbox, ipv6Checkbox, v4Method[2], v6Method[3];
@@ -713,8 +700,12 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
     /* UI WINDOW 1: ask for ipv4 choice, ipv6 choice, and conf methods */
 
     /* IPv4 checkbox */
-    if (!opts->ipv4Choice)
-        opts->ipv4Choice = '*';
+    if (!opts->ipv4Choice) {
+        if (FL_NOIPV4(flags) && !FL_IP_PARAM(flags))
+            opts->ipv4Choice = ' ';
+        else
+            opts->ipv4Choice = '*';
+    }
 
     ipv4Checkbox = newtCheckbox(-1, -1, _("Enable IPv4 support"),
                                 opts->ipv4Choice, NULL, &(opts->ipv4Choice));
@@ -723,7 +714,7 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
 
     /* IPv6 checkbox */
     if (!opts->ipv6Choice) {
-        if (FL_NOIPV6(flags))
+        if (FL_NOIPV6(flags) && !FL_IPV6_PARAM(flags))
             opts->ipv6Choice = ' ';
         else
             opts->ipv6Choice = '*';
@@ -776,53 +767,69 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
     if (opts->ipv6Choice == ' ')
         setMethodSensitivity(&v6Method, 3);
 
+    /* If the user provided any of the following boot paramters, skip
+     * prompting for network configuration information:
+     *     ip=<val> ipv6=<val>
+     *     noipv4 noipv6
+     *     ip=<val> noipv6
+     *     ipv6=<val> noipv4
+     */
+    if ((FL_IP_PARAM(flags) && FL_IPV6_PARAM(flags)) ||
+        (FL_IP_PARAM(flags) && FL_NOIPV6(flags)) ||
+        (FL_IPV6_PARAM(flags) && FL_NOIPV4(flags)) ||
+        (FL_NOIPV4(flags) && FL_NOIPV6(flags))) {
+        skipForm = 1;
+    }
+
     /* run the form */
     do {
-        answer = newtRunForm(f);
+        if (!skipForm) {
+            answer = newtRunForm(f);
 
-        if (answer == back) {
-            newtFormDestroy(f);
-            newtPopWindow();
-            return LOADER_BACK;
-        }
+            if (answer == back) {
+                newtFormDestroy(f);
+                newtPopWindow();
+                return LOADER_BACK;
+            }
 
-        /* need at least one stack */
-        if (opts->ipv4Choice == ' ' && opts->ipv6Choice == ' ') {
-            newtWinMessage(_("Missing Protocol"), _("Retry"),
-                           _("You must select at least one protocol (IPv4 "
-                             "or IPv6)."));
-            continue;
-        }
+            /* need at least one stack */
+            if (opts->ipv4Choice == ' ' && opts->ipv6Choice == ' ') {
+                newtWinMessage(_("Missing Protocol"), _("Retry"),
+                               _("You must select at least one protocol (IPv4 "
+                                 "or IPv6)."));
+                continue;
+            }
 
-        /* NFS only works over IPv4 */
-        if (opts->ipv4Choice == ' ' && methodNum == METHOD_NFS) {
-            newtWinMessage(_("IPv4 Needed for NFS"), _("Retry"),
+            /* NFS only works over IPv4 */
+            if (opts->ipv4Choice == ' ' && methodNum == METHOD_NFS) {
+                newtWinMessage(_("IPv4 Needed for NFS"), _("Retry"),
                            _("NFS installation method requires IPv4 support."));
-            continue;
+                continue;
+            }
         }
 
         /* what TCP/IP stacks do we use? what conf methods? */
         if (opts->ipv4Choice == '*') {
-            newCfg->noipv4 = 0;
+            flags &= ~LOADER_FLAGS_NOIPV4;
             for (z = 0; z < 2; z++)
                 if (newtRadioGetCurrent(v4Method[0]) == v4Method[z])
                     newCfg->ipv4method = z;
         } else {
-            newCfg->noipv4 = 1;
+            flags |= LOADER_FLAGS_NOIPV4;
         }
 
         if (opts->ipv6Choice == '*') {
-            newCfg->noipv6 = 0;
+            flags &= ~LOADER_FLAGS_NOIPV6;
             for (z = 0; z < 3; z++)
                 if (newtRadioGetCurrent(v6Method[0]) == v6Method[z])
                     newCfg->ipv6method = z;
         } else {
-            newCfg->noipv6 = 1;
+            flags |= LOADER_FLAGS_NOIPV6;
         }
 
         /* do interface configuration (call DHCP here, or return for manual) */
-        if ((!newCfg->noipv4 && newCfg->ipv4method == IPV4_DHCP_METHOD) ||
-            (!newCfg->noipv6 && (newCfg->ipv6method == IPV6_AUTO_METHOD ||
+        if ((!FL_NOIPV4(flags) && newCfg->ipv4method == IPV4_DHCP_METHOD) ||
+            (!FL_NOIPV6(flags) && (newCfg->ipv6method == IPV6_AUTO_METHOD ||
                                  newCfg->ipv6method == IPV6_DHCP_METHOD))) {
             /* do DHCP if selected */
             if (!FL_TESTING(flags)) {
@@ -850,8 +857,8 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                          && (newCfg->ipv6method == IPV6_AUTO_METHOD ||
                              newCfg->ipv6method == IPV6_DHCP_METHOD))
                         || (newCfg->ipv4method == IPV4_DHCP_METHOD
-                            && newCfg->noipv6)
-                        || (newCfg->noipv4
+                            && FL_NOIPV6(flags))
+                        || (FL_NOIPV4(flags)
                             && (newCfg->ipv6method == IPV6_AUTO_METHOD ||
                                 newCfg->ipv6method == IPV6_DHCP_METHOD))) {
                         i = getDnsServers(newCfg);
@@ -877,8 +884,8 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
     newtFormDestroy(f);
     newtPopWindow();
 
-    if ((!newCfg->noipv4 && newCfg->ipv4method == IPV4_MANUAL_METHOD) ||
-        (!newCfg->noipv6 && newCfg->ipv6method == IPV6_MANUAL_METHOD))
+    if ((!FL_NOIPV4(flags) && newCfg->ipv4method == IPV4_MANUAL_METHOD) ||
+        (!FL_NOIPV6(flags) && newCfg->ipv6method == IPV6_MANUAL_METHOD))
         return LOADER_OK;
     else
         return LOADER_NOOP;
@@ -1315,15 +1322,15 @@ char *doDhcp(struct networkDeviceConfig *dev) {
     /* dhcp preferences are in /usr/include/libdhcp/dhcp_nic.h */
 
     /* calling function should catch ipv4Choice & ipv6Choice both being ' ' */
-    if (dev->noipv4 || dev->ipv4method == IPV4_MANUAL_METHOD) {
+    if (FL_NOIPV4(flags) || dev->ipv4method == IPV4_MANUAL_METHOD) {
         /* IPv4 disabled entirely -or- manual IPv4 config selected */
         pref |= DHCPv4_DISABLE;
     }
 
-    if (!dev->noipv6 && dev->ipv6method == IPV6_AUTO_METHOD) {
+    if (!FL_NOIPV6(flags) && dev->ipv6method == IPV6_AUTO_METHOD) {
         /* IPv6 enabled -and- auto neighbor discovery selected */
         pref |= DHCPv6_DISABLE | DHCPv6_DISABLE_ADDRESSES;
-    } else if (dev->noipv6 || dev->ipv6method == IPV6_MANUAL_METHOD) {
+    } else if (FL_NOIPV6(flags) || dev->ipv6method == IPV6_MANUAL_METHOD) {
         /* IPv6 disabled entirely -or- manual IPv6 config selected */
         pref |= DHCPv6_DISABLE;
     }
@@ -1640,10 +1647,10 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         }
 
         if (noipv4)
-            loaderData->noipv4 = 1;
+            flags |= LOADER_FLAGS_NOIPV4;
 
         if (noipv6)
-            loaderData->noipv6 = 1;
+            flags |= LOADER_FLAGS_NOIPV6;
     }
 
     if (noDns) {

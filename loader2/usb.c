@@ -33,7 +33,7 @@
 #include "../isys/imount.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 /* This forces a pause between initializing usb and trusting the /proc 
    stuff */

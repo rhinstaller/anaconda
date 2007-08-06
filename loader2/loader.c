@@ -34,6 +34,7 @@
 #include <strings.h>
 #include <syslog.h>
 #include <unistd.h>
+#include <stdint.h>
 
 #include <sys/ioctl.h>
 #include <sys/types.h>
@@ -99,7 +100,7 @@ static int hasGraphicalOverride();
 static int newtRunning = 0;
 
 /* boot flags -- we need these in a lot of places */
-int flags = LOADER_FLAGS_SELINUX | LOADER_FLAGS_NOFB;
+uint64_t flags = LOADER_FLAGS_SELINUX | LOADER_FLAGS_NOFB;
 
 #ifdef INCLUDE_LOCAL
 #include "cdinstall.h"
@@ -506,44 +507,47 @@ static void readNetInfo(struct loaderData_s ** ld) {
 */
 static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
 {
-  /* Detect pxelinux */
-  if (strstr(argv, ":") != NULL) {
-    char *start, *end;
+    /* Detect pxelinux */
+    if (strstr(argv, ":") != NULL) {
+        char *start, *end;
 
-    /* IP */
-    start = argv + 3;
-    end = strstr(start, ":");
-    loaderData->ip = strndup(start, end-start);
-    loaderData->ipinfo_set = 0;
+        /* IP */
+        start = argv + 3;
+        end = strstr(start, ":");
+        loaderData->ip = strndup(start, end-start);
+        loaderData->ipinfo_set = 0;
 
-    /* Boot server */
-    if (end + 1 == '\0')
-      return;
-    start = end + 1;
-    end = strstr(start, ":");
-    if (end == NULL)
-      return;
+        /* Boot server */
+        if (end + 1 == '\0')
+            return;
+        start = end + 1;
+        end = strstr(start, ":");
+        if (end == NULL)
+            return;
 
-    /* Gateway */
-    if (end + 1 == '\0')
-      return;
-    start = end + 1;
-    end = strstr(start, ":");
-    if (end == NULL) {
-      loaderData->gateway = strdup (start);
-      return;
-    } else 
-      loaderData->gateway = strndup(start, end-start);
+        /* Gateway */
+        if (end + 1 == '\0')
+            return;
+        start = end + 1;
+        end = strstr(start, ":");
+        if (end == NULL) {
+            loaderData->gateway = strdup (start);
+            return;
+        } else {
+            loaderData->gateway = strndup(start, end-start);
+        }
 
-    /* Netmask */
-    if (end + 1 == '\0')
-      return;
-    start = end + 1;
-    loaderData->netmask = strdup(start);
-  } else {
-    loaderData->ip = strdup(argv + 3);
-    loaderData->ipinfo_set = 0;
-  }
+        /* Netmask */
+        if (end + 1 == '\0')
+            return;
+        start = end + 1;
+        loaderData->netmask = strdup(start);
+    } else {
+        loaderData->ip = strdup(argv + 3);
+        loaderData->ipinfo_set = 0;
+    }
+
+    flags |= LOADER_FLAGS_IP_PARAM;
 }
 
 /*
@@ -555,12 +559,17 @@ static void parseCmdLineIpv6(struct loaderData_s * loaderData, char *argv)
      *     dhcp     DHCPv6 call
      *     auto     RFC 2461 neighbor discovery
      */
-    if (!strncmp(str2lower(argv), "dhcp", 4)) {
+    loaderData->ipv6 = NULL;
+
+    if (!strncmp(str2lower(argv), "ipv6=dhcp", 9)) {
         loaderData->ipv6 = strdup("dhcp");
-        loaderData->ipv6info_set = 1;
-    } else if (!strncmp(str2lower(argv), "auto", 4)) {
+    } else if (!strncmp(str2lower(argv), "ipv6=auto", 9)) {
         loaderData->ipv6 = strdup("auto");
+    }
+
+    if (loaderData->ipv6 != NULL) {
         loaderData->ipv6info_set = 1;
+        flags |= LOADER_FLAGS_IPV6_PARAM;
     }
 
     return;
@@ -660,9 +669,10 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_SERIAL;
         else if (!strcasecmp(argv[i], "nofb"))
             flags |= LOADER_FLAGS_NOFB;
-        else if (!strcasecmp(argv[i], "noipv6")) {
+        else if (!strcasecmp(argv[i], "noipv4")) {
+            flags |= LOADER_FLAGS_NOIPV4;
+        } else if (!strcasecmp(argv[i], "noipv6")) {
             flags |= LOADER_FLAGS_NOIPV6;
-            loaderData->noipv6 = 1;
         } else if (!strcasecmp(argv[i], "kssendmac"))
             flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
         else if (!strncasecmp(argv[i], "loglevel=", 9)) {
@@ -1111,12 +1121,12 @@ static char *doLoaderMain(char * location,
             setupNetworkDeviceConfig(&netDev, loaderData);
 
             rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum);
-            if ((loaderData->noipv4 = netDev.noipv4) == 1)
+            if (FL_NOIPV4(flags))
                 loaderData->ipinfo_set = 0;
             else
                 loaderData->ipinfo_set = 1;
 
-            if ((loaderData->noipv6 = netDev.noipv6) == 1)
+            if (FL_NOIPV6(flags))
                 loaderData->ipv6info_set = 0;
             else
                 loaderData->ipv6info_set = 1;
@@ -1131,7 +1141,7 @@ static char *doLoaderMain(char * location,
             writeNetInfo("/tmp/netinfo", &netDev);
             step = STEP_URL;
             dir = 1;
-            
+
         case STEP_URL:
             logMessage(INFO, "starting to STEP_URL");
             /* if we found a CD already short circuit out */
@@ -1673,14 +1683,14 @@ int main(int argc, char ** argv) {
         } else {
             *argptr++ = *tmparg;
         }
-        
+
         tmparg++;
     }
 
-    if (loaderData.noipv4)
+    if (FL_NOIPV4(flags))
         *argptr++ = "--noipv4";
 
-    if (loaderData.noipv6)
+    if (FL_NOIPV6(flags))
         *argptr++ = "--noipv6";
 
     if (FL_RESCUE(flags)) {

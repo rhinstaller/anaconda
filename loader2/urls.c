@@ -39,7 +39,7 @@
 #include "net.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 /* convert a url (ftp or http) to a ui */
 int convertURLToUI(char *url, struct iurlinfo *ui) {

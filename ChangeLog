@@ -1,3 +1,44 @@
+2007-08-06  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/cdinstall.c: extern int flags -> extern uint64_t flags (#246603)
+	* loader2/driverdisk.c: Likewise.
+	* loader2/firewire.c: Likewise.
+	* loader2/hardware.c: Likewise.
+	* loader2/hdinstall.c: Likewise.
+	* loader2/kbd.c: Likewise.
+	* loader2/kickstart.c: Likewise.
+	* loader2/lang.c: Likewise.
+	* loader2/loader.c: Likewise.
+	* loader2/method.c: Likewise.
+	* loader2/modules.c: Likewise.
+	* loader2/net.c: Likewise.
+	* loader2/nfsinstall.c: Likewise.
+	* loader2/pcmcia.c: Likewise.
+	* loader2/telnetd.c: Likewise.
+	* loader2/urlinstall.c: Likewise.
+	* loader2/urls.c: Likewise.
+	* loader2/usb.c: Likewise.
+
+	* loader2/loader.c (parseCmdLineIp): Set LOADER_FLAGS_IP_PARAM
+	(#246603).
+	* loader2/loader.c (parseCmdLineIpv6: Set LOADER_FLAGS_IPV6_PARAM
+	(#246603).
+	* loader2/loader.c (parseCmdLineFlags): Remove noipv4 and noipv6
+	flags from loaderData, just use the flags variable now.  Replace all
+	uses of the loaderData->noipv{4,6} variables with flags usage.
+	(#246603)
+
+	* loader2/loader.h: Increase LOADER_FLAGS_* to uint64_t, remove the
+	noipv4 and noipv6 members from struct loaderData_s (#246603).
+
+	* loader2/net.c: Do not use the noipv4/noipv6 members from the
+	loaderData struct or the networkDeviceConfig struct.  Use only
+	the settings in the flags variable.  Do not display the Configure
+	TCP/IP window if all necessary IPv4 and IPv6 configuration
+	parameters are passed at the boot prompt (#246603).
+	* loader2/net.h: remove noipv4 and noipv6 members from struct
+	networkDeviceConfig (#246603).
+
 2007-08-03  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/init.c (main):  Add a mode when creating a new file.
@@ -5,7 +46,7 @@
 
 2007-07-25  Peter Jones  <pjones@redhat.com>
 
-	* loader2/module-info: add missing pata_* and sata_* drivers (#249601.)
+	* loader2/module-info: add missing pata_* and sata_* drivers (#249601).
 
 2007-07-20  Peter Jones  <pjones@redhat.com>
 
