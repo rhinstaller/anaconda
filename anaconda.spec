@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.16
+Version: 11.3.0.17
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 06 2007 Chris Lumens <clumens@redhat.com> 11.3.0.17-1
+- Check the rpmdb of the installed root (katzj).
+- Fix mknod calls (hhara AT miraclelinux DOT com).
+- Generate module-info at build time (notting).
+- Use more specific error messages when copying stage2 fails (#250954).
+- Test using zenity for kickstart script progress reports (#147109).
+
 * Fri Aug 03 2007 Chris Lumens <clumens@redhat.com> 11.3.0.16-1
 - Remove debug button from exception dialog on livecd installs.
 - Don't look at removed devices to find free space (#250148).
