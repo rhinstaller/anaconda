@@ -39,7 +39,7 @@
 #include "../isys/isys.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 struct aString {
     unsigned int hash;

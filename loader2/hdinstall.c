@@ -43,7 +43,7 @@
 #include "../isys/eddsupport.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 /* pull in second stage image for hard drive install */
 static int loadHDImages(char * prefix, char * dir, 

@@ -41,7 +41,7 @@
 #include "../isys/cpio.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 static int writeModulesConf(moduleList list, char *conf);
 static struct extractedModule * extractModules (char * const * modNames,

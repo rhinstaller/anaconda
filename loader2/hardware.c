@@ -37,7 +37,7 @@
 #include "../isys/isys.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 /* returns whether or not we can probe devices automatically or have to 
  * ask for them manually. */

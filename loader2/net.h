@@ -31,7 +31,7 @@ struct networkDeviceConfig {
     int isDynamic;
     int noDns;
     int preset;
-    int noipv4, noipv6, ipv4method, ipv6method;
+    int ipv4method, ipv6method;
     char * vendor_class;
 
     /* s390 settings */

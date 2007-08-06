@@ -34,6 +34,7 @@
 #include <strings.h>
 #include <syslog.h>
 #include <unistd.h>
+#include <stdint.h>
 
 #include <sys/ioctl.h>
 #include <sys/types.h>
@@ -100,7 +101,7 @@ static int hasGraphicalOverride();
 static int newtRunning = 0;
 
 /* boot flags -- we need these in a lot of places */
-int flags = LOADER_FLAGS_SELINUX;
+uint64_t flags = LOADER_FLAGS_SELINUX;
 
 #ifdef INCLUDE_LOCAL
 #include "cdinstall.h"
@@ -512,44 +513,48 @@ static void readNetInfo(struct loaderData_s ** ld) {
 */
 static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
 {
-  /* Detect pxelinux */
-  if (strstr(argv, ":") != NULL) {
-    char *start, *end;
+    /* Detect pxelinux */
+    if (strstr(argv, ":") != NULL) {
+        char *start, *end;
 
-    /* IP */
-    start = argv + 3;
-    end = strstr(start, ":");
-    loaderData->ipv4 = strndup(start, end-start);
-    loaderData->ipinfo_set = 0;
+        /* IP */
+        start = argv + 3;
+        end = strstr(start, ":");
+        loaderData->ipv4 = strndup(start, end-start);
+        loaderData->ipinfo_set = 0;
 
-    /* Boot server */
-    if (end + 1 == '\0')
-      return;
-    start = end + 1;
-    end = strstr(start, ":");
-    if (end == NULL)
-      return;
+        /* Boot server */
+        if (end + 1 == '\0')
+            return;
+        start = end + 1;
+        end = strstr(start, ":");
+        if (end == NULL)
+            return;
 
-    /* Gateway */
-    if (end + 1 == '\0')
-      return;
-    start = end + 1;
-    end = strstr(start, ":");
-    if (end == NULL) {
-      loaderData->gateway = strdup (start);
-      return;
-    } else 
-      loaderData->gateway = strndup(start, end-start);
+        /* Gateway */
+        if (end + 1 == '\0')
+            return;
+        start = end + 1;
+        end = strstr(start, ":");
+        if (end == NULL) {
+            loaderData->gateway = strdup (start);
+            return;
+        } else {
+            loaderData->gateway = strndup(start, end-start);
+        }
 
-    /* Netmask */
-    if (end + 1 == '\0')
-      return;
-    start = end + 1;
-    loaderData->netmask = strdup(start);
-  } else {
-    loaderData->ipv4 = strdup(argv + 3);
-    loaderData->ipinfo_set = 0;
-  }
+        /* Netmask */
+        if (end + 1 == '\0')
+            return;
+        start = end + 1;
+        loaderData->netmask = strdup(start);
+    } else {
+        loaderData->ipv4 = strdup(argv + 3);
+        loaderData->ipinfo_set = 0;
+    }
+
+    if (loaderData->ipinfo_set)
+        flags |= LOADER_FLAGS_IP_PARAM;
 }
 
 /*
@@ -561,12 +566,17 @@ static void parseCmdLineIpv6(struct loaderData_s * loaderData, char *argv)
      *     dhcp     DHCPv6 call
      *     auto     RFC 2461 neighbor discovery
      */
-    if (!strncmp(str2lower(argv), "dhcp", 4)) {
+    loaderData->ipv6 = NULL;
+
+    if (!strncmp(str2lower(argv), "ipv6=dhcp", 9)) {
         loaderData->ipv6 = strdup("dhcp");
-        loaderData->ipv6info_set = 1;
-    } else if (!strncmp(str2lower(argv), "auto", 4)) {
+    } else if (!strncmp(str2lower(argv), "ipv6=auto", 9)) {
         loaderData->ipv6 = strdup("auto");
+    }
+
+    if (loaderData->ipv6 != NULL) {
         loaderData->ipv6info_set = 1;
+        flags |= LOADER_FLAGS_IPV6_PARAM;
     }
 
     return;
@@ -672,10 +682,11 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOPASS;
         else if (!strcasecmp(argv[i], "serial")) 
             flags |= LOADER_FLAGS_SERIAL;
-        else if (!strcasecmp(argv[i], "noipv6")) {
+        else if (!strcasecmp(argv[i], "noipv4"))
+            flags |= LOADER_FLAGS_NOIPV4;
+        else if (!strcasecmp(argv[i], "noipv6"))
             flags |= LOADER_FLAGS_NOIPV6;
-            loaderData->noipv6 = 1;
-        } else if (!strcasecmp(argv[i], "kssendmac"))
+        else if (!strcasecmp(argv[i], "kssendmac"))
             flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
         else if (!strncasecmp(argv[i], "loglevel=", 9)) {
             if (!strcasecmp(argv[i]+9, "debug")) {
@@ -1133,7 +1144,7 @@ static char *doLoaderMain(char * location,
             setupNetworkDeviceConfig(&netDev, loaderData);
 
             rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum);
-            if ((loaderData->noipv4 = netDev.noipv4) == 1) {
+            if (FL_NOIPV4(flags)) {
                 loaderData->ipinfo_set = 0;
             } else {
                 if (loaderData->ipv4 == NULL) {
@@ -1156,7 +1167,7 @@ static char *doLoaderMain(char * location,
                 loaderData->ipinfo_set = 1;
             }
 
-            if ((loaderData->noipv6 = netDev.noipv6) == 1) {
+            if (FL_NOIPV6(flags)) {
                 loaderData->ipv6info_set = 0;
             } else {
                 if (loaderData->ipv6 == NULL) {
@@ -1239,7 +1250,7 @@ static int manualDeviceCheck(struct loaderData_s *loaderData) {
         devices = malloc((modLoaded->numModules + 1) * sizeof(*devices));
         for (i = 0, j = 0; i < modLoaded->numModules; i++) {
             if (!modLoaded->mods[i].weLoaded) continue;
-            
+
             if (!(mi = findModuleInfo(modInfo, modLoaded->mods[i].name)) ||
                 (!mi->description))
                 continue;
@@ -1440,7 +1451,7 @@ int main(int argc, char ** argv) {
         execl("/bin/sh", "-/bin/sh", NULL);
         exit(0);
     }
-    
+
     f = fopen("/var/run/loader.run", "w+");
     fprintf(f, "%d\n", getpid());
     fclose(f);
@@ -1531,14 +1542,14 @@ int main(int argc, char ** argv) {
     /* Note we *always* do this. If you could avoid this you could get
        a system w/o USB keyboard support, which would be bad. */
     usbInitialize(modLoaded, modDeps, modInfo);
-    
+
     /* now let's initialize any possible firewire.  fun */
     firewireInitialize(modLoaded, modDeps, modInfo);
 
     /* explicitly read this to let libkudzu know we want to merge
      * in future tables rather than replace the initial one */
     pciReadDrivers("/modules/modules.alias");
-    
+
     if (loaderData.lang && (loaderData.lang_set == 1)) {
         setLanguage(loaderData.lang);
     }
@@ -1550,7 +1561,7 @@ int main(int argc, char ** argv) {
 
     if (!canProbeDevices() || FL_MODDISK(flags)) {
         startNewt();
-        
+
         loadDriverDisks(CLASS_UNSPEC, &loaderData);
     }
 
@@ -1558,7 +1569,7 @@ int main(int argc, char ** argv) {
         logMessage(INFO, "found /dd.img, loading drivers");
         getDDFromSource(&loaderData, "path:/dd.img");
     }
-    
+
     /* this allows us to do an early load of modules specified on the
      * command line to allow automating the load order of modules so that
      * eg, certain scsi controllers are definitely first.
@@ -1611,7 +1622,7 @@ int main(int argc, char ** argv) {
         } else {
             /* FIXME: this is a bad hack for libselinux assuming things
              * about paths */
-	    int ret;
+            int ret;
             ret = symlink("/mnt/runtime/etc/selinux", "/etc/selinux");
             if (loadpolicy() == 0) {
                 setexeccon(ANACONDA_CONTEXT);
@@ -1623,7 +1634,7 @@ int main(int argc, char ** argv) {
     }
 
     logMessage(INFO, "getting ready to spawn shell now");
-    
+
     spawnShell();  /* we can attach gdb now :-) */
 
     /* JKFIXME: kickstart devices crap... probably kind of bogus now though */
@@ -1708,7 +1719,7 @@ int main(int argc, char ** argv) {
         mkdirChain("/tmp/updates");
 
     logMessage(INFO, "Running anaconda script %s", *(argptr-1));
-    
+
     *argptr++ = "-m";
     if (strncmp(url, "ftp:", 4)) {
         *argptr++ = url;
@@ -1726,7 +1737,7 @@ int main(int argc, char ** argv) {
     tmparg = extraArgs;
     while (*tmparg) {
         char *idx;
-        
+
         logMessage(DEBUGLVL, "adding extraArg %s", *tmparg);
         idx = strchr(*tmparg, '=');
         if (idx &&  ((idx-*tmparg) < strlen(*tmparg))) {
@@ -1736,14 +1747,14 @@ int main(int argc, char ** argv) {
         } else {
             *argptr++ = *tmparg;
         }
-        
+
         tmparg++;
     }
 
-    if (loaderData.noipv4)
+    if (FL_NOIPV4(flags))
         *argptr++ = "--noipv4";
 
-    if (loaderData.noipv6)
+    if (FL_NOIPV6(flags))
         *argptr++ = "--noipv6";
 
     if (FL_RESCUE(flags)) {
@@ -1765,7 +1776,7 @@ int main(int argc, char ** argv) {
             *argptr++ = "--noselinux";
         else if (FL_SELINUX(flags))
             *argptr++ = "--selinux";
-        
+
         if (FL_KICKSTART(flags)) {
             *argptr++ = "--kickstart";
             *argptr++ = loaderData.ksFile;
@@ -1785,7 +1796,7 @@ int main(int argc, char ** argv) {
             *argptr++ = "--lang";
             *argptr++ = loaderData.lang;
         }
-        
+
         if ((loaderData.kbd) && !FL_NOPASS(flags)) {
             *argptr++ = "--keymap";
             *argptr++ = loaderData.kbd;

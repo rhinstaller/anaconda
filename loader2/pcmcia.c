@@ -31,7 +31,7 @@
 #include "modules.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 char * getPcicController() {
     struct device ** devices;

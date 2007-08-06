@@ -40,7 +40,7 @@
 #include "windows.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 static int loadSingleUrlImage(struct iurlinfo * ui, char * file,
                               char * dest, char * mntpoint, char * device,

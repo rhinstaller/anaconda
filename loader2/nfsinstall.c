@@ -35,7 +35,7 @@
 #include "../isys/imount.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 int nfsGetSetup(char ** hostptr, char ** dirptr) {
     struct newtWinEntry entries[3];

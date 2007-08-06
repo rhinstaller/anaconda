@@ -50,7 +50,7 @@
 #include "urlinstall.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 int umountLoopback(char * mntpoint, char * device) {
     int loopfd;

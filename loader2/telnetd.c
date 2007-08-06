@@ -43,7 +43,7 @@
 #endif
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 /* Forks, keeping the loader as our child (so we know when it dies). */
 int beTelnet(void) {

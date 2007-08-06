@@ -43,7 +43,7 @@
 #include "../isys/isys.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 static int getISOStatusFromFD(int isofd, char *mediasum);
 

@@ -26,7 +26,7 @@
 #include "windows.h"
 
 /* boot flags */
-extern int flags;
+extern uint64_t flags;
 
 int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo) {
