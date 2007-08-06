@@ -4,6 +4,9 @@
 	error message if there's an I/O error as opposed to being out of space
 	(#250954).
 
+	* scripts/upd-instroot:  Add zenity to test if it can be used for
+	displaying progress in kickstart files (#147109).
+
 2007-08-03  Bill Nottingham  <notting@redhat.com>
 
 	* utils/genmodinfo: New file, utility to generate module-info on the fly
