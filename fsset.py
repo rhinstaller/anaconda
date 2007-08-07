@@ -354,14 +354,7 @@ class xfsFileSystem(FileSystemType):
         self.name = "xfs"
         self.maxSizeMB = 16 * 1024 * 1024
         self.maxLabelChars = 12
-        # this is totally, 100% unsupported.  Boot with "linux xfs"
-        # at the boot: prompt will let you make new xfs filesystems
-        # in the installer.  Bugs filed when you use this will be closed
-        # WONTFIX.
-        if flags.cmdline.has_key("xfs"):
-            self.supported = -1
-        else:
-            self.supported = 0
+        self.supported = -1
 
         self.packages = [ "xfsprogs" ]
         
