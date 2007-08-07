@@ -177,13 +177,13 @@ class CdromInstallMethod(ImageInstallMethod):
             if isinstance(e, IOError) and e.errno == 5:
                 msg = _("An error occurred transferring the install image "
                         "to your hard drive.  This is probably due to "
-                        "bad media."))
+                        "bad media.")
             else:
                 msg = _("An error occurred transferring the install image "
                         "to your hard drive. You are probably out of disk "
-                        "space."))
+                        "space.")
 
-            self.messageWindow(_("Error", msg))
+            self.messageWindow(_("Error"), msg)
 	    os.unlink(self.loopbackFile)
 	    return 1
 
