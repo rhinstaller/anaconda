@@ -1,3 +1,9 @@
+2007-08-07  Chris Lumens  <clumens@redhat.com>
+
+	* textw/partition_text.py (PartitionTypeWindow.__call__):  Fix
+	converting UI selections into which drives should be used for
+	partitioning (#247997).
+
 2007-08-06  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.

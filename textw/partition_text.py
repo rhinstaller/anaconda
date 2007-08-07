@@ -1595,7 +1595,7 @@ class PartitionTypeWindow:
 
             rc = g.run()
 
-            sel = [self.drivelist.getSelection()[0].split()[0]]
+            sel = map(lambda s: s.split()[0], self.drivelist.getSelection())
             partmethod_ans = typebox.current()
             res = bb.buttonPressed(rc)
             
