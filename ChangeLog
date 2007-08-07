@@ -1,3 +1,7 @@
+2007-08-07  Jeremy Katz  <katzj@redhat.com>
+
+	* bootloader.py: Pass rootpath to kernelVersionList
+
 2007-08-07  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (YumBackend.doPostInstall):  Enable runlevel 5 if kdm
@@ -114,6 +118,7 @@
 
 2007-08-01  Chris Lumens  <clumens@redhat.com>
 
+	Based on a patch from Douglas McClendon
 	* flags.py (Flags):  Add a livecd install flag so we can tell that's
 	what we're doing from way down within partition checking code.
 	* livecd.py (LiveCDCopyBackend):  Set flags.livecdInstall here.
