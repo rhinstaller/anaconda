@@ -685,7 +685,7 @@ if __name__ == "__main__":
     # setup links required for all install types
     # list of 3-tuples:  ([file list], sourcepath, destpath):
     links = [(["services", "protocols", "nsswitch.conf", "joe", "selinux",
-               "mke2fs.conf", "multipath.conf"],
+               "mke2fs.conf", "multipath.conf", "yum"],
               "/mnt/runtime/etc/", "/etc/"),
              (["multipath", "kpartx", "dmsetup", "dmraid"],
               "/mnt/runtime/usr/sbin/", "/sbin/"),

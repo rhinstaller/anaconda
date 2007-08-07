@@ -22,7 +22,7 @@
 
 import os
 import rpmUtils
-from sets import Set
+from sets import Set, ImmutableSet
 from yum import packages
 from yum.constants import TS_INSTALL
 from yum.plugins import TYPE_CORE, PluginYumExit
@@ -71,7 +71,7 @@ def _whatProvides(c, list):
 def _getKernelDeps(po, match):
       
     reqs = po.returnPrco(match)
-    return [ r for r in reqs if r[0] in kernelProvides ]
+    return [ r for r in reqs if r[0] in kernelProvides or r[0].startswith("kernel(") ]
 
 def getInstalledKernels(c):
     return _whatProvides(c, kernelProvides)
@@ -115,13 +115,12 @@ def resolveVersions(packageList):
 
     dict = {}
     for po in packageList:
-        kernel = getKernelReqs(po)
+        kernel = ImmutableSet(getKernelReqs(po))
+        kernelReqs = kernel.intersection(kernelProvides)
         if len(kernel) == 0:
             print "Bad kmod package '%s' does not require a kernel" % po
             continue
-        elif len(kernel) == 1:
-            kernel = kernel[0]
-        else:
+        elif len(kernelReqs) > 1:
             print "Bad kmod package: Must require only one kernel"
             continue
 
@@ -194,6 +193,7 @@ def pinKernels(c, newKernels, modules):
     table = resolveVersions(modules)
     if not table.has_key(runningKernel):
         # The current kernel has no modules installed
+        # FIXME: this won't work with kABI deps
         return
         
     names = [ p.kmodName for p in table[runningKernel] ]
@@ -227,12 +227,15 @@ def installAllKmods(c, avaModules, modules, kernels):
 
     table = resolveVersions(interesting + modules)
     
-    for kernel in [ getKernelProvides(k)[0] for k in kernels ]:
-        if not table.has_key(kernel): continue
-        for po in table[kernel]:
-            if po not in modules:
-                c.getTsInfo().addTrueInstall(po)
-                list.append(po)
+    for kernel in [ ImmutableSet(getKernelProvides(k)) for k in kernels ]:
+        for kreq in table.keys():
+            if not kreq.issubset(kernel):
+                continue
+
+            for po in table[kreq]:
+                if po not in modules:
+                    c.getTsInfo().addTrueInstall(po)
+                    list.append(po)
 
     return list
 

@@ -1,3 +1,8 @@
+2007-08-07  Dave Lehman <dlehman@redhat.com>
+
+	* anaconda: add a symlink in /etc to /mnt/runtime/etc/yum (#241412)
+	* fedorakmod.py: handle kABI requires/provides (#241412)
+
 2007-08-07  Chris Lumens  <clumens@redhat.com>
 
 	* textw/partition_text.py (PartitionTypeWindow.__call__):  Fix
