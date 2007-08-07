@@ -3,6 +3,10 @@
 	* yuminstall.py (YumBackend.doPostInstall):  Enable runlevel 5 if kdm
 	is installed, too (#251194).
 
+	* textw/partition_text.py (PartitionTypeWindow.__call__):  Fix
+	converting UI selections into which drives should be used for
+	partitioning (#247997, #251150).
+
 2007-08-07  Jeremy Katz  <katzj@redhat.com>
 
 	* fsset.py (xfsFileSystem.__init__): Don't require the command
