@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-08-06 18:04+0530\n"
+"PO-Revision-Date: 2007-08-07 15:37+0530\n"
 "Last-Translator: Subhransu Behera <arya_subhransu@yahoo.co.in>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -245,37 +246,37 @@ msgid "Requested Partition Does Not Exist"
 msgstr "ଆପଣ ଅନୁରୋଧ କରିଥିବା ବିଭାଜନଟି ଉପଲବ୍ଧ ନାହିଁ"
 
 #: ../autopart.py:1260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"ବିଭାଜନ %s କୁ %s ର ବ୍ଯବହାର ପାଇଁ ଖୋଜିବାରେ ଅସମର୍ଥ \n"
+"%s ବିଭାଜନକୁ %s ର ବ୍ଯବହାର ପାଇଁ ଖୋଜିବାରେ ଅସମର୍ଥ।\n"
 "\n"
-"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ"
+"ସ୍ଥାପକକୁ ବନ୍ଦ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "ଆପଣ ଅନୁରୋଧ କରିଥିବା ରେଡ୍ ଉପକରଣଟି ଉପଲବ୍ଧ ନାହିଁ"
 
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"ରେଡ୍ ଉପକରଣ %s କୁ %s ର ବ୍ଯବହାର ପାଇଁ ଖୋଜିବା ରେ ଅସମର୍ଥ \n"
+"%s ରେଡ୍ ଉପକରଣକୁ %s ର ବ୍ଯବହାର ପାଇଁ ଖୋଜିବାରେ ଅସମର୍ଥ।\n"
 "\n"
-"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ"
+"ସ୍ଥାପକକୁ ବନ୍ଦ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "ଆପଣ ଅନୁରୋଧ କରିଥିବା ଘନଫଳ ସମୂହ ଟି ଉପଲବ୍ଧ ନାହିଁ"
 
 #: ../autopart.py:1320
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
@@ -283,29 +284,29 @@ msgid ""
 msgstr ""
 "ଘନଫଳ ସମୂହ %s କୁ %s ର ବ୍ଯବହାର ପାଇଁ ଖୋଜିବାରେ ଅସମର୍ଥ \n"
 "\n"
-"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ"
+"ସ୍ଥାପକକୁ ବନ୍ଦ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "ଆପଣ ଅନୁରୋଧ କରିଥିବା ତାର୍କିକ ଘନଫଳଟି ଉପଲବ୍ଧ ନାହିଁ"
 
 #: ../autopart.py:1358
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"ତାର୍କିକ ଘନଫଳ %s କୁ %s ର ବ୍ଯବହାର ପାଇଁ ଖୋଜିବାରେ ଅସମର୍ଥ \n"
+"%s ତାର୍କିକ ଘନଫଳକୁ %s ର ବ୍ଯବହାର ପାଇଁ ଖୋଜିବାରେ ଅସମର୍ଥ।\n"
 "\n"
-"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ"
+"ସ୍ଥାପକକୁ ବନ୍ଦ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../autopart.py:1484 ../autopart.py:1531
 msgid "Automatic Partitioning Errors"
 msgstr "ସ୍ବୟଂଚାଳିତ ବିଭାଜନୀୟ ତୃଟି"
 
 #: ../autopart.py:1485
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -313,11 +314,11 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"ଆପଣଙ୍କ ବିଭାଜନରେ ନିମ୍ନଲିଖିତ ତୃଟି ମାନ ଉତ୍ପନ ହେଲା:\n"
+"ଆପଣଙ୍କ ବିଭାଜନରେ ନିମ୍ନଲିଖିତ ତୃଟି ଗୁଡିକ ଘଟିଲା:\n"
 "\n"
 "%s\n"
 "\n"
-"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ"
+"ସ୍ଥାପକକୁ ବନ୍ଦ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../autopart.py:1495
 msgid "Warnings During Automatic Partitioning"
@@ -335,7 +336,6 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -343,7 +343,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ"
+"ସ୍ଥାପକକୁ ବନ୍ଦ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../autopart.py:1511 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:239
@@ -522,11 +522,12 @@ msgid "Dump Written"
 msgstr "ଅଦରକାରୀ ଜିନିଷ ଲେଖା ଯାଇଛି"
 
 #: ../exception.py:413
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. The "
 "installer will now exit."
-msgstr "ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଫ୍ଲପିରେ ଲେଖାଯାଇଛି। ବର୍ତମାନ ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ପୁନର୍ଚାଳିତ ହେବ।"
+msgstr ""
+"ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଫ୍ଲପିରେ ଲେଖାଯାଇଛି। ବର୍ତମାନ "
+"ସ୍ଥାପକଟି ବନ୍ଦ ହୋଇଯିବ।"
 
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
@@ -540,16 +541,15 @@ msgstr "ଅଦରକାରୀ ଜିନିଷ ଲେଖା ଯାଇନାହି
 
 #: ../exception.py:422
 msgid "There was a problem writing the system state to the floppy."
-msgstr "ଫ୍ଲଫି ରେ ତନ୍ତ୍ରର ସ୍ଥିତି ଲେଖିବା ସମୟରେ ଗୋଟିଏ ସମସ୍ଯା ଦେଖାଗଲା।"
+msgstr "ଫ୍ଲଫିରେ ତନ୍ତ୍ରର ସ୍ଥିତି ଲେଖିବା ସମୟରେ ଗୋଟିଏ ସମସ୍ଯା ଦେଖାଗଲା।"
 
 #: ../exception.py:430
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
 msgstr ""
-"ଦୂର ଆଧାରରେ ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଲେଖାଗଲା। ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ବର୍ତମାନ ପୁନର୍ଚାଳିତ "
-"ହେବ।"
+"ଦୂର ଆଧାରରେ ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଲେଖାଗଲା। ବର୍ତମାନ "
+"ସ୍ଥାପକଟି ବନ୍ଦ ହୋଇଯିବ।"
 
 #: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
