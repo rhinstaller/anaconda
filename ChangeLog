@@ -1,3 +1,8 @@
+2007-08-07  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (YumBackend.doPostInstall):  Enable runlevel 5 if kdm
+	is installed, too (#251194).
+
 2007-08-07  Jeremy Katz  <katzj@redhat.com>
 
 	* fsset.py (xfsFileSystem.__init__): Don't require the command

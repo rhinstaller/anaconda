@@ -1283,7 +1283,7 @@ class YumBackend(AnacondaBackend):
             anaconda.id.bootloader.args.append("rhgb quiet")
             break
 
-        for tsmbr in self.ayum.tsInfo.matchNaevr(name='gdm'):
+        for tsmbr in self.ayum.tsInfo.matchNaevr(name='gdm') + self.ayum.tsInfo.matchNaevr(name='kdm'):
             if anaconda.id.displayMode == 'g' and not flags.usevnc:
                 anaconda.id.desktop.setDefaultRunLevel(5)
                 break
