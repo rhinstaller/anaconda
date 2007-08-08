@@ -222,14 +222,14 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt
 	 rhpl pyxf86config libxml2 glib2 sqlite neon libselinux-python
 	 elfutils-libelf krb5-libs convertdb1 jfsutils audit-libs pam
- 	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
+	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
 	 policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
 	 db4 rhpxl xorg-x11-server-Xorg libuser-python libuser system-config-date
 	 yum-metadata-parser gfs2-utils libvolume_id nash yum-fedorakmod
-	 libdhcp libnl libdhcp6client libdhcp4client
-	 device-mapper device-mapper-libs dmraid keyutils-libs
+	 libdhcp libnl libdhcp6client libdhcp4client newt-python
+	 device-mapper device-mapper-libs dmraid keyutils-libs libsemanage-python
 	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
