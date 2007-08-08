@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.61
+Version: 11.1.2.62
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Aug 08 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.62-1
+- Add a symlink in /etc to /mnt/runtime/etc/yum, handle kABI
+  requires/provides (dlehman)
+  Resolves: rhbz#241412
+- Fix converting UI selections into which drives should be used for
+  partitioning (clumens)
+  Resolves: rhbz#247997
+
 * Mon Aug 06 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.61-1
 - Honor ip=<val>/ipv6=<val>/noipv4/noipv6 boot parameters and skip the
   loader configuration if enough settings are passed on the boot line
