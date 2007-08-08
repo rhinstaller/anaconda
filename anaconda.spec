@@ -36,7 +36,7 @@ Requires: dosfstools e2fsprogs
 Requires: python-pyblock >= 0.24-1
 Requires: libbdevid >= 5.1.2-1, libbdevid-python
 Requires: audit-libs
-Requires: libuser
+Requires: libuser-python
 Requires: authconfig
 Requires: gnome-python2-gtkhtml2
 Requires: system-config-securitylevel

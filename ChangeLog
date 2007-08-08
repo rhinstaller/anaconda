@@ -1,5 +1,8 @@
 2007-08-08  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: libuser grew a python subpackage (#251347)
+	* scripts/upd-instroot: Likewise.
+
 	* scripts/upd-instroot (KEEPFILE): Add dosfslabel (#251217)
 
 2007-08-07  Jeremy Katz  <katzj@redhat.com>
