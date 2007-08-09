@@ -49,7 +49,7 @@ class SplitMediaTransactionData(SortableTransactionData):
             if id:
                 if id not in self.reqmedia.keys():
                     self.reqmedia[id] = [ txmember.pkgtup ]
-                else:
+                elif txmember.pkgtup not in self.reqmedia[id]:
                     self.reqmedia[id].append(txmember.pkgtup)
         SortableTransactionData.add(self, txmember)
 
