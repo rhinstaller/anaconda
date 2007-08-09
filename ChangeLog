@@ -1,5 +1,7 @@
 2007-08-09  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/loader.c: Fix "noipv6 ip=dhcp" to not ask about v4 vs v6
+
 	* utils/genmodinfo (blacklist): And the blacklist begins
 
 	* sortedtransaction.py (SplitMediaTransactionData.add): Don't

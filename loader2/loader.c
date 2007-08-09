@@ -553,7 +553,7 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
         loaderData->ipinfo_set = 0;
     }
 
-    if (loaderData->ipinfo_set)
+    if (loaderData->ipinfo_set || !strncmp(loaderData->ipv4, "dhcp", 4))
         flags |= LOADER_FLAGS_IP_PARAM;
 }
 
