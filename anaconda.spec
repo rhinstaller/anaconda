@@ -95,6 +95,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 desktop-file-install --vendor="" --dir=$RPM_BUILD_ROOT/%{_datadir}/applications  $RPM_BUILD_ROOT/%{_datadir}/applications/liveinst.desktop
 %endif
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -108,7 +110,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/update-desktop-database %{_datadir}/applications
 %endif
 
-%files
+%files -f %{name}.lang
 %defattr(-,root,root)
 %doc COPYING
 %doc ChangeLog
@@ -123,7 +125,6 @@ rm -rf $RPM_BUILD_ROOT
 /usr/sbin/gptsync
 %endif
 /usr/share/anaconda
-/usr/share/locale/*/*/*
 /usr/lib/anaconda
 %ifarch %livearches
 %{_bindir}/liveinst
