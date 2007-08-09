@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.17
+Version: 11.3.0.18
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -143,6 +143,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Aug 09 2007 Chris Lumens <clumens@redhat.com> 11.3.0.18-1
+- Fix "noipv6 ip=dhcp" to not ask about v4 vs. v6 (katzj).
+- Blacklist the ata_generic module (katzj).
+- Don't double add packages to the transaction set (katzj, #249908).
+- Use find_lang (katzj, #251444).
+- Add newt-python and libuser-python packages (katzj, clumens, #251347).
+- Add dosfslabel (katzj, #251217).
+- Enable runlevel 5 if kdm is installed (#251194).
+- Fix disk selection in text UI (#247997, #251150).
+- Don't require a command line option for xfs (katzj).
+- Fix syntax error (pjones).
+- Rework loader flags (dcantrell, #250895).
+
 * Mon Aug 06 2007 Chris Lumens <clumens@redhat.com> 11.3.0.17-1
 - Check the rpmdb of the installed root (katzj).
 - Fix mknod calls (hhara AT miraclelinux DOT com).
