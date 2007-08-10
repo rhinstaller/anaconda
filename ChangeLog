@@ -1,3 +1,8 @@
+2007-08-10  Peter Jones  <pjones@redhat.com>
+
+	* isys/isys.py (isPaeAvailable): Make it >= not > for the memory size
+	comparison (#207573)
+
 2007-08-10  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec:  Bump version.
