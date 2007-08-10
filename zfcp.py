@@ -40,6 +40,7 @@ def loggedWriteLineToFile(fn, value):
     f.close()
 
 zfcpsysfs = "/sys/bus/ccw/drivers/zfcp"
+scsidevsysfs = "/sys/bus/scsi/devices"
 
 class ZFCPDevice:
     def __init__(self, devnum, wwpn, fcplun):
@@ -133,12 +134,38 @@ class ZFCPDevice:
 
         return True
 
+    def offlineSCSIDevice(self):
+        f = open("/proc/scsi/scsi", "r")
+        lines = f.readlines()
+        f.close()
+
+        for line in lines:
+            if not line.startswith("Host"):
+                continue
+            scsihost = string.split(line)
+            host = scsihost[1]
+            channel = scsihost[3]
+            id = scsihost[5]
+            lun = scsihost[7]
+            scsidev = "%s:%s:%s:%s" % (host[4], channel[1], id[1], lun[1])
+            fcpsysfs = "%s/%s/fcp_lun" % (scsidevsysfs, scsidev)
+            fcpdel = "%s/%s/delete" % (scsidevsysfs, scsidev)
+
+            f = open(fcpsysfs, "r")
+            fcplunsysfs = f.readline()
+            f.close()
+
+            if fcplunsysfs[:6] == self.fcplun[:6]:
+                loggedWriteLineToFile(fcpdel, "1")
+                break
+
     def offlineDevice(self):
         offline = "%s/%s/online" %(zfcpsysfs, self.devnum)
         portremove = "%s/%s/port_remove" %(zfcpsysfs, self.devnum)
         unitremove = "%s/%s/%s/unit_remove" %(zfcpsysfs, self.devnum, self.wwpn)
 
         try:
+            self.offlineSCSIDevice()
             loggedWriteLineToFile(offline, "0")
             loggedWriteLineToFile(unitremove, self.fcplun)
             loggedWriteLineToFile(portremove, self.wwpn)
