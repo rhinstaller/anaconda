@@ -766,6 +766,14 @@ ncr53c8xx
 	scsi_hostadapter
 	"Symbios/NCR 53C8xx"
 
+pata_jmicron
+	scsi_hostadapter
+	"Jmicron PATA Controllers"
+
+pata_pdc2027x
+	scsi_hostadapter
+	"Promise PATA controllers"
+
 pluto
 	scsi_hostadapter
 	"SparcSTORAGE Array"
@@ -834,6 +842,14 @@ sata_promise
         scsi_hostadapter
         "Promise SATA controllers"
 
+sata_qstor
+	scsi_hostadapter
+	"QStor SATA controllers"
+
+sata_sil24
+	scsi_hostadapter
+	"Silicon Image 3124/3132 SATA controllers"
+
 sata_sil
         scsi_hostadapter
         "Silicon Image SATA controllers"
@@ -849,6 +865,10 @@ sata_svw
 sata_sx4
 	scsi_hostadapter
 	"Promise SX4 SATA controllers"
+
+sata_uli
+	scsi_hostadapter
+	"ULi SATA controllers"
 
 sata_via
         scsi_hostadapter
