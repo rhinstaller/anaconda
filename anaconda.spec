@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.62
+Version: 11.1.2.63
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 10 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.63-1
+- Disable zFCP device before removing LUN (bhinson AT redhat DOT com)
+  Resolves: rhbz#249341
+
 * Wed Aug 08 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.62-1
 - Add a symlink in /etc to /mnt/runtime/etc/yum, handle kABI
   requires/provides (dlehman)
