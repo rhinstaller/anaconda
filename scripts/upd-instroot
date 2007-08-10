@@ -1235,6 +1235,7 @@ if [ -x $DESTGR/usr/sbin/semodule ]; then
     /usr/sbin/chroot $DESTGR /usr/sbin/semodule -b /usr/share/selinux/targeted/base.pp $x -n -s targeted )
 fi
 rm -rf $DEST/etc/selinux
+rm -rf $DEST/usr/share/selinux $DESTGR/usr/share/selinux
 mkdir $DEST/etc/selinux
 cp -r $DESTGR/etc/selinux/* $DEST/etc/selinux/
 
