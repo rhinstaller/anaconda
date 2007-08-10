@@ -1,4 +1,4 @@
-# translation of temp.po to Assamese
+# translation of as.po to Assamese
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -6,12 +6,12 @@
 # Amitakhya Phukan <aphukan@redhat.com>, 2006, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: temp\n"
+"Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-05-21 14:50+0530\n"
+"PO-Revision-Date: 2007-08-10 17:14+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
-"Language-Team: Assamese <fedora-trans-as@redhat.com>\n"
+"Language-Team: Assamese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -124,8 +124,7 @@ msgstr "অজ্ঞাত সংস্থাপনৰ ধৰণ"
 
 #: ../anaconda:864
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"অাপুনি এনেধৰণৰ সংস্থাপন প্ৰক্ৰীয়া নিৰ্দিষ্ট কৰিছে যাৰ anaconda ই যোগান নধৰে ।"
+msgstr "অাপুনি এনেধৰণৰ সংস্থাপন প্ৰক্ৰীয়া নিৰ্দিষ্ট কৰিছে যাৰ anaconda ই যোগান নধৰে ।"
 
 #: ../anaconda:866
 #, c-format
@@ -191,8 +190,7 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
-"বুট nবিভাজন %s VFAT বিভাজন নহয় । এই বিভাজনৰ পৰা EFI য়ে বুট কৰিব নোৱাৰিব । "
+msgstr "বুট nবিভাজন %s VFAT বিভাজন নহয় । এই বিভাজনৰ পৰা EFI য়ে বুট কৰিব নোৱাৰিব । "
 
 #: ../autopart.py:1031
 msgid ""
@@ -204,10 +202,8 @@ msgstr ""
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"অাপোনাৰ স্থাপত্যৰ বুট কৰাৰ বাধ্যবাধকতাৰ বাবে বুট বিভাজন %s‌ উপযুক্ত নহ'বও পাৰে। "
+msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgstr "অাপোনাৰ স্থাপত্যৰ বুট কৰাৰ বাধ্যবাধকতাৰ বাবে বুট বিভাজন %s‌ উপযুক্ত নহ'বও পাৰে। "
 
 #: ../autopart.py:1064
 #, python-format
@@ -223,13 +219,13 @@ msgid "Requested Partition Does Not Exist"
 msgstr "অনুৰোধ কৰা বিভাজন নাই"
 
 #: ../autopart.py:1260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"%sৰ বাবে প্ৰয়োগ কৰিবলৈ বিভাজন %sৰ সন্ধান পোৱা ন'গ'ল ।\n"
+"বিভাজন %s ৰ সন্ধান কৰিব নোৱাৰি %s ৰ বাবে ব্যৱহাৰ কৰিবলৈ ।\n"
 "\n"
 "ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
 
@@ -238,13 +234,13 @@ msgid "Requested Raid Device Does Not Exist"
 msgstr "বিচৰা Raid যন্ত্ৰ নাই ।"
 
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"%sৰ বাবে প্ৰয়োগ কৰা raid যন্ত্ৰ %sৰ সন্ধান পোৱা ন'গ'ল ।\n"
+"raid যন্ত্ৰ %s ৰ সন্ধান কৰিব পৰা ন'গ'ল %s ৰ বাবে প্ৰয়োগ কৰিবলৈ ।\n"
 "\n"
 "ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
 
@@ -253,13 +249,13 @@ msgid "Requested Volume Group Does Not Exist"
 msgstr "বিচৰা আয়তন সমষ্টি নাই"
 
 #: ../autopart.py:1320
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"%sৰ বাবে প্ৰয়োগ কৰা আয়তন সমষ্টি %sৰ সন্ধান পোৱা ন'গ'ল ।\n"
+"আয়তন সমষ্টি %s ৰ সন্ধান পোৱা ন'গ'ল %sৰ বাবে প্ৰয়োগ কৰিবলৈ ।\n"
 "\n"
 "ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
 
@@ -268,13 +264,13 @@ msgid "Requested Logical Volume Does Not Exist"
 msgstr "বিচৰা লজিকেল আয়তন নাই "
 
 #: ../autopart.py:1358
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"%sৰ বাবে প্ৰয়োগ কৰা লজিকেল আয়তন সমষ্টি %sৰ সন্ধান পোৱা ন'গ'ল ।\n"
+"আয়তন সমষ্টি %s ৰ সন্ধান পোৱা ন'গ'ল %s ৰ বাবে প্ৰয়োগ কৰিবলৈ ।\n"
 "\n"
 "ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
 
@@ -283,7 +279,7 @@ msgid "Automatic Partitioning Errors"
 msgstr "স্বয়ংক্ৰিয় বিভাজন কৰাৰ ভুলসমূহ"
 
 #: ../autopart.py:1485
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -295,7 +291,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ 'ঠিক আছে' টিপক ।"
 
 #: ../autopart.py:1495
 msgid "Warnings During Automatic Partitioning"
@@ -313,7 +309,6 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -321,7 +316,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ 'ঠিক আছে' টিপক ।"
 
 #: ../autopart.py:1511 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:239
@@ -1337,8 +1332,7 @@ msgstr "সংস্থাপন প্ৰতিমূৰ্তি পোৱা 
 
 #: ../livecd.py:94
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 "সংস্থাপনৰ উৎস হিচাপে ব্যৱহাৰ কৰিবলৈ আপুনি দিয়া স্থান এটা বৈধ %s জীৱন্ত (লাইভ) CD "
 "নহয় ।"
@@ -1732,8 +1726,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"আপুনি এই বিভাজন সম্পাদন কৰিব নোৱাৰে, কিয়নো এইটো সম্প্ৰসাৰিত বিভাজন য'ত %s আছে ।"
+msgstr "আপুনি এই বিভাজন সম্পাদন কৰিব নোৱাৰে, কিয়নো এইটো সম্প্ৰসাৰিত বিভাজন য'ত %s আছে ।"
 
 #: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
@@ -1874,8 +1867,7 @@ msgid "Confirm Reset"
 msgstr "পুনৰায় সজ্জিত কৰা নিশ্চিত কৰক ।"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "আপুনি বিভাজন সূচি প্ৰথম অৱস্থালৈ পুনৰায় সজ্জিত কৰিবলৈ নিৰ্ধাৰিত কৰিছে নেকি ?"
 
 #: ../partitioning.py:61
@@ -1919,21 +1911,17 @@ msgstr ""
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
-"আপোনাৰ মূল বিভাজন ২৫০ মেগাবাইটকৈ কম যিটো সাধাৰণতে %s সংস্থাপনৰ বাবে বৰ সৰু ।"
+msgstr "আপোনাৰ মূল বিভাজন ২৫০ মেগাবাইটকৈ কম যিটো সাধাৰণতে %s সংস্থাপনৰ বাবে বৰ সৰু ।"
 
 #: ../partitions.py:840
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
-"প্ৰথম ৪ টা বিভাজনৰ ভিতৰত আপোনাৰ বুট বিভাজন নাই আৰু সেইবাবে বুট কৰিব পৰা নাযাব ।"
+msgstr "প্ৰথম ৪ টা বিভাজনৰ ভিতৰত আপোনাৰ বুট বিভাজন নাই আৰু সেইবাবে বুট কৰিব পৰা নাযাব ।"
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"আপুনি এটা FAT ধৰণৰ /boot/efi বিভাজন আৰু ৫০ মেগাবাইটৰ আকাৰ সৃষ্টি কৰিবৈ লাগিব ।"
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "আপুনি এটা FAT ধৰণৰ /boot/efi বিভাজন আৰু ৫০ মেগাবাইটৰ আকাৰ সৃষ্টি কৰিবৈ লাগিব ।"
 
 #: ../partitions.py:867
 msgid "You must create an Apple Bootstrap partition."
@@ -1953,8 +1941,7 @@ msgstr ""
 "উপদেশতকৈ নিম্ন স্তৰৰ ।"
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB যন্ত্ৰত সংস্তাপন কৰা হৈছে । এই সংস্থাপনে কাৰ্য্যকৰি প্ৰণালী সৃষ্টি কৰিব বা নকৰিবও "
 "পাৰে ।"
@@ -2015,8 +2002,7 @@ msgstr "এটা বিভাজন যিতো কোনো LVM আয়তন 
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "এই অভ্যুত্থানৰ স্থান অসিদ্ধ । %s পঞ্জিকা /  নথিপত্ৰ প্ৰণালীত থাকিব লাগিব । "
 
 #: ../partRequests.py:252
@@ -2300,8 +2286,7 @@ msgid "Welcome to %s"
 msgstr "%s লৈ স্বাগতম"
 
 #: ../text.py:472
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "সহায়ৰ বাবে <F1> | পদাৰ্থৰ মাজত <Tab> | <Space>-এ নিৰ্ব্বাচন কৰে | <F12> পৰৱৰ্তী "
 "পৰ্দ্দালৈ "
@@ -2545,8 +2530,7 @@ msgstr "%s %s সংস্থাপন"
 
 #: ../vnc.py:267
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
-"vnc গুপ্ত শব্দ নিৰ্ধাৰিত কৰিব পৰা ন'গ'ল - কোনো গুপ্ত শব্দ ব্যৱহাৰ কৰা হোৱা নাই !"
+msgstr "vnc গুপ্ত শব্দ নিৰ্ধাৰিত কৰিব পৰা ন'গ'ল - কোনো গুপ্ত শব্দ ব্যৱহাৰ কৰা হোৱা নাই !"
 
 #: ../vnc.py:268
 msgid "Make sure your password is at least 6 characters in length."
@@ -2588,8 +2572,7 @@ msgstr "৫০ টা চেষ্টাৰ পিছত সংযোগ কৰ�
 #: ../vnc.py:318
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"সংস্থাপন আৰম্ভ কৰিব'লৈ অনুগ্ৰহ কৰি %s লৈ আপোনাৰ vnc গ্ৰাহকক নিজে সংযোগ কৰক ।"
+msgstr "সংস্থাপন আৰম্ভ কৰিব'লৈ অনুগ্ৰহ কৰি %s লৈ আপোনাৰ vnc গ্ৰাহকক নিজে সংযোগ কৰক ।"
 
 #: ../vnc.py:320
 msgid "Please manually connect your vnc client to begin the install."
@@ -2706,8 +2689,7 @@ msgstr "কাৰ্য্য পৰিচালনাৰ যোগান ধৰ
 
 #: ../yuminstall.py:638
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "নিম্নলিখিত কাৰণ সমূহৰ বাবে কাৰ্য্য পৰিচালনাৰ যোগান ধৰা চলাওঁতে ভুল হ'ল: %s"
 
 #: ../yuminstall.py:733
@@ -2837,16 +2819,14 @@ msgid "The root password must be at least six characters long."
 msgstr "ৰূটৰ গুপ্ত শব্দ অতি কমেও ৬টা আখৰৰ হ'ব লাগিব ।"
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "বিচৰা গুপ্ত শব্দত non-ASCII আখৰ আছে, যাৰ অনুমতি দিয়া নহয় ।"
 
 #: ../iw/account_gui.py:107
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-"ৰূটৰ হিচাপ ব্যৱস্থাপ্ৰণালীৰ পৰিচালনাৰ বাবেহে । ৰূট ব্যৱহাৰকৰ্তাৰ বাবে গুপ্ত শব্দ দিয়ক ।"
+msgstr "ৰূটৰ হিচাপ ব্যৱস্থাপ্ৰণালীৰ পৰিচালনাৰ বাবেহে । ৰূট ব্যৱহাৰকৰ্তাৰ বাবে গুপ্ত শব্দ দিয়ক ।"
 
 #: ../iw/account_gui.py:122
 msgid "Root _Password: "
@@ -3073,8 +3053,7 @@ msgstr "%sৰ উন্নয়ন আৰম্ভ কৰিব'লৈ পৰব�
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr ""
-"উন্নয়নৰ সমপূৰ্ণ বৃত্তান্ত ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰাৰ পিছত '%s' নথিপত্ৰত পোৱা যাব ।"
+msgstr "উন্নয়নৰ সমপূৰ্ণ বৃত্তান্ত ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰাৰ পিছত '%s' নথিপত্ৰত পোৱা যাব ।"
 
 #: ../iw/congrats_gui.py:25
 msgid "Congratulations"
@@ -3336,8 +3315,7 @@ msgstr "অবৈধ লজিকেল আয়তনৰ  নাম"
 #: ../iw/lvm_dialog_gui.py:588 ../textw/partition_text.py:1291
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"লজিকেল আয়তনৰ  নাম \"%s\" ইতিমধ্যে ব্যৱহাৰত আছে । অনুগ্ৰহ কৰি আন এটা বাছি লওক ।"
+msgstr "লজিকেল আয়তনৰ  নাম \"%s\" ইতিমধ্যে ব্যৱহাৰত আছে । অনুগ্ৰহ কৰি আন এটা বাছি লওক ।"
 
 #: ../iw/lvm_dialog_gui.py:602
 #, python-format
@@ -3837,8 +3815,7 @@ msgstr "গুচাব নোৱাৰি"
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"বুটৰ লক্ষ্য গুচাব নোৱাৰি কাৰণ এইটো আপুনি সংস্থাপন কৰিব লোৱা %s ব্যৱস্থাপ্ৰণালীৰ ।"
+msgstr "বুটৰ লক্ষ্য গুচাব নোৱাৰি কাৰণ এইটো আপুনি সংস্থাপন কৰিব লোৱা %s ব্যৱস্থাপ্ৰণালীৰ ।"
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3940,14 +3917,12 @@ msgid "Partitioning"
 msgstr "বিভাজন ক্ৰীয়া"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "আপুনি অনুৰোধ কৰা বিভাজনৰ আঁচনিয়ে নিম্নলিখিত গুৰুত্বপূৰ্ণ ভুল দিলে ।"
 
 #: ../iw/partition_gui.py:635
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "আপোনাৰ %s সংস্থাপনৰ সৈতে আগবঢ়াৰ পূৰ্বে এই ভুল সমূহ আপুনি শুদ্ধ কৰিব লাগিব ।"
 
 #: ../iw/partition_gui.py:641
@@ -4473,8 +4448,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:112 ../textw/upgrade_bootloader_text.py:93
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "%s বুটলোডাৰ বৰ্ত্তমানে %s ত সংস্থাপন হোৱাটো সংস্থাপকে উদ্ঘাটন কৰিছে ।"
 
 #: ../iw/upgrade_bootloader_gui.py:116
@@ -4603,8 +4577,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "শ্বেপ নথিপত্ৰ ১ আৰু ২০০০ MBৰ মাজৰ আকাৰৰ হ'ব লাগিব ।"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "শ্বেপ বিভাজজনৰ বাবে যন্ত্ৰত পৰ্যাপ্ত স্থান নাই ।"
 
 #: ../iw/zipl_gui.py:28
@@ -4740,8 +4713,7 @@ msgstr ""
 "কৰিব খোজে । "
 
 #: ../textw/bootloader_text.py:290
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space>-এ নিৰ্ব্বাচন কৰে | <F2> অবিকল্পিত নিৰ্ব্বাচন কৰে | <F4> গুচোৱা | <F12> "
 "পৰৱৰ্তী পৰ্দ্দালৈ>"
@@ -4871,8 +4843,7 @@ msgid "Please select the package groups you would like to install."
 msgstr "আপুনি সংস্থাপন কৰিব বিচৰা সৰঞ্জাম সমষ্টি অনুগ্ৰহ কৰি নিৰ্ব্বাচন কৰক ।"
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Space>,<+>,<-> নিৰ্ব্বাচন কৰে   |   <F2> সমষ্টিৰ বিভৰণ   |   <F12> পৰৱৰ্তী "
 "পৰ্দ্দালৈ"
@@ -5386,8 +5357,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1472
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-সহায়     F2-নতুন      F3-সম্পাদন   F4-গুচাওক    F5-পুনৰায় সজ্জিত    F12-"
 "ঠিক আছে        "
@@ -5912,8 +5882,7 @@ msgstr "অজ্ঞাত চালক ডিষ্ক kickstart উত্‌�
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"kickstart চালক ডিষ্ক আদেশৰ বাবে নিম্নলিখিত অসিদ্ধ তৰ্ক নিৰ্ধাৰিত কৰা হেছিল: %s:%s"
+msgstr "kickstart চালক ডিষ্ক আদেশৰ বাবে নিম্নলিখিত অসিদ্ধ তৰ্ক নিৰ্ধাৰিত কৰা হেছিল: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -5941,8 +5910,7 @@ msgstr "চালক ডিষ্ক তুলি লওক ।"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"নিজে ভৰাব'লৈ কোনো চালক পোৱা ন'গ'ল । আপুনি এটা চালক ডিধ্ক ব্যৱহাৰ কৰিব খোজে নেকি?"
+msgstr "নিজে ভৰাব'লৈ কোনো চালক পোৱা ন'গ'ল । আপুনি এটা চালক ডিধ্ক ব্যৱহাৰ কৰিব খোজে নেকি?"
 
 #: ../loader2/driverselect.c:198
 msgid ""
@@ -6079,10 +6047,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s - পৰিত্ৰাণ পদ্ধতিলৈ আদৰণি "
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:159
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"<Tab>/<Alt-Tab> পদাৰ্থৰ মাজত  | <Space>-এ নিৰ্ব্বাচন কৰে | <F12> পৰৱৰ্তী পৰ্দ্দালৈ "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "<Tab>/<Alt-Tab> পদাৰ্থৰ মাজত  | <Space>-এ নিৰ্ব্বাচন কৰে | <F12> পৰৱৰ্তী পৰ্দ্দালৈ "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6223,8 +6189,7 @@ msgstr "এনাকণ্ডা চলোৱা হৈছে, %s পৰিত�
 #: ../loader2/loader.c:1825
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"এনাকণ্ডা চলোৱা হৈছে, %s ব্যৱস্থাপ্ৰণালীৰ সংস্থাপক - অনুগ্ৰহ কৰি প্ৰতীক্ষা কৰক...\n"
+msgstr "এনাকণ্ডা চলোৱা হৈছে, %s ব্যৱস্থাপ্ৰণালীৰ সংস্থাপক - অনুগ্ৰহ কৰি প্ৰতীক্ষা কৰক...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6322,10 +6287,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "যন্ত্ৰ kickstart প্ৰক্ৰীয়া আদেশ %s লৈ বেয়া তৰ্ক দিয়া হৈছে: %s"
 
 #: ../loader2/modules.c:1050
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
-msgstr ""
-"kickstart যন্ত্ৰৰ আদেশৰ বাবে ক্ষুদ্ৰাংশৰ ধৰণ আৰু নাম দুয়োটাকে নিৰ্দ্ধাৰিত কৰিব লাগিব ।"
+msgid "Both module type and name must be specified for the kickstart device command."
+msgstr "kickstart যন্ত্ৰৰ আদেশৰ বাবে ক্ষুদ্ৰাংশৰ ধৰণ আৰু নাম দুয়োটাকে নিৰ্দ্ধাৰিত কৰিব লাগিব ।"
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6458,10 +6421,8 @@ msgid "Missing Information"
 msgstr "অনুপস্থিত তথ্য"
 
 #: ../loader2/net.c:1194
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"এটা সিদ্ধ IPv4 ঠিকনা আৰু এটা নে'টৱৰ্ক মাস্ক বা CIDR উপসৰ্গ দুয়োতা দিব লাগিব ।"
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "এটা সিদ্ধ IPv4 ঠিকনা আৰু এটা নে'টৱৰ্ক মাস্ক বা CIDR উপসৰ্গ দুয়োতা দিব লাগিব ।"
 
 #: ../loader2/net.c:1200
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
@@ -7129,8 +7090,3 @@ msgstr "ৱেল্শ্ব"
 msgid "Zulu"
 msgstr "জুলু"
 
-#~ msgid "Rebooting System"
-#~ msgstr "ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিছোঁ"
-
-#~ msgid "Re_try"
-#~ msgstr "পুনঃচেষ্টা (_t)"
