@@ -1,3 +1,11 @@
+2007-08-10  David Cantrell  <dcantrell@redhat.com>
+
+	* zfcp.py: Add offlineSCSIDevice() to disable a SCSI device so we can
+	safely remove a LUN (bhinson AT redhat DOT com, #249341)
+
+	* zfcp.py (offlineDevice): Call offlineSCSIDevice() before removing
+	the LUN (bhinson AT redhat DOT com, #249341)
+
 2007-08-08  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
