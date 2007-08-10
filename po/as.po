@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-08-10 17:14+0530\n"
+"PO-Revision-Date: 2007-08-10 17:26+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: Assamese\n"
 "MIME-Version: 1.0\n"
@@ -496,20 +496,16 @@ msgid "Dump Written"
 msgstr "আবৰ্জনা লিখা গ'ল"
 
 #: ../exception.py:413
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. The "
 "installer will now exit."
-msgstr ""
-"আপোনাৰ ব্যৱস্থাপ্ৰণালীৰ অৱস্থা সফল ভাবে ফ্ল'পিলৈ লিখা গ'ল । আপোনাৰ ব্যৱস্থাপ্ৰণালী "
-"এতিয়া পুনৰাৰম্ভ কৰা হ'ব ।"
+msgstr "আপোনাৰ ব্যৱস্থাপ্ৰণালীৰ অৱস্থা সফল ভাবে ফ্ল'পিলৈ লিখা গ'ল । সংস্থাপক এতিয়া বাহিৰ হ'ব ।"
 
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
 #: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
-#, fuzzy
 msgid "_Exit installer"
-msgstr "সংস্থাপকৰ পৰা বাহিৰ হওক"
+msgstr "সংস্থাপকৰ পৰা বাহিৰ হওক (_E)"
 
 #: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
@@ -520,13 +516,10 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "ব্যৱস্থাপ্ৰণালীৰ অৱস্থা ফ্ল'পিলৈ লিখোঁতে সমস্যা হ'ল । "
 
 #: ../exception.py:430
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
-msgstr ""
-"ব্যৱস্থাপ্ৰণালীৰ অৱস্থা দূৰৰ গৃহস্থলৈ সফল ভাবে লিখা হ'ল । আপোনাৰ ব্যৱস্থাপ্ৰণালী এতিয়া "
-"পুনৰাৰম্ভ কৰা হ'ব ।"
+msgstr "ব্যৱস্থাপ্ৰণালীৰ অৱস্থা দূৰৰ গৃহস্থলৈ সফল ভাবে লিখা হ'ল । সংস্থাপক এতিয়া বাহিৰ হ'ব ।"
 
 #: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
@@ -606,7 +599,7 @@ msgid "Master Boot Record (MBR)"
 msgstr "ম্যাচ্‌ট্যাৰ বুট ৰেকৰ্ড (MBR)"
 
 #: ../fsset.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -616,7 +609,7 @@ msgstr ""
 "%s যন্ত্ৰত স্বেপ আৰম্ভ কৰোঁতে এটা ভুল হ'ল । এই সমস্যা গম্ভীৰ আৰু সংস্থাপন আগবাঢ়িব "
 "নোৱাৰে ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ <Enter> টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1457 ../packages.py:282 ../rescue.py:300 ../rescue.py:302
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
@@ -686,7 +679,6 @@ msgstr ""
 "সংস্থাপকে সকলো শ্বেপ বিভাজনক আকৃতি দিয়াটো সুনিৰ্দ্দিষ্ট কৰক ।"
 
 #: ../fsset.py:1507
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -696,15 +688,14 @@ msgstr ""
 "\n"
 "\n"
 "এৰি যোৱাতো নিৰ্ব্বাচন কৰক যদি আপুনি উন্নয়নৰ সময়ত এই বিভাজন সংস্থাপকৰ দ্বাৰা আওকাণ "
-"কৰা বিচাৰে । বিভাজনক স্বেপ স্থান হিচাপে পুনৰাকৃতি দিব'লৈ আকৃতি দিয়া নিৰ্বাচন কৰক । "
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ পুনৰাৰম্ভ নিৰ্বাচন কৰক ।"
+"কৰা বিচাৰে । বিভাজনক স্বেপ স্থান হিচাপে পুনৰাকৃতি দিব'লৈ আকৃতি দিয়া নিৰ্বাচন কৰক ।"
 
 #: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "আকৃতি দিয়ক"
 
 #: ../fsset.py:1519
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -718,10 +709,10 @@ msgstr ""
 "আপোনাৰ উন্নত বিভাজনত থকা /etc/fstab এ কোনো আইনসংগত স্বেপ বিভাজনলৈ উল্লেখ নকৰে "
 "।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ ঠিক আছে টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ ঠিক আছে টিপক ।"
 
 #: ../fsset.py:1530
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -733,10 +724,10 @@ msgstr ""
 "\n"
 "অতি সম্ভৱ ইয়াৰ মানে এই স্বেপ বিভাজন আৰম্ভ কৰা হোৱা নাই ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ ঠিক আছে টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ ঠিক আছে টিপক ।"
 
 #: ../fsset.py:1584
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
@@ -746,10 +737,10 @@ msgstr ""
 "/dev/%s যন্ত্ৰত বেয়া খণ্ডৰ উদ্ঘাটন কৰা হৈছে । এই যন্ত্ৰ ব্যৱহাৰ কৰিব'লৈ আপোনাক আমি "
 "উপদেশ নিদিওঁ ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1595
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -759,10 +750,10 @@ msgstr ""
 "%s-ত বেয়া খণ্ড বিচাৰোঁতে ভ্ৰান্তি হ'ল । এই সমস্যা গম্ভীৰ আৰু সংস্থাপন আগবাঢ়িব নোৱাৰে "
 "।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -772,10 +763,10 @@ msgstr ""
 "%s ক আকৃতি দিব'লৈ চেষ্টা কৰোঁতে ভ্ৰান্তি হ'ল । এই সমস্যা গম্ভীৰ আৰু সংস্থাপন আগবাঢ়িব "
 "নোৱাৰে ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1685
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -785,14 +776,14 @@ msgstr ""
 "%s ক অভিগমন কৰিব'লৈ চেষ্টা কৰোঁতে ভ্ৰান্তি হ'ল । এই সমস্যা গম্ভীৰ আৰু সংস্থাপন "
 "আগবাঢ়িব নোৱাৰে ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1711 ../fsset.py:1720
 msgid "Invalid mount point"
 msgstr "অসিদ্ধ অভ্যুত্থানৰ স্থান"
 
 #: ../fsset.py:1712
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
@@ -802,10 +793,10 @@ msgstr ""
 "%s ক সৃষ্টি কৰিব'লৈ চেষ্টা কৰোঁতে ভ্ৰান্তি হ'ল । এই পথৰ কিছু পদাৰ্থ পঞ্জিকা নহয় । "
 "এইটো ধ্বংসকাৰী ভ্ৰান্তি আৰু সংস্থাপন আগবাঢ়িব নোৱাৰে ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -815,7 +806,7 @@ msgstr ""
 "%s সৃষ্টি কৰোঁতে ভ্ৰান্তি হ'ল:%s । এইটো ধ্বংসকাৰী ভ্ৰান্তি আৰু সংস্থাপন আগবাঢ়িব নোৱাৰে "
 "।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1734
 msgid "Unable to mount filesystem"
@@ -837,7 +828,7 @@ msgid "_Continue"
 msgstr "আগবাঢ়ক (_C)"
 
 #: ../fsset.py:1751
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -849,10 +840,10 @@ msgstr ""
 "\n"
 "/etc/fstab ৰ যন্ত্ৰসমূহ লেবেলেৰে নিৰ্দ্ধাৰিত কৰিব লাগে, যন্ত্ৰৰ নামেৰে নহয় ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ ঠিক আছে টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ ঠিক আছে টিপক ।"
 
 #: ../fsset.py:1758
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -864,10 +855,9 @@ msgstr ""
 "\n"
 "অতি সম্ভৱ ইয়াৰ মানে এই বিভাজনত আকৃতি তৈয়াৰ কৰা হোৱা নাই ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ ঠিক আছে টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ ঠিক আছে টিপক ।"
 
 #: ../fsset.py:1778
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -879,7 +869,7 @@ msgstr ""
 "\n"
 "অতি সম্ভৱ ইয়াৰ মানে আপোনাৰ fstab ভুল ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ ঠিক আছে টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ ঠিক আছে টিপক ।"
 
 #: ../fsset.py:2432
 msgid "Duplicate Labels"
@@ -1065,9 +1055,8 @@ msgid "_Reboot"
 msgstr "পুনৰাৰম্ভ (_R)"
 
 #: ../gui.py:1119
-#, fuzzy
 msgid "Exiting"
-msgstr "প্ৰস্থান"
+msgstr "প্ৰস্থান কৰা হৈছে"
 
 #: ../gui.py:1186
 #, python-format
@@ -1083,7 +1072,7 @@ msgid "Install Window"
 msgstr "সংস্থাপক সংযোগ-ক্ষেত্ৰ"
 
 #: ../harddrive.py:44 ../image.py:146 ../image.py:483
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1097,7 +1086,7 @@ msgstr ""
 "অনুগ্ৰহ কৰি আপোনাৰ সংস্থাপন প্ৰতিমূৰ্ত্তিৰ আৰু আপোনাৰ ওচৰত সকলো প্ৰয়োজনীয় মিডিয়া "
 "হোৱাৰ সত্যাখ্যান কৰক । \n"
 "\n"
-"পুনৰাৰম্ভ কৰিলে, আপোনাৰ ব্যৱস্থাপ্ৰণালী স্থিৰতাহীন অৱস্থাত থাকিব যিটোক পুনঃসংস্থাপনৰ "
+"বাহিৰ হ'লে, আপোনাৰ ব্যৱস্থাপ্ৰণালী স্থিৰতাহীন অৱস্থাত থাকিব যিটোক পুনঃসংস্থাপনৰ "
 "প্ৰয়োগ হ'ব ।\n"
 "\n"
 
@@ -1106,7 +1095,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "সন্ধানহীন ISO 9660 প্ৰতিমূৰ্ত্তি"
 
 #: ../harddrive.py:72
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1114,10 +1103,10 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Exit  to abort "
 "the installation."
 msgstr ""
-"প্ৰতিমূৰ্ত্তি #%s তুলিল'ব'লৈ সংস্থাপকে চেষ্টা কৰিছিল, কিন্তু হাৰ্ড ড্ৰাইভত নেপালে ।\n"
+"প্ৰতিমূৰ্ত্তি #%s তুলি ল'ব'লৈ সংস্থাপকে চেষ্টা কৰিছিল, কিন্তু তাক হাৰ্ড ড্ৰাইভত নেপালে ।\n"
 "\n"
-"অনুগ্ৰহ কৰি এই প্ৰতিমুৰ্তি ড্ৰাইভত নকল কৰি পুনৰচেষ্টা টিপক । সংস্থাপন বন্ধ কৰিব'লৈ "
-"পুনৰাৰম্ভ টিপক ।"
+"অনুগ্ৰহ কৰি এই প্ৰতিমুৰ্তি ড্ৰাইভত নকল কৰি পুনৰচেষ্টা টিপক । সংস্থাপন এৰি যাবলৈ "
+"প্ৰস্থান টিপক ।"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
