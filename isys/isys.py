@@ -990,7 +990,7 @@ def isPaeAvailable():
             start = line.split(' ')[0].split('-')[0]
             start = long(start, 16)
 
-            if start > 0x100000000L:
+            if start >= 0x100000000L:
                 isPAE = True
                 break
 
