@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.67
+Version: 10.1.1.68
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 10 2007 Peter Jones <pjones@redhat.com> - 10.1.1.68-1
+- Add missing pata_* and sata_* HBA drivers
+  Resolves: rhbz#251718
+- Fix UI for drive selection for partitioning (clumens)
+  Resolves: rhbz#251150
+
 * Thu Aug 02 2007 David Cantrell <dcantrell@redhat.com> - 10.1.1.67-1
 - Handle return value from waitLinkSleep() correctly (pjones)
   Related: rhbz#207546
