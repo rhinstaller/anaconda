@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.63
+Version: 11.1.2.64
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 13 2007 Peter Jones <pjones@redhat.com> - 11.1.2.64-1
+- Fix memory size comparison in PAE test.
+  Related: rhbz#207573
+- Add e1000e and igb modules.
+  Resolves: rhbz#251733
+  Resolves: rhbz#251735
+
 * Fri Aug 10 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.63-1
 - Disable zFCP device before removing LUN (bhinson AT redhat DOT com)
   Resolves: rhbz#249341
