@@ -1,5 +1,7 @@
 2007-08-13  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (AnacondaYumRepo): Don't need the method here anymore
+
 	* yuminstall.py (AnacondaYum._handleFailure): Don't use a method
 	specific string that's 99% the same.  Instead, just make the
 	string work for everything.

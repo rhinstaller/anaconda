@@ -212,9 +212,8 @@ class AnacondaCallback:
 class AnacondaYumRepo(YumRepository):
     def __init__( self, uri=None, mirrorlist=None,
                   repoid='anaconda%s' % productStamp,
-                  root = "/mnt/sysimage/", method=None, addon=True):
+                  root = "/mnt/sysimage/", addon=True):
         YumRepository.__init__(self, repoid)
-        self.method = method
         self.nomoremirrors = False
         conf = yum.config.RepoConf()
         for k, v in conf.iteritems():
@@ -401,7 +400,7 @@ class AnacondaYum(YumSorter):
             repo = AnacondaYumRepo(uri, addon=False,
                                    repoid="anaconda-%s-%s" %(name,
                                                              productStamp),
-                                   root = root, method=self.method)
+                                   root = root)
             repo.enable()
             self.repos.add(repo)
 
