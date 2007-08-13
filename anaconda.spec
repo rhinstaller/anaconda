@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.18
+Version: 11.3.0.19
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -143,6 +143,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 13 2007 Chris Lumens <clumens@redhat.com> 11.3.0.19-1
+- Make the version number display more prominent.
+- Dynamically figure out the GTK and icon themes (katzj).
+- Purge lots of unneeded code that's in yum (katzj).
+- Don't check for bootable EFI partitions on RAID (#250353).
+- Remove SELinux stuff after policy creation (katzj).
+
 * Thu Aug 09 2007 Chris Lumens <clumens@redhat.com> 11.3.0.18-1
 - Fix "noipv6 ip=dhcp" to not ask about v4 vs. v6 (katzj).
 - Blacklist the ata_generic module (katzj).
