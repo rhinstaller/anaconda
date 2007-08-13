@@ -70,8 +70,7 @@ def size_string (size):
 
 class AnacondaCallback:
 
-    def __init__(self, ayum, anaconda, method, instLog, modeText):
-        self.method = method
+    def __init__(self, ayum, anaconda, instLog, modeText):
         self.repos = ayum.repos
         self.ts = ayum.ts
         self.ayum = ayum
@@ -1260,7 +1259,7 @@ class YumBackend(AnacondaBackend):
             rpm.addMacro("__dbi_htconfig",
                          "hash nofsync %{__dbi_other} %{__dbi_perms}")        
 
-        cb = AnacondaCallback(self.ayum, anaconda, self.method,
+        cb = AnacondaCallback(self.ayum, anaconda,
                               self.instLog, self.modeText)
         cb.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
 

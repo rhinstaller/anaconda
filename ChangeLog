@@ -1,7 +1,8 @@
 2007-08-13  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (AnacondaCallback): Remove without using the
-	installmethod's unlinkFilename
+	installmethod's unlinkFilename.
+	(AnacondaCallback) No longer takes method arg
 	* image.py (unlinkFilename): Remove method
 	* installmethod.py (unlinkFilename): Remove
 	* urlinstall.py (unlinkFilename): Remove
