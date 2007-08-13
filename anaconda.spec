@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.68
+Version: 10.1.1.69
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 13 2007 Peter Jones <pjones@redhat.com> - 10.1.1.69-1
+- Fix py-compile failure introduced in .68-1 .
+
 * Fri Aug 10 2007 Peter Jones <pjones@redhat.com> - 10.1.1.68-1
 - Add missing pata_* and sata_* HBA drivers
   Resolves: rhbz#251718
