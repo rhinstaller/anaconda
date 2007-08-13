@@ -1285,22 +1285,23 @@ MAILADDR root
 
         if dev is None:
             return
-        
+
         bootDev = dev.device
 
-        part = partedUtils.get_partition_by_name(diskset.disks, bootDev)
-        drive = partedUtils.get_partition_drive(part)
+        if dev.getName() != "RAIDDevice":
+            part = partedUtils.get_partition_by_name(diskset.disks, bootDev)
+            drive = partedUtils.get_partition_drive(part)
 
-        # on ia64, *only* /boot/efi should be marked bootable
-        # similarly, on pseries, we really only want the PReP partition active
-        if rhpl.getArch() == "ia64" \
-                or iutil.getPPCMachine() in ("pSeries", "iSeries", "PMac") \
-                or (rhpl.getArch() in ("i386", "x86_64") \
-                    and (iutil.isEfi() \
-                         or partedUtils.hasGptLabel(diskset, drive))):
-            if part and part.is_flag_available(parted.PARTITION_BOOT):
-                part.set_flag(parted.PARTITION_BOOT, 1)
-            return
+            # on ia64, *only* /boot/efi should be marked bootable
+            # similarly, on pseries, we really only want the PReP partition active
+            if rhpl.getArch() == "ia64" \
+                    or iutil.getPPCMachine() in ("pSeries", "iSeries", "PMac") \
+                    or (rhpl.getArch() in ("i386", "x86_64") \
+                        and (iutil.isEfi() \
+                             or partedUtils.hasGptLabel(diskset, drive))):
+                if part and part.is_flag_available(parted.PARTITION_BOOT):
+                    part.set_flag(parted.PARTITION_BOOT, 1)
+                return
 
         for drive in diskset.disks.keys():
             foundActive = 0

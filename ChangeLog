@@ -1,3 +1,8 @@
+2007-08-13  Chris Lumens  <clumens@redhat.com>
+
+	* fsset.py (FileSystemSet.setActive):  Don't try to check for bootable
+	EFI partitions on RAID (#250353).
+
 2007-08-10  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: We don't need to keep the SELinux stuff
