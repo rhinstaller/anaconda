@@ -1,3 +1,11 @@
+2007-08-13  Chris Lumens  <clumens@redhat.com>
+
+	* exception.py (formatException):  Display the version number in the
+	exception report.
+
+	* loader2/loader.c (main):  Add anaconda's version number to the
+	string that gets displayed on screen for a while.
+
 2007-08-13  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (expandPackageSet): Dynamically determine

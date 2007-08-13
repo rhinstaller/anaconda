@@ -3,8 +3,9 @@
 #
 # Matt Wilson <msw@redhat.com>
 # Erik Troan <ewt@redhat.com>
+# Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2000-2005 Red Hat, Inc.
+# Copyright 2000-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -68,7 +69,7 @@ def dumpClass(instance, fd, level=0, parentkey="", skipList=[]):
 	if eval("instance.%s is not None" % key) and \
            eval("id(instance.%s)" % key) in skipList:
             continue
-	    
+
         if type(value) == types.ListType:
             fd.write("%s%s: [" % (pad, curkey))
             first = 1
@@ -290,7 +291,7 @@ def copyExceptionToFloppy (anaconda):
             isys.makeDevInode(device, file)
         except SystemError:
             pass
-        
+
         try:
             fd = os.open(file, os.O_RDONLY)
         except:
@@ -327,14 +328,15 @@ def copyExceptionToFloppy (anaconda):
 def formatException (type, value, tb):
     lst = traceback.format_tb(tb)
     lst.reverse()
-    lst.insert(0, 'Traceback (most recent call first):\n')
+    lst.insert(0, "anaconda %s exception report\n" % os.getenv("ANACONDAVERSION"))
+    lst.insert(1, 'Traceback (most recent call first):\n')
     lst.extend(traceback.format_exception_only(type, value))
     return lst
 
 def handleException(anaconda, (type, value, tb)):
     if isinstance(value, bdb.BdbQuit):
         sys.exit(1)
-        
+
     # restore original exception handler
     sys.excepthook = sys.__excepthook__
 

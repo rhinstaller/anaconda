@@ -1833,9 +1833,9 @@ int main(int argc, char ** argv) {
         char * buf;
 
         if (FL_RESCUE(flags))
-            buf = sdupprintf(_("Running anaconda, the %s rescue mode - please wait...\n"), getProductName());
+            buf = sdupprintf(_("Running anaconda %s, the %s rescue mode - please wait...\n"), VERSION, getProductName());
         else
-            buf = sdupprintf(_("Running anaconda, the %s system installer - please wait...\n"), getProductName());
+            buf = sdupprintf(_("Running anaconda %s, the %s system installer - please wait...\n"), VERSION, getProductName());
         printf("%s", buf);
 
         if (!(pid = fork())) {
@@ -1857,6 +1857,7 @@ int main(int argc, char ** argv) {
             if (!(pid = fork())) {
                 char * cmd = (FL_POWEROFF(flags) ? strdup("/sbin/poweroff") :
                               strdup("/sbin/halt"));
+                setenv("ANACONDAVERSION", VERSION, 1);
                 if (execl(cmd, cmd, NULL) == -1) {
                     fprintf(stderr, "exec of poweroff failed: %s", 
                             strerror(errno));
