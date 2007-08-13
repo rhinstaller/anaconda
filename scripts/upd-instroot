@@ -161,6 +161,22 @@ expandPackageSet() {
     mkdir $PKGDEST/yumdir
     yum -c $YUMCONF -y --installroot=$PKGDEST/yumdir install $RPMS
 
+    # figure out the theme to keep
+    if [ -f $PKGDEST/yumdir/etc/gtk-2.0/gtkrc ]; then
+	gtktheme=$(grep "gtk-theme-name" $PKGDEST/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
+	echo "usr/share/themes/$gtktheme" >> $KEEPFILES
+	# find gtk engine needed
+	for engine in `grep engine /usr/share/themes/$gtktheme/gtk-2.0/gtkrc | awk {'print $2;'} | sed -e 's/"//g' | sort -u` ; do
+	    echo "usr/$LIBDIR/gtk-2.0/*/engines/*$engine*" >> $KEEPFILES
+	done
+	
+	theme=$(grep "gtk-icon-theme-name" $PKGDEST/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
+	while [ -n "$theme" ]; do 
+	    echo "usr/share/icons/$theme" >> $KEEPFILES
+	    theme=$(grep Inherits /usr/share/icons/$theme/index.theme | cut -d = -f 2)
+	done
+    fi
+
     pushd $PKGDEST/yumdir >/dev/null
     cat $KEEPFILES | while read spec ; do
       for filespec in `find . -path "./$spec"` ; do
@@ -840,30 +856,9 @@ usr/sbin/prelink
 usr/sbin/smartctl
 usr/share/anaconda/*
 usr/share/firstboot/firstboot_module_window*
-usr/share/icons/default/*
-usr/share/icons/gnome/cursors/*
-usr/share/icons/gnome/*/stock/*
-usr/share/icons/gnome/index.theme
-usr/share/icons/Mist/cursors/*
-usr/share/icons/Mist/*/stock/*
-usr/share/icons/Mist/index.theme
-usr/share/icons/Bluecurve/cursors/*
-usr/share/icons/Bluecurve/*/stock/*
-usr/share/icons/Bluecurve/index.theme
-usr/share/icons/Echo/cursors/*
-usr/share/icons/Echo/*/*/*
-usr/share/icons/Echo/index.theme
 usr/share/fonts/dejavu-lgc/DejaVuLGCSans.ttf
 usr/share/fonts/dejavu-lgc/DejaVuLGCSans-Bold.ttf
 usr/share/fonts/dejavu-lgc/DejaVuLGCSansMono.ttf
-usr/share/fonts/default/Type1/n019003l*
-usr/share/fonts/default/Type1/n019004l*
-usr/share/fonts/default/Type1/n019023l*
-usr/share/fonts/default/Type1/n019024l*
-usr/share/fonts/default/Type1/n021003l*
-usr/share/fonts/default/Type1/n021004l*
-usr/share/fonts/default/Type1/n021023l*
-usr/share/fonts/default/Type1/n021024l*
 usr/share/fonts/korean/TrueType/dotum.ttf
 usr/share/fonts/japanese/TrueType/sazanami-gothic.ttf
 usr/share/fonts/chinese/TrueType/uming*.ttf
@@ -904,8 +899,6 @@ usr/share/ppc64-utils/*
 usr/share/system-config-keyboard/*
 usr/share/system-config-date/*
 usr/share/terminfo/x/xterm
-usr/share/themes/Clearlooks/gtk-2.0/*
-usr/share/themes/Clearlooks/index.theme
 usr/share/vte/termcap/xterm
 usr/share/zenity
 usr/share/zoneinfo/zone.tab

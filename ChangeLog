@@ -1,5 +1,8 @@
 2007-08-13  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-instroot (expandPackageSet): Dynamically determine
+	GTK and icon theme bits to pull in
+
 	* yuminstall.py: Switch to using the new yum NoMoreMirrors
 	exception rather than the bits just here.  Remove some methods
 	which no longer need to be duplicated.
