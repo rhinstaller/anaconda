@@ -160,10 +160,9 @@ class AnacondaCallback:
 
                     f = open(fn, 'r')
                     self.openfile = f
+                except yum.Errors.NoMoreMirrorsRepoError:
+                    self.ayum._handleFailure(po)
                 except yum.Errors.RepoError, e:
-                    if repo.nomoremirrors:
-                        self.ayum._handleFailure(po)
-                        repo.nomoremirrors = False
                     continue
             self.inProgressPo = po
 
@@ -214,7 +213,6 @@ class AnacondaYumRepo(YumRepository):
                   repoid='anaconda%s' % productStamp,
                   root = "/mnt/sysimage/", addon=True):
         YumRepository.__init__(self, repoid)
-        self.nomoremirrors = False
         conf = yum.config.RepoConf()
         for k, v in conf.iteritems():
             if v or not self.getAttribute(k):
@@ -240,103 +238,6 @@ class AnacondaYumRepo(YumRepository):
         YumRepository.dirSetup(self)
         if not os.path.isdir(self.hdrdir):
             os.makedirs(self.hdrdir, mode=0755)
-
-    #XXX: FIXME duplicated from YumRepository due to namespacing
-    def __headersListFromDict(self):
-        """Convert our dict of headers to a list of 2-tuples for urlgrabber."""
-        headers = []
-
-        keys = self.http_headers.keys()
-        for key in keys:
-            headers.append((key, self.http_headers[key]))
-
-        return headers
-
-    # adds handling of "no more mirrors" exception
-    def _getFile(self, url=None, relative=None, local=None, start=None, end=None,
-            copy_local=0, checkfunc=None, text=None, reget='simple', cache=True):
-        """retrieve file from the mirrorgroup for the repo
-           relative to local, optionally get range from
-           start to end, also optionally retrieve from a specific baseurl"""
-
-        # if local or relative is None: raise an exception b/c that shouldn't happen
-        # if url is not None - then do a grab from the complete url - not through
-        # the mirror, raise errors as need be
-        # if url is None do a grab via the mirror group/grab for the repo
-        # return the path to the local file
-
-        # Turn our dict into a list of 2-tuples
-        headers = self.__headersListFromDict()
-
-        # We will always prefer to send no-cache.
-        if not (cache or self.http_headers.has_key('Pragma')):
-            headers.append(('Pragma', 'no-cache'))
-
-        headers = tuple(headers)
-
-        if local is None or relative is None:
-            raise yum.Errors.RepoError, \
-                  "get request for Repo %s, gave no source or dest" % self.id
-
-        if self.cache == 1:
-            if os.path.exists(local): # FIXME - we should figure out a way
-                return local          # to run the checkfunc from here
-
-            else: # ain't there - raise
-                raise yum.Errors.RepoError, \
-                    "Caching enabled but no local cache of %s from %s" % (local,
-                           self)
-
-        if url:
-            (scheme, netloc, path, query, fragid) = urlparse.urlsplit(url)
-
-        if url is not None and scheme != "media":
-            ug = URLGrabber(keepalive = False,
-                            bandwidth = self.bandwidth,
-                            retry = self.retries,
-                            throttle = self.throttle,
-                            progres_obj = self.callback,
-                            copy_local = copy_local,
-                            reget = reget,
-                            proxies = self.proxy_dict,
-                            failure_callback = self.failure_obj,
-                            interrupt_callback=self.interrupt_callback,
-                            timeout=self.timeout,
-                            checkfunc=checkfunc,
-                            http_headers=headers,
-                            )
-
-            remote = url + '/' + relative
-
-            try:
-                result = ug.urlgrab(remote, local,
-                                    text=text,
-                                    range=(start, end),
-                                    )
-            except URLGrabError, e:
-                if e.errno == 256: # no more mirrors
-                    self.nomoremirrors = True
-                raise yum.Errors.RepoError, \
-                    "failed to retrieve %s from %s\nerror was %s" % (relative, self.id, e)
-
-        else:
-            try:
-                result = self.grab.urlgrab(relative, local,
-                                           keepalive = False,
-                                           text = text,
-                                           range = (start, end),
-                                           copy_local=copy_local,
-                                           reget = reget,
-                                           checkfunc=checkfunc,
-                                           http_headers=headers,
-                                           )
-            except URLGrabError, e:
-                if e.errno == 256: # no more mirrors
-                    self.nomoremirrors = True
-                    
-                raise yum.Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
-
-        return result
 
 class YumSorter(yum.YumBase):
     
@@ -452,6 +353,18 @@ class AnacondaYum(YumSorter):
 
         self.repos.setCacheDir('/tmp/cache')
 
+    def downloadHeader(self, po):
+        while True:
+            # retrying version of download header
+            try:
+                YumSorter.downloadHeader(self, po)
+            except yum.Errors.NoMoreMirrorsRepoError:
+                self._handleFailure(po)
+            except yum.Errors.RepoError, e:
+                continue
+            else:
+                break
+
     def _handleFailure(self, package):
         pkgFile = os.path.basename(package.returnSimple('relativepath'))
         rc = self.anaconda.intf.messageWindow(_("Error"),
@@ -489,58 +402,6 @@ class AnacondaYum(YumSorter):
 
     def urlgrabberFailureCB (self, obj, *args, **kwargs):
         log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
-
-    # copied from YumBase to insert handling for "no more mirrors" failure
-    def downloadHeader(self, po):
-        """download a header from a package object.
-           output based on callback, raise yum.Errors.YumBaseError on problems"""
-
-        if hasattr(po, 'pkgtype') and po.pkgtype == 'local':
-            return
-                
-        errors = {}
-        local =  po.localHdr()
-        repo = self.repos.getRepo(po.repoid)
-        if os.path.exists(local):
-            try:
-                result = self.verifyHeader(local, po, raiseError=1)
-            except URLGrabError, e:
-                # might add a check for length of file - if it is < 
-                # required doing a reget
-                try:
-                    os.unlink(local)
-                except OSError, e:
-                    pass
-            else:
-                po.hdrpath = local
-                return
-        else:
-            if self.conf.cache:
-                raise yum.Errors.RepoError, \
-                'Header not in local cache and caching-only mode enabled. Cannot download %s' % po.hdrpath
-        
-        if self.dsCallback: self.dsCallback.downloadHeader(po.name)
-        
-        while 1:
-            try:
-                checkfunc = (self.verifyHeader, (po, 1), {})
-                hdrpath = repo.getHeader(po, checkfunc=checkfunc,
-                                         cache=repo.http_caching != 'none')
-            except yum.Errors.RepoError, e:
-                if repo.nomoremirrors:
-                    self._handleFailure(po)
-                    repo.nomoremirrors = False
-                    continue
-                saved_repo_error = e
-                try:
-                    os.unlink(local)
-                except OSError, e:
-                    raise yum.Errors.RepoError, saved_repo_error
-                else:
-                    raise
-            else:
-                po.hdrpath = hdrpath
-                return
 
     def getDownloadPkgs(self):
         downloadpkgs = []
@@ -763,17 +624,15 @@ class YumBackend(AnacondaBackend):
                         task(thisrepo = repo.id)
                         waitwin.next_task()
                     waitwin.pop()
-                except RepoError, e:
-                    if repo.nomoremirrors:
-                        buttons = [_("_Abort"), _("_Retry")]
-                        repo.nomoremirrors = False
-                    else:
-                        buttons = [_("_Abort")]
-
-                    if anaconda.isKickstart:
-                        buttons.append(_("_Continue"))
+                except yum.Errors.NoMoreMirrorsRepoError:
+                    buttons = [_("_Abort"), _("_Retry")]
+                except yum.Errors.RepoError, e:
+                    buttons = [_("_Abort")]
                 else:
                     break # success
+
+                if anaconda.isKickstart:
+                    buttons.append(_("_Continue"))
 
                 waitwin.pop()
                 if not fatalerrors:
@@ -809,13 +668,10 @@ class YumBackend(AnacondaBackend):
         while 1:
             try:
                 self.doGroupSetup()
+            except yum.Errors.NoMoreMirrorsRepoError:
+                buttons = [_("Re_boot"), _("_Retry")]
             except (yum.Errors.GroupsError, yum.Errors.RepoError):
                 buttons = [_("Re_boot")]
-                for repo in self.ayum.repos.listEnabled():
-                    if repo.nomoremirrors:
-                        buttons = [_("Re_boot"), _("_Retry")]
-                        repo.nomoremirrors = False
-                        break
             else:
                 break # success
 
@@ -1043,27 +899,25 @@ class YumBackend(AnacondaBackend):
             while 1:
                 try:
                     (code, msgs) = self.ayum.buildTransaction()
+                except yum.Errors.NoMoreMirrorsRepoError:
+                    buttons = [_("Re_boot"), _("_Retry")]
                 except RepoError, e:
                     buttons = [_("Re_boot")]
-                    for repo in self.ayum.repos.listEnabled():
-                        if repo.nomoremirrors:
-                            buttons = [_("Re_boot"), _("_Retry")]
-                            repo.nomoremirrors = False
-                            break
-                    # FIXME: this message isn't ideal, but it'll do for now
-                    rc = anaconda.intf.messageWindow(_("Error"),
+                else:
+                    break
+
+                # FIXME: this message isn't ideal, but it'll do for now
+                rc = anaconda.intf.messageWindow(_("Error"),
                                _("Unable to read package metadata. This may be "
                                  "due to a missing repodata directory.  Please "
                                  "ensure that your install tree has been "
                                  "correctly generated.  %s" % e),
                                  type="custom", custom_icon="error",
                                  custom_buttons=buttons)
-                    if rc == 0:
-                        sys.exit(0)
-                    else:
-                        continue
+                if rc == 0:
+                    sys.exit(0)
                 else:
-                    break
+                    continue
 
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 

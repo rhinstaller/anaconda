@@ -1,5 +1,9 @@
 2007-08-13  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py: Switch to using the new yum NoMoreMirrors
+	exception rather than the bits just here.  Remove some methods
+	which no longer need to be duplicated.
+
 	* yuminstall.py (AnacondaYumRepo): Don't need the method here anymore
 
 	* yuminstall.py (AnacondaYum._handleFailure): Don't use a method
