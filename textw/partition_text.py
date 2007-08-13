@@ -1584,7 +1584,7 @@ class AutoPartitionWindow:
                 return INSTALL_BACK
 
             partitions.autoClearPartType = typebox.current()
-            partitions.autoClearPartDrives = map(lambda s: s.split()[0], self.drivelist.getSelection()])
+            partitions.autoClearPartDrives = map(lambda s: s.split()[0], self.drivelist.getSelection())
 
             if queryAutoPartitionOK(intf, diskset, partitions):
                 self.shutdownUI()
