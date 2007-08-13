@@ -456,7 +456,12 @@ class AnacondaYum(YumSorter):
     def _handleFailure(self, package):
         pkgFile = os.path.basename(package.returnSimple('relativepath'))
         rc = self.anaconda.intf.messageWindow(_("Error"),
-                                    self.method.badPackageError(pkgFile),
+                   _("The file %s cannot be opened.  This is due to a missing "
+                     "file, a corrupt package or corrupt media.  Please "
+                     "verify your installation source.\n\n"
+                     "If you exit, your system will be left in an inconsistent "
+                     "state that will likely require reinstallation.\n\n") %
+                                              (pkgFile,),
                                     type="custom", custom_icon="error",
                                     custom_buttons=[_("Re_boot"), _("_Retry")])
 

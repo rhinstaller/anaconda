@@ -139,14 +139,6 @@ class CdromInstallMethod(ImageInstallMethod):
     def ejectCD(self):
         isys.ejectCdrom(self.device, makeDevice=1)
 
-    def badPackageError(self, pkgname):
-        return _("The file %s cannot be opened.  This is due to a missing "
-                 "file or perhaps a corrupt package.  Please verify your "
-                 "installation images and that you have all the required "
-                 "media.\n\n"
-                 "If you exit, your system will be left in an inconsistent "
-                 "state that will likely require reinstallation.\n\n") % pkgname
-
     def systemUnmounted(self):
 	if self.loopbackFile:
 	    isys.lochangefd("/dev/loop0", 
@@ -364,13 +356,6 @@ class CdromInstallMethod(ImageInstallMethod):
 
 class NfsInstallMethod(ImageInstallMethod):
 
-    def badPackageError(self, pkgname):
-        return _("The file %s cannot be opened.  This is due to a missing "
-                 "file or perhaps a corrupt package.  Please verify your "
-                 "installation tree contains all required packages.\n\n"
-                 "If you exit, your system will be left in an inconsistent "
-                 "state that will likely require reinstallation.\n\n") % pkgname
-
     def __init__(self, method, rootPath, intf):
         """@param method: nfs:/mnt/source"""
         tree = method[5:]
@@ -474,14 +459,6 @@ class NfsIsoInstallMethod(NfsInstallMethod):
             log.info("switching from iso %s to %s for %s" %(self.currentMedia, mediano, filename))
 	    self.umountImage()
 	    self.mountImage(mediano)
-
-    def badPackageError(self, pkgname):
-        return _("The file %s cannot be opened.  This is due to a missing "
-                 "file or perhaps a corrupt package.  Please verify your "
-                 "installation images and that you have all the required "
-                 "media.\n\n"
-                 "If you exit, your system will be left in an inconsistent "
-                 "state that will likely require reinstallation.\n\n") % pkgname
 
     def umountImage(self):
 	if self.currentMedia:

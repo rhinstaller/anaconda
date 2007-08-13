@@ -107,12 +107,6 @@ class InstallMethod:
     def ejectCD(self):
         pass
 
-    ## Construct a method-specific error message.
-    # @param pkgname The name of the package that could not be fetched.
-    # @return A method-specific error message.
-    def badPackageError(self, pkgname):
-        pass
-
     ## Switch CDs.
     # @param mediano The CD media number to switch to.
     # @param filename The file to be read that requires switching media.

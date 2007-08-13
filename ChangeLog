@@ -1,5 +1,12 @@
 2007-08-13  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (AnacondaYum._handleFailure): Don't use a method
+	specific string that's 99% the same.  Instead, just make the
+	string work for everything.
+	* installmethod.py (InstallMethod.badPackageError): Remove
+	* image.py (badPackageError): Likewise.
+	* urlinstall.py (badPackageError): Likewise.
+
 	* yuminstall.py (AnacondaCallback): Remove without using the
 	installmethod's unlinkFilename.
 	(AnacondaCallback) No longer takes method arg
