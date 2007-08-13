@@ -185,6 +185,10 @@ e1000
 	eth
 	"Intel EtherExpress/1000 gigabit"
 
+e1000e
+	eth
+	"Intel 82566DC-2 Gigabit Network Connection"
+
 eepro
 	eth
 	"EtherExpress Pro/10"
@@ -272,6 +276,10 @@ ibmtr
 	tr
 	"Shared-memory IBM Token Ring 16/4"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
+
+igb
+	eth
+	"Intel 82575EB Gigabit Network/Backplane Connection"
 
 ixgb
 	eth
