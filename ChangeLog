@@ -1,3 +1,11 @@
+2007-08-13  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (AnacondaCallback): Remove without using the
+	installmethod's unlinkFilename
+	* image.py (unlinkFilename): Remove method
+	* installmethod.py (unlinkFilename): Remove
+	* urlinstall.py (unlinkFilename): Remove
+
 2007-08-13  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (FileSystemSet.setActive):  Don't try to check for bootable

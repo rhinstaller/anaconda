@@ -31,7 +31,6 @@ import rhpl
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError, PackageSackError
 from yum.yumRepo import YumRepository
-from installmethod import FileCopyException
 from backend import AnacondaBackend
 from product import productName, productStamp
 from sortedtransaction import SplitMediaTransactionData
@@ -92,6 +91,7 @@ class AnacondaCallback:
         self.modeText = modeText
 
         self.openfile = None
+        self.inProgressPo = None
 
     def setSizes(self, numpkgs, totalSize, totalFiles):
         self.numpkgs = numpkgs
@@ -166,6 +166,7 @@ class AnacondaCallback:
                         self.ayum._handleFailure(po)
                         repo.nomoremirrors = False
                     continue
+            self.inProgressPo = po
 
             return self.openfile.fileno()
 
@@ -175,7 +176,14 @@ class AnacondaCallback:
             fn = self.openfile.name
             self.openfile.close()
             self.openfile = None
-            self.method.unlinkFilename(fn)
+
+            repo = self.repos.getRepo(self.inProgressPo.repoid)
+            if len(filter(lambda u: u.startswith("file:"), repo.baseurl)) == 0:
+                try:
+                    os.remove(fn)
+                except OSError, e:
+                    log.debug("unable to remove file %s" %(e,))
+            self.inProgressPo = None
 
             self.donepkgs += 1
             self.doneSize += hdr['size']/1024.0

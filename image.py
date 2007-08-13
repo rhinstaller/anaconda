@@ -313,9 +313,6 @@ class CdromInstallMethod(ImageInstallMethod):
                 self.messageWindow(_("Error"), 
                         _("Unable to access the disc."))
 
-    def unlinkFilename(self, fullName):
-        pass
-
     def filesDone(self):
         # we're trying to unmount the CD here.  if it fails, oh well,
         # they'll reboot soon enough I guess :)

@@ -179,8 +179,6 @@ class UrlInstallMethod(InstallMethod):
 
     def copyFileToTemp(self, filename):
         return self.__copyFileToTemp(self.pkgUrl, filename)
-    def unlinkFilename(self, fullName):
-	os.remove(fullName)
 
     def setIntf(self, intf):
 	self.intf = intf

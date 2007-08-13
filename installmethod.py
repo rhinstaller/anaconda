@@ -84,11 +84,6 @@ class InstallMethod:
     def filesDone(self):
 	pass
 
-    ## Remove a file if it was fetched from a remote system.
-    # @param fullName The full path to the file to be removed.
-    def unlinkFilename(self, fullName):
-	pass
-
     ## The constructor.
     # @param method The --method= parameter passed to anaconda from loader.
     # @param rootpath The --rootpath= parameter passed to anaconda from loader.
