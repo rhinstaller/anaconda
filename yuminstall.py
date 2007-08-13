@@ -439,31 +439,26 @@ class AnacondaYum(YumSorter):
             elif a > b:
                 return 1
             return 0
-            
+
         self.initActionTs()
         if id.getUpgrade():
             self.ts.ts.setProbFilter(~rpm.RPMPROB_FILTER_DISKSPACE)
         self.setColor()
-        if not self.method.splitmethod:
+
+        # If we don't have any required media assume single disc
+        if self.tsInfo.reqmedia == {}:
+            self.tsInfo.reqmedia[0] = None
+        mkeys = self.tsInfo.reqmedia.keys()
+        mkeys.sort(mediasort)
+        for i in mkeys:
+            self.tsInfo.curmedia = i
+            if i > 0:
+                pkgtup = self.tsInfo.reqmedia[i][0]
+                self.method.switchMedia(i, filename=pkgtup)
             self.populateTs(keepold=0)
             self.ts.check()
             self.ts.order()
             self._run(instLog, cb, intf)
-        else:
-            # If we don't have any required media assume single disc
-            if self.tsInfo.reqmedia == {}:
-                self.tsInfo.reqmedia[0] = None
-            mkeys = self.tsInfo.reqmedia.keys()
-            mkeys.sort(mediasort)
-            for i in mkeys:
-                self.tsInfo.curmedia = i
-                if i > 0:
-                    pkgtup = self.tsInfo.reqmedia[i][0]
-                    self.method.switchMedia(i, filename=pkgtup)
-                self.populateTs(keepold=0)
-                self.ts.check()
-                self.ts.order()
-                self._run(instLog, cb, intf)
 
     def _run(self, instLog, cb, intf):
         # set log fd.  FIXME: this is ugly.  see changelog entry from 2005-09-13

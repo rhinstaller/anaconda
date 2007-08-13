@@ -116,7 +116,6 @@ class ImageInstallMethod(InstallMethod):
 	InstallMethod.__init__(self, tree, rootPath, intf)
 	self.tree = tree
 	self.isoPath = tree
-        self.splitmethod = True
 
 class CdromInstallMethod(ImageInstallMethod):
 
@@ -360,7 +359,6 @@ class NfsInstallMethod(ImageInstallMethod):
         """@param method: nfs:/mnt/source"""
         tree = method[5:]
 	ImageInstallMethod.__init__(self, tree, rootPath, intf)
-        self.splitmethod = False
         self.currentMedia = []
 
 def getDiscNums(line):

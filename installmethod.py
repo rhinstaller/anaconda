@@ -92,7 +92,6 @@ class InstallMethod:
         self.rootPath = rootpath
         self.intf = intf
         self.tree = None
-        self.splitmethod = False
 
     ## Get the base URI for the method.
     # @return The base URI for this installation method.

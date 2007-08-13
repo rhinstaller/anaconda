@@ -6,6 +6,13 @@
 	* loader2/loader.c (main):  Add anaconda's version number to the
 	string that gets displayed on screen for a while.
 
+	* image.py (ImageInstallMethod.__init__, NfsInstallMethod.__init__):
+	Drop splitmethod attribute.
+	* installmethod.py (InstallMethod.__init__):  Likewise.
+
+	* yuminstall.py (AnacondaYum.run):  One "disc" media is just a special
+	case of multiple discs.
+
 2007-08-13  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (expandPackageSet): Dynamically determine
