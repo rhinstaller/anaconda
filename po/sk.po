@@ -1,6 +1,7 @@
 #
 # Stanislav Meduna <stano@eunet.sk>, 2000.
 # Marcel Telka <marcel@telka.sk>, 2003, 2004.
+# Marek Mahut <mmahut@fedoraproject.org>, 2007
 #
 # $Id$
 #
@@ -10,8 +11,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
 "PO-Revision-Date: 2007-08-04 09:39+0200\n"
-"Last-Translator: Mike Karas <zoliqe@gmail.com>\n"
-"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
+"Last-Translator: Marek Mahut <mmahut@fedoraproject.org>\n"
+"Language-Team: Slovak <trans-list-sk@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit"
@@ -94,7 +95,7 @@ msgstr ""
 
 #: ../anaconda:429
 msgid "No video hardware found, assuming headless"
-msgstr "Nenašiel som video hardvér, predpokladám bezhlavý"
+msgstr "Nenašiel som video zariadenie, predpokladám ze neexistuje"
 
 #: ../anaconda:436 ../anaconda:897
 msgid "Unable to instantiate a X hardware state object."
@@ -122,8 +123,7 @@ msgstr "Neznáma metóda inštalácie"
 
 #: ../anaconda:864
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Špecifikovali ste inštalačnú metódu, ktorá nie je podporovaná anacondou."
+msgstr "Špecifikovali ste inštalačnú metódu, ktorá nie je podporovaná anacondou."
 
 #: ../anaconda:866
 #, c-format
@@ -7140,32 +7140,32 @@ msgstr "Velčina"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "Rebooting System"
-#~ msgstr "Reštartovanie systému"
+msgid "Rebooting System"
+msgstr "Reštartovanie systému"
 
-#~ msgid "Re_try"
-#~ msgstr "_Znovu"
+msgid "Re_try"
+msgstr "_Znovu"
 
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Odstráňte všetky médiá použité počas inštalácie a stlačte tlačidlo "
-#~ "\"Reštart\" pre reštartovanie vášho systému.\n"
-#~ "\n"
+msgid ""
+"Remove any media used during the installation process and press the "
+"\"Reboot\" button to reboot your system.\n"
+"\n"
+msgstr ""
+"Odstráňte všetky médiá použité počas inštalácie a stlačte tlačidlo "
+"\"Reštart\" pre reštartovanie vášho systému.\n"
+"\n"
 
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Vyberte akékoľvek médium použité počas inštalačného procesu a stlačte "
-#~ "<Enter> pre reštart vášho systému.\n"
-#~ "\n"
+msgid ""
+"Remove any media used during the installation process and press <Enter> "
+"to reboot your system.\n"
+"\n"
+msgstr ""
+"Vyberte akékoľvek médium použité počas inštalačného procesu a stlačte "
+"<Enter> pre reštart vášho systému.\n"
+"\n"
 
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Enter> pre reštart"
+msgid "<Enter> to reboot"
+msgstr "<Enter> pre reštart"
 
-#~ msgid "NFS image"
-#~ msgstr "NFS obraz"
+msgid "NFS image"
+msgstr "NFS obraz"
