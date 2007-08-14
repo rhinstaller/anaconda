@@ -5,18 +5,20 @@
 #
 # Automatically generated, 2004.
 # Tyronne Wickramarathne <tywickra@redhat.com>, 2006.
+# Danishka Navin <snavin@redhat.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2006-10-19 11:54+0530\n"
-"Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
+"PO-Revision-Date: 2007-08-14 14:04+0530\n"
+"Last-Translator: Danishka Navin <snavin@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -94,8 +96,7 @@ msgstr "ප්‍රමාණවත් RAM නොමැති බැවින්
 
 #: ../anaconda:429
 msgid "No video hardware found, assuming headless"
-msgstr ""
-"චිත්රක සඳහා අදාල දෘඪාංග හඳුනා නොගත් බැවින් පරිගණක තිරයක් නොමැති බැව් උපකල්පනය කර ඇත"
+msgstr "චිත්රක සඳහා අදාල දෘඪාංග හඳුනා නොගත් බැවින් පරිගණක තිරයක් නොමැති බැව් උපකල්පනය කර ඇත"
 
 #: ../anaconda:436 ../anaconda:897
 msgid "Unable to instantiate a X hardware state object."
@@ -205,8 +206,7 @@ msgstr ""
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "ඔබේ පරිගණක නිර්මිතය ක්‍රියාත්මක කිරීමට අවශ්‍ය විධානයන් %s Boot කොටස තුල නොමැත."
 
 #: ../autopart.py:1064
@@ -464,8 +464,7 @@ msgstr "බූට් ලෝඩරය ස්ථාපනය කරමින්...
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"kernel ඇසුරුම් කිසිවක් ඔබේ පද්ධතියේ ස්ථාපනය කර නොමැත. බූට් ලෝඩරයේ මානකරනය වෙනස් නොවේ."
+msgstr "kernel ඇසුරුම් කිසිවක් ඔබේ පද්ධතියේ ස්ථාපනය කර නොමැත. බූට් ලෝඩරයේ මානකරනය වෙනස් නොවේ."
 
 #: ../cmdline.py:45
 msgid "Completed"
@@ -509,9 +508,8 @@ msgstr ""
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
 #: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
-#, fuzzy
 msgid "_Exit installer"
-msgstr "ස්ථාපනය කරන්නා %s"
+msgstr "ස්ථාපකයෙන් ඉවත්වන්න (_E)"
 
 #: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
@@ -898,9 +896,8 @@ msgstr ""
 "කරුණාකර මෙම ප්‍රශ්ණය නිරාකරණය කර ස්ථාපන ක්‍රියාවලිය නැවත ආරම්භ කරන්න.."
 
 #: ../fsset.py:2442
-#, fuzzy
 msgid "Invalid Label"
-msgstr "සාවද්‍ය ඇරඹුම් ලේබලයකි"
+msgstr "සාවද්‍ය ලේබලයකි"
 
 #: ../fsset.py:2443
 #, fuzzy, python-format
@@ -1004,9 +1001,8 @@ msgid "Cancel"
 msgstr "අවලංගු කරන්න"
 
 #: ../gui.py:607 ../text.py:360
-#, fuzzy
 msgid "Installation Key"
-msgstr "ස්ථාපනය කලයුතු ආකාරය"
+msgstr "ස්ථාපන අංකය"
 
 #: ../gui.py:790 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
@@ -1068,9 +1064,8 @@ msgid "_Reboot"
 msgstr "නැවත ක්‍රියාත්මක කරන්න(_R)"
 
 #: ../gui.py:1119
-#, fuzzy
 msgid "Exiting"
-msgstr "පිටවෙනු"
+msgstr "පිටවන්න"
 
 #: ../gui.py:1186
 #, python-format
@@ -1195,9 +1190,8 @@ msgid "Please insert %s disc %d to continue."
 msgstr "කරුණාකර %s සංයුක්ත තැටිය ඇතුල් කරන්නන %d ආරම්භ කිරීමට"
 
 #: ../image.py:305
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "වැරදි සංයුක්ත තැටියකි"
+msgstr "වැරදි තැටියකි"
 
 #: ../image.py:306
 #, fuzzy, python-format
@@ -1320,20 +1314,17 @@ msgstr ""
 "වන්නේ සථාපනය ඉදිරියට කරගෙන යාමටද නැතහොත් නවතා දැමීමටද?"
 
 #: ../livecd.py:93
-#, fuzzy
 msgid "Unable to find image"
-msgstr "ස්ථාපනයන් අඩංගු පිළිඹුව සොයාගත නොහැකි විය %s"
+msgstr "පිළිඹුව සොයාගත නොහැක"
 
 #: ../livecd.py:94
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
 #: ../livecd.py:98
-#, fuzzy
 msgid "Exit installer"
-msgstr "ස්ථාපනය කරන්නා %s"
+msgstr "ස්ථාපනයෙන් ඉවත්වන්න"
 
 #: ../livecd.py:174
 #, fuzzy
@@ -1341,9 +1332,8 @@ msgid "Copying live image to hard drive."
 msgstr "ස්ථාපන පිළිඹුව දෘඪ තැටියට මාරු කරමින් පවතී..."
 
 #: ../livecd.py:203
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "%s %s ස්ථාපනය"
+msgstr "අපර-ස්ථාපනය සිදු කරමින්"
 
 #: ../livecd.py:204
 #, fuzzy
@@ -1358,17 +1348,15 @@ msgstr "ධාරක නාමය දිගින් අක්‍ෂර 64 හ�
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"දහාරක නාමය ආරම්භ විය යුත්තේ 'a-z' හෝ 'A-Z' යන වලංගු පරාසය තුල තිබෙන අක්ෂරයක් සමඟිනි."
+msgstr "දහාරක නාමය ආරම්භ විය යුත්තේ 'a-z' හෝ 'A-Z' යන වලංගු පරාසය තුල තිබෙන අක්ෂරයක් සමඟිනි."
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "ධාරක නාමය තුල අන්තර් ගත විය හැක්කේ 'a-z', 'A-Z', '-', හෝ '.' අක්‍ෂර පමණි."
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
-msgstr "IP ලිපිනය සපයා නොමැත."
+msgstr "IP ලිපිනය සොයාගත නොහැක."
 
 #: ../network.py:93
 #, fuzzy
@@ -1383,19 +1371,17 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' වලංගු IPv6 ලිපිනයක් නොවේ."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "'%s' වලංගු IPv6 ලිපිනයක් නොවේ."
+msgstr "'%s' සාවද්‍ය IP ලිපිනයකි."
 
 #: ../packages.py:256
-#, fuzzy
 msgid "Invalid Key"
-msgstr "ඈඳිය සාවද්‍යයි"
+msgstr "සාවද්‍ය යතුරකි"
 
 #: ../packages.py:257
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "ඔබ ඇතුලත් කල අගය නිවැරදි අංකයක් නොවේ"
+msgstr "ඇතුලත් කල යතුර සාවද්‍යවේ."
 
 #: ../packages.py:285
 #, fuzzy
@@ -1561,8 +1547,7 @@ msgstr "කරුණාකර පරිමාවේ කණ්ඩය සඳහා
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr ""
-"පරිමාවේ කණ්ඩායම් නාමයන් සඳහා භාවිත කලයුතු අක්‍ෂර ප්‍රමාණය 128 ක් හෝ ඊට වඩා අඩු විය යුතුය."
+msgstr "පරිමාවේ කණ්ඩායම් නාමයන් සඳහා භාවිත කලයුතු අක්‍ෂර ප්‍රමාණය 128 ක් හෝ ඊට වඩා අඩු විය යුතුය."
 
 #: ../partIntfHelpers.py:42
 #, python-format
@@ -1860,8 +1845,7 @@ msgid "Confirm Reset"
 msgstr "නැවත සකස් කිරීම තහවුරු කරන්න"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "කොටස් වගුව පෙර තිබූ සැබෑ තත්වයට පත් කිරීමට ඔබට අවශ්‍යද?"
 
 #: ../partitioning.py:61
@@ -1904,8 +1888,7 @@ msgstr "%s ස්ථාපනය ඉදිරියට කරගෙන යාම
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
-"ඔබේ root කොටස මෙගා බයිට් 250 ට වඩා අඩු වන හෙයින්, එය %s ස්ථාපනය සඳහා ප්‍රමාණවත් නොවේ."
+msgstr "ඔබේ root කොටස මෙගා බයිට් 250 ට වඩා අඩු වන හෙයින්, එය %s ස්ථාපනය සඳහා ප්‍රමාණවත් නොවේ."
 
 #: ../partitions.py:840
 msgid ""
@@ -1916,8 +1899,7 @@ msgstr ""
 "ඇත."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "ඔබ විසින් /boot/efi partition කොටසක් සෑදිය යුතු වන අතර එය මෙගා බයිට් 50කින් හා FAT 32 "
 "ගණයෙන් සමන් විය යුතුය."
@@ -1940,8 +1922,7 @@ msgstr ""
 "ප්‍රමාණයට වඩා අඩු අගයක් ගනී."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr "USB ධාවකය ස්ථාපනය කරමින්.  මෙය ක්‍රියාත්මක කල හැකි හෝ නොමැති වීමට පිළිවෙන."
 
 #: ../partitions.py:945
@@ -1998,8 +1979,7 @@ msgstr "මෙම කොටස LVM පරිමා කණ්ඩායමේ ස�
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "සවිකල යුතු ස්ථානය සාවද්‍යයි.  %s බහලුම / ගොනු පද්ධතිය මත තිබිය යුතු වේ."
 
 #: ../partRequests.py:252
@@ -2020,8 +2000,7 @@ msgstr "සවි කල යුතු ස්ථානය linux ගොනුප�
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"සවිලකයුතුස්ථානය \"%s\" දැනටමත් භාවිතයේ ඇත, කරුණාකර සවිකිරීම සඳහා වෙනත් ස්ථානයක් තෝරාගන්න."
+msgstr "සවිලකයුතුස්ථානය \"%s\" දැනටමත් භාවිතයේ ඇත, කරුණාකර සවිකිරීම සඳහා වෙනත් ස්ථානයක් තෝරාගන්න."
 
 #: ../partRequests.py:294
 #, python-format
@@ -2278,16 +2257,14 @@ msgid "Welcome to %s"
 msgstr "%s වෙත සාදරයෙන් පිළිගනිමු"
 
 #: ../text.py:472
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> උදව් | <Tab> සංඝටක අතර| <Space> තෝරාගැනීමට | <F12> මීලඟ තිරයට"
 
 #: ../text.py:474
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> සංඝටකයන් අතර   |  <Space> තෝරාගැනීමට   |  <F12> මීලඟ තිරයට"
+msgstr "  <Tab>/<Alt-Tab> සංඝටකයන් අතර   |  <Space> තෝරාගැනීමට   |  <F12> මීලඟ තිරයට"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -2674,8 +2651,7 @@ msgstr "ගණුදෙනුව සිදු කිරීමේදී දෝශ
 
 #: ../yuminstall.py:638
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "ඔබේ ගනුදෙනුව සිදු කරන විටදී, පහත සඳහන් හේතය කරණකොට ගෙන දෝශයක් ඇති විය : %s"
 
 #: ../yuminstall.py:733
@@ -2805,8 +2781,7 @@ msgstr "ප්‍රාධන පරිශීලකගේ රහස්පදය 
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
 #, fuzzy
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "විමසන ලද රහස්පදය තුල ascii නොවන අක්‍ෂර අන්තර්ගතව තිබෙන බැවින් මෙය රහස්පදයක් ලෙස භාවිතා "
 "කීමට ඉඩ දෙනු නොලැබේ."
@@ -3467,7 +3442,7 @@ msgstr "එකතු කරන්න(_A)"
 #: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:448
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352
 msgid "_Edit"
-msgstr "සංශෝධනය කරන්න(_E)"
+msgstr "සැකසුම(_E)"
 
 #: ../iw/lvm_dialog_gui.py:1119
 msgid "Logical Volumes"
@@ -3825,8 +3800,7 @@ msgstr "මකාදැමිය නොහැක"
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"ඔබ පද්ධතිය %s  සඳහා ස්ථාපනය කිරීමට සූදානම්ව ඇති හෙයින් මෙම ඇරඹුම් ඉලක්කය මකා දැමිය නොහැක."
+msgstr "ඔබ පද්ධතිය %s  සඳහා ස්ථාපනය කිරීමට සූදානම්ව ඇති හෙයින් මෙම ඇරඹුම් ඉලක්කය මකා දැමිය නොහැක."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3928,14 +3902,12 @@ msgid "Partitioning"
 msgstr "කොටස් කිරීම"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:635
 #, fuzzy, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "%s ස්ථාපනය ඉදිරියට කරගෙන යාමට ප්‍රථම මෙම දෝශ සියල්ල නිරාකරණය කරගත යුතු වේ"
 
 #: ../iw/partition_gui.py:641
@@ -4097,7 +4069,7 @@ msgstr "නව(_w)"
 
 #: ../iw/partition_gui.py:1354
 msgid "Re_set"
-msgstr "මුල් තත්වයට පත් කරන්න(_s)"
+msgstr "ප්‍රථිසැකසුම(_s)"
 
 #: ../iw/partition_gui.py:1355
 msgid "R_AID"
@@ -4128,7 +4100,7 @@ msgstr "කිසිදු වෙනසක් සිදු නොකරන්න
 
 #: ../iw/partition_ui_helpers_gui.py:269
 msgid "_Format partition as:"
-msgstr "_Format partition as:"
+msgstr "කොටස සුරකින අයුර (_F):"
 
 #: ../iw/partition_ui_helpers_gui.py:292
 msgid "Mi_grate partition to:"
@@ -4453,8 +4425,7 @@ msgstr "ඔබ් පද්ධතිය තුල තිබෙන ඇරඹු�
 
 #: ../iw/upgrade_bootloader_gui.py:112 ../textw/upgrade_bootloader_text.py:93
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "ස්ථාපකය විසින් %s ඇරඹුම් කාරකය %s ස්ථාපනය කර තිබෙන බව සොයා ගැනින."
 
 #: ../iw/upgrade_bootloader_gui.py:116
@@ -4586,8 +4557,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap ගොනුවේ ප්‍රමාණය 1 සහ 2000 MB අතර විය යුතු වේ"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "swap කොටස සෑදීමට අවශ්‍ය කරන ඉඩ ප්‍රමාණය ඔබ විසින් තෝරාගෙන ඇති උපාංගයේ නොමැත"
 
 #: ../iw/zipl_gui.py:28
@@ -4722,8 +4692,7 @@ msgstr ""
 "ඇතුලත් කොටස් සහ ඒ සඳහා යෙදිය යුතු ලේබලයන් ඔබ විසින් සපයා දිය යුතු වේ."
 
 #: ../textw/bootloader_text.py:290
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <Space> තෝරාගන්න| <F2> ප්‍රකෘතිය තෝරාගන්න | <F4> මකන්න | <F12> ඊලඟ තිරය වෙත>"
 
 #: ../textw/bootloader_text.py:386
@@ -4853,10 +4822,8 @@ msgid "Please select the package groups you would like to install."
 msgstr "ඔබට ස්ථාපනය කිරීමට අවශ්‍ය ඇසුරුම් කාණ්ඩයන් කරුණාකර තෝරාගන්න."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> තෝරාගැනීම සඳහා |   <F2> කණ්ඩායම් තොරතුරු   |   <F12> ඊලඟ තිරය"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<-> තෝරාගැනීම සඳහා |   <F2> කණ්ඩායම් තොරතුරු   |   <F12> ඊලඟ තිරය"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
@@ -4916,14 +4883,12 @@ msgid ""
 msgstr ""
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Netmask"
+msgstr ""
 
 #: ../textw/network_text.py:84 tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/පෙර ඈඳිය"
+msgstr ""
 
 #: ../textw/network_text.py:137
 msgid "Activate on boot"
@@ -4941,17 +4906,15 @@ msgstr "IPv6 පහසුකම සක්‍රීය කරන්න"
 
 #: ../textw/network_text.py:164
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:182 tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "ESSID:"
 msgstr "_ESSID:"
 
 #: ../textw/network_text.py:191
-#, fuzzy
 msgid "WEP Key:"
-msgstr "යතුර:"
+msgstr "WEP යතුර:"
 
 #: ../textw/network_text.py:204
 #, python-format
@@ -4963,61 +4926,53 @@ msgid "point-to-point IP address"
 msgstr ""
 
 #: ../textw/network_text.py:267 tmp/netpostconfig.glade.h:5
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "dynamic IP configuration (DHCP) භාවිත කරන්න"
+msgstr "Dynamic IP configuration (DHCP)"
 
 #: ../textw/network_text.py:270 ../textw/network_text.py:401
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "TCP/IP අතින් මානන්න"
+msgstr ""
 
 #: ../textw/network_text.py:290
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "%s සඳහා වන ජාල මානකරනය"
+msgstr "%s සඳහා IPv4 මානකරනය"
 
 #: ../textw/network_text.py:320 ../textw/network_text.py:332
 #: ../textw/network_text.py:335
-#, fuzzy
 msgid "IPv4 address"
 msgstr "IPv4 ලිපිනය:"
 
 #: ../textw/network_text.py:324
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/ජාලවැස්ම"
+msgstr "IPv4 ජාලවැස්ම"
 
 #: ../textw/network_text.py:350 ../textw/network_text.py:353
 #: ../textw/network_text.py:356
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Netmask"
+msgstr ""
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
 msgstr ""
 
 #: ../textw/network_text.py:398 tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "dynamic IP configuration (DHCP) භාවිත කරන්න"
+msgstr "Dynamic IP configuration (DHCPv6)"
 
 #: ../textw/network_text.py:425
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "%s සඳහා වන ජාල මානකරනය"
+msgstr "%s සඳහා IPv6 මානකරණය"
 
 #: ../textw/network_text.py:455 ../textw/network_text.py:466
 #: ../textw/network_text.py:469
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6 ලිපිනය:"
+msgstr "IPv6 ලිපිනය"
 
 #: ../textw/network_text.py:459 ../textw/network_text.py:478
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/පෙර ඈඳිය"
+msgstr "IPv6 පූර්‍වඈඳිය"
 
 #: ../textw/network_text.py:504
 #, fuzzy
@@ -5031,7 +4986,7 @@ msgstr "පද්ධතිය තුල තිබෙන ජාල සම්බ�
 
 #: ../textw/network_text.py:519 ../textw/network_text.py:521
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "UNCONFIGURED"
 
 #: ../textw/network_text.py:530
 msgid ""
@@ -5042,36 +4997,34 @@ msgid ""
 msgstr ""
 
 #: ../textw/network_text.py:620
-#, fuzzy
 msgid "Active on boot"
-msgstr "ක්‍රියාත්මක කිරීමේදී සක්‍රිය කරන්න"
+msgstr "ආරම්ඹයේදී සක්‍රිය කරන්න"
 
 #: ../textw/network_text.py:622
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "ක්‍රියාත්මක කිරීමේදී සක්‍රිය කරන්න"
+msgstr "ආරම්ඹයේදී අ සක්‍රිය කරන්න"
 
 #: ../textw/network_text.py:625
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:630
 msgid "Auto IPv6"
-msgstr ""
+msgstr "ස්වයංක්‍රීය IPv6"
 
 #: ../textw/network_text.py:632
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:638
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:640 ../textw/network_text.py:642
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:665 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -5090,17 +5043,14 @@ msgid "Miscellaneous Network Settings"
 msgstr "විවිධ ජාල පරිස්ථිතියන්"
 
 #: ../textw/network_text.py:703 ../textw/network_text.py:706
-#, fuzzy
 msgid "gateway"
 msgstr "බිහිදොර"
 
 #: ../textw/network_text.py:713 ../textw/network_text.py:716
-#, fuzzy
 msgid "primary DNS"
 msgstr "ප්‍රාථමික DNS"
 
 #: ../textw/network_text.py:725
-#, fuzzy
 msgid "secondary DNS"
 msgstr "ද්වීතීයක DNS"
 
@@ -5382,8 +5332,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1472
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-උදව්     F2-නව      F3-වෙනස් කරන්න   F4-මකන්න    F5-යතා තත්වයට    F12-"
 "හරි        "
@@ -5418,8 +5367,7 @@ msgstr "ස්ථාපනය සඳහා භාවිත කිරීමට �
 #: ../textw/partition_text.py:1588
 #, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> තෝරාගැනීම සඳහා |   <F2> කණ්ඩායම් තොරතුරු   |   <F12> ඊලඟ තිරය"
+msgstr "<Space>,<+>,<-> තෝරාගැනීම සඳහා |   <F2> කණ්ඩායම් තොරතුරු   |   <F12> ඊලඟ තිරය"
 
 #: ../textw/partition_text.py:1657
 msgid "Review Partition Layout"
@@ -5652,29 +5600,27 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "කාර්‍යයාලීය"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "බහුමාධ්‍ය"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "සුභපැතුම්"
+msgstr "අතථ්‍යකරණය"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "සමූහකරණය"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
 msgstr ""
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "ස්ථාපනය ආරම්භ වීමට නියමිතව ඇත"
+msgstr "ස්ථාපන අංකය"
 
 #: ../installclasses/rhel.py:51
 msgid ""
@@ -5708,9 +5654,8 @@ msgid "Test"
 msgstr "පරික්‍ෂා කරන්න"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-#, fuzzy
 msgid "Eject Disc"
-msgstr "සංයුක්ත තැටිය ඉවතට ගන්න"
+msgstr "තැටිය ඉවතට ගන්න"
 
 #: ../loader2/cdinstall.c:93
 #, fuzzy, c-format
@@ -5745,7 +5690,6 @@ msgstr ""
 "කරුණාකර %s සංයුක්ත තැටිය ඇතුලත් කර %s ඔබන්න"
 
 #: ../loader2/cdinstall.c:258
-#, fuzzy
 msgid "Disc Found"
 msgstr "සංයුක්ත තැටිය සොයා ගැනින"
 
@@ -5779,9 +5723,8 @@ msgstr ""
 "කරුණාකර %s සංයුක්ත තැටිය ඇතුලත් කර %s ඔබන්න"
 
 #: ../loader2/cdinstall.c:391
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "සංයුක්ත තැටිය සොයාගත නොහැකි විය"
+msgstr "තැටිය සොයාගත නොහැකි විය"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
@@ -5908,8 +5851,7 @@ msgstr "kickstart මූලාශය අඩංගු හඳුනා නොග�
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"kickstart ධාවක තැටි සඳහා වන විධානයක් ලෙස පහත සඳහන් සාවද්‍ය අගය ලබා දී ඇත: %s:%s"
+msgstr "kickstart ධාවක තැටි සඳහා වන විධානයක් ලෙස පහත සඳහන් සාවද්‍ය අගය ලබා දී ඇත: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6056,9 +5998,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/kickstart.c:380
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "%s: %s kickstart ගොනුව විවෘත කිරීමේදී දෝශයක් ඇතිවිය"
+msgstr "kickstart ගොනුව විවෘත කිරීමේදී දෝශයක් ඇතිවිය"
 
 #: ../loader2/kickstart.c:524
 #, c-format
@@ -6071,8 +6012,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s වෙත සාදරයෙන් පිලිගනිමු - ගලවා ගැනීමේ ප්‍රකාරය"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:159
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> වෙනත් අඩවියකට ඇතුල් වීමට | <Space> තෝරා ගැනීමට | <F12> මීලඟ තිරය "
 "සඳහා"
@@ -6082,18 +6022,16 @@ msgid "Choose a Language"
 msgstr "භාශාවක් තෝරාගන්න"
 
 #: ../loader2/loader.c:118
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "දේශීය CD තැටි ධාවකය"
+msgstr "දේශීය  CD/DVD"
 
 #: ../loader2/loader.c:120
 msgid "Hard drive"
 msgstr "දෘඪ තැටිය"
 
 #: ../loader2/loader.c:121
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s බහලුම:"
+msgstr "NFS බහලුම:"
 
 #: ../loader2/loader.c:337
 msgid "Update Disk Source"
@@ -6186,8 +6124,7 @@ msgstr "ඔබේ පද්ධතිය තුල තිබෙන පහත ද�
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"කිසිදු උපාංග ධාවකයක් ඔබේ පද්ධතිය තුලට රුවා නොමැත. එය මේ අවස්ථාවේ සිදු කිරීමට ඔබ කැමතිද?"
+msgstr "කිසිදු උපාංග ධාවකයක් ඔබේ පද්ධතිය තුලට රුවා නොමැත. එය මේ අවස්ථාවේ සිදු කිරීමට ඔබ කැමතිද?"
 
 #: ../loader2/loader.c:1264
 msgid "Devices"
@@ -6313,10 +6250,8 @@ msgstr "kickstart ධාවකයේ විධාන ක්‍රමය සඳ�
 
 #: ../loader2/modules.c:1050
 #, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
-msgstr ""
-"kickstart ධාවක තැටි සඳහා වන විධානයක් ලෙස පහත සඳහන් සාවද්‍ය අගය ලබා දී ඇත: %s:%s"
+msgid "Both module type and name must be specified for the kickstart device command."
+msgstr "kickstart ධාවක තැටි සඳහා වන විධානයක් ලෙස පහත සඳහන් සාවද්‍ය අගය ලබා දී ඇත: %s:%s"
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6337,8 +6272,7 @@ msgstr ""
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr ""
-"IPv4 ජාල සඳහා පෙර ඈඳිය 1 සහ 32 අතර විය යුතුය නැතහොත් IPv6 ජාල සඳහා 1 සහ 128 විය යුතුය"
+msgstr "IPv4 ජාල සඳහා පෙර ඈඳිය 1 සහ 32 අතර විය යුතුය නැතහොත් IPv6 ජාල සඳහා 1 සහ 128 විය යුතුය"
 
 #: ../loader2/net.c:261
 #, c-format
@@ -6368,9 +6302,8 @@ msgid "Nameserver IP"
 msgstr "Nameserver IP"
 
 #: ../loader2/net.c:306
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Nameserver"
+msgstr ""
 
 #: ../loader2/net.c:307
 #, fuzzy
@@ -6449,8 +6382,7 @@ msgid "Missing Information"
 msgstr "අවශ්‍ය කරන තොරතුරු අස්ථාන ගතවී ඇත"
 
 #: ../loader2/net.c:1194
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "ඔබ විසින් වලංගු IPv4 ලිපිනයක් සහ network mask(ජාල වැස්මක්) එකකෙ හෝ CIDR පෙර ඈඳියක් ඇතුල් "
 "කල යුතු වේ"
@@ -6482,8 +6414,7 @@ msgstr "ජාල සම්බන්ධක උපකරණය"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr ""
-"මෙම පද්ධතිය සතුව ජාල සම්බන්ධක උපකරණ කීපයක් ඇත. ඔබට ස්ථාපනය කිරීමට අවශ්‍යව ඇත්තේ මිනෙ කවරක්ද?"
+msgstr "මෙම පද්ධතිය සතුව ජාල සම්බන්ධක උපකරණ කීපයක් ඇත. ඔබට ස්ථාපනය කිරීමට අවශ්‍යව ඇත්තේ මිනෙ කවරක්ද?"
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -6657,9 +6588,8 @@ msgid "Disable _dmraid device"
 msgstr "_dmraid උපාංගය අක්‍රීය කරන්න"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "දෘඪ තැටිය"
+msgstr "දාවකය එක්කරන්න (_A)"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6783,9 +6713,8 @@ msgid "Install the live CD to your hard disk"
 msgstr ""
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "ස්ථාපනය ආරම්භ කරමින්"
+msgstr "දෘඩ තැටියට ස්ථාපනය කරන්න"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6832,23 +6761,20 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "ගතික IP මානකරනය භාවිත කරන්න (DHCP) (_d)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "විස්තරය: %s"
+msgstr ""
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>දෘඩාංග ලිපිනය: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "Edit Interface"
-msgstr "%s අතුරුමුහුණත මානන්න"
+msgstr "අතුරුමුහුණත සකසන්න"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "සංකේත යතුර(_K)"
+msgstr ""
 
 #: tmp/netpostconfig.glade.h:13
 #, fuzzy
@@ -6884,22 +6810,19 @@ msgstr "අමතර මෘදුකාංග නිධියන් එකතු
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr "රිසිකරනු(_C)"
+msgstr "රිසිකරන්න (_C)"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "උපාංගයේ අංකය"
+msgstr "<b>උපාංගයේ අංකය:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>රහස්පදය(_P):</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -6915,7 +6838,7 @@ msgstr "අරාබි"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "ඇසැමි"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -6999,7 +6922,7 @@ msgstr "අයිස්ලැන්ඩික්"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "ඉලොකෝ"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -7047,7 +6970,7 @@ msgstr "උතුරු සෝතෝ"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr "ඔරිය"
+msgstr "ඔරියා"
 
 #. generated from lang-table
 msgid "Persian"
@@ -7070,9 +6993,8 @@ msgid "Punjabi"
 msgstr "පන්ජාබ්"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "ක්‍රොයේෂියානු"
+msgstr "රොමේනියානු"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7088,7 +7010,7 @@ msgstr "සර්බියානු(ලතින්)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "සිංහල"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7112,7 +7034,7 @@ msgstr "ද්‍රවිඩ"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "තෙලිගු"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -7134,32 +7056,3 @@ msgstr "වෙල්ෂ්"
 msgid "Zulu"
 msgstr "සූලු"
 
-#~ msgid "Rebooting System"
-#~ msgstr "පරිඝණක පද්ධතිය යලි පණගන්වනු ලැබේ"
-
-#~ msgid "Re_try"
-#~ msgstr "නැවත උත්සහ කරන්න(_t)"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "ස්ථාපන ක්‍රියාවලියේදී භාවිත කල සියළු මාධ්‍ය ඉවත් කර, පද්ධතිය නැවත ආරම්භ කිරීම සඳහා \"Reboot"
-#~ "\" සූචකය ඔබන්න.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "ස්ථාපනය සිදුකිරීම සඳහා භාවිතා කල ස්ථාපන මාධ්‍යයන් ඉවත්කර ඔබේ පද්ධතිය නැවත ක්‍රියාත්මක කිරීම "
-#~ "සඳහා <Enter> සූචකය ඔබන්න.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "නැවත පරිගණකය ක්‍රියාත්මක කිරීම සඳහා <Enter> ඔබන්න"
-
-#~ msgid "NFS image"
-#~ msgstr "NFS පිළිඹුව"
