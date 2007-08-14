@@ -188,20 +188,10 @@ class NetworkConfigurator:
                 network.sanityCheckIPString(ipv4addr)
                 netdev.set(('ipaddr', ipv4addr))
             except network.IPMissing, msg:
-                self._handleIPMissing(_("IP Address"), msg)
+                self._handleIPMissing(_("IP Address"))
                 return
             except network.IPError, msg:
                 self._handleIPError(_("IP Address"), msg)
-                return
-
-            try:
-                network.sanityCheckIPString(ipv4nm)
-                netdev.set(('netmask', ipv4nm))
-            except network.IPMissing, msg:
-                self._handleIPMissing(_("Netmask"), msg)
-                return
-            except network.IPError, msg:
-                self._handleIPError(_("Netmask"), msg)
                 return
 
             if ipv4nm.find('.') == -1:
@@ -213,17 +203,17 @@ class NetworkConfigurator:
                         return
                     else:
                         ipv4nm = isys.prefix2netmask(int(ipv4nm))
-                        netdev.sef(('netmask', ipv4nm))
+                        netdev.set(('netmask', ipv4nm))
                 except:
-                    self._handleIPMissing(_("IPv4 Network Mask"), msg)
+                    self._handleIPMissing(_("IPv4 Network Mask"))
                     return
             else:
                 # user provided a dotted-quad netmask
                 try:
                     network.sanityCheckIPString(ipv4nm)
-                    netdev.sef(('netmask', ipv4nm))
+                    netdev.set(('netmask', ipv4nm))
                 except network.IPMissing, msg:
-                    self._handleIPMissing(_("IPv4 Network Mask"), msg)
+                    self._handleIPMissing(_("IPv4 Network Mask"))
                     return
                 except network.IPError, msg:
                     self._handleIPError(_("IPv4 Network Mask"), msg)
@@ -232,7 +222,7 @@ class NetworkConfigurator:
             try:
                 network.sanityCheckIPString(gateway)
             except network.IPMissing, msg:
-                self._handleIPMissing(_("Gateway"), msg)
+                self._handleIPMissing(_("Gateway"))
                 return
             except network.IPError, msg:
                 self._handleIPError(_("Gateway"), msg)

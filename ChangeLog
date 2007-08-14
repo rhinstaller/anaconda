@@ -1,3 +1,11 @@
+2007-08-14  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/netconfig_dialog.py: Patch from hhara AT miraclelinux DOT com
+	to fix some input validation errors and error reporting.
+
+	* loader2/modstubs.c (ourInsmodCommand): Handle more than one module
+	parameter in insmod (hhara AT miraclelinux DOT com).
+
 2007-08-13  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  New version.

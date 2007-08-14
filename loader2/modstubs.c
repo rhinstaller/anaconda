@@ -88,6 +88,8 @@ int ourInsmodCommand(int argc, char ** argv) {
     int fd;
     void * modbuf = NULL;
     struct stat sb;
+    int i;
+    char *options = strdup("");
 
     if (argc < 2) {
         return usage();
@@ -138,12 +140,14 @@ int ourInsmodCommand(int argc, char ** argv) {
         return 1;
     }
 
-    if (argc > 2) {
-        /* FIXME: only allows one param */
-        rc = init_module(modbuf, sb.st_size, argv[2]);
-    } else {
-        rc = init_module(modbuf, sb.st_size, "");
-    }
+    for (i = 2; i < argc; i++) {
+        options = realloc(options,
+                          strlen(options) + 1 + strlen(argv[i]) + 1);
+        strcat(options, argv[i]);
+        strcat(options, " ");
+     }
+
+    rc = init_module(modbuf, sb.st_size, options);
     if (rc != 0)
         logMessage(WARNING, "failed to insert module (%d)", errno);
     return rc;
