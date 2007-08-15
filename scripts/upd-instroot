@@ -1232,53 +1232,6 @@ rm -rf $DEST/usr/share/selinux $DESTGR/usr/share/selinux
 mkdir $DEST/etc/selinux
 cp -r $DESTGR/etc/selinux/* $DEST/etc/selinux/
 
-if [ -n "$NEEDGR" ]; then
-    echo "Getting pango modules"
-    # sick sick sick hack for pango-querymodules being -32 or -64
-    mv $DESTGR/usr/bin/pango-querymodules* $DESTGR/usr/bin/pango-querymodules
-    /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
-    rm -f $DESTGR/usr/bin/pango-querymodules
-    # more sick hackery since it doesn't fall back to this like owen thought
-    cat > $DESTGR/etc/pango/pangorc <<EOF
-[Pango]
-ModuleFiles=/etc/pango/pango.modules
-EOF
-fi
-
-host=`rpm --nodigest --nosignature -qp --qf "%{POSTIN}\n" $PACKAGEDIR/gtk2*.$ARCH.rpm |grep update-gdk-pixbuf |awk {'print $2;'}`
-
-case "$host" in
-  *linux) canonhost="$host-gnu"
-  ;;
-  *) canonhost=$host
-  ;;
-esac
- 
-# autoconf uses powerpc not ppc
-HOSTTRIPLET=`echo $canonhost | sed "s/^ppc/powerpc/"`
-
-
-mkdir -p $DESTGR/etc/gtk-2.0/$HOSTTRIPLET
-
-if [ -n "$NEEDGR" ]; then
-    echo "Getting gtk2 input method modules"
-    mv $DESTGR/usr/bin/gtk-query-immodules-2.0* $DESTGR/usr/bin/gtk-query-immodules-2.0
-    /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gtk.immodules
-    rm -f $DESTGR/usr/bin/gtk-query-immodules-2.0
-fi
-
-if [ -n "$NEEDGR" ]; then
-    echo "Getting gtk2 gdk-pixbuf loaders"
-    mv $DESTGR/usr/bin/gdk-pixbuf-query-loaders* $DESTGR/usr/bin/gdk-pixbuf-query-loaders
-    /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders
-    rm -f $DESTGR/usr/bin/gdk-pixbuf-query-loaders
-
-    echo "Generating icon theme caches"
-    /usr/sbin/chroot $DESTGR /usr/bin/gtk-update-icon-cache -q -f /usr/share/icons/Echo
-    /usr/sbin/chroot $DESTGR /usr/bin/gtk-update-icon-cache -q -f /usr/share/icons/default
-    /usr/sbin/chroot $DESTGR /usr/bin/gtk-update-icon-cache -q -f /usr/share/icons/Bluecurve
-fi
-
 rm -f $KEEPFILE $KEEPFILEGR $KEEPFILERESCUE
 
 for p in $DEST $DESTGR; do

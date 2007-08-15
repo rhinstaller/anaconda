@@ -1,3 +1,8 @@
+2007-08-15  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot: Don't redo things that happen in %post
+	scripts of packages
+
 2007-08-14  David Cantrell  <dcantrell@redhat.com>
 
 	* iw/netconfig_dialog.py: Patch from hhara AT miraclelinux DOT com
