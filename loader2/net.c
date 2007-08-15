@@ -367,7 +367,12 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         cfg->vendor_class = NULL;
     }
 
+/* FIXME: hack for BZ #250689 at the last minute */
+#if defined(__s390__) || defined(__s390x__)
+    if (loaderData->ipinfo_set) {
+#else
     if (loaderData->ipinfo_set && loaderData->ip != NULL) {
+#endif
         if (is_wireless_interface(loaderData->netDev)) {
             if (loaderData->essid) {
                 logMessage(INFO, "setting specified essid of %s",
