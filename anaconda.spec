@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.65
+Version: 11.1.2.66
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,8 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 17 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.66-1
+- Select appropriate kernel devel package (dlehman)
+  Resolves: rhbz#226784
+
 * Fri Aug 17 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.65-1
-- Don't assum tb[IFLA_ADDRESS] contains data
+- Don't assume tb[IFLA_ADDRESS] contains data
   Resolves: rhbz#252988
 - Add support for VSWITCH and MACADDR conf variables on s390x
   Resolves: rhbz#248049
