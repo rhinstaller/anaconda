@@ -105,7 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Fri Aug 17 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.66-1
 - Select appropriate kernel devel package (dlehman)
-  Resolves: rhbz#226784
+  Related: rhbz#226784
 
 * Fri Aug 17 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.65-1
 - Don't assume tb[IFLA_ADDRESS] contains data
