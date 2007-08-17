@@ -1,3 +1,8 @@
+2007-08-17  Dave Lehman  <dlehman@redhat.com>
+
+	* yuminstall.py (selectBestKernel): select appropriate kernel devel
+	package even when the kernel is already selected coming in (#226784)
+
 2007-08-16  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
