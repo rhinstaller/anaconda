@@ -1602,7 +1602,7 @@ MAILADDR root
 		continue
 
             try:
-                log.info("trying to mount %s on %s" %(entry.device.getDevice(), entry.mountpoint))
+                log.info("trying to mount %s on %s" %(entry.device.setupDevice(), entry.mountpoint,))
                 entry.mount(anaconda.rootPath, readOnly = readOnly)
                 self.mountcount = self.mountcount + 1
             except OSError, (num, msg):
@@ -1625,6 +1625,7 @@ MAILADDR root
                                              "Press <Enter> to exit the "
                                              "installer.") % (entry.mountpoint,
                                                            msg))
+                log.error("OSError: (%d) %s" % (num, msg) )
                 sys.exit(0)
             except SystemError, (num, msg):
                 if raiseErrors:
@@ -1664,6 +1665,7 @@ MAILADDR root
 
                         self.messageWindow(_("Error"), errStr)
 
+                log.error("SystemError: (%d) %s" % (num, msg) )
                 sys.exit(0)
 
         self.makeLVMNodes(anaconda.rootPath)
@@ -1951,7 +1953,10 @@ class DevDevice(Device):
         return self.device
 
     def setupDevice(self, chroot='/', devPrefix='/dev'):
-        return "/dev/%s" %(self.getDevice(),)
+        #We use precreated device but we have to make sure that the device exists
+        path = '/dev/%s' % (self.getDevice(),)
+        isys.makeDevInode(self.getDevice(), path)
+        return path
 
 class RAIDDevice(Device):
     # XXX usedMajors does not take in account any EXISTING md device

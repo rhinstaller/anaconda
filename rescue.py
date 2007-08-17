@@ -433,7 +433,7 @@ def runRescue(anaconda, instClass):
             # errors raise exceptions, while any runtime error will
             # still result in a shell
             (exc, val) = sys.exc_info()[0:2]
-            log.error(val)
+            log.error(str(exc)+": "+str(val))
             if exc in (IndexError, ValueError, SyntaxError):
                 raise exc, val, sys.exc_info()[2]
 

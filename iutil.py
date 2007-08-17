@@ -272,7 +272,7 @@ def makeDriveDeviceNodes():
         elif drive.startswith("dasd"):
             num = 4
         else:
-            num = 15
+            num = 16
 
         if (drive.startswith("cciss") or drive.startswith("ida") or
             drive.startswith("rd") or drive.startswith("sx8")):
