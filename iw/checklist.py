@@ -67,10 +67,11 @@ class CheckList (gtk.TreeView):
         # iterate over them all
         self.num_rows = 0
 
-    def append_row (self, textList, init_value):
+    def append_row (self, textList, init_value, tooltipText = None):
         """Add a row to the list.
         text: text to display in the row
-        init_value: initial state of the indicator"""
+        init_value: initial state of the indicator
+        tooltipText: the text that will appear when the mouse is over the row."""
 
         iter = self.store.append(None)
         self.store.set_value(iter, 0, init_value)
@@ -82,6 +83,7 @@ class CheckList (gtk.TreeView):
             i = i + 1
 
         self.num_rows = self.num_rows + 1
+        self.props.tooltip_markup = tooltipText
 
 
     def toggled_item(self, data, row):

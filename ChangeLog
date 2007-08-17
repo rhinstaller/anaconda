@@ -1,3 +1,11 @@
+2007-08-17 Joel Granados <jgranado@redhat.com>
+	* iw/network_gui.py: Call append_row function with extra tooltip
+	argument (#125312)
+
+	* iw/checklist.py: Append_row function with argument that defines
+	tooltip for each row.
+
+
 2007-08-17  Martin Sivak <msivak@redhat.com>
 
 	* iutil.py (makeDriveDeviceNodes): Fix number of created scsi
