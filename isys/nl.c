@@ -352,7 +352,10 @@ int netlink_init_interfaces_list(void) {
             rta = RTA_NEXT(rta, len);
         }
 
-        alen = RTA_PAYLOAD(tb[IFLA_ADDRESS]);
+        if (tb[IFLA_ADDRESS] != NULL)
+            alen = RTA_PAYLOAD(tb[IFLA_ADDRESS]);
+        else
+            alen = 0;
 
         /* we have an ethernet MAC addr if alen=6 */
         if (alen == 6) {
