@@ -1,6 +1,23 @@
 2007-08-15  David Cantrell  <dcantrell@redhat.com>
 
-	* loader2/net.c: Fix ks=nfs: regression on s390x (#250689).
+	* isys/nl.c (netlink_init_interfaces_list): Don't assume
+	tb[IFLA_ADDRESS] contains data (#252988).
+
+	* loader2/linuxrc.s390: Add support for VSWITCH and MACADDR variables
+	(#248049).
+
+	* loader2/fwloader.c (set_fw_search_path): Avoid code that causes
+	SIG_SEGV when using MACADDR param on s390x (#248049).
+
+	* loader2/loader.c (readNetInfo): Read MACADDR variable (#248049).
+	* loader2/loader.h (struct loaderData_s): Add macaddr member (#248049).
+
+	* loader2/net.c (setupNetworkDeviceConfig): Fix ks=nfs: regression on
+	s390x (#250689).
+
+	* loader2/net.c (setupNetworkDeviceConfig): Handle macaddr (#248049).
+	* loader2/net.h (struct networkDeviceConfig): Add macaddr member
+	(#248049).
 
 2007-08-14  David Cantrell  <dcantrell@redhat.com>
 

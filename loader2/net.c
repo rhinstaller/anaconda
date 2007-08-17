@@ -530,6 +530,10 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         cfg->layer2 = strdup(loaderData->layer2);
     }
 
+    if (loaderData->macaddr) {
+        cfg->macaddr = strdup(loaderData->macaddr);
+    }
+
     cfg->noDns = loaderData->noDns;
 }
 
@@ -1433,6 +1437,8 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
         fprintf(f, "OPTIONS=\"layer2=1\"\n");
     else if (dev->subchannels)
 	fprintf(f, "ARP=no\n");
+    if (dev->macaddr)
+        fprintf(f, "MACADDR=%s\n", dev->macaddr);
 
     if (dev->essid)
         fprintf(f, "ESSID=%s\n", dev->essid);

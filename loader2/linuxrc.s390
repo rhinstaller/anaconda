@@ -286,6 +286,14 @@ if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw con
 			echo $"1 for layer 2 mode"
 			read LAYER2
 		fi
+		if [ "$LAYER2" == 1 ]; then
+		   if [ "$VSWITCH" == 0 -a -z "$MACADDR" ]; then
+			   echo $"Enter a unique MAC address (eg. 02:00:00:00:00:00)."
+			   echo $"Leave this blank and press enter if connecting to a"
+			   echo $"Layer 2 VSWITCH, as this is automatically assigned"
+			   read MACADDR
+		   fi
+		fi
    fi
 fi
       
@@ -449,6 +457,9 @@ elif [ "$NETTYPE" = "qeth" ]; then
 	insmod qeth$LO
    setupdevice
    DEVICE=`cat /sys/devices/qeth/${SUBCHANNELS//,*/}/if_name`
+   if [ -n "$LAYER2" -a -n "$MACADDR" ]; then
+       ifconfig $DEVICE hw ether $MACADDR
+   fi
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
 	echo "alias $DEVICE qeth" >> /tmp/modprobe.conf
@@ -458,6 +469,8 @@ else
 fi
 
 route add default gw $GATEWAY dev $DEVICE 2>/dev/null
+# BH FIXME: Workaround for manual MACADDR, need ping to update arp table
+ping -c 1 $GATEWAY > /dev/null
 
 if [ -z "$DNS" ]; then
 	echo $"Enter your DNS server(s), separated by colons (:):"
@@ -560,6 +573,7 @@ EOF
 [ "$PORTNAME" != "" ] && echo "PORTNAME=$PORTNAME" >> /tmp/netinfo
 [ "$CTCPROT" != "" ] && echo "CTCPROT=$CTCPROT" >> /tmp/netinfo
 [ "$LAYER2" != "" ] && echo "LAYER2=$LAYER2" >> /tmp/netinfo
+[ "$MACADDR" != "" ] && echo "MACADDR=$MACADDR" >> /tmp/netinfo
 
 # so that the vars get propagated into the sshd shells
 mkdir /.ssh

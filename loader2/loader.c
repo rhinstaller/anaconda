@@ -495,6 +495,9 @@ static void readNetInfo(struct loaderData_s ** ld) {
 
             if (!strncmp(vname, "LAYER2", 6))
                 loaderData->layer2 = strdup(vparm);
+
+            if (!strncmp(vname, "MACADDR", 7))
+                loaderData->macaddr = strdup(vparm);
         }
     }
 

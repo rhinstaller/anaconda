@@ -603,8 +603,11 @@ void set_fw_search_path(struct loaderData_s *loaderData, char *path)
                 &loaderData->fw_search_pathz_len) != 0)
         goto out;
 
+/* FIXME: hack for BZ #248049 at the last minute */
+#if !defined(__s390__) && !defined(__s390x__)
     if (old)
         free(old);
+#endif
 
     return;
 out:
