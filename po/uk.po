@@ -221,7 +221,7 @@ msgid "Requested Partition Does Not Exist"
 msgstr "Запитаний розділ не існує"
 
 #: ../autopart.py:1260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -229,14 +229,14 @@ msgid ""
 msgstr ""
 "Не вдається знайти розділ %s для %s.\n"
 "\n"
-"Натисніть \"Гаразд\" для перевантаження системи."
+"Натисніть \"Гаразд\" для переривання встановлення."
 
 #: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Запитаний пристрій RAID не існує"
 
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
@@ -244,14 +244,14 @@ msgid ""
 msgstr ""
 "Не вдається знайти пристрій RAID %s для %s.\n"
 "\n"
-"Натисніть \"Гаразд\" для перевантаження системи."
+"Натисніть \"Гаразд\" для переривання встановлення."
 
 #: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Запитана група томів не існує"
 
 #: ../autopart.py:1320
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
@@ -259,29 +259,29 @@ msgid ""
 msgstr ""
 "Не вдається знайти групу томів %s для %s.\n"
 "\n"
-"Натисніть \"Гаразд\" для перевантаження системи."
+"Натисніть \"Гаразд\" для переривання встановлення."
 
 #: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Запитаний логічний том не існує"
 
 #: ../autopart.py:1358
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"Не вдається знайти логічний том %s для як %s.\n"
+"Не вдається знайти логічний том %s для %s.\n"
 "\n"
-"Натисніть \"Гаразд\" для перевантаження системи."
+"Натисніть \"Гаразд\" для переривання встановлення."
 
 #: ../autopart.py:1484 ../autopart.py:1531
 msgid "Automatic Partitioning Errors"
 msgstr "Помилки автоматичного розподілу"
 
 #: ../autopart.py:1485
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -289,11 +289,11 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"Вибраний варіант розподіли призвів до виникнення помилок:\n"
+"Вибраний варіант розподілу призвів до виникнення помилок:\n"
 "\n"
 "%s\n"
 "\n"
-"Натисніть \"Гаразд\" для перевантаження системи."
+"Натисніть \"Гаразд\" для переривання встановлення."
 
 #: ../autopart.py:1495
 msgid "Warnings During Automatic Partitioning"
@@ -311,7 +311,6 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -319,7 +318,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Натисніть \"Гаразд\" для перевантаження системи."
+"Натисніть \"Гаразд\" для переривання встановлення."
 
 #: ../autopart.py:1511 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:239
@@ -500,19 +499,17 @@ msgid "Dump Written"
 msgstr "Дамп записано"
 
 #: ../exception.py:413
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. The "
 "installer will now exit."
 msgstr ""
-"Стан вашої системи було записано на дискету. Систему буде перезавантажено."
+"Стан вашої системи було успішно записано на дискету. Систему буде перезавантажено."
 
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
 #: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
-#, fuzzy
 msgid "_Exit installer"
-msgstr "Перервати встановлення"
+msgstr "_Перервати встановлення"
 
 #: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
@@ -523,7 +520,6 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "Не вдається записати стан системи на дискету."
 
 #: ../exception.py:430
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
@@ -609,7 +605,7 @@ msgid "Master Boot Record (MBR)"
 msgstr "Головний завантажувальний сектор (MBR)"
 
 #: ../fsset.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -617,9 +613,9 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 "Помилка при спробі ініціалізації пристрою підкачки %s. Це серйозна проблема, "
-"тому продовження процесу встановлення неможливе.\n"
+"тому продовжувати встановлення неможливо.\n"
 "\n"
-"Натисніть <Enter> для перевантаження системи."
+"Натисніть <Enter> для перезавантаження системи."
 
 #: ../fsset.py:1457 ../packages.py:282 ../rescue.py:300 ../rescue.py:302
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
@@ -692,7 +688,6 @@ msgstr ""
 "розділів підкачки."
 
 #: ../fsset.py:1507
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -703,15 +698,14 @@ msgstr ""
 "\n"
 "Виберіть \"Пропустити\", якщо ви бажаєте, щоб програма встановлення "
 "ігнорувала цей розділ при оновленні.  Виберіть \"Формат\" для "
-"переформатування розділу як простору підкачки.  Виберіть \"Перезавантаження"
-"\" для перезапуску системи."
+"переформатування розділу як простору підкачки."
 
 #: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Формат"
 
 #: ../fsset.py:1519
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -725,10 +719,10 @@ msgstr ""
 "Файл /etc/fstab у розділі, що оновлюється, не містить опису робочого "
 "пристрою підкачки.\n"
 "\n"
-"Натисніть \"Гаразд\" для перевантаження системи."
+"Натисніть \"Гаразд\" переривання встановлення."
 
 #: ../fsset.py:1530
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -740,10 +734,10 @@ msgstr ""
 "\n"
 "Найбільш ймовірна причина - розділ не було ініціалізовано.\n"
 "\n"
-"Натисніть \"Гаразд\" для перевантаження системи."
+"Натисніть \"Гаразд\" для переривання встановлення."
 
 #: ../fsset.py:1584
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
@@ -753,10 +747,10 @@ msgstr ""
 "На пристрої /dev/%s виявлено пошкоджені блоки. Не рекомендується "
 "використовувати цей пристрій.\n"
 "\n"
-"Натисніть <Enter> для перевантаження системи."
+"Натисніть <Enter> для переривання встановлення."
 
 #: ../fsset.py:1595
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -766,10 +760,10 @@ msgstr ""
 "Помилка при пошуку пошкоджених блоків на пристрої %s. Це серйозна проблема, "
 "тому продовження процесу встановлення неможливе.\n"
 "\n"
-"Натисніть <Enter> для перевантаження системи."
+"Натисніть <Enter> для переривання встановлення."
 
 #: ../fsset.py:1635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -779,10 +773,10 @@ msgstr ""
 "Помилка при спробі форматування %s. Це серйозна проблема, тому продовження "
 "процесу встановлення неможливе.\n"
 "\n"
-"Натисніть <Enter> для перевантаження системи."
+"Натисніть <Enter> для переривання встановлення."
 
 #: ../fsset.py:1685
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -792,27 +786,27 @@ msgstr ""
 "Помилка при спробі переносу %s. Це серйозна проблема, тому продовження "
 "процесу встановлення неможливе.\n"
 "\n"
-"Натисніть <Enter> для перевантаження системи."
+"Натисніть <Enter> для переривання встановлення."
 
 #: ../fsset.py:1711 ../fsset.py:1720
 msgid "Invalid mount point"
 msgstr "Некоректна точка монтування"
 
 #: ../fsset.py:1712
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Помилка при спробі створення %s. Деякий елемент шляху не є каталогом. Це "
+"Помилка при спробі створення %s. Певний елемент шляху не є каталогом. Це "
 "серйозна проблема, тому продовження процесу встановлення неможливе.\n"
 "\n"
-"Натисніть <Enter> для перевантаження системи."
+"Натисніть <Enter> для переривання встановлення."
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -822,7 +816,7 @@ msgstr ""
 "Помилка при спробі створити %s: %s. Це серйозна проблема,тому продовження "
 "процесу встановлення неможливе.\n"
 "\n"
-"Натисніть <Enter> для перевантаження системи."
+"Натисніть <Enter> для переривання встановлення."
 
 #: ../fsset.py:1734
 msgid "Unable to mount filesystem"
@@ -844,7 +838,7 @@ msgid "_Continue"
 msgstr "П_родовжити"
 
 #: ../fsset.py:1751
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -856,10 +850,10 @@ msgstr ""
 "\n"
 "Швидше за все цей розділ не було відформатовано.\n"
 "\n"
-"Натисніть \"Гаразд\" для перевантаження системи."
+"Натисніть \"Гаразд\" для переривання встановлення."
 
 #: ../fsset.py:1758
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -871,10 +865,9 @@ msgstr ""
 "\n"
 "Швидше за все цей розділ не було відформатовано.\n"
 "\n"
-"Натисніть \"Гаразд\" для перевантаження системи."
+"Натисніть \"Гаразд\" для переривання встановлення."
 
 #: ../fsset.py:1778
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -886,7 +879,7 @@ msgstr ""
 "\n"
 "Швидше за все файл fstab - некоректний.\n"
 "\n"
-"Натисніть \"Гаразд\" для перевантаження системи."
+"Натисніть \"Гаразд\" для переривання встановлення."
 
 #: ../fsset.py:2432
 msgid "Duplicate Labels"
@@ -906,20 +899,16 @@ msgstr ""
 "Виправте цю проблему та перезапустіть встановлення."
 
 #: ../fsset.py:2442
-#, fuzzy
 msgid "Invalid Label"
-msgstr "Некоректна позначка системи"
+msgstr "Некоректна позначка"
 
 #: ../fsset.py:2443
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
 msgstr ""
-"Декілька пристроїв вашої системи мають однакові позначки %s.  Для нормальної "
-"роботи системи позначки повинні бути унікальними.\n"
-"\n"
-"Виправте цю проблему та перезапустіть встановлення."
+"Пристрій %s містить некоректну позначку.  Виправте цю проблему та перезапустіть встановлення."
 
 #: ../fsset.py:2701
 msgid "Formatting"
@@ -1076,9 +1065,8 @@ msgid "_Reboot"
 msgstr "_Перезавантажити"
 
 #: ../gui.py:1119
-#, fuzzy
 msgid "Exiting"
-msgstr "Вийти"
+msgstr "Вихід"
 
 #: ../gui.py:1186
 #, python-format
@@ -1094,7 +1082,7 @@ msgid "Install Window"
 msgstr "Вікно встановлення"
 
 #: ../harddrive.py:44 ../image.py:146 ../image.py:483
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1105,10 +1093,10 @@ msgid ""
 "\n"
 msgstr ""
 "Не вдається відкрити файл %s. Можлива причина - відсутній файл або "
-"пошкоджений пакет. Перевірте ваші образи встановлення та носії.\n"
+"пошкоджений пакет. Перевірте образи встановлення та переконайтесь у цілісності необхідних для встановлення даних.\n"
 "\n"
-"При перевантаженні, ваша система залишиться у непослідовному стані, тому "
-"швидше за все знадобиться перезавантаження.\n"
+"При перевантаженні система залишиться у нестабільному стані, тому "
+"швидше за все знадобиться повторне встановлення.\n"
 "\n"
 
 #: ../harddrive.py:71 ../image.py:516
@@ -1116,7 +1104,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Відсутній образ ISO 9660"
 
 #: ../harddrive.py:72
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1127,15 +1115,14 @@ msgstr ""
 "Програма встановлення намагалась підключити образ #%s, але він не знайдений "
 "на жорсткому диску.\n"
 "\n"
-"Скопіюйте цей образ у спільну теку віддаленого сервера  та натисніть "
-"\"Перезавантажити\"."
+"Скопіюйте цей образ на накопичувач та натисніть \"Повторити\". Щоб перервати встановлення, натисніть \"Перервати встановлення\""
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
 msgstr "Неможливо підключити образ ISO"
 
 #: ../harddrive.py:118
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
@@ -1152,7 +1139,7 @@ msgid "Required Install Media"
 msgstr "Потрібний носій встановлення"
 
 #: ../image.py:85
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
 "\n"
@@ -1164,7 +1151,7 @@ msgstr ""
 "\n"
 "%s\n"
 "Перед продовженням встановлення переконайтесь, що у вас є всі перелічені "
-"диски. Якщо необхідно перервати встановлення та перезавантажити систему, "
+"диски. Якщо необхідно перервати встановлення, "
 "натисніть кнопку \"Перезавантаження\"."
 
 #: ../image.py:93 ../livecd.py:355 ../packages.py:285 ../packages.py:336
@@ -1174,12 +1161,12 @@ msgid "_Back"
 msgstr "_Назад"
 
 #: ../image.py:136 ../urlinstall.py:207
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"Помилка відключення CD. Переконайтесь, що не займаєте %s з оболонки на tty2, "
+"Помилка відключення CD. Переконайтесь, що ви не займаєте %s з оболонки на tty2, "
 "та натисніть Гаразд, щоб повторити спробу."
 
 #: ../image.py:170 ../urlinstall.py:102
@@ -1199,32 +1186,29 @@ msgstr ""
 "Можливо не вистачає дискового простору."
 
 #: ../image.py:270
-#, fuzzy
 msgid "Change Disc"
-msgstr "Змінити компакт-диск"
+msgstr "Змінити диск"
 
 #: ../image.py:271
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Будь ласка, вставте %s диск %d для продовження."
+msgstr "Вставте %s диск %d для продовження."
 
 #: ../image.py:305
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "Неправильний компакт-диск"
+msgstr "Неправильний диск"
 
 #: ../image.py:306
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s disc."
-msgstr "Цей диск не є коректним компакт-диском %s."
+msgstr "Цей диск не є коректним диском %s."
 
 #: ../image.py:312
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "Не вдається отримати доступ до CDROM."
+msgstr "Не вдається отримати доступ до диску."
 
 #: ../image.py:369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1243,7 +1227,7 @@ msgstr ""
 "\n"
 
 #: ../image.py:443
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
@@ -1258,7 +1242,7 @@ msgstr ""
 "можете продовжити встановлення, якщо вважаєте, що це не помилка."
 
 #: ../image.py:517
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
@@ -1269,8 +1253,8 @@ msgstr ""
 "Програма встановлення намагалась підключити образ #%s, але не може знайти "
 "його на сервері.\n"
 "\n"
-"Скопіюйте цей образ у спільну теку віддаленого сервера  та натисніть "
-"Повторити. Щоб перервати встановлення, натисніть Перезавантажити."
+"Скопіюйте цей образ у спільну теку віддаленого сервера та натисніть "
+"Повторити. Щоб перервати встановлення, натисніть \"Перервати встановлення\"."
 
 #: ../installclass.py:67
 msgid "Install on System"
@@ -1285,7 +1269,7 @@ msgid "Scriptlet Failure"
 msgstr "Помилка виконання сценарію"
 
 #: ../kickstart.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
@@ -1295,7 +1279,7 @@ msgstr ""
 "Помилка при виконанні сценарію. Можете переглянути вивід %s. Це серйозна "
 "проблема, тому продовження процесу встановлення неможливе.\n"
 "\n"
-"Натисніть Гаразд для перевантаження системи."
+"Натисніть Гаразд для переривання встановлення."
 
 #: ../kickstart.py:951 ../kickstart.py:968
 msgid "Running..."
@@ -1552,6 +1536,10 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"Пристрій /dev/%s містить більше ніж 15 розділів.  Підсистема SCSI ядра Linux "
+"наразі не дозволяє працювати більш ніж з 15 розділами.  Ви не "
+"зможете змінити конфігурацію цього диску та не зможете працювати з "
+"розділами вище /dev/%s15 на %s"
 
 #: ../partedUtils.py:1184
 #, python-format
@@ -1561,6 +1549,10 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"Пристрій /dev/%s містить більше ніж 15 розділів.  Підсистема SCSI ядра Linux "
+"наразі не дозволяє працювати більше ніж з 15 розділами.  Ви не "
+"зможете змінити конфігурацію цього диску та не зможете працювати з "
+"розділами вище /dev/%s15 на %s"
 
 #: ../partedUtils.py:1276
 msgid "No Drives Found"
@@ -2447,7 +2439,7 @@ msgid "Connecting..."
 msgstr "З'єднання..."
 
 #: ../urlinstall.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2661,12 +2653,11 @@ msgstr "%s з %s пакетів завершені"
 
 #: ../yuminstall.py:195
 msgid "Finishing upgrade"
-msgstr ""
+msgstr "Завершення процесу оновлення"
 
 #: ../yuminstall.py:196
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr "Запускається процес встановлення. Це може зайняти декілька хвилин..."
+msgstr "Запускається процес оновлення. Це може зайняти декілька хвилин..."
 
 #: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
 #: ../yuminstall.py:796 ../yuminstall.py:1012 ../yuminstall.py:1015
@@ -2741,22 +2732,22 @@ msgid ""
 msgstr ""
 "Не вдається прочитати метадані пакету. Можлива причина - відсутність "
 "каталогу repodata. Переконайтесь, що ваше дерево встановлення сформовано "
-"правильно.generated.  %s"
+"правильно. %s"
 
 #: ../yuminstall.py:803
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
-"Неможливо прочесть информацию о группах из репозитариев. Это проблема "
-"относится к генерированию установочного дерева."
+"Неможливо прочитати інформацію про групи з репозиторіїв. Це проблема "
+"стосується генерування дерева встановлення."
 
 #: ../yuminstall.py:836
 msgid "Uncategorized"
 msgstr "Поза категоріями"
 
 #: ../yuminstall.py:1045
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or exit the "
@@ -3596,13 +3587,11 @@ msgid "Netmask"
 msgstr "Маска підмережі"
 
 #: ../iw/netconfig_dialog.py:211
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "Префікс IPv4 повинен бути у межах від 0 до 32"
+msgstr "Префікс IPv4 CIDR повинен бути у межах від 0 до 32"
 
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
 #: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
-#, fuzzy
 msgid "IPv4 Network Mask"
 msgstr "Маска мережі IPv4"
 
@@ -3616,9 +3605,8 @@ msgid "Nameserver"
 msgstr "DNS сервер"
 
 #: ../iw/netconfig_dialog.py:255
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "Помилка при налаштовуванні мережного інтерфейсу"
+msgstr "Помилка при налаштовуванні мережного інтерфейсу:"
 
 #: ../iw/netconfig_dialog.py:268
 msgid "Error configuring network device"
@@ -4484,6 +4472,8 @@ msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
 msgstr ""
+"Через зміни у системі, конфігурацію вашого завантажувача неможливо "
+"автоматично оновити."
 
 #: ../iw/upgrade_bootloader_gui.py:105 ../textw/upgrade_bootloader_text.py:84
 msgid ""
@@ -5731,21 +5721,20 @@ msgid "Test"
 msgstr "Перевірити"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-#, fuzzy
 msgid "Eject Disc"
-msgstr "Витягти CD"
+msgstr "Витягти диск"
 
 #: ../loader2/cdinstall.c:93
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
 msgstr ""
-"Натисніть  \"%s\" для перевірки компакт-диску в пристрої CD, або \"%s\", щоб "
-"витягти CD та вставити інший CD для перевірки."
+"Натисніть  \"%s\" для перевірки диску в пристрої, або \"%s\", щоб "
+"витягти диск та вставити інший диск для перевірки."
 
 #: ../loader2/cdinstall.c:114
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If you would like to test additional media, insert the next disc and press "
 "\"%s\". Testing each disc is not strictly required, however it is highly "
@@ -5755,57 +5744,55 @@ msgid ""
 msgstr ""
 "Якщо у вас є для перевірки додаткові носії, вставте наступний диск та "
 "натисніть  \"%s\". Тестування кожного диска не вимагається, проте "
-"наполегливо рекомендується. Бажано перевірити кожен CD перед першим "
-"використанням. Після успішного тестування, не треба тестувати хз перед "
+"наполегливо рекомендується. Бажано перевірити кожен диск перед першим "
+"використанням. Після успішного тестування, не треба тестувати диск перед "
 "кожним використанням."
 
 #: ../loader2/cdinstall.c:137
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
-"CD %s не знайдено у пристроях CDROM. Вставте диск %s та натисніть %s для "
+"Диск %s не знайдено у пристроях. Вставте диск %s та натисніть %s для "
 "продовження."
 
 #: ../loader2/cdinstall.c:258
-#, fuzzy
 msgid "Disc Found"
-msgstr "Знайдено CD"
+msgstr "Знайдено диск"
 
 #: ../loader2/cdinstall.c:259
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"Щоб почати перевірку носіїв CD перед встановленням натисніть %s.\n"
+"Щоб почати перевірку носіїв перед встановленням натисніть %s.\n"
 "\n"
 "Натисніть %s, щоб пропустити перевірку носія та запустити встановлення."
 
 #: ../loader2/cdinstall.c:379
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s disc was found which matches your boot media.  Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"CD %s не знайдено у пристроях CDROM. Вставте диск %s та натисніть %s, щоб "
+"Диск %s не знайдено у пристроях. Вставте диск %s та натисніть %s, щоб "
 "спробувати ще раз."
 
 #: ../loader2/cdinstall.c:384
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"CD %s не знайдено у пристроях CDROM. Вставте диск %s та натисніть %s для "
+"Диск %s не знайдено у пристроях. Вставте диск %s та натисніть %s для "
 "продовження."
 
 #: ../loader2/cdinstall.c:391
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "CD не знайдено"
+msgstr "Диск не знайдено"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
@@ -6112,9 +6099,8 @@ msgid "Choose a Language"
 msgstr "Виберіть мову"
 
 #: ../loader2/loader.c:118
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "Локальний CDROM"
+msgstr "Локальний CD/DVD"
 
 #: ../loader2/loader.c:120
 msgid "Hard drive"
@@ -6804,18 +6790,16 @@ msgid "_Add target"
 msgstr "_Додати пристрій"
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "_Встановити %s"
+msgstr "Встановити"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "Встановити з Live CD на жорсткий диск"
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "Запуск встановлення"
+msgstr "Встановити на жорсткий диск"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6906,7 +6890,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "_додати додаткові репозиторії"
+msgstr "_Додати додаткові репозиторії"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
@@ -7093,9 +7077,8 @@ msgid "Punjabi"
 msgstr "Панджабська"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "Хорватська"
+msgstr "Румунська"
 
 #. generated from lang-table
 msgid "Russian"
