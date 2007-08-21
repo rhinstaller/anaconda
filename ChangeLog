@@ -1,5 +1,8 @@
 2007-08-21  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-instroot: Check theme stuff in the installed root,
+	not the host
+
 	* bootdisk/i386/syslinux.cfg: Add version (#253632)
 	* bootdisk/x86_64/syslinux.cfg: Likewise.
 	* scripts/mk-images.x86: Likewise.

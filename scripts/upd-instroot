@@ -163,17 +163,17 @@ expandPackageSet() {
 
     # figure out the theme to keep
     if [ -f $PKGDEST/yumdir/etc/gtk-2.0/gtkrc ]; then
-	gtktheme=$(grep "gtk-theme-name" $PKGDEST/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
+	gtktheme=$(grep "gtk-theme-name" $PKGDEST/yumdir/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
 	echo "usr/share/themes/$gtktheme" >> $KEEPFILES
 	# find gtk engine needed
-	for engine in `grep engine /usr/share/themes/$gtktheme/gtk-2.0/gtkrc | awk {'print $2;'} | sed -e 's/"//g' | sort -u` ; do
+	for engine in `grep engine $PKGDEST/yumdir/usr/share/themes/$gtktheme/gtk-2.0/gtkrc | awk {'print $2;'} | sed -e 's/"//g' | sort -u` ; do
 	    echo "usr/$LIBDIR/gtk-2.0/*/engines/*$engine*" >> $KEEPFILES
 	done
 	
-	theme=$(grep "gtk-icon-theme-name" $PKGDEST/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
+	theme=$(grep "gtk-icon-theme-name" $PKGDEST/yumdir/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
 	while [ -n "$theme" ]; do 
 	    echo "usr/share/icons/$theme" >> $KEEPFILES
-	    theme=$(grep Inherits /usr/share/icons/$theme/index.theme | cut -d = -f 2)
+	    theme=$(grep Inherits $PKGDEST/yumdir/usr/share/icons/$theme/index.theme | cut -d = -f 2)
 	done
     fi
 
