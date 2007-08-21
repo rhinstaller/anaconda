@@ -37,6 +37,7 @@ prepareBootTree() {
 
 	rm -f $MBD_BOOTTREE/syslinux-splash.png
 	sed -i "s/@PRODUCT@/$PRODUCT/g" $MBD_BOOTTREE/syslinux.cfg
+	sed -i "s/@VERSION@/$VERSION/g" $MBD_BOOTTREE/syslinux.cfg
 
 	rm -f $MBD_BOOTTREE/memtest*
 	for file in $BOOTDISKDIR/*.msg; do
