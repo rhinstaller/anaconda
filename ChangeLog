@@ -3,6 +3,10 @@
 	* loader2/nfsinstall.c (getFileFromNfs): Make sure we only add one
 	slash for NFS path names (#253539).
 
+	* loader2/net.c (cidrCallback): If user provided a dotted-quad
+	netmask for IPv4, check it and if it validates, skip the CIDR
+	validation (#243250).
+
 2007-08-22  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Update s-c-date dependency (#253444).
