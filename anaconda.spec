@@ -30,7 +30,7 @@ Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
 Requires: parted >= 1.8.1, pyparted >= 1.8.1
 Requires: kudzu >= 1.2.68, yum >= 2.9.2, pirut >= 1.1.0
 Requires: libxml2-python, python-urlgrabber
-Requires: system-logos, pykickstart >= 0.96, system-config-date
+Requires: system-logos, pykickstart >= 0.96, system-config-date >= 1.9.0
 Requires: device-mapper >= %{dmver}, device-mapper-libs >= %{dmver}
 Requires: dosfstools e2fsprogs
 Requires: python-pyblock >= 0.24-1

@@ -1,3 +1,7 @@
+2007-08-22  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Update s-c-date dependency (#253444).
+
 2007-08-22  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/timezone_gui.py (TimezoneWindow.timezone_widget_create):
@@ -14,12 +18,12 @@
 	* scripts/mk-images.x86: Likewise.
 
 2007-08-17 Joel Granados <jgranado@redhat.com>
+
 	* iw/network_gui.py: Call append_row function with extra tooltip
 	argument (#125312)
 
 	* iw/checklist.py: Append_row function with argument that defines
 	tooltip for each row.
-
 
 2007-08-17  Martin Sivak <msivak@redhat.com>
 
