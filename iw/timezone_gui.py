@@ -68,13 +68,8 @@ class TimezoneWindow(InstallWindow):
     def timezone_widget_create (self, str1, str2, int1, int2):
         mappath = "/usr/share/system-config-date/pixmaps/map1440.png"
 
-        if gtk.gdk.screen_width() < 1024:
-            viewportWidth = 480
-        else:
-            viewportWidth = 600
-
         self.tz = AnacondaTZMap(self.zonetab, self.default, map=mappath,
-                                viewportWidth=viewportWidth)
+                                viewportWidth=480)
         self.tz.show_all()
         return self.tz
 
@@ -85,6 +80,7 @@ class TimezoneWindow(InstallWindow):
 
     # TimezoneWindow tag="timezone"
     def getScreen(self, anaconda):
+	self.intf = anaconda.intf        
         self.timezone = anaconda.id.timezone
         (self.default, asUTC, asArc) = self.timezone.getTimezoneInfo()
 

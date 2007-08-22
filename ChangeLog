@@ -1,3 +1,9 @@
+2007-08-22  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/timezone_gui.py (TimezoneWindow.timezone_widget_create):
+	Always do the smaller width since our window is never bigger than
+	800x600 (#251851)
+
 2007-08-21  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: Check theme stuff in the installed root,
