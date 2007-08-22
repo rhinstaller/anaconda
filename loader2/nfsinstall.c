@@ -277,6 +277,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     char ret[47];
     char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
+    char * chk = NULL;
     int failed = 0;
     struct networkDeviceConfig netCfg;
     ip_addr_t *tip;
@@ -334,7 +335,13 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         file = path;
     } else {
         *file++ ='\0';
-        host = sdupprintf("%s/%s", host, path);
+        chk = host;
+        chk += strlen(host) - 1;
+
+        if (*chk == '/' || *path == '/')
+            host = sdupprintf("%s%s", host, path);
+        else
+            host = sdupprintf("%s/%s", host, path);
     }
 
     logMessage(INFO, "file location: nfs://%s/%s", host, file);

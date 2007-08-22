@@ -1,3 +1,8 @@
+2007-08-22  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/nfsinstall.c (getFileFromNfs): Make sure we only add one
+	slash for NFS path names (#253539).
+
 2007-08-22  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Update s-c-date dependency (#253444).
