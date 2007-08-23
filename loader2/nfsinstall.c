@@ -31,6 +31,8 @@
 #include "method.h"
 #include "nfsinstall.h"
 #include "net.h"
+#include "cdinstall.h"
+#include "windows.h"
 
 #include "../isys/imount.h"
 
@@ -119,6 +121,7 @@ char * mountNfsImage(struct installMethod * method,
         case NFS_STAGE_MOUNT: {
             int foundinvalid = 0;
             char * buf;
+            char * cdurl;
             struct in_addr ip;
 
             if (loaderData->noDns && !(inet_pton(AF_INET, host, &ip))) {
@@ -147,8 +150,19 @@ char * mountNfsImage(struct installMethod * method,
                            IMOUNT_RDONLY, mountOpts)) {
                 if (!access("/mnt/source/images/stage2.img", R_OK)) {
                     logMessage(INFO, "can access /mnt/source/images/stage2.img");
-                    rc = mountStage2("/mnt/source/images/stage2.img");
-                    logMessage(DEBUGLVL, "after mountStage2, rc is %d", rc);
+                    /* try to see if we're booted off of a CD with stage2 */
+                    cdurl = findAnacondaCD(location, modInfo, modLoaded, *modDepsPtr, 0);
+                    if (cdurl) {
+                        logMessage(INFO, "Detected stage 2 image on CD");
+                        winStatus(50, 3, _("Media Detected"),
+                                  _("Local installation media detected..."), 0);
+                        sleep(3);
+                        newtPopWindow();
+                        rc = 0;
+                    } else {
+                        rc = mountStage2("/mnt/source/images/stage2.img");
+                        logMessage(DEBUGLVL, "after mountStage2, rc is %d", rc);
+                    }
                     if (rc) {
                         if (rc == -1) { 
                             foundinvalid = 1; 
@@ -171,7 +185,18 @@ char * mountNfsImage(struct installMethod * method,
                     if (mountLoopback(path, "/mnt/source2", "loop1")) 
                         logMessage(WARNING, "failed to mount iso %s loopback", path);
                     else {
-                        rc = mountStage2("/mnt/source2/images/stage2.img");
+                        /* try to see if we're booted off of a CD with stage2 */
+                        cdurl = findAnacondaCD(location, modInfo, modLoaded, *modDepsPtr, 0);
+                        if (cdurl) {
+                            logMessage(INFO, "Detected stage 2 image on CD");
+                            winStatus(50, 3, _("Media Detected"),
+                                      _("Local installation media detected..."), 0);
+                            sleep(3);
+                            newtPopWindow();
+                            rc = 0;
+                        } else {
+                            rc = mountStage2("/mnt/source2/images/stage2.img");
+                        }
                         if (rc) {
                             umountLoopback("/mnt/source2", "loop1");
                             if (rc == -1)

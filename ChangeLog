@@ -1,5 +1,8 @@
 2007-08-23  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/nfsinstall.c (mountNfsImage): Use rescue CD for second
+	stage on nfs installs too (#186641)
+
 	* partitions.py (Partitions.getBaseReqs): New firewire module name
 
 	* livecd.py (LiveCDCopyBackend.doRepoSetup): Mark for translation,
