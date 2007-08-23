@@ -962,7 +962,7 @@ class Partitions:
             for x in request.drive or []:
                 if isys.driveUsesModule(x, ["usb-storage", "ub"]):
                     usesUSB = True
-                elif isys.driveUsesModule(x, ["sbp2"]):
+                elif isys.driveUsesModule(x, ["sbp2", "firewire-sbp2"]):
                     usesFireWire = True
             
         if usesUSB:
