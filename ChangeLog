@@ -1,3 +1,11 @@
+2007-08-23  Chris Lumens  <clumens@redhat.com>
+
+	* fsset.py (devify):  Don't map pseudofilesystems like tmpfs to device
+	names like /dev/tmpfs.
+	(FileSystemSet.add):  Add entries in specially sorted order taking
+	into account bind mounts and pseudofilesystem entries.  Don't add
+	duplicate entries if the filesystem type is none (#253485).
+
 2007-08-22  Dave Lehman  <dlehman@redhat.com>
 
 	* yuminstall.py: backport of handling for "no more mirrors" errors

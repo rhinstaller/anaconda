@@ -3,7 +3,7 @@
 #
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 2001-2006 Red Hat, Inc.
+# Copyright 2001-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -93,19 +93,8 @@ def getUsableLinuxFs():
         rc.insert(0, defaultName)
     return rc
 
-def mountCompare(a, b):
-    one = a.mountpoint
-    two = b.mountpoint
-    adev = a.device.getDevice()
-    bdev = b.device.getDevice()
-    if one < two or one == bdev:
-        return -1
-    elif two > one or two == adev:
-        return 1
-    return 0
-
 def devify(device):
-    if device == "proc" or device == "devpts":
+    if device in ["proc", "devpts", "sysfs", "tmpfs"] or device.find(":") != -1:
         return device
     elif device == "sys":
         return "sysfs"
@@ -1200,20 +1189,63 @@ class FileSystemSet:
             if type(entry.__dict__) != type({}):
                 raise RuntimeError, "fsset internals inconsistent"
 
-    def add (self, entry):
-        # remove any existing duplicate entries
+    def add (self, newEntry):
+        # Should object A be sorted after object B?  Take mountpoints and
+        # device names into account so bind mounts are sorted correctly.
+        def comesAfter (a, b):
+            mntA = a.mountpoint
+            mntB = b.mountpoint
+            devA = a.device.getDevice()
+            devB = b.device.getDevice()
+
+            if not mntB:
+                return False
+            if mntA and mntA != mntB and mntA.startswith(mntB):
+                return True
+            if devA and devA != mntB and devA.startswith(mntB):
+                return True
+            return False
+
+        def samePseudo (a, b):
+            return isinstance(a.fsystem, PsudoFileSystem) and isinstance (b.fsystem, PsudoFileSystem) and \
+                   not isinstance (a.fsystem, BindFileSystem) and not isinstance (b.fsystem, BindFileSystem) and \
+                   a.fsystem.getName() == b.fsystem.getName()
+
+        def sameEntry (a, b):
+            return a.device.getDevice() == b.device.getDevice() and a.mountpoint == b.mountpoint
+
+        # Remove preexisting duplicate entries - pseudo filesystems are
+        # duplicate if they have the same filesystem type as an existing one.
+        # Otherwise, they have to have the same device and mount point
+        # (required to check for bind mounts).
         for existing in self.entries:
-            if (existing.device.getDevice() == entry.device.getDevice()
-                and existing.mountpoint == entry.mountpoint):
+            if samePseudo (newEntry, existing) or sameEntry (newEntry, existing):
                 self.remove(existing)
+
         # XXX debuggin'
 ##         log.info ("fsset at %s\n"
 ##                   "adding entry for %s\n"
 ##                   "entry object %s, class __dict__ is %s",
 ##                   self, entry.mountpoint, entry,
 ##                   isys.printObject(entry.__dict__))
-        self.entries.append(entry)
-        self.entries.sort (mountCompare)
+
+        insertAt = 0
+
+        # Special case for /.
+        if newEntry.mountpoint == "/":
+            self.entries.insert(insertAt, newEntry)
+            return
+
+        # doesn't matter where these get added, so just put them at the end
+        if not newEntry.mountpoint or not newEntry.mountpoint.startswith("/") or self.entries == []:
+            self.entries.append(newEntry)
+            return
+
+        for entry in self.entries:
+            if comesAfter(newEntry, entry):
+                insertAt = self.entries.index(entry)+1
+
+        self.entries.insert(insertAt, newEntry)
 
     def remove (self, entry):
         self.entries.remove(entry)
