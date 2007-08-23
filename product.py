@@ -26,6 +26,7 @@ productStamp = ""
 productName = "anaconda"
 productVersion = "bluesky"
 productPath = "anaconda"
+productArch = None
 bugUrl = "your distribution provided bug reporting tool."
 
 if path is not None:
@@ -33,6 +34,7 @@ if path is not None:
     lines = f.readlines()
     if len(lines) >= 3:
         productStamp = lines[0][:-1]
+        productArch = productStamp[productStamp.index(".")+1:]
         productName = lines[1][:-1]
         productVersion = lines[2][:-1]
     if len(lines) >= 4:
@@ -46,5 +48,7 @@ if os.environ.has_key("ANACONDA_PRODUCTVERSION"):
     productVersion = os.environ["ANACONDA_PRODUCTVERSION"]
 if os.environ.has_key("ANACONDA_PRODUCTPATH"):
     productPath = os.environ["ANACONDA_PRODUCTPATH"]
+if os.environ.has_key("ANACONDA_PRODUCTARCH"):
+    productArch = os.environ["ANACONDA_PRODUCTARCH"]
 if os.environ.has_key("ANACONDA_BUGURL"):
     bugUrl = os.environ["ANACONDA_BUGURL"]

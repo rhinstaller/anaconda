@@ -90,6 +90,7 @@ void startNewt(void);
 void stopNewt(void);
 char * getProductName(void);
 char * getProductPath(void);
+char * getProductArch(void);
 
 #include "modules.h"
 #include "moduledeps.h"

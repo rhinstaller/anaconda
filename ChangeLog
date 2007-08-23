@@ -1,3 +1,15 @@
+2007-08-23  Martin Sivak <msivak@redhat.com>
+
+	All changes are about #244531.
+
+	* loader2/loader.h: Add getProductArch method.
+	* loader2/loader.c: Populate productArch and define getProductArch.
+	Show the architecture in stage1.
+
+	* constants.py: add productArch
+	* product.py: populate productArch
+	* text.py: Show the architecture during text mode stage2.
+
 2007-08-22  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

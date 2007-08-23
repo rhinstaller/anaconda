@@ -59,6 +59,7 @@ NUMBER_OF_CDS = 5
 import product
 productName = product.productName
 productVersion = product.productVersion
+productArch = product.productArch
 productPath = product.productPath
 bugzillaUrl = product.bugUrl
 

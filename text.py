@@ -467,7 +467,10 @@ class InstallInterface:
 
     def drawFrame(self):
         self.screen.drawRootText (0, 0, self.screen.width * " ")
-        self.screen.drawRootText (0, 0, _("Welcome to %s") % productName)
+        if productArch:
+          self.screen.drawRootText (0, 0, _("Welcome to %s for %s") % (productName, productArch,))
+        else:
+          self.screen.drawRootText (0, 0, _("Welcome to %s") % productName)
 
 	if (os.access("/usr/share/anaconda/help/C/s1-help-screens-lang.txt", os.R_OK)):
 	    self.screen.pushHelpLine(_(" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"))

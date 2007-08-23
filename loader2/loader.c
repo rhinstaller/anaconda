@@ -151,7 +151,10 @@ void doShell(void) {
 
 void startNewt(void) {
     if (!newtRunning) {
-        char *buf = sdupprintf(_("Welcome to %s"), getProductName());
+        char *buf;
+        if(getProductArch()) buf = sdupprintf(_("Welcome to %s for %s"), getProductName(), getProductArch());
+        else buf = sdupprintf(_("Welcome to %s"), getProductName());
+
         newtInit();
         newtCls();
         newtDrawRootText(0, 0, buf);
@@ -174,6 +177,8 @@ void stopNewt(void) {
 
 static char * productName = NULL;
 static char * productPath = NULL;
+static char * productArch = NULL;
+static char * productStamp = NULL;
 
 static void initProductInfo(void) {
     FILE *f;
@@ -184,9 +189,13 @@ static void initProductInfo(void) {
         productName = strdup("anaconda");
         productPath = strdup("anaconda");
     } else {
+        productStamp = malloc(256);
         productName = malloc(256);
         productPath = malloc(256);
-        productName = fgets(productName, 256, f); /* stamp time */
+        productStamp = fgets(productStamp, 256, f); /* stamp time and architecture */
+        productArch = strstr(productStamp, "."); /* architecture is separated by dot */
+        if(productArch) productArch++;
+
         productName = fgets(productName, 256, f); /* product name */
         productPath = fgets(productPath, 256, f); /* product version */
         productPath = fgets(productPath, 256, f); /* product path */
@@ -202,6 +211,8 @@ static void initProductInfo(void) {
             i--;
         }
     }
+
+    if(!productArch) productArch = strdup("unknown architecture");
 }
 
 char * getProductName(void) {
@@ -209,6 +220,13 @@ char * getProductName(void) {
        initProductInfo();
     }
     return productName;
+}
+
+char * getProductArch(void) {
+    if (!productArch) {
+       initProductInfo();
+    }
+    return productArch;
 }
 
 char * getProductPath(void) {
