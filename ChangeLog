@@ -1,3 +1,13 @@
+2007-08-23 Joel Granados <jgranado@redhat.com>
+
+	* scripts/upd_instroot: Added packages and files so man pages work
+	in rescue. BZ#243443.
+
+	* iw/task_gui.py: Setup the additionall Everythin Repo. BZ#254014.
+	* installclasses/fedora.py: User can choose additional repo.
+	BZ#254014
+
+
 2007-08-23  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/hdinstall.c (loadHDImages): Handle using the rescue CD

@@ -47,8 +47,7 @@ class TaskWindow(InstallWindow):
 
                     # Setup any repositories that were in the installclass's
                     # default list.
-                    if not repo.ready():
-                        self._setupRepo(repo)
+                    self._setupRepo(repo)
                 else:
                     repo.disable()
 
