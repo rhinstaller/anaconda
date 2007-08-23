@@ -1,3 +1,8 @@
+2007-08-22  Dave Lehman  <dlehman@redhat.com>
+
+	* yuminstall.py: backport of handling for "no more mirrors" errors
+	when retrieving packages (#240582)
+
 2007-08-16  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.

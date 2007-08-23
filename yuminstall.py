@@ -67,16 +67,21 @@ def getcd(po):
     except (AttributeError, KeyError):
         return 0
 
+class NoMoreMirrorsRepoError(yum.Errors.RepoError):
+    def __init__(self, value=None):
+        yum.Errors.RepoError.__init__(self)
+        self.value = value
 
 class simpleCallback:
 
-    def __init__(self, repos, messageWindow, progress, pkgTimer, method,
-                 progressWindowClass, instLog, modeText, ts):
-        self.repos = repos
+    def __init__(self, ayum, messageWindow, progress, pkgTimer,
+                 progressWindowClass, instLog, modeText):
+        self.ayum = ayum
+        self.repos = ayum.repos
         self.messageWindow = messageWindow
         self.progress = progress
         self.pkgTimer = pkgTimer
-        self.method = method
+        self.method = ayum.method
         self.progressWindowClass = progressWindowClass
         self.progressWindow = None
         self.lastprogress = 0
@@ -85,7 +90,7 @@ class simpleCallback:
         self.modeText = modeText
         self.beenCalled = 0
         self.initWindow = None
-        self.ts = ts
+        self.ts = ayum.ts
         self.files = {}
 
     def callback(self, what, amount, total, h, user):
@@ -140,6 +145,8 @@ class simpleCallback:
 
                     f = open(fn, 'r')
                     self.files[nvra] = f
+                except NoMoreMirrorsRepoError:
+                    self.ayum._handleFailure(po)
                 except yum.Errors.RepoError, e:
                     continue
 
@@ -276,9 +283,12 @@ class AnacondaYumRepo(YumRepository):
                                     range=(start, end),
                                     )
             except URLGrabError, e:
-                raise yum.Errors.RepoError, \
-                    "failed to retrieve %s from %s\nerror was %s" % (relative, self.id, e)
-
+                errstr = "failed to retrieve %s from %s\nerror was %s" % (relative, self.id, e)
+                if e.errno == 256:
+                    raise NoMoreMirrorsRepoError, errstr
+                else:
+                    raise yum.Errors.RepoError, errstr
+                    
         else:
             try:
                 result = self.grab.urlgrab(relative, local,
@@ -291,7 +301,11 @@ class AnacondaYumRepo(YumRepository):
                                            http_headers=headers,
                                            )
             except URLGrabError, e:
-                raise yum.Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
+                errstr = "failure: %s from %s: %s" % (relative, self.id, e)
+                if e.errno == 256:
+                    raise NoMoreMirrorsRepoError, errstr
+                else:
+                    raise yum.Errors.RepoError, errstr
 
         return result
 
@@ -486,6 +500,7 @@ class AnacondaYum(YumSorter):
         YumSorter.__init__(self)
         self.anaconda = anaconda
         self.method = anaconda.method
+        self.prevmedia = None
         self.doConfigSetup(root=anaconda.rootPath)
         self.conf.installonlypkgs = []
         self.macros = {}
@@ -578,6 +593,56 @@ class AnacondaYum(YumSorter):
         self.plugins.run('init')
 
         self.repos.setCacheDir('/tmp/cache')
+
+    def downloadHeader(self, po):
+        while True:
+            # retrying version of download header
+            try:
+                YumSorter.downloadHeader(self, po)
+            except NoMoreMirrorsRepoError:
+                self._handleFailure(po)
+            except yum.Errors.RepoError, e:
+                continue
+            else:
+                break
+
+    def _handleFailure(self, package):
+        pkgFile = os.path.basename(package.returnSimple('relativepath'))
+        rc = self.anaconda.intf.messageWindow(_("Error"),
+                   _("The file %s cannot be opened.  This is due to a missing "
+                     "file, a corrupt package or corrupt media.  Please "
+                     "verify your installation source.\n\n"
+                     "If you exit, your system will be left in an inconsistent "
+                     "state that will likely require reinstallation.\n\n") %
+                                              (pkgFile,),
+                                    type="custom", custom_icon="error",
+                                    custom_buttons=[_("Re_boot"), _("_Retry")])
+
+        if rc == 0:
+            sys.exit(0)
+        else:
+            if self.prevmedia:
+                self.method.switchMedia(self.prevmedia)
+
+    def mirrorFailureCB (self, obj, *args, **kwargs):
+        # This gets called when a mirror fails, but it cannot know whether
+        # or not there are other mirrors left to try, since it cannot know
+        # which mirror we were on when we started this particular download. 
+        # Whenever we have run out of mirrors the grabber's get/open/retrieve
+        # method will raise a URLGrabError exception with errno 256.
+        grab = self.repos.getRepo(kwargs["repo"]).grab
+        log.warning("Failed to get %s from mirror %d/%d" % (obj.url, 
+                                                            grab._next + 1,
+                                                            len(grab.mirrors)))
+        
+        if self.method.currentMedia:
+            if kwargs.get("tsInfo") and kwargs["tsInfo"].curmedia > 0:
+                self.prevmedia = kwargs["tsInfo"].curmedia
+
+            self.method.unmountCD()
+
+    def urlgrabberFailureCB (self, obj, *args, **kwargs):
+        log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
 
     def getDownloadPkgs(self):
         downloadpkgs = []
@@ -728,17 +793,7 @@ class AnacondaYum(YumSorter):
                 if ts_elem.has_key((txmbr.pkgtup, 'i')):
                     continue
 
-                # If we get a URLGrabError, that means we had trouble getting
-                # the package.  However, the user clicked retry in the
-                # urlgrabberFailureCB (since if they clicked Reboot, we exited)
-                # so use this as the indication to try again.
-                while True:
-                    try:
-                        self.downloadHeader(txmbr.po)
-                        break
-                    except RepoError:
-                        pass
-
+                self.downloadHeader(txmbr.po)
                 hdr = txmbr.po.returnLocalHeader()
                 rpmfile = txmbr.po.localPkg()
                 
@@ -783,46 +838,7 @@ class AnacondaYum(YumSorter):
 class YumBackend(AnacondaBackend):
     def __init__ (self, method, instPath):
         AnacondaBackend.__init__(self, method, instPath)
-        self.prevmedia = None
         self._installedDriverModules = 0
-
-    def _handleFailure(self, url, intf):
-        (scheme, netloc, path, query, fragment) = urlparse.urlsplit(url)
-
-        rc = intf.messageWindow(_("Error"),
-                                self.method.badPackageError(os.path.basename(path)),
-                                type="custom", custom_icon="error",
-                                custom_buttons=[_("Re_boot"), _("_Retry")])
-
-        if rc == 0:
-            sys.exit(0)
-        else:
-            if self.prevmedia:
-                self.method.switchMedia(self.prevmedia)
-
-    def mirrorFailureCB (self, obj, *args, **kwargs):
-        log.warning("Failed to get %s from mirror" % obj.url)
-
-        if kwargs["grab"]._next >= len(kwargs["grab"].mirrors):
-            if self.method.currentMedia:
-                if kwargs.has_key("tsInfo"):
-                    self.prevmedia = kwargs["tsInfo"].curmedia
-                self.method.unmountCD()
-
-            if kwargs.has_key("intf") and kwargs["intf"]:
-                self._handleFailure(obj.url, kwargs["intf"])
-
-    def urlgrabberFailureCB (self, obj, *args, **kwargs):
-        log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
-
-        if obj.tries >= obj.retry:
-            if self.method.currentMedia:
-                if kwargs.has_key("tsInfo"):
-                    self.prevmedia = kwargs["tsInfo"].curmedia
-                self.method.unmountCD()
-
-            if kwargs.has_key("intf") and kwargs["intf"]:
-                self._handleFailure(obj.url, kwargs["intf"])
 
     def doInitialSetup(self, anaconda):
         if anaconda.id.getUpgrade():
@@ -922,6 +938,11 @@ class YumBackend(AnacondaBackend):
                     self.ayum.repos.delete(repo.id)
                     continue
 
+            repo.setFailureObj((self.ayum.urlgrabberFailureCB, (), {}))
+            repo.setMirrorFailureObj((self.ayum.mirrorFailureCB, (),
+                                     {"tsInfo":self.ayum.tsInfo, 
+                                      "repo": repo.id}))
+
         try:
             self.doGroupSetup()
         except yum.Errors.GroupsError:
@@ -933,12 +954,7 @@ class YumBackend(AnacondaBackend):
                                         type="custom", custom_icon="error",
                                         custom_buttons = [_("Re_boot")])
         self._catchallCategory()
-
         self.ayum.repos.callback = None
-        self.ayum.repos.setFailureCallback((self.urlgrabberFailureCB, (),
-                                           {"intf":anaconda.intf, "tsInfo":self.ayum.tsInfo}))
-        self.ayum.repos.setMirrorFailureCallback((self.mirrorFailureCB, (),
-                                                 {"intf":anaconda.intf, "tsInfo":self.ayum.tsInfo, "grab": repo.grab}))
 
     def _catchallCategory(self):
         # FIXME: this is a bad hack, but catch groups which aren't in
@@ -1676,7 +1692,7 @@ class YumBackend(AnacondaBackend):
         anaconda.id.instProgress.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
         anaconda.id.instProgress.processEvents()
 
-        cb = simpleCallback(self.ayum.repos, anaconda.intf.messageWindow, anaconda.id.instProgress, pkgTimer, self.method, anaconda.intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
+        cb = simpleCallback(self.ayum, anaconda.intf.messageWindow, anaconda.id.instProgress, pkgTimer, anaconda.intf.progressWindow, self.instLog, self.modeText)
 
         cb.initWindow = anaconda.intf.waitWindow(_("Install Starting"),
                                         _("Starting install process.  This may take several minutes..."))
