@@ -358,9 +358,10 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         if slash and \
            slash.getActualSize(anaconda.id.partitions, anaconda.id.diskset) < ossize:
             rc = anaconda.intf.messageWindow(_("Error"),
-                                        ("The root filesystem you created is "
-                                         "not large enough for this live "
-                                         "image."), type = "custom",
+                                        _("The root filesystem you created is "
+                                          "not large enough for this live "
+                                          "image (%.2f MB required.") % ossize,
+                                        type = "custom",
                                         custom_icon = "error",
                                         custom_buttons=[_("_Back"),
                                                         _("_Exit installer")])
