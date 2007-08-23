@@ -695,7 +695,7 @@ commandMap = {
         "poweroff": Reboot,
         "raid": Raid,
         "reboot": Reboot,
-        "repo": commands.repo.FC6_Repo,
+        "repo": commands.repo.F8_Repo,
         "rootpw": RootPw,
         "selinux": SELinux,
         "services": commands.services.FC6_Services,
