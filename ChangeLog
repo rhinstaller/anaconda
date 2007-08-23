@@ -1,5 +1,8 @@
 2007-08-23  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/hdinstall.c (loadHDImages): Handle using the rescue CD
+	for the second stage on hard drive installs (#186641)
+
 	* loader2/nfsinstall.c (mountNfsImage): Use rescue CD for second
 	stage on nfs installs too (#186641)
 

@@ -37,6 +37,8 @@
 #include "modules.h"
 #include "method.h"
 #include "mediacheck.h"
+#include "cdinstall.h"
+#include "windows.h"
 
 #include "../isys/imount.h"
 #include "../isys/isys.h"
@@ -47,9 +49,12 @@ extern uint64_t flags;
 
 /* pull in second stage image for hard drive install */
 static int loadHDImages(char * prefix, char * dir, 
-			   char * device, char * mntpoint) {
-    int fd, rc, idx;
-    char *path, *target, *dest;
+                        char * device, char * mntpoint,
+                        char * location, 
+                        moduleInfoSet modInfo, moduleList modLoaded,
+                        moduleDeps * modDepsPtr) {
+    int fd = 0, rc, idx;
+    char *path, *target = NULL, *dest, *cdurl;
     char *stg2list[] = {"stage2.img", "minstg2.img", NULL};
 
     path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
@@ -59,28 +64,39 @@ static int loadHDImages(char * prefix, char * dir,
     else
         idx = 0;
 
-    target = NULL;
-    for (; stg2list[idx]; idx++) {
-        target = stg2list[idx];
-        sprintf(path, "%s/%s/images/%s", prefix, dir ? dir : "", target);
+    /* try to see if we're booted off of a CD with stage2 */
+    cdurl = findAnacondaCD(location, modInfo, modLoaded, *modDepsPtr, 0);
+    if (cdurl) {
+        logMessage(INFO, "Detected stage 2 image on CD");
+        winStatus(50, 3, _("Media Detected"),
+                  _("Local installation media detected..."), 0);
+        sleep(3);
+        newtPopWindow();
+        rc = 0;
+    } else {
+        target = NULL;
+        for (; stg2list[idx]; idx++) {
+            target = stg2list[idx];
+            sprintf(path, "%s/%s/images/%s", prefix, dir ? dir : "", target);
 
-        logMessage(INFO, "Looking for hd stage2 image %s", path);
-        if (!access(path, F_OK))
-            break;
-        logMessage(INFO, "%s does not exist: %s, trying next target", path, strerror(errno));
+            logMessage(INFO, "Looking for hd stage2 image %s", path);
+            if (!access(path, F_OK))
+                break;
+            logMessage(INFO, "%s does not exist: %s, trying next target", path, strerror(errno));
+        }
+
+        if (!target) {
+            logMessage(ERROR, "failed to find hd stage 2 image%s: %s", path, strerror(errno));
+            return 1;
+        } 
+
+        logMessage(INFO, "Found hd stage2, copying %s in RAM as stage2", path);
+
+        if ((fd = open(path, O_RDONLY)) < 0) {
+            logMessage(ERROR, "failed to open %s: %s", path, strerror(errno));
+            return 1;
+        } 
     }
-
-    if (!target) {
-        logMessage(ERROR, "failed to find hd stage 2 image%s: %s", path, strerror(errno));
-        return 1;
-    } 
-
-    logMessage(INFO, "Found hd stage2, copying %s in RAM as stage2", path);
-
-    if ((fd = open(path, O_RDONLY)) < 0) {
-        logMessage(ERROR, "failed to open %s: %s", path, strerror(errno));
-        return 1;
-    } 
 
     /* handle updates.img now before we copy stage2 over... this allows
      * us to keep our ramdisk size as small as possible */
@@ -92,27 +108,32 @@ static int loadHDImages(char * prefix, char * dir,
     sprintf(path, "%s/%s/images/product.img", prefix, dir ? dir : "");
     copyProductImg(path);
 
-    dest = alloca(strlen(target) + 50);
-    sprintf(dest,"/tmp/ramfs/%s", target);
-    rc = copyFileAndLoopbackMount(fd, dest, device, mntpoint);
-    close(fd);
+    if (!cdurl) {
+        dest = alloca(strlen(target) + 50);
+        sprintf(dest,"/tmp/ramfs/%s", target);
+        rc = copyFileAndLoopbackMount(fd, dest, device, mntpoint);
+        close(fd);
 
-    if (!verifyStamp(mntpoint)) {
-        char * buf;
-        buf = sdupprintf(_("The %s installation tree in that directory does "
-                           "not seem to match your boot media."), 
-                         getProductName());
+        if (!verifyStamp(mntpoint)) {
+            char * buf;
+            buf = sdupprintf(_("The %s installation tree in that directory does "
+                               "not seem to match your boot media."), 
+                             getProductName());
         
-        newtWinMessage(_("Error"), _("OK"), buf);
-        umountLoopback(mntpoint, device);
-        return 1;
+            newtWinMessage(_("Error"), _("OK"), buf);
+            umountLoopback(mntpoint, device);
+            return 1;
+        }
     }
 
     return rc;
 }
 
 /* given a partition device and directory, tries to mount hd install image */
-static char * setupIsoImages(char * device, char * dirName) {
+static char * setupIsoImages(char * device, char * dirName, 		      
+                             char * location, 
+                             moduleInfoSet modInfo, moduleList modLoaded,
+                             moduleDeps * modDepsPtr) {
     int rc;
     char * url;
     char filespec[1024];
@@ -152,7 +173,7 @@ static char * setupIsoImages(char * device, char * dirName) {
                 /* This code is for copying small stage2 into ram */
                 /* and mounting                                   */
                 rc = loadHDImages("/tmp/loopimage", "/", "loop1",
-                                  "/mnt/runtime");
+                                  "/mnt/runtime", location, modInfo, modLoaded, modDepsPtr);
                 if (rc) {
                     newtWinMessage(_("Error"), _("OK"),
                                    _("An error occured reading the install "
@@ -231,7 +252,7 @@ char * mountHardDrive(struct installMethod * method,
             if (!strncmp(kspart, "/dev/", 5))
                 kspart = kspart + 5;
 
-            url = setupIsoImages(kspart, ksdirectory);
+            url = setupIsoImages(kspart, ksdirectory, location, modInfo, modLoaded, modDepsPtr);
             if (!url) {
                 logMessage(ERROR, "unable to find %s installation images on hd",
                            getProductName());
@@ -364,7 +385,7 @@ char * mountHardDrive(struct installMethod * method,
 
         logMessage(INFO, "partition %s selected", selpart);
 	
-        url = setupIsoImages(selpart + 5, dir);
+        url = setupIsoImages(selpart + 5, dir, location, modInfo, modLoaded, modDepsPtr);
         if (!url) {
             newtWinMessage(_("Error"), _("OK"), 
                            _("Device %s does not appear to contain "
