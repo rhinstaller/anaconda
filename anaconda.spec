@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.67
+Version: 11.1.2.68
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 24 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.68-1
+- Do not return after NIC config for iSCSI setup (#233029)
+
 * Fri Aug 24 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.67-1
 - Fix "no more mirrors" problems when retrieving packages (dlehman)
   Resolves: rhbz#240582
