@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.66
+Version: 11.1.2.67
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 24 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.67-1
+- Fix "no more mirrors" problems when retrieving packages (dlehman)
+  Resolves: rhbz#240582
+- Don't add duplicate fstab entries if the fstype is none (clumens)
+  Resolves: rhbz#253485
+- Allow users to change their NIC and reconfigure it in loader
+  Resolves: rhbz#253285
+- Validate IP addresses correctly for manual entry on s390x linuxrc
+  Related: rhbz#234152
+- Correct setting addon repository names (clumens)
+  Related: rhbz#206152
+
 * Fri Aug 17 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.66-1
 - Select appropriate kernel devel package (dlehman)
   Related: rhbz#226784
