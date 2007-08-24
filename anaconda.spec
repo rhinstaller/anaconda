@@ -110,10 +110,8 @@ rm -rf $RPM_BUILD_ROOT
   Resolves: rhbz#253485
 - Allow users to change their NIC and reconfigure it in loader
   Resolves: rhbz#253285
-- Validate IP addresses correctly for manual entry on s390x linuxrc
-  Related: rhbz#234152
-- Correct setting addon repository names (clumens)
-  Related: rhbz#206152
+- Validate IP addresses correctly for manual entry on s390x linuxrc (#234152)
+- Correct setting addon repository names (clumens, #206152)
 
 * Fri Aug 17 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.66-1
 - Select appropriate kernel devel package (dlehman)
