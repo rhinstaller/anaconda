@@ -1,3 +1,8 @@
+2007-08-24  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/linuxrc.s390 (checkip): Correctly handle return values from
+	checkipv4() and checkipv6() so we catch invalid entries (#234152).
+
 2007-08-23  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (devify):  Don't map pseudofilesystems like tmpfs to device
