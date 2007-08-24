@@ -3,6 +3,9 @@
 	* loader2/linuxrc.s390 (checkip): Correctly handle return values from
 	checkipv4() and checkipv6() so we catch invalid entries (#234152).
 
+	* loader2/loader.c (doLoaderMain): Allow users to change their NIC
+	and reconfigure it in loader (#253285).
+
 2007-08-23  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (devify):  Don't map pseudofilesystems like tmpfs to device

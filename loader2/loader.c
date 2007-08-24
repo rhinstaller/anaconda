@@ -1098,6 +1098,9 @@ static char *doLoaderMain(char * location,
             /* fall through to interface selection */
         case STEP_IFACE:
             logMessage(INFO, "going to pick interface");
+            loaderData->ipinfo_set = 0;
+            loaderData->ipv6info_set = 0;
+
             rc = chooseNetworkInterface(loaderData);
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) {
