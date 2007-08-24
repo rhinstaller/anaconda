@@ -1,5 +1,11 @@
 2007-08-24  David Cantrell  <dcantrell@redhat.com>
 
+	* iw/autopart_type.py (PartitionTypeWindow): Do not return after
+	bringing up network interface, instead take the user to the iSCSI
+	configuration dialog (#233029).
+
+2007-08-24  David Cantrell  <dcantrell@redhat.com>
+
 	* anaconda.spec:  Bump version.
 
 2007-08-24  Chris Lumens  <clumens@redhat.com>
