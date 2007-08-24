@@ -361,6 +361,7 @@ class DiskTreeModel(gtk.TreeStore):
     
     # format: column header, type, x alignment, hide?, visibleKey
     titles = ((N_("Device"), gobject.TYPE_STRING, 0.0, 0, 0),
+              (N_("Label"), gobject.TYPE_STRING, 0.0, 0, 0),
               (N_("Mount Point"), gobject.TYPE_STRING, 0.0, 0, isLeaf),
               (N_("Type"), gobject.TYPE_STRING, 0.0, 0, 0),
 #              (N_("Format"), gobject.TYPE_BOOLEAN, 0.5, 0, isFormattable),
@@ -722,6 +723,10 @@ class PartitionWindow(InstallWindow):
 
                 vgparent = self.tree.append(lvmparent)
 		self.tree[vgparent]['Device'] = "%s" % (vgname,)
+                if vgrequest and vgrequest.type != REQUEST_NEW and vgrequest.fslabel:
+                    self.tree[vgparent]['Label'] = "%s" % (vgrequest.fslabel,)
+                else:
+                    self.tree[vgparent]['Label'] = ""
 		self.tree[vgparent]['Mount Point'] = ""
 		self.tree[vgparent]['Start'] = ""
 		self.tree[vgparent]['End'] = ""
@@ -788,6 +793,10 @@ class PartitionWindow(InstallWindow):
 		    
                 self.tree[iter]['IsLeaf'] = True
                 self.tree[iter]['Device'] = device
+                if request and request.type != REQUEST_NEW and request.fslabel:
+                    self.tree[iter]['Label'] = "%s" % (request.fslabel,)
+                else:
+                    self.tree[iter]['Label'] = ""
                 self.tree[iter]['Type'] = ptype
                 self.tree[iter]['Start'] = ""
                 self.tree[iter]['End'] = ""
@@ -910,6 +919,11 @@ class PartitionWindow(InstallWindow):
                 else:
                     devname = '/dev/%s' % (device,)
                 self.tree[iter]['Device'] = devname
+                if request and request.type != REQUEST_NEW and request.fslabel:
+                    self.tree[iter]['Label'] = "%s" % (request.fslabel,)
+                else:
+                    self.tree[iter]['Label'] = ""
+
                 self.tree[iter]['Type'] = ptype
                 self.tree[iter]['Start'] = str(start_sector_to_cyl(disk.dev,
                                                                    part.geom.start))
