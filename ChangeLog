@@ -1,3 +1,8 @@
+2007-08-24  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (AnacondaYum.doConfigSetup):  Correct setting addon
+	repository names (#206152).
+
 2007-08-24  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/linuxrc.s390 (checkip): Correctly handle return values from

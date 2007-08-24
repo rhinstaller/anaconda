@@ -577,7 +577,7 @@ class AnacondaYum(YumSorter):
                 repo = AnacondaYumRepo(uri=ksrepo.baseurl,
                                        mirrorlist=ksrepo.mirrorlist,
                                        repoid=ksrepo.name)
-                repo.name = name
+                repo.name = ksrepo.name
                 repo.enable()
 
                 try:
