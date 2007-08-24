@@ -334,7 +334,7 @@ class AnacondaYum(YumSorter):
                 repo = AnacondaYumRepo(uri=ksrepo.baseurl,
                                        mirrorlist=ksrepo.mirrorlist,
                                        repoid=ksrepo.name)
-                repo.name = name
+                repo.name = ksrepo.name
                 repo.enable()
                 extraRepos.append(repo)
 
@@ -522,18 +522,54 @@ class AnacondaYum(YumSorter):
         for (key, val) in self.macros.items():
             rpm.addMacro(key, val)
 
-    def isGroupInstalled(self, grp):
-        # FIXME: move down to yum itself.
-        # note that this is the simple installer only version that doesn't
-        # worry with installed and toremove...
-        if grp.selected:
+    def simpleDBInstalled(self, name, arch=None):
+        # FIXME: doing this directly instead of using self.rpmdb.installed()
+        # speeds things up by 400%
+        mi = self.ts.ts.dbMatch('name', name)
+        if mi.count() == 0:
+            return False
+        if arch is None:
+            return True
+        if arch in map(lambda h: h['arch'], mi):
             return True
         return False
 
-    def simpleDBInstalled(self, name):
-        # FIXME: this is used in pirut because of slow stuff in yum
-        # given that we're on a new system, nothing is ever installed in the
-        # rpmdb
+    def isPackageInstalled(self, name = None, epoch = None, version = None,
+                           release = None, arch = None, po = None):
+        # FIXME: this sucks.  we should probably suck it into yum proper
+        # but it'll need a bit of cleanup first.
+        if po is not None:
+            (name, epoch, version, release, arch) = po.returnNevraTuple()
+
+        installed = False
+        if name and not (epoch or version or release or arch):
+            installed = self.simpleDBInstalled(name)
+        elif self.rpmdb.installed(name = name, epoch = epoch, ver = version,
+                                rel = release, arch = arch):
+            installed = True
+
+        lst = self.tsInfo.matchNaevr(name = name, epoch = epoch,
+                                     ver = version, rel = release,
+                                     arch = arch)
+        for txmbr in lst:
+            if txmbr.output_state in TS_INSTALL_STATES:
+                return True
+        if installed and len(lst) > 0:
+            # if we get here, then it was installed, but it's in the tsInfo
+            # for an erase or obsoleted --> not going to be installed at end
+            return False
+        return installed
+
+    def isGroupInstalled(self, grp):
+        if grp.selected:
+            return True
+        elif grp.installed and not grp.toremove:
+            return True
+        if (len(grp.optional_packages.keys()) ==
+            len(grp.mandatory_packages.keys()) ==
+            len(grp.default_packages.keys()) == 0) and \
+            len(grp.conditional_packages.keys()) != 0:
+            return True
         return False
 
 class YumBackend(AnacondaBackend):
