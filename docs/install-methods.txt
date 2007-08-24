@@ -13,9 +13,11 @@ Contents
 Notes:
 ------------
 
- - "fully exploded tree" - this is a tree which in the root has the
-   the 'RedHat' directory from every CD image merged into a single
-   'RedHat' directory.
+ - "fully exploded tree" - this is a tree which in the root has every
+   directory with .rpm files from every CD image merged into one directory
+   with the same name.
+   (So everything from cd's Client directories goes to Client directory and
+   likewise for Server, VT, Workstation ... dirs)
 
  - "ISO" - the ISO image for a CD image.
 
