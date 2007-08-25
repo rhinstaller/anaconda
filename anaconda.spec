@@ -23,6 +23,7 @@ BuildRequires: newt-devel, newt-static
 BuildRequires: glib2-devel >= 2.11.1-5, glib2-static, libdhcp6client-static
 BuildRequires: libdhcp-static >= 1.24-3, mkinitrd-devel >= 5.1.2-1
 BuildRequires: audit-libs-devel
+BuildRequires: popt-devel
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
