@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.20
+Version: 11.3.0.21
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -143,6 +143,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Aug 25 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.21-1
+- Fix setting additional repo names (clumens)
+- Update install-methods doc (msivak, #252407)
+- Add an FS label column (msivak, #248436)
+- Allow changing/reconfiguring nic in the loader (dcantrell, #242019)
+- Fix man pages in rescue mode (jgranado, #243443)
+- Setup everything repo (jgranado, #254014)
+- Allow using the "rescue" CD as the second stage for all install 
+  types (#186641)
+- Fix firewire module name
+- Display arch more prominently (msivak, #244531)
+
 * Wed Aug 22 2007 Chris Lumens <clumens@redhat.com> 11.3.0.20-1
 - Only add one slash to NFS path names (dcantrell, #253539).
 - Use dotted quad netmasks if provided (dcantrell, #243250).
