@@ -1,3 +1,9 @@
+2007-08-27  Chris Lumens  <clumens@redhat.com>
+
+	* iw/autopart_type.py (PartitionTypeWindow.addDrive):  Remove the zfcp
+	radio button from its group so it's not selectable via the keyboard
+	(#254137).
+
 2007-08-25  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: BR popt-devel
