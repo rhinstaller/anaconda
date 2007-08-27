@@ -1,8 +1,8 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.21
-Release: 3
+Version: 11.3.0.22
+Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -158,6 +158,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 27 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.22-1
+- Add an isomd5sum subpackage
+- Make sure we pull in all X drivers
+- Fix kickstart traceback (clumens)
+- Fix zfcp radio button to not be selectable (clumens, #254137)
+
 * Sat Aug 25 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.21-3
 - BR popt-devel
 - and -static
