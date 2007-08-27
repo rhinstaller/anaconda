@@ -149,8 +149,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/lib/anaconda-runtime
 
 %files -n isomd5sum
+%defattr(-,root,root)
 %{_bindir}/checkisomd5
 %{_bindir}/implantisomd5
+%{_libdir}/python?.?/site-packages/pyisomd5sum.so
 
 %triggerun -- anaconda < 8.0-1
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
