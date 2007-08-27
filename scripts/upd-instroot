@@ -249,7 +249,8 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES pcmciautils"
+    PACKAGES="$PACKAGES pcmciautils ipw2100-firmware ipw2200-firmware
+              iwl3945-firmware zd1211-firmware"
 fi
 
 if [ $ARCH = i386 -o $ARCH = x86_64 -o $ARCH = ia64 ]; then

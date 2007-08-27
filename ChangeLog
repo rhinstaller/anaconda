@@ -1,3 +1,11 @@
+2007-08-27  David Cantrell  <dcantrell@redhat.com>
+
+	* scripts/upd-instroot: Add wifi firmware packages to i386/x86_64
+	instroot list.
+
+	* scripts/mk-images (makeinitrd): Copy firmware files over if we
+	have them and if we are including the driver.
+
 2007-08-27  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

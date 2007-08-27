@@ -585,6 +585,31 @@ makeinitrd() {
         cp $IMGPATH/usr/sbin/cmsfs* $MBD_DIR/sbin/
     fi
 
+    if [ "$BUILDARCH" = "i386" -o "$BUILDARCH" = "x86_64" ]; then
+        for module in $INITRDMODULES ; do
+            case $module in
+                ipw2100)
+                    mkdir -p $MBD_DIR/lib/firmware
+                    cp $IMGPATH/lib/firmware/ipw2100* $MBD_DIR/lib/firmware
+                    ;;
+                ipw2200)
+                    mkdir -p $MBD_DIR/lib/firmware
+                    cp $IMGPATH/lib/firmware/ipw-2.4* $MBD_DIR/lib/firmware
+                    cp $IMGPATH/lib/firmware/ipw2200* $MBD_DIR/lib/firmware
+                    ;;
+                iwl3945)
+                    mkdir -p $MBD_DIR/lib/firmware
+                    cp $IMGPATH/lib/firmware/iwlwifi-3945* $MBD_DIR/lib/firmware
+                    ;;
+                zd1211)
+                    mkdir -p $MBD_DIR/lib/firmware/zd1211
+                    cp $IMGPATH/lib/firmware/zd1211/* \
+                       $MBD_DIR/lib/firmware/zd1211
+                    ;;
+            esac
+        done
+    fi
+
     if [ -n "$INITRDMODULES" ]; then
 	MODSET=`expandModuleSet "$INITRDMODULES"`
         makemoduleball --name $MODULEBALLNAME $MBD_DIR/modules "$MODSET"
