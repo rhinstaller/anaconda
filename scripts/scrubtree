@@ -14,12 +14,7 @@ fi
 
 p=$1
 
-STRIP=strip
 ARCH=`uname -m | sed -e 's/i.86/i386/'`
-
-if [ $ARCH = ia64 ]; then
-    STRIP="strip --strip-debug"
-fi
 
 if [ $ARCH = x86_64 -o $ARCH = s390x ]; then
     LIBDIR=lib64
@@ -67,8 +62,3 @@ done
 )
 
 umount $p/proc
-
-for l in `find $p -type f -perm +100 | xargs file | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
-    $STRIP $l -R .comment -R .note `objdump -h $l | \
-	sed -n 's/^.*\(\.gnu\.warning\.[^ ]*\) .*$/-R \1/p'`
-done

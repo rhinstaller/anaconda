@@ -598,10 +598,8 @@ EOF
     echo $arch > $MBD_DIR/etc/arch
 
     install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
-    strip $MBD_DIR/sbin/loader
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
 	install -s -m 755 $LOADERBINDIR/init $MBD_DIR/sbin
-	strip $MBD_DIR/sbin/init
 	ln -s ./init $MBD_DIR/sbin/reboot
 	ln -s ./init $MBD_DIR/sbin/halt
 	ln -s ./init $MBD_DIR/sbin/poweroff

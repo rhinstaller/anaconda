@@ -1,5 +1,12 @@
 2007-08-27  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec (Requires): And so we don't need /usr/bin/strip
+	for anaconda-runtime anymore
+
+	* scripts/scrubtree: Stuff is stripped as buildroot policy now
+	* scripts/mk-images: Likewise.
+	* scripts/upd-instroot: Likewise.
+
 	* scripts/upd-instroot (XDRIVERS): Switch to just xorg-x11-drivers
 	now that we depsolve
 

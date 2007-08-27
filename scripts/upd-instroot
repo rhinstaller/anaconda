@@ -1384,10 +1384,6 @@ for p in $DEST $DESTGR; do
 	done
 done
 
-# do some stripping of debugging symbols
-find $DEST -type f -name '*.so' |xargs strip -g
-find $DESTGR -type f -name '*.so' |xargs strip -g
-
 # some python stuff we don't need for stage2
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/distutils/
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/lib-dynload/japanese

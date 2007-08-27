@@ -73,7 +73,7 @@ Requires: syslinux
 %ifarch s390 s390x
 Requires: openssh
 %endif
-Requires: /usr/bin/strip, xorg-x11-font-utils, netpbm-progs
+Requires: xorg-x11-font-utils, netpbm-progs
 Requires: busybox-anaconda
 
 %description runtime
