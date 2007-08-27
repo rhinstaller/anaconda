@@ -2,7 +2,7 @@
 
 Name: anaconda
 Version: 11.3.0.21
-Release: 1
+Release: 3
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -23,7 +23,7 @@ BuildRequires: newt-devel, newt-static
 BuildRequires: glib2-devel >= 2.11.1-5, glib2-static, libdhcp6client-static
 BuildRequires: libdhcp-static >= 1.24-3, mkinitrd-devel >= 5.1.2-1
 BuildRequires: audit-libs-devel
-BuildRequires: popt-devel
+BuildRequires: popt-devel, popt-static
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
@@ -144,6 +144,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Aug 25 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.21-3
+- BR popt-devel
+- and -static
+
 * Sat Aug 25 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.21-1
 - Fix setting additional repo names (clumens)
 - Update install-methods doc (msivak, #252407)
