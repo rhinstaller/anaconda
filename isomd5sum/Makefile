@@ -27,7 +27,7 @@ pyisomd5sum.so: $(PYOBJS)
 	gcc -shared -g -o pyisomd5sum.so -fpic $(PYOBJS) $(LDFLAGS)
 
 install:
-	mkdir $(DESTDIR)/usr/$(LIBDIR)/$(PYTHON)/site-packages
+	mkdir -p $(DESTDIR)/usr/$(LIBDIR)/$(PYTHON)/site-packages
 	install -m 755 implantisomd5 $(DESTDIR)/usr/bin
 	install -m 755 checkisomd5 $(DESTDIR)/usr/bin
 	install -m 755 pyisomd5sum.so $(DESTDIR)/usr/$(LIBDIR)/$(PYTHON)/site-packages
