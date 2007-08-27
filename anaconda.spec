@@ -63,7 +63,6 @@ system.  These files are of little use on an already installed system.
 %package runtime
 Summary: Graphical system installer portions needed only for fresh installs.
 Group: Applications/System
-AutoReqProv: false
 Requires: libxml2-python, python, rpm-python >= 4.2-0.61
 Requires: anaconda = %{version}-%{release}
 Requires: createrepo >= 0.4.7, squashfs-tools, mkisofs
@@ -75,11 +74,20 @@ Requires: openssh
 %endif
 Requires: xorg-x11-font-utils, netpbm-progs
 Requires: busybox-anaconda
+Requires: isomd5sum
 
 %description runtime
 The anaconda-runtime package contains parts of the installation system which 
 are needed for installing new systems.  These files are used to build media 
 sets, but are not meant for use on already installed systems.
+
+%package -n isomd5sum
+Summary: Utilities for checking/implanting md5sums into ISO images
+Group: Applications/System
+
+%description -n isomd5sum
+The isomd5sum package contains utilities for implanting and verifying 
+an md5sum implanted into an ISO9660 image.
 
 %prep
 %setup -q
@@ -139,6 +147,10 @@ rm -rf $RPM_BUILD_ROOT
 %files runtime
 %defattr(-,root,root)
 /usr/lib/anaconda-runtime
+
+%files -n isomd5sum
+%{_bindir}/checkisomd5
+%{_bindir}/implantisomd5
 
 %triggerun -- anaconda < 8.0-1
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :

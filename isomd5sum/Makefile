@@ -27,9 +27,11 @@ pyisomd5sum.so: $(PYOBJS)
 	gcc -shared -g -o pyisomd5sum.so -fpic $(PYOBJS) $(LDFLAGS)
 
 install:
-	install -m 755 implantisomd5 $(DESTDIR)/$(RUNTIMEDIR)
-	install -m 755 checkisomd5 $(DESTDIR)/$(RUNTIMEDIR)
-	install -s pyisomd5sum.so $(DESTDIR)/$(RUNTIMEDIR)
+	install -m 755 implantisomd5 $(DESTDIR)/usr/bin
+	install -m 755 checkisomd5 $(DESTDIR)/usr/bin
+	install -m 755 pyisomd5sum.so $(DESTDIR)/$(LIBDIR)/$(PYTHON)/site-packages
+	ln -s ../../bin/implantisomd5 $(DESTDIR)/usr/lib/anaconda-runtime/implantisomd5
+	ln -s ../../bin/checkisomd5 $(DESTDIR)/usr/lib/anaconda-runtime/checkisomd5
 
 clean:
 	rm -f *.o *.lo *.so *.pyc .depend *~
