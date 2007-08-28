@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.22
+Version: 11.3.0.23
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -158,6 +158,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Aug 28 2007 Chris Lumens <clumens@redhat.com> 11.3.0.23-1
+- Fix symlink handling in stage2 creation (katzj).
+- Make man pages work when chrooted in rescue mode (jgranado, #254014).
+- Handle wireless drivers that require firmware (dcantrell).
+
 * Mon Aug 27 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.22-1
 - Add an isomd5sum subpackage
 - Make sure we pull in all X drivers
