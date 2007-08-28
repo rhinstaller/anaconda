@@ -1,3 +1,7 @@
+2007-08-28 Joel Granados <jgranado@redhat.com>
+	* resque.py: Make man pages work when chrooting to /mnt/sysimage.
+	BZ#254014.
+
 2007-08-27  David Cantrell  <dcantrell@redhat.com>
 
 	* scripts/upd-instroot: Add wifi firmware packages to i386/x86_64
