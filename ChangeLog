@@ -1,3 +1,7 @@
+2007-08-28  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot (LDSO): Fix symlink handling
+
 2007-08-28 Joel Granados <jgranado@redhat.com>
 	* resque.py: Make man pages work when chrooting to /mnt/sysimage.
 	BZ#254014.

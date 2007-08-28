@@ -142,7 +142,13 @@ instFile() {
     elif [ ! -d $DESTROOT/`dirname $FILE` ]; then
       mkdir -p $DESTROOT/`dirname $FILE`
     fi
-    cp -aL $FILE $DESTROOT/`dirname $FILE`
+    if [ -L $FILE ]; then
+	cp -al $FILE $DESTROOT/`dirname $FILE`
+	instFile `readlink $FILE`
+	return
+    else
+	cp -aL $FILE $DESTROOT/`dirname $FILE`
+    fi
 
     get_dso_deps "$FILE"
     local DEPS="$DSO_DEPS"
