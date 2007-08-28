@@ -204,6 +204,7 @@ class PartitionTypeWindow(InstallWindow):
         dialog.show_all()
         if rhpl.getArch() not in ("s390", "s390x"):
             dxml.get_widget("zfcpRadio").hide()
+            dxml.get_widget("zfcpRadio").set_group(None)
 
         import iscsi
         if not iscsi.has_iscsi():
@@ -215,7 +216,7 @@ class PartitionTypeWindow(InstallWindow):
             return
         if dxml.get_widget("iscsiRadio").get_active():
             rc = self.addIscsiDrive()
-        elif dxml.get_widget("zfcpRadio").get_active():
+        elif dxml.get_widget("zfcpRadio") is not None and dxml.get_widget("zfcpRadio").get_active():
             rc = self.addZfcpDrive()
         dialog.destroy()
 
@@ -281,6 +282,7 @@ class PartitionTypeWindow(InstallWindow):
 
             self.xml.get_widget("reviewButton").set_active(True)
             self.xml.get_widget("reviewButton").set_sensitive(False)
+            self.xml.get_widget("driveScroll").set_sensitive(False)
 
         sigs = { "on_partitionTypeCombo_changed": self.comboChanged,
                  "on_addButton_clicked": self.addDrive }

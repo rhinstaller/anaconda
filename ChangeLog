@@ -1,3 +1,8 @@
+2007-08-27  Chris Lumens  <clumens@redhat.com>
+
+	* iw/autopart_type.py (PartitionTypeWindow.getScreen):  Keep drive
+	selection box disabled if we come back to this screen (#219207).
+
 2007-08-27  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec:  Bump version.
