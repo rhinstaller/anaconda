@@ -1098,6 +1098,11 @@ static char *doLoaderMain(char * location,
             /* fall through to interface selection */
         case STEP_IFACE:
             logMessage(INFO, "going to pick interface");
+
+            /* skip configureTCPIP() screen for kickstart (#260621) */
+            if (loaderData->ksFile)
+                flags |= LOADER_FLAGS_IS_KICKSTART;
+
             loaderData->ipinfo_set = 0;
             loaderData->ipv6info_set = 0;
 
