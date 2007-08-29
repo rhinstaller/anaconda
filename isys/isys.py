@@ -883,6 +883,8 @@ def driveIsIscsi(device):
     return False
 
 def vtActivate (num):
+    if rhpl.getArch() == "s390":
+        return
     _isys.vtActivate (num)
 
 def isPseudoTTY (fd):
