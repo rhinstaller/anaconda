@@ -7,6 +7,9 @@
 	* loader2/net.c (configureTCPIP): Set skipForm to 1 if kickstart
 	flag is set (#260621).
 
+	* isys/isys.py (vtActivate): Do not call _isys.vtActivate() on
+	s390 or s390x platforms (#217563).
+
 2007-08-27  Chris Lumens  <clumens@redhat.com>
 
 	* iw/autopart_type.py (PartitionTypeWindow.getScreen):  Keep drive
