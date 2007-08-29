@@ -1,3 +1,8 @@
+2007-08-29  Dave Lehman  <dlehman@redhat.com>
+
+	* iw/autopart_type.py (PartitionTypeWindow.getScreen): fix text wrap
+	width on the partition type combo, for real this time (#221791)
+
 2007-08-29  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
