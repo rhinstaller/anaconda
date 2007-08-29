@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.68
+Version: 11.1.2.69
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Aug 29 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.69-1
+- Skip Configure TCP/IP window for kickstart installs
+  Resolves: rhbz#260621
+- Do not run _isys.vtActivate() on s390x
+  Related: rhbz#217563
+- Keep drive selection box disabled if user clicks Back (clumens)
+  Related: rhbz#219207
+
 * Mon Aug 27 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.68-1
 - Do not return after NIC config for iSCSI setup
   Resolves: rhbz#233029
