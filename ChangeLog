@@ -1,3 +1,8 @@
+2007-08-29  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (Network):  Inherit from the correct pykickstart
+	Network object.
+
 2007-08-28  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

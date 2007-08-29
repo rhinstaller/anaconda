@@ -300,7 +300,7 @@ class Monitor(commands.monitor.FC6_Monitor):
         self.handler.id.instClass.setMonitor(self.handler.id, self.hsync,
                                              self.vsync, self.monitor)
 
-class Network(commands.network.FC6_Network):
+class Network(commands.network.F8_Network):
     def parse(self, args):
         commands.network.FC6_Network.parse(self, args)
 
