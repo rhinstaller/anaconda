@@ -64,6 +64,7 @@ prunePackageList() {
 DSO_DEPS=""
 LDSO=""
 get_dso_deps() {
+    root="$1" ; shift
     bin="$1" ; shift
     DSO_DEPS=""
 
@@ -76,7 +77,7 @@ get_dso_deps() {
         for ldso in /lib*/ld*.so* ; do
             [ -x $ldso ] || continue
             $ldso --verify $bin >/dev/null 2>&1 || continue
-            LDSO="$ldso"
+            LDSO=$(echo $ldso |sed -e "s/$root//")
             break
         done
     fi
@@ -90,7 +91,7 @@ get_dso_deps() {
         let n++
     done << EOF
         $(LD_TRACE_PRELINKING=1 LD_WARN= LD_TRACE_LOADED_OBJECTS=1 \
-            $LDSO $bin 2>/dev/null)
+            chroot $root $LDSO $bin 2>/dev/null)
 EOF
 
     [ ${#FILES[*]} -eq 0 ] && return 1
@@ -150,7 +151,7 @@ instFile() {
 	cp -aL $FILE $DESTROOT/`dirname $FILE`
     fi
 
-    get_dso_deps "$FILE"
+    get_dso_deps $(pwd) "$FILE"
     local DEPS="$DSO_DEPS"
     for x in $DEPS ; do 
       instFile $x $DESTROOT

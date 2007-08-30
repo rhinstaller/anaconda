@@ -1,3 +1,8 @@
+2007-08-30  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot (LDSO): Attempt to fix where we're not
+	resolving deps properly
+
 2007-08-30  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c (chooseNetworkInterface): Skip devices that do not
