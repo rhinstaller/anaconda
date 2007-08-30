@@ -706,6 +706,9 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
     newtComponent ipv4Checkbox, ipv6Checkbox, v4Method[2], v6Method[3];
     newtGrid grid, checkgrid, buttons;
 
+    newCfg->ipv4method = -1;
+    newCfg->ipv6method = -1;
+
     /* UI WINDOW 1: ask for ipv4 choice, ipv6 choice, and conf methods */
 
     /* IPv4 checkbox */
