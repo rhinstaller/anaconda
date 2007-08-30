@@ -1727,6 +1727,13 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     for (i = 0; devs[i]; i++) {
         if (!devs[i]->device)
             continue;
+
+        /* if kudzu hands us a device name of 'eth', we lack firmware */
+        /* skip the device as an option for installation (#251941)    */
+        if ((strlen(devs[i]->device) == 3) &&
+            (!strncmp(devs[i]->device, "eth", 3)))
+            continue;
+
         if (devs[i]->desc) {
                 deviceNames[deviceNums] = alloca(strlen(devs[i]->device) +
                                           strlen(devs[i]->desc) + 4);
@@ -1734,11 +1741,13 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
                         devs[i]->device, devs[i]->desc);
                 if (strlen(deviceNames[deviceNums]) > max)
                         max = strlen(deviceNames[deviceNums]);
-                devices[deviceNums++] = devs[i]->device;
+                devices[deviceNums] = devs[i]->device;
         } else {
             devices[deviceNums] = devs[i]->device;
-            deviceNames[deviceNums++] = devs[i]->device;
+            deviceNames[deviceNums] = devs[i]->device;
         }
+
+        deviceNums++;
 
         /* this device has been set and we don't really need to ask 
          * about it again... */

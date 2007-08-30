@@ -1,3 +1,16 @@
+2007-08-30  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c (chooseNetworkInterface): Skip devices that do not
+	have firmware loaded (#251941).
+
+	* scripts/upd-instroot: Add *-firmware to PACKAGES for now.  We'll
+	change this later once the kernel provides us with more
+	info (#177452).
+
+	* scripts/mk-images (makeinitrd): Remove arch test for copying over
+	firmware files.  Just check the module list and copy firmware, also
+	add atmel and iwl4965 (#177452).
+
 2007-08-29  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (Network):  Inherit from the correct pykickstart
@@ -19,10 +32,10 @@
 2007-08-27  David Cantrell  <dcantrell@redhat.com>
 
 	* scripts/upd-instroot: Add wifi firmware packages to i386/x86_64
-	instroot list.
+	instroot list (#177452).
 
 	* scripts/mk-images (makeinitrd): Copy firmware files over if we
-	have them and if we are including the driver.
+	have them and if we are including the driver (#177452).
 
 2007-08-27  Jeremy Katz  <katzj@redhat.com>
 

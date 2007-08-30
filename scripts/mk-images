@@ -585,30 +585,41 @@ makeinitrd() {
         cp $IMGPATH/usr/sbin/cmsfs* $MBD_DIR/sbin/
     fi
 
-    if [ "$BUILDARCH" = "i386" -o "$BUILDARCH" = "x86_64" ]; then
-        for module in $INITRDMODULES ; do
-            case $module in
-                ipw2100)
-                    mkdir -p $MBD_DIR/lib/firmware
-                    cp $IMGPATH/lib/firmware/ipw2100* $MBD_DIR/lib/firmware
-                    ;;
-                ipw2200)
-                    mkdir -p $MBD_DIR/lib/firmware
-                    cp $IMGPATH/lib/firmware/ipw-2.4* $MBD_DIR/lib/firmware
-                    cp $IMGPATH/lib/firmware/ipw2200* $MBD_DIR/lib/firmware
-                    ;;
-                iwl3945)
-                    mkdir -p $MBD_DIR/lib/firmware
-                    cp $IMGPATH/lib/firmware/iwlwifi-3945* $MBD_DIR/lib/firmware
-                    ;;
-                zd1211)
-                    mkdir -p $MBD_DIR/lib/firmware/zd1211
-                    cp $IMGPATH/lib/firmware/zd1211/* \
-                       $MBD_DIR/lib/firmware/zd1211
-                    ;;
-            esac
-        done
-    fi
+    # Copy in driver firmware we want during installation.  NOTE:  This isn't
+    # the ideal solution, but we'll do this for now.  What we really want is
+    # for the kernel modules to include a modinfo field that names the firmware
+    # file we should have.  If we can get that it would make it even easier to
+    # push the kernel people to depend on the firmware packages in the kernel,
+    # but we have to take small steps first.
+    for module in $INITRDMODULES ; do
+        case $module in
+            ipw2100)
+                mkdir -p $MBD_DIR/lib/firmware
+                cp $IMGPATH/lib/firmware/ipw2100* $MBD_DIR/lib/firmware
+                ;;
+            ipw2200)
+                mkdir -p $MBD_DIR/lib/firmware
+                cp $IMGPATH/lib/firmware/ipw-2.4* $MBD_DIR/lib/firmware
+                cp $IMGPATH/lib/firmware/ipw2200* $MBD_DIR/lib/firmware
+                ;;
+            iwl3945)
+                mkdir -p $MBD_DIR/lib/firmware
+                cp $IMGPATH/lib/firmware/iwlwifi-3945* $MBD_DIR/lib/firmware
+                ;;
+            iwl4965)
+                mkdir -p $MBD_DIR/lib/firmware
+                cp $IMGPATH/lib/firmware/iwlwifi-4965* $MBD_DIR/lib/firmware
+                ;;
+            atmel)
+                mkdir -p $MBD_DIR/lib/firmware
+                cp $IMGPATH/lib/firmware/atmel_*.bin $MBD_DIR/lib/firmware
+                ;;
+            zd1211rw)
+                mkdir -p $MBD_DIR/lib/firmware/zd1211
+                cp $IMGPATH/lib/firmware/zd1211/* $MBD_DIR/lib/firmware/zd1211
+                ;;
+        esac
+    done
 
     if [ -n "$INITRDMODULES" ]; then
 	MODSET=`expandModuleSet "$INITRDMODULES"`

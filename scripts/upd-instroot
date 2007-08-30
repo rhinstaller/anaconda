@@ -252,11 +252,11 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 yum-metadata-parser gfs2-utils libvolume_id nash yum-fedorakmod
 	 libdhcp libnl libdhcp6client libdhcp4client newt-python
 	 device-mapper device-mapper-libs dmraid keyutils-libs libsemanage-python
-	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr"
+	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr
+	 *-firmware"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES pcmciautils ipw2100-firmware ipw2200-firmware
-              iwl3945-firmware zd1211-firmware"
+    PACKAGES="$PACKAGES pcmciautils"
 fi
 
 if [ $ARCH = i386 -o $ARCH = x86_64 -o $ARCH = ia64 ]; then
