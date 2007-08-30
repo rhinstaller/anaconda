@@ -1,3 +1,12 @@
+2007-08-30  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/linuxrc.s390: Patch from Brad Hinson (bhinson AT redhat.com>
+	to support OSA layer 2 networking (#252021).
+	* loader2/loader.c: Likewise.
+	* loader2/loader.h: Likewise.
+	* loader2/net.c: Likewise.
+	* loader2/net.h: Likewise.
+
 2007-08-21  Peter jones  <pjones@redhat.com>
 
 	* scripts/mk-images.x86_64: make the x86 diskboot.img bigger so

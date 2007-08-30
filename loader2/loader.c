@@ -457,6 +457,9 @@ static void readNetInfo(int flags, struct loaderData_s ** ld) {
            if (strstr(vname, "LAYER2")) {
                loaderData->layer2 = strdup(vparm);
            }
+           if (strstr(vname, "MACADDR")) {
+               loaderData->macaddr = strdup(vparm);
+           }
        }
    }
    fclose(f);
