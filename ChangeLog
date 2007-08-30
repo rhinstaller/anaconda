@@ -1,5 +1,9 @@
 2007-08-30  David Cantrell  <dcantrell@redhat.com>
 
+	* anaconda.spec: Bump version.
+
+2007-08-30  David Cantrell  <dcantrell@redhat.com>
+
 	* loader2/net.c (configureTCPIP): Initialize ipv4method and
 	ipv6method to avoid SIGSEGV at end of function if skipForm is
 	set to 1 (#260621).

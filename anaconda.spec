@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.69
+Version: 11.1.2.70
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Aug 30 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.70-1
+- Fix text wrap width on partition type combo (dlehman)
+  Related: rhbz#221791
+- Avoid SIGSEGV in for kickstart installs on Configure TCP/IP window
+  Related: rhbz#260621
+
 * Wed Aug 29 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.69-1
 - Skip Configure TCP/IP window for kickstart installs
   Resolves: rhbz#260621
