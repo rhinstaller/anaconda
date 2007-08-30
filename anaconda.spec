@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.23
+Version: 11.3.0.24
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -158,6 +158,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Aug 30 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.24-1
+- Use the right network kickstart object (clumens)
+- More firmware fixes (dcantrell, #177452)
+- Skip devices without firmware (dcantrell, #251941)
+- Attempt to fix out dso depsolving for stage2
+
 * Tue Aug 28 2007 Chris Lumens <clumens@redhat.com> 11.3.0.23-1
 - Fix symlink handling in stage2 creation (katzj).
 - Make man pages work when chrooted in rescue mode (jgranado, #254014).
