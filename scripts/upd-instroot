@@ -254,7 +254,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 libdhcp libnl libdhcp6client libdhcp4client newt-python
 	 device-mapper device-mapper-libs dmraid keyutils-libs libsemanage-python
 	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr
-	 *-firmware"
+	 *-firmware pcre"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
@@ -316,7 +316,7 @@ PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
            fonts-japanese fonts-chinese fonts-korean fonts-indic fonts-sinhala
            fonts-malayalam fonts-oriya fonts-kannada fonts-telugu
            fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics
-           firstboot pycairo pirut dejavu-lgc-fonts
+           firstboot pycairo pirut dejavu-lgc-fonts libxcb
            dmraid python-pyblock libbdevid libbdevid-python zenity"
 
 #
@@ -432,6 +432,7 @@ $LIBDIR/libnsl*
 $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
 $LIBDIR/libpam*
+$LIBDIR/libpcre*
 $LIBDIR/libresolv*
 $LIBDIR/libselinux*
 $LIBDIR/libsemanage*
@@ -849,6 +850,8 @@ usr/$LIBDIR/libpng12.so*
 usr/$LIBDIR/librfb.so*
 usr/$LIBDIR/libstdc++.so.*
 usr/$LIBDIR/libthai*
+usr/$LIBDIR/libxcb.*
+usr/$LIBDIR/libxcb-xlib*
 usr/$LIBDIR/libwrap*
 usr/$LIBDIR/pango/*
 usr/$LIBDIR/python?.?/site-packages/cairo/*
