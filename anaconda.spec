@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.24
+Version: 11.3.0.25
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -158,6 +158,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Aug 30 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.25-1
+- quick and dirty fix for popt to be in stage2
+
 * Thu Aug 30 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.24-1
 - Use the right network kickstart object (clumens)
 - More firmware fixes (dcantrell, #177452)
