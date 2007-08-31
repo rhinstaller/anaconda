@@ -186,7 +186,7 @@ class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
 
 class Iscsi(commands.iscsi.FC6_Iscsi):
     def parse(self, args):
-        commands.iscsi.FC3_Iscsi.parse(self, args)
+        commands.iscsi.FC6_Iscsi.parse(self, args)
 
         for target in self.iscsi:
             if self.handler.id.iscsi.addTarget(target.ipaddr, target.port, target.user, target.password):
@@ -302,7 +302,7 @@ class Monitor(commands.monitor.FC6_Monitor):
 
 class Network(commands.network.F8_Network):
     def parse(self, args):
-        commands.network.FC6_Network.parse(self, args)
+        commands.network.F8_Network.parse(self, args)
 
         nd = self.network[-1]
 
@@ -492,7 +492,7 @@ class Reboot(commands.reboot.FC6_Reboot):
 
 class Raid(commands.raid.F7_Raid):
     def parse(self, args):
-        commands.raid.FC5_Raid.parse(self, args)
+        commands.raid.F7_Raid.parse(self, args)
 
         rd = self.raidList[-1]
 
