@@ -824,7 +824,6 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
         (FL_NOIPV4(flags) && FL_NOIPV6(flags)) ||
         (FL_IS_KICKSTART(flags))) {
         skipForm = 1;
-        newtPopWindow();
     } else if (FL_CMDLINE(flags)) {
         fprintf(stderr, "Required network configuration not given for cmdline mode, aborting\n");
         exit(EXIT_FAILURE);
