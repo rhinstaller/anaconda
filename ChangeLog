@@ -1,3 +1,8 @@
+2007-08-31  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c (configureTCPIP): Remove extra newtPopWindow()
+	call that was causing a crash (#260621).
+
 2007-08-30  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.

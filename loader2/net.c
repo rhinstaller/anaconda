@@ -793,7 +793,6 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
         (FL_NOIPV4(flags) && FL_NOIPV6(flags)) ||
         (FL_IS_KICKSTART(flags))) {
         skipForm = 1;
-        newtPopWindow();
     }
 
     /* run the form */
