@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.25
+Version: 11.3.0.26
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -158,6 +158,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 31 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.26-1
+- Some kickstart fixes (clumens, #269721)
+- More libraries (clumens)
+
 * Thu Aug 30 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.25-1
 - quick and dirty fix for popt to be in stage2
 
