@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda FC7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-07-31 19:49+0200\n"
+"PO-Revision-Date: 2007-09-03 10:19+0200\n"
 "Last-Translator: Espen A. Stefansen <espenas@gmail.com>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -496,13 +496,10 @@ msgid "Dump Written"
 msgstr "Dump skrevet"
 
 #: ../exception.py:413
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. The "
 "installer will now exit."
-msgstr ""
-"Systemets tilstand ble skrevet til disketten. Systemet vil nå bli startet på "
-"nytt."
+msgstr "Systemets tilstand ble skrevet til disketten. Installasjonsprogrammet vil nå avslutte."
 
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
@@ -604,17 +601,16 @@ msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
 #: ../fsset.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"En feil oppstoid under forsøk på å initiere swap på enhet %s. Dette "
-"problemet er alvorlig, og installasjonen kan ikke fortsette.\n"
+"En feil oppstoid under forsøk på å initiere swap på enhet %s. Dette problemet er alvorlig, og installasjonen kan ikke fortsette.\n"
 "\n"
-"Trykk <Linjeskift> for å starte systemet på nytt."
+"Trykk <Linjeskift> for å avslutte installasjonen."
 
 #: ../fsset.py:1457 ../packages.py:282 ../rescue.py:300 ../rescue.py:302
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
@@ -685,19 +681,12 @@ msgstr ""
 "til å formatere alle swap-partisjonene."
 
 #: ../fsset.py:1507
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Choose Skip if you want the installer to ignore this partition during the "
 "upgrade.  Choose Format to reformat the partition as swap space."
-msgstr ""
-"\n"
-"\n"
-"Velg \"Hopp over\" hvis du vil at installasjonprogrammet skal ignorere denne "
-"partisjonen under oppgraderingen.  Velg  \"Formater\" for å reformatere "
-"partisjonen som en swap-partisjon.  Velg \"Start på nytt\" for å starte "
-"systemet på nytt."
+msgstr "\n\nVelg \"Hopp over\" hvis du vil at installasjonprogrammet skal ignorere denne partisjonen under oppgraderingen.  Velg  \"Formater\" for å reformatere partisjonen som en swap-partisjon."
 
 #: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
@@ -3598,9 +3587,8 @@ msgid "Netmask"
 msgstr "Nettmaske"
 
 #: ../iw/netconfig_dialog.py:211
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4-prefiks må være mellom 0 og 32."
+msgstr "CIDR-prefiks for IPv4 må være mellom 0 og 32."
 
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
 #: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
@@ -5813,9 +5801,8 @@ msgstr ""
 "press %s for å forsøke på nytt"
 
 #: ../loader2/cdinstall.c:391
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "CD ikke funnet"
+msgstr "Disk ikke funnet"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
