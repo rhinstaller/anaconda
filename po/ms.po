@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-08-07 00:44+0800\n"
+"PO-Revision-Date: 2007-09-03 22:22+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -5158,12 +5158,11 @@ msgid "No Volume Groups"
 msgstr "Tiada Kumpulan Volum"
 
 #: ../textw/partition_text.py:1190
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
-msgstr "Tiada kumpulan volum untuk mencipta volum logikal"
+msgstr "Tiada kumpulan volum wujud untuk mencipta volum logikal"
 
 #: ../textw/partition_text.py:1314
-#, fuzzy, python-format
+#, python-format
 msgid "The current requested size (%10.2f MB) is larger than the maximum logical volume size (%10.2f MB). "
 msgstr "Saiz semasa yang diminta (%10.2f MB) adalah lebih besar daripada saiz volum logikal maksimum (%10.2f MB). "
 
@@ -5209,9 +5208,8 @@ msgid "No Root Partition"
 msgstr "Tiada Partisyen Punca"
 
 #: ../textw/partition_text.py:1505
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "Edit partisyen: /dev/%s"
+msgstr "Pemasangan memerlukan partisyen / ."
 
 #: ../textw/partition_text.py:1547
 msgid "Partitioning Type"
