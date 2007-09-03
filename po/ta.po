@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-08-28 17:06+0530\n"
+"PO-Revision-Date: 2007-09-03 14:39+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1126,7 +1126,7 @@ msgid ""
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
 "there was a problem mounting a partition.  Click exit to abort the "
 "installation."
-msgstr ""
+msgstr "மூல சாதனம் %sஐ ஏற்றும் போது பிழை ஏற்பட்டது.  இது உங்கள் ISO உருக்கள் கூடுதல் சேமிப்பக சாதனங்களான LVM அல்லது RAIDஇல் உள்ளதால் ஏற்பட்டிருக்கும், அல்லது ஒரு பகிர்வை ஏற்றும் போது சிக்கல் ஏற்பட்டிருக்கும்.  வெளியேறுதல் என்பதை சொடுக்கி நிறுவலை நிறுத்தவும்."
 
 #: ../image.py:84
 msgid "Required Install Media"
@@ -1226,6 +1226,10 @@ msgid ""
 "It is recommended that you exit and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"ISO உரு %s இன் அளவு 2048 பைட்டுகளின் மடங்காக இல்லை.  அதாவது இது மாற்றப்பட்ட "
+"கணினியில் அழிக்கப்பட்டிருக்கும்.\n"
+"\n"
+"நீங்கள் நிறுவலை நிறுத்தி வெளியேற பரிந்துரைக்கப்படுகிறது, ஆனால் இது பிழை என நினைத்தால் தொடரவும் என்பதை தேர்ந்தெடுக்கவும்."
 
 #: ../image.py:517
 #, python-format
@@ -1521,7 +1525,7 @@ msgid ""
 "the Linux kernel does not allow for more than 15 partitions at this time.  "
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
-msgstr ""
+msgstr "இயக்கி /dev/%s 15 பகிர்வுகளுக்கு மேல் கொண்டுள்ளது. SCSI துணை அமைப்பு லினக்ஸ் கர்னலில் 15 பகிர்வுகளுக்கு மேல் ஒரே நேரத்தில் அனுமதிப்பதில்லை. நீங்கள் இந்த வட்டில் பகிர்வுகளில் மாற்றம் செய்ய முடியாது அல்லது %s இல் /dev/%s15 க்கு மேல் பகிர்வுகளை பயன்படுத்தவும்"
 
 #: ../partedUtils.py:1276
 msgid "No Drives Found"
