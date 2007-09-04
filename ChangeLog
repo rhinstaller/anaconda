@@ -1,3 +1,11 @@
+2007-09-04  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/loader.c (doLoaderMain): In STEP_IP, set the hostname if
+	we were provided one by the user (#180451).
+
+	* loader2/net.c (doDhcp): If we got a hostname from DHCP, set it
+	(#180451).
+
 2007-09-04  Bill Nottingham  <notting@redhat.com>
 
 	* utils/genmodinfo (blacklist): Blacklist some more things

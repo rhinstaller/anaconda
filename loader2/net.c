@@ -1362,6 +1362,13 @@ char *doDhcp(struct networkDeviceConfig *dev) {
     if (!(pref & DHCPv4_DISABLE) || !(pref & DHCPv6_DISABLE))
         r = pumpDhcpClassRun(i,0L,class,pref,0,timeout,netlogger,loglevel);
 
+    /* set hostname if we have that */
+    if (dev->dev.hostname) {
+        if (sethostname(dev->dev.hostname, strlen(dev->dev.hostname))) {
+            logMessage(ERROR,"error setting hostname to %s",dev->dev.hostname);
+        }
+    }
+
     return r;
 }
 

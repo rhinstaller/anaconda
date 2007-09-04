@@ -1216,6 +1216,15 @@ static char *doLoaderMain(char * location,
                 loaderData->ipv6info_set = 1;
             }
 
+            /* set the hostname if we have that */
+            if (loaderData->hostname) {
+                if (sethostname(loaderData->hostname,
+                                strlen(loaderData->hostname))) {
+                    logMessage(ERROR, "error setting hostname to %s",
+                               loaderData->hostname);
+                }
+            }
+
             free(ret);
             ret = NULL;
 
