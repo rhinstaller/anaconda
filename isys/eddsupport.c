@@ -43,6 +43,7 @@
 
 #define HASH_TABLE_SIZE 17
 
+
 struct diskMapEntry{
     uint32_t key;
     char *diskname;
@@ -64,9 +65,8 @@ static int insertHashItem(struct diskMapTable *, struct diskMapEntry *);
 static struct diskMapEntry* lookupHashItem(struct diskMapTable *, uint32_t);
 static int addToHashTable(struct diskMapTable *, uint32_t , char *);
 static struct device ** createDiskList();
-static int mapBiosDisks(struct diskMapTable * , const char *);
+static int mapBiosDisks(struct device ** , const char *);
 static int readDiskSig(char *,  uint32_t *);
-static struct diskMapTable* uniqueSignatureExists(struct device **);
 static int readMbrSig(char *, uint32_t *);
 
 /* This is the top level function that creates a disk list present in the
@@ -77,7 +77,6 @@ static int readMbrSig(char *, uint32_t *);
 
 int probeBiosDisks() {
     struct device ** devices = NULL;
-    struct diskMapTable *diskSigToName;
 
     devices = createDiskList();
     if(!devices){
@@ -87,18 +86,11 @@ int probeBiosDisks() {
         return -1;
     }
 
-    if(!(diskSigToName = uniqueSignatureExists(devices))) {
-#ifdef STANDALONE
-        fprintf(stderr, "WARNING: Unique disk signatures don't exist\n");
-#endif
-        return -1;
-    } else {
-        if(!mapBiosDisks(diskSigToName, EDD_DIR)){
+    if(!mapBiosDisks(devices, EDD_DIR)){
 #ifdef STANDALONE
             fprintf(stderr, "WARNING: couldn't map BIOS disks\n");
 #endif
             return -1;
-        }
     }
     return 0;
 }
@@ -108,43 +100,6 @@ static struct device ** createDiskList(){
     return probeDevices (CLASS_HD, BUS_UNSPEC, PROBE_ALL);
 }
 
-static struct diskMapTable * uniqueSignatureExists(struct device **devices) {
-    uint32_t current_sig, headsig;
-    struct device **devhead, **devlist;
-    int i;
-    struct diskMapTable *hashTable;
-
-    hashTable = initializeHashTable(HASH_TABLE_SIZE);
-    if(!hashTable){
-#ifdef STANDALONE
-        fprintf(stderr, "Error initializing diskSigToName table\n");
-#endif
-        return NULL;
-    }
-
-    for (devhead = devices, i = 0; (*devhead) != NULL; devhead++, i++) {
-        if (!(*devhead)->device)
-            continue;
-        if (readDiskSig((*devhead)->device, &headsig) < 0) {
-            return NULL;
-        }
-
-        for (devlist = devhead + 1; (*devlist) != NULL; devlist++) {
-            if (readDiskSig((*devlist)->device, &current_sig) < 0)
-                return NULL;
-
-            if (headsig == current_sig)
-                return NULL;
-        } 
-
-        if(!addToHashTable(hashTable, headsig, (*devhead)->device))
-            return NULL;
-    }
-
-    return hashTable;
-}
-
-
 static int readDiskSig(char *device, uint32_t *disksig) {
     int fd, rc;
 
@@ -153,12 +108,12 @@ static int readDiskSig(char *device, uint32_t *disksig) {
     }
 
     fd = open("/tmp/biosdev", O_RDONLY);
-    if ((fd < 0) && (errno != -ENOMEDIUM)) {
-#ifdef STANDALONE
-        fprintf(stderr, "Error opening devce %s: %s\n ", device, 
+    if (fd < 0) {
+#ifdef STANDALONE 
+        fprintf(stderr, "Error opening device %s: %s\n ", device, 
                 strerror(errno));
-#endif
-        return -1;
+#endif 
+        return -errno;
     }
 
     rc = lseek(fd, MBRSIG_OFFSET, SEEK_SET);
@@ -187,12 +142,13 @@ static int readDiskSig(char *device, uint32_t *disksig) {
     return 0;
 }
 
-static int mapBiosDisks(struct diskMapTable* hashTable,const char *path) {
+static int mapBiosDisks(struct device** devices,const char *path) {
     DIR *dirHandle;
     struct dirent *entry;
     char * sigFileName;
-    uint32_t mbrSig, biosNum;
-    struct diskMapEntry *hashItem;
+    uint32_t mbrSig, biosNum, currentSig;
+    struct device **currentDev, **foundDisk;
+    int i, rc, ret;
 
     dirHandle = opendir(path);
     if(!dirHandle){
@@ -215,18 +171,36 @@ static int mapBiosDisks(struct diskMapTable* hashTable,const char *path) {
         if(!strncmp(entry->d_name,".",1) || !strncmp(entry->d_name,"..",2)) {
             continue;
         }
-        sscanf((entry->d_name+9), "%x", &biosNum);
+        ret = sscanf((entry->d_name+9), "%x", &biosNum);
         
         sigFileName = malloc(strlen(path) + strlen(entry->d_name) + 20);
         sprintf(sigFileName, "%s/%s/%s", path, entry->d_name, SIG_FILE);
         if (readMbrSig(sigFileName, &mbrSig) == 0) {
-            hashItem = lookupHashItem(hashTable, mbrSig);
-            if (!hashItem)
-                return 0;
+	    	
+	    for (currentDev = devices, i = 0, foundDisk=NULL; (*currentDev) != NULL && i<2; currentDev++) {
+        	if (!(*currentDev)->device)
+            		continue;
+		
+        	if ((rc=readDiskSig((*currentDev)->device, &currentSig)) < 0){
+			if (rc == -ENOMEDIUM)
+			     continue;
+			return 0;
+		} 
+            		
+
+            	if (mbrSig == currentSig){
+			foundDisk=currentDev;
+			i++;
+		}
+	    }
+
+	    if (i==1){
             if(!addToHashTable(mbrSigToName, (uint32_t)biosNum, 
-                               hashItem->diskname))
+                               (*foundDisk)->device))
                 return 0;
-        }
+	    }
+        } 
+
     }
     closedir(dirHandle);
     return 1;
@@ -325,6 +299,7 @@ static int addToHashTable(struct diskMapTable *hashTable,
 char * getBiosDisk(char *biosStr) {
     uint32_t biosNum;
     struct diskMapEntry * disk;
+    int ret;
 
     if (diskHashInit == 0) {
         probeBiosDisks();
@@ -334,7 +309,7 @@ char * getBiosDisk(char *biosStr) {
     if (mbrSigToName == NULL)
         return NULL;
 
-    sscanf(biosStr,"%x",&biosNum);
+    ret = sscanf(biosStr,"%x",&biosNum);
     disk = lookupHashItem(mbrSigToName, biosNum);
     if (disk) return disk->diskname;
 
