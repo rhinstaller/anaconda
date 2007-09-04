@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.26
+Version: 11.3.0.27
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -158,6 +158,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 04 2007 Chris Lumens <clumens@redhat.com> 11.3.0.27-1
+- Honor hostname= command line option (dcantrell, #186560).
+- Set the hostname if provided by the user or by DHCP (dcantrell, #180451).
+- Blacklist floppy and iscsi modules (notting).
+- Fix traceback on GUI network config screen (dcantrell).
+- Kickstart networking interface fixes (dcantrell, #260621).
+- Don't traceback when reading kickstart post scripts (#276851).
+- On kickstart installs, output the incoming packages section to
+  anaconda-ks.cfg.
+
 * Fri Aug 31 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.26-1
 - Some kickstart fixes (clumens, #269721)
 - More libraries (clumens)
