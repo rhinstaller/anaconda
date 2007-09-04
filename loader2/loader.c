@@ -11,7 +11,7 @@
  * Michael Fulbright <msf@redhat.com>
  * Jeremy Katz <katzj@redhat.com>
  *
- * Copyright 1997 - 2006 Red Hat, Inc.
+ * Copyright 1997 - 2007 Red Hat, Inc.
  *
  * This software may be freely redistributed under the terms of the GNU
  * General Public License.
@@ -1860,6 +1860,7 @@ int main(int argc, char ** argv) {
         printf("%s", buf);
 
         if (!(pid = fork())) {
+            setenv("ANACONDAVERSION", VERSION, 1);
             if (execv(anacondaArgs[0], anacondaArgs) == -1) {
                fprintf(stderr,"exec of anaconda failed: %s\n",strerror(errno));
                exit(1);
@@ -1878,7 +1879,6 @@ int main(int argc, char ** argv) {
             if (!(pid = fork())) {
                 char * cmd = (FL_POWEROFF(flags) ? strdup("/sbin/poweroff") :
                               strdup("/sbin/halt"));
-                setenv("ANACONDAVERSION", VERSION, 1);
                 if (execl(cmd, cmd, NULL) == -1) {
                     fprintf(stderr, "exec of poweroff failed: %s", 
                             strerror(errno));

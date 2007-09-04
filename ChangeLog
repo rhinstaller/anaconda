@@ -13,6 +13,8 @@
 	* yuminstall.py (YumBackend.writePackagesKS):  If we did a kickstart
 	install, write out the %packages section that was used initially.
 
+	* loader2/loader.c (main):  Set ANACONDAVERSION in the right place.
+
 2007-08-31  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
