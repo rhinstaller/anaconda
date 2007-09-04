@@ -300,6 +300,10 @@ ibmtr
 	"Shared-memory IBM Token Ring 16/4"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 
+igb
+	eth
+	"Intel 82575EB Gigabit Network/Backplane Connection"
+
 ixgb
 	eth
 	"Intel PRO/10GbE"
