@@ -85,6 +85,8 @@ rm -rf $RPM_BUILD_ROOT
   Resolves: rhbz#252021
 - Fix biosdisk install problems on certain hardware (dcantrell)
   Resolves: rhbz#247303
+- Enable igb network devices (dcantrell)
+  Resolves: rhbz#253711
 
 * Mon Aug 13 2007 Peter Jones <pjones@redhat.com> - 10.1.1.69-1
 - Fix py-compile failure introduced in .68-1 .
