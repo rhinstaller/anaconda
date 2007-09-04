@@ -295,11 +295,13 @@ if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw con
 			read LAYER2
 		fi
 		if [ "$LAYER2" == 1 ]; then
-		   if [ "$VSWITCH" == 0 -a -z "$MACADDR" ]; then
+		   if [ -z "$VSWITCH" -o "$VSWITCH" == 0 ]; then
+		      if [ -z "$MACADDR" ]; then
 			   echo $"Enter a unique MAC address (eg. 02:00:00:00:00:00)."
 			   echo $"Leave this blank and press enter if connecting to a"
 			   echo $"Layer 2 VSWITCH, as this is automatically assigned"
 			   read MACADDR
+		      fi
 		   fi
 		fi
    fi
