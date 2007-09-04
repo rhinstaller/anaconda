@@ -30,6 +30,9 @@
 
 2007-09-04  Chris Lumens  <clumens@redhat.com>
 
+	* kickstart.py (AnacondaKSParser.addScript):  Only try to add pre
+	scripts at this time during parsing (#276851).
+
 	* backend.py (AnacondaBackend.writePackagesKS, writeConfiguration):
 	Modify handling of anaconda instance argument.
 	* installclass.py (BaseInstallClass.setInstallData):  Likewise.
