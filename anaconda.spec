@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.72
+Version: 11.1.2.73
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 04 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.73-1
+- Handle empty VSWITCH parameter (bhinson AT redhat DOT com)
+  Related: rhbz#248049
+
 * Tue Sep 04 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.72-1
 - Rebuild against kudzu-1.2.57.1.15
   Resolves: rhbz#276161
