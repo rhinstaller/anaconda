@@ -8,6 +8,13 @@
 	* iw/network_gui.py (NetworkWindow.setupDevices): Do not assume we
 	have HWADDR or DESC when generating tooltip.
 
+	* loader2/loader.c (doLoaderMain): In STEP_IFACE, if we are doing
+	a kickstart install, flag it. Init ipv4method and ipv6method (#260621).
+	* loader2/loader.h: Add LOADER_FLAGS_IS_KICKSTART and
+	FL_IS_KICKSTART() (#260621).
+	* loader2/net.c (configureTCPIP): Set skipForm to 1 if kickstart
+	flag is set (#260621).
+
 2007-09-04  Chris Lumens  <clumens@redhat.com>
 
 	* backend.py (AnacondaBackend.writePackagesKS, writeConfiguration):

@@ -45,6 +45,7 @@
 #define LOADER_FLAGS_NOIPV6             (((uint64_t) 1) << 32)
 #define LOADER_FLAGS_IP_PARAM           (((uint64_t) 1) << 33)
 #define LOADER_FLAGS_IPV6_PARAM         (((uint64_t) 1) << 34)
+#define LOADER_FLAGS_IS_KICKSTART       (((uint64_t) 1) << 35)
 
 #define FL_TESTING(a)            ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)             ((a) & LOADER_FLAGS_EXPERT)
@@ -85,6 +86,7 @@
 #define FL_NOIPV6(a)             ((a) & LOADER_FLAGS_NOIPV6)
 #define FL_IP_PARAM(a)           ((a) & LOADER_FLAGS_IP_PARAM)
 #define FL_IPV6_PARAM(a)         ((a) & LOADER_FLAGS_IPV6_PARAM)
+#define FL_IS_KICKSTART(a)       ((a) & LOADER_FLAGS_IS_KICKSTART)
 
 void startNewt(void);
 void stopNewt(void);
