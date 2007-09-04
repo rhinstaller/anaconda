@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.69
+Version: 10.1.1.70
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 04 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.70-1
+- Increase the size of x86_64 diskboot.img so everything fits (pjones)
+  Resolves: rhbz#240561
+- Fix MAC address specification with OSA layer2 networking, based on patch 
+  from Brad Hinson (dcantrell)
+  Resolves: rhbz#252021
+- Fix biosdisk install problems on certain hardware (dcantrell)
+  Resolves: rhbz#247303
+
 * Mon Aug 13 2007 Peter Jones <pjones@redhat.com> - 10.1.1.69-1
 - Fix py-compile failure introduced in .68-1 .
 
