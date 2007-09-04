@@ -1,5 +1,10 @@
 2007-09-04  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/loader.c (parseCmdLineFlags): Read hostname= parameter
+	and copy result to loaderData so it can be set later (#186560).
+
+2007-09-04  David Cantrell  <dcantrell@redhat.com>
+
 	* loader2/loader.c (doLoaderMain): In STEP_IP, set the hostname if
 	we were provided one by the user (#180451).
 

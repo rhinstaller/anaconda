@@ -767,6 +767,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         }
         else if (!strncasecmp(argv[i], "method=", 7))
             setMethodFromCmdline(argv[i] + 7, loaderData);
+        else if (!strncasecmp(argv[i], "hostname=", 9))
+            loaderData->hostname = strdup(argv[i] + 9);
         else if (!strncasecmp(argv[i], "ip=", 3))
             parseCmdLineIp(loaderData, argv[i]);
         else if (!strncasecmp(argv[i], "ipv6=", 5))
