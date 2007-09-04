@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.71
+Version: 11.1.2.72
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 04 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.72-1
+- Rebuild against kudzu-1.2.57.1.15
+  Resolves: rhbz#276161
+
 * Fri Aug 31 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.71-1
 - Remove extra newtPopWindow() call
   Related: rhbz#260621
