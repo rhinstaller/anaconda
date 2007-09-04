@@ -2,24 +2,24 @@
 #
 # translation of cs.po to Czech
 # Copyright (C) 2002, FSF
+#
 # Miloslav Trmac <mitr@volny.cz>, 2002, 2003, 2004, 2005.
 # Nikola Štohanzl <niko@srnet.cz>, 2006.
 # Milan Keršláger <kerslage@linux.cz>, 2007.
-#
+# Adam Pribyl <pribyl@lowlevel.cz>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-05-06 16:01+0100\n"
-"Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
-"Language-Team: Czech\n"
+"PO-Revision-Date: 2007-09-04 16:27+0200\n"
+"Last-Translator: Adam Pribyl <pribyl@lowlevel.cz>\n"
+"Language-Team: Czech <fedora-cs-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -194,8 +194,7 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
-"Zaváděcí oddíl %s není typu VFAT, a proto z něj EFI nemůže načíst systém."
+msgstr "Zaváděcí oddíl %s není typu VFAT, a proto z něj EFI nemůže načíst systém."
 
 #: ../autopart.py:1031
 msgid ""
@@ -207,8 +206,7 @@ msgstr ""
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Zaváděcí oddíl %s zřejmě na vaší architektuře nesplňuje omezení pro zavedení "
 "systému."
@@ -227,7 +225,7 @@ msgid "Requested Partition Does Not Exist"
 msgstr "Požadovaný oddíl neexistuje"
 
 #: ../autopart.py:1260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -235,14 +233,14 @@ msgid ""
 msgstr ""
 "Nemohu nalézt oddíl %s pro %s.\n"
 "\n"
-"Klikněte na 'OK' pro restart počítače."
+"Klikněte na 'OK' pro ukončení instalace."
 
 #: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Požadované RAID zařízení neexistuje"
 
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
@@ -250,14 +248,14 @@ msgid ""
 msgstr ""
 "Nemohu nalézt raid zařízení %s pro %s.\n"
 "\n"
-"Klikněte na 'OK' pro restart počítače."
+"Klikněte na 'OK' pro ukončení instalace."
 
 #: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Požadovaná skupina svazků neexistuje"
 
 #: ../autopart.py:1320
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
@@ -265,14 +263,14 @@ msgid ""
 msgstr ""
 "Nemohu nalézt skupinu svazků %s pro %s.\n"
 "\n"
-"Klikněte na 'OK' pro restart počítače."
+"Klikněte na 'OK' pro ukončení instalace."
 
 #: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Požadovaný logický svazek neexistuje"
 
 #: ../autopart.py:1358
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
@@ -280,14 +278,14 @@ msgid ""
 msgstr ""
 "Nemohu nalézt logický svazek %s pro %s.\n"
 "\n"
-"Klikněte na 'OK' pro restart počítače."
+"Klikněte na 'OK' pro ukončení instalace."
 
 #: ../autopart.py:1484 ../autopart.py:1531
 msgid "Automatic Partitioning Errors"
 msgstr "Chyby při automatickém vytvoření oddílů"
 
 #: ../autopart.py:1485
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -299,7 +297,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Klikněte na 'OK' pro restart počítače."
+"Klikněte na 'OK' pro ukončení instalace."
 
 #: ../autopart.py:1495
 msgid "Warnings During Automatic Partitioning"
@@ -317,7 +315,6 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -325,7 +322,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Klikněte na 'OK' pro restart počítače."
+"Klikněte na 'OK' pro ukončení instalace."
 
 #: ../autopart.py:1511 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:239
@@ -505,18 +502,16 @@ msgid "Dump Written"
 msgstr "Záznam uložen"
 
 #: ../exception.py:413
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. The "
 "installer will now exit."
-msgstr "Záznam o chybě byl úspěšně zapsán na disketu. Systém bude restartován."
+msgstr "Záznam o chybě byl úspěšně zapsán na disketu. Instalace bude nyní ukončena."
 
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
 #: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
-#, fuzzy
 msgid "_Exit installer"
-msgstr "Ukončit instalátor"
+msgstr "_Ukončit instalátor"
 
 #: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
@@ -527,13 +522,10 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "Při zápisu záznamu chyby na disketu došlo k chybě."
 
 #: ../exception.py:430
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
-msgstr ""
-"Záznam o chybě byl úspěšně zapsán na vzdálený počítač. Systém bude "
-"restartován."
+msgstr "Záznam o chybě byl úspěšně zapsán na vzdálený počítač. Instalace bude nyní ukončena."
 
 #: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
@@ -613,7 +605,7 @@ msgid "Master Boot Record (MBR)"
 msgstr "Hlavní zaváděcí záznam (MBR)"
 
 #: ../fsset.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -623,7 +615,7 @@ msgstr ""
 "Při inicializaci odkládacího prostoru (swap) na zařízení %s došlo k chybě. "
 "Chyba je závažná a instalace nemůže pokračovat.\n"
 "\n"
-"Stiskněte <Enter> pro restart počítače."
+"Stiskněte <Enter> pro ukončení instalace."
 
 #: ../fsset.py:1457 ../packages.py:282 ../rescue.py:300 ../rescue.py:302
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
@@ -693,7 +685,6 @@ msgstr ""
 "instalace se ujistěte, že instalátor všechny odkládací oddíly naformátuje."
 
 #: ../fsset.py:1507
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -704,14 +695,14 @@ msgstr ""
 "\n"
 "Zvolte Vynechat, chcete-li, aby instalátor tento oddíl v průběhu aktualizace "
 "ignoroval. Zvolte Formátovat, má-li být oddíl naformátován jako odkládací "
-"oddíl (swap). Zvolte Restartovat pro restartování počítače."
+"oddíl (swap)."
 
 #: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Formátovat"
 
 #: ../fsset.py:1519
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -725,10 +716,10 @@ msgstr ""
 "Záznam v /etc/fstab (na oddílu určeném pro aktualizaci) neobashuje platný "
 "odkaz na odkládací oddíl.\n"
 "\n"
-"Klikněte na 'OK' pro restart počítače."
+"Klikněte na 'OK' pro ukončení instalace."
 
 #: ../fsset.py:1530
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -740,10 +731,10 @@ msgstr ""
 "\n"
 "Chyba je obvykle způsobena tím, že odkládací prostor není naformátován.\n"
 "\n"
-"Klikněte na 'OK' pro restart počítače."
+"Klikněte na 'OK' pro ukončení instalace."
 
 #: ../fsset.py:1584
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
@@ -753,10 +744,10 @@ msgstr ""
 "Na zařízení /dev/%s byly nalezeny vadné bloky. Zařízení nedoporučujeme "
 "používat.\n"
 "\n"
-"Stiskněte <Enter> pro restart počítače."
+"Stiskněte <Enter> pro ukončení instalace."
 
 #: ../fsset.py:1595
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -766,23 +757,23 @@ msgstr ""
 "Při vyhledávání vadných bloků na %s došlo k chybě. Problém je závažný a "
 "instalace nemůže pokračovat.\n"
 "\n"
-"Stiskněte <Enter> pro restart počítače."
+"Stiskněte <Enter> pro ukončení instalace."
 
 #: ../fsset.py:1635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Při formátování oddílu %s došlo k chybě. Problém je závažný a instalace "
+"Při formátování oddílu %s došlo k chybě.  Problém je závažný a instalace "
 "nemůže pokračovat.\n"
 "\n"
-"Stiskněte <Enter> pro restart počítače."
+"Stiskněte <Enter> pro ukončení instalace."
 
 #: ../fsset.py:1685
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -792,27 +783,27 @@ msgstr ""
 "Při převodu (migraci) oddílu %s došlo k chybě. Problém je závažný a "
 "instalace nemůže pokračovat.\n"
 "\n"
-"Stiskněte <Enter> pro restart počítače."
+"Stiskněte <Enter> pro ukončení instalace."
 
 #: ../fsset.py:1711 ../fsset.py:1720
 msgid "Invalid mount point"
 msgstr "Neplatné místo připojení"
 
 #: ../fsset.py:1712
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Při pokusu o vytvoření %s došlo k chybě. Nějaká část cesty není adresář. "
+"Při pokusu o vytvoření %s došlo k chybě. Některá část cesty není adresář. "
 "Problém je závažný a instalace nemůže pokračovat.\n"
 "\n"
-"Stiskněte <Enter> pro restart počítače."
+"Stiskněte <Enter> pro ukončení instalace."
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -822,7 +813,7 @@ msgstr ""
 "Při pokusu o vytvoření %s došlo k chybě: %s. Chyba je závažná a instalace "
 "nemůže pokračovat.\n"
 "\n"
-"Stiskněte <Enter> pro restart počítače."
+"Stiskněte <Enter> pro ukončení instalace."
 
 #: ../fsset.py:1734
 msgid "Unable to mount filesystem"
@@ -844,7 +835,7 @@ msgid "_Continue"
 msgstr "_Pokračovat"
 
 #: ../fsset.py:1751
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -857,10 +848,10 @@ msgstr ""
 "Zařízení v souboru /etc/fstab musí být určena jmenovkou (label) a ne názvem "
 "zařízení.\n"
 "\n"
-"Klikněte na 'OK' pro restart počítače."
+"Klikněte na 'OK' pro ukončení instalace."
 
 #: ../fsset.py:1758
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -872,10 +863,9 @@ msgstr ""
 "\n"
 "Problém je obvykle způsoben tím, že zařízení není naformátováno.\n"
 "\n"
-"Klikněte na 'OK' pro restart počítače."
+"Klikněte na 'OK' pro ukončení instalace."
 
 #: ../fsset.py:1778
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -887,7 +877,7 @@ msgstr ""
 "\n"
 "Problém je obvykle způsoben tím, že tabulka fstab není správná.\n"
 "\n"
-"Klikněte na 'OK' pro restart počítače."
+"Klikněte na 'OK' pro ukončení instalace."
 
 #: ../fsset.py:2432
 msgid "Duplicate Labels"
@@ -1073,7 +1063,6 @@ msgid "_Reboot"
 msgstr "_Restartovat"
 
 #: ../gui.py:1119
-#, fuzzy
 msgid "Exiting"
 msgstr "Konec"
 
@@ -1091,7 +1080,7 @@ msgid "Install Window"
 msgstr "Instalační okno"
 
 #: ../harddrive.py:44 ../image.py:146 ../image.py:483
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1101,12 +1090,9 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Nelze otevřít soubor %s. Důvodem je chybějící soubor nebo poškození balíčku. "
-"Zkontrolujte obrazy, z nichž instalujete, a přesvědčte se, že máte všechna "
-"potřebná média.\n"
+"Nelze otevřít soubor %s. Důvodem je chybějící soubor nebo poškození balíčku.  Zkontrolujte obrazy médií, z nichž instalujete, a přesvědčte se, že máte všechna potřebná média.\n"
 "\n"
-"Provedete-li restart, zůstane systém v nekonzistentním stavu, což si může "
-"vyžádat opětovnou instalaci.\n"
+"Ukončíte-li instalaci, zůstane systém v nekonzistentním stavu, což si může vyžádat opětovnou instalaci.\n"
 "\n"
 
 #: ../harddrive.py:71 ../image.py:516
@@ -1114,7 +1100,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Chybějící obraz formátu ISO 9660"
 
 #: ../harddrive.py:72
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1122,18 +1108,17 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Exit  to abort "
 "the installation."
 msgstr ""
-"Instalátor se pokusil připojit obraz #%s, ale nepodařilo se ho nalézt na "
-"pevném disku.\n"
+"Instalátor se pokusil připojit obraz #%s, ale na pevném disku se ho nepodařilo nalézt.\n"
 "\n"
 "Zkopírujte požadovaný obraz na disk a stiskněte 'Znovu'. Chcete-li instalaci "
-"ukončit, zvolte Restartovat."
+"opustit, zvolte Ukončit."
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
 msgstr "Nelze připojit ISO obraz"
 
 #: ../harddrive.py:118
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
@@ -1141,15 +1126,15 @@ msgid ""
 "installation."
 msgstr ""
 "Při připojováni ISO obrazu %s došlo k chybě. Chyba může být způsobena "
-"umístěním ISO obrazů na zařízení s LVM nebo RAID nebo při problémech s "
-"připojením oddílu, kde jsou obrazy umístěny. Instalace bude přerušena."
+"umístěním ISO obrazů na zařízení s LVM nebo RAID nebo "
+"při problémech s připojením oddílu, kde jsou obrazy umístěny. Pro opuštění instalace klikněte na Ukončit."
 
 #: ../image.py:84
 msgid "Required Install Media"
 msgstr "Potřebná instalační média"
 
 #: ../image.py:85
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
 "\n"
@@ -1158,7 +1143,7 @@ msgid ""
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 "Pro programy, které jste se rozhodli nainstalovat, budou potřeba následující "
-"CD:\n"
+"média:\n"
 "\n"
 "%s\n"
 "Připravte si je před pokračováním v instalaci. Pokud potřebujete instalaci "
@@ -1171,14 +1156,11 @@ msgid "_Back"
 msgstr "_Předchozí"
 
 #: ../image.py:136 ../urlinstall.py:207
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
-msgstr ""
-"Při odpojování CD došlo k chybě. Zkontrolujte, že v příkazovém řádku shellu "
-"na tty2 (druhá kvirtuální konzole) nepřistupujete na %s a stiskněte 'OK' pro "
-"další pokus."
+msgstr "Při odpojování média došlo k chybě. Zkontrolujte, že v příkazovém řádku shellu na tty2 (druhá kvirtuální konzole) nepřistupujete na %s a stiskněte 'OK' pro další pokus."
 
 #: ../image.py:170 ../urlinstall.py:102
 msgid "Copying File"
@@ -1197,9 +1179,8 @@ msgstr ""
 "plný."
 
 #: ../image.py:270
-#, fuzzy
 msgid "Change Disc"
-msgstr "Výměna CD-ROM"
+msgstr "Výměna média"
 
 #: ../image.py:271
 #, python-format
@@ -1207,22 +1188,20 @@ msgid "Please insert %s disc %d to continue."
 msgstr "Pro pokračování vložte %s disk %d."
 
 #: ../image.py:305
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "Nesprávné CD-ROM"
+msgstr "Nesprávné médium"
 
 #: ../image.py:306
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s disc."
-msgstr "Nesprávné %s CD-ROM."
+msgstr "Nesprávné %s médium."
 
 #: ../image.py:312
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "Nelze použít CD-ROM."
+msgstr "Nelze přistupovat na médium."
 
 #: ../image.py:369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1232,15 +1211,13 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Nelze otevřít soubor %s. Důvodem je chybějící soubor nebo poškození balíčku. "
-"Zkontrolujte si, zda instalační strom obsahuje všechny požadované balíčky.\n"
+"Nelze otevřít soubor %s. Důvodem je chybějící soubor nebo poškození balíčku. Zkontrolujte si, zda instalační strom obsahuje všechny požadované balíčky.\n"
 "\n"
-"Provedete-li restart, zůstane systém v nekonzistentním stavu, což si může "
-"vyžádat opětovnou instalaci.\n"
+"Ukončíte-li instalaci, zůstane systém v nekonzistentním stavu, což si může vyžádat opětovnou instalaci.\n"
 "\n"
 
 #: ../image.py:443
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
@@ -1251,11 +1228,11 @@ msgstr ""
 "ISO obraz %s má velikost, která není násobkem 2048 bajtů. Obraz byl "
 "pravděpodobně při přenosu poškozen.\n"
 "\n"
-"Doporučujeme přerušit instalaci a restartovat počítač. Pokud si myslíte, že "
+"Doporučujeme přerušit a ukončit instalaci. Pokud si myslíte, že "
 "to není chyba, můžete v instalaci pokračovat."
 
 #: ../image.py:517
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
@@ -1267,7 +1244,7 @@ msgstr ""
 "nalézt.\n"
 "\n"
 "Zkopírujte požadovaný obraz do sdíleného adresáře na serveru a zvolte "
-"'Znovu'. Chcete-li instalaci ukončit, zvolte 'Restartovat'."
+"'Znovu'. Chcete-li instalaci opustit, zvolte Ukončit."
 
 #: ../installclass.py:67
 msgid "Install on System"
@@ -1282,17 +1259,16 @@ msgid "Scriptlet Failure"
 msgstr "Chyba skriptu"
 
 #: ../kickstart.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to exit the installer."
 msgstr ""
-"Při spouštění skriptu došlo k chybě. Výstup můžete zkontrolovat v %s. Chyba "
-"je závažná a instalace nemůže pokračovat.\n"
+"Při spouštění skriptu došlo k chybě. Výstup můžete zkontrolovat v %s. Chyba je závažná a instalace nemůže pokračovat.\n"
 "\n"
-"Klikněte na 'OK' pro restart počítače."
+"Klikněte na 'OK' pro ukončení instalace."
 
 #: ../kickstart.py:951 ../kickstart.py:968
 msgid "Running..."
@@ -1343,8 +1319,7 @@ msgstr "Nelze najít obraz"
 
 #: ../livecd.py:94
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 "Na zadaném místě není platné %s Live CD, které by mohlo být použito pro "
 "instalaci."
@@ -1373,8 +1348,7 @@ msgstr "Jméno počítače musí být dlouhé nejvýše 64 znaků."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Jméno počítače musí začínat znakem 'a-z' nebo 'A-Z' (bez háčků a čárek)"
+msgstr "Jméno počítače musí začínat znakem 'a-z' nebo 'A-Z' (bez háčků a čárek)"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1553,16 +1527,13 @@ msgstr ""
 "rozdělení disku ani používat oddíly za 15. oddílem /dev/%s v %s."
 
 #: ../partedUtils.py:1184
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  in "
 "the Linux kernel does not allow for more than 15 partitions at this time.  "
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
-msgstr ""
-"Zařízení /dev/%s obsahuje více než 15 oddílů. SCSI subsystém v jádře Linuxu "
-"zatím více, než 15 zařízení neumožňuje. Nebude možné provádět změny v "
-"rozdělení disku ani používat oddíly za 15. oddílem /dev/%s v %s."
+msgstr "Zařízení /dev/%s obsahuje více než 15 oddílů. SCSI subsystém v jádře Linuxu zatím více, než 15 zařízení neupodporuje. Nebude možné provádět změny v rozdělení disku ani používat oddíly za 15. oddílem /dev/%s15 v %s."
 
 #: ../partedUtils.py:1276
 msgid "No Drives Found"
@@ -1880,8 +1851,7 @@ msgid "Confirm Reset"
 msgstr "Potvrzení obnovení"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Chcete opravdu obnovit tabulku oddílů do jejího původního stavu?"
 
 #: ../partitioning.py:61
@@ -1938,8 +1908,7 @@ msgstr ""
 "oddílů, a proto z něj nebude možné systém spustit."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Musíte vytvořit oddíl /boot/efi, který bude typu FAT a jeho velikost bude 50 "
 "MB."
@@ -1962,8 +1931,7 @@ msgstr ""
 "obvyklou instalaci distribuce %s."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Instalace na USB zařízení. To může (ale nemusí) vést k vytvoření funkčního "
 "systému. "
@@ -2024,10 +1992,8 @@ msgstr "oddíl, který je členem skupiny svazků LVM."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Místo připojení není platné. Adresář %s musí být v kořenovém systému souborů."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Místo připojení není platné. Adresář %s musí být v kořenovém systému souborů."
 
 #: ../partRequests.py:252
 #, python-format
@@ -2056,8 +2022,7 @@ msgstr "Místo připojení \"%s\" je již používáno. Zadejte jiné."
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"Velikost oddílu %s (%10.2f MB) překračuje maximální velikost %10.2f MB."
+msgstr "Velikost oddílu %s (%10.2f MB) překračuje maximální velikost %10.2f MB."
 
 #: ../partRequests.py:490
 #, python-format
@@ -2310,8 +2275,7 @@ msgid "Welcome to %s"
 msgstr "Vítá vás %s"
 
 #: ../text.py:472
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "<F1> nápověda  |  <Tab> další položka  |  <Mezera> vybrat  |  <F12> "
 "pokračovat"
@@ -2320,8 +2284,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> další položka   |   <Mezera> vybrat   |   <F12> pokračovat"
+msgstr "  <Tab>/<Alt-Tab> další položka   |   <Mezera> vybrat   |   <F12> pokračovat"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -2439,7 +2402,7 @@ msgid "Connecting..."
 msgstr "Připojování..."
 
 #: ../urlinstall.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2449,11 +2412,10 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Nelze otevřít soubor %s, protože nebyl nalezen nebo je soubor s balíček "
-"poškozen. Zkontrolujte, zda zdrojový adresář obsahuje všechny požadované "
-"balíčky nebo zkuste jako zdroj použít jiné umístění.\n"
+"Nelze otevřít soubor %s, protože nebyl nalezen nebo je soubor s balíčkem "
+"poškozen. Zkontrolujte, zda zdrojový adresář obsahuje všechny požadované balíčky nebo zkuste jako zdroj použít jiné umístění.\n"
 "\n"
-"Provedete-li restart, zůstane systém v nekonzistentním stavu, který bude "
+"Ukončíte-li instalaci, zůstane systém v nekonzistentním stavu, který bude "
 "zřejmě vyžadovat reinstalaci.\n"
 "\n"
 
@@ -2653,12 +2615,11 @@ msgstr "%s z %s balíčků dokončeno"
 
 #: ../yuminstall.py:195
 msgid "Finishing upgrade"
-msgstr ""
+msgstr "Ukončení aktualizace"
 
 #: ../yuminstall.py:196
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr "Spouštím proces instalace. Může to chvíli trvat..."
+msgstr "Ukončuji proces aktualizace. Může to chvíli trvat..."
 
 #: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
 #: ../yuminstall.py:796 ../yuminstall.py:1012 ../yuminstall.py:1015
@@ -2711,8 +2672,7 @@ msgstr "Chyba v průběhu transakce"
 
 #: ../yuminstall.py:638
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "V průběhu transakce došlo k chybě z následujících důvodů: %s"
 
 #: ../yuminstall.py:733
@@ -2747,14 +2707,12 @@ msgid "Uncategorized"
 msgstr "Nezařazeno"
 
 #: ../yuminstall.py:1045
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or exit the "
 "installer."
-msgstr ""
-"Vybrané balíčky vyžadují pro instalaci %d MB volného místa. Tolik místa není "
-"k dispozici. Můžete změnit výběr nebo restartovat."
+msgstr "Vybrané balíčky vyžadují pro instalaci %d MB volného místa. Tolik místa není k dispozici. Můžete změnit výběr nebo ukončit instalaci."
 
 #: ../yuminstall.py:1206
 #, python-format
@@ -2841,16 +2799,14 @@ msgid "The root password must be at least six characters long."
 msgstr "Heslo pro uživatele root musí být alespoň 6 znaků dlouhé."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "Heslo nesmí obsahovat znaky, které nepatří do ASCII."
 
 #: ../iw/account_gui.py:107
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-"Účet root se používá pro správu systému. Zadejte heslo pro uživatele root."
+msgstr "Účet root se používá pro správu systému. Zadejte heslo pro uživatele root."
 
 #: ../iw/account_gui.py:122
 msgid "Root _Password: "
@@ -3076,8 +3032,7 @@ msgstr "Klikněte na 'Další' pro zahájení aktualizace distribuce %s."
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr ""
-"Záznam průběhu aktualizace najdete po restartu počítače v souboru '%s'."
+msgstr "Záznam průběhu aktualizace najdete po restartu počítače v souboru '%s'."
 
 #: ../iw/congrats_gui.py:25
 msgid "Congratulations"
@@ -3380,8 +3335,7 @@ msgstr "Chybí volné pozice"
 #: ../iw/lvm_dialog_gui.py:721
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
-"Nelze vytvořit více než %s logických svazků (LV) v jedné skupině svazků (VG)."
+msgstr "Nelze vytvořit více než %s logických svazků (LV) v jedné skupině svazků (VG)."
 
 #: ../iw/lvm_dialog_gui.py:727
 msgid "No free space"
@@ -3579,15 +3533,13 @@ msgid "Netmask"
 msgstr "Maska sítě"
 
 #: ../iw/netconfig_dialog.py:211
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "Prefix IPv4 musí být mezi 0 a 32."
+msgstr "Prefix CIDR IPv4 musí být mezi 0 a 32."
 
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
 #: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
-#, fuzzy
 msgid "IPv4 Network Mask"
-msgstr "IPv4 maska sítě"
+msgstr "IPv4 maska sítě "
 
 #: ../iw/netconfig_dialog.py:235 ../iw/netconfig_dialog.py:238
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:524
@@ -3599,9 +3551,8 @@ msgid "Nameserver"
 msgstr "DNS server"
 
 #: ../iw/netconfig_dialog.py:255
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "Chyba při konfigurování síťového rozhraní"
+msgstr "Chyba při konfigurování síťového rozhraní "
 
 #: ../iw/netconfig_dialog.py:268
 msgid "Error configuring network device"
@@ -3948,14 +3899,12 @@ msgid "Partitioning"
 msgstr "Vytváření oddílů"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "Rozdělení disku, které bylo vybráno, skončilo s následujícími chybami."
 
 #: ../iw/partition_gui.py:635
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "Před pokračováním instalace %s musí být chyby opraveny."
 
 #: ../iw/partition_gui.py:641
@@ -3964,8 +3913,7 @@ msgstr "Chyby v oddílech"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
-"Rozdělení disku, které bylo vybráno, proběhlo s následujícími varováními."
+msgstr "Rozdělení disku, které bylo vybráno, proběhlo s následujícími varováními."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4482,8 +4430,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:112 ../textw/upgrade_bootloader_text.py:93
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Instalační program nalezl zavaděč %s nainstalovaný na %s."
 
 #: ../iw/upgrade_bootloader_gui.py:116
@@ -4613,8 +4560,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Velikost odkládacího souboru musí být mezi 1 a 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Na vybraném zařízení není dostatek volného místa pro odkládací oddíl."
 
 #: ../iw/zipl_gui.py:28
@@ -4750,10 +4696,8 @@ msgstr ""
 "názvy, které budou použity v menu."
 
 #: ../textw/bootloader_text.py:290
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <Mezera> zvolit | <F2> jako implicitní | <F4> odstranit | <F12> pokračovat"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <Mezera> zvolit | <F2> jako implicitní | <F4> odstranit | <F12> pokračovat"
 
 #: ../textw/bootloader_text.py:386
 msgid ""
@@ -4880,10 +4824,8 @@ msgid "Please select the package groups you would like to install."
 msgstr "Zvolte skupiny balíčků, které chcete nainstalovat."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"  <Mezera>,<+>,<-> vybrat   |   <F2> Detaily skupiny   |   <F12> pokračovat"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "  <Mezera>,<+>,<-> vybrat   |   <F2> Detaily skupiny   |   <F12> pokračovat"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
@@ -5295,8 +5237,7 @@ msgstr "Nepodporováno"
 
 #: ../textw/partition_text.py:783
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr ""
-"Skupiny svazků LVM mohou být měněny jen v grafickém instalačním programu."
+msgstr "Skupiny svazků LVM mohou být měněny jen v grafickém instalačním programu."
 
 #: ../textw/partition_text.py:859 ../textw/partition_text.py:912
 msgid "Invalid Entry for Partition Size"
@@ -5393,10 +5334,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1472
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Nápověda   F2-Nový   F3-Upravit   F4-Odstranit   F5-Obnovit   F12-Ok   "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Nápověda   F2-Nový   F3-Upravit   F4-Odstranit   F5-Obnovit   F12-Ok   "
 
 #: ../textw/partition_text.py:1504
 msgid "No Root Partition"
@@ -5715,21 +5654,20 @@ msgid "Test"
 msgstr "Test"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-#, fuzzy
 msgid "Eject Disc"
-msgstr "Vysunout CD"
+msgstr "Vysunout CD "
 
 #: ../loader2/cdinstall.c:93
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
 msgstr ""
-"Zvolte \"%s\" pro test CD, které je právě v mechanice nebo \"%s\" pro "
-"vysunutí CD. Pak vložte další CD, které chcete otestovat."
+"Zvolte \"%s\" pro test média, které je právě v mechanice nebo \"%s\" pro "
+"vysunutí média. Pak vložte další médium, které chcete otestovat."
 
 #: ../loader2/cdinstall.c:114
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If you would like to test additional media, insert the next disc and press "
 "\"%s\". Testing each disc is not strictly required, however it is highly "
@@ -5737,27 +5675,26 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each disc prior to using it again."
 msgstr ""
-"Chcete-li testovat doplňková média, vložte další CD a stiskněte \"%s\"."
-"Testování každého CD není bezpodmínečně vyžadováno, je ale velmi "
-"doporučováno. Určitě by měla být CD testována před prvním použitím. Po "
+"Chcete-li testovat doplňková média, vložte další médium a stiskněte \"%s\"."
+"Testování každého média není bezpodmínečně vyžadován, je ale velmi "
+"doporučován. Určitě by měla být média testována před prvním použitím. Po "
 "úspěšném otestování již není vyžadováno dalsí testování před každým použitím."
 
 #: ../loader2/cdinstall.c:137
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
-"Nemohu nalézt CD-ROM %s v žádné jednotce CD-ROM. Vložte CD-ROM s distribucí %"
+"Nemohu nalézt médium %s v žádné jednotce. Vložte médium s distribucí %"
 "s a stiskněte tlačítko %s pro opakování."
 
 #: ../loader2/cdinstall.c:258
-#, fuzzy
 msgid "Disc Found"
-msgstr "CD nalezeno"
+msgstr "Médium nalezeno"
 
 #: ../loader2/cdinstall.c:259
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
 "\n"
@@ -5765,30 +5702,27 @@ msgid ""
 msgstr ""
 "Pro kontrolu média před vlastní instalací stiskněte %s.\n"
 "\n"
-"Klikněte na %s pro vynechání testu média a započetí instalace."
+"Klikněte na %s pro vynechání testu média a započetí instalace. "
 
 #: ../loader2/cdinstall.c:379
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s disc was found which matches your boot media.  Please insert the %s "
 "disc and press %s to retry."
-msgstr ""
-"Nemohu nalézt CD-ROM %s odpovídající vašemu zaváděcímu médiu. Vložte CD-ROM %"
-"s a opakujte stisknutím %s."
+msgstr "Nemohu nalézt médium %s odpovídající vašemu zaváděcímu médiu. Vložte médium % s a opakujte stisknutím %s."
 
 #: ../loader2/cdinstall.c:384
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"Nemohu nalézt CD-ROM %s v žádné jednotce CD-ROM. Vložte CD-ROM s distribucí %"
+"Nemohu nalézt médium %s v žádné jednotce. Vložte médium s distribucí %"
 "s a stiskněte tlačítko %s pro opakování."
 
 #: ../loader2/cdinstall.c:391
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "CD nalezeno"
+msgstr "Médium  nenalezeno"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
@@ -5846,8 +5780,7 @@ msgstr "Nemohu načíst disk s ovladači ze souboru."
 #: ../loader2/driverdisk.c:396
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Vložte disk s ovladači do zařízení /dev/%s a pokračujte stisknutím \"OK\"."
+msgstr "Vložte disk s ovladači do zařízení /dev/%s a pokračujte stisknutím \"OK\"."
 
 #: ../loader2/driverdisk.c:398
 msgid "Insert Driver Disk"
@@ -5915,8 +5848,7 @@ msgstr "Neznámy zdroj driver disk kickstartu: %s"
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"Byl zadán následující neplatný argument příkazu kickstart driver disk: %s:%s"
+msgstr "Byl zadán následující neplatný argument příkazu kickstart driver disk: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6083,19 +6015,16 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Vítá vás %s - Záchranný režim"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:159
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> další položka   |  <Mezera> vybrat   |  <F12> pokračovat "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> další položka   |  <Mezera> vybrat   |  <F12> pokračovat "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
 msgstr "Vyberte jazyk"
 
 #: ../loader2/loader.c:118
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "Lokální CD-ROM"
+msgstr "Lokální CD/DVD"
 
 #: ../loader2/loader.c:120
 msgid "Hard drive"
@@ -6196,8 +6125,7 @@ msgstr "Ve vašem systému byla nalezena následující zařízení."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Pro váš systém nebyly zavedeny žádné ovladače zařízení. Chcete nějaké zavést?"
+msgstr "Pro váš systém nebyly zavedeny žádné ovladače zařízení. Chcete nějaké zavést?"
 
 #: ../loader2/loader.c:1264
 msgid "Devices"
@@ -6322,8 +6250,7 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Chybný argument kickstart příkazu metody device %s: %s"
 
 #: ../loader2/modules.c:1050
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
+msgid "Both module type and name must be specified for the kickstart device command."
 msgstr "Pro kickstart zařízení musí být zadáno jméno modulu a typu."
 
 #: ../loader2/net.c:59
@@ -6456,8 +6383,7 @@ msgid "Missing Information"
 msgstr "Chybějící informace"
 
 #: ../loader2/net.c:1194
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Musíte zadat platnou IPv4 adresu a masku sítě nebo CIDR prefix."
 
 #: ../loader2/net.c:1200
@@ -6486,8 +6412,7 @@ msgstr "Síťové zařízení"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr ""
-"V počítači je více síťových zařízení. Pomocí kterého chcete instalovat?"
+msgstr "V počítači je více síťových zařízení. Pomocí kterého chcete instalovat?"
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -7121,31 +7046,3 @@ msgstr "Velština"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "Rebooting System"
-#~ msgstr "Restartování počítače"
-
-#~ msgid "Re_try"
-#~ msgstr "_Znovu"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Vyjměte všechna média používaná při instalaci a restartujte systém "
-#~ "stisknutím tlačítka \"Restartovat\".\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Vyjměte všechna média používaná při instalaci a restartujte svůj systém "
-#~ "stisknutím <Enter>.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Enter> pro restart"
-
-#~ msgid "NFS image"
-#~ msgstr "NFS obraz"
