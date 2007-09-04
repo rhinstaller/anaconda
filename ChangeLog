@@ -1,3 +1,13 @@
+2007-09-04  Chris Lumens  <clumens@redhat.com>
+
+	* backend.py (AnacondaBackend.writePackagesKS, writeConfiguration):
+	Modify handling of anaconda instance argument.
+	* installclass.py (BaseInstallClass.setInstallData):  Likewise.
+	* livecd.py (LiveCDCopyBackend.writePackagesKS):  Likewise.
+	* instdata.py (InstData.__init__, InstData.reset):  Likewise.
+	* yuminstall.py (YumBackend.writePackagesKS):  If we did a kickstart
+	install, write out the %packages section that was used initially.
+
 2007-08-31  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

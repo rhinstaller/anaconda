@@ -1335,7 +1335,11 @@ class YumBackend(AnacondaBackend):
 
             f.write(line)
 
-    def writePackagesKS(self, f):
+    def writePackagesKS(self, f, anaconda):
+        if anaconda.isKickstart:
+            f.write(anaconda.id.ksdata.packages.__str__())
+            return
+
         groups = []
         installed = []
         removed = []

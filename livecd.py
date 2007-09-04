@@ -386,5 +386,5 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         return True
     def getDefaultGroups(self, anaconda):
         return []
-    def writePackagesKS(self, f):
+    def writePackagesKS(self, f, anaconda):
         pass
