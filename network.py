@@ -487,18 +487,22 @@ class Network:
         log.info("self.hostname = %s", self.hostname)
 
         ip = self.lookupHostname()
+        l = string.split(self.hostname, ".")
 
         # If the hostname is not resolvable, tie it to 127.0.0.1
         if not ip and self.hostname != "localhost.localdomain":
-            localline += self.hostname + " "
-            l = string.split(self.hostname, ".")
+            localline += self.hostname
             if len(l) > 1:
-                localline += l[0] + " "
+                localline += " " + l[0] + " "
 
-        localline += "localhost.localdomain localhost\n"
+        # always add the short hostname to 127.0.0.1 (#253979)
+        localline += "localhost.localdomain localhost"
+        if len(l) > 1:
+            localline += " " + l[0]
+
         f.write("# Do not remove the following line, or various programs\n")
         f.write("# that require network functionality will fail.\n")
-        f.write("127.0.0.1\t\t" + localline)
+        f.write("127.0.0.1\t\t" + localline + "\n")
         f.write("::1\t\tlocalhost6.localdomain6 localhost6\n")
 
         if ip:

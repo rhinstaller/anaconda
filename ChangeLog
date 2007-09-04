@@ -1,3 +1,10 @@
+2007-09-04  David Cantrell  <dcantrell@redhat.com>
+
+	* network.py (Network.write): Add the short hostname to the
+	127.0.0.1 entry in /etc/hosts in addition to a real hostname line
+	if we can do it.  Helps laptop users boot more quickly when the
+	network is disconnected (#253979).
+
 2007-09-04  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
