@@ -382,7 +382,11 @@ class NetworkWindow(InstallWindow):
 		
 	    ipv4 = self.createIPV4Repr(self.devices[device])
 	    ipv6 = self.createIPV6Repr(self.devices[device])
-            devdesc = "%s - %s" % (self.devices[device].info["HWADDR"],self.devices[device].info["DESC"])
+            devdesc = None
+            if self.devices[device].info.has_key('HWADDR') and \
+               self.devices[device].info.has_key('DESC'):
+                devdesc = "%s - %s" % (self.devices[device].info["HWADDR"],
+                                       self.devices[device].info["DESC"])
             self.ethdevices.append_row((device, ipv4, ipv6), active, tooltipText=devdesc)
 
             num += 1

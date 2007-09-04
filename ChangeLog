@@ -1,3 +1,8 @@
+2007-09-04  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/network_gui.py (NetworkWindow.setupDevices): Do not assume we
+	have HWADDR or DESC when generating tooltip.
+
 2007-09-04  Chris Lumens  <clumens@redhat.com>
 
 	* backend.py (AnacondaBackend.writePackagesKS, writeConfiguration):
