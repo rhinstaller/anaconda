@@ -11,6 +11,10 @@
 
 2007-09-05  Chris Lumens  <clumens@redhat.com>
 
+	* fsset.py (readFstab):  Older installs may have odd device names in
+	/etc/fstab like /dev/proc.  Don't try to make device nodes for them
+	(#277391).
+
 	* harddrive.py (HardDriveInstallMethod.__init__):  Don't be as clever
 	breaking the method string up.
 

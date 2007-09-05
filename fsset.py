@@ -2354,7 +2354,7 @@ def readFstab (anaconda):
     # mark these labels found on the system as used so the factory
     # doesn't give them to another device
     labelFactory.reserveLabels(labels)
-    
+
     loopIndex = {}
 
     f = open (path, "r")
@@ -2376,9 +2376,9 @@ def readFstab (anaconda):
             continue
         elif len(fields) == 4:
             fields.append(0)
-            fields.append(0)            
+            fields.append(0)
         elif len(fields) == 5:
-            fields.append(0)                        
+            fields.append(0)
         elif len(fields) > 6:
             continue
 	if string.find(fields[3], "noauto") != -1: continue
@@ -2389,7 +2389,7 @@ def readFstab (anaconda):
             fstotry = fstotry.split(",")
         else:
             fstotry = [ fstotry ]
-        fsystem = None            
+        fsystem = None
         for fs in fstotry:
             # if we don't support mounting the filesystem, continue
             if not fileSystemTypes.has_key(fs):
@@ -2399,7 +2399,7 @@ def readFstab (anaconda):
         # "none" is valid as an fs type for bind mounts (#151458)
         if fsystem is None and (string.find(fields[3], "bind") == -1):
             continue
-        
+
         label = None
 	if fields[0] == "none":
             device = Device()
@@ -2433,8 +2433,13 @@ def readFstab (anaconda):
 	    if loopIndex.has_key(device):
 		(dev, fs) = loopIndex[device]
                 device = LoopbackDevice(dev, fs)
-	elif fields[0].startswith('/dev/'):
-            device = makeDevice(fields[0][5:])
+        elif fields[0].startswith('/dev/'):
+            # Older installs may have lines starting with things like /dev/proc
+            # so watch out for that on upgrade.
+            if fsystem is not None and isinstance(PsudoFileSystem, fsystem):
+                device = Device(device = fields[0][5:])
+            else:
+                device = makeDevice(fields[0][5:])
 	else:
             device = Device(device = fields[0])
 
