@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.27
+Version: 11.3.0.28
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -158,6 +158,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep  5 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.28-1
+- Make sure we find out about all nics (dcantrell)
+- Hard drive install fixing (clumens, #287241)
+- Make sure iniparse is in the image (notting, #276941)
+- Add the short hostname to the localhost entry (dcantrell, #253979)
+
 * Tue Sep 04 2007 Chris Lumens <clumens@redhat.com> 11.3.0.27-1
 - Honor hostname= command line option (dcantrell, #186560).
 - Set the hostname if provided by the user or by DHCP (dcantrell, #180451).
