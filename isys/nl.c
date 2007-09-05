@@ -257,7 +257,7 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
  * @return 0 on succes, -1 on error.
  */
 int netlink_init_interfaces_list(void) {
-    int sock, ret, len, alen, r, bufsz, havemsg, namelen;
+    int sock, ret, len, alen, r, bufsz, readsz, havemsg, namelen;
     char *buf = NULL;
     struct nlmsghdr *nlh;
     struct ifinfomsg *ifi;
@@ -287,18 +287,20 @@ int netlink_init_interfaces_list(void) {
     }
 
     havemsg = 0;
+    readsz = BUFSZ;
     while (!havemsg) {
-        bufsz = recvfrom(sock, buf, BUFSZ, 0, NULL, 0);
+        bufsz = recvfrom(sock, buf, readsz, 0, NULL, 0);
 
         if (bufsz < 0) {
             perror("recvfrom in netlink_init_interfaces_list");
             close(sock);
             return -1;
-        } else if (bufsz > BUFSZ) {
+        } else if (bufsz > readsz) {
             free(buf);
             buf = NULL;
 
-            if ((buf = calloc(bufsz, sizeof(char))) == NULL) {
+            readsz = bufsz;
+            if ((buf = calloc(readsz, sizeof(char))) == NULL) {
                 perror("calloc on 2nd buf in netlink_init_interfaces_list");
                 close(sock);
                 return -1;
