@@ -130,8 +130,7 @@ static int loadHDImages(char * prefix, char * dir,
 }
 
 /* given a partition device and directory, tries to mount hd install image */
-static char * setupIsoImages(char * device, char * dirName, 		      
-                             char * location, 
+static char * setupIsoImages(char * device, char * dirName, char * location,
                              moduleInfoSet modInfo, moduleList modLoaded,
                              moduleDeps * modDepsPtr) {
     int rc;
@@ -167,7 +166,7 @@ static char * setupIsoImages(char * device, char * dirName,
             snprintf(updpath, sizeof(updpath), "%s/updates.img", filespec);
             logMessage(INFO, "Looking for updates for HD in %s", updpath);
             copyUpdatesImg(updpath);
-	    
+
             rc = mountLoopback(path, "/tmp/loopimage", "loop0");
             if (!rc) {
                 /* This code is for copying small stage2 into ram */
@@ -199,9 +198,9 @@ static char * setupIsoImages(char * device, char * dirName,
         /* in test mode I dont know what to do - just pretend I guess */
         type = typetry;
     }
-   
+
     url = malloc(50 + strlen(dirName ? dirName : ""));
-    sprintf(url, "hd://%s:%s/%s", device, *type, dirName ? dirName : ".");
+    sprintf(url, "hd://%s:%s:/%s", device, *type, dirName ? dirName : ".");
 
     return url;
 }

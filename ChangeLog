@@ -3,6 +3,9 @@
 	* harddrive.py (HardDriveInstallMethod.__init__):  Don't be as clever
 	breaking the method string up.
 
+	* loader2/hdinstall.c (setupIsoImages):  Set up the method parameter
+	to match what the rest of anaconda expects (#287241).
+
 2007-09-04  Bill Nottingham  <notting@redhat.com>
 
 	* scripts/upd-instroot (KEEPFILE): Need python-iniparse (#276941)
