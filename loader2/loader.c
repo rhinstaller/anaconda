@@ -463,7 +463,6 @@ static void readNetInfo(struct loaderData_s ** ld) {
 
             if (!strncmp(vname, "IPADDR", 6)) {
                 loaderData->ip = strdup(vparm);
-                loaderData->ipinfo_set = 1;
             }
 
             if (!strncmp(vname, "NETMASK", 7))
@@ -499,6 +498,11 @@ static void readNetInfo(struct loaderData_s ** ld) {
             if (!strncmp(vname, "MACADDR", 7))
                 loaderData->macaddr = strdup(vparm);
         }
+    }
+
+    if (loaderData->ip && loaderData->netmask) {
+        loaderData->ipinfo_set = 1;
+        flags |= LOADER_FLAGS_HAVE_CMSCONF;
     }
 
     fclose(f);
@@ -1103,8 +1107,10 @@ static char *doLoaderMain(char * location,
             if (loaderData->ksFile)
                 flags |= LOADER_FLAGS_IS_KICKSTART;
 
-            loaderData->ipinfo_set = 0;
-            loaderData->ipv6info_set = 0;
+            if (!FL_HAVE_CMSCONF(flags)) {
+                loaderData->ipinfo_set = 0;
+                loaderData->ipv6info_set = 0;
+            }
 
             rc = chooseNetworkInterface(loaderData);
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||

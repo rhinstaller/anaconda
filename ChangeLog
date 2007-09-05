@@ -1,5 +1,16 @@
 2007-09-05  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/loader.c (readNetInfo): Set ipinfo_set to 1 and add
+	LOADER_FLAGS_HAVE_CMSCONF flag if ip and netmask are provided
+	in /tmp/netinfo (#278261).
+	* loader2/loader.c (doLoaderMain): Reset ipinfo_set and
+	ipv6info_set if we are not using a CMS conf file (#278261).
+
+	* loader2/loader.h: Add LOADER_FLAGS_HAVE_CMSCONF and
+	FL_HAVE_CMSCONF macros (#278261).
+
+2007-09-05  David Cantrell  <dcantrell@redhat.com>
+
 	* anaconda.spec: Bump version.
 
 2007-09-05  David Cantrell  <dcantrell@redhat.com>
