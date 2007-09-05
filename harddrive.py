@@ -169,14 +169,12 @@ class HardDriveInstallMethod(ImageInstallMethod):
     # we cannot remove the partition we are hosting hard drive install from
     def protectedPartitions(self):
 	return [self.device]
-    
+
     def __init__(self, method, rootPath, intf):
         """@param method hd://device:fstype:/path"""
         method = method[5:]
+        (device, fstype, path) = method.split(":", 3)
         device = method[0:method.index(":")]
-        tmpmethod = method[method.index(":") + 1:]
-        fstype = tmpmethod[0:tmpmethod.index("/")]
-        path = tmpmethod[tmpmethod.index("/") + 1:]
 
 	ImageInstallMethod.__init__(self, method, rootPath, intf)
 

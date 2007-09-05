@@ -1,3 +1,8 @@
+2007-09-05  Chris Lumens  <clumens@redhat.com>
+
+	* harddrive.py (HardDriveInstallMethod.__init__):  Don't be as clever
+	breaking the method string up.
+
 2007-09-04  Bill Nottingham  <notting@redhat.com>
 
 	* scripts/upd-instroot (KEEPFILE): Need python-iniparse (#276941)
