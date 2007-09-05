@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.74
+Version: 11.1.2.75
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 05 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.75-1
+- Fix network handling via CMS conf file on s390x
+  Resolves: rhbz#278261
+
 * Wed Sep 05 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.74-1
 - Find all NICs with netlink call
   Related: rhbz#230525
