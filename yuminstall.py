@@ -757,17 +757,16 @@ class YumBackend(AnacondaBackend):
     # XXX: need to check that the version of the module matches the version of
     # the kernel package.
     def selectModulePackages(self, anaconda):
-        def inProvides(provides, po):
-           return provides in map(lambda p: p[0], po.provides)
+        if self.ayum.tsInfo.matchNaevr(name="kernel-xen"):
+            xenKernel = True
+        else:
+            xenKernel = False
 
         for (path, name) in anaconda.id.extraModules:
-            xenProvides = "kmod-%s-xen" % name
-            regularProvides = "%s-kmod" % name
-
-            if self.ayum.tsInfo.matchNaevr(name="kernel-xen"):
-                moduleProvides = xenProvides
+            if xenKernel:
+                moduleProvides = "kmod-%s-xen" % name
             else:
-                moduleProvides = regularProvides
+                moduleProvides = "%s-kmod" % name
 
             pkgs = self.ayum.returnPackagesByDep(moduleProvides)
 
@@ -778,7 +777,7 @@ class YumBackend(AnacondaBackend):
                 # The xen module includes the non-xen provides, so we need to
                 # make sure we're not trying to select the xen module on a
                 # non-xen kernel.
-                if moduleProvides == regularProvides and inProvides(xenProvides, pkg):
+                if not xenKernel and pkg.name.find("xen") != -1 or xenKernel and pkg.name.find("xen") == -1:
                     continue
                 else:
                     log.info("selecting %s package for %s module" % (pkg.name, name))

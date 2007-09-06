@@ -1,3 +1,9 @@
+2007-09-06  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (YumBackend.selectModulePackages):  Don't always
+	select xen kmod packages for installation as that pulls in the xen
+	kernel.
+
 2007-09-06  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (PACKAGESGR): Include new japanese font
