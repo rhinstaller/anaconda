@@ -1,5 +1,10 @@
 2007-09-06  Peter Jones  <pjones@redhat.com>
 
+	* loader2/loader.c (loaderSegvHandler): display which signal we got
+	correctly, and don't allocate buffers in the signal handler.
+
+2007-09-06  Peter Jones  <pjones@redhat.com>
+
 	* isys/nl.c (netlink_get_interface_ip): Rework this to handle large
 	recvfrom() responses without doing its own buffering or leaking memory.
 

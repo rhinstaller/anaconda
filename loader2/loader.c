@@ -1367,33 +1367,30 @@ static int hasGraphicalOverride() {
 }
 
 void loaderSegvHandler(int signum) {
-    void *array[10];
-    size_t size;
-    char **strings;
-    size_t i, j;
-    const char const * const errmsg = "loader received SIGSEGV!  Backtrace:\n";
+    void *array[30];
+    size_t i;
+    const char const * const errmsgs[] = {
+        "loader received SIG",
+        "!  Backtrace:\n",
+    };
+
+    /* XXX This should really be in a glibc header somewhere... */
+    extern const char *const sys_sigabbrev[NSIG];
 
     signal(signum, SIG_DFL); /* back to default */
 
     newtFinished();
-    size = backtrace (array, 10);
-    strings = backtrace_symbols (array, size);
+    i = write(STDERR_FILENO, errmsgs[0], strlen(errmsgs[0]));
+    i = write(STDERR_FILENO, sys_sigabbrev[signum],
+            strlen(sys_sigabbrev[signum]));
+    i = write(STDERR_FILENO, errmsgs[1], strlen(errmsgs[1]));
 
-    j = write(STDERR_FILENO, errmsg, strlen(errmsg));
-    for (i = 0; i < size; i++) {
-        j = write(STDERR_FILENO, strings[i], strlen(strings[i]));
-        j = write(STDERR_FILENO, "\n", 1);
-    }
- 
-    free (strings);
+    i = backtrace (array, 30);
+    backtrace_symbols_fd(array, i, STDERR_FILENO);
     exit(1);
 }
 
 static int anaconda_trace_init(void) {
-#if 0
-    int fd;
-#endif
-
 #ifdef USE_MTRACE
     setenv("MALLOC_TRACE","/malloc",1);
     mtrace();
@@ -1404,10 +1401,12 @@ static int anaconda_trace_init(void) {
     initializeTtys();
 
 #if 0
-    fd = open("/dev/tty8", O_RDWR);
-    close(STDERR_FILENO);
-    dup2(fd, STDERR_FILENO);
-    close(fd);
+    int fd = open("/dev/tty8", O_RDWR);
+    if (fd != STDERR_FILENO) {
+        close(STDERR_FILENO);
+        dup2(fd, STDERR_FILENO);
+        close(fd);
+    }
 #endif
 
     /* set up signal handler */
@@ -1418,7 +1417,6 @@ static int anaconda_trace_init(void) {
 }
 
 int main(int argc, char ** argv) {
-    /* Very first thing, set up tracebacks and debug features. */
     int rc;
 
     struct stat sb;
@@ -1466,6 +1464,7 @@ int main(int argc, char ** argv) {
     if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
         return ourRmmodCommand(argc, argv);
 
+    /* Very first thing, set up tracebacks and debug features. */
     rc = anaconda_trace_init();
 
     /* now we parse command line options */
