@@ -1,3 +1,8 @@
+2007-09-06  Martin Sivak  <msivak@redhat.com>
+
+	* lvm.py (getMaxLVSize): Change method for determining maximum Logical
+	Volume size when on 2.6 kernel (#242508)
+
 2007-09-05  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

@@ -483,7 +483,15 @@ def getMaxLVSize(pe):
 
     pe - PE size in KB
     """
-    return pe*64
+
+    if os.uname()[2][:4]=="2.4.":
+        return pe*64 #2.4 kernel - LVM1, max size is 2TiB and depends on extent size/count
+
+    else: #newer kernel - LVM2, size limited by number of sectors
+        if productArch in ("x86_64", "ppc64"): #64bit architectures
+            return (8*1024*1024*1024*1024) #Max is 8EiB (very large number..)
+        else:
+            return (16*1024*1024) #Max is 16TiB
 
 def createSuggestedVGName(partitions):
     """Given list of partition requests, come up with a reasonable VG name
