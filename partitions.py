@@ -153,7 +153,7 @@ class Partitions:
             except Exception, e:
                 log("couldn't get chunksize of %s: %s" %(theDev, e))
                 chunk = None
-            
+
             # is minor always mdN ?
             minor = int(theDev[2:])
             raidvols = []
@@ -373,6 +373,13 @@ class Partitions:
                 raidRequests.append(request)
                 
         return raidRequests
+
+    def getRaidForID(self, id):
+        retval = []
+        for request in filter(lambda r: r.type == REQUEST_RAID, self.requests):
+            if id in request.raidmembers:
+                retval.append(request)
+        return retval
 
     def getAvailableRaidMinors(self):
         """Find and return a list of all of the unused minors for use in RAID."""

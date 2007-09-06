@@ -1230,6 +1230,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
 				   custom_icon='error')
                 sys.exit(0)
 
+            oldid = None
             # now go through and set things from the request to the
             # preexisting partition's request... ladeda
             if request.mountpoint:
@@ -1237,12 +1238,21 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             if request.badblocks:
                 req.badblocks = request.badblocks
             if request.uniqueID:  # for raid to work
+                oldid = req.uniqueID
                 req.uniqueID = request.uniqueID
             if not request.format:
                 req.format = 0
             else:
                 req.format = 1
                 req.fstype = request.fstype
+
+            # we also need to go through and remap everything which we
+            # previously found to our new id.  yay!
+            if oldid is not None:
+                for r in partitions.getRaidForID(oldid):
+                    r.raidmembers.remove(oldid)
+                    r.raidmembers.append(req.uniqueID)
+
         # XXX whee!  lots of cut and paste code lies below
         elif (isinstance(request, partRequests.RaidRequestSpec) and
               request.preexist == 1):

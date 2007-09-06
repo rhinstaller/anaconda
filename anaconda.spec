@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.70
+Version: 10.1.1.71
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 06 2007 Chris Lumens <clumens@redhat.com> 10.1.1.71-1
+- Fix raid --useexisting.
+  Resolves: rhbz#207541.
+
 * Mon Sep 04 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.70-1
 - Increase the size of x86_64 diskboot.img so everything fits (pjones)
   Resolves: rhbz#240561
