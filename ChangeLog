@@ -1,3 +1,8 @@
+2007-09-06  Peter Jones  <pjones@redhat.com>
+
+	* isys/nl.c (netlink_get_interface_ip): Rework this to handle large
+	recvfrom() responses without doing its own buffering or leaking memory.
+
 2007-09-06  Martin Sivak  <msivak@redhat.com>
 
 	* lvm.py (getMaxLVSize): Change method for determining maximum Logical
