@@ -1,5 +1,9 @@
 2007-09-07  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py (turnOnFilesystems): Turn off swaps that we didn't
+	turn on so that live installs where the system had a swap enabled
+	doesn't blow up
+
 	* scripts/upd-instroot (PACKAGESGR): New chinese font packaging too
 
 2007-09-07  Chris Lumens  <clumens@redhat.com>

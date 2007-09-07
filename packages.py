@@ -139,6 +139,12 @@ def turnOnFilesystems(anaconda):
 
     if flags.setupFilesystems:
 	if not anaconda.id.upgrade:
+            if not anaconda.id.fsset.isActive():
+                # turn off any swaps that we didn't turn on
+                # needed for live installs
+                iutil.execWithRedirect("swapoff", ["-a"],
+                                       stdout = "/dev/tty5", stderr="/dev/tty5",
+                                       searchPath = 1)
             anaconda.id.partitions.doMetaDeletes(anaconda.id.diskset)
             anaconda.id.fsset.setActive(anaconda.id.diskset)
             if not anaconda.id.fsset.isActive():
