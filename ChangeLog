@@ -6,6 +6,9 @@
 
 	* iw/upgrade_bootloader_gui.py:  Import logging module (#281031).
 
+	* vnc.py (startVNCServer):  If the vnc server fails to start, log it
+	and quit instead of silently continuing.
+
 2007-09-06  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (YumBackend.selectModulePackages):  Don't always

@@ -284,8 +284,25 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
 	    # oh well
 	    pass
 
-	os.execv(args[0], args)
-	sys.exit (1)
+        try:
+            os.execv(args[0], args)
+            sys.exit (1)
+        except OSError, e:
+            stdoutLog.critical("Error running %s: %s" % (root + "/usr/bin/Xvnc", e.strerror))
+            sys.exit(1)
+
+    # Wait for a bit, then make sure the VNC server really started before
+    # stating that it did.
+    time.sleep(1)
+
+    try:
+        (pid, status) = os.waitpid(vncpid, os.WNOHANG)
+    except:
+        stdoutLog.critical("Could not start the VNC server.  Aborting.")
+        sys.exit(1)
+
+    if os.WIFEXITED(status) and os.WEXITSTATUS(status) > 0:
+        sys.exit(1)
 
     if vncpassword == "":
 	stdoutLog.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
