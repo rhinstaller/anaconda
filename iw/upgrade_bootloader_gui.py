@@ -23,6 +23,9 @@ import iutil
 import gui
 import checkbootloader
 
+import logging
+log = logging.getLogger("anaconda")
+
 class UpgradeBootloaderWindow (InstallWindow):
     windowTitle = N_("Upgrade Boot Loader Configuration")
 
