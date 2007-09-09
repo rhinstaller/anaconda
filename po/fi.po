@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-04-20 20:04+0200\n"
-"Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
+"PO-Revision-Date: 2007-09-09 14:26+0300\n"
+"Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #: ../anaconda:391
 msgid "Press <enter> for a shell"
-msgstr "Paina <enter> saadaksesi komentotulkin"
+msgstr "Paina <enter> päästäksesi komentoriville"
 
 # ../anaconda:332 ../gui.py:111 ../iw/account_gui.py:150
 # ../iw/account_gui.py:161 ../iw/partition_gui.py:496
@@ -265,7 +265,7 @@ msgstr "Pyydettyä osiota ei ole olemassa"
 
 # ../autopart.py:857
 #: ../autopart.py:1260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -273,7 +273,7 @@ msgid ""
 msgstr ""
 "Osion %s paikallistaminen kohdetta %s varten epäonnistui.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla OK."
+"Lopeta asennin painamalla OK."
 
 # ../autopart.py:856
 #: ../autopart.py:1287
@@ -584,21 +584,19 @@ msgstr "Vedos tallennettu"
 
 # ../exception.py:215
 #: ../exception.py:413
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. The "
 "installer will now exit."
 msgstr ""
-"Järjestelmän tila on kirjoitettu levykkeelle. Järjestelmä käynnistetään nyt "
-"uudelleen."
+"Järjestelmän tila on kirjoitettu levykkeelle onnistuneesti. Asennin "
+"lopetetaan nyt."
 
 # ../packages.py:653
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
 #: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
-#, fuzzy
 msgid "_Exit installer"
-msgstr "Lopeta asennin"
+msgstr "_Lopeta asennin"
 
 # ../exception.py:214
 #: ../exception.py:421 ../exception.py:438
@@ -611,13 +609,12 @@ msgstr "Järjestelmän tilaa levykkeelle kirjoitettaessa tapahtui virhe."
 
 # ../exception.py:215
 #: ../exception.py:430
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
 msgstr ""
-"Järjestelmän tila on kirjoitettu etäkoneelle. Järjestelmä käynnistetään nyt "
-"uudelleen."
+"Järjestelmän tila on kirjoitettu etäkoneelle onnistuneesti. Asennin "
+"suljetaan nyt."
 
 #: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
@@ -804,7 +801,6 @@ msgstr ""
 "että asennusohjelma on asetettu alustamaan kaikki sivutusosiot."
 
 #: ../fsset.py:1507
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -814,8 +810,7 @@ msgstr ""
 "\n"
 "\n"
 "Valitse Ohita jos haluat asennusohjelman ohittavan tämän osion päivityksen "
-"aikana. Valitse Alusta alustaaksesi osion sivutustilaksi. Valitse Käynnistä "
-"uudelleen jos haluat käynnistää järjestelmän uudelleen."
+"aikana. Valitse Alusta alustaaksesi osion sivutustilaksi."
 
 # ../iw/partition_gui.py:1545
 #: ../fsset.py:1512 ../iw/partition_gui.py:368
@@ -1777,7 +1772,7 @@ msgstr ""
 "eikä osioita yli /dev/%s15 voi käyttää kohteessa %s"
 
 #: ../partedUtils.py:1184
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  in "
 "the Linux kernel does not allow for more than 15 partitions at this time.  "
@@ -1786,7 +1781,7 @@ msgid ""
 msgstr ""
 "Levyllä /dev/%s on yli 15 osiota. Linux-ytimen SCSI-alijärjestelmä ei salli "
 "yli 15 osiota tällä hetkellä. Tämän levyn osiointiin ei voi tehdä muutoksia "
-"eikä osioita yli /dev/%s15 voi käyttää kohteessa %s"
+"eikä osion /dev/%s15 jälkeisiä osioita voi käyttää kohteessa %s"
 
 # ../partitioning.py:1493
 #: ../partedUtils.py:1276
@@ -2779,7 +2774,7 @@ msgid "Connecting..."
 msgstr "Yhdistetään..."
 
 #: ../urlinstall.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2789,12 +2784,13 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Tiedostoa %s ei voi avata.  Tämä johtuu joko puuttuvasta tiedostosta tai "
-"viallisesta paketista.  Tarkasta että peilipalvelin sisältää kaikki vaaditut "
-"paketit ja yritä uudelleen käyttäen toista palvelinta.\n"
+"Tiedostoa %s ei voi avata. Tämä johtuu joko puuttuvasta tiedostosta tai "
+"mahdollisesti viallisesta paketista. Tarkasta, että peilipalvelimella on "
+"kaikki vaaditut paketit, ja yritä uudelleen käyttäen toista palvelinta.\n"
 "\n"
-"Jos käynnistät uudelleen, järjestelmä jää epävakaaseen tilaan joka "
-"todennäköisesti vaatii uudelleenasennuksen.\n"
+"Jos lopetat asentimen, järjestelmä jää epämääräiseen tilaan, ja "
+"uudelleenasennus on todennäköisesti välttämätön.\n"
+"\n"
 
 # ../gui.py:476
 #: ../vnc.py:49
@@ -4075,9 +4071,8 @@ msgstr "IPv4-etuliitteen on oltava väliltä 0-32."
 # ../iw/network_gui.py:195 ../loader/net.c:806
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
 #: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
-#, fuzzy
 msgid "IPv4 Network Mask"
-msgstr "IPv4 aliverkon peite"
+msgstr "IPv4-aliverkon peite"
 
 # ../iw/network_gui.py:251
 #: ../iw/netconfig_dialog.py:235 ../iw/netconfig_dialog.py:238
@@ -4091,13 +4086,12 @@ msgid "Nameserver"
 msgstr "Nimipalvelin"
 
 #: ../iw/netconfig_dialog.py:255
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "Verkkolaitteen asetuksia tehdessä tapahtui virhe"
+msgstr "Virhe verkkolaitteen asetuksia tehdessä:"
 
 #: ../iw/netconfig_dialog.py:268
 msgid "Error configuring network device"
-msgstr "Verkkolaitteen asetuksia tehdessä tapahtui virhe"
+msgstr "Virhe verkkolaitteen asetuksia tehdessä"
 
 # ../iw/network_gui.py:251
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:526
@@ -6536,9 +6530,8 @@ msgid "Test"
 msgstr "Tarkasta"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-#, fuzzy
 msgid "Eject Disc"
-msgstr "Poista CD"
+msgstr "Poista levy"
 
 #: ../loader2/cdinstall.c:93
 #, fuzzy, c-format
@@ -6576,9 +6569,8 @@ msgstr ""
 
 # ../partitioning.py:1493
 #: ../loader2/cdinstall.c:258
-#, fuzzy
 msgid "Disc Found"
-msgstr "CD löytyi"
+msgstr "Levy löytyi"
 
 #: ../loader2/cdinstall.c:259
 #, fuzzy, c-format
@@ -6613,9 +6605,8 @@ msgstr ""
 
 # ../partitioning.py:1493
 #: ../loader2/cdinstall.c:391
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "CD:tä ei löytynyt"
+msgstr "Levyä ei löytynyt"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
@@ -6963,9 +6954,8 @@ msgstr "Valitse kieli"
 
 # ../loader/loader.c:123
 #: ../loader2/loader.c:118
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "Paikallinen CD-ROM"
+msgstr "Paikallinen CD/DVD"
 
 # ../loader/loader.c:131
 #: ../loader2/loader.c:120
