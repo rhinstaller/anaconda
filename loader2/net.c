@@ -588,6 +588,8 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
 
         if (!cfg->noDns)
             writeResolvConf(cfg);
+
+        cfg->preset = 0;
         return LOADER_NOOP;
     }
 

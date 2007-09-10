@@ -1148,6 +1148,11 @@ static char *doLoaderMain(char * location,
             else
                 loaderData->ipv6info_set = 1;
 
+            if ((rc == LOADER_NOOP) && (netDev.preset == 0)) {
+                loaderData->ipinfo_set = 0;
+                loaderData->ipv6info_set = 0;
+            }
+
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) {
                 step = STEP_IFACE;

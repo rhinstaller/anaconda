@@ -4,6 +4,12 @@
 	to handle large recvfrom() responses without doing its own buffering
 	or leaking memory (pjones, #230525).
 
+	* loader2/loader.c (doLoaderMain): In STEP_IP, if we get LOADER_NOOP
+	and preset has been set to zero, reset ipinfo_set and ipv6info_set
+	(#253285).
+	* loader2/net.c (readNetConfig): Set preset to zero before returning
+	LOADER_NOOP (#253285).
+
 2007-09-05  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
