@@ -754,37 +754,31 @@ class YumBackend(AnacondaBackend):
                 rc.append(g.groupid)
         return rc
 
-    # XXX: need to check that the version of the module matches the version of
-    # the kernel package.
-    def selectModulePackages(self, anaconda):
-        if self.ayum.tsInfo.matchNaevr(name="kernel-xen"):
-            xenKernel = True
-        else:
-            xenKernel = False
+    def selectModulePackages(self, anaconda, kernelPkgName):
+        (base, sep, ext) = kernelPkgName.partition("-")
 
         for (path, name) in anaconda.id.extraModules:
-            if xenKernel:
-                moduleProvides = "kmod-%s-xen" % name
+            if ext != "":
+                moduleProvides = "kmod-%s-%s" % (name, ext)
             else:
                 moduleProvides = "%s-kmod" % name
 
             pkgs = self.ayum.returnPackagesByDep(moduleProvides)
 
             if not pkgs:
-                log.warning("Didn't find any package for module %s" % name)
+                log.warning("Didn't find any package providing module %s" % name)
 
             for pkg in pkgs:
-                # The xen module includes the non-xen provides, so we need to
-                # make sure we're not trying to select the xen module on a
-                # non-xen kernel.
-                if not xenKernel and pkg.name.find("xen") != -1 or xenKernel and pkg.name.find("xen") == -1:
-                    continue
-                else:
-                    log.info("selecting %s package for %s module" % (pkg.name, name))
+                if ext == "" and pkg.name == name+"-kmod":
+                    log.info("selecting package %s for module %s" % (pkg.name, name))
                     self.ayum.install(po=pkg)
+                elif ext != "" and pkg.name.find("-"+ext) != -1:
+                    log.info("selecting package %s for module %s" % (pkg.name, name))
+                    self.ayum.install(po=pkg)
+                else:
+                    continue
 
-
-    def selectBestKernel(self):
+    def selectBestKernel(self, anaconda):
         """Find the best kernel package which is available and select it."""
 
         def getBestKernelByArch(pkgname, ayum):
@@ -804,6 +798,7 @@ class YumBackend(AnacondaBackend):
         # instead check by provides.  but alas.
         for k in ("kernel", "kernel-smp", "kernel-xen0", "kernel-xen"):
             if len(self.ayum.tsInfo.matchNaevr(name=k)) > 0:
+                self.selectModulePackages(anaconda, k)
                 foundkernel = True
 
         if not foundkernel and os.path.exists("/proc/xen"):
@@ -816,6 +811,7 @@ class YumBackend(AnacondaBackend):
                 log.debug("no kernel-xen package")
             else:
                 self.ayum.install(po = kxen)
+                self.selectModulePackages(anaconda, kxen.name)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-xen-devel")
                     self.selectPackage("kernel-xen-devel.%s" % (kxen.arch,))
@@ -831,6 +827,8 @@ class YumBackend(AnacondaBackend):
                 foundkernel = True
                 log.info("selected kernel-smp package for kernel")
                 self.ayum.install(po=ksmp)
+                self.selectModulePackages(anaconda, ksmp.name)
+
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-smp-devel")
                     self.selectPackage("kernel-smp-devel.%s" % (kpkg.arch,))
@@ -846,6 +844,8 @@ class YumBackend(AnacondaBackend):
                 foundkernel = True
                 log.info("select kernel-PAE package for kernel")
                 self.ayum.install(po=kpae)
+                self.selectModulePackages(anaconda, kpae.name)
+
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-PAE-devel")
                     self.selectPackage("kernel-PAE-devel.%s" % (kpkg.arch,))
@@ -853,6 +853,8 @@ class YumBackend(AnacondaBackend):
         if not foundkernel:
             log.info("selected kernel package for kernel")
             self.ayum.install(po=kpkg)
+            self.selectModulePackages(anaconda, kpkg.name)
+
             if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                 log.debug("selecting kernel-devel")
                 self.selectPackage("kernel-devel.%s" % (kpkg.arch,))
@@ -903,10 +905,9 @@ class YumBackend(AnacondaBackend):
         self.ayum.dsCallback = dscb
 
         # do some sanity checks for kernel and bootloader
-        self.selectBestKernel()
+        self.selectBestKernel(anaconda)
         self.selectBootloader()
         self.selectFSPackages(anaconda.id.fsset, anaconda.id.diskset)
-        self.selectModulePackages(anaconda)
 
         self.selectAnacondaNeeds()
 

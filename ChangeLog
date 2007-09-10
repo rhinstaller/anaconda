@@ -1,3 +1,11 @@
+2007-09-10  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall (YumBackend.selectModulePackages):  Make this function
+	more generic, as there could be -smp or -PAE specific module packages
+	to install as well.
+	(YumBackend.selectBestKernel):  When a kernel package is selected for
+	installation, also select the matching driver packages.
+
 2007-09-07  Jeremy Katz  <katzj@redhat.com>
 
 	* packages.py (turnOnFilesystems): Turn off swaps that we didn't
