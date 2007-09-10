@@ -1,3 +1,9 @@
+2007-09-10  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/nl.c:  Error message clean up, rework netlink_get_interface_ip
+	to handle large recvfrom() responses without doing its own buffering
+	or leaking memory (pjones, #230525).
+
 2007-09-05  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
