@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.75
+Version: 11.1.2.76
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 11 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.76-1
+- Fix going back to the network device selection screen in loader
+  Resolves: rhbz#253285
+- Rework netlink_get_interface_ip() to handle large recvfrom responses (pjones)
+  Related: rhbz#230525
+- Driver disk fixes (clumens)
+  Related: rhbz#213318
+- Make sure MACADDR is written to ifcfg-* files (bhinson)
+  Related: rhbz#248049
+
 * Wed Sep 05 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.75-1
 - Fix network handling via CMS conf file on s390x
   Resolves: rhbz#278261
