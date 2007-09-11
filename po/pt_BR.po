@@ -21,13 +21,13 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-07-02 18:10-0300\n"
+"PO-Revision-Date: 2007-09-11 00:14-0300\n"
 "Last-Translator: Igor Pires Soares <igor@projetofedora.org>\n"
 "Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -168,7 +168,7 @@ msgstr "Nenhum hardware de vídeo encontrado, assumindo falta de placa de vídeo
 #: ../anaconda:436
 #: ../anaconda:897
 msgid "Unable to instantiate a X hardware state object."
-msgstr "Não foi possível inicializar um objeto de estado de hardware do X."
+msgstr "Não foi possível instanciar um objeto de estado de hardware do X."
 
 #: ../anaconda:493
 msgid "Starting graphical installation..."
@@ -293,7 +293,7 @@ msgstr ""
 
 #: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
-msgstr "O Grupo de Volume Solicitado Não Existe"
+msgstr "O Grupo de Volumes Solicitado Não Existe"
 
 #: ../autopart.py:1320
 #, python-format
@@ -371,7 +371,7 @@ msgstr ""
 #: ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:239
 msgid "Error Partitioning"
-msgstr "Erro Durante Particionamento"
+msgstr "Erro ao Particionar"
 
 #: ../autopart.py:1512
 #, python-format
@@ -392,7 +392,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Pressione 'OK' para selecionar uma opção diferente de particionamento."
+"Pressione \"OK\" para selecionar uma opção diferente de particionamento."
 
 #: ../autopart.py:1532
 #, python-format
@@ -403,7 +403,7 @@ msgid ""
 "\n"
 "This can happen if there is not enough space on your hard drive(s) for the installation. %s"
 msgstr ""
-"Os seguintes erros ocorreram com o particionamento:\n"
+"Os seguintes erros ocorreram com o seu particionamento:\n"
 "\n"
 "%s\n"
 "\n"
@@ -526,12 +526,12 @@ msgstr "Não é possível lidar com exceções do Parted no modo de linha de com
 #: ../constants.py:65
 #, python-format
 msgid "An unhandled exception has occurred.  This is most likely a bug.  Please save a copy of the detailed exception and file a bug report against anaconda at %s"
-msgstr "Ocorreu uma exceção não tratada.  Isto provavelmente é um erro. Por favor, salve uma cópia detalhada da exceção e registre o bug ocorrido contra o anaconda em %s"
+msgstr "Ocorreu uma exceção não tratada.  Isto provavelmente é um erro. Por favor, salve uma cópia detalhada da exceção e registre o erro ocorrido relacionado ao anaconda em %s"
 
 #: ../exception.py:412
 #: ../exception.py:429
 msgid "Dump Written"
-msgstr "Despejo Foi Salvo"
+msgstr "O Despejo Foi Salvo"
 
 #: ../exception.py:413
 msgid "Your system's state has been successfully written to the floppy. The installer will now exit."
@@ -932,7 +932,7 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Erro ao encontrar entrada /.\n"
+"Erro ao encontrar a entrada /.\n"
 "\n"
 "Isto provavelmente significa que o seu fstab está incorreto.\n"
 "\n"
@@ -969,7 +969,7 @@ msgstr "Formatando"
 #: ../fsset.py:2702
 #, python-format
 msgid "Formatting %s file system..."
-msgstr "Formatando sistema de arquivos %s..."
+msgstr "Formatando o sistema de arquivos %s..."
 
 #: ../gui.py:109
 msgid "An error occurred copying the screenshots over."
@@ -1000,7 +1000,7 @@ msgstr "Salvando Imagem da Tela"
 #: ../gui.py:165
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "Uma imagem da tela foi salva com o nome '%s'."
+msgstr "Uma imagem da tela foi salva com o nome \"%s\"."
 
 #: ../gui.py:168
 msgid "Error Saving Screenshot"
@@ -1008,7 +1008,7 @@ msgstr "Erro ao Salvar Imagem da Tela"
 
 #: ../gui.py:169
 msgid "An error occurred while saving the screenshot.  If this occurred during package installation, you may need to try several times for it to succeed."
-msgstr "Ocorreu um erro ao salvar a imagem da tela.  Se isso ocorreu durante a instalação do pacote, você talvez tenha que tentar diversas vezes para salvá-la com sucesso."
+msgstr "Ocorreu um erro ao salvar a imagem da tela.  Se isso ocorreu durante a instalação dos pacotes, você talvez tenha que tentar diversas vezes para salvá-la com sucesso."
 
 #: ../gui.py:234
 #: ../text.py:440
@@ -1204,7 +1204,7 @@ msgid ""
 msgstr ""
 "O instalador tentou montar a imagem #%s, mas não pôde encontrá-la no disco rígido.\n"
 "\n"
-"Por favor, copie esta imagem para o disco rígido e clique em Repetir. Clique em Sair para abortar a instalação."
+"Por favor, copie esta imagem para o disco e clique em Repetir. Clique em Sair para abortar a instalação."
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
@@ -1227,7 +1227,7 @@ msgid ""
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"O programa que você selecionou para instalar irá precisar dos seguintes discos:\n"
+"Os programas que você selecionou para instalar irão precisar dos seguintes discos:\n"
 "\n"
 "%s\n"
 "Por favor, tenha-os preparados antes de continuar com a instalação.  Se você precisa cancelar a instalação e sair, por favor selecione \"Reinicializar\"."
@@ -1333,7 +1333,7 @@ msgstr "Inicializando iniciador iSCSI"
 
 #: ../kickstart.py:75
 msgid "Scriptlet Failure"
-msgstr "Falha de Scriptlet"
+msgstr "Falha no Scriptlet"
 
 #: ../kickstart.py:76
 #, python-format
@@ -1366,7 +1366,7 @@ msgstr "Pacote Faltando"
 #: ../kickstart.py:1001
 #, python-format
 msgid "You have specified that the package '%s' should be installed.  This package does not exist. Would you like to continue or abort your installation?"
-msgstr "Você especificou que o pacote '%s' deve ser instalado.  Este pacote não existe. Você gostaria de continuar ou de abortar a instalação?"
+msgstr "Você especificou que o pacote \"%s\" deve ser instalado.  Este pacote não existe. Você gostaria de continuar ou de abortar a instalação?"
 
 #: ../kickstart.py:1007
 #: ../kickstart.py:1045
@@ -1382,7 +1382,7 @@ msgstr "Grupo Faltando"
 #: ../kickstart.py:1038
 #, python-format
 msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort your installation?"
-msgstr "Você especificou que o grupo '%s' deve ser instalado. Esse grupo não existe. Você gostaria de continuar ou de abortar a instalação?"
+msgstr "Você especificou que o grupo \"%s\" deve ser instalado. Esse grupo não existe. Você gostaria de continuar ou de abortar a instalação?"
 
 #: ../livecd.py:93
 msgid "Unable to find image"
@@ -1399,7 +1399,7 @@ msgstr "Sair do instalador"
 
 #: ../livecd.py:174
 msgid "Copying live image to hard drive."
-msgstr "Copiando imagem \"live\" para o disco rígido."
+msgstr "Copiando imagem live para o disco rígido."
 
 #: ../livecd.py:203
 msgid "Doing post-installation"
@@ -1407,7 +1407,7 @@ msgstr "Executando pós-instalação"
 
 #: ../livecd.py:204
 msgid "Performing post-installation filesystem changes.  This may take several minutes..."
-msgstr "Realizando mudanças pós-instalação no sistema de arquivos.  Isso poderá demorar vários minutos..."
+msgstr "Realizando mudanças pós-instalação no sistema de arquivos.  Isso poderá demorar alguns minutos..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1415,11 +1415,11 @@ msgstr "O nome da máquina deve ter no máximo 64 caracteres."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr "O nome da máquina deve começar com caracteres do intervalo de 'a-z' ou 'A-Z'"
+msgstr "O nome da máquina deve começar com um caractere válido do intervalo de \"a-z\" ou \"A-Z\""
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr "Nomes de hosts só podem conter os caracteres 'a-z', 'A-Z', '-' ou '.'"
+msgstr "Os nomes de máquinas só podem conter os caracteres \"a-z\", \"A-Z\", \"-\" ou \".\""
 
 #: ../network.py:89
 msgid "IP address is missing."
@@ -1432,12 +1432,12 @@ msgstr "Endereços IPv4 devem conter quatro números entre 0 e 255, separados po
 #: ../network.py:96
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "'%s' não é um endereço IPv6 válido."
+msgstr "\"%s\" não é um endereço IPv6 válido."
 
 #: ../network.py:98
 #, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "'%s' não é um endereço IP válido."
+msgstr "\"%s\" não é um endereço IP válido."
 
 #: ../packages.py:256
 msgid "Invalid Key"
@@ -1477,7 +1477,7 @@ msgstr ""
 "\n"
 "   %s\n"
 "\n"
-"e envie um relatório sobre o '%s'.\n"
+"e envie um relatório sobre o \"%s\".\n"
 
 #: ../packages.py:331
 msgid "_Install anyway"
@@ -1552,7 +1552,8 @@ msgid ""
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
 "Não foi possível ler a tabela de partições do dispositivo %s. Para criar novas partições ele precisa ser inicializado, causando a perda de TODOS OS DADOS nele contidos.\n"
-"Esta operação ignora a escolha de instalação sobre qual disco não deve ser apagado.\n"
+"\n"
+"Esta operação anula quaisquer escolhas de instalação prévias referentes a quais dispositivos devem ser ignorados.\n"
 "\n"
 "Você deseja inicializar este disco, apagando TODO OS DADOS?"
 
@@ -2610,7 +2611,7 @@ msgstr "Iniciando Instalação"
 
 #: ../yuminstall.py:1236
 msgid "Starting install process.  This may take several minutes..."
-msgstr "Iniciando o processo de instalação.  Isso poderá demorar vários minutos..."
+msgstr "Iniciando o processo de instalação.  Isso poderá demorar alguns minutos..."
 
 #: ../yuminstall.py:1252
 msgid "Post Upgrade"
@@ -6665,4 +6666,3 @@ msgstr "Zulu"
 #~ msgstr "Reinicializando Sistema"
 #~ msgid "Re_try"
 #~ msgstr "Repe_tir"
-
