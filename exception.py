@@ -190,7 +190,7 @@ def scpAuthenticate(master, childpid, password):
         # can occur for anything that causes scp to immediately die (bad
         # hostname, host down, etc.)
         buf = os.read(master, 4096)
-        if buf.find("'s password: ") != -1:
+        if buf.lower().find("password: ") != -1:
             os.write(master, password+"\n")
             # read the space and newline that get echoed back
             os.read(master, 2)

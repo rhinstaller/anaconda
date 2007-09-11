@@ -1,3 +1,9 @@
+2007-09-11  Chris Lumens  <clumens@redhat.com>
+
+	* exception.py (scpAuthenticate):  Not all ssh servers respond with
+	the same password prompt, so be more liberal in what we wait for
+	(patch from alanm AT redhat DOT com, #286031).
+
 2007-09-11  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/hardware.c (detectHardware): Probe usb so that usb
