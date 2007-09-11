@@ -1,3 +1,16 @@
+2007-09-11  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (YumBackend.__init__):  Keep track of which modules
+	were installed via the new method so we know which need to be
+	installed via the old method.
+	(YumBackend.copyExtraModules):  Only copy over modules that were not
+	installed as packages.
+	(YumBackend.selectModulePackages):  Rework into a more generic
+	method that installs all module packages for a given kernel package
+	name, since there could be -smp or -PAE specific module packages.
+	(YumBackend.selectBestKernel):  When a kernel package is installed,
+	also install all driver packages for it.
+
 2007-09-10  David Cantrell  <dcantrell@redhat.com>
 
 	* isys/nl.c:  Error message clean up, rework netlink_get_interface_ip
