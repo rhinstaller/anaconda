@@ -204,7 +204,7 @@ class Network:
             for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU",
                         "NETTYPE", "SUBCHANNELS", "PORTNAME", "CTCPROT",
                         "PEERID", "ESSID", "KEY", "IPV6ADDR", "IPV6_AUTOCONF",
-                        "OPTIONS", "ARP"):
+                        "OPTIONS", "ARP", "MACADDR"):
                 if info.has_key(key):
                     self.netdevices [info["DEVICE"]].set((key, info[key]))
 
