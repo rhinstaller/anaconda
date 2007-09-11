@@ -1,5 +1,9 @@
 2007-09-11  Jeremy Katz  <katzj@redhat.com>
 
+	* iscsi.py (iscsiTarget._getPortal): Fix args passed to 
+	iscsiadm (Kostas Georgiou <k.georgiou AT imperial DOT ac DOT uk>, 
+	#283791)
+
 	* anaconda (Anaconda.setBackend): Set flags.selinux too (#244691)
 
 2007-09-11  Chris Lumens  <clumens@redhat.com>

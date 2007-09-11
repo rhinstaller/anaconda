@@ -53,7 +53,7 @@ class iscsiTarget:
 
     def _getPortal(self):
         if self._portal is None:
-            argv = [ "-m", "node", "-p", self.ipaddr ]
+            argv = [ "-m", "discovery", "-t", "st", "-p", self.ipaddr ]
             log.debug("iscsiadm %s" %(string.join(argv),))
             records = iutil.execWithCapture(ISCSIADM, argv)
             records = records.strip()
