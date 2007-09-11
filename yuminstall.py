@@ -769,7 +769,7 @@ class YumBackend(AnacondaBackend):
                 log.warning("Didn't find any package providing module %s" % name)
 
             for pkg in pkgs:
-                if ext == "" and pkg.name == name+"-kmod":
+                if ext == "" and pkg.name == "kmod"+name:
                     log.info("selecting package %s for module %s" % (pkg.name, name))
                     self.ayum.install(po=pkg)
                 elif ext != "" and pkg.name.find("-"+ext) != -1:

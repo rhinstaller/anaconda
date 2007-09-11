@@ -12,6 +12,9 @@
 	the same password prompt, so be more liberal in what we wait for
 	(patch from alanm AT redhat DOT com, #286031).
 
+	* yuminstall.py (AnacondaBackend.selectModulePackages):  Fix name of
+	modules.
+
 2007-09-11  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/hardware.c (detectHardware): Probe usb so that usb
@@ -19,7 +22,7 @@
 
 2007-09-10  Chris Lumens  <clumens@redhat.com>
 
-	* yuminstall (YumBackend.selectModulePackages):  Make this function
+	* yuminstall.py (YumBackend.selectModulePackages):  Make this function
 	more generic, as there could be -smp or -PAE specific module packages
 	to install as well.
 	(YumBackend.selectBestKernel):  When a kernel package is selected for
