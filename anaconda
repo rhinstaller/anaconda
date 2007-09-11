@@ -637,9 +637,10 @@ if __name__ == "__main__":
     if opts.targetArch:
         flags.targetarch = opts.targetArch
 
-    # set dmraid and mpath flags 
+    # set flags 
     flags.dmraid = opts.dmraid
     flags.mpath = opts.mpath
+    flags.selinux = opts.selinux
 
     if opts.serial:
         flags.serial = True
