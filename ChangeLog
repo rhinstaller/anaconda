@@ -1,3 +1,8 @@
+2007-09-11  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/hardware.c (detectHardware): Probe usb so that usb
+	network installs work (H.J. Lu, #285491)
+
 2007-09-10  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall (YumBackend.selectModulePackages):  Make this function
