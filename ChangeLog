@@ -1,3 +1,11 @@
+2007-09-12  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/net.c (chooseNetworkInterface): Don't pick wireless
+	adapters unless explicitly requested
+
+	* loader2/loader.c (parseCmdLineFlags): Add wireless flag
+	* loader2/loader.h: Likewise.
+
 2007-09-12  Chris Lumens  <clumens@redhat.com>
 
 	* instdata.py (InstallData.writeKS):  Write out user and services

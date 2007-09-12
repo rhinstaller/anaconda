@@ -657,6 +657,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOUSB;
         else if (!strcasecmp(argv[i], "ub"))
             flags |= LOADER_FLAGS_UB;
+        else if (!strcasecmp(argv[i], "allowwireless"))
+            flags |= LOADER_FLAGS_ALLOW_WIRELESS;
         else if (!strcasecmp(argv[i], "telnet"))
             flags |= LOADER_FLAGS_TELNETD;
         else if (!strcasecmp(argv[i], "nofirewire"))

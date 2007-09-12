@@ -1747,6 +1747,11 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
             (!strncmp(devs[i]->device, "eth", 3)))
             continue;
 
+        /* require passing a flag for wireless while our wireless support 
+         * sucks */
+        if (is_wireless_interface(devs[i]->device) && !FL_ALLOW_WIRELESS(flags))
+            continue;
+
         if (devs[i]->desc) {
                 deviceNames[deviceNums] = alloca(strlen(devs[i]->device) +
                                           strlen(devs[i]->desc) + 4);
