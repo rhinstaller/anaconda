@@ -1,3 +1,8 @@
+2007-09-12  Chris Lumens  <clumens@redhat.com>
+
+	* instdata.py (InstallData.writeKS):  Write out user and services
+	commands and scripts to anaconda-ks.cfg if doing a kickstart install.
+
 2007-09-12  Peter Jones <pjones@redhat.com>
 
 	* isys/nl.c (netlink_init_interfaces_list): Rework recvmsg code to

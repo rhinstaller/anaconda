@@ -252,6 +252,13 @@ class InstallData:
 
         f.write("rootpw %s\n" % args)
 
+        # Some kickstart commands do not correspond to any anaconda UI
+        # component.  If this is a kickstart install, we need to make sure
+        # the information from the input file ends up in the output file.
+        if self.anaconda.isKickstart:
+            f.write(self.ksdata.user.__str__())
+            f.write(self.ksdata.services.__str__())
+
 	self.firewall.writeKS(f)
 	if self.auth.strip() != "":
 	    f.write("authconfig %s\n" % self.auth)
@@ -263,6 +270,11 @@ class InstallData:
         if self.backend is not None:
             self.backend.writeKS(f)
             self.backend.writePackagesKS(f, self.anaconda)
+
+        # Also write out any scripts from the input ksfile.
+        if self.anaconda.isKickstart:
+            for s in self.ksdata.scripts:
+                f.write(s.__str__())
 
         # make it so only root can read, could have password
         os.chmod(filename, 0600)
