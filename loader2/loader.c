@@ -50,6 +50,7 @@
 #endif
 
 #include "copy.h"
+#include "getparts.h"
 #include "loader.h"
 #include "loadermisc.h" /* JKFIXME: functions here should be split out */
 #include "log.h"
@@ -336,64 +337,121 @@ static void copyErrorFn (char *msg) {
 }
 
 void loadUpdates(struct loaderData_s *loaderData) {
-    int done = 0;
-    int rc;
-    char * device = NULL, ** devNames = NULL;
-    char * buf;
-    int num = 0;
+    char *device = NULL, *part = NULL, *buf;
+    char **devNames = NULL;
+    enum { UPD_DEVICE, UPD_PART, UPD_LOAD, UPD_DONE } stage = UPD_DEVICE;
+    int rc, num = 0;
+    int dir = 1;
 
-    do { 
-        rc = getRemovableDevices(&devNames);
-        if (rc == 0) 
-            return;
+    while (stage != UPD_DONE) {
+        switch (stage) {
+        case UPD_DEVICE: {
+            rc = getRemovableDevices(&devNames);
+            if (rc == 0)
+                return;
 
-        /* we don't need to ask which to use if they only have one */
-        if (rc == 1) {
-            device = strdup(devNames[0]);
-            free(devNames);
-        } else {
+            /* we don't need to ask which to use if they only have one */
+            if (rc == 1) {
+                device = strdup(devNames[0]);
+                free(devNames);
+                if (dir == -1)
+                    return;
+
+                stage = UPD_PART;
+                break;
+            }
+            dir = 1;
+
             startNewt();
             rc = newtWinMenu(_("Update Disk Source"),
                              _("You have multiple devices which could serve "
                                "as sources for an update disk.  Which would "
                                "you like to use?"), 40, 10, 10,
                              rc < 6 ? rc : 6, devNames,
-                             &num, _("OK"), _("Back"), NULL);
-            
+                             &num, _("OK"), _("Cancel"), NULL);
+
             if (rc == 2) {
                 free(devNames);
                 return;
             }
-            loaderData->updatessrc = strdup(devNames[num]);
+
+            device = strdup(devNames[num]);
             free(devNames);
+            stage = UPD_PART;
         }
 
+        case UPD_PART: {
+            char ** part_list = getPartitionsList(device);
+            int nump = 0, num = 0;
 
-        buf = sdupprintf(_("Insert your updates disk into /dev/%s and press "
-                           "\"OK\" to continue."), loaderData->updatessrc);
-        rc = newtWinChoice(_("Updates Disk"), _("OK"), _("Cancel"), buf);
-        if (rc == 2)
-            return;
+            if (part != NULL) free(part);
 
-        logMessage(INFO, "UPDATES device is %s", loaderData->updatessrc);
+            if ((nump = lenPartitionsList(part_list)) == 0) {
+                if (dir == -1)
+                    stage = UPD_DEVICE;
+                else
+                    stage = UPD_LOAD;
 
-        devMakeInode(loaderData->updatessrc, "/tmp/upd.disk");
-        if (doPwMount("/tmp/upd.disk", "/tmp/update-disk", "ext2", 
-                      IMOUNT_RDONLY, NULL) &&
-            doPwMount("/tmp/upd.disk", "/tmp/update-disk", "iso9660", 
-                      IMOUNT_RDONLY, NULL)) {
-            newtWinMessage(_("Error"), _("OK"), 
-                           _("Failed to mount updates disk"));
-        } else {
-            /* Copy everything to /tmp/updates so we can unmount the disk  */
-            winStatus(40, 3, _("Updates"), _("Reading anaconda updates..."));
-            if (!copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
-		               copyErrorFn))
-	       done = 1;
-            newtPopWindow();
-            umount("/tmp/update-disk");
+                break;
+            }
+            dir = 1;
+
+            startNewt();
+            rc = newtWinMenu(_("Update Disk Source"),
+                             _("There are multiple partitions on this device "
+                               "which could contain the update disk image.  "
+                               "Which would you like to use?"), 40, 10, 10,
+                             nump < 6 ? nump : 6, part_list, &num, _("OK"),
+                             _("Back"), NULL);
+
+            if (rc == 2) {
+                freePartitionsList(part_list);
+                stage = UPD_DEVICE;
+                dir = -1;
+                break;
+            }
+
+            part = strdup(part_list[num]);
+            stage = UPD_LOAD;
         }
-    } while (!done);
+
+        case UPD_LOAD:
+            buf = sdupprintf(_("Insert your updates disk into /dev/%s and press "
+                               "\"OK\" to continue."), part+5);
+            rc = newtWinChoice(_("Updates Disk"), _("OK"), _("Back"), buf);
+
+            if (rc == 2) {
+                stage = UPD_PART;
+                dir = -1;
+                break;
+            }
+
+            logMessage(INFO, "UPDATES device is %s", part);
+
+            devMakeInode(part+5, "/tmp/upd.disk");
+            if (doPwMount("/tmp/upd.disk", "/tmp/update-disk", "ext2",
+                          IMOUNT_RDONLY, NULL) &&
+                doPwMount("/tmp/upd.disk", "/tmp/update-disk", "iso9660",
+                          IMOUNT_RDONLY, NULL)) {
+                newtWinMessage(_("Error"), _("OK"),
+                               _("Failed to mount updates disk"));
+            } else {
+                /* Copy everything to /tmp/updates so we can unmount the disk  */
+                winStatus(40, 3, _("Updates"), _("Reading anaconda updates..."));
+                if (!copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
+                                   copyErrorFn)) {
+                    dir = 1;
+                    stage = UPD_DONE;
+                }
+
+                newtPopWindow();
+                umount("/tmp/update-disk");
+            }
+
+        case UPD_DONE:
+            break;
+        }
+    }
 
     return;
 }
