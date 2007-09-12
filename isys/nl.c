@@ -164,7 +164,8 @@ int netlink_send_dump_request(int sock, int type, int family) {
  */
 int netlink_get_interface_ip(int index, int family, void *addr) {
     int sock, ret, len, alen;
-    char buf[BUFSZ];
+    ssize_t bufsz, readsz;
+    char *buf = NULL;
     struct nlmsghdr *nlh;
     struct ifaddrmsg *ifa;
     struct rtattr *rta;
@@ -178,30 +179,51 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
     }
 
     /* send dump request */
-    if (netlink_send_dump_request(sock, RTM_GETADDR, family) == -1) {
-        perror("netlink_send_dump_request in netlink_get_interface_ip");
+    ret = netlink_send_dump_request(sock, RTM_GETADDR, family);
+    if (ret <= 0) {
+        if (ret < 0)
+            perror("netlink_send_dump_request in netlink_get_interface_ip");
+        close(sock);
+        return ret < 0 ? -1 : 0;
+    }
+
+    while ((bufsz = recvfrom(sock, NULL, 0, MSG_PEEK|MSG_TRUNC|MSG_WAITALL,
+                    NULL, 0)) <= 0) {
+        if (bufsz < 0) {
+            if (errno == EAGAIN)
+                continue;
+            perror("1st recvfrom in netlink_get_interface_ip");
+        }
+        close(sock);
+        return bufsz < 0 ? -1 : 0;
+    }
+
+    if ((buf = alloca(bufsz)) == NULL) {
+        perror("calloc on msg buf in netlink_get_interface_ip");
         close(sock);
         return -1;
     }
+    memset(buf, '\0', bufsz);
 
-    /* read back messages */
-    memset(buf, 0, sizeof(buf));
-    ret = recvfrom(sock, buf, sizeof(buf), 0, NULL, 0);
-    if (ret < 0) {
-        perror("recvfrom in netlink_get_interface_ip");
+    while ((readsz = recvfrom(sock, buf, bufsz, MSG_WAITALL, NULL, 0)) <= 0) {
+        if (readsz < 0) {
+            if (errno == EAGAIN)
+                continue;
+            perror("2nd recvfrom in netlink_get_interface_ip");
+        }
         close(sock);
         return -1;
     }
 
     nlh = (struct nlmsghdr *) buf;
-    while (NLMSG_OK(nlh, ret)) {
+    while (NLMSG_OK(nlh, readsz)) {
         switch (nlh->nlmsg_type) {
             case NLMSG_DONE:
                 break;
             case RTM_NEWADDR:
                 break;
             default:
-                nlh = NLMSG_NEXT(nlh, ret);
+                nlh = NLMSG_NEXT(nlh, readsz);
                 continue;
         }
 
@@ -211,7 +233,7 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
         len = IFA_PAYLOAD(nlh);
 
         if (ifa->ifa_family != family) {
-            nlh = NLMSG_NEXT(nlh, ret);
+            nlh = NLMSG_NEXT(nlh, readsz);
             continue;
         }
 
@@ -241,7 +263,7 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
         }
 
         /* next netlink msg */
-        nlh = NLMSG_NEXT(nlh, ret);
+        nlh = NLMSG_NEXT(nlh, readsz);
     }
 
     close(sock);
@@ -278,46 +300,51 @@ int netlink_init_interfaces_list(void) {
     }
 
     /* send dump request */
-    if (netlink_send_dump_request(sock, RTM_GETLINK, AF_NETLINK) == -1) {
-        perror("netlink_send_dump_request in netlink_init_interfaces_list");
+    r = netlink_send_dump_request(sock, RTM_GETLINK, AF_NETLINK);
+    if (r <= 0) {
+        if (r < 0)
+            perror("netlink_send_dump_request in netlink_init_interfaces_list");
         close(sock);
-        return -1;
+        return r < 0 ? -1 : r;
     }
 
     while ((bufsz = recvfrom(sock, NULL, 0, MSG_PEEK|MSG_TRUNC|MSG_WAITALL,
                     NULL, 0)) <= 0) {
-        if (bufsz < 0 && errno != EAGAIN) {
-            perror("1st recvfrom in netlink_init_interfaces_list");
-            close(sock);
-            return -1;
-        }
+        if (bufsz < 0) {
+            if (errno == EAGAIN)
+                continue;
+        perror("1st recvfrom in netlink_get_interface_list");
+    }
+    close(sock);
+    return bufsz < 0 ? -1 : bufsz;
     }
 
     if ((buf = alloca(bufsz)) == NULL) {
-        perror("calloc on msg buf in netlink_init_interfaces_list");
+        perror("calloc on msg buf in netlink_get_interface_list");
         close(sock);
         return -1;
     }
     memset(buf, '\0', bufsz);
 
-    recvfrom(sock, buf, bufsz, 0, NULL, 0);
-    while ((readsz = recvfrom(sock, buf, bufsz, MSG_WAITALL, NULL, 0)) < 0) {
-        if (errno != EAGAIN) {
-            perror("2nd recvfrom in netlink_init_interfaces_list");
-            close(sock);
-            return -1;
+    while ((readsz = recvfrom(sock, buf, bufsz, MSG_WAITALL, NULL, 0)) <= 0) {
+        if (readsz < 0) {
+            if (errno == EAGAIN)
+                continue;
+            perror("2nd recvfrom in netlink_get_interface_list");
         }
+        close(sock);
+        return -1;
     }
 
     nlh = (struct nlmsghdr *) buf;
-    while (NLMSG_OK(nlh, bufsz)) {
+    while (NLMSG_OK(nlh, readsz)) {
         switch (nlh->nlmsg_type) {
             case NLMSG_DONE:
                 break;
             case RTM_NEWLINK:
                 break;
             default:
-                nlh = NLMSG_NEXT(nlh, bufsz);
+                nlh = NLMSG_NEXT(nlh, readsz);
                 continue;
         }
 
@@ -331,7 +358,7 @@ int netlink_init_interfaces_list(void) {
 
         /* we only do things with ethernet mac addrs, so ... */
         if (ifi->ifi_type != ARPHRD_ETHER) {
-            nlh = NLMSG_NEXT(nlh, bufsz);
+            nlh = NLMSG_NEXT(nlh, readsz);
             continue;
         }
 
@@ -340,7 +367,7 @@ int netlink_init_interfaces_list(void) {
         while (RTA_OK(rta, len)) {
             if (rta->rta_type <= len) {
                 if (rta->rta_type == IFLA_IFNAME) {
-                   namelen = rta->rta_len;
+                    namelen = rta->rta_len;
                 }
 
                 tb[rta->rta_type] = rta;
@@ -381,12 +408,12 @@ int netlink_init_interfaces_list(void) {
             if (ifi->ifi_flags & IFF_RUNNING) {
                 /* get the IPv4 address of this interface (if any) */
                 r = netlink_get_interface_ip(intfinfo->i, AF_INET, &intfinfo->ip_addr);
-                if (r == -1)
+                if (r < 0)
                     memset(&intfinfo->ip_addr, 0, sizeof(struct in_addr));
 
                 /* get the IPv6 address of this interface (if any) */
                 r = netlink_get_interface_ip(intfinfo->i, AF_INET6, &intfinfo->ip6_addr);
-                if (r == -1)
+                if (r < 0)
                     memset(&intfinfo->ip6_addr, 0, sizeof(struct in6_addr));
             } else {
                 memset(&intfinfo->ip_addr, 0, sizeof(struct in_addr));
@@ -398,7 +425,7 @@ int netlink_init_interfaces_list(void) {
         }
 
         /* next netlink msg */
-        nlh = NLMSG_NEXT(nlh, bufsz);
+        nlh = NLMSG_NEXT(nlh, readsz);
     }
 
     close(sock);
@@ -427,8 +454,10 @@ char *netlink_interfaces_ip2str(char *ifname) {
     /* init the interfaces list if it's empty or if nothing is found */
     e = g_slist_find_custom(interfaces,ifname,&_netlink_interfaces_elem_find);
     if (interfaces == NULL || e == NULL) {
-        if (netlink_init_interfaces_list() == -1) {
-            perror("netlink_init_interfaces_list in netlink_interface_ip2str");
+        int r = netlink_init_interfaces_list();
+        if (r <= 0) {
+            if (r < 0)
+                perror("netlink_init_interfaces_list in netlink_interface_ip2str");
             return NULL;
         }
     }
@@ -469,14 +498,17 @@ char *netlink_interfaces_mac2str(char *ifname) {
     char *ret = NULL;
     GSList *e;
     interface_info_t *intf;
+    int r;
 
     if (ifname == NULL)
         return NULL;
 
     /* init the interfaces list if it's empty */
     if (interfaces == NULL) {
-        if (netlink_init_interfaces_list() == -1) {
-            perror("netlink_init_interfaces_list in netlink_interface_mac2str");
+        r = netlink_init_interfaces_list();
+        if (r <= 0) {
+            if (r < 0)
+                perror("netlink_init_interfaces_list in netlink_interface_mac2str");
             return NULL;
         }
     }
@@ -499,7 +531,6 @@ void netlink_interfaces_list_free(void) {
     g_slist_foreach(interfaces, &_netlink_interfaces_elem_free, NULL);
     g_slist_free(interfaces);
     interfaces = NULL;
-    return;
 }
 
 /**
@@ -510,7 +541,6 @@ void netlink_interfaces_list_free(void) {
  */
 void _netlink_interfaces_elem_free(gpointer data, gpointer user_data) {
     free(data);
-    data = NULL;
     return;
 }
 

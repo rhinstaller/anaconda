@@ -1,3 +1,16 @@
+2007-09-12  Peter Jones <pjones@redhat.com>
+
+	* isys/nl.c (netlink_init_interfaces_list): Rework recvmsg code to
+	return when it gets no response at all.
+
+	* isys/nl.c (netlink_get_interface_ip): Do recvmsg the same way
+	netlink_init_interfaces_list does.
+
+	* isys/nl.c (netlink_interfaces_ip2str): handle zero returns from
+	netlink_init_interfaces_list.
+
+	* isys/nl.c (netlink_interfaces_mac2str): ditto.
+
 2007-09-11  Jeremy Katz  <katzj@redhat.com>
 
 	* iscsi.py (iscsiTarget._getPortal): Fix args passed to 
