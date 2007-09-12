@@ -3,6 +3,10 @@
 	* instdata.py (InstallData.writeKS):  Write out user and services
 	commands and scripts to anaconda-ks.cfg if doing a kickstart install.
 
+	* users.py (Users.createUser):  Make the default group of a new user
+	be the one created with their username.  Modify entries for all the
+	other groups a user should be in to make that work.
+
 2007-09-12  Peter Jones <pjones@redhat.com>
 
 	* isys/nl.c (netlink_init_interfaces_list): Rework recvmsg code to

@@ -67,12 +67,10 @@ class Users:
         userEnt = self.admin.initUser(name)
         groupEnt = self.admin.initGroup(name)
 
-        gidLst = map(lambda grp: grp.get(libuser.GIDNUMBER)[0],
-                     filter(lambda grp: grp,
-                            map(lambda name: self.admin.lookupGroupByName(name), groups)))
-        gidLst.extend(groupEnt.get(libuser.GIDNUMBER))
-
-        userEnt.set(libuser.GIDNUMBER, gidLst)
+        grpLst = filter(lambda grp: grp,
+                        map(lambda name: self.admin.lookupGroupByName(name), groups))
+        userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
+                    map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
 
         if not homedir:
             homedir = "/home/" + name
@@ -101,9 +99,15 @@ class Users:
         if lock:
             self.admin.lockUser(userEnt)
 
+        # Add the user to all the groups they should be part of.
+        for grp in grpLst:
+            grp.add(libuser.MEMBERNAME, name)
+            self.admin.modifyGroup(grp)
+
         # Now set the correct home directory to fix up passwd.
         userEnt.set(libuser.HOMEDIRECTORY, homedir)
         self.admin.modifyUser(userEnt)
+        return True
 
     def setRootPassword(self, password, isCrypted, useMD5, lock):
         rootUser = self.admin.lookupUserByName("root")
