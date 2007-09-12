@@ -114,7 +114,8 @@ def hasActiveNetDev():
             continue
         if ip == '127.0.0.1' or ip is None:
             continue
-        return True
+        if isys.getLinkStatus(dev):
+            return True
     return False
 
 class NetworkDevice(SimpleConfigFile):

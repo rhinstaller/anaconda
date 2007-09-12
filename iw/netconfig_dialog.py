@@ -121,7 +121,7 @@ class NetworkConfigurator:
             store[i] = (desc, dev)
             if dev == self.network.firstnetdevice:
                 combo.set_active_iter(i)
-        
+
     def run(self):
         gui.addFrame(self.window)
         self.window.show()
@@ -172,35 +172,58 @@ class NetworkConfigurator:
 
             try:
                 network.sanityCheckIPString(ipv4addr)
+            except network.IPMissing, msg:
+                self._handleIPMissing(_("IP Address"))
+                return
             except network.IPError, msg:
                 self._handleIPError(_("IP Address"), msg)
                 return
 
+            if ipv4nm.find('.') == -1:
+                # user provided a CIDR prefix
+                try:
+                    if int(ipv4nm) > 32 or int(ipv4nm) < 0:
+                        msg = _("IPv4 CIDR prefix must be between 0 and 32.")
+                        self._handleIPError(_("IPv4 Network Mask"), msg)
+                        return
+                    else:
+                        ipv4nm = isys.prefix2netmask(int(ipv4nm))
+                        netdev.set(('netmask', ipv4nm))
+                except:
+                    self._handleIPMissing(_("IPv4 Network Mask"))
+                    return
+            else:
+                # user provided a dotted-quad netmask
+                try:
+                    network.sanityCheckIPString(ipv4nm)
+                    netdev.set(('netmask', ipv4nm))
+                except network.IPMissing, msg:
+                    self._handleIPMissing(_("IPv4 Network Mask"))
+                    return
+                except network.IPError, msg:
+                    self._handleIPError(_("IPv4 Network Mask"), msg)
+                    return
+
             try:
-                network.sanityCheckIPString(ipv4nm)
+                if gateway:
+                    network.sanityCheckIPString(gateway)
             except network.IPError, msg:
-                self._handleIPError(_("Netmask"), msg)
+                self._handleIPError(_("Gateway"), msg)
                 return
 
-            if gateway:
-                try:
-                    network.sanityCheckIPString(gateway)
-                except network.IPError, msg:
-                    self._handleIPError(_("Gateway"), msg)
-                    return
-
-            if ns:
-                try:
+            try:
+                if ns:
                     network.sanityCheckIPString(ns)
-                except network.IPError, msg:
-                    self._handleIPError(_("Nameserver"), msg)
-                    return
+            except network.IPError, msg:
+                self._handleIPError(_("Nameserver"), msg)
+                return
 
             try:
                 isys.configNetDevice(netdev.get("device"),
                                      ipv4addr, ipv4nm, gateway)
             except Exception, e:
                 log.error("Error configuring network device: %s" %(e,))
+
             self.rc = gtk.RESPONSE_OK
             if ns:
                 f = open("/etc/resolv.conf", "w")
@@ -214,16 +237,13 @@ class NetworkConfigurator:
                               _("Error configuring network device"),
                               type = "ok", custom_icon="error")
             return
-            
-        gtk.main_quit()
-        
 
+        gtk.main_quit()
 
 def main():
     net = network.Network()
     d = NetworkConfigurator(net)
     ret = d.run()
-
 
 if __name__ == "__main__":
     main()

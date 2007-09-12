@@ -1,5 +1,17 @@
 2007-09-12  David Cantrell  <dcantrell@redhat.com>
 
+	* network.py (hasActiveNetDev): Return True when isys.getLinkStatus
+	is True for dev (#235824).
+
+	* isys/nl.c (netlink_interfaces_ip2str): Reset interfaces cache before
+	looking up interface (#235824).
+	* isys/nl.c (netlink_interfaces_mac2str): Likewise.
+
+	* iw/netconfig_dialog.py: Do not require a gateway or nameserver.
+	Allow users to enter a CIDR prefix or network (#235824).
+
+2007-09-12  David Cantrell  <dcantrell@redhat.com>
+
 	* anaconda.spec: Bump version.
 
 2007-09-12  David Cantrell  <dcantrell@redhat.com>
