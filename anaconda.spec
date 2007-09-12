@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.76
+Version: 11.1.2.77
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 12 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.77-1
+- Revert netlink_init_interfaces_list() changes
+  Resolves: rhbz#287541
+
 * Tue Sep 11 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.76-1
 - Fix going back to the network device selection screen in loader
   Resolves: rhbz#253285
