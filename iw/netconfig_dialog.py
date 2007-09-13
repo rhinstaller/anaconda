@@ -220,7 +220,8 @@ class NetworkConfigurator:
                     return
 
             try:
-                network.sanityCheckIPString(gateway)
+                if gateway:
+                    network.sanityCheckIPString(gateway)
             except network.IPMissing, msg:
                 self._handleIPMissing(_("Gateway"))
                 return

@@ -1,3 +1,8 @@
+2007-09-13  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/netconfig_dialog.py (NetworkConfigurator._ok): Only check
+	the gateway address if the user provided it.
+
 2007-09-12  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/net.c (chooseNetworkInterface): Don't pick wireless
