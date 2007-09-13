@@ -180,7 +180,7 @@ class Network:
 	    self.firstnetdevice = info["DEVICE"]
             for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU",
                         "NETTYPE", "SUBCHANNELS", "PORTNAME", "CTCPROT",
-                        "PEERID", "ESSID", "KEY", "OPTIONS", "ARP"):
+                        "PEERID", "ESSID", "KEY", "OPTIONS", "ARP", "MACADDR"):
                 if info.has_key(key):
                     self.netdevices [info["DEVICE"]].set((key, info[key]))
             if info.has_key("GATEWAY"):

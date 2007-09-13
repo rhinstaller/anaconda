@@ -1,3 +1,9 @@
+2007-09-13  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/linuxrc.s390: Prompt for MACADDR correctly (#233357).
+	* network.py (Network.__init__): Write out MACADDR setting if we
+	have it (#233357).
+
 2007-09-06  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  New version.
