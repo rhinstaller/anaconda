@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.28
+Version: 11.3.0.29
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -158,6 +158,29 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 13 2007 Chris Lumens <clumens@redhat.com> 11.3.0.29-1
+- On the graphical netconfig screen, only check the gateway address if
+  provided (dcantrell).
+- Don't show wireless adapters unless explicitly requested (katzj).
+- Add user and services commands and scripts to anaconda-ks.cfg
+- Fix handling of groups from the kickstart user command.
+- Support loading updates from partitioned devices.
+- Rework netlink code to support > 10 devices and not get caught in
+  an infinite loop (pjones, dcantrell).
+- Fix args passed to iscsiadm (k.georgiou AT imperial DOT ac DOT uk,
+  #283791).
+- Set flags.selinux (katzj, #244691).
+- Be more accepting when waiting for an sshd response
+  (alanm AT redhat DOT com, #286031).
+- Probe USB to make USB network installs work (H.J. Lu, #285491).
+- Rework driver package installation to be more generic.
+- Turn off swaps we didn't turn on so livecds don't blow up (katzj).
+- Add new Chinese and Japanese font packages (katzj, #279931).
+- Fix another upgrade GUI traceback (#281031).
+- Correctly identify when the VNC server doesn't start.
+- Display the correct signal name when loader exits (pjones).
+- Change method for determining maximum LV size (msivak, #242508).
+
 * Wed Sep  5 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.28-1
 - Make sure we find out about all nics (dcantrell)
 - Hard drive install fixing (clumens, #287241)
