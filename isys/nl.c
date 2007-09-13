@@ -187,19 +187,30 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
         return ret < 0 ? -1 : 0;
     }
 
-    while ((bufsz = recvfrom(sock, NULL, 0, MSG_PEEK|MSG_TRUNC|MSG_WAITALL,
-                    NULL, 0)) <= 0) {
-        if (bufsz < 0) {
-            if (errno == EAGAIN)
-                continue;
+    /* MSG_TRUNC doesn't actually seem to /work/ with netlink on RHEL 5,
+     * so we do this lame growth game until we have a buffer big enough.
+     * When we're done (which is the first time if MSG_TRUNC does its job),
+     * bufsz is the size of the message. Then we allocate a real buffer and
+     * do recvfrom again without MSG_PEEK. */
+    len = 32;
+    do {
+        len <<= 1;
+        char tmpbuf[len];
+        bufsz = recvfrom(sock, tmpbuf, len, MSG_PEEK|MSG_TRUNC|MSG_WAITALL,
+            NULL, 0);
+        if (bufsz < 0 && errno == EAGAIN)
+                bufsz = len;
+    } while (bufsz == len);
+
+    if (bufsz <= 0) {
+        if (bufsz < 0)
             perror("1st recvfrom in netlink_get_interface_ip");
-        }
         close(sock);
-        return bufsz < 0 ? -1 : 0;
+        return -1;
     }
 
     if ((buf = alloca(bufsz)) == NULL) {
-        perror("calloc on msg buf in netlink_get_interface_ip");
+        perror("alloca on msg buf in netlink_get_interface_ip");
         close(sock);
         return -1;
     }
@@ -308,19 +319,30 @@ int netlink_init_interfaces_list(void) {
         return r < 0 ? -1 : r;
     }
 
-    while ((bufsz = recvfrom(sock, NULL, 0, MSG_PEEK|MSG_TRUNC|MSG_WAITALL,
-                    NULL, 0)) <= 0) {
-        if (bufsz < 0) {
-            if (errno == EAGAIN)
-                continue;
-        perror("1st recvfrom in netlink_get_interface_list");
-    }
-    close(sock);
-    return bufsz < 0 ? -1 : bufsz;
+    /* MSG_TRUNC doesn't actually seem to /work/ with netlink on RHEL 5,
+     * so we do this lame growth game until we have a buffer big enough.
+     * When we're done (which is the first time if MSG_TRUNC does its job),
+     * bufsz is the size of the message. Then we allocate a real buffer and
+     * do recvfrom again without MSG_PEEK. */
+    len = 32;
+    do {
+        len <<= 1;
+        char tmpbuf[len];
+        bufsz = recvfrom(sock, tmpbuf, len, MSG_PEEK|MSG_TRUNC|MSG_WAITALL,
+            NULL, 0);
+        if (bufsz < 0 && errno == EAGAIN)
+                bufsz = len;
+    } while (bufsz == len);
+
+    if (bufsz <= 0) {
+        if (bufsz < 0)
+            perror("1st recvfrom in netlink_get_interface_list");
+        close(sock);
+        return -1;
     }
 
     if ((buf = alloca(bufsz)) == NULL) {
-        perror("calloc on msg buf in netlink_get_interface_list");
+        perror("alloca on msg buf in netlink_get_interface_list");
         close(sock);
         return -1;
     }
