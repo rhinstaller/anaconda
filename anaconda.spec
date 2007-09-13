@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.77
+Version: 11.1.2.78
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 13 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.78-1
+- Fix manual IPv4 configuration when adding an iSCSI device
+  Related: rhbz#235824
+
 * Wed Sep 12 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.77-1
 - Revert netlink_init_interfaces_list() changes
   Resolves: rhbz#287541
