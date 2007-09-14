@@ -318,7 +318,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         f.close()        
 
         # rebuild the initrd(s)
-        vers = self.kernelVersionList()
+        vers = self.kernelVersionList(anaconda.rootPath)
         for (n, arch, tag) in vers:
             packages.recreateInitrd(n, anaconda.rootPath)
 

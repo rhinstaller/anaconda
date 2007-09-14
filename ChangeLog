@@ -1,3 +1,8 @@
+2007-09-14  Jeremy Katz  <katzj@redhat.com>
+
+	* livecd.py (LiveCDCopyBackend.doPostInstall): Look at root path
+	for kernels (Douglas McClendon)
+
 2007-09-13  Peter Jones  <pjones@redhat.com>
 
 	* isys/nl.c (netlink_get_interface_ip, netlink_get_interface_list):
