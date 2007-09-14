@@ -1,3 +1,13 @@
+2007-09-14  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/isys.c (doGetMacAddress): Clear netlink cache before looking up
+	value (#235824).
+	* isys/isys.c (doGetIPAddress): Likewise (#235824).
+
+	* isys/nl.c (netlink_get_interface_ip, netlink_get_interface_list):
+	Rewrite recvfrom() code again to work on RHEL 5 kernels where MSG_TRUNC
+	does not work as expected (pjones, #230525).
+
 2007-09-13  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
