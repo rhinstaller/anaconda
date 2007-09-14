@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.78
+Version: 11.1.2.79
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Sep 14 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.79-1
+- Correct infinite loop problem with new recvfrom() code for reading large
+  netlink messages
+  Related: rhbz#230525
+- Make sure we clear the netlink cache before looking up IP or MAC addrs
+  Related: rhbz#235824
+
 * Thu Sep 13 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.78-1
 - Fix manual IPv4 configuration when adding an iSCSI device
   Related: rhbz#235824
