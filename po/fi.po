@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-09-09 14:26+0300\n"
-"Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
+"PO-Revision-Date: 2007-09-14 22:44+0300\n"
+"Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -282,7 +282,7 @@ msgstr "Pyydettyä RAID-laitetta ei ole olemassa"
 
 # ../autopart.py:857
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
@@ -290,7 +290,7 @@ msgid ""
 msgstr ""
 "RAID-laitteen %s paikallistaminen kohdetta %s varten epäonnistui.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla OK."
+"Poistu asennusohjelmasta painamalla OK."
 
 # ../autopart.py:856
 #: ../autopart.py:1319
@@ -299,7 +299,7 @@ msgstr "Pyydettyä taltioryhmää ei ole olemassa"
 
 # ../autopart.py:857
 #: ../autopart.py:1320
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
@@ -307,7 +307,7 @@ msgid ""
 msgstr ""
 "Taltioryhmän %s paikallistaminen kohdetta %s varten epäonnistui.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla OK."
+"Poistu asennusohjelmasta painamalla OK."
 
 # ../autopart.py:856
 #: ../autopart.py:1357
@@ -316,15 +316,15 @@ msgstr "Pyydettyä taltioryhmää ei ole olemassa"
 
 # ../autopart.py:857
 #: ../autopart.py:1358
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"Taltioryhmän %s paikallistaminen kohdetta %s varten epäonnistui.\n"
+"Loogisen taltion %s paikallistaminen kohdetta %s varten epäonnistui.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla OK."
+"Poistu asennusohjelmasta painamalla OK."
 
 # ../iw/partition_gui.py:1590 ../textw/partition_text.py:1065
 #: ../autopart.py:1484 ../autopart.py:1531
@@ -333,7 +333,7 @@ msgstr "Automaattisen osioinnin virheet"
 
 # ../autopart.py:891
 #: ../autopart.py:1485
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -341,11 +341,11 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"Osiointisi tuotti seuraavat virheet:\n"
+"Osiointi tuotti seuraavat virheet:\n"
 "\n"
 "%s\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla OK."
+"Poistu asennusohjelmasta painamalla OK."
 
 # ../autopart.py:900
 #: ../autopart.py:1495
@@ -365,7 +365,6 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -373,7 +372,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla OK."
+"Poistu asennusohjelmasta painamalla OK."
 
 # ../autopart.py:913 ../iw/partition_gui.py:1275
 # ../textw/partition_text.py:163
@@ -717,7 +716,7 @@ msgstr "Pääkäynnistyslohkoon (MBR)"
 
 # ../fsset.py:791
 #: ../fsset.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -727,7 +726,7 @@ msgstr ""
 "Laitteen %s sivutustilaa alustettaessa tapahtui virhe. Ongelma on vakava, "
 "eikä asennusta voida jatkaa.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla Enteriä."
+"Poistu asennusohjelmasta painamalla Enteriä."
 
 # ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:68
 # ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
@@ -819,7 +818,7 @@ msgstr "Alusta"
 
 # ../fsset.py:810
 #: ../fsset.py:1519
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -832,11 +831,11 @@ msgstr ""
 "\n"
 "Päivitysosion /etc/fstab-tiedosto ei viittaa kelvolliseen sivutusosioon.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla OK."
+"Poistu asennusohjelmasta painamalla OK."
 
 # ../fsset.py:810
 #: ../fsset.py:1530
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -848,10 +847,10 @@ msgstr ""
 "\n"
 "Tämä johtuu luultavasti siitä, ettei sivutusosiota ole alustettu.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla OK."
+"Poistu asennusohjelmasta painamalla OK."
 
 #: ../fsset.py:1584
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
@@ -861,11 +860,11 @@ msgstr ""
 "Laitteelta /dev/%s löytyi viallisia sektoreita. Sen käyttö ei ole "
 "suositeltavaa.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla Enteriä."
+"Poistu asennusohjelmasta painamalla Enteriä."
 
 # ../fsset.py:855
 #: ../fsset.py:1595
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -875,11 +874,11 @@ msgstr ""
 "Kun osiolta %s etsittiin virheellisiä lohkoja, tapahtui virhe. Ongelma on "
 "vakava, eikä asennusta voida jatkaa.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla Enteriä."
+"Poistu asennusohjelmasta painamalla Enteriä."
 
 # ../fsset.py:875
 #: ../fsset.py:1635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -889,11 +888,11 @@ msgstr ""
 "Kun osiota %s alustettiin, tapahtui virhe. Ongelma on vakava, eikä asennusta "
 "voida jatkaa.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla Enteriä."
+"Poistu asennusohjelmasta painamalla Enteriä."
 
 # ../fsset.py:909
 #: ../fsset.py:1685
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -903,7 +902,7 @@ msgstr ""
 "Kun osiota %s muutettiin, tapahtui virhe. Ongelma on vakava, eikä asennusta "
 "voida jatkaa.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla Enteriä."
+"Poistu asennusohjelmasta painamalla Enteriä."
 
 # ../fsset.py:929 ../fsset.py:938
 #: ../fsset.py:1711 ../fsset.py:1720
@@ -912,7 +911,7 @@ msgstr "Virheellinen liitospiste"
 
 # ../fsset.py:930
 #: ../fsset.py:1712
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
@@ -922,11 +921,11 @@ msgstr ""
 "Kohdetta %s luotaessa tapahtui virhe. Tämän polun jokin osa ei ole "
 "hakemisto. Ongelma on vakava, eikä asennusta voida jatkaa.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla Enteriä."
+"Poistu asennusohjelmasta painamalla Enteriä."
 
 # ../fsset.py:939
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -936,7 +935,7 @@ msgstr ""
 "Virhe tapahtui, kun yritettiin luoda %s: %s. Virhe on vakava, eikä asennusta "
 "voida jatkaa.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla Enteriä."
+"Poistu asennusohjelmasta painamalla Enteriä."
 
 # ../gui.py:476
 #: ../fsset.py:1734
@@ -961,7 +960,7 @@ msgstr "_Jatka"
 
 # ../fsset.py:952
 #: ../fsset.py:1751
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -974,11 +973,11 @@ msgstr ""
 "Laitteet tiedostossa /etc/fstab pitäisi määrittää nimiöllä (label), ei "
 "laitenimellä.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla OK."
+"Poistu asennusohjelmasta painamalla OK."
 
 # ../fsset.py:952
 #: ../fsset.py:1758
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -990,11 +989,10 @@ msgstr ""
 "\n"
 "Tämä johtuu luultavasti siitä, ettei osiota ole alustettu.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla OK."
+"Poistu asennusohjelmasta painamalla OK."
 
 # ../fsset.py:952
 #: ../fsset.py:1778
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -1006,7 +1004,7 @@ msgstr ""
 "\n"
 "Tämä johtuu luultavasti siitä, fstab-tiedosto on virheellinen.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla OK."
+"Poistu asennusohjelmasta painamalla OK."
 
 #: ../fsset.py:2432
 msgid "Duplicate Labels"
@@ -1250,9 +1248,8 @@ msgstr "_Käynnistä uudelleen"
 # ../iw/congrats_gui.py:28 ../iw/congrats_gui.py:85 ../rescue.py:130
 # ../rescue.py:134
 #: ../gui.py:1119
-#, fuzzy
 msgid "Exiting"
-msgstr "Poistu"
+msgstr "Poistutaan"
 
 # ../packages.py:653
 #: ../gui.py:1186
@@ -1271,7 +1268,7 @@ msgid "Install Window"
 msgstr "Asennuksen ikkuna"
 
 #: ../harddrive.py:44 ../image.py:146 ../image.py:483
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1285,7 +1282,7 @@ msgstr ""
 "viallisesta paketista.  Tarkasta asennuslähteesi ja se, että sinulla on "
 "kaikki vaadittu media.\n"
 "\n"
-"Jos käynnistät uudelleen, järjestelmä jää epävakaaseen tilaan, joka "
+"Jos poistut asennusohjelmasta, järjestelmä jää epävakaaseen tilaan, joka "
 "todennäköisesti vaatii uudelleenasennuksen.\n"
 "\n"
 
@@ -1294,7 +1291,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Puuttuva ISO 9660 -levykuva"
 
 #: ../harddrive.py:72
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1305,15 +1302,15 @@ msgstr ""
 "Asennusohjelma yritti liittää levykuvaa #%s, mutta ei löytänyt sitä "
 "kiintolevyltä.\n"
 "\n"
-"Kopioi tämä levykuva kiintolevylle ja valitse Uudelleen. Valitse Käynnistä "
-"uudelleen keskeyttääksesi asennuksen."
+"Kopioi tämä levykuva kiintolevylle ja valitse Uudelleen. Valitse Poistu "
+"keskeyttääksesi asennuksen."
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
 msgstr "Ei voitu liittää ISO-lähdettä"
 
 #: ../harddrive.py:118
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
@@ -1322,15 +1319,15 @@ msgid ""
 msgstr ""
 "Lähdelaitetta %s liitettäessä tapahtui virhe. Näin voi käydä, jos ISO-"
 "levykuvat ovat edistyneellä tallennuslaitteella, kuten LVM tai RAID, tai "
-"osion liittämisessä oli ongelmia. Valitse ”Käynnistä uudelleen” "
-"keskeyttääksesi asennuksen."
+"osion liittämisessä oli ongelmia. Valitse ”Poistu” keskeyttääksesi "
+"asennuksen."
 
 #: ../image.py:84
 msgid "Required Install Media"
 msgstr "Tarvittava asennusmedia"
 
 #: ../image.py:85
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
 "\n"
@@ -1338,12 +1335,11 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Asennettavaksi merkityt ohjelmat tarvitsevat seuraavat CD-levyt.\n"
+"Asennettavaksi merkityt ohjelmat tarvitsevat seuraavat levyt.\n"
 "\n"
 "%s\n"
-"Jatka asennusta vasta kun nämä CD-levyt ovat saatavilla. Jos haluat "
-"keskeyttää asennukset ja käynnistää järjestelmän uudelleen, valitse "
-"”Käynnistä uudelleen”."
+"Jatka asennusta vasta kun nämä levyt ovat saatavilla. Jos haluat keskeyttää "
+"asennuksen ja poistua asennusohjelmasta, valitse ”Käynnistä uudelleen”."
 
 # ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
 # ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:608
@@ -1361,14 +1357,13 @@ msgid "_Back"
 msgstr "_Takaisin"
 
 #: ../image.py:136 ../urlinstall.py:207
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"CD-levyä ei voitu irrottaa. Varmista, ettet käytä hakemistoa %s "
-"komentorivillä virtuaalikonsolilla 2 ja valitse OK, jolloin irrotusta "
-"yritetään uudelleen."
+"Levyä ei voitu irrottaa. Varmista, ettet käytä hakemistoa %s komentorivillä "
+"virtuaalikonsolilla 2 ja valitse OK, jolloin irrotusta yritetään uudelleen."
 
 # ../image.py:62
 #: ../image.py:170 ../urlinstall.py:102
@@ -1391,9 +1386,8 @@ msgstr ""
 
 # ../image.py:119
 #: ../image.py:270
-#, fuzzy
 msgid "Change Disc"
-msgstr "Vaihda CD-levy"
+msgstr "Vaihda levy"
 
 # ../image.py:120
 #: ../image.py:271
@@ -1403,23 +1397,21 @@ msgstr "Syötä %s -levy %d."
 
 # ../image.py:137
 #: ../image.py:305
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "Väärä CD-levy"
+msgstr "Väärä levy"
 
 # ../image.py:138
 #: ../image.py:306
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s disc."
 msgstr "Asemassa ei ole oikeata %s -levyä."
 
 #: ../image.py:312
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "CD-aseman käyttäminen ei onnistu."
+msgstr "Levyn käyttäminen ei onnistu."
 
 #: ../image.py:369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1433,12 +1425,12 @@ msgstr ""
 "viallisesta paketista.  Tarkasta, että asennulähteesi sisältää kaikki "
 "vaaditut paketit.\n"
 "\n"
-"Jos käynnistät uudelleen, järjestelmä jää epävakaaseen tilaan joka "
+"Jos poistut asennusohjelmasta, järjestelmä jää epävakaaseen tilaan joka "
 "todennäköisesti vaatii uudelleenasennuksen.\n"
 "\n"
 
 #: ../image.py:443
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
@@ -1449,11 +1441,11 @@ msgstr ""
 "ISO-levykuvan %s koko ei ole 2048 tavun monikerta.  Levykuva on saattanut "
 "vaurioitua siirrettäessä sitä tälle koneelle.\n"
 "\n"
-"On suositeltavaa käynnistää kone uudestaan ja keskeyttää asennus, mutta voit "
+"On suositeltavaa poistua asennusohjelmasta ja keskeyttää asennus, mutta voit "
 "jatkaa, jos pidät tätä ilmoitusta virheellisenä."
 
 #: ../image.py:517
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
@@ -1464,8 +1456,8 @@ msgstr ""
 "Asennusohjelma yritti liittää levykuvaa #%s, mutta ei löytänyt sitä "
 "palvelimelta.\n"
 "\n"
-"Kopioi tämä levykuva palvelimelle ja valitse Uudelleen. Valitse Käynnistä "
-"uudelleen keskeyttääksesi asennuksen."
+"Kopioi tämä levykuva palvelimelle ja valitse Uudelleen. Valitse Poistu "
+"keskeyttääksesi asennuksen."
 
 #: ../installclass.py:67
 msgid "Install on System"
@@ -1480,7 +1472,7 @@ msgid "Scriptlet Failure"
 msgstr "Sovelma epäonnistui"
 
 #: ../kickstart.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
@@ -1490,7 +1482,7 @@ msgstr ""
 "Sovelman ajamisessa tapahtui virhe. Tulostetta voi tutkia: %s. Tämä on "
 "vakava virhe ja asennus keskeytyy.\n"
 "\n"
-"Käynnistä järjestelmä uudelleen painamalla OK-painiketta."
+"Poistu asennusohjelmasta painamalla OK-painiketta."
 
 #: ../kickstart.py:951 ../kickstart.py:968
 msgid "Running..."
@@ -3006,12 +2998,11 @@ msgstr "%s/%s pakettia valmiina"
 
 #: ../yuminstall.py:195
 msgid "Finishing upgrade"
-msgstr ""
+msgstr "Viimeistellään päivitystä"
 
 #: ../yuminstall.py:196
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr "Asennus alkaa. Aikaa voi kulua useita minuutteja..."
+msgstr "Viimeistellään asennusta. Tähän voi kulua hetki aikaa..."
 
 # ../iw/partition_gui.py:1528
 #: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
@@ -3108,14 +3099,14 @@ msgid "Uncategorized"
 msgstr "Sekalaiset"
 
 #: ../yuminstall.py:1045
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or exit the "
 "installer."
 msgstr ""
 "Valitut paketit vaativat %d MT vapaata tilaa, mutta tarpeeksi tilaa ei ole "
-"vapaana. Voit muuttaa valintoja tai käynnistää järjestelmän uudelleen."
+"vapaana. Voit muuttaa valintoja tai poistua asennusohjelmasta."
 
 #: ../yuminstall.py:1206
 #, python-format
@@ -4064,9 +4055,8 @@ msgstr "Verkkopeite"
 
 # ../iw/upgrade_swap_gui.py:180 ../textw/upgrade_text.py:173
 #: ../iw/netconfig_dialog.py:211
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4-etuliitteen on oltava väliltä 0-32."
+msgstr "IPv4-CIDR-etuliitteen on oltava väliltä 0-32."
 
 # ../iw/network_gui.py:195 ../loader/net.c:806
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
@@ -6534,16 +6524,16 @@ msgid "Eject Disc"
 msgstr "Poista levy"
 
 #: ../loader2/cdinstall.c:93
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
 msgstr ""
-"Valitse ”%s” tarkastaaksesi asemassa olevan CD-levyn, tai ”%s” poistaaksesi "
-"sen ja syöttääksesi toisen levyn testausta varten."
+"Valitse ”%s” tarkastaaksesi asemassa olevan levyn, tai ”%s” poistaaksesi sen "
+"ja syöttääksesi toisen levyn testausta varten."
 
 #: ../loader2/cdinstall.c:114
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If you would like to test additional media, insert the next disc and press "
 "\"%s\". Testing each disc is not strictly required, however it is highly "
@@ -6551,21 +6541,21 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each disc prior to using it again."
 msgstr ""
-"Jos haluat tarkastaa lisää levyjä, syötä seuraava levy ja valitse \"%s\". "
-"Jokaisen CD:n tarkastaminen ei ole välttämätöntä, mutta erittäin "
-"suositeltavaa. CD:t tulisi tarkastaa ennen ensimmäistä käyttökertaa. Kun ne "
+"Jos haluat tarkastaa lisää levyjä, syötä seuraava levy ja valitse ”%s”. "
+"Jokaisen levyn tarkastaminen ei ole välttämätöntä, mutta erittäin "
+"suositeltavaa. Levyt tulisi tarkastaa ennen ensimmäistä käyttökertaa. Kun ne "
 "ovat kerran läpäisseet tarkastuksen, ei ole välttämätöntä tarkastaa jokaista "
-"CD:tä ennen seuraavaa käyttökertaa."
+"levyä ennen seuraavaa käyttökertaa."
 
 # ../loader/loader.c:968
 #: ../loader2/cdinstall.c:137
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
-"%sn CD-ROM-levyä ei löydy mistään CD-ROM-asemasta. Laita %sn CD asemaan ja "
-"paina %s yrittääksesi uudelleen."
+"%sn levyä ei löydy mistään asemasta. Laita %sn levy asemaan ja paina %s "
+"yrittääksesi uudelleen."
 
 # ../partitioning.py:1493
 #: ../loader2/cdinstall.c:258
@@ -6573,35 +6563,35 @@ msgid "Disc Found"
 msgstr "Levy löytyi"
 
 #: ../loader2/cdinstall.c:259
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"CD-levyjen tarkastus ennen asennusta: %s.\n"
+"Levyjen tarkastus ennen asennusta: %s.\n"
 "\n"
 "Tarkastuksen ohitus ja asennuksen aloitus: %s."
 
 # ../loader/loader.c:968
 #: ../loader2/cdinstall.c:379
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s disc was found which matches your boot media.  Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"%s -CD-levyä ei löytynyt mistään CD-asemasta. Aseta %s -CD asemaan ja paina %"
-"s, niin yritetään uudelleen."
+"%s -levyä ei löytynyt mistään asemasta. Aseta %s -levy asemaan ja paina %s "
+"yrittääksesi uudelleen."
 
 # ../loader/loader.c:968
 #: ../loader2/cdinstall.c:384
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"%sn CD-ROM-levyä ei löydy mistään CD-ROM-asemasta. Laita %sn CD asemaan ja "
-"paina %s yrittääksesi uudelleen."
+"%sn levyä ei löydy mistään CD-ROM-asemasta. Laita %sn levy asemaan ja paina %"
+"s yrittääksesi uudelleen."
 
 # ../partitioning.py:1493
 #: ../loader2/cdinstall.c:391
