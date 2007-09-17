@@ -133,24 +133,19 @@ class LiveCDImageMethod(installmethod.InstallMethod):
         return self.osimg
 
     def getLiveSizeMB(self):
-        lnk = os.readlink(self.osimg)
-        if lnk[0] != "/":
-            lnk = os.path.join(os.path.dirname(self.osimg), lnk)
-        blk = os.path.basename(lnk)
+        def parseField(output, field):
+            for line in output.split("\n"):
+                if line.startswith(field + ":"):
+                    return line[len(field) + 1:].strip()
+            raise KeyError("Failed to find field '%s' in output" % field)
 
-        if not os.path.exists("/sys/block/%s/size" %(blk,)):
-            log.debug("Unable to determine the actual size of the live image")
-            return 0
-
-        size = open("/sys/block/%s/size" %(blk,), "r").read()
-        try:
-            size = int(size)
-        except ValueError:
-            log.debug("Unable to handle live size conversion: %s" %(size,))
-            return 0
-
-        return (size * 512) / 1024 / 1024
-        
+        output = subprocess.Popen(['/sbin/dumpe2fs', '-h', self.osimg],
+                                  stdout=subprocess.PIPE,
+                                  stderr=open('/dev/null', 'w')
+                                  ).communicate()[0]
+        blkcnt = int(parseField(output, "Block count"))
+        blksize = int(parseField(output, "Block size"))        
+        return blkcnt * blksize / 1024 / 1024
 
 class LiveCDCopyBackend(backend.AnacondaBackend):
     def __init__(self, method, instPath):
