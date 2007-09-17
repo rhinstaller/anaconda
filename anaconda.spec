@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.71
+Version: 10.1.1.72
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 17 2007 Dave Lehman <dlehman@redhat.com> 10.1.1.72-1
+- fix handling of MACADDR when configuring OSA layer2 networking (dcantrell)
+- Related: rhbz#233357
+
 * Tue Sep 11 2007 Peter Jones <pjones@redhat.com> 10.1.1.71-2
 - rebuild with COLLECTION=dist-4E-U6-candidate to pick up newer kudzu.
 
