@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.79
+Version: 11.1.2.80
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 17 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.80-1
+- Create all variations of tape drive device nodes (dlehman)
+  Resolves: rhbz#218816
+
 * Fri Sep 14 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.79-1
 - Correct infinite loop problem with new recvfrom() code for reading large
   netlink messages
