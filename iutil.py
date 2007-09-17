@@ -257,7 +257,11 @@ def makeDriveDeviceNodes():
 
     tapeDrives = isys.tapeDriveList()
     for drive in tapeDrives:
-        isys.makeDevInode(drive, "/dev/%s" % (drive,))
+        # make all tape device variants (stX,stXl,stXm,stXa,nstX,nstXl,nstXm,nstXa)
+        for prefix in ("", "n"):
+            for postfix in ("", "l", "m", "a"):
+                device = "%s%s%s" % (prefix, drive, postfix)
+                isys.makeDevInode(device, "/dev/%s" % (device,))
 
     for mdMinor in range(0, 32):
         md = "md%d" %(mdMinor,)

@@ -1,3 +1,12 @@
+2007-09-17  Dave Lehman  <dlehman@redhat.com>
+
+	* iutil.py (makeDriveDeviceNodes): create all variations of tape drive
+	device nodes
+	* isys/devnodes.c (devMakeInode): support creation of the various 2.6 
+	tape device nodes
+	* isys/isys.py (driveDict): find the devices associated with tape 
+	drives since kudzu is unable to do so (#218816)
+
 2007-09-14  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.

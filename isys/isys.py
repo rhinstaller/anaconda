@@ -286,7 +286,13 @@ def driveDict(klassArg):
         for dev in devs:
             device = dev.device
             if device is None: # none devices make no sense
-                continue
+                # kudzu is unable to determine the device for tape drives w/ 2.6
+                if dev.deviceclass == classMap["tape"]:
+                    tapedevs = filter(lambda d: d.startswith("st"), new.keys())
+                    device = "st%d" % (len(tapedevs),)
+                else:
+                    continue
+
             if dev.deviceclass != classMap["disk"]:
                 new[device] = dev
                 continue
