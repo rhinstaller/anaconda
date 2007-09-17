@@ -655,7 +655,7 @@ class YumBackend(AnacondaBackend):
                         task(thisrepo = repo.id)
                         waitwin.next_task()
                     waitwin.pop()
-                except yum.Errors.NoMoreMirrorsRepoError:
+                except yum.Errors.NoMoreMirrorsRepoError, e:
                     buttons = [_("_Abort"), _("_Retry")]
                 except yum.Errors.RepoError, e:
                     buttons = [_("_Abort")]

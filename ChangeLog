@@ -1,3 +1,9 @@
+2007-09-17  Dave Lehman  <dlehman@redhat.com>
+
+	* yuminstall.py (YumBackend.doRepoSetup): catch the exception string
+	raised with NoMoreMirrorsRepoError for display in the error message so
+	we don't traceback
+
 2007-09-17  Jeremy Katz  <katzj@redhat.com>
 
 	* livecd.py (LiveCDImageMethod.unmountNonFstabDirs): Add method to
