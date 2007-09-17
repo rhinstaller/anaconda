@@ -1,5 +1,9 @@
 2007-09-17  Jeremy Katz  <katzj@redhat.com>
 
+	* livecd.py (LiveCDImageMethod.unmountNonFstabDirs): Add method to
+	do this unmounting and only do /selinux if SELinux is 
+	enabled (based on a patch from Douglas McClendon)
+
 	* scripts/mk-images: Fix treeinfo path to stage2 (Will Woods)
 
 2007-09-14  Bill Nottingham  <notting@redhat.com>

@@ -98,14 +98,19 @@ class LiveCDImageMethod(installmethod.InstallMethod):
                                custom_buttons=[_("Exit installer")])
             sys.exit(0)
 
-    def postAction(self, anaconda):
+    def unmountNonFstabDirs(self):
         # unmount things that aren't listed in /etc/fstab.  *sigh*
-        for dir in ("/selinux", "/dev"):
+        dirs = ["/dev"]
+        if flags.selinux:
+            dirs.append("/selinux")
+        for dir in dirs
             try:
                 isys.umount("%s/%s" %(anaconda.rootPath,dir), removeDir = 0)
             except Exception, e:
                 log.error("unable to unmount %s: %s" %(dir, e))
 
+    def postAction(self, anaconda):
+        self.unmountNonFstabDirs()
         try:
             anaconda.id.fsset.umountFilesystems(anaconda.rootPath,
                                                 swapoff = False)
@@ -157,11 +162,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
     def doPreInstall(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
-            for d in ("/selinux", "/dev"):
-                try:
-                    isys.umount(anaconda.rootPath + d, removeDir = 0)
-                except Exception, e:
-                    log.error("unable to unmount %s: %s" %(d, e))
+            anaconda.method.unmountNonFstabDirs() 
             return
 
         anaconda.id.fsset.umountFilesystems(anaconda.rootPath, swapoff = False)
