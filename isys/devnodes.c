@@ -160,7 +160,7 @@ int devMakeInode(char * devName, char * path) {
         minor = strtol(devName+s, &e, 10);
         if (e == devName + s || 
             (errno == ERANGE &&
-+            (minor == LONG_MIN || minor == LONG_MAX)))
+             (minor == LONG_MIN || minor == LONG_MAX)))
             return -1;
         switch (e[0]) {
             case 'a':   /* "st0a" and "nst0a" */
