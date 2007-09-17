@@ -23,6 +23,7 @@
 #include <sys/stat.h>
 #include <sys/sysmacros.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <unistd.h>
 #include <ctype.h>
 #include <string.h>
@@ -56,7 +57,6 @@ static struct devnum devices[] = {
     { "lp2",		6,	2,	1 },
     { "mcd",		23,	0,	0 },
     { "mcdx",		20,	0,	0 },
-    { "nst0",		9,	128,	1 },
     { "optcd",		17,	0,	0 },
     { "psaux",		10,	1,	1 },
     { "sbpcd",		25,	0,	0 },
@@ -86,6 +86,8 @@ static int sd_major(int major_idx) {
         return -1;
     }
 }
+
+static const char digits[] = "0123456789";
 
 int devMakeInode(char * devName, char * path) {
     int i;
@@ -149,6 +151,37 @@ int devMakeInode(char * devName, char * path) {
 	   minor += (num[0] - '0') * 10 + (num[1] - '0');
 	else if (num && num[0])
 	   minor += (num[0] - '0');
+    } else if (!strncmp(devName, "st", 2) || !strncmp(devName, "nst", 3)) {
+        char *e = NULL;
+        size_t s;
+
+        s = strcspn(devName, digits);
+        errno = 0;
+        minor = strtol(devName+s, &e, 10);
+        if (e == devName + s || 
+            (errno == ERANGE &&
+             (minor == LONG_MIN || minor == LONG_MAX)))
+            return -1;
+        switch (e[0]) {
+            case 'a':   /* "st0a" and "nst0a" */
+                minor += 32;
+            case 'm':   /* "st0m" and "nst0m" */
+                minor += 32;
+            case 'l':   /* "st0l" and "nst0l" */
+                minor += 32;
+            case '\0':  /* "st0" and "nst0" */
+                break;
+            default:
+                return -1;
+        }
+
+        if (devName[0] == 'n')
+            minor += 128;
+        if (minor > 255)
+            return -1;
+
+        major = 9;
+        type = S_IFCHR;
     } else if (devName[0] == 'm' && devName[1] == 'd') {
 	type = S_IFBLK;
 	major = 9;
