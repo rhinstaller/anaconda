@@ -201,6 +201,9 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         wait = anaconda.intf.waitWindow(_("Doing post-installation"),
                                         _("Performing post-installation filesystem changes.  This may take several minutes..."))
 
+        # resize rootfs first, since it is 100% full due to genMinInstDelta
+        self._resizeRootfs(anaconda, wait)
+
         # remount filesystems
         anaconda.id.fsset.mountFilesystems(anaconda)
 
@@ -277,7 +280,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 log.error("error mounting selinuxfs: %s" %(e,))
         isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = 1)
 
-        self._resizeRootfs(anaconda, wait)
         wait.pop()
 
     def _resizeRootfs(self, anaconda, win = None):

@@ -3,6 +3,8 @@
 	* livecd.py (getLiveSizeMB): Find the size based on reading from
 	the filesystem with dumpe2fs; basic patch from Douglas McClendon,
 	cleaned up a smidge by me
+	(LiveCDCopyBackend._doFilesystemMangling): Resize filesystem 
+	earlier (Douglas McClendon)
 
 2007-09-17  Dave Lehman  <dlehman@redhat.com>
 
