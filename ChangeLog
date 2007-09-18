@@ -9,6 +9,9 @@
 	* backend.py (AnacondaBackend.doPostInstall):  Copy driver disk
 	contents to /root after installation (#289751).
 
+	* dispatch.py (installSteps):  Write out anaconda-ks.cfg earlier
+	(#292571).
+
 2007-09-17  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
