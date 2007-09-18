@@ -308,10 +308,19 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     } 
 
     /* get the IP of the target system */
-    tip = &(netCfg.dev.ip);
-    if (inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip)) == NULL) {
-        logMessage(ERROR, "getFileFromNfs: no client IP information");
-        return 1;
+    if (FL_HAVE_CMSCONF(flags)) {
+        if (loaderData->ip == NULL) {
+            logMessage(ERROR, "getFileFromNfs: no client IP information");
+            return 1;
+        } else {
+            sprintf(ret, "%s", loaderData->ip);
+        }
+    } else {
+        tip = &(netCfg.dev.ipv4);
+        if (inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip)) == NULL) {
+            logMessage(ERROR, "getFileFromNfs: no client IP information");
+            return 1;
+        }
     }
 
     logMessage(INFO, "url is %s", url);
@@ -348,7 +357,6 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
             logMessage(ERROR, "failed to copy file to %s", dest);
             failed = 1;
         }
-        
     } else {
         logMessage(ERROR, "failed to mount nfs source");
         failed = 1;

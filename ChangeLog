@@ -1,3 +1,15 @@
+2007-09-18  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/loader.c (readNetInfo): Make sure loaderData network fields
+	are set to NULL before we start reading /tmp/netinfo (#250689).
+
+	* loader2/net.c (setupNetworkDeviceConfig): Remove hack (#250689).
+	* loader2/net.c (kickstartNetworkUp): Log if we're returning because
+	networking is already configured (#250689).
+
+	* loader2/nfsinstall.c (getFileFromNfs): If a CMS conf file is in use
+	(i.e., we're on System Z), read the host IP from loaderData (#250689).
+
 2007-09-17  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.

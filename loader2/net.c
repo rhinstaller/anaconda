@@ -367,12 +367,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         cfg->vendor_class = NULL;
     }
 
-/* FIXME: hack for BZ #250689 at the last minute */
-#if defined(__s390__) || defined(__s390x__)
-    if (loaderData->ipinfo_set) {
-#else
     if (loaderData->ipinfo_set && loaderData->ip != NULL) {
-#endif
         if (is_wireless_interface(loaderData->netDev)) {
             if (loaderData->essid) {
                 logMessage(INFO, "setting specified essid of %s",
@@ -1825,8 +1820,10 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
     int rc;
 
     /* we may have networking already, so return to the caller */
-    if ((loaderData->ipinfo_set == 1) || (loaderData->ipv6info_set == 1))
+    if ((loaderData->ipinfo_set == 1) || (loaderData->ipv6info_set == 1)) {
+        logMessage(INFO, "networking already configured in kickstartNetworkUp");
         return 0;
+    }
 
     initLoopback();
 
@@ -1861,7 +1858,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
          * add a way to do asking about static here and not be such a hack */
         if (!loaderData->ip) {
             loaderData->ip = strdup("dhcp");
-        } 
+        }
         loaderData->ipinfo_set = 1;
 
         setupNetworkDeviceConfig(netCfgPtr, loaderData);

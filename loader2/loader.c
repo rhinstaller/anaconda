@@ -436,6 +436,19 @@ static void readNetInfo(struct loaderData_s ** ld) {
     vname = (char *)malloc(sizeof(char)*15);
     vparm = (char *)malloc(sizeof(char)*85);
 
+    /* make sure everything is NULL before we begin copying info */
+    loaderData->ip = NULL;
+    loaderData->netmask = NULL;
+    loaderData->gateway = NULL;
+    loaderData->dns = NULL;
+    loaderData->peerid = NULL;
+    loaderData->subchannels = NULL;
+    loaderData->portname = NULL;
+    loaderData->nettype = NULL;
+    loaderData->ctcprot = NULL;
+    loaderData->layer2 = NULL;
+    loaderData->macaddr = NULL;
+
     /*
      * The /tmp/netinfo file is written out by /sbin/init on s390x (which is
      * really the linuxrc.s390 script).  It's a shell-sourcable file with
