@@ -14,6 +14,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import glob
 import shutil
 import iutil
 import os, sys
@@ -58,8 +59,6 @@ class AnacondaBackend:
         self.initLog(anaconda.id, anaconda.rootPath)
 
     def copyFirmware(self, anaconda):
-        import glob, shutil
-
         # Multiple driver disks may be loaded, so we need to glob for all
         # the firmware files in all the driver disk directories.
         for f in glob.glob("/tmp/ramfs/DD-*/firmware/*"):
@@ -74,6 +73,9 @@ class AnacondaBackend:
 
             for (n, arch, tag) in self.kernelVersionList(anaconda.rootPath):
                 packages.recreateInitrd(n, anaconda.rootPath)
+
+        for d in glob.glob("/tmp/ramfs/DD-*"):
+            shutil.copytree(d, "/root/" + os.path.basename(d))
 
         sys.stdout.flush()
         if flags.setupFilesystems:

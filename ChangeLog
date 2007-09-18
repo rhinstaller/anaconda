@@ -1,3 +1,8 @@
+2007-09-18  Chris Lumens  <clumens@redhat.com>
+
+	* backend.py (AnacondaBackend.doPostInstall):  Copy driver disk
+	contents to /root after installation (#289751).
+
 2007-09-17  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
