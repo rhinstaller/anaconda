@@ -1,5 +1,9 @@
 2007-09-18  David Cantrell  <dcantrell@redhat.com>
 
+	* anaconda.spec: Bump version.
+
+2007-09-18  David Cantrell  <dcantrell@redhat.com>
+
 	* loader2/loader.c (readNetInfo): Make sure loaderData network fields
 	are set to NULL before we start reading /tmp/netinfo (#250689).
 

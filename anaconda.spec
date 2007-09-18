@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.81
+Version: 11.1.2.82
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 18 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.82-1
+- Fix kickstart over NFS installs on s390x (ks=nfs:host:/path)
+  Resolves: rhbz#250689
+
 * Mon Sep 17 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.81-1
 - Make major and minor long ints in devMakeInode()
   Related: rhbz#218816
