@@ -4,7 +4,11 @@
 #
 
 if [ -z "$LIVE_BLOCK" ]; then
-    LIVE_BLOCK="/dev/live-osimg"
+    if [ -b "/dev/live-osimg-min" ]; then
+	LIVE_BLOCK="/dev/live-osimg-min"
+    else
+	LIVE_BLOCK="/dev/live-osimg"
+    fi
 fi
 
 if [ ! -b $LIVE_BLOCK ]; then
