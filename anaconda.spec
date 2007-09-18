@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.30
+Version: 11.3.0.31
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -158,6 +158,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 18 2007 Chris Lumens <clumens@redhat.com> 11.3.0.31-1
+- Really include new Japanese font (katzj, #279931).
+- Use /dev/live-osimg-min if it exists (katzj).
+- Copy driver disk contents to /root (#289751).
+- Write out /root/anaconda-ks.cfg earlier (#292571).
+
 * Mon Sep 17 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.30-1
 - Firewire module names changed again (#292421)
 - Some liveinst improvements (Douglas McClendon)
