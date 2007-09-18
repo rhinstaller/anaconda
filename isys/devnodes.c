@@ -91,7 +91,7 @@ static const char digits[] = "0123456789";
 
 int devMakeInode(char * devName, char * path) {
     int i;
-    int major, minor;
+    long major, minor;
     int type;
     char *ptr;
     char *dir;
