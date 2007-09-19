@@ -30,7 +30,7 @@ moduleImportErrors = 1
 mixImport = 1
 
 # unused local variables, except tuples
-localVariablesUsed = 1
+localVariablesUsed = 0
 
 # all unused local variables, including tuples
 unusedLocalTuple = 0
@@ -102,7 +102,7 @@ varArgumentsUsed = 1
 ignoreSelfUnused = 0
 
 # check if overridden methods have the same signature
-checkOverridenMethods = 1
+checkOverridenMethods = 0
 
 # check if __special__ methods exist and have the correct signature
 checkSpecialMethods = 1
@@ -159,7 +159,7 @@ emptySlots = 1
 intDivide = 1
 
 # check if local variable shadows a global
-shadows = 1
+shadows = 0
 
 # check if a variable shadows a builtin
 shadowBuiltins = 0
@@ -192,13 +192,13 @@ maxLines = 0
 maxBranches = 0
 
 # maximum returns in a function
-maxReturns = 10
+maxReturns = 0
 
 # maximum # of arguments to a function
 maxArgs = 0
 
 # maximum # of locals in a function
-maxLocals = 40
+maxLocals = 0
 
 # maximum # of identifier references (Law of Demeter)
 maxReferences = 5
