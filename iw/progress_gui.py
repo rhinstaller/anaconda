@@ -48,7 +48,7 @@ class InstallProgressWindow (InstallWindow):
         if pct - cur > self._updateChange:
             self.progress.set_fraction(pct)
             if self._showPercentage:
-                self.progress.set_text("%d %" %(pct * 100,))
+                self.progress.set_text("%d %%" %(pct * 100,))
             self.processEvents()
 
     def set_label(self, txt):

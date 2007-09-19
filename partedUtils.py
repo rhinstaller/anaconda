@@ -316,8 +316,9 @@ def checkDasdFmt(disk, intf):
 
     if intf:
         try:
+            device = disk.dev.path[5:]
             devs = isys.getDasdDevPort()
-            dev = "/dev/%s (%s)" %(disk.dev.path[5:], devs[device])
+            dev = "/dev/%s (%s)" %(device, devs[device])
         except Exception, e:
             log.critical("exception getting dasd dev ports: %s" %(e,))
             dev = "/dev/%s" %(disk.dev.path[5:],)
@@ -673,7 +674,7 @@ class DiskSet:
 
         if rhpl.getArch() in ('s390', 's390x'):
             return
-        if DiskSet.dmList or []:
+        if DiskSet.dmList:
             dmraid.stopAllRaid(DiskSet.dmList)
             DiskSet.dmList = None
 

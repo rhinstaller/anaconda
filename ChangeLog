@@ -44,6 +44,8 @@
 
 	* partErrors.py (LabelError):  Add from rhel5-branch.
 
+	* partedUtils.py (checkDasdFmt):  Fix indexing into dasd dictionary.
+
 	* syslogd.py (Syslogd.__init__):  Remove pointless code.
 
 	* text.py (InstallInterface.helpWindow):  Pass the correct number of
@@ -51,6 +53,17 @@
 	(InstallInterface.getInstallKey):  Fix mapping for translation.
 
 	* vnc.py:  Fix minor nitpicking errors.
+
+	* iw/progress_gui.py (InstallProgressWindow.set_fraction):  Fix
+	progress bar format string.
+
+	* iw/release_notes.py (ReleaseNotesViewer.load):  Don't traceback in
+	error reporting.
+
+	* textw/partition_text.py (PartitionWindow.editLVRequest):  Use the
+	right variable name when printing a name already in use.
+
+	* textw/upgrade_bootloader_text.py:  Import the logging system.
 
 2007-09-19  Jeremy Katz  <katzj@redhat.com>
 

@@ -21,6 +21,9 @@ from flags import flags
 import string
 import checkbootloader
 
+import logging
+log = logging.getLogger("anaconda")
+
 class UpgradeBootloaderWindow:
     def _ideToLibata(self, rootPath):
         try:
