@@ -4,8 +4,8 @@
 #
 
 if [ -z "$LIVE_BLOCK" ]; then
-    if [ -b "/dev/live-osimg-min" ]; then
-	LIVE_BLOCK="/dev/live-osimg-min"
+    if [ -b "/dev/mapper/live-osimg-min" ]; then
+	LIVE_BLOCK="/dev/mapper/live-osimg-min"
     else
 	LIVE_BLOCK="/dev/live-osimg"
     fi

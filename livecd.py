@@ -103,7 +103,7 @@ class LiveCDImageMethod(installmethod.InstallMethod):
         dirs = ["/dev"]
         if flags.selinux:
             dirs.append("/selinux")
-        for dir in dirs
+        for dir in dirs:
             try:
                 isys.umount("%s/%s" %(anaconda.rootPath,dir), removeDir = 0)
             except Exception, e:
