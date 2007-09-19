@@ -14,6 +14,8 @@
 	textw/upgrade_bootloader_text.py, textw/welcome_text.py,
 	textw/zipl_text.py:  Remove unused imports.
 
+	* constants.py:  Add SKIP_KEY from rhel5-branch.
+
 	* dispatch.py (installSteps):  Revert change for writing out
 	anaconda-ks.cfg earlier since this isn't possible on livecd.
 
