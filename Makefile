@@ -19,6 +19,9 @@ SUBDIRS += liveinst
 SUBDIRS += gptsync
 endif
 
+PYCHECKERPATH=isys:textw:iw:installclasses:/usr/lib/booty:/usr/share/system-config-date
+PYCHECKEROPTS=-F pycheckrc-for-anaconda
+
 CATALOGS = po/anaconda.pot
 
 PYFILES = $(wildcard *.py)
@@ -121,10 +124,10 @@ create-archive:
 	make create-snapshot
 
 pycheck:
-	PYTHONPATH=isys:textw:iw:installclasses:booty:booty/edd pychecker *.py textw/*.py iw/*.py installclasses/*.py command-stubs/*-stub | grep -v "__init__() not called" 
+	PYTHONPATH=$(PYCHECKERPATH) pychecker $(PYCHECKEROPTS) *.py textw/*.py iw/*.py installclasses/*.py | grep -v "__init__() not called" 
 
 pycheck-file:
-	PYTHONPATH=.:isys:textw:iw:installclasses:booty:booty/edd pychecker $(CHECK) | grep -v "__init__() not called" 
+	PYTHONPATH=.:$(PYCHECKERPATH) pychecker $(PYCHECKEROPTS) $(CHECK) | grep -v "__init__() not called" 
 
 PKGNAME=anaconda
 local: clean
