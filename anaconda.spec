@@ -1,69 +1,124 @@
 %define livearches %{ix86} x86_64
 
-Name: anaconda
+Summary: Graphical system installer
+Name:    anaconda
 Version: 11.3.0.31
 Release: 1
-License: GPL
-Summary: Graphical system installer
-Group: Applications/System
-Source: anaconda-%{version}.tar.bz2
-BuildRequires: kudzu-devel >= 1.2.68, pciutils-devel
-BuildRequires: bzip2-devel, e2fsprogs-devel, python-devel, gtk2-devel
-BuildRequires: rpm-python >= 4.2-0.61, rpm-devel, gettext >= 0.11
-BuildRequires: rhpl, booty, libxml2-python, zlib-devel, elfutils-devel
-BuildRequires: beecrypt-devel, libselinux-devel >= 1.6, libX11-devel
-BuildRequires: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
-BuildRequires: pykickstart >= 0.96, yum >= 2.9.2,
+License: GPLv2
+Group:   Applications/System
+URL:     http://fedoraproject.org/wiki/Anaconda
+
+Source0: anaconda-%{version}.tar.bz2
+
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+# Versions of required components (done so we make sure the buildrequires
+# match the requires versions of things).
 %define dmver 1.02.17-6
-BuildRequires: device-mapper-devel >= %{dmver}
-BuildRequires: libsepol-devel
-BuildRequires: pango-devel, pirut, libXt-devel
-BuildRequires: slang-devel >= 2.0.6-2, slang-static
-BuildRequires: newt-devel, newt-static
-BuildRequires: glib2-devel >= 2.11.1-5, glib2-static, libdhcp6client-static
-BuildRequires: libdhcp-static >= 1.24-3, mkinitrd-devel >= 5.1.2-1
+%define gettextver 0.11
+%define glib2ver 2.11.1-5
+%define intltoolver 0.31.2-3
+%define kudzuver 1.2.68
+%define libdhcpver 1.27-3
+%define libselinuxver 1.6
+%define mkinitrdver 5.1.2-1
+%define pykickstartver 0.96
+%define rpmpythonver 4.2-0.61
+%define slangver 2.0.6-2
+%define yumver 2.9.2
+%define rhplver 0.170
+%define partedver 1.8.1
+%define pirutver 1.1.0
+%define syscfgdatever 1.9.0
+%define pythonpyblockver 0.24-1
+%define libbdevidver 5.1.2-1
+%define rhpxlver 0.25
+%define desktopfileutilsver 0.8
+
 BuildRequires: audit-libs-devel
-BuildRequires: popt-devel, popt-static
+BuildRequires: beecrypt-devel
+BuildRequires: booty
+BuildRequires: bzip2-devel
+BuildRequires: device-mapper-devel >= %{dmver}
+BuildRequires: e2fsprogs-devel
+BuildRequires: elfutils-devel
+BuildRequires: gettext >= %{gettextver}
+BuildRequires: glib2-static >= %{glib2ver}
+BuildRequires: gtk2-devel
+BuildRequires: intltool >= %{intltoolver}
+BuildRequires: kudzu-devel >= %{kudzuver}
+BuildRequires: libX11-devel
+BuildRequires: libXt-devel
+BuildRequires: libXxf86misc-devel
+BuildRequires: libdhcp-static >= %{libdhcpver}
+BuildRequires: libselinux-devel >= %{libselinuxver}
+BuildRequires: libsepol-devel
+BuildRequires: libxml2-python
+BuildRequires: mkinitrd-devel >= %{mkinitrdver}
+BuildRequires: newt-static
+BuildRequires: pango-devel
+BuildRequires: pciutils-devel
+BuildRequires: pirut
+BuildRequires: popt-static
+BuildRequires: pykickstart >= %{pykickstartver}
+BuildRequires: python-devel
+BuildRequires: python-urlgrabber
+BuildRequires: rhpl
+BuildRequires: rpm-devel
+BuildRequires: rpm-python >= %{rpmpythonver}
+BuildRequires: slang-static >= %{slangver}
+BuildRequires: yum >= %{yumver}
+BuildRequires: zlib-devel
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
-Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
-Requires: parted >= 1.8.1, pyparted >= 1.8.1
-Requires: kudzu >= 1.2.68, yum >= 2.9.2, pirut >= 1.1.0
-Requires: libxml2-python, python-urlgrabber
-Requires: system-logos, pykickstart >= 0.96, system-config-date >= 1.9.0
-Requires: device-mapper >= %{dmver}, device-mapper-libs >= %{dmver}
-Requires: dosfstools e2fsprogs
-Requires: python-pyblock >= 0.24-1
-Requires: libbdevid >= 5.1.2-1, libbdevid-python
+
+Requires: rpm-python >= %{rpmpythonver}
+Requires: rhpl >= %{rhplver}
+Requires: booty
+Requires: parted >= %{partedver}
+Requires: pyparted >= %{partedver}
+Requires: kudzu >= %{kudzuver}
+Requires: yum >= %{yumver}
+Requires: pirut >= %{pirutver}
+Requires: libxml2-python
+Requires: python-urlgrabber
+Requires: system-logos
+Requires: pykickstart >= %{pykickstartver}
+Requires: system-config-date >= %{syscfgdatever}
+Requires: device-mapper >= %{dmver}
+Requires: device-mapper-libs >= %{dmver}
+Requires: dosfstools
+Requires: e2fsprogs
+Requires: python-pyblock >= %{pythonpyblockver}
+Requires: libbdevid >= %{libbdevidver}
+Requires: libbdevid-python
 Requires: audit-libs
-Requires: libuser-python, newt-python
+Requires: libuser-python
+Requires: newt-python
 Requires: authconfig
 Requires: gnome-python2-gtkhtml2
 Requires: system-config-securitylevel
 %ifnarch s390 s390x ppc64
-Requires: rhpxl >= 0.25
+Requires: rhpxl >= %{rhpxlver}
 Requires: system-config-keyboard
 %endif
 %ifarch %livearches
 Requires: usermode
 Requires: zenity
-Requires(post): desktop-file-utils >= 0.8
-Requires(postun): desktop-file-utils >= 0.8
+Requires(post): desktop-file-utils >= %{desktopfileutilsver}
+Requires(postun): desktop-file-utils >= %{desktopfileutilsver}
 %endif
 Obsoletes: anaconda-images <= 10
-Url: http://fedoraproject.org/wiki/Anaconda
-
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 The anaconda package contains the program which was used to install your 
 system.  These files are of little use on an already installed system.
 
 %package runtime
-Summary: Graphical system installer portions needed only for fresh installs.
-Group: Applications/System
-Requires: libxml2-python, python, rpm-python >= 4.2-0.61
+Summary: Graphical system installer portions needed only for fresh installs
+Group:   Applications/System
+Requires: libxml2-python, python, rpm-python >= %{rpmpythonver}
 Requires: anaconda = %{version}-%{release}
 Requires: createrepo >= 0.4.7, squashfs-tools, mkisofs
 %ifarch %{ix86} x86_64
@@ -93,21 +148,21 @@ an md5sum implanted into an ISO9660 image.
 %setup -q
 
 %build
-make depend
-make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+%{__make} depend
+%{__make} %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install
+%{__rm} -rf %{buildroot}
+%{__make} install DESTDIR=%{buildroot}
 
 %ifarch %livearches
-desktop-file-install --vendor="" --dir=$RPM_BUILD_ROOT/%{_datadir}/applications  $RPM_BUILD_ROOT/%{_datadir}/applications/liveinst.desktop
+desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
 %endif
 
 %find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+%{__rm} -rf %{buildroot}
 
 %ifarch %livearches
 %post
@@ -115,7 +170,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %ifarch %livearches
-%postun 
+%postun
 /usr/bin/update-desktop-database %{_datadir}/applications
 %endif
 
@@ -128,13 +183,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/kickstart-docs.txt
 %doc docs/mediacheck.txt
 %doc docs/anaconda-release-notes.txt
-/usr/bin/mini-wm
-/usr/sbin/anaconda
+%{_bindir}/mini-wm
+%{_sbindir}/anaconda
 %ifarch i386 x86_64
-/usr/sbin/gptsync
+%{_sbindir}/gptsync
 %endif
-/usr/share/anaconda
-/usr/lib/anaconda
+%{_datadir}/anaconda
+%{_prefix}/lib/anaconda
 %ifarch %livearches
 %{_bindir}/liveinst
 %{_sbindir}/liveinst
@@ -146,7 +201,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files runtime
 %defattr(-,root,root)
-/usr/lib/anaconda-runtime
+%{_prefix}/lib/anaconda-runtime
 
 %files -n isomd5sum
 %defattr(-,root,root)

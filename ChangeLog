@@ -1,3 +1,12 @@
+2007-09-19  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda.spec:  Spec file cleanups to follow the Fedora spec file
+	guidelines a little more.  Removed some unnecessary BuildRequires lines.
+	Created version macros for BuildRequires and Requires components so we
+	don't get version mismatches (or have to change them in more than one
+	place in the spec file).  Use command and path macros in the other
+	sections.
+
 2007-09-19  Chris Lumens  <clumens@redhat.com>
 
 	* Makefile:  Make the pycheck and pycheckfile targets more useful.
