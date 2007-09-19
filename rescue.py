@@ -25,6 +25,7 @@ import isys
 import iutil
 import fsset
 import shutil
+import time
 
 from rhpl.translate import _
 

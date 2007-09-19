@@ -27,12 +27,30 @@
 
 	* dispatch.py (installSteps):  Revert change for writing out
 	anaconda-ks.cfg earlier since this isn't possible on livecd.
+	(Dispatcher):  Subclass from object so properties work.
+
+	* exception.py (runTracebackScripts):  Pass anaconda reference.
 
 	* fsset.py (readFstab):  Fix upgrade traceback (#296571).
+	(allocateLoopback):  Return the correct value.
+
+	* gui.py (ExceptionWindow.__init__):  Fix syntax error.
+
+	* installclass.py (BaseInstallClass):  Subclass from object so
+	properties work.
+
+	* livecd.py (LiveCDImageMethod.unmountNonFstabDirs):  Take an anaconda
+	instance as a parameter.
+
+	* partErrors.py (LabelError):  Add from rhel5-branch.
+
+	* syslogd.py (Syslogd.__init__):  Remove pointless code.
 
 	* text.py (InstallInterface.helpWindow):  Pass the correct number of
 	arguments when handling an exception.
 	(InstallInterface.getInstallKey):  Fix mapping for translation.
+
+	* vnc.py:  Fix minor nitpicking errors.
 
 2007-09-19  Jeremy Katz  <katzj@redhat.com>
 

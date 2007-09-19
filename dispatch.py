@@ -115,7 +115,7 @@ installSteps = [
     ("complete", ),
     ]
 
-class Dispatcher:
+class Dispatcher(object):
 
     def gotoPrev(self):
         self._setDir(DISPATCH_BACK)

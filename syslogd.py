@@ -55,7 +55,6 @@ class Syslogd:
 		    fd.close()
 
     def __init__(self, root = "", output = sys.stdout, socket = "/dev/log"):
-	output = output
 	filename = root + socket;
         self.goSyslog(output, filename)
 

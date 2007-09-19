@@ -2596,7 +2596,7 @@ def allocateLoopback(file):
             continue
         break
     if found:
-        return dev
+        return path
     return None
 
 def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):

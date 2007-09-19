@@ -22,7 +22,6 @@ import network
 import isys
 import product
 import iutil
-import network
 import socket
 
 import logging
@@ -33,7 +32,7 @@ def askVncWindow():
     if not os.access('/usr/bin/Xvnc', os.X_OK):
         return -1
 
-    if network.hasActiveNetDev() == False:
+    if not network.hasActiveNetDev():
         return -1
 
     screen = SnackScreen()

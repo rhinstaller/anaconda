@@ -33,7 +33,7 @@ log = logging.getLogger("anaconda")
 from flags import flags
 from constants import *
 
-class BaseInstallClass:
+class BaseInstallClass(object):
     # default to not being hidden
     hidden = 0
     pixmap = None

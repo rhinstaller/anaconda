@@ -25,7 +25,6 @@ import iutil
 import types
 import bdb
 import rhpl
-import time
 from string import joinfields
 from cPickle import Pickler
 from rhpl.translate import _
@@ -360,7 +359,7 @@ def handleException(anaconda, (type, value, tb)):
     # run kickstart traceback scripts (if necessary)
     try:
         if anaconda.isKickstart:
-            kickstart.runTracebackScripts()
+            kickstart.runTracebackScripts(anaconda)
     except:
         pass
 
