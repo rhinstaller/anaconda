@@ -25,8 +25,6 @@ import isys
 import iutil
 import fsset
 import shutil
-import fcntl
-import termios
 
 from rhpl.translate import _
 

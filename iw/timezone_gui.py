@@ -15,7 +15,6 @@ import string
 import gtk
 import gtk.glade
 import gtk.gdk
-import gui
 import gobject
 import zonetab
 import pango

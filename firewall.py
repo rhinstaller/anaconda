@@ -14,9 +14,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import os
 import iutil
-import string
 from flags import flags
 
 from rhpl.translate import _, N_

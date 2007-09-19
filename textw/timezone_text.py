@@ -14,7 +14,6 @@
 import sys
 import string
 import iutil
-import os
 from time import *
 from snack import *
 from constants_text import *

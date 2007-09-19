@@ -19,8 +19,6 @@ from iw_gui import *
 
 import gtk
 from rhpl.translate import _, N_
-import iutil
-import gui
 import checkbootloader
 
 import logging

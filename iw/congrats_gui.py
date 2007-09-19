@@ -17,7 +17,6 @@ import rhpl
 from iw_gui import *
 from rhpl.translate import _, N_
 from constants import *
-import iutil
 import os
 
 class CongratulationWindow (InstallWindow):		

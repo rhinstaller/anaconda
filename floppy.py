@@ -13,11 +13,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import isys
-import errno
-import iutil
-import re
-import os, stat
 import kudzu
 from constants import *
 from flags import flags

@@ -15,7 +15,6 @@ from snack import *
 from constants_text import *
 from rhpl.translate import _
 from constants import *
-import os
 
 class WelcomeWindow:
     def __call__(self, screen, anaconda):

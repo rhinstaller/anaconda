@@ -12,8 +12,6 @@
 # must replace with explcit form so update disks will work
 import isys
 import gtk
-import gui
-import iutil
 import string
 from iw_gui import *
 from rhpl.translate import _, N_

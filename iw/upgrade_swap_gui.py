@@ -13,8 +13,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import string
-import isys 
 import iutil
 import upgrade
 import gui

@@ -13,8 +13,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import sys, os
-import isys, iutil
 import time
 import signal
 import parted

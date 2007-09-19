@@ -15,10 +15,8 @@
 
 import gtk
 import gobject
-import iutil
 import partedUtils
 import gui
-import bootloader
 from iw_gui import *
 from rhpl.translate import _, N_
 

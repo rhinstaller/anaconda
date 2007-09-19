@@ -22,7 +22,6 @@ os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 if flags.cmdline.has_key("dogtail"):
     os.environ["GTK_MODULES"] = "gail:atk-bridge"
 
-import errno
 import string
 import time
 import isys
@@ -32,9 +31,7 @@ import shutil
 import gtk
 import gtk.glade
 import gobject
-import kudzu
 import gettext
-import warnings
 from language import expandLangs
 from constants import *
 from network import hasActiveNetDev

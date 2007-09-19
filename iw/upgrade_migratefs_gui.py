@@ -19,9 +19,7 @@ from constants import *
 import string
 import isys 
 import iutil
-import upgrade
 from fsset import *
-import gui
 import gtk
 
 class UpgradeMigrateFSWindow (InstallWindow):		

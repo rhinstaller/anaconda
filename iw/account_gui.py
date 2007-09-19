@@ -12,8 +12,6 @@
 #
 
 import gtk
-import gobject
-import re
 import string
 import gui
 from iw_gui import *

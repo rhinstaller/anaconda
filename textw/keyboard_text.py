@@ -12,7 +12,6 @@
 #
 
 import isys
-import iutil
 from snack import *
 from constants_text import *
 from flags import flags

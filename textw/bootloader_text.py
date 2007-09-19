@@ -17,8 +17,6 @@ from constants_text import *
 from rhpl.translate import _
 from flags import flags
 import string
-import iutil
-import bootloader
 
 class BootloaderChoiceWindow:
 

@@ -3,6 +3,17 @@
 	* Makefile:  Make the pycheck and pycheckfile targets more useful.
 	* pycheckrc-for-anaconda:  Update for more useful default settings.
 
+	* cmdline.py, firewall.py, floppy.py, gui.py, harddrive.py,
+	iw/account_gui.py, iw/blpasswidget.py, iw/bootloader_advanced_gui.pyi,
+	iw/bootloader_main_gui.py, iw/congrats_gui.py, iw/mouse_gui.py,
+	iw/partition_gui.py, iw/progress_gui.py, iw/timezone_gui.py,
+	iw/upgrade_bootloader_gui.py, iw/upgrade_migratefs_gui.py,
+	iw/upgrade_swap_gui.py, iw/zipl_gui.py, rescue.py,
+	textw/bootloader_text.py, textw/complete_text.py,
+	text/keyboard_text.py, textw/network_text.py, textw/timezone_text.py,
+	textw/upgrade_bootloader_text.py, textw/welcome_text.py,
+	textw/zipl_text.py:  Remove unused imports.
+
 2007-09-19  Jeremy Katz  <katzj@redhat.com>
 
 	* livecd.py (LiveCDImageMethod.unmountNonFstabDirs): Fix syntax error.

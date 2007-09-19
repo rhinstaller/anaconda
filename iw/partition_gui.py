@@ -25,7 +25,6 @@ import autopart
 import gui
 import parted
 import string
-import copy
 import types
 import raid
 from constants import *

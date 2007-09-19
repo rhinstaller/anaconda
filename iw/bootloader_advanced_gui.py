@@ -14,9 +14,6 @@
 #
 
 import gtk
-import gobject
-import iutil
-import partedUtils
 import gui
 from iw_gui import *
 from rhpl.translate import _, N_
