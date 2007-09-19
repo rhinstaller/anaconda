@@ -17,6 +17,8 @@
 	* dispatch.py (installSteps):  Revert change for writing out
 	anaconda-ks.cfg earlier since this isn't possible on livecd.
 
+	* fsset.py (readFstab):  Fix upgrade traceback (#296571).
+
 2007-09-19  Jeremy Katz  <katzj@redhat.com>
 
 	* livecd.py (LiveCDImageMethod.unmountNonFstabDirs): Fix syntax error.

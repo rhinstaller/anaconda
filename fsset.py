@@ -2436,7 +2436,7 @@ def readFstab (anaconda):
         elif fields[0].startswith('/dev/'):
             # Older installs may have lines starting with things like /dev/proc
             # so watch out for that on upgrade.
-            if fsystem is not None and isinstance(PsudoFileSystem, fsystem):
+            if fsystem is not None and isinstance(fsystem, PsudoFileSystem):
                 device = Device(device = fields[0][5:])
             else:
                 device = makeDevice(fields[0][5:])
