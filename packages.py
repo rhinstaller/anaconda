@@ -27,6 +27,7 @@ import language
 import fsset
 import kudzu
 import shutil
+import traceback
 from flags import flags
 from product import *
 from constants import *

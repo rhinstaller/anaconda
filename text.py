@@ -149,7 +149,7 @@ class ExceptionWindow:
 
         self.buttons=[TEXT_OK_BUTTON]
 
-        if floppy.hasFloppyDevice() == True or flags.debug:
+        if floppy.hasFloppyDevice() or flags.debug:
             self.buttons.append(_("Save"))
 
         if hasActiveNetDev() or flags.debug:
@@ -302,7 +302,7 @@ class InstallInterface:
 	    from string import joinfields
 	    list = traceback.format_exception(type, value, tb)
 	    text = joinfields(list, "")
-	    win = self.exceptionWindow(text)
+	    win = self.exceptionWindow(text, "/tmp/anacdump.txt")
             win.run()
             rc = win.getrc()
 	    if rc == 1:
@@ -364,7 +364,7 @@ class InstallInterface:
 
         txt = TextboxReflowed(65, ic.instkeydesc or
                               _("Please enter your %(instkey)s") %
-                              {instkey: keyname,})
+                              {"instkey": keyname,})
         g.add(txt, 0, 0, (0,0,0,1))
 
 

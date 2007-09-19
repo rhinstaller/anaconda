@@ -21,6 +21,10 @@
 
 	* fsset.py (readFstab):  Fix upgrade traceback (#296571).
 
+	* text.py (InstallInterface.helpWindow):  Pass the correct number of
+	arguments when handling an exception.
+	(InstallInterface.getInstallKey):  Fix mapping for translation.
+
 2007-09-19  Jeremy Katz  <katzj@redhat.com>
 
 	* livecd.py (LiveCDImageMethod.unmountNonFstabDirs): Fix syntax error.
