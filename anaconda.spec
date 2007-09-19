@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.82
+Version: 11.1.2.83
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 19 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.83-1
+- Add cxgb3 driver (pjones)
+  Resolves: rhbz#296791
+
 * Tue Sep 18 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.82-1
 - Fix kickstart over NFS installs on s390x (ks=nfs:host:/path)
   Resolves: rhbz#250689
