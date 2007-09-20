@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.31
+Version: 11.3.0.32
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -213,6 +213,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 19 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.32-1
+- spec file cleanups (dcantrell)
+- lots of pychecker fixes (clumens)
+- revert writing out anaconda-ks.cfg earlier; breaks live installs (clumens)
+- Fix upgrade traceback (clumens, #296571)
+- Few live install fixes
+
 * Tue Sep 18 2007 Chris Lumens <clumens@redhat.com> 11.3.0.31-1
 - Really include new Japanese font (katzj, #279931).
 - Use /dev/live-osimg-min if it exists (katzj).
