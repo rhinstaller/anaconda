@@ -1466,9 +1466,9 @@ MAILADDR root
                     self.messageWindow(_("Error"), err)
                     sys.exit(0)
 
-    def labelEntry(self, entry, chroot):
+    def labelEntry(self, entry, chroot, ignoreExisting = False):
         label = entry.device.getLabel()
-        if label:
+        if label and not ignoreExisting:
             entry.setLabel(label)
             if labelFactory.isLabelReserved(label):
                 entry.device.doLabel = 1

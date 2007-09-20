@@ -1,3 +1,10 @@
+2007-09-20  Jeremy Katz  <katzj@redhat.com>
+
+	* livecd.py (LiveCDCopyBackend._doFilesystemMangling): Set label
+	consistently with how it's normally set to avoid labeling lvm (#297391) 
+
+	* fsset.py (FileSystemSet.labelEntry): Allow ignoring existing label
+
 2007-09-19  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

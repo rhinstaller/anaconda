@@ -208,8 +208,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         anaconda.id.fsset.mountFilesystems(anaconda)
 
         # restore the label of / to what we think it is (XXX: UUID?)
-        r = anaconda.id.fsset.getEntryByMountPoint("/")        
-        r.fsystem.labelDevice(r, anaconda.rootPath)
+        r = anaconda.id.fsset.getEntryByMountPoint("/")
+        anaconda.id.fsset.labelEntry(r, anaconda.rootPath, True)
 
         # for any filesystem that's _not_ on the root, we need to handle
         # moving the bits from the livecd -> the real filesystems.
