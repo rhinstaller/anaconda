@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-09-19 19:40+0530\n"
+"PO-Revision-Date: 2007-09-20 20:08+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu\n"
 "MIME-Version: 1.0\n"
@@ -1219,6 +1219,11 @@ msgid ""
 "It is recommended that you exit and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"ISO చిత్రం %s 2048 bytes యొక్క గుణిజం కాని పరిమాణం కలిగిఉంది.దీనర్దం అది "
+"కంప్యూటర్ కి బదిలి అయ్యేటప్పుడు చెడిపోయి ఉంటుంది.\n"
+"\n"
+"సంస్థాపన నుండి బయటకు మరియు నిష్పలం అగుటమంచిది,అయితే మీరు ఇది దోషంలోనిదని "
+"భావిస్తే మీరు కొనసాగింపు ఎన్నుకోవచ్చు."
 
 #: ../image.py:517
 #, python-format
@@ -1309,7 +1314,7 @@ msgstr "ాపక చిత్రాన్ని కనుగొనలేము"
 #: ../livecd.py:94
 #, python-format
 msgid "The given location isn't a valid %s live CD to use as an installation source."
-msgstr ""
+msgstr "సంస్థాపనా మూలంకొరకు ఇచ్చిన స్థానం సరియైన %s లైవ్ CD ది కాదు."
 
 #: ../livecd.py:98
 msgid "Exit installer"
@@ -1447,7 +1452,7 @@ msgstr "Drivను గుర్తించకు (_I)"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "_సాధనాన్ని మరలా-సంస్థాపించండి"
 
 #: ../partedUtils.py:911
 msgid "Initializing"
@@ -1504,6 +1509,9 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"డ్రైవ్ /dev/%s తనలో 15 కన్నా ఎక్కువ విభజనలను కలిగి ఉంది.ఇప్పుడు లైనెక్సు కెర్నల్ లోని "
+"SCSI ఉపసిస్టమ్ 15 కంటే ఎక్కువ విభజనలను అనుమతించదు.మీరు ఈ డిస్కు యొక్క "
+"విభజనకు ఎటువంటి మార్పులు చేయలేరు లేక %s లో /dev/%s15 కంటే తక్కువ ఉన్న ఏ విభజననైనా ఉపయోగించండి."
 
 #: ../partedUtils.py:1184
 #, python-format
@@ -1513,6 +1521,9 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"డ్రైవ్ /dev/%s తనలో 15 కన్నా ఎక్కువ విభజనలను కలిగి ఉంది.ఇప్పుడు లైనెక్సు కెర్నల్ లోని "
+"SCSI ఉపసిస్టమ్ 15 కంటే ఎక్కువ విభజనలను అనుమతించదు.మీరు ఈ డిస్కు యొక్క "
+"విభజనకు ఎటువంటి మార్పులు చేయలేరు లేక %s లో /dev/%s15 కంటే తక్కువ ఉన్న ఏ విభజననైనా ఉపయోగించండి."
 
 #: ../partedUtils.py:1276
 msgid "No Drives Found"
@@ -2218,7 +2229,7 @@ msgstr "దయచేసి మీ %(instkey)s ఇవ్వండి."
 #: ../text.py:382 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "%(instkey)s ప్రవేశాన్ని విడిచిపెట్టం"
 
 #: ../text.py:414
 msgid "Save Crash Dump"
@@ -2648,6 +2659,8 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
+"సమూహ సమాచారాన్ని రిపోజిటరీస్ నుండి చదవలేదు.ఇది మీ సంస్థాపనా క్రమ నిర్మాణం లోని "
+"ఇబ్బంది."
 
 #: ../yuminstall.py:836
 msgid "Uncategorized"
@@ -3086,7 +3099,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "భౌతిక మార్పుల పొడిగింపును నిర్ధారించండి"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3094,11 +3106,10 @@ msgid ""
 "\n"
 "This change will take effect immediately."
 msgstr ""
-"This change in the value of the physical extent will require the sizes of "
-"the current logical volume requests to be rounded up in size to an integer "
-"multiple of the physical extent.\n"
+"భౌతిక పరిమాణం యోక్క విలువ లోని ఈ మార్పుకి ప్రస్తుత తార్కిక విభాగ అభ్యర్దిత సైజులు ఏవైతే భౌతిక పరిమాణం యోక్క గుణిజాల సైజుకి "
+"రౌండప్ చేయబడ్డాయో అవి అవసరం.\n"
 "\n"
-"This change will take affect immediately."
+"ఈ మార్పు తక్షణమే ప్రభావితమవుతుంది."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:143 ../iw/network_gui.py:147 ../iw/network_gui.py:167
@@ -3289,12 +3300,13 @@ msgid "No free space"
 msgstr "ఖాళీ లేదు"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
-msgstr "S"
+msgstr ""
+"క్రొత్త తార్కిక విభాగాన్ని సృష్టించుటకు విభాగ సమూహాల్లో ఏ గది ఖాళీగా లేదు.తార్కిక విభాగాన్ని కలుపుటకు "
+"ప్రస్తుతం ఉన్న తార్కిక విభాగాలలో ఒకటి లేదా ఎక్కువ విభాగాల పరిమాణాన్ని తగ్గించాలి."
 
 #: ../iw/lvm_dialog_gui.py:756
 #, python-format
@@ -3639,18 +3651,16 @@ msgid "unknown"
 msgstr "తెలియని"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Hardware చిరునామాలు:"
+msgstr "Hardware చిరునామాలు: "
 
 #: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "తప్పిన ఒడంబడిక"
 
 #: ../iw/network_gui.py:770 ../textw/network_text.py:224
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "DHCPకోసం మీరు తప్పక కనీసం ఒక ఒడంబడిక(IPv4 or IPv6)ను ఎన్నుకోవాలి."
+msgstr "ం మీరు తప్పక కనీసం ఒక ఒడంబడిక(IPv4 or IPv6)ను ఎన్నుకోవాలి."
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
 #: ../textw/network_text.py:69 ../loader2/net.c:97
@@ -3666,7 +3676,6 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 prefix తప్పక 0 మరియూ 128ల మధ్య ఉండాలి."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
@@ -3691,12 +3700,11 @@ msgid "Image"
 msgstr "చిత్రం"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
 msgstr ""
-"boot loader జాబితాలో ప్రదర్శిచబడిన గుర్తుని ప్రవేశపెట్టండి. ఆ సాధనం (లేక hard drive మరియూ విభజన "
+"boot loader జాబితాలో ప్రదర్శించబడిన గుర్తుని ప్రవేశపెట్టండి. ఆ సాధనం (లేక hard drive మరియూ విభజన "
 "సంఖ్య) అది boot అయ్యే దానినుండీ ఎర్పడ్డసాధనం."
 
 #: ../iw/osbootwidget.py:149
@@ -3843,12 +3851,12 @@ msgstr "విభజనం"
 
 #: ../iw/partition_gui.py:633
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr ""
+msgstr "మీరు అభ్యర్దించిన విభజన విధానం క్రింది క్లిష్టమైన దోషాలకు కారణమౌతుంది."
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid "You must correct these errors before you continue your installation of %s."
-msgstr "ఈ దోషాలు మీ వెనుకటి %s సంస్థాపనతో కొనసాగించటం వల్ల తప్పక సరిచేయబడతాయి."
+msgstr "ఈ దోషాలు మీ వెనుకటి %s సంస్థాపనతో కొనసాగింపుకు ముందుగానే తప్పక సరిచేయాలి."
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
@@ -3856,7 +3864,7 @@ msgstr "విభజనా దోషాలు"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "మీరు అభ్యర్దించిన విభజన విధానం క్రింది హెచ్చరికలను ఇస్తోంది."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3964,7 +3972,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4049,12 +4056,12 @@ msgid "Check for _bad blocks?"
 msgstr "చెడ్డ అడ్డంకులకొరకు అవరోధం?"
 
 #: ../iw/partition_ui_helpers_gui.py:349
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"'%s' వర్గానికి చెందిన విభజన ఏకైక డ్రైవును తప్పక అడ్డుకుంటుంది.  ఇది  'Allowable Drives' "
+"'%s' వర్గానికి చెందిన విభజన ఏకైక డ్రైవును తప్పక అడ్డుకుంటుంది.  ఇది, 'Allowable Drives' "
 "శోధక జాబితాలోనించీ డ్రైవును ఎన్నుకోవటంద్వారా జరుగుతుంది."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
@@ -4134,7 +4141,6 @@ msgid "Source Drive Error"
 msgstr "ఆధార సాధన దోషం"
 
 #: ../iw/raid_dialog_gui.py:494
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4146,7 +4152,7 @@ msgstr ""
 "ఈ విభజనలు ఈ drive cloneచేయబడటానికి ముందే తొలగించబడాలి. "
 
 #: ../iw/raid_dialog_gui.py:506
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4159,7 +4165,6 @@ msgstr ""
 "ఈ విభజనలు ఈ drive clone చేయబడకముందే తొలగించబడటంకానీ లేదా ఈ driveకే పరిమితం అయ్యి ఉండాలి. "
 
 #: ../iw/raid_dialog_gui.py:519
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4186,7 +4191,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "ఈ ఆకర drive /dev/%s లక్ష్య drive లాగా ఎన్నిక చేయబడదు."
 
 #: ../iw/raid_dialog_gui.py:558
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4237,7 +4242,6 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "లక్ష్య driveలను పూర్తి చేయటంలో దోషం ఉంది.  Cloning విఫలమైంది."
 
 #: ../iw/raid_dialog_gui.py:692
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4252,18 +4256,14 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
-"Clone Drive Tool\n"
+"Clone Driver సాధనం\n"
 "\n"
-"This tool allows you to significantly reduce the amount of effort required "
-"to setup RAID arrays.  The idea is to take a source drive which has been "
-"prepared with the desired partitioning layout, and clone this layout onto "
-"other similar sized drives.  Then a RAID device can be created.\n"
+"RAID ఎరేస్ అమర్పుకి కావలిసిన శ్రమను బగా తగ్గిస్తుంది.ఇది మూల డ్రైవ్ ఏదైతే విభజన వాస్తు తో సిద్దపరచబడినదో,అది ఉపయోగిస్తుంది. "
+"RAID సాధనం ఇప్పుడు సృష్టించబడింది.\n"
 "\n"
-"NOTE: The source drive must have partitions which are restricted to be on "
-"that drive only, and can only contain unused software RAID partitions.  "
-"Other partition types are not allowed.\n"
+"గమనిక:మూల డ్రైవ్ తప్పక డ్రైవ్ కి సంభందిచిన పార్టీషన్ లను కలిగిఉండాలి,మరియు ఉపయోగించని RAID విభజన కలిగి ఉండాలి.\n"
 "\n"
-"EVERYTHING on the target drive(s) will be destroyed by this process."
+"EVERYTHING టార్గెట్ డ్రైవ్సు లోనిది ఇప్పుడు తొలగించబడుతుంది"
 
 #: ../iw/raid_dialog_gui.py:712
 msgid "Source Drive:"
@@ -4304,7 +4304,7 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
@@ -4317,9 +4317,8 @@ msgid "Invalid Repository Name"
 msgstr "చెల్లని సురక్షిత స్థానం పేరు"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "మీరు తప్పకుండా non-zero పొడవున్న సురక్షిత స్థానంపేరును సమకూర్చాలి."
+msgstr "మీరు తప్పకుండా సురక్షిత స్థానంపేరును సమకూర్చాలి."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
@@ -4358,7 +4357,7 @@ msgstr "ఇది మీ ప్రస్తుత boot loaderను అభివ
 msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
-msgstr ""
+msgstr "సిస్టమ్ మార్పుల కారణంగా,మీ బూట్ లోడర్ ఆకృతీకరణ స్వయంచాలకంగా నవీకరించబడదు."
 
 #: ../iw/upgrade_bootloader_gui.py:105 ../textw/upgrade_bootloader_text.py:84
 msgid ""
@@ -4380,7 +4379,6 @@ msgid "_Create new boot loader configuration"
 msgstr "కొత్త boot loader ఆకృతీకరణను సృష్టించు (_C)"
 
 #: ../iw/upgrade_bootloader_gui.py:123
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
@@ -4393,12 +4391,11 @@ msgid "_Skip boot loader updating"
 msgstr "boot loader నవీకరణనుండీ మారు (_S)"
 
 #: ../iw/upgrade_bootloader_gui.py:131
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"ఇది boot loader ఆకృతీకరణలో మార్పులను చేయదు.   మీరు మూడో వర్గ boot loaderను ఉపయోగిస్తుంటే, "
+"ఇది boot loader ఆకృతీకరణలో మార్పులను చేయదు.  మీరు మూడో వర్గ boot loaderను ఉపయోగిస్తుంటే, "
 "మీరు దీన్ని ఎన్నుకోవాలి."
 
 #: ../iw/upgrade_bootloader_gui.py:142
@@ -4410,7 +4407,7 @@ msgid "Migrate File Systems"
 msgstr "ఫైలు వ్యవస్థని వలస పంపు"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4419,7 +4416,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%s యొక్క ఈ విడుదల ext3 journalling ఫైళ్ల విధానానికి మద్దతిస్తుంది.  ఇది సాంప్రదాయకంగా %s లోకి "
+"%s యొక్క ఈ విడుదల ext3 journalling ఫైళ్ల విధానానికి మద్దతిస్తుంది,  ఇది సాంప్రదాయకంగా %s లోకి "
 "మార్చబడిన ext2 ఫైళ్ల విధానంలో పెక్కు లాభాలను కలిగి ఉంది.  సమాచారం పోకుండా ext2 ఆకృతీకరణ విభజనని "
 "ext3కి పంపటం సాధ్యమౌతుంది .\n"
 "\n"
@@ -4430,14 +4427,14 @@ msgid "Upgrade Swap Partition"
 msgstr "Swap విభజనని నవీకరించు"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"2.4 కెర్నల్ పాత కెర్నల్ కంటే గుర్తించదగ్గ ఎక్కువ swap అవసరమౌతుంది,కంప్యూటర్లో ఉన్న swap జాగా "
+"(2.4 కెర్నల్ లేక క్రొత్త) పాత కెర్నల్ కంటే గుర్తించదగ్గ ఎక్కువ swap అవసరమౌతుంది,కంప్యూటర్లో ఉన్న swap జాగా "
 "కంప్యూటరులో ఉన్న RAMకి రెండింతలు ఉండాలి.  మీరు ప్రస్తుతం %dMB swap ఆకృతీకరించబడి ఉన్నారు, కానీ "
 "మీరు అదనపు swap జాగాను మీ ఫైళ్ల విధానంలో ఇప్పుడు కలిగి ఉండాలి."
 
@@ -4469,7 +4466,7 @@ msgid "Free Space (MB)"
 msgstr "వాడని ఖాళీ (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
@@ -4484,7 +4481,6 @@ msgid "I _don't want to create a swap file"
 msgstr "నేను swap ఫైలుని సృష్టించ దలవలేదు (_d)"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
@@ -4560,7 +4556,6 @@ msgid "Skip Boot Loader"
 msgstr "Boot Loaderను దాటవేయి"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4568,22 +4563,21 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"You have elected to not install any boot loader. It is strongly recommended "
-"that you install a boot loader unless you have an advanced need.  A boot "
-"loader is almost always required in order to reboot your system into Linux "
-"directly from the hard drive.\n"
+"మీరు ఏ బూట్ లోడర్ ని కుడా సంస్థాపనకొరకు ఎంచుకోలేదు,ముందుగా మీకు ఏదైనా అవసరముంటే తప్ప "
+"ఇది సమర్దనీయంకాదు.మీ సిస్టమ్ ను సూటిగా లైనక్సుకి హర్డు డ్రైవ్ నుండి బూట్ చేయాలనుకుంటే తప్పక "
+"బూట్ లోడర్ అవసరం.\n"
 "\n"
-"Are you sure you want to skip boot loader installation?"
+"మీరు బూట్ లోడర్ సంస్థాపన వదిలేయాలని ఖచ్చితంగా కోరుకొంటున్నారా?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
 "them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
-". If you need to pass boot options to the kernel, enter them now. If you "
-"don't need any or aren't sure, leave this blank."
+"కోన్ని సిస్టమ్సు మాత్రమే బూట్ సమయం లో సరైన క్రియాశీలత కొరకు ప్రత్యేక ఐచ్చికాలను కెర్నల్ కు "
+"పంపించవలసి ఉంటుంది.మీరు బూట్ ఐచ్చికాలను కెర్నల్ కు పంపవలిసివస్తే,వాటిని ప్రవేశపెట్టండి.మీకు అవసరమో కాదో తెలియకుంటే "
+"ఖాళీగా వదిలేయండి."
 
 #: ../textw/bootloader_text.py:101
 msgid "Force use of LBA32 (not normally required)"
@@ -4623,30 +4617,27 @@ msgid "Edit"
 msgstr "కూర్చు"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
 "want to use for each of them."
 msgstr ""
-"The boot manager %s uses can boot other operating systems as well. You need "
-"to tell me what partitions you would like to be able to boot and what label "
-"you want to use for each of them."
+"బూట్ నిర్వాహిక %s ఉపయోగించి వేరే ఆపరేటింగ్ సిస్టమ్ లను కూడా బూట్ చేయగలదు. "
+"మీరు ఏ విభజన నుండి బూట్ అవ్వగలగాలో మరియు వాటికి మీరు ఏ లేబుల్ కావాలో నాకు చెప్పండి."
 
 #: ../textw/bootloader_text.py:290
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <ఖాళీ> ఎన్నుకో | <F2> సిద్ధంగా ఎన్నుకో | <F4> తొలగించు | <F12> తరువాతి screen>"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
-"A boot loader password prevents users from passing arbitrary options to the "
-"kernel.  For highest security, we recommend setting a password, but this is "
-"not necessary for more casual users."
+"బూట్ లోడర్ అనుమతిపదం వినియోగదారులను కెర్నల్ కు ఐచ్చికాలను పంపకుండా నిరోదిస్తుంది.అధిక రక్షణకు,మీరు అనుమతిపదం ఉంచవచ్చు, "
+"అయితే సాదారణ వినియోగదారులకు అనుమతిపదం తప్పనిసరికాదు."
 
 #: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
@@ -4758,7 +4749,6 @@ msgstr ""
 "సమంప్రదింపులకు ఈ ఫైలును ఉంచమనొచ్చు."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
 msgstr "దయచేసి మీరు సంస్థాపించదలచిన package సమూహాలను ఎన్నుకోండి."
 
@@ -4768,7 +4758,7 @@ msgstr "<Space>,<+>,<-> ఎన్నిక   |   <F2> సమూహ వివర�
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "ఎన్నికకి ఐచ్చిక ప్యాకేజీలు ఏమీలేవు"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4799,22 +4789,22 @@ msgid "Mouse Selection"
 msgstr "mouse ఎన్నిక"
 
 #: ../textw/network_text.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"మీరు \"%s\" క్షేతాన్ని తెలుపలేదు.  ఇది మీ network వాతావరణం మీద ఆధారపడి తర్వాత ఇబ్బందికి కారణం "
+"మీరు %s క్షేతాన్ని తెలుపలేదు.  ఇది మీ network వాతావరణం మీద ఆధారపడి తర్వాత ఇబ్బందికి కారణం "
 "కావచ్చు."
 
 #: ../textw/network_text.py:70
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4 prefix తప్పక 0 మరియూ 32ల మధ్య ఉండాలి."
+msgstr "IPv4%d prefix తప్పక 0 మరియూ %d మధ్య ఉండాలి."
 
 #: ../textw/network_text.py:74
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "వురస్సర్గ కొరకు ఇంటీజర్ అవసరం"
 
 #: ../textw/network_text.py:75
 #, python-format
@@ -4822,16 +4812,16 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"%s కొరకు మీరు సరైన ఇంటీజర్ ప్రవేశపెట్టవలెను.IPv4 కొరకు,విలువ 0 మరియు 32 మద్య ఉండవలెను. "
+"IPv6 కొరకు,విలువ 0 మరియు 128 మద్య ఉండవలెను"
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Netmask"
+msgstr "పురస్సర్గ (Netmask)"
 
 #: ../textw/network_text.py:84 tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/Prefix"
+msgstr "Prefix"
 
 #: ../textw/network_text.py:137
 msgid "Activate on boot"
@@ -4849,17 +4839,15 @@ msgstr "IPv6 మద్దతు అసాధ్యం"
 
 #: ../textw/network_text.py:164
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:182 tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:191
-#, fuzzy
 msgid "WEP Key:"
-msgstr "కీ:"
+msgstr "WEP Key:"
 
 #: ../textw/network_text.py:204
 #, python-format
@@ -4868,78 +4856,69 @@ msgstr "%s కొరకు Network ఆకృతీకరణ"
 
 #: ../textw/network_text.py:241 ../textw/network_text.py:244
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "కేంద్రం-నుండి-కేంద్రం IP చిరునామా"
 
 #: ../textw/network_text.py:267 tmp/netpostconfig.glade.h:5
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
 msgstr "క్రియాశీల IP నిర్ధారణను ఉపయోగించు (DHCP)"
 
 #: ../textw/network_text.py:270 ../textw/network_text.py:401
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "మానవీయ TCP/IP ఆకృతీకరణ"
+msgstr "మానవీయ చిరునామా ఆకృతీకరణ"
 
 #: ../textw/network_text.py:290
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "%s కొరకు Network ఆకృతీకరణ"
+msgstr "%s కొరకు IPv4 ఆకృతీకరణ"
 
 #: ../textw/network_text.py:320 ../textw/network_text.py:332
 #: ../textw/network_text.py:335
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4 చిరునామాలు:"
+msgstr "IPv4 చిరునామా"
 
 #: ../textw/network_text.py:324
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/Netmask"
+msgstr "IPv4 network mask"
 
 #: ../textw/network_text.py:350 ../textw/network_text.py:353
 #: ../textw/network_text.py:356
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Netmask"
+msgstr "IPv4 పురస్సర్గ (network mask)"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "స్వయంచాలక సహచరి సోధన"
 
 #: ../textw/network_text.py:398 tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "క్రియాశీల IP నిర్ధారణను ఉపయోగించు (DHCP)"
+msgstr "క్రియాశీల IP నిర్ధారణను ఉపయోగించు (DHCPv6)"
 
 #: ../textw/network_text.py:425
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "%s కొరకు Network ఆకృతీకరణ"
+msgstr "%s కొరకు IPv6 ఆకృతీకరణ"
 
 #: ../textw/network_text.py:455 ../textw/network_text.py:466
 #: ../textw/network_text.py:469
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6 చిరునామాలు:"
+msgstr "IPv6 చిరునామాలు"
 
 #: ../textw/network_text.py:459 ../textw/network_text.py:478
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/Prefix"
+msgstr "IPv6 Prefix"
 
 #: ../textw/network_text.py:504
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "network అంతర్ముఖీనత కుదరదు"
+msgstr "వలయ అంతర్ముఖిని ఆకృతీకరించు"
 
 #: ../textw/network_text.py:505
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "మీరు network అంతర్ముఖీనతలను ఈ కంప్యూటరులో ప్రారంభించాలనుకుంటున్నారా?"
+msgstr "మీరు %s network అంతర్ముఖీనతలను ఈ కంప్యూటరులో ప్రారంభించాలనుకుంటున్నారా?"
 
 #: ../textw/network_text.py:519 ../textw/network_text.py:521
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "UNCONFIGURED"
 
 #: ../textw/network_text.py:530
 msgid ""
@@ -4948,38 +4927,40 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"ప్రతి అంతర్ముఖికి సంభందిచిన ప్రస్తుత ఆకృతీకరణక అమర్పులు సాధనంపేరు తర్వాత ఇవ్వబడినవి. "
+"ఆకృతీకరించని అంతర్ముఖి లు UNCONFIGURED గా చూపబడును.అంతర్ముఖిని ఆకృతీకరించుటకు, "
+"హైలైట్ చేసి మరియు సరిచేయు ను ఎంచుకొనుము.మీరు ముగించిన తరువాత,కొనసాగించటానికి సరే "
+"నొక్కండి."
 
 #: ../textw/network_text.py:620
-#, fuzzy
 msgid "Active on boot"
-msgstr "bootను క్రియాశీలిని చేయి"
+msgstr "boot ను క్రియాశీలిని చేయి"
 
 #: ../textw/network_text.py:622
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "bootను క్రియాశీలిని చేయి"
+msgstr "boot ను క్రియాశీలిని చేయి"
 
 #: ../textw/network_text.py:625
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:630
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:632
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:638
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:640 ../textw/network_text.py:642
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:665 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -4998,17 +4979,14 @@ msgid "Miscellaneous Network Settings"
 msgstr "సంకీర్ణ Network అమర్పులు"
 
 #: ../textw/network_text.py:703 ../textw/network_text.py:706
-#, fuzzy
 msgid "gateway"
-msgstr "Gateway"
+msgstr "gateway"
 
 #: ../textw/network_text.py:713 ../textw/network_text.py:716
-#, fuzzy
 msgid "primary DNS"
 msgstr "ప్రాధమిక DNS"
 
 #: ../textw/network_text.py:725
-#, fuzzy
 msgid "secondary DNS"
 msgstr "ద్వితీయ DNS"
 
@@ -5025,17 +5003,14 @@ msgid "Hostname Configuration"
 msgstr "ఆతిధేయనామ ఆకృతీకరణ"
 
 #: ../textw/network_text.py:784
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
 "hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
-"If your system is part of a larger network where hostnames are assigned by "
-"DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
-"a hostname for your system. If you do not, your system will be known as "
-"'localhost.'"
+"మీ సిస్టమ్ అతిధేయిల పేర్లు DHCP ద్వారా ఇచ్చే పెద్ద నెట్వర్కు లో ఉంటే,స్వయంచాలకంగా DHCP ద్వారా ను ఎన్నుకోండి. "
+"లేదంటే, మానవీయంగా ఎన్నుకొని మరియు అతిధేయి పేరు ప్రవేశపెట్టండి.ఇలా చేయక పోతే,మీ సిస్టమ్ లోకల్హోస్టు గ ఉంటుంది."
 
 #: ../textw/network_text.py:810 ../textw/network_text.py:816
 msgid "Invalid Hostname"
@@ -5188,9 +5163,8 @@ msgid "Not Supported"
 msgstr "మద్దతివ్వలేదు"
 
 #: ../textw/partition_text.py:783
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr "చిత్ర సంస్థాకలో LVM విలువలు మాత్రమే కూర్చబడతాయి."
+msgstr "చిత్ర సంస్థాకలో LVM విలువలు మాత్రమే కూర్చబడతాయి"
 
 #: ../textw/partition_text.py:859 ../textw/partition_text.py:912
 msgid "Invalid Entry for Partition Size"
@@ -5229,21 +5203,19 @@ msgid "Too many spares"
 msgstr "చాలా మిగుల్పులు"
 
 #: ../textw/partition_text.py:1108
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "ఒక RAID0 arrayతో ఉండదగ్గ గరిష్ఠ మిగిల్పుల సంఖ్య 0."
+msgstr "ఒక RAID0 arrayతో మీరు ఎటువంటి మిలహాయింపులను ఉపయోగించలేరు."
 
 #: ../textw/partition_text.py:1189
 msgid "No Volume Groups"
 msgstr "Volume సమూహాలు లేవు"
 
 #: ../textw/partition_text.py:1190
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
 msgstr "తార్కిక విలువను సృష్టించగల volume సమూహం లేదు"
 
 #: ../textw/partition_text.py:1314
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
@@ -5299,9 +5271,8 @@ msgid "No Root Partition"
 msgstr "Root విభజన లేదు"
 
 #: ../textw/partition_text.py:1505
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "NFS సంస్థాపనా విధానానికి IPv4 మద్దతు అవసరం."
+msgstr "సంస్తాపనకు ఒక / విభజన అవసరం."
 
 #: ../textw/partition_text.py:1547
 msgid "Partitioning Type"
@@ -5321,9 +5292,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "ఈ సంస్థాపనకు మీరు ఏ drive(లు) ఉపయోగించాలనుకుంటున్నారు?"
 
 #: ../textw/partition_text.py:1588
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> ఎన్నిక   |   <F2> సమూహ వివరాలు   |   <F12> తదుపరి screen"
+msgstr "<Space>,<+>,<-> ఎన్నిక   |   <F2> డ్రైవర్ కలుపు   |   <F12> తదుపరి screen"
 
 #: ../textw/partition_text.py:1657
 msgid "Review Partition Layout"
@@ -5342,21 +5312,18 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "మీరు మీ drive ఆకృతీకరణను ఎలా మార్చాలనుకుంటున్నారు?"
 
 #: ../textw/partition_text.py:1703
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "Add FCP సాధనం"
 
 #: ../textw/partition_text.py:1704 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "zసీరీస్ కంప్యూటర్లు industry-standard SCSI సాధనాలను Fibre Channel (FCP) ద్వారా "
-"కొనసాగించగలుగుతాయి.మీరు ప్రతి సాధనానికీ కనీసం 5 పారామితులను సమకూర్చవలసి ఉంటుంది: ఒక 16 biసాధనం "
-"సంఖ్య, ఒక 16bit SCSI ID, a 64 bit World Wide Port పేరు (WWPN), ఒక 16bit SCSI "
-"LUN and a 64 bit FCP LUN."
+"కొనసాగించగలుగుతాయి.మీరు ప్రతి సాధనానికీ, ఒక 16 bitసాధనం, ఒక 64 bit World Wide Port పేరు (WWPN), మరియు 64 bit FCP LUN "
+"లను ఇవ్వాలి."
 
 #: ../textw/partition_text.py:1727 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5371,14 +5338,12 @@ msgstr ""
 "నిర్దేశకుని పేరును ఆకృతీకరించాలి."
 
 #: ../textw/partition_text.py:1729
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>_లక్ష్య IP చిరునామా:</b>"
+msgstr "లక్ష్య IP చిరునామా"
 
 #: ../textw/partition_text.py:1730
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>iSCSI నిర్దేశకుని _పేరు:</b>(_N)"
+msgstr "iSCSI నిర్దేశకుని _పేరు"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5411,7 +5376,6 @@ msgid "Customize software selection"
 msgstr "software ఎన్నికను costomize చేయి."
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
 msgstr "మీరు ఏ సమయక్షేత్రాన్ని ఉంచాలనుకుంటున్నారు?"
 
@@ -5465,7 +5429,6 @@ msgid "System to Upgrade"
 msgstr "కంప్యూటరు నవీకరణకు"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
@@ -5482,7 +5445,6 @@ msgid "Root Password"
 msgstr "Root అనుమతిపదం"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
@@ -5490,7 +5452,7 @@ msgid ""
 msgstr ""
 "ఒక root అనుమతిపదాన్ని తీసుకోండి. అది ఏమిటో మీకు ధృడపడటానికి మీరు దాన్ని రెండుసార్లు టైపు చేయవలసి "
 "ఉంటుంది మరియూ టైపు చేసేటప్పుడు ఎటువంటి అక్షరదోషాలనూ చేయకండి. కంప్యూటరు రక్షణకు root "
-"అనుమతిపదం క్లిష్టమైన భాగమని గుర్తుంచుకోండి! "
+"అనుమతిపదం క్లిష్టమైన భాగమని గుర్తుంచుకోండి!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
@@ -5506,14 +5468,13 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup require."
 msgstr ""
 "z/IPL Boot Loader సంస్థాపన పూర్తయ్యిన తరువాత మీ కంప్యూటరులో సంస్థాపించబడుతుంది. మీరు "
-"మీకంప్యూటరుకీ లేదా మీ అమర్పుకి అవసరమైన అదనపు kernel మరియూ chandev parameterలను ఇవ్వాలి.."
+"మీకంప్యూటరుకీ లేదా మీ అమర్పుకి అవసరమైన అదనపు kernel మరియూ chandev parameterలను ఇవ్వాలి."
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5556,35 +5517,33 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "కార్యాలయం"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "మల్టీమీడియా"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "అభినందనలు"
+msgstr "వాస్తవికత"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "క్లస్టరింగ్"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "నిల్వ క్లస్టరింగ్"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "సంస్థాపన ప్రారంభించటానికి"
+msgstr "సంస్థాపన సంఖ్య"
 
 #: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
-msgstr ""
+msgstr "మీ ధృవీకరణ లో ఉన్నటువంటి మద్దతునిచ్చే అన్ని ప్యాకేజెస్ ను సంస్థాపించుటకు,దయచేసి మీ సంస్థాపనా సంఖ్యను ప్రవేశపెట్టండి."
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5599,6 +5558,12 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"మీరు సంస్థాపనా సంఖ్యను కనుగొన లేక పోతే,http://www."
+"redhat.com/apps/support/in.html ను సంప్రదించండి.\n"
+"\n"
+"మీరు విడిచిపెడితే:\n"
+"* మీరు మీ ధృవీకరణలో ఉన్నటువంటి అన్ని ప్యాకేజీలను పొందలేరు.\n"
+"* ఇది మద్దతుఇవ్వని/ధృవీకరించనిన Red Hat సంస్థాపనకు కారణమవుతుంది."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5612,12 +5577,11 @@ msgid "Test"
 msgstr "పరిశీలన"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-#, fuzzy
 msgid "Eject Disc"
-msgstr "CDని బయటకు పంపు"
+msgstr "డిస్కు ని బయటకు పంపు"
 
 #: ../loader2/cdinstall.c:93
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
@@ -5626,7 +5590,7 @@ msgstr ""
 "వేరొకదానిని పెట్టండి."
 
 #: ../loader2/cdinstall.c:114
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If you would like to test additional media, insert the next disc and press "
 "\"%s\". Testing each disc is not strictly required, however it is highly "
@@ -5639,7 +5603,7 @@ msgstr ""
 "పరీక్షించబడిన తరువాత, ఉపయోగించటానికి ప్రతి CDని తిరిగి అమర్చనవసరంలేదు."
 
 #: ../loader2/cdinstall.c:137
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
@@ -5648,23 +5612,22 @@ msgstr ""
 "నొక్కండి."
 
 #: ../loader2/cdinstall.c:258
-#, fuzzy
 msgid "Disc Found"
-msgstr "CD కనుగొనబడింది"
+msgstr "డిస్కు కనుగొనబడింది"
 
 #: ../loader2/cdinstall.c:259
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"CD మాద్యమాన్ని పరీక్ష ప్రారంభానికి, సంస్థాపనకు ముందు %sను నొక్కండి.\n"
+"మాద్యమాన్ని పరీక్ష ప్రారంభానికి, సంస్థాపనకు ముందు %sను నొక్కండి.\n"
 "\n"
 "%sను మాధ్యమ పరిశీలన దాటివేతకు మరియూ సంస్థాపన ప్రారంభానికి ఎన్నుకోండి."
 
 #: ../loader2/cdinstall.c:379
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s disc was found which matches your boot media.  Please insert the %s "
 "disc and press %s to retry."
@@ -5673,7 +5636,7 @@ msgstr ""
 "నొక్కండి."
 
 #: ../loader2/cdinstall.c:384
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
@@ -5682,9 +5645,8 @@ msgstr ""
 "నొక్కండి."
 
 #: ../loader2/cdinstall.c:391
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "CD కనుగొనబడలేదు"
+msgstr "డిస్కు కనుగొనబడలేదు"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
@@ -5953,11 +5915,12 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"కిక్ స్టార్టు దస్త్రంను దిగుమతి చేయలేక పోయింది.దయచేసి కిక్ స్టార్టు పారామితిని క్రింద మార్చండి లేదా "
+"అన్యోన్య సంస్థాపనా విధానంలో వెళ్ళుటకు రద్దు ను నొక్కండి."
 
 #: ../loader2/kickstart.c:380
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "kickstart ఫైలు %s: %sను తెరవటంలో దోషం"
+msgstr "kickstart ఫైలు దిగుమతి లో దోషం"
 
 #: ../loader2/kickstart.c:524
 #, c-format
@@ -5978,18 +5941,16 @@ msgid "Choose a Language"
 msgstr "ఒక భాషని ఎన్నుకో"
 
 #: ../loader2/loader.c:118
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "స్యస్థాన CDROM"
+msgstr "స్యస్థాన CD/DVD"
 
 #: ../loader2/loader.c:120
 msgid "Hard drive"
 msgstr "Hard drive"
 
 #: ../loader2/loader.c:121
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s సంచిక:"
+msgstr "NFS సంచిక"
 
 #: ../loader2/loader.c:337
 msgid "Update Disk Source"
@@ -6208,9 +6169,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "kickstart సాధన ఆదేశం %s: %sకి చెడ్డ వాదన"
 
 #: ../loader2/modules.c:1050
-#, fuzzy
 msgid "Both module type and name must be specified for the kickstart device command."
-msgstr "ఈ కింది చెల్లని వాదన kickstart driver disk ఆదేశం కోసం నిర్దేశించబడింది: %s:%s"
+msgstr "కిక్ స్టార్టు సాధన ఆదేశానికి గుణకంతీరు మరియు పేరు రెంటిని తప్పక తెలపాలి"
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6263,21 +6223,17 @@ msgid "Nameserver IP"
 msgstr "నామసర్వరు IP"
 
 #: ../loader2/net.c:306
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Nameserver"
+msgstr "Nameserver కనిపించటంలేదు"
 
 #: ../loader2/net.c:307
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"Your dynamic IP request returned IP configuration information, but it did "
-"not include a DNS nameserver. If you know what your nameserver is, please "
-"enter it now. If you don't have this information, you can leave this field "
-"blank and the install will continue."
+"మీ IP చిరునామా అభ్యర్దన ఆకృతీకరణ సమాచారాన్ని ఇస్తుంది,అయితే నేమ్ సర్వర్ చిరునామాను మాత్రం చేర్చదు. "
+"మీరు ఈ సమాచారం కలిగిఉండకపోతే,మీరు ఈ క్షేత్రాన్ని ఖాళీగా వదిలి సంస్థాపన కొనసాగించవచ్చు."
 
 #: ../loader2/net.c:329
 msgid "Invalid IP Information"
@@ -6300,9 +6256,8 @@ msgid "Configure TCP/IP"
 msgstr "నిర్ధారణ TCP/IP"
 
 #: ../loader2/net.c:792
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "DHCPకోసం మీరు తప్పక కనీసం ఒక ఒడంబడిక(IPv4 or IPv6)ను ఎన్నుకోవాలి."
+msgstr "మీరు తప్పక కనీసం ఒక ఒడంబడిక(IPv4 or IPv6)ను ఎన్నుకోవాలి."
 
 #: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
@@ -6335,6 +6290,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"IPv4 మరియు/లేక IPv6 చిరునామా మరియు పురస్సర్గ (చిరునామా/పురస్సర్గ) ప్రవేశపెట్టండి. "
+"IPv4 కొరకు,డాటెడ్-క్వాడ్ నెట్మాస్కు లేదా CIDR-స్టైల్ పురస్సర్గ సరైనవి.గేట్వే మరియు నేమ్ సర్వర్ క్షేత్రాలు IPv4 లేక IPv6 "
+"చిరునామాలను తప్పక సరిచూడాలి."
 
 #: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
@@ -6351,9 +6309,8 @@ msgstr ""
 "ప్రవేశపెట్టాలి."
 
 #: ../loader2/net.c:1200
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "మీరు తప్పక సరైన IPv6 మరియూ aCIDR పురస్సర్గలను ప్రవేశపెట్టాలి."
+msgstr "మీరు తప్పక సరైన IPv6 మరియూ CIDR పురస్సర్గలను ప్రవేశపెట్టాలి."
 
 #: ../loader2/net.c:1505
 msgid "Determining host name and domain..."
@@ -6549,9 +6506,8 @@ msgid "Disable _dmraid device"
 msgstr "dmraid సాధనం కుదరదు"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "Hard drive"
+msgstr "_Add drive"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6605,9 +6561,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "పరిశీలన మరియూ విభజనా వాస్తు మార్పు"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "సంస్థాపనా విధానంలో మీరు ఏ భాషని ఉపయోగించాలనుకుంటున్నారు?"
+msgstr "ఈ సంస్థాపన ఏ డ్రైవ్ నుండి బూట్ అవ్వటానికి మీరు ఇష్టపడతారు?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6622,9 +6577,8 @@ msgid "Exception Info"
 msgstr "మినహాయింపు సమాచారం"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "Save to _Remote"
-msgstr "దూరస్థ అతిధేయికి భద్రపరువు"
+msgstr "దూరస్థ _అతిధేయికి భద్రపరువు"
 
 #: tmp/exn.glade.h:4
 msgid "_Exception details"
@@ -6632,17 +6586,17 @@ msgstr "మినహాయింపు వివరాలు"
 
 #: tmp/exn.glade.h:5
 msgid "_Save to floppy"
-msgstr ""
+msgstr "ప్లాపీ కి _భద్రపరువు"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "దయచేసి ఒక volume సమూహం పేరు ఇవ్వండి."
+msgstr "దయచేసి మీ %(instkey)s ప్రవేశపెట్టండి."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6661,23 +6615,20 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI నిర్దేశకుని _పేరు:</b>(_N)"
 
 #: tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "_Add target"
-msgstr "iSCSI లక్ష్యాన్ని కలుపు"
+msgstr "_లక్ష్యాన్ని కలుపు"
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "%sసంస్థాపన (_I)"
+msgstr "సంస్థాపన"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "మీ హార్డుడిస్కు కి లైవ్ CD ని సంస్ధాపించండి."
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "సంస్థాపన ప్రారంభించబడింది"
+msgstr "హార్డడ్రైవ్ కు సంస్థాపించండి"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6724,31 +6675,26 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "క్రియాశీల IP ఆకృతీకరణన (DHCP)ను ఉపయోగించు"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "వర్ణన: %s"
+msgstr "<b>వర్ణన ఇక్కడుకు వెళ్తుంది</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>హార్డువేర్ చిరునామా: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "Edit Interface"
-msgstr "%s అంతర్ముఖీనతను కూర్చు"
+msgstr "అంతర్ముఖిని కూర్చు"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "Encryption _కీ: (_K)"
+msgstr "Encryption కీ:"
 
 #: tmp/netpostconfig.glade.h:13
-#, fuzzy
 msgid "Manual configuration"
-msgstr "మానవీయ TCP/IP ఆకృతీకరణ"
+msgstr "మానవీయ ఆకృతీకరణ"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Point to Point (IP):"
 msgstr "కేంద్రం నుండీ కేంద్రంకి (IP):"
 
@@ -6779,19 +6725,16 @@ msgid "_Customize now"
 msgstr "ఇప్పుడు వినియోగించు (_C)"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "సాధన సంఖ్య"
+msgstr "<b>సాధన సంఖ్య:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_అనుమతిపదం:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -6799,230 +6742,229 @@ msgstr "Add FCP సాధనం"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr "Afrikaans"
+msgstr "ఆఫ్రికన్సు"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr "Arabic"
+msgstr "అరబిక్"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "అస్సామీస్"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr "Bengali"
+msgstr "బెంగాలీ"
 
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr "Bengali(India)"
+msgstr "బెంగాలీ(ఇండియా)"
 
 #. generated from lang-table
 msgid "Bulgarian"
-msgstr "Bulgarian"
+msgstr "బల్గేరియా"
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr "Catalan"
+msgstr "కెటలాన్"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "Chinese(Simplified)"
+msgstr "చైనీస్(సింప్లిఫైడ్)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "Chinese(Traditional)"
+msgstr "చైనీస్(ట్రెడిషనల్)"
 
 #. generated from lang-table
 msgid "Croatian"
-msgstr "Croatian"
+msgstr "క్రోటైన్"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr "Czech"
+msgstr "జెచ్"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr "Danish"
+msgstr "డానిష్"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr "Dutch"
+msgstr "డచ్"
 
 #. generated from lang-table
 msgid "English"
-msgstr "English"
+msgstr "ఇంగ్లీష్"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr "Estonian"
+msgstr "ఎస్టొనియన్"
 
 #. generated from lang-table
 msgid "Finnish"
-msgstr "Finnish"
+msgstr "ఫిన్నిష్"
 
 #. generated from lang-table
 msgid "French"
-msgstr "French"
+msgstr "ఫ్రెంచ్"
 
 #. generated from lang-table
 msgid "German"
-msgstr "German"
+msgstr "జెర్మన్"
 
 #. generated from lang-table
 msgid "Greek"
-msgstr "Greek"
+msgstr "గ్రీక్"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr "Gujarati"
+msgstr "గుజరాతీ"
 
 #. generated from lang-table
 msgid "Hindi"
-msgstr "Hindi"
+msgstr "హింది"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr "Hungarian"
+msgstr "హంగేరియన్"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr "Icelandic"
+msgstr "ఐలాండిక్"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "ఇలోకో"
 
 #. generated from lang-table
 msgid "Indonesian"
-msgstr "Indonesian"
+msgstr "ఇండోనేషియన్"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr "Italian"
+msgstr "ఇటాలియన్"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr "Japanese"
+msgstr "జపనీస్"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr "Kannada"
+msgstr "కన్నడ"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr "Korean"
+msgstr "కొరియన్"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr "Macedonian"
+msgstr "మెసిడోనియన్"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr "Malay"
+msgstr "మలాయ్"
 
 #. generated from lang-table
 msgid "Malayalam"
-msgstr "Malayalam"
+msgstr "మలయాళం"
 
 #. generated from lang-table
 msgid "Marathi"
-msgstr "Marathi"
+msgstr "మరాఠీ"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr "Norwegian"
+msgstr "నార్వేయన్"
 
 #. generated from lang-table
 msgid "Northern Sotho"
-msgstr "Northern Sotho"
+msgstr "నార్త్రన్ సొతొ"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr "Oriya"
+msgstr "ఒరియా"
 
 #. generated from lang-table
 msgid "Persian"
-msgstr "Persian"
+msgstr "పర్షియన్"
 
 #. generated from lang-table
 msgid "Polish"
-msgstr "Polish"
+msgstr "పొలిష్"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr "Portuguese"
+msgstr "పోర్చుగీస్"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr "Portuguese(Brazilian)"
+msgstr "పోర్చుగీస్(బ్రెజిలియన్)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr "Punjabi"
+msgstr "పంజాబీ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "Croatian"
+msgstr "రొమానియన్"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr "Russian"
+msgstr "రష్యన్"
 
 #. generated from lang-table
 msgid "Serbian"
-msgstr "Serbian"
+msgstr "సెర్బియన్"
 
 #. generated from lang-table
 msgid "Serbian(Latin)"
-msgstr "Serbian(Latin)"
+msgstr "సెర్బయన్(లాటిన్)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "సిన్హాలా"
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr "Slovak"
+msgstr "స్లొవేక్"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr "Slovenian"
+msgstr "స్లొవేనియన్"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr "Spanish"
+msgstr "స్పానిష్"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr "Swedish"
+msgstr "స్వేడిష్"
 
 #. generated from lang-table
 msgid "Tamil"
-msgstr "Tamil"
+msgstr "తమిళ్"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "తెలుగు"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr "Turkish"
+msgstr "టర్కిష్"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr "Ukrainian"
+msgstr "ఉక్రెనియన్"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr "Vietnamese"
+msgstr "వియత్నాంసి"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr "Welsh"
+msgstr "వెల్షు"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr "Zulu"
+msgstr "జులు"
 
