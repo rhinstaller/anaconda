@@ -90,16 +90,7 @@ def findExistingRoots(anaconda, upgradeany = 0):
 
     anaconda.id.diskset.openDevices()
     
-    win = anaconda.intf.progressWindow(_("Searching"),
-                              _("Searching for %s installations...") %
-                              (productName,), 5)
-
     rootparts = anaconda.id.diskset.findExistingRootPartitions(upgradeany = upgradeany)
-    for i in range(1, 6):
-        time.sleep(0.25)
-        win.set(i)
-
-    win.pop()
 
     # close the devices to make sure we don't leave things sitting open 
     anaconda.id.diskset.closeDevices()

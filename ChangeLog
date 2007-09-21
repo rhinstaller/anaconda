@@ -1,5 +1,8 @@
 2007-09-21  Jeremy Katz  <katzj@redhat.com>
 
+	* upgrade.py (findExistingRoots): Remove useless progress 
+	window (related to #240459)
+
 	* textw/keyboard_text.py (KeyboardWindow.__call__): Be more
 	tolerant of bad keyboard being specified
 
