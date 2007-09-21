@@ -78,6 +78,13 @@ class PartitionTypeWindow(InstallWindow):
                 raise gui.StayOnScreen
             
             defboot = self.bootcombo.get_model().get_value(defiter, 1)
+           
+            if not defboot in allowdrives:
+                msg = _("Do you really want to boot from disk which is not used for instalation?")
+                rc = self.intf.messageWindow(_("Warning"), msg, type="yesno", default="no", custom_icon ="warning")
+                if not rc:
+                    raise gui.StayOnScreen
+            
             self.anaconda.id.bootloader.drivelist.remove(defboot)
             self.anaconda.id.bootloader.drivelist.insert(0, defboot)            
 

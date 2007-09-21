@@ -1,3 +1,12 @@
+2007-09-21  Martin Sivak  <msivak@redhat.com>
+
+	* bootloader.py (bootloaderSetupChoices): Honor the "Boot this
+	instalation from" choice when figuring out the drive order for
+	bootloader (#243556, #243799).
+
+	* iw/autopart_type.py (PartitionTypeWindow): Show warning when Boot
+	from media is not allowed in Use this drive for instalation. (#243799)
+
 2007-09-20  Jeremy Katz  <katzj@redhat.com>
 
 	* livecd.py (LiveCDCopyBackend._doFilesystemMangling): Set label
