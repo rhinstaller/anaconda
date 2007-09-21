@@ -625,8 +625,6 @@ class YumBackend(AnacondaBackend):
             iutil.mkdirChain("/tmp/cache/headers")
 
         self.ayum.doMacros()
-        self.ayum.doTsSetup()
-        self.ayum.doRpmDBSetup()
 
         longtasks = ( (self.ayum.doRepoSetup, 4),
                       (self.ayum.doSackSetup, 6) )
