@@ -1,3 +1,9 @@
+2007-09-21  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (AnacondaYum.isGroupInstalled): These semantics
+	are questionable for the installed system with conditionals, but
+	they're entirely bogus for install (#296581)
+
 2007-09-21  Martin Sivak  <msivak@redhat.com>
 
 	* lang-table: Add correct codes for serbian language & keyboard (#235709)

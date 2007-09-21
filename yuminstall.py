@@ -565,11 +565,6 @@ class AnacondaYum(YumSorter):
             return True
         elif grp.installed and not grp.toremove:
             return True
-        if (len(grp.optional_packages.keys()) ==
-            len(grp.mandatory_packages.keys()) ==
-            len(grp.default_packages.keys()) == 0) and \
-            len(grp.conditional_packages.keys()) != 0:
-            return True
         return False
 
 class YumBackend(AnacondaBackend):
