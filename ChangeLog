@@ -1,5 +1,12 @@
 2007-09-21  Martin Sivak  <msivak@redhat.com>
 
+	* lang-table: Add correct codes for serbian language & keyboard (#235709)
+
+	* po/sr@Latn.po: rename file to po/sr@latin.po to honour the new iso
+	code
+
+2007-09-21  Martin Sivak  <msivak@redhat.com>
+
 	* bootloader.py (bootloaderSetupChoices): Honor the "Boot this
 	instalation from" choice when figuring out the drive order for
 	bootloader (#243556, #243799).
