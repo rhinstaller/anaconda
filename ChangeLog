@@ -1,5 +1,10 @@
 2007-09-21  Jeremy Katz  <katzj@redhat.com>
 
+	* textw/keyboard_text.py (KeyboardWindow.__call__): Be more
+	tolerant of bad keyboard being specified
+
+	* lang-table: Fix traceback for Romanian (#292091)
+
 	* yuminstall.py (YumBackend.doRepoSetup): Don't explicitly call
 	tssetup/rpmsetup anymore.  They happen as needed and then we can
 	catch the exception on doing repo setup (#295381)

@@ -33,6 +33,9 @@ class KeyboardWindow:
 	else:
 	    default = anaconda.id.instLanguage.getDefaultKeyboard()
 
+        if default not in keyboards:
+            default = 'us'
+
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Keyboard Selection"),
                                 _("Which model keyboard is attached to this computer?"), keyboards, 
@@ -43,7 +46,7 @@ class KeyboardWindow:
             return INSTALL_BACK
 
         anaconda.id.keyboard.set (keyboards[choice])
-	anaconda.id.keyboard.beenset = 1
+        anaconda.id.keyboard.beenset = 1
 
         anaconda.id.keyboard.activate()
 
