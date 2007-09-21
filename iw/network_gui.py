@@ -387,6 +387,11 @@ class NetworkWindow(InstallWindow):
                self.devices[device].info.has_key('DESC'):
                 devdesc = "%s - %s" % (self.devices[device].info["HWADDR"],
                                        self.devices[device].info["DESC"])
+            elif self.devices[device].info.has_key('HWADDR'):
+                devdesc = self.devices[device].info["HWADDR"]
+            elif self.devices[device].info.has_key('DESC'):
+                devdesc = self.devices[device].info["DESC"]
+
             self.ethdevices.append_row((device, ipv4, ipv6), active, tooltipText=devdesc)
 
             num += 1

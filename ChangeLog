@@ -1,5 +1,10 @@
 2007-09-21  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/network_gui.py (NetworkWindow.setupDevices): More things
+	could be reasonable tooltips
+	* iw/checklist.py (CheckList._tipQuery): Do per-row tooltips
+	correctly
+
 	* yuminstall.py (AnacondaYum.isGroupInstalled): These semantics
 	are questionable for the installed system with conditionals, but
 	they're entirely bogus for install (#296581)

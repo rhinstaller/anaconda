@@ -67,6 +67,21 @@ class CheckList (gtk.TreeView):
         # iterate over them all
         self.num_rows = 0
 
+        self.tiptext = {}
+        self.props.has_tooltip = True
+        self.connect("query-tooltip", self._tipQuery)
+
+    def _tipQuery(self, widget, x, y, kbd, tip, *data):
+        (tx, ty) = widget.convert_widget_to_bin_window_coords(x, y)
+        r = widget.get_path_at_pos(tx, ty)
+        if not r:
+            return False
+        path = r[0]
+        if not self.tiptext.has_key(path):
+            return False
+        tip.set_text(self.tiptext[path])
+        return True
+
     def append_row (self, textList, init_value, tooltipText = None):
         """Add a row to the list.
         text: text to display in the row
@@ -82,8 +97,10 @@ class CheckList (gtk.TreeView):
             self.store.set_value(iter, i, textList[i - 1])
             i = i + 1
 
+        if tooltipText:
+            self.tiptext[self.store.get_path(iter)] = tooltipText
+
         self.num_rows = self.num_rows + 1
-        self.props.tooltip_markup = tooltipText
 
 
     def toggled_item(self, data, row):
@@ -166,12 +183,13 @@ def main():
     win = gtk.Window()
     cl = CheckList(1)
     for i in range(1, 10):
-        cl.append_row("%s" %(i,), False)
+        cl.append_row("%s" %(i,), False, "foo: %d" %(i,))
 
     sw = gtk.ScrolledWindow()
     sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
     sw.add (cl)
     sw.set_shadow_type(gtk.SHADOW_IN)
+    cl.set_headers_visible(True)
 
     win.add(sw)
     win.set_size_request(250, 250)
