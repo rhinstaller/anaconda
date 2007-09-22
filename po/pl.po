@@ -1350,7 +1350,7 @@ msgstr "Nie można znaleźć obrazu"
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
-"Podane położenie nie jest prawidłowym %s Live CD używanym jako źródło "
+"Podane położenie nie jest prawidłowym obrazem systemu %s używanym jako źródło "
 "instalacji."
 
 #: ../livecd.py:98
@@ -1359,7 +1359,7 @@ msgstr "Zakończ instalator"
 
 #: ../livecd.py:174
 msgid "Copying live image to hard drive."
-msgstr "Kopiowanie obrazu Live na dysk twardy."
+msgstr "Kopiowanie obrazu systemu na dysk twardy."
 
 #: ../livecd.py:203
 msgid "Doing post-installation"
@@ -1582,7 +1582,7 @@ msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
-"Wystąpił błąd - brak urządzenia na którym można utworzyć nowy system plików. "
+"Wystąpił błąd - brak urządzenia, na którym można utworzyć nowy system plików. "
 "Sprawdź swój sprzęt i znajdź przyczynę problemu."
 
 #: ../partIntfHelpers.py:35
@@ -2770,7 +2770,7 @@ msgstr ""
 
 #: ../yuminstall.py:836
 msgid "Uncategorized"
-msgstr "Nie w kategoriach"
+msgstr "Poza kategoriami"
 
 #: ../yuminstall.py:1045
 #, python-format
@@ -5465,7 +5465,7 @@ msgstr "Których dysków chcesz użyć do instalacji?"
 #: ../textw/partition_text.py:1588
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 msgstr ""
-"<Space>,<+>,<-> wybór   |   <F2> Dodaj napęd   |   <F12> następny ekran"
+"<Spacja>,<+>,<-> wybór   |   <F2> Dodaj napęd   |   <F12> następny ekran"
 
 #: ../textw/partition_text.py:1657
 msgid "Review Partition Layout"
@@ -6018,7 +6018,7 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
-"Drzewo instalacyjne %s w tym folderze nie wygląda na zgodne z nośnikiem z "
+"Drzewo instalacyjne %s w tym folderze nie wygląda na zgodne z nośnikiem, z "
 "którego uruchomiono instalację."
 
 #: ../loader2/hdinstall.c:158
@@ -6081,7 +6081,7 @@ msgstr "Typ klawiatury"
 
 #: ../loader2/kbd.c:130
 msgid "What type of keyboard do you have?"
-msgstr "Jaki masz typ klawiatury?"
+msgstr "Jakiego typu klawiatury używasz?"
 
 #: ../loader2/kickstart.c:128
 #, c-format
@@ -6122,7 +6122,7 @@ msgstr "Błędny argument polecenia shutdown metody kickstart %s: %s"
 #: ../loader2/lang.c:56
 #, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Witaj w %s - tryb ratunkowy"
+msgstr "Witaj w trybie ratunkowym systemu %s"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:159
 msgid ""
@@ -6829,7 +6829,7 @@ msgstr "Zainstaluj"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr "Zainstaluj Live CD na dysk twardy"
+msgstr "Zainstaluj obraz systemu na dysk twardy"
 
 #: tmp/liveinst.desktop.in.h:3
 msgid "Install to Hard Drive"
