@@ -1,3 +1,8 @@
+2007-09-24  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/mk-images (foundakernel): And instead expand it out here
+	* scripts/upd-instroot (PACKAGES): Don't grab firmware here
+
 2007-09-21  Jeremy Katz  <katzj@redhat.com>
 
 	* upgrade.py (findExistingRoots): Remove useless progress 

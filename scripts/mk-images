@@ -595,28 +595,28 @@ makeinitrd() {
         case $module in
             ipw2100)
                 mkdir -p $MBD_DIR/lib/firmware
-                cp $IMGPATH/lib/firmware/ipw2100* $MBD_DIR/lib/firmware
+                cp $KERNELROOT/lib/firmware/ipw2100* $MBD_DIR/lib/firmware
                 ;;
             ipw2200)
                 mkdir -p $MBD_DIR/lib/firmware
-                cp $IMGPATH/lib/firmware/ipw-2.4* $MBD_DIR/lib/firmware
-                cp $IMGPATH/lib/firmware/ipw2200* $MBD_DIR/lib/firmware
+                cp $KERNELROOT/lib/firmware/ipw-2.4* $MBD_DIR/lib/firmware
+                cp $KERNELROOT/lib/firmware/ipw2200* $MBD_DIR/lib/firmware
                 ;;
             iwl3945)
                 mkdir -p $MBD_DIR/lib/firmware
-                cp $IMGPATH/lib/firmware/iwlwifi-3945* $MBD_DIR/lib/firmware
+                cp $KERNELROOT/lib/firmware/iwlwifi-3945* $MBD_DIR/lib/firmware
                 ;;
             iwl4965)
                 mkdir -p $MBD_DIR/lib/firmware
-                cp $IMGPATH/lib/firmware/iwlwifi-4965* $MBD_DIR/lib/firmware
+                cp $KERNELROOT/lib/firmware/iwlwifi-4965* $MBD_DIR/lib/firmware
                 ;;
             atmel)
                 mkdir -p $MBD_DIR/lib/firmware
-                cp $IMGPATH/lib/firmware/atmel_*.bin $MBD_DIR/lib/firmware
+                cp $KERNELROOT/lib/firmware/atmel_*.bin $MBD_DIR/lib/firmware
                 ;;
             zd1211rw)
                 mkdir -p $MBD_DIR/lib/firmware/zd1211
-                cp $IMGPATH/lib/firmware/zd1211/* $MBD_DIR/lib/firmware/zd1211
+                cp $KERNELROOT/lib/firmware/zd1211/* $MBD_DIR/lib/firmware/zd1211
                 ;;
         esac
     done
@@ -843,6 +843,8 @@ for KERNELARCH in $arches; do
     echo "unpacking $kpackage.$arch"
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
+    # expand out any available firmware too
+    rpm2cpio $KERNELPATH | (cd $KERNELROOT; cpio --quiet -iumd)
 
     if [ ! -d "$KERNELROOT/lib/modules/$version" ]; then
 	echo "$KERNELROOT/lib/modules/$version is not a valid modules directory" 2>&1

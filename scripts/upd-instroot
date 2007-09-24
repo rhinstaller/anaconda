@@ -253,8 +253,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 yum-metadata-parser gfs2-utils libvolume_id nash yum-fedorakmod
 	 libdhcp libnl libdhcp6client libdhcp4client newt-python
 	 device-mapper device-mapper-libs dmraid keyutils-libs libsemanage-python
-	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr
-	 *-firmware pcre"
+	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr pcre"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
