@@ -585,13 +585,18 @@ makeinitrd() {
         cp $IMGPATH/usr/sbin/cmsfs* $MBD_DIR/sbin/
     fi
 
+    if [ -n "$INITRDMODULES" ]; then
+	MODSET=`expandModuleSet "$INITRDMODULES"`
+        makemoduleball --name $MODULEBALLNAME $MBD_DIR/modules "$MODSET"
+    fi
+
     # Copy in driver firmware we want during installation.  NOTE:  This isn't
     # the ideal solution, but we'll do this for now.  What we really want is
     # for the kernel modules to include a modinfo field that names the firmware
     # file we should have.  If we can get that it would make it even easier to
     # push the kernel people to depend on the firmware packages in the kernel,
     # but we have to take small steps first.
-    for module in $INITRDMODULES ; do
+    for module in $MODSET ; do
         case $module in
             ipw2100)
                 mkdir -p $MBD_DIR/lib/firmware
@@ -620,11 +625,6 @@ makeinitrd() {
                 ;;
         esac
     done
-
-    if [ -n "$INITRDMODULES" ]; then
-	MODSET=`expandModuleSet "$INITRDMODULES"`
-        makemoduleball --name $MODULEBALLNAME $MBD_DIR/modules "$MODSET"
-    fi
 
     cat > $MBD_DIR/etc/passwd << EOF
     root::0:0:root:/:/bin/bash
