@@ -18,7 +18,7 @@ for root, dirs, files in os.walk(path):
         mods[file] = os.path.join(root,file)
 
 modules = { 'scsi_hostadapter' : [ 'block' ], 'eth' : [ 'networking'] }
-blacklist = ("ata_generic","floppy","scsi_mod","libiscsi")
+blacklist = ("ata_generic","floppy","scsi_mod","libiscsi", "b43", "prism54", "b43_legacy", "p54pci")
 
 list = {}
 

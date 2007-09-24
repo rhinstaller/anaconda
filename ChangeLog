@@ -1,5 +1,8 @@
 2007-09-24  Jeremy Katz  <katzj@redhat.com>
 
+	* utils/genmodinfo: Blacklist some modules that require firmware
+	that we don't have right now.  This should help avoid #299351
+
 	* image.py (CdromInstallMethod.filesDone): Copy media.repo if it exists
 
 	* scripts/mk-images (foundakernel): And instead expand it out here
