@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.32
+Version: 11.3.0.33
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -213,6 +213,21 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 24 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.33-1
+- Blacklist some modules to try to avoid #299351
+- Copy over media.repo if it exists
+- Fix for pulling firmware
+- Remove a useless progress window (#240459)
+- Fix Romanian traceback (#292091)
+- Catch an exception on repo setup (#295381)
+- Fix network device tool tips
+- Fix display of groups being installed vs no (#296581)
+- Fix Serbian language/keyboard (msivak, #235709)
+- Honor "boot from" dropdown more (msivak, #243556, #243799)
+- Make sure people are adequately warned about booting from a drive 
+  they're not installing to (msivak, #243799)
+- Don't label lvm on live installs either (#297391)
+
 * Wed Sep 19 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.32-1
 - spec file cleanups (dcantrell)
 - lots of pychecker fixes (clumens)
