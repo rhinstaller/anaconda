@@ -305,6 +305,11 @@ class CdromInstallMethod(ImageInstallMethod):
                         _("Unable to access the disc."))
 
     def filesDone(self):
+        try:
+            shutil.copyfile("/mnt/source/media.repo", "%s/etc/yum.repos.d/%s-install-media.repo" %(self.rootPath, productName))
+        except Exception, e:
+            log.debug("Error copying media.repo: %s" %(e,))
+        
         # we're trying to unmount the CD here.  if it fails, oh well,
         # they'll reboot soon enough I guess :)
         try:

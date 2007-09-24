@@ -1,5 +1,7 @@
 2007-09-24  Jeremy Katz  <katzj@redhat.com>
 
+	* image.py (CdromInstallMethod.filesDone): Copy media.repo if it exists
+
 	* scripts/mk-images (foundakernel): And instead expand it out here
 	(makeinitrd): Check for firmware against expanded module list
 
