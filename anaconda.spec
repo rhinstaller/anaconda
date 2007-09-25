@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.72
+Version: 10.1.1.73
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 25 2007 Dave Lehman <dlehman@redhat.com> 10.1.1.73-1
+- look for labels on all fstypes
+  Resolves: rhbz#251579
+- add e1000e driver (pjones)
+  Resolves: rhbz#253791
+
 * Mon Sep 17 2007 Dave Lehman <dlehman@redhat.com> 10.1.1.72-1
 - fix handling of MACADDR when configuring OSA layer2 networking (dcantrell)
 - Related: rhbz#233357
