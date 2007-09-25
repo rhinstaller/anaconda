@@ -1,5 +1,11 @@
 2007-09-25  Jeremy Katz  <katzj@redhat.com>
 
+	* textw/upgrade_text.py (UpgradeExamineWindow.__call__): Default
+	to upgrade if we should
+
+	* instdata.py (InstallData.reset): Allow 'doupgrade' on the
+	command line to default to doing an upgrade
+
 	* product.py: Hack to handle rawhide vs development for now
 
 	* installclasses/fedora.py (InstallClass): Use mirror list for

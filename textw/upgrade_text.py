@@ -193,6 +193,11 @@ class UpgradeExamineWindow:
         partList = []
         partList.append(_("Reinstall System"))
 
+	if (anaconda.id.upgrade == None and anaconda.dispatch.stepInSkipList("installtype")) or anaconda.id.upgrade:
+            default = 1
+        else:
+            default = 0
+
         for (drive, fs, desc, label) in parts:
 	    if drive[:5] != "/dev/":
 		devname = "/dev/" + drive
@@ -209,6 +214,7 @@ class UpgradeExamineWindow:
                                                   TEXT_BACK_BUTTON ],
                                                 width = 55, scroll = scroll,
                                                 height = height,
+                                                default = default,
                                                 help = "upgraderoot")
 
         if button == TEXT_BACK_CHECK:

@@ -64,7 +64,9 @@ class InstallData:
         self.rootPassword = { "isCrypted": False, "password": "", "lock": False }
 	self.auth = "--enableshadow --enablemd5"
 	self.desktop = desktop.Desktop()
-	self.upgrade = None
+        self.upgrade = None
+        if flags.cmdline.has_key("doupgrade"):
+            self.upgrade = True
         # XXX move fsset and/or diskset into Partitions object?
 	self.fsset.reset()
         self.diskset = partedUtils.DiskSet(self.anaconda)
