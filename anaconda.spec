@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.33
+Version: 11.3.0.34
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -213,6 +213,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 25 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.34-1
+- A few upgrade fixes; look for packages in 
+  /var/cache/yum/anaconda-upgrade/packages so that you can predownload them
+- Point to the mirror list for the "Additional Fedora Software"
+- Font movement (#304271)
+- Fix where firmware is looked for
+
 * Mon Sep 24 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.33-1
 - Blacklist some modules to try to avoid #299351
 - Copy over media.repo if it exists
