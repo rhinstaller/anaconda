@@ -1594,7 +1594,7 @@ int main(int argc, char ** argv) {
     }
     setupRamfs();
 
-    set_fw_search_path(&loaderData, "/firmware:/lib/firmware:/usr/lib/firmware");
+    set_fw_search_path(&loaderData, "/firmware:/modules/firmware");
     start_fw_loader(&loaderData);
 
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";

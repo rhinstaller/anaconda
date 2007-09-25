@@ -599,29 +599,29 @@ makeinitrd() {
     for module in $MODSET ; do
         case $module in
             ipw2100)
-                mkdir -p $MBD_DIR/lib/firmware
-                cp $KERNELROOT/lib/firmware/ipw2100* $MBD_DIR/lib/firmware
+                mkdir -p $MBD_DIR/modules/firmware
+                cp $KERNELROOT/lib/firmware/ipw2100* $MBD_DIR/modules/firmware
                 ;;
             ipw2200)
-                mkdir -p $MBD_DIR/lib/firmware
-                cp $KERNELROOT/lib/firmware/ipw-2.4* $MBD_DIR/lib/firmware
-                cp $KERNELROOT/lib/firmware/ipw2200* $MBD_DIR/lib/firmware
+                mkdir -p $MBD_DIR/modules/firmware
+                cp $KERNELROOT/lib/firmware/ipw-2.4* $MBD_DIR/modules/firmware
+                cp $KERNELROOT/lib/firmware/ipw2200* $MBD_DIR/modules/firmware
                 ;;
             iwl3945)
-                mkdir -p $MBD_DIR/lib/firmware
-                cp $KERNELROOT/lib/firmware/iwlwifi-3945* $MBD_DIR/lib/firmware
+                mkdir -p $MBD_DIR/modules/firmware
+                cp $KERNELROOT/lib/firmware/iwlwifi-3945* $MBD_DIR/modules/firmware
                 ;;
             iwl4965)
-                mkdir -p $MBD_DIR/lib/firmware
-                cp $KERNELROOT/lib/firmware/iwlwifi-4965* $MBD_DIR/lib/firmware
+                mkdir -p $MBD_DIR/modules/firmware
+                cp $KERNELROOT/lib/firmware/iwlwifi-4965* $MBD_DIR/modules/firmware
                 ;;
             atmel)
-                mkdir -p $MBD_DIR/lib/firmware
-                cp $KERNELROOT/lib/firmware/atmel_*.bin $MBD_DIR/lib/firmware
+                mkdir -p $MBD_DIR/modules/firmware
+                cp $KERNELROOT/lib/firmware/atmel_*.bin $MBD_DIR/modules/firmware
                 ;;
             zd1211rw)
-                mkdir -p $MBD_DIR/lib/firmware/zd1211
-                cp $KERNELROOT/lib/firmware/zd1211/* $MBD_DIR/lib/firmware/zd1211
+                mkdir -p $MBD_DIR/modules/firmware/zd1211
+                cp $KERNELROOT/lib/firmware/zd1211/* $MBD_DIR/modules/firmware/zd1211
                 ;;
         esac
     done
