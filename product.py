@@ -52,3 +52,6 @@ if os.environ.has_key("ANACONDA_PRODUCTARCH"):
     productArch = os.environ["ANACONDA_PRODUCTARCH"]
 if os.environ.has_key("ANACONDA_BUGURL"):
     bugUrl = os.environ["ANACONDA_BUGURL"]
+
+if productVersion == "development": # hack to transform for now
+    productVersion = "rawhide"
