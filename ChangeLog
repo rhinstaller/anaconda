@@ -1,5 +1,12 @@
 2007-09-25  Jeremy Katz  <katzj@redhat.com>
 
+	* installclasses/fedora.py (InstallClass): Use mirror list for
+	additional software
+
+	* yuminstall.py (AnacondaCallback.callback): Look for packages in
+	/var/cache/yum/anaconda-upgrade/packages so that they can be
+	downloaded before the upgrade begins
+
 	* scripts/upd-instroot (KEEPFILEGR): More font movement (#304271)
 
 	* loader2/loader.c (main): Look in /modules/firmware
