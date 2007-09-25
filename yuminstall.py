@@ -79,6 +79,7 @@ class AnacondaCallback:
         self.waitWindow = anaconda.intf.waitWindow        
         self.progress = anaconda.id.instProgress
         self.progressWindowClass = anaconda.intf.progressWindow
+        self.rootPath = anaconda.rootPath
 
         self.initWindow = None
 
@@ -153,6 +154,15 @@ class AnacondaCallback:
 
             self.instLog.flush()
             self.openfile = None
+            
+            if os.path.exists("%s/var/cache/yum/anaconda-upgrade/packages/%s" 
+                              %(self.rootPath,os.path.basename(po.localPkg()))):
+                try:
+                    f = open("%s/var/cache/yum/anaconda-upgrade/packages/%s" %(self.rootPath,os.path.basename(po.localPkg())), 'r')
+                    self.openfile = f
+                    log.info("using already downloaded package for %s" %(po,))
+                except:
+                    pass
 
             while self.openfile is None:
                 try:
@@ -176,9 +186,10 @@ class AnacondaCallback:
             self.openfile = None
 
             repo = self.repos.getRepo(self.inProgressPo.repoid)
-            if len(filter(lambda u: u.startswith("file:"), repo.baseurl)) == 0:
+            if (len(filter(lambda u: u.startswith("file:"), repo.baseurl)) == 0 
+                or os.path.dirname(fn) == "%s/var/cache/yum/anaconda-upgrade/packages" %(self.rootPath,)):
                 try:
-                    os.remove(fn)
+                    os.unlink(fn)
                 except OSError, e:
                     log.debug("unable to remove file %s" %(e,))
             self.inProgressPo = None
