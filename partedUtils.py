@@ -571,10 +571,7 @@ class DiskSet:
             disk = self.disks[drive]
             func = lambda part: (part.is_active() and
                                  not (part.get_flag(parted.PARTITION_RAID)
-                                      or part.get_flag(parted.PARTITION_LVM))
-                                 and part.fs_type
-                                 and (part.fs_type.name in ("ext2",
-                                                            "ext3", "xfs")))
+                                      or part.get_flag(parted.PARTITION_LVM)))
             parts = filter_partitions(disk, func)
             for part in parts:
                 node = get_partition_name(part)

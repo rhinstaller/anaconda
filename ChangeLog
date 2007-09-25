@@ -1,3 +1,8 @@
+2007-09-20  Dave Lehman  <dlehman@redhat.com>
+
+	* partedUtils.py (DiskSet.getLabels): look for labels on all 
+	partitions, regardless of fstype (#251579)
+
 2007-09-17  Dave Lehman  <dlehman@redhat.com>
 
 	* anaconda.spec: Bump version.
