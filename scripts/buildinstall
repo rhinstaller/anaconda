@@ -99,7 +99,7 @@ if [ -z "$BUILDINSTDIR" ]; then
 fi
 TREEDIR=${TMPDIR:-/tmp}/treedir.$$
 
-BUILDARCH=`rpm -qp --qf "%{ARCH}" $PKGDIR/anaconda-runtime-[0-9]*`
+BUILDARCH=`rpm -qp --qf "%{ARCH}\n" $PKGDIR/anaconda-runtime-[0-9]* |head -n 1`
 
 echo "Running buildinstall..."
 
