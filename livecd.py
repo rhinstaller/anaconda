@@ -358,7 +358,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             rc = anaconda.intf.messageWindow(_("Error"),
                                         _("The root filesystem you created is "
                                           "not large enough for this live "
-                                          "image (%.2f MB required.") % ossize,
+                                          "image (%.2f MB required).") % ossize,
                                         type = "custom",
                                         custom_icon = "error",
                                         custom_buttons=[_("_Back"),
