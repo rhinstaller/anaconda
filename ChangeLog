@@ -1,3 +1,9 @@
+2007-09-27  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/nl.c (netlink_interfaces_mac2str): Check return value correctly
+	on netlink_interfaces_list_init() (#230525, #209284).
+	* isys/nl.c (netlink_interfaces_ip2str): Likewise.
+
 2007-09-19  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
