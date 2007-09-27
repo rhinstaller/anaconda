@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.83
+Version: 11.1.2.84
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 27 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.84-1
+- Check return values correctly on netlink_interfaces_ip2str() and
+  netlink_interfaces_mac2str()
+  Resolves: rhbz#230525
+  Related: rhbz#209284
+
 * Wed Sep 19 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.83-1
 - Add cxgb3 driver (pjones)
   Resolves: rhbz#296791
