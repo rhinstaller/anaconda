@@ -1,3 +1,9 @@
+2007-09-27  Jeremy Katz  <katzj@redhat.com>
+
+	* utils/genmodinfo: Blacklist more wireless drivers; with the way
+	that mac80211 works, we really can't support it in the loader
+	right now
+
 2007-09-26  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/buildinstall (BUILDARCH): Make more predictable (#239897)
