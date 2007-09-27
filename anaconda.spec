@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.34
+Version: 11.3.0.35
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -213,6 +213,12 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 27 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.35-1
+- Support modname.option=value for passing options to kernel modules
+- Fix rescue CD + nfsiso (clumens)
+- Blacklist more wireless drivers that can't work
+- Make buildarch more predictable (#239897)
+
 * Tue Sep 25 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.34-1
 - A few upgrade fixes; look for packages in 
   /var/cache/yum/anaconda-upgrade/packages so that you can predownload them

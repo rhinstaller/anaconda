@@ -1,3 +1,11 @@
+2007-09-27  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: Bump version.
+
+	* loader2/modules.c (loadModule): Look for options specified on
+	the kernel command line for modules in the form 
+	modname.option = value to match the syntax of built-in params
+
 2007-09-27  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/cdinstall.c (mountCdromStage2):  Don't assume the CD is

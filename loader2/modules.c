@@ -257,18 +257,109 @@ static struct loadedModuleInfo * getLoadedModuleInfo(moduleList modLoaded,
     return NULL;
 }
 
+struct moduleOptions {
+    char *name;
+    int numopts;
+    char **options;
+};
+
+static struct moduleOptions * modopts = NULL;
+static int nummodopts = -1;
+
+/* read module options out of /proc/cmdline and into a structure */
+static void readModuleOpts() {
+    int fd;
+    size_t len = 0;
+    char buf[1024];
+    char *start, *end, *sep;
+    int found = 0, i;
+
+    nummodopts = 0;
+    if ((fd = open("/proc/cmdline", O_RDONLY)) < 0)
+        return;
+
+    len = read(fd, buf, sizeof(buf) - 1);
+    close(fd);
+    buf[len] = '\0';
+    start = buf;
+
+    while (start) {
+        end = strstr(start, " ");
+        if (end)
+            *end = '\0';
+        sep = strstr(start, "=");
+        if (sep == NULL) {
+            if (!end)
+                break;
+            start = end + 1;
+            continue;
+        }
+        sep = strstr(start, ".");
+        if (sep == NULL) {
+            if (!end)
+                break;
+            start = end + 1;
+            continue;
+        }
+        *sep = '\0'; sep++;
+
+        found = 0;
+        for (i = 0; i < nummodopts; i++) {
+            if (strncmp(modopts[i].name, start, strlen(modopts[i].name)))
+                continue;
+            modopts[i].numopts++;
+            found = 1;
+            break;
+        }
+        if (found == 0) {
+            modopts = realloc(modopts, sizeof(*modopts) * (nummodopts + 1));
+            modopts[nummodopts].name = strdup(start);
+            modopts[nummodopts].numopts = 1;
+            modopts[nummodopts++].options = NULL;
+        }
+        modopts[i].options = realloc(modopts[i].options, 
+                                     sizeof(modopts[i].options) * 
+                                     (modopts[i].numopts + 1));
+        modopts[i].options[modopts[i].numopts - 1] = strdup(sep);
+
+        if (!end)
+            break;
+        start = end + 1;
+    }
+
+    /* null-terminate options for each module */
+    for (i = 0; i < nummodopts; i++) {    
+        modopts[i].options[modopts[i].numopts] = NULL;
+    }
+}
+
+/* look for options for a specific module from the command line */
+static char ** cmdLineModuleOpts(const char *modName) {
+    int i;
+
+    if (nummodopts == -1)
+        readModuleOpts();
+    for (i = 0; i < nummodopts; i++) {
+        if (strncmp(modName, modopts[i].name, strlen(modName)))
+            continue;
+        return modopts[i].options;
+    }
+    return NULL;
+}
+
+
 /* load a single module.  this is the real workhorse of loading modules */
 static int loadModule(const char * modName, struct extractedModule * path,
                       moduleList modLoaded, char ** args, 
                       moduleInfoSet modInfo) {
     char fileName[300];
-    char ** argPtr, ** newArgs, ** arg;
+    char ** argPtr, ** newArgs, ** arg, ** cmdlineArgs;
     struct moduleInfo * mi = NULL;
     int deviceCount = -1;
     int popWindow = 0;
     int rc, child, i, status;
     static int usbWasLoaded = 0;
- 
+
     /* don't need to load a module that's already loaded */
     if (mlModuleInList(modName, modLoaded))
         return 0;
@@ -288,6 +379,23 @@ static int loadModule(const char * modName, struct extractedModule * path,
                 popWindow = 1;
             }
         }
+    }
+
+    /* look to see if there are options for this module specified on
+     * the command line.  should be specified in the form of
+     *     module.option=value
+     */
+    cmdlineArgs = cmdLineModuleOpts(modName);
+    if (!args && cmdlineArgs) {
+        args = cmdlineArgs;
+    } else if (cmdlineArgs) {
+        for (i=0, arg = args; *arg; arg++, i++);
+        for (arg = cmdlineArgs; *arg; arg++, i++);
+        args = realloc(args, sizeof(*newArgs) * (i + 1));
+        for (i=0, arg = args; *arg; arg++, i++);
+        for (arg = cmdlineArgs; *arg; arg++, i++)
+            args[i] = strdup(*arg);
+        args[i] = NULL;
     }
 
     sprintf(fileName, "%s.ko", modName);
