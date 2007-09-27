@@ -146,15 +146,17 @@ static void wrongCDMessage(void) {
 /* Is called after mediacheck is done so that we can proceed with the install */
 /* During mediacheck we have to have CD umount'd so it can be ejected */
 /*                                                                    */
-/* JKFIXME: Assumes CD is mounted as /mnt/source                      */
-static void mountCdromStage2(char *cddev) {
+static void mountCdromStage2(char *cddev, char *location) {
     int gotcd1=0;
     int rc;
+    char *stage2loc;
+
+    rc = asprintf(&stage2loc, "%s/images/stage2.img", location);
 
     devMakeInode(cddev, "/tmp/cdrom");
     do {
         do {
-            if (doPwMount("/tmp/cdrom", "/mnt/source", 
+            if (doPwMount("/tmp/cdrom", location,
                           "iso9660", IMOUNT_RDONLY, NULL)) {
                 ejectCdrom();
                 wrongCDMessage();
@@ -163,11 +165,11 @@ static void mountCdromStage2(char *cddev) {
             }
         } while (1);
 
-        rc = mountStage2("/mnt/source/images/stage2.img");
+        rc = mountStage2(stage2loc);
 
-        /* if we failed, umount /mnt/source and keep going */
+        /* if we failed, umount location (usually) /mnt/source and keep going */
         if (rc) {
-            umount("/mnt/source");
+            umount(location);
             ejectCdrom();
             wrongCDMessage();
         } else {
@@ -237,8 +239,7 @@ static void writeISOStatus(int status, char *mediasum) {
 }
 
 /* ask about doing media check */
-/* JKFIXME: Assumes CD is mounted as /mnt/source                      */
-static void queryCDMediaCheck(char *dev) {
+static void queryCDMediaCheck(char *dev, char *location) {
     int rc;
     char mediasum[33];
     int isostatus;
@@ -264,20 +265,20 @@ static void queryCDMediaCheck(char *dev) {
             /* unmount CD now we've identified */
             /* a valid disc #1 is present */
             umountStage2();
-            umount("/mnt/source");
+            umount(location);
 
             /* test CD(s) */
             mediaCheckCdrom(dev);
 
             /* remount stage2 from CD #1 and proceed */
-            mountCdromStage2(dev);
+            mountCdromStage2(dev, location);
         }
     }
 }
 
 /* set up a cdrom, nominally for installation 
  *
- * location: where to mount the cdrom at JKFIXME: ignored
+ * location: where to mount the cdrom at
  * interactive: whether or not to prompt about questions/errors (1 is yes)
  *
  * loaderData is the kickstart info, can be NULL meaning no info
@@ -293,9 +294,12 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
     int i, r, rc;
     int foundinvalid = 0;
     int stage2inram = 0;
-    char * buf;
+    char *buf, *stage2loc, *discinfoloc;
     char *stage2img;
     struct device ** devices;
+
+    r = asprintf(&stage2loc, "%s/images/stage2.img", location);
+    r = asprintf(&discinfoloc, "%s/.discinfo", location);
 
     devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, 0);
     if (!devices) {
@@ -309,7 +313,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
             if (!devices[i]->device)
                 continue;
 
-            logMessage(INFO,"trying to mount CD device %s", devices[i]->device);
+            logMessage(INFO,"trying to mount CD device %s on %s", devices[i]->device, location);
 
             if (devMakeInode(devices[i]->device, "/tmp/cdrom") != 0) {
                 logMessage(ERROR, "unable to create device node for %s",
@@ -317,49 +321,50 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                 continue;
             }
 
-            if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 
+            if (!doPwMount("/tmp/cdrom", location, "iso9660",
                            IMOUNT_RDONLY, NULL)) {
-                if (!access("/mnt/source/images/stage2.img", R_OK) &&
-                    (!requirepkgs || !access("/mnt/source/.discinfo", R_OK))) {
+                if (!access(stage2loc, R_OK) &&
+                    (!requirepkgs || !access(discinfoloc, R_OK))) {
 
                     /* if in rescue mode lets copy stage 2 into RAM so we can */
                     /* free up the CD drive and user can have it avaiable to  */
                     /* aid system recovery.                                   */
                     if (FL_RESCUE(flags) && !FL_TEXT(flags) &&
                         totalMemory() > 128000) {
-                        rc = copyFile("/mnt/source/images/stage2.img", 
-                                      "/tmp/ramfs/stage2.img");
+                        rc = copyFile(stage2loc, "/tmp/ramfs/stage2.img");
                         stage2img = "/tmp/ramfs/stage2.img";
                         stage2inram = 1;
                     } else {
-                        stage2img = strdup("/mnt/source/images/stage2.img");
+                        stage2img = strdup(stage2loc);
                         stage2inram = 0;
                     }
-	
+
                     rc = mountStage2(stage2img);
 
-                    /* if we failed, umount /mnt/source and keep going */
+                    /* if we failed, umount location (usually /mnt/source) and
+                     * keep going
+                     */
                     if (rc) {
                         logMessage(INFO, "mounting stage2 failed");
 
-                        umount("/mnt/source");
+                        umount(location);
                         if (rc == -1)
                             foundinvalid = 1;
                         continue;
                     }
 
                     /* do the media check */
-                    queryCDMediaCheck(devices[i]->device);
+                    queryCDMediaCheck(devices[i]->device, location);
 
                     /* if in rescue mode and we copied stage2 to RAM */
                     /* we can now unmount the CD                     */
                     if (FL_RESCUE(flags) && stage2inram) {
-                        umount("/mnt/source");
+                        umount(location);
                         unlink("/tmp/cdrom");
                     }
 
-                    r = asprintf(&buf, "cdrom://%s:/mnt/source",
-                                 devices[i]->device);
+                    r = asprintf(&buf, "cdrom://%s:%s",
+                                 devices[i]->device, location);
                     if (r == -1)
                         return NULL;
                     else
@@ -369,7 +374,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
                 /* this wasnt the CD we were looking for, clean up and */
                 /* try the next CD drive                               */
-                umount("/mnt/source");
+                umount(location);
             }
         }
 

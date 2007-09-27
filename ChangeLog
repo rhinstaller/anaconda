@@ -1,3 +1,14 @@
+2007-09-27  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/cdinstall.c (mountCdromStage2):  Don't assume the CD is
+	mounted on /mnt/source.
+	(queryCDMediaCheck):  Likewise.
+	(setupCdrom):  Likewise.
+
+	* loader2/nfsinstall.c (mountNfsImage):  Pass /mnt/stage2 as the
+	location to mount the rescue CD on when checking for a local
+	stage2.img.  This allows the nfsiso method to work again.
+
 2007-09-27  Jeremy Katz  <katzj@redhat.com>
 
 	* utils/genmodinfo: Blacklist more wireless drivers; with the way
