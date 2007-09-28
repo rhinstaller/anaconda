@@ -151,7 +151,7 @@ char * mountNfsImage(struct installMethod * method,
                 if (!access("/mnt/source/images/stage2.img", R_OK)) {
                     logMessage(INFO, "can access /mnt/source/images/stage2.img");
                     /* try to see if we're booted off of a CD with stage2 */
-                    cdurl = findAnacondaCD(location, modInfo, modLoaded, *modDepsPtr, 0);
+                    cdurl = findAnacondaCD("/mnt/stage2", modInfo, modLoaded, *modDepsPtr, 0);
                     if (cdurl) {
                         logMessage(INFO, "Detected stage 2 image on CD");
                         winStatus(50, 3, _("Media Detected"),
