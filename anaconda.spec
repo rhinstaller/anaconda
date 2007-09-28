@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.35
+Version: 11.3.0.36
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -213,6 +213,10 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Sep 28 2007 Chris Lumens <clumens@redhat.com> 11.3.0.36-1
+- Fix rescue CD + nfs tree as well.
+- More wireless driver blacklist fixing (katzj).
+
 * Thu Sep 27 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.35-1
 - Support modname.option=value for passing options to kernel modules
 - Fix rescue CD + nfsiso (clumens)
