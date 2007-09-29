@@ -1,4 +1,4 @@
-# translation of anaconda.pot to Bulgarian
+# translation of bg.pot to Bulgarian
 # Copyright (C) 2004 Red Hat, Inc.
 # This file is distributed under the same license as the anaconda package.
 #
@@ -11,10 +11,10 @@
 # Miroslav Ivanov <satyr@globalnet.bg>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda\n"
+"Project-Id-Version: bg\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-08-22 03:44+0300\n"
+"PO-Revision-Date: 2007-09-29 11:05+0300\n"
 "Last-Translator: Doncho N. Gunchev <gunchev@gmail.com>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -2886,25 +2886,19 @@ msgstr "Грешка в данните"
 
 #: ../iw/autopart_type.py:286 ../textw/partition_text.py:1556
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr ""
-"Премахване на всички дялове на избраното устройство и създаване на "
-"подразбиращи се"
+msgstr "Премахване всички дялове на избраните у-ва и създаване стандартни"
 
 #: ../iw/autopart_type.py:287 ../textw/partition_text.py:1557
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr ""
-"Премахване Линукс дяловете на избраното устройство и създаване на "
-"подразбиращи се"
+msgstr "Премахване Линукс дяловете на избраните у-ва и създаване на стандартни"
 
 #: ../iw/autopart_type.py:288 ../textw/partition_text.py:1558
 msgid "Use free space on selected drives and create default layout"
-msgstr ""
-"Ползване свободното пространство от избраното устройство и създаване на "
-"подразбиращи се дялове"
+msgstr "Ползване свободното място от избраните у-ва и създаване на стандартни"
 
 #: ../iw/autopart_type.py:289 ../textw/partition_text.py:1559
 msgid "Create custom layout"
-msgstr "Персонализирано разделяне на дяловете"
+msgstr "Персонално разделяне на дяловете"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -5310,7 +5304,7 @@ msgstr "Не се поддържа"
 
 #: ../textw/partition_text.py:783
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr "LVM групи томове могат да се редактира само в графичния инсталатор."
+msgstr "Групите LVM томове могат да се редактират само в графичния инсталатор."
 
 #: ../textw/partition_text.py:859 ../textw/partition_text.py:912
 msgid "Invalid Entry for Partition Size"
@@ -5610,7 +5604,7 @@ msgid ""
 "Welcome to %s!\n"
 "\n"
 msgstr ""
-"Добре дошли в %s!\n"
+"Добре дошли във %s!\n"
 "\n"
 
 #: ../textw/zipl_text.py:26
@@ -6095,7 +6089,7 @@ msgstr "Невалиден аргумент за командата за спи�
 #: ../loader2/lang.c:56
 #, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Добре дошли в %s -- Спасителен режим"
+msgstr "Добре дошли във %s -- Спасителен режим"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:159
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
@@ -6241,7 +6235,7 @@ msgstr "Изпълнение на анаконда, %s спасителен ре
 #: ../loader2/loader.c:1825
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Стартиране на анаконда, системният инсталатор на %s - моля изчакайте...\n"
+msgstr "Стартиране на анаконда, системният инсталатор версия %s - моля изчакайте...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
