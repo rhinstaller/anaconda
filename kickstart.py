@@ -666,7 +666,7 @@ commandMap = {
         "cdrom": commands.method.FC6_Method,
         "clearpart": ClearPart,
         "cmdline": commands.displaymode.FC3_DisplayMode,
-        "device": commands.device.FC3_Device,
+        "device": commands.device.F8_Device,
         "deviceprobe": commands.deviceprobe.FC3_DeviceProbe,
         "dmraid": DmRaid,
         "driverdisk": commands.driverdisk.FC3_DriverDisk,
