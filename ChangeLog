@@ -1,3 +1,9 @@
+2007-10-02  Chris Lumens  <clumens@redhat.com>
+
+	* iw/language_gui.py (LanguageWindow.getNext):  If the user selected
+	the same language as the one currently displayed, don't reload the UI
+	(#290781).
+
 2007-10-01  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (commandMap):  Use the latest version of the device

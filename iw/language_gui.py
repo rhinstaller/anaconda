@@ -25,12 +25,15 @@ class LanguageWindow (InstallWindow):
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-            
+
     def getNext (self):
         (model, iter) = self.listView.get_selection().get_selected()
 	assert iter, "No selection found on language list!"
 	choice = self.listStore.get_value(iter, 1)
         self.lang = self.instLang.getNickByName(choice)
+
+        if self.lang in self.instLang.getCurrentLangSearchList():
+            return None
 
 	self.instLang.setRuntimeLanguage(self.lang)
 	self.instLang.setDefault(self.lang)
