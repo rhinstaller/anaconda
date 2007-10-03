@@ -260,6 +260,7 @@ class InstallData:
         if self.anaconda.isKickstart:
             f.write(self.ksdata.user.__str__())
             f.write(self.ksdata.services.__str__())
+            f.write(self.ksdata.reboot.__str__())
 
 	self.firewall.writeKS(f)
 	if self.auth.strip() != "":

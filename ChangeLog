@@ -1,3 +1,8 @@
+2007-10-03  Chris Lumens  <clumens@redhat.com>
+
+	* instdata.py (InstallData.writeKS):  If doing a kickstart install,
+	write the reboot command into the output anaconda-ks.cfg file.
+
 2007-10-02  Chris Lumens  <clumens@redhat.com>
 
 	* iw/language_gui.py (LanguageWindow.getNext):  If the user selected
