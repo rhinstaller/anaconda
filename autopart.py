@@ -1638,19 +1638,19 @@ def autoCreateLVMPartitionRequests(autoreq):
 def getAutopartitionBoot():
     """Return the proper shorthand for the boot dir (arch dependent)."""
     if rhpl.getArch() == "ia64":
-        return [ ("/boot/efi", "vfat", 100, None, 0, 1, 0) ]
+        return [ ("/boot/efi", "vfat", 200, None, 0, 1, 0) ]
     elif (iutil.getPPCMachine() == "pSeries"):
         return [ (None, "PPC PReP Boot", 4, None, 0, 1, 0),
-                 ("/boot", None, 100, None, 0, 1, 0) ]
+                 ("/boot", None, 200, None, 0, 1, 0) ]
     elif (iutil.getPPCMachine() == "iSeries") and not iutil.hasiSeriesNativeStorage():
         return [ (None, "PPC PReP Boot", 16, None, 0, 1, 0) ]
     elif (iutil.getPPCMachine() == "iSeries") and iutil.hasiSeriesNativeStorage():
         return []
     elif (iutil.getPPCMachine() == "PMac") and iutil.getPPCMacGen() == "NewWorld":
         return [ ( None, "Apple Bootstrap", 1, 1, 0, 1, 0), 
-                 ("/boot", None, 100, None, 0, 1, 0) ]
+                 ("/boot", None, 200, None, 0, 1, 0) ]
     else:
-        return [ ("/boot", None, 100, None, 0, 1, 0) ]
+        return [ ("/boot", None, 200, None, 0, 1, 0) ]
 
 def queryAutoPartitionOK(anaconda):
     type = anaconda.id.partitions.autoClearPartType
