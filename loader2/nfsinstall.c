@@ -279,7 +279,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
     int failed = 0;
     struct networkDeviceConfig netCfg;
-    ip_addr_t *tip;
+    ip_addr_t *tip, *u;
 
     if (kickstartNetworkUp(loaderData, &netCfg)) {
         logMessage(ERROR, "unable to bring up network");
@@ -317,7 +317,8 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         }
     } else {
         tip = &(netCfg.dev.ipv4);
-        if (inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip)) == NULL) {
+        u = &(netCfg.dev.ip);
+        if ((inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip)) == NULL) && (inet_ntop(u->sa_family, IP_ADDR(u), ret, IP_STRLEN(u)) == NULL)) {
             logMessage(ERROR, "getFileFromNfs: no client IP information");
             return 1;
         }
