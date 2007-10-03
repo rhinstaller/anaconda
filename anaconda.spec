@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.84
+Version: 11.1.2.85
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 03 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.85-1
+- Check both IP structure members in getFileFromNfs()
+  Resolves: rhbz#316251
+
 * Thu Sep 27 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.84-1
 - Check return values correctly on netlink_interfaces_ip2str() and
   netlink_interfaces_mac2str()
