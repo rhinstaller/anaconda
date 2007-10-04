@@ -1,3 +1,8 @@
+2007-10-04  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (AnacondaYum.doConfigSetup): Set repo cost so that
+	we'll pull things from the DVD over going to the network (#245696)  
+
 2007-10-03  Jeremy Katz  <katzj@redhat.com>
 
 	* autopart.py (getAutopartitionBoot): Make boot partitions 200 megs

@@ -313,6 +313,7 @@ class AnacondaYum(YumSorter):
                                    repoid="anaconda-%s-%s" %(name,
                                                              productStamp),
                                    root = root)
+            repo.cost = 100
             repo.enable()
             self.repos.add(repo)
 
