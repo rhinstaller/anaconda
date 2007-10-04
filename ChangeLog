@@ -1,5 +1,8 @@
 2007-10-04  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/hardware.c (detectHardware): Hack to ignore ssb 
+	driver (#311421)
+
 	* yuminstall.py (AnacondaYum.doConfigSetup): Set repo cost so that
 	we'll pull things from the DVD over going to the network (#245696)  
 
