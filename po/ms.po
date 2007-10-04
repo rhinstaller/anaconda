@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-09-03 22:22+0800\n"
+"PO-Revision-Date: 2007-10-05 00:22+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -4944,7 +4944,6 @@ msgid "Hostname Configuration"
 msgstr "Konfigurasi Namahos"
 
 #: ../textw/network_text.py:784
-#, fuzzy
 msgid "If your system is part of a larger network where hostnames are assigned by DHCP, select automatically via DHCP. Otherwise, select manually and enter a hostname for your system. If you do not, your system will be known as 'localhost.'"
 msgstr "Jika sistem anda adalah sebahagian daripada rangkain yang lebih besar dimana namahos diberikan oleh DHCP, pilih automatik melalui DHCP. Jika tidak, pilih secara manual dan masukkan namahos untuk sistem anda. Jika anda tidak masukkan, sistem anda akan dikenali sebagai 'localhost.'"
 
@@ -5106,9 +5105,8 @@ msgid "Not Supported"
 msgstr "Tidak Disokong"
 
 #: ../textw/partition_text.py:783
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr "Kumpulan Volum LVM nya boleh diedit pada pemasang grafikal."
+msgstr "Anda hanya boleh menyunting Kumpulan Volum LVM dalam pemasang bergrafik."
 
 #: ../textw/partition_text.py:859
 #: ../textw/partition_text.py:912
@@ -5149,9 +5147,8 @@ msgid "Too many spares"
 msgstr "Terlalu banyak gantian"
 
 #: ../textw/partition_text.py:1108
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "Bilangan maksimum gantian dengan array RAID0 adalah 0."
+msgstr "Anda tidak boleh menggunakan sebarang gantian dengan jujukan RAID0."
 
 #: ../textw/partition_text.py:1189
 msgid "No Volume Groups"
