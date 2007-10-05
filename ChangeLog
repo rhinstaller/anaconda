@@ -1,3 +1,8 @@
+2007-10-05  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/urlinstall.c (loadSingleUrlImage, getFileFromUrl):  Add
+	extra headers for architecture and release (#315601).
+
 2007-10-05  Jeremy Katz  <katzj@redhat.com>
 
 	* partitions.py (Partitions.sanityCheckAllRequests.getBaseReqs):

@@ -53,8 +53,14 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file,
     snprintf(filepath, sizeof(filepath), "%s", file);
 
     if (ui->protocol == URL_METHOD_HTTP) {
-        ehdrs = (char *) malloc(24+strlen(VERSION));
-        sprintf(ehdrs, "User-Agent: anaconda/%s\r\n", VERSION);
+        char *arch = getProductArch();
+        char *name = getProductName();
+        int q;
+
+        q = asprintf(&ehdrs, "User-Agent: anaconda/%s\r\n"
+                             "X-Anaconda-Architecture: %s\r\n"
+                             "X-Anaconda-System-Release: %s\r\n",
+                     VERSION, arch, name);
     }
 
     fd = urlinstStartTransfer(ui, filepath, ehdrs);
@@ -383,8 +389,14 @@ int getFileFromUrl(char * url, char * dest,
         ui.login = strdup (login);
 
     if (proto == URL_METHOD_HTTP) {
-        ehdrs = (char *) malloc(24+strlen(VERSION));
-        sprintf(ehdrs, "User-Agent: anaconda/%s\r\n", VERSION);
+        char *arch = getProductArch();
+        char *name = getProductName();
+        int q;
+
+        q = asprintf(&ehdrs, "User-Agent: anaconda/%s\r\n"
+                             "X-Anaconda-Architecture: %s\r\n"
+                             "X-Anaconda-System-Release: %s\r\n",
+                     VERSION, arch, name);
     }
 
     if (proto == URL_METHOD_HTTP && FL_KICKSTART_SEND_MAC(flags)) {
