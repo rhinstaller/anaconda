@@ -1,3 +1,10 @@
+2007-10-05  Jeremy Katz  <katzj@redhat.com>
+
+	* partitions.py (Partitions.sanityCheckAllRequests.getBaseReqs):
+	Only get the disk partition for actual partition requests
+	(#316551, #318841, #300721).  Also, only iterate over the requests
+	on mactels/efi boxes
+
 2007-10-04  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/hardware.c (detectHardware): Hack to ignore ssb 

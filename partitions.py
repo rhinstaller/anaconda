@@ -848,25 +848,29 @@ class Partitions:
                     ok = False
                 if ok:
                     for br in getBaseReqs([bootreq,]):
+                        if not isinstance(br, partRequests.PartitionSpec):
+                            continue
+
                         (disk, num) = fsset.getDiskPart(br.device)
                         if not partedUtils.hasGptLabel(diskset, disk):
                             ok = False
                 if not ok:
                     errors.append(_("You must create a /boot/efi partition of "
                                     "type FAT and a size of 50 megabytes."))
-            else:
+            elif iutil.isMactel():
                 # mactel checks
                 bootreqs = self.getBootableRequest() or []
                 for br in getBaseReqs(bootreqs):
+                    if not isinstance(br, partRequests.PartitionSpec):
+                        continue
                     (dev, num) = fsset.getDiskPart(br.device)
 
-                    if iutil.isMactel():
-                        if partedUtils.hasGptLabel(diskset, dev) \
-                                and int(num) > 4:
-                            errors.append(
-                                      _("Your boot partition isn't on one of "
-                                        "the first four partitions and thus "
-                                        "won't be bootable."))
+                    if partedUtils.hasGptLabel(diskset, dev) \
+                            and int(num) > 4:
+                        errors.append(
+                            _("Your boot partition isn't on one of "
+                              "the first four partitions and thus "
+                              "won't be bootable."))
 
         if rhpl.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")
