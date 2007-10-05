@@ -117,7 +117,7 @@ static int detectHardware(moduleInfoSet modInfo, char *** modules) {
         } else if (FL_NONET(flags) && ((*device)->type == CLASS_NETWORK)) {
             logMessage(DEBUGLVL, "ignoring network device %s (%s)",
                        (*device)->desc, driver);
-        } else if (((*device)->type == CLASS_NETWORK) && !strcmp(driver, "ssb"))
+        } else if (((*device)->type == CLASS_NETWORK) && !strcmp(driver, "ssb")) {
             /* FIXME: this is a bit of a hack to work around #311421 */
             logMessage(DEBUGLVL, "ignoring network device using ssb driver (%s)",
                        (*device)->desc);
