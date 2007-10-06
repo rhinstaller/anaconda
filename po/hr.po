@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: anaconda 0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-09-25 10:41+0100\n"
-"Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
+"PO-Revision-Date: 2007-10-06 02:45+0100\n"
+"Last-Translator: Renato Pavicic <renato<at>translator-shop.org>\n"
 "Language-Team: CROATIAN <www.translator-shop.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,7 @@ msgstr "Nepoznata pogreška"
 #: ../anaconda:265
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "Pogreška pri izvlačenju drugog dijela kickstart konfiguracije: %s!"
+msgstr "Pogreška tijekom izvlačenja drugog dijela kickstart konfiguracije: %s!"
 
 #: ../anaconda:279
 #: ../cmdline.py:70
@@ -542,7 +542,7 @@ msgstr "Izbačeni podaci nisu zapisani"
 
 #: ../exception.py:422
 msgid "There was a problem writing the system state to the floppy."
-msgstr "Došlo je do problema pri zapisivanju stanja sustava na disketu."
+msgstr "Došlo je do problema tijekom zapisivanja stanja sustava na disketu."
 
 #: ../exception.py:430
 msgid "Your system's state has been successfully written to the remote host.  The installer will now exit."
@@ -550,7 +550,7 @@ msgstr "Stanje vašeg sustava uspješno je zapisano na udaljeno računalo. Insta
 
 #: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
-msgstr "Došlo je do problema pri zapisivanju stanja sustava na udaljeno računalo."
+msgstr "Došlo je do problema tijekom zapisivanja stanja sustava na udaljeno računalo."
 
 #: ../fsset.py:216
 msgid "Checking for Bad Blocks"
@@ -643,7 +643,7 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
-"Pri preseljenju %s na ext3 došlo je do pogreške. Ukoliko to želite moguće je nastaviti bez preseljenja ovog datotečnog sustava.\n"
+"Tijekom preseljenja %s na ext3 došlo je do pogreške. Ukoliko želite moguće je nastaviti bez preseljenja ovog datotečnog sustava.\n"
 "\n"
 "Želite li nastaviti bez preseljenja %s?"
 
@@ -741,7 +741,6 @@ msgstr ""
 "u vašoj datoteci /etc/fstab trenutno je u upotrebi kao softverska suspendirana particija, odnosno vaš je sustav u hibernaciji. Ako izvodite novu instalaciju, provjerite je li instalacijski program prilagođen radi oblikovanja svih particije."
 
 #: ../fsset.py:1507
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -749,7 +748,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Ako želite da instalacijski program tijekom nadogradnje ignorira ovu particiju odaberite \"Preskoči\". Da biste particiju oblikovali kao razmjenski prostor odaberite \"Oblikovanje\". Da biste ponovo pokrenuli sustav odaberite \"Ponovno pokreni\"."
+"Ako želite da instalacijski program tijekom nadogradnje ignorira ovu particiju odaberite \"Preskoči\". Kako biste particiju oblikovali kao razmjenski prostor odaberite \"Oblikovanje\"."
 
 #: ../fsset.py:1512
 #: ../iw/partition_gui.py:368
@@ -757,7 +756,7 @@ msgid "Format"
 msgstr "Oblikovanje"
 
 #: ../fsset.py:1519
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -765,14 +764,14 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Pogreška pri omogućavanju razmjenskog uređaja %s: %s\n"
+"Pogreška tijekom omogućavanja razmjenskog uređaja %s: %s\n"
 "\n"
 "Na particiji nadogradnje /etc/fstab nema reference prema valjanoj razmjenskoj particiji.\n"
 "\n"
-"Za ponovno pokretanje sustava kliknite \"U redu\"."
+"Za izlazak iz instalacijskog programa kliknite \"U redu\"."
 
 #: ../fsset.py:1530
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -780,25 +779,25 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Pogreška pri omogućavanju razmjenskog uređaja %s: %s\n"
+"Pogreška tijekom omogućavanja razmjenskog uređaja %s: %s\n"
 "\n"
 "Najvjerojatniji razlog je da razmjenska particija nije inicijalizirana.\n"
 "\n"
-"Za ponovno pokretanje sustava kliknite \"U redu\"."
+"Za izlazak iz instalacijskog programa kliknite \"U redu\"."
 
 #: ../fsset.py:1584
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use this device.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Neispravan blok podataka pronađen je na uređaju /dev/%s. Upotreba ovog uređaja nije preporučljiva.\n"
+"Neispravni blokovi podataka pronađeni su na uređaju /dev/%s. Upotreba ovog uređaja nije preporučljiva.\n"
 "\n"
-"Za ponovno pokretanje sustava pritisnite <ENTER>."
+"Za izlazak iz instalacijskog programa pritisnite <ENTER>."
 
 #: ../fsset.py:1595
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, and the install cannot continue.\n"
 "\n"
@@ -806,10 +805,10 @@ msgid ""
 msgstr ""
 "Tijekom pretraživanja loših blokova na %s došlo je do pogreške. Ovo je ozbiljan problem  i nije moguće nastaviti s instalacijom.\n"
 "\n"
-"Za ponovno pokretanje sustava pritisnite <ENTER>."
+"Za izlazak iz instalacijskog programa pritisnite <ENTER>."
 
 #: ../fsset.py:1635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the install cannot continue.\n"
 "\n"
@@ -817,10 +816,10 @@ msgid ""
 msgstr ""
 "Tijekom pokušaja oblikovanja %s došlo je do pogreške. Ovo je ozbiljan problem i nije moguće nastaviti s instalacijom.\n"
 "\n"
-"Za ponovno pokretanje sustava pritisnite <ENTER>."
+"Za izlazak iz instalacijskog programa pritisnite <ENTER>."
 
 #: ../fsset.py:1685
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the install cannot continue.\n"
 "\n"
@@ -828,7 +827,7 @@ msgid ""
 msgstr ""
 "Tijekom preseljenja %s došlo je do pogreške. Ovo je ozbiljan problem i nije moguće nastaviti s instalacijom.\n"
 "\n"
-"Za ponovno pokretanje sustava pritisnite <ENTER>."
+"Za izlazak iz instalacijskog programa pritisnite <ENTER>."
 
 #: ../fsset.py:1711
 #: ../fsset.py:1720
@@ -836,7 +835,7 @@ msgid "Invalid mount point"
 msgstr "Neispravna točka pristupa"
 
 #: ../fsset.py:1712
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
@@ -844,10 +843,10 @@ msgid ""
 msgstr ""
 "Tijekom pokušaja izrade %s došlo je do pogreške. Neki elementi ove putanje nisu mape. To je opasna pogreška i nije moguće nastaviti s instalacijom.\n"
 "\n"
-"Za ponovno pokretanje sustava pritisnite <ENTER>."
+"Za izlazak iz instalacijskog programa pritisnite <ENTER>."
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and the install cannot continue.\n"
 "\n"
@@ -855,7 +854,7 @@ msgid ""
 msgstr ""
 "Tijekom pokušaja izrade %s došlo je do pogreške: %s. Ovo je opasna pogreška i nije moguće nastaviti s instalacijom.\n"
 "\n"
-"Za ponovno pokretanje sustava pritisnite <ENTER>."
+"Za izlazak iz instalacijskog programa pritisnite <ENTER>."
 
 #: ../fsset.py:1734
 msgid "Unable to mount filesystem"
@@ -879,7 +878,7 @@ msgid "_Continue"
 msgstr "_Nastavi"
 
 #: ../fsset.py:1751
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -891,10 +890,10 @@ msgstr ""
 "\n"
 "Uređaji u mapi /etc/fstab moraju biti određeni oznakom, a ne nazivom uređaja.\n"
 "\n"
-"Za ponovno pokretanje sustava kliknite \"U redu\"."
+"Za izlazak iz instalacijskog programa kliknite \"U redu\"."
 
 #: ../fsset.py:1758
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -902,14 +901,13 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Pogreška pri pristupu uređaja %s kao %s: %s\n"
+"Pogreška tijekom pristupanja uređaju %s kao %s: %s\n"
 "\n"
 "Ova pogreška najvjerojatnije znači da particija nije oblikovana.\n"
 "\n"
-"Za ponovno pokretanje sustava kliknite \"U redu\"."
+"Za izlazak iz instalacijskog programa kliknite \"U redu\"."
 
 #: ../fsset.py:1778
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -921,7 +919,7 @@ msgstr ""
 "\n"
 "Najvjerojatniji uzrok nepravilna stavka fstab.\n"
 "\n"
-"Za ponovno pokretanje sustava kliknite \"U redu\"."
+"Za izlazak iz instalacijskog programa kliknite \"U redu\"."
 
 #: ../fsset.py:2432
 msgid "Duplicate Labels"
@@ -989,7 +987,7 @@ msgstr "Spremljena je snimka zaslona s nazivom '%s'."
 
 #: ../gui.py:168
 msgid "Error Saving Screenshot"
-msgstr "Pogreška pri spremanju snimke zaslona"
+msgstr "Pogreška tijekom spremanja snimke zaslona"
 
 #: ../gui.py:169
 msgid "An error occurred while saving the screenshot.  If this occurred during package installation, you may need to try several times for it to succeed."
@@ -1076,7 +1074,7 @@ msgstr "_Popravak"
 #: ../gui.py:962
 #: ../text.py:405
 msgid "Error Parsing Kickstart Config"
-msgstr "Pogreška pri raščlanjivanju kickstart konfiguracije"
+msgstr "Pogreška tijekom raščlanjivanja kickstart konfiguracije"
 
 #: ../gui.py:970
 #: ../text.py:415
@@ -1163,7 +1161,7 @@ msgstr "Instalacijski prozor"
 #: ../harddrive.py:44
 #: ../image.py:146
 #: ../image.py:483
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your installation images and that you have all the required media.\n"
 "\n"
@@ -1172,7 +1170,7 @@ msgid ""
 msgstr ""
 "Datoteku %s nije moguće otvoriti.  Razlog je nepostojeća datoteka ili je paket oštećen.  Provjerite instalacijske preslike i imate li sve potrebne medije.\n"
 "\n"
-"Ako ponovo pokrenete računalo vaš će sustav ostati u nedosljednom stanju koje će najvjerojatnije zahtijevati ponovnu instalaciju.\n"
+"Ako napustite instalacijski program vaš će sustav ostati u nedosljednom stanju koje će najvjerojatnije zahtjevati ponovnu instalaciju.\n"
 "\n"
 
 #: ../harddrive.py:71
@@ -1181,7 +1179,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Nedostaje ISO 9660 preslika"
 
 #: ../harddrive.py:72
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard drive.\n"
 "\n"
@@ -1189,33 +1187,33 @@ msgid ""
 msgstr ""
 "Instalacijski program pokušao je pristupiti preslici #%s, ali je ne može pronaći na tvrdom disku.\n"
 "\n"
-"Kopirajte ovu presliku na tvrdi disk i kliknite \"Ponovi\". Da biste prekinuli instalaciju kliknite \"Ponovo pokreni\"."
+"Kopirajte ovu presliku na tvrdi disk i kliknite \"Ponovi\". Za napuštanje instalacijskog programa kliknite \"Izlazak\"."
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
 msgstr "Pristupanje ISO izvoru nije moguće"
 
 #: ../harddrive.py:118
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred mounting the source device %s.  This may happen if your ISO images are located on an advanced storage device like LVM or RAID, or if there was a problem mounting a partition.  Click exit to abort the installation."
-msgstr "Tijekom pristupanja uređaja s izvorom %s došlo je do pogreške. Ovo se može dogoditi ako su vaše ISO preslike locirane na naprednom uređaju za pohranu, kao što su LVM ili RAID, ili je došlo do problema tijekom pristupanja particiji. Da biste prekinuli instalaciju kliknite gumb \"Ponovno pokreni\"."
+msgstr "Tijekom pristupanja uređaja s izvorom %s došlo je do pogreške. Ovo se može dogoditi ako su vaše ISO preslike locirane na naprednom uređaju za pohranu, kao što su LVM ili RAID, ili je došlo do problema tijekom pristupanja particiji. Za napuštanje instalacijskog programa kliknite \"Izlazak\"."
 
 #: ../image.py:84
 msgid "Required Install Media"
 msgstr "Potreban instalacijski medij"
 
 #: ../image.py:85
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
 "\n"
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Softver odabran za instalaciju zahtijeva sljedeće CD medije:\n"
+"Softver odabran za instalaciju zahtijeva sljedeće diskove:\n"
 "\n"
 "%s\n"
-"Pripremite ih prije nastavka instalacije. Ukoliko je potrebno prekinuti instalaciju i ponovo pokrenuti računalo kliknite \"Ponovno pokreni\"."
+"Pripremite ih prije nastavka instalacije. Ukoliko je potrebno prekinuti instalaciju i naustiti instalacijski program kliknite \"Ponovno pokreni\"."
 
 #: ../image.py:93
 #: ../livecd.py:355
@@ -1231,9 +1229,9 @@ msgstr "_Povratak"
 
 #: ../image.py:136
 #: ../urlinstall.py:207
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred unmounting the disc.  Please make sure you're not accessing %s from the shell on tty2 and then click OK to retry."
-msgstr "Tijekom napuštanja CD-a došlo je do pogreške. Provjerite da niste pristupili u %s iz korisničke ljuske pri tty2, a potom kliknite \"U redu\" za ponovni pokušaj."
+msgstr "Tijekom napuštanja diska došlo je do pogreške. Provjerite da niste pristupili u %s iz korisničke ljuske pri tty2, a potom kliknite \"U redu\" za ponovni pokušaj."
 
 #: ../image.py:170
 #: ../urlinstall.py:102
@@ -1273,7 +1271,7 @@ msgid "Unable to access the disc."
 msgstr "Nije moguće pristupiti disku."
 
 #: ../image.py:369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your installation tree contains all required packages.\n"
 "\n"
@@ -1282,11 +1280,11 @@ msgid ""
 msgstr ""
 "Datoteku %s nije moguće otvoriti.  Razlog je nepostojeća datoteka ili je paket oštećen.  Provjerite sadrži li vaše instalacijsko stablo sve potrebne pakete.\n"
 "\n"
-"Ako ponovo pokrenete računalo vaš će sustav ostati u nedosljednom stanju koje će najvjerojatnije zahtijevati ponovnu instalaciju.\n"
+"Ako napustite instalacijski program vaš će sustav ostati u nedosljednom stanju koje će najvjerojatnije zahtijevati ponovnu instalaciju.\n"
 "\n"
 
 #: ../image.py:443
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may mean it was corrupted on transfer to this computer.\n"
 "\n"
@@ -1294,10 +1292,10 @@ msgid ""
 msgstr ""
 "ISO preslika %s je veličine koja nije djeljiva s 2048 bajtova. To znači da je vjerojatno oštećena tijekom prijenosa na ovo računalo.\n"
 "\n"
-"Preporučuje se ponovno pokretanje računala i prekidanje vaše instalacije, ali možete nastaviti ako mislite da je ova obavijest netočna."
+"Preporučuje se napuštanje i prekidanje vaše instalacije, ali možete nastaviti ako mislite da je ova obavijest netočna."
 
 #: ../image.py:517
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the server.\n"
 "\n"
@@ -1305,7 +1303,7 @@ msgid ""
 msgstr ""
 "Instalacijski program pokušao je pristupiti preslici #%s, ali je ne može pronaći na poslužitelju.\n"
 "\n"
-"Kopirajte presliku u mapu razmjene na poslužitelju i kliknite \"Ponovi\". Da biste prekinuli instalaciju kliknite \"Ponovo pokreni\"."
+"Kopirajte presliku u mapu razmjene na poslužitelju i kliknite \"Ponovi\". Za prekidanje instalacije kliknite \"Izlazak\"."
 
 #: ../installclass.py:67
 msgid "Install on System"
@@ -1321,15 +1319,15 @@ msgid "Scriptlet Failure"
 msgstr "Skriptlet neuspjeh"
 
 #: ../kickstart.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to exit the installer."
 msgstr ""
-"Tijekom izvršavanje skriptleta došlo je do pogreška.  Proučite izlazne podatke unutar %s.  Ovo je ozbiljna pogreška i instalacija će biti prekinuta.\n"
+"Tijekom izvršavanje skriptleta došlo je do pogreške. Proučite izlazne podatke unutar %s. Ovo je ozbiljna pogreška i instalacija će biti prekinuta.\n"
 "\n"
-"Za ponovno pokretanje sustava kliknite \"U redu\"."
+"Za izlazak iz instalacijskog programa kliknite \"U redu\"."
 
 #: ../kickstart.py:951
 #: ../kickstart.py:968
@@ -1548,9 +1546,9 @@ msgid "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem 
 msgstr "Pogon /dev/%s sadrži više od 15 particija. SCSI podsustav unutar Linux kernela trenutno ne dopušta postojanje više od 15 particija. Nećete biti u mogućnosti uređivati particioniranje ovog diska ili upotrebljavati /dev/%s15 in %s"
 
 #: ../partedUtils.py:1184
-#, fuzzy, python-format
+#, python-format
 msgid "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  in the Linux kernel does not allow for more than 15 partitions at this time.  You will not be able to make changes to the partitioning of this disk or use any partitions beyond /dev/%s15 in %s"
-msgstr "Pogon /dev/%s sadrži više od 15 particija. SCSI podsustav unutar Linux kernela trenutno ne dopušta postojanje više od 15 particija. Nećete biti u mogućnosti uređivati particioniranje ovog diska ili upotrebljavati /dev/%s15 in %s"
+msgstr "Pogon /dev/%s sadrži više od 15 particija. SCSI podsustav unutar Linux kernela trenutno ne dopušta postojanje više od 15 particija. Nećete biti u mogućnosti uređivati particioniranje ovog diska ili upotrebljavati /dev/%s15 unutar %s."
 
 #: ../partedUtils.py:1276
 msgid "No Drives Found"
@@ -1760,7 +1758,7 @@ msgstr "_Ne oblikuj"
 
 #: ../partIntfHelpers.py:426
 msgid "Error with Partitioning"
-msgstr "Pogreška pri particioniranju"
+msgstr "Pogreška tijekom particioniranja"
 
 #: ../partIntfHelpers.py:427
 #, python-format
@@ -2292,7 +2290,7 @@ msgid "Connecting..."
 msgstr "Povezivanje..."
 
 #: ../urlinstall.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your mirror contains all required packages, and try using a different one.\n"
 "\n"
@@ -2301,7 +2299,7 @@ msgid ""
 msgstr ""
 "Datoteku %s nije moguće otvoriti.  Razlog je nepostojeća datoteka ili je paket oštećen.  Provjerite sadrži li vaše zrcalo sve potrebne pakete ili pokušajte s upotrebom drugog zrcala.\n"
 "\n"
-"Ako ponovo pokrenete računalo vaš će sustav ostati u nedosljednom stanju koje će najvjerojatnije zahtijevati ponovnu instalaciju.\n"
+"Ako napustite instalacijski program vaš će sustav ostati u nedosljednom stanju koje će najvjerojatnije zahtijevati ponovnu instalaciju.\n"
 "\n"
 
 #: ../vnc.py:49
@@ -2497,11 +2495,8 @@ msgid "Finishing upgrade"
 msgstr "Dovršavanje nadogradnje"
 
 #: ../yuminstall.py:196
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr ""
-"Pokretanje postupka instalacije.\n"
-"Ovo može potrajati nekoliko minuta..."
+msgstr "Pokretanje postupka instalacije. Ovo može potrajati nekoliko minuta..."
 
 #: ../yuminstall.py:445
 #: ../yuminstall.py:642
@@ -2586,9 +2581,9 @@ msgid "Uncategorized"
 msgstr "Bez kategorije"
 
 #: ../yuminstall.py:1045
-#, fuzzy, python-format
+#, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or exit the installer."
-msgstr "Vaš odabir paketa za instalaciju zahtijeva %d MB slobodnog prostora, ali nema dovoljno raspoloživog prostora. Možete izmijeniti svoje postavke ili ponovno pokrenuti računalo."
+msgstr "Vaš odabir paketa za instalaciju zahtijeva %d MB slobodnog prostora, ali nema dovoljno raspoloživog prostora. Možete izmijeniti svoje postavke ili napustiti instalacijski program."
 
 #: ../yuminstall.py:1206
 #, python-format
@@ -3384,9 +3379,8 @@ msgid "Netmask"
 msgstr "Mrežna maska"
 
 #: ../iw/netconfig_dialog.py:211
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "Najveći ukupni broj veza mora biti između 1 i 999."
+msgstr "IPv4 CIDR prefiks mora biti između 0 i 32."
 
 #: ../iw/netconfig_dialog.py:212
 #: ../iw/netconfig_dialog.py:218
@@ -3493,7 +3487,7 @@ msgstr "Onemogućeno"
 
 #: ../iw/network_gui.py:389
 msgid "Active on Boot"
-msgstr "Aktiviraj pri pokretanju sustava"
+msgstr "Aktiviraj tijekom pokretanja sustava"
 
 #: ../iw/network_gui.py:391
 #: ../iw/osbootwidget.py:67
@@ -4661,7 +4655,7 @@ msgstr "Prefiks"
 
 #: ../textw/network_text.py:137
 msgid "Activate on boot"
-msgstr "Aktiviraj pri pokretanju"
+msgstr "Aktiviraj tijekom pokretanja"
 
 #: ../textw/network_text.py:144
 #: ../loader2/net.c:719
@@ -4775,11 +4769,11 @@ msgstr "Trenutne postavke konfiguracije svakog sučelja ispisane su pored naziva
 
 #: ../textw/network_text.py:620
 msgid "Active on boot"
-msgstr "Aktivno pri pokretanju"
+msgstr "Aktivno tijekom pokretanja"
 
 #: ../textw/network_text.py:622
 msgid "Inactive on boot"
-msgstr "Neaktivno pri pokretanju"
+msgstr "Neaktivno tijekom pokretanja"
 
 #: ../textw/network_text.py:625
 msgid "DHCP"
@@ -5389,26 +5383,26 @@ msgid "Eject Disc"
 msgstr "Izbaci disk"
 
 #: ../loader2/cdinstall.c:93
-#, fuzzy, c-format
+#, c-format
 msgid "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject the disc and insert another for testing."
 msgstr "Za ispitivanje medija koji se trenutno nalazi u uređaju odaberite \"%s\", ili \"%s\" za izbacivanje i umetanje drugog medija koji će biti ispitan."
 
 #: ../loader2/cdinstall.c:114
-#, fuzzy, c-format
+#, c-format
 msgid "If you would like to test additional media, insert the next disc and press \"%s\". Testing each disc is not strictly required, however it is highly recommended.  Minimally, the discs should be tested prior to using them for the first time. After they have been successfully tested, it is not required to retest each disc prior to using it again."
-msgstr "Ako želite provjeriti dodatne medije, umetnite CD i kliknite \"%s\".  Provjera svakog pojedinog CD-a nije obavezna, ali se snažno preporučuje barem prije njihove prve upotrebe.  Nakon uspješne provjere neće biti potrebno ponovo provjeravati svaki CD prije njegove upotrebe."
+msgstr "Ako želite provjeriti dodatne medije, umetnite sljedeći disk i kliknite \"%s\".  Provjera svakog pojedinog CD-a nije obavezna, ali se snažno preporučuje barem prije njihove prve upotrebe.  Nakon uspješne provjere neće biti potrebno ponovo provjeravati svaki CD prije njegove upotrebe."
 
 #: ../loader2/cdinstall.c:137
-#, fuzzy, c-format
+#, c-format
 msgid "The %s disc was not found in any of your drives. Please insert the %s disc and press %s to retry."
-msgstr "CD %s nije pronađen niti u jednom CD-ROM uređaju. Umetnite CD %s i kliknite %s za ponovni pokušaj."
+msgstr "Disk %s nije pronađen niti u jednom uređaju. Umetnite disk %s i kliknite %s za ponovni pokušaj."
 
 #: ../loader2/cdinstall.c:258
 msgid "Disc Found"
 msgstr "Disk je pronađen"
 
 #: ../loader2/cdinstall.c:259
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
 "\n"
@@ -5416,17 +5410,17 @@ msgid ""
 msgstr ""
 "Za početak ispitivanja medija prije instalacije kliknite %s.\n"
 "\n"
-"Da biste preskočili ispitivanja medija i pokrenuli instalaciju odaberite %s."
+"Kako biste preskočili ispitivanja medija i pokrenuli instalaciju odaberite %s."
 
 #: ../loader2/cdinstall.c:379
-#, fuzzy, c-format
+#, c-format
 msgid "No %s disc was found which matches your boot media.  Please insert the %s disc and press %s to retry."
-msgstr "Nije pronađen CD %s koji bi odgovarao vašem pokretačkom mediju. Umetnite CD %s i odaberite %s za ponovni pokušaj."
+msgstr "Nije pronađen disk %s koji bi odgovarao vašem pokretačkom mediju. Umetnite disk %s i odaberite %s za ponovni pokušaj."
 
 #: ../loader2/cdinstall.c:384
-#, fuzzy, c-format
+#, c-format
 msgid "The %s disc was not found in any of your CDROM drives. Please insert the %s disc and press %s to retry."
-msgstr "CD %s nije pronađen niti u jednom CD-ROM uređaju. Umetnite CD %s i kliknite %s za ponovni pokušaj."
+msgstr "Disk %s nije pronađen niti u jednom uređaju. Umetnite disk %s i kliknite %s za ponovni pokušaj."
 
 #: ../loader2/cdinstall.c:391
 msgid "Disc Not Found"
@@ -5441,7 +5435,7 @@ msgstr "Na CD mediju nije moguće pronaći kickstart datoteku."
 #: ../loader2/method.c:376
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Pogreška pri čitanju mape %s: %s"
+msgstr "Pogreška tijekom čitanja mape %s: %s"
 
 #: ../loader2/driverdisk.c:134
 #: ../loader2/firewire.c:55
@@ -5603,7 +5597,7 @@ msgstr "Izgleda da instalacijsko stablo %s u toj mapi ne odgovara vašem mediju 
 
 #: ../loader2/hdinstall.c:158
 msgid "An error occured reading the install from the ISO images. Please check your ISO images and try again."
-msgstr "Došlo je do pogreške pri čitanju instalacije s ISO preslika. Provjerite ISO preslike i ponovo pokušajte."
+msgstr "Došlo je do pogreške tijekom čitanja instalacije s ISO preslika. Provjerite ISO preslike i ponovo pokušajte."
 
 #: ../loader2/hdinstall.c:266
 msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
@@ -5653,12 +5647,12 @@ msgstr "Koju vrstu tipkovnice imate?"
 #: ../loader2/kickstart.c:128
 #, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr "Pogreška pri otvaranju kickstart datoteke %s: %s"
+msgstr "Pogreška tijekom otvaranja kickstart datoteke %s: %s"
 
 #: ../loader2/kickstart.c:138
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "Pogreška pri čitanju sadržaja kickstart datoteke %s: %s"
+msgstr "Pogreška tijekom čitanja sadržaja kickstart datoteke %s: %s"
 
 #: ../loader2/kickstart.c:181
 #, c-format
@@ -5675,7 +5669,7 @@ msgstr "Preuzimanje kickstart datoteke nije moguće. Preuredite kickstart parame
 
 #: ../loader2/kickstart.c:380
 msgid "Error downloading kickstart file"
-msgstr "Pogreška pri preuzimanju kickstart datoteke"
+msgstr "Pogreška tijekom preuzimanja kickstart datoteke"
 
 #: ../loader2/kickstart.c:524
 #, c-format
@@ -5839,7 +5833,7 @@ msgstr "NEUSPJEH"
 
 #: ../loader2/mediacheck.c:398
 msgid "The image which was just tested has errors. This could be due to a corrupt download or a bad disc.  If applicable, please clean the disc and try again.  If this test continues to fail you should not continue the install."
-msgstr "Preslika koja je upravo ispitana sadrži pogreške. Ovo može biti zbog pogreške pri preuzimanju ili oštećenog diska. Ako je moguće, očistite disk i pokušajte ponovo. Ako se tijekom ispitivanja nastave pojavljivati pogreške ne biste trebali nastaviti s instalacijom."
+msgstr "Preslika koja je upravo ispitana sadrži pogreške. Ovo može biti zbog pogreške tijekom preuzimanja ili uslijed oštećenog diska. Ako je moguće oslobodite prostor na disku i pokušajte ponovo. Ako se tijekom ispitivanja nastave pojavljivati pogreške ne biste trebali nastaviti s instalacijom."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
