@@ -381,7 +381,7 @@ elif [ "$NETTYPE" = "qeth" ]; then
    setupdevice
    DEVICE=`cat /sys/devices/qeth/${SUBCHANNELS//,*/}/if_name`
 	if [ -n "$LAYER2" -a -n "$MACADDR" ]; then
-		ifconfig $DEVICE hw ether $MACADDR
+		/sbin/ip link set dev $DEVICE address $MACADDR
 	fi
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null

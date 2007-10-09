@@ -1,5 +1,10 @@
 2007-10-09  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/linuxrc.s390: Use /sbin/ip instead of ifconfig to set the
+	$MACADDR (bhinson, #233357).
+
+2007-10-09  David Cantrell  <dcantrell@redhat.com>
+
 	* anaconda.spec: Bump version.
 
 2007-10-09  David Cantrell  <dcantrell@redhat.com>
