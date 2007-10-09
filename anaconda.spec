@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.74
+Version: 10.1.1.75
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 09 2007 David Cantrell <dcantrell@redhat.com> 10.1.1.75-1
+- use /sbin/ip in init to set the MAC address on s390/s390x (bhinson)
+  Resolves: rhbz#233357
+
 * Tue Oct 09 2007 David Cantrell <dcantrell@redhat.com> 10.1.1.74-1
 - add qla4xxx driver
   Resolves: rhbz#234134
