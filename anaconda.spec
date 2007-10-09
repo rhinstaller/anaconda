@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.36
+Version: 11.3.0.37
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -213,6 +213,17 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct  8 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.37-1
+- Use nodocs when building stage2 images (Orion Poplawski)
+- Add extra headers to ks.cfg request for arch and release (#315601)
+- Fix a traceback in partition sanity checking (#316551, #318841, #300721) 
+- Hack to not ignore the ssb driver for wireless (#311421)
+- Set repo cost so we pull things from the DVD instead of network (#245696)
+- Make boot partitions 200 megs
+- Write reboot commands into generated anaconda-ks.cfg (clumens)
+- Don't reload the UI if we don't have to (clumens, #290781)
+- Use newer version of device command (clumens)
+
 * Fri Sep 28 2007 Chris Lumens <clumens@redhat.com> 11.3.0.36-1
 - Fix rescue CD + nfs tree as well.
 - More wireless driver blacklist fixing (katzj).
