@@ -1,3 +1,9 @@
+2007-10-09  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/autopart_type.py (PartitionTypeWindow.getScreen): Make labels
+	bold programatically rather than in the XML
+	* ui/autopart.glade: Don't include markup in XML (#322681)
+
 2007-10-08  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

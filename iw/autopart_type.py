@@ -279,6 +279,10 @@ class PartitionTypeWindow(InstallWindow):
 
         (self.xml, vbox) = gui.getGladeWidget("autopart.glade", "parttypeBox")
 
+        # make some labels bold...
+        map(lambda l: l and l.set_markup("<b>%s</b>" %(l.get_text(),)),
+            map(lambda x: self.xml.get_widget(x),("selectLabel", "bootLabel")))
+
         gui.widgetExpander(self.xml.get_widget("mainlabel"))
 
         self.combo = self.xml.get_widget("partitionTypeCombo")

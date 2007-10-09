@@ -80,8 +80,8 @@
       </child>
 
       <child>
-	<widget class="GtkLabel" id="label2">
-	  <property name="label" translatable="yes" context="yes">&lt;b&gt;_Select the drive(s) to use for this installation.&lt;/b&gt;</property>
+	<widget class="GtkLabel" id="selectLabel">
+	  <property name="label" translatable="yes" context="yes">_Select the drive(s) to use for this installation.</property>
 	  <property name="use_underline">True</property>
 	  <property name="use_markup">True</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -248,8 +248,8 @@
       </child>
 
       <child>
-	<widget class="GtkLabel" id="label4">
-	  <property name="label" translatable="yes" context="yes">&lt;b&gt;What drive would you like to _boot this installation from?&lt;/b&gt;</property>
+	<widget class="GtkLabel" id="bootLabel">
+	  <property name="label" translatable="yes" context="yes">What drive would you like to _boot this installation from?</property>
 	  <property name="use_underline">True</property>
 	  <property name="use_markup">True</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>
