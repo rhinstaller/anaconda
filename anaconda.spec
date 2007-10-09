@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.73
+Version: 10.1.1.74
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 09 2007 David Cantrell <dcantrell@redhat.com> 10.1.1.74-1
+- add qla4xxx driver
+  Resolves: rhbz#234134
+
 * Tue Sep 25 2007 Dave Lehman <dlehman@redhat.com> 10.1.1.73-1
 - look for labels on all fstypes
   Resolves: rhbz#251579
