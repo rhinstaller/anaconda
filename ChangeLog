@@ -1,5 +1,9 @@
 2007-10-10  Jeremy Katz  <katzj@redhat.com>
 
+	* upgrade.py (upgradeMountFilesystems): Check to see if we should
+	disable selinux based on whether the system has been booting with
+	selinux disabled (#242510)
+
 	* scripts/upd-instroot: Patches from Orion Poplawski to add timing
 	information, not duplicate the file list creation, not doubling
 	package installs and avoiding using find when we can

@@ -21,6 +21,7 @@ import sys
 import os.path
 import partedUtils
 import string
+import selinux
 import lvm
 from flags import flags
 from fsset import *
@@ -358,6 +359,16 @@ def upgradeMountFilesystems(anaconda):
             anaconda.id.fsset.formatSwap(anaconda.rootPath, forceFormat=True)
         anaconda.id.fsset.turnOnSwap(anaconda.rootPath, upgrading=True)
         anaconda.id.fsset.mkDevRoot(anaconda.rootPath)
+
+    # if they've been booting with selinux disabled, then we should
+    # disable it during the install as well (#242510)
+    try:
+        if os.path.exists(anaconda.rootPath + "/.autorelabel"):
+            ctx = selinux.getfilecon(anaconda.rootPath + "/.autorelabel")[1]
+            if not ctx or ctx == "unlabeled":
+                flags.selinux = False
+    except Exception, e:
+        log.warning("error checking selinux state: %s" %(e,))
 
 def setSteps(anaconda):
     dispatch = anaconda.dispatch
