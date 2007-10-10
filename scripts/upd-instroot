@@ -160,45 +160,56 @@ instFile() {
 
 expandPackageSet() {
     YUMCONF=$1
-    RPMS=$2
-    PKGDEST=$3
-    KEEPFILES=$4
+    YUMDIR=$2
+    RPMS=$3
+    PKGDEST=$4
+    KEEPFILES=$5
 
     [ -d $PKGDEST ] || die "ERROR: directory missing: $PKGDEST"
-    mkdir $PKGDEST/yumdir
-    yum -c $YUMCONF -y --installroot=$PKGDEST/yumdir install $RPMS
+    yum -c $YUMCONF -y --installroot=$YUMDIR install $RPMS
 
     # figure out the theme to keep
-    if [ -f $PKGDEST/yumdir/etc/gtk-2.0/gtkrc ]; then
-	gtktheme=$(grep "gtk-theme-name" $PKGDEST/yumdir/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
+    if [ -f $YUMDIR/etc/gtk-2.0/gtkrc ]; then
+	gtktheme=$(grep "gtk-theme-name" $YUMDIR/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
 	echo "usr/share/themes/$gtktheme" >> $KEEPFILES
 	# find gtk engine needed
-	for engine in `grep engine $PKGDEST/yumdir/usr/share/themes/$gtktheme/gtk-2.0/gtkrc | awk {'print $2;'} | sed -e 's/"//g' | sort -u` ; do
+	for engine in `grep engine $YUMDIR/usr/share/themes/$gtktheme/gtk-2.0/gtkrc | awk {'print $2;'} | sed -e 's/"//g' | sort -u` ; do
 	    echo "usr/$LIBDIR/gtk-2.0/*/engines/*$engine*" >> $KEEPFILES
 	done
 	
-	theme=$(grep "gtk-icon-theme-name" $PKGDEST/yumdir/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
+	theme=$(grep "gtk-icon-theme-name" $YUMDIR/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
 	while [ -n "$theme" ]; do 
 	    echo "usr/share/icons/$theme" >> $KEEPFILES
-	    theme=$(grep Inherits $PKGDEST/yumdir/usr/share/icons/$theme/index.theme | cut -d = -f 2)
+	    theme=$(grep Inherits $YUMDIR/usr/share/icons/$theme/index.theme | cut -d = -f 2)
 	done
     fi
 
-    pushd $PKGDEST/yumdir >/dev/null
+    echo `date` "Installing files"
+    pushd $YUMDIR >/dev/null
     cat $KEEPFILES | while read spec ; do
-      for filespec in `find . -path "./$spec"` ; do
-	if [ ! -e $filespec ]; then
+      if [ "$spec" == "${spec/[?[*]/}" ]; then
+	if [ ! -e ./$spec ]; then
 	    continue
-	elif [ ! -d $filespec ]; then
-	    instFile $filespec $PKGDEST
+	elif [ ! -d ./$spec ]; then
+	    instFile ./$spec $PKGDEST
 	else
-	    for i in `find $filespec -type f` ; do instFile $i $PKGDEST ; done
+	    for i in `find ./$spec -type f` ; do instFile $i $PKGDEST ; done
 	fi
-      done
+      else
+	#Pull off path
+	path=`echo "$spec" | sed 's,\([^[*\?]*\)/.*,\1,'`
+        for filespec in `find ./$path -path "./$spec"` ; do
+	  if [ ! -e $filespec ]; then
+	      continue
+	  elif [ ! -d $filespec ]; then
+	      instFile $filespec $PKGDEST
+	  else
+	      for i in `find $filespec -type f` ; do instFile $i $PKGDEST ; done
+	  fi
+        done
+      fi
     done
     popd >/dev/null
-
-    rm -fr $PKGDEST/yumdir
 }
 
 die () {
@@ -552,6 +563,7 @@ usr/$LIBDIR/librpmio*4.?.so*
 usr/$LIBDIR/libslang*
 usr/$LIBDIR/libstdc++.so.6*
 usr/$LIBDIR/libuser.so*
+usr/$LIBDIR/libustr*.so*
 usr/$LIBDIR/libuser/*
 usr/$LIBDIR/libxml2.so*
 usr/$LIBDIR/libz.*
@@ -1070,14 +1082,6 @@ ln -s /tmp $DESTGR/var/lib/xkb
 cat $KEEPFILERESCUE >> $KEEPFILEGR
 cat $KEEPFILE >> $KEEPFILEGR
 
-#
-# filter paths in keepfile lists for use by cpio
-#
-for file in $KEEPFILE $KEEPFILEGR; do
-   cat $file | awk '{print $1 "\n./" $1}' > $file-
-   mv -f $file- $file
-done
-
 yumconf=$(mktemp /tmp/yum.conf.XXXXXX)
 cat > $yumconf <<EOF 
 [main]
@@ -1093,15 +1097,21 @@ baseurl=file://$TOPDIR
 enabled=1
 EOF
 
-echo "Expanding text packages..."
-expandPackageSet $yumconf "$RPMS" $DEST $KEEPFILE
+echo `date` "Expanding text packages..."
+YUMDIR=${TMPDIR:-/tmp}/yumdir.$$
+mkdir -p $YUMDIR/var/log
+mkdir -p $YUMDIR/var/lib/yum
+
+expandPackageSet $yumconf $YUMDIR "$RPMS" $DEST $KEEPFILE
+echo `date` "Done Expanding text packages..."
 
 #(cd $DEST; tar cSpf - .) | (cd $DESTGR; tar xSpf -)
 
-echo "Expanding graphical packages..."
-expandPackageSet $yumconf "$RPMSGR" $DESTGR $KEEPFILEGR
+echo `date` "Expanding graphical packages..."
+expandPackageSet $yumconf $YUMDIR "$RPMSGR" $DESTGR $KEEPFILEGR
+echo `date` "Done Expanding graphical packages..."
 
-rm -f $yumconf
+rm -rf $yumconf $YUMDIR
 
 # echo "retrieving timezones"
 # TZDIR=${TMPDIR:-/tmp}/glibc-timezone-$$

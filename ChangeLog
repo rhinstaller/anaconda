@@ -1,3 +1,9 @@
+2007-10-10  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot: Patches from Orion Poplawski to add timing
+	information, not duplicate the file list creation, not doubling
+	package installs and avoiding using find when we can
+
 2007-10-09  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/autopart_type.py (PartitionTypeWindow.getScreen): Make labels
