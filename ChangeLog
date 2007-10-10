@@ -1,5 +1,12 @@
 2007-10-10  David Cantrell  <dcantrell@redhat.com>
 
+	* scripts/mk-images: Copy in the /sbin/ip command on s390 and s390x
+	(#233357).
+	* scripts/upd-instroot: Add iproute to the list of packages for s390
+	and s390x (#233357).
+
+2007-10-10  David Cantrell  <dcantrell@redhat.com>
+
 	* anaconda.spec: Bump version.
 
 2007-10-09  David Cantrell  <dcantrell@redhat.com>

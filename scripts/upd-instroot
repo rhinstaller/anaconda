@@ -134,7 +134,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
               sed net-tools xinetd openssl openssh openssh-server coreutils
               login initscripts XFree86-xauth bash portmap pam 
               telnet-server login mount grep modutils gawk
-              XFree86-libs strace xorg-x11-xauth xorg-x11-libs"
+              XFree86-libs strace xorg-x11-xauth xorg-x11-libs iproute"
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then

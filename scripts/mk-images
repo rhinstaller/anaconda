@@ -467,6 +467,7 @@ EOF
     cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
     cp -f $IMGPATH/usr/bin/bash $MBD_DIR/sbin/bash
     cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
+    cp -f $IMGPATH/sbin/ip $MBD_DIR/sbin/ip
     
     # make some symlinks
     ln -sf bash $MBD_DIR/sbin/sh
