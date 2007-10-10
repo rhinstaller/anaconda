@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.76
+Version: 10.1.1.77
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 10 2007 David Cantrell <dcantrell@redhat.com> - 10.1.1.77-1
+- Add /sbin/ip command to the initrd.img file on s390 & s390x
+  Related: rhbz#233357
+
 * Wed Oct 10 2007 David Cantrell <dcantrell@redhat.com> - 10.1.1.76-1
 - ChangeLog corrections caught by rpmdiff
   Related: rhbz#234134
