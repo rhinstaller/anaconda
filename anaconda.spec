@@ -1,8 +1,8 @@
-%define livearches %{ix86} x86_64
+%define livearches %{ix86} x86_64 ppc ppc64
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.37
+Version: 11.3.0.38
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -213,6 +213,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 10 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.38-1
+- Copy over modprobe.conf from live system 
+- Don't traceback with unconfigured nics (#325071)
+- Disable selinux on upgrades if the user has booted with selinux=0 (#242510)
+- More speedups building stage2 images (Orion Poplawski)
+- Fix some translations (#322681)
+
 * Mon Oct  8 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.37-1
 - Use nodocs when building stage2 images (Orion Poplawski)
 - Add extra headers to ks.cfg request for arch and release (#315601)
