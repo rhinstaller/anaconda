@@ -132,7 +132,8 @@ class NetworkDevice(SimpleConfigFile):
 
         # Don't let onboot be turned on unless we have config information
         # to go along with it
-        if self.get('bootproto').lower() != 'dhcp' and not self.get('ipaddr'):
+        proto = self.get('bootproto') or ""
+        if proto.lower() != 'dhcp' and not self.get('ipaddr'):
             forceOffOnBoot = 1
         else:
             forceOffOnBoot = 0

@@ -1,5 +1,8 @@
 2007-10-10  Jeremy Katz  <katzj@redhat.com>
 
+	* network.py (NetworkDevice.__str__): Don't traceback with
+	unconfigured nics (#325071)
+
 	* upgrade.py (upgradeMountFilesystems): Check to see if we should
 	disable selinux based on whether the system has been booting with
 	selinux disabled (#242510)
