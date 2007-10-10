@@ -314,6 +314,11 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         f = open(anaconda.rootPath + "/etc/mtab", "w+")
         f.write(anaconda.id.fsset.mtab())
         f.close()        
+        
+        # copy over the modprobe.conf
+        if os.path.exists("/etc/modprobe.conf"):
+            shutil.copyfile("/etc/modprobe.conf", 
+                            anaconda.rootPath + "/etc/modprobe.conf")
 
         # rebuild the initrd(s)
         vers = self.kernelVersionList(anaconda.rootPath)

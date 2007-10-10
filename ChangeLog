@@ -1,5 +1,8 @@
 2007-10-10  Jeremy Katz  <katzj@redhat.com>
 
+	* livecd.py (LiveCDCopyBackend.doPostInstall): Copy over
+	modprobe.conf from the live system 
+
 	* network.py (NetworkDevice.__str__): Don't traceback with
 	unconfigured nics (#325071)
 
