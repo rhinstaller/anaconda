@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.75
+Version: 10.1.1.76
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,28 +77,32 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Tue Oct 09 2007 David Cantrell <dcantrell@redhat.com> 10.1.1.75-1
+* Wed Oct 10 2007 David Cantrell <dcantrell@redhat.com> - 10.1.1.76-1
+- ChangeLog corrections caught by rpmdiff
+  Related: rhbz#234134
+
+* Tue Oct 09 2007 David Cantrell <dcantrell@redhat.com> - 10.1.1.75-1
 - use /sbin/ip in init to set the MAC address on s390/s390x (bhinson)
   Resolves: rhbz#233357
 
-* Tue Oct 09 2007 David Cantrell <dcantrell@redhat.com> 10.1.1.74-1
+* Tue Oct 09 2007 David Cantrell <dcantrell@redhat.com> - 10.1.1.74-1
 - add qla4xxx driver
   Resolves: rhbz#234134
 
-* Tue Sep 25 2007 Dave Lehman <dlehman@redhat.com> 10.1.1.73-1
+* Tue Sep 25 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.73-1
 - look for labels on all fstypes
   Resolves: rhbz#251579
 - add e1000e driver (pjones)
   Resolves: rhbz#253791
 
-* Mon Sep 17 2007 Dave Lehman <dlehman@redhat.com> 10.1.1.72-1
+* Mon Sep 17 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.72-1
 - fix handling of MACADDR when configuring OSA layer2 networking (dcantrell)
 - Related: rhbz#233357
 
-* Tue Sep 11 2007 Peter Jones <pjones@redhat.com> 10.1.1.71-2
+* Tue Sep 11 2007 Peter Jones <pjones@redhat.com> - 10.1.1.71-2
 - rebuild with COLLECTION=dist-4E-U6-candidate to pick up newer kudzu.
 
-* Thu Sep 06 2007 Chris Lumens <clumens@redhat.com> 10.1.1.71-1
+* Thu Sep 06 2007 Chris Lumens <clumens@redhat.com> - 10.1.1.71-1
 - Fix raid --useexisting.
   Resolves: rhbz#207541.
 
@@ -393,10 +397,22 @@ rm -rf $RPM_BUILD_ROOT
 - name.arch logic error 
 - Ensure kernel written to PReP on iSeries upgrades (#146915)
 
+* Fri Apr 13 2007 Peter Jones <pjones@redhat.com> - 10.1.1.63-4
+- Ignore disks listed in ignoredisks, even if we have clearpart --all
+  Resolves: #186438
+
 * Tue Apr 12 2005 Paul Nasrat <pnasrat@redhat.com> - 10.1.1.18-1
 - Don't free needed string (clumens, #149871, #150844, #153072)
 - Correct name.arch (#133396, #154407)
 - hostname option isn't greyed out when using static IP (#149116)
+
+* Mon Apr 09 2007 Peter Jones <pjones@redhat.com> - 10.1.1.63-3
+- Label fat filesystems on ia64 during upgrade
+  Resolves: #234815
+
+* Wed Apr 04 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.63-2
+- Fix rescue mode selinuxfs mount (#234137)
+- Add stex driver to module-info (#230214)
 
 * Wed Mar 23 2005 Jeremy Katz <katzj@redhat.com> - 10.1.1.17-1
 - Load SElinux booleans file if it exists (#151896)
