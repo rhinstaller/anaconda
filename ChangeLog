@@ -1,3 +1,9 @@
+2007-10-11  Bill Nottingham  <notting@redhat.com>
+
+	* network.py: write persistent udev network device name rules
+	  (#264901)
+	* packages.py: restore SELinux context on rules file
+
 2007-10-11  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: Improved find patch from Orion Poplawski
