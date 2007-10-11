@@ -187,27 +187,17 @@ expandPackageSet() {
     echo `date` "Installing files"
     pushd $YUMDIR >/dev/null
     cat $KEEPFILES | while read spec ; do
-      if [ "$spec" == "${spec/[?[*]/}" ]; then
-	if [ ! -e ./$spec ]; then
+      #Pull off path
+      path=`echo "$spec" | sed 's,\([^[*\?]*\)/.*,\1,'`
+      for filespec in `find ./$path -path "./$spec"` ; do
+	if [ ! -e $filespec ]; then
 	    continue
-	elif [ ! -d ./$spec ]; then
-	    instFile ./$spec $PKGDEST
+	elif [ ! -d $filespec ]; then
+	    instFile $filespec $PKGDEST
 	else
-	    for i in `find ./$spec -type f` ; do instFile $i $PKGDEST ; done
+	    for i in `find $filespec -type f` ; do instFile $i $PKGDEST ; done
 	fi
-      else
-	#Pull off path
-	path=`echo "$spec" | sed 's,\([^[*\?]*\)/.*,\1,'`
-        for filespec in `find ./$path -path "./$spec"` ; do
-	  if [ ! -e $filespec ]; then
-	      continue
-	  elif [ ! -d $filespec ]; then
-	      instFile $filespec $PKGDEST
-	  else
-	      for i in `find $filespec -type f` ; do instFile $i $PKGDEST ; done
-	  fi
-        done
-      fi
+      done
     done
     popd >/dev/null
 }
