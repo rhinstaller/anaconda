@@ -844,7 +844,7 @@ for KERNELARCH in $arches; do
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
     # expand out any available firmware too
-    rpm2cpio $KERNELPATH | (cd $KERNELROOT; cpio --quiet -iumd)
+    rpm2cpio $KERNELPATH/*firmware*.rpm | (cd $KERNELROOT; cpio --quiet -iumd)
 
     if [ ! -d "$KERNELROOT/lib/modules/$version" ]; then
 	echo "$KERNELROOT/lib/modules/$version is not a valid modules directory" 2>&1
