@@ -1119,13 +1119,13 @@ class FileSystemSet:
         for entry in self.entries:
             new.add (entry)
         return new
-    
+
     def fstab (self):
 	format = "%-23s %-23s %-7s %-15s %d %d\n"
         fstab = ""
         for entry in self.entries:
             if entry.mountpoint:
-                if entry.getLabel():
+                if entry.getLabel() and entry.device.doLabel is not None:
                     device = "LABEL=%s" % (entry.getLabel(),)
                 else:
                     device = devify(entry.device.getDevice())
