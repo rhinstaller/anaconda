@@ -492,9 +492,9 @@ class Network:
 
         # If the hostname is not resolvable, tie it to 127.0.0.1
         if not ip and self.hostname != "localhost.localdomain":
-            localline += self.hostname
+            localline += self.hostname + " "
             if len(l) > 1:
-                localline += " " + l[0] + " "
+                localline += l[0] + " "
 
         # always add the short hostname to 127.0.0.1 (#253979)
         localline += "localhost.localdomain localhost"

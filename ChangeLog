@@ -1,9 +1,15 @@
+2007-10-11  Jeremy Katz  <katzj@redhat.com>
+
+	* network.py (Network.write): Fix spaces between host names
+
 2007-10-11  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (FileSystemSet.fstab):  Don't add labels to /etc/fstab
 	lines for reused LVs (#216561).
 
 2007-10-10  Jeremy Katz  <katzj@redhat.com>
+
+	* Makefile: Allow liveinst on ppc
 
 	* anaconda.spec: Bump version.
 
