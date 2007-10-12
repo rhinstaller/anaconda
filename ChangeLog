@@ -4,6 +4,11 @@
 
 2007-10-12  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/hardware.c (detectHardware): Revert ssb hack as kudzu
+	has one now
+
+	* utils/genmodinfo: Remove ata_generic from blacklist
+
 	* upgrade.py: Add dbus to upgrade remove blacklist 
 
 2007-10-11  Jeremy Katz  <katzj@redhat.com>
