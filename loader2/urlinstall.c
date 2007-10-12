@@ -428,7 +428,7 @@ int getFileFromUrl(char * url, char * dest,
         }
     }
 
-    fd = urlinstStartTransfer(&ui, file, NULL);
+    fd = urlinstStartTransfer(&ui, file, ehdrs);
     if (fd < 0) {
         logMessage(ERROR, "failed to retrieve http://%s/%s%s", ui.address, ui.prefix, file);
         retval = 1;
