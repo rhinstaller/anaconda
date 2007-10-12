@@ -255,13 +255,13 @@ int devMakeInode(char * devName, char * path) {
 	minor = devName[3] - 'a';
 #endif
 #if defined (__powerpc__) || defined (__powerpc64__)
-    } else if (!strncmp(devName, "ps3disk", 7)) {
+    } else if (!strncmp(devName, "ps3da", 7)) {
         type = S_IFBLK;
         major = 253;    /* FIXME: this is a dynamic major, but fixed enough on the limited ps3 hardware */
-	minor = (devName[7] - 'a') * 16;
-	if ((devName[8]) && isdigit(devName[8]))
+	minor = (devName[5] - 'a') * 16;
+	if ((devName[6]) && isdigit(devName[6]))
 	{
-		minor = minor + atoi(devName + 8);
+		minor = minor + atoi(devName + 6);
 	}
 #endif
     } else if (!strncmp(devName, "rd/", 3)) {
