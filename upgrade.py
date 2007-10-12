@@ -41,10 +41,10 @@ log = logging.getLogger("anaconda")
 upgrade_remove_blacklist = [("system-config-mouse",), ("dev",)] 
 
 if rhpl.getArch() == "x86_64":
-    upgrade_remove_blacklist.extend( [("perl","i386"), ("e2fsprogs", "i386"), ("hal", "i386"), ("mysql", "i386"), ("esound", "i386"), ("mkinitrd", "i386")] )
+    upgrade_remove_blacklist.extend( [("perl","i386"), ("e2fsprogs", "i386"), ("hal", "i386"), ("mysql", "i386"), ("esound", "i386"), ("mkinitrd", "i386"), ("dbus.i386")] )
 
 if rhpl.getArch() == "ppc":
-    upgrade_remove_blacklist.extend( [("e2fsprogs", "ppc64"), ("hal", "ppc64"), ("mysql", "ppc64"), ("esound", "ppc64"), ("mkinitrd", "ppc64")] )
+    upgrade_remove_blacklist.extend( [("e2fsprogs", "ppc64"), ("hal", "ppc64"), ("mysql", "ppc64"), ("esound", "ppc64"), ("mkinitrd", "ppc64"), ("dbus", "ppc64")] )
 
 def queryUpgradeContinue(anaconda):
     if anaconda.dir == DISPATCH_FORWARD:
