@@ -263,7 +263,6 @@ int devMakeInode(char * devName, char * path) {
 	{
 		minor = minor + atoi(devName + 8);
 	}
-    }
 #endif
     } else if (!strncmp(devName, "rd/", 3)) {
 	/* dac 960 "/rd/c0d0{p1}" */
