@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.38
+Version: 11.3.0.39
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -213,6 +213,19 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 12 2007 Chris Lumens <clumens@redhat.com> 11.3.0.39-1
+- Detect PS3 disks (katzj, #325111).
+- Fix lang setting for Romanian (#327431).
+- Fix segfault in constructing HTTP headers in the loader (#328191).
+- Remove ata_generic from the blacklist (katzj).
+- Add dbus to upgrade remove blacklist (katzj).
+- Extract firmware in mk-images (katzj).
+- Write udev network device name rules (notting, #264901).
+- Speed up upd-instroot quite a bit (Orion Poplawski).
+- Fix formatting of /etc/hosts (katzj).
+- Don't add labels to /etc/fstab for reused LVs (#216561).
+- Allow liveinst on ppc (katzj).
+
 * Wed Oct 10 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.38-1
 - Copy over modprobe.conf from live system 
 - Don't traceback with unconfigured nics (#325071)
