@@ -345,6 +345,7 @@ char * mountUrlImage(struct installMethod * method,
 
 int getFileFromUrl(char * url, char * dest, 
                    struct loaderData_s * loaderData) {
+    int retval = 0;
     char ret[47];
     struct iurlinfo ui;
     enum urlprotocol_t proto = 
@@ -401,56 +402,57 @@ int getFileFromUrl(char * url, char * dest,
 
     if (proto == URL_METHOD_HTTP && FL_KICKSTART_SEND_MAC(flags)) {
         /* find all ethernet devices and make a header entry for each one */
-        int i;
-        unsigned int hdrlen;
-        char *dev, *mac, tmpstr[128];
-        struct device ** devices;
+        int i, q;
+        char *dev, *mac, *tmpstr;
+        struct device **devices;
 
-        hdrlen = 0;
         devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
         for (i = 0; devices && devices[i]; i++) {
             dev = devices[i]->device;
             mac = netlink_interfaces_mac2str(dev);
 
             if (mac) {
-                snprintf(tmpstr, sizeof(tmpstr),
-                         "X-RHN-Provisioning-MAC-%d: %s %s\r\n", i, dev, mac);
-                free(mac);
+                q = asprintf(&tmpstr, "X-RHN-Provisioning-MAC-%d: %s %s\r\n",
+                             i, dev, mac);
 
                 if (!ehdrs) {
-                    hdrlen = 128;
-                    ehdrs = (char *) malloc(hdrlen);
-                    *ehdrs = '\0';
-                } else if ( strlen(tmpstr) + strlen(ehdrs) + 2 > hdrlen) {
-                    hdrlen += 128;
-                    ehdrs = (char *) realloc(ehdrs, hdrlen);
+                    ehdrs = strdup(tmpstr);
+                } else {
+                    ehdrs = (char *) realloc(ehdrs, strlen(ehdrs)+strlen(tmpstr)+1);
+                    strcat(ehdrs, tmpstr);
                 }
 
-                strcat(ehdrs, tmpstr);
+                free(mac);
+                free(tmpstr);
             }
         }
     }
-	
-    fd = urlinstStartTransfer(&ui, file, ehdrs);
+
+    fd = urlinstStartTransfer(&ui, file, NULL);
     if (fd < 0) {
         logMessage(ERROR, "failed to retrieve http://%s/%s%s", ui.address, ui.prefix, file);
-        if (ehdrs) free(ehdrs);
-        return 1;
+        retval = 1;
+        goto err;
     }
-           
+
     rc = copyFileFd(fd, dest);
     if (rc) {
         unlink (dest);
         logMessage(ERROR, "failed to copy file to %s", dest);
-        if (ehdrs) free(ehdrs);
-        return 1;
+        retval = 1;
+        goto err;
     }
 
     urlinstFinishTransfer(&ui, fd);
 
+err:
+    if (file) free(file);
     if (ehdrs) free(ehdrs);
+    if (host) free(host);
+    if (login) free(login);
+    if (password) free(password);
 
-    return 0;
+    return retval;
 }
 
 /* pull kickstart configuration file via http */

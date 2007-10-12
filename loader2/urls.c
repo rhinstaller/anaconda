@@ -181,6 +181,8 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
     else
         port = atoi(portstr);
 
+    if (portstr) free(portstr);
+
     if (inet_pton(AF_INET, hostname, &addr) >= 1)
         family = AF_INET;
     else if (inet_pton(AF_INET6, hostname, &addr6) >= 1)
@@ -201,24 +203,30 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
                               ui->login ? ui->login : "anonymous", 
                               ui->password ? ui->password : "rhinstall@", 
                               NULL, port);
-        if (ui->ftpPort < 0)
+        if (ui->ftpPort < 0) {
+            if (hostname) free(hostname);
             return -2;
+        }
 
         fd = ftpGetFileDesc(ui->ftpPort, addr6, family, buf);
         if (fd < 0) {
             close(ui->ftpPort);
+            if (hostname) free(hostname);
             return -1;
         }
     } else {
         fd = httpGetFileDesc(hostname, port, buf, extraHeaders);
-        if (fd < 0)
+        if (fd < 0) {
+            if (portstr) free(portstr);
             return -1;
+        }
     }
 
     if (!FL_CMDLINE(flags))
         winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), 
                   filename);
 
+    if (hostname) free(hostname);
     return fd;
 }
 
