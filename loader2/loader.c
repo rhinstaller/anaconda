@@ -211,6 +211,11 @@ static void initProductInfo(void) {
             *(productPath + i) = '\0';
             i--;
         }
+        i = strlen(productArch) - 1;
+        while (isspace(*(productArch + i))) {
+            *(productArch + i) = '\0';
+            i--;
+        }
     }
 
     if(!productArch) productArch = strdup("unknown architecture");

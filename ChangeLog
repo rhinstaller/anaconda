@@ -14,6 +14,9 @@
 	code that appends MAC address-specific HTTP headers to fix segfaults
 	(#328191).
 
+	* loader.c (initProductInfo):  Strip whitespace from the end of the
+	architecture as well.
+
 2007-10-12  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/hardware.c (detectHardware): Revert ssb hack as kudzu
