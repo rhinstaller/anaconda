@@ -1144,13 +1144,7 @@ static char *doLoaderMain(char * location,
             }
 
             logMessage(INFO, "going to do getNetConfig");
-            /* populate netDev based on any kickstart data */
-            if (loaderData->ipinfo_set) {
-                netDev.preset = 1;
-            }
-            setupNetworkDeviceConfig(&netDev, loaderData);
 
-            rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum);
             if (FL_NOIPV4(flags))
                 loaderData->ipinfo_set = 0;
             else
@@ -1161,6 +1155,13 @@ static char *doLoaderMain(char * location,
             else
                 loaderData->ipv6info_set = 1;
 
+            /* populate netDev based on any kickstart data */
+            if (loaderData->ipinfo_set) {
+                netDev.preset = 1;
+            }
+            setupNetworkDeviceConfig(&netDev, loaderData);
+
+            rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum);
             if ((rc == LOADER_NOOP) && (netDev.preset == 0)) {
                 loaderData->ipinfo_set = 0;
                 loaderData->ipv6info_set = 0;

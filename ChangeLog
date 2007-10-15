@@ -1,3 +1,10 @@
+2007-10-15  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
+	* loader2/loader.c (doLoaderMain):  Don't try to use DHCP in networks
+	with static IP configuration (#296081).
+
 2007-10-03  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
