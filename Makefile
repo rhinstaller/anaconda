@@ -15,6 +15,8 @@ endif
 ifneq (,$(filter ppc ppc64 i386 x86_64,$(ARCH)))
 # we only do the liveinst bits on i386/x86_64 for now
 SUBDIRS += liveinst
+endif
+ifneq (,$(filter i386 x86_64,$(ARCH)))
 # gptsync only on x86 for mactels right now
 SUBDIRS += gptsync
 endif
