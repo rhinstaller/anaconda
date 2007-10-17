@@ -140,6 +140,12 @@ class Bootloader(commands.bootloader.FC4_Bootloader):
             self.handler.id.bootloader.kickstart = 1
             self.handler.id.bootloader.doUpgradeOnly = 1
 
+        if self.driveorder:
+            hds = isys.hardDriveDict().keys()
+            for disk in self.driveorder:
+                if disk not in hds:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % disk)
+
         if location is None:
             self.handler.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
         else:

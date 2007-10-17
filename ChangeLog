@@ -1,3 +1,8 @@
+2007-10-17  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (Bootloader.parse):  Detect invalid hard drives given
+	to bootloader --driveorder and error cleanly (#333861).
+
 2007-10-17  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec:  New version, 11.3.0.42 .
