@@ -20,3 +20,6 @@ install:
 
 clean:
 	rm -f *~ liveinst.desktop
+
+depend:
+

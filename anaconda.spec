@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.40
+Version: 11.3.0.41
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -214,6 +214,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 17 2007 Peter Jones <pjones@redhat.com> 11.3.0.41-1
+- Fix liveinst build on ppc
+
 * Wed Oct 17 2007 Peter Jones <pjones@redhat.com> 11.3.0.40-1
 - Don't build gptsync on ppc (katzj)
 - Remove obsolete no.po translation (clumens, #332141)
