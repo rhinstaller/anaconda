@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.41
+Version: 11.3.0.42
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -214,6 +214,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 17 2007 Peter Jones <pjones@redhat.com> 11.3.0.42-1
+- Don't include 'sound-and-video' in 'Office and Productivity' since the
+  former is enabled by default, and including it here causes disabling OaP
+  to result in disabling s-a-v unintentionally.
+
 * Wed Oct 17 2007 Peter Jones <pjones@redhat.com> 11.3.0.41-1
 - Fix liveinst build on ppc
 

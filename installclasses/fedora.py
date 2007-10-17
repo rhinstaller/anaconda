@@ -22,7 +22,7 @@ class InstallClass(BaseInstallClass):
     if productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
-    tasks = [(N_("Office and Productivity"), ["graphics", "office", "games", "sound-and-video"]),
+    tasks = [(N_("Office and Productivity"), ["graphics", "office", "games"]),
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
              (N_("Web server"), ["web-server"])]
 

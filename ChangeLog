@@ -1,5 +1,16 @@
 2007-10-17  Peter Jones  <pjones@redhat.com>
 
+	* anaconda.spec:  New version, 11.3.0.42 .
+
+2007-10-17  Peter Jones  <pjones@redhat.com>
+
+	* installclasses/fedora.py (InstallClass): Don't include
+	'sound-and-video' in 'Office and Productivity' since the former is
+	enabled by default, and including it here causes disabling OaP
+	to result in disabling s-a-v unintentionally.
+
+2007-10-17  Peter Jones  <pjones@redhat.com>
+
 	* anaconda.spec:  New version, 11.3.0.41 .
 
 2007-10-17  Peter Jones  <pjones@redhat.com>
