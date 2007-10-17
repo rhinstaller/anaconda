@@ -187,6 +187,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 %{_sbindir}/anaconda
 %ifarch i386 x86_64
 %{_sbindir}/gptsync
+%{_sbindir}/showpart
 %endif
 %{_datadir}/anaconda
 %{_prefix}/lib/anaconda

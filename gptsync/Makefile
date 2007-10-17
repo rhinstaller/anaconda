@@ -2,29 +2,33 @@
 # Makefile for gptsync on Unix platforms
 #
 
-OBJS   = gptsync.o os_unix.o
 
-TARGET = gptsync
+TARGETS	 = gptsync showpart
+OBJS	 = showpart.c lib.c os_unix.c gptsync.c
 
 CPPFLAGS = -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 
 CFLAGS   = -Wall -Werror
 LDFLAGS  =
 LIBS     =
+CC	 = gcc
 
 # real making
 
-all: $(TARGET)
+all: $(TARGETS)
 
-$(TARGET): $(OBJS)
-	$(CC) $(LDFLAGS) -o $(TARGET) $(OBJS) $(LIBS)
+gptsync: gptsync.o lib.o
+	$(CC) $(LDFLAGS) -DPROGNAME=$@ -o $@ os_unix.c $^ $(LIBS)
 
-$(OBJS): %.o: %.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $<
+showpart: showpart.o lib.o
+	$(CC) $(LDFLAGS) -DPROGNAME=$@ -o $@ os_unix.c $^ $(LIBS)
+
+%.o: %.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
 # cleanup
 
 clean:
-	$(RM) *.o *~ *% $(TARGET) .depend
+	$(RM) *.o *~ *% $(TARGETS) .depend
 
 # automatic dependencies
 
@@ -42,3 +46,4 @@ endif
 install: all
 	mkdir -p $(DESTDIR)/usr/sbin
 	install -m 755 gptsync $(DESTDIR)/usr/sbin/gptsync
+	install -m 755 showpart $(DESTDIR)/usr/sbin/showpart

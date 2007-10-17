@@ -38,6 +38,10 @@
 
 #include <stdarg.h>
 
+#define STRINGIFY(s) #s
+#define STRINGIFY2(s) STRINGIFY(s)
+#define PROGNAME_S STRINGIFY2(PROGNAME)
+
 // variables
 
 static int      fd;
@@ -55,7 +59,7 @@ void error(const char *msg, ...)
     vsnprintf(buf, 4096, msg, par);
     va_end(par);
     
-    fprintf(stderr, "gptsync: %s\n", buf);
+    fprintf(stderr, PROGNAME_S ": %s\n", buf);
 }
 
 void errore(const char *msg, ...)
@@ -67,7 +71,7 @@ void errore(const char *msg, ...)
     vsnprintf(buf, 4096, msg, par);
     va_end(par);
     
-    fprintf(stderr, "gptsync: %s: %s\n", buf, strerror(errno));
+    fprintf(stderr, PROGNAME_S ": %s: %s\n", buf, strerror(errno));
 }
 
 //
@@ -187,7 +191,7 @@ int main(int argc, char *argv[])
     
     // argument check
     if (argc != 2) {
-        fprintf(stderr, "Usage: gptsync <device>\n");
+        fprintf(stderr, "Usage: " PROGNAME_S " <device>\n");
         return 1;
     }
     filename = argv[1];
@@ -231,8 +235,10 @@ int main(int argc, char *argv[])
     fd = open(filename, O_RDWR);
     if (fd < 0 && errno == EBUSY) {
         fd = open(filename, O_RDONLY);
+#ifndef NOREADONLYWARN
         if (fd >= 0)
             printf("Warning: %.300s opened read-only\n", filename);
+#endif
     }
     if (fd < 0) {
         errore("Can't open %.300s", filename);
@@ -248,7 +254,7 @@ int main(int argc, char *argv[])
     }
     
     // run sync algorithm
-    status = gptsync();
+    status = PROGNAME();
     printf("\n");
     
     // close file
