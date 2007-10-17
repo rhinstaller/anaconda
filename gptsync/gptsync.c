@@ -434,7 +434,7 @@ UINTN gptsync(VOID)
 {
     UINTN   status = 0;
     UINTN   status_gpt, status_mbr;
-    BOOLEAN proceed = FALSE;
+    // BOOLEAN proceed = FALSE;
     
     // get full information from disk
     status_gpt = read_gpt();
