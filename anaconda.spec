@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.86
+Version: 11.1.2.87
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 17 2007 Chris Lumens <clumens@redhat.com> 11.1.2.87-1
+- Prompt for manual network configuration in the loader if needed.
+  Related: rhbz#296081
+
 * Mon Oct 15 2007 Chris Lumens <clumens@redhat.com> 11.1.2.86-1
 - Don't try to use DHCP in networks with static IP configuration.
   Resolves: rhbz#296081

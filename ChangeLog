@@ -1,3 +1,11 @@
+2007-10-17  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
+	* loader2/loader.c (doLoaderMain):  Prompt for manual network
+	configuration if we weren't provided the info via kickstart or the
+	command line (#296081).
+
 2007-10-15  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

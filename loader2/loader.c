@@ -1132,6 +1132,8 @@ static char *doLoaderMain(char * location,
                 dir = -1;
                 break;
             }
+            else
+               dir = 1;
 
             devName = loaderData->netDev;
             strcpy(netDev.dev.device, devName);
@@ -1145,12 +1147,12 @@ static char *doLoaderMain(char * location,
 
             logMessage(INFO, "going to do getNetConfig");
 
-            if (FL_NOIPV4(flags))
+            if (FL_NOIPV4(flags) || (!FL_IP_PARAM(flags) && !FL_KICKSTART(flags)))
                 loaderData->ipinfo_set = 0;
             else
                 loaderData->ipinfo_set = 1;
 
-            if (FL_NOIPV6(flags))
+            if (FL_NOIPV6(flags) || (!FL_IPV6_PARAM(flags) && !FL_KICKSTART(flags)))
                 loaderData->ipv6info_set = 0;
             else
                 loaderData->ipv6info_set = 1;
