@@ -1,8 +1,20 @@
+2007-10-17  Peter Jones  <pjones@redhat.com>
+
+	* isys/isys.c: add matchPathContext and setFileContext calls,
+	remove resetFileContext call.
+
+	* isys/isys.py: add wrappers for matchPathContext and setFileContext,
+	and refactor resetFileContext to use them.
+
+	* fsset.py (FileSystemType.mount): label the root directory of
+	newly mounted filesystems and the lost+found directory when we mount
+	the fs (#335621).
+
 2007-10-18  Bill Nottingham  <notting@redhat.com>
 
 	* network.py: add ATTR{type}=="1" to rule to avoid matching wmaster*
 
-2007-10-17  Peter Jones  <pjones@redhat.com>
+2007-10-18  Peter Jones  <pjones@redhat.com>
 
 	* gptsync/Makefile: use Makefile.inc's CFLAGS (mostly)
 

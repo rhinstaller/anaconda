@@ -108,7 +108,8 @@ static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
 static PyObject * doGetMacAddress(PyObject * s, PyObject * args);
 static PyObject * doGetIPAddress(PyObject * s, PyObject * args);
 #ifdef USESELINUX
-static PyObject * doResetFileContext(PyObject * s, PyObject * args);
+static PyObject * doMatchPathContext(PyObject * s, PyObject * args);
+static PyObject * doSetFileContext(PyObject * s, PyObject * args);
 #endif
 static PyObject * isWireless(PyObject * s, PyObject * args);
 static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args);
@@ -159,7 +160,8 @@ static PyMethodDef isysModuleMethods[] = {
     { "getMacAddress", (PyCFunction) doGetMacAddress, METH_VARARGS, NULL},
     { "getIPAddress", (PyCFunction) doGetIPAddress, METH_VARARGS, NULL},
 #ifdef USESELINUX
-    { "resetFileContext", (PyCFunction) doResetFileContext, METH_VARARGS, NULL },
+    { "matchPathContext", (PyCFunction) doMatchPathContext, METH_VARARGS, NULL },
+    { "setFileContext", (PyCFunction) doSetFileContext, METH_VARARGS, NULL },
 #endif
     { "isWireless", (PyCFunction) isWireless, METH_VARARGS, NULL },
     { "biosDiskProbe", (PyCFunction) doProbeBiosDisks, METH_VARARGS,NULL},
@@ -1066,27 +1068,38 @@ static PyObject * doGetIPAddress(PyObject * s, PyObject * args) {
     return Py_BuildValue("s", ret);
 }
 #ifdef USESELINUX
-static PyObject * doResetFileContext(PyObject * s, PyObject * args) {
+static PyObject * doMatchPathContext(PyObject * s, PyObject * args) {
     char *fn, *buf = NULL;
+    int ret;
+
+    if (!PyArg_ParseTuple(args, "s", &fn))
+        return NULL;
+
+    ret = matchpathcon(fn, 0, &buf);
+    if (ret == 0)
+        return Py_BuildValue("s", buf);
+    
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doSetFileContext(PyObject * s, PyObject * args) {
+    char *fn, *con;
     char * root = NULL;
     char path[PATH_MAX];
     int ret;
 
-    if (!PyArg_ParseTuple(args, "s|s", &fn, &root))
+    if (!PyArg_ParseTuple(args, "ss|s", &fn, &con, &root))
         return NULL;
 
-    ret = matchpathcon(fn, 0, &buf);
-    /*    fprintf(stderr, "matchpathcon returned %d: set %s to %s\n", ret, fn, buf);*/
-    if (ret == 0) {
-        if (root != NULL) 
-            snprintf(path, PATH_MAX, "%s/%s", root, fn);
-        else
-            snprintf(path, PATH_MAX, "%s", root);
+    if (root != NULL) 
+        snprintf(path, PATH_MAX, "%s/%s", root, fn);
+    else
+        snprintf(path, PATH_MAX, "%s", root);
 
-        ret = lsetfilecon(path, buf);
-    }
+    ret = lsetfilecon(path, con);
 
-    return Py_BuildValue("s", buf);
+    return Py_BuildValue("i", ret);
 }
 #endif
 static PyObject * py_getDasdPorts(PyObject * o, PyObject * args) {

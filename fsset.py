@@ -160,6 +160,8 @@ labelFactory = LabelFactory()
 
 class FileSystemType:
     kernelFilesystems = {}
+    lostAndFoundContext = None
+
     def __init__(self):
         self.deviceArguments = {}
         self.formattable = 0
@@ -191,6 +193,15 @@ class FileSystemType:
         isys.mount(device, "%s/%s" %(instroot, mountpoint),
                    fstype = self.getName(), 
                    readOnly = readOnly, bindMount = bindMount)
+
+        if flags.selinux:
+            ret = isys.resetFileContext(mountpoint, instroot)
+            log.info("set SELinux context for newly mounted filesystem root at %s to %s" %(mountpoint, ret))
+            if FileSystemType.lostAndFoundContext is None:
+                FileSystemType.lostAndFoundContext = \
+                    isys.matchPathContext("/lost+found")
+            isys.setFileContext("%s/lost+found" % (mountpoint,),
+                FileSystemType.lostAndFoundContext, instroot)
 
     def umount(self, device, path):
         isys.umount(path, removeDir = 0)

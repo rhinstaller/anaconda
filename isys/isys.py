@@ -1079,11 +1079,28 @@ def isWireless(dev):
 def getIPAddress(dev):
     return _isys.getIPAddress(dev)
 
+## Get the correct context for a file from loaded policy.
+# @param fn The filename to query.
+def matchPathContext(fn):
+    return _isys.matchPathContext(fn)
+
+## Set the SELinux file context of a file
+# @param fn The filename to fix.
+# @param con The context to use.
+# @param instroot An optional root filesystem to look under for fn.
+def setFileContext(fn, con, instroot = '/'):
+    if con is not None and os.access("%s/%s" % (instroot, fn), os.F_OK):
+        return (_isys.setFileContext(fn, con, instroot) != 0)
+    return False
+
 ## Restore the SELinux file context of a file to its default.
 # @param fn The filename to fix.
 # @param instroot An optional root filesystem to look under for fn.
 def resetFileContext(fn, instroot = '/'):
-    return _isys.resetFileContext(fn, instroot)
+    con = matchPathContext(fn)
+    if con:
+        return setFileContext(fn, con, instroot)
+    return False
 
 def prefix2netmask(prefix):
     return _isys.prefix2netmask(prefix)
