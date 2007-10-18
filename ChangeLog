@@ -1,3 +1,10 @@
+2007-10-17  Peter Jones  <pjones@redhat.com>
+
+	* gptsync/Makefile: use Makefile.inc's CFLAGS (mostly)
+
+	* gptsync/gptsync.h: fix UINT* type declarations so x86_64 works
+	right.
+
 2007-10-17  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (Bootloader.parse):  Detect invalid hard drives given

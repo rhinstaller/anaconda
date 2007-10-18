@@ -3,27 +3,30 @@
 #
 
 
-TARGETS	 = gptsync showpart
-OBJS	 = showpart.c lib.c os_unix.c gptsync.c
+TARGETS	  = gptsync showpart
+OBJS	  = showpart.c lib.c os_unix.c gptsync.c
 
-CPPFLAGS = -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 
-CFLAGS   = -Wall -Werror
-LDFLAGS  =
-LIBS     =
-CC	 = gcc
+CPPFLAGS = $(CFLAGS)
+#CPPFLAGS = $(shell echo $(CFLAGS) | sed -e 's/-O2/-O0/g' -e 's/-g /-ggdb3 /g') 
+CPPFLAGS += -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 
+LDFLAGS   =
+LIBS      =
+CC	  = gcc
+
+include ../Makefile.inc
 
 # real making
 
 all: $(TARGETS)
 
 gptsync: gptsync.o lib.o
-	$(CC) $(LDFLAGS) -DPROGNAME=$@ -o $@ os_unix.c $^ $(LIBS)
+	$(CC) $(CPPFLAGS) $(LDFLAGS) -DPROGNAME=$@ -o $@ os_unix.c $^ $(LIBS)
 
 showpart: showpart.o lib.o
-	$(CC) $(LDFLAGS) -DPROGNAME=$@ -o $@ os_unix.c $^ $(LIBS)
+	$(CC) $(CPPFLAGS) $(LDFLAGS) -DPROGNAME=$@ -o $@ os_unix.c $^ $(LIBS)
 
 %.o: %.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CPPFLAGS) -c -o $@ $<
 
 # cleanup
 

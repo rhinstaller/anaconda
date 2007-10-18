@@ -65,6 +65,7 @@ typedef CHAR16 CHARN;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 #include <unistd.h>
 #include <errno.h>
 
@@ -75,10 +76,10 @@ typedef CHAR16 CHARN;
 
 typedef int                 INTN;
 typedef unsigned int        UINTN;
-typedef unsigned char       UINT8;
-typedef unsigned short      UINT16;
-typedef unsigned long       UINT32;
-typedef unsigned long long  UINT64;
+typedef uint8_t             UINT8;
+typedef uint16_t            UINT16;
+typedef uint32_t            UINT32;
+typedef uint64_t            UINT64;
 typedef void                VOID;
 
 typedef int                 BOOLEAN;
