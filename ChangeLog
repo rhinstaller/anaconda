@@ -1,3 +1,7 @@
+2007-10-18  Bill Nottingham  <notting@redhat.com>
+
+	* network.py: add ATTR{type}=="1" to rule to avoid matching wmaster*
+
 2007-10-17  Peter Jones  <pjones@redhat.com>
 
 	* gptsync/Makefile: use Makefile.inc's CFLAGS (mostly)

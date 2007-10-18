@@ -553,7 +553,7 @@ class Network:
             s = "" 
             if len(dev.get("DESC")) > 0:
                 s = "# %s\n" % (dev.get("DESC"),)
-            s = s + 'SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS=="?*", ATTR{address}=="%s", NAME="%s"\n' % (addr, dev.get("device"))
+            s = s + 'SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS=="?*", ATTR{address}=="%s", ATTR{type}=="1", NAME="%s"\n' % (addr, dev.get("device"))
             f.write(s)
         
         f.close()
