@@ -85,18 +85,26 @@ class BaseInstallClass(object):
         anaconda.method.postAction(anaconda)
 
     def setBootloader(self, id, location=None, forceLBA=0, password=None,
-                      md5pass=None, appendLine="", driveorder = []):
+                      md5pass=None, appendLine="", driveorder = [],
+                      timeout=None):
         if appendLine:
             id.bootloader.args.set(appendLine)
+
         id.bootloader.setForceLBA(forceLBA)
+
         if password:
             id.bootloader.setPassword(password, isCrypted = 0)
+
         if md5pass:
             id.bootloader.setPassword(md5pass)
+
         if location != None:
             id.bootloader.defaultDevice = location
         else:
             id.bootloader.defaultDevice = -1
+
+        if timeout:
+            id.bootloader.timeout = timeout
 
         # XXX throw out drives specified that don't exist.  anything else
         # seems silly

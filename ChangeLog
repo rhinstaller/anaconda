@@ -47,6 +47,10 @@
 	* flags.py (Flags.createCmdlineDict):  Work around a quoting bug in
 	pxelinux (#248170).
 
+	* installclass.py (BaseInstallClass.setBootloader):  Accept the
+	timeout parameter and pass it along to booty.
+	* kickstart.py (Bootloader):  Subclass from the correct version.
+
 2007-10-18  Peter Jones  <pjones@redhat.com>
 
 	* isys/isys.c: add matchPathContext and setFileContext calls,

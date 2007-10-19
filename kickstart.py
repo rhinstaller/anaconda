@@ -122,9 +122,9 @@ class AutoStep(commands.autostep.FC3_AutoStep):
         flags.autostep = 1
         flags.autoscreenshot = self.autoscreenshot
 
-class Bootloader(commands.bootloader.FC4_Bootloader):
+class Bootloader(commands.bootloader.FC8_Bootloader):
     def parse(self, args):
-        commands.bootloader.FC4_Bootloader.parse(self, args)
+        commands.bootloader.FC8_Bootloader.parse(self, args)
 
         if self.location == "none":
             location = None
@@ -152,7 +152,7 @@ class Bootloader(commands.bootloader.FC4_Bootloader):
             self.handler.showSteps.append("bootloader")
             self.handler.id.instClass.setBootloader(self.handler.id, location, self.forceLBA,
                                                     self.password, self.md5pass,
-                                                    self.appendLine, self.driveorder)
+                                                    self.appendLine, self.driveorder, self.timeout)
 
         self.handler.permanentSkipSteps.extend(["upgbootloader", "bootloader",
                                                 "bootloaderadvanced"])
