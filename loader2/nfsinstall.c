@@ -35,6 +35,7 @@
 #include "windows.h"
 
 #include "../isys/imount.h"
+#include "../isys/nl.h"
 
 /* boot flags */
 extern uint64_t flags;
@@ -300,12 +301,10 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 
 
 int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
-    char ret[47];
     char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
-    char * chk = NULL;
+    char * chk = NULL, *ip = NULL;
     int failed = 0;
     struct networkDeviceConfig netCfg;
-    ip_addr_t *tip;
 
     if (kickstartNetworkUp(loaderData, &netCfg)) {
         logMessage(ERROR, "unable to bring up network");
@@ -316,6 +315,9 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
      * the dhcp/bootp information
      */
     if (url == NULL) {
+        char ret[47];
+        ip_addr_t *tip;
+
         if (!(netCfg.dev.set & PUMP_INTFINFO_HAS_NEXTSERVER)) {
             logMessage(ERROR, "no bootserver was found");
             return 1;
@@ -324,24 +326,25 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         tip = &(netCfg.dev.nextServer);
         if (!(netCfg.dev.set & PUMP_INTFINFO_HAS_BOOTFILE)) {
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+            ip = strdup(ret);
             url = sdupprintf("%s:%s", ret, "/kickstart/");
             logMessage(ERROR, "bootp: no bootfile received");
         } else {
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+            ip = strdup(ret);
             url = sdupprintf("%s:%s", ret, netCfg.dev.bootFile);
             logMessage(INFO, "bootp: bootfile is %s", netCfg.dev.bootFile);
         }
-    } 
+    }
 
     /* get the IP of the target system */
-    tip = &(netCfg.dev.ip);
-    if (inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip)) == NULL) {
-        logMessage(ERROR, "getFileFromNfs: no client IP information");
+    if (ip == NULL && (ip = netlink_interfaces_ip2str(loaderData->netDev)) == NULL) {
+        logMessage(ERROR, "netlink_interfaces_ip2str returned NULL");
         return 1;
     }
 
     logMessage(INFO, "url is %s", url);
-    getHostandPath(url, &host, &path, ret);
+    getHostandPath(url, &host, &path, ip);
 
     opts = strchr(host, ':');
     if (opts && (strlen(opts) > 1)) {

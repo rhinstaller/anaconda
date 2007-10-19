@@ -346,15 +346,13 @@ char * mountUrlImage(struct installMethod * method,
 int getFileFromUrl(char * url, char * dest, 
                    struct loaderData_s * loaderData) {
     int retval = 0;
-    char ret[47];
     struct iurlinfo ui;
     enum urlprotocol_t proto = 
         !strncmp(url, "ftp://", 6) ? URL_METHOD_FTP : URL_METHOD_HTTP;
     char * host = NULL, * file = NULL, * chptr = NULL, *login = NULL, *password = NULL;
     int fd, rc;
     struct networkDeviceConfig netCfg;
-    char * ehdrs = NULL;
-    ip_addr_t *tip;
+    char *ehdrs = NULL, *ip = NULL;
 
     if (kickstartNetworkUp(loaderData, &netCfg)) {
         logMessage(ERROR, "unable to bring up network");
@@ -364,10 +362,13 @@ int getFileFromUrl(char * url, char * dest,
     memset(&ui, 0, sizeof(ui));
     ui.protocol = proto;
 
-    tip = &(netCfg.dev.ip);
-    inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+    if ((ip = netlink_interfaces_ip2str(loaderData->netDev)) == NULL) {
+        logMessage(ERROR, "getFileFromUrl: no client IP information");
+        return 1;
+    }
+
     getHostPathandLogin((proto == URL_METHOD_FTP ? url + 6 : url + 7),
-                   &host, &file, &login, &password, ret);
+                   &host, &file, &login, &password, ip);
 
     logMessage(INFO, "file location: %s://%s%s", 
                (proto == URL_METHOD_FTP ? "ftp" : "http"), host, file);

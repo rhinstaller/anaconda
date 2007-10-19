@@ -3,6 +3,11 @@
 	* isys/nl.c (netlink_interfaces_ip2str, netlink_interfaces_mac2str):
 	Detect success from netlink_init_interfaces_list correctly.
 
+	* loader2/nfsinstall.c (getFileFromNfs):  Use the netlink code to get
+	our IP address, instead of trusting that kickstartNetworkUp will set
+	the data correctly on the second time through (#336761).
+	* loader2/urlinstall.c (getFileFromUrl):  Likewise.
+
 2007-10-17  Peter Jones  <pjones@redhat.com>
 
 	* isys/isys.c: add matchPathContext and setFileContext calls,
