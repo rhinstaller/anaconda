@@ -7,6 +7,9 @@
 
 	* loader2/copy.c (copyDirectory): Fix missing closedir() calls.
 
+	* loader2/kbd.c (chooseKeyboard): Avoid double gunzip_close() on bad
+	kbd files.
+
 2007-10-19  Chris Lumens  <clumens@redhat.com>
 
 	* isys/nl.c (netlink_interfaces_ip2str, netlink_interfaces_mac2str):

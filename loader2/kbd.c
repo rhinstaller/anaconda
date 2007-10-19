@@ -156,8 +156,8 @@ int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep) {
     */
     if (rc != 0)
 	rc = LOADER_ERROR;
-    
-    gunzip_close(f);
+    else
+        gunzip_close(f);
 
     loaderData->kbd = strdup(infoTable[num].name);
 
