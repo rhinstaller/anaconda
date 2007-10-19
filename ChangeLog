@@ -1,3 +1,8 @@
+2007-10-19  Chris Lumens  <clumens@redhat.com>
+
+	* isys/nl.c (netlink_interfaces_ip2str, netlink_interfaces_mac2str):
+	Detect success from netlink_init_interfaces_list correctly.
+
 2007-10-17  Peter Jones  <pjones@redhat.com>
 
 	* isys/isys.c: add matchPathContext and setFileContext calls,

@@ -477,9 +477,9 @@ char *netlink_interfaces_ip2str(char *ifname) {
     e = g_slist_find_custom(interfaces,ifname,&_netlink_interfaces_elem_find);
     if (interfaces == NULL || e == NULL) {
         int r = netlink_init_interfaces_list();
-        if (r <= 0) {
-            if (r < 0)
-                perror("netlink_init_interfaces_list in netlink_interface_ip2str");
+
+        if (r < 0) {
+            perror("netlink_init_interfaces_list in netlink_interface_ip2str");
             return NULL;
         }
     }
@@ -528,9 +528,9 @@ char *netlink_interfaces_mac2str(char *ifname) {
     /* init the interfaces list if it's empty */
     if (interfaces == NULL) {
         r = netlink_init_interfaces_list();
-        if (r <= 0) {
-            if (r < 0)
-                perror("netlink_init_interfaces_list in netlink_interface_mac2str");
+
+        if (r < 0) {
+            perror("netlink_init_interfaces_list in netlink_interface_mac2str");
             return NULL;
         }
     }
