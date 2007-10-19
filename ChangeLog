@@ -10,6 +10,12 @@
 	* loader2/kbd.c (chooseKeyboard): Avoid double gunzip_close() on bad
 	kbd files.
 
+	* loader2/loader.c (initProductInfo): close /.buildstamp when we're
+	done using it.
+
+	* loader2/loader.c (main): close /var/run/init.pid when we're done
+	with it (not that it makes much difference...)
+
 2007-10-19  Chris Lumens  <clumens@redhat.com>
 
 	* isys/nl.c (netlink_interfaces_ip2str, netlink_interfaces_mac2str):

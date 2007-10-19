@@ -219,6 +219,8 @@ static void initProductInfo(void) {
     }
 
     if(!productArch) productArch = strdup("unknown architecture");
+
+    fclose(f);
 }
 
 char * getProductName(void) {
@@ -1982,6 +1984,7 @@ int main(int argc, char ** argv) {
 
             ret = fgets(buf, 256, f);
             pid = atoi(buf);
+            fclose(f);
         }
         kill(pid, SIGUSR1);
 #endif
