@@ -62,8 +62,10 @@ int copyDirectory(char * from, char * to, void (*warnFn)(char *),
         lstat(filespec, &sb);
 
         if (S_ISDIR(sb.st_mode)) {
-            if (copyDirectory(filespec, filespec2, warnFn, errorFn))
-               return 1;
+            if (copyDirectory(filespec, filespec2, warnFn, errorFn)) {
+                closedir(dir);
+                return 1;
+            }
         } else if (S_ISLNK(sb.st_mode)) {
             i = readlink(filespec, link, sizeof(link) - 1);
             link[i] = '\0';
@@ -85,6 +87,7 @@ int copyDirectory(char * from, char * to, void (*warnFn)(char *),
                     free(msg);
                 }
 
+                closedir(dir);
                 return 1;
             } 
             outfd = open(filespec2, O_RDWR | O_TRUNC | O_CREAT, 0644);
