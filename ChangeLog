@@ -2,6 +2,9 @@
 
 	* product.py: close /.buildstamp when we're done with it.
 
+	* loader2/modules.c (ethCount): close /proc/net/dev when we're done
+	with it.
+
 2007-10-19  Chris Lumens  <clumens@redhat.com>
 
 	* isys/nl.c (netlink_interfaces_ip2str, netlink_interfaces_mac2str):

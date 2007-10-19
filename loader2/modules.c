@@ -58,6 +58,7 @@ static int ethCount(const char * type) {
 
     fd = open("/proc/net/dev", O_RDONLY);
     i = read(fd, buf, sizeof(buf) - 1);
+    close(fd);
     buf[i] = '\0';
 
     /* skip first two header lines */
