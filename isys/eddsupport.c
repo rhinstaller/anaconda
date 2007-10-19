@@ -186,7 +186,7 @@ static int mapBiosDisks(struct device** devices,const char *path) {
                 if ((rc=readDiskSig((*currentDev)->device, &currentSig)) < 0) {
                     if (rc == -ENOMEDIUM)
                         continue;
-                    closedir(dir);
+                    closedir(dirHandle);
                     return 0;
                 } 
 
