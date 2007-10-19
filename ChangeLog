@@ -29,6 +29,9 @@
 	* network.py (Network.available):  Filter available network devices by
 	checking their type in sysfs (#338461).
 
+	* flags.py (Flags.createCmdlineDict):  Work around a quoting bug in
+	pxelinux (#248170).
+
 2007-10-18  Peter Jones  <pjones@redhat.com>
 
 	* isys/isys.c: add matchPathContext and setFileContext calls,
