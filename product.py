@@ -32,6 +32,7 @@ bugUrl = "your distribution provided bug reporting tool."
 if path is not None:
     f = open(path, "r")
     lines = f.readlines()
+    del f
     if len(lines) >= 3:
         productStamp = lines[0][:-1]
         productArch = productStamp[productStamp.index(".")+1:]

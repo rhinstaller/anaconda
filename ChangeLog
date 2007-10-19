@@ -1,3 +1,7 @@
+2007-10-19  Peter Jones  <pjones@redhat.com>
+
+	* product.py: close /.buildstamp when we're done with it.
+
 2007-10-19  Chris Lumens  <clumens@redhat.com>
 
 	* isys/nl.c (netlink_interfaces_ip2str, netlink_interfaces_mac2str):
@@ -8,7 +12,7 @@
 	the data correctly on the second time through (#336761).
 	* loader2/urlinstall.c (getFileFromUrl):  Likewise.
 
-2007-10-17  Peter Jones  <pjones@redhat.com>
+2007-10-18  Peter Jones  <pjones@redhat.com>
 
 	* isys/isys.c: add matchPathContext and setFileContext calls,
 	remove resetFileContext call.
