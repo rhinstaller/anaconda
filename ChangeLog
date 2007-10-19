@@ -15,6 +15,9 @@
 	the data correctly on the second time through (#336761).
 	* loader2/urlinstall.c (getFileFromUrl):  Likewise.
 
+	* network.py (Network.available):  Filter available network devices by
+	checking their type in sysfs (#338461).
+
 2007-10-18  Peter Jones  <pjones@redhat.com>
 
 	* isys/isys.c: add matchPathContext and setFileContext calls,

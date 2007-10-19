@@ -279,6 +279,16 @@ class Network:
     def getFirstDeviceName(self):
 	return self.firstnetdevice
 
+    def _sysfsDeviceIsUsable(self, dev):
+        try:
+            f = open("/sys/class/net/%s/type" % dev)
+            lines = f.readlines()
+            f.close()
+
+            return lines[0].startswith("1")
+        except:
+            return False
+
     def available(self):
         ksdevice = None
         if flags.cmdline.has_key("ksdevice"):
@@ -291,7 +301,7 @@ class Network:
         lines = lines[2:]
         for line in lines:
             dev = string.strip(line[0:6])
-            if dev != "lo" and dev[0:3] != "sit" and not self.netdevices.has_key(dev):
+            if dev != "lo" and dev[0:3] != "sit" and not self.netdevices.has_key(dev) and self._sysfsDeviceIsUsable(dev):
 		if self.firstnetdevice is None:
 		    self.firstnetdevice = dev
 
