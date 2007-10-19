@@ -1,5 +1,11 @@
 2007-10-19  Peter Jones  <pjones@redhat.com>
 
+	* isys/dasd.c (getDasdPorts): fix missing close() calls.
+
+	* isys/eddsupport.c (mapBiosDisks): fix opendir() leak.  reformat.
+
+2007-10-19  Peter Jones  <pjones@redhat.com>
+
 	* product.py: close /.buildstamp when we're done with it.
 
 	* loader2/modules.c (ethCount): close /proc/net/dev when we're done

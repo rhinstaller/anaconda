@@ -164,6 +164,7 @@ static int mapBiosDisks(struct device** devices,const char *path) {
 #ifdef STANDALONE
         fprintf(stderr, "Error initializing mbrSigToName table\n");
 #endif
+        closedir(dirHandle);
         return 0;
     }
 
@@ -176,31 +177,33 @@ static int mapBiosDisks(struct device** devices,const char *path) {
         sigFileName = malloc(strlen(path) + strlen(entry->d_name) + 20);
         sprintf(sigFileName, "%s/%s/%s", path, entry->d_name, SIG_FILE);
         if (readMbrSig(sigFileName, &mbrSig) == 0) {
-	    	
-	    for (currentDev = devices, i = 0, foundDisk=NULL; (*currentDev) != NULL && i<2; currentDev++) {
-        	if (!(*currentDev)->device)
-            		continue;
-		
-        	if ((rc=readDiskSig((*currentDev)->device, &currentSig)) < 0){
-			if (rc == -ENOMEDIUM)
-			     continue;
-			return 0;
-		} 
-            		
+            for (currentDev = devices, i = 0, foundDisk=NULL;
+                    (*currentDev) != NULL && i<2;
+                    currentDev++) {
+                if (!(*currentDev)->device)
+                    continue;
 
-            	if (mbrSig == currentSig){
-			foundDisk=currentDev;
-			i++;
-		}
-	    }
+                if ((rc=readDiskSig((*currentDev)->device, &currentSig)) < 0) {
+                    if (rc == -ENOMEDIUM)
+                        continue;
+                    closedir(dir);
+                    return 0;
+                } 
 
-	    if (i==1){
-            if(!addToHashTable(mbrSigToName, (uint32_t)biosNum, 
-                               (*foundDisk)->device))
-                return 0;
-	    }
+                if (mbrSig == currentSig) {
+                    foundDisk=currentDev;
+                        i++;
+                }
+            }
+
+            if (i==1) {
+                if(!addToHashTable(mbrSigToName, (uint32_t)biosNum, 
+                               (*foundDisk)->device)) {
+                    closedir(dirHandle);
+                    return 0;
+                }
+            }
         } 
-
     }
     closedir(dirHandle);
     return 1;

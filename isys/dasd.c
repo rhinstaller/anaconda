@@ -118,8 +118,10 @@ char *getDasdPorts() {
     if (!fd)
         return NULL;
 
-    if ((line = (char *)malloc(100 * sizeof(char))) == NULL)
+    if ((line = (char *)malloc(100 * sizeof(char))) == NULL) {
+        fclose(fd);
         return NULL;
+    }
 
     while (fgets(line, 100, fd) != NULL) {
         if ((strstr(line, "unknown") != NULL))
@@ -133,14 +135,18 @@ char *getDasdPorts() {
         if (ret == 2) {
             if (!ports) {
                 sz = strlen(port) + 1;
-                if ((ports = (char *) malloc(sz)) == NULL)
+                if ((ports = (char *) malloc(sz)) == NULL) {
+                    fclose(fd);
                     return NULL;
+                }
 
                 ports = strcpy(ports, port);
             } else {
                 sz = strlen(ports) + strlen(port) + 2;
-                if ((ports = (char *) realloc(ports, sz)) == NULL)
+                if ((ports = (char *) realloc(ports, sz)) == NULL) {
+                    fclose(fd);
                     return NULL;
+                }
 
                 ports = strcat(ports, ",");
                 ports = strcat(ports, port);
@@ -148,8 +154,7 @@ char *getDasdPorts() {
         }
     }
 
-    if (fd)
-        fclose(fd);
+    fclose(fd);
 
     return ports;
 #endif
