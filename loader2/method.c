@@ -475,6 +475,7 @@ int unpackCpioBall(char * ballPath, char * rootDir) {
                 rc = chdir(cwd);
                 return 0;
             }
+            gunzip_close(fd);
         }
         rc = chdir(cwd);
     }

@@ -16,6 +16,15 @@
 	* loader2/loader.c (main): close /var/run/init.pid when we're done
 	with it (not that it makes much difference...)
 
+	* loader2/modstubs.c (ourInsmodCommand): unmap and close the module
+	file when we're done with it, and on errors.  Handle EINTR correctly.
+
+	* loader2/modstubs.c (extractModule): gunzip_close() our cpioball
+	once we've unpacked it.
+
+	* loader2/method.c (unpackCpioBall): gunzip_close() our cpioball
+	once we've unpacked it.
+
 2007-10-19  Chris Lumens  <clumens@redhat.com>
 
 	* isys/nl.c (netlink_interfaces_ip2str, netlink_interfaces_mac2str):

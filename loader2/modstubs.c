@@ -70,9 +70,11 @@ static char * extractModule(char * file, char * ballPath, int version,
         sprintf(fullName, "%s/%s", loc, file);
         free(loc);
 
-        if (installCpioFile(fd, fullName, finalName, 0))
+        int ret = installCpioFile(fd, fullName, finalName, 0);
+        gunzip_close(fd);
+        if (ret)
             return NULL;
-        
+
         *rmObj = 1;
         file = finalName;
     }
@@ -137,6 +139,7 @@ int ourInsmodCommand(int argc, char ** argv) {
     modbuf = mmap(0, sb.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
     if (modbuf == NULL) {
         logMessage(ERROR, "error reading file %s: %s", file, strerror(errno));
+        close(fd);
         return 1;
     }
 
@@ -147,9 +150,13 @@ int ourInsmodCommand(int argc, char ** argv) {
         strcat(options, " ");
      }
 
-    rc = init_module(modbuf, sb.st_size, options);
+    while ((rc = init_module(modbuf, sb.st_size, options)) == -1 &&
+            errno == EINTR)
+        ;
     if (rc != 0)
         logMessage(WARNING, "failed to insert module (%d)", errno);
+    munmap(modbuf, sb.st_size);
+    close(fd);
     return rc;
 }
 
