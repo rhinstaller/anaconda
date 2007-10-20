@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-07-03 18:00+0200\n"
+"PO-Revision-Date: 2007-10-20 22:51+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1952,8 +1952,8 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
-"Partycja uruchamialna nie znajduje się na jednej z czterech pierwszych "
-"partycji, więc nie będzie uruchamialna."
+"Partycja startowa nie znajduje się na jednej z czterech pierwszych partycji, "
+"więc nie będzie startowa."
 
 #: ../partitions.py:847
 msgid ""
@@ -1994,12 +1994,11 @@ msgstr ""
 
 #: ../partitions.py:954 ../partRequests.py:679
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
-"Partycje z możliwością rozruchu można tworzyć tylko na urządzeniach RAID1."
+msgstr "Partycje startowe można tworzyć tylko na urządzeniach RAID1."
 
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "Partycje z możliwością rozruchu nie mogą być na woluminie logicznym."
+msgstr "Partycje startowe nie mogą być na woluminie logicznym."
 
 #: ../partitions.py:986
 msgid ""
@@ -2597,8 +2596,8 @@ msgstr ""
 "\n"
 "\n"
 "UWAGA!!! Serwer VNC jest uruchomiony BEZ HASŁA!\n"
-"Można użyć opcji vncpassword=<hasło> podczas\n"
-"uruchamiania, jeśli chcesz zabezpieczyć serwer.\n"
+"Można użyć opcji startowej vncpassword=<hasło>,\n"
+"jeśli chcesz zabezpieczyć serwer.\n"
 "\n"
 
 #: ../vnc.py:295
@@ -3006,8 +3005,8 @@ msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
-"Jeśli chcesz dodać domyślne opcje do polecenia uruchomienia systemu, podaj "
-"je w polu \"Ogólne parametry jądra\"."
+"Jeśli chcesz dodać domyślne opcje do polecenia startowego, podaj je w polu "
+"\"Ogólne parametry jądra\"."
 
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
@@ -3846,11 +3845,11 @@ msgstr "Domyślnie _uruchamiany"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
-msgstr "Musisz podać etykietę"
+msgstr "Musisz podać etykietę dla wpisu"
 
 #: ../iw/osbootwidget.py:226
 msgid "Boot label contains illegal characters"
-msgstr "Etykieta zawiera niedozwolone znaki"
+msgstr "Etykieta startowa zawiera niedozwolone znaki"
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
@@ -4706,7 +4705,7 @@ msgstr "Użyj programu startowego GRUB"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
-msgstr "Bez programu startowego"
+msgstr "Brak programu startowego"
 
 #: ../textw/bootloader_text.py:59
 msgid "Skip Boot Loader"
@@ -5814,7 +5813,8 @@ msgid ""
 "No %s disc was found which matches your boot media.  Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"Nie można znaleźć płyty %s. Włóż płytę %s i naciśnij %s, aby ponowić próbę."
+"Nie można znaleźć płyty startowej %s. Włóż płytę %s i naciśnij %s, aby "
+"ponowić próbę."
 
 #: ../loader2/cdinstall.c:384
 #, c-format
@@ -6018,8 +6018,8 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
-"Drzewo instalacyjne %s w tym folderze nie wygląda na zgodne z nośnikiem, z "
-"którego uruchomiono instalację."
+"Drzewo instalacyjne %s w tym folderze nie wygląda na zgodne z nośnikiem "
+"startowym."
 
 #: ../loader2/hdinstall.c:158
 msgid ""
@@ -6529,7 +6529,7 @@ msgstr "Błędny argument polecenia sieciowego kickstart %s: %s"
 #: ../loader2/net.c:1621
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "Błędnie określony protokół uruchamiania %s w poleceniu sieciowym"
+msgstr "Błędnie określony protokół startowy %s w poleceniu sieciowym"
 
 #: ../loader2/net.c:1802
 msgid "Networking Device"
@@ -7175,4 +7175,3 @@ msgstr "walijski"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zuluski"
-
