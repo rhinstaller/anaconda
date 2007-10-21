@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.42
+Version: 11.3.0.43
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -214,6 +214,17 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Oct 21 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.43-1
+- Fix closing of some fds (pjones)
+- Fix ip address used in a few cases (clumens, #336761)
+- Filter out non-useful networking devices from being 
+  displayed (clumens, #338461)
+- Fix a quoting bug with pxelinux (#248170)
+- Label lost+found (pjones, #335621)
+- Update udev rules to not match wmaster (notting)
+- gptsync update (pjones)
+- Detect invalid harddrives given to bootloader --driveorder (#33861)
+
 * Wed Oct 17 2007 Peter Jones <pjones@redhat.com> 11.3.0.42-1
 - Don't include 'sound-and-video' in 'Office and Productivity' since the
   former is enabled by default, and including it here causes disabling OaP
