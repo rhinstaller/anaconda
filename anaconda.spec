@@ -73,6 +73,7 @@ BuildRequires: zlib-devel
 BuildRequires: desktop-file-utils
 %endif
 
+Requires: policycoreutils
 Requires: rpm-python >= %{rpmpythonver}
 Requires: rhpl >= %{rhplver}
 Requires: booty

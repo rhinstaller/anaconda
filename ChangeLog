@@ -1,5 +1,8 @@
 2007-10-22  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda.spec:  Add Requires: policycoreutils for people doing
+	rebuilds (#343861).
+
 	* kickstart.py (Bootloader):  Fix typo.
 
 2007-10-21  Jeremy Katz  <katzj@redhat.com>
