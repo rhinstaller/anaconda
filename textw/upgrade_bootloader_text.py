@@ -41,21 +41,38 @@ class UpgradeBootloaderWindow:
             log.debug("error reading /etc/modprobe.conf")
             return False
 
-        lines = f.readlines()
+        modlines = f.readlines()
         f.close()
 
-        for l in lines:
+        try:
+            f = open("/tmp/scsidisks")
+        except:
+            log.debug("error reading /tmp/scsidisks")
+            return False
+        mods = []
+        for l in f.readlines():
+            (disk, mod) = l.split()
+            if mod.strip() not in mods:
+                mods.append(mod.strip())
+        f.close()
+
+        for l in modlines:
             stripped = l.strip()
 
             if stripped == "" or stripped[0] == "#":
                 continue
 
             if stripped.find("scsi_hostadapter") != -1:
-                return True
+                mod = stripped.split()[-1]
+                if mod in mods:
+                    mods.remove(mod)
 
+        if len(mods) > 0:
+            return True
         return False
 
     def __call__(self, screen, anaconda):
+        self.screen = screen
         self.dispatch = anaconda.dispatch
         self.bl = anaconda.id.bootloader
 
