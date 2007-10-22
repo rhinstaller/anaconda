@@ -40,11 +40,17 @@ log = logging.getLogger("anaconda")
 # (name, ) to erase all matches
 upgrade_remove_blacklist = [("system-config-mouse",), ("dev",)] 
 
+# list of things which have been split and thus need to have their
+# multilib package removed.  the new -libs package will then get pulled in
+# automatically by dependencies
+splitpkgs = ("e2fsprogs", "hal", "mysql", "esound", "mkinitrd", "dbus", "kdeaccessibility", "kdebase", "kdeedu", "kdegraphics", "kdemultimedia", "kdemultimedia-extras","kdenetwork", "kdesdk", "kdeutils", "kdewebdev")
 if rhpl.getArch() == "x86_64":
-    upgrade_remove_blacklist.extend( [("perl","i386"), ("e2fsprogs", "i386"), ("hal", "i386"), ("mysql", "i386"), ("esound", "i386"), ("mkinitrd", "i386"), ("dbus.i386")] )
-
+    upgrade_remove_blacklist.extend(map(lambda x: (x, "i386"), splitpkgs))
 if rhpl.getArch() == "ppc":
-    upgrade_remove_blacklist.extend( [("e2fsprogs", "ppc64"), ("hal", "ppc64"), ("mysql", "ppc64"), ("esound", "ppc64"), ("mkinitrd", "ppc64"), ("dbus", "ppc64")] )
+    upgrade_remove_blacklist.extend(map(lambda x: (x, "ppc64"), splitpkgs))
+
+if rhpl.getArch() == "x86_64":
+    upgrade_remove_blacklist.extend( [("perl","i386")] )
 
 def queryUpgradeContinue(anaconda):
     if anaconda.dir == DISPATCH_FORWARD:

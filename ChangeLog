@@ -1,3 +1,8 @@
+2007-10-22  Jeremy Katz  <katzj@redhat.com>
+
+	* upgrade.py: Add some kde packages to the list that we remove on
+	upgrade (#339981).  Also clean up to have a little less duplication.
+
 2007-10-22  Peter Jones  <pjones@redhat.com>
 
 	* loader2/cdinstall.c: get rid of sdupprintf() calls
