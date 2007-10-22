@@ -1203,11 +1203,13 @@ class YumBackend(AnacondaBackend):
                               ('kernel-xenU', 'xenU'),
                               ('kernel-xen', 'xen')]:
             tag = ktag.rsplit('-', 1)[1]
-            for tsmbr in self.ayum.tsInfo.matchNaevr(name=ktag):
+            for tsmbr in filter(lambda p: p.output_state in TS_INSTALL_STATES, 
+                                self.ayum.tsInfo.matchNaevr(name=ktag)):
                 version = ( tsmbr.version + '-' + tsmbr.release + tag)
                 kernelVersions.append((version, tsmbr.arch, nick))
 
-        for tsmbr in self.ayum.tsInfo.matchNaevr(name='kernel'):
+        for tsmbr in filter(lambda p: p.output_state in TS_INSTALL_STATES,
+                            self.ayum.tsInfo.matchNaevr(name='kernel')):
             version = ( tsmbr.version + '-' + tsmbr.release)
             kernelVersions.append((version, tsmbr.arch, 'base'))
 

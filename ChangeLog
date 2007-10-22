@@ -1,5 +1,9 @@
 2007-10-22  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumBackend.kernelVersionList): Only include the
+	installed kernels in this list so that we don't end up with
+	phantom entries in the grub config on upgrade (#325871)
+
 	* iw/upgrade_bootloader_gui.py
 	(UpgradeBootloaderWindow._newToLibata): Sync up with text mode version
 	* textw/upgrade_bootloader_text.py
