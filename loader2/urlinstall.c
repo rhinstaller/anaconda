@@ -154,9 +154,9 @@ static int loadUrlImages(struct iurlinfo * ui) {
     if (!verifyStamp("/mnt/runtime")) {
 	char * buf;
 
-	buf = sdupprintf(_("The %s installation tree in that directory does "
-			   "not seem to match your boot media."), 
-                         getProductName());
+        rc = asprintf(&buf, _("The %s installation tree in that directory does "
+                              "not seem to match your boot media."), 
+                 getProductName());
 
 	newtWinMessage(_("Error"), _("OK"), buf);
 

@@ -134,10 +134,12 @@ static char * mediaCheckCdrom(char *cddriver) {
 /* output an error message when CD in drive is not the correct one */
 /* Used by mountCdromStage2()                                      */
 static void wrongCDMessage(void) {
-    char *buf = sdupprintf(_("The %s disc was not found "
-                             "in any of your drives. Please insert "
-                             "the %s disc and press %s to retry."),
-                           getProductName(), getProductName(), _("OK"));
+    char *buf = NULL;
+    int i;
+    i = asprintf(&buf, (_("The %s disc was not found "
+                          "in any of your drives. Please insert "
+                          "the %s disc and press %s to retry."),
+                getProductName(), getProductName(), _("OK")));
     newtWinMessage(_("Error"), _("OK"), buf, _("OK"));
     free(buf);
 }
@@ -380,16 +382,17 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
         if (interactive) {
             char * buf;
+            int i;
             if (foundinvalid)
-                buf = sdupprintf(_("No %s disc was found which matches your "
-                                   "boot media.  Please insert the %s disc "
-                                   "and press %s to retry."), getProductName(),
-                                 getProductName(), _("OK"));
+                i = asprintf(&buf, _("No %s disc was found which matches your "
+                                     "boot media.  Please insert the %s disc "
+                                     "and press %s to retry."),
+                        getProductName(), getProductName(), _("OK"));
             else
-                buf = sdupprintf(_("The %s disc was not found in any of your "
-                                   "CDROM drives. Please insert the %s disc "
-                                   "and press %s to retry."), getProductName(),
-                                 getProductName(), _("OK"));
+                i = asprintf(&buf, _("The %s disc was not found in any of your "
+                                     "CDROM drives. Please insert the %s disc "
+                                     "and press %s to retry."),
+                        getProductName(), getProductName(), _("OK"));
 
             ejectCdrom();
             unlink("/tmp/cdrom");

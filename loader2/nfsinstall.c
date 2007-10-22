@@ -50,15 +50,16 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     entries[0].text = _("NFS server name:");
     entries[0].value = (const char **) &newServer;
     entries[0].flags = NEWT_FLAG_SCROLL;
-    entries[1].text = sdupprintf(_("%s directory:"), getProductName());
+    rc = asprintf(&entries[1].text, _("%s directory:"), getProductName());
     entries[1].value = (const char **) &newDir;
     entries[1].flags = NEWT_FLAG_SCROLL;
     entries[2].text = NULL;
     entries[2].value = NULL;
-    buf = sdupprintf(_(netServerPrompt), _("NFS"), getProductName());
+    rc = asprintf(&buf, _(netServerPrompt), _("NFS"), getProductName());
     rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
                         24, entries, _("OK"), _("Back"), NULL);
     free(buf);
+    free(entries[1].text);
 
     if (rc == 2) {
         if (newServer) free(newServer);
@@ -221,14 +222,15 @@ char * mountNfsImage(struct installMethod * method,
 		/* source for installation.                               */
 		umount("/mnt/source");
                 if (foundinvalid) 
-                    buf = sdupprintf(_("The %s installation tree in that "
-                                       "directory does not seem to match "
-                                       "your boot media."), getProductName());
+                    rc = asprintf(&buf, _("The %s installation tree in that "
+                                     "directory does not seem to match "
+                                     "your boot media."), getProductName());
                 else
-                    buf = sdupprintf(_("That directory does not seem to "
-                                       "contain a %s installation tree."),
-                                     getProductName());
+                    rc = asprintf(&buf, _("That directory does not seem to "
+                                     "contain a %s installation tree."),
+                                   getProductName());
                 newtWinMessage(_("Error"), _("OK"), buf);
+                free(buf);
                 if (loaderData->method >= 0) {
                     loaderData->method = -1;
                 }
@@ -304,6 +306,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
     char * chk = NULL, *ip = NULL;
     int failed = 0;
+    int i;
     struct networkDeviceConfig netCfg;
 
     if (kickstartNetworkUp(loaderData, &netCfg)) {
@@ -327,12 +330,12 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         if (!(netCfg.dev.set & PUMP_INTFINFO_HAS_BOOTFILE)) {
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
             ip = strdup(ret);
-            url = sdupprintf("%s:%s", ret, "/kickstart/");
+            i = asprintf(&url, "%s:%s", ret, "/kickstart/");
             logMessage(ERROR, "bootp: no bootfile received");
         } else {
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
             ip = strdup(ret);
-            url = sdupprintf("%s:%s", ret, netCfg.dev.bootFile);
+            i = asprintf(&url, "%s:%s", ret, netCfg.dev.bootFile);
             logMessage(INFO, "bootp: bootfile is %s", netCfg.dev.bootFile);
         }
     }
@@ -365,11 +368,11 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         *file++ ='\0';
         chk = host;
         chk += strlen(host) - 1;
+        char c = '/';
 
         if (*chk == '/' || *path == '/')
-            host = sdupprintf("%s%s", host, path);
-        else
-            host = sdupprintf("%s/%s", host, path);
+            c = '\0';
+        i = asprintf(&host, "%s%c%s", host, c, path);
     }
 
     logMessage(INFO, "file location: nfs://%s/%s", host, file);

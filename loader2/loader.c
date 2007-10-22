@@ -153,8 +153,13 @@ void doShell(void) {
 void startNewt(void) {
     if (!newtRunning) {
         char *buf;
-        if(getProductArch()) buf = sdupprintf(_("Welcome to %s for %s"), getProductName(), getProductArch());
-        else buf = sdupprintf(_("Welcome to %s"), getProductName());
+        int n, ignore;
+        char *arch = getProductArch();
+        
+        ignore = asprintf(&buf, _("Welcome to %s%n for %s"), getProductName(),
+                &n, arch);
+        if (!arch)
+            buf[n] = '\0';
 
         newtInit();
         newtCls();
@@ -423,9 +428,10 @@ void loadUpdates(struct loaderData_s *loaderData) {
         }
 
         case UPD_LOAD:
-            buf = sdupprintf(_("Insert your updates disk into /dev/%s and press "
-                               "\"OK\" to continue."), part+5);
+            rc = asprintf(&buf, _("Insert your updates disk into /dev/%s and "
+                                  "press \"OK\" to continue."), part+5);
             rc = newtWinChoice(_("Updates Disk"), _("OK"), _("Back"), buf);
+            free(buf);
 
             if (rc == 2) {
                 stage = UPD_PART;
@@ -944,8 +950,9 @@ static int checkFrameBuffer() {
 static void checkForRam(void) {
     if (totalMemory() < MIN_RAM) {
         char *buf;
-        buf = sdupprintf(_("You do not have enough RAM to install %s "
-                           "on this machine."), getProductName());
+        int i;
+        i = asprintf(&buf, _("You do not have enough RAM to install %s "
+                             "on this machine."), getProductName());
         startNewt();
         newtWinMessage(_("Error"), _("OK"), buf);
         free(buf);
@@ -1359,8 +1366,8 @@ static int manualDeviceCheck(struct loaderData_s *loaderData) {
                 (!mi->description))
                 continue;
 
-            devices[j] = sdupprintf("%s (%s)", mi->description, 
-                                    modLoaded->mods[i].name);
+            rc = asprintf(&devices[j], "%s (%s)", mi->description, 
+                    modLoaded->mods[i].name);
             if (strlen(devices[j]) > width)
                 width = strlen(devices[j]);
             j++;
@@ -1383,7 +1390,7 @@ static int manualDeviceCheck(struct loaderData_s *loaderData) {
                          _("Add Device"), NULL);
 
         /* no leaky */
-        for (i = 0; i < j; i++) 
+        for (i = 0; i < j; i++)
             free(devices[j]);
         free(devices);
 
@@ -1403,14 +1410,14 @@ static void migrate_runtime_directory(char * dirname) {
     char * runtimedir;
     int ret;
 
-    runtimedir = sdupprintf("/mnt/runtime%s", dirname);
+    ret = asprintf(&runtimedir, "/mnt/runtime%s", dirname);
     if (!access(runtimedir, X_OK)) {
 #if !defined(__s390__) && !defined(__s390x__)
         unlink(dirname);
 #else
         char * olddir;
 
-        olddir = sdupprintf("%s_old", dirname);
+        asprintf(&olddir, "%s_old", dirname);
         rename(dirname, olddir);
         free(olddir);
 #endif
@@ -1783,19 +1790,23 @@ int main(int argc, char ** argv) {
     }
 
     if (useRHupdates) {
+        char *buf;
         setenv("PYTHONPATH", "/tmp/updates:/tmp/product:/mnt/source/RHupdates", 1);
-        setenv("LD_LIBRARY_PATH", 
-               sdupprintf("/tmp/updates:/tmp/product:/mnt/source/RHupdates:%s",
-                           LIBPATH), 1);
+        rc = asprintf(&buf,
+                "/tmp/updates:/tmp/product:/mnt/source/RHupdates:%s", LIBPATH);
+        setenv("LD_LIBRARY_PATH", buf, 1);
+        free(buf);
         add_fw_search_dir(&loaderData, "/tmp/updates/firmware");
         add_fw_search_dir(&loaderData, "/tmp/product/firmware");
         add_fw_search_dir(&loaderData, "/mnt/source/RHupdates/firmware");
         stop_fw_loader(&loaderData);
         start_fw_loader(&loaderData);
     } else {
+        char *buf;
         setenv("PYTHONPATH", "/tmp/updates:/tmp/product", 1);
-        setenv("LD_LIBRARY_PATH", 
-               sdupprintf("/tmp/updates:/tmp/product:%s", LIBPATH), 1);
+        rc = asprintf(&buf, "/tmp/updates:/tmp/product:%s", LIBPATH);
+        setenv("LD_LIBRARY_PATH", buf, 1);
+        free(buf);
         add_fw_search_dir(&loaderData, "/tmp/updates/firmware");
         add_fw_search_dir(&loaderData, "/tmp/product/firmware");
         stop_fw_loader(&loaderData);
@@ -1933,13 +1944,14 @@ int main(int argc, char ** argv) {
     
     if (!FL_TESTING(flags)) {
         int pid, status, rc;
-        char * buf;
+        char *fmt;
 
-        if (FL_RESCUE(flags))
-            buf = sdupprintf(_("Running anaconda %s, the %s rescue mode - please wait...\n"), VERSION, getProductName());
-        else
-            buf = sdupprintf(_("Running anaconda %s, the %s system installer - please wait...\n"), VERSION, getProductName());
-        printf("%s", buf);
+        if (FL_RESCUE(flags)) {
+            fmt = _("Running anaconda %s, the %s rescue mode - please wait...\n");
+        } else {
+            fmt = _("Running anaconda %s, the %s system installer - please wait...\n");
+        }
+        printf(fmt, VERSION, getProductName());
 
         if (!(pid = fork())) {
             setenv("ANACONDAVERSION", VERSION, 1);
@@ -1984,6 +1996,7 @@ int main(int argc, char ** argv) {
 
             ret = fgets(buf, 256, f);
             pid = atoi(buf);
+            free(buf);
             fclose(f);
         }
         kill(pid, SIGUSR1);

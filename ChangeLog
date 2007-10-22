@@ -1,3 +1,35 @@
+2007-10-22  Peter Jones  <pjones@redhat.com>
+
+	* loader2/cdinstall.c: get rid of sdupprintf() calls
+
+	* loader2/driverdisk.c: ditto
+
+	* loader2/driverselect.c: ditto, and add missing free() calls
+
+	* loader2/hdinstall.c: ditto, and add missing free() calls
+
+	* loader2/kickstart.c: ditto
+
+	* loader2/lang.c: ditto
+
+	* loader2/loader.c: ditto, and add missing free() calls
+
+	* loader2/method.c: ditto
+
+	* loader2/net.c: ditto, and add missing free()
+
+	* loader2/nfsinstall.c: ditto, and add missing free()
+
+	* loader2/pcmcia.c: ditto, and add missing free()
+
+	* loader2/urlinstall.c: ditto
+
+	* loader2/urls.c: ditto, and add missing free()
+
+	* loader2/loadermisc.c: get rid of sdupprintf() definition.
+
+	* loader2/loadermisc.h: get rid of sdupprintf() declaration.
+
 2007-10-22  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Add Requires: policycoreutils for people doing

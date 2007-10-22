@@ -139,10 +139,11 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
 
     location = malloc(sizeof(struct moduleBallLocation));
     location->title = strdup(title);
-    location->path = sdupprintf("/tmp/ramfs/DD-%d/modules.cgz", disknum);
+    ret = asprintf(&location->path, "/tmp/ramfs/DD-%d/modules.cgz", disknum);
     location->version = version;
 
-    char *fwdir = sdupprintf("/tmp/ramfs/DD-%d/firmware", disknum);
+    char *fwdir = NULL;
+    ret = asprintf(&fwdir, "/tmp/ramfs/DD-%d/firmware", disknum);
     if (!access(fwdir, R_OK|X_OK)) {
         add_fw_search_dir(loaderData, fwdir);
         stop_fw_loader(loaderData);
@@ -393,10 +394,11 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
         case DEV_INSERT: {
             char * buf;
 
-            buf = sdupprintf(_("Insert your driver disk into /dev/%s "
-                               "and press \"OK\" to continue."), device);
+            rc = asprintf(&buf, _("Insert your driver disk into /dev/%s "
+                             "and press \"OK\" to continue."), device);
             rc = newtWinChoice(_("Insert Driver Disk"), _("OK"), _("Back"),
                                buf);
+            free(buf);
             if (rc == 2) {
                 stage = DEV_DEVICE;
                 dir = -1;

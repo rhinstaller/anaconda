@@ -48,12 +48,14 @@ char * getPcicController() {
 	    for (x = 0; devices[x]; x++) {
 		    if (devices[x]->driver) {
 			    char *tmp;
+                            int i;
 			    
 			    logMessage(DEBUGLVL, "found pcmcia adapter %s", devices[x]->driver);
 			    if (!pcic)
 				    tmp = strdup(devices[x]->driver);
 			    else {
-				    tmp = sdupprintf("%s:%s",pcic,devices[x]->driver);
+                                    i = asprintf(&tmp, "%s:%s", pcic,
+                                            devices[x]->driver);
 				    free(pcic);
 			    }
 			    pcic = tmp;
@@ -127,6 +129,7 @@ int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
                                moduleInfoSet modInfo) {
     char * pcic = NULL;
     char * mods;
+    int i;
 
     if (FL_NOPCMCIA(flags) || FL_TESTING(flags))
 	return 0;
@@ -135,9 +138,11 @@ int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
     if (!pcic)
         return 0;
 
-    mods = sdupprintf("pcmcia_core:%s:pcmcia", pcic);
+    i = asprintf(&mods, "pcmcia_core:%s:pcmcia", pcic);
+    free(pcic);
     mlLoadModuleSet(mods, modLoaded, modDeps, modInfo);
-	
+    free(mods);
+
     startupPcmciaControllers();
     return 0;
 }

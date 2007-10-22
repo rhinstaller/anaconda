@@ -185,34 +185,6 @@ int simpleStringCmp(const void * a, const void * b) {
     return rpmvercmp(first, second);
 }
 
-char * sdupprintf(const char *format, ...) {
-    char *buf = NULL;
-    char c;
-    va_list args;
-    int size = 0;
-
-    va_start(args, format);
-    
-    /* XXX requires C99 vsnprintf behavior */
-    size = vsnprintf(&c, 1, format, args) + 1;
-    if (size == -1) {
-	printf("ERROR: vsnprintf behavior is not C99\n");
-	abort();
-    }
-
-    va_end(args);
-    va_start(args, format);
-
-    buf = malloc(size);
-    if (buf == NULL)
-	return NULL;
-    vsnprintf(buf, size, format, args);
-    va_end (args);
-
-    return buf;
-}
-
-
 /* look for available memory.  note: won't ever report more than the 
  * 900 megs or so supported by the -BOOT kernel due to not using e820 */
 int totalMemory(void) {

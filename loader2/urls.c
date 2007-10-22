@@ -291,12 +291,12 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     
     switch (protocol) {
     case URL_METHOD_FTP:
-        buf = sdupprintf(_(netServerPrompt), _("FTP"), getProductName());
+        r = asprintf(&buf, _(netServerPrompt), _("FTP"), getProductName());
         reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
         free(buf);
         break;
     case URL_METHOD_HTTP:
-        buf = sdupprintf(_(netServerPrompt), _("Web"), getProductName());
+        r = asprintf(&buf, _(netServerPrompt), _("Web"), getProductName());
         reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
         free(buf);
         break;
@@ -316,10 +316,9 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
                                         _("FTP site name:") :
                                         _("Web site name:")),
                      0, 0, 1, 0, NEWT_ANCHOR_LEFT, 0);
+    r = asprintf(&buf, _("%s directory:"), getProductName());
     newtGridSetField(entryGrid, 0, 1, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, 
-                               sdupprintf(_("%s directory:"), 
-                                          getProductName())),
+                     newtLabel(-1, -1, buf),
                      0, 0, 1, 0, NEWT_ANCHOR_LEFT, 0);
     newtGridSetField(entryGrid, 1, 0, NEWT_GRID_COMPONENT, siteEntry,
                      0, 0, 0, 0, 0, 0);
@@ -372,6 +371,8 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
         break;
     } while (1);
     
+    free(buf);
+
     if (answer == cancel) {
         newtFormDestroy(form);
         newtPopWindow();

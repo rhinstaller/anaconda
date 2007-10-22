@@ -262,11 +262,11 @@ static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
         essid = get_essid(ifname);
     }
 
-    buf = sdupprintf(_("%s is a wireless network adapter.  Please "
-                       "provide the ESSID and encryption key needed "
-                       "to access your wireless network.  If no key "
-                       "is needed, leave this field blank and the "
-                       "install will continue."), ifname);
+    rc = asprintf(&buf, _("%s is a wireless network adapter.  Please "
+                     "provide the ESSID and encryption key needed "
+                     "to access your wireless network.  If no key "
+                     "is needed, leave this field blank and the "
+                     "install will continue."), ifname);
     do {
         struct newtWinEntry entry[] = { { N_("ESSID"), (const char **)&essid, 0 },
                                         { N_("Encryption Key"), (const char **) &wepkey, 0 },
@@ -274,10 +274,14 @@ static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
 
         rc = newtWinEntries(_("Wireless Settings"), buf,
                             40, 5, 10, 30, entry, _("OK"), _("Back"), NULL);
-        if (rc == 2) return LOADER_BACK;
+        if (rc == 2) {
+            free(buf);
+            return LOADER_BACK;
+        }
 
         /* set stuff up */
     } while (rc == 2);
+    free(buf);
 
     if (cfg->wepkey != NULL) 
         free(cfg->wepkey);
@@ -1083,11 +1087,11 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
     /* main window layout */
     grid = newtCreateGrid(1, 3);
 
-    buf = sdupprintf(_("Enter the IPv4 and/or the IPv6 address and prefix "
-                       "(address / prefix).  For IPv4, the dotted-quad "
-                       "netmask or the CIDR-style prefix are acceptable. "
-                       "The gateway and name server fields must be valid IPv4 "
-                       "or IPv6 addresses."));
+    i = asprintf(&buf, _("Enter the IPv4 and/or the IPv6 address and prefix "
+                     "(address / prefix).  For IPv4, the dotted-quad "
+                     "netmask or the CIDR-style prefix are acceptable. "
+                     "The gateway and name server fields must be valid IPv4 "
+                     "or IPv6 addresses."));
     text = newtTextboxReflowed(-1, -1, buf, 52, 0, 10, 0);
 
     newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
@@ -1202,6 +1206,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
         if (answer == back) {
             newtFormDestroy(f);
             newtPopWindow();
+            free(buf);
             return LOADER_BACK;
         }
 
@@ -1222,6 +1227,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
         newCfg->isDynamic = 0;
     }
 
+    free(buf);
     newtFormDestroy(f);
     newtPopWindow();
 

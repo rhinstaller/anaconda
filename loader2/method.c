@@ -514,6 +514,7 @@ int verifyStamp(char * path) {
     char *stamp2;
     FILE *f;
     int fail = 0;
+    int i;
     char * p, *q;
 
     stamp1 = alloca(80);
@@ -528,7 +529,7 @@ int verifyStamp(char * path) {
 	fclose(f);
 
         /* and the runtime */
-        p = sdupprintf("%s/.buildstamp", path);
+        i = asprintf(&p, "%s/.buildstamp", path);
         f = fopen(p, "r");
         free(p);
         if (!f) {

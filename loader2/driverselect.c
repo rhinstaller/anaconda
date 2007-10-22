@@ -57,10 +57,10 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
     }
 
     f = newtForm(NULL, NULL, 0);
-    buf = sdupprintf(_("Please enter any parameters which you wish to pass "
-                       "to the %s module separated by spaces.  If you don't "
-                       "know what parameters to supply, skip this screen "
-                       "by pressing the \"OK\" button."), mod->moduleName);
+    i = asprintf(&buf, _("Please enter any parameters which you wish to pass "
+                     "to the %s module separated by spaces.  If you don't "
+                     "know what parameters to supply, skip this screen "
+                     "by pressing the \"OK\" button."), mod->moduleName);
     text = newtTextboxReflowed(-1, -1, buf, 60, 0, 10, 0);
     entry = newtEntry(-1, -1, argsEntry, 50, (const char **) &argsEntry, 
                       NEWT_ENTRY_SCROLL);
@@ -90,6 +90,7 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
         }
     } while (done == 0);
 
+    free(buf);
     newtGridFree(grid, 1);
 
     if (done == -1) {
@@ -210,9 +211,14 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
     newtFormAddHotKey(f, NEWT_KEY_F12);
 
     for (i = 0; i < numSorted; i++) {
-        newtListboxAppendEntry(listbox, sdupprintf("%s (%s)", 
-                                                   modInfo->moduleList[sortedOrder[i].index].description,
-                                                   modInfo->moduleList[sortedOrder[i].index].moduleName), INT_TO_POINTER(sortedOrder[i].index));
+        char *buf = NULL;
+        int j;
+        j = asprintf(&buf, "%s (%s)", 
+                modInfo->moduleList[sortedOrder[i].index].description,
+                modInfo->moduleList[sortedOrder[i].index].moduleName);
+
+        newtListboxAppendEntry(listbox, buf, 
+                INT_TO_POINTER(sortedOrder[i].index));
     }
 
     grid = newtCreateGrid(1, 4);
@@ -250,6 +256,13 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
         }
     } while (done == 0);
 
+    for (i = 0; i < numSorted; i++) {
+        char *buf = NULL;
+        void *data;
+        newtListboxGetEntry(listbox, i, &buf, &data);
+        if (buf)
+            free(buf);
+    }
     newtGridFree(grid, 1);
     newtFormDestroy(f);
     newtPopWindow();

@@ -253,10 +253,8 @@ static int setupLanguage(int choice) {
 	buf[i] = ' ';
     newtDrawRootText(0, 0, buf);
 
-    if (FL_RESCUE(flags))
-	buf = sdupprintf(_(topLineWelcomeRescue), getProductName());
-    else
-	buf = sdupprintf(_(topLineWelcome), getProductName());
+    char *fmt = FL_RESCUE(flags) ? _(topLineWelcomeRescue) : _(topLineWelcome);
+    i = asprintf(&buf, fmt, getProductName());
 
     newtDrawRootText(0, 0, buf);
     free(buf);
