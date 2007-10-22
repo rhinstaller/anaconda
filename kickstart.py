@@ -122,9 +122,9 @@ class AutoStep(commands.autostep.FC3_AutoStep):
         flags.autostep = 1
         flags.autoscreenshot = self.autoscreenshot
 
-class Bootloader(commands.bootloader.FC8_Bootloader):
+class Bootloader(commands.bootloader.F8_Bootloader):
     def parse(self, args):
-        commands.bootloader.FC8_Bootloader.parse(self, args)
+        commands.bootloader.F8_Bootloader.parse(self, args)
 
         if self.location == "none":
             location = None
