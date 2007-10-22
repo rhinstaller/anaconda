@@ -37,6 +37,14 @@
 
 	* kickstart.py (Bootloader):  Fix typo.
 
+	* loader2/nfsinstall.c (getFileFromNfs):  Clear out the netlink cache
+	prior to looking up the IP address in case kickstartNetworkUp was the
+	first time networking was brought up.
+	* loader2/urlinstall.c (getFileFromUrl):  Likewise.
+
+	* loader2/nfsinstall.c (getFileFromNfs):  Fix processing of ks=nfs:
+	parameter.  Free some more memory.
+
 2007-10-21  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

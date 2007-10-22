@@ -362,6 +362,7 @@ int getFileFromUrl(char * url, char * dest,
     memset(&ui, 0, sizeof(ui));
     ui.protocol = proto;
 
+    netlink_init_interfaces_list();
     if ((ip = netlink_interfaces_ip2str(loaderData->netDev)) == NULL) {
         logMessage(ERROR, "getFileFromUrl: no client IP information");
         return 1;

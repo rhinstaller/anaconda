@@ -341,6 +341,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     }
 
     /* get the IP of the target system */
+    netlink_init_interfaces_list();
     if (ip == NULL && (ip = netlink_interfaces_ip2str(loaderData->netDev)) == NULL) {
         logMessage(ERROR, "netlink_interfaces_ip2str returned NULL");
         return 1;
@@ -366,13 +367,12 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         file = path;
     } else {
         *file++ ='\0';
-        chk = host;
-        chk += strlen(host) - 1;
-        char c = '/';
+        chk = host + strlen(host)-1;
 
         if (*chk == '/' || *path == '/')
-            c = '\0';
-        i = asprintf(&host, "%s%c%s", host, c, path);
+            i = asprintf(&host, "%s%s", host, path);
+        else
+            i = asprintf(&host, "%s/%s", host, path);
     }
 
     logMessage(INFO, "file location: nfs://%s/%s", host, file);
@@ -380,17 +380,21 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     if (!doPwMount(host, "/tmp/mnt", "nfs", IMOUNT_RDONLY, opts)) {
         char * buf;
 
-        buf = alloca(strlen(file) + 10);
-        sprintf(buf, "/tmp/mnt/%s", file);
+        i = asprintf(&buf, "/tmp/mnt/%s", file);
         if (copyFile(buf, dest)) {
             logMessage(ERROR, "failed to copy file to %s", dest);
             failed = 1;
         }
-        
+
+        free(buf);
     } else {
         logMessage(ERROR, "failed to mount nfs source");
         failed = 1;
     }
+
+    free(host);
+    free(path);
+    if (ip) free(ip);
 
     umount("/tmp/mnt");
     unlink("/tmp/mnt");
@@ -399,7 +403,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
 }
 
 int kickstartFromNfs(char * url, struct loaderData_s * loaderData) {
-    return getFileFromNfs(url, "/tmp/ks.cfg", loaderData);    
+    return getFileFromNfs(url, "/tmp/ks.cfg", loaderData);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */
