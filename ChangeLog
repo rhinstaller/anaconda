@@ -1,5 +1,8 @@
 2007-10-22  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumBackend._checkUpgradeArch): Add back the check
+	to ensure we don't cross arches on an upgrade (#222424)
+
 	* yuminstall.py (YumBackend.kernelVersionList): Only include the
 	installed kernels in this list so that we don't end up with
 	phantom entries in the grub config on upgrade (#325871)

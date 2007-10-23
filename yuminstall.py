@@ -587,11 +587,7 @@ class YumBackend(AnacondaBackend):
     def doInitialSetup(self, anaconda):
         if anaconda.id.getUpgrade():
            # FIXME: make sure that the rpmdb doesn't have stale locks :/
-            for rpmfile in ["__db.000", "__db.001", "__db.002", "__db.003"]:
-                try:
-                    os.unlink("%s/var/lib/rpm/%s" %(anaconda.rootPath, rpmfile))
-                except:
-                    log.error("failed to unlink /var/lib/rpm/%s" %(rpmfile,))
+           self._resetRpmDb(anaconda.rootPath)
 
         iutil.writeRpmPlatform()
         self.ayum = AnacondaYum(anaconda)
@@ -1108,7 +1104,17 @@ class YumBackend(AnacondaBackend):
     def checkSupportedUpgrade(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
             return
+        self._checkUpgradeVersion(anaconda)
+        self._checkUpgradeArch(anaconda)
 
+    def _resetRpmDb(self, rootPath):
+        for rpmfile in ("__db.000", "__db.001", "__db.002", "__db.003"):
+            try:
+                os.unlink("%s/var/lib/rpm/%s" %(rootPath, rpmfile))
+            except Exception, e:
+                log.debug("error %s removing file: /var/lib/rpm/%s" %(e,rpmfile))
+
+    def _checkUpgradeVersion(self, anaconda):
         # Figure out current version for upgrade nag and for determining weird
         # upgrade cases
         supportedUpgradeVersion = -1
@@ -1135,13 +1141,41 @@ class YumBackend(AnacondaBackend):
                                       "process?") %(productName,),
                                     type = "yesno")
             if rc == 0:
-                for rpmfile in ["__db.000", "__db.001", "__db.002", "__db.003"]:
-                    try:
-                        os.unlink("%s/var/lib/rpm/%s" %(anaconda.rootPath, rpmfile))
-                    except:
-                        log.info("error %s removing file: /var/lib/rpm/%s" %(e,rpmfile))
-                        pass
+                self._resetRpmDb(anaconda.rootPath)
                 sys.exit(0)
+
+    def _checkUpgradeArch(self, anaconda):
+        # get the arch of the initscripts package
+        pkgs = self.ayum.pkgSack.returnNewestByName('initscripts')
+        if len(pkgs) == 0:
+            log.info("no packages named initscripts")
+            return
+        pkgs = self.ayum.bestPackagesFromList(pkgs)
+        if len(pkgs) == 0:
+            log.info("no best package")
+            return
+        myarch = pkgs[0].arch
+
+        log.info("initscripts is arch: %s" %(myarch,))
+        for po in self.ayum.rpmdb.getProvides('initscripts'):
+            log.info("po.arch is arch: %s" %(po.arch,))
+            if po.arch != myarch:
+                rc = anaconda.intf.messageWindow(_("Warning"),
+                                        _("The arch of the release of %s you "
+                                          "are upgrading to appears to be %s "
+                                          "which does not match your previously "
+                                          "installed arch of %s.  This is likely "
+                                          "to not succeed.  Are you sure you "
+                                          "wish to continue the upgrade process?")
+                                        %(productName, myarch, po.arch),
+                                        type="yesno")
+                if rc == 0:
+                    self._resetRpmDb(anaconda.rootPath)
+                    sys.exit(0)
+                else:
+                    log.warning("upgrade between possibly incompatible "
+                                "arches %s -> %s" %(po.arch, myarch))
+                    break
 
     def doInstall(self, anaconda):
         log.info("Preparing to install packages")
