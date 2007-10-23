@@ -1,5 +1,7 @@
 2007-10-22  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* yuminstall.py (YumBackend._checkUpgradeArch): Add back the check
 	to ensure we don't cross arches on an upgrade (#222424)
 
@@ -12,9 +14,6 @@
 	* textw/upgrade_bootloader_text.py
 	(UpgradeBootloaderWindow._ideToLibata): Improve check so that it
 	doesn't see F7 -> F8 updates as needing a new config
-
-	* anaconda (setupPythonPath): Don't fall over if
-	python-ruledispatch is installed (#331091)
 
 	* upgrade.py: Add some kde packages to the list that we remove on
 	upgrade (#339981).  Also clean up to have a little less duplication.

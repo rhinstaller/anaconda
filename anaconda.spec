@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.43
+Version: 11.3.0.44
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -215,6 +215,15 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct 22 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.44-1
+- Fix warning about arch changes on upgrade (#222424)
+- Fix phantom kernels on upgrade (#325871)
+- Add some kde packages to the multilib upgrade blacklist (#339981)
+- Require policycoreutils (clumens, #343861)
+- Fix typo leading to traceback (clumens)
+- Fix processing of ks=nfs (clumens)
+- Memory freeing cleanups (pjones)
+
 * Sun Oct 21 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.43-1
 - Fix closing of some fds (pjones)
 - Fix ip address used in a few cases (clumens, #336761)
