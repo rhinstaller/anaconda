@@ -1,5 +1,9 @@
 2007-10-23  David Cantrell  <dcantrell@redhat.com>
 
+	* network.py (Network.write): Set IPV6INIT for all cases (#328931).
+
+2007-10-23  David Cantrell  <dcantrell@redhat.com>
+
 	* network.py (Network.write): Write out the IPV6* variables to the
 	ifcfg files correctly, avoid IPV6ADDR=dhcp and other invalid settings
 	(#328931).
