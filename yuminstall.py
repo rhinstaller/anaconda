@@ -931,7 +931,7 @@ class YumBackend(AnacondaBackend):
             while 1:
                 try:
                     (code, msgs) = self.ayum.buildTransaction()
-                except yum.Errors.NoMoreMirrorsRepoError:
+                except yum.Errors.NoMoreMirrorsRepoError, e:
                     buttons = [_("Re_boot"), _("_Retry")]
                 except RepoError, e:
                     buttons = [_("Re_boot")]

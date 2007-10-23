@@ -1,3 +1,8 @@
+2007-10-23  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (YumBackend.doPostSelection):  Don't traceback when
+	offering the choice to retry on a failed mirror (#349371).
+
 2007-10-22  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
