@@ -1,3 +1,9 @@
+2007-10-24  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot: Commit the patch from Orion Poplawski to
+	fix up our shlib dep finding.  Also removes the hardcoded lists of
+	libraries
+
 2007-10-23  Jeremy Katz  <katzj@redhat.com>
 
 	* liveinst/liveinst.sh (ANACONDA): Only use hal-lock if hal is running

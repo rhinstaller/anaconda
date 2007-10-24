@@ -74,10 +74,10 @@ get_dso_deps() {
     # this is a hack, but the only better way requires binutils or elfutils
     # be installed.  i.e., we need readelf to find the interpretter.
     if [ -z "$LDSO" ]; then
-        for ldso in /lib*/ld*.so* ; do
+        for ldso in $root/lib*/ld*.so* ; do
             [ -x $ldso ] || continue
             $ldso --verify $bin >/dev/null 2>&1 || continue
-            LDSO=$(echo $ldso |sed -e "s/$root//")
+            LDSO=$(echo $ldso |sed -e "s,$root,,")
             break
         done
     fi
@@ -90,8 +90,8 @@ get_dso_deps() {
         FILES[$n]="$FILE"
         let n++
     done << EOF
-        $(LD_TRACE_PRELINKING=1 LD_WARN= LD_TRACE_LOADED_OBJECTS=1 \
-            chroot $root $LDSO $bin 2>/dev/null)
+        $(chroot $root env LD_TRACE_PRELINKING=1 LD_WARN= \
+                           LD_TRACE_LOADED_OBJECTS=1 $LDSO $bin)
 EOF
 
     [ ${#FILES[*]} -eq 0 ] && return 1
@@ -132,12 +132,14 @@ EOF
     done
 
     DSO_DEPS="${FILES[@]}"
+    [ -n "$DEBUG" ] && echo "DSO_DEPS for $bin are $DSO_DEPS"
 }
 
 instFile() {
     FILE=$1
     DESTROOT=$2
 
+    [ -n "$DEBUG" ] && echo "Installing $FILE"
     if [ -e $DESTROOT/$FILE -o -h $DESTROOT/$FILE ]; then
       return
     elif [ ! -d $DESTROOT/`dirname $FILE` ]; then
@@ -145,7 +147,7 @@ instFile() {
     fi
     if [ -L $FILE ]; then
 	cp -al $FILE $DESTROOT/`dirname $FILE`
-	instFile `readlink $FILE`
+	instFile ./`dirname $FILE`/`readlink $FILE` $DESTROOT
 	return
     else
 	cp -aL $FILE $DESTROOT/`dirname $FILE`
@@ -154,7 +156,7 @@ instFile() {
     get_dso_deps $(pwd) "$FILE"
     local DEPS="$DSO_DEPS"
     for x in $DEPS ; do 
-      instFile $x $DESTROOT
+      instFile ./$x $DESTROOT
     done
 }
 
@@ -396,63 +398,19 @@ etc/group
 etc/passwd
 etc/iscsid.conf
 etc/mke2fs.conf
-etc/pcmcia/*
+etc/pcmcia
 etc/protocols
 etc/services
 etc/selinux/targeted/booleans
 etc/selinux/targeted/policy/policy.*
-etc/selinux/targeted/contexts/files/*
-etc/selinux/targeted/contexts/*
-etc/selinux/targeted/*
-usr/share/selinux/targeted/*
+etc/selinux/targeted/contexts/files
+etc/selinux/targeted/contexts
+etc/selinux/targeted
+usr/share/selinux/targeted
 etc/security/selinux/policy.*
 etc/security/selinux/file_contexts
 etc/yum/pluginconf.d/fedorakmod.conf
-$LIBDIR/bdevid/*
-$LIBDIR/libaudit*.so*
-$LIBDIR/libc[-.]*
-$LIBDIR/libm[-.]*
-$LIBDIR/libpthread*
-$LIBDIR/librt[-.]*
-$LIBDIR/ld*.so*
-$LIBDIR/libblkid*
-$LIBDIR/libbz2*
-$LIBDIR/libcom_err*
-$LIBDIR/libcrypt*
-$LIBDIR/libdb-*
-$LIBDIR/libdevmapper*
-$LIBDIR/libdl*
-$LIBDIR/libe2p*
-$LIBDIR/libexpat*
-$LIBDIR/libext2fs*
-$LIBDIR/libkeyutils*
-$LIBDIR/liblvm-10.so*
-$LIBDIR/libgcc_s*
-$LIBDIR/libnsl*
-$LIBDIR/libnss_dns*
-$LIBDIR/libnss_files*
-$LIBDIR/libpam*
-$LIBDIR/libpcre*
-$LIBDIR/libresolv*
-$LIBDIR/libselinux*
-$LIBDIR/libsemanage*
-$LIBDIR/libsepol*
-$LIBDIR/libss*
-$LIBDIR/libtermcap*
-$LIBDIR/libhandle*
-$LIBDIR/libattr*
-$LIBDIR/libdm*
-$LIBDIR/libutil*
-$LIBDIR/libuuid*
-$LIBDIR/libglib*
-$LIBDIR/libgmodule*
-$LIBDIR/libgobject*
-$LIBDIR/libgthread*
-$LIBDIR/libncurses*
-$LIBDIR/libvolume_id*
-$LIBDIR/libtinfo*
-$LIBDIR/libz.*
-lib/terminfo/*
+lib/terminfo
 sbin/badblocks
 sbin/busybox.anaconda
 sbin/clock
@@ -507,59 +465,13 @@ usr/bin/humount
 usr/bin/hcopy
 usr/bin/hattrib
 usr/bin/hformat
-usr/lib/anaconda-runtime/*
-usr/lib/anaconda/*
-usr/lib/anaconda/installclasses/*
-usr/lib/anaconda/textw/*
-usr/lib/booty/*
-usr/kerberos/$LIBDIR/libkrb5.so*
-usr/kerberos/$LIBDIR/libkrb5support.so*
-usr/kerberos/$LIBDIR/libk5crypto.so*
-usr/kerberos/$LIBDIR/libcom_err.so*
-usr/kerberos/$LIBDIR/libgssapi_krb5.so*
-usr/$LIBDIR/libbdevid.so*
-usr/$LIBDIR/libdmraid.so*
-usr/$LIBDIR/libkrb5.so*
-usr/$LIBDIR/libkrb5support.so*
-usr/$LIBDIR/libk5crypto.so*
-usr/$LIBDIR/libcom_err.so*
-usr/$LIBDIR/libgssapi_krb5.so*
-usr/$LIBDIR/gconv/ISO8859-1.so
-usr/$LIBDIR/gconv/gconv-modules
-usr/$LIBDIR/libbeecrypt*
-usr/$LIBDIR/libssl*
-usr/$LIBDIR/libcrypto*
-usr/$LIBDIR/libdhcp*
-usr/$LIBDIR/libelf*
-usr/$LIBDIR/libnash*
-usr/$LIBDIR/libncurses*
-usr/$LIBDIR/libnewt*
-usr/$LIBDIR/libnl*
-usr/$LIBDIR/libnss3.so
-usr/$LIBDIR/libparted*
-usr/$LIBDIR/libpopt*
-$LIBDIR/libpopt*
-usr/$LIBDIR/libpython*
-usr/$LIBDIR/libneon*
-usr/$LIBDIR/libnspr*
-usr/$LIBDIR/libplc4*
-usr/$LIBDIR/libplds4*
-usr/$LIBDIR/libsqlite3*
-usr/$LIBDIR/libsoftokn3*
-usr/$LIBDIR/librpm-*4.?.so*
-usr/$LIBDIR/librpmbuild-*4.?.so*
-usr/$LIBDIR/librpmdb*4.?.so*
-usr/$LIBDIR/librpmio*4.?.so*
-usr/$LIBDIR/libslang*
-usr/$LIBDIR/libstdc++.so.6*
-usr/$LIBDIR/libuser.so*
-usr/$LIBDIR/libustr*.so*
-usr/$LIBDIR/libuser/*
-usr/$LIBDIR/libxml2.so*
-usr/$LIBDIR/libz.*
-usr/$LIBDIR/libreadline*
-usr/$LIBDIR/python?.?/*
-usr/$LIBDIR/python?.?/email/*
+usr/lib/anaconda-runtime
+usr/lib/anaconda
+usr/lib/anaconda/installclasses
+usr/lib/anaconda/textw
+usr/lib/booty
+usr/$LIBDIR/python?.?
+usr/$LIBDIR/python?.?/email
 usr/$LIBDIR/python?.?/xml/etree/
 usr/$LIBDIR/python?.?/site-packages/*kudzu*
 usr/$LIBDIR/python?.?/site-packages/bdevid.so
@@ -574,16 +486,16 @@ usr/$LIBDIR/python?.?/site-packages/cElementTree.so
 usr/$LIBDIR/python?.?/site-packages/block
 usr/$LIBDIR/python?.?/site-packages/*.pth
 usr/$LIBDIR/python?.?/site-packages/*selinux*
-usr/lib/locale/*
-usr/lib/python?.?/site-packages/elementtree/*
-usr/lib/python?.?/site-packages/iniparse/*
-usr/lib/python?.?/site-packages/rpmUtils/*
-usr/lib/python?.?/site-packages/urlgrabber/*
-usr/lib/python?.?/site-packages/yum/*
-usr/lib/python?.?/site-packages/repomd/*
-usr/lib/python?.?/site-packages/pirut/*
-usr/lib/python?.?/site-packages/pykickstart/*
-usr/lib/python?.?/site-packages/rhpxl/*
+usr/lib/locale
+usr/lib/python?.?/site-packages/elementtree
+usr/lib/python?.?/site-packages/iniparse
+usr/lib/python?.?/site-packages/rpmUtils
+usr/lib/python?.?/site-packages/urlgrabber
+usr/lib/python?.?/site-packages/yum
+usr/lib/python?.?/site-packages/repomd
+usr/lib/python?.?/site-packages/pirut
+usr/lib/python?.?/site-packages/pykickstart
+usr/lib/python?.?/site-packages/rhpxl
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
@@ -616,7 +528,7 @@ usr/share/terminfo/v/vt100
 usr/share/terminfo/v/vt100-nav
 usr/share/hwdata/pci.ids
 usr/share/hwdata/videoaliases
-usr/share/hwdata/videoaliases/*
+usr/share/hwdata/videoaliases
 usr/share/hwdata/videodrivers
 usr/share/hwdata/MonitorsDB
 usr/share/xorg/extramodes
@@ -660,36 +572,13 @@ bin/login
 bin/cat
 bin/chmod
 bin/sort
-$LIBDIR/libpam.so*
-$LIBDIR/libdl.so*
-$LIBDIR/libdl-*.so*
-usr/$LIBDIR/libz.so*
-$LIBDIR/libnsl.so*
-$LIBDIR/libnsl-*.so*
-$LIBDIR/libnss*
-$LIBDIR/libutil.so*
-$LIBDIR/libutil-*.so*
-$LIBDIR/libcrypt*
-$LIBDIR/libc.so*
-$LIBDIR/libc-*so*
-lib/ld*.so*
-$LIBDIR/ld*.so*
-$LIBDIR/libresolv.so*
-$LIBDIR/libresolv-*.so*
-$LIBDIR/libvtoc*.so*
-$LIBDIR/libz.so*
-lib/modules/ibm/*
+lib/modules/ibm
 etc/pam.d/sshd
 etc/pam.d/other
 etc/security/limits.conf
 etc/security/pam_env.conf
 lib/security
 $LIBDIR/security/pam_*
-usr/$LIBDIR/libwrap.so*
-usr/$LIBDIR/libXmuu.so*
-usr/$LIBDIR/libX11.so*
-usr/$LIBDIR/libXext.so*
-usr/$LIBDIR/libXxf86misc.so*
 usr/bin/xauth
 EOF
 fi
@@ -733,16 +622,11 @@ etc/gtk-2.0/gtkrc*
 etc/im_palette.pal
 etc/imrc
 etc/man.config
-etc/pango/*
-etc/fonts/*
+etc/pango
+etc/fonts
 etc/prelink.conf
 etc/rpm/macros.prelink
-$LIBDIR/bdevid/*
-$LIBDIR/libacl*
-$LIBDIR/libattr*
-$LIBDIR/libgcc*
-$LIBDIR/libnss_dns*
-$LIBDIR/libproc*
+$LIBDIR/bdevid
 sbin/addRamDisk
 sbin/addSystemMap
 sbin/debugfs
@@ -767,36 +651,13 @@ usr/share/X11/fonts/misc/fonts*
 usr/share/X11/fonts/misc/cursor*
 usr/share/X11/fonts/misc/olcursor*
 usr/share/X11/fonts/Type1/l047013t*
-usr/share/X11/fonts/Type1/*
+usr/share/X11/fonts/Type1
 usr/share/X11/fonts/TTF/GohaTibebZemen.ttf
-usr/share/X11/locale/*
+usr/share/X11/locale
 usr/share/X11/rgb*
-usr/share/X11/xkb/*
+usr/share/X11/xkb
 usr/$LIBDIR/xserver/SecurityPolicy
-usr/$LIBDIR/libbdevid.so*
-usr/$LIBDIR/libICE*
-usr/$LIBDIR/libSM*
-usr/$LIBDIR/libXaw.so*
-usr/$LIBDIR/libX11*
-usr/$LIBDIR/libXcursor*
-usr/$LIBDIR/libXext*
-usr/$LIBDIR/libXfixes*
-usr/$LIBDIR/libXft*
-usr/$LIBDIR/libXi*
-usr/$LIBDIR/libxkbfile*
-usr/$LIBDIR/libXmu*
-usr/$LIBDIR/libXpm*
-usr/$LIBDIR/libXrandr*
-usr/$LIBDIR/libXrender*
-usr/$LIBDIR/libXt*
-usr/$LIBDIR/libXxf86misc*
-usr/$LIBDIR/liblbxutil*
-usr/$LIBDIR/libXfont*
-usr/$LIBDIR/libfontenc*
-usr/$LIBDIR/libXau*
-usr/$LIBDIR/libXdmcp*
-usr/$LIBDIR/xorg/modules/*
-usr/$LIBDIR/xorg/modules/input/*
+usr/$LIBDIR/xorg/modules
 usr/bin/chattr*
 usr/bin/fc-cache
 usr/bin/gdialog
@@ -820,7 +681,7 @@ usr/bin/vncconfig
 usr/bin/vncpasswd
 usr/bin/reduce-font
 usr/lib/anaconda/iw
-usr/$LIBDIR/gconv/*
+usr/$LIBDIR/gconv
 usr/$LIBDIR/gdk-pixbuf/loaders/*xpm*
 usr/$LIBDIR/gdk-pixbuf/loaders/*png*
 usr/$LIBDIR/gdk-pixbuf/loaders/*la*
@@ -828,47 +689,20 @@ usr/$LIBDIR/gtk-2.0/*/engines/libclearlooks.so
 usr/$LIBDIR/gtk-2.0/*/loaders/*xpm*
 usr/$LIBDIR/gtk-2.0/*/loaders/*png*
 usr/$LIBDIR/gtk-2.0/*/loaders/*la*
-usr/$LIBDIR/gtk-2.0/immodules/
-usr/$LIBDIR/libImlib*
-usr/$LIBDIR/libXft*
-usr/$LIBDIR/libart*
-usr/$LIBDIR/libatk*
-usr/$LIBDIR/libaudio*
-usr/$LIBDIR/libpixman*
-usr/$LIBDIR/libcairo*
-usr/$LIBDIR/libesd*
-usr/$LIBDIR/libfontconfig*
-usr/$LIBDIR/libfreetype*
-usr/$LIBDIR/libgailutil*
-usr/$LIBDIR/libgdk*
-usr/$LIBDIR/libglade*
-usr/$LIBDIR/libgnomecanvas*
-usr/$LIBDIR/libgnomeui*
-usr/$LIBDIR/libgpm*
-usr/$LIBDIR/libgtk*
-usr/$LIBDIR/libjpeg*
-usr/$LIBDIR/libpango*
-usr/$LIBDIR/libpng.so.3*
-usr/$LIBDIR/libpng12.so*
-usr/$LIBDIR/librfb.so*
-usr/$LIBDIR/libstdc++.so.*
-usr/$LIBDIR/libthai*
-usr/$LIBDIR/libxcb.*
-usr/$LIBDIR/libxcb-xlib*
-usr/$LIBDIR/libwrap*
-usr/$LIBDIR/pango/*
-usr/$LIBDIR/python?.?/site-packages/cairo/*
-usr/$LIBDIR/python?.?/site-packages/gtk*/gtk/*
-usr/$LIBDIR/python?.?/site-packages/gtk*/*
+usr/$LIBDIR/gtk-2.0/immodules
+usr/$LIBDIR/pango
+usr/$LIBDIR/python?.?/site-packages/cairo
+usr/$LIBDIR/python?.?/site-packages/gtk*/gtk
+usr/$LIBDIR/python?.?/site-packages/gtk*
 usr/$LIBDIR/rpm/rpmpopt
-usr/lib/syslinux/*
-usr/lib/yaboot/*
+usr/lib/syslinux
+usr/lib/yaboot
 usr/sbin/chroot
 usr/sbin/ddcprobe
 usr/sbin/fbset
 usr/sbin/prelink
 usr/sbin/smartctl
-usr/share/anaconda/*
+usr/share/anaconda
 usr/share/firstboot/firstboot_module_window*
 usr/share/fonts/dejavu-lgc/DejaVuLGCSans.ttf
 usr/share/fonts/dejavu-lgc/DejaVuLGCSans-Bold.ttf
@@ -902,7 +736,7 @@ usr/share/locale/*/LC_MESSAGES/rhpxl.mo
 usr/share/locale/*/LC_MESSAGES/parted.mo
 usr/share/locale/*/LC_MESSAGES/pirut.mo
 usr/share/locale/*/LC_MESSAGES/zenity.mo
-usr/share/pirut/*
+usr/share/pirut
 usr/share/pixmaps/comps/*.png
 usr/share/pixmaps/gnome-default-dlg.png
 usr/share/pixmaps/gnome-error.png
@@ -911,9 +745,9 @@ usr/share/pixmaps/gnome-question.png
 usr/share/pixmaps/gnome-warning.png
 usr/share/pixmaps/no.xpm
 usr/share/pixmaps/yes.xpm
-usr/share/ppc64-utils/*
-usr/share/system-config-keyboard/*
-usr/share/system-config-date/*
+usr/share/ppc64-utils
+usr/share/system-config-keyboard
+usr/share/system-config-date
 usr/share/terminfo/x/xterm
 usr/share/vte/termcap/xterm
 usr/share/zenity
@@ -943,12 +777,7 @@ usr/$LIBDIR/gtk-2.0/modules/libatk-bridge.so
 usr/$LIBDIR/gtk-2.0/modules/libgail.so
 usr/libexec/bonobo-activation-server
 usr/libexec/at-spi-registryd
-usr/$LIBDIR/libORBit*
-usr/$LIBDIR/libbonobo*
-usr/$LIBDIR/libspi*
-usr/$LIBDIR/libcspi*
-usr/$LIBDIR/bonobo/servers/*
-usr/$LIBDIR/libXevie*
+usr/$LIBDIR/bonobo/servers
 EOF
 
 
@@ -972,7 +801,7 @@ bin/ping
 bin/sync
 bin/tar
 bin/zcat
-etc/joe/*
+etc/joe
 sbin/arp
 sbin/depmod
 sbin/dmraid.static
@@ -1034,11 +863,6 @@ usr/bin/termidx
 usr/bin/xargs
 usr/bin/groff
 usr/bin/iconv
-usr/$LIBDIR/libidn*
-usr/kerberos/$LIBDIR/libgssapi*
-usr/kerberos/$LIBDIR/libkrb5*
-usr/kerberos/$LIBDIR/libk5crypto*
-usr/kerberos/$LIBDIR/libcom_err*
 usr/sbin/mtr
 usr/sbin/smartctl
 usr/sbin/traceroute
@@ -1053,7 +877,7 @@ sbin/grub-md5-crypt
 sbin/grub-set-default
 usr/bin/gpart
 usr/bin/mbchk
-usr/share/grub/*
+usr/share/grub
 EOF
 fi
 
