@@ -1,3 +1,8 @@
+2007-10-24  Chris Lumens  <clumens@redhat.com>
+
+	* dmraid.py, fsset.py, partedUtils.py, raid.py, isys/isys.py:  Clean
+	up usage of /tmp for device nodes (patch from notting@redhat.com).
+
 2007-10-24  Peter Jones  <pjones@redhat.com>
 
 	* scripts/upd-instroot: Use the newest ld.so we find, not the oldest,

@@ -65,9 +65,9 @@ def scanForRaid(drives):
 
     for d in drives:
         parts = []
-	isys.makeDevInode(d, "/tmp/" + d)
+	dp = isys.makeDevInode(d)
         try:
-            dev = parted.PedDevice.get("/tmp/" + d)
+            dev = parted.PedDevice.get(dp)
             disk = parted.PedDisk.new(dev)
 
             raidParts = partedUtils.get_raid_partitions(disk)
@@ -76,7 +76,6 @@ def scanForRaid(drives):
         except:
             pass
 
-	os.remove("/tmp/" + d)
         for dev in parts:
             try:
                 (major, minor, raidSet, level, nrDisks, totalDisks, mdMinor) =\

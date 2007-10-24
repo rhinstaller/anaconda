@@ -1823,7 +1823,7 @@ class FileSystemSetEntry:
         self.format = format
         self.bytesPerInode = bytesPerInode
 
-    def mount(self, chroot='/', devPrefix='/tmp', readOnly = 0):
+    def mount(self, chroot='/', devPrefix='/dev', readOnly = 0):
         device = self.device.setupDevice(chroot, devPrefix=devPrefix)
 
         # FIXME: we really should migrate before turnOnFilesystems.
@@ -1921,10 +1921,10 @@ class Device:
     def getDevice (self, asBoot = 0):
         return self.device
 
-    def setupDevice (self, chroot='/', devPrefix='/tmp'):
+    def setupDevice (self, chroot='/', devPrefix='/dev/'):
         return self.device
 
-    def cleanupDevice (self, chroot, devPrefix='/tmp'):
+    def cleanupDevice (self, chroot, devPrefix='/dev/'):
         pass
 
     def solidify (self):
@@ -2144,7 +2144,7 @@ class VolumeGroupDevice(Device):
 
         self.physicalextentsize = pesize
 
-    def setupDevice (self, chroot="/", devPrefix='/tmp'):
+    def setupDevice (self, chroot="/", devPrefix='/dev/'):
         nodes = []
         for volume in self.physicalVolumes:
             # XXX the lvm tools are broken and will only work for /dev
@@ -2188,7 +2188,7 @@ class LogicalVolumeDevice(Device):
         # self.extents
         # self.readaheadsectors
 
-    def setupDevice(self, chroot="/", devPrefix='/tmp', vgdevice = None):
+    def setupDevice(self, chroot="/", devPrefix='/dev', vgdevice = None):
         if not self.isSetup:
             lvm.lvcreate(self.name, self.vgname, self.size)
             self.isSetup = 1
@@ -2216,7 +2216,7 @@ class PartitionDevice(Device):
         if isys.driveIsIscsi(disk):
             self.setAsNetdev()
 
-    def setupDevice(self, chroot="/", devPrefix='/tmp'):
+    def setupDevice(self, chroot="/", devPrefix='/dev'):
         path = '%s/%s' % (devPrefix, self.getDevice(),)
         isys.makeDevInode(self.getDevice(), path)
         return path
@@ -2258,7 +2258,7 @@ class SwapFileDevice(Device):
     def setSize (self, size):
         self.size = size
 
-    def setupDevice (self, chroot="/", devPrefix='/tmp'):
+    def setupDevice (self, chroot="/", devPrefix='/dev'):
         file = os.path.normpath(chroot + self.getDevice())
         if not os.access(file, os.R_OK):
             if self.size:
@@ -2280,7 +2280,7 @@ class PiggybackSwapFileDevice(SwapFileDevice):
         SwapFileDevice.__init__(self, file)
         self.piggypath = piggypath
         
-    def setupDevice(self, chroot="/", devPrefix='/tmp'):
+    def setupDevice(self, chroot="/", devPrefix='/dev'):
         return SwapFileDevice.setupDevice(self, self.piggypath, devPrefix)
 
 class LoopbackDevice(Device):
@@ -2290,7 +2290,7 @@ class LoopbackDevice(Device):
         self.hostfs = hostFs
         self.device = "loop1"
 
-    def setupDevice(self, chroot="/", devPrefix='/tmp/'):
+    def setupDevice(self, chroot="/", devPrefix='/dev/'):
         if not self.isSetup:
             isys.mount(self.host[5:], "/mnt/loophost", fstype = "vfat")
             self.device = allocateLoopback("/mnt/loophost/redhat.img")
@@ -2476,9 +2476,8 @@ def getDevFD(device):
     try:
         fd = os.open(device, os.O_RDONLY)
     except:
-        file = '/tmp/' + device
         try:
-            isys.makeDevInode(device, file)
+            file = isys.makeDevInode(device)
             fd = os.open(file, os.O_RDONLY)
         except:
             return -1

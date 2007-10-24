@@ -444,12 +444,7 @@ def sniffFilesystemType(device):
     if os.access(device, os.O_RDONLY):
         dev = device
     else:
-        dev = "/tmp/" + device
-        if not os.access(dev, os.O_RDONLY):
-            try:
-                isys.makeDevInode(device, dev)
-            except:
-                pass
+        dev = isys.makeDevInode(device)
 
     pagesize = resource.getpagesize()
     if pagesize > 2048:
@@ -970,7 +965,7 @@ class DiskSet:
                              _("Please wait while formatting drive %s...\n"
                                ) % (drive,), 100)
         try:
-            isys.makeDevInode(drive, '/tmp/' + drive)
+            dev = isys.makeDevInode(drive)
         except:
             pass
 
@@ -980,7 +975,7 @@ class DiskSet:
                     "-d", "cdl",
                     "-F",
                     "-f",
-                    "/tmp/%s" % drive]
+                    dev]
         
         fd = os.open("/dev/null", os.O_RDWR | os.O_CREAT | os.O_APPEND)
         p = os.pipe()

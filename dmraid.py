@@ -122,11 +122,8 @@ def scanForRaid(drives, degradedOk=False):
 
     probeDrives = []
     for d in drives:
-        dp = "/dev/" + d
-        isys.makeDevInode(d, dp)
+        dp = isys.makeDevInode(d)
         probeDrives.append(dp)
-        dp = "/tmp/" + d
-        isys.makeDevInode(d, dp)
     
     dmsets = []
     def nonDegraded(rs):
@@ -240,11 +237,8 @@ def scanForMPath(drives):
 
     probeDrives = []
     for d in drives:
-        dp = "/dev/" + d
-        isys.makeDevInode(d, dp)
+        dp = isys.makeDevInode(d)
         probeDrives.append(dp)
-        dp = "/tmp/" + d
-        isys.makeDevInode(d, dp)
 
     import block as _block
     oldPath = _block.getBdevidPath()

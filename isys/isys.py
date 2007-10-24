@@ -615,7 +615,7 @@ def makeDevInode(name, fn=None):
     try:
         os.stat(path)
     except OSError:
-        path = '/tmp/%s' % (name,)
+        path = '/dev/%s' % (name,)
         _isys.mkdevinode(name, path)
     return path
 
