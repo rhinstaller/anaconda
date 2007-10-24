@@ -1,3 +1,9 @@
+2007-10-24  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/urlinstall.c (mountUrlImage):  Clean up after findAnacondaCD
+	if the user provided an invalid URL so retries work.  Also attempt to
+	look for a stage2.img on retry every time (#330641).
+
 2007-10-23  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
