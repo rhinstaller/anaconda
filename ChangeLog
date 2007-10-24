@@ -1,5 +1,7 @@
 2007-10-23  Jeremy Katz  <katzj@redhat.com>
 
+	* liveinst/liveinst.sh (ANACONDA): Only use hal-lock if hal is running
+
 	* constants.py: Disable betanag
 
 	* anaconda (Anaconda): Fix for runinst with live images
