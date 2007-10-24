@@ -127,11 +127,14 @@ class UrlInstallMethod(InstallMethod):
             try:
                 rc=urlretrieve(fullPath, file, callback=callback)
             except IOError, (errnum, msg):
-		log.critical("IOError %s occurred getting %s: %s"
-                             %(errnum, fullPath.replace("%", "%%"), str(msg)))
+                logmsg = "IOError %s occurred getting %s: %s"
+                         %(errnum, fullPath.replace("%", "%%"), str(msg))
 
 		if not retry:
-		    raise FileCopyException
+                    log.critical(logmsg)
+                    raise FileCopyException
+                else:
+                    log.info(logmsg)
 		
                 time.sleep(5)
             else:
@@ -145,10 +148,9 @@ class UrlInstallMethod(InstallMethod):
 	return file
 
     def __copyFileToTemp(self, baseurl, filename, raise404=False):
+        logmsg = None
         tmppath = self.getTempPath()
-
         fullPath = baseurl + "/" + filename
-
         file = tmppath + "/" + os.path.basename(fullPath)
 
         tries = 0
@@ -158,14 +160,18 @@ class UrlInstallMethod(InstallMethod):
             except IOError, (errnum, msg):
                 if errnum == 14 and "404" in msg and raise404:
                     raise
-		log.critical("IOError %s occurred getting %s: %s",
-			     errnum, fullPath.replace("%", "%%"), str(msg))
+
+                logmsg = "IOError %s occurred getting %s: %s" %
+                         (errnum, fullPath.replace("%", "%%"), str(msg))
                 time.sleep(5)
             else:
                 break
-            tries = tries + 1
+            tries += 1
 
         if tries >= 5:
+            if logmsg:
+                log.critical(logmsg)
+
             raise FileCopyException
 	return file
 
