@@ -12,6 +12,10 @@
 	error message if we can still retry (Steve Fernand <sfernand AT redhat
 	DOT com>, #350251).
 
+	* loader2/urlinstall.c (mountUrlImage):  Clean up after findAnacondaCD
+	if the user provided an invalid URL so retries work.  Also attempt to
+	look for a stage2.img on retry every time (#330641).
+
 2007-10-24  Peter Jones  <pjones@redhat.com>
 
 	* scripts/upd-instroot: Use the newest ld.so we find, not the oldest,

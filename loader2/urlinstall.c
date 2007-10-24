@@ -281,6 +281,10 @@ char * mountUrlImage(struct installMethod * method,
 		/* verify that our URL is specifying the correct tree */
 		/* we do this by attempting to pull a .discinfo file */
 		if (loadSingleUrlImage(&ui, ".discinfo", NULL, NULL, NULL, 1)) {
+                        umountStage2();
+                        umount(location);
+                        unlink("/tmp/cdrom");
+
 			stage = URL_STAGE_MAIN;
 			dir = -1;
 
