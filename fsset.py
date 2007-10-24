@@ -2625,7 +2625,18 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
         os.dup2(fd, 2)
         os.close(p[1])
         os.close(fd)
-        os.execvp(argList[0], argList)
+
+        env = os.environ
+        configs = [ "/mnt/source/RHupdates/mke2fs.conf",
+                    "/tmp/updates/mke2fs.conf",
+                    "/etc/mke2fs.conf",
+                  ]
+        for config in configs:
+            if os.access(config, os.R_OK):
+                env['MKE2FS_CONFIG'] = config
+                break
+
+        os.execvpe(argList[0], argList, env)
         log.critical("failed to exec %s", argList)
         os._exit(1)
 			    

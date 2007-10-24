@@ -1,3 +1,8 @@
+2007-10-24  Peter Jones  <pjones@redhat.com>
+
+	* fsset.py (ext2FormatFilesystem): allow users to use their own
+	mke2fs.conf
+
 2007-10-24  Chris Lumens  <clumens@redhat.com>
 
 	* dmraid.py, fsset.py, partedUtils.py, raid.py, isys/isys.py:  Clean
