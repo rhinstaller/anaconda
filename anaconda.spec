@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.44
+Version: 11.3.0.45
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -215,6 +215,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 23 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.45-1
+- A few liveinst cleanups
+- Fix writing out of ipv6 network config (dcantrell, #328931)
+- Disable betanag
+- Don't traceback when offering the chance to retry a 
+  failed mirror (clumens, #349371)
+
 * Mon Oct 22 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.44-1
 - Fix warning about arch changes on upgrade (#222424)
 - Fix phantom kernels on upgrade (#325871)
