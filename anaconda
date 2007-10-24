@@ -787,7 +787,7 @@ if __name__ == "__main__":
     # now determine if we're going to run in GUI or TUI mode
     #
     # if no X server, we have to use text mode
-    if not (flags.test or flags.rootpath or x_already_set) and (rhpl.getArch() != "s390" and not os.access("/mnt/runtime/usr/bin/Xorg", os.X_OK)):
+    if not (flags.test or flags.rootpath or x_already_set) and (rhpl.getArch() != "s390" and not os.access("/usr/bin/Xorg", os.X_OK)):
          stdoutLog.warning(_("Graphical installation not available...  "
                              "Starting text mode."))
          time.sleep(2)
