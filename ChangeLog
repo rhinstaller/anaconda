@@ -1,3 +1,8 @@
+2007-10-24  Peter Jones  <pjones@redhat.com>
+
+	* scripts/upd-instroot: Use the newest ld.so we find, not the oldest,
+	and don't follow symlinks.
+
 2007-10-24  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: Commit the patch from Orion Poplawski to
