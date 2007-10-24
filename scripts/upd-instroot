@@ -74,7 +74,7 @@ get_dso_deps() {
     # this is a hack, but the only better way requires binutils or elfutils
     # be installed.  i.e., we need readelf to find the interpretter.
     if [ -z "$LDSO" ]; then
-        for ldso in /lib*/ld*.so* ; do
+        for ldso in $root/lib*/ld*.so* ; do
             [ -L $ldso ] && continue
             [ -x $ldso ] || continue
             $ldso --verify $bin >/dev/null 2>&1 || continue
