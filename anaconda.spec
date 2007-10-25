@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.45
+Version: 11.3.0.46
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -215,6 +215,12 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 25 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.46-1
+- Fix mirrorlist used to be the fedora8 one
+- Ignore sg devices (#330930)
+- Add kdepim to multilib upgrade blacklist (#339981)
+- Fix retries (clumens, #330641)
+
 * Tue Oct 23 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.45-1
 - A few liveinst cleanups
 - Fix writing out of ipv6 network config (dcantrell, #328931)
