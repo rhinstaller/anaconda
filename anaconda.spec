@@ -124,6 +124,7 @@ Requires: anaconda = %{version}-%{release}
 Requires: createrepo >= 0.4.7, squashfs-tools, mkisofs
 %ifarch %{ix86} x86_64
 Requires: syslinux
+Requires: makebootfat
 %endif
 %ifarch s390 s390x
 Requires: openssh

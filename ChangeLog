@@ -1,5 +1,7 @@
 2007-10-25 Joel Granados <jgranado@redhat.com>
 	* scripts/upd-instroo: Add ntfsprogs to rescue image. (#220062)
+	* scripts/mk-image.x86: Create the pendrive image with makebootfat
+	instead of syslinux
 
 2007-10-24  Chris Lumens  <clumens@redhat.com>
 

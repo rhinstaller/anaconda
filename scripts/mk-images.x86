@@ -112,13 +112,10 @@ makeBootImages() {
     # now make a boot pendrive image
     mkdir -p $TOPDESTPATH/images/fobpath
     dd if=/dev/zero of=$TOPDESTPATH/images/diskboot.img bs=1M count=12 2>/dev/null
-    mkdosfs $TOPDESTPATH/images/diskboot.img
-    $SYSLINUX $TOPDESTPATH/images/diskboot.img
-    mount -o loop $TOPDESTPATH/images/diskboot.img $TOPDESTPATH/images/fobpath
     cp -r $TOPDESTPATH/isolinux/* $TOPDESTPATH/images/fobpath/
     grep -v local $TOPDESTPATH/images/fobpath/isolinux.cfg > $TOPDESTPATH/images/fobpath/syslinux.cfg
     rm -f $TOPDESTPATH/images/fobpath/isolinux.cfg
-    umount -f $TOPDESTPATH/images/fobpath
+    /usr/bin/makebootfat -v -o $TOPDESTPATH/images/diskboot.img -Y -b /usr/share/syslinux/ldlinux.bss -m /usr/share/makebootfat/x86/mbrfat.bin -F -Z -c /usr/share/syslinux/ldlinux.sys $TOPDESTPATH/images/fobpath/
     rmdir $TOPDESTPATH/images/fobpath
 
     cat > $TOPDESTPATH/images/pxeboot/README <<EOF
