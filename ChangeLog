@@ -1,5 +1,8 @@
 2007-10-25  Jeremy Katz  <katzj@redhat.com>
 
+	* installclasses/fedora.py (InstallClass): Hardcode the repo so
+	that we get the right mirror list
+
 	* isys/isys.py (driveDict): Ignore sg devices (#330931)
 
 	* upgrade.py: Add kdepim to multilib upgrade remove list (#339981)
