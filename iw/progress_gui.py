@@ -52,6 +52,12 @@ class InstallProgressWindow (InstallWindow):
             self.processEvents()
 
     def set_label(self, txt):
+        # handle txt strings that contain '&' and '&amp;'
+        # we convert everything to '&' first, then take them all to '&amp;'
+        # so we avoid things like &amp;&amp;
+        # we have to use '&amp;' for the set_markup() method
+        txt = txt.replace('&amp;', '&')
+        txt = txt.replace('&', '&amp;')
         self.infolabel.set_markup(txt)
         self.infolabel.set_ellipsize(pango.ELLIPSIZE_END)
         self.processEvents()

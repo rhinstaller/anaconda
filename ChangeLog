@@ -1,3 +1,8 @@
+2007-10-25  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/progress_gui.py (InstallProgressWindow.set_label): Convert '&'
+	to '&amp;' for the set_markup() method.
+
 2007-10-25  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/isys.py (driveDict): Ignore sg devices (#330931)
