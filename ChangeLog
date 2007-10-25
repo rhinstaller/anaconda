@@ -1,3 +1,7 @@
+2007-10-25  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/isys.py (driveDict): Ignore sg devices (#330931)
+
 2007-10-25 Joel Granados <jgranado@redhat.com>
 	* scripts/upd-instroo: Add ntfsprogs to rescue image. (#220062)
 	* scripts/mk-image.x86: Create the pendrive image with makebootfat

@@ -422,6 +422,11 @@ def driveDict(klassArg):
                 else:
                     continue
 
+            # we can't actually use the sg devices, so ignore them
+            if device.startswith("sg"):
+                log.info("ignoring sg device %s" %(device,))
+                continue
+
             if dev.deviceclass != classMap["disk"]:
                 new[device] = dev
                 continue
