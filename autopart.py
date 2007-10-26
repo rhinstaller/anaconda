@@ -191,10 +191,11 @@ class partlist:
             
         self.parts = []
 
-def getMinimumSector():
-    # XXX really this should be based on the disk label type, not the arch
-    if rhpl.getArch() == "sparc":
-        return 1L
+def getMinimumSector(disk):
+    if disk.type.name == 'sun':
+        start = long(disk.dev.sectors * disk.dev.heads)
+        start /= (1024 / disk.dev.sector_size)
+        return start + 1
     return 0L
 
 # first step of partitioning voodoo
@@ -230,7 +231,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                 raise PartitioningError, "Unable to create partition which extends beyond the end of the disk."
 
             # XXX need to check overlaps properly here
-            minSec = getMinimumSector()
+            minSec = getMinimumSector(disk)
             if startSec < minSec:
                 startSec = minSec
 

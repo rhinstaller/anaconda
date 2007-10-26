@@ -1,5 +1,11 @@
 2007-10-26  Peter Jones  <pjones@redhat.com>
 
+	* autopart.py (getMinimumSector): determine the minimum sector by the
+	partition table type, not the arch.  Also, fix the math so it'll
+	actually use cylinder 1 on sun disklabels.
+
+2007-10-26  Peter Jones  <pjones@redhat.com>
+
 	* fsset.py:  add --fsprofile support to lvm, paritition, and raid, and
 	remove --bytes-per-inode support.
 
