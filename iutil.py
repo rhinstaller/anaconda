@@ -496,7 +496,7 @@ def writeRpmPlatform(root="/"):
 
     if flags.test:
         return
-    if os.access("%s/etc/rpm/platform" %(root,), os.R_OK):
+    if not flags.updateRpmPlatform and os.access("%s/etc/rpm/platform" %(root,), os.R_OK):
         return
     if not os.access("%s/etc/rpm" %(root,), os.X_OK):
         os.mkdir("%s/etc/rpm" %(root,))

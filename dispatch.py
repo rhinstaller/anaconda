@@ -32,7 +32,7 @@ from partitioning import partitionObjectsInitialize
 from partitioning import partitioningComplete
 from bootloader import writeBootloader, bootloaderSetupChoices
 from flags import flags
-from upgrade import upgradeMountFilesystems
+from upgrade import upgradeMountFilesystems, queryUpgradeArch
 from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
 from upgrade import findRootParts, queryUpgradeContinue
 from network import networkDeviceCheck
@@ -73,6 +73,7 @@ installSteps = [
     ("autopartitionexecute", doAutoPartition, ),
     ("partition", ),
     ("upgrademount", upgradeMountFilesystems, ),
+    ("upgradearchitecture", queryUpgradeArch, ),
     ("upgradecontinue", queryUpgradeContinue, ),
     ("upgradeswapsuggestion", upgradeSwapSuggestion, ),
     ("addswap", ),

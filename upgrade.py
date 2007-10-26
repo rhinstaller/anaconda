@@ -52,6 +52,39 @@ if rhpl.getArch() == "ppc":
 if rhpl.getArch() == "x86_64":
     upgrade_remove_blacklist.extend( [("perl","i386")] )
 
+def isUpgradingArch(anaconda):
+    """anaconda -> (bool, oldarch)
+    Check if the upgrade should change architecture of instalation"""
+
+    rpmplatform = open(anaconda.rootPath+"/etc/rpm/platform").readline().strip()
+    rpmarch = rpmplatform[:rpmplatform.index("-")]
+
+    return rhpl.arch.canonArch!=rpmarch, rpmarch
+
+
+def queryUpgradeArch(anaconda):
+    archupgrade, oldrpmarch = isUpgradingArch(anaconda) #Check if we are to upgrade the architecture of previous product
+
+    if anaconda.dir == DISPATCH_FORWARD or not archupgrade:
+        return DISPATCH_FORWARD
+
+    rc = anaconda.intf.messageWindow(_("Proceed with upgrade?"),
+                       _("You have choosen the upgrade for %s "
+                         "architecture, but the installed system "
+                         "is for %s architecture. "
+                         "\n\n" % (rhpl.arch.canonArch, oldrpmarch,)) + 
+                       _("Would you like to upgrade "
+                         " the installed system to the %s architecture?" % (rhpl.arch.canonArch,)),
+                         type="custom", custom_icon=["error","error"],
+                         custom_buttons=[_("_Exit installer"), _("_Continue")])
+
+    if rc == 0:
+        sys.exit(0)
+
+    flags.updateRpmPlatform = True
+
+    return DISPATCH_FORWARD
+
 def queryUpgradeContinue(anaconda):
     if anaconda.dir == DISPATCH_FORWARD:
         return
@@ -389,6 +422,7 @@ def setSteps(anaconda):
                 "upgrademount",
                 "upgrademigfind",
                 "upgrademigratefs",
+                "upgradearchitecture",
                 "upgradecontinue",
                 "reposetup",
                 "upgbootloader",

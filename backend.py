@@ -184,6 +184,7 @@ def doRepoSetup(anaconda):
         return DISPATCH_BACK
     if anaconda.id.upgrade:
         anaconda.backend.checkSupportedUpgrade(anaconda)
+        iutil.writeRpmPlatform(anaconda.rootPath)
 
 def doPostSelection(anaconda):
     return anaconda.backend.doPostSelection(anaconda)

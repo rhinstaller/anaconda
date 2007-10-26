@@ -1,5 +1,19 @@
 2007-10-26  Martin Sivak  <msivak@redhat.com>
 
+	* backend.py (doRepoSetup): Update the platform file if necessary
+
+	* dispatch.py: Add new step for detecting platform upgrade
+
+	* flags.py (Flags): Add flag for controlling the rpm platform update
+
+	* iutil.py (writeRpmPlatform): Now controlled by the updateRpmPlatform
+	flag
+
+	* upgrade.py: Add isUpgradingArch, queryUpgradeArch and add the
+	upgradearchitecture step (#217132)
+
+2007-10-26  Martin Sivak  <msivak@redhat.com>
+
 	* partedUtils.py (DiskSet): Do not ask for partition table init when in
 	rescue mode (#331131)
 
