@@ -35,7 +35,6 @@ import gettext
 from language import expandLangs
 from constants import *
 from network import hasActiveNetDev
-import floppy
 import rhpl
 import xutils
 import imputil

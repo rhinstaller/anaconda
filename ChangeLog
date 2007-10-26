@@ -1,3 +1,9 @@
+2007-10-26  Chris Lumens  <clumens@redhat.com>
+
+	* gui.py, text.py:  Remove import of floppy module.
+
+	* urlinstall.py (UrlInstallMethod.getFilename):  Fix syntax error.
+
 2007-10-26  Peter Jones  <pjones@redhat.com>
 
 	* autopart.py (getMinimumSector): determine the minimum sector by the

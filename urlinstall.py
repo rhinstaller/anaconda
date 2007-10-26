@@ -127,8 +127,7 @@ class UrlInstallMethod(InstallMethod):
             try:
                 rc=urlretrieve(fullPath, file, callback=callback)
             except IOError, (errnum, msg):
-                logmsg = "IOError %s occurred getting %s: %s"
-                         %(errnum, fullPath.replace("%", "%%"), str(msg))
+                logmsg = "IOError %s occurred getting %s: %s" %(errnum, fullPath.replace("%", "%%"), str(msg))
 
 		if not retry:
                     log.critical(logmsg)
@@ -161,8 +160,7 @@ class UrlInstallMethod(InstallMethod):
                 if errnum == 14 and "404" in msg and raise404:
                     raise
 
-                logmsg = "IOError %s occurred getting %s: %s" %
-                         (errnum, fullPath.replace("%", "%%"), str(msg))
+                logmsg = "IOError %s occurred getting %s: %s" % (errnum, fullPath.replace("%", "%%"), str(msg))
                 time.sleep(5)
             else:
                 break
