@@ -313,11 +313,9 @@ def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remoun
     # We note whether or not we created a node so we can clean up later.
     createdNode = 0
     if device and device != "none" and device[0] != "/":
-	devName = "/tmp/%s" % device
 	
 	try:
-	    makeDevInode (device, devName)
-	    device = devName
+	    makeDevInode (device)
 	    createdNode = 1
 	except SystemError:
 	    pass

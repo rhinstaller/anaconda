@@ -7,6 +7,8 @@
 	* yuminstall.py (YumBackend.selectAnacondaNeeds):  The package
 	providing lokkit has changed names.
 
+	* isys/isys.py (mount):  Create device nodes in /dev.
+
 	* loader2/init.c:  It's MALLOC_CHECK_, not _MALLOC_CHECK (#354131).
 
 	* scripts/splittree.py:  Added a --disc-size= option to set the size of
