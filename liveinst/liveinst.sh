@@ -37,7 +37,7 @@ if [ -x /usr/sbin/setenforce -a -e /selinux/enforce ]; then
     /usr/sbin/setenforce 0
 fi
 
-if [ -x /usr/bin/hal-lock -a -e /var/run/subsys/haldaemon ]; then
+if [ -x /usr/bin/hal-lock -a -e /var/lock/subsys/haldaemon ]; then
     /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA"
 else
     $ANACONDA
