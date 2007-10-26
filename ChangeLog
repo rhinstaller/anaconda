@@ -4,6 +4,9 @@
 
 2007-10-26  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda_log.py (AnacondaLog.__init__):  Add timestamps to the
+	stdout log as well.
+
 	* kickstart.py (AnacondaKSScript.run):  Need to take the chroot into
 	account for log file locations since subprocess runs the preexec_fn
 	after opening the stdout/stderr locations (#338541).
