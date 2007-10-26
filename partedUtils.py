@@ -1040,6 +1040,12 @@ class DiskSet:
         # if anaconda is None here, we are called from labelFactory
         # XXX FIXME this test is terrible.
         if self.anaconda is not None:
+
+            #Do not try to initialize device's part. table in rescue mode
+            if self.anaconda.rescue:
+                self._removeDisk(drive)
+                return False
+
             rc = 0
             if ks and (drive in clearDevs) and initAll:
                 rc = 1
