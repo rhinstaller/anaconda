@@ -62,7 +62,7 @@ class AnacondaLog:
 
         # Add a handler for the duped stuff.  No fancy formatting, thanks.
         self.addFileHandler (sys.stdout, self.stdoutLogger,
-                             fmtStr="%(asctime) %(message)s", minLevel=logging.INFO)
+                             fmtStr="%(asctime)s %(message)s", minLevel=logging.INFO)
 
     # Add a simple handler - file or stream, depending on what we're given.
     def addFileHandler (self, file, addToLogger, minLevel=DEFAULT_LEVEL,
