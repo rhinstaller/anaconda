@@ -330,7 +330,7 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump libidn groff
                 findutils ftp gzip iputils joe krb5-libs less man
                 modutils mtools mt-st mtr net-tools open smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
-                device-mapper device-mapper-libs dmraid ntfsprogs"
+                device-mapper device-mapper-libs dmraid ntfsprogs samba-client"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGESRESCUE="$PACKAGESRESCUE gpart grub"
@@ -818,6 +818,8 @@ sbin/restore
 sbin/rrestore
 sbin/rmmod
 sbin/route
+sbin/mount.cifs
+sbin/umount.cifs
 usr/bin/bunzip2
 usr/bin/bzcat
 usr/bin/bzip2
