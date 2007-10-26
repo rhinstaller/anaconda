@@ -1,3 +1,27 @@
+2007-10-26  Chris Lumens  <clumens@redhat.com>
+
+	* constants.py:  Add constants for the actions that can take place on
+	the exception handling UI.
+
+	* exception.py:
+
+	* gui.py (ScpWindow):  Remove this class in favor of a glade file.
+	(SaveExceptionWindow):  Create a new class to handle all the
+	interaction with the new glade file.
+	(ExceptionWindow):  Rename to MainExceptionWindow for clarity and do
+	some modifications to handle the new classes and constants.
+
+	* text.py: Likewise.
+
+	* partedUtils.py (DiskSet.exceptionDisks):  Add a method that returns
+	all possible disks and partitions that can be an exception dump
+	destination.
+
+	* ui/exn.glade:  Remove the remote and floppy buttons, add a generic
+	save button instead.
+	* ui/exnSave.glade:  Add a dialog for picking the destination for an
+	exception dump.
+
 2007-10-26  Bill Nottingham  <notting@redhat.com>
 
 	* liveinst/liveinst.sh: Use the right path for the lock file (#354571)
