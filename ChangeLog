@@ -6,6 +6,9 @@
 
 	* loader2/init.c:  It's MALLOC_CHECK_, not _MALLOC_CHECK (#354131).
 
+	* scripts/splittree.py:  Added a --disc-size= option to set the size of
+	the media in MB.  Defaults to the old value of 640 (#149234).
+
 2007-10-26  Martin Sivak  <msivak@redhat.com>
 
 	* backend.py (doRepoSetup): Update the platform file if necessary

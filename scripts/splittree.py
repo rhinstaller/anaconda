@@ -79,10 +79,11 @@ and RPMs. Set to 1 to turn on.
 self.reserve_size : Additional size needed to be reserved on the first disc.
 """
         
-        self.target_size = 640.0 * 1024.0 * 1024
+        self.reserve_size = 0
+        self.disc_size = 640.0
+        self.target_size = self.disc_size * 1024.0 * 1024
         self.fudge_factor = 1.2 * 1024.0 * 1024
         self.comps_size = 10.0 * 1024 * 1024
-        self.reserve_size = 0
         self.release_str = None
         self.package_order_file = None
         self.arch = None
@@ -388,6 +389,10 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
 
     def main(self):
         """Just runs everything"""
+
+        # Recalculate this here in case the disc_size changed.
+        self.target_size = self.disc_size * 1024.0 * 1024
+
         self.createSplitDirs()
         self.splitRPMS()
         if (self.src_discs != 0):
@@ -407,7 +412,7 @@ if "__main__" == __name__:
     
     timber = Timber()
 
-    theargs = ["arch=", "total-discs=", "bin-discs=",
+    theargs = ["arch=", "total-discs=", "bin-discs=", 'disc-size=',
                "src-discs=", "release-string=", "pkgorderfile=",
                "distdir=", "srcdir=", "productpath=", "reserve-size="]
 
@@ -467,6 +472,9 @@ if "__main__" == __name__:
 
     if options.has_key("--reserve-size"):
         timber.reserve_size = float(options["--reserve-size"])
+
+    if options.has_key("--disc-size"):
+        timber.disc_size = float(options["--disc-size"])
 
     logfile = timber.main()
     
