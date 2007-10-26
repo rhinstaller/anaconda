@@ -29,7 +29,6 @@ from flags import flags
 from constants_text import *
 from constants import *
 from network import hasActiveNetDev
-import floppy
 import imputil
 
 import rhpl
@@ -145,8 +144,19 @@ class ProgressWindow:
 class SaveExceptionWindow:
     def __init__(self, anaconda, longTracebackFile=None, screen=None):
         self.anaconda = anaconda
-        self.text = "OH NOES!\n\n"
         self.screen = screen
+
+    def _destCb(self, *args):
+        if self.rg.getSelection() == "disk":
+            self.hostEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.destEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.usernameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.passwordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+        else:
+            self.hostEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.destEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.usernameEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.passwordEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
 
     def getrc(self):
         if self.rc == TEXT_OK_CHECK:
@@ -168,8 +178,11 @@ class SaveExceptionWindow:
         toplevel = GridForm(self.screen, _("Save"), 1, 5)
 
         self.rg = RadioGroup()
-        diskButton = self.rg.add(_("Save to Disk"), "disk", True)
-        remoteButton = self.rg.add(_("Save to Remote"), "remote", False)
+        self.diskButton = self.rg.add(_("Save to Disk"), "disk", True)
+        self.remoteButton = self.rg.add(_("Save to Remote"), "remote", False)
+
+        self.diskButton.setCallback(self._destCb, None)
+        self.remoteButton.setCallback(self._destCb, None)
 
         buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
         self.hostEntry = Entry(24)
@@ -177,11 +190,7 @@ class SaveExceptionWindow:
         self.usernameEntry = Entry(24)
         self.passwordEntry = Entry(24, password=1)
 
-        diskList = Listbox(height=3, scroll=1)
-        for (dev, desc) in self.anaconda.id.diskset.exceptionDisks(self.anaconda):
-            distList.append("/dev/%s - %s" % (dev, desc), dev)
-
-        diskList.setCurrent(0)
+        self.diskList = Listbox(height=3, scroll=1)
 
         remoteGrid = Grid(2, 4)
         remoteGrid.setField(Label(_("Host")), 0, 0, anchorLeft=1)
@@ -193,11 +202,29 @@ class SaveExceptionWindow:
         remoteGrid.setField(Label(_("Password")), 0, 3, anchorLeft=1)
         remoteGrid.setField(self.passwordEntry, 1, 3)
 
-        toplevel.add(diskButton, 0, 0, (0, 0, 0, 1))
-        toplevel.add(diskList, 0, 1, (0, 0, 0, 1))
-        toplevel.add(remoteButton, 0, 2, (0, 0, 0, 1))
+        toplevel.add(self.diskButton, 0, 0, (0, 0, 0, 1))
+        toplevel.add(self.diskList, 0, 1, (0, 0, 0, 1))
+        toplevel.add(self.remoteButton, 0, 2, (0, 0, 0, 1))
         toplevel.add(remoteGrid, 0, 3, (0, 0, 0, 1))
         toplevel.add(buttons, 0, 4, growx=1)
+
+        dests = self.anaconda.id.diskset.exceptionDisks(self.anaconda)
+
+        if len(dests) > 0:
+            for (dev, desc) in dests:
+                self.diskList.append("/dev/%s - %s" % (dev, desc), dev)
+
+#            self.diskList.setCurrent("sda")
+
+            self.hostEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.destEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.usernameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.passwordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+        else:
+            self.diskButton.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
+            self.diskButton.w.checkboxSetValue(" ")
+            self.remoteButton.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.remoteButton.w.checkboxSetValue("*")
 
         result = toplevel.run()
         self.rc = buttons.buttonPressed(result)
@@ -212,6 +239,8 @@ class MainExceptionWindow:
 
         self.buttons=[TEXT_OK_BUTTON]
 
+        self.buttons.append(_("Save"))
+
         if not flags.livecdInstall:
             self.buttons.append(_("Debug"))
 
@@ -223,7 +252,7 @@ class MainExceptionWindow:
     def getrc(self):
         if self.rc == string.lower(_("Debug")):
             return EXN_DEBUG
-	elif self.rc == string.lower(_("Save")):
+        elif self.rc == string.lower(_("Save")):
             return EXN_SAVE
         else:
             return EXN_OK
@@ -314,7 +343,7 @@ class InstallInterface:
 	    from string import joinfields
 	    list = traceback.format_exception(type, value, tb)
 	    text = joinfields(list, "")
-	    win = self.exceptionWindow(text, "/tmp/anacdump.txt")
+	    win = MainExceptionWindow(text, "/tmp/anacdump.txt")
             win.run()
             rc = win.getrc()
 	    if rc == 1:
@@ -438,6 +467,10 @@ class InstallInterface:
         log.critical(shortText)
         exnWin = MainExceptionWindow(shortText, longTextFile, self.screen)
         return exnWin
+
+    def saveExceptionWindow(self, anaconda, longTextFile):
+        win = SaveExceptionWindow (anaconda, longTextFile)
+        return win
 
     def partedExceptionWindow(self, exc):
         # if our only option is to cancel, let us handle the exception
