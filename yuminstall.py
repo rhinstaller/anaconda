@@ -894,7 +894,7 @@ class YumBackend(AnacondaBackend):
     # it.
     def selectAnacondaNeeds(self):
         for pkg in ['authconfig', 'chkconfig', 'mkinitrd', 'rhpl',
-                    'system-config-securitylevel-tui']:
+                    'system-config-firewall-tui']:
             self.selectPackage(pkg)
 
     def doPostSelection(self, anaconda):
