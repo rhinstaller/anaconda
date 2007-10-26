@@ -1,9 +1,19 @@
 2007-10-26  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda:  Don't need to probe for floppy hardware anymore since the
+	exception dialog doesn't look for it in advance.
+
+	* instdata.py (InstallData.__init__):  Don't accept a floppyDevice
+	parameter anymore.
+
+	* floppy.py:  Removed unused code.
+
+2007-10-26  Chris Lumens  <clumens@redhat.com>
+
 	* constants.py:  Add constants for the actions that can take place on
 	the exception handling UI.
 
-	* exception.py:
+	* exception.py:  Rework functions to handle the new save dialog.
 
 	* gui.py (ScpWindow):  Remove this class in favor of a glade file.
 	(SaveExceptionWindow):  Create a new class to handle all the

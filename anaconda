@@ -436,9 +436,6 @@ def probeHW(opts, x_already_set, xserver):
         if opts.keymap:
             xserver.keyboard.set(opts.keymap)
 
-    # floppy
-    return floppy.probeFloppyDevice()
-
 def setupGraphicalLinks():
     for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
 	       "fb.modes"):
@@ -776,7 +773,7 @@ if __name__ == "__main__":
     else:
         xserver = None
 
-    floppyDevice = probeHW(opts, x_already_set, xserver)
+    probeHW(opts, x_already_set, xserver)
 
     #
     # delay to let use see status of attempt to probe hw
@@ -869,7 +866,7 @@ if __name__ == "__main__":
 
     anaconda.setBackend(instClass)
 
-    anaconda.id = instClass.installDataClass(anaconda, extraModules, floppyDevice, anaconda.methodstr, opts.display_mode, anaconda.backend)
+    anaconda.id = instClass.installDataClass(anaconda, extraModules, anaconda.methodstr, opts.display_mode, anaconda.backend)
 
     anaconda.id.x_already_set = x_already_set
 

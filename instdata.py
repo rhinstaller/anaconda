@@ -283,7 +283,7 @@ class InstallData:
         os.chmod(filename, 0600)
 
 
-    def __init__(self, anaconda, extraModules, floppyDevice, methodstr, displayMode, backend = None):
+    def __init__(self, anaconda, extraModules, methodstr, displayMode, backend = None):
         self.displayMode = displayMode
 
 	self.instLanguage = language.Language(self.displayMode)
@@ -297,7 +297,6 @@ class InstallData:
         self.xsetup = None
         self.isHeadless = 0
 	self.extraModules = extraModules
-	self.floppyDevice = floppyDevice
 	self.fsset = fsset.FileSystemSet()
 
         self.methodstr = methodstr
