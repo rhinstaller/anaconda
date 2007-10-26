@@ -1,3 +1,9 @@
+2007-10-26  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (AnacondaKSScript.run):  Need to take the chroot into
+	account for log file locations since subprocess runs the preexec_fn
+	after opening the stdout/stderr locations (#338541).
+
 2007-10-26  Martin Sivak  <msivak@redhat.com>
 
 	* backend.py (doRepoSetup): Update the platform file if necessary

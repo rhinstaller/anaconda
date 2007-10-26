@@ -55,7 +55,10 @@ class AnacondaKSScript(Script):
         os.chmod(path, 0700)
 
         if self.logfile is not None:
-            messages = self.logfile
+            if self.inChroot:
+                messages = "%s/%s" % (scriptRoot, self.logfile)
+            else:
+                messages = self.logfile
         elif serial:
             messages = "%s.log" % path
         else:
