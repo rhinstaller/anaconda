@@ -562,33 +562,6 @@ class ProgressWindow:
         self.window.destroy ()
         rootPopBusyCursor()
 
-class ScpWindow:
-    def __init__(self, screen=None):
-        self.scpxml = gtk.glade.XML(findGladeFile("scp.glade"),
-                                    domain="anaconda")
-        self.win = self.scpxml.get_widget("saveRemoteDlg")
-
-        addFrame(self.win)
-        self.win.show_all()
-        self.window = self.win
-
-    def getrc(self):
-        if self.rc == 0:
-            return None
-        else:
-            host = self.scpxml.get_widget("hostEntry")
-            remotePath = self.scpxml.get_widget("remotePathEntry")
-            userName = self.scpxml.get_widget("userNameEntry")
-            password = self.scpxml.get_widget("passwordEntry")
-            return (host.get_text(), remotePath.get_text(),
-                    userName.get_text(), password.get_text())
-
-    def run(self):
-        self.rc = self.window.run()
-    
-    def pop(self):
-        self.window.destroy()
-
 class InstallKeyWindow:
     def __init__(self, anaconda, key):
         (keyxml, self.win) = getGladeWidget("instkey.glade", "instkeyDialog")
@@ -644,9 +617,79 @@ class InstallKeyWindow:
 
     def destroy(self):
         self.win.destroy()
-            
 
-class ExceptionWindow:
+class SaveExceptionWindow:
+    def __init__(self, anaconda, longTracebackFile=None, screen=None):
+        exnxml = gtk.glade.XML(findGladeFile("exnSave.glade"), domain="anaconda")
+
+        self.hostEntry = exnxml.get_widget("hostEntry")
+        self.destEntry = exnxml.get_widget("destEntry")
+        self.usernameEntry = exnxml.get_widget("usernameEntry")
+        self.passwordEntry = exnxml.get_widget("passwordEntry")
+
+        self.diskButton = exnxml.get_widget("diskButton")
+        self.diskCombo = exnxml.get_widget("diskCombo")
+        self.remoteButton = exnxml.get_widget("remoteButton")
+        self.remoteBox = exnxml.get_widget("remoteHBox")
+        self.win = exnxml.get_widget("saveDialog")
+
+        self.diskButton.connect("toggled", self.diskButton_changed)
+
+        cell = gtk.CellRendererText()
+        self.diskCombo.pack_start(cell, True)
+        self.diskCombo.set_attributes(cell, text=1)
+
+        store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+
+        dests = anaconda.id.diskset.exceptionDisks(anaconda)
+
+        if len(dests) > 0:
+            for d in dests:
+                iter = store.append(None)
+                store[iter] = (d[0], "/dev/%s - %s" % (d[0], d[1]))
+
+            self.diskCombo.set_model(store)
+            self.diskCombo.set_active(0)
+        else:
+            self.diskButton.set_sensitive(False)
+            self.remoteButton.set_active(True)
+            self.diskCombo.set_sensitive(False)
+            self.remoteBox.set_sensitive(True)
+
+        addFrame(self.win)
+        self.win.show_all()
+        self.window = self.win
+
+    def diskButton_changed(self, args):
+        self.diskCombo.set_sensitive(self.diskButton.get_active())
+        self.remoteBox.set_sensitive(not self.diskButton.get_active())
+
+    def getrc(self):
+        if self.rc == gtk.RESPONSE_OK:
+            return EXN_OK
+        elif self.rc == gtk.RESPONSE_CANCEL:
+            return EXN_CANCEL
+
+    def getDest(self):
+        if self.saveToDisk():
+            active = self.diskCombo.get_active()
+            if active < 0:
+                return None
+
+            return self.diskCombo.get_model()[active][0]
+        else:
+            return map(lambda e: e.get_text(), [self.hostEntry, self.destEntry, self.usernameEntry, self.passwordEntry])
+
+    def pop(self):
+        self.window.destroy()
+
+    def run(self):
+        self.rc = self.window.run ()
+
+    def saveToDisk(self):
+        return self.diskButton.get_active()
+
+class MainExceptionWindow:
     def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):
         # Get a bunch of widgets from the XML file.
         exnxml = gtk.glade.XML(findGladeFile("exn.glade"), domain="anaconda")
@@ -669,20 +712,10 @@ class ExceptionWindow:
         textbuf = gtk.TextBuffer()
         textbuf.set_text(shortTraceback)
 
-        # Remove the debug button since it doesn't work in livecd mode anyway
+        # Remove the debug button since it doesn't work in livecd mode anyway.
         if flags.livecdInstall:
             debugButton = exnxml.get_widget("debugButton")
             buttonBox.remove(debugButton)
-
-        # Remove the floppy button if we don't need it.
-        if not floppy.hasFloppyDevice() and not flags.debug:
-            floppyButton = exnxml.get_widget("floppyButton")
-            buttonBox.remove(floppyButton)
-
-        # Remove the remote button if there's no network.
-        if not hasActiveNetDev() and not flags.debug:
-            remoteButton = exnxml.get_widget("remoteButton")
-            buttonBox.remove(remoteButton)
 
         # If there's an anacdump.txt file, add it to the lower view in the
         # expander.  If not, remove the expander.
@@ -708,32 +741,25 @@ class ExceptionWindow:
             vbox.remove(expander)
 
         addFrame(self.win)
-        self.win.show_all ()
+        self.win.show_all()
         self.window = self.win
 
     def run(self):
         self.rc = self.window.run ()
 
     def getrc (self):
-        # I did it this way for future expantion
-        # 0 is debug
         if self.rc == 0:
             try:
                 # switch to VC1 so we can debug
                 isys.vtActivate (1)
             except SystemError:
                 pass
-            return 1
-        # 1 is save to floppy
+            return EXN_DEBUG
         if self.rc == 1:
-            return 2
-        # 2 is OK
+            return EXN_SAVE
         elif self.rc == 2:
-            return 0
-        # 3 is save to remote host
-        elif self.rc == 3:
-            return 3
-    
+            return EXN_OK
+
     def pop(self):
         self.window.destroy()
 
@@ -942,13 +968,14 @@ class InstallInterface:
         d.destroy()
         return rc
 
-    def exceptionWindow(self, shortText, longTextFile):
+    def mainExceptionWindow(self, shortText, longTextFile):
         log.critical(shortText)
-        win = ExceptionWindow (shortText, longTextFile)
+        win = MainExceptionWindow (shortText, longTextFile)
         return win
 
-    def scpWindow(self):
-        return ScpWindow()
+    def saveExceptionWindow(self, anaconda, longTextFile):
+        win = SaveExceptionWindow (anaconda, longTextFile)
+        return win
 
     def getInstallKey(self, anaconda, key = ""):
         d = InstallKeyWindow(anaconda, key)

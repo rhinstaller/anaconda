@@ -15,6 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+from constants import *
 import isys
 import sys
 import os
@@ -205,69 +206,61 @@ def scpAuthenticate(master, childpid, password):
     (pid, childstatus) = os.waitpid (childpid, 0)
     return childstatus
 
-# Returns 0 on success, 1 on cancel, 2 on error.
-def copyExceptionToRemote(intf):
+# Save the traceback to a remote system via SCP.  Returns success or not.
+def copyExceptionToRemote(intf, scpInfo):
     import pty
 
-    scpWin = intf.scpWindow()
-    while 1:
-        # Bail if they hit the cancel button.
-        scpWin.run()
-        scpInfo = scpWin.getrc()
+    (host, path, user, password) = scpInfo
 
-        if scpInfo == None:
-            scpWin.pop()
-            return 1
+    if host.find(":") != -1:
+        (host, port) = host.split(":")
 
-        (host, path, user, password) = scpInfo
-
-        if host.find(":") != -1:
-            (host, port) = host.split(":")
-
-            # Try to convert the port to an integer just as a check to see
-            # if it's a valid port number.  If not, they'll get a chance to
-            # correct the information when scp fails.
-            try:
-                int(port)
-                portArgs = ["-P", port]
-            except ValueError:
-                portArgs = []
-        else:
-            portArgs = []
-
-        # Thanks to Will Woods <wwoods@redhat.com> for the scp control
-        # here and in scpAuthenticate.
-
-        # Fork ssh into its own pty
-        (childpid, master) = pty.fork()
-        if childpid < 0:
-            log.critical("Could not fork process to run scp")
-            scpWin.pop()
-            return 2
-        elif childpid == 0:
-            # child process - run scp
-            args = ["scp", "-oNumberOfPasswordPrompts=1",
-                    "-oStrictHostKeyChecking=no"] + portArgs + \
-                   ["/tmp/anacdump.txt", "%s@%s:%s" % (user, host, path)]
-            os.execvp("scp", args)
-
-        # parent process
+        # Try to convert the port to an integer just as a check to see
+        # if it's a valid port number.  If not, they'll get a chance to
+        # correct the information when scp fails.
         try:
-            childstatus = scpAuthenticate(master, childpid, password)
-        except OSError:
-            scpWin.pop()
-            return 2
+            int(port)
+            portArgs = ["-P", port]
+        except ValueError:
+            portArgs = []
+    else:
+        portArgs = []
 
-        os.close(master)
+    # Thanks to Will Woods <wwoods@redhat.com> for the scp control
+    # here and in scpAuthenticate.
 
-        if os.WIFEXITED(childstatus) and os.WEXITSTATUS(childstatus) == 0:
-            return 0
-        else:
-            scpWin.pop()
-            return 2
+    # Fork ssh into its own pty
+    (childpid, master) = pty.fork()
+    if childpid < 0:
+        log.critical("Could not fork process to run scp")
+        return False
+    elif childpid == 0:
+        # child process - run scp
+        args = ["scp", "-oNumberOfPasswordPrompts=1",
+                "-oStrictHostKeyChecking=no"] + portArgs + \
+               ["/tmp/anacdump.txt", "%s@%s:%s" % (user, host, path)]
+        os.execvp("scp", args)
 
-def copyExceptionToFloppy (anaconda):
-    # in test mode have save to floppy option just copy to new name
+    # parent process
+    try:
+        childstatus = scpAuthenticate(master, childpid, password)
+    except OSError:
+        return False
+
+    os.close(master)
+
+    if os.WIFEXITED(childstatus) and os.WEXITSTATUS(childstatus) == 0:
+        return True
+    else:
+        return False
+
+# Save the traceback to a removable storage device, such as a floppy disk
+# or a usb/firewire drive.  In the event of a floppy disk, it is assumed to
+# be unformatted and safe for us to destroy.  For all other devices, it is
+# assumed that they are already formatted and we will only attempt to write
+# the traceback file to the device.  Returns success or not.
+def copyExceptionToDisk(anaconda, device):
+    # in test mode have save to disk option just copy to new name
     if not flags.setupFilesystems:
         try:
             shutil.copyfile("/tmp/anacdump.txt", "/tmp/test-anacdump.txt")
@@ -276,51 +269,45 @@ def copyExceptionToFloppy (anaconda):
             pass
 
         anaconda.intf.__del__ ()
-        return 2
+        return False
 
-    while 1:
-        # Bail if they hit the cancel button.
-        rc = anaconda.intf.dumpWindow()
-        if rc:
-            return 1
+    file = "/tmp/exndev"
+    try:
+        isys.makeDevInode(device, file)
+    except SystemError:
+        pass
 
-        device = anaconda.id.floppyDevice
-        file = "/tmp/floppy"
-        try:
-            isys.makeDevInode(device, file)
-        except SystemError:
-            pass
+    try:
+        fd = os.open(file, os.O_RDONLY)
+    except:
+        return False
 
-        try:
-            fd = os.open(file, os.O_RDONLY)
-        except:
-            continue
+    os.close(fd)
 
-        os.close(fd)
+    # Only format floppy devices, not usb storage devices.
+    if device in isys.floppyDriveDict().keys() and rhpl.getArch() != "ia64":
+        cmd = "/usr/sbin/mkdosfs"
 
-        if rhpl.getArch() != "ia64":
-            cmd = "/usr/sbin/mkdosfs"
+        if os.access("/sbin/mkdosfs", os.X_OK):
+            cmd = "/sbin/mkdosfs"
 
-            if os.access("/sbin/mkdosfs", os.X_OK):
-                cmd = "/sbin/mkdosfs"
+        iutil.execWithRedirect (cmd, ["/tmp/floppy"], stdout = '/dev/tty5',
+                                stderr = '/dev/tty5')
 
-            iutil.execWithRedirect (cmd, ["/tmp/floppy"], stdout = '/dev/tty5',
-                                    stderr = '/dev/tty5')
+    try:
+        isys.mount(device, "/tmp/crash", fstype = "vfat")
+    except SystemError:
+        return False
 
-        try:
-            isys.mount(device, "/tmp/crash", fstype = "vfat")
-        except SystemError:
-            continue
+    # copy trace dump we wrote to local storage to disk
+    try:
+        shutil.copyfile("/tmp/anacdump.txt", "/tmp/crash/anacdump.txt")
+    except:
+        log.error("Failed to copy anacdump.txt to device %s" % device)
+        return False
 
-        # copy trace dump we wrote to local storage to floppy
-        try:
-            shutil.copyfile("/tmp/anacdump.txt", "/tmp/crash/anacdump.txt")
-        except:
-            log.error("Failed to copy anacdump.txt to floppy")
-            return 2
-
-        isys.umount("/tmp/crash")
-        return 0
+    isys.umount("/tmp/crash")
+    return True
 
 # Reverse the order that tracebacks are printed so people will hopefully quit
 # giving us the least useful part of the exception in bug reports.
@@ -331,6 +318,54 @@ def formatException (type, value, tb):
     lst.insert(1, 'Traceback (most recent call first):\n')
     lst.extend(traceback.format_exception_only(type, value))
     return lst
+
+def runSaveDialog(anaconda, longTracebackFile):
+    saveWin = anaconda.intf.saveExceptionWindow(anaconda, longTracebackFile)
+    if not saveWin:
+        anaconda.intf.__del__()
+        os.kill(os.getpid(), signal.SIGKILL)
+
+    while 1:
+        saveWin.run()
+        rc = saveWin.getrc()
+
+        if rc == EXN_OK:
+            if saveWin.saveToDisk():
+                device = saveWin.getDest()
+                cpSucceeded = copyExceptionToDisk(anaconda, device)
+
+                if cpSucceeded:
+                    anaconda.intf.messageWindow(_("Dump Written"),
+                        _("Your system's state has been successfully written to "
+                          "the disk. The installer will now exit."),
+                        type="custom", custom_icon="info",
+                        custom_buttons=[_("_Exit installer")])
+                    sys.exit(0)
+                else:
+                    anaconda.intf.messageWindow(_("Dump Not Written"),
+                        _("There was a problem writing the system state to the "
+                          "disk."))
+                    continue
+            else:
+                scpInfo = saveWin.getDest()
+                scpSucceeded = copyExceptionToRemote(anaconda.intf, scpInfo)
+
+                if scpSucceeded:
+                    anaconda.intf.messageWindow(_("Dump Written"),
+                        _("Your system's state has been successfully written to "
+                          "the remote host.  The installer will now exit."),
+                        type="custom", custom_icon="info",
+                        custom_buttons=[_("_Exit installer")])
+                    sys.exit(0)
+                else:
+                    anaconda.intf.messageWindow(_("Dump Not Written"),
+                        _("There was a problem writing the system state to the "
+                          "remote host."))
+                    continue
+        elif rc == EXN_CANCEL:
+            break
+
+    saveWin.pop()
 
 def handleException(anaconda, (type, value, tb)):
     if isinstance(value, bdb.BdbQuit):
@@ -363,19 +398,19 @@ def handleException(anaconda, (type, value, tb)):
     except:
         pass
 
-    win = anaconda.intf.exceptionWindow(text, "/tmp/anacdump.txt")
-    if not win:
+    mainWin = anaconda.intf.mainExceptionWindow(text, "/tmp/anacdump.txt")
+    if not mainWin:
         anaconda.intf.__del__()
         os.kill(os.getpid(), signal.SIGKILL)
 
     while 1:
-        win.run()
-        rc = win.getrc()
+        mainWin.run()
+        rc = mainWin.getrc()
 
-        if rc == 0:
+        if rc == EXN_OK:
             anaconda.intf.__del__ ()
             os.kill(os.getpid(), signal.SIGKILL)
-        elif rc == 1:
+        elif rc == EXN_DEBUG:
             anaconda.intf.__del__ ()
             print text
 
@@ -406,37 +441,5 @@ def handleException(anaconda, (type, value, tb)):
             import pdb
             pdb.post_mortem (tb)
             os.kill(os.getpid(), signal.SIGKILL)
-        elif rc == 2:
-            floppyRc = copyExceptionToFloppy(anaconda)
-
-            if floppyRc == 0:
-                anaconda.intf.messageWindow(_("Dump Written"),
-                    _("Your system's state has been successfully written to "
-                      "the floppy. The installer will now exit."),
-                    type="custom", custom_icon="info",
-                    custom_buttons=[_("_Exit installer")])
-                sys.exit(0)
-            elif floppyRc == 1:
-                continue
-            elif floppyRc == 2:
-                anaconda.intf.messageWindow(_("Dump Not Written"),
-                    _("There was a problem writing the system state to the "
-                      "floppy."))
-                continue
-        elif rc == 3:
-            scpRc = copyExceptionToRemote(anaconda.intf)
-
-            if scpRc == 0:
-                anaconda.intf.messageWindow(_("Dump Written"),
-                    _("Your system's state has been successfully written to "
-                      "the remote host.  The installer will now exit."),
-                    type="custom", custom_icon="info",
-                    custom_buttons=[_("_Exit installer")])
-                sys.exit(0)
-            elif scpRc == 1:
-                continue
-            elif scpRc == 2:
-                anaconda.intf.messageWindow(_("Dump Not Written"),
-                    _("There was a problem writing the system state to the "
-                      "remote host."))
-                continue
+        elif rc == EXN_SAVE:
+            runSaveDialog(anaconda, "/tmp/anacdump.txt")

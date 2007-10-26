@@ -142,18 +142,75 @@ class ProgressWindow:
 	g.draw()
 	self.screen.refresh()
 
-class ExceptionWindow:
+class SaveExceptionWindow:
+    def __init__(self, anaconda, longTracebackFile=None, screen=None):
+        self.anaconda = anaconda
+        self.text = "OH NOES!\n\n"
+        self.screen = screen
+
+    def getrc(self):
+        if self.rc == TEXT_OK_CHECK:
+            return EXN_OK
+        elif self.rc == TEXT_CANCEL_CHECK:
+            return EXN_CANCEL
+
+    def getDest(self):
+        if self.saveToDisk():
+            return self.diskList.current()
+        else:
+            return map(lambda e: e.value(), [self.hostEntry, self.destEntry, self.usernameEntry, self.passwordEntry])
+
+    def pop(self):
+        self.screen.popWindow()
+        self.screen.refresh()
+
+    def run(self):
+        toplevel = GridForm(self.screen, _("Save"), 1, 5)
+
+        self.rg = RadioGroup()
+        diskButton = self.rg.add(_("Save to Disk"), "disk", True)
+        remoteButton = self.rg.add(_("Save to Remote"), "remote", False)
+
+        buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
+        self.hostEntry = Entry(24)
+        self.destEntry = Entry(24)
+        self.usernameEntry = Entry(24)
+        self.passwordEntry = Entry(24, password=1)
+
+        diskList = Listbox(height=3, scroll=1)
+        for (dev, desc) in self.anaconda.id.diskset.exceptionDisks(self.anaconda):
+            distList.append("/dev/%s - %s" % (dev, desc), dev)
+
+        diskList.setCurrent(0)
+
+        remoteGrid = Grid(2, 4)
+        remoteGrid.setField(Label(_("Host")), 0, 0, anchorLeft=1)
+        remoteGrid.setField(self.hostEntry, 1, 0)
+        remoteGrid.setField(Label(_("Remote path")), 0, 1, anchorLeft=1)
+        remoteGrid.setField(self.destEntry, 1, 1)
+        remoteGrid.setField(Label(_("User name")), 0, 2, anchorLeft=1)
+        remoteGrid.setField(self.usernameEntry, 1, 2)
+        remoteGrid.setField(Label(_("Password")), 0, 3, anchorLeft=1)
+        remoteGrid.setField(self.passwordEntry, 1, 3)
+
+        toplevel.add(diskButton, 0, 0, (0, 0, 0, 1))
+        toplevel.add(diskList, 0, 1, (0, 0, 0, 1))
+        toplevel.add(remoteButton, 0, 2, (0, 0, 0, 1))
+        toplevel.add(remoteGrid, 0, 3, (0, 0, 0, 1))
+        toplevel.add(buttons, 0, 4, growx=1)
+
+        result = toplevel.run()
+        self.rc = buttons.buttonPressed(result)
+
+    def saveToDisk(self):
+        return self.rg.getSelection() == "disk"
+
+class MainExceptionWindow:
     def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):
         self.text = "%s\n\n" % shortTraceback
         self.screen = screen
 
         self.buttons=[TEXT_OK_BUTTON]
-
-        if floppy.hasFloppyDevice() or flags.debug:
-            self.buttons.append(_("Save"))
-
-        if hasActiveNetDev() or flags.debug:
-            self.buttons.append(_("Remote"))
 
         if not flags.livecdInstall:
             self.buttons.append(_("Debug"))
@@ -165,60 +222,15 @@ class ExceptionWindow:
 
     def getrc(self):
         if self.rc == string.lower(_("Debug")):
-            return 1
+            return EXN_DEBUG
 	elif self.rc == string.lower(_("Save")):
-            return 2
-        elif self.rc == string.lower(_("Remote")):
-            return 3
+            return EXN_SAVE
         else:
-            return 0
+            return EXN_OK
 
     def pop(self):
         self.screen.popWindow()
 	self.screen.refresh()
-
-class ScpWindow:
-    def __init__(self, screen=None):
-        self.screen = screen
-        pass
-
-    def run(self):
-        buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
-        self.hostEntry = Entry(24)
-        self.pathEntry = Entry(24)
-        self.usernameEntry = Entry(24)
-        self.passwordEntry = Entry(24, password=1)
-
-        win = GridForm(self.screen, _("Save to Remote Host"), 1, 2)
-
-        subgrid = Grid(2, 4)
-        subgrid.setField(Label(_("Host")), 0, 0, anchorLeft=1)
-        subgrid.setField(self.hostEntry, 1, 0)
-        subgrid.setField(Label(_("Remote path")), 0, 1, anchorLeft=1)
-        subgrid.setField(self.pathEntry, 1, 1)
-        subgrid.setField(Label(_("User name")), 0, 2, anchorLeft=1)
-        subgrid.setField(self.usernameEntry, 1, 2)
-        subgrid.setField(Label(_("Password")), 0, 3, anchorLeft=1)
-        subgrid.setField(self.passwordEntry, 1, 3)
-
-        win.add(subgrid, 0, 0, (0, 0, 0, 1))
-        win.add(buttons, 0, 1)
-
-        result = win.run()
-        self.rc = buttons.buttonPressed(result)
-
-    def getrc(self):
-        if self.rc == TEXT_CANCEL_CHECK:
-            return None
-        elif self.rc == TEXT_OK_CHECK:
-            retval = (self.hostEntry.value(), self.pathEntry.value(),
-                      self.usernameEntry.value(), self.passwordEntry.value())
-            return retval
-
-    def pop(self):
-        self.screen.popWindow()
-	self.screen.refresh()
-        pass
 
 class InstallInterface:
     def helpWindow(self, screen, key):
@@ -422,12 +434,9 @@ class InstallInterface:
 
 	return 0
 
-    def scpWindow(self):
-        return ScpWindow(self.screen)
-
-    def exceptionWindow(self, shortText, longTextFile):
+    def mainExceptionWindow(self, shortText, longTextFile):
         log.critical(shortText)
-        exnWin = ExceptionWindow(shortText, longTextFile, self.screen)
+        exnWin = MainExceptionWindow(shortText, longTextFile, self.screen)
         return exnWin
 
     def partedExceptionWindow(self, exc):
