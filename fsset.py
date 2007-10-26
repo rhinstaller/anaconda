@@ -177,6 +177,9 @@ class FileSystemType:
         self.extraFormatArgs = []
         self.maxLabelChars = 16
         self.packages = []
+        self.supportsFsProfiles = False
+        self.fsProfileSpecifier = None
+        self.fsProfile = None
 
     def isKernelFS(self):
         """Returns True if this is an in-kernel pseudo-filesystem."""
@@ -239,6 +242,22 @@ class FileSystemType:
 
     def isLinuxNativeFS(self):
         return self.linuxnativefs
+
+    def setFsProfile(self, fsprofile=None):
+        if not self.supportsFsProfiles:
+            raise RuntimeError, "%s does not support profiles" % (self,)
+        self.fsprofile = fsprofile
+
+    def getFsProfileArgs(self):
+        if not self.supportsFsProfiles:
+            raise RuntimeError, "%s does not support profiles" % (self,)
+        args = None 
+        if self.fsprofile:
+            args = []
+            if self.fsProfileSpecifier:
+                args.extend(self.fsProfileSpecifier)
+            args.extend(self.fsprofile)
+        return args
 
     def readProcFilesystems(self):
         f = open("/proc/filesystems", 'r')
@@ -482,6 +501,8 @@ class extFileSystem(FileSystemType):
         self.linuxnativefs = 1
         self.maxSizeMB = 8 * 1024 * 1024
         self.packages = [ "e2fsprogs" ]
+        self.supportsFsProfiles = True
+        self.fsProfileSpecifier = "-T"
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
@@ -499,8 +520,11 @@ class extFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         devArgs = self.getDeviceArgs(entry.device)
-        args = [ "mke2fs", devicePath, "-i", str(entry.bytesPerInode) ]
+        args = [ "mke2fs", devicePath ]
 
+        fsProfileArgs = self.getFsProfileArgs()
+        if fsProfileArgs:
+            args.extend(fsProfileArgs)
         args.extend(devArgs)
         args.extend(self.extraFormatArgs)
 
@@ -1792,7 +1816,7 @@ class FileSystemSetEntry:
                   fsystem=None, options=None,
                   origfsystem=None, migrate=0,
                   order=-1, fsck=-1, format=0,
-                  bytesPerInode=4096):
+                  fsprofile=None):
         if not fsystem:
             fsystem = fileSystemTypeGet("ext2")
         self.device = device
@@ -1821,7 +1845,7 @@ class FileSystemSetEntry:
                                  "but has been added to fsset with format "
                                  "flag on" % fsystem.getName())
         self.format = format
-        self.bytesPerInode = bytesPerInode
+        self.fsprofile = fsprofile
 
     def mount(self, chroot='/', devPrefix='/dev', readOnly = 0):
         device = self.device.setupDevice(chroot, devPrefix=devPrefix)
@@ -1899,11 +1923,11 @@ class FileSystemSetEntry:
         str = ("fsentry -- device: %(device)s   mountpoint: %(mountpoint)s\n"
                "  fsystem: %(fsystem)s format: %(format)s\n"
                "  ismounted: %(mounted)s  options: '%(options)s'\n"
-               "  bytesPerInode: %(bytesPerInode)s label: %(label)s\n"%
+               "  label: %(label)s fsprofile: %(fsprofile)s\n"%
                {"device": self.device.getDevice(), "mountpoint": mntpt,
                 "fsystem": self.fsystem.getName(), "format": self.format,
                 "mounted": self.mountcount, "options": self.getOptions(),
-                "bytesPerInode": self.bytesPerInode, "label": self.label})
+                "label": self.label, "fsprofile": self.fsprofile})
         return str
         
 

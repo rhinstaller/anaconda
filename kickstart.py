@@ -283,7 +283,7 @@ class LogVol(commands.logvol.FC4_LogVol):
                                       grow = lvd.grow,
                                       maxSizeMB = lvd.maxSizeMB,
                                       preexist = lvd.preexist,
-                                      bytesPerInode = lvd.bytesPerInode)
+                                      fsprofile = lvd.fsprofile)
 
         if lvd.fsopts != "":
             request.fsopts = lvd.fsopts
@@ -464,7 +464,7 @@ class Partition(commands.partition.FC4_Partition):
                                              mountpoint = pd.mountpoint,
                                              format = pd.format,
                                              fslabel = pd.label,
-                                             bytesPerInode = pd.bytesPerInode)
+                                             fsprofile = pd.fsprofile)
         
         if pd.size is not None:
             request.size = pd.size
@@ -555,7 +555,8 @@ class Raid(commands.raid.F7_Raid):
                                                raidspares = rd.spares,
                                                format = rd.format,
                                                raidminor = rd.device,
-                                               preexist = rd.preexist)
+                                               preexist = rd.preexist,
+                                               fsprofile = rd.fsprofile)
 
         if uniqueID is not None:
             request.uniqueID = uniqueID

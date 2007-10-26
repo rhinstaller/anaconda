@@ -1,5 +1,13 @@
-2007-10-26  Chris Lumens  <clumens@redhat.com>
+2007-10-26  Peter Jones  <pjones@redhat.com>
 
+	* fsset.py:  add --fsprofile support to lvm, paritition, and raid, and
+	remove --bytes-per-inode support.
+
+	* kickstart.py: ditto.
+
+	* partRequests.py: ditto.
+
+2007-10-26  Chris Lumens  <clumens@redhat.com>
 	* anaconda:  Don't need to probe for floppy hardware anymore since the
 	exception dialog doesn't look for it in advance.
 

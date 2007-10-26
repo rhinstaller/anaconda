@@ -116,7 +116,8 @@ class RequestSpec:
     """Generic Request specification."""
     def __init__(self, fstype, size = None, mountpoint = None, format = None,
                  preexist = 0, fslabel = None,
-                 migrate = None, origfstype = None, bytesPerInode = 4096):
+                 migrate = None, origfstype = None,
+                 fsprofile = None):
         """Create a generic RequestSpec.
 
         This should probably never be externally used.
@@ -131,11 +132,7 @@ class RequestSpec:
         self.origfstype = origfstype
         self.fslabel = fslabel
         self.fsopts = None
-
-        if bytesPerInode == None:
-            self.bytesPerInode = 4096
-        else:
-            self.bytesPerInode = bytesPerInode
+        self.fsprofile = fsprofile
 
         self.device = None
         """what we currently think the device is"""
@@ -164,12 +161,13 @@ class RequestSpec:
         str = ("Generic Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s\n"
                "  device: %(dev)s  migrate: %(migrate)s  fslabel: %(fslabel)s\n"
-               "  bytesPerInode:  %(bytesPerInode)s  options: '%(fsopts)s'" % 
+               "  options: '%(fsopts)s'"
+               "  fsprofile: %(fsprofile)s" % 
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format,
                 "dev": self.device, "migrate": self.migrate,
-                "fslabel": self.fslabel, "bytesPerInode": self.bytesPerInode,
-                "fsopts": self.fsopts})
+                "fslabel": self.fslabel,
+                "fsopts": self.fsopts, "fsprofile": self.fsprofile})
         return str
 
     def getActualSize(self, partitions, diskset):
@@ -200,8 +198,8 @@ class RequestSpec:
 
         entry = fsset.FileSystemSetEntry(device, mountpoint, self.fstype,
                                          origfsystem=self.origfstype,
-                                         bytesPerInode=self.bytesPerInode,
-                                         options=self.fsopts)
+                                         options=self.fsopts,
+                                         fsprofile=self.fsprofile)
         if self.format:
             entry.setFormat(self.format)
 
@@ -381,8 +379,8 @@ class PartitionSpec(RequestSpec):
     def __init__(self, fstype, size = None, mountpoint = None,
                  preexist = 0, migrate = None, grow = 0, maxSizeMB = None,
                  start = None, end = None, drive = None, primary = None,
-                 format = None, multidrive = None, bytesPerInode = 4096,
-                 fslabel = None):
+                 format = None, multidrive = None,
+                 fslabel = None, fsprofile=None):
         """Create a new PartitionSpec object.
 
         fstype is the fsset filesystem type.
@@ -399,8 +397,8 @@ class PartitionSpec(RequestSpec):
         migrate is whether or not the partition should be migrated.
         multidrive specifies if this is a request that should be replicated
             across _all_ of the drives in drive
-        bytesPerInode is the size of the inodes on the filesystem.
         fslabel is the label to give to the filesystem.
+        fsprofile is the usage profile for the filesystem.
         """
 
         # if it's preexisting, the original fstype should be set
@@ -412,8 +410,8 @@ class PartitionSpec(RequestSpec):
         RequestSpec.__init__(self, fstype = fstype, size = size,
                              mountpoint = mountpoint, format = format,
                              preexist = preexist, migrate = None,
-                             origfstype = origfs, bytesPerInode = bytesPerInode,
-                             fslabel = fslabel)
+                             origfstype = origfs,
+                             fslabel = fslabel, fsprofile = fsprofile)
         self.type = REQUEST_NEW
 
         self.grow = grow
@@ -453,15 +451,16 @@ class PartitionSpec(RequestSpec):
                "  size: %(size)s  grow: %(grow)s  maxsize: %(max)s\n"
                "  start: %(start)s  end: %(end)s  migrate: %(migrate)s  "
                "  fslabel: %(fslabel)s  origfstype: %(origfs)s\n"
-               "  bytesPerInode: %(bytesPerInode)s  options: '%(fsopts)s'" % 
+               "  options: '%(fsopts)s'\n"
+               "  fsprofile: %(fsprofile)s" % 
                {"n": pre, "mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "dev": self.device,
                 "drive": self.drive, "primary": self.primary,
                 "size": self.size, "grow": self.grow, "max": self.maxSizeMB,
                 "start": self.start, "end": self.end,
                 "migrate": self.migrate, "fslabel": self.fslabel,
-                "origfs": oldfs, "bytesPerInode": self.bytesPerInode,
-                "fsopts": self.fsopts})
+                "origfs": oldfs,
+                "fsopts": self.fsopts, "fsprofile": self.fsprofile})
         return str
 
 
@@ -565,7 +564,8 @@ class RaidRequestSpec(RequestSpec):
     def __init__(self, fstype, format = None, mountpoint = None,
                  raidlevel = None, raidmembers = None,
                  raidspares = None, raidminor = None, fslabel = None,
-                 preexist = 0, chunksize = None, bytesPerInode=4096):
+                 preexist = 0, chunksize = None,
+                 fsprofile = None):
         """Create a new RaidRequestSpec object.
 
         fstype is the fsset filesystem type.
@@ -576,8 +576,8 @@ class RaidRequestSpec(RequestSpec):
         raidmembers is list of ids corresponding to the members of the RAID.
         raidspares is the number of spares to setup.
         raidminor is the minor of the device which should be used.
-        bytesPerInode is the size of the inodes on the filesystem.
         fslabel is the label of the filesystem.
+        fsprofile is the usage profile for the filesystem.
         """
 
         # if it's preexisting, the original fstype should be set
@@ -588,8 +588,8 @@ class RaidRequestSpec(RequestSpec):
 
         RequestSpec.__init__(self, fstype = fstype, format = format,
                              mountpoint = mountpoint, preexist = preexist,
-                             origfstype = origfs, bytesPerInode=bytesPerInode,
-                             fslabel=fslabel)
+                             origfstype = origfs,
+                             fslabel=fslabel, fsprofile=fsprofile)
         self.type = REQUEST_RAID
         
 
@@ -612,12 +612,12 @@ class RaidRequestSpec(RequestSpec):
         str = ("RAID Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s\n"
                "  raidlevel: %(level)s  raidspares: %(spares)s\n"
-               "  raidmembers: %(members)s  bytesPerInode: %(bytesPerInode)s" % 
+               "  raidmembers: %(members)s  fsprofile: %(fsprofile)s\n" % 
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format,
                 "level": self.raidlevel, "spares": self.raidspares,
-                "members": self.raidmembers,
-                "bytesPerInode": self.bytesPerInode})
+                "members": self.raidmembers, "fsprofile": self.fsprofile,
+                })
         return str
     
     def getDevice(self, partitions):
@@ -817,7 +817,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
     def __init__(self, fstype, format = None, mountpoint = None,
                  size = None, volgroup = None, lvname = None,
                  preexist = 0, percent = None, grow=0, maxSizeMB=0,
-		 bytesPerInode = 4096, fslabel = None):
+		 fslabel = None, fsprofile = None):
         """Create a new VolumeGroupRequestSpec object.
 
         fstype is the fsset filesystem type.
@@ -830,8 +830,8 @@ class LogicalVolumeRequestSpec(RequestSpec):
         percent is the percentage of the volume group's space this should use.
 	grow is whether or not to use free space remaining.
 	maxSizeMB is max size to grow to.
-	bytesPerInode is the size of the inodes on the partition.
         fslabel is the label of the filesystem on the logical volume.
+        fsprofile is the usage profile for the filesystem.
         """
 
         # if it's preexisting, the original fstype should be set
@@ -840,15 +840,10 @@ class LogicalVolumeRequestSpec(RequestSpec):
         else:
             origfs = None
 
-        if bytesPerInode == None:
-            self.bytesPerInode = 4096
-        else:
-            self.bytesPerInode = bytesPerInode
-
 	RequestSpec.__init__(self, fstype = fstype, format = format,
 			     mountpoint = mountpoint, size = size,
 			     preexist = preexist, origfstype = origfs,
-			     bytesPerInode = bytesPerInode, fslabel = fslabel)
+			     fslabel = fslabel, fsprofile = fsprofile)
 	    
         self.type = REQUEST_LV
 
@@ -880,12 +875,12 @@ class LogicalVolumeRequestSpec(RequestSpec):
         str = ("LV Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s\n"
                "  size: %(size)s  lvname: %(lvname)s  volgroup: %(vgid)s\n"
-               "  bytesPerInode: %(bytesPerInode)s  options: '%(fsopts)s'" %
+               "  options: '%(fsopts)s'  fsprofile: %(fsprofile)s" %
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format,
                 "lvname": self.logicalVolumeName, "vgid": self.volumeGroup,
-		"size": size, "bytesPerInode": self.bytesPerInode,
-                "fsopts": self.fsopts})
+		"size": size,
+                "fsopts": self.fsopts, "fsprofile": self.fsprofile})
         return str
     
     def getDevice(self, partitions):
