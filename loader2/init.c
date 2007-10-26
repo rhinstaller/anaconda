@@ -109,7 +109,7 @@ char * env[] = {
     "DEBUG=",
     "TERMINFO=/etc/linux-terminfo",
     "PYTHONPATH=/tmp/updates",
-    "_MALLOC_CHECK=2",
+    "MALLOC_CHECK_=2",
     "MALLOC_PERTURB_=204",
     NULL
 };

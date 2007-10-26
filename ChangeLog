@@ -4,6 +4,8 @@
 	account for log file locations since subprocess runs the preexec_fn
 	after opening the stdout/stderr locations (#338541).
 
+	* loader2/init.c:  It's MALLOC_CHECK_, not _MALLOC_CHECK (#354131).
+
 2007-10-26  Martin Sivak  <msivak@redhat.com>
 
 	* backend.py (doRepoSetup): Update the platform file if necessary
