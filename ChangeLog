@@ -1,5 +1,9 @@
 2007-10-28  Jeremy Katz  <katzj@redhat.com>
 
+	* fsset.py (xfsFileSystem.__init__): Live images don't have
+	xfsprogs, try to keep people from shooting themselves in the 
+	foot (#355351)
+
 	* network.py (Network._sysfsDeviceIsUsable): Don't show bridge
 	devices (#354561)
 

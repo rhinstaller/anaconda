@@ -385,6 +385,8 @@ class xfsFileSystem(FileSystemType):
         self.maxSizeMB = 16 * 1024 * 1024
         self.maxLabelChars = 12
         self.supported = -1
+        if not os.path.exists("/sbin/mkfs.xfs") and not os.path.exists("/usr/sbin/mkfs.xfs"):
+            self.supported = 0
 
         self.packages = [ "xfsprogs" ]
 
