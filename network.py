@@ -280,6 +280,8 @@ class Network:
 	return self.firstnetdevice
 
     def _sysfsDeviceIsUsable(self, dev):
+        if os.path.exists("/sys/class/net/%s/bridge" % dev):
+            return False
         try:
             f = open("/sys/class/net/%s/type" % dev)
             lines = f.readlines()

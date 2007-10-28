@@ -1,3 +1,8 @@
+2007-10-28  Jeremy Katz  <katzj@redhat.com>
+
+	* network.py (Network._sysfsDeviceIsUsable): Don't show bridge
+	devices (#354561)
+
 2007-10-26  Bill Nottingham  <notting@redhat.com>
 
 	* anaconda.spec: Bump version.
