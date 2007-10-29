@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.79
+Version: 10.1.1.80
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct 29 2007 David Cantrell <dcantrell@redhat.com> - 10.1.1.80-1
+- Copy in usr/sbin/ip for the s390 & s390x initrd.img files
+  Related: rhbz#233357
+
 * Fri Oct 26 2007 David Cantrell <dcantrell@redhat.com> - 10.1.1.79-1
 - Make e100e description in module-info unique (pjones)
   Related: rhbz#253791
