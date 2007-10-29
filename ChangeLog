@@ -1,3 +1,8 @@
+2007-10-29  David Cantrell  <dcantrell@redhat.com>
+
+	* scripts/mk-images: Copy in $IMGPATH/usr/sbin/ip instead of
+	$IMGPATH/sbin/ip (#233357).
+
 2007-10-25  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.

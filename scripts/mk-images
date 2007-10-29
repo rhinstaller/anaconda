@@ -467,7 +467,6 @@ EOF
     cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
     cp -f $IMGPATH/usr/bin/bash $MBD_DIR/sbin/bash
     cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
-    cp -f $IMGPATH/sbin/ip $MBD_DIR/sbin/ip
     
     # make some symlinks
     ln -sf bash $MBD_DIR/sbin/sh
@@ -630,7 +629,9 @@ makeinitrd() {
 	cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
 	ln -s /tmp $MBD_DIR/var/state/xkb
 	cp $IMGPATH/usr/X11R6/bin/xauth $MBD_DIR/sbin/xauth
-        cp $IMGPATH/usr/sbin/cmsfs* $MBD_DIR/sbin/
+	cp $IMGPATH/usr/sbin/cmsfs* $MBD_DIR/sbin/
+	cp $IMGPATH/usr/sbin/ip $MBD_DIR/sbin/ip
+	cp $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
     fi
 
     if [ -n "$INITRDMODULES" ]; then
@@ -654,7 +655,6 @@ EOF
     else
 	install -s -m 755 $LOADERBINDIR/shutdown $MBD_DIR/sbin/shutdown
 	install -m 755 $IMGPATH/usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR/sbin/init
-	install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
     fi
 
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
