@@ -28,8 +28,8 @@ from packages import setupTimezone
 from packages import setFileCons
 from packages import regKeyScreen
 from packages import writeRegKey
-from partitioning import partitionObjectsInitialize
-from partitioning import partitioningComplete
+from partitions import partitionObjectsInitialize
+from partitions import partitioningComplete
 from bootloader import writeBootloader, bootloaderSetupChoices
 from flags import flags
 from upgrade import upgradeMountFilesystems, queryUpgradeArch

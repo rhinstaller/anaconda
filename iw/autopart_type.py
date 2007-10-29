@@ -28,7 +28,7 @@ from netconfig_dialog import NetworkConfigurator
 from iw_gui import *
 from flags import flags
 import network
-import partitioning
+import partitions
 
 class PartitionTypeWindow(InstallWindow):
     def __init__(self, ics):

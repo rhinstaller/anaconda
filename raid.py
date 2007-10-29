@@ -43,7 +43,7 @@ availRaidLevels = getRaidLevels()
 import parted
 import isys
 import os
-import partitioning
+import partitions
 import partedUtils
 
 import logging

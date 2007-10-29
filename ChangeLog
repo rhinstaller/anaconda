@@ -1,3 +1,14 @@
+2007-10-29  David Cantrell  <dcantrell@redhat.com>
+
+	* partitions.py: Move partitionObjectsInitialize() and
+	partitioningComplete() from partitioning.py to this file.
+	* partitioning.py: Removed.
+
+	* dispatch.py: import partitioning -> import partitions
+	* fsset.py: Likewise.
+	* raid.py: Likewise.
+	* iw/autopart_type.py: Likewise.
+
 2007-10-29  Chris Lumens  <clumens@redhat.com>
 
 	* scripts/buildinstall:  Some arguments are required (#355871).

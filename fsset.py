@@ -24,7 +24,7 @@ import errno
 import parted
 import sys
 import struct
-import partitioning
+import partitions
 import partedUtils
 import raid
 import lvm
