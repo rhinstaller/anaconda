@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.47
+Version: 11.3.0.48
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -215,6 +215,12 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Oct 28 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.48-1
+- Fix docs location (#356021) 
+- Live images don't have xfsprogs by default, so look for xfsprogs before 
+  allowing xfs as a filesystem (#355351)
+- Don't show bridge devices (#354561)
+
 * Fri Oct 26 2007 Bill Nottingham <notting@redhat.com> - 11.3.0.47-1
 - fix live install (#354571)
 
