@@ -23,11 +23,313 @@ import isys
 import product
 import iutil
 import socket
+import subprocess
 
 import logging
 log = logging.getLogger("anaconda")
 
-# return -1 to use text mode, None for no vncpass, or vncpass otherwise
+class VncServer:
+
+    def __init__(self, display="1", root="/", ip=None, name=None,
+                desktop="Desktop", password="", vncconnecthost="",
+                vncconnecport="", log_file="/tmp/vncserver.log",
+                pw_file="/tmp/vncpassword", pw_init_file="/tmp/vncpassword.dat"):
+        self.display = display
+        self.root = root
+        self.ip = ip
+        self.name = name
+        self.desktop = desktop
+        self.password = password
+        self.vncconnecthost = vncconnecthost
+        self.vncconnecport = vncconnecport
+        self.log_file = log_file
+        self.pw_file = pw_file
+        self.pw_init_file = pw_init_file
+        #self.connxinfo = self.name+":"+self.display
+        self.log = logging.getLogger("anaconda.stdout")
+
+    def recoverVNCPassword(self):
+        """Rescue the vncpassword from where loader left it 
+
+        We are not to check for validity yet, if there is a file
+        pass it to the variable, if there is not, set the var 
+        to ''. We will check valididty later.
+        """
+        # see if there is a vnc password file
+        try:
+            pfile = open(self.pw_init_file, "r")
+            self.password=pfile.readline().strip()
+            pfile.close()
+            os.unlink(self.pw_init_file)
+        except:
+            self.password=""
+
+    def setVNCPassword(self):
+        """Change the vnc server password. Output to file. """
+
+        if len(self.password) == 0:
+            self.setVNCParam("SecurityTypes", "None")
+            self.setVNCParam("rfbauth","0")
+            return
+
+        # If there is a password the SecurityTypes = VncAuth for all connections.
+        self.setVNCParam("SecurityTypes", "VncAuth")
+        self.setVNCParam("rfbauth",self.pw_file)
+
+        # password input combination.
+        pwinput = "%s\n%s\n" % (self.password, self.password)
+        vnccommand = [self.root+"/usr/bin/vncpasswd", self.pw_file]
+        vncpswdo = subprocess.Popen(vnccommand, stdin=subprocess.PIPE, stdout=subprocess.PIPE)# We pipe the output
+                                                                                              # so the user does not see it.
+        (out, err) = vncpswdo.communicate(input=pwinput)
+        return vncpswdo.returncode
+
+    def initialize(self):
+        """Here is were all the relative vars get initialized. """
+
+        # try to load /tmp/netinfo and see if we can sniff out network info
+        netinfo = network.Network()
+
+        # Look for the first configured interface and use its IP address for
+        # the computer to connect to.
+        dev = netinfo.getFirstDeviceName()
+
+        try:
+            self.ip = isys.getIPAddress(dev)
+            log.info("ip of %s is %s" % (dev, self.ip))
+
+            if self.ip == "127.0.0.1" or self.ip == "::1":
+                self.ip = None
+        except Exception, e:
+            log.warning("Got an exception trying to get the self.ip addr "
+                        "of %s: %s" % (dev, e))
+
+        # If we have a real hostname that resolves against configured DNS
+        # servers, use that for the name to connect to.
+        if netinfo.hostname != "localhost.localdomain":
+            if netinfo.lookupHostname() is not None:
+                self.name = netinfo.hostname
+            elif self.ip is None:
+                # If we get here and there's no valid IP address, just use the
+                # hostname and hope for the best (better than displaying nothing)
+                self.name = netinfo.hostname
+
+        if self.name is not None:
+            self.connxinfo = "%s:%s" % (self.name, self.display)
+
+        if self.ip is not None:
+            try:
+                tmp = socket.inet_pton(socket.AF_INET6, self.ip)
+                family = socket.AF_INET6
+            except socket.error:
+                family = socket.AF_INET
+
+            if family == socket.AF_INET6:
+                ipstr = "[%s]" % self.ip
+            else:
+                ipstr = self.ip
+
+            if self.connxinfo is None:
+                self.connxinfo = "%s:%s" % (ipstr, self.display)
+            else:
+                self.connxinfo += " (%s)" % ipstr
+
+        # figure out product info
+        if self.name is not None:
+            self.desktop = _("%s %s installation on host %s") % (product.productName, product.productVersion, self.name)
+        else:
+            self.desktop = _("%s %s installation") % (product.productName, product.productVersion)
+
+    def setVNCParam(self, param, value):
+        """Set a parameter in the Xvnc server. 
+
+        Possible values for param and value. param=(values)
+        SecurityTypes=(VncAuth,None)
+        """
+        vncconfigcommand = [self.root+"/usr/bin/vncconfig", "-display", ":%s"%self.display , "-set" , "%s=%s" %(param, value)]
+        vncconfo = subprocess.Popen(vncconfigcommand)# we dont want output
+        return vncconfo.returncode
+
+    def openlogfile(self):
+        try:
+            err = os.open(self.log_file, os.O_RDWR | os.O_CREAT)
+            if err < 0:
+                sys.stderr.write("error opening %s\n", log)
+                return None
+            else:
+                return err
+        except:
+                return None
+
+    def connectToView(self):
+        """Attempt to connect to self.vncconnecthost"""
+
+        maxTries = 10
+        self.log.info(_("Attempting to connect to vnc client on host %s...") % (self.vncconnecthost,))
+
+        if self.vncconnecport != "":
+            hostarg = self.vncconnecthost + ":" + self.vncconnecport
+        else:
+            hostarg = self.vncconnecthost
+
+        vncconfigcommand = [self.root+"/usr/bin/vncconfig", "-display", ":%s"%self.display, "-connect", hostarg]
+
+        for i in range(maxTries):
+            vncconfp = subprocess.Popen(vncconfigcommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE) # vncconfig process
+            (out, err) = vncconfp.communicate()
+
+            if err == '':
+                self.log.info(_("Connected!"))
+                return True
+            elif err.startswith("connecting") and err.endswith("failed\n"):
+                self.log.info(_("Will try to connect again in 15 seconds..."))
+                time.sleep(15)
+                continue
+            else:
+                log.critical(err)
+                sys.exit(1)
+        self.log.error(_("Giving up attempting to connect after %d tries!\n" % maxTries ))
+        return False
+
+    def VNCListen(self):
+        """Put the server in listening mode.
+
+        We dont really have to do anything for the server to listen :)
+        """
+       if self.connxinfo != None:
+            self.log.info(_("Please manually connect your vnc client to %s to begin the install.") % (self.connxinfo,))
+        else:
+            self.log.info(_("Please manually connect your vnc client to begin the install."))
+
+    def startServer(self, vncStartedCB=None):
+        log.error("Im just testing somenhitng:)
+        self.log.info(_("Starting VNC..."))
+
+        # Lets call it from here for now.
+        self.initialize()
+
+        # Lets start the xvnc regardless of vncconnecthost and password.
+        # We can change the configuration on the fly later.
+        xvnccommand =  [ self.root + "/usr/bin/Xvnc", ":%s" % self.display, "-nevershared",
+                        "-depth", "16", "-geometry", "800x600", "-br",
+                        "IdleTimeout=0", "-auth", "/dev/null", "-once",
+                        "DisconnectClients=false", "desktop=%s" % (self.desktop,),
+                        "SecurityTypes=None"]
+        try:
+            xvncp = subprocess.Popen(xvnccommand, stdout=self.openlogfile(), stderr=subprocess.STDOUT)
+        except:
+            log.critical("Could not start the VNC server.  Aborting.")
+            sys.exit(1)
+
+        # Lets give the xvnc time to initialize
+        time.sleep(1)
+
+        # Make sure it hasn't blown up
+        if xvncp.poll() != None:
+            sys.exit(1)
+        else:
+            self.log.info(_("The VNC server is now running."))
+
+        # Lets look at the password stuff
+        if self.password == "":
+            pass
+        elif len(self.password) < 6:
+            self.changeVNCPasswdWindow()
+
+        # Create the password file.
+        self.setVNCPassword()
+
+        # Lets tell the user what we are going to do.
+        if self.vncconnecthost != "":
+            self.log.warning(_("\n\nYou chose to connect to a listening vncviewer. \n"
+                                "This does not require a password to be set.  If you \n"
+                                "set a password, it will be used in case the connection \n"
+                                "to the vncviewer is unsuccessful\n\n"))
+        elif self.password == "":
+             self.log.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
+                                "You can use the self.password=<password> boot option\n"
+                                "if you would like to secure the server.\n\n"))
+        elif self.password != "":
+             self.log.warning(_("\n\nYou chose to execute vnc with a password. \n\n"))
+        else:
+             self.log.warning(_("\n\nUnknown Error.  Aborting. \n\n"))
+             sys.exit(1)
+
+        # Lets try to configure the vnc server to whatever the user specified
+        if self.vncconnecthost != "":
+            connected = self.connectToView()
+            if not connected:
+                self.VNCListen()
+        else:
+            self.VNCListen()
+
+        os.environ["DISPLAY"]=":%s" % self.display
+
+        if vncStartedCB:
+            vncStartedCB()
+
+    def changeVNCPasswdWindow(self):
+        """ Change the password to a sane parameter.
+
+        We ask user to input a password that len(password) > 6
+        or password == ''. Have to find a way to put askVncWindow
+        and this method together.
+        """
+
+        screen = SnackScreen()
+        grid = GridFormHelp(screen, _("VNC Configuration"),"vnc", 1, 10)
+
+        bb = ButtonBar(screen, (TEXT_OK_BUTTON,
+                                (_("No password"), "nopass")))
+
+        text = _("A password will prevent unauthorized listeners "
+                 "connecting and monitoring your installation progress.  "
+                 "Please enter a password to be used for the installation")
+        grid.add(TextboxReflowed(40, text), 0, 0, (0, 0, 0, 1))
+
+        entry1 = Entry (16, password = 1)
+        entry2 = Entry (16, password = 1)
+        passgrid = Grid (2, 2)
+        passgrid.setField (Label (_("Password:")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
+        passgrid.setField (Label (_("Password (confirm):")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
+        passgrid.setField (entry1, 1, 0)
+        passgrid.setField (entry2, 1, 1)
+        grid.add (passgrid, 0, 1, (0, 0, 0, 1))
+
+        grid.add(bb, 0, 8, (0, 1, 1, 0), growx = 1)
+
+        while 1:
+            res = grid.run()
+            rc = bb.buttonPressed(res)
+
+            if rc == "nopass":
+                screen.finish()
+                return ""
+            else:
+                pw = entry1.value()
+                cf = entry2.value()
+                if pw != cf:
+                    ButtonChoiceWindow(screen, _("Password Mismatch"),
+                                       _("The passwords you entered were "
+                                         "different. Please try again."),
+                                       buttons = [ TEXT_OK_BUTTON ],
+                                       width = 50)
+                elif len(pw) < 6:
+                    ButtonChoiceWindow(screen, _("Password Length"),
+                                       _("The password must be at least "
+                                         "six characters long."),
+                                       buttons = [ TEXT_OK_BUTTON ],
+                                       width = 50)
+                else:
+                    screen.finish()
+                    self.password = pw
+                    return 
+
+                entry1.set("")
+                entry2.set("")
+                continue
+            continue
+
 def askVncWindow():
     if not os.access('/usr/bin/Xvnc', os.X_OK):
         return -1
@@ -124,235 +426,6 @@ def askVncWindow():
 
     screen.finish()
     return -1
-
-def getVNCPassword():
-    # see if there is a vnc password file
-    try:
-        pfile = open("/tmp/vncpassword.dat", "r")
-        vncpassword=pfile.readline().strip()
-        pfile.close()
-        os.unlink("/tmp/vncpassword.dat")
-    except:
-        vncpassword=""
-        pass
-
-    # check length of vnc password
-    if vncpassword != "" and len(vncpassword) < 6:
-        screen = SnackScreen()
-        ButtonChoiceWindow(screen, _('VNC Password Error'),
-                           _('You need to specify a vnc password of at least 6 characters long.\n\n'
-    		     'Press <return> to reboot your system.\n'),
-    		   buttons = (_("OK"),))
-        screen.finish()
-        sys.exit(0)
-
-    return vncpassword
-
-# startup vnc X server
-def startVNCServer(vncpassword="", root='/', vncconnecthost="",
-		   vncconnectport="", vncStartedCB=None):
-
-    stdoutLog = logging.getLogger("anaconda.stdout")
-
-    def set_vnc_password(root, passwd, passwd_file):
-	(pid, fd) = os.forkpty()
-
-	if not pid:
-	    os.execv(root + "/usr/bin/vncpasswd", [root + "/usr/bin/vncpasswd", passwd_file])
-	    sys.exit(1)
-
-	# read password prompt
-	os.read(fd, 1000)
-
-	# write password
-	os.write(fd, passwd + "\n")
-
-	# read challenge again, and newline
-	os.read(fd, 1000)
-	os.read(fd, 1000)
-
-	# write password again
-	os.write(fd, passwd + "\n")
-
-	# read remaining output
-	os.read(fd, 1000)
-
-	# wait for status
-	try:
-	    (pid, status) = os.waitpid(pid, 0)
-	except OSError, (errno, msg):
-	    print __name__, "waitpid:", msg
-
-	return status
-
-    stdoutLog.info(_("Starting VNC..."))
-
-    # figure out host info
-    connxinfo = None
-    srvname = None
-    ip = None
-
-    # try to load /tmp/netinfo and see if we can sniff out network info
-    netinfo = network.Network()
-
-    # Look for the first configured interface and use its IP address for
-    # the computer to connect to.
-    dev = netinfo.getFirstDeviceName()
-
-    try:
-        ip = isys.getIPAddress(dev)
-        log.info("ip of %s is %s" % (dev, ip))
-
-        if ip == "127.0.0.1" or ip == "::1":
-            ip = None
-    except Exception, e:
-        log.warning("Got an exception trying to get the ip addr "
-                    "of %s: %s" % (dev, e))
-
-    # If we have a real hostname that resolves against configured DNS
-    # servers, use that for the name to connect to.
-    if netinfo.hostname != "localhost.localdomain":
-        if netinfo.lookupHostname() is not None:
-            srvname = netinfo.hostname
-        elif ip is None:
-            # If we get here and there's no valid IP address, just use the
-            # hostname and hope for the best (better than displaying nothing)
-            srvname = netinfo.hostname
-
-    if srvname is not None:
-        connxinfo = "%s:1" % srvname
-
-    if ip is not None:
-        try:
-            tmp = socket.inet_pton(socket.AF_INET6, ip)
-            family = socket.AF_INET6
-        except socket.error:
-            family = socket.AF_INET
-
-        if family == socket.AF_INET6:
-            ipstr = "[%s]" % ip
-        else:
-            ipstr = ip
-
-        if connxinfo is None:
-            connxinfo = "%s:1" % ipstr
-        else:
-            connxinfo += " (%s)" % ipstr
-
-    # figure out product info
-    if srvname is not None:
-	desktopname = _("%s %s installation on host %s") % (product.productName, product.productVersion, srvname)
-    else:
-	desktopname = _("%s %s installation") % (product.productName, product.productVersion)
-
-    vncpid = os.fork()
-
-    if not vncpid:
-	args = [ root + "/usr/bin/Xvnc", ":1", "-nevershared",
-		 "-depth", "16", "-geometry", "800x600", "-br",
-		 "IdleTimeout=0", "-auth", "/dev/null", "-once",
-		 "DisconnectClients=false", "desktop=%s" % (desktopname,)]
-
-	# set passwd if necessary
-        if vncpassword != "":
-	    try:
-		rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
-	    except Exception, e:
-		stdoutLog.error("Unknown exception setting vnc password.")
-		log.error("Exception was: %s" %(e,))
-		rc = 1
-
-	    if rc:
-		stdoutLog.warning(_("Unable to set vnc password - using no password!"))
-		stdoutLog.warning(_("Make sure your password is at least 6 characters in length."))
-	    else:
-		args = args + ["-rfbauth", "/tmp/vncpasswd_file"]
-	else:
-	    # needed if no password specified
-	    args = args + ["SecurityTypes=None",]
-
-	tmplogFile = "/tmp/vncserver.log"
-	try:
-	    err = os.open(tmplogFile, os.O_RDWR | os.O_CREAT)
-	    if err < 0:
-		sys.stderr.write("error opening %s\n", tmplogFile)
-	    else:
-		os.dup2(err, 2)
-		os.close(err)
-	except:
-	    # oh well
-	    pass
-
-        try:
-            os.execv(args[0], args)
-            sys.exit (1)
-        except OSError, e:
-            stdoutLog.critical("Error running %s: %s" % (root + "/usr/bin/Xvnc", e.strerror))
-            sys.exit(1)
-
-    # Wait for a bit, then make sure the VNC server really started before
-    # stating that it did.
-    time.sleep(1)
-
-    try:
-        (pid, status) = os.waitpid(vncpid, os.WNOHANG)
-    except:
-        stdoutLog.critical("Could not start the VNC server.  Aborting.")
-        sys.exit(1)
-
-    if os.WIFEXITED(status) and os.WEXITSTATUS(status) > 0:
-        sys.exit(1)
-
-    if vncpassword == "":
-	stdoutLog.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
-			 "You can use the vncpassword=<password> boot option\n"
-			 "if you would like to secure the server.\n\n"))
-
-    stdoutLog.info(_("The VNC server is now running."))
-
-    if vncconnecthost != "":
-	stdoutLog.info(_("Attempting to connect to vnc client on host %s...") % (vncconnecthost,))
-
-        if vncconnectport != "":
-	    hostarg = vncconnecthost + ":" + vncconnectport
-        else:
-            hostarg = vncconnecthost
-
-	argv = ["-display", ":1", "-connect", hostarg]
-	ntries = 0
-	while 1:
-            output = iutil.execWithCapture("/usr/bin/vncconfig", argv)
-
-            if output == "":
-                stdoutLog.info(_("Connected!"))
-                break
-            elif output.startswith("connecting") and output.endswith("failed\n"):
-		ntries += 1
-		if ntries > 50:
-		    stdoutLog.error(_("Giving up attempting to connect after 50 tries!\n"))
-		    if connxinfo is not None:
-			stdoutLog.info(_("Please manually connect your vnc client to %s to begin the install.") % (connxinfo,))
-		    else:
-			stdoutLog.info(_("Please manually connect your vnc client to begin the install."))
-		    break
-
-		stdoutLog.info(output)
-		stdoutLog.info(_("Will try to connect again in 15 seconds..."))
-		time.sleep(15)
-		continue
-	    else:
-                stdoutLog.critical(output)
-	        sys.exit(1)
-    else:
-	if connxinfo is not None:
-	    stdoutLog.info(_("Please connect to %s to begin the install...") % (connxinfo,))
-	else:
-	    stdoutLog.info(_("Please connect to begin the install..."))
-
-    os.environ["DISPLAY"]=":1"
-
-    if vncStartedCB:
-        vncStartedCB()
 
 if __name__ == "__main__":
     askVncWindow()

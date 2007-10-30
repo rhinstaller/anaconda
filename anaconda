@@ -250,7 +250,7 @@ def setVNCFromKickstart(opts):
     from kickstart import KickstartError, VNCHandler
     from pykickstart.parser import KickstartParser, preprocessKickstart
 
-    global vncpassword, vncconnecthost, vncconnectport
+    global vncS
 
     try:
         opts.ksfile = preprocessKickstart(opts.ksfile)
@@ -279,18 +279,14 @@ def setVNCFromKickstart(opts):
     if handler.vnc.enabled:
         flags.usevnc = 1
 
-	ksvncpasswd = handler.vnc.password
-	ksvnchost = handler.vnc.host
-	ksvncport = handler.vnc.port
+       if vncS.password == "":
+            vncS.password = handler.vnc.password
 
-	if vncpassword == "":
-	    vncpassword = ksvncpasswd
+        if vncS.vncconnecthost == "":
+            vncS.vncconnecthost = handler.vnc.host
 
-	if vncconnecthost == "":
-	    vncconnecthost = ksvnchost
-
-	if vncconnectport == "":
-	    vncconnectport = ksvncport
+        if vncS.vncconnectport == "":
+            vncS.vncconnectport = handler.vnc.port
 
     return handler.vnc
 
@@ -364,15 +360,13 @@ def expandFTPMethod(opts):
     opts.method = opts.method[:len(opts.method) - 1]
     os.unlink(filename)
 
-def runVNC(vncpassword, vncconnecthost, vncconnectport, vncStartedCB=None):
+def runVNC(vncStartedCB=None):
     # dont run vncpassword if in test mode
+    global vncS
     if flags.test:
-	vncpassword = ""
+        vncS.password = ""
 
-    vnc.startVNCServer(vncpassword=vncpassword,
-		       vncconnecthost=vncconnecthost,
-		       vncconnectport=vncconnectport,
-                       vncStartedCB=vncStartedCB)
+    vncS.startServer(vncStartedCB=vncStartedCB)
 
     child = os.fork()
     if child == 0:
@@ -576,9 +570,7 @@ if __name__ == "__main__":
     runres_override = False
     graphical_failed = 0
     instClass = None                # the install class to use
-    vncpassword = ""
-    vncconnecthost = ""
-    vncconnectport = ""
+    vncS = vnc.VncServer()          # The vnc Server object.
     xserver_pid = None
     got_bad_edid = False
 
@@ -619,14 +611,15 @@ if __name__ == "__main__":
     if opts.vnc:
         flags.usevnc = 1
         opts.display_mode = 'g'
-        vncpassword = vnc.getVNCPassword()
+        vncS.recoverVNCPassword()
 
-    if opts.vncconnect:
-        cargs = string.split(opts.vncconnect, ":")
-        vncconnecthost = cargs[0]
-        if len(cargs) > 1:
-            if len(cargs[1]) > 0:
-                vncconnectport = cargs[1]
+        # Only consider vncconnect when vnc is a param
+        if opts.vncconnect:
+            cargs = string.split(opts.vncconnect, ":")
+            vncS.vncconnecthost = cargs[0]
+            if len(cargs) > 1 and len(cargs[1]) > 0:
+                if len(cargs[1]) > 0:
+                    vncS.vncconnectport = cargs[1]
 
     if opts.iscsi:
         flags.iscsi = 1
@@ -834,11 +827,11 @@ if __name__ == "__main__":
             opts.display_mode = 'g'
             flags.usevnc = 1
             if ret is not None:
-                vncpassword = ret
+                vncS.password = ret
 
     # if they want us to use VNC do that now
     if opts.display_mode == 'g' and flags.usevnc:
-        runVNC(vncpassword, vncconnecthost, vncconnectport, doStartupX11Actions)
+        runVNC(doStartupX11Actions)
 
     anaconda.setInstallInterface(opts.display_mode)
 
