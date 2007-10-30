@@ -179,7 +179,7 @@ class FileSystemType:
         self.packages = []
         self.supportsFsProfiles = False
         self.fsProfileSpecifier = None
-        self.fsProfile = None
+        self.fsprofile = None
 
     def isKernelFS(self):
         """Returns True if this is an in-kernel pseudo-filesystem."""

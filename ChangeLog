@@ -1,3 +1,12 @@
+2007-10-30  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda (setVNCFromKickstart):  Fix indentation.
+
+	* fsset.py (FileSystemType.__init__):  fsProfile -> fsprofile.
+
+	* vnc.py (VNCServer.VNCListen):  Fix indentation.
+	(VNCServer.startServer):  Remove debugging print.
+
 2007-10-30  Jeremy Katz  <katzj@redhat.com>
 
 	* Makefile (lang-names): Make lang-names depend on subdirs so that

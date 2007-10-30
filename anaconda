@@ -279,7 +279,7 @@ def setVNCFromKickstart(opts):
     if handler.vnc.enabled:
         flags.usevnc = 1
 
-       if vncS.password == "":
+        if vncS.password == "":
             vncS.password = handler.vnc.password
 
         if vncS.vncconnecthost == "":

@@ -196,13 +196,12 @@ class VncServer:
 
         We dont really have to do anything for the server to listen :)
         """
-       if self.connxinfo != None:
+        if self.connxinfo != None:
             self.log.info(_("Please manually connect your vnc client to %s to begin the install.") % (self.connxinfo,))
         else:
             self.log.info(_("Please manually connect your vnc client to begin the install."))
 
     def startServer(self, vncStartedCB=None):
-        log.error("Im just testing somenhitng:)
         self.log.info(_("Starting VNC..."))
 
         # Lets call it from here for now.
