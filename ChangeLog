@@ -1,3 +1,8 @@
+2007-10-30  Jeremy Katz  <katzj@redhat.com>
+
+	* Makefile (lang-names): Make lang-names depend on subdirs so that
+	translations are created first if using parallel make (#358411)
+
 2007-10-28  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version
