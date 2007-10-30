@@ -1,4 +1,5 @@
 2007-10-30 Joel Granados <jgranado@redhat.com>
+
 	* vnc.py, anaconda: Use classes with vnc stuff and fix (#264841)
 
 2007-10-29  David Cantrell  <dcantrell@redhat.com>
@@ -49,6 +50,7 @@
 	* partRequests.py: ditto.
 
 2007-10-26  Chris Lumens  <clumens@redhat.com>
+
 	* anaconda:  Don't need to probe for floppy hardware anymore since the
 	exception dialog doesn't look for it in advance.
 
@@ -137,7 +139,8 @@
 	* isys/isys.py (driveDict): Ignore sg devices (#330931)
 
 2007-10-25 Joel Granados <jgranado@redhat.com>
-	* scripts/upd-instroo: Add ntfsprogs to rescue image. (#220062)
+
+	* scripts/upd-instroot: Add ntfsprogs to rescue image. (#220062)
 	* scripts/mk-image.x86: Create the pendrive image with makebootfat
 	instead of syslinux
 
