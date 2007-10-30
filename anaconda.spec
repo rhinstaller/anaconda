@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.80
+Version: 10.1.1.81
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 30 2007 David Cantrell <dcantrell@redhat.com> - 10.1.1.81-1
+- Copy loaderData->macaddr in to cfg->macaddr
+  Related: rhbz#233357
+
 * Mon Oct 29 2007 David Cantrell <dcantrell@redhat.com> - 10.1.1.80-1
 - Copy in usr/sbin/ip for the s390 & s390x initrd.img files
   Related: rhbz#233357
