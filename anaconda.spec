@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.48
+Version: 11.3.0.49
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -215,6 +215,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 30 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.49-1
+- Fix language display (#358411)
+- Avoid dmraid traceback with live installs over previously existing 
+  install (#357401)
+
 * Sun Oct 28 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.48-1
 - Fix docs location (#356021) 
 - Live images don't have xfsprogs by default, so look for xfsprogs before 
