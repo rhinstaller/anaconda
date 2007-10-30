@@ -1,5 +1,8 @@
 2007-10-30  Jeremy Katz  <katzj@redhat.com>
 
+	* liveinst/liveinst.sh (ANACONDA): Turn off swap and lvm earlier
+	to avoid dmraid funkiness (#357401)
+
 	* Makefile (lang-names): Make lang-names depend on subdirs so that
 	translations are created first if using parallel make (#358411)
 
