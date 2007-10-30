@@ -32,7 +32,7 @@ class VncServer:
 
     def __init__(self, display="1", root="/", ip=None, name=None,
                 desktop="Desktop", password="", vncconnecthost="",
-                vncconnecport="", log_file="/tmp/vncserver.log",
+                vncconnectport="", log_file="/tmp/vncserver.log",
                 pw_file="/tmp/vncpassword", pw_init_file="/tmp/vncpassword.dat"):
         self.display = display
         self.root = root
@@ -41,7 +41,7 @@ class VncServer:
         self.desktop = desktop
         self.password = password
         self.vncconnecthost = vncconnecthost
-        self.vncconnecport = vncconnecport
+        self.vncconnectport = vncconnectport
         self.log_file = log_file
         self.pw_file = pw_file
         self.pw_init_file = pw_init_file
@@ -167,8 +167,8 @@ class VncServer:
         maxTries = 10
         self.log.info(_("Attempting to connect to vnc client on host %s...") % (self.vncconnecthost,))
 
-        if self.vncconnecport != "":
-            hostarg = self.vncconnecthost + ":" + self.vncconnecport
+        if self.vncconnectport != "":
+            hostarg = self.vncconnecthost + ":" + self.vncconnectport
         else:
             hostarg = self.vncconnecthost
 
