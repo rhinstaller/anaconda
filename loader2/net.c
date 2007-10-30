@@ -451,7 +451,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     }
 
     if (loaderData->macaddr) {
-        cfg->layer2 = strdup(loaderData->macaddr);
+        cfg->macaddr = strdup(loaderData->macaddr);
     }
 
     cfg->noDns = loaderData->noDns;
