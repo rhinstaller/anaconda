@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.49
+Version: 11.3.0.50
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -215,6 +215,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 31 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.50-1
+- Fix creating users in kickstart (#358901)
+
 * Tue Oct 30 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.49-1
 - Fix language display (#358411)
 - Avoid dmraid traceback with live installs over previously existing 

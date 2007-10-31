@@ -64,49 +64,65 @@ class Users:
         if self.admin.lookupUserByName(name):
             return None
 
-        userEnt = self.admin.initUser(name)
-        groupEnt = self.admin.initGroup(name)
+        child = os.fork()
+        if (not child):
+            os.chroot(root)
+            if os.environ.has_key("LIBUSER_CONF"):
+                del(os.environ["LIBUSER_CONF"])
 
-        grpLst = filter(lambda grp: grp,
-                        map(lambda name: self.admin.lookupGroupByName(name), groups))
-        userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
-                    map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
+            admin = libuser.admin()
 
-        if not homedir:
-            homedir = "/home/" + name
+            userEnt = admin.initUser(name)
+            groupEnt = admin.initGroup(name)
 
-        # Do this to make the user's home dir under the install root.
-        if homedir[0] != "/":
-            userEnt.set(libuser.HOMEDIRECTORY, root + "/" + homedir)
-        else:
-            userEnt.set(libuser.HOMEDIRECTORY, root + homedir)
+            grpLst = filter(lambda grp: grp,
+                            map(lambda name: admin.lookupGroupByName(name), groups))
+            userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
+                        map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
 
-        if shell:
-            userEnt.set(libuser.LOGINSHELL, shell)
+            if not homedir:
+                homedir = "/home/" + name
 
-        if uid >= 0:
-            userEnt.set(libuser.UIDNUMBER, uid)
-
-        self.admin.addUser(userEnt)
-        self.admin.addGroup(groupEnt)
-
-        if password:
-            if isCrypted:
-                self.admin.setpassUser(userEnt, password, isCrypted)
+            # Do this to make the user's home dir under the install root.
+            if homedir[0] != "/":
+                userEnt.set(libuser.HOMEDIRECTORY, "/" + homedir)
             else:
-                self.admin.setpassUser(userEnt, cryptPassword(password, True), isCrypted)
+                userEnt.set(libuser.HOMEDIRECTORY, homedir)
 
-        if lock:
-            self.admin.lockUser(userEnt)
+            if shell:
+                userEnt.set(libuser.LOGINSHELL, shell)
 
-        # Add the user to all the groups they should be part of.
-        for grp in grpLst:
-            grp.add(libuser.MEMBERNAME, name)
-            self.admin.modifyGroup(grp)
+            if uid >= 0:
+                userEnt.set(libuser.UIDNUMBER, uid)
 
-        # Now set the correct home directory to fix up passwd.
-        userEnt.set(libuser.HOMEDIRECTORY, homedir)
-        self.admin.modifyUser(userEnt)
+            admin.addUser(userEnt)
+            admin.addGroup(groupEnt)
+
+            if password:
+                if isCrypted:
+                    admin.setpassUser(userEnt, password, isCrypted)
+                else:
+                    admin.setpassUser(userEnt, cryptPassword(password, True), isCrypted)
+
+            if lock:
+                admin.lockUser(userEnt)
+
+            # Add the user to all the groups they should be part of.
+            for grp in grpLst:
+                grp.add(libuser.MEMBERNAME, name)
+                admin.modifyGroup(grp)
+
+            # Now set the correct home directory to fix up passwd.
+            userEnt.set(libuser.HOMEDIRECTORY, homedir)
+            admin.modifyUser(userEnt)
+
+            os._exit(0)
+
+        try:
+            os.waitpid(child, 0)
+        except OSError, (num, msg):
+            pass
+
         return True
 
     def setRootPassword(self, password, isCrypted, useMD5, lock):

@@ -1,3 +1,11 @@
+2007-10-31  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: Bump version.
+
+	* users.py (Users.createUser): Awful hack so that we use libuser
+	within the chroot for creating users so that the right thing
+	happens with selinux (#358901)
+
 2007-10-30  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
