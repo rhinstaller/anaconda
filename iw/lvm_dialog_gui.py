@@ -1115,7 +1115,8 @@ class VolumeGroupEditor:
 	# pack all logical volumne stuff in a frame
 	lvtable.set_border_width(12)
         l = gtk.Label()
-        l.set_markup("<b>%s</b>" %(_("Logical Volumes"),))
+        l.set_markup_with_mnemonic("<b>%s</b>" %(_("_Logical Volumes"),))
+        l.set_mnemonic_widget(self.logvollist)
 	frame = gtk.Frame()
         frame.set_label_widget(l)
 	frame.add(lvtable)
