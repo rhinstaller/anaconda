@@ -71,17 +71,34 @@ class AnacondaKSScript(Script):
         # Always log an error.  Only fail if we have a handle on the
         # windowing system and the kickstart file included --erroronfail.
         if rc != 0:
-            log.error("Error code %s encountered running a kickstart %%pre/%%post script", rc)
+            log.error("Error code %s encountered running the kickstart script at line %s" % (rc, self.lineno))
 
             if self.errorOnFail:
                 if intf != None:
-                    intf.messageWindow(_("Scriptlet Failure"),
-                                       _("There was an error running the "
-                                         "scriptlet.  You may examine the "
-                                         "output in %s.  This is a fatal error "
-                                         "and your install will be aborted.\n\n"
-                                         "Press the OK button to exit the "
-                                         "installer.") % (messages,))
+                    regularMsg = _("There was an error running the kickstart "
+                                   "script at line %s.  You may examine the "
+                                   "output in %s.  This is a fatal error and "
+                                   "your install will be aborted.  Press the "
+                                   "OK button to exit the installer.")
+                    errorMsg = _("The following error occurred running the "
+                                 "kickstart script at line %s:\n\n%s\n\nThis "
+                                 "is a fatal error and your install will be "
+                                 "aborted.  Press the OK button to exit the "
+                                 "installer.")
+
+                    msg = regularMsg % (self.lineno, messages)
+
+                    if self.logfile is not None and os.path.isfile(messages):
+                        try:
+                            f = os.open(messages)
+                            err = messages.readlines()
+                            os.close(f)
+                            msg = errorMsg % (self.lineno, err)
+                        except:
+                            pass
+
+                    intf.messageWindow(_("Scriptlet Failure"), msg)
+
                 sys.exit(0)
 
         try:
