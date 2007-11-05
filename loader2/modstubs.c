@@ -91,7 +91,7 @@ int ourInsmodCommand(int argc, char ** argv) {
     void * modbuf = NULL;
     struct stat sb;
     int i;
-    char *options = strdup("");
+    char *options = NULL;;
 
     if (argc < 2) {
         return usage();
@@ -100,6 +100,10 @@ int ourInsmodCommand(int argc, char ** argv) {
     while (argc > 2) {
         if (!strcmp(argv[1], "-p")) {
             ballPath = malloc(strlen(argv[2]) + 30);
+            if (!ballPath) {
+                logMessage(ERROR, "cannot allocate memory for ballPath: %m");
+                return 1;
+            }
             sprintf(ballPath, "%s/modules.cgz", argv[2]);
             argv += 2;
             argc -= 2;
@@ -143,9 +147,23 @@ int ourInsmodCommand(int argc, char ** argv) {
         return 1;
     }
 
+    options = strdup("");
+    if (!options) {
+        logMessage(ERROR, "cannot allocate memory for module options: %m");
+        munmap(modbuf, sb.st_size);
+        close(fd);
+        return 1;
+    }
     for (i = 2; i < argc; i++) {
-        options = realloc(options,
-                          strlen(options) + 1 + strlen(argv[i]) + 1);
+        tmp = realloc(options, strlen(options) + 1 + strlen(argv[i]) + 1);
+        if (!tmp) {
+            logMessage(ERROR, "cannot allocate memory for module options: %m");
+            free(options);
+            munmap(modbuf, sb.st_size);
+            close(fd);
+            return 1;
+        }
+        options = tmp;
         strcat(options, argv[i]);
         strcat(options, " ");
      }
@@ -155,6 +173,7 @@ int ourInsmodCommand(int argc, char ** argv) {
         ;
     if (rc != 0)
         logMessage(WARNING, "failed to insert module (%d)", errno);
+    free(options);
     munmap(modbuf, sb.st_size);
     close(fd);
     return rc;
