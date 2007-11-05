@@ -1999,7 +1999,7 @@ int main(int argc, char ** argv) {
             free(buf);
             fclose(f);
         }
-        kill(pid, SIGUSR1);
+        kill(pid, SIGUSR2);
 #endif
         stop_fw_loader(&loaderData);
         return rc;
