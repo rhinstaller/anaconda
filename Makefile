@@ -6,7 +6,7 @@ CVSROOT ?= ${CVSROOT:-$(shell cat CVS/Root 2>/dev/null)}
 
 SUBDIRS = isys wlite stubs loader2 po \
 	    textw utils scripts bootdisk installclasses \
-	    iw pixmaps isomd5sum command-stubs ui
+	    iw pixmaps isomd5sum command-stubs ui docs
 # fonts aren't on s390/s390x
 ifeq (,$(filter s390 s390x, $(ARCH)))
 SUBDIRS += fonts
@@ -46,7 +46,6 @@ depend:
 
 clean:
 	rm -f *.o *.so *.pyc lang-names mini-wm
-	rm -rf docs/api
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 subdirs:
@@ -90,56 +89,27 @@ tag:
 	@cvs tag -cFR $(CVSTAG)
 	@echo "Tagged as $(CVSTAG)"
 
-archive: create-archive
+ChangeLog:
+	(GIT_DIR=.git git-log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
 
-src: create-archive
+archive:
+	@rm -f ChangeLog docs/kickstart-docs.txt docs/command-line.txt
+	@make ChangeLog
+	@make -C docs kickstart-docs.txt command-line.txt
+	@git-archive --format=tar --prefix=anaconda-$(VERSION) HEAD > anaconda-$(VERSION).tar
+	@tar --append -f anaconda-$(VERSION).tar docs/kickstart-docs.txt docs/command-line.txt
+	@bzip2 -f anaconda-$(VERSION).tar
+
+
+src: archive
 	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2 || exit 1
 	@rm -f anaconda-$(VERSION).tar.bz2
-
-build: src
-	@rm -rf /tmp/anaconda
-	@mkdir /tmp/anaconda
-	cd /tmp/anaconda ; cvs co common ; cd common ; ./cvs-import.sh $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
-	@rm -rf /tmp/anaconda
-	koji build $(COLLECTION) 'cvs://cvs.fedoraproject.org/cvs/pkgs?devel/anaconda#$(CVSTAG)'
-
-create-snapshot:
-	@rm -rf /tmp/anaconda
-	@rm -rf /tmp/anaconda-$(VERSION)
-	@tag=`cvs status Makefile | awk ' /Sticky Tag/ { print $$3 } '` 2> /dev/null; \
-	[ x"$$tag" = x"(none)" ] && tag=HEAD; \
-	[ x"$$TAG" != x ] && tag=$$TAG; \
-	cvsroot=`cat CVS/Root` 2>/dev/null; \
-        echo "*** Pulling off $$tag from $$cvsroot!"; \
-	cd /tmp ; cvs -z3 -Q -d $$cvsroot export -r $$tag anaconda || echo "Um... export aborted."
-	@cd /tmp/anaconda ; curl -A "anaconda-build" -o docs/command-line.txt "http://fedoraproject.org/wiki/Anaconda/Options?action=raw"
-	@cd /tmp/anaconda ; curl -A "anaconda-build" -o docs/kickstart-docs.txt "http://fedoraproject.org/wiki/Anaconda/Kickstart?action=raw"
-	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
-	@cd /tmp ; tar --bzip2 -cSpf anaconda-$(VERSION).tar.bz2 anaconda-$(VERSION)
-	@rm -rf /tmp/anaconda-$(VERSION)
-	@cp /tmp/anaconda-$(VERSION).tar.bz2 .
-	@rm -f /tmp/anaconda-$(VERSION).tar.bz2
-	@echo ""
-	@echo "The final archive is in anaconda-$(VERSION).tar.bz2"
-
-create-archive:
-	make create-snapshot
 
 pycheck:
 	PYTHONPATH=$(PYCHECKERPATH) pychecker $(PYCHECKEROPTS) *.py textw/*.py iw/*.py installclasses/*.py | grep -v "__init__() not called" 
 
 pycheck-file:
 	PYTHONPATH=.:$(PYCHECKERPATH) pychecker $(PYCHECKEROPTS) $(CHECK) | grep -v "__init__() not called" 
-
-PKGNAME=anaconda
-local: clean
-	@rm -rf ${PKGNAME}-$(VERSION).tar.gz
-	@rm -rf /tmp/${PKGNAME}-$(VERSION) /tmp/${PKGNAME}
-	@dir=$$PWD; cd /tmp; cp -a $$dir ${PKGNAME}
-	@mv /tmp/${PKGNAME} /tmp/${PKGNAME}-$(VERSION)
-	@dir=$$PWD; cd /tmp; tar --exclude CVS --bzip2 -cvf $$dir/${PKGNAME}-$(VERSION).tar.bz2 ${PKGNAME}-$(VERSION)
-	@rm -rf /tmp/${PKGNAME}-$(VERSION)
-	@echo "The archive is in ${PKGNAME}-$(VERSION).tar.bz2"
 
 api:
 	doxygen docs/api.cfg
