@@ -974,9 +974,10 @@ class DiskSet:
                     "-b", "4096",
                     "-d", "cdl",
                     "-F",
+                    "-P",
                     "-f",
                     dev]
-        
+
         fd = os.open("/dev/null", os.O_RDWR | os.O_CREAT | os.O_APPEND)
         p = os.pipe()
         childpid = os.fork()
