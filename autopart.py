@@ -946,17 +946,17 @@ def processPartitioning(diskset, requests, newParts):
     try:
         fitConstrained(diskset, requests, 1, newParts)
     except PartitioningError, msg:
-        raise PartitioningError, _("Could not allocate cylinder-based partitions as primary partitions.\n\n%s") % msg
+        raise PartitioningError, _("Could not allocate cylinder-based partitions as primary partitions.\n") + str(msg)
 
     try:
         fitSized(diskset, requests, 1, newParts)
     except PartitioningError, msg:
-        raise PartitioningError, _("Could not allocate partitions as primary partitions.\n\n%s") % msg
+        raise PartitioningError, _("Could not allocate partitions as primary partitions.\n") + str(msg)
 
     try:
         fitConstrained(diskset, requests, 0, newParts)
     except PartitioningError, msg:
-        raise PartitioningError, _("Could not allocate cylinder-based partitions.\n\n%s") % msg
+        raise PartitioningError, _("Could not allocate cylinder-based partitions.\n") + str(msg)
 
     # Don't need to handle the exception here since we leave the message alone.
     fitSized(diskset, requests, 0, newParts)
