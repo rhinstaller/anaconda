@@ -4,7 +4,7 @@
 # Matt Wilson <msw@redhat.com>
 # Michael Fulbright <msf@redhat.com>
 #
-# Copyright 1999-2006 Red Hat, Inc.
+# Copyright 1999-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -688,84 +688,10 @@ class SaveExceptionWindow:
     def saveToDisk(self):
         return self.diskButton.get_active()
 
-class MainExceptionWindow:
-    def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):
-        # Get a bunch of widgets from the XML file.
-        exnxml = gtk.glade.XML(findGladeFile("exn.glade"), domain="anaconda")
-        self.win = exnxml.get_widget("exnDialog")
-        vbox = exnxml.get_widget("mainVBox")
-        exnView = exnxml.get_widget("exnView")
-        expander = exnxml.get_widget("exnExpander")
-        info = exnxml.get_widget("info")
-        infoImage = exnxml.get_widget("infoImage")
-        buttonBox = exnxml.get_widget("buttonBox")
-
-        info.set_text(exceptionText)
-
-        infoImage.clear()
-        img = findPixmap("exception.png")
-        if os.path.exists(img):
-            infoImage.set_from_file(img)
-
-        # Add the brief traceback message to the upper text view.
-        textbuf = gtk.TextBuffer()
-        textbuf.set_text(shortTraceback)
-
-        # Remove the debug button since it doesn't work in livecd mode anyway.
-        if flags.livecdInstall:
-            debugButton = exnxml.get_widget("debugButton")
-            buttonBox.remove(debugButton)
-
-        # If there's an anacdump.txt file, add it to the lower view in the
-        # expander.  If not, remove the expander.
-        if longTracebackFile:
-            try:
-                f = open(longTracebackFile)
-                lines = f.readlines()
-                f.close()
-
-                # Add text one line at a time to work around limits in
-                # set_text.
-                textbuf = gtk.TextBuffer()
-                iter = textbuf.get_start_iter()
-
-                for line in lines:
-                    textbuf.insert(iter, line)
-
-                exnView.set_buffer(textbuf)
-            except IOError, (errnum, msg):
-                log.error("Could not read %s, skipping: %s" % (longTracebackFile, msg))
-                vbox.remove(expander)
-        else:
-            vbox.remove(expander)
-
-        addFrame(self.win)
-        self.win.show_all()
-        self.window = self.win
-
-    def run(self):
-        self.rc = self.window.run ()
-
-    def getrc (self):
-        if self.rc == 0:
-            try:
-                # switch to VC1 so we can debug
-                isys.vtActivate (1)
-            except SystemError:
-                pass
-            return EXN_DEBUG
-        if self.rc == 1:
-            return EXN_SAVE
-        elif self.rc == 2:
-            return EXN_OK
-
-    def pop(self):
-        self.window.destroy()
-
 class MessageWindow:
     def getrc (self):
         return self.rc
-    
+
     def __init__ (self, title, text, type="ok", default=None, custom_buttons=None, custom_icon=None, run = True, parent = None, destroyAfterRun = True):
         self.debugRid = None
         self.title = title
@@ -774,7 +700,8 @@ class MessageWindow:
             return
         self.rc = None
         self.framed = False
-        docustom = 0
+        self.doCustom = False
+
         if type == 'ok':
             buttons = gtk.BUTTONS_OK
             style = gtk.MESSAGE_INFO
@@ -788,7 +715,7 @@ class MessageWindow:
             buttons = gtk.BUTTONS_YES_NO
             style = gtk.MESSAGE_QUESTION
         elif type == 'custom':
-            docustom = 1
+            self.doCustom = True
             buttons = gtk.BUTTONS_NONE
             style = gtk.MESSAGE_QUESTION
 
@@ -806,7 +733,7 @@ class MessageWindow:
         if parent:
             self.dialog.set_transient_for(parent)
 
-        if docustom:
+        if self.doCustom:
             rid=0
             for button in custom_buttons:
                 if button == _("Cancel"):
@@ -818,7 +745,7 @@ class MessageWindow:
                 rid = rid + 1
 
             defaultchoice = rid - 1
-            if flags.debug:
+            if flags.debug and not _("_Debug") in custom_buttons:
                 widget = self.dialog.add_button(_("_Debug"), rid)
                 self.debugRid = rid
                 rid += 1
@@ -845,17 +772,14 @@ class MessageWindow:
         # XXX - Messy - turn off busy cursor if necessary
         busycursor = getBusyCursorStatus()
         setCursorToNormal()
-        rc = self.dialog.run()
+        self.rc = self.dialog.run()
 
-        if rc == gtk.RESPONSE_OK or rc == gtk.RESPONSE_YES:
-            self.rc = 1
-        elif (rc == gtk.RESPONSE_CANCEL or rc == gtk.RESPONSE_NO
-            or rc == gtk.RESPONSE_CLOSE):
-            self.rc = 0
-        elif rc == gtk.RESPONSE_DELETE_EVENT:
-            self.rc = 0
-        else:
-            self.rc = rc
+        if not self.doCustom:
+            if self.rc in [gtk.RESPONSE_OK, gtk.RESPONSE_YES]:
+                self.rc = 1
+            elif self.rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_NO,
+                             gtk.RESPONSE_CLOSE, gtk.RESPONSE_DELETE_EVENT]:
+                self.rc = 0
 
         if not self.debugRid is None and self.rc == self.debugRid:
             self.debugClicked(self)
@@ -885,6 +809,128 @@ class MessageWindow:
         except SystemError:
             pass
 
+class DetailedMessageWindow(MessageWindow):
+    def __init__(self, title, text, longText=None, type="ok", default=None, custom_buttons=None, custom_icon=None, run=True, parent=None, destroyAfterRun=True):
+        self.title = title
+
+        if flags.autostep:
+            self.rc = 1
+            return
+
+        self.debugRid = None
+        self.rc = None
+        self.framed = False
+        self.doCustom = False
+
+        if type == 'ok':
+            buttons = ["gtk-ok"]
+        elif type == 'warning':
+            buttons = ["gtk-ok"]
+        elif type == 'okcancel':
+            buttons = ["gtk-ok", "gtk-cancel"]
+        elif type == 'yesno':
+            buttons = ["gtk-yes", "gtk-no"]
+        elif type == 'custom':
+            self.doCustom = True
+            buttons = custom_buttons
+
+        xml = gtk.glade.XML(findGladeFile("detailed-dialog.glade"), domain="anaconda")
+        self.dialog = xml.get_widget("detailedDialog")
+        self.mainVBox = xml.get_widget("mainVBox")
+        self.hbox = xml.get_widget("hbox1")
+        self.info = xml.get_widget("info")
+        self.detailedExpander = xml.get_widget("detailedExpander")
+        self.detailedView = xml.get_widget("detailedView")
+
+        if parent:
+            self.win.set_transient_for(parent)
+
+        if custom_icon:
+            img = gtk.Image()
+            img.set_from_file(custom_icon)
+            self.hbox.pack_start(img)
+            self.hbox.reorder_child(img, 0)
+
+        rid = 0
+        for button in buttons:
+            self.dialog.add_button(button, rid)
+            rid += 1
+
+        if self.doCustom:
+            defaultchoice = rid-1
+            if flags.debug and not _("_Debug") in buttons:
+                self.win.add_button(_("_Debug"), rid)
+                self.debugRid = rid
+                rid += 1
+        else:
+            if default == "no":
+                defaultchoice = 0
+            elif default == "yes" or default == "ok":
+                defaultchoice = 1
+            else:
+                defaultchoice = 0
+
+        self.info.set_text(text)
+
+        if longText:
+            textbuf = gtk.TextBuffer()
+            iter = textbuf.get_start_iter()
+
+            for line in longText:
+                textbuf.insert(iter, line)
+
+            self.detailedView.set_buffer(textbuf)
+        else:
+            self.mainVBox.remove(self.detailedExpander)
+
+        self.dialog.set_position (gtk.WIN_POS_CENTER)
+        self.dialog.set_default_response(defaultchoice)
+
+        if run:
+            self.run(destroyAfterRun)
+
+class MainExceptionWindow(DetailedMessageWindow):
+    def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):
+        longText=None
+
+        if longTracebackFile:
+            try:
+                f = open(longTracebackFile)
+                longText = f.readlines()
+                f.close()
+            except:
+                pass
+
+        if flags.livecdInstall:
+            custom_buttons = ["gtk-save", _("Exit installer")]
+        else:
+            custom_buttons = [_("Debug"), "gtk-save", _("Exit installer")]
+
+        DetailedMessageWindow.__init__(self, _("Exception Occurred"),
+                                       exceptionText, longText=longText,
+                                       type="custom", run=False,
+                                       custom_buttons=custom_buttons,
+                                       custom_icon=findPixmap("exception.png"))
+
+    def getrc (self):
+        if flags.livecdInstall:
+            if self.rc == 0:
+                return EXN_SAVE
+            elif self.rc == 1:
+                return EXN_OK
+        else:
+            if self.rc == 0:
+                try:
+                    # switch to VC1 so we can debug
+                    isys.vtActivate (1)
+                except SystemError:
+                    pass
+                return EXN_DEBUG
+            elif self.rc == 1:
+                return EXN_SAVE
+            elif self.rc == 2:
+                return EXN_OK
+
 class EntryWindow(MessageWindow):
     def __init__ (self, title, text, prompt, entrylength = None):
         mainWindow = None
@@ -893,7 +939,7 @@ class EntryWindow(MessageWindow):
         if entrylength:
             self.entry.set_width_chars(entrylength)
             self.entry.set_max_length(entrylength)
-            
+
         # eww, eww, eww... but if we pack in the vbox, it goes to the right
         # place!
         self.dialog.child.pack_start(self.entry)
@@ -910,8 +956,7 @@ class EntryWindow(MessageWindow):
 
     def destroy(self):
         self.dialog.destroy()
-        
-    
+
 class InstallInterface:
     def __init__ (self):
         self.icw = None
@@ -965,6 +1010,19 @@ class InstallInterface:
         d = EntryWindow(title, text, type, entrylength)
         rc = d.run()
         d.destroy()
+        return rc
+
+    def detailedMessageWindow(self, title, text, longText=None, type="ok",
+                              default=None, custom_buttons=None,
+                              custom_icon=None):
+        if self.icw:
+            parent = self.icw.window
+        else:
+            parent = None
+
+        rc = DetailedMessageWindow (title, text, longText, type, default,
+                                    custom_buttons, custom_icon, run=True,
+                                    parent=parent).getrc()
         return rc
 
     def mainExceptionWindow(self, shortText, longTextFile):

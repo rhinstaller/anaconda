@@ -387,6 +387,12 @@ class InstallInterface:
 	else:
 	    return OkCancelWindow(self.screen, title, text)
 
+    def detailedMessageWindow(self, title, text, longText=None, type="ok",
+                              default=None, custom_icon=None,
+                              custom_buttons=[]):
+        return messageWindow(title, text, type, default, custom_icon,
+                             custom_buttons)
+
     def entryWindow(self, title, text, prompt, entrylength = None):
         (res, value) = EntryWindow(self.screen, title, text, [prompt])
         if res == "cancel":
