@@ -82,13 +82,15 @@ class InstallMethod:
     def switchMedia(self, mediano, filename=""):
 	pass
 
-
-# this handles any cleanup needed for the method.  it occurs *very* late
-# (ie immediately before the congratulations screen).  main use right now
-# is ejecting the cdrom
+# This handles any cleanup needed for the method.  It occurs *very* late
+# and is mainly used for unmounting media and ejecting the CD.  If we're on
+# a kickstart install, don't eject the CD since there's a command to do that
+# if the user wants.
 def doMethodComplete(anaconda):
     anaconda.method.filesDone()
-    anaconda.method.ejectCD()
+
+    if not anaconda.isKickstart:
+        anaconda.method.ejectCD()
 
     mtab = "/dev/root / ext3 ro 0 0\n"
     for ent in anaconda.id.fsset.entries:
