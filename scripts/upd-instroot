@@ -199,7 +199,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
 #
 # these packages are combined with the PACKAGES and PACKAGESGR for big stage 2
 #
-PACKAGESRESCUE="bzip2 bzip2-libs dump
+PACKAGESRESCUE="bzip2 bzip2-libs dump groff
                 findutils ftp gzip iputils joe krb5-libs less man
                 modutils mtools mt-st mtr net-tools open smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
@@ -922,6 +922,8 @@ usr/bin/shred
 usr/bin/ssh
 usr/bin/termidx
 usr/bin/xargs
+usr/bin/groff
+usr/bin/iconv
 usr/kerberos/$LIBDIR/libgssapi*
 usr/kerberos/$LIBDIR/libkrb5*
 usr/kerberos/$LIBDIR/libk5crypto*
