@@ -129,6 +129,7 @@ class GroupSelectionWindow:
 	    gct = CheckboxTree(height = 8, scroll = 1)
 
             orig = {}
+            pkgs.sort()
             for pkg in pkgs:
                 orig[pkg] = self.ayum.isPackageInstalled(pkg)
                 gct.append("%s" %(pkg,), pkg, orig[pkg])
