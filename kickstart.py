@@ -14,7 +14,6 @@ import iutil
 import isys
 import os
 import tempfile
-from partitioning import *
 from autopart import *
 from fsset import *
 from flags import flags

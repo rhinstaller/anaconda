@@ -22,7 +22,6 @@ import iutil
 
 from constants import *
 from fsset import *
-from partitioning import *
 from partIntfHelpers import *
 from partRequests import *
 from partedUtils import *

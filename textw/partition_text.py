@@ -20,7 +20,6 @@ import string
 import copy
 import network
 import parted
-from partitioning import *
 from partedUtils import *
 from partIntfHelpers import *
 from partRequests import *

@@ -22,7 +22,6 @@ import imputil
 import types
 
 from instdata import InstallData
-from partitioning import *
 from autopart import getAutopartitionBoot, autoCreatePartitionRequests, autoCreateLVMPartitionRequests
 
 from rhpl.translate import _, N_

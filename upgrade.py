@@ -25,7 +25,6 @@ import selinux
 import lvm
 from flags import flags
 from fsset import *
-from partitioning import *
 from constants import *
 from installmethod import FileCopyException
 from product import productName

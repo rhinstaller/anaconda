@@ -21,13 +21,15 @@ import lvm
 import logging
 import rhpl
 from anaconda_log import logger, logFile
-from partitioning import *
 import partedUtils
 import partRequests
 from constants import *
 from partErrors import *
 
 from rhpl.translate import _, N_
+
+import iutil
+import isys
 
 log = logging.getLogger("anaconda")
 

@@ -38,7 +38,6 @@ import raid_dialog_gui
 import partition_dialog_gui
 
 from rhpl.translate import _, N_
-from partitioning import *
 from partIntfHelpers import *
 from partedUtils import *
 from fsset import *
