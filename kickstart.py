@@ -75,29 +75,26 @@ class AnacondaKSScript(Script):
 
             if self.errorOnFail:
                 if intf != None:
-                    regularMsg = _("There was an error running the kickstart "
-                                   "script at line %s.  You may examine the "
-                                   "output in %s.  This is a fatal error and "
-                                   "your install will be aborted.  Press the "
-                                   "OK button to exit the installer.")
-                    errorMsg = _("The following error occurred running the "
-                                 "kickstart script at line %s:\n\n%s\n\nThis "
-                                 "is a fatal error and your install will be "
-                                 "aborted.  Press the OK button to exit the "
-                                 "installer.")
-
-                    msg = regularMsg % (self.lineno, messages)
+                    err = None
+                    msg = _("There was an error running the kickstart "
+                            "script at line %s.  You may examine the "
+                            "output in %s.  This is a fatal error and "
+                            "your install will be aborted.  Press the "
+                            "OK button to exit the installer.") % (self.lineno, messages)
 
                     if self.logfile is not None and os.path.isfile(messages):
                         try:
-                            f = os.open(messages)
-                            err = messages.readlines()
-                            os.close(f)
-                            msg = errorMsg % (self.lineno, err)
+                            f = open(messages, "r")
+                            err = f.readlines()
+                            f.close()
                         except:
                             pass
 
-                    intf.messageWindow(_("Scriptlet Failure"), msg)
+                    if err is None:
+                        intf.messageWindow(_("Scriptlet Failure"), msg)
+                    else:
+                        intf.detailedMessageWindow(_("Scriptlet Failure"), msg,
+                                                   err)
 
                 sys.exit(0)
 
@@ -776,9 +773,12 @@ class KickstartPreParser(KickstartParser):
         if self._script["type"] != KS_SCRIPT_PRE:
             return
 
-        s = AnacondaKSScript (self._script["body"], self._script["interp"],
-                              self._script["chroot"], self._script["log"],
-                              self._script["errorOnFail"])
+        s = AnacondaKSScript (self._script["body"], type=self._script["type"],
+                              interp=self._script["interp"],
+                              lineno=self._script["lineno"],
+                              inChroot=self._script["chroot"],
+                              logfile=self._script["log"],
+                              errorOnFail=self._script["errorOnFail"])
         self.handler.scripts.append(s)
 
     def addPackages (self, line):
@@ -794,18 +794,7 @@ class KickstartPreParser(KickstartParser):
         if not args[0] == "%pre":
             return
 
-        op = KSOptionParser(lineno=lineno)
-        op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
-                      default=False)
-        op.add_option("--interpreter", dest="interpreter", default="/bin/sh")
-        op.add_option("--log", "--logfile", dest="log")
-
-        (opts, extra) = op.parse_args(args=args[1:])
-
-        self._script["interp"] = opts.interpreter
-        self._script["log"] = opts.log
-        self._script["errorOnFail"] = opts.errorOnFail
-        self._script["chroot"] = False
+        KickstartParser.handleScriptHdr(self, lineno, args)
 
 class AnacondaKSParser(KickstartParser):
     def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
@@ -816,10 +805,12 @@ class AnacondaKSParser(KickstartParser):
         if string.join(self._script["body"]).strip() == "":
             return
 
-        s = AnacondaKSScript (self._script["body"], self._script["interp"],
-                              self._script["chroot"], self._script["log"],
-                              self._script["errorOnFail"], self._script["type"])
-
+        s = AnacondaKSScript (self._script["body"], type=self._script["type"],
+                              interp=self._script["interp"],
+                              lineno=self._script["lineno"],
+                              inChroot=self._script["chroot"],
+                              logfile=self._script["log"],
+                              errorOnFail=self._script["errorOnFail"])
         self.handler.scripts.append(s)
 
     def handlePackageHdr (self, lineno, args):
