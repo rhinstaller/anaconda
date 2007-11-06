@@ -523,8 +523,8 @@ def compareDrives(first, second):
     return 0
 
 def compareNetDevices(first, second):
-    trimmed_first = int(first.lstrip(string.letters))
-    trimmed_second = int(second.lstrip(string.letters))
+    trimmed_first = float(first.lstrip(string.letters))
+    trimmed_second = float(second.lstrip(string.letters))
 
     if trimmed_first < trimmed_second:
         return -1
