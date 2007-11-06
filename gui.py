@@ -775,7 +775,7 @@ class MessageWindow:
         self.rc = self.dialog.run()
 
         if not self.doCustom:
-            if self.rc in [gtk.RESPONSE_OK, rc == gtk.RESPONSE_YES]:
+            if self.rc in [gtk.RESPONSE_OK, gtk.RESPONSE_YES]:
                 self.rc = 1
             elif self.rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_NO,
                              gtk.RESPONSE_CLOSE, gtk.RESPONSE_DELETE_EVENT]:
@@ -823,16 +823,16 @@ class DetailedMessageWindow(MessageWindow):
         self.doCustom = False
 
         if type == 'ok':
-            buttons = gtk.BUTTONS_OK
+            buttons = ["gtk-ok"]
         elif type == 'warning':
-            buttons = gtk.BUTTONS_OK
+            buttons = ["gtk-ok"]
         elif type == 'okcancel':
-            buttons = gtk.BUTTONS_OK_CANCEL
+            buttons = ["gtk-ok", "gtk-cancel"]
         elif type == 'yesno':
-            buttons = gtk.BUTTONS_YES_NO
+            buttons = ["gtk-yes", "gtk-no"]
         elif type == 'custom':
             self.doCustom = True
-            buttons = gtk.BUTTONS_NONE
+            buttons = custom_buttons
 
         xml = gtk.glade.XML(findGladeFile("detailed-dialog.glade"), domain="anaconda")
         self.dialog = xml.get_widget("detailedDialog")
@@ -851,14 +851,14 @@ class DetailedMessageWindow(MessageWindow):
             self.hbox.pack_start(img)
             self.hbox.reorder_child(img, 0)
 
-        if self.doCustom:
-            rid = 0
-            for button in custom_buttons:
-                self.dialog.add_button(button, rid)
-                rid += 1
+        rid = 0
+        for button in buttons:
+            self.dialog.add_button(button, rid)
+            rid += 1
 
+        if self.doCustom:
             defaultchoice = rid-1
-            if flags.debug and not _("_Debug") in custom_buttons:
+            if flags.debug and not _("_Debug") in buttons:
                 self.win.add_button(_("_Debug"), rid)
                 self.debugRid = rid
                 rid += 1
@@ -1010,6 +1010,19 @@ class InstallInterface:
         d = EntryWindow(title, text, type, entrylength)
         rc = d.run()
         d.destroy()
+        return rc
+
+    def detailedMessageWindow(self, title, text, longText=None, type="ok",
+                              default=None, custom_buttons=None,
+                              custom_icon=None):
+        if self.icw:
+            parent = self.icw.window
+        else:
+            parent = None
+
+        rc = DetailedMessageWindow (title, text, longText, type, default,
+                                    custom_buttons, custom_icon, run=True,
+                                    parent=parent).getrc()
         return rc
 
     def mainExceptionWindow(self, shortText, longTextFile):
