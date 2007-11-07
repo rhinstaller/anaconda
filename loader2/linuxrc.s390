@@ -86,31 +86,6 @@ sysecho () {
 	[ -f $file ] && echo $* > $file
 }
 
-# jump through some hoops to find out the LCS interface name
-getlcsifname() {
-   local dirs driver readport ifname
-   ifname=""
-   dirs=`/bin/ls -d /sys/class/net/eth* /sys/class/net/tr* 2>/dev/null`
-   for i in $dirs; do
-      driver=`readlink $i/driver`
-      driver=`basename $driver`
-      if [ "$driver" == "lcs" ]; then
-         readport=`readlink $i/device`
-         readport=`basename $readport`
-         if [ "$readport" == "$1" ]; then
-            ifname=`basename $i`
-            break
-         fi
-      fi
-   done
-   if [ -n "$ifname" ]; then
-      DEVICE=$ifname
-   else
-      echo "Could not detect LCS interface, aborting..."
-      exit
-   fi
-}
-
 
 startinetd()
 {
@@ -456,7 +431,7 @@ elif [ "$NETTYPE" = "lcs" ]; then
    setupdevice
 # KH FIXME: Workaround for missing sysfs interface
 #   DEVICE=`cat /sys/devices/lcs/${SUBCHANNELS//,*/}/if_name`
-   getlcsifname ${SUBCHANNELS//,*/}
+   DEVICE=eth0
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
    echo "alias $DEVICE lcs" >> /tmp/modprobe.conf
