@@ -125,9 +125,6 @@ class CdromInstallMethod(ImageInstallMethod):
                                      "and then click OK to retry.")
                                    % ("/mnt/source",))
 
-    def ejectCD(self):
-        isys.ejectCdrom(self.device, makeDevice=1)
-
     def systemMounted(self, fsset, chroot):
         if not os.path.exists("%s/images/stage2.img" %(self.tree,)):
             log.debug("Not copying non-existent stage2.img")

@@ -64,10 +64,6 @@ class InstallMethod:
     def unmountCD(self):
         pass
 
-    ## Eject any CD media from the drive.
-    def ejectCD(self):
-        pass
-
     ## Switch CDs.
     # @param mediano The CD media number to switch to.
     # @param filename The file to be read that requires switching media.
@@ -97,7 +93,7 @@ def doMethodComplete(anaconda):
     anaconda.method.filesDone()
 
     if not anaconda.isKickstart:
-        anaconda.method.ejectCD()
+        isys.ejectCdrom(anaconda.method.device, makeDevice=1)
 
     mtab = "/dev/root / ext3 ro 0 0\n"
     for ent in anaconda.id.fsset.entries:
