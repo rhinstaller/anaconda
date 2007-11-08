@@ -83,23 +83,23 @@ install:
 	strip $(DESTDIR)/$(PYTHONLIBDIR)/*.so
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
-CVSTAG=anaconda-$(subst .,_,$(VERSION)-$(RELEASE))
-SRPMDIR=$(shell rpm --eval '%{_srcrpmdir}')
 tag:
-	@cvs tag -cFR $(CVSTAG)
-	@echo "Tagged as $(CVSTAG)"
+	@git tag -f anaconda-$(VERSION)-$(RELEASE)
+	@echo "Tagged as anaconda-$(VERSION)-$(RELEASE)"
 
 ChangeLog:
 	(GIT_DIR=.git git-log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
 
-archive:
+archive: tag
 	@rm -f ChangeLog docs/kickstart-docs.txt docs/command-line.txt
 	@make ChangeLog
 	@make -C docs kickstart-docs.txt command-line.txt
-	@git-archive --format=tar --prefix=anaconda-$(VERSION) HEAD > anaconda-$(VERSION).tar
-	@tar --append -f anaconda-$(VERSION).tar docs/kickstart-docs.txt docs/command-line.txt
+	@git-archive --format=tar --prefix=anaconda-$(VERSION)/ HEAD > anaconda-$(VERSION).tar
+	@mkdir -p anaconda-$(VERSION)/docs/
+	@cp docs/kickstart-docs.txt docs/command-line.txt anaconda-$(VERSION)/docs/
+	@tar --append -f anaconda-$(VERSION).tar anaconda-$(VERSION)
 	@bzip2 -f anaconda-$(VERSION).tar
-
+	@rm -rf anaconda-$(VERSION)
 
 src: archive
 	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2 || exit 1
