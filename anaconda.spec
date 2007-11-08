@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.3.0.44
+Version: 11.4
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -216,6 +216,42 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Nov 08 2007 Chris Lumens <clumens@redhat.com> 11.4-1
+- Add nicdelay= command line option (msivak, #349521).
+- Display more useful ks script error messages.
+- Set re-IPL device before reboot on s390x (bhinson, Jan Glauber).
+- Enable DASD formatting progress bar (Jan Glauber).
+- Add memory error handling to module loading code (HARA Hiroshi).
+- Add accelerator keys to the VG editor window (jgranado, #206479).
+- Turn off swap and lvm earlier to avoid dmraid problems (katzj, #357401).
+- Fix lang-names handling under parallel make (katzj, #358411).
+- Rework VNC startup (jgranado, #264841).
+- Fix help output for buildinstall (#355871).
+- Pull docs from the new wiki location (katzj, #356021).
+- Fix handling of XFS under livecd (katzj, #355351).
+- Don't show bridged network devices (katzj, #354561).
+- Fix handling of Sun disklabels (pjones).
+- Add --fsprofile=, deprecate --bytes-per-inode (pjones).
+- Rework exception handling dialog UI for future expansion.
+- Use the right path for locking under livecd (notting, #354571).
+- Add --disc-size= to splittree.py (#149234).
+- Write kickstart log files to the right tree when chrooted (#338541).
+- Offer to upgrade rpm platform on mismatched arch upgrades (msivak, #217132).
+- Don't ask to initialize partition tables in rescue mode (msivak, #331131).
+- Add CIFS tools to the rescue image (msivak).
+- Fix displaying ampersands in the package progress bar (dcantrell).
+- Ignore sg devices in the driveDict (katzj, #330931).
+- Create the USB boot image with makebootfat (jgranado).
+- Add ntfsprogs to the rescue image (jgranado, #220062).
+- Fix retrying when booting off the CD and using a URL method (#330641).
+- Allow users to use their own mke2fs.conf (pjones).
+- Don't log critical errors if we can retry fetching (sfernand, #350251).
+- Clean up usage of /tmp for device nodes (notting).
+- Fix shlib dep finding in upd-instroot (Orion Poplawski, pjones).
+- Fix runinst and hal-lock usage for livecd (katzj).
+- Write out IPV6* variables to ifcfg-eth* correctly (dcantrell, #328931).
+- Don't traceback when trying on a failed mirror (#349371).
+
 * Mon Oct 22 2007 Jeremy Katz <katzj@redhat.com> 11.3.0.44-1
 - Fix warning about arch changes on upgrade (#222424)
 - Fix phantom kernels on upgrade (#325871)
