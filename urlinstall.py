@@ -13,7 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from installmethod import InstallMethod, FileCopyException
+from installmethod import InstallMethod
 import os
 import time
 import shutil
@@ -31,52 +31,7 @@ from rhpl.translate import _
 import logging
 log = logging.getLogger("anaconda")
 
-def urlretrieve(location, file, callback=None):
-    """Downloads from location and saves to file."""
-    if callback is not None:
-	callback(_("Connecting..."), 0)
-
-    try:
-	url = grabber.urlopen(location)
-    except grabber.URLGrabError, e:
-	raise IOError (e.errno, e.strerror)
-
-    # see if there is a size
-    try:
-	filesize = int(url.info()["Content-Length"])
-	if filesize == 0:
-	    filesize = None
-    except:
-	filesize = None
-
-    # create output file
-    f = open(file, 'w+')
-
-    # if they dont want a status callback just do it in one big swoop
-    if callback is None:
-	f.write(url.read())
-    else:
-	buf = url.read(65535)
-	tot = len(buf)
-	while len(buf) > 0:
-	    if filesize is not None:
-		callback("downloading", "%3d%%" % ((100*tot)/filesize,))
-	    else:
-		callback("downloading", "%dKB" % (tot/1024,))
-	    f.write(buf)
-	    buf = url.read(65535)
-	    tot += len(buf)
-
-    f.close()
-    url.close()
-
 class UrlInstallMethod(InstallMethod):
-
-    def systemUnmounted(self):
-	if self.loopbackFile:
-	    isys.lochangefd("/dev/loop0", 
-			"%s/images/stage2.img" % (self.tree,))
-	    self.loopbackFile = None
 
     def systemMounted(self, fsset, chroot):
         if self.tree is None:
@@ -108,78 +63,6 @@ class UrlInstallMethod(InstallMethod):
             return 1
 
         isys.lochangefd("/dev/loop0", self.loopbackFile)
-
-    def getFilename(self, filename, callback=None, destdir=None, retry=1):
-
-	if destdir is None:
-	    tmppath = self.getTempPath()
-	else:
-	    tmppath = destdir
-
-        base = self.pkgUrl
-
-	fullPath = base + "/" + filename
-
-	file = tmppath + "/" + os.path.basename(fullPath)
-
-        tries = 0
-        while tries < 5:
-            try:
-                rc=urlretrieve(fullPath, file, callback=callback)
-            except IOError, (errnum, msg):
-                logmsg = "IOError %s occurred getting %s: %s" %(errnum, fullPath.replace("%", "%%"), str(msg))
-
-		if not retry:
-                    log.critical(logmsg)
-                    raise FileCopyException
-                else:
-                    log.info(logmsg)
-		
-                time.sleep(5)
-            else:
-                break
-
-	    tries = tries + 1
-
-        if tries >= 5:
-            raise FileCopyException
-
-	return file
-
-    def __copyFileToTemp(self, baseurl, filename, raise404=False):
-        logmsg = None
-        tmppath = self.getTempPath()
-        fullPath = baseurl + "/" + filename
-        file = tmppath + "/" + os.path.basename(fullPath)
-
-        tries = 0
-        while tries < 5:
-            try:
-                urlretrieve(fullPath, file)
-            except IOError, (errnum, msg):
-                if errnum == 14 and "404" in msg and raise404:
-                    raise
-
-                logmsg = "IOError %s occurred getting %s: %s" % (errnum, fullPath.replace("%", "%%"), str(msg))
-                time.sleep(5)
-            else:
-                break
-            tries += 1
-
-        if tries >= 5:
-            if logmsg:
-                log.critical(logmsg)
-
-            raise FileCopyException
-	return file
-
-    def copyFileToTemp(self, filename):
-        return self.__copyFileToTemp(self.pkgUrl, filename)
-
-    def setIntf(self, intf):
-	self.intf = intf
-        self.messageWindow = intf.messageWindow
-        self.progressWindow = intf.progressWindow
 
     def getMethodUri(self):
         return self.baseUrl

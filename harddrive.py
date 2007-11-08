@@ -28,15 +28,6 @@ class HardDriveInstallMethod(ImageInstallMethod):
     def getMethodUri(self):
         return "file://%s" % self.tree
 
-    def copyFileToTemp(self, filename):
-        wasmounted = self.mediaIsMounted
-        self.switchMedia(1, filename)
-            
-        path = ImageInstallMethod.copyFileToTemp(self, filename)
-
-        self.switchMedia(wasmounted)
-        return path
-
     def badPackageError(self, pkgname):
         return _("The file %s cannot be opened.  This is due to a missing "
                  "file or perhaps a corrupt package.  Please verify your "
@@ -128,22 +119,6 @@ class HardDriveInstallMethod(ImageInstallMethod):
 	if self.isoDirIsMounted:
 	    isys.umount(self.isoDir)
 	    self.isoDirIsMounted = 0
-	
-    # return reference to file specified on ISO #1
-    # mounts ISO #1, copies file to destdir, umounts ISO #1
-    # will probably do bad things if called during package installation
-    # returns None if file doesn't exist
-    def getFilename(self, filename, callback=None, destdir=None, retry=1):
-        if destdir is None:
-            destdir = self.getTempPath()
-        fn = destdir + '/' + os.path.basename(filename)
-
-        self.switchMedia(1, filename)
-        try:
-            shutil.copy(self.tree + '/' + filename, fn)
-        except:
-            fn = None
-        return fn
 
     def switchMedia(self, mediano, filename=""):
         if mediano != self.mediaIsMounted:
@@ -153,9 +128,6 @@ class HardDriveInstallMethod(ImageInstallMethod):
 
     def systemMounted(self, fsset, mntPoint):
         self.switchMedia(1)
-
-    def systemUnmounted(self):
-	self.umountMedia()
 
     def filesDone(self):
         # we're trying to unmount the source image at the end.  if it

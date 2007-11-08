@@ -99,18 +99,8 @@ class ImageInstallMethod(InstallMethod):
     def switchMedia(self, mediano, filename=""):
         pass
 
-    def getFilename(self, filename, callback=None, destdir=None, retry=1):
-	return self.tree + "/" + filename
-
     def getMethodUri(self):
         return "file://%s" % (self.tree,)
-
-    def copyFileToTemp(self, filename):
-        tmppath = self.getTempPath()
-        path = tmppath + os.path.basename(filename)
-        shutil.copy(self.tree + "/" + filename, path)
-        
-        return path
 
     def __init__(self, tree, rootPath, intf):
 	InstallMethod.__init__(self, tree, rootPath, intf)
@@ -137,12 +127,6 @@ class CdromInstallMethod(ImageInstallMethod):
 
     def ejectCD(self):
         isys.ejectCdrom(self.device, makeDevice=1)
-
-    def systemUnmounted(self):
-	if self.loopbackFile:
-	    isys.lochangefd("/dev/loop0", 
-			"%s/images/stage2.img" % (self.tree,))
-	    self.loopbackFile = None
 
     def systemMounted(self, fsset, chroot):
         if not os.path.exists("%s/images/stage2.img" %(self.tree,)):
@@ -179,9 +163,6 @@ class CdromInstallMethod(ImageInstallMethod):
 	    return 1
 
 	isys.lochangefd("/dev/loop0", self.loopbackFile)
-
-    def getFilename(self, filename, callback=None, destdir=None, retry=1):
-	return self.tree + "/" + filename
 
     def switchMedia(self, mediano, filename=""):
         log.info("switching from CD %s to %s for %s" %(self.currentMedia, mediano, filename))
@@ -453,9 +434,6 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 
     def getMethodUri(self):
         return "file:///tmp/isomedia/"
-
-    def getFilename(self, filename, callback=None, destdir=None, retry=1):
-	return self.mntPoint + "/" + filename
 
     def switchMedia(self, mediano, filename=""):
 	if mediano not in self.currentMedia:

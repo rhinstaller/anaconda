@@ -18,13 +18,6 @@ from constants import *
 import logging
 log = logging.getLogger("anaconda")
 
-## Raised by subclasses of InstallMethod when an error occurs copying a file.
-class FileCopyException(Exception):
-    ## The constructor.
-    # @param s An optional message to be added to the exception.
-    def __init__(self, s = ""):
-        self.args = s
-
 ## The base installation method class.
 # This is an abstract class that defines the methods that make up an
 # installation method.  This class should not be used except as the superclass
@@ -40,37 +33,6 @@ class InstallMethod:
     # @return The list of protected partitions, or an empty list otherwise.
     def protectedPartitions(self):
         return []
-
-    ## Return a directory that can be used for writing temporary data to.
-    # @returns A valid temporary directory, or /tmp by default.
-    def getTempPath(self):
-	root = self.rootPath
-	pathlist = [ "/var/tmp", "/tmp", "/." ]
-        tmppath = None
-	for p in pathlist:
-	    if (os.access(root + p, os.X_OK)):
-		tmppath = root + p + "/"
-		break
-
-        if tmppath is None:
-            log.warning("Unable to find temp path, going to use ramfs path")
-            return "/tmp/"
-
-        return tmppath
-
-    ## Fetch a file from the installation source.
-    # @param filename The filename to fetch.
-    # @param callback A function to be called when the file is fetched.  This
-    #                 function expects a message and size as parameters.
-    # @param destdir The directory where the fetched file should be put.
-    # @param retry How many times to attempt fetching the file.
-    # @return The complete path to the fetched file on the local system.
-    def getFilename(self, filename, callback=None, destdir=None, retry=1):
-	pass
-
-    ## Perform method-specific actions to unmount any installation media.
-    def systemUnmounted(self):
-	pass
 
     ## Perform method-specific actions to mount any installation media.
     # @param fsset An instance of FileSystemSet.

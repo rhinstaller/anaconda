@@ -129,10 +129,6 @@ class LiveCDImageMethod(installmethod.InstallMethod):
             return [target]
         return []
 
-    def getFilename(self, filename, callback=None, destdir=None, retry=1):
-        if filename.startswith("RELEASE-NOTES"):
-            return "/usr/share/doc/HTML/" + filename
-
     def getLiveBlockDevice(self):
         return self.osimg
 

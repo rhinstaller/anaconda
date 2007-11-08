@@ -26,7 +26,6 @@ import lvm
 from flags import flags
 from fsset import *
 from constants import *
-from installmethod import FileCopyException
 from product import productName
 
 import rhpl
