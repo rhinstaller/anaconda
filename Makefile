@@ -90,8 +90,9 @@ tag:
 ChangeLog:
 	(GIT_DIR=.git git-log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
 
-archive: ChangeLog tag
+archive: tag
 	@rm -f ChangeLog docs/kickstart-docs.txt docs/command-line.txt
+	@make ChangeLog
 	@make -C docs kickstart-docs.txt command-line.txt
 	@git-archive --format=tar --prefix=anaconda-$(VERSION)/ HEAD > anaconda-$(VERSION).tar
 	@mkdir -p anaconda-$(VERSION)/docs/
