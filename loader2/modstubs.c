@@ -91,7 +91,7 @@ int ourInsmodCommand(int argc, char ** argv) {
     void * modbuf = NULL;
     struct stat sb;
     int i;
-    char *options = NULL;;
+    char *options = NULL, *tmp = NULL;
 
     if (argc < 2) {
         return usage();
