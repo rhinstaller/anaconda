@@ -67,7 +67,7 @@ class ReleaseNotesViewer:
 		for suffix in suffixList:
 			fn = "RELEASE-NOTES%s" % (suffix,)
 			try:
-				tmpfile = os.path.abspath(self.anaconda.dispatch.method.getFilename(fn, destdir="/tmp", retry=0))
+#				tmpfile = os.path.abspath(self.anaconda.dispatch.method.getFilename(fn, destdir="/tmp", retry=0))
 				if tmpfile is None:
 					continue
 

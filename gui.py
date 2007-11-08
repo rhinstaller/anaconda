@@ -1191,12 +1191,6 @@ class InstallControlWindow:
         self.anaconda.dispatch.gotoNext()
         self.setScreen ()
 
-    def releaseNotesButtonClicked (self, widget):
-        if not self.rnv.isShowing():
-            self.rnv.view()
-        else:
-            print "Release notes viewer already running"
-
     def debugClicked (self, *args):
         try:
             # switch to VC1 so we can debug
@@ -1313,7 +1307,6 @@ class InstallControlWindow:
         self.currentWindow = None
         self.anaconda = anaconda
         self.handle = None
-        self.rnv = ReleaseNotesViewer(self.anaconda)
 
     def keyRelease (self, window, event):
         if ((event.keyval == gtk.keysyms.KP_Delete
@@ -1357,7 +1350,6 @@ class InstallControlWindow:
             "on_rebootButton_clicked": self._doExit,
             "on_closeButton_clicked": self._doExit,                 
             "on_backButton_clicked": self.prevClicked,
-            "on_relnotesButton_clicked": self.releaseNotesButtonClicked,
             "on_debugButton_clicked": self.debugClicked,
             "on_mainWindow_key_release_event": self.keyRelease,
             "on_mainWindow_delete_event": self._doExit, }
@@ -1372,6 +1364,11 @@ class InstallControlWindow:
 
         self.loadGlade()
         self.window = self.mainxml.get_widget("mainWindow")
+
+        # Remove the release notes button for now.
+        hbuttonbox = self.mainxml.get_widget("hbuttonbox1")
+        relnotesButton = self.mainxml.get_widget("relnotesButton")
+        hbuttonbox.remove(relnotesButton)
 
         self.createWidgets()
         self.connectSignals()
