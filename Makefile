@@ -45,7 +45,7 @@ depend:
 	for d in $(SUBDIRS); do make -C $$d depend; done
 
 clean:
-	rm -f *.o *.so *.pyc lang-names mini-wm
+	rm -f *.o *.so *.pyc lang-names mini-wm ChangeLog
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 subdirs:
@@ -90,13 +90,13 @@ tag:
 ChangeLog:
 	(GIT_DIR=.git git-log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
 
-archive: tag
+archive: ChangeLog tag
 	@rm -f ChangeLog docs/kickstart-docs.txt docs/command-line.txt
-	@make ChangeLog
 	@make -C docs kickstart-docs.txt command-line.txt
 	@git-archive --format=tar --prefix=anaconda-$(VERSION)/ HEAD > anaconda-$(VERSION).tar
 	@mkdir -p anaconda-$(VERSION)/docs/
 	@cp docs/kickstart-docs.txt docs/command-line.txt anaconda-$(VERSION)/docs/
+	@cp ChangeLog anaconda-$(VERSION)/
 	@tar --append -f anaconda-$(VERSION).tar anaconda-$(VERSION)
 	@bzip2 -f anaconda-$(VERSION).tar
 	@rm -rf anaconda-$(VERSION)
