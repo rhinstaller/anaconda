@@ -28,14 +28,6 @@ class HardDriveInstallMethod(ImageInstallMethod):
     def getMethodUri(self):
         return "file://%s" % self.tree
 
-    def badPackageError(self, pkgname):
-        return _("The file %s cannot be opened.  This is due to a missing "
-                 "file or perhaps a corrupt package.  Please verify your "
-                 "installation images and that you have all the required "
-                 "media.\n\n"
-                 "If you exit, your system will be left in an inconsistent "
-                 "state that will likely require reinstallation.\n\n") % pkgname
-
     # mounts disc image cdNum under self.tree
     def mountMedia(self, cdNum):
         if self.mediaIsMounted:
