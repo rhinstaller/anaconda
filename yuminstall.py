@@ -258,12 +258,6 @@ class YumSorter(yum.YumBase):
         self.path = []
         self.loops = []
 
-    def _undoDepInstalls(self):
-        # clean up after ourselves in the case of failures
-        for txmbr in self.tsInfo:
-            if txmbr.isDep:
-                self.tsInfo.remove(txmbr.pkgtup)
-
     def _transactionDataFactory(self):
         return SplitMediaTransactionData()
   
