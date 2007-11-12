@@ -30,6 +30,10 @@ while [ $# -gt 0 ]; do
 	    PRODUCTSTR=$2
 	    shift; shift
 	    ;;
+	--variant)
+	    VARIANT=$2
+	    shift; shift
+	    ;;
 	--prodpath)
 	    PRODUCTPATH=$2
 	    shift; shift
@@ -101,6 +105,7 @@ TREEDIR=/tmp/treedir.$$
 
 UPD_INSTROOT=$BUILDINSTDIR/upd-instroot
 MK_IMAGES=$BUILDINSTDIR/mk-images
+MK_TREEINFO=$BUILDINSTDIR/maketreeinfo.py
 MK_STAMP=$BUILDINSTDIR/makestamp.py
 BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
@@ -114,10 +119,11 @@ popd
 
 UPD_INSTROOT=./upd-instroot
 MK_IMAGES=./mk-images
+MK_TREEINFO=./maketreeinfo.py
 MK_STAMP=./makestamp.py
 BUILDINSTALL=./buildinstall
 
-for f in $UPD_INSTROOT $MK_IMAGES $MK_STAMP $BUILDINSTALL; do
+for f in $UPD_INSTROOT $MK_IMAGES $MK_STAMP $MK_TREEINFO $BUILDINSTALL; do
     if [ ! -f $f ]; then
 	cp -a $BUILDINSTDIR/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
     else
@@ -127,6 +133,7 @@ done
 
 UPD_INSTROOT=$BUILDINSTDIR/upd-instroot
 MK_IMAGES=$BUILDINSTDIR/mk-images
+MK_TREEINFO=$BUILDINSTDIR/maketreeinfo.py
 MK_STAMP=$BUILDINSTDIR/makestamp.py
 BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
@@ -141,6 +148,9 @@ if [ -n "$PKGORDER" ]; then
     echo "PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH $PRODUCTPATH"
     PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH $PRODUCTPATH > $PKGORDER
 fi
+
+echo "Writing .treeinfo file..."
+$MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --packagedir=${PKGDIR#$p/} --outfile=$p/.treeinfo
 
 echo "Making images..."
 $MK_IMAGES $DEBUGSTR $NOGRSTR $PKGDIR $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"

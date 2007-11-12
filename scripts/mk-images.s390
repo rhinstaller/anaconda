@@ -14,4 +14,13 @@ makeBootImages() {
 
 	cp -v $BOOTDISKDIR/generic.prm $TOPDESTPATH/images/generic.prm
 	cp -v $BOOTDISKDIR/generic.ins $TOPDESTPATH/generic.ins
+    cat << __EOT__ >> $TOPDESTPATH/.treeinfo
+[images-$KERNELARCH]
+kernel = images/kernel.img
+initrd = images/initrd.img
+initrd.size = images/initrd.size
+generic.prm = images/generic.prm
+generic.ins = generic.ins
+
+__EOT__
 }
