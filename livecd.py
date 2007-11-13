@@ -62,7 +62,11 @@ def copytree(src, dst, symlinks=False, preserveOwner=False,
             else:
                 shutil.copyfile(srcname, dstname)
                 if preserveOwner:
-                    os.chown(dstname, os.stat(srcname)[stat.ST_UID], os.stat(srcname)[stat.ST_GID])
+                    try:
+                        os.chown(dstname, os.stat(srcname)[stat.ST_UID], os.stat(srcname)[stat.ST_GID])
+                    except OverflowError:
+                        log.error("Could not set owner and group on file %s" % dstname)
+
                 if preserveSelinux:
                     selinux.lsetfilecon(dstname, selinux.lgetfilecon(srcname)[1])
                 shutil.copystat(srcname, dstname)
