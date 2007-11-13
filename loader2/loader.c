@@ -402,8 +402,10 @@ void loadUpdates(struct loaderData_s *loaderData) {
             if ((nump = lenPartitionsList(part_list)) == 0) {
                 if (dir == -1)
                     stage = UPD_DEVICE;
-                else
+                else {
+                    part = device;
                     stage = UPD_LOAD;
+                }
 
                 break;
             }
