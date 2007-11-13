@@ -565,6 +565,35 @@ class NetworkDeviceWindow:
         if not self.devices:
             return INSTALL_NOOP
 
+        for (key, dev) in self.devices.iteritems():
+            # set the listbox description text
+            if bool(dev.get('onboot')):
+                onboot = _("Active on boot")
+            else:
+                onboot = _("Inactive on boot")
+
+            if dev.get('bootproto').lower() == 'dhcp':
+                ipv4 = _("DHCP")
+            else:
+                ipv4 = dev.get('ipaddr')
+
+            if bool(dev.get('ipv6_autoconf')):
+                ipv6 = _("Auto IPv6")
+            elif dev.get('ipv6addr').lower() == 'dhcp':
+                ipv6 = _("DHCPv6")
+            else:
+                ipv6 = dev.get('ipv6addr')
+
+            devname = dev.get('device').lower()
+            if ipv4 is not None and ipv6 is not None:
+                desc = _("%s, %s, %s") % (onboot, ipv4, ipv6,)
+            elif ipv4 is not None and ipv6 is None:
+                desc = _("%s, %s") % (onboot, ipv4,)
+            elif ipv4 is None and ipv6 is not None:
+                desc = _("%s, %s") % (onboot, ipv6,)
+            self.devListDescs[devname] = desc
+
+
         # collect configuration data for each interface selected by the user
         doConf = True
         while doConf is True:
