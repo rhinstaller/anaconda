@@ -668,6 +668,8 @@ void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {
         if (!strncmp(arg, "nfs:", 4)) {
             ld->method = METHOD_NFS;
             ld->methodData = calloc(sizeof(struct nfsInstallData *), 1);
+
+            ((struct nfsInstallData *)ld->methodData)->mountOpts = NULL;
             ((struct nfsInstallData *)ld->methodData)->host = strdup(c);
             if ((c = strtok(NULL, ":"))) {
                 ((struct nfsInstallData *)ld->methodData)->directory = strdup(c);
