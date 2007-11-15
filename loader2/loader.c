@@ -1674,7 +1674,7 @@ int main(int argc, char ** argv) {
     loaderData.modDepsPtr = &modDeps;
     loaderData.modInfo = modInfo;
 
-    if (!canProbeDevices() || FL_MODDISK(flags)) {
+    if (FL_MODDISK(flags)) {
         startNewt();
 
         loadDriverDisks(CLASS_UNSPEC, &loaderData);
@@ -1762,8 +1762,7 @@ int main(int argc, char ** argv) {
 
     checkForHardDrives();
 
-    if ((!canProbeDevices() || FL_ISA(flags) || FL_NOPROBE(flags))
-        && !loaderData.ksFile) {
+    if ((|| FL_ISA(flags) || FL_NOPROBE(flags)) && !loaderData.ksFile) {
         startNewt();
         manualDeviceCheck(&loaderData);
     }
