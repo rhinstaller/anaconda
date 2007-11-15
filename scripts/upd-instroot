@@ -111,6 +111,11 @@ EOF
     done
 
     DSO_DEPS="${FILES[@]}"
+
+    for l in $(chroot $root find /lib* -maxdepth 1 -type l -name ld*.so*); do
+       [ "$(chroot $root readlink -f $l)" == "$LDSO" ] && DSO_DEPS="$DSO_DEPS $l"
+    done
+
     [ -n "$DEBUG" ] && echo "DSO_DEPS for $bin are $DSO_DEPS"
 }
 
