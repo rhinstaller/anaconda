@@ -484,7 +484,6 @@ static int loadUpdatesFromRemote(char * url, struct loaderData_s * loaderData) {
 }
 
 static void checkForHardDrives(void) {
-    int i;
     struct device ** devices;
 
     devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_LOADED);
