@@ -68,7 +68,7 @@ BuildRequires: rpm-devel
 BuildRequires: rpm-python >= %{rpmpythonver}
 BuildRequires: slang-static >= %{slangver}
 BuildRequires: yum >= %{yumver}
-BuildRequires: zlib-devel
+BuildRequires: zlib-devel, zlib-static
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
