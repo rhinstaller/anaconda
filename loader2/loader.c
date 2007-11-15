@@ -1762,7 +1762,7 @@ int main(int argc, char ** argv) {
 
     checkForHardDrives();
 
-    if ((|| FL_ISA(flags) || FL_NOPROBE(flags)) && !loaderData.ksFile) {
+    if ((FL_ISA(flags) || FL_NOPROBE(flags)) && !loaderData.ksFile) {
         startNewt();
         manualDeviceCheck(&loaderData);
     }
