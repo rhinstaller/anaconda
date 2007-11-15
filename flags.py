@@ -32,7 +32,14 @@ class Flags:
 
     def createCmdlineDict(self):
         cmdlineDict = {}
-        cmdline = open("/proc/cmdline", "r").read()
+        cmdline = open("/proc/cmdline", "r").read().strip()
+
+        # if the BOOT_IMAGE contains a space, pxelinux will strip one of the
+        # quotes leaving one at the end that shlex doesn't know what to do
+        # with
+        if cmdline.find("BOOT_IMAGE=") and cmdline.endswith('"'):
+            cmdline = cmdline.replace("BOOT_IMAGE=", "BOOT_IMAGE=\"")
+
         lst = shlex.split(cmdline)
 
         for i in lst:
