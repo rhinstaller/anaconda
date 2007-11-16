@@ -34,7 +34,7 @@ def handleIPError(screen, field, msg):
         newfield = field
 
     ButtonChoiceWindow(screen, _("Error With %s Data") % (newfield,),
-                       _("%s") % msg.__str__(), buttons = [ _("OK") ])
+                       "%s" % msg.__str__(), buttons = [ _("OK") ])
 
 def handleIPMissing(screen, field):
     try:
@@ -585,11 +585,11 @@ class NetworkDeviceWindow:
             self.topgrid = Grid(1, 2)
 
             if descr is not None:
-                self.topgrid.setField(Label (_("%s") % (descr[:70],)),
+                self.topgrid.setField(Label ("%s" % (descr[:70],)),
                                       0, 0, padding = (0, 0, 0, 0),
                                       anchorLeft = 1, growx = 1)
             if hwaddr is not None:
-                self.topgrid.setField(Label (_("%s") %(hwaddr,)),
+                self.topgrid.setField(Label ("%s" %(hwaddr,)),
                                       0, 1, padding = (0, 0, 0, 1),
                                       anchorLeft = 1, growx = 1)
 
@@ -633,11 +633,11 @@ class NetworkDeviceWindow:
 
             devname = dev.get('device').lower()
             if ipv4 is not None and ipv6 is not None:
-                desc = _("%s, %s, %s") % (onboot, ipv4, ipv6,)
+                desc = "%s, %s, %s" % (onboot, ipv4, ipv6,)
             elif ipv4 is not None and ipv6 is None:
-                desc = _("%s, %s") % (onboot, ipv4,)
+                desc = "%s, %s" % (onboot, ipv4,)
             elif ipv4 is None and ipv6 is not None:
-                desc = _("%s, %s") % (onboot, ipv6,)
+                desc = "%s, %s" % (onboot, ipv6,)
             self.devListDescs[devname] = desc
 
             if len(self.devices) == 1 and doConf is True:

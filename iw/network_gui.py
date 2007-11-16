@@ -156,7 +156,7 @@ class NetworkWindow(InstallWindow):
 
     def handleIPError(self, field, msg):
 	self.intf.messageWindow(_("Error With %s Data") % (field,),
-	                        _("%s") % msg.__str__())
+	                        "%s" % msg.__str__())
 
     def handleBroadCastError(self):
 	self.intf.messageWindow(_("Error With Data"),
