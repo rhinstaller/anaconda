@@ -358,9 +358,11 @@ class AnacondaYum(YumSorter):
                 log.warning("ignoring duplicate repository %s with source URL %s" % (repo.name, repo.baseurl or repo.mirrorlist))
 
         self.doPluginSetup(searchpath=["/usr/lib/yum-plugins",
-                                       "/tmp/updates/yum-plugins"], 
+                                       "/tmp/updates/yum-plugins",
+                                       "/mnt/source/RHupdates/yum-plugins"], 
                            confpath=["/etc/yum/pluginconf.d",
-                                     "/tmp/updates/pluginconf.d"])
+                                     "/tmp/updates/pluginconf.d",
+                                     "/mnt/source/RHupdates/pluginconf.d"])
         self.plugins.run('init')
 
         self.repos.setCacheDir('/tmp/cache')
