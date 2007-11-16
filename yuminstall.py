@@ -875,6 +875,8 @@ class YumBackend(AnacondaBackend):
     def selectFSPackages(self, fsset, diskset):
         for entry in fsset.entries:
             map(self.selectPackage, entry.fsystem.getNeededPackages())
+            if entry.device.crypto:
+                self.selectPackage("cryptsetup-luks")
 
         for disk in diskset.disks.keys():
             if isys.driveIsIscsi(disk):

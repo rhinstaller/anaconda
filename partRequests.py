@@ -152,6 +152,9 @@ class RequestSpec:
         self.dev = None
         """A Device() as defined in fsset.py to correspond to this request."""
 
+        self.encryption = None
+        """An optional LUKSDevice() describing block device encryption."""
+
     def __str__(self):
         if self.fstype:
             fsname = self.fstype.getName()
@@ -238,6 +241,10 @@ class RequestSpec:
 
         if self.fstype is None:
             return None
+
+        # FIXME: this will need to become more sophisticated at some point
+        if self.encryption and self.mountpoint in ('/', '/boot'):
+            return _("This mount point cannot be on an encrypted partition.")
 
         if flags.livecdInstall and self.mountpoint == "/" and not self.format:
             return _("The mount point %s must be formatted during live CD "
@@ -445,6 +452,11 @@ class PartitionSpec(RequestSpec):
         else:
             pre = "Existing"
 
+        if self.encryption is None:
+            crypto = "None"
+        else:
+            crypto = self.encryption.getScheme()
+
         str = ("%(n)s Part Request -- mountpoint: %(mount)s uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s \n"
                "  device: %(dev)s drive: %(drive)s  primary: %(primary)s\n"
@@ -452,7 +464,7 @@ class PartitionSpec(RequestSpec):
                "  start: %(start)s  end: %(end)s  migrate: %(migrate)s  "
                "  fslabel: %(fslabel)s  origfstype: %(origfs)s\n"
                "  options: '%(fsopts)s'\n"
-               "  fsprofile: %(fsprofile)s" % 
+               "  fsprofile: %(fsprofile)s  encryption: %(encryption)s" % 
                {"n": pre, "mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "dev": self.device,
                 "drive": self.drive, "primary": self.primary,
@@ -460,13 +472,19 @@ class PartitionSpec(RequestSpec):
                 "start": self.start, "end": self.end,
                 "migrate": self.migrate, "fslabel": self.fslabel,
                 "origfs": oldfs,
-                "fsopts": self.fsopts, "fsprofile": self.fsprofile})
+                "fsopts": self.fsopts, "fsprofile": self.fsprofile,
+                "encryption": crypto})
         return str
 
 
     def getDevice(self, partitions):
         """Return a device to solidify."""
-        self.dev = fsset.PartitionDevice(self.device)
+        if self.dev:
+            return self.dev
+
+        self.dev = fsset.PartitionDevice(self.device,
+                                         encryption = self.encryption)
+
         return self.dev
 
     def getActualSize(self, partitions, diskset):
@@ -608,15 +626,22 @@ class RaidRequestSpec(RequestSpec):
         if self.raidmembers:
             for i in self.raidmembers:
                 raidmem.append(i)
+
+        if self.encryption is None:
+            crypto = "None"
+        else:
+            crypto = self.encryption.getScheme()
                 
         str = ("RAID Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s\n"
                "  raidlevel: %(level)s  raidspares: %(spares)s\n"
-               "  raidmembers: %(members)s  fsprofile: %(fsprofile)s\n" % 
+               "  raidmembers: %(members)s  fsprofile: %(fsprofile)s\n"
+               "  encryption: %(encryption)s" % 
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format,
                 "level": self.raidlevel, "spares": self.raidspares,
                 "members": self.raidmembers, "fsprofile": self.fsprofile,
+                "encryption": crypto
                 })
         return str
     
@@ -630,7 +655,8 @@ class RaidRequestSpec(RequestSpec):
                                     raidmems, minor = self.raidminor,
                                     spares = self.raidspares,
                                     existing = self.preexist,
-                                    chunksize = self.chunksize)
+                                    chunksize = self.chunksize,
+                                    encryption = self.encryption)
         return self.dev
 
     def getActualSize(self, partitions, diskset):
@@ -703,6 +729,15 @@ class RaidRequestSpec(RequestSpec):
         rc = self.sanityCheckRaid(partitions)
         if rc:
             return rc
+
+        # make sure we aren't attempting encrypted /boot or /
+        if self.mountpoint in ('/', '/boot'):
+            for member in self.raidmembers:
+                r = partitions.getRequestByID(member)
+                if r.encryption and r.encryption.getScheme() is not None:
+                    return _("This mount point cannot be on a RAID device "
+                             "containing encrypted partitions.")
+
         return RequestSpec.sanityCheckRequest(self, partitions)
 
 class VolumeGroupRequestSpec(RequestSpec):
@@ -923,5 +958,14 @@ class LogicalVolumeRequestSpec(RequestSpec):
         if not self.grow and not self.percent and self.size*1024 < pesize:
             return _("Logical volume size must be larger than the volume "
                      "group's physical extent size.")
+
+        # make sure it's not encrypted /boot or /
+        if self.mountpoint in ('/boot', '/'):
+            vgreq = partitions.getRequestByID(self.volumeGroup)
+            for pv in vgreq.physicalVolumes:
+                r = partitions.getRequestByID(pv)
+                if r.encryption and r.encryption.getScheme() is not None:
+                    return _("This mount point cannot be on a logical volume "
+                             "containing encrypted physical volumes.")
 
         return RequestSpec.sanityCheckRequest(self, partitions, skipMntPtExistCheck)

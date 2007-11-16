@@ -207,8 +207,15 @@ def mountptchangeCB(widget, fstypecombo):
         fstypecombo.set_active_text("vfat")
 
 def formatOptionCB(widget, data):
-    (combowidget, mntptcombo, ofstype) = data
+    (combowidget, mntptcombo, ofstype, lukscb) = data
     combowidget.set_sensitive(widget.get_active())
+    if lukscb is not None:
+        lukscb.set_data("formatstate", widget.get_active())
+        if not widget.get_active():
+            lukscb.set_active(0)
+            lukscb.set_sensitive(0)
+        else:
+            lukscb.set_sensitive(1)
 
     # inject event for fstype menu
     if widget.get_active():
@@ -239,6 +246,7 @@ def noformatCB(widget, data):
        migraterb     - radiobutton for migrate fs
        migfstype     - menu for migrate fs types
        migfstypeMenu - menu for migrate fs types
+       lukscb        - checkbutton for 'encrypt using LUKS/dm-crypt'
 """
 def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
                                   ignorefs=[]):
@@ -277,8 +285,11 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     if not formatrb.get_active() and not origrequest.migrate:
 	mountCombo.set_data("prevmountable", ofstype.isMountable())
 
+    # this gets added to the table a bit later on
+    lukscb = gtk.CheckButton(_("Encrypt Partition"))
+
     formatrb.connect("toggled", formatOptionCB,
-		     (fstypeCombo, mountCombo, ofstype))
+		     (fstypeCombo, mountCombo, ofstype, lukscb))
 
     noformatrb.connect("toggled", noformatCB,
 		     (fstypeCombo, mountCombo, origrequest.origfstype))
@@ -300,16 +311,25 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	row = row + 1
 
 	migraterb.connect("toggled", formatOptionCB,
-                          (migfstypeCombo, mountCombo, ofstype))
+                          (migfstypeCombo, mountCombo, ofstype, None))
     else:
 	migraterb = None
 	migfstypeCombo = None
 
     row = row + 1
 
+    if origrequest.encryption and formatrb.get_active():
+        # probably never happen
+        lukscb.set_active(1)
+
+    lukscb.set_sensitive(formatrb.get_active())
+    lukscb.set_data("formatstate", formatrb.get_active())
+    maintable.attach(lukscb, 0, 2, row, row + 1)
+    row = row + 1
+
     rc = {}
     for var in ['noformatrb', 'formatrb', 'fstypeCombo',
-                'migraterb', 'migfstypeCombo']:
+                'migraterb', 'migfstypeCombo', 'lukscb']:
         if eval("%s" % (var,)) is not None:
             rc[var] = eval("%s" % (var,))
 

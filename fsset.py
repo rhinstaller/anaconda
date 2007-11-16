@@ -1149,6 +1149,11 @@ class FileSystemSet:
         for entry in self.entries:
             if entry.device.getDevice() == dev:
                 return entry
+
+            # getDevice() will return the mapped device if using LUKS
+            if entry.device.device == dev:
+                return entry
+
         return None
 
     def copy (self):
@@ -1222,6 +1227,15 @@ MAILADDR root
             return cf
         return
 
+    def crypttab(self):
+        """set up /etc/crypttab"""
+        crypttab = ""
+        for entry in self.entries:
+            if entry.device.crypto:
+                crypttab += entry.device.crypto.crypttab()
+
+        return crypttab
+
     def write (self, prefix):
         f = open (prefix + "/etc/fstab", "w")
         f.write (self.fstab())
@@ -1233,6 +1247,12 @@ MAILADDR root
             f = open (prefix + "/etc/mdadm.conf", "w")
             f.write (cf)
             f.close ()
+
+        crypttab = self.crypttab()
+        if crypttab:
+            f = open(prefix + "/etc/crypttab", "w")
+            f.write(crypttab)
+            f.close()
 
         # touch mtab
         open (prefix + "/etc/mtab", "w+")
@@ -1812,6 +1832,7 @@ MAILADDR root
             if entry.mountpoint == "swap" and not swapoff:
                 continue
             entry.umount(instPath)
+            entry.device.cleanupDevice()
 
 class FileSystemSetEntry:
     def __init__ (self, device, mountpoint,
@@ -1934,24 +1955,34 @@ class FileSystemSetEntry:
 
 
 class Device:
-    def __init__(self, device = "none"):
+    def __init__(self, device = "none", encryption=None):
         self.device = device
         self.label = None
         self.isSetup = 0
         self.doLabel = 1
         self.deviceOptions = ""
+        if encryption:
+            self.crypto = encryption
+            if device not in ("none", None):
+                self.crypto.setDevice(device)
+        else:
+            self.crypto = None
 
     def getComment (self):
         return ""
 
     def getDevice (self, asBoot = 0):
-        return self.device
+        if self.crypto:
+            return self.crypto.getDevice()
+        else:
+            return self.device
 
     def setupDevice (self, chroot='/', devPrefix='/dev/'):
         return self.device
 
     def cleanupDevice (self, chroot, devPrefix='/dev/'):
-        pass
+        if self.crypto:
+            self.crypto.closeDevice()
 
     def solidify (self):
         pass
@@ -1983,8 +2014,7 @@ class DevDevice(Device):
     """Device with a device node rooted in /dev that we just always use
        the pre-created device node for."""
     def __init__(self, dev):
-        Device.__init__(self)
-        self.device = dev
+        Device.__init__(self, device=dev)
 
     def getDevice(self, asBoot = 0):
         return self.device
@@ -2004,8 +2034,8 @@ class RAIDDevice(Device):
     # members is a list of Device based instances that will be
     # a part of this raid device
     def __init__(self, level, members, minor=-1, spares=0, existing=0,
-                 chunksize = 64):
-        Device.__init__(self)
+                 chunksize = 64, encryption=None):
+        Device.__init__(self, encryption=encryption)
         self.level = level
         self.members = members
         self.spares = spares
@@ -2039,6 +2069,9 @@ class RAIDDevice(Device):
         RAIDDevice.usedMajors[minor] = None
         self.device = "md" + str(minor)
         self.minor = minor
+
+        if self.crypto:
+            self.crypto.setDevice(self.device)
 
         # make sure the list of raid members is sorted
         self.members.sort()
@@ -2137,10 +2170,18 @@ class RAIDDevice(Device):
             self.isSetup = 1
         else:
             isys.raidstart(self.device, self.members[0])
+
+        if self.crypto:
+            self.crypto.formatDevice()
+            self.crypto.openDevice()
+            node = "%s/%s" % (devPrefix, self.crypto.getDevice())
+
         return node
 
     def getDevice (self, asBoot = 0):
-        if not asBoot:
+        if not asBoot and self.crypto:
+            return self.crypto.getDevice()
+        elif not asBoot:
             return self.device
         else:
             return self.members[0]
@@ -2232,19 +2273,28 @@ class LogicalVolumeDevice(Device):
 
 
 class PartitionDevice(Device):
-    def __init__(self, partition):
-        Device.__init__(self)
+    def __init__(self, partition, encryption=None):
         if type(partition) != types.StringType:
             raise ValueError, "partition must be a string"
-        self.device = partition
+        Device.__init__(self, device=partition, encryption=encryption)
 
         (disk, pnum) = getDiskPart(partition)
         if isys.driveIsIscsi(disk):
             self.setAsNetdev()
 
+    def getDevice(self, asBoot = 0):
+        if self.crypto:
+            return self.crypto.getDevice()
+        else:
+            return self.device
+
     def setupDevice(self, chroot="/", devPrefix='/dev'):
-        path = '%s/%s' % (devPrefix, self.getDevice(),)
-        isys.makeDevInode(self.getDevice(), path)
+        path = '%s/%s' % (devPrefix, self.device)
+        isys.makeDevInode(self.device, path)
+        if self.crypto:
+            self.crypto.formatDevice()
+            self.crypto.openDevice()
+            path = "%s/%s" % (devPrefix, self.crypto.getDevice())
         return path
 
 class PartedPartitionDevice(PartitionDevice):

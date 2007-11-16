@@ -206,7 +206,7 @@ def setFileCons(anaconda):
                  "/etc/blkid.tab", "/etc/blkid.tab.old", 
                  "/etc/mtab", "/etc/fstab", "/etc/resolv.conf",
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
-                 "/var/log/wtmp", "/var/run/utmp",
+                 "/var/log/wtmp", "/var/run/utmp", "/etc/crypttab",
                  "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab",
                  "/etc/mdadm.conf", "/etc/hosts", "/etc/sysconfig/network",
                  "/etc/udev/rules.d/70-persistent-net.rules",
