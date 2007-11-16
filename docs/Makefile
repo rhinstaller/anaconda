@@ -10,3 +10,5 @@ clean:
 	rm -rf kickstart-docs.txt command-line.txt api
 
 depend:
+
+install:

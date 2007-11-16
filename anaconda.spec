@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4
+Version: 11.4.0.1
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -68,7 +68,7 @@ BuildRequires: rpm-devel
 BuildRequires: rpm-python >= %{rpmpythonver}
 BuildRequires: slang-static >= %{slangver}
 BuildRequires: yum >= %{yumver}
-BuildRequires: zlib-devel
+BuildRequires: zlib-devel, zlib-static
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
@@ -216,6 +216,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Nov 15 2007 Chris Lumens <clumens@redhat.com> 11.4.0.1-1
+- Pull in the /lib/ld-linux.so.2 symlink to stage2.
+- Don't segfault on unpartitioned updates devices (#372011).
+- Log errors and continue when we can't copy files during livecd (#376741).
+- Pull in glibc.i386 and openssl.i386 to stage2 (#367731).
+- Fix Macedonian translation (#374561).
+
 * Thu Nov 08 2007 Chris Lumens <clumens@redhat.com> 11.4-1
 - Add nicdelay= command line option (msivak, #349521).
 - Display more useful ks script error messages.

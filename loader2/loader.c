@@ -402,8 +402,10 @@ void loadUpdates(struct loaderData_s *loaderData) {
             if ((nump = lenPartitionsList(part_list)) == 0) {
                 if (dir == -1)
                     stage = UPD_DEVICE;
-                else
+                else {
+                    part = device;
                     stage = UPD_LOAD;
+                }
 
                 break;
             }
@@ -482,7 +484,6 @@ static int loadUpdatesFromRemote(char * url, struct loaderData_s * loaderData) {
 }
 
 static void checkForHardDrives(void) {
-    int i;
     struct device ** devices;
 
     devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_LOADED);
@@ -497,15 +498,6 @@ static void checkForHardDrives(void) {
         logMessage(WARNING, "no hard drives found, but in kickstart so continuing anyway");
         return;
     }
-    
-    startNewt();
-    i = newtWinChoice(_("Warning"), _("Yes"), _("No"),
-                      _("No hard drives have been found.  You probably need "
-                        "to manually choose device drivers for the "
-                        "installation to succeed.  Would you like to "
-                        "select drivers now?"));
-    if (i != 2)
-        flags |= LOADER_FLAGS_ISA;
 
     return;
 }
@@ -758,8 +750,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->updatessrc = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "updates", 7))
             flags |= LOADER_FLAGS_UPDATES;
-        else if (!strcasecmp(argv[i], "isa"))
-            flags |= LOADER_FLAGS_ISA;
         else if (!strncasecmp(argv[i], "dd=", 3) || 
                  !strncasecmp(argv[i], "driverdisk=", 11)) {
             loaderData->ddsrc = strdup(argv[i] + 
@@ -1672,7 +1662,7 @@ int main(int argc, char ** argv) {
     loaderData.modDepsPtr = &modDeps;
     loaderData.modInfo = modInfo;
 
-    if (!canProbeDevices() || FL_MODDISK(flags)) {
+    if (FL_MODDISK(flags)) {
         startNewt();
 
         loadDriverDisks(CLASS_UNSPEC, &loaderData);
@@ -1760,8 +1750,7 @@ int main(int argc, char ** argv) {
 
     checkForHardDrives();
 
-    if ((!canProbeDevices() || FL_ISA(flags) || FL_NOPROBE(flags))
-        && !loaderData.ksFile) {
+    if (FL_NOPROBE(flags) && !loaderData.ksFile) {
         startNewt();
         manualDeviceCheck(&loaderData);
     }

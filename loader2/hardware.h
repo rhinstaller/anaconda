@@ -3,8 +3,6 @@
 
 #include "modules.h"
 
-int canProbeDevices(void);
-
 int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
                       moduleInfoSet modInfo);
 

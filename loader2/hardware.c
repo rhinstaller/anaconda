@@ -39,25 +39,6 @@
 /* boot flags */
 extern uint64_t flags;
 
-/* returns whether or not we can probe devices automatically or have to 
- * ask for them manually. */
-int canProbeDevices(void) {
-#if defined(__s390__) || defined(__s390x__)
-    return 1;
-#endif
-
-    /* we don't support anything like ISA anymore, so we should always 
-     * be able to probe */
-    return 1;
-
-    if ((access("/proc/bus/pci/devices", R_OK) &&
-         access("/proc/openprom", R_OK) &&
-         access("/proc/iSeries", R_OK)))
-        return 0;
-
-    return 1;    
-}
-
 static int detectHardware(moduleInfoSet modInfo, char *** modules) {
     struct device ** devices, ** device;
     char ** modList;
@@ -218,28 +199,26 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 
     /* we can't really *probe* on iSeries, but we can pretend */
     probeiSeries(modInfo, modLoaded, modDeps);
-    
-    if (canProbeDevices()) {
-        /* autodetect whatever we can */
-        if (detectHardware(modInfo, &modList)) {
-            logMessage(ERROR, "failed to scan pci bus!");
-            return 0;
-        } else if (modList && justProbe) {
-            for (i = 0; modList[i]; i++)
-                printf("%s\n", modList[i]);
-        } else if (modList) {
-            *modules = '\0';
-            
-            for (i = 0; modList[i]; i++) {
-                if (i) strcat(modules, ":");
-                strcat(modules, modList[i]);
-            }
-            
-            mlLoadModuleSet(modules, modLoaded, modDeps, modInfo);
-        } else 
-            logMessage(INFO, "found nothing");
-    }
-    
+
+    /* autodetect whatever we can */
+    if (detectHardware(modInfo, &modList)) {
+        logMessage(ERROR, "failed to scan pci bus!");
+        return 0;
+    } else if (modList && justProbe) {
+        for (i = 0; modList[i]; i++)
+            printf("%s\n", modList[i]);
+    } else if (modList) {
+        *modules = '\0';
+
+        for (i = 0; modList[i]; i++) {
+            if (i) strcat(modules, ":");
+            strcat(modules, modList[i]);
+        }
+
+        mlLoadModuleSet(modules, modLoaded, modDeps, modInfo);
+    } else 
+        logMessage(INFO, "found nothing");
+
     return 0;
 }
 

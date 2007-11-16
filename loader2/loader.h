@@ -19,7 +19,7 @@
 #define LOADER_FLAGS_POWEROFF           (((uint64_t) 1) << 6)
 #define LOADER_FLAGS_NONET              (((uint64_t) 1) << 7)
 #define LOADER_FLAGS_MODDISK            (((uint64_t) 1) << 8)
-#define LOADER_FLAGS_ISA                (((uint64_t) 1) << 9)
+/* #9 is the most delicious of all flags, also available for use */
 #define LOADER_FLAGS_SERIAL             (((uint64_t) 1) << 10)
 #define LOADER_FLAGS_UPDATES            (((uint64_t) 1) << 11)
 #define LOADER_FLAGS_KSFILE             (((uint64_t) 1) << 12)
@@ -57,7 +57,6 @@
 #define FL_POWEROFF(a)           ((a) & LOADER_FLAGS_POWEROFF)
 #define FL_NONET(a)              ((a) & LOADER_FLAGS_NONET)
 #define FL_MODDISK(a)            ((a) & LOADER_FLAGS_MODDISK)
-#define FL_ISA(a)                ((a) & LOADER_FLAGS_ISA)
 #define FL_SERIAL(a)             ((a) & LOADER_FLAGS_SERIAL)
 #define FL_UPDATES(a)            ((a) & LOADER_FLAGS_UPDATES)
 #define FL_KSFILE(a)             ((a) & LOADER_FLAGS_KSFILE)
