@@ -404,10 +404,10 @@ class AnacondaYum(YumSorter):
         # Whenever we have run out of mirrors the grabber's get/open/retrieve
         # method will raise a URLGrabError exception with errno 256.
         grab = self.repos.getRepo(kwargs["repo"]).grab
-        log.warning("Failed to get %s from mirror %d/%d" % (obj.url, 
-                                                            grab._next + 1,
-                                                            len(grab.mirrors)))
-        
+        log.warning("Failed to get %s from mirror %d/%d, "
+                    "or downloaded file is corrupt" % (obj.url, grab._next + 1,
+                                                       len(grab.mirrors)))
+
         if self.method.currentMedia:
             if kwargs.get("tsInfo") and kwargs["tsInfo"].curmedia > 0:
                 self.prevmedia = kwargs["tsInfo"].curmedia
