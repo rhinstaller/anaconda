@@ -145,7 +145,7 @@ class AnacondaCallback:
 
             repo = self.repos.getRepo(po.repoid)
 
-            s = str(_("<b>Installing %s</b> (%s)\n") %(po, size_string(hdr['size'])))
+            s = _("<b>Installing %s</b> (%s)\n") %(str(po), size_string(hdr['size']))
             s += (hdr['summary'] or "")
             self.progress.set_label(s)
 
