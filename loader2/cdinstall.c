@@ -356,7 +356,8 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                     }
 
                     /* do the media check */
-                    queryCDMediaCheck(devices[i]->device, location);
+                    if (requirepkgs)
+                        queryCDMediaCheck(devices[i]->device, location);
 
                     /* if in rescue mode and we copied stage2 to RAM */
                     /* we can now unmount the CD                     */
