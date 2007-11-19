@@ -15,6 +15,7 @@
 #
 
 import os, sys, iutil
+import isys
 import string
 import language
 import rhpl
