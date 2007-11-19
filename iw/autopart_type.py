@@ -246,6 +246,14 @@ class PartitionTypeWindow(InstallWindow):
         import iscsi
         if not iscsi.has_iscsi():
             dxml.get_widget("iscsiRadio").set_sensitive(False)
+            dxml.get_widget("iscsiRadio").set_active(False)
+
+        #figure out what advanced devices we have available and set sensible default
+        group = dxml.get_widget("iscsiRadio").get_group()
+        for button in group:
+            if button is not None and button.get_property("sensitive"):
+                button.set_active(True)
+                break
         
         rc = dialog.run()
         dialog.hide()
