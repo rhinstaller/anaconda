@@ -799,7 +799,8 @@ class YumBackend(AnacondaBackend):
 
         # FIXME: this is a bit of a hack.  we shouldn't hard-code and
         # instead check by provides.  but alas.
-        for k in ("kernel", "kernel-smp", "kernel-xen0", "kernel-xen"):
+        for k in ("kernel", "kernel-smp", "kernel-xen0", "kernel-xen",
+                  "kernel-PAE"):
             if len(self.ayum.tsInfo.matchNaevr(name=k)) > 0:
                 self.selectModulePackages(anaconda, k)
                 foundkernel = True
@@ -1239,7 +1240,8 @@ class YumBackend(AnacondaBackend):
         for (ktag, nick) in [ ('kernel-smp', 'smp'),
                               ('kernel-xen0', 'xen0'),
                               ('kernel-xenU', 'xenU'),
-                              ('kernel-xen', 'xen')]:
+                              ('kernel-xen', 'xen'),
+                              ('kernel-PAE', 'pae']:
             tag = ktag.rsplit('-', 1)[1]
             for tsmbr in filter(lambda p: p.output_state in TS_INSTALL_STATES, 
                                 self.ayum.tsInfo.matchNaevr(name=ktag)):
