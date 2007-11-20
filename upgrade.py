@@ -437,6 +437,7 @@ def setSteps(anaconda):
                 "instbootloader",
                 "dopostaction",
                 "methodcomplete",
+                "postscripts",
                 "copylogs",
                 "complete"
             )
