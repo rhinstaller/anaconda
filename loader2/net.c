@@ -177,7 +177,6 @@ static int waitForLink(char * dev) {
 	logMessage(DEBUGLVL, "sleep (nicdelay) for %d secs first", post_link_sleep);
 	sleep(post_link_sleep);
 	logMessage(DEBUGLVL, "continuing...");
-
         return 0;
     }
 
