@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage() {
-	echo "Usage: buildinstall [--pkgorder <file>] [--version <version>] [--product <product>] [--release <comment>] [--prodpath <path>] [--discs <discstring>] <root>" >&2
+  echo "Usage: buildinstall [--pkgorder <file>] [--comps <file>] [--version <version>] [--product <product>] [--release <comment>] [--prodpath <path>] [--discs <discstring>] <root>" >&2
 	exit 1
 }
 
@@ -16,6 +16,10 @@ while [ $# -gt 0 ]; do
 	    ;;
 	--comp)
 	    COMPNAME=$2
+	    shift; shift
+	    ;;
+	--comps)
+	    COMPSFILE=$2
 	    shift; shift
 	    ;;
 	--version)
@@ -89,6 +93,10 @@ if [ -z "$BUGURL" ]; then
     BUGURL="your distribution provided bug reporting tool."
 fi
 
+if [ -z "$COMPSFILE" ]; then
+    COMPSFILE="$PRODUCTPATH/base/comps.xml"
+fi
+
 p=`cd $DIR; /bin/pwd`
 if [ -d $DIR/$PRODUCTPATH/RPMS ]; then
     PKGDIR=$p/$PRODUCTPATH/RPMS
@@ -141,7 +149,7 @@ echo "Building images..."
 $UPD_INSTROOT $DEBUGSTR $NOGRSTR $PKGDIR $TREEDIR/image-template $TREEDIR/instimage
 
 echo "Creating repository metadata..."
-createrepo -g $PRODUCTPATH/base/comps.xml -q $p
+createrepo -g "$COMPSFILE" -q $p
 
 if [ -n "$PKGORDER" ]; then
     echo "Getting package order..."
