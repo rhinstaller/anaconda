@@ -12,7 +12,7 @@
 
 
 static void usage(void) {
-    fprintf(stderr, "implantisomd5:         implantisomd5 [--force] [--supported] <isofilename>\n");
+    fprintf(stderr, "implantisomd5:         implantisomd5 [--force] [--supported-iso] <isofilename>\n");
     exit(1);
 }
 
