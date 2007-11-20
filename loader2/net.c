@@ -150,12 +150,14 @@ static void v6MethodCallback(newtComponent co, void *dptr) {
 
 static int waitForLink(char * dev) {
     extern int num_link_checks;
+    extern int post_link_sleep;
     int tries = 0;
 
     /* try to wait for a valid link -- if the status is unknown or
      * up continue, else sleep for 1 second and try again for up
      * to five times */
     logMessage(DEBUGLVL, "waiting for link %s...", dev);
+
     while (tries < num_link_checks) {
       if (get_link_status(dev) != 0)
             break;
@@ -163,8 +165,16 @@ static int waitForLink(char * dev) {
         tries++;
     }
     logMessage(DEBUGLVL, "   %d seconds.", tries);
-    if (tries < num_link_checks)
+    if (tries < num_link_checks){
+	/* Networks with STP set up will give link when the port
+	 * is isolated from the network, and won't forward packets
+	 * until they decide we're not a switch. */
+	logMessage(DEBUGLVL, "sleep (nicdelay) for %d secs first", post_link_sleep);
+	sleep(post_link_sleep);
+	logMessage(DEBUGLVL, "continuing...");
         return 0;
+    }
+
     logMessage(WARNING, "    no network link detected on %s", dev);
     return 1;
 }
