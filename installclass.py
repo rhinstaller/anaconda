@@ -437,7 +437,7 @@ class BaseInstallClass:
 
 
     def setInstallData(self, anaconda):
-	anaconda.id.reset(anaconda)
+	anaconda.id.reset()
 	anaconda.id.instClass = self
 
 	# Classes should call these on __init__ to set up install data

@@ -152,7 +152,7 @@ class AnacondaBackend:
         pass
 
     # write out the %packages section of anaconda-ks.cfg
-    def writePackagesKS(self, f):
+    def writePackagesKS(self, f, anaconda):
         log.warning("writePackagesKS not implemented for backend!")
         pass
 
@@ -194,5 +194,5 @@ def writeConfiguration(anaconda):
     log.info("Writing main configuration")
     if not flags.test:
         anaconda.backend.writeConfiguration()
-        anaconda.id.write(anaconda)
+        anaconda.id.write()
    

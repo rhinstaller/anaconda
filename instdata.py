@@ -44,7 +44,7 @@ log = logging.getLogger("anaconda")
 
 class InstallData:
 
-    def reset(self, anaconda):
+    def reset(self):
 	# Reset everything except: 
 	#
 	#	- The mouse
@@ -65,7 +65,7 @@ class InstallData:
 	self.upgrade = None
         # XXX move fsset and/or diskset into Partitions object?
 	self.fsset.reset()
-        self.diskset = partedUtils.DiskSet(anaconda)
+        self.diskset = partedUtils.DiskSet(self.anaconda)
         self.partitions = partitions.Partitions()
         self.bootloader = bootloader.getBootloader()
         self.dependencies = []
@@ -131,18 +131,18 @@ class InstallData:
     def setUpgrade (self, bool):
         self.upgrade = bool
 
-    def write(self, anaconda):
+    def write(self):
         if self.auth.find("--enablemd5"):
             useMD5 = True
         else:
             useMD5 = False
 
-        self.instLanguage.write (anaconda.rootPath)
+        self.instLanguage.write (self.anaconda.rootPath)
 
         if not self.isHeadless:
-            self.keyboard.write (anaconda.rootPath)
+            self.keyboard.write (self.anaconda.rootPath)
             
-        self.timezone.write (anaconda.rootPath)
+        self.timezone.write (self.anaconda.rootPath)
 
         args = ["--update", "--nostart"] + self.auth.split()
 
@@ -150,14 +150,14 @@ class InstallData:
             if not flags.test:
                 iutil.execWithRedirect("/usr/sbin/authconfig", args,
                                        stdout = None, stderr = None,
-                                       root = anaconda.rootPath)
+                                       root = self.anaconda.rootPath)
             else:
                 log.error("Would have run: %s", args)
         except RuntimeError, msg:
                 log.error("Error running %s: %s", args, msg)
 	
-	self.firewall.write (anaconda.rootPath)
-        self.security.write (anaconda.rootPath)
+	self.firewall.write (self.anaconda.rootPath)
+        self.security.write (self.anaconda.rootPath)
 
         self.users = users.Users()
 
@@ -169,7 +169,7 @@ class InstallData:
         if flags.mpath:
             svc = 'multipathd'
 
-            if anaconda.isKickstart:
+            if self.anaconda.isKickstart:
                 try:
                     hasSvc = self.ksdata.services["enabled"].index(svc)
                 except:
@@ -178,32 +178,32 @@ class InstallData:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        [svc, "on"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
-                                       root=anaconda.rootPath)
+                                       root=self.anaconda.rootPath)
 
-        if anaconda.isKickstart:
+        if self.anaconda.isKickstart:
             for svc in self.ksdata.services["disabled"]:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        [svc, "off"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
-                                       root=anaconda.rootPath)
+                                       root=self.anaconda.rootPath)
 
             for svc in self.ksdata.services["enabled"]:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        [svc, "on"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
-                                       root=anaconda.rootPath)
+                                       root=self.anaconda.rootPath)
 
             for ud in self.ksdata.userList:
                 if self.users.createUser(ud.name, ud.password, ud.isCrypted,
                                          ud.groups, ud.homedir, ud.shell,
-                                         ud.uid, root=anaconda.rootPath) == None:
+                                         ud.uid, root=self.anaconda.rootPath) == None:
                     log.error("User %s already exists, not creating." % ud.name)
 
-        if anaconda.id.instClass.installkey and os.path.exists(anaconda.rootPath + "/etc/sysconfig/rhn"):
-            f = open(anaconda.rootPath + "/etc/sysconfig/rhn/install-num", "w+")
-            f.write("%s\n" %(anaconda.id.instClass.installkey,))
+        if self.anaconda.id.instClass.installkey and os.path.exists(self.anaconda.rootPath + "/etc/sysconfig/rhn"):
+            f = open(self.anaconda.rootPath + "/etc/sysconfig/rhn/install-num", "w+")
+            f.write("%s\n" %(self.anaconda.id.instClass.installkey,))
             f.close()
-            os.chmod(anaconda.rootPath + "/etc/sysconfig/rhn/install-num",
+            os.chmod(self.anaconda.rootPath + "/etc/sysconfig/rhn/install-num",
                      0600)
 
     def writeKS(self, filename):
@@ -280,7 +280,7 @@ class InstallData:
 
         if self.backend is not None:
             self.backend.writeKS(f)
-            self.backend.writePackagesKS(f)
+            self.backend.writePackagesKS(f, self.anaconda)
 
         # make it so only root can read, could have password
         os.chmod(filename, 0600)
@@ -292,6 +292,7 @@ class InstallData:
 	self.instLanguage = language.Language(self.displayMode)
 	self.keyboard = keyboard.Keyboard()
         self.backend = backend
+        self.anaconda = anaconda
 
         self.mouse = None
         self.monitor = None
@@ -307,4 +308,4 @@ class InstallData:
             self.excludeDocs = 1
 
         self.methodstr = methodstr
-	self.reset(anaconda)
+	self.reset()
