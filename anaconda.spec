@@ -36,7 +36,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define desktopfileutilsver 0.8
 
 BuildRequires: audit-libs-devel
-BuildRequires: beecrypt-devel
 BuildRequires: booty
 BuildRequires: bzip2-devel
 BuildRequires: device-mapper-devel >= %{dmver}
@@ -64,7 +63,6 @@ BuildRequires: pykickstart >= %{pykickstartver}
 BuildRequires: python-devel
 BuildRequires: python-urlgrabber
 BuildRequires: rhpl
-BuildRequires: rpm-devel
 BuildRequires: rpm-python >= %{rpmpythonver}
 BuildRequires: slang-static >= %{slangver}
 BuildRequires: yum >= %{yumver}
