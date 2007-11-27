@@ -1184,7 +1184,10 @@ class YumBackend(AnacondaBackend):
 
         if not anaconda.id.upgrade:
             rpm.addMacro("__dbi_htconfig",
-                         "hash nofsync %{__dbi_other} %{__dbi_perms}")        
+                         "hash nofsync %{__dbi_other} %{__dbi_perms}")
+
+        if anaconda.isKickstart and anaconda.id.ksdata.packages.excludeDocs:
+            rpm.addMacro("_excludedocs", "1")
 
         cb = AnacondaCallback(self.ayum, anaconda,
                               self.instLog, self.modeText)
