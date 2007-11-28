@@ -21,6 +21,7 @@ import parted
 import math
 import os, sys, string, struct, resource
 
+from exception import formatException
 from product import *
 import fsset
 import iutil, isys
@@ -1105,9 +1106,9 @@ class DiskSet:
                 log.error("parted error: %s" % (msg,))
                 raise
         except:
-            exc = sys.exc_info()
-            exc = traceback.format_exception(*exc)
-            for line in exc.splitlines():
+            (type, value, tb) = sys.exc_info()
+            lines = formatException(type, value, tb)
+            for line in lines:
                 log.error(line)
             self._removeDisk(drive)
             raise LabelError, drive
@@ -1239,9 +1240,9 @@ class DiskSet:
                     if rc == 0:
                         sys.exit(0)
                 else:
-                    exc = sys.exc_info()
-                    exc = traceback.format_exception(*exc)
-                    for line in exc.splitlines():
+                    (type, value, tb) = sys.exc_info()
+                    lines = formatException(type, value, tb)
+                    for line in lines:
                         log.error(line)
                     log.error(str)
                     sys.exit(0)
