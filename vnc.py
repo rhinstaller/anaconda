@@ -45,7 +45,7 @@ class VncServer:
         self.log_file = log_file
         self.pw_file = pw_file
         self.pw_init_file = pw_init_file
-        #self.connxinfo = self.name+":"+self.display
+        self.connxinfo = None
         self.log = logging.getLogger("anaconda.stdout")
 
     def recoverVNCPassword(self):
