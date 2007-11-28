@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.1
+Version: 11.4.0.2
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -65,6 +65,7 @@ BuildRequires: python-urlgrabber
 BuildRequires: rhpl
 BuildRequires: rpm-python >= %{rpmpythonver}
 BuildRequires: slang-static >= %{slangver}
+BuildRequires: xmlto
 BuildRequires: yum >= %{yumver}
 BuildRequires: zlib-devel, zlib-static
 %ifarch %livearches
@@ -214,6 +215,25 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 28 2007 Chris Lumens <clumens@redhat.com> 11.4.0.2-1
+- Include libuser support libraries.
+- Include nss libraries so rpm works again (#396851).
+- Fix a traceback starting vnc mode.
+- Make --excludedocs work again (#401651).
+- Probe for USB on more busses (dwmw2, #401821).
+- Add linear.ko to the modules available for rescue mode (#151742).
+- Update implantisomd5 usage to give correct option name (#364611).
+- Start removing unneeded install method code.
+- Run %post scripts on upgrade (#392201).
+- Correct nicdelay patch (msivak, #349521).
+- Only run media check if we're installing off the CD (#362561).
+- Fix display of package names in non-English text installs (#376231).
+- Import isys (katzj, #390141).
+- Fully handle pae kernel (katzj, #388231).
+- Add initial support for encrypted block devices (dlehman).
+- Strip out the wiki markup from docs (Paul Frields, #387341).
+- Update Romanian keyboard layout and console font (#386751).
+
 * Thu Nov 15 2007 Chris Lumens <clumens@redhat.com> 11.4.0.1-1
 - Pull in the /lib/ld-linux.so.2 symlink to stage2.
 - Don't segfault on unpartitioned updates devices (#372011).

@@ -9,7 +9,7 @@ kickstart-docs.txt:
 	xmlto --skip-validation txt kickstart-docs.xml
 
 clean:
-	rm -rf kickstart-docs.txt command-line.txt api
+	rm -rf kickstart-docs.txt command-line.txt api *.xml
 
 depend:
 
