@@ -407,6 +407,11 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             disk = freespace.disk
 
             startSec = freeStartSec
+
+	    # For alpha reserve space at the begining of disk
+	    if iutil.getArch() == "alpha" and startSec < long((1024L * 1024L)/disk.dev.sector_size):
+		startSec = long((2 * 1024L * 1024L)/disk.dev.sector_size)
+
             endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sector_size)) - 1
 
             if endSec > freeEndSec:
