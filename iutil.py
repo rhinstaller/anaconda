@@ -96,6 +96,66 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
     pipe.wait()
     return rc
 
+def execWithPulseProgress(command, argv, stdin = 0, stdout = 1, stderr = 2,
+                          progress = None, root = '/'):
+    def chroot():
+        os.chroot(root)
+
+    argv = list(argv)
+    if type(stdin) == type("string"):
+        if os.access(stdin, os.R_OK):
+            stdin = open(stdin)
+        else:
+            stdin = 0
+    if type(stdout) == type("string"):
+        stdout = open(stdout, "w")
+    if type(stderr) == type("string"):
+        stderr = open(stderr, "w")
+
+    p = os.pipe()
+    childpid = os.fork()
+    if not childpid:
+        os.close(p[0])
+        os.dup2(p[1], 1)
+        os.dup2(stderr.fileno(), 2)
+        os.close(p[1])
+        stderr.close()
+
+        os.execvp(command, [command] + argv)
+        os._exit(1)
+
+    os.close(p[1])
+
+    while 1:
+        try:
+            s = os.read(p[0], 1)
+        except OSError, args:
+            (num, str) = args
+            if (num != 4):
+                raise IOError, args
+
+        stdout.write(s)
+        if progress: progress.pulse()
+
+        if len(s) < 1:
+            break
+
+    try:
+        (pid, status) = os.waitpid(childpid, 0)
+    except OSError, (num, msg):
+        log.critical("exception from waitpid: %s %s" %(num, msg))
+
+    progress and progress.pop()
+
+    # *shrug*  no clue why this would happen, but hope that things are fine
+    if status is None:
+        return 0
+
+    if os.WIFEXITED(status):
+        return os.WEXITSTATUS(status)
+
+    return 1
+
 ## Run a shell.
 def execConsole():
     try:
