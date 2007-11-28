@@ -479,25 +479,15 @@ class VolumeGroupEditor:
                 format = 1
                 migrate = 0
             else:
-		if self.fsoptionsDict.has_key("formatrb"):
-		    formatrb = self.fsoptionsDict["formatrb"]
-		else:
-		    formatrb = None
-
-		if formatrb:
-                    format = formatrb.get_active()
+		if self.fsoptionsDict.has_key("formatcb"):
+                    format = self.fsoptionsDict["formatcb"].get_active()
                     if format:
                         fsystem = self.fsoptionsDict["fstypeCombo"].get_active_value()
                 else:
                     format = 0
 
-		if self.fsoptionsDict.has_key("migraterb"):
-		    migraterb = self.fsoptionsDict["migraterb"]
-		else:
-		    migraterb = None
-		    
-		if migraterb:
-                    migrate = migraterb.get_active()
+		if self.fsoptionsDict.has_key("migratecb"):
+		    migrate = self.fsoptionsDict["migratecb"].get_active()
                     if migrate:
                         fsystem = self.fsoptionsDict["migfstypeCombo"].get_active_value()
                 else:

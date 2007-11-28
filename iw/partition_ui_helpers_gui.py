@@ -29,6 +29,11 @@ from partedUtils import *
 import rhpl
 from rhpl.translate import _, N_
 
+def istruefalse(val):
+    if val is None or not val:
+        return False
+    return True
+
 class WideCheckList(checklist.CheckList):
     def toggled_item(self, data, row):
 
@@ -206,6 +211,9 @@ def mountptchangeCB(widget, fstypecombo):
     if rhpl.getArch() == "ia64" and widget.get_children()[0].get_text() == "/boot/efi":
         fstypecombo.set_active_text("vfat")
 
+def resizeOptionCB(widget, resizesb):
+    resizesb.set_sensitive(widget.get_active())
+
 def formatOptionCB(widget, data):
     (combowidget, mntptcombo, ofstype, lukscb) = data
     combowidget.set_sensitive(widget.get_active())
@@ -239,99 +247,94 @@ def noformatCB(widget, data):
 
     Returns the value of row after packing into the maintable,
     and a dictionary consistenting of:
-       noformatrb    - radiobutton for 'leave fs unchanged'
-       formatrb      - radiobutton for 'format as new fs'
+       noformatcb    - checkbutton for 'format as new fs'
        fstype        - part of format fstype menu
        fstypeMenu    - part of format fstype menu
-       migraterb     - radiobutton for migrate fs
-       migfstype     - menu for migrate fs types
+       migratecb     - checkbutton for migrate fs
        migfstypeMenu - menu for migrate fs types
        lukscb        - checkbutton for 'encrypt using LUKS/dm-crypt'
+       resizecb      - checkbutton for 'resize fs'
+       resizesb      - spinbutton with resize target
 """
 def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
                                   ignorefs=[]):
+    rc = {}
     ofstype = origrequest.fstype
 
-    maintable.attach(gtk.HSeparator(), 0, 2, row, row + 1)
-    row = row + 1
+    formatcb = gtk.CheckButton(label=_("_Format as:"))
+    maintable.attach(formatcb, 0, 1, row, row + 1)
+    formatcb.set_active(istruefalse(origrequest.format))
+    rc["formatcb"] = formatcb
 
-    label = gtk.Label(_("How would you like to prepare the file system "
-		       "on this partition?"))
-    label.set_line_wrap(1)
-    label.set_alignment(0.0, 0.0)
-
-    maintable.attach(label, 0, 2, row, row + 1)
-    row = row + 1
-
-    noformatrb = gtk.RadioButton(label=_("Leave _unchanged "
-					 "(preserve data)"))
-    noformatrb.set_active(1)
-    maintable.attach(noformatrb, 0, 2, row, row + 1)
-    row = row + 1
-
-    formatrb = gtk.RadioButton(label=_("_Format partition as:"),
-				    group=noformatrb)
-    formatrb.set_active(0)
-    if origrequest.format:
-	formatrb.set_active(1)
-
-    maintable.attach(formatrb, 0, 1, row, row + 1)
     fstypeCombo = createFSTypeMenu(ofstype, fstypechangeCB,
                                    mountCombo, ignorefs=ignorefs)
-    fstypeCombo.set_sensitive(formatrb.get_active())
+    fstypeCombo.set_sensitive(formatcb.get_active())
     maintable.attach(fstypeCombo, 1, 2, row, row + 1)
-    row = row + 1
+    row += 1
+    rc["fstypeCombo"] = fstypeCombo
 
-    if not formatrb.get_active() and not origrequest.migrate:
+    if not formatcb.get_active() and not origrequest.migrate:
 	mountCombo.set_data("prevmountable", ofstype.isMountable())
 
     # this gets added to the table a bit later on
     lukscb = gtk.CheckButton(_("_Encrypt"))
 
-    formatrb.connect("toggled", formatOptionCB,
+    formatcb.connect("toggled", formatOptionCB,
 		     (fstypeCombo, mountCombo, ofstype, lukscb))
 
-    noformatrb.connect("toggled", noformatCB,
-		     (fstypeCombo, mountCombo, origrequest.origfstype))
 
     if origrequest.origfstype.isMigratable():
-	migraterb = gtk.RadioButton(label=_("Mi_grate partition to:"),
-				    group=noformatrb)
-	migraterb.set_active(0)
-	if origrequest.migrate:
-	    migraterb.set_active(1)
+	migratecb = gtk.CheckButton(label=_("Mi_grate filesystem to:"))
+        migratecb.set_active(istruefalse(origrequest.migrate))
 
 	migtypes = origrequest.origfstype.getMigratableFSTargets()
 
-	maintable.attach(migraterb, 0, 1, row, row + 1)
+	maintable.attach(migratecb, 0, 1, row, row + 1)
 	migfstypeCombo = createFSTypeMenu(ofstype, None, None,
                                           availablefstypes = migtypes)
-	migfstypeCombo.set_sensitive(migraterb.get_active())
+	migfstypeCombo.set_sensitive(migratecb.get_active())
 	maintable.attach(migfstypeCombo, 1, 2, row, row + 1)
 	row = row + 1
-
-	migraterb.connect("toggled", formatOptionCB,
+        rc["migratecb"] = migratecb
+        rc["migfstypeCombo"] = migfstypeCombo
+	migratecb.connect("toggled", formatOptionCB,
                           (migfstypeCombo, mountCombo, ofstype, None))
     else:
-	migraterb = None
+	migratecb = None
 	migfstypeCombo = None
 
-    row = row + 1
+    # FIXME: we should support resizing LVs too
+    if origrequest.origfstype.isResizable() and origrequest.type == REQUEST_PREEXIST:
+        resizecb = gtk.CheckButton(label=_("_Resize partition"))
+        resizecb.set_active(origrequest.targetSize is not None)
+        rc["resizecb"] = resizecb
+        maintable.attach(resizecb, 0, 1, row, row + 1)
 
-    if origrequest.encryption and formatrb.get_active():
+        if origrequest.targetSize is not None:
+            value = origrequest.targetSize
+        else:
+            value = origrequest.size
+        adj = gtk.Adjustment(value = value,
+                             lower = origrequest.getMinimumResizeMB(),
+                             upper = origrequest.getMaximumResizeMB(),
+                             step_incr = 1)
+        resizesb = gtk.SpinButton(adj, digits = 0)
+        resizesb.set_property('numeric', True)
+        rc["resizesb"] = resizesb
+        maintable.attach(resizesb, 1, 2, row, row + 1)
+        resizecb.connect('toggled', resizeOptionCB, resizesb)
+        resizeOptionCB(resizecb, resizesb)
+        row = row + 1
+
+    if origrequest.encryption and formatcb.get_active():
         # probably never happen
         lukscb.set_active(1)
 
-    lukscb.set_sensitive(formatrb.get_active())
-    lukscb.set_data("formatstate", formatrb.get_active())
+    lukscb.set_sensitive(formatcb.get_active())
+    lukscb.set_data("formatstate", formatcb.get_active())
+    rc["lukscb"] = lukscb
     maintable.attach(lukscb, 0, 2, row, row + 1)
     row = row + 1
-
-    rc = {}
-    for var in ['noformatrb', 'formatrb', 'fstypeCombo',
-                'migraterb', 'migfstypeCombo', 'lukscb']:
-        if eval("%s" % (var,)) is not None:
-            rc[var] = eval("%s" % (var,))
 
     return (row, rc)
 

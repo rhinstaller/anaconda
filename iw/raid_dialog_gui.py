@@ -183,27 +183,17 @@ class RaidEditor:
                 else:
                     request.encryption = None
 	    else:
-		if self.fsoptionsDict.has_key("formatrb"):
-		    formatrb = self.fsoptionsDict["formatrb"]
-		else:
-		    formatrb = None
-
-		if formatrb:
-                    request.format = formatrb.get_active()
+		if self.fsoptionsDict.has_key("formatcb"):
+                    request.format = self.fsoptionsDict["formatcb"].get_active()
                     if request.format:
-                        request.fstype = self.fsoptionsDict["fstypeCombo"].get_active_value()
+                        request.fsystem = self.fsoptionsDict["fstypeCombo"].get_active_value()
                 else:
                     request.format = 0
 
-		if self.fsoptionsDict.has_key("migraterb"):
-		    migraterb = self.fsoptionsDict["migraterb"]
-		else:
-		    migraterb = None
-		    
-		if migraterb:
-                    request.migrate = migraterb.get_active()
+		if self.fsoptionsDict.has_key("migratecb"):
+		    request.migrate = self.fsoptionsDict["migratecb"].get_active()
                     if request.migrate:
-                        request.fstype =self.fsoptionsDict["migfstypeCombo"].get_active_value()
+                        request.fsystem = self.fsoptionsDict["migfstypeCombo"].get_active_value()
                 else:
                     request.migrate = 0
 

@@ -206,29 +206,25 @@ class PartitionEditor:
                 # preexisting partition, just set mount point and format flag
                 request = copy.copy(self.origrequest)
 		
-		if self.fsoptionsDict.has_key("formatrb"):
-		    formatrb = self.fsoptionsDict["formatrb"]
-		else:
-		    formatrb = None
-
-		if formatrb:
-                    request.format = formatrb.get_active()
+		if self.fsoptionsDict.has_key("formatcb"):
+                    request.format = self.fsoptionsDict["formatcb"].get_active()
                     if request.format:
                         request.fstype = self.fsoptionsDict["fstypeCombo"].get_active_value()
                 else:
                     request.format = 0
 
-		if self.fsoptionsDict.has_key("migraterb"):
-		    migraterb = self.fsoptionsDict["migraterb"]
-		else:
-		    migraterb = None
-		    
-		if migraterb:
-                    request.migrate = migraterb.get_active()
+		if self.fsoptionsDict.has_key("migratecb"):
+                    request.migrate = self.fsoptionsDict["migratecb"].get_active()
                     if request.migrate:
                         request.fstype =self.fsoptionsDict["migfstypeCombo"].get_active_value()
                 else:
                     request.migrate = 0
+
+                if self.fsoptionsDict.has_key("resizecb") and self.fsoptionsDict["resizecb"].get_active():
+                    request.targetSize = self.fsoptionsDict["resizesb"].get_value_as_int()
+                else:
+                    request.targetSize = None
+                print "the target size for %s is %s" %(request.mountpoint, request.targetSize)
 
                 # set back if we are not formatting or migrating
 		origfstype = self.origrequest.origfstype
@@ -337,21 +333,6 @@ class PartitionEditor:
 	    lbl.set_mnemonic_widget(self.newfstypeCombo)
             maintable.attach(self.newfstypeCombo, 1, 2, row, row + 1)
         else:
-            maintable.attach(createAlignedLabel(_("Original File System "
-                                                  "Type:")),
-                             0, 1, row, row + 1)
-
-            if self.origrequest.origfstype:
-                typestr = self.origrequest.origfstype.getName()
-                if self.origrequest.origfstype.getName() == "foreign":
-                    part = get_partition_by_name(self.diskset.disks,
-                                                 self.origrequest.device)
-                    typestr = map_foreign_to_fsname(part.native_type)
-            else:
-                typestr = _("Unknown")
-
-            fstypelabel = gtk.Label(typestr)
-            maintable.attach(fstypelabel, 1, 2, row, row + 1)
             self.newfstypeCombo = None
             
         row = row + 1
@@ -455,10 +436,6 @@ class PartitionEditor:
                 cursize = (endsec - startsec)/2048
                 bycyl_sizelabel.set_text("%s" % (int(cursize)))
         else:
-            maintable.attach(createAlignedLabel(_("Size (MB):")),
-                             0, 1, row, row + 1)
-            sizelabel = gtk.Label("%d" % (origrequest.size))
-            maintable.attach(sizelabel, 1, 2, row, row + 1)
             self.sizespin = None
             
         row = row + 1
