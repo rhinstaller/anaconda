@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.2
+Version: 11.4.0.3
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -215,6 +215,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 28 2007 Chris Lumens <clumens@redhat.com> 11.4.0.3-1
+- Fix the build by no longer including broken kernel headers (katzj).
+- Fix tracebacks when printing disk errors (#403501).
+- Fix tracebacks in displaying the text mode exception dialog (#403381).
+
 * Wed Nov 28 2007 Chris Lumens <clumens@redhat.com> 11.4.0.2-1
 - Include libuser support libraries.
 - Include nss libraries so rpm works again (#396851).
