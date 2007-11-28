@@ -491,6 +491,7 @@ usr/lib/python?.?/site-packages/rhpxl
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
+boot/efika.forth
 usr/lib/yaboot/addnote
 usr/lib/yaboot/ofboot
 usr/lib/yaboot/yaboot
@@ -688,6 +689,7 @@ usr/$LIBDIR/python?.?/site-packages/gtk*/gtk
 usr/$LIBDIR/python?.?/site-packages/gtk*
 usr/$LIBDIR/rpm/rpmpopt
 usr/lib/syslinux
+boot/efika.forth
 usr/lib/yaboot
 usr/sbin/chroot
 usr/sbin/ddcprobe
@@ -1130,6 +1132,12 @@ for p in $DEST $DESTGR; do
 	    (cd $p/boot; find -name "*.b") | (cd $p/boot; /bin/cpio --quiet -pdmu $p/usr/lib/anaconda-runtime/boot)
         fi
 
+	# copy bootloader file for ppc
+	if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
+	    mkdir -p $p/usr/lib/anaconda-runtime/boot
+	    cp -af $p/boot/efika.forth $p/usr/lib/anaconda-runtime/boot
+        fi
+	
 	# copy bootloader file for alpha
 	if [ $ARCH = alpha -a $p = $DESTGR ]; then
 	    mkdir -p $p/usr/lib/anaconda-runtime/boot
