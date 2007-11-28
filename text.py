@@ -115,6 +115,9 @@ class ProgressWindow:
         del self.scale
         self.scale = None
 
+    def pulse(self):
+        pass
+
     def set(self, amount):
         self.scale.set(int(float(amount) * self.multiplier))
         self.screen.refresh()
@@ -122,7 +125,7 @@ class ProgressWindow:
     def refresh(self):
         pass
 
-    def __init__(self, screen, title, text, total, updpct = 0.05):
+    def __init__(self, screen, title, text, total, updpct = 0.05, pulse = False):
         self.multiplier = 1
         if total == 1.0:
             self.multiplier = 100
@@ -136,7 +139,8 @@ class ProgressWindow:
 	g.add(t, 0, 0, (0, 0, 0, 1), anchorLeft=1)
 
         self.scale = Scale(int(width), int(float(total) * self.multiplier))
-        g.add(self.scale, 0, 1)
+        if not pulse:
+            g.add(self.scale, 0, 1)
                 
 	g.draw()
 	self.screen.refresh()
@@ -351,8 +355,8 @@ class InstallInterface:
 		pdb.post_mortem(tb)
 	    os._exit(1)
 
-    def progressWindow(self, title, text, total, updpct = 0.05):
-        return ProgressWindow(self.screen, title, text, total, updpct)
+    def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
+        return ProgressWindow(self.screen, title, text, total, updpct, pulse)
 
     def messageWindow(self, title, text, type="ok", default = None,
 		      custom_icon=None, custom_buttons=[]):

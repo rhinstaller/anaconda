@@ -511,7 +511,7 @@ class WaitWindow:
 
 class ProgressWindow:
     def __init__(self, title, text, total, updpct = 0.05, updsecs=10,
-                 parent = None):
+                 parent = None, pulse = False):
         if flags.rootpath or not runningMiniWm():
             self.window = gtk.Window()
             if parent:
@@ -541,6 +541,11 @@ class ProgressWindow:
         rootPushBusyCursor()
 
     def refresh(self):
+        processEvents()
+
+    def pulse(self):
+        self.progress.set_pulse_step(self.updpct)
+        self.progress.pulse()
         processEvents()
 
     def set (self, amount):
@@ -1037,11 +1042,12 @@ class InstallInterface:
         else:
             return WaitWindow (title, text)
 
-    def progressWindow (self, title, text, total, updpct = 0.05):
+    def progressWindow (self, title, text, total, updpct = 0.05, pulse = False):
         if self.icw:
-            return ProgressWindow (title, text, total, updpct, self.icw.window)
+            return ProgressWindow (title, text, total, updpct,
+                                   parent = self.icw.window, pulse = pulse)
         else:
-            return ProgressWindow (title, text, total, updpct)
+            return ProgressWindow (title, text, total, updpct, pulse = pulse)
 
     def packageProgressWindow (self, total, totalSize):
         self.ppw.setSizes (total, totalSize)

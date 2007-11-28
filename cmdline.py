@@ -38,6 +38,9 @@ class ProgressWindow:
     def pop(self):
         print ""
 
+    def pulse(self):
+        pass
+
     def set(self, amount):
         if amount == self.total:
             print _("Completed"),
@@ -45,7 +48,7 @@ class ProgressWindow:
     def refresh(self):
         pass
 
-    def __init__(self, title, text, total, updpct = 0.05):
+    def __init__(self, title, text, total, updpct = 0.05, pulse = False):
         self.total = total
         print text
         print _("In progress...   "),
@@ -61,8 +64,8 @@ class InstallInterface:
     def shutdown(self):
         pass
 
-    def progressWindow(self, title, text, total, updpct = 0.05):
-        return ProgressWindow(title, text, total, updpct)
+    def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
+        return ProgressWindow(title, text, total, updpct, pulse)
 
     def kickstartErrorWindow(self, text):
         s = _("The following error was found while parsing your "
