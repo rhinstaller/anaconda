@@ -228,8 +228,7 @@ class Partitions:
                 spec.device = fsset.PartedPartitionDevice(part).getDevice()
 
                 # set label if makes sense
-                if ptype and ptype.isMountable() and \
-                   (ptype.getName() == "ext2" or ptype.getName() == "ext3"):
+                if ptype and ptype.isMountable():
                     if spec.device in labels.keys():
                         if labels[spec.device] and len(labels[spec.device])>0:
                             spec.fslabel = labels[spec.device]
