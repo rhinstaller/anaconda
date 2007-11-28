@@ -343,7 +343,7 @@ class InstallInterface:
 	    from string import joinfields
 	    list = traceback.format_exception(type, value, tb)
 	    text = joinfields(list, "")
-	    win = MainExceptionWindow(text, "/tmp/anacdump.txt")
+	    win = MainExceptionWindow(text, "/tmp/anacdump.txt", screen=screen)
             win.run()
             rc = win.getrc()
 	    if rc == 1:
@@ -475,7 +475,7 @@ class InstallInterface:
         return exnWin
 
     def saveExceptionWindow(self, anaconda, longTextFile):
-        win = SaveExceptionWindow (anaconda, longTextFile)
+        win = SaveExceptionWindow (anaconda, longTextFile, self.screen)
         return win
 
     def partedExceptionWindow(self, exc):
