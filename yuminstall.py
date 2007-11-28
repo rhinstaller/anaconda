@@ -347,9 +347,9 @@ class AnacondaYum(YumSorter):
         for repo in extraRepos:
             try:
                 self.repos.add(repo)
-                log.info("added repository %s with source URL %s" % (repo.name, repo.baseurl or repo.mirrorlist))
+                log.info("added repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
             except yum.Errors.DuplicateRepoError, e:
-                log.warning("ignoring duplicate repository %s with source URL %s" % (repo.name, repo.baseurl or repo.mirrorlist))
+                log.warning("ignoring duplicate repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
 
         self.doPluginSetup(searchpath=["/usr/lib/yum-plugins",
                                        "/tmp/updates/yum-plugins",
