@@ -1238,7 +1238,7 @@ class YumBackend(AnacondaBackend):
                               ('kernel-xen0', 'xen0'),
                               ('kernel-xenU', 'xenU'),
                               ('kernel-xen', 'xen'),
-                              ('kernel-PAE', 'pae']:
+                              ('kernel-PAE', 'pae') ]:
             tag = ktag.rsplit('-', 1)[1]
             for tsmbr in filter(lambda p: p.output_state in TS_INSTALL_STATES, 
                                 self.ayum.tsInfo.matchNaevr(name=ktag)):
