@@ -202,6 +202,7 @@ class Partitions:
                                                              drive = drive,
                                                              format = format)
                 spec.device = fsset.PartedPartitionDevice(part).getDevice()
+                spec.maxResizeSize = partedUtils.getMaxAvailPartSizeMB(part)
 
                 # set label if makes sense
                 if ptype and ptype.isMountable():

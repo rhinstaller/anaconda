@@ -155,6 +155,9 @@ class RequestSpec:
         self.encryption = None
         """An optional LUKSDevice() describing block device encryption."""
 
+        self.targetSize = None
+        """Size to resize to"""
+
     def __str__(self):
         if self.fstype:
             fsname = self.fstype.getName()
@@ -211,6 +214,9 @@ class RequestSpec:
 
         if self.fslabel:
             entry.setLabel(self.fslabel)
+
+        if self.targetSize and self.fstype.isResizable():
+            entry.setResizeTarget(self.targetSize, self.size)
 
         return entry
 
@@ -575,6 +581,18 @@ class PreexistingPartitionSpec(PartitionSpec):
                                format = format, migrate = migrate,
                                mountpoint = mountpoint, preexist = 1)
         self.type = REQUEST_PREEXIST
+
+        self.maxResizeSize = None
+        """Maximum size of this partition request"""
+
+    def getMaximumResizeMB(self):
+        if self.maxResizeSize is not None:
+            return self.maxResizeSize
+        log.warning("%s doesn't have a max size set" %(self.device,))
+        return MAX_PART_SIZE
+
+    def getMinimumResizeMB(self):
+        return self.fstype.getMinimumSize(self.device)
 
 class RaidRequestSpec(RequestSpec):
     """Request to represent RAID devices."""

@@ -870,6 +870,23 @@ def setPreexistParts(diskset, requests):
         part = disk.next_partition()
         while part:
             if part.geom.start == request.start and part.geom.end == request.end:
+                # if the partition is being resized, we do that now
+                if request.targetSize is not None:
+                    startSec = part.geom.start
+                    endSec = part.geom.start + long(((request.targetSize * 1024L * 1024L) / disk.dev.sector_size)) - 1
+
+                    try:
+                        g = part.geom.duplicate()
+                        g.set_end(endSec)
+                        constraint = g.constraint_exact()
+                        part.set_geometry(constraint, startSec, endSec)
+                    except parted.error, msg:
+                        log.error("error setting geometry for partition %s: %s" %(partedUtils.get_partition_name(part), msg))
+                        raise PartitioningError, _("Error resizing partition %s.\n\n%s") %(partedUtils.get_partition_name(part), msg)
+
+                    if startSec != part.geom.start:
+                        raise PartitioningError, _("Start of partition %s was moved when resizing") %(partedUtils.get_partition_name(part),)
+
                 request.device = partedUtils.get_partition_name(part)
                 if request.fstype:
                     if request.fstype.getName() != request.origfstype.getName():
@@ -992,13 +1009,18 @@ def processPartitioning(diskset, requests, newParts):
     for request in requests.requests:
         if request.type == REQUEST_RAID:
             request.size = request.getActualSize(requests, diskset)
-        if request.type == REQUEST_VG:
+        elif request.type == REQUEST_VG:
             request.size = request.getActualSize(requests, diskset)
-        if request.type == REQUEST_LV:
+        elif request.type == REQUEST_LV:
 	    if request.grow:
 		request.setSize(request.getStartSize())
 	    else:
 		request.size = request.getActualSize(requests, diskset)
+        elif request.preexist:
+            # we need to keep track of the max size of preexisting partitions
+            # FIXME: we should also get the max size for LVs at some point
+            part = partedUtils.get_partition_by_name(diskset.disks, request.device)
+            request.maxResizeSize = partedUtils.getMaxAvailPartSizeMB(part)
 
 ##     print "disk layout after everything is done"
 ##     print diskset.diskState()

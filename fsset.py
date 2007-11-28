@@ -2,6 +2,7 @@
 # fsset.py: filesystem management
 #
 # Matt Wilson <msw@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
 #
 # Copyright 2001-2007 Red Hat, Inc.
 #
@@ -177,9 +178,18 @@ class FileSystemType:
         self.extraFormatArgs = []
         self.maxLabelChars = 16
         self.packages = []
+        self.resizable = False
         self.supportsFsProfiles = False
         self.fsProfileSpecifier = None
         self.fsprofile = None
+
+    def isResizable(self):
+        return self.resizable
+    def resize(self, entry, size, progress, chroot='/'):
+        pass
+    def getMinimumSize(self, device):
+        log.warning("Unable to determinine minimal size for %s", device)
+        return 1
 
     def isKernelFS(self):
         """Returns True if this is an in-kernel pseudo-filesystem."""
@@ -1416,6 +1426,24 @@ MAILADDR root
             if bootPart:
                 del bootPart
 
+    def resizeFilesystems (self, chroot = '/', shrink = False, grow = False):
+        for entry in self.entries:
+            if not entry.fsystem or not entry.fsystem.isResizable():
+                continue
+            if entry.resizeTargetSize is None:
+                continue
+            if shrink and not (entry.resizeTargetSize < entry.resizeOrigSize):
+                continue
+            if grow and not (entry.resizeTargetSize > entry.resizeOrigSize):
+                continue
+            entry.fsystem.resize(entry, entry.resizeTargetSize,
+                                 self.progressWindow, chroot)
+
+    def shrinkFilesystems (self, chroot):
+        self.resizeFilesystems(chroot, shrink = True)
+    def growFilesystems (self, chroot):
+        self.resizeFilesystems(chroot, grow = True)
+
     def formatSwap (self, chroot, forceFormat=False):
         formatted = []
         notformatted = []
@@ -1867,6 +1895,8 @@ class FileSystemSetEntry:
         self.fsystem = fsystem
         self.origfsystem = origfsystem
         self.migrate = migrate
+        self.resizeTargetSize = None
+        self.resizeOrigSize = None
         self.options = options
         self.mountcount = 0
         self.label = None
@@ -1947,6 +1977,15 @@ class FileSystemSetEntry:
 
     def getMigrate (self):
         return self.migrate
+
+    def setResizeTarget (self, targetsize, size):
+        if not self.fsystem.isResizable() and targetsize is not None:
+            raise ValueError, "Can't set a resize target for a non-resizable filesystem"
+        self.resizeTargetSize = targetsize
+        self.resizeOrigSize = size
+
+    def getResizeTarget (self):
+        return self.targetsize
 
     def isMounted (self):
         return self.mountcount > 0
