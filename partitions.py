@@ -101,30 +101,6 @@ def partitioningComplete(anaconda):
             raise RuntimeError, ("Managed to not get an entry back from "
                                  "request.toEntry")
 
-    if (not flags.setupFilesystems
-        or iutil.memAvailable() > isys.EARLY_SWAP_RAM):
-        return
-
-    if not anaconda.isKickstart:
-        rc = anaconda.intf.messageWindow(_("Low Memory"),
-                            _("As you don't have much memory in this "
-                              "machine, we need to turn on swap space "
-                              "immediately. To do this we'll have to "
-                              "write your new partition table to the disk "
-                              "immediately. Is that OK?"), "yesno")
-    else:
-        rc = 1
-
-    if rc:
-        anaconda.id.partitions.doMetaDeletes(anaconda.id.diskset)
-        anaconda.id.fsset.setActive(anaconda.id.diskset)
-        anaconda.id.diskset.savePartitions ()
-        anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)
-        anaconda.id.fsset.formatSwap(anaconda.rootPath)
-        anaconda.id.fsset.turnOnSwap(anaconda.rootPath)
-
-    return
-
 
 class Partitions:
     """Defines all of the partition requests and delete requests."""
