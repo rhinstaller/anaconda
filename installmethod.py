@@ -25,15 +25,6 @@ log = logging.getLogger("anaconda")
 # subclasses, though things like mountCD, unmountCD, ejectCD, and the cleanup
 # methods may not need to be redefined.  By default, most methods pass.
 class InstallMethod:
-    ## Return the list of protected partitions.
-    # Protected partitions are the installation source for the hard drive
-    # installation method.  Partitions on this list may be mounted, but may
-    # not be formatted.
-    #
-    # @return The list of protected partitions, or an empty list otherwise.
-    def protectedPartitions(self):
-        return []
-
     ## Perform method-specific actions to mount any installation media.
     # @param fsset An instance of FileSystemSet.
     # @param mntPoint The root of the filesystem to mount the media onto.

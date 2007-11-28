@@ -129,10 +129,6 @@ class HardDriveInstallMethod(ImageInstallMethod):
         except:
             log.warning("unable to unmount media")
 
-    # we cannot remove the partition we are hosting hard drive install from
-    def protectedPartitions(self):
-	return [self.device]
-
     def __init__(self, method, rootPath, intf):
         """@param method hd://device:fstype:/path"""
         method = method[5:]

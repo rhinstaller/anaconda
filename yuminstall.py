@@ -1029,7 +1029,7 @@ class YumBackend(AnacondaBackend):
 
         # If there are any protected partitions we want to mount, create their
         # mount points now.
-        protected = self.method.protectedPartitions()
+        protected = anaconda.id.partitions.protectedPartitions()
         if protected:
             for protectedDev in protected:
                 request = anaconda.id.partitions.getRequestByDeviceName(protectedDev)

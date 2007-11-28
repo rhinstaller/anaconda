@@ -1650,7 +1650,7 @@ MAILADDR root
         self.migratedfs = 1
 
     def mountFilesystems(self, anaconda, raiseErrors = 0, readOnly = 0, skiprootfs = 0):
-        protected = anaconda.method.protectedPartitions()
+        protected = anaconda.id.partitions.protectedPartitions()
 
         for entry in self.entries:
             # Don't try to mount a protected partition, since it will already

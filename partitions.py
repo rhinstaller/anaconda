@@ -128,11 +128,13 @@ def partitioningComplete(anaconda):
 
 class Partitions:
     """Defines all of the partition requests and delete requests."""
-    def __init__ (self, diskset = None):
+    def __init__ (self, anaconda, readDisks=False):
         """Initializes a Partitions object.
 
         Can pass in the diskset if it already exists.
         """
+        self.anaconda = anaconda
+
         self.requests = []
         """A list of RequestSpec objects for all partitions."""
 
@@ -159,6 +161,11 @@ class Partitions:
         self.zeroMbr = 0
         """Should the mbr be zero'd?"""
 
+        self.protected = []
+        """A list of partitions that are the installation source for hard
+           drive or livecd installs.  Partitions on this list may not be
+           formatted."""
+
         # partition method to be used.  not to be touched externally
         self.useAutopartitioning = 1
         self.useFdisk = 0
@@ -167,10 +174,12 @@ class Partitions:
         # and its useful to be able to differentiate between the two
         self.isKickstart = 0
 
-        if diskset:
-            diskset.refreshDevices()
-            self.setFromDisk(diskset)
+        if readDisks:
+            self.anaconda.id.diskset.refreshDevices()
+            self.setFromDisk(self.anaconda.id.diskset)
 
+    def protectedPartitions(self):
+        return self.protected
 
     def setFromDisk(self, diskset):
         """Clear the delete list and set self.requests to reflect disk."""
@@ -1135,19 +1144,17 @@ class Partitions:
 
     def setProtected(self, dispatch):
         """Set any partitions which should be protected to be so."""
-        protected = dispatch.method.protectedPartitions()
-        if protected:
-            for device in protected:
-                log.info("%s is a protected partition" % (device))
-                request = self.getRequestByDeviceName(device)
-                if request is not None:
-                    request.setProtected(1)
-                else:
-                    log.info("no request, probably a removable drive")
+        for device in self.protectedPartitions():
+            log.info("%s is a protected partition" % (device))
+            request = self.getRequestByDeviceName(device)
+            if request is not None:
+                request.setProtected(1)
+            else:
+                log.info("no request, probably a removable drive")
 
     def copy (self):
         """Deep copy the object."""
-        new = Partitions()
+        new = Partitions(self.anaconda)
         for request in self.requests:
             new.addRequest(request)
         for delete in self.deletes:
@@ -1159,6 +1166,7 @@ class Partitions:
         new.useAutopartitioning = self.useAutopartitioning
         new.useFdisk = self.useFdisk
         new.reinitializeDisks = self.reinitializeDisks
+        new.protected = self.protected
         return new
 
     def getClearPart(self):

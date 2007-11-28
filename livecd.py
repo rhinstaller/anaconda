@@ -122,13 +122,6 @@ class LiveCDImageMethod(installmethod.InstallMethod):
         except Exception, e:
             log.error("Unable to unmount filesystems.") 
 
-    def protectedPartitions(self):
-        if os.path.exists("/dev/live") and \
-           stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
-            target = os.readlink("/dev/live")
-            return [target]
-        return []
-
     def getLiveBlockDevice(self):
         return self.osimg
 

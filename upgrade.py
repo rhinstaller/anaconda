@@ -161,7 +161,7 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
     lvm.vgscan()
     lvm.vgactivate()
 
-    if root in anaconda.method.protectedPartitions() and hasattr(anaconda.method, "isoDir"):
+    if root in anaconda.id.partitions.protectedPartitions() and hasattr(anaconda.method, "isoDir"):
         root = anaconda.method.isoDir
         bindMount = 1
 

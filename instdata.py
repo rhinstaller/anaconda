@@ -70,7 +70,7 @@ class InstallData:
         # XXX move fsset and/or diskset into Partitions object?
 	self.fsset.reset()
         self.diskset = partedUtils.DiskSet(self.anaconda)
-        self.partitions = partitions.Partitions()
+        self.partitions = partitions.Partitions(self.anaconda)
         self.bootloader = bootloader.getBootloader()
         self.upgradeRoot = None
         self.rootParts = None
@@ -83,6 +83,17 @@ class InstallData:
 
         # XXX I still expect this to die when kickstart is the data store.
         self.ksdata = None
+
+        # We don't have install methods anymore, but put things that depend on
+        # the methodstr here.
+        if os.path.exists("/dev/live") and \
+           stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
+            target = os.readlink("/dev/live")
+            self.partitions.protected = [target]
+        elif self.methodstr.startswith("hd://"):
+            method = self.methodstr[5:]
+            device = method.split(":", 3)[0]
+            self.partitions.protected = [device]
 
     def setInstallProgressClass(self, c):
 	self.instProgress = c
