@@ -14,6 +14,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import math
 import string
 import isys
 import iutil
@@ -515,6 +516,81 @@ class extFileSystem(FileSystemType):
         self.packages = [ "e2fsprogs" ]
         self.supportsFsProfiles = True
         self.fsProfileSpecifier = "-T"
+        self.resizable = True
+
+    def resize(self, entry, size, progress, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+
+        log.info("checking %s prior to resize" %(devicePath,))
+        w = None
+        if progress:
+            w = progress(_("Checking"),
+                         _("Checking filesystem on %s...") %(devicePath),
+                         100, pulse = True)
+
+        rc = iutil.execWithPulseProgress("e2fsck", ["-f", "-p", "-C", "0", devicePath],
+                                         stdout="/dev/tty5",
+                                         stderr="/dev/tty5", progress = w)
+        if rc >= 4:
+            raise RuntimeError, "Check of %s failed" %(devicePath,)
+        if progress:
+            w.pop()
+            w = progress(_("Resizing"),
+                         _("Resizing filesystem on %s...") %(devicePath),
+                         100, pulse = True)
+
+        log.info("resizing %s" %(devicePath,))
+        rc = iutil.execWithPulseProgress("resize2fs",
+                                         ["-p", devicePath, "%sM" %(size,)],
+                                         stdout="/dev/tty5", stderr="/dev/tty5",
+                                         progress = w)
+        if progress:
+            w.pop()
+        if rc:
+            raise RuntimeError, "Resize of %s failed" %(devicePath,)
+
+    def getMinimumSize(self, device):
+        """Return the minimum filesystem size in megabytes"""
+        devicePath = "/dev/%s" % (device,)
+        if not os.path.exists(devicePath):
+            isys.makeDevInode(device, devicePath)
+
+        # FIXME: it'd be nice if we didn't have to parse this out ourselves
+        buf = iutil.execWithCapture("dumpe2fs",
+                                    ["-h", devicePath],
+                                    stderr = "/dev/tty5")
+        blocks = free = bs = 0
+        for l in buf.split("\n"):
+            if l.startswith("Free blocks"):
+                try:
+                    free = l.split()[2]
+                    free = int(free)
+                except Exception, e:
+                    log.warning("error determining free blocks on %s: %s" %(devicePath, e))
+                    free = 0
+            elif l.startswith("Block size"):
+                try:
+                    bs = l.split()[2]
+                    bs = int(bs)
+                except Exception, e:
+                    log.warning("error determining block size of %s: %s" %(devicePath, e))
+                    bs = 0
+            elif l.startswith("Block count"):
+                try:
+                    blocks = l.split()[2]
+                    blocks = int(blocks)
+                except Exception, e:
+                    log.warning("error determining block count of %s: %s" %(devicePath, e))
+                    blocks = 0
+
+        if free == 0 or bs == 0:
+            log.warning("Unable to determinine minimal size for %s", devicePath)
+            return 1
+
+        used = math.ceil((blocks - free) * bs / 1024.0 / 1024.0)
+        log.info("used size of %s is %s" %(devicePath, used))
+        # FIXME: should we bump this beyond the absolute minimum?
+        return used
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
