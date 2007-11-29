@@ -118,6 +118,8 @@ def execWithPulseProgress(command, argv, stdin = 0, stdout = 1, stderr = 2,
         os.close(p[0])
         os.dup2(p[1], 1)
         os.dup2(stderr.fileno(), 2)
+        os.dup2(stdin, 0)
+        os.close(stdin)
         os.close(p[1])
         stderr.close()
 
