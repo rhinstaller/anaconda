@@ -286,7 +286,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	mountCombo.set_data("prevmountable", ofstype.isMountable())
 
     # this gets added to the table a bit later on
-    lukscb = gtk.CheckButton(_("Encrypt Partition"))
+    lukscb = gtk.CheckButton(_("_Encrypt"))
 
     formatrb.connect("toggled", formatOptionCB,
 		     (fstypeCombo, mountCombo, ofstype, lukscb))
