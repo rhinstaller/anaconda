@@ -547,6 +547,8 @@ class VolumeGroupEditor:
 		for lv in self.logvolreqs:
 		    if curmntpt and lv.mountpoint == curmntpt:
 			continue
+                    if len(mntpt) == 0:
+                        continue
 
 		    if lv.mountpoint == mntpt:
 			used = 1
