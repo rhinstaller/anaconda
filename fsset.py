@@ -935,6 +935,59 @@ class NTFSFileSystem(FileSystemType):
         self.formattable = 0
         self.checked = 0
         self.name = "ntfs"
+        if len(filter(lambda d: os.path.exists("%s/ntfsresize" %(d,)),
+                      os.environ["PATH"].split(":"))) > 0:
+            self.resizable = True
+
+    def resize(self, entry, size, progress, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+        log.info("resizing %s to %sM" %(devicePath, size))
+        w = None
+        if progress:
+            w = progress(_("Resizing"),
+                         _("Resizing filesystem on %s...") %(devicePath),
+                         100, pulse = True)
+
+        p = os.pipe()
+        os.write(p[1], "y\n")
+        os.close(p[1])
+
+        rc = iutil.execWithPulseProgress("ntfsresize", ["-v",
+                                                        "-s", "%sM" %(size,),
+                                                        devicePath],
+                                         stdin = p[0], stdout = "/dev/tty5",
+                                         stderr = "/dev/tty5", progress = w)
+        if progress:
+            w.pop()
+        if rc:
+            raise RuntimeError, "Resize of %s failed" %(devicePath,)
+
+    def getMinimumSize(self, device):
+        """Return the minimum filesystem size in megabytes"""
+        devicePath = "/dev/%s" % (device,)
+        if not os.path.exists(devicePath):
+            isys.makeDevInode(device, devicePath)
+
+        buf = iutil.execWithCapture("ntfsresize", ["--info", devicePath],
+                                    stderr = "/dev/tty5")
+        for l in buf.split("\n"):
+            if not l.startswith("Space in use"):
+                continue
+            try:
+                usedamt = l.split(":")[1].strip()
+                (num, unit, pct) = usedamt.split(" ", 2)
+                used = int(num)
+                if unit == "GB":
+                    used *= 1024
+            except Exception, e:
+                log.error("unable to parse used space for %s: %s" %(device, e))
+                log.debug(l)
+            # FIXME: arbitrary fudge factor for ntfs resizing
+            return used + 250
+
+        log.warning("Unable to discover minimum size of filesystem on %s" %(device,))
+        return 1
+
 
 fileSystemTypeRegister(NTFSFileSystem())
 
