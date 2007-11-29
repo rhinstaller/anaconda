@@ -270,7 +270,7 @@ def noformatCB(widget, data):
        resizesb      - spinbutton with resize target
 """
 def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
-                                  ignorefs=[]):
+                                  partitions, ignorefs=[]):
     rc = {}
     ofstype = origrequest.fstype
 
@@ -316,9 +316,8 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	migratecb = None
 	migfstypeCombo = None
 
-    # FIXME: we should support resizing LVs too
-    if origrequest.origfstype.isResizable() and origrequest.type == REQUEST_PREEXIST:
-        resizecb = gtk.CheckButton(label=_("_Resize partition"))
+    if origrequest.isResizable():
+        resizecb = gtk.CheckButton(label=_("_Resize"))
         resizecb.set_active(origrequest.targetSize is not None)
         rc["resizecb"] = resizecb
         maintable.attach(resizecb, 0, 1, row, row + 1)
@@ -328,8 +327,8 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         else:
             value = origrequest.size
 
-        reqlower = origrequest.getMinimumResizeMB()
-        requpper = origrequest.getMaximumResizeMB()
+        reqlower = origrequest.getMinimumResizeMB(partitions)
+        requpper = origrequest.getMaximumResizeMB(partitions)
         if not origrequest.format:
             lower = reqlower
         else:

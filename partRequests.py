@@ -158,6 +158,9 @@ class RequestSpec:
         self.targetSize = None
         """Size to resize to"""
 
+        self.resizable = False
+        """Is this a request that can be resized?"""
+
     def __str__(self):
         if self.fstype:
             fsname = self.fstype.getName()
@@ -189,6 +192,11 @@ class RequestSpec:
         sys.stderr.write("WARNING: Abstract RequestSpec.getDevice() called\n")
         import traceback
         traceback.print_stack()
+
+    def isResizable(self):
+        if self.encryption: # encrypted devices can't be resized currently
+            return False
+        return self.resizable and self.fstype.isResizable()
 
     def toEntry(self, partitions):
         """Turn a request into a fsset entry and return the entry."""
@@ -581,17 +589,18 @@ class PreexistingPartitionSpec(PartitionSpec):
                                format = format, migrate = migrate,
                                mountpoint = mountpoint, preexist = 1)
         self.type = REQUEST_PREEXIST
+        self.resizable = True
 
         self.maxResizeSize = None
         """Maximum size of this partition request"""
 
-    def getMaximumResizeMB(self):
+    def getMaximumResizeMB(self, partitions):
         if self.maxResizeSize is not None:
             return self.maxResizeSize
         log.warning("%s doesn't have a max size set" %(self.device,))
         return MAX_PART_SIZE
 
-    def getMinimumResizeMB(self):
+    def getMinimumResizeMB(self, partitions):
         return self.fstype.getMinimumSize(self.device)
 
 class RaidRequestSpec(RequestSpec):

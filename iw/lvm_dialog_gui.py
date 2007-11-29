@@ -463,7 +463,7 @@ class VolumeGroupEditor:
 
 	self.fsoptionsDict = {}
 	if logrequest.getPreExisting():
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(logrequest, maintable, row, mountCombo, ignorefs = ["software RAID", "physical volume (LVM)", "vfat"])
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(logrequest, maintable, row, mountCombo, self.partitions, ignorefs = ["software RAID", "physical volume (LVM)", "vfat"])
 
         dialog.vbox.pack_start(maintable)
         dialog.show_all()

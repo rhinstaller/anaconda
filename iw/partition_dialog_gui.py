@@ -444,7 +444,7 @@ class PartitionEditor:
         # aren't protected (we'd still like to be able to mount them, though)
 	self.fsoptionsDict = {}
         if self.origrequest.type == REQUEST_PREEXIST and self.origrequest.fstype and not self.origrequest.getProtected():
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo)
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo, self.partitions)
 
         # size options
         if self.origrequest.type == REQUEST_NEW:

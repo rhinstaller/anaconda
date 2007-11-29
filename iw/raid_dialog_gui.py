@@ -444,7 +444,7 @@ class RaidEditor:
             maintable.attach(self.lukscb, 0, 2, row, row + 1)
             row = row + 1
 	else:
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo)
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo, self.partitions)
 
 	# put main table into dialog
 	dialog.vbox.pack_start(maintable)
