@@ -18,6 +18,8 @@ from constants import *
 import logging
 log = logging.getLogger("anaconda")
 
+import isys
+
 ## The base installation method class.
 # This is an abstract class that defines the methods that make up an
 # installation method.  This class should not be used except as the superclass
