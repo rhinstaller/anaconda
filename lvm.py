@@ -200,6 +200,22 @@ def lvremove(lvname, vgname):
     if rc:
         raise LVRemoveError(vgname, lvname)
 
+def lvresize(lvname, vgname, size):
+    global lvmDevicePresent
+    if flags.test or lvmDevicePresent == 0:
+        return
+
+    args = ["lvresize", "-An", "-L", "%dM" %(size,), "-v",
+            "/dev/%s/%s" %(vgname, lvname,)]
+
+    try:
+        rc = lvmExec(*args)
+    except:
+        rc = 1
+    if rc:
+        raise LVMResizeError(vgname, lvname)
+
+
 def vgcreate(vgname, PESize, nodes):
     """Creates a new volume group."
 
@@ -364,18 +380,18 @@ def vglist():
     vgs = []
     args = ["vgdisplay", "-C", "--noheadings", "--units", "b",
             "--nosuffix", "--separator", ":", "--options",
-            "vg_name,vg_size,vg_extent_size"
+            "vg_name,vg_size,vg_extent_size,vg_free"
            ]
     for line in lvmCapture(*args):
         try:
-            (vg, size, pesize) = line
+            (vg, size, pesize, free) = line
             size = long(math.floor(long(size) / (1024 * 1024)))
             pesize = long(pesize)/1024
+            free = math.floor(long(free) / (1024 * 1024))
         except:
             continue
         log.info("vg %s, size is %s, pesize is %s" %(vg, size, pesize))
-        vgs.append( (vg, size, pesize) )
-
+        vgs.append( (vg, size, pesize, free) )
     return vgs
 
 def partialvgs():

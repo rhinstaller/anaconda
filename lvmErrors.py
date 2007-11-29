@@ -59,6 +59,16 @@ class LVRemoveError(LvmError):
         return "lvremove of lv \"%s\" from vg \"%s\" failed\nLog:\n%s" % ( \
             self.lvname, self.vgname, self.log)
 
+class LVResizeError(LvmError):
+    def __init__(self, vgname, lvname):
+        self.vgname = vgname
+        self.lvname = lvname
+        self.log = self.getLvmOutput()
+
+    def __str__(self):
+        return "lvresize of lv \"%s\" from vg \"%s\" failed\nLog:\n%s" % ( \
+            self.lvname, self.vgname, self.log)
+
 class VGCreateError(LvmError):
     def __init__(self, vgname, PESize, nodes):
         self.vgname = vgname

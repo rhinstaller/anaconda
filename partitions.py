@@ -292,7 +292,7 @@ class Partitions:
         lvm.vgactivate()
 
         pvs = lvm.pvlist()
-        for (vg, size, pesize) in lvm.vglist():
+        for (vg, size, pesize, vgfree) in lvm.vglist():
             try:
                 preexist_size = float(size)
             except:
@@ -315,6 +315,7 @@ class Partitions:
                                                        pesize = pesize,
                                                        preexist = 1,
                                                        preexist_size = preexist_size)
+            spec.free = vgfree
             vgid = self.addRequest(spec)
 
             for (lvvg, lv, size, lvorigin) in lvm.lvlist():
@@ -346,6 +347,8 @@ class Partitions:
                     format = format, size = lvsize, volgroup = vgid,
                     lvname = lv, mountpoint = mnt, fslabel = fslabel,
                     preexist = 1)
+                if fsystem.isResizable():
+                    spec.minResizeSize = fsystem.getMinimumSize("%s/%s" %(vg, lv))
                 self.addRequest(spec)
 
         for vg in lvm.partialvgs():
@@ -1473,6 +1476,24 @@ class Partitions:
 
         lvm.vgdeactivate()
         diskset.stopMdRaid()
+
+    def doMetaResizes(self, diskset):
+        """Does resizing of non-physical volumes."""
+        # NOTE: this should be called with volumes active
+
+        # we only support resizing LVM of these types of things currently
+        for lv in self.getLVMLVRequests():
+            if not lv.preexist:
+                continue
+            if lv.targetSize is None:
+                continue
+
+            vg = self.getRequestByID(lv.volumeGroup)
+            if vg is None:
+                continue
+
+            lvm.lvresize(lv.logicalVolumeName, vg.volumeGroupName,
+                         lv.targetSize)
 
     def deleteDependentRequests(self, request):
         """Handle deletion of this request and all requests which depend on it.

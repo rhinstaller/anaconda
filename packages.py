@@ -148,10 +148,11 @@ def turnOnFilesystems(anaconda):
                                        searchPath = 1)
             anaconda.id.partitions.doMetaDeletes(anaconda.id.diskset)
             anaconda.id.fsset.setActive(anaconda.id.diskset)
-            anaconda.id.fsset.shrinkFilesystems(anaconda.rootPath)
+            anaconda.id.fsset.shrinkFilesystems(anaconda.id.diskset, anaconda.rootPath)
             if not anaconda.id.fsset.isActive():
                 anaconda.id.diskset.savePartitions ()
-            anaconda.id.fsset.growFilesystems(anaconda.rootPath)
+                anaconda.id.partitions.doMetaResizes(anaconda.id.diskset)
+            anaconda.id.fsset.growFilesystems(anaconda.id.diskset, anaconda.rootPath)
             if not anaconda.id.fsset.volumesCreated:
                 anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)
             anaconda.id.fsset.formatSwap(anaconda.rootPath)

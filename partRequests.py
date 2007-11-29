@@ -795,6 +795,7 @@ class VolumeGroupRequestSpec(RequestSpec):
         self.physicalVolumes = physvols
         self.pesize = pesize
         self.preexist = preexist
+        self.free = 0
 
         # FIXME: this is a hack so that we can set the vg name automagically
         # with autopartitioning to not conflict with existing vgs
@@ -915,13 +916,15 @@ class LogicalVolumeRequestSpec(RequestSpec):
         self.grow = grow
         self.maxSizeMB = maxSizeMB
         self.startSize = size
+
+        self.minResizeSize = None
+        self.resizable = True
 	
         if not percent and not size and not preexist:
             raise RuntimeError, "Error with Volume Group:Logical Volume %s:%s - Logical Volume must specify either percentage of vgsize or size" % (volgroup, lvname)
 
 	if percent and grow:
             raise RuntimeError, "Error with Volume Group:Logical Volume %s:%s - Logical Volume cannot grow if percentage given" % (volgroup, lvname)
-	    
 
     def __str__(self):
         if self.fstype:
@@ -955,14 +958,19 @@ class LogicalVolumeRequestSpec(RequestSpec):
                                              existing = self.preexist)
         return self.dev
 
-    def getActualSize(self, partitions, diskset):
+    def getActualSize(self, partitions = None, diskset = None, target = False):
         """Return the actual size allocated for the request in megabytes."""
         if self.percent:
+            if partitions is None or diskset is None:
+                raise RuntimeError, "trying to get a percentage lv size on resize path"
             vgreq = partitions.getRequestByID(self.volumeGroup)
 	    vgsize = vgreq.getActualSize(partitions, diskset)
 	    lvsize = int(self.percent * 0.01 * vgsize)
 	    #lvsize = lvm.clampLVSizeRequest(lvsize, vgreq.pesize)
             return lvsize
+        # FIXME: the target bit here is a bit of a hack...
+        elif self.targetSize is not None and target:
+            return self.targetSize
         else:
             return self.size
 
@@ -996,3 +1004,14 @@ class LogicalVolumeRequestSpec(RequestSpec):
                              "containing encrypted physical volumes.")
 
         return RequestSpec.sanityCheckRequest(self, partitions, skipMntPtExistCheck)
+
+    def getMaximumResizeMB(self, partitions):
+        vg = partitions.getRequestByID(self.volumeGroup)
+        print "max is", self.getActualSize(), vg.free, self.getActualSize() + vg.free
+        return self.getActualSize() + vg.free
+
+    def getMinimumResizeMB(self, partitions):
+        if self.minResizeSize is None:
+            log.warning("don't know the minimum size of %s" %(self.logicalVolumeName,))
+            return 1
+        return self.minResizeSize

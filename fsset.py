@@ -1502,7 +1502,8 @@ MAILADDR root
             if bootPart:
                 del bootPart
 
-    def resizeFilesystems (self, chroot = '/', shrink = False, grow = False):
+    def resizeFilesystems (self, diskset, chroot = '/', shrink = False, grow = False):
+        todo = []
         for entry in self.entries:
             if not entry.fsystem or not entry.fsystem.isResizable():
                 continue
@@ -1512,13 +1513,34 @@ MAILADDR root
                 continue
             if grow and not (entry.resizeTargetSize > entry.resizeOrigSize):
                 continue
+            todo.append(entry)
+        if len(todo) == 0:
+            return
+
+        # we have to have lvm activated to be able to do resizes of LVs
+        active = lvm.vgcheckactive()
+        if not active:
+            diskset.startMPath()
+            diskset.startDmRaid()
+            diskset.startMdRaid()
+
+            lvm.vgscan()
+            lvm.vgactivate()
+
+        for entry in todo:
             entry.fsystem.resize(entry, entry.resizeTargetSize,
                                  self.progressWindow, chroot)
 
-    def shrinkFilesystems (self, chroot):
-        self.resizeFilesystems(chroot, shrink = True)
-    def growFilesystems (self, chroot):
-        self.resizeFilesystems(chroot, grow = True)
+        if not active:
+            lvm.vgdeactivate()
+            diskset.stopMPath()
+            diskset.stopDmRaid()
+            diskset.stopMdRaid()
+
+    def shrinkFilesystems (self, diskset, chroot):
+        self.resizeFilesystems(diskset, chroot, shrink = True)
+    def growFilesystems (self, diskset, chroot):
+        self.resizeFilesystems(diskset, chroot, grow = True)
 
     def formatSwap (self, chroot, forceFormat=False):
         formatted = []
