@@ -622,6 +622,26 @@ class ext3FileSystem(extFileSystem):
 
 fileSystemTypeRegister(ext3FileSystem())
 
+class ext4FileSystem(extFileSystem):
+    def __init__(self):
+        extFileSystem.__init__(self)
+        self.name = "ext4dev"
+        self.partedFileSystemType = parted.file_system_type_get("ext3")
+        self.extraFormatArgs = [ "-j", "-I", "256" ]
+
+        # this is way way way experimental at present...
+        if flags.cmdline.has_key("iamanext4developer"):
+            self.supported = -1
+        else:
+            self.supported = 0
+
+
+    def formatDevice(self, entry, progress, chroot='/'):
+        extFileSystem.formatDevice(self, entry, progress, chroot)
+        extFileSystem.setExt3Options(self, entry, progress, chroot)
+
+fileSystemTypeRegister(ext4FileSystem())
+
 class raidMemberDummyFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
