@@ -1682,44 +1682,6 @@ def getAutopartitionBoot():
     else:
         return [ ("/boot", None, 200, None, 0, 1, 0) ]
 
-def queryAutoPartitionOK(anaconda):
-    type = anaconda.id.partitions.autoClearPartType
-    drives = anaconda.id.partitions.autoClearPartDrives
-
-    if type == CLEARPART_TYPE_LINUX:
-        msg = CLEARPART_TYPE_LINUX_WARNING_MSG
-    elif type == CLEARPART_TYPE_ALL:
-        msg = CLEARPART_TYPE_ALL_WARNING_MSG
-    elif type == CLEARPART_TYPE_NONE:
-        return 1
-    else:
-        raise ValueError, "Invalid clear part type in queryAutoPartitionOK"
-
-    drvstr = "\n\n"
-    if drives == None:
-        drives = anaconda.id.diskset.disks.keys()
-
-    drives.sort()
-    width = 44
-    str = ""
-    maxlen = 0
-    for drive in drives:
-         if (len(drive) > maxlen):
-             maxlen = len(drive)
-    maxlen = maxlen + 8   # 5 for /dev/, 3 for spaces
-    for drive in drives:
-        if (len(str) + maxlen <= width):
-             str = str + "%-*s" % (maxlen, "/dev/"+drive)
-        else:
-             drvstr = drvstr + str + "\n"
-             str = ""
-             str = "%-*s" % (maxlen, "/dev/"+drive)
-    drvstr = drvstr + str + "\n"
-    
-    rc = anaconda.intf.messageWindow(_("Warning"), _(msg) % drvstr, type="yesno", default="no", custom_icon ="warning")
-
-    return rc
-
 
 # XXX hack but these are common strings to TUI and GUI
 PARTMETHOD_TYPE_DESCR_TEXT = N_("Automatic Partitioning sets partitions "
@@ -1741,13 +1703,3 @@ AUTOPART_DISK_CHOICE_DESCR_TEXT = N_("Before automatic partitioning can be "
 CLEARPART_TYPE_ALL_DESCR_TEXT = N_("Remove all partitions on this system")
 CLEARPART_TYPE_LINUX_DESCR_TEXT = N_("Remove all Linux partitions on this system")
 CLEARPART_TYPE_NONE_DESCR_TEXT = N_("Keep all partitions and use existing free space")
-
-CLEARPART_TYPE_ALL_WARNING_MSG = N_("You have chosen to remove "
-                                    "all partitions (ALL DATA) on the "
-                                    "following drives:%s\nAre you sure you "
-                                    "want to do this?")
-CLEARPART_TYPE_LINUX_WARNING_MSG = N_("You have chosen to "
-                                      "remove all Linux partitions "
-                                      "(and ALL DATA on them) on the "
-                                      "following drives:%s\n"
-                                      "Are you sure you want to do this?")

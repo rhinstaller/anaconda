@@ -1599,9 +1599,6 @@ class PartitionTypeWindow:
                 anaconda.id.partitions.autoClearPartType = partmethod_ans
                 anaconda.id.partitions.autoClearPartDrives = sel
                 
-                if queryAutoPartitionOK(anaconda):
-                    break
-
         # ask to review autopartition layout - but only if it's not custom partitioning
         anaconda.dispatch.skipStep("partition", skip = 0)
         anaconda.dispatch.skipStep("bootloader", skip = 0)

@@ -801,7 +801,10 @@ class MessageWindow:
                 widget = self.dialog.add_button(tbutton, rid)
                 rid = rid + 1
 
-            defaultchoice = rid - 1
+            if default is not None:
+                defaultchoice = default
+            else:
+                defaultchoice = rid - 1
             if flags.debug and not _("_Debug") in custom_buttons:
                 widget = self.dialog.add_button(_("_Debug"), rid)
                 self.debugRid = rid

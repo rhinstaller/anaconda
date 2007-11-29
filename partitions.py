@@ -101,6 +101,20 @@ def partitioningComplete(anaconda):
             raise RuntimeError, ("Managed to not get an entry back from "
                                  "request.toEntry")
 
+    if anaconda.isKickstart:
+        return
+
+    rc = anaconda.intf.messageWindow(_("Writing partitioning to disk"),
+                                _("The partitioning options you have selected "
+                                  "will now be written to disk.  Any "
+                                  "data on deleted or reformatted partitions "
+                                  "will be lost"),
+                                type = "custom", custom_icon="warning",
+                                custom_buttons=[_("Go _back"),
+                                                _("_Write changes to disk")],
+                                default = 0)
+    if rc == 0:
+        return DISPATCH_BACK
 
 class Partitions:
     """Defines all of the partition requests and delete requests."""

@@ -65,9 +65,6 @@ class PartitionTypeWindow(InstallWindow):
 
             self.partitions.autoClearPartDrives = allowdrives
 
-            if not autopart.queryAutoPartitionOK(self.anaconda):
-                raise gui.StayOnScreen
-
             # pop the boot device to be first in the drive list
             defiter = self.bootcombo.get_active_iter()
             if defiter is None:
