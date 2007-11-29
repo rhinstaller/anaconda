@@ -21,8 +21,8 @@ import parted
 import math
 import os, sys, string, struct, resource
 
-from exception import formatException
 from product import *
+import exception
 import fsset
 import iutil, isys
 import raid
@@ -1107,7 +1107,7 @@ class DiskSet:
                 raise
         except:
             (type, value, tb) = sys.exc_info()
-            lines = formatException(type, value, tb)
+            lines = exception.formatException(type, value, tb)
             for line in lines:
                 log.error(line)
             self._removeDisk(drive)
@@ -1241,7 +1241,7 @@ class DiskSet:
                         sys.exit(0)
                 else:
                     (type, value, tb) = sys.exc_info()
-                    lines = formatException(type, value, tb)
+                    lines = exception.formatException(type, value, tb)
                     for line in lines:
                         log.error(line)
                     log.error(str)
