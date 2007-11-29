@@ -737,7 +737,7 @@ class PartitionWindow(InstallWindow):
 			self.tree[iter]['Mount Point'] = lvrequest.mountpoint
 		    else:
 			self.tree[iter]['Mount Point'] = ""
-		    self.tree[iter]['Size (MB)'] = "%d" % (lvrequest.getActualSize(self.partitions, self.diskset),)
+		    self.tree[iter]['Size (MB)'] = "%d" % (lvrequest.getActualSize(self.partitions, self.diskset, True),)
 		    self.tree[iter]['PyObject'] = str(lvrequest.uniqueID)
 		
                     ptype = lvrequest.fstype.getName()

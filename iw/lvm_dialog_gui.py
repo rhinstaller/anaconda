@@ -103,7 +103,7 @@ class VolumeGroupEditor:
         used = 0
 	resize = 0
         for lv in self.logvolreqs:
-            osize = lv.getActualSize(self.partitions, self.diskset)
+            osize = lv.getActualSize(self.partitions, self.diskset, True)
             oldused = oldused + osize
             nsize = lvm.clampLVSizeRequest(osize, newpe, roundup=1)
 	    if nsize != osize:
@@ -137,7 +137,7 @@ class VolumeGroupEditor:
 		return 0
         
         for lv in self.logvolreqs:
-            osize = lv.getActualSize(self.partitions, self.diskset)
+            osize = lv.getActualSize(self.partitions, self.diskset, True)
             nsize = lvm.clampLVSizeRequest(osize, newpe, roundup=1)
             lv.setSize(nsize)
 
@@ -208,7 +208,7 @@ class VolumeGroupEditor:
 	else:
 	    maxlv = lvm.getMaxLVSize(curval)
 	    for lv in self.logvolreqs:
-		lvsize = lv.getActualSize(self.partitions, self.diskset)
+		lvsize = lv.getActualSize(self.partitions, self.diskset, True)
 		if lvsize > maxlv:
 		    self.intf.messageWindow(_("Not enough space"),
 					    _("The physical extent size "
@@ -441,7 +441,7 @@ class VolumeGroupEditor:
             sizeEntry = gtk.Entry(16)
             lbl.set_mnemonic_widget(sizeEntry)
             if logrequest:
-                sizeEntry.set_text("%d" % (logrequest.getActualSize(self.partitions, self.diskset),))
+                sizeEntry.set_text("%d" % (logrequest.getActualSize(self.partitions, self.diskset, True),))
         else:
             lbl = createAlignedLabel(_("Size (MB):"))
             sizeEntry = gtk.Label(str(logrequest.size))
@@ -478,6 +478,7 @@ class VolumeGroupEditor:
                 fsystem = newfstypeCombo.get_active_value()
                 format = 1
                 migrate = 0
+                targetSize = None
             else:
 		if self.fsoptionsDict.has_key("formatcb"):
                     format = self.fsoptionsDict["formatcb"].get_active()
@@ -492,6 +493,11 @@ class VolumeGroupEditor:
                         fsystem = self.fsoptionsDict["migfstypeCombo"].get_active_value()
                 else:
                     migrate = 0
+
+                if self.fsoptionsDict.has_key("resizecb") and self.fsoptionsDict["resizecb"].get_active():
+                    targetSize = self.fsoptionsDict["resizesb"].get_value_as_int()
+                else:
+                    targetSize = None
 
                 # set back if we are not formatting or migrating
 		origfstype = logrequest.origfstype
@@ -614,6 +620,7 @@ class VolumeGroupEditor:
 	    request.size = size
             request.format = format
             request.migrate = migrate
+            request.targetSize = targetSize
             request.grow = 0
 
 	    # this is needed to clear out any cached info about the device
@@ -674,6 +681,14 @@ class VolumeGroupEditor:
 	    self.logvolreqs.remove(logrequest)
 	    iter = self.getCurrentLogicalVolume()
 	    self.logvolstore.remove(iter)
+            if request.targetSize is not None:
+                size = request.targetSize
+                # adjust the free space in the vg
+                if logrequest.targetSize is not None:
+                    diff = request.targetSize - logrequest.targetSize
+                else:
+                    diff = request.targetSize - request.size
+                self.origvgrequest.free -= diff
 	    
         self.logvolreqs.append(request)
 
@@ -797,7 +812,7 @@ class VolumeGroupEditor:
     def computeLVSpaceNeeded(self, logreqs):
 	neededSpaceMB = 0
 	for lv in logreqs:
-	    neededSpaceMB = neededSpaceMB + lv.getActualSize(self.partitions, self.diskset)
+	    neededSpaceMB = neededSpaceMB + lv.getActualSize(self.partitions, self.diskset, True)
 
 	return neededSpaceMB
 
@@ -805,7 +820,7 @@ class VolumeGroupEditor:
         self.logvolstore.clear()
         for lv in self.logvolreqs:
             iter = self.logvolstore.append()
-            size = lv.getActualSize(self.partitions, self.diskset)
+            size = lv.getActualSize(self.partitions, self.diskset, True)
             lvname = lv.logicalVolumeName
             mntpt = lv.mountpoint
             if lvname:
@@ -1066,7 +1081,7 @@ class VolumeGroupEditor:
 		    self.logvolstore.set_value(iter, 1, lvrequest.mountpoint)
 		else:
 		    self.logvolstore.set_value(iter, 1, "")
-		self.logvolstore.set_value(iter, 2, "%d" % (lvrequest.getActualSize(self.partitions, self.diskset)))
+		self.logvolstore.set_value(iter, 2, "%d" % (lvrequest.getActualSize(self.partitions, self.diskset, True)))
 
 	self.logvollist = gtk.TreeView(self.logvolstore)
         col = gtk.TreeViewColumn(_("Logical Volume Name"),
