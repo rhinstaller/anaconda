@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.3
+Version: 11.4.0.4
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -215,6 +215,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Nov 29 2007 Jeremy Katz <katzj@redhat.com> - 11.4.0.4-1
+- Initial support for partition and LV resizing.  VERY EXPERIMENTAL!
+- Commit partitioning changes to disk earlier
+- Add start of ext4 support
+- Fix some tracebacks
+- Add support back for alpha (Oliver Falk)
+
 * Wed Nov 28 2007 Chris Lumens <clumens@redhat.com> 11.4.0.3-1
 - Fix the build by no longer including broken kernel headers (katzj).
 - Fix tracebacks when printing disk errors (#403501).
