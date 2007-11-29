@@ -214,6 +214,19 @@ def mountptchangeCB(widget, fstypecombo):
 def resizeOptionCB(widget, resizesb):
     resizesb.set_sensitive(widget.get_active())
 
+def formatOptionResizeCB(widget, resizesb):
+    if widget.get_active():
+        lower = 1
+    else:
+        lower = resizesb.get_data("reqlower")
+
+    adj = resizesb.get_adjustment()
+    adj.lower = lower
+    resizesb.set_adjustment(adj)
+
+    if resizesb.get_value_as_int() < lower:
+        resizesb.set_value(adj.lower)
+
 def formatOptionCB(widget, data):
     (combowidget, mntptcombo, ofstype, lukscb) = data
     combowidget.set_sensitive(widget.get_active())
@@ -280,7 +293,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     lukscb = gtk.CheckButton(_("_Encrypt"))
 
     formatcb.connect("toggled", formatOptionCB,
-		     (fstypeCombo, mountCombo, ofstype, lukscb))
+                    (fstypeCombo, mountCombo, ofstype, lukscb))
 
 
     if origrequest.origfstype.isMigratable():
@@ -314,17 +327,26 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
             value = origrequest.targetSize
         else:
             value = origrequest.size
-        adj = gtk.Adjustment(value = value,
-                             lower = origrequest.getMinimumResizeMB(),
-                             upper = origrequest.getMaximumResizeMB(),
-                             step_incr = 1)
+
+        reqlower = origrequest.getMinimumResizeMB()
+        requpper = origrequest.getMaximumResizeMB()
+        if not origrequest.format:
+            lower = reqlower
+        else:
+            lower = 1
+        adj = gtk.Adjustment(value = value, lower = lower,
+                             upper = requpper, step_incr = 1)
         resizesb = gtk.SpinButton(adj, digits = 0)
         resizesb.set_property('numeric', True)
+        resizesb.set_data("requpper", requpper)
+        resizesb.set_data("reqlower", reqlower)
         rc["resizesb"] = resizesb
         maintable.attach(resizesb, 1, 2, row, row + 1)
         resizecb.connect('toggled', resizeOptionCB, resizesb)
         resizeOptionCB(resizecb, resizesb)
         row = row + 1
+
+        formatcb.connect("toggled", formatOptionResizeCB, resizesb)
 
     if origrequest.encryption and formatcb.get_active():
         # probably never happen
