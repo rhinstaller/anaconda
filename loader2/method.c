@@ -81,8 +81,6 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     filename = alloca(15 + strlen(device));
     sprintf(filename, "/tmp/%s", device);
 
-    mkdirChain(mntpoint);
-
 #ifdef O_DIRECT
     targfd = open(fsystem, O_RDONLY | O_DIRECT);
     if (targfd == -1) {
