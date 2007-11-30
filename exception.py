@@ -269,7 +269,7 @@ def copyExceptionToDisk(anaconda, device):
             pass
 
         anaconda.intf.__del__ ()
-        return False
+        return True
 
     file = "/tmp/exndev"
     try:
