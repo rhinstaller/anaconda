@@ -903,7 +903,7 @@ class DetailedMessageWindow(MessageWindow):
         self.detailedView = xml.get_widget("detailedView")
 
         if parent:
-            self.win.set_transient_for(parent)
+            self.dialog.set_transient_for(parent)
 
         if custom_icon:
             img = gtk.Image()
@@ -919,7 +919,7 @@ class DetailedMessageWindow(MessageWindow):
         if self.doCustom:
             defaultchoice = rid-1
             if flags.debug and not _("_Debug") in buttons:
-                self.win.add_button(_("_Debug"), rid)
+                self.dialog.add_button(_("_Debug"), rid)
                 self.debugRid = rid
                 rid += 1
         else:

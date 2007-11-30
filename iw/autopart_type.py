@@ -241,7 +241,7 @@ class PartitionTypeWindow(InstallWindow):
         dialog.destroy()
 
         if rc != gtk.RESPONSE_CANCEL:
-            partitioning.partitionObjectsInitialize(self.anaconda)
+            partitions.partitionObjectsInitialize(self.anaconda)
             createAllowedDrivesStore(self.diskset.disks,
                                      self.partitions.autoClearPartDrives,
                                      self.drivelist,
