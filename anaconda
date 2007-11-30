@@ -670,7 +670,7 @@ if __name__ == "__main__":
         iutil.makeDriveDeviceNodes()
         iutil.makeCharDeviceNodes()
 
-        anaconda.id = instdata.InstallData(anaconda, [], "fd0", anaconda.methodstr, opts.display_mode)
+        anaconda.id = instdata.InstallData(anaconda, [], anaconda.methodstr, opts.display_mode)
         rescue.runRescue(anaconda, instClass)
 
         # shouldn't get back here
