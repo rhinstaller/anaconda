@@ -1124,15 +1124,6 @@ class InstallInterface:
                                   custom_buttons = [_("_Exit installer")],
                                   custom_icon = "error")
 
-    def dumpWindow(self):
-        window = MessageWindow("Save Crash Dump", 
-                               _("Please insert a floppy now. All contents "
-                                 "of the disk will be erased, so please "
-                                 "choose your diskette carefully."),
-                               "okcancel")
-        rc = window.getrc()
-        return not rc
-
     def getBootdisk (self):
         return None
 

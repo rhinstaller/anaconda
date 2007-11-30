@@ -460,19 +460,6 @@ class InstallInterface:
                            custom_buttons = [("_Reboot")],
                            custom_icon="error")
                            
-    
-
-    def dumpWindow(self):
-	rc = ButtonChoiceWindow(self.screen, _("Save Crash Dump"),
-	    _("Please insert a floppy now. All contents of the disk "
-	      "will be erased, so please choose your diskette carefully."),
-	    [TEXT_OK_BUTTON, _("Cancel")])
-
-        if rc == string.lower(_("Cancel")):
-	    return 1
-
-	return 0
-
     def mainExceptionWindow(self, shortText, longTextFile):
         log.critical(shortText)
         exnWin = MainExceptionWindow(shortText, longTextFile, self.screen)
