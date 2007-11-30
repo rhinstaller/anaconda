@@ -402,6 +402,8 @@ etc/security/selinux/policy.*
 etc/security/selinux/file_contexts
 etc/yum/pluginconf.d/fedorakmod.conf
 lib/terminfo
+$LIBDIR/libnss_dns*
+$LIBDIR/libnss_files*
 sbin/badblocks
 sbin/busybox.anaconda
 sbin/clock
