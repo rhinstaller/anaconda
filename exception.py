@@ -291,11 +291,11 @@ def copyExceptionToDisk(anaconda, device):
         if os.access("/sbin/mkdosfs", os.X_OK):
             cmd = "/sbin/mkdosfs"
 
-        iutil.execWithRedirect (cmd, ["/tmp/floppy"], stdout = '/dev/tty5',
+        iutil.execWithRedirect (cmd, [file], stdout = '/dev/tty5',
                                 stderr = '/dev/tty5')
 
     try:
-        isys.mount(device, "/tmp/crash", fstype = "vfat")
+        isys.mount(file, "/tmp/crash", fstype = "vfat")
     except SystemError:
         return False
 
