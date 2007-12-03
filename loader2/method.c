@@ -663,7 +663,7 @@ void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {
             }
         } else if (!strncmp(arg, "ftp:", 4) || 
                    !strncmp(arg, "http:", 5)) {
-            ld->method = strncmp(arg, "ftp", 3) ? METHOD_HTTP : METHOD_FTP;
+            ld->method = METHOD_URL;
             ld->methodData = calloc(sizeof(struct urlInstallData *), 1);
             ((struct urlInstallData *)ld->methodData)->url = strdup(arg);
 #if !defined(__s390__) && !defined(__s390x__)

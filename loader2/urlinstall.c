@@ -168,54 +168,19 @@ static int loadUrlImages(struct iurlinfo * ui) {
 
 }
 
-static char * getLoginName(char * login, struct iurlinfo ui) {
-    int i;
-
-    i = 0;
-    /* password w/o login isn't useful */
-    if (ui.login && strlen(ui.login)) {
-        i += strlen(ui.login) + 5;
-        if (strlen(ui.password))
-            i += 3*strlen(ui.password) + 5;
-        
-        if (ui.login || ui.password) {
-            login = malloc(i);
-            strcpy(login, ui.login);
-            if (ui.password) {
-                char * chptr;
-                char code[4];
-                
-                strcat(login, ":");
-                for (chptr = ui.password; *chptr; chptr++) {
-                    sprintf(code, "%%%2x", *chptr);
-                    strcat(login, code);
-                }
-                strcat(login, "@");
-            }
-        }
-    }
-    
-    return login;
-}
-
 char * mountUrlImage(struct installMethod * method,
                      char * location, struct loaderData_s * loaderData,
                      moduleInfoSet modInfo, moduleList modLoaded,
                      moduleDeps * modDeps) {
     int rc;
-    char * url, *p;
+    char * url;
     struct iurlinfo ui;
     char needsSecondary = ' ';
     int dir = 1;
-    char * login;
-    char * finalPrefix;
     char * cdurl;
 
     enum { URL_STAGE_MAIN, URL_STAGE_SECOND, URL_STAGE_FETCH, 
            URL_STAGE_DONE } stage = URL_STAGE_MAIN;
-
-    enum urlprotocol_t proto = 
-        !strcmp(method->name, "FTP") ? URL_METHOD_FTP : URL_METHOD_HTTP;
 
     /* JKFIXME: we used to do another ram check here... keep it? */
 
@@ -224,12 +189,8 @@ char * mountUrlImage(struct installMethod * method,
     while (stage != URL_STAGE_DONE) {
         switch(stage) {
         case URL_STAGE_MAIN:
-            if ((loaderData->method == METHOD_FTP ||
-                 loaderData->method == METHOD_HTTP) &&
-                loaderData->methodData) {
-		
+            if (loaderData->method == METHOD_URL && loaderData->methodData) {
                 url = ((struct urlInstallData *)loaderData->methodData)->url;
-
                 logMessage(INFO, "URL_STAGE_MAIN - url is %s", url);
 
                 if (!url) {
@@ -237,7 +198,7 @@ char * mountUrlImage(struct installMethod * method,
                     loaderData->method = -1;
                     break;
                 }
-		
+
 		/* explode url into ui struct */
 		convertURLToUI(url, &ui);
 
@@ -245,7 +206,7 @@ char * mountUrlImage(struct installMethod * method,
 		stage = URL_STAGE_FETCH;
 		dir = 1;
 		break;
-	    } else if (urlMainSetupPanel(&ui, proto, &needsSecondary)) {
+	    } else if (urlMainSetupPanel(&ui, &needsSecondary)) {
                 return NULL;
             }
 
@@ -256,7 +217,7 @@ char * mountUrlImage(struct installMethod * method,
             break;
 
         case URL_STAGE_SECOND:
-            rc = urlSecondarySetupPanel(&ui, proto);
+            rc = urlSecondarySetupPanel(&ui);
             if (rc) {
                 stage = URL_STAGE_MAIN;
                 dir = -1;
@@ -322,28 +283,7 @@ char * mountUrlImage(struct installMethod * method,
         }
     }
 
-    login = "";
-    login = getLoginName(login, ui);
-
-    if (!strcmp(ui.prefix, "/"))
-        finalPrefix = "/.";
-    else
-        finalPrefix = ui.prefix;
-
-    url = malloc(strlen(finalPrefix) + 25 + strlen(ui.address) +
-                 strlen(login));
-
-    /* sanitize url so we dont have problems like bug #101265 */
-    /* basically avoid duplicate /'s                          */
-    if (ui.protocol == URL_METHOD_HTTP) {
-        for (p=finalPrefix; *p == '/'; p++);
-        finalPrefix = p;
-    }
-
-    sprintf(url, "%s://%s%s/%s", 
-	    ui.protocol == URL_METHOD_FTP ? "ftp" : "http",
-	    login, ui.address, finalPrefix);
-
+    url = convertUIToURL(&ui);
     return url;
 }
 
@@ -496,10 +436,8 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     }
 
     /* determine install type */
-    if (strstr(url, "http://"))
-	loaderData->method = METHOD_HTTP;
-    else if (strstr(url, "ftp://"))
-	loaderData->method = METHOD_FTP;
+    if (strstr(url, "http://") || strstr(url, "ftp://"))
+	loaderData->method = METHOD_URL;
     else {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Unknown Url method %s"), url);

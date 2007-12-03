@@ -127,9 +127,7 @@ static char * getLoginName(char * login, struct iurlinfo *ui) {
 
 /* convert a UI to a URL, returns allocated string */
 char *convertUIToURL(struct iurlinfo *ui) {
-    char * login;
-    char * finalPrefix;
-    char * url;
+    char *login, *finalPrefix, *url, *p;
 
     if (!strcmp(ui->prefix, "/"))
 	finalPrefix = "/.";
@@ -138,8 +136,16 @@ char *convertUIToURL(struct iurlinfo *ui) {
 
     login = "";
     login = getLoginName(login, ui);
-    
+
     url = malloc(strlen(finalPrefix) + 25 + strlen(ui->address) + strlen(login));
+
+    /* sanitize url so we dont have problems like bug #101265 */
+    /* basically avoid duplicate /'s                          */
+    if (ui->protocol == URL_METHOD_HTTP) {
+        for (p=finalPrefix; *p == '/'; p++);
+        finalPrefix = p;
+    }
+
     sprintf(url, "%s://%s%s/%s", 
 	    ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
 	    login, ui->address, finalPrefix);
@@ -261,142 +267,86 @@ char * addrToIp(char * hostname) {
         return NULL;
 }
 
-int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
-                      char * doSecondarySetup) {
-    newtComponent form, okay, cancel, siteEntry, dirEntry;
-    newtComponent answer, text;
-    newtComponent cb = NULL;
-    char * site, * dir;
+int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
+    newtComponent form, okay, cancel, urlEntry;
+    newtComponent answer, text, proxyCheckbox;
+    char *url;
     char * reflowedText = NULL;
     int width, height;
-    newtGrid entryGrid, buttons, grid;
+    newtGrid buttons, grid;
     char * chptr;
     char * buf = NULL;
     int r;
 
-    if (ui->address) {
-        site = ui->address;
-        dir = ui->prefix;
-    } else {
-        site = "";
-        dir = "";
-    }
-
     if (ui->login || ui->password || ui->proxy || ui->proxyPort)
-        *doSecondarySetup = '*';
+         *doSecondarySetup = '*';
     else
-        *doSecondarySetup = ' ';
+         *doSecondarySetup = ' ';
+
+    /* Populate the UI with whatever initial value we've got. */
+    url = convertUIToURL(ui);
 
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
-    
-    switch (protocol) {
-    case URL_METHOD_FTP:
-        r = asprintf(&buf, _(netServerPrompt), _("FTP"), getProductName());
-        reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
-        free(buf);
-        break;
-    case URL_METHOD_HTTP:
-        r = asprintf(&buf, _(netServerPrompt), _("Web"), getProductName());
-        reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
-        free(buf);
-        break;
-    }
+
+    r = asprintf(&buf, _(netServerPrompt), getProductName());
+    reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
+    free(buf);
+
     text = newtTextbox(-1, -1, width, height, NEWT_TEXTBOX_WRAP);
     newtTextboxSetText(text, reflowedText);
     free(reflowedText);
 
-    siteEntry = newtEntry(22, 8, site, 24, (const char **) &site, 
-                          NEWT_ENTRY_SCROLL);
-    dirEntry = newtEntry(22, 9, dir, 24, (const char **) &dir, 
+    urlEntry = newtEntry(22, 8, url, 24, (const char **) &url,
                          NEWT_ENTRY_SCROLL);
-
-    entryGrid = newtCreateGrid(2, 2);
-    newtGridSetField(entryGrid, 0, 0, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, (protocol == URL_METHOD_FTP) ?
-                                        _("FTP site name:") :
-                                        _("Web site name:")),
-                     0, 0, 1, 0, NEWT_ANCHOR_LEFT, 0);
-    r = asprintf(&buf, _("%s directory:"), getProductName());
-    newtGridSetField(entryGrid, 0, 1, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, buf),
-                     0, 0, 1, 0, NEWT_ANCHOR_LEFT, 0);
-    newtGridSetField(entryGrid, 1, 0, NEWT_GRID_COMPONENT, siteEntry,
-                     0, 0, 0, 0, 0, 0);
-    newtGridSetField(entryGrid, 1, 1, NEWT_GRID_COMPONENT, dirEntry,
-                     0, 0, 0, 0, 0, 0);
+    proxyCheckbox = newtCheckbox(-1, -1, _("Configure proxy"), *doSecondarySetup,
+                                 NULL, doSecondarySetup);
 
     grid = newtCreateGrid(1, 4);
     newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
                      0, 0, 0, 1, 0, 0);
-    newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, entryGrid,
+    newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, urlEntry,
                      0, 0, 0, 1, 0, 0);
-
-    if (protocol == URL_METHOD_FTP) {
-        cb = newtCheckbox(3, 11, _("Use non-anonymous ftp"),
-                          *doSecondarySetup, NULL, doSecondarySetup);
-        newtGridSetField(grid, 0, 2, NEWT_GRID_COMPONENT, cb,
-                         0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
-    }
-        
+    newtGridSetField(grid, 0, 2, NEWT_GRID_COMPONENT, proxyCheckbox,
+                     0, 0, 0, 1, 0, 0);
     newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, buttons,
                      0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 
-    newtGridWrappedWindow(grid, (protocol == URL_METHOD_FTP) ? _("FTP Setup") :
-                          _("HTTP Setup"));
+    newtGridWrappedWindow(grid, _("URL Setup"));
 
     form = newtForm(NULL, NULL, 0);
-    newtGridAddComponentsToForm(grid, form, 1);    
+    newtGridAddComponentsToForm(grid, form, 1); 
 
     do {
         answer = newtRunForm(form);
         if (answer != cancel) {
-            if (!strlen(site)) {
+            if (!strlen(url)) {
                 newtWinMessage(_("Error"), _("OK"),
-                               _("You must enter a server name."));
-                continue;
-            }
-            if (!strlen(dir)) {
-                newtWinMessage(_("Error"), _("OK"),
-                               _("You must enter a directory."));
+                               _("You must enter a URL."));
                 continue;
             }
 
-            if (!addrToIp(site)) {
+            /* Now split up the URL we were given into its components for
+             * ease of checking.
+             */
+            convertURLToUI(url, ui);
+
+            if (!addrToIp(ui->address)) {
                 newtWinMessage(_("Unknown Host"), _("OK"),
-                        _("%s is not a valid hostname."), site);
+                        _("%s is not a valid hostname."), ui->address);
                 continue;
             }
         }
 
         break;
     } while (1);
-    
+
     free(buf);
 
     if (answer == cancel) {
         newtFormDestroy(form);
         newtPopWindow();
-        
+
         return LOADER_BACK;
-    }
-
-    /* if the user entered the protocol type, trim it */
-    if (!strncmp(site, "http://", 7))
-        site += 7;
-    else if (!strncmp(site, "ftp://", 6))
-        site += 6;
-
-    if (ui->address) free(ui->address);
-    r = asprintf(&ui->address, "%s", site);
-
-    if (ui->prefix) free(ui->prefix);
-
-    /* add a slash at the start of the dir if it is missing */
-    if (*dir != '/') {
-        if (asprintf(&(ui->prefix), "/%s", dir) == -1)
-            ui->prefix = strdup(dir);
-    } else {
-        ui->prefix = strdup(dir);
     }
 
     /* Get rid of trailing /'s */
@@ -406,18 +356,13 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     *chptr = '\0';
 
     if (*doSecondarySetup != '*') {
-        if (ui->login)
-            free(ui->login);
-        if (ui->password)
-            free(ui->password);
         if (ui->proxy)
             free(ui->proxy);
         if (ui->proxyPort)
             free(ui->proxyPort);
-        ui->login = ui->password = ui->proxy = ui->proxyPort = NULL;
-    }
 
-    ui->protocol = protocol;
+        ui->proxy = ui->proxyPort = NULL;
+    }
 
     newtFormDestroy(form);
     newtPopWindow();
@@ -425,56 +370,40 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     return 0;
 }
 
-int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
-    newtComponent form, okay, cancel, answer, text, accountEntry = NULL;
-    newtComponent passwordEntry = NULL, proxyEntry = NULL;
+int urlSecondarySetupPanel(struct iurlinfo * ui) {
+    newtComponent form, okay, cancel, answer, text;
+    newtComponent proxyEntry = NULL;
     newtComponent proxyPortEntry = NULL;
-    char * account, * password, * proxy, * proxyPort;
+    char * proxy, * proxyPort;
     newtGrid buttons, entryGrid, grid;
     char * reflowedText = NULL;
     int width, height;
 
-    if (protocol == URL_METHOD_FTP) {
-        reflowedText = newtReflowText(
-        _("If you are using non anonymous ftp, enter the account name and "
-          "password you wish to use below."),
-        47, 5, 5, &width, &height);
-    } else {
-        reflowedText = newtReflowText(
+    reflowedText = newtReflowText(
         _("If you are using a HTTP proxy server "
           "enter the name of the HTTP proxy server to use."),
         47, 5, 5, &width, &height);
-    }
+
     text = newtTextbox(-1, -1, width, height, NEWT_TEXTBOX_WRAP);
     newtTextboxSetText(text, reflowedText);
     free(reflowedText);
 
-    if (protocol == URL_METHOD_FTP) {
-        accountEntry = newtEntry(-1, -1, NULL, 24, (const char **) &account, 
-                                 NEWT_FLAG_SCROLL);
-        passwordEntry = newtEntry(-1, -1, NULL, 24, (const char **) &password, 
-                                  NEWT_FLAG_SCROLL | NEWT_FLAG_PASSWORD);
-    }
     proxyEntry = newtEntry(-1, -1, ui->proxy, 24, (const char **) &proxy, 
                            NEWT_ENTRY_SCROLL);
     proxyPortEntry = newtEntry(-1, -1, ui->proxyPort, 6, 
                                (const char **) &proxyPort, NEWT_FLAG_SCROLL);
 
-    entryGrid = newtCreateGrid(2, 4);
-    if (protocol == URL_METHOD_FTP) {
-        newtGridSetField(entryGrid, 0, 0, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, _("Account name:")),
+    entryGrid = newtCreateGrid(2, 2);
+    newtGridSetField(entryGrid, 0, 0, NEWT_GRID_COMPONENT,
+                     newtLabel(-1, -1, _("Proxy Name:")),
                      0, 0, 2, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(entryGrid, 0, 1, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, _("Password:")),
+    newtGridSetField(entryGrid, 1, 0, NEWT_GRID_COMPONENT, proxyEntry,
+                     0, 0, 0, 0, 0, 0);
+    newtGridSetField(entryGrid, 0, 1, NEWT_GRID_COMPONENT,
+                     newtLabel(-1, -1, _("Proxy Port:")),
                      0, 0, 2, 0, NEWT_ANCHOR_LEFT, 0);
-    }
-    if (protocol == URL_METHOD_FTP) {
-        newtGridSetField(entryGrid, 1, 0, NEWT_GRID_COMPONENT, accountEntry,
-                         0, 0, 0, 0, 0, 0);
-        newtGridSetField(entryGrid, 1, 1, NEWT_GRID_COMPONENT, passwordEntry,
-                         0, 0, 0, 0, 0, 0);
-    }
+    newtGridSetField(entryGrid, 1, 1, NEWT_GRID_COMPONENT, proxyPortEntry,
+                     0, 0, 0, 0, 0, 0);
 
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
 
@@ -485,12 +414,7 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
     newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, buttons, 
                      0, 1, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 
-    if (protocol == URL_METHOD_FTP) {
-        newtGridWrappedWindow(grid, _("Further FTP Setup"));
-    } else {
-        if (protocol == URL_METHOD_HTTP)
-            newtGridWrappedWindow(grid, _("Further HTTP Setup"));
-    }
+    newtGridWrappedWindow(grid, _("Further Setup"));
 
     form = newtForm(NULL, NULL, 0);
     newtGridAddComponentsToForm(grid, form, 1);
@@ -500,24 +424,15 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
     if (answer == cancel) {
         newtFormDestroy(form);
         newtPopWindow();
-        
+
         return LOADER_BACK;
     }
- 
-    if (protocol == URL_METHOD_FTP) {
-        if (ui->login) free(ui->login);
-        if (strlen(account))
-            ui->login = strdup(account);
-        else
-            ui->login = NULL;
-        
-        if (ui->password) free(ui->password);
-        if (strlen(password))
-            ui->password = strdup(password);
-        else
-            ui->password = NULL;
-    }
-    
+
+    if (strlen(proxy))
+        ui->proxy = strdup(proxy);
+    if (strlen(proxyPort))
+        ui->proxyPort = strdup(proxyPort);
+
     newtFormDestroy(form);
     newtPopWindow();
 

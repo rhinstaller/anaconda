@@ -56,11 +56,8 @@
 extern uint64_t flags;
 
 char *netServerPrompt = \
-    N_("Please enter the following information:\n"
-       "\n"
-       "    o the name or IP number of your %s server\n" 
-       "    o the directory on that server containing\n" 
-       "      %s for your architecture\n");
+    N_("Please enter the URL containing %s on your\n"
+       "server.\n");
 
 /**
  * Callback function for the CIDR entry boxes on the manual TCP/IP
@@ -1713,8 +1710,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     /* Make sure the network is always up if there's a network line in the
      * kickstart file, as %post/%pre scripts might require that.
      */
-    if (loaderData->method != METHOD_NFS && loaderData->method != METHOD_FTP &&
-        loaderData->method != METHOD_HTTP) {
+    if (loaderData->method != METHOD_NFS && loaderData->method != METHOD_URL) {
         initLoopback();
         if (kickstartNetworkUp(loaderData, &cfg))
             logMessage(ERROR, "unable to bring up network");

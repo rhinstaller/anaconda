@@ -118,12 +118,11 @@ int post_link_sleep = 0;
 
 static struct installMethod installMethods[] = {
 #if !defined(__s390__) && !defined(__s390x__)
-    { N_("Local CD/DVD"), "cdrom", 0, CLASS_CDROM, mountCdromImage },
+    { N_("Local CD/DVD"), 0, CLASS_CDROM, mountCdromImage },
 #endif
-    { N_("Hard drive"), "hd", 0, CLASS_HD, mountHardDrive },
-    { N_("NFS directory"), "nfs", 1, CLASS_NETWORK, mountNfsImage },
-    { "FTP", "ftp", 1, CLASS_NETWORK, mountUrlImage },
-    { "HTTP", "http", 1, CLASS_NETWORK, mountUrlImage },
+    { N_("Hard drive"), 0, CLASS_HD, mountHardDrive },
+    { N_("NFS directory"), 1, CLASS_NETWORK, mountNfsImage },
+    { "URL", 1, CLASS_NETWORK, mountUrlImage },
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 

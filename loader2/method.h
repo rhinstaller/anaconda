@@ -13,13 +13,11 @@ enum {
 #endif
     METHOD_HD,
     METHOD_NFS,
-    METHOD_FTP,
-    METHOD_HTTP
+    METHOD_URL
 };
 
 struct installMethod {
     char * name;
-    char * shortname;
     int network;
     enum deviceClass deviceType;			/* for pcmcia */
     char * (*mountImage)(struct installMethod * method,
