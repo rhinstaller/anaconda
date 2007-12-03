@@ -779,7 +779,30 @@ def readFSLabel(device, makeDevNode = 1):
     return label
 
 def readFSType(device):
-    return _isys.getblkid(device, "TYPE")
+    fstype = _isys.getblkid(device, "TYPE")
+    if fstype is None:
+        # FIXME: libblkid doesn't show physical volumes as having a filesystem
+        # so let's sniff for that.(#409321)
+        try:
+            fd = os.open(device, os.O_RDONLY)
+            buf = os.read(fd, 2048)
+        except:
+            return fstype
+        finally:
+            try:
+                os.close(fd)
+            except:
+                pass
+
+        if buf.startswith("HM"):
+            return "physical volume (LVM)"
+        for sec in range(0, 4):
+            off = (sec * 512) + 24
+            if len(buf) < off:
+                continue
+            if buf[off:].startswith("LVM2"):
+                return "physical volume (LVM)"
+    return fstype
 
 def ext2Clobber(device, makeDevNode = 1):
     _isys.e2fsclobber(device)
