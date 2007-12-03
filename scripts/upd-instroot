@@ -124,7 +124,7 @@ instFile() {
     DESTROOT=$2
 
     [ -n "$DEBUG" ] && echo "Installing $FILE"
-    if [ -e $DESTROOT/$FILE -o -h $DESTROOT/$FILE ]; then
+    if [ -e $DESTROOT/$FILE -o -L $DESTROOT/$FILE ]; then
       return
     elif [ ! -d $DESTROOT/`dirname $FILE` ]; then
       mkdir -p $DESTROOT/`dirname $FILE`
@@ -182,6 +182,7 @@ expandPackageSet() {
 	    instFile $filespec $PKGDEST
 	else
 	    for i in `find $filespec -type f` ; do instFile $i $PKGDEST ; done
+	    for i in `find $filespec -type l` ; do instFile $i $PKGDEST ; done
 	fi
       done
     done
