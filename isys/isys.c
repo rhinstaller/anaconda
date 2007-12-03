@@ -49,6 +49,8 @@
 #include <libdhcp/ip_addr.h>
 #include <libdhcp/pump.h>
 
+#include <blkid/blkid.h>
+
 #include "nl.h"
 #include "imount.h"
 #include "isys.h"
@@ -115,6 +117,7 @@ static PyObject * doGetBiosDisk(PyObject * s, PyObject * args);
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doAuditDaemon(PyObject *s);
 static PyObject * doPrefixToNetmask(PyObject *s, PyObject *args);
+static PyObject * doGetBlkidData(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -167,6 +170,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
     { "auditdaemon", (PyCFunction) doAuditDaemon, METH_NOARGS, NULL },
     { "prefix2netmask", (PyCFunction) doPrefixToNetmask, METH_VARARGS, NULL },
+    { "getblkid", (PyCFunction) doGetBlkidData, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
 
@@ -1191,6 +1195,34 @@ static PyObject * doSegvHandler(PyObject *s, PyObject *args) {
 
 static PyObject * doAuditDaemon(PyObject *s) {
     audit_daemonize();
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doGetBlkidData(PyObject * s, PyObject * args) {
+    char * dev, * key;
+    blkid_cache cache;
+    blkid_dev bdev = NULL;
+    blkid_tag_iterate titer;
+    const char * type, * data;
+
+    if (!PyArg_ParseTuple(args, "ss", &dev, &key)) return NULL;
+
+    blkid_get_cache(&cache, NULL);
+
+    bdev = blkid_get_dev(cache, dev, BLKID_DEV_NORMAL);
+    if (bdev == NULL)
+        goto out;
+    titer = blkid_tag_iterate_begin(bdev);
+    while (blkid_tag_next(titer, &type, &data) >= 0) {
+        if (!strcmp(type, key)) {
+            blkid_tag_iterate_end(titer);
+            return Py_BuildValue("s", data);
+        }
+    }
+    blkid_tag_iterate_end(titer);
+
+ out:
     Py_INCREF(Py_None);
     return Py_None;
 }

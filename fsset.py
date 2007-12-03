@@ -1164,7 +1164,8 @@ class AutoFileSystem(PsudoFileSystem):
             ret = isys.resetFileContext(mountpoint, instroot)
             log.info("set SELinux context for mountpoint %s to %s" %(mountpoint, ret))
 
-        for fs in getFStoTry (device):
+        fs = isys.readFSType(device)
+        if fs is not None:
             try:
                 isys.mount (device, mountpoint, fstype = fs, readOnly =
                             readOnly, bindMount = bindMount)
@@ -1172,7 +1173,6 @@ class AutoFileSystem(PsudoFileSystem):
             except SystemError, (num, msg):
                 errNum = num
                 errMsg = msg
-                continue
 
         raise SystemError (errNum, errMsg)
 
@@ -2755,129 +2755,6 @@ def readFstab (anaconda):
             entry.setLabel(label)
         fsset.add(entry)
     return fsset
-
-def getDevFD(device):
-    try:
-        fd = os.open(device, os.O_RDONLY)
-    except:
-        try:
-            file = isys.makeDevInode(device)
-            fd = os.open(file, os.O_RDONLY)
-        except:
-            return -1
-    return fd
-
-def isValidExt2(device):
-    fd = getDevFD(device)
-    if fd == -1:
-        return 0
-
-    buf = os.read(fd, 2048)
-    os.close(fd)
-
-    if len(buf) != 2048:
-        return 0
-
-    if struct.unpack("<H", buf[1080:1082]) == (0xef53,):
-        return 1
-
-    return 0
-
-def isValidXFS(device):
-    fd = getDevFD(device)
-    if fd == -1:
-        return 0
-
-    buf = os.read(fd, 4)
-    os.close(fd)
-
-    if len(buf) != 4:
-        return 0
-
-    if buf == "XFSB":
-        return 1
-
-    return 0
-
-def isValidReiserFS(device):
-    fd = getDevFD(device)
-    if fd == -1:
-        return 0
-
-    '''
-    ** reiserfs 3.5.x super block begins at offset 8K
-    ** reiserfs 3.6.x super block begins at offset 64K
-    All versions have a magic value of "ReIsEr" at
-    offset 0x34 from start of super block
-    '''
-    reiserMagicVal = "ReIsEr"
-    reiserMagicOffset = 0x34
-    reiserSBStart = [64*1024, 8*1024]
-    bufSize = 0x40  # just large enough to include the magic value
-    for SBOffset in reiserSBStart:
-        try:
-            os.lseek(fd, SBOffset, 0)
-            buf = os.read(fd, bufSize)
-        except:
-            buf = ""
-
-        if len(buf) < bufSize:
-            continue
-
-        if (buf[reiserMagicOffset:reiserMagicOffset+len(reiserMagicVal)] ==
-            reiserMagicVal):
-            os.close(fd)
-            return 1
-
-    os.close(fd)
-    return 0    
-
-def isValidJFS(device):
-    fd = getDevFD(device)
-    if fd == -1:
-        return 0
-
-    try:
-        os.lseek(fd, 32768, 0)
-        buf = os.read(fd, 128)
-    except:
-        buf = ""
-
-    os.close(fd)
-    if len(buf) < 4:
-        return 0
-
-    if (buf[0:4] == "JFS1"):
-        return 1
-
-    return 0    
-
-# this will return a list of types of filesystems which device
-# looks like it could be to try mounting as
-def getFStoTry(device):
-    rc = []
-
-    if isValidXFS(device):
-        rc.append("xfs")
-
-    if isValidReiserFS(device):
-        rc.append("reiserfs")
-
-    if isValidJFS(device):
-        rc.append("jfs")
-
-    if isValidExt2(device):
-        if os.access(device, os.O_RDONLY):
-            create = 0
-        else:
-            create = 1
-        if isys.ext2HasJournal(device, makeDevNode = create):
-            rc.append("ext3")
-        rc.append("ext2")
-
-    # FIXME: need to check for swap
-
-    return rc
 
 def allocateLoopback(file):
     found = 1

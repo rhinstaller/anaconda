@@ -465,72 +465,7 @@ def sniffFilesystemType(device):
     else:
         dev = isys.makeDevInode(device)
 
-    pagesize = resource.getpagesize()
-    if pagesize > 2048:
-        num = pagesize
-    else:
-        num = 2048
-
-    try:
-        fd = os.open(dev, os.O_RDONLY)
-        buf = os.read(fd, num)
-    except:
-        return None
-    finally:
-        try:
-            os.close(fd)
-        except:
-            pass
-
-    if len(buf) < pagesize:
-        try:
-            log.error("Tried to read pagesize for %s in sniffFilesystemType and only read %s", dev, len(buf))
-        except:
-            pass
-
-        return None
-
-    # physical volumes start with HM (see linux/lvm.h
-    # and LVM/ver/tools/lib/pv_copy.c)
-    if buf.startswith("HM"):
-        return "physical volume (LVM)"
-    # sniff for LVM2 label.  see LVM/ver/lib/label/label.[ch] for a
-    # description of the label and LVM/ver/lib/format_text/layout.h 
-    for sec in range(0, 4):
-        off = (sec * 512) + 24
-        if buf[off:].startswith("LVM2"):
-            return "physical volume (LVM)"
-
-    try:
-        isys.raidsbFromDevice(dev)
-        return "software RAID"
-    except:
-        pass
-
-    # ext2 check
-    if struct.unpack("<H", buf[1080:1082]) == (0xef53,):
-        if isys.ext2HasJournal(dev, makeDevNode = 0):
-            return "ext3"
-        else:
-            return "ext2"
-
-    # xfs signature
-    if buf.startswith("XFSB"):
-        return "xfs"
-
-    # 2.6 doesn't support version 0, so we don't like SWAP-SPACE
-    if (buf[pagesize - 10:] == "SWAPSPACE2"):
-        return "swap"
-
-    if fsset.isValidReiserFS(dev):
-        return "reiserfs"
-
-    if fsset.isValidJFS(dev):
-        return "jfs"
-
-    # FIXME:  we don't look for vfat
-
-    return None
+    return isys.readFSType(device)
 
 def getReleaseString(mountpoint):
     if os.access(mountpoint + "/etc/redhat-release", os.R_OK):
@@ -796,7 +731,8 @@ class DiskSet:
         for dev, devices, level, numActive in self.mdList:
             (errno, msg) = (None, None)
             found = 0
-            for fs in fsset.getFStoTry(dev):
+            fs = isys.readFSType(dev)
+            if fs is not None:
                 try:
                     isys.mount(dev, self.anaconda.rootPath, fs, readOnly = 1)
                     found = 1
@@ -827,7 +763,8 @@ class DiskSet:
                 continue
             dev = "/dev/%s/%s" %(vg, lv)
             found = 0
-            for fs in fsset.getFStoTry(dev):
+            fs = isys.readFSType(dev)
+            if fs is not None:
                 try:
                     isys.mount(dev, self.anaconda.rootPath, fs, readOnly = 1)
                     found = 1

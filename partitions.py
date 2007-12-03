@@ -259,7 +259,7 @@ class Partitions:
                 raidvols.append(req.uniqueID)
                 
 
-            fs = partedUtils.sniffFilesystemType(theDev)
+            fs = partedUtils.sniffFilesystemType("/dev/%s" %(theDev,))
             fslabel = None
             if fs is None:
                 fsystem = fsset.fileSystemTypeGet("foreign")
