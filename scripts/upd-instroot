@@ -632,8 +632,6 @@ etc/fonts
 etc/prelink.conf
 etc/rpm/macros.prelink
 $LIBDIR/bdevid
-sbin/addRamDisk
-sbin/addSystemMap
 sbin/debugfs
 sbin/e2fsck
 sbin/e2label
@@ -701,8 +699,11 @@ usr/$LIBDIR/python?.?/site-packages/gtk*/gtk
 usr/$LIBDIR/python?.?/site-packages/gtk*
 usr/$LIBDIR/rpm/rpmpopt
 usr/lib/syslinux
+usr/lib/kernel-wrapper
 boot/efika.forth
 usr/lib/yaboot
+usr/sbin/addRamDisk
+usr/sbin/wrapper
 usr/sbin/chroot
 usr/sbin/ddcprobe
 usr/sbin/fbset
@@ -1172,7 +1173,11 @@ for p in $DEST $DESTGR; do
 
 	rm -rf $p/boot $p/home $p/root $p/tmp
 
+	# I wish I knew how to drive find.
+	mv $p/usr/lib/kernel-wrapper/wrapper.a $p/usr/lib/kernel-wrapper/wrapper.nota
 	find $p -name "*.a" | xargs rm -rf
+	mv $p/usr/lib/kernel-wrapper/wrapper.nota $p/usr/lib/kernel-wrapper/wrapper.a
+
 	find $p -name "lib*.la" |grep -v "usr/$LIBDIR/gtk-2.0" | xargs rm -rf
 	for f in newt popt rpm rpmio; do
 	    rm -f $p/usr/$LIBDIR/lib$f.so

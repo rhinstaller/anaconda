@@ -8,7 +8,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$INITRDMODS spufs"
+	    --modules "$INITRDMODS spufs viocd gpio_mdio"
 
 	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/ppc64/vmlinuz
         sed -e "s/%BITS%/64/" -e "s/%PRODUCT%/$PRODUCT/" -e "s/%VERSION%/$VERSION/" \
@@ -29,33 +29,26 @@ __EOT__
 		rm -f $TOPDESTPATH/ppc/ppc64/zImage.lds
 		popd
         echo "zimage = images/netboot/ppc64.img" >> $TOPDESTPATH/.treeinfo
+	elif [ -x $IMGPATH/usr/sbin/wrapper -a -r $IMGPATH/usr/lib/kernel-wrapper/wrapper.a ]; then
+		mkdir -p $TOPDESTPATH/images/netboot
+		$IMGPATH/usr/sbin/wrapper -o $TOPDESTPATH/images/netboot/ppc64.img	\
+					  -i $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz	\
+					  -D $IMGPATH/usr/lib/kernel-wrapper		\
+					     $TOPDESTPATH/ppc/ppc64/vmlinuz
+		rmdir $TOPDESTPATH/images/netboot || :
+		echo "zimage = images/netboot/ppc64.img" >> $TOPDESTPATH/.treeinfo
 	fi
+	if [ -x $IMGPATH/usr/sbin/addRamDisk ]; then
+		mkdir -p $TOPDESTPATH/images/iSeries
+		$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz	\
+					     $TOPDESTPATH/ppc/ppc64/vmlinuz		\
+					     $TOPDESTPATH/images/iSeries/boot.img
+		rmdir $TOPDESTPATH/images/iSeries || :
+	fi
+
     echo >> $TOPDESTPATH/.treeinfo
 
 
-    elif [ "$KERNELARCH" = "ppc64iseries" ]; then
-	mkdir -p $TOPDESTPATH/ppc/iSeries
-	mkdir -p $TOPDESTPATH/images/iSeries
-
-	echo "Building iSeries initrd"
-	makeinitrd --initrdto $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz \
-	    --initrdsize 8192 \
-	    --loaderbin loader \
-	    --modules "$INITRDMODS viocd"
-
-	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/iSeries/vmlinux
-	cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
-
-	$IMGPATH/usr/sbin/addSystemMap $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux $TOPDESTPATH/ppc/iSeries/vmlinux.sm
-	$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux.sm $TOPDESTPATH/images/iSeries/boot.img
-	rm -f $TOPDESTPATH/ppc/iSeries/vmlinux.sm
-
-    cat << __EOT__ >> $TOPDESTPATH/.treeinfo
-[images-$KERNELARCH]
-kernel = ppc/iSeries/vmlinux
-initrd = ppc/iSeries/ramdisk.image.gz
-
-__EOT__
     elif [ "$KERNELARCH" = "ppc" ]; then
 	FAKEARCH="ppc"
 	mkdir -p $TOPDESTPATH/ppc/ppc32
@@ -85,6 +78,14 @@ __EOT__
 		rm -f $TOPDESTPATH/ppc/ppc32/zImage.lds
 		popd
         echo "zimage = images/netboot/ppc32.img" >> $TOPDESTPATH/.treeinfo
+	elif [ -x $IMGPATH/usr/sbin/wrapper -a -r $IMGPATH/usr/lib/kernel-wrapper/wrapper.a ]; then
+		$IMGPATH/usr/sbin/wrapper -o $TOPDESTPATH/images/netboot/ppc32.img	\
+					  -i $TOPDESTPATH/ppc/ppc32/ramdisk.image.gz	\
+					  -D $IMGPATH/usr/lib/kernel-wrapper		\
+					     $TOPDESTPATH/ppc/ppc32/vmlinuz
+		rmdir $TOPDESTPATH/images/netboot || :
+		popd
+		echo "zimage = images/netboot/ppc32.img" >> $TOPDESTPATH/.treeinfo
 	fi
     echo >> $TOPDESTPATH/.treeinfo
 
