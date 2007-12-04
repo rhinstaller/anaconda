@@ -1173,11 +1173,7 @@ for p in $DEST $DESTGR; do
 
 	rm -rf $p/boot $p/home $p/root $p/tmp
 
-	# I wish I knew how to drive find.
-	mv $p/usr/lib/kernel-wrapper/wrapper.a $p/usr/lib/kernel-wrapper/wrapper.nota
-	find $p -name "*.a" | xargs rm -rf
-	mv $p/usr/lib/kernel-wrapper/wrapper.nota $p/usr/lib/kernel-wrapper/wrapper.a
-
+	find $p -name "*.a" | |grep -v kernel-wrapper/wrapper.a | xargs rm -rf
 	find $p -name "lib*.la" |grep -v "usr/$LIBDIR/gtk-2.0" | xargs rm -rf
 	for f in newt popt rpm rpmio; do
 	    rm -f $p/usr/$LIBDIR/lib$f.so
