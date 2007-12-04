@@ -40,7 +40,7 @@ int doPwMount(char * dev, char * where, char * fs, int options, void *data) {
         buf = dev;
     } else if (!isnfs) {
         buf = alloca(200);
-        strcpy(buf, "/tmp/");
+        strcpy(buf, "/dev/");
         strcat(buf, dev);
     } else {
 #ifndef DISABLE_NETWORK
