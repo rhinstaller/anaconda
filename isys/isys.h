@@ -9,9 +9,6 @@
 #define EARLY_SWAP_RAM		270000
 #endif
 
-/* returns -2 for errno, -1 for unknown device */
-int devMakeInode(char * devName, char * path);
-
 int insmod(char * modName, char * path, char ** args);
 int rmmod(char * modName);
 

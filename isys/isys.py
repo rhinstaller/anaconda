@@ -598,30 +598,6 @@ def getDasdState(dev):
 
     return 0
 
-## Create a device node.
-# This method creates a device node, optionally in a directory tree other than
-# /dev.  Do not create device nodes in /tmp as we are trying to move away from
-# using /tmp for anything other than temporary data.
-#
-# @param name The basename of the device node.
-# @param fn An optional directory to create the new device node in.
-# @return The path of the created device node.
-def makeDevInode(name, fn=None):
-    if fn:
-        if fn.startswith("/tmp"):
-            warnings.warn("device node created in /tmp", stacklevel=2)
-        if os.path.exists(fn):
-            return fn
-        _isys.mkdevinode(name, fn)
-        return fn
-    path = '/dev/%s' % (name,)
-    try:
-        os.stat(path)
-    except OSError:
-        path = '/dev/%s' % (name,)
-        _isys.mkdevinode(name, path)
-    return path
-
 ## Calculate the broadcast address of a network.
 # @param ip An IPv4 address as a string.
 # @param nm A corresponding netmask as a string.

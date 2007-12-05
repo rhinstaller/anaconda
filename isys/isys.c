@@ -70,7 +70,6 @@ static PyObject * doGetOpt(PyObject * s, PyObject * args);
 static PyObject * doRmmod(PyObject * s, PyObject * args);*/
 static PyObject * doMount(PyObject * s, PyObject * args);
 static PyObject * doUMount(PyObject * s, PyObject * args);
-static PyObject * makeDevInode(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
 static PyObject * htAvailable(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
@@ -134,7 +133,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
     { "ddfile", (PyCFunction) doDdFile, METH_VARARGS, NULL },
     { "getopt", (PyCFunction) doGetOpt, METH_VARARGS, NULL },
-    { "mkdevinode", (PyCFunction) makeDevInode, METH_VARARGS, NULL },
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "htavailable", (PyCFunction) htAvailable, METH_VARARGS, NULL },
@@ -173,23 +171,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "getblkid", (PyCFunction) doGetBlkidData, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
-
-static PyObject * makeDevInode(PyObject * s, PyObject * args) {
-    char * devName, * where;
-
-    if (!PyArg_ParseTuple(args, "ss", &devName, &where)) return NULL;
-
-    switch (devMakeInode(devName, where)) {
-      case -1:
-	PyErr_SetString(PyExc_TypeError, "unknown device");
-      case -2:
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
 
 static PyObject * doDdFile(PyObject * s, PyObject * args) {
     int fd;
