@@ -508,7 +508,7 @@ class Anaconda:
 
     def setBackend(self, instClass):
         b = instClass.getBackend()
-        self.backend = apply(b, (self.rootPath,))
+        self.backend = apply(b, (self,))
 
     def setMethodstr(self, methodstr):
         # Save the method string we are given from the loader for printing out

@@ -711,8 +711,8 @@ class AnacondaYum(YumSorter):
         return False
 
 class YumBackend(AnacondaBackend):
-    def __init__ (self, instPath):
-        AnacondaBackend.__init__(self, instPath)
+    def __init__ (self, anaconda):
+        AnacondaBackend.__init__(self, anaconda)
         self.supportsPackageSelection = True
 
     def doInitialSetup(self, anaconda):

@@ -31,7 +31,6 @@ from flags import flags
 from constants import *
 
 import backend
-import installmethod
 import isys
 import iutil
 
@@ -87,14 +86,17 @@ def copytree(src, dst, symlinks=False, preserveOwner=False,
     if errors:
         raise Error, errors
 
-class LiveCDImageMethod(installmethod.InstallMethod):
-    def __init__(self, method, rootpath, intf):
-        """@param method livecd://live-block-device"""
-        installmethod.InstallMethod.__init__(self, method, rootpath, intf)
+class LiveCDCopyBackend(backend.AnacondaBackend):
+    def __init__(self, anaconda):
+        backend.AnacondaBackend.__init__(self, anaconda)
+        flags.livecdInstall = True
+        self.supportsUpgrades = False
+        self.supportsPackageSelection = False
+        self.skipFormatRoot = True
 
-        self.osimg = method[8:]
+        self.osimg = anaconda.methodstr[8:]
         if not stat.S_ISBLK(os.stat(self.osimg)[stat.ST_MODE]):
-            intf.messageWindow(_("Unable to find image"),
+            anaconda.intf.messageWindow(_("Unable to find image"),
                                _("The given location isn't a valid %s "
                                  "live CD to use as an installation source.")
                                %(productName,), type = "custom",
@@ -102,30 +104,10 @@ class LiveCDImageMethod(installmethod.InstallMethod):
                                custom_buttons=[_("Exit installer")])
             sys.exit(0)
 
-    def unmountNonFstabDirs(self, anaconda):
-        # unmount things that aren't listed in /etc/fstab.  *sigh*
-        dirs = ["/dev"]
-        if flags.selinux:
-            dirs.append("/selinux")
-        for dir in dirs:
-            try:
-                isys.umount("%s/%s" %(anaconda.rootPath,dir), removeDir = 0)
-            except Exception, e:
-                log.error("unable to unmount %s: %s" %(dir, e))
-
-    def postAction(self, anaconda):
-        self.unmountNonFstabDirs(anaconda)
-        try:
-            anaconda.id.fsset.umountFilesystems(anaconda.rootPath,
-                                                swapoff = False)
-            os.rmdir(anaconda.rootPath)
-        except Exception, e:
-            log.error("Unable to unmount filesystems.") 
-
-    def getLiveBlockDevice(self):
+    def _getLiveBlockDevice(self):
         return self.osimg
 
-    def getLiveSizeMB(self):
+    def _getLiveSizeMB(self):
         def parseField(output, field):
             for line in output.split("\n"):
                 if line.startswith(field + ":"):
@@ -140,17 +122,29 @@ class LiveCDImageMethod(installmethod.InstallMethod):
         blksize = int(parseField(output, "Block size"))        
         return blkcnt * blksize / 1024 / 1024
 
-class LiveCDCopyBackend(backend.AnacondaBackend):
-    def __init__(self, instPath):
-        backend.AnacondaBackend.__init__(self, instPath)
-        flags.livecdInstall = True
-        self.supportsUpgrades = False
-        self.supportsPackageSelection = False
-        self.skipFormatRoot = True
+    def _unmountNonFstabDirs(self, anaconda):
+        # unmount things that aren't listed in /etc/fstab.  *sigh*
+        dirs = ["/dev"]
+        if flags.selinux:
+            dirs.append("/selinux")
+        for dir in dirs:
+            try:
+                isys.umount("%s/%s" %(anaconda.rootPath,dir), removeDir = 0)
+            except Exception, e:
+                log.error("unable to unmount %s: %s" %(dir, e))
+
+    def postAction(self, anaconda):
+        self._unmountNonFstabDirs(anaconda)
+        try:
+            anaconda.id.fsset.umountFilesystems(anaconda.rootPath,
+                                                swapoff = False)
+            os.rmdir(anaconda.rootPath)
+        except Exception, e:
+            log.error("Unable to unmount filesystems.") 
 
     def doPreInstall(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
-            anaconda.method.unmountNonFstabDirs(anaconda)
+            self._unmountNonFstabDirs(anaconda)
             return
 
         anaconda.id.fsset.umountFilesystems(anaconda.rootPath, swapoff = False)
@@ -165,7 +159,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         progress.set_label(_("Copying live image to hard drive."))
         progress.processEvents()
 
-        osimg = anaconda.method.getLiveBlockDevice() # the real image
+        osimg = self._getLiveBlockDevice() # the real image
         osfd = os.open(osimg, os.O_RDONLY)
 
         r = anaconda.id.fsset.getEntryByMountPoint("/")
@@ -173,7 +167,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         rootfd = os.open("/dev/" + rootfs, os.O_WRONLY)
 
         readamt = 1024 * 1024 * 8 # 8 megs at a time
-        size = float(anaconda.method.getLiveSizeMB() * 1024 * 1024)
+        size = float(self._getLiveSizeMB() * 1024 * 1024)
         copied = 0
         while copied < size:
             buf = os.read(osfd, readamt)
@@ -349,7 +343,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # ensure there's enough space on the rootfs
         # FIXME: really, this should be in the general sanity checking, but
         # trying to weave that in is a little tricky at present.
-        ossize = anaconda.method.getLiveSizeMB()
+        ossize = self._getLiveSizeMB()
         slash = anaconda.id.partitions.getRequestByMountPoint("/")
         if slash and \
            slash.getActualSize(anaconda.id.partitions, anaconda.id.diskset) < ossize:

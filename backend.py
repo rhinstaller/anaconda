@@ -31,11 +31,11 @@ log = logging.getLogger("anaconda")
 
 
 class AnacondaBackend:
-    def __init__(self, instPath):
+    def __init__(self, anaconda):
         """Abstract backend class all backends should inherit from this
            @param instPath: root path for the installation to occur"""
 
-        self.instPath = instPath
+        self.instPath = anaconda.rootPath
         self.instLog = None
         self.modeText = ""
 
@@ -46,6 +46,9 @@ class AnacondaBackend:
         # some backends may have a special case for rootfs formatting
         # FIXME: we should handle this a little more elegantly
         self.skipFormatRoot = False
+
+    def postAction(self, anaconda):
+        pass
 
     def doPreSelection(self, intf, id, instPath):
         pass

@@ -40,7 +40,7 @@ import logging
 log = logging.getLogger("anaconda")
 
 def doPostAction(anaconda):
-    anaconda.id.instClass.postAction(anaconda, flags.serial)
+    anaconda.id.instClass.postAction(anaconda)
 
 def firstbootConfiguration(anaconda):
     if anaconda.id.firstboot == FIRSTBOOT_RECONFIG:
