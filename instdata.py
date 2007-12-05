@@ -212,36 +212,7 @@ class InstallData:
 	    f.write("install\n");
 
 	# figure out the install method and write out a line
-	if self.methodstr.startswith('ftp://') or self.methodstr.startswith('http://'):
-	    f.write("url --url %s\n" % urllib.unquote(self.methodstr))
-	elif self.methodstr.startswith('cdrom://'):
-	    f.write("cdrom\n")
-	elif self.methodstr.startswith('hd://'):
-	    pidx = string.find(self.methodstr, '//') + 2
-	    didx = string.find(self.methodstr[pidx:], '/')
-	    partition = string.split(self.methodstr[pidx:pidx+didx], ':')[0]
-	    dir = self.methodstr[pidx+didx+1:]
-	    f.write("harddrive --partition=%s --dir=%s\n" % (partition, dir))
-	elif self.methodstr.startswith('nfs:/') or self.methodstr.startswith('nfsiso:'):
-	    (method, tmpmntpt) = string.split(self.methodstr, ':')
-	    # clean up extra '/' at front
-	    if tmpmntpt[1] == '/':
-		rawmntpt = tmpmntpt[1:]
-	    else:
-		rawmntpt = tmpmntpt
-	    mntpt = os.path.normpath(rawmntpt)
-
-	    # find mntpt in /proc/mounts so we can get NFS server info
-	    fproc = open("/proc/mounts", "r")
-	    lines = fproc.readlines()
-	    fproc.close()
-
-	    for l in lines:
-		minfo = string.split(l)
-                if len(minfo) > 1 and minfo[1] == mntpt and minfo[0].find(":") != -1:
-		    (srv, dir) = minfo[0].split(':')
-		    f.write("nfs --server=%s --dir=%s\n" % (srv, dir))
-		    break
+        self.anaconda.writeMethodstr(f)
 
         if self.instClass.skipkey:
             f.write("key --skip\n")

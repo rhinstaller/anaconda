@@ -43,12 +43,6 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.setSteps(self, anaconda);
 	anaconda.dispatch.skipStep("partition")
 
-    def getMethod(self, methodstr):
-        if methodstr.startswith("livecd://"):
-            import livecd
-            return livecd.LiveCDImageMethod
-        return BaseInstallClass.getMethod(self, methodstr)
-
     def getBackend(self, methodstr):
         if methodstr.startswith("livecd://"):
             import livecd

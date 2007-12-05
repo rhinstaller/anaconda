@@ -461,7 +461,7 @@ class Anaconda:
         self.intf = None
         self.dir = None
         self.id = None
-        self.method = None
+        self._loaderMethodstr = None
         self.methodstr = None
         self.backend = None
         self.rootPath = None
@@ -470,6 +470,7 @@ class Anaconda:
         self.rescue_mount = True
         self.rescue = False
         self.updateSrc = None
+        self.mediaDevice = None
 
     def setDispatch(self):
         self.dispatch = dispatch.Dispatcher(self)
@@ -505,14 +506,64 @@ class Anaconda:
 
         self.intf = InstallInterface()
 
-    def setMethod(self, instClass):
-        m = instClass.getMethod(self.methodstr)
-        if m is not None:
-            self.method = apply(m, (self.methodstr, self.rootPath, self.intf))
-
     def setBackend(self, instClass):
         b = instClass.getBackend(self.methodstr)
-        self.backend = apply(b, (self.method, self.rootPath))
+        self.backend = apply(b, (self.rootPath,))
+
+    def setMethodstr(self, methodstr):
+        # Save the method string we are given from the loader for printing out
+        # later.  For dealing with the backends, we need to convert it into
+        # real URIs, though.
+        self._loaderMethodstr = methodstr
+
+        if methodstr.startswith("nfs://"):
+            self.methodstr = "file:///" + methodstr[6:]
+        elif methodstr.startswith("nfsiso:/"):
+            self.methodstr = "file:///mnt/source2"
+        elif methodstr.startswith("cdrom://"):
+            (device, tree) = string.split(methodstr[8:], ":", 1)
+
+            if not tree.startswith("/"):
+                tree = "/%s" %(tree,)
+
+            self.mediaDevice = device
+            self.methodstr = "file://" + tree
+        else:
+            self.methodstr = methodstr
+
+    def writeMethodstr(self, f):
+        import urllib
+
+        if self._loaderMethodstr.startswith('ftp://') or self._loaderMethodstr.startswith('http://'):
+            f.write("url --url %s\n" % urllib.unquote(self._loaderMethodstr))
+        elif self._loaderMethodstr.startswith('cdrom://'):
+            f.write("cdrom\n")
+        elif self._loaderMethodstr.startswith('hd://'):
+            pidx = string.find(self._loaderMethodstr, '//') + 2
+            didx = string.find(self._loaderMethodstr[pidx:], '/')
+            partition = string.split(self._loaderMethodstr[pidx:pidx+didx], ':')[0]
+            dir = self._loaderMethodstr[pidx+didx+1:]
+            f.write("harddrive --partition=%s --dir=%s\n" % (partition, dir))
+        elif self._loaderMethodstr.startswith('nfs:/') or self._loaderMethodstr.startswith('nfsiso:'):
+            (method, tmpmntpt) = string.split(self._loaderMethodstr, ':')
+            # clean up extra '/' at front
+            if tmpmntpt[1] == '/':
+                rawmntpt = tmpmntpt[1:]
+            else:
+                rawmntpt = tmpmntpt
+            mntpt = os.path.normpath(rawmntpt)
+
+            # find mntpt in /proc/mounts so we can get NFS server info
+            fproc = open("/proc/mounts", "r")
+            lines = fproc.readlines()
+            fproc.close()
+
+            for l in lines:
+                minfo = string.split(l)
+                if len(minfo) > 1 and minfo[1] == mntpt and minfo[0].find(":") != -1:
+                    (srv, dir) = minfo[0].split(':')
+                    f.write("nfs --server=%s --dir=%s\n" % (srv, dir))
+                    break
 
 if __name__ == "__main__":
     anaconda = Anaconda()
@@ -597,7 +648,8 @@ if __name__ == "__main__":
     if opts.method:
         if opts.method[0] == '@':
             expandFTPMethod(opts)
-        anaconda.methodstr = opts.method
+
+        anaconda.setMethodstr(opts.method)
 
     if opts.module:
         for mod in opts.module:
@@ -844,17 +896,6 @@ if __name__ == "__main__":
     # create device nodes for detected devices if we're not running in test mode
     if not flags.test and flags.setupFilesystems:
         iutil.makeDriveDeviceNodes()
-
-    # imports after setting up the path
-    if anaconda.methodstr:
-        anaconda.setMethod(instClass)
-
-        if not anaconda.method:
-            anaconda.intf.messageWindow(_("Unknown install method"),
-                               _("You have specified an install method "
-                                 "which isn't supported by anaconda."))
-            log.critical (_("unknown install method: %s"), opts.method)
-            sys.exit(1)
 
     anaconda.setBackend(instClass)
 

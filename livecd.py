@@ -141,8 +141,8 @@ class LiveCDImageMethod(installmethod.InstallMethod):
         return blkcnt * blksize / 1024 / 1024
 
 class LiveCDCopyBackend(backend.AnacondaBackend):
-    def __init__(self, method, instPath):
-        backend.AnacondaBackend.__init__(self, method, instPath)
+    def __init__(self, instPath):
+        backend.AnacondaBackend.__init__(self, instPath)
         flags.livecdInstall = True
         self.supportsUpgrades = False
         self.supportsPackageSelection = False

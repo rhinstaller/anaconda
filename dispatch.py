@@ -238,7 +238,6 @@ class Dispatcher(object):
 	self.step = None
 	self.skipSteps = {}
 
-	self.method = anaconda.method
 	self.firstStep = 0
 
     def _getDir(self):
