@@ -48,11 +48,12 @@ extern uint64_t flags;
 static int getISOStatusFromFD(int isofd, char *mediasum);
 
 /* ejects the CD device the device node /tmp/cdrom points at */
-void ejectCdrom(void) {
+void ejectCdrom(char *device) {
     int ejectfd;
 
-    logMessage(INFO, "ejecting /tmp/cdrom...");
-    if ((ejectfd = open("/tmp/cdrom", O_RDONLY | O_NONBLOCK, 0)) >= 0) {
+    if (!device) return;
+    logMessage(INFO, "ejecting %s...",device);
+    if ((ejectfd = open(device, O_RDONLY | O_NONBLOCK, 0)) >= 0) {
         if (ioctl(ejectfd, CDROMEJECT, 0))
             logMessage(ERROR, "eject failed %d ", errno);
         close(ejectfd);
@@ -69,8 +70,6 @@ void ejectCdrom(void) {
 static char * mediaCheckCdrom(char *cddriver) {
     int rc;
     int first;
-
-    devMakeInode(cddriver, "/tmp/cdrom");
 
     first = 1;
     do {
@@ -101,14 +100,14 @@ static char * mediaCheckCdrom(char *cddriver) {
 
         if (!ejectcd) {
             /* XXX MSFFIXME: should check return code for error */
-            readStampFileFromIso("/tmp/cdrom", &tstamp, &descr);
-            mediaCheckFile("/tmp/cdrom", descr);
+            readStampFileFromIso(cddriver, &tstamp, &descr);
+            mediaCheckFile(cddriver, descr);
 
             if (descr)
                 free(descr);
         }
 
-        ejectCdrom();
+        ejectCdrom(cddriver);
 
         rc = newtWinChoice(_("Media Check"), _("Test"), _("Continue"),
                        _("If you would like to test additional media, "
@@ -121,7 +120,6 @@ static char * mediaCheckCdrom(char *cddriver) {
                        _("Test"), _("Continue"));
 
         if (rc == 2) {
-            unlink("/tmp/cdrom");
             return NULL;
         } else {
             continue;
@@ -155,12 +153,11 @@ static void mountCdromStage2(char *cddev, char *location) {
 
     rc = asprintf(&stage2loc, "%s/images/stage2.img", location);
 
-    devMakeInode(cddev, "/tmp/cdrom");
     do {
         do {
-            if (doPwMount("/tmp/cdrom", location,
+            if (doPwMount(cddev, location,
                           "iso9660", IMOUNT_RDONLY, NULL)) {
-                ejectCdrom();
+                ejectCdrom(cddev);
                 wrongCDMessage();
             } else {
                 break;
@@ -172,7 +169,7 @@ static void mountCdromStage2(char *cddev, char *location) {
         /* if we failed, umount location (usually) /mnt/source and keep going */
         if (rc) {
             umount(location);
-            ejectCdrom();
+            ejectCdrom(cddev);
             wrongCDMessage();
         } else {
             gotcd1 = 1;
@@ -181,22 +178,19 @@ static void mountCdromStage2(char *cddev, char *location) {
 }
 
 /* reads iso status from device cddriver */
-static int getISOStatusFromCDROM(char *cddriver, char *mediasum) {
+static int getISOStatusFromCDROM(char *cddev, char *mediasum) {
     int isofd;
     int isostatus;
 
-    devMakeInode(cddriver, "/tmp/cdrom");
-    isofd = open("/tmp/cdrom", O_RDONLY);
+    isofd = open(cddev, O_RDONLY);
     if (isofd < 0) {
         logMessage(WARNING, "Could not check iso status: %s", strerror(errno));
-        unlink("/tmp/cdrom");
         return 0;
     }
 
     isostatus = getISOStatusFromFD(isofd, mediasum);
 
     close(isofd);
-    unlink("/tmp/cdrom");
 
     return isostatus;
 }
@@ -299,6 +293,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
     char *buf, *stage2loc, *discinfoloc;
     char *stage2img;
     struct device ** devices;
+    char *cddev = NULL;
 
     r = asprintf(&stage2loc, "%s/images/stage2.img", location);
     r = asprintf(&discinfoloc, "%s/.discinfo", location);
@@ -312,19 +307,19 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
     /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
     do {
         for (i = 0; devices[i]; i++) {
+            char *tmp;
+
             if (!devices[i]->device)
                 continue;
+            r = asprintf(&tmp, "/dev/%s", devices[i]->device);
+            free(devices[i]->device);
+            devices[i]->device = tmp;
 
             logMessage(INFO,"trying to mount CD device %s on %s", devices[i]->device, location);
 
-            if (devMakeInode(devices[i]->device, "/tmp/cdrom") != 0) {
-                logMessage(ERROR, "unable to create device node for %s",
-                           devices[i]->device);
-                continue;
-            }
-
-            if (!doPwMount("/tmp/cdrom", location, "iso9660",
-                           IMOUNT_RDONLY, NULL)) {
+            if (!(rc=doPwMount(devices[i]->device, location, "iso9660",
+                           IMOUNT_RDONLY, NULL))) {
+                cddev = devices[i]->device;
                 if (!access(stage2loc, R_OK) &&
                     (!requirepkgs || !access(discinfoloc, R_OK))) {
 
@@ -340,7 +335,6 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                         stage2img = strdup(stage2loc);
                         stage2inram = 0;
                     }
-
                     rc = mountStage2(stage2img);
 
                     /* if we failed, umount location (usually /mnt/source) and
@@ -363,7 +357,6 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                     /* we can now unmount the CD                     */
                     if (FL_RESCUE(flags) && stage2inram) {
                         umount(location);
-                        unlink("/tmp/cdrom");
                     }
 
                     r = asprintf(&buf, "cdrom://%s:%s",
@@ -395,8 +388,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                                      "and press %s to retry."),
                         getProductName(), getProductName(), _("OK"));
 
-            ejectCdrom();
-            unlink("/tmp/cdrom");
+            ejectCdrom(cddev);
             rc = newtWinChoice(_("Disc Not Found"),
                                _("OK"), _("Back"), buf, _("OK"));
             free(buf);
