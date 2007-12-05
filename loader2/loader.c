@@ -1400,15 +1400,13 @@ static void migrate_runtime_directory(char * dirname) {
 
     ret = asprintf(&runtimedir, "/mnt/runtime%s", dirname);
     if (!access(runtimedir, X_OK)) {
-#if !defined(__s390__) && !defined(__s390x__)
-        unlink(dirname);
-#else
-        char * olddir;
+        if (unlink(dirname) == -1) {
+            char * olddir;
 
-        asprintf(&olddir, "%s_old", dirname);
-        rename(dirname, olddir);
-        free(olddir);
-#endif
+            ret = asprintf(&olddir, "%s_old", dirname);
+            ret = rename(dirname, olddir);
+            free(olddir);
+        }
         ret = symlink(runtimedir, dirname);
     }
     free(runtimedir);
