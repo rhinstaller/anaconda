@@ -130,7 +130,6 @@ def dumpException(out, text, tb, anaconda):
                  "anaconda.id.xsetup.xserver.hwstate.monitor.monlist",
                  "anaconda.id.xsetup.xserver.hwstate.monitor.monids",
                  "anaconda.intf.icw.buff",
-                 "anaconda.intf.icw.releaseNotesContents",
                  "anaconda.intf.icw.stockButtons",
                  "dispatch.sack.excludes",
                ]

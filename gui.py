@@ -41,8 +41,6 @@ import imputil
 
 from rhpl.translate import _, N_
 
-from release_notes import *
-
 import logging
 log = logging.getLogger("anaconda")
 
@@ -1364,11 +1362,6 @@ class InstallControlWindow:
 
         self.loadGlade()
         self.window = self.mainxml.get_widget("mainWindow")
-
-        # Remove the release notes button for now.
-        hbuttonbox = self.mainxml.get_widget("hbuttonbox1")
-        relnotesButton = self.mainxml.get_widget("relnotesButton")
-        hbuttonbox.remove(relnotesButton)
 
         self.createWidgets()
         self.connectSignals()
