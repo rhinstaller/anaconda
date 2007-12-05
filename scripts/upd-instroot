@@ -254,7 +254,7 @@ PACKAGES="glibc-common setup python newt slang libselinux
 	 libdhcp libnl libdhcp6client libdhcp4client newt-python
 	 device-mapper device-mapper-libs dmraid keyutils-libs libsemanage-python
 	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr pcre
-	 cryptsetup-luks libgcrypt libgpg-error"
+	 cryptsetup-luks libgcrypt libgpg-error udev udev-static dbus dbus-python hal"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
@@ -323,7 +323,7 @@ PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
            fonts-malayalam fonts-oriya fonts-kannada fonts-telugu cjkunifonts-ukai
            fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics
            firstboot pycairo pirut dejavu-lgc-fonts libxcb sazanami-fonts-gothic
-           dmraid python-pyblock libbdevid libbdevid-python zenity"
+           dmraid python-pyblock libbdevid libbdevid-python zenity udev udev-static dbus dbus-python hal"
 
 #
 # stuff ONLY included for rescue mode
@@ -395,14 +395,18 @@ KEEPFILE=${TMPDIR:-/tmp}/keepfile.$$
 cat > $KEEPFILE <<EOF
 boot/efi/EFI/redhat/elilo.efi
 bin/ash
+bin/dbus-daemon
 bin/fdisk*
 bin/mkfs*
 bin/sed
+etc/dbus-1
 etc/group
+etc/hal
 etc/passwd
 etc/iscsid.conf
 etc/mke2fs.conf
 etc/pcmcia
+etc/PolicyKit
 etc/protocols
 etc/services
 etc/selinux/targeted/booleans
@@ -413,10 +417,12 @@ etc/selinux/targeted
 usr/share/selinux/targeted
 etc/security/selinux/policy.*
 etc/security/selinux/file_contexts
+etc/udev
 etc/yum/pluginconf.d/fedorakmod.conf
 lib/terminfo
 $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
+$LIBDIR/dbus-1
 sbin/badblocks
 sbin/busybox.anaconda
 sbin/clock
@@ -466,6 +472,7 @@ sbin/*gfs*
 sbin/iscsid
 sbin/iscsiadm
 sbin/iscsistart
+sbin/udevd.static
 usr/bin/python
 usr/bin/python?.?
 usr/bin/hmount
@@ -473,14 +480,17 @@ usr/bin/humount
 usr/bin/hcopy
 usr/bin/hattrib
 usr/bin/hformat
+usr/bin/udevinfo
 usr/lib/anaconda-runtime
 usr/lib/anaconda
 usr/lib/anaconda/installclasses
 usr/lib/anaconda/textw
 usr/lib/booty
+usr/$LIBDIR/hal
 usr/$LIBDIR/python?.?
 usr/$LIBDIR/python?.?/email
 usr/$LIBDIR/python?.?/xml/etree/
+usr/$LIBDIR/python?.?/site-packages/_dbus*
 usr/$LIBDIR/python?.?/site-packages/*kudzu*
 usr/$LIBDIR/python?.?/site-packages/bdevid.so
 usr/$LIBDIR/python?.?/site-packages/rpmmodule.so
@@ -495,6 +505,8 @@ usr/$LIBDIR/python?.?/site-packages/block
 usr/$LIBDIR/python?.?/site-packages/*.pth
 usr/$LIBDIR/python?.?/site-packages/*selinux*
 usr/lib/locale
+usr/lib/python?.?/site-packages/dbus
+usr/lib/python?.?/site-packages/dbus_bindings.py*
 usr/lib/python?.?/site-packages/elementtree
 usr/lib/python?.?/site-packages/iniparse
 usr/lib/python?.?/site-packages/rpmUtils
@@ -521,12 +533,18 @@ usr/$LIBDIR/libsoftokn3.so
 usr/$LIBDIR/libssl3.so
 usr/$LIBDIR/libuser/*
 usr/libexec/convertdb1
+usr/libexec/hal*
+usr/libexec/polkit*
+usr/share/dbus-1
+usr/share/hal
+usr/share/PolicyKit
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/share/locale/*/LC_MESSAGES/system-config-date.mo
 usr/share/locale/locale.alias
 usr/sbin/anaconda
 usr/sbin/ddcprobe
 usr/sbin/dmidecode
+usr/sbin/hald
 usr/sbin/mkofboot
 usr/sbin/ofpath
 usr/sbin/ybin
@@ -551,6 +569,12 @@ usr/share/hwdata/MonitorsDB
 usr/share/xorg/extramodes
 usr/share/xorg/vesamodes
 usr/share/zoneinfo/zone.tab
+var/lib/dbus
+var/lib/hal
+var/lib/PolicyKit
+var/run/dbus
+var/run/PolicyKit
+var/cache/hald
 EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
