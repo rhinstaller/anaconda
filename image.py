@@ -1,7 +1,7 @@
 #
-# image.py - Install method for disk image installs (CD & NFS)
+# Support methods for CD/DVD and ISO image installations.
 #
-# Copyright 1999-2007 Red Hat, Inc.
+# Copyright 2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -10,23 +10,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-
-from installmethod import InstallMethod
-import shutil
-import os
-import sys
 import isys
-import time
-import stat
-import kudzu
-import string
-import shutil
-import product
-import rhpl
-import sets
-
+import os, stat, string, sys
 from constants import *
 
+import rhpl
 from rhpl.translate import _
 
 import logging
@@ -39,319 +27,6 @@ if os.uname()[4] == "s390x":
 else:
     _arch = rhpl.getArch()
 
-# given groupset containing information about selected packages, use
-# the disc number info in the headers to come up with message describing
-# the required CDs
-#
-# dialog returns a value of 0 if user selected to abort install
-def presentRequiredMediaMessage(anaconda):
-    reqcds = anaconda.backend.getRequiredMedia()
-
-    # if only one CD required no need to pop up a message
-    if len(reqcds) < 2:
-	return
-
-    # check what discs our currently mounted one provides
-    if os.access("/mnt/source/.discinfo", os.R_OK):
-        discNums = []
-        try:
-            f = open("/mnt/source/.discinfo")
-            stamp = f.readline().strip()
-            descr = f.readline().strip()
-            arch = f.readline().strip()
-            discNums = getDiscNums(f.readline().strip())
-            f.close()
-        except Exception, e:
-            log.critical("Exception reading discinfo: %s" %(e,))
-
-        log.info("discNums is %s" %(discNums,))
-        haveall = 0
-        s = sets.Set(reqcds)
-        t = sets.Set(discNums)
-        if s.issubset(t):
-            haveall = 1
-
-        if haveall == 1:
-            return
-
-    reqcds.sort()
-    reqcdstr = ""
-    for cdnum in reqcds:
-        if cdnum == -99: # non-CD bits
-            continue
-	reqcdstr += "\t\t%s %s disc #%d\n" % (product.productName, product.productVersion, cdnum,)
-		
-    return anaconda.intf.messageWindow( _("Required Install Media"),
-				        _("The software you have selected to "
-                                          "install will require the following discs:\n\n"
-                                          "%s\nPlease "
-                                          "have these ready before proceeding with "
-                                          "the installation.  If you need to abort "
-                                          "the installation and exit please "
-                                          "select \"Reboot\".") % (reqcdstr,),
-                                          type="custom", custom_icon="warning",
-                                          custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
-
-
-
-class ImageInstallMethod(InstallMethod):
-
-    def switchMedia(self, mediano, filename=""):
-        pass
-
-    def getMethodUri(self):
-        return "file://%s" % (self.tree,)
-
-    def __init__(self, tree, rootPath, intf):
-	InstallMethod.__init__(self, tree, rootPath, intf)
-	self.tree = tree
-	self.isoPath = tree
-
-class CdromInstallMethod(ImageInstallMethod):
-
-    def unmountCD(self):
-        done = 0
-        while done == 0:
-            try:
-                isys.umount("/mnt/source")
-                self.currentMedia = []
-                break
-            except Exception, e:
-                log.error("exception in unmountCD: %s" %(e,))
-                self.messageWindow(_("Error"),
-                                   _("An error occurred unmounting the disc.  "
-                                     "Please make sure you're not accessing "
-                                     "%s from the shell on tty2 "
-                                     "and then click OK to retry.")
-                                   % ("/mnt/source",))
-
-    def systemMounted(self, fsset, chroot):
-        if not os.path.exists("%s/images/stage2.img" %(self.tree,)):
-            log.debug("Not copying non-existent stage2.img")
-            return
-
-	self.loopbackFile = "%s%s%s" % (chroot,
-                                        fsset.filesystemSpace(chroot)[0][0],
-                                        "/rhinstall-stage2.img")
-
-	try:
-            win = self.waitWindow (_("Copying File"),
-                                   _("Transferring install image to hard drive..."))
-	    shutil.copyfile("%s/images/stage2.img" % (self.tree,), 
-			    self.loopbackFile)
-            win.pop()
-        except Exception, e:
-            if win:
-                win.pop()
-
-            log.critical("error transferring stage2.img: %s" %(e,))
-
-            if isinstance(e, IOError) and e.errno == 5:
-                msg = _("An error occurred transferring the install image "
-                        "to your hard drive.  This is probably due to "
-                        "bad media.")
-            else:
-                msg = _("An error occurred transferring the install image "
-                        "to your hard drive. You are probably out of disk "
-                        "space.")
-
-            self.messageWindow(_("Error"), msg)
-	    os.unlink(self.loopbackFile)
-	    return 1
-
-	isys.lochangefd("/dev/loop0", self.loopbackFile)
-
-    def switchMedia(self, mediano, filename=""):
-        log.info("switching from CD %s to %s for %s" %(self.currentMedia, mediano, filename))
-        if mediano in self.currentMedia:
-            return
-        if os.access("/mnt/source/.discinfo", os.R_OK):
-            f = open("/mnt/source/.discinfo")
-            timestamp = f.readline().strip()
-            f.close()
-        else:
-            timestamp = self.timestamp
-
-        if self.timestamp is None:
-            self.timestamp = timestamp
-
-        needed = mediano
-
-        # if self.currentMedia is empty, then we shouldn't have anything
-        # mounted.  double-check by trying to unmount, but we don't want
-        # to get into a loop of trying to unmount forever.  if
-        # self.currentMedia is set, then it should still be mounted and
-        # we want to loop until it unmounts successfully
-        if not self.currentMedia:
-            try:
-                isys.umount("/mnt/source")
-            except:
-                pass
-        else:
-            self.unmountCD()
-
-        done = 0
-
-        cdlist = []
-        for (dev, something, descript) in \
-                kudzu.probe(kudzu.CLASS_CDROM, kudzu.BUS_UNSPEC, 0):
-            cdlist.append(dev)
-
-        for dev in cdlist:
-            try:
-                if not isys.mount(dev, "/mnt/source", fstype = "iso9660", 
-                           readOnly = 1):
-                    if os.access("/mnt/source/.discinfo", os.R_OK):
-                        f = open("/mnt/source/.discinfo")
-                        newStamp = f.readline().strip()
-                        try:
-                            descr = f.readline().strip()
-                        except:
-                            descr = None
-                        try:
-                            arch = f.readline().strip()
-                        except:
-                            arch = None
-                        try:
-                            discNum = getDiscNums(f.readline().strip())
-                        except:
-                            discNum = [ 0 ]
-                        f.close()
-                        if (newStamp == timestamp and
-                            arch == _arch and
-                            needed in discNum):
-                            done = 1
-                            self.currentMedia = discNum
-
-                    if not done:
-                        isys.umount("/mnt/source")
-            except:
-                pass
-
-            if done:
-                break
-
-        if not done:
-            isys.ejectCdrom(self.device)
-
-        while not done:
-            if self.intf is not None:
-                self.intf.beep()
-
-            self.messageWindow(_("Change Disc"), 
-                _("Please insert %s disc %d to continue.") % (productName,
-                                                              needed))
-            try:
-                if isys.mount(self.device, "/mnt/source", 
-                              fstype = "iso9660", readOnly = 1):
-                    time.sleep(3)
-                    isys.mount(self.device, "/mnt/source", 
-                               fstype = "iso9660", readOnly = 1)
-
-                if os.access("/mnt/source/.discinfo", os.R_OK):
-                    f = open("/mnt/source/.discinfo")
-                    newStamp = f.readline().strip()
-                    try:
-                        descr = f.readline().strip()
-                    except:
-                        descr = None
-                    try:
-                        arch = f.readline().strip()
-                    except:
-                        arch = None
-                    try:
-                        discNum = getDiscNums(f.readline().strip())
-                    except:
-                        discNum = [ 0 ]
-                    f.close()
-                    if (newStamp == timestamp and
-                        arch == _arch and
-                        needed in discNum):
-                        done = 1
-                        self.currentMedia = discNum
-                        # make /tmp/cdrom again so cd gets ejected
-                        isys.makeDevInode(self.device, "/tmp/cdrom")
-
-                if not done:
-                    self.messageWindow(_("Wrong Disc"),
-                            _("That's not the correct %s disc.")
-                                       % (productName,))
-                    isys.umount("/mnt/source")
-                    isys.ejectCdrom(self.device)
-            except:
-                self.messageWindow(_("Error"), 
-                        _("Unable to access the disc."))
-
-    def filesDone(self):
-        try:
-            shutil.copyfile("/mnt/source/media.repo", "%s/etc/yum.repos.d/%s-install-media.repo" %(self.rootPath, productName))
-        except Exception, e:
-            log.debug("Error copying media.repo: %s" %(e,))
-        
-        # we're trying to unmount the CD here.  if it fails, oh well,
-        # they'll reboot soon enough I guess :)
-        try:
-            isys.umount("/mnt/source")
-        except Exception, e:
-            log.error("unable to unmount source in filesDone: %s" %(e,))
-        
-        if not self.loopbackFile: return
-
-	try:
-	    # this isn't the exact right place, but it's close enough
-	    os.unlink(self.loopbackFile)
-	except SystemError:
-	    pass
-
-    def __init__(self, method, rootPath, intf):
-        """@param method cdrom://device:/path"""
-        url = method[8:]
-	(self.device, tree) = string.split(url, ":", 1)
-        if not tree.startswith("/"):
-            tree = "/%s" %(tree,)
-	self.messageWindow = intf.messageWindow
-	self.progressWindow = intf.progressWindow
-	self.waitWindow = intf.waitWindow
-        self.loopbackFile = None
-
-        # figure out which disc is in.  if we fail for any reason,
-        # assume it's just disc1.
-        if os.access("/mnt/source/.discinfo", os.R_OK):
-            f = open("/mnt/source/.discinfo")
-            try:
-                self.timestamp = f.readline().strip()
-                f.readline() # descr
-                f.readline() # arch
-            except:
-                self.timestamp = None
-
-            try:
-                self.currentMedia = getDiscNums(f.readline().strip())
-            except:
-                self.currentMedia = [ 1 ]
-            
-            f.close()
-        else:                
-            self.currentMedia = [ 1 ]
-        
-	ImageInstallMethod.__init__(self, tree, rootPath, intf)
-
-class NfsInstallMethod(ImageInstallMethod):
-
-    def __init__(self, method, rootPath, intf):
-        """@param method: nfs:/mnt/source"""
-        tree = method[5:]
-	ImageInstallMethod.__init__(self, tree, rootPath, intf)
-        self.currentMedia = []
-
-def getDiscNums(line):
-    # get the disc numbers for this disc
-    nums = line.split(",")
-    discNums = []
-    for num in nums:
-        discNums.append(int(num))
-    return discNums
-
 def findIsoImages(path, messageWindow):
     flush = os.stat(path)
     files = os.listdir(path)
@@ -359,20 +34,20 @@ def findIsoImages(path, messageWindow):
     discImages = {}
 
     for file in files:
-	what = path + '/' + file
-	if not isys.isIsoImage(what):
+        what = path + '/' + file
+        if not isys.isIsoImage(what):
             continue
 
-	try:
-	    isys.losetup("/dev/loop2", what, readOnly = 1)
-	except SystemError:
-	    continue
+        try:
+            isys.losetup("/dev/loop2", what, readOnly = 1)
+        except SystemError:
+            continue
 
-	try:
-	    isys.mount("/dev/loop2", "/mnt/cdimage", fstype = "iso9660",
-		       readOnly = 1)
-	    for num in range(1, 10):
-		if os.access("/mnt/cdimage/.discinfo", os.R_OK):
+        try:
+            isys.mount("/dev/loop2", "/mnt/cdimage", fstype = "iso9660",
+                       readOnly = 1)
+            for num in range(1, 10):
+                if os.access("/mnt/cdimage/.discinfo", os.R_OK):
                     f = open("/mnt/cdimage/.discinfo")
                     try:
                         f.readline() # skip timestamp
@@ -399,106 +74,220 @@ def findIsoImages(path, messageWindow):
                     if not os.path.isdir("/mnt/cdimage/%s" %(productPath,)):
                         log.warning("%s doesn't have binary RPMS, skipping" %(what,))
                         continue
-                    
-		    # warn user if images appears to be wrong size
-		    if os.stat(what)[stat.ST_SIZE] % 2048:
-			rc = messageWindow(_("Warning"),
-	     _("The ISO image %s has a size which is not "
-	       "a multiple of 2048 bytes.  This may mean "
-	       "it was corrupted on transfer to this computer."
-	       "\n\n"
-               "It is recommended that you exit and abort your "
-               "installation, but you can choose to continue if "
-               "you think this is in error.") % (file,),
-                                           type="custom",
-                                           custom_icon="warning",
-                                           custom_buttons= [_("_Exit installer"),
-                                                            _("_Continue")])
+
+                    # warn user if images appears to be wrong size
+                    if os.stat(what)[stat.ST_SIZE] % 2048:
+                        rc = messageWindow(_("Warning"),
+                             _("The ISO image %s has a size which is not "
+                               "a multiple of 2048 bytes.  This may mean "
+                               "it was corrupted on transfer to this computer."
+                               "\n\n"
+                               "It is recommended that you exit and abort your "
+                               "installation, but you can choose to continue if "
+                               "you think this is in error.") % (file,),
+                               type="custom", custom_icon="warning",
+                               custom_buttons= [_("_Exit installer"),
+                                                _("_Continue")])
                         if rc == 0:
-			    sys.exit(0)
+                            sys.exit(0)
 
-		    discImages[num] = file
+                    discImages[num] = file
 
-	    isys.umount("/mnt/cdimage")
-	except SystemError:
-	    pass
+            isys.umount("/mnt/cdimage", removeDir=0)
+        except SystemError:
+            pass
 
-	isys.unlosetup("/dev/loop2")
+        isys.unlosetup("/dev/loop2")
 
     return discImages
 
-class NfsIsoInstallMethod(NfsInstallMethod):
+def getDiscNums(line):
+    # get the disc numbers for this disc
+    nums = line.split(",")
+    discNums = []
+    for num in nums:
+        discNums.append(int(num))
+    return discNums
 
-    def getMethodUri(self):
-        return "file:///tmp/isomedia/"
+def getMediaId(path):
+    if os.access("%s/.discinfo" % path, os.R_OK):
+        f = open("%s/.discinfo" % path)
+        newStamp = f.readline().strip()
+        f.close()
 
-    def switchMedia(self, mediano, filename=""):
-	if mediano not in self.currentMedia:
-            log.info("switching from iso %s to %s for %s" %(self.currentMedia, mediano, filename))
-	    self.umountImage()
-	    self.mountImage(mediano)
+        return newStamp
+    else:
+        return None
 
-    def umountImage(self):
-	if self.currentMedia:
-	    isys.umount(self.mntPoint)
-	    isys.unlosetup("/dev/loop3")
-	    self.mntPoint = None
-	    self.currentMedia = []
+# This mounts the directory containing the iso images, and places the
+# mount point in /tmp/isodir.
+def mountDirectory(methodstr, messageWindow):
+    if methodstr.startswith("hd://"):
+        method = methodstr[5:]
+        (device, fstype, path) = method.split(":", 3)
+        device = method[0:method.index(":")]
+    else:
+        return
 
-    def mountImage(self, cdNum):
-	if (self.currentMedia):
-	    raise SystemError, "trying to mount already-mounted iso image!"
+    # First check to see if /tmp/isodir is mounted.
+    f = open("/proc/mounts", "r")
+    lines = f.readlines()
+    f.close()
 
-	retrymount = True
-	while retrymount:
-	    try:
-	        isoImage = self.isoPath + '/' + self.discImages[cdNum]
+    for l in lines:
+        s = string.split(l)
+        if s[0] == "/dev/" + device:
+            # It is, so there's no need to try again.
+            return
 
-	        isys.losetup("/dev/loop3", isoImage, readOnly = 1)
-	
-	        isys.mount("/dev/loop3", "/tmp/isomedia", fstype = 'iso9660', readOnly = 1);
-	        self.mntPoint = "/tmp/isomedia/"
-	        self.currentMedia = [ cdNum ]
+    try:
+        isys.mount(device, "/tmp/isodir", fstype = fstype)
+    except SystemError, msg:
+        log.error("couldn't mount ISO source directory: %s" % msg)
+        messageWindow(_("Couldn't Mount ISO Source"),
+                      _("An error occurred mounting the source "
+                        "device %s.  This may happen if your ISO "
+                        "images are located on an advanced storage "
+                        "device like LVM or RAID, or if there was a "
+                        "problem mounting a partition.  Click exit "
+                        "to abort the installation.")
+                      % (self.device,), type="custom", custom_icon="error",
+                      custom_buttons=[_("_Exit")])
+        sys.exit(0)
 
-	        retrymount = False
-	    except:
-	        ans = self.messageWindow( _("Missing ISO 9660 Image"),
-	                                  _("The installer has tried to mount "
-	                                    "image #%s, but cannot find it on "
-	                                    "the server.\n\n"
-	                                    "Please copy this image to the "
-	                                    "remote server's share path and "
-	                                    "click Retry. Click Exit to "
-	                                    "abort the installation.")
-	                                    % (cdNum,), type="custom",
-	                                    custom_icon="warning",
-	                                    custom_buttons=[_("_Exit"),
-	                                                    _("_Retry")])
-	        if ans == 0:
-	            sys.exit(0)
-	        elif ans == 1:
-	            self.discImages = findIsoImages(self.isoPath, self.messageWindow)
+def mountImage(tree, discnum, currentMedia, messageWindow, discImages={}):
+    if currentMedia:
+        raise SystemError, "trying to mount already-mounted iso image!"
 
-    def filesDone(self):
-        # if we can't unmount the cd image, we really don't care much
-        # let them go along and don't complain
+    if discImages == {}:
+        discImages = findIsoImages("/mnt/source", messageWindow)
+
+    while True:
         try:
-            self.umountImage()
+            isoImage = "/mnt/source/%s" % (discImages[discnum])
+            isys.losetup("/dev/loop1", isoImage, readOnly = 1)
+            isys.mount("/dev/loop1", tree, fstype = 'iso9660', readOnly = 1);
+            break
+        except:
+            ans = messageWindow(_("Missing ISO 9660 Image"),
+                                _("The installer has tried to mount "
+                                  "image #%s, but cannot find it on "
+                                  "the hard drive.\n\n"
+                                  "Please copy this image to the "
+                                  "drive and click Retry. Click Exit "
+                                  " to abort the installation.")
+                                  % (discnum,), type="custom",
+                                  custom_icon="warning",
+                                  custom_buttons=[_("_Exit"), _("_Retry")])
+            if ans == 0:
+                sys.exit(0)
+            elif ans == 1:
+                discImages = findIsoImages("/mnt/source", messageWindow)
+
+# given groupset containing information about selected packages, use
+# the disc number info in the headers to come up with message describing
+# the required CDs
+#
+# dialog returns a value of 0 if user selected to abort install
+def presentRequiredMediaMessage(anaconda):
+    reqcds = anaconda.backend.getRequiredMedia()
+
+    # if only one CD required no need to pop up a message
+    if len(reqcds) < 2:
+        return
+
+    # check what discs our currently mounted one provides
+    if os.access("/.discinfo" % anaconda.backend.ayum.tree, os.R_OK):
+        discNums = []
+        try:
+            f = open("%s/.discinfo", anaconda.backend.ayum.tree)
+            stamp = f.readline().strip()
+            descr = f.readline().strip()
+            arch = f.readline().strip()
+            discNums = getDiscNums(f.readline().strip())
+            f.close()
         except Exception, e:
-            log.error("unable to unmount image in filesDone: %s" %(e,))
-            pass
+            log.critical("Exception reading discinfo: %s" %(e,))
 
-    def __init__(self, method, rootPath, intf):
-        """@param method: nfsiso:/mnt/source"""
-        tree = method[8:]
-	ImageInstallMethod.__init__(self, "/%s" % tree, rootPath, intf)
-	self.messageWindow = intf.messageWindow
+        log.info("discNums is %s" %(discNums,))
+        haveall = 0
+        s = sets.Set(reqcds)
+        t = sets.Set(discNums)
+        if s.issubset(t):
+            haveall = 1
 
-	# the tree points to the directory that holds the iso images
-	# even though we already have the main one mounted once, it's
-	# easiest to just mount it again so that we can treat all of the
-	# images the same way -- we use loop3 for everything
-        self.currentMedia = []
+        if haveall == 1:
+            return
 
-	self.discImages = findIsoImages(tree, self.messageWindow)
-	self.mountImage(1)
+    reqcds.sort()
+    reqcdstr = ""
+    for cdnum in reqcds:
+        if cdnum == -99: # non-CD bits
+            continue
+        reqcdstr += "\t\t%s %s disc #%d\n" % (product.productName, product.productVersion, cdnum,)
+
+    return anaconda.intf.messageWindow( _("Required Install Media"),
+                                        _("The software you have selected to "
+                                          "install will require the following discs:\n\n"
+                                          "%s\nPlease "
+                                          "have these ready before proceeding with "
+                                          "the installation.  If you need to abort "
+                                          "the installation and exit please "
+                                          "select \"Reboot\".") % (reqcdstr,),
+                                          type="custom", custom_icon="warning",
+                                          custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
+
+def umountDirectory(self):
+    try:
+        isys.umount("/tmp/isodir", removeDir=0)
+    except:
+        pass
+
+def umountImage(tree, currentMedia):
+    if currentMedia is not None:
+        isys.umount(tree, removeDir=0)
+        isys.unlosetup("/dev/loop1")
+
+def unmountCD(tree, messageWindow):
+    if not tree:
+        return
+
+    while True:
+        try:
+            isys.umount(tree, removeDir=0)
+            break
+        except Exception, e:
+            log.error("exception in _unmountCD: %s" %(e,))
+            messageWindow(_("Error"),
+                          _("An error occurred unmounting the disc.  "
+                            "Please make sure you're not accessing "
+                            "%s from the shell on tty2 "
+                            "and then click OK to retry.")
+                          % (tree,))
+
+def verifyMedia(tree, discnum, timestamp):
+    if os.access("%s/.discinfo" % tree, os.R_OK):
+        f = open("%s/.discinfo" % tree)
+
+        newStamp = f.readline().strip()
+
+        try:
+            descr = f.readline().strip()
+        except:
+            descr = None
+
+        try:
+            arch = f.readline().strip()
+        except:
+            arch = None
+
+        try:
+            discs = getDiscNums(f.readline().strip())
+        except:
+            discs = [ 0 ]
+
+        f.close()
+        if (newStamp == timestamp and arch == _arch and discnum in discs):
+            return True
+
+    return False

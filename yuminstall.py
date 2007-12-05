@@ -35,6 +35,7 @@ from backend import AnacondaBackend
 from product import productName, productStamp
 from sortedtransaction import SplitMediaTransactionData
 from constants import *
+from image import *
 from rhpl.translate import _
 
 # specspo stuff
@@ -253,16 +254,31 @@ class AnacondaYumRepo(YumRepository):
 class YumSorter(yum.YumBase):
     def _transactionDataFactory(self):
         return SplitMediaTransactionData()
-  
+
 class AnacondaYum(YumSorter):
     def __init__(self, anaconda):
         YumSorter.__init__(self)
         self.anaconda = anaconda
-        self.method = anaconda.method
-        self.prevmedia = None
+        self.methodstr = anaconda.methodstr
+        self._loopbackFile = None
+
+        # The loader mounts the first disc for us, so don't remount it.
+        self.currentMedia = 1
+        self.mediagrabber = self.mediaHandler
+
+        # Only needed for hard drive and nfsiso installs.
+        self._discImages = {}
+
+        # Where is the source media mounted?
+        if self.methodstr.find("source2") != -1:
+            self.tree = "/mnt/source2"
+        else:
+            self.tree = "/mnt/source"
+
         self.doConfigSetup(root=anaconda.rootPath)
         self.conf.installonlypkgs = []
         self.macros = {}
+
         if flags.selinux:
             for directory in ("/tmp/updates", "/mnt/source/RHupdates",
                         "/etc/selinux/targeted/contexts/files",
@@ -280,6 +296,139 @@ class AnacondaYum(YumSorter):
         self.updates = []
         self.localPackages = []
 
+    def systemMounted(self, fsset, chroot):
+        if not os.path.exists("%s/images/stage2.img" %(self.tree,)):
+            log.debug("Not copying stage2.img as we can't find it")
+            return
+
+        self._loopbackFile = "%s%s/rhinstall-stage2.img" % (chroot,
+                             fsset.filesystemSpace(chroot)[0][0])
+
+        try:
+            win = self.anaconda.intf.waitWindow (_("Copying File"),
+                    _("Transferring install image to hard drive..."))
+            shutil.copyfile("%s/images/stage2.img" % (self.tree,),
+                            self._loopbackFile)
+            win.pop()
+        except Exception, e:
+            if win:
+                win.pop()
+
+            log.critical("error transferring stage2.img: %s" %(e,))
+
+            if isinstance(e, IOError) and e.errno == 5:
+                msg = _("An error occurred transferring the install image "
+                        "to your hard drive.  This is probably due to "
+                        "bad media.")
+            else:
+                msg = _("An error occurred transferring the install image "
+                        "to your hard drive. You are probably out of disk "
+                        "space.")
+
+        while True:
+            try:
+                isys.umount(self.tree)
+                self.currentMedia = None
+                break
+            except Exception, e:
+                log.error("exception in _unmountCD: %s" %(e,))
+                self.anaconda.intf.messageWindow(_("Error"),
+                                   _("An error occurred unmounting the disc.  "
+                                     "Please make sure you're not accessing "
+                                     "%s from the shell on tty2 "
+                                     "and then click OK to retry.")
+                                   % (self.tree,))
+
+
+    def mediaHandler(self, *args, **kwargs):
+        mediaid = kwargs["mediaid"]
+        discnum = kwargs["discnum"]
+        relative = kwargs["relative"]
+
+        # The package exists on media other than what's mounted right now.
+        if discnum != self.currentMedia:
+            log.info("switching from media #%s to #%s for %s" %
+                     (self.currentMedia, discnum, relative))
+
+            # Unmount any currently mounted ISO images and mount the one
+            # containing the requested packages.  If this is the first time
+            # through, /mnt/source is not going to be mounted yet so we first
+            # need to do that.
+            if self.tree.find("source2") != -1:
+                umountImage(self.tree, self.currentMedia)
+                self.currentMedia = None
+
+                # mountDirectory checks before doing anything, so it's safe to
+                # call this repeatedly.
+                mountDirectory(self.methodstr, self.anaconda.intf.messageWindow)
+
+                mountImage(self.tree, discnum, self.currentMedia,
+                           self.anaconda.intf.messageWindow,
+                           discImages=self._discImages)
+                self.currentMedia = discnum
+            else:
+                if os.access("%s/.discinfo" % self.tree, os.R_OK):
+                    f = open("%s/.discinfo" % self.tree)
+                    timestamp = f.readline().strip()
+                    f.close()
+                else:
+                    timestamp = self.timestamp
+
+                if self.timestamp is None:
+                    self.timestamp = timestamp
+
+                # if self.currentMedia is None, then we shouldn't have anything
+                # mounted.  double-check by trying to unmount, but we don't want
+                # to get into a loop of trying to unmount forever.  if
+                # self.currentMedia is set, then it should still be mounted and
+                # we want to loop until it unmounts successfully
+                if self.currentMedia is None:
+                    try:
+                        isys.umount(self.tree)
+                    except:
+                        pass
+                else:
+                    unmountCD(self.tree, self.anaconda.intf.messageWindow)
+                    self.currentMedia = None
+
+                isys.ejectCdrom(self.anaconda.mediaDevice)
+
+                while True:
+                    if self.anaconda.intf:
+                        self.anaconda.intf.beep()
+
+                    self.anaconda.intf.messageWindow(_("Change Disc"),
+                        _("Please insert %s disc %d to continue.") % (productName,
+                                                                      discnum))
+
+                    try:
+                        if isys.mount(self.anaconda.mediaDevice, self.tree,
+                                      fstype = "iso9660", readOnly = 1):
+                            time.sleep(3)
+                            isys.mount(self.anaconda.mediaDevice, self.tree,
+                                       fstype = "iso9660", readOnly = 1)
+
+                        if verifyMedia(self.tree, discnum, self.timestamp):
+                            self.currentMedia = discnum
+                            # make /tmp/cdrom again so cd gets ejected
+                            isys.makeDevInode(self.anaconda.mediaDevice, "/tmp/cdrom")
+                            break
+
+                        if not done:
+                            self.anaconda.intf.messageWindow(_("Wrong Disc"),
+                                    _("That's not the correct %s disc.")
+                                      % (productName,))
+                            isys.umount(self.tree)
+                            isys.ejectCdrom(self.anaconda.mediaDevice)
+                    except:
+                        self.anaconda.intf.messageWindow(_("Error"),
+                                _("Unable to access the disc."))
+
+        ug = URLGrabber(checkfunc=kwargs["checkfunc"])
+        ug.urlgrab("%s/%s" % (self.tree, kwargs["relative"]), kwargs["local"],
+                   text=kwargs["text"], range=kwargs["range"], copy_local=1)
+        return kwargs["local"]
+
     def doConfigSetup(self, fn='/etc/yum.conf', root='/'):
         self.conf = yum.config.YumConf()
         self.conf.installroot = root
@@ -295,12 +444,17 @@ class AnacondaYum(YumSorter):
         map(lambda x: ylog.addHandler(x), log.handlers)
 
         # add default repos
-        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.method.getMethodUri()).items():
+        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.anaconda.methodstr).items():
             repo = AnacondaYumRepo(uri, addon=False,
                                    repoid="anaconda-%s-%s" %(name,
                                                              productStamp),
                                    root = root)
             repo.cost = 100
+
+            if self.anaconda.mediaDevice or self.anaconda.methodstr.find("source2") != -1:
+                repo.mediaid = getMediaId(self.tree)
+                log.info("set mediaid of repo to: %s" % repo.mediaid)
+
             repo.enable()
             self.repos.add(repo)
 
@@ -380,9 +534,6 @@ class AnacondaYum(YumSorter):
 
         if rc == 0:
             sys.exit(0)
-        else:
-            if self.prevmedia:
-                self.method.switchMedia(self.prevmedia)
 
     def mirrorFailureCB (self, obj, *args, **kwargs):
         # This gets called when a mirror fails, but it cannot know whether
@@ -395,11 +546,9 @@ class AnacondaYum(YumSorter):
                     "or downloaded file is corrupt" % (obj.url, grab._next + 1,
                                                        len(grab.mirrors)))
 
-        if self.method.currentMedia:
-            if kwargs.get("tsInfo") and kwargs["tsInfo"].curmedia > 0:
-                self.prevmedia = kwargs["tsInfo"].curmedia
-
-            self.method.unmountCD()
+        if self.currentMedia:
+            unmountCD(self.tree, self.anaconda.intf.messageWindow)
+            self.currentMedia = None
 
     def urlgrabberFailureCB (self, obj, *args, **kwargs):
         log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
@@ -455,7 +604,6 @@ class AnacondaYum(YumSorter):
             self.tsInfo.curmedia = i
             if i > 0:
                 pkgtup = self.tsInfo.reqmedia[i][0]
-                self.method.switchMedia(i, filename=pkgtup)
             self.populateTs(keepold=0)
             self.ts.check()
             self.ts.order()
@@ -615,8 +763,6 @@ class YumBackend(AnacondaBackend):
             repos.append(self.ayum.repos.getRepo(thisrepo))
         else:
             repos.extend(self.ayum.repos.listEnabled())
-
-        anaconda.method.switchMedia(1)
 
         if not os.path.exists("/tmp/cache"):
             iutil.mkdirChain("/tmp/cache/headers")
@@ -1009,9 +1155,8 @@ class YumBackend(AnacondaBackend):
                 log.info("renaming old modprobe.conf -> modprobe.conf.anacbak")
                 os.rename(anaconda.rootPath + "/etc/modprobe.conf",
                           anaconda.rootPath + "/etc/modprobe.conf.anacbak")
-                
 
-        if self.method.systemMounted (anaconda.id.fsset, anaconda.rootPath):
+        if self.ayum.systemMounted (anaconda.id.fsset, anaconda.rootPath):
             anaconda.id.fsset.umountFilesystems(anaconda.rootPath)
             return DISPATCH_BACK
 

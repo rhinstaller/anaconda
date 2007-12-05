@@ -38,8 +38,8 @@ def doMethodComplete(anaconda):
         except SystemError:
             pass
 
-    if not anaconda.isKickstart:
-        isys.ejectCdrom(anaconda.method.device, makeDevice=1)
+    if not anaconda.isKickstart and anaconda.mediaDevice:
+        isys.ejectCdrom(anaconda.mediaDevice, makeDevice=1)
 
     mtab = "/dev/root / ext3 ro 0 0\n"
     for ent in anaconda.id.fsset.entries:
