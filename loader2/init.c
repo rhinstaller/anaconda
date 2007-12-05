@@ -535,6 +535,11 @@ int main(int argc, char **argv) {
         if (mount("/dev", "/dev", "tmpfs", 0, NULL))
             fatal_error(1);
         createDevices();
+	printf("starting udev...");
+	if (fork() == 0) {
+	    execl("/sbin/udevd", "/sbin/udevd","--daemon",NULL);
+	    exit(1);
+	}
     }
     printf("done\n");
 
