@@ -71,8 +71,6 @@ stepToClass = {
     "accounts" : ("account_gui", "AccountWindow"),
     "tasksel": ("task_gui", "TaskWindow"),    
     "group-selection": ("package_gui", "GroupSelectionWindow"),
-    "confirminstall" : ("confirm_gui", "InstallConfirmWindow"),
-    "confirmupgrade" : ("confirm_gui", "UpgradeConfirmWindow"),
     "install" : ("progress_gui", "InstallProgressWindow"),
     "complete" : ("congrats_gui", "CongratulationWindow"),
 }

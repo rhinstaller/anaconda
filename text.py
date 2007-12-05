@@ -63,8 +63,6 @@ stepToClasses = {
     "accounts" : ("userauth_text", "RootPasswordWindow"),
     "tasksel": ("task_text", "TaskWindow"),
     "group-selection": ("grpselect_text", "GroupSelectionWindow"),    
-    "confirminstall" : ("confirm_text", "BeginInstallWindow"),
-    "confirmupgrade" : ("confirm_text", "BeginUpgradeWindow"),
     "install" : ("progress_text", "setupForInstall"),
     "complete" : ("complete_text", "FinishedWindow"),
 }

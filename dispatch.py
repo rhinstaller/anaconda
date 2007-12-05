@@ -95,8 +95,6 @@ installSteps = [
     ("tasksel", ),
     ("group-selection", ),
     ("postselection", doPostSelection, ),
-    ("confirminstall", ),
-    ("confirmupgrade", ),
     ("install", ),
     ("setuptime", setupTimezone, ),
     ("preinstallconfig", doPreInstall, ),
