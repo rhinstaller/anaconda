@@ -251,13 +251,6 @@ class AnacondaYumRepo(YumRepository):
             os.makedirs(self.hdrdir, mode=0755)
 
 class YumSorter(yum.YumBase):
-    
-    def __init__(self):
-        yum.YumBase.__init__(self)
-        self.deps = {}
-        self.path = []
-        self.loops = []
-
     def _transactionDataFactory(self):
         return SplitMediaTransactionData()
   
