@@ -1273,10 +1273,8 @@ class DiskSet:
             self.refreshDevices()
             isys.flushDriveDict()
 
-        drives = isys.floppyDriveDict().items()
-
-        for d in isys.hardDriveDict().items():
-            if isys.driveUsesModule(d[0], ["usb-storage", "ub", "sbp2", "firewire-sbp2"]):
+        drives = []
+        for d in isys.removableDriveDict().items():
                 func = lambda p: not p.get_flag(parted.PARTITION_RAID) and not p.get_flag(parted.PARTITION_LVM) and p.fs_type.name in ["ext3", "ext2", "vfat"]
 
                 disk = self.disks[d[0]]
