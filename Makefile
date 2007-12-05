@@ -114,3 +114,17 @@ pycheck-file:
 
 api:
 	doxygen docs/api.cfg
+
+rpmlog:
+	@git-log --pretty="format:- %s (%ae)" anaconda-$(VERSION)-$(RELEASE).. |sed -e 's/@.*)/)/'
+	@echo
+
+bumpver:
+	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 4` + 1)) ; \
+	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1-3,5` ; \
+	DATELINE="* `date "+%a %b %Y"` `git-config user.name` <`git-config user.email`> $$NEWVERSION-1"  ; \
+	cl=`grep -n %changelog anaconda.spec |cut -d : -f 1` ; \
+	tail --lines=+$$(($$cl + 1)) anaconda.spec > speclog ; \
+	(head -n $$cl anaconda.spec ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > anaconda.spec.new ; \
+	mv anaconda.spec.new anaconda.spec ; rm -f speclog ; \
+	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" anaconda.spec
