@@ -1111,6 +1111,20 @@ class YumBackend(AnacondaBackend):
         finally:
             dscb.pop()
 
+        if anaconda.mediaDevice and not anaconda.isKickstart:
+           rc = presentRequiredMediaMessage(anaconda)
+           if rc == 0:
+               rc2 = anaconda.intf.messageWindow(_("Reboot?"),
+                                       _("The system will be rebooted now."),
+                                       type="custom", custom_icon="warning",
+                                       custom_buttons=[_("_Back"), _("_Reboot")])
+               if rc2 == 1:
+                   sys.exit(0)
+               else:
+                   return DISPATCH_BACK
+            elif rc == 1: # they asked to go back
+                return DISPATCH_BACK
+
         self.ayum.dsCallback = None
 
     def doPreInstall(self, anaconda):
