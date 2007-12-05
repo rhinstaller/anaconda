@@ -25,7 +25,7 @@ def doMethodComplete(anaconda):
     except Exception:
         pass
 
-    if anaconda.methodstr.startswith("cdrom://"):
+    if anaconda.mediaDevice:
         try:
             shutil.copyfile("%s/media.repo" % anaconda.backend.ayum.tree,
                             "%s/etc/yum.repos.d/%s-install-media.repo" %(anaconda.rootPath, productName))

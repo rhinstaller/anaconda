@@ -259,7 +259,6 @@ class AnacondaYum(YumSorter):
     def __init__(self, anaconda):
         YumSorter.__init__(self)
         self.anaconda = anaconda
-        self.methodstr = anaconda.methodstr
         self._loopbackFile = None
 
         # The loader mounts the first disc for us, so don't remount it.
@@ -269,11 +268,16 @@ class AnacondaYum(YumSorter):
         # Only needed for hard drive and nfsiso installs.
         self._discImages = {}
 
-        # Where is the source media mounted?
-        if self.methodstr.find("source2") != -1:
-            self.tree = "/mnt/source2"
+        # Where is the source media mounted?  isodir only matters if we are
+        # doing NFS or HD image installs, and points to the directory where
+        # the ISO images themselves may be found.  tree always points to the
+        # directory where Packages/ is located.
+        self.tree = "/mnt/source"
+
+        if os.path.ismount("/mnt/isodir"):
+            self.isodir = "/mnt/isodir"
         else:
-            self.tree = "/mnt/source"
+            self.isodir = None
 
         self.doConfigSetup(root=anaconda.rootPath)
         self.conf.installonlypkgs = []
@@ -351,20 +355,19 @@ class AnacondaYum(YumSorter):
                      (self.currentMedia, discnum, relative))
 
             # Unmount any currently mounted ISO images and mount the one
-            # containing the requested packages.  If this is the first time
-            # through, /mnt/source is not going to be mounted yet so we first
-            # need to do that.
-            if self.tree.find("source2") != -1:
+            # containing the requested packages.
+            if self.isodir:
                 umountImage(self.tree, self.currentMedia)
                 self.currentMedia = None
 
                 # mountDirectory checks before doing anything, so it's safe to
                 # call this repeatedly.
-                mountDirectory(self.methodstr, self.anaconda.intf.messageWindow)
+                mountDirectory(self.isodir, self.anaconda.methodstr,
+                               self.anaconda.intf.messageWindow)
 
-                mountImage(self.tree, discnum, self.currentMedia,
-                           self.anaconda.intf.messageWindow,
-                           discImages=self._discImages)
+                discImages = mountImage(self.isodir, self.tree, discnum,
+                                        self.anaconda.intf.messageWindow,
+                                        discImages=self._discImages)
                 self.currentMedia = discnum
             else:
                 if os.access("%s/.discinfo" % self.tree, os.R_OK):
@@ -377,9 +380,9 @@ class AnacondaYum(YumSorter):
                 if self.timestamp is None:
                     self.timestamp = timestamp
 
-                # if self.currentMedia is None, then we shouldn't have anything
+                # If self.currentMedia is None, then we shouldn't have anything
                 # mounted.  double-check by trying to unmount, but we don't want
-                # to get into a loop of trying to unmount forever.  if
+                # to get into a loop of trying to unmount forever.  If
                 # self.currentMedia is set, then it should still be mounted and
                 # we want to loop until it unmounts successfully
                 if self.currentMedia is None:
@@ -451,7 +454,7 @@ class AnacondaYum(YumSorter):
                                    root = root)
             repo.cost = 100
 
-            if self.anaconda.mediaDevice or self.anaconda.methodstr.find("source2") != -1:
+            if self.anaconda.mediaDevice or self.isodir != -1:
                 repo.mediaid = getMediaId(self.tree)
                 log.info("set mediaid of repo to: %s" % repo.mediaid)
 

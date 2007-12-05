@@ -6,7 +6,7 @@
  * Michael Fulbright <msf@redhat.com>
  * Jeremy Katz <katzj@redhat.com>
  *
- * Copyright 1997 - 2002 Red Hat, Inc.
+ * Copyright 1997 - 2007 Red Hat, Inc.
  *
  * This software may be freely redistributed under the terms of the GNU
  * General Public License.
@@ -115,7 +115,7 @@ char * mountNfsImage(struct installMethod * method,
             } else if (nfsGetSetup(&host, &directory) == LOADER_BACK) {
                 return NULL;
             }
-             
+
             stage = NFS_STAGE_MOUNT;
             dir = 1;
             break;
@@ -148,7 +148,7 @@ char * mountNfsImage(struct installMethod * method,
 
             stage = NFS_STAGE_NFS;
 
-            if (!doPwMount(fullPath, "/mnt/source", "nfs", 
+            if (!doPwMount(fullPath, "/mnt/source", "nfs",
                            IMOUNT_RDONLY, mountOpts)) {
                 if (!access("/mnt/source/images/stage2.img", R_OK)) {
                     logMessage(INFO, "can access /mnt/source/images/stage2.img");
@@ -172,19 +172,36 @@ char * mountNfsImage(struct installMethod * method,
                         }
                     } else {
                         stage = NFS_STAGE_DONE;
-                        url = "nfs://mnt/source/.";
+                        url = "nfs://mnt/source";
                         break;
                     }
                 } else {
                     logMessage(WARNING, "unable to access /mnt/source/images/stage2.img");
                 }
 
-                if ((path = validIsoImages("/mnt/source", &foundinvalid))) {
+                /* If we get here, it wasn't a regular NFS method but it may
+                 * still be NFSISO.  Remount on the isodir mountpoint and try
+                 * again.
+                 */
+                umount("/mnt/source");
+                if (!doPwMount(fullPath, "/mnt/isodir", "nfs", IMOUNT_RDONLY,
+                               mountOpts)) {
+                } else {
+                    newtWinMessage(_("Error"), _("OK"),
+                                   _("That directory could not be mounted from "
+                                     "the server."));
+                    if (loaderData->method >= 0) {
+                        loaderData->method = -1;
+                    }
+                    break;
+                }
+
+                if ((path = validIsoImages("/mnt/isodir", &foundinvalid))) {
 		    foundinvalid = 0;
 		    logMessage(INFO, "Path to valid iso is %s", path);
-                    copyUpdatesImg("/mnt/source/updates.img");
+                    copyUpdatesImg("/mnt/isodir/updates.img");
 
-                    if (mountLoopback(path, "/mnt/source2", "loop1")) 
+                    if (mountLoopback(path, "/mnt/source", "loop1")) 
                         logMessage(WARNING, "failed to mount iso %s loopback", path);
                     else {
                         /* try to see if we're booted off of a CD with stage2 */
@@ -197,17 +214,17 @@ char * mountNfsImage(struct installMethod * method,
                             newtPopWindow();
                             rc = 0;
                         } else {
-                            rc = mountStage2("/mnt/source2/images/stage2.img");
+                            rc = mountStage2("/mnt/source/images/stage2.img");
                         }
                         if (rc) {
-                            umountLoopback("/mnt/source2", "loop1");
+                            umountLoopback("/mnt/source", "loop1");
                             if (rc == -1)
 				foundinvalid = 1;
                         } else {
                             /* JKFIXME: hack because /mnt/source is hard-coded
                              * in mountStage2() */
-                            copyUpdatesImg("/mnt/source2/images/updates.img");
-                            copyProductImg("/mnt/source2/images/product.img");
+                            copyUpdatesImg("/mnt/source/images/updates.img");
+                            copyProductImg("/mnt/source/images/product.img");
 
                             queryIsoMediaCheck(path);
 
@@ -220,7 +237,7 @@ char * mountNfsImage(struct installMethod * method,
 
 		/* if we fell through to here we did not find a valid NFS */
 		/* source for installation.                               */
-		umount("/mnt/source");
+		umount("/mnt/isodir");
                 if (foundinvalid) 
                     rc = asprintf(&buf, _("The %s installation tree in that "
                                      "directory does not seem to match "
@@ -235,7 +252,6 @@ char * mountNfsImage(struct installMethod * method,
                     loaderData->method = -1;
                 }
 
-		
                 break;
             } else {
                 newtWinMessage(_("Error"), _("OK"),

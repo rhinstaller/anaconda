@@ -507,7 +507,7 @@ class Anaconda:
         self.intf = InstallInterface()
 
     def setBackend(self, instClass):
-        b = instClass.getBackend(self.methodstr)
+        b = instClass.getBackend()
         self.backend = apply(b, (self.rootPath,))
 
     def setMethodstr(self, methodstr):
@@ -519,7 +519,7 @@ class Anaconda:
         if methodstr.startswith("nfs://"):
             self.methodstr = "file:///" + methodstr[6:]
         elif methodstr.startswith("nfsiso:/"):
-            self.methodstr = "file:///mnt/source2"
+            self.methodstr = "file://" + methodstr[8:]
         elif methodstr.startswith("cdrom://"):
             (device, tree) = string.split(methodstr[8:], ":", 1)
 

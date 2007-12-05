@@ -11,7 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 import isys
-import os, stat, string, sys
+import os, os.path, stat, string, sys
 from constants import *
 
 import rhpl
@@ -120,8 +120,8 @@ def getMediaId(path):
         return None
 
 # This mounts the directory containing the iso images, and places the
-# mount point in /tmp/isodir.
-def mountDirectory(methodstr, messageWindow):
+# mount point in isodir.
+def mountDirectory(isodir, methodstr, messageWindow):
     if methodstr.startswith("hd://"):
         method = methodstr[5:]
         (device, fstype, path) = method.split(":", 3)
@@ -129,7 +129,7 @@ def mountDirectory(methodstr, messageWindow):
     else:
         return
 
-    # First check to see if /tmp/isodir is mounted.
+    # First check to see if isodir is mounted.
     f = open("/proc/mounts", "r")
     lines = f.readlines()
     f.close()
@@ -141,7 +141,7 @@ def mountDirectory(methodstr, messageWindow):
             return
 
     try:
-        isys.mount(device, "/tmp/isodir", fstype = fstype)
+        isys.mount(device, isodir, fstype = fstype)
     except SystemError, msg:
         log.error("couldn't mount ISO source directory: %s" % msg)
         messageWindow(_("Couldn't Mount ISO Source"),
@@ -155,16 +155,16 @@ def mountDirectory(methodstr, messageWindow):
                       custom_buttons=[_("_Exit")])
         sys.exit(0)
 
-def mountImage(tree, discnum, currentMedia, messageWindow, discImages={}):
-    if currentMedia:
+def mountImage(isodir, tree, discnum, messageWindow, discImages={}):
+    if os.path.ismount(tree):
         raise SystemError, "trying to mount already-mounted iso image!"
 
     if discImages == {}:
-        discImages = findIsoImages("/mnt/source", messageWindow)
+        discImages = findIsoImages(isodir, messageWindow)
 
     while True:
         try:
-            isoImage = "/mnt/source/%s" % (discImages[discnum])
+            isoImage = "%s/%s" % (isodir, discImages[discnum])
             isys.losetup("/dev/loop1", isoImage, readOnly = 1)
             isys.mount("/dev/loop1", tree, fstype = 'iso9660', readOnly = 1);
             break
@@ -182,7 +182,9 @@ def mountImage(tree, discnum, currentMedia, messageWindow, discImages={}):
             if ans == 0:
                 sys.exit(0)
             elif ans == 1:
-                discImages = findIsoImages("/mnt/source", messageWindow)
+                discImages = findIsoImages(isodir, messageWindow)
+
+    return discImages
 
 # given groupset containing information about selected packages, use
 # the disc number info in the headers to come up with message describing
@@ -248,13 +250,13 @@ def umountImage(tree, currentMedia):
         isys.umount(tree, removeDir=0)
         isys.unlosetup("/dev/loop1")
 
-def unmountCD(tree, messageWindow):
-    if not tree:
+def unmountCD(path, messageWindow):
+    if not path:
         return
 
     while True:
         try:
-            isys.umount(tree, removeDir=0)
+            isys.umount(path, removeDir=0)
             break
         except Exception, e:
             log.error("exception in _unmountCD: %s" %(e,))
@@ -263,7 +265,7 @@ def unmountCD(tree, messageWindow):
                             "Please make sure you're not accessing "
                             "%s from the shell on tty2 "
                             "and then click OK to retry.")
-                          % (tree,))
+                          % (path,))
 
 def verifyMedia(tree, discnum, timestamp):
     if os.access("%s/.discinfo" % tree, os.R_OK):
