@@ -329,20 +329,11 @@ class AnacondaYum(YumSorter):
                         "to your hard drive. You are probably out of disk "
                         "space.")
 
-        while True:
-            try:
-                isys.umount(self.tree)
-                self.currentMedia = None
-                break
-            except Exception, e:
-                log.error("exception in _unmountCD: %s" %(e,))
-                self.anaconda.intf.messageWindow(_("Error"),
-                                   _("An error occurred unmounting the disc.  "
-                                     "Please make sure you're not accessing "
-                                     "%s from the shell on tty2 "
-                                     "and then click OK to retry.")
-                                   % (self.tree,))
+            self.anaconda.intf.messageWindow(_("Error"), msg)
+            os.unlink(self._loopbackFile)
+            return 1
 
+        isys.lochangefd("/dev/loop0", self._loopbackFile)
 
     def mediaHandler(self, *args, **kwargs):
         mediaid = kwargs["mediaid"]
