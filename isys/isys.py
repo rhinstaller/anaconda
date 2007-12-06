@@ -23,7 +23,6 @@ import socket
 import stat
 import posix
 import sys
-import kudzu
 import iutil
 import warnings
 import resource
@@ -31,6 +30,7 @@ import re
 import rhpl
 import struct
 import block
+import minihal
 
 import logging
 log = logging.getLogger("anaconda")
@@ -367,11 +367,6 @@ def swapon (path):
 def loadKeymap(keymap):
     return _isys.loadKeymap (keymap)
 
-classMap = { "disk": kudzu.CLASS_HD,
-             "cdrom": kudzu.CLASS_CDROM,
-             "floppy": kudzu.CLASS_FLOPPY,
-             "tape": kudzu.CLASS_TAPE }
-
 cachedDrives = None
 
 ## Clear the drive dict cache.
@@ -388,32 +383,26 @@ def driveDict(klassArg):
     import parted
     global cachedDrives
     if cachedDrives is None:
-        # FIXME: need to add dasd probing to kudzu
-        devs = kudzu.probe(kudzu.CLASS_HD | kudzu.CLASS_CDROM | \
-                           kudzu.CLASS_FLOPPY | kudzu.CLASS_TAPE,
-                           kudzu.BUS_UNSPEC, kudzu.PROBE_SAFE)
         new = {}
-        for dev in devs:
-            device = dev.device
-            if device is None: # none devices make no sense
-                # kudzu is unable to determine the device for tape drives w/ 2.6
-                if dev.deviceclass == classMap["tape"]:
-                    tapedevs = filter(lambda d: d.startswith("st"), new.keys())
-                    device = "st%d" % (len(tapedevs),)
-                else:
-                    continue
+        for dev in minihal.get_devices_by_type("storage"):
+            if dev['device'] is None: # none devices make no sense
+                continue
 
+            device = dev['device'].replace('/dev/','')
             # we can't actually use the sg devices, so ignore them
             if device.startswith("sg"):
                 log.info("ignoring sg device %s" %(device,))
                 continue
 
-            if dev.deviceclass != classMap["disk"]:
+            # we can't actually use the st devices, so ignore them
+            if device.startswith("st"):
+                log.info("ignoring st device %s" %(device,))
+                continue
+
+            if dev['storage.drive_type'] != 'disk':
                 new[device] = dev
                 continue
             try:
-                devName = "/dev/%s" % (device,)
-
                 if not mediaPresent (device):
                     new[device] = dev
                     continue
@@ -424,12 +413,12 @@ def driveDict(klassArg):
                 if os.path.exists("/dev/live") and \
                        stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
                     livetarget = os.path.realpath("/dev/live")
-                    if livetarget.startswith(devName):
+                    if livetarget.startswith(dev['device']):
                         log.info("%s looks to be the live device; ignoring" % (device,))
                         continue
 
                 if device.startswith("sd"):
-                    peddev = parted.PedDevice.get(devName)
+                    peddev = parted.PedDevice.get(dev['device'])
                     model = peddev.model
 
                     # blacklist *STMF on power5 iSeries boxes
@@ -476,8 +465,8 @@ def driveDict(klassArg):
         if isinstance(dev, block.MultiPath) or isinstance(dev, block.RaidSet):
             if klassArg == "disk":
                 ret[key] = dev
-        elif dev.deviceclass == classMap[klassArg]:
-            ret[key] = dev.desc
+        elif dev['storage.drive_type'] == klassArg:
+            ret[key] = dev
     return ret
 
 ## Get all the hard drives attached to the system.
@@ -489,18 +478,27 @@ def driveDict(klassArg):
 # @see driveDict
 # @return A dict of all the hard drive descriptions, keyed on device name.
 def hardDriveDict():
-    return driveDict("disk")
+    ret = {}
+    dict = driveDict("disk")
+    for item in dict.keys():
+        ret[item] = dict[item]['description']
+    return ret
 
-## Get all the floppy drives attached to the system.
-# This method queries the drive dict cache for all floppy drives.  If the cache
+## Get all the removable drives attached to the system.
+# This method queries the drive dict cache for all removable drives.  If the cache
 # is empty, this will cause all disk devices to be probed.  If the status of
 # the devices has changed, flushDriveDict must be run called first.
 #
 # @see flushDriveDict
 # @see driveDict
-# @return A dict of all the floppy drive descriptions, keyed on device name.
-def floppyDriveDict():
-    return driveDict("floppy")
+# @return A dict of all the removable drive descriptions, keyed on device name.
+def removableDriveDict():
+    ret = {}
+    dict = driveDict("disk")
+    for item in dict.keys():
+        if dict[item]['storage.removable'] != 0:
+            ret[item] = dict[item]['description']
+    return ret
 
 ## Get all CD/DVD drives attached to the system.
 # This method queries the drive dict cache for all hard drives.  If the cache
