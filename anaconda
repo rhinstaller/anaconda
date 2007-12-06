@@ -27,7 +27,7 @@
 
 # This toplevel file is a little messy at the moment...
 
-import sys, os, re
+import sys, os, re, time, subprocess
 from optparse import OptionParser
 
 # keep up with process ID of miniwm if we start it
@@ -37,6 +37,33 @@ miniwm_pid = None
 # Make sure messages sent through python's warnings module get logged.
 def AnacondaShowWarning(message, category, filename, lineno, file=sys.stderr):
     log.warning("%s" % warnings.formatwarning(message, category, filename, lineno))
+
+# start DBus
+def startDBus():
+    path = "/bin/dbus-daemon"
+    if not os.access(path, os.X_OK):
+        path = "/usr/bin/dbus-daemon"
+    if not os.access(path, os.X_OK):
+        return None
+    fd = open("/dev/null","rw")
+    try:
+        pid = subprocess.Popen([path,"--system"], stdin = fd, stdout = fd, stderr = fd, close_fds = True).pid
+    except OSError:
+        return None
+    return pid
+
+def startHal(root='/'):
+    if not os.access("/usr/sbin/hald", os.X_OK):
+        return None
+    fd = open("/dev/null","rw")
+    args = ["/usr/sbin/hald","--use-syslog"]
+    if log.getEffectiveLevel() < logging.INFO:
+        args = args + ["--verbose=yes"]
+    try:
+        pid = subprocess.Popen(args, stdin = fd, stdout = fd, stderr = fd, close_fds = True).pid
+    except OSError:
+        return None
+    return pid
 
 # start miniWM
 def startMiniWM(root='/'):
@@ -706,6 +733,29 @@ if __name__ == "__main__":
                 os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
         except:
             pass
+
+    # setup dbus, hal, if necessary
+    if not flags.test:
+        import dbus
+
+        try:
+            bus = dbus.SystemBus()
+        except dbus.exceptions.DBusException:
+            log.info("Starting message bus...")
+            pid = startDBus()
+            if not pid:
+                log.error("Unable to start message bus")
+            time.sleep(5)
+            bus = dbus.SystemBus()
+
+        try:
+            halobj = bus.get_object("org.freedesktop.Hal","/org/freedesktop/Hal/Manager")
+        except dbus.exceptions.DBusException:
+            log.info("Starting HAL daemon...")
+            pid = startHal()
+            if not pid:
+                log.error("Unable to start HAL daemon")
+            time.sleep(5)
 
     #
     # must specify install, rescue mode
