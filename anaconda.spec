@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.5
+Version: 11.4.0.6
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -215,6 +215,18 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 06 2007 Chris Lumens <clumens@redhat.com> - 11.4.0.6-1
+- Remove confirmation screen (katzj)
+- Use a better cio_ignore line (#253075). (dcantrell)
+- Remove the release notes code entirely. (clumens)
+- Remove existing InstallMethod code. (clumens)
+- Add a specfile rule to bump the version. (katzj)
+- Make the tag an annotated tag (katzj)
+- Fixup chunk of dwmw2's patch to be cleaner (katzj)
+- Update mk-images.ppc for new zImage wrapper (#409691) (dwmw2)
+- Remove gdb.i386 on upgrade (#407431) (katzj)
+- device nodes are in /dev (or, at least, should be) (notting)
+
 * Mon Dec  3 2007 Jeremy Katz <katzj@redhat.com> - 11.4.0.5-1
 - Add support for the Efika platform (dwmw2)
 - Fix some tracebacks (clumens, #405951)
