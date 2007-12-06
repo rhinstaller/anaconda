@@ -21,7 +21,7 @@ import isys
 import iutil
 import socket
 import os
-import kudzu
+import minihal
 import rhpl
 from flags import flags
 
@@ -256,65 +256,26 @@ class Network:
 	    if not oneactive:
 		self.netdevices[self.firstnetdevice].set(("onboot", "yes"))
 
-	    # assign description to each device based on kudzu information
-	    probedevs = kudzu.probe(kudzu.CLASS_NETWORK, kudzu.BUS_UNSPEC, kudzu.PROBE_LOADED)
-	    for netdev in probedevs:
-		device = netdev.device
-		if device in self.netdevices.keys():
-		    desc = netdev.desc
-		    if desc is not None and len(desc) > 0:
-			self.netdevices[device].set(("desc", desc))
-
-                    # hwaddr for qeth doesn't make sense (#135023)
-                    if netdev.driver == "qeth":
-                        continue
-                    # add hwaddr
-                    hwaddr = isys.getMacAddress(device)
-                    if hwaddr and hwaddr != "00:00:00:00:00:00" and hwaddr != "ff:ff:ff:ff:ff:ff":
-                        self.netdevices[device].set(("hwaddr", hwaddr))
-
     def getDevice(self, device):
 	return self.netdevices[device]
 
     def getFirstDeviceName(self):
 	return self.firstnetdevice
 
-    def _sysfsDeviceIsUsable(self, dev):
-        if os.path.exists("/sys/class/net/%s/bridge" % dev):
-            return False
-        try:
-            f = open("/sys/class/net/%s/type" % dev)
-            lines = f.readlines()
-            f.close()
-
-            return lines[0].startswith("1")
-        except:
-            return False
-
     def available(self):
+        for device in minihal.get_devices_by_type("net"):
+            if device.has_key('net.arp_proto_hw_id'):
+                if device['net.arp_proto_hw_id'] == 1:
+                    dev = device['device']
+                    self.netdevices[dev] = NetworkDevice(dev);
+                    if self.firstnetdevice is None:
+                        self.firstnetdevice = dev
+                    self.netdevices[dev].set(('hwaddr',device['net.address']))
+                    self.netdevices[dev].set(('desc',device['description']))
+
         ksdevice = None
         if flags.cmdline.has_key("ksdevice"):
             ksdevice = flags.cmdline["ksdevice"]
-
-        f = open("/proc/net/dev")
-        lines = f.readlines()
-        f.close()
-        # skip first two lines, they are header
-        lines = lines[2:]
-        for line in lines:
-            dev = string.strip(line[0:6])
-            if dev != "lo" and dev[0:3] != "sit" and not self.netdevices.has_key(dev) and self._sysfsDeviceIsUsable(dev):
-		if self.firstnetdevice is None:
-		    self.firstnetdevice = dev
-
-                self.netdevices[dev] = NetworkDevice(dev)
-
-                try:
-                    hwaddr = isys.getMacAddress(dev)
-                    if rhpl.getArch() != "s390" and hwaddr and hwaddr != "00:00:00:00:00:00" and hwaddr != "ff:ff:ff:ff:ff:ff":
-                        self.netdevices[dev].set(("hwaddr", hwaddr))
-                except Exception, e:
-                    log.error("exception getting mac addr: %s" %(e,))
 
         if ksdevice and self.netdevices.has_key(ksdevice):
             self.firstnetdevice = ksdevice
