@@ -333,8 +333,8 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                     /* aid system recovery.                                   */
                     if (FL_RESCUE(flags) && !FL_TEXT(flags) &&
                         totalMemory() > 128000) {
-                        rc = copyFile(stage2loc, "/tmp/ramfs/stage2.img");
-                        stage2img = "/tmp/ramfs/stage2.img";
+                        rc = copyFile(stage2loc, "/tmp/stage2.img");
+                        stage2img = "/tmp/stage2.img";
                         stage2inram = 1;
                     } else {
                         stage2img = strdup(stage2loc);

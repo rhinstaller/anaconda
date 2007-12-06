@@ -107,24 +107,24 @@ static int loadUrlImages(struct iurlinfo * ui) {
     /* grab the updates.img before netstg1.img so that we minimize our
      * ramdisk usage */
     if (!loadSingleUrlImage(ui, "images/updates.img",
-                            "/tmp/ramfs/updates-disk.img", "/tmp/update-disk",
+                            "/tmp/updates-disk.img", "/tmp/update-disk",
                             "loop7", 1)) {
         copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
                       copyErrorFn);
         umountLoopback("/tmp/update-disk", "loop7");
-        unlink("/tmp/ramfs/updates-disk.img");
+        unlink("/tmp/updates-disk.img");
         unlink("/tmp/update-disk");
     }
 
     /* grab the product.img before netstg1.img so that we minimize our
      * ramdisk usage */
     if (!loadSingleUrlImage(ui, "images/product.img",
-                            "/tmp/ramfs/product-disk.img", "/tmp/product-disk",
+                            "/tmp/product-disk.img", "/tmp/product-disk",
                             "loop7", 1)) {
         copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
                       copyErrorFn);
         umountLoopback("/tmp/product-disk", "loop7");
-        unlink("/tmp/ramfs/product-disk.img");
+        unlink("/tmp/product-disk.img");
         unlink("/tmp/product-disk");
     }
 
@@ -139,7 +139,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
     }
 
     snprintf(tmpstr1, sizeof(tmpstr1), "images/%s", stage2img);
-    snprintf(tmpstr2, sizeof(tmpstr2), "/tmp/ramfs/%s", stage2img);
+    snprintf(tmpstr2, sizeof(tmpstr2), "/tmp/%s", stage2img);
 
     rc = loadSingleUrlImage(ui, tmpstr1, tmpstr2,
                             "/mnt/runtime", "loop0", 0);

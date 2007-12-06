@@ -110,7 +110,7 @@ static int loadHDImages(char * prefix, char * dir,
 
     if (!cdurl) {
         dest = alloca(strlen(target) + 50);
-        sprintf(dest,"/tmp/ramfs/%s", target);
+        sprintf(dest,"/tmp/%s", target);
         rc = copyFileAndLoopbackMount(fd, dest, device, mntpoint);
         close(fd);
 
