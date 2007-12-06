@@ -144,6 +144,17 @@ instFile() {
     done
 }
 
+instDir() {
+    DIR=$1
+    DESTROOT=$2
+
+    echo "Installing $DIR"
+    if [ -d $DESTROOT/$DIR -o -h $DESTROOT/$DIR ]; then
+      return
+    fi
+    cp -a --parents $DIR $DESTROOT/
+}
+
 expandPackageSet() {
     YUMCONF=$1
     YUMDIR=$2
@@ -183,6 +194,7 @@ expandPackageSet() {
 	else
 	    for i in `find $filespec -type f` ; do instFile $i $PKGDEST ; done
 	    for i in `find $filespec -type l` ; do instFile $i $PKGDEST ; done
+	    for d in `find $filespec -type d` ; do instDir $d $PKGDEST ; done
 	fi
       done
     done
