@@ -350,16 +350,6 @@ makeproductfile() {
 
 setupShellEnvironment() {
     # setup password/group entries
-    cat > $MBD_DIR/etc/passwd << EOF
-root::0:0::/:/sbin/loader
-debug::0:0:debug shell:/:/bin/bash
-sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
-EOF
-    cat > $MBD_DIR/etc/group << EOF
-root:x:0:root
-tty:x:5:
-EOF
-    echo "sshd:x:74:" >> $MBD_DIR/etc/group
     echo "tcp     6       TCP" > $MBD_DIR/etc/protocols
 
     # PAM configuration
@@ -626,10 +616,6 @@ makeinitrd() {
         esac
     done
 
-    cat > $MBD_DIR/etc/passwd << EOF
-    root::0:0:root:/:/bin/bash
-EOF
-
     # set up the arch bits
     echo $arch > $MBD_DIR/etc/arch
 
@@ -650,7 +636,9 @@ EOF
        install -m 644 $SCREENFONT $MBD_DIR/etc/screenfont.gz
     fi
     install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
-    
+    install -m 644 $IMGPATH/etc/passwd $MBD_DIR/etc/passwd
+    install -m 644 $IMGPATH/etc/group $MBD_DIR/etc/group
+
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
     for i in a/ansi d/dumb l/linux s/screen v/vt100 v/vt100-nav v/vt102 x/xterm x/xterm-color g/gnome ; do
 	[ -f $IMGPATH/usr/share/terminfo/$i ] && \
