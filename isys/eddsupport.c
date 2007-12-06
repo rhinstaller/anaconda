@@ -103,11 +103,7 @@ static struct device ** createDiskList(){
 static int readDiskSig(char *device, uint32_t *disksig) {
     int fd, rc;
 
-    if (devMakeInode(device, "/tmp/biosdev")){
-        return -1;
-    }
-
-    fd = open("/tmp/biosdev", O_RDONLY);
+    fd = open(device, O_RDONLY);
     if (fd < 0) {
 #ifdef STANDALONE 
         fprintf(stderr, "Error opening device %s: %s\n ", device, 
@@ -138,7 +134,6 @@ static int readDiskSig(char *device, uint32_t *disksig) {
     }
 
     close(fd);
-    unlink("/tmp/biosdev");
     return 0;
 }
 

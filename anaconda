@@ -719,9 +719,6 @@ if __name__ == "__main__":
 
         import rescue, instdata
 
-        iutil.makeDriveDeviceNodes()
-        iutil.makeCharDeviceNodes()
-
         anaconda.id = instdata.InstallData(anaconda, [], anaconda.methodstr, opts.display_mode)
         rescue.runRescue(anaconda, instClass)
 
@@ -781,11 +778,6 @@ if __name__ == "__main__":
     log.info("Method = %s" %(anaconda.methodstr,))
 
     checkMemory(opts)
-
-    # create character device nodes if we're not running in test mode - have
-    # to do this early sine it's used for Synaptics, etc.
-    if not flags.test:
-        iutil.makeCharDeviceNodes()
 
     # this lets install classes force text mode instlls
     if instClass.forceTextMode:
@@ -890,10 +882,6 @@ if __name__ == "__main__":
             log.warning(msg)
         else:
             anaconda.intf.messageWindow("Unknown monitor", msg)
-
-    # create device nodes for detected devices if we're not running in test mode
-    if not flags.test and flags.setupFilesystems:
-        iutil.makeDriveDeviceNodes()
 
     anaconda.setBackend(instClass)
 

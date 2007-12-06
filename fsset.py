@@ -552,8 +552,6 @@ class extFileSystem(FileSystemType):
     def getMinimumSize(self, device):
         """Return the minimum filesystem size in megabytes"""
         devicePath = "/dev/%s" % (device,)
-        if not os.path.exists(devicePath):
-            isys.makeDevInode(device, devicePath)
 
         # FIXME: it'd be nice if we didn't have to parse this out ourselves
         buf = iutil.execWithCapture("dumpe2fs",
@@ -634,7 +632,7 @@ class extFileSystem(FileSystemType):
         devicePath = entry.device.setupDevice(chroot)
 
         # if no journal, don't turn off the fsck
-        if not isys.ext2HasJournal(devicePath, makeDevNode = 0):
+        if not isys.ext2HasJournal(devicePath):
             return
 
         rc = iutil.execWithRedirect("tune2fs",
@@ -661,7 +659,7 @@ class ext2FileSystem(extFileSystem):
                                  "than ext3")
 
         # if journal already exists skip
-        if isys.ext2HasJournal(devicePath, makeDevNode = 0):
+        if isys.ext2HasJournal(devicePath):
             log.info("Skipping migration of %s, has a journal already.\n" % devicePath)
             return
 
@@ -676,7 +674,7 @@ class ext2FileSystem(extFileSystem):
         # XXX this should never happen, but appears to have done
         # so several times based on reports in bugzilla.
         # At least we can avoid leaving them with a system which won't boot
-        if not isys.ext2HasJournal(devicePath, makeDevNode = 0):
+        if not isys.ext2HasJournal(devicePath):
             log.warning("Migration of %s attempted but no journal exists after "
                         "running tune2fs.\n" % (devicePath))
             if message:
@@ -965,8 +963,6 @@ class NTFSFileSystem(FileSystemType):
     def getMinimumSize(self, device):
         """Return the minimum filesystem size in megabytes"""
         devicePath = "/dev/%s" % (device,)
-        if not os.path.exists(devicePath):
-            isys.makeDevInode(device, devicePath)
 
         buf = iutil.execWithCapture("ntfsresize", ["--info", devicePath],
                                     stderr = "/dev/tty5")
@@ -1420,8 +1416,6 @@ MAILADDR root
     def mkDevRoot(self, instPath):
         root = self.getEntryByMountPoint("/")
         dev = "%s/dev/%s" % (instPath, root.device.getDevice())
-        if not os.path.exists(dev):
-            isys.makeDevInode(root.device.getDevice(), dev)        
         rdev = os.stat(dev).st_rdev
 
         if not os.path.exists("%s/dev/root" %(instPath,)):
@@ -2202,7 +2196,7 @@ class Device:
 
     def getLabel(self):
         try:
-            return isys.readFSLabel(self.setupDevice(), makeDevNode = 0)
+            return isys.readFSLabel(self.setupDevice())
         except:
             return ""
 
@@ -2232,7 +2226,6 @@ class DevDevice(Device):
     def setupDevice(self, chroot='/', devPrefix='/dev'):
         #We use precreated device but we have to make sure that the device exists
         path = '/dev/%s' % (self.getDevice(),)
-        isys.makeDevInode(self.getDevice(), path)
         return path
 
 class RAIDDevice(Device):
@@ -2352,9 +2345,6 @@ class RAIDDevice(Device):
     def setupDevice (self, chroot="/", devPrefix='/dev'):
         def devify(x):
             return "/dev/%s" %(x,)
-
-        node = "%s/%s" % (devPrefix, self.device)
-        isys.makeDevInode(self.device, node)
 
         if not self.isSetup:
             for device in self.members:
@@ -2500,7 +2490,6 @@ class PartitionDevice(Device):
 
     def setupDevice(self, chroot="/", devPrefix='/dev'):
         path = '%s/%s' % (devPrefix, self.device)
-        isys.makeDevInode(self.device, path)
         if self.crypto:
             self.crypto.formatDevice()
             self.crypto.openDevice()
@@ -2584,7 +2573,6 @@ class LoopbackDevice(Device):
             path = '%s/%s' % (devPrefix, self.getDevice())
         else:
             path = '%s/%s' % (devPrefix, self.getDevice())
-            isys.makeDevInode(self.getDevice(), path)
         path = os.path.normpath(path)
         return path
 

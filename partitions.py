@@ -69,9 +69,6 @@ def partitionObjectsInitialize(anaconda):
     anaconda.id.partitions.setFromDisk(anaconda.id.diskset)
     anaconda.id.partitions.setProtected(anaconda.dispatch)
 
-    # make sure we have all the device nodes we'll want
-    iutil.makeDriveDeviceNodes()
-
 # dispatch.py helper function
 def partitioningComplete(anaconda):
     if anaconda.dir == DISPATCH_BACK and anaconda.id.fsset.isActive():
@@ -266,7 +263,7 @@ class Partitions:
             else:
                 fsystem = fsset.fileSystemTypeGet(fs)
                 try:
-                    fslabel = isys.readFSLabel(theDev, makeDevNode=0)
+                    fslabel = isys.readFSLabel(theDev)
                 except:
                     fslabel = None
 
@@ -336,7 +333,7 @@ class Partitions:
                 else:
                     fsystem = fsset.fileSystemTypeGet(fs)
                     try:
-                        fslabel = isys.readFSLabel(theDev, makeDevNode=0)
+                        fslabel = isys.readFSLabel(theDev)
                     except:
                         fslabel = None
 

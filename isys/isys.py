@@ -150,7 +150,6 @@ def raidstop(mdDevice):
 
     devInode = "/dev/%s" % mdDevice
 
-    makeDevInode(mdDevice, devInode)
     try:
         _stopRaid(devInode)
     except:
@@ -176,9 +175,6 @@ def raidstart(mdDevice, aMember):
 
     mdInode = "/dev/%s" % mdDevice
     mbrInode = "/dev/%s" % aMember
-
-    makeDevInode(mdDevice, mdInode)
-    makeDevInode(aMember, mbrInode)
 
     minor = os.minor(os.stat(mdInode).st_rdev)
     try:
@@ -209,7 +205,6 @@ def wipeRaidSB(device):
 #        need to exist to begin with.
 # @return A RAID superblock in its raw on-disk format.
 def raidsb(mdDevice):
-    makeDevInode(mdDevice, "/dev/%s" % mdDevice)
     return raidsbFromDevice("/dev/%s" % mdDevice)
 
 ## Get the superblock from a RAID device.
@@ -311,14 +306,6 @@ def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remoun
     # mount without making a device node.  If that still fails, the caller
     # will have to deal with the exception.
     # We note whether or not we created a node so we can clean up later.
-    createdNode = 0
-    if device and device != "none" and device[0] != "/":
-	
-	try:
-	    makeDevInode (device)
-	    createdNode = 1
-	except SystemError:
-	    pass
 
     if mountCount.has_key(location) and mountCount[location] > 0:
 	mountCount[location] = mountCount[location] + 1
@@ -329,10 +316,6 @@ def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remoun
 
     if not rc:
 	mountCount[location] = 1
-
-    # did we create a node, if so remove
-    if createdNode:
-	os.unlink(device)
 
     return rc
 
@@ -430,7 +413,6 @@ def driveDict(klassArg):
                 continue
             try:
                 devName = "/dev/%s" % (device,)
-                makeDevInode(device, devName)
 
                 if not mediaPresent (device):
                     new[device] = dev
@@ -745,13 +727,8 @@ def dhcpNetDevice(device):
 
     return _isys.dhcpnetdevice(devname, v4, v4method, v6, v6method, klass)
 
-def readFSLabel(device, makeDevNode = 1):
-    if makeDevNode:
-        makeDevInode(device, "/tmp/disk")
-        device = "/tmp/disk"
+def readFSLabel(device):
     label = _isys.getblkid(device, "LABEL")
-    if makeDevNode:
-        os.unlink("/tmp/disk")
     return label
 
 def readFSType(device):
@@ -780,7 +757,7 @@ def readFSType(device):
                 return "physical volume (LVM)"
     return fstype
 
-def ext2Clobber(device, makeDevNode = 1):
+def ext2Clobber(device):
     _isys.e2fsclobber(device)
 
 def ext2IsDirty(device):
@@ -789,21 +766,12 @@ def ext2IsDirty(device):
     os.unlink("/tmp/disk")
     return label
 
-def ext2HasJournal(device, makeDevNode = 1):
-    if makeDevNode:
-        makeDevInode(device, "/tmp/disk")
-        hasjournal = _isys.e2hasjournal("/tmp/disk");
-        os.unlink("/tmp/disk")
-    else:
-        hasjournal = _isys.e2hasjournal(device);
+def ext2HasJournal(device):
+    hasjournal = _isys.e2hasjournal(device);
     return hasjournal
 
-def ejectCdrom(device, makeDevice = 1):
-    if makeDevice:
-        makeDevInode(device, "/tmp/cdrom")
-        fd = os.open("/tmp/cdrom", os.O_RDONLY|os.O_NONBLOCK)
-    else:
-        fd = os.open(device, os.O_RDONLY|os.O_NONBLOCK)
+def ejectCdrom(device):
+    fd = os.open(device, os.O_RDONLY|os.O_NONBLOCK)
 
     # this is a best effort
     try:
@@ -813,9 +781,6 @@ def ejectCdrom(device, makeDevice = 1):
 	pass
 
     os.close(fd)
-
-    if makeDevice:
-        os.unlink("/tmp/cdrom")
 
 def driveUsesModule(device, modules):
     """Returns true if a drive is using a prticular module.  Only works

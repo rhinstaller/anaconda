@@ -457,14 +457,8 @@ def isLinuxNativeByNumtype(numtype):
 def sniffFilesystemType(device):
     """Sniff to determine the type of fs on device.  
 
-    device - name of device to sniff.  we try to create it if it doesn't exist.
+    device - name of device to sniff.
     """
-
-    if os.access(device, os.O_RDONLY):
-        dev = device
-    else:
-        dev = isys.makeDevInode(device)
-
     return isys.readFSType(device)
 
 def getReleaseString(mountpoint):
@@ -708,7 +702,7 @@ class DiskSet:
             if lvorigin:
                 continue
             node = "%s/%s" % (vg, lv)
-            label = isys.readFSLabel("/dev/" + node, makeDevNode=0)
+            label = isys.readFSLabel("/dev/" + node)
             if label:
                 labels[node] = label
 
@@ -747,7 +741,7 @@ class DiskSet:
                     if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
                         try:
-                            label = isys.readFSLabel(dev, makeDevNode=0)
+                            label = isys.readFSLabel(dev)
                         except:
                             label = None
             
@@ -779,7 +773,7 @@ class DiskSet:
                     if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
                         try:
-                            label = isys.readFSLabel(dev, makeDevNode=0)
+                            label = isys.readFSLabel(dev)
                         except:
                             label = None
             
@@ -827,7 +821,7 @@ class DiskSet:
                         if ((upgradeany == 1) or
                             (productMatches(relstr, productName))):
                             try:
-                                label = isys.readFSLabel("/dev/%s" % node, makeDevNode=0)
+                                label = isys.readFSLabel("/dev/%s" % node)
                             except:
                                 label = None
 
@@ -920,10 +914,6 @@ class DiskSet:
         w = self.anaconda.intf.progressWindow (_("Initializing"),
                              _("Please wait while formatting drive %s...\n"
                                ) % (drive,), 100)
-        try:
-            dev = isys.makeDevInode(drive)
-        except:
-            pass
 
         argList = [ "/sbin/dasdfmt",
                     "-y",
@@ -932,7 +922,7 @@ class DiskSet:
                     "-F",
                     "-P",
                     "-f",
-                    dev]
+                    "/dev/%s" % (dev,)]
 
         fd = os.open("/dev/null", os.O_RDWR | os.O_CREAT | os.O_APPEND)
         p = os.pipe()
@@ -1044,7 +1034,7 @@ class DiskSet:
     def _labelDevice(self, drive):
         log.info("Reinitializing label for drive %s" % (drive,))
 
-        deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
+        deviceFile = "/dev/" + drive
 
         try:
             try:
@@ -1095,7 +1085,6 @@ class DiskSet:
                     drive not in DiskSet.exclusiveDisks:
                 continue
 
-            deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
             if not isys.mediaPresent(drive):
                 DiskSet.skippedDisks.append(drive)
                 continue
@@ -1106,7 +1095,7 @@ class DiskSet:
             if self.initializedDisks.has_key(drive):
                 if not self.disks.has_key(drive):
                     try:
-                        dev = parted.PedDevice.get(deviceFile)
+                        dev = parted.PedDevice.get("/dev/%s" % (drive,))
                         disk = parted.PedDisk.new(dev)
                         self._addDisk(drive, disk)
                     except parted.error, msg:
@@ -1145,7 +1134,7 @@ class DiskSet:
 
             try:
                 if not dev:
-                    dev = parted.PedDevice.get(deviceFile)
+                    dev = parted.PedDevice.get("/dev/%s" % (drive,))
                     disk = None
             except parted.error, msg:
                 log.debug("parted error: %s" % (msg,))

@@ -58,7 +58,6 @@ int isUsableDasd(char *device) {
     memset(&dasd_info, 0, sizeof(dasd_info));
     strcpy(devname, "/dev/");
     strcat(devname, device);
-    devMakeInode(device, devname);
 
     if ((f = open(devname, O_RDONLY)) == -1)
         return 0;
