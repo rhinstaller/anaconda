@@ -201,7 +201,7 @@ char * mountNfsImage(struct installMethod * method,
 		    logMessage(INFO, "Path to valid iso is %s", path);
                     copyUpdatesImg("/mnt/isodir/updates.img");
 
-                    if (mountLoopback(path, "/mnt/source", "loop1")) 
+                    if (mountLoopback(path, "/mnt/source", "/dev/loop1")) 
                         logMessage(WARNING, "failed to mount iso %s loopback", path);
                     else {
                         /* try to see if we're booted off of a CD with stage2 */
@@ -217,7 +217,7 @@ char * mountNfsImage(struct installMethod * method,
                             rc = mountStage2("/mnt/source/images/stage2.img");
                         }
                         if (rc) {
-                            umountLoopback("/mnt/source", "loop1");
+                            umountLoopback("/mnt/source", "/dev/loop1");
                             if (rc == -1)
 				foundinvalid = 1;
                         } else {

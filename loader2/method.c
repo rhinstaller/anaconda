@@ -59,8 +59,7 @@ int umountLoopback(char * mntpoint, char * device) {
 
     logMessage(INFO, "umounting loopback %s %s", mntpoint, device);
 
-    devMakeInode(device, "/tmp/loop");
-    loopfd = open("/tmp/loop", O_RDONLY);
+    loopfd = open(device, O_RDONLY);
 
     if (ioctl(loopfd, LOOP_CLR_FD, 0) == -1)
         logMessage(ERROR, "LOOP_CLR_FD failed for %s %s (%s)", mntpoint,
@@ -75,11 +74,8 @@ int umountLoopback(char * mntpoint, char * device) {
 int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     struct loop_info loopInfo;
     int targfd, loopfd;
-    char *filename;
 
     mkdirChain(mntpoint);
-    filename = alloca(15 + strlen(device));
-    sprintf(filename, "/tmp/%s", device);
 
 #ifdef O_DIRECT
     targfd = open(fsystem, O_RDONLY | O_DIRECT);
@@ -94,10 +90,9 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     }
 #endif
 
-    devMakeInode(device, filename);
-    loopfd = open(filename, O_RDONLY);
+    loopfd = open(device, O_RDONLY);
     if (loopfd == -1) {
-	logMessage(ERROR, "unable to open loop device %s", filename);
+	logMessage(ERROR, "unable to open loop device %s", device);
 	return LOADER_ERROR;
     }
     logMessage(INFO, "mntloop %s on %s as %s fd is %d", 
@@ -126,13 +121,13 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 
     /* FIXME: really, mountLoopback() should take a list of "valid" 
      * filesystems for the specific type of image being mounted */
-    if (doPwMount(filename, mntpoint, "iso9660", IMOUNT_RDONLY, NULL)) {
-        if (doPwMount(filename, mntpoint, "ext2", IMOUNT_RDONLY, NULL)) {
-          if (doPwMount(filename, mntpoint, "squashfs", IMOUNT_RDONLY, NULL)) {
-            if (doPwMount(filename, mntpoint, "cramfs", IMOUNT_RDONLY, NULL)) {
-              if (doPwMount(filename, mntpoint, "vfat", IMOUNT_RDONLY, NULL)) {
+    if (doPwMount(device, mntpoint, "iso9660", IMOUNT_RDONLY, NULL)) {
+        if (doPwMount(device, mntpoint, "ext2", IMOUNT_RDONLY, NULL)) {
+          if (doPwMount(device, mntpoint, "squashfs", IMOUNT_RDONLY, NULL)) {
+            if (doPwMount(device, mntpoint, "cramfs", IMOUNT_RDONLY, NULL)) {
+              if (doPwMount(device, mntpoint, "vfat", IMOUNT_RDONLY, NULL)) {
                 logMessage(ERROR, "failed to mount loop: %s", strerror(errno));
-                loopfd = open(filename, O_RDONLY);
+                loopfd = open(device, O_RDONLY);
                 ioctl(loopfd, LOOP_CLR_FD, 0);
                 close(loopfd);
                 return LOADER_ERROR;
@@ -168,26 +163,26 @@ char * validIsoImages(char * dirName, int *foundinvalid) {
             continue;
         }
         
-        if (mountLoopback(isoImage, "/tmp/loopimage", "loop7")) {
+        if (mountLoopback(isoImage, "/tmp/loopimage", "/dev/loop7")) {
             logMessage(WARNING, "failed to mount %s", isoImage);
             errno = 0;
             continue;
         }
         
-	if (mountLoopback("/tmp/loopimage/images/stage2.img", "/mnt/runtime", "loop0")) {
-	    umountLoopback("/mnt/runtime", "loop0");
+	if (mountLoopback("/tmp/loopimage/images/stage2.img", "/mnt/runtime", "/dev/loop0")) {
+	    umountLoopback("/mnt/runtime", "/dev/loop0");
 	} else {
 	    if (verifyStamp("/mnt/runtime")) {
-		umountLoopback("/mnt/runtime", "loop0");
-		umountLoopback("/tmp/loopimage", "loop7");
+		umountLoopback("/mnt/runtime", "/dev/loop0");
+		umountLoopback("/tmp/loopimage", "/dev/loop7");
 		break;
 	    }
 	    logMessage(ERROR, "disc %s is not the right image", isoImage);
-	    umountLoopback("/mnt/runtime", "loop0");
+	    umountLoopback("/mnt/runtime", "/dev/loop0");
 	    if (foundinvalid) *foundinvalid = 1;
 	}
         
-        umountLoopback("/tmp/loopimage", "loop7");
+        umountLoopback("/tmp/loopimage", "/dev/loop7");
         
         errno = 0;
     }
@@ -222,7 +217,7 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
 	}
     } else if (S_ISREG(sb.st_mode)) {
 	filetype = 2;
-	if (mountLoopback(file, "/tmp/testmnt", "loop6")) {
+	if (mountLoopback(file, "/tmp/testmnt", "/dev/loop6")) {
 	    logMessage(ERROR, "Failed to mount iso %s to get description",
                        file);
 	    return -1;
@@ -236,7 +231,7 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
     if (!(dir = opendir("/tmp/testmnt"))) {
 	umount("/tmp/testmnt");
 	if (filetype == 2)
-	    umountLoopback("/tmp/testmnt", "loop6");
+	    umountLoopback("/tmp/testmnt", "/dev/loop6");
 	return -1;
     }
 
@@ -312,7 +307,7 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
 
     umount("/tmp/testmnt");
     if (filetype == 2)
-	umountLoopback("/tmp/testmnt", "loop6");
+	umountLoopback("/tmp/testmnt", "/dev/loop6");
 
     if (descr != NULL && tstamp != NULL) {
 	descr[strlen(descr)-1] = '\0';
@@ -483,10 +478,10 @@ int unpackCpioBall(char * ballPath, char * rootDir) {
 
 void copyUpdatesImg(char * path) {
     if (!access(path, R_OK)) {
-        if (!mountLoopback(path, "/tmp/update-disk", "loop7")) {
+        if (!mountLoopback(path, "/tmp/update-disk", "/dev/loop7")) {
             copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
                           copyErrorFn);
-            umountLoopback("/tmp/update-disk", "loop7");
+            umountLoopback("/tmp/update-disk", "/dev/loop7");
             unlink("/tmp/update-disk");
         } else {
             unpackCpioBall(path, "/tmp/updates");
@@ -496,10 +491,10 @@ void copyUpdatesImg(char * path) {
 
 void copyProductImg(char * path) {
     if (!access(path, R_OK)) {
-        if (!mountLoopback(path, "/tmp/product-disk", "loop7")) {
+        if (!mountLoopback(path, "/tmp/product-disk", "/dev/loop7")) {
             copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
                           copyErrorFn);
-            umountLoopback("/tmp/product-disk", "loop7");
+            umountLoopback("/tmp/product-disk", "/dev/loop7");
             unlink("/tmp/product-disk");
         }
     }
@@ -554,7 +549,7 @@ int verifyStamp(char * path) {
    so we can eject CDs.                                                   */
 void umountStage2(void) {
     umount("/mnt/runtime");
-    umountLoopback("/mnt/runtime", "loop0");
+    umountLoopback("/mnt/runtime", "/dev/loop0");
 }
 
 
@@ -565,12 +560,12 @@ int mountStage2(char * path) {
         return 1;
     }
 
-    if (mountLoopback(path, "/mnt/runtime", "loop0")) {
+    if (mountLoopback(path, "/mnt/runtime", "/dev/loop0")) {
         return 1;
     }
 
     if (!verifyStamp("/mnt/runtime")) {
-        umountLoopback("/mnt/runtime", "loop0");
+        umountLoopback("/mnt/runtime", "/dev/loop0");
         return -1;
     }
 
@@ -624,14 +619,9 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
 
     logMessage(INFO, "getFileFromBlockDevice(%s, %s)", device, path);
 
-    if (devMakeInode(device, "/tmp/srcdev")) {
-        logMessage(ERROR, "failed to make device node for /dev/%s", device);
-        return 1;
-    }
-
-    if (doPwMount("/tmp/srcdev", "/tmp/mnt", "vfat", IMOUNT_RDONLY, NULL) &&
-        doPwMount("/tmp/srcdev", "/tmp/mnt", "ext2", IMOUNT_RDONLY, NULL) && 
-        doPwMount("/tmp/srcdev", "/tmp/mnt", "iso9660", IMOUNT_RDONLY, NULL)) {
+    if (doPwMount(device, "/tmp/mnt", "vfat", IMOUNT_RDONLY, NULL) &&
+        doPwMount(device, "/tmp/mnt", "ext2", IMOUNT_RDONLY, NULL) && 
+        doPwMount(device, "/tmp/mnt", "iso9660", IMOUNT_RDONLY, NULL)) {
         logMessage(ERROR, "failed to mount /dev/%s: %s", device,
                    strerror(errno));
         return 2;
@@ -650,7 +640,6 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
 
     umount("/tmp/mnt");
     unlink("/tmp/mnt");
-    unlink("/tmp/srcdev");
     return rc;
 }
 

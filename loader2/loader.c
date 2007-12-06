@@ -439,10 +439,9 @@ void loadUpdates(struct loaderData_s *loaderData) {
 
             logMessage(INFO, "UPDATES device is %s", part);
 
-            devMakeInode(part+5, "/tmp/upd.disk");
-            if (doPwMount("/tmp/upd.disk", "/tmp/update-disk", "ext2",
+            if (doPwMount(part, "/tmp/update-disk", "ext2",
                           IMOUNT_RDONLY, NULL) &&
-                doPwMount("/tmp/upd.disk", "/tmp/update-disk", "iso9660",
+                doPwMount(part, "/tmp/update-disk", "iso9660",
                           IMOUNT_RDONLY, NULL)) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to mount updates disk"));

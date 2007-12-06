@@ -340,10 +340,9 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             }
 
             logMessage(INFO, "trying to mount %s as partition", part);
-            devMakeInode(part + 5, "/tmp/ddpart");
-            if (doPwMount("/tmp/ddpart", "/tmp/dpart", "vfat", IMOUNT_RDONLY, NULL)) {
-                if (doPwMount("/tmp/ddpart", "/tmp/dpart", "ext2", IMOUNT_RDONLY, NULL)) {
-                    if (doPwMount("/tmp/ddpart", "/tmp/dpart", "iso9660", IMOUNT_RDONLY, NULL)) {
+            if (doPwMount(part, "/tmp/dpart", "vfat", IMOUNT_RDONLY, NULL)) {
+                if (doPwMount(part, "/tmp/dpart", "ext2", IMOUNT_RDONLY, NULL)) {
+                    if (doPwMount(part, "/tmp/dpart", "iso9660", IMOUNT_RDONLY, NULL)) {
                         newtWinMessage(_("Error"), _("OK"),
                                        _("Failed to mount partition."));
                         stage = DEV_PART;
@@ -375,13 +374,13 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                 break;
             }
             if (dir == -1) {
-                umountLoopback("/tmp/drivers", "loop6");
+                umountLoopback("/tmp/drivers", "/dev/loop6");
                 unlink("/tmp/drivers");
                 ddfile = NULL;
                 stage = DEV_CHOOSEFILE;
                 break;
             }
-            if (mountLoopback(ddfile, "/tmp/drivers", "loop6")) {
+            if (mountLoopback(ddfile, "/tmp/drivers", "/dev/loop6")) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to load driver disk from file."));
                 stage = DEV_CHOOSEFILE;
@@ -406,11 +405,10 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             }
             dir = 1;
 
-            devMakeInode(device, "/tmp/dddev");
             logMessage(INFO, "trying to mount %s", device);
-            if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", IMOUNT_RDONLY, NULL)) {
-              if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", IMOUNT_RDONLY, NULL)) {
-                if (doPwMount("/tmp/dddev", "/tmp/drivers", "iso9660", IMOUNT_RDONLY, NULL)) {
+            if (doPwMount(device, "/tmp/drivers", "vfat", IMOUNT_RDONLY, NULL)) {
+              if (doPwMount(device, "/tmp/drivers", "ext2", IMOUNT_RDONLY, NULL)) {
+                if (doPwMount(device, "/tmp/drivers", "iso9660", IMOUNT_RDONLY, NULL)) {
                     newtWinMessage(_("Error"), _("OK"),
                                    _("Failed to mount driver disk."));
                     stage = DEV_INSERT;
@@ -456,7 +454,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             stage = DEV_PROBE;
 
             if (ddfile != NULL) {
-                umountLoopback("/tmp/drivers", "loop6");
+                umountLoopback("/tmp/drivers", "/dev/loop6");
                 unlink("/tmp/drivers");
                 umount("/tmp/dpart");
             }
@@ -587,9 +585,9 @@ void getDDFromSource(struct loaderData_s * loaderData, char * src) {
         return;
     }
 
-    if (!mountLoopback(path, "/tmp/drivers", "loop6")) {
+    if (!mountLoopback(path, "/tmp/drivers", "/dev/loop6")) {
         loadFromLocation(loaderData, "/tmp/drivers");
-        umountLoopback("/tmp/drivers", "loop6");
+        umountLoopback("/tmp/drivers", "/dev/loop6");
         unlink("/tmp/drivers");
         if (unlinkf) unlink(path);
     }
@@ -660,16 +658,15 @@ void useKickstartDD(struct loaderData_s * loaderData,
 
 static void getDDFromDev(struct loaderData_s * loaderData, char * dev, 
                         char * fstype) {
-    devMakeInode(dev, "/tmp/dddev");
     if (fstype) {
-        if (doPwMount("/tmp/dddev", "/tmp/drivers", fstype, 
+        if (doPwMount(dev, "/tmp/drivers", fstype, 
                       IMOUNT_RDONLY, NULL)) {
             logMessage(ERROR, "unable to mount %s as %s", dev, fstype);
             return;
         }
-    } else if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", IMOUNT_RDONLY, NULL)) {
-        if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", IMOUNT_RDONLY, NULL)) {
-            if (doPwMount("/tmp/dddev", "/tmp/drivers", "iso9660", IMOUNT_RDONLY, NULL)) {
+    } else if (doPwMount(dev, "/tmp/drivers", "vfat", IMOUNT_RDONLY, NULL)) {
+        if (doPwMount(dev, "/tmp/drivers", "ext2", IMOUNT_RDONLY, NULL)) {
+            if (doPwMount(dev, "/tmp/drivers", "iso9660", IMOUNT_RDONLY, NULL)) {
                 logMessage(ERROR, "unable to mount driver disk %s", dev);
                 return;
             }
@@ -679,5 +676,4 @@ static void getDDFromDev(struct loaderData_s * loaderData, char * dev,
     loadFromLocation(loaderData, "/tmp/drivers");
     umount("/tmp/drivers");
     unlink("/tmp/drivers");
-    unlink("/tmp/dddev");
 }

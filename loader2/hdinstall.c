@@ -145,12 +145,10 @@ static char * setupIsoImages(char * device, char * dirName, char * location,
     logMessage(INFO, "mounting device %s for hard drive install", device);
 
     if (!FL_TESTING(flags)) {
-        if (devMakeInode(device, "/tmp/hddev"))
-            logMessage(WARNING, "devMakeInode failed!");
 
         /* XXX try to mount as ext2 and then vfat */
         for (type=typetry; *type; type++) {
-            if (!doPwMount("/tmp/hddev", "/tmp/hdimage", *type, 
+            if (!doPwMount(device, "/tmp/hdimage", *type, 
                 IMOUNT_RDONLY, NULL))
                 break;
         }
@@ -169,11 +167,11 @@ static char * setupIsoImages(char * device, char * dirName, char * location,
             logMessage(INFO, "Looking for updates for HD in %s", updpath);
             copyUpdatesImg(updpath);
 
-            rc = mountLoopback(path, "/tmp/loopimage", "loop0");
+            rc = mountLoopback(path, "/tmp/loopimage", "/dev/loop0");
             if (!rc) {
                 /* This code is for copying small stage2 into ram */
                 /* and mounting                                   */
-                rc = loadHDImages("/tmp/loopimage", "/", "loop1",
+                rc = loadHDImages("/tmp/loopimage", "/", "/dev/loop1",
                                   "/mnt/runtime", location, modInfo, modLoaded, modDepsPtr);
                 if (rc) {
                     newtWinMessage(_("Error"), _("OK"),
@@ -186,7 +184,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location,
             }
 
             /* we copied stage2 into RAM so we can now umount image */
-            umountLoopback("/tmp/loopimage", "loop0");
+            umountLoopback("/tmp/loopimage", "/dev/loop0");
 
         } else {
             rc = 1;

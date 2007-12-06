@@ -108,10 +108,10 @@ static int loadUrlImages(struct iurlinfo * ui) {
      * ramdisk usage */
     if (!loadSingleUrlImage(ui, "images/updates.img",
                             "/tmp/updates-disk.img", "/tmp/update-disk",
-                            "loop7", 1)) {
+                            "/dev/loop7", 1)) {
         copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
                       copyErrorFn);
-        umountLoopback("/tmp/update-disk", "loop7");
+        umountLoopback("/tmp/update-disk", "/dev/loop7");
         unlink("/tmp/updates-disk.img");
         unlink("/tmp/update-disk");
     }
@@ -120,10 +120,10 @@ static int loadUrlImages(struct iurlinfo * ui) {
      * ramdisk usage */
     if (!loadSingleUrlImage(ui, "images/product.img",
                             "/tmp/product-disk.img", "/tmp/product-disk",
-                            "loop7", 1)) {
+                            "/dev/loop7", 1)) {
         copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
                       copyErrorFn);
-        umountLoopback("/tmp/product-disk", "loop7");
+        umountLoopback("/tmp/product-disk", "/dev/loop7");
         unlink("/tmp/product-disk.img");
         unlink("/tmp/product-disk");
     }
@@ -142,7 +142,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
     snprintf(tmpstr2, sizeof(tmpstr2), "/tmp/%s", stage2img);
 
     rc = loadSingleUrlImage(ui, tmpstr1, tmpstr2,
-                            "/mnt/runtime", "loop0", 0);
+                            "/mnt/runtime", "/dev/loop0", 0);
     if (rc) {
         if (rc != 2) 
             newtWinMessage(_("Error"), _("OK"),
@@ -160,7 +160,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
 
 	newtWinMessage(_("Error"), _("OK"), buf);
 
-	umountLoopback("/mnt/runtime", "loop0");
+	umountLoopback("/mnt/runtime", "/dev/loop0");
 	return 1;
     }
 
