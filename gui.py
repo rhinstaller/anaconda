@@ -121,7 +121,7 @@ def takeScreenShot():
     global screenshotDir
 
     if screenshotDir is None:
-        screenshotDir = "/tmp/ramfs/anaconda-screenshots"
+        screenshotDir = "/tmp/anaconda-screenshots"
 
     if not os.access(screenshotDir, os.R_OK):
         try:
