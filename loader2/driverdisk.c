@@ -126,7 +126,7 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     title[sb.st_size] = '\0';
     close(fd);
 
-    sprintf(file, "/tmp/ramfs/DD-%d", disknum);
+    sprintf(file, "/tmp/DD-%d", disknum);
     mkdirChain(file);
 
     if (!FL_CMDLINE(flags)) {
@@ -134,16 +134,16 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
         winStatus(40, 3, _("Loading"), _("Reading driver disk..."));
     }
 
-    sprintf(dest, "/tmp/ramfs/DD-%d", disknum);
+    sprintf(dest, "/tmp/DD-%d", disknum);
     copyDirectory(mntpt, dest, copyWarnFn, copyErrorFn);
 
     location = malloc(sizeof(struct moduleBallLocation));
     location->title = strdup(title);
-    ret = asprintf(&location->path, "/tmp/ramfs/DD-%d/modules.cgz", disknum);
+    ret = asprintf(&location->path, "/tmp/DD-%d/modules.cgz", disknum);
     location->version = version;
 
     char *fwdir = NULL;
-    ret = asprintf(&fwdir, "/tmp/ramfs/DD-%d/firmware", disknum);
+    ret = asprintf(&fwdir, "/tmp/DD-%d/firmware", disknum);
     if (!access(fwdir, R_OK|X_OK)) {
         add_fw_search_dir(loaderData, fwdir);
         stop_fw_loader(loaderData);

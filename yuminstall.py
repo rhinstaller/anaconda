@@ -466,7 +466,7 @@ class AnacondaYum(YumSorter):
             extraRepos.append(repo)
 
         if self.anaconda.id.extraModules:
-            for d in glob.glob("/tmp/ramfs/DD-*/rpms"):
+            for d in glob.glob("/tmp/DD-*/rpms"):
                 dirname = os.path.basename(os.path.dirname(d))
                 rid = "anaconda-%s" % dirname
 

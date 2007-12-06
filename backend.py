@@ -62,7 +62,7 @@ class AnacondaBackend:
     def copyFirmware(self, anaconda):
         # Multiple driver disks may be loaded, so we need to glob for all
         # the firmware files in all the driver disk directories.
-        for f in glob.glob("/tmp/ramfs/DD-*/firmware/*"):
+        for f in glob.glob("/tmp/DD-*/firmware/*"):
             try:
                 shutil.copyfile(f, "%s/lib/firmware/" % anaconda.rootPath)
             except IOError, e:
@@ -75,7 +75,7 @@ class AnacondaBackend:
             for (n, arch, tag) in self.kernelVersionList(anaconda.rootPath):
                 packages.recreateInitrd(n, anaconda.rootPath)
 
-        for d in glob.glob("/tmp/ramfs/DD-*"):
+        for d in glob.glob("/tmp/DD-*"):
             shutil.copytree(d, "/root/" + os.path.basename(d))
 
         sys.stdout.flush()
