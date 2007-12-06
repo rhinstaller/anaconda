@@ -847,9 +847,7 @@ if __name__ == "__main__":
     if opts.display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
         rhpxl.xhwstate.get_valid_resolution(xserver)
 
-        # make sure we can write log to ramfs
-        if os.access("/tmp/ramfs", os.W_OK):
-            xserver.logfile = "/tmp/ramfs/X.log"
+        xserver.logfile = "/tmp/X.log"
 
         try:
             xserver.generateConfig()
