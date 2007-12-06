@@ -127,11 +127,6 @@ static struct installMethod installMethods[] = {
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
-void setupRamfs(void) {
-    mkdirChain("/tmp/ramfs");
-    doPwMount("none", "/tmp/ramfs", "ramfs", 0, NULL);
-}
-
 void doSuspend(void) {
     newtFinished();
     exit(1);
@@ -1599,8 +1594,6 @@ int main(int argc, char ** argv) {
         logMessage(INFO, "text mode forced due to serial/virtpconsole");
         flags |= LOADER_FLAGS_TEXT;
     }
-    setupRamfs();
-
     set_fw_search_path(&loaderData, "/firmware:/modules/firmware");
     start_fw_loader(&loaderData);
 

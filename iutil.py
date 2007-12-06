@@ -195,9 +195,6 @@ def memAvailable():
     tram = memInstalled()
 
     ramused = getDirSize("/tmp")
-    if os.path.isdir("/tmp/ramfs"):
-        ramused += getDirSize("/tmp/ramfs")
-
     return tram - ramused
 
 ## Get the amount of RAM installed in the machine.
