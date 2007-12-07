@@ -1701,10 +1701,15 @@ int main(int argc, char ** argv) {
     url = doLoaderMain("/mnt/source", &loaderData, modInfo, modLoaded, &modDeps);
 
     if (!FL_TESTING(flags)) {
+        int ret;
+
         /* unlink dirs and link to the ones in /mnt/runtime */
         migrate_runtime_directory("/usr");
         migrate_runtime_directory("/lib");
         migrate_runtime_directory("/lib64");
+        ret = symlink("/mnt/runtime/etc/selinux", "/etc/selinux");
+        copyDirectory("/mnt/runtime/etc","/etc", copyWarnFn, copyErrorFn);
+        copyDirectory("/mnt/runtime/var","/var", copyWarnFn, copyErrorFn);
     }
 
     /* now load SELinux policy before exec'ing anaconda and the shell
@@ -1714,10 +1719,6 @@ int main(int argc, char ** argv) {
             logMessage(ERROR, "failed to mount /selinux: %s, disabling SELinux", strerror(errno));
             flags &= ~LOADER_FLAGS_SELINUX;
         } else {
-            /* FIXME: this is a bad hack for libselinux assuming things
-             * about paths */
-            int ret;
-            ret = symlink("/mnt/runtime/etc/selinux", "/etc/selinux");
             if (loadpolicy() == 0) {
                 setexeccon(ANACONDA_CONTEXT);
             } else {
