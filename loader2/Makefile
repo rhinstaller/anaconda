@@ -7,7 +7,7 @@ else
 TARGET=depend $(PROGS)
 endif
 
-LIBS = -lnewt -lslang -lz -lpopt ../isys/libisys.a
+LIBS = -lnewt -lslang -lz -lpopt ../isys/libisys.a -lcheckisomd5
 
 # glib - for utility stuff
 LIBS   += $(shell pkg-config --libs glib-2.0)

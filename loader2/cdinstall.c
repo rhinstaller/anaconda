@@ -45,8 +45,6 @@
 /* boot flags */
 extern uint64_t flags;
 
-static int getISOStatusFromFD(int isofd, char *mediasum);
-
 /* ejects the CD device the device node /tmp/cdrom points at */
 void ejectCdrom(char *device) {
     int ejectfd;
@@ -101,7 +99,7 @@ static char * mediaCheckCdrom(char *cddriver) {
         if (!ejectcd) {
             /* XXX MSFFIXME: should check return code for error */
             readStampFileFromIso(cddriver, &tstamp, &descr);
-            mediaCheckFile(cddriver, descr);
+            doMediaCheck(cddriver, descr);
 
             if (descr)
                 free(descr);
@@ -177,80 +175,17 @@ static void mountCdromStage2(char *cddev, char *location) {
     } while (!gotcd1);
 }
 
-/* reads iso status from device cddriver */
-static int getISOStatusFromCDROM(char *cddev, char *mediasum) {
-    int isofd;
-    int isostatus;
-
-    isofd = open(cddev, O_RDONLY);
-    if (isofd < 0) {
-        logMessage(WARNING, "Could not check iso status: %s", strerror(errno));
-        return 0;
-    }
-
-    isostatus = getISOStatusFromFD(isofd, mediasum);
-
-    close(isofd);
-
-    return isostatus;
-}
-
-/* get support status */
-/* if returns 1 we found status, and mediasum will be checksum */
-static int getISOStatusFromFD(int isofd, char *mediasum) {
-    char tmpsum[33];
-    char fragmentsums[FRAGMENT_SUM_LENGTH+1];
-    int skipsectors, isostatus;
-    long long isosize, pvd_offset, fragmentcount = 0;
-
-    if (mediasum)
-        mediasum[0] = '\0';
-
-    fragmentsums[0] = '\0';
-
-    pvd_offset = parsepvd(isofd, tmpsum, &skipsectors, &isosize, &isostatus,
-                          fragmentsums, &fragmentcount);
-    if (pvd_offset < 0) {
-        logMessage(ERROR, "Could not parse pvd");
-        return 0;
-    }
-
-    if (mediasum)
-        strcpy(mediasum, tmpsum);
-
-    return isostatus;
-}
-
-/* writes iso status info to file '/tmp/isoinfo' for later use */
-static void writeISOStatus(int status, char *mediasum) {
-    FILE *f;
-
-    if (!(f = fopen("/tmp/isoinfo", "w")))
-        return;
-
-    fprintf(f, "ISOSTATUS=%d\n", status);
-    fprintf(f, "MEDIASUM=%s\n", mediasum);
-
-    fclose(f);
-}
-
 /* ask about doing media check */
 static void queryCDMediaCheck(char *dev, char *location) {
     int rc;
-    char mediasum[33];
-    int isostatus;
 
     /* dont bother to test in automated installs */
     if (FL_KICKSTART(flags) && !FL_MEDIACHECK(flags))
         return;
 
-    /* see what status is */
-    isostatus = getISOStatusFromCDROM(dev, mediasum);
-    writeISOStatus(isostatus, mediasum);
-
     /* see if we should check image(s) */
     /* in rescue mode only test if they explicitly asked to */
-    if ((!isostatus && !FL_RESCUE(flags)) || FL_MEDIACHECK(flags)) {
+    if (!FL_RESCUE(flags) || FL_MEDIACHECK(flags)) {
         startNewt();
         rc = newtWinChoice(_("Disc Found"), _("OK"), _("Skip"), 
              _("To begin testing the media before installation press %s.\n\n"
