@@ -25,6 +25,7 @@ import traceback
 import iutil
 import types
 import bdb
+import partedUtils
 import rhpl
 from string import joinfields
 from cPickle import Pickler
@@ -254,10 +255,9 @@ def copyExceptionToRemote(intf, scpInfo):
         return False
 
 # Save the traceback to a removable storage device, such as a floppy disk
-# or a usb/firewire drive.  In the event of a floppy disk, it is assumed to
-# be unformatted and safe for us to destroy.  For all other devices, it is
-# assumed that they are already formatted and we will only attempt to write
-# the traceback file to the device.  Returns success or not.
+# or a usb/firewire drive.  If there's no filesystem on the disk/partition,
+# write a vfat one.
+# Returns success or not.
 def copyExceptionToDisk(anaconda, device):
     # in test mode have save to disk option just copy to new name
     if not flags.setupFilesystems:
@@ -277,8 +277,14 @@ def copyExceptionToDisk(anaconda, device):
 
     os.close(fd)
 
-    # Only format floppy devices, not usb storage devices.
-    if device in isys.floppyDriveDict().keys() and rhpl.getArch() != "ia64":
+    fstype = partedUtils.sniffFilesystemType(device)
+    if fstype == None:
+        fstype = 'vfat'
+    try:
+        isys.mount(device, "/tmp/crash", fstype)
+    except SystemError:
+        if fstype != 'vfat':
+            return False
         cmd = "/usr/sbin/mkdosfs"
 
         if os.access("/sbin/mkdosfs", os.X_OK):
@@ -287,10 +293,10 @@ def copyExceptionToDisk(anaconda, device):
         iutil.execWithRedirect (cmd, [device], stdout = '/dev/tty5',
                                 stderr = '/dev/tty5')
 
-    try:
-        isys.mount(device, "/tmp/crash", fstype = "vfat")
-    except SystemError:
-        return False
+        try:
+            isys.mount(device, "/tmp/crash", fstype)
+        except SystemError:
+            return False
 
     # copy trace dump we wrote to local storage to disk
     try:
