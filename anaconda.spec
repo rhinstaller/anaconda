@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.6
+Version: 11.4.0.7
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -216,6 +216,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Dec 07 2007 Chris Lumens <clumens@redhat.com> - 11.4.0.7-1
+- Tweak save-exception-to-disk algorithm. (notting)
+- Merge the FTP and HTTP methods into a single URL method. (clumens)
+- Fixes to the live install method (katzj)
+- Use HAL and DBus for probing and device node creation in stage2. (notting)
+- Get rid of /tmp/ramfs usage. (katzj)
+
 * Thu Dec 06 2007 Chris Lumens <clumens@redhat.com> - 11.4.0.6-1
 - Remove confirmation screen (katzj)
 - Use a better cio_ignore line (#253075). (dcantrell)
