@@ -103,6 +103,7 @@ Requires: system-config-securitylevel
 Requires: rhpxl >= %{rhpxlver}
 Requires: system-config-keyboard
 %endif
+Requires: hal, dbus-python
 %ifarch %livearches
 Requires: usermode
 Requires: zenity
