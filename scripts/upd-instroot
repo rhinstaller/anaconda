@@ -322,7 +322,7 @@ PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
            fonts-japanese fonts-chinese fonts-korean fonts-indic fonts-sinhala
            fonts-malayalam fonts-oriya fonts-kannada fonts-telugu cjkunifonts-ukai
            fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics
-           firstboot pycairo pirut dejavu-lgc-fonts libxcb sazanami-fonts-gothic
+           firstboot pycairo pirut dejavu-fonts libxcb sazanami-fonts-gothic
            dmraid python-pyblock libbdevid libbdevid-python zenity udev udev-static dbus dbus-python hal"
 
 #
@@ -747,9 +747,9 @@ usr/sbin/prelink
 usr/sbin/smartctl
 usr/share/anaconda
 usr/share/firstboot/firstboot_module_window*
-usr/share/fonts/dejavu/DejaVuLGCSans.ttf
-usr/share/fonts/dejavu/DejaVuLGCSans-Bold.ttf
-usr/share/fonts/dejavu/DejaVuLGCSansMono.ttf
+usr/share/fonts/dejavu/DejaVuSans.ttf
+usr/share/fonts/dejavu/DejaVuSansBold.ttf
+usr/share/fonts/dejavu/DejaVuMonoSans.ttf
 usr/share/fonts/korean/TrueType/dotum.ttf
 usr/share/fonts/baekmuk-ttf-dotum/dotum.ttf
 usr/share/fonts/japanese/TrueType/sazanami-gothic.ttf
