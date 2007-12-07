@@ -451,6 +451,26 @@ class Network:
             if len(dev.get("DESC")) > 0:
                 f.write("# %s\n" % (dev.get("DESC"),))
 
+            # handle IPv6 settings correctly for the ifcfg file
+            ipv6addr = dev.get('IPV6ADDR').lower()
+            ipv6prefix = dev.get('IPV6PREFIX').lower()
+
+            dev.unset('IPV6ADDR')
+            dev.unset('IPV6PREFIX')
+
+            if ipv6addr == 'dhcp':
+                dev.set(('IPV6INIT', 'yes'))
+            elif ipv6addr != '' and ipv6addr is not None:
+                dev.set(('IPV6INIT', 'yes'))
+
+                if ipv6prefix != '' and ipv6prefix is not None:
+                    dev.set(('IPV6ADDR', ipv6addr + '/' + ipv6prefix))
+                else:
+                    dev.set(('IPV6ADDR', ipv6addr))
+
+            if dev.get('IPV6_AUTOCONF').lower() == 'yes':
+                dev.set(('IPV6INIT', 'yes'))
+
             f.write(str(dev))
 
             # write out the hostname as DHCP_HOSTNAME if given (#81613)
