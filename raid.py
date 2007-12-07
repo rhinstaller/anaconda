@@ -66,7 +66,7 @@ def scanForRaid(drives):
     for d in drives:
         parts = []
         try:
-            dev = parted.PedDevice.get(d)
+            dev = parted.PedDevice.get("/dev/%s" % (d,))
             disk = parted.PedDisk.new(dev)
 
             raidParts = partedUtils.get_raid_partitions(disk)

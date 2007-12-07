@@ -122,7 +122,7 @@ def scanForRaid(drives, degradedOk=False):
 
     probeDrives = []
     for d in drives:
-        probeDrives.append(d)
+        probeDrives.append("/dev/%s" % (d,))
     
     dmsets = []
     def nonDegraded(rs):
@@ -236,7 +236,7 @@ def scanForMPath(drives):
 
     probeDrives = []
     for d in drives:
-        probeDrives.append(d)
+        probeDrives.append("/dev/%s" % (d,))
 
     import block as _block
     oldPath = _block.getBdevidPath()
