@@ -45,6 +45,7 @@ BuildRequires: gettext >= %{gettextver}
 BuildRequires: glib2-static >= %{glib2ver}
 BuildRequires: gtk2-devel
 BuildRequires: intltool >= %{intltoolver}
+BuildRequires: isomd5sum-devel
 BuildRequires: kudzu-devel >= %{kudzuver}
 BuildRequires: libX11-devel
 BuildRequires: libXt-devel
@@ -138,14 +139,6 @@ The anaconda-runtime package contains parts of the installation system which
 are needed for installing new systems.  These files are used to build media 
 sets, but are not meant for use on already installed systems.
 
-%package -n isomd5sum
-Summary: Utilities for checking/implanting md5sums into ISO images
-Group: Applications/System
-
-%description -n isomd5sum
-The isomd5sum package contains utilities for implanting and verifying 
-an md5sum implanted into an ISO9660 image.
-
 %prep
 %setup -q
 
@@ -205,12 +198,6 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 %files runtime
 %defattr(-,root,root)
 %{_prefix}/lib/anaconda-runtime
-
-%files -n isomd5sum
-%defattr(-,root,root)
-%{_bindir}/checkisomd5
-%{_bindir}/implantisomd5
-%{_libdir}/python?.?/site-packages/pyisomd5sum.so
 
 %triggerun -- anaconda < 8.0-1
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :

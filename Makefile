@@ -6,7 +6,7 @@ CVSROOT ?= ${CVSROOT:-$(shell cat CVS/Root 2>/dev/null)}
 
 SUBDIRS = isys wlite stubs loader2 po \
 	    textw utils scripts bootdisk installclasses \
-	    iw pixmaps isomd5sum command-stubs ui docs
+	    iw pixmaps command-stubs ui docs
 # fonts aren't on s390/s390x
 ifeq (,$(filter s390 s390x, $(ARCH)))
 SUBDIRS += fonts
