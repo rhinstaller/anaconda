@@ -2025,7 +2025,7 @@ MAILADDR root
             if entry.mountpoint == "swap" and not swapoff:
                 continue
             entry.umount(instPath)
-            entry.device.cleanupDevice()
+            entry.device.cleanupDevice(instPath)
 
 class FileSystemSetEntry:
     def __init__ (self, device, mountpoint,

@@ -14,6 +14,7 @@
 #
 
 import os
+import stat
 import string
 import language
 import network

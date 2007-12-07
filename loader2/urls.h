@@ -19,9 +19,8 @@ int convertURLToUI(char *url, struct iurlinfo *ui);
 char *convertUIToURL(struct iurlinfo *ui);
 
 int setupRemote(struct iurlinfo * ui);
-int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
-		      char * doSecondarySetup);
-int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol);
+int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup);
+int urlSecondarySetupPanel(struct iurlinfo * ui);
 int urlinstStartTransfer(struct iurlinfo * ui, char * filename, 
                          char *extraHeaders);
 int urlinstFinishTransfer(struct iurlinfo * ui, int fd);
