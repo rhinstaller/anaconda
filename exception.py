@@ -270,14 +270,8 @@ def copyExceptionToDisk(anaconda, device):
         anaconda.intf.__del__ ()
         return True
 
-    file = "/tmp/exndev"
     try:
-        isys.makeDevInode(device, file)
-    except SystemError:
-        pass
-
-    try:
-        fd = os.open(file, os.O_RDONLY)
+        fd = os.open(device, os.O_RDONLY)
     except:
         return False
 
@@ -290,11 +284,11 @@ def copyExceptionToDisk(anaconda, device):
         if os.access("/sbin/mkdosfs", os.X_OK):
             cmd = "/sbin/mkdosfs"
 
-        iutil.execWithRedirect (cmd, [file], stdout = '/dev/tty5',
+        iutil.execWithRedirect (cmd, [device], stdout = '/dev/tty5',
                                 stderr = '/dev/tty5')
 
     try:
-        isys.mount(file, "/tmp/crash", fstype = "vfat")
+        isys.mount(device, "/tmp/crash", fstype = "vfat")
     except SystemError:
         return False
 
