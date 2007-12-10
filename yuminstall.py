@@ -404,8 +404,6 @@ class AnacondaYum(YumSorter):
 
                         if verifyMedia(self.tree, discnum, self.timestamp):
                             self.currentMedia = discnum
-                            # make /tmp/cdrom again so cd gets ejected
-                            isys.makeDevInode(self.anaconda.mediaDevice, "/tmp/cdrom")
                             break
 
                         if not done:
