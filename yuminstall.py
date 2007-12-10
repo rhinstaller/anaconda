@@ -1122,8 +1122,8 @@ class YumBackend(AnacondaBackend):
                    sys.exit(0)
                else:
                    return DISPATCH_BACK
-            elif rc == 1: # they asked to go back
-                return DISPATCH_BACK
+           elif rc == 1: # they asked to go back
+               return DISPATCH_BACK
 
         self.ayum.dsCallback = None
 
