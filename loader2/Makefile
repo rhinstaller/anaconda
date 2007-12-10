@@ -34,7 +34,7 @@ HWOBJS = pcmcia.o usb.o firewire.o hardware.o
 METHOBJS = method.o cdinstall.o hdinstall.o nfsinstall.o urlinstall.o 
 OBJS = copy.o log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
 	lang.o kbd.o modstubs.o driverdisk.o selinux.o \
-	md5.o mediacheck.o kickstart.o driverselect.o \
+	mediacheck.o kickstart.o driverselect.o \
 	getparts.o dirbrowser.o fwloader.o \
 	$(HWOBJS) $(METHOBJS)
 LOADEROBJS = loader.o loader-pcmcia.o
@@ -115,17 +115,10 @@ loader: loader.o $(OBJS) $(NETOBJS)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \
-	loader checkisomd5
+	loader
 
 depend: $(CTYPEDEP)
 	$(CPP) $(CFLAGS) -DHAVE_CONFIG_H -M $(SOURCES) > .depend
-
-checkisomd5: depend mediacheck.c log.c md5.c
-	$(CC) -DTESTING $(CFLAGS) -o mediacheck.o -c mediacheck.c
-	$(CC) -DTESTING $(CFLAGS) -o log.o -c log.c
-	$(CC) -DTESTING $(CFLAGS) -o md5.o -c md5.c
-	$(CC) -g $(STATIC) -o checkisomd5 mediacheck.o log.o md5.o \
-		$(NEWTLIB) $(SLANGLIB)
 
 install: all
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)/loader
