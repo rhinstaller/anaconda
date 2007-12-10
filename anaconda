@@ -534,7 +534,7 @@ class Anaconda:
         self.intf = InstallInterface()
 
     def setBackend(self, instClass):
-        b = instClass.getBackend()
+        b = instClass.getBackend(self.methodstr)
         self.backend = apply(b, (self,))
 
     def setMethodstr(self, methodstr):

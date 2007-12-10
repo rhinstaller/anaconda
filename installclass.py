@@ -415,7 +415,7 @@ class BaseInstallClass(object):
         mouse.set(mouseName, emulThree, device)
         id.setMouse(mouse)
 
-    def getBackend(self):
+    def getBackend(self, methodstr):
         # this should be overriden in distro install classes
         from backend import AnacondaBackend
         return AnacondaBackend
