@@ -759,9 +759,7 @@ def ext2Clobber(device):
     _isys.e2fsclobber(device)
 
 def ext2IsDirty(device):
-    makeDevInode(device, "/tmp/disk")
-    label = _isys.e2dirty("/tmp/disk");
-    os.unlink("/tmp/disk")
+    label = _isys.e2dirty(device)
     return label
 
 def ext2HasJournal(device):
