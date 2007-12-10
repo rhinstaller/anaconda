@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.7
+Version: 11.4.0.8
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -203,6 +203,16 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Dec 10 2007 Chris Lumens <clumens@redhat.com> - 11.4.0.8-1
+- Include lshal for debugging (katzj)
+- Remove isomd5sum in favor of libcheckisomd5. (notting, katzj)
+- makeDevInode no longer exists. (clumens)
+- Fix text mode to be able to autopartition (#409301) (katzj)
+- Fix method-related tracebacks (katzj, clumens)
+- Load ext2 module to allow installing to ext2 for livecd (#408251) (katzj)
+- Catch errors from yum, exit on them. (notting)
+- Switch to full dejavu-fonts, to match the installed OS default. (notting)
+
 * Fri Dec 07 2007 Chris Lumens <clumens@redhat.com> - 11.4.0.7-1
 - Tweak save-exception-to-disk algorithm. (notting)
 - Merge the FTP and HTTP methods into a single URL method. (clumens)
