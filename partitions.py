@@ -1067,38 +1067,30 @@ class Partitions:
         bootreqs = self.getBootableRequest()
         if bootreqs:
             for bootreq in bootreqs:
-                if (bootreq and
-                    (isinstance(bootreq, partRequests.RaidRequestSpec)) and
-                    (not raid.isRaid1(bootreq.raidlevel))):
+                if not bootreq:
+                    continue
+                if (isinstance(bootreq, partRequests.RaidRequestSpec) and
+                    not raid.isRaid1(bootreq.raidlevel)):
                     errors.append(_("Bootable partitions can only be on RAID1 "
                                     "devices."))
 
                 # can't have bootable partition on LV
-                if (bootreq and
-                    (isinstance(bootreq,
-                                partRequests.LogicalVolumeRequestSpec))):
+                if (isinstance(bootreq, partRequests.LogicalVolumeRequestSpec)):
                     errors.append(_("Bootable partitions cannot be on a "
                                     "logical volume."))
 
                 # most arches can't have boot on RAID
-                if (bootreq and
-                    (isinstance(bootreq, partRequests.RaidRequestSpec)) and
-                    (rhpl.getArch() not in raid.raidBootArches)):
-                    errors.append("Bootable partitions cannot be on a RAID "
-                                  "device.")
+                if (isinstance(bootreq, partRequests.RaidRequestSpec) and
+                    rhpl.getArch() not in raid.raidBootArches):
+                    errors.append(_("Bootable partitions cannot be on a RAID "
+                                    "device."))
 
-                # XFS causes all kinds of disasters for being /boot.
-                # disallow it. #138673 and others.
-                if (bootreq and bootreq.fstype and
-                    bootreq.fstype.getName() == "xfs"):
-                    errors.append("Bootable partitions cannot be on an XFS "
-                                  "filesystem.")
-
-                # no gfs support in grub
-                if (bootreq and bootreq.fstype and
-                    bootreq.fstype.getName() == "gfs2"):
-                    errors.append("Bootable partitions cannot be on a GFS2 "
-                                  "filesystem.")
+                # XFS causes problems as /boot. see #138673 and others
+                # gfs2 and ext4 aren't supported by grub
+                if (bootreq.fstype and
+                    bootreq.fstype.getName() in ("xfs", "gfs2", "ext4")):
+                    errors.append(_("Bootable partitions cannot be on an %s "
+                                    "filesystem.")%(bootreq.fstype.getName(),))
                     
 
         if foundSwap == 0:
