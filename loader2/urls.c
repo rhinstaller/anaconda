@@ -270,7 +270,7 @@ char * addrToIp(char * hostname) {
 int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
     newtComponent form, okay, cancel, urlEntry;
     newtComponent answer, text, proxyCheckbox;
-    char *url;
+    char *url = "";
     char * reflowedText = NULL;
     int width, height;
     newtGrid buttons, grid;
@@ -284,7 +284,8 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
          *doSecondarySetup = ' ';
 
     /* Populate the UI with whatever initial value we've got. */
-    url = convertUIToURL(ui);
+    if (ui)
+        url = convertUIToURL(ui);
 
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
 
