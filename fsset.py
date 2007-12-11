@@ -1947,8 +1947,6 @@ MAILADDR root
 
             rootDev = "/dev/%s" % (root.device.getDevice(),)
             rootdir = instPath + rootDev[:string.rfind(rootDev, "/")]
-            if not os.path.exists(instPath + "/dev/mapper/control"):
-                iutil.makeDMNode(root=instPath)
             if not os.path.isdir(rootdir):
                 os.makedirs(rootdir)
             dmdev = "/dev/mapper/" + root.device.getDevice().replace("/", "-")
