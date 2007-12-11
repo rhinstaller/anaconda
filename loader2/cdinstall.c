@@ -242,13 +242,16 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
     /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
     do {
         for (i = 0; devices[i]; i++) {
-            char *tmp;
+            char *tmp = NULL;
 
             if (!devices[i]->device)
                 continue;
-            r = asprintf(&tmp, "/dev/%s", devices[i]->device);
-            free(devices[i]->device);
-            devices[i]->device = tmp;
+
+            if (strncmp("/dev/", devices[i]->device, 5)) {
+                r = asprintf(&tmp, "/dev/%s", devices[i]->device);
+                free(devices[i]->device);
+                devices[i]->device = tmp;
+            }
 
             logMessage(INFO,"trying to mount CD device %s on %s", devices[i]->device, location);
 
