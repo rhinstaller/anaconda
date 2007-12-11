@@ -1091,6 +1091,11 @@ class Partitions:
                     bootreq.fstype.getName() in ("xfs", "gfs2", "ext4")):
                     errors.append(_("Bootable partitions cannot be on an %s "
                                     "filesystem.")%(bootreq.fstype.getName(),))
+
+                if (bootreq.isEncrypted(self)):
+                    errors.append(_("Bootable partitions cannot be on an "
+                                    "encrypted block device"))
+
                     
 
         if foundSwap == 0:

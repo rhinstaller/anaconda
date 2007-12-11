@@ -193,10 +193,15 @@ class RequestSpec:
         import traceback
         traceback.print_stack()
 
-    def isResizable(self):
-        if self.encryption: # encrypted devices can't be resized currently
+    def isResizable(self, partitions):
+        if self.isEncrypted(partitions): # FIXME: can't resize crypted devs yet
             return False
         return self.resizable and self.fstype.isResizable()
+
+    def isEncrypted(self, partitions):
+        if self.encryption and self.encryption.getScheme() is not None:
+            return True
+        return False
 
     def toEntry(self, partitions):
         """Turn a request into a fsset entry and return the entry."""
@@ -255,10 +260,6 @@ class RequestSpec:
 
         if self.fstype is None:
             return None
-
-        # FIXME: this will need to become more sophisticated at some point
-        if self.encryption and self.mountpoint in ('/', '/boot'):
-            return _("This mount point cannot be on an encrypted partition.")
 
         if flags.livecdInstall and self.mountpoint == "/" and not self.format:
             return _("The mount point %s must be formatted during live CD "
@@ -686,6 +687,14 @@ class RaidRequestSpec(RequestSpec):
                                     encryption = self.encryption)
         return self.dev
 
+    def isEncrypted(self, partitions):
+        if RequestSpec.isEncrypted(self, partitions) is True:
+            return True
+        for member in self.raidmembers:
+            if partitions.getRequestByID(member).isEncrypted(partitions):
+                return True
+        return False
+
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
 
@@ -726,13 +735,6 @@ class RaidRequestSpec(RequestSpec):
         if not self.raidmembers or not self.raidlevel:
             return _("No members in RAID request, or not RAID "
                      "level specified.")
-        # XXX fix this code to look to see if there is a bootable partition
-        bootreq = partitions.getBootableRequest()
-        if not bootreq and self.mountpoint:
-            # XXX 390 can't have boot on raid
-            if (self.mountpoint in partitions.getBootableMountpoints()
-                 and not raid.isRaid1(self.raidlevel)):
-                return _("Bootable partitions can only be on RAID1 devices.")
 
         minmembers = raid.get_raid_min_members(self.raidlevel)
         if len(self.raidmembers) < minmembers:
@@ -756,14 +758,6 @@ class RaidRequestSpec(RequestSpec):
         rc = self.sanityCheckRaid(partitions)
         if rc:
             return rc
-
-        # make sure we aren't attempting encrypted /boot or /
-        if self.mountpoint in ('/', '/boot'):
-            for member in self.raidmembers:
-                r = partitions.getRequestByID(member)
-                if r.encryption and r.encryption.getScheme() is not None:
-                    return _("This mount point cannot be on a RAID device "
-                             "containing encrypted partitions.")
 
         return RequestSpec.sanityCheckRequest(self, partitions)
 
@@ -838,6 +832,15 @@ class VolumeGroupRequestSpec(RequestSpec):
                                            self.pesize,
                                            existing = self.preexist)
         return self.dev
+
+    def isEncrypted(self, partitions):
+        if RequestSpec.isEncrypted(self, partitions) is True:
+            return True
+        for pvid in self.physicalVolumes:
+            pv = partitions.getRequestByID(pvid)
+            if pv.isEncrypted(partitions):
+                return True
+        return False
 
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
@@ -958,6 +961,14 @@ class LogicalVolumeRequestSpec(RequestSpec):
                                              existing = self.preexist)
         return self.dev
 
+    def isEncrypted(self, partitions):
+        if RequestSpec.isEncrypted(self, partitions) is True:
+            return True
+        vg = partitions.getRequestByID(self.volumeGroup)
+        if vg.isEncrypted(partitions):
+            return True
+        return False
+
     def getActualSize(self, partitions = None, diskset = None, target = False):
         """Return the actual size allocated for the request in megabytes."""
         if self.percent:
@@ -993,15 +1004,6 @@ class LogicalVolumeRequestSpec(RequestSpec):
         if not self.grow and not self.percent and self.size*1024 < pesize:
             return _("Logical volume size must be larger than the volume "
                      "group's physical extent size.")
-
-        # make sure it's not encrypted /boot or /
-        if self.mountpoint in ('/boot', '/'):
-            vgreq = partitions.getRequestByID(self.volumeGroup)
-            for pv in vgreq.physicalVolumes:
-                r = partitions.getRequestByID(pv)
-                if r.encryption and r.encryption.getScheme() is not None:
-                    return _("This mount point cannot be on a logical volume "
-                             "containing encrypted physical volumes.")
 
         return RequestSpec.sanityCheckRequest(self, partitions, skipMntPtExistCheck)
 
