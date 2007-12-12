@@ -646,15 +646,18 @@ class luksPassphraseWindow:
                 passphrase = self.passphraseEntry.get_text()
                 confirm = self.confirmEntry.get_text()
                 if passphrase != confirm:
-                    MessageWindow(_("Passphrase don't match"),
-                                  _("Passphrase do not match"), type = "warning")
+                    MessageWindow(_("Error with passphrase"),
+                                  _("The passphrases you entered were "
+                                    "different.  Please try again."),
+                                  type = "error")
                     self.confirmEntry.set_text("")
                     continue
 
                 if len(passphrase) < self.minimumLength:
-                    MessageWindow(_("Passphrase is short"),
-                                  _("Your passphrase is shorter than %s characters"
-                                  % (self.minimumLength, )), type = "warning")
+                    MessageWindow(_("Error with passphrase"),
+                                    _("The passphrase must be at least "
+                                      "eight characters long."),
+                                  type = "error")
                     self.passphraseEntry.set_text("")
                     self.confirmEntry.set_text("")
                     continue
