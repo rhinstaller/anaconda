@@ -306,7 +306,7 @@ class RaidEditor:
 	row = row + 1
 
         # we'll maybe add this further down
-        self.lukscb = gtk.CheckButton(_("Encrypt partition"))
+        self.lukscb = gtk.CheckButton(_("_Encrypt"))
         self.lukscb.set_data("formatstate", 1)
 
 	# Filesystem Type
