@@ -541,21 +541,23 @@ class NetworkDeviceWindow:
         toplevel.add(devList, 0, 1, padding = (0, 0, 0, 0))
         toplevel.add(bb, 0, 2, (0, 1, 0, 0), growx = 1, growy = 0)
 
-        while 1:
-            result = toplevel.run()
+        result = toplevel.run()
+        while result != TEXT_F12_CHECK:
             rc = bb.buttonPressed (result)
 
             devname = devList.current()
 
+            screen.popWindow()
             if rc == TEXT_BACK_CHECK:
-                screen.popWindow()
                 return INSTALL_BACK
             elif rc == TEXT_OK_CHECK:
-                screen.popWindow()
                 return INSTALL_OK
             elif rc == TEXT_EDIT_CHECK:
-                screen.popWindow()
                 return self.devices[devname]
+            result = toplevel.run()
+
+        screen.popWindow()
+        return INSTALL_OK
 
     def __call__(self, screen, anaconda, showonboot=1):
         self.intf = anaconda.intf
