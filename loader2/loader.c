@@ -1729,7 +1729,7 @@ int main(int argc, char ** argv) {
     else if (FL_UPDATES(flags))
         loadUpdates(&loaderData);
 
-    mlLoadModuleSet("md:raid0:raid1:raid5:raid6:raid456:raid10:linear:fat:msdos:jbd:lock_nolock:gfs2:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-emc:dm-crypt:blkcipher:cbc:aes:sha256", modLoaded, modDeps, modInfo);
+    mlLoadModuleSet("md:raid0:raid1:raid5:raid6:raid456:raid10:linear:fat:msdos:jbd:lock_nolock:gfs2:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-emc:dm-crypt:blkcipher:cbc:aes_generic:sha256_generic", modLoaded, modDeps, modInfo);
 
     usbInitializeMouse(modLoaded, modDeps, modInfo);
 
