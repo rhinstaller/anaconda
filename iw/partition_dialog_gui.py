@@ -324,7 +324,7 @@ class PartitionEditor:
 	    lbl = createAlignedLabel(_("File System _Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
 
-            self.lukscb = gtk.CheckButton(_("Encrypt partition"))
+            self.lukscb = gtk.CheckButton(_("_Encrypt"))
             self.lukscb.set_data("formatstate", 1)
             self.newfstypeCombo = createFSTypeMenu(self.origrequest.fstype,
                                                    fstypechangeCB,

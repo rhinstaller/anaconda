@@ -316,7 +316,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	migratecb = None
 	migfstypeCombo = None
 
-    if origrequest.isResizable():
+    if origrequest.isResizable(partitions):
         resizecb = gtk.CheckButton(label=_("_Resize"))
         resizecb.set_active(origrequest.targetSize is not None)
         rc["resizecb"] = resizecb
