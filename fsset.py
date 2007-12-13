@@ -1946,17 +1946,24 @@ MAILADDR root
             rc = lvm.vgmknodes()
 
             rootDev = "/dev/%s" % (root.device.getDevice(),)
-            rootdir = instPath + rootDev[:string.rfind(rootDev, "/")]
+            rootdir = instPath + os.path.dirname(rootDev)
             if not os.path.isdir(rootdir):
                 os.makedirs(rootdir)
+
             dmdev = "/dev/mapper/" + root.device.getDevice().replace("/", "-")
             if os.path.exists(instPath + dmdev):
                 os.unlink(instPath + dmdev)
+            if not os.path.isdir(os.path.dirname(instPath + dmdev)):
+                os.makedirs(os.path.dirname(instPath + dmdev))
             iutil.copyDeviceNode(dmdev, instPath + dmdev)
+
             # unlink existing so that we dtrt on upgrades
             if os.path.exists(instPath + rootDev):
                 os.unlink(instPath + rootDev)
+            if not os.path.isdir(rootdir):
+                os.makedirs(rootdir)
             os.symlink(dmdev, instPath + rootDev)
+
             if not os.path.isdir("%s/etc/lvm" %(instPath,)):
                 os.makedirs("%s/etc/lvm" %(instPath,))
 
