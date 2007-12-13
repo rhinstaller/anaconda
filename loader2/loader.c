@@ -476,25 +476,6 @@ static int loadUpdatesFromRemote(char * url, struct loaderData_s * loaderData) {
     return 0;
 }
 
-static void checkForHardDrives(void) {
-    struct device ** devices;
-
-    devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_LOADED);
-    if (devices)
-        return;
-
-    return;
-
-    /* If they're using kickstart, assume they might know what they're doing.
-     * Worst case is we fail later */
-    if (FL_KICKSTART(flags)) {
-        logMessage(WARNING, "no hard drives found, but in kickstart so continuing anyway");
-        return;
-    }
-
-    return;
-}
-
 static void writeVNCPasswordFile(char *pfile, char *password) {
     FILE *f;
 
@@ -1737,8 +1718,6 @@ int main(int argc, char ** argv) {
     ideSetup(modLoaded, modDeps, modInfo);
     scsiSetup(modLoaded, modDeps, modInfo);
     busProbe(modInfo, modLoaded, modDeps, 0);
-
-    checkForHardDrives();
 
     if (FL_NOPROBE(flags) && !loaderData.ksFile) {
         startNewt();
