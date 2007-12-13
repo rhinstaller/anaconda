@@ -730,7 +730,6 @@ class DiskSet:
                 try:
                     isys.mount(dev, self.anaconda.rootPath, fs, readOnly = 1)
                     found = 1
-                    break
                 except SystemError, (errno, msg):
                     pass
 
@@ -762,7 +761,6 @@ class DiskSet:
                 try:
                     isys.mount(dev, self.anaconda.rootPath, fs, readOnly = 1)
                     found = 1
-                    break
                 except SystemError:
                     pass
 
