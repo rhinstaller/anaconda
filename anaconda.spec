@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.8
+Version: 11.4.0.9
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -203,6 +203,20 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 13 2007 Chris Lumens <clumens@redhat.com> - 11.4.0.9-1
+- Update list of crypto mods to load. (dlehman)
+- Create full paths before trying to make device nodes. (clumens)
+- Unmont filesystems after looking for upgrade targets. (clumens)
+- Update crypto module names to keep up with kernel. (dlehman)
+- Add mnemonics and make password entry prompts consistent. (katzj)
+- Clean up luksPassphrase validation UI. (hhara)
+- Blacklist ext4 from being a bootreq. (katzj)
+- Fix liveinst on the desktop for locales like pt_BR. (#417301) (katzj)
+- Fix a traceback when picking HTTP/FTP method. (clumens)
+- Use install system's IP address in kickstart file name. (#420281) (clumens)
+- Remove call to makeDMNode. (notting)
+- Fix retrying when looking for the install CD in loader. (clumens)
+
 * Mon Dec 10 2007 Chris Lumens <clumens@redhat.com> - 11.4.0.8-1
 - Include lshal for debugging (katzj)
 - Remove isomd5sum in favor of libcheckisomd5. (notting, katzj)
