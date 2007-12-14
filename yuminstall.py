@@ -446,7 +446,7 @@ class AnacondaYum(YumSorter):
                                    root = root)
             repo.cost = 100
 
-            if self.anaconda.mediaDevice or self.isodir != -1:
+            if self.anaconda.mediaDevice or self.isodir:
                 repo.mediaid = getMediaId(self.tree)
                 log.info("set mediaid of repo to: %s" % repo.mediaid)
 
