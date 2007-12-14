@@ -36,6 +36,8 @@ class LUKSDevice:
 
     def getScheme(self):
         """Returns the name of the encryption scheme used by the device."""
+        if self.passphrase == "":
+            return None
         return self.scheme
 
     def setDevice(self, device):

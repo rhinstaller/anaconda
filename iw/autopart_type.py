@@ -49,6 +49,16 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.skipStep("bootloader", skip = 0)
         else:
             self.dispatch.skipStep("autopartitionexecute", skip = 0)
+
+            if self.xml.get_widget("encryptButton").get_active():
+                thepass = self.intf.getLuksPassphrase(self.partitions.autoEncryptPass)
+                if not thepass:
+                    raise gui.StayOnScreen
+                self.partitions.autoEncryptPass = thepass
+                self.partitions.autoEncrypt = True
+            else:
+                self.partitions.autoEncryptPass = ""
+                self.partitions.autoEncrypt = False
             
             self.partitions.useAutopartitioning = 1
             self.partitions.autoClearPartType = val
@@ -109,6 +119,7 @@ class PartitionTypeWindow(InstallWindow):
             self.xml.get_widget("reviewButton").set_sensitive(False)
             self.xml.get_widget("driveScroll").set_sensitive(False)
             self.xml.get_widget("bootDriveCombo").set_sensitive(False)
+            self.xml.get_widget("encryptButton").set_sensitive(False)
         else:
             if self.prevrev == None:
                self.xml.get_widget("reviewButton").set_active(self.review)
@@ -119,6 +130,7 @@ class PartitionTypeWindow(InstallWindow):
             self.xml.get_widget("reviewButton").set_sensitive(True)
             self.xml.get_widget("driveScroll").set_sensitive(True)
             self.xml.get_widget("bootDriveCombo").set_sensitive(True)
+            self.xml.get_widget("encryptButton").set_sensitive(True)
 
     def addIscsiDrive(self):
         if not network.hasActiveNetDev():

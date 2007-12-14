@@ -80,6 +80,25 @@
       </child>
 
       <child>
+	<widget class="GtkCheckButton" id="encryptButton">
+	  <property name="visible">True</property>
+	  <property name="can_focus">True</property>
+	  <property name="label" translatable="yes">_Encrypt system</property>
+	  <property name="use_underline">True</property>
+	  <property name="relief">GTK_RELIEF_NORMAL</property>
+	  <property name="focus_on_click">True</property>
+	  <property name="active">True</property>
+	  <property name="inconsistent">False</property>
+	  <property name="draw_indicator">True</property>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
+	</packing>
+      </child>
+
+      <child>
 	<widget class="GtkLabel" id="selectLabel">
 	  <property name="label" translatable="yes" context="yes">_Select the drive(s) to use for this installation.</property>
 	  <property name="use_underline">True</property>

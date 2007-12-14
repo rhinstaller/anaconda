@@ -153,6 +153,9 @@ class Partitions:
            drive or livecd installs.  Partitions on this list may not be
            formatted."""
 
+        self.autoEncrypt = False
+        self.autoEncryptPass = ""
+
         # partition method to be used.  not to be touched externally
         self.useAutopartitioning = 1
         self.useFdisk = 0
