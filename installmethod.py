@@ -32,7 +32,7 @@ def doMethodComplete(anaconda):
         except Exception, e:
             log.debug("Error copying media.repo: %s" %(e,))
 
-    if anaconda.backend.ayum._loopbackFile:
+    if anaconda.backend.ayum._loopbackFile and (anaconda.mediaDevice or anaconda.backend.ayum.isodir):
         try:
             os.unlink(anaconda.backend.ayum._loopbackFile)
         except SystemError:

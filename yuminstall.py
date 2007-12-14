@@ -305,33 +305,36 @@ class AnacondaYum(YumSorter):
             log.debug("Not copying stage2.img as we can't find it")
             return
 
-        self._loopbackFile = "%s%s/rhinstall-stage2.img" % (chroot,
-                             fsset.filesystemSpace(chroot)[0][0])
+        if self.isodir or self.anaconda.mediaDevice:
+            self._loopbackFile = "%s%s/rhinstall-stage2.img" % (chroot,
+                                 fsset.filesystemSpace(chroot)[0][0])
 
-        try:
-            win = self.anaconda.intf.waitWindow (_("Copying File"),
-                    _("Transferring install image to hard drive..."))
-            shutil.copyfile("%s/images/stage2.img" % (self.tree,),
-                            self._loopbackFile)
-            win.pop()
-        except Exception, e:
-            if win:
+            try:
+                win = self.anaconda.intf.waitWindow (_("Copying File"),
+                        _("Transferring install image to hard drive..."))
+                shutil.copyfile("%s/images/stage2.img" % (self.tree,),
+                                self._loopbackFile)
                 win.pop()
+            except Exception, e:
+                if win:
+                    win.pop()
 
-            log.critical("error transferring stage2.img: %s" %(e,))
+                log.critical("error transferring stage2.img: %s" %(e,))
 
-            if isinstance(e, IOError) and e.errno == 5:
-                msg = _("An error occurred transferring the install image "
-                        "to your hard drive.  This is probably due to "
-                        "bad media.")
-            else:
-                msg = _("An error occurred transferring the install image "
-                        "to your hard drive. You are probably out of disk "
-                        "space.")
+                if isinstance(e, IOError) and e.errno == 5:
+                    msg = _("An error occurred transferring the install image "
+                            "to your hard drive.  This is probably due to "
+                            "bad media.")
+                else:
+                    msg = _("An error occurred transferring the install image "
+                            "to your hard drive. You are probably out of disk "
+                            "space.")
 
-            self.anaconda.intf.messageWindow(_("Error"), msg)
-            os.unlink(self._loopbackFile)
-            return 1
+                self.anaconda.intf.messageWindow(_("Error"), msg)
+                os.unlink(self._loopbackFile)
+                return 1
+        else:
+            self._loopbackFile = "%s/images/stage2.img" % self.tree
 
         isys.lochangefd("/dev/loop0", self._loopbackFile)
 
