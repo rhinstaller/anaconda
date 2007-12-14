@@ -4,7 +4,7 @@ Summary: Graphical system installer
 Name:    anaconda
 Version: 11.4.0.10
 Release: 1
-License: GPLv2
+License: GPLv2+
 Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
 
