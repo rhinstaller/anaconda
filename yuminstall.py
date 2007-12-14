@@ -606,7 +606,11 @@ class AnacondaYum(YumSorter):
         self.ts.ts.scriptFd = instLog.fileno()
         rpm.setLogFile(instLog)
 
+        uniqueProbs = {}
         spaceneeded = {}
+        spaceprob = ""
+        fileConflicts = []
+        fileprob = ""
 
         try:
             self.runTransaction(cb=cb)
@@ -623,7 +627,7 @@ class AnacondaYum(YumSorter):
                           rpm.RPMPROB_BADARCH: _('package for incorrect arch'),
                           rpm.RPMPROB_BADOS: _('package for incorrect os'),
             }
-            uniqueProbs = {}
+
             for (descr, (type, mount, need)) in probs.value: # FIXME: probs.value???
                 log.error("%s: %s" %(probTypes[type], descr))
                 if not uniqueProbs.has_key(type) and probTypes.has_key(type):
@@ -631,8 +635,8 @@ class AnacondaYum(YumSorter):
 
                 if type == rpm.RPMPROB_DISKSPACE:
                     spaceneeded[mount] = need
-
-                log.error("error running transaction: %s" %(descr,))
+                elif type in [rpm.RPMPROB_NEW_FILE_CONFLICT, rpm.RPMPROB_FILE_CONFLICT]:
+                    fileConflicts.append(descr)
 
             if spaceneeded:
                 spaceprob = _("You need more space on the following "
@@ -646,18 +650,30 @@ class AnacondaYum(YumSorter):
                     elif mount.startswith("/mnt/sysimage"):
                         mount = "/" + mount.replace("/mnt/sysimage", "")
 
-                    spaceprob = spaceprob + "%d M on %s\n" % (need / (1024*1024), mount)
-            else:
-                spaceprob = ""
+                    spaceprob += "%d M on %s\n" % (need / (1024*1024), mount)
+            elif fileConflicts:
+                fileprob = _("There were file conflicts when checking the "
+                             "packages to be installed:\n%s\n") % ("\n".join(fileConflicts),)
 
-            probString = ', '.join(uniqueProbs.values()) + "\n\n" + spaceprob
-            intf.messageWindow(_("Error running transaction"),
-                               _("There was an error running your transaction, "
-                                "for the following reason(s): %s")
-                               %(probString,),
-                               type="custom", custom_icon="error",
-                               custom_buttons=[_("Re_boot")])
-            sys.exit(1)
+            msg = _("There was an error running your transaction for "
+                    "the following reason(s): %s.\n") % ', '.join(uniqueProbs.values())
+
+            if len(self.anaconda.backend.getRequiredMedia()) > 1:
+                intf.detailedMessageWindow(_("Error Running Transaction"),
+                   msg, spaceprob + "\n" + fileprob, type="custom",
+                   custom_icon="error", custom_buttons=[_("_Exit installer")])
+                sys.exit(1)
+            else:
+                rc = intf.detailedMessageWindow(_("Error running transaction"),
+                        msg, spaceprob + "\n" + fileprob, type="custom",
+                        custom_icon="error",
+                        custom_buttons=[_("_Back"), _("_Exit installer")])
+
+            if rc == 1:
+                sys.exit(1)
+            else:
+                self._undoDepInstalls()
+                return DISPATCH_BACK
 
     def doMacros(self):
         for (key, val) in self.macros.items():
