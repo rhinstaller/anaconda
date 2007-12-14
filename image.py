@@ -239,12 +239,6 @@ def presentRequiredMediaMessage(anaconda):
                                           type="custom", custom_icon="warning",
                                           custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
 
-def umountDirectory(self):
-    try:
-        isys.umount("/tmp/isodir", removeDir=0)
-    except:
-        pass
-
 def umountImage(tree, currentMedia):
     if currentMedia is not None:
         isys.umount(tree, removeDir=0)
