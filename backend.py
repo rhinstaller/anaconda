@@ -197,7 +197,7 @@ def doPostInstall(anaconda):
     anaconda.backend.doPostInstall(anaconda)
 
 def doInstall(anaconda):
-    anaconda.backend.doInstall(anaconda)
+    return anaconda.backend.doInstall(anaconda)
 
 # does this need to be per-backend?  we'll just leave here until it does :)
 def doBasePackageSelect(anaconda):

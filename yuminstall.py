@@ -599,7 +599,10 @@ class AnacondaYum(YumSorter):
             self.populateTs(keepold=0)
             self.ts.check()
             self.ts.order()
-            self._run(instLog, cb, intf)
+
+            if self._run(instLog, cb, intf) == DISPATCH_BACK:
+                self.tsInfo.curmedia = None
+                return DISPATCH_BACK
 
     def _run(self, instLog, cb, intf):
         # set log fd.  FIXME: this is ugly.  see changelog entry from 2005-09-13
@@ -1356,7 +1359,7 @@ class YumBackend(AnacondaBackend):
         cb.initWindow = anaconda.intf.waitWindow(_("Install Starting"),
                                         _("Starting install process.  This may take several minutes..."))
 
-        self.ayum.run(self.instLog, cb, anaconda.intf, anaconda.id)
+        rc = self.ayum.run(self.instLog, cb, anaconda.intf, anaconda.id)
 
         if cb.initWindow is not None:
             cb.initWindow.pop()
@@ -1364,6 +1367,9 @@ class YumBackend(AnacondaBackend):
         self.instLog.close ()
 
         anaconda.id.instProgress = None
+
+        if rc == DISPATCH_BACK:
+            return DISPATCH_BACK
 
     def doPostInstall(self, anaconda):
         if flags.test:
