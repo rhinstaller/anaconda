@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.9
+Version: 11.4.0.10
 Release: 1
 License: GPLv2
 Group:   Applications/System
@@ -203,6 +203,16 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Dec 15 2007 Jeremy Katz <katzj@redhat.com> - 11.4.0.10-1
+- Add support for encryption via autopart. (katzj)
+- Avoid unnecessary downloading and caching by not
+  setting mediaid (#422801). (clumens)
+- Don't copy the stage2 image over for NFS installs. (clumens)
+- Remove an unused function. (clumens)
+- Allow going back to package selection after transaction errors. (clumens)
+- Add file conflicts to the transaction errors we show the user. (clumens)
+- Remove isomd5sum/.gitignore (dcantrell)
+
 * Thu Dec 13 2007 Chris Lumens <clumens@redhat.com> - 11.4.0.9-1
 - Update list of crypto mods to load. (dlehman)
 - Create full paths before trying to make device nodes. (clumens)
