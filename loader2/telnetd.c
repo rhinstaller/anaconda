@@ -234,9 +234,7 @@ int beTelnet(void) {
     return 0;
 }
 
-void startTelnetd(struct loaderData_s * loaderData,
-                  moduleInfoSet modInfo, moduleList modLoaded, 
-                  moduleDeps modDeps) {
+void startTelnetd(struct loaderData_s * loaderData) {
     char ret[47];
     struct networkDeviceConfig netCfg;
     ip_addr_t *tip;

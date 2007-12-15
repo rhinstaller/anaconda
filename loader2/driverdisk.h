@@ -22,7 +22,6 @@
 
 #include "loader.h"
 #include "modules.h"
-#include "moduledeps.h"
 #include "moduleinfo.h"
 
 int loadDriverFromMedia(int class, struct loaderData_s *loaderData,

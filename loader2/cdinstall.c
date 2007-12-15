@@ -227,8 +227,7 @@ static void queryCDMediaCheck(char *dev, char *location) {
  * as /mnt/runtime.
  */
 char * setupCdrom(char * location, struct loaderData_s * loaderData,
-                  moduleInfoSet modInfo, moduleList modLoaded, 
-                  moduleDeps modDeps, int interactive, int requirepkgs) {
+                  int interactive, int requirepkgs) {
     int i, r, rc;
     int foundinvalid = 0;
     int stage2inram = 0;
@@ -350,20 +349,15 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
 /* try to find a install CD non-interactively */
 char * findAnacondaCD(char * location, 
-                    moduleInfoSet modInfo, 
-                    moduleList modLoaded, 
-                    moduleDeps modDeps, 
                     int requirepkgs) {
-    return setupCdrom(location, NULL, modInfo, modLoaded, modDeps, 0, requirepkgs);
+    return setupCdrom(location, NULL, 0, requirepkgs);
 }
 
 /* look for a CD and mount it.  if we have problems, ask */
 char * mountCdromImage(struct installMethod * method,
-                       char * location, struct loaderData_s * loaderData,
-                       moduleInfoSet modInfo, moduleList modLoaded,
-                       moduleDeps * modDepsPtr) {
+                       char * location, struct loaderData_s * loaderData) {
 
-    return setupCdrom(location, loaderData, modInfo, modLoaded, *modDepsPtr, 1, 1);
+    return setupCdrom(location, loaderData, 1, 1);
 }
 
 void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {

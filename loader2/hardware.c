@@ -163,8 +163,7 @@ int probeiSeries(moduleInfoSet modInfo, moduleList modLoaded,
  * FIXME: this syntax is likely to change in a future release
  *        but is done as a quick hack for the present.
  */
-int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded, 
-                    moduleDeps modDeps, int justProbe) {
+int earlyModuleLoad(int justProbe) {
     int fd, len, i;
     char buf[1024], *cmdLine;
     int argc;
@@ -188,77 +187,31 @@ int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded,
     for (i=0; i < argc; i++) {
         if (!strncasecmp(argv[i], "driverload=", 11)) {
             logMessage(INFO, "loading %s early", argv[i] + 11);
-            mlLoadModuleSet(argv[i] + 11, modLoaded, modDeps, modInfo);
+            mlLoadModuleSet(argv[i] + 11);
         }
     }
     return 0;
 }
 
-int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
-             int justProbe) {
-    int i;
-    char ** modList;
-    char modules[1024];
-    
-    /* we always want to try to find out about pcmcia controllers even
-     * if using noprobe */
-    initializePcmciaController(modLoaded, modDeps, modInfo);
-
-    /* we can't really *probe* on iSeries, but we can pretend */
-    probeiSeries(modInfo, modLoaded, modDeps);
-
+int busProbe(int justProbe) {
     /* autodetect whatever we can */
-    if (detectHardware(modInfo, &modList)) {
-        logMessage(ERROR, "failed to scan pci bus!");
+    if (justProbe)
         return 0;
-    } else if (modList && justProbe) {
-        for (i = 0; modList[i]; i++)
-            printf("%s\n", modList[i]);
-    } else if (modList) {
-        *modules = '\0';
-
-        for (i = 0; modList[i]; i++) {
-            if (i) strcat(modules, ":");
-            strcat(modules, modList[i]);
-        }
-
-        mlLoadModuleSet(modules, modLoaded, modDeps, modInfo);
-    } else 
-        logMessage(INFO, "found nothing");
-
-    return 0;
+    return detectHardware(NULL);
 }
 
 
-void ipv6Setup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo) {
+void ipv6Setup() {
     if (!FL_NOIPV6(flags))
-        mlLoadModule("ipv6", modLoaded, modDeps, modInfo, NULL);
+        mlLoadModule("ipv6", NULL);
 }
-
-
-void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo) {
-    mlLoadModuleSet("scsi_mod:sd_mod:sr_mod", modLoaded, modDeps, modInfo);
-#if defined(__s390__) || defined(__s390x__)
-    mlLoadModule("zfcp", modLoaded, modDeps, modInfo, NULL);
-#endif
-    mlLoadModule("iscsi_tcp", modLoaded, modDeps, modInfo, NULL);
-}
-
-void ideSetup(moduleList modLoaded, moduleDeps modDeps,
-              moduleInfoSet modInfo) {
-    mlLoadModuleSet("cdrom:ide-cd", modLoaded, modDeps, modInfo);
-}
-
 
 /* check if the system has been booted with dasd parameters */
 /* These parameters define the order in which the DASDs */
 /* are visible to Linux. Otherwise load dasd modules probeonly, */
 /* then parse proc to find active DASDs */
 /* Reload dasd_mod with correct range of DASD ports */
-void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo) {
+void dasdSetup() {
 #if !defined(__s390__) && !defined(__s390x__)
     return;
 #else
@@ -290,24 +243,21 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
         free(line);
     }
     if(dasd_parms[0]) {
-        mlLoadModule("dasd_mod", modLoaded, modDeps, modInfo, dasd_parms);
+        mlLoadModule("dasd_mod", dasd_parms);
 
-        mlLoadModuleSet("dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod", 
-                        modLoaded, modDeps, modInfo);
+        mlLoadModuleSet("dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod");
         free(dasd_parms);
         return;
     } else {
         dasd_parms[0] = "dasd=autodetect";
-        mlLoadModule("dasd_mod", modLoaded, modDeps, modInfo, dasd_parms);
-        mlLoadModuleSet("dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod",
-                        modLoaded, modDeps, modInfo);
+        mlLoadModule("dasd_mod", dasd_parms);
+        mlLoadModuleSet("dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod");
         free(dasd_parms);
     }
 #endif
 }
 
-void spufsSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo) {
+void spufsSetup() {
 #if !defined(__powerpc__)
     return;
 #else
@@ -318,7 +268,7 @@ void spufsSetup(moduleList modLoaded, moduleDeps modDeps,
         while (fgets(buf, 1024, fd) != NULL) {
             if(!strncmp(buf, "cpu\t\t:", 5)) {
                 if(strstr(buf, "Cell")) {
-                    mlLoadModule("spufs", modLoaded, modDeps, modInfo, NULL);
+                    mlLoadModule("spufs", NULL);
                     break;
                 }
             }

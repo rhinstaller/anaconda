@@ -21,7 +21,6 @@
 #define H_METHOD
 
 #include "modules.h"
-#include "moduledeps.h"
 #include "loader.h"
 #include <kudzu/kudzu.h>
 
@@ -40,9 +39,7 @@ struct installMethod {
     int network;
     enum deviceClass deviceType;			/* for pcmcia */
     char * (*mountImage)(struct installMethod * method,
-                         char * location, struct loaderData_s * loaderData,
-                         moduleInfoSet modInfo, moduleList modLoaded,
-                         moduleDeps * modDepsPtr);
+                         char * location, struct loaderData_s * loaderData);
 };
 
 int umountLoopback(char * mntpoint, char * device);

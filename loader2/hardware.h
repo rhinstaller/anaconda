@@ -22,24 +22,12 @@
 
 #include "modules.h"
 
-int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
-                      moduleInfoSet modInfo);
+int earlyModuleLoad(int justProbe);
+int busProbe(int justProbe);
 
-int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded, 
-                    moduleDeps modDeps, int justProbe);
-int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
-             int justProbe);
+void dasdSetup();
 
-void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo);
-void ideSetup(moduleList modLoaded, moduleDeps modDeps,
-              moduleInfoSet modInfo);
-void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo);
+void ipv6Setup();
 
-void ipv6Setup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo);
-
-void spufsSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo);
+void spufsSetup();
 #endif

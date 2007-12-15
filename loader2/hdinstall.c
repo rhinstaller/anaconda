@@ -57,9 +57,7 @@ extern uint64_t flags;
 /* pull in second stage image for hard drive install */
 static int loadHDImages(char * prefix, char * dir, 
                         char * device, char * mntpoint,
-                        char * location, 
-                        moduleInfoSet modInfo, moduleList modLoaded,
-                        moduleDeps * modDepsPtr) {
+                        char * location) {
     int fd = 0, rc, idx;
     char *path, *target = NULL, *dest, *cdurl;
     char *stg2list[] = {"stage2.img", "minstg2.img", NULL};
@@ -72,7 +70,7 @@ static int loadHDImages(char * prefix, char * dir,
         idx = 0;
 
     /* try to see if we're booted off of a CD with stage2 */
-    cdurl = findAnacondaCD(location, modInfo, modLoaded, *modDepsPtr, 0);
+    cdurl = findAnacondaCD(location, 0);
     if (cdurl) {
         logMessage(INFO, "Detected stage 2 image on CD");
         winStatus(50, 3, _("Media Detected"),
@@ -139,9 +137,7 @@ static int loadHDImages(char * prefix, char * dir,
 }
 
 /* given a partition device and directory, tries to mount hd install image */
-static char * setupIsoImages(char * device, char * dirName, char * location,
-                             moduleInfoSet modInfo, moduleList modLoaded,
-                             moduleDeps * modDepsPtr) {
+static char * setupIsoImages(char * device, char * dirName, char * location) {
     int rc;
     char * url;
     char filespec[1024];
@@ -179,7 +175,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location,
                 /* This code is for copying small stage2 into ram */
                 /* and mounting                                   */
                 rc = loadHDImages("/tmp/loopimage", "/", "/dev/loop1",
-                                  "/mnt/runtime", location, modInfo, modLoaded, modDepsPtr);
+                                  "/mnt/runtime", location);
                 if (rc) {
                     newtWinMessage(_("Error"), _("OK"),
                                    _("An error occured reading the install "
@@ -216,9 +212,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location,
  * ISO images on that filesystem
  */
 char * mountHardDrive(struct installMethod * method,
-		      char * location, struct loaderData_s * loaderData,
-    		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps * modDepsPtr) {
+		      char * location, struct loaderData_s * loaderData) {
     int rc;
     int i;
 
@@ -258,7 +252,7 @@ char * mountHardDrive(struct installMethod * method,
             if (!strncmp(kspart, "/dev/", 5))
                 kspart = kspart + 5;
 
-            url = setupIsoImages(kspart, ksdirectory, location, modInfo, modLoaded, modDepsPtr);
+            url = setupIsoImages(kspart, ksdirectory, location);
             if (!url) {
                 logMessage(ERROR, "unable to find %s installation images on hd",
                            getProductName());
@@ -391,7 +385,7 @@ char * mountHardDrive(struct installMethod * method,
 
         logMessage(INFO, "partition %s selected", selpart);
 	
-        url = setupIsoImages(selpart + 5, dir, location, modInfo, modLoaded, modDepsPtr);
+        url = setupIsoImages(selpart + 5, dir, location);
         if (!url) {
             newtWinMessage(_("Error"), _("OK"), 
                            _("Device %s does not appear to contain "

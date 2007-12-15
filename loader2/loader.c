@@ -70,16 +70,11 @@
 /* module stuff */
 #include "modules.h"
 #include "moduleinfo.h"
-#include "moduledeps.h"
-#include "modstubs.h"
 
 #include "driverdisk.h"
 
 /* hardware stuff */
 #include "hardware.h"
-#include "firewire.h"
-#include "pcmcia.h"
-#include "usb.h"
 
 /* install method stuff */
 #include "method.h"
@@ -251,8 +246,7 @@ char * getProductPath(void) {
     return productPath;
 }
 
-void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
-                       moduleInfoSet modInfo) {
+void initializeConsole() {
     /* enable UTF-8 console */
     printf("\033%%G");
     fflush(stdout);
@@ -935,7 +929,7 @@ static void checkForRam(void) {
     }
 }
 
-static int haveDeviceOfType(int type, moduleList modLoaded) {
+static int haveDeviceOfType(int type) {
     struct device ** devices;
 
     devices = probeDevices(type, BUS_UNSPEC, PROBE_LOADED);
@@ -948,9 +942,7 @@ static int haveDeviceOfType(int type, moduleList modLoaded) {
 /* fsm for the basics of the loader. */
 static char *doLoaderMain(char * location,
                           struct loaderData_s * loaderData,
-                          moduleInfoSet modInfo,
-                          moduleList modLoaded,
-                          moduleDeps * modDepsPtr) {
+                          moduleInfoSet modInfo) {
     enum { STEP_LANG, STEP_KBD, STEP_METHOD, STEP_DRIVER, 
            STEP_DRIVERDISK, STEP_NETWORK, STEP_IFACE,
            STEP_IP, STEP_URL, STEP_DONE } step;
@@ -991,7 +983,7 @@ static char *doLoaderMain(char * location,
      * we can fast-path the CD and not make people answer questions in 
      * text mode.  */
     if (!FL_ASKMETHOD(flags) && !FL_KICKSTART(flags)) {
-        url = findAnacondaCD(location, modInfo, modLoaded, * modDepsPtr, !FL_RESCUE(flags));
+        url = findAnacondaCD(location, !FL_RESCUE(flags));
         /* if we found a CD and we're not in rescue or vnc mode return */
         /* so we can short circuit straight to stage 2 from CD         */
         if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride()))
@@ -1106,7 +1098,7 @@ static char *doLoaderMain(char * location,
             break;
 
         case STEP_DRIVER: {
-            if (needed == -1 || haveDeviceOfType(needed, modLoaded)) {
+            if (needed == -1 || haveDeviceOfType(needed)) {
                 step = STEP_NETWORK;
                 dir = 1;
                 needed = -1;
@@ -1164,7 +1156,7 @@ static char *doLoaderMain(char * location,
             }
 
             needsNetwork = 1;
-            if (!haveDeviceOfType(CLASS_NETWORK, modLoaded)) {
+            if (!haveDeviceOfType(CLASS_NETWORK)) {
                 needed = CLASS_NETWORK;
                 step = STEP_DRIVER;
                 break;
@@ -1300,8 +1292,7 @@ static char *doLoaderMain(char * location,
 
             url = installMethods[validMethods[methodNum]].mountImage(
                                       installMethods + validMethods[methodNum],
-                                      location, loaderData, modInfo, modLoaded, 
-                                      modDepsPtr);
+                                      location, loaderData);
             if (!url) {
                 step = STEP_IP ;
                 loaderData->ipinfo_set = 0;
@@ -1324,29 +1315,13 @@ static char *doLoaderMain(char * location,
 static int manualDeviceCheck(struct loaderData_s *loaderData) {
     char ** devices;
     int i, j, rc, num = 0;
-    struct moduleInfo * mi;
     unsigned int width = 40;
     char * buf;
 
-    moduleInfoSet modInfo = loaderData->modInfo;
-    moduleList modLoaded = loaderData->modLoaded;
-
     do {
-        devices = malloc((modLoaded->numModules + 1) * sizeof(*devices));
-        for (i = 0, j = 0; i < modLoaded->numModules; i++) {
-            if (!modLoaded->mods[i].weLoaded) continue;
-
-            if (!(mi = findModuleInfo(modInfo, modLoaded->mods[i].name)) ||
-                (!mi->description))
-                continue;
-
-            rc = asprintf(&devices[j], "%s (%s)", mi->description, 
-                    modLoaded->mods[i].name);
-            if (strlen(devices[j]) > width)
-                width = strlen(devices[j]);
-            j++;
-        }
-
+        /* FIXME */
+        devices = malloc(1 * sizeof(*devices));
+        j = 0;
         devices[j] = NULL;
 
         if (width > 70)
@@ -1467,15 +1442,12 @@ int main(int argc, char ** argv) {
 
     struct stat sb;
     struct serial_struct si;
-    int i;
     char * arg;
     FILE *f;
 
     char twelve = 12;
 
     moduleInfoSet modInfo;
-    moduleList modLoaded;
-    moduleDeps modDeps;
 
     char *url = NULL;
 
@@ -1502,13 +1474,6 @@ int main(int argc, char ** argv) {
 
     /* Make sure sort order is right. */
     setenv ("LC_COLLATE", "C", 1);	
-
-    if (!strcmp(argv[0] + strlen(argv[0]) - 6, "insmod"))
-        return ourInsmodCommand(argc, argv);
-    if (!strcmp(argv[0] + strlen(argv[0]) - 8, "modprobe"))
-        return ourInsmodCommand(argc, argv);
-    if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
-        return ourRmmodCommand(argc, argv);
 
     /* Very first thing, set up tracebacks and debug features. */
     rc = anaconda_trace_init();
@@ -1578,10 +1543,10 @@ int main(int argc, char ** argv) {
         logMessage(INFO, "text mode forced due to serial/virtpconsole");
         flags |= LOADER_FLAGS_TEXT;
     }
-    set_fw_search_path(&loaderData, "/firmware:/modules/firmware");
+    set_fw_search_path(&loaderData, "/firmware:/lib/firmware");
     start_fw_loader(&loaderData);
 
-    arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
+    arg = FL_TESTING(flags) ? "./module-info" : "/lib/modules/module-info";
     modInfo = newModuleInfoSet();
     if (readModuleInfo(arg, modInfo, NULL, 0)) {
         fprintf(stderr, "failed to read %s\n", arg);
@@ -1589,11 +1554,7 @@ int main(int argc, char ** argv) {
         stop_fw_loader(&loaderData);
         exit(1);
     }
-    mlReadLoadedList(&modLoaded);
-    modDeps = mlNewDeps();
-    mlLoadDeps(&modDeps, "/modules/modules.dep");
-
-    initializeConsole(modLoaded, modDeps, modInfo);
+    initializeConsole();
 
     checkForRam();
 
@@ -1603,40 +1564,23 @@ int main(int argc, char ** argv) {
         setenv("TERM", "vt100", 1);
 
 #if defined(__powerpc__)  /* hack for pcspkr breaking ppc right now */
-    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd:squashfs:ext3:ext4dev:ext2",
-                    modLoaded, modDeps, modInfo);
+    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd:squashfs:ext3:ext4dev:ext2");
 #else
-    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd:pcspkr:squashfs:ext4dev:ext3:ext2",
-                    modLoaded, modDeps, modInfo);
+    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd:pcspkr:squashfs:ext4dev:ext3:ext2");
 #endif
 
     /* IPv6 support is conditional */
-    ipv6Setup(modLoaded, modDeps, modInfo);
+    ipv6Setup();
 
     /* now let's do some initial hardware-type setup */
-    ideSetup(modLoaded, modDeps, modInfo);
-    scsiSetup(modLoaded, modDeps, modInfo);
-    dasdSetup(modLoaded, modDeps, modInfo);
-    spufsSetup(modLoaded, modDeps, modInfo);
-
-    /* Note we *always* do this. If you could avoid this you could get
-       a system w/o USB keyboard support, which would be bad. */
-    usbInitialize(modLoaded, modDeps, modInfo);
-
-    /* now let's initialize any possible firewire.  fun */
-    firewireInitialize(modLoaded, modDeps, modInfo);
-
-    /* explicitly read this to let libkudzu know we want to merge
-     * in future tables rather than replace the initial one */
-    pciReadDrivers("/modules/modules.alias");
+    dasdSetup();
+    spufsSetup();
 
     if (loaderData.lang && (loaderData.lang_set == 1)) {
         setLanguage(loaderData.lang);
     }
 
     /* FIXME: this is a bit of a hack */
-    loaderData.modLoaded = modLoaded;
-    loaderData.modDepsPtr = &modDeps;
     loaderData.modInfo = modInfo;
 
     if (FL_MODDISK(flags)) {
@@ -1656,9 +1600,10 @@ int main(int argc, char ** argv) {
      * FIXME: this syntax is likely to change in a future release
      *        but is done as a quick hack for the present.
      */
-    earlyModuleLoad(modInfo, modLoaded, modDeps, 0);
+    mlInitModuleConfig();
+    earlyModuleLoad(0);
 
-    busProbe(modInfo, modLoaded, modDeps, 0);
+    busProbe(FL_NOPROBE(flags));
 
     /* JKFIXME: we'd really like to do this before the busprobe, but then
      * we won't have network devices available (and that's the only thing
@@ -1682,9 +1627,9 @@ int main(int argc, char ** argv) {
     }
 
     if (FL_TELNETD(flags))
-        startTelnetd(&loaderData, modInfo, modLoaded, modDeps);
+        startTelnetd(&loaderData);
 
-    url = doLoaderMain("/mnt/source", &loaderData, modInfo, modLoaded, &modDeps);
+    url = doLoaderMain("/mnt/source", &loaderData, modInfo);
 
     if (!FL_TESTING(flags)) {
         int ret;
@@ -1718,14 +1663,6 @@ int main(int argc, char ** argv) {
 
     spawnShell();  /* we can attach gdb now :-) */
 
-    /* JKFIXME: kickstart devices crap... probably kind of bogus now though */
-
-
-    /* we might have already loaded these, but trying again doesn't hurt */
-    ideSetup(modLoaded, modDeps, modInfo);
-    scsiSetup(modLoaded, modDeps, modInfo);
-    busProbe(modInfo, modLoaded, modDeps, 0);
-
     if (FL_NOPROBE(flags) && !loaderData.ksFile) {
         startNewt();
         manualDeviceCheck(&loaderData);
@@ -1736,17 +1673,7 @@ int main(int argc, char ** argv) {
     else if (FL_UPDATES(flags))
         loadUpdates(&loaderData);
 
-    mlLoadModuleSet("md:raid0:raid1:raid5:raid6:raid456:raid10:linear:fat:msdos:jbd:lock_nolock:gfs2:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-emc:dm-crypt:blkcipher:cbc:aes_generic:sha256_generic", modLoaded, modDeps, modInfo);
-
-    usbInitializeMouse(modLoaded, modDeps, modInfo);
-
-    /* we've loaded all the modules we're going to.  write out a file
-     * describing which scsi disks go with which scsi adapters */
-    writeScsiDisks(modLoaded);
-
-    /* if we are in rescue mode lets load st.ko for tape support */
-    if (FL_RESCUE(flags))
-        scsiTapeInitialize(modLoaded, modDeps, modInfo);
+    mlLoadModuleSet("md:raid0:raid1:raid5:raid6:raid456:raid10:linear:fat:msdos:jbd:lock_nolock:gfs2:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-emc:dm-crypt:blkcipher:cbc:aes:sha256");
 
     /* we only want to use RHupdates on nfs installs.  otherwise, we'll 
      * use files on the first iso image and not be able to umount it */
@@ -1887,21 +1814,6 @@ int main(int argc, char ** argv) {
         if (loaderData.logLevel) {
             *argptr++ = "--loglevel";
             *argptr++ = loaderData.logLevel;
-        }
-        
-        for (i = 0; i < modLoaded->numModules; i++) {
-            if (!modLoaded->mods[i].path) continue;
-            if (!strcmp(modLoaded->mods[i].path, 
-                        "/mnt/runtime/modules/modules.cgz")) {
-                continue;
-            }
-            
-            *argptr++ = "--module";
-            *argptr = alloca(80);
-            sprintf(*argptr, "%s:%s", modLoaded->mods[i].path,
-                    modLoaded->mods[i].name);
-            
-            argptr++;
         }
     }
     

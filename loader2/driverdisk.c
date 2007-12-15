@@ -39,7 +39,6 @@
 #include "fwloader.h"
 #include "method.h"
 #include "modules.h"
-#include "moduledeps.h"
 #include "moduleinfo.h"
 #include "windows.h"
 #include "hardware.h"
@@ -103,7 +102,6 @@ static void copyErrorFn (char *msg) {
 /* this copies the contents of the driver disk to a ramdisk and loads
  * the moduleinfo, etc.  assumes a "valid" driver disk mounted at mntpt */
 static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
-    moduleDeps *modDepsPtr = loaderData->modDepsPtr;
     moduleInfoSet modInfo = loaderData->modInfo;
     char file[200], dest[200];
     char * title;
@@ -160,9 +158,6 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
 
     sprintf(file, "%s/modinfo", mntpt);
     readModuleInfo(file, modInfo, location, 1);
-
-    sprintf(file, "%s/modules.dep", mntpt);
-    mlLoadDeps(modDepsPtr, file);
 
     sprintf(file, "%s/modules.alias", mntpt);
     pciReadDrivers(file);
@@ -248,10 +243,6 @@ int getRemovableDevices(char *** devNames) {
  */
 int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                         int usecancel, int noprobe) {
-    moduleList modLoaded = loaderData->modLoaded;
-    moduleDeps *modDepsPtr = loaderData->modDepsPtr;
-    moduleInfoSet modInfo = loaderData->modInfo;
-
     char * device = NULL, * part = NULL, * ddfile = NULL;
     char ** devNames = NULL;
     enum { DEV_DEVICE, DEV_PART, DEV_CHOOSEFILE, DEV_LOADFILE, 
@@ -477,7 +468,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                 break;
             }
 
-            busProbe(modInfo, modLoaded, *modDepsPtr, 0);
+            busProbe(0);
 
             devices = probeDevices(class, BUS_UNSPEC, PROBE_LOADED);
             if (devices)
@@ -557,8 +548,7 @@ static void loadFromLocation(struct loaderData_s * loaderData, char * dir) {
     }
 
     loadDriverDisk(loaderData, dir);
-    busProbe(loaderData->modInfo, loaderData->modLoaded, *
-             loaderData->modDepsPtr, 0);
+    busProbe(0);
 }
 
 void getDDFromSource(struct loaderData_s * loaderData, char * src) {

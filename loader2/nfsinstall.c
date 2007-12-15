@@ -83,9 +83,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
 }
 
 char * mountNfsImage(struct installMethod * method,
-                     char * location, struct loaderData_s * loaderData,
-                     moduleInfoSet modInfo, moduleList modLoaded,
-                     moduleDeps * modDepsPtr) {
+                     char * location, struct loaderData_s * loaderData) {
     char * host = NULL;
     char * directory = NULL;
     char * mountOpts = NULL;
@@ -160,7 +158,7 @@ char * mountNfsImage(struct installMethod * method,
                 if (!access("/mnt/source/images/stage2.img", R_OK)) {
                     logMessage(INFO, "can access /mnt/source/images/stage2.img");
                     /* try to see if we're booted off of a CD with stage2 */
-                    cdurl = findAnacondaCD("/mnt/stage2", modInfo, modLoaded, *modDepsPtr, 0);
+                    cdurl = findAnacondaCD("/mnt/stage2", 0);
                     if (cdurl) {
                         logMessage(INFO, "Detected stage 2 image on CD");
                         winStatus(50, 3, _("Media Detected"),
@@ -212,7 +210,7 @@ char * mountNfsImage(struct installMethod * method,
                         logMessage(WARNING, "failed to mount iso %s loopback", path);
                     else {
                         /* try to see if we're booted off of a CD with stage2 */
-                        cdurl = findAnacondaCD("/mnt/stage2", modInfo, modLoaded, *modDepsPtr, 0);
+                        cdurl = findAnacondaCD("/mnt/stage2", 0);
                         if (cdurl) {
                             logMessage(INFO, "Detected stage 2 image on CD");
                             winStatus(50, 3, _("Media Detected"),

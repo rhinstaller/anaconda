@@ -176,9 +176,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
 }
 
 char * mountUrlImage(struct installMethod * method,
-                     char * location, struct loaderData_s * loaderData,
-                     moduleInfoSet modInfo, moduleList modLoaded,
-                     moduleDeps * modDeps) {
+                     char * location, struct loaderData_s * loaderData) {
     int rc;
     char * url;
     struct iurlinfo ui;
@@ -243,8 +241,7 @@ char * mountUrlImage(struct installMethod * method,
 
 	    /* ok messy - see if we have a stage2 on local CD */
 	    /* before trying to pull one over network         */
-	    cdurl = findAnacondaCD(location, modInfo, modLoaded, 
-				 *modDeps, 0);
+	    cdurl = findAnacondaCD(location, 0);
 	    if (cdurl) {
 		/* verify that our URL is specifying the correct tree */
 		/* we do this by attempting to pull a .discinfo file */

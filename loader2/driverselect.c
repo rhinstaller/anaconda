@@ -148,7 +148,6 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
     struct sortModuleList * sortedOrder;
     char giveArgs = ' ';
     char ** moduleArgs = NULL;
-    moduleDeps modDeps = *loaderData->modDepsPtr;
     moduleInfoSet modInfo = loaderData->modInfo;
 
     newtComponent text, f, ok, back, argcheckbox, listbox;
@@ -174,11 +173,6 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
         numSorted = 0;
         
         for (i = 0; i < modInfo->numModules; i++) {
-            if (mlModuleInList(modInfo->moduleList[i].moduleName, loaderData->modLoaded) ||
-                !modInfo->moduleList[i].description ||
-                ((type != DRIVER_ANY) && 
-                 (type != modInfo->moduleList[i].major)))
-                continue;
             sortedOrder[numSorted].index = i;
             sortedOrder[numSorted++].modInfo = modInfo;
         }
@@ -281,8 +275,7 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
         return chooseManualDriver(class, loaderData);
     }
 
-    mlLoadModule(modInfo->moduleList[num].moduleName, loaderData->modLoaded, modDeps,
-                 modInfo, moduleArgs);
+    mlLoadModule(modInfo->moduleList[num].moduleName, moduleArgs);
     free(sortedOrder);
 
     return LOADER_OK;
