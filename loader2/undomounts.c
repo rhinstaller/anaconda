@@ -1,20 +1,25 @@
 /*
- * undomounts.c
+ * undomounts.c: Handles some basic unmounting stuff for init
+ * Broken out so that it can be used on s390 in a shutdown binary
  *
- * Handles some basic unmounting stuff for init
- * Broken out so that it can be used on s390 in a shutdown binary 
+ * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003  Red Hat, Inc.
+ * All rights reserved.
  *
- * Erik Troan <ewt@redhat.com>
- * Jeremy Katz <katzj@redhat.com> 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- * Copyright 1996 - 2003 Red Hat, Inc.
- *
- * This software may be freely redistributed under the terms of the GNU
- * public license.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Red Hat Author(s): Erik Troan <ewt@redhat.com>
+ *                    Jeremy Katz <katzj@redhat.com>
  */
 
 #include <errno.h>
