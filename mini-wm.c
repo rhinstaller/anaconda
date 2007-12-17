@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Red Hat Author(s): Owen Taylor <otaylor@redhat.com>
+ * Author(s): Owen Taylor <otaylor@redhat.com>
  */
 
 #include <stdio.h>

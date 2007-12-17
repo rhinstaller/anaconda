@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Red Hat Author(s): Bill Nottingham <notting@redhat.com>
+# Author(s): Bill Nottingham <notting@redhat.com>
 #
 
 """Simple wrapper around HAL"""

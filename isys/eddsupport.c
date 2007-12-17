@@ -18,8 +18,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Dell Author(s): Rezwanul_Kabir@Dell.com
- * Red Hat Author(s): Jeremy Katz <katzj@redhat.com>
+ * Author(s): Rezwanul_Kabir@Dell.com
+ *            Jeremy Katz <katzj@redhat.com>
  */
 
 #include <ctype.h>

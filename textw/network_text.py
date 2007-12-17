@@ -17,9 +17,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Red Hat Author(s): Jeremy Katz <katzj@redhat.com>
-#                    Michael Fulbright <msf@redhat.com>
-#                    David Cantrell <dcantrell@redhat.com>
+# Author(s): Jeremy Katz <katzj@redhat.com>
+#            Michael Fulbright <msf@redhat.com>
+#            David Cantrell <dcantrell@redhat.com>
 #
 
 import isys

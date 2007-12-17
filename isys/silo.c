@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Red Hat Author(s): Jakub Jelinek <jakub@redhat.com>
+ * Author(s): Jakub Jelinek <jakub@redhat.com>
  */
 
 #define _GNU_SOURCE

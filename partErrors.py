@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Red Hat Author(s): Matt Wilson <msw@redhat.com>
-#                    Jeremy Katz <katzj@redhat.com>
-#                    Mike Fulbright <msf@redhat.com>
+# Author(s): Matt Wilson <msw@redhat.com>
+#            Jeremy Katz <katzj@redhat.com>
+#            Mike Fulbright <msf@redhat.com>
 #
 
 """Exceptions for use in partitioning."""
