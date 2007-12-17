@@ -185,6 +185,9 @@ class AnacondaBackend:
         log.warning("getRequiredMedia not implmented for backend!")
         pass
 
+    def complete(self, anaconda):
+        pass
+
 def doRepoSetup(anaconda):
     anaconda.backend.doInitialSetup(anaconda)
     if anaconda.backend.doRepoSetup(anaconda) == DISPATCH_BACK:

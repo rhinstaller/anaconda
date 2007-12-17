@@ -27,23 +27,7 @@ log = logging.getLogger("anaconda")
 import isys, product
 
 def doMethodComplete(anaconda):
-    try:
-        isys.umount(anaconda.backend.ayum.tree)
-    except Exception:
-        pass
-
-    if anaconda.mediaDevice:
-        try:
-            shutil.copyfile("%s/media.repo" % anaconda.backend.ayum.tree,
-                            "%s/etc/yum.repos.d/%s-install-media.repo" %(anaconda.rootPath, productName))
-        except Exception, e:
-            log.debug("Error copying media.repo: %s" %(e,))
-
-    if anaconda.backend.ayum._loopbackFile and (anaconda.mediaDevice or anaconda.backend.ayum.isodir):
-        try:
-            os.unlink(anaconda.backend.ayum._loopbackFile)
-        except SystemError:
-            pass
+    anaconda.backend.complete(anaconda)
 
     if not anaconda.isKickstart and anaconda.mediaDevice:
         isys.ejectCdrom(anaconda.mediaDevice)

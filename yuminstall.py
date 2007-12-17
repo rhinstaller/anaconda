@@ -743,6 +743,25 @@ class YumBackend(AnacondaBackend):
         AnacondaBackend.__init__(self, anaconda)
         self.supportsPackageSelection = True
 
+    def complete(self, anaconda):
+        try:
+            isys.umount(self.ayum.tree)
+        except Exception:
+            pass
+
+        if anaconda.mediaDevice:
+            try:
+                shutil.copyfile("%s/media.repo" % self.ayum.tree,
+                                "%s/etc/yum.repos.d/%s-install-media.repo" %(anaconda.rootPath, productName))
+            except Exception, e:
+                log.debug("Error copying media.repo: %s" %(e,))
+
+        if self.ayum._loopbackFile and (anaconda.mediaDevice or self.isodir):
+            try:
+                os.unlink(self.ayum._loopbackFile)
+            except SystemError:
+                pass
+
     def doInitialSetup(self, anaconda):
         if anaconda.id.getUpgrade():
            # FIXME: make sure that the rpmdb doesn't have stale locks :/
