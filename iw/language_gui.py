@@ -45,9 +45,6 @@ class LanguageWindow (InstallWindow):
 	self.instLang.setDefault(self.lang)
 	self.ics.getICW().setLanguage()
 
-        # Need to reload the release notes file in case we've changed languages
-        self.ics.getICW().rnv.load()
-
         return None
 
     def listScroll(self, widget, *args):
