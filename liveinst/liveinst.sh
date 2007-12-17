@@ -56,11 +56,11 @@ fi
 /sbin/lvm vgchange -an --ignorelockingfailure
 
 if [ -x /usr/bin/hal-lock -a -e /var/lock/subsys/haldaemon ]; then
-    /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA"
+    /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA" $*
 else
-    $ANACONDA
+    $ANACONDA $*
 fi
 
-if [ -n $current ]; then
+if [ -n "$current" ]; then
     /usr/sbin/setenforce $current
 fi
