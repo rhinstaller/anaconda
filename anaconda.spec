@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.10
+Version: 11.4.0.11
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -203,6 +203,14 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Dec 17 2007 Jeremy Katz <katzj@redhat.com> - 11.4.0.11-1
+- Validation of root password with cracklib (hhara)
+- Minor fixes to liveinst shell script (katzj)
+- Fix path to swapoff (katzj)
+- Make doMethodComplete not depend on the yum backend (katzj)
+- Remove another line related to the release notes (hhara)
+- GPLv2+ changes. (dcantrell)
+
 * Sat Dec 15 2007 Jeremy Katz <katzj@redhat.com> - 11.4.0.10-1
 - Add support for encryption via autopart. (katzj)
 - Avoid unnecessary downloading and caching by not
