@@ -272,7 +272,8 @@ PACKAGES="glibc-common setup python newt slang libselinux
 	 libdhcp libnl libdhcp6client libdhcp4client newt-python
 	 device-mapper device-mapper-libs dmraid keyutils-libs libsemanage-python
 	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr pcre
-	 cryptsetup-luks libgcrypt libgpg-error udev udev-static dbus dbus-python hal"
+	 cryptsetup-luks libgcrypt libgpg-error udev udev-static dbus dbus-python hal
+	 cracklib-python"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
@@ -535,6 +536,7 @@ usr/lib/python?.?/site-packages/repomd
 usr/lib/python?.?/site-packages/pirut
 usr/lib/python?.?/site-packages/pykickstart
 usr/lib/python?.?/site-packages/rhpxl
+usr/lib/python?.?/site-packages/cracklibmodule.so
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc

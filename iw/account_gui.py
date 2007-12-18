@@ -24,6 +24,7 @@ import gui
 from iw_gui import *
 from rhpl.translate import _, N_
 from flags import flags
+import cracklib
 
 def handleCapsLockRelease(window, event, label):
     if event.keyval == gtk.keysyms.Caps_Lock and event.state & gtk.gdk.LOCK_MASK:
@@ -70,6 +71,17 @@ class AccountWindow (InstallWindow):
                                       "six characters long."),
                                     custom_icon="error")
             passwordError()
+
+        msg = cracklib.FascistCheck(pw)
+        if msg is not None:
+            ret = self.intf.messageWindow(_("Weak Password"),
+                                          _("Weak password provided: %s"
+                                            "\n\n"
+                                            "Would you like to continue with this "
+                                            "password?" % (msg, )),
+                                          type = "yesno")
+            if ret == 0:
+                passwordError()
         
         allowed = string.digits + string.ascii_letters + string.punctuation + " "
         for letter in pw:

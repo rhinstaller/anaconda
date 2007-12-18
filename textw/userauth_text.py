@@ -20,6 +20,7 @@
 from snack import *
 from constants_text import *
 from rhpl.translate import _
+import cracklib
 
 def has_bad_chars(pw):
     allowed = string.digits + string.ascii_letters + string.punctuation + " "
@@ -77,7 +78,18 @@ class RootPasswordWindow:
                          "which are not allowed."),
 		       buttons = [ TEXT_OK_BUTTON ], width = 50)
             else:
-                break
+                msg = cracklib.FascistCheck(entry1.value())
+                if msg is not None:
+                    ret = anaconda.intf.messageWindow(_("Weak Password"),
+                                                  _("Weak password provided: %s"
+                                                    "\n\n"
+                                                    "Would you like to continue with this "
+                                                    "password?" % (msg, )),
+                                                  type = "yesno")
+                    if ret == 1:
+                        break
+                else:
+                    break
 
             entry1.set ("")
             entry2.set ("")
