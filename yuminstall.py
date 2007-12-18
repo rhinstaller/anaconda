@@ -450,10 +450,11 @@ class AnacondaYum(YumSorter):
 
         # add default repos
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.anaconda.methodstr).items():
+            rid = name.replace(" ", "")
             repo = AnacondaYumRepo(uri, addon=False,
-                                   repoid="anaconda-%s-%s" %(name,
-                                                             productStamp),
+                                   repoid="anaconda-%s-%s" %(rid, productStamp),
                                    root = root)
+            repo.name = name
             repo.cost = 100
 
             if self.anaconda.mediaDevice or self.isodir:

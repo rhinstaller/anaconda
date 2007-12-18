@@ -240,7 +240,7 @@ class TaskWindow(InstallWindow):
         self.anaconda = anaconda
 
         self.tasks = anaconda.id.instClass.tasks
-        self.repos = anaconda.id.instClass.repos
+        self.repos = anaconda.backend.ayum.repos
 
         (self.xml, vbox) = gui.getGladeWidget("tasksel.glade", "taskBox")
 

@@ -47,6 +47,12 @@ class InstallClass(BaseInstallClass):
 
     repos = { "Additional Fedora Software": (None, "http://mirrors.fedoraproject.org/mirrorlist?repo=%s&arch=%s" %(productVersion, rpmUtils.arch.getBaseArch())) }
 
+    def getPackagePaths(self, uri):
+        if not type(uri) == types.ListType:
+            uri = [uri,]
+
+        return {'Fedora Base': uri}
+
     def setInstallData(self, anaconda):
 	BaseInstallClass.setInstallData(self, anaconda)
 
