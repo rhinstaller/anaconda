@@ -2,7 +2,7 @@
 # keyboard_gui.py:  Shim around system-config-keyboard
 # Brrrraaaaaiiiinnnns...
 #
-# Copyright (C) 2006  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2006, 2007  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,12 +23,12 @@ import sys
 
 sys.path.append("/usr/share/system-config-keyboard")
 
-from keyboard_gui import KeyboardWindow as installKeyboardWindow
+from keyboard_gui import childWindow as installKeyboardWindow
 
 class KeyboardWindow(InstallWindow, installKeyboardWindow):
     def __init__(self, ics):
         InstallWindow.__init__(self, ics)
-        installKeyboardWindow.__init__(self, ics)
+        installKeyboardWindow.__init__(self)
 
     def getNext(self):
         installKeyboardWindow.getNext(self)
