@@ -556,6 +556,14 @@ class AnacondaYum(YumSorter):
     def urlgrabberFailureCB (self, obj, *args, **kwargs):
         log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
 
+        delay = 0.25*(2**(obj.tries-1))
+        if delay > 1:
+            w = anaconda.intf.waitWindow(_("Retrying"), _("Retrying package download..."))
+            time.sleep(delay)
+            w.pop()
+        else:
+            time.sleep(delay)
+
     def getDownloadPkgs(self):
         downloadpkgs = []
         totalSize = 0
