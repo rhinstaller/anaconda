@@ -1289,9 +1289,9 @@ class YumBackend(AnacondaBackend):
         if not upgrade:
             anaconda.id.fsset.write(anaconda.rootPath)
             # rootpath mode doesn't have this file around
-            if os.access("/tmp/modprobe.conf", os.R_OK):
-                shutil.copyfile("/tmp/modprobe.conf", 
-                                anaconda.rootPath + "/etc/modprobe.conf")
+            if os.access("/etc/modprobe.d/anaconda", os.R_OK):
+                shutil.copyfile("/etc/modprobe.d/anaconda", 
+                                anaconda.rootPath + "/etc/modprobe.d/anaconda")
             anaconda.id.network.write(anaconda.rootPath)
             anaconda.id.iscsi.write(anaconda.rootPath)
             anaconda.id.zfcp.write(anaconda.rootPath)
