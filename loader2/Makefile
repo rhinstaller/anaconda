@@ -64,7 +64,7 @@ SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 LIBS += -lkudzu_loader -lpci
 
 CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
-STATIC = -static
+STATIC =
 REALCC=gcc
 
 LIBS += ../stubs/libunicode-lite.a ../wlite/libwlite.a

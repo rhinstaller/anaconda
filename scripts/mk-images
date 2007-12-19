@@ -69,6 +69,8 @@ CRYPTOMODS="sha256_generic cbc aes_generic blkcipher"
 PCMCIASOCKMODS="yenta_socket i82365 tcic pcmcia"
 INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $COMMONMODS $PCMCIASOCKMODS =scsi =net"
 
+. $(dirname $0)/buildinstall.functions
+
 # Set, verify, and create paths
     KERNELPATH=$1
     TOPDESTPATH=$2
@@ -367,8 +369,22 @@ makeproductfile() {
     fi
 }
 
+instbin() {
+    ROOT=$1
+    BIN=$2
+    DIR=$3
+    DEST=$4
+
+    install -s -m 755 $ROOT/$BIN $DIR/$DEST
+    get_dso_deps $ROOT "$BIN"
+    local DEPS="$DSO_DEPS"
+    mkdir -p $DIR/$LIBDIR
+    for x in $DEPS ; do
+      cp -Lfp $ROOT/$x $DIR/$LIBDIR
+   done
+}
+
 setupShellEnvironment() {
-    # setup password/group entries
     echo "tcp     6       TCP" > $MBD_DIR/etc/protocols
 
     # PAM configuration
@@ -435,10 +451,10 @@ EOF
     chmod 600 $MBD_DIR/etc/ssh/sshd_config
 
     # copy in the binaries
-    cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
-    cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
-    cp -f $IMGPATH/usr/bin/bash $MBD_DIR/sbin/bash
-    cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
+    instbin $IMGPATH /usr/bin/login $MBD_DIR /sbin/login
+    instbin $IMGPATH /usr/sbin/sshd $MBD_DIR /sbin/sshd
+    instbin $IMGPATH /usr/bin/bash $MBD_DIR /sbin/bash
+    instbin $IMGPATH /usr/bin/busybox $MBD_DIR /sbin/busybox
     
     # make some symlinks
     ln -sf bash $MBD_DIR/sbin/sh
@@ -455,61 +471,8 @@ EOF
     	      fi
     	      shift
 	 done )
-
-    # and copy libraries too
-    mkdir -p $MBD_DIR/$LIBDIR $MBD_DIR/lib
-    for lib in $IMGPATH/$LIBDIR/libc.so* \
-	       $IMGPATH/$LIBDIR/libc-*.so* \
-       	       $IMGPATH/$LIBDIR/ld-*.so* \
-       	       $IMGPATH/$LIBDIR/ld.so* \
-       	       $IMGPATH/$LIBDIR/ld64.so* \
-	       $IMGPATH/$LIBDIR/libaudit.so* \
-	       $IMGPATH/$LIBDIR/libtermcap.so* \
-               $IMGPATH/$LIBDIR/libpam.so* \
-    	       $IMGPATH/$LIBDIR/libdl.so* \
-    	       $IMGPATH/$LIBDIR/libdl-*.so* \
-	       $IMGPATH/$LIBDIR/libnss_files* \
-	       $IMGPATH/$LIBDIR/libnsl* \
-	       $IMGPATH/$LIBDIR/libutil.so* \
-	       $IMGPATH/$LIBDIR/libutil-*.so* \
-	       $IMGPATH/$LIBDIR/libcrypt*so* \
-	       $IMGPATH/$LIBDIR/libselinux*so* \
-	       $IMGPATH/$LIBDIR/libsepol*so* \
-	       $IMGPATH/$LIBDIR/libattr*so* \
-	       $IMGPATH/$LIBDIR/libresolv.so* \
-	       $IMGPATH/$LIBDIR/libresolv-*.so* \
-	       $IMGPATH/$LIBDIR/libm.so* \
-	       $IMGPATH/$LIBDIR/libm-*.so* \
-	       $IMGPATH/usr/$LIBDIR/libz.so* \
-	       $IMGPATH/$LIBDIR/libssl* \
-	       $IMGPATH/$LIBDIR/libcom_err* \
-	       $IMGPATH/$LIBDIR/libe2p* \
-	       $IMGPATH/$LIBDIR/libuuid* \
-	       $IMGPATH/usr/$LIBDIR/libwrap*.so* \
-               $IMGPATH/usr/$LIBDIR/libX11.so* \
-               $IMGPATH/usr/$LIBDIR/libXau.so* \
-               $IMGPATH/usr/$LIBDIR/libXdmcp.so* \
-	       $IMGPATH/usr/$LIBDIR/libXmuu.so* \
-	       $IMGPATH/usr/$LIBDIR/libXext.so* \
-	       $IMGPATH/usr/$LIBDIR/libXt.so* \
-	       $IMGPATH/usr/$LIBDIR/libSM.so* \
-	       $IMGPATH/usr/$LIBDIR/libICE.so* ; do
-	if [ -e $lib ]; then cp -df $lib $MBD_DIR/$LIBDIR/ ; fi
-    done 
-
-    if [ -e $IMGPATH/lib/ld64.so* ]; then cp -df $IMGPATH/lib/ld64.so* $MBD_DIR/lib/ ; fi 
-    if [ -e $IMGPATH/lib/ld-*.so ]; then cp -df $IMGPATH/lib/ld-*.so $MBD_DIR/lib/ ; fi 
-    if [ -e $IMGPATH/lib64/ld64.so* ]; then cp -df $IMGPATH/lib64/ld64.so* $MBD_DIR/lib64/ ; fi 
-
-    mkdir -p $MBD_DIR/usr/$LIBDIR
-    for lib in $IMGPATH/usr/$LIBDIR/libkrb5.so* \
-	       $IMGPATH/usr/$LIBDIR/libkrb5support.so* \
-	       $IMGPATH/usr/$LIBDIR/libgssapi_krb5.so* \
-	       $IMGPATH/usr/$LIBDIR/libk5crypto.so* \
-	       $IMGPATH/usr/$LIBDIR/libcom_err.so* ; do
-	if [ -e $lib ]; then cp -df $lib $MBD_DIR/usr/$LIBDIR/ ; fi
-    done 
 }
+
 
 makeinitrd() {
     EXTRAINITRDPATH=""
@@ -638,16 +601,17 @@ makeinitrd() {
     # set up the arch bits
     echo $arch > $MBD_DIR/etc/arch
 
-    install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
+    echo "Setting up arch bits"
+    instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/$LOADERBIN $MBD_DIR /sbin/loader
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
-	install -s -m 755 $LOADERBINDIR/init $MBD_DIR/sbin
+        instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/init $MBD_DIR /sbin/init
 	ln -s ./init $MBD_DIR/sbin/reboot
 	ln -s ./init $MBD_DIR/sbin/halt
 	ln -s ./init $MBD_DIR/sbin/poweroff
     else
-	install -s -m 755 $LOADERBINDIR/shutdown $MBD_DIR/sbin/shutdown
-	install -m 755 $IMGPATH/usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR/sbin/init
-	install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
+	instbin $IMGPATH ${LOADERBINDIR##IMGPATH}/shutdown $MBD_DIR /sbin/shutdown
+	instbin $IMGPATH /usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR /sbin/init
+	instbin $IMGPATH /usr/sbin/dasdfmt $MBD_DIR /sbin/dasdfmt
     fi
 
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
@@ -658,7 +622,14 @@ makeinitrd() {
     install -m 644 $IMGPATH/etc/passwd $MBD_DIR/etc/passwd
     install -m 644 $IMGPATH/etc/group $MBD_DIR/etc/group
 
-    install -s -m 755 $IMGPATH/usr/sbin/udevd.static $MBD_DIR/sbin/udevd
+    instbin $IMGPATH /usr/sbin/udevd $MBD_DIR /sbin/udevd
+    instbin $IMGPATH /usr/sbin/udevtrigger $MBD_DIR /sbin/udevtrigger
+    instbin $IMGPATH /usr/sbin/udevsettle $MBD_DIR /sbin/udevsettle
+
+    # Indirect dependencies
+    install -m 755 $IMGPATH/$LIBDIR/libnss_files.so.2 $MBD_DIR/$LIBDIR/
+    install -m 755 $IMGPATH/$LIBDIR/libgcc_s.so.1 $MBD_DIR/$LIBDIR/
+
     install -m 644 $IMGPATH/etc/udev/udev.conf $MBD_DIR/etc/udev/udev.conf
     for i in $IMGPATH/etc/udev/rules.d/*.rules ; do
        install -m 644 $i $MBD_DIR/etc/udev/rules.d/${i##*/}
@@ -675,7 +646,7 @@ makeinitrd() {
     makeproductfile $MBD_DIR
 
     for n in insmod rmmod modprobe; do
-	ln -s loader $MBD_DIR/sbin/$n
+	instbin $IMGPATH /usr/sbin/$n $MBD_DIR /sbin/$n
     done
 
     ln -s /usr/bin/sh $MBD_DIR/sbin/sh
