@@ -29,7 +29,7 @@ LOADLIBES =  -lpopt
 CFLAGS += -I.. -I$(LOADERDIR) -fno-strict-aliasing
 RPMCFLAGS = $(CFLAGS) -I/usr/include/rpm
 
-UTILS = modlist moddeps snarffont mapshdr readmap
+UTILS = modlist snarffont mapshdr readmap
 ifeq (s390, $(ARCH))
 UTILS += geninitrdsz
 endif
@@ -58,10 +58,6 @@ moduledeps.o: $(LOADERDIR)/moduledeps.c
 	cp $(LOADERDIR)/moduledeps.c ./
 	$(CC) $(CFLAGS) -c moduledeps.c
 
-moddeps: moddeps.o moduledeps.o
-	$(CC) $(LDFLAGS) -o moddeps moddeps.o moduledeps.o \
-            $(LOADLIBES) -lresolv -lpopt -lbz2
-
 md5.o: md5.c md5.h
 	gcc -c -O -g md5.c -D_FORTIFY_SOURCE=2
 
@@ -77,10 +73,7 @@ install: all
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 genmodinfo $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 trimmodalias $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 trimpciids $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 moddeps $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 filtermoddeps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 modlist $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 readmap $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 mapshdr $(DESTDIR)/$(RUNTIMEDIR)
@@ -89,7 +82,7 @@ install: all
 	fi
 
 clean:	
-	rm -f modlist moddeps snarffont mapshdr readmap geninitrdsz \
+	rm -f modlist snarffont mapshdr readmap geninitrdsz \
 	moduledeps.c moduleinfo.c .depend *.o
 
 depend:

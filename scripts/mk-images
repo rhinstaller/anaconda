@@ -81,8 +81,6 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
     INSTIMGTEMPLATE=$3
     IMGPATH=$4
     KERNELBASE=$TMPDIR/updboot.kernel.$$
-    MODDEPS=$KERNELBASE/moddeps
-    MODALIAS=$KERNELBASE/modules.alias
     BUILDARCH=$5
 
     KERNELNAME=vmlinuz
@@ -126,17 +124,14 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
     mkdir -p $INSTIMGPATH
 
 # Stuff that we need
-    TRIMMODALIAS=$IMGPATH/usr/lib/anaconda-runtime/trimmodalias
     TRIMPCIIDS=$IMGPATH/usr/lib/anaconda-runtime/trimpciids
     GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
     GENINITRDSZ=$IMGPATH/usr/lib/anaconda-runtime/geninitrdsz
     GENMODINFO=$IMGPATH/usr/lib/anaconda-runtime/genmodinfo
     KEYMAPS=$TMPDIR/keymaps-$BUILDARCH.$$
     SCREENFONT=$IMGPATH/usr/lib/anaconda-runtime/screenfont-${BASEARCH}.gz
-    GETMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/moddeps
     MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
     MODINFO=$TMPDIR/modinfo-$BUILDARCH.$$
-    FILTERMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/filtermoddeps
     LOADERBINDIR=$IMGPATH/usr/lib/anaconda-runtime/loader
     BOOTDISKDIR=$IMGPATH/usr/lib/anaconda-runtime/boot
     LANGTABLE=$IMGPATH/usr/lib/anaconda/lang-table
@@ -148,8 +143,8 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
 
     touch $MODULESUSED
 
-    REQUIREMENTS="$TRIMMODALIAS $TRIMPCIIDS $PCIIDS $XDRIVERDESCS $GETMODDEPS $GENMODINFO
-		  $FILTERMODDEPS $LANGTABLE $GETKEYMAPS"
+    REQUIREMENTS="$TRIMPCIIDS $PCIIDS $XDRIVERDESCS $GENMODINFO
+		  $LANGTABLE $GETKEYMAPS"
 
     dieLater=
     for n in $REQUIREMENTS; do
@@ -232,18 +227,6 @@ expandModuleSet() {
         if [ $char = '=' ]; then
 	    NAME=$(echo $name | cut -c2-)
 	    SET="$SET $($MODLIST --modinfo-file $MODINFO $NAME)"
-	elif [ $char = '+' ]; then
-	    NAME=$(echo $name | cut -c2-)
-
-	    # all of the modules of this type
-	    $MODLIST --modinfo-file $MODINFO $NAME > $TMPDIR/emsAll.$$
-	    # the modules used that are of this type
-	    sort -u $MODULESUSED | cat - $TMPDIR/emsAll.$$ | sort | 
-		    uniq -d > $TMPDIR/emsUsed.$$
-	    # the modules that are of this type, but not used
-	    SET="$SET $(cat $TMPDIR/emsAll.$$ $TMPDIR/emsUsed.$$ | sort | uniq -u)"
-
-	    rm -f $TMPDIR/emsAll.$$ $TMPDIR/emsUsed.$$
 	else
 	    SET="$SET $name"
 	fi
