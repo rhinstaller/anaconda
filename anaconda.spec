@@ -42,7 +42,7 @@ BuildRequires: device-mapper-devel >= %{dmver}
 BuildRequires: e2fsprogs-devel
 BuildRequires: elfutils-devel
 BuildRequires: gettext >= %{gettextver}
-BuildRequires: glib2-static >= %{glib2ver}
+BuildRequires: glib2-devel >= %{glib2ver}
 BuildRequires: gtk2-devel
 BuildRequires: intltool >= %{intltoolver}
 BuildRequires: isomd5sum-devel
@@ -50,25 +50,25 @@ BuildRequires: kudzu-devel >= %{kudzuver}
 BuildRequires: libX11-devel
 BuildRequires: libXt-devel
 BuildRequires: libXxf86misc-devel
-BuildRequires: libdhcp-static >= %{libdhcpver}
+BuildRequires: libdhcp-devel >= %{libdhcpver}
 BuildRequires: libselinux-devel >= %{libselinuxver}
 BuildRequires: libsepol-devel
 BuildRequires: libxml2-python
 BuildRequires: mkinitrd-devel >= %{mkinitrdver}
-BuildRequires: newt-static
+BuildRequires: newt-devel
 BuildRequires: pango-devel
 BuildRequires: pciutils-devel
 BuildRequires: pirut
-BuildRequires: popt-static
+BuildRequires: popt-devel
 BuildRequires: pykickstart >= %{pykickstartver}
 BuildRequires: python-devel
 BuildRequires: python-urlgrabber
 BuildRequires: rhpl
 BuildRequires: rpm-python >= %{rpmpythonver}
-BuildRequires: slang-static >= %{slangver}
+BuildRequires: slang-devel >= %{slangver}
 BuildRequires: xmlto
 BuildRequires: yum >= %{yumver}
-BuildRequires: zlib-devel, zlib-static
+BuildRequires: zlib-devel
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
