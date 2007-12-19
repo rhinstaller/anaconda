@@ -133,6 +133,7 @@ struct loaderData_s {
     char *ipv4, *ipv6, *netmask, *gateway, *dns, *hostname, *peerid, *ethtool, *subchannels, *portname, *essid, *wepkey, *nettype, *ctcprot;
     int mtu;
     int noDns;
+    int dhcpTimeout;
     int ipinfo_set;
     int ipv6info_set;
     char * ksFile;
