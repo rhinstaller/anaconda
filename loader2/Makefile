@@ -49,16 +49,15 @@ LIBS += -lresolv -lm
 
 BINS = loader
 
-HWOBJS = pcmcia.o usb.o firewire.o hardware.o
+HWOBJS = hardware.o
 METHOBJS = method.o cdinstall.o hdinstall.o nfsinstall.o urlinstall.o 
-OBJS = copy.o log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
-	lang.o kbd.o modstubs.o driverdisk.o selinux.o \
+OBJS = copy.o log.o moduleinfo.o loadermisc.o modules.o windows.o \
+	lang.o kbd.o driverdisk.o selinux.o \
 	mediacheck.o kickstart.o driverselect.o \
 	getparts.o dirbrowser.o fwloader.o \
 	$(HWOBJS) $(METHOBJS)
 LOADEROBJS = loader.o loader-pcmcia.o
 NETOBJS = net.o urls.o ftp.o telnet.o telnetd.o
-PCMCIAOBJS = pcmcia.o $(NETOBJS)
 SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 
 LIBS += -lkudzu_loader -lpci
