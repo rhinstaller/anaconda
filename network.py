@@ -273,7 +273,8 @@ class Network:
             if device.has_key('net.arp_proto_hw_id'):
                 if device['net.arp_proto_hw_id'] == 1:
                     dev = device['device']
-                    self.netdevices[dev] = NetworkDevice(dev);
+                    if not self.netdevices.has_key(dev):
+                        self.netdevices[dev] = NetworkDevice(dev);
                     if self.firstnetdevice is None:
                         self.firstnetdevice = dev
                     self.netdevices[dev].set(('hwaddr',device['net.address']))
