@@ -29,6 +29,7 @@ struct networkDeviceConfig {
     /* misc settings */
     int isDynamic;
     int noDns;
+    int dhcpTimeout;
     int preset;
     int ipv4method, ipv6method;
     char * vendor_class;

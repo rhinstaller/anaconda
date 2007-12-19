@@ -779,6 +779,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             num_link_checks = atoi(argv[i] + 10);
         else if (!strncasecmp(argv[i], "nicdelay=", 9))
             post_link_sleep = atoi(argv[i] + 9);
+        else if (!strncasecmp(argv[i], "dhcptimeout=", 12))
+            loaderData->dhcpTimeout = atoi(argv[i] + 12);
         else if (!strncasecmp(argv[i], "selinux=0", 9))
             flags &= ~LOADER_FLAGS_SELINUX;
         else if (!strncasecmp(argv[i], "selinux", 7))
@@ -1469,6 +1471,7 @@ int main(int argc, char ** argv) {
     loaderData.method = -1;
     loaderData.fw_loader_pid = -1;
     loaderData.fw_search_pathz_len = -1;
+    loaderData.dhcpTimeout = -1;
 
     extraArgs[0] = NULL;
     parseCmdLineFlags(&loaderData, cmdLine);

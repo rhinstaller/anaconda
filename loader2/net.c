@@ -540,6 +540,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     }
 
     cfg->noDns = loaderData->noDns;
+    cfg->dhcpTimeout = loaderData->dhcpTimeout;
 }
 
 int readNetConfig(char * device, struct networkDeviceConfig * cfg,
@@ -1324,11 +1325,16 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
 char *doDhcp(struct networkDeviceConfig *dev) {
     struct pumpNetIntf *i;
     char *r = NULL, *class = NULL;
-    time_t timeout = 45;
+    time_t timeout;
     int loglevel;
     DHCP_Preference pref = 0;
 
     i = &dev->dev;
+
+    if (dev->dhcpTimeout <= 0)
+	timeout = 45;
+    else
+	timeout = dev->dhcpTimeout;
 
     if (dev->vendor_class != NULL)
         class = dev->vendor_class;
