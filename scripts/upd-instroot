@@ -1048,6 +1048,10 @@ rm -f $KEEPFILE $KEEPFILEGR $KEEPFILERESCUE
 
 for p in $DEST $DESTGR; do
 	echo "Scrubbing trees..." "$p"
+	mkdir -p $p/lib
+	mkdir -p $p/firmware
+	ln -snf /modules $p/lib/modules
+	ln -snf /firmware $p/lib/firmware
 	cp $p/usr/lib/anaconda/raidstart-stub $p/usr/bin/raidstart
 	cp $p/usr/lib/anaconda/raidstop-stub $p/usr/bin/raidstop
 	cp $p/usr/lib/anaconda/losetup-stub $p/usr/bin/losetup

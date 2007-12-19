@@ -201,76 +201,27 @@ findPackage() {
     echo "cannot find package $name in path $dir" >&2
 }
 
-findmodule () {
-    if [ ! -f $CACHE ]; then
-        find $KERNELROOT/lib/modules/ > $CACHE
-    fi
-    
-    grep "/$1\.ko" $CACHE
-}
-
 rundepmod () {
-    what=$1
-    final=$2
+    where=$1
 
     $FAKEARCH /sbin/depmod -a -F $KERNELROOT/boot/System.map-$version \
-            -b $KERNELROOT $version
-    mv $KERNELROOT/lib/modules/$version/modules.alias $MODALIAS
-
-    cat $KERNELROOT/lib/modules/$version/modules.dep | $FILTERMODDEPS > $final 
-}
-
-getmoddeps () {
-    what=$1
-    final=$2
-
-    for mod in $what ; do
-	mod=$(echo $mod | sed 's/\.ko  */|^/g;s/\.ko$//;s/.*\///')
-	egrep $mod $MODDEPS >> $final.foo
-    done
-    mv $final.foo $final
-}
-
-intcopymodules () {
-    dir=$2
-
-    for n in $1; do
-	m=$(findmodule $n)
-	if [ -z "$m" ]; then
-            [ -n "$DEBUG" ] && echo "Module $n not found in kernel rpm" >&2
-        else 
-	    echo $n >> $MODULESUSED
-	    for o in $m ; do 
-		echo $n
-		ver=$(echo $o |cut -d / -f 7)
-		myarch=$(echo $o |cut -d / -f 4)
-		if ! [ -d $dir/$ver/$myarch ] ; then mkdir -p $dir/$ver/$myarch ; fi
-		if ! cp $o $dir/$ver/$myarch; then
-		    echo "Failed to copy $o to $dir/$ver/$myarch (for module $n)" >&2
-		fi
-	    done
-        fi
-    done
+            -b $where $version
 }
 
 # This loops to make sure it resolves dependencies of dependencies of...
 resdeps () {
     items="$*"
 
-    before=1
-    after=2
-
-    while [ $before != $after ]; do
-	before=`echo $items | wc -c`
-
-	if [ $? != "0" ] ; then
-	    kill -9 $$
-	fi	
-	list=`$GETMODDEPS -m $MODDEPS $items`
-	items=$(for n in $items $list; do echo $n; done | sort -u)
-	after=`echo $items | wc -c`
+    deplist=""
+    for item in $items ; do
+        deps=$(awk -F ':' "/$item.ko: / { print gensub(\".*/$item.ko: \",\"\",\"g\") }" $KERNELROOT/lib/modules/$version/modules.dep)
+        for dep in $deps ; do
+            depfile=${dep##*/}
+            depname=${dep%%.ko}
+            deplist="$deplist $depname"
+        done
     done
-
+    items=$(for n in $items $deplist; do echo $n; done | sort -u)
     echo $items
 }
 
@@ -301,60 +252,41 @@ expandModuleSet() {
     echo $SET
 }
 
-makemoduleball() {
-    unset MMB_DD
-    MMB_MODINFO="module-info"
-    MMB_NAME="modules.cgz"
-
-    while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
-	if [ "$1" = "--dd" ]; then
-	    MMB_DD="$2"
-	    shift; shift
-	    MMB_MODINFO="modinfo"
-	    continue
-	elif [ "$1" = "--name" ]; then
-	    MMB_NAME="$2"
-	    shift; shift
-	    continue
-	fi
-	echo "unknown option passed to $0"
-	exit 1
-    done
-
+makemoduletree() {
     MMB_DIR=$1
     MMB_MODULESET=$(resdeps $2)
 
-    rm -rf $MMB_DIR/modules $MMB_DIR/$MMB_NAME $MMB_DIR/modules.dep $MMB_DIR/modules.alias \
-	   $MMB_DIR/modules.pcimap $MMB_DIR/pcitable $MMB_DIR/$MMB_MODINFO \
-	   $MMB_DIR/pci.ids
+    mkdir -p $MMB_DIR/lib
     mkdir -p $MMB_DIR/modules
+    mkdir -p $MMB_DIR/firmware
+    ln -snf ../modules $MMB_DIR/lib/modules
+    ln -snf ../firmware $MMB_DIR/lib/firmware
 
-    MMB_MODULESET=$(intcopymodules "$MMB_MODULESET" $MMB_DIR/modules)
-
-    pushd $MMB_DIR/modules > /dev/null
-
+    echo "Copying kernel modules..."
+    cp -a $KERNELROOT/lib/modules/* $MMB_DIR/lib/modules/
+    echo "Removing extraneous modules..."
+    find $MMB_DIR/lib/modules/ -name *.ko | while read module ; do
+        m=${module##*/}
+        modname=${m%%.ko}
+        echo $MMB_MODULESET | grep -wq $modname || {
+            rm -f $module
+        }
+    done
+    # clean up leftover cruft
+    find $MMB_DIR/lib/modules -type d -exec rmdir -f {} \; 2>/dev/null
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
-	$MMB_MODULESET > ../$MMB_MODINFO
-
-    getmoddeps "$(find . -name *.ko)" ../modules.dep
-
-    # create the modules.alias file
-    $TRIMMODALIAS $(find . -name *.ko -exec basename {} \;) < $MODALIAS > ../modules.alias
+	$MMB_MODULESET > $MMB_DIR/lib/modules/module-info
+    # compress modules
+    find $MMB_DIR/lib/modules -type -f -name *.ko -exec gzip -9 {} \;
+    rundepmod $MMB_DIR
+    rm -f $MMB_DIR/lib/modules/*/modules.*map
+    rm -f $MMB_DIR/lib/modules/*/{build,source}
     
     # create the pci.ids, from modules.alias and the X driver aliases
     awk '!/^(\t\t|#)/ { print ;if ($0 == "ffff  Illegal Vendor ID") nextfile; }' < $PCIIDS | \
       $TRIMPCIIDS ../modules.alias $XDRIVERS/* > ../pci.ids
-
-    if [ -n "$MMB_DD" ]; then
-	echo $MMB_DD > $MMB_DIR/rhdd
-    fi
-
-    find . -type f | cpio --quiet -H crc -o | gzip -9 > ../$MMB_NAME
-    cd ..
-    rm -rf modules
-    chmod 644 *
-    popd  > /dev/null
 }
+
 
 makeproductfile() {
     root=$1
@@ -540,6 +472,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/tmp
     mkdir -p $MBD_DIR/etc/terminfo/{a,b,d,l,s,v,x}
     mkdir -p $MBD_DIR/etc/udev/rules.d
+    mkdir -p $MBD_DIR/etc/modprobe.d
     mkdir -p $MBD_DIR/var/run
     mkdir -p $MBD_DIR/var/lock/rpm
 
@@ -559,7 +492,7 @@ makeinitrd() {
 
     if [ -n "$INITRDMODULES" ]; then
 	MODSET=`expandModuleSet "$INITRDMODULES"`
-        makemoduleball --name $MODULEBALLNAME $MBD_DIR/modules "$MODSET"
+        makemoduletree $MBD_DIR "$MODSET"
     fi
 
     # Copy in driver firmware we want during installation.  NOTE:  This isn't
@@ -571,29 +504,23 @@ makeinitrd() {
     for module in $MODSET ; do
         case $module in
             ipw2100)
-                mkdir -p $MBD_DIR/modules/firmware
-                cp $KERNELROOT/lib/firmware/ipw2100* $MBD_DIR/modules/firmware
+                cp $KERNELROOT/lib/firmware/ipw2100* $MBD_DIR/firmware
                 ;;
             ipw2200)
-                mkdir -p $MBD_DIR/modules/firmware
-                cp $KERNELROOT/lib/firmware/ipw-2.4* $MBD_DIR/modules/firmware
-                cp $KERNELROOT/lib/firmware/ipw2200* $MBD_DIR/modules/firmware
+                cp $KERNELROOT/lib/firmware/ipw-2.4* $MBD_DIR/firmware
+                cp $KERNELROOT/lib/firmware/ipw2200* $MBD_DIR/firmware
                 ;;
             iwl3945)
-                mkdir -p $MBD_DIR/modules/firmware
-                cp $KERNELROOT/lib/firmware/iwlwifi-3945* $MBD_DIR/modules/firmware
+                cp $KERNELROOT/lib/firmware/iwlwifi-3945* $MBD_DIR/firmware
                 ;;
             iwl4965)
-                mkdir -p $MBD_DIR/modules/firmware
-                cp $KERNELROOT/lib/firmware/iwlwifi-4965* $MBD_DIR/modules/firmware
+                cp $KERNELROOT/lib/firmware/iwlwifi-4965* $MBD_DIR/firmware
                 ;;
             atmel)
-                mkdir -p $MBD_DIR/modules/firmware
-                cp $KERNELROOT/lib/firmware/atmel_*.bin $MBD_DIR/modules/firmware
+                cp $KERNELROOT/lib/firmware/atmel_*.bin $MBD_DIR/firmware
                 ;;
             zd1211rw)
-                mkdir -p $MBD_DIR/modules/firmware/zd1211
-                cp $KERNELROOT/lib/firmware/zd1211/* $MBD_DIR/modules/firmware/zd1211
+                cp $KERNELROOT/lib/firmware/zd1211/* $MBD_DIR/firmware/zd1211
                 ;;
         esac
     done
@@ -818,7 +745,7 @@ for KERNELARCH in $arches; do
     fi
 
     KERNELROOT=$KERNELBASE/$KERNELARCH
-    mkdir -p $KERNELROOT/lib/modules/misc
+    mkdir -p $KERNELROOT
 
     foundakernel="yes"
 
@@ -844,8 +771,7 @@ for KERNELARCH in $arches; do
 
     allmods=$(find $KERNELROOT/lib/modules/$version -name *.ko)
 
-    rundepmod "$allmods" $MODDEPS
-    find $KERNELROOT/lib/modules/$version > $CACHE
+    rundepmod $KERNELROOT
     $GENMODINFO $KERNELROOT/lib/modules/$version > $MODINFO
 
     # make the boot images
@@ -859,8 +785,6 @@ doPostImages
 rm -rf $INSTIMGTEMPLATE/usr/lib/anaconda-runtime $INSTIMGTEMPLATE/usr/lib/syslinux $IMGPATH/usr/lib/syslinux
 
 if [ -n "$foundakernel" ]; then
-  # make the second stage
-  find $KERNELBASE/*/lib/modules/ > $CACHE
   makeSecondStage
   rm -rf $KERNELBASE
 fi
