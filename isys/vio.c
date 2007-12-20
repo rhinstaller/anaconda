@@ -27,8 +27,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <kudzu/kudzu.h>
-
 #if defined(__powerpc__)
 static int readFD (int fd, char **buf)
 {
