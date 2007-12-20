@@ -60,7 +60,7 @@ LOADEROBJS = loader.o loader-pcmcia.o
 NETOBJS = net.o urls.o ftp.o telnet.o telnetd.o
 SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 
-LIBS += -lkudzu_loader -lpci
+LIBS +=
 
 CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
 STATIC =

@@ -20,9 +20,7 @@
 #ifndef H_METHOD
 #define H_METHOD
 
-#include "modules.h"
 #include "loader.h"
-#include <kudzu/kudzu.h>
 
 /* method identifiers, needs to match struct installMethod order in loader.c */
 enum {
@@ -37,7 +35,7 @@ enum {
 struct installMethod {
     char * name;
     int network;
-    enum deviceClass deviceType;			/* for pcmcia */
+    enum deviceType type;
     char * (*mountImage)(struct installMethod * method,
                          char * location, struct loaderData_s * loaderData);
 };

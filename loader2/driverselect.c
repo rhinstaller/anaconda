@@ -26,7 +26,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <kudzu/kudzu.h>
 
 #include "modules.h"
 #include "moduleinfo.h"
@@ -34,7 +33,6 @@
 #include "loadermisc.h"
 #include "log.h"
 #include "lang.h"
-#include "hardware.h"
 #include "driverdisk.h"
 
 struct sortModuleList {
@@ -154,19 +152,12 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
     newtGrid grid, buttons;
     struct newtExitStruct es;
 
-    if (class == CLASS_NETWORK)
+    if (class == DEVICE_NETWORK)
         type = DRIVER_NET;
-    else if ((class == CLASS_SCSI) || (class == CLASS_HD) || 
-             (class == CLASS_CDROM) || (class == CLASS_IDE) ||
-             (class == CLASS_ATA) || (class == CLASS_SATA))
+    else if (class == DEVICE_DISK || class == DEVICE_CDROM)
         type = DRIVER_SCSI;
-    else if (class == CLASS_UNSPEC)
+    else
         type = DRIVER_ANY;
-    else {
-        logMessage(ERROR, "unknown device class %d specified; aborting manual "
-                   "selection", class);
-        return LOADER_ERROR;
-    }
 
     do {
         sortedOrder = malloc(sizeof(*sortedOrder) * modInfo->numModules);

@@ -22,7 +22,6 @@
 
 #include <errno.h>
 #include <fcntl.h>
-#include <kudzu/kudzu.h>
 #include <newt.h>
 #include <popt.h>
 #include <stdlib.h>
@@ -159,9 +158,6 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     sprintf(file, "%s/modinfo", mntpt);
     readModuleInfo(file, modInfo, location, 1);
 
-    sprintf(file, "%s/modules.alias", mntpt);
-    pciReadDrivers(file);
-
     if (!FL_CMDLINE(flags))
         newtPopWindow();
 
@@ -175,64 +171,23 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
  * of device names
  */
 int getRemovableDevices(char *** devNames) {
-    struct device **devices, **floppies, **cdroms, **disks;
+    struct device **devs;
     int numDevices = 0;
-    int i = 0, j = 0;
+    int i = 0;
 
-    floppies = probeDevices(CLASS_FLOPPY, 
-                            BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_LOADED);
-    cdroms = probeDevices(CLASS_CDROM, 
-                          BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_LOADED);
-    disks = probeDevices(CLASS_HD, 
-                         BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_LOADED);
+    devs = getDevices(DEVICE_DISK | DEVICE_CDROM);
 
-    /* we should probably take detached into account here, but it just
-     * means we use a little bit more memory than we really need to */
-    if (floppies)
-        for (i = 0; floppies[i]; i++) numDevices++;
-    if (cdroms)
-        for (i = 0; cdroms[i]; i++) numDevices++;
-    if (disks)
-        for (i = 0; disks[i]; i++) numDevices++;
-
-    /* JKFIXME: better error handling */
+    for (i = 0; devs[i] ; i++) {
+        if (devs[i]->priv.removable) {
+            *devNames = realloc(*devNames, (numDevices + 2) * sizeof(char *));
+            (*devNames)[numDevices] = strdup(devs[i]->device);
+            (*devNames)[numDevices+1] = NULL;
+            numDevices ++;
+        }
+    }
     if (!numDevices) {
         logMessage(ERROR, "no devices found to load drivers from");
-        return numDevices;
     }
-
-    devices = malloc((numDevices + 1) * sizeof(**devices));
-
-    i = 0;
-    if (floppies)
-        for (j = 0; floppies[j]; j++) 
-            if ((floppies[j]->detached == 0) && (floppies[j]->device != NULL)) 
-                devices[i++] = floppies[j];
-    if (cdroms)
-        for (j = 0; cdroms[j]; j++) 
-            if ((cdroms[j]->detached == 0) && (cdroms[j]->device != NULL)) 
-                devices[i++] = cdroms[j];
-    if (disks)
-        for (j = 0; disks[j]; j++) 
-            if ((disks[j]->detached == 0) && (disks[j]->device != NULL)) 
-                devices[i++] = disks[j];
-
-    devices[i] = NULL;
-    numDevices = i;
-
-    for (i = 0; devices[i]; i++) {
-        logMessage(DEBUGLVL, "devices[%d] is %s", i, devices[i]->device);
-    }
-
-    *devNames = malloc((numDevices + 1) * sizeof(*devNames));
-    for (i = 0; devices[i] && (i < numDevices); i++)
-        (*devNames)[i] = strdup(devices[i]->device);
-    free(devices);
-    (*devNames)[i] = NULL;
-
-    if (i != numDevices)
-        logMessage(WARNING, "somehow numDevices != len(devices)");
-
     return numDevices;
 }
 
@@ -434,7 +389,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
 	    before = 0;
 	    found = 0;
 
-            devices = probeDevices(class, BUS_UNSPEC, PROBE_LOADED);
+            devices = getDevices(class);
             if (devices)
                 for(; devices[before]; before++);
 
@@ -470,7 +425,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
 
             busProbe(0);
 
-            devices = probeDevices(class, BUS_UNSPEC, PROBE_LOADED);
+            devices = getDevices(class);
             if (devices)
                 for(; devices[found]; found++);
 
@@ -526,7 +481,7 @@ int loadDriverDisks(int class, struct loaderData_s *loaderData) {
     if (rc != 1)
         return LOADER_OK;
 
-    rc = loadDriverFromMedia(CLASS_UNSPEC, loaderData, 1, 0);
+    rc = loadDriverFromMedia(DEVICE_ANY, loaderData, 1, 0);
     if (rc == LOADER_BACK)
         return LOADER_OK;
 
@@ -535,7 +490,7 @@ int loadDriverDisks(int class, struct loaderData_s *loaderData) {
                            _("Do you wish to load any more driver disks?"));
         if (rc != 1)
             break;
-        loadDriverFromMedia(CLASS_UNSPEC, loaderData, 0, 0);
+        loadDriverFromMedia(DEVICE_ANY, loaderData, 0, 0);
     } while (1);
 
     return LOADER_OK;
@@ -571,7 +526,7 @@ void getDDFromSource(struct loaderData_s * loaderData, char * src) {
      * scsi cdrom drives */
 #if !defined(__s390__) && !defined(__s390x__)
     } else if (!strncmp(src, "cdrom", 5)) {
-        loadDriverDisks(CLASS_UNSPEC, loaderData);
+        loadDriverDisks(DEVICE_ANY, loaderData);
         return;
 #endif
     } else if (!strncmp(src, "path:", 5)) {

@@ -115,6 +115,7 @@ char * getProductPath(void);
 char * getProductArch(void);
 
 #include "modules.h"
+#include "../isys/devices.h"
 /* JKFIXME: I don't like all of the _set attribs, but without them,
  * we can't tell if it was explicitly set by kickstart/cmdline or 
  * if we just got it going through the install.   */

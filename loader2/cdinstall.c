@@ -239,7 +239,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
     r = asprintf(&stage2loc, "%s/images/stage2.img", location);
     r = asprintf(&discinfoloc, "%s/.discinfo", location);
 
-    devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, 0);
+    devices = getDevices(DEVICE_CDROM);
     if (!devices) {
         logMessage(ERROR, "got to setupCdrom without a CD device");
         return NULL;
@@ -375,7 +375,7 @@ int kickstartFromCD(char *kssrc) {
 
     logMessage(INFO, "getting kickstart file from first CDROM");
 
-    devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, 0);
+    devices = getDevices(DEVICE_CDROM);
     if (!devices) {
         logMessage(ERROR, "No CDROM devices found!");
         return 1;

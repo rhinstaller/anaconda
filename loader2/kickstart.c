@@ -27,7 +27,6 @@
 #include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <kudzu/kudzu.h>
 #include <newt.h>
 #include <popt.h>
 #include <stdlib.h>
@@ -246,27 +245,27 @@ int ksGetCommand(int cmd, char ** last, int * argc, char *** argv) {
     return 1;
 }
 
-int kickstartFromFloppy(char *kssrc) {
+int kickstartFromRemovable(char *kssrc) {
     struct device ** devices;
     char *p, *kspath;
     int i, rc;
 
-    logMessage(INFO, "doing kickstart from floppy");
-    devices = probeDevices(CLASS_FLOPPY, BUS_MISC | BUS_IDE | BUS_SCSI, PROBE_LOADED);
+    logMessage(INFO, "doing kickstart from removable media");
+    devices = getDevices(DEVICE_DISK);
     if (!devices) {
-        logMessage(ERROR, "no floppy devices");
+        logMessage(ERROR, "no disks");
         return 1;
     }
 
     for (i = 0; devices[i]; i++) {
-        if (devices[i]->detached == 0) {
-            logMessage(INFO, "first non-detached floppy is %s", devices[i]->device);
+        if (devices[i]->priv.removable == 1) {
+            logMessage(INFO, "first removable media is %s", devices[i]->device);
             break;
         }
     }
 
-    if (!devices[i] || (devices[i]->detached != 0)) {
-        logMessage(ERROR, "no floppy devices");
+    if (!devices[i] || (devices[i]->priv.removable == 0)) {
+        logMessage(ERROR, "no removable devices");
         return 1;
     }
 
@@ -283,7 +282,7 @@ int kickstartFromFloppy(char *kssrc) {
 	if (rc == 3) {
 	    startNewt();
 	    newtWinMessage(_("Error"), _("OK"),
-			   _("Cannot find ks.cfg on boot floppy."));
+			   _("Cannot find ks.cfg on removable media."));
 	}
 	return 1;
     }
@@ -420,7 +419,7 @@ void getKickstartFile(struct loaderData_s *loaderData) {
             rc = kickstartFromNfs(c+4, loaderData);
             loaderData->ksFile = strdup("/tmp/ks.cfg");
         } else if (!strncmp(c, "floppy", 6)) {
-            rc = kickstartFromFloppy(c);
+            rc = kickstartFromRemovable(c);
             loaderData->ksFile = strdup("/tmp/ks.cfg");
         } else if (!strncmp(c, "hd:", 3)) {
             rc = kickstartFromHD(c);

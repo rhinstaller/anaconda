@@ -356,7 +356,7 @@ int getFileFromUrl(char * url, char * dest,
         char *dev, *mac, *tmpstr;
         struct device **devices;
 
-        devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
+        devices = getDevices(DEVICE_NETWORK);
         for (i = 0; devices && devices[i]; i++) {
             dev = devices[i]->device;
             mac = netlink_interfaces_mac2str(dev);

@@ -34,7 +34,6 @@
 #include <string.h>
 #include <strings.h>
 #include <unistd.h>
-#include <kudzu/kudzu.h>
 
 #include "../isys/dns.h"
 #include "../isys/isys.h"
@@ -1409,7 +1408,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
     char ret[48];
     ip_addr_t *tip;
 
-    devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
+    devices = getDevices(DEVICE_NETWORK);
     if (!devices)
         return 0;
 
@@ -1729,7 +1728,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     struct device ** devs;
     char * ksMacAddr = NULL;
 
-    devs = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
+    devs = getDevices(DEVICE_NETWORK);
     if (!devs) {
         logMessage(ERROR, "no network devices in choose network device!");
         return LOADER_ERROR;
@@ -1753,22 +1752,16 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
         if (!devs[i]->device)
             continue;
 
-        /* if kudzu hands us a device name of 'eth', we lack firmware */
-        /* skip the device as an option for installation (#251941)    */
-        if ((strlen(devs[i]->device) == 3) &&
-            (!strncmp(devs[i]->device, "eth", 3)))
-            continue;
-
         /* require passing a flag for wireless while our wireless support 
          * sucks */
         if (is_wireless_interface(devs[i]->device) && !FL_ALLOW_WIRELESS(flags))
             continue;
 
-        if (devs[i]->desc) {
+        if (devs[i]->description) {
                 deviceNames[deviceNums] = alloca(strlen(devs[i]->device) +
-                                          strlen(devs[i]->desc) + 4);
+                                          strlen(devs[i]->description) + 4);
                 sprintf(deviceNames[deviceNums],"%s - %s",
-                        devs[i]->device, devs[i]->desc);
+                        devs[i]->device, devs[i]->description);
                 if (strlen(deviceNames[deviceNums]) > max)
                         max = strlen(deviceNames[deviceNums]);
                 devices[deviceNums] = devs[i]->device;

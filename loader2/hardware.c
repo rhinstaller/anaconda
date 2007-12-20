@@ -25,7 +25,6 @@
 
 #include <errno.h>
 #include <fcntl.h>
-#include <kudzu/kudzu.h>
 #include <popt.h>
 #include <string.h>
 #include <strings.h>

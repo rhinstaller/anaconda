@@ -120,11 +120,11 @@ int post_link_sleep = 0;
 
 static struct installMethod installMethods[] = {
 #if !defined(__s390__) && !defined(__s390x__)
-    { N_("Local CD/DVD"), 0, CLASS_CDROM, mountCdromImage },
+    { N_("Local CD/DVD"), 0, DEVICE_CDROM, mountCdromImage },
 #endif
-    { N_("Hard drive"), 0, CLASS_HD, mountHardDrive },
-    { N_("NFS directory"), 1, CLASS_NETWORK, mountNfsImage },
-    { "URL", 1, CLASS_NETWORK, mountUrlImage },
+    { N_("Hard drive"), 0, DEVICE_DISK, mountHardDrive },
+    { N_("NFS directory"), 1, DEVICE_NETWORK, mountNfsImage },
+    { "URL", 1, DEVICE_NETWORK, mountUrlImage },
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -932,7 +932,7 @@ static void checkForRam(void) {
 static int haveDeviceOfType(int type) {
     struct device ** devices;
 
-    devices = probeDevices(type, BUS_UNSPEC, PROBE_LOADED);
+    devices = getDevices(type);
     if (devices) {
         return 1;
     }
@@ -1091,7 +1091,7 @@ static char *doLoaderMain(char * location,
                 step = STEP_KBD;
                 dir = -1;
             } else {
-                needed = installMethods[validMethods[methodNum]].deviceType;
+                needed = installMethods[validMethods[methodNum]].type;
                 step = STEP_DRIVER;
                 dir = 1;
             }
@@ -1121,7 +1121,7 @@ static char *doLoaderMain(char * location,
                 break;
             }
 
-            chooseManualDriver(installMethods[validMethods[methodNum]].deviceType,
+            chooseManualDriver(installMethods[validMethods[methodNum]].type,
                                loaderData);
             /* it doesn't really matter what we return here; we just want
              * to reprobe and make sure we have the driver */
@@ -1144,8 +1144,8 @@ static char *doLoaderMain(char * location,
             break;
 
         case STEP_NETWORK:
-            if ( (installMethods[validMethods[methodNum]].deviceType != 
-                  CLASS_NETWORK) && (!hasGraphicalOverride()) &&
+            if ( (installMethods[validMethods[methodNum]].type !=
+                  DEVICE_NETWORK) && (!hasGraphicalOverride()) &&
                  !FL_ASKNETWORK(flags)) {
                 needsNetwork = 0;
                 if (dir == 1) 
@@ -1156,8 +1156,8 @@ static char *doLoaderMain(char * location,
             }
 
             needsNetwork = 1;
-            if (!haveDeviceOfType(CLASS_NETWORK)) {
-                needed = CLASS_NETWORK;
+            if (!haveDeviceOfType(DEVICE_NETWORK)) {
+                needed = DEVICE_NETWORK;
                 step = STEP_DRIVER;
                 break;
             }
@@ -1346,7 +1346,7 @@ static int manualDeviceCheck(struct loaderData_s *loaderData) {
         if (rc != 2)
             break;
 
-        chooseManualDriver(CLASS_UNSPEC, loaderData);
+        chooseManualDriver(DEVICE_ANY, loaderData);
     } while (1);
     return 0;
 }
@@ -1586,7 +1586,7 @@ int main(int argc, char ** argv) {
     if (FL_MODDISK(flags)) {
         startNewt();
 
-        loadDriverDisks(CLASS_UNSPEC, &loaderData);
+        loadDriverDisks(DEVICE_ANY, &loaderData);
     }
 
     if (!access("/dd.img", R_OK)) {
