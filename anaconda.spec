@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.11
+Version: 11.4.0.12
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -200,6 +200,16 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 20 2007 Jeremy Katz <katzj@redhat.com> - 11.4.0.12-1
+- Switch away from using kudzu in the loader (notting)
+- Use udev in the loader and a dynamically linked stage1 (notting)
+- Don't handle all aspects of module loading ourselves - just wrap 
+  modprobe. (notting)
+- Ensure there's an active net device (katzj)
+- Fix error reporting messages (sfernand, #242252). (clumens)
+- Don't immediately retry on downloading a package. (clumens)
+- Update to work with new system-config-keyboard. (clumens)
+
 * Mon Dec 17 2007 Jeremy Katz <katzj@redhat.com> - 11.4.0.11-1
 - Validation of root password with cracklib (hhara)
 - Minor fixes to liveinst shell script (katzj)
