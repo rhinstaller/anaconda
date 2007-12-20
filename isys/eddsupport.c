@@ -36,13 +36,10 @@
 #include <sys/types.h>
 #include <linux/types.h>
 
-#include <kudzu/kudzu.h>
-
 
 #include "eddsupport.h"
+#include "devices.h"
 #include "isys.h"
-
-
 
 #define EDD_DIR "/sys/firmware/edd"
 #define SIG_FILE "mbr_signature"
@@ -104,7 +101,7 @@ int probeBiosDisks() {
 
 
 static struct device ** createDiskList(){
-    return probeDevices (CLASS_HD, BUS_UNSPEC, PROBE_ALL);
+    return getDevices (DEVICE_DISK);
 }
 
 static int readDiskSig(char *device, uint32_t *disksig) {
