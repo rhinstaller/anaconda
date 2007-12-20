@@ -18,7 +18,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define gettextver 0.11
 %define glib2ver 2.11.1-5
 %define intltoolver 0.31.2-3
-%define kudzuver 1.2.68
 %define libdhcpver 1.27-3
 %define libselinuxver 1.6
 %define mkinitrdver 5.1.2-1
@@ -46,7 +45,6 @@ BuildRequires: glib2-devel >= %{glib2ver}
 BuildRequires: gtk2-devel
 BuildRequires: intltool >= %{intltoolver}
 BuildRequires: isomd5sum-devel
-BuildRequires: kudzu-devel >= %{kudzuver}
 BuildRequires: libX11-devel
 BuildRequires: libXt-devel
 BuildRequires: libXxf86misc-devel
@@ -57,7 +55,6 @@ BuildRequires: libxml2-python
 BuildRequires: mkinitrd-devel >= %{mkinitrdver}
 BuildRequires: newt-devel
 BuildRequires: pango-devel
-BuildRequires: pciutils-devel
 BuildRequires: pirut
 BuildRequires: popt-devel
 BuildRequires: pykickstart >= %{pykickstartver}
