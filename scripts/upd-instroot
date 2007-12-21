@@ -159,7 +159,7 @@ PACKAGES="glibc-common setup python newt slang libselinux
 	 device-mapper device-mapper-libs dmraid keyutils-libs libsemanage-python
 	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr pcre
 	 cryptsetup-luks libgcrypt libgpg-error dbus dbus-python hal
-	 cracklib-python module-init-tools"
+	 cracklib-python module-init-tools cracklib-dicts"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
@@ -442,6 +442,7 @@ usr/$LIBDIR/libuser/*
 usr/libexec/convertdb1
 usr/libexec/hal*
 usr/libexec/polkit*
+usr/share/cracklib
 usr/share/dbus-1
 usr/share/hal
 usr/share/PolicyKit
