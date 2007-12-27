@@ -454,14 +454,10 @@ static void load_firmware(struct fw_loader *fwl, struct uevent *uevent)
     char *tempfile;
     int fd = -1;
 
-    if (!(tempfile = tempnam("/tmp/", "fw-")))
+    tempfile = strdup("/tmp/fw-XXXXXX");
+    fd = mkstemp(tempfile);
+    if (fd == -1)
         return;
-
-    if ((fd = open(tempfile, O_RDWR | O_EXCL | O_CREAT, 0600)) < 0) {
-        free(tempfile);
-        return;
-    }
-
     unlink(tempfile);
     free(tempfile);
 
