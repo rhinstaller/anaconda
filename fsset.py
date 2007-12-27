@@ -1561,6 +1561,8 @@ MAILADDR root
         for entry in self.entries:
             if not entry.fsystem or not entry.fsystem.isResizable():
                 continue
+            if entry.fsystem.isFormattable() and entry.getFormat():
+                continue
             if entry.resizeTargetSize is None:
                 continue
             if shrink and not (entry.resizeTargetSize < entry.resizeOrigSize):
