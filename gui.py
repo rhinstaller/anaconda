@@ -656,7 +656,7 @@ class luksPassphraseWindow:
                     MessageWindow(_("Error with passphrase"),
                                   _("The passphrases you entered were "
                                     "different.  Please try again."),
-                                  type = "error")
+                                  type = "ok", custom_icon = "error")
                     self.confirmEntry.set_text("")
                     continue
 
@@ -664,7 +664,7 @@ class luksPassphraseWindow:
                     MessageWindow(_("Error with passphrase"),
                                     _("The passphrase must be at least "
                                       "eight characters long."),
-                                  type = "error")
+                                  type = "ok", custom_icon = "error")
                     self.passphraseEntry.set_text("")
                     self.confirmEntry.set_text("")
                     continue
@@ -768,6 +768,7 @@ class MessageWindow:
         self.framed = False
         self.doCustom = False
 
+        style = 0
         if type == 'ok':
             buttons = gtk.BUTTONS_OK
             style = gtk.MESSAGE_INFO
