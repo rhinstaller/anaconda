@@ -356,6 +356,7 @@ class PartitionTypeWindow(InstallWindow):
 
             self.xml.get_widget("driveScroll").set_sensitive(False)
             self.xml.get_widget("bootDriveCombo").set_sensitive(False)
+            self.xml.get_widget("encryptButton").set_sensitive(False)
 
         sigs = { "on_partitionTypeCombo_changed": self.comboChanged,
                  "on_addButton_clicked": self.addDrive }
