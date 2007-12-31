@@ -206,7 +206,7 @@ class RequestSpec:
             return False
         return self.resizable and self.fstype.isResizable()
 
-    def isEncrypted(self, partitions):
+    def isEncrypted(self, partitions, parentOnly = False):
         if self.encryption and self.encryption.getScheme() is not None:
             return True
         return False
@@ -695,9 +695,11 @@ class RaidRequestSpec(RequestSpec):
                                     encryption = self.encryption)
         return self.dev
 
-    def isEncrypted(self, partitions):
+    def isEncrypted(self, partitions, parentOnly = False):
         if RequestSpec.isEncrypted(self, partitions) is True:
             return True
+        if parentOnly:
+            return False
         for member in self.raidmembers:
             if partitions.getRequestByID(member).isEncrypted(partitions):
                 return True
@@ -841,9 +843,11 @@ class VolumeGroupRequestSpec(RequestSpec):
                                            existing = self.preexist)
         return self.dev
 
-    def isEncrypted(self, partitions):
+    def isEncrypted(self, partitions, parentOnly = False):
         if RequestSpec.isEncrypted(self, partitions) is True:
             return True
+        if parentOnly:
+            return False
         for pvid in self.physicalVolumes:
             pv = partitions.getRequestByID(pvid)
             if pv.isEncrypted(partitions):
@@ -969,9 +973,11 @@ class LogicalVolumeRequestSpec(RequestSpec):
                                              existing = self.preexist)
         return self.dev
 
-    def isEncrypted(self, partitions):
+    def isEncrypted(self, partitions, parentOnly = False):
         if RequestSpec.isEncrypted(self, partitions) is True:
             return True
+        if parentOnly:
+            return False
         vg = partitions.getRequestByID(self.volumeGroup)
         if vg.isEncrypted(partitions):
             return True

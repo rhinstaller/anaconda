@@ -747,7 +747,9 @@ class PartitionWindow(InstallWindow):
 		    self.tree[iter]['PyObject'] = str(lvrequest.uniqueID)
 		
                     ptype = lvrequest.fstype.getName()
-                    if lvrequest.format:
+                    if lvrequest.isEncrypted(self.partitions, True) and lvrequest.format:
+			self.tree[iter]['Format'] = self.lock_pixbuf
+                    elif lvrequest.format:
 			self.tree[iter]['Format'] = self.checkmark_pixbuf
                     self.tree[iter]['IsFormattable'] = lvrequest.fstype.isFormattable()
 		    self.tree[iter]['IsLeaf'] = True
@@ -783,8 +785,10 @@ class PartitionWindow(InstallWindow):
                 if request.fstype:
                     ptype = self.getShortFSTypeName(request.fstype.getName())
 
-              	    if request.format:
-			self.tree[iter]['Format'] = self.checkmark_pixbuf
+                    if request.isEncrypted(self.partitions, True) and request.format:
+			self.tree[iter]['Format'] = self.lock_pixbuf
+                    elif request.format:
+                        self.tree[iter]['Format'] = self.checkmark_pixbuf
                     self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
                 else:
                     ptype = _("None")
@@ -872,7 +876,9 @@ class PartitionWindow(InstallWindow):
 		    else:
 			self.tree[iter]['Mount Point'] = ""
 
-		    if request.format:
+                    if request.isEncrypted(self.partitions, True) and request.format:
+                        self.tree[iter]['Format'] = self.lock_pixbuf
+		    elif request.format:
 			self.tree[iter]['Format'] = self.checkmark_pixbuf
 
 			
@@ -908,7 +914,9 @@ class PartitionWindow(InstallWindow):
                     else:
                         ptype = part.fs_type.name
 
-                    if request.format:
+                    if request.isEncrypted(self.partitions, True) and request.format:
+			self.tree[iter]['Format'] = self.lock_pixbuf
+                    elif request.format:
 			self.tree[iter]['Format'] = self.checkmark_pixbuf
                 else:
                     if request and request.fstype != None:
@@ -1361,6 +1369,7 @@ class PartitionWindow(InstallWindow):
 
 	# load up checkmark
 	self.checkmark_pixbuf = gtk.gdk.pixbuf_new_from_inline(len(new_checkmark), new_checkmark, False)
+        self.lock_pixbuf = gui.getPixbuf("gnome-lock.png")
 
         # operational buttons
         buttonBox = gtk.HButtonBox()
