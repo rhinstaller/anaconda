@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.12
+Version: 11.4.0.13
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -200,6 +200,15 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 01 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.13-1
+- Make it obvious which partitions are being formatted and encrypted (katzj)
+- Set initial sensitivity of encrypt button correctly (katzj)
+- Fix traceback on invalid passphrase (#426887) (katzj)
+- Use mkstemp() instead of tempnam() (katzj)
+- Don't resize filesystems which are being formatted (#426466) (katzj)
+- Add cracklib-dicts (#426444) (katzj)
+- Fix build (notting)
+
 * Thu Dec 20 2007 Jeremy Katz <katzj@redhat.com> - 11.4.0.12-1
 - Switch away from using kudzu in the loader (notting)
 - Use udev in the loader and a dynamically linked stage1 (notting)
