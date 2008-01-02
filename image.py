@@ -206,7 +206,7 @@ def presentRequiredMediaMessage(anaconda):
         return
 
     # check what discs our currently mounted one provides
-    if os.access("/.discinfo" % anaconda.backend.ayum.tree, os.R_OK):
+    if os.access("%s/.discinfo" % anaconda.backend.ayum.tree, os.R_OK):
         discNums = []
         try:
             f = open("%s/.discinfo", anaconda.backend.ayum.tree)
