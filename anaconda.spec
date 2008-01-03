@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.13
+Version: 11.4.0.14
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -200,6 +200,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jan 03 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.14-1
+- Precreate /etc/modprobe.d in installroot (jkeating)
+- 'import sets' in image.py (jkeating)
+- Fix traceback when displaying required media (clumens)
+
 * Tue Jan 01 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.13-1
 - Make it obvious which partitions are being formatted and encrypted (katzj)
 - Set initial sensitivity of encrypt button correctly (katzj)
