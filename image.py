@@ -18,7 +18,7 @@
 #
 
 import isys
-import os, os.path, stat, string, sys
+import os, os.path, stat, string, sys, sets
 from constants import *
 
 import rhpl
