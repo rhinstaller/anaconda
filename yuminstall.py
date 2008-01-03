@@ -1226,7 +1226,7 @@ class YumBackend(AnacondaBackend):
         dirList = ['/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
                    '/etc/sysconfig', '/etc/sysconfig/network-scripts',
                    '/etc/X11', '/root', '/var/tmp', '/etc/rpm', '/var/cache',
-                   '/var/cache/yum']
+                   '/var/cache/yum', '/etc/modprobe.d']
 
         # If there are any protected partitions we want to mount, create their
         # mount points now.
