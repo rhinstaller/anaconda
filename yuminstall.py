@@ -268,6 +268,7 @@ class AnacondaYum(YumSorter):
         YumSorter.__init__(self)
         self.anaconda = anaconda
         self._loopbackFile = None
+        self._timestamp = None
 
         # The loader mounts the first disc for us, so don't remount it.
         self.currentMedia = 1
@@ -374,13 +375,8 @@ class AnacondaYum(YumSorter):
             else:
                 if os.access("%s/.discinfo" % self.tree, os.R_OK):
                     f = open("%s/.discinfo" % self.tree)
-                    timestamp = f.readline().strip()
+                    self._timestamp = f.readline().strip()
                     f.close()
-                else:
-                    timestamp = self.timestamp
-
-                if self.timestamp is None:
-                    self.timestamp = timestamp
 
                 # If self.currentMedia is None, then we shouldn't have anything
                 # mounted.  double-check by trying to unmount, but we don't want
@@ -413,7 +409,7 @@ class AnacondaYum(YumSorter):
                             isys.mount(self.anaconda.mediaDevice, self.tree,
                                        fstype = "iso9660", readOnly = 1)
 
-                        if verifyMedia(self.tree, discnum, self.timestamp):
+                        if verifyMedia(self.tree, discnum, self._timestamp):
                             self.currentMedia = discnum
                             break
 
