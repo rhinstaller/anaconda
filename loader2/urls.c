@@ -285,13 +285,13 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
     char * buf = NULL;
     int r;
 
-    if (ui->login || ui->password || ui->proxy || ui->proxyPort)
+    if (ui && (ui->login || ui->password || ui->proxy || ui->proxyPort))
          *doSecondarySetup = '*';
     else
          *doSecondarySetup = ' ';
 
     /* Populate the UI with whatever initial value we've got. */
-    if (ui)
+    if (ui && ui->prefix)
         url = convertUIToURL(ui);
 
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
