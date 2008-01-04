@@ -548,7 +548,6 @@ class DiskSet:
 
     skippedDisks = []
     mdList = []
-    clearedDisks = []
     exclusiveDisks = []
 
     dmList = None
@@ -672,9 +671,6 @@ class DiskSet:
             # ignoredisk takes precedence over clearpart (#186438).
             if DiskSet.exclusiveDisks != [] and \
                     drive not in DiskSet.exclusiveDisks:
-                continue
-
-            if drive in DiskSet.clearedDisks:
                 continue
 
             disk = self.disks[drive]
