@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.14
+Version: 11.4.0.15
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -200,6 +200,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jan 03 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.15-1
+- Require latest libdhcp (#378641) (dcantrell)
+
 * Thu Jan 03 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.14-1
 - Precreate /etc/modprobe.d in installroot (jkeating)
 - 'import sets' in image.py (jkeating)
