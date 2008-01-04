@@ -764,7 +764,7 @@ class YumBackend(AnacondaBackend):
             except Exception, e:
                 log.debug("Error copying media.repo: %s" %(e,))
 
-        if self.ayum._loopbackFile and (anaconda.mediaDevice or self.isodir):
+        if self.ayum._loopbackFile and (anaconda.mediaDevice or self.ayum.isodir):
             try:
                 os.unlink(self.ayum._loopbackFile)
             except SystemError:
