@@ -878,6 +878,11 @@ class FATFileSystem(FileSystemType):
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5",
                                     searchPath = 1)
+        if rc:
+            msg = iutil.execWithCapture("dosfslabel", [devicePath],
+                                        stderr="/dev/tty5")
+            raise SystemError, "dosfslabel failed on device %s: %s" % (devicePath, msg)
+
         newLabel = iutil.execWithCapture("dosfslabel", [devicePath],
                                    stderr = "/dev/tty5")
         newLabel = newLabel.strip()
