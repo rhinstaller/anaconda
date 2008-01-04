@@ -472,7 +472,7 @@ class AnacondaYum(YumSorter):
         for (name, (uri, mirror)) in self.anaconda.id.instClass.repos.items():
             rid = name.replace(" ", "")
             repo = AnacondaYumRepo(uri=uri, mirrorlist=mirror, repoid=rid,
-                                   root=root, addon=False)
+                                   root=root)
             repo.name = name
             repo.disable()
             extraRepos.append(repo)
