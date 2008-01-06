@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.15
+Version: 11.4.0.16
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -76,7 +76,6 @@ Requires: rhpl >= %{rhplver}
 Requires: booty
 Requires: parted >= %{partedver}
 Requires: pyparted >= %{partedver}
-Requires: kudzu >= %{kudzuver}
 Requires: yum >= %{yumver}
 Requires: pirut >= %{pirutver}
 Requires: libxml2-python
@@ -200,6 +199,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Jan 06 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.16-1
+- Fix checking the timestamps on split media installs. (clumens)
+- Fix reference to isodir to avoid a post-install traceback. (clumens)
+- Use a better test when populating the URL panel in loader. (clumens)
+- Don't use error messages from dosfslabel as the label (#427457). (clumens)
+- No longer require kudzu (#427680). (clumens)
+
 * Thu Jan 03 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.15-1
 - Require latest libdhcp (#378641) (dcantrell)
 
