@@ -312,7 +312,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
     grid = newtCreateGrid(1, 4);
     newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
                      0, 0, 0, 1, 0, 0);
-    newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, urlEntry,
+    newtGridSetField(grid, 0, 1, NEWT_GRID_COMPONENT, urlEntry,
                      0, 0, 0, 1, 0, 0);
     newtGridSetField(grid, 0, 2, NEWT_GRID_COMPONENT, proxyCheckbox,
                      0, 0, 0, 1, 0, 0);
