@@ -346,6 +346,57 @@ class AnacondaYum(YumSorter):
 
         isys.lochangefd("/dev/loop0", self._loopbackFile)
 
+    def _switchCD(self, discnum):
+        if os.access("%s/.discinfo" % self.tree, os.R_OK):
+            f = open("%s/.discinfo" % self.tree)
+            self._timestamp = f.readline().strip()
+            f.close()
+
+        # If self.currentMedia is None, then we shouldn't have anything
+        # mounted.  double-check by trying to unmount, but we don't want
+        # to get into a loop of trying to unmount forever.  If
+        # self.currentMedia is set, then it should still be mounted and
+        # we want to loop until it unmounts successfully
+        if self.currentMedia is None:
+            try:
+                isys.umount(self.tree)
+            except:
+                pass
+        else:
+            unmountCD(self.tree, self.anaconda.intf.messageWindow)
+            self.currentMedia = None
+
+        isys.ejectCdrom(self.anaconda.mediaDevice)
+
+        while True:
+            if self.anaconda.intf:
+                self.anaconda.intf.beep()
+
+            self.anaconda.intf.messageWindow(_("Change Disc"),
+                _("Please insert %s disc %d to continue.") % (productName,
+                                                              discnum))
+
+            try:
+                if isys.mount(self.anaconda.mediaDevice, self.tree,
+                              fstype = "iso9660", readOnly = 1):
+                    time.sleep(3)
+                    isys.mount(self.anaconda.mediaDevice, self.tree,
+                               fstype = "iso9660", readOnly = 1)
+
+                if verifyMedia(self.tree, discnum, self._timestamp):
+                    self.currentMedia = discnum
+                    break
+
+                if not done:
+                    self.anaconda.intf.messageWindow(_("Wrong Disc"),
+                            _("That's not the correct %s disc.")
+                              % (productName,))
+                    isys.umount(self.tree)
+                    isys.ejectCdrom(self.anaconda.mediaDevice)
+            except:
+                self.anaconda.intf.messageWindow(_("Error"),
+                        _("Unable to access the disc."))
+
     def mediaHandler(self, *args, **kwargs):
         mediaid = kwargs["mediaid"]
         discnum = kwargs["discnum"]
@@ -372,55 +423,7 @@ class AnacondaYum(YumSorter):
                                         discImages=self._discImages)
                 self.currentMedia = discnum
             else:
-                if os.access("%s/.discinfo" % self.tree, os.R_OK):
-                    f = open("%s/.discinfo" % self.tree)
-                    self._timestamp = f.readline().strip()
-                    f.close()
-
-                # If self.currentMedia is None, then we shouldn't have anything
-                # mounted.  double-check by trying to unmount, but we don't want
-                # to get into a loop of trying to unmount forever.  If
-                # self.currentMedia is set, then it should still be mounted and
-                # we want to loop until it unmounts successfully
-                if self.currentMedia is None:
-                    try:
-                        isys.umount(self.tree)
-                    except:
-                        pass
-                else:
-                    unmountCD(self.tree, self.anaconda.intf.messageWindow)
-                    self.currentMedia = None
-
-                isys.ejectCdrom(self.anaconda.mediaDevice)
-
-                while True:
-                    if self.anaconda.intf:
-                        self.anaconda.intf.beep()
-
-                    self.anaconda.intf.messageWindow(_("Change Disc"),
-                        _("Please insert %s disc %d to continue.") % (productName,
-                                                                      discnum))
-
-                    try:
-                        if isys.mount(self.anaconda.mediaDevice, self.tree,
-                                      fstype = "iso9660", readOnly = 1):
-                            time.sleep(3)
-                            isys.mount(self.anaconda.mediaDevice, self.tree,
-                                       fstype = "iso9660", readOnly = 1)
-
-                        if verifyMedia(self.tree, discnum, self._timestamp):
-                            self.currentMedia = discnum
-                            break
-
-                        if not done:
-                            self.anaconda.intf.messageWindow(_("Wrong Disc"),
-                                    _("That's not the correct %s disc.")
-                                      % (productName,))
-                            isys.umount(self.tree)
-                            isys.ejectCdrom(self.anaconda.mediaDevice)
-                    except:
-                        self.anaconda.intf.messageWindow(_("Error"),
-                                _("Unable to access the disc."))
+                self._switchCD(discnum)
 
         ug = URLGrabber(checkfunc=kwargs["checkfunc"])
         ug.urlgrab("%s/%s" % (self.tree, kwargs["relative"]), kwargs["local"],
@@ -511,14 +514,20 @@ class AnacondaYum(YumSorter):
             # retrying version of download header
             try:
                 YumSorter.downloadHeader(self, po)
+                break
             except yum.Errors.NoMoreMirrorsRepoError:
+                self._handleFailure(po)
+            except IOError:
                 self._handleFailure(po)
             except yum.Errors.RepoError, e:
                 continue
-            else:
-                break
 
     def _handleFailure(self, package):
+        if not self.isodir and self.currentMedia:
+            buttons = [_("Re_boot"), _("_Eject")]
+        else:
+            buttons = [_("Re_boot"), _("_Reboot")]
+
         pkgFile = os.path.basename(package.returnSimple('relativepath'))
         rc = self.anaconda.intf.messageWindow(_("Error"),
                    _("The file %s cannot be opened.  This is due to a missing "
@@ -528,10 +537,15 @@ class AnacondaYum(YumSorter):
                      "state that will likely require reinstallation.\n\n") %
                                               (pkgFile,),
                                     type="custom", custom_icon="error",
-                                    custom_buttons=[_("Re_boot"), _("_Retry")])
+                                    custom_buttons=buttons)
 
         if rc == 0:
             sys.exit(0)
+        else:
+            if not self.isodir and self.currentMedia:
+                self._switchCD(self.currentMedia)
+            else:
+                return
 
     def mirrorFailureCB (self, obj, *args, **kwargs):
         # This gets called when a mirror fails, but it cannot know whether
