@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.16
+Version: 11.4.0.17
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -199,6 +199,10 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jan 07 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.17-1
+- Make text mode root password dialog default match GUI. (clumens)
+- Fix a segfault in making the URL dialog box. (clumens)
+
 * Sun Jan 06 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.16-1
 - Fix checking the timestamps on split media installs. (clumens)
 - Fix reference to isodir to avoid a post-install traceback. (clumens)
