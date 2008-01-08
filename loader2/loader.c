@@ -466,11 +466,58 @@ void loadUpdates(struct loaderData_s *loaderData) {
     return;
 }
 
+static char *newUpdatesLocation(const char *origLocation) {
+    const char *location;
+    char *retval = NULL;
+    newtComponent f, okay, cancel, answer, locationEntry;
+    newtGrid grid, buttons;
+
+    startNewt();
+
+    locationEntry = newtEntry(-1, -1, NULL, 60, &location, NEWT_FLAG_SCROLL);
+    newtEntrySet(locationEntry, origLocation, 1);
+
+    /* button bar at the bottom of the window */
+    buttons = newtButtonBar(_("OK"), &okay, _("Cancel"), &cancel, NULL);
+
+    grid = newtCreateGrid(1, 3);
+
+    newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT,
+                     newtTextboxReflowed(-1, -1, _("Unable to download the updates image.  Please modify the updates location below or press Cancel to proceed without updates.."), 60, 0, 0, 0),
+                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(grid, 0, 1, NEWT_GRID_COMPONENT, locationEntry,
+                     0, 1, 0, 0, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, buttons,
+                     0, 1, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
+
+    f = newtForm(NULL, NULL, 0);
+    newtGridAddComponentsToForm(grid, f, 1);
+    newtGridWrappedWindow(grid, _("Error downloading updates image"));
+    newtGridFree(grid, 1);
+
+    /* run the form */
+    answer = newtRunForm(f);
+
+    if (answer != cancel)
+        retval = strdup(location);
+
+    newtFormDestroy(f);
+    newtPopWindow();
+
+    return retval;
+}
+
 static int loadUpdatesFromRemote(char * url, struct loaderData_s * loaderData) {
     int rc = getFileFromUrl(url, "/tmp/updates.img", loaderData);
 
-    if (rc != 0)
-        return rc;
+    if (rc != 0) {
+        char *newLocation = newUpdatesLocation(url);
+
+        if (!newLocation)
+           return rc;
+        else
+           return loadUpdatesFromRemote(newLocation, loaderData);
+    }
 
     copyUpdatesImg("/tmp/updates.img");
     unlink("/tmp/updates.img");
