@@ -195,8 +195,7 @@ class AnacondaCallback:
             self.openfile = None
 
             repo = self.repos.getRepo(self.inProgressPo.repoid)
-            if (len(filter(lambda u: u.startswith("file:"), repo.baseurl)) == 0 
-                or os.path.dirname(fn) == "%s/var/cache/yum/anaconda-upgrade/packages" %(self.rootPath,)):
+            if os.path.dirname(fn).startswith("/tmp/cache/"):
                 try:
                     os.unlink(fn)
                 except OSError, e:
