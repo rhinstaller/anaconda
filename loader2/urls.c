@@ -348,8 +348,6 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
         break;
     } while (1);
 
-    free(buf);
-
     if (answer == cancel) {
         newtFormDestroy(form);
         newtPopWindow();
