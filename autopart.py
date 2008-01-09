@@ -1434,6 +1434,7 @@ def doAutoPartition(anaconda):
                     
                 for drive in req.drive:
                     r = copy.copy(req)
+                    r.encryption = copy.deepcopy(req.encryption)
                     r.drive = [ drive ]
                     partitions.addRequest(r)
                 continue
