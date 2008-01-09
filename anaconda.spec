@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.17
+Version: 11.4.0.18
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -199,6 +199,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 09 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.18-1
+- Fix encrypted autopart traceback. (dlehman)
+- Allow for better recovery if the CD/DVD is bad. (clumens)
+- If downloading the updates image fails, prompt for a new location. (clumens)
+- X now relies on libpciaccess, so add it to our list. (clumens)
+- Erase temporary packages after installing them on all methods. (clumens)
+
 * Mon Jan 07 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.17-1
 - Make text mode root password dialog default match GUI. (clumens)
 - Fix a segfault in making the URL dialog box. (clumens)
