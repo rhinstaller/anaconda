@@ -304,7 +304,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
     newtTextboxSetText(text, reflowedText);
     free(reflowedText);
 
-    urlEntry = newtEntry(22, 8, url, 24, (const char **) &url,
+    urlEntry = newtEntry(22, 8, url, 60, (const char **) &url,
                          NEWT_ENTRY_SCROLL);
     proxyCheckbox = newtCheckbox(-1, -1, _("Configure proxy"), *doSecondarySetup,
                                  NULL, doSecondarySetup);
