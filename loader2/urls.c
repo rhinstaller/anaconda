@@ -319,10 +319,10 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
     newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, buttons,
                      0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 
-    newtGridWrappedWindow(grid, _("URL Setup"));
-
     form = newtForm(NULL, NULL, 0);
     newtGridAddComponentsToForm(grid, form, 1); 
+    newtGridWrappedWindow(grid, _("URL Setup"));
+    newtGridFree(grid, 1);
 
     do {
         answer = newtRunForm(form);
@@ -420,10 +420,9 @@ int urlSecondarySetupPanel(struct iurlinfo * ui) {
     newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, buttons, 
                      0, 1, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 
-    newtGridWrappedWindow(grid, _("Further Setup"));
-
     form = newtForm(NULL, NULL, 0);
     newtGridAddComponentsToForm(grid, form, 1);
+    newtGridWrappedWindow(grid, _("Further Setup"));
     newtGridFree(grid, 1);
 
     answer = newtRunForm(form);
