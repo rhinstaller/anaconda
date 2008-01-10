@@ -302,7 +302,6 @@ boot/efi/EFI/redhat/elilo.efi
 bin/ash
 bin/dbus-daemon
 bin/fdisk*
-bin/mkfs*
 bin/sed
 etc/dbus-1
 etc/group
@@ -353,6 +352,7 @@ sbin/mkdosfs
 sbin/mke2fs
 sbin/mkfs.ext2
 sbin/mkfs.ext3
+sbin/mkfs.gfs2
 sbin/mkfs.jfs
 sbin/mkfs.xfs
 sbin/mkfs.msdos
