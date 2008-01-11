@@ -1588,6 +1588,8 @@ int main(int argc, char ** argv) {
     extraArgs[0] = NULL;
     parseCmdLineFlags(&loaderData, cmdLine);
 
+    logMessage(INFO, "anaconda version %s on %s starting\n", VERSION, getProductArch());
+
     if ((FL_SERIAL(flags) || FL_VIRTPCONSOLE(flags)) && 
         !hasGraphicalOverride()) {
         logMessage(INFO, "text mode forced due to serial/virtpconsole");
