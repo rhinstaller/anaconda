@@ -59,8 +59,8 @@ int numStrings = 0, allocedStrings = 0;
 
 static int english = 0;
 
-static char * topLineWelcome = N_("Welcome to %s");
-static char * topLineWelcomeRescue = N_("Welcome to %s - Rescue Mode");
+static char * topLineWelcome = N_("Welcome to %s for %s");
+static char * topLineWelcomeRescue = N_("Welcome to %s for %s - Rescue Mode");
 static char * bottomHelpLine = N_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen ");
 
 static int aStringCmp(const void * a, const void * b) {
@@ -261,7 +261,7 @@ static int setupLanguage(int choice) {
     newtDrawRootText(0, 0, buf);
 
     char *fmt = FL_RESCUE(flags) ? _(topLineWelcomeRescue) : _(topLineWelcome);
-    i = asprintf(&buf, fmt, getProductName());
+    i = asprintf(&buf, fmt, getProductName(), getProductArch());
 
     newtDrawRootText(0, 0, buf);
     free(buf);
