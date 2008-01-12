@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.18
+Version: 11.4.0.19
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -199,6 +199,20 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan 11 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.19-1
+- Make sure the arch is listedat the top of all loader screens. (clumens)
+- Add the version number really early in the log file too. (clumens)
+- Require latest libdhcp (dcantrell)
+- Add nicdelay parameter to loader, so we can wait before sending DHCP
+  requests. (msivak)
+- Add dhcpdelay to loader so we can modify the default dhcp timeout
+  (#198147, #254032). (msivak)
+- Fix the selected device when disabling entries in Add advanced drive
+  dialog. (#248447) (msivak)
+- Include mkfs.gfs2 (#356661). (clumens)
+- Use the new default Japanese font (#428070). (clumens)
+- More urlinstall loader fixes. (clumens)
+
 * Wed Jan 09 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.18-1
 - Fix encrypted autopart traceback. (dlehman)
 - Allow for better recovery if the CD/DVD is bad. (clumens)
