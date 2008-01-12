@@ -30,8 +30,8 @@ get_dso_deps() {
         FILES[$n]="$FILE"
         let n++
     done << EOF
-        $(chroot $root env LD_TRACE_PRELINKING=1 LD_WARN= \
-                           LD_TRACE_LOADED_OBJECTS=1 $LDSO $bin)
+        $(/usr/sbin/chroot $root env LD_TRACE_PRELINKING=1 LD_WARN= \
+                                     LD_TRACE_LOADED_OBJECTS=1 $LDSO $bin)
 EOF
 
     [ ${#FILES[*]} -eq 0 ] && return 1
@@ -73,8 +73,8 @@ EOF
 
     DSO_DEPS="${FILES[@]}"
 
-    for l in $(chroot $root find /lib* -maxdepth 1 -type l -name ld*.so*); do
-       [ "$(chroot $root readlink -f $l)" == "$LDSO" ] && DSO_DEPS="$DSO_DEPS $l"
+    for l in $(/usr/sbin/chroot $root find /lib* -maxdepth 1 -type l -name ld*.so*); do
+       [ "$(/usr/sbin/chroot $root readlink -f $l)" == "$LDSO" ] && DSO_DEPS="$DSO_DEPS $l"
     done
 
     [ -n "$DEBUG" ] && echo "DSO_DEPS for $bin are $DSO_DEPS"
