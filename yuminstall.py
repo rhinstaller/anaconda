@@ -23,7 +23,7 @@ import sys
 import os
 import os.path
 import shutil
-import timer
+import time
 import warnings
 import types
 import locale
@@ -387,12 +387,11 @@ class AnacondaYum(YumSorter):
                     self.currentMedia = discnum
                     break
 
-                if not done:
-                    self.anaconda.intf.messageWindow(_("Wrong Disc"),
-                            _("That's not the correct %s disc.")
-                              % (productName,))
-                    isys.umount(self.tree)
-                    isys.ejectCdrom(self.anaconda.mediaDevice)
+                self.anaconda.intf.messageWindow(_("Wrong Disc"),
+                        _("That's not the correct %s disc.")
+                          % (productName,))
+                isys.umount(self.tree)
+                isys.ejectCdrom(self.anaconda.mediaDevice)
             except:
                 self.anaconda.intf.messageWindow(_("Error"),
                         _("Unable to access the disc."))
@@ -567,7 +566,7 @@ class AnacondaYum(YumSorter):
 
         delay = 0.25*(2**(obj.tries-1))
         if delay > 1:
-            w = anaconda.intf.waitWindow(_("Retrying"), _("Retrying package download..."))
+            w = self.anaconda.intf.waitWindow(_("Retrying"), _("Retrying package download..."))
             time.sleep(delay)
             w.pop()
         else:

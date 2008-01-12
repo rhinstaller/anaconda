@@ -158,7 +158,7 @@ def mountDirectory(isodir, methodstr, messageWindow):
                         "device like LVM or RAID, or if there was a "
                         "problem mounting a partition.  Click exit "
                         "to abort the installation.")
-                      % (self.device,), type="custom", custom_icon="error",
+                      % (device,), type="custom", custom_icon="error",
                       custom_buttons=[_("_Exit")])
         sys.exit(0)
 

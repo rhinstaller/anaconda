@@ -194,7 +194,7 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
                 intf.messageWindow(_("Unable To Delete"),
 				   _("You cannot delete this partition:\n\n") + state,
 				   custom_icon="error")
-	    return (None, None)
+	    return 0
 
         if confirm and not confirmDeleteRequest(intf, request):
             return 0
@@ -267,8 +267,7 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
             part = partedUtils.get_partition_by_name(diskset.disks, req.device)
             rc = doDeletePartitionByRequest(intf, requestlist, part,
                                             confirm=0, quiet=1)
-            # not sure why it returns both '0' and '(None, None)' on failure
-            if not rc or rc == (None, None):
+            if not rc:
 		pass
         except:
 	    pass
@@ -359,7 +358,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
                            _("You cannot edit this "
                              "partition, as it is an extended partition "
                              "which contains %s") %(ret), custom_icon="error")
-        return 0
+        return (None, None)
 
     name = partedUtils.get_partition_name(part)
     request = requestlist.getRequestByDeviceName(name)

@@ -2149,7 +2149,7 @@ class FileSystemSetEntry:
         self.resizeOrigSize = size
 
     def getResizeTarget (self):
-        return self.targetsize
+        return self.resizeTargetSize
 
     def isMounted (self):
         return self.mountcount > 0
