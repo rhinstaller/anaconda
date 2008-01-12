@@ -98,7 +98,7 @@ instFile() {
 	cp -aL $FILE $DESTROOT/`dirname $FILE`
     fi
 
-    file $FILE | grep -q ": ELF" &&  {
+    file $FILE | egrep -q ": (setuid )?ELF" &&  {
         get_dso_deps $(pwd) "$FILE"
         local DEPS="$DSO_DEPS"
         for x in $DEPS ; do
