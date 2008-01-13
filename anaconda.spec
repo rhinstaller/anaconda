@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.19
+Version: 11.4.0.20
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -199,6 +199,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Jan 13 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.20-1
+- Install new udev paths so HAL can talk to it (notting)
+- Also get DSO deps for setuid binaries (like X). (clumens)
+- Fix a bunch of pychecker errors. (clumens)
+
 * Fri Jan 11 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.19-1
 - Make sure the arch is listedat the top of all loader screens. (clumens)
 - Add the version number really early in the log file too. (clumens)
