@@ -45,7 +45,7 @@
 /* boot flags */
 extern uint64_t flags;
 
-static int detectHardware(char *** modules) {
+static int detectHardware() {
     int child, rc, status;
     int timeout = 0; /* FIXME: commandline option for this */
 
@@ -141,7 +141,7 @@ int busProbe(int justProbe) {
     /* autodetect whatever we can */
     if (justProbe)
         return 0;
-    return detectHardware(NULL);
+    return detectHardware();
 }
 
 
