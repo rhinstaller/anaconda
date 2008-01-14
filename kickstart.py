@@ -247,9 +247,9 @@ class Lang(commands.lang.FC3_Lang):
         self.handler.id.instClass.setLanguage(self.handler.id, self.lang)
         self.handler.skipSteps.append("language")
 
-class LogVol(commands.logvol.FC4_LogVol):
+class LogVol(commands.logvol.F9_LogVol):
     def parse(self, args):
-        commands.logvol.FC4_LogVol.parse(self, args)
+        commands.logvol.F9_LogVol.parse(self, args)
 
         lvd = self.lvList[-1]
 
@@ -407,9 +407,9 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
                 return
         ds.startDmRaid()
 
-class Partition(commands.partition.FC4_Partition):
+class Partition(commands.partition.F9_Partition):
     def parse(self, args):
-        commands.partition.FC4_Partition.parse(self, args)
+        commands.partition.F9_Partition.parse(self, args)
 
         pd = self.partitions[-1]
         uniqueID = None
@@ -520,9 +520,9 @@ class Reboot(commands.reboot.FC6_Reboot):
         commands.reboot.FC6_Reboot.parse(self, args)
         self.handler.skipSteps.append("complete")
 
-class Raid(commands.raid.F7_Raid):
+class Raid(commands.raid.F9_Raid):
     def parse(self, args):
-        commands.raid.F7_Raid.parse(self, args)
+        commands.raid.F9_Raid.parse(self, args)
 
         rd = self.raidList[-1]
 
