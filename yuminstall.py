@@ -200,10 +200,9 @@ class AnacondaCallback:
                     os.unlink(fn)
                 except OSError, e:
                     log.debug("unable to remove file %s" %(e,))
-            self.inProgressPo = None
 
             self.donepkgs += 1
-            self.doneSize += hdr['size']/1024.0
+            self.doneSize += self.inProgressPo.returnSimple("installedsize") / 1024.0
             self.doneFiles += len(hdr[rpm.RPMTAG_BASENAMES])
 
             self.progress.set_label("")
@@ -211,6 +210,8 @@ class AnacondaCallback:
                                    %(self.donepkgs, self.numpkgs))
             self.progress.set_fraction(float(self.doneSize / self.totalSize))
             self.progress.processEvents()
+
+            self.inProgressPo = None
 
         # FIXME: we should probably integrate this into the progress bar
         # and actually show progress on cleanups.....
