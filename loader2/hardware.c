@@ -49,6 +49,7 @@ static int detectHardware() {
     int child, rc, status;
     int timeout = 0; /* FIXME: commandline option for this */
 
+    fprintf(stderr, "detecting hardware...\n");
     logMessage(DEBUGLVL, "probing buses");
 
     if (!(child = fork())) {
@@ -70,6 +71,7 @@ static int detectHardware() {
         rc = 0;
     }
 
+    fprintf(stderr, "waiting for hardware to initialize...\n");
     logMessage(DEBUGLVL, "waiting for hardware to initialize");
 
     if (!(child = fork())) {
