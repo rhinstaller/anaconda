@@ -130,13 +130,17 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         commands.authconfig.FC3_Authconfig.parse(self, args)
         self.handler.id.auth = self.authconfig
 
-class AutoPart(commands.autopart.FC3_AutoPart):
+class AutoPart(commands.autopart.F9_AutoPart):
     def parse(self, args):
         commands.autopart.FC3_AutoPart.parse(self, args)
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
         self.handler.id.instClass.setDefaultPartitioning(self.handler.id, doClear = 0)
+
+        if self.encrypted:
+            self.handler.id.partitions.autoEncrypt = True
+            self.handler.id.partitions.autoEncryptPass = self.passphrase
 
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
@@ -512,6 +516,9 @@ class Partition(commands.partition.F9_Partition):
         if pd.fsopts != "":
             request.fsopts = pd.fsopts
 
+        if pd.encrypted:
+            request.encryption = cryptodev.LUKSDevice(passphrase=pd.passphrase, format=pd.format)
+
         addPartRequest(self.handler.anaconda, request)
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
@@ -585,6 +592,9 @@ class Raid(commands.raid.F9_Raid):
             request.device = "md%s" % rd.device
         if rd.fsopts != "":
             request.fsopts = rd.fsopts
+
+        if rd.encrypted:
+            request.encryption = cryptodev.LUKSDevice(passphrase=rd.passphrase, format=rd.format)
 
         addPartRequest(self.handler.anaconda, request)
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
