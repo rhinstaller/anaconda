@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.20
+Version: 11.4.0.21
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -199,6 +199,15 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jan 14 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.21-1
+- Inherit from the right versions of pykickstart classes (clumens)
+- Update for nss files moving to /lib (clumens)
+- Remove unneeded arguments from detectHardware function (notting)
+- Symlink all udev support binaries to udevadm (notting)
+- /sbin/restorecon on /etc/modprobe.d (notting)
+- Add the kickstart syntax version to the kickstart file (clumens)
+- Require latest libdhcp to fix x86_64 SIGABRT problems
+
 * Sun Jan 13 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.20-1
 - Install new udev paths so HAL can talk to it (notting)
 - Also get DSO deps for setuid binaries (like X). (clumens)
