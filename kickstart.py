@@ -334,9 +334,9 @@ class Monitor(commands.monitor.FC6_Monitor):
         self.handler.id.instClass.setMonitor(self.handler.id, self.hsync,
                                              self.vsync, self.monitor)
 
-class Network(commands.network.F8_Network):
+class Network(commands.network.F9_Network):
     def parse(self, args):
-        commands.network.F8_Network.parse(self, args)
+        commands.network.F9_Network.parse(self, args)
 
         nd = self.network[-1]
 
@@ -1063,7 +1063,11 @@ def setSteps(anaconda):
     dispatch.skipStep("regkey")
     dispatch.skipStep("installtype")
     dispatch.skipStep("tasksel")
-    dispatch.skipStep("network")
+
+    # Only skip the network screen if there are no devices that used
+    # network --bootproto=ask.
+    if len(filter(lambda nd: nd.bootproto == BOOTPROTO_ASK, ksdata.network.network)) == 0:
+        dispatch.skipStep("network")
 
     # Don't show confirmation screens on non-interactive installs.
     if not interactive:
