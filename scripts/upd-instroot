@@ -239,7 +239,8 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump libidn groff
                 findutils ftp gzip iputils joe krb5-libs less man
                 modutils mtools mt-st mtr net-tools open smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
-                device-mapper device-mapper-libs dmraid ntfsprogs samba-client"
+                device-mapper device-mapper-libs dmraid ntfsprogs samba-client
+                firstaidkit-plugin-all"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGESRESCUE="$PACKAGESRESCUE gpart grub"
@@ -828,6 +829,7 @@ usr/bin/ntfsmftalloc
 usr/bin/ntfsmove
 usr/bin/ntfstruncate
 usr/bin/ntfswipe
+usr/bin/firstaidkit
 usr/sbin/mkntfs
 usr/sbin/ntfsclone
 usr/sbin/ntfscp
@@ -837,6 +839,8 @@ usr/sbin/ntfsundelete
 usr/sbin/mtr
 usr/sbin/smartctl
 usr/sbin/traceroute
+usr/$LIBDIR/firstaidkit-plugins/
+usr/lib/python?.?/site-packages/pyfirstaidkit/
 EOF
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
