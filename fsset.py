@@ -100,6 +100,8 @@ def devify(device):
         return "sysfs"
     elif device == "shm":
         return "tmpfs"
+    elif device == "spufs":
+	return "spufs"
     elif device != "none" and device[0] != '/':
         return "/dev/" + device
     else:
@@ -1068,6 +1070,12 @@ class PsudoFileSystem(FileSystemType):
         self.name = name
         self.supported = 0
 
+class SpuFileSystem(PsudoFileSystem):
+    def __init__(self):
+        PsudoFileSystem.__init__(self, "spufs")
+
+fileSystemTypeRegister(SpuFileSystem())
+
 class ProcFileSystem(PsudoFileSystem):
     def __init__(self):
         PsudoFileSystem.__init__(self, "proc")
@@ -1184,6 +1192,11 @@ class FileSystemSet:
         shm = FileSystemSetEntry(Device(device="shm"), '/dev/shm',
                                  fileSystemTypeGet("tmpfs"))
         self.add(shm)
+
+        if iutil.isCell():
+            spu = FileSystemSetEntry(Device(device="spufs"), '/spu',
+                                 fileSystemTypeGet("spufs"))
+            self.add(spu)
 
     def verify (self):
         for entry in self.entries:

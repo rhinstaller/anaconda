@@ -23,4 +23,6 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
 void ipv6Setup(moduleList modLoaded, moduleDeps modDeps,
                moduleInfoSet modInfo);
 
+void spufsSetup(moduleList modLoaded, moduleDeps modDeps,
+               moduleInfoSet modInfo);
 #endif

@@ -367,6 +367,26 @@ def getPPCMacBook():
         return 1
     return 0
 
+cell = None
+def isCell():
+    global cell
+    if cell is not None:
+        return cell
+
+    cell = False
+    if rhpl.getArch() != "ppc":
+        return cell
+
+    f = open('/proc/cpuinfo', 'r')
+    lines = f.readlines()
+    f.close()
+
+    for line in lines:
+      if not string.find(line, 'Cell') == -1:
+          cell = True
+
+    return cell
+
 mactel = None
 # return True if this is one of the Intel-based Apple Macs
 def isMactel():
