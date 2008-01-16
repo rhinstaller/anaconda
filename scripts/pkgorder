@@ -76,6 +76,11 @@ def processTransaction(ds):
     ds.populateTs(keepold=0)
     ds.ts.check()
     ds.ts.order()
+
+    # Return if there are no packages in the transaction set
+    if not ds.ts.ts.getKeys():
+        return
+
     for (hdr, path) in ds.ts.ts.getKeys():
         fname = os.path.basename(path)
         fpattern = "%s*" % fname.rsplit('.', 2)[0]
