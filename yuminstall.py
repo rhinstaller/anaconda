@@ -270,10 +270,6 @@ class AnacondaYum(YumSorter):
         self._loopbackFile = None
         self._timestamp = None
 
-        # The loader mounts the first disc for us, so don't remount it.
-        self.currentMedia = 1
-        self.mediagrabber = self.mediaHandler
-
         # Only needed for hard drive and nfsiso installs.
         self._discImages = {}
 
@@ -287,6 +283,14 @@ class AnacondaYum(YumSorter):
             self.isodir = "/mnt/isodir"
         else:
             self.isodir = None
+
+        # The loader mounts the first disc for us, so don't remount it.
+        if self.anaconda.mediaDevice or self.isodir:
+            self.currentMedia = 1
+            self.mediagrabber = self.mediaHandler
+        else:
+            self.currentMedia = None
+            self.mediagrabber = None
 
         self.doConfigSetup(root=anaconda.rootPath)
         self.conf.installonlypkgs = []
