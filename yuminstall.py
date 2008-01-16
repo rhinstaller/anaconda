@@ -526,7 +526,7 @@ class AnacondaYum(YumSorter):
         if not self.isodir and self.currentMedia:
             buttons = [_("Re_boot"), _("_Eject")]
         else:
-            buttons = [_("Re_boot"), _("_Reboot")]
+            buttons = [_("Re_boot"), _("_Retry")]
 
         pkgFile = os.path.basename(package.returnSimple('relativepath'))
         rc = self.anaconda.intf.messageWindow(_("Error"),
