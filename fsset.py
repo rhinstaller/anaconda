@@ -643,7 +643,7 @@ class extFileSystem(FileSystemType):
             return
 
         rc = iutil.execWithRedirect("tune2fs",
-                                    ["-c0", "-i0", "-Odir_index",
+                                    ["-c0", "-i0",
                                      "-ouser_xattr,acl", devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5", searchPath = 1)
