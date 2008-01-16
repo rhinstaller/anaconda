@@ -1,3 +1,8 @@
+2008-01-15  David Cantrell  <dcantrell@redhat.com>
+
+	* partedUtils.py (DiskSet.startMPath): List iSCSI multipath
+	devices (#391951).
+
 2007-10-17  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

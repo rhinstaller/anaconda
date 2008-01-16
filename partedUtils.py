@@ -603,7 +603,7 @@ class DiskSet:
     def startMPath(self):
         """Start all of the dm multipath devices associated with the DiskSet."""
 
-        if not DiskSet.mpList is None:
+        if not DiskSet.mpList is None and DiskSet.mpList.__len__() > 0:
             return
 
         log.debug("starting mpaths")
