@@ -586,6 +586,7 @@ class DiskSet:
     mdList = []
     dmList = None
     mpList = None
+    clearedDisks = []
 
     def __init__ (self, anaconda = None):
         self.disks = {}
@@ -699,6 +700,8 @@ class DiskSet:
         drives.sort()
 
         for drive in drives:
+            if drive in DiskSet.clearedDisks:
+                continue
             disk = self.disks[drive]
             func = lambda part: (part.is_active() and
                                  not (part.get_flag(parted.PARTITION_RAID)
@@ -1143,6 +1146,7 @@ class DiskSet:
                        or (drive in clearDevs)) and not flags.test \
                        and not hasProtectedPartitions(drive, self.anaconda):
                 try:
+                    DiskSet.clearedDisks.append(drive)
                     disk, dev = self._labelDevice(drive)
                 except:
                     continue
@@ -1175,6 +1179,7 @@ class DiskSet:
 
                 if recreate == 1 and not flags.test:
                     try:
+                        DiskSet.clearedDisks.append(drive)
                         disk, dev = self._labelDevice(drive)
                     except:
                         continue
@@ -1206,6 +1211,7 @@ class DiskSet:
                 self._removeDisk(drive)
             elif ret == -1:
                 try:
+                    DiskSet.clearedDisks.append(drive)
                     disk, dev = self._labelDevice(drive)
                 except:
                     pass
