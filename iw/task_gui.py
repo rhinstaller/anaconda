@@ -1,7 +1,7 @@
 #
 # task_gui.py: Choose tasks for installation
 #
-# Copyright (C) 2006  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2006, 2007 Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ class TaskWindow(InstallWindow):
 
     def _setupRepo(self, repo):
         try:
-            self.backend.doRepoSetup(self.anaconda, repo.id, fatalerrors = False)
+            self.backend.doRepoSetup(self.anaconda, thisrepo = repo.id, fatalerrors = False)
             log.info("added repository %s with with source URL %s" % (repo.name, repo.baseurl[0]))
         except yum.Errors.RepoError, e:
             self.intf.messageWindow(_("Error"),
@@ -102,71 +102,181 @@ class TaskWindow(InstallWindow):
 
         return True
 
+    def _validURL(self, url):
+        return len(url) > 0 and (url.startswith("http://") or
+                                 url.startswith("https://") or
+                                 url.startswith("ftp://"))
+
     def _addRepo(self, *args):
+        repo = None
+        editing = False
+
         if not network.hasActiveNetDev():
             net = NetworkConfigurator(self.anaconda.id.network)
             ret = net.run()
             net.destroy()
             if ret == gtk.RESPONSE_CANCEL:
                 return gtk.RESPONSE_CANCEL
-        
-        (dxml, dialog) = gui.getGladeWidget("addrepo.glade", "addRepoDialog")
+
+        # If we were passed an extra argument, it's the repo store and we
+        # are editing an existing repo as opposed to adding a new one.
+        if len(args) > 1:
+            (model, iter) = args[1].get_selection().get_selected()
+            if iter:
+                repo = model.get_value(iter, 2)
+                editing = True
+            else:
+                return
+
+        (self.dxml, dialog) = gui.getGladeWidget("addrepo.glade", "addRepoDialog")
+        nameEntry = self.dxml.get_widget("nameEntry")
+        baseurlButton = self.dxml.get_widget("baseurlButton")
+        baseurlEntry = self.dxml.get_widget("baseurlEntry")
+        mirrorlistButton = self.dxml.get_widget("mirrorlistButton")
+        mirrorlistEntry = self.dxml.get_widget("mirrorlistEntry")
+        proxyCheckbox = self.dxml.get_widget("proxyCheckbox")
+        proxyEntry = self.dxml.get_widget("proxyEntry")
+        proxyTable = self.dxml.get_widget("proxyTable")
+        usernameEntry = self.dxml.get_widget("usernameEntry")
+        passwordEntry = self.dxml.get_widget("passwordEntry")
+
+        # If we are editing an existing repo, use the existing values to
+        # populate the UI.
+        # FIXME: this is yum specific
+        if editing:
+            nameEntry.set_text(repo.name)
+
+            if repo.mirrorlist:
+                mirrorlistEntry.set_text(repo.mirrorlist)
+                mirrorlistButton.set_active(True)
+            else:
+                baseurlEntry.set_text(repo.baseurl[0])
+                baseurlButton.set_active(True)
+
+            if repo.proxy:
+                proxyCheckbox.set_active(True)
+                proxyTable.set_sensitive(True)
+                proxyEntry.set_text(repo.proxy)
+                usernameEntry.set_text(repo.proxy_username)
+                passwordEntry.set_text(repo.proxy_password)
+
         gui.addFrame(dialog)
 
-        lbl = dxml.get_widget("descLabel")
+        # Initialize UI elements that should be sensitive or not.
+        self._proxyToggled()
+        self._radioChanged()
+
+        proxyCheckbox.connect("toggled", self._proxyToggled)
+        baseurlButton.connect("toggled", self._radioChanged)
+
+        lbl = self.dxml.get_widget("descLabel")
         txt = lbl.get_text()
         lbl.set_text(txt %(productName,))
-        
+
         dialog.show_all()
 
         while 1:
             rc = dialog.run()
             if rc == gtk.RESPONSE_CANCEL:
                 break
-        
-            reponame = dxml.get_widget("nameEntry").get_text()
+
+            reponame = nameEntry.get_text()
             reponame.strip()
             if len(reponame) == 0:
                 self.intf.messageWindow(_("Invalid Repository Name"),
                                         _("You must provide a repository name."))
                 continue
 
-            repourl = dxml.get_widget("urlEntry").get_text()
+            if baseurlButton.get_active():
+                repourl = baseurlEntry.get_text()
+            else:
+                repourl = mirrorlistEntry.get_text()
+
             repourl.strip()
-            if (len(repourl) == 0 or not
-                (repourl.startswith("http://") or
-                 repourl.startswith("ftp://"))):
+            if not self._validURL(repourl):
                 self.intf.messageWindow(_("Invalid Repository URL"),
-                                        _("You must provide an HTTP or FTP "
-                                          "URL to a repository."))
+                                        _("You must provide an HTTP, HTTPS, "
+                                          "or FTP URL to a repository."))
                 continue
 
+            proxy = None
+            proxy_username = None
+            proxy_password = None
+
+            if proxyCheckbox.get_active():
+                proxy = proxyEntry.get_text()
+                proxy.strip()
+                if not self._validURL(proxy):
+                    self.intf.messageWindow(_("Invalid Proxy URL"),
+                                            _("You must provide an HTTP, HTTPS, "
+                                              "or FTP URL to a proxy."))
+                    continue
+
+                proxy_username = usernameEntry.get_text()
+                proxy_password = passwordEntry.get_text()
+
+            # Don't create a new repo object if we are editing.
             # FIXME: this is yum specific
-            repo = AnacondaYumRepo(uri=repourl, repoid=reponame)
+            if editing:
+                if baseurlButton.get_active():
+                    repo.baseurl = [repourl]
+                else:
+                    repo.mirrorlist = repourl
+
+                repo.repoid = reponame.replace(" ", "")
+            else:
+                repoid = reponame.replace(" ", "")
+
+                if baseurlButton.get_active():
+                    repo = AnacondaYumRepo(uri=repourl, repoid=repoid)
+                else:
+                    repo = AnacondaYumRepo(mirrorlist=repourl, repoid=repoid)
+
             repo.name = reponame
             repo.basecachedir = self.backend.ayum.conf.cachedir
+
+            if proxy:
+                repo.proxy = proxy
+                repo.proxy_username = proxy_username
+                repo.proxy_password = proxy_password
+
             repo.enable()
 
-            try:
-                self.backend.ayum.repos.add(repo)
-            except yum.Errors.DuplicateRepoError, e:
-                self.intf.messageWindow(_("Error"),
-                      _("The repository %s has already been added.  Please "
-                        "choose a different repository name and "
-                        "URL.") % reponame, type="ok", custom_icon="error")
-                continue
+            if not editing:
+                try:
+                    self.backend.ayum.repos.add(repo)
+                except yum.Errors.DuplicateRepoError, e:
+                    self.intf.messageWindow(_("Error"),
+                          _("The repository %s has already been added.  Please "
+                            "choose a different repository name and "
+                            "URL.") % reponame, type="ok", custom_icon="error")
+                    continue
 
             if not self._setupRepo(repo):
                 continue
 
-            s = self.xml.get_widget("repoList").get_model()
-            s.append([repo.isEnabled(), repo.name, repo])
-            self.repos[repo.name] = (repo.baseurl[0], None)
+            if not editing:
+                s = self.xml.get_widget("repoList").get_model()
+                s.append([repo.isEnabled(), repo.name, repo])
 
             break
 
         dialog.destroy()
         return rc
+
+    def _radioChanged(self, *args):
+        baseurlButton = self.dxml.get_widget("baseurlButton")
+        baseurlEntry = self.dxml.get_widget("baseurlEntry")
+        mirrorlistEntry = self.dxml.get_widget("mirrorlistEntry")
+
+        active = baseurlButton.get_active()
+        baseurlEntry.set_sensitive(active)
+        mirrorlistEntry.set_sensitive(not active)
+
+    def _proxyToggled(self, *args):
+        table = self.dxml.get_widget("proxyTable")
+        checkbox = self.dxml.get_widget("proxyCheckbox")
+        table.set_sensitive(checkbox.get_active())
 
     def _taskToggled(self, data, row, store):
         i = store.get_iter(int(row))
@@ -183,7 +293,7 @@ class TaskWindow(InstallWindow):
             net.destroy()
             if ret == gtk.RESPONSE_CANCEL:
                 return
-        
+
         store.set_value(i, 0, not val)
 
     def _createTaskStore(self):
@@ -207,7 +317,7 @@ class TaskWindow(InstallWindow):
                 continue
             store.append([self.groupsInstalled(grps), _(txt), grps])
 
-        return len(store)
+        return tl
 
     def _createRepoStore(self):
         store = gtk.ListStore(gobject.TYPE_BOOLEAN,
@@ -225,14 +335,11 @@ class TaskWindow(InstallWindow):
         col.set_clickable(False)
         tl.append_column(col)
 
-        for (reponame, uri) in self.repos.items():
-            repoid = reponame.replace(" ", "")
-            if not self.backend.ayum.repos.repos.has_key(repoid):
-                continue
-            repo = self.backend.ayum.repos.repos[repoid]
+        for (reponame, repo) in self.repos.repos.items():
             store.append([repo.isEnabled(), repo.name, repo])
-        
-            
+
+        return tl
+
     def getScreen (self, anaconda):
         self.intf = anaconda.intf
         self.dispatch = anaconda.dispatch
@@ -257,14 +364,17 @@ class TaskWindow(InstallWindow):
         else:
             self.xml.get_widget("customRadio").set_active(False)
 
-        if self._createTaskStore() == 0:
+        self.ts = self._createTaskStore()
+        self.rs = self._createRepoStore()
+
+        if len(self.ts.get_model()) == 0:
             self.xml.get_widget("cbVBox").hide()
             self.xml.get_widget("mainLabel").hide()
 
-        self._createRepoStore()
         if not anaconda.id.instClass.allowExtraRepos:
             vbox.remove(self.xml.get_widget("addRepoBox"))
 
         self.xml.get_widget("addRepoButton").connect("clicked", self._addRepo)
+        self.xml.get_widget("editRepoButton").connect("clicked", self._addRepo, self.rs)
 
         return vbox

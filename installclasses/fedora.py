@@ -20,7 +20,7 @@
 from installclass import BaseInstallClass
 from rhpl.translate import N_,_
 from constants import *
-import os
+import os, types
 import iutil
 
 import installmethod
