@@ -190,7 +190,7 @@ class PartitionTypeWindow(InstallWindow):
             try:
                 self.anaconda.id.zfcp.addFCP(devnum, wwpn, fcplun)
             except ValueError, e:
-                self.intf.messageWindow(_("Error"), e)
+                self.intf.messageWindow(_("Error"), "%s" % e)
                 continue
             break
 
