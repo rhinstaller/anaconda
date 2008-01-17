@@ -64,11 +64,6 @@ SKIP_KEY = -50
 # pull in kickstart constants as well
 from pykickstart.constants import *
 
-# set to the number of CDs the distribution currently has.  might increase
-# or decrease over time
-NUMBER_OF_CDS = 5
-
-
 # common string needs to be easy to change
 import product
 productName = product.productName

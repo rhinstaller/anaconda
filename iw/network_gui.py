@@ -341,7 +341,7 @@ class NetworkWindow(InstallWindow):
 	for device in self.devices.keys():
 	    bootproto = self.devices[device].get("bootproto")
 
-	    if bootproto and bootproto.lower() == 'dhcp':
+	    if bootproto and bootproto.lower() in ['ask', 'dhcp']:
 		onboot = self.devices[device].get("ONBOOT")
 		if onboot != "no":
 		    return 1
@@ -383,7 +383,7 @@ class NetworkWindow(InstallWindow):
 		active = False
 
 	    bootproto = self.devices[device].get("bootproto")
-	    if not bootproto:
+	    if not bootproto or bootproto == "ask":
 		bootproto = 'dhcp'
 		self.devices[device].set(("bootproto", bootproto))
 		

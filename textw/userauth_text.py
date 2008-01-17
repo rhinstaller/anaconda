@@ -85,7 +85,7 @@ class RootPasswordWindow:
                                                     "\n\n"
                                                     "Would you like to continue with this "
                                                     "password?" % (msg, )),
-                                                  type = "yesno")
+                                                  type = "yesno", default="no")
                     if ret == 1:
                         break
                 else:

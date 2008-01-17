@@ -643,7 +643,7 @@ class extFileSystem(FileSystemType):
             return
 
         rc = iutil.execWithRedirect("tune2fs",
-                                    ["-c0", "-i0", "-Odir_index",
+                                    ["-c0", "-i0",
                                      "-ouser_xattr,acl", devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5", searchPath = 1)
@@ -2149,7 +2149,7 @@ class FileSystemSetEntry:
         self.resizeOrigSize = size
 
     def getResizeTarget (self):
-        return self.targetsize
+        return self.resizeTargetSize
 
     def isMounted (self):
         return self.mountcount > 0
@@ -2394,6 +2394,8 @@ class RAIDDevice(Device):
             self.crypto.formatDevice()
             self.crypto.openDevice()
             node = "%s/%s" % (devPrefix, self.crypto.getDevice())
+        else:
+            node = "%s/%s" % (devPrefix, self.device)
 
         return node
 

@@ -130,13 +130,17 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         commands.authconfig.FC3_Authconfig.parse(self, args)
         self.handler.id.auth = self.authconfig
 
-class AutoPart(commands.autopart.FC3_AutoPart):
+class AutoPart(commands.autopart.F9_AutoPart):
     def parse(self, args):
         commands.autopart.FC3_AutoPart.parse(self, args)
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
         self.handler.id.instClass.setDefaultPartitioning(self.handler.id, doClear = 0)
+
+        if self.encrypted:
+            self.handler.id.partitions.autoEncrypt = True
+            self.handler.id.partitions.autoEncryptPass = self.passphrase
 
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
@@ -247,9 +251,9 @@ class Lang(commands.lang.FC3_Lang):
         self.handler.id.instClass.setLanguage(self.handler.id, self.lang)
         self.handler.skipSteps.append("language")
 
-class LogVol(commands.logvol.FC4_LogVol):
+class LogVol(commands.logvol.F9_LogVol):
     def parse(self, args):
-        commands.logvol.FC4_LogVol.parse(self, args)
+        commands.logvol.F9_LogVol.parse(self, args)
 
         lvd = self.lvList[-1]
 
@@ -330,9 +334,9 @@ class Monitor(commands.monitor.FC6_Monitor):
         self.handler.id.instClass.setMonitor(self.handler.id, self.hsync,
                                              self.vsync, self.monitor)
 
-class Network(commands.network.F8_Network):
+class Network(commands.network.F9_Network):
     def parse(self, args):
-        commands.network.F8_Network.parse(self, args)
+        commands.network.F9_Network.parse(self, args)
 
         nd = self.network[-1]
 
@@ -407,9 +411,9 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
                 return
         ds.startDmRaid()
 
-class Partition(commands.partition.FC4_Partition):
+class Partition(commands.partition.F9_Partition):
     def parse(self, args):
-        commands.partition.FC4_Partition.parse(self, args)
+        commands.partition.F9_Partition.parse(self, args)
 
         pd = self.partitions[-1]
         uniqueID = None
@@ -512,6 +516,9 @@ class Partition(commands.partition.FC4_Partition):
         if pd.fsopts != "":
             request.fsopts = pd.fsopts
 
+        if pd.encrypted:
+            request.encryption = cryptodev.LUKSDevice(passphrase=pd.passphrase, format=pd.format)
+
         addPartRequest(self.handler.anaconda, request)
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
@@ -520,9 +527,9 @@ class Reboot(commands.reboot.FC6_Reboot):
         commands.reboot.FC6_Reboot.parse(self, args)
         self.handler.skipSteps.append("complete")
 
-class Raid(commands.raid.F7_Raid):
+class Raid(commands.raid.F9_Raid):
     def parse(self, args):
-        commands.raid.F7_Raid.parse(self, args)
+        commands.raid.F9_Raid.parse(self, args)
 
         rd = self.raidList[-1]
 
@@ -585,6 +592,9 @@ class Raid(commands.raid.F7_Raid):
             request.device = "md%s" % rd.device
         if rd.fsopts != "":
             request.fsopts = rd.fsopts
+
+        if rd.encrypted:
+            request.encryption = cryptodev.LUKSDevice(passphrase=rd.passphrase, format=rd.format)
 
         addPartRequest(self.handler.anaconda, request)
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
@@ -1053,7 +1063,11 @@ def setSteps(anaconda):
     dispatch.skipStep("regkey")
     dispatch.skipStep("installtype")
     dispatch.skipStep("tasksel")
-    dispatch.skipStep("network")
+
+    # Only skip the network screen if there are no devices that used
+    # network --bootproto=ask.
+    if len(filter(lambda nd: nd.bootproto == BOOTPROTO_ASK, ksdata.network.network)) == 0:
+        dispatch.skipStep("network")
 
     # Don't show confirmation screens on non-interactive installs.
     if not interactive:

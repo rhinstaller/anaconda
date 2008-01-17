@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.15
+Version: 11.4.0.22
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -18,7 +18,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define gettextver 0.11
 %define glib2ver 2.11.1-5
 %define intltoolver 0.31.2-3
-%define libdhcpver 1.99.4-1
+%define libdhcpver 1.99.6-2
 %define libselinuxver 1.6
 %define mkinitrdver 5.1.2-1
 %define pykickstartver 0.96
@@ -76,7 +76,6 @@ Requires: rhpl >= %{rhplver}
 Requires: booty
 Requires: parted >= %{partedver}
 Requires: pyparted >= %{partedver}
-Requires: kudzu >= %{kudzuver}
 Requires: yum >= %{yumver}
 Requires: pirut >= %{pirutver}
 Requires: libxml2-python
@@ -200,6 +199,67 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 16 2008 David L. Cantrell Jr. <dcantrell@redhat.com> - 11.4.0.22-1
+- Require the latest libdhcp (dcantrell)
+- Don't set currentMedia when we're on a network install (#428927, clumens)
+- Don't offer two reboot options (clumens)
+- Remove fsopts that are already defaults (#429039, clumens)
+- Remove isofs module to get rid of a FATAL message (clumens)
+- Add the crc32c kernel module for iscsi (#405911, clumens)
+- Add MAC address to the network device selection screen (#428229, clumens)
+- Initial support for network --bootproto=ask (#401531, clumens)
+- Remove an extra newline (clumens)
+- Add firstaidkit to the rescue image (jgranado)
+- Fix the progress bar to hit 100%% on the last package (#428790, clumens)
+- Add some output so the startup delay doesn't seem quite so long (clumens)
+- Initial kickstart support for encrypted partitions (clumens)
+
+* Mon Jan 14 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.21-1
+- Inherit from the right versions of pykickstart classes (clumens)
+- Update for nss files moving to /lib (clumens)
+- Remove unneeded arguments from detectHardware function (notting)
+- Symlink all udev support binaries to udevadm (notting)
+- /sbin/restorecon on /etc/modprobe.d (notting)
+- Add the kickstart syntax version to the kickstart file (clumens)
+- Require latest libdhcp to fix x86_64 SIGABRT problems
+
+* Sun Jan 13 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.20-1
+- Install new udev paths so HAL can talk to it (notting)
+- Also get DSO deps for setuid binaries (like X). (clumens)
+- Fix a bunch of pychecker errors. (clumens)
+
+* Fri Jan 11 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.19-1
+- Make sure the arch is listedat the top of all loader screens. (clumens)
+- Add the version number really early in the log file too. (clumens)
+- Require latest libdhcp (dcantrell)
+- Add nicdelay parameter to loader, so we can wait before sending DHCP
+  requests. (msivak)
+- Add dhcpdelay to loader so we can modify the default dhcp timeout
+  (#198147, #254032). (msivak)
+- Fix the selected device when disabling entries in Add advanced drive
+  dialog. (#248447) (msivak)
+- Include mkfs.gfs2 (#356661). (clumens)
+- Use the new default Japanese font (#428070). (clumens)
+- More urlinstall loader fixes. (clumens)
+
+* Wed Jan 09 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.18-1
+- Fix encrypted autopart traceback. (dlehman)
+- Allow for better recovery if the CD/DVD is bad. (clumens)
+- If downloading the updates image fails, prompt for a new location. (clumens)
+- X now relies on libpciaccess, so add it to our list. (clumens)
+- Erase temporary packages after installing them on all methods. (clumens)
+
+* Mon Jan 07 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.17-1
+- Make text mode root password dialog default match GUI. (clumens)
+- Fix a segfault in making the URL dialog box. (clumens)
+
+* Sun Jan 06 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.16-1
+- Fix checking the timestamps on split media installs. (clumens)
+- Fix reference to isodir to avoid a post-install traceback. (clumens)
+- Use a better test when populating the URL panel in loader. (clumens)
+- Don't use error messages from dosfslabel as the label (#427457). (clumens)
+- No longer require kudzu (#427680). (clumens)
+
 * Thu Jan 03 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.15-1
 - Require latest libdhcp (#378641) (dcantrell)
 

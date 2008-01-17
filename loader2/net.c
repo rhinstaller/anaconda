@@ -177,7 +177,6 @@ static int waitForLink(char * dev) {
 	logMessage(DEBUGLVL, "sleep (nicdelay) for %d secs first", post_link_sleep);
 	sleep(post_link_sleep);
 	logMessage(DEBUGLVL, "continuing...");
-
         return 0;
     }
 
@@ -356,6 +355,7 @@ void printLoaderDataIPINFO(struct loaderData_s *loaderData) {
     logMessage(DEBUGLVL, "loaderData->ipv4         = |%s|", loaderData->ipv4);
     logMessage(DEBUGLVL, "loaderData->ipv6info_set = |%d|", loaderData->ipv6info_set);
     logMessage(DEBUGLVL, "loaderData->ipv6         = |%s|", loaderData->ipv6);
+    logMessage(DEBUGLVL, "loaderData->dhcpTimeout  = |%d|", loaderData->dhcpTimeout);
     logMessage(DEBUGLVL, "loaderData->netmask      = |%s|", loaderData->netmask);
     logMessage(DEBUGLVL, "loaderData->gateway      = |%s|", loaderData->gateway);
     logMessage(DEBUGLVL, "loaderData->dns          = |%s|", loaderData->dns);
@@ -427,6 +427,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
                 cfg->noDns = loaderData->noDns;
+                cfg->dhcpTimeout = loaderData->dhcpTimeout;
                 ret = doDhcp(cfg);
             }
 
@@ -540,6 +541,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     }
 
     cfg->noDns = loaderData->noDns;
+    cfg->dhcpTimeout = loaderData->dhcpTimeout;
 }
 
 int readNetConfig(char * device, struct networkDeviceConfig * cfg,
@@ -571,6 +573,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     newCfg.wepkey = NULL;
     newCfg.isDynamic = cfg->isDynamic;
     newCfg.noDns = cfg->noDns;
+    newCfg.dhcpTimeout = cfg->dhcpTimeout;
     newCfg.preset = cfg->preset;
     if (dhcpclass) {
         newCfg.vendor_class = strdup(dhcpclass);
@@ -1325,12 +1328,17 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
 char *doDhcp(struct networkDeviceConfig *dev) {
     struct pumpNetIntf *i;
     char *r = NULL, *class = NULL;
-    time_t timeout = 45;
+    time_t timeout;
     int loglevel;
     DHCP_Preference pref = 0;
     struct utsname kv;
 
     i = &dev->dev;
+
+    if (dev->dhcpTimeout < 0)
+	timeout = 45;
+    else
+	timeout = dev->dhcpTimeout;
 
     if (dev->vendor_class != NULL) {
         class = dev->vendor_class;
@@ -1371,8 +1379,10 @@ char *doDhcp(struct networkDeviceConfig *dev) {
     pref |= DHCPv6_DISABLE_RESOLVER | DHCPv4_DISABLE_HOSTNAME_SET;
 
     /* don't try to run the client if DHCPv4 and DHCPv6 are disabled */
-    if (!(pref & DHCPv4_DISABLE) || !(pref & DHCPv6_DISABLE))
+    if (!(pref & DHCPv4_DISABLE) || !(pref & DHCPv6_DISABLE)){
+        logMessage(loglevel, "requesting dhcp timeout %ld", (long)timeout);
         r = pumpDhcpClassRun(i,0L,class,pref,0,timeout,netlogger,loglevel);
+    }
 
     /* set hostname if we have that */
     if (dev->dev.hostname) {
@@ -1578,7 +1588,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                          char ** argv) {
     char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL, * class = NULL;
     char * essid = NULL, * wepkey = NULL, * onboot = NULL;
-    int noDns = 0, noksdev = 0, rc, mtu = 0, noipv4 = 0, noipv6 = 0;
+    int noDns = 0, noksdev = 0, rc, mtu = 0, noipv4 = 0, noipv6 = 0, dhcpTimeout = -1;
     poptContext optCon;
     struct networkDeviceConfig cfg;
 
@@ -1600,6 +1610,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "wepkey", '\0', POPT_ARG_STRING, &wepkey, 0, NULL, NULL },
         { "onboot", '\0', POPT_ARG_STRING, &onboot, 0, NULL, NULL },
         { "notksdevice", '\0', POPT_ARG_NONE, &noksdev, 0, NULL, NULL },
+        { "dhcptimeout", '\0', POPT_ARG_INT, &dhcpTimeout, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
     
@@ -1640,7 +1651,10 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
     /* if they've specified dhcp/bootp or haven't specified anything, 
      * use dhcp for the interface */
-    if ((bootProto && (!strncmp(bootProto, "dhcp", 4) || 
+    if (bootProto && !strncmp(bootProto, "ask", 3)) {
+        loaderData->ipv4 = strdup("ask");
+        loaderData->ipinfo_set = 0;
+    } else if ((bootProto && (!strncmp(bootProto, "dhcp", 4) || 
                        !strncmp(bootProto, "bootp", 4))) ||
         (!bootProto && !loaderData->ipv4)) {
         loaderData->ipv4 = strdup("dhcp");
@@ -1652,7 +1666,8 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
     /* now make sure the specified bootproto is valid */
     if (bootProto && strcmp(bootProto, "dhcp") && strcmp(bootProto, "bootp") &&
-        strcmp(bootProto, "static") && strcmp(bootProto, "query")) {
+        strcmp(bootProto, "static") && strcmp(bootProto, "query") &&
+        strcmp(bootProto, "ask")) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad bootproto %s specified in network command"),
                        bootProto);
@@ -1909,7 +1924,10 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
         if (!loaderData->ipv4) {
             loaderData->ipv4 = strdup("dhcp");
         } 
-        loaderData->ipinfo_set = 1;
+
+        if (strncmp(loaderData->ipv4, "ask", 3)) {
+            loaderData->ipinfo_set = 1;
+        }
 
         setupNetworkDeviceConfig(netCfgPtr, loaderData);
 

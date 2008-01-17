@@ -1,4 +1,4 @@
-i#!/bin/bash
+#!/bin/bash
 #
 # upd-instroot
 #
@@ -227,7 +227,7 @@ PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
            fonts-japanese fonts-chinese fonts-korean fonts-indic fonts-sinhala
            fonts-malayalam fonts-oriya fonts-kannada fonts-telugu cjkunifonts-ukai
            fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics
-           firstboot pycairo pirut dejavu-fonts libxcb sazanami-fonts-gothic
+           firstboot pycairo pirut dejavu-fonts libxcb VLGothic-fonts
            dmraid python-pyblock libbdevid libbdevid-python zenity udev dbus dbus-python hal"
 
 #
@@ -239,7 +239,8 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump libidn groff
                 findutils ftp gzip iputils joe krb5-libs less man
                 modutils mtools mt-st mtr net-tools open smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
-                device-mapper device-mapper-libs dmraid ntfsprogs samba-client"
+                device-mapper device-mapper-libs dmraid ntfsprogs samba-client
+                firstaidkit-plugin-all"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGESRESCUE="$PACKAGESRESCUE gpart grub"
@@ -302,7 +303,6 @@ boot/efi/EFI/redhat/elilo.efi
 bin/ash
 bin/dbus-daemon
 bin/fdisk*
-bin/mkfs*
 bin/sed
 etc/dbus-1
 etc/group
@@ -328,6 +328,13 @@ lib/terminfo
 $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
 $LIBDIR/dbus-1
+$LIBDIR/libfreebl3.so
+$LIBDIR/libnss3.so
+$LIBDIR/libnssckbi.so
+$LIBDIR/libnsspem.so
+$LIBDIR/libsmime3.so
+$LIBDIR/libsoftokn3.so
+$LIBDIR/libssl3.so
 sbin/badblocks
 sbin/busybox.anaconda
 sbin/clock
@@ -353,6 +360,7 @@ sbin/mkdosfs
 sbin/mke2fs
 sbin/mkfs.ext2
 sbin/mkfs.ext3
+sbin/mkfs.gfs2
 sbin/mkfs.jfs
 sbin/mkfs.xfs
 sbin/mkfs.msdos
@@ -431,13 +439,6 @@ usr/lib/yaboot/addnote
 usr/lib/yaboot/ofboot
 usr/lib/yaboot/yaboot
 usr/lib/yum-plugins/fedorakmod.py*
-usr/$LIBDIR/libfreebl3.so
-usr/$LIBDIR/libnss3.so
-usr/$LIBDIR/libnssckbi.so
-usr/$LIBDIR/libnsspem.so
-usr/$LIBDIR/libsmime3.so
-usr/$LIBDIR/libsoftokn3.so
-usr/$LIBDIR/libssl3.so
 usr/$LIBDIR/libuser/*
 usr/libexec/convertdb1
 usr/libexec/hal*
@@ -661,8 +662,7 @@ usr/share/fonts/dejavu/DejaVuSans-Bold.ttf
 usr/share/fonts/dejavu/DejaVuSansMono.ttf
 usr/share/fonts/korean/TrueType/dotum.ttf
 usr/share/fonts/baekmuk-ttf-dotum/dotum.ttf
-usr/share/fonts/japanese/TrueType/sazanami-gothic.ttf
-usr/share/fonts/sazanami-fonts-gothic/sazanami-gothic.ttf
+usr/share/fonts/japanese/TrueType/VL-Gothic-Regular.ttf
 usr/share/fonts/chinese/TrueType/uming*.ttf
 usr/share/fonts/cjkunifonts-uming/uming*.ttf
 usr/share/fonts/arabic/KacstFarsi.ttf
@@ -829,6 +829,7 @@ usr/bin/ntfsmftalloc
 usr/bin/ntfsmove
 usr/bin/ntfstruncate
 usr/bin/ntfswipe
+usr/bin/firstaidkit
 usr/sbin/mkntfs
 usr/sbin/ntfsclone
 usr/sbin/ntfscp
@@ -838,6 +839,8 @@ usr/sbin/ntfsundelete
 usr/sbin/mtr
 usr/sbin/smartctl
 usr/sbin/traceroute
+usr/$LIBDIR/firstaidkit-plugins/
+usr/lib/python?.?/site-packages/pyfirstaidkit/
 EOF
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then

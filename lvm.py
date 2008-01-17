@@ -221,7 +221,7 @@ def lvresize(lvname, vgname, size):
     except:
         rc = 1
     if rc:
-        raise LVMResizeError(vgname, lvname)
+        raise LVResizeError(vgname, lvname)
 
 
 def vgcreate(vgname, PESize, nodes):

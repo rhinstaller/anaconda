@@ -285,13 +285,13 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
     char * buf = NULL;
     int r;
 
-    if (ui->login || ui->password || ui->proxy || ui->proxyPort)
+    if (ui && (ui->login || ui->password || ui->proxy || ui->proxyPort))
          *doSecondarySetup = '*';
     else
          *doSecondarySetup = ' ';
 
     /* Populate the UI with whatever initial value we've got. */
-    if (ui)
+    if (ui && ui->prefix)
         url = convertUIToURL(ui);
 
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
@@ -304,7 +304,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
     newtTextboxSetText(text, reflowedText);
     free(reflowedText);
 
-    urlEntry = newtEntry(22, 8, url, 24, (const char **) &url,
+    urlEntry = newtEntry(22, 8, url, 60, (const char **) &url,
                          NEWT_ENTRY_SCROLL);
     proxyCheckbox = newtCheckbox(-1, -1, _("Configure proxy"), *doSecondarySetup,
                                  NULL, doSecondarySetup);
@@ -312,17 +312,17 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
     grid = newtCreateGrid(1, 4);
     newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
                      0, 0, 0, 1, 0, 0);
-    newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, urlEntry,
+    newtGridSetField(grid, 0, 1, NEWT_GRID_COMPONENT, urlEntry,
                      0, 0, 0, 1, 0, 0);
     newtGridSetField(grid, 0, 2, NEWT_GRID_COMPONENT, proxyCheckbox,
                      0, 0, 0, 1, 0, 0);
     newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, buttons,
                      0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 
-    newtGridWrappedWindow(grid, _("URL Setup"));
-
     form = newtForm(NULL, NULL, 0);
     newtGridAddComponentsToForm(grid, form, 1); 
+    newtGridWrappedWindow(grid, _("URL Setup"));
+    newtGridFree(grid, 1);
 
     do {
         answer = newtRunForm(form);
@@ -347,8 +347,6 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
 
         break;
     } while (1);
-
-    free(buf);
 
     if (answer == cancel) {
         newtFormDestroy(form);
@@ -422,10 +420,9 @@ int urlSecondarySetupPanel(struct iurlinfo * ui) {
     newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, buttons, 
                      0, 1, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 
-    newtGridWrappedWindow(grid, _("Further Setup"));
-
     form = newtForm(NULL, NULL, 0);
     newtGridAddComponentsToForm(grid, form, 1);
+    newtGridWrappedWindow(grid, _("Further Setup"));
     newtGridFree(grid, 1);
 
     answer = newtRunForm(form);

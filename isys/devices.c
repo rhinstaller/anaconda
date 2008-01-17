@@ -143,7 +143,6 @@ storagedone:
             new = calloc(1, sizeof(struct device));
             new->device = strdup(ent->d_name);
             /* FIXME */
-            rc = asprintf(&new->description,"Ethernet device %s",new->device);
             snprintf(path, 64, "/sys/class/net/%s/address", ent->d_name);
             fd = open(path, O_RDONLY);
             if (fd != -1) {
@@ -153,6 +152,13 @@ storagedone:
                     new->priv.hwaddr = strdup(buf);
                 }
             }
+
+            if (new->priv.hwaddr)
+               rc = asprintf(&new->description, "Ethernet device %s - %s",
+                             new->device, new->priv.hwaddr);
+            else
+               rc = asprintf(&new->description, "Ethernet device %s", new->device);
+
             ret = realloc(ret, (numdevices+2) * sizeof(struct device));
             ret[numdevices] = new;
             ret[numdevices+1] = NULL;

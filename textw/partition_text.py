@@ -811,7 +811,7 @@ class PartitionWindow:
                 filesystem = fstype.current()
 
                 if primary.selected():
-                    primonly = TRUE
+                    primonly = True
                 else:
                     primonly = None
 
@@ -821,7 +821,7 @@ class PartitionWindow:
                     request.mountpoint = self.mount.value()
                 else:
                     request.mountpoint = None
-                request.format = TRUE
+                request.format = True
                 request.primary = primonly
 
                 if origrequest.start == None:
@@ -835,7 +835,7 @@ class PartitionWindow:
                     if growtype == "fixed":
                         grow = None
                     else:
-                        grow = TRUE
+                        grow = True
                     if growtype == "limit":
                         if invalidInteger(limitentry.value()):
                             self.intf.messageWindow(_("Invalid Entry for Maximum Size"),
