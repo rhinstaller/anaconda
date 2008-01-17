@@ -2394,6 +2394,8 @@ class RAIDDevice(Device):
             self.crypto.formatDevice()
             self.crypto.openDevice()
             node = "%s/%s" % (devPrefix, self.crypto.getDevice())
+        else:
+            node = "%s/%s" % (devPrefix, self.device)
 
         return node
 
