@@ -1272,22 +1272,22 @@ class DiskSet:
 
     def exceptionDisks(self, anaconda, probe=True):
         if probe:
-            self.refreshDevices()
             isys.flushDriveDict()
+            self.refreshDevices()
 
         drives = []
         for d in isys.removableDriveDict().items():
-                func = lambda p: not p.get_flag(parted.PARTITION_RAID) and not p.get_flag(parted.PARTITION_LVM) and p.fs_type.name in ["ext3", "ext2", "vfat"]
+            func = lambda p: not p.get_flag(parted.PARTITION_RAID) and not p.get_flag(parted.PARTITION_LVM) and p.fs_type.name in ["ext3", "ext2", "vfat"]
 
-                disk = self.disks[d[0]]
-                parts = filter_partitions(disk, func)
+            disk = self.disks[d[0]]
+            parts = filter_partitions(disk, func)
 
-                if len(parts) == 0:
-                    drives.append(d)
-                else:
-                    for part in parts:
-                        name = "%s%s" % (part.disk.dev.path, part.num)
-                        drives.append((os.path.basename(name), d[1]))
+            if len(parts) == 0:
+                drives.append(d)
+            else:
+                for part in parts:
+                    name = "%s%s" % (part.disk.dev.path, part.num)
+                    drives.append((os.path.basename(name), d[1]))
 
         return drives
 
