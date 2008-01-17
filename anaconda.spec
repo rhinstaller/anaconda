@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.21
+Version: 11.4.0.22
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -199,6 +199,21 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 16 2008 David L. Cantrell Jr. <dcantrell@redhat.com> - 11.4.0.22-1
+- Require the latest libdhcp (dcantrell)
+- Don't set currentMedia when we're on a network install (#428927, clumens)
+- Don't offer two reboot options (clumens)
+- Remove fsopts that are already defaults (#429039, clumens)
+- Remove isofs module to get rid of a FATAL message (clumens)
+- Add the crc32c kernel module for iscsi (#405911, clumens)
+- Add MAC address to the network device selection screen (#428229, clumens)
+- Initial support for network --bootproto=ask (#401531, clumens)
+- Remove an extra newline (clumens)
+- Add firstaidkit to the rescue image (jgranado)
+- Fix the progress bar to hit 100%% on the last package (#428790, clumens)
+- Add some output so the startup delay doesn't seem quite so long (clumens)
+- Initial kickstart support for encrypted partitions (clumens)
+
 * Mon Jan 14 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.21-1
 - Inherit from the right versions of pykickstart classes (clumens)
 - Update for nss files moving to /lib (clumens)
