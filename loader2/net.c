@@ -339,6 +339,7 @@ void printLoaderDataIPINFO(struct loaderData_s *loaderData) {
     logMessage(DEBUGLVL, "loaderData->ip           = |%s|", loaderData->ip);
     logMessage(DEBUGLVL, "loaderData->ipv6info_set = |%d|", loaderData->ipv6info_set);
     logMessage(DEBUGLVL, "loaderData->ipv6         = |%s|", loaderData->ipv6);
+    logMessage(DEBUGLVL, "loaderData->dhcpTimeout  = |%d|", loaderData->dhcpTimeout);
     logMessage(DEBUGLVL, "loaderData->netmask      = |%s|", loaderData->netmask);
     logMessage(DEBUGLVL, "loaderData->gateway      = |%s|", loaderData->gateway);
     logMessage(DEBUGLVL, "loaderData->dns          = |%s|", loaderData->dns);
@@ -415,6 +416,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
                 cfg->noDns = loaderData->noDns;
+                cfg->dhcpTimeout = loaderData->dhcpTimeout;
                 ret = doDhcp(cfg);
             }
 
@@ -572,6 +574,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     newCfg.wepkey = NULL;
     newCfg.isDynamic = cfg->isDynamic;
     newCfg.noDns = cfg->noDns;
+    newCfg.dhcpTimeout = cfg->dhcpTimeout;
     newCfg.preset = cfg->preset;
     if (dhcpclass) {
         newCfg.vendor_class = strdup(dhcpclass);
@@ -1331,7 +1334,7 @@ char *doDhcp(struct networkDeviceConfig *dev) {
 
     i = &dev->dev;
 
-    if (dev->dhcpTimeout <= 0)
+    if (dev->dhcpTimeout < 0)
 	timeout = 45;
     else
 	timeout = dev->dhcpTimeout;
@@ -1366,8 +1369,10 @@ char *doDhcp(struct networkDeviceConfig *dev) {
     pref |= DHCPv6_DISABLE_RESOLVER | DHCPv4_DISABLE_HOSTNAME_SET;
 
     /* don't try to run the client if DHCPv4 and DHCPv6 are disabled */
-    if (!(pref & DHCPv4_DISABLE) || !(pref & DHCPv6_DISABLE))
+    if (!(pref & DHCPv4_DISABLE) || !(pref & DHCPv6_DISABLE)){
+        logMessage(loglevel, "requesting dhcp timeout %ld", (long)timeout);
         r = pumpDhcpClassRun(i,0L,class,pref,0,timeout,netlogger,loglevel);
+    }
 
     return r;
 }
@@ -1560,7 +1565,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                          char ** argv) {
     char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL, * class = NULL;
     char * essid = NULL, * wepkey = NULL, * onboot = NULL;
-    int noDns = 0, noksdev = 0, rc, mtu = 0, noipv4 = 0, noipv6 = 0;
+    int noDns = 0, noksdev = 0, rc, mtu = 0, noipv4 = 0, noipv6 = 0, dhcpTimeout = -1;
     poptContext optCon;
 
     struct poptOption ksOptions[] = {
@@ -1581,6 +1586,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "wepkey", '\0', POPT_ARG_STRING, &wepkey, 0, NULL, NULL },
         { "onboot", '\0', POPT_ARG_STRING, &onboot, 0, NULL, NULL },
         { "notksdevice", '\0', POPT_ARG_NONE, &noksdev, 0, NULL, NULL },
+        { "dhcptimeout", '\0', POPT_ARG_INT, &dhcpTimeout, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
     
