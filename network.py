@@ -425,6 +425,12 @@ class Network:
             if len(dev.get("DESC")) > 0:
                 f.write("# %s\n" % (dev.get("DESC"),))
 
+            # if bootproto is dhcp, unset any static settings (#218489)
+            if dev.get('BOOTPROTO').lower() == 'dhcp':
+                dev.unset('IPADDR')
+                dev.unset('NETMASK')
+                dev.unset('GATEWAY')
+
             # handle IPv6 settings correctly for the ifcfg file
             ipv6addr = dev.get('IPV6ADDR').lower()
             ipv6prefix = dev.get('IPV6PREFIX').lower()
