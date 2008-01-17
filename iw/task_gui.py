@@ -1,7 +1,7 @@
 #
 # task_gui.py: Choose tasks for installation
 #
-# Copyright (C) 2006, 2007 Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2006, 2007, 2008 Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ import gui
 from iw_gui import *
 from rhpl.translate import _, N_
 from constants import productName
+import isys
 
 from netconfig_dialog import NetworkConfigurator
 import network
@@ -242,7 +243,25 @@ class TaskWindow(InstallWindow):
 
             repo.enable()
 
-            if not editing:
+            if editing:
+                # Only do this for the real base repo, as that's what will get
+                # written out to anaconda-ks.cfg as the method.
+                if not repo.addon and not repo.name.startswith("Driver Disk"):
+                    self.anaconda.setMethodstr(repourl)
+
+                    # Ideally we should be able to unmount here, but if not
+                    # it's probably not a big deal.
+                    try:
+                        isys.umount(self.backend.ayum.tree)
+
+                        if self.backend.ayum.isodir:
+                            isys.umount(self.backend.ayum.isodir)
+                    except:
+                        pass
+
+                if not self._setupRepo(repo):
+                    continue
+            else:
                 try:
                     self.backend.ayum.repos.add(repo)
                 except yum.Errors.DuplicateRepoError, e:
@@ -252,10 +271,9 @@ class TaskWindow(InstallWindow):
                             "URL.") % reponame, type="ok", custom_icon="error")
                     continue
 
-            if not self._setupRepo(repo):
-                continue
+                if not self._setupRepo(repo):
+                    continue
 
-            if not editing:
                 s = self.xml.get_widget("repoList").get_model()
                 s.append([repo.isEnabled(), repo.name, repo])
 
