@@ -18,7 +18,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define gettextver 0.11
 %define glib2ver 2.11.1-5
 %define intltoolver 0.31.2-3
-%define libdhcpver 1.99.6-1
+%define libdhcpver 1.99.6-2
 %define libselinuxver 1.6
 %define mkinitrdver 5.1.2-1
 %define pykickstartver 0.96
