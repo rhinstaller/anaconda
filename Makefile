@@ -84,11 +84,11 @@ install:
 	strip $(DESTDIR)/$(PYTHONLIBDIR)/*.so
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
-CVSTAG=anaconda-$(subst .,_,$(VERSION)-$(RELEASE))
+TAG=anaconda-$(VERSION)-$(RELEASE)
 SRPMDIR=$(shell rpm --eval '%{_srcrpmdir}')
 tag:
-	@cvs tag -cR $(CVSTAG)
-	@echo "Tagged as $(CVSTAG)"
+	git tag -a -m "Tag as $(TAG)" -f $(TAG)
+	@echo "Tagged as $(TAG)"
 
 archive: create-archive
 
@@ -101,23 +101,10 @@ build: src
 	@mkdir /tmp/anaconda
 	cd /tmp/anaconda ; cvs co common ; cd common ; ./cvs-import.sh -b RHEL-5 $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
 	@rm -rf /tmp/anaconda
-	brew build $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?anaconda/RHEL-5#$(CVSTAG)'
+	brew build $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?anaconda/RHEL-5#$(TAG)'
 
 create-snapshot:
-	@rm -rf /tmp/anaconda
-	@rm -rf /tmp/anaconda-$(VERSION)
-	@tag=`cvs status Makefile | awk ' /Sticky Tag/ { print $$3 } '` 2> /dev/null; \
-	[ x"$$tag" = x"(none)" ] && tag=HEAD; \
-	[ x"$$TAG" != x ] && tag=$$TAG; \
-	cvsroot=`cat CVS/Root` 2>/dev/null; \
-        echo "*** Pulling off $$tag from $$cvsroot!"; \
-	cd /tmp ; cvs -z3 -Q -d $$cvsroot export -r $$tag anaconda || echo "Um... export aborted."
-	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
-	@cd /tmp ; tar --bzip2 -cSpf anaconda-$(VERSION).tar.bz2 anaconda-$(VERSION)
-	@rm -rf /tmp/anaconda-$(VERSION)
-	@cp /tmp/anaconda-$(VERSION).tar.bz2 .
-	@rm -f /tmp/anaconda-$(VERSION).tar.bz2
-	@echo ""
+	git-archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) | bzip2 -cz > $(PKGNAME)-$(VERSION).tar.bz2
 	@echo "The final archive is in anaconda-$(VERSION).tar.bz2"
 
 create-archive:
@@ -135,7 +122,7 @@ local: clean
 	@rm -rf /tmp/${PKGNAME}-$(VERSION) /tmp/${PKGNAME}
 	@dir=$$PWD; cd /tmp; cp -a $$dir ${PKGNAME}
 	@mv /tmp/${PKGNAME} /tmp/${PKGNAME}-$(VERSION)
-	@dir=$$PWD; cd /tmp; tar --exclude CVS --bzip2 -cvf $$dir/${PKGNAME}-$(VERSION).tar.bz2 ${PKGNAME}-$(VERSION)
+	@dir=$$PWD; cd /tmp; tar --exclude .git --bzip2 -cvf $$dir/${PKGNAME}-$(VERSION).tar.bz2 ${PKGNAME}-$(VERSION)
 	@rm -rf /tmp/${PKGNAME}-$(VERSION)
 	@echo "The archive is in ${PKGNAME}-$(VERSION).tar.bz2"
 

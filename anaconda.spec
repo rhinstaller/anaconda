@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.87
+Version: 11.1.2.88
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -15,7 +15,7 @@ BuildPreReq: pykickstart, yum >= 2.9.2, device-mapper >= 1.01.05-3,
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: glib2-devel >= 2.11.1-5
-BuildPreReq: libdhcp-devel >= 1.16, mkinitrd-devel >= 5.1.2-1
+BuildPreReq: libdhcp-devel >= 1.20-3, mkinitrd-devel >= 5.1.2-1
 BuildPreReq: audit-libs-devel
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
 Requires: parted >= 1.7.1, pyparted >= 1.7.2
@@ -103,6 +103,78 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan 18 2008 Chris Lumens <clumens@redhat.com> 11.1.2.88-1
+- Allow users to back up past instkey dialog (dlehman).
+  Resolves: rhbz#252349
+- Handle missing FTP files the same way as missing HTTP files (dlehman).
+  Resolves: rhbz#350251
+- Add support for iSCSI iBFT (msivak).
+  Resolves: rhbz#307761
+- Do not display NICs as UNCONFIGURED in network_text.py (dcantrell).
+  Resolves: rhbz#275291
+- If bootproto is dhcp, unset any static settings (dcantrell).
+  Resolves: rhbz#218489
+- Add support for the mptctl driver.
+  Resolves: rhbz#382941
+- Fix a traceback running pkgorder in non-base products (dgregor).
+  Resolves: rhbz#317131
+- Fix a traceback when adding zFCP disk without specifying details (msivak).
+  Resolves: rhbz#428180
+- Catch lvm tools errors when creating logical volumes (msivak).
+  Resolves: rhbz#224636
+- Add support for specifying the dhcp timeout (msivak).
+  Resolves: rhbz#198147, rhbz#254032
+- Don't add a trailing 1 to filesystem labels (jgranado).
+  Resolves: rhbz#415861
+- Add spufs support (jgranado).
+  Resolves: rhbz#247720
+- List iSCSI multipath devices in the installer UI. (dcantrell).
+  Resolves: rhbz#391951
+- Fix selected device when adding an advanced storage device (msivak).
+  Resolves: rhbz#248447
+- Add maketreeinfo.py script (jgranado).
+  Resolves: rhbz#253992
+- Make F12 work for the network config screen in text installs (jgranado).
+  Resolves: rhbz#250982
+- Add the ixgbe driver (jgranado).
+  Resolves: rhbz#350911
+- Write out IPV6INIT= to network-scripts (jgranado).
+  Resolves: rhbz#243524
+- Close md devices to fix RAID tracebacks (jgranado).
+  Related: rhbz#208970
+- Use input %packages section for anaconda-ks.cfg (msivak).
+  Resolves: rhbz#280101
+- Add option for selecting different comps file (msivak).
+  Resolves: rhbz#352081
+- Add nicdelay parameter (msivak).
+  Resolves: rhbz#349521
+- Be more accepting in which strings we wait for from sshd (alanm).
+  Resolves: rhbz#286031
+- Allow the use of double quotes in the pxeboot config file (jgranado).
+  Resolves: rhbz#248170
+- Read the nic info before showing the configuration window (jgranado).
+  Resolves: rhbz#278451
+- Make the back button work on the network config screen in loader (jgranado).
+  Resolves: rhbz#233655
+- Get lcs interface name correctly (msivak).
+  Resolves: rhbz#237508
+- Include more terminfo files to fix s390 telnet mode (msivak).
+  Resolves: rhbz#231173
+- Fix kickstart docs for --dhcpclass parameter (jgranado).
+  Resolves: rhbz#248910
+- Fix traceback when displaying autopartition error messages (jgranado).
+  Resolves: rhbz#247257
+- Fix comparison of unusual network interface names (jgranado).
+  Resolves: rhbz#246135
+- Populate the kickstart file dialog with the original value (jgranado).
+  Resolves: rhbz#245936
+- Make the man pages work in rescue mode (jgranado).
+  Resolves: rhbz#243443
+- Sort text package list (jgranado).
+  Resolves: rhbz#242456
+- Don't eject the cd before the %post scripts are run (jgranado).
+  Resolves: rhbz#238711
+
 * Wed Oct 17 2007 Chris Lumens <clumens@redhat.com> 11.1.2.87-1
 - Prompt for manual network configuration in the loader if needed.
   Related: rhbz#296081
