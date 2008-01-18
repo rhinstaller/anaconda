@@ -34,6 +34,7 @@ from iw_gui import *
 from flags import flags
 import network
 import partitions
+import iscsi
 
 class PartitionTypeWindow(InstallWindow):
     def __init__(self, ics):
@@ -243,7 +244,6 @@ class PartitionTypeWindow(InstallWindow):
             dxml.get_widget("zfcpRadio").hide()
             dxml.get_widget("zfcpRadio").set_group(None)
 
-        import iscsi
         if not iscsi.has_iscsi():
             dxml.get_widget("iscsiRadio").set_sensitive(False)
             dxml.get_widget("iscsiRadio").set_active(False)
@@ -365,6 +365,9 @@ class PartitionTypeWindow(InstallWindow):
             self.xml.get_widget("driveScroll").set_sensitive(False)
             self.xml.get_widget("bootDriveCombo").set_sensitive(False)
             self.xml.get_widget("encryptButton").set_sensitive(False)
+
+        if rhpl.getArch() not in ["s390", "s390x"] and not iscsi.has_iscsi():
+            self.xml.get_widget("addButton").set_sensitive(False)
 
         sigs = { "on_partitionTypeCombo_changed": self.comboChanged,
                  "on_addButton_clicked": self.addDrive }
