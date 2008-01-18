@@ -923,7 +923,7 @@ class InstallInterface:
     def getInstallKey(self, anaconda, key = ""):
         d = InstallKeyWindow(anaconda, key)
         rc = d.run()
-        if rc == gtk.RESPONSE_CANCEL:
+        if rc == 0:
             ret = None
         else:
             ret = d.get_key()

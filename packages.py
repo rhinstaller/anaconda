@@ -278,7 +278,7 @@ def regKeyScreen(anaconda):
     key = anaconda.id.instClass.installkey or ""
 
     # handle existing key if we're headed forward
-    if key and not anaconda.id.instClass.skipkey and \
+    if key and not anaconda.id.instClass.skipkey and anaconda.isKickstart and \
        anaconda.dir == DISPATCH_FORWARD and checkRegKey(anaconda, key):
         return DISPATCH_FORWARD
 
