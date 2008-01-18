@@ -587,14 +587,13 @@ class NetworkDeviceWindow:
                 ipv6 = dev.get('ipv6addr')
 
             devname = dev.get('device').lower()
-            if ipv4 is not None and ipv6 is not None:
+            if ipv4 != '' and ipv6 != '':
                 desc = _("%s, %s, %s") % (onboot, ipv4, ipv6,)
-            elif ipv4 is not None and ipv6 is None:
+            elif ipv4 != '' and ipv6 == '':
                 desc = _("%s, %s") % (onboot, ipv4,)
-            elif ipv4 is None and ipv6 is not None:
+            elif ipv4 == '' and ipv6 != '':
                 desc = _("%s, %s") % (onboot, ipv6,)
             self.devListDescs[devname] = desc
-
 
         # collect configuration data for each interface selected by the user
         doConf = True
@@ -665,11 +664,11 @@ class NetworkDeviceWindow:
                 ipv6 = dev.get('ipv6addr')
 
             devname = dev.get('device').lower()
-            if ipv4 is not None and ipv6 is not None:
+            if ipv4 != '' and ipv6 != '':
                 desc = _("%s, %s, %s") % (onboot, ipv4, ipv6,)
-            elif ipv4 is not None and ipv6 is None:
+            elif ipv4 != '' and ipv6 == '':
                 desc = _("%s, %s") % (onboot, ipv4,)
-            elif ipv4 is None and ipv6 is not None:
+            elif ipv4 == '' and ipv6 != '':
                 desc = _("%s, %s") % (onboot, ipv6,)
             self.devListDescs[devname] = desc
 
