@@ -164,7 +164,8 @@ class UrlInstallMethod(InstallMethod):
             try:
                 urlretrieve(fullPath, file)
             except IOError, (errnum, msg):
-                if errnum == 14 and "404" in msg and raise404:
+                if ((errnum == 14 and "404" in msg) or
+                    (errnum == 4 and "550" in msg)) and raise404:
                     raise
 		log.critical("IOError %s occurred getting %s: %s",
 			     errnum, fullPath.replace("%", "%%"), str(msg))
