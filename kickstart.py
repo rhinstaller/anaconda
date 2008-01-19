@@ -552,7 +552,7 @@ class AnacondaKSHandlers(KickstartHandlers):
 
         self.id.rootPassword["password"] = dict["password"]
         self.id.rootPassword["isCrypted"] = dict["isCrypted"]
-	self.skipSteps.append("accounts")
+        self.skipSteps.append("accounts")
 
     def doSELinux(self, args):
         KickstartHandlers.doSELinux(self, args)

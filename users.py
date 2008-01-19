@@ -20,37 +20,47 @@ import tempfile
 import os
 import os.path
 
-def createLuserConf(instPath):
+def createLuserConf(instPath, saltname='md5'):
     """Writes a libuser.conf for instPath."""
-    (fd, fn) = tempfile.mkstemp(prefix="libuser.")
+    if os.access(os.environ["LIBUSER_CONF"], os.R_OK):
+        fn = os.environ["LIBUSER_CONF"]
+        fd = open(fn, 'w')
+    else:
+        (fd, fn) = tempfile.mkstemp(prefix="libuser.")
+
     buf = """
 [defaults]
 skeleton = %(instPath)s/etc/skel
 mailspooldir = %(instPath)s/var/mail
-crypt_style = md5
+crypt_style = %(salt)
 modules = files shadow
 create_modules = files shadow
 [files]
 directory = %(instPath)s/etc
 [shadow]
 directory = %(instPath)s/etc
-""" % {"instPath": instPath}
-    os.write(fd, buf)
-    os.close(fd)
+""" % {"instPath": instPath, "salt": saltname}
 
+    fd.write(buf)
+    fd.close()
     os.environ["LIBUSER_CONF"] = fn
-    
 
-def cryptPassword(password, useMD5):
-    if useMD5:
-	salt = "$1$"
-	saltLen = 8
+# These are explained in crypt/crypt-entry.c in glibc's code.  The prefixes
+# we use for the different crypt salts:
+#     $1$    MD5
+#     $5$    SHA256
+#     $6$    SHA512
+def cryptPassword(password, saltkey=None):
+    salts = {'md5': '$1$', 'sha256': '$5$', 'sha512': '$6$', None: ''}
+
+    salt = salts[saltkey]
+    if salt == '':
+        saltLen = 2
     else:
-	salt = ""
-	saltLen = 2
+        saltLen = 8
 
     for i in range(saltLen):
-	salt = salt + random.choice (string.letters +
+        salt = salt + random.choice (string.letters +
                                      string.digits + './')
 
     return crypt.crypt (password, salt)
@@ -60,7 +70,8 @@ class Users:
         self.admin = libuser.admin()
 
     def createUser (self, name, password=None, isCrypted=False, groups=[],
-                    homedir=None, shell=None, uid=None, root="/mnt/sysimage"):
+                    homedir=None, shell=None, uid=None, root="/mnt/sysimage",
+                    salt=None):
         if self.admin.lookupUserByName(name):
             return None
 
@@ -96,18 +107,20 @@ class Users:
             if isCrypted:
                 self.admin.setpassUser(userEnt, password, isCrypted)
             else:
-                self.admin.setpassUser(userEnt, cryptPassword(password, True), isCrypted)
+                self.admin.setpassUser(userEnt,
+                                       cryptPassword(password, salt=salt),
+                                       isCrypted)
 
         # Now set the correct home directory to fix up passwd.
         userEnt.set(libuser.HOMEDIRECTORY, homedir)
         self.admin.modifyUser(userEnt)
 
-    def setRootPassword(self, password, isCrypted, useMD5):
+    def setRootPassword(self, password, isCrypted, salt=None):
         rootUser = self.admin.lookupUserByName("root")
 
         if isCrypted:
             self.admin.setpassUser(rootUser, password, True)
         else:
-            self.admin.setpassUser(rootUser, cryptPassword(password, useMD5), True)
+            self.admin.setpassUser(rootUser, cryptPassword(password, salt=salt), True)
 
         self.admin.modifyUser(rootUser)
