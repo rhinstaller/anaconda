@@ -1,7 +1,7 @@
 #
 # users.py:  Code for creating user accounts and setting the root password
 #
-# Copyright (C) 2006, 2007  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2006, 2007, 2008 Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,6 +26,9 @@ import random
 import tempfile
 import os
 import os.path
+
+import logging
+log = logging.getLogger("anaconda")
 
 def createLuserConf(instPath):
     """Writes a libuser.conf for instPath."""
@@ -68,53 +71,63 @@ class Users:
     def createUser (self, name, password=None, isCrypted=False, groups=[],
                     homedir=None, shell=None, uid=None, lock=False,
                     root="/mnt/sysimage"):
-        if self.admin.lookupUserByName(name):
-            return None
+        childpid = os.fork()
 
-        userEnt = self.admin.initUser(name)
-        groupEnt = self.admin.initGroup(name)
+        if not childpid:
+            os.chroot(root)
+            os.unsetenv("LIBUSER_CONF")
 
-        grpLst = filter(lambda grp: grp,
-                        map(lambda name: self.admin.lookupGroupByName(name), groups))
-        userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
-                    map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
+            if self.admin.lookupUserByName(name):
+                os._exit(1)
 
-        if not homedir:
-            homedir = "/home/" + name
+            userEnt = self.admin.initUser(name)
+            groupEnt = self.admin.initGroup(name)
 
-        # Do this to make the user's home dir under the install root.
-        if homedir[0] != "/":
-            userEnt.set(libuser.HOMEDIRECTORY, root + "/" + homedir)
+            grpLst = filter(lambda grp: grp,
+                            map(lambda name: self.admin.lookupGroupByName(name), groups))
+            userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
+                        map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
+
+            if not homedir:
+                homedir = "/home/" + name
+
+            userEnt.set(libuser.HOMEDIRECTORY, homedir)
+
+            if shell:
+                userEnt.set(libuser.LOGINSHELL, shell)
+
+            if uid >= 0:
+                userEnt.set(libuser.UIDNUMBER, uid)
+
+            self.admin.addUser(userEnt)
+            self.admin.addGroup(groupEnt)
+
+            if password:
+                if isCrypted:
+                    self.admin.setpassUser(userEnt, password, isCrypted)
+                else:
+                    self.admin.setpassUser(userEnt, cryptPassword(password, True), isCrypted)
+
+            if lock:
+                self.admin.lockUser(userEnt)
+
+            # Add the user to all the groups they should be part of.
+            for grp in grpLst:
+                grp.add(libuser.MEMBERNAME, name)
+                self.admin.modifyGroup(grp)
+
+            os._exit(0)
+
+        try:
+            (pid, status) = os.waitpid(childpid, 0)
+        except OSError, (num, msg):
+            log.critical("exception from waitpid while creating a user: %s %s" % (num, msg))
+            return False
+
+        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
+            return True
         else:
-            userEnt.set(libuser.HOMEDIRECTORY, root + homedir)
-
-        if shell:
-            userEnt.set(libuser.LOGINSHELL, shell)
-
-        if uid >= 0:
-            userEnt.set(libuser.UIDNUMBER, uid)
-
-        self.admin.addUser(userEnt)
-        self.admin.addGroup(groupEnt)
-
-        if password:
-            if isCrypted:
-                self.admin.setpassUser(userEnt, password, isCrypted)
-            else:
-                self.admin.setpassUser(userEnt, cryptPassword(password, True), isCrypted)
-
-        if lock:
-            self.admin.lockUser(userEnt)
-
-        # Add the user to all the groups they should be part of.
-        for grp in grpLst:
-            grp.add(libuser.MEMBERNAME, name)
-            self.admin.modifyGroup(grp)
-
-        # Now set the correct home directory to fix up passwd.
-        userEnt.set(libuser.HOMEDIRECTORY, homedir)
-        self.admin.modifyUser(userEnt)
-        return True
+            return False
 
     def setRootPassword(self, password, isCrypted, useMD5, lock):
         rootUser = self.admin.lookupUserByName("root")
