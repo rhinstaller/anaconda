@@ -312,14 +312,14 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 
     loaderData->method = METHOD_NFS;
     loaderData->methodData = calloc(sizeof(struct nfsInstallData *), 1);
-    if (host)
-        ((struct nfsInstallData *)loaderData->methodData)->host = host;
-    if (dir)
-        ((struct nfsInstallData *)loaderData->methodData)->directory = dir;
-    if (mountOpts)
-        ((struct nfsInstallData *)loaderData->methodData)->mountOpts = mountOpts;
+    ((struct nfsInstallData *)loaderData->methodData)->host = host;
+    ((struct nfsInstallData *)loaderData->methodData)->directory = dir;
+    ((struct nfsInstallData *)loaderData->methodData)->mountOpts = mountOpts;
 
-    logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'", host, dir, mountOpts);
+    logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
+               ((struct nfsInstallData *) loaderData->methodData)->host,
+               ((struct nfsInstallData *) loaderData->methodData)->directory,
+               ((struct nfsInstallData *) loaderData->methodData)->mountOpts);
 }
 
 
