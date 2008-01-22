@@ -183,7 +183,10 @@ def raidstart(mdDevice, aMember):
     mdInode = "/dev/%s" % mdDevice
     mbrInode = "/dev/%s" % aMember
 
-    minor = os.minor(os.stat(mdInode).st_rdev)
+    if os.path.exists(mdInode):
+        minor = os.minor(os.stat(mdInode).st_rdev)
+    else:
+        minor = int(mdDevice[2:])
     try:
         info = _getRaidInfo(mbrInode)
         if info.has_key('mdMinor'):
