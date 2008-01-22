@@ -27,5 +27,4 @@ int busProbe(int justProbe);
 
 void dasdSetup();
 
-void spufsSetup();
 #endif

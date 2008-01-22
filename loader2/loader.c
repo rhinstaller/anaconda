@@ -1626,7 +1626,9 @@ int main(int argc, char ** argv) {
 
     /* now let's do some initial hardware-type setup */
     dasdSetup();
-    spufsSetup();
+#if defined(__powerpc__)
+    mlLoadModule("spufs", NULL);
+#endif
 
     if (loaderData.lang && (loaderData.lang_set == 1)) {
         setLanguage(loaderData.lang);
