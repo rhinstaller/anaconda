@@ -23,7 +23,7 @@
 
 import isys
 import partedUtils
-import os
+import os, sys
 import iutil
 import string
 import rhpl
@@ -41,7 +41,16 @@ from fsset import *
 
 def bootloaderSetupChoices(anaconda):
     if anaconda.dir == DISPATCH_BACK:
-        return
+        rc = anaconda.intf.messageWindow(_("Warning"),
+                _("Your filesystems have already been activated.  You "
+                  "cannot go back past this point.\n\nWould you like to "
+                  "continue with the installation?"),
+                type="custom", custom_icon=["error","error"],
+                custom_buttons=[_("_Exit installer"), _("_Continue")])
+
+        if rc == 0:
+            sys.exit(0)
+        return DISPATCH_FORWARD
 
     # FIXME: this is a hack...
     if flags.livecd:
