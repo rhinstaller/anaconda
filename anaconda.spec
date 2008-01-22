@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.22
+Version: 11.4.0.23
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -199,6 +199,18 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jan 21 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.23-1
+- Try to fix a problem creating users via kickstart (#428891, clumens)
+- Fix a loader segfault doing kickstart nfs installs (clumens)
+- Move more interactive steps ahead of partitioning (clumens)
+- If we can't possibly add advanced devices, don't offer it (#429210, clumens)
+- Don't flush after rescanning so recently attached disks are
+  available (clumens)
+- If bootproto is dhcp, unset any static settings (#218489, dcantrell)
+- Add some groups to pkgorder to make the CDs come out right (pjones)
+- Fix traceback when using non-encrypted RAID (notting)
+- Complete the patch for dhcptimeout (#198147, #254032, msivak)
+
 * Wed Jan 16 2008 David L. Cantrell Jr. <dcantrell@redhat.com> - 11.4.0.22-1
 - Require the latest libdhcp (dcantrell)
 - Don't set currentMedia when we're on a network install (#428927, clumens)
