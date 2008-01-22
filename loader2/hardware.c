@@ -146,12 +146,6 @@ int busProbe(int justProbe) {
     return detectHardware();
 }
 
-
-void ipv6Setup() {
-    if (!FL_NOIPV6(flags))
-        mlLoadModule("ipv6", NULL);
-}
-
 /* check if the system has been booted with dasd parameters */
 /* These parameters define the order in which the DASDs */
 /* are visible to Linux. Otherwise load dasd modules probeonly, */

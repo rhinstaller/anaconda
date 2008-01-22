@@ -1621,8 +1621,8 @@ int main(int argc, char ** argv) {
     mlLoadModuleSet("cramfs:vfat:nfs:loop:floppy:edd:pcspkr:squashfs:ext4dev:ext3:ext2");
 #endif
 
-    /* IPv6 support is conditional */
-    ipv6Setup();
+    if (!FL_NOIPV6(flags))
+        mlLoadModule("ipv6", NULL);
 
     /* now let's do some initial hardware-type setup */
     dasdSetup();

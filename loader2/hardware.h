@@ -27,7 +27,5 @@ int busProbe(int justProbe);
 
 void dasdSetup();
 
-void ipv6Setup();
-
 void spufsSetup();
 #endif
