@@ -258,6 +258,7 @@ void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
     mlLoadModule("zfcp", modLoaded, modDeps, modInfo, NULL);
 #endif
     mlLoadModule("iscsi_tcp", modLoaded, modDeps, modInfo, NULL);
+    mlLoadModule("iscsi_ibft", modLoaded, modDeps, modInfo, NULL);
 }
 
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
