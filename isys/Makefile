@@ -35,9 +35,9 @@ endif
 PYMODULES = _isys.so
 SUBDIRS = 
 
-# glib
-LOADLIBES += $(shell pkg-config --libs glib-2.0)
-CFLAGS    += $(shell pkg-config --cflags glib-2.0)
+# libnl
+LOADLIBES += $(shell pkg-config --libs libnl-1)
+CFLAGS    += $(shell pkg-config --cflags libnl-1)
 
 # libdhcp
 LOADLIBES += $(shell pkg-config --libs libdhcp)
@@ -101,14 +101,9 @@ nfsmount.do: nfs_mountversion.h
 nfs_mountversion.h: /usr/include/linux/nfs_mount.h
 	grep NFS_MOUNT_VERSION $< | sed -e 's/NFS/KERNEL_NFS/' > $@
 
-nltest: str.o nl.c nl.h
-	$(CC) -c $(CFLAGS) -DTESTING nl.c -o nl.o
-	$(CC) -DTESTING nl.o -o nl $(LOADLIBES) str.o
-
 depend: nfs_mountversion.h
 	$(CPP) -M $(CFLAGS) $(SOURCES) > .depend
 
 ifeq (.depend,$(wildcard .depend))
 include .depend
-endif                                           
-
+endif

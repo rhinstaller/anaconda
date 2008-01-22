@@ -360,9 +360,8 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     }
 
     /* get the IP of the target system */
-    netlink_init_interfaces_list();
-    if ((ip = netlink_interfaces_ip2str(loaderData->netDev)) == NULL) {
-        logMessage(ERROR, "netlink_interfaces_ip2str returned NULL");
+    if ((ip = nl_ip2str(loaderData->netDev)) == NULL) {
+        logMessage(ERROR, "nl_ip2str returned NULL");
         return 1;
     }
 

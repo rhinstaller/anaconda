@@ -310,8 +310,7 @@ int getFileFromUrl(char * url, char * dest,
     memset(&ui, 0, sizeof(ui));
     ui.protocol = proto;
 
-    netlink_init_interfaces_list();
-    if ((ip = netlink_interfaces_ip2str(loaderData->netDev)) == NULL) {
+    if ((ip = nl_ip2str(loaderData->netDev)) == NULL) {
         logMessage(ERROR, "getFileFromUrl: no client IP information");
         return 1;
     }
@@ -359,7 +358,7 @@ int getFileFromUrl(char * url, char * dest,
         devices = getDevices(DEVICE_NETWORK);
         for (i = 0; devices && devices[i]; i++) {
             dev = devices[i]->device;
-            mac = netlink_interfaces_mac2str(dev);
+            mac = nl_mac2str(dev);
 
             if (mac) {
                 q = asprintf(&tmpstr, "X-RHN-Provisioning-MAC-%d: %s %s\r\n",
