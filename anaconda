@@ -323,13 +323,24 @@ def setVNCFromKickstart(opts):
 def setupPythonPath():
     # For anaconda in test mode
     if (os.path.exists('isys')):
-        sys.path.append('isys')
-        sys.path.append('textw')
-        sys.path.append('iw')
+        sys.path.insert(0, 'isys')
+        sys.path.insert(0, 'textw')
+        sys.path.insert(0, 'iw')
     else:
-        sys.path.append('/usr/lib/anaconda')
-        sys.path.append('/usr/lib/anaconda/textw')
-        sys.path.append('/usr/lib/anaconda/iw')
+        haveUpdates = False
+        for ndx in range(0, len(sys.path) - 1):
+            if sys.path[ndx].endswith('RHupdates'):
+                haveUpdates = True
+                break
+
+        if haveUpdates:
+            sys.path.insert(ndx+1, '/usr/lib/anaconda')
+            sys.path.insert(ndx+2, '/usr/lib/anaconda/textw')
+            sys.path.insert(ndx+3, '/usr/lib/anaconda/iw')
+        else:
+            sys.path.insert(0, '/usr/lib/anaconda')
+            sys.path.insert(1, '/usr/lib/anaconda/textw')
+            sys.path.insert(2, '/usr/lib/anaconda/iw')
 
     if (os.path.exists('booty')):
         sys.path.append('booty')
