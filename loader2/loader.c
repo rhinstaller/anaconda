@@ -1615,11 +1615,7 @@ int main(int argc, char ** argv) {
     if (isVioConsole())
         setenv("TERM", "vt100", 1);
 
-#if defined(__powerpc__)  /* hack for pcspkr breaking ppc right now */
-    mlLoadModuleSet("cramfs:vfat:nfs:loop:floppy:edd:squashfs:ext3:ext4dev:ext2");
-#else
     mlLoadModuleSet("cramfs:vfat:nfs:loop:floppy:edd:pcspkr:squashfs:ext4dev:ext3:ext2:iscsi_tcp");
-#endif
 
     if (!FL_NOIPV6(flags))
         mlLoadModule("ipv6", NULL);
