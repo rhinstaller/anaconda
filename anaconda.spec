@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.88
+Version: 11.1.2.89
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jan 21 2008 Chris Lumens <clumens@redhat.com> 11.1.2.89-1
+- Support SHA256/SHA512 password encoding from kickstart (dcantrell).
+  Resolves: rhbz#427388
+
 * Fri Jan 18 2008 Chris Lumens <clumens@redhat.com> 11.1.2.88-1
 - Allow users to back up past instkey dialog (dlehman).
   Resolves: rhbz#252349
