@@ -19,6 +19,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define glib2ver 2.11.1-5
 %define intltoolver 0.31.2-3
 %define libdhcpver 1.99.6-2
+%define libnlver 1.0
 %define libselinuxver 1.6
 %define mkinitrdver 5.1.2-1
 %define pykickstartver 0.96
@@ -49,6 +50,7 @@ BuildRequires: libX11-devel
 BuildRequires: libXt-devel
 BuildRequires: libXxf86misc-devel
 BuildRequires: libdhcp-devel >= %{libdhcpver}
+BuildRequires: libnl-devel >= %{libnlver}
 BuildRequires: libselinux-devel >= %{libselinuxver}
 BuildRequires: libsepol-devel
 BuildRequires: libxml2-python
