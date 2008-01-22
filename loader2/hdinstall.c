@@ -155,7 +155,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
 
         /* XXX try to mount as ext2 and then vfat */
         for (type=typetry; *type; type++) {
-            if (!doPwMount(device, "/mnt/isodir", *type, IMOUNT_RDONLY, NULL))
+            if (!doPwMount(device, "/mnt/isodir", *type, "ro"))
                 break;
         }
 

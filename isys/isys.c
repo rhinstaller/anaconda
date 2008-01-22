@@ -71,7 +71,7 @@
 #include <blkid/blkid.h>
 
 #include "iface.h"
-#include "imount.h"
+#include "nl.h"
 #include "isys.h"
 #include "net.h"
 #include "smp.h"
@@ -435,21 +435,13 @@ static PyObject * doUMount(PyObject * s, PyObject * args) {
 }
 
 static PyObject * doMount(PyObject * s, PyObject * args) {
-    char * fs, * device, * mntpoint;
+    char *fs, *device, *mntpoint, *flags;
     int rc;
-    int readOnly = 0;
-    int bindMount = 0;
-    int reMount = 0;
-    int flags = 0;
 
-    if (!PyArg_ParseTuple(args, "sssiii", &fs, &device, &mntpoint,
-			  &readOnly, &bindMount, &reMount)) return NULL;
+    if (!PyArg_ParseTuple(args, "ssss", &fs, &device, &mntpoint,
+			  &flags)) return NULL;
 
-    if (readOnly) flags |= IMOUNT_RDONLY; 
-    if (bindMount) flags |= IMOUNT_BIND;
-    if (reMount) flags |= IMOUNT_REMOUNT;
-
-    rc = doPwMount(device, mntpoint, fs, flags, NULL);
+    rc = doPwMount(device, mntpoint, fs, flags);
     if (rc == IMOUNT_ERR_ERRNO) 
 	PyErr_SetFromErrno(PyExc_SystemError);
     else if (rc)
