@@ -1066,7 +1066,7 @@ def setSteps(anaconda):
 
     # Only skip the network screen if there are no devices that used
     # network --bootproto=ask.
-    if len(filter(lambda nd: nd.bootproto == BOOTPROTO_ASK, ksdata.network.network)) == 0:
+    if len(filter(lambda nd: nd.bootProto == BOOTPROTO_ASK, ksdata.network.network)) == 0:
         dispatch.skipStep("network")
 
     # Don't show confirmation screens on non-interactive installs.
