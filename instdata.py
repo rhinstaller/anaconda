@@ -186,6 +186,8 @@ class InstallData:
                                    self.rootPassword["isCrypted"], useMD5,
                                    self.rootPassword["lock"])
 
+        self.users.reset()
+
         if self.anaconda.isKickstart:
             for svc in self.ksdata.services.disabled:
                 iutil.execWithRedirect("/sbin/chkconfig",
