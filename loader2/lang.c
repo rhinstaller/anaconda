@@ -33,6 +33,7 @@
 #include <string.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include <wchar.h>
 
 #include "loader.h"
 #include "lang.h"
@@ -108,6 +109,7 @@ static void loadLanguageList(void) {
         keyboard[256], timezone[256];
     int lineNum = 0;
 
+    wcwidth(0);
     f = fopen(file, "r");
     if (!f) {
         newtWinMessage(_("Error"), _("OK"), "cannot open %s: %s",
