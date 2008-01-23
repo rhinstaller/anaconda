@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.89
+Version: 11.1.2.90
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 23 2008 Chris Lumens <clumens@redhat.com> 11.1.2.90-1
+- Add the stage2 to the .treeinfo file (jgranado).
+  Resolves: rhbz#253992
+- Fix handling %packages section in output anaconda-ks.cfg file.
+  Related: rhbz#280101
+- Fix a traceback caused by the patch for 427388.
+  Resolves: rhbz#429902
+- Fix some additional errors in createLuserConf() (dcantrell).
+  Resolves: rhbz#429902
+- Fix iscsi so that mkinitrd can talk to the running daemon (pjones).
+
 * Mon Jan 21 2008 Chris Lumens <clumens@redhat.com> 11.1.2.89-1
 - Support SHA256/SHA512 password encoding from kickstart (dcantrell).
   Resolves: rhbz#427388
