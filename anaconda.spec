@@ -86,7 +86,10 @@ Requires: system-config-date >= %{syscfgdatever}
 Requires: device-mapper >= %{dmver}
 Requires: device-mapper-libs >= %{dmver}
 Requires: dosfstools
-Requires: e2fsprogs, gfs2-utils, reiserfs-utils, xfsprogs, jfsutils, ntfsprogs
+Requires: e2fsprogs, gfs2-utils, reiserfs-utils, xfsprogs, jfsutils
+%ifarch %{ix86} x86_64
+Requires: ntfsprogs
+%endif
 Requires: hfsutils
 Requires: python-pyblock >= %{pythonpyblockver}
 Requires: libbdevid >= %{libbdevidver}
