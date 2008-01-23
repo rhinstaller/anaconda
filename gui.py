@@ -795,7 +795,7 @@ class MessageWindow:
         elif custom_icon == "info":
             style = gtk.MESSAGE_INFO
 
-        self.dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, text)
+        self.dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, str(text))
 
         if parent:
             self.dialog.set_transient_for(parent)
