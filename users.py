@@ -22,7 +22,7 @@ import os.path
 
 def createLuserConf(instPath, saltname='md5'):
     """Writes a libuser.conf for instPath."""
-    if os.access(os.environ["LIBUSER_CONF"], os.R_OK):
+    if os.getenv("LIBUSER_CONF") and os.access(os.environ["LIBUSER_CONF"], os.R_OK):
         fn = os.environ["LIBUSER_CONF"]
         fd = open(fn, 'w')
     else:
