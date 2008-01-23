@@ -16,7 +16,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # match the requires versions of things).
 %define dmver 1.02.17-6
 %define gettextver 0.11
-%define glib2ver 2.11.1-5
 %define intltoolver 0.31.2-3
 %define libdhcpver 1.99.6-2
 %define libnlver 1.0
@@ -42,7 +41,6 @@ BuildRequires: device-mapper-devel >= %{dmver}
 BuildRequires: e2fsprogs-devel
 BuildRequires: elfutils-devel
 BuildRequires: gettext >= %{gettextver}
-BuildRequires: glib2-devel >= %{glib2ver}
 BuildRequires: gtk2-devel
 BuildRequires: intltool >= %{intltoolver}
 BuildRequires: isomd5sum-devel

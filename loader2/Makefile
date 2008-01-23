@@ -28,10 +28,6 @@ endif
 
 LIBS = -lnewt -lslang -lz -lpopt ../isys/libisys.a -lcheckisomd5
 
-# glib - for utility stuff
-LIBS   += $(shell pkg-config --libs glib-2.0)
-CFLAGS += $(shell pkg-config --cflags glib-2.0)
-
 # dhcp library flags
 LIBS   += $(shell pkg-config --libs libdhcp)
 CFLAGS += $(shell pkg-config --cflags libdhcp)
