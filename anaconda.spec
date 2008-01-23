@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.23
+Version: 11.4.0.24
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -206,6 +206,25 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 22 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.24-1
+- Avoid possible SIGSEGV from empty loaderData values. (dcantrell)
+- Do not require glib2-devel for building. (dcantrell)
+- Use libnl to get interface MAC and IP addresses (dcantrell)
+- Don't refer to the libuser.conf when creating users (#428891). (clumens)
+- pcspkr works (or isn't even present), per testing on #fedora-devel (notting)
+- Inline spufs loading for ppc. (notting)
+- Load iscsi_tcp, so that iSCSI actually works (notting)
+- inline ipv6 module loading (notting)
+- If we execWith a program, require the package containing it. (clumens)
+- Add a repository editor. (clumens)
+- Add the default repo to the UI so it can be edited later. (clumens)
+- Fix non-latin-1 locale display in the loader. (notting)
+- Make sure anaconda has precedence in the search path (#331091). (clumens)
+- When starting RAID arrays, the device node may not already exist. (notting)
+- Fix a typo that's breaking kickstart network installs. (clumens)
+- Don't allow backing up to partitioning (#429618). (clumens)
+- Update font paths. (clumens)
+
 * Mon Jan 21 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.23-1
 - Try to fix a problem creating users via kickstart (#428891, clumens)
 - Fix a loader segfault doing kickstart nfs installs (clumens)
