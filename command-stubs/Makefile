@@ -1,7 +1,7 @@
 #
 # Makefile
 #
-# Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2007, 2008 Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 
 include ../Makefile.inc
 
-STUBS = raidstart-stub raidstop-stub kudzu-probe-stub list-harddrives-stub \
+STUBS = raidstart-stub raidstop-stub list-harddrives-stub \
 	loadkeys-stub losetup-stub dhcpclient-stub mknod-stub syslogd-stub
 
 all:

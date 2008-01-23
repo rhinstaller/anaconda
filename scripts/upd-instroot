@@ -1083,7 +1083,6 @@ for p in $DEST $DESTGR; do
 	cp $p/usr/lib/anaconda/dhcpclient-stub $p/usr/bin/dhcpclient
 	( cd $p/usr/bin && rm -f pump && ln -sf dhcpclient pump )
 	cp $p/usr/lib/anaconda/list-harddrives-stub $p/usr/bin/list-harddrives
-	cp $p/usr/lib/anaconda/kudzu-probe-stub $p/usr/bin/kudzu-probe
 	cp $p/usr/lib/anaconda/loadkeys-stub $p/usr/bin/loadkeys
 	cp $p/usr/lib/anaconda/mknod-stub $p/usr/bin/mknod
 	cp $p/usr/lib/anaconda/syslogd-stub $p/usr/bin/syslogd
