@@ -273,6 +273,7 @@ def parseOptions():
     op.add_option("--module", action="append", default=[])
     op.add_option("--nomount", dest="rescue_nomount", action="store_true", default=False)
     op.add_option("--updates", dest="updateSrc", action="store", type="string")
+    op.add_option("--dogtail", dest="dogtail",   action="store", type="string")
 
     return op.parse_args()
 
@@ -982,6 +983,38 @@ if __name__ == "__main__":
     instClass.setInstallData(anaconda)
 
     anaconda.setDispatch()
+
+    # download and run Dogtail script
+    if opts.dogtail:
+       try:
+           import urlgrabber
+
+           try:
+               fr = urlgrabber.urlopen(opts.dogtail)
+           except urlgrabber.grabber.URLGrabError, e:
+               log.error("Could not retrieve Dogtail script from %s.\nError was\n%s" % (opts.dogtail, e))
+               fr = None
+                           
+           if fr:
+               from tempfile import mkstemp
+
+               (fw, testcase) = mkstemp(prefix='testcase.py.', dir='/tmp')
+               os.write(fw, fr.read())
+               fr.close()
+               os.close(fw)
+               
+               # download completed, run the test
+               if not os.fork():
+                   # we are in the child
+                   os.chmod(testcase, 0755)
+                   os.execv(testcase, [testcase])
+                   sys.exit(0)
+               else:
+                   # we are in the parent, sleep to give time for the testcase to initialize
+                   # todo: is this needed, how to avoid possible race conditions
+                   time.sleep(1)
+       except Exception, e:
+           log.error("Exception %s while running Dogtail testcase" % e)
 
     if opts.lang:
         anaconda.dispatch.skipStep("language", permanent = 1)

@@ -142,6 +142,7 @@ struct loaderData_s {
     void * methodData;
     char * logLevel;
     char * updatessrc;
+    char * dogtailurl;
 
     pid_t fw_loader_pid;
     char *fw_search_pathz;

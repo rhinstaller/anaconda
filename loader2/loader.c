@@ -772,6 +772,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->updatessrc = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "updates", 7))
             flags |= LOADER_FLAGS_UPDATES;
+        else if (!strncasecmp(argv[i], "dogtail=", 8))
+            loaderData->dogtailurl = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "dd=", 3) || 
                  !strncasecmp(argv[i], "driverdisk=", 11)) {
             loaderData->ddsrc = strdup(argv[i] + 
@@ -1849,6 +1851,11 @@ int main(int argc, char ** argv) {
         if (loaderData.updatessrc && FL_UPDATES(flags)) {
             *argptr++ = "--updates";
             *argptr++ = loaderData.updatessrc;
+        }
+
+        if (loaderData.dogtailurl) {
+            *argptr++ = "--dogtail";
+            *argptr++ = loaderData.dogtailurl;
         }
 
         if ((loaderData.lang) && !FL_NOPASS(flags)) {

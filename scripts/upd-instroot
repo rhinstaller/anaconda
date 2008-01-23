@@ -276,7 +276,7 @@ if [ $ARCH = ppc ]; then
 fi
 
 # dogtail stuff...
-PACKAGESGR="$PACKAGESGR gail at-spi libbonobo ORBit2"
+PACKAGESGR="$PACKAGESGR gail at-spi libbonobo ORBit2 pyspi GConf2 dogtail libXevie libXtst gnome-python2-gconf"
 
 # modular xorg...
 XORGLIBS="libICE libSM libX11 libXcursor libXext libXfixes libXft libXi libxkbfile libXmu libXpm libXrandr libXrender libXt libXxf86misc libXaw liblbxutil libXfont libfontenc libXau libXdmcp libXfont libXinerama"
@@ -728,6 +728,14 @@ usr/$LIBDIR/gtk-2.0/modules/libgail.so
 usr/libexec/bonobo-activation-server
 usr/libexec/at-spi-registryd
 usr/$LIBDIR/bonobo/servers
+usr/libexec/gconfd-2
+usr/$LIBDIR/libXtst*
+usr/$LIBDIR/libgconf-2*
+usr/$LIBDIR/GConf/2/libgconfbackend-xml.so
+usr/$LIBDIR/python?.?/site-packages/gtk-2.0/atk.so
+usr/$LIBDIR/python?.?/site-packages/gtk-2.0/gconf.so
+usr/$LIBDIR/python?.?/site-packages/atspi.so
+usr/lib/python?.?/site-packages/dogtail/*.py
 EOF
 
 
@@ -898,6 +906,21 @@ echo `date` "Done Expanding text packages..."
 echo `date` "Expanding graphical packages..."
 expandPackageSet $yumconf $YUMDIR "$RPMSGR" $DESTGR $KEEPFILEGR
 echo `date` "Done Expanding graphical packages..."
+
+# more dogtail stuff
+if [ -n "$NEEDGR" ]; then
+    # Dogtail will check this
+    echo "Creating customized GConf2 settings for root"
+    mkdir -p $DESTGR/.gconf/desktop/gnome/interface
+    touch $DESTGR/.gconf/desktop/%gconf.xml
+    touch $DESTGR/.gconf/desktop/gnome/%gconf.xml
+    cat > $DESTGR/.gconf/desktop/gnome/interface/%gconf.xml <<EOF
+<?xml version="1.0"?>
+<gconf>
+        <entry name="accessibility" mtime="1176200664" type="bool" value="true">
+        </entry>
+</gconf>
+EOF
 
 rm -rf $yumconf $YUMDIR
 
