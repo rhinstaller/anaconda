@@ -32,7 +32,7 @@ def createLuserConf(instPath, saltname='md5'):
 [defaults]
 skeleton = %(instPath)s/etc/skel
 mailspooldir = %(instPath)s/var/mail
-crypt_style = %(salt)
+crypt_style = %(salt)s
 modules = files shadow
 create_modules = files shadow
 [files]
@@ -41,8 +41,8 @@ directory = %(instPath)s/etc
 directory = %(instPath)s/etc
 """ % {"instPath": instPath, "salt": saltname}
 
-    fd.write(buf)
-    fd.close()
+    os.write(fd, buf)
+    os.close(fd)
     os.environ["LIBUSER_CONF"] = fn
 
 # These are explained in crypt/crypt-entry.c in glibc's code.  The prefixes
