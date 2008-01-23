@@ -441,18 +441,22 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             cfg->isDynamic = 1;
             cfg->preset = 1;
-        } else if (inet_pton(AF_INET, loaderData->ipv4, &addr) >= 1) {
-            cfg->dev.ip = ip_addr_in(&addr);
-            cfg->dev.ipv4 = ip_addr_in(&addr);
-            cfg->dev.set |= PUMP_INTFINFO_HAS_IP|PUMP_INTFINFO_HAS_IPV4_IP;
-            cfg->isDynamic = 0;
-            cfg->preset = 1;
-        } else if (inet_pton(AF_INET6, loaderData->ipv6, &addr6) >= 1) {
-            cfg->dev.ip = ip_addr_in6(&addr6);
-            cfg->dev.ipv6 = ip_addr_in6(&addr6);
-            cfg->dev.set |= PUMP_INTFINFO_HAS_IP|PUMP_INTFINFO_HAS_IPV6_IP;
-            cfg->isDynamic = 0;
-            cfg->preset = 1;
+        } else if (loaderData->ipv4) {
+            if (inet_pton(AF_INET, loaderData->ipv4, &addr) >= 1) {
+                cfg->dev.ip = ip_addr_in(&addr);
+                cfg->dev.ipv4 = ip_addr_in(&addr);
+                cfg->dev.set |= PUMP_INTFINFO_HAS_IP|PUMP_INTFINFO_HAS_IPV4_IP;
+                cfg->isDynamic = 0;
+                cfg->preset = 1;
+            }
+        } else if (loaderData->ipv6) {
+            if (inet_pton(AF_INET6, loaderData->ipv6, &addr6) >= 1) {
+                cfg->dev.ip = ip_addr_in6(&addr6);
+                cfg->dev.ipv6 = ip_addr_in6(&addr6);
+                cfg->dev.set |= PUMP_INTFINFO_HAS_IP|PUMP_INTFINFO_HAS_IPV6_IP;
+                cfg->isDynamic = 0;
+                cfg->preset = 1;
+            }
         } else { /* invalid ip information, disable the setting of ip info */
             loaderData->ipinfo_set = 0;
             cfg->isDynamic = 0;
