@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.25
+Version: 11.4.0.26
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -209,6 +209,12 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jan 24 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.26-1
+- Fix a traceback on the driver selection screen (#428810). (clumens)
+- Map 'nousb', 'nofirewire', etc. to be proper module blacklists. (notting)
+- Clean off leading and trailing whitespace from descriptions. (notting)
+- Write out /etc/rpm/platform on livecd installs. (clumens)
+
 * Wed Jan 23 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.25-1
 - Include new firstboot module. (clumens)
 - Conditionalize ntfsprogs as not all arches include it. (clumens)
