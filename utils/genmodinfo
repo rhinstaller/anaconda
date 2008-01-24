@@ -53,6 +53,7 @@ for modtype in modules.keys():
             line = line.strip()
             if mods.has_key(line):
                 desc = commands.getoutput("modinfo -F description %s" % (mods[line]))
+                desc = desc.strip()
                 modname = line[:-3]
                 if modname in blacklist:
                     continue
