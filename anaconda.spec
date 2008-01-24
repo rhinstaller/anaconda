@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.24
+Version: 11.4.0.25
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -209,6 +209,14 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 23 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.25-1
+- Include new firstboot module. (clumens)
+- Conditionalize ntfsprogs as not all arches include it. (clumens)
+- Remove kudzu-probe-stub. (clumens)
+- Remove rogue references to kudzu. (clumens)
+- Add dogtail support (#172891, #239024). (clumens)
+- Fix some error reporting tracebacks. (clumens)
+
 * Tue Jan 22 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.24-1
 - Avoid possible SIGSEGV from empty loaderData values. (dcantrell)
 - Do not require glib2-devel for building. (dcantrell)
