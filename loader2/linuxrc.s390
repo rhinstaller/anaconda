@@ -521,7 +521,14 @@ if [ -n "$SEARCHDNS" ]; then
 fi
 if [ -n "$DNS" ]; then
 	DNS=`echo $DNS |sed -e 's/:/ /g'`
-	for i in "$DNS"; do echo "nameserver $i"; done   >> /etc/resolv.conf
+	for i in $DNS; do echo "nameserver $i"; done >> /etc/resolv.conf
+fi
+
+# make sure we have an /etc/hosts file (required for telnetd)
+echo "127.0.0.1 localhost.localdomain localhost" > /etc/hosts
+echo "::1 localhost6.localdomain6 localhost6" >> /etc/hosts
+if [ ! -z "$HOSTNAME" -a ! -z "$IPADDR" ]; then
+    echo "$IPADDR $HOSTNAME `echo $HOSTNAME | cut -d '.' -f 1`" >> /etc/hosts
 fi
 
 if [ -z "$DASD" ]; then
