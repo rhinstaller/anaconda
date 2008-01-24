@@ -194,6 +194,7 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
                                60, 0, 10, 0);
 
     listbox = newtListbox(-1, -1, 6, NEWT_FLAG_SCROLL | NEWT_FLAG_RETURNEXIT);
+    newtListboxSetWidth(listbox, 55);
 
     buttons = newtButtonBar(_("OK"), &ok, _("Back"), &back, NULL);
     argcheckbox = newtCheckbox(-1, -1, _("Specify optional module arguments"),
@@ -248,13 +249,6 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
         }
     } while (done == 0);
 
-    for (i = 0; i < numSorted; i++) {
-        char *buf = NULL;
-        void *data;
-        newtListboxGetEntry(listbox, i, &buf, &data);
-        if (buf)
-            free(buf);
-    }
     newtGridFree(grid, 1);
     newtFormDestroy(f);
     newtPopWindow();
