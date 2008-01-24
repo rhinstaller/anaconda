@@ -25,5 +25,6 @@
 void mlInitModuleConfig();
 int mlLoadModule(const char * module, char ** args);
 int mlLoadModuleSet(const char * modNames);
+void mlAddBlacklist(char *module);
 void mlRemoveBlacklist(char *module);
 #endif

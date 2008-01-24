@@ -97,6 +97,13 @@ static void readBlacklist() {
     }
 }
 
+void mlAddBlacklist(char *module) {
+    blacklists = realloc(blacklists, sizeof(*blacklists) * (numblacklists + 1));
+    blacklists[numblacklists] = strdup(module);
+    numblacklists++;
+    writeModulesConf("/etc/modprobe.d/anaconda");
+}
+
 static void addOption(const char *module, const char *option) {
     int found = 0, i;
 

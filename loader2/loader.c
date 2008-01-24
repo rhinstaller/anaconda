@@ -737,26 +737,12 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOSHELL;
         else if (!strcasecmp(argv[i], "mediacheck"))
             flags |= LOADER_FLAGS_MEDIACHECK;
-        else if (!strcasecmp(argv[i], "nousbstorage"))
-            flags |= LOADER_FLAGS_NOUSBSTORAGE;
-        else if (!strcasecmp(argv[i], "nousb"))
-            flags |= LOADER_FLAGS_NOUSB;
-        else if (!strcasecmp(argv[i], "ub"))
-            flags |= LOADER_FLAGS_UB;
         else if (!strcasecmp(argv[i], "allowwireless"))
             flags |= LOADER_FLAGS_ALLOW_WIRELESS;
         else if (!strcasecmp(argv[i], "telnet"))
             flags |= LOADER_FLAGS_TELNETD;
-        else if (!strcasecmp(argv[i], "nofirewire"))
-            flags |= LOADER_FLAGS_NOIEEE1394;
-        else if (!strcasecmp(argv[i], "nonet"))
-            flags |= LOADER_FLAGS_NONET;
-        else if (!strcasecmp(argv[i], "nostorage"))
-            flags |= LOADER_FLAGS_NOSTORAGE;
         else if (!strcasecmp(argv[i], "noprobe"))
-            flags |= (LOADER_FLAGS_NONET | LOADER_FLAGS_NOSTORAGE | LOADER_FLAGS_NOUSB | LOADER_FLAGS_NOIEEE1394);
-        else if (!strcasecmp(argv[i], "nopcmcia"))
-            flags |= LOADER_FLAGS_NOPCMCIA;
+            flags |= LOADER_FLAGS_NOPROBE;
         else if (!strcasecmp(argv[i], "text")) {
             logMessage(INFO, "text mode forced from cmdline");
             flags |= LOADER_FLAGS_TEXT;
@@ -794,6 +780,15 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOIPV6;
         else if (!strcasecmp(argv[i], "kssendmac"))
             flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
+        /* deprecated hardware bits */
+        else if (!strcasecmp(argv[i], "nousbstorage"))
+            mlAddBlacklist("usb-storage");
+        else if (!strcasecmp(argv[i], "nousb")) {
+            mlAddBlacklist("ehci-hcd");
+            mlAddBlacklist("ohci-hcd");
+            mlAddBlacklist("uhci-hcd");
+        } else if (!strcasecmp(argv[i], "nofirewire"))
+            mlAddBlacklist("firewire-ohci");
         else if (!strncasecmp(argv[i], "loglevel=", 9)) {
             if (!strcasecmp(argv[i]+9, "debug")) {
                 loaderData->logLevel = strdup(argv[i]+9);
