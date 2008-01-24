@@ -299,6 +299,9 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
     def doPostInstall(self, anaconda):
         self._doFilesystemMangling(anaconda)
 
+        # setup /etc/rpm/platform for the post-install environment
+        iutil.writeRpmPlatform(anaconda.rootPath)
+
         # maybe heavy handed, but it'll do
         anaconda.id.bootloader.args.append("rhgb quiet")
         anaconda.id.desktop.setDefaultRunLevel(5)
