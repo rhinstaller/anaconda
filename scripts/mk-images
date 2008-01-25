@@ -260,7 +260,7 @@ makemoduletree() {
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
 	$MMB_MODULESET > $MMB_DIR/lib/modules/module-info
     # compress modules
-    find $MMB_DIR/lib/modules -type -f -name *.ko -exec gzip -9 {} \;
+    find $MMB_DIR/lib/modules -type f -name *.ko -exec gzip -9 {} \;
     rundepmod $MMB_DIR
     rm -f $MMB_DIR/lib/modules/*/modules.*map
     rm -f $MMB_DIR/lib/modules/*/{build,source}
