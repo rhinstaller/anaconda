@@ -921,6 +921,7 @@ if [ -n "$NEEDGR" ]; then
         </entry>
 </gconf>
 EOF
+fi
 
 rm -rf $yumconf $YUMDIR
 
