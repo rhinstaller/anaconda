@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.26
+Version: 11.4.0.27
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -209,6 +209,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan 25 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.27-1
+- Fix generation of stage1 images. (notting)
+- Fix a typo in mk-images. (clumens)
+- Allow removing packages by glob now that yum supports it. (clumens)
+
 * Thu Jan 24 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.26-1
 - Fix a traceback on the driver selection screen (#428810). (clumens)
 - Map 'nousb', 'nofirewire', etc. to be proper module blacklists. (notting)
