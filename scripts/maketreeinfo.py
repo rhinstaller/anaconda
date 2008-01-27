@@ -87,15 +87,34 @@ if data["packagedir"] is None:
     data["packagedir"] = ""
 
 
+section='general'
+pd="packagedir"
+c=ConfigParser.ConfigParser()
+
 if data["outfile"] is None:
     f = sys.stdout
 else:
-    f = open(data["outfile"], "w")
+    # If there is no file, then c will be empty :)
+    f = open(data["outfile"], "r+")
+    c.read(f)
 
-section='general'
-c=ConfigParser.ConfigParser()
-c.add_section(section)
+if not c.has_section(section):
+    c.add_section(section)
+
 for k,v in data.items(): 
     if k != 'outfile':
-        c.set(section,k,v)
+        if k != pd:
+            c.set(section,k,v)
+        else:
+            if c.has_option(section, pd):
+                # We should apend to an existing list
+                prevVal = c.get(section, pd)
+                # The value should not be blank, but just in case.
+                # This is to avoid having a line that begins with coma.
+                if prevVal == "":
+                    c.set(section, pd, v)
+                else:
+                    c.set(section, pd, "%s,%s"%(prevVal, v))
+            else:
+                c.set(section, pd, v)
 c.write(f)
