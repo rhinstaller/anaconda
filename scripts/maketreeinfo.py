@@ -121,4 +121,8 @@ for k,v in data.items():
                     c.set(section, pd, "%s,%s"%(prevVal, v))
             else:
                 c.set(section, pd, v)
+
+# Lets take away variant for now.
+if c.has_option(section, "variant"):
+    c.remove_option(section, "variant")
 c.write(f)
