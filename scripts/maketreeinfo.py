@@ -32,7 +32,8 @@ data = {"timestamp": time.time(),
         "discnum": None,
         "totaldiscs": None,
         "packagedir": None,
-        "outfile": None}
+        "outfile": None,
+        "repodata": None}
 allDiscs = None
 
 opts = []
@@ -86,6 +87,9 @@ if data["packagedir"] is None:
     print >> sys.stderr, "--packagedir missing. This might cause some weirdness."
     data["packagedir"] = ""
 
+if data["repodata"] is None:
+    print >> sys.stderr, "--repodata missing. but that's OK."
+    data["repodata"] = ""
 
 section='general'
 pd="packagedir"
