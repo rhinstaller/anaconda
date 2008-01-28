@@ -1240,7 +1240,7 @@ static char *doLoaderMain(char * location,
             dir = 1;
             break;
         case STEP_IP:
-            if (!needsNetwork) {
+            if (!needsNetwork || dir == -1) {
                 step = STEP_METHOD; /* only hit going back */
                 break;
             }
