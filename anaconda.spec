@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.90
+Version: 11.1.2.91
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jan 28 2008 Chris Lumens <clumens@redhat.com> 11.1.2.91-1
+- Include python-iniparse in stage2 for pirut.
+  Resolves:  rhbz#430212
+- Update the information contained in .treeinfo files (jgranado).
+  Resolves: rhbz#253992
+- Fix namespace issue with createLuserConf (dcantrell).
+  Resolves: rhbz#430237
+- Write /etc/resolv.conf and /etc/hosts in stage1 on s390 (dcantrell).
+  Related: rhbz#428694, rhbz#216158
+
 * Wed Jan 23 2008 Chris Lumens <clumens@redhat.com> 11.1.2.90-1
 - Add the stage2 to the .treeinfo file (jgranado).
   Resolves: rhbz#253992
