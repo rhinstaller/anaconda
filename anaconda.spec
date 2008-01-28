@@ -90,6 +90,9 @@ Requires: e2fsprogs, gfs2-utils, reiserfs-utils, xfsprogs, jfsutils
 %ifarch %{ix86} x86_64
 Requires: ntfsprogs
 %endif
+%ifarch %{ix86} x86_64 ia64
+Requires: dmidecode
+%endif
 Requires: hfsutils
 Requires: python-pyblock >= %{pythonpyblockver}
 Requires: libbdevid >= %{libbdevidver}
@@ -103,7 +106,6 @@ Requires: system-config-securitylevel
 Requires: cryptsetup-luks
 Requires: mdadm
 Requires: iscsi-initiator-utils
-Requires: dmidecode
 Requires: lvm2
 Requires: util-linux-ng
 %ifnarch s390 s390x ppc64
