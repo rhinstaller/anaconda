@@ -124,7 +124,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
          yum-metadata-parser gfs2-utils libvolume_id rhel-instnum
 	 libdhcp libnl libdhcp6client libdhcp4client device-mapper-multipath
 	 kpartx dmraid python-pyblock mkinitrd libbdevid libbdevid-python
-	 libselinux-python nss udev keyutils-libs nspr"
+	 libselinux-python nss udev keyutils-libs nspr python-iniparse"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
@@ -451,6 +451,7 @@ usr/$LIBDIR/python?.?/site-packages/*.pth
 usr/$LIBDIR/python?.?/site-packages/*selinux*
 usr/lib/locale/*
 usr/lib/python?.?/site-packages/elementtree/*
+usr/lib/python?.?/site-packages/iniparse/*
 usr/lib/python?.?/site-packages/rpmUtils/*
 usr/lib/python?.?/site-packages/urlgrabber/*
 usr/lib/python?.?/site-packages/yum/*
