@@ -93,6 +93,7 @@ if data["repodata"] is None:
 
 section='general'
 pd="packagedir"
+rd="repodata"
 c=ConfigParser.ConfigParser()
 
 if data["outfile"] is None:
@@ -107,20 +108,20 @@ if not c.has_section(section):
 
 for k,v in data.items(): 
     if k != 'outfile':
-        if k != pd:
+        if k != pd and k != rd:
             c.set(section,k,v)
         else:
-            if c.has_option(section, pd):
+            if c.has_option(section, k):
                 # We should apend to an existing list
-                prevVal = c.get(section, pd)
+                prevVal = c.get(section, k)
                 # The value should not be blank, but just in case.
                 # This is to avoid having a line that begins with coma.
                 if prevVal == "":
-                    c.set(section, pd, v)
+                    c.set(section, k, v)
                 else:
-                    c.set(section, pd, "%s,%s"%(prevVal, v))
+                    c.set(section, k, "%s,%s"%(prevVal, v))
             else:
-                c.set(section, pd, v)
+                c.set(section, k, v)
 
 # Lets take away variant for now.
 if c.has_option(section, "variant"):
