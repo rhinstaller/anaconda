@@ -26,8 +26,7 @@ import stat
 import os
 
 def usage():
-    sys.stderr.write("Usage: %s <path> [b|c] <major> <minor> or\n" %(sys.argv[0],))
-    sys.stderr.write("Usage: %s <path>\n" %(sys.argv[0],))
+    sys.stderr.write("Usage: %s <path> [b|c] <major> <minor>\n" %(sys.argv[0],))
     sys.exit(1)
 
 def main():
@@ -38,19 +37,6 @@ def main():
         usage()
 
     path = sys.argv[1]
-    if (len(sys.argv) == 2):
-        drive = path
-        # strip off any path elements up until what's useful for making the
-        # inode
-        while (drive.find('/') != -1):
-            if (drive.startswith("cciss") or drive.startswith("ida") or
-                drive.startswith("rd") or drive.startswith("ataraid")
-                or drive.startswith("iseries") or drive.startswith("i2o")
-                or drive.startswith("sx8")):
-                break
-            drive = drive[drive.find('/') + 1:]
-        isys.makeDevInode(drive, path)
-        sys.exit(0)
 
     if len(sys.argv) < 5:
         usage()
@@ -65,7 +51,7 @@ def main():
     major = int(sys.argv[3])
     minor = int(sys.argv[4])
     path = sys.argv[1]
-    
+
     os.mknod(path, 0644 | type, os.makedev(major, minor))
 
 if __name__ == "__main__":

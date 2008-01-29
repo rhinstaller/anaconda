@@ -36,26 +36,24 @@ drives = isys.hardDriveDict()
 
 driveList = drives.keys()
 driveList.sort()
-for drive in driveList:
 
+for drive in driveList:
     if not isys.mediaPresent(drive):
 	continue
 
     # try to open and get size
     skip = 0
-    deviceFile =  "/tmp/%s" % (drive,)
-    isys.makeDevInode(drive, deviceFile)
+    deviceFile =  "/dev/%s" % (drive,)
+
     try:
 	dev = parted.PedDevice.get(deviceFile)
     except:
 	skip = 1
-    os.remove(deviceFile)
 
     if skip:
 	continue
 
     sizeMB = (float(dev.heads * dev.cylinders * dev.sectors) / (1024 * 1024)
 		            * dev.sector_size)
-	
-    print drive, sizeMB
 
+    print drive, sizeMB
