@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.91
+Version: 11.1.2.92
 Release: 1
 License: GPL
 Summary: Graphical system installer
