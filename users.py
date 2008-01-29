@@ -26,7 +26,8 @@ def createLuserConf(instPath, saltname='md5'):
         fn = os.environ["LIBUSER_CONF"]
         fd = open(fn, 'w')
     else:
-        (fd, fn) = tempfile.mkstemp(prefix="libuser.")
+        (fp, fn) = tempfile.mkstemp(prefix="libuser.")
+        fd = os.fdopen(fp, 'w')
 
     buf = """
 [defaults]
@@ -41,8 +42,8 @@ directory = %(instPath)s/etc
 directory = %(instPath)s/etc
 """ % {"instPath": instPath, "salt": saltname}
 
-    os.write(fd, buf)
-    os.close(fd)
+    fd.write(buf)
+    fd.close()
     os.environ["LIBUSER_CONF"] = fn
 
 # These are explained in crypt/crypt-entry.c in glibc's code.  The prefixes
@@ -50,20 +51,20 @@ directory = %(instPath)s/etc
 #     $1$    MD5
 #     $5$    SHA256
 #     $6$    SHA512
-def cryptPassword(password, saltkey=None):
+def cryptPassword(password, salt=None):
     salts = {'md5': '$1$', 'sha256': '$5$', 'sha512': '$6$', None: ''}
 
-    salt = salts[saltkey]
-    if salt == '':
+    saltstr = salts[salt]
+    if saltstr == '':
         saltLen = 2
     else:
         saltLen = 8
 
     for i in range(saltLen):
-        salt = salt + random.choice (string.letters +
-                                     string.digits + './')
+        saltstr = saltstr + random.choice (string.letters +
+                                           string.digits + './')
 
-    return crypt.crypt (password, salt)
+    return crypt.crypt (password, saltstr)
 
 class Users:
     def __init__ (self):
