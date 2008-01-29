@@ -32,8 +32,8 @@ data = {"timestamp": time.time(),
         "discnum": None,
         "totaldiscs": None,
         "packagedir": None,
-        "outfile": None,
-        "repodata": None}
+        "repodata": None,
+        "outfile": None)
 allDiscs = None
 
 opts = []
@@ -100,8 +100,12 @@ if data["outfile"] is None:
     f = sys.stdout
 else:
     # If there is no file, then c will be empty :)
-    f = open(data["outfile"], "r+")
-    c.read(f)
+    if os.path.isfile(data["outfile"]):
+        f = open(data["outfile"], "r+")
+        c.read(f)
+    else:
+        f = open(data["outfile"], "w")
+
 
 if not c.has_section(section):
     c.add_section(section)
