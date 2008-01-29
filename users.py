@@ -80,46 +80,50 @@ class Users:
         if not childpid:
             os.chroot(root)
 
-            if self.admin.lookupUserByName(name):
+            try:
+                if self.admin.lookupUserByName(name):
+                    os._exit(1)
+
+                userEnt = self.admin.initUser(name)
+                groupEnt = self.admin.initGroup(name)
+
+                grpLst = filter(lambda grp: grp,
+                                map(lambda name: self.admin.lookupGroupByName(name), groups))
+                userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
+                            map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
+
+                if not homedir:
+                    homedir = "/home/" + name
+
+                userEnt.set(libuser.HOMEDIRECTORY, homedir)
+
+                if shell:
+                    userEnt.set(libuser.LOGINSHELL, shell)
+
+                if uid >= 0:
+                    userEnt.set(libuser.UIDNUMBER, uid)
+
+                self.admin.addUser(userEnt)
+                self.admin.addGroup(groupEnt)
+
+                if password:
+                    if isCrypted:
+                        self.admin.setpassUser(userEnt, password, isCrypted)
+                    else:
+                        self.admin.setpassUser(userEnt, cryptPassword(password, True), isCrypted)
+
+                if lock:
+                    self.admin.lockUser(userEnt)
+
+                # Add the user to all the groups they should be part of.
+                for grp in grpLst:
+                    grp.add(libuser.MEMBERNAME, name)
+                    self.admin.modifyGroup(grp)
+
+                os._exit(0)
+            except Exception, e:
+                log.critical("Error when creating new user: %s" % str(e))
                 os._exit(1)
-
-            userEnt = self.admin.initUser(name)
-            groupEnt = self.admin.initGroup(name)
-
-            grpLst = filter(lambda grp: grp,
-                            map(lambda name: self.admin.lookupGroupByName(name), groups))
-            userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
-                        map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
-
-            if not homedir:
-                homedir = "/home/" + name
-
-            userEnt.set(libuser.HOMEDIRECTORY, homedir)
-
-            if shell:
-                userEnt.set(libuser.LOGINSHELL, shell)
-
-            if uid >= 0:
-                userEnt.set(libuser.UIDNUMBER, uid)
-
-            self.admin.addUser(userEnt)
-            self.admin.addGroup(groupEnt)
-
-            if password:
-                if isCrypted:
-                    self.admin.setpassUser(userEnt, password, isCrypted)
-                else:
-                    self.admin.setpassUser(userEnt, cryptPassword(password, True), isCrypted)
-
-            if lock:
-                self.admin.lockUser(userEnt)
-
-            # Add the user to all the groups they should be part of.
-            for grp in grpLst:
-                grp.add(libuser.MEMBERNAME, name)
-                self.admin.modifyGroup(grp)
-
-            os._exit(0)
 
         try:
             (pid, status) = os.waitpid(childpid, 0)
