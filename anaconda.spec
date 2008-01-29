@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jan 28 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.92-1
+- Fix remaining issues with createLuserConf() changes
+  Related: rhbz#430237
+
 * Mon Jan 28 2008 Chris Lumens <clumens@redhat.com> 11.1.2.91-1
 - Include python-iniparse in stage2 for pirut.
   Resolves:  rhbz#430212
