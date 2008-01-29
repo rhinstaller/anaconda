@@ -1149,7 +1149,9 @@ static char *doLoaderMain(char * location,
             strcpy(netDev.dev.device, devName);
 
             /* fall through to ip config */
-        case STEP_IP:
+        case STEP_IP: {
+            int query = !strncmp(loaderData->ip, "query", 5);
+
             if (!needsNetwork) {
                 step = STEP_METHOD; /* only hit going back */
                 break;
@@ -1157,12 +1159,12 @@ static char *doLoaderMain(char * location,
 
             logMessage(INFO, "going to do getNetConfig");
 
-            if (FL_NOIPV4(flags) || (!FL_IP_PARAM(flags) && !FL_KICKSTART(flags)))
+            if (query || FL_NOIPV4(flags) || (!FL_IP_PARAM(flags) && !FL_KICKSTART(flags)))
                 loaderData->ipinfo_set = 0;
             else
                 loaderData->ipinfo_set = 1;
 
-            if (FL_NOIPV6(flags) || (!FL_IPV6_PARAM(flags) && !FL_KICKSTART(flags)))
+            if (query || FL_NOIPV6(flags) || (!FL_IPV6_PARAM(flags) && !FL_KICKSTART(flags)))
                 loaderData->ipv6info_set = 0;
             else
                 loaderData->ipv6info_set = 1;
@@ -1173,7 +1175,7 @@ static char *doLoaderMain(char * location,
             }
             setupNetworkDeviceConfig(&netDev, loaderData);
 
-            rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum);
+            rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum, query);
             if ((rc == LOADER_NOOP) && (netDev.preset == 0)) {
                 loaderData->ipinfo_set = 0;
                 loaderData->ipv6info_set = 0;
@@ -1189,6 +1191,7 @@ static char *doLoaderMain(char * location,
             writeNetInfo("/tmp/netinfo", &netDev);
             step = STEP_URL;
             dir = 1;
+        }
 
         case STEP_URL:
             logMessage(INFO, "starting to STEP_URL");

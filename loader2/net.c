@@ -546,7 +546,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 }
 
 int readNetConfig(char * device, struct networkDeviceConfig * cfg,
-                  char * dhcpclass, int methodNum) {
+                  char * dhcpclass, int methodNum, int query) {
     struct networkDeviceConfig newCfg;
     int ret;
     int i = 0;
@@ -620,7 +620,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     /* dhcp/manual network configuration loop */
     i = 1;
     while (i == 1) {
-        ret = configureTCPIP(device, cfg, &newCfg, &opts, methodNum);
+        ret = configureTCPIP(device, cfg, &newCfg, &opts, methodNum, query);
 
         if (ret == LOADER_NOOP) {
             /* dhcp selected, proceed */
@@ -710,7 +710,8 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
 
 int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                    struct networkDeviceConfig * newCfg,
-                   struct netconfopts * opts, int methodNum) {
+                   struct netconfopts * opts, int methodNum,
+                   int query) {
     int i = 0, z = 0, skipForm = 0;
     char *dret = NULL;
     newtComponent f, okay, back, answer;
@@ -796,13 +797,14 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
      *     noipv4 noipv6
      *     ip=<val> noipv6
      *     ipv6=<val> noipv4
-     * we also skip this form for anyone doing a kickstart install
+     * we also skip this form for anyone doing a kickstart install,
+     * but only if they also didn't specify --bootproto=query
      */
     if ((FL_IP_PARAM(flags) && FL_IPV6_PARAM(flags)) ||
         (FL_IP_PARAM(flags) && FL_NOIPV6(flags)) ||
         (FL_IPV6_PARAM(flags) && FL_NOIPV4(flags)) ||
         (FL_NOIPV4(flags) && FL_NOIPV6(flags)) ||
-        (FL_IS_KICKSTART(flags))) {
+        (FL_IS_KICKSTART(flags) && !query)) {
         skipForm = 1;
     }
 
@@ -1627,7 +1629,10 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
     /* if they've specified dhcp/bootp or haven't specified anything, 
      * use dhcp for the interface */
-    if ((bootProto && (!strncmp(bootProto, "dhcp", 4) || 
+    if (bootProto && !strncmp(bootProto, "query", 3)) {
+        loaderData->ip = strdup("query");
+        loaderData->ipinfo_set = 0;
+    } else if ((bootProto && (!strncmp(bootProto, "dhcp", 4) || 
                        !strncmp(bootProto, "bootp", 4))) ||
         (!bootProto && !loaderData->ip)) {
         loaderData->ip = strdup("dhcp");
@@ -1839,7 +1844,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
  * the network */
 int kickstartNetworkUp(struct loaderData_s * loaderData,
                        struct networkDeviceConfig *netCfgPtr) {
-    int rc;
+    int rc, query;
 
     /* we may have networking already, so return to the caller */
     if ((loaderData->ipinfo_set == 1) || (loaderData->ipv6info_set == 1)) {
@@ -1881,12 +1886,17 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
         if (!loaderData->ip) {
             loaderData->ip = strdup("dhcp");
         }
-        loaderData->ipinfo_set = 1;
+
+        query = !strncmp(loaderData->ip, "query", 5);
+
+        if (!query) {
+            loaderData->ipinfo_set = 1;
+        }
 
         setupNetworkDeviceConfig(netCfgPtr, loaderData);
 
         rc = readNetConfig(loaderData->netDev, netCfgPtr, loaderData->netCls,
-                           loaderData->method);
+                           loaderData->method, query);
 
         if (rc == LOADER_ERROR) {
             logMessage(ERROR, "unable to setup networking");
