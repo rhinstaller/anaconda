@@ -33,7 +33,7 @@ data = {"timestamp": time.time(),
         "totaldiscs": None,
         "packagedir": None,
         "repodata": None,
-        "outfile": None)
+        "outfile": None}
 allDiscs = None
 
 opts = []
