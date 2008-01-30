@@ -1964,7 +1964,7 @@ MAILADDR root
             if not os.path.isdir(rootdir):
                 os.makedirs(rootdir)
 
-            dmdev = "/dev/mapper/" + root.device.getDevice().replace("/", "-")
+            dmdev = "/dev/mapper/" + root.device.getDevice().replace("-","--").replace("/", "-")
             if os.path.exists(instPath + dmdev):
                 os.unlink(instPath + dmdev)
             if not os.path.isdir(os.path.dirname(instPath + dmdev)):
