@@ -83,7 +83,7 @@ def isPtpDev(devname):
 def anyUsingDHCP(devices):
     for dev in devices.keys():
         bootproto = devices[dev].get("bootproto")
-        if bootproto and bootproto.lower() in ["ask", "dhcp"]:
+        if bootproto and bootproto.lower() == "dhcp":
             onboot = devices[dev].get("onboot")
             if onboot and onboot != "no":
                 return 1

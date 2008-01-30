@@ -1655,10 +1655,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
     /* if they've specified dhcp/bootp or haven't specified anything, 
      * use dhcp for the interface */
-    if (bootProto && !strncmp(bootProto, "ask", 3)) {
-        loaderData->ipv4 = strdup("ask");
-        loaderData->ipinfo_set = 0;
-    } else if ((bootProto && (!strncmp(bootProto, "dhcp", 4) || 
+    if ((bootProto && (!strncmp(bootProto, "dhcp", 4) || 
                        !strncmp(bootProto, "bootp", 4))) ||
         (!bootProto && !loaderData->ipv4)) {
         loaderData->ipv4 = strdup("dhcp");
@@ -1670,8 +1667,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
     /* now make sure the specified bootproto is valid */
     if (bootProto && strcmp(bootProto, "dhcp") && strcmp(bootProto, "bootp") &&
-        strcmp(bootProto, "static") && strcmp(bootProto, "query") &&
-        strcmp(bootProto, "ask")) {
+        strcmp(bootProto, "static") && strcmp(bootProto, "query")) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad bootproto %s specified in network command"),
                        bootProto);
@@ -1928,10 +1924,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
         if (!loaderData->ipv4) {
             loaderData->ipv4 = strdup("dhcp");
         } 
-
-        if (strncmp(loaderData->ipv4, "ask", 3)) {
-            loaderData->ipinfo_set = 1;
-        }
+        loaderData->ipinfo_set = 1;
 
         setupNetworkDeviceConfig(netCfgPtr, loaderData);
 

@@ -270,7 +270,7 @@ class NetworkDeviceWindow:
 
         maingrid = Grid(1, 3)
         dhcpCb = radio.add(_("Dynamic IP configuration (DHCP)"),
-                           "dhcp", (bootproto in ["ask", "dhcp"]))
+                           "dhcp", (bootproto == "dhcp"))
         maingrid.setField(dhcpCb, 0, 0, growx = 1, anchorLeft = 1)
         manualCb = radio.add(_("Manual address configuration"),
                              "static", (bootproto == "static"))
@@ -626,7 +626,7 @@ class NetworkDeviceWindow:
             else:
                 onboot = _("Inactive on boot")
 
-            if dev.get('bootproto').lower() in ['ask', 'dhcp']:
+            if dev.get('bootproto').lower() == 'dhcp':
                 ipv4 = _("DHCP")
             else:
                 ipv4 = dev.get('ipaddr')
