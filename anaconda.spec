@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.92
+Version: 11.1.2.93
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 30 2008 Chris Lumens <clumens@redhat.com> 11.1.2.93-1
+- Support network --bootproto=query in kickstart installs.
+  Resolves: rhbz#401531
+- Set the format flag for new volume groups (msivak).
+  Resolves: rhbz#246523
+- More fixes for .treeinfo (jgranado).
+  Related: rhbz#253992
+
 * Mon Jan 28 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.92-1
 - Fix remaining issues with createLuserConf() changes
   Related: rhbz#430237
