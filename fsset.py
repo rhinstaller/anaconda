@@ -1376,23 +1376,23 @@ class FileSystemSet:
         return raidtab
 
     def mdadmConf(self):
-        raident = 0
+        """Make the mdadm.conf file with mdadm command.
+
+        This creates a conf file with active arrays.  In other words
+        the arrays that we don't want included must be inactive.
+        """
+        activeArrays = iutil.execWithCapture("mdadm", ["--detail", "--scan"])
+        if len(activeArrays) == 0:
+            return
 
         cf = """
 # mdadm.conf written out by anaconda
 DEVICE partitions
 MAILADDR root
-"""
-        for ent in self.entries:
-            if ent.device.getName() != "RAIDDevice":
-                continue
 
-            raident +=1
-            cf = cf + ent.device.mdadmLine()
-
-        if raident > 0:
-            return cf
-        return
+%s
+""" % activeArrays
+        return cf
 
     def crypttab(self):
         """set up /etc/crypttab"""
