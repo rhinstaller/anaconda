@@ -519,7 +519,7 @@ void init_isys(void) {
 }
 
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
-    int i;
+    int i = 0;
     char *dev, *ipv4, *netmask, *ipv6, *prefix, *gateway;
     struct pumpNetIntf cfg;
     struct in_addr addr, nm, nw;
