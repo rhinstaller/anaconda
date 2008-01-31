@@ -52,13 +52,24 @@ class RaidEditor:
 	sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 	sw.set_shadow_type(gtk.SHADOW_IN)
 
+        tempDevList = []
+        if not self.isNew:
+            # We need this list if we are editing.
+            for id in reqraidpart:
+                tempDevList.append(self.partitions.getRequestByID(id).device)
+
 	partrow = 0
 	for part, size, used in allraidparts:
 	    partname = "%s" % part
 	    partsize = "%8.0f MB" % size
 
-            if preexist == 0:
+            if self.isNew:
                 partlist.append_row((partname, partsize), False)
+            else:
+                # Ask self.partitions what devices to list as selected.
+                if part in tempDevList:
+                    #list the partition and put it as selected
+                    partlist.append_row((partname, partsize), True)
 
 	return (partlist, sw)
 
