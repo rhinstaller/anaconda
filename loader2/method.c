@@ -89,7 +89,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 #endif
 	targfd = open(fsystem, O_RDONLY);
 	if (targfd == -1) {
-	    logMessage(ERROR, "open file to loop mount %s failed", fsystem);
+	    logMessage(ERROR, "open file to loop mount %s failed: %s", fsystem, strerror(errno));
 	    return LOADER_ERROR;
 	}
 #ifdef O_DIRECT
@@ -98,7 +98,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 
     loopfd = open(device, O_RDONLY);
     if (loopfd == -1) {
-	logMessage(ERROR, "unable to open loop device %s", device);
+	logMessage(ERROR, "unable to open loop device %s: %s", device, strerror(errno));
 	return LOADER_ERROR;
     }
     logMessage(INFO, "mntloop %s on %s as %s fd is %d", 
