@@ -411,9 +411,7 @@ class xfsFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
 
-        rc = iutil.execWithRedirect("mkfs.xfs",
-                                    ["-f", "-l", "internal", 
-                                     "-i", "attr=2", devicePath],
+        rc = iutil.execWithRedirect("mkfs.xfs", ["-f", devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5", searchPath = 1)
 
@@ -424,9 +422,8 @@ class xfsFileSystem(FileSystemType):
         devicePath = entry.device.setupDevice(chroot)
         label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
                                          kslabel = entry.label)
-        db_cmd = "label " + label
-        rc = iutil.execWithRedirect("xfs_db",
-                                    ["-x", "-c", db_cmd, devicePath],
+        rc = iutil.execWithRedirect("xfs_admin",
+                                    ["-L", label, devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5", searchPath = 1)
         if rc:
@@ -718,9 +715,10 @@ class ext4FileSystem(extFileSystem):
         extFileSystem.__init__(self)
         self.name = "ext4dev"
         self.partedFileSystemType = parted.file_system_type_get("ext3")
-        self.extraFormatArgs = [ "-j", "-I", "256" ]
+	# 256-byte inodes are actually default now, but let's be sure.
+        self.extraFormatArgs = [ "-j", "-I", "256", "-E", "test_fs" ]
 
-        # this is way way way experimental at present...
+        # this is way way experimental at present...
         if flags.cmdline.has_key("iamanext4developer"):
             self.supported = -1
         else:
