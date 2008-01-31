@@ -604,7 +604,7 @@ int copyFileAndLoopbackMount(int fd, char * dest,
 
     if (mountLoopback(dest, mntpoint, device)) {
         /* JKFIXME: this used to be fatal, but that seems unfriendly */
-        logMessage(ERROR, "Error mounting /dev/%s on %s (%s)", device,
+        logMessage(ERROR, "Error mounting %s on %s (%s)", device,
                    mntpoint, strerror(errno));
         unlink(dest);
         return 1;
