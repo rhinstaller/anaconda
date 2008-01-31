@@ -32,7 +32,6 @@ data = {"timestamp": time.time(),
         "discnum": None,
         "totaldiscs": None,
         "packagedir": None,
-        "repodata": None,
         "outfile": None}
 allDiscs = None
 
@@ -87,45 +86,21 @@ if data["packagedir"] is None:
     print >> sys.stderr, "--packagedir missing. This might cause some weirdness."
     data["packagedir"] = ""
 
-if data["repodata"] is None:
-    print >> sys.stderr, "--repodata missing. but that's OK."
-    data["repodata"] = ""
-
-section='general'
-pd="packagedir"
-rd="repodata"
-c=ConfigParser.ConfigParser()
 
 if data["outfile"] is None:
     f = sys.stdout
 else:
-    # If there is no file, then c will be empty :)
-    if os.path.isfile(data["outfile"]):
-        f = open(data["outfile"], "r+")
-        c.read(f)
-    else:
-        f = open(data["outfile"], "w")
+    f = open(data["outfile"], "w")
 
+section='general'
+c=ConfigParser.ConfigParser()
 
 if not c.has_section(section):
     c.add_section(section)
 
 for k,v in data.items(): 
     if k != 'outfile':
-        if k != pd and k != rd:
-            c.set(section,k,v)
-        else:
-            if c.has_option(section, k):
-                # We should apend to an existing list
-                prevVal = c.get(section, k)
-                # The value should not be blank, but just in case.
-                # This is to avoid having a line that begins with coma.
-                if prevVal == "":
-                    c.set(section, k, v)
-                else:
-                    c.set(section, k, "%s,%s"%(prevVal, v))
-            else:
-                c.set(section, k, v)
+        c.set(section,k,v)
 
 # Lets take away variant for now.
 if c.has_option(section, "variant"):
