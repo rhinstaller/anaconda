@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.28
+Version: 11.4.0.29
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,15 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 30 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.29-1
+- Handle putting updates ahead of anaconda in the updates= case too. (clumens)
+- Make sure the device name starts with /dev (#430811). (clumens)
+- Revert "Initial support for network --bootproto=ask (#401531)." (clumens)
+- (#186439)  handle lv names with "-" when doing kickstart. (jgranado)
+- Remove the last references to makeDevInode (#430784). (clumens)
+- Don't traceback trying to raise an exception when making
+  users (#430772). (clumens)
+
 * Mon Jan 28 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.28-1
 - Go back to the method screen if back is hit on nfs config (#430477). (clumens)
 - Fix dmidecode dependency (#430394, Josh Boyer <jwboyer)
