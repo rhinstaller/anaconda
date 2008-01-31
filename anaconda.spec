@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.29
+Version: 11.4.0.30
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 30 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.30-1
+- Initialize int in doConfigNetDevice() to fix compiler warnings. (dcantrell)
+
 * Wed Jan 30 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.29-1
 - Handle putting updates ahead of anaconda in the updates= case too. (clumens)
 - Make sure the device name starts with /dev (#430811). (clumens)
