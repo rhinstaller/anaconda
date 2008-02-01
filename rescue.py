@@ -23,7 +23,7 @@
 import upgrade
 from snack import *
 from constants_text import *
-from text import WaitWindow, OkCancelWindow, ProgressWindow, stepToClasses
+from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow, stepToClasses
 from flags import flags
 import sys
 import os
@@ -77,6 +77,12 @@ class RescueInterface:
 	    return 0
 	else:
 	    return OkCancelWindow(self.screen, title, text)
+
+    def passphraseEntryWindow(self, device):
+        w = PassphraseEntryWindow(self.screen, device)
+        (passphrase, isglobal) = w.run()
+        w.pop()
+        return (passphrase, isglobal)
 
     def __init__(self, screen):
         self.screen = screen
