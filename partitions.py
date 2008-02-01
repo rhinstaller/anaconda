@@ -41,6 +41,7 @@ import raid
 import lvm
 import partedUtils
 import partRequests
+import cryptodev
 
 import rhpl
 from rhpl.translate import _
@@ -164,6 +165,9 @@ class Partitions:
         self.autoEncrypt = False
         self.autoEncryptPass = ""
 
+        self.encryptedDevices = {}
+        self.globalPassphrase = ""
+
         # partition method to be used.  not to be touched externally
         self.useAutopartitioning = 1
         self.useFdisk = 0
@@ -178,6 +182,102 @@ class Partitions:
 
     def protectedPartitions(self):
         return self.protected
+
+    def getCryptoDev(self, device):
+        intf = self.anaconda.intf
+        luksDev = cryptodev.LUKSDevice(device)
+        if self.globalPassphrase:
+            luksDev.setPassphrase(self.globalPassphrase)
+            if not luksDev.openDevice():
+                self.encryptedDevices[device] = luksDev
+                return luksDev
+            else:
+                luksDev.setPassphrase("")
+
+        if intf is None:
+            return
+
+        buttons = [_("Back"), _("Continue")]
+        while True:
+            (passphrase, isglobal) = intf.passphraseEntryWindow(device)
+            if not passphrase or not passphrase.strip():
+                rc = intf.messageWindow(_("Confirm"),
+                                        _("Are you sure you want to skip "
+                                          "entering a passphrase for device "
+                                          "%s?\n\n"
+                                          "If you skip this step the "
+                                          "device's contents will not "
+                                          "be available during "
+                                          "installation.") % device,
+                                        type = "custom",
+                                        default = 0,
+                                        custom_buttons = buttons)
+                if rc == 0:
+                    continue
+                else:
+                    log.info("skipping passphrase for %s" % (device,))
+                    break
+
+            luksDev.setPassphrase(passphrase)
+            rc = luksDev.openDevice()
+            if rc:
+                luksDev.setPassphrase("")
+                continue
+            else:
+                self.encryptedDevices[device] = luksDev
+                if isglobal:
+                    self.globalPassphrase = passphrase
+                break
+
+        return self.encryptedDevices.get(device)
+
+    def getEncryptedDevices(self, diskset):
+        """ find and obtain passphrase for any encrypted devices """
+        drives = diskset.disks.keys()
+        drives.sort()
+        for drive in drives:
+            disk = diskset.disks[drive]
+            part = disk.next_partition()
+            while part:
+                if part.type & parted.PARTITION_METADATA:
+                    part = disk.next_partition(part)
+                    continue
+
+                device = partedUtils.get_partition_name(part)
+                if cryptodev.isLuks("/dev/%s" % device):
+                    self.getCryptoDev(device)
+
+                part = disk.next_partition(part)
+
+        diskset.startMPath()
+        diskset.startDmRaid()
+        diskset.startMdRaid()
+        mdList = diskset.mdList
+        for raidDev in mdList:
+            (theDev, devices, level, numActive) = raidDev
+            if cryptodev.isLuks("/dev/%s" % theDev):
+                self.getCryptoDev(theDev)
+
+        lvm.writeForceConf()
+        # now to read in pre-existing LVM stuff
+        lvm.vgscan()
+        lvm.vgactivate()
+
+        for (vg, size, pesize, vgfree) in lvm.vglist():
+            for (lvvg, lv, size, lvorigin) in lvm.lvlist():
+                if lvorigin:
+                    continue
+                if lvvg != vg:
+                    continue
+
+                theDev = "/dev/%s/%s" %(vg, lv)
+                if cryptodev.isLuks(theDev):
+                    self.getCryptoDev("%s/%s" % (vg, lv))
+
+        lvm.vgdeactivate()
+        diskset.stopMdRaid()
+        for luksDev in self.encryptedDevices.values():
+            luksDev.closeDevice()
 
     def setFromDisk(self, diskset):
         """Clear the delete list and set self.requests to reflect disk."""
