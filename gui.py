@@ -683,6 +683,38 @@ class luksPassphraseWindow:
     def destroy(self):
         self.win.destroy()
 
+class PassphraseEntryWindow:
+    def __init__(self, device):
+        xml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"), domain="anaconda")
+        self.txt = _("Partition %s is encrypted. In order to "
+                     "access the partition's contents during "
+                     "installation you must enter the device's "
+                     "passphrase below.") % (device,)
+        self.win = xml.get_widget("passphraseEntryDialog")
+        self.passphraseLabel = xml.get_widget("passphraseLabel")
+        self.passphraseEntry = xml.get_widget("passphraseEntry")
+        self.globalcheckbox = xml.get_widget("globalcheckbox")
+
+    def run(self):
+        self.win.show()
+        self.passphraseLabel.set_text(txt)
+        self.passphraseEntry.grab_focus()
+        rc = self.win.run()
+        passphrase = None
+        isglobal = False
+        if rc == gtk.RESPONSE_OK:
+            passphrase = self.passphraseEntry.get_text().strip()
+            isglobal = self.globalcheckbox.get_active()
+
+        self.rc = (passphrase, isglobal)
+        return self.rc
+
+    def getrc(self):
+        return self.rc
+
+    def destroy(self):
+        self.win.destroy()
+
 class SaveExceptionWindow:
     def __init__(self, anaconda, longTracebackFile=None, screen=None):
         exnxml = gtk.glade.XML(findGladeFile("exnSave.glade"), domain="anaconda")
@@ -1121,6 +1153,12 @@ class InstallInterface:
         passphrase = d.getPassphrase().strip()
         d.destroy()
         return passphrase
+
+    def passphraseEntryWindow(self, device):
+        d = PassphraseEntryWindow(device)
+        rc = d.run()
+        d.destroy()
+        return rc
 
     def beep(self):
         gtk.gdk.beep()
