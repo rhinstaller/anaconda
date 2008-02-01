@@ -64,7 +64,7 @@ class LUKSDevice:
     def setDevice(self, device):
         self._device = device
         if device is not None:
-            name = "%s-%s" % (self.getScheme().lower(),
+            name = "%s-%s" % (self.scheme.lower(),
                               os.path.basename(device))
             self.setName(name)
 
@@ -149,7 +149,7 @@ class LUKSDevice:
     def openDevice(self):
         if not self.getStatus():
             # already mapped
-            return
+            return 0
 
         if not self.passphrase:
             raise RuntimeError, "Cannot create mapping without a passphrase."
