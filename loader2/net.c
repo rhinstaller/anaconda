@@ -295,6 +295,7 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 void printLoaderDataIPINFO(struct loaderData_s *loaderData) {
     logMessage("loaderData->ipinfo_set = %d", loaderData->ipinfo_set);
     logMessage("loaderData->ip         = %s", loaderData->ip);
+    logMessage("loaderData->dhcpTimeout= %d", loaderData->dhcpTimeout);
     logMessage("loaderData->netmask    = %s", loaderData->netmask);
     logMessage("loaderData->gateway    = %s", loaderData->gateway);
     logMessage("loaderData->dns        = %s", loaderData->dns);
@@ -357,6 +358,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
+		cfg->dhcpTimeout = loaderData->dhcpTimeout;
                 chptr = doDhcp(loaderData->netDev, cfg, loaderData->netCls);
             } else {
                 chptr = NULL;
@@ -455,6 +457,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     }
 
     cfg->noDns = loaderData->noDns;
+    cfg->dhcpTimeout = loaderData->dhcpTimeout;
 }
 
 int readNetConfig(char * device, struct networkDeviceConfig * cfg, 
@@ -614,6 +617,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
                           _("Sending request for IP information for %s..."), 
                           device, 0);
                 waitForLink(device);
+		newCfg.dhcpTimeout = cfg->dhcpTimeout;
                 chptr = doDhcp(device, &newCfg, dhcpclass);
                 newtPopWindow();
             } else {
@@ -700,10 +704,14 @@ char * doDhcp(char * ifname,
     struct pumpOverrideInfo override;
     memset(&override, 0, sizeof(struct pumpOverrideInfo));
     override.numRetries = 10;
-    override.timeout = 45;
+
+    if (dev->dhcpTimeout <= 0)
+      override.timeout = 45;
+    else
+      override.timeout = dev->dhcpTimeout;
 
     setupWireless(dev);
-    logMessage("running dhcp for %s", ifname);
+    logMessage("running dhcp for %s with timeout %ld", ifname, (long)timeout);
     return pumpDhcpClassRun(ifname, 0, 0, NULL, 
                             dhcpclass ? dhcpclass : "anaconda", 
                             &dev->dev, &override);
@@ -873,7 +881,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                          char ** argv, int * flagsPtr) {
     char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL, * class = NULL;
     char * essid = NULL, * wepkey = NULL, * onboot = NULL;
-    int noDns = 0, noksdev = 0, rc;
+    int noDns = 0, noksdev = 0, dhcpTimeout = -1, rc;
     poptContext optCon;
 
     struct poptOption ksOptions[] = {
@@ -891,6 +899,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "wepkey", '\0', POPT_ARG_STRING, &wepkey, 0 },
         { "onboot", '\0', POPT_ARG_STRING, &onboot, 0 },
         { "notksdevice", '\0', POPT_ARG_NONE, &noksdev, 0 },
+	{ "dhcptimeout", '\0', POPT_ARG_INT, &dhcpTimeout, 0, NULL, NULL },
         { 0, 0, 0, 0, 0 }
     };
     

@@ -96,6 +96,7 @@ struct loaderData_s {
     char * ip, *netmask, *gateway, *dns, *hostname, *peerid, *ethtool, *subchannels, *portname, *essid, *wepkey, *nettype, *ctcprot, *layer2, *macaddr;
     int mtu;
     int noDns;
+    int dhcpTimeout;
     int ipinfo_set;
     char * ksFile;
     char * method;

@@ -16,6 +16,7 @@ struct networkDeviceConfig {
     int isDynamic;
     int noDns;
     int preset;
+    int dhcpTimeout;
 
     /* s390 settings */
     char *subchannels, *portname, *peerid, *nettype, *ctcprot, *layer2, *macaddr;
