@@ -34,6 +34,10 @@
 #include <strings.h>
 #include <unistd.h>
 #include <kudzu/kudzu.h>
+#include <netinet/in.h>
+#include <netlink/netlink.h>
+#include <netlink/route/addr.h>
+#include <netlink/route/link.h>
 
 #include "../isys/dns.h"
 #include "../isys/isys.h"
@@ -1327,6 +1331,63 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
     return;
 }
 
+/* Clear existing IP addresses from the interface using libnl */
+void clearInterface(char *device) {
+    int ifindex = -1;
+    struct nl_cache *cache = NULL;
+    struct nl_handle *handle = NULL;
+    struct nl_object *obj = NULL;
+    struct rtnl_addr *raddr = NULL;
+
+    if (device == NULL)
+        return;
+
+    if ((handle = nl_handle_alloc()) == NULL) {
+        logMessage(DEBUGLVL, "nl_handle_alloc() failure in clearInterface()");
+        goto clearerr1;
+    }
+
+    if (nl_connect(handle, NETLINK_ROUTE)) {
+        logMessage(DEBUGLVL, "nl_connect() failure in clearInterface()");
+        goto clearerr2;
+    }
+
+    if ((cache = rtnl_link_alloc_cache(handle)) == NULL) {
+        logMessage(DEBUGLVL,
+                   "rtnl_link_alloc_cache() failure in clearInterface()");
+        goto clearerr3;
+    }
+
+    ifindex = rtnl_link_name2i(cache, device);
+
+    if ((cache = rtnl_addr_alloc_cache(handle)) == NULL) {
+        logMessage(DEBUGLVL,
+                   "rtnl_addr_alloc_cache() failure in clearInterface()");
+        goto clearerr3;
+    }
+
+    obj = nl_cache_get_first(cache);
+    while (obj) {
+        raddr = (struct rtnl_addr *) obj;
+
+        if (rtnl_addr_get_ifindex(raddr) == ifindex) {
+            rtnl_addr_delete(handle, raddr, 0);
+            rtnl_addr_put(raddr);
+        }
+
+        obj = nl_cache_get_next(obj);
+    }
+
+clearerr3:
+    nl_close(handle);
+clearerr2:
+    nl_handle_destroy(handle);
+clearerr1:
+    pumpDisableInterface(device);
+
+    return;
+}
+
 char *doDhcp(struct networkDeviceConfig *dev) {
     struct pumpNetIntf *i;
     char *r = NULL, *class = NULL;
@@ -1336,10 +1397,13 @@ char *doDhcp(struct networkDeviceConfig *dev) {
 
     i = &dev->dev;
 
+    /* clear existing IP addresses */
+    clearInterface(i->device);
+
     if (dev->dhcpTimeout < 0)
-	timeout = 45;
+        timeout = 45;
     else
-	timeout = dev->dhcpTimeout;
+        timeout = dev->dhcpTimeout;
 
     if (dev->vendor_class != NULL)
         class = dev->vendor_class;
@@ -1382,6 +1446,7 @@ char *doDhcp(struct networkDeviceConfig *dev) {
 int configureNetwork(struct networkDeviceConfig * dev) {
     char *rc;
 
+    clearInterface(dev->dev.device);
     setupWireless(dev);
     rc = pumpSetupInterface(&dev->dev);
     if (rc != NULL) {
@@ -1833,7 +1898,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     for (i = 0; devs[i]; i++) {
         if (strcmp(loaderData->netDev, devices[i]))
             if (!FL_TESTING(flags))
-                pumpDisableInterface(devs[i]->device);
+                clearInterface(devs[i]->device);
     }
 
     return LOADER_OK;

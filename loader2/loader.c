@@ -898,7 +898,7 @@ static char *doLoaderMain(char * location,
            STEP_IP, STEP_URL, STEP_DONE } step;
     char * url = NULL;
     int dir = 1;
-    int rc, i;
+    int rc, i, query=0;
 
     char * installNames[10]; /* 10 install methods will be enough for anyone */
     int numValidMethods = 0;
@@ -1150,7 +1150,9 @@ static char *doLoaderMain(char * location,
 
             /* fall through to ip config */
         case STEP_IP: {
-            int query = !strncmp(loaderData->ip, "query", 5);
+            if (loaderData->ip != NULL) {
+                query = !strncmp(loaderData->ip, "query", 5);
+            }
 
             if (!needsNetwork) {
                 step = STEP_METHOD; /* only hit going back */
