@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.93
+Version: 11.1.2.94
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb 01 2008 Chris Lumens <clumens@redhat.com> 11.1.2.94-1
+- Include libnssutil3.so for sshd on s390 (dcantrell).
+- Remove old IP addresses from interface on reconfig (dcantrell).
+  Resolves: rhbz#218273
+- More fixes for .treeinfo (jgranado).
+
 * Wed Jan 30 2008 Chris Lumens <clumens@redhat.com> 11.1.2.93-1
 - Support network --bootproto=query in kickstart installs.
   Resolves: rhbz#401531
