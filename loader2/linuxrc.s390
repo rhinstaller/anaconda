@@ -486,15 +486,15 @@ if [ -n "$SEARCHDNS" ]; then
 	for i in "$SEARCHDNS"; do echo "search $i"; done >> /etc/resolv.conf
 fi
 if [ -n "$DNS" ]; then
-	DNS=`echo $DNS |sed -e 's/:/ /g'`
-	for i in $DNS; do echo "nameserver $i"; done >> /etc/resolv.conf
+	RESOLVDNS=`echo $DNS |sed -e 's/:/ /g'`
+	for i in $RESOLVDNS; do echo "nameserver $i"; done >> /etc/resolv.conf
 fi
 
 # make sure we have an /etc/hosts file (required for telnetd)
-echo "127.0.0.1 localhost.localdomain localhost" > /etc/hosts
-echo "::1 localhost6.localdomain6 localhost6" >> /etc/hosts
+echo -e "127.0.0.1\tlocalhost.localdomain localhost" > /etc/hosts
+echo -e "::1\t\tlocalhost6.localdomain6 localhost6" >> /etc/hosts
 if [ ! -z "$HOSTNAME" -a ! -z "$IPADDR" ]; then
-    echo "$IPADDR $HOSTNAME `echo $HOSTNAME | cut -d '.' -f 1`" >> /etc/hosts
+    echo -e "$IPADDR\t$HOSTNAME `echo $HOSTNAME | cut -d '.' -f 1`" >> /etc/hosts
 fi
 
 if [ -z "$DASD" ]; then
@@ -534,7 +534,7 @@ MTU="$MTU"
 NETWORK="$NETWORK"
 NETMASK="$NETMASK"
 BROADCAST="$BROADCAST"
-DNS="$DNS"
+DNS="`echo $DNS | cut -d ':' -f 1`"
 SEARCHDNS="$SEARCHDNS"
 PEERID="$PEERID"
 SUBCHANNELS="$SUBCHANNELS"
@@ -560,6 +560,7 @@ HOSTNAME=$HOSTNAME
 MTU=$MTU
 SUBCHANNELS=$SUBCHANNELS
 EOF
+[ "$DNS" != "" ] && echo "DNS=`echo $DNS | cut -d ':' -f 1`" >> /tmp/netinfo
 [ "$NETTYPE" != "" ] && echo "NETTYPE=$NETTYPE" >> /tmp/netinfo
 [ "$PEERID" != "" ] && echo "PEERID=$PEERID" >> /tmp/netinfo
 [ "$PORTNAME" != "" ] && echo "PORTNAME=$PORTNAME" >> /tmp/netinfo
