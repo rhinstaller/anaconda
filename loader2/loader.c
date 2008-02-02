@@ -549,6 +549,19 @@ static void readNetInfo(struct loaderData_s ** ld) {
     vname = (char *)malloc(sizeof(char)*15);
     vparm = (char *)malloc(sizeof(char)*85);
 
+    /* make sure everything is NULL before we begin copying info */
+    loaderData->ipv4 = NULL;
+    loaderData->netmask = NULL;
+    loaderData->gateway = NULL;
+    loaderData->dns = NULL;
+    loaderData->peerid = NULL;
+    loaderData->subchannels = NULL;
+    loaderData->portname = NULL;
+    loaderData->nettype = NULL;
+    loaderData->ctcprot = NULL;
+    loaderData->layer2 = NULL;
+    loaderData->macaddr = NULL;
+
     /*
      * The /tmp/netinfo file is written out by /sbin/init on s390x (which is
      * really the linuxrc.s390 script).  It's a shell-sourcable file with
@@ -574,10 +587,8 @@ static void readNetInfo(struct loaderData_s ** ld) {
             if (vparm == NULL)
                 continue;
 
-            if (!strncmp(vname, "IPADDR", 6)) {
+            if (!strncmp(vname, "IPADDR", 6))
                 loaderData->ipv4 = strdup(vparm);
-                loaderData->ipinfo_set = 1;
-            }
 
             if (!strncmp(vname, "NETMASK", 7))
                 loaderData->netmask = strdup(vparm);
@@ -605,8 +616,20 @@ static void readNetInfo(struct loaderData_s ** ld) {
 
             if (!strncmp(vname, "CTCPROT", 7))
                 loaderData->ctcprot = strdup(vparm);
+
+            if (!strncmp(vname, "LAYER2", 6))
+                loaderData->layer2 = strdup(vparm);
+
+            if (!strncmp(vname, "MACADDR", 7))
+                loaderData->macaddr = strdup(vparm);
+
+            if (!strncmp(vname, "HOSTNAME", 8))
+                loaderData->hostname = strdup(vparm);
         }
     }
+
+    if (loaderData->ipv4 && loaderData->netmask)
+        flags |= LOADER_FLAGS_HAVE_CMSCONF;
 
     fclose(f);
 }
@@ -1221,8 +1244,13 @@ static char *doLoaderMain(char * location,
             if (loaderData->ksFile)
                 flags |= LOADER_FLAGS_IS_KICKSTART;
 
-            loaderData->ipinfo_set = 0;
-            loaderData->ipv6info_set = 0;
+            if (FL_HAVE_CMSCONF(flags)) {
+                loaderData->ipinfo_set = 1;
+                loaderData->ipv6info_set = 1;
+            } else {
+                loaderData->ipinfo_set = 0;
+                loaderData->ipv6info_set = 0;
+            }
 
             rc = chooseNetworkInterface(loaderData);
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
@@ -1251,6 +1279,13 @@ static char *doLoaderMain(char * location,
             }
 
             logMessage(INFO, "going to do getNetConfig");
+
+            /* s390 provides all config info by way of the CMS conf file */
+            if (FL_HAVE_CMSCONF(flags)) {
+                loaderData->ipinfo_set = 1;
+                loaderData->ipv6info_set = 1;
+            }
+
             /* populate netDev based on any kickstart data */
             if (loaderData->ipinfo_set) {
                 netDev.preset = 1;

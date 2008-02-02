@@ -65,6 +65,7 @@
 #define LOADER_FLAGS_IPV6_PARAM         (((uint64_t) 1) << 34)
 #define LOADER_FLAGS_IS_KICKSTART       (((uint64_t) 1) << 35)
 #define LOADER_FLAGS_ALLOW_WIRELESS     (((uint64_t) 1) << 36)
+#define LOADER_FLAGS_HAVE_CMSCONF       (((uint64_t) 1) << 37)
 
 #define FL_TESTING(a)            ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)             ((a) & LOADER_FLAGS_EXPERT)
@@ -95,6 +96,7 @@
 #define FL_IPV6_PARAM(a)         ((a) & LOADER_FLAGS_IPV6_PARAM)
 #define FL_IS_KICKSTART(a)       ((a) & LOADER_FLAGS_IS_KICKSTART)
 #define FL_ALLOW_WIRELESS(a)     ((a) & LOADER_FLAGS_ALLOW_WIRELESS)
+#define FL_HAVE_CMSCONF(a)       ((a) & LOADER_FLAGS_HAVE_CMSCONF)
 
 void startNewt(void);
 void stopNewt(void);
@@ -118,7 +120,7 @@ struct loaderData_s {
     int bootIf_set;
     char * netCls;
     int netCls_set;
-    char *ipv4, *ipv6, *netmask, *gateway, *dns, *hostname, *peerid, *ethtool, *subchannels, *portname, *essid, *wepkey, *nettype, *ctcprot;
+    char *ipv4, *ipv6, *netmask, *gateway, *dns, *hostname, *peerid, *ethtool, *subchannels, *portname, *essid, *wepkey, *nettype, *ctcprot, *layer2, *macaddr;
     int mtu;
     int noDns;
     int dhcpTimeout;
