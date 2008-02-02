@@ -123,18 +123,10 @@ class NetworkWindow(InstallWindow):
         return None
 
     def setHostOptionsSensitivity(self):
-        # figure out if they have overridden using dhcp for hostname
-	if self.anyUsingDHCP():
-	    self.hostnameUseDHCP.set_sensitive(1)
-
-	    if self.hostname != "localhost.localdomain" and self.network.overrideDHCPhostname:
-		self.hostnameManual.set_active(1)
-		self.hostnameManual.set_sensitive(1)
-	    else:
-		self.hostnameUseDHCP.set_active(1)
-	else:
-	    self.hostnameManual.set_active(1)
-	    self.hostnameUseDHCP.set_sensitive(0)
+	# force users to pick a hostname (#408921)
+	self.hostnameUseDHCP.set_sensitive(1)
+	self.hostnameManual.set_sensitive(1)
+	self.hostnameManual.set_active(1)
 
     def setIPTableSensitivity(self):
 	numactive = self.getNumberActiveDevices()

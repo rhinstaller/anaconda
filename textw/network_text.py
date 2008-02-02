@@ -748,22 +748,12 @@ class HostnameWindow:
         if not devices:
             return INSTALL_NOOP
 
-        # figure out if the hostname is currently manually set
-        if network.anyUsingDHCP(devices):
-            if (anaconda.id.network.hostname != "localhost.localdomain" and
-                anaconda.id.network.overrideDHCPhostname):
-                manual = 1
-            else:
-                manual = 0
-        else:
-            manual = 1
-
         thegrid = Grid(2, 2)
         radio = RadioGroup()
-        autoCb = radio.add(_("automatically via DHCP"), "dhcp", not manual)
+        autoCb = radio.add(_("automatically via DHCP"), "dhcp", 0)
         thegrid.setField(autoCb, 0, 0, growx = 1, anchorLeft = 1)
 
-        manualCb = radio.add(_("manually"), "manual", manual)
+        manualCb = radio.add(_("manually"), "manual", 1)
         thegrid.setField(manualCb, 0, 1, anchorLeft = 1)
         hostEntry = Entry(24)
         if anaconda.id.network.hostname != "localhost.localdomain":
