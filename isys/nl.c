@@ -92,8 +92,7 @@ char *nl_ip2str(char *ifname) {
     }
 
     /* find the IPv4 and IPv6 addresses for this interface */
-    obj = nl_cache_get_first(cache);
-    while (obj) {
+    while ((obj = nl_cache_get_first(cache)) != NULL) {
         raddr = (struct rtnl_addr *) obj;
 
         if (rtnl_addr_get_ifindex(raddr) == ifindex) {
@@ -157,8 +156,6 @@ char *nl_ip2str(char *ifname) {
                 }
             }
         }
-
-        obj = nl_cache_get_next(obj);
     }
 
 ip2str_error:
