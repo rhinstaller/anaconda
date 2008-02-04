@@ -686,8 +686,8 @@ class luksPassphraseWindow:
 class PassphraseEntryWindow:
     def __init__(self, device):
         xml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"), domain="anaconda")
-        self.txt = _("Partition %s is encrypted. In order to "
-                     "access the partition's contents during "
+        self.txt = _("Device %s is encrypted. In order to "
+                     "access the device's contents during "
                      "installation you must enter the device's "
                      "passphrase below.") % (device,)
         self.win = xml.get_widget("passphraseEntryDialog")

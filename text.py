@@ -272,8 +272,8 @@ class MainExceptionWindow:
 class PassphraseEntryWindow:
     def __init__(self, screen, device):
         self.screen = screen
-        self.txt = _("Partition %s is encrypted. In order to "
-                     "access the partition's contents during "
+        self.txt = _("Device %s is encrypted. In order to "
+                     "access the device's contents during "
                      "installation you must enter the device's "
                      "passphrase below.") % (device,)
         self.rc = None
