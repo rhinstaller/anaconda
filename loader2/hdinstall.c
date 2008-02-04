@@ -155,8 +155,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
 
         /* XXX try to mount as ext2 and then vfat */
         for (type=typetry; *type; type++) {
-            if (!doPwMount(device, "/tmp/hdimage", *type, 
-                IMOUNT_RDONLY, NULL))
+            if (!doPwMount(device, "/mnt/isodir", *type, IMOUNT_RDONLY, NULL))
                 break;
         }
 
@@ -164,9 +163,9 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
             return NULL;
 
         if (*dirName == '/')
-            sprintf(filespec, "/tmp/hdimage%s", dirName);
+            sprintf(filespec, "/mnt/isodir%s", dirName);
         else
-            sprintf(filespec, "/tmp/hdimage/%s", dirName);
+            sprintf(filespec, "/mnt/isodir/%s", dirName);
 
         if ((path = validIsoImages(filespec, 0))) {
             char updpath[4096];
@@ -177,33 +176,31 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
             logMessage(INFO, "Looking for updates for HD in %s", updpath);
             copyUpdatesImg(updpath);
 
-            rc = mountLoopback(path, "/tmp/loopimage", "/dev/loop0");
+            rc = mountLoopback(path, "/mnt/source", "/dev/loop0");
             if (!rc) {
                 /* This code is for copying small stage2 into ram */
                 /* and mounting                                   */
-                rc = loadHDImages("/tmp/loopimage", "/", "/dev/loop1",
+                rc = loadHDImages("/mnt/source", "/", "/dev/loop1",
                                   "/mnt/runtime", location);
                 if (rc) {
                     newtWinMessage(_("Error"), _("OK"),
                                    _("An error occured reading the install "
                                    "from the ISO images. Please check your ISO "
                                    "images and try again."));
+                    umountLoopback("/mnt/source", "/dev/loop0");
+                    umount("/mnt/isodir");
                 } else {
                     queryIsoMediaCheck(path);
                 }
             }
-
-            /* we copied stage2 into RAM so we can now umount image */
-            umountLoopback("/tmp/loopimage", "/dev/loop0");
-
         } else {
             rc = 1;
         }
 
-        /* we copied stage2 into RAM so now umount partition */
-        umount("/tmp/hdimage");
-        if (rc)
+        if (rc) {
+            umount("/mnt/isodir");
             return NULL;
+        }
     } else {
         /* in test mode I dont know what to do - just pretend I guess */
         type = typetry;
@@ -401,9 +398,6 @@ char * mountHardDrive(struct installMethod * method,
         }
 
         done = 1; 
-
-        umount("/tmp/hdimage");
-        rmdir("/tmp/hdimage");
     }
 
     free(dir);
