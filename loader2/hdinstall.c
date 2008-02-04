@@ -82,7 +82,11 @@ static int loadHDImages(char * prefix, char * dir,
         target = NULL;
         for (; stg2list[idx]; idx++) {
             target = stg2list[idx];
-            sprintf(path, "%s/%s/images/%s", prefix, dir ? dir : "", target);
+
+            if (!dir || (dir && (!strcmp(dir, "/") || strcmp(dir, ""))))
+                sprintf(path, "%s/images/%s", prefix, target);
+            else
+                sprintf(path, "%s/%s/images/%s", prefix, dir ? dir : "", target);
 
             logMessage(INFO, "Looking for hd stage2 image %s", path);
             if (!access(path, F_OK))
@@ -159,7 +163,10 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
         if (!type)
             return NULL;
 
-        sprintf(filespec, "/tmp/hdimage/%s", dirName);
+        if (*dirName == '/')
+            sprintf(filespec, "/tmp/hdimage%s", dirName);
+        else
+            sprintf(filespec, "/tmp/hdimage/%s", dirName);
 
         if ((path = validIsoImages(filespec, 0))) {
             char updpath[4096];

@@ -162,8 +162,11 @@ char * validIsoImages(char * dirName, int *foundinvalid) {
     /* Walk through the directories looking for a CD image. */
     errno = 0;
     while ((ent = readdir(dir))) {
-        snprintf(isoImage, sizeof(isoImage), "%s/%s", dirName, ent->d_name);
-        
+        if (*ent->d_name == '/')
+           snprintf(isoImage, sizeof(isoImage), "%s%s", dirName, ent->d_name);
+        else
+           snprintf(isoImage, sizeof(isoImage), "%s/%s", dirName, ent->d_name);
+
         if (!fileIsIso(isoImage)) {
             errno = 0;
             continue;
