@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.94
+Version: 11.1.2.95
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Feb 04 2008 Chris Lumens <clumens@redhat.com> 11.1.2.95-1
+- Propagate hostname from stage 1 to stage 2 on s390x (dcantrell).
+  Resolves: rhbz#354021
+
 * Fri Feb 01 2008 Chris Lumens <clumens@redhat.com> 11.1.2.94-1
 - Include libnssutil3.so for sshd on s390 (dcantrell).
 - Remove old IP addresses from interface on reconfig (dcantrell).
