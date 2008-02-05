@@ -158,7 +158,7 @@ if [ -n "$PKGORDER" ]; then
 fi
 
 echo "Writing .treeinfo file..."
-$MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --packagedir=$PRODUCTPATH --repodata=$PRODUCTPATH/repodata --outfile=$p/.treeinfo
+$MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --packagedir=$PRODUCTPATH --outfile=$p/.treeinfo
 
 echo "Making images..."
 $MK_IMAGES $DEBUGSTR $NOGRSTR $PKGDIR $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
