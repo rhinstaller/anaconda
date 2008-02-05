@@ -130,6 +130,9 @@ nicdelay=<sec>  Pause for the given number of seconds before attempting to
                 certain networks with spanning tree enabled on their
                 routers.
 
+dhcptimeout=<sec> Set different dhcp timeout to workaround STP delays
+		  on some Cisco switches
+
 method=nfs:<path> Use <path> for an NFS installation.
 
 method=http://<path> Use <path> for an HTTP installation
