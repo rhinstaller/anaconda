@@ -497,7 +497,7 @@ def availableClasses(showHidden=0):
 
     # append the location of installclasses to the python path so we
     # can import them
-    sys.path.append(path)
+    sys.path.insert(0, path)
 
     files = os.listdir(path)
     done = {}
