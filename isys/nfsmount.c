@@ -59,8 +59,6 @@
 #include "nfs_mount4.h"
 #undef NFS_NEED_KERNEL_TYPES
 
-#include "dns.h"
-
 static char *nfs_strerror(int stat);
 
 #define MAKE_VERSION(p,q,r)	(65536*(p) + 256*(q) + (r))
@@ -310,11 +308,13 @@ int nfsmount(const char *spec, const char *node, int *flags,
 	if (!inet_aton(hostname, &server_addr.sin_addr))
 #endif
 	{
-		if (mygethostbyname(hostname, &server_addr.sin_addr, AF_INET)) {
+		struct hostent *he = gethostbyname(hostname);
+		if (he) {
+			memcpy(&server_addr.sin_addr, he->h_addr_list[0], he->h_length);
+			server_addr.sin_family = he->h_addrtype;
+		} else {
 			myerror = ERROR_HOSTNAME;
 			goto fail;
-		} else {
-			server_addr.sin_family = AF_INET;
 		}
 	}
 
@@ -548,12 +548,14 @@ int nfsmount(const char *spec, const char *node, int *flags,
 	    mount_server_addr.sin_family = AF_INET;
 	    mount_server_addr.sin_addr.s_addr = inet_addr(hostname);
 	  } else {
-		if (mygethostbyname(hostname, &mount_server_addr.sin_addr, AF_INET)) {
-			  myerror = ERROR_HOSTNAME;
-			  goto fail;
-		  } else {
-			mount_server_addr.sin_family = AF_INET;
-		  }
+		struct hostent *he = gethostbyname(hostname);
+		if (he) {
+		   memcpy(&server_addr.sin_addr, he->h_addr_list[0], he->h_length);
+		   server_addr.sin_family = he->h_addrtype;
+		} else {
+		   myerror = ERROR_HOSTNAME;
+		   goto fail;
+		}
 	  }
 	}
 

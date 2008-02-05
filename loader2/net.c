@@ -20,6 +20,7 @@
  * Author(s): David Cantrell <dcantrell@redhat.com>
  */
 
+#include <netdb.h>
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
@@ -35,7 +36,6 @@
 #include <strings.h>
 #include <unistd.h>
 
-#include "../isys/dns.h"
 #include "../isys/isys.h"
 #include "../isys/net.h"
 #include "../isys/wireless.h"
@@ -1539,6 +1539,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev) {
     char * name, * chptr;
     char ret[48];
     ip_addr_t *tip;
+    struct hostent *host;
 
     if (!FL_TESTING(flags)) {
         writeResolvConf(dev);
@@ -1558,15 +1559,17 @@ int findHostAndDomain(struct networkDeviceConfig * dev) {
 
         tip = &(dev->dev.ip);
         inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-        name = mygethostbyaddr(ret, tip->sa_family);
+        host = gethostbyaddr(ret, IP_STRLEN(tip), tip->sa_family);
 
         if (!FL_CMDLINE(flags))
             newtPopWindow();
 
-        if (!name) {
-            logMessage(WARNING, "reverse name lookup failed");
+        if (!host) {
+            logMessage(WARNING, "reverse name lookup of %s failed", ret);
             return 1;
         }
+
+        name = strdup(host->h_name);
 
         logMessage(INFO, "reverse name lookup worked");
 

@@ -34,8 +34,6 @@
 #include <unistd.h>
 #include <netdb.h>
 
-#include "../isys/dns.h"
-
 #include "ftp.h"
 #include "lang.h"
 #include "loader.h"
@@ -172,6 +170,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
     struct in_addr addr;
     struct in6_addr addr6;
     char *hostname, *portstr;
+    struct hostent *host;
 
     if (!strcmp(ui->prefix, "/"))
         finalPrefix = "";
@@ -201,14 +200,13 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
     else if (inet_pton(AF_INET6, hostname, &addr6) >= 1)
         family = AF_INET6;
     else {
-        if (mygethostbyname(hostname, &addr, AF_INET) == 0) {
-            family = AF_INET;
-        } else if (mygethostbyname(hostname, &addr6, AF_INET6) == 0) {
-            family = AF_INET6;
-        } else {
-            logMessage(ERROR, "cannot determine address family of %s",
-                       hostname);
+        if ((host = gethostbyname(hostname)) == NULL) {
+            logMessage(ERROR, "cannot determine address family of %s: %s",
+                       hostname, hstrerror(h_errno));
+            return -1;
         }
+        else
+            family = host->h_addrtype;
     }
 
     if (ui->protocol == URL_METHOD_FTP) {
@@ -258,6 +256,7 @@ char * addrToIp(char * hostname) {
     struct in_addr ad;
     struct in6_addr ad6;
     char *ret;
+    struct hostent *host;
 
     if ((ret = malloc(48)) == NULL)
         return hostname;
@@ -266,10 +265,8 @@ char * addrToIp(char * hostname) {
         return ret;
     else if (inet_ntop(AF_INET6, &ad6, ret, INET6_ADDRSTRLEN) != NULL)
         return ret;
-    else if (mygethostbyname(hostname, &ad, AF_INET) == 0)
-        return hostname;
-    else if (mygethostbyname(hostname, &ad6, AF_INET6) == 0)
-        return hostname;
+    else if ((host = gethostbyname(hostname)) != NULL)
+        return host->h_name;
     else
         return NULL;
 }
