@@ -21,6 +21,7 @@
 
 import gtk
 import gobject
+import math
 
 import autopart
 import rhpl
@@ -35,6 +36,78 @@ from flags import flags
 import network
 import partitions
 import iscsi
+
+def whichToResize(partitions, diskset, intf):
+    def getActive(combo):
+        act = combo.get_active_iter()
+        return combo.get_model().get_value(act, 1)
+
+    def comboCB(combo, resizeSB):
+        # partition to resize changed, let's update our spinbutton
+        req = getActive(combo)
+        if req.targetSize is not None:
+            value = req.targetSize
+        else:
+            value = req.size
+        reqlower = req.getMinimumResizeMB(partitions)
+        requpper = req.getMaximumResizeMB(partitions)
+
+        adj = resizeSB.get_adjustment()
+        adj.lower = reqlower
+        adj.upper = requpper
+        adj.value = value
+        adj.set_value(value)
+
+
+    (dxml, dialog) = gui.getGladeWidget("autopart.glade", "resizeDialog")
+
+    store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
+    combo = dxml.get_widget("resizePartCombo")
+    combo.set_model(store)
+    crt = gtk.CellRendererText()
+    combo.pack_start(crt, True)
+    combo.set_attributes(crt, text = 0)
+    combo.connect("changed", comboCB, dxml.get_widget("resizeSB"))
+
+    found = False
+    biggest = -1
+    for req in partitions.requests:
+        if req.type != REQUEST_PREEXIST:
+            continue
+        if req.isResizable(partitions):
+            i = store.append(None)
+            store[i] = ("%s (%s, %d MB)" %(req.device,
+                                            req.fstype.getName(),
+                                           math.floor(req.size)),
+                        req)
+            if req.targetSize is not None:
+                combo.set_active(i)
+                found = True
+            if biggest < 0 or req.size > getActive(combo).size:
+                biggest = i
+    if not found and biggest > 0:
+        combo.set_active_iter(biggest)
+
+    if len(store) == 0:
+        dialog.destroy()
+        intf.messageWindow(_("Error"),
+                           _("No partitions are available to resize.  Only "
+                             "physical partitions with specific filesystems "
+                             "can be resized."),
+                             type="warning", custom_icon="error")
+        return gtk.RESPONSE_CANCEL
+
+    gui.addFrame(dialog)
+    dialog.show_all()
+    rc = dialog.run()
+    if rc == gtk.RESPONSE_CANCEL:
+        dialog.destroy()
+        return rc
+
+    req = getActive(combo)
+    req.targetSize = dxml.get_widget("resizeSB").get_value_as_int()
+    dialog.destroy()
+    return rc
 
 class PartitionTypeWindow(InstallWindow):
     def __init__(self, ics):
@@ -54,6 +127,14 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.skipStep("partition", skip = 0)
             self.dispatch.skipStep("bootloader", skip = 0)
         else:
+            if val == -2:
+                rc = whichToResize(self.partitions, self.diskset, self.intf)
+                if rc == gtk.RESPONSE_CANCEL:
+                    raise gui.StayOnScreen
+
+                # we're not going to delete any partitions in the resize case
+                val = CLEARPART_TYPE_NONE
+
             self.dispatch.skipStep("autopartitionexecute", skip = 0)
 
             if self.xml.get_widget("encryptButton").get_active():
@@ -319,6 +400,7 @@ class PartitionTypeWindow(InstallWindow):
         self.combo.set_model(store)
         opts = ((_("Remove all partitions on selected drives and create default layout"), CLEARPART_TYPE_ALL),
                 (_("Remove Linux partitions on selected drives and create default layout"), CLEARPART_TYPE_LINUX),
+                (_("Resize existing partition and create default layout in free space"), -2),
                 (_("Use free space on selected drives and create default layout"), CLEARPART_TYPE_NONE),
                 (_("Create custom layout"), -1))
         for (txt, val) in opts:
