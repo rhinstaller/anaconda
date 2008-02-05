@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.30
+Version: 11.4.0.31
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,20 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 05 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.31-1
+- Copy over repodata from media after the install is done (#381721) (katzj)
+- Add resizing support in autopartitioning (katzj)
+- Fix test mode with python-fedora installed (katzj)
+- Add support for encrypted devices in rescue mode (dlehman).
+- Allow creation of LUKSDevice with no passphrase. (dlehman)
+- Fix hdiso installs in loader and in methodstr (#431132). (clumens)
+- Avoid infinite loop in nl_ip2str(). (dcantrell)
+- Force users to set a hostname (#408921) (dcantrell)
+- Forward-port RHEL-5 fixes for s390x issues. (dcantrell)
+- fsset.py tweaks for ext4dev & xfs (sandeen)
+- When editing the raid partitions show raid memebers. (#352721) (jgranado)
+- mdadm to create the mdadm.conf (#395881) (jgranado)
+
 * Wed Jan 30 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.30-1
 - Initialize int in doConfigNetDevice() to fix compiler warnings. (dcantrell)
 
