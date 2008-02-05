@@ -627,7 +627,9 @@ class InstallKeyWindow:
 
 class luksPassphraseWindow:
     def __init__(self, passphrase=None):
-        luksxml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"), domain="anaconda")
+        luksxml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"),
+                                domain="anaconda",
+                                root="luksPassphraseDialog")
         self.passphraseEntry = luksxml.get_widget("passphraseEntry")
         self.passphraseEntry.set_visibility(False)
         self.confirmEntry = luksxml.get_widget("confirmEntry")
@@ -685,26 +687,30 @@ class luksPassphraseWindow:
 
 class PassphraseEntryWindow:
     def __init__(self, device):
-        xml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"), domain="anaconda")
+        xml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"),
+                            domain="anaconda",
+                            root="passphraseEntryDialog")
         self.txt = _("Device %s is encrypted. In order to "
                      "access the device's contents during "
                      "installation you must enter the device's "
                      "passphrase below.") % (device,)
         self.win = xml.get_widget("passphraseEntryDialog")
         self.passphraseLabel = xml.get_widget("passphraseLabel")
-        self.passphraseEntry = xml.get_widget("passphraseEntry")
-        self.globalcheckbox = xml.get_widget("globalcheckbox")
+        self.passphraseEntry = xml.get_widget("passphraseEntry2")
+        self.globalcheckbutton = xml.get_widget("globalcheckbutton")
+
+        addFrame(self.win)
 
     def run(self):
         self.win.show()
-        self.passphraseLabel.set_text(txt)
+        self.passphraseLabel.set_text(self.txt)
         self.passphraseEntry.grab_focus()
         rc = self.win.run()
         passphrase = None
         isglobal = False
         if rc == gtk.RESPONSE_OK:
             passphrase = self.passphraseEntry.get_text().strip()
-            isglobal = self.globalcheckbox.get_active()
+            isglobal = self.globalcheckbutton.get_active()
 
         self.rc = (passphrase, isglobal)
         return self.rc
