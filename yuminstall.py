@@ -780,7 +780,7 @@ class YumBackend(AnacondaBackend):
                 log.debug("Error copying media.repo: %s" %(e,))
 
             try:
-                i = inparse.ConfigParser()
+                i = iniparse.ConfigParser()
                 i.read("%s/media.repo" % self.ayum.tree)
                 repo = i.sections()[0]
                 del i
