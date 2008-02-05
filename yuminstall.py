@@ -35,6 +35,7 @@ import urlgrabber.progress
 import urlgrabber.grabber
 from urlgrabber.grabber import URLGrabber, URLGrabError
 import yum
+import iniparse
 import rhpl
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError, PackageSackError
@@ -777,6 +778,16 @@ class YumBackend(AnacondaBackend):
                                 "%s/etc/yum.repos.d/%s-install-media.repo" %(anaconda.rootPath, productName))
             except Exception, e:
                 log.debug("Error copying media.repo: %s" %(e,))
+
+            try:
+                i = inparse.ConfigParser()
+                i.read("%s/media.repo" % self.ayum.tree)
+                repo = i.sections()[0]
+                del i
+                shutil.copytree("%s/repodata" % self.ayum.tree,
+                                "%s/var/cache/yum/%s" %(anaconda.rootPath, repo))
+            except Exception, e:
+                log.debug("Error setting up media repository: %s" %(e,))
 
         if self.ayum._loopbackFile and (anaconda.mediaDevice or self.ayum.isodir):
             try:
