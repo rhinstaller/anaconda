@@ -1820,7 +1820,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
             } else if (ksMacAddr != NULL) {
                 /* maybe it's a mac address */
                 char *devmacaddr = NULL;
-                devmacaddr = netlink_interfaces_mac2str(devs[i]->device);
+                devmacaddr = nl_mac2str(devs[i]->device);
                 if ((devmacaddr != NULL) && !strcmp(ksMacAddr, devmacaddr)) {
                     foundDev = 1;
                     free(loaderData->netDev);

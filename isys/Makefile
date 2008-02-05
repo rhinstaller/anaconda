@@ -16,10 +16,6 @@ endif
 PYMODULES = _isys.so
 SUBDIRS = gzlib
 
-# glib
-LOADLIBES += $(shell pkg-config --libs glib-2.0)
-CFLAGS    += $(shell pkg-config --cflags glib-2.0)
-
 # libdhcp
 LOADLIBES += $(shell pkg-config --libs libdhcp)
 CFLAGS += $(shell pkg-config --cflags libdhcp)

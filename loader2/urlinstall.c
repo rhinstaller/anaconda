@@ -390,7 +390,7 @@ int getFileFromUrl(char * url, char * dest,
         devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
         for (i = 0; devices && devices[i]; i++) {
             dev = devices[i]->device;
-            mac = netlink_interfaces_mac2str(dev);
+            mac = nl_mac2str(dev);
 
             if (mac) {
                 snprintf(tmpstr, sizeof(tmpstr),
