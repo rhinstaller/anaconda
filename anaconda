@@ -571,12 +571,7 @@ class Anaconda:
             self.mediaDevice = device
             self.methodstr = "file://" + tree
         elif methodstr.startswith("hd://"):
-            (device, fstype, tree) = string.split(methodstr[5:], ":", 2)
-
-            if not tree.startswith("/"):
-                tree = "/%s" % tree
-
-            self.methodstr = "file://" + tree
+            self.methodstr = "file:///mnt/source"
         else:
             self.methodstr = methodstr
 

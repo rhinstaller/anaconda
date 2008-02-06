@@ -100,8 +100,8 @@ class InstallData:
            stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
             target = os.readlink("/dev/live")
             self.partitions.protected = [target]
-        elif self.methodstr.startswith("hd://"):
-            method = self.methodstr[5:]
+        elif self.anaconda._loaderMethodstr.startswith("hd://"):
+            method = self.anaconda._loaderMethodstr[5:]
             device = method.split(":", 3)[0]
             self.partitions.protected = [device]
 
