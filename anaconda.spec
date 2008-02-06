@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.95
+Version: 11.1.2.96
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 05 2008 Chris Lumens <clumens@redhat.com> 11.1.2.96-1
+- Include libnssutil3.so in the initrd for s390 as well.
+  Resolves: rhbz#431054
+- Document the dhcptimeout parameter (msivak).
+  Related: rhbz#198147, rhbz#254032
+
 * Mon Feb 04 2008 Chris Lumens <clumens@redhat.com> 11.1.2.95-1
 - Propagate hostname from stage 1 to stage 2 on s390x (dcantrell).
   Resolves: rhbz#354021
