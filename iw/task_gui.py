@@ -296,14 +296,19 @@ class TaskWindow(InstallWindow):
         checkbox = self.dxml.get_widget("proxyCheckbox")
         table.set_sensitive(checkbox.get_active())
 
-    def _taskToggled(self, data, row, store):
+    def _taskToggled(self, button, row, store):
         i = store.get_iter(int(row))
         val = store.get_value(i, 0)
         store.set_value(i, 0, not val)
 
-    def _repoToggled(self, data, row, store):
+    def _repoToggled(self, button, row, store):
         i = store.get_iter(int(row))
         val = store.get_value(i, 0)
+
+        # The base repositories can never be disabled, but they can be edited.
+        if val and not store.get_value(i, 2).addon:
+            button.set_active(True)
+            return
 
         if not val and not network.hasActiveNetDev():
             net = NetworkConfigurator(self.anaconda.id.network)
