@@ -176,11 +176,11 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
             logMessage(INFO, "Looking for updates for HD in %s", updpath);
             copyUpdatesImg(updpath);
 
-            rc = mountLoopback(path, "/mnt/source", "/dev/loop0");
+            rc = mountLoopback(path, "/mnt/source", "/dev/loop1");
             if (!rc) {
                 /* This code is for copying small stage2 into ram */
                 /* and mounting                                   */
-                rc = loadHDImages("/mnt/source", "/", "/dev/loop1",
+                rc = loadHDImages("/mnt/source", "/", "/dev/loop0",
                                   "/mnt/runtime", location);
                 if (rc) {
                     newtWinMessage(_("Error"), _("OK"),
