@@ -19,7 +19,7 @@
 
 S390SCSIMODS="zfcp tape390"
 S390DASDMODS=" dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod"
-S390NETMODS="ctc netiucv smsgiucv lcs qdio qeth ccwgroup"
+S390NETMODS="ctc netiucv smsgiucv lcs qdio qeth ccwgroup crypto_api xfrm_nalgo"
 S390MODS="$S390SCSIMODS $S390DASDMODS $S390NETMODS"
 
 makeBootImages() {
