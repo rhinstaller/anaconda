@@ -40,6 +40,7 @@ from constants import *
 import backend
 import isys
 import iutil
+import fsset
 
 import packages
 
@@ -112,7 +113,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             sys.exit(0)
 
     def _getLiveBlockDevice(self):
-        return self.osimg
+        return os.path.normpath(self.osimg)
 
     def _getLiveSizeMB(self):
         def parseField(output, field):
@@ -172,6 +173,13 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         r = anaconda.id.fsset.getEntryByMountPoint("/")
         rootfs = r.device.getDevice()
         rootfd = os.open("/dev/" + rootfs, os.O_WRONLY)
+
+        # set the rootfs to have the right type.  this lets things work
+        # given ext2 or ext3 (and in the future, ext4)
+        # FIXME: should we try to migrate if there isn't a match?
+        roottype = isys.readFSType(osimg)
+        if roottype is not None:
+            r.fsystem = fsset.fileSystemTypeGet(roottype)
 
         readamt = 1024 * 1024 * 8 # 8 megs at a time
         size = float(self._getLiveSizeMB() * 1024 * 1024)
