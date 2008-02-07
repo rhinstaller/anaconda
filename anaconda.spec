@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.96
+Version: 11.1.2.97
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb 07 2008 Chris Lumens <clumens@redhat.com> 11.1.2.97-1
+- Add module dependencies of qeth.ko.
+  Resolves: rhbz#431922
+- Make sure ISCSIADM and such are defined (pjones).
+  Resolves: rhbz#431924
+- Use libnl to read MAC and IP addresses (dcantrell).
+  Resolves: rhbz#303681
+- Fix usage of minstg2 vs. stage2 in low-mem cases (jgranado).
+  Resolves: rhbz#207657
+
 * Tue Feb 05 2008 Chris Lumens <clumens@redhat.com> 11.1.2.96-1
 - Include libnssutil3.so in the initrd for s390 as well.
   Resolves: rhbz#431054
