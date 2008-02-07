@@ -436,7 +436,9 @@ elif [ "$NETTYPE" = "lcs" ]; then
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
    echo "alias $DEVICE lcs" >> /tmp/modprobe.conf
 elif [ "$NETTYPE" = "qeth" ]; then
-   insmod ccwgroup$LO
+	insmod ccwgroup$LO
+	insmod crypto_api$LO
+	insmod xfrm_nalgo$LO
 	insmod qdio$LO
 	insmod ipv6$LO
 	insmod qeth$LO
