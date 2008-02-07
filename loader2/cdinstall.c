@@ -143,7 +143,7 @@ static void wrongCDMessage(void) {
                           "in any of your drives. Please insert "
                           "the %s disc and press %s to retry."),
                 getProductName(), getProductName(), _("OK")));
-    newtWinMessage(_("Error"), _("OK"), buf, _("OK"));
+    newtWinMessage(_("Error"), _("OK"), buf);
     free(buf);
 }
 
