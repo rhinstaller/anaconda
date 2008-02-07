@@ -167,8 +167,7 @@ class InstallData:
         self.users = users.Users()
 
         # make sure crypt_style in libuser.conf matches the salt we're using
-        self.users.createLuserConf(self.anaconda.instPath,
-                                   saltname=self.getSalt())
+        users.createLuserConf(self.anaconda.rootPath, saltname=self.getSalt())
 
         # User should already exist, just without a password.
         self.users.setRootPassword(self.rootPassword["password"],

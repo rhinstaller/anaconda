@@ -132,10 +132,9 @@ static int loadUrlImages(struct iurlinfo * ui) {
     }
 
     /* require 128MB for use of graphical stage 2 due to size of image */
-    if (FL_TEXT(flags) || totalMemory() < GUI_STAGE2_RAM) {
+    if (totalMemory() < GUI_STAGE2_RAM) {
 	stage2img = "minstg2.img";
-	if (totalMemory() < GUI_STAGE2_RAM)
-	    logMessage(WARNING, "URLINSTALL falling back to non-GUI stage2 "
+	logMessage(WARNING, "URLINSTALL falling back to non-GUI stage2 "
                        "due to insufficient RAM");
     } else {
 	stage2img = "stage2.img";
@@ -390,7 +389,7 @@ int getFileFromUrl(char * url, char * dest,
         devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
         for (i = 0; devices && devices[i]; i++) {
             dev = devices[i]->device;
-            mac = netlink_interfaces_mac2str(dev);
+            mac = nl_mac2str(dev);
 
             if (mac) {
                 snprintf(tmpstr, sizeof(tmpstr),

@@ -90,6 +90,9 @@ tag:
 	git tag -a -m "Tag as $(TAG)" -f $(TAG)
 	@echo "Tagged as $(TAG)"
 
+ChangeLog:
+	(GIT_DIR=.git git-log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
+
 archive: create-archive
 
 src: create-archive
@@ -103,8 +106,13 @@ build: src
 	@rm -rf /tmp/anaconda
 	brew build $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?anaconda/RHEL-5#$(TAG)'
 
-create-snapshot:
-	git-archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) | bzip2 -cz > $(PKGNAME)-$(VERSION).tar.bz2
+create-snapshot: ChangeLog tag
+	@git-archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) > anaconda-$(VERSION).tar
+	@mkdir -p anaconda-$(VERSION)/
+	@cp ChangeLog anaconda-$(VERSION)/
+	@tar --append -f anaconda-$(VERSION).tar anaconda-$(VERSION)
+	@bzip2 -f anaconda-$(VERSION).tar
+	@rm -rf anaconda-$(VERSION)
 	@echo "The final archive is in anaconda-$(VERSION).tar.bz2"
 
 create-archive:

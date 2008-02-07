@@ -442,6 +442,7 @@ static void readNetInfo(struct loaderData_s ** ld) {
     loaderData->netmask = NULL;
     loaderData->gateway = NULL;
     loaderData->dns = NULL;
+    loaderData->hostname = NULL;
     loaderData->peerid = NULL;
     loaderData->subchannels = NULL;
     loaderData->portname = NULL;
@@ -511,13 +512,14 @@ static void readNetInfo(struct loaderData_s ** ld) {
 
             if (!strncmp(vname, "MACADDR", 7))
                 loaderData->macaddr = strdup(vparm);
+
+            if (!strncmp(vname, "HOSTNAME", 8))
+                loaderData->hostname = strdup(vparm);
         }
     }
 
-    if (loaderData->ip && loaderData->netmask) {
-        loaderData->ipinfo_set = 1;
+    if (loaderData->ip && loaderData->netmask)
         flags |= LOADER_FLAGS_HAVE_CMSCONF;
-    }
 
     fclose(f);
 }
@@ -898,7 +900,7 @@ static char *doLoaderMain(char * location,
            STEP_IP, STEP_URL, STEP_DONE } step;
     char * url = NULL;
     int dir = 1;
-    int rc, i;
+    int rc, i, query=0;
 
     char * installNames[10]; /* 10 install methods will be enough for anyone */
     int numValidMethods = 0;
@@ -1130,7 +1132,10 @@ static char *doLoaderMain(char * location,
             if (loaderData->ksFile)
                 flags |= LOADER_FLAGS_IS_KICKSTART;
 
-            if (!FL_HAVE_CMSCONF(flags)) {
+            if (FL_HAVE_CMSCONF(flags)) {
+                loaderData->ipinfo_set = 1;
+                loaderData->ipv6info_set = 1;
+            } else {
                 loaderData->ipinfo_set = 0;
                 loaderData->ipv6info_set = 0;
             }
@@ -1149,7 +1154,11 @@ static char *doLoaderMain(char * location,
             strcpy(netDev.dev.device, devName);
 
             /* fall through to ip config */
-        case STEP_IP:
+        case STEP_IP: {
+            if (loaderData->ip != NULL) {
+                query = !strncmp(loaderData->ip, "query", 5);
+            }
+
             if (!needsNetwork) {
                 step = STEP_METHOD; /* only hit going back */
                 break;
@@ -1157,15 +1166,21 @@ static char *doLoaderMain(char * location,
 
             logMessage(INFO, "going to do getNetConfig");
 
-            if (FL_NOIPV4(flags) || (!FL_IP_PARAM(flags) && !FL_KICKSTART(flags)))
+            if (query || FL_NOIPV4(flags) || (!FL_IP_PARAM(flags) && !FL_KICKSTART(flags)))
                 loaderData->ipinfo_set = 0;
             else
                 loaderData->ipinfo_set = 1;
 
-            if (FL_NOIPV6(flags) || (!FL_IPV6_PARAM(flags) && !FL_KICKSTART(flags)))
+            if (query || FL_NOIPV6(flags) || (!FL_IPV6_PARAM(flags) && !FL_KICKSTART(flags)))
                 loaderData->ipv6info_set = 0;
             else
                 loaderData->ipv6info_set = 1;
+
+            /* s390 provides all config info by way of the CMS conf file */
+            if (FL_HAVE_CMSCONF(flags)) {
+                loaderData->ipinfo_set = 1;
+                loaderData->ipv6info_set = 1;
+            }
 
             /* populate netDev based on any kickstart data */
             if (loaderData->ipinfo_set) {
@@ -1173,7 +1188,7 @@ static char *doLoaderMain(char * location,
             }
             setupNetworkDeviceConfig(&netDev, loaderData);
 
-            rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum);
+            rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum, query);
             if ((rc == LOADER_NOOP) && (netDev.preset == 0)) {
                 loaderData->ipinfo_set = 0;
                 loaderData->ipv6info_set = 0;
@@ -1189,6 +1204,7 @@ static char *doLoaderMain(char * location,
             writeNetInfo("/tmp/netinfo", &netDev);
             step = STEP_URL;
             dir = 1;
+        }
 
         case STEP_URL:
             logMessage(INFO, "starting to STEP_URL");

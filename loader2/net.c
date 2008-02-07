@@ -34,6 +34,10 @@
 #include <strings.h>
 #include <unistd.h>
 #include <kudzu/kudzu.h>
+#include <netinet/in.h>
+#include <netlink/netlink.h>
+#include <netlink/route/addr.h>
+#include <netlink/route/link.h>
 
 #include "../isys/dns.h"
 #include "../isys/isys.h"
@@ -546,7 +550,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 }
 
 int readNetConfig(char * device, struct networkDeviceConfig * cfg,
-                  char * dhcpclass, int methodNum) {
+                  char * dhcpclass, int methodNum, int query) {
     struct networkDeviceConfig newCfg;
     int ret;
     int i = 0;
@@ -620,7 +624,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     /* dhcp/manual network configuration loop */
     i = 1;
     while (i == 1) {
-        ret = configureTCPIP(device, cfg, &newCfg, &opts, methodNum);
+        ret = configureTCPIP(device, cfg, &newCfg, &opts, methodNum, query);
 
         if (ret == LOADER_NOOP) {
             /* dhcp selected, proceed */
@@ -710,7 +714,8 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
 
 int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                    struct networkDeviceConfig * newCfg,
-                   struct netconfopts * opts, int methodNum) {
+                   struct netconfopts * opts, int methodNum,
+                   int query) {
     int i = 0, z = 0, skipForm = 0;
     char *dret = NULL;
     newtComponent f, okay, back, answer;
@@ -796,13 +801,14 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
      *     noipv4 noipv6
      *     ip=<val> noipv6
      *     ipv6=<val> noipv4
-     * we also skip this form for anyone doing a kickstart install
+     * we also skip this form for anyone doing a kickstart install,
+     * but only if they also didn't specify --bootproto=query
      */
     if ((FL_IP_PARAM(flags) && FL_IPV6_PARAM(flags)) ||
         (FL_IP_PARAM(flags) && FL_NOIPV6(flags)) ||
         (FL_IPV6_PARAM(flags) && FL_NOIPV4(flags)) ||
         (FL_NOIPV4(flags) && FL_NOIPV6(flags)) ||
-        (FL_IS_KICKSTART(flags))) {
+        (FL_IS_KICKSTART(flags) && !query)) {
         skipForm = 1;
     }
 
@@ -1325,6 +1331,63 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
     return;
 }
 
+/* Clear existing IP addresses from the interface using libnl */
+void clearInterface(char *device) {
+    int ifindex = -1;
+    struct nl_cache *cache = NULL;
+    struct nl_handle *handle = NULL;
+    struct nl_object *obj = NULL;
+    struct rtnl_addr *raddr = NULL;
+
+    if (device == NULL)
+        return;
+
+    if ((handle = nl_handle_alloc()) == NULL) {
+        logMessage(DEBUGLVL, "nl_handle_alloc() failure in clearInterface()");
+        goto clearerr1;
+    }
+
+    if (nl_connect(handle, NETLINK_ROUTE)) {
+        logMessage(DEBUGLVL, "nl_connect() failure in clearInterface()");
+        goto clearerr2;
+    }
+
+    if ((cache = rtnl_link_alloc_cache(handle)) == NULL) {
+        logMessage(DEBUGLVL,
+                   "rtnl_link_alloc_cache() failure in clearInterface()");
+        goto clearerr3;
+    }
+
+    ifindex = rtnl_link_name2i(cache, device);
+
+    if ((cache = rtnl_addr_alloc_cache(handle)) == NULL) {
+        logMessage(DEBUGLVL,
+                   "rtnl_addr_alloc_cache() failure in clearInterface()");
+        goto clearerr3;
+    }
+
+    obj = nl_cache_get_first(cache);
+    while (obj) {
+        raddr = (struct rtnl_addr *) obj;
+
+        if (rtnl_addr_get_ifindex(raddr) == ifindex) {
+            rtnl_addr_delete(handle, raddr, 0);
+            rtnl_addr_put(raddr);
+        }
+
+        obj = nl_cache_get_next(obj);
+    }
+
+clearerr3:
+    nl_close(handle);
+clearerr2:
+    nl_handle_destroy(handle);
+clearerr1:
+    pumpDisableInterface(device);
+
+    return;
+}
+
 char *doDhcp(struct networkDeviceConfig *dev) {
     struct pumpNetIntf *i;
     char *r = NULL, *class = NULL;
@@ -1334,10 +1397,13 @@ char *doDhcp(struct networkDeviceConfig *dev) {
 
     i = &dev->dev;
 
+    /* clear existing IP addresses */
+    clearInterface(i->device);
+
     if (dev->dhcpTimeout < 0)
-	timeout = 45;
+        timeout = 45;
     else
-	timeout = dev->dhcpTimeout;
+        timeout = dev->dhcpTimeout;
 
     if (dev->vendor_class != NULL)
         class = dev->vendor_class;
@@ -1380,6 +1446,7 @@ char *doDhcp(struct networkDeviceConfig *dev) {
 int configureNetwork(struct networkDeviceConfig * dev) {
     char *rc;
 
+    clearInterface(dev->dev.device);
     setupWireless(dev);
     rc = pumpSetupInterface(&dev->dev);
     if (rc != NULL) {
@@ -1627,7 +1694,10 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
     /* if they've specified dhcp/bootp or haven't specified anything, 
      * use dhcp for the interface */
-    if ((bootProto && (!strncmp(bootProto, "dhcp", 4) || 
+    if (bootProto && !strncmp(bootProto, "query", 3)) {
+        loaderData->ip = strdup("query");
+        loaderData->ipinfo_set = 0;
+    } else if ((bootProto && (!strncmp(bootProto, "dhcp", 4) || 
                        !strncmp(bootProto, "bootp", 4))) ||
         (!bootProto && !loaderData->ip)) {
         loaderData->ip = strdup("dhcp");
@@ -1750,7 +1820,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
             } else if (ksMacAddr != NULL) {
                 /* maybe it's a mac address */
                 char *devmacaddr = NULL;
-                devmacaddr = netlink_interfaces_mac2str(devs[i]->device);
+                devmacaddr = nl_mac2str(devs[i]->device);
                 if ((devmacaddr != NULL) && !strcmp(ksMacAddr, devmacaddr)) {
                     foundDev = 1;
                     free(loaderData->netDev);
@@ -1828,7 +1898,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     for (i = 0; devs[i]; i++) {
         if (strcmp(loaderData->netDev, devices[i]))
             if (!FL_TESTING(flags))
-                pumpDisableInterface(devs[i]->device);
+                clearInterface(devs[i]->device);
     }
 
     return LOADER_OK;
@@ -1839,7 +1909,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
  * the network */
 int kickstartNetworkUp(struct loaderData_s * loaderData,
                        struct networkDeviceConfig *netCfgPtr) {
-    int rc;
+    int rc, query;
 
     /* we may have networking already, so return to the caller */
     if ((loaderData->ipinfo_set == 1) || (loaderData->ipv6info_set == 1)) {
@@ -1881,12 +1951,17 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
         if (!loaderData->ip) {
             loaderData->ip = strdup("dhcp");
         }
-        loaderData->ipinfo_set = 1;
+
+        query = !strncmp(loaderData->ip, "query", 5);
+
+        if (!query) {
+            loaderData->ipinfo_set = 1;
+        }
 
         setupNetworkDeviceConfig(netCfgPtr, loaderData);
 
         rc = readNetConfig(loaderData->netDev, netCfgPtr, loaderData->netCls,
-                           loaderData->method);
+                           loaderData->method, query);
 
         if (rc == LOADER_ERROR) {
             logMessage(ERROR, "unable to setup networking");

@@ -22,17 +22,18 @@ import os.path
 
 def createLuserConf(instPath, saltname='md5'):
     """Writes a libuser.conf for instPath."""
-    if os.access(os.environ["LIBUSER_CONF"], os.R_OK):
+    if os.getenv("LIBUSER_CONF") and os.access(os.environ["LIBUSER_CONF"], os.R_OK):
         fn = os.environ["LIBUSER_CONF"]
         fd = open(fn, 'w')
     else:
-        (fd, fn) = tempfile.mkstemp(prefix="libuser.")
+        (fp, fn) = tempfile.mkstemp(prefix="libuser.")
+        fd = os.fdopen(fp, 'w')
 
     buf = """
 [defaults]
 skeleton = %(instPath)s/etc/skel
 mailspooldir = %(instPath)s/var/mail
-crypt_style = %(salt)
+crypt_style = %(salt)s
 modules = files shadow
 create_modules = files shadow
 [files]
@@ -50,20 +51,20 @@ directory = %(instPath)s/etc
 #     $1$    MD5
 #     $5$    SHA256
 #     $6$    SHA512
-def cryptPassword(password, saltkey=None):
+def cryptPassword(password, salt=None):
     salts = {'md5': '$1$', 'sha256': '$5$', 'sha512': '$6$', None: ''}
 
-    salt = salts[saltkey]
-    if salt == '':
+    saltstr = salts[salt]
+    if saltstr == '':
         saltLen = 2
     else:
         saltLen = 8
 
     for i in range(saltLen):
-        salt = salt + random.choice (string.letters +
-                                     string.digits + './')
+        saltstr = saltstr + random.choice (string.letters +
+                                           string.digits + './')
 
-    return crypt.crypt (password, salt)
+    return crypt.crypt (password, saltstr)
 
 class Users:
     def __init__ (self):

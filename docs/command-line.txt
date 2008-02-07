@@ -142,6 +142,9 @@ gateway=<gw>	Gateway to use for a network installation.
 dns=<dns>	Comma separated list of nameservers to use for a network
 		installation.
 
+dhcptimeout=<sec> Set different dhcp timeout to workaround STP delays
+                  with some Cisco switches
+
 method=nfs:<path> Use <path> for an NFS installation.
 
 method=http://<path> Use <path> for an HTTP installation

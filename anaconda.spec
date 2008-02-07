@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.89
+Version: 11.1.2.96
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -14,7 +14,6 @@ BuildPreReq: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
 BuildPreReq: pykickstart, yum >= 2.9.2, device-mapper >= 1.01.05-3, 
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
-BuildPreReq: glib2-devel >= 2.11.1-5
 BuildPreReq: libdhcp-devel >= 1.20-3, mkinitrd-devel >= 5.1.2-1
 BuildPreReq: audit-libs-devel
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
@@ -103,6 +102,55 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 05 2008 Chris Lumens <clumens@redhat.com> 11.1.2.96-1
+- Include libnssutil3.so in the initrd for s390 as well.
+  Resolves: rhbz#431054
+- Document the dhcptimeout parameter (msivak).
+  Related: rhbz#198147, rhbz#254032
+
+* Mon Feb 04 2008 Chris Lumens <clumens@redhat.com> 11.1.2.95-1
+- Propagate hostname from stage 1 to stage 2 on s390x (dcantrell).
+  Resolves: rhbz#354021
+
+* Fri Feb 01 2008 Chris Lumens <clumens@redhat.com> 11.1.2.94-1
+- Include libnssutil3.so for sshd on s390 (dcantrell).
+- Remove old IP addresses from interface on reconfig (dcantrell).
+  Resolves: rhbz#218273
+- More fixes for .treeinfo (jgranado).
+
+* Wed Jan 30 2008 Chris Lumens <clumens@redhat.com> 11.1.2.93-1
+- Support network --bootproto=query in kickstart installs.
+  Resolves: rhbz#401531
+- Set the format flag for new volume groups (msivak).
+  Resolves: rhbz#246523
+- More fixes for .treeinfo (jgranado).
+  Related: rhbz#253992
+
+* Mon Jan 28 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.92-1
+- Fix remaining issues with createLuserConf() changes
+  Related: rhbz#430237
+
+* Mon Jan 28 2008 Chris Lumens <clumens@redhat.com> 11.1.2.91-1
+- Include python-iniparse in stage2 for pirut.
+  Resolves:  rhbz#430212
+- Update the information contained in .treeinfo files (jgranado).
+  Resolves: rhbz#253992
+- Fix namespace issue with createLuserConf (dcantrell).
+  Resolves: rhbz#430237
+- Write /etc/resolv.conf and /etc/hosts in stage1 on s390 (dcantrell).
+  Related: rhbz#428694, rhbz#216158
+
+* Wed Jan 23 2008 Chris Lumens <clumens@redhat.com> 11.1.2.90-1
+- Add the stage2 to the .treeinfo file (jgranado).
+  Resolves: rhbz#253992
+- Fix handling %packages section in output anaconda-ks.cfg file.
+  Related: rhbz#280101
+- Fix a traceback caused by the patch for 427388.
+  Resolves: rhbz#429902
+- Fix some additional errors in createLuserConf() (dcantrell).
+  Resolves: rhbz#429902
+- Fix iscsi so that mkinitrd can talk to the running daemon (pjones).
+
 * Mon Jan 21 2008 Chris Lumens <clumens@redhat.com> 11.1.2.89-1
 - Support SHA256/SHA512 password encoding from kickstart (dcantrell).
   Resolves: rhbz#427388

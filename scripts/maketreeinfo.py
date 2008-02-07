@@ -94,8 +94,15 @@ else:
 
 section='general'
 c=ConfigParser.ConfigParser()
-c.add_section(section)
+
+if not c.has_section(section):
+    c.add_section(section)
+
 for k,v in data.items(): 
     if k != 'outfile':
         c.set(section,k,v)
+
+# Lets take away variant for now.
+if c.has_option(section, "variant"):
+    c.remove_option(section, "variant")
 c.write(f)

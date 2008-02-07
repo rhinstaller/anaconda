@@ -480,6 +480,7 @@ EOF
 	       $IMGPATH/$LIBDIR/libnss_files* \
 	       $IMGPATH/$LIBDIR/libnsl* \
 	       $IMGPATH/usr/$LIBDIR/libnss3.so \
+               $IMGPATH/usr/$LIBDIR/libnssutil3.so \
 	       $IMGPATH/$LIBDIR/libkeyutils* \
 	       $IMGPATH/$LIBDIR/libpthread* \
 	       $IMGPATH/usr/$LIBDIR/libplc4.so \
@@ -711,7 +712,8 @@ makeinstimage () {
     size=$(ls -l $INSTIMGPATH/${imagename}2.img | awk '{print $5}')
     size=$(expr $size / 1024)
     echo "Wrote $INSTIMGPATH/${imagename}2.img (${size}k)..."
-    echo "instimage = $INSTIMGPATH/${imagename}2.img" >> $TOPDESTPATH/.treeinfo
+    relpath=${INSTIMGPATH#$TOPDESTPATH/}
+    echo "instimage = ${relpath}/${imagename}2.img" >> $TOPDESTPATH/.treeinfo
     rm -rf $tmpdir
 }
 
@@ -757,7 +759,8 @@ makemainimage () {
     chmod 644 $INSTIMGPATH/${imagename}.img
 
     echo "Wrote $INSTIMGPATH/${imagename}.img (${SIZE}k)"
-    echo "mainimage = $INSTIMGPATH/${imagename}.img" >> $TOPDESTPATH/.treeinfo
+    relpath=${INSTIMGPATH#$TOPDESTPATH/}
+    echo "mainimage = ${relpath}/${imagename}.img" >> $TOPDESTPATH/.treeinfo
     
     rm $mmi_tmpimage
 }

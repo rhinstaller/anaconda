@@ -1206,10 +1206,9 @@ static PyObject * doGetMacAddress(PyObject * s, PyObject * args) {
     char *ret;
 
     if (!PyArg_ParseTuple(args, "s", &dev))
-	return NULL;
+        return NULL;
 
-    netlink_interfaces_list_free();
-    ret = netlink_interfaces_mac2str(dev);
+    ret = nl_mac2str(dev);
 
     return Py_BuildValue("s", ret);
 }
@@ -1219,7 +1218,7 @@ static PyObject * isWireless(PyObject * s, PyObject * args) {
     int ret;
 
     if (!PyArg_ParseTuple(args, "s", &dev))
-	return NULL;
+        return NULL;
 
     ret = is_wireless_interface(dev);
 
@@ -1231,10 +1230,9 @@ static PyObject * doGetIPAddress(PyObject * s, PyObject * args) {
     char *ret = NULL;
 
     if (!PyArg_ParseTuple(args, "s", &dev))
-	return NULL;
+        return NULL;
 
-    netlink_interfaces_list_free();
-    ret = netlink_interfaces_ip2str(dev);
+    ret = nl_ip2str(dev);
 
     return Py_BuildValue("s", ret);
 }

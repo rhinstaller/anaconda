@@ -56,10 +56,10 @@ struct netconfopts {
 typedef int int32;
 
 int readNetConfig(char * device, struct networkDeviceConfig * dev,
-                  char * dhcpclass, int methodNum);
+                  char * dhcpclass, int methodNum, int query);
 int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                    struct networkDeviceConfig * newCfg,
-                   struct netconfopts * opts, int methodNum);
+                   struct netconfopts * opts, int methodNum, int query);
 int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     struct networkDeviceConfig * newCfg,
                     struct intfconfig_s * ipcomps, struct netconfopts * opts);
@@ -82,6 +82,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 int kickstartNetworkUp(struct loaderData_s * loaderData,
                        struct networkDeviceConfig *netCfgPtr);
 
+void clearInterface(char *device);
 char *doDhcp(struct networkDeviceConfig *dev);
 void netlogger(void *arg, int priority, char *fmt, va_list va);
 void splitHostname (char *str, char **host, char **port);

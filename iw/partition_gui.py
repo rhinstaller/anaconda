@@ -1197,7 +1197,7 @@ class PartitionWindow(InstallWindow):
 				    custom_icon="error")
 	    return
 
-        request = VolumeGroupRequestSpec()
+        request = VolumeGroupRequestSpec(format = True)
         self.editLVMVolumeGroup(request, isNew = 1)
 
 	return
