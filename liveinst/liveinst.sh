@@ -52,6 +52,10 @@ if [ -x /usr/sbin/setenforce -a -e /selinux/enforce ]; then
     /usr/sbin/setenforce 0
 fi
 
+if [ ! -e /selinux/load ]; then
+    ANACONDA="$ANACONDA --noselinux"
+fi
+
 /sbin/swapoff -a
 /sbin/lvm vgchange -an --ignorelockingfailure
 
