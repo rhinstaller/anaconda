@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.31
+Version: 11.4.0.32
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Feb 06 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.32-1
+- Make passwordEntry appear on the exn saving screen. (clumens)
+- Don't allow disabling default repositories. (clumens)
+- Make loopback device purposes line up with what stage2 expects. (clumens)
+- Fix methodstr handling for hdiso installs (#431132). (clumens)
+- Remove our own DNS functions, since glibc's are available now. (clumens)
+
 * Tue Feb 05 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.31-1
 - Copy over repodata from media after the install is done (#381721) (katzj)
 - Add resizing support in autopartitioning (katzj)
