@@ -43,8 +43,8 @@ static void readCB(void *co, long long pos, long long total) {
     char tickmark[2] = "-";
     char * ticks = "-\\|/";
 
-    newtScaleSet(data->scale, pos / total);
-    *tickmark = ticks[(pos / total) % 5];
+    newtScaleSet(data->scale, pos * 100.0 / total);
+    *tickmark = ticks[(total / (pos + 1)) % 5];
 
     newtLabelSetText(data->label, tickmark);
     newtRefresh();
