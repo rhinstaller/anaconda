@@ -81,7 +81,7 @@ def whichToResize(partitions, diskset, intf):
                                            math.floor(req.size)),
                         req)
             if req.targetSize is not None:
-                combo.set_active(i)
+                combo.set_active_iter(i)
                 found = True
             if biggest < 0 or req.size > getActive(combo).size:
                 biggest = i
@@ -100,7 +100,7 @@ def whichToResize(partitions, diskset, intf):
     gui.addFrame(dialog)
     dialog.show_all()
     rc = dialog.run()
-    if rc == gtk.RESPONSE_CANCEL:
+    if rc != gtk.RESPONSE_OK:
         dialog.destroy()
         return rc
 
@@ -129,7 +129,7 @@ class PartitionTypeWindow(InstallWindow):
         else:
             if val == -2:
                 rc = whichToResize(self.partitions, self.diskset, self.intf)
-                if rc == gtk.RESPONSE_CANCEL:
+                if rc != gtk.RESPONSE_OK:
                     raise gui.StayOnScreen
 
                 # we're not going to delete any partitions in the resize case
