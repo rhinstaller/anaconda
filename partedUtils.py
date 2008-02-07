@@ -661,6 +661,11 @@ class DiskSet:
         """Return a list of all of the labels used on partitions."""
         labels = {}
 
+        if self.anaconda is not None:
+            encryptedDevices = self.anaconda.id.partitions.encryptedDevices
+        else:
+            encryptedDevices = {}
+
         for drive in self.driveList():
             # Don't read labels from drives we cleared using clearpart, as
             # we don't actually remove the existing filesystems so those
@@ -680,7 +685,7 @@ class DiskSet:
             parts = filter_partitions(disk, func)
             for part in parts:
                 node = get_partition_name(part)
-                crypto = self.anaconda.id.partitions.encryptedDevices.get(node)
+                crypto = encryptedDevices.get(node)
                 if crypto and not crypto.openDevice():
                     node = crypto.getDevice()
 
@@ -700,7 +705,7 @@ class DiskSet:
                     labels[rs.name] = label
 
         for dev, devices, level, numActive in DiskSet.mdList:
-            crypto = self.anaconda.id.partitions.encryptedDevices.get(dev)
+            crypto = encryptedDevices.get(dev)
             if crypto and not crypto.openDevice():
                 dev = crypto.getDevice()
 
@@ -720,7 +725,7 @@ class DiskSet:
             if lvorigin:
                 continue
             node = "%s/%s" % (vg, lv)
-            crypto = self.anaconda.id.partitions.encryptedDevices.get(node)
+            crypto = encryptedDevices.get(node)
             if crypto and not crypto.openDevice():
                 node = crypto.getDevice()
 
