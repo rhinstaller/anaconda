@@ -41,9 +41,7 @@ logger.addHandler(handler)
 
 from optparse import OptionParser
 from yum.packageSack import PackageSack
-from yum.packages import PackageObject
 from yuminstall import YumSorter
-import iutil
 
 class PackageOrderer(YumSorter):
 
