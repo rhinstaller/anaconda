@@ -505,6 +505,9 @@ makeinitrd() {
             zd1211rw)
                 cp $KERNELROOT/lib/firmware/zd1211/* $MBD_DIR/firmware/zd1211
                 ;;
+            qla2xxx)
+                cp $KERNELROOT/lib/firmware/ql* $MBD_DIR/firmware
+                ;;
         esac
     done
 
