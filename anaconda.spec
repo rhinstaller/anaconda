@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.97
+Version: 11.1.2.98
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb 07 2008 Chris Lumens <clumens@redhat.com> 11.1.2.98-1
+- Fix an infinite loop in using libnl (dcantrell).
+  Related: rhbz#303681
+
 * Thu Feb 07 2008 Chris Lumens <clumens@redhat.com> 11.1.2.97-1
 - Add module dependencies of qeth.ko.
   Resolves: rhbz#431922
