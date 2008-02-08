@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.32
+Version: 11.4.0.33
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,19 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb 07 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.33-1
+- Fix error message on continuing after changing cds with mediacheck (katzj)
+- Fix the progress bar during mediacheck (#431138) (katzj)
+- Ensure we disable SELinux if the live image isn't using it (#417601) (katzj)
+- Correct nl_ip2str() cache iteration. (dcantrell)
+- Check the fstype of the live image (katzj)
+- Check for device existence rather than starting with /dev (katzj)
+- The FL_TEXT flag has no reason to be here. (#207657) (jgranado)
+- Don't traceback when getLabels is called with DiskSet.anaconda set
+  to None. (dlehman)
+- Pass arguments correctly to anaconda (katzj)
+- Cancel on escape being pressed with autopart resizing (katzj)
+
 * Wed Feb 06 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.32-1
 - Make passwordEntry appear on the exn saving screen. (clumens)
 - Don't allow disabling default repositories. (clumens)
