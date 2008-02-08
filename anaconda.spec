@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.98
+Version: 11.1.2.99
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb 08 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.99-1
+- Prevent writing out IPV6ADDR=none lines to ifcfg-ethX files (jgranado)
+  Resolves: rhbz#432035
+
 * Thu Feb 07 2008 Chris Lumens <clumens@redhat.com> 11.1.2.98-1
 - Fix an infinite loop in using libnl (dcantrell).
   Related: rhbz#303681
