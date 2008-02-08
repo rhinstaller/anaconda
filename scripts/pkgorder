@@ -40,12 +40,15 @@ handler.setLevel(logging.ERROR)
 logger.addHandler(handler)
 
 from optparse import OptionParser
-from yuminstall import YumSorter
+import yum
 
-class PackageOrderer(YumSorter):
+class PackageOrderer(yum.YumBase):
     def __init__(self, arch=None):
-        YumSorter.__init__(self)
+        yum.YumBase.__init__(self)
         self.arch = arch
+
+    def _transactionDataFactory(self):
+        return yum.transactioninfo.SortableTransactionData()
 
     def doFileLogSetup(self, uid, logfile):
         pass
