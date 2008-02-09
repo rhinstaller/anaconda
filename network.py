@@ -277,8 +277,8 @@ class Network:
                         self.netdevices[dev] = NetworkDevice(dev);
                     if self.firstnetdevice is None:
                         self.firstnetdevice = dev
-                    self.netdevices[dev].set(('hwaddr',device['net.address']))
-                    self.netdevices[dev].set(('desc',device['description']))
+                    self.netdevices[dev].set(('hwaddr', device['net.address']))
+                    self.netdevices[dev].set(('desc', device['description']))
 
         ksdevice = None
         if flags.cmdline.has_key("ksdevice"):
