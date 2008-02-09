@@ -30,7 +30,7 @@
 #include <sys/mount.h>
 #include <unistd.h>
 
-#include "../isys/nl.h"
+#include "../isys/iface.h"
 
 #include "copy.h"
 #include "kickstart.h"
@@ -309,7 +309,7 @@ int getFileFromUrl(char * url, char * dest,
     memset(&ui, 0, sizeof(ui));
     ui.protocol = proto;
 
-    if ((ip = nl_ip2str(loaderData->netDev)) == NULL) {
+    if ((ip = iface_ip2str(loaderData->netDev)) == NULL) {
         logMessage(ERROR, "getFileFromUrl: no client IP information");
         return 1;
     }
@@ -357,7 +357,7 @@ int getFileFromUrl(char * url, char * dest,
         devices = getDevices(DEVICE_NETWORK);
         for (i = 0; devices && devices[i]; i++) {
             dev = devices[i]->device;
-            mac = nl_mac2str(dev);
+            mac = iface_mac2str(dev);
 
             if (mac) {
                 q = asprintf(&tmpstr, "X-RHN-Provisioning-MAC-%d: %s %s\r\n",

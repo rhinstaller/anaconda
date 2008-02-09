@@ -1,7 +1,7 @@
 /*
- * nl.h - Netlink helper functions, the header file
+ * iface.h
  *
- * Copyright (C) 2006  Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 2006, 2007, 2008  Red Hat, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,6 @@
 #include <netlink/socket.h>
 
 /* Function prototypes */
-struct nl_cache *nl_get_link_cache(struct nl_handle **handle);
-char *nl_mac2str(char *ifname);
-char *nl_ip2str(char *ifname);
+struct nl_cache *iface_get_link_cache(struct nl_handle **handle);
+char *iface_mac2str(char *ifname);
+char *iface_ip2str(char *ifname);

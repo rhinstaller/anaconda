@@ -39,7 +39,7 @@
 #include "../isys/isys.h"
 #include "../isys/net.h"
 #include "../isys/wireless.h"
-#include "../isys/nl.h"
+#include "../isys/iface.h"
 #include "../isys/str.h"
 
 #include "lang.h"
@@ -1798,7 +1798,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
             } else if (ksMacAddr != NULL) {
                 /* maybe it's a mac address */
                 char *devmacaddr = NULL;
-                devmacaddr = nl_mac2str(devs[i]->device);
+                devmacaddr = iface_mac2str(devs[i]->device);
                 if ((devmacaddr != NULL) && !strcmp(ksMacAddr, devmacaddr)) {
                     foundDev = 1;
                     free(loaderData->netDev);

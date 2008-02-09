@@ -1,7 +1,7 @@
 /*
- * nl.c - Netlink helper functions
+ * iface.c - Network interface control functions
  *
- * Copyright (C) 2006  Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 2006, 2007, 2008  Red Hat, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,13 +27,13 @@
 #include <netlink/route/addr.h>
 #include <netlink/route/link.h>
 
-#include "nl.h"
+#include "iface.h"
 #include "str.h"
 
 /*
  * Return an NETLINK_ROUTE cache.
  */
-struct nl_cache *nl_get_link_cache(struct nl_handle **handle) {
+struct nl_cache *iface_get_link_cache(struct nl_handle **handle) {
     struct nl_cache *cache = NULL;
 
     if ((*handle = nl_handle_alloc()) == NULL) {
@@ -65,7 +65,7 @@ struct nl_cache *nl_get_link_cache(struct nl_handle **handle) {
  * is returned.  The only way you will get an IPv6 address from this function
  * is if that's the only address configured for the interface.
  */
-char *nl_ip2str(char *ifname) {
+char *iface_ip2str(char *ifname) {
     int ifindex = -1, buflen = 0, family = 0;
     char *buf = NULL, *bufv4 = NULL, *bufv6 = NULL, *pos = NULL;
     struct nl_handle *handle = NULL;
@@ -79,7 +79,7 @@ char *nl_ip2str(char *ifname) {
         return NULL;
     }
 
-    if ((cache = nl_get_link_cache(&handle)) == NULL) {
+    if ((cache = iface_get_link_cache(&handle)) == NULL) {
         perror("nl_get_link_cache() failure in nl_ip2str()");
         return NULL;
     }
@@ -184,7 +184,7 @@ ip2str_error:
  * Given an interface name (e.g., eth0), return the MAC address in human
  * readable format (e.g., 00:11:52:12:D9:A0).  Return NULL for no match.
  */
-char *nl_mac2str(char *ifname) {
+char *iface_mac2str(char *ifname) {
     int buflen = 20;
     char *buf = NULL;
     struct nl_handle *handle = NULL;
@@ -197,7 +197,7 @@ char *nl_mac2str(char *ifname) {
         return NULL;
     }
 
-    if ((cache = nl_get_link_cache(&handle)) == NULL) {
+    if ((cache = iface_get_link_cache(&handle)) == NULL) {
         perror("nl_get_link_cache() failure in nl_mac2str()");
         return NULL;
     }

@@ -70,7 +70,7 @@
 
 #include <blkid/blkid.h>
 
-#include "nl.h"
+#include "iface.h"
 #include "imount.h"
 #include "isys.h"
 #include "net.h"
@@ -1041,7 +1041,7 @@ static PyObject * doGetMacAddress(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "s", &dev))
         return NULL;
 
-    ret = nl_mac2str(dev);
+    ret = iface_mac2str(dev);
 
     return Py_BuildValue("s", ret);
 }
@@ -1065,7 +1065,7 @@ static PyObject * doGetIPAddress(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "s", &dev))
         return NULL;
 
-    ret = nl_ip2str(dev);
+    ret = iface_ip2str(dev);
 
     return Py_BuildValue("s", ret);
 }
