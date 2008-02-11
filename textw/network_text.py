@@ -484,10 +484,10 @@ class NetworkDeviceWindow:
                 continue
 
             # set the manual IPv6 address/prefix
-            if ipv6prefix is not None:
-                addr = "%s/%s" % (ipv6addr, ipv6prefix,)
+            if prefix is not '':
+                addr = "%s/%s" % (ip, prefix,)
             else:
-                addr = "%s" % (ipv6addr,)
+                addr = "%s" % (ip,)
 
             dev.set(('ipv6addr', addr))
 
