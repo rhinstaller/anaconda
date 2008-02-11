@@ -703,10 +703,30 @@ class ext3FileSystem(extFileSystem):
         self.name = "ext3"
         self.extraFormatArgs = [ "-j" ]
         self.partedFileSystemType = parted.file_system_type_get("ext3")
+        if flags.cmdline.has_key("iamanext4developer"):
+            self.migratetofs = ['ext4dev']
 
     def formatDevice(self, entry, progress, chroot='/'):
         extFileSystem.formatDevice(self, entry, progress, chroot)
         extFileSystem.setExt3Options(self, entry, progress, chroot)
+
+    def migrateFileSystem(self, entry, message, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+
+        if not entry.fsystem or not entry.origfsystem:
+            raise RuntimeError, ("Trying to migrate fs w/o fsystem or "
+                                 "origfsystem set")
+        if entry.fsystem.getName() != "ext3":
+            raise RuntimeError, ("Trying to migrate ext3 to something other "
+                                 "than ext4")
+
+	# This is only needed as long as ext4 is actually "ext4dev"
+        rc = iutil.execWithRedirect("tune2fs",
+                                    ["-E", "test_fs", devicePath ],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5", searchPath = 1)
+        if rc:
+            raise SystemError
 
 fileSystemTypeRegister(ext3FileSystem())
 
