@@ -383,7 +383,7 @@ def runRescue(anaconda):
 		os.environ["LD_LIBRARY_PATH"] =  "/lib:/usr/lib:/usr/X11R6/lib:/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib:/mnt/sysimage/usr/X11R6/lib"
 
 		# get man pages to work
-		os.environ["MANPATH"] = "/mnt/sysimage/usr/share/man:/mnt/sysimage/usr/local/share/man"
+                os.environ["MANPATH"] = "/mnt/sysimage/usr/share/man:/mnt/sysimage/usr/local/share/man:/usr/share/man:/usr/local/share/man"
 
 		# find groff data dir
 		try:
