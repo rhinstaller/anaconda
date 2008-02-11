@@ -52,11 +52,15 @@ if [ -x /usr/sbin/setenforce -a -e /selinux/enforce ]; then
     /usr/sbin/setenforce 0
 fi
 
+if [ ! -e /selinux/load ]; then
+    ANACONDA="$ANACONDA --noselinux"
+fi
+
 /sbin/swapoff -a
 /sbin/lvm vgchange -an --ignorelockingfailure
 
 if [ -x /usr/bin/hal-lock -a -e /var/lock/subsys/haldaemon ]; then
-    /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA" $*
+    /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA $*"
 else
     $ANACONDA $*
 fi

@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.30
+Version: 11.4.0.33
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,40 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb 07 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.33-1
+- Fix error message on continuing after changing cds with mediacheck (katzj)
+- Fix the progress bar during mediacheck (#431138) (katzj)
+- Ensure we disable SELinux if the live image isn't using it (#417601) (katzj)
+- Correct nl_ip2str() cache iteration. (dcantrell)
+- Check the fstype of the live image (katzj)
+- Check for device existence rather than starting with /dev (katzj)
+- The FL_TEXT flag has no reason to be here. (#207657) (jgranado)
+- Don't traceback when getLabels is called with DiskSet.anaconda set
+  to None. (dlehman)
+- Pass arguments correctly to anaconda (katzj)
+- Cancel on escape being pressed with autopart resizing (katzj)
+
+* Wed Feb 06 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.32-1
+- Make passwordEntry appear on the exn saving screen. (clumens)
+- Don't allow disabling default repositories. (clumens)
+- Make loopback device purposes line up with what stage2 expects. (clumens)
+- Fix methodstr handling for hdiso installs (#431132). (clumens)
+- Remove our own DNS functions, since glibc's are available now. (clumens)
+
+* Tue Feb 05 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.31-1
+- Copy over repodata from media after the install is done (#381721) (katzj)
+- Add resizing support in autopartitioning (katzj)
+- Fix test mode with python-fedora installed (katzj)
+- Add support for encrypted devices in rescue mode (dlehman).
+- Allow creation of LUKSDevice with no passphrase. (dlehman)
+- Fix hdiso installs in loader and in methodstr (#431132). (clumens)
+- Avoid infinite loop in nl_ip2str(). (dcantrell)
+- Force users to set a hostname (#408921) (dcantrell)
+- Forward-port RHEL-5 fixes for s390x issues. (dcantrell)
+- fsset.py tweaks for ext4dev & xfs (sandeen)
+- When editing the raid partitions show raid memebers. (#352721) (jgranado)
+- mdadm to create the mdadm.conf (#395881) (jgranado)
+
 * Wed Jan 30 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.30-1
 - Initialize int in doConfigNetDevice() to fix compiler warnings. (dcantrell)
 

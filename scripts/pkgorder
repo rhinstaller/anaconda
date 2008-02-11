@@ -40,17 +40,15 @@ handler.setLevel(logging.ERROR)
 logger.addHandler(handler)
 
 from optparse import OptionParser
-from yum.packageSack import PackageSack
-from yum.packages import PackageObject
-from yuminstall import YumSorter
-import iutil
+import yum
 
-class PackageOrderer(YumSorter):
-
+class PackageOrderer(yum.YumBase):
     def __init__(self, arch=None):
-        YumSorter.__init__(self)
+        yum.YumBase.__init__(self)
         self.arch = arch
-        self._installed = PackageSack()
+
+    def _transactionDataFactory(self):
+        return yum.transactioninfo.SortableTransactionData()
 
     def doFileLogSetup(self, uid, logfile):
         pass
@@ -204,9 +202,8 @@ if __name__ == "__main__":
 
     #Everthing else but kernels
     for po in ds.pkgSack.returnPackages():
-        if po.pkgtup not in ds._installed.returnPackages():
-            if po.name.find("kernel") == -1:
-                member = ds.tsInfo.addInstall(po)
+        if po.name.find("kernel") == -1:
+            member = ds.tsInfo.addInstall(po)
 
     ds.resolveDeps()
     processTransaction(ds)

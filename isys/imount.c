@@ -1,7 +1,7 @@
 /*
  * imount.c
  *
- * Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 2007, 2008 Red Hat, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 #include <sys/mount.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 #include "imount.h"
@@ -33,68 +34,58 @@
 
 static int mkdirIfNone(char * directory);
 
-int doPwMount(char * dev, char * where, char * fs, int options, void *data) {
-    char * buf = NULL;
-    int isnfs = 0;
-    char * mount_opt = NULL;
-    long int flag;
-    char * chptr __attribute__ ((unused));
-    
-    if (!strcmp(fs, "nfs")) isnfs = 1;
+int doPwMount(char *dev, char *where, char *fs, char *options) {
+    int rc, child, status;
+    char *opts = NULL;
 
-    /*logMessage(INFO, "mounting %s on %s as type %s", dev, where, fs);*/
-
-    if (mkdirChain(where))
-        return IMOUNT_ERR_ERRNO;
-
-    flag = MS_MGC_VAL;
-    if (options & IMOUNT_RDONLY)
-        flag |= MS_RDONLY;
-    if (options & IMOUNT_BIND)
-        flag |= MS_BIND;
-    if (options & IMOUNT_REMOUNT)
-        flag |= MS_REMOUNT;
-
-    if (!isnfs && (*dev == '/' || !strcmp(dev, "none"))) {
-        buf = dev;
-    } else if (!isnfs) {
-        buf = alloca(200);
-        strcpy(buf, "/dev/");
-        strcat(buf, dev);
-    } else {
-#ifndef DISABLE_NETWORK
-        char * extra_opts = NULL;
-        int flags = 0;
-
-        if (data)
-            extra_opts = strdup(data);
-
-        buf = dev;
-        /*logMessage(INFO, "calling nfsmount(%s, %s, &flags, &extra_opts, &mount_opt)",
-			buf, where);*/
-
-        if (nfsmount(buf, where, &flags, &extra_opts, &mount_opt, 0)) {
-		/*logMessage(INFO, "\tnfsmount returned non-zero");*/
-		/*fprintf(stderr, "nfs mount failed: %s\n",
-			nfs_error());*/
-		return IMOUNT_ERR_OTHER;
-        }
-#endif
-	}
-    if (!strncmp(fs, "vfat", 4))
-        mount_opt="check=relaxed";
-#ifdef __sparc__
-    if (!strncmp(fs, "ufs", 3))
-        mount_opt="ufstype=sun";
-#endif
-
-    /*logMessage(INFO, "calling mount(%s, %s, %s, %ld, %p)", buf, where, fs, 
-      flag, mount_opt);*/
-    
-    if (mount(buf, where, fs, flag, mount_opt)) {
-        /*logMessage(ERROR, "mount failed: %s", strerror(errno));*/
+    if (mkdirChain(where)) {
         return IMOUNT_ERR_ERRNO;
     }
+
+    if (strstr(fs, "nfs")) {
+       if (options)
+          rc = asprintf(&opts, "%s,nolock", options);
+       else
+          opts = strdup("nolock");
+    }
+    else if (options) {
+       opts = strdup(options);
+    }
+
+    if (!(child = fork())) {
+        int fd;
+
+        /* Close off all these filehandles since we don't want errors
+         * spewed to tty1.
+         */
+        fd = open("/dev/null", O_RDONLY);
+        close(STDIN_FILENO);
+        dup2(fd, STDIN_FILENO);
+        close(fd);
+
+        fd = open("/dev/null", O_WRONLY);
+        close(STDOUT_FILENO);
+        dup2(fd, STDOUT_FILENO);
+        close(STDERR_FILENO);
+        dup2(fd, STDERR_FILENO);
+        close(fd);
+
+        if (opts) {
+            rc = execl("/bin/mount",
+                       "/bin/mount", "-t", fs, "-o", opts, dev, where, NULL);
+            exit(1);
+        }
+        else {
+            rc = execl("/bin/mount", "/bin/mount", "-t", fs, dev, where, NULL);
+            exit(1);
+        }
+    }
+
+    waitpid(child, &status, 0);
+
+    free(opts);
+    if (status)
+        return IMOUNT_ERR_OTHER;
 
     return 0;
 }

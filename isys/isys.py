@@ -308,6 +308,7 @@ def ddfile(file, megs, pw = None):
 # @param remount Are we mounting an already mounted filesystem?
 # @return The return value from the mount system call.
 def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remount = 0):
+    flags = None
     location = os.path.normpath(location)
 
     # We don't need to create device nodes for devices that start with '/'
@@ -321,8 +322,19 @@ def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remoun
 	mountCount[location] = mountCount[location] + 1
 	return
 
+    if readOnly or bindMount or remount:
+        opts = []
+        if readOnly:
+            opts.append("ro")
+        if bindMount:
+            opts.append("bind")
+        if remount:
+            opts.append("remount")
+
+        flags = "-o " + ",".join(opts)
+
     log.debug("isys.py:mount()- going to mount %s on %s" %(device, location))
-    rc = _isys.mount(fstype, device, location, readOnly, bindMount, remount)
+    rc = _isys.mount(fstype, device, location, flags)
 
     if not rc:
 	mountCount[location] = 1
@@ -736,14 +748,14 @@ def dhcpNetDevice(device):
     return _isys.dhcpnetdevice(devname, v4, v4method, v6, v6method, klass)
 
 def readFSLabel(device):
-    if not device.startswith("/dev/"):
+    if not os.path.exists(device):
         device = "/dev/%s" % device
 
     label = _isys.getblkid(device, "LABEL")
     return label
 
 def readFSType(device):
-    if not device.startswith("/dev/"):
+    if not os.path.exists(device):
         device = "/dev/%s" % device
 
     fstype = _isys.getblkid(device, "TYPE")

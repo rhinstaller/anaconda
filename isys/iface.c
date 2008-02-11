@@ -1,7 +1,7 @@
 /*
- * nl.c - Netlink helper functions
+ * iface.c - Network interface control functions
  *
- * Copyright (C) 2006  Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 2006, 2007, 2008  Red Hat, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,28 +27,28 @@
 #include <netlink/route/addr.h>
 #include <netlink/route/link.h>
 
-#include "nl.h"
+#include "iface.h"
 #include "str.h"
 
 /*
  * Return an NETLINK_ROUTE cache.
  */
-struct nl_cache *nl_get_link_cache(struct nl_handle **handle) {
+struct nl_cache *iface_get_link_cache(struct nl_handle **handle) {
     struct nl_cache *cache = NULL;
 
     if ((*handle = nl_handle_alloc()) == NULL) {
-        perror("nl_handle_alloc() failure in nl_get_link_cache()");
+        perror("nl_handle_alloc() failure in iface_get_link_cache()");
         return NULL;
     }
 
     if (nl_connect(*handle, NETLINK_ROUTE)) {
-        perror("nl_connect() failure in nl_get_link_cache()");
+        perror("nl_connect() failure in iface_get_link_cache()");
         nl_handle_destroy(*handle);
         return NULL;
     }
 
     if ((cache = rtnl_link_alloc_cache(*handle)) == NULL) {
-        perror("rtnl_link_alloc_cache() failure in nl_get_link_cache()");
+        perror("rtnl_link_alloc_cache() failure in iface_get_link_cache()");
         nl_close(*handle);
         nl_handle_destroy(*handle);
         return NULL;
@@ -65,7 +65,7 @@ struct nl_cache *nl_get_link_cache(struct nl_handle **handle) {
  * is returned.  The only way you will get an IPv6 address from this function
  * is if that's the only address configured for the interface.
  */
-char *nl_ip2str(char *ifname) {
+char *iface_ip2str(char *ifname) {
     int ifindex = -1, buflen = 0, family = 0;
     char *buf = NULL, *bufv4 = NULL, *bufv6 = NULL, *pos = NULL;
     struct nl_handle *handle = NULL;
@@ -75,25 +75,29 @@ char *nl_ip2str(char *ifname) {
     struct nl_addr *addr = NULL;
 
     if (ifname == NULL) {
-        perror("Missing ifname in nl_ip2str()");
+        perror("Missing ifname in iface_ip2str()");
         return NULL;
     }
 
-    if ((cache = nl_get_link_cache(&handle)) == NULL) {
-        perror("nl_get_link_cache() failure in nl_ip2str()");
+    if ((cache = iface_get_link_cache(&handle)) == NULL) {
+        perror("iface_get_link_cache() failure in iface_ip2str()");
         return NULL;
     }
 
     ifindex = rtnl_link_name2i(cache, ifname);
 
     if ((cache = rtnl_addr_alloc_cache(handle)) == NULL) {
-        perror("rtnl_addr_alloc_cache() failure in nl_ip2str()");
+        perror("rtnl_addr_alloc_cache() failure in iface_ip2str()");
         goto ip2str_error;
     }
 
     /* find the IPv4 and IPv6 addresses for this interface */
-    obj = nl_cache_get_first(cache);
-    while (obj) {
+    if ((obj = nl_cache_get_first(cache)) == NULL) {
+        perror("nl_cache_get_first() failure in iface_ip2str()");
+        goto ip2str_error;
+    }
+
+    do {
         raddr = (struct rtnl_addr *) obj;
 
         if (rtnl_addr_get_ifindex(raddr) == ifindex) {
@@ -125,7 +129,7 @@ char *nl_ip2str(char *ifname) {
                 buflen += 1;
 
                 if ((buf = malloc(buflen)) == NULL) {
-                    perror("malloc() failure on buf in nl_ip2str()");
+                    perror("malloc() failure on buf in iface_ip2str()");
                     nl_addr_destroy(addr);
                     goto ip2str_error;
                 }
@@ -137,7 +141,7 @@ char *nl_ip2str(char *ifname) {
                 if ((pos = index(buf, '/')) != NULL) {
                     *pos = '\0';
                     if ((buf = realloc(buf, strlen(buf) + 1)) == NULL) {
-                        perror("realloc() failure on buf in nl_ip2str()");
+                        perror("realloc() failure on buf in iface_ip2str()");
                         nl_addr_destroy(addr);
                         goto ip2str_error;
                     }
@@ -157,9 +161,7 @@ char *nl_ip2str(char *ifname) {
                 }
             }
         }
-
-        obj = nl_cache_get_next(obj);
-    }
+    } while ((obj = nl_cache_get_next(obj)) != NULL);
 
 ip2str_error:
     nl_close(handle);
@@ -182,7 +184,7 @@ ip2str_error:
  * Given an interface name (e.g., eth0), return the MAC address in human
  * readable format (e.g., 00:11:52:12:D9:A0).  Return NULL for no match.
  */
-char *nl_mac2str(char *ifname) {
+char *iface_mac2str(char *ifname) {
     int buflen = 20;
     char *buf = NULL;
     struct nl_handle *handle = NULL;
@@ -191,27 +193,27 @@ char *nl_mac2str(char *ifname) {
     struct nl_addr *addr = NULL;
 
     if (ifname == NULL) {
-        perror("Missing ifname in nl_mac2str()");
+        perror("Missing ifname in iface_mac2str()");
         return NULL;
     }
 
-    if ((cache = nl_get_link_cache(&handle)) == NULL) {
-        perror("nl_get_link_cache() failure in nl_mac2str()");
+    if ((cache = iface_get_link_cache(&handle)) == NULL) {
+        perror("iface_get_link_cache() failure in iface_mac2str()");
         return NULL;
     }
 
     if ((link = rtnl_link_get_by_name(cache, ifname)) == NULL) {
-        perror("rtnl_link_get_by_name() failure in nl_mac2str()");
+        perror("rtnl_link_get_by_name() failure in iface_mac2str()");
         goto mac2str_error2;
     }
 
     if ((addr = rtnl_link_get_addr(link)) == NULL) {
-        perror("rtnl_link_get_addr() failure in nl_mac2str()");
+        perror("rtnl_link_get_addr() failure in iface_mac2str()");
         goto mac2str_error3;
     }
 
     if ((buf = malloc(buflen)) == NULL) {
-        perror("malloc() failure on buf in nl_mac2str()");
+        perror("malloc() failure on buf in iface_mac2str()");
         goto mac2str_error4;
     }
 

@@ -143,7 +143,7 @@ static void wrongCDMessage(void) {
                           "in any of your drives. Please insert "
                           "the %s disc and press %s to retry."),
                 getProductName(), getProductName(), _("OK")));
-    newtWinMessage(_("Error"), _("OK"), buf, _("OK"));
+    newtWinMessage(_("Error"), _("OK"), buf);
     free(buf);
 }
 
@@ -160,8 +160,7 @@ static void mountCdromStage2(char *cddev, char *location) {
 
     do {
         do {
-            if (doPwMount(cddev, location,
-                          "iso9660", IMOUNT_RDONLY, NULL)) {
+            if (doPwMount(cddev, location, "iso9660", "ro")) {
                 ejectCdrom(cddev);
                 wrongCDMessage();
             } else {
@@ -261,8 +260,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
             logMessage(INFO,"trying to mount CD device %s on %s", devices[i]->device, location);
 
-            if (!(rc=doPwMount(devices[i]->device, location, "iso9660",
-                           IMOUNT_RDONLY, NULL))) {
+            if (!(rc=doPwMount(devices[i]->device, location, "iso9660", "ro"))) {
                 cddev = devices[i]->device;
                 if (!access(stage2loc, R_OK) &&
                     (!requirepkgs || !access(discinfoloc, R_OK))) {

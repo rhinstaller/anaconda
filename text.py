@@ -269,6 +269,45 @@ class MainExceptionWindow:
         self.screen.popWindow()
 	self.screen.refresh()
 
+class PassphraseEntryWindow:
+    def __init__(self, screen, device):
+        self.screen = screen
+        self.txt = _("Device %s is encrypted. In order to "
+                     "access the device's contents during "
+                     "installation you must enter the device's "
+                     "passphrase below.") % (device,)
+        self.rc = None
+
+    def run(self):
+        toplevel = GridForm(self.screen, _("Passphrase"), 1, 4)
+
+        txt = TextboxReflowed(65, self.txt)
+        toplevel.add(txt, 0, 0)
+
+        passphraseentry = Entry(128, password = 1)
+        toplevel.add(passphraseentry, 0, 1, (0,0,0,1))
+
+        globalcheckbox = Checkbox(_("This is a global passphrase"))
+        toplevel.add(globalcheckbox, 0, 2)
+
+        buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
+        toplevel.add(buttons, 0, 3, growx=1)
+
+        rc = toplevel.run()
+        res = buttons.buttonPressed(rc)
+
+        passphrase = None
+        isglobal = False
+        if res == TEXT_OK_CHECK:
+            passphrase = passphraseentry.value().strip()
+            isglobal = globalcheckbox.selected()
+
+        self.rc = (passphrase, isglobal)
+        return self.rc
+
+    def pop(self):
+        self.screen.popWindow()
+
 class InstallInterface:
     def helpWindow(self, screen, key):
         if key == "helponhelp":
@@ -408,6 +447,12 @@ class InstallInterface:
         r = value[0]
         r.strip()
         return r
+
+    def passphraseEntryWindow(self, device):
+        w = PassphraseEntryWindow(self.screen, device)
+        (passphrase, isglobal) = w.run()
+        w.pop()
+        return (passphrase, isglobal)
 
     def getInstallKey(self, anaconda, key = ""):
         ic = anaconda.id.instClass

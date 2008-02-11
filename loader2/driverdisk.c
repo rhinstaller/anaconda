@@ -293,9 +293,9 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             }
 
             logMessage(INFO, "trying to mount %s as partition", part);
-            if (doPwMount(part, "/tmp/dpart", "vfat", IMOUNT_RDONLY, NULL)) {
-                if (doPwMount(part, "/tmp/dpart", "ext2", IMOUNT_RDONLY, NULL)) {
-                    if (doPwMount(part, "/tmp/dpart", "iso9660", IMOUNT_RDONLY, NULL)) {
+            if (doPwMount(part, "/tmp/dpart", "vfat", "ro")) {
+                if (doPwMount(part, "/tmp/dpart", "ext2", "ro")) {
+                    if (doPwMount(part, "/tmp/dpart", "iso9660", "ro")) {
                         newtWinMessage(_("Error"), _("OK"),
                                        _("Failed to mount partition."));
                         stage = DEV_PART;
@@ -359,9 +359,9 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             dir = 1;
 
             logMessage(INFO, "trying to mount %s", device);
-            if (doPwMount(device, "/tmp/drivers", "vfat", IMOUNT_RDONLY, NULL)) {
-              if (doPwMount(device, "/tmp/drivers", "ext2", IMOUNT_RDONLY, NULL)) {
-                if (doPwMount(device, "/tmp/drivers", "iso9660", IMOUNT_RDONLY, NULL)) {
+            if (doPwMount(device, "/tmp/drivers", "vfat", "ro")) {
+              if (doPwMount(device, "/tmp/drivers", "ext2", "ro")) {
+                if (doPwMount(device, "/tmp/drivers", "iso9660", "ro")) {
                     newtWinMessage(_("Error"), _("OK"),
                                    _("Failed to mount driver disk."));
                     stage = DEV_INSERT;
@@ -611,14 +611,13 @@ void useKickstartDD(struct loaderData_s * loaderData,
 static void getDDFromDev(struct loaderData_s * loaderData, char * dev, 
                         char * fstype) {
     if (fstype) {
-        if (doPwMount(dev, "/tmp/drivers", fstype, 
-                      IMOUNT_RDONLY, NULL)) {
+        if (doPwMount(dev, "/tmp/drivers", fstype, "ro")) {
             logMessage(ERROR, "unable to mount %s as %s", dev, fstype);
             return;
         }
-    } else if (doPwMount(dev, "/tmp/drivers", "vfat", IMOUNT_RDONLY, NULL)) {
-        if (doPwMount(dev, "/tmp/drivers", "ext2", IMOUNT_RDONLY, NULL)) {
-            if (doPwMount(dev, "/tmp/drivers", "iso9660", IMOUNT_RDONLY, NULL)) {
+    } else if (doPwMount(dev, "/tmp/drivers", "vfat", "ro")) {
+        if (doPwMount(dev, "/tmp/drivers", "ext2", "ro")) {
+            if (doPwMount(dev, "/tmp/drivers", "iso9660", "ro")) {
                 logMessage(ERROR, "unable to mount driver disk %s", dev);
                 return;
             }

@@ -134,7 +134,9 @@ def findExistingRoots(anaconda, upgradeany = 0):
         return []
 
     anaconda.id.diskset.openDevices()
-    
+
+    if anaconda.rescue:
+        anaconda.id.partitions.getEncryptedDevices(anaconda.id.diskset)
     rootparts = anaconda.id.diskset.findExistingRootPartitions(upgradeany = upgradeany)
 
     # close the devices to make sure we don't leave things sitting open 

@@ -42,7 +42,7 @@
 #include "windows.h"
 
 #include "../isys/imount.h"
-#include "../isys/nl.h"
+#include "../isys/iface.h"
 
 /* boot flags */
 extern uint64_t flags;
@@ -105,7 +105,8 @@ char * mountNfsImage(struct installMethod * method,
             if (loaderData->method == METHOD_NFS && loaderData->methodData) {
                 host = ((struct nfsInstallData *)loaderData->methodData)->host;
                 directory = ((struct nfsInstallData *)loaderData->methodData)->directory;
-                mountOpts = ((struct nfsInstallData *)loaderData->methodData)->mountOpts;
+
+                rc = asprintf(&mountOpts, "ro,%s", ((struct nfsInstallData *) loaderData->methodData)->mountOpts);
 
                 logMessage(INFO, "host is %s, dir is %s, opts are '%s'", host, directory, mountOpts);
 
@@ -153,8 +154,7 @@ char * mountNfsImage(struct installMethod * method,
 
             stage = NFS_STAGE_NFS;
 
-            if (!doPwMount(fullPath, "/mnt/source", "nfs",
-                           IMOUNT_RDONLY, mountOpts)) {
+            if (!doPwMount(fullPath, "/mnt/source", "nfs", mountOpts)) {
                 if (!access("/mnt/source/images/stage2.img", R_OK)) {
                     logMessage(INFO, "can access /mnt/source/images/stage2.img");
                     /* try to see if we're booted off of a CD with stage2 */
@@ -189,8 +189,7 @@ char * mountNfsImage(struct installMethod * method,
                  * again.
                  */
                 umount("/mnt/source");
-                if (!doPwMount(fullPath, "/mnt/isodir", "nfs", IMOUNT_RDONLY,
-                               mountOpts)) {
+                if (!doPwMount(fullPath, "/mnt/isodir", "nfs", mountOpts)) {
                 } else {
                     newtWinMessage(_("Error"), _("OK"),
                                    _("That directory could not be mounted from "
@@ -360,7 +359,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     }
 
     /* get the IP of the target system */
-    if ((ip = nl_ip2str(loaderData->netDev)) == NULL) {
+    if ((ip = iface_ip2str(loaderData->netDev)) == NULL) {
         logMessage(ERROR, "nl_ip2str returned NULL");
         return 1;
     }
@@ -395,7 +394,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
 
     logMessage(INFO, "file location: nfs://%s/%s", host, file);
 
-    if (!doPwMount(host, "/tmp/mnt", "nfs", IMOUNT_RDONLY, opts)) {
+    if (!doPwMount(host, "/tmp/mnt", "nfs", opts)) {
         char * buf;
 
         i = asprintf(&buf, "/tmp/mnt/%s", file);

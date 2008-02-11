@@ -30,7 +30,7 @@
 #include <sys/mount.h>
 #include <unistd.h>
 
-#include "../isys/nl.h"
+#include "../isys/iface.h"
 
 #include "copy.h"
 #include "kickstart.h"
@@ -136,10 +136,9 @@ static int loadUrlImages(struct iurlinfo * ui) {
     }
 
     /* require 128MB for use of graphical stage 2 due to size of image */
-    if (FL_TEXT(flags) || totalMemory() < GUI_STAGE2_RAM) {
-	stage2img = "minstg2.img";
-	if (totalMemory() < GUI_STAGE2_RAM)
-	    logMessage(WARNING, "URLINSTALL falling back to non-GUI stage2 "
+    if (totalMemory() < GUI_STAGE2_RAM) {
+        stage2img = "minstg2.img";
+        logMessage(WARNING, "URLINSTALL falling back to non-GUI stage2 "
                        "due to insufficient RAM");
     } else {
 	stage2img = "stage2.img";
@@ -310,7 +309,7 @@ int getFileFromUrl(char * url, char * dest,
     memset(&ui, 0, sizeof(ui));
     ui.protocol = proto;
 
-    if ((ip = nl_ip2str(loaderData->netDev)) == NULL) {
+    if ((ip = iface_ip2str(loaderData->netDev)) == NULL) {
         logMessage(ERROR, "getFileFromUrl: no client IP information");
         return 1;
     }
@@ -358,7 +357,7 @@ int getFileFromUrl(char * url, char * dest,
         devices = getDevices(DEVICE_NETWORK);
         for (i = 0; devices && devices[i]; i++) {
             dev = devices[i]->device;
-            mac = nl_mac2str(dev);
+            mac = iface_mac2str(dev);
 
             if (mac) {
                 q = asprintf(&tmpstr, "X-RHN-Provisioning-MAC-%d: %s %s\r\n",

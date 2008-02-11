@@ -26,7 +26,6 @@
 #define HAVE_ALLOCA_H 1
 #define HAVE_NETINET_IN_SYSTM_H 1
 #define HAVE_SYS_SOCKET_H 1
-#define USE_ALT_DNS 1
 
 #if HAVE_ALLOCA_H
 # include <alloca.h>
@@ -68,10 +67,6 @@ extern int h_errno;
 
 #ifndef IPPORT_FTP
 # define IPPORT_FTP 21
-#endif
-
-#if defined(USE_ALT_DNS) && USE_ALT_DNS 
-#include "../isys/dns.h"
 #endif
 
 #include "ftp.h"
@@ -217,6 +212,7 @@ int ftpCommand(int sock, char * command, ...) {
 
 static int getHostAddress(const char * host, void * address, int family) {
     char *hostname, *port;
+    struct hostent *hostent;
 
     splitHostname((char *) host, &hostname, &port);
 
@@ -228,11 +224,12 @@ static int getHostAddress(const char * host, void * address, int family) {
                 return FTPERR_BAD_HOST_ADDR;
             }
         } else {
-            if (mygethostbyname(hostname, (struct in_addr *)address, AF_INET)) {
+            if ((hostent = gethostbyname(hostname)) != NULL) {
+                memcpy((struct in_addr *) address, hostent->h_addr_list[0], hostent->h_length);
+                return 0;
+            } else {
                 errno = h_errno;
                 return FTPERR_BAD_HOSTNAME;
-            } else {
-                return 0;
             }
         }
     } else if (family == AF_INET6) {
@@ -242,9 +239,13 @@ static int getHostAddress(const char * host, void * address, int family) {
             } else
                 return FTPERR_BAD_HOST_ADDR;
         } else {
-            /* FIXME: implement me */
-            logMessage(ERROR, "we don't have reverse DNS for IPv6 yet");
-            return FTPERR_BAD_HOSTNAME;
+            if ((hostent = gethostbyname(hostname)) != NULL) {
+                memcpy((struct in_addr6 *) address, hostent->h_addr_list[0], hostent->h_length);
+                return 0;
+            } else {
+                errno = h_errno;
+                return FTPERR_BAD_HOSTNAME;
+            }
         }
     } else {
         return FTPERR_UNSUPPORTED_FAMILY;
