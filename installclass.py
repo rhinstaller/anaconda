@@ -263,8 +263,8 @@ class BaseInstallClass(object):
     def setGateway(self, id, gateway):
         id.network.setGateway(gateway)
 
-    def setTimezoneInfo(self, id, timezone, asUtc = 0, asArc = 0):
-	id.timezone.setTimezoneInfo(timezone, asUtc, asArc)
+    def setTimezoneInfo(self, id, timezone, asUtc = 0):
+	id.timezone.setTimezoneInfo(timezone, asUtc)
 
     def setAuthentication(self, id, authStr):
         id.auth = authStr

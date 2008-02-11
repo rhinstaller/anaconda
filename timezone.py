@@ -51,20 +51,31 @@ class Timezone:
 	f = open(instPath + "/etc/sysconfig/clock", "w")
 
 	f.write('ZONE="%s"\n' % self.tz)
-	f.write("UTC=%s\n" % bool(self.utc))
-	f.write("ARC=%s\n" % bool(self.arc))
+	f.close()
 
+	try:
+	    f = open(instPath + "/etc/adjtime", "r")
+	    lines = f.readlines()
+	    f.close()
+	except:
+	    lines = [ "0.0 0 0.0\n", "0\n" ]
+
+	f = open(instPath + "/etc/adjtime", "w")
+	f.write(lines[0])
+	f.write(lines[1])
+	if self.utc:
+	    f.write("UTC\n")
+	else:
+	    f.write("LOCAL\n")
 	f.close()
 
     def getTimezoneInfo(self):
-	return (self.tz, self.utc, self.arc)
+	return (self.tz, self.utc)
 
-    def setTimezoneInfo(self, timezone, asUtc = 0, asArc = 0):
+    def setTimezoneInfo(self, timezone, asUtc = 0):
 	self.tz = timezone
 	self.utc = asUtc
-	self.arc = asArc
 
     def __init__(self):
 	self.tz = "America/New_York"
 	self.utc = 0
-	self.arc = 0
