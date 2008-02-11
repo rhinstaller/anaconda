@@ -479,7 +479,7 @@ class NetworkDeviceWindow:
                 continue
 
             # set the manual IPv6 address/prefix
-            if ipv6prefix is not None:
+            if prefix is not '':
                 addr = "%s/%s" % (ip, prefix,)
             else:
                 addr = "%s" % (ip,)
