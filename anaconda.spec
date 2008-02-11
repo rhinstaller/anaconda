@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.99
+Version: 11.1.2.100
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Feb 11 2008 David cantrell <dcantrell@redhat.com> 11.1.2.100-1
+- Better fixes for iscsi probing (pjones, jlaska)
+  Related: rhbz#431924
+- Make man pages work in the chrooted environment (jgranado)
+  Resolves: rhbz#243443
+- Use correct variable in comparison (jgranado)
+  Related: rhbz#432035
+
 * Fri Feb 08 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.99-1
 - Prevent writing out IPV6ADDR=none lines to ifcfg-ethX files (jgranado)
   Resolves: rhbz#432035
