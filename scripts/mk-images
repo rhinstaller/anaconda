@@ -578,6 +578,14 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/lib
     ln -s ../../tmp $MBD_DIR/var/lib/xkb
 
+
+    #
+    # This seems a good place for this.  Lets create the links to what should be the manpage stuff.
+    #
+    for file in "nroff groff iconv geqn gtbl gpic gefer" ; do
+        ln -s /mnt/sysimage/usr/bin/$file $MBD_DIR/usr/bin/$file
+    done
+
     # s390/s390x need sshd setup
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
 	setupShellEnvironment

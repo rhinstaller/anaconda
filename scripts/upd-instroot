@@ -235,7 +235,7 @@ PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
 #
 # these packages are combined with the PACKAGES and PACKAGESGR for big stage 2
 #
-PACKAGESRESCUE="bzip2 bzip2-libs dump libidn groff
+PACKAGESRESCUE="bzip2 bzip2-libs dump libidn
                 findutils ftp gzip iputils joe krb5-libs less man
                 modutils mtools mt-st mtr net-tools open smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
@@ -823,8 +823,6 @@ usr/bin/shred
 usr/bin/ssh
 usr/bin/termidx
 usr/bin/xargs
-usr/bin/groff
-usr/bin/iconv
 usr/bin/ntfscat
 usr/bin/ntfscluster
 usr/bin/ntfscmp
@@ -1048,12 +1046,23 @@ cp $DEST/etc/libuser.conf $DESTGR/etc/libuser.conf
 sed -i 's|\(installforallkernels\) = 0|\1 = 1|' $DEST/etc/yum/pluginconf.d/fedorakmod.conf
 cp $DEST/etc/yum/pluginconf.d/fedorakmod.conf $DESTGR/etc/yum/pluginconf.d/
 
-# fixup man.config to point into /mnt/sysimage for rescue
+#
+# Manual pages in rescue: We dont have man pages in the image, so we point everything (The pages
+# and the man scripts to the /mnt/sysimage.  We want the man command to depend only on the
+# man.conf file, so we don't use the $MANPATH env variable.  The executables stay unchanged as
+# they will be soft links to /mnt/sysimage.
+#
 if [ -n "$NEEDGR" ]; then
     echo "Fixing up /etc/man.config to point into /mnt/sysimage"
-    mv $DESTGR/etc/man.config $DESTGR/etc/man.config-old
-    cat $DESTGR/etc/man.config-old | sed 's^/usr/bin^/mnt/sysimage/usr/bin^' | sed 's^/bin/cat^/mnt/sysimage/usr/bin/cat^'  > $DESTGR/etc/man.config
-    rm -f $DESTGR/etc/man.config-old
+    #
+    # Lets avoid the lines with MANPATH_MAP for now
+    #
+    sed -i "s,^MANPATH[^_MAP][ \t]*,&/mnt/sysimage," $DESTGR/etc/man.config
+
+    #
+    # Lets change the lines with MANPATH_MAP.  Don't know how much of a difference this will make.
+    #
+    sed -i "s,^MANPATH_MAP[ \t]*[a-zA-Z0-9/]*[ \t]*,&/mnt/sysimage," $DESTGR/etc/man.config
 fi
 
 if [ -n "$NEEDGR" ]; then
