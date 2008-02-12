@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.33
+Version: 11.4.0.34
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,27 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 12 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.34-1
+- Handle modules with more than one description (#432414) (katzj)
+- Finish HDISO installs, at least for DVDs (#431132). (clumens)
+- Move migration to before mounting filesystems (katzj)
+- Fix silly thinko in Eric's patch (katzj)
+- Allow ext3->ext4 upgrades (sandeen)
+- Do the man pages in rescue mode the right way. (jgranado)
+- Merge branch 'master' of ssh://git.fedorahosted.org/git/anaconda (notting)
+- Use /etc/adjtime as the configuration file for UTC/not-UTC. (notting)
+- Remove all our own mount code. (clumens)
+- Use the mount program instead of our own code. (clumens)
+- Add the real mount programs to stage1. (clumens)
+- Use the correct variables to get the ipv6 info. (#432035) (jgranado)
+- Update error messages to match function names. (dcantrell)
+- Rename nl.c to iface.c and functions to iface_* (dcantrell)
+- In rescue mode, show interface configuration (#429953) (dcantrell)
+- Add qla2xxx firmware (#377921) (katzj)
+- Rename base repo (#430806). (clumens)
+- Remove dep on anaconda from pkgorder (katzj)
+- Remove no longer used dumphdrlist script (katzj)
+
 * Thu Feb 07 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.33-1
 - Fix error message on continuing after changing cds with mediacheck (katzj)
 - Fix the progress bar during mediacheck (#431138) (katzj)
