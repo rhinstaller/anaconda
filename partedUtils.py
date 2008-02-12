@@ -876,7 +876,7 @@ class DiskSet:
                             part = disk.next_partition(part)
                             continue
                     else:
-                        checkRoot = self.anaconda.method.isoDir
+                        checkRoot = "/mnt/isodir"
 
                     if os.access (checkRoot + '/etc/fstab', os.R_OK):
                         relstr = getReleaseString(checkRoot)
