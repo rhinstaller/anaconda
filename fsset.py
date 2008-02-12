@@ -211,6 +211,8 @@ class FileSystemType:
         if flags.selinux:
             ret = isys.resetFileContext(mountpoint, instroot)
             log.info("set SELinux context for mountpoint %s to %s" %(mountpoint, ret))
+        log.debug("mounting %s on %s/%s as %s" %(device, instroot, 
+                                                 mountpoint, self.getName()))
         isys.mount(device, "%s/%s" %(instroot, mountpoint),
                    fstype = self.getName(), 
                    readOnly = readOnly, bindMount = bindMount)
@@ -716,7 +718,7 @@ class ext3FileSystem(extFileSystem):
         if not entry.fsystem or not entry.origfsystem:
             raise RuntimeError, ("Trying to migrate fs w/o fsystem or "
                                  "origfsystem set")
-        if entry.fsystem.getName() != "ext3":
+        if entry.fsystem.getName() != "ext4dev":
             raise RuntimeError, ("Trying to migrate ext3 to something other "
                                  "than ext4")
 
