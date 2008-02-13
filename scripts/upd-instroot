@@ -91,7 +91,8 @@ expandPackageSet() {
     KEEPFILES=$5
 
     [ -d $PKGDEST ] || die "ERROR: directory missing: $PKGDEST"
-    yum -c $YUMCONF -y --installroot=$YUMDIR install $RPMS 2>&1 || die "ERROR: could not install packages"
+    if [ -n "$DEBUG" ]; then outlvl="--quiet" ; else outlvl="--verbose"; fi
+    yum $outlvl -c $YUMCONF -y --installroot=$YUMDIR install $RPMS 2>&1 || die "ERROR: could not install packages"
 
     # figure out the theme to keep
     if [ -f $YUMDIR/etc/gtk-2.0/gtkrc ]; then
