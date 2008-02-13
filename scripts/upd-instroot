@@ -1099,9 +1099,6 @@ for p in $DEST $DESTGR; do
 
 	find $p -name "*.a" | grep -v kernel-wrapper/wrapper.a | xargs rm -rf
 	find $p -name "lib*.la" |grep -v "usr/$LIBDIR/gtk-2.0" | xargs rm -rf
-	for f in newt popt rpm rpmio; do
-	    rm -f $p/usr/$LIBDIR/lib$f.so
-	done
 
 	# nuke some python stuff we don't need
         for d in idle distutils bsddb lib-old hotshot doctest.py pydoc.py site-packages/japanese site-packages/japanese.pth ; do
