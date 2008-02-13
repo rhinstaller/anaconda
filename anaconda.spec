@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.34
+Version: 11.4.0.35
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 12 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.35-1
+- Fix the build (katzj)
+
 * Tue Feb 12 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.34-1
 - Handle modules with more than one description (#432414) (katzj)
 - Finish HDISO installs, at least for DVDs (#431132). (clumens)
