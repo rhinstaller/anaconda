@@ -102,7 +102,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Mon Feb 11 2008 David cantrell <dcantrell@redhat.com> 11.1.2.100-1
+* Mon Feb 11 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.100-1
 - Better fixes for iscsi probing (pjones, jlaska)
   Related: rhbz#431924
 - Make man pages work in the chrooted environment (jgranado)
