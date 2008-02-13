@@ -1111,10 +1111,6 @@ for p in $DEST $DESTGR; do
 	    rm -rf $p/$d
 	done
 
-	if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
-	   (cd $p/lib* && rm -f libnss_files.so.1 libnss_dns.so.1)
-	fi
-
 	if [ -d $DEST/usr/share/zoneinfo ]; then
 	    (cd $DEST/usr/share/zoneinfo; find . -type f -or -type l | 
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
