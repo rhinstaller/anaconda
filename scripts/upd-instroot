@@ -1105,14 +1105,6 @@ for p in $DEST $DESTGR; do
 	    rm -rf $p/$d
 	done
 
-	if [ -d $DEST/usr/share/zoneinfo ]; then
-	    (cd $DEST/usr/share/zoneinfo; find . -type f -or -type l | 
-		grep '^./[A-Z]' | sort | sed 's/^..//' | 
-		gzip -9) > $p/usr/lib/timezones.gz
-	else
-	    echo "ERROR: unable to explode tzdata for small images"
-	fi
-
 	$p/usr/lib/anaconda-runtime/scrubtree $p
 done
 
