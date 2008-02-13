@@ -935,12 +935,6 @@ rm -rf $yumconf $YUMDIR
 
 chown -R root:root $DEST $DESTGR
 chmod -R a+rX-w $DEST $DESTGR
-if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    for i in $DEST $DESTGR; do
-	mv $i/bin/sed $i/bin/sed_save
-	mv $i/bin/sort $i/bin/sort_save
-    done
-fi
 
 for i in $DEST $DESTGR; do
     # there's never a case with only one of these...
