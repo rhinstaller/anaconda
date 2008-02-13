@@ -900,8 +900,6 @@ mkdir -p $YUMDIR/var/lib/yum
 expandPackageSet $yumconf $YUMDIR "$RPMS" $DEST $KEEPFILE
 echo `date` "Done Expanding text packages..."
 
-#(cd $DEST; tar cSpf - .) | (cd $DESTGR; tar xSpf -)
-
 echo `date` "Expanding graphical packages..."
 expandPackageSet $yumconf $YUMDIR "$RPMSGR" $DESTGR $KEEPFILEGR
 echo `date` "Done Expanding graphical packages..."
@@ -924,14 +922,6 @@ fi
 
 rm -rf $yumconf $YUMDIR
 
-# echo "retrieving timezones"
-# TZDIR=${TMPDIR:-/tmp}/glibc-timezone-$$
-# mkdir -p $TZDIR/usr/share/zoneinfo
-# rpm2cpio $TZDATA | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo ./usr/share/zoneinfo ./usr/share/zoneinfo/* usr/share/zoneinfo/*)
-# [ $? = 0 ] || die "ERROR: Unable to expand timezone data ($TZDATA)"
-# (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DEST; tar xSpf -)
-# (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DESTGR; tar xSpf -)
-
 chown -R root:root $DEST $DESTGR
 chmod -R a+rX-w $DEST $DESTGR
 
@@ -939,12 +929,6 @@ chmod -R a+rX-w $DEST $DESTGR
 for p in $DEST $DESTGR; do
     $p/usr/lib/anaconda-runtime/fixmtime.py $DEBUG $p
 done
-
-# for p in $DEST $DESTGR; do
-#    if [ -f $p/usr/lib/locale/locale-archive.tmpl ]; then
-#       mv $p/usr/lib/locale/locale-archive.tmpl $p/usr/lib/locale/locale-archive
-#    fi
-# done
 
 # Remove locales unused during the install
 cat $DESTGR/usr/lib/anaconda/lang-table* | awk '
@@ -1234,9 +1218,6 @@ rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/compiler/
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/email/test/
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/curses/
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/pydoc.py
-
-# clean up tzdata
-rm -rf $TZDIR
 
 # this is only for the minimal second stage
 echo "Cleaning ramdisk install images..."
