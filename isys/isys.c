@@ -71,8 +71,8 @@
 #include <blkid/blkid.h>
 
 #include "iface.h"
-#include "nl.h"
 #include "isys.h"
+#include "imount.h"
 #include "net.h"
 #include "smp.h"
 #include "lang.h"
