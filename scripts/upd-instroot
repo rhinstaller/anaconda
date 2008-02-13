@@ -317,15 +317,8 @@ etc/pcmcia
 etc/PolicyKit
 etc/protocols
 etc/services
-etc/selinux/targeted/booleans
-etc/selinux/targeted/policy/policy.*
-etc/selinux/targeted/contexts/files
-etc/selinux/targeted/contexts
 etc/selinux/targeted
 etc/shells
-usr/share/selinux/targeted
-etc/security/selinux/policy.*
-etc/security/selinux/file_contexts
 etc/udev
 etc/yum/pluginconf.d/fedorakmod.conf
 lib/terminfo
@@ -472,7 +465,6 @@ usr/sbin/lvm
 usr/sbin/gptsync
 usr/sbin/showpart
 usr/share/anaconda/anaconda.conf
-usr/share/selinux/targeted/base.pp
 usr/share/system-config-date/zonetab.py*
 usr/share/terminfo/l/linux
 usr/share/terminfo/v/vt100
@@ -612,7 +604,6 @@ usr/share/X11/xkb
 usr/$LIBDIR/xserver/SecurityPolicy
 usr/$LIBDIR/xorg/modules
 usr/bin/chattr*
-usr/bin/fc-cache
 usr/bin/gdialog
 usr/bin/gtk-query*
 usr/bin/gdk-pixbuf-query-loaders*
@@ -1007,22 +998,6 @@ if [ -n "$NEEDGR" ]; then
     sed -i "s,^MANPATH_MAP[ \t]*[a-zA-Z0-9/]*[ \t]*,&/mnt/sysimage," $DESTGR/etc/man.config
 fi
 
-if [ -n "$NEEDGR" ]; then
-    echo "Running mkfontdir..."
-    mkfontdir $DESTGR/usr/share/X11/fonts/*
-fi
-
-echo "Creating SELinux policy..."
-if [ -x $DESTGR/usr/sbin/semodule ]; then
-    ( cd $DESTGR
-      x=$(ls usr/share/selinux/targeted/*.pp | grep -v -e base.pp -e enableaudit.pp | awk '{ print "-i /" $1 }')
-    /usr/sbin/chroot $DESTGR /usr/sbin/semodule -b /usr/share/selinux/targeted/base.pp $x -n -s targeted )
-fi
-rm -rf $DEST/etc/selinux
-rm -rf $DEST/usr/share/selinux $DESTGR/usr/share/selinux
-mkdir $DEST/etc/selinux
-cp -r $DESTGR/etc/selinux/* $DEST/etc/selinux/
-
 rm -f $KEEPFILE $KEEPFILEGR $KEEPFILERESCUE
 
 for p in $DEST $DESTGR; do
@@ -1116,12 +1091,6 @@ if [ -d $DEST/usr/share/locale ]; then
 	gzip -9 $i
 	mv -f $i.gz $i
     done
-fi
-
-if [ -n "$NEEDGR" ]; then
-    echo "Creating fontconfig cache"
-    /usr/sbin/chroot $DESTGR /usr/bin/fc-cache
-    rm -f $DESTGR/usr/bin/fc-cache
 fi
 
 echo "Creating debug dir"
