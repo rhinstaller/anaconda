@@ -27,6 +27,17 @@ PRODUCTPATH="anaconda"
 
 while [ $# -gt 0 ]; do
     case $1 in
+	# general options affecting how we build things
+	--nogr)
+	    NOGRSTR="--nogr"
+	    shift
+	    ;;
+	--debug)
+	    DEBUGSTR="--debug"
+	    shift
+	    ;;
+
+	# release information
 	--version)
 	    VERSION=$2
 	    shift; shift
@@ -43,30 +54,18 @@ while [ $# -gt 0 ]; do
 	    VARIANT=$2
 	    shift; shift
 	    ;;
-	--prodpath)
-	    PRODUCTPATH=$2
-	    shift; shift
-	    ;;
-	--nogr)
-	    NOGRSTR="--nogr"
-	    shift
-	    ;;
-	--debug)
-	    DEBUGSTR="--debug"
-	    shift
-	    ;;
-	--buildinstdir)
-	    BUILDINSTDIR=$2
-	    shift; shift
-	    ;;
-	--discs)
-	    DISCSTR=$2
-	    shift; shift
-	    ;;
 	--bugurl)
 	    BUGURL=$2
 	    shift; shift
 	    ;;
+
+
+	# where to find the packages so that we can find anaconda-runtime
+	--prodpath)
+	    PRODUCTPATH=$2
+	    shift; shift
+	    ;;
+
 	*)
 	    DIR=$1
 	    shift
@@ -90,10 +89,6 @@ if [ -z "$RELEASESTR" ]; then
     usage
 fi
 
-if [ -z "$DISCSTR" ]; then
-    DISCSTR="ALL"
-fi
-
 if [ -z "$BUGURL" ]; then
     BUGURL="your distribution provided bug reporting tool."
 fi
@@ -102,7 +97,7 @@ p=`cd $DIR; /bin/pwd`
 PKGDIR=$p/$PRODUCTPATH
 
 if [ -z "$BUILDINSTDIR" ]; then
-    BUILDINSTDIR=$p/buildinstall.tree.$$
+    BUILDINSTDIR=${TMPDIR:-/tmp}/buildinstall.tree.$$
     rm -rf $BUILDINSTDIR
     mkdir -p $BUILDINSTDIR
 fi
@@ -152,6 +147,6 @@ echo "Making images..."
 $MK_IMAGES $DEBUGSTR $NOGRSTR $PKGDIR $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
 
 echo "Writing .discinfo file"
-$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="$DISCSTR" --baseDir=$PRODUCTPATH/base --packagesDir=$PKGDIR --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
+$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL" --baseDir=$PRODUCTPATH/base --packagesDir=$PKGDIR --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
 
 rm -rf $TREEDIR/image-template $TREEDIR/instimage $BUILDINSTDIR
