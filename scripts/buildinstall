@@ -93,22 +93,18 @@ if [ -z "$BUGURL" ]; then
     BUGURL="your distribution provided bug reporting tool."
 fi
 
-p=`cd $DIR; /bin/pwd`
-PKGDIR=$p/$PRODUCTPATH
+DIR=`cd $DIR; /bin/pwd`
+PKGDIR=$DIR/$PRODUCTPATH
 
-if [ -z "$BUILDINSTDIR" ]; then
-    BUILDINSTDIR=${TMPDIR:-/tmp}/buildinstall.tree.$$
-    rm -rf $BUILDINSTDIR
-    mkdir -p $BUILDINSTDIR
-fi
-TREEDIR=${TMPDIR:-/tmp}/treedir.$$
+BUILDINSTDIR=`mktemp -d ${TMPDIR:-/tmp}/buildinstall.tree.XXXXXX`
+TREEDIR=`mktemp -d ${TMPDIR:-/tmp}/treedir.XXXXXX`
 
 BUILDARCH=`rpm -qp --qf "%{ARCH}\n" $PKGDIR/anaconda-runtime-[0-9]* |head -n 1`
 
 echo "Running buildinstall..."
 
 echo "Checking for repository metadata..."
-if ! [ -d $p/repodata ]; then
+if ! [ -d $DIR/repodata ]; then
     echo "Repodata must exist in the tree!" >&2
     exit 1 
 fi
@@ -138,15 +134,15 @@ MK_STAMP=$BUILDINSTDIR/makestamp.py
 BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
 echo "Building images..."
-$UPD_INSTROOT $DEBUGSTR $NOGRSTR $PKGDIR $TREEDIR/image-template $TREEDIR/instimage $p
+$UPD_INSTROOT $DEBUGSTR $NOGRSTR $PKGDIR $TREEDIR/minstg2 $TREEDIR/stage2 $DIR
 
 echo "Writing .treeinfo file..."
-$MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --packagedir=${PKGDIR#$p/} --outfile=$p/.treeinfo
+$MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --packagedir=${PKGDIR#$DIR/} --outfile=$DIR/.treeinfo
 
 echo "Making images..."
-$MK_IMAGES $DEBUGSTR $NOGRSTR $PKGDIR $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
+$MK_IMAGES $DEBUGSTR $NOGRSTR $PKGDIR $DIR $TREEDIR/minstg2 $TREEDIR/stage2 $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
 
 echo "Writing .discinfo file"
-$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL" --baseDir=$PRODUCTPATH/base --packagesDir=$PKGDIR --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
+$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL" --baseDir=$PRODUCTPATH/base --packagesDir=$PKGDIR --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$DIR/.discinfo
 
-rm -rf $TREEDIR/image-template $TREEDIR/instimage $BUILDINSTDIR
+rm -rf $TREEDIR $BUILDINSTDIR
