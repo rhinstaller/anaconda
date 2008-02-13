@@ -970,30 +970,6 @@ EOF
   cp $DEST/etc/selinux/config $DESTGR/etc/selinux/config
 fi
 
-cat > $DEST/etc/shells <<EOF
-/bin/sh
-EOF
-
-echo "Creating nsswitch.conf"
-cat > $DEST/etc/nsswitch.conf <<EOF
-# munged nsswitch.conf with just what anaconda needs
-# created by upd-instroot
-#
-passwd:     files
-shadow:     files
-group:      files
-hosts:      files dns
-ethers:     files
-netmasks:   files
-networks:   files
-protocols:  files
-rpc:        files
-services:   files
-netgroup:   files
-automount:  files
-aliases:    files
-EOF
-
 echo "Creating libuser.conf"
 cat > $DEST/etc/libuser.conf <<EOF
 [defaults]
@@ -1008,8 +984,6 @@ directory = /mnt/sysimage/etc
 directory = /mnt/sysimage/etc
 EOF
 
-cp $DEST/etc/shells $DESTGR/etc/shells
-cp $DEST/etc/nsswitch.conf $DESTGR/etc/nsswitch.conf
 cp $DEST/etc/libuser.conf $DESTGR/etc/libuser.conf
 
 sed -i 's|\(installforallkernels\) = 0|\1 = 1|' $DEST/etc/yum/pluginconf.d/fedorakmod.conf
