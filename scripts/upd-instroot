@@ -915,11 +915,6 @@ rm -rf $yumconf $YUMDIR
 chown -R root:root $DEST $DESTGR
 chmod -R a+rX-w $DEST $DESTGR
 
-# change mtimes to 0 (to match what happens on the cramfs)
-for p in $DEST $DESTGR; do
-    $p/usr/lib/anaconda-runtime/fixmtime.py $DEBUG $p
-done
-
 # Remove locales unused during the install
 cat $DESTGR/usr/lib/anaconda/lang-table* | awk '
 { gsub("-", "", $4);
