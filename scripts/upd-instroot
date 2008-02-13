@@ -1172,11 +1172,6 @@ for p in $DEST $DESTGR ; do
     mkdir -p $p/usr/src/debug
 done
 
-if [ $ARCH = "alpha" ]; then
-    rm -rf $DEST/usr/share/locale
-    rm -rf $DEST/usr/$LIBDIR/locale
-fi
-
 echo "Patching python library..."
 
 # always use passive mode for ftp installs
