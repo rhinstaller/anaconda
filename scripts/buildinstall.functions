@@ -14,7 +14,7 @@ get_dso_deps() {
     # this is a hack, but the only better way requires binutils or elfutils
     # be installed.  i.e., we need readelf to find the interpretter.
     if [ -z "$LDSO" ]; then
-        for ldso in $root/lib*/ld*.so* ; do
+        for ldso in $root/$LIBDIR/ld*.so* ; do
             [ -L $ldso ] && continue
             [ -x $ldso ] || continue
             $ldso --verify $bin >/dev/null 2>&1 || continue
@@ -73,7 +73,7 @@ EOF
 
     DSO_DEPS="${FILES[@]}"
 
-    for l in $(/usr/sbin/chroot $root find /lib* -maxdepth 1 -type l -name ld*.so*); do
+    for l in $(/usr/sbin/chroot $root find /$LIBDIR -maxdepth 1 -type l -name ld*.so*); do
        [ "$(/usr/sbin/chroot $root readlink -f $l)" == "$LDSO" ] && DSO_DEPS="$DSO_DEPS $l"
     done
 
