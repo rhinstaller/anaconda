@@ -1128,31 +1128,6 @@ for p in $DEST $DESTGR ; do
     mkdir -p $p/usr/src/debug
 done
 
-echo "Patching python library..."
-
-# always use passive mode for ftp installs
-cd $DEST/usr/$LIBDIR/python*
-patch -p0 > /dev/null <<EOF
---- urllib.py.orig	Thu Oct 25 17:05:06 2001
-+++ urllib.py	Thu Oct 25 17:05:34 2001
-@@ -453,6 +453,7 @@
-         path, attrs = splitattr(path)
-         path = unquote(path)
-         dirs = path.split('/')
-+        dirs[0] = '/' + dirs[0]
-         dirs, file = dirs[:-1], dirs[-1]
-         if dirs and not dirs[0]: dirs = dirs[1:]
-         if dirs and not dirs[0]: dirs[0] = '/'
-@@ -707,6 +708,7 @@
-         self.ftp = ftplib.FTP()
-         self.ftp.connect(self.host, self.port)
-         self.ftp.login(self.user, self.passwd)
-+        self.ftp.set_pasv(1)
-         for dir in self.dirs:
-             self.ftp.cwd(dir)
-EOF
-cd -
-
 for p in $DEST $DESTGR; do
 	find $p -name "*.py" | while read fn; do
 	    rm -f ${fn}o
