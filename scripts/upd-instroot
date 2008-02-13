@@ -21,40 +21,64 @@
 ORIGDIR=`pwd`
 DEBUG=""
 NEEDGR=yes
+ARCH=`uname -m`
 
-if [ "$1" == "--debug" ]; then
-    DEBUG="--debug"
-    shift
-fi
+while [ $# -gt 0 ]; do
+    case $1 in
+	--nogr)
+	    NEEDGR=""
+	    shift
+	    ;;
+	--debug)
+	    DEBUG="--debug"
+	    shift
+	    ;;
 
-if [ "$1" == "--nogr" ]; then
-    NEEDGR=""
-    shift
-fi
+	--arch)
+	    ARCH=$2
+	    shift; shift
+	    ;;
 
-if [ -z "$1" ]; then
+	--mindir)
+	    DEST=$2
+	    shift; shift
+	    ;;
+
+	--stg2dir)
+	    DESTGR=$2
+	    shift; shift
+	    ;;
+
+	*)
+	    TOPDIR=$1
+	    shift
+	    ;;
+    esac
+done
+
+if [ -z "$TOPDIR" ]; then
 	echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
-	echo "usage:        $0 <packagedir> [templatedir] [instroot]"
+	echo "usage:        $0 [--nogr] [--debug] [--arch arch] <packagedir> [templatedir] [instroot]"
 	exit 1
-fi
-
-if [ ! -d $1 ]; then
-	if [ -z "$ARCH" ]; then
-		echo "ARCH must be set" >&2
-		exit 1
-	fi
-fi
-
-PACKAGEDIR=$1
-
-if [ -z "$ARCH" ]; then
-	ARCH=`rpm --nodigest --nosignature -qp --qf "%{ARCH}" $PACKAGEDIR/anaconda-runtime*.rpm`
 fi
 
 if [ $ARCH = x86_64 -o $ARCH = s390x -o $ARCH = ppc64 ]; then
     LIBDIR=lib64
 else
     LIBDIR=lib
+fi
+
+if [ -z "$DEST" ]; then
+    DEST=`mktemp -d ${TMPDIR:-/tmp}/dest.XXXXXX`
+fi
+
+if [ -z "$DESTGR" ]; then
+    DESTGR=`mktemp -d ${TMPDIR:-/tmp}/destgr.XXXXXX`
+fi
+
+if [ ! -d $TOPDIR/repodata ]; then
+    echo "Unable to find repodata!"
+    exit 1
 fi
 
 . $(dirname $0)/buildinstall.functions
@@ -110,36 +134,6 @@ die () {
     echo "Aborting instroot creation..."
     exit 1
 }
-
-if [ -z "$2" ]; then
-    DEST=${TMPDIR:-/tmp}/upd-instroot
-else
-    DEST=$2
-fi
-
-if [ -z "$3" ]; then
-    DESTGR=${TMPDIR:-/tmp}/upd-instroot
-else
-    DESTGR=$3
-fi
-
-if [ -n "$4" ]; then
-    TOPDIR=$4
-elif [ -d $PACKAGEDIR/repodata ]; then
-    TOPDIR=$PACKAGEDIR
-elif [ -d $PACKAGEDIR/../repodata ]; then
-    TOPDIR=$PACKAGEDIR/..
-elif [ -d $PACKAGEDIR/../../repodata ]; then
-    TOPDIR=$PACKAGEDIR/../..
-else
-    echo "Unable to find repodata!"
-    exit 1
-fi
-
-
-rm -rf $DEST $DESTGR
-mkdir -p $DEST
-mkdir -p $DESTGR
 
 PACKAGES="glibc-common setup python newt slang libselinux
 	 libsepol libtermcap zlib ash e2fsprogs util-linux-ng raidtools popt
