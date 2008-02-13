@@ -99,7 +99,8 @@ PKGDIR=$DIR/$PRODUCTPATH
 BUILDINSTDIR=`mktemp -d ${TMPDIR:-/tmp}/buildinstall.tree.XXXXXX`
 TREEDIR=`mktemp -d ${TMPDIR:-/tmp}/treedir.XXXXXX`
 
-BUILDARCH=`rpm -qp --qf "%{ARCH}\n" $PKGDIR/anaconda-runtime-[0-9]* |head -n 1`
+ANACONDARUNTIME=`find $p -name "anaconda-runtime-[0-9]*" |head -n 1`
+BUILDARCH=`rpm -qp --qf "%{ARCH}\n" $ANACONDARUNTIME`
 
 echo "Running buildinstall..."
 
@@ -110,7 +111,7 @@ if ! [ -d $DIR/repodata ]; then
 fi
 
 pushd $BUILDINSTDIR
-rpm2cpio $PKGDIR/anaconda-runtime-[0-9]* | cpio --quiet -iumd './usr*'
+rpm2cpio $ANACONDARUNTIME | cpio --quiet -iumd './usr*'
 popd
 
 UPD_INSTROOT=./upd-instroot
