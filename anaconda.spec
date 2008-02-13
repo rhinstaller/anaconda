@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.100
+Version: 11.1.2.101
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Feb 13 2008 Chris Lumens <clumens@redhat.com> 11.1.2.101-1
+- Make sure interface description is defined (dcantrell).
+  Resolves: rhbz#432635
+- Set an attribute when iscsid is started
+  Resolves: rhbz#431904
+
 * Mon Feb 11 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.100-1
 - Better fixes for iscsi probing (pjones, jlaska)
   Related: rhbz#431924
