@@ -34,9 +34,6 @@ data = {"timestamp": None,
         "releasestr": None,
         "arch": None,
         "discNum": None,
-        "baseDir": None,
-        "packagesDir": None,
-        "pixmapsDir": None,
         "outfile": None}
 allDiscs = None
 
@@ -77,19 +74,6 @@ if data["discNum"] is None and allDiscs is None:
     print >> sys.stderr, "No disc number specified; assuming disc 1"
     data["discNum"] = "1"
 
-if data["baseDir"] is None:
-    print "Where is the comps file located?"
-    data["baseDir"] = sys.stdin.readline()[:-1]
-
-if data["packagesDir"] is None:
-    print "Where are the packages located?"
-    data["packagesDir"] = sys.stdin.readline()[:-1]
-
-if data["pixmapsDir"] is None:
-    print "Where are the images located?"
-    data["pixmapsDir"] = sys.stdin.readline()[:-1]
-
-
 if data["outfile"] is None:
     f = sys.stdout
 else:
@@ -102,8 +86,5 @@ if allDiscs is None:
     f.write("%s\n" % data["discNum"])
 else:
     f.write("0\n")
-f.write("%s\n" % data["baseDir"])
-f.write("%s\n" % data["packagesDir"])
-f.write("%s\n" % data["pixmapsDir"])
 
     

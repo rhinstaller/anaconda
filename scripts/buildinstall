@@ -138,12 +138,12 @@ echo "Building images..."
 $UPD_INSTROOT $DEBUGSTR $NOGRSTR $PKGDIR $TREEDIR/minstg2 $TREEDIR/stage2 $DIR
 
 echo "Writing .treeinfo file..."
-$MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --packagedir=${PKGDIR#$DIR/} --outfile=$DIR/.treeinfo
+$MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --outfile=$DIR/.treeinfo
 
 echo "Making images..."
 $MK_IMAGES $DEBUGSTR $NOGRSTR $PKGDIR $DIR $TREEDIR/minstg2 $TREEDIR/stage2 $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
 
 echo "Writing .discinfo file"
-$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL" --baseDir=$PRODUCTPATH/base --packagesDir=$PKGDIR --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$DIR/.discinfo
+$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL"  --outfile=$DIR/.discinfo
 
 rm -rf $TREEDIR $BUILDINSTDIR
