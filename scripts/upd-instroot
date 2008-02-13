@@ -1085,14 +1085,6 @@ for p in $DEST $DESTGR; do
 	$p/usr/lib/anaconda-runtime/scrubtree $p
 done
 
-echo "Compressing .mo files in stage2 images..."
-if [ -d $DEST/usr/share/locale ]; then
-    for i in `find $DEST/usr/share/locale -name anaconda.mo`; do
-	gzip -9 $i
-	mv -f $i.gz $i
-    done
-fi
-
 echo "Creating debug dir"
 for p in $DEST $DESTGR ; do
     mkdir -p $p/usr/lib/debug
