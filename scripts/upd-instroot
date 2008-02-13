@@ -946,6 +946,13 @@ if [ -n "$NEEDGR" -a -d "$DESTDIR"/etc/joe ]; then
     ln -fs jpico $DESTGR/usr/bin/nano
 fi
 
+# fix up some links for man page related stuff
+for p in $DEST $DESTGR; do
+    for file in nroff groff iconv geqn gtbl gpic grefer ; do
+        ln -fs /mnt/sysimage/usr/bin/$file $p/usr/bin/$file
+    done
+done
+
 # create selinux config
 if [ -e $DEST/etc/selinux/targeted ]; then
   cat > $DEST/etc/selinux/config <<EOF
