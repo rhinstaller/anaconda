@@ -19,7 +19,7 @@
 #
 
 usage() {
-	echo "Usage: buildinstall --version <version> --product <product> --release <comment> [--prodpath <path>] [--discs <discstring>] <root>" >&2
+	echo "Usage: buildinstall --version <version> --product <product> --release <comment> [--discs <discstring>] <root>" >&2
 	exit 1
 }
 
@@ -59,13 +59,6 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 
-
-	# where to find the packages so that we can find anaconda-runtime
-	--prodpath)
-	    PRODUCTPATH=$2
-	    shift; shift
-	    ;;
-
 	*)
 	    DIR=$1
 	    shift
@@ -94,7 +87,6 @@ if [ -z "$BUGURL" ]; then
 fi
 
 DIR=`cd $DIR; /bin/pwd`
-PKGDIR=$DIR/$PRODUCTPATH
 
 BUILDINSTDIR=`mktemp -d ${TMPDIR:-/tmp}/buildinstall.tree.XXXXXX`
 TREEDIR=`mktemp -d ${TMPDIR:-/tmp}/treedir.XXXXXX`
