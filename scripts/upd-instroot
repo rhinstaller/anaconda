@@ -553,7 +553,6 @@ fi
 KEEPFILEGR=${TMPDIR:-/tmp}/keepfilegr.$$
 cp $KEEPFILE $KEEPFILEGR
 cat >> $KEEPFILEGR <<EOF
-boot/efi/EFI/redhat/elilo.efi
 boot/memtest86*
 bin/bash
 bin/cat
