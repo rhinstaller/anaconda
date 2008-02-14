@@ -142,7 +142,7 @@ mkdir -p $DEST
 mkdir -p $DESTGR
 
 PACKAGES="glibc-common setup python newt slang libselinux
-	 libsepol libtermcap zlib ash e2fsprogs util-linux raidtools popt
+	 libsepol libtermcap zlib ash e2fsprogs util-linux-ng raidtools popt
 	 procps rpm rpm-libs Xconfigurator anaconda tzdata python-libs
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt mdadm libsemanage
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
@@ -201,7 +201,7 @@ fi
 #
 PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
            e2fsprogs coreutils glibc-common
-           popt specspo util-linux rpm rpm-libs tzdata
+           popt specspo util-linux-ng rpm rpm-libs tzdata
            procps bash cpio gpm pygtk2-libglade pygobject2
            Xconfigurator pygtk2 gdk-pixbuf libpixman
            reiserfs-utils atk pango freetype gnome-python2-canvas cairo
@@ -305,6 +305,7 @@ bin/dbus-daemon
 bin/fdisk*
 bin/sed
 bin/mount
+bin/umount
 etc/dbus-1
 etc/group
 etc/hal
