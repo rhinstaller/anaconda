@@ -141,7 +141,7 @@ echo "Writing .treeinfo file..."
 $MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --outfile=$DIR/.treeinfo
 
 echo "Making images..."
-$MK_IMAGES $DEBUGSTR $NOGRSTR $PKGDIR $DIR $TREEDIR/minstg2 $TREEDIR/stage2 $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
+$MK_IMAGES $DEBUGSTR $NOGRSTR --mindir $TREEDIR/minstg2 --stg2dir $TREEDIR/stage2 --arch $BUILDARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" $DIR
 
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL"  --outfile=$DIR/.discinfo

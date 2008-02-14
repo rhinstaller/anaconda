@@ -29,26 +29,68 @@ usage () {
     exit 0
 }
 
-DEBUG=""
-if [ "$1" == "--debug" ]; then
-    DEBUG="--debug"
-    shift
-fi
-
 NEEDGR=yes
-if [ "$1" == "--nogr" ]; then
-    NEEDGR=""
-    shift
+DEBUG=""
+BUILDARCH=`uname -m`
+
+while [ $# -gt 0 ]; do
+    case $1 in
+	--nogr)
+	    NEEDGR=""
+	    shift
+	    ;;
+	--debug)
+	    DEBUG="--debug"
+	    shift
+	    ;;
+
+	--arch)
+	    BUILDARCH=$2
+	    shift; shift
+	    ;;
+
+	--mindir)
+	    INSTIMGTEMPLATE=$2
+	    shift; shift
+	    ;;
+
+	--stg2dir)
+	    IMGPATH=$2
+	    shift; shift
+	    ;;
+
+	--product)
+	    PRODUCT=$2
+	    shift; shift
+	    ;;
+
+	--version)
+	    VERSION=$2
+	    shift; shift
+	    ;;
+
+	--bugurl)
+	    BUGURL=$2
+	    shift; shift
+	    ;;
+
+	--output)
+	    TOPDESTPATH=$2
+	    shift; shift
+	    ;;
+
+	*)
+	    DISTROPATH=$1
+	    shift
+	    ;;
+    esac
+done
+
+if [ -z "$TOPDESTPATH" ]; then
+    TOPDESTPATH=$DISTROPATH
 fi
 
-if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" -o -z "$7" -o -z "$8" ]; then usage; fi
-
-PRODUCT=$6
-VERSION=$7
-PRODUCTPATH=$8
-if [ -n "$9" ]; then
-    BUGURL=$9
-fi
+if [ -z "$TOPDESTPATH" -o -z "$DISTROPATH" -o -z "$INSTIMGTEMPLATE" -o -z "$IMGPATH" -o -z "$PRODUCT" -o -z "$VERSION" ]; then usage; fi
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
@@ -72,16 +114,11 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
 . $(dirname $0)/buildinstall.functions
 
 # Set, verify, and create paths
-    KERNELPATH=$1
-    TOPDESTPATH=$2
     IMAGEPATH=$TOPDESTPATH/images
     FULLMODPATH=$TMPDIR/instimagemods.$$
-    FINALFULLMODPATH=$4/modules
+    FINALFULLMODPATH=$IMGPATH/modules
     INSTIMGPATH=$TOPDESTPATH/images
-    INSTIMGTEMPLATE=$3
-    IMGPATH=$4
     KERNELBASE=$TMPDIR/updboot.kernel.$$
-    BUILDARCH=$5
 
     KERNELNAME=vmlinuz
 
@@ -138,10 +175,6 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
     PCIIDS=$IMGPATH/usr/share/hwdata/pci.ids
     XDRIVERS=$IMGPATH/usr/share/hwdata/videoaliases
     XDRIVERDESCS=$IMGPATH/usr/share/hwdata/videodrivers
-    CACHE=$KERNELBASE/.cache
-    MODULESUSED=$KERNELBASE/modules-used
-
-    touch $MODULESUSED
 
     REQUIREMENTS="$TRIMPCIIDS $PCIIDS $XDRIVERDESCS $GENMODINFO
 		  $LANGTABLE $GETKEYMAPS"
@@ -181,8 +214,8 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
 findPackage() {
     dir=$1
     name=$2
-    
-    for n in $dir/$name*{$KERNELARCH,noarch}.rpm; do
+
+    for n in $(find $dir -name "$name*$KERNELARCH.rpm"); do
 	thisName=$(rpm --nodigest --nosignature --qf '%{NAME}' -qp $n)
 	if [ -z "$thisName" ]; then
 	    continue
@@ -312,7 +345,6 @@ makeproductfile() {
     echo $IMAGEUUID > $root/.buildstamp
     echo $PRODUCT >> $root/.buildstamp
     echo $VERSION >> $root/.buildstamp
-    echo $PRODUCTPATH >> $root/.buildstamp
     if [ -n "$BUGURL" ]; then
 	echo $BUGURL >> $root/.buildstamp
     fi
@@ -728,11 +760,11 @@ fi
 foundakernel=""
 for KERNELARCH in $arches; do
   for kernelvers in $kerneltags; do
-    kpackage=$(findPackage $KERNELPATH $kernelvers)
+    kpackage=$(findPackage $DISTROPATH $kernelvers)
     if [ "$KERNELARCH" = "i586" -a ! -f "$kpackage" ]; then
 	echo "No i586 kernel, trying i686..."
 	KERNELARCH="i686"
-	kpackage=$(findPackage $KERNELPATH $kernelvers)
+	kpackage=$(findPackage $DISROPATH $kernelvers)
     fi
 
     if [ ! -f "$kpackage" ]; then
@@ -753,7 +785,7 @@ for KERNELARCH in $arches; do
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
     # expand out any available firmware too
-    for p in $KERNELPATH/*firmware*.rpm ; do rpm2cpio $p | (cd $KERNELROOT; cpio --quiet -iumd) ; done
+    for p in $(find $DISTROPATH -name '*firmware*.rpm') ; do rpm2cpio $p | (cd $KERNELROOT; cpio --quiet -iumd) ; done
 
     if [ ! -d "$KERNELROOT/lib/modules/$version" ]; then
 	echo "$KERNELROOT/lib/modules/$version is not a valid modules directory" 2>&1
