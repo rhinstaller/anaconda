@@ -135,7 +135,7 @@ makeBootImages() {
     grep -v local $TOPDESTPATH/images/fobpath/isolinux.cfg > $TOPDESTPATH/images/fobpath/syslinux.cfg
     rm -f $TOPDESTPATH/images/fobpath/isolinux.cfg
     /usr/bin/makebootfat -v -o $TOPDESTPATH/images/diskboot.img -Y -b /usr/share/syslinux/ldlinux.bss -m /usr/share/makebootfat/x86/mbrfat.bin -F -Z -c /usr/share/syslinux/ldlinux.sys $TOPDESTPATH/images/fobpath/
-    rmdir $TOPDESTPATH/images/fobpath
+    rm -rf $TOPDESTPATH/images/fobpath
 
     cat > $TOPDESTPATH/images/pxeboot/README <<EOF
 The files in this directory are useful for booting a machine via PXE.  
