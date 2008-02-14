@@ -102,7 +102,7 @@ Requires: libuser-python
 Requires: newt-python
 Requires: authconfig
 Requires: gnome-python2-gtkhtml2
-Requires: system-config-securitylevel
+Requires: system-config-firewall
 Requires: cryptsetup-luks
 Requires: mdadm
 Requires: iscsi-initiator-utils
