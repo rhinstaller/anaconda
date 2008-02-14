@@ -255,6 +255,40 @@ makemoduletree() {
             rm -f $module
         }
     done
+
+    # Copy in driver firmware we want during installation.  NOTE:  This isn't
+    # the ideal solution, but we'll do this for now.  What we really want is
+    # for the kernel modules to include a modinfo field that names the firmware
+    # file we should have.  If we can get that it would make it even easier to
+    # push the kernel people to depend on the firmware packages in the kernel,
+    # but we have to take small steps first.
+    for module in $MODSET ; do
+        case $module in
+            ipw2100)
+                cp $KERNELROOT/lib/firmware/ipw2100* $MBD_DIR/firmware
+                ;;
+            ipw2200)
+                cp $KERNELROOT/lib/firmware/ipw-2.4* $MBD_DIR/firmware
+                cp $KERNELROOT/lib/firmware/ipw2200* $MBD_DIR/firmware
+                ;;
+            iwl3945)
+                cp $KERNELROOT/lib/firmware/iwlwifi-3945* $MBD_DIR/firmware
+                ;;
+            iwl4965)
+                cp $KERNELROOT/lib/firmware/iwlwifi-4965* $MBD_DIR/firmware
+                ;;
+            atmel)
+                cp $KERNELROOT/lib/firmware/atmel_*.bin $MBD_DIR/firmware
+                ;;
+            zd1211rw)
+                cp -r $KERNELROOT/lib/firmware/zd1211 $MBD_DIR/firmware
+                ;;
+            qla2xxx)
+                cp $KERNELROOT/lib/firmware/ql* $MBD_DIR/firmware
+                ;;
+        esac
+    done
+
     # clean up leftover cruft
     find $MMB_DIR/lib/modules -type d -exec rmdir -f {} \; 2>/dev/null
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
@@ -267,7 +301,7 @@ makemoduletree() {
     
     # create the pci.ids, from modules.alias and the X driver aliases
     awk '!/^(\t\t|#)/ { print ;if ($0 == "ffff  Illegal Vendor ID") nextfile; }' < $PCIIDS | \
-      $TRIMPCIIDS ../modules.alias $XDRIVERS/* > ../pci.ids
+      $TRIMPCIIDS $MMB_DIR/lib/modules/*/modules.alias $XDRIVERS/* > ../pci.ids
 }
 
 
@@ -477,39 +511,6 @@ makeinitrd() {
 	MODSET=`expandModuleSet "$INITRDMODULES"`
         makemoduletree $MBD_DIR "$MODSET"
     fi
-
-    # Copy in driver firmware we want during installation.  NOTE:  This isn't
-    # the ideal solution, but we'll do this for now.  What we really want is
-    # for the kernel modules to include a modinfo field that names the firmware
-    # file we should have.  If we can get that it would make it even easier to
-    # push the kernel people to depend on the firmware packages in the kernel,
-    # but we have to take small steps first.
-    for module in $MODSET ; do
-        case $module in
-            ipw2100)
-                cp $KERNELROOT/lib/firmware/ipw2100* $MBD_DIR/firmware
-                ;;
-            ipw2200)
-                cp $KERNELROOT/lib/firmware/ipw-2.4* $MBD_DIR/firmware
-                cp $KERNELROOT/lib/firmware/ipw2200* $MBD_DIR/firmware
-                ;;
-            iwl3945)
-                cp $KERNELROOT/lib/firmware/iwlwifi-3945* $MBD_DIR/firmware
-                ;;
-            iwl4965)
-                cp $KERNELROOT/lib/firmware/iwlwifi-4965* $MBD_DIR/firmware
-                ;;
-            atmel)
-                cp $KERNELROOT/lib/firmware/atmel_*.bin $MBD_DIR/firmware
-                ;;
-            zd1211rw)
-                cp $KERNELROOT/lib/firmware/zd1211/* $MBD_DIR/firmware/zd1211
-                ;;
-            qla2xxx)
-                cp $KERNELROOT/lib/firmware/ql* $MBD_DIR/firmware
-                ;;
-        esac
-    done
 
     # set up the arch bits
     echo $arch > $MBD_DIR/etc/arch
@@ -752,7 +753,7 @@ for KERNELARCH in $arches; do
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
     # expand out any available firmware too
-    rpm2cpio $KERNELPATH/*firmware*.rpm | (cd $KERNELROOT; cpio --quiet -iumd)
+    for p in $KERNELPATH/*firmware*.rpm ; do rpm2cpio $p | (cd $KERNELROOT; cpio --quiet -iumd) ; done
 
     if [ ! -d "$KERNELROOT/lib/modules/$version" ]; then
 	echo "$KERNELROOT/lib/modules/$version is not a valid modules directory" 2>&1
