@@ -51,19 +51,13 @@ directory = %(instPath)s/etc
 #     $1$    MD5
 #     $5$    SHA256
 #     $6$    SHA512
-# See crypt(3) for more information (salt lengths).
 def cryptPassword(password, salt=None):
     salts = {'md5': '$1$', 'sha256': '$5$', 'sha512': '$6$', None: ''}
     saltstr = salts[salt]
+    saltlen = 2
 
-    if salt is None:
-        saltlen = 8
-    elif salt == 'md5':
-        saltlen = 22
-    elif salt == 'sha256':
-        saltlen = 43
-    elif salt == 'sha512':
-        saltlen = 86
+    if salt == 'md5' or salt == 'sha256' or salt == 'sha512':
+        saltlen = 16
 
     for i in range(saltlen):
         saltstr = saltstr + random.choice (string.letters +
