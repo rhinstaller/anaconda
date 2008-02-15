@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.35
+Version: 11.4.0.36
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,41 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb 14 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.36-1
+- Fix up firmware inclusion.  This didn't actually ever work. (katzj)
+- Fix up the groff related stuff for man pages to be done in the correct
+  place (katzj)
+- remove yumcache (katzj)
+- Don't do fixmtimes anymore (katzj)
+- Don't compress translations (katzj)
+- Don't manually duplicate things from package %post scripts (katzj)
+- Remove some unused options (--discs and --buildinstdir) (katzj)
+- Keep /etc/nsswitch.conf and /etc/shells (katzj)
+- Stop forcing passive mode for FTP by patching urllib (katzj)
+- We don't use timezones.gz anymore anywhere (katzj)
+- We shouldn't need to remove files that are only in -devel packages (katzj)
+- Remove some obsolete files from the list to clean up noise in the
+  output (katzj)
+- We want nss bits on all arches these days (katzj)
+- Just use default /etc/nsswitch.conf and /etc/shells (katzj)
+- alpha should have translations probably (katzj)
+- Remove some things that aren't used anymore (katzj)
+- Don't run pkgorder as a part of buildinstall anymore (katzj)
+- Remove duplicate file from the file lists (katzj)
+- Don't use the static versions of these anymore as they're likely to go
+  away (katzj)
+- Remove weird s390 hack that shouldn't be needed any more (katzj)
+- Make makebootfat less noisy (katzj)
+- Get rid of dangling fobpath stuff; now that we're not mounting to
+  create (katzj)
+- Ignore .bak files created by glade (katzj)
+- Get rid of duplication for yaboot stuff to make scripts less noisy (katzj)
+- Correct internationalization of exception handler text (msw)
+- More fixing of mount paths (#432720) (katzj)
+- securitylevel -> firewall in the spec file. (clumens)
+- Include util-linux-ng, which contains mount (#432720). (clumens)
+- When mounting stage2 on loopback, add -o loop to mount opts. (clumens)
+
 * Tue Feb 12 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.35-1
 - Fix the build (katzj)
 
