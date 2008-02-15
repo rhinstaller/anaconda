@@ -51,16 +51,21 @@ directory = %(instPath)s/etc
 #     $1$    MD5
 #     $5$    SHA256
 #     $6$    SHA512
+# See crypt(3) for more information (salt lengths).
 def cryptPassword(password, salt=None):
     salts = {'md5': '$1$', 'sha256': '$5$', 'sha512': '$6$', None: ''}
-
     saltstr = salts[salt]
-    if saltstr == '':
-        saltLen = 2
-    else:
-        saltLen = 8
 
-    for i in range(saltLen):
+    if salt is None:
+        saltlen = 8
+    elif salt == 'md5':
+        saltlen = 22
+    elif salt == 'sha256':
+        saltlen = 43
+    elif salt == 'sha512':
+        saltlen = 86
+
+    for i in range(saltlen):
         saltstr = saltstr + random.choice (string.letters +
                                            string.digits + './')
 
@@ -106,11 +111,11 @@ class Users:
 
         if password:
             if isCrypted:
-                self.admin.setpassUser(userEnt, password, isCrypted)
+                self.admin.setpassUser(userEnt, password, True)
             else:
                 self.admin.setpassUser(userEnt,
                                        cryptPassword(password, salt=salt),
-                                       isCrypted)
+                                       True)
 
         # Now set the correct home directory to fix up passwd.
         userEnt.set(libuser.HOMEDIRECTORY, homedir)

@@ -132,11 +132,12 @@ class InstallData:
         self.upgrade = bool
 
     def getSalt(self):
-        if self.auth.find("--enablemd5") or self.auth.find("--passalgo=md5"):
+        if self.auth.find("--enablemd5") != -1 or \
+           self.auth.find("--passalgo=md5") != -1:
             return 'md5'
-        elif self.auth.find("--passalgo=sha256"):
+        elif self.auth.find("--passalgo=sha256") != -1:
             return 'sha256'
-        elif self.auth.find("--passalgo=sha512"):
+        elif self.auth.find("--passalgo=sha512") != -1:
             return 'sha512'
         else:
             return None
