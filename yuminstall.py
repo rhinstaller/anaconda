@@ -630,7 +630,22 @@ class AnacondaYum(YumSorter):
             self.tsInfo.curmedia = i
             if i > 0:
                 pkgtup = self.tsInfo.reqmedia[i][0]
-            self.populateTs(keepold=0)
+
+            try:
+                self.populateTs(keepold=0)
+            except Exception, e:
+                rc = intf.messageWindow(_("Error"),
+                          _("There was an error running your transaction for "
+                            "the following reason: %s\n") % str(e),
+                            type="custom", custom_icon="error",
+                            custom_buttons=[_("_Back"), _("_Exit installer")])
+
+                if rc == 1:
+                    sys.exit(1)
+                else:
+                    self.tsInfo.curmedia = None
+                    return DISPATCH_BACK
+
             self.ts.check()
             self.ts.order()
 
