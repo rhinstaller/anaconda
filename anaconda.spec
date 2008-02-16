@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.101
+Version: 11.1.2.102
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Feb 16 2008 Chris Lumens <clumens@redhat.com> 11.1.2.102-1
+- Correct auth command reading problem for ks files (dcantrell).
+  Related: rhbz#427388
+- Use correct salt length for MD5, SHA256, & SHA512 (dcantrell).
+  Related: rhbz#427388
+
 * Wed Feb 13 2008 Chris Lumens <clumens@redhat.com> 11.1.2.101-1
 - Make sure interface description is defined (dcantrell).
   Resolves: rhbz#432635
