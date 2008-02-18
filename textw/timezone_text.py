@@ -65,7 +65,7 @@ class TimezoneWindow:
 
     def __call__(self, screen, anaconda):
 	timezones = self.getTimezoneList()
-	(default, asUtc, asArc) = anaconda.id.timezone.getTimezoneInfo()
+	(default, asUtc) = anaconda.id.timezone.getTimezoneInfo()
         if not default:
 	    default = anaconda.id.instLanguage.getDefaultTimeZone()
 
