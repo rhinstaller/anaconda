@@ -63,7 +63,7 @@ class PackageOrderer(YumSorter):
         self.doSackSetup(rpmUtils.arch.getArchList(self.arch))
         self.doTsSetup()
         self.doGroupSetup()
-        self.repos.populateSack(with='filelists')
+        self.repos.populateSack('enabled', 'filelists')
 
     def getDownloadPkgs(self):
         pass
