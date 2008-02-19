@@ -106,7 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 - Fix a traceback in the backported pkgorder fix.
   Resolves: rhbz#432006
 - Fix wrong function names for iscsi login/start (pjones).
-  Resolves: rhbz#295154
+  Resolves: rhbz#433276
 
 * Sat Feb 16 2008 Chris Lumens <clumens@redhat.com> 11.1.2.102-1
 - Correct auth command reading problem for ks files (dcantrell).
