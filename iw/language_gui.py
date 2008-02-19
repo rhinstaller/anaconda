@@ -33,6 +33,8 @@ class LanguageWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
     def getNext (self):
+        anaconda = self.ics.getICW().anaconda
+
         (model, iter) = self.listView.get_selection().get_selected()
 	assert iter, "No selection found on language list!"
 	choice = self.listStore.get_value(iter, 1)
@@ -43,6 +45,7 @@ class LanguageWindow (InstallWindow):
 
 	self.instLang.setRuntimeLanguage(self.lang)
 	self.instLang.setDefault(self.lang)
+        anaconda.id.timezone.setTimezoneInfo(anaconda.id.instLanguage.getDefaultTimeZone())
 	self.ics.getICW().setLanguage()
 
         return None
@@ -52,7 +55,7 @@ class LanguageWindow (InstallWindow):
         (model, iter) = self.listView.get_selection().get_selected()
         if iter is None:
             return
-        
+
         path = self.listStore.get_path(iter)
         col = self.listView.get_column(0)
         self.listView.scroll_to_cell(path, col, True, 0.5, 0.5)
@@ -69,13 +72,13 @@ class LanguageWindow (InstallWindow):
             a = gtk.Alignment ()
             a.add (pix)
             hbox.pack_start (a, False)
-            
+
         label = gtk.Label (_("What language would you like to use during the "
                          "installation process?"))
         label.set_line_wrap (True)
         label.set_size_request(350, -1)
         hbox.pack_start(label, False)
-        
+
 	self.instLang = anaconda.id.instLanguage
 
         self.listStore = gtk.ListStore(gobject.TYPE_STRING,
@@ -122,5 +125,5 @@ class LanguageWindow (InstallWindow):
         mainBox.pack_start (sw, True, True)
 
         self.running = 1
-        
+
         return mainBox
