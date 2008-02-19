@@ -654,7 +654,7 @@ class NetworkDeviceWindow:
                 if rc == INSTALL_BACK:
                     continue
 
-            self.devListDescs[devname] = makeDevDesc(dev)
+            self.devListDescs[devname] = self.makeDevDesc(dev)
 
             if len(self.devices) == 1 and doConf is True:
                 doConf = False
