@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.36
+Version: 11.4.0.37
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,25 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 19 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.37-1
+- Default to the right timezone when language is changed (#432158). (clumens)
+- Fix another text mode network config traceback (#433475). (clumens)
+- More scripts cleanups. (jgranado)
+- Remove more references to ARC (#433229). (clumens)
+- Mount flags should be an optional argument (#433279, #433280). (clumens)
+- We don't need productpath anymore, so stop taking it as an option (katzj)
+- Set yum output level based on whether or not we've passed --debug or
+  not (katzj)
+- Clean up invocation of mk-images from buildinstall (katzj)
+- Clean up invocation of upd-instroot from buildinstall (katzj)
+- Remove some legacy stuff that's no longer relevant from
+  .discinfo/.treeinfo (katzj)
+- Don't depend on product path for finding the anaconda-runtime
+  package (katzj)
+- Make buildinstall a little clearer (katzj)
+- Use $LIBDIR instead of lib globbing to avoid problems with chroots (katzj)
+- Add some error handling around populateTs. (clumens)
+
 * Thu Feb 14 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.36-1
 - Fix up firmware inclusion.  This didn't actually ever work. (katzj)
 - Fix up the groff related stuff for man pages to be done in the correct
