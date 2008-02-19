@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.102
+Version: 11.1.2.103
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 19 2008 Chris Lumens <clumens@redhat.com> 11.1.2.103-1
+- Fix a traceback in the backported pkgorder fix.
+  Resolves: rhbz#432006
+- Fix wrong function names for iscsi login/start (pjones).
+  Resolves: rhbz#295154
+
 * Sat Feb 16 2008 Chris Lumens <clumens@redhat.com> 11.1.2.102-1
 - Correct auth command reading problem for ks files (dcantrell).
   Related: rhbz#427388
