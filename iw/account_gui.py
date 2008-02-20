@@ -1,7 +1,8 @@
 #
-# account_gui.py: gui root password and user creation dialog
+# account_gui.py: gui root password and crypt algorithm dialog
 #
-# Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007  Red Hat, Inc.
+# Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005,  Red Hat Inc.
+#               2006, 2007, 2008
 # All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -22,31 +23,60 @@ import gtk
 import string
 import gui
 from iw_gui import *
-from rhpl.translate import _, N_
+from rhpl.translate import _
 from flags import flags
 import cracklib
 
-def handleCapsLockRelease(window, event, label):
-    if event.keyval == gtk.keysyms.Caps_Lock and event.state & gtk.gdk.LOCK_MASK:
-        if label.get_text() == "":
-            label.set_text(_("<b>Caps Lock is on.</b>"))
-            label.set_use_markup(True)
-        else:
-            label.set_text("")
-
 class AccountWindow (InstallWindow):
+    def getScreen(self, anaconda):
+        self.rootPassword = anaconda.id.rootPassword
+        self.intf = anaconda.intf
 
-    windowTitle = N_("Set Root Password")
+        (self.xml, self.align) = gui.getGladeWidget("account.glade",
+                                                    "account_align")
+        self.icon = self.xml.get_widget("icon")
+        self.capslock = self.xml.get_widget("capslock")
+        self.pwlabel = self.xml.get_widget("pwlabel")
+        self.pw = self.xml.get_widget("pw")
+        self.confirmlabel = self.xml.get_widget("confirmlabel")
+        self.confirm = self.xml.get_widget("confirm")
+
+        # load the icon
+        gui.readImageFromFile("root-password.png", image=self.icon)
+
+        # connect hotkeys
+        self.pwlabel.set_text_with_mnemonic(_("Root _Password:"))
+        self.pwlabel.set_mnemonic_widget(self.pw)
+        self.confirmlabel.set_text_with_mnemonic(_("_Confirm:"))
+        self.confirmlabel.set_mnemonic_widget(self.confirm)
+
+        # watch for Caps Lock so we can warn the user
+        self.intf.icw.window.connect("key-release-event",
+            lambda w, e: self.handleCapsLockRelease(w, e, self.capslock))
+
+        # we might have a root password already
+        if not self.rootPassword['isCrypted']:
+            self.pw.set_text(self.rootPassword['password'])
+            self.confirm.set_text(self.rootPassword['password'])
+
+        return self.align
+
+    def passwordError(self):
+        self.pw.set_text("")
+        self.confirm.set_text("")
+        self.pw.grab_focus()
+        raise gui.StayOnScreen
+
+    def handleCapsLockRelease(self, window, event, label):
+        if event.keyval == gtk.keysyms.Caps_Lock and \
+           event.state & gtk.gdk.LOCK_MASK:
+            if label.get_text() == "":
+                label.set_text("<b>" + _("Caps Lock is on.") + "</b>")
+                label.set_use_markup(True)
+            else:
+                label.set_text("")
 
     def getNext (self):
-        def passwordError():
-            self.pw.set_text("")
-            self.confirm.set_text("")
-            self.pw.grab_focus()            
-            raise gui.StayOnScreen
-            
-	if not self.__dict__.has_key("pw"): return None
-
         pw = self.pw.get_text()
         confirm = self.confirm.get_text()
 
@@ -56,119 +86,44 @@ class AccountWindow (InstallWindow):
                                       "and confirm it by typing it a second "
                                       "time to continue."),
                                     custom_icon="error")
-            passwordError()
+            self.passwordError()
 
         if pw != confirm:
             self.intf.messageWindow(_("Error with Password"),
                                     _("The passwords you entered were "
                                       "different.  Please try again."),
                                     custom_icon="error")
-            passwordError()
+            self.passwordError()
 
         if len(pw) < 6:
             self.intf.messageWindow(_("Error with Password"),
                                     _("The root password must be at least "
                                       "six characters long."),
                                     custom_icon="error")
-            passwordError()
+            self.passwordError()
 
         msg = cracklib.FascistCheck(pw)
         if msg is not None:
             ret = self.intf.messageWindow(_("Weak Password"),
                                           _("Weak password provided: %s"
                                             "\n\n"
-                                            "Would you like to continue with this "
-                                            "password?" % (msg, )),
+                                            "Would you like to continue with "
+                                            "this password?" % (msg, )),
                                           type = "yesno")
             if ret == 0:
-                passwordError()
-        
-        allowed = string.digits + string.ascii_letters + string.punctuation + " "
+                self.passwordError()
+
+        legal = string.digits + string.ascii_letters + string.punctuation + " "
         for letter in pw:
-            if letter not in allowed:
+            if letter not in legal:
                 self.intf.messageWindow(_("Error with Password"),
                                         _("Requested password contains "
                                           "non-ASCII characters, which are "
                                           "not allowed."),
                                         custom_icon="error")
-                passwordError()
+                self.passwordError()
 
         self.rootPassword["password"] = self.pw.get_text()
         self.rootPassword["isCrypted"] = False
+
         return None
-
-    def setFocus (self, area, data):
-        self.pw.grab_focus ()
-
-    # AccountWindow tag="accts"
-    def getScreen (self, anaconda):
-	self.rootPassword = anaconda.id.rootPassword
-        self.intf = anaconda.intf
-
-        self.capsLabel = gtk.Label()
-        self.capsLabel.set_alignment(0.0, 0.5)
-
-        self.intf.icw.window.connect("key-release-event",
-                                     lambda w, e: handleCapsLockRelease(w, e, self.capsLabel))
-
-	self.passwords = {}
-
-        box = gtk.VBox ()
-        box.set_border_width(5)
-
-        hbox = gtk.HBox()
-        pix = gui.readImageFromFile ("root-password.png")
-        if pix:
-            hbox.pack_start (pix, False)
-
-        label = gui.WrappingLabel (_("The root account is used for "
-                                     "administering the system.  Enter "
-                                     "a password for the root user."))
-        label.set_line_wrap(True)
-        label.set_size_request(350, -1)
-        label.set_alignment(0.0, 0.5)
-        hbox.pack_start(label, False)
-
-        box.pack_start(hbox, False)
-       
-        table = gtk.Table (3, 2)
-        table.set_size_request(365, -1)
-        table.set_row_spacings (5)
-	table.set_col_spacings (5)
-
-        pass1 = gui.MnemonicLabel (_("Root _Password: "))
-        pass1.set_alignment (0.0, 0.5)
-        table.attach (pass1, 0, 1, 0, 1, gtk.FILL, 0, 10)
-        pass2 = gui.MnemonicLabel (_("_Confirm: "))
-        pass2.set_alignment (0.0, 0.5)
-        table.attach (pass2, 0, 1, 1, 2, gtk.FILL, 0, 10)
-        self.pw = gtk.Entry (128)
-        pass1.set_mnemonic_widget(self.pw)
-        
-        self.pw.connect ("activate", lambda widget, box=box: box.emit("focus", gtk.DIR_TAB_FORWARD))
-        self.pw.connect ("map-event", self.setFocus)
-        self.pw.set_visibility (False)
-        self.confirm = gtk.Entry (128)
-        pass2.set_mnemonic_widget(self.confirm)
-        self.confirm.connect ("activate", lambda widget, box=box: self.ics.setGrabNext(1))
-        self.confirm.set_visibility (False)
-        table.attach (self.pw,        1, 2, 0, 1, gtk.FILL|gtk.EXPAND, 5)
-        table.attach (self.confirm,   1, 2, 1, 2, gtk.FILL|gtk.EXPAND, 5)
-        table.attach (self.capsLabel, 1, 2, 2, 3, gtk.FILL|gtk.EXPAND, 5)
-
-        hbox = gtk.HBox()
-        hbox.pack_start(table, False)
-
-        box.pack_start (hbox, False)
-
-        # root password statusbar
-        self.rootStatus = gtk.Label ("")
-        wrapper = gtk.HBox(0, False)
-        wrapper.pack_start (self.rootStatus)
-        box.pack_start (wrapper, False)
-
-        if not self.rootPassword["isCrypted"]:
-	    self.pw.set_text(self.rootPassword["password"])
-	    self.confirm.set_text(self.rootPassword["password"])
-
-        return box

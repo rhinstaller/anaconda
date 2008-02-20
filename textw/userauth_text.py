@@ -1,7 +1,7 @@
 #
 # userauth_text.py: text mode authentication setup dialogs
 #
-# Copyright (C) 2000, 2001, 2002  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2000, 2001, 2002, 2008  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,79 +22,81 @@ from constants_text import *
 from rhpl.translate import _
 import cracklib
 
-def has_bad_chars(pw):
-    allowed = string.digits + string.ascii_letters + string.punctuation + " "
-    for letter in pw:
-        if letter not in allowed:
-            return 1
-    return 0
-
 class RootPasswordWindow:
     def __call__ (self, screen, anaconda):
-        toplevel = GridFormHelp (screen, _("Root Password"), "rootpw", 1, 3)
+        toplevel = GridFormHelp(screen, _("Root Password"), "rootpw", 1, 3)
 
-        toplevel.add (TextboxReflowed(37, _("Pick a root password. You must "
-				"type it twice to ensure you know "
-				"it and do not make a typing mistake. "
-				"Remember that the "
-				"root password is a critical part "
-				"of system security!")), 0, 0, (0, 0, 0, 1))
+        toplevel.add(TextboxReflowed(37,
+                                     _("Pick a root password. You must "
+                                       "type it twice to ensure you know "
+                                       "it and do not make a typing "
+                                       "mistake. ")),
+                     0, 0, (0, 0, 0, 1))
 
         if anaconda.id.rootPassword["isCrypted"]:
             anaconda.id.rootPassword["password"] = ""
 
-        entry1 = Entry (24, password = 1, text = anaconda.id.rootPassword["password"])
-        entry2 = Entry (24, password = 1, text = anaconda.id.rootPassword["password"])
-        passgrid = Grid (2, 2)
-        passgrid.setField (Label (_("Password:")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
-        passgrid.setField (Label (_("Password (confirm):")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
-        passgrid.setField (entry1, 1, 0)
-        passgrid.setField (entry2, 1, 1)
-        toplevel.add (passgrid, 0, 1, (0, 0, 0, 1))
-        
-        bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
-        toplevel.add (bb, 0, 2, growx = 1)
+        entry1 = Entry(24, password=1,
+                       text=anaconda.id.rootPassword["password"])
+        entry2 = Entry(24, password=1,
+                       text=anaconda.id.rootPassword["password"])
+        passgrid = Grid(2, 2)
+        passgrid.setField(Label(_("Password:")), 0, 0, (0, 0, 1, 0),
+                          anchorLeft=1)
+        passgrid.setField(Label(_("Password (confirm):")), 0, 1, (0, 0, 1, 0),
+                          anchorLeft=1)
+        passgrid.setField(entry1, 1, 0)
+        passgrid.setField(entry2, 1, 1)
+        toplevel.add(passgrid, 0, 1, (0, 0, 0, 1))
+
+        bb = ButtonBar(screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+        toplevel.add(bb, 0, 2, growx = 1)
 
         while 1:
-            toplevel.setCurrent (entry1)
-            result = toplevel.run ()
-            rc = bb.buttonPressed (result)
+            toplevel.setCurrent(entry1)
+            result = toplevel.run()
+            rc = bb.buttonPressed(result)
             if rc == TEXT_BACK_CHECK:
                 screen.popWindow()
                 return INSTALL_BACK
-            if len (entry1.value ()) < 6:
+            if len(entry1.value()) < 6:
                 ButtonChoiceWindow(screen, _("Password Length"),
-		       _("The root password must be at least 6 characters "
-			 "long."),
-		       buttons = [ TEXT_OK_BUTTON ], width = 50)
-            elif entry1.value () != entry2.value ():
+                    _("The root password must be at least 6 characters long."),
+                    buttons = [ TEXT_OK_BUTTON ], width = 50)
+            elif entry1.value() != entry2.value():
                 ButtonChoiceWindow(screen, _("Password Mismatch"),
-		       _("The passwords you entered were different. Please "
-			 "try again."),
-		       buttons = [ TEXT_OK_BUTTON ], width = 50)
-            elif has_bad_chars(entry1.value()):
+                    _("The passwords you entered were different. Please "
+                      "try again."), buttons = [ TEXT_OK_BUTTON ], width = 50)
+            elif self.hasBadChars(entry1.value()):
                 ButtonChoiceWindow(screen, _("Error with Password"),
-		       _("Requested password contains non-ASCII characters, "
-                         "which are not allowed."),
-		       buttons = [ TEXT_OK_BUTTON ], width = 50)
+                    _("Requested password contains non-ASCII characters, "
+                      "which are not allowed."),
+                    buttons = [ TEXT_OK_BUTTON ], width = 50)
             else:
                 msg = cracklib.FascistCheck(entry1.value())
                 if msg is not None:
                     ret = anaconda.intf.messageWindow(_("Weak Password"),
-                                                  _("Weak password provided: %s"
-                                                    "\n\n"
-                                                    "Would you like to continue with this "
-                                                    "password?" % (msg, )),
-                                                  type = "yesno", default="no")
+                             _("Weak password provided: %s\n\n"
+                               "Would you like to continue with this password?"
+                               % (msg, )),
+                             type = "yesno", default="no")
                     if ret == 1:
                         break
                 else:
                     break
 
-            entry1.set ("")
-            entry2.set ("")
+            entry1.set("")
+            entry2.set("")
 
         screen.popWindow()
         anaconda.id.rootPassword["password"] = entry1.value()
         anaconda.id.rootPassword["isCrypted"] = False
         return INSTALL_OK
+
+    def hasBadChars(self, pw):
+        allowed = string.digits + string.ascii_letters + \
+                  string.punctuation + " "
+        for letter in pw:
+            if letter not in allowed:
+                return True
+        return False
