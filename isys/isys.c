@@ -438,7 +438,7 @@ static PyObject * doMount(PyObject * s, PyObject * args) {
     char *fs, *device, *mntpoint, *flags = NULL;
     int rc;
 
-    if (!PyArg_ParseTuple(args, "sss|s", &fs, &device, &mntpoint,
+    if (!PyArg_ParseTuple(args, "sss|z", &fs, &device, &mntpoint,
 			  &flags)) return NULL;
 
     rc = doPwMount(device, mntpoint, fs, flags);
