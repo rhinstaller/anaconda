@@ -170,6 +170,11 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
     lvm.vgscan()
     lvm.vgactivate()
 
+    try:
+        encryptedDevices = anaconda.id.partitions.encryptedDevices
+    except:
+        encryptedDevices = {}
+
     if root in anaconda.id.partitions.protectedPartitions() and os.path.ismount("/mnt/isodir"):
         root = "/mnt/isodir"
         bindMount = 1
@@ -210,6 +215,10 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
             return -1
 
     if flags.setupFilesystems:
+        for dev, crypto in encryptedDevices.items():
+            if crypto.openDevice():
+                log.error("failed to open encrypted device %s" % (dev,))
+
         oldfsset.mountFilesystems(anaconda, readOnly = readOnly,
                                   skiprootfs = bindMount)
 
