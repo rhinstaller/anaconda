@@ -870,7 +870,7 @@ class DiskSet:
                     # because that'll throw up a useless error message.
                     if not protected or theDev not in protected:
                         try:
-                            isys.mount(theDev, self.anaconda.rootPath, part.fs_type.name)
+                            isys.mount(theDev, self.anaconda.rootPath, fstype)
                             checkRoot = self.anaconda.rootPath
                         except SystemError, (errno, msg):
                             part = disk.next_partition(part)
