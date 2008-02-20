@@ -30,39 +30,51 @@ import os.path
 import logging
 log = logging.getLogger("anaconda")
 
-def createLuserConf(instPath):
+def createLuserConf(instPath, algoname='md5'):
     """Writes a libuser.conf for instPath."""
-    (fd, fn) = tempfile.mkstemp(prefix="libuser.")
+    if os.getenv("LIBUSER_CONF") and \
+       os.access(os.environ["LIBUSER_CONF"], os.R_OK):
+        fn = os.environ["LIBUSER_CONF"]
+        fd = open(fn, 'w')
+    else:
+        (fp, fn) = tempfile.mkstemp(prefix="libuser.")
+        fd = os.fdopen(fp, 'w')
+
     buf = """
 [defaults]
 skeleton = %(instPath)s/etc/skel
 mailspooldir = %(instPath)s/var/mail
-crypt_style = md5
+crypt_style = %(algo)s
 modules = files shadow
 create_modules = files shadow
 [files]
 directory = %(instPath)s/etc
 [shadow]
 directory = %(instPath)s/etc
-""" % {"instPath": instPath}
-    os.write(fd, buf)
-    os.close(fd)
+""" % {"instPath": instPath, "algo": algoname}
 
+    fd.write(buf)
+    fd.close()
     os.environ["LIBUSER_CONF"] = fn
 
-def cryptPassword(password, useMD5):
-    if useMD5:
-	salt = "$1$"
-	saltLen = 8
-    else:
-	salt = ""
-	saltLen = 2
+# These are explained in crypt/crypt-entry.c in glibc's code.  The prefixes
+# we use for the different crypt salts:
+#     $1$    MD5
+#     $5$    SHA256
+#     $6$    SHA512
+def cryptPassword(password, algo=None):
+    salts = {'md5': '$1$', 'sha256': '$5$', 'sha512': '$6$', None: ''}
+    saltstr = salts[algo]
+    saltlen = 2
 
-    for i in range(saltLen):
-	salt = salt + random.choice (string.letters +
-                                     string.digits + './')
+    if algo == 'md5' or algo == 'sha256' or algo == 'sha512':
+        saltlen = 16
 
-    return crypt.crypt (password, salt)
+    for i in range(saltlen):
+        saltstr = saltstr + random.choice (string.letters +
+                                           string.digits + './')
+
+    return crypt.crypt (password, saltstr)
 
 class Users:
     def __init__ (self):
@@ -72,8 +84,8 @@ class Users:
         os.unsetenv("LIBUSER_CONF")
         self.admin = libuser.admin()
 
-    def createUser (self, name, password=None, isCrypted=False, groups=[],
-                    homedir=None, shell=None, uid=None, lock=False,
+    def createUser (self, name=None, password=None, isCrypted=False, groups=[],
+                    homedir=None, shell=None, uid=None, algo=None, lock=False,
                     root="/mnt/sysimage"):
         childpid = os.fork()
 
@@ -108,9 +120,11 @@ class Users:
 
                 if password:
                     if isCrypted:
-                        self.admin.setpassUser(userEnt, password, isCrypted)
+                        self.admin.setpassUser(userEnt, password, True)
                     else:
-                        self.admin.setpassUser(userEnt, cryptPassword(password, True), isCrypted)
+                        self.admin.setpassUser(userEnt,
+                                            cryptPassword(password, algo=algo),
+                                            True)
 
                 if lock:
                     self.admin.lockUser(userEnt)
@@ -136,13 +150,13 @@ class Users:
         else:
             return False
 
-    def setRootPassword(self, password, isCrypted, useMD5, lock):
+    def setRootPassword(self, password, isCrypted, lock, algo=None):
         rootUser = self.admin.lookupUserByName("root")
 
         if isCrypted:
             self.admin.setpassUser(rootUser, password, True)
         else:
-            self.admin.setpassUser(rootUser, cryptPassword(password, useMD5), True)
+            self.admin.setpassUser(rootUser, cryptPassword(password, algo=algo), True)
 
         if lock:
             self.admin.lockUser(rootUser)
