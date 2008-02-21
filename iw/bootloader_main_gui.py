@@ -51,7 +51,6 @@ class MainBootloaderWindow(InstallWindow):
             # if we're not installing a boot loader, don't show the second
             # screen and don't worry about other options
             self.dispatch.skipStep("instbootloader", skip = 1)
-            self.dispatch.skipStep("bootloaderadvanced", skip = 1)
 
             # kind of a hack...
             self.bl.defaultDevice = None
@@ -66,16 +65,10 @@ class MainBootloaderWindow(InstallWindow):
         # set the bootloader images based on what's in our list
         self.oslist.setBootloaderImages()
 
-        if self.advanced.get_active():
-            self.dispatch.skipStep("bootloaderadvanced", skip = 0)
-        else:
-            self.dispatch.skipStep("bootloaderadvanced", skip = 1)
-
     def bootloaderChanged(self, *args):
         active = self.grubCB.get_active()
 
-        for widget in [ self.oslist.getWidget(), self.blpass.getWidget(),
-                        self.advanced ]:
+        for widget in [ self.oslist.getWidget(), self.blpass.getWidget() ]:
             widget.set_sensitive(active)
             
         
@@ -128,18 +121,6 @@ class MainBootloaderWindow(InstallWindow):
         # control whether or not there's a boot loader password and what it is
         self.blpass = BootloaderPasswordWidget(anaconda, self.parent)
         thebox.pack_start(self.blpass.getWidget(), False)
-
-        thebox.pack_start (gtk.HSeparator(), False)
-
-        # check box to control showing the advanced screen
-        self.advanced = gtk.CheckButton(_("Configure advanced boot loader "
-                                          "_options"))
-        if self.dispatch.stepInSkipList("bootloaderadvanced"):
-            self.advanced.set_active(False)
-        else:
-            self.advanced.set_active(True)
-            
-        thebox.pack_start(self.advanced, False)
 
         self.bootloaderChanged()
         return thebox
