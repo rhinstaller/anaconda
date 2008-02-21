@@ -181,7 +181,7 @@ char * mountUrlImage(struct installMethod * method,
     struct iurlinfo ui;
     char needsSecondary = ' ';
     int dir = 1;
-    char * cdurl;
+    char * cdurl = NULL;
 
     enum { URL_STAGE_MAIN, URL_STAGE_SECOND, URL_STAGE_FETCH, 
            URL_STAGE_DONE } stage = URL_STAGE_MAIN;
@@ -238,9 +238,13 @@ char * mountUrlImage(struct installMethod * method,
                 break;
             }
 
-	    /* ok messy - see if we have a stage2 on local CD */
-	    /* before trying to pull one over network         */
-	    cdurl = findAnacondaCD(location, 0);
+            /* See if we have a stage2 on a local CD before trying to pull
+             * one over the network.  However, passing stage2= overrides
+             * this check.
+             */
+            if (!FL_STAGE2(flags))
+                cdurl = findAnacondaCD(location, 0);
+
 	    if (cdurl) {
 		/* verify that our URL is specifying the correct tree */
 		/* we do this by attempting to pull a .discinfo file */

@@ -132,7 +132,7 @@ char * mountNfsImage(struct installMethod * method,
         case NFS_STAGE_MOUNT: {
             int foundinvalid = 0;
             char * buf;
-            char * cdurl;
+            char * cdurl = NULL;
             struct in_addr ip;
 
             if (loaderData->noDns && !(inet_pton(AF_INET, host, &ip))) {
@@ -160,8 +160,12 @@ char * mountNfsImage(struct installMethod * method,
             if (!doPwMount(fullPath, "/mnt/source", "nfs", mountOpts)) {
                 if (!access("/mnt/source/images/stage2.img", R_OK)) {
                     logMessage(INFO, "can access /mnt/source/images/stage2.img");
-                    /* try to see if we're booted off of a CD with stage2 */
-                    cdurl = findAnacondaCD("/mnt/stage2", 0);
+                    /* Try to see if we're booted off of a CD with stage2.  However,
+                     * passing stage2= overrides this check.
+                     */
+                    if (!FL_STAGE2(flags))
+                        cdurl = findAnacondaCD("/mnt/stage2", 0);
+
                     if (cdurl) {
                         logMessage(INFO, "Detected stage 2 image on CD");
                         winStatus(50, 3, _("Media Detected"),

@@ -59,7 +59,7 @@ static int loadHDImages(char * prefix, char * dir,
                         char * device, char * mntpoint,
                         char * location) {
     int fd = 0, rc, idx;
-    char *path, *target = NULL, *dest, *cdurl;
+    char *path, *target = NULL, *dest, *cdurl = NULL;
     char *stg2list[] = {"stage2.img", "minstg2.img", NULL};
 
     path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
@@ -69,8 +69,12 @@ static int loadHDImages(char * prefix, char * dir,
     else
         idx = 0;
 
-    /* try to see if we're booted off of a CD with stage2 */
-    cdurl = findAnacondaCD(location, 0);
+    /* Try to see if we're booted off of a CD with stage2.  However,
+     * passing stage2= overrides this check.
+     */
+    if (!FL_STAGE2(flags))
+        cdurl = findAnacondaCD(location, 0);
+
     if (cdurl) {
         logMessage(INFO, "Detected stage 2 image on CD");
         winStatus(50, 3, _("Media Detected"),
