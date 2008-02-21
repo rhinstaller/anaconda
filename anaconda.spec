@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.103
+Version: 11.1.2.104
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb 21 2008 Chris Lumens <clumens@redhat.com> 11.1.2.104-1
+- Handle exceptions when setting up repos not enabled by a key.
+  Resolves: rhbz#433028
+- Show unconfigured interfaces as UNCONFIGURED (dcantrell).
+  Related:  rhbz#275291
+
 * Tue Feb 19 2008 Chris Lumens <clumens@redhat.com> 11.1.2.103-1
 - Fix a traceback in the backported pkgorder fix.
   Resolves: rhbz#432006
