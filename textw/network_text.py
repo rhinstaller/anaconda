@@ -594,7 +594,7 @@ class NetworkDeviceWindow:
             elif ipv4 == '' and ipv6 != '':
                 desc = _("%s, %s") % (onboot, ipv6,)
             else:
-                desc = ""
+                desc = None
             self.devListDescs[devname] = desc
 
         # collect configuration data for each interface selected by the user
