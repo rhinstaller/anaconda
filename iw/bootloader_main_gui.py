@@ -47,7 +47,7 @@ class MainBootloaderWindow(InstallWindow):
         # since that won't change anything
         self.bl.setDevice(self.bldev)
 
-        if self.none_radio.get_active():
+        if not self.grubCB.get_active():
             # if we're not installing a boot loader, don't show the second
             # screen and don't worry about other options
             self.dispatch.skipStep("instbootloader", skip = 1)
@@ -58,10 +58,7 @@ class MainBootloaderWindow(InstallWindow):
             return
         else:
             self.dispatch.skipStep("instbootloader", skip = 0)
-            if self.blname == "GRUB":
-                self.bl.setUseGrub(1)
-            else:
-                self.bl.setUseGrub(0)
+            self.bl.setUseGrub(1)
 
         # set the password
         self.bl.setPassword(self.blpass.getPassword(), isCrypted = 0)
@@ -75,7 +72,7 @@ class MainBootloaderWindow(InstallWindow):
             self.dispatch.skipStep("bootloaderadvanced", skip = 1)
 
     def bootloaderChanged(self, *args):
-        active = self.grub_radio.get_active()
+        active = self.grubCB.get_active()
 
         for widget in [ self.oslist.getWidget(), self.blpass.getWidget(),
                         self.advanced ]:
@@ -100,11 +97,6 @@ class MainBootloaderWindow(InstallWindow):
         spacer.set_size_request(10, 1)
         thebox.pack_start(spacer, False)
 
-        if self.bl.useGrub():
-            self.blname = "GRUB"
-        else:
-            self.blname = None
-
         # make sure we get a valid device to say we're installing to
         if self.bl.getDevice() is not None:
             self.bldev = self.bl.getDevice()
@@ -117,31 +109,18 @@ class MainBootloaderWindow(InstallWindow):
             else:
                 self.bldev = choices['boot'][0]
 
-        vb = gtk.VBox(False, 6)
-        self.grub_radio = gtk.RadioButton(None, _("The %s boot loader will be "
-                                                  "installed on /dev/%s.") %
-                                          ("GRUB", self.bldev))
-        self.grub_radio.set_use_underline(False)
-        vb.pack_start(self.grub_radio)
-        self.none_radio = gtk.RadioButton(self.grub_radio,
-                                      _("No boot loader will be installed."))
-        vb.pack_start(self.none_radio)
-        if self.blname is None:
-            self.none_radio.set_active(True)
-            self.grub_radio.set_active(False)
-        else:
-            self.grub_radio.set_active(True)
-            self.none_radio.set_active(False)            
-        self.grub_radio.connect("toggled", self.bootloaderChanged)
-        self.none_radio.connect("toggled", self.bootloaderChanged)
-        thebox.pack_start(vb, False)
+        self.grubCB = gtk.CheckButton(_("_Install bootloader on /dev/%s.") %
+                                      (self.bldev,))
+        self.grubCB.set_active(not self.dispatch.stepInSkipList("instbootloader"))
+        self.grubCB.connect("toggled", self.bootloaderChanged)
+        thebox.pack_start(self.grubCB, False)
 
         spacer = gtk.Label("")
         spacer.set_size_request(10, 1)
         thebox.pack_start(spacer, False)
 
         # configure the systems available to boot from the boot loader
-        self.oslist = OSBootWidget(anaconda, self.parent, self.blname)
+        self.oslist = OSBootWidget(anaconda, self.parent)
         thebox.pack_start(self.oslist.getWidget(), False)
 
         thebox.pack_start (gtk.HSeparator(), False)

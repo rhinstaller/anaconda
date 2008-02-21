@@ -32,7 +32,7 @@ from constants import *
 class OSBootWidget:
     """Widget to display OSes to boot and allow adding new ones."""
     
-    def __init__(self, anaconda, parent, blname):
+    def __init__(self, anaconda, parent, blname = None):
         self.bl = anaconda.id.bootloader
         self.fsset = anaconda.id.fsset
         self.diskset = anaconda.id.diskset
