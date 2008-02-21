@@ -106,7 +106,10 @@ char * mountNfsImage(struct installMethod * method,
                 host = ((struct nfsInstallData *)loaderData->methodData)->host;
                 directory = ((struct nfsInstallData *)loaderData->methodData)->directory;
 
-                rc = asprintf(&mountOpts, "ro,%s", ((struct nfsInstallData *) loaderData->methodData)->mountOpts);
+                if (((struct nfsInstallData *) loaderData->methodData)->mountOpts == NULL)
+                    mountOpts = strdup("ro");
+                else
+                    rc = asprintf(&mountOpts, "ro,%s", ((struct nfsInstallData *) loaderData->methodData)->mountOpts);
 
                 logMessage(INFO, "host is %s, dir is %s, opts are '%s'", host, directory, mountOpts);
 
