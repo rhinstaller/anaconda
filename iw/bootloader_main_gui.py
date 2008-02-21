@@ -84,11 +84,8 @@ class MainBootloaderWindow(InstallWindow):
             self.usePass = 0
             self.password = None
 
-        thebox = gtk.VBox (False, 5)
-        thebox.set_border_width(10)
-        spacer = gtk.Label("")
-        spacer.set_size_request(10, 1)
-        thebox.pack_start(spacer, False)
+        thebox = gtk.VBox (False, 12)
+        thebox.set_border_width(18)
 
         # make sure we get a valid device to say we're installing to
         if self.bl.getDevice() is not None:
@@ -102,25 +99,25 @@ class MainBootloaderWindow(InstallWindow):
             else:
                 self.bldev = choices['boot'][0]
 
-        self.grubCB = gtk.CheckButton(_("_Install bootloader on /dev/%s.") %
+        hb = gtk.HBox(False, 12)
+        self.grubCB = gtk.CheckButton(_("_Install boot loader on /dev/%s.") %
                                       (self.bldev,))
         self.grubCB.set_active(not self.dispatch.stepInSkipList("instbootloader"))
         self.grubCB.connect("toggled", self.bootloaderChanged)
-        thebox.pack_start(self.grubCB, False)
+        hb.pack_start(self.grubCB, False)
 
-        spacer = gtk.Label("")
-        spacer.set_size_request(10, 1)
-        thebox.pack_start(spacer, False)
+        self.deviceButton = gtk.Button(_("_Change device"))
+        hb.pack_start(self.deviceButton, False)
 
-        # configure the systems available to boot from the boot loader
-        self.oslist = OSBootWidget(anaconda, self.parent)
-        thebox.pack_start(self.oslist.getWidget(), False)
-
-        thebox.pack_start (gtk.HSeparator(), False)
+        thebox.pack_start(hb, False)
 
         # control whether or not there's a boot loader password and what it is
         self.blpass = BootloaderPasswordWidget(anaconda, self.parent)
         thebox.pack_start(self.blpass.getWidget(), False)
+
+        # configure the systems available to boot from the boot loader
+        self.oslist = OSBootWidget(anaconda, self.parent)
+        thebox.pack_end(self.oslist.getWidget(), True)
 
         self.bootloaderChanged()
         return thebox
