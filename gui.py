@@ -71,7 +71,6 @@ stepToClass = {
     "addswap" : ("upgrade_swap_gui", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_migratefs_gui", "UpgradeMigrateFSWindow"),
     "bootloader": ("bootloader_main_gui", "MainBootloaderWindow"),
-    "bootloaderadvanced": ("bootloader_advanced_gui", "AdvancedBootloaderWindow"),
     "upgbootloader": ("upgrade_bootloader_gui", "UpgradeBootloaderWindow"),
     "network" : ("network_gui", "NetworkWindow"),
     "timezone" : ("timezone_gui", "TimezoneWindow"),

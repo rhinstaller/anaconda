@@ -61,8 +61,6 @@ stepToClasses = {
     "bootloader" : ("bootloader_text", ("BootloaderChoiceWindow",
                                         "BootloaderAppendWindow",
                                         "BootloaderPasswordWindow")),
-    "bootloaderadvanced" : ("bootloader_text", ("BootloaderImagesWindow",
-                                                "BootloaderLocationWindow")),
     "network" : ("network_text", ("NetworkDeviceWindow", "NetworkGlobalWindow",
                                   "HostnameWindow")),
     "timezone" : ("timezone_text", "TimezoneWindow"),
