@@ -160,6 +160,8 @@ char *nl_ip2str(char *ifname) {
                 }
             }
         }
+
+        nl_object_put(obj);
     } while ((obj = nl_cache_get_next(obj)) != NULL);
 
 ip2str_error:
