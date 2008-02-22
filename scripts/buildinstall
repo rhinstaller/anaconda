@@ -86,7 +86,7 @@ if [ -z "$BUGURL" ]; then
     BUGURL="your distribution provided bug reporting tool."
 fi
 
-DIR=`cd $DIR; /bin/pwd`
+DIR=`cd $DIR > /dev/null; /bin/pwd`
 
 BUILDINSTDIR=`mktemp -d ${TMPDIR:-/tmp}/buildinstall.tree.XXXXXX`
 TREEDIR=`mktemp -d ${TMPDIR:-/tmp}/treedir.XXXXXX`
