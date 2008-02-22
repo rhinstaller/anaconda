@@ -47,6 +47,8 @@ class MainBootloaderWindow(InstallWindow):
         # since that won't change anything
         self.bl.setDevice(self.bldev)
 
+        self.bl.drivelist = self.driveorder
+
         if not self.grubCB.get_active():
             # if we're not installing a boot loader, don't show the second
             # screen and don't worry about other options
@@ -68,14 +70,121 @@ class MainBootloaderWindow(InstallWindow):
     def bootloaderChanged(self, *args):
         active = self.grubCB.get_active()
 
-        for widget in [ self.oslist.getWidget(), self.blpass.getWidget() ]:
+        for widget in [ self.oslist.getWidget(), self.blpass.getWidget(), self.deviceButton ]:
             widget.set_sensitive(active)
+
+
+    def _deviceChange(self, b, anaconda, *args):
+        def __driveChange(combo, dxml, choices):
+            if not choices.has_key("mbr"):
+                return
+            first = combo.get_model()[combo.get_active_iter()][1]
+            desc = choices["mbr"][1]
+            dxml.get_widget("mbrRadio").set_label("%s - /dev/%s" %(desc, first))
+            dxml.get_widget("mbrRadio").set_data("bootDevice", first)
+
+        def __genStore(combo, disks, active):
+            model = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+            combo.set_model(model)
+            cell = gtk.CellRendererText()
+            combo.pack_start(cell, True)
+            combo.set_attributes(cell, text = 0)
+
+            keys = disks.keys()
+            keys.sort()
+
+            for d in keys:
+                size = partedUtils.getDeviceSizeMB(disks[d].dev)
+                m = disks[d].dev.model
+
+                i = model.append(None)
+                model[i] = ("%s %8.0f MB %s" %(d, size, m), "%s" %(d,))
+                if d == active:
+                    combo.set_active_iter(i)
+
+            return model
+
+        (dxml, dialog) = gui.getGladeWidget("blwhere.glade",
+                                            "blwhereDialog")
+        gui.addFrame(dialog)
+        dialog.show()
+
+        choices = anaconda.id.fsset.bootloaderChoices(anaconda.id.diskset,
+                                                      self.bl)
+        for t in ("mbr", "boot"):
+            if not choices.has_key(t):
+                continue
+            (device, desc) = choices[t]
+            w = dxml.get_widget("%sRadio" %(t,))
+            w.set_label("%s - /dev/%s" %(desc, device))
+            w.show()
+            if self.bldev == device:
+                w.set_active(True)
+            else:
+                w.set_active(False)
+            w.set_data("bootDevice", device)
             
         
+        for i in range(1, 5):
+            if len(self.driveorder) < i:
+                break
+            combo = dxml.get_widget("bd%dCombo" %(i,))
+            lbl = dxml.get_widget("bd%dLabel" %(i,))
+            combo.show()
+            lbl.show()
+            m = __genStore(combo, anaconda.id.diskset.disks, self.driveorder[i - 1])
+
+        dxml.get_widget("bd1Combo").connect("changed", __driveChange, dxml, choices)
+        __driveChange(dxml.get_widget("bd1Combo"), dxml, choices)
+
+        while 1:
+            rc = dialog.run()
+            if rc == gtk.RESPONSE_CANCEL:
+                break
+
+            # set the boot device based on what they chose
+            if dxml.get_widget("bootRadio").get_active():
+                self.bldev = dxml.get_widget("bootRadio").get_data("bootDevice")
+            elif dxml.get_widget("mbrRadio").get_active():
+                self.bldev = dxml.get_widget("mbrRadio").get_data("bootDevice")
+            else:
+                raise RuntimeError, "No radio button selected!"
+
+            # and adjust the boot order
+            neworder = []
+            for i in range(1, 5):
+                if len(self.driveorder) < i:
+                    break
+                combo = dxml.get_widget("bd%dCombo" %(i,))
+                act = combo.get_model()[combo.get_active_iter()][1]
+                if act not in neworder:
+                    neworder.append(act)
+            for d in self.driveorder:
+                if d not in neworder:
+                    neworder.append(d)
+            self.driveorder = neworder
+
+            break
+
+        dialog.destroy()
+        self.grubCB.set_label(_("_Install boot loader on /dev/%s.") %
+                              (self.bldev,))
+        return rc
+
+    def _setBLCBText(self):
+        self.grubCB.set_label(_("_Install boot loader on /dev/%s.") %
+                              (self.bldev,))
+
+
     def getScreen(self, anaconda):
         self.dispatch = anaconda.dispatch
         self.bl = anaconda.id.bootloader
         self.intf = anaconda.intf
+
+        drives = anaconda.id.diskset.disks
+        self.driveorder = self.bl.drivelist
+        if len(self.driveorder) == 0:
+            self.driveorder = drives.keys()
 
         if self.bl.getPassword():
             self.usePass = 1
@@ -107,6 +216,7 @@ class MainBootloaderWindow(InstallWindow):
         hb.pack_start(self.grubCB, False)
 
         self.deviceButton = gtk.Button(_("_Change device"))
+        self.deviceButton.connect("clicked", self._deviceChange, anaconda)
         hb.pack_start(self.deviceButton, False)
 
         thebox.pack_start(hb, False)
