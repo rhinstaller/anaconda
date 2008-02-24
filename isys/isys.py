@@ -747,6 +747,13 @@ def dhcpNetDevice(device):
 
     return _isys.dhcpnetdevice(devname, v4, v4method, v6, v6method, klass)
 
+def readFSUuid(device):
+    if not os.path.exists(device):
+        device = "/dev/%s" % device
+
+    label = _isys.getblkid(device, "UUID")
+    return label
+
 def readFSLabel(device):
     if not os.path.exists(device):
         device = "/dev/%s" % device
