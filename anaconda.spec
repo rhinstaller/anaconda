@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.37
+Version: 11.4.0.38
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,36 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Feb 24 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.38-1
+- Write out UUID in the fstab (#364441) (katzj)
+- Add support for getting UUID using libblkid (katzj)
+- Fix calculation of sizes of LVs when resizing (#433024) (katzj)
+- Add back some bits for text mode (katzj)
+- Remove advanced bootloader bits (katzj)
+- Add support for actually changing where the boot loader gets 
+  installed as well (katzj)
+- Less text. (katzj)
+- Reorder things a little, clean up spacing (katzj)
+- Use a tooltip instead of a long bit of text that most people 
+  don't read (katzj)
+- Remove advanced checkbox (katzj)
+- Switch the grub installation radio to be a checkbutton.  Cleanups for 
+  grub only (katzj)
+- Lets redirect to /dev/null to ensure that what we get in DIR is the 
+  result of pwd. (jgranado)
+- Catch the error emmited by lvm tools during logical volume 
+  creation process (#224636). (msivak)
+- Don't try to lock /etc/mtab, fix error detection when mount fails. (clumens)
+- Don't append (null) to the NFS mount options. (clumens)
+- There's no need to wait if the last download retry failed. (clumens)
+- the '-o' is appended to the mount command in imount.c (jgranado)
+- Use full path to device for mount in findExistingRootPartitions. (dlehman)
+- Map preexisting encrypted devs before mounting everything 
+  in mountRootPartition. (dlehman)
+- Fix traceback on test mount in findExistingRootPartitions. (dlehman)
+- Use SHA-512 by default for password encryption. (dcantrell)
+- Clean up root password user interfaces. (dcantrell)
+
 * Tue Feb 19 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.37-1
 - Default to the right timezone when language is changed (#432158). (clumens)
 - Fix another text mode network config traceback (#433475). (clumens)
