@@ -72,11 +72,11 @@ int doPwMount(char *dev, char *where, char *fs, char *options) {
 
         if (opts) {
             rc = execl("/bin/mount",
-                       "/bin/mount", "-t", fs, "-o", opts, dev, where, NULL);
+                       "/bin/mount", "-n", "-t", fs, "-o", opts, dev, where, NULL);
             exit(1);
         }
         else {
-            rc = execl("/bin/mount", "/bin/mount", "-t", fs, dev, where, NULL);
+            rc = execl("/bin/mount", "/bin/mount", "-n", "-t", fs, dev, where, NULL);
             exit(1);
         }
     }
@@ -84,8 +84,8 @@ int doPwMount(char *dev, char *where, char *fs, char *options) {
     waitpid(child, &status, 0);
 
     free(opts);
-    if (status)
-        return IMOUNT_ERR_OTHER;
+    if (!WIFEXITED(status) || (WIFEXITED(status) && WEXITSTATUS(status)))
+       return IMOUNT_ERR_OTHER;
 
     return 0;
 }

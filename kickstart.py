@@ -182,8 +182,7 @@ class Bootloader(commands.bootloader.F8_Bootloader):
                                                     self.password, self.md5pass,
                                                     self.appendLine, self.driveorder, self.timeout)
 
-        self.handler.permanentSkipSteps.extend(["upgbootloader", "bootloader",
-                                                "bootloaderadvanced"])
+        self.handler.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
 
 class ClearPart(commands.clearpart.FC3_ClearPart):
     def parse(self, args):

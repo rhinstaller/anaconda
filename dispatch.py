@@ -96,7 +96,6 @@ installSteps = [
     ("upgbootloader", ),
     ("bootloadersetup", bootloaderSetupChoices, ),
     ("bootloader", ),
-    ("bootloaderadvanced", ),
     ("reposetup", doRepoSetup, ),
     ("basepkgsel", doBasePackageSelect, ),
     ("tasksel", ),

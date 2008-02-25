@@ -461,7 +461,6 @@ def setSteps(anaconda):
 
     if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
         dispatch.skipStep("bootloader")
-        dispatch.skipStep("bootloaderadvanced")
 
     if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
         dispatch.skipStep("upgbootloader")            

@@ -160,7 +160,15 @@ def turnOnFilesystems(anaconda):
                 anaconda.id.partitions.doMetaResizes(anaconda.id.diskset)
             anaconda.id.fsset.growFilesystems(anaconda.id.diskset, anaconda.rootPath)
             if not anaconda.id.fsset.volumesCreated:
-                anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)
+                try:
+                    anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)
+                except SystemError, e:
+                    log.error("createLogicalVolumes failed with SystemError: %s", e.message)
+                    anaconda.intf.messageWindow(_("LVM operation failed"),
+                                        e.message+"\n\n"+_("The installer will now exit..."),
+                                        type="error")
+	            sys.exit(0)
+
             anaconda.id.fsset.formatSwap(anaconda.rootPath)
             anaconda.id.fsset.turnOnSwap(anaconda.rootPath)
             anaconda.id.fsset.makeFilesystems(anaconda.rootPath,

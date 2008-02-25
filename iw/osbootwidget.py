@@ -32,7 +32,7 @@ from constants import *
 class OSBootWidget:
     """Widget to display OSes to boot and allow adding new ones."""
     
-    def __init__(self, anaconda, parent, blname):
+    def __init__(self, anaconda, parent, blname = None):
         self.bl = anaconda.id.bootloader
         self.fsset = anaconda.id.fsset
         self.diskset = anaconda.id.diskset
@@ -46,18 +46,10 @@ class OSBootWidget:
         self.setIllegalChars()
         
         self.vbox = gtk.VBox(False, 5)
-        label = gui.WrappingLabel(_("You can configure the boot loader to boot other operating systems "
-				    "by selecting from the list. "
-				    "To add an operating systems that was not automatically "
-				    "detected, click 'Add.' To change the operating system booted by default, "
-				    "select 'Default' next to the desired operating system."))
+        label = gtk.Label("<b>" + _("Boot loader operating system list") + "</b>")
 	label.set_alignment(0.0, 0.0)
-	label.set_size_request(350, -1)
+        label.set_property("use-markup", True)
         self.vbox.pack_start(label, False)
-
-        spacer = gtk.Label("")
-        spacer.set_size_request(10, 1)
-        self.vbox.pack_start(spacer, False)
 
         box = gtk.HBox (False, 5)
         sw = gtk.ScrolledWindow()
@@ -143,10 +135,6 @@ class OSBootWidget:
             _("Enter a label for the boot loader menu to display. The "
 	      "device (or hard drive and partition number) is the device "
 	      "from which it boots.")))
-
-        spacer = gtk.Label("")
-        spacer.set_size_request(10, 1)
-        dialog.vbox.pack_start(spacer, False)
 
         table = gtk.Table(2, 5)
         table.set_row_spacings(5)

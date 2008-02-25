@@ -1088,7 +1088,7 @@ def doPartitioning(diskset, requests, doRefresh = 1):
     vgused = {}
     for request in requests.requests:
         if request.type == REQUEST_LV:
-            size = int(request.getActualSize(requests, diskset))
+            size = int(request.getActualSize(requests, diskset, True))
             if vgused.has_key(request.volumeGroup):
                 vgused[request.volumeGroup] = (vgused[request.volumeGroup] +
                                                size)
