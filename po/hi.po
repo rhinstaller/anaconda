@@ -1,16 +1,16 @@
-# translation of hi.po to Hindi
+# translation of anaconda.master.hi.po to Hindi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
-# Rajesh Ranjan <rranjan@redhat.com>, 2004, 2005, 2006, 2007.
+# Rajesh Ranjan <rranjan@redhat.com>, 2004, 2005, 2006, 2007, 2008.
 # hi <ssad@dwsdk>, 2007.
 # hi <rranjan@redhat.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: hi\n"
+"Project-Id-Version: anaconda.master.hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-09-11 15:28+0530\n"
+"PO-Revision-Date: 2008-02-25 13:06+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n\n"
+"\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -509,7 +511,9 @@ msgstr "संनिक्षेप लिखा गया"
 msgid ""
 "Your system's state has been successfully written to the floppy. The "
 "installer will now exit."
-msgstr "आपके सिस्टम की स्थिति सफलता पूर्वक फ्लॉपी पर लिखी जा चुकी है. अधिष्ठापक अब बाहर निकल जायेगा."
+msgstr ""
+"आपके सिस्टम की स्थिति सफलता पूर्वक फ्लॉपी पर लिखी जा चुकी है. अधिष्ठापक अब बाहर निकल "
+"जायेगा."
 
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
@@ -530,8 +534,8 @@ msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
 msgstr ""
-"आपके सिस्टम की स्थिति सफलता पूर्वक दूरस्थ मेजबान पर लिखी जा चुकी है. आपका अधिष्ठापक अब पुनः "
-"बूट किया जायेगा."
+"आपके सिस्टम की स्थिति सफलता पूर्वक दूरस्थ मेजबान पर लिखी जा चुकी है. आपका अधिष्ठापक अब "
+"पुनः बूट किया जायेगा."
 
 #: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
@@ -784,8 +788,8 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s में उत्प्रवासित होने में त्रुटि घटित हुआ  यह एक घातक समस्या है अधिष्ठापन "
-"जारी नहीं हो सकता है. \n"
+"%s में उत्प्रवासित होने में त्रुटि घटित हुआ  यह एक घातक समस्या है अधिष्ठापन जारी नहीं हो "
+"सकता है. \n"
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए <Enter> दबाएं."
 
@@ -801,8 +805,8 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s को बनाने का प्रयास करते समय एक त्रुटि घटित हुआ इस पथ का कुछ तत्व निर्देशिका नहीं है.. यह एक घातक त्रुटि है अधिष्ठापन "
-"जारी नहीं हो सकता है. \n"
+"%s को बनाने का प्रयास करते समय एक त्रुटि घटित हुआ इस पथ का कुछ तत्व निर्देशिका नहीं है.. "
+"यह एक घातक त्रुटि है अधिष्ठापन जारी नहीं हो सकता है. \n"
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए <Enter> दबाएं."
 
@@ -908,7 +912,9 @@ msgstr "अमान्य लेबल"
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
-msgstr "युक्ति %s पर अवैध लेबल दिया गया था. कृपया इस समस्या को ठीक करें और अधिष्ठापन प्रक्रिया को पुनः प्रारंभ करें."
+msgstr ""
+"युक्ति %s पर अवैध लेबल दिया गया था. कृपया इस समस्या को ठीक करें और अधिष्ठापन प्रक्रिया "
+"को पुनः प्रारंभ करें."
 
 #: ../fsset.py:2701
 msgid "Formatting"
@@ -1091,10 +1097,11 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"%s फाइल खोला नहीं जा सकता है. यह फाइल नहीं होने या शायद भ्रष्ट संकुल के कारण हो सकता है. "
-"कृपया अपने अधिष्ठापन विंब को जांचे और जांचें कि आपके पास सारे जरूरी मीडिया हैं.\n"
+"%s फाइल खोला नहीं जा सकता है. यह फाइल नहीं होने या शायद भ्रष्ट संकुल के कारण हो सकता "
+"है. कृपया अपने अधिष्ठापन विंब को जांचे और जांचें कि आपके पास सारे जरूरी मीडिया हैं.\n"
 "\n"
-"अगर आप रिबूट करते हैं, आपका सिस्टम असंगत स्थिति में छोड़ा जायेगा जिसके लिए पुनः अधिष्ठापन किया जाना जरूरी होगा.\n"
+"अगर आप रिबूट करते हैं, आपका सिस्टम असंगत स्थिति में छोड़ा जायेगा जिसके लिए पुनः अधिष्ठापन "
+"किया जाना जरूरी होगा.\n"
 "\n"
 
 #: ../harddrive.py:71 ../image.py:516
@@ -1110,8 +1117,8 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Exit  to abort "
 "the installation."
 msgstr ""
-"अधिष्ठापक ने #%s चित्र को आरोहित करने का प्रयास किया है, लेकिन इसे हार्ड ड्राइव पर नहीं पा "
-"सकता है.\n"
+"अधिष्ठापक ने #%s चित्र को आरोहित करने का प्रयास किया है, लेकिन इसे हार्ड ड्राइव पर नहीं "
+"पा सकता है.\n"
 "\n"
 "ड्राइव पर पर इस चित्र को कॉपी करें और फिर कोशिश करें को क्लिक करें. अधिष्ठापन रोकने के "
 "लिये बाहर निकलें क्लिक करें."
@@ -1216,10 +1223,11 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"%s फाइल खोला नहीं जा सकता है. यह फाइल नहीं होने या शायद भ्रष्ट संकुल के कारण हो सकता है. "
-"कृपया अपने अधिष्ठापन विंब को जांचे कि आपके पास सारे जरूरी संकुल हैं.\n"
+"%s फाइल खोला नहीं जा सकता है. यह फाइल नहीं होने या शायद भ्रष्ट संकुल के कारण हो सकता "
+"है. कृपया अपने अधिष्ठापन विंब को जांचे कि आपके पास सारे जरूरी संकुल हैं.\n"
 "\n"
-"अगर आप बाहर निकलते हैं, आपका सिस्टम असंगत स्थिति में छोड़ा जायेगा जिसके लिए फिर अधिष्ठापन जरूरी होगा.\n"
+"अगर आप बाहर निकलते हैं, आपका सिस्टम असंगत स्थिति में छोड़ा जायेगा जिसके लिए फिर "
+"अधिष्ठापन जरूरी होगा.\n"
 "\n"
 
 #: ../image.py:443
@@ -1522,7 +1530,10 @@ msgid ""
 "the Linux kernel does not allow for more than 15 partitons at this time.  "
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
-msgstr "ड्राइव /dev/%s के पास इसपर 15 से अधिक विभाजन है.  Linux कर्नेल में SCSI उपसिस्टम एक समय में 15 विभाजन से अधिक का समर्थन नहीं करता है.  आप इस डिस्क के विभाजन को बदलने या /dev/%s15 के %s में किसी विभाजन का प्रयोग करने में समर्थ नहीं होंगे."
+msgstr ""
+"ड्राइव /dev/%s के पास इसपर 15 से अधिक विभाजन है.  Linux कर्नेल में SCSI उपसिस्टम एक "
+"समय में 15 विभाजन से अधिक का समर्थन नहीं करता है.  आप इस डिस्क के विभाजन को बदलने या /"
+"dev/%s15 के %s में किसी विभाजन का प्रयोग करने में समर्थ नहीं होंगे."
 
 #: ../partedUtils.py:1184
 #, python-format
@@ -1531,7 +1542,10 @@ msgid ""
 "the Linux kernel does not allow for more than 15 partitions at this time.  "
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
-msgstr "ड्राइव /dev/%s के पास इसपर 15 से अधिक विभाजन है.  Linux कर्नेल में SCSI उपसिस्टम एक समय में 15 विभाजन से अधिक का समर्थन नहीं करता है.  आप इस डिस्क के विभाजन को बदलने या /dev/%s15 के %s में किसी विभाजन का प्रयोग करने में समर्थ नहीं होंगे."
+msgstr ""
+"ड्राइव /dev/%s के पास इसपर 15 से अधिक विभाजन है.  Linux कर्नेल में SCSI उपसिस्टम एक "
+"समय में 15 विभाजन से अधिक का समर्थन नहीं करता है.  आप इस डिस्क के विभाजन को बदलने या /"
+"dev/%s15 के %s में किसी विभाजन का प्रयोग करने में समर्थ नहीं होंगे."
 
 #: ../partedUtils.py:1276
 msgid "No Drives Found"
@@ -2404,7 +2418,8 @@ msgstr ""
 "कृपया अपने मिरर को जांचे जो सारे जरूरी संकुल को रखता है, और दूसरे अलग के प्रयोग की कोशिश "
 "करें.\n"
 "\n"
-"अगर आप बाहर निकलते हैं, आपका सिस्टम असंगत स्थिति में छोड़ा जायेगा जिसके लिए पुनः अधिष्ठापन जरूरी होगा.\n"
+"अगर आप बाहर निकलते हैं, आपका सिस्टम असंगत स्थिति में छोड़ा जायेगा जिसके लिए पुनः "
+"अधिष्ठापन जरूरी होगा.\n"
 "\n"
 
 #: ../vnc.py:49
@@ -2596,7 +2611,7 @@ msgstr "<b>%s अधिष्ठापित कर रहा है</b> (%s)\n"
 #: ../yuminstall.py:185
 #, python-format
 msgid "%s of %s packages completed"
-msgstr "%s %s संकुल का पूर्ण हुआ"
+msgstr "%s संकुल %s संकुलों में से पूरा हुआ"
 
 #: ../yuminstall.py:195
 msgid "Finishing upgrade"
@@ -5629,8 +5644,8 @@ msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
 msgstr ""
-"चालन में वर्तमान में डिस्क जाँच के लिए \"%s\" चुनें या \"%s\" डिस्क निकालने के लिए और जाँच करने के "
-"लिए अन्य डालें."
+"चालन में वर्तमान में डिस्क जाँच के लिए \"%s\" चुनें या \"%s\" डिस्क निकालने के लिए और जाँच "
+"करने के लिए अन्य डालें."
 
 #: ../loader2/cdinstall.c:114
 #, c-format
@@ -5641,10 +5656,10 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each disc prior to using it again."
 msgstr ""
-"अगर आप अतिरिक्त मीडिया जांच करना चाहते हैं, अगला डिस्क डालें और \"%s\" दबायें. हर डिस्क को "
-"जांचना कड़ाई से जरूरी है, हालांकि यह काफी अनुशंसित है.  न्यूनतम रूप से, डिस्क को उन्हें प्रयोग "
-"करने से पहले पहली बार जांचा जाना चाहिये. उन्हें सफलतापूर्वक जांचे जाना के बाद, हर डिस्क को "
-"इसे पहले प्रयोग करने के लिये फिर जांचना जरूरी है."
+"अगर आप अतिरिक्त मीडिया जांच करना चाहते हैं, अगला डिस्क डालें और \"%s\" दबायें. हर डिस्क "
+"को जांचना कड़ाई से जरूरी है, हालांकि यह काफी अनुशंसित है.  न्यूनतम रूप से, डिस्क को उन्हें "
+"प्रयोग करने से पहले पहली बार जांचा जाना चाहिये. उन्हें सफलतापूर्वक जांचे जाना के बाद, हर "
+"डिस्क को इसे पहले प्रयोग करने के लिये फिर जांचना जरूरी है."
 
 #: ../loader2/cdinstall.c:137
 #, c-format
@@ -5684,7 +5699,9 @@ msgstr ""
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
-msgstr "आपके किसी भी CDROM चालन में %s डिस्क नहीं मिला था. कृपया %s डिस्क डालें और पुनःप्रयास के लिए %s दबाएँ."
+msgstr ""
+"आपके किसी भी CDROM चालन में %s डिस्क नहीं मिला था. कृपया %s डिस्क डालें और पुनःप्रयास के "
+"लिए %s दबाएँ."
 
 #: ../loader2/cdinstall.c:391
 msgid "Disc Not Found"
