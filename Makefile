@@ -86,11 +86,14 @@ install:
 	strip $(DESTDIR)/$(PYTHONLIBDIR)/*.so
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
-CVSTAG=anaconda-$(subst .,_,$(VERSION)-$(RELEASE))
+TAG=anaconda-$(VERSION)-$(RELEASE)
 SRPMDIR=$(shell rpm --eval '%{_srcrpmdir}')
 tag:
-	@cvs tag -cR $(CVSTAG)
-	@echo "Tagged as $(CVSTAG)"
+	@git tag -a -m "Tag as $(TAG)" -f $(TAG)
+	@echo "Tagged as $(TAG)"
+
+ChangeLog:
+	(GIT_DIR=.git git-log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
 
 archive: create-archive
 
@@ -103,23 +106,15 @@ build: src
 	@mkdir /tmp/anaconda
 	cd /tmp/anaconda ; cvs co common ; cd common ; ./cvs-import.sh -b RHEL-4 $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
 	@rm -rf /tmp/anaconda
-	brew build $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?rpms/anaconda/RHEL-4#$(CVSTAG)'
+	brew build $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?rpms/anaconda/RHEL-4#$(TAG)'
 
-create-snapshot:
-	@rm -rf /tmp/anaconda
-	@rm -rf /tmp/anaconda-$(VERSION)
-	@tag=`cvs status Makefile | awk ' /Sticky Tag/ { print $$3 } '` 2> /dev/null; \
-	[ x"$$tag" = x"(none)" ] && tag=HEAD; \
-	[ x"$$TAG" != x ] && tag=$$TAG; \
-	cvsroot=`cat CVS/Root` 2>/dev/null; \
-        echo "*** Pulling off $$tag from $$cvsroot!"; \
-	cd /tmp ; cvs -z3 -Q -d $$cvsroot export -r $$tag anaconda || echo "Um... export aborted."
-	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
-	@cd /tmp ; tar --bzip2 -cSpf anaconda-$(VERSION).tar.bz2 anaconda-$(VERSION)
-	@rm -rf /tmp/anaconda-$(VERSION)
-	@cp /tmp/anaconda-$(VERSION).tar.bz2 .
-	@rm -f /tmp/anaconda-$(VERSION).tar.bz2
-	@echo ""
+create-snapshot: ChangeLog tag
+	@git-archive --format=tar --prefix=anaconda-$(VERSION)/ $(TAG) > anaconda-$(VERSION).tar
+	@mkdir -p anaconda-$(VERSION)/
+	@cp ChangeLog anaconda-$(VERSION)/
+	@tar --append -f anaconda-$(VERSION).tar anaconda-$(VERSION)
+	@bzip2 -f anaconda-$(VERSION).tar
+	@rm -rf anaconda-$(VERSION)
 	@echo "The final archive is in anaconda-$(VERSION).tar.bz2"
 
 create-archive:
