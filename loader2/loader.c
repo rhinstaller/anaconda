@@ -647,8 +647,6 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             num_link_checks = atoi(argv[i] + 10);
         else if (!strncasecmp(argv[i], "nicdelay=", 9))
             post_link_sleep = atoi(argv[i] + 9);
-	else if (!strncasecmp(argv[i], "dhcptimeout=", 12))
-	    loaderData->dhcpTimeout = atoi(argv[i] + 12);
         else if (!strncasecmp(argv[i], "selinux=0", 9))
             flags &= ~LOADER_FLAGS_SELINUX;
         else if (!strncasecmp(argv[i], "selinux", 7))
@@ -1250,7 +1248,7 @@ int main(int argc, char ** argv) {
         openlog("loader", 0, LOG_LOCAL0);
 
     memset(&loaderData, 0, sizeof(loaderData));
-    loaderData.dhcpTimeout = -1;
+
 
     extraArgs[0] = NULL;
     flags = parseCmdLineFlags(flags, &loaderData, cmdLine);
@@ -1306,6 +1304,11 @@ int main(int argc, char ** argv) {
         setLanguage(loaderData.lang, flags);
     }
 
+    /* JKFIXME: should probably not be doing this, but ... */
+    loaderData.modLoaded = modLoaded;
+    loaderData.modDepsPtr = &modDeps;
+    loaderData.modInfo = modInfo;
+
     if (!canProbeDevices() || FL_MODDISK(flags)) {
         startNewt(flags);
         
@@ -1329,10 +1332,6 @@ int main(int argc, char ** argv) {
 
     busProbe(modInfo, modLoaded, modDeps, 0, flags);
 
-    /* JKFIXME: should probably not be doing this, but ... */
-    loaderData.modLoaded = modLoaded;
-    loaderData.modDepsPtr = &modDeps;
-    loaderData.modInfo = modInfo;
 
     /* JKFIXME: we'd really like to do this before the busprobe, but then
      * we won't have network devices available (and that's the only thing
