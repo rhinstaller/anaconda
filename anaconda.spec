@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.38
+Version: 11.4.0.39
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Feb 25 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.39-1
+- Fix up symlinks that could be broken with our movement here (#434882) (wwoods)
+- pvops xen uses hvc as its console (#434763) (katzj)
+- Follow symlinks when looking for the anaconda-runtime package. (jkeating)
+
 * Sun Feb 24 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.38-1
 - Write out UUID in the fstab (#364441) (katzj)
 - Add support for getting UUID using libblkid (katzj)
