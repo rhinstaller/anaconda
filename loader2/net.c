@@ -638,6 +638,9 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     while (i == 1) {
         ret = configureTCPIP(device, cfg, &newCfg, &opts, methodNum, query);
 
+        cfg->ipv4method = newCfg.ipv4method;
+        cfg->ipv6method = newCfg.ipv6method;
+
         if (ret == LOADER_NOOP) {
             /* dhcp selected, proceed */
             i = 0;
@@ -654,9 +657,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
             return LOADER_BACK;
         }
     }
-
-    cfg->ipv4method = newCfg.ipv4method;
-    cfg->ipv6method = newCfg.ipv6method;
 
     /* preserve extra dns servers for the sake of being nice */
     if (cfg->dev.numDns > newCfg.dev.numDns) {
@@ -683,7 +683,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     }
 
     /* calculate any missing IPv4 pieces */
-    if (opts.ipv4Choice == '*') {
+    if (opts.ipv4Choice == NEWT_CHECKBOXTREE_SELECTED) {
         addr = ip_in_addr(&cfg->dev.ipv4);
         nm = ip_in_addr(&cfg->dev.netmask);
 
@@ -733,17 +733,14 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
     newtComponent ipv4Checkbox, ipv6Checkbox, v4Method[2], v6Method[3];
     newtGrid grid, checkgrid, buttons;
 
-    newCfg->ipv4method = -1;
-    newCfg->ipv6method = -1;
-
     /* UI WINDOW 1: ask for ipv4 choice, ipv6 choice, and conf methods */
 
     /* IPv4 checkbox */
     if (!opts->ipv4Choice) {
         if (FL_NOIPV4(flags) && !FL_IP_PARAM(flags))
-            opts->ipv4Choice = ' ';
+            opts->ipv4Choice = NEWT_CHECKBOXTREE_UNSELECTED;
         else
-            opts->ipv4Choice = '*';
+            opts->ipv4Choice = NEWT_CHECKBOXTREE_SELECTED;
     }
 
     ipv4Checkbox = newtCheckbox(-1, -1, _("Enable IPv4 support"),
@@ -754,9 +751,9 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
     /* IPv6 checkbox */
     if (!opts->ipv6Choice) {
         if (FL_NOIPV6(flags) && !FL_IPV6_PARAM(flags))
-            opts->ipv6Choice = ' ';
+            opts->ipv6Choice = NEWT_CHECKBOXTREE_UNSELECTED;
         else
-            opts->ipv6Choice = '*';
+            opts->ipv6Choice = NEWT_CHECKBOXTREE_SELECTED;
     }
 
     ipv6Checkbox = newtCheckbox(-1, -1, _("Enable IPv6 support"),
@@ -800,11 +797,27 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
     newtComponentAddCallback(ipv6Checkbox, v6MethodCallback, &v6Method);
 
     /* match radio button sensitivity to initial checkbox choices */
-    if (opts->ipv4Choice == ' ')
+    if (opts->ipv4Choice == NEWT_CHECKBOXTREE_UNSELECTED)
         setMethodSensitivity(&v4Method, 2);
 
-    if (opts->ipv6Choice == ' ')
+    if (opts->ipv6Choice == NEWT_CHECKBOXTREE_UNSELECTED)
         setMethodSensitivity(&v6Method, 3);
+
+    for (i=0; i<2; i++) {
+        if (i == cfg->ipv4method) {
+            newtCheckboxSetValue(v4Method[i], NEWT_CHECKBOXTREE_SELECTED);
+        } else {
+            newtCheckboxSetValue(v4Method[i], NEWT_CHECKBOXTREE_UNSELECTED);
+        }
+    }
+
+    for (i=0; i<3; i++) {
+        if (i == cfg->ipv6method) {
+            newtCheckboxSetValue(v6Method[i], NEWT_CHECKBOXTREE_SELECTED);
+        } else {
+            newtCheckboxSetValue(v6Method[i], NEWT_CHECKBOXTREE_UNSELECTED);
+        }
+    }
 
     /* If the user provided any of the following boot paramters, skip
      * prompting for network configuration information:
@@ -835,7 +848,8 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
             }
 
             /* need at least one stack */
-            if (opts->ipv4Choice == ' ' && opts->ipv6Choice == ' ') {
+            if (opts->ipv4Choice == NEWT_CHECKBOXTREE_UNSELECTED &&
+                opts->ipv6Choice == NEWT_CHECKBOXTREE_UNSELECTED) {
                 newtWinMessage(_("Missing Protocol"), _("Retry"),
                                _("You must select at least one protocol (IPv4 "
                                  "or IPv6)."));
@@ -843,7 +857,8 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
             }
 
             /* NFS only works over IPv4 */
-            if (opts->ipv4Choice == ' ' && methodNum == METHOD_NFS) {
+            if (opts->ipv4Choice == NEWT_CHECKBOXTREE_UNSELECTED &&
+                methodNum == METHOD_NFS) {
                 newtWinMessage(_("IPv4 Needed for NFS"), _("Retry"),
                            _("NFS installation method requires IPv4 support."));
                 continue;
@@ -851,7 +866,7 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
         }
 
         /* what TCP/IP stacks do we use? what conf methods? */
-        if (opts->ipv4Choice == '*') {
+        if (opts->ipv4Choice == NEWT_CHECKBOXTREE_SELECTED) {
             flags &= ~LOADER_FLAGS_NOIPV4;
             for (z = 0; z < 2; z++)
                 if (newtRadioGetCurrent(v4Method[0]) == v4Method[z])
@@ -860,7 +875,7 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
             flags |= LOADER_FLAGS_NOIPV4;
         }
 
-        if (opts->ipv6Choice == '*') {
+        if (opts->ipv6Choice == NEWT_CHECKBOXTREE_SELECTED) {
             flags &= ~LOADER_FLAGS_NOIPV6;
             for (z = 0; z < 3; z++)
                 if (newtRadioGetCurrent(v6Method[0]) == v6Method[z])
@@ -949,9 +964,9 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
     newtComponent text = NULL;
 
     /* so we don't perform this test over and over */
-    stack[IPV4] = opts->ipv4Choice == '*'
+    stack[IPV4] = opts->ipv4Choice == NEWT_CHECKBOXTREE_SELECTED
                   && newCfg->ipv4method == IPV4_MANUAL_METHOD;
-    stack[IPV6] = opts->ipv6Choice == '*'
+    stack[IPV6] = opts->ipv6Choice == NEWT_CHECKBOXTREE_SELECTED
                   && newCfg->ipv6method == IPV6_MANUAL_METHOD;
 
     /* UI WINDOW 2 (optional): manual IP config for non-DHCP installs */
