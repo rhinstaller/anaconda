@@ -22,7 +22,11 @@
  */
 
 #include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 #include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <sys/wait.h>
 #include <arpa/inet.h>
 #include <errno.h>
 #include <popt.h>
@@ -168,14 +172,17 @@ static int waitForLink(char * dev) {
         sleep(1);
         tries++;
     }
+
     logMessage(DEBUGLVL, "   %d seconds.", tries);
-    if (tries < num_link_checks){
-	/* Networks with STP set up will give link when the port
-	 * is isolated from the network, and won't forward packets
-	 * until they decide we're not a switch. */
-	logMessage(DEBUGLVL, "sleep (nicdelay) for %d secs first", post_link_sleep);
-	sleep(post_link_sleep);
-	logMessage(DEBUGLVL, "continuing...");
+
+    if (tries < num_link_checks) {
+        /* Networks with STP set up will give link when the port
+         * is isolated from the network, and won't forward packets
+         * until they decide we're not a switch. */
+        logMessage(DEBUGLVL, "sleep (nicdelay) for %d secs first",
+                   post_link_sleep);
+        sleep(post_link_sleep);
+        logMessage(DEBUGLVL, "continuing...");
         return 0;
     }
 
@@ -187,7 +194,7 @@ static void parseEthtoolSettings(struct loaderData_s * loaderData) {
     char * option, * buf;
     ethtool_duplex duplex = ETHTOOL_DUPLEX_UNSPEC;
     ethtool_speed speed = ETHTOOL_SPEED_UNSPEC;
-    
+
     buf = strdup(loaderData->ethtool);
     option = strtok(buf, " ");
     while (option) {
@@ -223,23 +230,30 @@ static void parseEthtoolSettings(struct loaderData_s * loaderData) {
 }
 
 void initLoopback(void) {
-    NLH_t nh;
-    NIC_t nic;
-    uint32_t nflags;
+    struct ifreq req;
+    int s;
 
-    /* open nic handle and set device name */
-    nh = nic_open(nic_sys_logger);
-    nic = nic_by_name(nh, "lo");
+    s = socket(AF_INET, SOCK_DGRAM, 0);
 
-    /* bring the interface up */
-    nflags = nic_get_flags(nic);
-    if ((nflags & (IFF_UP | IFF_RUNNING)) == 0) {
-        nic_set_flags(nic, nflags | IFF_UP | IFF_RUNNING);
-        nic_update(nic);
+    memset(&req, 0, sizeof(req));
+    strcpy(req.ifr_name, "lo");
+
+    if (ioctl(s, SIOCGIFFLAGS, &req)) {
+        logMessage(LOG_ERR, "ioctl SIOCGIFFLAGS failed: %d %s\n", errno,
+                   strerror(errno));
+        close(s);
+        return;
     }
 
-    /* clean up */
-    nic_close(&nh);
+    req.ifr_flags |= (IFF_UP | IFF_RUNNING);
+    if (ioctl(s, SIOCSIFFLAGS, &req)) {
+        logMessage(LOG_ERR, "ioctl SIOCSIFFLAGS failed: %d %s\n", errno,
+                   strerror(errno));
+        close(s);
+        return;
+    }
+
+    close(s);
 
     return;
 }
@@ -363,9 +377,10 @@ void printLoaderDataIPINFO(struct loaderData_s *loaderData) {
 /* given loader data from kickstart, populate network configuration struct */
 void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg, 
                               struct loaderData_s * loaderData) {
+    int dhcp_failed = 0;
     struct in_addr addr;
     struct in6_addr addr6;
-    char * c;
+    char *c;
 
     /* set to 1 to get ks network struct logged */
 #if 0
@@ -400,8 +415,6 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
         /* this is how we specify dhcp */
         if (!strncmp(loaderData->ip, "dhcp", 4)) {
-            char *ret = NULL;
-
             /* JKFIXME: this soooo doesn't belong here.  and it needs to
              * be broken out into a function too */
             logMessage(INFO, "sending dhcp request through device %s",
@@ -421,14 +434,13 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                 waitForLink(loaderData->netDev);
                 cfg->noDns = loaderData->noDns;
                 cfg->dhcpTimeout = loaderData->dhcpTimeout;
-                ret = doDhcp(cfg);
+                dhcp_failed = doDhcp(cfg);
             }
 
             if (!FL_CMDLINE(flags))
                 newtPopWindow();
 
-            if (ret != NULL) {
-                logMessage(DEBUGLVL, "dhcp: %s", ret);
+            if (dhcp_failed) {
                 return;
             }
 
@@ -716,8 +728,7 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                    struct networkDeviceConfig * newCfg,
                    struct netconfopts * opts, int methodNum,
                    int query) {
-    int i = 0, z = 0, skipForm = 0;
-    char *dret = NULL;
+    int i = 0, z = 0, skipForm = 0, dhcp_failed = 0;
     newtComponent f, okay, back, answer;
     newtComponent ipv4Checkbox, ipv6Checkbox, v4Method[2], v6Method[3];
     newtGrid grid, checkgrid, buttons;
@@ -868,11 +879,11 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                           _("Sending request for IP information for %s..."),
                           device, 0);
                 waitForLink(device);
-                dret = doDhcp(newCfg);
+                dhcp_failed = doDhcp(newCfg);
                 newtPopWindow();
             }
 
-            if (dret == NULL) {
+            if (!dhcp_failed) {
                 newCfg->isDynamic = 1;
                 if (!(newCfg->dev.set & PUMP_NETINFO_HAS_DNS)) {
                     logMessage(WARNING,
@@ -901,7 +912,6 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                     i = 1;
                 }
             } else {
-                logMessage(DEBUGLVL, "dhcp: %s", dret);
                 i = 0;
             }
         } else {
@@ -1333,7 +1343,9 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
 
 /* Clear existing IP addresses from the interface using libnl */
 void clearInterface(char *device) {
+    int status;
     int ifindex = -1;
+    pid_t pid = 0;
     struct nl_cache *cache = NULL;
     struct nl_handle *handle = NULL;
     struct nl_object *obj = NULL;
@@ -1342,63 +1354,88 @@ void clearInterface(char *device) {
     if (device == NULL)
         return;
 
-    if ((handle = nl_handle_alloc()) == NULL) {
-        logMessage(DEBUGLVL, "nl_handle_alloc() failure in clearInterface()");
-        goto clearerr1;
-    }
+    pid = fork();
+    if (pid == 0) {
+        pumpDisableInterface(device);
 
-    if (nl_connect(handle, NETLINK_ROUTE)) {
-        logMessage(DEBUGLVL, "nl_connect() failure in clearInterface()");
-        goto clearerr2;
-    }
-
-    if ((cache = rtnl_link_alloc_cache(handle)) == NULL) {
-        logMessage(DEBUGLVL,
-                   "rtnl_link_alloc_cache() failure in clearInterface()");
-        goto clearerr3;
-    }
-
-    ifindex = rtnl_link_name2i(cache, device);
-
-    if ((cache = rtnl_addr_alloc_cache(handle)) == NULL) {
-        logMessage(DEBUGLVL,
-                   "rtnl_addr_alloc_cache() failure in clearInterface()");
-        goto clearerr3;
-    }
-
-    obj = nl_cache_get_first(cache);
-    while (obj) {
-        raddr = (struct rtnl_addr *) obj;
-
-        if (rtnl_addr_get_ifindex(raddr) == ifindex) {
-            rtnl_addr_delete(handle, raddr, 0);
-            rtnl_addr_put(raddr);
+        if ((handle = nl_handle_alloc()) == NULL) {
+            logMessage(DEBUGLVL, "nl_handle_allow() in %s: %s", __func__,
+                       nl_geterror());
+            return;
         }
 
-        obj = nl_cache_get_next(obj);
-    }
+        if (nl_connect(handle, NETLINK_ROUTE)) {
+            logMessage(DEBUGLVL, "nl_connect() in %s: %s", __func__,
+                       nl_geterror());
+            nl_handle_destroy(handle);
+            return;
+        }
 
-clearerr3:
-    nl_close(handle);
-clearerr2:
-    nl_handle_destroy(handle);
-clearerr1:
-    pumpDisableInterface(device);
+        if ((cache = rtnl_link_alloc_cache(handle)) == NULL) {
+            logMessage(DEBUGLVL, "rtnl_link_alloc_cache() in %s: %s", __func__,
+                       nl_geterror());
+            nl_close(handle);
+            nl_handle_destroy(handle);
+            return;
+        }
+
+        ifindex = rtnl_link_name2i(cache, device);
+
+        if ((cache = rtnl_addr_alloc_cache(handle)) == NULL) {
+            logMessage(DEBUGLVL, "rtnl_addr_alloc_cache() in %s: %s", __func__,
+                       nl_geterror());
+            nl_close(handle);
+            nl_handle_destroy(handle);
+            return;
+        }
+
+        obj = nl_cache_get_first(cache);
+        while (obj) {
+            raddr = (struct rtnl_addr *) obj;
+
+            if (rtnl_addr_get_ifindex(raddr) == ifindex) {
+                rtnl_addr_delete(handle, raddr, 0);
+                rtnl_addr_put(raddr);
+            }
+
+            nl_object_put(obj);
+            obj = nl_cache_get_next(obj);
+        }
+
+        nl_close(handle);
+        nl_handle_destroy(handle);
+
+        pumpEnableInterface(device);
+
+        exit(0);
+    } else if (pid == -1) {
+        logMessage(DEBUGLVL, "fork() failure in %s", __func__);
+    } else {
+        if (waitpid(pid, &status, 0) == -1) {
+            logMessage(DEBUGLVL, "waitpid() failure in %s", __func__);
+        }
+
+        if (!WIFEXITED(status)) {
+            logMessage(DEBUGLVL, "%d exit status: %d",pid,WEXITSTATUS(status));
+        }
+    }
 
     return;
 }
 
-char *doDhcp(struct networkDeviceConfig *dev) {
-    struct pumpNetIntf *i;
+int doDhcp(struct networkDeviceConfig *dev) {
+    struct pumpNetIntf *pumpdev = NULL;
     char *r = NULL, *class = NULL;
+    char namebuf[HOST_NAME_MAX];
     time_t timeout;
-    int loglevel;
+    int loglevel, status, ret = 0, i;
+    int shmpump;
     DHCP_Preference pref = 0;
-
-    i = &dev->dev;
+    pid_t pid;
+    key_t key;
 
     /* clear existing IP addresses */
-    clearInterface(i->device);
+    clearInterface(dev->dev.device);
 
     if (dev->dhcpTimeout < 0)
         timeout = 45;
@@ -1435,29 +1472,188 @@ char *doDhcp(struct networkDeviceConfig *dev) {
     pref |= DHCPv6_DISABLE_RESOLVER | DHCPv4_DISABLE_HOSTNAME_SET;
 
     /* don't try to run the client if DHCPv4 and DHCPv6 are disabled */
-    if (!(pref & DHCPv4_DISABLE) || !(pref & DHCPv6_DISABLE)){
-        logMessage(loglevel, "requesting dhcp timeout %ld", (long)timeout);
-        r = pumpDhcpClassRun(i,0L,class,pref,0,timeout,netlogger,loglevel);
+    if (!(pref & DHCPv4_DISABLE) || !(pref & DHCPv6_DISABLE)) {
+        logMessage(INFO, "requesting dhcp timeout %ld", (long) timeout);
+
+        /* shm segment for pumpNetIntf structure */
+        if ((key = ftok("/tmp", 'P')) == -1) {
+            logMessage(ERROR, "%s: ftok() 'P' failure", __func__);
+            return 1;
+        }
+
+        shmpump = shmget(key, 4096, IPC_CREAT | IPC_EXCL | 0600);
+        if (shmpump == -1) {
+            logMessage(ERROR, "%s: shmget() segment P exists", __func__);
+            return 1;
+        }
+
+        pumpdev = (struct pumpNetIntf *) shmat(shmpump, (void *) pumpdev,
+                                               SHM_RND);
+        if (((void *) pumpdev) == ((void *) -1)) {
+            logMessage(ERROR, "%s: shmat() pumpdev: %s", __func__,
+                       strerror(errno));
+            return 1;
+        }
+
+        strncpy(pumpdev->device, dev->dev.device, IF_NAMESIZE);
+
+        /* call libdhcp in a separate process because libdhcp is bad */
+        pid = fork();
+        if (pid == 0) {
+            r = pumpDhcpClassRun(pumpdev, NULL, class, pref, 0,
+                                 timeout, netlogger, loglevel);
+
+            if (r != NULL) {
+                logMessage(INFO, "dhcp: %s", r);
+                exit(1);
+            }
+
+            if (pumpdev->dhcp_nic) {
+                i = dhcp_nic_configure(pumpdev->dhcp_nic);
+
+                dhcp_nic_free(pumpdev->dhcp_nic);
+                pumpdev->dhcp_nic = NULL;
+
+                if (i < 0) {
+                    logMessage(ERROR, "DHCP configuration failed - %d %s", -i,
+                               strerror(-i));
+                    exit(1);
+                }
+            }
+
+            findHostAndDomain(dev);
+            writeResolvConf(dev);
+
+            if (pumpdev->set & PUMP_NETINFO_HAS_HOSTNAME) {
+                if (pumpdev->hostname) {
+                    if (sethostname(pumpdev->hostname,
+                                    strlen(pumpdev->hostname)) == -1) {
+                        logMessage(ERROR, "failed to set hostname in %s: %s",
+                                   __func__, strerror(errno));
+                    }
+                }
+            }
+
+            if (pumpdev->set & PUMP_NETINFO_HAS_DOMAIN) {
+                if (pumpdev->domain) {
+                    if (setdomainname(pumpdev->domain,
+                                      strlen(pumpdev->domain)) == -1) {
+                        logMessage(ERROR, "failed to set domain name in %s: %s",
+                                   __func__, strerror(errno));
+                    }
+                }
+            }
+
+            /* we lose bootFile here, but you know, I just don't care, because
+             * we don't need it past doDhcp() calls, so whatever   --dcantrell
+             */
+
+            exit(0);
+        } else if (pid == -1) {
+            logMessage(CRITICAL, "dhcp client failed to start");
+        } else {
+            if (waitpid(pid, &status, 0) == -1) {
+                logMessage(ERROR, "waitpid() failure in %s", __func__);
+            }
+
+            ret = WEXITSTATUS(status);
+            if (!WIFEXITED(status)) {
+                logMessage(ERROR, "%d exit status: %d", pid, ret);
+            }
+
+            /* gather configuration info from dhcp client */
+            strncpy(dev->dev.device, pumpdev->device, IF_NAMESIZE);
+
+            dev->dev.ip = pumpdev->ip;
+            dev->dev.ipv4 = pumpdev->ipv4;
+            dev->dev.ipv6 = pumpdev->ipv6;
+            dev->dev.netmask = pumpdev->netmask;
+            dev->dev.broadcast = pumpdev->broadcast;
+            dev->dev.network = pumpdev->network;
+            dev->dev.gateway = pumpdev->gateway;
+            dev->dev.nextServer = pumpdev->nextServer;
+            dev->dev.set = pumpdev->set;
+            dev->dev.mtu = pumpdev->mtu;
+            dev->dev.numDns = pumpdev->numDns;
+            dev->dev.ipv6_prefixlen = pumpdev->ipv6_prefixlen;
+            dev->dev.nh = dev->dev.nh;
+            dev->dev.dhcp_nic = NULL;
+
+            for (i=0; i < dev->dev.numDns; i++) {
+                dev->dev.dnsServers[i] = pumpdev->dnsServers[i];
+            }
+
+            if (dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME) {
+                if (dev->dev.hostname) {
+                    free(dev->dev.hostname);
+                    dev->dev.hostname = NULL;
+                }
+
+                memset(namebuf, '\0', HOST_NAME_MAX);
+
+                if (gethostname(namebuf, HOST_NAME_MAX) == -1) {
+                    logMessage(ERROR, "unable to get hostname %s: %s",
+                               __func__, strerror(errno));
+                }
+
+                if (namebuf != NULL) {
+                    dev->dev.hostname = strdup(namebuf);
+                }
+            }
+
+            if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN) {
+                if (dev->dev.domain) {
+                    free(dev->dev.domain);
+                    dev->dev.domain = NULL;
+                }
+
+                memset(namebuf, '\0', HOST_NAME_MAX);
+
+                if (getdomainname(namebuf, HOST_NAME_MAX) == -1) {
+                    logMessage(ERROR, "unable to get domain name %s: %s",
+                               __func__, strerror(errno));
+                }
+
+                if (namebuf != NULL) {
+                    dev->dev.domain = strdup(namebuf);
+                }
+            }
+
+            if (shmdt(pumpdev) == -1) {
+                logMessage(ERROR, "%s: shmdt() pumpdev: %s", __func__,
+                           strerror(errno));
+                return 1;
+            }
+
+            if (shmctl(shmpump, IPC_RMID, 0) == -1) {
+                logMessage(ERROR, "%s: shmctl() shmpump: %s", __func__,
+                           strerror(errno));
+                return 1;
+            }
+        }
     }
 
-    return r;
+    return ret;
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
-    char *rc;
+    char *rc = NULL;
 
-    clearInterface(dev->dev.device);
-    setupWireless(dev);
-    rc = pumpSetupInterface(&dev->dev);
-    if (rc != NULL) {
-        logMessage(INFO, "result of pumpSetupInterface is %s", rc);
-        return 1;
+    if (!dev->isDynamic) {
+        clearInterface(dev->dev.device);
+        setupWireless(dev);
+        rc = pumpSetupInterface(&dev->dev);
+        if (rc != NULL) {
+            logMessage(INFO, "result of pumpSetupInterface is %s", rc);
+            return 1;
+        }
     }
 
     /* we need to wait for a link after setting up the interface as some
      * switches decide to reconfigure themselves after that (#115825)
      */
     waitForLink((char *)&dev->dev.device);
+
     return 0;
 }
 
@@ -1474,7 +1670,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
 
     for (i = 0; devices[i]; i++)
         if (!strcmp(devices[i]->device, dev->dev.device)) break;
-    
+
     if (!(f = fopen(fn, "w"))) return -1;
 
     fprintf(f, "DEVICE=%s\n", dev->dev.device);
@@ -1656,7 +1852,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "dhcptimeout", '\0', POPT_ARG_INT, &dhcpTimeout, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
-    
+
     optCon = poptGetContext(NULL, argc, (const char **) argv, 
                             ksOptions, 0);    
     while ((rc = poptGetNextOpt(optCon)) >= 0) {
@@ -1682,7 +1878,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
             break;
         }
     }
-    
+
     if (rc < -1) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to kickstart network command %s: %s"),

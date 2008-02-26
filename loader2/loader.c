@@ -1347,7 +1347,7 @@ void loaderSegvHandler(int signum) {
         j = write(STDERR_FILENO, strings[i], strlen(strings[i]));
         j = write(STDERR_FILENO, "\n", 1);
     }
- 
+
     free (strings);
     exit(1);
 }

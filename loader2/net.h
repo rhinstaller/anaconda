@@ -83,7 +83,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
                        struct networkDeviceConfig *netCfgPtr);
 
 void clearInterface(char *device);
-char *doDhcp(struct networkDeviceConfig *dev);
+int doDhcp(struct networkDeviceConfig *dev);
 void netlogger(void *arg, int priority, char *fmt, va_list va);
 void splitHostname (char *str, char **host, char **port);
 
