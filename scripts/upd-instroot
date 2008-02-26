@@ -1036,6 +1036,20 @@ for p in $DEST $DESTGR; do
 	rm -rf $p/bin
 	rm -rf $p/sbin
 
+	# Fix relative links like /usr/bin/udevinfo -> ../../sbin/udevadm
+	for brokenlink in $(find $p/usr/{bin,sbin} -follow -lname '*'); do
+            target="$(readlink $brokenlink)"
+            for pathbit in bin sbin; do
+            # if it starts with "../../sbin/", remove that
+		newtarget="${target##../../$pathbit/}"
+            # if we removed something, replace it with the proper path
+		if [ "$newtarget" != "$target" ]; then
+                # make it ../sbin/ instead
+                    ln -sf "../$pathbit/$newtarget" "$brokenlink"
+		fi
+            done
+	done
+
 	# copy bootloader files for sparc
 	if [ $ARCH = sparc -a $p = $DESTGR ]; then
 	    mkdir -p $p/usr/lib/anaconda-runtime/boot
