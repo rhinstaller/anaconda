@@ -166,7 +166,7 @@ def turnOnFilesystems(anaconda):
                     log.error("createLogicalVolumes failed with SystemError: %s", e.message)
                     anaconda.intf.messageWindow(_("LVM operation failed"),
                                         e.message+"\n\n"+_("The installer will now exit..."),
-                                        type="error")
+                                        type="custom", custom_icon="error", custom_buttons=[_("_Reboot")])
 	            sys.exit(0)
 
             anaconda.id.fsset.formatSwap(anaconda.rootPath)
