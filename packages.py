@@ -200,8 +200,6 @@ def setupTimezone(anaconda):
     args = [ "--hctosys" ]
     if anaconda.id.timezone.utc:
         args.append("-u")
-    elif anaconda.id.timezone.arc:
-        args.append("-a")
 
     try:
         iutil.execWithRedirect("/usr/sbin/hwclock", args, stdin = None,
