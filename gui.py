@@ -1099,10 +1099,6 @@ class InstallInterface:
         else:
             return ProgressWindow (title, text, total, updpct, pulse = pulse)
 
-    def packageProgressWindow (self, total, totalSize):
-        self.ppw.setSizes (total, totalSize)
-        return self.ppw
-
     def messageWindow(self, title, text, type="ok", default = None,
              custom_buttons=None,  custom_icon=None):
         if self.icw:
