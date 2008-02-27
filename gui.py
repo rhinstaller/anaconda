@@ -1110,6 +1110,12 @@ class InstallInterface:
                 custom_buttons, custom_icon, run=True, parent=parent).getrc()
         return rc
 
+    def editRepoWindow(self, anaconda, repoObj):
+        from task_gui import RepoEditor
+        dialog = RepoEditor(anaconda, repoObj)
+        dialog.createDialog()
+        dialog.run()
+
     def entryWindow(self, title, text, type="ok", entrylength = None):
         d = EntryWindow(title, text, type, entrylength)
         rc = d.run()

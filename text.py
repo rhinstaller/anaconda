@@ -440,6 +440,10 @@ class InstallInterface:
         return self.messageWindow(title, text, type, default, custom_icon,
                                   custom_buttons)
 
+    def editRepoWindow(self, anaconda, repoObj):
+        self.messageWindow(_("Error"),
+                           _("Repository editing is not available in text mode."))
+
     def entryWindow(self, title, text, prompt, entrylength = None):
         (res, value) = EntryWindow(self.screen, title, text, [prompt])
         if res == "cancel":

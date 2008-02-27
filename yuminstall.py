@@ -889,10 +889,8 @@ class YumBackend(AnacondaBackend):
                         task(thisrepo = repo.id)
                         waitwin.next_task()
                     waitwin.pop()
-                except yum.Errors.NoMoreMirrorsRepoError, e:
-                    buttons = [_("_Abort"), _("_Retry")]
-                except yum.Errors.RepoError, e:
-                    buttons = [_("_Abort")]
+                except Exception, e:
+                    buttons = [_("_Exit installer"), "gtk-edit", _("_Retry")]
                 else:
                     break # success
 
@@ -907,16 +905,22 @@ class YumBackend(AnacondaBackend):
                                    _("Unable to read package metadata. This may be "
                                      "due to a missing repodata directory.  Please "
                                      "ensure that your install tree has been "
-                                     "correctly generated.  %s" % e),
+                                     "correctly generated.\n\n%s" % e),
                                      type="custom", custom_icon="error",
                                      custom_buttons=buttons)
                 if rc == 0:
+                    # abort
                     sys.exit(0)
+                elif rc == 1:
+                    # edit
+                    anaconda.intf.editRepoWindow(anaconda, repo)
                 elif rc == 2:
+                    # retry, but only if button is present
+                    continue
+                else:
+                    # continue, but only if button is present
                     self.ayum.repos.delete(repo.id)
                     break
-                else:
-                    continue
 
             # if we're in kickstart the repo may have been deleted just above
             try:
@@ -933,10 +937,8 @@ class YumBackend(AnacondaBackend):
         while 1:
             try:
                 self.doGroupSetup()
-            except yum.Errors.NoMoreMirrorsRepoError:
-                buttons = [_("Re_boot"), _("_Retry")]
-            except (yum.Errors.GroupsError, yum.Errors.RepoError):
-                buttons = [_("Re_boot")]
+            except Exception, e:
+                buttons = [_("_Exit installer"), _("_Retry")]
             else:
                 break # success
 
@@ -1167,10 +1169,8 @@ class YumBackend(AnacondaBackend):
             while 1:
                 try:
                     (code, msgs) = self.ayum.buildTransaction()
-                except yum.Errors.NoMoreMirrorsRepoError, e:
-                    buttons = [_("Re_boot"), _("_Retry")]
-                except RepoError, e:
-                    buttons = [_("Re_boot")]
+                except Exception, e:
+                    buttons = [_("_Exit installer"), "gtk-edit", _("_Retry")]
                 else:
                     break
 
@@ -1179,11 +1179,13 @@ class YumBackend(AnacondaBackend):
                                _("Unable to read package metadata. This may be "
                                  "due to a missing repodata directory.  Please "
                                  "ensure that your install tree has been "
-                                 "correctly generated.  %s" % e),
+                                 "correctly generated.\n\n%s" % e),
                                  type="custom", custom_icon="error",
                                  custom_buttons=buttons)
                 if rc == 0:
                     sys.exit(0)
+                elif rc == 1:
+                    anaconda.intf.editRepoWindow(anaconda, repo)
                 else:
                     continue
 

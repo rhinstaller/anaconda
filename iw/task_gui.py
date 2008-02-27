@@ -46,7 +46,7 @@ def setupRepo(anaconda, repo):
                 "Please ensure that your repository has been "
                 "correctly generated.\n\n%s" %(e,)),
                                 type="ok", custom_icon="error")
-        anaconda.backend.ayum.repos.delete(self.repo.id)
+        anaconda.backend.ayum.repos.delete(repo.id)
         return False
 
     if not repo.groups_added:
@@ -76,6 +76,8 @@ class RepoEditor:
         self.proxyTable = self.dxml.get_widget("proxyTable")
         self.usernameEntry = self.dxml.get_widget("usernameEntry")
         self.passwordEntry = self.dxml.get_widget("passwordEntry")
+
+        self.dialog.set_title(_("Edit Repository"))
 
     def _enableRepo(self, repourl):
         # Only do this for the real base repo, as that's what will get
@@ -137,7 +139,7 @@ class RepoEditor:
 
         lbl = self.dxml.get_widget("descLabel")
         txt = lbl.get_text()
-        lbl.set_text(txt %(productName,))
+        lbl.set_text(txt)
 
         self.dialog.show_all()
 
