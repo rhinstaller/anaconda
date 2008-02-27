@@ -91,7 +91,7 @@ DIR=`cd $DIR > /dev/null; /bin/pwd`
 BUILDINSTDIR=`mktemp -d ${TMPDIR:-/tmp}/buildinstall.tree.XXXXXX`
 TREEDIR=`mktemp -d ${TMPDIR:-/tmp}/treedir.XXXXXX`
 
-ANACONDARUNTIME=`find $DIR -name "anaconda-runtime-[0-9]*" |head -n 1`
+ANACONDARUNTIME=`find -L $DIR -name "anaconda-runtime-[0-9]*" |head -n 1`
 BUILDARCH=`rpm -qp --qf "%{ARCH}\n" $ANACONDARUNTIME`
 
 echo "Running buildinstall..."

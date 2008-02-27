@@ -48,8 +48,8 @@ def get_device(udi):
             props['description'] = props['info.product']
     else:
         props['description'] = props['info.udi']
-    if props.has_key('net.physical_device'):
-        pdev = get_device(props['net.physical_device'])
+    if props.has_key('net.originating_device'):
+        pdev = get_device(props['net.originating_device'])
         props['description'] = pdev['description']
 
     return props

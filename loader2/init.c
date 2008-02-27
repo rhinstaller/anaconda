@@ -595,9 +595,9 @@ int main(int argc, char **argv) {
                           "/dev/hvsi2", /* hvsi for POWER5 */
                           NULL };
 #elif defined (__ia64__)
-    char * consoles[] = { "/dev/ttySG0", "/dev/xvc0", NULL };
+    char * consoles[] = { "/dev/ttySG0", "/dev/xvc0", "/dev/hvc0", NULL };
 #elif defined (__i386__) || defined (__x86_64__)
-    char * consoles[] = { "/dev/xvc0", NULL };
+    char * consoles[] = { "/dev/xvc0", "/dev/hvc0", NULL };
 #else
     char * consoles[] = { NULL };
 #endif

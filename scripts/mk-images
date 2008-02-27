@@ -215,7 +215,7 @@ findPackage() {
     dir=$1
     name=$2
 
-    for n in $(find $dir -name "$name*$KERNELARCH.rpm"); do
+    for n in $(find -L $dir -name "$name*$KERNELARCH.rpm"); do
 	thisName=$(rpm --nodigest --nosignature --qf '%{NAME}' -qp $n)
 	if [ -z "$thisName" ]; then
 	    continue
@@ -785,7 +785,7 @@ for KERNELARCH in $arches; do
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
     # expand out any available firmware too
-    for p in $(find $DISTROPATH -name '*firmware*.rpm') ; do rpm2cpio $p | (cd $KERNELROOT; cpio --quiet -iumd) ; done
+    for p in $(find -L $DISTROPATH -name '*firmware*.rpm') ; do rpm2cpio $p | (cd $KERNELROOT; cpio --quiet -iumd) ; done
 
     if [ ! -d "$KERNELROOT/lib/modules/$version" ]; then
 	echo "$KERNELROOT/lib/modules/$version is not a valid modules directory" 2>&1
