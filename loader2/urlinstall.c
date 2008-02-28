@@ -49,15 +49,12 @@
 /* boot flags */
 extern uint64_t flags;
 
-static int loadSingleUrlImage(struct iurlinfo * ui, char * file,
+static int loadSingleUrlImage(struct iurlinfo * ui, char *path,
                               char * dest, char * mntpoint, char * device,
                               int silentErrors) {
     int fd;
     int rc = 0;
-    char filepath[1024];
     char *ehdrs = NULL;
-
-    snprintf(filepath, sizeof(filepath), "%s", file);
 
     if (ui->protocol == URL_METHOD_HTTP) {
         char *arch = getProductArch();
@@ -70,7 +67,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file,
                      VERSION, arch, name);
     }
 
-    fd = urlinstStartTransfer(ui, filepath, ehdrs);
+    fd = urlinstStartTransfer(ui, path, ehdrs);
 
     if (fd == -2) {
         if (ehdrs) free (ehdrs);
@@ -79,9 +76,9 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file,
     else if (fd < 0) {
         if (!silentErrors) {
             newtWinMessage(_("Error"), _("OK"),
-                           _("Unable to retrieve %s://%s/%s/%s."),
+                           _("Unable to retrieve %s://%s/%s."),
                            (ui->protocol == URL_METHOD_FTP ? "ftp" : "http"),
-                           ui->address, ui->prefix, filepath);
+                           ui->address, path);
         }
 
         if (ehdrs) free (ehdrs);
@@ -105,15 +102,30 @@ static void copyErrorFn (char *msg) {
 }
 
 static int loadUrlImages(struct iurlinfo * ui) {
-    char *stage2img;
-    char tmpstr1[1024], tmpstr2[1024];
+    char *stage2img, *buf, *path, *tmp;
     int rc;
 
-    /*    setupRamdisk();*/
+    /* We assume that if stage2= was given, it's pointing at a stage2 image
+     * file.  Trim the filename off the end, and that's the directory where
+     * updates.img and friends must live.
+     */
+    if (FL_STAGE2(flags)) {
+        /* Has to have a / in it somewhere, since it has to be a path name. */
+        if (!strrchr(ui->prefix, '/'))
+            return 1;
+        else
+            path = strndup(ui->prefix, strrchr(ui->prefix, '/') - ui->prefix);
+
+        if (!path)
+            return 1;
+    }
+    else
+        rc = asprintf(&path, "%s/images", ui->prefix);
 
     /* grab the updates.img before netstg1.img so that we minimize our
      * ramdisk usage */
-    if (!loadSingleUrlImage(ui, "images/updates.img",
+    rc = asprintf(&buf, "%s/%s", path, "updates.img");
+    if (!loadSingleUrlImage(ui, buf,
                             "/tmp/updates-disk.img", "/tmp/update-disk",
                             "/dev/loop7", 1)) {
         copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
@@ -123,9 +135,12 @@ static int loadUrlImages(struct iurlinfo * ui) {
         unlink("/tmp/update-disk");
     }
 
+    free(buf);
+
     /* grab the product.img before netstg1.img so that we minimize our
      * ramdisk usage */
-    if (!loadSingleUrlImage(ui, "images/product.img",
+    rc = asprintf(&buf, "%s/%s", path, "product.img");
+    if (!loadSingleUrlImage(ui, buf,
                             "/tmp/product-disk.img", "/tmp/product-disk",
                             "/dev/loop7", 1)) {
         copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
@@ -135,20 +150,36 @@ static int loadUrlImages(struct iurlinfo * ui) {
         unlink("/tmp/product-disk");
     }
 
-    /* require 128MB for use of graphical stage 2 due to size of image */
-    if (totalMemory() < GUI_STAGE2_RAM) {
-        stage2img = "minstg2.img";
-        logMessage(WARNING, "URLINSTALL falling back to non-GUI stage2 "
-                       "due to insufficient RAM");
-    } else {
-	stage2img = "stage2.img";
+    free(buf);
+
+    if (!FL_STAGE2(flags)) {
+        /* require 128MB for use of graphical stage 2 due to size of image */
+        if (totalMemory() < GUI_STAGE2_RAM) {
+            stage2img = "minstg2.img";
+            logMessage(WARNING, "URLINSTALL falling back to non-GUI stage2 "
+                           "due to insufficient RAM");
+        } else {
+            stage2img = "stage2.img";
+        }
+
+        rc = asprintf(&buf, "%s/%s", path, stage2img);
+        rc = asprintf(&tmp, "/tmp/%s", stage2img);
+        rc = loadSingleUrlImage(ui, buf, tmp,
+                                "/mnt/runtime", "/dev/loop0", 0);
+        free(buf);
+    }
+    else {
+        /* We already covered the case of ui->prefix not having a / in it
+         * at the beginning, so don't worry about it here.
+         */
+        rc = asprintf(&tmp, "/tmp/%s", strrchr(ui->prefix, '/'));
+        rc = loadSingleUrlImage(ui, ui->prefix, tmp, "/mnt/runtime",
+                                "/dev/loop0", 0);
     }
 
-    snprintf(tmpstr1, sizeof(tmpstr1), "images/%s", stage2img);
-    snprintf(tmpstr2, sizeof(tmpstr2), "/tmp/%s", stage2img);
+    free(tmp);
+    free(path);
 
-    rc = loadSingleUrlImage(ui, tmpstr1, tmpstr2,
-                            "/mnt/runtime", "/dev/loop0", 0);
     if (rc) {
         if (rc != 2) 
             newtWinMessage(_("Error"), _("OK"),
@@ -158,8 +189,6 @@ static int loadUrlImages(struct iurlinfo * ui) {
 
     /* now verify the stamp... */
     if (!verifyStamp("/mnt/runtime")) {
-	char * buf;
-
         rc = asprintf(&buf, _("The %s installation tree in that directory does "
                               "not seem to match your boot media."), 
                  getProductName());
@@ -171,7 +200,6 @@ static int loadUrlImages(struct iurlinfo * ui) {
     }
 
     return 0;
-
 }
 
 char * mountUrlImage(struct installMethod * method,
@@ -186,8 +214,6 @@ char * mountUrlImage(struct installMethod * method,
     enum { URL_STAGE_MAIN, URL_STAGE_SECOND, URL_STAGE_FETCH, 
            URL_STAGE_DONE } stage = URL_STAGE_MAIN;
 
-    /* JKFIXME: we used to do another ram check here... keep it? */
-
     memset(&ui, 0, sizeof(ui));
 
     while (stage != URL_STAGE_DONE) {
@@ -199,6 +225,7 @@ char * mountUrlImage(struct installMethod * method,
 
                 if (!url) {
                     logMessage(ERROR, "missing url specification");
+                    flags &= ~LOADER_FLAGS_STAGE2;
                     loaderData->method = -1;
                     break;
                 }
@@ -211,6 +238,7 @@ char * mountUrlImage(struct installMethod * method,
 		dir = 1;
 		break;
 	    } else if (urlMainSetupPanel(&ui, &needsSecondary)) {
+                flags &= ~LOADER_FLAGS_STAGE2;
                 return NULL;
             }
 
@@ -254,6 +282,7 @@ char * mountUrlImage(struct installMethod * method,
                         unlink("/tmp/cdrom");
 
 			stage = URL_STAGE_MAIN;
+                        flags &= ~LOADER_FLAGS_STAGE2;
 			dir = -1;
 
 			if (loaderData->method >= 0)
@@ -278,6 +307,8 @@ char * mountUrlImage(struct installMethod * method,
 		    if (loaderData->method >= 0) {
 			loaderData->method = -1;
 		    }
+
+                    flags &= ~LOADER_FLAGS_STAGE2;
 		} else {
 		    stage = URL_STAGE_DONE;
 		    dir = 1;

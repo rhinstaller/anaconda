@@ -161,31 +161,18 @@ char *convertUIToURL(struct iurlinfo *ui) {
 /* extraHeaders only applicable for http and used for pulling ks from http */
 /* see ftp.c:httpGetFileDesc() for details */
 /* set to NULL if not needed */
-int urlinstStartTransfer(struct iurlinfo * ui, char * filename, 
+int urlinstStartTransfer(struct iurlinfo * ui, char *path,
                          char *extraHeaders) {
-    char * buf;
     int fd, port;
     int family = -1;
-    char * finalPrefix;
     struct in_addr addr;
     struct in6_addr addr6;
     char *hostname, *portstr;
     struct hostent *host;
 
-    if (!strcmp(ui->prefix, "/"))
-        finalPrefix = "";
-    else
-        finalPrefix = ui->prefix;
-
-    buf = alloca(strlen(finalPrefix) + strlen(filename) + 20);
-    if (*filename == '/')
-        sprintf(buf, "%s%s", finalPrefix, filename);
-    else
-        sprintf(buf, "%s/%s", finalPrefix, filename);
-
     logMessage(INFO, "transferring %s://%s%s to a fd",
                ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
-               ui->address, buf);
+               ui->address, path);
 
     splitHostname(ui->address, &hostname, &portstr);
     if (portstr == NULL)
@@ -219,14 +206,14 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
             return -2;
         }
 
-        fd = ftpGetFileDesc(ui->ftpPort, addr6, family, buf);
+        fd = ftpGetFileDesc(ui->ftpPort, addr6, family, path);
         if (fd < 0) {
             close(ui->ftpPort);
             if (hostname) free(hostname);
             return -1;
         }
     } else {
-        fd = httpGetFileDesc(hostname, port, buf, extraHeaders);
+        fd = httpGetFileDesc(hostname, port, path, extraHeaders);
         if (fd < 0) {
             if (portstr) free(portstr);
             return -1;
@@ -234,8 +221,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
     }
 
     if (!FL_CMDLINE(flags))
-        winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), 
-                  filename);
+        winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), path);
 
     if (hostname) free(hostname);
     return fd;
