@@ -1070,6 +1070,7 @@ def doPartitioning(diskset, requests, doRefresh = 1):
 def doClearPartAction(partitions, diskset):
     type = partitions.autoClearPartType
     cleardrives = partitions.autoClearPartDrives
+    initAll = partitions.reinitializeDisks
 
     if type == CLEARPART_TYPE_LINUX:
         linuxOnly = 1
@@ -1103,7 +1104,10 @@ def doClearPartAction(partitions, diskset):
             # 3) there's not fsystem but the numeric id of partition is native
             # 4) the ptable doesn't support numeric ids, but it appears to be
             #    a RAID or LVM device (#107319)
+            # 5) the drive contains protected partitions and initAll is set
             if ((linuxOnly == 0) or (ptype and ptype.isLinuxNativeFS()) or 
+                (initAll and \
+                 partedUtils.hasProtectedPartitions(drive, anaconda)) or
                 (not ptype and
                  partedUtils.isLinuxNativeByNumtype(part.native_type)) or 
                 ((part.native_type == -1) and # the ptable doesn't have types
