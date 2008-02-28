@@ -63,6 +63,10 @@ while [ $# -gt 0 ]; do
 	    OUTPUT=$2
 	    shift; shift
 	    ;;
+	--updates)
+	    UPDATES=$2
+	    shift; shift
+	    ;;
 
 	*)
 	    REPO=$1
@@ -138,7 +142,9 @@ MK_STAMP=./makestamp.py
 BUILDINSTALL=./buildinstall
 
 for f in $UPD_INSTROOT $MK_IMAGES $MK_STAMP $MK_TREEINFO $BUILDINSTALL; do
-    if [ ! -f $f ]; then
+    if [ -f $UPDATES/usr/lib/anaconda-runtime/$f ]; then
+	cp -a $UPDATES/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
+    elif [ ! -f $f ]; then
 	cp -a $BUILDINSTDIR/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
     else
 	cp -a $f* $BUILDINSTDIR/
@@ -151,8 +157,10 @@ MK_TREEINFO=$BUILDINSTDIR/maketreeinfo.py
 MK_STAMP=$BUILDINSTDIR/makestamp.py
 BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
+if [ -n "$UPDATES" ]; then UPDATES="--updates $UPDATES"; fi
+
 echo "Building images..."
-$UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH --mindir $TREEDIR/minstg2 --stg2dir $TREEDIR/stage2 $yumconf
+$UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH $UPDATES --mindir $TREEDIR/minstg2 --stg2dir $TREEDIR/stage2 $yumconf
 
 echo "Writing .treeinfo file..."
 $MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --outfile=$OUTPUT/.treeinfo

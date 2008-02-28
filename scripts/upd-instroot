@@ -49,6 +49,13 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 
+	# a filesystem tree to use as updates.  could be the output
+	# of 'make install' from anaconda...
+	--updates)
+	    UPDATES=$2
+	    shift; shift
+	    ;;
+
 	*)
 	    yumconf=$1
 	    shift
@@ -93,6 +100,10 @@ expandPackageSet() {
     [ -d $PKGDEST ] || die "ERROR: directory missing: $PKGDEST"
     if [ -z "$DEBUG" ]; then outlvl="--quiet" ; else outlvl="--verbose"; fi
     yum $outlvl -c $YUMCONF -y --installroot=$YUMDIR install $RPMS 2>&1 || die "ERROR: could not install packages"
+
+    if [ -n "$UPDATES" ]; then
+	(cd $UPDATES; find) | (cd $UPDATES ; /bin/cpio --quiet -pmdu $YUMDIR)
+    fi
 
     # figure out the theme to keep
     if [ -f $YUMDIR/etc/gtk-2.0/gtkrc ]; then
