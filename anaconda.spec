@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.40
+Version: 11.4.0.41
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -212,6 +212,23 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb 28 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.41-1
+- Don't write out /etc/rpm/platform anymore. (katzj)
+- anaconda-runtime now needs yum-utils (katzj)
+- Add 'testiso' target (katzj)
+- Remove rescue cd creation scripts (katzj)
+- Take --updates with location of additional updates beyond the package 
+  set used (katzj)
+- Change the ISOs we build (katzj)
+- Take advantage of yum repos being available (katzj)
+- Allow recovery from some missing repodata conditions. (clumens)
+- Rework the repo editor screen to be more modular. (clumens)
+- Move doPostImages to be run after the second stage build (katzj)
+- Ensure that group info for txmbrs is accurate after we reset (katzj)
+- Fix backwards logic for yum verbosity (katzj)
+- No more arc (#435175) (katzj)
+- Remove an unused method. (clumens)
+
 * Tue Feb 26 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.40-1
 - Use non-deprecated HAL properties. (notting)
 - More crud to deal with the fact that rawhide trees are composed weird (katzj)
