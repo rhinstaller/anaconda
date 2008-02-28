@@ -829,6 +829,12 @@ class YumBackend(AnacondaBackend):
         # now we'll actually reselect groups..
         map(lambda g: self.selectGroup(g.groupid), sel)
 
+        # and now, to add to the hacks, we'll make sure that packages don't
+        # have groups double-listed.  this avoids problems with deselecting
+        # groups later
+        for txmbr in self.ayum.tsInfo.getMembers():
+            txmbr.groups = yum.misc.unique(txmbr.groups)
+
         # FIXME: this is a bad hack to remove support for xen on xen (#179387)
         if os.path.exists("/proc/xen"):
             if self.ayum.comps._groups.has_key("virtualization"):
