@@ -54,15 +54,15 @@
 /* boot flags */
 extern uint64_t flags;
 
-/* pull in second stage image for hard drive install */
+/* Pull in second stage image for hard drive install.  This is only used
+ * if method= is passed, not if stage2= is pased.
+ */
 static int loadHDImages(char * prefix, char * dir, 
                         char * device, char * mntpoint,
                         char * location) {
-    int fd = 0, rc, idx;
+    int fd = 0, rc, idx, tmp;
     char *path, *target = NULL, *dest, *cdurl = NULL;
     char *stg2list[] = {"stage2.img", "minstg2.img", NULL};
-
-    path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
 
     if (totalMemory() < 128000)
         idx = 1;
@@ -88,9 +88,9 @@ static int loadHDImages(char * prefix, char * dir,
             target = stg2list[idx];
 
             if (!dir || (dir && (!strcmp(dir, "/") || strcmp(dir, ""))))
-                sprintf(path, "%s/images/%s", prefix, target);
+                tmp = asprintf(&path, "%s/images/%s", prefix, target);
             else
-                sprintf(path, "%s/%s/images/%s", prefix, dir ? dir : "", target);
+                tmp = asprintf(&path, "%s/%s/images/%s", prefix, dir ? dir : "", target);
 
             logMessage(INFO, "Looking for hd stage2 image %s", path);
             if (!access(path, F_OK))
@@ -111,15 +111,19 @@ static int loadHDImages(char * prefix, char * dir,
         } 
     }
 
+    free(path);
+
     /* handle updates.img now before we copy stage2 over... this allows
      * us to keep our ramdisk size as small as possible */
-    sprintf(path, "%s/%s/images/updates.img", prefix, dir ? dir : "");
+    tmp = asprintf(&path, "%s/%s/images/updates.img", prefix, dir ? dir : "");
     copyUpdatesImg(path);
+    free(path);
 
     /* handle product.img now before we copy stage2 over... this allows
      * us to keep our ramdisk size as small as possible */
-    sprintf(path, "%s/%s/images/product.img", prefix, dir ? dir : "");
+    tmp = asprintf(&path, "%s/%s/images/product.img", prefix, dir ? dir : "");
     copyProductImg(path);
+    free(path);
 
     if (!cdurl) {
         dest = alloca(strlen(target) + 50);
@@ -133,7 +137,7 @@ static int loadHDImages(char * prefix, char * dir,
                      _("The %s installation tree in that directory does "
                        "not seem to match your boot media."), 
                      getProductName());
-        
+
             newtWinMessage(_("Error"), _("OK"), buf);
             free(buf);
             umountLoopback(mntpoint, device);
@@ -147,16 +151,14 @@ static int loadHDImages(char * prefix, char * dir,
 /* given a partition device and directory, tries to mount hd install image */
 static char * setupIsoImages(char * device, char * dirName, char * location) {
     int rc;
-    char * url;
-    char filespec[1024];
-    char * path;
+    char *url = NULL, *filespec, *updpath;
+    char *path;
     char *typetry[] = {"ext3", "ext2", "vfat", NULL};
     char **type;
 
     logMessage(INFO, "mounting device %s for hard drive install", device);
 
     if (!FL_TESTING(flags)) {
-
         /* XXX try to mount as ext2 and then vfat */
         for (type=typetry; *type; type++) {
             if (!doPwMount(device, "/mnt/isodir", *type, "ro"))
@@ -166,19 +168,51 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
         if (!type)
             return NULL;
 
-        if (*dirName == '/')
-            sprintf(filespec, "/mnt/isodir%s", dirName);
-        else
-            sprintf(filespec, "/mnt/isodir/%s", dirName);
+        if (FL_STAGE2(flags)) {
+            rc = asprintf(&filespec, "/mnt/isodir%.*s", (int) (strrchr(dirName, '/') - dirName), dirName);
+            path = strdup(filespec);
+        } else {
+            path = validIsoImages(filespec, 0);
 
-        if ((path = validIsoImages(filespec, 0))) {
-            char updpath[4096];
+            if (*dirName == '/')
+                rc = asprintf(&filespec, "/mnt/isodir%s", dirName);
+            else
+                rc = asprintf(&filespec, "/mnt/isodir/%s", dirName);
+        }
 
+        if (path) {
             logMessage(INFO, "Path to valid iso is %s", path);
 
-            snprintf(updpath, sizeof(updpath), "%s/updates.img", filespec);
+            rc = asprintf(&updpath, "%s/updates.img", filespec);
             logMessage(INFO, "Looking for updates for HD in %s", updpath);
             copyUpdatesImg(updpath);
+
+            free(updpath);
+            free(filespec);
+
+            if (FL_STAGE2(flags)) {
+                free(path);
+
+                if (!copyFile(dirName, "/tmp/stage2.img")) {
+                    rc = mountStage2("/tmp/stage2.img", dirName);
+                    umount("/mnt/isodir");
+
+                    if (rc) {
+                        umountLoopback("/mnt/runtime", "/dev/loop0");
+                        flags &= ~LOADER_FLAGS_STAGE2;
+                        goto err;
+                    } else {
+                        rc = asprintf(&url, "hd://%s:%s:/%s", device, *type,
+                                      dirName ? dirName : ".");
+                        return url;
+                    }
+                }
+                else {
+                    umount("/mnt/isodir");
+                    flags &= ~LOADER_FLAGS_STAGE2;
+                    goto err;
+                }
+            }
 
             rc = mountLoopback(path, "/mnt/source", "/dev/loop1");
             if (!rc) {
@@ -187,33 +221,37 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
                 rc = loadHDImages("/mnt/source", "/", "/dev/loop0",
                                   "/mnt/runtime", location);
                 if (rc) {
-                    newtWinMessage(_("Error"), _("OK"),
-                                   _("An error occured reading the install "
-                                   "from the ISO images. Please check your ISO "
-                                   "images and try again."));
                     umountLoopback("/mnt/source", "/dev/loop0");
                     umount("/mnt/isodir");
+                    free(path);
+                    goto err;
                 } else {
                     queryIsoMediaCheck(path);
+                    free(path);
+                    rc = asprintf(&url, "hd://%s:%s:/%s", device, *type,
+                                  dirName ? dirName : ".");
+                    return url;
                 }
             }
         } else {
-            rc = 1;
-        }
+            free(filespec);
 
-        if (rc) {
-            umount("/mnt/isodir");
-            return NULL;
+            if (rc) {
+                umount("/mnt/isodir");
+                return NULL;
+            }
         }
     } else {
         /* in test mode I dont know what to do - just pretend I guess */
         type = typetry;
     }
 
-    url = malloc(50 + strlen(dirName ? dirName : ""));
-    sprintf(url, "hd://%s:%s:/%s", device, *type, dirName ? dirName : ".");
-
-    return url;
+err:
+    newtWinMessage(_("Error"), _("OK"),
+                   _("An error occured reading the install "
+                   "from the ISO images. Please check your ISO "
+                   "images and try again."));
+    return NULL;
 }
 
 /* setup hard drive based install from a partition with a filesystem and

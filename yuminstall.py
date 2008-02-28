@@ -280,7 +280,7 @@ class AnacondaYum(YumSorter):
         # directory where Packages/ is located.
         self.tree = "/mnt/source"
 
-        if os.path.ismount("/mnt/isodir"):
+        if self.anaconda.methodstr.startswith("hd:"):
             self.isodir = "/mnt/isodir"
         else:
             self.isodir = None
@@ -315,6 +315,10 @@ class AnacondaYum(YumSorter):
         self.localPackages = []
 
     def systemMounted(self, fsset, chroot):
+        if os.path.exists("/tmp/stage2.img"):
+            log.debug("Not copying stage2.img as we already have it")
+            return
+
         if not os.path.exists("%s/images/stage2.img" %(self.tree,)):
             log.debug("Not copying stage2.img as we can't find it")
             return
@@ -446,9 +450,13 @@ class AnacondaYum(YumSorter):
         self.conf.metadata_expire = 0
 
         if self.anaconda.methodstr.startswith("nfs:"):
-            methodstr = "file:///mnt/source"
-            if not os.path.ismount("/mnt/source"):
-                isys.mount(self.anaconda.methodstr[4:], "/mnt/source", "nfs")
+            methodstr = "file://%s" % self.tree
+            if not os.path.ismount(self.tree):
+                isys.mount(self.anaconda.methodstr[4:], self.tree, "nfs")
+        elif self.anaconda.methodstr.startswith("cdrom:"):
+            methodstr = "file://%s" % self.tree
+        elif self.anaconda.methodstr.startswith("hd:"):
+            methodstr = "file://%s" % self.tree
         elif self.anaconda.methodstr.startswith("ftp:") or self.anaconda.methodstr.startswith("http:"):
             methodstr = self.anaconda.methodstr
 
