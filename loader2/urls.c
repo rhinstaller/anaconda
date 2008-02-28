@@ -279,7 +279,8 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
 
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
 
-    r = asprintf(&buf, _(netServerPrompt), getProductName());
+    r = asprintf(&buf, _("Please enter the URL containing the %s images on your server."),
+                 getProductName());
     reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
     free(buf);
 

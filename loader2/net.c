@@ -53,10 +53,6 @@
 /* boot flags */
 extern uint64_t flags;
 
-char *netServerPrompt = \
-    N_("Please enter the URL containing %s on your\n"
-       "server.\n");
-
 /**
  * Callback function for the CIDR entry boxes on the manual TCP/IP
  * configuration window.
