@@ -22,11 +22,8 @@ include ../Makefile.inc
 all:
 
 install:
-	sed -e 's/i386/x86_64/' mk-rescueimage.i386 > mk-rescueimage.x86_64
-
 	install -m 755 upd-instroot $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 mk-images* $(DESTDIR)/$(RUNTIMEDIR)
-	install -m 755 mk-rescueimage* $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 buildinstall $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 buildinstall.functions $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 splittree.py $(DESTDIR)/$(RUNTIMEDIR)
