@@ -122,21 +122,6 @@ makeBootImages() {
     # symlink the kernel for pxe dir
     ln $TOPDESTPATH/isolinux/vmlinuz $TOPDESTPATH/images/pxeboot/vmlinuz
 
-    # now make a boot iso
-    mkdir -p $TOPDESTPATH/images/isopath
-    cp -rl $TOPDESTPATH/isolinux $TOPDESTPATH/images/isopath
-    mkisofs -quiet -o $TOPDESTPATH/images/boot.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -V "$PRODUCT" -T $TOPDESTPATH/images/isopath
-    rm -rf $TOPDESTPATH/images/isopath
-
-    # now make a boot pendrive image
-    mkdir -p $TOPDESTPATH/images/fobpath
-    dd if=/dev/zero of=$TOPDESTPATH/images/diskboot.img bs=1M count=12 2>/dev/null
-    cp -r $TOPDESTPATH/isolinux/* $TOPDESTPATH/images/fobpath/
-    grep -v local $TOPDESTPATH/images/fobpath/isolinux.cfg > $TOPDESTPATH/images/fobpath/syslinux.cfg
-    rm -f $TOPDESTPATH/images/fobpath/isolinux.cfg
-    /usr/bin/makebootfat -o $TOPDESTPATH/images/diskboot.img -Y -b /usr/share/syslinux/ldlinux.bss -m /usr/share/makebootfat/x86/mbrfat.bin -F -Z -c /usr/share/syslinux/ldlinux.sys $TOPDESTPATH/images/fobpath/
-    rm -rf $TOPDESTPATH/images/fobpath
-
     cat > $TOPDESTPATH/images/pxeboot/README <<EOF
 The files in this directory are useful for booting a machine via PXE.  
 
@@ -149,10 +134,9 @@ EOF
 [images-$BASEARCH]
 kernel = images/pxeboot/vmlinuz
 initrd = images/pxeboot/initrd.img
-boot.iso = images/boot.iso
-diskboot.img = images/diskboot.img
 
 __EOT__
+
   else # set up the boot stuff for the xen guest kernel
     echo "Building $KERNELARCH guest initrd.img"
     mkdir -p $TOPDESTPATH/images/xen
@@ -169,4 +153,12 @@ initrd = images/xen/initrd.img
 
 __EOT__
   fi
+}
+
+
+doPostImages() {
+    if [ -n "$BOOTISO" ]; then
+       mkisofs -quiet -o $TOPDESTPATH/images/$BOOTISO -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -V "$PRODUCT" -T -graft-points isolinux=$TOPDESTPATH/isolinux images/stage2.img=$TOPDESTPATH/images/stage2.img
+    fi
+
 }

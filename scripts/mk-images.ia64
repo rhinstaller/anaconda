@@ -145,12 +145,6 @@ makeBootImages() {
     mv $TOPDESTPATH/kernels/vmlinuz $TOPDESTPATH/images/pxeboot/vmlinuz
     rmdir $TOPDESTPATH/kernels
 
-    # make a boot iso
-    mkdir -p $TOPDESTPATH/images/isopath
-    cp -l $TOPDESTPATH/images/boot.img $TOPDESTPATH/images/isopath
-    mkisofs -quiet -o $TOPDESTPATH/images/boot.iso -b boot.img -no-emul-boot -R -J -V "$PRODUCT" -T $TOPDESTPATH/images/isopath
-    rm -rf $TOPDESTPATH/images/isopath
-
     # make a pxe dir with kernel + initrd
     cat > $TOPDESTPATH/images/pxeboot/README <<EOF
 The files in this directory are useful for booting a machine via PXE.  
@@ -164,7 +158,6 @@ EOF
 [images-$KERNELARCH]
 kernel = images/pxeboot/vmlinuz
 initrd = images/pxeboot/initrd.img
-boot.iso = images/boot.iso
 boot.img = images/boot.img
 
 __EOT__
@@ -185,4 +178,10 @@ initrd = images/xen/initrd.img
 
 __EOT__
   fi
+}
+
+doPostImages() {
+    if [ -n "$BOOTISO" ]; then
+        mkisofs -quiet -o $TOPDESTPATH/images/$BOOTISO -b boot.img -no-emul-boot -R -J -V "$PRODUCT" -T -graft-points boot.img=$TOPDESTPATH/images/boot.img images/stage2.img=$TOPDESTPATHimages/stage2.img
+    fi
 }

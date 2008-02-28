@@ -114,7 +114,6 @@ __EOT__
 }
 
 doPostImages() {
-    # Create boot.iso here instead of above, so we can include it all
     mkdir -p $TOPDESTPATH/etc
     mkdir -p $TOPDESTPATH/ppc/chrp
 	
@@ -143,6 +142,10 @@ doPostImages() {
 	cp $TOPDESTPATH/ppc/ppc??/yaboot.conf $TOPDESTPATH/etc
     fi
 
+    if [ -z "$BOOTISO" ]; then
+	return
+    fi
+
     # Copy it all into the isopath for the boot CD
     mkdir -p $TOPDESTPATH/isopath
     cp -r $TOPDESTPATH/{ppc,etc} $TOPDESTPATH/isopath
@@ -165,11 +168,12 @@ doPostImages() {
     fi
 
     # Create the boot.iso
-    mkisofs -o $TOPDESTPATH/images/boot.iso -chrp-boot -U $PREPBOOT \
+    mkisofs -o $TOPDESTPATH/images/$BOOTISO -chrp-boot -U $PREPBOOT \
 	-part -hfs -T -r -l -J -A "$PRODUCT $VERSION" -sysid PPC \
 	-V "PBOOT" -volset "$VERSION" -volset-size 1 -volset-seqno 1 \
 	$MACBOOT \
 	-map $BOOTDISKDIR/mapping -magic $BOOTDISKDIR/magic \
-	-no-desktop -allow-multidot $TOPDESTPATH/isopath
+	-no-desktop -allow-multidot -graft-points $TOPDESTPATH/isopath \
+	images/stage2.img=$TOPDESTPATH/images/stage2.img
     rm -rf $TOPDESTPATH/isopath
 }

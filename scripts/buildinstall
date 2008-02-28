@@ -100,6 +100,10 @@ if [ -z "$OUTPUT" ]; then
     usage
 fi
 
+if [ ! -d "$OUTPUT" ]; then
+    mkdir -p $OUTPUT
+fi
+
 yumconf=$(mktemp /tmp/yum.conf.XXXXXX)
 cat > $yumconf <<EOF
 [main]
