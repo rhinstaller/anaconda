@@ -154,9 +154,10 @@ static void wrongCDMessage(void) {
 static void mountCdromStage2(char *cddev, char *location) {
     int gotcd1=0;
     int rc;
-    char *stage2loc;
+    char *stage2loc, *imageDir;
 
     rc = asprintf(&stage2loc, "%s/images/stage2.img", location);
+    rc = asprintf(&imageDir, "%s/images/", location);
 
     do {
         do {
@@ -168,7 +169,7 @@ static void mountCdromStage2(char *cddev, char *location) {
             }
         } while (1);
 
-        rc = mountStage2(stage2loc);
+        rc = mountStage2(stage2loc, imageDir);
 
         /* if we failed, umount location (usually) /mnt/source and keep going */
         if (rc) {
@@ -179,6 +180,9 @@ static void mountCdromStage2(char *cddev, char *location) {
             gotcd1 = 1;
         }
     } while (!gotcd1);
+
+    free(stage2loc);
+    free(imageDir);
 }
 
 /* ask about doing media check */
@@ -230,12 +234,13 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
     int i, r, rc;
     int foundinvalid = 0;
     int stage2inram = 0;
-    char *buf, *stage2loc, *discinfoloc;
+    char *buf, *stage2loc, *discinfoloc, *imageDir;
     char *stage2img;
     struct device ** devices;
     char *cddev = NULL;
 
     r = asprintf(&stage2loc, "%s/images/stage2.img", location);
+    r = asprintf(&imageDir, "%s/images", location);
     r = asprintf(&discinfoloc, "%s/.discinfo", location);
 
     devices = getDevices(DEVICE_CDROM);
@@ -277,7 +282,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                         stage2img = strdup(stage2loc);
                         stage2inram = 0;
                     }
-                    rc = mountStage2(stage2img);
+                    rc = mountStage2(stage2img, imageDir);
 
                     /* if we failed, umount location (usually /mnt/source) and
                      * keep going
