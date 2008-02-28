@@ -141,6 +141,7 @@ Requires: openssh
 Requires: xorg-x11-font-utils, netpbm-progs
 Requires: busybox-anaconda
 Requires: isomd5sum
+Requires: yum-utils
 
 %description runtime
 The anaconda-runtime package contains parts of the installation system which 
