@@ -64,11 +64,17 @@ depend:
 	for d in $(SUBDIRS); do make -C $$d depend; done
 
 clean:
-	rm -f *.o *.so *.pyc lang-names mini-wm ChangeLog
+	rm -f *.o *.so *.pyc lang-names mini-wm ChangeLog netinst.iso outiso
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 subdirs:
 	for d in $(SUBDIRS); do make -C $$d; [ $$? = 0 ] || exit 1; done
+
+testiso: install
+	@if [ "$(REPO)" = "" ]; then echo "ERROR: Need a repo to pull packages from!" ; exit 1 ; fi
+	@pushd scripts ; sudo ./buildinstall --version $(VERSION) --product anaconda --release $(ANACONDA)-$(VERSION) --output $(shell pwd)/outiso --updates $(DESTDIR) $(REPO) ; popd ; cp outiso/images/netinst.iso ./netinst.iso ; sudo rm -rf outiso
+	@echo
+	@echo "Test iso is located at ./netinst.iso"
 
 install: 
 	@if [ "$(DESTDIR)" = "" ]; then \
