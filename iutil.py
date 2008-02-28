@@ -492,9 +492,9 @@ def writeRpmPlatform(root="/"):
     # now make the current install believe it, too
     rhpl.arch.canonArch = myarch
 
-    f = open("%s/etc/rpm/platform" %(root,), 'w+')
-    f.write("%s-redhat-linux\n" %(myarch,))
-    f.close()
+#    f = open("%s/etc/rpm/platform" %(root,), 'w+')
+#    f.write("%s-redhat-linux\n" %(myarch,))
+#    f.close()
 
     # FIXME: writing /etc/rpm/macros feels wrong somehow
     # temporary workaround for #92285
