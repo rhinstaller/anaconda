@@ -869,8 +869,12 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->kbd = strdup(argv[i] + 7);
             loaderData->kbd_set = 1;
         }
-        else if (!strncasecmp(argv[i], "method=", 7))
+        else if (!strncasecmp(argv[i], "method=", 7) && !FL_STAGE2(flags))
             setMethodFromCmdline(argv[i] + 7, loaderData);
+        else if (!strncasecmp(argv[i], "stage2=", 7)) {
+            flags |= LOADER_FLAGS_STAGE2;
+            setMethodFromCmdline(argv[i] + 7, loaderData);
+        }
         else if (!strncasecmp(argv[i], "hostname=", 9))
             loaderData->hostname = strdup(argv[i] + 9);
         else if (!strncasecmp(argv[i], "ip=", 3))
