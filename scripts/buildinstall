@@ -19,7 +19,7 @@
 #
 
 usage() {
-	echo "Usage: buildinstall --version <version> --product <product> --release <comment> [--discs <discstring>] <root>" >&2
+	echo "Usage: buildinstall --version <version> --product <product> --release <comment> [--output outputdir] [--discs <discstring>] <root>" >&2
 	exit 1
 }
 
@@ -59,8 +59,13 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 
+	--output)
+	    OUTPUT=$2
+	    shift; shift
+	    ;;
+
 	*)
-	    DIR=$1
+	    REPO=$1
 	    shift
 	    ;;
     esac
@@ -74,7 +79,7 @@ if [ -z "$VERSION" ]; then
     usage
 fi
 
-if [ -z "$DIR" ]; then
+if [ -z "$REPO" ]; then
     usage
 fi
 
@@ -86,24 +91,40 @@ if [ -z "$BUGURL" ]; then
     BUGURL="your distribution provided bug reporting tool."
 fi
 
-DIR=`cd $DIR > /dev/null; /bin/pwd`
+if [[ "$REPO" =~ ^/ ]]; then
+    [ -n "$OUTPUT" ] || OUTPUT=$REPO
+    REPO="file://$REPO"
+fi
+
+if [ -z "$OUTPUT" ]; then
+    usage
+fi
+
+yumconf=$(mktemp /tmp/yum.conf.XXXXXX)
+cat > $yumconf <<EOF
+[main]
+keepcache=0
+gpgcheck=0
+plugins=0
+reposdir=
+tsflags=nodocs
+
+[anacondarepo]
+name=anaconda repo
+baseurl=$REPO
+enabled=1
+EOF
 
 BUILDINSTDIR=`mktemp -d ${TMPDIR:-/tmp}/buildinstall.tree.XXXXXX`
 TREEDIR=`mktemp -d ${TMPDIR:-/tmp}/treedir.XXXXXX`
 
-ANACONDARUNTIME=`find -L $DIR -name "anaconda-runtime-[0-9]*" |head -n 1`
-BUILDARCH=`rpm -qp --qf "%{ARCH}\n" $ANACONDARUNTIME`
-
 echo "Running buildinstall..."
 
-echo "Checking for repository metadata..."
-if ! [ -d $DIR/repodata ]; then
-    echo "Repodata must exist in the tree!" >&2
-    exit 1 
-fi
-
 pushd $BUILDINSTDIR
-rpm2cpio $ANACONDARUNTIME | cpio --quiet -iumd './usr*'
+BUILDARCH=`repoquery -c $yumconf --qf "%{ARCH}\n" anaconda-runtime`
+yumdownloader -c $yumconf anaconda-runtime || exit 1
+rpm2cpio anaconda-runtime*rpm | cpio --quiet -iumd './usr*'
+rm -f anaconda-runtime*rpm
 popd
 
 UPD_INSTROOT=./upd-instroot
@@ -127,15 +148,17 @@ MK_STAMP=$BUILDINSTDIR/makestamp.py
 BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
 echo "Building images..."
-$UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH --mindir $TREEDIR/minstg2 --stg2dir $TREEDIR/stage2 $DIR
+$UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH --mindir $TREEDIR/minstg2 --stg2dir $TREEDIR/stage2 $yumconf
 
 echo "Writing .treeinfo file..."
-$MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --outfile=$DIR/.treeinfo
+$MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --outfile=$OUTPUT/.treeinfo
 
+# FIXME: need to update mk-images to take the yumconf
 echo "Making images..."
-$MK_IMAGES $DEBUGSTR $NOGRSTR --mindir $TREEDIR/minstg2 --stg2dir $TREEDIR/stage2 --arch $BUILDARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" $DIR
+$MK_IMAGES $DEBUGSTR $NOGRSTR --mindir $TREEDIR/minstg2 --stg2dir $TREEDIR/stage2 --arch $BUILDARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf
 
 echo "Writing .discinfo file"
-$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL"  --outfile=$DIR/.discinfo
+$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL"  --outfile=$OUTPUT/.discinfo
 
 rm -rf $TREEDIR $BUILDINSTDIR
+rm -f $yumconf

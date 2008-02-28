@@ -80,17 +80,13 @@ while [ $# -gt 0 ]; do
 	    ;;
 
 	*)
-	    DISTROPATH=$1
+	    yumconf=$1
 	    shift
 	    ;;
     esac
 done
 
-if [ -z "$TOPDESTPATH" ]; then
-    TOPDESTPATH=$DISTROPATH
-fi
-
-if [ -z "$TOPDESTPATH" -o -z "$DISTROPATH" -o -z "$INSTIMGTEMPLATE" -o -z "$IMGPATH" -o -z "$PRODUCT" -o -z "$VERSION" ]; then usage; fi
+if [ -z "$TOPDESTPATH" -o -z "$INSTIMGTEMPLATE" -o -z "$IMGPATH" -o -z "$PRODUCT" -o -z "$VERSION" ]; then usage; fi
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
@@ -212,21 +208,14 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
     fi
  
 findPackage() {
-    dir=$1
-    name=$2
+    name=$1
 
-    for n in $(find -L $dir -name "$name*$KERNELARCH.rpm"); do
-	thisName=$(rpm --nodigest --nosignature --qf '%{NAME}' -qp $n)
-	if [ -z "$thisName" ]; then
-	    continue
-	fi
-	if [ $thisName = $name ]; then
-	    echo $n
-	    return
-	fi
-    done
-
-    echo "cannot find package $name in path $dir" >&2
+    pkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" -c $yumconf $name.$KERNELARCH)
+    if [ -n "$pkg" ]; then
+	echo $pkg
+	return
+    fi
+    echo "cannot find package $name" >&2
 }
 
 rundepmod () {
@@ -760,13 +749,15 @@ fi
 foundakernel=""
 for KERNELARCH in $arches; do
   for kernelvers in $kerneltags; do
-    kpackage=$(findPackage $DISTROPATH $kernelvers)
+    kpackage=$(findPackage $kernelvers)
     if [ "$KERNELARCH" = "i586" -a ! -f "$kpackage" ]; then
 	echo "No i586 kernel, trying i686..."
 	KERNELARCH="i686"
-	kpackage=$(findPackage $DISROPATH $kernelvers)
+	kpackage=$(findPackage $kernelvers)
     fi
 
+    yumdownloader -c $yumconf $kpackage
+    kpackage="$kpackage.rpm"
     if [ ! -f "$kpackage" ]; then
 	echo "kernel ($kernelvers) doesn't exist for $KERNELARCH.  skipping"
 	continue
@@ -781,11 +772,12 @@ for KERNELARCH in $arches; do
 
     version=$(rpm --nodigest --nosignature --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kerneltag}
     arch=$(rpm --nodigest --nosignature --qf '%{ARCH}\n' -qp $kpackage)
-    echo "unpacking $kpackage.$arch"
+    echo "unpacking $kpackage"
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
+    rm -f $kpackage
     # expand out any available firmware too
-    for p in $(find -L $DISTROPATH -name '*firmware*.rpm') ; do rpm2cpio $p | (cd $KERNELROOT; cpio --quiet -iumd) ; done
+    for p in $(repoquery -c $yumconf '*firmware*') ; do yumdownloader -c $yumconf $p ; rpm2cpio *firmware*.rpm | (cd $KERNELROOT; cpio --quiet -iumd) ; rm -f *firmware*.rpm ; done
 
     if [ ! -d "$KERNELROOT/lib/modules/$version" ]; then
 	echo "$KERNELROOT/lib/modules/$version is not a valid modules directory" 2>&1

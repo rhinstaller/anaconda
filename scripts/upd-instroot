@@ -50,15 +50,15 @@ while [ $# -gt 0 ]; do
 	    ;;
 
 	*)
-	    TOPDIR=$1
+	    yumconf=$1
 	    shift
 	    ;;
     esac
 done
 
-if [ -z "$TOPDIR" ]; then
+if [ -z "$yumconf" ]; then
 	echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
-	echo "usage:        $0 [--nogr] [--debug] [--arch arch] <packagedir> [templatedir] [instroot]"
+	echo "usage:        $0 [--nogr] [--debug] [--arch arch] [--mindir mindir] [--stg2dir stg2dir] [yumconf]"
 	exit 1
 fi
 
@@ -76,8 +76,8 @@ if [ -z "$DESTGR" ]; then
     DESTGR=`mktemp -d ${TMPDIR:-/tmp}/destgr.XXXXXX`
 fi
 
-if [ ! -d $TOPDIR/repodata ]; then
-    echo "Unable to find repodata!"
+if [ ! -f $yumconf ]; then
+    echo "Unable to find yum repo information!"
     exit 1
 fi
 
@@ -862,21 +862,6 @@ ln -s /tmp $DESTGR/var/lib/xkb
 cat $KEEPFILERESCUE >> $KEEPFILEGR
 cat $KEEPFILE >> $KEEPFILEGR
 
-yumconf=$(mktemp /tmp/yum.conf.XXXXXX)
-cat > $yumconf <<EOF 
-[main]
-keepcache=0
-gpgcheck=0
-plugins=0
-reposdir=
-tsflags=nodocs
-
-[anacondarepo]
-name=anaconda repo
-baseurl=file://$TOPDIR
-enabled=1
-EOF
-
 echo `date` "Expanding text packages..."
 YUMDIR=${TMPDIR:-/tmp}/yumdir.$$
 mkdir -p $YUMDIR/var/log
@@ -905,7 +890,7 @@ if [ -n "$NEEDGR" ]; then
 EOF
 fi
 
-rm -rf $yumconf $YUMDIR
+rm -rf $YUMDIR
 
 chown -R root:root $DEST $DESTGR
 chmod -R a+rX-w $DEST $DESTGR
