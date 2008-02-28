@@ -807,8 +807,6 @@ for KERNELARCH in $arches; do
   done
 done
 
-doPostImages
-
 # do some clean up before making the cramfs of the second stage
 rm -rf $INSTIMGTEMPLATE/usr/lib/anaconda-runtime $INSTIMGTEMPLATE/usr/lib/syslinux $IMGPATH/usr/lib/syslinux
 
@@ -816,5 +814,7 @@ if [ -n "$foundakernel" ]; then
   makeSecondStage
   rm -rf $KERNELBASE
 fi
+
+doPostImages
 
 cd $TOPDIR
