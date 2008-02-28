@@ -70,13 +70,6 @@ clean:
 subdirs:
 	for d in $(SUBDIRS); do make -C $$d; [ $$? = 0 ] || exit 1; done
 
-# this rule is a hack
-install-python:
-	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
-	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
-	install -m 755 anaconda $(DESTDIR)/usr/bin/anaconda
-	for d in installclasses isys iw textw; do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
-
 install: 
 	@if [ "$(DESTDIR)" = "" ]; then \
 		echo " "; \
