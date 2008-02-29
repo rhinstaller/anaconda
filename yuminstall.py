@@ -445,12 +445,19 @@ class AnacondaYum(YumSorter):
         self.conf.cachedir = '/tmp/cache/'
         self.conf.metadata_expire = 0
 
+        if self.anaconda.methodstr.startswith("nfs:"):
+            methodstr = "file:///mnt/source"
+            if not os.path.ismount("/mnt/source"):
+                isys.mount(self.anaconda.methodstr[4:], "/mnt/source", "nfs")
+        elif self.anaconda.methodstr.startswith("ftp:") or self.anaconda.methodstr.startswith("http:"):
+            methodstr = self.anaconda.methodstr
+
         # set up logging to log to our logs
         ylog = logging.getLogger("yum")
         map(lambda x: ylog.addHandler(x), log.handlers)
 
         # add default repos
-        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.anaconda.methodstr).items():
+        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(methodstr).items():
             rid = name.replace(" ", "")
             repo = AnacondaYumRepo(uri, addon=False,
                                    repoid="anaconda-%s-%s" %(rid, productStamp),

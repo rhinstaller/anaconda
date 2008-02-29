@@ -558,22 +558,28 @@ class Anaconda:
         # real URIs, though.
         self._loaderMethodstr = methodstr
 
-        if methodstr.startswith("nfs://"):
-            self.methodstr = "file:///" + methodstr[6:]
-        elif methodstr.startswith("nfsiso:/"):
-            self.methodstr = "file://" + methodstr[8:]
-        elif methodstr.startswith("cdrom://"):
-            (device, tree) = string.split(methodstr[8:], ":", 1)
+        # Make a best guess at where the repo is by trimming off the image file
+        # from the end.  If this doesn't work, we've got repo reconfig screens
+        # to use later on.
+        if methodstr.endswith(".img"):
+            try:
+                m = methodstr[:methodstr.rindex("/")]
+                m = m[:m.rindex("/")]
+            except:
+                m = methodstr
+        else:
+            m = methodstr
+
+        if m.startswith("cdrom://"):
+            (device, tree) = string.split(m[8:], ":", 1)
 
             if not tree.startswith("/"):
                 tree = "/%s" %(tree,)
 
             self.mediaDevice = device
             self.methodstr = "file://" + tree
-        elif methodstr.startswith("hd://"):
-            self.methodstr = "file:///mnt/source"
         else:
-            self.methodstr = methodstr
+            self.methodstr = m
 
     def writeMethodstr(self, f):
         import urllib
@@ -588,7 +594,7 @@ class Anaconda:
             partition = string.split(self._loaderMethodstr[pidx:pidx+didx], ':')[0]
             dir = self._loaderMethodstr[pidx+didx+1:]
             f.write("harddrive --partition=%s --dir=%s\n" % (partition, dir))
-        elif self._loaderMethodstr.startswith('nfs:/') or self._loaderMethodstr.startswith('nfsiso:'):
+        elif self._loaderMethodstr.startswith('nfs:') or self._loaderMethodstr.startswith('nfsiso:'):
             (method, tmpmntpt) = string.split(self._loaderMethodstr, ':')
             # clean up extra '/' at front
             if tmpmntpt[1] == '/':
