@@ -1539,6 +1539,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev) {
     char * name, * chptr;
     char ret[48];
     ip_addr_t *tip;
+    in_addr_t addr;
     struct hostent *host;
 
     if (!FL_TESTING(flags)) {
@@ -1559,7 +1560,8 @@ int findHostAndDomain(struct networkDeviceConfig * dev) {
 
         tip = &(dev->dev.ip);
         inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-        host = gethostbyaddr(ret, IP_STRLEN(tip), tip->sa_family);
+        inet_aton(ret, (struct in_addr *)&addr);
+        host = gethostbyaddr(&addr, IP_STRLEN(tip), tip->sa_family);
 
         if (!FL_CMDLINE(flags))
             newtPopWindow();
@@ -1571,7 +1573,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev) {
 
         name = strdup(host->h_name);
 
-        logMessage(INFO, "reverse name lookup worked");
+        logMessage(INFO, "reverse name lookup worked (hostname is %s)", name);
 
         dev->dev.hostname = strdup(name);
         dev->dev.set |= PUMP_NETINFO_HAS_HOSTNAME;
