@@ -1761,7 +1761,7 @@ int main(int argc, char ** argv) {
 
     /* we only want to use RHupdates on nfs installs.  otherwise, we'll 
      * use files on the first iso image and not be able to umount it */
-    if (!strncmp(url, "nfs:", 4)) {
+    if (!strncmp(url, "nfs:", 4) && !FL_STAGE2(flags)) {
         logMessage(INFO, "NFS install method detected, will use RHupdates/");
         useRHupdates = 1;
     } else {
