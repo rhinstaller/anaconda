@@ -256,7 +256,7 @@ class TaskWindow(InstallWindow):
 
                     # Setup any repositories that were in the installclass's
                     # default list.
-                    _setupRepo(self.anaconda, repo)
+                    setupRepo(self.anaconda, repo)
                 else:
                     repo.disable()
 
