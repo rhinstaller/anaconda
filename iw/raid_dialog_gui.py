@@ -76,6 +76,8 @@ class RaidEditor:
     def createRaidLevelMenu(self, levels, reqlevel):
         levelcombo = gtk.combo_box_new_text()
 	defindex = 0
+        if "RAID1" in levels:
+            defindex = levels.index("RAID1")
 	i = 0
 	for lev in levels:
             levelcombo.append_text(lev)
