@@ -772,7 +772,7 @@ class DiskSet:
                 try:
                     isys.mount(theDev, self.anaconda.rootPath, fs, readOnly = 1)
                     found = 1
-                except SystemError, (errno, msg):
+                except SystemError:
                     pass
 
             if found:
@@ -874,7 +874,7 @@ class DiskSet:
                                        self.anaconda.rootPath,
                                        fstype)
                             checkRoot = self.anaconda.rootPath
-                        except SystemError, (errno, msg):
+                        except SystemError:
                             part = disk.next_partition(part)
                             continue
                     else:
