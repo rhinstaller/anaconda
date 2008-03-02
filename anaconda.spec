@@ -27,7 +27,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define yumver 2.9.2
 %define rhplver 0.170
 %define partedver 1.8.1
-%define pirutver 1.1.0
 %define syscfgdatever 1.9.0
 %define pythonpyblockver 0.24-1
 %define libbdevidver 5.1.2-1
@@ -55,7 +54,6 @@ BuildRequires: libxml2-python
 BuildRequires: mkinitrd-devel >= %{mkinitrdver}
 BuildRequires: newt-devel
 BuildRequires: pango-devel
-BuildRequires: pirut
 BuildRequires: popt-devel
 BuildRequires: pykickstart >= %{pykickstartver}
 BuildRequires: python-devel
@@ -77,7 +75,6 @@ Requires: booty
 Requires: parted >= %{partedver}
 Requires: pyparted >= %{partedver}
 Requires: yum >= %{yumver}
-Requires: pirut >= %{pirutver}
 Requires: libxml2-python
 Requires: python-urlgrabber
 Requires: system-logos
