@@ -1295,9 +1295,12 @@ class FileSystemSet:
                 else:
                     device = devify(entry.device.getDevice())
                 fstab = fstab + entry.device.getComment()
+                options = entry.getOptions()
+                if entry.mountpoint == "/":
+                    options = options.replace(",_netdev", ",_rnetdev")
                 fstab = fstab + format % (device, entry.mountpoint,
                                           entry.fsystem.getName(),
-                                          entry.getOptions(), entry.fsck,
+                                          options, entry.fsck,
                                           entry.order)
         return fstab
 
@@ -1825,10 +1828,15 @@ MAILADDR root
             if not entry.origfsystem:
                 continue
 
+            mountpoint = entry.getMountPoint()
+
+            if mountpoint == "/":
+                entry.options = entry.options.replace(",_netdev",",_rnetdev")
+
             if (rhpl.getArch() == 'ia64' \
                         or (rhpl.getArch() in ("i386", "x86_64") \
                             and iutil.isEfi())) \
-                    and entry.getMountPoint() == "/boot/efi" \
+                    and mountpoint == "/boot/efi" \
                     and isinstance(entry.origfsystem, FATFileSystem) \
                     and not entry.getFormat():
                 entry.setMigrate(1)
