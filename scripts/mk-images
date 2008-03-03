@@ -761,6 +761,11 @@ for KERNELARCH in $arches; do
 	kpackage=$(findPackage $kernelvers)
     fi
 
+    if [ -z "$kpackage" ]; then
+	echo "Unable to find kernel package $kernelvers"
+	continue
+    fi
+
     yumdownloader -c $yumconf $kpackage
     kpackage="$kpackage.rpm"
     if [ ! -f "$kpackage" ]; then
