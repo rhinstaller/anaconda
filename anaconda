@@ -577,7 +577,7 @@ class Anaconda:
                 tree = "/%s" %(tree,)
 
             self.mediaDevice = device
-            self.methodstr = "file://" + tree
+            self.methodstr = "cdrom://%s" % tree
         else:
             self.methodstr = m
 

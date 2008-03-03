@@ -285,9 +285,14 @@ class AnacondaYum(YumSorter):
         else:
             self.isodir = None
 
-        # The loader mounts the first disc for us, so don't remount it.
+        # The loader may have mounted the first disc for us, but there's
+        # no guarantee what with the stage2= stuff.
         if self.anaconda.mediaDevice or self.isodir:
-            self.currentMedia = 1
+            if os.path.ismount(self.tree):
+                self.currentMedia = 1
+            else:
+                self.currentMedia = None
+
             self.mediagrabber = self.mediaHandler
         else:
             self.currentMedia = None

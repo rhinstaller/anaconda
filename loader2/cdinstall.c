@@ -239,14 +239,20 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
     struct device ** devices;
     char *cddev = NULL;
 
-    r = asprintf(&stage2loc, "%s/images/stage2.img", location);
-    r = asprintf(&imageDir, "%s/images", location);
-    r = asprintf(&discinfoloc, "%s/.discinfo", location);
-
     devices = getDevices(DEVICE_CDROM);
     if (!devices) {
         logMessage(ERROR, "got to setupCdrom without a CD device");
         return NULL;
+    }
+
+    if (loaderData && FL_STAGE2(flags)) {
+        stage2loc = strdup(location);
+        r = asprintf(&imageDir, "%.*s", (int) (strrchr(location, '/') - directory), directory);
+        r = asprintf(&discinfoloc, "%s/.discinfo", imageDir);
+    } else {
+        r = asprintf(&stage2loc, "%s/images/stage2.img", location);
+        r = asprintf(&imageDir, "%s/images", location);
+        r = asprintf(&discinfoloc, "%s/.discinfo", location);
     }
 
     /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
@@ -308,6 +314,11 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
                     r = asprintf(&buf, "cdrom://%s:%s",
                                  devices[i]->device, location);
+
+                    free(stage2loc);
+                    free(imageDir);
+                    free(discinfoloc);
+
                     if (r == -1)
                         return NULL;
                     else
@@ -340,13 +351,17 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                                _("OK"), _("Back"), buf, _("OK"));
             free(buf);
             if (rc == 2)
-                return NULL;
+                goto err;
         } else {
             /* we can't ask them about it, so just return not found */
-            return NULL;
+            goto err;
         }
     } while (1);
 
+err:
+    free(stage2loc);
+    free(imageDir);
+    free(discinfoloc);
     return NULL;
 }
 
