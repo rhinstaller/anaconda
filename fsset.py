@@ -1354,7 +1354,7 @@ class FileSystemSet:
         fstab = ""
         for entry in self.entries:
             if entry.mountpoint:
-                if entry.getUuid():
+                if entry.getUuid() and entry.device.doLabel is not None:
                     device = "UUID=%s" %(entry.getUuid(),)
                 elif entry.getLabel() and entry.device.doLabel is not None:
                     device = "LABEL=%s" % (entry.getLabel(),)
