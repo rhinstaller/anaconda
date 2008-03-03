@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.104
+Version: 11.1.2.105
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar 03 2008 Chris Lumens <clumens@redhat.com> 11.1.2.105-1
+- Add support for _rnetdev mount option in fstab (pjones).
+  Resolves: rhbz#435716
+- Lots of network UI configuration fixes (dcantrell).
+  Resolves: rhbz#432011
+- Fix lvm error handling (msivak).
+  Related: rhbz#224636
+
 * Thu Feb 21 2008 Chris Lumens <clumens@redhat.com> 11.1.2.104-1
 - Handle exceptions when setting up repos not enabled by a key.
   Resolves: rhbz#433028
