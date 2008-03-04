@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.42
+Version: 11.4.0.43
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -209,6 +209,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar 03 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.43-1
+- Only use UUID= for devices we would have labeled.  Related to #435228 (katzj)
+- If we don't find a kernel package, then give a better error (katzj)
+- Translation updates (cs, de)
+
 * Sun Mar 02 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.42-1
 - Fix a traceback when we have an error.  Related to #433658 (katzj)
 - Add virtio_pci in hopes of getting virtio working (katzj)
