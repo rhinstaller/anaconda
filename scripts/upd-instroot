@@ -178,7 +178,7 @@ if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
 fi
 
 if [ $ARCH = i386 -o $ARCH = x86_64 -o $ARCH = ia64 ]; then
-    PACKAGES="$PACKAGES dmidecode"
+    PACKAGES="$PACKAGES dmidecode efibootmgr"
 fi
 
 if [ $ARCH = ia64 ]; then
@@ -308,6 +308,7 @@ KEEPFILE=${TMPDIR:-/tmp}/keepfile.$$
 
 cat > $KEEPFILE <<EOF
 boot/efi/EFI/redhat/elilo.efi
+boot/efi/EFI/redhat/grub.efi
 bin/ash
 bin/dbus-daemon
 bin/fdisk*
