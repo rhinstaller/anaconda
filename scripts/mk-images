@@ -123,7 +123,7 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
 
     KERNELNAME=vmlinuz
 
-    if [ "$BUILDARCH" = "ia64" ]; then
+    if [ -d /sys/firmware/efi ]; then
 	KERNELDIR="/boot/efi/EFI/redhat"
     else
 	KERNELDIR="/boot"
