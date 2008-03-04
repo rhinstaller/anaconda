@@ -928,13 +928,13 @@ class DiskSet:
                 continue
 
             # FIXME: this belongs in parted itself, but let's do a hack...
-            if rhpl.getArch() in ("i386", "x86_64") \
-                    and disk.type.name == "gpt":
-                log.debug("syncing gpt to mbr for disk %s" % (disk.dev.path,))
-                iutil.execWithRedirect("gptsync", [disk.dev.path,],
-                                       stdout="/tmp/gptsync.log",
-                                       stderr="/tmp/gptsync.err",
-                                       searchPath = 1)
+            #if rhpl.getArch() in ("i386", "x86_64") \
+            #        and disk.type.name == "gpt":
+            #    log.debug("syncing gpt to mbr for disk %s" % (disk.dev.path,))
+            #    iutil.execWithRedirect("gptsync", [disk.dev.path,],
+            #                           stdout="/tmp/gptsync.log",
+            #                           stderr="/tmp/gptsync.err",
+            #                           searchPath = 1)
             del disk
         self.refreshDevices()
 
