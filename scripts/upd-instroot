@@ -182,6 +182,7 @@ if [ $ARCH = i386 -o $ARCH = x86_64 -o $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = ia64 ]; then
+    # XXX this needs to switch to grub at some point...
     PACKAGES="$PACKAGES elilo"
 fi
 
@@ -274,6 +275,7 @@ if [ $ARCH = alpha ]; then
 fi
 
 if [ $ARCH = ia64 ]; then
+    # XXX this needs to switch to grub at some point...
     PACKAGESGR="$PACKAGESGR elilo"
 fi
 
@@ -1074,8 +1076,10 @@ for p in $DEST $DESTGR; do
 	# copy bootloader files for i386/x86_64
 	if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
 	    if [ $p = $DESTGR ]; then
-		mkdir -p $p/usr/lib/anaconda-runtime/boot
-		cp -af $p/boot/memtest* $p/usr/lib/anaconda-runtime/boot
+		if [ ! -d /sys/firmware/efi ]; then
+		    mkdir -p $p/usr/lib/anaconda-runtime/boot
+		    cp -af $p/boot/memtest* $p/usr/lib/anaconda-runtime/boot
+		fi
 	    fi
 	fi
 
