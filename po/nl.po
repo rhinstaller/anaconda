@@ -1,9 +1,9 @@
 # Dutch translation of anaconda
-# Copyright (C) 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
 #
 # Arjan van de Ven <arjanv@redhat.com>, 2001.
 # Tino Meinen <a.t.meinen@chello.nl>, 2002, 2003.
-# Peter van Egdom <p.van.egdom@gmail.com>, 2002, 2003, 2004, 2005, 2006, 2007.
+# Peter van Egdom <p.van.egdom@gmail.com>, 2002, 2003, 2004, 2005, 2006, 2007, 2008.
 # ----------------------------------------------------
 # device - apparaat, partitie, opstelling (voor RAID)
 # alloceren - toewijzen
@@ -15,9 +15,9 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-02 12:12-0500\n"
-"PO-Revision-Date: 2007-07-05 21:48+0200\n"
+"PO-Revision-Date: 2008-03-04 22:44+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
-"Language-Team: Dutch <vertaling@nl.linux.org>\n"
+"Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -141,28 +141,17 @@ msgid "Start of partition %s was moved when resizing"
 msgstr ""
 
 #: ../autopart.py:988
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
 msgstr ""
-"Kon cylinder-gebaseerde partities niet alloceren als primaire partities.\n"
-"\n"
-"%s"
+"Kon cilinder-gebaseerde partities niet als primaire partities toewijzen.\n"
 
 #: ../autopart.py:993
-#, fuzzy
 msgid "Could not allocate partitions as primary partitions.\n"
-msgstr ""
-"Kon partities niet alloceren als primaire partities.\n"
-"\n"
-"%s"
+msgstr "Kon partities niet als primaire partities toewijzen.\n"
 
 #: ../autopart.py:998
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions.\n"
-msgstr ""
-"Kon cylinder-gebaseerde partities niet alloceren.\n"
-"\n"
-"%s"
+msgstr "Kon cilinder-gebaseerde partities niet toewijzen.\n"
 
 #: ../autopart.py:1063
 #, python-format
@@ -220,7 +209,7 @@ msgid ""
 "allocated logical volumes in %s."
 msgstr ""
 "Het toevoegen van deze partitie zou te weinig schijfruimte vrijlaten voor de "
-"reeds gealloceerde logical volumes in %s."
+"reeds toegewezen logical volumes in %s."
 
 #: ../autopart.py:1299
 msgid "Requested Partition Does Not Exist"
@@ -338,7 +327,7 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
-"Kon de gevraagde partities niet alloceren: \n"
+"Kon de gevraagde partities niet toewijzen: \n"
 "\n"
 "%s.%s"
 
@@ -440,16 +429,16 @@ msgid "Warning"
 msgstr "Waarschuwing"
 
 #: ../bootloader.py:45
-#, fuzzy
 msgid ""
 "Your filesystems have already been activated.  You cannot go back past this "
 "point.\n"
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
-"De partitioneringsopties die u hebt gekozen, zijn reeds geactiveerd. U kunt "
-"niet meer teruggaan naar het scherm waarin de harde schijf kan worden "
-"bewerkt. Wilt u verder gaan met het installatieproces?"
+"Uw bestandssystemen zijn reeds geactiveerd.  U kunt niet meer teruggaan "
+"voorbij dit punt.\n"
+"\n"
+"Wilt u doorgaan met de installatie?"
 
 # Grafische of Tekst installatie
 #: ../bootloader.py:49 ../exception.py:348 ../exception.py:364
@@ -503,35 +492,33 @@ msgstr ""
 "Uitzonderingen op Parted kunnen niet op de opdrachtregel behandeld worden!"
 
 #: ../constants.py:75
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
 msgstr ""
 "Er is iets uitzonderlijks gebeurd.  Het is waarschijnlijk een fout.  Wij "
-"verzoeken u om de volledige tekst van deze 'exception' te kopiëren en een "
-"foutrapport voor het pakket anaconda te maken op %s"
+"verzoeken u om de volledige tekst van deze uitzondering te kopiëren en een "
+"foutrapport in te dienen"
 
 #: ../constants.py:81
 msgid " with the provider of this software."
-msgstr ""
+msgstr " met de leverancier van deze software."
 
 #: ../constants.py:85
-#, fuzzy, python-format
+#, python-format
 msgid " against anaconda at %s"
-msgstr "Anaconda updates worden nu gelezen..."
+msgstr " voor het pakket anaconda op %s"
 
 #: ../exception.py:344 ../exception.py:360
 msgid "Dump Written"
 msgstr "Dump geschreven"
 
 #: ../exception.py:345
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the disk. The installer "
 "will now exit."
 msgstr ""
-"De toestand van uw systeem is succesvol opgeslagen op diskette. Het "
+"De toestand van uw systeem is succesvol opgeslagen op de schijf. Het "
 "installatieprogramma zal nu afsluiten."
 
 #: ../exception.py:351 ../exception.py:367
@@ -539,11 +526,10 @@ msgid "Dump Not Written"
 msgstr "Dump niet geschreven"
 
 #: ../exception.py:352
-#, fuzzy
 msgid "There was a problem writing the system state to the disk."
 msgstr ""
 "Er was een probleem bij het wegschrijven van de toestand van het systeem "
-"naar de diskette."
+"naar de schijf."
 
 #: ../exception.py:361
 msgid ""
@@ -560,27 +546,25 @@ msgstr ""
 "naar de externe computer."
 
 #: ../fsset.py:533
-#, fuzzy
 msgid "Checking"
-msgstr "Controleren van \"%s\"..."
+msgstr "Controleren"
 
 #: ../fsset.py:534
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s..."
-msgstr "/dev/%s wordt nu gecontroleerd op schijffouten..."
+msgstr "Controleren van het bestandssysteem op %s..."
 
 #: ../fsset.py:544 ../fsset.py:977
-#, fuzzy
 msgid "Resizing"
-msgstr "Bezig met ophalen"
+msgstr "Aanpassen van de grootte"
 
 # dubbele punt toegevoegd om verwarring te voorkomen: bijv:
 # Bestandssysteem / wordt nu geformatteerd
 # Misschien ook nog aanhalingstekens gebruiken?
 #: ../fsset.py:545 ../fsset.py:978
-#, fuzzy, python-format
+#, python-format
 msgid "Resizing filesystem on %s..."
-msgstr "Bestandssysteem: %s wordt nu geformatteerd..."
+msgstr "Aanpassen van de grootte van het bestandssysteem op %s..."
 
 #: ../fsset.py:687 ../fsset.py:1645 ../fsset.py:1676 ../fsset.py:1752
 #: ../fsset.py:1820 ../fsset.py:1870 ../fsset.py:1952 ../fsset.py:1965
@@ -678,14 +662,14 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
-"Het wisselapparaat:\n"
+"Het wisselgeheugenapparaat:\n"
 "\n"
 "     /dev/%s\n"
 "\n"
-"is een versie 0 Linux wisselpartitie. Als u dit apparaat wilt gebruiken "
-"dient u het te herformatteren als een versie 1 Linux wisselpartitie. Als u "
-"dit overslaat zal het installatieprogramma het negeren gedurende de "
-"installatie."
+"is een versie 0 Linux wisselgeheugenpartitie. Als u dit apparaat wilt "
+"gebruiken dient u het te herformatteren als een versie 1 Linux "
+"wisselgeheugenpartitie. Als u dit overslaat zal het installatieprogramma het "
+"negeren gedurende de installatie."
 
 #: ../fsset.py:1703
 msgid "Reformat"
@@ -702,7 +686,7 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
-"Het wisselapparaat:\n"
+"Het wisselgeheugenapparaat:\n"
 "\n"
 "     /dev/%s\n"
 "\n"
@@ -722,14 +706,14 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to format all swap partitions."
 msgstr ""
-"Het wisselapparaat:\n"
+"Het wisselgeheugenapparaat:\n"
 "\n"
 "     /dev/%s\n"
 "\n"
 "in uw /etc/fstab bestand is momenteel in gebruik als een software-suspend "
 "partitie. Dit houdt in dat uw systeem zich in een slaapstand bevindt. Als u "
 "een nieuwe installatie uitvoert dient u ervoor te zorgen dat het "
-"installatieprogramma alle wisselpartities zal formatteren."
+"installatieprogramma alle wisselgeheugenpartities zal formatteren."
 
 #: ../fsset.py:1725
 msgid ""
@@ -742,14 +726,14 @@ msgstr ""
 "\n"
 "Kies Overslaan als u wilt dat het installatieprogramma deze partitie negeert "
 "gedurende de upgrade. Kies Formatteren om de partitie te herformatteren als "
-"wisselruimte."
+"wisselgeheugenruimte."
 
 #: ../fsset.py:1730 ../iw/partition_gui.py:373
 msgid "Format"
 msgstr "Formatteren"
 
 #: ../fsset.py:1736
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -757,7 +741,8 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Er is een fout opgetreden bij het aankoppelen van apparaat %s als %s: %s\n"
+"Er is een fout opgetreden bij het aanzetten van wisselgeheugenapparaat %s: "
+"%s\n"
 "\n"
 "Apparaten in /etc/fstab dienen aangegeven te worden via een label, niet via "
 "een apparaatnaam.\n"
@@ -765,7 +750,7 @@ msgstr ""
 "Druk op OK om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1741
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -774,12 +759,12 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"Fout bij het aanzetten van wisselgeheugen-partitie %s: %s\n"
+"Fout bij het aanzetten van wisselgeheugenapparaat %s: %s\n"
 "\n"
 "Het /etc/fstab bestand op de partitie waarvan u wilt upgraden heeft geen "
-"verwijzing naar een geldige wissel-partitie.\n"
+"verwijzing naar een geldige wisselgeheugenpartitie.\n"
 "\n"
-"Druk op OK om het installatieprogramma af te sluiten."
+"Druk op OK om het installatieprogramma af te sluiten"
 
 #: ../fsset.py:1747
 #, python-format
@@ -790,10 +775,10 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Fout bij het aanzetten van wisselgeheugen-partitie %s: %s\n"
+"Fout bij het aanzetten van wisselgeheugenapparaat %s: %s\n"
 "\n"
-"Dit betekent waarschijnlijk dat deze wissel-partitie niet geïnitialiseerd "
-"is.\n"
+"Dit betekent waarschijnlijk dat deze wisselgeheugenpartitie niet "
+"geïnitialiseerd is.\n"
 "\n"
 "Druk op OK om het installatieprogramma af te sluiten."
 
@@ -1041,20 +1026,17 @@ msgid "Installation Key"
 msgstr "Installatiesleutel"
 
 #: ../gui.py:657 ../gui.py:665
-#, fuzzy
 msgid "Error with passphrase"
 msgstr "Fout bij het wachtwoord"
 
 #: ../gui.py:658
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
 msgstr ""
 "De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
 
 #: ../gui.py:666
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "Het wachtwoord moet tenminste 6 tekens lang zijn."
+msgstr "Het wachtwoord moet tenminste 8 tekens lang zijn."
 
 #: ../gui.py:692 ../text.py:275
 #, python-format
@@ -1245,17 +1227,15 @@ msgid "Initializing iSCSI initiator"
 msgstr "Initialiseren van iSCSI initiator"
 
 #: ../kickstart.py:86
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the kickstart script at line %s.  You may examine "
 "the output in %s.  This is a fatal error and your install will be aborted.  "
 "Press the OK button to exit the installer."
 msgstr ""
-"Er was een fout bij het uitvoeren van het scriptlet.  U kunt de uitvoer "
-"bekijken in %s.  Dit is een fatale fout en uw installatie zal worden "
-"afgebroken.\n"
-"\n"
-"Druk op OK om het installatieprogramma af te sluiten."
+"Er was een fout bij het uitvoeren van het kickstart-script op regel %s.  U "
+"kunt de uitvoer bekijken in  %s.  Dit is een fatale fout en uw installatie "
+"zal worden afgebroken.  Druk op OK om het installatieprogramma af te sluiten."
 
 #: ../kickstart.py:101 ../kickstart.py:103
 msgid "Scriptlet Failure"
@@ -1374,9 +1354,8 @@ msgid "'%s' is an invalid IP address."
 msgstr "'%s' is een ongeldig IP-adres."
 
 #: ../packages.py:167
-#, fuzzy
 msgid "LVM operation failed"
-msgstr "Aankoppelen is mislukt"
+msgstr "LVM-bewerking mislukt"
 
 #: ../packages.py:278
 msgid "Invalid Key"
@@ -1732,9 +1711,9 @@ msgid ""
 "Would you like to format this partition as a swap partition?"
 msgstr ""
 "/dev/%s is van partitietype 0x82 (Linux wisselgeheugen) maar lijkt nog niet "
-"geformatteerd te zijn als een Linux wisselgeheugen-partitie.\n"
+"geformatteerd te zijn als een Linux wisselgeheugenpartitie.\n"
 "\n"
-"Wilt u deze partitie formatteren als een wisselgeheugen-partitie?"
+"Wilt u deze partitie formatteren als een wisselgeheugenpartitie?"
 
 #: ../partIntfHelpers.py:411
 #, python-format
@@ -1742,7 +1721,6 @@ msgid "You need to select at least one hard drive to install %s."
 msgstr "U moet tenminste één harde schijf selecteren om %s te installeren."
 
 #: ../partIntfHelpers.py:416
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1754,7 +1732,7 @@ msgstr ""
 "U hebt ervoor gekozen om voor deze installatie een reeds bestaande partitie "
 "te gebruiken zonder deze te formatteren. We raden aan om deze partitie te "
 "formatteren om er zeker van te zijn dat bestanden van een vorige installatie "
-"niet conflicteren met deze Linux-installatie. Als deze partitie echter "
+"niet conflicteren met deze Linux-installatie. Echter, als deze partitie "
 "bestanden bevat die behouden moeten blijven, zoals de persoonlijke mappen "
 "van gebruikers, moet u doorgaan zonder deze partitie te formatteren."
 
@@ -1884,9 +1862,8 @@ msgstr ""
 "bewerkt. Wilt u verder gaan met het installatieproces?"
 
 #: ../partitions.py:113
-#, fuzzy
 msgid "Writing partitioning to disk"
-msgstr "Partitie mi_greren naar:"
+msgstr "Schrijven van partitionering naar schijf"
 
 #: ../partitions.py:114
 msgid ""
@@ -1895,9 +1872,8 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:119
-#, fuzzy
 msgid "Go _back"
-msgstr "_Terug"
+msgstr "Ga _terug"
 
 #: ../partitions.py:120
 msgid "_Write changes to disk"
@@ -1923,9 +1899,8 @@ msgid "Continue"
 msgstr "Doorgaan"
 
 #: ../partitions.py:204
-#, fuzzy
 msgid "Confirm"
-msgstr "Bevestigen:"
+msgstr "Bevestigen"
 
 #: ../partitions.py:205
 #, python-format
@@ -2009,28 +1984,26 @@ msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Opstartpartities mogen niet op een logical volume staan."
 
 #: ../partitions.py:1196
-#, fuzzy
 msgid "Bootable partitions cannot be on a RAID device."
-msgstr "Opstartpartities mogen alleen op een RAID1-opstelling staan."
+msgstr "Opstartpartities mogen niet op een RAID-apparaat staan."
 
 #: ../partitions.py:1203
-#, fuzzy, python-format
+#, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "Opstartpartities mogen niet op een logical volume staan."
+msgstr "Opstartpartities mogen niet op een %s bestandssysteem staan."
 
 #: ../partitions.py:1207
-#, fuzzy
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "Opstartpartities mogen niet op een logical volume staan."
+msgstr ""
 
 #: ../partitions.py:1213
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
-"U hebt geen wisselpartitie opgegeven.  Hoewel dit niet in alle gevallen "
-"strikt noodzakelijk is, verhoogt het in het algemeen wel de prestaties van "
-"het systeem."
+"U hebt geen wisselgeheugenpartitie opgegeven.  Hoewel dit niet in alle "
+"gevallen strikt noodzakelijk is, verhoogt het in het algemeen wel de "
+"prestaties van het systeem."
 
 #: ../partitions.py:1220
 #, python-format
@@ -2038,8 +2011,8 @@ msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"U hebt meer dan 32 wisselpartities opgegeven.  De kernel voor %s ondersteunt "
-"maximaal 32 wisselpartities."
+"U hebt meer dan 32 wisselgeheugenapparaten opgegeven.  De kernel voor %s "
+"ondersteunt maximaal 32 wisselgeheugenapparaten."
 
 #: ../partitions.py:1231
 #, python-format
@@ -2047,7 +2020,7 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"U hebt minder wisselgeheugen (%dM) gealloceerd dan de hoeveelheid RAM-"
+"U hebt minder wisselgeheugenruimte (%dM) toegewezen dan de hoeveelheid RAM-"
 "geheugen (%dM) in uw systeem.  Dit kan de prestaties negatief beïnvloeden."
 
 #: ../partitions.py:1526
@@ -2063,9 +2036,9 @@ msgid "a partition which is a member of a LVM Volume Group."
 msgstr "een partitie die deel uitmaakt van een LVM volume group."
 
 #: ../partRequests.py:273
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point %s must be formatted during live CD installs."
-msgstr "Dit koppelpunt moet zich op een Linux-bestandssysteem bevinden."
+msgstr ""
 
 #: ../partRequests.py:278
 #, python-format
@@ -2302,12 +2275,11 @@ msgstr "Opslaan"
 
 #: ../text.py:189
 msgid "Save to Disk"
-msgstr ""
+msgstr "Op schijf opslaan"
 
 #: ../text.py:190
-#, fuzzy
 msgid "Save to Remote"
-msgstr "Op _externe computer opslaan"
+msgstr "Op externe computer opslaan"
 
 #: ../text.py:204
 msgid "Host"
@@ -2342,10 +2314,8 @@ msgid "No help is available for this step of the install."
 msgstr "Voor dit installatie-onderdeel is geen hulptekst beschikbaar."
 
 #: ../text.py:445
-#, fuzzy
 msgid "Repository editing is not available in text mode."
 msgstr ""
-"Grafische installatie niet beschikbaar...  Tekstmodus wordt nu opgestart."
 
 #: ../text.py:470
 #, python-format
@@ -2358,9 +2328,9 @@ msgid "Skip entering %(instkey)s"
 msgstr "Invoeren van %(instkey)s overslaan"
 
 #: ../text.py:563 ../loader2/lang.c:63
-#, fuzzy, c-format, python-format
+#, c-format, python-format
 msgid "Welcome to %s for %s"
-msgstr "Welkom bij %s"
+msgstr "Welkom bij %s voor %s"
 
 #: ../text.py:565
 #, python-format
@@ -2393,9 +2363,9 @@ msgid ""
 msgstr ""
 
 #: ../upgrade.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to upgrade  the installed system to the %s architecture?"
-msgstr "Wat wilt u met het bestandssysteem op deze partitie doen?"
+msgstr ""
 
 #: ../upgrade.py:98
 msgid ""
@@ -2523,9 +2493,9 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr "Zal over 15 seconden opnieuw proberen te verbinden..."
 
 #: ../vnc.py:197
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d tries!\n"
-msgstr "Stoppen met verbinding maken na het 50 keer te hebben geprobeerd!\n"
+msgstr "Stoppen met verbinding maken na het %d keer te hebben geprobeerd!\n"
 
 # via ipv met?
 #: ../vnc.py:206
@@ -2558,7 +2528,6 @@ msgid ""
 msgstr ""
 
 #: ../vnc.py:254
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -2570,7 +2539,7 @@ msgstr ""
 "\n"
 "\n"
 "WAARSCHUWING!!! VNC-server functioneert ZONDER WACHTWOORD!\n"
-"U kunt de boot-optie vncpasswd=<wachtwoord> gebruiken\n"
+"U kunt de boot-optie self.password=<wachtwoord> gebruiken\n"
 "als u de server wilt beveiligen.\n"
 "\n"
 
@@ -2583,13 +2552,12 @@ msgid ""
 msgstr ""
 
 #: ../vnc.py:260
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Unknown Error.  Aborting. \n"
 "\n"
-msgstr "Onbekende fout"
+msgstr ""
 
 #: ../vnc.py:285 ../vnc.py:374
 msgid "VNC Configuration"
@@ -2712,13 +2680,12 @@ msgid "Transferring install image to hard drive..."
 msgstr "Het installatiebestand wordt nu naar de harde schijf overgezet..."
 
 #: ../yuminstall.py:339
-#, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is probably due to bad media."
 msgstr ""
 "Tijdens het overzetten van het installatiebestand naar uw harde schijf is "
-"een fout opgetreden. Waarschijnlijk is uw harde schijf vol."
+"een fout opgetreden. Dit komt waarschijnlijk door slechte media."
 
 #: ../yuminstall.py:343
 msgid ""
@@ -2755,9 +2722,8 @@ msgid "Re_boot"
 msgstr "_Herstarten"
 
 #: ../yuminstall.py:533
-#, fuzzy
 msgid "_Eject"
-msgstr "Schijf uitwerpen"
+msgstr "_Uitwerpen"
 
 #: ../yuminstall.py:539
 #, fuzzy, python-format
@@ -2779,21 +2745,20 @@ msgstr ""
 "\n"
 
 #: ../yuminstall.py:579
-#, fuzzy
 msgid "Retrying"
-msgstr "Bezig met ophalen"
+msgstr ""
 
 #: ../yuminstall.py:579
 msgid "Retrying package download..."
 msgstr ""
 
 #: ../yuminstall.py:641
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 "Er was een fout bij het uitvoeren van uw transactie, vanwege de volgende "
-"reden(en): %s"
+"reden: %s\n"
 
 #: ../yuminstall.py:674 ../yuminstall.py:675
 msgid "file conflicts"
@@ -4093,7 +4058,7 @@ msgstr "Beschikbaar"
 #: ../iw/partition_gui.py:1024 ../textw/partition_text.py:246
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr "Kon de gevraagde partities niet alloceren: %s."
+msgstr "Kon de gevraagde partities niet toewijzen: %s."
 
 #: ../iw/partition_gui.py:1033
 #, python-format
@@ -4492,9 +4457,8 @@ msgstr ""
 "van pakketten uit de repository niet mogelijk"
 
 #: ../iw/task_gui.py:80
-#, fuzzy
 msgid "Edit Repository"
-msgstr "Repository toevoegen"
+msgstr "Repository bewerken"
 
 #: ../iw/task_gui.py:155
 msgid "Invalid Repository Name"
@@ -4505,23 +4469,20 @@ msgid "You must provide a repository name."
 msgstr "U moet een repository-naam opgeven."
 
 #: ../iw/task_gui.py:167
-#, fuzzy
 msgid "Invalid Proxy URL"
-msgstr "Ongeldige repository-URL"
+msgstr "Ongeldige proxy-URL"
 
 #: ../iw/task_gui.py:168
-#, fuzzy
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
-msgstr "U moet een HTTP of FTP URL naar een repository opgeven."
+msgstr "U moet een HTTP, HTTPS of FTP URL naar een proxy opgeven."
 
 #: ../iw/task_gui.py:187
 msgid "Invalid Repository URL"
 msgstr "Ongeldige repository-URL"
 
 #: ../iw/task_gui.py:188
-#, fuzzy
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr "U moet een HTTP of FTP URL naar een repository opgeven."
+msgstr "U moet een HTTP, HTTPS of FTP URL naar een repository opgeven."
 
 #: ../iw/task_gui.py:227
 #, python-format
@@ -4627,7 +4588,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:33
 msgid "Upgrade Swap Partition"
-msgstr "Swap-partitie upgraden"
+msgstr "Wisselgeheugenpartitie upgraden"
 
 #: ../iw/upgrade_swap_gui.py:93 ../textw/upgrade_text.py:95
 #, python-format
@@ -4640,7 +4601,7 @@ msgstr ""
 "Recente kernels (2.4 of nieuwer) hebben aanzienlijk meer wisselgeheugen "
 "nodig dan oudere kernels; tot twee keer de hoeveelheid RAM-geheugen dat in "
 "het systeem zit. U hebt momenteel %dMB wisselgeheugen geconfigureerd, maar u "
-"kunt nu extra wisselgeheugen aanmaken op een van uw bestandssystemen."
+"kunt nu extra wisselgeheugenruimte aanmaken op een van uw bestandssystemen."
 
 #: ../iw/upgrade_swap_gui.py:100
 #, python-format
@@ -4705,7 +4666,7 @@ msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Er is niet voldoende ruimte vrij op het apparaat dat u selecteerde voor de "
-"wissel-partitie."
+"wisselgeheugenpartitie."
 
 #: ../iw/zipl_gui.py:35
 msgid "z/IPL Boot Loader Configuration"
@@ -5644,14 +5605,12 @@ msgid "Root Password"
 msgstr "Root-wachtwoord"
 
 #: ../textw/userauth_text.py:30
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. "
 msgstr ""
 "Kies een root-wachtwoord. U moet het wachtwoord tweemaal invoeren om er "
-"zeker van te zijn dat u het weet en geen typefout hebt gemaakt. Denk er aan "
-"dat het root-wachtwoord een kritiek onderdeel van de systeembeveiliging is!"
+"zeker van te zijn dat u het weet en geen typefout hebt gemaakt. "
 
 #: ../textw/userauth_text.py:64
 msgid "The root password must be at least 6 characters long."
@@ -6144,9 +6103,8 @@ msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Fout in %s (regel %d) van het kickstart-bestand %s."
 
 #: ../loader2/kickstart.c:285
-#, fuzzy
 msgid "Cannot find ks.cfg on removable media."
-msgstr "Kon ks.cfg niet op de opstartdiskette vinden."
+msgstr "Kon ks.cfg niet op de verwisselbare media vinden."
 
 #: ../loader2/kickstart.c:377
 msgid ""
@@ -6168,9 +6126,9 @@ msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Foutief argument voor 'uitschakelen' kickstart methode commando %s: %s"
 
 #: ../loader2/lang.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s for %s - Rescue Mode"
-msgstr "Welkom bij %s - Herstelmodus"
+msgstr "Welkom bij %s voor %s - Herstelmodus"
 
 #: ../loader2/lang.c:65 ../loader2/loader.c:166
 msgid ""
@@ -6195,9 +6153,9 @@ msgid "NFS directory"
 msgstr "NFS-map"
 
 #: ../loader2/loader.c:156
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s%n for %s"
-msgstr "Welkom bij %s"
+msgstr "Welkom bij %s%n voor %s"
 
 #: ../loader2/loader.c:374 ../loader2/loader.c:410
 msgid "Update Disk Source"
@@ -6213,13 +6171,12 @@ msgstr ""
 
 # vertaling van "disk image" naar "bestand" ok?
 #: ../loader2/loader.c:411
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Er zijn meerdere partities op dit apparaat die het stuurprogramma-bestand "
-"kunnen bevatten.  Welke wilt u gebruiken?"
+"Er zijn meerdere partities op dit apparaat die het update-bestand kunnen "
+"bevatten.  Welke wilt u gebruiken?"
 
 #: ../loader2/loader.c:429
 #, c-format
@@ -6834,7 +6791,7 @@ msgstr ""
 
 #: tmp/blwhere.glade.h:6
 msgid "MBR"
-msgstr ""
+msgstr "MBR"
 
 #: tmp/blwhere.glade.h:7
 msgid "Second BIOS drive:"
@@ -6856,7 +6813,7 @@ msgstr "Negeren"
 
 #: tmp/detailed-dialog.glade.h:2
 msgid "_Details"
-msgstr ""
+msgstr "_Details"
 
 #: tmp/exnSave.glade.h:2
 msgid "Select a destination for the exception information."
@@ -6864,7 +6821,7 @@ msgstr ""
 
 #: tmp/exnSave.glade.h:3
 msgid "_Disk"
-msgstr ""
+msgstr "_Schijf"
 
 #: tmp/exnSave.glade.h:4
 #, fuzzy
