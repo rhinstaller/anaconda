@@ -1103,6 +1103,7 @@ class YumBackend(AnacondaBackend):
             self.selectPackage("s390utils")
         elif rhpl.getArch() == "ppc":
             self.selectPackage("yaboot")
+        # XXX this needs to become grub, and we need an upgrade path...
         elif rhpl.getArch() == "ia64":
             self.selectPackage("elilo")
 
