@@ -825,8 +825,7 @@ class Partitions:
         """Return the name of the current 'boot' mount point."""
         bootreq = None
 
-        if rhpl.getArch() == "ia64" or \
-                (rhpl.getArch() in ("i386", "x86_64") and iutil.isEfi()):
+        if iutil.isEfi():
             bootreq = self.getRequestByMountPoint("/boot/efi")
             if bootreq:
                 return [ bootreq ]
@@ -897,9 +896,7 @@ class Partitions:
         """Return a list of bootable valid mountpoints for this arch."""
         # FIXME: should be somewhere else, preferably some sort of arch object
 
-        if rhpl.getArch() == "ia64":
-            return [ "/boot/efi" ]
-        if rhpl.getArch() in ("i386", "x86_64") and iutil.isEfi():
+        if iutil.isEfi():
             return [ "/boot/efi" ]
         else:
             return [ "/boot", "/" ]
@@ -1039,24 +1036,13 @@ class Partitions:
                 n += 1
             return reqs
 
-        if rhpl.getArch() in ("i386", "x86_64"):
-            if iutil.isEfi():
-                bootreq = self.getRequestByMountPoint("/boot/efi")
-                ok = True
-                if not bootreq or bootreq.getActualSize(self, diskset) < 50:
-                    ok = False
-                if ok:
-                    for br in getBaseReqs([bootreq,]):
-                        if not isinstance(br, partRequests.PartitionSpec):
-                            continue
-
-                        (disk, num) = fsset.getDiskPart(br.device)
-                        if not partedUtils.hasGptLabel(diskset, disk):
-                            ok = False
-                if not ok:
-                    errors.append(_("You must create a /boot/efi partition of "
-                                    "type FAT and a size of 50 megabytes."))
-            elif iutil.isMactel():
+        if iutil.isEfi():
+            bootreq = self.getRequestByMountPoint("/boot/efi")
+            if not bootreq or bootreq.getActualSize(self, diskset) < 50:
+                errors.append(_("You must create a /boot/efi partition of "
+                                "type FAT and a size of 50 megabytes."))
+        elif rhpl.getArch() in ("i386", "x86_64"):
+            if iutil.isMactel():
                 # mactel checks
                 bootreqs = self.getBootableRequest() or []
                 for br in getBaseReqs(bootreqs):
@@ -1070,12 +1056,6 @@ class Partitions:
                             _("Your boot partition isn't on one of "
                               "the first four partitions and thus "
                               "won't be bootable."))
-
-        if rhpl.getArch() == "ia64":
-            bootreq = self.getRequestByMountPoint("/boot/efi")
-            if not bootreq or bootreq.getActualSize(self, diskset) < 50:
-                errors.append(_("You must create a /boot/efi partition of "
-                                "type FAT and a size of 50 megabytes."))
 
         if iutil.getPPCMacGen() == "NewWorld":
             reqs = self.getBootableRequest()

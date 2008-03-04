@@ -78,12 +78,10 @@ def bootRequestCheck(requests, diskset):
     if not part:
         return PARTITION_SUCCESS
 
-    if rhpl.getArch() == "ia64":
-        if (part.fs_type.name != "FAT" and part.fs_type.name != "fat16"
-            and part.fs_type.name != "fat32"):
+    if iutil.isEfi():
+        if not part.fs_type.name in ("FAT", "fat16", "fat32"):
             return BOOTEFI_NOT_VFAT
-        pass
-    elif rhpl.getArch() == "i386":
+    elif rhpl.getArch() in ("i386", "x86_64"):
         if partedUtils.end_sector_to_cyl(part.geom.dev, part.geom.end) >= 1024:
             return BOOT_ABOVE_1024
     elif rhpl.getArch() == "alpha":
@@ -1169,17 +1167,14 @@ def doClearPartAction(anaconda, partitions, diskset):
                                                  part.geom.end)
                 partitions.addDelete(delete)
 
-            # ia64 autopartitioning is strange as /boot/efi is vfat --
+            # EFI autopartitioning is strange as /boot/efi is vfat --
             # if linuxonly and have an msdos partition and it has the
             # bootable flag set, do not delete it and make it our
             # /boot/efi as it could contain system utils.
             # doesn't apply on kickstart installs or if no boot flag
-            if ((rhpl.getArch() == "ia64") and (linuxOnly == 1)
-                and (not anaconda.isKickstart) and
-                part.is_flag_available(parted.PARTITION_BOOT)):
-                if part.fs_type and (part.fs_type.name == "FAT"
-                                     or part.fs_type.name == "fat16"
-                                     or part.fs_type.name == "fat32"):
+            if (iutil.isEfi() and linuxOnly == 1 and (not anaconda.isKickstart)
+                    and part.is_flag_available(parted.PARTITION_BOOT)):
+                if part.fs_type and part.fs_type.name in ("FAT", "fat16", "fat32"):
                     if part.get_flag(parted.PARTITION_BOOT):
                         req = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
                         req.mountpoint = "/boot/efi"
@@ -1686,7 +1681,7 @@ def autoCreateLVMPartitionRequests(autoreq):
 
 def getAutopartitionBoot():
     """Return the proper shorthand for the boot dir (arch dependent)."""
-    if rhpl.getArch() == "ia64":
+    if iutil.isEfi():
         return [ ("/boot/efi", "vfat", 200, None, 0, 1, 0) ]
     elif (iutil.getPPCMachine() == "pSeries"):
         return [ (None, "PPC PReP Boot", 4, None, 0, 1, 0),
