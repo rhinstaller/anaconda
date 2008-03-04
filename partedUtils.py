@@ -273,10 +273,10 @@ def get_lvm_partitions(disk):
 
 def getDefaultDiskType():
     """Get the default partition table type for this architecture."""
-    if rhpl.getArch() == "i386":
-        return parted.disk_type_get("msdos")
-    elif rhpl.getArch() == "ia64":
+    if iutil.isEfi():
         return parted.disk_type_get("gpt")
+    elif rhpl.getArch() == "i386":
+        return parted.disk_type_get("msdos")
     elif rhpl.getArch() == "s390":
         # the "default" type is dasd, but we don't really do dasd
         # formatting with parted and use dasdfmt directly for them
