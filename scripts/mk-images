@@ -215,7 +215,7 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
 findPackage() {
     name=$1
 
-    pkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" -c $yumconf $name.$KERNELARCH)
+    pkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" -c $yumconf --archlist=$KERNELARCH $name.$KERNELARCH)
     if [ -n "$pkg" ]; then
 	echo $pkg
 	return
