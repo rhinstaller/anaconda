@@ -1076,10 +1076,8 @@ for p in $DEST $DESTGR; do
 	# copy bootloader files for i386/x86_64
 	if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
 	    if [ $p = $DESTGR ]; then
-		if [ ! -d /sys/firmware/efi ]; then
-		    mkdir -p $p/usr/lib/anaconda-runtime/boot
-		    cp -af $p/boot/memtest* $p/usr/lib/anaconda-runtime/boot
-		fi
+		mkdir -p $p/usr/lib/anaconda-runtime/boot
+		cp -af $p/boot/memtest* $p/usr/lib/anaconda-runtime/boot
 	    fi
 	fi
 
