@@ -443,11 +443,11 @@ def isEfi():
     if efi is not None:
         return efi
 
-    # XXX need to make sure efivars is loaded...
-    if not os.path.exists("/sys/firmware/efi"):
-        efi = False
-    else:
-        efi = True
+    efi = False
+    if rhpl.getArch() in ("ia64", "i386", "x86_64"):
+        # XXX need to make sure efivars is loaded...
+        if os.path.exists("/sys/firmware/efi"):
+            efi = True
 
     return efi
 
