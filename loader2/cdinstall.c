@@ -154,9 +154,10 @@ static void wrongCDMessage(void) {
 static void mountCdromStage2(char *cddev, char *location) {
     int gotcd1=0;
     int rc;
-    char *stage2loc;
+    char *stage2loc, *imageDir;
 
     rc = asprintf(&stage2loc, "%s/images/stage2.img", location);
+    rc = asprintf(&imageDir, "%s/images/", location);
 
     do {
         do {
@@ -168,7 +169,7 @@ static void mountCdromStage2(char *cddev, char *location) {
             }
         } while (1);
 
-        rc = mountStage2(stage2loc);
+        rc = mountStage2(stage2loc, imageDir);
 
         /* if we failed, umount location (usually) /mnt/source and keep going */
         if (rc) {
@@ -179,6 +180,9 @@ static void mountCdromStage2(char *cddev, char *location) {
             gotcd1 = 1;
         }
     } while (!gotcd1);
+
+    free(stage2loc);
+    free(imageDir);
 }
 
 /* ask about doing media check */
@@ -230,18 +234,25 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
     int i, r, rc;
     int foundinvalid = 0;
     int stage2inram = 0;
-    char *buf, *stage2loc, *discinfoloc;
+    char *buf, *stage2loc, *discinfoloc, *imageDir;
     char *stage2img;
     struct device ** devices;
     char *cddev = NULL;
-
-    r = asprintf(&stage2loc, "%s/images/stage2.img", location);
-    r = asprintf(&discinfoloc, "%s/.discinfo", location);
 
     devices = getDevices(DEVICE_CDROM);
     if (!devices) {
         logMessage(ERROR, "got to setupCdrom without a CD device");
         return NULL;
+    }
+
+    if (loaderData && FL_STAGE2(flags)) {
+        stage2loc = strdup(location);
+        r = asprintf(&imageDir, "%.*s", (int) (strrchr(location, '/') - directory), directory);
+        r = asprintf(&discinfoloc, "%s/.discinfo", imageDir);
+    } else {
+        r = asprintf(&stage2loc, "%s/images/stage2.img", location);
+        r = asprintf(&imageDir, "%s/images", location);
+        r = asprintf(&discinfoloc, "%s/.discinfo", location);
     }
 
     /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
@@ -277,7 +288,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                         stage2img = strdup(stage2loc);
                         stage2inram = 0;
                     }
-                    rc = mountStage2(stage2img);
+                    rc = mountStage2(stage2img, imageDir);
 
                     /* if we failed, umount location (usually /mnt/source) and
                      * keep going
@@ -303,6 +314,11 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
                     r = asprintf(&buf, "cdrom://%s:%s",
                                  devices[i]->device, location);
+
+                    free(stage2loc);
+                    free(imageDir);
+                    free(discinfoloc);
+
                     if (r == -1)
                         return NULL;
                     else
@@ -335,13 +351,17 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                                _("OK"), _("Back"), buf, _("OK"));
             free(buf);
             if (rc == 2)
-                return NULL;
+                goto err;
         } else {
             /* we can't ask them about it, so just return not found */
-            return NULL;
+            goto err;
         }
     } while (1);
 
+err:
+    free(stage2loc);
+    free(imageDir);
+    free(discinfoloc);
     return NULL;
 }
 

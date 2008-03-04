@@ -740,14 +740,21 @@ int httpGetFileDesc(char * hostname, int port, char * remotename,
 
     if (status == NULL) {
         close(sock);
+        if (status) free(status);
+        if (headers) free(headers);
         return FTPERR_SERVER_IO_ERROR;
     } else if (!strncmp(status, "200", 3)) {
+        if (status) free(status);
+        if (headers) free(headers);
         return sock;
     } else if (!strncmp(status, "301", 3) || !strncmp(status, "302", 3) ||
                !strncmp(status, "303", 3) || !strncmp(status, "307", 3)) {
         struct iurlinfo ui;
         char *redir_loc = find_header (headers, "Location");
         int retval;
+
+        if (status) free(status);
+        if (headers) free(headers);
 
         if (redir_loc == NULL) {
             logMessage(WARNING, "got a redirect response, but Location header is NULL");
@@ -761,12 +768,18 @@ int httpGetFileDesc(char * hostname, int port, char * remotename,
         free(redir_loc);
         return retval;
     } else if (!strncmp(status, "403", 3)) {
+        if (status) free(status);
+        if (headers) free(headers);
         close(sock);
         return FTPERR_PERMISSION_DENIED;
     } else if (!strncmp(status, "404", 3)) {
+        if (status) free(status);
+        if (headers) free(headers);
         close(sock);
         return FTPERR_FILE_NOT_FOUND;
     } else {
+        if (status) free(status);
+        if (headers) free(headers);
         close(sock);
         logMessage(ERROR, "bad HTTP response code: %s", status);
         return FTPERR_BAD_SERVER_RESPONSE;

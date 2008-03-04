@@ -133,7 +133,7 @@ def makeResolvConf(instPath):
 #     probably belongs somewhere else
 #
 def methodUsesNetworking(methodstr):
-    for m in ['http://', 'ftp://', 'nfs:/', 'nfsiso:/']:
+    for m in ['http://', 'ftp://', 'nfs:', 'nfsiso:']:
         if methodstr.startswith(m):
             return 1
     return 0

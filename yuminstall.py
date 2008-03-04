@@ -280,14 +280,19 @@ class AnacondaYum(YumSorter):
         # directory where Packages/ is located.
         self.tree = "/mnt/source"
 
-        if os.path.ismount("/mnt/isodir"):
+        if self.anaconda.methodstr.startswith("hd:"):
             self.isodir = "/mnt/isodir"
         else:
             self.isodir = None
 
-        # The loader mounts the first disc for us, so don't remount it.
+        # The loader may have mounted the first disc for us, but there's
+        # no guarantee what with the stage2= stuff.
         if self.anaconda.mediaDevice or self.isodir:
-            self.currentMedia = 1
+            if os.path.ismount(self.tree):
+                self.currentMedia = 1
+            else:
+                self.currentMedia = None
+
             self.mediagrabber = self.mediaHandler
         else:
             self.currentMedia = None
@@ -315,6 +320,10 @@ class AnacondaYum(YumSorter):
         self.localPackages = []
 
     def systemMounted(self, fsset, chroot):
+        if os.path.exists("/tmp/stage2.img"):
+            log.debug("Not copying stage2.img as we already have it")
+            return
+
         if not os.path.exists("%s/images/stage2.img" %(self.tree,)):
             log.debug("Not copying stage2.img as we can't find it")
             return
@@ -445,12 +454,23 @@ class AnacondaYum(YumSorter):
         self.conf.cachedir = '/tmp/cache/'
         self.conf.metadata_expire = 0
 
+        if self.anaconda.methodstr.startswith("nfs:"):
+            methodstr = "file://%s" % self.tree
+            if not os.path.ismount(self.tree):
+                isys.mount(self.anaconda.methodstr[4:], self.tree, "nfs")
+        elif self.anaconda.methodstr.startswith("cdrom:"):
+            methodstr = "file://%s" % self.tree
+        elif self.anaconda.methodstr.startswith("hd:"):
+            methodstr = "file://%s" % self.tree
+        elif self.anaconda.methodstr.startswith("ftp:") or self.anaconda.methodstr.startswith("http:"):
+            methodstr = self.anaconda.methodstr
+
         # set up logging to log to our logs
         ylog = logging.getLogger("yum")
         map(lambda x: ylog.addHandler(x), log.handlers)
 
         # add default repos
-        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.anaconda.methodstr).items():
+        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(methodstr).items():
             rid = name.replace(" ", "")
             repo = AnacondaYumRepo(uri, addon=False,
                                    repoid="anaconda-%s-%s" %(rid, productStamp),

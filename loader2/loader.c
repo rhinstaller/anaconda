@@ -869,8 +869,12 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->kbd = strdup(argv[i] + 7);
             loaderData->kbd_set = 1;
         }
-        else if (!strncasecmp(argv[i], "method=", 7))
+        else if (!strncasecmp(argv[i], "method=", 7) && !FL_STAGE2(flags))
             setMethodFromCmdline(argv[i] + 7, loaderData);
+        else if (!strncasecmp(argv[i], "stage2=", 7)) {
+            flags |= LOADER_FLAGS_STAGE2;
+            setMethodFromCmdline(argv[i] + 7, loaderData);
+        }
         else if (!strncasecmp(argv[i], "hostname=", 9))
             loaderData->hostname = strdup(argv[i] + 9);
         else if (!strncasecmp(argv[i], "ip=", 3))
@@ -1757,7 +1761,7 @@ int main(int argc, char ** argv) {
 
     /* we only want to use RHupdates on nfs installs.  otherwise, we'll 
      * use files on the first iso image and not be able to umount it */
-    if (!strncmp(url, "nfs:", 4)) {
+    if (!strncmp(url, "nfs:", 4) && !FL_STAGE2(flags)) {
         logMessage(INFO, "NFS install method detected, will use RHupdates/");
         useRHupdates = 1;
     } else {

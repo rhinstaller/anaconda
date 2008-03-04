@@ -62,7 +62,8 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     entries[1].flags = NEWT_FLAG_SCROLL;
     entries[2].text = NULL;
     entries[2].value = NULL;
-    rc = asprintf(&buf, _(netServerPrompt), _("NFS"), getProductName());
+    rc = asprintf(&buf, _("Please enter the server name and path to your %s "
+                          "images."), getProductName());
     rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
                         24, entries, _("OK"), _("Back"), NULL);
     free(buf);
@@ -88,14 +89,12 @@ char * mountNfsImage(struct installMethod * method,
     char * directory = NULL;
     char * mountOpts = NULL;
     char * fullPath = NULL;
-    char * path;
     char * url = NULL;
 
     enum { NFS_STAGE_NFS, NFS_STAGE_MOUNT, 
            NFS_STAGE_DONE } stage = NFS_STAGE_NFS;
 
-    int rc;
-    int dir = 1;
+    int rc, tmp;
 
     /* JKFIXME: ASSERT -- we have a network device setup when we get here */
     while (stage != NFS_STAGE_DONE) {
@@ -115,6 +114,7 @@ char * mountNfsImage(struct installMethod * method,
 
                 if (!host || !directory) {
                     logMessage(ERROR, "missing host or directory specification");
+                    flags &= ~LOADER_FLAGS_STAGE2;
                     loaderData->method = -1;
                     break;
                 } else {
@@ -122,17 +122,16 @@ char * mountNfsImage(struct installMethod * method,
                     directory = strdup(directory);
                 }
             } else if (nfsGetSetup(&host, &directory) == LOADER_BACK) {
+                flags &= ~LOADER_FLAGS_STAGE2;
                 return NULL;
             }
 
             stage = NFS_STAGE_MOUNT;
-            dir = 1;
             break;
 
         case NFS_STAGE_MOUNT: {
             int foundinvalid = 0;
-            char * buf;
-            char * cdurl;
+            char *buf, *stage2dir;
             struct in_addr ip;
 
             if (loaderData->noDns && !(inet_pton(AF_INET, host, &ip))) {
@@ -141,68 +140,93 @@ char * mountNfsImage(struct installMethod * method,
                 if (loaderData->method >= 0) {
                     loaderData->method = -1;
                 }
+
+                flags &= ~LOADER_FLAGS_STAGE2;
                 break;
             }
 
-            fullPath = alloca(strlen(host) + strlen(directory) + 2);
-            sprintf(fullPath, "%s:%s", host, directory);
+            /* Try to see if we're booted off of a CD with stage2.  However,
+             * passing stage2= overrides this check.
+             */
+            if (!FL_STAGE2(flags) && findAnacondaCD("/mnt/stage2", 0)) {
+                logMessage(INFO, "Detected stage 2 image on CD");
+                winStatus(50, 3, _("Media Detected"),
+                          _("Local installation media detected..."), 0);
+                sleep(3);
+                newtPopWindow();
+
+                stage = NFS_STAGE_DONE;
+                url = "nfs:/mnt/source";
+                break;
+            }
+
+            if (FL_STAGE2(flags)) {
+                if (!strrchr(directory, '/')) {
+                    return NULL;
+                    flags &= ~LOADER_FLAGS_STAGE2;
+                } else {
+                    tmp = asprintf(&fullPath, "%s:%.*s/", host,
+                                   (int) (strrchr(directory, '/') - directory), directory);
+                }
+            }
+            else
+                tmp = asprintf(&fullPath, "%s:%s", host, directory);
 
             logMessage(INFO, "mounting nfs path %s", fullPath);
 
             if (FL_TESTING(flags)) {
                 stage = NFS_STAGE_DONE;
-                dir = 1;
                 break;
             }
 
             stage = NFS_STAGE_NFS;
 
             if (!doPwMount(fullPath, "/mnt/source", "nfs", mountOpts)) {
-                if (!access("/mnt/source/images/stage2.img", R_OK)) {
-                    logMessage(INFO, "can access /mnt/source/images/stage2.img");
-                    /* try to see if we're booted off of a CD with stage2 */
-                    cdurl = findAnacondaCD("/mnt/stage2", 0);
-                    if (cdurl) {
-                        logMessage(INFO, "Detected stage 2 image on CD");
-                        winStatus(50, 3, _("Media Detected"),
-                                  _("Local installation media detected..."), 0);
-                        sleep(3);
-                        newtPopWindow();
-                        rc = 0;
-                    } else {
-                        rc = mountStage2("/mnt/source/images/stage2.img");
-                        logMessage(DEBUGLVL, "after mountStage2, rc is %d", rc);
-                    }
-                    if (rc) {
-                        if (rc == -1) { 
-                            foundinvalid = 1; 
-                            logMessage(WARNING, "not the right one"); 
-                        }
+                if (FL_STAGE2(flags)) {
+                    stage2dir = strdup("/mnt/source");
+                    tmp = asprintf(&buf, "/mnt/source/%s", strrchr(directory, '/'));
+                } else {
+                    stage2dir = strdup("/mnt/source/images");
+                    buf = strdup("/mnt/source/images/stage2.img");
+                }
+
+                winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), buf);
+                rc = copyFile(buf, "/tmp/stage2.img");
+                newtPopWindow();
+
+                free(buf);
+                free(stage2dir);
+
+                if (!rc) {
+                    logMessage(INFO, "can access %s", buf);
+                    rc = mountStage2("/tmp/stage2.img", stage2dir);
+
+                    if (rc && rc == -1) {
+                        foundinvalid = 1;
+                        logMessage(WARNING, "not the right one");
+                        umount("/mnt/source");
                     } else {
                         stage = NFS_STAGE_DONE;
-                        url = "nfs://mnt/source";
+
+                        if (FL_STAGE2(flags)) {
+                            rc = asprintf(&url, "nfs:%s:%s", host, directory);
+                            umount("/mnt/source");
+                        } else {
+                            url = strdup("nfs:/mnt/source");
+                        }
+
                         break;
                     }
                 } else {
-                    logMessage(WARNING, "unable to access /mnt/source/images/stage2.img");
+                    umount("/mnt/source");
+                    logMessage(WARNING, "unable to access %s", buf);
                 }
-
+            } else if (!doPwMount(fullPath, "/mnt/isodir", "nfs", mountOpts)) {
+                char *path;
                 /* If we get here, it wasn't a regular NFS method but it may
                  * still be NFSISO.  Remount on the isodir mountpoint and try
                  * again.
                  */
-                umount("/mnt/source");
-                if (!doPwMount(fullPath, "/mnt/isodir", "nfs", mountOpts)) {
-                } else {
-                    newtWinMessage(_("Error"), _("OK"),
-                                   _("That directory could not be mounted from "
-                                     "the server."));
-                    if (loaderData->method >= 0) {
-                        loaderData->method = -1;
-                    }
-                    break;
-                }
-
                 if ((path = validIsoImages("/mnt/isodir", &foundinvalid))) {
 		    foundinvalid = 0;
 		    logMessage(INFO, "Path to valid iso is %s", path);
@@ -211,55 +235,37 @@ char * mountNfsImage(struct installMethod * method,
                     if (mountLoopback(path, "/mnt/source", "/dev/loop1")) 
                         logMessage(WARNING, "failed to mount iso %s loopback", path);
                     else {
-                        /* try to see if we're booted off of a CD with stage2 */
-                        cdurl = findAnacondaCD("/mnt/stage2", 0);
-                        if (cdurl) {
-                            logMessage(INFO, "Detected stage 2 image on CD");
-                            winStatus(50, 3, _("Media Detected"),
-                                      _("Local installation media detected..."), 0);
-                            sleep(3);
-                            newtPopWindow();
-                            rc = 0;
+                        if (FL_STAGE2(flags)) {
+                            stage2dir = strdup("/mnt/source");
+                            tmp = asprintf(&buf, "/mnt/source/%s", strrchr(directory, '/'));
                         } else {
-                            rc = mountStage2("/mnt/source/images/stage2.img");
+                            stage2dir = strdup("/mnt/source/images");
+                            buf = strdup("/mnt/source/images/stage2.img");
                         }
-                        if (rc) {
+
+                        rc = copyFile(buf, "/tmp/stage2.img");
+                        rc = mountStage2("/tmp/stage2.img", stage2dir);
+                        free(buf);
+                        free(stage2dir);
+
+                        if (rc && rc == -1) {
+                            foundinvalid = 1;
                             umountLoopback("/mnt/source", "/dev/loop1");
-                            if (rc == -1)
-				foundinvalid = 1;
+                            umount("/mnt/isodir");
                         } else {
-                            /* JKFIXME: hack because /mnt/source is hard-coded
-                             * in mountStage2() */
-                            copyUpdatesImg("/mnt/source/images/updates.img");
-                            copyProductImg("/mnt/source/images/product.img");
-
-                            queryIsoMediaCheck(path);
-
                             stage = NFS_STAGE_DONE;
-                            url = "nfsiso:/mnt/source";
+
+                            if (FL_STAGE2(flags)) {
+                                rc = asprintf(&url, "nfs:%s:%s", host, directory);
+                                umountLoopback("/mnt/source", "/dev/loop1");
+                                umount("/mnt/isodir");
+                            } else {
+                                url = strdup("nfsiso:/mnt/source");
+                            }
                             break;
                         }
                     }
                 }
-
-		/* if we fell through to here we did not find a valid NFS */
-		/* source for installation.                               */
-		umount("/mnt/isodir");
-                if (foundinvalid) 
-                    rc = asprintf(&buf, _("The %s installation tree in that "
-                                     "directory does not seem to match "
-                                     "your boot media."), getProductName());
-                else
-                    rc = asprintf(&buf, _("That directory does not seem to "
-                                     "contain a %s installation tree."),
-                                   getProductName());
-                newtWinMessage(_("Error"), _("OK"), buf);
-                free(buf);
-                if (loaderData->method >= 0) {
-                    loaderData->method = -1;
-                }
-
-                break;
             } else {
                 newtWinMessage(_("Error"), _("OK"),
                                _("That directory could not be mounted from "
@@ -269,6 +275,25 @@ char * mountNfsImage(struct installMethod * method,
                 }
                 break;
             }
+
+            if (foundinvalid)
+                rc = asprintf(&buf, _("The %s installation tree in that "
+                                 "directory does not seem to match "
+                                 "your boot media."), getProductName());
+            else
+                rc = asprintf(&buf, _("That directory does not seem to "
+                                 "contain a %s installation tree."),
+                               getProductName());
+
+            newtWinMessage(_("Error"), _("OK"), buf);
+            free(buf);
+
+            if (loaderData->method >= 0) {
+                loaderData->method = -1;
+            }
+
+            flags &= ~LOADER_FLAGS_STAGE2;
+            break;
         }
 
         case NFS_STAGE_DONE:
@@ -278,6 +303,8 @@ char * mountNfsImage(struct installMethod * method,
 
     free(host);
     free(directory);
+    if (fullPath)
+        free(fullPath);
 
     return url;
 }
@@ -395,7 +422,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
             i = asprintf(&host, "%s/%s", host, path);
     }
 
-    logMessage(INFO, "file location: nfs://%s/%s", host, file);
+    logMessage(INFO, "file location: nfs:/%s/%s", host, file);
 
     if (!doPwMount(host, "/tmp/mnt", "nfs", opts)) {
         char * buf;
