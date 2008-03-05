@@ -1831,7 +1831,9 @@ MAILADDR root
             mountpoint = entry.getMountPoint()
 
             if mountpoint == "/":
-                entry.options = entry.options.replace(",_netdev",",_rnetdev")
+                options = entry.getOptions()
+                if options:
+                    entry.options = options.replace(",_netdev",",_rnetdev")
 
             if (rhpl.getArch() == 'ia64' \
                         or (rhpl.getArch() in ("i386", "x86_64") \
