@@ -205,7 +205,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
 char * mountUrlImage(struct installMethod * method,
                      char * location, struct loaderData_s * loaderData) {
     int rc;
-    char * url;
+    char *url, *buf;
     struct iurlinfo ui;
     char needsSecondary = ' ';
     int dir = 1;
@@ -276,13 +276,14 @@ char * mountUrlImage(struct installMethod * method,
 	    if (cdurl) {
 		/* verify that our URL is specifying the correct tree */
 		/* we do this by attempting to pull a .discinfo file */
-		if (loadSingleUrlImage(&ui, ".discinfo", NULL, NULL, NULL, 1)) {
+                rc = asprintf(&buf, "%s/.discinfo", ui->address);
+		if (loadSingleUrlImage(&ui, buf, NULL, NULL, NULL, 1)) {
+                        free(buf);
                         umountStage2();
                         umount(location);
                         unlink("/tmp/cdrom");
 
 			stage = URL_STAGE_MAIN;
-                        flags &= ~LOADER_FLAGS_STAGE2;
 			dir = -1;
 
 			if (loaderData->method >= 0)
@@ -296,6 +297,7 @@ char * mountUrlImage(struct installMethod * method,
 			  _("Local installation media detected..."), 0);
 		sleep(3);
 		newtPopWindow();
+                free(buf);
 
                 stage = URL_STAGE_DONE;
                 dir = 1;
