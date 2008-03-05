@@ -1367,6 +1367,8 @@ class YumBackend(AnacondaBackend):
             anaconda.id.network.write(anaconda.rootPath)
             anaconda.id.iscsi.write(anaconda.rootPath)
             anaconda.id.zfcp.write(anaconda.rootPath)
+            if not anaconda.id.isHeadless:
+                anaconda.id.keyboard.write(anaconda.rootPath)
 
         # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
         f = open(anaconda.rootPath + "/etc/mtab", "w+")
