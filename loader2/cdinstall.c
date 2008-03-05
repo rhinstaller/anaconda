@@ -247,7 +247,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
     if (loaderData && FL_STAGE2(flags)) {
         stage2loc = strdup(location);
-        r = asprintf(&imageDir, "%.*s", (int) (strrchr(location, '/') - directory), directory);
+        r = asprintf(&imageDir, "%.*s", (int) (strrchr(location, '/') - location), location);
         r = asprintf(&discinfoloc, "%s/.discinfo", imageDir);
     } else {
         r = asprintf(&stage2loc, "%s/images/stage2.img", location);
