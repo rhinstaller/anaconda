@@ -180,8 +180,6 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
     else
         port = atoi(portstr);
 
-    if (portstr) free(portstr);
-
     if (inet_pton(AF_INET, hostname, &addr) >= 1)
         family = AF_INET;
     else if (inet_pton(AF_INET6, hostname, &addr6) >= 1)
