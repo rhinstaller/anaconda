@@ -315,10 +315,17 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
                 continue;
             }
 
+            if (!strstr(url, "http://") && !strstr(url, "ftp://")) {
+                newtWinMessage(_("Error"), _("OK"),
+                               _("URL must be either an ftp or http URL"));
+                continue;
+            }
+
             /* Now split up the URL we were given into its components for
              * ease of checking.
              */
-            convertURLToUI(url, ui);
+            if (convertURLToUI(url, ui) == -1)
+                continue;
 
             if (!addrToIp(ui->address)) {
                 newtWinMessage(_("Unknown Host"), _("OK"),
