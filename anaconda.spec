@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.105
+Version: 11.1.2.106
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar 05 2008 Chris Lumens <clumens@redhat.com> 11.1.2.106-1
+- Fix the case where we're checking for _netdev but options is None (pjones).
+  Resolves: rhbz#435998
+
 * Mon Mar 03 2008 Chris Lumens <clumens@redhat.com> 11.1.2.105-1
 - Add support for _rnetdev mount option in fstab (pjones).
   Resolves: rhbz#435716
