@@ -995,25 +995,14 @@ class NTFSFileSystem(FileSystemType):
         """Return the minimum filesystem size in megabytes"""
         devicePath = "/dev/%s" % (device,)
 
-        buf = iutil.execWithCapture("ntfsresize", ["--info", devicePath],
+        buf = iutil.execWithCapture("ntfsresize", ["-m", devicePath],
                                     stderr = "/dev/tty5")
-        for l in buf.split("\n"):
-            if not l.startswith("Space in use"):
-                continue
-            try:
-                usedamt = l.split(":")[1].strip()
-                (num, unit, pct) = usedamt.split(" ", 2)
-                used = int(num)
-                if unit == "GB":
-                    used *= 1024
-            except Exception, e:
-                log.error("unable to parse used space for %s: %s" %(device, e))
-                log.debug(l)
-            # FIXME: arbitrary fudge factor for ntfs resizing
-            return used + 250
-
-        log.warning("Unable to discover minimum size of filesystem on %s" %(device,))
-        return 1
+        try:
+            return int(buf) + 250
+        except Exception, e:
+            log.warning("Unable to discover minimum size of filesystem on %s" %(device,))
+            log.debug("error was %s\n", e)
+            return 1
 
 
 fileSystemTypeRegister(NTFSFileSystem())
