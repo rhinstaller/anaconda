@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.44
+Version: 11.4.0.45
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -209,6 +209,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 04 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.45-1
+- Fix the build.
+
 * Tue Mar 04 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.44-1
 - Add --archlist to repoquery call. (jkeating)
 - Translation updates (pl, nl, ja)
