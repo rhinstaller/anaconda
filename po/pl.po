@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-02 12:12-0500\n"
-"PO-Revision-Date: 2008-03-05 01:39+0200\n"
+"PO-Revision-Date: 2008-03-05 22:26+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -138,7 +138,7 @@ msgstr ""
 #: ../autopart.py:896
 #, python-format
 msgid "Start of partition %s was moved when resizing"
-msgstr ""
+msgstr "Początek partycji %s został przeniesiony podczas zmieniania rozmiaru"
 
 #: ../autopart.py:988
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
@@ -1018,6 +1018,8 @@ msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
 msgstr ""
+"Urządzenie %s jest zaszyfrowane. Aby uzyskać dostęp do zawartości urządzenia "
+"podczas instalacji, musisz podać poniżej długie hasło urządzenia."
 
 #: ../gui.py:855 ../gui.py:856 ../gui.py:968 ../gui.py:969
 #: tmp/anaconda.glade.h:2
@@ -1229,7 +1231,7 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"Określono, że pakiet \"%s\" powinien zostać zainstalowany. Ten pakiet nie "
+"Podano, że pakiet \"%s\" powinien zostać zainstalowany. Ten pakiet nie "
 "istnieje. Chcesz kontynuować, czy przerwać instalację?"
 
 #: ../kickstart.py:977 ../kickstart.py:1015
@@ -1246,7 +1248,7 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"Określono, że grupa \"%s\" powinna zostać zainstalowana. Ta grupa nie "
+"Podano, że grupa \"%s\" powinna zostać zainstalowana. Ta grupa nie "
 "istnieje. Chcesz kontynuować, czy przerwać instalację?"
 
 #: ../livecd.py:107
@@ -1283,6 +1285,8 @@ msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
 msgstr ""
+"Utworzony system plików root jest za mały dla tego obrazu systemu (wymagane "
+"jest %.2f MB)."
 
 #: ../network.py:57
 msgid "Hostname must be 64 or less characters in length."
@@ -1542,7 +1546,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:109
 msgid "Please specify a mount point for this partition."
-msgstr "Określ punkt montowania dla tej partycji."
+msgstr "Podaj punkt montowania dla tej partycji."
 
 #: ../partIntfHelpers.py:119
 #, python-format
@@ -1820,13 +1824,15 @@ msgstr ""
 
 #: ../partitions.py:113
 msgid "Writing partitioning to disk"
-msgstr "Zapisywanie partycji na dysk"
+msgstr "Zapisywanie partycjonowania na dysku"
 
 #: ../partitions.py:114
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost"
 msgstr ""
+"Wybrane opcje partycjonowania zostaną teraz zapisane na dysku. Wszystkie "
+"dane na usuniętych lub ponownie formatowanych partycjach zostaną utracone"
 
 #: ../partitions.py:119
 msgid "Go _back"
@@ -1867,6 +1873,10 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
+"Czy na pewno chcesz pominąć podawanie długiego hasła dla urządzenia %s?\n"
+"\n"
+"Jeśli chcesz pominąć ten krok, zawartość urządzenia nie będzie dostępna "
+"podczas instalacji."
 
 #: ../partitions.py:1019
 #, python-format
@@ -1937,20 +1947,21 @@ msgstr "Partycje startowe można tworzyć tylko na urządzeniach RAID1."
 
 #: ../partitions.py:1190
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "Partycje startowe nie mogą być na woluminie logicznym."
+msgstr "Partycje startowe nie mogą znajdować się na woluminie logicznym."
 
 #: ../partitions.py:1196
 msgid "Bootable partitions cannot be on a RAID device."
-msgstr "Partycje startowe nie mogą być na urządzeniu RAID."
+msgstr "Partycje startowe nie mogą znajdować się na urządzeniu RAID."
 
 #: ../partitions.py:1203
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "Partycje startowe nie mogą być na systemie plików %s."
+msgstr "Partycje startowe nie mogą znajdować się na systemie plików %s."
 
 #: ../partitions.py:1207
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "Partycje startowe nie mogą być na zaszyfrowanym urządzeniu blokowym"
+msgstr ""
+"Partycje startowe nie mogą znajdować się na zaszyfrowanym urządzeniu blokowym"
 
 #: ../partitions.py:1213
 msgid ""
@@ -2056,7 +2067,7 @@ msgstr "Partycja nie może kończyć się na ujemnym cylindrze."
 
 #: ../partRequests.py:746
 msgid "No members in RAID request, or not RAID level specified."
-msgstr "Brak składników w wybranym RAID lub poziom RAID nie został określony."
+msgstr "Brak składników w wybranym RAID lub poziom RAID nie został podany."
 
 #: ../partRequests.py:751
 #, python-format
@@ -2254,7 +2265,7 @@ msgstr "Długie hasło"
 
 #: ../text.py:290 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "To jest globalne długie hasło"
 
 #: ../text.py:346
 msgid "Help not available"
@@ -2313,6 +2324,9 @@ msgid ""
 "is for %s architecture. \n"
 "\n"
 msgstr ""
+"Wybrano aktualizację architektury %s, ale zainstalowany system jest dla "
+"architektury %s. \n"
+"\n"
 
 #: ../upgrade.py:81
 #, python-format
@@ -2478,6 +2492,13 @@ msgid ""
 "to the vncviewer is unsuccessful\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"Wybrano połączenie z nasłuchującym programem vncviewer. \n"
+"Nie wymaga to ustawienia hasła. Jeśli ustawisz hasło, \n"
+"zostanie użyte w przypadku, gdy połączenie się z \n"
+"programem vncviewer nie powiedzie się.\n"
+"\n"
 
 #: ../vnc.py:254
 msgid ""
@@ -2502,6 +2523,10 @@ msgid ""
 "You chose to execute vnc with a password. \n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"Wybrano wykonanie VNC z hasłem. \n"
+"\n"
 
 #: ../vnc.py:260
 msgid ""
@@ -2697,11 +2722,11 @@ msgstr ""
 
 #: ../yuminstall.py:579
 msgid "Retrying"
-msgstr "Próbowanie ponownie"
+msgstr "Ponownie próbowanie"
 
 #: ../yuminstall.py:579
 msgid "Retrying package download..."
-msgstr "Próbowanie ponownie pobrania pakietu..."
+msgstr "Ponowne próbowanie pobrania pakietu..."
 
 #: ../yuminstall.py:641
 #, python-format
@@ -2838,15 +2863,16 @@ msgstr ""
 "kontynuować aktualizację?"
 
 #: ../yuminstall.py:1415
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Zdaje się, że chcesz zaktualizować system, który jest za stary, aby można "
-"było go zaktualizować do tej wersji systemu %s. Czy na pewno chcesz "
-"kontynuować aktualizację?"
+"Zdaje się, że architektura wydania systemu %s, który aktualizujesz to %s, "
+"która nie zgadza się z poprzednio zainstalowaną architekturą %s. "
+"Prawdopodobnie to się nie powiedzie. Czy na pewno chcesz kontynuować proces "
+"aktualizacji?"
 
 #: ../yuminstall.py:1448
 msgid "Install Starting"
@@ -2934,12 +2960,15 @@ msgid "Weak Password"
 msgstr "Słabe hasło"
 
 #: ../iw/account_gui.py:108 ../textw/userauth_text.py:79
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Weak password provided: %s\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr "Czy chcesz kontynuować aktualizację?"
+msgstr ""
+"Podano słabe hasło: %s\n"
+"\n"
+"Czy chcesz kontynuować z tym hasłem?"
 
 #: ../iw/account_gui.py:120 ../textw/userauth_text.py:72
 msgid ""
@@ -2952,10 +2981,13 @@ msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
 msgstr ""
+"Brak dostępnych partycji do zmiany rozmiaru. Można zmieniać tylko fizyczne "
+"partycje z określonymi systemami plików."
 
 #: ../iw/autopart_type.py:177
 msgid "Do you really want to boot from disk which is not used for instalation?"
 msgstr ""
+"Czy na pewno chcesz uruchomić z dysku, który nie został użyty do instalacji?"
 
 #: ../iw/autopart_type.py:258
 msgid "Invalid Initiator Name"
@@ -2978,9 +3010,9 @@ msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr "Usuń partycje linuksowe na wybranych dyskach i utwórz domyślny układ"
 
 #: ../iw/autopart_type.py:403
-#, fuzzy
 msgid "Resize existing partition and create default layout in free space"
-msgstr "Usuń partycje linuksowe na wybranych dyskach i utwórz domyślny układ"
+msgstr ""
+"Zmień rozmiar istniejącej partycji i utwórz domyślny układ na wolnym miejscu"
 
 #: ../iw/autopart_type.py:404 ../textw/partition_text.py:1518
 msgid "Use free space on selected drives and create default layout"
@@ -2995,14 +3027,12 @@ msgid "_Use a boot loader password"
 msgstr "_Użyj hasła programu startowego"
 
 #: ../iw/blpasswidget.py:46
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from changing kernel options, "
 "increasing security."
 msgstr ""
-"Hasło programu startowego chroni przed zmianą parametrów jądra przez "
-"użytkowników. W celu zwiększenia bezpieczeństwa systemu zalecane jest "
-"ustawienie hasła."
+"Hasło programu startowego chroni przed zmienianiem opcji jądra przez "
+"użytkowników, zwiększając bezpieczeństwo."
 
 #: ../iw/blpasswidget.py:77
 msgid "Change _password"
@@ -5067,7 +5097,7 @@ msgstr "Nie podano nazwy komputera."
 
 #: ../textw/partition_text.py:49
 msgid "Must specify a value"
-msgstr "Musisz określić wartość"
+msgstr "Musisz podać wartość"
 
 #: ../textw/partition_text.py:52
 msgid "Requested value is not an integer"
@@ -5494,14 +5524,12 @@ msgid "Root Password"
 msgstr "Hasło roota"
 
 #: ../textw/userauth_text.py:30
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. "
 msgstr ""
 "Wybierz hasło roota. Musisz podać je dwa razy, aby upewnić się, że nie "
-"popełniono błędu podczas pisania. Pamiętaj, że hasło roota jest ważnym "
-"elementem bezpieczeństwa systemu!"
+"popełniono błędu podczas pisania."
 
 #: ../textw/userauth_text.py:64
 msgid "The root password must be at least 6 characters long."
@@ -5745,12 +5773,12 @@ msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"W systemie jest wiele partycji, które mogą mieścić obraz dysku ze "
+"W systemie jest wiele partycji, które mogą zawierać obraz dysku ze "
 "sterownikami. Której chcesz użyć?"
 
 #: ../loader2/driverdisk.c:300
 msgid "Failed to mount partition."
-msgstr "Nie udało się zamontować partycji."
+msgstr "Zamontowanie partycji nie powiodło się."
 
 #: ../loader2/driverdisk.c:308
 msgid "Select driver disk image"
@@ -5762,7 +5790,7 @@ msgstr "Wybierz plik, który jest obrazem dysku ze sterownikami."
 
 #: ../loader2/driverdisk.c:338
 msgid "Failed to load driver disk from file."
-msgstr "Nie udało się wczytać z pliku dysku ze sterownikami."
+msgstr "Wczytanie sterownika z pliku dysku ze sterownikami nie powiodło się."
 
 #: ../loader2/driverdisk.c:349
 #, c-format
@@ -5776,7 +5804,7 @@ msgstr "Włóż dysk ze sterownikami"
 
 #: ../loader2/driverdisk.c:366
 msgid "Failed to mount driver disk."
-msgstr "Nie udało się zamontować dysku ze sterownikami."
+msgstr "Zamontowanie dysku ze sterownikami nie powiodło się."
 
 #: ../loader2/driverdisk.c:376
 #, c-format
@@ -6051,13 +6079,12 @@ msgstr ""
 "aktualizacyjny. Którego chcesz użyć?"
 
 #: ../loader2/loader.c:411
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
 msgstr ""
-"W systemie jest wiele partycji, które mogą mieścić obraz dysku ze "
-"sterownikami. Której chcesz użyć?"
+"W systemie jest wiele partycji, które mogą zawierać obraz dysku "
+"aktualizującego. Której chcesz użyć?"
 
 #: ../loader2/loader.c:429
 #, c-format
@@ -6072,7 +6099,7 @@ msgstr "Dysk aktualizujący"
 
 #: ../loader2/loader.c:445
 msgid "Failed to mount updates disk"
-msgstr "Nie udało się zamontować dysku aktualizującego"
+msgstr "Zamontowanie dysku aktualizującego nie powiodło się"
 
 #: ../loader2/loader.c:448
 msgid "Updates"
@@ -6083,13 +6110,12 @@ msgid "Reading anaconda updates..."
 msgstr "Odczytywanie aktualizacji anacondy..."
 
 #: ../loader2/loader.c:484
-#, fuzzy
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
-"Nie można pobrać pliku kickstart. Zmodyfikuj poniższy parametr kickstart lub "
-"naciśnij Anuluj, aby kontynuować jako instalacja interaktywna."
+"Nie można pobrać obrazu aktualizującego. Zmodyfikuj poniższe położenie "
+"aktualizacji lub naciśnij Anuluj, aby kontynuować bez aktualizacji."
 
 #: ../loader2/loader.c:493
 msgid "Error downloading updates image"
@@ -6168,7 +6194,8 @@ msgstr "loader został już uruchomiony. Uruchamianie powłoki.\n"
 #: ../loader2/loader.c:1915
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
-msgstr "Uruchamianie anacondy %s, trybu ratunkowego %s - proszę czekać...\n"
+msgstr ""
+"Uruchamianie anacondy %s, trybu ratunkowego systemu %s - proszę czekać...\n"
 
 #: ../loader2/loader.c:1917
 #, c-format
@@ -6220,10 +6247,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Błędny argument polecenia urządzenia metody kickstart %s: %s"
 
 #: ../loader2/modules.c:349
-#, fuzzy
 msgid "A module name must be specified for the kickstart device command."
-msgstr ""
-"Typ modułu i nazwa muszą zostać określone dla polecenia urządzenia kickstart."
+msgstr "Nazwa modułu musi zostać podana dla polecenia urządzenia kickstart."
 
 #: ../loader2/net.c:57
 #, c-format
@@ -6231,6 +6256,8 @@ msgid ""
 "Please enter the URL containing %s on your\n"
 "server.\n"
 msgstr ""
+"Podaj URL zawierający %s na\n"
+"serwerze.\n"
 
 #: ../loader2/net.c:97
 msgid ""
@@ -6372,7 +6399,7 @@ msgstr "Błędny argument polecenia sieciowego kickstart %s: %s"
 #: ../loader2/net.c:1677
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "Błędnie określony protokół startowy %s w poleceniu sieciowym"
+msgstr "Błędnie podany protokół startowy %s w poleceniu sieciowym"
 
 #: ../loader2/net.c:1865
 msgid "Networking Device"
@@ -6404,7 +6431,7 @@ msgstr "Ustawienia NFS"
 
 #: ../loader2/nfsinstall.c:140
 msgid "Hostname specified with no DNS configured"
-msgstr "Określono nazwę komputera bez skonfigurowanego DNS"
+msgstr "Podano nazwę komputera bez skonfigurowanego DNS"
 
 #: ../loader2/nfsinstall.c:198 ../loader2/nfsinstall.c:265
 msgid "That directory could not be mounted from the server."
@@ -6496,7 +6523,7 @@ msgstr "Port pośrednika:"
 
 #: ../loader2/urls.c:422
 msgid "Further Setup"
-msgstr "Dalsza konfiguracja"
+msgstr "Dalsze ustawienia"
 
 #: ../loader2/windows.c:63
 msgid "Loading SCSI driver"
@@ -6544,13 +6571,11 @@ msgid "Add Repository"
 msgstr "Dodaj repozytorium"
 
 #: tmp/addrepo.glade.h:3
-#, fuzzy
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from."
 msgstr ""
-"Podaj położenie, z którego można zainstalować dodatkowe oprogramowanie. "
-"Zauważ, że musi to być prawidłowe repozytorium dla %s."
+"Podaj położenie, z którego można zainstalować dodatkowe oprogramowanie."
 
 #: tmp/addrepo.glade.h:4
 msgid "Proxy U_RL:"
@@ -6585,9 +6610,8 @@ msgid "_Next"
 msgstr "_Dalej"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target:</b>"
-msgstr "<b>_Nazwa repozytorium:</b>"
+msgstr "<b>Zmień rozmiar _celu:</b>"
 
 #: tmp/autopart.glade.h:2
 msgid ""
@@ -6604,19 +6628,18 @@ msgid "Re_view and modify partitioning layout"
 msgstr "_Przejrzyj i zmodyfikuj układ partycjonowania"
 
 #: tmp/autopart.glade.h:4
-#, fuzzy
 msgid "What drive would you like to _boot this installation from?"
-msgstr "Z którego dysku chcesz uruchomić tę instalację?"
+msgstr "Z którego dysku chcesz _uruchomić tę instalację?"
 
 #: tmp/autopart.glade.h:5
 msgid "Which Partition to resize"
-msgstr ""
+msgstr "Której partycji zmienić rozmiar"
 
 #: tmp/autopart.glade.h:6
-#, fuzzy
 msgid ""
 "Which partition would you like to resize to make room for your installation?"
-msgstr "Która partycja zawiera partycję root instalacji?"
+msgstr ""
+"Której partycji chcesz zmienić rozmiar, aby zrobić miejsce dla instalacji?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
@@ -6663,9 +6686,8 @@ msgid "Third BIOS drive:"
 msgstr "Trzeci napęd w BIOS-ie:"
 
 #: tmp/blwhere.glade.h:9
-#, fuzzy
 msgid "Where would you like to install the boot loader for your system?"
-msgstr "Gdzie chcesz zainstalować program startowy?"
+msgstr "Gdzie chcesz zainstalować program startowy dla systemu?"
 
 #: tmp/detailed-dialog.glade.h:1
 msgid "Info"
@@ -6677,7 +6699,7 @@ msgstr "_Szczegóły"
 
 #: tmp/exnSave.glade.h:2
 msgid "Select a destination for the exception information."
-msgstr ""
+msgstr "Wybierz cel informacji o wyjątku."
 
 #: tmp/exnSave.glade.h:3
 msgid "_Disk"
@@ -6734,6 +6756,8 @@ msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
+"Wybierz długie hasło dla tej zaszyfrowanej partycji. Zostaniesz poproszony o "
+"długie hasło podczas uruchamiania systemu."
 
 #: tmp/lukspassphrase.glade.h:2
 msgid "Confirm passphrase:"
