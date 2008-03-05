@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.43
+Version: 11.4.0.44
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -209,6 +209,31 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 04 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.44-1
+- Add --archlist to repoquery call. (jkeating)
+- Translation updates (pl, nl, ja)
+- Handle efibootmgr and grub.efi in upd-instroot. (pjones)
+- Merge in branch to implement stage2= parameter. (clumens)
+- Revert the memtest86 bits for EFI, since this gets run on multiple arches. (pjones)
+- Use iutil.isEfi() instead of testing for ia64-ness. (pjones)
+- Only do gptsync if we're not using EFI. (pjones)
+- Don't do gptsync if we're using EFI. (pjones)
+- Use gpt on all efi platforms. (pjones)
+- Rework isEfi() to be slightly more conservative. (pjones)
+- Test for using efi rather than arch==ia64 (pjones)
+- Don't copy memtest86 in on EFI since it won't work. (pjones)
+- Add comment regarding usage of elilo (pjones)
+- Free some variables so we can http GET twice if needed. (clumens)
+- Change the method config prompts. (clumens)
+- Support stage2= for CD installs in loader. (clumens)
+- Support stage2= for HD installs. (clumens)
+- Support stage2= for NFS installs. (clumens)
+- Support stage2= for URL installs. (clumens)
+- Update the method string handling for NFS and URL installs. (clumens)
+- mountStage2 now needs to take an extra argument for updates. (clumens)
+- If stage2= is given, it overrides the check for a CD stage2 image. (clumens)
+- Support the stage2= parameter, and add a flag for it. (clumens)
+
 * Mon Mar 03 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.43-1
 - Only use UUID= for devices we would have labeled.  Related to #435228 (katzj)
 - If we don't find a kernel package, then give a better error (katzj)
