@@ -83,14 +83,10 @@ Requires: system-config-date >= %{syscfgdatever}
 Requires: device-mapper >= %{dmver}
 Requires: device-mapper-libs >= %{dmver}
 Requires: dosfstools
-Requires: e2fsprogs, gfs2-utils, reiserfs-utils, xfsprogs, jfsutils
-%ifarch %{ix86} x86_64
-Requires: ntfsprogs
-%endif
+Requires: e2fsprogs
 %ifarch %{ix86} x86_64 ia64
 Requires: dmidecode
 %endif
-Requires: hfsutils
 Requires: python-pyblock >= %{pythonpyblockver}
 Requires: libbdevid >= %{libbdevidver}
 Requires: libbdevid-python
@@ -102,7 +98,6 @@ Requires: gnome-python2-gtkhtml2
 Requires: system-config-firewall
 Requires: cryptsetup-luks
 Requires: mdadm
-Requires: iscsi-initiator-utils
 Requires: lvm2
 Requires: util-linux-ng
 %ifnarch s390 s390x ppc64
