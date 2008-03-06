@@ -1296,7 +1296,7 @@ class FileSystemSet:
                     device = devify(entry.device.getDevice())
                 fstab = fstab + entry.device.getComment()
                 options = entry.getOptions()
-                if entry.mountpoint == "/":
+                if entry.mountpoint == "/" and options is not None:
                     options = options.replace(",_netdev", ",_rnetdev")
                 fstab = fstab + format % (device, entry.mountpoint,
                                           entry.fsystem.getName(),
