@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.46
+Version: 11.4.0.47
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar 05 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.47-1
+- Fix the build again (katzj)
+
 * Wed Mar 05 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.46-1
 - Don't require some things which we fall back gracefully when not there (katzj)
 - Check for filesystem utilities to see if a filesystem is supported (katzj)
