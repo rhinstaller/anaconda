@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.45
+Version: 11.4.0.46
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,17 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar 05 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.46-1
+- Don't require some things which we fall back gracefully when not there (katzj)
+- Check for filesystem utilities to see if a filesystem is supported (katzj)
+- Write out keyboard settings before installing packages. (related 
+  to #429358) (dlehman)
+- Update pl translation
+- Make sure http:// or ftp:// is specified (#436089) (katzj)
+- Fix segfault when port is specified (#435219) (katzj)
+- Use ntfsresize -m to get minimum size (#431124) (katzj)
+- Use the right path to the .discinfo file when validating a tree. (clumens)
+
 * Tue Mar 04 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.45-1
 - Fix the build.
 
