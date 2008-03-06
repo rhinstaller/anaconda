@@ -185,6 +185,7 @@ class FileSystemType:
         self.extraFormatArgs = []
         self.maxLabelChars = 16
         self.packages = []
+        self.needProgram = None
         self.resizable = False
         self.supportsFsProfiles = False
         self.fsProfileSpecifier = None
@@ -298,6 +299,13 @@ class FileSystemType:
         return FileSystemType.kernelFilesystems.has_key(self.getName()) or self.getName() == "auto"
 
     def isSupported(self):
+        # check to ensure we have the binaries they need
+        if self.needProgram:
+            if len(filter(lambda d: os.path.exists("%s/%s" %(d,
+                                                             self.needProgram)),
+                          os.environ["PATH"].split(":"))) == 0:
+                return False
+
         if self.supported == -1:
             return self.isMountable()
         return self.supported
@@ -360,6 +368,7 @@ class reiserfsFileSystem(FileSystemType):
 
         self.name = "reiserfs"
         self.packages = [ "reiserfs-utils" ]
+        self.needProgram = "mkreiserfs"
 
         self.maxSizeMB = 8 * 1024 * 1024
 
@@ -408,6 +417,7 @@ class xfsFileSystem(FileSystemType):
             self.supported = 0
 
         self.packages = [ "xfsprogs" ]
+        self.needProgram = "mkfs.xfs"
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -452,6 +462,7 @@ class jfsFileSystem(FileSystemType):
 
         self.name = "jfs"
         self.packages = [ "jfsutils" ]
+        self.needProgram = "mkfs.jfs"
 
         self.maxSizeMB = 8 * 1024 * 1024
 
@@ -494,6 +505,7 @@ class gfs2FileSystem(FileSystemType):
 
         self.name = "gfs2"
         self.packages = [ "gfs2-utils" ]
+        self.needProgram = "mkfs.gfs2"
 
         self.maxSizeMB = 8 * 1024 * 1024
 
@@ -1015,6 +1027,7 @@ class hfsFileSystem(FileSystemType):
         self.checked = 0
         self.name = "hfs"
         self.supported = 0
+        self.needProgram = "hformat"
 
     def isMountable(self):
         return 0
@@ -1025,9 +1038,9 @@ class hfsFileSystem(FileSystemType):
         args = [ devicePath ]
         args.extend(devArgs)
 
-        rc = iutil.execWithRedirect("/usr/bin/hformat", args,
+        rc = iutil.execWithRedirect("hformat", args,
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+                                    stderr = "/dev/tty5", searchPath = 1)
         if rc:
             raise SystemError
 
