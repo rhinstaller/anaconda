@@ -142,7 +142,7 @@ MK_STAMP=./makestamp.py
 BUILDINSTALL=./buildinstall
 
 for f in $UPD_INSTROOT $MK_IMAGES $MK_STAMP $MK_TREEINFO $BUILDINSTALL; do
-    if [ -f $UPDATES/usr/lib/anaconda-runtime/$f ]; then
+    if [ -n "UPDATES" -a -f $UPDATES/usr/lib/anaconda-runtime/$f ]; then
 	cp -a $UPDATES/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
     elif [ ! -f $f ]; then
 	cp -a $BUILDINSTDIR/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
