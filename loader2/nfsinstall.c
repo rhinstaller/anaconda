@@ -156,14 +156,14 @@ char * mountNfsImage(struct installMethod * method,
                 newtPopWindow();
 
                 stage = NFS_STAGE_DONE;
-                url = "nfs:/mnt/source";
+                rc = asprintf(&url, "nfs:%s:%s", host, directory);
                 break;
             }
 
             if (FL_STAGE2(flags)) {
                 if (!strrchr(directory, '/')) {
-                    return NULL;
                     flags &= ~LOADER_FLAGS_STAGE2;
+                    return NULL;
                 } else {
                     tmp = asprintf(&fullPath, "%s:%.*s/", host,
                                    (int) (strrchr(directory, '/') - directory), directory);
@@ -200,29 +200,23 @@ char * mountNfsImage(struct installMethod * method,
                 if (!rc) {
                     logMessage(INFO, "can access %s", buf);
                     rc = mountStage2("/tmp/stage2.img", stage2dir);
+                    umount("/mnt/source");
 
                     if (rc && rc == -1) {
                         foundinvalid = 1;
                         logMessage(WARNING, "not the right one");
-                        umount("/mnt/source");
                     } else {
                         stage = NFS_STAGE_DONE;
-
-                        if (FL_STAGE2(flags)) {
-                            rc = asprintf(&url, "nfs:%s:%s", host, directory);
-                            umount("/mnt/source");
-                        } else {
-                            url = strdup("nfs:/mnt/source");
-                        }
-
+                        rc = asprintf(&url, "nfs:%s:%s", host, directory);
                         break;
                     }
                 } else {
-                    umount("/mnt/source");
                     logMessage(WARNING, "unable to access %s", buf);
+                    umount("/mnt/source");
                 }
             } else if (!doPwMount(fullPath, "/mnt/isodir", "nfs", mountOpts)) {
                 char *path;
+
                 /* If we get here, it wasn't a regular NFS method but it may
                  * still be NFSISO.  Remount on the isodir mountpoint and try
                  * again.
@@ -247,21 +241,14 @@ char * mountNfsImage(struct installMethod * method,
                         rc = mountStage2("/tmp/stage2.img", stage2dir);
                         free(buf);
                         free(stage2dir);
+                        umountLoopback("/mnt/source", "/dev/loop1");
+                        umount("/mnt/isodir");
 
                         if (rc && rc == -1) {
                             foundinvalid = 1;
-                            umountLoopback("/mnt/source", "/dev/loop1");
-                            umount("/mnt/isodir");
                         } else {
                             stage = NFS_STAGE_DONE;
-
-                            if (FL_STAGE2(flags)) {
-                                rc = asprintf(&url, "nfs:%s:%s", host, directory);
-                                umountLoopback("/mnt/source", "/dev/loop1");
-                                umount("/mnt/isodir");
-                            } else {
-                                url = strdup("nfsiso:/mnt/source");
-                            }
+                            rc = asprintf(&url, "nfsiso:%s:%s", host, directory);
                             break;
                         }
                     }
@@ -422,7 +409,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
             i = asprintf(&host, "%s/%s", host, path);
     }
 
-    logMessage(INFO, "file location: nfs:/%s/%s", host, file);
+    logMessage(INFO, "file location: nfs:%s/%s", host, file);
 
     if (!doPwMount(host, "/tmp/mnt", "nfs", opts)) {
         char * buf;
