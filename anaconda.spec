@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.47
+Version: 11.4.0.48
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar 06 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.48-1
+- Don't use the bits from $UPDATES unless $UPDATES exists (katzj)
+- Fix horkage with busybox stuff.  There's now start-stop-daemon (katzj)
+- Require new enough version of yum-utils (katzj)
+- Pass the --archlist option to yumdownloader (jkeating)
+- Update pt_BR translation
+
 * Wed Mar 05 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.47-1
 - Fix the build again (katzj)
 
