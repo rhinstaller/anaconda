@@ -27,6 +27,7 @@ import string
 import copy
 import network
 import parted
+import partitions
 from partedUtils import *
 from partIntfHelpers import *
 from partRequests import *
@@ -1584,7 +1585,7 @@ class PartitionTypeWindow:
 
             if rc == "F2":
                 if self.addDriveDialog(screen) != INSTALL_BACK:
-                    partitionObjectsInitialize(anaconda)
+                    partitions.partitionObjectsInitialize(anaconda)
                 continue
             
             if res == TEXT_BACK_CHECK:
