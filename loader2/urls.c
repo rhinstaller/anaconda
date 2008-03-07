@@ -170,9 +170,9 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
     char *hostname, *portstr;
     struct hostent *host;
 
-    logMessage(INFO, "transferring %s://%s%s to a fd",
+    logMessage(INFO, "transferring %s://%s to a fd",
                ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
-               ui->address, path);
+               path);
 
     splitHostname(ui->address, &hostname, &portstr);
     if (portstr == NULL)
