@@ -161,18 +161,18 @@ char *convertUIToURL(struct iurlinfo *ui) {
 /* extraHeaders only applicable for http and used for pulling ks from http */
 /* see ftp.c:httpGetFileDesc() for details */
 /* set to NULL if not needed */
-int urlinstStartTransfer(struct iurlinfo * ui, char *path,
+int urlinstStartTransfer(struct iurlinfo * ui, char *hostAndPath,
                          char *extraHeaders) {
     int fd, port;
     int family = -1;
     struct in_addr addr;
     struct in6_addr addr6;
-    char *hostname, *portstr;
+    char *hostname, *portstr, *filestr;
     struct hostent *host;
 
-    logMessage(INFO, "transferring %s://%s%s to a fd",
+    logMessage(INFO, "transferring %s://%s to a fd",
                ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
-               ui->address, path);
+               hostAndPath);
 
     splitHostname(ui->address, &hostname, &portstr);
     if (portstr == NULL)
@@ -194,6 +194,11 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
             family = host->h_addrtype;
     }
 
+    if ((filestr = strchr(hostAndPath, '/')) == NULL) {
+        logMessage(ERROR, "Passed an invalid path: %s", hostAndPath);
+        return -1;
+    }
+
     if (ui->protocol == URL_METHOD_FTP) {
         ui->ftpPort = ftpOpen(hostname, family,
                               ui->login ? ui->login : "anonymous", 
@@ -204,14 +209,14 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
             return -2;
         }
 
-        fd = ftpGetFileDesc(ui->ftpPort, addr6, family, path);
+        fd = ftpGetFileDesc(ui->ftpPort, addr6, family, filestr);
         if (fd < 0) {
             close(ui->ftpPort);
             if (hostname) free(hostname);
             return -1;
         }
     } else {
-        fd = httpGetFileDesc(hostname, port, path, extraHeaders);
+        fd = httpGetFileDesc(hostname, port, filestr, extraHeaders);
         if (fd < 0) {
             if (portstr) free(portstr);
             return -1;
@@ -219,7 +224,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
     }
 
     if (!FL_CMDLINE(flags))
-        winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), path);
+        winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), hostAndPath);
 
     if (hostname) free(hostname);
     return fd;
