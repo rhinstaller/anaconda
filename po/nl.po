@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-02 12:12-0500\n"
-"PO-Revision-Date: 2008-03-04 22:44+0100\n"
+"PO-Revision-Date: 2008-03-08 20:12+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -24,9 +24,9 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:289
-#, fuzzy, c-format
+#, c-format
 msgid "Error processing %%ksappend lines: %s"
-msgstr "Fout bij het openen van kickstart-bestand %s: %s"
+msgstr "Fout bij het verwerken van %%ksappend regels: %s"
 
 #: ../anaconda:292
 #, c-format
@@ -134,6 +134,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Fout bij het aanpassen van de grootte van partitie %s.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:896
 #, python-format
@@ -463,7 +466,7 @@ msgstr "Bootloader"
 
 #: ../bootloader.py:147
 msgid "Installing bootloader..."
-msgstr "Bootloader wordt geïnstalleerd..."
+msgstr "Installeren van bootloader..."
 
 #: ../bootloader.py:217
 msgid ""
@@ -741,8 +744,8 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Er is een fout opgetreden bij het aanzetten van wisselgeheugenapparaat %s: "
-"%s\n"
+"Er is een fout opgetreden bij het aanzetten van wisselgeheugenapparaat %s: %"
+"s\n"
 "\n"
 "Apparaten in /etc/fstab dienen aangegeven te worden via een label, niet via "
 "een apparaatnaam.\n"
@@ -1027,16 +1030,16 @@ msgstr "Installatiesleutel"
 
 #: ../gui.py:657 ../gui.py:665
 msgid "Error with passphrase"
-msgstr "Fout bij het wachtwoord"
+msgstr "Fout bij de wachtzin"
 
 #: ../gui.py:658
 msgid "The passphrases you entered were different.  Please try again."
 msgstr ""
-"De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
+"De wachtzinnen die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
 
 #: ../gui.py:666
 msgid "The passphrase must be at least eight characters long."
-msgstr "Het wachtwoord moet tenminste 8 tekens lang zijn."
+msgstr "De wachtzin moet tenminste 8 tekens lang zijn."
 
 #: ../gui.py:692 ../text.py:275
 #, python-format
@@ -1224,7 +1227,7 @@ msgstr "Installeren op systeem"
 
 #: ../iscsi.py:205 ../iscsi.py:206
 msgid "Initializing iSCSI initiator"
-msgstr "Initialiseren van iSCSI initiator"
+msgstr "Initialiseren van iSCSI-initiator"
 
 #: ../kickstart.py:86
 #, python-format
@@ -1234,7 +1237,7 @@ msgid ""
 "Press the OK button to exit the installer."
 msgstr ""
 "Er was een fout bij het uitvoeren van het kickstart-script op regel %s.  U "
-"kunt de uitvoer bekijken in  %s.  Dit is een fatale fout en uw installatie "
+"kunt de uitvoer bekijken in %s.  Dit is een fatale fout en uw installatie "
 "zal worden afgebroken.  Druk op OK om het installatieprogramma af te sluiten."
 
 #: ../kickstart.py:101 ../kickstart.py:103
@@ -1877,7 +1880,7 @@ msgstr "Ga _terug"
 
 #: ../partitions.py:120
 msgid "_Write changes to disk"
-msgstr ""
+msgstr "Veranderingen naar schijf _schrijven"
 
 #: ../partitions.py:200 ../textw/constants_text.py:50
 #: ../loader2/cdinstall.c:335 ../loader2/driverdisk.c:236
@@ -2092,11 +2095,11 @@ msgstr "De grootte van de gevraagde partitie is negatief! (grootte = %s MB)"
 
 #: ../partRequests.py:542
 msgid "Partitions can't start below the first cylinder."
-msgstr "Partities kunnen niet vóór de eerste cylinder beginnen."
+msgstr "Partities kunnen niet vóór de eerste cilinder beginnen."
 
 #: ../partRequests.py:545
 msgid "Partitions can't end on a negative cylinder."
-msgstr "Partities kunnen niet op een negatieve cylinder eindigen."
+msgstr "Partities kunnen niet op een negatieve cilinder eindigen."
 
 # spelfout in not RAD level specified!
 #: ../partRequests.py:746
@@ -2146,7 +2149,7 @@ msgstr "Netwerken instellen"
 # Interfaces hier niet vertaald
 #: ../rescue.py:227
 msgid "Do you want to start the network interfaces on this system?"
-msgstr "Wilt u de netwerk-interfaces op dit systeem starten?"
+msgstr "Wilt u de netwerkinterfaces op dit systeem starten?"
 
 #: ../rescue.py:267 ../text.py:694
 msgid "Cancelled"
@@ -2299,7 +2302,7 @@ msgstr "Wachtwoord"
 
 #: ../text.py:282 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
-msgstr ""
+msgstr "Wachtzin"
 
 #: ../text.py:290 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
@@ -2558,6 +2561,10 @@ msgid ""
 "Unknown Error.  Aborting. \n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"Onbekende fout.  Afbreken. \n"
+"\n"
 
 #: ../vnc.py:285 ../vnc.py:374
 msgid "VNC Configuration"
@@ -2726,7 +2733,7 @@ msgid "_Eject"
 msgstr "_Uitwerpen"
 
 #: ../yuminstall.py:539
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
 "package or corrupt media.  Please verify your installation source.\n"
@@ -2735,9 +2742,8 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend bestand "
-"of misschien door een beschadigd pakket. Controleer of de "
-"installatiebestanden alle vereiste pakketten bevatten.\n"
+"Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend bestand, "
+"een beschadigd pakket of beschadigde media. Controleer uw installatiebron.\n"
 "\n"
 "Als u het installatieprogramma afsluit, zal uw systeem zich in een "
 "inconsistente toestand bevinden dat waarschijnlijk een herinstallatie zal "
@@ -2746,7 +2752,7 @@ msgstr ""
 
 #: ../yuminstall.py:579
 msgid "Retrying"
-msgstr ""
+msgstr "Opnieuw proberen"
 
 #: ../yuminstall.py:579
 msgid "Retrying package download..."
@@ -2801,23 +2807,22 @@ msgid "You need more space on the following file systems:\n"
 msgstr "U hebt meer ruimte nodig op de volgende bestandssystemen:\n"
 
 #: ../yuminstall.py:710
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
-msgstr "Op wat voor medium staan de te installeren pakketten?"
+msgstr ""
 
 #: ../yuminstall.py:713
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
 msgstr ""
 "Er was een fout bij het uitvoeren van uw transactie, vanwege de volgende "
-"reden(en): %s"
+"reden(en): %s.\n"
 
 #: ../yuminstall.py:717
-#, fuzzy
 msgid "Error Running Transaction"
 msgstr "Fout bij het uitvoeren van transactie"
 
@@ -2835,7 +2840,7 @@ msgid "Retrieving installation information for %s..."
 msgstr "Bezig met ophalen van installatie-informatie voor %s..."
 
 #: ../yuminstall.py:905 ../yuminstall.py:1179
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
@@ -2845,7 +2850,9 @@ msgid ""
 msgstr ""
 "Niet in staat om de metadata van het pakket te lezen. Dit kan veroorzaakt "
 "worden door het ontbreken van een repodata-map. Wees er zeker van dat uw "
-"installatieomgeving correct is samengesteld.  %s"
+"installatieomgeving correct is samengesteld.\n"
+"\n"
+"%s"
 
 #: ../yuminstall.py:946
 msgid ""
@@ -2889,15 +2896,16 @@ msgstr ""
 "wilt gaan met het upgrade-proces?"
 
 #: ../yuminstall.py:1415
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Het lijkt er op dat u probeert te upgraden vanaf een systeem dat te oud is "
-"om opgewaardeerd te worden naar deze versie van %s.  Weet u zeker dat u door "
-"wilt gaan met het upgrade-proces?"
+"De architectuur van de uitgave van %s waarnaar u aan het upgraden bent lijkt "
+"%s te zijn, welke niet overeenkomt met uw vorige geïnstalleerde architectuur "
+"van %s. Dit zal waarschijnlijk niet slagen. Weet u zeker dat u wilt doorgaan "
+"met het upgradeproces?"
 
 #: ../yuminstall.py:1448
 msgid "Install Starting"
@@ -2950,19 +2958,16 @@ msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "U hebt geen FCP LUN opgegeven of het nummer is ongeldig."
 
 #: ../iw/account_gui.py:48
-#, fuzzy
 msgid "Root _Password:"
-msgstr "Root-_wachtwoord: "
+msgstr "Root-_wachtwoord:"
 
 #: ../iw/account_gui.py:50
-#, fuzzy
 msgid "_Confirm:"
-msgstr "_Bevestigen: "
+msgstr "_Bevestigen:"
 
 #: ../iw/account_gui.py:74
-#, fuzzy
 msgid "Caps Lock is on."
-msgstr "<b>Caps Lock staat aan.</b>"
+msgstr "Caps Lock staat aan."
 
 #: ../iw/account_gui.py:84 ../iw/account_gui.py:92 ../iw/account_gui.py:99
 #: ../iw/account_gui.py:119 ../textw/userauth_text.py:71
@@ -2987,17 +2992,19 @@ msgid "The root password must be at least six characters long."
 msgstr "Het root-wachtwoord moet tenminste 6 tekens lang zijn."
 
 #: ../iw/account_gui.py:107 ../textw/userauth_text.py:78
-#, fuzzy
 msgid "Weak Password"
-msgstr "Wachtwoord"
+msgstr "Zwak wachtwoord"
 
 #: ../iw/account_gui.py:108 ../textw/userauth_text.py:79
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Weak password provided: %s\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr "Wilt u doorgaan met de upgrade?"
+msgstr ""
+"Zwak wachtwoord opgegeven: %s\n"
+"\n"
+"Wilt u doorgaan met dit wachtwoord?"
 
 # misschien 'gevraagde' beter weglaten voor duidelijkheid
 #: ../iw/account_gui.py:120 ../textw/userauth_text.py:72
@@ -3037,9 +3044,9 @@ msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr "Linux partities op de stations verwijderen en standaard opmaak maken"
 
 #: ../iw/autopart_type.py:403
-#, fuzzy
 msgid "Resize existing partition and create default layout in free space"
-msgstr "Linux partities op de stations verwijderen en standaard opmaak maken"
+msgstr ""
+"Bestaande partitiegrootte aanpassen en standaard opmaak in vrije ruimte maken"
 
 #: ../iw/autopart_type.py:404 ../textw/partition_text.py:1518
 msgid "Use free space on selected drives and create default layout"
@@ -3054,14 +3061,12 @@ msgid "_Use a boot loader password"
 msgstr "_Bootloader-wachtwoord gebruiken"
 
 #: ../iw/blpasswidget.py:46
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from changing kernel options, "
 "increasing security."
 msgstr ""
-"Een bootloader-wachtwoord weerhoudt gebruikers ervan opties aan de kernel "
-"mee te geven.  Voor een betere systeembeveiliging wordt het aangeraden een "
-"wachtwoord in te stellen."
+"Een bootloader-wachtwoord voorkomt dat gebruikers kernel-opties aanpassen, "
+"waardoor de systeembeveiliging toeneemt."
 
 #: ../iw/blpasswidget.py:77
 msgid "Change _password"
@@ -3069,7 +3074,7 @@ msgstr "_Wachtwoord veranderen"
 
 #: ../iw/blpasswidget.py:100
 msgid "Enter Boot Loader Password"
-msgstr "Bootloader-wachtwoord invoeren"
+msgstr "Voer bootloader-wachtwoord in"
 
 #: ../iw/blpasswidget.py:106
 msgid ""
@@ -3116,14 +3121,13 @@ msgstr "Bootloader configureren"
 
 #: ../iw/bootloader_main_gui.py:170 ../iw/bootloader_main_gui.py:175
 #: ../iw/bootloader_main_gui.py:212
-#, fuzzy, python-format
+#, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "Bootloader wordt geïnstalleerd..."
+msgstr "Bootloader op /dev/%s _installeren."
 
 #: ../iw/bootloader_main_gui.py:218
-#, fuzzy
 msgid "_Change device"
-msgstr "Verwissel de schijf"
+msgstr "Apparaat _veranderen"
 
 #: ../iw/congrats_gui.py:31
 msgid "Congratulations"
@@ -3539,9 +3543,8 @@ msgid "_Edit"
 msgstr "_Aanpassen"
 
 #: ../iw/lvm_dialog_gui.py:1132
-#, fuzzy
 msgid "_Logical Volumes"
-msgstr "Logical Volumes"
+msgstr "_Logical Volumes"
 
 #: ../iw/mouse_gui.py:29
 msgid "Mouse Configuration"
@@ -3566,7 +3569,7 @@ msgstr "/dev/ttyS3 (COM4 onder DOS)"
 # apparaat?
 #: ../iw/mouse_gui.py:95 ../iw/osbootwidget.py:151
 msgid "_Device"
-msgstr "_Device"
+msgstr "_Apparaat"
 
 #: ../iw/mouse_gui.py:141
 msgid "_Model"
@@ -3730,7 +3733,7 @@ msgstr "Apparaat"
 
 #: ../iw/network_gui.py:402
 msgid "IPv4/Netmask"
-msgstr "IPv4/Netmask"
+msgstr "IPv4/Netmasker"
 
 #: ../iw/network_gui.py:404
 msgid "IPv6/Prefix"
@@ -3771,7 +3774,7 @@ msgstr "Apparaat bewerken "
 
 #: ../iw/network_gui.py:634
 msgid "Unknown Ethernet Device"
-msgstr "Onbekend ethernet-apparaat"
+msgstr "Onbekend ethernetapparaat"
 
 #: ../iw/network_gui.py:640
 msgid "unknown"
@@ -3803,9 +3806,8 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6-prefix moet tussen 0 en 128 liggen."
 
 #: ../iw/osbootwidget.py:49
-#, fuzzy
 msgid "Boot loader operating system list"
-msgstr "Het bootloader-wachtwoord is te kort"
+msgstr "Lijst met besturingssystemen voor bootloader"
 
 #: ../iw/osbootwidget.py:65 ../textw/bootloader_text.py:262
 msgid "Default"
@@ -3892,7 +3894,7 @@ msgstr "Opvullen tot maximum toegestane grootte"
 
 #: ../iw/partition_dialog_gui.py:198
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr "De eind-cylinder moet groter zijn dan de begin-cylinder."
+msgstr "De eindcilinder moet groter zijn dan de begincilinder."
 
 #: ../iw/partition_dialog_gui.py:299 ../textw/partition_text.py:711
 msgid "Add Partition"
@@ -3913,9 +3915,8 @@ msgstr "Type _bestandssysteem:"
 
 #: ../iw/partition_dialog_gui.py:334 ../iw/partition_ui_helpers_gui.py:300
 #: ../iw/raid_dialog_gui.py:327
-#, fuzzy
 msgid "_Encrypt"
-msgstr "Encryptie sleutel"
+msgstr "_Versleutelen"
 
 #: ../iw/partition_dialog_gui.py:350
 msgid "Allowable _Drives:"
@@ -3927,11 +3928,11 @@ msgstr "Station:"
 
 #: ../iw/partition_dialog_gui.py:409
 msgid "_Start Cylinder:"
-msgstr "_Begincylinder:"
+msgstr "_Begincilinder:"
 
 #: ../iw/partition_dialog_gui.py:427
 msgid "_End Cylinder:"
-msgstr "_Eindcylinder:"
+msgstr "_Eindcilinder:"
 
 #: ../iw/partition_dialog_gui.py:475
 msgid "Force to be a _primary partition"
@@ -4181,19 +4182,16 @@ msgid "<Not Applicable>"
 msgstr "<Niet Van Toepassing>"
 
 #: ../iw/partition_ui_helpers_gui.py:284
-#, fuzzy
 msgid "_Format as:"
-msgstr "Formatteren als:"
+msgstr "_Formatteren als:"
 
 #: ../iw/partition_ui_helpers_gui.py:307
-#, fuzzy
 msgid "Mi_grate filesystem to:"
-msgstr "Bestandssystemen migreren"
+msgstr "Mi_greer bestandssysteem naar:"
 
 #: ../iw/partition_ui_helpers_gui.py:327 tmp/autopart.glade.h:9
-#, fuzzy
 msgid "_Resize"
-msgstr "_Vaste grootte"
+msgstr "_Grootte aanpassen"
 
 #: ../iw/partition_ui_helpers_gui.py:381
 #, python-format
@@ -4219,7 +4217,7 @@ msgstr "Handmatig partitioneren met _Disk Druid"
 
 #: ../iw/progress_gui.py:38
 msgid "Installing Packages"
-msgstr "Pakketten installeren"
+msgstr "Installeren van pakketten"
 
 #: ../iw/raid_dialog_gui.py:286
 msgid ""
@@ -4712,7 +4710,7 @@ msgstr "Kernel-parameters"
 
 #: ../iw/zipl_gui.py:91 ../iw/zipl_gui.py:94
 msgid "Chandev Parameters"
-msgstr "Chandev parameters"
+msgstr "Chandev-parameters"
 
 #: ../textw/bootloader_text.py:32
 msgid "Which boot loader would you like to use?"
@@ -5068,13 +5066,13 @@ msgstr "IPv6-prefix"
 
 #: ../textw/network_text.py:509
 msgid "Configure Network Interface"
-msgstr "Netwerk-interface configureren"
+msgstr "Netwerkinterface configureren"
 
 # Interfaces hier niet vertaald
 #: ../textw/network_text.py:510
 #, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Wilt u de %s netwerk-interface op dit systeem configureren?"
+msgstr "Wilt u de %s netwerkinterface op dit systeem configureren?"
 
 #: ../textw/network_text.py:524 ../textw/network_text.py:526
 msgid "UNCONFIGURED"
@@ -5126,7 +5124,7 @@ msgstr "Secundaire DNS-server:"
 
 #: ../textw/network_text.py:699
 msgid "Miscellaneous Network Settings"
-msgstr "Overige netwerk instellingen"
+msgstr "Overige netwerkinstellingen"
 
 #: ../textw/network_text.py:716 ../textw/network_text.py:719
 msgid "gateway"
@@ -5229,11 +5227,11 @@ msgstr "Alle beschikbare ruimte opvullen:"
 
 #: ../textw/partition_text.py:459
 msgid "Start Cylinder:"
-msgstr "Begin-cylinder:"
+msgstr "Begincilinder:"
 
 #: ../textw/partition_text.py:472
 msgid "End Cylinder:"
-msgstr "Eind-cylinder:"
+msgstr "Eindcilinder:"
 
 #: ../textw/partition_text.py:495
 msgid "Volume Group:"
@@ -5318,19 +5316,19 @@ msgstr ""
 
 #: ../textw/partition_text.py:829 ../textw/partition_text.py:877
 msgid "Invalid Entry for Partition Size"
-msgstr "Ongeldige invoer voor Partitie-grootte"
+msgstr "Ongeldige invoer voor partitiegrootte"
 
 #: ../textw/partition_text.py:841
 msgid "Invalid Entry for Maximum Size"
-msgstr "Ongeldige invoer voor Maximum-grootte"
+msgstr "Ongeldige invoer voor maximumgrootte"
 
 #: ../textw/partition_text.py:860
 msgid "Invalid Entry for Starting Cylinder"
-msgstr "Ongeldige invoer voor Begin-cylinder"
+msgstr "Ongeldige invoer voor begincilinder"
 
 #: ../textw/partition_text.py:869
 msgid "Invalid Entry for End Cylinder"
-msgstr "Ongeldige invoer voor Eind-cylinder"
+msgstr "Ongeldige invoer voor eindcilinder"
 
 #: ../textw/partition_text.py:980
 msgid "No RAID partitions"
@@ -5484,15 +5482,15 @@ msgstr ""
 
 #: ../textw/partition_text.py:1685 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
-msgstr "iSCSI-parameters configuren"
+msgstr "iSCSI-parameters configureren"
 
 #: ../textw/partition_text.py:1686 tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-"Om iSCSI-disks te gebruiken moet u het adres van uw iSCSI target en de naam "
-"van de iSCSI initiator opgeven die u hebt geconfigureerd voor uw host."
+"Om iSCSI-disks te gebruiken moet u het adres van uw iSCSI-target en de naam "
+"van de iSCSI-initiator opgeven die u hebt geconfigureerd voor uw host."
 
 #: ../textw/partition_text.py:1687
 msgid "Target IP Address"
@@ -5500,7 +5498,7 @@ msgstr "Doel IP-adres"
 
 #: ../textw/partition_text.py:1688
 msgid "iSCSI Initiator Name"
-msgstr "iSCSI initiator-naam"
+msgstr "iSCSI-initiator naam"
 
 #: ../textw/partmethod_text.py:32
 msgid "Autopartition"
@@ -5525,8 +5523,8 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
-"De standaardinstallatie van %s bevat een software-verzameling die gebruikt "
-"kan worden voor algemeen internet-gebruik. Voor welke additionele taken wilt "
+"De standaardinstallatie van %s bevat een softwareverzameling die gebruikt "
+"kan worden voor algemeen internetgebruik. Voor welke additionele taken wilt "
 "u dat uw systeem ondersteuning biedt?"
 
 #: ../textw/task_text.py:72
@@ -5646,7 +5644,7 @@ msgstr "z/IPL configureren"
 
 #: ../textw/zipl_text.py:72 ../textw/zipl_text.py:76
 msgid "Chandev line "
-msgstr "Chandev-lijn "
+msgstr "Chandev-regel "
 
 #: ../installclasses/fedora.py:34
 msgid "_Fedora"
@@ -5659,8 +5657,8 @@ msgid ""
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
 msgstr ""
-"De standaardinstallatie van %s bevat een software-verzameling die gebruikt "
-"kan worden voor algemeen internet-gebruik. Voor welke additionele taken wilt "
+"De standaardinstallatie van %s bevat een softwareverzameling die gebruikt "
+"kan worden voor algemeen internetgebruik. Voor welke additionele taken wilt "
 "u dat uw systeem ondersteuning biedt?"
 
 #: ../installclasses/fedora.py:44
@@ -5670,7 +5668,7 @@ msgstr "Kantoor en productiviteit"
 #: ../installclasses/fedora.py:45 ../installclasses/rhel.py:55
 #: ../installclasses/rhel.py:60
 msgid "Software Development"
-msgstr "Software-ontwikkeling"
+msgstr "Softwareontwikkeling"
 
 #: ../installclasses/fedora.py:46 ../installclasses/rhel.py:59
 msgid "Web server"
@@ -5838,11 +5836,11 @@ msgstr "Bezig met laden"
 
 #: ../loader2/driverdisk.c:138
 msgid "Reading driver disk..."
-msgstr "Inlezen van stuurprogramma-diskette..."
+msgstr "Inlezen van stuurprogrammadiskette..."
 
 #: ../loader2/driverdisk.c:230 ../loader2/driverdisk.c:262
 msgid "Driver Disk Source"
-msgstr "Bron van stuurprogramma-diskette"
+msgstr "Bron van stuurprogrammadiskette"
 
 #: ../loader2/driverdisk.c:231
 msgid ""
@@ -5868,7 +5866,7 @@ msgstr "Aankoppelen van partitie mislukt."
 # vertaling ok?
 #: ../loader2/driverdisk.c:308
 msgid "Select driver disk image"
-msgstr "Stuurprogramma-bestand selecteren"
+msgstr "Stuurprogrammabestand selecteren"
 
 # vertaling ok?
 #: ../loader2/driverdisk.c:309
@@ -5884,20 +5882,20 @@ msgstr "Laden van stuurprogramma-bestand mislukt."
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
-"Voer uw stuurprogramma-diskette in /dev/%s en druk op \"OK\" om door te gaan."
+"Voer uw stuurprogrammadiskette in /dev/%s en druk op \"OK\" om door te gaan."
 
 #: ../loader2/driverdisk.c:351
 msgid "Insert Driver Disk"
-msgstr "Stuurprogramma-diskette invoeren"
+msgstr "Stuurprogrammadiskette invoeren"
 
 #: ../loader2/driverdisk.c:366
 msgid "Failed to mount driver disk."
-msgstr "Aankoppelen stuurprogramma-diskette mislukt."
+msgstr "Aankoppelen stuurprogrammadiskette mislukt."
 
 #: ../loader2/driverdisk.c:376
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr "Stuurprogramma-diskette is ongeldig voor deze uitgave van %s."
+msgstr "Stuurprogrammadiskette is ongeldig voor deze uitgave van %s."
 
 #: ../loader2/driverdisk.c:439
 msgid "Manually choose"
@@ -5914,24 +5912,24 @@ msgid ""
 "driver disk?"
 msgstr ""
 "Er zijn geen stuurprogramma's van een geschikt type gevonden op de "
-"stuurprogramma-diskette. Wilt u handmatig een stuurprogramma selecteren, "
+"stuurprogrammadiskette. Wilt u handmatig een stuurprogramma selecteren, "
 "doorgaan of een andere diskette met stuurprogramma's proberen?"
 
 #: ../loader2/driverdisk.c:479
 msgid "Driver disk"
-msgstr "Stuurprogramma-diskette"
+msgstr "Stuurprogrammadiskette"
 
 #: ../loader2/driverdisk.c:480
 msgid "Do you have a driver disk?"
-msgstr "Heeft u een stuurprogramma-diskette?"
+msgstr "Heeft u een stuurprogrammadiskette?"
 
 #: ../loader2/driverdisk.c:489
 msgid "More Driver Disks?"
-msgstr "Meer stuurprogramma-diskettes?"
+msgstr "Meer stuurprogrammadiskettes?"
 
 #: ../loader2/driverdisk.c:490
 msgid "Do you wish to load any more driver disks?"
-msgstr "Wilt u nog meer stuurprogramma-diskettes laden?"
+msgstr "Wilt u nog meer stuurprogrammadiskettes laden?"
 
 #: ../loader2/driverdisk.c:535 ../loader2/driverdisk.c:572
 #: ../loader2/hdinstall.c:426 ../loader2/kickstart.c:132
@@ -5946,7 +5944,7 @@ msgstr "Kickstart fout"
 #: ../loader2/driverdisk.c:536
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "Onbekende driver disk kickstart-bron: %s"
+msgstr "Onbekende stuurprogrammadiskette kickstart-bron: %s"
 
 #: ../loader2/driverdisk.c:573
 #, c-format
@@ -5954,8 +5952,8 @@ msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
 msgstr ""
-"Het volgende ongeldig argument was opgegeven voor het kickstart driver disk "
-"commando: %s:%s"
+"Het volgende ongeldige argument was opgegeven voor het kickstart "
+"stuurprogrammadiskette commando: %s:%s"
 
 #: ../loader2/driverselect.c:65
 #, c-format
@@ -5970,7 +5968,7 @@ msgstr ""
 
 #: ../loader2/driverselect.c:85
 msgid "Enter Module Parameters"
-msgstr "Module-parameters invoeren"
+msgstr "Voer module-parameters in"
 
 #: ../loader2/driverselect.c:172
 msgid "No drivers found"
@@ -5978,7 +5976,7 @@ msgstr "Geen stuurprogramma's gevonden"
 
 #: ../loader2/driverselect.c:172
 msgid "Load driver disk"
-msgstr "Stuurprogramma-diskette laden"
+msgstr "Stuurprogrammadiskette laden"
 
 #: ../loader2/driverselect.c:173
 msgid ""
@@ -5986,7 +5984,7 @@ msgid ""
 "disk?"
 msgstr ""
 "Geen handmatige in te voeren stuurprogramma's gevonden.  Wilt u een "
-"stuurprogramma-diskette gebruiken?"
+"stuurprogrammadiskette gebruiken?"
 
 #: ../loader2/driverselect.c:191
 msgid ""
@@ -5995,7 +5993,7 @@ msgid ""
 msgstr ""
 "Selecteer het stuurprogramma dat u wilt laden. Als het benodigde "
 "stuurprogramma niet in de lijst voorkomt, en u hebt een aparte "
-"stuurprogramma-diskette, druk dan op F2."
+"stuurprogrammadiskette, druk dan op F2."
 
 #: ../loader2/driverselect.c:200
 msgid "Specify optional module arguments"
@@ -6200,19 +6198,14 @@ msgid "Reading anaconda updates..."
 msgstr "Anaconda updates worden nu gelezen..."
 
 #: ../loader2/loader.c:484
-#, fuzzy
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
-"Niet in staat om het kickstart-bestand te downloaden. Pas de kickstart-"
-"parameter beneden aan of druk op Annuleren om verder te gaan als een "
-"interactieve installatie."
 
 #: ../loader2/loader.c:493
-#, fuzzy
 msgid "Error downloading updates image"
-msgstr "Fout bij het downloaden van kickstart-bestand"
+msgstr "Fout bij het downloaden van updates-bestand"
 
 #: ../loader2/loader.c:989
 #, c-format
@@ -6246,7 +6239,7 @@ msgstr "Stuurprogramma selecteren"
 
 #: ../loader2/loader.c:1176
 msgid "Use a driver disk"
-msgstr "Gebruik stuurprogramma-diskette"
+msgstr "Stuurprogrammadiskette gebruiken"
 
 #: ../loader2/loader.c:1177
 msgid ""
@@ -6254,8 +6247,8 @@ msgid ""
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 "Er zijn geen apparaten gevonden die voor dit installatietype nodig zijn. "
-"Wilt u handmatig het stuurprogramma kiezen of gebruik maken van een diskette "
-"met stuurprogramma's?"
+"Wilt u handmatig het stuurprogramma selecteren of gebruik maken van een "
+"diskette met stuurprogramma's?"
 
 #: ../loader2/loader.c:1410
 msgid "The following devices have been found on your system."
@@ -6288,14 +6281,14 @@ msgstr "Het laden is reeds gedaan.  Shell wordt nu opgestart.\n"
 
 # vertaling correct?
 #: ../loader2/loader.c:1915
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
-msgstr "Opstarten van Anaconda, de %s herstelmodus - even geduld...\n"
+msgstr "Opstarten van anaconda %s, de %s herstelmodus - even geduld...\n"
 
 #: ../loader2/loader.c:1917
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr "Opstarten van Anaconda, het %s installatieprogramma - even geduld...\n"
+msgstr "Opstarten van anaconda %s, het %s installatieprogramma - even geduld...\n"
 
 #: ../loader2/mediacheck.c:62
 #, c-format
@@ -6342,11 +6335,9 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Foutief argument voor schijf kickstart methode commando %s: %s"
 
 #: ../loader2/modules.c:349
-#, fuzzy
 msgid "A module name must be specified for the kickstart device command."
 msgstr ""
-"Zowel module-type en naam moeten worden opgeven voor het kickstart-apparaat "
-"commando."
+"Een modulenaam moet worden opgegeven voor het kickstart-apparaat commando."
 
 #: ../loader2/net.c:57
 #, c-format
@@ -6370,8 +6361,8 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
-"%s is een draadloze netwerk adapter. Voer de ESSID en de encryptie sleutel "
-"in die nodig zijn om uw draadloos netwerk te benaderen.  Als er geen sleutel "
+"%s is een draadloze netwerkadapter. Voer de ESSID en de encryptiesleutel in "
+"die nodig zijn om uw draadloos netwerk te benaderen.  Als er geen sleutel "
 "nodig is kunt u dit veld leeg laten. De installatie zal dan verder gaan."
 
 #: ../loader2/net.c:276
@@ -6380,7 +6371,7 @@ msgstr "ESSID"
 
 #: ../loader2/net.c:277
 msgid "Encryption Key"
-msgstr "Encryptie sleutel"
+msgstr "Encryptiesleutel"
 
 #: ../loader2/net.c:280
 msgid "Wireless Settings"
@@ -6401,7 +6392,7 @@ msgid ""
 "leave the field blank and the install will continue."
 msgstr ""
 "Uw IP-adres verzoek gaf configuratieinformatie terug, maar het gaf geen "
-"nameserver-adres. Als u deze informatie niet hebt, kunt u het veld leeg "
+"naamserver-adres. Als u deze informatie niet hebt, kunt u het veld leeg "
 "houden en de installatie zal verder gaan."
 
 #: ../loader2/net.c:342
@@ -6418,7 +6409,7 @@ msgstr "Netwerkfout"
 
 #: ../loader2/net.c:594 ../loader2/net.c:700
 msgid "There was an error configuring your network interface."
-msgstr "Er was een fout bij het configureren van uw netwerk-interface."
+msgstr "Er was een fout bij het configureren van uw netwerkinterface."
 
 #: ../loader2/net.c:780
 msgid "Configure TCP/IP"
@@ -6583,19 +6574,16 @@ msgid "Retrieving"
 msgstr "Bezig met ophalen"
 
 #: ../loader2/urls.c:306
-#, fuzzy
 msgid "Configure proxy"
-msgstr "TCP/IP configureren"
+msgstr "Proxy configureren"
 
 #: ../loader2/urls.c:321
-#, fuzzy
 msgid "URL Setup"
-msgstr "NFS-instellingen"
+msgstr "URL-instellingen"
 
 #: ../loader2/urls.c:329
-#, fuzzy
 msgid "You must enter a URL."
-msgstr "U dient een map op te geven."
+msgstr "U moet een URL opgeven."
 
 #: ../loader2/urls.c:339
 msgid "Unknown Host"
@@ -6616,16 +6604,15 @@ msgstr ""
 
 #: ../loader2/urls.c:401
 msgid "Proxy Name:"
-msgstr ""
+msgstr "Proxy-naam:"
 
 #: ../loader2/urls.c:406
 msgid "Proxy Port:"
-msgstr ""
+msgstr "Proxy-poort:"
 
 #: ../loader2/urls.c:422
-#, fuzzy
 msgid "Further Setup"
-msgstr "Overige FTP-instellingen"
+msgstr ""
 
 #: ../loader2/windows.c:63
 msgid "Loading SCSI driver"
@@ -6637,9 +6624,8 @@ msgid "Loading %s driver..."
 msgstr "Stuurprogramma %s wordt nu geladen..."
 
 #: tmp/account.glade.h:2
-#, fuzzy
 msgid "Root Password:"
-msgstr "Root-wachtwoord"
+msgstr "Root-wachtwoord:"
 
 #: tmp/account.glade.h:3
 msgid ""
@@ -6655,7 +6641,7 @@ msgstr "_ZFCP LUN toevoegen"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr "_iSCSI target toevoegen"
+msgstr "_iSCSI-target toevoegen"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
@@ -6674,42 +6660,35 @@ msgid "Add Repository"
 msgstr "Repository toevoegen"
 
 #: tmp/addrepo.glade.h:3
-#, fuzzy
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from."
 msgstr ""
-"Geef de locatie op waaruit uw additionele software kan worden geïnstalleerd. "
-"Let op, dit moet een geldige repository zijn voor %s."
+"Geef de locatie op waaruit uw additionele software kan worden geïnstalleerd."
 
 #: tmp/addrepo.glade.h:4
 msgid "Proxy U_RL:"
-msgstr ""
+msgstr "Proxy-U_RL:"
 
 #: tmp/addrepo.glade.h:5
-#, fuzzy
 msgid "Proxy pass_word:"
-msgstr "Geen wachtwoord"
+msgstr "Proxy-wachtwoo_rd:"
 
 #: tmp/addrepo.glade.h:6
-#, fuzzy
 msgid "Proxy u_sername:"
-msgstr "FTP-site naam:"
+msgstr "Proxy-_gebruikersnaam:"
 
 #: tmp/addrepo.glade.h:7
-#, fuzzy
 msgid "Repository _Mirror"
-msgstr "Repository toevoegen"
+msgstr "Repository _Mirror"
 
 #: tmp/addrepo.glade.h:8
-#, fuzzy
 msgid "Repository _URL"
-msgstr "<b>Repository _URL:</b>"
+msgstr "Repository _URL"
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid "_Proxy configuration"
-msgstr "Muis configureren"
+msgstr "_Proxy-configuratie"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6720,9 +6699,8 @@ msgid "_Next"
 msgstr "_Volgende"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target:</b>"
-msgstr "<b>Repository _naam:</b>"
+msgstr ""
 
 #: tmp/autopart.glade.h:2
 msgid ""
@@ -6739,55 +6717,51 @@ msgid "Re_view and modify partitioning layout"
 msgstr "De partitieopmaak herzien en _aanpassen"
 
 #: tmp/autopart.glade.h:4
-#, fuzzy
 msgid "What drive would you like to _boot this installation from?"
-msgstr "Vanaf welk station wilt u deze installatie opstarten?"
+msgstr "Vanaf welk station wilt u deze installatie _opstarten?"
 
 #: tmp/autopart.glade.h:5
 msgid "Which Partition to resize"
-msgstr ""
+msgstr "Van welke partitie moet de grootte worden aangepast"
 
 #: tmp/autopart.glade.h:6
-#, fuzzy
 msgid ""
 "Which partition would you like to resize to make room for your installation?"
-msgstr "Welke partitie bevat de root-partitie van uw installatie?"
+msgstr ""
+"Van welke partitie wilt u de grootte aanpassen om ruimte te maken voor uw "
+"installatie?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
 msgstr "Ge_avanceerde opslagconfiguratie"
 
 #: tmp/autopart.glade.h:8
-#, fuzzy
 msgid "_Encrypt system"
-msgstr "Encryptie sleutel"
+msgstr "Systeem _versleutelen"
 
 #: tmp/autopart.glade.h:10
 msgid "_Select the drive(s) to use for this installation."
 msgstr "_Kies de station(s) die u voor deze installatie wilt gebruiken."
 
 #: tmp/blwhere.glade.h:1
-#, fuzzy
 msgid "/boot"
-msgstr "Herstarten"
+msgstr "/boot"
 
 #: tmp/blwhere.glade.h:2
-#, fuzzy
 msgid "BIOS Drive Order"
-msgstr "Stationsvolgorde bewerken"
+msgstr "BIOS-stationsvolgorde"
 
 #: tmp/blwhere.glade.h:3
-#, fuzzy
 msgid "Boot loader device"
-msgstr "Bootloader"
+msgstr "Bootloader-apparaat"
 
 #: tmp/blwhere.glade.h:4
 msgid "First BIOS drive:"
-msgstr ""
+msgstr "Eerste BIOS-station:"
 
 #: tmp/blwhere.glade.h:5
 msgid "Fourth BIOS drive:"
-msgstr ""
+msgstr "Vierde BIOS-station:"
 
 #: tmp/blwhere.glade.h:6
 msgid "MBR"
@@ -6795,21 +6769,19 @@ msgstr "MBR"
 
 #: tmp/blwhere.glade.h:7
 msgid "Second BIOS drive:"
-msgstr ""
+msgstr "Tweede BIOS-station:"
 
 #: tmp/blwhere.glade.h:8
 msgid "Third BIOS drive:"
-msgstr ""
+msgstr "Derde BIOS-station:"
 
 #: tmp/blwhere.glade.h:9
-#, fuzzy
 msgid "Where would you like to install the boot loader for your system?"
-msgstr "Waar wilt u de bootloader installeren?"
+msgstr "Waar wilt u de bootloader voor uw systeem installeren?"
 
 #: tmp/detailed-dialog.glade.h:1
-#, fuzzy
 msgid "Info"
-msgstr "Negeren"
+msgstr "Info"
 
 #: tmp/detailed-dialog.glade.h:2
 msgid "_Details"
@@ -6824,9 +6796,8 @@ msgid "_Disk"
 msgstr "_Schijf"
 
 #: tmp/exnSave.glade.h:4
-#, fuzzy
 msgid "_Remote"
-msgstr "Extern"
+msgstr ""
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -6852,7 +6823,7 @@ msgstr "<b>_Gebruikersnaam:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr "<b>iSCSI initiator _naam:</b>"
+msgstr "<b>iSCSI-initiator _naam:</b>"
 
 #: tmp/iscsi-config.glade.h:7
 msgid "_Add target"
@@ -6877,17 +6848,16 @@ msgid ""
 msgstr ""
 
 #: tmp/lukspassphrase.glade.h:2
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "Herstellen bevestigen"
+msgstr "Wachtzin bevestigen:"
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "Voer wachtzin in voor versleutelde partitie"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase:"
-msgstr ""
+msgstr "Voer wachtzin in:"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6919,7 +6889,7 @@ msgstr "IPv_6-ondersteuning aanzetten"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr "Netwerk-interface aanzetten"
+msgstr "Netwerkinterface aanzetten"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
@@ -6927,7 +6897,7 @@ msgid ""
 "installation process.  Please configure a network interface."
 msgstr ""
 "Dit vereist dat u een actieve netwerkconnectie hebt tijdens het "
-"installatieproces. Configureer een netwerk-interface."
+"installatieproces. Configureer een netwerkinterface."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -6948,7 +6918,7 @@ msgstr "Interface bewerken"
 
 #: tmp/netpostconfig.glade.h:11
 msgid "Encryption Key:"
-msgstr "Encryptie sleutel:"
+msgstr "Encryptiesleutel:"
 
 #: tmp/netpostconfig.glade.h:13
 msgid "Manual configuration"
@@ -6968,15 +6938,15 @@ msgid ""
 "installation."
 msgstr ""
 "Selecteer eventuele additionele repositories die u wilt gebruiken voor "
-"software-installatie."
+"softwareinstallatie."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"U kunt de software-selectie nu verder aanpassen of na de installatie met "
-"behulp van de software-beheer applicatie."
+"U kunt de softwareselectie nu verder aanpassen of na de installatie met "
+"behulp van de softwarebeheer applicatie."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6987,9 +6957,8 @@ msgid "_Customize now"
 msgstr "_Nu aanpassen"
 
 #: tmp/tasksel.glade.h:8
-#, fuzzy
 msgid "_Modify repository"
-msgstr "Repository _toevoegen"
+msgstr "Repository _aanpassen"
 
 #: tmp/zfcp-config.glade.h:1
 msgid "<b>Device number:</b>"
