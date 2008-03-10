@@ -237,9 +237,11 @@ char * mountUrlImage(struct installMethod * method,
 		stage = URL_STAGE_FETCH;
 		dir = 1;
 		break;
-	    } else if (urlMainSetupPanel(&ui, &needsSecondary)) {
+            } else {
                 flags &= ~LOADER_FLAGS_STAGE2;
-                return NULL;
+
+	        if (urlMainSetupPanel(&ui, &needsSecondary))
+                    return NULL;
             }
 
 	    /* got required information from user, proceed */
