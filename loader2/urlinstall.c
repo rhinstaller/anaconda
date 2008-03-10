@@ -276,7 +276,7 @@ char * mountUrlImage(struct installMethod * method,
 	    if (cdurl) {
 		/* verify that our URL is specifying the correct tree */
 		/* we do this by attempting to pull a .discinfo file */
-                rc = asprintf(&buf, "%s/.discinfo", ui.address);
+                rc = asprintf(&buf, "%s/%s/.discinfo", ui.address, ui.prefix);
 		if (loadSingleUrlImage(&ui, buf, NULL, NULL, NULL, 1)) {
                         free(buf);
                         umountStage2();
