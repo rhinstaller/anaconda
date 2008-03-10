@@ -32,7 +32,7 @@ usage () {
 NEEDGR=yes
 DEBUG=""
 BUILDARCH=`uname -m`
-BOOTISO="netinst.iso"
+BOOTISO="boot.iso"
 
 while [ $# -gt 0 ]; do
     case $1 in
