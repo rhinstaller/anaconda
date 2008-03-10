@@ -134,8 +134,8 @@ EOF
 [images-$BASEARCH]
 kernel = images/pxeboot/vmlinuz
 initrd = images/pxeboot/initrd.img
-
 __EOT__
+    if [ -n "$BOOTISO" ]; then echo "boot.iso = images/$BOOTISO" >> $TOPDESTPATH/.treeinfo ; fi    
 
   else # set up the boot stuff for the xen guest kernel
     echo "Building $KERNELARCH guest initrd.img"
