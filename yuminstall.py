@@ -196,7 +196,7 @@ class AnacondaCallback:
             self.openfile = None
 
             repo = self.repos.getRepo(self.inProgressPo.repoid)
-            if os.path.dirname(fn).startswith("/tmp/cache/"):
+            if os.path.dirname(fn).startswith("%s/tmp/cache/" % self.rootPath):
                 try:
                     os.unlink(fn)
                 except OSError, e:
@@ -251,9 +251,9 @@ class AnacondaYumRepo(YumRepository):
         if mirrorlist:
             self.mirrorlist = mirrorlist
 
-        self.setAttribute('cachedir', '/tmp/cache/')
+        self.setAttribute('cachedir', "%s/tmp/cache/" % root)
         self.setAttribute('pkgdir', root)
-        self.setAttribute('hdrdir', '/tmp/cache/headers')
+        self.setAttribute('hdrdir', "%s/tmp/cache/headers" % root)
 
     def dirSetup(self):
         YumRepository.dirSetup(self)
@@ -451,7 +451,7 @@ class AnacondaYum(YumSorter):
         self.conf.logfile="/tmp/yum.log"
         self.conf.obsoletes=True
         self.conf.cache=0
-        self.conf.cachedir = '/tmp/cache/'
+        self.conf.cachedir = "%s/tmp/cache/" % self.anaconda.rootPath
         self.conf.metadata_expire = 0
 
         if self.anaconda.methodstr.startswith("nfs:"):
@@ -533,7 +533,7 @@ class AnacondaYum(YumSorter):
                                      "/mnt/source/RHupdates/pluginconf.d"])
         self.plugins.run('init')
 
-        self.repos.setCacheDir('/tmp/cache')
+        self.repos.setCacheDir("%s/tmp/cache" % self.anaconda.rootPath)
 
     def downloadHeader(self, po):
         while True:
@@ -882,8 +882,8 @@ class YumBackend(AnacondaBackend):
         else:
             repos.extend(self.ayum.repos.listEnabled())
 
-        if not os.path.exists("/tmp/cache"):
-            iutil.mkdirChain("/tmp/cache/headers")
+        if not os.path.exists("%s/tmp/cache" % anaconda.rootPath):
+            iutil.mkdirChain("%s/tmp/cache/headers" % anaconda.rootPath)
 
         self.ayum.doMacros()
 
@@ -1502,6 +1502,9 @@ class YumBackend(AnacondaBackend):
             if anaconda.id.displayMode == 'g' and not flags.usevnc:
                 anaconda.id.desktop.setDefaultRunLevel(5)
                 break
+
+        if os.path.exists("%s/tmp/cache" % anaconda.rootPath):
+            shutil.rmtree("%s/tmp/cache" % anaconda.rootPath)
 
         # XXX: write proper lvm config
 
