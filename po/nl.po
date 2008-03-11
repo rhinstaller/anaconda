@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-02 12:12-0500\n"
-"PO-Revision-Date: 2008-03-08 20:12+0100\n"
+"PO-Revision-Date: 2008-03-11 15:00+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Fout bij het verwerken van %%ksappend regels: %s"
 #: ../anaconda:292
 #, c-format
 msgid "Unknown error processing %%ksappend lines: %s"
-msgstr ""
+msgstr "Onbekende fout bij het verwerken van %%ksappend regels: %s"
 
 #: ../anaconda:306 ../cmdline.py:78 ../gui.py:1174 ../text.py:508
 #, c-format, python-format
@@ -141,7 +141,7 @@ msgstr ""
 #: ../autopart.py:896
 #, python-format
 msgid "Start of partition %s was moved when resizing"
-msgstr ""
+msgstr "Het begin van partitie %s was verplaatst bij aanpassen van de grootte"
 
 #: ../autopart.py:988
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
@@ -1047,6 +1047,8 @@ msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
 msgstr ""
+"Apparaat %s is versleuteld. Om de inhoud van het apparaat te benaderen "
+"tijdens de installatie moet u de wachtzin van het apparaat beneden invoeren."
 
 #: ../gui.py:855 ../gui.py:856 ../gui.py:968 ../gui.py:969
 #: tmp/anaconda.glade.h:2
@@ -1186,7 +1188,7 @@ msgstr ""
 
 #: ../image.py:238
 msgid "Required Install Media"
-msgstr "Vereiste installatie media"
+msgstr "Vereiste installatiemedia"
 
 #: ../image.py:239
 #, python-format
@@ -1320,6 +1322,8 @@ msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
 msgstr ""
+"Het root-bestandssysteem dat u hebt aangemaakt is niet groot genoeg voor "
+"deze live image (%.2f MB vereist)."
 
 #: ../network.py:57
 msgid "Hostname must be 64 or less characters in length."
@@ -1732,8 +1736,8 @@ msgid ""
 "contains files that you need to keep, such as home directories, then "
 "continue without formatting this partition."
 msgstr ""
-"U hebt ervoor gekozen om voor deze installatie een reeds bestaande partitie "
-"te gebruiken zonder deze te formatteren. We raden aan om deze partitie te "
+"U hebt gekozen om voor deze installatie een reeds bestaande partitie te "
+"gebruiken zonder deze te formatteren. We raden aan om deze partitie te "
 "formatteren om er zeker van te zijn dat bestanden van een vorige installatie "
 "niet conflicteren met deze Linux-installatie. Echter, als deze partitie "
 "bestanden bevat die behouden moeten blijven, zoals de persoonlijke mappen "
@@ -1860,7 +1864,7 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"De partitioneringsopties die u hebt gekozen, zijn reeds geactiveerd. U kunt "
+"De partitioneringsopties die u hebt gekozen zijn reeds geactiveerd. U kunt "
 "niet meer teruggaan naar het scherm waarin de harde schijf kan worden "
 "bewerkt. Wilt u verder gaan met het installatieproces?"
 
@@ -1873,6 +1877,9 @@ msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost"
 msgstr ""
+"De partitioneringsopties die u hebt geselecteerd zullen nu worden "
+"weggeschreven naar schijf.  Alle gegevens op verwijderde of opnieuw "
+"geformatteerde partities zullen verloren gaan"
 
 #: ../partitions.py:119
 msgid "Go _back"
@@ -1913,6 +1920,11 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
+"Weet u zeker dat u het invoeren van een wachtzin voor apparaat %s wilt "
+"overslaan?\n"
+"\n"
+"Als u deze stap overslaat zal de inhoud van het apparaat niet beschikbaar "
+"zijn tijdens de installatie."
 
 #: ../partitions.py:1019
 #, python-format
@@ -1953,7 +1965,7 @@ msgstr "U moet een Apple Bootstrap partitie aanmaken."
 
 #: ../partitions.py:1119
 msgid "You must create a PPC PReP Boot partition."
-msgstr "U moet een PPC PReP Boot partitie aanmaken."
+msgstr "U moet een PPC PReP opstartpartitie aanmaken."
 
 #: ../partitions.py:1127 ../partitions.py:1138
 #, python-format
@@ -1997,7 +2009,7 @@ msgstr "Opstartpartities mogen niet op een %s bestandssysteem staan."
 
 #: ../partitions.py:1207
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr ""
+msgstr "Opstartpartities mogen niet op een versleuteld blokapparaat staan"
 
 #: ../partitions.py:1213
 msgid ""
@@ -2041,7 +2053,7 @@ msgstr "een partitie die deel uitmaakt van een LVM volume group."
 #: ../partRequests.py:273
 #, python-format
 msgid "The mount point %s must be formatted during live CD installs."
-msgstr ""
+msgstr "Het koppelpunt %s moet worden geformatteerd tijdens live CD installaties."
 
 #: ../partRequests.py:278
 #, python-format
@@ -2212,8 +2224,8 @@ msgid ""
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Uw systeem had beschadigde bestandssystemen. U hebt ervoor gekozen deze niet "
-"aan te koppelen.  Druk op <Enter> om een shellprompt te krijgen waarin u de "
+"Uw systeem had beschadigde bestandssystemen. U hebt gekozen om deze niet aan "
+"te koppelen. Druk op <Enter> om een shellprompt te krijgen waarin u de "
 "partities kunt controleren met fsck en vervolgens kunt aankoppelen. Het "
 "systeem zal automatisch opnieuw worden opgestart wanneer u de shell verlaat."
 
@@ -2306,7 +2318,7 @@ msgstr "Wachtzin"
 
 #: ../text.py:290 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "Dit is een algemene wachtzin"
 
 #: ../text.py:346
 msgid "Help not available"
@@ -2318,7 +2330,7 @@ msgstr "Voor dit installatie-onderdeel is geen hulptekst beschikbaar."
 
 #: ../text.py:445
 msgid "Repository editing is not available in text mode."
-msgstr ""
+msgstr "Het bewerken van repositories is niet beschikbaar in tekstmodus."
 
 #: ../text.py:470
 #, python-format
@@ -2364,11 +2376,14 @@ msgid ""
 "is for %s architecture. \n"
 "\n"
 msgstr ""
+"U hebt de upgrade voor de %s architectuur gekozen, maar het geïnstalleerde "
+"systeem is voor de %s architectuur.\n"
+"\n"
 
 #: ../upgrade.py:81
 #, python-format
 msgid "Would you like to upgrade  the installed system to the %s architecture?"
-msgstr ""
+msgstr "Wilt u het geïnstalleerde systeem upgraden naar de %s architectuur?"
 
 #: ../upgrade.py:98
 msgid ""
@@ -2529,6 +2544,13 @@ msgid ""
 "to the vncviewer is unsuccessful\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"U hebt gekozen om een verbinding te maken met een luisterende vncviewer.\n"
+"Dit vereist niet dat er een wachtwoord is ingesteld. Als u wel een\n"
+"wachtwoord instelt, dan wordt het gebruikt wanneer de verbinding met de\n"
+"vncviewer niet succesvol is\n"
+"\n"
 
 #: ../vnc.py:254
 msgid ""
@@ -2553,6 +2575,10 @@ msgid ""
 "You chose to execute vnc with a password. \n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"U hebt gekozen om vnc uit te voeren met een wachtwoord.\n"
+"\n"
 
 #: ../vnc.py:260
 msgid ""
@@ -2742,8 +2768,9 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend bestand, "
-"een beschadigd pakket of beschadigde media. Controleer uw installatiebron.\n"
+"Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend "
+"bestand, een beschadigd pakket of beschadigde media. Controleer uw "
+"installatiebron.\n"
 "\n"
 "Als u het installatieprogramma afsluit, zal uw systeem zich in een "
 "inconsistente toestand bevinden dat waarschijnlijk een herinstallatie zal "
@@ -2756,7 +2783,7 @@ msgstr "Opnieuw proberen"
 
 #: ../yuminstall.py:579
 msgid "Retrying package download..."
-msgstr ""
+msgstr "Opnieuw proberen pakketten te downloaden..."
 
 #: ../yuminstall.py:641
 #, python-format
@@ -2812,6 +2839,9 @@ msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
 msgstr ""
+"Er waren bestandsconflicten bij het controleren van de te installeren "
+"pakketten:\n"
+"%s\n"
 
 #: ../yuminstall.py:713
 #, python-format
@@ -3018,10 +3048,15 @@ msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
 msgstr ""
+"Er zijn geen partities beschikbaar om de grootte van aan te passen. Alleen "
+"van fysieke partities met bepaalde bestandssystemen kan de grootte worden "
+"aangepast."
 
 #: ../iw/autopart_type.py:177
 msgid "Do you really want to boot from disk which is not used for instalation?"
 msgstr ""
+"Wilt u echt opstarten van een schijf die niet gebruikt is voor de "
+"installatie?"
 
 #: ../iw/autopart_type.py:258
 msgid "Invalid Initiator Name"
@@ -3849,7 +3884,7 @@ msgstr "Het bootlabel bevat ongeldige tekens"
 # geen werkwoord!
 #: ../iw/osbootwidget.py:244
 msgid "Duplicate Label"
-msgstr "Duplicaat label"
+msgstr "Duplicaat-label"
 
 #: ../iw/osbootwidget.py:245
 msgid "This label is already in use for another boot entry."
@@ -3857,7 +3892,7 @@ msgstr "Dit label is reeds in gebruik bij een ander opstart-item."
 
 #: ../iw/osbootwidget.py:258
 msgid "Duplicate Device"
-msgstr "Duplicaat apparaat"
+msgstr "Duplicaat-apparaat"
 
 #: ../iw/osbootwidget.py:259
 msgid "This device is already being used for another boot entry."
@@ -4668,7 +4703,7 @@ msgstr ""
 
 #: ../iw/zipl_gui.py:35
 msgid "z/IPL Boot Loader Configuration"
-msgstr "z/IPL Bootloader configureren"
+msgstr "z/IPL bootloader configureren"
 
 #: ../iw/zipl_gui.py:59
 msgid "The z/IPL boot loader will be installed on your system."
@@ -4699,7 +4734,7 @@ msgstr ""
 "die standaard wordt geïnstalleerd.\n"
 "\n"
 "Als u na de installatie nog veranderingen wilt aanbrengen kunt u dat "
-"vrijelijk doen in het configuratie-bestand: /etc/zipl.conf.\n"
+"vrijelijk doen in het configuratiebestand: /etc/zipl.conf.\n"
 "\n"
 "U kunt nu extra kernel-parameters invoeren die uw computer of uw opstelling "
 "nodig heeft."
@@ -4922,7 +4957,7 @@ msgstr "Pakketgroep details"
 # misschien beter: Toetsenbord kiezen? (en zo ook Muis kiezen enz)
 #: ../textw/keyboard_text.py:46
 msgid "Keyboard Selection"
-msgstr "Toetsenbord keuze"
+msgstr "Toetsenbordkeuze"
 
 #: ../textw/keyboard_text.py:47
 msgid "Which model keyboard is attached to this computer?"
@@ -4934,7 +4969,7 @@ msgstr "Op welke communicatiepoort zit uw muis?"
 
 #: ../textw/mouse_text.py:77
 msgid "Which model mouse is attached to this computer?"
-msgstr "Wat voor muis gebruikt u?"
+msgstr "Wat voor muis gebruikt u voor deze computer?"
 
 #: ../textw/mouse_text.py:88
 msgid "Emulate 3 Buttons?"
@@ -4943,7 +4978,7 @@ msgstr "3 knoppen emuleren?"
 # misschien beter: Muis kiezen (net als Toetsenbord kiezen)
 #: ../textw/mouse_text.py:91
 msgid "Mouse Selection"
-msgstr "Muis keuze"
+msgstr "Muiskeuze"
 
 #: ../textw/network_text.py:58
 #, python-format
@@ -5489,7 +5524,7 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-"Om iSCSI-disks te gebruiken moet u het adres van uw iSCSI-target en de naam "
+"Om iSCSI-disks te gebruiken moet u het adres van uw iSCSI-doel en de naam "
 "van de iSCSI-initiator opgeven die u hebt geconfigureerd voor uw host."
 
 #: ../textw/partition_text.py:1687
@@ -5529,7 +5564,7 @@ msgstr ""
 
 #: ../textw/task_text.py:72
 msgid "Customize software selection"
-msgstr "Sofware-selectie aanpassen"
+msgstr "Sofwareselectie aanpassen"
 
 #: ../textw/timezone_text.py:74
 msgid "In which time zone are you located?"
@@ -5856,7 +5891,7 @@ msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Er zijn meerdere partities op dit apparaat die het stuurprogramma-bestand "
+"Er zijn meerdere partities op dit apparaat die het stuurprogrammabestand "
 "kunnen bevatten.  Welke wilt u gebruiken?"
 
 #: ../loader2/driverdisk.c:300
@@ -5871,12 +5906,12 @@ msgstr "Stuurprogrammabestand selecteren"
 # vertaling ok?
 #: ../loader2/driverdisk.c:309
 msgid "Select the file which is your driver disk image."
-msgstr "Selecteer het stuurprogramma-bestand."
+msgstr "Selecteer het stuurprogrammabestand."
 
 # vertaling ok?
 #: ../loader2/driverdisk.c:338
 msgid "Failed to load driver disk from file."
-msgstr "Laden van stuurprogramma-bestand mislukt."
+msgstr "Laden van stuurprogrammabestand mislukt."
 
 #: ../loader2/driverdisk.c:349
 #, c-format
@@ -5968,7 +6003,7 @@ msgstr ""
 
 #: ../loader2/driverselect.c:85
 msgid "Enter Module Parameters"
-msgstr "Voer module-parameters in"
+msgstr "Voer moduleparameters in"
 
 #: ../loader2/driverselect.c:172
 msgid "No drivers found"
@@ -5997,7 +6032,7 @@ msgstr ""
 
 #: ../loader2/driverselect.c:200
 msgid "Specify optional module arguments"
-msgstr "Optionele module-parameters opgeven"
+msgstr "Optionele moduleparameters opgeven"
 
 #: ../loader2/driverselect.c:225
 msgid "Select Device Driver to Load"
@@ -6011,7 +6046,7 @@ msgstr "Media gevonden"
 #: ../loader2/hdinstall.c:77 ../loader2/nfsinstall.c:168
 #: ../loader2/nfsinstall.c:219 ../loader2/urlinstall.c:263
 msgid "Local installation media detected..."
-msgstr "Lokale installatie media gevonden..."
+msgstr "Lokale installatiemedia gevonden..."
 
 #: ../loader2/hdinstall.c:129 ../loader2/nfsinstall.c:249
 #: ../loader2/urlinstall.c:163
@@ -6157,14 +6192,14 @@ msgstr "Welkom bij %s%n voor %s"
 
 #: ../loader2/loader.c:374 ../loader2/loader.c:410
 msgid "Update Disk Source"
-msgstr "Updates diskette bron"
+msgstr "Bron van updatediskette"
 
 #: ../loader2/loader.c:375
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
-"U hebt meerdere apparaten op dit systeem die als bron voor update diskettes "
+"U hebt meerdere apparaten op dit systeem die als bron voor updatediskette "
 "gebruikt kunnen worden. Welke wilt u gebruiken?"
 
 # vertaling van "disk image" naar "bestand" ok?
@@ -6183,7 +6218,7 @@ msgstr "Voer uw updates-diskette in /dev/%s en druk op \"OK\" om door te gaan."
 
 #: ../loader2/loader.c:431
 msgid "Updates Disk"
-msgstr "Updates diskette"
+msgstr "Updates-diskette"
 
 #: ../loader2/loader.c:445
 msgid "Failed to mount updates disk"
@@ -6202,6 +6237,8 @@ msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
+"Niet in staat om het updates-bestand te downloaden. Pas de updates-locatie "
+"beneden aan of druk op Annuleren om verder te gaan zonder updates."
 
 #: ../loader2/loader.c:493
 msgid "Error downloading updates image"
@@ -6288,7 +6325,8 @@ msgstr "Opstarten van anaconda %s, de %s herstelmodus - even geduld...\n"
 #: ../loader2/loader.c:1917
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr "Opstarten van anaconda %s, het %s installatieprogramma - even geduld...\n"
+msgstr ""
+"Opstarten van anaconda %s, het %s installatieprogramma - even geduld...\n"
 
 #: ../loader2/mediacheck.c:62
 #, c-format
@@ -6344,7 +6382,7 @@ msgstr ""
 msgid ""
 "Please enter the URL containing %s on your\n"
 "server.\n"
-msgstr ""
+msgstr "Voer de URL in die %s bevat op uw server.\n"
 
 #: ../loader2/net.c:97
 msgid ""
@@ -6612,7 +6650,7 @@ msgstr "Proxy-poort:"
 
 #: ../loader2/urls.c:422
 msgid "Further Setup"
-msgstr ""
+msgstr "Verdere configuratie"
 
 #: ../loader2/windows.c:63
 msgid "Loading SCSI driver"
@@ -6632,7 +6670,7 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
-"Het root account wordt gebruikt om het systeem te beheren.  Voer een "
+"Het root-account wordt gebruikt om het systeem te beheren.  Voer een "
 "wachtwoord in voor de gebruiker root."
 
 #: tmp/adddrive.glade.h:1
@@ -6641,7 +6679,7 @@ msgstr "_ZFCP LUN toevoegen"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr "_iSCSI-target toevoegen"
+msgstr "_iSCSI-doel toevoegen"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
@@ -6680,7 +6718,7 @@ msgstr "Proxy-_gebruikersnaam:"
 
 #: tmp/addrepo.glade.h:7
 msgid "Repository _Mirror"
-msgstr "Repository _Mirror"
+msgstr "Repository _mirror"
 
 #: tmp/addrepo.glade.h:8
 msgid "Repository _URL"
@@ -6700,7 +6738,7 @@ msgstr "_Volgende"
 
 #: tmp/autopart.glade.h:1
 msgid "<b>Resize _target:</b>"
-msgstr ""
+msgstr "<b>Grootte aanpassen van _doel:</b>"
 
 #: tmp/autopart.glade.h:2
 msgid ""
@@ -6789,7 +6827,7 @@ msgstr "_Details"
 
 #: tmp/exnSave.glade.h:2
 msgid "Select a destination for the exception information."
-msgstr ""
+msgstr "Selecteer een bestemming voor de uitzonderingsinformatie."
 
 #: tmp/exnSave.glade.h:3
 msgid "_Disk"
@@ -6797,7 +6835,7 @@ msgstr "_Schijf"
 
 #: tmp/exnSave.glade.h:4
 msgid "_Remote"
-msgstr ""
+msgstr "_Extern"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -6827,7 +6865,7 @@ msgstr "<b>iSCSI-initiator _naam:</b>"
 
 #: tmp/iscsi-config.glade.h:7
 msgid "_Add target"
-msgstr "Target _toevoegen"
+msgstr "Doel _toevoegen"
 
 #: tmp/liveinst.desktop.in.h:1
 msgid "Install"
@@ -6846,6 +6884,8 @@ msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
+"Kies een wachtzin voor deze versleutelde partitie. U zult om deze wachtzin "
+"worden gevraagd tijdens het opstarten van het systeem."
 
 #: tmp/lukspassphrase.glade.h:2
 msgid "Confirm passphrase:"
