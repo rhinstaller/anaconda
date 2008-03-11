@@ -1008,6 +1008,7 @@ if __name__ == "__main__":
     if opts.keymap:
         anaconda.dispatch.skipStep("keyboard", permanent = 1)
         instClass.setKeyboard(anaconda.id, opts.keymap)
+        anaconda.id.keyboard.activate()
 
     if anaconda.isKickstart:
         kickstart.processKickstartFile(anaconda, opts.ksfile)
