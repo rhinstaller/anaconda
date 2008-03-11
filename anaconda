@@ -595,25 +595,8 @@ class Anaconda:
             dir = self._loaderMethodstr[pidx+didx+1:]
             f.write("harddrive --partition=%s --dir=%s\n" % (partition, dir))
         elif self._loaderMethodstr.startswith('nfs:') or self._loaderMethodstr.startswith('nfsiso:'):
-            (method, tmpmntpt) = string.split(self._loaderMethodstr, ':')
-            # clean up extra '/' at front
-            if tmpmntpt[1] == '/':
-                rawmntpt = tmpmntpt[1:]
-            else:
-                rawmntpt = tmpmntpt
-            mntpt = os.path.normpath(rawmntpt)
-
-            # find mntpt in /proc/mounts so we can get NFS server info
-            fproc = open("/proc/mounts", "r")
-            lines = fproc.readlines()
-            fproc.close()
-
-            for l in lines:
-                minfo = string.split(l)
-                if len(minfo) > 1 and minfo[1] == mntpt and minfo[0].find(":") != -1:
-                    (srv, dir) = minfo[0].split(':')
-                    f.write("nfs --server=%s --dir=%s\n" % (srv, dir))
-                    break
+            (method, server, dir) = string.split(self._loaderMethodstr, ':')
+            f.write("nfs --server=%s --dir=%s\n" % (server, dir))
 
 if __name__ == "__main__":
     anaconda = Anaconda()
