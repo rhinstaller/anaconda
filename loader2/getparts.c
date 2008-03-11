@@ -35,7 +35,7 @@
 static int isPartitionName(char *pname) {
 
     /* if it doesnt start with a alpha its not one */
-    if (!isalpha(*pname))
+    if (!isalpha(*pname) || strstr(pname, "/ram"))
 	return 0;
 
     /* if it has a '/' in it then treat it specially */
