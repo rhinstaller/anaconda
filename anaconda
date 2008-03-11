@@ -467,11 +467,6 @@ def probeHW(opts, x_already_set, xserver):
             except Exception, e:
                 stdoutLog.error (_("Unable to instantiate a X hardware state object."))
 
-        # keyboard
-        xserver.keyboard = keyboard.Keyboard()
-        if opts.keymap:
-            xserver.keyboard.set(opts.keymap)
-
 def setupGraphicalLinks():
     for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
 	       "fb.modes"):
@@ -954,9 +949,6 @@ if __name__ == "__main__":
 
         if xserver.monitorhw:
             anaconda.id.setMonitor(xserver.monitorhw)
-
-        if xserver.keyboard:
-            anaconda.id.setKeyboard(xserver.keyboard)
 
         # not sure what to do here - somehow we didn't detect anything
         if xserver.hwstate is None and not opts.isHeadless:
