@@ -237,9 +237,11 @@ char * mountUrlImage(struct installMethod * method,
 		stage = URL_STAGE_FETCH;
 		dir = 1;
 		break;
-	    } else if (urlMainSetupPanel(&ui, &needsSecondary)) {
+            } else {
                 flags &= ~LOADER_FLAGS_STAGE2;
-                return NULL;
+
+	        if (urlMainSetupPanel(&ui, &needsSecondary))
+                    return NULL;
             }
 
 	    /* got required information from user, proceed */
@@ -276,7 +278,7 @@ char * mountUrlImage(struct installMethod * method,
 	    if (cdurl) {
 		/* verify that our URL is specifying the correct tree */
 		/* we do this by attempting to pull a .discinfo file */
-                rc = asprintf(&buf, "%s/.discinfo", ui.address);
+                rc = asprintf(&buf, "%s/%s/.discinfo", ui.address, ui.prefix);
 		if (loadSingleUrlImage(&ui, buf, NULL, NULL, NULL, 1)) {
                         free(buf);
                         umountStage2();

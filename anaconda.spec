@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.48
+Version: 11.4.0.49
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,15 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar 10 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.49-1
+- Use the full path to the .discinfo file (#436855). (clumens)
+- List netinst.iso/boot.iso in .treeinfo (#436089) (katzj)
+- Convinced to change the name back to boot.iso (katzj)
+- Only pass the file path to {ftp,http}GetFileDesc. (clumens)
+- Pass the correct NFS method parameter to stage2 (#436360). (clumens)
+- Fix logging messages to not display the hostname twice. (clumens)
+- Fix traceback with text mode adding iscsi (#436480) (katzj)
+
 * Thu Mar 06 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.48-1
 - Don't use the bits from $UPDATES unless $UPDATES exists (katzj)
 - Fix horkage with busybox stuff.  There's now start-stop-daemon (katzj)
