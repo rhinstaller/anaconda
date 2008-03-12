@@ -74,6 +74,8 @@ def guessGuestArch(rootdir):
             mi=ts.dbMatch("name",pkg)
             for hdr in mi:
                 return hdr["arch"]
+        except:
+            pass
 
     return None
 
