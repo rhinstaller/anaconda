@@ -194,13 +194,14 @@ char * mountNfsImage(struct installMethod * method,
                 rc = copyFile(buf, "/tmp/stage2.img");
                 newtPopWindow();
 
-                free(buf);
                 free(stage2dir);
 
                 if (!rc) {
                     logMessage(INFO, "can access %s", buf);
                     rc = mountStage2("/tmp/stage2.img", stage2dir);
                     umount("/mnt/source");
+
+                    free(buf);
 
                     if (rc && rc == -1) {
                         foundinvalid = 1;
@@ -212,44 +213,47 @@ char * mountNfsImage(struct installMethod * method,
                     }
                 } else {
                     logMessage(WARNING, "unable to access %s", buf);
+                    free(buf);
                     umount("/mnt/source");
-                }
-            } else if (!doPwMount(fullPath, "/mnt/isodir", "nfs", mountOpts)) {
-                char *path;
 
-                /* If we get here, it wasn't a regular NFS method but it may
-                 * still be NFSISO.  Remount on the isodir mountpoint and try
-                 * again.
-                 */
-                if ((path = validIsoImages("/mnt/isodir", &foundinvalid))) {
-		    foundinvalid = 0;
-		    logMessage(INFO, "Path to valid iso is %s", path);
-                    copyUpdatesImg("/mnt/isodir/updates.img");
+                    if (!doPwMount(fullPath, "/mnt/isodir", "nfs", mountOpts)) {
+                        char *path;
 
-                    if (mountLoopback(path, "/mnt/source", "/dev/loop1")) 
-                        logMessage(WARNING, "failed to mount iso %s loopback", path);
-                    else {
-                        if (FL_STAGE2(flags)) {
-                            stage2dir = strdup("/mnt/source");
-                            tmp = asprintf(&buf, "/mnt/source/%s", strrchr(directory, '/'));
-                        } else {
-                            stage2dir = strdup("/mnt/source/images");
-                            buf = strdup("/mnt/source/images/stage2.img");
-                        }
+                        /* If we get here, it wasn't a regular NFS method but it may
+                         * still be NFSISO.  Remount on the isodir mountpoint and try
+                         * again.
+                         */
+                        if ((path = validIsoImages("/mnt/isodir", &foundinvalid))) {
+                            foundinvalid = 0;
+                            logMessage(INFO, "Path to valid iso is %s", path);
+                            copyUpdatesImg("/mnt/isodir/updates.img");
 
-                        rc = copyFile(buf, "/tmp/stage2.img");
-                        rc = mountStage2("/tmp/stage2.img", stage2dir);
-                        free(buf);
-                        free(stage2dir);
-                        umountLoopback("/mnt/source", "/dev/loop1");
-                        umount("/mnt/isodir");
+                            if (mountLoopback(path, "/mnt/source", "/dev/loop1")) 
+                                logMessage(WARNING, "failed to mount iso %s loopback", path);
+                            else {
+                                if (FL_STAGE2(flags)) {
+                                    stage2dir = strdup("/mnt/source");
+                                    tmp = asprintf(&buf, "/mnt/source/%s", strrchr(directory, '/'));
+                                } else {
+                                    stage2dir = strdup("/mnt/source/images");
+                                    buf = strdup("/mnt/source/images/stage2.img");
+                                }
 
-                        if (rc && rc == -1) {
-                            foundinvalid = 1;
-                        } else {
-                            stage = NFS_STAGE_DONE;
-                            rc = asprintf(&url, "nfsiso:%s:%s", host, directory);
-                            break;
+                                rc = copyFile(buf, "/tmp/stage2.img");
+                                rc = mountStage2("/tmp/stage2.img", stage2dir);
+                                free(buf);
+                                free(stage2dir);
+                                umountLoopback("/mnt/source", "/dev/loop1");
+                                umount("/mnt/isodir");
+
+                                if (rc && rc == -1) {
+                                    foundinvalid = 1;
+                                } else {
+                                    stage = NFS_STAGE_DONE;
+                                    rc = asprintf(&url, "nfsiso:%s:%s", host, directory);
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
