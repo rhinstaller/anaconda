@@ -76,70 +76,26 @@ int umountLoopback(char * mntpoint, char * device) {
     return 0;
 }
 
+int mountLoopback(char *fsystem, char *mntpoint, char *device) {
+    char *opts;
+    int rc;
 
-int mountLoopback(char * fsystem, char * mntpoint, char * device) {
-    struct loop_info loopInfo;
-    int targfd, loopfd;
-
-    mkdirChain(mntpoint);
-
-#ifdef O_DIRECT
-    targfd = open(fsystem, O_RDONLY | O_DIRECT);
-    if (targfd == -1) {
-#endif
-	targfd = open(fsystem, O_RDONLY);
-	if (targfd == -1) {
-	    logMessage(ERROR, "open file to loop mount %s failed: %s", fsystem, strerror(errno));
-	    return LOADER_ERROR;
-	}
-#ifdef O_DIRECT
-    }
-#endif
-
-    loopfd = open(device, O_RDONLY);
-    if (loopfd == -1) {
-	logMessage(ERROR, "unable to open loop device %s: %s", device, strerror(errno));
-	return LOADER_ERROR;
-    }
-    logMessage(INFO, "mntloop %s on %s as %s fd is %d", 
-               device, mntpoint, fsystem, loopfd);
-
-    if (ioctl(loopfd, LOOP_SET_FD, targfd)) {
-        logMessage(ERROR, "LOOP_SET_FD failed: %s", strerror(errno));
-        ioctl(loopfd, LOOP_CLR_FD, 0);
-        close(targfd);
-        close(loopfd);
+    if (device == NULL) {
+        logMessage(ERROR, "no loopback device given");
         return LOADER_ERROR;
     }
 
-    close(targfd);
-
-    memset(&loopInfo, 0, sizeof(loopInfo));
-    strncpy(loopInfo.lo_name, basename(fsystem), 63);
-
-    if (ioctl(loopfd, LOOP_SET_STATUS, &loopInfo)) {
-        logMessage(ERROR, "LOOP_SET_STATUS failed: %s", strerror(errno));
-        close(loopfd);
-        return LOADER_ERROR;
-    }
-
-    close(loopfd);
-
-    /* FIXME: really, mountLoopback() should take a list of "valid" 
-     * filesystems for the specific type of image being mounted */
-    if (doPwMount(device, mntpoint, "iso9660", "ro,loop")) {
-        if (doPwMount(device, mntpoint, "ext2", "ro,loop")) {
-          if (doPwMount(device, mntpoint, "squashfs", "ro,loop")) {
-            if (doPwMount(device, mntpoint, "cramfs", "ro,loop")) {
-              if (doPwMount(device, mntpoint, "vfat", "ro,loop")) {
-                logMessage(ERROR, "failed to mount loop: %s", strerror(errno));
-                loopfd = open(device, O_RDONLY);
-                ioctl(loopfd, LOOP_CLR_FD, 0);
-                close(loopfd);
-                return LOADER_ERROR;
-              }
+    rc = asprintf(&opts, "ro,loop=%s", device);
+    if (doPwMount(fsystem, mntpoint, "iso9660", opts)) {
+        if (doPwMount(fsystem, mntpoint, "ext2", opts)) {
+            if (doPwMount(fsystem, mntpoint, "squashfs", opts)) {
+                if (doPwMount(fsystem, mntpoint, "cramfs", opts)) {
+                    if (doPwMount(fsystem, mntpoint, "vfat", opts)) {
+                        logMessage(ERROR, "failed to mount loop: %s", strerror(errno));
+                        return LOADER_ERROR;
+                    }
+                }
             }
-          }
         }
     }
 
@@ -553,14 +509,11 @@ int verifyStamp(char * path) {
     }
 }
 
-
 /* unmount a second stage, if mounted. Used for CDs and mediacheck mostly,
    so we can eject CDs.                                                   */
 void umountStage2(void) {
-    umount("/mnt/runtime");
     umountLoopback("/mnt/runtime", "/dev/loop0");
 }
-
 
 /* mount a second stage, verify the stamp file, copy updates 
  * Returns 0 on success, 1 on failure to mount, -1 on bad stamp */
