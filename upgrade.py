@@ -64,7 +64,6 @@ def guessGuestArch(rootdir):
     Guess the architecture of installed system
     """
 
-    architectures = dict()
     ts = rpm.ts(rootdir)
 
     packages = ["filesystem", "initscripts"]
@@ -74,20 +73,9 @@ def guessGuestArch(rootdir):
         try:
             mi=ts.dbMatch("name",pkg)
             for hdr in mi:
-                architectures.setdefault(hdr["arch"], 0)
-                architectures[hdr["arch"]]+=1
-        except: #ignore guessing errors
-            pass
+                return hdr["arch"]
 
-    def lf(acc, x):
-        if acc==None or acc[1]<x[1]:
-            return x
-        else:
-            return acc
-
-    architecture = reduce(lf, architectures.iteritems(), (None, 0))
-
-    return architecture[0]
+    return None
 
 
 def isUpgradingArch(anaconda):
