@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.49
+Version: 11.4.0.50
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,21 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 11 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.50-1
+- Focus root password entry box (#436885). (dcantrell)
+- Make sure default is SHA-512 for libuser.conf. (dcantrell)
+- Fix detection of ISO images on a hard drive partition. (clumens)
+- Devices names aren't prefixed with /dev/. (clumens)
+- Filter out /dev/ram* devices from the list of hdiso partitions. (clumens)
+- But make sure that we've activated the keymap now that X 
+  follows its defaults (katzj)
+- Don't set a keyboard in the X config, we should just do this 
+  at runtime (katzj)
+- Writing out the nfs method line is a lot simpler now. (clumens)
+- Use /mnt/sysimage/tmp/cache for the yum cache, instead of the 
+  ramdisk. (clumens)
+- Translation updates (nl, gu, ml, mr, pa)
+
 * Mon Mar 10 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.49-1
 - Use the full path to the .discinfo file (#436855). (clumens)
 - List netinst.iso/boot.iso in .treeinfo (#436089) (katzj)
