@@ -440,6 +440,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
             logMessage(INFO, "UPDATES device is %s", part);
 
             if (doPwMount(part, "/tmp/update-disk", "ext2", "ro") &&
+                doPwMount(part, "/tmp/update-disk", "vfat", "ro") &&
                 doPwMount(part, "/tmp/update-disk", "iso9660", "ro")) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to mount updates disk"));
