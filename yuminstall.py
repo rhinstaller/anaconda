@@ -655,7 +655,10 @@ class AnacondaYum(YumSorter):
                 pkgtup = self.tsInfo.reqmedia[i][0]
 
             try:
+                self.dsCallback = DownloadHeaderProgress(intf, self)
                 self.populateTs(keepold=0)
+                self.dsCallback.pop()
+                self.dsCallback = None
             except Exception, e:
                 rc = intf.messageWindow(_("Error"),
                           _("There was an error running your transaction for "
@@ -1468,13 +1471,7 @@ class YumBackend(AnacondaBackend):
                               self.instLog, self.modeText)
         cb.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
 
-        cb.initWindow = anaconda.intf.waitWindow(_("Install Starting"),
-                                        _("Starting install process.  This may take several minutes..."))
-
         rc = self.ayum.run(self.instLog, cb, anaconda.intf, anaconda.id)
-
-        if cb.initWindow is not None:
-            cb.initWindow.pop()
 
         self.instLog.close ()
 
@@ -1746,10 +1743,48 @@ class YumProgress:
             warnings.warn("YumProgress.set called when popped",
                           RuntimeWarning, stacklevel=2)             
 
+class DownloadHeaderProgress:
+    def __init__(self, intf, ayum=None):
+        window = intf.progressWindow(_("Install Starting"),
+                                     _("Starting install process.  This may take several minutes..."),
+                                     1.0, 0.01)
+        self.window = window
+        self.ayum = ayum
+        self.current = self.loopstart = 0
+        self.incr = 1
+
+        if self.ayum is not None and self.ayum.tsInfo is not None:
+            self.numpkgs = len(self.ayum.tsInfo.getMembers())
+            self.incr = (1.0 / self.numpkgs) * (1.0 - self.loopstart)
+        else:
+            self.numpkgs = 0
+
+        self.refresh()
+
+        self.restartLoop = self.downloadHeader = self.transactionPopulation = self.refresh
+        self.procReq = self.procConflict = self.unresolved = self.noop
+
+    def noop(self, *args, **kwargs):
+        pass
+
+    def pkgAdded(self, *args):
+        if self.numpkgs:
+            self.set(self.current + self.incr)
+
+    def pop(self):
+        self.window.pop()
+
+    def refresh(self, *args):
+        self.window.refresh()
+
+    def set(self, value):
+        self.current = value
+        self.window.set(self.current)
+
 class YumDepSolveProgress:
     def __init__(self, intf, ayum = None):
         window = intf.progressWindow(_("Dependency Check"),
-        _("Checking dependencies in packages selected for installation..."),
+                                     _("Checking dependencies in packages selected for installation..."),
                                      1.0, 0.01)
         self.window = window
 
@@ -1757,6 +1792,7 @@ class YumDepSolveProgress:
         self.loopstart = None
         self.incr = None
         self.ayum = ayum
+        self.current = 0
 
         self.restartLoop = self.downloadHeader = self.transactionPopulation = self.refresh
         self.procReq = self.procConflict = self.unresolved = self.noop
