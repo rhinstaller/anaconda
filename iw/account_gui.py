@@ -59,6 +59,9 @@ class AccountWindow (InstallWindow):
             self.pw.set_text(self.rootPassword['password'])
             self.confirm.set_text(self.rootPassword['password'])
 
+        self.pw.set_flags(gtk.HAS_FOCUS)
+        self.confirm.set_activates_default(True)
+
         return self.align
 
     def passwordError(self):
