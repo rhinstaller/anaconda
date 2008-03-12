@@ -38,6 +38,8 @@ from product import productName
 import rhpl
 from rhpl.translate import _
 
+import rpm
+
 import logging
 log = logging.getLogger("anaconda")
 
@@ -57,15 +59,52 @@ if rhpl.getArch() == "ppc":
 if rhpl.getArch() == "x86_64":
     upgrade_remove_blacklist.extend( [("perl","i386")] )
 
+def guessGuestArch(rootdir):
+    """root path -> None|"architecture"
+    Guess the architecture of installed system
+    """
+
+    architectures = dict()
+    ts = rpm.ts(rootdir)
+
+    packages = ["filesystem", "initscripts"]
+
+    #get information from packages
+    for pkg in packages:
+        try:
+            mi=ts.dbMatch("name",pkg)
+            for hdr in mi:
+                architectures.setdefault(hdr["arch"], 0)
+                architectures[hdr["arch"]]+=1
+        except: #ignore guessing errors
+            pass
+
+    def lf(acc, x):
+        if acc==None or acc[1]<x[1]:
+            return x
+        else:
+            return acc
+
+    architecture = reduce(lf, architectures.iteritems(), (None, 0))
+
+    return architecture[0]
+
+
 def isUpgradingArch(anaconda):
     """anaconda -> (bool, oldarch)
     Check if the upgrade should change architecture of instalation"""
 
-    rpmplatform = open(anaconda.rootPath+"/etc/rpm/platform").readline().strip()
-    rpmarch = rpmplatform[:rpmplatform.index("-")]
-
-    return rhpl.arch.canonArch!=rpmarch, rpmarch
-
+    try:
+        rpmplatform = open(anaconda.rootPath+"/etc/rpm/platform").readline().strip()
+        rpmarch = rpmplatform[:rpmplatform.index("-")]
+        return rhpl.arch.canonArch!=rpmarch, rpmarch
+    except IOError:
+        #try some fallback methods
+        rpmarch = guessGuestArch(anaconda.rootPath)
+        if rpmarch:
+            return rhpl.arch.canonArch!=rpmarch, rpmarch
+        else:
+            return False, "unknown"
 
 def queryUpgradeArch(anaconda):
     archupgrade, oldrpmarch = isUpgradingArch(anaconda) #Check if we are to upgrade the architecture of previous product
