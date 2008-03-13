@@ -129,8 +129,8 @@ def getMediaId(path):
 # This mounts the directory containing the iso images, and places the
 # mount point in isodir.
 def mountDirectory(isodir, methodstr, messageWindow):
-    if methodstr.startswith("hd://"):
-        method = methodstr[5:]
+    if methodstr.startswith("hd:"):
+        method = methodstr[3:]
         (device, fstype, path) = method.split(":", 3)
         device = method[0:method.index(":")]
     else:

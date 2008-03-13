@@ -583,11 +583,8 @@ class Anaconda:
             f.write("url --url %s\n" % urllib.unquote(self._loaderMethodstr))
         elif self._loaderMethodstr.startswith('cdrom://'):
             f.write("cdrom\n")
-        elif self._loaderMethodstr.startswith('hd://'):
-            pidx = string.find(self._loaderMethodstr, '//') + 2
-            didx = string.find(self._loaderMethodstr[pidx:], '/')
-            partition = string.split(self._loaderMethodstr[pidx:pidx+didx], ':')[0]
-            dir = self._loaderMethodstr[pidx+didx+1:]
+        elif self._loaderMethodstr.startswith('hd:'):
+            (method, partition, dir) = string.split(self._loaderMethodstr, ':')
             f.write("harddrive --partition=%s --dir=%s\n" % (partition, dir))
         elif self._loaderMethodstr.startswith('nfs:') or self._loaderMethodstr.startswith('nfsiso:'):
             (method, server, dir) = string.split(self._loaderMethodstr, ':')

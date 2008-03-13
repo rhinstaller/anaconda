@@ -80,10 +80,6 @@ class Users:
     def __init__ (self):
         self.admin = libuser.admin()
 
-    def reset(self):
-        os.unsetenv("LIBUSER_CONF")
-        self.admin = libuser.admin()
-
     def createUser (self, name=None, password=None, isCrypted=False, groups=[],
                     homedir=None, shell=None, uid=None, algo=None, lock=False,
                     root="/mnt/sysimage"):
@@ -91,6 +87,9 @@ class Users:
 
         if not childpid:
             os.chroot(root)
+
+            del(os.environ["LIBUSER_CONF"])
+            self.admin = libuser.admin()
 
             try:
                 if self.admin.lookupUserByName(name):

@@ -389,6 +389,10 @@ class BaseInstallClass(object):
         id.xsetup.xserver.hwstate.recalc_mode()
 
     def setVideoCard(self, id, driver = None, videoRam = None):
+        if not id.videocard:
+            log.warning("Skipping video configuration because there's no videocard")
+            return
+
         primary = id.videocard.primaryCard()
 
         # rhpxl no longer gives us a list of drivers, so always just trust

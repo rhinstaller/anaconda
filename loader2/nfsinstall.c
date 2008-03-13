@@ -199,13 +199,13 @@ char * mountNfsImage(struct installMethod * method,
                 if (!rc) {
                     logMessage(INFO, "can access %s", buf);
                     rc = mountStage2("/tmp/stage2.img", stage2dir);
-                    umount("/mnt/source");
 
                     free(buf);
 
                     if (rc && rc == -1) {
                         foundinvalid = 1;
                         logMessage(WARNING, "not the right one");
+                        umount("/mnt/source");
                     } else {
                         stage = NFS_STAGE_DONE;
                         rc = asprintf(&url, "nfs:%s:%s", host, directory);
@@ -243,11 +243,11 @@ char * mountNfsImage(struct installMethod * method,
                                 rc = mountStage2("/tmp/stage2.img", stage2dir);
                                 free(buf);
                                 free(stage2dir);
-                                umountLoopback("/mnt/source", "/dev/loop1");
-                                umount("/mnt/isodir");
 
                                 if (rc && rc == -1) {
                                     foundinvalid = 1;
+                                    umountLoopback("/mnt/source", "/dev/loop1");
+                                    umount("/mnt/isodir");
                                 } else {
                                     stage = NFS_STAGE_DONE;
                                     rc = asprintf(&url, "nfsiso:%s:%s", host, directory);

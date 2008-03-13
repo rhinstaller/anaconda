@@ -244,6 +244,11 @@ class Partitions:
                     continue
 
                 device = partedUtils.get_partition_name(part)
+                fs = partedUtils.sniffFilesystemType("/dev/%s" % (device,))
+                if fs and fs.endswith("raid"):
+                    part = disk.next_partition(part)
+                    continue
+
                 if cryptodev.isLuks("/dev/%s" % device):
                     self.getCryptoDev(device)
 
