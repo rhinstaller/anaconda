@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.50
+Version: 11.4.0.51
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,21 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar 12 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.51-1
+- yum.remove removes installed packages, not to be installed 
+  packages (#436226) (katzj)
+- Make the /tmp/updates vs RHupdates code at least a little readable. (pjones)
+- Allow vfat update images. (pjones)
+- Fix syntax error (pjones)
+- Add a progress bar for when we're downloading headers (#186789). (clumens)
+- mount will set up the loopback device if we let it. (clumens)
+- Fix mounting problems with NFSISO images. (clumens)
+- Simplify the logic for the upgrade arch check (katzj)
+- Add a fallback method for determining the architecture of installed 
+  system during an upgrade (#430115) (msivak)
+- Avoid a traceback (#436826) (katzj)
+- Make sure host lookups work for manual net config (#435574). (dcantrell)
+
 * Tue Mar 11 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.50-1
 - Focus root password entry box (#436885). (dcantrell)
 - Make sure default is SHA-512 for libuser.conf. (dcantrell)
