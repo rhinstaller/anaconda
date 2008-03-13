@@ -913,7 +913,7 @@ class YumBackend(AnacondaBackend):
                         waitwin.next_task()
                     waitwin.pop()
                 except Exception, e:
-                    buttons = [_("_Exit installer"), "gtk-edit", _("_Retry")]
+                    buttons = [_("_Exit installer"), _("Edit"), _("_Retry")]
                 else:
                     break # success
 
