@@ -199,8 +199,6 @@ class InstallData:
                                    self.rootPassword["lock"],
                                    algo=self.getPassAlgo())
 
-        self.users.reset()
-
         if self.anaconda.isKickstart:
             for svc in self.ksdata.services.disabled:
                 iutil.execWithRedirect("/sbin/chkconfig",
