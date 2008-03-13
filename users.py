@@ -30,7 +30,7 @@ import os.path
 import logging
 log = logging.getLogger("anaconda")
 
-def createLuserConf(instPath, algoname='md5'):
+def createLuserConf(instPath, algoname='sha512'):
     """Writes a libuser.conf for instPath."""
     if os.getenv("LIBUSER_CONF") and \
        os.access(os.environ["LIBUSER_CONF"], os.R_OK):

@@ -172,12 +172,12 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
             rc = asprintf(&filespec, "/mnt/isodir%.*s", (int) (strrchr(dirName, '/') - dirName), dirName);
             path = strdup(filespec);
         } else {
-            path = validIsoImages(filespec, 0);
-
             if (*dirName == '/')
                 rc = asprintf(&filespec, "/mnt/isodir%s", dirName);
             else
                 rc = asprintf(&filespec, "/mnt/isodir/%s", dirName);
+
+            path = validIsoImages(filespec, 0);
         }
 
         if (path) {
@@ -431,7 +431,7 @@ char * mountHardDrive(struct installMethod * method,
 
         logMessage(INFO, "partition %s selected", selpart);
 	
-        url = setupIsoImages(selpart + 5, dir, location);
+        url = setupIsoImages(selpart, dir, location);
         if (!url) {
             newtWinMessage(_("Error"), _("OK"), 
                            _("Device %s does not appear to contain "

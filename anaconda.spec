@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.49
+Version: 11.4.0.51
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,36 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar 12 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.51-1
+- yum.remove removes installed packages, not to be installed 
+  packages (#436226) (katzj)
+- Make the /tmp/updates vs RHupdates code at least a little readable. (pjones)
+- Allow vfat update images. (pjones)
+- Fix syntax error (pjones)
+- Add a progress bar for when we're downloading headers (#186789). (clumens)
+- mount will set up the loopback device if we let it. (clumens)
+- Fix mounting problems with NFSISO images. (clumens)
+- Simplify the logic for the upgrade arch check (katzj)
+- Add a fallback method for determining the architecture of installed 
+  system during an upgrade (#430115) (msivak)
+- Avoid a traceback (#436826) (katzj)
+- Make sure host lookups work for manual net config (#435574). (dcantrell)
+
+* Tue Mar 11 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.50-1
+- Focus root password entry box (#436885). (dcantrell)
+- Make sure default is SHA-512 for libuser.conf. (dcantrell)
+- Fix detection of ISO images on a hard drive partition. (clumens)
+- Devices names aren't prefixed with /dev/. (clumens)
+- Filter out /dev/ram* devices from the list of hdiso partitions. (clumens)
+- But make sure that we've activated the keymap now that X 
+  follows its defaults (katzj)
+- Don't set a keyboard in the X config, we should just do this 
+  at runtime (katzj)
+- Writing out the nfs method line is a lot simpler now. (clumens)
+- Use /mnt/sysimage/tmp/cache for the yum cache, instead of the 
+  ramdisk. (clumens)
+- Translation updates (nl, gu, ml, mr, pa)
+
 * Mon Mar 10 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.49-1
 - Use the full path to the .discinfo file (#436855). (clumens)
 - List netinst.iso/boot.iso in .treeinfo (#436089) (katzj)

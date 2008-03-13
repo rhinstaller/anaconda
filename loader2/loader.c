@@ -440,6 +440,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
             logMessage(INFO, "UPDATES device is %s", part);
 
             if (doPwMount(part, "/tmp/update-disk", "ext2", "ro") &&
+                doPwMount(part, "/tmp/update-disk", "vfat", "ro") &&
                 doPwMount(part, "/tmp/update-disk", "iso9660", "ro")) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to mount updates disk"));
@@ -1520,6 +1521,24 @@ static int anaconda_trace_init(void) {
     return 0;
 }
 
+static void add_to_path_env(const char *env, const char *val)
+{
+    char *oldenv, *newenv;
+    int rc;
+
+    oldenv = getenv(env);
+    if (oldenv) {
+        rc = asprintf(&newenv, "%s:%s", val, oldenv);
+        oldenv = strdupa(newenv);
+        free(newenv);
+        newenv = oldenv;
+    } else {
+        newenv = strdupa(val);
+    }
+
+    setenv(env, newenv, 1);
+}
+
 int main(int argc, char ** argv) {
     int rc;
 
@@ -1540,6 +1559,7 @@ int main(int argc, char ** argv) {
 
     struct loaderData_s loaderData;
 
+    char *path;
     char * cmdLine = NULL;
     char * ksFile = NULL;
     int testing = 0;
@@ -1752,45 +1772,45 @@ int main(int argc, char ** argv) {
         manualDeviceCheck(&loaderData);
     }
 
+    useRHupdates = 0;
     if (loaderData.updatessrc)
         loadUpdatesFromRemote(loaderData.updatessrc, &loaderData);
     else if (FL_UPDATES(flags))
         loadUpdates(&loaderData);
-
-    mlLoadModuleSet("md:raid0:raid1:raid5:raid6:raid456:raid10:linear:fat:msdos:jbd:lock_nolock:gfs2:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-emc:dm-crypt:blkcipher:cbc:aes:sha256");
 
     /* we only want to use RHupdates on nfs installs.  otherwise, we'll 
      * use files on the first iso image and not be able to umount it */
     if (!strncmp(url, "nfs:", 4) && !FL_STAGE2(flags)) {
         logMessage(INFO, "NFS install method detected, will use RHupdates/");
         useRHupdates = 1;
-    } else {
-        useRHupdates = 0;
     }
 
+    /* make sure /tmp/updates exists so that magic in anaconda to */
+    /* symlink rhpl/ will work                                    */
+    if (access("/tmp/updates", F_OK))
+        mkdirChain("/tmp/updates");
+
+    add_fw_search_dir(&loaderData, "/tmp/updates/firmware");
+    add_fw_search_dir(&loaderData, "/tmp/product/firmware");
+
+    add_to_path_env("PYTHONPATH", "/tmp/updates");
+    add_to_path_env("PYTHONPATH", "/tmp/product");
+    add_to_path_env("LD_LIBRARY_PATH", "/tmp/updates");
+    add_to_path_env("LD_LIBRARY_PATH", "/tmp/product");
+    add_to_path_env("PATH", "/tmp/updates");
+    add_to_path_env("PATH", "/tmp/product");
+
     if (useRHupdates) {
-        char *buf;
-        setenv("PYTHONPATH", "/tmp/updates:/tmp/product:/mnt/source/RHupdates", 1);
-        rc = asprintf(&buf,
-                "/tmp/updates:/tmp/product:/mnt/source/RHupdates:%s", LIBPATH);
-        setenv("LD_LIBRARY_PATH", buf, 1);
-        free(buf);
-        add_fw_search_dir(&loaderData, "/tmp/updates/firmware");
-        add_fw_search_dir(&loaderData, "/tmp/product/firmware");
+        add_to_path_env("PYTHONPATH", "/mnt/source/RHupdates");
+        add_to_path_env("LD_LIBRARY_PATH", "/mnt/source/RHupdates");
+        add_to_path_env("PATH", "/mnt/source/RHupdates");
         add_fw_search_dir(&loaderData, "/mnt/source/RHupdates/firmware");
-        stop_fw_loader(&loaderData);
-        start_fw_loader(&loaderData);
-    } else {
-        char *buf;
-        setenv("PYTHONPATH", "/tmp/updates:/tmp/product", 1);
-        rc = asprintf(&buf, "/tmp/updates:/tmp/product:%s", LIBPATH);
-        setenv("LD_LIBRARY_PATH", buf, 1);
-        free(buf);
-        add_fw_search_dir(&loaderData, "/tmp/updates/firmware");
-        add_fw_search_dir(&loaderData, "/tmp/product/firmware");
-        stop_fw_loader(&loaderData);
-        start_fw_loader(&loaderData);
     }
+
+    stop_fw_loader(&loaderData);
+    start_fw_loader(&loaderData);
+
+    mlLoadModuleSet("md:raid0:raid1:raid5:raid6:raid456:raid10:linear:fat:msdos:jbd:lock_nolock:gfs2:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-emc:dm-crypt:blkcipher:cbc:aes:sha256");
 
     if (!access("/mnt/runtime/usr/lib/libunicode-lite.so.1", R_OK))
         setenv("LD_PRELOAD", "/mnt/runtime/usr/lib/libunicode-lite.so.1", 1);
@@ -1799,17 +1819,24 @@ int main(int argc, char ** argv) {
 
     argptr = anacondaArgs;
 
-    if (!access("/tmp/updates/anaconda", X_OK))
-        *argptr++ = "/tmp/updates/anaconda";
-    else if (useRHupdates && !access("/mnt/source/RHupdates/anaconda", X_OK))
-        *argptr++ = "/mnt/source/RHupdates/anaconda";
-    else
-        *argptr++ = "/usr/bin/anaconda";
+    path = getenv("PATH");
+    while (path && path[0]) {
+        int ret, n = strcspn(path, ":");
+        char c, *binpath;
 
-    /* make sure /tmp/updates exists so that magic in anaconda to */
-    /* symlink rhpl/ will work                                    */
-    if (access("/tmp/updates", F_OK))
-        mkdirChain("/tmp/updates");
+        c = path[n];
+        path[n] = '\0';
+        ret = asprintf(&binpath, "%s/anaconda", path);
+        path[n] = c;
+
+        if (!access(binpath, X_OK)) {
+            *argptr++ = strdupa(binpath);
+            free(binpath);
+            break;
+        }
+        free(binpath);
+        path += n + 1;
+    }
 
     logMessage(INFO, "Running anaconda script %s", *(argptr-1));
 

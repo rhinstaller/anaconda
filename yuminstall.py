@@ -196,7 +196,7 @@ class AnacondaCallback:
             self.openfile = None
 
             repo = self.repos.getRepo(self.inProgressPo.repoid)
-            if os.path.dirname(fn).startswith("/tmp/cache/"):
+            if os.path.dirname(fn).startswith("%s/tmp/cache/" % self.rootPath):
                 try:
                     os.unlink(fn)
                 except OSError, e:
@@ -251,9 +251,9 @@ class AnacondaYumRepo(YumRepository):
         if mirrorlist:
             self.mirrorlist = mirrorlist
 
-        self.setAttribute('cachedir', '/tmp/cache/')
+        self.setAttribute('cachedir', "%s/tmp/cache/" % root)
         self.setAttribute('pkgdir', root)
-        self.setAttribute('hdrdir', '/tmp/cache/headers')
+        self.setAttribute('hdrdir', "%s/tmp/cache/headers" % root)
 
     def dirSetup(self):
         YumRepository.dirSetup(self)
@@ -451,7 +451,7 @@ class AnacondaYum(YumSorter):
         self.conf.logfile="/tmp/yum.log"
         self.conf.obsoletes=True
         self.conf.cache=0
-        self.conf.cachedir = '/tmp/cache/'
+        self.conf.cachedir = "%s/tmp/cache/" % self.anaconda.rootPath
         self.conf.metadata_expire = 0
 
         if self.anaconda.methodstr.startswith("nfs:"):
@@ -533,7 +533,7 @@ class AnacondaYum(YumSorter):
                                      "/mnt/source/RHupdates/pluginconf.d"])
         self.plugins.run('init')
 
-        self.repos.setCacheDir('/tmp/cache')
+        self.repos.setCacheDir("%s/tmp/cache" % self.anaconda.rootPath)
 
     def downloadHeader(self, po):
         while True:
@@ -655,7 +655,10 @@ class AnacondaYum(YumSorter):
                 pkgtup = self.tsInfo.reqmedia[i][0]
 
             try:
+                self.dsCallback = DownloadHeaderProgress(intf, self)
                 self.populateTs(keepold=0)
+                self.dsCallback.pop()
+                self.dsCallback = None
             except Exception, e:
                 rc = intf.messageWindow(_("Error"),
                           _("There was an error running your transaction for "
@@ -882,8 +885,8 @@ class YumBackend(AnacondaBackend):
         else:
             repos.extend(self.ayum.repos.listEnabled())
 
-        if not os.path.exists("/tmp/cache"):
-            iutil.mkdirChain("/tmp/cache/headers")
+        if not os.path.exists("%s/tmp/cache" % anaconda.rootPath):
+            iutil.mkdirChain("%s/tmp/cache/headers" % anaconda.rootPath)
 
         self.ayum.doMacros()
 
@@ -1468,13 +1471,7 @@ class YumBackend(AnacondaBackend):
                               self.instLog, self.modeText)
         cb.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
 
-        cb.initWindow = anaconda.intf.waitWindow(_("Install Starting"),
-                                        _("Starting install process.  This may take several minutes..."))
-
         rc = self.ayum.run(self.instLog, cb, anaconda.intf, anaconda.id)
-
-        if cb.initWindow is not None:
-            cb.initWindow.pop()
 
         self.instLog.close ()
 
@@ -1502,6 +1499,9 @@ class YumBackend(AnacondaBackend):
             if anaconda.id.displayMode == 'g' and not flags.usevnc:
                 anaconda.id.desktop.setDefaultRunLevel(5)
                 break
+
+        if os.path.exists("%s/tmp/cache" % anaconda.rootPath):
+            shutil.rmtree("%s/tmp/cache" % anaconda.rootPath)
 
         # XXX: write proper lvm config
 
@@ -1614,11 +1614,29 @@ class YumBackend(AnacondaBackend):
             return 0
 
     def deselectPackage(self, pkg, *args):
-        try:
-            mbrs = self.ayum.remove(pattern=pkg)
-            return len(mbrs)
-        except yum.Errors.RemoveError:
-            log.debug("no package matching %s" % pkg)
+        sp = pkg.rsplit(".", 2)
+        txmbrs = []
+        if len(sp) == 2:
+            txmbrs = self.ayum.tsInfo.matchNaevr(name=sp[0], arch=sp[1])
+
+        if len(txmbrs) == 0:
+            exact, match, unmatch = yum.packages.parsePackages(self.ayum.pkgSack.returnPackages(), [pkg], casematch=1)
+            for p in exact + match:
+                txmbrs.append(p)
+
+        if len(txmbrs) > 0:
+            for x in txmbrs:
+                self.ayum.tsInfo.remove(x.pkgtup)
+                # we also need to remove from the conditionals
+                # dict so that things don't get pulled back in as a result
+                # of them.  yes, this is ugly.  conditionals should die.
+                for req, pkgs in self.ayum.tsInfo.conditionals.iteritems():
+                    if x in pkgs:
+                        pkgs.remove(x)
+                        self.ayum.tsInfo.conditionals[req] = pkgs
+            return len(txmbrs)
+        else:
+            log.debug("no such package %s to remove" %(pkg,))
             return 0
 
     def upgradeFindPackages(self):
@@ -1743,10 +1761,48 @@ class YumProgress:
             warnings.warn("YumProgress.set called when popped",
                           RuntimeWarning, stacklevel=2)             
 
+class DownloadHeaderProgress:
+    def __init__(self, intf, ayum=None):
+        window = intf.progressWindow(_("Install Starting"),
+                                     _("Starting install process.  This may take several minutes..."),
+                                     1.0, 0.01)
+        self.window = window
+        self.ayum = ayum
+        self.current = self.loopstart = 0
+        self.incr = 1
+
+        if self.ayum is not None and self.ayum.tsInfo is not None:
+            self.numpkgs = len(self.ayum.tsInfo.getMembers())
+            self.incr = (1.0 / self.numpkgs) * (1.0 - self.loopstart)
+        else:
+            self.numpkgs = 0
+
+        self.refresh()
+
+        self.restartLoop = self.downloadHeader = self.transactionPopulation = self.refresh
+        self.procReq = self.procConflict = self.unresolved = self.noop
+
+    def noop(self, *args, **kwargs):
+        pass
+
+    def pkgAdded(self, *args):
+        if self.numpkgs:
+            self.set(self.current + self.incr)
+
+    def pop(self):
+        self.window.pop()
+
+    def refresh(self, *args):
+        self.window.refresh()
+
+    def set(self, value):
+        self.current = value
+        self.window.set(self.current)
+
 class YumDepSolveProgress:
     def __init__(self, intf, ayum = None):
         window = intf.progressWindow(_("Dependency Check"),
-        _("Checking dependencies in packages selected for installation..."),
+                                     _("Checking dependencies in packages selected for installation..."),
                                      1.0, 0.01)
         self.window = window
 
@@ -1754,6 +1810,7 @@ class YumDepSolveProgress:
         self.loopstart = None
         self.incr = None
         self.ayum = ayum
+        self.current = 0
 
         self.restartLoop = self.downloadHeader = self.transactionPopulation = self.refresh
         self.procReq = self.procConflict = self.unresolved = self.noop
