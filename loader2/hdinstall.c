@@ -202,8 +202,9 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
                         flags &= ~LOADER_FLAGS_STAGE2;
                         goto err;
                     } else {
-                        rc = asprintf(&url, "hd://%s:%s:/%s", device, *type,
-                                      dirName ? dirName : ".");
+                        rc = asprintf(&url, "hd:%.*s:%s:/%s",
+                                      (int) (strrchr(device, '/') - device),
+                                      device, *type, dirName ? dirName : ".");
                         return url;
                     }
                 }
@@ -228,8 +229,9 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
                 } else {
                     queryIsoMediaCheck(path);
                     free(path);
-                    rc = asprintf(&url, "hd://%s:%s:/%s", device, *type,
-                                  dirName ? dirName : ".");
+                    rc = asprintf(&url, "hd:%.*s:%s:/%s",
+                                  (int) (strrchr(device, '/') - device),
+                                  device, *type, dirName ? dirName : ".");
                     return url;
                 }
             }
