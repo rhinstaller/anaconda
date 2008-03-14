@@ -467,7 +467,7 @@ class Partition(commands.partition.F9_Partition):
             pd.mountpoint = ""
         # XXX should we let people not do this for some reason?
         elif pd.mountpoint == "/boot/efi":
-            filesystem = fileSystemTypeGet("vfat")
+            filesystem = fileSystemTypeGet("efi")
         else:
             if pd.fstype != "":
                 filesystem = fileSystemTypeGet(pd.fstype)
