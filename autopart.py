@@ -64,16 +64,11 @@ else:
     lvmLog.setLevel (logging.CRITICAL)
     logger.addFileHandler (logFile, lvmLog, minLevel=logging.CRITICAL)
 
-# check that our "boot" partition meets necessary constraints unless
+# check that our "boot" partitions meet necessary constraints unless
 # the request has its ignore flag set
-def bootRequestCheck(requests, diskset):
-    reqs = requests.getBootableRequest()
-    if not reqs:
+def bootRequestCheck(req, diskset):
+    if not req.device or req.ignoreBootConstraints:
         return PARTITION_SUCCESS
-    for req in reqs:
-        if not req.device or req.ignoreBootConstraints:
-            return PARTITION_SUCCESS
-    # side effect: dev is left as the last in devs
     part = partedUtils.get_partition_by_name(diskset.disks, req.device)
     if not part:
         return PARTITION_SUCCESS
@@ -1055,24 +1050,24 @@ def doPartitioning(diskset, requests, doRefresh = 1):
 
     newParts.reset()
 
-    ret = bootRequestCheck(requests, diskset)
-
-    if ret == BOOTALPHA_NOT_BSD:
-        raise PartitioningWarning, _("Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to boot from this partition. Use a partition belonging to a BSD disk label or change this device disk label to BSD.") %(requests.getBootableRequest()[0].mountpoint,)
-    elif ret == BOOTALPHA_NO_RESERVED_SPACE:
-        raise PartitioningWarning, _("Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot") %(requests.getBootableRequest()[0].mountpoint,)
-    elif ret == BOOTEFI_NOT_VFAT:
-        raise PartitioningError, _("Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition.") %(requests.getBootableRequest()[0].mountpoint,)
-    elif ret == BOOTIPSERIES_TOO_HIGH:
-        raise PartitioningError, _("The boot partition must entirely be in the first 4GB of the disk.  OpenFirmware won't be able to boot this installation.")
-    elif ret == BOOT_ABOVE_1024:
-        # we can't make boot disks anymore and this isn't much of a problem
-        # for "modern" hardware. (#122535)
-        pass
-    elif ret != PARTITION_SUCCESS:
-        # more specific message?
-        raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.") %(requests.getBootableRequest()[0].mountpoint,)
-#        raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest()[0].mountpoint,)
+    for req in requests.getBootableRequest() or []:
+        ret = bootRequestCheck(req, diskset)
+        if ret == BOOTALPHA_NOT_BSD:
+            raise PartitioningWarning, _("Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to boot from this partition. Use a partition belonging to a BSD disk label or change this device disk label to BSD.") %(requests.getBootableRequest()[0].mountpoint,)
+        elif ret == BOOTALPHA_NO_RESERVED_SPACE:
+            raise PartitioningWarning, _("Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot") %(requests.getBootableRequest()[0].mountpoint,)
+        elif ret == BOOTEFI_NOT_VFAT:
+            raise PartitioningError, _("Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition.") %(requests.getBootableRequest()[0].mountpoint,)
+        elif ret == BOOTIPSERIES_TOO_HIGH:
+            raise PartitioningError, _("The boot partition must entirely be in the first 4GB of the disk.  OpenFirmware won't be able to boot this installation.")
+        elif ret == BOOT_ABOVE_1024:
+            # we can't make boot disks anymore and this isn't much of a problem
+            # for "modern" hardware. (#122535)
+            pass
+        elif ret != PARTITION_SUCCESS:
+            # more specific message?
+            raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.") %(requests.getBootableRequest()[0].mountpoint,)
+            #raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest()[0].mountpoint,)
 
     # now grow the logical partitions
     growLogicalVolumes(diskset, requests)
