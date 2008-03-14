@@ -1413,7 +1413,6 @@ void clearInterface(char *device) {
                 rtnl_addr_put(raddr);
             }
 
-            nl_object_put(obj);
             obj = nl_cache_get_next(obj);
         }
 
