@@ -831,11 +831,15 @@ class Partitions:
         bootreq = None
 
         if iutil.isEfi():
-            bootreq = self.getRequestByMountPoint("/boot/efi")
-            if bootreq:
-                return [ bootreq ]
-            else:
-                return None
+            ret = None
+            for req in self.requests:
+                if req.fstype == fsset.fileSystemTypeGet("efi"):
+                    ret = [ req ]
+            if ret:
+                req = self.getRequestByMountPoint("/boot")
+                if req:
+                    ret.append(req)
+            return ret
         elif iutil.getPPCMachine() == "iSeries":
             for req in self.requests:
                 if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
@@ -1043,8 +1047,9 @@ class Partitions:
 
         if iutil.isEfi():
             bootreq = self.getRequestByMountPoint("/boot/efi")
-            if not bootreq or bootreq.getActualSize(self, diskset) < 50:
-                errors.append(_("You must create a /boot/efi partition of "
+            if (not bootreq) or bootreq.getActualSize(self, diskset) < 50 or \
+                    bootreq.fstype != fsset.fileSystemTypeGet("efi"):
+                errors.append(_("You must create an EFI System Partition of "
                                 "type FAT and a size of 50 megabytes."))
         elif rhpl.getArch() in ("i386", "x86_64"):
             if iutil.isMactel():
