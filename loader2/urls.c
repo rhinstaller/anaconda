@@ -161,7 +161,7 @@ char *convertUIToURL(struct iurlinfo *ui) {
 /* extraHeaders only applicable for http and used for pulling ks from http */
 /* see ftp.c:httpGetFileDesc() for details */
 /* set to NULL if not needed */
-int urlinstStartTransfer(struct iurlinfo * ui, char *hostAndPath,
+int urlinstStartTransfer(struct iurlinfo * ui, char *path,
                          char *extraHeaders) {
     int fd, port;
     int family = -1;
@@ -170,9 +170,9 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *hostAndPath,
     char *hostname, *portstr, *filestr;
     struct hostent *host;
 
-    logMessage(INFO, "transferring %s://%s to a fd",
+    logMessage(INFO, "transferring %s://%s%s to a fd",
                ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
-               hostAndPath);
+               ui->address, path);
 
     splitHostname(ui->address, &hostname, &portstr);
     if (portstr == NULL)
@@ -192,11 +192,6 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *hostAndPath,
         }
         else
             family = host->h_addrtype;
-    }
-
-    if ((filestr = strchr(hostAndPath, '/')) == NULL) {
-        logMessage(ERROR, "Passed an invalid path: %s", hostAndPath);
-        return -1;
     }
 
     if (ui->protocol == URL_METHOD_FTP) {
@@ -224,7 +219,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *hostAndPath,
     }
 
     if (!FL_CMDLINE(flags))
-        winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), hostAndPath);
+        winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), path);
 
     if (hostname) free(hostname);
     return fd;
