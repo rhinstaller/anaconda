@@ -39,7 +39,13 @@ class UpgradeMigrateFSWindow (InstallWindow):
 
         for (cb, entry) in self.cbs:
             if cb.get_active():
-                entry.setFileSystemType(fileSystemTypeGet("ext3"))
+                try:
+                    newfs = entry.fsystem.migratetofs[0]
+                    newfs = fileSystemTypeGet(newfs)
+                except Exception, e:
+                    log.info("failed to get new filesystem type, defaulting to ext3: %s" %(e,))
+                    newfs = fileSystemTypeGet("ext3")
+                entry.setFileSystemType(newfs)
                 entry.setFormat(0)
                 entry.setMigrate(1)
                 
@@ -53,15 +59,15 @@ class UpgradeMigrateFSWindow (InstallWindow):
         box = gtk.VBox (False, 5)
         box.set_border_width (5)
 
-	text = N_("This release of %s supports "
-                 "the ext3 journaling file system, which has several "
-                 "benefits over the ext2 file system traditionally shipped "
-                 "in %s.  This installation program can migrate the ext2 "
-                 "formatted partitions to ext3 without data loss.\n\n"
-                 "Which of these partitions would you like to migrate?" %
+	text = (_("This release of %s supports "
+                 "the an updated file system, which has several "
+                 "benefits over the file system traditionally shipped "
+                 "in %s.  This installation program can migrate "
+                 "formatted partitions without data loss.\n\n"
+                 "Which of these partitions would you like to migrate?") %
                   (productName, productName))
         
-	label = gtk.Label (_(text))
+	label = gtk.Label (text)
         label.set_alignment (0.5, 0.0)
         label.set_size_request(400, -1)
         label.set_line_wrap (True)

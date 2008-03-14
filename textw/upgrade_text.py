@@ -36,13 +36,13 @@ class UpgradeMigrateFSWindow:
 
 	g = GridFormHelp(screen, _("Migrate File Systems"), "upmigfs", 1, 4)
 
-	text = _("This release of %s supports "
-                 "the ext3 journaling file system, which has several "
-                 "benefits over the ext2 file system traditionally shipped "
-                 "in %s.  This installation program can migrate the ext2 "
-                 "formatted partitions to ext3 without data loss.\n\n"
-                 "Which of these partitions would you like to migrate?"
-                 % (productName, productName))
+	text = (_("This release of %s supports "
+                 "the an updated file system, which has several "
+                 "benefits over the file system traditionally shipped "
+                 "in %s.  This installation program can migrate "
+                 "formatted partitions without data loss.\n\n"
+                 "Which of these partitions would you like to migrate?") %
+                  (productName, productName))
 
 	tb = TextboxReflowed(60, text)
 	g.add(tb, 0, 0, anchorLeft = 1, padding = (0, 0, 0, 1))
@@ -80,8 +80,16 @@ class UpgradeMigrateFSWindow:
                 entry.fsystem = entry.origfsystem
 
             for entry in partlist.getSelection():
+                try:
+                    newfs = entry.fsystem.migratetofs[0]
+                    newfs = fileSystemTypeGet(newfs)
+                except Exception, e:
+                    log.info("failed to get new filesystem type, defaulting to ext3: %s" %(e,))
+                    newfs = fileSystemTypeGet("ext3")
+                entry.setFileSystemType(newfs)
+                entry.setFormat(0)
                 entry.setMigrate(1)
-                entry.fsystem = fileSystemTypeGet("ext3")
+
 
             screen.popWindow()
             return INSTALL_OK
