@@ -155,16 +155,16 @@ class AnacondaCallback:
 
             repo = self.repos.getRepo(po.repoid)
 
-            s = _("<b>Installing %s</b> (%s)\n") %(str(po), size_string(hdr['size']))
+            pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.name)
+            s = _("<b>Installing %s</b> (%s)\n") %(pkgStr, size_string(hdr['size']))
             s += (hdr['summary'] or "")
             self.progress.set_label(s)
 
-            nvra = str("%s" %(po,))
-            self.instLog.write(self.modeText % (nvra,))
+            self.instLog.write(self.modeText % pkgStr)
 
             self.instLog.flush()
             self.openfile = None
-            
+
             if os.path.exists("%s/var/cache/yum/anaconda-upgrade/packages/%s" 
                               %(self.rootPath,os.path.basename(po.localPkg()))):
                 try:
@@ -913,7 +913,7 @@ class YumBackend(AnacondaBackend):
                         waitwin.next_task()
                     waitwin.pop()
                 except Exception, e:
-                    buttons = [_("_Exit installer"), "gtk-edit", _("_Retry")]
+                    buttons = [_("_Exit installer"), _("Edit"), _("_Retry")]
                 else:
                     break # success
 
@@ -1614,11 +1614,29 @@ class YumBackend(AnacondaBackend):
             return 0
 
     def deselectPackage(self, pkg, *args):
-        try:
-            mbrs = self.ayum.remove(pattern=pkg)
-            return len(mbrs)
-        except yum.Errors.RemoveError:
-            log.debug("no package matching %s" % pkg)
+        sp = pkg.rsplit(".", 2)
+        txmbrs = []
+        if len(sp) == 2:
+            txmbrs = self.ayum.tsInfo.matchNaevr(name=sp[0], arch=sp[1])
+
+        if len(txmbrs) == 0:
+            exact, match, unmatch = yum.packages.parsePackages(self.ayum.pkgSack.returnPackages(), [pkg], casematch=1)
+            for p in exact + match:
+                txmbrs.append(p)
+
+        if len(txmbrs) > 0:
+            for x in txmbrs:
+                self.ayum.tsInfo.remove(x.pkgtup)
+                # we also need to remove from the conditionals
+                # dict so that things don't get pulled back in as a result
+                # of them.  yes, this is ugly.  conditionals should die.
+                for req, pkgs in self.ayum.tsInfo.conditionals.iteritems():
+                    if x in pkgs:
+                        pkgs.remove(x)
+                        self.ayum.tsInfo.conditionals[req] = pkgs
+            return len(txmbrs)
+        else:
+            log.debug("no such package %s to remove" %(pkg,))
             return 0
 
     def upgradeFindPackages(self):

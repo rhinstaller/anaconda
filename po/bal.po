@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda.balochi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-02 12:12-0500\n"
-"PO-Revision-Date: 2008-03-07 20:30+0330\n"
+"PO-Revision-Date: 2008-03-13 22:52+0330\n"
 "Last-Translator: Mostafa Daneshvar <mostafa@daneshvar.org.uk>\n"
 "Language-Team: Balochi <fedora-trans-bal@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -97,7 +97,7 @@ msgstr "هچ دستگاه ویدیوی پیداگ نبوت؛ بی سر مشغو�
 
 #: ../anaconda:468 ../anaconda:977
 msgid "Unable to instantiate a X hardware state object."
-msgstr "تتونیت تا یک x هاردور حالت شی نصب کنت"
+msgstr "نتونیت تا یک x هاردور حالت شی نصب کنت"
 
 #: ../anaconda:523
 msgid "Starting graphical installation..."
@@ -105,15 +105,15 @@ msgstr "گرافیکی نصب شروع بیگنت..."
 
 #: ../anaconda:851
 msgid "Install class forcing text mode installation"
-msgstr "حالت متنی وصب بوگا کلاس فورسینگ وصل بکن"
+msgstr "حالت متنی وصل بوگا کلاس فورسینگ وصل بکن"
 
 #: ../anaconda:891
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "وصل بوگ گرافیگی موجود نهنت... متنی حالت شروع بیگنت/"
+msgstr "وصل بوگ گرافیگی موجود نهنت... متنی حالت شروع بیگنت."
 
 #: ../anaconda:899
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr "متغیران پیش دارگی تنظیم نهتن. حالت متنی شروع بیگنت"
+msgstr "متغیران پیش دارگی تنظیم نهتن. حالت متنی شروع بیگنت!"
 
 #: ../autopart.py:893
 #, python-format
@@ -122,7 +122,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"خطا په اندازه گرگ پارتیشن %s.\n"
+" resizing partition %s.\n"
 "\n"
 "%s"
 
@@ -170,23 +170,23 @@ msgstr "پارتیشن بووت %s یک پارتیشن VFAT kikj. چه ای پا
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
-msgstr ""
+msgstr "پارتیشن بوت باسیتی ته 4 گیگ اول دیسک بیت. OpenFirmware نه تونیت ای نصبآ بوت کنت."
 
 #: ../autopart.py:1076
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
+msgstr "پارتیشن بوت %s ممکننت فشاران په معماری شما مناسب مه بیت."
 
 #: ../autopart.py:1102
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
+msgstr "هور گنگ ای پارتیشن کافی فضا په پیشگین جلدان منطقی  تعریف بوتگین نه هلیت %s."
 
 #: ../autopart.py:1299
 msgid "Requested Partition Does Not Exist"
-msgstr ""
+msgstr "لوٹگتین پارتیشن موجود نهنت"
 
 #: ../autopart.py:1300
 #, python-format
@@ -195,10 +195,13 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"نه تونیت پارتیشنا %s په %s کار بریت.\n"
+"\n"
+"هوبن آ بجنیت تا چه نصب کنوک در بیت."
 
 #: ../autopart.py:1325
 msgid "Requested Raid Device Does Not Exist"
-msgstr ""
+msgstr "لوٹگتین ابراز اورش موجود نهنت."
 
 #: ../autopart.py:1326
 #, python-format
@@ -207,10 +210,13 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"نه تونیت ابزار اورش %s په %s کار بریت.\n"
+"\n"
+"هوبن آ بجنیت تا چه نصب کنوک در بیت"
 
 #: ../autopart.py:1355
 msgid "Requested Volume Group Does Not Exist"
-msgstr ""
+msgstr "لوٹگتین گروه جلد موجود نهنت."
 
 #: ../autopart.py:1356
 #, python-format
@@ -219,10 +225,13 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"نه تونیت گروه جلد %s په %s کار بریت.\n"
+"\n"
+"هوبن آ بجنیت تا چه نصب کنوک در بیت."
 
 #: ../autopart.py:1393
 msgid "Requested Logical Volume Does Not Exist"
-msgstr ""
+msgstr "لوٹگتین جلد منطقی موجود نهنت."
 
 #: ../autopart.py:1394
 #, python-format
@@ -231,10 +240,13 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"نه تونیت جلد منطقی آ %s په %s کار بریت.\n"
+"\n"
+"هوبن آ بجنیت تا چه نصب کنوک در بیت."
 
 #: ../autopart.py:1529 ../autopart.py:1576
 msgid "Automatic Partitioning Errors"
-msgstr ""
+msgstr "خطایاں اتوماتیکین پارتیشن گنگ"
 
 #: ../autopart.py:1530
 #, python-format
@@ -245,10 +257,12 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"جهلیگین خطا گون شمی پارتیشن گنگ پیش آتک:\n\n%s\n\n"
+"هوبنت آ بجنیت تا چه نصب کنوک در بیت."
 
 #: ../autopart.py:1540
 msgid "Warnings During Automatic Partitioning"
-msgstr ""
+msgstr "هوژاریانی وهد پارتیشن کنگ اتوماتیکی"
 
 #: ../autopart.py:1541
 #, python-format
@@ -256,7 +270,7 @@ msgid ""
 "Following warnings occurred during automatic partitioning:\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "جهلیگین هوژاریانی وهد اتوماتیکی پارتیشن کنگ پیش آتکنت: \n \n%s"
 
 #: ../autopart.py:1555 ../autopart.py:1572
 msgid ""

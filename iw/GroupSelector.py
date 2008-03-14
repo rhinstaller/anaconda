@@ -71,7 +71,8 @@ def sanitizeString(s, translate = True):
 # given a package object, spit out a string reasonable for the list widgets
 def listEntryString(po):
     desc = po.returnSimple('summary') or ''
-    desc = "<b>%s</b> - %s" %(po, sanitizeString(desc))
+    pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.name)
+    desc = "<b>%s</b> - %s" %(pkgStr, sanitizeString(desc))
     return desc
 
 GLADE_FILE = "GroupSelector.glade"

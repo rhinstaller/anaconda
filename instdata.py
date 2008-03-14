@@ -100,8 +100,8 @@ class InstallData:
            stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
             target = os.readlink("/dev/live")
             self.partitions.protected = [target]
-        elif self.anaconda._loaderMethodstr.startswith("hd://"):
-            method = self.anaconda._loaderMethodstr[5:]
+        elif self.anaconda._loaderMethodstr.startswith("hd:"):
+            method = self.anaconda._loaderMethodstr[3:]
             device = method.split(":", 3)[0]
             self.partitions.protected = [device]
 
@@ -198,8 +198,6 @@ class InstallData:
                                    self.rootPassword["isCrypted"],
                                    self.rootPassword["lock"],
                                    algo=self.getPassAlgo())
-
-        self.users.reset()
 
         if self.anaconda.isKickstart:
             for svc in self.ksdata.services.disabled:
