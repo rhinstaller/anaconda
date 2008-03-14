@@ -28,11 +28,11 @@ elif os.environ.has_key("PRODBUILDPATH") and \
     path = os.environ["PRODBUILDPATH"]
 else:
     path = None
-    
+
 productStamp = ""
 productName = "anaconda"
 productVersion = "bluesky"
-productPath = "anaconda"
+productPath = "Packages"
 productArch = None
 bugUrl = "your distribution provided bug reporting tool."
 
@@ -46,8 +46,6 @@ if path is not None:
         productName = lines[1][:-1]
         productVersion = lines[2][:-1]
     if len(lines) >= 4:
-	productPath = lines[3][:-1]
-    if len(lines) >= 5:
         bugUrl = lines[4][:-1]
 
 if os.environ.has_key("ANACONDA_PRODUCTNAME"):
