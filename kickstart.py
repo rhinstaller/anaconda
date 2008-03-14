@@ -417,6 +417,10 @@ class Partition(commands.partition.F9_Partition):
         pd = self.partitions[-1]
         uniqueID = None
 
+        fsopts = ""
+        if pd.fsopts:
+            fsopts = pd.fsopts
+
         if pd.onbiosdisk != "":
             pd.disk = isys.doGetBiosDisk(pd.onbiosdisk)
 
@@ -465,9 +469,9 @@ class Partition(commands.partition.F9_Partition):
             self.handler.ksPVMapping[pd.mountpoint] = uniqueID
             self.handler.ksID += 1
             pd.mountpoint = ""
-        # XXX should we let people not do this for some reason?
         elif pd.mountpoint == "/boot/efi":
             filesystem = fileSystemTypeGet("efi")
+            fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
         else:
             if pd.fstype != "":
                 filesystem = fileSystemTypeGet(pd.fstype)
@@ -512,8 +516,8 @@ class Partition(commands.partition.F9_Partition):
                 if areq.device is not None and areq.device == pd.onPart:
                     raise KickstartValueError, formatErrorMsg(self.lineno, "Partition already used")
 
-        if pd.fsopts != "":
-            request.fsopts = pd.fsopts
+        if fsopts != "":
+            request.fsopts = fsopts
 
         if pd.encrypted:
             request.encryption = cryptodev.LUKSDevice(passphrase=pd.passphrase, format=pd.format)
