@@ -49,7 +49,6 @@ BOOTEFI_NOT_VFAT = -2
 BOOTALPHA_NOT_BSD = -3
 BOOTALPHA_NO_RESERVED_SPACE = -4
 BOOTIPSERIES_TOO_HIGH = -5
-BOOT_NOT_EXT2 = -6
 
 DEBUG_LVM_GROW = 0
 
@@ -75,10 +74,7 @@ def bootRequestCheck(req, diskset):
         return PARTITION_SUCCESS
 
     if iutil.isEfi():
-        if req.mountpoint == "/boot":
-            if not part.fs_type.name.startswith("ext"):
-                return BOOT_NOT_EXT2
-        elif not not part.fs_type.name in ("FAT", "fat16", "fat32"):
+        if not part.fs_type.name in ("FAT", "fat16", "fat32"):
             return BOOTEFI_NOT_VFAT
     elif rhpl.getArch() == "alpha":
         return bootAlphaCheckRequirements(part)
@@ -324,8 +320,6 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             if request.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
                 numDrives = -1
             if request.fstype == fsset.fileSystemTypeGet("Apple Bootstrap"):
-                numDrives = -1
-            if request.fstype == fsset.fileSystemTypeGet("efi"):
                 numDrives = -1
         else:
             drives = getDriveList(request, diskset)
@@ -1063,8 +1057,6 @@ def doPartitioning(diskset, requests, doRefresh = 1):
             raise PartitioningError, _("Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition.") %(req.mountpoint,)
         elif ret == BOOTIPSERIES_TOO_HIGH:
             raise PartitioningError, _("The boot partition must entirely be in the first 4GB of the disk.  OpenFirmware won't be able to boot this installation.")
-        elif req == BOOT_NOT_EXT2:
-            raise PartitioningError, _("Boot partition %s is not a Linux filesystem, such as ext3.  The system won't be able to boot from this partition.") %(req.mountpoint,)
         elif ret != PARTITION_SUCCESS:
             # more specific message?
             raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.") %(req.mountpoint,)
@@ -1167,19 +1159,21 @@ def doClearPartAction(anaconda, partitions, diskset):
             # bootable flag set, do not delete it and make it our
             # /boot/efi as it could contain system utils.
             # doesn't apply on kickstart installs or if no boot flag
-            if iutil.isEfi() and linuxOnly == 1 and (not anaconda.isKickstart):
-                if partedUtils.isEfiSystemPartition(part):
-                    req = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
-                    req.mountpoint = "/boot/efi"
-                    req.format = 0
+            if (iutil.isEfi() and linuxOnly == 1 and (not anaconda.isKickstart)
+                    and part.is_flag_available(parted.PARTITION_BOOT)):
+                if part.fs_type and part.fs_type.name in ("FAT", "fat16", "fat32"):
+                    if part.get_flag(parted.PARTITION_BOOT):
+                        req = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
+                        req.mountpoint = "/boot/efi"
+                        req.format = 0
 
-                    request = None
-                    for req in partitions.autoPartitionRequests:
-                        if req.mountpoint == "/boot/efi":
-                            request = req
-                            break
-                    if request:
-                        partitions.autoPartitionRequests.remove(request)
+                        request = None
+                        for req in partitions.autoPartitionRequests:
+                            if req.mountpoint == "/boot/efi":
+                                request = req
+                                break
+                        if request:
+                            partitions.autoPartitionRequests.remove(request)
             # hey, what do you know, pseries is weird too.  *grumble*
             elif (((iutil.getPPCMachine() == "pSeries") or
                    (iutil.getPPCMachine() == "iSeries"))
@@ -1672,17 +1666,10 @@ def autoCreateLVMPartitionRequests(autoreq):
 
     return requests
 
-def getAutopartitionBoot(partitions):
+def getAutopartitionBoot():
     """Return the proper shorthand for the boot dir (arch dependent)."""
     if iutil.isEfi():
-        ret = [ ["/boot/efi", "efi", 50, 200, 1, 1, 0] ]
-        for req in partitions.requests:
-            if req.fstype == fsset.fileSystemTypeGet("efi") \
-                    and not req.mountpoint:
-                req.mountpoint = "/boot/efi"
-                ret = []
-        ret.append(("/boot", None, 200, None, 0, 1, 0))
-        return ret
+        return [ ("/boot/efi", "vfat", 200, None, 0, 1, 0) ]
     elif (iutil.getPPCMachine() == "pSeries"):
         return [ (None, "PPC PReP Boot", 4, None, 0, 1, 0),
                  ("/boot", None, 200, None, 0, 1, 0) ]
