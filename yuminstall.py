@@ -458,6 +458,10 @@ class AnacondaYum(YumSorter):
             methodstr = "file://%s" % self.tree
             if not os.path.ismount(self.tree):
                 isys.mount(self.anaconda.methodstr[4:], self.tree, "nfs")
+        elif self.anaconda.methodstr.startswith("nfsiso:"):
+            methodstr = "file://%s" % self.tree
+            if not os.path.ismount(self.tree):
+                isys.mount(self.anaconda.methodstr[7:], self.tree, "nfs")
         elif self.anaconda.methodstr.startswith("cdrom:"):
             methodstr = "file://%s" % self.tree
         elif self.anaconda.methodstr.startswith("hd:"):
