@@ -42,8 +42,8 @@ if [ "$OK" == "no" ]; then
 fi
 
 n=1
-while [ -n "$(eval echo '$'$n)" ]; do
-	arg="$(eval echo '$'$n)"
+while [ -n "$(eval echo '${'$n'}')" ]; do
+	arg="$(eval echo '${'$n'}')"
 	[ ${arg} == "--help" -o ${arg} == "-h" ] && usage 0
 
 	if [ ! -r ${arg} ]; then
@@ -55,7 +55,7 @@ done
 
 TMPDIR=$(mktemp -d)
 if [ ! -d ${TMPDIR} ]; then
-	echo "upd-updates: cannot make tmpdir ${arg}" 1>&2
+	echo "upd-updates: cannot make tmpdir ${TMPDIR}" 1>&2
 	exit 4
 fi
 
