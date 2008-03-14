@@ -155,16 +155,16 @@ class AnacondaCallback:
 
             repo = self.repos.getRepo(po.repoid)
 
-            s = _("<b>Installing %s</b> (%s)\n") %(str(po), size_string(hdr['size']))
+            pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.name)
+            s = _("<b>Installing %s</b> (%s)\n") %(pkgStr, size_string(hdr['size']))
             s += (hdr['summary'] or "")
             self.progress.set_label(s)
 
-            nvra = str("%s" %(po,))
-            self.instLog.write(self.modeText % (nvra,))
+            self.instLog.write(self.modeText % pkgStr)
 
             self.instLog.flush()
             self.openfile = None
-            
+
             if os.path.exists("%s/var/cache/yum/anaconda-upgrade/packages/%s" 
                               %(self.rootPath,os.path.basename(po.localPkg()))):
                 try:
