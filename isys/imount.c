@@ -36,7 +36,7 @@ static int mkdirIfNone(char * directory);
 
 int doPwMount(char *dev, char *where, char *fs, char *options) {
     int rc, child, status;
-    char *opts = NULL;
+    char *opts = NULL, *device;
 
     if (mkdirChain(where)) {
         return IMOUNT_ERR_ERRNO;
@@ -51,6 +51,11 @@ int doPwMount(char *dev, char *where, char *fs, char *options) {
     else if (options) {
        opts = strdup(options);
     }
+
+    if (*dev != '/')
+       rc = asprintf(&device, "/dev/%s", dev);
+    else
+       device = strdup(dev);
 
     if (!(child = fork())) {
         int fd;
@@ -72,11 +77,11 @@ int doPwMount(char *dev, char *where, char *fs, char *options) {
 
         if (opts) {
             rc = execl("/bin/mount",
-                       "/bin/mount", "-n", "-t", fs, "-o", opts, dev, where, NULL);
+                       "/bin/mount", "-n", "-t", fs, "-o", opts, device, where, NULL);
             exit(1);
         }
         else {
-            rc = execl("/bin/mount", "/bin/mount", "-n", "-t", fs, dev, where, NULL);
+            rc = execl("/bin/mount", "/bin/mount", "-n", "-t", fs, device, where, NULL);
             exit(1);
         }
     }
@@ -84,6 +89,7 @@ int doPwMount(char *dev, char *where, char *fs, char *options) {
     waitpid(child, &status, 0);
 
     free(opts);
+    free(device);
     if (!WIFEXITED(status) || (WIFEXITED(status) && WEXITSTATUS(status)))
        return IMOUNT_ERR_OTHER;
 
