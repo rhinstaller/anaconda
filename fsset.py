@@ -52,16 +52,14 @@ class SuspendError(Exception):
 class OldSwapError(Exception):
     pass
 
-defaultMountPoints = ['/', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
+defaultMountPoints = ['/', '/boot', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
 
 if rhpl.getArch() == "s390":
     # Many s390 have 2G DASDs, we recomment putting /usr/share on its own DASD
-    defaultMountPoints.insert(4, '/usr/share')
+    defaultMountPoints.insert(5, '/usr/share')
 
 if iutil.isEfi():
-    defaultMountPoints.insert(1, '/boot/efi')
-else:
-    defaultMountPoints.insert(1, '/boot')
+    defaultMountPoints.insert(2, '/boot/efi')
 
 fileSystemTypes = {}
 
@@ -212,9 +210,9 @@ class FileSystemType:
             ret = isys.resetFileContext(mountpoint, instroot)
             log.info("set SELinux context for mountpoint %s to %s" %(mountpoint, ret))
         log.debug("mounting %s on %s/%s as %s" %(device, instroot, 
-                                                 mountpoint, self.getName()))
+                                                 mountpoint, self.getMountName()))
         isys.mount(device, "%s/%s" %(instroot, mountpoint),
-                   fstype = self.getName(), 
+                   fstype = self.getMountName(), 
                    readOnly = readOnly, bindMount = bindMount)
 
         if flags.selinux:
@@ -236,6 +234,9 @@ class FileSystemType:
             if self.name.find(" ") != -1:
                 return "\"%s\"" %(self.name,)
         return self.name
+
+    def getMountName(self, quoted = 0):
+        return self.getName(quoted)
 
     def getNeededPackages(self):
         return self.packages
@@ -296,7 +297,7 @@ class FileSystemType:
         if not FileSystemType.kernelFilesystems:
             self.readProcFilesystems()
 
-        return FileSystemType.kernelFilesystems.has_key(self.getName()) or self.getName() == "auto"
+        return FileSystemType.kernelFilesystems.has_key(self.getMountName()) or self.getName() == "auto"
 
     def isSupported(self):
         # check to ensure we have the binaries they need
@@ -969,6 +970,27 @@ class FATFileSystem(FileSystemType):
 
 fileSystemTypeRegister(FATFileSystem())
 
+class EFIFileSystem(FATFileSystem):
+    def __init__(self):
+        FATFileSystem.__init__(self)
+        self.name = "efi"
+        self.partedFileSystemType = parted.file_system_type_get("fat32")
+        self.partedPartitionFlags = [ parted.PARTITION_BOOT ]
+        self.maxSizeMB = 256
+        self.defaultOptions = "uid=0,gid=0,umask=0077,shortname=win95"
+
+    def getMountName(self, quoted = 0):
+        return "vfat"
+
+    def formatDevice(self, entry, progress, chroot='/'):
+        FATFileSystem.formatDevice(self, entry, progress, chroot)
+
+        # XXX need to set the name in GPT
+        # entry.device.something.part.set_name("EFI System Partition")
+        devicePath = entry.device.setupDevice(chroot)
+
+fileSystemTypeRegister(EFIFileSystem())
+
 class NTFSFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
@@ -1363,7 +1385,7 @@ class FileSystemSet:
                     device = devify(entry.device.getDevice())
                 fstab = fstab + entry.device.getComment()
                 fstab = fstab + format % (device, entry.mountpoint,
-                                          entry.fsystem.getName(),
+                                          entry.fsystem.getMountName(),
                                           entry.getOptions(), entry.fsck,
                                           entry.order)
         return fstab
@@ -1495,6 +1517,10 @@ MAILADDR root
 
         if bootDev is None:
             log.warning("no boot device set")
+            return ret
+
+        if iutil.isEfi():
+            ret['boot'] = (bootDev.device, N_("EFI System Partition"))
             return ret
 
         if bootDev.getName() == "RAIDDevice":
