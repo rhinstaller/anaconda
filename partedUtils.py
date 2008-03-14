@@ -183,6 +183,8 @@ def get_partition_file_system_type(part):
         ptype = fsset.fileSystemTypeGet("Apple Bootstrap")
     elif part.fs_type.name == "linux-swap":
         ptype = fsset.fileSystemTypeGet("swap")
+    elif isEfiSystemPartition(part):
+        ptype = fsset.fileSystemTypeGet("efi")
     elif (part.fs_type.name == "FAT" or part.fs_type.name == "fat16"
           or part.fs_type.name == "fat32"):
         ptype = fsset.fileSystemTypeGet("vfat")
@@ -205,7 +207,10 @@ def set_partition_file_system_type(part, fstype):
                 raise PartitioningError, ("requested FileSystemType needs "
                                           "a flag that is not available.")
             part.set_flag(flag, 1)
-        part.set_system(fstype.getPartedFileSystemType())
+        if isEfiSystemPartition(part):
+            part.set_system(parted.file_system_type_get("fat32"))
+        else:
+            part.set_system(fstype.getPartedFileSystemType())
     except:
         print "Failed to set partition type to ",fstype.getName()
         pass
@@ -302,6 +307,13 @@ def getDefaultDiskType():
 def hasGptLabel(diskset, device):
     disk = diskset.disks[device]
     return disk.type.name == "gpt"
+
+def isEfiSystemPartition(part):
+    return (part.disk.type.name == "gpt" and
+            part.get_name() == "EFI System Partition" and
+            part.get_flag(parted.PARTITION_BOOT) == 1 and
+            (part.fs_type.name == "FAT" or part.fs_type.name == "fat16"
+             or part.fs_type.name == "fat32"))
 
 archLabels = {'i386': ['msdos', 'gpt'],
               's390': ['dasd', 'msdos'],
