@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.51
+Version: 11.4.0.52
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,15 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar 13 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.52-1
+- Don't unmount NFS source so NFSISO will work. (clumens)
+- Fix the format of the method=hd: parameter. (clumens)
+- Fix creating new users in kickstart. (clumens)
+- "gtk-edit" isn't valid in text mode. (clumens)
+- Ignore LUKS headers on partitions containing RAID signatures.
+  (#437051) (dlehman)
+- The xconfig command with no X running doesn't make sense. (clumens)
+
 * Wed Mar 12 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.51-1
 - yum.remove removes installed packages, not to be installed 
   packages (#436226) (katzj)
