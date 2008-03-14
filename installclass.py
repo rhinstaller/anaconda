@@ -431,7 +431,7 @@ class BaseInstallClass(object):
                                doClear = 1, useLVM = True):
         autorequests = [ ("/", None, 1024, None, 1, 1, 1) ]
 
-        bootreq = getAutopartitionBoot()
+        bootreq = getAutopartitionBoot(partitions)
         if bootreq:
             autorequests.extend(bootreq)
 
