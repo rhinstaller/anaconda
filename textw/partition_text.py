@@ -1143,7 +1143,7 @@ class PartitionWindow:
 	    self.drivelist = None
 	else:
 	    subgrid = Grid(2, 1)
-	    (fstype, fsgrid) = self.makeFsList(lvrequest, ignorefs = ["software RAID", "PPC PReP Boot", "Apple Bootstrap"])
+	    (fstype, fsgrid) = self.makeFsList(lvrequest, ignorefs = ["software RAID", "efi", "PPC PReP Boot", "Apple Bootstrap"])
 	    subgrid.setField(fsgrid, 0, 0, anchorLeft = 1, anchorTop=1)
 
             vgs = self.partitions.getLVMVGRequests()

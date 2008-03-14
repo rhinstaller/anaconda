@@ -336,7 +336,7 @@ class RaidEditor:
             self.fstypeCombo = createFSTypeMenu(origrequest.fstype,
                                                 fstypechangeCB,
                                                 self.mountCombo,
-                                                ignorefs = ["software RAID", "PPC PReP Boot", "Apple Bootstrap"])
+                                                ignorefs = ["software RAID", "efi", "PPC PReP Boot", "Apple Bootstrap"])
 	    lbl.set_mnemonic_widget(self.fstypeCombo)
             maintable.attach(self.fstypeCombo, 1, 2, row, row + 1)
             row += 1
