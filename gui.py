@@ -708,7 +708,7 @@ class PassphraseEntryWindow:
         passphrase = None
         isglobal = False
         if rc == gtk.RESPONSE_OK:
-            passphrase = self.passphraseEntry.get_text().strip()
+            passphrase = self.passphraseEntry.get_text()
             isglobal = self.globalcheckbutton.get_active()
 
         self.rc = (passphrase, isglobal)
@@ -1157,7 +1157,7 @@ class InstallInterface:
     def getLuksPassphrase(self, passphrase = ""):
         d = luksPassphraseWindow(passphrase)
         rc = d.run()
-        passphrase = d.getPassphrase().strip()
+        passphrase = d.getPassphrase()
         d.destroy()
         return passphrase
 

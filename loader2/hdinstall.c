@@ -151,7 +151,7 @@ static int loadHDImages(char * prefix, char * dir,
 /* given a partition device and directory, tries to mount hd install image */
 static char * setupIsoImages(char * device, char * dirName, char * location) {
     int rc;
-    char *url = NULL, *filespec, *updpath;
+    char *url = NULL, *dirspec, *updpath;
     char *path;
     char *typetry[] = {"ext3", "ext2", "vfat", NULL};
     char **type;
@@ -169,33 +169,32 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
             return NULL;
 
         if (FL_STAGE2(flags)) {
-            rc = asprintf(&filespec, "/mnt/isodir%.*s", (int) (strrchr(dirName, '/') - dirName), dirName);
-            path = strdup(filespec);
+            rc = asprintf(&dirspec, "/mnt/isodir%.*s", (int) (strrchr(dirName, '/') - dirName), dirName);
+            rc = asprintf(&path, "/mnt/isodir%s", dirName);
         } else {
             if (*dirName == '/')
-                rc = asprintf(&filespec, "/mnt/isodir%s", dirName);
+                rc = asprintf(&dirspec, "/mnt/isodir%s", dirName);
             else
-                rc = asprintf(&filespec, "/mnt/isodir/%s", dirName);
+                rc = asprintf(&dirspec, "/mnt/isodir/%s", dirName);
 
-            path = validIsoImages(filespec, 0);
+            path = validIsoImages(dirspec, 0);
         }
 
         if (path) {
             logMessage(INFO, "Path to valid iso is %s", path);
 
-            rc = asprintf(&updpath, "%s/updates.img", filespec);
+            rc = asprintf(&updpath, "%s/updates.img", dirspec);
             logMessage(INFO, "Looking for updates for HD in %s", updpath);
             copyUpdatesImg(updpath);
 
             free(updpath);
-            free(filespec);
+            free(dirspec);
 
             if (FL_STAGE2(flags)) {
-                free(path);
-
-                if (!copyFile(dirName, "/tmp/stage2.img")) {
+                if (!copyFile(path, "/tmp/stage2.img")) {
                     rc = mountStage2("/tmp/stage2.img", dirName);
                     umount("/mnt/isodir");
+                    free(path);
 
                     if (rc) {
                         umountLoopback("/mnt/runtime", "/dev/loop0");
@@ -209,6 +208,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
                     }
                 }
                 else {
+                    free(path);
                     umount("/mnt/isodir");
                     flags &= ~LOADER_FLAGS_STAGE2;
                     goto err;
@@ -236,7 +236,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
                 }
             }
         } else {
-            free(filespec);
+            free(dirspec);
 
             if (rc) {
                 umount("/mnt/isodir");

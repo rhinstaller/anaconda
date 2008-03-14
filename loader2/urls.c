@@ -167,7 +167,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
     int family = -1;
     struct in_addr addr;
     struct in6_addr addr6;
-    char *hostname, *portstr, *filestr;
+    char *hostname, *portstr;
     struct hostent *host;
 
     logMessage(INFO, "transferring %s://%s%s to a fd",
@@ -204,14 +204,14 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
             return -2;
         }
 
-        fd = ftpGetFileDesc(ui->ftpPort, addr6, family, filestr);
+        fd = ftpGetFileDesc(ui->ftpPort, addr6, family, path);
         if (fd < 0) {
             close(ui->ftpPort);
             if (hostname) free(hostname);
             return -1;
         }
     } else {
-        fd = httpGetFileDesc(hostname, port, filestr, extraHeaders);
+        fd = httpGetFileDesc(hostname, port, path, extraHeaders);
         if (fd < 0) {
             if (portstr) free(portstr);
             return -1;

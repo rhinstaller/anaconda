@@ -200,7 +200,7 @@ class Partitions:
         buttons = [_("Back"), _("Continue")]
         while True:
             (passphrase, isglobal) = intf.passphraseEntryWindow(device)
-            if not passphrase or not passphrase.strip():
+            if not passphrase:
                 rc = intf.messageWindow(_("Confirm"),
                                         _("Are you sure you want to skip "
                                           "entering a passphrase for device "
