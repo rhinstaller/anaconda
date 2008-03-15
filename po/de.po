@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: Anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-02 12:12-0500\n"
-"PO-Revision-Date: 2008-03-03 11:25+0100\n"
+"PO-Revision-Date: 2008-03-16 00:29+0100\n"
 "Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -212,31 +212,27 @@ msgid "Could not allocate partitions as primary partitions.\n"
 msgstr "Konnte Partitionen nicht als primäre Partitionen zuweisen.\n"
 
 #: ../autopart.py:998
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions.\n"
-msgstr ""
-"Konnte zylinderbasierte Partitionen nicht zuweisen.\n"
-"\n"
-"%s"
+msgstr "Konnte zylinderbasierte Partitionen nicht zuweisen.\n"
 
 #: ../autopart.py:1063
 #, python-format
 msgid "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to boot from this partition. Use a partition belonging to a BSD disk label or change this device disk label to BSD."
-msgstr "Die Boot-Partition %s gehört zu keiner BSD-Plattenkennung. SRM kann von dieser Partition nicht booten. Benutzen Sie eine Partition, die zu einer BSD-Plattenkennung gehört, oder ändern Sie die Plattenkennung dieses Geräts zu BSD."
+msgstr "Die Boot-Partition %s gehört zu keiner BSD-Plattenkennung. SRM kann von dieser Partition nicht booten. Benutzen Sie eine Partition, die zu einer BSD-Plattenkennung gehört oder ändern Sie die Plattenkennung dieses Geräts zu BSD."
 
 #: ../autopart.py:1065
 #, python-format
 msgid "Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot"
-msgstr "Die Boot-Partition %s gehört zu keiner Platte mit genügend freiem Speicher am Anfang, auf welchem der Bootloader Platz finden könnte. Stellen Sie sicher, dass mindestens 5MB freier Speicher am Anfang der Platte sind, die /boot enthält."
+msgstr "Die Boot-Partition %s gehört zu keiner Platte mit genügend freiem Speicher am Anfang, auf welchem der Bootloader Platz finden könnte. Stellen Sie sicher, dass mindestens 5 MB freier Speicher am Anfang der Platte sind, die /boot enthält."
 
 #: ../autopart.py:1067
 #, python-format
 msgid "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition."
-msgstr "Die Boot-Partition %s ist keine VFAT Partition.  EFI kann von dieser Partition nicht booten."
+msgstr "Die Boot-Partition %s ist keine VFAT Partition. EFI kann von dieser Partition nicht booten."
 
 #: ../autopart.py:1069
 msgid "The boot partition must entirely be in the first 4GB of the disk.  OpenFirmware won't be able to boot this installation."
-msgstr "Die Boot-Partition muss sich komplett innerhalb der ersten 4GB der Platte befinden.  OpenFirmware kann diese Installation nicht booten."
+msgstr "Die Boot-Partition muss sich komplett innerhalb der ersten 4 GB der Platte befinden. OpenFirmware kann diese Installation nicht booten."
 
 #: ../autopart.py:1076
 #, python-format
@@ -467,12 +463,14 @@ msgid "Warning"
 msgstr "Warnung"
 
 #: ../bootloader.py:45
-#, fuzzy
 msgid ""
 "Your filesystems have already been activated.  You cannot go back past this point.\n"
 "\n"
 "Would you like to continue with the installation?"
-msgstr "Die Partitionierungsoptionen, die Sie gewählt haben, wurden bereits aktiviert. Sie können nicht mehr zur Festplattenkonfiguration zurückkehren. Möchten Sie mit dem Installationsprozess fortfahren?"
+msgstr ""
+"Die Partitionierungsoptionen, die Sie gewählt haben, wurden bereits aktiviert. Sie können nicht mehr zur Festplattenkonfiguration zurückkehren.\n"
+"\n"
+"Möchten Sie mit dem Installationsprozess fortfahren?"
 
 #: ../bootloader.py:49
 #: ../exception.py:348
@@ -540,9 +538,8 @@ msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "Der Kommandozeilenmodus kann mit Parted-Ausnahmefehlern nicht umgehen!"
 
 #: ../constants.py:75
-#, fuzzy
 msgid "An unhandled exception has occurred.  This is most likely a bug.  Please save a copy of the detailed exception and file a bug report"
-msgstr "Ein aussergewöhnlicher Zustand ist eingetreten. Dies weist wahrscheinlich auf einen Fehler hin. Kopieren Sie den vollständigen Text der angezeigten Meldung und reichen Sie detaillierten Fehlerbericht für anaconda unter %s ein."
+msgstr "Ein aussergewöhnlicher Zustand ist eingetreten. Dies weist wahrscheinlich auf einen Fehler hin. Kopieren Sie den vollständigen Text der angezeigten Meldung und reichen Sie detaillierten Fehlerbericht ein."
 
 #: ../constants.py:81
 msgid " with the provider of this software."
@@ -560,7 +557,6 @@ msgid "Dump Written"
 msgstr "Ein Dump wurde geschrieben"
 
 #: ../exception.py:345
-#, fuzzy
 msgid "Your system's state has been successfully written to the disk. The installer will now exit."
 msgstr "Der Zustand Ihres Systems wurde erfolgreich auf die Diskette geschrieben. Die Installation wird nun beendet."
 
@@ -795,7 +791,7 @@ msgid "Format"
 msgstr "Formatieren"
 
 #: ../fsset.py:1736
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -803,14 +799,14 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Fehler beim Einhängen des Geräts %s als %s: %s\n"
+"Fehler beim Einhängen des swap-Geräts %s: %s\n"
 "\n"
 "Geräte in /etc/fstab sollten durch ihre Bezeichnung und nicht durch den Gerätenamen spezifiziert werden.\n"
 "\n"
 "Drücken Sie OK, um die Installation abzubrechen."
 
 #: ../fsset.py:1741
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -820,7 +816,7 @@ msgid ""
 msgstr ""
 "Fehler beim Aktivieren des Swap-Geräts %s: %s\n"
 "\n"
-"Die Datei /etc/fstab enthält eine ungültige Swap-Partition.\n"
+"Die Datei /etc/fstab auf Ihrer Aktualisierungspartition enthält eine ungültige Swap-Partition.\n"
 "\n"
 "Drücken Sie OK, um die Installation abzubrechen."
 
@@ -884,7 +880,7 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Während des Versuchs, %s zu erzeugen, trat ein Fehler auf: %s.  Dies ist ein schwerwiegender Fehler. Die Installation kann kann nicht fortgesetzt werden.\n"
+"Während des Versuchs, %s zu erzeugen, trat ein Fehler auf: %s. Dies ist ein schwerwiegender Fehler. Die Installation kann kann nicht fortgesetzt werden.\n"
 "\n"
 "Drücken Sie die <Enter>, um die Installation abzubrechen."
 
@@ -943,7 +939,7 @@ msgstr ""
 
 #: ../fsset.py:2652
 msgid "Duplicate Labels"
-msgstr "Doppelte Etiketten"
+msgstr "Doppelte Bezeichnugnen"
 
 #: ../fsset.py:2653
 #, python-format
@@ -952,7 +948,7 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"Mehrere Geräte auf Ihrem System haben das Etikett %s.  Etiketten müssen über Ihre Geräte hinweg eindeutig sein, um fehlerfrei zu arbeiten.\n"
+"Mehrere Geräte auf Ihrem System haben die Bezeichnung %s. Bezeichnungen müssen über Ihre Geräte hinweg eindeutig sein, um fehlerfrei zu arbeiten.\n"
 "\n"
 "Bitte beheben Sie das Problem und starten Sie den Installationsprozess neu."
 
@@ -963,7 +959,7 @@ msgstr "Ungültige Bezeichnung"
 #: ../fsset.py:2663
 #, python-format
 msgid "An invalid label was found on device %s.  Please fix this problem and restart the installation process."
-msgstr "Es wurde eine ungültige Bezeichnung für Gerät %s gefunden.  Bitte beheben Sie das Problem und starten Sie den Installationsprozess erneut."
+msgstr "Es wurde eine ungültige Bezeichnung für Gerät %s gefunden. Bitte beheben Sie das Problem und starten Sie den Installationsprozess erneut."
 
 #: ../fsset.py:2800
 msgid "Formatting"
@@ -1098,7 +1094,7 @@ msgstr "Das Passwortausdruck muss aus mindestens 8 Zeichen bestehen."
 #: ../text.py:275
 #, python-format
 msgid "Device %s is encrypted. In order to access the device's contents during installation you must enter the device's passphrase below."
-msgstr ""
+msgstr "Gerät %s ist verschlüsselt. Um während der Installation Zugriff auf den Geräte-Inhalt zu haben, müssen Sie das Geräte-Passwort unten eingeben"
 
 #: ../gui.py:855
 #: ../gui.py:856
@@ -1284,12 +1280,9 @@ msgid "Initializing iSCSI initiator"
 msgstr "Initialisierung des iSCSI Initiators"
 
 #: ../kickstart.py:86
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running the kickstart script at line %s.  You may examine the output in %s.  This is a fatal error and your install will be aborted.  Press the OK button to exit the installer."
-msgstr ""
-"Beim Ausführen des Skripts trat ein Fehler auf.  Sie können die Ausgabe in %s untersuchen.  Hierbei handelt es sich um einen schwerwiegenden Fehler, und die Installation wird abgebrochen.\n"
-"\n"
-"Klicken Sie auf OK, um ihr System neu zu starten."
+msgstr "Beim Ausführen des Kickstart-Skripts trat ein Fehler auf in der Zeile %s.  Sie können die Ausgabe in %s untersuchen. Hierbei handelt es sich um einen schwerwiegenden Fehler und die Installation wird abgebrochen. Klicken Sie auf OK, um ihr System neu zu starten."
 
 #: ../kickstart.py:101
 #: ../kickstart.py:103
@@ -1703,7 +1696,6 @@ msgid "You need to select at least one hard drive to install %s."
 msgstr "Sie müssen mindestens eine Festplatte auswählen, um %s zu installieren."
 
 #: ../partIntfHelpers.py:416
-#, fuzzy
 msgid "You have chosen to use a pre-existing partition for this installation without formatting it. We recommend that you format this partition to make sure files from a previous operating system installation do not cause problems with this installation of Linux. However, if this partition contains files that you need to keep, such as home directories, then continue without formatting this partition."
 msgstr "Für diese Installation haben Sie eine bereits existierende Partition gewählt, ohne sie jedoch zu formatieren. Wir empfehlen, dass Sie diese Partition formatieren, um sicherzustellen, dass Dateien eines vorherigen Betriebssystems keine Probleme bei der Installation von Linux bereiten. Sollte diese Partition Dateien enthalten, die Sie behalten möchten (z.B. Home-Verzeichnisse), dann fahren Sie fort, ohne diese Partition zu formatieren."
 
@@ -1818,7 +1810,7 @@ msgstr "Schreibe Partitionierung auf die Festplatte"
 
 #: ../partitions.py:114
 msgid "The partitioning options you have selected will now be written to disk.  Any data on deleted or reformatted partitions will be lost"
-msgstr ""
+msgstr "Die von Ihnen ausgewählten Partitionsoptionen werden nun auf die Disk geschrieben. Alle Daten auf gelöschten oder formatierten Partitionen sind verloren"
 
 #: ../partitions.py:119
 msgid "Go _back"
@@ -1876,6 +1868,9 @@ msgid ""
 "\n"
 "If you skip this step the device's contents will not be available during installation."
 msgstr ""
+"Sind Sie sicher, dass Sie die Eingabe eines Passwortsatzes für dieses Gerät %s überspringen wollen?\n"
+"\n"
+"Wenn Sie diesen Schritt überspringen, wird der Geräte-Inhalt während der Installation nicht zur Verfügung stehen."
 
 #: ../partitions.py:1019
 #, python-format
@@ -2199,9 +2194,8 @@ msgid "No help is available for this step of the install."
 msgstr "Für diesen Installationsschritt ist keine Hilfe verfügbar."
 
 #: ../text.py:445
-#, fuzzy
 msgid "Repository editing is not available in text mode."
-msgstr "Grafische Installation nicht verfügbar ...  Der Textmodus wird gestartet."
+msgstr "Das Ändern der Repository-Einträge ist im Textmodus nicht möglich."
 
 #: ../text.py:470
 #, python-format
@@ -2244,6 +2238,8 @@ msgid ""
 "You have choosen the upgrade for %s architecture, but the installed system is for %s architecture. \n"
 "\n"
 msgstr ""
+"Sie haben die Aktualisierung für die %s-Architektur gewählt, aber das installierte System ist für die %s-Architektur.\n"
+"\n"
 
 #: ../upgrade.py:81
 #, python-format
@@ -2382,6 +2378,13 @@ msgid ""
 "to the vncviewer is unsuccessful\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"Sie haben die Verbindung zu einem horchenden vncviewer gewählt\n"
+"Dies benötigt kein gesetztes Passwort. Wenn Sie ein Passwort für\n"
+"diesen Verbindung angeben, wird es verwendet, wenn die Verbindung\n"
+"zu vncviewer fehlschlägt\n"
+"\n"
 
 #: ../vnc.py:254
 msgid ""
@@ -2584,14 +2587,14 @@ msgid "_Eject"
 msgstr "_Auswerfen"
 
 #: ../yuminstall.py:539
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt package or corrupt media.  Please verify your installation source.\n"
 "\n"
 "If you exit, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Die Datei %s kann nicht geöffnet werden. Dies ist durch eine fehlende Datei oder eventuell durch ein fehlerhaftes Paket bedingt.  Bitte überprüfen Sie, ob Ihre Installationsverzeichnise alle benötigten Pakete enthalten.\n"
+"Die Datei %s kann nicht geöffnet werden. Dies ist durch eine fehlende Datei oder eventuell durch ein fehlerhaftes Paket bedingt. Bitte überprüfen Sie, ob Ihre Installationsverzeichnise alle benötigten Pakete enthalten.\n"
 "\n"
 "Wenn Sie die Installation abbrechen, befindet sich das System in einem inkonsistenten Zustand und erfordert höchstwahrscheinlich eine Neuinstallation.\n"
 "\n"
@@ -2605,9 +2608,9 @@ msgid "Retrying package download..."
 msgstr "Versuche erneutes Herunterladen der Pakete..."
 
 #: ../yuminstall.py:641
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
-msgstr "Ein Fehler trat bei der Ausführung Ihrer Transaktion auf, aufgrund folgender Ursache(n): %s"
+msgstr "Ein Fehler trat bei der Ausführung Ihrer Transaktion auf, aufgrund folgender Ursache(n): %s\n"
 
 #: ../yuminstall.py:674
 #: ../yuminstall.py:675
@@ -2651,21 +2654,23 @@ msgid "You need more space on the following file systems:\n"
 msgstr "Sie benötigen mehr Platz auf folgenden Dateisystemen:\n"
 
 #: ../yuminstall.py:710
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
-msgstr "Welches Medium beinhaltet die zu installierenden Pakete?"
+msgstr ""
+"Es existiert ein Datei-Konflikt während der Prüfung der zu installierenden Pakete.\n"
+"%s\n"
 
 #: ../yuminstall.py:713
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction for the following reason(s): %s.\n"
-msgstr "Ein Fehler trat bei der Ausführung Ihrer Transaktion auf, aufgrund folgender Ursache(n): %s"
+msgstr "Ein Fehler trat bei der Ausführung Ihrer Transaktion auf, aufgrund folgender Ursache(n): %s\n"
 
 #: ../yuminstall.py:717
 #, fuzzy
 msgid "Error Running Transaction"
-msgstr "Verbindungsfehler (0x%s)"
+msgstr "Fehler beim Durchführen der Transaktion"
 
 #: ../yuminstall.py:722
 msgid "Error running transaction"
@@ -2682,12 +2687,15 @@ msgstr "Installationsinformationen für %s werden abgerufen..."
 
 #: ../yuminstall.py:905
 #: ../yuminstall.py:1179
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.\n"
 "\n"
 "%s"
-msgstr "Paketmetadaten konnten nicht gelesen werden. Dies kann durch ein fehlendes repodata-Verzeichnis verursacht sein. Bitte stellen Sie sicher, dass Ihr Installationsbaum korrekt erzeugt wurde.  %s"
+msgstr ""
+"Paketmetadaten konnten nicht gelesen werden. Dies kann durch ein fehlendes repodata-Verzeichnis verursacht sein. Bitte stellen Sie sicher, dass Ihr Installationsbaum korrekt erzeugt wurde.\n"
+"\n"
+"%s"
 
 #: ../yuminstall.py:946
 msgid "Unable to read group information from repositories.  This is a problem with the generation of your install tree."
@@ -2807,12 +2815,15 @@ msgstr "Schwaches Passwort"
 
 #: ../iw/account_gui.py:108
 #: ../textw/userauth_text.py:79
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Weak password provided: %s\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr "Möchten Sie mit dem Aktualisieren fortfahren?"
+msgstr ""
+"Schwaches Passwort bereitgestellt: %s\n"
+"\n"
+"Möchten Sie mit diesem Passwort fortfahren?"
 
 #: ../iw/account_gui.py:120
 #: ../textw/userauth_text.py:72
@@ -2821,11 +2832,11 @@ msgstr "Das gewünschte Passwort enthält nicht-ASCII Zeichen, welche in Passwö
 
 #: ../iw/autopart_type.py:94
 msgid "No partitions are available to resize.  Only physical partitions with specific filesystems can be resized."
-msgstr ""
+msgstr "Kein Partitionen zur Grössenänderung verfügbar. Nur physikalische Partitionen mit angegebenen Dateisystemen können in der Grösse geändert werden."
 
 #: ../iw/autopart_type.py:177
 msgid "Do you really want to boot from disk which is not used for instalation?"
-msgstr ""
+msgstr "Wollen Sie wirklich von diesem Laufwerk starten, welches nicht für die Installation gebraucht wird?"
 
 #: ../iw/autopart_type.py:258
 msgid "Invalid Initiator Name"
@@ -5696,9 +5707,8 @@ msgid "You have multiple devices which could serve as sources for an update disk
 msgstr "Sie verfügen über mehrere Geräte, die als Quelle für eine Update-Diskette dienen könnten. Welches Gerät möchten Sie verwenden?"
 
 #: ../loader2/loader.c:411
-#, fuzzy
 msgid "There are multiple partitions on this device which could contain the update disk image.  Which would you like to use?"
-msgstr "Dieses Gerät enthält mehrere Partitionen, die das Abbild der Treiberdiskette enthalten könnten. Welche möchten Sie verwenden?"
+msgstr "Dieses Gerät enthält mehrere Partitionen, die das Abbild der Aktualisierungsdiskette enthalten könnten. Welche möchten Sie verwenden?"
 
 #: ../loader2/loader.c:429
 #, c-format
@@ -5818,7 +5828,7 @@ msgstr "Medien werden jetzt überprüft..."
 
 #: ../loader2/mediacheck.c:101
 msgid "Unable to read the disc checksum from the primary volume descriptor.  This probably means the disc was created without adding the checksum."
-msgstr "Die Prüfsumme des primären Volume-Deskriptors konnte nicht gelesen werden.  Das bedeutet wahrscheinlich, dass der Datenträger erstellt wurde, ohne die Prüfsumme hinzuzufügen."
+msgstr "Die Prüfsumme des primären Volume-Deskriptors konnte nicht gelesen werden. Das bedeutet wahrscheinlich, dass der Datenträger erstellt wurde, ohne die Prüfsumme hinzuzufügen."
 
 #: ../loader2/method.c:421
 #, c-format
@@ -5841,9 +5851,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Ungültiges Argument zum Treiber Kickstart-Befehl %s: %s"
 
 #: ../loader2/modules.c:349
-#, fuzzy
 msgid "A module name must be specified for the kickstart device command."
-msgstr "Sowohl Modul-Typ, als auch -Name müssen für den Befehl für das Kickstart-Gerät angegeben werden."
+msgstr "Ein Modulname müssen für den Befehl für das Kickstart-Gerät angegeben werden."
 
 #: ../loader2/net.c:57
 #, c-format
@@ -5851,6 +5860,8 @@ msgid ""
 "Please enter the URL containing %s on your\n"
 "server.\n"
 msgstr ""
+"BItte geben Sie die URL mit %s auf Ihrem\n"
+"Server ein.\n"
 
 #: ../loader2/net.c:97
 msgid "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for IPv6 networks"
@@ -5940,7 +5951,7 @@ msgstr "Nameserver:"
 
 #: ../loader2/net.c:1103
 msgid "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr "Geben Sie die IPv4- und/oder die IPv6-Adresse und Präfix ein (Adresse/Präfix).  Für IPv4 sind die 32-Bit lange Netzmaske oder der Präfix im CIDR-Stil zulässig. Die Felder für das Gateway und Name Server müssen gültige IPv4- oder IPv6-Adressen sein."
+msgstr "Geben Sie die IPv4- und/oder die IPv6-Adresse und Präfix ein (Adresse/Präfix). Für IPv4 sind die 32-Bit lange Netzmaske oder der Präfix im CIDR-Stil zulässig. Die Felder für das Gateway und Name Server müssen gültige IPv4- oder IPv6-Adressen sein."
 
 #: ../loader2/net.c:1119
 msgid "Manual TCP/IP Configuration"
@@ -6253,7 +6264,7 @@ msgstr "_Details"
 
 #: tmp/exnSave.glade.h:2
 msgid "Select a destination for the exception information."
-msgstr ""
+msgstr "Wählen Sie ein Ziel für die Ausnahmen-Informationen."
 
 #: tmp/exnSave.glade.h:3
 msgid "_Disk"
@@ -6307,7 +6318,7 @@ msgstr "Auf der Festplatte installieren"
 
 #: tmp/lukspassphrase.glade.h:1
 msgid "Choose a passphrase for this encrypted partition. You will be prompted for the passphrase during system boot."
-msgstr ""
+msgstr "Wählen Sie ein Passwortsatz für diese verschlüsselte Partition. Sie werden nach den Passwortsatz während des Systemstarts gefragt."
 
 #: tmp/lukspassphrase.glade.h:2
 msgid "Confirm passphrase:"
@@ -6375,7 +6386,7 @@ msgstr "Schnittstelle bearbeiten"
 
 #: tmp/netpostconfig.glade.h:11
 msgid "Encryption Key:"
-msgstr "Kryptoschlüssel:"
+msgstr "Verschlüsselungsschlüssel:"
 
 #: tmp/netpostconfig.glade.h:13
 msgid "Manual configuration"
