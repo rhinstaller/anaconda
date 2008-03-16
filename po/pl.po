@@ -15,12 +15,14 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-16 13:31-0400\n"
-"PO-Revision-Date: 2008-03-05 22:26+0200\n"
+"PO-Revision-Date: 2008-03-16 22:24+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../anaconda:289
 #, c-format
@@ -193,13 +195,13 @@ msgstr ""
 "OpenFirmware nie będzie mógł uruchomić tej instalacji."
 
 #: ../autopart.py:1067
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
 "be able to boot from this partition."
 msgstr ""
-"Partycja startowa %s nie jest partycją VFAT. EFI nie będzie mógł uruchamiać "
-"z tej partycji."
+"Partycja startowa %s nie jest linuksowym systemem plików, takim jak ext3. "
+"Nie będzie można uruchamiać systemu z tej partycji."
 
 #: ../autopart.py:1070
 #, python-format
@@ -606,9 +608,8 @@ msgstr ""
 "Czy chcesz kontynuować bez migrowania %s?"
 
 #: ../fsset.py:1523
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "Edytuj partycję"
+msgstr "Partycja systemowa EFI"
 
 #: ../fsset.py:1527
 msgid "RAID Device"
@@ -1911,11 +1912,11 @@ msgstr ""
 "zainstalować system %s."
 
 #: ../partitions.py:1052
-#, fuzzy
 msgid ""
 "You must create an EFI System Partition of type FAT and a size of 50 "
 "megabytes."
-msgstr "Musisz utworzyć partycję /boot/efi typu FAT o wielkości 50 megabajtów."
+msgstr ""
+"Musisz utworzyć partycję systemową EFI typu FAT o wielkości 50 megabajtów."
 
 #: ../partitions.py:1066
 msgid ""
@@ -3178,21 +3179,22 @@ msgid "Unknown Linux system"
 msgstr "Nieznany system linuksowy"
 
 #: ../iw/GroupSelector.py:210
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Wybór pakietów"
+msgstr "Pakiety w %s"
 
 #: ../iw/GroupSelector.py:482
-#, fuzzy, python-format
+#, python-format
 msgid "%d of %d optional package selected"
 msgid_plural "%d of %d optional packages selected"
-msgstr[0] "Brak opcjonalnych pakietów do wybrania"
-msgstr[1] "Brak opcjonalnych pakietów do wybrania"
+msgstr[0] "Wybrano %d z %d pakietów opcjonalnych"
+msgstr[1] "Wybrano %d z %d pakietów opcjonalnych"
+msgstr[2] "Wybrano %d z %d pakietów opcjonalnych"
 
 #: ../iw/GroupSelector.py:485
 #, python-format
 msgid "<i>%s</i>"
-msgstr ""
+msgstr "<i>%s</i>"
 
 #: ../iw/language_gui.py:30 ../textw/language_text.py:44
 msgid "Language Selection"
@@ -4540,7 +4542,7 @@ msgid "Migrate File Systems"
 msgstr "Migruj systemy plików"
 
 #: ../iw/upgrade_migratefs_gui.py:62 ../textw/upgrade_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4548,11 +4550,12 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"To wydanie %s obsługuje system plików z księgowaniem ext3. Ma on kilka zalet "
-"w porównaniu z systemem plików ext2, tradycyjnie dostarczanym z %s. Możliwa "
-"jest migracja partycji sformatowanych jako ext2 do ext3 bez utraty danych.\n"
+"To wydanie systemu %s obsługuje zaktualizowany system plików. Ma on kilka "
+"zalet w porównaniu z systemem plików tradycyjnie dostarczanym z systemem %s. "
+"Ten program instalacyjny może migrować sformatowane partycje bez utraty "
+"danych.\n"
 "\n"
-"Które z partycji mają migrować?"
+"Które z tych partycji mają migrować?"
 
 #: ../iw/upgrade_swap_gui.py:33
 msgid "Upgrade Swap Partition"
@@ -6263,10 +6266,14 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"Sprawdzony obraz zawiera błędy. Może to być spowodowane uszkodzonym "
+"pobieraniem lub błędną płytą. Jeśli to możliwe, wyczyść płytę i spróbuj "
+"ponownie. Jeśli test nadal nie będzie kończył się sukcesem, nie powinieneś "
+"kontynuować instalacji."
 
 #: ../loader2/mediacheck.c:117
 msgid "Success"
-msgstr ""
+msgstr "Powodzenie"
 
 #: ../loader2/mediacheck.c:118
 msgid ""
@@ -6274,6 +6281,9 @@ msgid ""
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
 msgstr ""
+"Sprawdzony obraz został pomyślnie sprawdzony. Instalacja z tego nośnika "
+"powinna odbyć się bez problemu. Zauważ, że nie wszystkie błędy "
+"nośnika/napędu mogą zostać wykryte przez sprawdzenie nośnika."
 
 #: ../loader2/method.c:377
 #, c-format
@@ -6464,7 +6474,7 @@ msgstr "Folder %s:"
 #: ../loader2/nfsinstall.c:65
 #, c-format
 msgid "Please enter the server name and path to your %s images."
-msgstr ""
+msgstr "Podaj nazwę usługi i ścieżkę do obrazów %s."
 
 #: ../loader2/nfsinstall.c:67
 msgid "NFS Setup"
@@ -6505,9 +6515,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Uruchamianie anacondy przez telnet..."
 
 #: ../loader2/urlinstall.c:79
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s."
-msgstr "Nie można pobrać %s://%s/%s/%s."
+msgstr "Nie można pobrać %s://%s/%s."
 
 #: ../loader2/urlinstall.c:186
 msgid "Unable to retrieve the install image."
@@ -6528,11 +6538,9 @@ msgid "Unknown Url method %s"
 msgstr "Nieznana metoda URL %s"
 
 #: ../loader2/urls.c:280
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the URL containing the %s images on your server."
-msgstr ""
-"Podaj URL zawierający %s na\n"
-"serwerze.\n"
+msgstr "Podaj URL zawierający obrazy %s na serwerze."
 
 #: ../loader2/urls.c:291
 msgid "Configure proxy"
@@ -6548,7 +6556,7 @@ msgstr "Musisz podać URL."
 
 #: ../loader2/urls.c:320
 msgid "URL must be either an ftp or http URL"
-msgstr ""
+msgstr "URL musi zawierać ftp lub http"
 
 #: ../loader2/urls.c:331
 msgid "Unknown Host"
@@ -6767,35 +6775,33 @@ msgid ""
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
+"Niektóre pakiety związane z tą grupą nie są wymagane do zainstalowania, ale "
+"mogą dostarczać dodatkową funkcjonalność. Wybierz pakiety, które chcesz "
+"zainstalować."
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Deselect"
-msgstr "_Usuń"
+msgstr "O_dznacz"
 
 #: tmp/GroupSelector.glade.h:3
-#, fuzzy
 msgid "_Deselect all optional packages"
-msgstr "Instalowanie pakietów"
+msgstr "O_dznacz wszystkie pakiety opcjonalne"
 
 #: tmp/GroupSelector.glade.h:4
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Brak opcjonalnych pakietów do wybrania"
+msgstr "Pakiety _opcjonalne"
 
 #: tmp/GroupSelector.glade.h:5
-#, fuzzy
 msgid "_Select"
-msgstr "_Usuń"
+msgstr "_Wybierz"
 
 #: tmp/GroupSelector.glade.h:6
-#, fuzzy
 msgid "_Select all optional packages"
-msgstr "Brak opcjonalnych pakietów do wybrania"
+msgstr "_Wybierz wszystkie pakiety opcjonalne"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
-msgstr ""
+msgstr "okno dialogowe 1"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -7202,6 +7208,3 @@ msgstr "walijski"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zuluski"
-
-#~ msgid "NFS"
-#~ msgstr "NFS"
