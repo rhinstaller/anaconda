@@ -209,9 +209,14 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # remount filesystems
         anaconda.id.fsset.mountFilesystems(anaconda)
 
-        # restore the label of / to what we think it is (XXX: UUID?)
+        # restore the label of / to what we think it is
         r = anaconda.id.fsset.getEntryByMountPoint("/")
         anaconda.id.fsset.labelEntry(r, anaconda.rootPath, True)
+        # ensure we have a random UUID on the rootfs
+        # FIXME: this should be abstracted per filesystem type
+        iutil.execWithRedirect("tune2fs", ["-U", "random", r.device.getDevice],
+                               stdout="/dev/tty5", stderr="/dev/tty5",
+                               searchPath = 1)
 
         # for any filesystem that's _not_ on the root, we need to handle
         # moving the bits from the livecd -> the real filesystems.
