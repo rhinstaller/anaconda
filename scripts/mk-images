@@ -755,7 +755,7 @@ foundakernel=""
 for KERNELARCH in $arches; do
   for kernelvers in $kerneltags; do
     kpackage=$(findPackage $kernelvers)
-    if [ "$KERNELARCH" = "i586" -a ! -f "$kpackage" ]; then
+    if [ "$KERNELARCH" = "i586" -a -z "$kpackage" ]; then
 	echo "No i586 kernel, trying i686..."
 	KERNELARCH="i686"
 	kpackage=$(findPackage $kernelvers)
