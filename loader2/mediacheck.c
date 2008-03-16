@@ -96,12 +96,31 @@ int doMediaCheck(char *file, char *descr) {
     newtFormDestroy(f);
     newtPopWindow();
 
-    if (rc == -1)
+    if (rc == -1) {
+	logMessage(WARNING, "mediacheck: %s (%s) has no checksum info", file, descr);
 	newtWinMessage(_("Error"), _("OK"),
 		       _("Unable to read the disc checksum from the "
 			 "primary volume descriptor.  This probably "
 			 "means the disc was created without adding the "
 			 "checksum."));
+    } else if (rc == 0) {
+        logMessage(ERROR, "mediacheck: %s (%s) FAILED", file, descr);
+        newtWinMessage(_("Error"), _("OK"),
+                       _("The image which was just tested has errors. "
+                         "This could be due to a "
+                         "corrupt download or a bad disc.  "
+                         "If applicable, please clean the disc "
+                         "and try again.  If this test continues to fail you "
+                         "should not continue the install."));
+    } else if (rc > 0) {
+        logMessage(INFO, "mediacheck: %s (%s) PASSED", file, descr);
+        newtWinMessage(_("Success"), _("OK"),
+                       _("The image which was just tested was successfully "
+                         "verified.  It should be OK to install from this "
+                         "media.  Note that not all media/drive errors can "
+                         "be detected by the media check."));
+    }
+
 
     return rc;
 }
