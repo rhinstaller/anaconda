@@ -218,8 +218,10 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
         }
     }
 
-    if (!FL_CMDLINE(flags))
-        winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), path);
+    if (!FL_CMDLINE(flags)) {
+        char *fileName = strrchr(path, '/');
+        winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), fileName+1);
+    }
 
     if (hostname) free(hostname);
     return fd;
