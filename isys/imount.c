@@ -43,19 +43,20 @@ int doPwMount(char *dev, char *where, char *fs, char *options) {
     }
 
     if (strstr(fs, "nfs")) {
-       if (options)
-          rc = asprintf(&opts, "%s,nolock", options);
-       else
-          opts = strdup("nolock");
-    }
-    else if (options) {
-       opts = strdup(options);
+        if (options)
+            rc = asprintf(&opts, "%s,nolock", options);
+        else
+            opts = strdup("nolock");
+        device = strdup(dev);
+    } else {
+        if (*dev != '/')
+           rc = asprintf(&device, "/dev/%s", dev);
+        else
+           device = strdup(dev);
+        if (options)
+            opts = strdup(options);
     }
 
-    if (*dev != '/')
-       rc = asprintf(&device, "/dev/%s", dev);
-    else
-       device = strdup(dev);
 
     if (!(child = fork())) {
         int fd;
@@ -63,12 +64,12 @@ int doPwMount(char *dev, char *where, char *fs, char *options) {
         /* Close off all these filehandles since we don't want errors
          * spewed to tty1.
          */
-        fd = open("/dev/null", O_RDONLY);
+        fd = open("/dev/tty5", O_RDONLY);
         close(STDIN_FILENO);
         dup2(fd, STDIN_FILENO);
         close(fd);
 
-        fd = open("/dev/null", O_WRONLY);
+        fd = open("/dev/tty5", O_WRONLY);
         close(STDOUT_FILENO);
         dup2(fd, STDOUT_FILENO);
         close(STDERR_FILENO);
