@@ -22,6 +22,7 @@
 import gtk
 import gobject
 import iutil
+import parted
 import partedUtils
 import gui
 import datacombo
@@ -155,8 +156,11 @@ class OSBootWidget:
             pedparts = []
             parts = []
             disks = self.diskset.disks
+            func = lambda part: (part.is_active() and
+                                 part.get_flag(parted.PARTITION_LVM) != 1 and
+                                 part.get_flag(parted.PARTITION_RAID) != 1)
             for drive in disks.keys():
-                pedparts.extend(partedUtils.get_all_partitions(disks[drive]))
+                pedparts.extend(partedUtils.filter_partitions(disks[drive], func))
             for part in pedparts:
                 parts.append(partedUtils.get_partition_name(part))
             del pedparts
