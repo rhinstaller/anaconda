@@ -373,15 +373,15 @@ class Partitions:
                 
 
             fs = partedUtils.sniffFilesystemType("/dev/%s" %(theDev,))
-            fslabel = None
-            if fs is None:
-                fsystem = fsset.fileSystemTypeGet("foreign")
-            else:
+            try:
                 fsystem = fsset.fileSystemTypeGet(fs)
-                try:
-                    fslabel = isys.readFSLabel(theDev)
-                except:
-                    fslabel = None
+            except:
+                fsystem = fsset.fileSystemTypeGet("foreign")
+
+            try:
+                fslabel = isys.readFSLabel(theDev)
+            except:
+                fslabel = None
 
             mnt = None
             format = 0
@@ -444,14 +444,15 @@ class Partitions:
                 fs = partedUtils.sniffFilesystemType(theDev)
                 fslabel = None
 
-                if fs is None:
-                    fsystem = fsset.fileSystemTypeGet("foreign")
-                else:
+                try:
                     fsystem = fsset.fileSystemTypeGet(fs)
-                    try:
-                        fslabel = isys.readFSLabel(theDev)
-                    except:
-                        fslabel = None
+                except:
+                    fsystem = fsset.fileSystemTypeGet("foreign")
+
+                try:
+                    fslabel = isys.readFSLabel(theDev)
+                except:
+                    fslabel = None
 
                 mnt = None
                 format = 0
