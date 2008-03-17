@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.52
+Version: 11.4.0.53
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,46 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Mar 16 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.53-1
+- Update translations (pl, de)
+- Use i586 kernel (#437641) (katzj)
+- Give indication of success or failure for mediacheck (#437577) (katzj)
+- Ensure the UUID for the rootfs is random and not the same for every 
+  live image (katzj)
+- Make migration from ext3 -> ext4 saner on upgrade (#437567) (katzj)
+- Force filesystem mount options on /boot/efi . (pjones)
+- On HDISO installs, look for the stage2.img file in the right 
+  directory. (clumens)
+- Accept devices with or without a leading /dev/. (clumens)
+- .buildstamp no longer contains productPath, so change 
+  the default (#437509). (clumens)
+- Remove references to an uninitialized variable. (clumens)
+- Use shortname=winnt instead of shortname=win95 when 
+  mounting /boot/efi (pjones)
+- Do not strip leading or trailing whiltespace from 
+  passphrases. (#437499) (dlehman)
+- Set methodstr for nfsiso installs (#437541). (clumens)
+- Create and check /boot/efi correctly, and use preexisting 
+  one if available. (pjones)
+- Handle /boot/efi and /boot both as bootrequests (pjones)
+- Emit "efi" as /boot/efi's filesystem type (pjones)
+- Add EFI handling to the bootloader setup choices. (pjones)
+- Add efi to the ignoreable filesystem list. (pjones)
+- Add EFIFileSystem, and getMountName() to hide that it's really vfat. (pjones)
+- Add isEfiSystemPartition(), and use it where appropriate (pjones)
+- Call getAutoPartitionBoot with our partition list as an arg. (pjones)
+- Don't show the epoch in package selection either (#437502). (clumens)
+- Fix some errors on reporting which files are being downloaded. (clumens)
+- Revert "Handle /boot and /boot/efi separately, plus fixes" (pjones)
+- Handle /boot and /boot/efi separately, plus fixes (pjones)
+- Get rid of unused >1024 cylindar check, fix text of boot 
+  check exceptions. (pjones)
+- Make bootRequestCheck() check /each/ boot partition like it's 
+  supposed to, (pjones)
+- Fix shell quoting on numbers > 9, and fix an error message. (pjones)
+- Don't show the epoch in the progress bar (#437502). (clumens)
+- Include efibootmgr in the instroot (pjones)
+
 * Thu Mar 13 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.52-1
 - Don't unmount NFS source so NFSISO will work. (clumens)
 - Fix the format of the method=hd: parameter. (clumens)
