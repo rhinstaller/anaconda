@@ -46,7 +46,7 @@ if path is not None:
         productName = lines[1][:-1]
         productVersion = lines[2][:-1]
     if len(lines) >= 4:
-        bugUrl = lines[4][:-1]
+        bugUrl = lines[3][:-1]
 
 if os.environ.has_key("ANACONDA_PRODUCTNAME"):
     productName = os.environ["ANACONDA_PRODUCTNAME"]
