@@ -444,8 +444,13 @@ static PyObject * doMount(PyObject * s, PyObject * args) {
     rc = doPwMount(device, mntpoint, fs, flags);
     if (rc == IMOUNT_ERR_ERRNO) 
 	PyErr_SetFromErrno(PyExc_SystemError);
-    else if (rc)
-	PyErr_SetString(PyExc_SystemError, "mount failed");
+    else if (rc) {
+        PyObject *tuple = PyTuple_New(2);
+
+        PyTuple_SetItem(tuple, 0, PyInt_FromLong(rc));
+        PyTuple_SetItem(tuple, 1, PyString_FromString("mount failed"));
+        PyErr_SetObject(PyExc_SystemError, tuple);
+    }
 
     if (rc) return NULL;
 
