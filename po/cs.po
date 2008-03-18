@@ -1,24 +1,23 @@
-# translation of cs.po to Czech
+# translation of anaconda.master.po to Czech
 # Copyright (C) 2002, FSF
 #
 # Miloslav Trmač <mitr@volny.cz>, 2002, 2003, 2004, 2005, 2008.
 # Nikola Štohanzl <niko@srnet.cz>, 2006.
 # Milan Keršláger <kerslage@linux.cz>, 2007.
-# Adam Pribyl <pribyl@lowlevel.cz>, 2007.
+# Adam Pribyl <pribyl@lowlevel.cz>, 2007, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: cs\n"
+"Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-16 13:31-0400\n"
-"PO-Revision-Date: 2008-03-03 05:55+0100\n"
-"Last-Translator: Miloslav Trmač <mitr@volny.cz>\n"
+"PO-Revision-Date: 2008-03-18 16:16+0100\n"
+"Last-Translator: Adam Pribyl <pribyl@lowlevel.cz>\n"
 "Language-Team: Czech <fedora-cs-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../anaconda:289
 #, c-format
@@ -176,8 +175,7 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
-"Zaváděcí oddíl %s není typu VFAT, a proto z něj EFI nemůže načíst systém."
+msgstr "Zaváděcí oddíl %s není typu VFAT, a proto z něj EFI nemůže načíst systém."
 
 #: ../autopart.py:1065
 msgid ""
@@ -188,17 +186,15 @@ msgstr ""
 "nebude moct systém nastartovat."
 
 #: ../autopart.py:1067
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
 "be able to boot from this partition."
-msgstr ""
-"Zaváděcí oddíl %s není typu VFAT, a proto z něj EFI nemůže načíst systém."
+msgstr "Zaváděcí oddíl %s není Linuxového typu (jako např. ext3). Systém nebude schopný z tohoto oddílu nastartovat."
 
 #: ../autopart.py:1070
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Zaváděcí oddíl %s zřejmě na vaší architektuře nesplňuje omezení pro zavedení "
 "systému."
@@ -508,8 +504,7 @@ msgstr "Záznam uložen"
 msgid ""
 "Your system's state has been successfully written to the disk. The installer "
 "will now exit."
-msgstr ""
-"Stav vašeho systému byl úspěšně zapsán na disk. Instalace bude nyní ukončena."
+msgstr "Stav vašeho systému byl úspěšně zapsán na disk. Instalace bude nyní ukončena."
 
 #: ../exception.py:351 ../exception.py:367
 msgid "Dump Not Written"
@@ -595,9 +590,8 @@ msgstr ""
 "Přejete si pokračovat bez převodu %s?"
 
 #: ../fsset.py:1523
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "Nastavení oddílu"
+msgstr "Systémový oddíl EFI"
 
 #: ../fsset.py:1527
 msgid "RAID Device"
@@ -1259,8 +1253,7 @@ msgstr "Nelze najít obraz"
 
 #: ../livecd.py:108
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 "Na zadaném místě není platné %s Live CD, které by mohlo být použito pro "
 "instalaci."
@@ -1294,8 +1287,7 @@ msgstr "Jméno počítače musí být dlouhé nejvýše 64 znaků."
 
 #: ../network.py:60
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Jméno počítače musí začínat znakem 'a-z' nebo 'A-Z' (bez háčků a čárek)"
+msgstr "Jméno počítače musí začínat znakem 'a-z' nebo 'A-Z' (bez háčků a čárek)"
 
 #: ../network.py:65
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1793,8 +1785,7 @@ msgid "Confirm Reset"
 msgstr "Potvrzení obnovení"
 
 #: ../partIntfHelpers.py:543
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Chcete opravdu obnovit tabulku oddílů do jejího původního stavu?"
 
 #: ../partitions.py:84
@@ -1884,13 +1875,10 @@ msgstr ""
 "distribuce %s."
 
 #: ../partitions.py:1052
-#, fuzzy
 msgid ""
 "You must create an EFI System Partition of type FAT and a size of 50 "
 "megabytes."
-msgstr ""
-"Musíte vytvořit oddíl /boot/efi, který bude typu FAT a jeho velikost bude 50 "
-"MB."
+msgstr "Musíte vytvořit oddíl systému EFI, který bude typu FAT a jeho velikost bude 50 MB."
 
 #: ../partitions.py:1066
 msgid ""
@@ -1918,8 +1906,7 @@ msgstr ""
 "obvyklou instalaci distribuce %s."
 
 #: ../partitions.py:1162
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Instalace na USB zařízení. To může (ale nemusí) vést k vytvoření funkčního "
 "systému. "
@@ -1998,10 +1985,8 @@ msgstr "Místo připojení %s musí být při instalaci z živého CD naformáto
 
 #: ../partRequests.py:278
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Místo připojení není platné. Adresář %s musí být v kořenovém systému souborů."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Místo připojení není platné. Adresář %s musí být v kořenovém systému souborů."
 
 #: ../partRequests.py:281
 #, python-format
@@ -2030,8 +2015,7 @@ msgstr "Místo připojení \"%s\" je již používáno. Zadejte jiné."
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"Velikost oddílu %s (%10.2f MB) překračuje maximální velikost %10.2f MB."
+msgstr "Velikost oddílu %s (%10.2f MB) překračuje maximální velikost %10.2f MB."
 
 #: ../partRequests.py:533
 #, python-format
@@ -2283,8 +2267,7 @@ msgid "Welcome to %s"
 msgstr "Vítá vás %s"
 
 #: ../text.py:568
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "<F1> nápověda  |  <Tab> další položka  |  <Mezera> vybrat  |  <F12> "
 "pokračovat"
@@ -2293,8 +2276,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> další položka   |   <Mezera> vybrat   |   <F12> pokračovat"
+msgstr "  <Tab>/<Alt-Tab> další položka   |   <Mezera> vybrat   |   <F12> pokračovat"
 
 #: ../upgrade.py:105 ../upgrade.py:126
 msgid "Proceed with upgrade?"
@@ -2709,8 +2691,7 @@ msgstr "Znovu se pokouším stáhnout balíček..."
 
 #: ../yuminstall.py:668
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "Při provádění transakce došlo k chybě z následujícího důvodu: %s\n"
 
 #: ../yuminstall.py:701 ../yuminstall.py:702
@@ -2950,8 +2931,7 @@ msgstr ""
 "Chcete s tímto heslem pokračovat?"
 
 #: ../iw/account_gui.py:123 ../textw/userauth_text.py:72
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "Heslo nesmí obsahovat znaky, které nepatří do ASCII."
 
 #: ../iw/autopart_type.py:94
@@ -2964,8 +2944,7 @@ msgstr ""
 
 #: ../iw/autopart_type.py:177
 msgid "Do you really want to boot from disk which is not used for instalation?"
-msgstr ""
-"Opravdu chcete zavádět systém z disku, který se nepoužívá pro instalaci?"
+msgstr "Opravdu chcete zavádět systém z disku, který se nepoužívá pro instalaci?"
 
 #: ../iw/autopart_type.py:258
 msgid "Invalid Initiator Name"
@@ -3137,22 +3116,22 @@ msgid "Unknown Linux system"
 msgstr "Neznámý systém Linux"
 
 #: ../iw/GroupSelector.py:210
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Výběr balíčků"
+msgstr "Balíčky v %s"
 
 #: ../iw/GroupSelector.py:482
-#, fuzzy, python-format
+#, python-format
 msgid "%d of %d optional package selected"
 msgid_plural "%d of %d optional packages selected"
-msgstr[0] "Žádné volitelné balíčky"
-msgstr[1] "Žádné volitelné balíčky"
-msgstr[2] "Žádné volitelné balíčky"
+msgstr[0] "%d z %d volitelný balíček vybrán"
+msgstr[1] "%d z %d volitelných balíčků vybráno"
+msgstr[2] "%d z %d volitelných balíčků vybráno"
 
 #: ../iw/GroupSelector.py:485
 #, python-format
 msgid "<i>%s</i>"
-msgstr ""
+msgstr "<i>%s</i>"
 
 #: ../iw/language_gui.py:30 ../textw/language_text.py:44
 msgid "Language Selection"
@@ -3379,8 +3358,7 @@ msgstr "Chybí volné pozice"
 #: ../iw/lvm_dialog_gui.py:734
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
-"Nelze vytvořit více než %s logických svazků (LV) v jedné skupině svazků (VG)."
+msgstr "Nelze vytvořit více než %s logických svazků (LV) v jedné skupině svazků (VG)."
 
 #: ../iw/lvm_dialog_gui.py:740
 msgid "No free space"
@@ -3930,14 +3908,12 @@ msgid "Partitioning"
 msgstr "Vytváření oddílů"
 
 #: ../iw/partition_gui.py:638
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "Rozdělení disku, které bylo vybráno, skončilo s následujícími chybami."
 
 #: ../iw/partition_gui.py:640
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "Před pokračováním instalace %s musí být chyby opraveny."
 
 #: ../iw/partition_gui.py:646
@@ -3946,8 +3922,7 @@ msgstr "Chyby v oddílech"
 
 #: ../iw/partition_gui.py:652
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
-"Rozdělení disku, které bylo vybráno, proběhlo s následujícími varováními."
+msgstr "Rozdělení disku, které bylo vybráno, proběhlo s následujícími varováními."
 
 #: ../iw/partition_gui.py:654
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4456,8 +4431,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:134 ../textw/upgrade_bootloader_text.py:117
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Instalační program nalezl zavaděč %s nainstalovaný na %s."
 
 #: ../iw/upgrade_bootloader_gui.py:138
@@ -4497,7 +4471,7 @@ msgid "Migrate File Systems"
 msgstr "Migrovat systémy souborů"
 
 #: ../iw/upgrade_migratefs_gui.py:62 ../textw/upgrade_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4505,11 +4479,10 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Distribuce %s podporuje žurnálový systém souborů ext3, který má proti ext2, "
-"které se používá v %s, několik významných vylepšení. Migrace (převod) z ext2 "
-"na ext3 je možný beze ztráty dat.\n"
+"Distribuce %s podporuje akltualizovaný systém souborů, který má proti, "
+"verzi používané v %s, několik významných vylepšení. Tento instalační program může převést existující naformátované oddíly beze ztráty dat.\n"
 "\n"
-"Které oddíly chcete migrovat na ext3?"
+"Které z těchto oddílů chcete převést?"
 
 #: ../iw/upgrade_swap_gui.py:33
 msgid "Upgrade Swap Partition"
@@ -4586,8 +4559,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Velikost odkládacího souboru musí být mezi 1 a 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:182
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Na vybraném zařízení není dostatek volného místa pro odkládací oddíl."
 
 #: ../iw/zipl_gui.py:35
@@ -4730,10 +4702,8 @@ msgstr ""
 "názvy, které budou použity v menu."
 
 #: ../textw/bootloader_text.py:294
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <Mezera> zvolit | <F2> jako implicitní | <F4> odstranit | <F12> pokračovat"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <Mezera> zvolit | <F2> jako implicitní | <F4> odstranit | <F12> pokračovat"
 
 #: ../textw/bootloader_text.py:390
 msgid ""
@@ -4820,10 +4790,8 @@ msgid "Please select the package groups you would like to install."
 msgstr "Zvolte skupiny balíčků, které chcete nainstalovat."
 
 #: ../textw/grpselect_text.py:112
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"  <Mezera>,<+>,<-> vybrat   |   <F2> Detaily skupiny   |   <F12> pokračovat"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "  <Mezera>,<+>,<-> vybrat   |   <F2> Detaily skupiny   |   <F12> pokračovat"
 
 #: ../textw/grpselect_text.py:124
 msgid "No optional packages to select"
@@ -5221,8 +5189,7 @@ msgstr "Nepodporováno"
 
 #: ../textw/partition_text.py:763
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr ""
-"Skupiny svazků LVM mohou být měněny jen v grafickém instalačním programu."
+msgstr "Skupiny svazků LVM mohou být měněny jen v grafickém instalačním programu."
 
 #: ../textw/partition_text.py:830 ../textw/partition_text.py:878
 msgid "Invalid Entry for Partition Size"
@@ -5323,10 +5290,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1433
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Nápověda   F2-Nový   F3-Upravit   F4-Odstranit   F5-Obnovit   F12-Ok   "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Nápověda   F2-Nový   F3-Upravit   F4-Odstranit   F5-Obnovit   F12-Ok   "
 
 #: ../textw/partition_text.py:1465
 msgid "No Root Partition"
@@ -5776,8 +5741,7 @@ msgstr "Nemohu načíst disk s ovladači ze souboru."
 #: ../loader2/driverdisk.c:349
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Vložte disk s ovladači do zařízení /dev/%s a pokračujte stisknutím \"OK\"."
+msgstr "Vložte disk s ovladači do zařízení /dev/%s a pokračujte stisknutím \"OK\"."
 
 #: ../loader2/driverdisk.c:351
 msgid "Insert Driver Disk"
@@ -5845,8 +5809,7 @@ msgstr "Neznámy zdroj driver disk kickstartu: %s"
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"Byl zadán následující neplatný argument příkazu kickstart driver disk: %s:%s"
+msgstr "Byl zadán následující neplatný argument příkazu kickstart driver disk: %s:%s"
 
 #: ../loader2/driverselect.c:65
 #, c-format
@@ -6018,10 +5981,8 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "Vítá vás %s pro %s - Záchranný režim"
 
 #: ../loader2/lang.c:65 ../loader2/loader.c:166
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> další položka   |  <Mezera> vybrat   |  <F12> pokračovat "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> další položka   |  <Mezera> vybrat   |  <F12> pokračovat "
 
 #: ../loader2/lang.c:373
 msgid "Choose a Language"
@@ -6146,8 +6107,7 @@ msgstr "Ve vašem systému byla nalezena následující zařízení."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Pro váš systém nebyly zavedeny žádné ovladače zařízení. Chcete nějaké zavést?"
+msgstr "Pro váš systém nebyly zavedeny žádné ovladače zařízení. Chcete nějaké zavést?"
 
 #: ../loader2/loader.c:1421
 msgid "Devices"
@@ -6174,8 +6134,7 @@ msgstr "Spouštím anacondu %s, záchranný režim systému %s - čekejte prosí
 #: ../loader2/loader.c:1948
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr ""
-"Spouštím anacondu %s, instalační program systému %s - čekejte prosím...\n"
+msgstr "Spouštím anacondu %s, instalační program systému %s - čekejte prosím...\n"
 
 #: ../loader2/mediacheck.c:62
 #, c-format
@@ -6212,14 +6171,14 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:117
 msgid "Success"
-msgstr ""
+msgstr "Úspěch"
 
 #: ../loader2/mediacheck.c:118
 msgid ""
 "The image which was just tested was successfully verified.  It should be OK "
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
-msgstr ""
+msgstr "Obraz, který byl právě testován byl úspěšně ověřen. Instalace z tohoto média by měla být bez problémů. Vemte na vědomí, že ne všechny chyby média a mechaniky musí být tímto testem detekovány."
 
 #: ../loader2/method.c:377
 #, c-format
@@ -6360,8 +6319,7 @@ msgid "Missing Information"
 msgstr "Chybějící informace"
 
 #: ../loader2/net.c:1225
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Musíte zadat platnou IPv4 adresu a masku sítě nebo CIDR prefix."
 
 #: ../loader2/net.c:1231
@@ -6390,8 +6348,7 @@ msgstr "Síťové zařízení"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr ""
-"V počítači je více síťových zařízení. Pomocí kterého chcete instalovat?"
+msgstr "V počítači je více síťových zařízení. Pomocí kterého chcete instalovat?"
 
 #: ../loader2/nfsinstall.c:57
 msgid "NFS server name:"
@@ -6405,7 +6362,7 @@ msgstr "Adresář %s:"
 #: ../loader2/nfsinstall.c:65
 #, c-format
 msgid "Please enter the server name and path to your %s images."
-msgstr ""
+msgstr "Prosím vložte jméno serveru a cestu k obrazu %s."
 
 #: ../loader2/nfsinstall.c:67
 msgid "NFS Setup"
@@ -6446,9 +6403,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Spouštím Anacondu přes telnet..."
 
 #: ../loader2/urlinstall.c:79
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s."
-msgstr "Nemohu přenést %s://%s/%s/%s."
+msgstr "Nemohu přenést %s://%s/%s."
 
 #: ../loader2/urlinstall.c:186
 msgid "Unable to retrieve the install image."
@@ -6469,11 +6426,9 @@ msgid "Unknown Url method %s"
 msgstr "Neznámá metoda v URL %s"
 
 #: ../loader2/urls.c:280
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the URL containing the %s images on your server."
-msgstr ""
-"Zadejte prosím URL, které na vašem serveru\n"
-"obsahuje %s.\n"
+msgstr "Zadejte prosím URL, které na vašem server obsahuje obraz %s."
 
 #: ../loader2/urls.c:291
 msgid "Configure proxy"
@@ -6489,7 +6444,7 @@ msgstr "Musíte zadat URL."
 
 #: ../loader2/urls.c:320
 msgid "URL must be either an ftp or http URL"
-msgstr ""
+msgstr "URL musí být buď typu ftp nebo http"
 
 #: ../loader2/urls.c:331
 msgid "Unknown Host"
@@ -6535,8 +6490,7 @@ msgstr "Heslo správce systému:"
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-"Účet root se používá pro správu systému. Zadejte heslo pro uživatele root."
+msgstr "Účet root se používá pro správu systému. Zadejte heslo pro uživatele root."
 
 #: tmp/adddrive.glade.h:1
 msgid "Add _ZFCP LUN"
@@ -6566,8 +6520,7 @@ msgstr "Přidat repozitář"
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from."
-msgstr ""
-"Zadejte prosím umístění, odkud lze nainstalovát váš dodatečný software."
+msgstr "Zadejte prosím umístění, odkud lze nainstalovát váš dodatečný software."
 
 #: tmp/addrepo.glade.h:4
 msgid "Proxy U_RL:"
@@ -6628,10 +6581,8 @@ msgid "Which Partition to resize"
 msgstr "Kterému oddílu změnit velikost"
 
 #: tmp/autopart.glade.h:6
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
-msgstr ""
-"Kterému oddílu chcete změnit velikost, abyste pro instalaci udělali místo?"
+msgid "Which partition would you like to resize to make room for your installation?"
+msgstr "Kterému oddílu chcete změnit velikost, abyste pro instalaci udělali místo?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
@@ -6706,36 +6657,31 @@ msgid ""
 "Some packages associated with this group are not required to be installed "
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
-msgstr ""
+msgstr "Některé balíčky asociované s touto skupinou nejsou pro instalaci vyžadovány ale mohou nabízet přídavné funkce. Prosím vyberte si balíčky, které chcete nainstalovat."
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Deselect"
 msgstr "_Odstranit"
 
 #: tmp/GroupSelector.glade.h:3
-#, fuzzy
 msgid "_Deselect all optional packages"
-msgstr "Instaluji balíčky"
+msgstr "_Odstranit volitelné balíčky"
 
 #: tmp/GroupSelector.glade.h:4
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Žádné volitelné balíčky"
+msgstr "_Volitelné balíčky"
 
 #: tmp/GroupSelector.glade.h:5
-#, fuzzy
 msgid "_Select"
-msgstr "_Odstranit"
+msgstr "_Vybrat"
 
 #: tmp/GroupSelector.glade.h:6
-#, fuzzy
 msgid "_Select all optional packages"
-msgstr "Žádné volitelné balíčky"
+msgstr "_Vybrat všechny volitelné balíčky"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -7141,419 +7087,3 @@ msgstr "Velština"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "NFS"
-#~ msgstr "NFS"
-
-#~ msgid "Error pulling second part of kickstart config: %s!"
-#~ msgstr "Chyba při stahování druhé části konfigurace kickstart: %s"
-
-#~ msgid "Unknown install method"
-#~ msgstr "Neznámý způsob instalace"
-
-#~ msgid ""
-#~ "You have specified an install method which isn't supported by anaconda."
-#~ msgstr "Byl zvolen způsob instalace, který Anaconda nepodporuje."
-
-#~ msgid "unknown install method: %s"
-#~ msgstr "Neznámý způsob instalace: %s"
-
-#~ msgid ""
-#~ "You have chosen to remove all partitions (ALL DATA) on the following "
-#~ "drives:%s\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Zvolili jste odstranění všech oddílů (VŠECHNA DATA) na následujících "
-#~ "discích:%s\n"
-#~ "Opravdu je chcete odstranit?"
-
-#~ msgid ""
-#~ "You have chosen to remove all Linux partitions (and ALL DATA on them) on "
-#~ "the following drives:%s\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Zvolili jste odstranění všech linuxových oddílů (a VŠECH DAT na nich) na "
-#~ "následujících discích:%s\n"
-#~ "Opravdu je chcete odstranit?"
-
-#~ msgid "Checking for Bad Blocks"
-#~ msgstr "Vyhledávání vadných bloků"
-
-#~ msgid ""
-#~ "Bad blocks have been detected on device /dev/%s. We do not recommend you "
-#~ "use this device.\n"
-#~ "\n"
-#~ "Press <Enter> to exit the installer."
-#~ msgstr ""
-#~ "Na zařízení /dev/%s byly nalezeny vadné bloky. Zařízení nedoporučujeme "
-#~ "používat.\n"
-#~ "\n"
-#~ "Stiskněte <Enter> pro ukončení instalace."
-
-#~ msgid ""
-#~ "An error occurred searching for bad blocks on %s.  This problem is "
-#~ "serious, and the install cannot continue.\n"
-#~ "\n"
-#~ "Press <Enter> to exit the installer."
-#~ msgstr ""
-#~ "Při vyhledávání vadných bloků na %s došlo k chybě. Problém je závažný a "
-#~ "instalace nemůže pokračovat.\n"
-#~ "\n"
-#~ "Stiskněte <Enter> pro ukončení instalace."
-
-#~ msgid ""
-#~ "Please insert a floppy now. All contents of the disk will be erased, so "
-#~ "please choose your diskette carefully."
-#~ msgstr ""
-#~ "Vložte prosím disketu. Celý obsah diskety bude smazán, proto vyberte "
-#~ "disketu, na které nemáte důležitá data."
-
-#~ msgid ""
-#~ "The file %s cannot be opened.  This is due to a missing file or perhaps a "
-#~ "corrupt package.  Please verify your installation images and that you "
-#~ "have all the required media.\n"
-#~ "\n"
-#~ "If you exit, your system will be left in an inconsistent state that will "
-#~ "likely require reinstallation.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Nelze otevřít soubor %s. Důvodem je chybějící soubor nebo poškození "
-#~ "balíčku.  Zkontrolujte obrazy médií, z nichž instalujete, a přesvědčte "
-#~ "se, že máte všechna potřebná média.\n"
-#~ "\n"
-#~ "Ukončíte-li instalaci, zůstane systém v nekonzistentním stavu, což si "
-#~ "může vyžádat opětovnou instalaci.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "The installer has tried to mount image #%s, but cannot find it on the "
-#~ "server.\n"
-#~ "\n"
-#~ "Please copy this image to the remote server's share path and click Retry. "
-#~ "Click Exit to abort the installation."
-#~ msgstr ""
-#~ "Instalátor se pokusil připojit obraz #%s, ale nepodařilo se mu ho na "
-#~ "serveru nalézt.\n"
-#~ "\n"
-#~ "Zkopírujte požadovaný obraz do sdíleného adresáře na serveru a zvolte "
-#~ "'Znovu'. Chcete-li instalaci opustit, zvolte Ukončit."
-
-#~ msgid ""
-#~ "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  "
-#~ "in the Linux kernel does not allow for more than 15 partitions at this "
-#~ "time.  You will not be able to make changes to the partitioning of this "
-#~ "disk or use any partitions beyond /dev/%s15 in %s"
-#~ msgstr ""
-#~ "Zařízení /dev/%s obsahuje více než 15 oddílů. SCSI subsystém v jádře "
-#~ "Linuxu zatím více, než 15 zařízení neupodporuje. Nebude možné provádět "
-#~ "změny v rozdělení disku ani používat oddíly za 15. oddílem /dev/%s15 v %s."
-
-#~ msgid "Low Memory"
-#~ msgstr "Nedostatek paměti"
-
-#~ msgid ""
-#~ "As you don't have much memory in this machine, we need to turn on swap "
-#~ "space immediately. To do this we'll have to write your new partition "
-#~ "table to the disk immediately. Is that OK?"
-#~ msgstr ""
-#~ "Protože na počítači není dostatek paměti, je nutné aktivovat odkládací "
-#~ "prostor (swap). Proto je nutné zapsat novou tabulku oddílů na disk již "
-#~ "nyní. Souhlasíte?"
-
-#~ msgid "Save to Remote Host"
-#~ msgstr "Uložit na vzdálený počítač"
-
-#~ msgid "Save Crash Dump"
-#~ msgstr "Uložit záznam havárie"
-
-#~ msgid "Searching"
-#~ msgstr "Vyhledávání"
-
-#~ msgid "Searching for %s installations..."
-#~ msgstr "Vyhledávání systémů %s..."
-
-#~ msgid "Connecting..."
-#~ msgstr "Připojování..."
-
-#~ msgid ""
-#~ "The file %s cannot be opened.  This is due to a missing file or perhaps a "
-#~ "corrupt package.  Please verify your mirror contains all required "
-#~ "packages, and try using a different one.\n"
-#~ "\n"
-#~ "If you exit, your system will be left in an inconsistent state that will "
-#~ "likely require reinstallation.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Nelze otevřít soubor %s, protože nebyl nalezen nebo je soubor s balíčkem "
-#~ "poškozen. Zkontrolujte, zda zdrojový adresář obsahuje všechny požadované "
-#~ "balíčky nebo zkuste jako zdroj použít jiné umístění.\n"
-#~ "\n"
-#~ "Ukončíte-li instalaci, zůstane systém v nekonzistentním stavu, který bude "
-#~ "zřejmě vyžadovat reinstalaci.\n"
-#~ "\n"
-
-#~ msgid "VNC Password Error"
-#~ msgstr "Chyba VNC Hesla"
-
-#~ msgid ""
-#~ "You need to specify a vnc password of at least 6 characters long.\n"
-#~ "\n"
-#~ "Press <return> to reboot your system.\n"
-#~ msgstr ""
-#~ "Pro VNC zadejte heslo délky alespoň 6 znaků.\n"
-#~ "\n"
-#~ "Stisknutím <Enter> restartujte systém.\n"
-
-#~ msgid "Unable to set vnc password - using no password!"
-#~ msgstr "Nelze nastavit VNC heslo - pokračuje se bez hesla!"
-
-#~ msgid "Make sure your password is at least 6 characters in length."
-#~ msgstr "Zkontrolujte, zda je heslo dlouhé alespoň 6 znaků."
-
-#~ msgid "Please connect to %s to begin the install..."
-#~ msgstr "Pro spuštění instalace se připojte k %s..."
-
-#~ msgid "Please connect to begin the install..."
-#~ msgstr "Připojte se pro spuštění instalace..."
-
-#~ msgid "Set Root Password"
-#~ msgstr "Nastavit heslo správce systému"
-
-#~ msgid "Advanced Boot Loader Configuration"
-#~ msgstr "Pokročilé nastavení zavaděče systému"
-
-#~ msgid "Force LBA32"
-#~ msgstr "Použít LBA32"
-
-#~ msgid "_Force LBA32 (not normally required)"
-#~ msgstr "Použít _LBA32 (bez ohledu na autodetekci)"
-
-#~ msgid ""
-#~ "If you wish to add default options to the boot command, enter them into "
-#~ "the 'General kernel parameters' field."
-#~ msgstr ""
-#~ "Pokud si přejete, aby zavaděč při každém zavedení systému předal jádru "
-#~ "nějaké parametry, vložte je do pole Implicitní parametry jádra."
-
-#~ msgid "_General kernel parameters"
-#~ msgstr "_Implicitní parametry jádra: "
-
-#~ msgid "The %s boot loader will be installed on /dev/%s."
-#~ msgstr "Zavaděč %s bude nainstalován na /dev/%s."
-
-#~ msgid "No boot loader will be installed."
-#~ msgstr "Neinstalovat žádný zavaděč."
-
-#~ msgid "Configure advanced boot loader _options"
-#~ msgstr "_Nastavení pokročilých voleb zavaděče"
-
-#~ msgid "Install Boot Loader record on:"
-#~ msgstr "Instalovat zavaděč do:"
-
-#~ msgid "_Change Drive Order"
-#~ msgstr "Z_měnit pořadí disků"
-
-#~ msgid ""
-#~ "Arrange the drives to be in the same order as used by the BIOS. Changing "
-#~ "the drive order may be useful if you have multiple SCSI adapters or both "
-#~ "SCSI and IDE adapters and want to boot from the SCSI device.\n"
-#~ "\n"
-#~ "Changing the drive order will change where the installation program "
-#~ "locates the Master Boot Record (MBR)."
-#~ msgstr ""
-#~ "Seřaďte disky tak, aby byly ve stejném pořadí, jaké používá BIOS. Změna "
-#~ "pořadí disků muže být užitečná, pokud máte více SCSI řadičů, případně jak "
-#~ "SCSI, tak IDE řadiče a chcete zavádět systém ze SCSI zařízení.\n"
-#~ "\n"
-#~ "Změna pořadí disků ovlivní, kam instalační program umístí zavaděč systému."
-
-#~ msgid "About to Install"
-#~ msgstr "Zahájení instalace"
-
-#~ msgid "Click next to begin installation of %s."
-#~ msgstr "Klikněte na 'Další' pro zahájení instalace distribuce %s."
-
-#~ msgid ""
-#~ "A complete log of the installation can be found in the file '%s' after "
-#~ "rebooting your system.\n"
-#~ "\n"
-#~ "A kickstart file containing the installation options selected can be "
-#~ "found in the file '%s' after rebooting the system."
-#~ msgstr ""
-#~ "Záznam průběhu instalace najdete po restartu počítače v souboru '%s'.\n"
-#~ "\n"
-#~ "V souboru '%s' naleznete řídíci instrukce, které můžete použít pro "
-#~ "opakované provedení stejné instalace."
-
-#~ msgid "About to Upgrade"
-#~ msgstr "Aktualizace systému"
-
-#~ msgid "Click next to begin upgrade of %s."
-#~ msgstr "Klikněte na 'Další' pro zahájení aktualizace distribuce %s."
-
-#~ msgid ""
-#~ "A complete log of the upgrade can be found in the file '%s' after "
-#~ "rebooting your system."
-#~ msgstr ""
-#~ "Záznam průběhu aktualizace najdete po restartu počítače v souboru '%s'."
-
-#~ msgid "Drive"
-#~ msgstr "Disk"
-
-#~ msgid "Model"
-#~ msgstr "Model"
-
-#~ msgid "Netmask"
-#~ msgstr "Maska sítě"
-
-#~ msgid ""
-#~ "You can configure the boot loader to boot other operating systems by "
-#~ "selecting from the list. To add an operating systems that was not "
-#~ "automatically detected, click 'Add.' To change the operating system "
-#~ "booted by default, select 'Default' next to the desired operating system."
-#~ msgstr ""
-#~ "Zavaděč systému lze nastavit i pro zavádění jiných operačních systémů, "
-#~ "které jsou v seznamu. Další operační systémy, které nejsou automaticky "
-#~ "detekovány, můžete přidat pomocí tlačítka 'Přidat'. Zaškrtnutím políčka "
-#~ "vedle seznamu můžete určit, který operační systém bude zaveden implicitně."
-
-#~ msgid "Leave _unchanged (preserve data)"
-#~ msgstr "_Ponechat beze změny (zachovat data)"
-
-#~ msgid "_Format partition as:"
-#~ msgstr "_Naformátovat jako:"
-
-#~ msgid "Check for _bad blocks?"
-#~ msgstr "Zjišťovat při formátování vadné _bloky?"
-
-#~ msgid "Release notes are missing.\n"
-#~ msgstr "Poznámky k vydání nejsou k dispozici.\n"
-
-#~ msgid "Release Notes"
-#~ msgstr "Poznámky k vydání"
-
-#~ msgid "Unable to load file!"
-#~ msgstr "Nemohu přečíst soubor!"
-
-#~ msgid "Installation to begin"
-#~ msgstr "Zahájení instalace"
-
-#~ msgid ""
-#~ "A complete log of your installation will be in %s after rebooting your "
-#~ "system. You may want to keep this file for later reference."
-#~ msgstr ""
-#~ "Úplný protokol o instalaci bude po restartu počítače v %s. Soubor se může "
-#~ "hodit pro pozdější referenci."
-
-#~ msgid "Upgrade to begin"
-#~ msgstr "Zahájení aktualizace"
-
-#~ msgid ""
-#~ "A complete log of your upgrade will be in %s after rebooting your system. "
-#~ "You may want to keep this file for later reference."
-#~ msgstr ""
-#~ "Úplný protokol o aktualizaci bude po restartu počítače v %s. Soubor se "
-#~ "může hodit pro pozdější referenci."
-
-#~ msgid "Check for bad blocks"
-#~ msgstr "Při formátování zjišťovat vadné bloky"
-
-#~ msgid ""
-#~ "No hard drives have been found.  You probably need to manually choose "
-#~ "device drivers for the installation to succeed.  Would you like to select "
-#~ "drivers now?"
-#~ msgstr ""
-#~ "Nebyly nalezeny žádné pevné disky. Pravděpodobně budete muset pro "
-#~ "úspěšnou instalaci ručně zvolit ovladače zařízení. Chcete nyní vybrat "
-#~ "ovladače?"
-
-#~ msgid "FAILED"
-#~ msgstr "NEÚSPĚCH"
-
-#~ msgid "PASSED"
-#~ msgstr "V POŘÁDKU"
-
-#~ msgid "It is OK to install from this media."
-#~ msgstr "Médium lze použít pro instalaci."
-
-#~ msgid "No checksum information available, unable to verify media."
-#~ msgstr "Kontrolní součty nejsou k dispozici, médium nelze prověřit."
-
-#~ msgid "Media Check Result"
-#~ msgstr "Výsledek kontroly média"
-
-#~ msgid ""
-#~ "%s for the image:\n"
-#~ "\n"
-#~ "   %s"
-#~ msgstr ""
-#~ "%s pro obraz:\n"
-#~ "\n"
-#~ "   %s"
-
-#~ msgid ""
-#~ "The media check %s\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Kontrola média %s\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your %s server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      %s for your architecture\n"
-#~ msgstr ""
-#~ "Zadejte následující informace:\n"
-#~ "\n"
-#~ "    * jméno nebo IP adresu %s serveru\n"
-#~ "    * adresář daného serveru obsahující\n"
-#~ "      %s pro vaši architekturu\n"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Web"
-#~ msgstr "Web"
-
-#~ msgid "Web site name:"
-#~ msgstr "Jméno WWW serveru:"
-
-#~ msgid "Use non-anonymous ftp"
-#~ msgstr "Použít neanonymní ftp"
-
-#~ msgid "FTP Setup"
-#~ msgstr "FTP instalace"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "HTTP instalace"
-
-#~ msgid "You must enter a server name."
-#~ msgstr "Musíte zadat jméno serveru."
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password "
-#~ "you wish to use below."
-#~ msgstr ""
-#~ "Nepoužíváte-li anonymní FTP, zadejte jméno uživatele a heslo, které "
-#~ "chcete použít."
-
-#~ msgid "Account name:"
-#~ msgstr "Jméno účtu:"
-
-#~ msgid "Further HTTP Setup"
-#~ msgstr "Další nastavení HTTP"
-
-#~ msgid "_Release Notes"
-#~ msgstr "Poznámky k _vydání"
-
-#~ msgid "Exception Info"
-#~ msgstr "Informace o výjimce"
-
-#~ msgid "_Exception details"
-#~ msgstr "_Podrobnosti o výjimce"
-
-#~ msgid "_Save to floppy"
-#~ msgstr "Uložit na _disketu"
