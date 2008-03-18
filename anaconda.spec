@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.107
+Version: 11.1.2.108
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar 17 2008 Chris Lumens <clumens@redhat.com> 11.1.2.108-1
+- Avoid SIGSEGV on s390x in netlink loop (dcantrell).
+  Resolves: rhbz#436377
+
 * Thu Mar  6 2008 Jeremy Katz <katzj@redhat.com> - 11.1.2.107-1
 - Fix another case which could have None options
   Resolves: rhbz#435998
