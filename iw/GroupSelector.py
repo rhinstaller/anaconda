@@ -71,7 +71,7 @@ def sanitizeString(s, translate = True):
 # given a package object, spit out a string reasonable for the list widgets
 def listEntryString(po):
     desc = po.returnSimple('summary') or ''
-    pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.name)
+    pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.arch)
     desc = "<b>%s</b> - %s" %(pkgStr, sanitizeString(desc))
     return desc
 

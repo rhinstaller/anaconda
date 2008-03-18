@@ -155,7 +155,7 @@ class AnacondaCallback:
 
             repo = self.repos.getRepo(po.repoid)
 
-            pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.name)
+            pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.arch)
             s = _("<b>Installing %s</b> (%s)\n") %(pkgStr, size_string(hdr['size']))
             s += (hdr['summary'] or "")
             self.progress.set_label(s)
