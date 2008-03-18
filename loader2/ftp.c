@@ -570,9 +570,10 @@ static int read_headers (char **headers, fd_set *readSet, int sock)
 {
     char *nextChar;
     struct timeval timeout;
+    int n = 4096;
     int rc;
 
-    *headers = malloc(4096);
+    *headers = malloc(n);
     nextChar = *headers;
 
     *nextChar = '\0';
@@ -606,8 +607,10 @@ static int read_headers (char **headers, fd_set *readSet, int sock)
         nextChar++;
         *nextChar = '\0';
 
-        if (nextChar - *headers == sizeof(*headers))
-            *headers = realloc (*headers, sizeof(*headers)+4096);
+        if (nextChar - *headers == n) {
+            n += 4096;
+            *headers = realloc (*headers, sizeof(**headers)*n);
+        }
     }
 
     return 0;
