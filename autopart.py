@@ -84,11 +84,10 @@ def bootRequestCheck(req, diskset):
         return bootAlphaCheckRequirements(part)
     elif (iutil.getPPCMachine() == "pSeries" or
           iutil.getPPCMachine() == "iSeries"):
-        for req in reqs:
-            part = partedUtils.get_partition_by_name(diskset.disks, req.device)
-            if part and ((part.geom.end * part.geom.dev.sector_size /
-                          (1024.0 * 1024)) > 4096):
-                return BOOTIPSERIES_TOO_HIGH
+        part = partedUtils.get_partition_by_name(diskset.disks, req.device)
+        if part and ((part.geom.end * part.geom.dev.sector_size /
+                      (1024.0 * 1024)) > 4096):
+            return BOOTIPSERIES_TOO_HIGH
         
     return PARTITION_SUCCESS
 
