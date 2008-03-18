@@ -111,7 +111,7 @@ int mountLoopback(char *fsystem, char *mntpoint, char *device) {
 }
 
 /* returns the *absolute* path (malloced) to the #1 iso image */
-char * validIsoImages(char * dirName, int *foundinvalid) {
+char * validIsoImages(char * dirName, int *foundinvalid, int checkStage2) {
     DIR * dir;
     struct dirent * ent;
     char isoImage[1024];
@@ -135,13 +135,18 @@ char * validIsoImages(char * dirName, int *foundinvalid) {
             errno = 0;
             continue;
         }
-        
+
         if (mountLoopback(isoImage, "/tmp/loopimage", "/dev/loop7")) {
             logMessage(WARNING, "failed to mount %s", isoImage);
             errno = 0;
             continue;
         }
-        
+
+        if (!checkStage2) {
+           umountLoopback("/tmp/loopimage", "/dev/loop7");
+           break;
+        }
+
 	if (mountLoopback("/tmp/loopimage/images/stage2.img", "/mnt/runtime", "/dev/loop0")) {
 	    umountLoopback("/mnt/runtime", "/dev/loop0");
 	} else {

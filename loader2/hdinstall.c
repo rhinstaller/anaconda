@@ -177,7 +177,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
             else
                 rc = asprintf(&dirspec, "/mnt/isodir/%s", dirName);
 
-            path = validIsoImages(dirspec, 0);
+            path = validIsoImages(dirspec, 0, 1);
         }
 
         if (path) {
