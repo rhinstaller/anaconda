@@ -1909,7 +1909,10 @@ MAILADDR root
         for entry in self.entries:
             # Don't try to mount a protected partition, since it will already
             # have been mounted as the installation source.
-            if not entry.fsystem.isMountable() or (protected and entry.device.getDevice() in protected) or (skiprootfs and entry.mountpoint == '/'):
+            if protected and entry.device.getDevice() in protected and os.path.ismount("/mnt/isodir"):
+                continue
+
+            if not entry.fsystem.isMountable() or (skiprootfs and entry.mountpoint == '/'):
                 continue
 
             try:
