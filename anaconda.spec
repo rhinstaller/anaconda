@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.53
+Version: 11.4.0.54
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,20 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar 17 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.54-1
+- Translation updates (de, fi, it, gu, ta, pa)
+- Fix a typo. (clumens)
+- Fix the build. (clumens)
+- Make sure we return the same kind of exception in all cases. (clumens)
+- Filter so we don't show LVM and RAID components when adding 
+  boot entry (#437501) (katzj)
+- Only print the filename we're fetching, as newt doesn't like 
+  long names. (clumens)
+- Fix off by one error reading .buildstamp (pjones)
+- Use the right path when trying to fetch .discinfo. (clumens)
+- Don't prepend /dev/ onto nfs devices.  Also log mount 
+  errors to tty5. (pjones)
+
 * Sun Mar 16 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.53-1
 - Update translations (pl, de)
 - Use i586 kernel (#437641) (katzj)
