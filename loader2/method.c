@@ -85,6 +85,11 @@ int mountLoopback(char *fsystem, char *mntpoint, char *device) {
         return LOADER_ERROR;
     }
 
+    if (access(fsystem, F_OK) != 0) {
+       logMessage(ERROR, "file %s is not accessible", fsystem);
+       return LOADER_ERROR;
+    }
+
     rc = asprintf(&opts, "ro,loop=%s", device);
     if (doPwMount(fsystem, mntpoint, "iso9660", opts)) {
         if (doPwMount(fsystem, mntpoint, "ext2", opts)) {
