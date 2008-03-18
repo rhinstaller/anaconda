@@ -91,13 +91,16 @@ int mountLoopback(char *fsystem, char *mntpoint, char *device) {
             if (doPwMount(fsystem, mntpoint, "squashfs", opts)) {
                 if (doPwMount(fsystem, mntpoint, "cramfs", opts)) {
                     if (doPwMount(fsystem, mntpoint, "vfat", opts)) {
-                        logMessage(ERROR, "failed to mount loop: %s", strerror(errno));
+                        logMessage(ERROR, "failed to mount loopback device %s on %s as %s: %s",
+                                   device, mntpoint, fsystem, strerror(errno));
                         return LOADER_ERROR;
                     }
                 }
             }
         }
     }
+
+    logMessage(INFO, "mounted loopback device %s on %s as %s", mntpoint, device, fsystem);
 
     return 0;
 }
