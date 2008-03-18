@@ -288,7 +288,7 @@ class Partitions:
         """Clear the delete list and set self.requests to reflect disk."""
         self.deletes = []
         self.requests = []
-        labels = diskset.getLabels()
+        labels = diskset.getInfo()
         drives = diskset.disks.keys()
         drives.sort()
         for drive in drives:

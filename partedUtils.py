@@ -669,9 +669,12 @@ class DiskSet:
         while DiskSet.mdList:
             DiskSet.mdList.pop()
 
-    def getLabels(self):
-        """Return a list of all of the labels used on partitions."""
-        labels = {}
+    def getInfo(self, readFn=lambda d: isys.readFSLabel(d)):
+        """Return a dict keyed on device name, storing some sort of data
+           about each device.  This is typially going to be labels or UUIDs,
+           as required by readFstab.
+        """
+        ret = {}
 
         if self.anaconda is not None:
             encryptedDevices = self.anaconda.id.partitions.encryptedDevices
@@ -701,9 +704,9 @@ class DiskSet:
                 if crypto and not crypto.openDevice():
                     node = crypto.getDevice()
 
-                label = isys.readFSLabel(node)
-                if label:
-                    labels[node] = label
+                val = readFn(node)
+                if val:
+                    ret[node] = val
 
                 if crypto:
                     crypto.closeDevice()
@@ -721,9 +724,9 @@ class DiskSet:
             if crypto and not crypto.openDevice():
                 dev = crypto.getDevice()
 
-            label = isys.readFSLabel(dev)
-            if label:
-                labels[dev] = label
+            val = readFn(dev)
+            if val:
+                ret[dev] = val
 
             if crypto:
                 crypto.closeDevice()
@@ -741,9 +744,9 @@ class DiskSet:
             if crypto and not crypto.openDevice():
                 node = crypto.getDevice()
 
-            label = isys.readFSLabel("/dev/" + node)
-            if label:
-                labels[node] = label
+            val = readFn("/dev/" + node)
+            if val:
+                ret[node] = val
 
             if crypto:
                 crypto.closeDevice()
@@ -751,7 +754,7 @@ class DiskSet:
         if not active:
             lvm.vgdeactivate()
 
-        return labels
+        return ret
 
     def findExistingRootPartitions(self, upgradeany = 0):
         """Return a list of all of the partitions which look like a root fs."""

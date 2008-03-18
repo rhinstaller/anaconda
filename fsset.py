@@ -122,7 +122,7 @@ class LabelFactory:
             diskset.openDevices()
             diskset.stopMdRaid()
             diskset.startMdRaid()
-            labels = diskset.getLabels()
+            labels = diskset.getInfo()
             del diskset
             self.reserveLabels(labels)
 
@@ -2660,6 +2660,37 @@ def makeDevice(dev):
 
 # XXX fix RAID
 def readFstab (anaconda):
+    def createMapping(dict, intf):
+        mapping = {}
+        for device, info in dict.items():
+            if not mapping.has_key(info):
+                mapping[info] = device
+            elif intf is not None:
+                try:
+                    intf.messageWindow(_("Duplicate Labels"),
+                                       _("Multiple devices on your system are "
+                                         "labelled %s.  Labels across devices must be "
+                                         "unique for your system to function "
+                                         "properly.\n\n"
+                                         "Please fix this problem and restart the "
+                                         "installation process.") %(info,),
+                                       type="custom", custom_icon="error",
+                                       custom_buttons=[_("_Exit installer")])
+                except TypeError:
+                    intf.messageWindow(_("Invalid Label"),
+                                       _("An invalid label was found on device "
+                                         "%s.  Please fix this problem and restart "
+                                         "the installation process.") %(device,),
+                                       type="custom", custom_icon="error",
+                                       custom_buttons=[_("_Exit installer")])
+
+                sys.exit(0)
+            else:
+                log.warning("Duplicate labels for %s, but no intf so trying "
+                            "to continue" %(info,))
+
+        return mapping
+
     path = anaconda.rootPath + '/etc/fstab'
     intf = anaconda.intf
     fsset = FileSystemSet()
@@ -2669,35 +2700,11 @@ def readFstab (anaconda):
     # temporary, to get the labels
     diskset = partedUtils.DiskSet(anaconda)
     diskset.openDevices()
-    labels = diskset.getLabels()
+    labels = diskset.getInfo()
+    uuids = diskset.getInfo(readFn=lambda d: isys.readFSUuid(d))
 
-    labelToDevice = {}
-    for device, label in labels.items():
-        if not labelToDevice.has_key(label):
-            labelToDevice[label] = device
-        elif intf is not None:
-            try:
-                intf.messageWindow(_("Duplicate Labels"),
-                                   _("Multiple devices on your system are "
-                                     "labelled %s.  Labels across devices must be "
-                                     "unique for your system to function "
-                                     "properly.\n\n"
-                                     "Please fix this problem and restart the "
-                                     "installation process.") %(label,),
-                                   type="custom", custom_icon="error",
-                                   custom_buttons=[_("_Exit installer")])
-            except TypeError:
-                intf.messageWindow(_("Invalid Label"),
-                                   _("An invalid label was found on device "
-                                     "%s.  Please fix this problem and restart "
-                                     "the installation process.") %(device,),
-                                   type="custom", custom_icon="error",
-                                   custom_buttons=[_("_Exit installer")])
-
-            sys.exit(0)
-        else:
-            log.warning("Duplicate labels for %s, but no intf so trying "
-                        "to continue" %(label,))
+    labelToDevice = createMapping(labels, intf)
+    uuidToDevice = createMapping(uuids, intf)
 
     # mark these labels found on the system as used so the factory
     # doesn't give them to another device
@@ -2763,6 +2770,15 @@ def readFstab (anaconda):
             else:
                 log.warning ("fstab file has LABEL=%s, but this label "
                              "could not be found on any file system", label)
+                # bad luck, skip this entry.
+                continue
+        elif len(fields) >= 6 and fields[0].startswith('UUID='):
+            uuid = fields[0][5:]
+            if uuidToDevice.has_key(uuid):
+                device = makeDevice(uuidToDevice[uuid])
+            else:
+                log.warning ("fstab file has UUID=%s, but this UUID"
+                             "could not be found on any file system", uuid)
                 # bad luck, skip this entry.
                 continue
         elif fields[2] == "swap" and not fields[0].startswith('/dev/'):
