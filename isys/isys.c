@@ -1,5 +1,8 @@
 #include <Python.h>
 
+#include <sys/shm.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <stdio.h>
 #include <dirent.h>
 #include <errno.h>
@@ -611,46 +614,97 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     return Py_None;
 }
 
-/* FIXME: add IPv6 support once the UI changes are made   --dcantrell */
 static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
-    char * device;
-    char * dhcpclass = NULL;
-    char * r;
+    char * device = NULL;
+    char * class = NULL;
+    char * r = NULL;
     char buf[47];
     time_t timeout = 45;
-    struct pumpNetIntf cfg;
+    struct pumpNetIntf *pumpdev = NULL;
     /* FIXME: we call this from rescue mode, need to pass in what user wants */
-    DHCP_Preference pref = DHCPv6_DISABLE;
+    DHCP_Preference pref = DHCPv6_DISABLE_RESOLVER|DHCPv4_DISABLE_HOSTNAME_SET;
+    int status, shmpump, i;
+    pid_t pid;
+    key_t key;
     ip_addr_t *tip;
     PyObject * rc;
 
-    if (!PyArg_ParseTuple(args, "s|s", &device, &dhcpclass))
+    if (!PyArg_ParseTuple(args, "s|s", &device, &class))
         return NULL;
 
-    if (dhcpclass == NULL)
-        dhcpclass = "anaconda";
+    if (class == NULL)
+        class = "anaconda";
 
-    memset(&cfg, '\0', sizeof(cfg));
-    strncpy(cfg.device, device, sizeof(cfg.device) - 1);
-
-    r = pumpDhcpClassRun(&cfg, 0L, dhcpclass, pref, 0, timeout, NULL, 0L);
-    if (r) {
+    if ((key = ftok("/tmp", 'Y')) == -1) {
         Py_INCREF(Py_None);
         return Py_None;
     }
 
-    r = pumpSetupInterface(&cfg);
-    if (r) {
+    shmpump = shmget(key, 4096, IPC_CREAT | IPC_EXCL | 0600);
+    if (shmpump == -1) {
         Py_INCREF(Py_None);
         return Py_None;
     }
 
-    if (cfg.numDns) {
-        tip = &(cfg.dnsServers[0]);
-        inet_ntop(tip->sa_family, IP_ADDR(tip), buf, IP_STRLEN(tip));
-        rc = PyString_FromString(buf);
+    pumpdev = (struct pumpNetIntf *) shmat(shmpump, (void *) pumpdev, SHM_RND);
+    if (((void *) pumpdev) == ((void *) -1)) {
+        Py_INCREF(Py_None);
+        return Py_None;
+    }
+
+    strncpy(pumpdev->device, device, IF_NAMESIZE);
+
+    /* call libdhcp in a separate process because libdhcp is bad */
+    pid = fork();
+    if (pid == 0) {
+        r = pumpDhcpClassRun(pumpdev, NULL, class, pref, 0, timeout, NULL, 0);
+        if (r != NULL) {
+            exit(1);
+        }
+
+        if (pumpdev->dhcp_nic) {
+            i = dhcp_nic_configure(pumpdev->dhcp_nic);
+
+            dhcp_nic_free(pumpdev->dhcp_nic);
+            pumpdev->dhcp_nic = NULL;
+
+            if (i < 0) {
+                exit(2);
+            }
+        }
+
+        r = pumpSetupInterface(pumpdev);
+        if (r != NULL) {
+            exit(3);
+        }
+
+        exit(0);
+    } else if (pid == -1) {
+        Py_INCREF(Py_None);
+        return Py_None;
     } else {
-        rc = PyString_FromString("");
+        if (waitpid(pid, &status, 0) == -1) {
+            Py_INCREF(Py_None);
+            return Py_None;
+        }
+
+        if (pumpdev->numDns) {
+            tip = &(pumpdev->dnsServers[0]);
+            inet_ntop(tip->sa_family, IP_ADDR(tip), buf, IP_STRLEN(tip));
+            rc = PyString_FromString(buf);
+        } else {
+            rc = PyString_FromString("");
+        }
+
+        if (shmdt(pumpdev) == -1) {
+            Py_INCREF(Py_None);
+            return Py_None;
+        }
+
+        if (shmctl(shmpump, IPC_RMID, 0) == -1) {
+            Py_INCREF(Py_None);
+            return Py_None;
+        }
     }
 
     return rc;
