@@ -268,6 +268,7 @@ class AnacondaYum(YumSorter):
     def __init__(self, anaconda):
         YumSorter.__init__(self)
         self.anaconda = anaconda
+        self.currentMedia = None
         self._loopbackFile = None
         self._timestamp = None
 
@@ -280,7 +281,7 @@ class AnacondaYum(YumSorter):
         # directory where Packages/ is located.
         self.tree = "/mnt/source"
 
-        if self.anaconda.methodstr.startswith("hd:"):
+        if self.anaconda.methodstr.startswith("hd:") or self.anaconda.methodstr.startswith("nfsiso:"):
             self.isodir = "/mnt/isodir"
         else:
             self.isodir = None
@@ -291,11 +292,10 @@ class AnacondaYum(YumSorter):
             if os.path.ismount(self.tree):
                 self.currentMedia = 1
             else:
-                self.currentMedia = None
+                self._switchImage(1)
 
             self.mediagrabber = self.mediaHandler
         else:
-            self.currentMedia = None
             self.mediagrabber = None
 
         self.doConfigSetup(root=anaconda.rootPath)
@@ -411,6 +411,20 @@ class AnacondaYum(YumSorter):
                 self.anaconda.intf.messageWindow(_("Error"),
                         _("Unable to access the disc."))
 
+    def _switchImage(self, discnum):
+        umountImage(self.tree, self.currentMedia)
+        self.currentMedia = None
+
+        # mountDirectory checks before doing anything, so it's safe to
+        # call this repeatedly.
+        mountDirectory(self.isodir, self.anaconda.methodstr,
+                       self.anaconda.intf.messageWindow)
+
+        self._discImages = mountImage(self.isodir, self.tree, discnum,
+                                      self.anaconda.intf.messageWindow,
+                                      discImages=self._discImages)
+        self.currentMedia = discnum
+
     def mediaHandler(self, *args, **kwargs):
         mediaid = kwargs["mediaid"]
         discnum = kwargs["discnum"]
@@ -424,18 +438,7 @@ class AnacondaYum(YumSorter):
             # Unmount any currently mounted ISO images and mount the one
             # containing the requested packages.
             if self.isodir:
-                umountImage(self.tree, self.currentMedia)
-                self.currentMedia = None
-
-                # mountDirectory checks before doing anything, so it's safe to
-                # call this repeatedly.
-                mountDirectory(self.isodir, self.anaconda.methodstr,
-                               self.anaconda.intf.messageWindow)
-
-                discImages = mountImage(self.isodir, self.tree, discnum,
-                                        self.anaconda.intf.messageWindow,
-                                        discImages=self._discImages)
-                self.currentMedia = discnum
+                self._switchImage(discnum)
             else:
                 self._switchCD(discnum)
 
@@ -460,8 +463,6 @@ class AnacondaYum(YumSorter):
                 isys.mount(self.anaconda.methodstr[4:], self.tree, "nfs")
         elif self.anaconda.methodstr.startswith("nfsiso:"):
             methodstr = "file://%s" % self.tree
-            if not os.path.ismount(self.tree):
-                isys.mount(self.anaconda.methodstr[7:], self.tree, "nfs")
         elif self.anaconda.methodstr.startswith("cdrom:"):
             methodstr = "file://%s" % self.tree
         elif self.anaconda.methodstr.startswith("hd:"):
