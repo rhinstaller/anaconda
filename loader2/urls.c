@@ -151,7 +151,7 @@ char *convertUIToURL(struct iurlinfo *ui) {
         finalPrefix = p;
     }
 
-    sprintf(url, "%s://%s%s/%s", 
+    sprintf(url, "%s://%s%s%s", 
 	    ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
 	    login, ui->address, finalPrefix);
 

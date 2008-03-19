@@ -208,7 +208,6 @@ char * mountUrlImage(struct installMethod * method,
     char *url, *buf;
     struct iurlinfo ui;
     char needsSecondary = ' ';
-    int dir = 1;
     char * cdurl = NULL;
 
     enum { URL_STAGE_MAIN, URL_STAGE_SECOND, URL_STAGE_FETCH, 
@@ -235,7 +234,6 @@ char * mountUrlImage(struct installMethod * method,
 
 		/* ks info was adequate, lets skip to fetching image */
 		stage = URL_STAGE_FETCH;
-		dir = 1;
 		break;
             } else {
                 flags &= ~LOADER_FLAGS_STAGE2;
@@ -247,24 +245,20 @@ char * mountUrlImage(struct installMethod * method,
 	    /* got required information from user, proceed */
 	    stage = (needsSecondary != ' ') ? URL_STAGE_SECOND : 
 		URL_STAGE_FETCH;
-	    dir = 1;
             break;
 
         case URL_STAGE_SECOND:
             rc = urlSecondarySetupPanel(&ui);
             if (rc) {
                 stage = URL_STAGE_MAIN;
-                dir = -1;
             } else {
                 stage = URL_STAGE_FETCH;
-                dir = 1;
             }
             break;
 
         case URL_STAGE_FETCH:
             if (FL_TESTING(flags)) {
                 stage = URL_STAGE_DONE;
-                dir = 1;
                 break;
             }
 
@@ -286,7 +280,6 @@ char * mountUrlImage(struct installMethod * method,
                         unlink("/tmp/cdrom");
 
 			stage = URL_STAGE_MAIN;
-			dir = -1;
 
 			if (loaderData->method >= 0)
 				loaderData->method = -1;
@@ -302,12 +295,10 @@ char * mountUrlImage(struct installMethod * method,
                 free(buf);
 
                 stage = URL_STAGE_DONE;
-                dir = 1;
             } else {
 		/* need to find stage 2 on remote site */
 		if (loadUrlImages(&ui)) {
 		    stage = URL_STAGE_MAIN;
-		    dir = -1;
 		    if (loaderData->method >= 0) {
 			loaderData->method = -1;
 		    }
@@ -315,7 +306,6 @@ char * mountUrlImage(struct installMethod * method,
                     flags &= ~LOADER_FLAGS_STAGE2;
 		} else {
 		    stage = URL_STAGE_DONE;
-		    dir = 1;
 		}
 	    }
             break;
