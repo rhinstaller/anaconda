@@ -83,6 +83,22 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     return 0;
 }
 
+/* Check if we are using an nfsiso installation method.  Assumptions:  nothing
+ * is mounted before this function is called, /mnt/isodir is mounted at the
+ * end if we are doing nfsiso.
+ */
+static char *isNfsIso(char *fullPath, char *mountOpts, int *foundinvalid,
+                      int checkStage2) {
+    char *path = NULL;
+
+    if (!doPwMount(fullPath, "/mnt/isodir", "nfs", mountOpts)) {
+        if ((path = validIsoImages("/mnt/isodir", foundinvalid, checkStage2)) == NULL)
+            umount("/mnt/isodir");
+    }
+
+    return path;
+}
+
 char * mountNfsImage(struct installMethod * method,
                      char * location, struct loaderData_s * loaderData) {
     char * host = NULL;
@@ -94,7 +110,7 @@ char * mountNfsImage(struct installMethod * method,
     enum { NFS_STAGE_NFS, NFS_STAGE_MOUNT, 
            NFS_STAGE_DONE } stage = NFS_STAGE_NFS;
 
-    int rc, tmp;
+    int rc, tmp, foundinvalid = 0;
 
     /* JKFIXME: ASSERT -- we have a network device setup when we get here */
     while (stage != NFS_STAGE_DONE) {
@@ -130,7 +146,6 @@ char * mountNfsImage(struct installMethod * method,
             break;
 
         case NFS_STAGE_MOUNT: {
-            int foundinvalid = 0;
             char *buf, *stage2dir;
             struct in_addr ip;
 
@@ -156,7 +171,14 @@ char * mountNfsImage(struct installMethod * method,
                 newtPopWindow();
 
                 stage = NFS_STAGE_DONE;
-                rc = asprintf(&url, "nfs:%s:%s", host, directory);
+                tmp = asprintf(&fullPath, "%s:%s", host, directory);
+
+                if ((buf = isNfsIso(fullPath, mountOpts, &foundinvalid, 0)) != NULL)
+                    rc = asprintf(&url, "nfsiso:%s:%s", host, directory);
+                else
+                    rc = asprintf(&url, "nfs:%s:%s", host, directory);
+
+                free(buf);
                 break;
             }
 
@@ -212,47 +234,46 @@ char * mountNfsImage(struct installMethod * method,
                         break;
                     }
                 } else {
+                    char *path;
+
                     logMessage(WARNING, "unable to access %s", buf);
                     free(buf);
                     umount("/mnt/source");
 
-                    if (!doPwMount(fullPath, "/mnt/isodir", "nfs", mountOpts)) {
-                        char *path;
-
+                    if ((path = isNfsIso(fullPath, mountOpts, &foundinvalid, 1)) != NULL) {
                         /* If we get here, it wasn't a regular NFS method but it may
                          * still be NFSISO.  Remount on the isodir mountpoint and try
                          * again.
                          */
-                        if ((path = validIsoImages("/mnt/isodir", &foundinvalid))) {
-                            foundinvalid = 0;
-                            logMessage(INFO, "Path to valid iso is %s", path);
-                            copyUpdatesImg("/mnt/isodir/updates.img");
+                        logMessage(INFO, "Path to valid iso is %s", path);
+                        copyUpdatesImg("/mnt/isodir/updates.img");
 
-                            if (mountLoopback(path, "/mnt/source", "/dev/loop1")) 
-                                logMessage(WARNING, "failed to mount iso %s loopback", path);
-                            else {
-                                if (FL_STAGE2(flags)) {
-                                    stage2dir = strdup("/mnt/source");
-                                    tmp = asprintf(&buf, "/mnt/source/%s", strrchr(directory, '/'));
-                                } else {
-                                    stage2dir = strdup("/mnt/source/images");
-                                    buf = strdup("/mnt/source/images/stage2.img");
-                                }
+                        if (mountLoopback(path, "/mnt/source", "/dev/loop1")) {
+                            logMessage(WARNING, "failed to mount iso %s loopback", path);
+                            free(path);
+                        } else {
+                            if (FL_STAGE2(flags)) {
+                                stage2dir = strdup("/mnt/source");
+                                tmp = asprintf(&buf, "/mnt/source/%s", strrchr(directory, '/'));
+                            } else {
+                                stage2dir = strdup("/mnt/source/images");
+                                buf = strdup("/mnt/source/images/stage2.img");
+                            }
 
-                                rc = copyFile(buf, "/tmp/stage2.img");
-                                rc = mountStage2("/tmp/stage2.img", stage2dir);
-                                free(buf);
-                                free(stage2dir);
+                            rc = copyFile(buf, "/tmp/stage2.img");
+                            rc = mountStage2("/tmp/stage2.img", stage2dir);
+                            free(buf);
+                            free(stage2dir);
+                            free(path);
 
-                                if (rc && rc == -1) {
-                                    foundinvalid = 1;
-                                    umountLoopback("/mnt/source", "/dev/loop1");
-                                    umount("/mnt/isodir");
-                                } else {
-                                    stage = NFS_STAGE_DONE;
-                                    rc = asprintf(&url, "nfsiso:%s:%s", host, directory);
-                                    break;
-                                }
+                            if (rc && rc == -1) {
+                                foundinvalid = 1;
+                                umountLoopback("/mnt/source", "/dev/loop1");
+                                umount("/mnt/isodir");
+                            } else {
+                                stage = NFS_STAGE_DONE;
+                                rc = asprintf(&url, "nfsiso:%s:%s", host, directory);
+                                break;
                             }
                         }
                     }

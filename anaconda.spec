@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.54
+Version: 11.4.0.55
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,23 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 18 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.55-1
+- Fix format of method=hd: parameter (#438075). (clumens)
+- Work on support for NFSISO installs when using boot.iso. (clumens)
+- If a file doesn't exist, don't continue trying to loopback mount
+  it. (clumens)
+- Make loopback mount error messages more useful. (clumens)
+- Focus root password entry box (#436885). (dcantrell)
+- Fix a traceback writing out the method string for hdiso installs. (clumens)
+- Fix use of sizeof on a malloc()'d char ** (pjones)
+- Fix up ppc boot check (#438005) (katzj)
+- Support reading the UUID from the disk like we do with labels. (clumens)
+- If the protected partition is not yet mounted, mount it now. (clumens)
+- Don't add /dev/ to LABEL= or UUID= devices either. (clumens)
+- Use arch instead of the name again in package nevra. (clumens)
+- Fix traceback with preexisting LUKS partitions in setFromDisk.
+  (part of #437858) (dlehman)
+
 * Mon Mar 17 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.54-1
 - Translation updates (de, fi, it, gu, ta, pa)
 - Fix a typo. (clumens)

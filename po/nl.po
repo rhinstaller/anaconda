@@ -15,12 +15,13 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-16 13:31-0400\n"
-"PO-Revision-Date: 2008-03-11 15:00+0100\n"
+"PO-Revision-Date: 2008-03-18 21:30+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:289
@@ -198,13 +199,13 @@ msgstr ""
 "starten."
 
 #: ../autopart.py:1067
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
 "be able to boot from this partition."
 msgstr ""
-"Opstartpartitie %s is niet van het type VFAT.  EFI zal niet in staat zijn om "
-"van deze partitie op te starten."
+"Opstartpartitie %s is geen Linux-bestandssysteem, zoals ext3.  Het systeem "
+"zal niet in staat zijn om van deze partitie op te starten."
 
 #: ../autopart.py:1070
 #, python-format
@@ -624,9 +625,8 @@ msgstr ""
 "Wilt u doorgaan zonder %s om te zetten?"
 
 #: ../fsset.py:1523
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "Partitie bewerken"
+msgstr "EFI-systeempartitie"
 
 #: ../fsset.py:1527
 msgid "RAID Device"
@@ -1959,12 +1959,11 @@ msgstr ""
 "s te installeren."
 
 #: ../partitions.py:1052
-#, fuzzy
 msgid ""
 "You must create an EFI System Partition of type FAT and a size of 50 "
 "megabytes."
 msgstr ""
-"U moet een partitie /boot/efi aanmaken, van type FAT en met een grootte van "
+"U moet een EFI-systeempartitie aanmaken, van type FAT en met een grootte van "
 "50 megabytes."
 
 #: ../partitions.py:1066
@@ -3251,21 +3250,21 @@ msgid "Unknown Linux system"
 msgstr "Onbekend Linux systeem"
 
 #: ../iw/GroupSelector.py:210
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Pakketselectie"
+msgstr "Pakketten in %s"
 
 #: ../iw/GroupSelector.py:482
-#, fuzzy, python-format
+#, python-format
 msgid "%d of %d optional package selected"
 msgid_plural "%d of %d optional packages selected"
-msgstr[0] "Geen optionele pakketten om te selecteren"
-msgstr[1] "Geen optionele pakketten om te selecteren"
+msgstr[0] "%d van %d optioneel pakket geselecteerd"
+msgstr[1] "%d van %d optionele pakketten geselecteerd"
 
 #: ../iw/GroupSelector.py:485
 #, python-format
 msgid "<i>%s</i>"
-msgstr ""
+msgstr "<i>%s</i>"
 
 #: ../iw/language_gui.py:30 ../textw/language_text.py:44
 msgid "Language Selection"
@@ -4641,7 +4640,7 @@ msgid "Migrate File Systems"
 msgstr "Bestandssystemen migreren"
 
 #: ../iw/upgrade_migratefs_gui.py:62 ../textw/upgrade_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4649,11 +4648,10 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Deze versie van %s biedt ondersteuning voor het ext3 journaling "
-"bestandssysteem, dat verschillende voordelen biedt ten opzichte van het ext2 "
-"bestandssysteem dat traditioneel bij %s geleverd werd. Dit "
-"installatieprogramma kan de ext2-geformatteerde partities zonder "
-"gegevensverlies naar ext3 migreren.\n"
+"Deze uitgave van %s biedt ondersteuning voor een bijgewerkt bestandssysteem, "
+"dat verschillende voordelen biedt ten opzichte van het bestandssysteem dat "
+"traditioneel bij %s geleverd werd.  Dit installatieprogramma kan de "
+"geformatteerde partities zonder gegevensverlies migreren.\n"
 "\n"
 "Welke van deze partities wilt u migreren?"
 
@@ -6391,14 +6389,14 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"Het beeld-bestand dat zojuist is getest bevat fouten. De oorzaak kan een "
+"Het beeldbestand dat zojuist is getest bevat fouten. De oorzaak kan een "
 "gecorrumpeerde download of een slechte schijf zijn. Probeer eerst de schijf "
 "schoon te maken en probeer het dan opnieuw. Als de schijf wederom niet door "
 "de test komt moet u niet doorgaan met de installatie."
 
 #: ../loader2/mediacheck.c:117
 msgid "Success"
-msgstr ""
+msgstr "Succes"
 
 #: ../loader2/mediacheck.c:118
 msgid ""
@@ -6406,6 +6404,9 @@ msgid ""
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
 msgstr ""
+"Het beeldbestand dat zojuist is getest is succesvol geverifiëerd.  Het is OK "
+"om vanaf deze media te installeren.  Hou er rekening mee dat niet alle "
+"media- en schijffouten gedetecteerd kunnen worden door de mediacontrole."
 
 #: ../loader2/method.c:377
 #, c-format
@@ -6597,7 +6598,7 @@ msgstr "%s map:"
 #: ../loader2/nfsinstall.c:65
 #, c-format
 msgid "Please enter the server name and path to your %s images."
-msgstr ""
+msgstr "Voer de servernaam in en het pad naar uw %s images."
 
 #: ../loader2/nfsinstall.c:67
 msgid "NFS Setup"
@@ -6638,9 +6639,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Anaconda wordt via telnet opgestart..."
 
 #: ../loader2/urlinstall.c:79
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s."
-msgstr "Ophalen van %s://%s/%s/%s mislukt."
+msgstr "Niet in staat om %s://%s/%s binnen te halen."
 
 #: ../loader2/urlinstall.c:186
 msgid "Unable to retrieve the install image."
@@ -6661,9 +6662,9 @@ msgid "Unknown Url method %s"
 msgstr "Onbekende URL methode %s"
 
 #: ../loader2/urls.c:280
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the URL containing the %s images on your server."
-msgstr "Voer de URL in die %s bevat op uw server.\n"
+msgstr "Voer de URL in die de %s images op uw server bevat."
 
 #: ../loader2/urls.c:291
 msgid "Configure proxy"
@@ -6679,7 +6680,7 @@ msgstr "U moet een URL opgeven."
 
 #: ../loader2/urls.c:320
 msgid "URL must be either an ftp or http URL"
-msgstr ""
+msgstr "URL moet ofwel een ftp of een http URL zijn"
 
 #: ../loader2/urls.c:331
 msgid "Unknown Host"
@@ -6901,35 +6902,33 @@ msgid ""
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
+"Sommige pakketten die geassocieerd zijn met deze groep zijn niet vereist om "
+"geïnstalleerd te worden, maar bieden mogelijk additionele functionaliteit. "
+"Kies de pakketten die u geïnstalleerd wilt hebben."
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Deselect"
-msgstr "Verwij_deren"
+msgstr "_Deselecteren"
 
 #: tmp/GroupSelector.glade.h:3
-#, fuzzy
 msgid "_Deselect all optional packages"
-msgstr "Installeren van pakketten"
+msgstr "Alle optionele pakketten _deselecteren"
 
 #: tmp/GroupSelector.glade.h:4
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Geen optionele pakketten om te selecteren"
+msgstr "_Optionele pakketten"
 
 #: tmp/GroupSelector.glade.h:5
-#, fuzzy
 msgid "_Select"
-msgstr "Verwij_deren"
+msgstr "_Selecteren"
 
 #: tmp/GroupSelector.glade.h:6
-#, fuzzy
 msgid "_Select all optional packages"
-msgstr "Geen optionele pakketten om te selecteren"
+msgstr "Alle optionele pakketten _selecteren"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
