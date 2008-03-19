@@ -70,6 +70,7 @@ BuildRequires: desktop-file-utils
 
 Requires: policycoreutils
 Requires: rpm-python >= %{rpmpythonver}
+Requires: comps-extras
 Requires: rhpl >= %{rhplver}
 Requires: booty
 Requires: parted >= %{partedver}
