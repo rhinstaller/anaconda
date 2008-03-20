@@ -2019,7 +2019,11 @@ MAILADDR root
             if not os.path.isdir(rootdir):
                 os.makedirs(rootdir)
 
-            dmdev = "/dev/mapper/" + root.device.getDevice().replace("-","--").replace("/", "-")
+            if root.device.crypto is None:
+                dmdev = "/dev/mapper/" + root.device.getDevice().replace("-","--").replace("/", "-")
+            else:
+                dmdev = "/dev/" + root.device.getDevice()
+
             if os.path.exists(instPath + dmdev):
                 os.unlink(instPath + dmdev)
             if not os.path.isdir(os.path.dirname(instPath + dmdev)):
@@ -2027,11 +2031,13 @@ MAILADDR root
             iutil.copyDeviceNode(dmdev, instPath + dmdev)
 
             # unlink existing so that we dtrt on upgrades
-            if os.path.exists(instPath + rootDev):
+            if os.path.exists(instPath + rootDev) and not root.device.crypto:
                 os.unlink(instPath + rootDev)
             if not os.path.isdir(rootdir):
                 os.makedirs(rootdir)
-            os.symlink(dmdev, instPath + rootDev)
+
+            if root.device.crypto is None:
+                os.symlink(dmdev, instPath + rootDev)
 
             if not os.path.isdir("%s/etc/lvm" %(instPath,)):
                 os.makedirs("%s/etc/lvm" %(instPath,))
@@ -2508,8 +2514,8 @@ class VolumeGroupDevice(Device):
 
 class LogicalVolumeDevice(Device):
     # note that size is in megabytes!
-    def __init__(self, vgname, size, lvname, vg, existing = 0):
-        Device.__init__(self)
+    def __init__(self, vgname, size, lvname, vg, existing = 0, encryption=None):
+        Device.__init__(self, encryption=encryption)
         self.vgname = vgname
         self.size = size
         self.name = lvname
@@ -2526,6 +2532,9 @@ class LogicalVolumeDevice(Device):
         # self.readaheadsectors
 
     def setupDevice(self, chroot="/", devPrefix='/dev', vgdevice = None):
+        if self.crypto:
+            self.crypto.setDevice("mapper/%s-%s" % (self.vgname, self.name))
+
         if not self.isSetup:
             lvm.lvcreate(self.name, self.vgname, self.size)
             self.isSetup = 1
@@ -2533,10 +2542,19 @@ class LogicalVolumeDevice(Device):
             if vgdevice and vgdevice.isNetdev():
                 self.setAsNetdev()
 
+        if self.crypto:
+            self.crypto.formatDevice()
+            self.crypto.openDevice()
+
         return "/dev/%s" % (self.getDevice(),)
 
     def getDevice(self, asBoot = 0):
-        return "%s/%s" % (self.vgname, self.name)
+        if self.crypto and not asBoot:
+            device = self.crypto.getDevice()
+        else:
+            device = "%s/%s" % (self.vgname, self.name)
+
+        return device
 
     def solidify(self):
         return
