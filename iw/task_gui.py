@@ -53,7 +53,7 @@ def setupRepo(anaconda, repo):
         anaconda.intf.messageWindow(_("Warning"),
                        _("Unable to find a group file for %s.  "
                          "This will prevent manual selection of packages "
-                         "from the repository from working") %(repo.id,),
+                         "from the repository from working") %(repo.name,),
                                 type="warning")
 
     return True
