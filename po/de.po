@@ -2274,7 +2274,7 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Ihr System wurde gemountet unter: %s.\n"
+"Ihr System wurde eingehängt unter: %s.\n"
 "\n"
 "Drücken Sie die <Enter>, um eine Shell aufzurufen. Wenn Sie Ihr System als "
 "Root-Umgebung möchten, führen Sie folgenden Befehl aus:\n"
@@ -2293,14 +2293,14 @@ msgid ""
 "exit from the shell."
 msgstr ""
 "Ein Fehler trat bei dem Versuch auf, einige oder alle Ihre Systeme zu "
-"mounten. Einige wurden eventuell unter %s gemountet.\n"
+"einzuhängen. Einige wurden eventuell unter %s eingehängt.\n"
 "\n"
 "Drücken Sie <Enter>, um eine Shell aufzurufen. Das System wird automatisch "
-"neu booten, wenn Sie die Shell verlassen."
+"neustarten, wenn Sie die Shell verlassen."
 
 #: ../rescue.py:454
 msgid "Rescue Mode"
-msgstr "Rescue-Modus"
+msgstr "Rettungsmodus"
 
 #: ../rescue.py:455
 msgid ""
@@ -2314,7 +2314,7 @@ msgstr ""
 #: ../rescue.py:468
 #, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr "Ihr System wurde unter dem Verzeichnis %s gemountet."
+msgstr "Ihr System wurde unter dem Verzeichnis %s eingehängt."
 
 #: ../text.py:186 ../text.py:250 ../text.py:263 tmp/exnSave.glade.h:1
 msgid "Save"
@@ -2445,10 +2445,10 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"Die folgenden Dateisysteme Ihres Linux-Systems wurden nicht ordnungsgemäss "
+"Die folgenden Dateisysteme Ihres Linux-Systems wurden nicht ordnungsgemäß "
 "ausgehängt. Booten Sie die Linux-Installation erneut, lassen Sie die "
-"Dateisysteme prüfen und fahren Sie das System ordnungsgemäss herunter, um "
-"das Upgrade vornehmen zu können.\n"
+"Dateisysteme prüfen und fahren Sie das System ordnungsgemäß herunter, um "
+"die Aktualisierung vornehmen zu können.\n"
 "%s"
 
 #: ../upgrade.py:238
@@ -2472,7 +2472,7 @@ msgid ""
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
 "Ein oder mehrere Dateisystem(e), die in der Datei /etc/fstab Ihres Linux-"
-"Systems enthalten sind, können nicht eingebunden werden. Beheben Sie dieses "
+"Systems enthalten sind, können nicht eingehangen werden. Beheben Sie dieses "
 "Problem und beginnen Sie dann erneut mit dem Aktualisieren Ihres Systems."
 
 #: ../upgrade.py:386
@@ -2510,7 +2510,7 @@ msgid ""
 "\n"
 msgstr ""
 "Die folgenden sind Verzeichnisse, welche symbolische Links sein sollten, was "
-"Probleme beim Upgrade verursacht.  Bitte stellen Sie deren Originalzustand,"
+"Probleme beim Upgrade verursacht. Bitte stellen Sie deren Originalzustand,"
 "als symbolische Links, wieder her und starten Sie das Upgrade erneut.\n"
 "\n"
 
@@ -2536,7 +2536,7 @@ msgstr "%s %s Installation durchführen"
 #: ../vnc.py:174
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr "Versuche, mich mit dem VNC-Client auf Rechner %s zu verbinden..."
+msgstr "Versuche, mich mit dem VNC-Client auf Rechner %s zu verbinden ..."
 
 #: ../vnc.py:188
 msgid "Connected!"
@@ -2544,7 +2544,7 @@ msgstr "Verbunden!"
 
 #: ../vnc.py:191
 msgid "Will try to connect again in 15 seconds..."
-msgstr "Werde Verbindung in 15 Sekunden erneut versuchen..."
+msgstr "Werde Verbindung in 15 Sekunden erneut versuchen ..."
 
 #: ../vnc.py:197
 #, python-format
@@ -2566,7 +2566,7 @@ msgstr ""
 
 #: ../vnc.py:211
 msgid "Starting VNC..."
-msgstr "VNC wird gestartet..."
+msgstr "VNC wird gestartet ..."
 
 #: ../vnc.py:236
 msgid "The VNC server is now running."
@@ -2627,7 +2627,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Unbekannter Fehler.  Abbruch. \n"
+"Unbekannter Fehler. Abbruch. \n"
 "\n"
 
 #: ../vnc.py:285 ../vnc.py:374
@@ -2671,7 +2671,7 @@ msgstr "Länge des Passworts"
 
 #: ../vnc.py:324 ../vnc.py:419
 msgid "The password must be at least six characters long."
-msgstr "Das Passwort muss aus mindestens 6 Zeichen bestehen."
+msgstr "Das Passwort muss aus mindestens sechs Zeichen bestehen."
 
 #: ../vnc.py:355
 msgid "Unable to Start X"
@@ -2722,7 +2722,7 @@ msgstr "Daten werden verarbeitet"
 
 #: ../yuminstall.py:128
 msgid "Preparing transaction from installation source..."
-msgstr "Transaktion von der Installationsquelle wird vorbereitet..."
+msgstr "Transaktion von der Installationsquelle wird vorbereitet ..."
 
 #: ../yuminstall.py:159
 #, python-format
@@ -2736,12 +2736,12 @@ msgstr "%s von %s Paketen abgeschlossen"
 
 #: ../yuminstall.py:222
 msgid "Finishing upgrade"
-msgstr "Schliesse Aktualisierung ab."
+msgstr "Schließe Aktualisierung ab."
 
 #: ../yuminstall.py:223
 msgid "Finishing upgrade process.  This may take a little while..."
 msgstr ""
-"Installationsprozess wird abgeschlossen.  Dies kann einige Minuten dauern..."
+"Installationsprozess wird abgeschlossen. Dies kann einige Minuten dauern ..."
 
 #: ../yuminstall.py:336
 msgid "Copying File"
@@ -2749,7 +2749,7 @@ msgstr "Datei kopieren"
 
 #: ../yuminstall.py:337
 msgid "Transferring install image to hard drive..."
-msgstr "Das Installationsabbild wird auf die Festplatte übertragen..."
+msgstr "Das Installationsabbild wird auf die Festplatte übertragen ..."
 
 #: ../yuminstall.py:348
 msgid ""
@@ -2757,7 +2757,7 @@ msgid ""
 "is probably due to bad media."
 msgstr ""
 "Ein Fehler trat während der Übertragung des Installationsabbilder auf Ihre "
-"Festplatte auf. Wahrscheinlich ist zu wenig Platz vorhanden."
+"Festplatte auf. Vermutlich liegt dies an einem defekten Datenträger."
 
 #: ../yuminstall.py:352
 msgid ""
@@ -2822,7 +2822,7 @@ msgstr "Wiederholen"
 
 #: ../yuminstall.py:603
 msgid "Retrying package download..."
-msgstr "Versuche erneutes Herunterladen der Pakete..."
+msgstr "Versuche erneutes Herunterladen der Pakete ..."
 
 #: ../yuminstall.py:668
 #, python-format
@@ -2862,7 +2862,7 @@ msgstr "Benötigtes Paket"
 
 #: ../yuminstall.py:709
 msgid "package for incorrect arch"
-msgstr "Paket für inkorrektes arch"
+msgstr "Paket für inkorrekte arch"
 
 #: ../yuminstall.py:710
 msgid "package for incorrect os"
@@ -2878,7 +2878,7 @@ msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
 msgstr ""
-"Es existiert ein Datei-Konflikt während der Prüfung der zu installierenden "
+"Es existiert ein Dateikonflikt während der Prüfung der zu installierenden "
 "Pakete.\n"
 "%s\n"
 
@@ -2901,12 +2901,12 @@ msgstr "Fehler beim Durchführen der Transaktion"
 
 #: ../yuminstall.py:906
 msgid "Retrieving installation information..."
-msgstr "Installationsinformationen werden gelesen..."
+msgstr "Installationsinformationen werden gelesen ..."
 
 #: ../yuminstall.py:908
 #, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Installationsinformationen für %s werden abgerufen..."
+msgstr "Installationsinformationen für %s werden abgerufen ..."
 
 #: ../yuminstall.py:920 ../textw/bootloader_text.py:277
 #: ../textw/constants_text.py:62 ../textw/partition_text.py:1428
@@ -2933,8 +2933,8 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
-"Kann Gruppeninformationen aus Depot nicht lesen.  Es existiert ein Problem "
-"mit der Generierung Ihres Installationsbaums."
+"Kann Gruppeninformationen aus Repository nicht lesen. Es existiert ein "
+"Problem mit der Generierung Ihres Installationsbaums."
 
 #: ../yuminstall.py:1006 ../iw/GroupSelector.py:545
 msgid "Uncategorized"
@@ -2948,7 +2948,7 @@ msgid ""
 "installer."
 msgstr ""
 "Ihre ausgewählten Pakete benötigen %d MB freien Speicherplatz für die "
-"Installation, aber Ihnen steht nicht genügend zur Verfügung.  Sie können "
+"Installation, aber Ihnen steht nicht genügend zur Verfügung. Sie können "
 "Ihre Auswahl ändern oder die Installation abbrechen."
 
 #: ../yuminstall.py:1251
@@ -2977,8 +2977,8 @@ msgid ""
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 "Die Architektur dieser Version von %s, welche Sie aktualisieren wollen, "
-"scheint %s zu sein, welche nicht mit Ihrer vorgängig installierten "
-"Architektur %s übereinstimmt. Dies wird fast sicher nicht erfolgreich sein.  "
+"scheint %s zu sein, welche nicht mit Ihrer vorher installierten "
+"Architektur %s übereinstimmt. Dies wird vermutlich nicht erfolgreich sein. "
 "Sind Sie sicher, dass Sie mit dem Upgrade fortfahren wollen?"
 
 #: ../yuminstall.py:1492
@@ -2987,15 +2987,15 @@ msgstr "Post-Upgrade"
 
 #: ../yuminstall.py:1493
 msgid "Performing post upgrade configuration..."
-msgstr "Post-Upgrade-Konfiguration wird durchgeführt..."
+msgstr "Post-Upgrade-Konfiguration wird durchgeführt ..."
 
 #: ../yuminstall.py:1495
 msgid "Post Install"
-msgstr "Nachträgliche Installation"
+msgstr "Post-Installation"
 
 #: ../yuminstall.py:1496
 msgid "Performing post install configuration..."
-msgstr "Konfiguration nach erfolgter Installation wird durchgeführt..."
+msgstr "Konfiguration nach erfolgter Installation wird durchgeführt ..."
 
 #: ../yuminstall.py:1735
 msgid "Installation Progress"
@@ -3008,7 +3008,7 @@ msgstr "Installation startet"
 #: ../yuminstall.py:1771
 msgid "Starting install process.  This may take several minutes..."
 msgstr ""
-"Installationsprozess wird gestartet.  Dies kann einige Minuten dauern..."
+"Installationsprozess wird gestartet. Dies kann einige Minuten dauern..."
 
 #: ../yuminstall.py:1808
 msgid "Dependency Check"
@@ -3016,7 +3016,7 @@ msgstr "Abhängigkeitsüberprüfung"
 
 #: ../yuminstall.py:1809
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "Abhängigkeitsüberprüfung der zu installierenden Pakete..."
+msgstr "Abhängigkeitsüberprüfung der zu installierenden Pakete ..."
 
 #: ../zfcp.py:49
 msgid "You have not specified a device number or the number is invalid"
@@ -3060,7 +3060,7 @@ msgstr ""
 #: ../iw/account_gui.py:96
 msgid "The passwords you entered were different.  Please try again."
 msgstr ""
-"Sie haben unterschiedliche Passwörter eingegeben.  Bitte wiederholen Sie den "
+"Sie haben unterschiedliche Passwörter eingegeben. Bitte wiederholen Sie den "
 "Vorgang."
 
 #: ../iw/account_gui.py:103
