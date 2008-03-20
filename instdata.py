@@ -103,6 +103,8 @@ class InstallData:
         elif self.anaconda._loaderMethodstr.startswith("hd:"):
             method = self.anaconda._loaderMethodstr[3:]
             device = method.split(":", 3)[0]
+            if device.startswith("/dev/"):
+                device = device[5:]
             self.partitions.protected = [device]
 
     def setInstallProgressClass(self, c):

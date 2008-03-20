@@ -141,9 +141,12 @@ def mountDirectory(isodir, methodstr, messageWindow):
     lines = f.readlines()
     f.close()
 
+    if not device.startswith("/dev/"):
+        device = "/dev/%s" %(device,)
+
     for l in lines:
         s = string.split(l)
-        if s[0] == "/dev/" + device:
+        if s[0] == device:
             # It is, so there's no need to try again.
             return
 

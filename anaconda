@@ -585,6 +585,8 @@ class Anaconda:
             f.write("cdrom\n")
         elif self._loaderMethodstr.startswith('hd:'):
             (partition, filesystem, dir) = string.split(self._loaderMethodstr[3:], ':')
+            if partition.startswith("/dev/"):
+                partition = partition[5:]
             f.write("harddrive --partition=%s --dir=%s\n" % (partition, dir))
         elif self._loaderMethodstr.startswith('nfs:') or self._loaderMethodstr.startswith('nfsiso:'):
             (method, server, dir) = string.split(self._loaderMethodstr, ':')

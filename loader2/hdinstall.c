@@ -202,7 +202,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
                         goto err;
                     } else {
                         rc = asprintf(&url, "hd:%s:%s:/%s",
-                                      strrchr(device, '/')+1,
+                                      device,
                                       *type, dirName ? dirName : ".");
                         return url;
                     }
@@ -230,7 +230,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
                 } else {
                     queryIsoMediaCheck(path);
                     free(path);
-                    rc = asprintf(&url, "hd:%s:%s:/%s", strrchr(device, '/')+1,
+                    rc = asprintf(&url, "hd:%s:%s:/%s", device,
                                   *type, dirName ? dirName : ".");
                     return url;
                 }
