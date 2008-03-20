@@ -49,7 +49,8 @@ int doPwMount(char *dev, char *where, char *fs, char *options) {
             opts = strdup("nolock");
         device = strdup(dev);
     } else {
-        if (strncmp(dev, "LABEL=", 6) && strncmp(dev, "UUID=", 5) && *dev != '/')
+        if (strstr(options, "bind") == NULL && strncmp(dev, "LABEL=", 6) &&
+            strncmp(dev, "UUID=", 5) && *dev != '/')
            rc = asprintf(&device, "/dev/%s", dev);
         else
            device = strdup(dev);
