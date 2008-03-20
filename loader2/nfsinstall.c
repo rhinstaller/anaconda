@@ -262,13 +262,14 @@ char * mountNfsImage(struct installMethod * method,
 
                             rc = copyFile(buf, "/tmp/stage2.img");
                             rc = mountStage2("/tmp/stage2.img", stage2dir);
+                            umountLoopback("/mnt/source", "/dev/loop1");
+
                             free(buf);
                             free(stage2dir);
                             free(path);
 
                             if (rc && rc == -1) {
                                 foundinvalid = 1;
-                                umountLoopback("/mnt/source", "/dev/loop1");
                                 umount("/mnt/isodir");
                             } else {
                                 stage = NFS_STAGE_DONE;
