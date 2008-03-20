@@ -3065,7 +3065,7 @@ msgstr ""
 
 #: ../iw/account_gui.py:103
 msgid "The root password must be at least six characters long."
-msgstr "Das Root-Passwort muss aus mindestens 6 Zeichen bestehen."
+msgstr "Das Root-Passwort muss aus mindestens sechs Zeichen bestehen."
 
 #: ../iw/account_gui.py:110 ../textw/userauth_text.py:78
 msgid "Weak Password"
@@ -3094,8 +3094,8 @@ msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
 msgstr ""
-"Kein Partitionen zur Grössenänderung verfügbar. Nur physikalische "
-"Partitionen mit angegebenen Dateisystemen können in der Grösse geändert "
+"Kein Partitionen zur Größenänderung verfügbar. Nur physikalische "
+"Partitionen mit angegebenen Dateisystemen können in der Größe geändert "
 "werden."
 
 #: ../iw/autopart_type.py:177
@@ -3118,25 +3118,25 @@ msgstr "Fehler mit Daten"
 
 #: ../iw/autopart_type.py:401 ../textw/partition_text.py:1517
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr "Alle Partitionen auf Platten löschen und Standard-Layout kreieren."
+msgstr "Alle Partitionen auf Platten löschen und Standard-Layout erstellen."
 
 #: ../iw/autopart_type.py:402 ../textw/partition_text.py:1518
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr "Linux-Partitionen auf Platten löschen und Standard-Layout kreieren."
+msgstr "Linux-Partitionen auf Platten löschen und Standard-Layout erstellen."
 
 #: ../iw/autopart_type.py:403
 msgid "Resize existing partition and create default layout in free space"
 msgstr ""
-"Bestehende Paritionen in der Grösse ändern und Standard-Layout kreieren in "
-"freiem Bereich."
+"Bestehende Paritionen in der Größe ändern und Standard-Layout im freien "
+"Bereich erstellen."
 
 #: ../iw/autopart_type.py:404 ../textw/partition_text.py:1519
 msgid "Use free space on selected drives and create default layout"
-msgstr "Freien Platz auf Platten verwenden und Standard-Layout kreieren."
+msgstr "Freien Platz auf Platten verwenden und Standard-Layout erstellen."
 
 #: ../iw/autopart_type.py:405 ../textw/partition_text.py:1520
 msgid "Create custom layout"
-msgstr "Massgeschneidertes Layout kreieren."
+msgstr "Maßgeschneidertes Layout erstellen."
 
 #: ../iw/blpasswidget.py:45
 msgid "_Use a boot loader password"
@@ -3164,7 +3164,7 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-"Geben Sie ein Bootloader-Passwort ein und bestätigen Sie es.  (Bitte "
+"Geben Sie ein Bootloader-Passwort ein und bestätigen Sie es. (Bitte "
 "beachten Sie, dass Ihre BIOS Tastaturbelegung sich von Ihrer tatsächlichen "
 "Tastaturbelegung unterscheiden kann.)"
 
@@ -3191,8 +3191,8 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Ihr Bootloader-Passwort besteht aus weniger als 6 Zeichen. Empfehlenswert "
-"ist jedoch ein längeres Passwort.\n"
+"Ihr Bootloader-Passwort besteht aus weniger als sechs Zeichen. "
+"Empfehlenswert ist jedoch ein längeres Passwort.\n"
 "\n"
 "Möchten Sie mit diesem Passwort fortfahren?"
 
@@ -3206,7 +3206,7 @@ msgstr "Bootloader-Konfiguration"
 #: ../iw/bootloader_main_gui.py:212
 #, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "_Bootloader wird /dev/%s installiert."
+msgstr "_Bootloader wird auf /dev/%s installiert."
 
 #: ../iw/bootloader_main_gui.py:218
 msgid "_Change device"
@@ -3238,7 +3238,7 @@ msgstr ""
 
 #: ../iw/examine_gui.py:35
 msgid "Upgrade Examine"
-msgstr "Upgrade überprüfen"
+msgstr "Aktualisierung überprüfen"
 
 #: ../iw/examine_gui.py:57
 #, python-format
@@ -3256,7 +3256,7 @@ msgstr ""
 
 #: ../iw/examine_gui.py:63
 msgid "_Upgrade an existing installation"
-msgstr "_Upgrade eines vorhandenen Systems durchführen"
+msgstr "Akt_ualisierung eines vorhandenen Systems durchführen"
 
 #: ../iw/examine_gui.py:65
 #, python-format
@@ -3264,8 +3264,8 @@ msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
 msgstr ""
-"Wählen Sie diese Option, wenn Sie Ihr bestehendes %s System aktualisieren "
-"wollen.  Mit dieser Option bleiben die auf Ihren Festplatten bestehenden "
+"Wählen Sie diese Option, wenn Sie Ihr bestehendes %s-System aktualisieren "
+"wollen. Mit dieser Option bleiben die auf Ihren Festplatten bestehenden "
 "Daten erhalten."
 
 #: ../iw/examine_gui.py:112 ../iw/pixmapRadioButtonGroup_gui.py:203
@@ -3274,7 +3274,7 @@ msgstr "Das folgende installierte System wird aktualisiert:"
 
 #: ../iw/examine_gui.py:125
 msgid "Unknown Linux system"
-msgstr "Unbekanntes Linux System"
+msgstr "Unbekanntes Linux-System"
 
 #: ../iw/GroupSelector.py:210
 #, python-format
@@ -3316,14 +3316,14 @@ msgid ""
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
-"Die Grösse der physischen Einteilungseinheiten (Extents) kann nicht geändert "
+"Die Größe der physischen Einteilungseinheiten (Extents) kann nicht geändert "
 "werden, da sonst der Platz für die derzeit definierten logischen Datenträger "
-"(Logical Volumes) grösser als der verfügbare Platz wäre."
+"(Logical Volumes) größer als der verfügbare Platz wäre."
 
 #: ../iw/lvm_dialog_gui.py:132
 msgid "Confirm Physical Extent Change"
 msgstr ""
-"Grössenänderung der physischen Einteilungseinheiten (Extent) bestätigen"
+"Größenänderung der physischen Einteilungseinheiten (Extent) bestätigen"
 
 #: ../iw/lvm_dialog_gui.py:133
 msgid ""
@@ -3333,8 +3333,8 @@ msgid ""
 "\n"
 "This change will take effect immediately."
 msgstr ""
-"Diese Änderung der Grösse der physischen Einteilungseinheiten (Extent) "
-"erfordert, dass die Grössen für die aktuellen logischen Datenträger (Logical "
+"Diese Änderung der Größe der physischen Einteilungseinheiten (Extent) "
+"erfordert, dass die Größen für die aktuellen logischen Datenträger (Logical "
 "Volumes) zu einem ganzen Vielfachen der Einteilungseinheiten aufgerundet "
 "werden.\n"
 "\n"
@@ -3352,8 +3352,8 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
-"Die Grösse der physischen Einteilungseinheiten (Extent) kann nicht geändert "
-"werden, da der gewählte Wert (%10.2f MB) grösser ist, als der kleinste phys. "
+"Die Größe der physischen Einteilungseinheiten (Extent) kann nicht geändert "
+"werden, da der gewählte Wert (%10.2f MB) größer ist, als der kleinste phys. "
 "Datenträger (Physical Volume) (%10.2f MB) im Datenträgerverbund (Volume "
 "Group)."
 
@@ -3364,8 +3364,8 @@ msgid ""
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
-"Die Grösse der physischen Einteilungseinheiten (Extent) kann nicht geändert "
-"werden, da der gewählte Wert (%10.2f MB) grösser ist, als der kleinste phys. "
+"Die Größe der physischen Einteilungseinheiten (Extent) kann nicht geändert "
+"werden, da der gewählte Wert (%10.2f MB) größer ist, als der kleinste phys. "
 "Datenträger (Physical Volume) (%10.2f MB) im Datenträgerverbund (Volume "
 "Group)."
 
@@ -3378,7 +3378,7 @@ msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
-"Diese Änderung der Grösse der Einteilungseinheiten (Extent) verbraucht "
+"Diese Änderung der Größe der Einteilungseinheiten (Extent) verbraucht "
 "wertvollen Platz in einem oder mehreren physischen Datenträgern (Physical "
 "Voulume) des Datenträgerverbundes (Volume Group)."
 
@@ -3389,8 +3389,8 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
-"Die Grösse der Einteilungseinheiten (Extent) kann nicht geändert werden, da "
-"die resultierende maximale Grösse eines logischen Datenträgers (Logical "
+"Die Größe der Einteilungseinheiten (Extent) kann nicht geändert werden, da "
+"die resultierende maximale Größe eines logischen Datenträgers (Logical "
 "Volume) (%10.2f MB) kleiner ist, als einer oder mehrere der derzeit "
 "definierten logischen Datenträger."
 
@@ -3448,27 +3448,27 @@ msgstr "Logical Volume-Name:"
 
 #: ../iw/lvm_dialog_gui.py:447 ../iw/partition_dialog_gui.py:386
 msgid "_Size (MB):"
-msgstr "_Grösse (MB):"
+msgstr "_Größe (MB):"
 
 #: ../iw/lvm_dialog_gui.py:453 ../iw/partition_dialog_gui.py:403
 #: ../textw/partition_text.py:320 ../textw/partition_text.py:397
 #: ../textw/partition_text.py:480 ../textw/partition_text.py:588
 msgid "Size (MB):"
-msgstr "Grösse (MB):"
+msgstr "Größe (MB):"
 
 #: ../iw/lvm_dialog_gui.py:468
 #, python-format
 msgid "(Max size is %s MB)"
-msgstr "(Max. Grösse: %s MB)"
+msgstr "(Max. Größe: %s MB)"
 
 #: ../iw/lvm_dialog_gui.py:525 ../textw/partition_text.py:1264
 msgid "Illegal size"
-msgstr "Ungültige Grösse"
+msgstr "Ungültige Größe"
 
 #: ../iw/lvm_dialog_gui.py:526 ../textw/partition_text.py:1265
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr ""
-"Die eingegebene, erforderliche Grösse ist keine gültige Zahl grösser als 0."
+"Die eingegebene, erforderliche Größe ist keine gültige Zahl größer als 0."
 
 #: ../iw/lvm_dialog_gui.py:561
 msgid "Mount point in use"
@@ -3503,8 +3503,8 @@ msgid ""
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
-"Die derzeit erforderliche Grösse (%10.2f MB) ist grösser als die maximale "
-"Grösse des logischen Datenträgers (Logical Volume) (%10.2f MB). Um diesen "
+"Die derzeit erforderliche Größe (%10.2f MB) ist größer als die maximale "
+"Größe des logischen Datenträgers (Logical Volume) (%10.2f MB). Um diesen "
 "Grenzwert zu erhöhen, können Sie mehr physische Datenträger (Physical "
 "Volumes) im unpartitionierten Bereich erzeugen und zu diesem "
 "Datenträgerverbund (Volume Group) hinzufügen."
@@ -3526,7 +3526,7 @@ msgid ""
 msgstr ""
 "Die von Ihnen konfigurierten logischen Datenträger (Logical Volumes) "
 "benötigen %d MB, der Datenträgerverbund (Volume Group) besitzt jedoch nur %d "
-"MB. Vergrössern Sie den Datenträgerverbund oder verkleinern Sie den/die "
+"MB. Vergrößern Sie den Datenträgerverbund oder verkleinern Sie den/die "
 "logischen Datenträger."
 
 #: ../iw/lvm_dialog_gui.py:733
@@ -3552,7 +3552,7 @@ msgid ""
 msgstr ""
 "Es ist kein Platz im Datenträgerverbund (Volume Group) verfügbar, um neue "
 "logische Datenträger (Logical Volumes) anzulegen. Wenn Sie einen logischen "
-"Datenträger hinzufügen möchten, müssen Sie die Grösse von einem oder "
+"Datenträger hinzufügen möchten, müssen Sie die Größe von einem oder "
 "mehreren der derzeit existierenden logischen Datenträger reduzieren."
 
 #: ../iw/lvm_dialog_gui.py:769
@@ -3638,7 +3638,7 @@ msgstr "Gesamter Platz: "
 
 #: ../iw/lvm_dialog_gui.py:1094
 msgid "Logical Volume Name"
-msgstr "Logical Volume-Name"
+msgstr "Logischer Volume-Name"
 
 #: ../iw/lvm_dialog_gui.py:1097 ../iw/partition_gui.py:369
 #: ../iw/upgrade_swap_gui.py:140 ../textw/partition_text.py:1423
@@ -3648,7 +3648,7 @@ msgstr "Einhängepunkt"
 
 #: ../iw/lvm_dialog_gui.py:1100 ../iw/partition_gui.py:374
 msgid "Size (MB)"
-msgstr "Grösse (MB)"
+msgstr "Größe (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1114 ../iw/osbootwidget.py:94
 msgid "_Add"
@@ -3665,7 +3665,7 @@ msgstr "_Logische Datenträger (Logical Volumes)"
 
 #: ../iw/mouse_gui.py:29
 msgid "Mouse Configuration"
-msgstr "Maus konfigurieren"
+msgstr "Maus-Konfiguration"
 
 #: ../iw/mouse_gui.py:82 ../textw/mouse_text.py:26
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -3730,7 +3730,7 @@ msgstr "Dynamische IP"
 #: ../iw/netconfig_dialog.py:176 ../loader2/net.c:416 ../loader2/net.c:860
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
-msgstr "Sende Anforderung für IP-Informationen für %s..."
+msgstr "Sende Anforderung für IP-Informationen für %s ..."
 
 #: ../iw/netconfig_dialog.py:197 ../iw/netconfig_dialog.py:200
 #: ../textw/network_text.py:93 tmp/netpostconfig.glade.h:12
@@ -3830,7 +3830,7 @@ msgid ""
 "communicate over a network by default without at least one device active."
 msgstr ""
 "Sie haben keine aktiven Netzwerkgeräte. Ihr System ist ohne mindestens ein "
-"aktives Gerät nicht in der Lage, standardmässig über ein Netzwerk zu "
+"aktives Gerät nicht in der Lage, standardmäßig über ein Netzwerk zu "
 "kommunizieren."
 
 #: ../iw/network_gui.py:291 ../iw/network_gui.py:305
@@ -3993,11 +3993,11 @@ msgstr ""
 
 #: ../iw/partition_dialog_gui.py:66
 msgid "Additional Size Options"
-msgstr "Zusätzliche Optionen für die Grösse"
+msgstr "Zusätzliche Optionen für die Größe"
 
 #: ../iw/partition_dialog_gui.py:71
 msgid "_Fixed size"
-msgstr "_Feste Grösse"
+msgstr "_Feste Größe"
 
 #: ../iw/partition_dialog_gui.py:73
 msgid "Fill all space _up to (MB):"
@@ -4005,11 +4005,11 @@ msgstr "Den gesamten Platz a_usfüllen bis (MB):"
 
 #: ../iw/partition_dialog_gui.py:83
 msgid "Fill to maximum _allowable size"
-msgstr "Bis zur maximal erl_aubten Grösse ausfüllen"
+msgstr "Bis zur maximal erl_aubten Größe ausfüllen"
 
 #: ../iw/partition_dialog_gui.py:198
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr "Der End-Zylinder muss grösser sein als der Start-Zylinder."
+msgstr "Der End-Zylinder muss größer sein als der Start-Zylinder."
 
 #: ../iw/partition_dialog_gui.py:299 ../textw/partition_text.py:712
 msgid "Add Partition"
@@ -4088,7 +4088,7 @@ msgid ""
 "Size\n"
 "(MB)"
 msgstr ""
-"Grösse\n"
+"Größe\n"
 "(MB)"
 
 #: ../iw/partition_gui.py:547 ../textw/partition_text.py:1417
@@ -4220,7 +4220,7 @@ msgid ""
 "\n"
 msgstr ""
 "Software RAID ermöglicht die Kombination verschiedener Laufwerke zu einem "
-"grösseren RAID-Gerät. Durch die Kombination von RAID-Geräten wird die "
+"größeren RAID-Gerät. Durch die Kombination von RAID-Geräten wird die "
 "Geschwindigkeit und Zuverlässigkeit im Vergleich zur Verwendung von nur "
 "einer Festplatte erhöht. Weitere Informationen über den Gebrauch von RAID-"
 "Geräten finden Sie in der %s Dokumentation.\n"
@@ -4305,7 +4305,7 @@ msgstr "Mi_griere Dateisysteme zu:"
 
 #: ../iw/partition_ui_helpers_gui.py:327 tmp/autopart.glade.h:9
 msgid "_Resize"
-msgstr "_Grössenänderung"
+msgstr "_Größenänderung"
 
 #: ../iw/partition_ui_helpers_gui.py:381
 #, python-format
@@ -4341,11 +4341,11 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
-"Mindestens zwei neue Software RAID Partitionen sind erforderlich, um ein "
-"RAID-Gerät zu erstellen.\n"
+"Mindestens zwei unbenutzte Software RAID Partitionen sind erforderlich, um "
+"ein RAID-Gerät zu erstellen.\n"
 "\n"
 "Legen Sie zunächst zwei Partitionen des Typs \"Software RAID\" an und wählen "
-"Sie anschliessend erneut die \"RAID\" Option."
+"Sie anschließend erneut die \"RAID\" Option."
 
 #: ../iw/raid_dialog_gui.py:302 ../iw/raid_dialog_gui.py:735
 #: ../textw/partition_text.py:944
@@ -4524,7 +4524,7 @@ msgstr ""
 "\n"
 "Dieses Tool erleichtert das Einstellen von RAID-Arrays erheblich. Das "
 "Konzept dieses Werkzeugs ist es, eine entsprechend partitionierte Quell-"
-"Festplatte auf andere Festplatten einer ähnlichen Grösse zu klonen. "
+"Festplatte auf andere Festplatten einer ähnlichen Größe zu klonen. "
 "Anschliessend kann ein RAID-Gerät angelegt werden.\n"
 "\n"
 "HINWEIS: Die Quell-Festplatte muss Partitionen besitzen, die ausschliesslich "
@@ -4566,7 +4566,7 @@ msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
 msgstr ""
-"Kann Gruppendatei für %s nicht finden.  Deshalb ist eine manuelle Auswahl "
+"Kann Gruppendatei für %s nicht finden. Deshalb ist eine manuelle Auswahl "
 "von Paketen aus dem Depot nicht möglich"
 
 #: ../iw/task_gui.py:80
@@ -4575,11 +4575,11 @@ msgstr "Repsoitory bearbeiten"
 
 #: ../iw/task_gui.py:155
 msgid "Invalid Repository Name"
-msgstr "Ungültiger Depotname"
+msgstr "Ungültiger Repository-Name"
 
 #: ../iw/task_gui.py:156
 msgid "You must provide a repository name."
-msgstr "Sie müssen einen Depotnamen angeben."
+msgstr "Sie müssen einen Respository-Namen angeben."
 
 #: ../iw/task_gui.py:167
 msgid "Invalid Proxy URL"
@@ -4587,11 +4587,11 @@ msgstr "Ungültiger Proxy-URL"
 
 #: ../iw/task_gui.py:168
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
-msgstr "Sie müssen eine HTTP- oder FTP-URL für den Proxyt angeben."
+msgstr "Sie müssen eine HTTP- oder FTP-URL für den Proxy angeben."
 
 #: ../iw/task_gui.py:187
 msgid "Invalid Repository URL"
-msgstr "Ungültige Depot-URL"
+msgstr "Ungültige Repository-URL"
 
 #: ../iw/task_gui.py:188
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
@@ -4603,8 +4603,8 @@ msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"Das Depot %s wurde bereits hinzugefügt. Wählen Sie einen anderen Depotnamen "
-"und URL."
+"Das Repository %s wurde bereits hinzugefügt. Wählen Sie einen anderen "
+"Namen für das Repository und eine andere URL."
 
 #: ../iw/timezone_gui.py:62 ../textw/timezone_text.py:95
 msgid "Time Zone Selection"
@@ -4628,7 +4628,7 @@ msgid ""
 "automatically updated."
 msgstr ""
 "Aufgrund von Systemänderungen kann Ihre Bootloader-Konfiguration "
-"nichtautomatisch aktualisiert werden."
+"nicht automatisch aktualisiert werden."
 
 #: ../iw/upgrade_bootloader_gui.py:127 ../textw/upgrade_bootloader_text.py:108
 msgid ""
@@ -4659,7 +4659,7 @@ msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"Dadurch können Sie eine neue Bootloader-Konfiguration erstellen.  Wenn Sie "
+"Dadurch können Sie eine neue Bootloader-Konfiguration erstellen. Wenn Sie "
 "den Bootloader wechseln möchten, sollten Sie diese Option wählen."
 
 #: ../iw/upgrade_bootloader_gui.py:152
@@ -4671,7 +4671,7 @@ msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"Dies ändert Ihre Bootloader-Konfiguration nicht.  Wenn Sie einen Bootloader "
+"Dies ändert Ihre Bootloader-Konfiguration nicht. Wenn Sie einen Bootloader "
 "eines anderen Herstellers verwenden, sollten Sie diese Option wählen. "
 
 #: ../iw/upgrade_bootloader_gui.py:164
@@ -4710,7 +4710,7 @@ msgid ""
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"Aktuelle Kernel (2.4 oder neuer) benötigen wesentlich mehr Swap-Bereich, als "
+"Aktuelle Kernel (2.4 oder neuer) benötigen wesentlich mehr Swap-Bereich als "
 "die älteren Kernel. Es wird empfohlen, doppelt soviel Swap-Bereich zu haben, "
 "wie physischer Arbeitsspeicher im System vorhanden ist. Sie haben derzeit %d "
 "MB konfiguriert, können jedoch zusätzlichen Swap-Bereich in einem Ihrer "
@@ -4749,12 +4749,12 @@ msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
 msgstr ""
-"Für Ihre Swap-Datei werden mindestens %d MB empfohlen.  Geben Sie die Grösse "
+"Für Ihre Swap-Datei werden mindestens %d MB empfohlen. Geben Sie die Größe "
 "für diese Swap-Datei an:"
 
 #: ../iw/upgrade_swap_gui.py:173
 msgid "Swap file _size (MB):"
-msgstr "Grösse der _Swap-Datei (MB):"
+msgstr "Größe der _Swap-Datei (MB):"
 
 #: ../iw/upgrade_swap_gui.py:183
 msgid "I _don't want to create a swap file"
@@ -4771,7 +4771,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:201 ../textw/upgrade_text.py:187
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Die Swap-Datei muss eine Grösse zwischen 1 und 2000 MB besitzen."
+msgstr "Die Swap-Datei muss eine Größe zwischen 1 und 2000 MB besitzen."
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:182
 msgid ""
@@ -4809,7 +4809,7 @@ msgstr ""
 "Die Root-Partition ist die Partition, die Sie beim Einstellen der "
 "Partitionen gewählt haben.\n"
 "\n"
-"Der Kernel für den Start des Rechners ist der standardmässig installierte "
+"Der Kernel für den Start des Rechners ist der standardmäßig installierte "
 "Kernel.\n"
 "\n"
 "Wenn Sie nach der Installation Änderungen vornehmen möchten, können Sie "
@@ -4824,7 +4824,7 @@ msgstr "Kernel-Parameter"
 
 #: ../iw/zipl_gui.py:91 ../iw/zipl_gui.py:94
 msgid "Chandev Parameters"
-msgstr "Chandev Parameter"
+msgstr "Chandev-Parameter"
 
 #: ../textw/bootloader_text.py:32
 msgid "Which boot loader would you like to use?"
@@ -4851,7 +4851,7 @@ msgid ""
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
 "Sie haben sich entschieden, keinen Bootloader zu installieren. Es wird "
-"dringend empfohlen, einen Bootloader zu installieren, es sei denn, Sie haben "
+"dringend empfohlen einen Bootloader zu installieren, es sei denn, Sie haben "
 "besondere Anforderungen. Ein Bootloader ist fast immer erforderlich, um Ihr "
 "System direkt von der Festplatte aus in Linux zu booten.\n"
 "\n"
@@ -4928,8 +4928,8 @@ msgstr ""
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Space> Auswählen | <F2> Default auswählen | <F4> löschen | <F12> nächster "
-"Bildschirm"
+" <Space> Auswählen | <F2> Standard auswählen | <F4> löschen | <F12> nächste "
+"Seite"
 
 #: ../textw/bootloader_text.py:390
 msgid ""
@@ -4971,12 +4971,12 @@ msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
-"Drücken Sie <Enter>, um das System neu zu starten.\n"
+"Drücken Sie <Enter>, um die Installation zu beenden.\n"
 "\n"
 
 #: ../textw/complete_text.py:32
 msgid "<Enter> to exit"
-msgstr "<Eingabetaste> zum Beenden"
+msgstr "<Enter> zum Beenden"
 
 #: ../textw/complete_text.py:36
 #, python-format
@@ -4998,7 +4998,7 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-"Informationen über Errata (Updates und Bug Fixes) erhalten Sie unter http://"
+"Informationen über Errata (Updates und Bugfixes) erhalten Sie unter http://"
 "www.redhat.com/errata/.\n"
 "\n"
 "Informationen über die Verwendung und die Konfiguration Ihres Systems "
@@ -5079,7 +5079,7 @@ msgid ""
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
 "Sie müssen eine gültige Ganzzahl für %s eingeben.  Für IPv4 kann der Wert "
-"zwischen 0 und 32 liegen.  Für IPv6 kann er zwischen 0 und 128 liegen."
+"zwischen 0 und 32 liegen. Für IPv6 kann er zwischen 0 und 128 liegen."
 
 #: ../textw/network_text.py:87 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
@@ -5195,9 +5195,9 @@ msgid ""
 "finished, press OK to continue."
 msgstr ""
 "Die aktuellen Konfigurationseinstellungen werden für jede Schnittstelle "
-"neben dem Gerätenamen aufgelistet.  Nicht konfigurierte Schnittstellen "
-"werden als UNCONFIGURED angezeigt.  Um eine Schnittstelle zu konfigurieren, "
-"markieren Sie diese und wählen Sie \"Bearbeiten\".  Klicken Sie auf \"OK\", "
+"neben dem Gerätenamen aufgelistet. Nicht konfigurierte Schnittstellen "
+"werden als UNCONFIGURED angezeigt. Um eine Schnittstelle zu konfigurieren, "
+"markieren Sie diese und wählen Sie \"Bearbeiten\". Klicken Sie auf \"OK\", "
 "sobald Sie fertig sind, um fortzufahren."
 
 #: ../textw/network_text.py:567
@@ -5267,10 +5267,10 @@ msgid ""
 "hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
-"Sollte Ihr System Teil eines grösseren Netzwerks sein, in dem Rechnernamen "
+"Sollte Ihr System Teil eines größeren Netzwerks sein, in dem Rechnernamen "
 "durch DHCP vergeben werden, wählen Sie 'automatisch via DHCP'. Ansonsten, "
 "wählen Sie 'manuell' und geben Sie den Rechnernamen für Ihr System ein. Wenn "
-"Sie dies nicht tun, heisst Ihr System 'localhost'."
+"Sie dies nicht tun, heißt Ihr System 'localhost'."
 
 #: ../textw/network_text.py:813 ../textw/network_text.py:819
 msgid "Invalid Hostname"
@@ -5324,11 +5324,11 @@ msgstr "Verfügbare Festplatten:"
 
 #: ../textw/partition_text.py:431
 msgid "Fixed Size:"
-msgstr "Feste Grösse:"
+msgstr "Feste Größe:"
 
 #: ../textw/partition_text.py:433
 msgid "Fill maximum size of (MB):"
-msgstr "Grösse maximal ausfüllen bis (MB):"
+msgstr "Größe maximal ausfüllen bis (MB):"
 
 #: ../textw/partition_text.py:437
 msgid "Fill all available space:"
@@ -5427,11 +5427,11 @@ msgstr ""
 
 #: ../textw/partition_text.py:830 ../textw/partition_text.py:878
 msgid "Invalid Entry for Partition Size"
-msgstr "Ungültige Angaben für Partitionsgrösse"
+msgstr "Ungültige Angaben für Partitionsgröße"
 
 #: ../textw/partition_text.py:842
 msgid "Invalid Entry for Maximum Size"
-msgstr "Eingegebener Wert für maximale Grösse nicht gültig"
+msgstr "Eingegebener Wert für maximale Größe nicht gültig"
 
 #: ../textw/partition_text.py:861
 msgid "Invalid Entry for Starting Cylinder"
@@ -5482,8 +5482,8 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
 msgstr ""
-"Die derzeit erforderliche Grösse (%10.2f MB) ist grösser als die maximale "
-"Grösse des logischen Datenträgers (Logical Volume) (%10.2f MB). "
+"Die derzeit erforderliche Größe (%10.2f MB) ist größer als die maximale "
+"Größe des logischen Datenträgers (Logical Volume) (%10.2f MB). "
 
 #: ../textw/partition_text.py:1295
 #, python-format
@@ -5491,8 +5491,8 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
-"Die derzeit erforderliche Grösse (%10.2f MB) ist grösser als die maximale "
-"Grösse im Datenträgerverbund (Volume Group) (%10.2f MB). "
+"Die derzeit erforderliche Größe (%10.2f MB) ist größer als die maximale "
+"Größe im Datenträgerverbund (Volume Group) (%10.2f MB). "
 
 #: ../textw/partition_text.py:1348
 msgid "New Partition or Logical Volume?"
@@ -5514,7 +5514,7 @@ msgstr "Logical Volume"
 
 #: ../textw/partition_text.py:1423
 msgid "Size"
-msgstr "Grösse"
+msgstr "Größe"
 
 #: ../textw/partition_text.py:1427
 msgid "New"
@@ -5642,7 +5642,7 @@ msgid ""
 "support?"
 msgstr ""
 "Die Standardinstallation von %s beinhaltet eine Auswahl an Programmen für "
-"die allgemeine Internetnutzung.  Welche zusätzlichen Aufgaben sollen durch "
+"die allgemeine Internetnutzung. Welche zusätzlichen Aufgaben sollen durch "
 "Ihr System unterstützt werden?"
 
 #: ../textw/task_text.py:72
@@ -5680,11 +5680,11 @@ msgstr "Erkannter RAM (MB):"
 
 #: ../textw/upgrade_text.py:139
 msgid "Suggested size (MB):"
-msgstr "Empfohlene Grösse (MB):"
+msgstr "Empfohlene Größe (MB):"
 
 #: ../textw/upgrade_text.py:142
 msgid "Swap file size (MB):"
-msgstr "Grösse der Swap-Datei (MB):"
+msgstr "Größe der Swap-Datei (MB):"
 
 #: ../textw/upgrade_text.py:150
 msgid "Add Swap"
@@ -5756,11 +5756,11 @@ msgstr ""
 
 #: ../textw/zipl_text.py:64
 msgid "z/IPL Configuration"
-msgstr "z/IPL Konfiguration"
+msgstr "z/IPL-Konfiguration"
 
 #: ../textw/zipl_text.py:72 ../textw/zipl_text.py:76
 msgid "Chandev line "
-msgstr "Chandev Zeile "
+msgstr "Chandev-Zeile "
 
 #: ../installclasses/fedora.py:34
 msgid "_Fedora"
@@ -5779,7 +5779,7 @@ msgstr ""
 
 #: ../installclasses/fedora.py:44
 msgid "Office and Productivity"
-msgstr "Office und Produktivität"
+msgstr "Büro und Produktivität"
 
 #: ../installclasses/fedora.py:45 ../installclasses/rhel.py:55
 #: ../installclasses/rhel.py:60
@@ -5824,7 +5824,7 @@ msgid ""
 "please enter your Installation Number"
 msgstr ""
 "Um das komplette Set der unterstützen Pakete, die im Rahmen Ihres "
-"Abonnements zur Verfügung stehen, zu installieren, geben Sie bitte Ihre "
+"Abonnements zur Verfügung stehen zu installieren, geben Sie bitte Ihre "
 "Installationsnummer ein."
 
 #: ../installclasses/rhel.py:74
@@ -5955,7 +5955,7 @@ msgstr "Laden"
 
 #: ../loader2/driverdisk.c:138
 msgid "Reading driver disk..."
-msgstr "Treiberdiskette wird gelesen..."
+msgstr "Treiberdiskette wird gelesen ..."
 
 #: ../loader2/driverdisk.c:230 ../loader2/driverdisk.c:262
 msgid "Driver Disk Source"
@@ -6100,7 +6100,7 @@ msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"Es wurden keine Treiber zum manuellen Einfügen gefunden.  Wollen Sie eine "
+"Es wurden keine Treiber zum manuellen Einfügen gefunden. Wollen Sie eine "
 "Treiberdiskette verwenden?"
 
 #: ../loader2/driverselect.c:191
@@ -6109,7 +6109,7 @@ msgid ""
 "appear and you have a driver disk, press F2."
 msgstr ""
 "Bitte wählen Sie den zu ladenden Treiber in der unten angegebenen Liste "
-"aus.  Wenn der benötigte Treiber nicht in dieser Liste enthalten ist und Sie "
+"aus. Wenn der benötigte Treiber nicht in dieser Liste enthalten ist und Sie "
 "über eine Treiberdiskette verfügen, drücken Sie F2."
 
 #: ../loader2/driverselect.c:200
@@ -6128,7 +6128,7 @@ msgstr "Medium gefunden"
 #: ../loader2/hdinstall.c:81 ../loader2/nfsinstall.c:154
 #: ../loader2/urlinstall.c:299
 msgid "Local installation media detected..."
-msgstr "Lokale Installationsmedien gefunden..."
+msgstr "Lokale Installationsmedien gefunden ..."
 
 #: ../loader2/hdinstall.c:137 ../loader2/nfsinstall.c:271
 #: ../loader2/urlinstall.c:192
@@ -6227,9 +6227,9 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
-"Kickstart-Datei kann nicht heruntergeladen werden.  Bitte passen Sie den "
-"Kickstart-Parameter unten entsprechend an oder drücken auf Beenden, um mit "
-"einer interaktiven Installation fortzufahren."
+"Kickstart-Datei kann nicht heruntergeladen werden. Bitte passen Sie den "
+"Kickstart-Parameter unten entsprechend an oder drücken Sie auf Beenden, um "
+"mit einer interaktiven Installation fortzufahren."
 
 #: ../loader2/kickstart.c:386
 msgid "Error downloading kickstart file"
@@ -6249,7 +6249,8 @@ msgstr "Willkommen beim %s für %s - Rettungsmodus"
 #: ../loader2/lang.c:65 ../loader2/loader.c:166
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "    <Tab>/<Alt+Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter"
+msgstr "<Tab>/<Alt+Tab> Elemente wechseln | <Leer> Auswahl | <F12> nächste "
+"Seite"
 
 #: ../loader2/lang.c:373
 msgid "Choose a Language"
@@ -6313,7 +6314,7 @@ msgstr "Updates"
 
 #: ../loader2/loader.c:449
 msgid "Reading anaconda updates..."
-msgstr "Anaconda-Updates werden gelesen..."
+msgstr "Anaconda-Updates werden gelesen ..."
 
 #: ../loader2/loader.c:485
 msgid ""
@@ -6321,7 +6322,7 @@ msgid ""
 "below or press Cancel to proceed without updates.."
 msgstr ""
 "Aktualisierungsabbild kann nicht heruntergeladen werden. Bitte passen Sie "
-"den Aktualisierungsspeicherort unten entsprechend an oder drücken auf "
+"den Aktualisierungsspeicherort unten entsprechend an oder drücken Sie "
 "Beenden, um ohne Aktualisierungen fortzufahren."
 
 #: ../loader2/loader.c:494
@@ -6369,7 +6370,7 @@ msgid ""
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 "Es wurden keine Geräte des für diesen Installationstyp benötigten Typs "
-"gefunden.  Möchten Sie einen Treiber manuell auswählen oder eine "
+"gefunden. Möchten Sie einen Treiber manuell auswählen oder eine "
 "Treiberdiskette benutzen?"
 
 #: ../loader2/loader.c:1415
@@ -6404,14 +6405,15 @@ msgstr "Loader wurde bereits ausgeführt. Shell wird gestartet.\n"
 #: ../loader2/loader.c:1946
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
-msgstr "Anaconda %s, der %s Rettungsmodus, wird ausgeführt - bitte warten...\n"
+msgstr "Anaconda %s, der %s Rettungsmodus, wird ausgeführt - bitte warten "
+"...\n"
 
 #: ../loader2/loader.c:1948
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
 msgstr ""
 "Anaconda %s, das %s System-Installationsprogramm, wird ausgeführt - bitte "
-"warten...\n"
+"warten ...\n"
 
 #: ../loader2/mediacheck.c:62
 #, c-format
@@ -6421,12 +6423,12 @@ msgstr "Das Installationsabbild %s kann nicht gefunden werden."
 #: ../loader2/mediacheck.c:68
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr "\"%s\" wird überprüft..."
+msgstr "\"%s\" wird überprüft ..."
 
 #: ../loader2/mediacheck.c:70
 #, c-format
 msgid "Checking media now..."
-msgstr "Medien werden jetzt überprüft..."
+msgstr "Medien werden jetzt überprüft ..."
 
 #: ../loader2/mediacheck.c:102
 msgid ""
@@ -6460,7 +6462,7 @@ msgid ""
 msgstr ""
 "Dieses Abbild, welches gerade getestet wurde, wurde erfolgreich verifiziert. "
 "Es sollte in Ordnung sein von diesem Medium zu installieren. Beachten Sie "
-"bitte, dass nicht alle Medien/Laufwerksfehler erkannt werden von media check."
+"bitte, dass nicht alle Medien/Laufwerksfehler von media check erkannt werden."
 
 #: ../loader2/method.c:377
 #, c-format
@@ -6469,9 +6471,9 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
-"Möchten Sie einen Prüfsummen-Test des ISO-Abbilder durchführen:\n"
+"Möchten Sie einen Prüfsummen-Test der ISO-Abbilder durchführen:\n"
 "\n"
-"... %s?"
+"   %s?"
 
 #: ../loader2/method.c:380
 msgid "Checksum Test"
@@ -6620,7 +6622,7 @@ msgstr ""
 
 #: ../loader2/net.c:1552
 msgid "Determining host name and domain..."
-msgstr "Rechnername und Domäne werden ermittelt..."
+msgstr "Rechnername und Domäne werden ermittelt ..."
 
 #: ../loader2/net.c:1648
 #, c-format
@@ -6656,7 +6658,7 @@ msgstr "%s Verzeichnis:"
 #: ../loader2/nfsinstall.c:65
 #, c-format
 msgid "Please enter the server name and path to your %s images."
-msgstr "Bitte geben Sie den Server-Namen und den Pfad zu den %s-Abbilder ein."
+msgstr "Bitte geben Sie den Server-Namen und den Pfad zu den %s-Abbildern ein."
 
 #: ../loader2/nfsinstall.c:67
 msgid "NFS Setup"
@@ -6690,11 +6692,11 @@ msgstr "Telnet"
 
 #: ../loader2/telnetd.c:89
 msgid "Waiting for telnet connection..."
-msgstr "Auf telnet-Verbindung warten..."
+msgstr "Auf telnet-Verbindung warten ..."
 
 #: ../loader2/telnetd.c:131
 msgid "Running anaconda via telnet..."
-msgstr "Anaconda wird via telnet ausgeführt..."
+msgstr "Anaconda wird via telnet ausgeführt ..."
 
 #: ../loader2/urlinstall.c:79
 #, c-format
@@ -6722,7 +6724,7 @@ msgstr "Unbekannte Url Methode %s"
 #: ../loader2/urls.c:280
 #, c-format
 msgid "Please enter the URL containing the %s images on your server."
-msgstr "BItte geben Sie den URL mit den %s-Abbilder auf Ihrem Server ein."
+msgstr "BItte geben Sie den URL mit den %s-Abbildern auf Ihrem Server ein."
 
 #: ../loader2/urls.c:291
 msgid "Configure proxy"
@@ -6738,7 +6740,7 @@ msgstr "Sie müssen einen URL eingeben."
 
 #: ../loader2/urls.c:320
 msgid "URL must be either an ftp or http URL"
-msgstr "URL muss entweder ein FTP oder ein HTTP-URL angeben"
+msgstr "URL muss entweder ein FTP- oder ein HTTP-URL sein"
 
 #: ../loader2/urls.c:331
 msgid "Unknown Host"
@@ -6776,7 +6778,7 @@ msgstr "SCSI-Treiber wird geladen"
 #: ../loader2/windows.c:64
 #, c-format
 msgid "Loading %s driver..."
-msgstr "%s Treiber wird geladen..."
+msgstr "%s Treiber wird geladen ..."
 
 #: tmp/account.glade.h:2
 msgid "Root Password:"
@@ -6808,11 +6810,11 @@ msgstr "L_aufwerk hinzufügen"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _name:</b>"
-msgstr "<b>Depot _Name:</b>"
+msgstr "<b>Repository-_Name:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "Add Repository"
-msgstr "Depot hinzufügen"
+msgstr "Repository hinzufügen"
 
 #: tmp/addrepo.glade.h:3
 msgid ""
@@ -6856,7 +6858,7 @@ msgstr "_Weiter"
 
 #: tmp/autopart.glade.h:1
 msgid "<b>Resize _target:</b>"
-msgstr "<b>Grössenanpassung _Ziel:</b>"
+msgstr "<b>Größenanpassung _Ziel:</b>"
 
 #: tmp/autopart.glade.h:2
 msgid ""
@@ -6865,7 +6867,7 @@ msgid ""
 "either choose to use this or create your own."
 msgstr ""
 "Die Installation erfordert die Partitionierung Ihrer Festplatte. "
-"Standardmässig wird ein Partitionsschema ausgewählt, das für die meisten "
+"Standardmäßig wird ein Partitionsschema ausgewählt, das für die meisten "
 "Benutzer passt. Sie können entweder dieses auswählen oder Ihr eigenes "
 "erstellen."
 
@@ -6879,14 +6881,14 @@ msgstr "Von welchem Laufwerk möchten Sie diese Installation _booten?"
 
 #: tmp/autopart.glade.h:5
 msgid "Which Partition to resize"
-msgstr "Bei welcher Partition die Grösse ändern "
+msgstr "Bei welcher Partition die Größe ändern "
 
 #: tmp/autopart.glade.h:6
 msgid ""
 "Which partition would you like to resize to make room for your installation?"
 msgstr ""
-"Welcher Partition möchte Sie in der Grösse ändern, damit Sie Platz haben für "
-"die Installation?"
+"Welcher Partition möchte Sie in der Größe ändern, damit Sie Platz für die "
+"Installation haben?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
@@ -6914,7 +6916,7 @@ msgstr "Bootloader-Gerät"
 
 #: tmp/blwhere.glade.h:4
 msgid "First BIOS drive:"
-msgstr "Erster BIOS-Laufwerk:"
+msgstr "Erstes BIOS-Laufwerk:"
 
 #: tmp/blwhere.glade.h:5
 msgid "Fourth BIOS drive:"
@@ -6926,7 +6928,7 @@ msgstr "MBR"
 
 #: tmp/blwhere.glade.h:7
 msgid "Second BIOS drive:"
-msgstr "Zweite BIOS-Laufwerk:"
+msgstr "Zweites BIOS-Laufwerk:"
 
 #: tmp/blwhere.glade.h:8
 msgid "Third BIOS drive:"
@@ -6962,8 +6964,8 @@ msgid ""
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
-"Ein paar Pakete, die zu dieser Gruppe gehören, werden nicht benötigt für die "
-"Installation, stellen aber eventuell zusätzliche Funktionalität bereit. "
+"Einige Pakete, die zu dieser Gruppe gehören, werden für die Installation "
+"nicht benötigt, stellen aber eventuell zusätzliche Funktionalität bereit. "
 "Bitte wählen Sie die Pakete, welche Sie installiert haben wollen."
 
 #: tmp/GroupSelector.glade.h:2
@@ -7026,7 +7028,7 @@ msgstr "Installieren"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr "Installieren der Live CD auf der Festplatte"
+msgstr "Installieren der Live-CD auf der Festplatte"
 
 #: tmp/liveinst.desktop.in.h:3
 msgid "Install to Hard Drive"
@@ -7038,19 +7040,19 @@ msgid ""
 "the passphrase during system boot."
 msgstr ""
 "Wählen Sie ein Passwortsatz für diese verschlüsselte Partition. Sie werden "
-"nach den Passwortsatz während des Systemstarts gefragt."
+"während des Systemstarts nach den Passwortsatz gefragt."
 
 #: tmp/lukspassphrase.glade.h:2
 msgid "Confirm passphrase:"
-msgstr "Passwort bestätigen:"
+msgstr "Passwortsatz bestätigen:"
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Enter passphrase for encrypted partition"
-msgstr "Geben Sie das Passwort für die verschlüsselte Parition ein"
+msgstr "Geben Sie das Passwortsatz für die verschlüsselte Partition ein"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase:"
-msgstr "Gegebn Sie ein Passwort ein:"
+msgstr "Geben Sie den Passwortsatz ein:"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7129,7 +7131,7 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
-"Bitte wählen Sie alle zusätzlichen Depots, die Sie für die "
+"Bitte wählen Sie alle zusätzlichen Repositories, die Sie für die "
 "Softwareinstallation verwenden möchten."
 
 #: tmp/tasksel.glade.h:5
@@ -7137,12 +7139,12 @@ msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"Weiterhin können Sie die Softwareauswahl jetzt anpassen oder nach der "
-"Installation mit Hilfe der Softwaremanagement-Anwendung."
+"Weiterhin können Sie die Softwareauswahl jetzt anpassen oder dies nach der "
+"Installation mit Hilfe der Softwaremanagement-Anwendung tun."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "Zusätzliche Softw_are-Depots hinzufügen"
+msgstr "Zusätzliche Softw_are-Repositories hinzufügen"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
@@ -7218,7 +7220,7 @@ msgstr "Dänisch"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr "Holländisch"
+msgstr "Niederländisch"
 
 #. generated from lang-table
 msgid "English"
@@ -7334,7 +7336,7 @@ msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Romanian"
-msgstr "Romänisch"
+msgstr "Rumänisch"
 
 #. generated from lang-table
 msgid "Russian"
