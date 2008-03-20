@@ -171,8 +171,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         osfd = os.open(osimg, os.O_RDONLY)
 
         r = anaconda.id.fsset.getEntryByMountPoint("/")
-        rootfs = r.device.getDevice()
-        rootfd = os.open("/dev/" + rootfs, os.O_WRONLY)
+        rootfs = r.device.setupDevice()
+        rootfd = os.open(rootfs, os.O_WRONLY)
 
         # set the rootfs to have the right type.  this lets things work
         # given ext2 or ext3 (and in the future, ext4)
