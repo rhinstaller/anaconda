@@ -270,23 +270,6 @@ char * mountUrlImage(struct installMethod * method,
                 cdurl = findAnacondaCD(location, 0);
 
 	    if (cdurl) {
-		/* verify that our URL is specifying the correct tree */
-		/* we do this by attempting to pull a .discinfo file */
-                rc = asprintf(&buf, "%s/.discinfo", ui.prefix);
-		if (loadSingleUrlImage(&ui, buf, NULL, NULL, NULL, 1)) {
-                        free(buf);
-                        umountStage2();
-                        umount(location);
-                        unlink("/tmp/cdrom");
-
-			stage = URL_STAGE_MAIN;
-
-			if (loaderData->method >= 0)
-				loaderData->method = -1;
-
-			break;
-		}
-
 		logMessage(INFO, "Detected stage 2 image on CD");
 		winStatus(50, 3, _("Media Detected"), 
 			  _("Local installation media detected..."), 0);
