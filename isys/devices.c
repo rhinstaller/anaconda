@@ -33,7 +33,7 @@
 #include "devices.h"
 
 /* for 'disks', to filter out weird stuff */
-#define MINIMUM_INTERESTING_SIZE	32*1048576	/* 32MB */
+#define MINIMUM_INTERESTING_SIZE	32*1024 	/* 32MB */
 
 /* from genhd.h, kernel side */
 #define GENHD_FL_REMOVABLE                      1
