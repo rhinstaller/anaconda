@@ -205,7 +205,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
 char * mountUrlImage(struct installMethod * method,
                      char * location, struct loaderData_s * loaderData) {
     int rc;
-    char *url, *buf;
+    char *url;
     struct iurlinfo ui;
     char needsSecondary = ' ';
     char * cdurl = NULL;
@@ -275,7 +275,6 @@ char * mountUrlImage(struct installMethod * method,
 			  _("Local installation media detected..."), 0);
 		sleep(3);
 		newtPopWindow();
-                free(buf);
 
                 stage = URL_STAGE_DONE;
             } else {
