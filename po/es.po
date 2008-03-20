@@ -35,7 +35,7 @@ msgstr "Error al abrir el archivo kickstart %s: %s"
 #: ../anaconda:292
 #, c-format
 msgid "Unknown error processing %%ksappend lines: %s"
-msgstr ""
+msgstr "Error desconocido al procesar %%ksappend lineas: %s"
 
 #: ../anaconda:306 ../cmdline.py:78 ../gui.py:1174 ../text.py:508
 #, c-format, python-format
@@ -195,12 +195,14 @@ msgid ""
 "Error resizing partition %s.\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "Error al cambiar tamaño de partición %s.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:892
 #, python-format
 msgid "Start of partition %s was moved when resizing"
-msgstr ""
+msgstr "El inicio de la partición %s fue movido al cambiar el tamaño"
 
 # ../autopart.py:675
 # ../autopart.py:682
@@ -1480,6 +1482,8 @@ msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
 msgstr ""
+"Dispositivo %s esta encriptado. Para accesar sus contenidos durante la "
+"instalación debes introducir su contraseña aquí. "
 
 # ../text.py:265 ../text.py:266
 # ../text.py:265 ../text.py:266
@@ -1902,6 +1906,8 @@ msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
 msgstr ""
+"La partición raiz que has creado no es suficiente para esta imagen live "
+"(%.2f MB requeridos)."
 
 # ../textw/userauth_text.py:54
 # ../textw/userauth_text.py:55
@@ -2665,6 +2671,8 @@ msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost"
 msgstr ""
+"Las opciones de particion que seleccionaste ahora serán escritas al disco. "
+"Toda la información de estas particiones se perderá"
 
 # ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
 # ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:596
@@ -2700,7 +2708,7 @@ msgstr "_Anterior"
 
 #: ../partitions.py:120
 msgid "_Write changes to disk"
-msgstr ""
+msgstr "_Guardar cambios al disco"
 
 # ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
 # ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:596
@@ -2770,6 +2778,10 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
+"Seguro que deseas no escribir una contraseña para este dispositivo? %s\n"
+"\n"
+"Si omites este paso, los contenidos del dispositivo no estarán disponibles "
+"durante la instalación. "
 
 # ../partitioning.py:548
 # ../partitioning.py:563
@@ -3276,7 +3288,7 @@ msgstr "Guardar"
 
 #: ../text.py:189
 msgid "Save to Disk"
-msgstr ""
+msgstr "Guardar al Disco"
 
 #: ../text.py:190
 #, fuzzy
@@ -3313,11 +3325,11 @@ msgstr "Contraseña"
 
 #: ../text.py:282 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
-msgstr ""
+msgstr "Contraseña"
 
 #: ../text.py:290 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "Esta es la contraseña global"
 
 # ../text.py:174
 # ../text.py:174
@@ -9884,7 +9896,8 @@ msgstr "Instalar en el Disco Rígido"
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
-msgstr ""
+msgstr "Escoje una contraseña para esta partición encriptada. Te la pedirán "
+"durante la carga del sistema. "
 
 # ../partitioning.py:1561
 # ../partitioning.py:1581
@@ -9892,15 +9905,15 @@ msgstr ""
 #: tmp/lukspassphrase.glade.h:2
 #, fuzzy
 msgid "Confirm passphrase:"
-msgstr "Confirmar el reinicio"
+msgstr "Confirmar contraseña"
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "Introduce la contraseña de la partición encriptada"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase:"
-msgstr ""
+msgstr "Introduce contraseña:"
 
 # ../iw/network_gui.py:251
 # ../iw/network_gui.py:251
@@ -10921,3 +10934,4 @@ msgstr "Zulu"
 
 #~ msgid "_Save to floppy"
 #~ msgstr "_Guardar en disco flexible"
+
