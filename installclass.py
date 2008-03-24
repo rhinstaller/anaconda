@@ -66,9 +66,6 @@ class BaseInstallClass(object):
     # don't force text mode
     forceTextMode = 0
 
-    # allow additional software repositories beyond the base to be configured
-    allowExtraRepos = True
-
     # by default, place this under the "install" category; it gets it's
     # own toplevel category otherwise
     parentClass = ( _("Install on System"), "install.png" )
