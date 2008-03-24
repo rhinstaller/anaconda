@@ -40,7 +40,7 @@ def strip_markup(text):
             continue
         elif not inTag:
             r += c
-    return r
+    return r.encode("utf-8")
 
 class InstallProgressWindow:
     def __init__(self, screen):

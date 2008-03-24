@@ -157,7 +157,10 @@ class AnacondaCallback:
 
             pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.arch)
             s = _("<b>Installing %s</b> (%s)\n") %(pkgStr, size_string(hdr['size']))
-            s += (hdr['summary'] or "")
+            sum = hdr['summary'] or ""
+            if type(sum) != unicode:
+                sum = unicode(sum, encoding='utf-8')
+            s += sum
             self.progress.set_label(s)
 
             self.instLog.write(self.modeText % pkgStr)
