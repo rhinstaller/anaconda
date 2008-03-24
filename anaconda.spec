@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.55
+Version: 11.4.0.56
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,31 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar 24 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.56-1
+- Translation updates (hi, fr, kn, de, ml, es, mr, ko, te)
+- Fix up more unicode shenanigans (#437993) (katzj)
+- Move /tmp/stage2.img to /mnt/sysimage to free up some 
+  memory (#438377). (clumens)
+- Be a little smarter about downloading repo metadata (#437972). (clumens)
+- Make sure that devices are set up before using them. (#437858) (dlehman)
+- Don't prepend /dev/ on bind mounts either. (clumens)
+- Use the repo name instead of id in the group file error 
+  message (#437972). (clumens)
+- Handle /dev being on hard drive devices in the second stage (katzj)
+- Fix the build (katzj)
+- The units for /sys/block/foo/size aren't bytes.  Fixes finding some 
+  disks (katzj)
+- Remove the check for .discinfo on URL installs. (clumens)
+- Always unmount /mnt/source on hdiso installs before starting 
+  stage2. (clumens)
+- Always unmount /mnt/source on nfsiso installs before starting 
+  stage2. (clumens)
+- Make sure the first disc image is mounted before setting up repos. (clumens)
+- Fix $UPDATES for real (katzj)
+- Avoid piling up slashes in the UI when retrying (#437516). (clumens)
+- Require comps-extras now that we don't require pirut bringing it in (notting)
+- Put "ide-cd_mod" in the list of modules to pull in. (pjones)
+
 * Tue Mar 18 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.55-1
 - Fix format of method=hd: parameter (#438075). (clumens)
 - Work on support for NFSISO installs when using boot.iso. (clumens)
