@@ -189,9 +189,9 @@ class AnacondaBackend:
         pass
 
 def doRepoSetup(anaconda):
-    anaconda.backend.doInitialSetup(anaconda)
-    if anaconda.backend.doRepoSetup(anaconda) == DISPATCH_BACK:
+    if anaconda.backend.doInitialSetup(anaconda) == DISPATCH_BACK:
         return DISPATCH_BACK
+    anaconda.backend.doRepoSetup(anaconda)
     if anaconda.id.upgrade:
         anaconda.backend.checkSupportedUpgrade(anaconda)
         iutil.writeRpmPlatform(anaconda.rootPath)

@@ -248,18 +248,6 @@ class TaskWindow(InstallWindow):
             else:
                 map(self.backend.deselectGroup, grps)
 
-        if self.anaconda.id.instClass.allowExtraRepos:
-            repos = self.xml.get_widget("repoList").get_model()
-            for (cb, reponame, repo) in repos:
-                if cb:
-                    repo.enable()
-
-                    # Setup any repositories that were in the installclass's
-                    # default list.
-                    setupRepo(self.anaconda, repo)
-                else:
-                    repo.disable()
-
     def groupsInstalled(self, lst):
         # FIXME: yum specific
         rc = False
@@ -327,21 +315,29 @@ class TaskWindow(InstallWindow):
 
     def _repoToggled(self, button, row, store):
         i = store.get_iter(int(row))
-        val = store.get_value(i, 0)
+        wasChecked = store.get_value(i, 0)
+        repo = store.get_value(i, 2)
 
         # The base repositories can never be disabled, but they can be edited.
-        if val and not store.get_value(i, 2).addon:
+        if wasChecked and not repo.addon:
             button.set_active(True)
             return
 
-        if not val and not network.hasActiveNetDev():
-            net = NetworkConfigurator(self.anaconda.id.network)
-            ret = net.run()
-            net.destroy()
-            if ret == gtk.RESPONSE_CANCEL:
-                return
+        if not wasChecked:
+            if not network.hasActiveNetDev():
+                net = NetworkConfigurator(self.anaconda.id.network)
+                ret = net.run()
+                net.destroy()
+                if ret == gtk.RESPONSE_CANCEL:
+                    return
 
-        store.set_value(i, 0, not val)
+            repo.enable()
+            if not setupRepo(self.anaconda, repo):
+                return
+        else:
+            repo.disable()
+
+        store.set_value(i, 0, not wasChecked)
 
     def _createTaskStore(self):
         store = gtk.ListStore(gobject.TYPE_BOOLEAN,
@@ -417,9 +413,6 @@ class TaskWindow(InstallWindow):
         if len(self.ts.get_model()) == 0:
             self.xml.get_widget("cbVBox").hide()
             self.xml.get_widget("mainLabel").hide()
-
-        if not anaconda.id.instClass.allowExtraRepos:
-            vbox.remove(self.xml.get_widget("addRepoBox"))
 
         self.xml.get_widget("addRepoButton").connect("clicked", self._addRepo)
         self.xml.get_widget("editRepoButton").connect("clicked", self._editRepo, self.rs)

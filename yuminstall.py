@@ -157,7 +157,10 @@ class AnacondaCallback:
 
             pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.arch)
             s = _("<b>Installing %s</b> (%s)\n") %(pkgStr, size_string(hdr['size']))
-            s += (hdr['summary'] or "")
+            sum = hdr['summary'] or ""
+            if type(sum) != unicode:
+                sum = unicode(sum, encoding='utf-8')
+            s += sum
             self.progress.set_label(s)
 
             self.instLog.write(self.modeText % pkgStr)
@@ -320,46 +323,57 @@ class AnacondaYum(YumSorter):
         self.localPackages = []
 
     def systemMounted(self, fsset, chroot):
-        if os.path.exists("/tmp/stage2.img"):
-            log.debug("Not copying stage2.img as we already have it")
-            return
+        stage2img = None
 
-        if not os.path.exists("%s/images/stage2.img" %(self.tree,)):
+        if os.path.exists("/tmp/stage2.img"):
+            log.info("Using /tmp/stage2.img as stage2 image")
+            stage2img = "/tmp/stage2.img"
+        elif os.path.exists("%s/images/stage2.img" % self.tree):
+            log.info("Using %s/images/stage2.img as stage2 image" % self.tree)
+            stage2img = "%s/images/stage2.img" % self.tree
+        else:
             log.debug("Not copying stage2.img as we can't find it")
             return
 
-        if self.isodir or self.anaconda.mediaDevice:
-            self._loopbackFile = "%s%s/rhinstall-stage2.img" % (chroot,
-                                 fsset.filesystemSpace(chroot)[0][0])
+        self._loopbackFile = "%s%s/rhinstall-stage2.img" % (chroot,
+                             fsset.filesystemSpace(chroot)[0][0])
 
-            try:
-                win = self.anaconda.intf.waitWindow (_("Copying File"),
-                        _("Transferring install image to hard drive..."))
-                shutil.copyfile("%s/images/stage2.img" % (self.tree,),
-                                self._loopbackFile)
+        try:
+            win = self.anaconda.intf.waitWindow(_("Copying File"),
+                    _("Transferring install image to hard drive..."))
+            shutil.copyfile(stage2img, self._loopbackFile)
+            win.pop()
+        except Exception, e:
+            if win:
                 win.pop()
-            except Exception, e:
-                if win:
-                    win.pop()
 
-                log.critical("error transferring stage2.img: %s" %(e,))
+            log.critical("error transferring stage2.img: %s" %(e,))
 
-                if isinstance(e, IOError) and e.errno == 5:
-                    msg = _("An error occurred transferring the install image "
-                            "to your hard drive.  This is probably due to "
-                            "bad media.")
-                else:
-                    msg = _("An error occurred transferring the install image "
-                            "to your hard drive. You are probably out of disk "
-                            "space.")
+            if isinstance(e, IOError) and e.errno == 5:
+                msg = _("An error occurred transferring the install image "
+                        "to your hard drive.  This is probably due to "
+                        "bad media.")
+            else:
+                msg = _("An error occurred transferring the install image "
+                        "to your hard drive. You are probably out of disk "
+                        "space.")
 
-                self.anaconda.intf.messageWindow(_("Error"), msg)
+            self.anaconda.intf.messageWindow(_("Error"), msg)
+            try:
                 os.unlink(self._loopbackFile)
-                return 1
-        else:
-            self._loopbackFile = "%s/images/stage2.img" % self.tree
+            except:
+                pass
+
+            return 1
 
         isys.lochangefd("/dev/loop0", self._loopbackFile)
+
+        # Try to remove the stage2 image from /tmp to decrease memory usage.
+        if stage2img == "/tmp/stage2.img":
+            try:
+                os.unlink(stage2img)
+            except:
+                pass
 
     def _switchCD(self, discnum):
         if os.access("%s/.discinfo" % self.tree, os.R_OK):
@@ -849,6 +863,12 @@ class YumBackend(AnacondaBackend):
         iutil.writeRpmPlatform()
         self.ayum = AnacondaYum(anaconda)
 
+        if self.ayum.systemMounted (anaconda.id.fsset, anaconda.rootPath):
+            anaconda.id.fsset.umountFilesystems(anaconda.rootPath)
+            return DISPATCH_BACK
+        else:
+            return DISPATCH_FORWARD
+
     def doGroupSetup(self):
         # FIXME: this is a pretty ugly hack to make it so that we don't lose
         # groups being selected (#237708)
@@ -1298,10 +1318,6 @@ class YumBackend(AnacondaBackend):
                 log.info("renaming old modprobe.conf -> modprobe.conf.anacbak")
                 os.rename(anaconda.rootPath + "/etc/modprobe.conf",
                           anaconda.rootPath + "/etc/modprobe.conf.anacbak")
-
-        if self.ayum.systemMounted (anaconda.id.fsset, anaconda.rootPath):
-            anaconda.id.fsset.umountFilesystems(anaconda.rootPath)
-            return DISPATCH_BACK
 
         dirList = ['/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
                    '/etc/sysconfig', '/etc/sysconfig/network-scripts',

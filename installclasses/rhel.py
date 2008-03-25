@@ -45,7 +45,6 @@ class InstallClass(BaseInstallClass):
                      "to include support for?")
     _descriptionFields = (productName,)
     sortPriority = 10000
-    allowExtraRepos = False
     if not productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
