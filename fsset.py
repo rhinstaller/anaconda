@@ -1031,12 +1031,17 @@ class NTFSFileSystem(FileSystemType):
 
         buf = iutil.execWithCapture("ntfsresize", ["-m", devicePath],
                                     stderr = "/dev/tty5")
-        try:
-            return int(buf) + 250
-        except Exception, e:
-            log.warning("Unable to discover minimum size of filesystem on %s" %(device,))
-            log.debug("error was %s\n", e)
-            return 1
+        for l in buf.split("\n"):
+            if not l.startswith("Minsize"):
+                continue
+            try:
+                min = l.split(":")[1].strip()
+                return int(min) + 250
+            except Exception, e:
+                log.warning("Unable to parse output for minimum size on %s: %s" %(device, e))
+
+        log.warning("Unable to discover minimum size of filesystem on %s" %(device,))        
+        return 1
 
 
 fileSystemTypeRegister(NTFSFileSystem())
