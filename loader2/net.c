@@ -269,8 +269,8 @@ static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
                      "is needed, leave this field blank and the "
                      "install will continue."), ifname);
     do {
-        struct newtWinEntry entry[] = { { N_("ESSID"), (const char **)&essid, 0 },
-                                        { N_("Encryption Key"), (const char **) &wepkey, 0 },
+        struct newtWinEntry entry[] = { { N_("ESSID"), &essid, 0 },
+                                        { N_("Encryption Key"), &wepkey, 0 },
                                         { NULL, NULL, 0 } };
 
         rc = newtWinEntries(_("Wireless Settings"), buf,
@@ -307,7 +307,7 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
     int rc;
     struct in_addr addr;
     struct in6_addr addr6;
-    const char * ns = "";
+    char * ns = "";
     struct newtWinEntry entry[] = { { N_("Nameserver IP"), &ns, 0 },
                                       { NULL, NULL, 0 } };
 
