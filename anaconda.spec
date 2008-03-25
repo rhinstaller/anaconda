@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.108
+Version: 11.1.2.109
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 25 2008 Chris Lumens <clumens@redhat.com> 11.1.2.109-1
+- Make sure DHCP works in rescue mode (dcantrell).
+  Resolves: rhbz#435978
+
 * Mon Mar 17 2008 Chris Lumens <clumens@redhat.com> 11.1.2.108-1
 - Avoid SIGSEGV on s390x in netlink loop (dcantrell).
   Resolves: rhbz#436377
