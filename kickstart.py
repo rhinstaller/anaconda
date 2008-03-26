@@ -312,6 +312,9 @@ class LogVol(commands.logvol.F9_LogVol):
         if lvd.fsopts != "":
             request.fsopts = lvd.fsopts
 
+        if lvd.encrypted:
+            request.encryption = cryptodev.LUKSDevice(passphrase=lvd.passphrase, format=lvd.format)
+
         addPartRequest(self.handler.anaconda, request)
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
