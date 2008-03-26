@@ -207,6 +207,11 @@ class RepoEditor:
             if not self._enableRepo(repourl):
                 continue
 
+            # this is a bit gross... but we need to make sure that
+            # the urls and grabber get set back up based on new urls
+            self.repo._grab = None
+            self.repo._urls = None
+
             if not setupRepo(self.anaconda, self.repo):
                 continue
 
