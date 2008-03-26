@@ -780,9 +780,9 @@ for KERNELARCH in $arches; do
 
     if [ "${kernelvers}" = "kernel-xen" ]; then kerneltag="xen" ; fi
 
-    version=$(rpm --nodigest --nosignature --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kerneltag}
+    vmlinuz=$(rpm --nodigest --nosignature -qpl $kpackage |grep ^/boot/vmlinuz | head -n 1)
+    version=${vmlinuz##/boot/vmlinuz-}
     arch=$(rpm --nodigest --nosignature --qf '%{ARCH}\n' -qp $kpackage)
-    echo "unpacking $kpackage"
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
     rm -f $kpackage
