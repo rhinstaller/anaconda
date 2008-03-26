@@ -1382,6 +1382,17 @@ class InstallControlWindow:
         gtk.main_quit()
         os._exit(0)
 
+    def _doExitConfirm (self, win = None, *args):
+        # FIXME: translate the string
+        win = MessageWindow(_("Exit installer"),
+                            ("Are you sure you wish to exit the installation?"),
+                            type="custom", custom_icon="question",
+                            custom_buttons = [_("Cancel"), _("_Exit installer")],
+                            parent = win)
+        if win.getrc() == 0:
+            return True
+        self._doExit()
+
     def createWidgets (self):
         self.window.set_title(_("%s Installer") %(productName,))
         
@@ -1409,7 +1420,7 @@ class InstallControlWindow:
             "on_backButton_clicked": self.prevClicked,
             "on_debugButton_clicked": self.debugClicked,
             "on_mainWindow_key_release_event": self.keyRelease,
-            "on_mainWindow_delete_event": self._doExit, }
+            "on_mainWindow_delete_event": self._doExitConfirm, }
         self.mainxml.signal_autoconnect(sigs)
 
     def loadGlade(self):
