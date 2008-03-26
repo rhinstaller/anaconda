@@ -38,6 +38,17 @@ def isLuks(device):
     else:
         return True
 
+def luksUUID(device):
+    if not device.startswith("/"):
+        device = "/dev/" + device
+
+    if not isLuks(device):
+        return None
+
+    uuid = iutil.execWithCapture("cryptsetup", ["luksUUID", device])
+    uuid = uuid.strip()
+    return uuid
+
 class LUKSDevice:
     """LUKSDevice represents an encrypted block device using LUKS/dm-crypt.
        It requires an underlying block device and a passphrase to become
@@ -46,6 +57,7 @@ class LUKSDevice:
         self._device = None
         self.passphrase = ""
         self.name = ""
+        self.uuid = None
         self.nameLocked = False
         self.format = format
         self.preexist = not format
@@ -81,6 +93,17 @@ class LUKSDevice:
             dev = "mapper/%s" % (self.name,)
 
         return dev
+
+    def getUUID(self):
+        if self.format:
+            # self.format means we're going to reformat but haven't yet
+            # so we shouldn't act like there's anything worth seeing there
+            return
+
+        if not self.uuid:
+            self.uuid = luksUUID(self.getDevice(encrypted=1))
+
+        return self.uuid
 
     def setName(self, name, lock=False):
         """Set the name of the mapped device, eg: 'dmcrypt-sda3'"""
