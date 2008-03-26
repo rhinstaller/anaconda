@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.56
+Version: 11.4.0.58
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,17 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 25 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.58-1
+- Fuzzy broken string (katzj)
+
+* Tue Mar 25 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.57-1
+- Use anaconda-upgrade dir in the preupgrade case (katzj)
+- Have 'preupgrade' key doing an upgrade (katzj)
+- Fix what we expect to be the message from ntfsprogs (katzj)
+- Fix up compile error for new newt (katzj)
+- Don't traceback if we have little freespace partitions (#438696) (katzj)
+- Translation updates (ko, ru)
+
 * Mon Mar 24 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.56-1
 - Translation updates (hi, fr, kn, de, ml, es, mr, ko, te)
 - Fix up more unicode shenanigans (#437993) (katzj)

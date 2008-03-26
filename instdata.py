@@ -75,7 +75,7 @@ class InstallData:
 	self.auth = "--enableshadow --passalgo=sha512"
 	self.desktop = desktop.Desktop()
         self.upgrade = None
-        if flags.cmdline.has_key("doupgrade"):
+        if flags.cmdline.has_key("preupgrade"):
             self.upgrade = True
         # XXX move fsset and/or diskset into Partitions object?
 	self.fsset.reset()

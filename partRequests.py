@@ -204,7 +204,7 @@ class RequestSpec:
     def isResizable(self, partitions):
         if self.isEncrypted(partitions): # FIXME: can't resize crypted devs yet
             return False
-        return self.resizable and self.fstype.isResizable()
+        return self.resizable and self.fstype is not None and self.fstype.isResizable()
 
     def isEncrypted(self, partitions, parentOnly = False):
         if self.encryption and self.encryption.getScheme() is not None:
