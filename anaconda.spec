@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.57
+Version: 11.4.0.58
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 25 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.58-1
+- Fuzzy broken string (katzj)
+
 * Tue Mar 25 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.57-1
 - Use anaconda-upgrade dir in the preupgrade case (katzj)
 - Have 'preupgrade' key doing an upgrade (katzj)
