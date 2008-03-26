@@ -18,12 +18,12 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-16 13:31-0400\n"
-"PO-Revision-Date: 2008-03-04 21:00+0900\n"
+"PO-Revision-Date: 2008-03-26 17:40+0900\n"
 "Last-Translator: Makoto Mizukami <mmk9060@aol.com>\n"
 "Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:289
 #, c-format
@@ -199,13 +199,12 @@ msgstr ""
 "ん。オープンファームウェアをこのインストールでブートさせることはできません。"
 
 #: ../autopart.py:1067
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
 "be able to boot from this partition."
 msgstr ""
-"ブートパーティション %s は VFAT パーティションではありません。 EFI はこのパー"
-"ティションから起動できません。"
+"ブートパーティション %s は ext3 のようなLinux ファイルシステムではありません。システムをこのパーティションから起動することはできません。"
 
 #: ../autopart.py:1070
 #, python-format
@@ -607,9 +606,8 @@ msgstr ""
 "%s を転換しないで続行しますか?"
 
 #: ../fsset.py:1523
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "パーティションの編集"
+msgstr "EFI システムパーティション"
 
 #: ../fsset.py:1527
 msgid "RAID Device"
@@ -1907,13 +1905,10 @@ msgstr ""
 "小さすぎます。"
 
 #: ../partitions.py:1052
-#, fuzzy
 msgid ""
 "You must create an EFI System Partition of type FAT and a size of 50 "
 "megabytes."
-msgstr ""
-"/boot/efi パーティションはタイプが FAT、サイズが 50MB で作成しなければなりま"
-"せん。"
+msgstr "EFI システムパーティションを作成する必要があります。これは、50 メガバイトのFAT システムである必要があります。"
 
 #: ../partitions.py:1066
 msgid ""
@@ -3180,21 +3175,19 @@ msgid "Unknown Linux system"
 msgstr "不明な Linux システム"
 
 #: ../iw/GroupSelector.py:210
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "パッケージの選択"
+msgstr "%s に含まれるパッケージ"
 
 #: ../iw/GroupSelector.py:482
-#, fuzzy, python-format
+#, python-format
 msgid "%d of %d optional package selected"
-msgid_plural "%d of %d optional packages selected"
-msgstr[0] "選択するオプションのパッケージがありません"
-msgstr[1] "選択するオプションのパッケージがありません"
+msgstr "%d / %d 個の追加パッケージが選択されました。"
 
 #: ../iw/GroupSelector.py:485
 #, python-format
 msgid "<i>%s</i>"
-msgstr ""
+msgstr "<i>%s</i>"
 
 #: ../iw/language_gui.py:30 ../textw/language_text.py:44
 msgid "Language Selection"
@@ -4552,7 +4545,7 @@ msgid "Migrate File Systems"
 msgstr "ファイルシステムの転換"
 
 #: ../iw/upgrade_migratefs_gui.py:62 ../textw/upgrade_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4560,10 +4553,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"本リリース %s では ext3 ジャーナリングファイルシステムをサポートしています。"
-"従来、 %s で配付されてきた ext2 に比べ優れた点をいくつか備えています。インス"
-"トールプログラムでデータを失うことなく ext2 形式の パーティションを ext3 に転"
-"換することができます。\n"
+"%s のこのリリースでは最新のファイルシステムをサポートしています。"
+"これらは従来 %s に使われていたファイルシステムに比べ優れた点をいくつか備えています。"
+"このインストールプログラムは、データを失うことなくファイルシステムを更新することができます。\n"
 "\n"
 "どのパーティションを転換しますか?"
 
@@ -6276,14 +6268,15 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:117
 msgid "Success"
-msgstr ""
+msgstr "成功"
 
 #: ../loader2/mediacheck.c:118
 msgid ""
 "The image which was just tested was successfully verified.  It should be OK "
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
-msgstr ""
+msgstr "テストしたイメージの検証に成功しました。このメディアからのインストールは問題ないでしょう。"
+"ただし、すべてのメディア・ドライブのエラーがメディアチェックで発見できるとは限りません。"
 
 #: ../loader2/method.c:377
 #, c-format
@@ -6476,7 +6469,7 @@ msgstr "%s ディレクトリ:"
 #: ../loader2/nfsinstall.c:65
 #, c-format
 msgid "Please enter the server name and path to your %s images."
-msgstr ""
+msgstr "%s イメージへのパスとサーバー名を入力してください。"
 
 #: ../loader2/nfsinstall.c:67
 msgid "NFS Setup"
@@ -6517,9 +6510,9 @@ msgid "Running anaconda via telnet..."
 msgstr "telnet 経由で anaconda を実行中..."
 
 #: ../loader2/urlinstall.c:79
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s."
-msgstr "%s の取り込みができません://%s/%s/%s。"
+msgstr "%s://%s/%s の取り込みができません。"
 
 #: ../loader2/urlinstall.c:186
 msgid "Unable to retrieve the install image."
@@ -6540,9 +6533,9 @@ msgid "Unknown Url method %s"
 msgstr "%s は不明な Url 方法です"
 
 #: ../loader2/urls.c:280
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the URL containing the %s images on your server."
-msgstr "%s を含んでいるサーバーのアドレスを入力してください。\n"
+msgstr "イメージ %s を含んでいるサーバーのアドレスを入力してください。"
 
 #: ../loader2/urls.c:291
 msgid "Configure proxy"
@@ -6558,7 +6551,7 @@ msgstr "URLを入力してください。"
 
 #: ../loader2/urls.c:320
 msgid "URL must be either an ftp or http URL"
-msgstr ""
+msgstr "URL は ftp か http のものである必要があります。"
 
 #: ../loader2/urls.c:331
 msgid "Unknown Host"
@@ -6778,36 +6771,31 @@ msgid ""
 "Some packages associated with this group are not required to be installed "
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
-msgstr ""
+msgstr "このグループに関連付けられるいくつかのパッケージは、インストールする必要がありません。しかし、インストールすることによって追加機能を提供します。どのパッケージをインストールするか選択してください。"
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Deselect"
-msgstr "削除(_D)"
+msgstr "選択解除 (_D)"
 
 #: tmp/GroupSelector.glade.h:3
-#, fuzzy
 msgid "_Deselect all optional packages"
-msgstr "パッケージをインストール中"
+msgstr "すべての追加パッケージの選択を解除 (_D)"
 
 #: tmp/GroupSelector.glade.h:4
-#, fuzzy
 msgid "_Optional packages"
-msgstr "選択するオプションのパッケージがありません"
+msgstr "追加パッケージ (_O)"
 
 #: tmp/GroupSelector.glade.h:5
-#, fuzzy
 msgid "_Select"
-msgstr "削除(_D)"
+msgstr "選択 (_S)"
 
 #: tmp/GroupSelector.glade.h:6
-#, fuzzy
 msgid "_Select all optional packages"
-msgstr "選択するオプションのパッケージがありません"
+msgstr "すべての追加パッケージを選択 (_S)"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
-msgstr ""
+msgstr "ダイアログ1"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
