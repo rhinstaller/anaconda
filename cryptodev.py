@@ -79,11 +79,8 @@ class LUKSDevice:
 
         self._device = device
         if device is not None:
-            if device.startswith("/dev/"):
-                device = device[5:]
-
             name = "%s-%s" % (self.scheme.lower(),
-                              device.replace("/", "-"))
+                              os.path.basename(device))
             self.setName(name)
 
     def getDevice(self, encrypted=0):

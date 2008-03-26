@@ -204,8 +204,9 @@ class Partitions:
             return
 
         buttons = [_("Back"), _("Continue")]
+        devname = os.path.basename(device)
         while True:
-            (passphrase, isglobal) = intf.passphraseEntryWindow(device)
+            (passphrase, isglobal) = intf.passphraseEntryWindow(devname)
             if not passphrase:
                 rc = intf.messageWindow(_("Confirm"),
                                         _("Are you sure you want to skip "
@@ -214,7 +215,7 @@ class Partitions:
                                           "If you skip this step the "
                                           "device's contents will not "
                                           "be available during "
-                                          "installation.") % device,
+                                          "installation.") % devname,
                                         type = "custom",
                                         default = 0,
                                         custom_buttons = buttons)
