@@ -168,15 +168,6 @@ class AnacondaCallback:
             self.instLog.flush()
             self.openfile = None
 
-            if os.path.exists("%s/var/cache/yum/anaconda-upgrade/packages/%s" 
-                              %(self.rootPath,os.path.basename(po.localPkg()))):
-                try:
-                    f = open("%s/var/cache/yum/anaconda-upgrade/packages/%s" %(self.rootPath,os.path.basename(po.localPkg())), 'r')
-                    self.openfile = f
-                    log.info("using already downloaded package for %s" %(po,))
-                except:
-                    pass
-
             while self.openfile is None:
                 try:
                     fn = repo.getPackage(po)
@@ -254,14 +245,32 @@ class AnacondaYumRepo(YumRepository):
         if mirrorlist:
             self.mirrorlist = mirrorlist
 
-        self.setAttribute('cachedir', "%s/tmp/cache/" % root)
-        self.setAttribute('pkgdir', root)
-        self.setAttribute('hdrdir', "%s/tmp/cache/headers" % root)
+        self.setAttribute('cachedir', os.path.join(root, "/tmp/cache", self.id))
 
     def dirSetup(self):
-        YumRepository.dirSetup(self)
+        # FIXME: this is terrible, awful and shouldn't be allowed to see
+        # the light of day.  but if we use YumRepository.dirSetup(), then
+        # our value of cachedir is overridden.  So just make sure we do
+        # the bits that are done in that parent class for now :-/
+        self.setAttribute('pkgdir', os.path.join(self.cachedir, "packages"))
+        self.setAttribute('hdrdir', os.path.join(self.cachedir, "headers"))
+        self.setAttribute('metadata_cookie', os.path.join(self.cachedir, self.metadata_cookie_fn))
+
         if not os.path.isdir(self.hdrdir):
             os.makedirs(self.hdrdir, mode=0755)
+        if not os.path.isdir(self.pkgdir):
+            os.makedirs(self.pkgdir, mode=0755)
+        if not os.path.isdir(self.cachedir):
+            os.makedirs(self.cachedir, mode=0755)
+
+    def _getFile(self, url=None, relative=None, local=None, start=None, end=None,
+            copy_local=None, checkfunc=None, text=None, reget='simple', cache=True):
+        # FIXME: we end up doing a regrab in the preupgrade case here for some
+        # reason I can't figure out
+        if os.path.exists(local):
+            return local
+        return YumRepository._getFile(self, url, relative, local, start, end, copy_local, checkfunc, text, reget, cache)
+
 
 class YumSorter(yum.YumBase):
     def _transactionDataFactory(self):
@@ -488,6 +497,7 @@ class AnacondaYum(YumSorter):
         ylog = logging.getLogger("yum")
         map(lambda x: ylog.addHandler(x), log.handlers)
 
+        _preupgset = False
         # add default repos
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(methodstr).items():
             rid = name.replace(" ", "")
@@ -496,6 +506,21 @@ class AnacondaYum(YumSorter):
                                    root = root)
             repo.name = name
             repo.cost = 100
+
+            # if we've been booted with 'preupgrade', then we want to
+            # use the cache on the hd for the upgrade info and thus avoid
+            # needing to use the network.
+            # FIXME: longer-term, I'd like to see
+            # the anaconda-upgrade dir just become a full-fledged repo
+            # (maybe combining input from multiple repos) that we add
+            # in addition to the base repos.  then we catch a depcheck error
+            # and ask if you want to add more repos.
+            if flags.cmdline.has_key("preupgrade") and _preupgset == False:
+                _preupgset = True
+                if os.path.exists("%s/var/cache/yum/anaconda-upgrade" % self.anaconda.rootPath):
+                    repo.cachedir = "%s/var/cache/yum/anaconda-upgrade" % self.anaconda.rootPath
+                    repo.metadata_expire = -1
+                    log.info("setting cachedir for %s to %s based on preupgrade flag" %(rid, repo.cachedir))
 
             if self.anaconda.mediaDevice or self.isodir:
                 repo.mediaid = getMediaId(self.tree)
@@ -909,9 +934,6 @@ class YumBackend(AnacondaBackend):
             repos.append(self.ayum.repos.getRepo(thisrepo))
         else:
             repos.extend(self.ayum.repos.listEnabled())
-
-        if not os.path.exists("%s/tmp/cache" % anaconda.rootPath):
-            iutil.mkdirChain("%s/tmp/cache/headers" % anaconda.rootPath)
 
         self.ayum.doMacros()
 
