@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-16 13:31-0400\n"
-"PO-Revision-Date: 2008-03-25 18:53+1100\n"
+"PO-Revision-Date: 2008-03-26 13:00+1100\n"
 "Last-Translator: Yulia Poyarkova <yulia.poyarkova@redhat.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -431,15 +431,15 @@ msgid "Warning"
 msgstr "Внимание!"
 
 #: ../bootloader.py:45
-#, fuzzy
 msgid ""
 "Your filesystems have already been activated.  You cannot go back past this "
 "point.\n"
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
-"Выбранные вами опции разбиения уже активированы. Вы не сможете вернуться к "
-"окну редактирования диска. Продолжить установку?"
+"Ваши файловые системы уже активированы. Вы не можете вернуться назад.\n"
+"\n"
+"Продолжить установку?"
 
 #: ../bootloader.py:49 ../exception.py:348 ../exception.py:364
 #: ../fsset.py:1700 ../fsset.py:1954 ../fsset.py:2685 ../fsset.py:2692
@@ -521,42 +521,36 @@ msgid "Dump Not Written"
 msgstr "Дамп не сохранен"
 
 #: ../exception.py:352
-#, fuzzy
 msgid "There was a problem writing the system state to the disk."
-msgstr "Невозможно записать состояние системы на дискету."
+msgstr "Проблема при записи состояния системы на диск."
 
 #: ../exception.py:361
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
-msgstr ""
-"Состояние вашей системы было успешно сохранено на удаленный узел.  Система "
-"будет перезагружена."
+msgstr "Состояние вашей системы было успешно сохранено на удаленный узел. Программа установки завершит работу."
 
 #: ../exception.py:368
 msgid "There was a problem writing the system state to the remote host."
 msgstr "Возникла проблема при записи состояния системы на удаленный узел."
 
 #: ../fsset.py:545
-#, fuzzy
 msgid "Checking"
-msgstr "Проверка \"%s\"..."
+msgstr "Проверка"
 
 #: ../fsset.py:546
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s..."
-msgstr "Поиск дефектных блоков на /dev/%s..."
+msgstr "Проверка файловой системы на %s..."
 
 #: ../fsset.py:556 ../fsset.py:1010
-#, fuzzy
 msgid "Resizing"
-msgstr "Получение"
+msgstr "Изменение размера"
 
 #: ../fsset.py:557 ../fsset.py:1011
-#, fuzzy, python-format
+#, python-format
 msgid "Resizing filesystem on %s..."
-msgstr "Форматирование файловой системы %s..."
+msgstr "Изменение размера файловой системы на %s..."
 
 #: ../fsset.py:699 ../fsset.py:1670 ../fsset.py:1701 ../fsset.py:1777
 #: ../fsset.py:1845 ../fsset.py:1895 ../fsset.py:1977 ../fsset.py:1990
@@ -604,9 +598,8 @@ msgstr ""
 "Продолжить без преобразования %s?"
 
 #: ../fsset.py:1523
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "Изменить раздел"
+msgstr "Системный раздел EFI"
 
 #: ../fsset.py:1527
 msgid "RAID Device"
@@ -629,7 +622,7 @@ msgid "Master Boot Record (MBR)"
 msgstr "Основная загрузочная запись (MBR)"
 
 #: ../fsset.py:1671
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -639,7 +632,7 @@ msgstr ""
 "Произошла ошибка при инициализации области подкачки на устройстве %s.  "
 "Установка не может быть продолжена.\n"
 "\n"
-"Нажмите <Enter> для перезагрузки системы."
+"Нажмите <Enter> для выхода из программы установки."
 
 #: ../fsset.py:1700 ../packages.py:304 ../rescue.py:305 ../rescue.py:307
 #: ../textw/upgrade_text.py:132 ../loader2/cdinstall.c:200
@@ -712,7 +705,6 @@ msgstr ""
 "переформатировать все разделы подкачки."
 
 #: ../fsset.py:1750
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -721,17 +713,16 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Выберите \"Пропустить\", если вы желаете, чтобы установщик игнорировал этот "
-"раздел в процессе обновления.  Выберите \"Формат\" для переформатирования "
-"раздела как пространства подкачки.  Выберите \"Перезагрузка\" для "
-"перезапуска системы."
+"Выберите «Пропустить», если вы желаете, чтобы установщик игнорировал этот "
+"раздел в процессе обновления.  Выберите «Формат» для переформатирования "
+"раздела как пространства подкачки."
 
 #: ../fsset.py:1755 ../iw/partition_gui.py:373
 msgid "Format"
 msgstr "Формат"
 
 #: ../fsset.py:1761
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -739,14 +730,14 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Ошибка монтирования устройства %s как %s: %s\n"
+"Ошибка активации устройства подкачки %s: %s\n"
 "\n"
 "Устройства в файле /etc/fstab должны быть заданы метками, а не именами.\n"
 "\n"
-"Нажмите ОК для перезагрузки системы."
+"Нажмите ОК для выхода из программы установки."
 
 #: ../fsset.py:1766
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -760,10 +751,10 @@ msgstr ""
 "Файл /etc/fstab обновляемого раздела не содержит описания рабочего "
 "устройства подкачки\n"
 "\n"
-"Нажмите ОК для перезагрузки системы."
+"Нажмите ОК для выхода из программы установки."
 
 #: ../fsset.py:1772
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -775,10 +766,10 @@ msgstr ""
 "\n"
 "Наиболее вероятная причина - раздел не был инициализирован.\n"
 "\n"
-"Нажмите ОК для перезагрузки системы."
+"Нажмите ОК для выхода из программы установки."
 
 #: ../fsset.py:1846
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -788,10 +779,10 @@ msgstr ""
 "Произошла ошибка при попытке форматирования %s. Установка не может быть "
 "продолжена.\n"
 "\n"
-"Нажмите <Enter> для перезагрузки системы."
+"Нажмите <Enter> для выхода из программы установки."
 
 #: ../fsset.py:1896
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -801,14 +792,14 @@ msgstr ""
 "Произошла ошибка при попытке переноса %s. Установка не может быть "
 "продолжена.\n"
 "\n"
-"Нажмите <Enter> для перезагрузки системы."
+"Нажмите <Enter> для выхода из программы установки."
 
 #: ../fsset.py:1922 ../fsset.py:1931
 msgid "Invalid mount point"
 msgstr "Неверная точка монтирования"
 
 #: ../fsset.py:1923
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
@@ -818,10 +809,10 @@ msgstr ""
 "Произошла ошибка при попытке создания %s. Установка не может быть "
 "продолжена.\n"
 "\n"
-"Нажмите <Enter> для перезагрузки системы."
+"Нажмите <Enter> для выхода из программы установки."
 
 #: ../fsset.py:1932
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -831,7 +822,7 @@ msgstr ""
 "Произошла ошибка при попытке создания %s: %s. Установка не может быть "
 "продолжена.\n"
 "\n"
-"Нажмите <Enter> для перезагрузки системы."
+"Нажмите <Enter> для выхода из программы установки."
 
 #: ../fsset.py:1946
 msgid "Unable to mount filesystem"
@@ -847,7 +838,7 @@ msgstr ""
 "продолжена, но возможны проблемы."
 
 #: ../fsset.py:1963
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -859,10 +850,10 @@ msgstr ""
 "\n"
 "Устройства в файле /etc/fstab должны быть заданы метками, а не именами.\n"
 "\n"
-"Нажмите ОК для перезагрузки системы."
+"Нажмите ОК для выхода из программы установки."
 
 #: ../fsset.py:1970
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -874,10 +865,9 @@ msgstr ""
 "\n"
 "Скорее всего этот раздел не был отформатирован.\n"
 "\n"
-"Нажмите ОК для перезагрузки системы."
+"Нажмите ОК для выхода из программы установки."
 
 #: ../fsset.py:1991
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -887,9 +877,9 @@ msgid ""
 msgstr ""
 "Ошибка нахождения корневой (/) записи.\n"
 "\n"
-"Скорее всего файл fstab некорректен.\n"
+"Скорее всего, файл fstab некорректен.\n"
 "\n"
-"Нажмите ОК для перезагрузки системы."
+"Нажмите ОК для выхода из программы установки."
 
 #: ../fsset.py:2677
 msgid "Duplicate Labels"
@@ -1015,12 +1005,10 @@ msgid "Installation Key"
 msgstr "Установочный ключ"
 
 #: ../gui.py:657 ../gui.py:665
-#, fuzzy
 msgid "Error with passphrase"
 msgstr "Ошибка пароля"
 
 #: ../gui.py:658
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "Введенные вами пароли не совпадают.  Повторите ввод."
 
@@ -1858,9 +1846,8 @@ msgid "Continue"
 msgstr "Продолжить"
 
 #: ../partitions.py:204
-#, fuzzy
 msgid "Confirm"
-msgstr "Подтвердите:"
+msgstr "Подтвердите"
 
 #: ../partitions.py:205
 #, python-format
@@ -1946,19 +1933,17 @@ msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Загружаемые разделы на логических томах не допускаются"
 
 #: ../partitions.py:1186
-#, fuzzy
 msgid "Bootable partitions cannot be on a RAID device."
-msgstr "Загружаемые разделы допускаются только на устройствах RAID1."
+msgstr "Загружаемые разделы не могут располагаться на устройствах RAID."
 
 #: ../partitions.py:1193
-#, fuzzy, python-format
+#, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "Загружаемые разделы на логических томах не допускаются"
+msgstr "Загружаемые разделы не допускаются в файловой системе %s."
 
 #: ../partitions.py:1197
-#, fuzzy
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "Загружаемые разделы на логических томах не допускаются"
+msgstr "Загружаемые разделы не допускаются на зашифрованных блочных устройствах."
 
 #: ../partitions.py:1203
 msgid ""
@@ -1997,9 +1982,9 @@ msgid "a partition which is a member of a LVM Volume Group."
 msgstr "раздел, который является членом группы томов LVM."
 
 #: ../partRequests.py:273
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point %s must be formatted during live CD installs."
-msgstr "Эта точка монтирования должна быть в файловой системе linux."
+msgstr "Точка монтирования %s должна быть отформатирована в процессе установки с CD."
 
 #: ../partRequests.py:278
 #, python-format
@@ -2853,14 +2838,13 @@ msgstr ""
 "продолжить обновление?"
 
 #: ../yuminstall.py:1445
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Похоже, что вы выполняете обновление системы, которая слишком устарела для "
-"того, чтобы быть обновленной до этой версии %s. Вы действительно хотите "
+"Вы выполняете обновление системы до версии %s для архитектуры %s, которая не соответствует установленной архитектуре %s. Вы действительно хотите "
 "продолжить обновление?"
 
 #: ../yuminstall.py:1492
@@ -6030,9 +6014,8 @@ msgid "Choose a Language"
 msgstr "Выберите язык"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "Локальный CD-ROM"
+msgstr "Локальный CD/DVD"
 
 #: ../loader2/loader.c:125
 msgid "Hard drive"
@@ -6043,9 +6026,9 @@ msgid "NFS directory"
 msgstr "Каталог NFS"
 
 #: ../loader2/loader.c:156
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s%n for %s"
-msgstr "Добро пожаловать в %s"
+msgstr "Добро пожаловать в %s%n для %s"
 
 #: ../loader2/loader.c:374 ../loader2/loader.c:410
 msgid "Update Disk Source"
@@ -6060,7 +6043,6 @@ msgstr ""
 "источником диска обновлений.  Какое устройство использовать?"
 
 #: ../loader2/loader.c:411
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
@@ -6090,18 +6072,16 @@ msgid "Reading anaconda updates..."
 msgstr "Чтение обновлений anaconda..."
 
 #: ../loader2/loader.c:485
-#, fuzzy
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
-"Невозможно загрузить файл kickstart. Измените параметр kickstart или нажмите "
-"Отмена для продолжения в интерактивном режиме."
+"Невозможно загрузить образ с обновлениями. Укажите другое расположение обновлений или нажмите "
+"«Отмена» для продолжения без установки обновлений."
 
 #: ../loader2/loader.c:494
-#, fuzzy
 msgid "Error downloading updates image"
-msgstr "Ошибка загрузки файла kickstart"
+msgstr "Ошибка загрузки образа обновлений"
 
 #: ../loader2/loader.c:994
 #, c-format
@@ -6172,14 +6152,14 @@ msgid "loader has already been run.  Starting shell.\n"
 msgstr "Загрузчик уже выполнялся.  Запускается оболочка.\n"
 
 #: ../loader2/loader.c:1946
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
-msgstr "Запускается anaconda, режим восстановления %s - подождите, пожалуйста...\n"
+msgstr "Запускается anaconda %s, режим восстановления %s, подождите, пожалуйста...\n"
 
 #: ../loader2/loader.c:1948
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr "Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
+msgstr "Запускается anaconda %s, программа установки %s, подождите, пожалуйста...\n"
 
 #: ../loader2/mediacheck.c:62
 #, c-format
@@ -6217,14 +6197,14 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:117
 msgid "Success"
-msgstr ""
+msgstr "Успешно"
 
 #: ../loader2/mediacheck.c:118
 msgid ""
 "The image which was just tested was successfully verified.  It should be OK "
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
-msgstr ""
+msgstr "Проверка образа завершена успешно. Стоит отметить, однако, что проверка может пропустить некоторые ошибки."
 
 #: ../loader2/method.c:377
 #, c-format
@@ -6247,9 +6227,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Неверный аргумент device команды kickstart  %s: :%s"
 
 #: ../loader2/modules.c:349
-#, fuzzy
 msgid "A module name must be specified for the kickstart device command."
-msgstr "Команде kickstart должен быть передан тип модуля и его имя."
+msgstr "Команде kickstart должно быть передано имя модуля."
 
 #: ../loader2/net.c:93
 msgid ""
@@ -6415,7 +6394,7 @@ msgstr "Каталог %s:"
 #: ../loader2/nfsinstall.c:65
 #, c-format
 msgid "Please enter the server name and path to your %s images."
-msgstr ""
+msgstr "Введите имя сервера и путь к образам %s."
 
 #: ../loader2/nfsinstall.c:67
 msgid "NFS Setup"
@@ -6456,9 +6435,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Запуск anaconda по telnet..."
 
 #: ../loader2/urlinstall.c:79
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s."
-msgstr "Не удается получить %s://%s/%s/%s"
+msgstr "Не удается получить %s://%s/%s."
 
 #: ../loader2/urlinstall.c:186
 msgid "Unable to retrieve the install image."
@@ -6481,26 +6460,23 @@ msgstr "Неизвестный метод URL %s"
 #: ../loader2/urls.c:280
 #, c-format
 msgid "Please enter the URL containing the %s images on your server."
-msgstr ""
+msgstr "Введите URL-ссылку к образам %s на вашем сервере."
 
 #: ../loader2/urls.c:291
-#, fuzzy
 msgid "Configure proxy"
-msgstr "Настройка TCP/IP"
+msgstr "Настройка прокси"
 
 #: ../loader2/urls.c:306
-#, fuzzy
 msgid "URL Setup"
-msgstr "Настройка NFS"
+msgstr "Настройка URL"
 
 #: ../loader2/urls.c:314
-#, fuzzy
 msgid "You must enter a URL."
-msgstr "Вы должны указать каталог."
+msgstr "Вы должны указать URL."
 
 #: ../loader2/urls.c:320
 msgid "URL must be either an ftp or http URL"
-msgstr ""
+msgstr "URL-ссылка должна содержать адрес FTP или HTTP."
 
 #: ../loader2/urls.c:331
 msgid "Unknown Host"
@@ -6519,16 +6495,15 @@ msgstr "Если вы используете HTTP proxy-сервер, укажи
 
 #: ../loader2/urls.c:393
 msgid "Proxy Name:"
-msgstr ""
+msgstr "Имя прокси:"
 
 #: ../loader2/urls.c:398
 msgid "Proxy Port:"
-msgstr ""
+msgstr "Порт прокси:"
 
 #: ../loader2/urls.c:414
-#, fuzzy
 msgid "Further Setup"
-msgstr "Дальнейшая настройка FTP"
+msgstr "Дальнейшая настройка"
 
 #: ../loader2/windows.c:63
 msgid "Loading SCSI driver"
@@ -6540,9 +6515,8 @@ msgid "Loading %s driver..."
 msgstr "Загружается драйвер %s..."
 
 #: tmp/account.glade.h:2
-#, fuzzy
 msgid "Root Password:"
-msgstr "Пароль пользователя root"
+msgstr "Пароль root:"
 
 #: tmp/account.glade.h:3
 msgid ""
@@ -6577,42 +6551,36 @@ msgid "Add Repository"
 msgstr "Добавить хранилище"
 
 #: tmp/addrepo.glade.h:3
-#, fuzzy
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from."
 msgstr ""
 "Укажите положение, откуда можно выполнить установку дополнительного "
-"программного обеспечения. Должно быть корректным хранилищем для %s."
+"программного обеспечения."
 
 #: tmp/addrepo.glade.h:4
 msgid "Proxy U_RL:"
-msgstr ""
+msgstr "U_RL прокси:"
 
 #: tmp/addrepo.glade.h:5
-#, fuzzy
 msgid "Proxy pass_word:"
-msgstr "Без пароля"
+msgstr "_Пароль прокси:"
 
 #: tmp/addrepo.glade.h:6
-#, fuzzy
 msgid "Proxy u_sername:"
-msgstr "Имя сервера FTP:"
+msgstr "Имя пользователя _прокси:"
 
 #: tmp/addrepo.glade.h:7
-#, fuzzy
 msgid "Repository _Mirror"
-msgstr "Добавить хранилище"
+msgstr "_Зеркало хранилища"
 
 #: tmp/addrepo.glade.h:8
-#, fuzzy
 msgid "Repository _URL"
-msgstr "<b>_URL хранилища:</b>"
+msgstr "_URL хранилища"
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid "_Proxy configuration"
-msgstr "Выбор мыши"
+msgstr "К_онфигурация прокси"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6623,9 +6591,8 @@ msgid "_Next"
 msgstr "_Далее"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target:</b>"
-msgstr "<b>_Имя хранилища:</b>"
+msgstr "<b>Изменить _размер целевого ресурса:</b>"
 
 #: tmp/autopart.glade.h:2
 msgid ""
@@ -6642,66 +6609,60 @@ msgid "Re_view and modify partitioning layout"
 msgstr "_Просмотр и изменение разбиения разделов"
 
 #: tmp/autopart.glade.h:4
-#, fuzzy
 msgid "What drive would you like to _boot this installation from?"
-msgstr "С какого диска вы хотите запустить установку?"
+msgstr "С какого _диска вы хотите запустить установку?"
 
 #: tmp/autopart.glade.h:5
 msgid "Which Partition to resize"
-msgstr ""
+msgstr "Размер какого раздела будет изменен"
 
 #: tmp/autopart.glade.h:6
-#, fuzzy
 msgid "Which partition would you like to resize to make room for your installation?"
-msgstr "Укажите корневой раздел вашей установки."
+msgstr "Укажите раздел, размер которого вы хотите увеличить для размещения установки?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
 msgstr "_Дополнительная настройка накопителей"
 
 #: tmp/autopart.glade.h:8
-#, fuzzy
 msgid "_Encrypt system"
-msgstr "Ключ шифрования"
+msgstr "За_шифровать систему"
 
 #: tmp/autopart.glade.h:10
 msgid "_Select the drive(s) to use for this installation."
 msgstr "_Укажите устройства для этой установки:"
 
 #: tmp/blwhere.glade.h:1
-#, fuzzy
 msgid "/boot"
-msgstr "Перезагрузка"
+msgstr "/boot"
 
 #: tmp/blwhere.glade.h:2
-#, fuzzy
 msgid "BIOS Drive Order"
-msgstr "Изменение порядка дисков"
+msgstr "Порядок дисков BIOS"
 
 #: tmp/blwhere.glade.h:3
-#, fuzzy
 msgid "Boot loader device"
 msgstr "Загрузчик"
 
 #: tmp/blwhere.glade.h:4
 msgid "First BIOS drive:"
-msgstr ""
+msgstr "Первое устройство BIOS:"
 
 #: tmp/blwhere.glade.h:5
 msgid "Fourth BIOS drive:"
-msgstr ""
+msgstr "Четвертое устройство BIOS:"
 
 #: tmp/blwhere.glade.h:6
 msgid "MBR"
-msgstr ""
+msgstr "MBR"
 
 #: tmp/blwhere.glade.h:7
 msgid "Second BIOS drive:"
-msgstr ""
+msgstr "Второе устройство BIOS:"
 
 #: tmp/blwhere.glade.h:8
 msgid "Third BIOS drive:"
-msgstr ""
+msgstr "Третье устройство BIOS:"
 
 #: tmp/blwhere.glade.h:9
 #, fuzzy
