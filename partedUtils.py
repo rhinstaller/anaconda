@@ -809,6 +809,11 @@ class DiskSet:
 	lvm.vgscan()
 	lvm.vgactivate()
 
+        for dev, crypto in self.anaconda.id.partitions.encryptedDevices.items():
+            # FIXME: order these so LVM and RAID always work on the first try
+            if crypto.openDevice():
+                log.error("failed to open encrypted device %s" % (dev,))
+
         for (vg, lv, size, lvorigin) in lvm.lvlist():
             if lvorigin:
                 continue
@@ -816,7 +821,8 @@ class DiskSet:
             found = 0
             theDev = dev
             node = "%s/%s" % (vg, lv)
-            crypto = self.anaconda.id.partitions.encryptedDevices.get(node)
+            dmnode = "mapper/%s-%s" % (vg, lv)
+            crypto = self.anaconda.id.partitions.encryptedDevices.get(dmnode)
             if crypto and not crypto.openDevice():
                 theDev = "/dev/%s" % (crypto.getDevice(),)
             elif crypto:
