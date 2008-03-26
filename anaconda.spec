@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.109
+Version: 11.1.2.110
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 25 2008 Chris Lumens <clumens@redhat.com> 11.1.2.110-1
+- Don't try to initialize iSCSI when the portal cannot be detected (msivak).
+  Resolves: rhbz#435173
+
 * Tue Mar 25 2008 Chris Lumens <clumens@redhat.com> 11.1.2.109-1
 - Make sure DHCP works in rescue mode (dcantrell).
   Resolves: rhbz#435978
