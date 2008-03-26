@@ -184,6 +184,12 @@ class Partitions:
         return self.protected
 
     def getCryptoDev(self, device):
+        log.info("going to get passphrase for encrypted device %s" % device)
+        luksDev = self.encryptedDevices.get(device)
+        if luksDev:
+            log.debug("passphrase for device %s already known" % device)
+            return luksDev
+
         intf = self.anaconda.intf
         luksDev = cryptodev.LUKSDevice(device)
         if self.globalPassphrase:
@@ -275,10 +281,15 @@ class Partitions:
                 if lvvg != vg:
                     continue
 
-                theDev = "/dev/%s/%s" %(vg, lv)
+                theDev = "/dev/mapper/%s-%s" %(vg, lv)
                 if cryptodev.isLuks(theDev):
-                    self.getCryptoDev("%s/%s" % (vg, lv))
+                    self.getCryptoDev("mapper/%s-%s" % (vg, lv))
 
+        lvm.vgdeactivate()
+        diskset.stopMdRaid()
+        for luksDev in self.encryptedDevices.values():
+            luksDev.closeDevice()
+        # try again now that encryption mappings are closed
         lvm.vgdeactivate()
         diskset.stopMdRaid()
         for luksDev in self.encryptedDevices.values():
@@ -288,6 +299,7 @@ class Partitions:
         """Clear the delete list and set self.requests to reflect disk."""
         self.deletes = []
         self.requests = []
+        self.getEncryptedDevices(diskset)
         labels = diskset.getInfo()
         drives = diskset.disks.keys()
         drives.sort()
@@ -316,7 +328,20 @@ class Partitions:
                     # handling instead some day.
                     if ptype is None:
                         ptype = fsset.fileSystemTypeGet("foreign")
-                    
+
+                device = partedUtils.get_partition_name(part)
+                luksDev = self.encryptedDevices.get(device)
+                if luksDev and not luksDev.openDevice():
+                    mappedDev = luksDev.getDevice()
+                    fsname = partedUtils.sniffFilesystemType("/dev/%s" % mappedDev)
+                    if fsname == "lvm2pv":
+                        ptype = fsset.fileSystemTypeGet("physical volume (LVM)")
+                    else:
+                        try:
+                            ptype = fsset.fileSystemTypeGet(fsname)
+                        except:
+                            ptype = fsset.fileSystemTypeGet("foreign")
+
                 start = part.geom.start
                 end = part.geom.end
                 size = partedUtils.getPartSizeMB(part)
@@ -329,6 +354,7 @@ class Partitions:
                                                              drive = drive,
                                                              format = format)
                 spec.device = fsset.PartedPartitionDevice(part).getDevice()
+                spec.encryption = luksDev
                 spec.maxResizeSize = partedUtils.getMaxAvailPartSizeMB(part)
 
                 # set label if makes sense
@@ -336,7 +362,9 @@ class Partitions:
                     if spec.device in labels.keys():
                         if labels[spec.device] and len(labels[spec.device])>0:
                             spec.fslabel = labels[spec.device]
-
+                    elif luksDev and not luksDev.getStatus() and mappedDev in labels.keys():
+                        if labels[mappedDev] and len(labels[mappedDev])>0:
+                            spec.fslabel = labels[mappedDev]
                 self.addRequest(spec)
                 part = disk.next_partition(part)
 
@@ -372,14 +400,20 @@ class Partitions:
                 raidvols.append(req.uniqueID)
                 
 
-            fs = partedUtils.sniffFilesystemType("/dev/%s" %(theDev,))
+            luksDev = self.encryptedDevices.get(theDev)
+            if luksDev and not luksDev.openDevice():
+                device = luksDev.getDevice()
+            else:
+                device = theDev
+
+            fs = partedUtils.sniffFilesystemType("/dev/%s" %(device,))
             try:
                 fsystem = fsset.fileSystemTypeGet(fs)
             except:
                 fsystem = fsset.fileSystemTypeGet("foreign")
 
             try:
-                fslabel = isys.readFSLabel(theDev)
+                fslabel = isys.readFSLabel(device)
             except:
                 fslabel = None
 
@@ -397,6 +431,7 @@ class Partitions:
                                                 chunksize = chunk,
                                                 fslabel = fslabel)
             spec.size = spec.getActualSize(self, diskset)
+            spec.encryption = luksDev
             self.addRequest(spec)
 
         lvm.writeForceConf()
@@ -441,7 +476,14 @@ class Partitions:
                 lvsize = float(size)
 
                 theDev = "/dev/%s/%s" %(vg, lv)
-                fs = partedUtils.sniffFilesystemType(theDev)
+
+                luksDev = self.encryptedDevices.get("mapper/%s-%s" % (vg, lv))
+                if luksDev and not luksDev.openDevice():
+                    device = luksDev.getDevice()
+                else:
+                    device = theDev
+
+                fs = partedUtils.sniffFilesystemType(device)
                 fslabel = None
 
                 try:
@@ -450,7 +492,7 @@ class Partitions:
                     fsystem = fsset.fileSystemTypeGet("foreign")
 
                 try:
-                    fslabel = isys.readFSLabel(theDev)
+                    fslabel = isys.readFSLabel(device)
                 except:
                     fslabel = None
 
@@ -463,6 +505,7 @@ class Partitions:
                     preexist = 1)
                 if fsystem.isResizable():
                     spec.minResizeSize = fsystem.getMinimumSize("%s/%s" %(vg, lv))
+                spec.encryption = luksDev
                 self.addRequest(spec)
 
         for vg in lvm.partialvgs():
@@ -470,8 +513,15 @@ class Partitions:
             self.addDelete(spec)
             
         lvm.vgdeactivate()
-
         diskset.stopMdRaid()
+        for luksDev in self.encryptedDevices.values():
+            luksDev.closeDevice()
+
+        # try again now that encryption mappings are closed
+        lvm.vgdeactivate()
+        diskset.stopMdRaid()
+        for luksDev in self.encryptedDevices.values():
+            luksDev.closeDevice()
 
     def addRequest (self, request):
         """Add a new request to the list."""
@@ -514,6 +564,13 @@ class Partitions:
 		if tmp == device:
 		    return request
 	    elif request.device == device:
+                return request
+            elif request.encryption:
+                deviceUUID = cryptodev.luksUUID("/dev/" + device)
+                cryptoDev = request.encryption.getDevice()
+                cryptoUUID = request.encryption.getUUID()
+                if cryptoDev == device or \
+                   (cryptoUUID and cryptoUUID == deviceUUID):
                     return request
         return None
 
@@ -1533,6 +1590,8 @@ class Partitions:
         diskset.startMPath()
         diskset.startDmRaid()
         diskset.startMdRaid()
+        for luksDev in self.encryptedDevices.values():
+            luksDev.openDevice()
         lvm.vgactivate()
 
         snapshots = {}
@@ -1561,6 +1620,10 @@ class Partitions:
 
         for name,vg in lvm_parent_deletes:
             log.info("removing lv %s" % (name,))
+            key = "mapper/%s-%s" % (vg, name)
+            if key in self.encryptedDevices.keys():
+                self.encryptedDevices[].closeDevice()
+                del self.encryptedDevices[key]
             lvm.lvremove(name, vg)
 
         # now, go through and delete volume groups
@@ -1571,6 +1634,18 @@ class Partitions:
                     delete.setDeleted(1)
 
         lvm.vgdeactivate()
+
+        # now, remove obsolete cryptodev instances
+        for (device, luksDev) in self.encryptedDevices.items():
+            luksDev.closeDevice()
+            found = 0
+            for req in self.requests:
+                if req.encryption == luksDev:
+                    found = 1
+
+            if not found:
+                del self.encryptedDevices[device]
+
         diskset.stopMdRaid()
 
     def doMetaResizes(self, diskset):
