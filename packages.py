@@ -253,6 +253,49 @@ def setFileCons(anaconda):
 
     return
 
+# FIXME: using rpm directly here is kind of lame, but in the yum backend
+# we don't want to use the metadata as the info we need would require
+# the filelists.  and since we only ever call this after an install is
+# done, we can be guaranteed this will work.  put here because it's also
+# used for livecd installs
+def rpmKernelVersionList(rootPath = "/"):
+    import rpm
+
+    def get_version(header):
+        for f in header['filenames']:
+            if f.startswith('/boot/vmlinuz-'):
+                return f[14:]
+        return ""
+
+    def get_tag(header):
+        if header['name'] == "kernel":
+            return "base"
+        elif header['name'].startswith("kernel-"):
+            return header['name'][7:]
+        return ""
+
+    versions = []
+
+    ts = rpm.TransactionSet(rootPath)
+
+    # FIXME: and make sure that the rpmdb doesn't have stale locks :/
+    for rpmfile in ["__db.000", "__db.001", "__db.002", "__db.003"]:
+        try:
+            os.unlink("%s/var/lib/rpm/%s" %(rootPath, rpmfile))
+        except:
+            log.debug("failed to unlink /var/lib/rpm/%s" %(rpmfile,))
+
+    mi = ts.dbMatch('provides', 'kernel')
+    for h in mi:
+        v = get_version(h)
+        tag = get_tag(h)
+        if v == "" or tag == "":
+            log.warning("Unable to determine kernel type/version for %s-%s-%s.%s" %(h['name'], h['version'], h['release'], h['arch'])) 
+            continue
+        versions.append( (v, h['arch'], tag) )
+
+    return versions
+
 #Recreate initrd for use when driver disks add modules
 def recreateInitrd (kernelTag, instRoot):
     log.info("recreating initrd for %s" % (kernelTag,))

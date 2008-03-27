@@ -147,7 +147,7 @@ char *convertUIToURL(struct iurlinfo *ui) {
     /* sanitize url so we dont have problems like bug #101265 */
     /* basically avoid duplicate /'s                          */
     if (ui->protocol == URL_METHOD_HTTP) {
-        for (p=finalPrefix; *p == '/'; p++);
+        for (p=finalPrefix; *p == '/' && *(p+1) && *(p+1) == '/'; p++);
         finalPrefix = p;
     }
 

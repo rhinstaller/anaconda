@@ -952,14 +952,20 @@ class LogicalVolumeRequestSpec(RequestSpec):
         else:
             size = "%s percent" %(self.percent,)
         
+        if self.encryption is None:
+            crypto = "None"
+        else:
+            crypto = self.encryption.getScheme()
+
         str = ("LV Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s\n"
                "  size: %(size)s  lvname: %(lvname)s  volgroup: %(vgid)s\n"
-               "  options: '%(fsopts)s'  fsprofile: %(fsprofile)s" %
+               "  options: '%(fsopts)s'  fsprofile: %(fsprofile)s"
+               "  encryption: '%(crypto)s'" %
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format,
                 "lvname": self.logicalVolumeName, "vgid": self.volumeGroup,
-		"size": size,
+		"size": size, "crypto": crypto,
                 "fsopts": self.fsopts, "fsprofile": self.fsprofile})
         return str
     
@@ -970,7 +976,8 @@ class LogicalVolumeRequestSpec(RequestSpec):
         self.dev = fsset.LogicalVolumeDevice(vgname, self.size,
                                              self.logicalVolumeName,
                                              vg = vg,
-                                             existing = self.preexist)
+                                             existing = self.preexist,
+                                             encryption = self.encryption)
         return self.dev
 
     def isEncrypted(self, partitions, parentOnly = False):

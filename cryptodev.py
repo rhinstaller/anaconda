@@ -62,10 +62,16 @@ class LUKSDevice:
         return self.scheme
 
     def setDevice(self, device):
+        if self._device == device:
+            return
+
         self._device = device
         if device is not None:
+            if device.startswith("/dev/"):
+                device = device[5:]
+
             name = "%s-%s" % (self.scheme.lower(),
-                              os.path.basename(device))
+                              device.replace("/", "-"))
             self.setName(name)
 
     def getDevice(self, encrypted=0):
@@ -78,6 +84,9 @@ class LUKSDevice:
 
     def setName(self, name, lock=False):
         """Set the name of the mapped device, eg: 'dmcrypt-sda3'"""
+        if self.name == name:
+            return
+
         if self.name and not self.getStatus():
             raise RuntimeError, "Cannot rename an active mapping."
 

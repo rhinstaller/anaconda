@@ -45,6 +45,7 @@ from product import productName, productStamp
 from sortedtransaction import SplitMediaTransactionData
 from constants import *
 from image import *
+import packages
 from rhpl.translate import _
 
 # specspo stuff
@@ -1552,26 +1553,9 @@ class YumBackend(AnacondaBackend):
         w.pop()
 
     def kernelVersionList(self, rootPath="/"):
-        kernelVersions = []
-        
-        # nick is used to generate the lilo name
-        for (ktag, nick) in [ ('kernel-smp', 'smp'),
-                              ('kernel-xen0', 'xen0'),
-                              ('kernel-xenU', 'xenU'),
-                              ('kernel-xen', 'xen'),
-                              ('kernel-PAE', 'pae') ]:
-            tag = ktag.rsplit('-', 1)[1]
-            for tsmbr in filter(lambda p: p.output_state in TS_INSTALL_STATES, 
-                                self.ayum.tsInfo.matchNaevr(name=ktag)):
-                version = ( tsmbr.version + '-' + tsmbr.release + tag)
-                kernelVersions.append((version, tsmbr.arch, nick))
-
-        for tsmbr in filter(lambda p: p.output_state in TS_INSTALL_STATES,
-                            self.ayum.tsInfo.matchNaevr(name='kernel')):
-            version = ( tsmbr.version + '-' + tsmbr.release)
-            kernelVersions.append((version, tsmbr.arch, 'base'))
-
-        return kernelVersions
+        # FIXME: using rpm here is a little lame, but otherwise, we'd
+        # be pulling in filelists
+        return packages.rpmKernelVersionList(rootPath)
 
     def __getGroupId(self, group):
         """Get the groupid for the given name (english or translated)."""
