@@ -246,7 +246,7 @@ class AnacondaYumRepo(YumRepository):
         if mirrorlist:
             self.mirrorlist = mirrorlist
 
-        self.setAttribute('cachedir', os.path.join(root, "/tmp/cache", self.id))
+        self.setAttribute('cachedir', os.path.join(root, "tmp/cache", self.id))
 
     def dirSetup(self):
         # FIXME: this is terrible, awful and shouldn't be allowed to see
