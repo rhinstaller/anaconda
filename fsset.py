@@ -547,8 +547,9 @@ class extFileSystem(FileSystemType):
                          100, pulse = True)
 
         rc = iutil.execWithPulseProgress("e2fsck", ["-f", "-p", "-C", "0", devicePath],
-                                         stdout="/dev/tty5",
-                                         stderr="/dev/tty5", progress = w)
+                                         stdout="/tmp/resize.out",
+                                         stderr="/tmp/resize.out",
+                                         progress = w)
         if rc >= 4:
             raise RuntimeError, "Check of %s failed" %(devicePath,)
         if progress:
@@ -560,7 +561,8 @@ class extFileSystem(FileSystemType):
         log.info("resizing %s" %(devicePath,))
         rc = iutil.execWithPulseProgress("resize2fs",
                                          ["-p", devicePath, "%sM" %(size,)],
-                                         stdout="/dev/tty5", stderr="/dev/tty5",
+                                         stdout="/tmp/resize.out",
+                                         stderr="/tmp/resize.out",
                                          progress = w)
         if progress:
             w.pop()
@@ -1018,8 +1020,10 @@ class NTFSFileSystem(FileSystemType):
         rc = iutil.execWithPulseProgress("ntfsresize", ["-v",
                                                         "-s", "%sM" %(size,),
                                                         devicePath],
-                                         stdin = p[0], stdout = "/dev/tty5",
-                                         stderr = "/dev/tty5", progress = w)
+                                         stdin = p[0],
+                                         stdout = "/tmp/resize.out",
+                                         stderr = "/tmp/resize.out",
+                                         progress = w)
         if progress:
             w.pop()
         if rc:
