@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-16 13:31-0400\n"
-"PO-Revision-Date: 2008-03-26 13:00+1100\n"
+"PO-Revision-Date: 2008-03-27 12:52+1100\n"
 "Last-Translator: Yulia Poyarkova <yulia.poyarkova@redhat.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -174,7 +174,7 @@ msgid ""
 msgstr ""
 "Диск, на котором расположен загрузочный раздел %s, не имеет достаточно "
 "свободного места для установки начального загрузчика. Убедитесь, что в "
-"начале диска, содержащего /boot, имеется хотя бы 5 Мб свободного места."
+"начале диска, содержащего /boot, доступно хотя бы 5 Мб свободного места."
 
 #: ../autopart.py:1063
 #, python-format
@@ -493,9 +493,7 @@ msgstr "Исключения parted не могут быть обработан�
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
-msgstr ""
-"Произошла исключительная ситуация. Скорее всего, это ошибка. Сохраните полный "
-"текст исключения и отправьте отчет об ошибке"
+msgstr "Произошла исключительная ситуация. Скорее всего, это ошибка. Сохраните полный текст исключения и создайте отчет об ошибке"
 
 #: ../constants.py:81
 msgid " with the provider of this software."
@@ -679,8 +677,7 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"из файла /etc/fstab в данный момент используется как раздел для приостанова "
-"работы, это означает, что ваша система находится в \"спящем режиме\". Для "
+"из файла /etc/fstab в данный момент используется как раздел для приостанова работы, это означает, что ваша система находится в \"спящем режиме\". Для "
 "выполнения обновления полностью остановите работу вашей системы вместо "
 "перевода ее в \"спящий режим\"."
 
@@ -3130,7 +3127,7 @@ msgid "Packages in %s"
 msgstr "Пакеты в %s"
 
 #: ../iw/GroupSelector.py:482
-#fuzzy, python-format
+#, python-format
 msgid "%d of %d optional package selected"
 msgid_plural "%d of %d optional packages selected"
 msgstr[0] "Выбран %d дополнительный пакет из %d"
@@ -6665,67 +6662,59 @@ msgid "Third BIOS drive:"
 msgstr "Третье устройство BIOS:"
 
 #: tmp/blwhere.glade.h:9
-#, fuzzy
 msgid "Where would you like to install the boot loader for your system?"
 msgstr "Куда вы хотите установить загрузчик?"
 
 #: tmp/detailed-dialog.glade.h:1
-#, fuzzy
 msgid "Info"
-msgstr "Игнорировать"
+msgstr "Инфо"
 
 #: tmp/detailed-dialog.glade.h:2
 msgid "_Details"
-msgstr ""
+msgstr "_Подробности"
 
 #: tmp/exnSave.glade.h:2
 msgid "Select a destination for the exception information."
-msgstr ""
+msgstr "Выберите, куда будет отправляться информация об исключениях."
 
 #: tmp/exnSave.glade.h:3
 msgid "_Disk"
-msgstr ""
+msgstr "_Диск"
 
 #: tmp/exnSave.glade.h:4
-#, fuzzy
 msgid "_Remote"
-msgstr "Переслать"
+msgstr "_Удаленный ресурс"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
 "Some packages associated with this group are not required to be installed "
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
-msgstr ""
+msgstr "Не обязательна установка всех пакетов, связанных с этой группой. Тем не менее, они могут обеспечить дополнительную функциональность. Выберите пакеты, которые вы хотите установить."
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Deselect"
-msgstr "_Удалить"
+msgstr "О_тменить выбор"
 
 #: tmp/GroupSelector.glade.h:3
-#, fuzzy
 msgid "_Deselect all optional packages"
-msgstr "Установка пакетов"
+msgstr "О_тменить выбор всех дополнительных пакетов"
 
 #: tmp/GroupSelector.glade.h:4
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Дополнительных пакетов нет"
+msgstr "_Дополнительные пакеты"
 
 #: tmp/GroupSelector.glade.h:5
-#, fuzzy
 msgid "_Select"
-msgstr "_Удалить"
+msgstr "Вы_брать"
 
 #: tmp/GroupSelector.glade.h:6
-#, fuzzy
 msgid "_Select all optional packages"
-msgstr "Дополнительных пакетов нет"
+msgstr "Вы_брать все дополнительные пакеты"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -6773,20 +6762,19 @@ msgstr "Установить на жесткий диск"
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
-msgstr ""
+msgstr "Выберите пароль для зашифрованного раздела. Ввод пароля будет будет запрошен при каждой загрузке системы."
 
 #: tmp/lukspassphrase.glade.h:2
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "Подтвердите возврат"
+msgstr "Подтвердите пароль:"
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "Введите пароль для зашифрованного раздела"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase:"
-msgstr ""
+msgstr "Введите пароль:"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6885,9 +6873,8 @@ msgid "_Customize now"
 msgstr "Настроить _сейчас"
 
 #: tmp/tasksel.glade.h:8
-#, fuzzy
 msgid "_Modify repository"
-msgstr "_Добавить хранилище"
+msgstr "_Изменить хранилище"
 
 #: tmp/zfcp-config.glade.h:1
 msgid "<b>Device number:</b>"
