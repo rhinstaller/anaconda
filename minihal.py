@@ -41,6 +41,7 @@ def get_device(udi):
     else:
         props['device'] = None
 
+    props['description'] = ''
     if props.has_key('info.product'):
         if props.has_key('info.vendor'):
             props['description'] = '%s %s' % (props['info.vendor'],props['info.product'])
