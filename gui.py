@@ -732,9 +732,13 @@ class SaveExceptionWindow:
         self.diskCombo = exnxml.get_widget("diskCombo")
         self.remoteButton = exnxml.get_widget("remoteButton")
         self.remoteBox = exnxml.get_widget("remoteHBox")
+        self.localButton = exnxml.get_widget("localButton")
+        self.localChooser = exnxml.get_widget("localChooser")
         self.win = exnxml.get_widget("saveDialog")
 
-        self.diskButton.connect("toggled", self.diskButton_changed)
+        self.diskButton.connect("toggled", self.radio_changed)
+        self.remoteButton.connect("toggled", self.radio_changed)
+        self.localButton.connect("toggled", self.radio_changed)
 
         cell = gtk.CellRendererText()
         self.diskCombo.pack_start(cell, True)
@@ -744,7 +748,11 @@ class SaveExceptionWindow:
 
         dests = anaconda.id.diskset.exceptionDisks(anaconda)
 
-        if len(dests) > 0:
+        if flags.livecdInstall:
+            exnxml.get_widget("diskBox").hide()
+            exnxml.get_widget("localBox").show()
+            self.localButton.set_active(True)
+        elif len(dests) > 0:
             for d in dests:
                 iter = store.append(None)
                 store[iter] = (d[0], "/dev/%s - %s" % (d[0], d[1]))
@@ -758,12 +766,13 @@ class SaveExceptionWindow:
             self.remoteBox.set_sensitive(True)
 
         addFrame(self.win)
-        self.win.show_all()
+        self.win.show()
         self.window = self.win
 
-    def diskButton_changed(self, args):
+    def radio_changed(self, args):
         self.diskCombo.set_sensitive(self.diskButton.get_active())
-        self.remoteBox.set_sensitive(not self.diskButton.get_active())
+        self.remoteBox.set_sensitive(self.remoteButton.get_active())
+        self.localChooser.set_sensitive(self.localButton.get_active())
 
     def getrc(self):
         if self.rc == gtk.RESPONSE_OK:
@@ -778,6 +787,8 @@ class SaveExceptionWindow:
                 return None
 
             return self.diskCombo.get_model()[active][0]
+        elif self.saveToLocal():
+            return self.localChooser.get_filename()
         else:
             return map(lambda e: e.get_text(), [self.hostEntry, self.destEntry, self.usernameEntry, self.passwordEntry])
 
@@ -789,6 +800,9 @@ class SaveExceptionWindow:
 
     def saveToDisk(self):
         return self.diskButton.get_active()
+
+    def saveToLocal(self):
+        return self.localButton.get_active()
 
 class MessageWindow:
     def getrc (self):

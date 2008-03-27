@@ -352,6 +352,23 @@ def runSaveDialog(anaconda, longTracebackFile):
                         _("There was a problem writing the system state to the "
                           "disk."))
                     continue
+            elif saveWin.saveToLocal():
+                dest = saveWin.getDest()
+                try:
+                    shutil.copyfile("/tmp/anacdump.txt", "%s/InstallError.txt" %(dest,))
+                    anaconda.intf.messageWindow(_("Dump Written"),
+                        _("Your system's state has been successfully written to "
+                          "the disk. The installer will now exit."),
+                        type="custom", custom_icon="info",
+                        custom_buttons=[_("_Exit installer")])
+                    sys.exit(0)
+                except Exception, e:
+                    log.error("Failed to copy anacdump.txt to %s/anacdump.txt: %s" %(dest, e))
+                else:
+                    anaconda.intf.messageWindow(_("Dump Not Written"),
+                        _("There was a problem writing the system state to the "
+                          "disk."))
+                    continue
             else:
                 scpInfo = saveWin.getDest()
                 scpSucceeded = copyExceptionToRemote(anaconda.intf, scpInfo)

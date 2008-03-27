@@ -238,6 +238,8 @@ class SaveExceptionWindow:
 
     def saveToDisk(self):
         return self.rg.getSelection() == "disk"
+    def saveToLocal(self):
+        return False
 
 class MainExceptionWindow:
     def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):
