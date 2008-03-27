@@ -46,7 +46,6 @@ log = logging.getLogger("anaconda")
 stepToClasses = {
     "language" : ("language_text", "LanguageWindow"),
     "keyboard" : ("keyboard_text", "KeyboardWindow"),
-    "mouse" : ("mouse_text", ("MouseWindow", "MouseDeviceWindow")),
     "welcome" : ("welcome_text", "WelcomeWindow"),
     "parttype" : ("partition_text", "PartitionTypeWindow"),    
     "custom-upgrade" : ("upgrade_text", "UpgradeExamineWindow"),
