@@ -335,13 +335,10 @@ class Partitions:
                 if luksDev and not luksDev.openDevice():
                     mappedDev = luksDev.getDevice()
                     fsname = partedUtils.sniffFilesystemType("/dev/%s" % mappedDev)
-                    if fsname == "lvm2pv":
-                        ptype = fsset.fileSystemTypeGet("physical volume (LVM)")
-                    else:
-                        try:
-                            ptype = fsset.fileSystemTypeGet(fsname)
-                        except:
-                            ptype = fsset.fileSystemTypeGet("foreign")
+                    try:
+                        ptype = fsset.fileSystemTypeGet(fsname)
+                    except:
+                        ptype = fsset.fileSystemTypeGet("foreign")
 
                 start = part.geom.start
                 end = part.geom.end
