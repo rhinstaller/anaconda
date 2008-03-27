@@ -59,6 +59,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
     if type(stderr) == type("string"):
         stderr = open(stderr, "w")
 
+    stdout.write("Running... %s\n" %([command] + argv,))
     try:
         proc = subprocess.Popen([command] + argv, stdin=stdin, stdout=stdout,
                                 stderr=stderr, preexec_fn=chroot, cwd=root)
@@ -118,6 +119,7 @@ def execWithPulseProgress(command, argv, stdin = 0, stdout = 1, stderr = 2,
         stdout = open(stdout, "w")
     if type(stderr) == type("string"):
         stderr = open(stderr, "w")
+    stdout.write("Running... %s\n" %([command] + argv,))
 
     p = os.pipe()
     childpid = os.fork()
