@@ -875,7 +875,7 @@ class YumBackend(AnacondaBackend):
             except Exception, e:
                 log.debug("Error setting up media repository: %s" %(e,))
 
-        if self.ayum._loopbackFile and (anaconda.mediaDevice or self.ayum.isodir):
+        if self.ayum._loopbackFile:
             try:
                 os.unlink(self.ayum._loopbackFile)
             except SystemError:
