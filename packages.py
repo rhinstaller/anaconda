@@ -139,6 +139,19 @@ def doMigrateFilesystems(anaconda):
     
 
 def turnOnFilesystems(anaconda):
+    def handleResizeError(e, dev):
+        if os.path.exists("/tmp/resize.out"):
+            details = open("/tmp/resize.out", "r").read()
+        else:
+            details = "%s" %(e,)
+        anaconda.intf.detailedMessageWindow("Resizing Failed",
+                                            "There was an error encountered "
+                                            "resizing the device %s." %(dev,),
+                                            details,
+                                            type = "custom",
+                                            custom_buttons = [_("_Exit installer")])
+        sys.exit(1)
+
     if anaconda.dir == DISPATCH_BACK:
         log.info("unmounting filesystems")
 	anaconda.id.fsset.umountFilesystems(anaconda.rootPath)
@@ -154,11 +167,19 @@ def turnOnFilesystems(anaconda):
                                        searchPath = 1)
             anaconda.id.partitions.doMetaDeletes(anaconda.id.diskset)
             anaconda.id.fsset.setActive(anaconda.id.diskset)
-            anaconda.id.fsset.shrinkFilesystems(anaconda.id.diskset, anaconda.rootPath)
+            try:
+                anaconda.id.fsset.shrinkFilesystems(anaconda.id.diskset, anaconda.rootPath)
+            except fsset.ResizeError, (e, dev):
+                handleResizeError(e, dev)
+
             if not anaconda.id.fsset.isActive():
                 anaconda.id.diskset.savePartitions ()
                 anaconda.id.partitions.doMetaResizes(anaconda.id.diskset)
-            anaconda.id.fsset.growFilesystems(anaconda.id.diskset, anaconda.rootPath)
+            try:
+                anaconda.id.fsset.growFilesystems(anaconda.id.diskset, anaconda.rootPath)
+            except fsset.ResizeError, (e, dev):
+                handleResizeError(e, dev)
+
             if not anaconda.id.fsset.volumesCreated:
                 try:
                     anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)

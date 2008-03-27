@@ -52,6 +52,9 @@ class SuspendError(Exception):
 class OldSwapError(Exception):
     pass
 
+class ResizeError(Exception):
+    pass
+
 defaultMountPoints = ['/', '/boot', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
 
 if rhpl.getArch() == "s390":
@@ -551,7 +554,7 @@ class extFileSystem(FileSystemType):
                                          stderr="/tmp/resize.out",
                                          progress = w)
         if rc >= 4:
-            raise RuntimeError, "Check of %s failed" %(devicePath,)
+            raise ResizeError, ("Check of %s failed" %(devicePath,), devicePath)
         if progress:
             w.pop()
             w = progress(_("Resizing"),
@@ -567,7 +570,7 @@ class extFileSystem(FileSystemType):
         if progress:
             w.pop()
         if rc:
-            raise RuntimeError, "Resize of %s failed" %(devicePath,)
+            raise ResizeError, ("Resize of %s failed" %(devicePath,), devicePath)
 
     def getMinimumSize(self, device):
         """Return the minimum filesystem size in megabytes"""
@@ -1017,6 +1020,9 @@ class NTFSFileSystem(FileSystemType):
         os.write(p[1], "y\n")
         os.close(p[1])
 
+        # FIXME: we should call ntfsresize -c to ensure that we can resize
+        # before starting the operation
+
         rc = iutil.execWithPulseProgress("ntfsresize", ["-v",
                                                         "-s", "%sM" %(size,),
                                                         devicePath],
@@ -1027,7 +1033,7 @@ class NTFSFileSystem(FileSystemType):
         if progress:
             w.pop()
         if rc:
-            raise RuntimeError, "Resize of %s failed" %(devicePath,)
+            raise ResizeError, ("Resize of %s failed" %(devicePath,), devicePath)
 
     def getMinimumSize(self, device):
         """Return the minimum filesystem size in megabytes"""
