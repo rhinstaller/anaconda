@@ -676,6 +676,11 @@ if __name__ == "__main__":
         if opts.method[0] == '@':
             expandFTPMethod(opts)
 
+        # FIXME: this is terrible, but it gets the desired behavior without
+        # requiring scary loader changes at this point
+        if flags.cmdline.has_key("stage2") and flags.cmdline.has_key("method"):
+            opts.method = flags.cmdline["method"]
+
         anaconda.setMethodstr(opts.method)
 
     if opts.module:
