@@ -171,6 +171,7 @@ class NetworkConfigurator:
 
         # FIXME: need to do input validation
         if self.xml.get_widget("dhcpCheckbutton").get_active():
+            netdev.set(('bootproto', 'dhcp'))
             self.window.hide()
             w = gui.WaitWindow(_("Dynamic IP"),
                                _("Sending request for IP information "
