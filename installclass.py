@@ -414,15 +414,6 @@ class BaseInstallClass(object):
             rl = 3
         self.setMiscXSettings(id, depth, resolution, runlevel = rl)
 
-    def setMouse(self, id, mouseType, device = None, emulThree = -1):
-        import rhpxl.mouse as mouse
-
-        # blindly trust what we're told
-        mouse = mouse.Mouse(skipProbe = 1)
-        mouseName = mouse.mouseToMouse()[mouseType]
-        mouse.set(mouseName, emulThree, device)
-        id.setMouse(mouse)
-
     def getBackend(self, methodstr):
         # this should be overriden in distro install classes
         from backend import AnacondaBackend
@@ -463,7 +454,6 @@ class BaseInstallClass(object):
 	#id.setAuthentication()
 	#id.setHostname()
 	#id.setDesktop()
-	#id.setMouse()
 
 	# These are callbacks used to let classes configure packages
 	#id.setPackageSelection()

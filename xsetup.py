@@ -32,9 +32,8 @@ class XSetup:
 	self.xserver = xserver
         self.anaconda = anaconda
 
-    def write(self, fn, mouse, keyboard):
+    def write(self, fn, keyboard):
         self.xserver.keyboard = keyboard
-        self.xserver.mousehw = mouse
         self.xserver.generateConfig()
 
         if self.anaconda.isKickstart:

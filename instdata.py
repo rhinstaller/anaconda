@@ -58,7 +58,6 @@ class InstallData:
     def reset(self):
 	# Reset everything except: 
 	#
-	#	- The mouse
 	#	- The install language
 	#	- The keyboard
 
@@ -116,10 +115,6 @@ class InstallData:
     # expects a Keyboard object
     def setKeyboard(self, keyboard):
         self.keyboard = keyboard
-
-    # expects a Mouse object
-    def setMouse(self, mouse):
-        self.mouse = mouse
 
     # expects a VideoCardInfo object
     def setVideoCard(self, video):
@@ -301,7 +296,6 @@ class InstallData:
         self.backend = backend
         self.anaconda = anaconda
 
-        self.mouse = None
         self.monitor = None
         self.videocard = None
         self.xsetup = None

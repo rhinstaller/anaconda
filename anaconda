@@ -453,8 +453,7 @@ def probeHW(opts, x_already_set, xserver):
         # Probe what is available for X and setup a hardware state
         #
         # try to probe interesting hw
-        skipmouseprobe = not (not os.environ.has_key('DISPLAY') or flags.setupFilesystems)
-        xserver.probeHW(skipMouseProbe=skipmouseprobe, forceDriver=opts.xdriver)
+        xserver.probeHW(forceDriver=opts.xdriver)
 
         # if the len(videocards) is zero, then let's assume we're isHeadless
         if len(xserver.videohw.videocards) == 0:
@@ -940,9 +939,6 @@ if __name__ == "__main__":
     anaconda.id.x_already_set = x_already_set
 
     if xserver:
-        if xserver.mousehw:
-            anaconda.id.setMouse(xserver.mousehw)
-
         if xserver.videohw:
             anaconda.id.setVideoCard(xserver.videohw)
 

@@ -119,7 +119,7 @@ def writeXConfiguration(anaconda):
     else:
         fn = "/tmp/"
 
-    anaconda.id.xsetup.write(fn+"/etc/X11", anaconda.id.mouse, anaconda.id.keyboard)
+    anaconda.id.xsetup.write(fn+"/etc/X11", anaconda.id.keyboard)
     anaconda.id.desktop.write(anaconda.rootPath)
 
 def doMigrateFilesystems(anaconda):
