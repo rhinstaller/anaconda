@@ -1623,7 +1623,7 @@ class Partitions:
             log.info("removing lv %s" % (name,))
             key = "mapper/%s-%s" % (vg, name)
             if key in self.encryptedDevices.keys():
-                self.encryptedDevices[].closeDevice()
+                self.encryptedDevices[key].closeDevice()
                 del self.encryptedDevices[key]
             lvm.lvremove(name, vg)
 
