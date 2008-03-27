@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.81
+Version: 10.1.1.82
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,26 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar 27 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.82-1
+- Add dhcptimeout parameter to loader (msivak)
+  Resolves: rhbz#246483
+- Fix swap size recommendation to match manuals (msivak)
+  Resolves: rhbz#339001
+- Add ixgbe module
+  Resolves: rhbz#350921
+- Fix segfault with driver disk image in initrd
+  Resolves: rhbz#249241
+- Avoid duplicate scsi_hostadapter lines in modprobe.conf
+  Resolves: rhbz#248619
+- Prevent modification to partitions containing harddrive install media (msivak)
+  Resolves: rhbz#220161
+- Use mdadm to generate mdadm.conf (jgranado)
+  Resolves: rhbz#185674
+- Add IP address validation routines for s390 (jgranado)
+  Resolves: rhbz#362411
+- Close RAID devices after collecting device labels (jgranado)
+  Resolves: rhbz#434949
+
 * Tue Oct 30 2007 David Cantrell <dcantrell@redhat.com> - 10.1.1.81-1
 - Copy loaderData->macaddr in to cfg->macaddr
   Related: rhbz#233357
