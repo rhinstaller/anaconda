@@ -83,8 +83,10 @@ def whichToResize(partitions, diskset, intf):
             if req.targetSize is not None:
                 combo.set_active_iter(i)
                 found = True
-            if biggest < 0 or req.size > getActive(combo).size:
-                biggest = i
+            else:
+                if biggest < 0 or req.size > store.get_value(biggest, 1).size:
+                    biggest = i
+
     if not found and biggest > 0:
         combo.set_active_iter(biggest)
 
