@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.58
+Version: 11.4.0.59
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,18 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar 26 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.59-1
+- Only remove duplicate slashes from the front of the prefix. (clumens)
+- Ensure that we take into account new repos (katzj)
+- Handle kernel variants a little better at install time too (katzj)
+- Make a little bit more future proof for kernel version changing (katzj)
+- Add confirmation of closing the installer window (#437772) (katzj)
+- Fix SIGSEGV on all mounts without options (katzj)
+- Add support for encrypted logical volumes in kickstart. (clumens)
+- Add support for encrypted LVs. (dlehman)
+- Put in some handling for redundant method calls and devices containing '/'.
+  (dlehman)
+
 * Tue Mar 25 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.58-1
 - Fuzzy broken string (katzj)
 
