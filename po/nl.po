@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-03-18 21:30+0100\n"
+"PO-Revision-Date: 2008-03-28 21:50+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1135,9 +1135,8 @@ msgid "Exiting"
 msgstr "Bezig met afsluiten"
 
 #: ../gui.py:1401
-#, fuzzy
 msgid "Are you sure you wish to exit the installation?"
-msgstr "Weet u zeker dat u logical volume \"%s\" wilt verwijderen?"
+msgstr "Weet u zeker dat u de installatie wilt afsluiten?"
 
 # Grafische of Tekst installatie
 #: ../gui.py:1410
@@ -1381,15 +1380,14 @@ msgid "'%s' is an invalid IP address."
 msgstr "'%s' is een ongeldig IP-adres."
 
 #: ../packages.py:147
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "Aanpassen van de grootte"
+msgstr "Aanpassen van de grootte is mislukt"
 
 #: ../packages.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered resizing the device %s."
 msgstr ""
-"Er was een fout bij het schonen van de doelstations.  Klonen is mislukt."
+"Er was een fout bij het aanpassen van de grootte van het apparaat %s."
 
 #: ../packages.py:188
 msgid "LVM operation failed"
@@ -3635,7 +3633,7 @@ msgstr "To_evoegen"
 #: ../iw/lvm_dialog_gui.py:1149 ../iw/network_gui.py:457
 #: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1379
 msgid "_Edit"
-msgstr "_Aanpassen"
+msgstr "_Bewerken"
 
 #: ../iw/lvm_dialog_gui.py:1164
 msgid "_Logical Volumes"
@@ -6852,9 +6850,8 @@ msgid "_Details"
 msgstr "_Details"
 
 #: tmp/exnSave.glade.h:2
-#, fuzzy
 msgid "Select A File"
-msgstr "Stuurprogramma selecteren"
+msgstr "Selecteer een bestand"
 
 #: tmp/exnSave.glade.h:3
 msgid "Select a destination for the exception information."
