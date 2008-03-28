@@ -144,9 +144,9 @@ def turnOnFilesystems(anaconda):
             details = open("/tmp/resize.out", "r").read()
         else:
             details = "%s" %(e,)
-        anaconda.intf.detailedMessageWindow("Resizing Failed",
-                                            "There was an error encountered "
-                                            "resizing the device %s." %(dev,),
+        anaconda.intf.detailedMessageWindow(_("Resizing Failed"),
+                                            _("There was an error encountered "
+                                            "resizing the device %s.") %(dev,),
                                             details,
                                             type = "custom",
                                             custom_buttons = [_("_Exit installer")])

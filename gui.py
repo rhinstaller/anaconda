@@ -1398,7 +1398,7 @@ class InstallControlWindow:
     def _doExitConfirm (self, win = None, *args):
         # FIXME: translate the string
         win = MessageWindow(_("Exit installer"),
-                            ("Are you sure you wish to exit the installation?"),
+                            _("Are you sure you wish to exit the installation?"),
                             type="custom", custom_icon="question",
                             custom_buttons = [_("Cancel"), _("_Exit installer")],
                             parent = win)
