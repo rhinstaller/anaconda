@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 7.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-16 13:31-0400\n"
+"POT-Creation-Date: 2008-03-28 10:06-0400\n"
 "PO-Revision-Date: 2001-01-10 22:20+1\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <blackziggy@freemail.it>\n"
 "Language-Team: BASQUE <linux-eu@chanae.alphanet.ch>\n"
@@ -28,7 +28,7 @@ msgstr "%s kickstart fitxategia irekitzean %s akatsa gertatu da"
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: ../anaconda:306 ../cmdline.py:78 ../gui.py:1174 ../text.py:508
+#: ../anaconda:306 ../cmdline.py:78 ../gui.py:1187 ../text.py:509
 #, c-format, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -75,9 +75,9 @@ msgstr ""
 # ../textw/userauth_text.py:119 ../textw/userauth_text.py:128
 # ../textw/userauth_text.py:135 ../textw/userauth_text.py:196
 # ../textw/userauth_text.py:287 ../xserver.py:33
-#: ../anaconda:438 ../gui.py:235 ../rescue.py:271 ../rescue.py:339
+#: ../anaconda:438 ../gui.py:234 ../rescue.py:271 ../rescue.py:339
 #: ../rescue.py:366 ../rescue.py:376 ../rescue.py:452 ../rescue.py:458
-#: ../text.py:536 ../text.py:698 ../textw/constants_text.py:42
+#: ../text.py:537 ../text.py:699 ../textw/constants_text.py:42
 #: ../textw/network_text.py:44 ../textw/network_text.py:54
 #: ../textw/network_text.py:76 ../textw/network_text.py:82
 #: ../textw/network_text.py:230 ../textw/network_text.py:815
@@ -104,18 +104,18 @@ msgstr ""
 #: ../loader2/loader.c:480 ../loader2/loader.c:997 ../loader2/loader.c:1159
 #: ../loader2/mediacheck.c:62 ../loader2/mediacheck.c:101
 #: ../loader2/mediacheck.c:108 ../loader2/mediacheck.c:117
-#: ../loader2/method.c:112 ../loader2/method.c:333 ../loader2/method.c:407
+#: ../loader2/method.c:120 ../loader2/method.c:346 ../loader2/method.c:420
 #: ../loader2/modules.c:336 ../loader2/modules.c:348 ../loader2/net.c:277
 #: ../loader2/net.c:320 ../loader2/net.c:750 ../loader2/net.c:1094
 #: ../loader2/net.c:1647 ../loader2/net.c:1670 ../loader2/net.c:1863
-#: ../loader2/nfsinstall.c:68 ../loader2/nfsinstall.c:138
-#: ../loader2/nfsinstall.c:261 ../loader2/nfsinstall.c:279
-#: ../loader2/nfsinstall.c:320 ../loader2/telnetd.c:93
+#: ../loader2/nfsinstall.c:68 ../loader2/nfsinstall.c:153
+#: ../loader2/nfsinstall.c:283 ../loader2/nfsinstall.c:301
+#: ../loader2/nfsinstall.c:342 ../loader2/telnetd.c:93
 #: ../loader2/urlinstall.c:78 ../loader2/urlinstall.c:101
 #: ../loader2/urlinstall.c:185 ../loader2/urlinstall.c:196
-#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:474
-#: ../loader2/urlinstall.c:483 ../loader2/urls.c:278 ../loader2/urls.c:313
-#: ../loader2/urls.c:319 ../loader2/urls.c:331 ../loader2/urls.c:403
+#: ../loader2/urlinstall.c:437 ../loader2/urlinstall.c:446
+#: ../loader2/urlinstall.c:455 ../loader2/urls.c:280 ../loader2/urls.c:315
+#: ../loader2/urls.c:321 ../loader2/urls.c:333 ../loader2/urls.c:405
 msgid "OK"
 msgstr "Onartu"
 
@@ -125,33 +125,33 @@ msgid ""
 "mode."
 msgstr ""
 
-#: ../anaconda:461
+#: ../anaconda:460
 msgid "No video hardware found, assuming headless"
 msgstr ""
 
-#: ../anaconda:468 ../anaconda:955
+#: ../anaconda:467 ../anaconda:958
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
 # ../todo.py:858
-#: ../anaconda:518
+#: ../anaconda:517
 #, fuzzy
 msgid "Starting graphical installation..."
 msgstr "Red Hat Linux-eko ezarketak bilatzen..."
 
-#: ../anaconda:832
+#: ../anaconda:838
 msgid "Install class forcing text mode installation"
 msgstr ""
 
-#: ../anaconda:872
+#: ../anaconda:878
 msgid "Graphical installation not available...  Starting text mode."
 msgstr ""
 
-#: ../anaconda:880
+#: ../anaconda:886
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
-#: ../autopart.py:889
+#: ../autopart.py:888
 #, python-format
 msgid ""
 "Error resizing partition %s.\n"
@@ -159,30 +159,30 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../autopart.py:892
+#: ../autopart.py:891
 #, python-format
 msgid "Start of partition %s was moved when resizing"
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3409
-#: ../autopart.py:984
+#: ../autopart.py:983
 #, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
 msgstr "Izendatubariko Disko-zatiak daude..."
 
 # ../libfdisk/gnomefsedit.c:3409
-#: ../autopart.py:989
+#: ../autopart.py:988
 #, fuzzy
 msgid "Could not allocate partitions as primary partitions.\n"
 msgstr "Izendatubariko Disko-zatiak daude..."
 
 # ../libfdisk/gnomefsedit.c:3409
-#: ../autopart.py:994
+#: ../autopart.py:993
 #, fuzzy
 msgid "Could not allocate cylinder-based partitions.\n"
 msgstr "Izendatubariko Disko-zatiak daude..."
 
-#: ../autopart.py:1059
+#: ../autopart.py:1058
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
@@ -190,7 +190,7 @@ msgid ""
 "change this device disk label to BSD."
 msgstr ""
 
-#: ../autopart.py:1061
+#: ../autopart.py:1060
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -198,33 +198,33 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 
-#: ../autopart.py:1063
+#: ../autopart.py:1062
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
 
-#: ../autopart.py:1065
+#: ../autopart.py:1064
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
 
-#: ../autopart.py:1067
+#: ../autopart.py:1066
 #, python-format
 msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
 "be able to boot from this partition."
 msgstr ""
 
-#: ../autopart.py:1070
+#: ../autopart.py:1069
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 
-#: ../autopart.py:1095
+#: ../autopart.py:1094
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -232,12 +232,12 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3409
-#: ../autopart.py:1287
+#: ../autopart.py:1286
 #, fuzzy
 msgid "Requested Partition Does Not Exist"
 msgstr "Izendatubariko Disko-zatiak daude..."
 
-#: ../autopart.py:1288
+#: ../autopart.py:1287
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -246,12 +246,12 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3409
-#: ../autopart.py:1313
+#: ../autopart.py:1312
 #, fuzzy
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Izendatubariko Disko-zatiak daude..."
 
-#: ../autopart.py:1314
+#: ../autopart.py:1313
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -260,12 +260,12 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3409
-#: ../autopart.py:1343
+#: ../autopart.py:1342
 #, fuzzy
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Izendatubariko Disko-zatiak daude..."
 
-#: ../autopart.py:1344
+#: ../autopart.py:1343
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -274,12 +274,12 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3409
-#: ../autopart.py:1381
+#: ../autopart.py:1380
 #, fuzzy
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Izendatubariko Disko-zatiak daude..."
 
-#: ../autopart.py:1382
+#: ../autopart.py:1381
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -289,12 +289,12 @@ msgstr ""
 
 # ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
 # ../textw/partitioning_text.py:149
-#: ../autopart.py:1517 ../autopart.py:1564
+#: ../autopart.py:1516 ../autopart.py:1563
 #, fuzzy
 msgid "Automatic Partitioning Errors"
 msgstr "Berekasakako Disko Zatiketa"
 
-#: ../autopart.py:1518
+#: ../autopart.py:1517
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -306,14 +306,14 @@ msgstr ""
 
 # ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
 # ../textw/partitioning_text.py:149
-#: ../autopart.py:1528
+#: ../autopart.py:1527
 #, fuzzy
 msgid "Warnings During Automatic Partitioning"
 msgstr "Berekasakako Disko Zatiketa"
 
 # ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
 # ../textw/partitioning_text.py:149
-#: ../autopart.py:1529
+#: ../autopart.py:1528
 #, fuzzy, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -322,7 +322,7 @@ msgid ""
 msgstr "Berekasakako Disko Zatiketa"
 
 # ../iw/language_gui.py:39 ../loader/lang.c:287
-#: ../autopart.py:1543 ../autopart.py:1560
+#: ../autopart.py:1542 ../autopart.py:1559
 #, fuzzy
 msgid ""
 "\n"
@@ -331,14 +331,14 @@ msgid ""
 msgstr "Ezarketa egiterakoan zein hizkuntza erabiltzea nahi duzu?"
 
 # ../iw/rootpartition_gui.py:313
-#: ../autopart.py:1544 ../iw/partition_gui.py:1023
+#: ../autopart.py:1543 ../iw/partition_gui.py:1023
 #: ../textw/partition_text.py:246
 #, fuzzy
 msgid "Error Partitioning"
 msgstr "Disko Zatiteka Eskuz egin"
 
 # ../libfdisk/gnomefsedit.c:3409
-#: ../autopart.py:1545
+#: ../autopart.py:1544
 #, fuzzy, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -346,14 +346,14 @@ msgid ""
 "%s.%s"
 msgstr "Izendatubariko Disko-zatiak daude..."
 
-#: ../autopart.py:1562
+#: ../autopart.py:1561
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: ../autopart.py:1565
+#: ../autopart.py:1564
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -364,15 +364,15 @@ msgid ""
 "installation. %s"
 msgstr ""
 
-#: ../autopart.py:1576
+#: ../autopart.py:1575
 msgid "Unrecoverable Error"
 msgstr ""
 
-#: ../autopart.py:1577
+#: ../autopart.py:1576
 msgid "Your system will now be rebooted."
 msgstr ""
 
-#: ../autopart.py:1701
+#: ../autopart.py:1700
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -382,26 +382,26 @@ msgid ""
 "mount points, partition sizes, and more."
 msgstr ""
 
-#: ../autopart.py:1712
+#: ../autopart.py:1711
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:2475
-#: ../autopart.py:1717
+#: ../autopart.py:1716
 #, fuzzy
 msgid "Remove all partitions on this system"
 msgstr "Linux disko-zatiak ezabatu"
 
 # ../libfdisk/gnomefsedit.c:2475
-#: ../autopart.py:1718
+#: ../autopart.py:1717
 #, fuzzy
 msgid "Remove all Linux partitions on this system"
 msgstr "Linux disko-zatiak ezabatu"
 
 # ../libfdisk/gnomefsedit.c:2486
-#: ../autopart.py:1719
+#: ../autopart.py:1718
 #, fuzzy
 msgid "Keep all partitions and use existing free space"
 msgstr "Diskoko leku hutsa erabili"
@@ -420,9 +420,9 @@ msgstr "Ezarketa"
 
 # ../todo.py:857
 #: ../bootloader.py:44 ../bootloader.py:236 ../image.py:87
-#: ../partedUtils.py:365 ../partedUtils.py:395 ../partedUtils.py:1103
-#: ../partedUtils.py:1256 ../upgrade.py:432 ../yuminstall.py:1417
-#: ../yuminstall.py:1444 ../iw/autopart_type.py:178 ../iw/blpasswidget.py:149
+#: ../partedUtils.py:365 ../partedUtils.py:395 ../partedUtils.py:1106
+#: ../partedUtils.py:1259 ../upgrade.py:432 ../yuminstall.py:1463
+#: ../yuminstall.py:1490 ../iw/autopart_type.py:180 ../iw/blpasswidget.py:149
 #: ../iw/task_gui.py:53 ../iw/upgrade_swap_gui.py:192
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:207
 #: ../textw/bootloader_text.py:127 ../textw/bootloader_text.py:452
@@ -440,20 +440,21 @@ msgid ""
 msgstr ""
 
 # ../todo.py:1634
-#: ../bootloader.py:49 ../exception.py:348 ../exception.py:364
-#: ../fsset.py:1700 ../fsset.py:1954 ../fsset.py:2685 ../fsset.py:2692
-#: ../gui.py:1179 ../gui.py:1313 ../image.py:96 ../livecd.py:380
-#: ../upgrade.py:113 ../upgrade.py:133 ../yuminstall.py:671
-#: ../yuminstall.py:746 ../yuminstall.py:752 ../yuminstall.py:920
-#: ../yuminstall.py:968 ../yuminstall.py:1201 ../yuminstall.py:1238
+#: ../bootloader.py:49 ../exception.py:348 ../exception.py:363
+#: ../exception.py:381 ../fsset.py:1715 ../fsset.py:1972 ../fsset.py:2711
+#: ../fsset.py:2718 ../gui.py:1192 ../gui.py:1326 ../gui.py:1403
+#: ../image.py:96 ../livecd.py:361 ../packages.py:152 ../upgrade.py:113
+#: ../upgrade.py:133 ../yuminstall.py:718 ../yuminstall.py:793
+#: ../yuminstall.py:799 ../yuminstall.py:970 ../yuminstall.py:1018
+#: ../yuminstall.py:1251 ../yuminstall.py:1288
 #, fuzzy
 msgid "_Exit installer"
 msgstr "Ezarketa Ondorengoa"
 
 # ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:155
-#: ../bootloader.py:49 ../fsset.py:1955 ../image.py:97 ../image.py:247
-#: ../kickstart.py:982 ../kickstart.py:1020 ../partedUtils.py:1259
-#: ../upgrade.py:113 ../upgrade.py:133 ../yuminstall.py:925
+#: ../bootloader.py:49 ../fsset.py:1973 ../image.py:97 ../image.py:250
+#: ../kickstart.py:985 ../kickstart.py:1023 ../partedUtils.py:1262
+#: ../upgrade.py:113 ../upgrade.py:133 ../yuminstall.py:975
 #: ../iw/partition_gui.py:1037
 #, fuzzy
 msgid "_Continue"
@@ -520,12 +521,12 @@ msgid " against anaconda at %s"
 msgstr "'Anaconda'-ren eguneraketak irakurtzen..."
 
 # ../exception.py:91
-#: ../exception.py:344 ../exception.py:360
+#: ../exception.py:344 ../exception.py:359 ../exception.py:377
 msgid "Dump Written"
 msgstr "Gertaeraren buruzkoak gorde dira"
 
 # ../exception.py:92
-#: ../exception.py:345
+#: ../exception.py:345 ../exception.py:360
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the disk. The installer "
@@ -534,17 +535,17 @@ msgstr ""
 "Zure sistemako egoera disketean zuzen gorde da. Sistema berpiztu daiteke."
 
 # ../exception.py:91
-#: ../exception.py:351 ../exception.py:367
+#: ../exception.py:351 ../exception.py:368 ../exception.py:384
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "Gertaeraren buruzkoak gorde dira"
 
-#: ../exception.py:352
+#: ../exception.py:352 ../exception.py:369
 msgid "There was a problem writing the system state to the disk."
 msgstr ""
 
 # ../exception.py:92
-#: ../exception.py:361
+#: ../exception.py:378
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
@@ -552,28 +553,28 @@ msgid ""
 msgstr ""
 "Zure sistemako egoera disketean zuzen gorde da. Sistema berpiztu daiteke."
 
-#: ../exception.py:368
+#: ../exception.py:385
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
-#: ../fsset.py:545
+#: ../fsset.py:548
 msgid "Checking"
 msgstr ""
 
 # ../textw/partitioning_text.py:254
-#: ../fsset.py:546
+#: ../fsset.py:549
 #, fuzzy, python-format
 msgid "Checking filesystem on %s..."
 msgstr "Tangulu (bloke) txarrak begiztatu"
 
 # ../loader/urls.c:100
-#: ../fsset.py:556 ../fsset.py:1010
+#: ../fsset.py:560 ../fsset.py:1015
 #, fuzzy
 msgid "Resizing"
 msgstr "Berreskuratzen"
 
 # ../fstab.py:599 ../fstab.py:634 ../fstab.py:644 ../fstab.py:668
-#: ../fsset.py:557 ../fsset.py:1011
+#: ../fsset.py:561 ../fsset.py:1016
 #, fuzzy, python-format
 msgid "Resizing filesystem on %s..."
 msgstr "%s fitxategitza egituratzen..."
@@ -589,16 +590,16 @@ msgstr "%s fitxategitza egituratzen..."
 # ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 # ../text.py:248 ../textw/bootdisk_text.py:69 ../todo.py:868 ../todo.py:896
 # ../todo.py:979 ../todo.py:992
-#: ../fsset.py:699 ../fsset.py:1670 ../fsset.py:1701 ../fsset.py:1777
-#: ../fsset.py:1845 ../fsset.py:1895 ../fsset.py:1977 ../fsset.py:1990
-#: ../image.py:264 ../livecd.py:373 ../partIntfHelpers.py:412 ../text.py:444
-#: ../yuminstall.py:356 ../yuminstall.py:411 ../yuminstall.py:562
-#: ../yuminstall.py:667 ../yuminstall.py:931 ../yuminstall.py:972
-#: ../yuminstall.py:1206 ../yuminstall.py:1231 ../iw/autopart_type.py:93
-#: ../iw/autopart_type.py:168 ../iw/autopart_type.py:312
-#: ../iw/netconfig_dialog.py:264 ../iw/osbootwidget.py:210
-#: ../iw/osbootwidget.py:219 ../iw/raid_dialog_gui.py:671
-#: ../iw/raid_dialog_gui.py:710 ../iw/task_gui.py:43 ../iw/task_gui.py:226
+#: ../fsset.py:704 ../fsset.py:1685 ../fsset.py:1716 ../fsset.py:1792
+#: ../fsset.py:1860 ../fsset.py:1910 ../fsset.py:1995 ../fsset.py:2008
+#: ../image.py:267 ../livecd.py:354 ../partIntfHelpers.py:412 ../text.py:445
+#: ../yuminstall.py:374 ../yuminstall.py:438 ../yuminstall.py:609
+#: ../yuminstall.py:714 ../yuminstall.py:981 ../yuminstall.py:1022
+#: ../yuminstall.py:1256 ../yuminstall.py:1281 ../iw/autopart_type.py:95
+#: ../iw/autopart_type.py:170 ../iw/autopart_type.py:314
+#: ../iw/netconfig_dialog.py:265 ../iw/osbootwidget.py:214
+#: ../iw/osbootwidget.py:223 ../iw/raid_dialog_gui.py:671
+#: ../iw/raid_dialog_gui.py:710 ../iw/task_gui.py:43 ../iw/task_gui.py:231
 #: ../textw/grpselect_text.py:123 ../textw/partition_text.py:1651
 #: ../textw/partition_text.py:1657 ../textw/partition_text.py:1679
 #: ../textw/upgrade_text.py:174 ../textw/upgrade_text.py:181
@@ -612,16 +613,16 @@ msgstr "%s fitxategitza egituratzen..."
 #: ../loader2/kickstart.c:284 ../loader2/lang.c:115 ../loader2/loader.c:344
 #: ../loader2/loader.c:445 ../loader2/loader.c:997 ../loader2/mediacheck.c:62
 #: ../loader2/mediacheck.c:101 ../loader2/mediacheck.c:108
-#: ../loader2/method.c:112 ../loader2/method.c:333 ../loader2/method.c:407
-#: ../loader2/nfsinstall.c:138 ../loader2/nfsinstall.c:261
-#: ../loader2/nfsinstall.c:279 ../loader2/telnetd.c:93
+#: ../loader2/method.c:120 ../loader2/method.c:346 ../loader2/method.c:420
+#: ../loader2/nfsinstall.c:153 ../loader2/nfsinstall.c:283
+#: ../loader2/nfsinstall.c:301 ../loader2/telnetd.c:93
 #: ../loader2/urlinstall.c:78 ../loader2/urlinstall.c:101
 #: ../loader2/urlinstall.c:185 ../loader2/urlinstall.c:196
-#: ../loader2/urls.c:313 ../loader2/urls.c:319
+#: ../loader2/urls.c:315 ../loader2/urls.c:321
 msgid "Error"
 msgstr "Akatsa"
 
-#: ../fsset.py:700
+#: ../fsset.py:705
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -634,39 +635,39 @@ msgstr ""
 # ../libfdisk/gnomefsedit.c:807 ../libfdisk/gnomefsedit.c:809
 # ../libfdisk/newtfsedit.c:368 ../libfdisk/newtfsedit.c:374
 # ../libfdisk/newtfsedit.c:378 ../libfdisk/newtfsedit.c:380
-#: ../fsset.py:1523
+#: ../fsset.py:1538
 #, fuzzy
 msgid "EFI System Partition"
 msgstr "Disko Zatia Argitatu"
 
 # ../libfdisk/gnomefsedit.c:2199
-#: ../fsset.py:1527
+#: ../fsset.py:1542
 #, fuzzy
 msgid "RAID Device"
 msgstr "RAID tramankulurik ez da ageri"
 
-#: ../fsset.py:1531 ../fsset.py:1537
+#: ../fsset.py:1546 ../fsset.py:1552
 msgid "Apple Bootstrap"
 msgstr ""
 
-#: ../fsset.py:1542 ../partitions.py:1120
+#: ../fsset.py:1557 ../partitions.py:1121
 msgid "PPC PReP Boot"
 msgstr ""
 
 # ../iw/lilo_gui.py:247 ../iw/silo_gui.py:175 ../textw/lilo_text.py:82
 # ../textw/silo_text.py:65
-#: ../fsset.py:1545
+#: ../fsset.py:1560
 msgid "First sector of boot partition"
 msgstr "Abiatze disko-zatiko Lehen Sektorea"
 
 # ../iw/lilo_gui.py:243 ../iw/silo_gui.py:172 ../textw/lilo_text.py:81
 # ../textw/silo_text.py:64
-#: ../fsset.py:1546
+#: ../fsset.py:1561
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
 # ../fstab.py:715
-#: ../fsset.py:1671
+#: ../fsset.py:1686
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -683,13 +684,13 @@ msgstr ""
 # ../textw/bootdisk_text.py:54 ../textw/bootdisk_text.py:62
 # ../textw/bootdisk_text.py:73 ../textw/lilo_text.py:30
 # ../textw/silo_text.py:25
-#: ../fsset.py:1700 ../packages.py:304 ../rescue.py:305 ../rescue.py:307
+#: ../fsset.py:1715 ../packages.py:368 ../rescue.py:305 ../rescue.py:307
 #: ../textw/upgrade_text.py:132 ../loader2/cdinstall.c:200
-#: ../loader2/cdinstall.c:203 ../loader2/method.c:380
+#: ../loader2/cdinstall.c:203 ../loader2/method.c:393
 msgid "Skip"
 msgstr "Jauzi"
 
-#: ../fsset.py:1721
+#: ../fsset.py:1736
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -703,12 +704,12 @@ msgstr ""
 
 # ../fstab.py:395 ../fstab.py:598 ../fstab.py:633 ../fstab.py:643
 # ../fstab.py:667
-#: ../fsset.py:1728
+#: ../fsset.py:1743
 #, fuzzy
 msgid "Reformat"
 msgstr "Diskoa Egituratzen"
 
-#: ../fsset.py:1732
+#: ../fsset.py:1747
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -720,7 +721,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: ../fsset.py:1740
+#: ../fsset.py:1755
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -732,7 +733,7 @@ msgid ""
 "make sure the installer is set to format all swap partitions."
 msgstr ""
 
-#: ../fsset.py:1750
+#: ../fsset.py:1765
 msgid ""
 "\n"
 "\n"
@@ -742,13 +743,13 @@ msgstr ""
 
 # ../fstab.py:395 ../fstab.py:598 ../fstab.py:633 ../fstab.py:643
 # ../fstab.py:667
-#: ../fsset.py:1755 ../iw/partition_gui.py:373
+#: ../fsset.py:1770 ../iw/partition_gui.py:373
 #, fuzzy
 msgid "Format"
 msgstr "Diskoa Egituratzen"
 
 # ../fstab.py:715
-#: ../fsset.py:1761
+#: ../fsset.py:1776
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -764,7 +765,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../fstab.py:715
-#: ../fsset.py:1766
+#: ../fsset.py:1781
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -781,7 +782,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../fstab.py:715
-#: ../fsset.py:1772
+#: ../fsset.py:1787
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -797,7 +798,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../fstab.py:715
-#: ../fsset.py:1846
+#: ../fsset.py:1861
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -812,7 +813,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../fstab.py:715
-#: ../fsset.py:1896
+#: ../fsset.py:1911
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -829,13 +830,13 @@ msgstr ""
 # ../libfdisk/fsedit.c:912 ../libfdisk/fsedit.c:919 ../libfdisk/fsedit.c:926
 # ../libfdisk/fsedit.c:935 ../libfdisk/fsedit.c:962 ../libfdisk/fsedit.c:975
 # ../libfdisk/fsedit.c:985
-#: ../fsset.py:1922 ../fsset.py:1931
+#: ../fsset.py:1940 ../fsset.py:1949
 #, fuzzy
 msgid "Invalid mount point"
 msgstr "Loturagune Okerra"
 
 # ../fstab.py:715
-#: ../fsset.py:1923
+#: ../fsset.py:1941
 #, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -850,7 +851,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../fstab.py:715
-#: ../fsset.py:1932
+#: ../fsset.py:1950
 #, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -865,12 +866,12 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../loader/loader.c:2144
-#: ../fsset.py:1946
+#: ../fsset.py:1964
 #, fuzzy
 msgid "Unable to mount filesystem"
 msgstr "Disketea lotzerakoan porrot egin du."
 
-#: ../fsset.py:1947
+#: ../fsset.py:1965
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
@@ -878,7 +879,7 @@ msgid ""
 msgstr ""
 
 # ../fstab.py:715
-#: ../fsset.py:1963
+#: ../fsset.py:1981
 #, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -894,7 +895,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../fstab.py:715
-#: ../fsset.py:1970
+#: ../fsset.py:1988
 #, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -910,7 +911,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../fstab.py:715
-#: ../fsset.py:1991
+#: ../fsset.py:2009
 #, fuzzy
 msgid ""
 "Error finding / entry.\n"
@@ -926,12 +927,12 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../libfdisk/gnomefsedit.c:2617
-#: ../fsset.py:2677
+#: ../fsset.py:2703
 #, fuzzy
 msgid "Duplicate Labels"
 msgstr "RAID tramankulua ezabatu?"
 
-#: ../fsset.py:2678
+#: ../fsset.py:2704
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -941,12 +942,12 @@ msgid ""
 msgstr ""
 
 # ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
-#: ../fsset.py:2687
+#: ../fsset.py:2713
 #, fuzzy
 msgid "Invalid Label"
 msgstr "Abiaketaren Izena Erabilkaitza"
 
-#: ../fsset.py:2688
+#: ../fsset.py:2714
 #, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
@@ -955,27 +956,27 @@ msgstr ""
 
 # ../fstab.py:395 ../fstab.py:598 ../fstab.py:633 ../fstab.py:643
 # ../fstab.py:667
-#: ../fsset.py:2825
+#: ../fsset.py:2877
 msgid "Formatting"
 msgstr "Diskoa Egituratzen"
 
 # ../fstab.py:599 ../fstab.py:634 ../fstab.py:644 ../fstab.py:668
-#: ../fsset.py:2826
+#: ../fsset.py:2878
 #, fuzzy, python-format
 msgid "Formatting %s file system..."
 msgstr "%s fitxategitza egituratzen..."
 
 # ../todo.py:993
-#: ../gui.py:107
+#: ../gui.py:106
 #, fuzzy
 msgid "An error occurred copying the screenshots over."
 msgstr "Eguneratuko diren sortak bilatzerakoan akats bat gertatu da."
 
-#: ../gui.py:118
+#: ../gui.py:117
 msgid "Screenshots Copied"
 msgstr ""
 
-#: ../gui.py:119
+#: ../gui.py:118
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -984,26 +985,26 @@ msgid ""
 "You can access these when you reboot and login as root."
 msgstr ""
 
-#: ../gui.py:162
+#: ../gui.py:161
 msgid "Saving Screenshot"
 msgstr ""
 
-#: ../gui.py:163
+#: ../gui.py:162
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr ""
 
-#: ../gui.py:166
+#: ../gui.py:165
 msgid "Error Saving Screenshot"
 msgstr ""
 
-#: ../gui.py:167
+#: ../gui.py:166
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 
-#: ../gui.py:232 ../text.py:533
+#: ../gui.py:231 ../text.py:534
 msgid "Fix"
 msgstr ""
 
@@ -1017,7 +1018,7 @@ msgstr ""
 # ../loader/loader.c:656 ../loader/net.c:810 ../text.py:291
 # ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 # ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:218
-#: ../gui.py:233 ../rescue.py:228 ../text.py:534
+#: ../gui.py:232 ../rescue.py:228 ../text.py:535
 #: ../textw/bootloader_text.py:72 ../textw/constants_text.py:54
 #: ../loader2/driverdisk.c:479 ../loader2/driverdisk.c:489
 #: ../loader2/hdinstall.c:334
@@ -1034,21 +1035,21 @@ msgstr "Bai"
 # ../text.py:291 ../text.py:297 ../textw/bootdisk_text.py:12
 # ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
 # ../textw/partitioning_text.py:218
-#: ../gui.py:234 ../rescue.py:228 ../rescue.py:230 ../text.py:535
+#: ../gui.py:233 ../rescue.py:228 ../rescue.py:230 ../text.py:536
 #: ../textw/bootloader_text.py:72 ../textw/constants_text.py:58
 #: ../loader2/driverdisk.c:479 ../loader2/driverdisk.c:489
 msgid "No"
 msgstr "Ez"
 
 # ../libfdisk/fsedit.c:1439 ../loader/net.c:254 ../loader/net.c:379
-#: ../gui.py:236 ../text.py:537 ../text.py:668 ../loader2/net.c:92
+#: ../gui.py:235 ../text.py:538 ../text.py:669 ../loader2/net.c:92
 #: ../loader2/net.c:338 ../loader2/net.c:589 ../loader2/net.c:695
 #: ../loader2/net.c:820 ../loader2/net.c:828 ../loader2/net.c:1224
 #: ../loader2/net.c:1230
 msgid "Retry"
 msgstr "Saiatu Berriz"
 
-#: ../gui.py:237 ../text.py:538
+#: ../gui.py:236 ../text.py:539
 msgid "Ignore"
 msgstr ""
 
@@ -1059,8 +1060,8 @@ msgstr ""
 # ../text.py:337 ../text.py:812 ../text.py:814 ../textw/lilo_text.py:118
 # ../textw/silo_text.py:136 ../textw/silo_text.py:154
 # ../textw/userauth_text.py:63
-#: ../gui.py:238 ../gui.py:843 ../partIntfHelpers.py:244
-#: ../partIntfHelpers.py:535 ../text.py:109 ../text.py:110 ../text.py:539
+#: ../gui.py:237 ../gui.py:856 ../gui.py:1403 ../partIntfHelpers.py:244
+#: ../partIntfHelpers.py:535 ../text.py:108 ../text.py:109 ../text.py:540
 #: ../textw/bootloader_text.py:202 ../textw/constants_text.py:46
 #: ../loader2/dirbrowser.c:145 ../loader2/driverdisk.c:236
 #: ../loader2/kickstart.c:372 ../loader2/loader.c:379 ../loader2/loader.c:480
@@ -1068,30 +1069,30 @@ msgid "Cancel"
 msgstr "Etsi"
 
 # ../text.py:194 ../text.py:915
-#: ../gui.py:583 ../text.py:465
+#: ../gui.py:582 ../text.py:466
 #, fuzzy
 msgid "Installation Key"
 msgstr "Ezarketa Mota"
 
 # ../text.py:895 ../text.py:963 ../textw/userauth_text.py:9
-#: ../gui.py:657 ../gui.py:665
+#: ../gui.py:656 ../gui.py:664
 #, fuzzy
 msgid "Error with passphrase"
 msgstr "Sistemako Arduradunaren (root) Pasahitza"
 
 # ../textw/userauth_text.py:47 ../textw/userauth_text.py:117
-#: ../gui.py:658
+#: ../gui.py:657
 #, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "Hitz-ezkutuak ezberdinak dira. Berriro saiatu, mesedez."
 
 # ../textw/userauth_text.py:109
-#: ../gui.py:666
+#: ../gui.py:665
 #, fuzzy
 msgid "The passphrase must be at least eight characters long."
 msgstr "Hitz-ezkutuak gitxienik 6 hizki (ikur) eduki behar ditu."
 
-#: ../gui.py:692 ../text.py:275
+#: ../gui.py:691 ../text.py:276
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
@@ -1099,37 +1100,37 @@ msgid ""
 msgstr ""
 
 # ../text.py:827 ../text.py:828
-#: ../gui.py:855 ../gui.py:856 ../gui.py:968 ../gui.py:969
+#: ../gui.py:868 ../gui.py:869 ../gui.py:981 ../gui.py:982
 #: tmp/anaconda.glade.h:2
 #, fuzzy
 msgid "_Debug"
 msgstr "Akats-Azterketa"
 
 # ../todo.py:1634
-#: ../gui.py:1012 ../gui.py:1014 ../livecd.py:112
+#: ../gui.py:1025 ../gui.py:1027 ../gui.py:1400 ../livecd.py:112
 #, fuzzy
 msgid "Exit installer"
 msgstr "Ezarketa Ondorengoa"
 
 # ../text.py:827 ../text.py:828
-#: ../gui.py:1014 ../text.py:253 ../text.py:261
+#: ../gui.py:1027 ../text.py:254 ../text.py:262
 msgid "Debug"
 msgstr "Akats-Azterketa"
 
 # ../exception.py:13 ../text.py:795
-#: ../gui.py:1016 ../text.py:257
+#: ../gui.py:1029 ../text.py:258
 msgid "Exception Occurred"
 msgstr "Ezbeharra Gertatu da"
 
 # ../loader/kickstart.c:59
-#: ../gui.py:1176 ../text.py:510
+#: ../gui.py:1189 ../text.py:511
 #, fuzzy
 msgid "Error Parsing Kickstart Config"
 msgstr "%s kickstart fitxategia irekitzean %s akatsa gertatu da"
 
 # ../iw/lilo_gui.py:307 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
 # ../textw/silo_text.py:196
-#: ../gui.py:1222
+#: ../gui.py:1235
 #, fuzzy
 msgid "default:LTR"
 msgstr "Jatorrizkoa"
@@ -1145,12 +1146,12 @@ msgstr "Jatorrizkoa"
 # ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 # ../text.py:248 ../textw/bootdisk_text.py:69 ../todo.py:868 ../todo.py:896
 # ../todo.py:979 ../todo.py:992
-#: ../gui.py:1302 ../text.py:663
+#: ../gui.py:1315 ../text.py:664
 #, fuzzy
 msgid "Error!"
 msgstr "Akatsa"
 
-#: ../gui.py:1303 ../text.py:664
+#: ../gui.py:1316 ../text.py:665
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1159,54 +1160,60 @@ msgid ""
 msgstr ""
 
 # ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:61
-#: ../gui.py:1308 ../image.py:162 ../image.py:188 ../packages.py:353
-#: ../packages.py:358
+#: ../gui.py:1321 ../image.py:165 ../image.py:191 ../packages.py:417
+#: ../packages.py:422
 #, fuzzy
 msgid "_Exit"
 msgstr "Irten"
 
 # ../libfdisk/fsedit.c:1439 ../loader/net.c:254 ../loader/net.c:379
-#: ../gui.py:1309 ../image.py:188 ../yuminstall.py:559 ../yuminstall.py:920
-#: ../yuminstall.py:968 ../yuminstall.py:1201
+#: ../gui.py:1322 ../image.py:191 ../yuminstall.py:606 ../yuminstall.py:970
+#: ../yuminstall.py:1018 ../yuminstall.py:1251
 #, fuzzy
 msgid "_Retry"
 msgstr "Saiatu Berriz"
 
-#: ../gui.py:1312 ../packages.py:168 ../packages.py:357
+#: ../gui.py:1325 ../packages.py:189 ../packages.py:421
 msgid "The installer will now exit..."
 msgstr ""
 
-#: ../gui.py:1315 ../packages.py:360
+#: ../gui.py:1328 ../packages.py:424
 msgid "Your system will now be rebooted..."
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3538
-#: ../gui.py:1316 ../image.py:247 ../packages.py:169 ../packages.py:361
-#: ../partedUtils.py:1258 ../yuminstall.py:1254
+#: ../gui.py:1329 ../image.py:250 ../packages.py:190 ../packages.py:425
+#: ../partedUtils.py:1261 ../yuminstall.py:1304
 #, fuzzy
 msgid "_Reboot"
 msgstr "_Garbitu"
 
 # ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:61
-#: ../gui.py:1318
+#: ../gui.py:1331
 #, fuzzy
 msgid "Exiting"
 msgstr "Irten"
 
+# ../libfdisk/gnomefsedit.c:729 ../libfdisk/newtfsedit.c:837
+#: ../gui.py:1401
+#, fuzzy
+msgid "Are you sure you wish to exit the installation?"
+msgstr "Disko zati hau ezabatzea gura dozu?"
+
 # ../todo.py:1634
-#: ../gui.py:1386
+#: ../gui.py:1410
 #, fuzzy, python-format
 msgid "%s Installer"
 msgstr "Ezarketa Ondorengoa"
 
 # ../xf86config.py:873
-#: ../gui.py:1393
+#: ../gui.py:1417
 #, fuzzy
 msgid "Unable to load title bar"
 msgstr "Bideo xafla ezin ezagutu"
 
 # ../gui.py:682
-#: ../gui.py:1446
+#: ../gui.py:1470
 msgid "Install Window"
 msgstr "Ezarketa Lehioa"
 
@@ -1220,11 +1227,11 @@ msgid ""
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: ../image.py:154
+#: ../image.py:157
 msgid "Couldn't Mount ISO Source"
 msgstr ""
 
-#: ../image.py:155
+#: ../image.py:158
 #, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
@@ -1233,11 +1240,11 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../image.py:179
+#: ../image.py:182
 msgid "Missing ISO 9660 Image"
 msgstr ""
 
-#: ../image.py:180
+#: ../image.py:183
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
@@ -1247,11 +1254,11 @@ msgid ""
 "the installation."
 msgstr ""
 
-#: ../image.py:238
+#: ../image.py:241
 msgid "Required Install Media"
 msgstr ""
 
-#: ../image.py:239
+#: ../image.py:242
 #, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
@@ -1286,14 +1293,14 @@ msgstr ""
 # ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
 # ../textw/userauth_text.py:165 ../textw/userauth_text.py:196
 # ../textw/userauth_text.py:287
-#: ../image.py:247 ../livecd.py:379 ../packages.py:307 ../packages.py:358
-#: ../packages.py:361 ../yuminstall.py:671 ../yuminstall.py:752
-#: ../yuminstall.py:1238 ../yuminstall.py:1254
+#: ../image.py:250 ../livecd.py:360 ../packages.py:371 ../packages.py:422
+#: ../packages.py:425 ../yuminstall.py:718 ../yuminstall.py:799
+#: ../yuminstall.py:1288 ../yuminstall.py:1304
 #, fuzzy
 msgid "_Back"
 msgstr "Atzera"
 
-#: ../image.py:265
+#: ../image.py:268
 #, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
@@ -1301,7 +1308,7 @@ msgid ""
 msgstr ""
 
 # ../text.py:194 ../text.py:915
-#: ../installclass.py:74
+#: ../installclass.py:71
 #, fuzzy
 msgid "Install on System"
 msgstr "Ezarketa Mota"
@@ -1331,26 +1338,26 @@ msgid "Scriptlet Failure"
 msgstr ""
 
 # ../todo.py:1558
-#: ../kickstart.py:925 ../kickstart.py:942
+#: ../kickstart.py:928 ../kickstart.py:945
 #, fuzzy
 msgid "Running..."
 msgstr "%s ezartzen.\n"
 
-#: ../kickstart.py:926
+#: ../kickstart.py:929
 msgid "Running post-install scripts"
 msgstr ""
 
-#: ../kickstart.py:943
+#: ../kickstart.py:946
 msgid "Running pre-install scripts"
 msgstr ""
 
 # ../iw/progress_gui.py:36
-#: ../kickstart.py:974
+#: ../kickstart.py:977
 #, fuzzy
 msgid "Missing Package"
 msgstr "Sortak Ezartzen"
 
-#: ../kickstart.py:975
+#: ../kickstart.py:978
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1358,18 +1365,18 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3538
-#: ../kickstart.py:981 ../kickstart.py:1019
+#: ../kickstart.py:984 ../kickstart.py:1022
 #, fuzzy
 msgid "_Abort"
 msgstr "_Garbitu"
 
 # ../loader/net.c:379
-#: ../kickstart.py:1011
+#: ../kickstart.py:1014
 #, fuzzy
 msgid "Missing Group"
 msgstr "Azalpenak Galdu dira"
 
-#: ../kickstart.py:1012
+#: ../kickstart.py:1015
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1406,7 +1413,7 @@ msgid ""
 "minutes..."
 msgstr ""
 
-#: ../livecd.py:374
+#: ../livecd.py:355
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
@@ -1453,20 +1460,31 @@ msgstr "%s Ostalariaren izena baliogabea da."
 msgid "'%s' is an invalid IP address."
 msgstr "%s Ostalariaren izena baliogabea da."
 
+# ../loader/urls.c:100
+#: ../packages.py:147
+#, fuzzy
+msgid "Resizing Failed"
+msgstr "Berreskuratzen"
+
+#: ../packages.py:148
+#, python-format
+msgid "There was an error encountered resizing the device %s."
+msgstr ""
+
 # ../iw/xconfig_gui.py:15
-#: ../packages.py:167
+#: ../packages.py:188
 #, fuzzy
 msgid "LVM operation failed"
 msgstr "Saiakerak huts egin du"
 
 # ../loader/net.c:254
-#: ../packages.py:278
+#: ../packages.py:342
 #, fuzzy
 msgid "Invalid Key"
 msgstr "IP -ren balio erabilkaitza"
 
 # ../textw/partitioning_text.py:319
-#: ../packages.py:279
+#: ../packages.py:343
 #, fuzzy
 msgid "The key you entered is invalid."
 msgstr "Idatzi beharrekoak zenbaki bat izan behar du."
@@ -1474,16 +1492,16 @@ msgstr "Idatzi beharrekoak zenbaki bat izan behar du."
 # ../textw/bootdisk_text.py:54 ../textw/bootdisk_text.py:62
 # ../textw/bootdisk_text.py:73 ../textw/lilo_text.py:30
 # ../textw/silo_text.py:25
-#: ../packages.py:307
+#: ../packages.py:371
 #, fuzzy
 msgid "_Skip"
 msgstr "Jauzi"
 
-#: ../packages.py:339 ../packages.py:362
+#: ../packages.py:403 ../packages.py:426
 msgid "Warning! This is pre-release software!"
 msgstr ""
 
-#: ../packages.py:340
+#: ../packages.py:404
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1500,7 +1518,7 @@ msgid ""
 msgstr ""
 
 # ../iw/installpath_gui.py:184
-#: ../packages.py:353
+#: ../packages.py:417
 #, fuzzy
 msgid "_Install anyway"
 msgstr "Ezarketa"
@@ -1547,18 +1565,18 @@ msgid "_Re-initialize drive"
 msgstr ""
 
 # ../libfdisk/fsedit.c:1418
-#: ../partedUtils.py:991
+#: ../partedUtils.py:994
 #, fuzzy
 msgid "Initializing"
 msgstr "Hasieratu"
 
-#: ../partedUtils.py:992
+#: ../partedUtils.py:995
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr ""
 
 # ../libfdisk/fsedit.c:1412
-#: ../partedUtils.py:1080
+#: ../partedUtils.py:1083
 #, fuzzy, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1573,7 +1591,7 @@ msgstr ""
 "beharko dira, eta diskoko EDUKIN GUZTIA GALDUKO DA."
 
 # ../libfdisk/fsedit.c:1412
-#: ../partedUtils.py:1094
+#: ../partedUtils.py:1097
 #, fuzzy, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1588,7 +1606,7 @@ msgstr ""
 "%s-ko zati-taula izurrauta dago. Disko zati berriak egiteko guztiak ezabatu "
 "beharko dira, eta diskoko EDUKIN GUZTIA GALDUKO DA."
 
-#: ../partedUtils.py:1248
+#: ../partedUtils.py:1251
 #, python-format
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
@@ -1598,12 +1616,12 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/fsedit.c:1041
-#: ../partedUtils.py:1339
+#: ../partedUtils.py:1342
 msgid "No Drives Found"
 msgstr "Disko Gogorrik ez da aurkitu"
 
 # ../libfdisk/fsedit.c:1042
-#: ../partedUtils.py:1340
+#: ../partedUtils.py:1343
 #, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
@@ -1757,7 +1775,7 @@ msgstr "Disko zati hau ezabatzea gura dozu?"
 
 # ../iw/account_gui.py:186
 #: ../partIntfHelpers.py:240 ../partIntfHelpers.py:534
-#: ../iw/lvm_dialog_gui.py:768
+#: ../iw/lvm_dialog_gui.py:800
 #, fuzzy
 msgid "Confirm Delete"
 msgstr "Egiaztatu: "
@@ -1770,8 +1788,8 @@ msgstr "Disko zati hau ezabatzea gura dozu?"
 
 # ../libfdisk/gnomefsedit.c:3543
 #: ../partIntfHelpers.py:244 ../partIntfHelpers.py:535
-#: ../iw/lvm_dialog_gui.py:771 ../iw/lvm_dialog_gui.py:1120
-#: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1380
+#: ../iw/lvm_dialog_gui.py:803 ../iw/lvm_dialog_gui.py:1152
+#: ../iw/osbootwidget.py:103 ../iw/partition_gui.py:1380
 msgid "_Delete"
 msgstr "_Ezabatu"
 
@@ -2053,7 +2071,7 @@ msgstr ""
 #: ../loader2/loader.c:431 ../loader2/loader.c:1159 ../loader2/loader.c:1181
 #: ../loader2/net.c:277 ../loader2/net.c:320 ../loader2/net.c:750
 #: ../loader2/net.c:1094 ../loader2/net.c:1863 ../loader2/nfsinstall.c:68
-#: ../loader2/urls.c:278 ../loader2/urls.c:403
+#: ../loader2/urls.c:280 ../loader2/urls.c:405
 msgid "Back"
 msgstr "Atzera"
 
@@ -2079,27 +2097,27 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../partitions.py:1025
+#: ../partitions.py:1026
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
 
-#: ../partitions.py:1030
+#: ../partitions.py:1031
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
 
-#: ../partitions.py:1052
+#: ../partitions.py:1053
 msgid ""
 "You must create an EFI System Partition of type FAT and a size of 50 "
 "megabytes."
 msgstr ""
 
-#: ../partitions.py:1066
+#: ../partitions.py:1067
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
@@ -2107,77 +2125,77 @@ msgstr ""
 
 # ../iw/lilo_gui.py:247 ../iw/silo_gui.py:175 ../textw/lilo_text.py:82
 # ../textw/silo_text.py:65
-#: ../partitions.py:1087
+#: ../partitions.py:1088
 #, fuzzy
 msgid "You must create an Apple Bootstrap partition."
 msgstr "Abiatze disko-zatiko Lehen Sektorea"
 
-#: ../partitions.py:1109
+#: ../partitions.py:1110
 msgid "You must create a PPC PReP Boot partition."
 msgstr ""
 
-#: ../partitions.py:1117 ../partitions.py:1128
+#: ../partitions.py:1118 ../partitions.py:1129
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
 
-#: ../partitions.py:1162
+#: ../partitions.py:1163
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
-#: ../partitions.py:1165
+#: ../partitions.py:1166
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:2231
-#: ../partitions.py:1175
+#: ../partitions.py:1176
 #, fuzzy
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Abiatzeko disko-zatiak (/boot) RAID-1.ean egon behar dute."
 
 # ../libfdisk/gnomefsedit.c:2231
-#: ../partitions.py:1180
+#: ../partitions.py:1181
 #, fuzzy
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Abiatzeko disko-zatiak (/boot) RAID-1.ean egon behar dute."
 
 # ../libfdisk/gnomefsedit.c:2231
-#: ../partitions.py:1186
+#: ../partitions.py:1187
 #, fuzzy
 msgid "Bootable partitions cannot be on a RAID device."
 msgstr "Abiatzeko disko-zatiak (/boot) RAID-1.ean egon behar dute."
 
 # ../libfdisk/gnomefsedit.c:2231
-#: ../partitions.py:1193
+#: ../partitions.py:1194
 #, fuzzy, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
 msgstr "Abiatzeko disko-zatiak (/boot) RAID-1.ean egon behar dute."
 
 # ../libfdisk/gnomefsedit.c:2231
-#: ../partitions.py:1197
+#: ../partitions.py:1198
 #, fuzzy
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr "Abiatzeko disko-zatiak (/boot) RAID-1.ean egon behar dute."
 
-#: ../partitions.py:1203
+#: ../partitions.py:1204
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 
-#: ../partitions.py:1210
+#: ../partitions.py:1211
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
 
-#: ../partitions.py:1221
+#: ../partitions.py:1222
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -2185,16 +2203,16 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:1268
-#: ../partitions.py:1516
+#: ../partitions.py:1517
 #, fuzzy
 msgid "the partition in use by the installer."
 msgstr "Zati hau disko batekin behintzat llluto behar duzu."
 
-#: ../partitions.py:1519
+#: ../partitions.py:1520
 msgid "a partition which is a member of a RAID array."
 msgstr ""
 
-#: ../partitions.py:1522
+#: ../partitions.py:1523
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr ""
 
@@ -2280,7 +2298,7 @@ msgid ""
 "will need to add members to the RAID device."
 msgstr ""
 
-#: ../partRequests.py:1019
+#: ../partRequests.py:1026
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
@@ -2310,12 +2328,12 @@ msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 
 # ../text.py:1039
-#: ../rescue.py:267 ../text.py:694
+#: ../rescue.py:267 ../text.py:695
 msgid "Cancelled"
 msgstr "Ezeztatua"
 
 # ../text.py:1040
-#: ../rescue.py:268 ../text.py:695
+#: ../rescue.py:268 ../text.py:696
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Aurreko urratsera joatea ezinezkoa da. Berriz saiatu beharko duzu."
 
@@ -2357,7 +2375,7 @@ msgid "What partition holds the root partition of your installation?"
 msgstr "Erro nagusia zein disko-zatitan ezarri behar da?"
 
 # ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:61
-#: ../rescue.py:339 ../rescue.py:343 ../text.py:668 ../text.py:670
+#: ../rescue.py:339 ../rescue.py:343 ../text.py:669 ../text.py:671
 msgid "Exit"
 msgstr "Irten"
 
@@ -2410,91 +2428,91 @@ msgid "Your system is mounted under the %s directory."
 msgstr "Direktorio bat idatzi behar duzu."
 
 # ../text.py:827 ../text.py:830
-#: ../text.py:186 ../text.py:250 ../text.py:263 tmp/exnSave.glade.h:1
+#: ../text.py:185 ../text.py:251 ../text.py:264 tmp/exnSave.glade.h:1
 msgid "Save"
 msgstr "Gorde"
 
-#: ../text.py:189
+#: ../text.py:188
 msgid "Save to Disk"
 msgstr ""
 
 # ../text.py:266
-#: ../text.py:190
+#: ../text.py:189
 #, fuzzy
 msgid "Save to Remote"
 msgstr "Sistemaren Eguneraketa"
 
 # ../iw/network_gui.py:210 ../loader/net.c:531 ../loader/net.c:729
 # ../textw/network_text.py:141
-#: ../text.py:204
+#: ../text.py:203
 #, fuzzy
 msgid "Host"
 msgstr "Ostalariaren Izena"
 
-#: ../text.py:206
+#: ../text.py:205
 msgid "Remote path"
 msgstr ""
 
 # ../textw/userauth_text.py:184
-#: ../text.py:208
+#: ../text.py:207
 msgid "User name"
 msgstr "Erabiltzailearen izena"
 
 # ../iw/account_gui.py:248 ../textw/userauth_text.py:82
-#: ../text.py:210
+#: ../text.py:209
 msgid "Password"
 msgstr "Hitz-ezkutua"
 
-#: ../text.py:282 tmp/lukspassphrase.glade.h:5
+#: ../text.py:283 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
 msgstr ""
 
-#: ../text.py:290 tmp/lukspassphrase.glade.h:6
+#: ../text.py:291 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
 msgstr ""
 
 # ../text.py:753
-#: ../text.py:346
+#: ../text.py:347
 msgid "Help not available"
 msgstr "Laguntza Eskuragarririk ez dago"
 
 # ../text.py:754
-#: ../text.py:347
+#: ../text.py:348
 #, fuzzy
 msgid "No help is available for this step of the install."
 msgstr "Aukera honentzako Laguntza eskuragarririk ez dago."
 
-#: ../text.py:445
+#: ../text.py:446
 msgid "Repository editing is not available in text mode."
 msgstr ""
 
 # ../iw/account_gui.py:63
-#: ../text.py:470
+#: ../text.py:471
 #, fuzzy, python-format
 msgid "Please enter your %(instkey)s"
 msgstr "Mesedez, erabiltzailearen hitz-ezkutua sartu."
 
-#: ../text.py:487 tmp/instkey.glade.h:6
+#: ../text.py:488 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
 msgstr ""
 
 # ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:38 ../text.py:879
 # ../text.py:914
-#: ../text.py:563 ../loader2/lang.c:63
+#: ../text.py:564 ../loader2/lang.c:63
 #, fuzzy, c-format, python-format
 msgid "Welcome to %s for %s"
 msgstr "Ongietorria"
 
 # ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:38 ../text.py:879
 # ../text.py:914
-#: ../text.py:565
+#: ../text.py:566
 #, fuzzy, python-format
 msgid "Welcome to %s"
 msgstr "Ongietorria"
 
 # ../text.py:844
-#: ../text.py:568
+#: ../text.py:569
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
@@ -2502,7 +2520,7 @@ msgstr ""
 "<F12> hurrengo pantaila "
 
 # ../text.py:846
-#: ../text.py:570
+#: ../text.py:571
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2810,70 +2828,70 @@ msgstr "Testu era erabili"
 msgid "Start VNC"
 msgstr "Egoera"
 
-#: ../yuminstall.py:71
+#: ../yuminstall.py:72
 #, python-format
 msgid "%s MB"
 msgstr ""
 
-#: ../yuminstall.py:74
+#: ../yuminstall.py:75
 #, python-format
 msgid "%s KB"
 msgstr ""
 
 # ../iw/progress_gui.py:126
-#: ../yuminstall.py:77
+#: ../yuminstall.py:78
 #, fuzzy, python-format
 msgid "%s Byte"
 msgstr "%s KByte"
 
 # ../iw/progress_gui.py:126
-#: ../yuminstall.py:79
+#: ../yuminstall.py:80
 #, fuzzy, python-format
 msgid "%s Bytes"
 msgstr "%s KByte"
 
 # ../todo.py:1302
-#: ../yuminstall.py:127
+#: ../yuminstall.py:128
 msgid "Processing"
 msgstr "Burutzen"
 
 # ../todo.py:1303
-#: ../yuminstall.py:128
+#: ../yuminstall.py:129
 #, fuzzy
 msgid "Preparing transaction from installation source..."
 msgstr "Ezarketarako prestatzen..."
 
 # ../iw/installpath_gui.py:184
-#: ../yuminstall.py:159
+#: ../yuminstall.py:160
 #, fuzzy, python-format
 msgid "<b>Installing %s</b> (%s)\n"
 msgstr "Ezarketa"
 
-#: ../yuminstall.py:210
+#: ../yuminstall.py:205
 #, python-format
 msgid "%s of %s packages completed"
 msgstr ""
 
-#: ../yuminstall.py:222
+#: ../yuminstall.py:217
 msgid "Finishing upgrade"
 msgstr ""
 
-#: ../yuminstall.py:223
+#: ../yuminstall.py:218
 msgid "Finishing upgrade process.  This may take a little while..."
 msgstr ""
 
 # ../image.py:52
-#: ../yuminstall.py:336
+#: ../yuminstall.py:355
 msgid "Copying File"
 msgstr "Fitxategia Kopiatzen"
 
 # ../image.py:53
-#: ../yuminstall.py:337
+#: ../yuminstall.py:356
 msgid "Transferring install image to hard drive..."
 msgstr "Ezarketaren irudia disko gogrrera bidaltzen..."
 
 # ../image.py:56
-#: ../yuminstall.py:348
+#: ../yuminstall.py:366
 #, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
@@ -2883,7 +2901,7 @@ msgstr ""
 "Litekeena da diskoko leku guztia beteta edukitzea."
 
 # ../image.py:56
-#: ../yuminstall.py:352
+#: ../yuminstall.py:370
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -2892,46 +2910,46 @@ msgstr ""
 "Litekeena da diskoko leku guztia beteta edukitzea."
 
 # ../image.py:78
-#: ../yuminstall.py:390
+#: ../yuminstall.py:417
 #, fuzzy
 msgid "Change Disc"
 msgstr "Aldatu 'CDROM'-a"
 
 # ../image.py:79
-#: ../yuminstall.py:391
+#: ../yuminstall.py:418
 #, fuzzy, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Mesedez, jarraitzeko %d diskoa sartu."
 
 # ../image.py:91
-#: ../yuminstall.py:405
+#: ../yuminstall.py:432
 #, fuzzy
 msgid "Wrong Disc"
 msgstr "CDROM okerra"
 
 # ../image.py:92
-#: ../yuminstall.py:406
+#: ../yuminstall.py:433
 #, fuzzy, python-format
 msgid "That's not the correct %s disc."
 msgstr "Hau ez da Red Hat Linux-eko CDROM zuzena."
 
 # ../xf86config.py:873
-#: ../yuminstall.py:412
+#: ../yuminstall.py:439
 #, fuzzy
 msgid "Unable to access the disc."
 msgstr "Bideo xafla ezin ezagutu"
 
 # ../libfdisk/gnomefsedit.c:3538
-#: ../yuminstall.py:557 ../yuminstall.py:559
+#: ../yuminstall.py:604 ../yuminstall.py:606
 #, fuzzy
 msgid "Re_boot"
 msgstr "_Garbitu"
 
-#: ../yuminstall.py:557
+#: ../yuminstall.py:604
 msgid "_Eject"
 msgstr ""
 
-#: ../yuminstall.py:563
+#: ../yuminstall.py:610
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -2943,77 +2961,77 @@ msgid ""
 msgstr ""
 
 # ../loader/urls.c:100
-#: ../yuminstall.py:603
+#: ../yuminstall.py:650
 #, fuzzy
 msgid "Retrying"
 msgstr "Berreskuratzen"
 
-#: ../yuminstall.py:603
+#: ../yuminstall.py:650
 msgid "Retrying package download..."
 msgstr ""
 
-#: ../yuminstall.py:668
+#: ../yuminstall.py:715
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 
-#: ../yuminstall.py:701 ../yuminstall.py:702
+#: ../yuminstall.py:748 ../yuminstall.py:749
 msgid "file conflicts"
 msgstr ""
 
 # ../iw/progress_gui.py:217
-#: ../yuminstall.py:703
+#: ../yuminstall.py:750
 #, fuzzy
 msgid "older package(s)"
 msgstr "Sortak"
 
-#: ../yuminstall.py:704
+#: ../yuminstall.py:751
 msgid "insufficient disk space"
 msgstr ""
 
-#: ../yuminstall.py:705
+#: ../yuminstall.py:752
 msgid "insufficient disk inodes"
 msgstr ""
 
 # ../gui.py:373 ../iw/language_gui.py:10 ../text.py:62 ../text.py:881
 # ../text.py:910
-#: ../yuminstall.py:706
+#: ../yuminstall.py:753
 #, fuzzy
 msgid "package conflicts"
 msgstr "Hizkuntzaren Hautaketa"
 
-#: ../yuminstall.py:707
+#: ../yuminstall.py:754
 msgid "package already installed"
 msgstr ""
 
 # ../todo.py:1599
-#: ../yuminstall.py:708
+#: ../yuminstall.py:755
 #, fuzzy
 msgid "required package"
 msgstr "Diskaren Zabaltegia"
 
-#: ../yuminstall.py:709
+#: ../yuminstall.py:756
 msgid "package for incorrect arch"
 msgstr ""
 
-#: ../yuminstall.py:710
+#: ../yuminstall.py:757
 msgid "package for incorrect os"
 msgstr ""
 
-#: ../yuminstall.py:724
+#: ../yuminstall.py:771
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
 # ../loader/loader.c:1395
-#: ../yuminstall.py:737
+#: ../yuminstall.py:784
 #, fuzzy, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
 msgstr "Ezarketako Sortak zein tramankulutan daude?"
 
-#: ../yuminstall.py:740
+#: ../yuminstall.py:787
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
@@ -3021,25 +3039,25 @@ msgid ""
 msgstr ""
 
 # ../todo.py:1303
-#: ../yuminstall.py:744
+#: ../yuminstall.py:791
 #, fuzzy
 msgid "Error Running Transaction"
 msgstr "Ezarketarako prestatzen..."
 
 # ../todo.py:1303
-#: ../yuminstall.py:749
+#: ../yuminstall.py:796
 #, fuzzy
 msgid "Error running transaction"
 msgstr "Ezarketarako prestatzen..."
 
 # ../todo.py:551
-#: ../yuminstall.py:906
+#: ../yuminstall.py:956
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "Programa Sortei buruzko azalpenak irakurtzen..."
 
 # ../todo.py:551
-#: ../yuminstall.py:908
+#: ../yuminstall.py:958
 #, fuzzy, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Programa Sortei buruzko azalpenak irakurtzen..."
@@ -3049,13 +3067,13 @@ msgstr "Programa Sortei buruzko azalpenak irakurtzen..."
 # ../textw/lilo_text.py:228 ../textw/partitioning_text.py:64
 # ../textw/silo_text.py:205 ../textw/silo_text.py:227
 # ../textw/userauth_text.py:196
-#: ../yuminstall.py:920 ../textw/bootloader_text.py:277
+#: ../yuminstall.py:970 ../textw/bootloader_text.py:277
 #: ../textw/constants_text.py:62 ../textw/partition_text.py:1428
 msgid "Edit"
 msgstr "Argitatu"
 
 # ../todo.py:1377
-#: ../yuminstall.py:932 ../yuminstall.py:1207
+#: ../yuminstall.py:982 ../yuminstall.py:1257
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -3068,17 +3086,17 @@ msgstr ""
 "diskete okerra egoteagatik izan daiteke. Berriz saiatzeko lerro-itzulera "
 "(Return) zapaldu."
 
-#: ../yuminstall.py:973
+#: ../yuminstall.py:1023
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: ../yuminstall.py:1006 ../iw/GroupSelector.py:545
+#: ../yuminstall.py:1056 ../iw/GroupSelector.py:545
 msgid "Uncategorized"
 msgstr ""
 
-#: ../yuminstall.py:1232
+#: ../yuminstall.py:1282
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -3087,23 +3105,23 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3538
-#: ../yuminstall.py:1251
+#: ../yuminstall.py:1301
 #, fuzzy
 msgid "Reboot?"
 msgstr "_Garbitu"
 
-#: ../yuminstall.py:1252
+#: ../yuminstall.py:1302
 msgid "The system will be rebooted now."
 msgstr ""
 
-#: ../yuminstall.py:1418
+#: ../yuminstall.py:1464
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 
-#: ../yuminstall.py:1445
+#: ../yuminstall.py:1491
 #, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
@@ -3112,50 +3130,50 @@ msgid ""
 msgstr ""
 
 # ../iw/installpath_gui.py:186
-#: ../yuminstall.py:1492
+#: ../yuminstall.py:1538
 #, fuzzy
 msgid "Post Upgrade"
 msgstr "Eguneraketa"
 
 # ../todo.py:1635
-#: ../yuminstall.py:1493
+#: ../yuminstall.py:1539
 #, fuzzy
 msgid "Performing post upgrade configuration..."
 msgstr "Ezarketa ondorengo egokitzaketa lantzen..."
 
 # ../todo.py:1634
-#: ../yuminstall.py:1495
+#: ../yuminstall.py:1541
 msgid "Post Install"
 msgstr "Ezarketa Ondorengoa"
 
 # ../todo.py:1635
-#: ../yuminstall.py:1496
+#: ../yuminstall.py:1542
 msgid "Performing post install configuration..."
 msgstr "Ezarketa ondorengo egokitzaketa lantzen..."
 
 # ../text.py:194 ../text.py:915
-#: ../yuminstall.py:1735
+#: ../yuminstall.py:1764
 #, fuzzy
 msgid "Installation Progress"
 msgstr "Ezarketa Mota"
 
 # ../text.py:977
-#: ../yuminstall.py:1770
+#: ../yuminstall.py:1799
 #, fuzzy
 msgid "Install Starting"
 msgstr "Ezarketaren Hasera"
 
-#: ../yuminstall.py:1771
+#: ../yuminstall.py:1800
 msgid "Starting install process.  This may take several minutes..."
 msgstr ""
 
 # ../todo.py:756
-#: ../yuminstall.py:1808
+#: ../yuminstall.py:1837
 msgid "Dependency Check"
 msgstr "Menpekotasunak Egiztatu"
 
 # ../todo.py:757
-#: ../yuminstall.py:1809
+#: ../yuminstall.py:1838
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Ezarketarako hautatuako programa sorten menpekotasunak egiaztatzen..."
 
@@ -3183,31 +3201,31 @@ msgstr "Sistemako Arduradunaren (root) hitz-ezkutua:"
 msgid "_Confirm:"
 msgstr "Egiaztatu: "
 
-#: ../iw/account_gui.py:77
+#: ../iw/account_gui.py:87
 msgid "Caps Lock is on."
 msgstr ""
 
 # ../text.py:895 ../text.py:963 ../textw/userauth_text.py:9
-#: ../iw/account_gui.py:87 ../iw/account_gui.py:95 ../iw/account_gui.py:102
-#: ../iw/account_gui.py:122 ../textw/userauth_text.py:71
+#: ../iw/account_gui.py:97 ../iw/account_gui.py:105 ../iw/account_gui.py:112
+#: ../iw/account_gui.py:132 ../textw/userauth_text.py:71
 #, fuzzy
 msgid "Error with Password"
 msgstr "Sistemako Arduradunaren (root) Pasahitza"
 
-#: ../iw/account_gui.py:88
+#: ../iw/account_gui.py:98
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
 
 # ../textw/userauth_text.py:47 ../textw/userauth_text.py:117
-#: ../iw/account_gui.py:96
+#: ../iw/account_gui.py:106
 #, fuzzy
 msgid "The passwords you entered were different.  Please try again."
 msgstr "Hitz-ezkutuak ezberdinak dira. Berriro saiatu, mesedez."
 
 # ../textw/userauth_text.py:42
-#: ../iw/account_gui.py:103
+#: ../iw/account_gui.py:113
 #, fuzzy
 msgid "The root password must be at least six characters long."
 msgstr ""
@@ -3215,13 +3233,13 @@ msgstr ""
 "ditu."
 
 # ../iw/account_gui.py:248 ../textw/userauth_text.py:82
-#: ../iw/account_gui.py:110 ../textw/userauth_text.py:78
+#: ../iw/account_gui.py:120 ../textw/userauth_text.py:78
 #, fuzzy
 msgid "Weak Password"
 msgstr "Hitz-ezkutua"
 
 # ../iw/welcome_gui.py:80
-#: ../iw/account_gui.py:111 ../textw/userauth_text.py:79
+#: ../iw/account_gui.py:121 ../textw/userauth_text.py:79
 #, fuzzy, python-format
 msgid ""
 "Weak password provided: %s\n"
@@ -3229,64 +3247,64 @@ msgid ""
 "Would you like to continue with this password?"
 msgstr "Zure sistema egokitzea nahi?"
 
-#: ../iw/account_gui.py:123 ../textw/userauth_text.py:72
+#: ../iw/account_gui.py:133 ../textw/userauth_text.py:72
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 
-#: ../iw/autopart_type.py:94
+#: ../iw/autopart_type.py:96
 msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
 msgstr ""
 
-#: ../iw/autopart_type.py:177
+#: ../iw/autopart_type.py:179
 msgid "Do you really want to boot from disk which is not used for instalation?"
 msgstr ""
 
 # ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
-#: ../iw/autopart_type.py:258
+#: ../iw/autopart_type.py:260
 #, fuzzy
 msgid "Invalid Initiator Name"
 msgstr "Abiaketaren Izena Erabilkaitza"
 
 # ../textw/userauth_text.py:104
-#: ../iw/autopart_type.py:259
+#: ../iw/autopart_type.py:261
 #, fuzzy
 msgid "You must provide an initiator name."
 msgstr "Erabiltzailearen nortasuna idatzi behar duzu"
 
 # ../iw/rootpartition_gui.py:313
-#: ../iw/autopart_type.py:281
+#: ../iw/autopart_type.py:283
 #, fuzzy
 msgid "Error with Data"
 msgstr "Disko Zatiteka Eskuz egin"
 
 # ../libfdisk/gnomefsedit.c:2475
-#: ../iw/autopart_type.py:401 ../textw/partition_text.py:1517
+#: ../iw/autopart_type.py:403 ../textw/partition_text.py:1517
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr "Linux disko-zatiak ezabatu"
 
 # ../libfdisk/gnomefsedit.c:2475
-#: ../iw/autopart_type.py:402 ../textw/partition_text.py:1518
+#: ../iw/autopart_type.py:404 ../textw/partition_text.py:1518
 #, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr "Linux disko-zatiak ezabatu"
 
 # ../libfdisk/gnomefsedit.c:2475
-#: ../iw/autopart_type.py:403
+#: ../iw/autopart_type.py:405
 #, fuzzy
 msgid "Resize existing partition and create default layout in free space"
 msgstr "Linux disko-zatiak ezabatu"
 
 # ../libfdisk/gnomefsedit.c:2475
-#: ../iw/autopart_type.py:404 ../textw/partition_text.py:1519
+#: ../iw/autopart_type.py:406 ../textw/partition_text.py:1519
 #, fuzzy
 msgid "Use free space on selected drives and create default layout"
 msgstr "Linux disko-zatiak ezabatu"
 
-#: ../iw/autopart_type.py:405 ../textw/partition_text.py:1520
+#: ../iw/autopart_type.py:407 ../textw/partition_text.py:1520
 msgid "Create custom layout"
 msgstr ""
 
@@ -3463,26 +3481,26 @@ msgstr "Hizkuntzaren Hautaketa"
 msgid "What language would you like to use during the installation process?"
 msgstr "Ezarketak dirauen bitartean, zein hizkuntza erabiltzea nahi duzu?"
 
-#: ../iw/lvm_dialog_gui.py:122 ../iw/lvm_dialog_gui.py:169
-#: ../iw/lvm_dialog_gui.py:180 ../iw/lvm_dialog_gui.py:220
-#: ../iw/lvm_dialog_gui.py:294 ../iw/lvm_dialog_gui.py:606
-#: ../iw/lvm_dialog_gui.py:674 ../iw/lvm_dialog_gui.py:893
+#: ../iw/lvm_dialog_gui.py:123 ../iw/lvm_dialog_gui.py:170
+#: ../iw/lvm_dialog_gui.py:181 ../iw/lvm_dialog_gui.py:221
+#: ../iw/lvm_dialog_gui.py:295 ../iw/lvm_dialog_gui.py:624
+#: ../iw/lvm_dialog_gui.py:706 ../iw/lvm_dialog_gui.py:925
 #: ../textw/partition_text.py:1275 ../textw/partition_text.py:1294
 msgid "Not enough space"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:123
+#: ../iw/lvm_dialog_gui.py:124
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:132
+#: ../iw/lvm_dialog_gui.py:133
 msgid "Confirm Physical Extent Change"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:133
+#: ../iw/lvm_dialog_gui.py:134
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3492,13 +3510,13 @@ msgid ""
 msgstr ""
 
 # ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:155
-#: ../iw/lvm_dialog_gui.py:142 ../iw/lvm_dialog_gui.py:202
+#: ../iw/lvm_dialog_gui.py:143 ../iw/lvm_dialog_gui.py:203
 #: ../iw/network_gui.py:142 ../iw/network_gui.py:146 ../iw/network_gui.py:166
 #, fuzzy
 msgid "C_ontinue"
 msgstr "Jarraitu"
 
-#: ../iw/lvm_dialog_gui.py:170
+#: ../iw/lvm_dialog_gui.py:171
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -3506,7 +3524,7 @@ msgid ""
 "volume group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:181
+#: ../iw/lvm_dialog_gui.py:182
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -3514,17 +3532,17 @@ msgid ""
 "(%10.2f MB) in the volume group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:195
+#: ../iw/lvm_dialog_gui.py:196
 msgid "Too small"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:196
+#: ../iw/lvm_dialog_gui.py:197
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:221
+#: ../iw/lvm_dialog_gui.py:222
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
@@ -3532,127 +3550,132 @@ msgid ""
 "defined logical volumes."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:295
+#: ../iw/lvm_dialog_gui.py:296
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:375 ../textw/partition_text.py:1114
+#: ../iw/lvm_dialog_gui.py:376 ../textw/partition_text.py:1114
 msgid "Make Logical Volume"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:378
+#: ../iw/lvm_dialog_gui.py:379
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:380 ../textw/partition_text.py:1112
+#: ../iw/lvm_dialog_gui.py:381 ../textw/partition_text.py:1112
 msgid "Edit Logical Volume"
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:824 ../libfdisk/gnomefsedit.c:1909
 # ../libfdisk/newtfsedit.c:389
-#: ../iw/lvm_dialog_gui.py:393 ../iw/partition_dialog_gui.py:322
+#: ../iw/lvm_dialog_gui.py:394 ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:321
 #, fuzzy
 msgid "_Mount Point:"
 msgstr "Loturagunea:"
 
 # ../text.py:941 ../textw/partitioning_text.py:301
-#: ../iw/lvm_dialog_gui.py:401 ../iw/raid_dialog_gui.py:334
+#: ../iw/lvm_dialog_gui.py:402 ../iw/raid_dialog_gui.py:334
 #, fuzzy
 msgid "_File System Type:"
 msgstr "Erro Fitxategitzaren Neurria"
 
 # ../text.py:941 ../textw/partitioning_text.py:301
-#: ../iw/lvm_dialog_gui.py:411 ../iw/raid_dialog_gui.py:344
+#: ../iw/lvm_dialog_gui.py:412 ../iw/raid_dialog_gui.py:344
 #, fuzzy
 msgid "Original File System Type:"
 msgstr "Erro Fitxategitzaren Neurria"
 
 # ../libfdisk/newtfsedit.c:486
-#: ../iw/lvm_dialog_gui.py:416 ../iw/raid_dialog_gui.py:349
+#: ../iw/lvm_dialog_gui.py:417 ../iw/raid_dialog_gui.py:349
 msgid "Unknown"
 msgstr "Ezezaguna"
 
 # ../text.py:941 ../textw/partitioning_text.py:301
-#: ../iw/lvm_dialog_gui.py:422 ../iw/partition_dialog_gui.py:374
+#: ../iw/lvm_dialog_gui.py:423 ../iw/partition_dialog_gui.py:374
 #: ../iw/raid_dialog_gui.py:355
 #, fuzzy
 msgid "Original File System Label:"
 msgstr "Erro Fitxategitzaren Neurria"
 
-#: ../iw/lvm_dialog_gui.py:431
+#: ../iw/lvm_dialog_gui.py:432
 msgid "_Logical Volume Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:439 ../textw/partition_text.py:305
+#: ../iw/lvm_dialog_gui.py:440 ../textw/partition_text.py:305
 msgid "Logical Volume Name:"
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:866 ../libfdisk/newtfsedit.c:408
-#: ../iw/lvm_dialog_gui.py:447 ../iw/partition_dialog_gui.py:386
+#: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:386
 #, fuzzy
 msgid "_Size (MB):"
 msgstr "Neurria (MB)"
 
 # ../libfdisk/gnomefsedit.c:866 ../libfdisk/newtfsedit.c:408
-#: ../iw/lvm_dialog_gui.py:453 ../iw/partition_dialog_gui.py:403
+#: ../iw/lvm_dialog_gui.py:454 ../iw/partition_dialog_gui.py:403
 #: ../textw/partition_text.py:320 ../textw/partition_text.py:397
 #: ../textw/partition_text.py:480 ../textw/partition_text.py:588
 #, fuzzy
 msgid "Size (MB):"
 msgstr "Neurria (MB)"
 
-#: ../iw/lvm_dialog_gui.py:468
+#: ../iw/lvm_dialog_gui.py:469
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr ""
 
+#: ../iw/lvm_dialog_gui.py:478 ../iw/partition_dialog_gui.py:334
+#: ../iw/partition_ui_helpers_gui.py:300 ../iw/raid_dialog_gui.py:329
+msgid "_Encrypt"
+msgstr ""
+
 # ../textw/packages_text.py:116
-#: ../iw/lvm_dialog_gui.py:525 ../textw/partition_text.py:1264
+#: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1264
 #, fuzzy
 msgid "Illegal size"
 msgstr "Guztira"
 
 # ../textw/partitioning_text.py:319
-#: ../iw/lvm_dialog_gui.py:526 ../textw/partition_text.py:1265
+#: ../iw/lvm_dialog_gui.py:544 ../textw/partition_text.py:1265
 #, fuzzy
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "Idatzi beharrekoak zenbaki bat izan behar du."
 
 # ../libfdisk/gnomefsedit.c:2992 ../todo.py:1586
-#: ../iw/lvm_dialog_gui.py:561
+#: ../iw/lvm_dialog_gui.py:579
 #, fuzzy
 msgid "Mount point in use"
 msgstr "Loturagunea"
 
 # ../libfdisk/gnomefsedit.c:2146
-#: ../iw/lvm_dialog_gui.py:562
+#: ../iw/lvm_dialog_gui.py:580
 #, fuzzy, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr ""
 "Eskatutako loturagunea iadanik beste batek darabil. Loturagune egoki bat "
 "hautatu mesedez."
 
-#: ../iw/lvm_dialog_gui.py:573 ../textw/partition_text.py:1235
+#: ../iw/lvm_dialog_gui.py:591 ../textw/partition_text.py:1235
 msgid "Illegal Logical Volume Name"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:592 ../textw/partition_text.py:1252
+#: ../iw/lvm_dialog_gui.py:610 ../textw/partition_text.py:1252
 msgid "Illegal logical volume name"
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:2207
-#: ../iw/lvm_dialog_gui.py:593 ../textw/partition_text.py:1253
+#: ../iw/lvm_dialog_gui.py:611 ../textw/partition_text.py:1253
 #, fuzzy, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr ""
 "\"/dev/%s\" tramankulua RAID bezala egokituta dago. Beste bat hautatu "
 "mesedez."
 
-#: ../iw/lvm_dialog_gui.py:607
+#: ../iw/lvm_dialog_gui.py:625
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
@@ -3660,7 +3683,7 @@ msgid ""
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:651 ../iw/partition_dialog_gui.py:197
+#: ../iw/lvm_dialog_gui.py:683 ../iw/partition_dialog_gui.py:197
 #: ../iw/partition_dialog_gui.py:209 ../iw/partition_dialog_gui.py:268
 #: ../iw/raid_dialog_gui.py:248 ../textw/partition_text.py:888
 #: ../textw/partition_text.py:909 ../textw/partition_text.py:1082
@@ -3668,7 +3691,7 @@ msgstr ""
 msgid "Error With Request"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:675 ../iw/lvm_dialog_gui.py:894
+#: ../iw/lvm_dialog_gui.py:707 ../iw/lvm_dialog_gui.py:926
 #, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
@@ -3676,22 +3699,22 @@ msgid ""
 "logical volume(s) smaller."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:733
+#: ../iw/lvm_dialog_gui.py:765
 msgid "No free slots"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:734
+#: ../iw/lvm_dialog_gui.py:766
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
 
 # ../todo.py:1599
-#: ../iw/lvm_dialog_gui.py:740
+#: ../iw/lvm_dialog_gui.py:772
 #, fuzzy
 msgid "No free space"
 msgstr "Diskaren Zabaltegia"
 
-#: ../iw/lvm_dialog_gui.py:741
+#: ../iw/lvm_dialog_gui.py:773
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3699,34 +3722,34 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:729 ../libfdisk/newtfsedit.c:837
-#: ../iw/lvm_dialog_gui.py:769
+#: ../iw/lvm_dialog_gui.py:801
 #, fuzzy, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Disko zati hau ezabatzea gura dozu?"
 
 # ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
-#: ../iw/lvm_dialog_gui.py:905
+#: ../iw/lvm_dialog_gui.py:937
 #, fuzzy
 msgid "Invalid Volume Group Name"
 msgstr "Abiaketaren Izena Erabilkaitza"
 
-#: ../iw/lvm_dialog_gui.py:916
+#: ../iw/lvm_dialog_gui.py:948
 msgid "Name in use"
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:2146
-#: ../iw/lvm_dialog_gui.py:917
+#: ../iw/lvm_dialog_gui.py:949
 #, fuzzy, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Eskatutako loturagunea iadanik beste batek darabil. Loturagune egoki bat "
 "hautatu mesedez."
 
-#: ../iw/lvm_dialog_gui.py:960
+#: ../iw/lvm_dialog_gui.py:992
 msgid "Not enough physical volumes"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:961
+#: ../iw/lvm_dialog_gui.py:993
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3736,76 +3759,76 @@ msgid ""
 msgstr ""
 
 # ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
-#: ../iw/lvm_dialog_gui.py:972
+#: ../iw/lvm_dialog_gui.py:1004
 #, fuzzy
 msgid "Make LVM Volume Group"
 msgstr "Abiaketaren Izena Erabilkaitza"
 
 # ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
-#: ../iw/lvm_dialog_gui.py:975
+#: ../iw/lvm_dialog_gui.py:1007
 #, fuzzy, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Abiaketaren Izena Erabilkaitza"
 
 # ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
-#: ../iw/lvm_dialog_gui.py:977
+#: ../iw/lvm_dialog_gui.py:1009
 #, fuzzy
 msgid "Edit LVM Volume Group"
 msgstr "Abiaketaren Izena Erabilkaitza"
 
-#: ../iw/lvm_dialog_gui.py:993
+#: ../iw/lvm_dialog_gui.py:1025
 msgid "_Volume Group Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1001
+#: ../iw/lvm_dialog_gui.py:1033
 msgid "Volume Group Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1009
+#: ../iw/lvm_dialog_gui.py:1041
 msgid "_Physical Extent:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1024
+#: ../iw/lvm_dialog_gui.py:1056
 msgid "Physical Volumes to _Use:"
 msgstr ""
 
 # ../todo.py:1599
-#: ../iw/lvm_dialog_gui.py:1030
+#: ../iw/lvm_dialog_gui.py:1062
 #, fuzzy
 msgid "Used Space:"
 msgstr "Diskaren Zabaltegia"
 
 # ../todo.py:1599
-#: ../iw/lvm_dialog_gui.py:1047
+#: ../iw/lvm_dialog_gui.py:1079
 #, fuzzy
 msgid "Free Space:"
 msgstr "Diskaren Zabaltegia"
 
 # ../textw/packages_text.py:116
-#: ../iw/lvm_dialog_gui.py:1065
+#: ../iw/lvm_dialog_gui.py:1097
 #, fuzzy
 msgid "Total Space:"
 msgstr "Guztira:"
 
-#: ../iw/lvm_dialog_gui.py:1094
+#: ../iw/lvm_dialog_gui.py:1126
 msgid "Logical Volume Name"
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:2992 ../todo.py:1586
-#: ../iw/lvm_dialog_gui.py:1097 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1129 ../iw/partition_gui.py:369
 #: ../iw/upgrade_swap_gui.py:140 ../textw/partition_text.py:1423
 #: ../textw/upgrade_text.py:120
 msgid "Mount Point"
 msgstr "Loturagunea"
 
 # ../libfdisk/gnomefsedit.c:866 ../libfdisk/newtfsedit.c:408
-#: ../iw/lvm_dialog_gui.py:1100 ../iw/partition_gui.py:374
+#: ../iw/lvm_dialog_gui.py:1132 ../iw/partition_gui.py:374
 msgid "Size (MB)"
 msgstr "Neurria (MB)"
 
 # ../iw/account_gui.py:270 ../libfdisk/newtfsedit.c:1444
 # ../textw/userauth_text.py:195
-#: ../iw/lvm_dialog_gui.py:1114 ../iw/osbootwidget.py:94
+#: ../iw/lvm_dialog_gui.py:1146 ../iw/osbootwidget.py:95
 #, fuzzy
 msgid "_Add"
 msgstr "Gehitu"
@@ -3815,64 +3838,14 @@ msgstr "Gehitu"
 # ../textw/lilo_text.py:228 ../textw/partitioning_text.py:64
 # ../textw/silo_text.py:205 ../textw/silo_text.py:227
 # ../textw/userauth_text.py:196
-#: ../iw/lvm_dialog_gui.py:1117 ../iw/network_gui.py:457
-#: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1379
+#: ../iw/lvm_dialog_gui.py:1149 ../iw/network_gui.py:457
+#: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1379
 #, fuzzy
 msgid "_Edit"
 msgstr "Argitatu"
 
-#: ../iw/lvm_dialog_gui.py:1132
+#: ../iw/lvm_dialog_gui.py:1164
 msgid "_Logical Volumes"
-msgstr ""
-
-# ../iw/mouse_gui.py:56 ../text.py:957 ../text.py:959
-#: ../iw/mouse_gui.py:29
-msgid "Mouse Configuration"
-msgstr "Xagua Egokitzen"
-
-# ../iw/mouse_gui.py:131 ../textw/mouse_text.py:7
-#: ../iw/mouse_gui.py:82 ../textw/mouse_text.py:26
-msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr "/dev/ttyS0 (COM1 DOS-ean)"
-
-# ../iw/mouse_gui.py:132 ../textw/mouse_text.py:8
-#: ../iw/mouse_gui.py:83 ../textw/mouse_text.py:27
-msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr "/dev/ttyS1 (COM2 DOS-ean)"
-
-# ../iw/mouse_gui.py:133 ../textw/mouse_text.py:9
-#: ../iw/mouse_gui.py:84 ../textw/mouse_text.py:28
-msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr "/dev/ttyS2 (COM3 DOS-ean)"
-
-# ../iw/mouse_gui.py:134 ../textw/mouse_text.py:10
-#: ../iw/mouse_gui.py:85 ../textw/mouse_text.py:29
-msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr "/dev/ttyS3 (COM4 DOS-ean)"
-
-# ../iw/lilo_gui.py:307 ../iw/mouse_gui.py:142 ../iw/silo_gui.py:256
-# ../libfdisk/gnomefsedit.c:2993 ../textw/lilo_text.py:112
-# ../textw/lilo_text.py:193 ../textw/mouse_text.py:25
-# ../textw/silo_text.py:131 ../textw/silo_text.py:196
-#: ../iw/mouse_gui.py:95 ../iw/osbootwidget.py:151
-#, fuzzy
-msgid "_Device"
-msgstr "Tramankulua"
-
-# ../iw/keyboard_gui.py:72
-#: ../iw/mouse_gui.py:141
-#, fuzzy
-msgid "_Model"
-msgstr "Eredua"
-
-# ../iw/mouse_gui.py:136
-#: ../iw/mouse_gui.py:239
-#, fuzzy
-msgid "_Emulate 3 buttons"
-msgstr "3 Botoitxo Antzeztu"
-
-#: ../iw/mouse_gui.py:254
-msgid "Select the appropriate mouse for the system."
 msgstr ""
 
 #: ../iw/netconfig_dialog.py:143
@@ -3899,53 +3872,53 @@ msgid "A value is required for the field %s."
 msgstr ""
 
 # ../loader/net.c:388 ../loader/net.c:659
-#: ../iw/netconfig_dialog.py:175
+#: ../iw/netconfig_dialog.py:176
 msgid "Dynamic IP"
 msgstr "IP Dinamikoa"
 
 # ../loader/net.c:389 ../loader/net.c:660
-#: ../iw/netconfig_dialog.py:176 ../loader2/net.c:416 ../loader2/net.c:860
+#: ../iw/netconfig_dialog.py:177 ../loader2/net.c:416 ../loader2/net.c:860
 #, fuzzy, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "IP argibide eskaera bidaltzen..."
 
 # ../iw/network_gui.py:163
-#: ../iw/netconfig_dialog.py:197 ../iw/netconfig_dialog.py:200
+#: ../iw/netconfig_dialog.py:198 ../iw/netconfig_dialog.py:201
 #: ../textw/network_text.py:93 tmp/netpostconfig.glade.h:12
 #, fuzzy
 msgid "IP Address"
 msgstr "IP Helbidea"
 
-#: ../iw/netconfig_dialog.py:207
+#: ../iw/netconfig_dialog.py:208
 msgid "IPv4 CIDR prefix must be between 0 and 32."
 msgstr ""
 
 # ../iw/network_gui.py:164 ../loader/net.c:727
-#: ../iw/netconfig_dialog.py:208 ../iw/netconfig_dialog.py:214
-#: ../iw/netconfig_dialog.py:222 ../iw/netconfig_dialog.py:225
+#: ../iw/netconfig_dialog.py:209 ../iw/netconfig_dialog.py:215
+#: ../iw/netconfig_dialog.py:223 ../iw/netconfig_dialog.py:226
 #, fuzzy
 msgid "IPv4 Network Mask"
 msgstr "Sarearen Mozorroa"
 
 # ../iw/network_gui.py:211
-#: ../iw/netconfig_dialog.py:232 ../iw/netconfig_dialog.py:235
+#: ../iw/netconfig_dialog.py:233 ../iw/netconfig_dialog.py:236
 #: ../iw/network_gui.py:34 ../iw/network_gui.py:533
 msgid "Gateway"
 msgstr "Pasabidea"
 
 # ../loader/net.c:243 ../loader/net.c:725
-#: ../iw/netconfig_dialog.py:242
+#: ../iw/netconfig_dialog.py:243
 msgid "Nameserver"
 msgstr "Zerbitzari Izena"
 
 # ../fstab.py:406
-#: ../iw/netconfig_dialog.py:252
+#: ../iw/netconfig_dialog.py:253
 #, fuzzy
 msgid "Error configuring network device:"
 msgstr "Diskoan Trukegunea sortzerakoan akatsa"
 
 # ../fstab.py:406
-#: ../iw/netconfig_dialog.py:265
+#: ../iw/netconfig_dialog.py:266
 #, fuzzy
 msgid "Error configuring network device"
 msgstr "Diskoan Trukegunea sortzerakoan akatsa"
@@ -4038,10 +4011,9 @@ msgstr "Abiatzerakoan Piztu"
 # ../libfdisk/gnomefsedit.c:2993 ../textw/lilo_text.py:112
 # ../textw/lilo_text.py:193 ../textw/mouse_text.py:25
 # ../textw/silo_text.py:131 ../textw/silo_text.py:196
-#: ../iw/network_gui.py:400 ../iw/osbootwidget.py:65
+#: ../iw/network_gui.py:400 ../iw/osbootwidget.py:66
 #: ../iw/partition_gui.py:367 ../textw/bootloader_text.py:196
-#: ../textw/bootloader_text.py:262 ../textw/mouse_text.py:44
-#: ../textw/partition_text.py:1423
+#: ../textw/bootloader_text.py:262 ../textw/partition_text.py:1423
 msgid "Device"
 msgstr "Tramankulua"
 
@@ -4142,82 +4114,91 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr ""
 
 # ../iw/account_gui.py:41
-#: ../iw/osbootwidget.py:49
+#: ../iw/osbootwidget.py:50
 #, fuzzy
 msgid "Boot loader operating system list"
 msgstr "Sistemako Arduradunaren (root) hitz-ezkutua motzegia da."
 
 # ../iw/lilo_gui.py:307 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
 # ../textw/silo_text.py:196
-#: ../iw/osbootwidget.py:65 ../textw/bootloader_text.py:262
+#: ../iw/osbootwidget.py:66 ../textw/bootloader_text.py:262
 msgid "Default"
 msgstr "Jatorrizkoa"
 
-#: ../iw/osbootwidget.py:65 ../iw/partition_gui.py:368
+#: ../iw/osbootwidget.py:66 ../iw/partition_gui.py:368
 msgid "Label"
 msgstr ""
 
-#: ../iw/osbootwidget.py:128
+#: ../iw/osbootwidget.py:129
 msgid "Image"
 msgstr ""
 
-#: ../iw/osbootwidget.py:135
+#: ../iw/osbootwidget.py:136
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
 msgstr ""
 
-#: ../iw/osbootwidget.py:143
+#: ../iw/osbootwidget.py:144
 msgid "_Label"
 msgstr ""
 
+# ../iw/lilo_gui.py:307 ../iw/mouse_gui.py:142 ../iw/silo_gui.py:256
+# ../libfdisk/gnomefsedit.c:2993 ../textw/lilo_text.py:112
+# ../textw/lilo_text.py:193 ../textw/mouse_text.py:25
+# ../textw/silo_text.py:131 ../textw/silo_text.py:196
+#: ../iw/osbootwidget.py:152
+#, fuzzy
+msgid "_Device"
+msgstr "Tramankulua"
+
 # ../iw/lilo_gui.py:339 ../iw/silo_gui.py:287
-#: ../iw/osbootwidget.py:182
+#: ../iw/osbootwidget.py:186
 #, fuzzy
 msgid "Default Boot _Target"
 msgstr "Jatorrizko abiagailua irudia"
 
 # ../loader/lang.c:287
-#: ../iw/osbootwidget.py:211
+#: ../iw/osbootwidget.py:215
 #, fuzzy
 msgid "You must specify a label for the entry"
 msgstr "Hizkuntza bat Hautatu"
 
 # ../textw/lilo_text.py:150
-#: ../iw/osbootwidget.py:220
+#: ../iw/osbootwidget.py:224
 #, fuzzy
 msgid "Boot label contains illegal characters"
 msgstr "Abiaguneko izenak ikur erabilkaitzak ditu."
 
-#: ../iw/osbootwidget.py:244
+#: ../iw/osbootwidget.py:248
 msgid "Duplicate Label"
 msgstr ""
 
 # ../textw/userauth_text.py:13
-#: ../iw/osbootwidget.py:245
+#: ../iw/osbootwidget.py:249
 #, fuzzy
 msgid "This label is already in use for another boot entry."
 msgstr "Erabiltzailearen Nortasuna iadanik badago. Beste bat aukeratu."
 
 # ../libfdisk/gnomefsedit.c:2617
-#: ../iw/osbootwidget.py:258
+#: ../iw/osbootwidget.py:262
 #, fuzzy
 msgid "Duplicate Device"
 msgstr "RAID tramankulua ezabatu?"
 
 # ../textw/userauth_text.py:13
-#: ../iw/osbootwidget.py:259
+#: ../iw/osbootwidget.py:263
 #, fuzzy
 msgid "This device is already being used for another boot entry."
 msgstr "Erabiltzailearen Nortasuna iadanik badago. Beste bat aukeratu."
 
 # ../iw/account_gui.py:186
-#: ../iw/osbootwidget.py:323 ../textw/bootloader_text.py:345
+#: ../iw/osbootwidget.py:327 ../textw/bootloader_text.py:345
 #, fuzzy
 msgid "Cannot Delete"
 msgstr "Egiaztatu: "
 
-#: ../iw/osbootwidget.py:324 ../textw/bootloader_text.py:346
+#: ../iw/osbootwidget.py:328 ../textw/bootloader_text.py:346
 #, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
@@ -4276,11 +4257,6 @@ msgstr "Disko Zatia Argitatu"
 #, fuzzy
 msgid "File System _Type:"
 msgstr "Erro Fitxategitzaren Neurria"
-
-#: ../iw/partition_dialog_gui.py:334 ../iw/partition_ui_helpers_gui.py:300
-#: ../iw/raid_dialog_gui.py:329
-msgid "_Encrypt"
-msgstr ""
 
 # ../libfdisk/gnomefsedit.c:1033 ../libfdisk/newtfsedit.c:519
 #: ../iw/partition_dialog_gui.py:350
@@ -4888,7 +4864,7 @@ msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Erabiltzailearen nortasuna idatzi behar duzu"
 
 # ../libfdisk/gnomefsedit.c:2146
-#: ../iw/task_gui.py:227
+#: ../iw/task_gui.py:232
 #, fuzzy, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -5351,26 +5327,6 @@ msgstr "Teklatu Hautaketa"
 #: ../textw/keyboard_text.py:47
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Zure ordenagailuak zein atzoldi (teklatu) mota dauka?"
-
-# ../textw/mouse_text.py:26
-#: ../textw/mouse_text.py:45
-msgid "What device is your mouse located on?"
-msgstr "Zure xagua non kokatuta dago?"
-
-# ../textw/mouse_text.py:57
-#: ../textw/mouse_text.py:77
-msgid "Which model mouse is attached to this computer?"
-msgstr "Zure ordenagailuak zein xagu mota dauka?"
-
-# ../textw/mouse_text.py:68
-#: ../textw/mouse_text.py:88
-msgid "Emulate 3 Buttons?"
-msgstr "3 Botoien Antzezketa egin?"
-
-# ../textw/mouse_text.py:71
-#: ../textw/mouse_text.py:91
-msgid "Mouse Selection"
-msgstr "Xagu Hautaketa"
 
 #: ../textw/network_text.py:58
 #, python-format
@@ -6249,14 +6205,14 @@ msgid "Office and Productivity"
 msgstr ""
 
 # ../iw/lilo_gui.py:261 ../iw/silo_gui.py:207
-#: ../installclasses/fedora.py:45 ../installclasses/rhel.py:55
-#: ../installclasses/rhel.py:60
+#: ../installclasses/fedora.py:45 ../installclasses/rhel.py:54
+#: ../installclasses/rhel.py:59
 #, fuzzy
 msgid "Software Development"
 msgstr "Kernel-eko Garapenak"
 
 # ../libfdisk/gnomefsedit.c:2517 ../libfdisk/gnomefsedit.c:253
-#: ../installclasses/fedora.py:46 ../installclasses/rhel.py:59
+#: ../installclasses/fedora.py:46 ../installclasses/rhel.py:58
 #, fuzzy
 msgid "Web server"
 msgstr "Web Zerbitzaria"
@@ -6267,41 +6223,41 @@ msgstr "Web Zerbitzaria"
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Linux"
 
-#: ../installclasses/rhel.py:52
+#: ../installclasses/rhel.py:51
 msgid "Office"
 msgstr ""
 
-#: ../installclasses/rhel.py:53
+#: ../installclasses/rhel.py:52
 msgid "Multimedia"
 msgstr ""
 
 # ../iw/congrats_gui.py:11 ../iw/congrats_gui.py:59
-#: ../installclasses/rhel.py:64
+#: ../installclasses/rhel.py:63
 #, fuzzy
 msgid "Virtualization"
 msgstr "Zorionak"
 
-#: ../installclasses/rhel.py:65
+#: ../installclasses/rhel.py:64
 msgid "Clustering"
 msgstr ""
 
-#: ../installclasses/rhel.py:66
+#: ../installclasses/rhel.py:65
 msgid "Storage Clustering"
 msgstr ""
 
 # ../text.py:194 ../text.py:915
-#: ../installclasses/rhel.py:70
+#: ../installclasses/rhel.py:69
 #, fuzzy
 msgid "Installation Number"
 msgstr "Ezarketa Mota"
 
-#: ../installclasses/rhel.py:71
+#: ../installclasses/rhel.py:70
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
 
-#: ../installclasses/rhel.py:74
+#: ../installclasses/rhel.py:73
 msgid ""
 "If you're unable to locate the Installation Number, consult http://www."
 "redhat.com/apps/support/in.html.\n"
@@ -6323,7 +6279,7 @@ msgstr ""
 # ../gui.py:365 ../gui.py:605
 #: ../loader2/cdinstall.c:96 ../loader2/cdinstall.c:99
 #: ../loader2/cdinstall.c:117 ../loader2/cdinstall.c:125
-#: ../loader2/method.c:380
+#: ../loader2/method.c:393
 #, fuzzy
 msgid "Test"
 msgstr "Hurrengoa"
@@ -6407,7 +6363,7 @@ msgid "Cannot find kickstart file on CDROM."
 msgstr ""
 
 # ../loader/loader.c:2073
-#: ../loader2/copy.c:51 ../loader2/method.c:113 ../loader2/method.c:334
+#: ../loader2/copy.c:51 ../loader2/method.c:121 ../loader2/method.c:347
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "%s direktorioa irakurtzean %s akatsa"
@@ -6540,8 +6496,8 @@ msgstr "Kontrolatzaileen diskorik bai?"
 #: ../loader2/kickstart.c:142 ../loader2/kickstart.c:185
 #: ../loader2/kickstart.c:529 ../loader2/modules.c:336
 #: ../loader2/modules.c:348 ../loader2/net.c:1647 ../loader2/net.c:1670
-#: ../loader2/nfsinstall.c:320 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:474 ../loader2/urlinstall.c:483
+#: ../loader2/nfsinstall.c:342 ../loader2/urlinstall.c:437
+#: ../loader2/urlinstall.c:446 ../loader2/urlinstall.c:455
 msgid "Kickstart Error"
 msgstr "Kickstart-en akatsa"
 
@@ -6619,18 +6575,18 @@ msgid "Select Device Driver to Load"
 msgstr "'fdisk'-ek zein disko landu behar du?"
 
 # ../xserver.py:26
-#: ../loader2/hdinstall.c:80 ../loader2/nfsinstall.c:153
-#: ../loader2/urlinstall.c:298
+#: ../loader2/hdinstall.c:80 ../loader2/nfsinstall.c:168
+#: ../loader2/urlinstall.c:274
 #, fuzzy
 msgid "Media Detected"
 msgstr "Xagurik ez da topatu"
 
-#: ../loader2/hdinstall.c:81 ../loader2/nfsinstall.c:154
-#: ../loader2/urlinstall.c:299
+#: ../loader2/hdinstall.c:81 ../loader2/nfsinstall.c:169
+#: ../loader2/urlinstall.c:275
 msgid "Local installation media detected..."
 msgstr ""
 
-#: ../loader2/hdinstall.c:137 ../loader2/nfsinstall.c:271
+#: ../loader2/hdinstall.c:137 ../loader2/nfsinstall.c:293
 #: ../loader2/urlinstall.c:192
 #, c-format
 msgid ""
@@ -6998,7 +6954,7 @@ msgid ""
 "detected by the media check."
 msgstr ""
 
-#: ../loader2/method.c:377
+#: ../loader2/method.c:390
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -7006,7 +6962,7 @@ msgid ""
 "   %s?"
 msgstr ""
 
-#: ../loader2/method.c:380
+#: ../loader2/method.c:393
 msgid "Checksum Test"
 msgstr ""
 
@@ -7220,29 +7176,29 @@ msgstr ""
 msgid "NFS Setup"
 msgstr "NFS-ren Egituraketa"
 
-#: ../loader2/nfsinstall.c:139
+#: ../loader2/nfsinstall.c:154
 msgid "Hostname specified with no DNS configured"
 msgstr ""
 
 # ../loader/urls.c:100
-#: ../loader2/nfsinstall.c:193 ../loader2/urls.c:222
+#: ../loader2/nfsinstall.c:215 ../loader2/urls.c:223
 msgid "Retrieving"
 msgstr "Berreskuratzen"
 
 # ../loader/loader.c:1028
-#: ../loader2/nfsinstall.c:262
+#: ../loader2/nfsinstall.c:284
 #, fuzzy
 msgid "That directory could not be mounted from the server."
 msgstr "Zerbitzaritik direktorio hori ezin izan dut lotu"
 
 # ../loader/loader.c:1023
-#: ../loader2/nfsinstall.c:275
+#: ../loader2/nfsinstall.c:297
 #, fuzzy, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "Badirudi direktorio horrek Red Hat-eko ezarketa zuhaitzik ez daukala."
 
 # ../loader/net.c:644
-#: ../loader2/nfsinstall.c:321
+#: ../loader2/nfsinstall.c:343
 #, fuzzy, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "%s kickstart-eko %s sare aginduak argumentu okerra"
@@ -7277,61 +7233,61 @@ msgid "Unable to retrieve the install image."
 msgstr "Ezarketako lehen irudia lortzea ezinezkoa izan da."
 
 # ../loader/net.c:644
-#: ../loader2/urlinstall.c:466
+#: ../loader2/urlinstall.c:438
 #, fuzzy, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "%s kickstart-eko %s sare aginduak argumentu okerra"
 
-#: ../loader2/urlinstall.c:475
+#: ../loader2/urlinstall.c:447
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr ""
 
 # ../libfdisk/newtfsedit.c:486
-#: ../loader2/urlinstall.c:484
+#: ../loader2/urlinstall.c:456
 #, fuzzy, c-format
 msgid "Unknown Url method %s"
 msgstr "Ezezaguna"
 
-#: ../loader2/urls.c:280
+#: ../loader2/urls.c:282
 #, c-format
 msgid "Please enter the URL containing the %s images on your server."
 msgstr ""
 
 # ../loader/net.c:34
-#: ../loader2/urls.c:291
+#: ../loader2/urls.c:293
 #, fuzzy
 msgid "Configure proxy"
 msgstr "TCP/IP Egokitu"
 
 # ../loader/net.c:158
-#: ../loader2/urls.c:306
+#: ../loader2/urls.c:308
 #, fuzzy
 msgid "URL Setup"
 msgstr "NFS-ren Egituraketa"
 
 # ../loader/urls.c:239
-#: ../loader2/urls.c:314
+#: ../loader2/urls.c:316
 #, fuzzy
 msgid "You must enter a URL."
 msgstr "Direktorio bat idatzi behar duzu."
 
-#: ../loader2/urls.c:320
+#: ../loader2/urls.c:322
 msgid "URL must be either an ftp or http URL"
 msgstr ""
 
 # ../loader/urls.c:244
-#: ../loader2/urls.c:331
+#: ../loader2/urls.c:333
 msgid "Unknown Host"
 msgstr "Ostalari Ezezaguna"
 
 # ../loader/urls.c:245
-#: ../loader2/urls.c:332
+#: ../loader2/urls.c:334
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s Ostalariaren izena baliogabea da."
 
 # ../loader/urls.c:322
-#: ../loader2/urls.c:378
+#: ../loader2/urls.c:380
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -7339,16 +7295,16 @@ msgstr ""
 "HTTP proxy zerbitzaria erabiltzen ari bazara, erabili beharreko HTTP proxy "
 "zerbitzariaren izena idatzi."
 
-#: ../loader2/urls.c:393
+#: ../loader2/urls.c:395
 msgid "Proxy Name:"
 msgstr ""
 
-#: ../loader2/urls.c:398
+#: ../loader2/urls.c:400
 msgid "Proxy Port:"
 msgstr ""
 
 # ../loader/urls.c:223
-#: ../loader2/urls.c:414
+#: ../loader2/urls.c:416
 #, fuzzy
 msgid "Further Setup"
 msgstr "FTP Egituratu"
@@ -7558,16 +7514,22 @@ msgstr ""
 msgid "_Details"
 msgstr ""
 
+# ../iw/fdisk_gui.py:109
 #: tmp/exnSave.glade.h:2
+#, fuzzy
+msgid "Select A File"
+msgstr "'fdisk'-ek zein disko landu behar du?"
+
+#: tmp/exnSave.glade.h:3
 msgid "Select a destination for the exception information."
 msgstr ""
 
-#: tmp/exnSave.glade.h:3
+#: tmp/exnSave.glade.h:4
 msgid "_Disk"
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3538
-#: tmp/exnSave.glade.h:4
+#: tmp/exnSave.glade.h:5
 #, fuzzy
 msgid "_Remote"
 msgstr "_Garbitu"
@@ -8101,6 +8063,52 @@ msgstr ""
 #. generated from lang-table
 msgid "Zulu"
 msgstr ""
+
+# ../iw/mouse_gui.py:56 ../text.py:957 ../text.py:959
+#~ msgid "Mouse Configuration"
+#~ msgstr "Xagua Egokitzen"
+
+# ../iw/mouse_gui.py:131 ../textw/mouse_text.py:7
+#~ msgid "/dev/ttyS0 (COM1 under DOS)"
+#~ msgstr "/dev/ttyS0 (COM1 DOS-ean)"
+
+# ../iw/mouse_gui.py:132 ../textw/mouse_text.py:8
+#~ msgid "/dev/ttyS1 (COM2 under DOS)"
+#~ msgstr "/dev/ttyS1 (COM2 DOS-ean)"
+
+# ../iw/mouse_gui.py:133 ../textw/mouse_text.py:9
+#~ msgid "/dev/ttyS2 (COM3 under DOS)"
+#~ msgstr "/dev/ttyS2 (COM3 DOS-ean)"
+
+# ../iw/mouse_gui.py:134 ../textw/mouse_text.py:10
+#~ msgid "/dev/ttyS3 (COM4 under DOS)"
+#~ msgstr "/dev/ttyS3 (COM4 DOS-ean)"
+
+# ../iw/keyboard_gui.py:72
+#, fuzzy
+#~ msgid "_Model"
+#~ msgstr "Eredua"
+
+# ../iw/mouse_gui.py:136
+#, fuzzy
+#~ msgid "_Emulate 3 buttons"
+#~ msgstr "3 Botoitxo Antzeztu"
+
+# ../textw/mouse_text.py:26
+#~ msgid "What device is your mouse located on?"
+#~ msgstr "Zure xagua non kokatuta dago?"
+
+# ../textw/mouse_text.py:57
+#~ msgid "Which model mouse is attached to this computer?"
+#~ msgstr "Zure ordenagailuak zein xagu mota dauka?"
+
+# ../textw/mouse_text.py:68
+#~ msgid "Emulate 3 Buttons?"
+#~ msgstr "3 Botoien Antzezketa egin?"
+
+# ../textw/mouse_text.py:71
+#~ msgid "Mouse Selection"
+#~ msgstr "Xagu Hautaketa"
 
 # ../loader/kickstart.c:69
 #, fuzzy

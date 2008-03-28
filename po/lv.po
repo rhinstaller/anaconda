@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-16 13:31-0400\n"
+"POT-Creation-Date: 2008-03-28 10:06-0400\n"
 "PO-Revision-Date: 2006-11-20 21:19+0200\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: ../anaconda:306 ../cmdline.py:78 ../gui.py:1174 ../text.py:508
+#: ../anaconda:306 ../cmdline.py:78 ../gui.py:1187 ../text.py:509
 #, c-format, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -41,9 +41,9 @@ msgstr ""
 msgid "Press <enter> for a shell"
 msgstr "Nospiediet <enter>, lai pārietu uz komandrindas režīmu"
 
-#: ../anaconda:438 ../gui.py:235 ../rescue.py:271 ../rescue.py:339
+#: ../anaconda:438 ../gui.py:234 ../rescue.py:271 ../rescue.py:339
 #: ../rescue.py:366 ../rescue.py:376 ../rescue.py:452 ../rescue.py:458
-#: ../text.py:536 ../text.py:698 ../textw/constants_text.py:42
+#: ../text.py:537 ../text.py:699 ../textw/constants_text.py:42
 #: ../textw/network_text.py:44 ../textw/network_text.py:54
 #: ../textw/network_text.py:76 ../textw/network_text.py:82
 #: ../textw/network_text.py:230 ../textw/network_text.py:815
@@ -70,18 +70,18 @@ msgstr "Nospiediet <enter>, lai pārietu uz komandrindas režīmu"
 #: ../loader2/loader.c:480 ../loader2/loader.c:997 ../loader2/loader.c:1159
 #: ../loader2/mediacheck.c:62 ../loader2/mediacheck.c:101
 #: ../loader2/mediacheck.c:108 ../loader2/mediacheck.c:117
-#: ../loader2/method.c:112 ../loader2/method.c:333 ../loader2/method.c:407
+#: ../loader2/method.c:120 ../loader2/method.c:346 ../loader2/method.c:420
 #: ../loader2/modules.c:336 ../loader2/modules.c:348 ../loader2/net.c:277
 #: ../loader2/net.c:320 ../loader2/net.c:750 ../loader2/net.c:1094
 #: ../loader2/net.c:1647 ../loader2/net.c:1670 ../loader2/net.c:1863
-#: ../loader2/nfsinstall.c:68 ../loader2/nfsinstall.c:138
-#: ../loader2/nfsinstall.c:261 ../loader2/nfsinstall.c:279
-#: ../loader2/nfsinstall.c:320 ../loader2/telnetd.c:93
+#: ../loader2/nfsinstall.c:68 ../loader2/nfsinstall.c:153
+#: ../loader2/nfsinstall.c:283 ../loader2/nfsinstall.c:301
+#: ../loader2/nfsinstall.c:342 ../loader2/telnetd.c:93
 #: ../loader2/urlinstall.c:78 ../loader2/urlinstall.c:101
 #: ../loader2/urlinstall.c:185 ../loader2/urlinstall.c:196
-#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:474
-#: ../loader2/urlinstall.c:483 ../loader2/urls.c:278 ../loader2/urls.c:313
-#: ../loader2/urls.c:319 ../loader2/urls.c:331 ../loader2/urls.c:403
+#: ../loader2/urlinstall.c:437 ../loader2/urlinstall.c:446
+#: ../loader2/urlinstall.c:455 ../loader2/urls.c:280 ../loader2/urls.c:315
+#: ../loader2/urls.c:321 ../loader2/urls.c:333 ../loader2/urls.c:405
 msgid "OK"
 msgstr "OK"
 
@@ -93,32 +93,32 @@ msgstr ""
 "Operatīvās atmiņas apjoms ir par mazu, lai instalēšanu veiktu grafiskajā "
 "režīmā. Startējas teksta režīms."
 
-#: ../anaconda:461
+#: ../anaconda:460
 msgid "No video hardware found, assuming headless"
 msgstr ""
 "Video karte nav atrasta; tas tiek interpretēts kā dators bez video kartes"
 
-#: ../anaconda:468 ../anaconda:955
+#: ../anaconda:467 ../anaconda:958
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Neizdodas noteikts X ierīces objekta stāvokli."
 
-#: ../anaconda:518
+#: ../anaconda:517
 msgid "Starting graphical installation..."
 msgstr "Startējas grafiskā instalēšana..."
 
-#: ../anaconda:832
+#: ../anaconda:838
 msgid "Install class forcing text mode installation"
 msgstr "Pāreja uz instalēšanu teksta režīmā"
 
-#: ../anaconda:872
+#: ../anaconda:878
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafiska instalēšana nav iespējama... Startējas teksta režīms."
 
-#: ../anaconda:880
+#: ../anaconda:886
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "Mainīgais DISPLAY nav uzstādīts. Startējas teksta režīms!"
 
-#: ../autopart.py:889
+#: ../autopart.py:888
 #, python-format
 msgid ""
 "Error resizing partition %s.\n"
@@ -126,12 +126,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../autopart.py:892
+#: ../autopart.py:891
 #, python-format
 msgid "Start of partition %s was moved when resizing"
 msgstr ""
 
-#: ../autopart.py:984
+#: ../autopart.py:983
 #, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
 msgstr ""
@@ -139,7 +139,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:989
+#: ../autopart.py:988
 #, fuzzy
 msgid "Could not allocate partitions as primary partitions.\n"
 msgstr ""
@@ -147,7 +147,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:994
+#: ../autopart.py:993
 #, fuzzy
 msgid "Could not allocate cylinder-based partitions.\n"
 msgstr ""
@@ -155,7 +155,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1059
+#: ../autopart.py:1058
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
@@ -166,7 +166,7 @@ msgstr ""
 "šīs partīcijas. Izmantojiet partīciju, kas atbilst BSD diska atzīmei, vai "
 "arī izmainiet šī diska atzīmi uz BSD."
 
-#: ../autopart.py:1061
+#: ../autopart.py:1060
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -177,7 +177,7 @@ msgstr ""
 "vietas, lai varētu uzstādīt sistēmas ielādētāju. Pārliecinieties, ka diskā, "
 "kur izvietot /boot katalogs, ir vismaz 5Mb brīvas vietas."
 
-#: ../autopart.py:1063
+#: ../autopart.py:1062
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
@@ -186,7 +186,7 @@ msgstr ""
 "Ielādes partīcija %s nav VFAT partīcija. EFI nevar startēties no šīs "
 "partīcijas."
 
-#: ../autopart.py:1065
+#: ../autopart.py:1064
 #, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
@@ -195,7 +195,7 @@ msgstr ""
 "Ielādes partīcija neatrodas pēc iespējas tuvāk diska sākumam. OpenFirmware "
 "nevar startēties no šīs partīcijas."
 
-#: ../autopart.py:1067
+#: ../autopart.py:1066
 #, fuzzy, python-format
 msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
@@ -204,13 +204,13 @@ msgstr ""
 "Ielādes partīcija %s nav VFAT partīcija. EFI nevar startēties no šīs "
 "partīcijas."
 
-#: ../autopart.py:1070
+#: ../autopart.py:1069
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "Ielādes partīcija %s neatbilst Jūsu sistēmas arhitektūrai."
 
-#: ../autopart.py:1095
+#: ../autopart.py:1094
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -218,11 +218,11 @@ msgid ""
 msgstr ""
 "Šīs partīcijas pievienošana neatstās vietu citām loģiskajām sadaļām diskā %s."
 
-#: ../autopart.py:1287
+#: ../autopart.py:1286
 msgid "Requested Partition Does Not Exist"
 msgstr "Norādītā partīcija neeksistē"
 
-#: ../autopart.py:1288
+#: ../autopart.py:1287
 #, fuzzy, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -233,11 +233,11 @@ msgstr ""
 "\n"
 "Nospiediet 'OK', lai pārstartētu sistēmu."
 
-#: ../autopart.py:1313
+#: ../autopart.py:1312
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Norādītā RAID ierīce neeksistē"
 
-#: ../autopart.py:1314
+#: ../autopart.py:1313
 #, fuzzy, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -248,11 +248,11 @@ msgstr ""
 "\n"
 "Nospiediet 'OK', lai pārstartētu sistēmu."
 
-#: ../autopart.py:1343
+#: ../autopart.py:1342
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Norādītā ierīču grupa neeksistē"
 
-#: ../autopart.py:1344
+#: ../autopart.py:1343
 #, fuzzy, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -263,11 +263,11 @@ msgstr ""
 "\n"
 "Nospiediet 'OK', lai pārstartētu sistēmu."
 
-#: ../autopart.py:1381
+#: ../autopart.py:1380
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Norādītā loģiskā sadaļa neeksistē"
 
-#: ../autopart.py:1382
+#: ../autopart.py:1381
 #, fuzzy, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -278,11 +278,11 @@ msgstr ""
 "\n"
 "Nospiediet 'OK', lai pārstartētu sistēmu."
 
-#: ../autopart.py:1517 ../autopart.py:1564
+#: ../autopart.py:1516 ../autopart.py:1563
 msgid "Automatic Partitioning Errors"
 msgstr "Kļūda automātiskās diska dalīšanas laikā"
 
-#: ../autopart.py:1518
+#: ../autopart.py:1517
 #, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -297,11 +297,11 @@ msgstr ""
 "\n"
 "Nospiediet 'OK', lai pārstartētu sistēmu."
 
-#: ../autopart.py:1528
+#: ../autopart.py:1527
 msgid "Warnings During Automatic Partitioning"
 msgstr "Brīdinājumi automātiskās diska sadales laikā"
 
-#: ../autopart.py:1529
+#: ../autopart.py:1528
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -312,7 +312,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1543 ../autopart.py:1560
+#: ../autopart.py:1542 ../autopart.py:1559
 #, fuzzy
 msgid ""
 "\n"
@@ -323,12 +323,12 @@ msgstr ""
 "\n"
 "Nospiediet 'OK', lai pārstartētu sistēmu."
 
-#: ../autopart.py:1544 ../iw/partition_gui.py:1023
+#: ../autopart.py:1543 ../iw/partition_gui.py:1023
 #: ../textw/partition_text.py:246
 msgid "Error Partitioning"
 msgstr "Kļūda diska sadalē"
 
-#: ../autopart.py:1545
+#: ../autopart.py:1544
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -339,7 +339,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1562
+#: ../autopart.py:1561
 msgid ""
 "\n"
 "\n"
@@ -349,7 +349,7 @@ msgstr ""
 "\n"
 "Nospiediet 'OK', lai norādītu citus partīciju parametrus."
 
-#: ../autopart.py:1565
+#: ../autopart.py:1564
 #, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -366,15 +366,15 @@ msgstr ""
 "Iespējamais iemesls - datora cietnī nepietiek brīvas vietas instalēšanas "
 "uzsākšanai.%s"
 
-#: ../autopart.py:1576
+#: ../autopart.py:1575
 msgid "Unrecoverable Error"
 msgstr "Nenovēršama kļūda"
 
-#: ../autopart.py:1577
+#: ../autopart.py:1576
 msgid "Your system will now be rebooted."
 msgstr "Sistēma tūlīt tiks pārstartēta."
 
-#: ../autopart.py:1701
+#: ../autopart.py:1700
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -390,7 +390,7 @@ msgstr ""
 "interaktīvā režīmā. Jūs varat norādīt datņu sistēmas tipus, montēšanas "
 "punktus, partīciju izmērus utt."
 
-#: ../autopart.py:1712
+#: ../autopart.py:1711
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -398,15 +398,15 @@ msgstr ""
 "Pirms automātiskās diska sadales, Jums jānorāda, kā nepieciešams izmantot "
 "brīvo vietu datora cietnī."
 
-#: ../autopart.py:1717
+#: ../autopart.py:1716
 msgid "Remove all partitions on this system"
 msgstr "Dzēst visas partīcijas, kas atrodas cietnī"
 
-#: ../autopart.py:1718
+#: ../autopart.py:1717
 msgid "Remove all Linux partitions on this system"
 msgstr "Dzēst visas Linux partīcijas"
 
-#: ../autopart.py:1719
+#: ../autopart.py:1718
 msgid "Keep all partitions and use existing free space"
 msgstr "Saglabāt visas esošās partīcijas un izmantot tikai cietņa brīvo vietu"
 
@@ -421,9 +421,9 @@ msgid "Installing %s\n"
 msgstr "Instalēšana %s\n"
 
 #: ../bootloader.py:44 ../bootloader.py:236 ../image.py:87
-#: ../partedUtils.py:365 ../partedUtils.py:395 ../partedUtils.py:1103
-#: ../partedUtils.py:1256 ../upgrade.py:432 ../yuminstall.py:1417
-#: ../yuminstall.py:1444 ../iw/autopart_type.py:178 ../iw/blpasswidget.py:149
+#: ../partedUtils.py:365 ../partedUtils.py:395 ../partedUtils.py:1106
+#: ../partedUtils.py:1259 ../upgrade.py:432 ../yuminstall.py:1463
+#: ../yuminstall.py:1490 ../iw/autopart_type.py:180 ../iw/blpasswidget.py:149
 #: ../iw/task_gui.py:53 ../iw/upgrade_swap_gui.py:192
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:207
 #: ../textw/bootloader_text.py:127 ../textw/bootloader_text.py:452
@@ -443,19 +443,20 @@ msgstr ""
 "atgriezties cietņa dalīšanas logā. Vai Jūs vēlaties turpināt instalācijas "
 "procesu?"
 
-#: ../bootloader.py:49 ../exception.py:348 ../exception.py:364
-#: ../fsset.py:1700 ../fsset.py:1954 ../fsset.py:2685 ../fsset.py:2692
-#: ../gui.py:1179 ../gui.py:1313 ../image.py:96 ../livecd.py:380
-#: ../upgrade.py:113 ../upgrade.py:133 ../yuminstall.py:671
-#: ../yuminstall.py:746 ../yuminstall.py:752 ../yuminstall.py:920
-#: ../yuminstall.py:968 ../yuminstall.py:1201 ../yuminstall.py:1238
+#: ../bootloader.py:49 ../exception.py:348 ../exception.py:363
+#: ../exception.py:381 ../fsset.py:1715 ../fsset.py:1972 ../fsset.py:2711
+#: ../fsset.py:2718 ../gui.py:1192 ../gui.py:1326 ../gui.py:1403
+#: ../image.py:96 ../livecd.py:361 ../packages.py:152 ../upgrade.py:113
+#: ../upgrade.py:133 ../yuminstall.py:718 ../yuminstall.py:793
+#: ../yuminstall.py:799 ../yuminstall.py:970 ../yuminstall.py:1018
+#: ../yuminstall.py:1251 ../yuminstall.py:1288
 #, fuzzy
 msgid "_Exit installer"
 msgstr "%s Instalators"
 
-#: ../bootloader.py:49 ../fsset.py:1955 ../image.py:97 ../image.py:247
-#: ../kickstart.py:982 ../kickstart.py:1020 ../partedUtils.py:1259
-#: ../upgrade.py:113 ../upgrade.py:133 ../yuminstall.py:925
+#: ../bootloader.py:49 ../fsset.py:1973 ../image.py:97 ../image.py:250
+#: ../kickstart.py:985 ../kickstart.py:1023 ../partedUtils.py:1262
+#: ../upgrade.py:113 ../upgrade.py:133 ../yuminstall.py:975
 #: ../iw/partition_gui.py:1037
 msgid "_Continue"
 msgstr "_Turpināt"
@@ -511,11 +512,11 @@ msgstr ""
 msgid " against anaconda at %s"
 msgstr ""
 
-#: ../exception.py:344 ../exception.py:360
+#: ../exception.py:344 ../exception.py:359 ../exception.py:377
 msgid "Dump Written"
 msgstr "Informācija saglabāta"
 
-#: ../exception.py:345
+#: ../exception.py:345 ../exception.py:360
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the disk. The installer "
@@ -524,16 +525,16 @@ msgstr ""
 "Jūsu sistēmas stāvoklis ir sekmīgi fiksēts disketē. Jūsu sistēma tiks "
 "pārstartēta."
 
-#: ../exception.py:351 ../exception.py:367
+#: ../exception.py:351 ../exception.py:368 ../exception.py:384
 msgid "Dump Not Written"
 msgstr "Informācija nav saglabāta"
 
-#: ../exception.py:352
+#: ../exception.py:352 ../exception.py:369
 #, fuzzy
 msgid "There was a problem writing the system state to the disk."
 msgstr "Konstatētas problēmas sistēmas stāvokļa fiksācijā disketē"
 
-#: ../exception.py:361
+#: ../exception.py:378
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
@@ -542,39 +543,39 @@ msgstr ""
 "Jūsu sistēmas stāvoklis ir sekmīgi fiksēts attālinātā datorā. Jūsu sistēma "
 "tiks pārstartēta."
 
-#: ../exception.py:368
+#: ../exception.py:385
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 "Konstatētas problēmas sistēmas stāvokļa fiksēšanā uz attālināta datora."
 
-#: ../fsset.py:545
+#: ../fsset.py:548
 msgid "Checking"
 msgstr ""
 
-#: ../fsset.py:546
+#: ../fsset.py:549
 #, fuzzy, python-format
 msgid "Checking filesystem on %s..."
 msgstr "Slikto sektoru meklēšana diskā /dev/%s..."
 
-#: ../fsset.py:556 ../fsset.py:1010
+#: ../fsset.py:560 ../fsset.py:1015
 msgid "Resizing"
 msgstr ""
 
-#: ../fsset.py:557 ../fsset.py:1011
+#: ../fsset.py:561 ../fsset.py:1016
 #, fuzzy, python-format
 msgid "Resizing filesystem on %s..."
 msgstr "Kļūda datņu sistēmas montēšanā uz %s: %s"
 
-#: ../fsset.py:699 ../fsset.py:1670 ../fsset.py:1701 ../fsset.py:1777
-#: ../fsset.py:1845 ../fsset.py:1895 ../fsset.py:1977 ../fsset.py:1990
-#: ../image.py:264 ../livecd.py:373 ../partIntfHelpers.py:412 ../text.py:444
-#: ../yuminstall.py:356 ../yuminstall.py:411 ../yuminstall.py:562
-#: ../yuminstall.py:667 ../yuminstall.py:931 ../yuminstall.py:972
-#: ../yuminstall.py:1206 ../yuminstall.py:1231 ../iw/autopart_type.py:93
-#: ../iw/autopart_type.py:168 ../iw/autopart_type.py:312
-#: ../iw/netconfig_dialog.py:264 ../iw/osbootwidget.py:210
-#: ../iw/osbootwidget.py:219 ../iw/raid_dialog_gui.py:671
-#: ../iw/raid_dialog_gui.py:710 ../iw/task_gui.py:43 ../iw/task_gui.py:226
+#: ../fsset.py:704 ../fsset.py:1685 ../fsset.py:1716 ../fsset.py:1792
+#: ../fsset.py:1860 ../fsset.py:1910 ../fsset.py:1995 ../fsset.py:2008
+#: ../image.py:267 ../livecd.py:354 ../partIntfHelpers.py:412 ../text.py:445
+#: ../yuminstall.py:374 ../yuminstall.py:438 ../yuminstall.py:609
+#: ../yuminstall.py:714 ../yuminstall.py:981 ../yuminstall.py:1022
+#: ../yuminstall.py:1256 ../yuminstall.py:1281 ../iw/autopart_type.py:95
+#: ../iw/autopart_type.py:170 ../iw/autopart_type.py:314
+#: ../iw/netconfig_dialog.py:265 ../iw/osbootwidget.py:214
+#: ../iw/osbootwidget.py:223 ../iw/raid_dialog_gui.py:671
+#: ../iw/raid_dialog_gui.py:710 ../iw/task_gui.py:43 ../iw/task_gui.py:231
 #: ../textw/grpselect_text.py:123 ../textw/partition_text.py:1651
 #: ../textw/partition_text.py:1657 ../textw/partition_text.py:1679
 #: ../textw/upgrade_text.py:174 ../textw/upgrade_text.py:181
@@ -588,16 +589,16 @@ msgstr "Kļūda datņu sistēmas montēšanā uz %s: %s"
 #: ../loader2/kickstart.c:284 ../loader2/lang.c:115 ../loader2/loader.c:344
 #: ../loader2/loader.c:445 ../loader2/loader.c:997 ../loader2/mediacheck.c:62
 #: ../loader2/mediacheck.c:101 ../loader2/mediacheck.c:108
-#: ../loader2/method.c:112 ../loader2/method.c:333 ../loader2/method.c:407
-#: ../loader2/nfsinstall.c:138 ../loader2/nfsinstall.c:261
-#: ../loader2/nfsinstall.c:279 ../loader2/telnetd.c:93
+#: ../loader2/method.c:120 ../loader2/method.c:346 ../loader2/method.c:420
+#: ../loader2/nfsinstall.c:153 ../loader2/nfsinstall.c:283
+#: ../loader2/nfsinstall.c:301 ../loader2/telnetd.c:93
 #: ../loader2/urlinstall.c:78 ../loader2/urlinstall.c:101
 #: ../loader2/urlinstall.c:185 ../loader2/urlinstall.c:196
-#: ../loader2/urls.c:313 ../loader2/urls.c:319
+#: ../loader2/urls.c:315 ../loader2/urls.c:321
 msgid "Error"
 msgstr "Kļūda"
 
-#: ../fsset.py:700
+#: ../fsset.py:705
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -610,32 +611,32 @@ msgstr ""
 "\n"
 "Vai Jūs vēlaties turpināt procesu bez datņu sistēmas pārveides %s?"
 
-#: ../fsset.py:1523
+#: ../fsset.py:1538
 #, fuzzy
 msgid "EFI System Partition"
 msgstr "Labot partīciju"
 
-#: ../fsset.py:1527
+#: ../fsset.py:1542
 msgid "RAID Device"
 msgstr "RAID ierīce"
 
-#: ../fsset.py:1531 ../fsset.py:1537
+#: ../fsset.py:1546 ../fsset.py:1552
 msgid "Apple Bootstrap"
 msgstr "Apstiprināt ielādes programmu"
 
-#: ../fsset.py:1542 ../partitions.py:1120
+#: ../fsset.py:1557 ../partitions.py:1121
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1545
+#: ../fsset.py:1560
 msgid "First sector of boot partition"
 msgstr "Ielādes partīcijas pirmais sektors"
 
-#: ../fsset.py:1546
+#: ../fsset.py:1561
 msgid "Master Boot Record (MBR)"
 msgstr "Galvenais ielādes sektors (MBR)"
 
-#: ../fsset.py:1671
+#: ../fsset.py:1686
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -648,13 +649,13 @@ msgstr ""
 "\n"
 "Nospiediet <Enter>, lai pārstartētu sistēmu."
 
-#: ../fsset.py:1700 ../packages.py:304 ../rescue.py:305 ../rescue.py:307
+#: ../fsset.py:1715 ../packages.py:368 ../rescue.py:305 ../rescue.py:307
 #: ../textw/upgrade_text.py:132 ../loader2/cdinstall.c:200
-#: ../loader2/cdinstall.c:203 ../loader2/method.c:380
+#: ../loader2/cdinstall.c:203 ../loader2/method.c:393
 msgid "Skip"
 msgstr "Izlaist"
 
-#: ../fsset.py:1721
+#: ../fsset.py:1736
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -674,11 +675,11 @@ msgstr ""
 "Jūs šo soli izlaidīsiet, sistēmas uzstādīšanas programma to ignorēs "
 "uzstādīšanas laikā."
 
-#: ../fsset.py:1728
+#: ../fsset.py:1743
 msgid "Reformat"
 msgstr "Pārformatēšana"
 
-#: ../fsset.py:1732
+#: ../fsset.py:1747
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -696,7 +697,7 @@ msgstr ""
 "kas norādīta datnē /etc/fstab, patlaban tiek izmantota kā sadaļa sistēmas "
 "uzturēšanai, tas nozīmē, ka Jūsu sistēma atrodas \"aizmigušā stāvoklī\"."
 
-#: ../fsset.py:1740
+#: ../fsset.py:1755
 #, fuzzy, python-format
 msgid ""
 "The swap device:\n"
@@ -716,7 +717,7 @@ msgstr ""
 "Jūs veicat jaunas sistēmas uzstādīšanu, obligāti veiciet visu maiņatmiņas "
 "sadaļu pārformatēšanu."
 
-#: ../fsset.py:1750
+#: ../fsset.py:1765
 #, fuzzy
 msgid ""
 "\n"
@@ -731,11 +732,11 @@ msgstr ""
 "pārformatētu, kā maiņatmiņas sadaļu. Nospiediet \"Pārstartēt\", lai "
 "pārstartētu sistēmu."
 
-#: ../fsset.py:1755 ../iw/partition_gui.py:373
+#: ../fsset.py:1770 ../iw/partition_gui.py:373
 msgid "Format"
 msgstr "Formāts"
 
-#: ../fsset.py:1761
+#: ../fsset.py:1776
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -748,7 +749,7 @@ msgstr ""
 "\n"
 "Nospiediet <Enter>, lai pārstartētu sistēmu."
 
-#: ../fsset.py:1766
+#: ../fsset.py:1781
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -765,7 +766,7 @@ msgstr ""
 "\n"
 "Nospiediet 'OK', lai pārstartētu sistēmu."
 
-#: ../fsset.py:1772
+#: ../fsset.py:1787
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -780,7 +781,7 @@ msgstr ""
 "\n"
 "Nospiediet 'OK', lai pārstartētu sistēmu."
 
-#: ../fsset.py:1846
+#: ../fsset.py:1861
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -793,7 +794,7 @@ msgstr ""
 "\n"
 "Nospiediet <Enter>, lai pārstartētu sistēmu."
 
-#: ../fsset.py:1896
+#: ../fsset.py:1911
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -806,11 +807,11 @@ msgstr ""
 "\n"
 "Nospiediet <Enter>, lai pārstartētu sistēmu."
 
-#: ../fsset.py:1922 ../fsset.py:1931
+#: ../fsset.py:1940 ../fsset.py:1949
 msgid "Invalid mount point"
 msgstr "Nekorekts montēšanas punkts"
 
-#: ../fsset.py:1923
+#: ../fsset.py:1941
 #, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -823,7 +824,7 @@ msgstr ""
 "\n"
 "Nospiediet <Enter>, lai pārstartētu sistēmu."
 
-#: ../fsset.py:1932
+#: ../fsset.py:1950
 #, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -836,11 +837,11 @@ msgstr ""
 "\n"
 "Nospiediet <Enter>, lai pārstartētu sistēmu."
 
-#: ../fsset.py:1946
+#: ../fsset.py:1964
 msgid "Unable to mount filesystem"
 msgstr "Nav iespējams piemontēt failu sistēmu"
 
-#: ../fsset.py:1947
+#: ../fsset.py:1965
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
@@ -849,7 +850,7 @@ msgstr ""
 "Kļūda montējot ierīci %s kā %s. Jūs varat turpināt instalēšanu, taču "
 "procedūras laikā var rasties problēmas."
 
-#: ../fsset.py:1963
+#: ../fsset.py:1981
 #, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -862,7 +863,7 @@ msgstr ""
 "\n"
 "Nospiediet <Enter>, lai pārstartētu sistēmu."
 
-#: ../fsset.py:1970
+#: ../fsset.py:1988
 #, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -875,7 +876,7 @@ msgstr ""
 "\n"
 "Nospiediet <Enter>, lai pārstartētu sistēmu."
 
-#: ../fsset.py:1991
+#: ../fsset.py:2009
 #, fuzzy
 msgid ""
 "Error finding / entry.\n"
@@ -890,11 +891,11 @@ msgstr ""
 "\n"
 "Nospiediet 'OK', lai pārstartētu sistēmu."
 
-#: ../fsset.py:2677
+#: ../fsset.py:2703
 msgid "Duplicate Labels"
 msgstr "Vienādas sadaļas"
 
-#: ../fsset.py:2678
+#: ../fsset.py:2704
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -907,12 +908,12 @@ msgstr ""
 "\n"
 "Lūdzu izlabojiet šo kļūdu un pārstartējiet instalēšanas procesu."
 
-#: ../fsset.py:2687
+#: ../fsset.py:2713
 #, fuzzy
 msgid "Invalid Label"
 msgstr "Nekorekts prefikss"
 
-#: ../fsset.py:2688
+#: ../fsset.py:2714
 #, fuzzy, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
@@ -923,24 +924,24 @@ msgstr ""
 "\n"
 "Lūdzu izlabojiet šo kļūdu un pārstartējiet instalēšanas procesu."
 
-#: ../fsset.py:2825
+#: ../fsset.py:2877
 msgid "Formatting"
 msgstr "Formatēšana"
 
-#: ../fsset.py:2826
+#: ../fsset.py:2878
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Datņu sistēmas %s formatēšana..."
 
-#: ../gui.py:107
+#: ../gui.py:106
 msgid "An error occurred copying the screenshots over."
 msgstr "Kļūda ekrānattēlu kopēšanas laikā."
 
-#: ../gui.py:118
+#: ../gui.py:117
 msgid "Screenshots Copied"
 msgstr "Ekrānattēls nokopēts"
 
-#: ../gui.py:119
+#: ../gui.py:118
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -955,20 +956,20 @@ msgstr ""
 "Tiem piekļūt Jūs varat pārstartējot sistēmu un pieslēdzoties kā root "
 "lietotājs."
 
-#: ../gui.py:162
+#: ../gui.py:161
 msgid "Saving Screenshot"
 msgstr "Ekrānattēls saglabāts"
 
-#: ../gui.py:163
+#: ../gui.py:162
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "Ekrānattēls ar nosaukumu '%s' ir saglabāts."
 
-#: ../gui.py:166
+#: ../gui.py:165
 msgid "Error Saving Screenshot"
 msgstr "Kļūda saglabājot ekrānattēlu"
 
-#: ../gui.py:167
+#: ../gui.py:166
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -976,100 +977,100 @@ msgstr ""
 "Kļūda ekrānattēla saglabāšanas laikā. Ja tā ir notikusi pakotņu uzstādīšanas "
 "laikā, nepieciešams mēģināt vēlreiz."
 
-#: ../gui.py:232 ../text.py:533
+#: ../gui.py:231 ../text.py:534
 msgid "Fix"
 msgstr "Labot"
 
-#: ../gui.py:233 ../rescue.py:228 ../text.py:534
+#: ../gui.py:232 ../rescue.py:228 ../text.py:535
 #: ../textw/bootloader_text.py:72 ../textw/constants_text.py:54
 #: ../loader2/driverdisk.c:479 ../loader2/driverdisk.c:489
 #: ../loader2/hdinstall.c:334
 msgid "Yes"
 msgstr "Jā"
 
-#: ../gui.py:234 ../rescue.py:228 ../rescue.py:230 ../text.py:535
+#: ../gui.py:233 ../rescue.py:228 ../rescue.py:230 ../text.py:536
 #: ../textw/bootloader_text.py:72 ../textw/constants_text.py:58
 #: ../loader2/driverdisk.c:479 ../loader2/driverdisk.c:489
 msgid "No"
 msgstr "Nē"
 
-#: ../gui.py:236 ../text.py:537 ../text.py:668 ../loader2/net.c:92
+#: ../gui.py:235 ../text.py:538 ../text.py:669 ../loader2/net.c:92
 #: ../loader2/net.c:338 ../loader2/net.c:589 ../loader2/net.c:695
 #: ../loader2/net.c:820 ../loader2/net.c:828 ../loader2/net.c:1224
 #: ../loader2/net.c:1230
 msgid "Retry"
 msgstr "Atkārtot"
 
-#: ../gui.py:237 ../text.py:538
+#: ../gui.py:236 ../text.py:539
 msgid "Ignore"
 msgstr "Ignorēt"
 
-#: ../gui.py:238 ../gui.py:843 ../partIntfHelpers.py:244
-#: ../partIntfHelpers.py:535 ../text.py:109 ../text.py:110 ../text.py:539
+#: ../gui.py:237 ../gui.py:856 ../gui.py:1403 ../partIntfHelpers.py:244
+#: ../partIntfHelpers.py:535 ../text.py:108 ../text.py:109 ../text.py:540
 #: ../textw/bootloader_text.py:202 ../textw/constants_text.py:46
 #: ../loader2/dirbrowser.c:145 ../loader2/driverdisk.c:236
 #: ../loader2/kickstart.c:372 ../loader2/loader.c:379 ../loader2/loader.c:480
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: ../gui.py:583 ../text.py:465
+#: ../gui.py:582 ../text.py:466
 #, fuzzy
 msgid "Installation Key"
 msgstr "Instalēšanas progress"
 
-#: ../gui.py:657 ../gui.py:665
+#: ../gui.py:656 ../gui.py:664
 #, fuzzy
 msgid "Error with passphrase"
 msgstr "Paroles kļūda"
 
-#: ../gui.py:658
+#: ../gui.py:657
 #, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "Paroles atšķiras. Mēģiniet vēlreiz."
 
-#: ../gui.py:666
+#: ../gui.py:665
 #, fuzzy
 msgid "The passphrase must be at least eight characters long."
 msgstr "Parolei jāsatur vismaz seši simboli"
 
-#: ../gui.py:692 ../text.py:275
+#: ../gui.py:691 ../text.py:276
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
 msgstr ""
 
-#: ../gui.py:855 ../gui.py:856 ../gui.py:968 ../gui.py:969
+#: ../gui.py:868 ../gui.py:869 ../gui.py:981 ../gui.py:982
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
 msgstr ""
 
-#: ../gui.py:1012 ../gui.py:1014 ../livecd.py:112
+#: ../gui.py:1025 ../gui.py:1027 ../gui.py:1400 ../livecd.py:112
 #, fuzzy
 msgid "Exit installer"
 msgstr "%s Instalators"
 
-#: ../gui.py:1014 ../text.py:253 ../text.py:261
+#: ../gui.py:1027 ../text.py:254 ../text.py:262
 msgid "Debug"
 msgstr "Atkļūdošana"
 
-#: ../gui.py:1016 ../text.py:257
+#: ../gui.py:1029 ../text.py:258
 msgid "Exception Occurred"
 msgstr "Noticis izņēmums"
 
-#: ../gui.py:1176 ../text.py:510
+#: ../gui.py:1189 ../text.py:511
 msgid "Error Parsing Kickstart Config"
 msgstr "Kļūda Kickstart konfigurācijas apstrādes laikā"
 
-#: ../gui.py:1222
+#: ../gui.py:1235
 msgid "default:LTR"
 msgstr "pēc noklusējuma:LTR"
 
-#: ../gui.py:1302 ../text.py:663
+#: ../gui.py:1315 ../text.py:664
 msgid "Error!"
 msgstr "Kļūda!"
 
-#: ../gui.py:1303 ../text.py:664
+#: ../gui.py:1316 ../text.py:665
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1080,44 +1081,49 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1308 ../image.py:162 ../image.py:188 ../packages.py:353
-#: ../packages.py:358
+#: ../gui.py:1321 ../image.py:165 ../image.py:191 ../packages.py:417
+#: ../packages.py:422
 msgid "_Exit"
 msgstr "_Iziet"
 
-#: ../gui.py:1309 ../image.py:188 ../yuminstall.py:559 ../yuminstall.py:920
-#: ../yuminstall.py:968 ../yuminstall.py:1201
+#: ../gui.py:1322 ../image.py:191 ../yuminstall.py:606 ../yuminstall.py:970
+#: ../yuminstall.py:1018 ../yuminstall.py:1251
 msgid "_Retry"
 msgstr "_Atkārtot"
 
-#: ../gui.py:1312 ../packages.py:168 ../packages.py:357
+#: ../gui.py:1325 ../packages.py:189 ../packages.py:421
 msgid "The installer will now exit..."
 msgstr "Instalators tiek izslēgts..."
 
-#: ../gui.py:1315 ../packages.py:360
+#: ../gui.py:1328 ../packages.py:424
 msgid "Your system will now be rebooted..."
 msgstr "Jūsu sistēma tiek pārstartēta..."
 
-#: ../gui.py:1316 ../image.py:247 ../packages.py:169 ../packages.py:361
-#: ../partedUtils.py:1258 ../yuminstall.py:1254
+#: ../gui.py:1329 ../image.py:250 ../packages.py:190 ../packages.py:425
+#: ../partedUtils.py:1261 ../yuminstall.py:1304
 msgid "_Reboot"
 msgstr "_Pārstartēt"
 
-#: ../gui.py:1318
+#: ../gui.py:1331
 #, fuzzy
 msgid "Exiting"
 msgstr "Iziet"
 
-#: ../gui.py:1386
+#: ../gui.py:1401
+#, fuzzy
+msgid "Are you sure you wish to exit the installation?"
+msgstr "Vai esat pārliecināts, ka vēlaties dzēst loģisko sadaļu \"%s\"?"
+
+#: ../gui.py:1410
 #, python-format
 msgid "%s Installer"
 msgstr "%s Instalators"
 
-#: ../gui.py:1393
+#: ../gui.py:1417
 msgid "Unable to load title bar"
 msgstr "Nav iespējams ielādēt virsrakstu"
 
-#: ../gui.py:1446
+#: ../gui.py:1470
 msgid "Install Window"
 msgstr "Instalēšanas logs"
 
@@ -1131,11 +1137,11 @@ msgid ""
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: ../image.py:154
+#: ../image.py:157
 msgid "Couldn't Mount ISO Source"
 msgstr ""
 
-#: ../image.py:155
+#: ../image.py:158
 #, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
@@ -1144,11 +1150,11 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../image.py:179
+#: ../image.py:182
 msgid "Missing ISO 9660 Image"
 msgstr "Nav diska spoguļattēla ISO 9660 formātā"
 
-#: ../image.py:180
+#: ../image.py:183
 #, fuzzy, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
@@ -1163,11 +1169,11 @@ msgstr ""
 "Lūdzu ierakstiet šī diska spoguļattēlu informācijas nesējā un nospiediet "
 "'Atkārtot'.Nospiediet 'Pārstartēt', lai pārtrauktu instalēšanu."
 
-#: ../image.py:238
+#: ../image.py:241
 msgid "Required Install Media"
 msgstr "Nepieciešams instalācijas resurss"
 
-#: ../image.py:239
+#: ../image.py:242
 #, fuzzy, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
@@ -1183,13 +1189,13 @@ msgstr ""
 "nepieciešams pārtraukt instalēšanu un pārstartēt sistēmu, lūdzu spiediet "
 "\"Pārstartēt\"."
 
-#: ../image.py:247 ../livecd.py:379 ../packages.py:307 ../packages.py:358
-#: ../packages.py:361 ../yuminstall.py:671 ../yuminstall.py:752
-#: ../yuminstall.py:1238 ../yuminstall.py:1254
+#: ../image.py:250 ../livecd.py:360 ../packages.py:371 ../packages.py:422
+#: ../packages.py:425 ../yuminstall.py:718 ../yuminstall.py:799
+#: ../yuminstall.py:1288 ../yuminstall.py:1304
 msgid "_Back"
 msgstr "_Atpakaļ"
 
-#: ../image.py:265
+#: ../image.py:268
 #, fuzzy, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
@@ -1198,7 +1204,7 @@ msgstr ""
 "Kļūda CD montēšanas laikā.  Pārliecinieties, ka neesat aizņēmis %s no čaulas "
 "tty2 un tad spiediet 'OK', lai atkārtotu procedūru."
 
-#: ../installclass.py:74
+#: ../installclass.py:71
 msgid "Install on System"
 msgstr "Sistēmas uzstādīšana"
 
@@ -1222,23 +1228,23 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr "Skripleta kļūda"
 
-#: ../kickstart.py:925 ../kickstart.py:942
+#: ../kickstart.py:928 ../kickstart.py:945
 msgid "Running..."
 msgstr "Process notiek..."
 
-#: ../kickstart.py:926
+#: ../kickstart.py:929
 msgid "Running post-install scripts"
 msgstr "Startēti instalēšanas pabeigšanas skripti"
 
-#: ../kickstart.py:943
+#: ../kickstart.py:946
 msgid "Running pre-install scripts"
 msgstr "Startēti sākotnējie instalēšanas skripti"
 
-#: ../kickstart.py:974
+#: ../kickstart.py:977
 msgid "Missing Package"
 msgstr "Trūkstošā pakotne"
 
-#: ../kickstart.py:975
+#: ../kickstart.py:978
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1247,15 +1253,15 @@ msgstr ""
 "Jūs norādījāt, ka jāuzstāda pakotne '%s'. Šī pakotne neeksistē. Vai vēlaties "
 "uzstādīšanu turpināt vai pārtraukt?"
 
-#: ../kickstart.py:981 ../kickstart.py:1019
+#: ../kickstart.py:984 ../kickstart.py:1022
 msgid "_Abort"
 msgstr "_Atcelt"
 
-#: ../kickstart.py:1011
+#: ../kickstart.py:1014
 msgid "Missing Group"
 msgstr "Trūkstoša grupa"
 
-#: ../kickstart.py:1012
+#: ../kickstart.py:1015
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1292,7 +1298,7 @@ msgid ""
 "minutes..."
 msgstr "Instalēšanas process startēts. Tas var ilgt vairākas minūtes..."
 
-#: ../livecd.py:374
+#: ../livecd.py:355
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
@@ -1333,31 +1339,40 @@ msgstr "'%s' nav korekta IPv6 adrese."
 msgid "'%s' is an invalid IP address."
 msgstr "'%s' nav korekta IPv6 adrese."
 
-#: ../packages.py:167
+#: ../packages.py:147
+msgid "Resizing Failed"
+msgstr ""
+
+#: ../packages.py:148
+#, fuzzy, python-format
+msgid "There was an error encountered resizing the device %s."
+msgstr "Kļūme klonēšanā: kļūme rezultātu diska dzēšanā."
+
+#: ../packages.py:188
 #, fuzzy
 msgid "LVM operation failed"
 msgstr "Montēšana neizdevās"
 
-#: ../packages.py:278
+#: ../packages.py:342
 #, fuzzy
 msgid "Invalid Key"
 msgstr "Nekorekts prefikss"
 
-#: ../packages.py:279
+#: ../packages.py:343
 #, fuzzy
 msgid "The key you entered is invalid."
 msgstr "Ievadītā IP informācija ir nekorekta."
 
-#: ../packages.py:307
+#: ../packages.py:371
 #, fuzzy
 msgid "_Skip"
 msgstr "Izlaist"
 
-#: ../packages.py:339 ../packages.py:362
+#: ../packages.py:403 ../packages.py:426
 msgid "Warning! This is pre-release software!"
 msgstr "Uzmanību! Šī ir testējama programmatūra!"
 
-#: ../packages.py:340
+#: ../packages.py:404
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1383,7 +1398,7 @@ msgstr ""
 "\n"
 "un aizpildiet atskaiti par '%s'.\n"
 
-#: ../packages.py:353
+#: ../packages.py:417
 msgid "_Install anyway"
 msgstr "_Uzstādīt jebkurā gadījumā"
 
@@ -1430,16 +1445,16 @@ msgstr "_Izlaist disku"
 msgid "_Re-initialize drive"
 msgstr ""
 
-#: ../partedUtils.py:991
+#: ../partedUtils.py:994
 msgid "Initializing"
 msgstr "Inicializēšana"
 
-#: ../partedUtils.py:992
+#: ../partedUtils.py:995
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Lūdzu uzgaidiet, notiek diska %s formatēšana...\n"
 
-#: ../partedUtils.py:1080
+#: ../partedUtils.py:1083
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1457,7 +1472,7 @@ msgstr ""
 "\n"
 "Vai Jūs vēlaties inicializēt šo disku, dzēšot VISU INFORMĀCIJU?"
 
-#: ../partedUtils.py:1094
+#: ../partedUtils.py:1097
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1476,7 +1491,7 @@ msgstr ""
 "\n"
 "Vai Jūs vēlaties inicializēt šo disku, dzēšot VISU INFORMĀCIJU?"
 
-#: ../partedUtils.py:1248
+#: ../partedUtils.py:1251
 #, python-format
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
@@ -1485,11 +1500,11 @@ msgid ""
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
 
-#: ../partedUtils.py:1339
+#: ../partedUtils.py:1342
 msgid "No Drives Found"
 msgstr "Diski nav atrasti"
 
-#: ../partedUtils.py:1340
+#: ../partedUtils.py:1343
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1609,7 +1624,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:240 ../partIntfHelpers.py:534
-#: ../iw/lvm_dialog_gui.py:768
+#: ../iw/lvm_dialog_gui.py:800
 msgid "Confirm Delete"
 msgstr "Apstiprināt dzēšanu"
 
@@ -1619,8 +1634,8 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Jūs vēlaties dzēst visas partīcijas ierīcē '/dev/%s'."
 
 #: ../partIntfHelpers.py:244 ../partIntfHelpers.py:535
-#: ../iw/lvm_dialog_gui.py:771 ../iw/lvm_dialog_gui.py:1120
-#: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1380
+#: ../iw/lvm_dialog_gui.py:803 ../iw/lvm_dialog_gui.py:1152
+#: ../iw/osbootwidget.py:103 ../iw/partition_gui.py:1380
 msgid "_Delete"
 msgstr "_Dzēst"
 
@@ -1851,7 +1866,7 @@ msgstr ""
 #: ../loader2/loader.c:431 ../loader2/loader.c:1159 ../loader2/loader.c:1181
 #: ../loader2/net.c:277 ../loader2/net.c:320 ../loader2/net.c:750
 #: ../loader2/net.c:1094 ../loader2/net.c:1863 ../loader2/nfsinstall.c:68
-#: ../loader2/urls.c:278 ../loader2/urls.c:403
+#: ../loader2/urls.c:280 ../loader2/urls.c:405
 msgid "Back"
 msgstr ""
 
@@ -1875,7 +1890,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../partitions.py:1025
+#: ../partitions.py:1026
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -1884,7 +1899,7 @@ msgstr ""
 "Jūs neesat norādījis root partīciju (/), kas ir nepieciešama, lai turpinātu %"
 "s instalāciju."
 
-#: ../partitions.py:1030
+#: ../partitions.py:1031
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -1893,14 +1908,14 @@ msgstr ""
 "Jūsu norādītā root partīcija ir mazāka par 250 megabaitiem, kas ir par maz, "
 "lai instalētu %s."
 
-#: ../partitions.py:1052
+#: ../partitions.py:1053
 #, fuzzy
 msgid ""
 "You must create an EFI System Partition of type FAT and a size of 50 "
 "megabytes."
 msgstr "Jums jāizveido VFAT tipa partīcija /boot/efi ar izmēru 50 megabaiti."
 
-#: ../partitions.py:1066
+#: ../partitions.py:1067
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
@@ -1908,15 +1923,15 @@ msgstr ""
 "Jūsu norādītā ielādes partīcija nav viena no pirmajām četrām partīcijām, "
 "tāpēc sistēmu nostartēt nebūs iespējams."
 
-#: ../partitions.py:1087
+#: ../partitions.py:1088
 msgid "You must create an Apple Bootstrap partition."
 msgstr "Jums jāizveido Apple Ielādētāja partīcija."
 
-#: ../partitions.py:1109
+#: ../partitions.py:1110
 msgid "You must create a PPC PReP Boot partition."
 msgstr "Jums jāizveido PPC PReP ielādes partīcija."
 
-#: ../partitions.py:1117 ../partitions.py:1128
+#: ../partitions.py:1118 ../partitions.py:1129
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1925,14 +1940,14 @@ msgstr ""
 "Jūsu izveidotā %s partīcija ir mazāka par %s megabaitiem, kas ir mazākais, "
 "kas nepieciešams, lai veiktu normālu %s instalēšanu."
 
-#: ../partitions.py:1162
+#: ../partitions.py:1163
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Uzstādīšana uz USB ierīces. Iespējams, ka pēc uzstādīšanas sistēma "
 "nedarbosies."
 
-#: ../partitions.py:1165
+#: ../partitions.py:1166
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -1940,30 +1955,30 @@ msgstr ""
 "Uzstādīšana uz FireWire ierīces. Iespējams, ka pēc uzstādīšanas sistēma "
 "nedarbosies."
 
-#: ../partitions.py:1175
+#: ../partitions.py:1176
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Ielādes partīcijas iespējams veidot tikai uz RAID1 ierīcēm."
 
-#: ../partitions.py:1180
+#: ../partitions.py:1181
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Ielādes partīciju nevar izveidot uz loģiskās sadaļas."
 
-#: ../partitions.py:1186
+#: ../partitions.py:1187
 #, fuzzy
 msgid "Bootable partitions cannot be on a RAID device."
 msgstr "Ielādes partīcijas iespējams veidot tikai uz RAID1 ierīcēm."
 
-#: ../partitions.py:1193
+#: ../partitions.py:1194
 #, fuzzy, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
 msgstr "Ielādes partīciju nevar izveidot uz loģiskās sadaļas."
 
-#: ../partitions.py:1197
+#: ../partitions.py:1198
 #, fuzzy
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr "Ielādes partīciju nevar izveidot uz loģiskās sadaļas."
 
-#: ../partitions.py:1203
+#: ../partitions.py:1204
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1971,7 +1986,7 @@ msgstr ""
 "Jūs neesat norādījis swap partīciju. Vairumā gadījumu swap partīcijas "
 "esamība var jūtami paātrināt sistēmas darbību."
 
-#: ../partitions.py:1210
+#: ../partitions.py:1211
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1980,7 +1995,7 @@ msgstr ""
 "Jūs esat norādījis vairāk kā 32 swap ierīces. %s kodols darbojas tikai ar 32 "
 "swap ierīcēm."
 
-#: ../partitions.py:1221
+#: ../partitions.py:1222
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1989,15 +2004,15 @@ msgstr ""
 "Jūs norādījāt swap sadaļu (%dM), kas ir mazāka par pieejamo datora atmiņu (%"
 "dM). Tas var negatīvi ietekmēt sistēmas ātrdarbību."
 
-#: ../partitions.py:1516
+#: ../partitions.py:1517
 msgid "the partition in use by the installer."
 msgstr "partīciju izmanto instalēšanas programma."
 
-#: ../partitions.py:1519
+#: ../partitions.py:1520
 msgid "a partition which is a member of a RAID array."
 msgstr "partīcija, kas ir RAID masīva sastāvdaļa."
 
-#: ../partitions.py:1522
+#: ../partitions.py:1523
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "partīcija, kas ir LVM Sadaļu Grupas sastāvdaļa."
 
@@ -2084,7 +2099,7 @@ msgstr ""
 "Šajā RAID ierīcē var būt maksimums %s disku. Ja Jūs vēlaties izmantot "
 "lielāku skaitu rezerves disku, jāpalielina RAID masīva sastāvdaļu skaits."
 
-#: ../partRequests.py:1019
+#: ../partRequests.py:1026
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
@@ -2114,11 +2129,11 @@ msgstr "Datortīkla iestatīšana"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Vai Jūs vēlaties šajā sistēmā startēt tīkla kartes?"
 
-#: ../rescue.py:267 ../text.py:694
+#: ../rescue.py:267 ../text.py:695
 msgid "Cancelled"
 msgstr "Atcelts"
 
-#: ../rescue.py:268 ../text.py:695
+#: ../rescue.py:268 ../text.py:696
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "No šīs vietas nav iespējams atgriezties iepriekšējā darbībā. Jums būs "
@@ -2162,7 +2177,7 @@ msgstr "Sistēmas atjaunošana"
 msgid "What partition holds the root partition of your installation?"
 msgstr "Kura no partīcijām tika izmantota kā root?"
 
-#: ../rescue.py:339 ../rescue.py:343 ../text.py:668 ../text.py:670
+#: ../rescue.py:339 ../rescue.py:343 ../text.py:669 ../text.py:671
 msgid "Exit"
 msgstr "Iziet"
 
@@ -2230,84 +2245,84 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Jūsu sistēma ir piemontēta %s katalogā."
 
-#: ../text.py:186 ../text.py:250 ../text.py:263 tmp/exnSave.glade.h:1
+#: ../text.py:185 ../text.py:251 ../text.py:264 tmp/exnSave.glade.h:1
 msgid "Save"
 msgstr "Saglabāt"
 
-#: ../text.py:189
+#: ../text.py:188
 msgid "Save to Disk"
 msgstr ""
 
-#: ../text.py:190
+#: ../text.py:189
 #, fuzzy
 msgid "Save to Remote"
 msgstr "Saglabāt attālinātā datorā"
 
-#: ../text.py:204
+#: ../text.py:203
 msgid "Host"
 msgstr "Dators"
 
-#: ../text.py:206
+#: ../text.py:205
 msgid "Remote path"
 msgstr "Attālinātais katalogs"
 
-#: ../text.py:208
+#: ../text.py:207
 msgid "User name"
 msgstr "Lietotājvārds"
 
-#: ../text.py:210
+#: ../text.py:209
 msgid "Password"
 msgstr "Parole"
 
-#: ../text.py:282 tmp/lukspassphrase.glade.h:5
+#: ../text.py:283 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
 msgstr ""
 
-#: ../text.py:290 tmp/lukspassphrase.glade.h:6
+#: ../text.py:291 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
 msgstr ""
 
-#: ../text.py:346
+#: ../text.py:347
 msgid "Help not available"
 msgstr "Palīgs nav pieejams"
 
-#: ../text.py:347
+#: ../text.py:348
 msgid "No help is available for this step of the install."
 msgstr "Šim instalācijas posmam palīgs nav pieejams"
 
-#: ../text.py:445
+#: ../text.py:446
 #, fuzzy
 msgid "Repository editing is not available in text mode."
 msgstr "Grafiska instalēšana nav iespējama... Startējas teksta režīms."
 
-#: ../text.py:470
+#: ../text.py:471
 #, fuzzy, python-format
 msgid "Please enter your %(instkey)s"
 msgstr "Lūdzu ievadiet sadaļu grupas vārdu."
 
-#: ../text.py:487 tmp/instkey.glade.h:6
+#: ../text.py:488 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
 msgstr ""
 
-#: ../text.py:563 ../loader2/lang.c:63
+#: ../text.py:564 ../loader2/lang.c:63
 #, fuzzy, c-format, python-format
 msgid "Welcome to %s for %s"
 msgstr "Laipni aicināti %s"
 
-#: ../text.py:565
+#: ../text.py:566
 #, python-format
 msgid "Welcome to %s"
 msgstr "Laipni aicināti %s"
 
-#: ../text.py:568
+#: ../text.py:569
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> palīdzībai | <Tab> starp elementiem | <Space> izvēle | <F12> nākošais "
 "ekrāns"
 
-#: ../text.py:570
+#: ../text.py:571
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2588,62 +2603,62 @@ msgstr "Izmantot teksta režīmu"
 msgid "Start VNC"
 msgstr "Startē VNC"
 
-#: ../yuminstall.py:71
+#: ../yuminstall.py:72
 #, python-format
 msgid "%s MB"
 msgstr "%s MB"
 
-#: ../yuminstall.py:74
+#: ../yuminstall.py:75
 #, python-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../yuminstall.py:77
+#: ../yuminstall.py:78
 #, python-format
 msgid "%s Byte"
 msgstr "%s baitu"
 
-#: ../yuminstall.py:79
+#: ../yuminstall.py:80
 #, python-format
 msgid "%s Bytes"
 msgstr "%s baiti"
 
-#: ../yuminstall.py:127
+#: ../yuminstall.py:128
 msgid "Processing"
 msgstr "Process notiek"
 
-#: ../yuminstall.py:128
+#: ../yuminstall.py:129
 msgid "Preparing transaction from installation source..."
 msgstr "Pārbauda transakcijas no instalācijas avota..."
 
-#: ../yuminstall.py:159
+#: ../yuminstall.py:160
 #, fuzzy, python-format
 msgid "<b>Installing %s</b> (%s)\n"
 msgstr "Instalēšana %s\n"
 
-#: ../yuminstall.py:210
+#: ../yuminstall.py:205
 #, python-format
 msgid "%s of %s packages completed"
 msgstr ""
 
-#: ../yuminstall.py:222
+#: ../yuminstall.py:217
 msgid "Finishing upgrade"
 msgstr ""
 
-#: ../yuminstall.py:223
+#: ../yuminstall.py:218
 #, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
 msgstr "Instalēšanas process startēts. Tas var ilgt vairākas minūtes..."
 
-#: ../yuminstall.py:336
+#: ../yuminstall.py:355
 msgid "Copying File"
 msgstr "Datnes kopēšana"
 
-#: ../yuminstall.py:337
+#: ../yuminstall.py:356
 msgid "Transferring install image to hard drive..."
 msgstr "Instalēšanas spoguļattēla kopēšana uz cietņa..."
 
-#: ../yuminstall.py:348
+#: ../yuminstall.py:366
 #, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
@@ -2652,7 +2667,7 @@ msgstr ""
 "Kļūda instalēšanas spoguļattēla kopēšanas laikā. Iespējams, ka Jūsu datora "
 "cietnī nav brīvas vietas."
 
-#: ../yuminstall.py:352
+#: ../yuminstall.py:370
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -2660,40 +2675,40 @@ msgstr ""
 "Kļūda instalēšanas spoguļattēla kopēšanas laikā. Iespējams, ka Jūsu datora "
 "cietnī nav brīvas vietas."
 
-#: ../yuminstall.py:390
+#: ../yuminstall.py:417
 #, fuzzy
 msgid "Change Disc"
 msgstr "Nomainiet CD"
 
-#: ../yuminstall.py:391
+#: ../yuminstall.py:418
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Lūdzu ievietojiet %s disku %d, lai turpinātu."
 
-#: ../yuminstall.py:405
+#: ../yuminstall.py:432
 #, fuzzy
 msgid "Wrong Disc"
 msgstr "Nekorekts CD"
 
-#: ../yuminstall.py:406
+#: ../yuminstall.py:433
 #, fuzzy, python-format
 msgid "That's not the correct %s disc."
 msgstr "Nav pareizais %s CD."
 
-#: ../yuminstall.py:412
+#: ../yuminstall.py:439
 #, fuzzy
 msgid "Unable to access the disc."
 msgstr "Nav iespējams piekļūt CD saturam."
 
-#: ../yuminstall.py:557 ../yuminstall.py:559
+#: ../yuminstall.py:604 ../yuminstall.py:606
 msgid "Re_boot"
 msgstr "Pārstartēšana"
 
-#: ../yuminstall.py:557
+#: ../yuminstall.py:604
 msgid "_Eject"
 msgstr ""
 
-#: ../yuminstall.py:563
+#: ../yuminstall.py:610
 #, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -2710,99 +2725,99 @@ msgstr ""
 "atkārtot instalācijas procesu.\n"
 "\n"
 
-#: ../yuminstall.py:603
+#: ../yuminstall.py:650
 #, fuzzy
 msgid "Retrying"
 msgstr "Atkārtot"
 
-#: ../yuminstall.py:603
+#: ../yuminstall.py:650
 msgid "Retrying package download..."
 msgstr ""
 
-#: ../yuminstall.py:668
+#: ../yuminstall.py:715
 #, fuzzy, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr "Kļūda izpildot Jūsu norādīto procedūru. Iemesls: %s"
 
-#: ../yuminstall.py:701 ../yuminstall.py:702
+#: ../yuminstall.py:748 ../yuminstall.py:749
 msgid "file conflicts"
 msgstr "datņu konflikts"
 
-#: ../yuminstall.py:703
+#: ../yuminstall.py:750
 msgid "older package(s)"
 msgstr "veca pakotne(s)"
 
-#: ../yuminstall.py:704
+#: ../yuminstall.py:751
 msgid "insufficient disk space"
 msgstr "nepietiek vietas cietajā diskā"
 
-#: ../yuminstall.py:705
+#: ../yuminstall.py:752
 msgid "insufficient disk inodes"
 msgstr "nepietiekošs inode skaits cietajā diskā"
 
-#: ../yuminstall.py:706
+#: ../yuminstall.py:753
 msgid "package conflicts"
 msgstr "pakotņu konflikts"
 
-#: ../yuminstall.py:707
+#: ../yuminstall.py:754
 msgid "package already installed"
 msgstr "pakotne jau ir uzstādīta"
 
-#: ../yuminstall.py:708
+#: ../yuminstall.py:755
 msgid "required package"
 msgstr "nepieciešama pakotne"
 
-#: ../yuminstall.py:709
+#: ../yuminstall.py:756
 msgid "package for incorrect arch"
 msgstr "pakotne ar nekorektu arhitektūru"
 
-#: ../yuminstall.py:710
+#: ../yuminstall.py:757
 msgid "package for incorrect os"
 msgstr "pakotne ar nekorektu operētājsistēmu"
 
-#: ../yuminstall.py:724
+#: ../yuminstall.py:771
 msgid "You need more space on the following file systems:\n"
 msgstr "Nepieciešams vairāk vietas sekojošās datņu sistēmās:\n"
 
-#: ../yuminstall.py:737
+#: ../yuminstall.py:784
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
 msgstr ""
 
-#: ../yuminstall.py:740
+#: ../yuminstall.py:787
 #, fuzzy, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
 msgstr "Kļūda izpildot Jūsu norādīto procedūru. Iemesls: %s"
 
-#: ../yuminstall.py:744
+#: ../yuminstall.py:791
 #, fuzzy
 msgid "Error Running Transaction"
 msgstr "Kļūda transakciju pārbaudes laikā"
 
-#: ../yuminstall.py:749
+#: ../yuminstall.py:796
 msgid "Error running transaction"
 msgstr "Kļūda transakciju pārbaudes laikā"
 
-#: ../yuminstall.py:906
+#: ../yuminstall.py:956
 msgid "Retrieving installation information..."
 msgstr "Instalēšanas informācijas saņemšana..."
 
-#: ../yuminstall.py:908
+#: ../yuminstall.py:958
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Instalēšanas informācijas saņemšana priekš %s..."
 
-#: ../yuminstall.py:920 ../textw/bootloader_text.py:277
+#: ../yuminstall.py:970 ../textw/bootloader_text.py:277
 #: ../textw/constants_text.py:62 ../textw/partition_text.py:1428
 msgid "Edit"
 msgstr ""
 
-#: ../yuminstall.py:932 ../yuminstall.py:1207
+#: ../yuminstall.py:982 ../yuminstall.py:1257
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2815,17 +2830,17 @@ msgstr ""
 "repodata neesamība. Lūdzu pārliecinieties, ka uzstādīšanas direktorijs ir "
 "noformēts pareizi.  %s"
 
-#: ../yuminstall.py:973
+#: ../yuminstall.py:1023
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: ../yuminstall.py:1006 ../iw/GroupSelector.py:545
+#: ../yuminstall.py:1056 ../iw/GroupSelector.py:545
 msgid "Uncategorized"
 msgstr "Nekategorizēts"
 
-#: ../yuminstall.py:1232
+#: ../yuminstall.py:1282
 #, fuzzy, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2836,15 +2851,15 @@ msgstr ""
 "brīvā vieta nav pieejama. Jūs varat izmainīt nepieciešamo pakotņu sarakstu "
 "vai arī pārstartēt sistēmu."
 
-#: ../yuminstall.py:1251
+#: ../yuminstall.py:1301
 msgid "Reboot?"
 msgstr "Pārstartēt?"
 
-#: ../yuminstall.py:1252
+#: ../yuminstall.py:1302
 msgid "The system will be rebooted now."
 msgstr "Sistēma tiek pārstartēta."
 
-#: ../yuminstall.py:1418
+#: ../yuminstall.py:1464
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2853,7 +2868,7 @@ msgstr ""
 "Jūs cenšaties jaunināt sistēmu, kas ir pārāk novecojusi, lai to jauninātu uz "
 "versiju %s. Jūs tiešām vēlaties turpināt sistēmas jaunināšanu?"
 
-#: ../yuminstall.py:1445
+#: ../yuminstall.py:1491
 #, fuzzy, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
@@ -2863,39 +2878,39 @@ msgstr ""
 "Jūs cenšaties jaunināt sistēmu, kas ir pārāk novecojusi, lai to jauninātu uz "
 "versiju %s. Jūs tiešām vēlaties turpināt sistēmas jaunināšanu?"
 
-#: ../yuminstall.py:1492
+#: ../yuminstall.py:1538
 msgid "Post Upgrade"
 msgstr "Pēcjaunināšanas procedūra"
 
-#: ../yuminstall.py:1493
+#: ../yuminstall.py:1539
 msgid "Performing post upgrade configuration..."
 msgstr "Notiek iestatīšana pēc jaunināšanas..."
 
-#: ../yuminstall.py:1495
+#: ../yuminstall.py:1541
 msgid "Post Install"
 msgstr "Iestatīšana pēc instalēšanas"
 
-#: ../yuminstall.py:1496
+#: ../yuminstall.py:1542
 msgid "Performing post install configuration..."
 msgstr "Notiek iestatīšana pēc instalēšanas..."
 
-#: ../yuminstall.py:1735
+#: ../yuminstall.py:1764
 msgid "Installation Progress"
 msgstr "Instalēšanas progress"
 
-#: ../yuminstall.py:1770
+#: ../yuminstall.py:1799
 msgid "Install Starting"
 msgstr "Instalācijas startēšana"
 
-#: ../yuminstall.py:1771
+#: ../yuminstall.py:1800
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Instalēšanas process startēts. Tas var ilgt vairākas minūtes..."
 
-#: ../yuminstall.py:1808
+#: ../yuminstall.py:1837
 msgid "Dependency Check"
 msgstr "Atkarību pārbaude"
 
-#: ../yuminstall.py:1809
+#: ../yuminstall.py:1838
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Izvēlēto pakotņu atkarību pārbaude..."
 
@@ -2922,36 +2937,36 @@ msgstr "Root parole:"
 msgid "_Confirm:"
 msgstr "Atkārtot:"
 
-#: ../iw/account_gui.py:77
+#: ../iw/account_gui.py:87
 msgid "Caps Lock is on."
 msgstr ""
 
-#: ../iw/account_gui.py:87 ../iw/account_gui.py:95 ../iw/account_gui.py:102
-#: ../iw/account_gui.py:122 ../textw/userauth_text.py:71
+#: ../iw/account_gui.py:97 ../iw/account_gui.py:105 ../iw/account_gui.py:112
+#: ../iw/account_gui.py:132 ../textw/userauth_text.py:71
 msgid "Error with Password"
 msgstr "Paroles kļūda"
 
-#: ../iw/account_gui.py:88
+#: ../iw/account_gui.py:98
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
 "Lai turpinātu Jums jāievada root parole un tā jāapstiprina, ievadot otrreiz."
 
-#: ../iw/account_gui.py:96
+#: ../iw/account_gui.py:106
 msgid "The passwords you entered were different.  Please try again."
 msgstr "Paroles atšķiras. Mēģiniet vēlreiz."
 
-#: ../iw/account_gui.py:103
+#: ../iw/account_gui.py:113
 msgid "The root password must be at least six characters long."
 msgstr "Root parolei jābūt garākai par sešiem simboliem."
 
-#: ../iw/account_gui.py:110 ../textw/userauth_text.py:78
+#: ../iw/account_gui.py:120 ../textw/userauth_text.py:78
 #, fuzzy
 msgid "Weak Password"
 msgstr "Parole"
 
-#: ../iw/account_gui.py:111 ../textw/userauth_text.py:79
+#: ../iw/account_gui.py:121 ../textw/userauth_text.py:79
 #, fuzzy, python-format
 msgid ""
 "Weak password provided: %s\n"
@@ -2959,7 +2974,7 @@ msgid ""
 "Would you like to continue with this password?"
 msgstr "Turpināt jaunināšanu?"
 
-#: ../iw/account_gui.py:123 ../textw/userauth_text.py:72
+#: ../iw/account_gui.py:133 ../textw/userauth_text.py:72
 #, fuzzy
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
@@ -2967,56 +2982,56 @@ msgstr ""
 "Ievadītā parole satur ne-ascii grupas simbolus, kas nav atļauti izmantošanai "
 "parolēs."
 
-#: ../iw/autopart_type.py:94
+#: ../iw/autopart_type.py:96
 msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
 msgstr ""
 
-#: ../iw/autopart_type.py:177
+#: ../iw/autopart_type.py:179
 msgid "Do you really want to boot from disk which is not used for instalation?"
 msgstr ""
 
-#: ../iw/autopart_type.py:258
+#: ../iw/autopart_type.py:260
 msgid "Invalid Initiator Name"
 msgstr "Nepareizs iniciatora vārds"
 
-#: ../iw/autopart_type.py:259
+#: ../iw/autopart_type.py:261
 #, fuzzy
 msgid "You must provide an initiator name."
 msgstr "Jums jānorāda korekts iniciatora vārds."
 
-#: ../iw/autopart_type.py:281
+#: ../iw/autopart_type.py:283
 msgid "Error with Data"
 msgstr "Kļūda datos"
 
-#: ../iw/autopart_type.py:401 ../textw/partition_text.py:1517
+#: ../iw/autopart_type.py:403 ../textw/partition_text.py:1517
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr ""
 "Dzēst visas partīcijas, kas atrodas cietnī un izveidot dalījumu pēc "
 "noklusējuma."
 
-#: ../iw/autopart_type.py:402 ../textw/partition_text.py:1518
+#: ../iw/autopart_type.py:404 ../textw/partition_text.py:1518
 #, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr ""
 "Dzēst visas Linux partīcijas, kas atrodas cietnī un izveidot dalījumu pēc "
 "noklusējuma."
 
-#: ../iw/autopart_type.py:403
+#: ../iw/autopart_type.py:405
 #, fuzzy
 msgid "Resize existing partition and create default layout in free space"
 msgstr ""
 "Dzēst visas Linux partīcijas, kas atrodas cietnī un izveidot dalījumu pēc "
 "noklusējuma."
 
-#: ../iw/autopart_type.py:404 ../textw/partition_text.py:1519
+#: ../iw/autopart_type.py:406 ../textw/partition_text.py:1519
 #, fuzzy
 msgid "Use free space on selected drives and create default layout"
 msgstr "Izmantot cietņa brīvo vietu un izveidot dalījumu pēc noklusējuma."
 
-#: ../iw/autopart_type.py:405 ../textw/partition_text.py:1520
+#: ../iw/autopart_type.py:407 ../textw/partition_text.py:1520
 #, fuzzy
 msgid "Create custom layout"
 msgstr "Izveidot pašrocīgu sadalījumu."
@@ -3185,15 +3200,15 @@ msgstr "Valodas izvēle"
 msgid "What language would you like to use during the installation process?"
 msgstr "Kādu valodu vēlaties izmantot sistēmas uzstādīšanas procesā?"
 
-#: ../iw/lvm_dialog_gui.py:122 ../iw/lvm_dialog_gui.py:169
-#: ../iw/lvm_dialog_gui.py:180 ../iw/lvm_dialog_gui.py:220
-#: ../iw/lvm_dialog_gui.py:294 ../iw/lvm_dialog_gui.py:606
-#: ../iw/lvm_dialog_gui.py:674 ../iw/lvm_dialog_gui.py:893
+#: ../iw/lvm_dialog_gui.py:123 ../iw/lvm_dialog_gui.py:170
+#: ../iw/lvm_dialog_gui.py:181 ../iw/lvm_dialog_gui.py:221
+#: ../iw/lvm_dialog_gui.py:295 ../iw/lvm_dialog_gui.py:624
+#: ../iw/lvm_dialog_gui.py:706 ../iw/lvm_dialog_gui.py:925
 #: ../textw/partition_text.py:1275 ../textw/partition_text.py:1294
 msgid "Not enough space"
 msgstr "Nepietiek vietas"
 
-#: ../iw/lvm_dialog_gui.py:123
+#: ../iw/lvm_dialog_gui.py:124
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
@@ -3203,11 +3218,11 @@ msgstr ""
 "nepieciešams dažādām loģiskajām sadaļām, būs lielāks nekā pieejamā brīvā "
 "vieta."
 
-#: ../iw/lvm_dialog_gui.py:132
+#: ../iw/lvm_dialog_gui.py:133
 msgid "Confirm Physical Extent Change"
 msgstr "Apstiprināt fiziskā apjoma maiņu"
 
-#: ../iw/lvm_dialog_gui.py:133
+#: ../iw/lvm_dialog_gui.py:134
 #, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
@@ -3221,12 +3236,12 @@ msgstr ""
 "\n"
 "Šīs izmaiņas stāsies spēkā nekavējoties."
 
-#: ../iw/lvm_dialog_gui.py:142 ../iw/lvm_dialog_gui.py:202
+#: ../iw/lvm_dialog_gui.py:143 ../iw/lvm_dialog_gui.py:203
 #: ../iw/network_gui.py:142 ../iw/network_gui.py:146 ../iw/network_gui.py:166
 msgid "C_ontinue"
 msgstr "Turpināt"
 
-#: ../iw/lvm_dialog_gui.py:170
+#: ../iw/lvm_dialog_gui.py:171
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -3236,7 +3251,7 @@ msgstr ""
 "Fiziskā apjoma izmēru izmainīt nav iespējams, jo izvēlētais izmērs (%10.2f "
 "MB) ir lielāks, nekā mazākā fiziskā sadaļa (%10.2f MB) sadaļu masīvā."
 
-#: ../iw/lvm_dialog_gui.py:181
+#: ../iw/lvm_dialog_gui.py:182
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -3247,11 +3262,11 @@ msgstr ""
 "MB) ir pārāk liela salīdzinājumā ar mazāko fizisko sadaļu (%10.2f MB) sadaļu "
 "masīvā."
 
-#: ../iw/lvm_dialog_gui.py:195
+#: ../iw/lvm_dialog_gui.py:196
 msgid "Too small"
 msgstr "Pārāk maz vietas"
 
-#: ../iw/lvm_dialog_gui.py:196
+#: ../iw/lvm_dialog_gui.py:197
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
@@ -3259,7 +3274,7 @@ msgstr ""
 "Šīm fiziskā apjoma vērtības izmaiņām nepieciešama jūtama papildus vieta "
 "vienā vai vairākās sadaļu grupas fiziskajās sadaļās"
 
-#: ../iw/lvm_dialog_gui.py:221
+#: ../iw/lvm_dialog_gui.py:222
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
@@ -3270,7 +3285,7 @@ msgstr ""
 "izmērs (%10.2f MB) ir mazāks nekā viena vai vairākas jau noteiktas loģiskās "
 "sadaļas."
 
-#: ../iw/lvm_dialog_gui.py:295
+#: ../iw/lvm_dialog_gui.py:296
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
@@ -3278,95 +3293,101 @@ msgstr ""
 "Šo fizisko sadaļu dzēst nav iespējams, jo sadaļu grupas izmērs būs pārāk "
 "mazs priekš jau norādītajām loģiskajām sadaļām."
 
-#: ../iw/lvm_dialog_gui.py:375 ../textw/partition_text.py:1114
+#: ../iw/lvm_dialog_gui.py:376 ../textw/partition_text.py:1114
 msgid "Make Logical Volume"
 msgstr "Izveidot loģisko sadaļu"
 
-#: ../iw/lvm_dialog_gui.py:378
+#: ../iw/lvm_dialog_gui.py:379
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "Labot loģisko sadaļu: %s"
 
-#: ../iw/lvm_dialog_gui.py:380 ../textw/partition_text.py:1112
+#: ../iw/lvm_dialog_gui.py:381 ../textw/partition_text.py:1112
 msgid "Edit Logical Volume"
 msgstr "Labot loģisko sadaļu"
 
-#: ../iw/lvm_dialog_gui.py:393 ../iw/partition_dialog_gui.py:322
+#: ../iw/lvm_dialog_gui.py:394 ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:321
 msgid "_Mount Point:"
 msgstr "Montēšanas punkts:"
 
-#: ../iw/lvm_dialog_gui.py:401 ../iw/raid_dialog_gui.py:334
+#: ../iw/lvm_dialog_gui.py:402 ../iw/raid_dialog_gui.py:334
 msgid "_File System Type:"
 msgstr "Datņu sistēma:"
 
-#: ../iw/lvm_dialog_gui.py:411 ../iw/raid_dialog_gui.py:344
+#: ../iw/lvm_dialog_gui.py:412 ../iw/raid_dialog_gui.py:344
 msgid "Original File System Type:"
 msgstr "Sākotnējā datņu sistēma:"
 
-#: ../iw/lvm_dialog_gui.py:416 ../iw/raid_dialog_gui.py:349
+#: ../iw/lvm_dialog_gui.py:417 ../iw/raid_dialog_gui.py:349
 msgid "Unknown"
 msgstr "Nezināma"
 
-#: ../iw/lvm_dialog_gui.py:422 ../iw/partition_dialog_gui.py:374
+#: ../iw/lvm_dialog_gui.py:423 ../iw/partition_dialog_gui.py:374
 #: ../iw/raid_dialog_gui.py:355
 msgid "Original File System Label:"
 msgstr "Sākotnējās datņu sistēmas nosaukums:"
 
-#: ../iw/lvm_dialog_gui.py:431
+#: ../iw/lvm_dialog_gui.py:432
 msgid "_Logical Volume Name:"
 msgstr "Loģiskā sadaļa:"
 
-#: ../iw/lvm_dialog_gui.py:439 ../textw/partition_text.py:305
+#: ../iw/lvm_dialog_gui.py:440 ../textw/partition_text.py:305
 msgid "Logical Volume Name:"
 msgstr "Loģiskā sadaļa:"
 
-#: ../iw/lvm_dialog_gui.py:447 ../iw/partition_dialog_gui.py:386
+#: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:386
 msgid "_Size (MB):"
 msgstr "Izmērs (MB):"
 
-#: ../iw/lvm_dialog_gui.py:453 ../iw/partition_dialog_gui.py:403
+#: ../iw/lvm_dialog_gui.py:454 ../iw/partition_dialog_gui.py:403
 #: ../textw/partition_text.py:320 ../textw/partition_text.py:397
 #: ../textw/partition_text.py:480 ../textw/partition_text.py:588
 msgid "Size (MB):"
 msgstr "Izmērs (MB):"
 
-#: ../iw/lvm_dialog_gui.py:468
+#: ../iw/lvm_dialog_gui.py:469
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(Maks. izmērs ir %s MB)"
 
-#: ../iw/lvm_dialog_gui.py:525 ../textw/partition_text.py:1264
+#: ../iw/lvm_dialog_gui.py:478 ../iw/partition_dialog_gui.py:334
+#: ../iw/partition_ui_helpers_gui.py:300 ../iw/raid_dialog_gui.py:329
+#, fuzzy
+msgid "_Encrypt"
+msgstr "Šifra atslēga:"
+
+#: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1264
 msgid "Illegal size"
 msgstr "Nekorekts izmērs"
 
-#: ../iw/lvm_dialog_gui.py:526 ../textw/partition_text.py:1265
+#: ../iw/lvm_dialog_gui.py:544 ../textw/partition_text.py:1265
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "Norādītais izmērs nav korekts skaitlis, kas lielāks par 0."
 
-#: ../iw/lvm_dialog_gui.py:561
+#: ../iw/lvm_dialog_gui.py:579
 msgid "Mount point in use"
 msgstr "Montēšanas punkts jau tiek izmantots"
 
-#: ../iw/lvm_dialog_gui.py:562
+#: ../iw/lvm_dialog_gui.py:580
 #, fuzzy, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Montēšanas punkts \"%s\" jau tiek izmantots, lūdzu norādiet citu."
 
-#: ../iw/lvm_dialog_gui.py:573 ../textw/partition_text.py:1235
+#: ../iw/lvm_dialog_gui.py:591 ../textw/partition_text.py:1235
 msgid "Illegal Logical Volume Name"
 msgstr "Nekorekts loģiskās sadaļas vārds"
 
-#: ../iw/lvm_dialog_gui.py:592 ../textw/partition_text.py:1252
+#: ../iw/lvm_dialog_gui.py:610 ../textw/partition_text.py:1252
 msgid "Illegal logical volume name"
 msgstr "Nekorekts loģiskās sadaļas vārds"
 
-#: ../iw/lvm_dialog_gui.py:593 ../textw/partition_text.py:1253
+#: ../iw/lvm_dialog_gui.py:611 ../textw/partition_text.py:1253
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Loģiskās sadaļas vārds \"%s\" jau tiek izmantots. Lūdzu norādiet citu."
 
-#: ../iw/lvm_dialog_gui.py:607
+#: ../iw/lvm_dialog_gui.py:625
 #, fuzzy, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
@@ -3378,7 +3399,7 @@ msgstr ""
 "fiziskās sadaļas (Physical Volumes) cietņa neizmantotajā daļā un pievienot "
 "tās sadaļu grupai (Volume Group)."
 
-#: ../iw/lvm_dialog_gui.py:651 ../iw/partition_dialog_gui.py:197
+#: ../iw/lvm_dialog_gui.py:683 ../iw/partition_dialog_gui.py:197
 #: ../iw/partition_dialog_gui.py:209 ../iw/partition_dialog_gui.py:268
 #: ../iw/raid_dialog_gui.py:248 ../textw/partition_text.py:888
 #: ../textw/partition_text.py:909 ../textw/partition_text.py:1082
@@ -3386,7 +3407,7 @@ msgstr ""
 msgid "Error With Request"
 msgstr "Kļūda pieprasījuma izpildē"
 
-#: ../iw/lvm_dialog_gui.py:675 ../iw/lvm_dialog_gui.py:894
+#: ../iw/lvm_dialog_gui.py:707 ../iw/lvm_dialog_gui.py:926
 #, fuzzy, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
@@ -3397,20 +3418,20 @@ msgstr ""
 "aizņem tikai %g MB. Nepieciešams vai nu palielināt sadaļu grupas izmēru, vai "
 "arī samazināt loģiskās sadaļas izmēru."
 
-#: ../iw/lvm_dialog_gui.py:733
+#: ../iw/lvm_dialog_gui.py:765
 msgid "No free slots"
 msgstr "Nav brīvu slēgumu"
 
-#: ../iw/lvm_dialog_gui.py:734
+#: ../iw/lvm_dialog_gui.py:766
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr "Sadaļu grupā Jūs nevarat izveidot vairāk par %s loģiskajām sadaļām."
 
-#: ../iw/lvm_dialog_gui.py:740
+#: ../iw/lvm_dialog_gui.py:772
 msgid "No free space"
 msgstr "Nepietiek vietas cietnī"
 
-#: ../iw/lvm_dialog_gui.py:741
+#: ../iw/lvm_dialog_gui.py:773
 #, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
@@ -3421,29 +3442,29 @@ msgstr ""
 "pievienotu loģisko sadaļu, Jums jāsamazina vienas vai vairāku jau esošo "
 "loģisko sadaļu izmērs."
 
-#: ../iw/lvm_dialog_gui.py:769
+#: ../iw/lvm_dialog_gui.py:801
 #, fuzzy, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Vai esat pārliecināts, ka vēlaties dzēst loģisko sadaļu \"%s\"?"
 
-#: ../iw/lvm_dialog_gui.py:905
+#: ../iw/lvm_dialog_gui.py:937
 msgid "Invalid Volume Group Name"
 msgstr "Nekorekts sadaļu grupas vārds"
 
-#: ../iw/lvm_dialog_gui.py:916
+#: ../iw/lvm_dialog_gui.py:948
 msgid "Name in use"
 msgstr "Vārds jau tiek izmantots"
 
-#: ../iw/lvm_dialog_gui.py:917
+#: ../iw/lvm_dialog_gui.py:949
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "Sadaļu grupas vārds \"%s\" jau tiek izmantots. Lūdzu norādiet citu."
 
-#: ../iw/lvm_dialog_gui.py:960
+#: ../iw/lvm_dialog_gui.py:992
 msgid "Not enough physical volumes"
 msgstr "Nepietiek fizisko sadaļu"
 
-#: ../iw/lvm_dialog_gui.py:961
+#: ../iw/lvm_dialog_gui.py:993
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3456,110 +3477,74 @@ msgstr ""
 "Izveidojiet partīciju vai \"(LVM) fiziskās sadaļas\" tipa RAID masīvu un pēc "
 "tam vēlreiz izvēlieties parametru \"LVM\"."
 
-#: ../iw/lvm_dialog_gui.py:972
+#: ../iw/lvm_dialog_gui.py:1004
 msgid "Make LVM Volume Group"
 msgstr "Izveidot LVM sadaļu grupu"
 
-#: ../iw/lvm_dialog_gui.py:975
+#: ../iw/lvm_dialog_gui.py:1007
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Labot LVM sadaļu grupu: %s"
 
-#: ../iw/lvm_dialog_gui.py:977
+#: ../iw/lvm_dialog_gui.py:1009
 msgid "Edit LVM Volume Group"
 msgstr "Labot LVM sadaļu grupu"
 
-#: ../iw/lvm_dialog_gui.py:993
+#: ../iw/lvm_dialog_gui.py:1025
 msgid "_Volume Group Name:"
 msgstr "Sadaļu grupa:"
 
-#: ../iw/lvm_dialog_gui.py:1001
+#: ../iw/lvm_dialog_gui.py:1033
 msgid "Volume Group Name:"
 msgstr "Sadaļu grupa:"
 
-#: ../iw/lvm_dialog_gui.py:1009
+#: ../iw/lvm_dialog_gui.py:1041
 msgid "_Physical Extent:"
 msgstr "Fiziskais apjoms:"
 
-#: ../iw/lvm_dialog_gui.py:1024
+#: ../iw/lvm_dialog_gui.py:1056
 msgid "Physical Volumes to _Use:"
 msgstr "Fiziskās sadaļas:"
 
-#: ../iw/lvm_dialog_gui.py:1030
+#: ../iw/lvm_dialog_gui.py:1062
 msgid "Used Space:"
 msgstr "Izmantotā vieta:"
 
-#: ../iw/lvm_dialog_gui.py:1047
+#: ../iw/lvm_dialog_gui.py:1079
 msgid "Free Space:"
 msgstr "Brīvā vieta:"
 
-#: ../iw/lvm_dialog_gui.py:1065
+#: ../iw/lvm_dialog_gui.py:1097
 msgid "Total Space:"
 msgstr "Pavisam:"
 
-#: ../iw/lvm_dialog_gui.py:1094
+#: ../iw/lvm_dialog_gui.py:1126
 msgid "Logical Volume Name"
 msgstr "Loģiskās sadaļas vārds"
 
-#: ../iw/lvm_dialog_gui.py:1097 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1129 ../iw/partition_gui.py:369
 #: ../iw/upgrade_swap_gui.py:140 ../textw/partition_text.py:1423
 #: ../textw/upgrade_text.py:120
 msgid "Mount Point"
 msgstr "Montēšanas punkts"
 
-#: ../iw/lvm_dialog_gui.py:1100 ../iw/partition_gui.py:374
+#: ../iw/lvm_dialog_gui.py:1132 ../iw/partition_gui.py:374
 msgid "Size (MB)"
 msgstr "Izmērs (MB)"
 
-#: ../iw/lvm_dialog_gui.py:1114 ../iw/osbootwidget.py:94
+#: ../iw/lvm_dialog_gui.py:1146 ../iw/osbootwidget.py:95
 msgid "_Add"
 msgstr "Pievienot"
 
-#: ../iw/lvm_dialog_gui.py:1117 ../iw/network_gui.py:457
-#: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1379
+#: ../iw/lvm_dialog_gui.py:1149 ../iw/network_gui.py:457
+#: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1379
 msgid "_Edit"
 msgstr "Labot"
 
-#: ../iw/lvm_dialog_gui.py:1132
+#: ../iw/lvm_dialog_gui.py:1164
 #, fuzzy
 msgid "_Logical Volumes"
 msgstr "Loģiskās sadaļas"
-
-#: ../iw/mouse_gui.py:29
-msgid "Mouse Configuration"
-msgstr "Peles iestatīšana"
-
-#: ../iw/mouse_gui.py:82 ../textw/mouse_text.py:26
-msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr "/dev/ttyS0 (COM1 DOS sistēmā)"
-
-#: ../iw/mouse_gui.py:83 ../textw/mouse_text.py:27
-msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr "/dev/ttyS1 (COM2 DOS sistēmā)"
-
-#: ../iw/mouse_gui.py:84 ../textw/mouse_text.py:28
-msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr "/dev/ttyS2 (COM3 DOS sistēmā)"
-
-#: ../iw/mouse_gui.py:85 ../textw/mouse_text.py:29
-msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr "/dev/ttyS3 (COM4 DOS sistēmā)"
-
-#: ../iw/mouse_gui.py:95 ../iw/osbootwidget.py:151
-msgid "_Device"
-msgstr "Ierīce"
-
-#: ../iw/mouse_gui.py:141
-msgid "_Model"
-msgstr "Modelis"
-
-#: ../iw/mouse_gui.py:239
-msgid "_Emulate 3 buttons"
-msgstr "Emulēt 3 taustiņus"
-
-#: ../iw/mouse_gui.py:254
-msgid "Select the appropriate mouse for the system."
-msgstr "Izvēlieties piemērotāko peles tipu."
 
 #: ../iw/netconfig_dialog.py:143
 #, python-format
@@ -3584,46 +3569,46 @@ msgstr "Kļūda datos"
 msgid "A value is required for the field %s."
 msgstr "Nepieciešama vērtība laukā \"%s\"."
 
-#: ../iw/netconfig_dialog.py:175
+#: ../iw/netconfig_dialog.py:176
 msgid "Dynamic IP"
 msgstr "Dinamiska IP"
 
-#: ../iw/netconfig_dialog.py:176 ../loader2/net.c:416 ../loader2/net.c:860
+#: ../iw/netconfig_dialog.py:177 ../loader2/net.c:416 ../loader2/net.c:860
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "Sūta IP informācijas pieprasījumu par %s..."
 
-#: ../iw/netconfig_dialog.py:197 ../iw/netconfig_dialog.py:200
+#: ../iw/netconfig_dialog.py:198 ../iw/netconfig_dialog.py:201
 #: ../textw/network_text.py:93 tmp/netpostconfig.glade.h:12
 msgid "IP Address"
 msgstr "IP adrese"
 
-#: ../iw/netconfig_dialog.py:207
+#: ../iw/netconfig_dialog.py:208
 #, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
 msgstr "IPv4 prefiksam jābūt diapazonā no 1 līdz 32."
 
-#: ../iw/netconfig_dialog.py:208 ../iw/netconfig_dialog.py:214
-#: ../iw/netconfig_dialog.py:222 ../iw/netconfig_dialog.py:225
+#: ../iw/netconfig_dialog.py:209 ../iw/netconfig_dialog.py:215
+#: ../iw/netconfig_dialog.py:223 ../iw/netconfig_dialog.py:226
 #, fuzzy
 msgid "IPv4 Network Mask"
 msgstr "IPv4/Tīkla maska"
 
-#: ../iw/netconfig_dialog.py:232 ../iw/netconfig_dialog.py:235
+#: ../iw/netconfig_dialog.py:233 ../iw/netconfig_dialog.py:236
 #: ../iw/network_gui.py:34 ../iw/network_gui.py:533
 msgid "Gateway"
 msgstr "Vārteja"
 
-#: ../iw/netconfig_dialog.py:242
+#: ../iw/netconfig_dialog.py:243
 msgid "Nameserver"
 msgstr "Vārdu serveris"
 
-#: ../iw/netconfig_dialog.py:252
+#: ../iw/netconfig_dialog.py:253
 #, fuzzy
 msgid "Error configuring network device:"
 msgstr "Kļūme klonēšanā: kļūme rezultātu diska dzēšanā."
 
-#: ../iw/netconfig_dialog.py:265
+#: ../iw/netconfig_dialog.py:266
 #, fuzzy
 msgid "Error configuring network device"
 msgstr "Kļūme klonēšanā: kļūme rezultātu diska dzēšanā."
@@ -3706,10 +3691,9 @@ msgstr ""
 msgid "Active on Boot"
 msgstr "Aktivizēt ielādes laikā"
 
-#: ../iw/network_gui.py:400 ../iw/osbootwidget.py:65
+#: ../iw/network_gui.py:400 ../iw/osbootwidget.py:66
 #: ../iw/partition_gui.py:367 ../textw/bootloader_text.py:196
-#: ../textw/bootloader_text.py:262 ../textw/mouse_text.py:44
-#: ../textw/partition_text.py:1423
+#: ../textw/bootloader_text.py:262 ../textw/partition_text.py:1423
 msgid "Device"
 msgstr "Ierīce"
 
@@ -3790,23 +3774,23 @@ msgstr "IPv4 prefiksam jābūt diapazonā no 1 līdz 32."
 msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 prefiksam jābūt robežās no 0 līdz 128."
 
-#: ../iw/osbootwidget.py:49
+#: ../iw/osbootwidget.py:50
 msgid "Boot loader operating system list"
 msgstr ""
 
-#: ../iw/osbootwidget.py:65 ../textw/bootloader_text.py:262
+#: ../iw/osbootwidget.py:66 ../textw/bootloader_text.py:262
 msgid "Default"
 msgstr "Pēc noklusējuma"
 
-#: ../iw/osbootwidget.py:65 ../iw/partition_gui.py:368
+#: ../iw/osbootwidget.py:66 ../iw/partition_gui.py:368
 msgid "Label"
 msgstr "Nosaukums"
 
-#: ../iw/osbootwidget.py:128
+#: ../iw/osbootwidget.py:129
 msgid "Image"
 msgstr "Spoguļattēls"
 
-#: ../iw/osbootwidget.py:135
+#: ../iw/osbootwidget.py:136
 #, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
@@ -3815,43 +3799,47 @@ msgstr ""
 "Ievadiet nosaukumu, kas atainosies ielādētāja izvēlnē. Ierīce (cietnis vai "
 "sadaļas numurs) - tā ir ierīce, no kuras ielādējas konkrētā sistēma."
 
-#: ../iw/osbootwidget.py:143
+#: ../iw/osbootwidget.py:144
 msgid "_Label"
 msgstr "Nosaukums"
 
-#: ../iw/osbootwidget.py:182
+#: ../iw/osbootwidget.py:152
+msgid "_Device"
+msgstr "Ierīce"
+
+#: ../iw/osbootwidget.py:186
 msgid "Default Boot _Target"
 msgstr "Noklusētais ielādes spoguļattēls"
 
-#: ../iw/osbootwidget.py:211
+#: ../iw/osbootwidget.py:215
 msgid "You must specify a label for the entry"
 msgstr "Jānorāda ieraksta nosaukums"
 
-#: ../iw/osbootwidget.py:220
+#: ../iw/osbootwidget.py:224
 msgid "Boot label contains illegal characters"
 msgstr "Nosaukums satur nekorektus simbolus"
 
-#: ../iw/osbootwidget.py:244
+#: ../iw/osbootwidget.py:248
 msgid "Duplicate Label"
 msgstr "Nosaukums atkārtojas"
 
-#: ../iw/osbootwidget.py:245
+#: ../iw/osbootwidget.py:249
 msgid "This label is already in use for another boot entry."
 msgstr "Šāds nosaukums jau ir citam izvēlnes punktam."
 
-#: ../iw/osbootwidget.py:258
+#: ../iw/osbootwidget.py:262
 msgid "Duplicate Device"
 msgstr "Ierīce atkārtojas"
 
-#: ../iw/osbootwidget.py:259
+#: ../iw/osbootwidget.py:263
 msgid "This device is already being used for another boot entry."
 msgstr "Šī ierīce jau izmantota citā izvēlnes punktā."
 
-#: ../iw/osbootwidget.py:323 ../textw/bootloader_text.py:345
+#: ../iw/osbootwidget.py:327 ../textw/bootloader_text.py:345
 msgid "Cannot Delete"
 msgstr "Dzēst nav iespējams"
 
-#: ../iw/osbootwidget.py:324 ../textw/bootloader_text.py:346
+#: ../iw/osbootwidget.py:328 ../textw/bootloader_text.py:346
 #, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
@@ -3896,12 +3884,6 @@ msgstr "Labot partīciju"
 #: ../iw/partition_dialog_gui.py:331
 msgid "File System _Type:"
 msgstr "Datņu sistēma:"
-
-#: ../iw/partition_dialog_gui.py:334 ../iw/partition_ui_helpers_gui.py:300
-#: ../iw/raid_dialog_gui.py:329
-#, fuzzy
-msgid "_Encrypt"
-msgstr "Šifra atslēga:"
 
 #: ../iw/partition_dialog_gui.py:350
 msgid "Allowable _Drives:"
@@ -4458,7 +4440,7 @@ msgstr "Nekorekts repozitarija URL"
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Jums jānorāda korekta repozitarija HTTP vai FTP adrese."
 
-#: ../iw/task_gui.py:227
+#: ../iw/task_gui.py:232
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -4876,22 +4858,6 @@ msgstr ""
 
 #: ../textw/keyboard_text.py:47
 msgid "Which model keyboard is attached to this computer?"
-msgstr ""
-
-#: ../textw/mouse_text.py:45
-msgid "What device is your mouse located on?"
-msgstr ""
-
-#: ../textw/mouse_text.py:77
-msgid "Which model mouse is attached to this computer?"
-msgstr ""
-
-#: ../textw/mouse_text.py:88
-msgid "Emulate 3 Buttons?"
-msgstr ""
-
-#: ../textw/mouse_text.py:91
-msgid "Mouse Selection"
 msgstr ""
 
 #: ../textw/network_text.py:58
@@ -5599,12 +5565,12 @@ msgstr ""
 msgid "Office and Productivity"
 msgstr ""
 
-#: ../installclasses/fedora.py:45 ../installclasses/rhel.py:55
-#: ../installclasses/rhel.py:60
+#: ../installclasses/fedora.py:45 ../installclasses/rhel.py:54
+#: ../installclasses/rhel.py:59
 msgid "Software Development"
 msgstr ""
 
-#: ../installclasses/fedora.py:46 ../installclasses/rhel.py:59
+#: ../installclasses/fedora.py:46 ../installclasses/rhel.py:58
 msgid "Web server"
 msgstr ""
 
@@ -5612,39 +5578,39 @@ msgstr ""
 msgid "Red Hat Enterprise Linux"
 msgstr ""
 
-#: ../installclasses/rhel.py:52
+#: ../installclasses/rhel.py:51
 msgid "Office"
 msgstr ""
 
-#: ../installclasses/rhel.py:53
+#: ../installclasses/rhel.py:52
 msgid "Multimedia"
 msgstr ""
 
-#: ../installclasses/rhel.py:64
+#: ../installclasses/rhel.py:63
 #, fuzzy
 msgid "Virtualization"
 msgstr "Apsveicam"
 
-#: ../installclasses/rhel.py:65
+#: ../installclasses/rhel.py:64
 msgid "Clustering"
 msgstr ""
 
-#: ../installclasses/rhel.py:66
+#: ../installclasses/rhel.py:65
 msgid "Storage Clustering"
 msgstr ""
 
-#: ../installclasses/rhel.py:70
+#: ../installclasses/rhel.py:69
 #, fuzzy
 msgid "Installation Number"
 msgstr "Instalēšanas progress"
 
-#: ../installclasses/rhel.py:71
+#: ../installclasses/rhel.py:70
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
 
-#: ../installclasses/rhel.py:74
+#: ../installclasses/rhel.py:73
 msgid ""
 "If you're unable to locate the Installation Number, consult http://www."
 "redhat.com/apps/support/in.html.\n"
@@ -5665,7 +5631,7 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:96 ../loader2/cdinstall.c:99
 #: ../loader2/cdinstall.c:117 ../loader2/cdinstall.c:125
-#: ../loader2/method.c:380
+#: ../loader2/method.c:393
 msgid "Test"
 msgstr ""
 
@@ -5733,7 +5699,7 @@ msgstr "%s nav atrasts"
 msgid "Cannot find kickstart file on CDROM."
 msgstr ""
 
-#: ../loader2/copy.c:51 ../loader2/method.c:113 ../loader2/method.c:334
+#: ../loader2/copy.c:51 ../loader2/method.c:121 ../loader2/method.c:347
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr ""
@@ -5832,8 +5798,8 @@ msgstr ""
 #: ../loader2/kickstart.c:142 ../loader2/kickstart.c:185
 #: ../loader2/kickstart.c:529 ../loader2/modules.c:336
 #: ../loader2/modules.c:348 ../loader2/net.c:1647 ../loader2/net.c:1670
-#: ../loader2/nfsinstall.c:320 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:474 ../loader2/urlinstall.c:483
+#: ../loader2/nfsinstall.c:342 ../loader2/urlinstall.c:437
+#: ../loader2/urlinstall.c:446 ../loader2/urlinstall.c:455
 msgid "Kickstart Error"
 msgstr ""
 
@@ -5889,17 +5855,17 @@ msgstr ""
 msgid "Select Device Driver to Load"
 msgstr ""
 
-#: ../loader2/hdinstall.c:80 ../loader2/nfsinstall.c:153
-#: ../loader2/urlinstall.c:298
+#: ../loader2/hdinstall.c:80 ../loader2/nfsinstall.c:168
+#: ../loader2/urlinstall.c:274
 msgid "Media Detected"
 msgstr ""
 
-#: ../loader2/hdinstall.c:81 ../loader2/nfsinstall.c:154
-#: ../loader2/urlinstall.c:299
+#: ../loader2/hdinstall.c:81 ../loader2/nfsinstall.c:169
+#: ../loader2/urlinstall.c:275
 msgid "Local installation media detected..."
 msgstr ""
 
-#: ../loader2/hdinstall.c:137 ../loader2/nfsinstall.c:271
+#: ../loader2/hdinstall.c:137 ../loader2/nfsinstall.c:293
 #: ../loader2/urlinstall.c:192
 #, c-format
 msgid ""
@@ -6191,7 +6157,7 @@ msgid ""
 "detected by the media check."
 msgstr ""
 
-#: ../loader2/method.c:377
+#: ../loader2/method.c:390
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6199,7 +6165,7 @@ msgid ""
 "   %s?"
 msgstr ""
 
-#: ../loader2/method.c:380
+#: ../loader2/method.c:393
 msgid "Checksum Test"
 msgstr ""
 
@@ -6375,24 +6341,24 @@ msgstr ""
 msgid "NFS Setup"
 msgstr ""
 
-#: ../loader2/nfsinstall.c:139
+#: ../loader2/nfsinstall.c:154
 msgid "Hostname specified with no DNS configured"
 msgstr ""
 
-#: ../loader2/nfsinstall.c:193 ../loader2/urls.c:222
+#: ../loader2/nfsinstall.c:215 ../loader2/urls.c:223
 msgid "Retrieving"
 msgstr ""
 
-#: ../loader2/nfsinstall.c:262
+#: ../loader2/nfsinstall.c:284
 msgid "That directory could not be mounted from the server."
 msgstr ""
 
-#: ../loader2/nfsinstall.c:275
+#: ../loader2/nfsinstall.c:297
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr ""
 
-#: ../loader2/nfsinstall.c:321
+#: ../loader2/nfsinstall.c:343
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr ""
@@ -6418,66 +6384,66 @@ msgstr ""
 msgid "Unable to retrieve the install image."
 msgstr ""
 
-#: ../loader2/urlinstall.c:466
+#: ../loader2/urlinstall.c:438
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr ""
 
-#: ../loader2/urlinstall.c:475
+#: ../loader2/urlinstall.c:447
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr ""
 
-#: ../loader2/urlinstall.c:484
+#: ../loader2/urlinstall.c:456
 #, c-format
 msgid "Unknown Url method %s"
 msgstr ""
 
-#: ../loader2/urls.c:280
+#: ../loader2/urls.c:282
 #, fuzzy, c-format
 msgid "Please enter the URL containing the %s images on your server."
 msgstr "Lūdzu ievadiet Jūsu %s kopijas reģistrācijas atslēgu."
 
-#: ../loader2/urls.c:291
+#: ../loader2/urls.c:293
 #, fuzzy
 msgid "Configure proxy"
 msgstr "Iestatīt %s"
 
-#: ../loader2/urls.c:306
+#: ../loader2/urls.c:308
 msgid "URL Setup"
 msgstr ""
 
-#: ../loader2/urls.c:314
+#: ../loader2/urls.c:316
 msgid "You must enter a URL."
 msgstr ""
 
-#: ../loader2/urls.c:320
+#: ../loader2/urls.c:322
 msgid "URL must be either an ftp or http URL"
 msgstr ""
 
-#: ../loader2/urls.c:331
+#: ../loader2/urls.c:333
 msgid "Unknown Host"
 msgstr ""
 
-#: ../loader2/urls.c:332
+#: ../loader2/urls.c:334
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr ""
 
-#: ../loader2/urls.c:378
+#: ../loader2/urls.c:380
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
 
-#: ../loader2/urls.c:393
+#: ../loader2/urls.c:395
 msgid "Proxy Name:"
 msgstr ""
 
-#: ../loader2/urls.c:398
+#: ../loader2/urls.c:400
 msgid "Proxy Port:"
 msgstr ""
 
-#: ../loader2/urls.c:414
+#: ../loader2/urls.c:416
 msgid "Further Setup"
 msgstr ""
 
@@ -6667,14 +6633,19 @@ msgid "_Details"
 msgstr ""
 
 #: tmp/exnSave.glade.h:2
+#, fuzzy
+msgid "Select A File"
+msgstr "Skripleta kļūda"
+
+#: tmp/exnSave.glade.h:3
 msgid "Select a destination for the exception information."
 msgstr ""
 
-#: tmp/exnSave.glade.h:3
+#: tmp/exnSave.glade.h:4
 msgid "_Disk"
 msgstr ""
 
-#: tmp/exnSave.glade.h:4
+#: tmp/exnSave.glade.h:5
 #, fuzzy
 msgid "_Remote"
 msgstr "Pārsūtīt"
@@ -7128,6 +7099,30 @@ msgstr ""
 #. generated from lang-table
 msgid "Zulu"
 msgstr ""
+
+#~ msgid "Mouse Configuration"
+#~ msgstr "Peles iestatīšana"
+
+#~ msgid "/dev/ttyS0 (COM1 under DOS)"
+#~ msgstr "/dev/ttyS0 (COM1 DOS sistēmā)"
+
+#~ msgid "/dev/ttyS1 (COM2 under DOS)"
+#~ msgstr "/dev/ttyS1 (COM2 DOS sistēmā)"
+
+#~ msgid "/dev/ttyS2 (COM3 under DOS)"
+#~ msgstr "/dev/ttyS2 (COM3 DOS sistēmā)"
+
+#~ msgid "/dev/ttyS3 (COM4 under DOS)"
+#~ msgstr "/dev/ttyS3 (COM4 DOS sistēmā)"
+
+#~ msgid "_Model"
+#~ msgstr "Modelis"
+
+#~ msgid "_Emulate 3 buttons"
+#~ msgstr "Emulēt 3 taustiņus"
+
+#~ msgid "Select the appropriate mouse for the system."
+#~ msgstr "Izvēlieties piemērotāko peles tipu."
 
 #~ msgid "Error pulling second part of kickstart config: %s!"
 #~ msgstr "Kickstart konfigurācijas otrās daļas saņemšanas kļūda: %s!"

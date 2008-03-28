@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-16 13:31-0400\n"
+"POT-Creation-Date: 2008-03-28 10:06-0400\n"
 "PO-Revision-Date: 2008-03-24 17:11+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
@@ -17,7 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -42,7 +44,7 @@ msgstr "%%ksappend पंक्ति की प्रक्रिया मे�
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "%%ksappend पंक्ति की प्रक्रिया में अज्ञात त्रुटि: %s"
 
-#: ../anaconda:306 ../cmdline.py:78 ../gui.py:1174 ../text.py:508
+#: ../anaconda:306 ../cmdline.py:78 ../gui.py:1187 ../text.py:509
 #, c-format, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -57,9 +59,9 @@ msgstr ""
 msgid "Press <enter> for a shell"
 msgstr "एक शैल के लिये <enter> दबायें"
 
-#: ../anaconda:438 ../gui.py:235 ../rescue.py:271 ../rescue.py:339
+#: ../anaconda:438 ../gui.py:234 ../rescue.py:271 ../rescue.py:339
 #: ../rescue.py:366 ../rescue.py:376 ../rescue.py:452 ../rescue.py:458
-#: ../text.py:536 ../text.py:698 ../textw/constants_text.py:42
+#: ../text.py:537 ../text.py:699 ../textw/constants_text.py:42
 #: ../textw/network_text.py:44 ../textw/network_text.py:54
 #: ../textw/network_text.py:76 ../textw/network_text.py:82
 #: ../textw/network_text.py:230 ../textw/network_text.py:815
@@ -86,18 +88,18 @@ msgstr "एक शैल के लिये <enter> दबायें"
 #: ../loader2/loader.c:480 ../loader2/loader.c:997 ../loader2/loader.c:1159
 #: ../loader2/mediacheck.c:62 ../loader2/mediacheck.c:101
 #: ../loader2/mediacheck.c:108 ../loader2/mediacheck.c:117
-#: ../loader2/method.c:112 ../loader2/method.c:333 ../loader2/method.c:407
+#: ../loader2/method.c:120 ../loader2/method.c:346 ../loader2/method.c:420
 #: ../loader2/modules.c:336 ../loader2/modules.c:348 ../loader2/net.c:277
 #: ../loader2/net.c:320 ../loader2/net.c:750 ../loader2/net.c:1094
 #: ../loader2/net.c:1647 ../loader2/net.c:1670 ../loader2/net.c:1863
-#: ../loader2/nfsinstall.c:68 ../loader2/nfsinstall.c:138
-#: ../loader2/nfsinstall.c:261 ../loader2/nfsinstall.c:279
-#: ../loader2/nfsinstall.c:320 ../loader2/telnetd.c:93
+#: ../loader2/nfsinstall.c:68 ../loader2/nfsinstall.c:153
+#: ../loader2/nfsinstall.c:283 ../loader2/nfsinstall.c:301
+#: ../loader2/nfsinstall.c:342 ../loader2/telnetd.c:93
 #: ../loader2/urlinstall.c:78 ../loader2/urlinstall.c:101
 #: ../loader2/urlinstall.c:185 ../loader2/urlinstall.c:196
-#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:474
-#: ../loader2/urlinstall.c:483 ../loader2/urls.c:278 ../loader2/urls.c:313
-#: ../loader2/urls.c:319 ../loader2/urls.c:331 ../loader2/urls.c:403
+#: ../loader2/urlinstall.c:437 ../loader2/urlinstall.c:446
+#: ../loader2/urlinstall.c:455 ../loader2/urls.c:280 ../loader2/urls.c:315
+#: ../loader2/urls.c:321 ../loader2/urls.c:333 ../loader2/urls.c:405
 msgid "OK"
 msgstr "ठीक"
 
@@ -109,31 +111,31 @@ msgstr ""
 "आपके पास आलेखी अधिष्ठापक का उपयोग करने के लिए पर्याप्त RAM नहीं है. पाठ प्रकार आरंभ कर "
 "रहा है."
 
-#: ../anaconda:461
+#: ../anaconda:460
 msgid "No video hardware found, assuming headless"
 msgstr "कोई वीडियो हार्डवेयर नहीं मिला, शीर्षहीन मान रहा है"
 
-#: ../anaconda:468 ../anaconda:955
+#: ../anaconda:467 ../anaconda:958
 msgid "Unable to instantiate a X hardware state object."
 msgstr "एक X हार्डवेयर स्थिति वस्तु के प्रारंभिकीकरण में असमर्थ."
 
-#: ../anaconda:518
+#: ../anaconda:517
 msgid "Starting graphical installation..."
 msgstr "आलेखी अधिष्ठापन आरंभ कर रहा है..."
 
-#: ../anaconda:832
+#: ../anaconda:838
 msgid "Install class forcing text mode installation"
 msgstr "पाठ प्रकार अधिष्ठापन के लिये अधिष्ठापन वर्ग दबाव डाल रहा है."
 
-#: ../anaconda:872
+#: ../anaconda:878
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "आलेखी अधिष्ठापन उपलब्ध नहीं है...  पाठ प्रकार प्रारंभ कर रहा है."
 
-#: ../anaconda:880
+#: ../anaconda:886
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "प्रदर्शक मोड चर सेट नहीं है. पाठ मोड शुरू कर रहा है!"
 
-#: ../autopart.py:889
+#: ../autopart.py:888
 #, python-format
 msgid ""
 "Error resizing partition %s.\n"
@@ -144,24 +146,24 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:892
+#: ../autopart.py:891
 #, python-format
 msgid "Start of partition %s was moved when resizing"
 msgstr "विभाजन %s का आरंभ खिसकाया गया था जब फिर आकार दिया जा रहा था"
 
-#: ../autopart.py:984
+#: ../autopart.py:983
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
 msgstr "प्राथमिक विभाजन के रूप में सिलिंडर आधारित विभाजन आबंटित नहीं कर सका.\n"
 
-#: ../autopart.py:989
+#: ../autopart.py:988
 msgid "Could not allocate partitions as primary partitions.\n"
 msgstr "प्राथमिक विभाजन के रूप में विभाजन संभाजित नहीं कर सका.\n"
 
-#: ../autopart.py:994
+#: ../autopart.py:993
 msgid "Could not allocate cylinder-based partitions.\n"
 msgstr "सिलेण्डर-आधारित विभाजन आबंटित नहीं कर सका.\n"
 
-#: ../autopart.py:1059
+#: ../autopart.py:1058
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
@@ -171,7 +173,7 @@ msgstr ""
 "%s बूट विभाजन BSD डिस्क लेबल से संबंध नहीं रखती है. SRM इस विभाजन से बूट नहीं कर सकेगा. "
 "BSD डिस्क लेबल संबंधी विभाजन का प्रयोग करें या इस युक्ति डिस्क लेबल को BSD में बदलें."
 
-#: ../autopart.py:1061
+#: ../autopart.py:1060
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -182,14 +184,14 @@ msgstr ""
 "मुक्त स्थान है. यह निश्चित करें कि /boot को समाहित करने वाले डिस्क के प्रारंभ में कम से कम "
 "5MB मुक्त स्थान है."
 
-#: ../autopart.py:1063
+#: ../autopart.py:1062
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr "%s बूट विभाजन एक VFAT विभाजन नहीं है. EFI इस विभाजन से बूट नहीं कर सकता."
 
-#: ../autopart.py:1065
+#: ../autopart.py:1064
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
@@ -197,19 +199,22 @@ msgstr ""
 "बूट विभाजन जरूर डिस्क में पहले 4GB में स्थित होना चाहिये है. ओपनफर्मवेयर इस अधिष्ठापन को "
 "बूट नहीं कर सकता."
 
-#: ../autopart.py:1067
+#: ../autopart.py:1066
 #, python-format
 msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
 "be able to boot from this partition."
-msgstr "बूट विभाजन %s एक लिनक्स फाइल सिस्टम नहीं है, जैसे कि ext3.  सिस्टम इस विभाजन से बूट करने में समर्थ नहीं हो पायेगा."
+msgstr ""
+"बूट विभाजन %s एक लिनक्स फाइल सिस्टम नहीं है, जैसे कि ext3.  सिस्टम इस विभाजन से बूट "
+"करने में समर्थ नहीं हो पायेगा."
 
-#: ../autopart.py:1070
+#: ../autopart.py:1069
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr "आपके आर्किटेक्चर के लिए %s बूट विभाजन बूटिंग निर्धारक से मिल नहीं सकता."
 
-#: ../autopart.py:1095
+#: ../autopart.py:1094
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -218,11 +223,11 @@ msgstr ""
 "इस विभाजन को जोड़ने से %s में पहले से बाँटे गए लॉजिकल वॉल्यूमों के लिए पर्याप्त डिस्क स्थान "
 "नहीं छोडेगा."
 
-#: ../autopart.py:1287
+#: ../autopart.py:1286
 msgid "Requested Partition Does Not Exist"
 msgstr "आग्रह किया गया विभाजन उपस्थित नहीं है"
 
-#: ../autopart.py:1288
+#: ../autopart.py:1287
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -233,11 +238,11 @@ msgstr ""
 "\n"
 "अपने सिस्टम को रिबूट करने के लिए 'ठीक' दबाएं."
 
-#: ../autopart.py:1313
+#: ../autopart.py:1312
 msgid "Requested Raid Device Does Not Exist"
 msgstr "आग्रह किया गया Raid युक्ति उपस्थित नहीं है."
 
-#: ../autopart.py:1314
+#: ../autopart.py:1313
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -248,11 +253,11 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए 'ठीक' दबाएं."
 
-#: ../autopart.py:1343
+#: ../autopart.py:1342
 msgid "Requested Volume Group Does Not Exist"
 msgstr "निवेदित वॉल्यूम ग्रूप उपस्थित नहीं है"
 
-#: ../autopart.py:1344
+#: ../autopart.py:1343
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -263,11 +268,11 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए 'ठीक' दबाएं."
 
-#: ../autopart.py:1381
+#: ../autopart.py:1380
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "निवेदित लॉजिकल वॉल्यूम समूह उपस्थित नहीं है"
 
-#: ../autopart.py:1382
+#: ../autopart.py:1381
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -278,11 +283,11 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए 'ठीक' दबाएं."
 
-#: ../autopart.py:1517 ../autopart.py:1564
+#: ../autopart.py:1516 ../autopart.py:1563
 msgid "Automatic Partitioning Errors"
 msgstr "स्वतः विभाजन त्रुटि"
 
-#: ../autopart.py:1518
+#: ../autopart.py:1517
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -297,11 +302,11 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए 'ठीक' दबाएं."
 
-#: ../autopart.py:1528
+#: ../autopart.py:1527
 msgid "Warnings During Automatic Partitioning"
 msgstr "स्वतः विभाजन के समय चेतावनी"
 
-#: ../autopart.py:1529
+#: ../autopart.py:1528
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -312,7 +317,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1543 ../autopart.py:1560
+#: ../autopart.py:1542 ../autopart.py:1559
 msgid ""
 "\n"
 "\n"
@@ -322,12 +327,12 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए 'ठीक' दबाएं."
 
-#: ../autopart.py:1544 ../iw/partition_gui.py:1023
+#: ../autopart.py:1543 ../iw/partition_gui.py:1023
 #: ../textw/partition_text.py:246
 msgid "Error Partitioning"
 msgstr "विभाजन त्रुटि"
 
-#: ../autopart.py:1545
+#: ../autopart.py:1544
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -338,7 +343,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1562
+#: ../autopart.py:1561
 msgid ""
 "\n"
 "\n"
@@ -348,7 +353,7 @@ msgstr ""
 "\n"
 "'ठीक' को अलग विभाजनकारी विकल्प के लिये चुनें."
 
-#: ../autopart.py:1565
+#: ../autopart.py:1564
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -365,15 +370,15 @@ msgstr ""
 "यह तब हो सकता है जब अधिष्ठापन के लिए आपके हार्ड ड्राइव पर अधिष्ठापन के लिये पर्याप्त "
 "स्थान न हो.%s"
 
-#: ../autopart.py:1576
+#: ../autopart.py:1575
 msgid "Unrecoverable Error"
 msgstr "अप्राप्य त्रुटि"
 
-#: ../autopart.py:1577
+#: ../autopart.py:1576
 msgid "Your system will now be rebooted."
 msgstr "आपके सिस्टम को अब रिबूट किया जाएगा."
 
-#: ../autopart.py:1701
+#: ../autopart.py:1700
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -389,7 +394,7 @@ msgstr ""
 "बनाने की अनुमति देता है. आप फाइल सिस्टम प्रकारों, आरोह बिंदु, विभाजन आकारों और कई को "
 "व्यवस्थित कर सकते हैं."
 
-#: ../autopart.py:1712
+#: ../autopart.py:1711
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -397,15 +402,15 @@ msgstr ""
 "स्वतः विभाजन को अधिष्ठापन कार्यक्रम के द्वारा जमाये जाने से पहले, आपको जरूर चुनना चाहिए "
 "कि आपके हार्ड ड्राइव पर स्थान का कैसे प्रयोग होता है."
 
-#: ../autopart.py:1717
+#: ../autopart.py:1716
 msgid "Remove all partitions on this system"
 msgstr "इस सिस्टम पर सभी विभाजनों को हटाएँ"
 
-#: ../autopart.py:1718
+#: ../autopart.py:1717
 msgid "Remove all Linux partitions on this system"
 msgstr "इस सिस्टम पर सभी Linux विभाजनों को हटाएँ"
 
-#: ../autopart.py:1719
+#: ../autopart.py:1718
 msgid "Keep all partitions and use existing free space"
 msgstr "सभी विभाजनों को रखें और उपस्थित मुक्त स्थान का प्रयोग करें"
 
@@ -420,9 +425,9 @@ msgid "Installing %s\n"
 msgstr "%s अधिष्ठापित कर रहा है\n"
 
 #: ../bootloader.py:44 ../bootloader.py:236 ../image.py:87
-#: ../partedUtils.py:365 ../partedUtils.py:395 ../partedUtils.py:1103
-#: ../partedUtils.py:1256 ../upgrade.py:432 ../yuminstall.py:1417
-#: ../yuminstall.py:1444 ../iw/autopart_type.py:178 ../iw/blpasswidget.py:149
+#: ../partedUtils.py:365 ../partedUtils.py:395 ../partedUtils.py:1106
+#: ../partedUtils.py:1259 ../upgrade.py:432 ../yuminstall.py:1463
+#: ../yuminstall.py:1490 ../iw/autopart_type.py:180 ../iw/blpasswidget.py:149
 #: ../iw/task_gui.py:53 ../iw/upgrade_swap_gui.py:192
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:207
 #: ../textw/bootloader_text.py:127 ../textw/bootloader_text.py:452
@@ -441,18 +446,19 @@ msgstr ""
 "\n"
 "क्या आप अधिष्ठापन प्रक्रिया के साथ जारी रखना चाहेंगे?"
 
-#: ../bootloader.py:49 ../exception.py:348 ../exception.py:364
-#: ../fsset.py:1700 ../fsset.py:1954 ../fsset.py:2685 ../fsset.py:2692
-#: ../gui.py:1179 ../gui.py:1313 ../image.py:96 ../livecd.py:380
-#: ../upgrade.py:113 ../upgrade.py:133 ../yuminstall.py:671
-#: ../yuminstall.py:746 ../yuminstall.py:752 ../yuminstall.py:920
-#: ../yuminstall.py:968 ../yuminstall.py:1201 ../yuminstall.py:1238
+#: ../bootloader.py:49 ../exception.py:348 ../exception.py:363
+#: ../exception.py:381 ../fsset.py:1715 ../fsset.py:1972 ../fsset.py:2711
+#: ../fsset.py:2718 ../gui.py:1192 ../gui.py:1326 ../gui.py:1403
+#: ../image.py:96 ../livecd.py:361 ../packages.py:152 ../upgrade.py:113
+#: ../upgrade.py:133 ../yuminstall.py:718 ../yuminstall.py:793
+#: ../yuminstall.py:799 ../yuminstall.py:970 ../yuminstall.py:1018
+#: ../yuminstall.py:1251 ../yuminstall.py:1288
 msgid "_Exit installer"
 msgstr "अधिष्ठापक छोड़ें (_E)"
 
-#: ../bootloader.py:49 ../fsset.py:1955 ../image.py:97 ../image.py:247
-#: ../kickstart.py:982 ../kickstart.py:1020 ../partedUtils.py:1259
-#: ../upgrade.py:113 ../upgrade.py:133 ../yuminstall.py:925
+#: ../bootloader.py:49 ../fsset.py:1973 ../image.py:97 ../image.py:250
+#: ../kickstart.py:985 ../kickstart.py:1023 ../partedUtils.py:1262
+#: ../upgrade.py:113 ../upgrade.py:133 ../yuminstall.py:975
 #: ../iw/partition_gui.py:1037
 msgid "_Continue"
 msgstr "जारी रखें (_C)"
@@ -493,7 +499,9 @@ msgstr "कमांड लाइन प्रकार में विभा�
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
-msgstr "एक अनियंत्रित अपवाद घटित हुआ. ज्यादा संभावना यह एक बग है. कृपया विस्तृत अपवाद की एक कॉपी सहेजें और एक बग रिपोर्ट फाइल करें."
+msgstr ""
+"एक अनियंत्रित अपवाद घटित हुआ. ज्यादा संभावना यह एक बग है. कृपया विस्तृत अपवाद की एक "
+"कॉपी सहेजें और एक बग रिपोर्ट फाइल करें."
 
 #: ../constants.py:81
 msgid " with the provider of this software."
@@ -504,11 +512,11 @@ msgstr " इस सॉफ्टवेयर के प्रदाता के 
 msgid " against anaconda at %s"
 msgstr " %s पर एनाकोंडा के बरक्स"
 
-#: ../exception.py:344 ../exception.py:360
+#: ../exception.py:344 ../exception.py:359 ../exception.py:377
 msgid "Dump Written"
 msgstr "संनिक्षेप लिखा गया"
 
-#: ../exception.py:345
+#: ../exception.py:345 ../exception.py:360
 msgid ""
 "Your system's state has been successfully written to the disk. The installer "
 "will now exit."
@@ -516,15 +524,15 @@ msgstr ""
 "आपके सिस्टम की स्थिति सफलता पूर्वक डिस्क पर लिखी जा चुकी है. अधिष्ठापक अब बाहर निकल "
 "जायेगा."
 
-#: ../exception.py:351 ../exception.py:367
+#: ../exception.py:351 ../exception.py:368 ../exception.py:384
 msgid "Dump Not Written"
 msgstr "संनिक्षेप नहीं लिखा गया"
 
-#: ../exception.py:352
+#: ../exception.py:352 ../exception.py:369
 msgid "There was a problem writing the system state to the disk."
 msgstr "डिस्क में सिस्टम स्थिति को लिखने में समस्या थी."
 
-#: ../exception.py:361
+#: ../exception.py:378
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
@@ -532,38 +540,38 @@ msgstr ""
 "आपके सिस्टम की स्थिति सफलता पूर्वक दूरस्थ मेजबान पर लिखी जा चुकी है. आपका अधिष्ठापक अब "
 "पुनः बूट किया जायेगा."
 
-#: ../exception.py:368
+#: ../exception.py:385
 msgid "There was a problem writing the system state to the remote host."
 msgstr "दूरस्थ मेजबान में सिस्टम स्थिति लिखने में समस्या थी."
 
-#: ../fsset.py:545
+#: ../fsset.py:548
 msgid "Checking"
 msgstr "जांच कर रहा है"
 
-#: ../fsset.py:546
+#: ../fsset.py:549
 #, python-format
 msgid "Checking filesystem on %s..."
 msgstr "%s पर फाइल सिस्टम के लिए जांच रहा है..."
 
-#: ../fsset.py:556 ../fsset.py:1010
+#: ../fsset.py:560 ../fsset.py:1015
 msgid "Resizing"
 msgstr "फिर आकार दे रहा है"
 
-#: ../fsset.py:557 ../fsset.py:1011
+#: ../fsset.py:561 ../fsset.py:1016
 #, python-format
 msgid "Resizing filesystem on %s..."
 msgstr "%s पर फाइल सिस्टम को फिर आकार दे रहा है..."
 
-#: ../fsset.py:699 ../fsset.py:1670 ../fsset.py:1701 ../fsset.py:1777
-#: ../fsset.py:1845 ../fsset.py:1895 ../fsset.py:1977 ../fsset.py:1990
-#: ../image.py:264 ../livecd.py:373 ../partIntfHelpers.py:412 ../text.py:444
-#: ../yuminstall.py:356 ../yuminstall.py:411 ../yuminstall.py:562
-#: ../yuminstall.py:667 ../yuminstall.py:931 ../yuminstall.py:972
-#: ../yuminstall.py:1206 ../yuminstall.py:1231 ../iw/autopart_type.py:93
-#: ../iw/autopart_type.py:168 ../iw/autopart_type.py:312
-#: ../iw/netconfig_dialog.py:264 ../iw/osbootwidget.py:210
-#: ../iw/osbootwidget.py:219 ../iw/raid_dialog_gui.py:671
-#: ../iw/raid_dialog_gui.py:710 ../iw/task_gui.py:43 ../iw/task_gui.py:226
+#: ../fsset.py:704 ../fsset.py:1685 ../fsset.py:1716 ../fsset.py:1792
+#: ../fsset.py:1860 ../fsset.py:1910 ../fsset.py:1995 ../fsset.py:2008
+#: ../image.py:267 ../livecd.py:354 ../partIntfHelpers.py:412 ../text.py:445
+#: ../yuminstall.py:374 ../yuminstall.py:438 ../yuminstall.py:609
+#: ../yuminstall.py:714 ../yuminstall.py:981 ../yuminstall.py:1022
+#: ../yuminstall.py:1256 ../yuminstall.py:1281 ../iw/autopart_type.py:95
+#: ../iw/autopart_type.py:170 ../iw/autopart_type.py:314
+#: ../iw/netconfig_dialog.py:265 ../iw/osbootwidget.py:214
+#: ../iw/osbootwidget.py:223 ../iw/raid_dialog_gui.py:671
+#: ../iw/raid_dialog_gui.py:710 ../iw/task_gui.py:43 ../iw/task_gui.py:231
 #: ../textw/grpselect_text.py:123 ../textw/partition_text.py:1651
 #: ../textw/partition_text.py:1657 ../textw/partition_text.py:1679
 #: ../textw/upgrade_text.py:174 ../textw/upgrade_text.py:181
@@ -577,16 +585,16 @@ msgstr "%s पर फाइल सिस्टम को फिर आकार 
 #: ../loader2/kickstart.c:284 ../loader2/lang.c:115 ../loader2/loader.c:344
 #: ../loader2/loader.c:445 ../loader2/loader.c:997 ../loader2/mediacheck.c:62
 #: ../loader2/mediacheck.c:101 ../loader2/mediacheck.c:108
-#: ../loader2/method.c:112 ../loader2/method.c:333 ../loader2/method.c:407
-#: ../loader2/nfsinstall.c:138 ../loader2/nfsinstall.c:261
-#: ../loader2/nfsinstall.c:279 ../loader2/telnetd.c:93
+#: ../loader2/method.c:120 ../loader2/method.c:346 ../loader2/method.c:420
+#: ../loader2/nfsinstall.c:153 ../loader2/nfsinstall.c:283
+#: ../loader2/nfsinstall.c:301 ../loader2/telnetd.c:93
 #: ../loader2/urlinstall.c:78 ../loader2/urlinstall.c:101
 #: ../loader2/urlinstall.c:185 ../loader2/urlinstall.c:196
-#: ../loader2/urls.c:313 ../loader2/urls.c:319
+#: ../loader2/urls.c:315 ../loader2/urls.c:321
 msgid "Error"
 msgstr "त्रुटि"
 
-#: ../fsset.py:700
+#: ../fsset.py:705
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -599,31 +607,31 @@ msgstr ""
 "\n"
 "क्या आप %s में बिना उत्प्रवासन किए जारी रखना चाहते हैं?"
 
-#: ../fsset.py:1523
+#: ../fsset.py:1538
 msgid "EFI System Partition"
 msgstr "EFI सिस्टम विभाजन"
 
-#: ../fsset.py:1527
+#: ../fsset.py:1542
 msgid "RAID Device"
 msgstr "RAID युक्ति"
 
-#: ../fsset.py:1531 ../fsset.py:1537
+#: ../fsset.py:1546 ../fsset.py:1552
 msgid "Apple Bootstrap"
 msgstr "एप्पल बूटस्ट्रेप"
 
-#: ../fsset.py:1542 ../partitions.py:1120
+#: ../fsset.py:1557 ../partitions.py:1121
 msgid "PPC PReP Boot"
 msgstr "PPC PReP बूट"
 
-#: ../fsset.py:1545
+#: ../fsset.py:1560
 msgid "First sector of boot partition"
 msgstr "बूट विभाजन का प्रथम खण्ड"
 
-#: ../fsset.py:1546
+#: ../fsset.py:1561
 msgid "Master Boot Record (MBR)"
 msgstr "मास्टर बूट रिकार्ड (MBR)"
 
-#: ../fsset.py:1671
+#: ../fsset.py:1686
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -636,13 +644,13 @@ msgstr ""
 "\n"
 "अपने सिस्टम को रिबूट करने के लिए <Enter> दबायें."
 
-#: ../fsset.py:1700 ../packages.py:304 ../rescue.py:305 ../rescue.py:307
+#: ../fsset.py:1715 ../packages.py:368 ../rescue.py:305 ../rescue.py:307
 #: ../textw/upgrade_text.py:132 ../loader2/cdinstall.c:200
-#: ../loader2/cdinstall.c:203 ../loader2/method.c:380
+#: ../loader2/cdinstall.c:203 ../loader2/method.c:393
 msgid "Skip"
 msgstr "छोड़ें"
 
-#: ../fsset.py:1721
+#: ../fsset.py:1736
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -661,11 +669,11 @@ msgstr ""
 "एक संस्करण 1 Linux स्वैप विभाजन को फिर संरूपित करना चाहिये. अगर आप इसे छोड़ते हैं, "
 "अधिष्ठापक इसे अधिष्ठापन के दौरान अनदेखा करेगा."
 
-#: ../fsset.py:1728
+#: ../fsset.py:1743
 msgid "Reformat"
 msgstr "फिर संरूपित करें"
 
-#: ../fsset.py:1732
+#: ../fsset.py:1747
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -684,7 +692,7 @@ msgstr ""
 "कि आपका सिस्टम सुप्तावस्था में है. उन्नयन करने के लिये, बजाय सुप्तावस्था में ले जाने के अपने "
 "सिस्टम को बंद कीजिये."
 
-#: ../fsset.py:1740
+#: ../fsset.py:1755
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -703,7 +711,7 @@ msgstr ""
 "कि आपका सिस्टम सुप्तावस्था में है. अगर आप नया अधिष्ठापन कर रहे हैं, सुनिश्चित कीजिये कि "
 "अधिष्ठापक सारे स्वैप विभाजन के संरूपन के लिये सेट किया हुआ है."
 
-#: ../fsset.py:1750
+#: ../fsset.py:1765
 msgid ""
 "\n"
 "\n"
@@ -715,11 +723,11 @@ msgstr ""
 "छोड़ें चुनें अगर आप अधिष्ठापक को उन्नयन के दौरान इस विभाजन को अनदेखा करना चाहते हैं.  स्वैप "
 "स्थान के रूप में विभाजन संरूपित करने के लिये संरूपित करें चुनें. "
 
-#: ../fsset.py:1755 ../iw/partition_gui.py:373
+#: ../fsset.py:1770 ../iw/partition_gui.py:373
 msgid "Format"
 msgstr "संरूपित करें"
 
-#: ../fsset.py:1761
+#: ../fsset.py:1776
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -734,7 +742,7 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए 'ठीक' दबाएं."
 
-#: ../fsset.py:1766
+#: ../fsset.py:1781
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -750,7 +758,7 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए'ठीक' दबाएँ."
 
-#: ../fsset.py:1772
+#: ../fsset.py:1787
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -766,7 +774,7 @@ msgstr ""
 "\n"
 "अपने सिस्टम को रिबूट करने के लिए 'ठीक' दबाएँ."
 
-#: ../fsset.py:1846
+#: ../fsset.py:1861
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -779,7 +787,7 @@ msgstr ""
 "\n"
 "आपके सिस्टम को रिबूट करने के लिए <Enter> दबाएँ."
 
-#: ../fsset.py:1896
+#: ../fsset.py:1911
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -792,11 +800,11 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए <Enter> दबाएं."
 
-#: ../fsset.py:1922 ../fsset.py:1931
+#: ../fsset.py:1940 ../fsset.py:1949
 msgid "Invalid mount point"
 msgstr "अमान्य आरोह बिंदु"
 
-#: ../fsset.py:1923
+#: ../fsset.py:1941
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -809,7 +817,7 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए <Enter> दबाएं."
 
-#: ../fsset.py:1932
+#: ../fsset.py:1950
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -822,11 +830,11 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए <Enter> दबाएं."
 
-#: ../fsset.py:1946
+#: ../fsset.py:1964
 msgid "Unable to mount filesystem"
 msgstr "फाइलसिस्टम आरोहित करने में असमर्थ!"
 
-#: ../fsset.py:1947
+#: ../fsset.py:1965
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
@@ -835,7 +843,7 @@ msgstr ""
 "युक्ति %s के %s के रूप में आरोहन में त्रुटि पैदा हुई.  आप अधिष्ठापन जारी रख सकते हैं, लेकिन "
 "समस्या आ सकती है."
 
-#: ../fsset.py:1963
+#: ../fsset.py:1981
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -850,7 +858,7 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए 'ठीक' दबाएं."
 
-#: ../fsset.py:1970
+#: ../fsset.py:1988
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -865,7 +873,7 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर निकलने के लिए 'ठीक' दबाएं."
 
-#: ../fsset.py:1991
+#: ../fsset.py:2009
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -879,11 +887,11 @@ msgstr ""
 "\n"
 "अधिष्ठापक से बाहर जाने के लिए 'ठीक' दबाएं."
 
-#: ../fsset.py:2677
+#: ../fsset.py:2703
 msgid "Duplicate Labels"
 msgstr "नकल लेबल"
 
-#: ../fsset.py:2678
+#: ../fsset.py:2704
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -896,11 +904,11 @@ msgstr ""
 "\n"
 "कृपया इस समस्या को ठीक करें और अधिष्ठापन प्रक्रिया को पुनः प्रारंभ करें."
 
-#: ../fsset.py:2687
+#: ../fsset.py:2713
 msgid "Invalid Label"
 msgstr "अमान्य लेबल"
 
-#: ../fsset.py:2688
+#: ../fsset.py:2714
 #, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
@@ -909,24 +917,24 @@ msgstr ""
 "युक्ति %s पर अवैध लेबल दिया गया था. कृपया इस समस्या को ठीक करें और अधिष्ठापन प्रक्रिया "
 "को पुनः प्रारंभ करें."
 
-#: ../fsset.py:2825
+#: ../fsset.py:2877
 msgid "Formatting"
 msgstr "संरूपित कर रहा है"
 
-#: ../fsset.py:2826
+#: ../fsset.py:2878
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "%s फाइल सिस्टम को संरूपित कर रहा है..."
 
-#: ../gui.py:107
+#: ../gui.py:106
 msgid "An error occurred copying the screenshots over."
 msgstr "स्क्रीनशॉट कॉपी करने में एक त्रुटि घटित हुई "
 
-#: ../gui.py:118
+#: ../gui.py:117
 msgid "Screenshots Copied"
 msgstr "स्क्रीनशीट कॉपी की गई"
 
-#: ../gui.py:119
+#: ../gui.py:118
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -940,20 +948,20 @@ msgstr ""
 "\n"
 "रिबूट करके और रूट से लॉगिन करने से आप इसका अभिगम कर सकते हैं."
 
-#: ../gui.py:162
+#: ../gui.py:161
 msgid "Saving Screenshot"
 msgstr "स्क्रीनशॉट सहेज रहा है"
 
-#: ../gui.py:163
+#: ../gui.py:162
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "'%s' नामक स्क्रीनशॉट को सुरक्षित किया गया."
 
-#: ../gui.py:166
+#: ../gui.py:165
 msgid "Error Saving Screenshot"
 msgstr "स्क्रीनशॉट को सुरक्षित करने में त्रुटि"
 
-#: ../gui.py:167
+#: ../gui.py:166
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -961,95 +969,97 @@ msgstr ""
 "स्क्रीनशॉट को सुरक्षित करते समय एक त्रुटि घटित हुआ. यदि संकुल अधिष्ठापन के समय यह घटित "
 "हुआ है तो इसकी सफलता के लिए आपको कई बार प्रयास करना जरुरी हैं."
 
-#: ../gui.py:232 ../text.py:533
+#: ../gui.py:231 ../text.py:534
 msgid "Fix"
 msgstr "सही"
 
-#: ../gui.py:233 ../rescue.py:228 ../text.py:534
+#: ../gui.py:232 ../rescue.py:228 ../text.py:535
 #: ../textw/bootloader_text.py:72 ../textw/constants_text.py:54
 #: ../loader2/driverdisk.c:479 ../loader2/driverdisk.c:489
 #: ../loader2/hdinstall.c:334
 msgid "Yes"
 msgstr "हां"
 
-#: ../gui.py:234 ../rescue.py:228 ../rescue.py:230 ../text.py:535
+#: ../gui.py:233 ../rescue.py:228 ../rescue.py:230 ../text.py:536
 #: ../textw/bootloader_text.py:72 ../textw/constants_text.py:58
 #: ../loader2/driverdisk.c:479 ../loader2/driverdisk.c:489
 msgid "No"
 msgstr "नहीं"
 
-#: ../gui.py:236 ../text.py:537 ../text.py:668 ../loader2/net.c:92
+#: ../gui.py:235 ../text.py:538 ../text.py:669 ../loader2/net.c:92
 #: ../loader2/net.c:338 ../loader2/net.c:589 ../loader2/net.c:695
 #: ../loader2/net.c:820 ../loader2/net.c:828 ../loader2/net.c:1224
 #: ../loader2/net.c:1230
 msgid "Retry"
 msgstr "पुनः प्रयास करें"
 
-#: ../gui.py:237 ../text.py:538
+#: ../gui.py:236 ../text.py:539
 msgid "Ignore"
 msgstr "छोड़ें"
 
-#: ../gui.py:238 ../gui.py:843 ../partIntfHelpers.py:244
-#: ../partIntfHelpers.py:535 ../text.py:109 ../text.py:110 ../text.py:539
+#: ../gui.py:237 ../gui.py:856 ../gui.py:1403 ../partIntfHelpers.py:244
+#: ../partIntfHelpers.py:535 ../text.py:108 ../text.py:109 ../text.py:540
 #: ../textw/bootloader_text.py:202 ../textw/constants_text.py:46
 #: ../loader2/dirbrowser.c:145 ../loader2/driverdisk.c:236
 #: ../loader2/kickstart.c:372 ../loader2/loader.c:379 ../loader2/loader.c:480
 msgid "Cancel"
 msgstr "रद्द करें"
 
-#: ../gui.py:583 ../text.py:465
+#: ../gui.py:582 ../text.py:466
 msgid "Installation Key"
 msgstr "अधिष्ठापन कुंजी"
 
-#: ../gui.py:657 ../gui.py:665
+#: ../gui.py:656 ../gui.py:664
 msgid "Error with passphrase"
 msgstr "शब्दकूट के साथ त्रुटि"
 
-#: ../gui.py:658
+#: ../gui.py:657
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "आपने भिन्न शब्दकूट दाखिल किया है. कृपया पुनःप्रयास करें."
 
-#: ../gui.py:666
+#: ../gui.py:665
 msgid "The passphrase must be at least eight characters long."
 msgstr "शब्दकूट कम से कम आठ संप्रतीक का जरूर होना चाहिए."
 
-#: ../gui.py:692 ../text.py:275
+#: ../gui.py:691 ../text.py:276
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
-msgstr "युक्ति %s गोपित है. अधिष्ठापन के दौरान युक्ति सामग्री के अभिगम के क्रम में आपको जरूर युक्ति का शब्दकूट नीचे दाखिल करना चाहिए."
+msgstr ""
+"युक्ति %s गोपित है. अधिष्ठापन के दौरान युक्ति सामग्री के अभिगम के क्रम में आपको जरूर युक्ति "
+"का शब्दकूट नीचे दाखिल करना चाहिए."
 
-#: ../gui.py:855 ../gui.py:856 ../gui.py:968 ../gui.py:969
+#: ../gui.py:868 ../gui.py:869 ../gui.py:981 ../gui.py:982
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
 msgstr "डिबग करें (_D)"
 
-#: ../gui.py:1012 ../gui.py:1014 ../livecd.py:112
+#: ../gui.py:1025 ../gui.py:1027 ../gui.py:1400 ../livecd.py:112
 msgid "Exit installer"
 msgstr "अधिष्ठापक छोड़ें"
 
-#: ../gui.py:1014 ../text.py:253 ../text.py:261
+#: ../gui.py:1027 ../text.py:254 ../text.py:262
 msgid "Debug"
 msgstr "डिबग"
 
-#: ../gui.py:1016 ../text.py:257
+#: ../gui.py:1029 ../text.py:258
 msgid "Exception Occurred"
 msgstr "अपवाद घटित हुआ"
 
-#: ../gui.py:1176 ../text.py:510
+#: ../gui.py:1189 ../text.py:511
 msgid "Error Parsing Kickstart Config"
 msgstr "किकस्टार्ट विन्यास विश्लेषण करने में त्रुटि"
 
-#: ../gui.py:1222
+#: ../gui.py:1235
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: ../gui.py:1302 ../text.py:663
+#: ../gui.py:1315 ../text.py:664
 msgid "Error!"
 msgstr "त्रुटि!"
 
-#: ../gui.py:1303 ../text.py:664
+#: ../gui.py:1316 ../text.py:665
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1060,43 +1070,48 @@ msgstr ""
 "\n"
 "वर्गनाम = %s"
 
-#: ../gui.py:1308 ../image.py:162 ../image.py:188 ../packages.py:353
-#: ../packages.py:358
+#: ../gui.py:1321 ../image.py:165 ../image.py:191 ../packages.py:417
+#: ../packages.py:422
 msgid "_Exit"
 msgstr "निकास (_E)"
 
-#: ../gui.py:1309 ../image.py:188 ../yuminstall.py:559 ../yuminstall.py:920
-#: ../yuminstall.py:968 ../yuminstall.py:1201
+#: ../gui.py:1322 ../image.py:191 ../yuminstall.py:606 ../yuminstall.py:970
+#: ../yuminstall.py:1018 ../yuminstall.py:1251
 msgid "_Retry"
 msgstr "पुनः प्रयास करें (_R)"
 
-#: ../gui.py:1312 ../packages.py:168 ../packages.py:357
+#: ../gui.py:1325 ../packages.py:189 ../packages.py:421
 msgid "The installer will now exit..."
 msgstr "अधिष्ठापक अब बाहर निकल जायेगा..."
 
-#: ../gui.py:1315 ../packages.py:360
+#: ../gui.py:1328 ../packages.py:424
 msgid "Your system will now be rebooted..."
 msgstr "आपका सिस्टम अब रिबूट हो जाएगा..."
 
-#: ../gui.py:1316 ../image.py:247 ../packages.py:169 ../packages.py:361
-#: ../partedUtils.py:1258 ../yuminstall.py:1254
+#: ../gui.py:1329 ../image.py:250 ../packages.py:190 ../packages.py:425
+#: ../partedUtils.py:1261 ../yuminstall.py:1304
 msgid "_Reboot"
 msgstr "रिबूट करें (_R)"
 
-#: ../gui.py:1318
+#: ../gui.py:1331
 msgid "Exiting"
 msgstr "निकास"
 
-#: ../gui.py:1386
+#: ../gui.py:1401
+#, fuzzy
+msgid "Are you sure you wish to exit the installation?"
+msgstr "क्या आप निश्चित हैं कि \"%s\" लॉजिकल वॉल्यूम को विलोपित करना चाहते हैं?"
+
+#: ../gui.py:1410
 #, python-format
 msgid "%s Installer"
 msgstr "%s अधिष्ठापक"
 
-#: ../gui.py:1393
+#: ../gui.py:1417
 msgid "Unable to load title bar"
 msgstr "शीर्षक पट्टी भारित करने में असमर्थ"
 
-#: ../gui.py:1446
+#: ../gui.py:1470
 msgid "Install Window"
 msgstr "विंडो अधिष्ठापन"
 
@@ -1115,11 +1130,11 @@ msgstr ""
 "इसकी अनुशंसा की जाती है कि आप बाहर निकले और अपना अधिष्ठापन रोकें, लेकिन जारी रखने के "
 "लिये चुन सकते हैं अगर आप सोचते हैं कि यह एक त्रुटि है."
 
-#: ../image.py:154
+#: ../image.py:157
 msgid "Couldn't Mount ISO Source"
 msgstr "ISO श्रोत आरोहित नहीं कर सका"
 
-#: ../image.py:155
+#: ../image.py:158
 #, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
@@ -1131,11 +1146,11 @@ msgstr ""
 "उन्नत भंडारण युक्ति पर अवस्थित है LVM या RAID की तरह, या अगर विभाजन आरोहित करने में "
 "समस्या थी.  अधिष्ठापन छोड़ने के लिए बाहर निकलें क्लिक करें."
 
-#: ../image.py:179
+#: ../image.py:182
 msgid "Missing ISO 9660 Image"
 msgstr "गुम ISO 9660 चित्र"
 
-#: ../image.py:180
+#: ../image.py:183
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
@@ -1150,11 +1165,11 @@ msgstr ""
 "ड्राइव पर पर इस चित्र को कॉपी करें और फिर कोशिश करें को क्लिक करें. अधिष्ठापन रोकने के "
 "लिये बाहर निकलें क्लिक करें."
 
-#: ../image.py:238
+#: ../image.py:241
 msgid "Required Install Media"
 msgstr "जरूरी अधिष्ठापन मीडिया"
 
-#: ../image.py:239
+#: ../image.py:242
 #, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
@@ -1170,13 +1185,13 @@ msgstr ""
 "अधिष्ठापन आरंभ करने के पहले कृपया इन्हें तैयार रखें.  अगर आपको अधिष्ठापन को स्थगित करके "
 "बाहर निकलने की जरूरत है तो कृपया \"रिबूट करें\" चुनें."
 
-#: ../image.py:247 ../livecd.py:379 ../packages.py:307 ../packages.py:358
-#: ../packages.py:361 ../yuminstall.py:671 ../yuminstall.py:752
-#: ../yuminstall.py:1238 ../yuminstall.py:1254
+#: ../image.py:250 ../livecd.py:360 ../packages.py:371 ../packages.py:422
+#: ../packages.py:425 ../yuminstall.py:718 ../yuminstall.py:799
+#: ../yuminstall.py:1288 ../yuminstall.py:1304
 msgid "_Back"
 msgstr "पीछे (_B)"
 
-#: ../image.py:265
+#: ../image.py:268
 #, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
@@ -1185,7 +1200,7 @@ msgstr ""
 "डिस्क के विरोहण समय एक त्रुटि घटित हुई. कृपया निश्चित करें कि आप tty2 के शैल से %s का "
 "अभिगम नहीं कर रहे हैं और पुनःप्रयास के लिए 'ठीक' दबाएँ."
 
-#: ../installclass.py:74
+#: ../installclass.py:71
 msgid "Install on System"
 msgstr "सिस्टम पर अधिष्ठापित करें"
 
@@ -1200,30 +1215,31 @@ msgid ""
 "the output in %s.  This is a fatal error and your install will be aborted.  "
 "Press the OK button to exit the installer."
 msgstr ""
-"किकस्टार्ट स्क्रिप्ट को %s पंक्ति पर चलाने में त्रुटि थी.  आप आउटपुट को %s में जांच सकते हैं.  यह गंभीर त्रुटि है और "
-"आपका अधिष्ठापन खत्म कर दिया जायेगा. अधिष्ठापक से बाहर निकलने के लिए ठीक बटन दबायें."
+"किकस्टार्ट स्क्रिप्ट को %s पंक्ति पर चलाने में त्रुटि थी.  आप आउटपुट को %s में जांच सकते हैं.  "
+"यह गंभीर त्रुटि है और आपका अधिष्ठापन खत्म कर दिया जायेगा. अधिष्ठापक से बाहर निकलने के "
+"लिए ठीक बटन दबायें."
 
 #: ../kickstart.py:101 ../kickstart.py:103
 msgid "Scriptlet Failure"
 msgstr "स्क्रिप्टलेट विफलता"
 
-#: ../kickstart.py:925 ../kickstart.py:942
+#: ../kickstart.py:928 ../kickstart.py:945
 msgid "Running..."
 msgstr "चल रहा है..."
 
-#: ../kickstart.py:926
+#: ../kickstart.py:929
 msgid "Running post-install scripts"
 msgstr "उत्तर अधिष्ठापित स्क्रिप्ट चला रहा है"
 
-#: ../kickstart.py:943
+#: ../kickstart.py:946
 msgid "Running pre-install scripts"
 msgstr "पूर्व अधिष्ठापित स्क्रिप्ट चला रहा है"
 
-#: ../kickstart.py:974
+#: ../kickstart.py:977
 msgid "Missing Package"
 msgstr "गुम संकुल"
 
-#: ../kickstart.py:975
+#: ../kickstart.py:978
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1232,15 +1248,15 @@ msgstr ""
 "आपने निर्दिष्ट किया है कि संकुल '%s' अधिष्ठापित किया जाना चाहिये. यह समूह मौजूद नहीं है. "
 "क्या आप अपने अधिष्ठापन के साथ जारी रखना चाहेंगे या फिर रोक देना चाहेंगे?"
 
-#: ../kickstart.py:981 ../kickstart.py:1019
+#: ../kickstart.py:984 ../kickstart.py:1022
 msgid "_Abort"
 msgstr "रोकें (_A)"
 
-#: ../kickstart.py:1011
+#: ../kickstart.py:1014
 msgid "Missing Group"
 msgstr "गुम समूह"
 
-#: ../kickstart.py:1012
+#: ../kickstart.py:1015
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1255,8 +1271,10 @@ msgstr "बिंब ढ़ूढ़नें में असमर्थ"
 
 #: ../livecd.py:108
 #, python-format
-msgid "The given location isn't a valid %s live CD to use as an installation source."
-msgstr "दिया गया स्थान एक वैध %s संजीवित CD नहीं है एक अधिष्ठापन श्रोत का प्रयोग करने के लिये."
+msgid ""
+"The given location isn't a valid %s live CD to use as an installation source."
+msgstr ""
+"दिया गया स्थान एक वैध %s संजीवित CD नहीं है एक अधिष्ठापन श्रोत का प्रयोग करने के लिये."
 
 #: ../livecd.py:167
 msgid "Copying live image to hard drive."
@@ -1272,12 +1290,14 @@ msgid ""
 "minutes..."
 msgstr "उत्तर अधिष्ठापन फाइल सिस्टम बदलाव ला रहा है. यह कई मिनट ले सकता है....."
 
-#: ../livecd.py:374
+#: ../livecd.py:355
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
-msgstr "रूट फाइलसिस्टम जिसे आपने निर्मित किया है इस लाइव चित्र के लिए पर्याप्त बड़ा नहीं है (%.2f MB जरूरी)."
+msgstr ""
+"रूट फाइलसिस्टम जिसे आपने निर्मित किया है इस लाइव चित्र के लिए पर्याप्त बड़ा नहीं है (%.2f "
+"MB जरूरी)."
 
 #: ../network.py:57
 msgid "Hostname must be 64 or less characters in length."
@@ -1285,7 +1305,8 @@ msgstr "मेजबाननाम 64 या इससे कम संप्�
 
 #: ../network.py:60
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr "मेजबाननाम को 'a-z' या 'A-Z' सीमा में एक उचित संप्रतीक से अवश्य प्रारंभ होना चाहिए"
+msgstr ""
+"मेजबाननाम को 'a-z' या 'A-Z' सीमा में एक उचित संप्रतीक से अवश्य प्रारंभ होना चाहिए"
 
 #: ../network.py:65
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1311,27 +1332,37 @@ msgstr "'%s' एक उचित IPv6 पता नहीं है."
 msgid "'%s' is an invalid IP address."
 msgstr "'%s' एक अवैध IP पता नहीं है."
 
-#: ../packages.py:167
+#: ../packages.py:147
+#, fuzzy
+msgid "Resizing Failed"
+msgstr "फिर आकार दे रहा है"
+
+#: ../packages.py:148
+#, fuzzy, python-format
+msgid "There was an error encountered resizing the device %s."
+msgstr "लक्ष्य चालनों को साफ करने में एक त्रुटि था. क्लोनिंग असफल."
+
+#: ../packages.py:188
 msgid "LVM operation failed"
 msgstr "LVM संक्रिया विफल"
 
-#: ../packages.py:278
+#: ../packages.py:342
 msgid "Invalid Key"
 msgstr "अवैध कुंजी"
 
-#: ../packages.py:279
+#: ../packages.py:343
 msgid "The key you entered is invalid."
 msgstr "आपने जो कुंजी दिया है वह अवैध है."
 
-#: ../packages.py:307
+#: ../packages.py:371
 msgid "_Skip"
 msgstr "छोड़ें (_S)"
 
-#: ../packages.py:339 ../packages.py:362
+#: ../packages.py:403 ../packages.py:426
 msgid "Warning! This is pre-release software!"
 msgstr "चेतावनी! यह विमोचन पूर्व सॉफ्टवेयर है!"
 
-#: ../packages.py:340
+#: ../packages.py:404
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1357,7 +1388,7 @@ msgstr ""
 "\n"
 "और '%s' मार्फत रिपोर्ट दर्ज करें.\n"
 
-#: ../packages.py:353
+#: ../packages.py:417
 msgid "_Install anyway"
 msgstr "किसी तरह अधिष्ठापित करें (_I)"
 
@@ -1403,16 +1434,16 @@ msgstr "चालन अनदेखा करें (_I)"
 msgid "_Re-initialize drive"
 msgstr "चालन पुनर्प्रारंभीकृत करें (_R)"
 
-#: ../partedUtils.py:991
+#: ../partedUtils.py:994
 msgid "Initializing"
 msgstr "प्रारंभिकीकरण कर रहा है"
 
-#: ../partedUtils.py:992
+#: ../partedUtils.py:995
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "कृपया %s चालन को संरूपित करते समय प्रतीक्षा करें...\n"
 
-#: ../partedUtils.py:1080
+#: ../partedUtils.py:1083
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1431,7 +1462,7 @@ msgstr ""
 "\n"
 "सभी आकड़े को मिटाकर क्या आप इस चालन को अधिष्ठापित करना चाहेंगे?"
 
-#: ../partedUtils.py:1094
+#: ../partedUtils.py:1097
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1451,7 +1482,7 @@ msgstr ""
 "\n"
 "सभी आकड़े को मिटाकर क्या आप इस चालन का प्रारंभिकीकरण करना चाहेंगे?"
 
-#: ../partedUtils.py:1248
+#: ../partedUtils.py:1251
 #, python-format
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
@@ -1463,11 +1494,11 @@ msgstr ""
 "समय में 15 विभाजन से अधिक का समर्थन नहीं करता है.  आप इस डिस्क के विभाजन को बदलने या /"
 "dev/%s15 के %s में किसी विभाजन का प्रयोग करने में समर्थ नहीं होंगे."
 
-#: ../partedUtils.py:1339
+#: ../partedUtils.py:1342
 msgid "No Drives Found"
 msgstr "कोई भी चालन नहीं मिला"
 
-#: ../partedUtils.py:1340
+#: ../partedUtils.py:1343
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1586,7 +1617,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:240 ../partIntfHelpers.py:534
-#: ../iw/lvm_dialog_gui.py:768
+#: ../iw/lvm_dialog_gui.py:800
 msgid "Confirm Delete"
 msgstr "मिटाना निश्चित करें"
 
@@ -1596,8 +1627,8 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "'/dev/%s' युक्ति पर आप सभी विभाजनों को मिटाने जा रहे हैं."
 
 #: ../partIntfHelpers.py:244 ../partIntfHelpers.py:535
-#: ../iw/lvm_dialog_gui.py:771 ../iw/lvm_dialog_gui.py:1120
-#: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1380
+#: ../iw/lvm_dialog_gui.py:803 ../iw/lvm_dialog_gui.py:1152
+#: ../iw/osbootwidget.py:103 ../iw/partition_gui.py:1380
 msgid "_Delete"
 msgstr "मिटायें (_D)"
 
@@ -1676,8 +1707,8 @@ msgstr ""
 "आपने इस अधिष्ठापन के लिए बिना संरूपित किए एक पूर्व-उपस्थित विभाजन को उपयोग के लिए चुना "
 "है. हमारी अनुशंसा है कि आप इस विभाजन को संरूपित करें ताकि पूर्व ऑपरेटिंग सिस्टम अधिष्ठापन "
 "से फाइलें Linux के इस अधिष्ठापन के साथ समस्या नहीं करे. फिर भी, यदि इस विभाजन में आपकी "
-"आवश्यक फाइलें समाहित है जिसे आपको रखने की जरूरत है, जैसे घर निर्देशिका, तो आपको इस विभाजन को बिना संरूपित किए "
-"जारी करना चाहिए."
+"आवश्यक फाइलें समाहित है जिसे आपको रखने की जरूरत है, जैसे घर निर्देशिका, तो आपको इस "
+"विभाजन को बिना संरूपित किए जारी करना चाहिए."
 
 #: ../partIntfHelpers.py:424
 msgid "Format?"
@@ -1731,7 +1762,8 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr "निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके संरूपित करने के लिए चुना गया है."
+msgstr ""
+"निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके संरूपित करने के लिए चुना गया है."
 
 #: ../partIntfHelpers.py:465
 msgid ""
@@ -1779,7 +1811,8 @@ msgid "Confirm Reset"
 msgstr "पुनःजमावट निश्चित करें"
 
 #: ../partIntfHelpers.py:543
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "क्या आप निश्चित हैं कि आप विभाजन तालिका को असली स्थिति में पुनःजमाना चाहते हैं ?"
 
 #: ../partitions.py:84
@@ -1803,7 +1836,9 @@ msgstr "डिस्क में विभाजन को लिख रहा 
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost"
-msgstr "विभाजन विकल्प जिसे आपने चुना है अब डिस्क पर लिखी जायेगी.  मिटाए या फिर संरूपित विभाजन पर कोई आंकड़ा नष्ट हो जायेगी"
+msgstr ""
+"विभाजन विकल्प जिसे आपने चुना है अब डिस्क पर लिखी जायेगी.  मिटाए या फिर संरूपित विभाजन "
+"पर कोई आंकड़ा नष्ट हो जायेगी"
 
 #: ../partitions.py:119
 msgid "Go _back"
@@ -1822,7 +1857,7 @@ msgstr "डिस्क में बदलाव लिखें (_W)"
 #: ../loader2/loader.c:431 ../loader2/loader.c:1159 ../loader2/loader.c:1181
 #: ../loader2/net.c:277 ../loader2/net.c:320 ../loader2/net.c:750
 #: ../loader2/net.c:1094 ../loader2/net.c:1863 ../loader2/nfsinstall.c:68
-#: ../loader2/urls.c:278 ../loader2/urls.c:403
+#: ../loader2/urls.c:280 ../loader2/urls.c:405
 msgid "Back"
 msgstr "पीछे"
 
@@ -1848,7 +1883,7 @@ msgstr ""
 "\n"
 "यदि आप इस चरण को छोड़ते हैं युक्ति अधिष्ठापन के दौरान उपलब्ध नहीं होगा."
 
-#: ../partitions.py:1025
+#: ../partitions.py:1026
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -1857,7 +1892,7 @@ msgstr ""
 "आपने एक रूट विभाजन (/) को परिभाषित नहीं किया है, जो कि %s के अधिषठान के जारी करने के "
 "लिए आवश्यक है."
 
-#: ../partitions.py:1030
+#: ../partitions.py:1031
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -1866,13 +1901,13 @@ msgstr ""
 "आपका रूट विभाजन 250 मेगाबाइट से भी कम हैं जो कि %s के अधिष्ठापन के लिए इतना छोटा है "
 "कि अधिष्ठापन नहीं हो सकता."
 
-#: ../partitions.py:1052
+#: ../partitions.py:1053
 msgid ""
 "You must create an EFI System Partition of type FAT and a size of 50 "
 "megabytes."
 msgstr "आपको FAT प्रकार के EFI सिस्टम विभाजन और 50 मेगाबाइट आकार को अवश्य बनाना है."
 
-#: ../partitions.py:1066
+#: ../partitions.py:1067
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
@@ -1880,15 +1915,15 @@ msgstr ""
 "आपका बूट विभाजन पहले चार विभाजन में से एक नहीं है और इसलिये बूट करने योग्य नहीं हो सकता "
 "है."
 
-#: ../partitions.py:1087
+#: ../partitions.py:1088
 msgid "You must create an Apple Bootstrap partition."
 msgstr "आपको एक एप्पल बूटस्ट्रैप विभाजन अवश्य बनाना चाहिये."
 
-#: ../partitions.py:1109
+#: ../partitions.py:1110
 msgid "You must create a PPC PReP Boot partition."
 msgstr "आपको एक PPC PReP बूट विभाजन अवश्य बनाना है."
 
-#: ../partitions.py:1117 ../partitions.py:1128
+#: ../partitions.py:1118 ../partitions.py:1129
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1897,11 +1932,13 @@ msgstr ""
 "आपका %s विभाजन %s मेगाबाइट से कम है जो कि साधारण %s अधिष्ठापन के लिए अनुशंसित से कम "
 "है."
 
-#: ../partitions.py:1162
-msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr "USB युक्ति पर अधिष्ठापित कर रहा है.  यह कार्यशील सिस्टम उत्पन्न कर सकता है या नहीं भी."
+#: ../partitions.py:1163
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
+msgstr ""
+"USB युक्ति पर अधिष्ठापित कर रहा है.  यह कार्यशील सिस्टम उत्पन्न कर सकता है या नहीं भी."
 
-#: ../partitions.py:1165
+#: ../partitions.py:1166
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -1909,28 +1946,28 @@ msgstr ""
 "FireWire युक्ति पर अधिष्ठापित कर रहा है.  यह कार्यशील सिस्टम उत्पन्न कर सकता है या "
 "नहीं भी."
 
-#: ../partitions.py:1175
+#: ../partitions.py:1176
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "बूट करने योग्य विभाजन केवल RAID1 युक्तियों पर हो सकता है."
 
-#: ../partitions.py:1180
+#: ../partitions.py:1181
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "बूट करने योग्य विभाजन एक लॉजिकल वॉल्यूम पर नहीं हो सकता है."
 
-#: ../partitions.py:1186
+#: ../partitions.py:1187
 msgid "Bootable partitions cannot be on a RAID device."
 msgstr "बूट करने योग्य विभाजन RAID युक्ति पर हो नहीं सकता है."
 
-#: ../partitions.py:1193
+#: ../partitions.py:1194
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
 msgstr "बूट करने योग्य विभाजन %s फाइल सिस्टम पर नहीं हो सकता है."
 
-#: ../partitions.py:1197
+#: ../partitions.py:1198
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr "बूट करने योग्य विभाजन गोपित ब्लॉक युक्ति पर नहीं हो सकता है."
 
-#: ../partitions.py:1203
+#: ../partitions.py:1204
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1938,7 +1975,7 @@ msgstr ""
 "आपने एक स्वैप विभाजन निर्दिष्ट नहीं किया है. यद्यपि सभी स्थितियों में जरूरी नहीं हैं, अधिक "
 "अधिष्ठापन के लिए यह उत्पादकता बढ़ा देता है."
 
-#: ../partitions.py:1210
+#: ../partitions.py:1211
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1947,7 +1984,7 @@ msgstr ""
 "आपने 32 स्वैप युक्तियों से अधिक निर्दिष्ट किया है. %s के लिए कर्नल केवल 32 स्वैप युक्तियों की "
 "सहायता करता है."
 
-#: ../partitions.py:1221
+#: ../partitions.py:1222
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1956,15 +1993,15 @@ msgstr ""
 "आपके सिस्टम पर उपलब्ध (%dM) RAM से कम स्वैप स्थान (%dM) आपने दिया है. यह उत्पादकता पर "
 "एक ऋणात्मक प्रभाव दे सकता है."
 
-#: ../partitions.py:1516
+#: ../partitions.py:1517
 msgid "the partition in use by the installer."
 msgstr "अधिष्ठापक के द्वारा प्रयोग किया जाने वाला विभाजन."
 
-#: ../partitions.py:1519
+#: ../partitions.py:1520
 msgid "a partition which is a member of a RAID array."
 msgstr "एक विभाजन जो RAID सरणी का सदस्य है."
 
-#: ../partitions.py:1522
+#: ../partitions.py:1523
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "एक विभाजन जो LVM वॉल्यूम ग्रूप का सदस्य है."
 
@@ -1975,7 +2012,8 @@ msgstr "इस आरोह बिंदु %s को लाइव सीडी 
 
 #: ../partRequests.py:278
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "यह आरोह बिंदु अमान्य है. / फाइल सिस्टम पर %s निर्देशिका को अवश्य होना है."
 
 #: ../partRequests.py:281
@@ -2043,7 +2081,7 @@ msgstr ""
 "इस RAID युक्ति में अधिकतम %s बचे हो सकते हैं. अधिक स्पेयर्स को रखने के लिए आपको RAID युक्ति "
 "में सदस्यों को जोड़ना पड़ेगा."
 
-#: ../partRequests.py:1019
+#: ../partRequests.py:1026
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
@@ -2070,11 +2108,11 @@ msgstr "संजाल व्यवस्थित करें"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "क्या आप इस सिस्टम पर संजाल अंतरफलकों को प्रारंभ करना चाहते हैं?"
 
-#: ../rescue.py:267 ../text.py:694
+#: ../rescue.py:267 ../text.py:695
 msgid "Cancelled"
 msgstr "रद्द किया"
 
-#: ../rescue.py:268 ../text.py:695
+#: ../rescue.py:268 ../text.py:696
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "यहां से मैं पिछले चरण पर नहीं जा पा रहा हूँ. आपको पुनःप्रयास करना पड़ेगा."
 
@@ -2116,7 +2154,7 @@ msgstr "बचाने के लिये सिस्टम"
 msgid "What partition holds the root partition of your installation?"
 msgstr "कौन सा विभाजन आपके अधिष्ठापन के रूट विभाजन को रखे हुये है?"
 
-#: ../rescue.py:339 ../rescue.py:343 ../text.py:668 ../text.py:670
+#: ../rescue.py:339 ../rescue.py:343 ../text.py:669 ../text.py:671
 msgid "Exit"
 msgstr "निकास"
 
@@ -2183,79 +2221,81 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "%s निर्देशिका के अंतर्गत आपका सिस्टम आरोहित है."
 
-#: ../text.py:186 ../text.py:250 ../text.py:263 tmp/exnSave.glade.h:1
+#: ../text.py:185 ../text.py:251 ../text.py:264 tmp/exnSave.glade.h:1
 msgid "Save"
 msgstr "सहेजें"
 
-#: ../text.py:189
+#: ../text.py:188
 msgid "Save to Disk"
 msgstr "डिस्क में सहेजें"
 
-#: ../text.py:190
+#: ../text.py:189
 msgid "Save to Remote"
 msgstr "दूरस्थ में सहेजें"
 
-#: ../text.py:204
+#: ../text.py:203
 msgid "Host"
 msgstr "मेजबान"
 
-#: ../text.py:206
+#: ../text.py:205
 msgid "Remote path"
 msgstr "दूरस्थ पथ"
 
-#: ../text.py:208
+#: ../text.py:207
 msgid "User name"
 msgstr "उपयोक्ता नाम"
 
-#: ../text.py:210
+#: ../text.py:209
 msgid "Password"
 msgstr "शब्दकूट"
 
-#: ../text.py:282 tmp/lukspassphrase.glade.h:5
+#: ../text.py:283 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
 msgstr "शब्दकूट"
 
-#: ../text.py:290 tmp/lukspassphrase.glade.h:6
+#: ../text.py:291 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
 msgstr "यह वैश्विक शब्दकूट है"
 
-#: ../text.py:346
+#: ../text.py:347
 msgid "Help not available"
 msgstr "मदद उपलब्ध नहीं है"
 
-#: ../text.py:347
+#: ../text.py:348
 msgid "No help is available for this step of the install."
 msgstr "अधिष्ठापन के इस चरण के लिए मदद उपलब्ध नहीं है."
 
-#: ../text.py:445
+#: ../text.py:446
 msgid "Repository editing is not available in text mode."
 msgstr "पाठ प्रकार में रिपोजिटरी संपादन उपलब्ध नहीं है."
 
-#: ../text.py:470
+#: ../text.py:471
 #, python-format
 msgid "Please enter your %(instkey)s"
 msgstr "कृपया अपना %(instkey)s डालें"
 
-#: ../text.py:487 tmp/instkey.glade.h:6
+#: ../text.py:488 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
 msgstr "%(instkey)s डालना छोडें"
 
-#: ../text.py:563 ../loader2/lang.c:63
+#: ../text.py:564 ../loader2/lang.c:63
 #, c-format, python-format
 msgid "Welcome to %s for %s"
 msgstr "%s में %s के लिए आपका स्वागत है"
 
-#: ../text.py:565
+#: ../text.py:566
 #, python-format
 msgid "Welcome to %s"
 msgstr "%s में स्वागत है"
 
-#: ../text.py:568
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr " <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> अगला स्क्रीन"
+#: ../text.py:569
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr ""
+" <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> अगला स्क्रीन"
 
-#: ../text.py:570
+#: ../text.py:571
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2272,7 +2312,8 @@ msgid ""
 "is for %s architecture. \n"
 "\n"
 msgstr ""
-"आपने %s आर्किटेक्चर के लिए उन्नयन के लिए चुना है, लेकिन अधिष्ठापित सिस्टम %s आर्किटेक्चर के लिए है. \n"
+"आपने %s आर्किटेक्चर के लिए उन्नयन के लिए चुना है, लेकिन अधिष्ठापित सिस्टम %s आर्किटेक्चर के "
+"लिए है. \n"
 "\n"
 
 #: ../upgrade.py:110
@@ -2545,67 +2586,69 @@ msgstr "पाठ मोड का उपयोग करें"
 msgid "Start VNC"
 msgstr "VNC प्रारंभ कीजिए"
 
-#: ../yuminstall.py:71
+#: ../yuminstall.py:72
 #, python-format
 msgid "%s MB"
 msgstr "%s MB"
 
-#: ../yuminstall.py:74
+#: ../yuminstall.py:75
 #, python-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../yuminstall.py:77
+#: ../yuminstall.py:78
 #, python-format
 msgid "%s Byte"
 msgstr "%s बाइट"
 
-#: ../yuminstall.py:79
+#: ../yuminstall.py:80
 #, python-format
 msgid "%s Bytes"
 msgstr "%s बाइट्स"
 
-#: ../yuminstall.py:127
+#: ../yuminstall.py:128
 msgid "Processing"
 msgstr "प्रक्रिया हो रही है"
 
-#: ../yuminstall.py:128
+#: ../yuminstall.py:129
 msgid "Preparing transaction from installation source..."
 msgstr "अधिष्ठापन श्रोत से विनिमय के लिए तैयार कर रहा है..."
 
-#: ../yuminstall.py:159
+#: ../yuminstall.py:160
 #, python-format
 msgid "<b>Installing %s</b> (%s)\n"
 msgstr "<b>%s अधिष्ठापित कर रहा है</b> (%s)\n"
 
-#: ../yuminstall.py:210
+#: ../yuminstall.py:205
 #, python-format
 msgid "%s of %s packages completed"
 msgstr "%s संकुल %s संकुलों में से पूरा हुआ"
 
-#: ../yuminstall.py:222
+#: ../yuminstall.py:217
 msgid "Finishing upgrade"
 msgstr "उन्नयन समाप्त"
 
-#: ../yuminstall.py:223
+#: ../yuminstall.py:218
 msgid "Finishing upgrade process.  This may take a little while..."
 msgstr "उन्नयन प्रक्रिया समाप्त किया जा रहा है, यह कुछ समय ले सकता है....."
 
-#: ../yuminstall.py:336
+#: ../yuminstall.py:355
 msgid "Copying File"
 msgstr "फाइल कॉपी कर रहा है"
 
-#: ../yuminstall.py:337
+#: ../yuminstall.py:356
 msgid "Transferring install image to hard drive..."
 msgstr "अधिष्ठापन बिंब हार्ड ड्राइव पर स्थानांतरित कर रहा है..."
 
-#: ../yuminstall.py:348
+#: ../yuminstall.py:366
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is probably due to bad media."
-msgstr "आपके हार्ड ड्राइव से अधिष्ठापन बिंब को स्थानांतरित करने में एक त्रुटि घटित हुआ. यह खराब मीडिया के कारण हो सकता है. "
+msgstr ""
+"आपके हार्ड ड्राइव से अधिष्ठापन बिंब को स्थानांतरित करने में एक त्रुटि घटित हुआ. यह खराब "
+"मीडिया के कारण हो सकता है. "
 
-#: ../yuminstall.py:352
+#: ../yuminstall.py:370
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -2613,37 +2656,37 @@ msgstr ""
 "आपके हार्ड ड्राइव से अधिष्ठापन बिंब को स्थानांतरित करने में एक त्रुटि घटित हुआ. यह हो सकता "
 "है कि आपके डिस्क में पर्याप्त स्थान नहीं हैं. "
 
-#: ../yuminstall.py:390
+#: ../yuminstall.py:417
 msgid "Change Disc"
 msgstr "डिस्क बदलें"
 
-#: ../yuminstall.py:391
+#: ../yuminstall.py:418
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "कृपया जारी रखने के लिए %s disc %d डालें."
 
-#: ../yuminstall.py:405
+#: ../yuminstall.py:432
 msgid "Wrong Disc"
 msgstr "गलत डिस्क"
 
-#: ../yuminstall.py:406
+#: ../yuminstall.py:433
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "यह सही %s डिस्क नहीं है."
 
-#: ../yuminstall.py:412
+#: ../yuminstall.py:439
 msgid "Unable to access the disc."
 msgstr "डिस्क अभिगम में असमर्थ."
 
-#: ../yuminstall.py:557 ../yuminstall.py:559
+#: ../yuminstall.py:604 ../yuminstall.py:606
 msgid "Re_boot"
 msgstr "रिबूट करें (_b)"
 
-#: ../yuminstall.py:557
+#: ../yuminstall.py:604
 msgid "_Eject"
 msgstr "बाहर निकालें (_E)"
 
-#: ../yuminstall.py:563
+#: ../yuminstall.py:610
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -2653,67 +2696,68 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"%s फाइल खोला नहीं जा सकता है. यह फाइल नहीं होने, भ्रष्ट संकुल या खराब मीडिया के कारण हो सकता "
-"है. कृपया अपने अधिष्ठापन स्रोत को जांचे.\n"
+"%s फाइल खोला नहीं जा सकता है. यह फाइल नहीं होने, भ्रष्ट संकुल या खराब मीडिया के कारण "
+"हो सकता है. कृपया अपने अधिष्ठापन स्रोत को जांचे.\n"
 "\n"
 "अगर आप बाहर निकलते हैं, आपका सिस्टम असंगत स्थिति में छोड़ा जायेगा जिसके लिए फिर "
 "अधिष्ठापन जरूरी होगा.\n"
 "\n"
 
-#: ../yuminstall.py:603
+#: ../yuminstall.py:650
 msgid "Retrying"
 msgstr "फिर कोशिश कर रहा है"
 
-#: ../yuminstall.py:603
+#: ../yuminstall.py:650
 msgid "Retrying package download..."
 msgstr "संकुल डाउनलोड के लिए फिर कोशिश कर रहा है..."
 
-#: ../yuminstall.py:668
+#: ../yuminstall.py:715
 #, python-format
-msgid "There was an error running your transaction for the following reason: %s\n"
+msgid ""
+"There was an error running your transaction for the following reason: %s\n"
 msgstr "आपके विनिमय को चलाने में एक त्रुटि थी निम्न कारणों के लिये: %s\n"
 
-#: ../yuminstall.py:701 ../yuminstall.py:702
+#: ../yuminstall.py:748 ../yuminstall.py:749
 msgid "file conflicts"
 msgstr "फाइल विरोध"
 
-#: ../yuminstall.py:703
+#: ../yuminstall.py:750
 msgid "older package(s)"
 msgstr "पुराना संकुल"
 
-#: ../yuminstall.py:704
+#: ../yuminstall.py:751
 msgid "insufficient disk space"
 msgstr "अपर्याप्त डिस्क स्थान"
 
-#: ../yuminstall.py:705
+#: ../yuminstall.py:752
 msgid "insufficient disk inodes"
 msgstr "अपर्याप्त डिस्क आइनोड"
 
-#: ../yuminstall.py:706
+#: ../yuminstall.py:753
 msgid "package conflicts"
 msgstr "संकुल विरोध"
 
-#: ../yuminstall.py:707
+#: ../yuminstall.py:754
 msgid "package already installed"
 msgstr "संकुल पहले से अधिष्ठापित है"
 
-#: ../yuminstall.py:708
+#: ../yuminstall.py:755
 msgid "required package"
 msgstr "जरूरी संकुल"
 
-#: ../yuminstall.py:709
+#: ../yuminstall.py:756
 msgid "package for incorrect arch"
 msgstr "गलत आर्किटेक्चर के लिये संकुल"
 
-#: ../yuminstall.py:710
+#: ../yuminstall.py:757
 msgid "package for incorrect os"
 msgstr "गलत os के लिये संकुल"
 
-#: ../yuminstall.py:724
+#: ../yuminstall.py:771
 msgid "You need more space on the following file systems:\n"
 msgstr "निम्न फाइल सिस्टम पर आपको ज्यादा स्थान की जरूरत है:\n"
 
-#: ../yuminstall.py:737
+#: ../yuminstall.py:784
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2722,36 +2766,36 @@ msgstr ""
 "फाइल विरोध था जब अधिष्ठापित किए जाने के लिए संकुल को जांचा जाता है:\n"
 "%s\n"
 
-#: ../yuminstall.py:740
+#: ../yuminstall.py:787
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
 msgstr "निम्न कारणों से आपके विनिमय को चलाने में एक त्रुटि थी: %s\n"
 
-#: ../yuminstall.py:744
+#: ../yuminstall.py:791
 msgid "Error Running Transaction"
 msgstr "विनिमय चलाने के दौरान त्रुटि"
 
-#: ../yuminstall.py:749
+#: ../yuminstall.py:796
 msgid "Error running transaction"
 msgstr "विनिमय के दौरान त्रुटि..."
 
-#: ../yuminstall.py:906
+#: ../yuminstall.py:956
 msgid "Retrieving installation information..."
 msgstr "अधिष्ठापन जानकारी पा रहा है..."
 
-#: ../yuminstall.py:908
+#: ../yuminstall.py:958
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "%s के लिये अधिष्ठापन जानकारी पा रहा है..."
 
-#: ../yuminstall.py:920 ../textw/bootloader_text.py:277
+#: ../yuminstall.py:970 ../textw/bootloader_text.py:277
 #: ../textw/constants_text.py:62 ../textw/partition_text.py:1428
 msgid "Edit"
 msgstr "संपादन करें"
 
-#: ../yuminstall.py:932 ../yuminstall.py:1207
+#: ../yuminstall.py:982 ../yuminstall.py:1257
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2765,17 +2809,17 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:973
+#: ../yuminstall.py:1023
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr "भंडारण से समूह सूचना पढ़ने में असमर्थ.  यह एक समस्या थी आपके अधिष्ठापन तरू के साथ."
 
-#: ../yuminstall.py:1006 ../iw/GroupSelector.py:545
+#: ../yuminstall.py:1056 ../iw/GroupSelector.py:545
 msgid "Uncategorized"
 msgstr "अवर्गीकृत"
 
-#: ../yuminstall.py:1232
+#: ../yuminstall.py:1282
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2785,15 +2829,15 @@ msgstr ""
 "आपके चयनित संकुल के अधिष्ठापन के लिये %d MB मुक्त स्थान की जरूरत है, लेकिन आपके पास पर्याप्त "
 "उपलब्ध नहीं है. आप अपना चयन बदल सकते हैं या अधिष्ठापक से बाहर निकलें."
 
-#: ../yuminstall.py:1251
+#: ../yuminstall.py:1301
 msgid "Reboot?"
 msgstr "रिबूट करें?"
 
-#: ../yuminstall.py:1252
+#: ../yuminstall.py:1302
 msgid "The system will be rebooted now."
 msgstr "सिस्टम को अब रिबूट किया जाएगा."
 
-#: ../yuminstall.py:1418
+#: ../yuminstall.py:1464
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2802,47 +2846,50 @@ msgstr ""
 "ऐसा लग रहा है कि जो आप सिस्टम उन्नयन जिस %s संस्करण में कर रहे हैं, वह इतना पुराना है कि "
 "उसपर ऐसा नहीं किया जा सकता . क्या आप निश्चित हैं कि आप उन्नयन प्रक्रिया करना चाहते हैं."
 
-#: ../yuminstall.py:1445
+#: ../yuminstall.py:1491
 #, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr "%s के रिलीज का आर्किटेक्चर जिसमें आप उन्नत करने जा रहे हैं %s प्रतीत होता है जो आपके %s के पिछले अधिष्ठापित आर्किटेक्चर से मेल नहीं खाता है.  यह आगे नहीं होता दिखता है. क्या आप उन्नयन प्रक्रिया के साथ जारी रखने की इच्छा रखते हैं?"
+msgstr ""
+"%s के रिलीज का आर्किटेक्चर जिसमें आप उन्नत करने जा रहे हैं %s प्रतीत होता है जो आपके %s के "
+"पिछले अधिष्ठापित आर्किटेक्चर से मेल नहीं खाता है.  यह आगे नहीं होता दिखता है. क्या आप "
+"उन्नयन प्रक्रिया के साथ जारी रखने की इच्छा रखते हैं?"
 
-#: ../yuminstall.py:1492
+#: ../yuminstall.py:1538
 msgid "Post Upgrade"
 msgstr "उत्तर उन्नयन"
 
-#: ../yuminstall.py:1493
+#: ../yuminstall.py:1539
 msgid "Performing post upgrade configuration..."
 msgstr "उत्तर अधिष्ठापन विन्यास चला रहा है..."
 
-#: ../yuminstall.py:1495
+#: ../yuminstall.py:1541
 msgid "Post Install"
 msgstr "उत्तर अधिष्ठापन"
 
-#: ../yuminstall.py:1496
+#: ../yuminstall.py:1542
 msgid "Performing post install configuration..."
 msgstr "उत्तर अधिष्ठापन विन्यास चला रहा है..."
 
-#: ../yuminstall.py:1735
+#: ../yuminstall.py:1764
 msgid "Installation Progress"
 msgstr "अधिष्ठापन प्रगति"
 
-#: ../yuminstall.py:1770
+#: ../yuminstall.py:1799
 msgid "Install Starting"
 msgstr "अधिष्ठापन प्रारंभ हो रहा है "
 
-#: ../yuminstall.py:1771
+#: ../yuminstall.py:1800
 msgid "Starting install process.  This may take several minutes..."
 msgstr "अधिष्ठापन प्रक्रिया प्रारंभ हो रही है, यह कई मिनट ले सकता है....."
 
-#: ../yuminstall.py:1808
+#: ../yuminstall.py:1837
 msgid "Dependency Check"
 msgstr "अधीनता जांच"
 
-#: ../yuminstall.py:1809
+#: ../yuminstall.py:1838
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "अधिष्ठापन के लिए चयनित संकुलों में अधीनताओं को जांच रहा है..."
 
@@ -2866,16 +2913,16 @@ msgstr "रूट शब्दकूट (_P):"
 msgid "_Confirm:"
 msgstr "निश्चित करें (_C): "
 
-#: ../iw/account_gui.py:77
+#: ../iw/account_gui.py:87
 msgid "Caps Lock is on."
 msgstr "कैप्स लॉक चालू है."
 
-#: ../iw/account_gui.py:87 ../iw/account_gui.py:95 ../iw/account_gui.py:102
-#: ../iw/account_gui.py:122 ../textw/userauth_text.py:71
+#: ../iw/account_gui.py:97 ../iw/account_gui.py:105 ../iw/account_gui.py:112
+#: ../iw/account_gui.py:132 ../textw/userauth_text.py:71
 msgid "Error with Password"
 msgstr "शब्दकूट के साथ त्रुटि"
 
-#: ../iw/account_gui.py:88
+#: ../iw/account_gui.py:98
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
@@ -2883,19 +2930,19 @@ msgstr ""
 "आपको, अपने रूट शब्दकूट अवश्य दाखिल करना है और जारी करने के लिए दूसरी बार टंकित करके "
 "निश्चित करें."
 
-#: ../iw/account_gui.py:96
+#: ../iw/account_gui.py:106
 msgid "The passwords you entered were different.  Please try again."
 msgstr "आपने भिन्न शब्दकूट दाखिल किया है. कृपया पुनःप्रयास करें."
 
-#: ../iw/account_gui.py:103
+#: ../iw/account_gui.py:113
 msgid "The root password must be at least six characters long."
 msgstr "रूट शब्दकूट कम से कम छः संप्रतीकों का अवश्य होना चाहिए."
 
-#: ../iw/account_gui.py:110 ../textw/userauth_text.py:78
+#: ../iw/account_gui.py:120 ../textw/userauth_text.py:78
 msgid "Weak Password"
 msgstr "कमजोर शब्दकूट"
 
-#: ../iw/account_gui.py:111 ../textw/userauth_text.py:79
+#: ../iw/account_gui.py:121 ../textw/userauth_text.py:79
 #, python-format
 msgid ""
 "Weak password provided: %s\n"
@@ -2906,49 +2953,52 @@ msgstr ""
 "\n"
 "क्या आप इस शब्दकूट के साथ जारी रखना चाहते हैं?"
 
-#: ../iw/account_gui.py:123 ../textw/userauth_text.py:72
-msgid "Requested password contains non-ASCII characters, which are not allowed."
+#: ../iw/account_gui.py:133 ../textw/userauth_text.py:72
+msgid ""
+"Requested password contains non-ASCII characters, which are not allowed."
 msgstr "निवेदित शब्दकूट में गैर-ASCII संप्रतीक समाहित है जिसकी अनुमति नहीं है."
 
-#: ../iw/autopart_type.py:94
+#: ../iw/autopart_type.py:96
 msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
-msgstr "कोई विभाजन फिर आकार देने के लिए उपलब्ध नहीं है.  विशेष फाइलसिस्टम के साथ सिर्फ भौतिक विभाजन को फिर आकार दिया जा सकता है."
+msgstr ""
+"कोई विभाजन फिर आकार देने के लिए उपलब्ध नहीं है.  विशेष फाइलसिस्टम के साथ सिर्फ भौतिक "
+"विभाजन को फिर आकार दिया जा सकता है."
 
-#: ../iw/autopart_type.py:177
+#: ../iw/autopart_type.py:179
 msgid "Do you really want to boot from disk which is not used for instalation?"
 msgstr "क्या आप डिस्क से सचमुच बूट करना चाहते हैं जो कि अधिष्ठापन के लिए प्रयुक्त नहीं हुआ है?"
 
-#: ../iw/autopart_type.py:258
+#: ../iw/autopart_type.py:260
 msgid "Invalid Initiator Name"
 msgstr "अवैध आरंभकर्ता नाम"
 
-#: ../iw/autopart_type.py:259
+#: ../iw/autopart_type.py:261
 msgid "You must provide an initiator name."
 msgstr "आपको जरूर आरंभकर्ता नाम देना चाहिये."
 
-#: ../iw/autopart_type.py:281
+#: ../iw/autopart_type.py:283
 msgid "Error with Data"
 msgstr "आंकड़ों के साथ त्रुटि"
 
-#: ../iw/autopart_type.py:401 ../textw/partition_text.py:1517
+#: ../iw/autopart_type.py:403 ../textw/partition_text.py:1517
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr "चयनित ड्राइव पर सभी विभाजनों को हटाएँ और मूलभूत लेआउट बनायें"
 
-#: ../iw/autopart_type.py:402 ../textw/partition_text.py:1518
+#: ../iw/autopart_type.py:404 ../textw/partition_text.py:1518
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr "Linux विभाजन को चयनित ड्राइव पर हटायें और मूलभूत लेआउट बनायें."
 
-#: ../iw/autopart_type.py:403
+#: ../iw/autopart_type.py:405
 msgid "Resize existing partition and create default layout in free space"
 msgstr "मौजूदा विभाजन को फिर आकार दें और मुक्त स्थान में मूलभूत लेआउट बनाएं"
 
-#: ../iw/autopart_type.py:404 ../textw/partition_text.py:1519
+#: ../iw/autopart_type.py:406 ../textw/partition_text.py:1519
 msgid "Use free space on selected drives and create default layout"
 msgstr "चयनित ड्राइव पर मुक्त स्थान का प्रयोग करें और मूलभूत लेआउट बनायें."
 
-#: ../iw/autopart_type.py:405 ../textw/partition_text.py:1520
+#: ../iw/autopart_type.py:407 ../textw/partition_text.py:1520
 msgid "Create custom layout"
 msgstr "पसंदीदा लेआउट बनायें."
 
@@ -3107,15 +3157,15 @@ msgstr "भाषा चुनाव"
 msgid "What language would you like to use during the installation process?"
 msgstr "अधिष्ठापन प्रक्रिया के समय आप कौन सी भाषा का प्रयोग करना चाहते हैं?"
 
-#: ../iw/lvm_dialog_gui.py:122 ../iw/lvm_dialog_gui.py:169
-#: ../iw/lvm_dialog_gui.py:180 ../iw/lvm_dialog_gui.py:220
-#: ../iw/lvm_dialog_gui.py:294 ../iw/lvm_dialog_gui.py:606
-#: ../iw/lvm_dialog_gui.py:674 ../iw/lvm_dialog_gui.py:893
+#: ../iw/lvm_dialog_gui.py:123 ../iw/lvm_dialog_gui.py:170
+#: ../iw/lvm_dialog_gui.py:181 ../iw/lvm_dialog_gui.py:221
+#: ../iw/lvm_dialog_gui.py:295 ../iw/lvm_dialog_gui.py:624
+#: ../iw/lvm_dialog_gui.py:706 ../iw/lvm_dialog_gui.py:925
 #: ../textw/partition_text.py:1275 ../textw/partition_text.py:1294
 msgid "Not enough space"
 msgstr "पर्याप्त स्थान नहीं है"
 
-#: ../iw/lvm_dialog_gui.py:123
+#: ../iw/lvm_dialog_gui.py:124
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
@@ -3124,11 +3174,11 @@ msgstr ""
 "भौतिक विस्तार आकार बदल नहीं सकता अन्यथा वर्तमान में समझाए गये लॉजिकल वॉल्यूमों के द्वारा "
 "आवश्यक स्थान उपलब्ध स्थान की अपेक्षा बहुत अधिक बढ़ जाएगा."
 
-#: ../iw/lvm_dialog_gui.py:132
+#: ../iw/lvm_dialog_gui.py:133
 msgid "Confirm Physical Extent Change"
 msgstr "भौतिक विस्तार बदलाव निश्चित करें"
 
-#: ../iw/lvm_dialog_gui.py:133
+#: ../iw/lvm_dialog_gui.py:134
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3141,12 +3191,12 @@ msgstr ""
 "\n"
 "यह बदलाव तुरंत प्रभावी होगा."
 
-#: ../iw/lvm_dialog_gui.py:142 ../iw/lvm_dialog_gui.py:202
+#: ../iw/lvm_dialog_gui.py:143 ../iw/lvm_dialog_gui.py:203
 #: ../iw/network_gui.py:142 ../iw/network_gui.py:146 ../iw/network_gui.py:166
 msgid "C_ontinue"
 msgstr "जारी रखें (_o)"
 
-#: ../iw/lvm_dialog_gui.py:170
+#: ../iw/lvm_dialog_gui.py:171
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -3156,7 +3206,7 @@ msgstr ""
 "भौतिक विस्तार आकार बदल नहीं सकता क्योंकि वॉल्यूम ग्रूप में चयनित (%10.2f MB) मान, छोटे "
 "भौतिक आयतन (%10.2f MB) से बड़ा है."
 
-#: ../iw/lvm_dialog_gui.py:181
+#: ../iw/lvm_dialog_gui.py:182
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -3166,11 +3216,11 @@ msgstr ""
 "भौतिक विस्तार आकार बदल नहीं सकता क्योंकि वॉल्यूम ग्रूप में चयनित (%10.2f MB) मान छोटे "
 "भौतिक आयतन (%10.2f MB) के आकार से बड़ा है."
 
-#: ../iw/lvm_dialog_gui.py:195
+#: ../iw/lvm_dialog_gui.py:196
 msgid "Too small"
 msgstr "बहुत छोटा"
 
-#: ../iw/lvm_dialog_gui.py:196
+#: ../iw/lvm_dialog_gui.py:197
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
@@ -3178,7 +3228,7 @@ msgstr ""
 "भौतिक विस्तार मान में यह बदलाव, वॉल्यूम ग्रूप में भौतिक आयतनों का एक या एक से अधिक "
 "महत्वपूर्ण स्थान को बरबाद कर देगा."
 
-#: ../iw/lvm_dialog_gui.py:221
+#: ../iw/lvm_dialog_gui.py:222
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
@@ -3188,7 +3238,7 @@ msgstr ""
 "भौतिक विस्तार आकार बदला नहीं जा सकता क्योंकि परिणामी अधिकतम लॉजिकल वॉल्यूम आकार  (%"
 "10.2f MB), वर्तमान में उल्लिखित एक या एक से अधिक लॉजिकल वॉल्यूमों से छोटा हैं."
 
-#: ../iw/lvm_dialog_gui.py:295
+#: ../iw/lvm_dialog_gui.py:296
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
@@ -3196,95 +3246,100 @@ msgstr ""
 "आप इस भौतिक आयतन को हटा नहीं सकते क्योंकि अन्यथा वॉल्यूम ग्रूप वर्तमान में उल्लिखित "
 "तार्किक आयतनों को रखने के लिए बहुत छोटा हो जाएगा."
 
-#: ../iw/lvm_dialog_gui.py:375 ../textw/partition_text.py:1114
+#: ../iw/lvm_dialog_gui.py:376 ../textw/partition_text.py:1114
 msgid "Make Logical Volume"
 msgstr "लॉजिकल वॉल्यूम बनाएँ"
 
-#: ../iw/lvm_dialog_gui.py:378
+#: ../iw/lvm_dialog_gui.py:379
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "%s लॉजिकल वॉल्यूम का संपादन करें"
 
-#: ../iw/lvm_dialog_gui.py:380 ../textw/partition_text.py:1112
+#: ../iw/lvm_dialog_gui.py:381 ../textw/partition_text.py:1112
 msgid "Edit Logical Volume"
 msgstr "लॉजिकल वॉल्यूम का संपादन"
 
-#: ../iw/lvm_dialog_gui.py:393 ../iw/partition_dialog_gui.py:322
+#: ../iw/lvm_dialog_gui.py:394 ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:321
 msgid "_Mount Point:"
 msgstr "आरोह बिंदु (_M)"
 
-#: ../iw/lvm_dialog_gui.py:401 ../iw/raid_dialog_gui.py:334
+#: ../iw/lvm_dialog_gui.py:402 ../iw/raid_dialog_gui.py:334
 msgid "_File System Type:"
 msgstr "फाइल सिस्टम प्रकार (_F):"
 
-#: ../iw/lvm_dialog_gui.py:411 ../iw/raid_dialog_gui.py:344
+#: ../iw/lvm_dialog_gui.py:412 ../iw/raid_dialog_gui.py:344
 msgid "Original File System Type:"
 msgstr "मूल फाइल सिस्टम प्रकारः"
 
-#: ../iw/lvm_dialog_gui.py:416 ../iw/raid_dialog_gui.py:349
+#: ../iw/lvm_dialog_gui.py:417 ../iw/raid_dialog_gui.py:349
 msgid "Unknown"
 msgstr "अज्ञात"
 
-#: ../iw/lvm_dialog_gui.py:422 ../iw/partition_dialog_gui.py:374
+#: ../iw/lvm_dialog_gui.py:423 ../iw/partition_dialog_gui.py:374
 #: ../iw/raid_dialog_gui.py:355
 msgid "Original File System Label:"
 msgstr "मूल फाइल सिस्टम लेबलः"
 
-#: ../iw/lvm_dialog_gui.py:431
+#: ../iw/lvm_dialog_gui.py:432
 msgid "_Logical Volume Name:"
 msgstr "लॉजिकल वॉल्यूम नाम (_L):"
 
-#: ../iw/lvm_dialog_gui.py:439 ../textw/partition_text.py:305
+#: ../iw/lvm_dialog_gui.py:440 ../textw/partition_text.py:305
 msgid "Logical Volume Name:"
 msgstr "लॉजिकल वॉल्यूम नामः"
 
-#: ../iw/lvm_dialog_gui.py:447 ../iw/partition_dialog_gui.py:386
+#: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:386
 msgid "_Size (MB):"
 msgstr "आकार (MB) (_S):"
 
-#: ../iw/lvm_dialog_gui.py:453 ../iw/partition_dialog_gui.py:403
+#: ../iw/lvm_dialog_gui.py:454 ../iw/partition_dialog_gui.py:403
 #: ../textw/partition_text.py:320 ../textw/partition_text.py:397
 #: ../textw/partition_text.py:480 ../textw/partition_text.py:588
 msgid "Size (MB):"
 msgstr "आकार (MB):"
 
-#: ../iw/lvm_dialog_gui.py:468
+#: ../iw/lvm_dialog_gui.py:469
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(अधिकतम आकार %s MB है)"
 
-#: ../iw/lvm_dialog_gui.py:525 ../textw/partition_text.py:1264
+#: ../iw/lvm_dialog_gui.py:478 ../iw/partition_dialog_gui.py:334
+#: ../iw/partition_ui_helpers_gui.py:300 ../iw/raid_dialog_gui.py:329
+msgid "_Encrypt"
+msgstr "गोपित करें (_E)"
+
+#: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1264
 msgid "Illegal size"
 msgstr "अवैध आकार"
 
-#: ../iw/lvm_dialog_gui.py:526 ../textw/partition_text.py:1265
+#: ../iw/lvm_dialog_gui.py:544 ../textw/partition_text.py:1265
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "निवेदित आकार जिस रूप में दाखिल है 0 से बड़ी एक मान्य संख्या नहीं है."
 
-#: ../iw/lvm_dialog_gui.py:561
+#: ../iw/lvm_dialog_gui.py:579
 msgid "Mount point in use"
 msgstr "आरोह बिंदु प्रयोग में है"
 
-#: ../iw/lvm_dialog_gui.py:562
+#: ../iw/lvm_dialog_gui.py:580
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "\"%s\" आरोह बिंदु प्रयोग में है, कृपया दूसरा लें."
 
-#: ../iw/lvm_dialog_gui.py:573 ../textw/partition_text.py:1235
+#: ../iw/lvm_dialog_gui.py:591 ../textw/partition_text.py:1235
 msgid "Illegal Logical Volume Name"
 msgstr "अवैध लॉजिकल वॉल्यूम नाम "
 
-#: ../iw/lvm_dialog_gui.py:592 ../textw/partition_text.py:1252
+#: ../iw/lvm_dialog_gui.py:610 ../textw/partition_text.py:1252
 msgid "Illegal logical volume name"
 msgstr "अवैध लॉजिकल वॉल्यूम नाम "
 
-#: ../iw/lvm_dialog_gui.py:593 ../textw/partition_text.py:1253
+#: ../iw/lvm_dialog_gui.py:611 ../textw/partition_text.py:1253
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "\"%s\" लॉजिकल वॉल्यूम नाम पहले से प्रयोग में है. कृपया दूसरा लें."
 
-#: ../iw/lvm_dialog_gui.py:607
+#: ../iw/lvm_dialog_gui.py:625
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
@@ -3295,7 +3350,7 @@ msgstr ""
 "सीमा को बढ़ाने के लिए आप इस वॉल्यूम समूह के लिए भौतिक विस्तार आकार बढ़ा सकते हैं और उन्हें "
 "वॉल्यूम समूह से जोड़ सकते हैं."
 
-#: ../iw/lvm_dialog_gui.py:651 ../iw/partition_dialog_gui.py:197
+#: ../iw/lvm_dialog_gui.py:683 ../iw/partition_dialog_gui.py:197
 #: ../iw/partition_dialog_gui.py:209 ../iw/partition_dialog_gui.py:268
 #: ../iw/raid_dialog_gui.py:248 ../textw/partition_text.py:888
 #: ../textw/partition_text.py:909 ../textw/partition_text.py:1082
@@ -3303,7 +3358,7 @@ msgstr ""
 msgid "Error With Request"
 msgstr "निवेदन के साथ त्रुटि "
 
-#: ../iw/lvm_dialog_gui.py:675 ../iw/lvm_dialog_gui.py:894
+#: ../iw/lvm_dialog_gui.py:707 ../iw/lvm_dialog_gui.py:926
 #, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
@@ -3314,20 +3369,20 @@ msgstr ""
 "ग्रूप को केवल %d MB है. कृपया या तो वॉल्यूम ग्रूप को बड़ा बनाएँ या लॉजिकल वॉल्यूम को छोटा "
 "बनाएँ."
 
-#: ../iw/lvm_dialog_gui.py:733
+#: ../iw/lvm_dialog_gui.py:765
 msgid "No free slots"
 msgstr "कोई मुक्त खंड नहीं "
 
-#: ../iw/lvm_dialog_gui.py:734
+#: ../iw/lvm_dialog_gui.py:766
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr "आप प्रत्येक वॉल्यूम ग्रूप के लिए %s लॉजिकल वॉल्यूम से अधिक नहीं बना सकते."
 
-#: ../iw/lvm_dialog_gui.py:740
+#: ../iw/lvm_dialog_gui.py:772
 msgid "No free space"
 msgstr "कोई मुक्त स्थान नहीं "
 
-#: ../iw/lvm_dialog_gui.py:741
+#: ../iw/lvm_dialog_gui.py:773
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3337,29 +3392,29 @@ msgstr ""
 "वॉल्यूम जोड़ने के लिए आपको वर्तमान में उपस्थित एक या एक से अधिक लॉजिकल वॉल्यूमों का आकार "
 "अवश्य घटा देना चाहिए."
 
-#: ../iw/lvm_dialog_gui.py:769
+#: ../iw/lvm_dialog_gui.py:801
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "क्या आप निश्चित हैं कि \"%s\" लॉजिकल वॉल्यूम को विलोपित करना चाहते हैं?"
 
-#: ../iw/lvm_dialog_gui.py:905
+#: ../iw/lvm_dialog_gui.py:937
 msgid "Invalid Volume Group Name"
 msgstr "अमान्य वॉल्यूम ग्रूप नाम "
 
-#: ../iw/lvm_dialog_gui.py:916
+#: ../iw/lvm_dialog_gui.py:948
 msgid "Name in use"
 msgstr "नाम जो कि प्रयोग में है"
 
-#: ../iw/lvm_dialog_gui.py:917
+#: ../iw/lvm_dialog_gui.py:949
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "\"%s\" वॉल्यूम ग्रूप नाम पहले से प्रयोग में है. कृपया दूसरा लें."
 
-#: ../iw/lvm_dialog_gui.py:960
+#: ../iw/lvm_dialog_gui.py:992
 msgid "Not enough physical volumes"
 msgstr "भौतिक समूह पर्याप्त नहीं"
 
-#: ../iw/lvm_dialog_gui.py:961
+#: ../iw/lvm_dialog_gui.py:993
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3373,109 +3428,73 @@ msgstr ""
 "एक विभाजन या \"भौतिक आयतन (LVM)\" प्रकार की RAID सरणी बनाएँ और तब \"LVM\" "
 "विकल्प पुनःचुनें."
 
-#: ../iw/lvm_dialog_gui.py:972
+#: ../iw/lvm_dialog_gui.py:1004
 msgid "Make LVM Volume Group"
 msgstr "LVM वॉल्यूम ग्रूप बनाएँ"
 
-#: ../iw/lvm_dialog_gui.py:975
+#: ../iw/lvm_dialog_gui.py:1007
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "LVM वॉल्यूम ग्रूप संपादित करें: %s"
 
-#: ../iw/lvm_dialog_gui.py:977
+#: ../iw/lvm_dialog_gui.py:1009
 msgid "Edit LVM Volume Group"
 msgstr "LVM वॉल्यूम ग्रूप संपादित करें"
 
-#: ../iw/lvm_dialog_gui.py:993
+#: ../iw/lvm_dialog_gui.py:1025
 msgid "_Volume Group Name:"
 msgstr "वॉल्यूम ग्रूप नाम (_V):"
 
-#: ../iw/lvm_dialog_gui.py:1001
+#: ../iw/lvm_dialog_gui.py:1033
 msgid "Volume Group Name:"
 msgstr "वॉल्यूम ग्रूप नामः"
 
-#: ../iw/lvm_dialog_gui.py:1009
+#: ../iw/lvm_dialog_gui.py:1041
 msgid "_Physical Extent:"
 msgstr "भौतिक विस्तार (_P):"
 
-#: ../iw/lvm_dialog_gui.py:1024
+#: ../iw/lvm_dialog_gui.py:1056
 msgid "Physical Volumes to _Use:"
 msgstr "प्रयोग करने के लिए भौतिक आयतन (_U):"
 
-#: ../iw/lvm_dialog_gui.py:1030
+#: ../iw/lvm_dialog_gui.py:1062
 msgid "Used Space:"
 msgstr "प्रयुक्त स्थानः"
 
-#: ../iw/lvm_dialog_gui.py:1047
+#: ../iw/lvm_dialog_gui.py:1079
 msgid "Free Space:"
 msgstr "मुक्त स्थानः"
 
-#: ../iw/lvm_dialog_gui.py:1065
+#: ../iw/lvm_dialog_gui.py:1097
 msgid "Total Space:"
 msgstr "कुल स्थानः"
 
-#: ../iw/lvm_dialog_gui.py:1094
+#: ../iw/lvm_dialog_gui.py:1126
 msgid "Logical Volume Name"
 msgstr "लॉजिकल वॉल्यूम नाम"
 
-#: ../iw/lvm_dialog_gui.py:1097 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1129 ../iw/partition_gui.py:369
 #: ../iw/upgrade_swap_gui.py:140 ../textw/partition_text.py:1423
 #: ../textw/upgrade_text.py:120
 msgid "Mount Point"
 msgstr "आरोह बिंदु"
 
-#: ../iw/lvm_dialog_gui.py:1100 ../iw/partition_gui.py:374
+#: ../iw/lvm_dialog_gui.py:1132 ../iw/partition_gui.py:374
 msgid "Size (MB)"
 msgstr "आकार (MB)"
 
-#: ../iw/lvm_dialog_gui.py:1114 ../iw/osbootwidget.py:94
+#: ../iw/lvm_dialog_gui.py:1146 ../iw/osbootwidget.py:95
 msgid "_Add"
 msgstr "जोड़ें (_A)"
 
-#: ../iw/lvm_dialog_gui.py:1117 ../iw/network_gui.py:457
-#: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1379
+#: ../iw/lvm_dialog_gui.py:1149 ../iw/network_gui.py:457
+#: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1379
 msgid "_Edit"
 msgstr "संपादन करें (_E)"
 
-#: ../iw/lvm_dialog_gui.py:1132
+#: ../iw/lvm_dialog_gui.py:1164
 msgid "_Logical Volumes"
 msgstr "लॉजिकल वॉल्यूम (_L)"
-
-#: ../iw/mouse_gui.py:29
-msgid "Mouse Configuration"
-msgstr "माउस विन्यास "
-
-#: ../iw/mouse_gui.py:82 ../textw/mouse_text.py:26
-msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr "/dev/ttyS0 (DOS के अंतर्गत COM1)"
-
-#: ../iw/mouse_gui.py:83 ../textw/mouse_text.py:27
-msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr "/dev/ttyS1 (DOS के अंतर्गत COM2)"
-
-#: ../iw/mouse_gui.py:84 ../textw/mouse_text.py:28
-msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr "/dev/ttyS2 (DOS के अंतर्गत COM3)"
-
-#: ../iw/mouse_gui.py:85 ../textw/mouse_text.py:29
-msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr "/dev/ttyS3 (DOS के अंतर्गत COM4)"
-
-#: ../iw/mouse_gui.py:95 ../iw/osbootwidget.py:151
-msgid "_Device"
-msgstr "युक्ति (_D)"
-
-#: ../iw/mouse_gui.py:141
-msgid "_Model"
-msgstr "मॉडल (_M)"
-
-#: ../iw/mouse_gui.py:239
-msgid "_Emulate 3 buttons"
-msgstr "3 बटनों अनुकरण करें (_E)"
-
-#: ../iw/mouse_gui.py:254
-msgid "Select the appropriate mouse for the system."
-msgstr "सिस्टम के लिए उचित मॉउस चुनें."
 
 #: ../iw/netconfig_dialog.py:143
 #, python-format
@@ -3500,43 +3519,43 @@ msgstr "आकड़े के साथ त्रुटि"
 msgid "A value is required for the field %s."
 msgstr "%s क्षेत्र के लिए एक मान आवश्यक है."
 
-#: ../iw/netconfig_dialog.py:175
+#: ../iw/netconfig_dialog.py:176
 msgid "Dynamic IP"
 msgstr "गतिशील IP"
 
-#: ../iw/netconfig_dialog.py:176 ../loader2/net.c:416 ../loader2/net.c:860
+#: ../iw/netconfig_dialog.py:177 ../loader2/net.c:416 ../loader2/net.c:860
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "%s के लिए IP जानकारी के लिए निवेदन भेज रहा है..."
 
-#: ../iw/netconfig_dialog.py:197 ../iw/netconfig_dialog.py:200
+#: ../iw/netconfig_dialog.py:198 ../iw/netconfig_dialog.py:201
 #: ../textw/network_text.py:93 tmp/netpostconfig.glade.h:12
 msgid "IP Address"
 msgstr "IP पता"
 
-#: ../iw/netconfig_dialog.py:207
+#: ../iw/netconfig_dialog.py:208
 msgid "IPv4 CIDR prefix must be between 0 and 32."
 msgstr "IPv4 CIDR उपसर्ग को 0 और 32 के बीच जरूर होना चाहिये."
 
-#: ../iw/netconfig_dialog.py:208 ../iw/netconfig_dialog.py:214
-#: ../iw/netconfig_dialog.py:222 ../iw/netconfig_dialog.py:225
+#: ../iw/netconfig_dialog.py:209 ../iw/netconfig_dialog.py:215
+#: ../iw/netconfig_dialog.py:223 ../iw/netconfig_dialog.py:226
 msgid "IPv4 Network Mask"
 msgstr "IPv4 संजाल मास्क"
 
-#: ../iw/netconfig_dialog.py:232 ../iw/netconfig_dialog.py:235
+#: ../iw/netconfig_dialog.py:233 ../iw/netconfig_dialog.py:236
 #: ../iw/network_gui.py:34 ../iw/network_gui.py:533
 msgid "Gateway"
 msgstr "गेटवे"
 
-#: ../iw/netconfig_dialog.py:242
+#: ../iw/netconfig_dialog.py:243
 msgid "Nameserver"
 msgstr "नामसर्वर"
 
-#: ../iw/netconfig_dialog.py:252
+#: ../iw/netconfig_dialog.py:253
 msgid "Error configuring network device:"
 msgstr "संजाल युक्ति विन्यासन में त्रुटि:"
 
-#: ../iw/netconfig_dialog.py:265
+#: ../iw/netconfig_dialog.py:266
 msgid "Error configuring network device"
 msgstr "आपके संजाल युक्ति विन्यासन में एक त्रुटि थी."
 
@@ -3617,10 +3636,9 @@ msgstr "निष्क्रिय"
 msgid "Active on Boot"
 msgstr "बूट पर सक्रिय"
 
-#: ../iw/network_gui.py:400 ../iw/osbootwidget.py:65
+#: ../iw/network_gui.py:400 ../iw/osbootwidget.py:66
 #: ../iw/partition_gui.py:367 ../textw/bootloader_text.py:196
-#: ../textw/bootloader_text.py:262 ../textw/mouse_text.py:44
-#: ../textw/partition_text.py:1423
+#: ../textw/bootloader_text.py:262 ../textw/partition_text.py:1423
 msgid "Device"
 msgstr "युक्ति"
 
@@ -3697,23 +3715,23 @@ msgstr "IPv4 उपसर्ग को 0 और 32 के बीच होना
 msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 उपसर्ग को 0 और 128 के बीच होना चाहिये."
 
-#: ../iw/osbootwidget.py:49
+#: ../iw/osbootwidget.py:50
 msgid "Boot loader operating system list"
 msgstr "बूट लोडर ऑपरेटिंग सिस्टम सूची"
 
-#: ../iw/osbootwidget.py:65 ../textw/bootloader_text.py:262
+#: ../iw/osbootwidget.py:66 ../textw/bootloader_text.py:262
 msgid "Default"
 msgstr "मूलभूत"
 
-#: ../iw/osbootwidget.py:65 ../iw/partition_gui.py:368
+#: ../iw/osbootwidget.py:66 ../iw/partition_gui.py:368
 msgid "Label"
 msgstr "लेबल"
 
-#: ../iw/osbootwidget.py:128
+#: ../iw/osbootwidget.py:129
 msgid "Image"
 msgstr "बिंब"
 
-#: ../iw/osbootwidget.py:135
+#: ../iw/osbootwidget.py:136
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
@@ -3721,43 +3739,47 @@ msgstr ""
 "बूट लोडर मेनू में प्रदर्शन के लिए एक लेबल दाखिल करें. युक्ति (या हार्ड ड्राइव और विभाजन "
 "संख्या) वह युक्ति है जिससे यह बूट होता है."
 
-#: ../iw/osbootwidget.py:143
+#: ../iw/osbootwidget.py:144
 msgid "_Label"
 msgstr "लेबल (_L)"
 
-#: ../iw/osbootwidget.py:182
+#: ../iw/osbootwidget.py:152
+msgid "_Device"
+msgstr "युक्ति (_D)"
+
+#: ../iw/osbootwidget.py:186
 msgid "Default Boot _Target"
 msgstr "मूलभूत बूट लक्ष्य (_T)"
 
-#: ../iw/osbootwidget.py:211
+#: ../iw/osbootwidget.py:215
 msgid "You must specify a label for the entry"
 msgstr "आपको प्रविष्टि के लिए एक लेबल अवश्य निर्दिष्ट करना है"
 
-#: ../iw/osbootwidget.py:220
+#: ../iw/osbootwidget.py:224
 msgid "Boot label contains illegal characters"
 msgstr "बूट लेबल में अवैध संप्रतीक समाहित हैं"
 
-#: ../iw/osbootwidget.py:244
+#: ../iw/osbootwidget.py:248
 msgid "Duplicate Label"
 msgstr "बनावटी लेबल"
 
-#: ../iw/osbootwidget.py:245
+#: ../iw/osbootwidget.py:249
 msgid "This label is already in use for another boot entry."
 msgstr "दूसरी बूट प्रविष्टि के लिए यह लेबल पहले से प्रयोग में है."
 
-#: ../iw/osbootwidget.py:258
+#: ../iw/osbootwidget.py:262
 msgid "Duplicate Device"
 msgstr "बनावटी युक्ति"
 
-#: ../iw/osbootwidget.py:259
+#: ../iw/osbootwidget.py:263
 msgid "This device is already being used for another boot entry."
 msgstr "दूसरी बूट प्रविष्टि के लिए यह युक्ति पहले से प्रयोग में है."
 
-#: ../iw/osbootwidget.py:323 ../textw/bootloader_text.py:345
+#: ../iw/osbootwidget.py:327 ../textw/bootloader_text.py:345
 msgid "Cannot Delete"
 msgstr "मिटा नहीं सकते हैं"
 
-#: ../iw/osbootwidget.py:324 ../textw/bootloader_text.py:346
+#: ../iw/osbootwidget.py:328 ../textw/bootloader_text.py:346
 #, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
@@ -3802,11 +3824,6 @@ msgstr "विभाजन का संपादन करें"
 #: ../iw/partition_dialog_gui.py:331
 msgid "File System _Type:"
 msgstr "फाइल सिस्टम प्रकार (_T)"
-
-#: ../iw/partition_dialog_gui.py:334 ../iw/partition_ui_helpers_gui.py:300
-#: ../iw/raid_dialog_gui.py:329
-msgid "_Encrypt"
-msgstr "गोपित करें (_E)"
 
 #: ../iw/partition_dialog_gui.py:350
 msgid "Allowable _Drives:"
@@ -3871,12 +3888,14 @@ msgid "Partitioning"
 msgstr "विभाजन कर रहा है"
 
 #: ../iw/partition_gui.py:638
-msgid "The partitioning scheme you requested caused the following critical errors."
+msgid ""
+"The partitioning scheme you requested caused the following critical errors."
 msgstr "विभाजन योजना जिसके लिये आपने आग्रह किया है के कारण निम्न गंभीर त्रुटि आयी."
 
 #: ../iw/partition_gui.py:640
 #, python-format
-msgid "You must correct these errors before you continue your installation of %s."
+msgid ""
+"You must correct these errors before you continue your installation of %s."
 msgstr "आपके %s अधिष्ठापन के जारी रहने के पहले आपको जरूर इन त्रुटियों को सही करना चाहिये."
 
 #: ../iw/partition_gui.py:646
@@ -3885,7 +3904,8 @@ msgstr "विभाजन करने में त्रुटि"
 
 #: ../iw/partition_gui.py:652
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr "विभाजनकारी योजना जिसके लिये आपने निवेदन किया है के कारण निम्न चेतावनी उत्पन्न हुई."
+msgstr ""
+"विभाजनकारी योजना जिसके लिये आपने निवेदन किया है के कारण निम्न चेतावनी उत्पन्न हुई."
 
 #: ../iw/partition_gui.py:654
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4346,12 +4366,13 @@ msgstr "अमान्य रिपॉजिटरी URL"
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "आपको जरूर HTTP, HTTPS, या FTP URL को रिपॉजिटरी में देना चाहिए."
 
-#: ../iw/task_gui.py:227
+#: ../iw/task_gui.py:232
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "%s रिपॉजिटरी को पहले जोड़ा जा रहा है.  कृपया एक अलग रिपॉजिटरी नाम व URL चुनें."
+msgstr ""
+"%s रिपॉजिटरी को पहले जोड़ा जा रहा है.  कृपया एक अलग रिपॉजिटरी नाम व URL चुनें."
 
 #: ../iw/timezone_gui.py:62 ../textw/timezone_text.py:95
 msgid "Time Zone Selection"
@@ -4383,7 +4404,8 @@ msgstr "आपके सिस्टम पर वर्तमान में �
 
 #: ../iw/upgrade_bootloader_gui.py:134 ../textw/upgrade_bootloader_text.py:117
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "अधिष्ठापक ने %s बूट लोडर को वर्तमान में %s पर अधिष्ठापित हुआ खोजा है."
 
 #: ../iw/upgrade_bootloader_gui.py:138
@@ -4431,9 +4453,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%s समर्थन का यह विमोचन अद्यतन फाइल सिस्टम का समर्थन करता है जो यह पारंपरिक रूप से "
-"%s में लाये गये फाइल सिस्टम के बनिस्पत कई लाभ देता है. यह अधिष्ठापन प्रोग्राम संरूपित "
-"विभाजनों को बिना आंकड़ा हानि के उत्प्रवासित हो सकता है.\n"
+"%s समर्थन का यह विमोचन अद्यतन फाइल सिस्टम का समर्थन करता है जो यह पारंपरिक रूप से %s "
+"में लाये गये फाइल सिस्टम के बनिस्पत कई लाभ देता है. यह अधिष्ठापन प्रोग्राम संरूपित विभाजनों "
+"को बिना आंकड़ा हानि के उत्प्रवासित हो सकता है.\n"
 "\n"
 "इन विभाजनों में से किसमें आप उत्प्रवासित होना चाहते हैं?"
 
@@ -4510,7 +4532,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "स्वैप फाइल का आकार 1 और 2000 MB के बीच जरूर होना चाहिए."
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:182
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "आपके द्वारा चयनित युक्ति पर स्वैप विभाजन के लिए स्थान पर्याप्त नहीं हैं."
 
 #: ../iw/zipl_gui.py:35
@@ -4653,7 +4676,8 @@ msgstr ""
 "के साथ करना चाहते हैं."
 
 #: ../textw/bootloader_text.py:294
-msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <Space> चुनें | <F2> मूलभूत चुनिये | <F4> मिटायें | <F12> अगला स्क्रीन>"
 
 #: ../textw/bootloader_text.py:390
@@ -4740,7 +4764,8 @@ msgid "Please select the package groups you would like to install."
 msgstr "संकुल समूह चुनें जिसे आप अधिष्ठापित करना चाहेंगे."
 
 #: ../textw/grpselect_text.py:112
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> चुनाव   |   <F2> समूह विवरण   |   <F12> अगला स्क्रीन"
 
 #: ../textw/grpselect_text.py:124
@@ -4758,22 +4783,6 @@ msgstr "कुंजीपटल चुनाव"
 #: ../textw/keyboard_text.py:47
 msgid "Which model keyboard is attached to this computer?"
 msgstr "इस कंप्यूटर से किस माडल का कुंजीपटल संलग्न है?"
-
-#: ../textw/mouse_text.py:45
-msgid "What device is your mouse located on?"
-msgstr "कौन-सी युक्ति पर आपका माउस अवस्थित है?"
-
-#: ../textw/mouse_text.py:77
-msgid "Which model mouse is attached to this computer?"
-msgstr "इस कंप्यूटर से किस माडल का माउस संलग्न है?"
-
-#: ../textw/mouse_text.py:88
-msgid "Emulate 3 Buttons?"
-msgstr "3 बटनों का अनुकरण करें?"
-
-#: ../textw/mouse_text.py:91
-msgid "Mouse Selection"
-msgstr "माउस चुनाव"
 
 #: ../textw/network_text.py:58
 #, python-format
@@ -5201,7 +5210,8 @@ msgstr ""
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr "वर्तमान में निवेदित आकार (%10.2f MB) वॉल्यूम ग्रूप में उपलब्ध आकार (%10.2f MB) से बड़ा है."
+msgstr ""
+"वर्तमान में निवेदित आकार (%10.2f MB) वॉल्यूम ग्रूप में उपलब्ध आकार (%10.2f MB) से बड़ा है."
 
 #: ../textw/partition_text.py:1348
 msgid "New Partition or Logical Volume?"
@@ -5236,7 +5246,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1433
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "   F1-सहायता     F2-नया   F3-संपादन करें F4-विलोपित करें    F5-पुनःजमाएँ    F12-"
 "ठीक        "
@@ -5481,12 +5492,12 @@ msgstr ""
 msgid "Office and Productivity"
 msgstr "ऑफिस एवं उत्पादकता"
 
-#: ../installclasses/fedora.py:45 ../installclasses/rhel.py:55
-#: ../installclasses/rhel.py:60
+#: ../installclasses/fedora.py:45 ../installclasses/rhel.py:54
+#: ../installclasses/rhel.py:59
 msgid "Software Development"
 msgstr "सॉफ्टवेयर विकास"
 
-#: ../installclasses/fedora.py:46 ../installclasses/rhel.py:59
+#: ../installclasses/fedora.py:46 ../installclasses/rhel.py:58
 msgid "Web server"
 msgstr "वेब सर्वर"
 
@@ -5494,31 +5505,31 @@ msgstr "वेब सर्वर"
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
-#: ../installclasses/rhel.py:52
+#: ../installclasses/rhel.py:51
 msgid "Office"
 msgstr "कार्यालय"
 
-#: ../installclasses/rhel.py:53
+#: ../installclasses/rhel.py:52
 msgid "Multimedia"
 msgstr "मल्टीमीडिया"
 
-#: ../installclasses/rhel.py:64
+#: ../installclasses/rhel.py:63
 msgid "Virtualization"
 msgstr "वर्चुअलाइजेशन"
 
-#: ../installclasses/rhel.py:65
+#: ../installclasses/rhel.py:64
 msgid "Clustering"
 msgstr "क्लस्टरिंग"
 
-#: ../installclasses/rhel.py:66
+#: ../installclasses/rhel.py:65
 msgid "Storage Clustering"
 msgstr "भंडारण क्लस्टरिंग"
 
-#: ../installclasses/rhel.py:70
+#: ../installclasses/rhel.py:69
 msgid "Installation Number"
 msgstr "अधिष्ठापन संख्या"
 
-#: ../installclasses/rhel.py:71
+#: ../installclasses/rhel.py:70
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
@@ -5526,7 +5537,7 @@ msgstr ""
 "अपनी सदस्यता में समर्थित संकुल का पूर्ण सेट अधिष्ठापित करने के लिये, कृपया अपनी अधिष्ठापन "
 "संख्या डालें"
 
-#: ../installclasses/rhel.py:74
+#: ../installclasses/rhel.py:73
 msgid ""
 "If you're unable to locate the Installation Number, consult http://www."
 "redhat.com/apps/support/in.html.\n"
@@ -5554,7 +5565,7 @@ msgstr "माध्यम जांच"
 
 #: ../loader2/cdinstall.c:96 ../loader2/cdinstall.c:99
 #: ../loader2/cdinstall.c:117 ../loader2/cdinstall.c:125
-#: ../loader2/method.c:380
+#: ../loader2/method.c:393
 msgid "Test"
 msgstr "जांचें"
 
@@ -5635,7 +5646,7 @@ msgstr "डिस्क नहीं मिला"
 msgid "Cannot find kickstart file on CDROM."
 msgstr "CDROM पर किकस्टार्ट नहीं मिल रहा है."
 
-#: ../loader2/copy.c:51 ../loader2/method.c:113 ../loader2/method.c:334
+#: ../loader2/copy.c:51 ../loader2/method.c:121 ../loader2/method.c:347
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "%s निर्देशिका पढ़ने में असफल: %s"
@@ -5740,8 +5751,8 @@ msgstr "क्या आप और अधिक चालन डिस्क भ
 #: ../loader2/kickstart.c:142 ../loader2/kickstart.c:185
 #: ../loader2/kickstart.c:529 ../loader2/modules.c:336
 #: ../loader2/modules.c:348 ../loader2/net.c:1647 ../loader2/net.c:1670
-#: ../loader2/nfsinstall.c:320 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:474 ../loader2/urlinstall.c:483
+#: ../loader2/nfsinstall.c:342 ../loader2/urlinstall.c:437
+#: ../loader2/urlinstall.c:446 ../loader2/urlinstall.c:455
 msgid "Kickstart Error"
 msgstr "किकस्टार्ट त्रुटि "
 
@@ -5803,23 +5814,24 @@ msgstr "वैकल्पिक मॉडयूल तर्क निर्द
 msgid "Select Device Driver to Load"
 msgstr "भारण के लिए युक्ति चालक चुनें"
 
-#: ../loader2/hdinstall.c:80 ../loader2/nfsinstall.c:153
-#: ../loader2/urlinstall.c:298
+#: ../loader2/hdinstall.c:80 ../loader2/nfsinstall.c:168
+#: ../loader2/urlinstall.c:274
 msgid "Media Detected"
 msgstr "माध्यम खोजा गया"
 
-#: ../loader2/hdinstall.c:81 ../loader2/nfsinstall.c:154
-#: ../loader2/urlinstall.c:299
+#: ../loader2/hdinstall.c:81 ../loader2/nfsinstall.c:169
+#: ../loader2/urlinstall.c:275
 msgid "Local installation media detected..."
 msgstr "स्थानीय अधिष्ठापन माध्यम खोजा गया..."
 
-#: ../loader2/hdinstall.c:137 ../loader2/nfsinstall.c:271
+#: ../loader2/hdinstall.c:137 ../loader2/nfsinstall.c:293
 #: ../loader2/urlinstall.c:192
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr "ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन तरू आपके बूट माध्यम से मिलान करता है."
+msgstr ""
+"ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन तरू आपके बूट माध्यम से मिलान करता है."
 
 #: ../loader2/hdinstall.c:253
 msgid ""
@@ -5925,8 +5937,10 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%s में %s के लिए स्वागत है - बचाव मोड"
 
 #: ../loader2/lang.c:65 ../loader2/loader.c:166
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> आगे स्क्रीन"
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> आगे स्क्रीन"
 
 #: ../loader2/lang.c:373
 msgid "Choose a Language"
@@ -5995,8 +6009,8 @@ msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
-"अद्यतन चित्र डाउनलोड करने में असमर्थ.  नीचे अद्यतन स्थान रूपांतरित करें या "
-"अद्यतन के साथ आगे बढ़ने के लिए रद्द करें को दबाएं.."
+"अद्यतन चित्र डाउनलोड करने में असमर्थ.  नीचे अद्यतन स्थान रूपांतरित करें या अद्यतन के साथ आगे "
+"बढ़ने के लिए रद्द करें को दबाएं.."
 
 #: ../loader2/loader.c:494
 msgid "Error downloading updates image"
@@ -6124,9 +6138,12 @@ msgid ""
 "The image which was just tested was successfully verified.  It should be OK "
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
-msgstr "चित्र जिसे आपने तुरत जांचा है वह सफलतापूर्वक जांचा गया है.  इसे ठीक होना चाहिए इस मीडिया से अधिष्ठापित करने के लिए.  नोट करें कि सभी मीडिया/ड्राइव को मीडिया जांच के द्वारा खोजा नहीं जा सकता है."
+msgstr ""
+"चित्र जिसे आपने तुरत जांचा है वह सफलतापूर्वक जांचा गया है.  इसे ठीक होना चाहिए इस "
+"मीडिया से अधिष्ठापित करने के लिए.  नोट करें कि सभी मीडिया/ड्राइव को मीडिया जांच के "
+"द्वारा खोजा नहीं जा सकता है."
 
-#: ../loader2/method.c:377
+#: ../loader2/method.c:390
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6137,7 +6154,7 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:380
+#: ../loader2/method.c:393
 msgid "Checksum Test"
 msgstr "चेकसम परीक्षा"
 
@@ -6267,7 +6284,8 @@ msgid "Missing Information"
 msgstr "जानकारी गुम गई"
 
 #: ../loader2/net.c:1225
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "आप जरूर एक वैध IPv4 पता और संजाल मास्क या CIDR प्रत्यय डालें."
 
 #: ../loader2/net.c:1231
@@ -6296,7 +6314,8 @@ msgstr "संजाल युक्ति"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr "इस सिस्टम पर आपके पास बहु संजाल युक्तियाँ हैं. आप किससे होकर अधिष्ठापन करना पसंद करेंगे?"
+msgstr ""
+"इस सिस्टम पर आपके पास बहु संजाल युक्तियाँ हैं. आप किससे होकर अधिष्ठापन करना पसंद करेंगे?"
 
 #: ../loader2/nfsinstall.c:57
 msgid "NFS server name:"
@@ -6316,24 +6335,24 @@ msgstr "सर्वर नाम और आपके %s चित्र का 
 msgid "NFS Setup"
 msgstr "NFS व्यवस्था"
 
-#: ../loader2/nfsinstall.c:139
+#: ../loader2/nfsinstall.c:154
 msgid "Hostname specified with no DNS configured"
 msgstr "बिना DNS विन्यस्त किये मेजबाननाम निर्दिष्ट"
 
-#: ../loader2/nfsinstall.c:193 ../loader2/urls.c:222
+#: ../loader2/nfsinstall.c:215 ../loader2/urls.c:223
 msgid "Retrieving"
 msgstr "पुनःप्राप्त कर रहा है"
 
-#: ../loader2/nfsinstall.c:262
+#: ../loader2/nfsinstall.c:284
 msgid "That directory could not be mounted from the server."
 msgstr "उस निर्देशिका का आरोहण सर्वर से नहीं हो सका."
 
-#: ../loader2/nfsinstall.c:275
+#: ../loader2/nfsinstall.c:297
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "उस निर्देशिका में %s अधिष्ठापन तरू समाहित दिखाई नहीं देता है."
 
-#: ../loader2/nfsinstall.c:321
+#: ../loader2/nfsinstall.c:343
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "%s NFS किकस्टार्ट विधि कमांड को बुरा तर्क: %s"
@@ -6359,51 +6378,51 @@ msgstr "%s पुनःप्राप्ति में असमर्थ://%
 msgid "Unable to retrieve the install image."
 msgstr "अधिष्ठापन बिंब पुनःप्राप्ति में असमर्थ."
 
-#: ../loader2/urlinstall.c:466
+#: ../loader2/urlinstall.c:438
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr " %s Url किकस्टार्ट विधि कमांड को बुरा तर्क: %s"
 
-#: ../loader2/urlinstall.c:475
+#: ../loader2/urlinstall.c:447
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Url किकस्टार्ट विधि को एक --url तर्क अवश्य दें."
 
-#: ../loader2/urlinstall.c:484
+#: ../loader2/urlinstall.c:456
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "अज्ञात Url विधि %s"
 
-#: ../loader2/urls.c:280
+#: ../loader2/urls.c:282
 #, c-format
 msgid "Please enter the URL containing the %s images on your server."
 msgstr "%s चित्र को आपके सर्वर पर समाहित करता URL दाखिल करें."
 
-#: ../loader2/urls.c:291
+#: ../loader2/urls.c:293
 msgid "Configure proxy"
 msgstr "प्रॉक्सी विन्यस्तविन्यस्त करें"
 
-#: ../loader2/urls.c:306
+#: ../loader2/urls.c:308
 msgid "URL Setup"
 msgstr "URL सेटअप"
 
-#: ../loader2/urls.c:314
+#: ../loader2/urls.c:316
 msgid "You must enter a URL."
 msgstr "आप जरूर URL दाखिल करें."
 
-#: ../loader2/urls.c:320
+#: ../loader2/urls.c:322
 msgid "URL must be either an ftp or http URL"
 msgstr "URL या तो ftp या http URL जरूर होना चाहिए"
 
-#: ../loader2/urls.c:331
+#: ../loader2/urls.c:333
 msgid "Unknown Host"
 msgstr "अज्ञात मेजबान"
 
-#: ../loader2/urls.c:332
+#: ../loader2/urls.c:334
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s एक उचित मेजबाननाम नहीं है. "
 
-#: ../loader2/urls.c:378
+#: ../loader2/urls.c:380
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -6411,15 +6430,15 @@ msgstr ""
 "यदि आप एक HTTP प्राक्सी सर्वर प्रयोग कर रहे हैं तो प्रयोग के लिए HTTP प्राक्सी सर्वर का "
 "नाम दाखिल करें."
 
-#: ../loader2/urls.c:393
+#: ../loader2/urls.c:395
 msgid "Proxy Name:"
 msgstr "प्रॉक्सी नाम:"
 
-#: ../loader2/urls.c:398
+#: ../loader2/urls.c:400
 msgid "Proxy Port:"
 msgstr "प्रॉक्सी पोर्ट:"
 
-#: ../loader2/urls.c:414
+#: ../loader2/urls.c:416
 msgid "Further Setup"
 msgstr "अगला सेटअप"
 
@@ -6533,7 +6552,8 @@ msgid "Which Partition to resize"
 msgstr "किस विभाजन को फिर आकार देना है"
 
 #: tmp/autopart.glade.h:6
-msgid "Which partition would you like to resize to make room for your installation?"
+msgid ""
+"Which partition would you like to resize to make room for your installation?"
 msgstr "अपने अधिष्ठापन के लिए किस विभाजन को फिर आकार देना चाहेंगे?"
 
 #: tmp/autopart.glade.h:7
@@ -6593,14 +6613,19 @@ msgid "_Details"
 msgstr "विवरण (_D)"
 
 #: tmp/exnSave.glade.h:2
+#, fuzzy
+msgid "Select A File"
+msgstr "चालक चुनें"
+
+#: tmp/exnSave.glade.h:3
 msgid "Select a destination for the exception information."
 msgstr "अपावद सूचना के लिए गंतव्य चुनें"
 
-#: tmp/exnSave.glade.h:3
+#: tmp/exnSave.glade.h:4
 msgid "_Disk"
 msgstr "डिस्क (_D)"
 
-#: tmp/exnSave.glade.h:4
+#: tmp/exnSave.glade.h:5
 msgid "_Remote"
 msgstr "दूरस्थ (_R)"
 
@@ -6609,7 +6634,9 @@ msgid ""
 "Some packages associated with this group are not required to be installed "
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
-msgstr "इस समूह के साथ जुड़ा कुछ संकुल को अधिष्ठापित करने की जरूरत नहीं है लेकिन अतिरिक्त कार्यशीलता दे सकता है.  कृपया संकुलों को चुनें जिसे आप अधिष्ठापित करना चाहेंगे."
+msgstr ""
+"इस समूह के साथ जुड़ा कुछ संकुल को अधिष्ठापित करने की जरूरत नहीं है लेकिन अतिरिक्त "
+"कार्यशीलता दे सकता है.  कृपया संकुलों को चुनें जिसे आप अधिष्ठापित करना चाहेंगे."
 
 #: tmp/GroupSelector.glade.h:2
 msgid "_Deselect"
@@ -6681,7 +6708,9 @@ msgstr "हार्ड ड्राइव में अधिष्ठापि
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
-msgstr "इस गोपित विभाजन के लिए शब्दकूट चुनें. आपको सिस्टम बूट के दौरान शब्दकूट के लिए प्रांप्ट किया जायेगा."
+msgstr ""
+"इस गोपित विभाजन के लिए शब्दकूट चुनें. आपको सिस्टम बूट के दौरान शब्दकूट के लिए प्रांप्ट किया "
+"जायेगा."
 
 #: tmp/lukspassphrase.glade.h:2
 msgid "Confirm passphrase:"
@@ -6771,7 +6800,8 @@ msgstr "बाद में पसंद करें (_l)"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr "कृपया किसी अतिरिक्त रिपॉजटरी चुनें जो कि आप सॉफ्टवेयर अधिष्ठापन के लिये चुनना चाहते हैं."
+msgstr ""
+"कृपया किसी अतिरिक्त रिपॉजटरी चुनें जो कि आप सॉफ्टवेयर अधिष्ठापन के लिये चुनना चाहते हैं."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -7037,3 +7067,38 @@ msgstr "वेल्श"
 msgid "Zulu"
 msgstr "जुलु"
 
+#~ msgid "Mouse Configuration"
+#~ msgstr "माउस विन्यास "
+
+#~ msgid "/dev/ttyS0 (COM1 under DOS)"
+#~ msgstr "/dev/ttyS0 (DOS के अंतर्गत COM1)"
+
+#~ msgid "/dev/ttyS1 (COM2 under DOS)"
+#~ msgstr "/dev/ttyS1 (DOS के अंतर्गत COM2)"
+
+#~ msgid "/dev/ttyS2 (COM3 under DOS)"
+#~ msgstr "/dev/ttyS2 (DOS के अंतर्गत COM3)"
+
+#~ msgid "/dev/ttyS3 (COM4 under DOS)"
+#~ msgstr "/dev/ttyS3 (DOS के अंतर्गत COM4)"
+
+#~ msgid "_Model"
+#~ msgstr "मॉडल (_M)"
+
+#~ msgid "_Emulate 3 buttons"
+#~ msgstr "3 बटनों अनुकरण करें (_E)"
+
+#~ msgid "Select the appropriate mouse for the system."
+#~ msgstr "सिस्टम के लिए उचित मॉउस चुनें."
+
+#~ msgid "What device is your mouse located on?"
+#~ msgstr "कौन-सी युक्ति पर आपका माउस अवस्थित है?"
+
+#~ msgid "Which model mouse is attached to this computer?"
+#~ msgstr "इस कंप्यूटर से किस माडल का माउस संलग्न है?"
+
+#~ msgid "Emulate 3 Buttons?"
+#~ msgstr "3 बटनों का अनुकरण करें?"
+
+#~ msgid "Mouse Selection"
+#~ msgstr "माउस चुनाव"
