@@ -68,7 +68,8 @@ class Firewall:
         try:
             if not flags.test:
                 iutil.execWithRedirect("/usr/sbin/lokkit", args,
-                                       root=instPath, stdout=None, stderr=None)
+                                       root=instPath, stdout="/dev/null",
+                                       stderr="/dev/null")
             else:
                 log.error("would have run %s", args)
         except RuntimeError, msg:
