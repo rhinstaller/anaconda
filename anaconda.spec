@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.82
+Version: 10.1.1.83
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Mar 28 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.83-1
+- Fix a typo in the dhcptimeout patch
+  Related: rhbz#246483
+- Fix various problems with the no-duplicate-hostadapters patch
+  Related: rhbz#248619
+
 * Thu Mar 27 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.82-1
 - Add dhcptimeout parameter to loader (msivak)
   Resolves: rhbz#246483
