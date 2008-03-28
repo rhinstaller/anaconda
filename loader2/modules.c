@@ -79,13 +79,11 @@ static int scsiCount(char *conf) {
     if (!f)
         return 0;
     do {
-        char *buf = NULL;
-        size_t n = 0;
-        if (getline(&buf, &n, f) < 0)
+        char buf[256];
+        if (fgets(buf, sizeof(buf), f) == NULL)
             break;
         if (!strncmp(buf, "alias scsi_hostadapter", 22))
             count++;
-        free(buf);
     } while (1);
     fclose(f);
     return count;
@@ -646,11 +644,10 @@ static int removeHostAdapter(char *conf, char *name) {
     }
 
     do {
-        size_t n = 0;
-        char *buf = NULL;
+        char buf[256];
         int d = 0, m = 0;
 
-        if (getline(&buf, &n, in) < 0)
+        if (fgets(buf, sizeof(buf), in) == NULL)
             break;
 
         if (ret || strncmp(buf, "alias scsi_hostadapter", 22)) {
@@ -671,11 +668,10 @@ static int removeHostAdapter(char *conf, char *name) {
                     fprintf(out, "alias scsi_hostadapter %s", buf+22+m);
                 nhbas++;
             } else {
-                logMessage(INFO, "removed usb-storage from modprobe.conf");
+                logMessage("removed usb-storage from modprobe.conf");
                 ret++;
             }
         }
-        free(buf);
     } while (1);
 
     fclose(in);
@@ -704,7 +700,7 @@ static int writeModulesConf(moduleList list, char *conf) {
 
     fd = open("/tmp/modprobe.conf", O_WRONLY | O_CREAT | O_APPEND, 0666);
     if (fd == -1) {
-        logMessage(ERROR, "error appending to /tmp/modprobe.conf: %s\n",
+        logMessage("error appending to /tmp/modprobe.conf: %s\n",
                    strerror(errno));
         return 0;
     }
