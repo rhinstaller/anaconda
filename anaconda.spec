@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.59
+Version: 11.4.0.60
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,23 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar 27 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.60-1
+- Have a fallback empty description for devices (#432362) (katzj)
+- os.path.join does not work the way we think it should. (clumens)
+- Remove the stage2 in all cases now that we're copying it basically
+  all the time (katzj)
+- Add support for saving the exception to a local directory for live
+  installs (katzj)
+- Catch errors on resize and present a dialog to the user (katzj)
+- Save resize output to a file (/tmp/resize.out) so that it's more
+  useful (katzj)
+- Make sure we give the command that's run on stdout so that it's
+  logged (katzj)
+- more mouse-related removals (notting)
+- Fix up autopart resizing for the multiple partitions to resize case (katzj)
+- Fix up the case where both method= and stage2= are given (katzj)
+- Remove mouse screens that haven't been used in 4 years (katzj)
+
 * Wed Mar 26 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.59-1
 - Only remove duplicate slashes from the front of the prefix. (clumens)
 - Ensure that we take into account new repos (katzj)
