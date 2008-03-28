@@ -333,6 +333,9 @@ class AnacondaYum(YumSorter):
         self.localPackages = []
 
     def systemMounted(self, fsset, chroot):
+        if not flags.setupFilesystem:
+            return
+
         stage2img = None
 
         if os.path.exists("/tmp/stage2.img"):
@@ -482,9 +485,12 @@ class AnacondaYum(YumSorter):
         self.conf.metadata_expire = 0
 
         if self.anaconda.methodstr.startswith("nfs:"):
+            if os.path.isdir(self.anaconda.methodstr[4:]):
+                self.tree = self.anaconda.methodstr[4:]
+            else:
+                if not os.path.ismount(self.tree):
+                    isys.mount(self.anaconda.methodstr[4:], self.tree, "nfs")
             methodstr = "file://%s" % self.tree
-            if not os.path.ismount(self.tree):
-                isys.mount(self.anaconda.methodstr[4:], self.tree, "nfs")
         elif self.anaconda.methodstr.startswith("nfsiso:"):
             methodstr = "file://%s" % self.tree
         elif self.anaconda.methodstr.startswith("cdrom:"):
