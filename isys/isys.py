@@ -790,6 +790,8 @@ def readFSType(device):
                 return "physical volume (LVM)"
     if fstype == "ext4":
         return "ext4dev"
+    elif fstype == "lvm2pv":
+        return "physical volume (LVM)"
     return fstype
 
 def ext2Clobber(device):

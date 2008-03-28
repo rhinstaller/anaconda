@@ -146,6 +146,7 @@ class RaidEditor:
 
 	    # read out UI into a partition specification
 	    request = copy.copy(self.origrequest)
+            request.encryption = copy.deepcopy(self.origrequest.encryption)
 
 	    # doesn't make sense for RAID device
             if not self.origrequest.getPreExisting():
@@ -193,13 +194,15 @@ class RaidEditor:
                         passphrase = request.encryption.passphrase
                     else:
                         passphrase = ""
-                    passphrase = self.intf.getLuksPassphrase(passphrase)
+
+                    if not request.encryption or request.encryption.format:
+                        passphrase = self.intf.getLuksPassphrase(passphrase)
+
                     if passphrase and not request.encryption:
                         request.encryption = LUKSDevice(passphrase=passphrase,
                                                         format=1)
-                    elif passphrase:
-                        request.encryption.setPassphrase(passphrase)
-                        request.encryption.format = 1
+                    elif passphrase and request.encryption.format:
+                        request.setPassphrase(passphrase)
                 else:
                     request.encryption = None
 	    else:
@@ -228,18 +231,20 @@ class RaidEditor:
                     request.mountpoint = None
 
                 lukscb = self.fsoptionsDict.get("lukscb")
-                if request.format and lukscb and lukscb.get_active():
+                if lukscb and lukscb.get_active():
                     if request.encryption:
                         passphrase = request.encryption.passphrase
                     else:
                         passphrase = ""
-                    passphrase = self.intf.getLuksPassphrase(passphrase)
+
+                    if not request.encryption or request.encryption.format:
+                        passphrase = self.intf.getLuksPassphrase(passphrase)
+
                     if passphrase and not request.encryption:
                         request.encryption = LUKSDevice(passphrase=passphrase,
                                                         format=1)
-                    elif passphrase:
-                        request.encryption.setPassphrase(passphrase)
-                        request.encryption.format = 1
+                    elif passphrase and request.encryption.format:
+                        request.setPassphrase(passphrase)
                 else:
                     request.encryption = None
 

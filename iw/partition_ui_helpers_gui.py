@@ -240,7 +240,8 @@ def formatOptionCB(widget, data):
     if lukscb is not None:
         lukscb.set_data("formatstate", widget.get_active())
         if not widget.get_active():
-            lukscb.set_active(0)
+            # set "Encrypt" checkbutton to match partition's initial state
+            lukscb.set_active(lukscb.get_data("encrypted"))
             lukscb.set_sensitive(0)
         else:
             lukscb.set_sensitive(1)
@@ -354,9 +355,9 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 
         formatcb.connect("toggled", formatOptionResizeCB, resizesb)
 
-    if origrequest.encryption and formatcb.get_active():
-        # probably never happen
+    if origrequest.encryption:
         lukscb.set_active(1)
+        lukscb.set_data("encrypted", 1)
 
     lukscb.set_sensitive(formatcb.get_active())
     lukscb.set_data("formatstate", formatcb.get_active())

@@ -615,6 +615,7 @@ class VolumeGroupEditor:
 
 	    # create potential request
 	    request = copy.copy(logrequest)
+            request.encryption = copy.deepcopy(logrequest.encryption)
 	    pesize = int(self.peCombo.get_active_value())
 	    size = lvm.clampLVSizeRequest(size, pesize, roundup=1)
 
@@ -659,11 +660,14 @@ class VolumeGroupEditor:
                 else:
                     passphrase = ""
 
-                passphrase = self.intf.getLuksPassphrase(passphrase)
+                if not request.encryption or request.encryption.format:
+                    passphrase = self.intf.getLuksPassphrase(passphrase)
 
-                if passphrase:
+                if passphrase and not request.encryption:
                     request.encryption = LUKSDevice(passphrase=passphrase,
                                                     format=1)
+                elif passphrase and request.encryption.format:
+                    request.encryption.setPassphrase(passphrase)
             else:
                 request.encryption = None
 

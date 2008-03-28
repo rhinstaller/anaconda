@@ -141,13 +141,15 @@ class PartitionEditor:
                         passphrase = request.encryption.passphrase
                     else:
                         passphrase = ""
-                    passphrase = self.intf.getLuksPassphrase(passphrase)
+
+                    if not request.encryption or request.encryption.format:
+                        passphrase = self.intf.getLuksPassphrase(passphrase)
+
                     if passphrase and not request.encryption:
                         request.encryption = LUKSDevice(passphrase=passphrase,
                                                         format=1)
-                    elif passphrase:
+                    elif passphrase and request.encryption.format:
                         request.encryption.setPassphrase(passphrase)
-                        request.encryption.format = 1
                 else:
                     request.encryption = None
 
@@ -212,6 +214,7 @@ class PartitionEditor:
             else:
                 # preexisting partition, just set mount point and format flag
                 request = copy.copy(self.origrequest)
+                request.encryption = copy.deepcopy(self.origrequest.encryption)
 		
 		if self.fsoptionsDict.has_key("formatcb"):
                     request.format = self.fsoptionsDict["formatcb"].get_active()
@@ -243,23 +246,21 @@ class PartitionEditor:
                 else:
                     request.mountpoint = None
 
-                if self.fsoptionsDict.has_key("lukscb"):
-                    lukscb = self.fsoptionsDict["lukscb"]
-                else:
-                    lukscb = None
-
-                if request.format and lukscb and lukscb.get_active():
+                lukscb = self.fsoptionsDict.get("lukscb")
+                if lukscb and lukscb.get_active():
                     if request.encryption:
                         passphrase = request.encryption.passphrase
                     else:
                         passphrase = ""
-                    passphrase = self.intf.getLuksPassphrase(passphrase)
+
+                    if not request.encryption or request.encryption.format:
+                        passphrase = self.intf.getLuksPassphrase(passphrase)
+
                     if passphrase and not request.encryption:
                         request.encryption = LUKSDevice(passphrase=passphrase,
                                                         format=1)
-                    elif passphrase:
+                    elif passphrase and request.encryption.format:
                         request.encryption.setPassphrase(passphrase)
-                        request.encryption.format = 1
                 else:
                     request.encryption = None
 
@@ -331,8 +332,6 @@ class PartitionEditor:
 	    lbl = createAlignedLabel(_("File System _Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
 
-            self.lukscb = gtk.CheckButton(_("_Encrypt"))
-            self.lukscb.set_data("formatstate", 1)
             self.newfstypeCombo = createFSTypeMenu(self.origrequest.fstype,
                                                    fstypechangeCB,
                                                    self.mountCombo,
@@ -485,14 +484,15 @@ class PartitionEditor:
 
         # checkbutton for encryption using dm-crypt/LUKS
         if self.origrequest.type == REQUEST_NEW:
+            self.lukscb = gtk.CheckButton(_("_Encrypt"))
+            self.lukscb.set_data("formatstate", 1)
+
             if self.origrequest.encryption:
                 self.lukscb.set_active(1)
             else:
                 self.lukscb.set_active(0)
             maintable.attach(self.lukscb, 0, 2, row, row + 1)
             row = row + 1
-        else:
-            self.lukscb = None
 
         # put main table into dialog
         self.dialog.vbox.pack_start(maintable)

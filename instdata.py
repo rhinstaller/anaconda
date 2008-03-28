@@ -173,7 +173,7 @@ class InstallData:
         try:
             if not flags.test:
                 iutil.execWithRedirect("/usr/sbin/authconfig", args,
-                                       stdout = None, stderr = None,
+                                       stdout = "/dev/tty5", stderr = "/dev/tty5",
                                        root = self.anaconda.rootPath)
             else:
                 log.error("Would have run: %s", args)

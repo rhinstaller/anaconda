@@ -221,7 +221,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
                 /* and mounting                                   */
                 rc = loadHDImages("/mnt/source", "/", "/dev/loop0",
                                   "/mnt/runtime", location);
-                umountLoopback("/mnt/source", "/dev/loop0");
+                umountLoopback("/mnt/source", "/dev/loop1");
 
                 if (rc) {
                     umount("/mnt/isodir");

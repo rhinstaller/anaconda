@@ -59,7 +59,9 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
     if type(stderr) == type("string"):
         stderr = open(stderr, "w")
 
-    stdout.write("Running... %s\n" %([command] + argv,))
+    if stdout is not None:
+        stdout.write("Running... %s\n" %([command] + argv,))
+
     try:
         proc = subprocess.Popen([command] + argv, stdin=stdin, stdout=stdout,
                                 stderr=stderr, preexec_fn=chroot, cwd=root)
