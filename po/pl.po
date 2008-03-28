@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-03-16 22:24+0200\n"
+"PO-Revision-Date: 2008-03-28 17:01+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1105,9 +1105,8 @@ msgid "Exiting"
 msgstr "Wyłączanie"
 
 #: ../gui.py:1401
-#, fuzzy
 msgid "Are you sure you wish to exit the installation?"
-msgstr "Czy na pewno chcesz usunąć wolumin logiczny \"%s\"?"
+msgstr "Czy na pewno chcesz zakończyć instalację?"
 
 #: ../gui.py:1410
 #, python-format
@@ -1345,16 +1344,13 @@ msgid "'%s' is an invalid IP address."
 msgstr "\"%s\" nie jest prawidłowym adresem IP."
 
 #: ../packages.py:147
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "Zmienianie rozmiaru"
+msgstr "Zmienienie rozmiaru nie powiodło się"
 
 #: ../packages.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered resizing the device %s."
-msgstr ""
-"Podczas czyszczenia dysków docelowych wystąpił błąd. Klonowanie nie powiodło "
-"się."
+msgstr "Podczas zmieniania rozmiaru urządzenia %s wystąpił błąd."
 
 #: ../packages.py:188
 msgid "LVM operation failed"
@@ -6727,9 +6723,8 @@ msgid "_Details"
 msgstr "_Szczegóły"
 
 #: tmp/exnSave.glade.h:2
-#, fuzzy
 msgid "Select A File"
-msgstr "Wybierz sterownik"
+msgstr "Wybierz plik"
 
 #: tmp/exnSave.glade.h:3
 msgid "Select a destination for the exception information."
@@ -7182,39 +7177,3 @@ msgstr "walijski"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zuluski"
-
-#~ msgid "Mouse Configuration"
-#~ msgstr "Konfiguracja myszy"
-
-#~ msgid "/dev/ttyS0 (COM1 under DOS)"
-#~ msgstr "/dev/ttyS0 (COM1 w DOS)"
-
-#~ msgid "/dev/ttyS1 (COM2 under DOS)"
-#~ msgstr "/dev/ttyS1 (COM2 w DOS)"
-
-#~ msgid "/dev/ttyS2 (COM3 under DOS)"
-#~ msgstr "/dev/ttyS2 (COM3 w DOS)"
-
-#~ msgid "/dev/ttyS3 (COM4 under DOS)"
-#~ msgstr "/dev/ttyS3 (COM4 w DOS)"
-
-#~ msgid "_Model"
-#~ msgstr "_Model"
-
-#~ msgid "_Emulate 3 buttons"
-#~ msgstr "_Emuluj trzeci klawisz"
-
-#~ msgid "Select the appropriate mouse for the system."
-#~ msgstr "Wybierz odpowiednią mysz dla systemu."
-
-#~ msgid "What device is your mouse located on?"
-#~ msgstr "Do którego urządzenia jest podłączona mysz?"
-
-#~ msgid "Which model mouse is attached to this computer?"
-#~ msgstr "Jaki jest model podłączonej myszy?"
-
-#~ msgid "Emulate 3 Buttons?"
-#~ msgstr "Emulować trzeci klawisz?"
-
-#~ msgid "Mouse Selection"
-#~ msgstr "Wybór myszy"
