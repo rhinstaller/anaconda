@@ -711,7 +711,8 @@ char * doDhcp(char * ifname,
       override.timeout = dev->dhcpTimeout;
 
     setupWireless(dev);
-    logMessage("running dhcp for %s with timeout %ld", ifname, (long)timeout);
+    logMessage("running dhcp for %s with timeout %ld", ifname, 
+                                                       (long)override.timeout);
     return pumpDhcpClassRun(ifname, 0, 0, NULL, 
                             dhcpclass ? dhcpclass : "anaconda", 
                             &dev->dev, &override);
