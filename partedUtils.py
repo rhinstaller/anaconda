@@ -276,7 +276,7 @@ archLabels = {'i386': ['msdos', 'gpt'],
               'alpha': ['bsd', 'msdos'],
               'sparc': ['sun'],
               'ia64': ['msdos', 'gpt'],
-              'ppc': ['msdos', 'mac', 'amiga'],
+              'ppc': ['msdos', 'mac', 'amiga', 'gpt'],
               'x86_64': ['msdos', 'gpt']}
 
 def labelDisk(deviceFile, forceLabelType=None):
