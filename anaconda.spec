@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.60
+Version: 11.4.0.61
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar 27 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.61-1
+- Fix broken translation. (clumens)
+
 * Thu Mar 27 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.60-1
 - Have a fallback empty description for devices (#432362) (katzj)
 - os.path.join does not work the way we think it should. (clumens)
