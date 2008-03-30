@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.61
+Version: 11.4.0.62
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,30 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Mar 30 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.62-1
+- Translation updates
+- Allow GPT disk labels on ppc/ppc64. (dcantrell)
+- Tear down the right loopback device before going to stage2. (clumens)
+- Don't pass None as stdout or stderr. (clumens)
+- Make sure there's a stdout to write to. (clumens)
+- Handle fstype munging in isys.readFSType instead of in various 
+  other places. (dlehman)
+- Fix a typo in new encrypted LV code. (dlehman)
+- Partitioning UI for handling of preexisting encrypted devices. (dlehman)
+- Support discovery of preexisting rootfs on LV. (dlehman)
+- Improve handling of logical volume device names when encrypted. (dlehman)
+- Add support for discovery of preexisting LUKS encrypted devices. (dlehman)
+- Add support for retrieving LUKS UUIDs. (dlehman)
+- Refresh po files (katzj)
+- Mark for translation based on feedback from translators (katzj)
+- Just relabel all of /etc/sysconfig (#439315) (katzj)
+- When dhcp is selected ensure that bootproto is set to 
+  dhcp (RPL-2301) (elliot)
+- Fix for test mode repo bits (katzj)
+- Try to make the size flow a little more for weird resolution 
+  screens (#439297) (katzj)
+- Add kmymoney to upgrade remove list (#439255) (katzj)
+
 * Thu Mar 27 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.61-1
 - Fix broken translation. (clumens)
 
