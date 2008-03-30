@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.62
+Version: 11.4.0.63
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Mar 30 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.63-1
+- Fix broken translations.  Again. (katzj)
+
 * Sun Mar 30 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.62-1
 - Translation updates
 - Allow GPT disk labels on ppc/ppc64. (dcantrell)
