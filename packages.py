@@ -174,6 +174,14 @@ def turnOnFilesystems(anaconda):
 
             if not anaconda.id.fsset.isActive():
                 anaconda.id.diskset.savePartitions ()
+                # this is somewhat lame, but we seem to be racing with
+                # device node creation sometimes.  so wait for device nodes
+                # to settle
+                time.sleep(1)
+                rc = iutil.execWithRedirect("udevsettle", [],
+                                            stdout = "/dev/tty5",
+                                            stderr = "/dev/tty5",
+                                            searchPath = 1)
                 anaconda.id.partitions.doMetaResizes(anaconda.id.diskset)
             try:
                 anaconda.id.fsset.growFilesystems(anaconda.id.diskset, anaconda.rootPath)
