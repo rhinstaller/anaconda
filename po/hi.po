@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: anaconda.master.hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-03-24 17:11+0530\n"
+"PO-Revision-Date: 2008-03-31 15:32+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n\n"
 "\n"
 "\n"
 "\n"
@@ -210,8 +210,7 @@ msgstr ""
 
 #: ../autopart.py:1069
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "आपके आर्किटेक्चर के लिए %s बूट विभाजन बूटिंग निर्धारक से मिल नहीं सकता."
 
 #: ../autopart.py:1094
@@ -1098,9 +1097,8 @@ msgid "Exiting"
 msgstr "निकास"
 
 #: ../gui.py:1401
-#, fuzzy
 msgid "Are you sure you wish to exit the installation?"
-msgstr "क्या आप निश्चित हैं कि \"%s\" लॉजिकल वॉल्यूम को विलोपित करना चाहते हैं?"
+msgstr "क्या आप निश्चित हैं कि आप अधिष्ठापन से निकलना चाहते हैं?"
 
 #: ../gui.py:1410
 #, python-format
@@ -1271,10 +1269,8 @@ msgstr "बिंब ढ़ूढ़नें में असमर्थ"
 
 #: ../livecd.py:108
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
-msgstr ""
-"दिया गया स्थान एक वैध %s संजीवित CD नहीं है एक अधिष्ठापन श्रोत का प्रयोग करने के लिये."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
+msgstr "दिया गया स्थान एक वैध %s संजीवित CD नहीं है एक अधिष्ठापन श्रोत का प्रयोग करने के लिये."
 
 #: ../livecd.py:167
 msgid "Copying live image to hard drive."
@@ -1305,8 +1301,7 @@ msgstr "मेजबाननाम 64 या इससे कम संप्�
 
 #: ../network.py:60
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"मेजबाननाम को 'a-z' या 'A-Z' सीमा में एक उचित संप्रतीक से अवश्य प्रारंभ होना चाहिए"
+msgstr "मेजबाननाम को 'a-z' या 'A-Z' सीमा में एक उचित संप्रतीक से अवश्य प्रारंभ होना चाहिए"
 
 #: ../network.py:65
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1333,14 +1328,13 @@ msgid "'%s' is an invalid IP address."
 msgstr "'%s' एक अवैध IP पता नहीं है."
 
 #: ../packages.py:147
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "फिर आकार दे रहा है"
+msgstr "फिर आकार देना विफल"
 
 #: ../packages.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered resizing the device %s."
-msgstr "लक्ष्य चालनों को साफ करने में एक त्रुटि था. क्लोनिंग असफल."
+msgstr "%s युक्ति को फिर आकार देने में एक त्रुटि घटित हुई."
 
 #: ../packages.py:188
 msgid "LVM operation failed"
@@ -1762,8 +1756,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके संरूपित करने के लिए चुना गया है."
+msgstr "निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके संरूपित करने के लिए चुना गया है."
 
 #: ../partIntfHelpers.py:465
 msgid ""
@@ -1811,8 +1804,7 @@ msgid "Confirm Reset"
 msgstr "पुनःजमावट निश्चित करें"
 
 #: ../partIntfHelpers.py:543
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "क्या आप निश्चित हैं कि आप विभाजन तालिका को असली स्थिति में पुनःजमाना चाहते हैं ?"
 
 #: ../partitions.py:84
@@ -1933,10 +1925,8 @@ msgstr ""
 "है."
 
 #: ../partitions.py:1163
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"USB युक्ति पर अधिष्ठापित कर रहा है.  यह कार्यशील सिस्टम उत्पन्न कर सकता है या नहीं भी."
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "USB युक्ति पर अधिष्ठापित कर रहा है.  यह कार्यशील सिस्टम उत्पन्न कर सकता है या नहीं भी."
 
 #: ../partitions.py:1166
 msgid ""
@@ -2012,8 +2002,7 @@ msgstr "इस आरोह बिंदु %s को लाइव सीडी 
 
 #: ../partRequests.py:278
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "यह आरोह बिंदु अमान्य है. / फाइल सिस्टम पर %s निर्देशिका को अवश्य होना है."
 
 #: ../partRequests.py:281
@@ -2290,10 +2279,8 @@ msgid "Welcome to %s"
 msgstr "%s में स्वागत है"
 
 #: ../text.py:569
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> अगला स्क्रीन"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> अगला स्क्रीन"
 
 #: ../text.py:571
 msgid ""
@@ -2713,8 +2700,7 @@ msgstr "संकुल डाउनलोड के लिए फिर को�
 
 #: ../yuminstall.py:715
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "आपके विनिमय को चलाने में एक त्रुटि थी निम्न कारणों के लिये: %s\n"
 
 #: ../yuminstall.py:748 ../yuminstall.py:749
@@ -2954,8 +2940,7 @@ msgstr ""
 "क्या आप इस शब्दकूट के साथ जारी रखना चाहते हैं?"
 
 #: ../iw/account_gui.py:133 ../textw/userauth_text.py:72
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "निवेदित शब्दकूट में गैर-ASCII संप्रतीक समाहित है जिसकी अनुमति नहीं है."
 
 #: ../iw/autopart_type.py:96
@@ -3888,14 +3873,12 @@ msgid "Partitioning"
 msgstr "विभाजन कर रहा है"
 
 #: ../iw/partition_gui.py:638
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "विभाजन योजना जिसके लिये आपने आग्रह किया है के कारण निम्न गंभीर त्रुटि आयी."
 
 #: ../iw/partition_gui.py:640
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "आपके %s अधिष्ठापन के जारी रहने के पहले आपको जरूर इन त्रुटियों को सही करना चाहिये."
 
 #: ../iw/partition_gui.py:646
@@ -3904,8 +3887,7 @@ msgstr "विभाजन करने में त्रुटि"
 
 #: ../iw/partition_gui.py:652
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
-"विभाजनकारी योजना जिसके लिये आपने निवेदन किया है के कारण निम्न चेतावनी उत्पन्न हुई."
+msgstr "विभाजनकारी योजना जिसके लिये आपने निवेदन किया है के कारण निम्न चेतावनी उत्पन्न हुई."
 
 #: ../iw/partition_gui.py:654
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4371,8 +4353,7 @@ msgstr "आपको जरूर HTTP, HTTPS, या FTP URL को रिप�
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr ""
-"%s रिपॉजिटरी को पहले जोड़ा जा रहा है.  कृपया एक अलग रिपॉजिटरी नाम व URL चुनें."
+msgstr "%s रिपॉजिटरी को पहले जोड़ा जा रहा है.  कृपया एक अलग रिपॉजिटरी नाम व URL चुनें."
 
 #: ../iw/timezone_gui.py:62 ../textw/timezone_text.py:95
 msgid "Time Zone Selection"
@@ -4404,8 +4385,7 @@ msgstr "आपके सिस्टम पर वर्तमान में �
 
 #: ../iw/upgrade_bootloader_gui.py:134 ../textw/upgrade_bootloader_text.py:117
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "अधिष्ठापक ने %s बूट लोडर को वर्तमान में %s पर अधिष्ठापित हुआ खोजा है."
 
 #: ../iw/upgrade_bootloader_gui.py:138
@@ -4532,8 +4512,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "स्वैप फाइल का आकार 1 और 2000 MB के बीच जरूर होना चाहिए."
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:182
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "आपके द्वारा चयनित युक्ति पर स्वैप विभाजन के लिए स्थान पर्याप्त नहीं हैं."
 
 #: ../iw/zipl_gui.py:35
@@ -4676,8 +4655,7 @@ msgstr ""
 "के साथ करना चाहते हैं."
 
 #: ../textw/bootloader_text.py:294
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <Space> चुनें | <F2> मूलभूत चुनिये | <F4> मिटायें | <F12> अगला स्क्रीन>"
 
 #: ../textw/bootloader_text.py:390
@@ -4764,8 +4742,7 @@ msgid "Please select the package groups you would like to install."
 msgstr "संकुल समूह चुनें जिसे आप अधिष्ठापित करना चाहेंगे."
 
 #: ../textw/grpselect_text.py:112
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> चुनाव   |   <F2> समूह विवरण   |   <F12> अगला स्क्रीन"
 
 #: ../textw/grpselect_text.py:124
@@ -5210,8 +5187,7 @@ msgstr ""
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
-"वर्तमान में निवेदित आकार (%10.2f MB) वॉल्यूम ग्रूप में उपलब्ध आकार (%10.2f MB) से बड़ा है."
+msgstr "वर्तमान में निवेदित आकार (%10.2f MB) वॉल्यूम ग्रूप में उपलब्ध आकार (%10.2f MB) से बड़ा है."
 
 #: ../textw/partition_text.py:1348
 msgid "New Partition or Logical Volume?"
@@ -5246,8 +5222,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1433
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "   F1-सहायता     F2-नया   F3-संपादन करें F4-विलोपित करें    F5-पुनःजमाएँ    F12-"
 "ठीक        "
@@ -5830,8 +5805,7 @@ msgstr "स्थानीय अधिष्ठापन माध्यम ख
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन तरू आपके बूट माध्यम से मिलान करता है."
+msgstr "ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन तरू आपके बूट माध्यम से मिलान करता है."
 
 #: ../loader2/hdinstall.c:253
 msgid ""
@@ -5937,10 +5911,8 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%s में %s के लिए स्वागत है - बचाव मोड"
 
 #: ../loader2/lang.c:65 ../loader2/loader.c:166
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> आगे स्क्रीन"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> आगे स्क्रीन"
 
 #: ../loader2/lang.c:373
 msgid "Choose a Language"
@@ -6284,8 +6256,7 @@ msgid "Missing Information"
 msgstr "जानकारी गुम गई"
 
 #: ../loader2/net.c:1225
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "आप जरूर एक वैध IPv4 पता और संजाल मास्क या CIDR प्रत्यय डालें."
 
 #: ../loader2/net.c:1231
@@ -6314,8 +6285,7 @@ msgstr "संजाल युक्ति"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr ""
-"इस सिस्टम पर आपके पास बहु संजाल युक्तियाँ हैं. आप किससे होकर अधिष्ठापन करना पसंद करेंगे?"
+msgstr "इस सिस्टम पर आपके पास बहु संजाल युक्तियाँ हैं. आप किससे होकर अधिष्ठापन करना पसंद करेंगे?"
 
 #: ../loader2/nfsinstall.c:57
 msgid "NFS server name:"
@@ -6552,8 +6522,7 @@ msgid "Which Partition to resize"
 msgstr "किस विभाजन को फिर आकार देना है"
 
 #: tmp/autopart.glade.h:6
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
+msgid "Which partition would you like to resize to make room for your installation?"
 msgstr "अपने अधिष्ठापन के लिए किस विभाजन को फिर आकार देना चाहेंगे?"
 
 #: tmp/autopart.glade.h:7
@@ -6613,9 +6582,8 @@ msgid "_Details"
 msgstr "विवरण (_D)"
 
 #: tmp/exnSave.glade.h:2
-#, fuzzy
 msgid "Select A File"
-msgstr "चालक चुनें"
+msgstr "एक फाइल चुनें"
 
 #: tmp/exnSave.glade.h:3
 msgid "Select a destination for the exception information."
@@ -6800,8 +6768,7 @@ msgstr "बाद में पसंद करें (_l)"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"कृपया किसी अतिरिक्त रिपॉजटरी चुनें जो कि आप सॉफ्टवेयर अधिष्ठापन के लिये चुनना चाहते हैं."
+msgstr "कृपया किसी अतिरिक्त रिपॉजटरी चुनें जो कि आप सॉफ्टवेयर अधिष्ठापन के लिये चुनना चाहते हैं."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -7067,38 +7034,3 @@ msgstr "वेल्श"
 msgid "Zulu"
 msgstr "जुलु"
 
-#~ msgid "Mouse Configuration"
-#~ msgstr "माउस विन्यास "
-
-#~ msgid "/dev/ttyS0 (COM1 under DOS)"
-#~ msgstr "/dev/ttyS0 (DOS के अंतर्गत COM1)"
-
-#~ msgid "/dev/ttyS1 (COM2 under DOS)"
-#~ msgstr "/dev/ttyS1 (DOS के अंतर्गत COM2)"
-
-#~ msgid "/dev/ttyS2 (COM3 under DOS)"
-#~ msgstr "/dev/ttyS2 (DOS के अंतर्गत COM3)"
-
-#~ msgid "/dev/ttyS3 (COM4 under DOS)"
-#~ msgstr "/dev/ttyS3 (DOS के अंतर्गत COM4)"
-
-#~ msgid "_Model"
-#~ msgstr "मॉडल (_M)"
-
-#~ msgid "_Emulate 3 buttons"
-#~ msgstr "3 बटनों अनुकरण करें (_E)"
-
-#~ msgid "Select the appropriate mouse for the system."
-#~ msgstr "सिस्टम के लिए उचित मॉउस चुनें."
-
-#~ msgid "What device is your mouse located on?"
-#~ msgstr "कौन-सी युक्ति पर आपका माउस अवस्थित है?"
-
-#~ msgid "Which model mouse is attached to this computer?"
-#~ msgstr "इस कंप्यूटर से किस माडल का माउस संलग्न है?"
-
-#~ msgid "Emulate 3 Buttons?"
-#~ msgstr "3 बटनों का अनुकरण करें?"
-
-#~ msgid "Mouse Selection"
-#~ msgstr "माउस चुनाव"
