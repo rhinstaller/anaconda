@@ -182,15 +182,15 @@ if __name__ == "__main__":
 
     addGroups(ds, ["base-x", "dial-up",
                    "graphical-internet", "editors", 
-                   "graphics", "gnome-desktop", "sound-and-video",
-                   "printing", "fonts", "hardware-support"])
+                   "gnome-desktop", "sound-and-video", "printing",
+                   "fonts", "hardware-support", "admin-tools",
+                   "java", "legacy-fonts"])
 
-    addGroups(ds, ["office", "engineering-and-scientific",
-                   "authoring-and-publishing", "games"])
+    addGroups(ds, ["office", "games", "graphics", "authoring-and-publishing"])
 
     addGroups(ds, ["web-server", "ftp-server", "sql-server",
                    "mysql", "server-cfg", "dns-server",
-                   "smb-server", "admin-tools"])
+                   "smb-server"])
 
     addGroups(ds, ["kde-desktop", "development-tools", "development-libs",
                    "gnome-software-development", "eclipse",
@@ -198,7 +198,8 @@ if __name__ == "__main__":
                    "java-development", "kde-software-development",
                    "mail-server", "network-server", "legacy-network-server"])
 
-    addGroups(ds, ["news-server", "legacy-software-development"])
+    addGroups(ds, ["news-server", "legacy-software-development", 
+                   "engineering-and-scientific"])
 
     #Everthing else but kernels
     for po in ds.pkgSack.returnPackages():
