@@ -216,13 +216,12 @@ char * mountNfsImage(struct installMethod * method,
                 rc = copyFile(buf, "/tmp/stage2.img");
                 newtPopWindow();
 
-                free(stage2dir);
-
                 if (!rc) {
                     logMessage(INFO, "can access %s", buf);
                     rc = mountStage2("/tmp/stage2.img", stage2dir);
 
                     free(buf);
+                    free(stage2dir);
 
                     if (rc && rc == -1) {
                         foundinvalid = 1;
@@ -238,6 +237,7 @@ char * mountNfsImage(struct installMethod * method,
 
                     logMessage(WARNING, "unable to access %s", buf);
                     free(buf);
+                    free(stage2dir);
                     umount("/mnt/source");
 
                     if ((path = isNfsIso(fullPath, mountOpts, &foundinvalid, 1)) != NULL) {
