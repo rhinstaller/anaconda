@@ -333,7 +333,7 @@ class AnacondaYum(YumSorter):
         self.localPackages = []
 
     def systemMounted(self, fsset, chroot):
-        if not flags.setupFilesystem:
+        if not flags.setupFilesystems:
             return
 
         stage2img = None
