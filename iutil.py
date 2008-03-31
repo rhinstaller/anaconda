@@ -59,7 +59,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
     if type(stderr) == type("string"):
         stderr = open(stderr, "w")
 
-    if stdout is not None:
+    if stdout is not None and type(stdout) != int:
         stdout.write("Running... %s\n" %([command] + argv,))
 
     try:
@@ -121,7 +121,8 @@ def execWithPulseProgress(command, argv, stdin = 0, stdout = 1, stderr = 2,
         stdout = open(stdout, "w")
     if type(stderr) == type("string"):
         stderr = open(stderr, "w")
-    stdout.write("Running... %s\n" %([command] + argv,))
+    if stdout is not None and type(stdout) != int:
+        stdout.write("Running... %s\n" %([command] + argv,))
 
     p = os.pipe()
     childpid = os.fork()
