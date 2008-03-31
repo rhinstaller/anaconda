@@ -61,7 +61,7 @@ static int loadHDImages(char * prefix, char * dir,
                         char * device, char * mntpoint,
                         char * location) {
     int fd = 0, rc, idx, tmp;
-    char *path, *target = NULL, *dest, *cdurl = NULL;
+    char *path = NULL, *target = NULL, *dest, *cdurl = NULL;
     char *stg2list[] = {"stage2.img", "minstg2.img", NULL};
 
     if (totalMemory() < 128000)
@@ -87,6 +87,9 @@ static int loadHDImages(char * prefix, char * dir,
         for (; stg2list[idx]; idx++) {
             target = stg2list[idx];
 
+            if (path)
+                free(path);
+
             if (!dir || (dir && (!strcmp(dir, "/") || strcmp(dir, ""))))
                 tmp = asprintf(&path, "%s/images/%s", prefix, target);
             else
@@ -100,18 +103,20 @@ static int loadHDImages(char * prefix, char * dir,
 
         if (!target) {
             logMessage(ERROR, "failed to find hd stage 2 image%s: %s", path, strerror(errno));
+            free(path);
             return 1;
-        } 
+        }
 
         logMessage(INFO, "Found hd stage2, copying %s in RAM as stage2", path);
 
         if ((fd = open(path, O_RDONLY)) < 0) {
             logMessage(ERROR, "failed to open %s: %s", path, strerror(errno));
+            free(path);
             return 1;
-        } 
-    }
+        }
 
-    free(path);
+        free(path);
+    }
 
     /* handle updates.img now before we copy stage2 over... this allows
      * us to keep our ramdisk size as small as possible */
