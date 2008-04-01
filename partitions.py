@@ -834,13 +834,16 @@ class Partitions:
 
         def getBaseReqs(reqs):
             n = 0
-            while not reduce(lambda x,y: x and (y.type != REQUEST_RAID),
+            while not reduce(lambda x,y: x and (y.type not in [REQUEST_RAID, REQUEST_LV]),
                              reqs, True) \
                     and len(reqs) > n:
                 req = reqs[n]
                 if req.type == REQUEST_RAID:
                     for id in req.raidmembers:
                         reqs.append(self.getRequestByID(id))
+                    del reqs[n]
+                    continue
+                elif req.type == REQUEST_LV:
                     del reqs[n]
                     continue
                 n += 1
