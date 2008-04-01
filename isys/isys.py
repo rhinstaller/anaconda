@@ -503,7 +503,10 @@ def hardDriveDict():
     ret = {}
     dict = driveDict("disk")
     for item in dict.keys():
-        ret[item] = dict[item]['description']
+        try:
+            ret[item] = dict[item]['description']
+        except AttributeError:
+            ret[item] = ""
     return ret
 
 ## Get all the removable drives attached to the system.
@@ -519,7 +522,10 @@ def removableDriveDict():
     dict = driveDict("disk")
     for item in dict.keys():
         if dict[item]['storage.removable'] != 0:
-            ret[item] = dict[item]['description']
+            try:
+                ret[item] = dict[item]['description']
+            except AttributeError:
+                ret[item] = ""
     return ret
 
 ## Get all CD/DVD drives attached to the system.
