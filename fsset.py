@@ -722,7 +722,7 @@ class ext3FileSystem(extFileSystem):
         self.name = "ext3"
         self.extraFormatArgs = [ "-j" ]
         self.partedFileSystemType = parted.file_system_type_get("ext3")
-        if flags.cmdline.has_key("iamanext4developer"):
+        if 0:
             self.migratetofs = ['ext4dev']
 
     def formatDevice(self, entry, progress, chroot='/'):
@@ -758,7 +758,7 @@ class ext4FileSystem(extFileSystem):
         self.extraFormatArgs = [ "-j", "-I", "256", "-E", "test_fs" ]
 
         # this is way way experimental at present...
-        if flags.cmdline.has_key("iamanext4developer"):
+        if flags.cmdline.has_key("ext4"):
             self.supported = -1
         else:
             self.supported = 0

@@ -150,13 +150,11 @@ void doShell(void) {
 void startNewt(void) {
     if (!newtRunning) {
         char *buf;
-        int n, ignore;
+        int ignore;
         char *arch = getProductArch();
         
-        ignore = asprintf(&buf, _("Welcome to %s%n for %s"), getProductName(),
-                &n, arch);
-        if (!arch)
-            buf[n] = '\0';
+        ignore = asprintf(&buf, _("Welcome to %s for %s"), getProductName(),
+                arch);
 
         newtInit();
         newtCls();
