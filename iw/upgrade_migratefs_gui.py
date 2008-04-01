@@ -76,6 +76,9 @@ class UpgradeMigrateFSWindow (InstallWindow):
         cbox = gtk.VBox(False, 5)
         self.cbs = []
         for entry in self.migent:
+            # don't allow the user to migrate /boot to ext4 (#439944)
+            if entry.mountpoint == "/boot" and entry.origfsystem.getName() == "ext3":
+                continue
             if entry.fsystem.getName() != entry.origfsystem.getName():
                 migrating = 1
             else:
