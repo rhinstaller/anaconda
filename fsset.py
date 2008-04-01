@@ -758,7 +758,7 @@ class ext4FileSystem(extFileSystem):
         self.extraFormatArgs = [ "-j", "-I", "256", "-E", "test_fs" ]
 
         # this is way way experimental at present...
-        if flags.cmdline.has_key("iamanext4developer"):
+        if flags.cmdline.has_key("ext4"):
             self.supported = -1
         else:
             self.supported = 0
