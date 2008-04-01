@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-03-25 10:36+1000\n"
+"PO-Revision-Date: 2008-04-01 11:24+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n!=1);\n"
+"Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -202,8 +202,7 @@ msgstr ""
 
 #: ../autopart.py:1069
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "%s 부트 파티션은 구조 방식에 맞는 부팅을 하지 못 할 수 있습니다."
 
 #: ../autopart.py:1094
@@ -1093,9 +1092,8 @@ msgid "Exiting"
 msgstr "종료하는 중"
 
 #: ../gui.py:1401
-#, fuzzy
 msgid "Are you sure you wish to exit the installation?"
-msgstr "정말로 \"%s\" 논리 볼륨을 삭제하시겠습니까?"
+msgstr "정말로 설치를 종료하시겠습니까?"
 
 #: ../gui.py:1410
 #, python-format
@@ -1266,8 +1264,7 @@ msgstr "이미지를 찾을 수 없습니다"
 
 #: ../livecd.py:108
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr "설치에 사용할 %s 라이브 CD의 경로가 올바르지 않습니다."
 
 #: ../livecd.py:167
@@ -1282,8 +1279,7 @@ msgstr "설치-이후 실행"
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr ""
-"설치-이후 파일시스템을 변경합니다. 이 단계는 몇 분이 소요될 수 도 있습니다..."
+msgstr "설치-이후 파일시스템을 변경합니다. 이 단계는 몇 분이 소요될 수 도 있습니다..."
 
 #: ../livecd.py:355
 #, python-format
@@ -1333,14 +1329,13 @@ msgid "'%s' is an invalid IP address."
 msgstr "'%s' (은)는 잘못된 IP 주소입니다."
 
 #: ../packages.py:147
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "크기 조정 중 "
+msgstr "크기 조정 실패 "
 
 #: ../packages.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered resizing the device %s."
-msgstr "대상 드라이브를 지우는 도중 오류가 발생하였습니다.  복제에 실패."
+msgstr "%s 장치 크기를 조정하는 도중 오류가 발생하였습니다."
 
 #: ../packages.py:188
 msgid "LVM operation failed"
@@ -1819,8 +1814,7 @@ msgid "Confirm Reset"
 msgstr "재설정 확인"
 
 #: ../partIntfHelpers.py:543
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "정말로 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
 
 #: ../partitions.py:84
@@ -1921,8 +1915,7 @@ msgstr ""
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
-"부트 파티션이 네개의 파티션 중 하나에 존재하지 않으므로 부팅되지 않습니다."
+msgstr "부트 파티션이 네개의 파티션 중 하나에 존재하지 않으므로 부팅되지 않습니다."
 
 #: ../partitions.py:1088
 msgid "You must create an Apple Bootstrap partition."
@@ -1942,8 +1935,7 @@ msgstr ""
 "요한 기본 용량보다 적습니다."
 
 #: ../partitions.py:1163
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB디바이스를 설치중입니다. 이는 작업 시스템에 작동할 수 도, 작동하지 않을 "
 "수 도 있습니다."
@@ -2022,8 +2014,7 @@ msgstr "라이브 CD를 설치하는 동안 %s 마운트 지점은 반드시 포
 
 #: ../partRequests.py:278
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "마운트할 지점이 올바르지 않습니다.   %s 디렉토리는 반드시 루트(/) 파일 시스"
 "템 상에 위치해야 합니다."
@@ -2046,8 +2037,7 @@ msgstr "이 마운트할 지점은 반드시 리눅스 파일시스템 상에 �
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr "\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../partRequests.py:325
 #, python-format
@@ -2078,14 +2068,12 @@ msgstr "파티션은 절대 실린더 값 밖에서 끝날 수 없습니다."
 
 #: ../partRequests.py:746
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
+msgstr "RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
 
 #: ../partRequests.py:751
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
-"%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
+msgstr "%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
 
 #: ../partRequests.py:760
 #, python-format
@@ -2305,17 +2293,14 @@ msgid "Welcome to %s"
 msgstr "%s에 오신것을 환영합니다 "
 
 #: ../text.py:569
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
 
 #: ../text.py:571
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../upgrade.py:105 ../upgrade.py:126
 msgid "Proceed with upgrade?"
@@ -2647,8 +2632,7 @@ msgstr "업그레이드 완료"
 
 #: ../yuminstall.py:218
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr ""
-"업그레이드 프로세스를 종료합니다. 이 단계는 몇분 소요될 수 도 있습니다..."
+msgstr "업그레이드 프로세스를 종료합니다. 이 단계는 몇분 소요될 수 도 있습니다..."
 
 #: ../yuminstall.py:355
 msgid "Copying File"
@@ -2730,8 +2714,7 @@ msgstr "다시 패키지 다운로드 중 "
 
 #: ../yuminstall.py:715
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "다음과 같은 이유로 트랜젝션 실행 도중 오류가 발생했습니다: %s\n"
 
 #: ../yuminstall.py:748 ../yuminstall.py:749
@@ -2972,10 +2955,8 @@ msgstr ""
 "이 암호를 계속 사용하시겠습니까? "
 
 #: ../iw/account_gui.py:133 ../textw/userauth_text.py:72
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"요청된 암호에는 암호로 사용할 수 없는 ASCII가 아닌 문자가 포함되어 있습니다."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgstr "요청된 암호에는 암호로 사용할 수 없는 ASCII가 아닌 문자가 포함되어 있습니다."
 
 #: ../iw/autopart_type.py:96
 msgid ""
@@ -3007,8 +2988,7 @@ msgstr "선택한 드라이브 상의 모든 파티션을 삭제하고 디폴트
 
 #: ../iw/autopart_type.py:404 ../textw/partition_text.py:1518
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr ""
-"선택한 드라이브 상의 리눅스 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
+msgstr "선택한 드라이브 상의 리눅스 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
 
 #: ../iw/autopart_type.py:405
 msgid "Resize existing partition and create default layout in free space"
@@ -3347,8 +3327,7 @@ msgstr "마운트 지점이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:580
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr ""
-" \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr " \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:591 ../textw/partition_text.py:1235
 msgid "Illegal Logical Volume Name"
@@ -3361,8 +3340,7 @@ msgstr "부적절한 논리 볼륨명"
 #: ../iw/lvm_dialog_gui.py:611 ../textw/partition_text.py:1253
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-" \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr " \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:625
 #, python-format
@@ -3431,8 +3409,7 @@ msgstr "이름이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:949
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr "\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:992
 msgid "Not enough physical volumes"
@@ -3910,15 +3887,12 @@ msgid "Partitioning"
 msgstr "파티션 설정"
 
 #: ../iw/partition_gui.py:638
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
-msgstr ""
-"요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니다."
+msgid "The partitioning scheme you requested caused the following critical errors."
+msgstr "요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니다."
 
 #: ../iw/partition_gui.py:640
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "%s 설치에 앞서 현재 발생한 모든 오류를 해결해 주시기 바랍니다."
 
 #: ../iw/partition_gui.py:646
@@ -4426,15 +4400,12 @@ msgstr "시스템 변경으로 부트 로더 설정이 자동으로 업데이트
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
+msgstr "설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:134 ../textw/upgrade_bootloader_text.py:117
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"설치 프로그램이 %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "설치 프로그램이 %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:138
 msgid "This is the recommended option."
@@ -4563,8 +4534,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "스왑 파일은 '2 GB' 용량 내에서 지정해 주셔야 합니다."
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:182
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "선택하신 장치에 스왑 파티션을 생성하기에는 공간이 부족합니다."
 
 #: ../iw/zipl_gui.py:35
@@ -4706,8 +4676,7 @@ msgstr ""
 "에 대해 부팅할 수 있는 파티션과 레이블을 설정해 주십시오."
 
 #: ../textw/bootloader_text.py:294
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> 는 버튼 선택 | <F2> 는 디폴트 선택하기 | <F4> 는 지우기 | <F12> 는 "
 "다음 화면으로 가기>"
@@ -4797,8 +4766,7 @@ msgid "Please select the package groups you would like to install."
 msgstr "설치하시려는 패키지 그룹을 선택하십시오."
 
 #: ../textw/grpselect_text.py:112
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> 선택     |    <F2> 그룹 정보      |    <F12> 다음 화면"
 
 #: ../textw/grpselect_text.py:124
@@ -5245,8 +5213,7 @@ msgstr ""
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
-"현재 요청하신 용량이 (%10.2f MB)이 논리 볼륨 용량 (%10.2f MB) 보다 큽니다. "
+msgstr "현재 요청하신 용량이 (%10.2f MB)이 논리 볼륨 용량 (%10.2f MB) 보다 큽니다. "
 
 #: ../textw/partition_text.py:1348
 msgid "New Partition or Logical Volume?"
@@ -5281,10 +5248,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1433
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
 
 #: ../textw/partition_text.py:1465
 msgid "No Root Partition"
@@ -5314,8 +5279,7 @@ msgstr "사용하실 드라이브를 지정해 주십시오"
 
 #: ../textw/partition_text.py:1549
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> 선택     |    <F2> 드라이브 추가      |    <F12> 다음 화면"
+msgstr "<Space>,<+>,<-> 선택     |    <F2> 드라이브 추가      |    <F12> 다음 화면"
 
 #: ../textw/partition_text.py:1616
 msgid "Review Partition Layout"
@@ -5871,8 +5835,7 @@ msgstr "로컬 설치 매체가 검색되었습니다..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"해당 디렉토리에서 %s 설치에 사용될 경로가 부팅 매체와 일치하지 않습니다."
+msgstr "해당 디렉토리에서 %s 설치에 사용될 경로가 부팅 매체와 일치하지 않습니다."
 
 #: ../loader2/hdinstall.c:253
 msgid ""
@@ -5886,8 +5849,7 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"시스템에서 하드 드라이브를 찾을 수 없습니다! 추가할 장치를 설정하시겠습니까?"
+msgstr "시스템에서 하드 드라이브를 찾을 수 없습니다! 추가할 장치를 설정하시겠습니까?"
 
 #: ../loader2/hdinstall.c:349
 #, c-format
@@ -5977,10 +5939,8 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%s 용 %s에 오신것을 환영합니다 - 복구 모드"
 
 #: ../loader2/lang.c:65 ../loader2/loader.c:166
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../loader2/lang.c:373
 msgid "Choose a Language"
@@ -6134,8 +6094,7 @@ msgstr "%s 복구 모드로 anaconda %s 실행 중 - 잠시만 기다려 주십�
 #: ../loader2/loader.c:1948
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr ""
-"%s 시스템 설치 프로그램인 anaconda %s 실행 중 - 잠시만 기다려 주십시오...\n"
+msgstr "%s 시스템 설치 프로그램인 anaconda %s 실행 중 - 잠시만 기다려 주십시오...\n"
 
 #: ../loader2/mediacheck.c:62
 #, c-format
@@ -6325,10 +6284,8 @@ msgid "Missing Information"
 msgstr "정보 부족"
 
 #: ../loader2/net.c:1225
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"올바른 IPv4 주소와 넷마스크 또는 CIDR 접두부(prefix)를 입력해 주십시오."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "올바른 IPv4 주소와 넷마스크 또는 CIDR 접두부(prefix)를 입력해 주십시오."
 
 #: ../loader2/net.c:1231
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
@@ -6595,10 +6552,8 @@ msgid "Which Partition to resize"
 msgstr "크기 조정할 파티션 "
 
 #: tmp/autopart.glade.h:6
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
-msgstr ""
-"설치에 필요한 공간을 마련하기 위해 어떤 파티션 크기를 조정하시겠습니까?"
+msgid "Which partition would you like to resize to make room for your installation?"
+msgstr "설치에 필요한 공간을 마련하기 위해 어떤 파티션 크기를 조정하시겠습니까?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
@@ -6657,9 +6612,8 @@ msgid "_Details"
 msgstr "상세 정보(_D)"
 
 #: tmp/exnSave.glade.h:2
-#, fuzzy
 msgid "Select A File"
-msgstr "드라이버를 선택해 주십시오."
+msgstr "파일을 선택합니다. "
 
 #: tmp/exnSave.glade.h:3
 msgid "Select a destination for the exception information."
@@ -6844,8 +6798,7 @@ msgstr "후의 사용자 설정(_L)"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"소프트웨어 설치에 사용하시고자 하는 추가적인 리포지터리를 선택해 주십시오."
+msgstr "소프트웨어 설치에 사용하시고자 하는 추가적인 리포지터리를 선택해 주십시오."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -7111,38 +7064,3 @@ msgstr "웨일스어"
 msgid "Zulu"
 msgstr "줄루어"
 
-#~ msgid "Mouse Configuration"
-#~ msgstr "마우스 설정"
-
-#~ msgid "/dev/ttyS0 (COM1 under DOS)"
-#~ msgstr "/dev/ttyS0 (DOS에서의 COM1)"
-
-#~ msgid "/dev/ttyS1 (COM2 under DOS)"
-#~ msgstr "/dev/ttyS1 (DOS에서의 COM2)"
-
-#~ msgid "/dev/ttyS2 (COM3 under DOS)"
-#~ msgstr "/dev/ttyS2 (DOS에서의 COM3)"
-
-#~ msgid "/dev/ttyS3 (COM4 under DOS)"
-#~ msgstr "/dev/ttyS3 (DOS에서의 COM4)"
-
-#~ msgid "_Model"
-#~ msgstr "모델(_M)"
-
-#~ msgid "_Emulate 3 buttons"
-#~ msgstr "3-버튼 마우스처럼 사용(_E)"
-
-#~ msgid "Select the appropriate mouse for the system."
-#~ msgstr "시스템에서 사용될 마우스를 선택해 주십시오."
-
-#~ msgid "What device is your mouse located on?"
-#~ msgstr "마우스가 연결되어 있는 장치를 선택해 주십시오"
-
-#~ msgid "Which model mouse is attached to this computer?"
-#~ msgstr "사용하고 계신 마우스와 일치하는 모델을 선택해 주십시오"
-
-#~ msgid "Emulate 3 Buttons?"
-#~ msgstr "3-버튼 마우스처럼 사용"
-
-#~ msgid "Mouse Selection"
-#~ msgstr "마우스 선택"
