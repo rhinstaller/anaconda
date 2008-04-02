@@ -1137,7 +1137,12 @@ static char *doLoaderMain(char * location,
             needed = -1;
 
             if (loaderData->method != -1 && methodNum != -1) {
-                rc = 1;
+                /* dont forget the dir variable. */
+                if ( dir == 1 ){
+                    rc = 1;
+                }else{
+                    rc = -1;
+                }
             } else {
                 /* we need to set these each time through so that we get
                  * updated for language changes (#83672) */
