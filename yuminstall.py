@@ -40,7 +40,7 @@ import rhpl
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError, PackageSackError
 from yum.yumRepo import YumRepository
-from backend import AnacondaBackend
+from backend import AnacondaBackend, NoSuchGroup
 from product import productName, productStamp
 from sortedtransaction import SplitMediaTransactionData
 from constants import *
@@ -1581,22 +1581,21 @@ class YumBackend(AnacondaBackend):
         return False
 
     def _selectDefaultOptGroup(self, grpid, default, optional):
-        retval = 0
         grp = self.ayum.comps.return_group(grpid)
 
         if not default:
             for pkg in grp.default_packages.keys():
                 self.deselectPackage(pkg)
-                retval -= 1
 
         if optional:
             for pkg in grp.optional_packages.keys():
                 self.selectPackage(pkg)
-                retval += 1
-
-        return retval
 
     def selectGroup(self, group, *args):
+        if not self.ayum.comps.has_group(group):
+            log.debug("no such group %s" % group)
+            raise NoSuchGroup
+
         if args:
             default = args[0][0]
             optional = args[0][1]
@@ -1607,25 +1606,21 @@ class YumBackend(AnacondaBackend):
         try:
             mbrs = self.ayum.selectGroup(group)
             if len(mbrs) == 0 and self.isGroupSelected(group):
-                return 1
+                return
 
-            extras = self._selectDefaultOptGroup(group, default, optional)
-
-            return len(mbrs) + extras
+            self._selectDefaultOptGroup(group, default, optional)
         except yum.Errors.GroupsError, e:
             # try to find out if it's the name or translated name
             gid = self.__getGroupId(group)
             if gid is not None:
                 mbrs = self.ayum.selectGroup(gid)
                 if len(mbrs) == 0 and self.isGroupSelected(gid):
-                    return 1
+                    return
 
-                extras = self._selectDefaultOptGroup(group, default, optional)
-
-                return len(mbrs) + extras
+                self._selectDefaultOptGroup(group, default, optional)
             else:
                 log.debug("no such group %s" %(group,))
-                return 0
+                raise NoSuchGroup
 
     def deselectGroup(self, group, *args):
         try:

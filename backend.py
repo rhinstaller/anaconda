@@ -35,6 +35,12 @@ from rhpl.translate import _
 from flags import flags
 log = logging.getLogger("anaconda")
 
+class NoSuchGroup(Exception):
+    def __init__ (self, value):
+        self.value = value
+
+    def __str__ (self):
+        return self.value
 
 class AnacondaBackend:
     def __init__(self, anaconda):
