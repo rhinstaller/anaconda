@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.110
+Version: 11.1.2.111
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 02 2008 Chris Lumens <clumens@redhat.com> 11.1.2.111-1
+- Don't rebuild the initrds if no modules were installed.
+  Resolves: rhbz#439379
+- Bootable requests can not be on logical volumes.
+  Resolves: rhbz#439270
+- Name the xen images for ia64 in the .treeinfo file (jgranado).
+- Fix reporting on transaction errors (jgranado).
+  Resolves: rhbz#437813
+- Fix loop iteration in nl_ip2str (dcantrell).
+  Resolves: rhbz#437773
+- Allow GPT on ppc or ppc64 (dcantrell).
+  Resolves: rhbz#438683
+
 * Tue Mar 25 2008 Chris Lumens <clumens@redhat.com> 11.1.2.110-1
 - Don't try to initialize iSCSI when the portal cannot be detected (msivak).
   Resolves: rhbz#435173
