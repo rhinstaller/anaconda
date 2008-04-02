@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.64
+Version: 11.4.0.65
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,24 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 02 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.65-1
+- Only do verbose hal logging if loglevel=debug (katzj)
+- Avoid AttributeError in HardDriveDict (#432362) (pjones)
+- Don't use %n with gettext to avoid segfaults (#439861) (katzj)
+- Require live installs to be to an ext2 or ext3 filesystem (#397871) (katzj)
+- Don't allow migrations to ext4 for now (katzj)
+- Change ext4 parameter to ext4, not iamanext4developer (katzj)
+- Bootable requests can not be on logical volumes (#439270). (clumens)
+- Don't allow /boot to be migrated to ext4 (#439944) (katzj)
+- Fix for ia64 (#439876) (katzj)
+- Update pkgorder group listings to match current Fedora defaults. (jkeating)
+- Lame attempt to try to avoid race condition with udev creating device
+  nodes (katzj)
+- Don't traceback if stdout is an fd either (katzj)
+- iutil doesn't need isys anymore (katzj)
+- Free memory only after we're done using it (#439642). (clumens)
+- Fix a segfault freeing memory on boot.iso+hdiso installs. (clumens)
+
 * Mon Mar 31 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.64-1
 - Fix my tyop (katzj)
 - Fuzzy broken string again (katzj)
