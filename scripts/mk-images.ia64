@@ -172,7 +172,7 @@ __EOT__
     [ $? = 0 ] || exit 1
     cp $KERNELROOT/boot/efi/EFI/redhat/vmlinuz-*xen* $TOPDESTPATH/images/xen/vmlinuz
     cat << __EOT__ >> $TOPDESTPATH/.treeinfo
-[images-$KERNELARCH]
+[images-xen]
 kernel = images/xen/vmlinuz
 initrd = images/xen/initrd.img
 
