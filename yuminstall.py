@@ -1725,7 +1725,7 @@ class YumBackend(AnacondaBackend):
         # If we installed modules from packages using the new driver disk
         # method, we still need to remake the initrd.  Otherwise, drop back
         # to the old method.
-        if len(self._installedDriverModules) == len(anaconda.id.extraModules):
+        if len(self._installedDriverModules) > 0 and len(self._installedDriverModules) == len(anaconda.id.extraModules):
             for (n, arch, tag) in self.kernelVersionList():
                 recreateInitrd(n, anaconda.rootPath)
         else:
