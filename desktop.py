@@ -51,20 +51,25 @@ class Desktop (SimpleConfigFile):
 
     def write (self, instPath):
         try:
-            inittab = open (instPath + '/etc/inittab', 'r')
+            f = open(instPath + "/etc/sysconfig/init", "r")
         except IOError:
-            log.warning ("there is no inittab, bad things will happen!")
+            log.warning ("there is no /etc/sysconfig/init, bad things will happen!")
             return
-        lines = inittab.readlines ()
-        inittab.close ()
-        inittab = open (instPath + '/etc/inittab', 'w')        
+
+        lines = f.readlines()
+        f.close()
+
+        f = open(instPath + "/etc/sysconfig/init", "w")
         for line in lines:
-            if len (line) > 3 and line[:3] == "id:":
-                fields = string.split (line, ':')
-                fields[1] = str (self.runlevel)
-                line = string.join (fields, ':')
-            inittab.write (line)
-        inittab.close ()
+            if line.startswith("GRAPHICAL="):
+                if self.runlevel == 5:
+                    line = "GRAPHICAL=yes\n"
+                else:
+                    line = "GRAPHICAL=no\n"
+
+            f.write(line)
+
+        f.close()
 
         if self.getDefaultDesktop():
             f = open(instPath + "/etc/sysconfig/desktop", "w")
