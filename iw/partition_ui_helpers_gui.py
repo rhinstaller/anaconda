@@ -358,6 +358,8 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     if origrequest.encryption:
         lukscb.set_active(1)
         lukscb.set_data("encrypted", 1)
+    else:
+        lukscb.set_data("encrypted", 0)
 
     lukscb.set_sensitive(formatcb.get_active())
     lukscb.set_data("formatstate", formatcb.get_active())
