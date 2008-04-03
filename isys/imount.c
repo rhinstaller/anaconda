@@ -78,11 +78,15 @@ int doPwMount(char *dev, char *where, char *fs, char *options) {
         close(fd);
 
         if (opts) {
+            fprintf(stderr, "Running... /bin/mount -n -t %s -o %s %s %s\n",
+                    fs, opts, device, where);
             rc = execl("/bin/mount",
                        "/bin/mount", "-n", "-t", fs, "-o", opts, device, where, NULL);
             exit(1);
         }
         else {
+            fprintf(stderr, "Running... /bin/mount -n -t %s %s %s\n",
+                    fs, device, where);
             rc = execl("/bin/mount", "/bin/mount", "-n", "-t", fs, device, where, NULL);
             exit(1);
         }
