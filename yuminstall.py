@@ -202,8 +202,9 @@ class AnacondaCallback:
             self.doneFiles += len(hdr[rpm.RPMTAG_BASENAMES])
 
             self.progress.set_label("")
-            self.progress.set_text(_("%s of %s packages completed")
-                                   %(self.donepkgs, self.numpkgs))
+            if self.donepkgs <= self.numpkgs:
+                self.progress.set_text(_("%s of %s packages completed")
+                                       %(self.donepkgs, self.numpkgs))
             self.progress.set_fraction(float(self.doneSize / self.totalSize))
             self.progress.processEvents()
 
