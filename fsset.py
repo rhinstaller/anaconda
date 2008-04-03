@@ -126,6 +126,7 @@ class LabelFactory:
             diskset.stopMdRaid()
             diskset.startMdRaid()
             labels = diskset.getInfo()
+            diskset.stopMdRaid()
             del diskset
             self.reserveLabels(labels)
 
