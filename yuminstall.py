@@ -115,12 +115,6 @@ class AnacondaCallback:
         
 
     def callback(self, what, amount, total, h, user):
-        # first time here means we should pop the window telling
-        # user to wait until we get here
-        if self.initWindow is not None:
-            self.initWindow.pop()
-            self.initWindow = None
-
         if what == rpm.RPMCALLBACK_TRANS_START:
             # step 6 is the bulk of the ts processing time
             if amount == 6:
@@ -223,7 +217,8 @@ class AnacondaCallback:
         else:
             pass
 
-        self.progress.processEvents()
+        if self.initWindow is None:
+            self.progress.processEvents()
 
 class AnacondaYumRepo(YumRepository):
     def __init__( self, uri=None, mirrorlist=None,
@@ -1523,6 +1518,9 @@ class YumBackend(AnacondaBackend):
         cb.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
 
         rc = self.ayum.run(self.instLog, cb, anaconda.intf, anaconda.id)
+
+        if cb.initWindow is not None:
+            cb.initWindow.pop()
 
         self.instLog.close ()
 
