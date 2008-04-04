@@ -23,7 +23,7 @@ msgstr ""
 "Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: ../anaconda:289
 #, c-format
@@ -3199,7 +3199,9 @@ msgstr "%s に含まれるパッケージ"
 #: ../iw/GroupSelector.py:482
 #, python-format
 msgid "%d of %d optional package selected"
-msgstr "%d 個中 %d 個の追加パッケージが選択されました。"
+msgid_plural "%d of %d optional packages selected"
+msgstr[0] "%d 個中 %d 個の追加パッケージが選択されました。"
+msgstr[1] "%d 個中 %d 個の追加パッケージが選択されました。"
 
 #: ../iw/GroupSelector.py:485
 #, python-format
