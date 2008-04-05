@@ -902,7 +902,7 @@ if __name__ == "__main__":
             xserver.generateConfig()
             xserver.addExtraScreen("Anaconda")
             xserver.display = ":1"
-            xserver.serverflags.extend(["-screen", "Anaconda", "-dpi", "96", "-br"])
+            xserver.serverflags.extend(["-screen", "Anaconda", "-dpi", "96", "-br", "-extension", "GLX"])
             xserver_pid = xserver.startX(xStartedCB=doStartupX11Actions)
         except RuntimeError:
             stdoutLog.warning(" X startup failed, falling back to text mode")
