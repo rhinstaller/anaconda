@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.65
+Version: 11.4.0.66
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,28 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Apr 06 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.66-1
+- Another day, another broken translation commit to fix. (katzj)
+- Work around GL crashes in anaconda X by disabling them. (jkeating)
+- Clean up "finishing upgrade" wait window (katzj)
+- Stop refreshing like mad in text-mode on WaitWindow.refresh() (katzj)
+- Avoid progress bars going off the end and making newt unhappy (katzj)
+- Brute force hack to avoid the number of packages 
+  overflowing (#436588) (katzj)
+- Revert "Change the default level in /etc/sysconfig/init now 
+  (#440058)." (notting)
+- Add gnome-applets to the upgrade blacklist, fix kmymoney2 typo. (jkeating)
+- Don't enable encryption by default (katzj)
+- Print our mount commands to /dev/tty5 for easier debugging. (clumens)
+- Change the default level in /etc/sysconfig/init now (#440058). (clumens)
+- Make the Back button work when asking for tcp/ip information in 
+  loader.c. (#233655) (jgranado)
+- Have <F12> work in the network configuration stage (#250982) (jgranado)
+- Use a better test to see if a package group doesn't exist (#439922). (clumens)
+- avoid behavior in (#208970) (jgranado)
+- Correctly label the xen images in the .treeinfo file (jgranado)
+- Translation updates
+
 * Wed Apr 02 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.65-1
 - Only do verbose hal logging if loglevel=debug (katzj)
 - Avoid AttributeError in HardDriveDict (#432362) (pjones)
