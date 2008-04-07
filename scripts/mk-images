@@ -110,7 +110,8 @@ LVMMODS="dm-mod dm-zero dm-snapshot dm-mirror dm-multipath dm-round-robin dm-emc
 RAIDMODS="md raid0 raid1 raid5 raid6 raid456 raid10 linear"
 CRYPTOMODS="sha256_generic cbc aes_generic blkcipher crc32c"
 PCMCIASOCKMODS="yenta_socket i82365 tcic pcmcia"
-INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $COMMONMODS $PCMCIASOCKMODS =scsi =net"
+DRMMODS="drm i810 i830 i915 mga nouveau r128 radeon savage sis tdfx via"
+INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $COMMONMODS $PCMCIASOCKMODS $DRMMODS =scsi =net"
 
 . $(dirname $0)/buildinstall.functions
 
