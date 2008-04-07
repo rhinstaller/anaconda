@@ -1,0 +1,134 @@
+#!/bin/bash
+#
+# mk-images.efi
+#
+# Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+#makeefibootdisk required for EFI bootloader dosfs image
+makeefibootdisk() {
+    MBD_FILENAME=""
+    KERNELFILE=""
+    INITRDFILE=""
+    MBD_TMPIMAGE=${TMPDIR:-/tmp}/makebootdisk.image.$$
+    MBD_BOOTTREE=${TMPDIR:-/tmp}/makebootdisk.tree.$$
+    MBD_BOOTTREE_TMP=$MBD_BOOTTREE'_tmp'
+    while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
+	if [ $1 = "--kernel" ]; then
+	    KERNELFILE=$2
+	    shift; shift
+	    continue
+	elif [ $1 = "--initrd" ]; then
+	    INITRDFILE=$2
+	    shift; shift
+	    continue
+	elif [ $1 = "--imagename" ]; then
+	    MBD_FILENAME=$IMAGEPATH/$2
+	    shift; shift
+	    continue
+	fi
+	echo "Unknown option passed to makebootdisk"
+	exit 1
+    done
+
+    if [ -z "$MBD_FILENAME" ]; then
+	echo "No imagename passed"
+	exit 1
+    fi
+
+    if [ -z "$KERNELFILE" ]; then
+	echo "No kernel file passed"
+	exit 1
+    fi
+
+    if [ -z "$INITRDFILE" ]; then
+	echo "No initrd file passed"
+	exit 1
+    fi
+    MBD_FSIMAGE="$INITRDFILE"
+
+    mkdir -p $MBD_BOOTTREE
+    mkdir -p $MBD_BOOTTREE_TMP
+    rm -rf $MBD_BOOTTREE_TMP
+    mkdir -p $MBD_TMPIMAGE
+
+    # provided by the mk-image.$ARCH file
+    prepareEfiImage
+
+    left=$(df $MBD_BOOTTREE | tail -n1)
+    left=$(echo $left | awk '{print $4'})
+
+    umount $MBD_BOOTTREE
+
+    if [ -n "$EXTRAKERNELPATH" ]; then
+	mkdir -p `dirname $EXTRAKERNELPATH`
+	cp -f $KERNELROOT/$KERNELDIR/${KERNELNAME}-* $EXTRAKERNELPATH
+    fi
+
+    mkdir -p `dirname $MBD_FILENAME`
+    rm -rf $MBD_TMPIMAGE $MBD_MNTPOINT $MBD_BOOTTREE
+    if [ -z "$INITRDFILE" ]; then
+	rm -f $MBD_FSIMAGE
+    fi
+
+    echo "Wrote $MBD_FILENAME (${left}k free)"
+}
+
+# prepare and build an efiboot.img.
+prepareEfiImage() {
+    prepareEfiTree
+
+    # dynamically calculate the size of the dosfs
+    BOOTDISKSIZE=$(du -kcs $MBD_BOOTTREE_TMP | tail -n1 | awk '{print $1}')
+    BOOTDISKSIZE=$(expr $BOOTDISKSIZE + 100)
+    echo "The size of the boot.img dosfs is $BOOTDISKSIZE"
+    dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_FILENAME 2>/dev/null
+    mkdosfs -C $MBD_FILENAME $BOOTDISKSIZE >/dev/null
+    mount -o loop,shortname=winnt,umask=0077 -t vfat $MBD_FILENAME $MBD_BOOTTREE
+    cp -R $MBD_BOOTTREE_TMP/* $MBD_BOOTTREE
+}
+
+# prepare a directory with the kernel, initrd, and various message files
+# used to populate the efi boot image
+prepareEfiTree() {
+    mkdir -p $MBD_BOOTTREE_TMP/EFI/boot
+
+    cp -a $BOOTDISKDIR/* $MBD_BOOTTREE_TMP/EFI/boot/
+    cp $INITRDFILE $MBD_BOOTTREE_TMP/EFI/boot/initrd.img
+    cp $KERNELFILE $MBD_BOOTTREE_TMP/EFI/boot/vmlinuz
+
+    sed -i "s/@PRODUCT@/$PRODUCT/g" $MBD_BOOTTREE_TMP/EFI/boot/grub.conf
+    sed -i "s/@VERSION@/$VERSION/g" $MBD_BOOTTREE_TMP/EFI/boot/grub.conf
+
+    # The first generation Mactel machines get the bootloader name wrong
+    # as per the spec.  Awesome, guys.
+    if [ "$efiarch" == "ia32"]; then
+	cp $MBD_BOOTTREE_TMP/EFI/boot/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/boot.efi
+	cp $MBD_BOOTTREE_TMP/EFI/boot/grub.conf $MBD_BOOTTREE_TMP/EFI/boot/boot.conf
+    fi
+
+    mv $MBD_BOOTTREE_TMP/EFI/boot/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/boot${efiarch}.efi
+    mv $MBD_BOOTTREE_TMP/EFI/boot/grub.conf $MBD_BOOTTREE_TMP/EFI/boot/boot${efiarch}.conf
+}
+
+makeEfiImages() {
+    if [ "$kerneltag" != "xen" ]; then
+	makeefibootdisk \
+	    --imagename $TOPDESTPATH/images/efiboot.img \
+	    --kernel $TOPDESTPATH/images/pxeboot/vmlinuz \
+	    --initrd $TOPDESTPATH/images/pxeboot/initrd.img
+    fi
+}
