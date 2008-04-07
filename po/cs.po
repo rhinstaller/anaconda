@@ -10,15 +10,14 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-03-18 16:16+0100\n"
-"Last-Translator: Adam Pribyl <pribyl@lowlevel.cz>\n"
+"PO-Revision-Date: 2008-04-07 21:57+0200\n"
+"Last-Translator: Miloslav Trmač <mitr@volny.cz>\n"
 "Language-Team: Czech <fedora-cs-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../anaconda:289
 #, c-format
@@ -1090,9 +1089,8 @@ msgid "Exiting"
 msgstr "Konec"
 
 #: ../gui.py:1401
-#, fuzzy
 msgid "Are you sure you wish to exit the installation?"
-msgstr "Opravdu chcete odstranit logický svazek (LV) \"%s\"?"
+msgstr "Opravdu chcete instalaci ukončit?"
 
 #: ../gui.py:1410
 #, python-format
@@ -1330,14 +1328,13 @@ msgid "'%s' is an invalid IP address."
 msgstr "'%s' není platná IP adresa."
 
 #: ../packages.py:147
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "Měním velikost"
+msgstr "Změna velikosti selhala"
 
 #: ../packages.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered resizing the device %s."
-msgstr "Při mazání cílových disků došlo k chybě. Klonování selhalo."
+msgstr "Při změně velikosti zařízení %s došlo k chybě."
 
 #: ../packages.py:188
 msgid "LVM operation failed"
@@ -6657,9 +6654,8 @@ msgid "_Details"
 msgstr "_Podrobnosti"
 
 #: tmp/exnSave.glade.h:2
-#, fuzzy
 msgid "Select A File"
-msgstr "Vybrat ovladač"
+msgstr "Vybrat soubor"
 
 #: tmp/exnSave.glade.h:3
 msgid "Select a destination for the exception information."

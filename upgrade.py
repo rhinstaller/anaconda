@@ -50,7 +50,7 @@ upgrade_remove_blacklist = [("system-config-mouse",), ("dev",)]
 # list of things which have been split and thus need to have their
 # multilib package removed.  the new -libs package will then get pulled in
 # automatically by dependencies
-splitpkgs = ("e2fsprogs", "hal", "mysql", "esound", "mkinitrd", "dbus", "kdeaccessibility", "kdebase", "kdeedu", "kdegraphics", "kdemultimedia", "kdemultimedia-extras","kdenetwork", "kdesdk", "kdeutils", "kdewebdev", "gdb", "kmymoney2", "gnome-applets", "geomview")
+splitpkgs = ("e2fsprogs", "hal", "mysql", "esound", "mkinitrd", "dbus", "kdeaccessibility", "kdebase", "kdeedu", "kdegraphics", "kdemultimedia", "kdemultimedia-extras","kdenetwork", "kdesdk", "kdeutils", "kdewebdev", "gdb", "kmymoney2", "gnome-applets", "geomview", "gnome-panel")
 if rhpl.getArch() == "x86_64":
     upgrade_remove_blacklist.extend(map(lambda x: (x, "i386"), splitpkgs))
 if rhpl.getArch() == "ppc":

@@ -1599,7 +1599,7 @@ class YumBackend(AnacondaBackend):
     def selectGroup(self, group, *args):
         if not self.ayum.comps.has_group(group):
             log.debug("no such group %s" % group)
-            raise NoSuchGroup
+            raise NoSuchGroup, group
 
         if args:
             default = args[0][0]
@@ -1625,7 +1625,7 @@ class YumBackend(AnacondaBackend):
                 self._selectDefaultOptGroup(group, default, optional)
             else:
                 log.debug("no such group %s" %(group,))
-                raise NoSuchGroup
+                raise NoSuchGroup, group
 
     def deselectGroup(self, group, *args):
         try:
