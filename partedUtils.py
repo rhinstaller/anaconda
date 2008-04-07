@@ -297,8 +297,6 @@ def getDefaultDiskType():
 
         if ppcMachine == "PMac":
             return parted.disk_type_get("mac")
-        elif ppcMachine == "Pegasos":
-            return parted.disk_type_get("amiga")
         else:
             return parted.disk_type_get("msdos")
     else:

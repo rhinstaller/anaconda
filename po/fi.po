@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-03-28 19:36+0200\n"
+"PO-Revision-Date: 2008-04-06 13:05+0300\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
@@ -7010,16 +7010,18 @@ msgid "loader has already been run.  Starting shell.\n"
 msgstr "latain on jo ajettu. Käynnistetään kuori.\n"
 
 # ../loader/loader.c:3019
+# fuzzy, c-format
 #: ../loader2/loader.c:1946
-#fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
-msgstr "Käynnistetään anaconda, %s -pelastustila - odota hetki...\n"
+msgstr "Käynnistetään anaconda %s, %s -pelastustila - odota hetki...\n"
 
 # ../loader/loader.c:3019
+# fuzzy, c-format
 #: ../loader2/loader.c:1948
-#fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr "Käynnistetään anaconda, %s -asennusohjelma - odota hetki...\n"
+msgstr "Käynnistetään anaconda %s, %s -asennusohjelma - odota hetki...\n"
 
 #: ../loader2/mediacheck.c:62
 #, c-format

@@ -126,6 +126,7 @@ class LabelFactory:
             diskset.stopMdRaid()
             diskset.startMdRaid()
             labels = diskset.getInfo()
+            diskset.stopMdRaid()
             del diskset
             self.reserveLabels(labels)
 
@@ -2361,7 +2362,7 @@ class RAIDDevice(Device):
             self.crypto.setDevice(self.device)
 
         # make sure the list of raid members is sorted
-        self.members.sort()
+        self.members.sort(cmp=lambda x,y: cmp(x.getDevice(),y.getDevice()))
 
     def __del__ (self):
         del RAIDDevice.usedMajors[self.minor]
@@ -2413,13 +2414,13 @@ class RAIDDevice(Device):
         entry = entry + "persistent-superblock	    1\n"
         entry = entry + "nr-spare-disks		    %d\n" % (self.spares,)
         i = 0
-        for device in self.members[:self.numDisks]:
+        for device in [m.getDevice() for m in self.members[:self.numDisks]]:
             entry = entry + "    device	    %s/%s\n" % (devPrefix,
                                                         device)
             entry = entry + "    raid-disk     %d\n" % (i,)
             i = i + 1
         i = 0
-        for device in self.members[self.numDisks:]:
+        for device in [m.getDevice() for m in self.members[self.numDisks:]]:
             entry = entry + "    device	    %s/%s\n" % (devPrefix,
                                                         device)
             entry = entry + "    spare-disk     %d\n" % (i,)
@@ -2427,13 +2428,10 @@ class RAIDDevice(Device):
         return entry
 
     def setupDevice (self, chroot="/", devPrefix='/dev'):
-        def devify(x):
-            return "/dev/%s" %(x,)
-
         if not self.isSetup:
-            for device in self.members:
-                pd = PartitionDevice(device)
-                pd.setupDevice(chroot, devPrefix=devPrefix)
+            memberDevs = []
+            for pd in self.members:
+                memberDevs.append(pd.setupDevice(chroot, devPrefix=devPrefix))
                 if pd.isNetdev(): self.setAsNetdev()
 
             args = ["--create", "/dev/%s" %(self.device,),
@@ -2444,16 +2442,17 @@ class RAIDDevice(Device):
             if self.spares > 0:
                 args.append("--spare-devices=%s" %(self.spares,),)
 
-            args.extend(map(devify, self.members))
+            args.extend(memberDevs)
             log.info("going to run: %s" %(["mdadm"] + args,))
             iutil.execWithRedirect ("mdadm", args,
                                     stderr="/dev/tty5", stdout="/dev/tty5",
                                     searchPath = 1)
-            raid.register_raid_device(self.device, self.members[:],
+            raid.register_raid_device(self.device,
+                                      [m.getDevice() for m in self.members],
                                       self.level, self.numDisks)
             self.isSetup = 1
         else:
-            isys.raidstart(self.device, self.members[0])
+            isys.raidstart(self.device, self.members[0].getDevice())
 
         if self.crypto:
             self.crypto.formatDevice()
@@ -2470,7 +2469,7 @@ class RAIDDevice(Device):
         elif not asBoot:
             return self.device
         else:
-            return self.members[0]
+            return self.members[0].getDevice(asBoot=asBoot)
 
     def solidify(self):
         return

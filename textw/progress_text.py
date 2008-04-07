@@ -88,6 +88,9 @@ class InstallProgressWindow:
         if not self.drawn:
             self._setupScreen()
 
+        if pct > 1.0:
+            pct = 1.0
+
         self.progress.set(int(pct * 100))
         self.pct = pct
         self.processEvents()

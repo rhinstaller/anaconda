@@ -85,7 +85,7 @@ class WaitWindow:
 	self.screen.refresh()
 
     def refresh(self):
-        self.screen.refresh()
+        pass
 
     def __init__(self, screen, title, text):
 	self.screen = screen

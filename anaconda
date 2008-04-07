@@ -55,12 +55,12 @@ def startDBus():
         return None
     return pid
 
-def startHal(root='/'):
+def startHal(root='/', verbose=False):
     if not os.access("/usr/sbin/hald", os.X_OK):
         return None
     fd = open("/dev/null","rw")
     args = ["/usr/sbin/hald","--use-syslog"]
-    if log.getEffectiveLevel() < logging.INFO:
+    if verbose:
         args = args + ["--verbose=yes"]
     try:
         pid = subprocess.Popen(args, stdin = fd, stdout = fd, stderr = fd, close_fds = True).pid
@@ -756,7 +756,10 @@ if __name__ == "__main__":
             halobj = bus.get_object("org.freedesktop.Hal","/org/freedesktop/Hal/Manager")
         except dbus.exceptions.DBusException:
             log.info("Starting HAL daemon...")
-            pid = startHal()
+            verbose = False
+            if opts.loglevel == "debug":
+                verbose = True
+            pid = startHal(verbose = verbose)
             if not pid:
                 log.error("Unable to start HAL daemon")
             time.sleep(5)
@@ -899,7 +902,7 @@ if __name__ == "__main__":
             xserver.generateConfig()
             xserver.addExtraScreen("Anaconda")
             xserver.display = ":1"
-            xserver.serverflags.extend(["-screen", "Anaconda", "-dpi", "96", "-br"])
+            xserver.serverflags.extend(["-screen", "Anaconda", "-dpi", "96", "-br", "-extension", "GLX"])
             xserver_pid = xserver.startX(xStartedCB=doStartupX11Actions)
         except RuntimeError:
             stdoutLog.warning(" X startup failed, falling back to text mode")

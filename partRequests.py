@@ -690,7 +690,8 @@ class RaidRequestSpec(RequestSpec):
         # Alway return a new device for minor changing
         raidmems = []
         for member in self.raidmembers:
-            raidmems.append(partitions.getRequestByID(member).device)
+            request = partitions.getRequestByID(member)
+            raidmems.append(request.getDevice(partitions))
         self.dev = fsset.RAIDDevice(int(self.raidlevel[4:]),
                                     raidmems, minor = self.raidminor,
                                     spares = self.raidspares,

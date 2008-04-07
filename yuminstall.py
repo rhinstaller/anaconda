@@ -40,7 +40,7 @@ import rhpl
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError, PackageSackError
 from yum.yumRepo import YumRepository
-from backend import AnacondaBackend
+from backend import AnacondaBackend, NoSuchGroup
 from product import productName, productStamp
 from sortedtransaction import SplitMediaTransactionData
 from constants import *
@@ -115,12 +115,6 @@ class AnacondaCallback:
         
 
     def callback(self, what, amount, total, h, user):
-        # first time here means we should pop the window telling
-        # user to wait until we get here
-        if self.initWindow is not None:
-            self.initWindow.pop()
-            self.initWindow = None
-
         if what == rpm.RPMCALLBACK_TRANS_START:
             # step 6 is the bulk of the ts processing time
             if amount == 6:
@@ -202,8 +196,9 @@ class AnacondaCallback:
             self.doneFiles += len(hdr[rpm.RPMTAG_BASENAMES])
 
             self.progress.set_label("")
-            self.progress.set_text(_("%s of %s packages completed")
-                                   %(self.donepkgs, self.numpkgs))
+            if self.donepkgs <= self.numpkgs:
+                self.progress.set_text(_("%s of %s packages completed")
+                                       %(self.donepkgs, self.numpkgs))
             self.progress.set_fraction(float(self.doneSize / self.totalSize))
             self.progress.processEvents()
 
@@ -222,7 +217,8 @@ class AnacondaCallback:
         else:
             pass
 
-        self.progress.processEvents()
+        if self.initWindow is None:
+            self.progress.processEvents()
 
 class AnacondaYumRepo(YumRepository):
     def __init__( self, uri=None, mirrorlist=None,
@@ -334,6 +330,9 @@ class AnacondaYum(YumSorter):
 
     def systemMounted(self, fsset, chroot):
         if not flags.setupFilesystems:
+            return
+
+        if self._loopbackFile and os.path.exists(self._loopbackFile):
             return
 
         stage2img = None
@@ -888,6 +887,9 @@ class YumBackend(AnacondaBackend):
                 pass
 
     def doInitialSetup(self, anaconda):
+        if anaconda.dir == DISPATCH_BACK:
+            return DISPATCH_BACK
+
         if anaconda.id.getUpgrade():
            # FIXME: make sure that the rpmdb doesn't have stale locks :/
            self._resetRpmDb(anaconda.rootPath)
@@ -1523,6 +1525,9 @@ class YumBackend(AnacondaBackend):
 
         rc = self.ayum.run(self.instLog, cb, anaconda.intf, anaconda.id)
 
+        if cb.initWindow is not None:
+            cb.initWindow.pop()
+
         self.instLog.close ()
 
         anaconda.id.instProgress = None
@@ -1581,22 +1586,21 @@ class YumBackend(AnacondaBackend):
         return False
 
     def _selectDefaultOptGroup(self, grpid, default, optional):
-        retval = 0
         grp = self.ayum.comps.return_group(grpid)
 
         if not default:
             for pkg in grp.default_packages.keys():
                 self.deselectPackage(pkg)
-                retval -= 1
 
         if optional:
             for pkg in grp.optional_packages.keys():
                 self.selectPackage(pkg)
-                retval += 1
-
-        return retval
 
     def selectGroup(self, group, *args):
+        if not self.ayum.comps.has_group(group):
+            log.debug("no such group %s" % group)
+            raise NoSuchGroup, group
+
         if args:
             default = args[0][0]
             optional = args[0][1]
@@ -1607,25 +1611,21 @@ class YumBackend(AnacondaBackend):
         try:
             mbrs = self.ayum.selectGroup(group)
             if len(mbrs) == 0 and self.isGroupSelected(group):
-                return 1
+                return
 
-            extras = self._selectDefaultOptGroup(group, default, optional)
-
-            return len(mbrs) + extras
+            self._selectDefaultOptGroup(group, default, optional)
         except yum.Errors.GroupsError, e:
             # try to find out if it's the name or translated name
             gid = self.__getGroupId(group)
             if gid is not None:
                 mbrs = self.ayum.selectGroup(gid)
                 if len(mbrs) == 0 and self.isGroupSelected(gid):
-                    return 1
+                    return
 
-                extras = self._selectDefaultOptGroup(group, default, optional)
-
-                return len(mbrs) + extras
+                self._selectDefaultOptGroup(group, default, optional)
             else:
                 log.debug("no such group %s" %(group,))
-                return 0
+                raise NoSuchGroup, group
 
     def deselectGroup(self, group, *args):
         try:

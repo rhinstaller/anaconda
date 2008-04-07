@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda FC9\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-03-13 12:54+0100\n"
+"PO-Revision-Date: 2008-04-07 13:15+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@broadpark.no>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -183,13 +183,11 @@ msgstr ""
 "OpenFirmware vil ikke kunne starte denne installasjonen."
 
 #: ../autopart.py:1066
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
 "be able to boot from this partition."
-msgstr ""
-"Oppstartspartisjonen %s er ikke en VFAT partisjon. EFI vil ikke kunne starte "
-"operativsystemet fra denne partisjonen."
+msgstr "Oppstartspartisjonen %s er ikke et Linux-filsystem som f.eks ext3. Systemet vil ikke kunne starte fra denne partisjonen."
 
 #: ../autopart.py:1069
 #, python-format
@@ -483,23 +481,19 @@ msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "Unntak fra parted kan ikke håndteres i kommandolinjemodus!"
 
 #: ../constants.py:75
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
-msgstr ""
-"Et uhåndtert unntak har oppstått. Dette er sannsynligvis en feil. Kopier "
-"hele teksten fra feilmeldingen og send så inn en detaljert feilrapport for "
-"anaconda på %s"
+msgstr "Et uhåndtert unntak har oppstått. Dette er sannsynligvis en feil. Kopier hele teksten fra feilmeldingen og send inn en feilrapport"
 
 #: ../constants.py:81
 msgid " with the provider of this software."
-msgstr ""
+msgstr " hos den som har levert dene programvaren."
 
 #: ../constants.py:85
-#, fuzzy, python-format
+#, python-format
 msgid " against anaconda at %s"
-msgstr "Leser anaconda-oppdateringer..."
+msgstr " for anaconda på %s"
 
 #: ../exception.py:344 ../exception.py:359 ../exception.py:377
 msgid "Dump Written"
@@ -598,9 +592,8 @@ msgstr ""
 "Ønsker du å fortsette uten å migrere %s?"
 
 #: ../fsset.py:1538
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "Rediger partisjon"
+msgstr "EFI systempartisjon"
 
 #: ../fsset.py:1542
 msgid "RAID Device"
@@ -1092,9 +1085,8 @@ msgid "Exiting"
 msgstr "Avslutter"
 
 #: ../gui.py:1401
-#, fuzzy
 msgid "Are you sure you wish to exit the installation?"
-msgstr "Er du sikker på at du vil slette logisk volum «%s»?"
+msgstr "Er du sikker på at du vil avslutte installasjonen?"
 
 #: ../gui.py:1410
 #, python-format
@@ -1329,19 +1321,17 @@ msgid "'%s' is an invalid IP address."
 msgstr "«%s» er ikke en gyldig IP-adresse."
 
 #: ../packages.py:147
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "Endrer størrelse"
+msgstr "Endring av størrelse feilet"
 
 #: ../packages.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered resizing the device %s."
-msgstr "Det oppsto en feil under tømming av målstasjonene.  Kloning feilet."
+msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
 #: ../packages.py:188
-#, fuzzy
 msgid "LVM operation failed"
-msgstr "Montering feilet"
+msgstr "LVM-operasjon feilet"
 
 #: ../packages.py:342
 msgid "Invalid Key"
@@ -1878,9 +1868,8 @@ msgid "Continue"
 msgstr "Fortsett"
 
 #: ../partitions.py:204
-#, fuzzy
 msgid "Confirm"
-msgstr "Bekreft:"
+msgstr "Bekreft"
 
 #: ../partitions.py:205
 #, python-format
@@ -1910,11 +1899,10 @@ msgstr ""
 "for å installere %s."
 
 #: ../partitions.py:1053
-#, fuzzy
 msgid ""
 "You must create an EFI System Partition of type FAT and a size of 50 "
 "megabytes."
-msgstr "Du må lage en /boot/efi-partisjon av type FAT og med størrelse 50 MB."
+msgstr "Du må lage en EFI systempartisjon av type FAT og med størrelse 50 megabyte."
 
 #: ../partitions.py:1067
 msgid ""
@@ -2153,8 +2141,8 @@ msgid ""
 msgstr ""
 "Feilrettingsmiljøet vil nå forsøke å finne din Linux installasjon og montere "
 "den under katalogen %s. Du kan da utføre nødvendige endringer på systemet. "
-"Hvis du vil fortsette med denne oppgaven velg «Fortsett». Du kan også velge å "
-"montere filsystemet skrivebeskyttet (kun lesbart).\n"
+"Hvis du vil fortsette med denne oppgaven velg «Fortsett». Du kan også velge "
+"å montere filsystemet skrivebeskyttet (kun lesbart).\n"
 "\n"
 "Hvis denne prosessen feiler av noen grunn kan du velge «Hopp over» så vil "
 "dette steget bli utelatt og du vil gå direkte til et kommandoskall.\n"
@@ -2269,13 +2257,12 @@ msgid "Password"
 msgstr "Passord"
 
 #: ../text.py:283 tmp/lukspassphrase.glade.h:5
-#, fuzzy
 msgid "Passphrase"
-msgstr "Oppgi passord:"
+msgstr "Passord"
 
 #: ../text.py:291 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "Dette er et globalt passord"
 
 #: ../text.py:347
 msgid "Help not available"
@@ -2335,7 +2322,7 @@ msgid ""
 "You have choosen the upgrade for %s architecture, but the installed system "
 "is for %s architecture. \n"
 "\n"
-msgstr ""
+msgstr "Du har valgt oppgradering for arkitekturen %s, men installert system er for arkitektur %s.\n\n"
 
 #: ../upgrade.py:110
 #, python-format
@@ -2731,11 +2718,10 @@ msgid "Retrying package download..."
 msgstr "Forsøker å laste ned pakke på nytt..."
 
 #: ../yuminstall.py:715
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
-msgstr ""
-"Det oppsto en feil under kjøring av transaksjonen av følgende årsak(er): %s\n"
+msgstr "Det oppsto en feil under kjøring av transaksjonen med følgende årsak: %s\n"
 
 #: ../yuminstall.py:748 ../yuminstall.py:749
 msgid "file conflicts"
@@ -2817,7 +2803,7 @@ msgid "Edit"
 msgstr "Rediger"
 
 #: ../yuminstall.py:982 ../yuminstall.py:1257
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
@@ -2825,9 +2811,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Kan ikke lese metadata for pakken. Dette kan være forårsaket av en menglende "
-"repodata-katalog. Vennligst sjekk at installasjonstreet er generert på en "
-"korrekt måte.  %s"
+"Kan ikke lese metadata for pakken. Dette kan være forårsaket av en menglende repodata-katalog. Vennligst sjekk at installasjonstreet er generert på en korrekt måte.\n"
+"\n"
+"%s"
 
 #: ../yuminstall.py:1023
 msgid ""
@@ -2931,19 +2917,16 @@ msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "FC-LUN er ugyldig eller ble ikke oppgitt."
 
 #: ../iw/account_gui.py:48
-#, fuzzy
 msgid "Root _Password:"
-msgstr "Passord for root: "
+msgstr "_Passord for root:"
 
 #: ../iw/account_gui.py:50
-#, fuzzy
 msgid "_Confirm:"
-msgstr "_Bekreft: "
+msgstr "_Bekreft:"
 
 #: ../iw/account_gui.py:87
-#, fuzzy
 msgid "Caps Lock is on."
-msgstr "<b>Caps Lock er aktiv.</b>"
+msgstr "Caps Lock er aktiv."
 
 #: ../iw/account_gui.py:97 ../iw/account_gui.py:105 ../iw/account_gui.py:112
 #: ../iw/account_gui.py:132 ../textw/userauth_text.py:71
@@ -3020,10 +3003,8 @@ msgstr ""
 "Fjern Linux-partisjoner på valgte stasjoner og opprett forvalgt utforming"
 
 #: ../iw/autopart_type.py:405
-#, fuzzy
 msgid "Resize existing partition and create default layout in free space"
-msgstr ""
-"Fjern Linux-partisjoner på valgte stasjoner og opprett forvalgt utforming"
+msgstr "Endre størrelse på eksisterende partisjon og opprett forvalgt utforming fra ledig plass"
 
 #: ../iw/autopart_type.py:406 ../textw/partition_text.py:1519
 msgid "Use free space on selected drives and create default layout"
@@ -3038,13 +3019,10 @@ msgid "_Use a boot loader password"
 msgstr "Br_uk passord for oppstartslaster"
 
 #: ../iw/blpasswidget.py:46
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from changing kernel options, "
 "increasing security."
-msgstr ""
-"Et passord for oppstartslasteren hindrer brukere i å gi tilfeldige flagg til "
-"kjernen. For høyest mulig sikkerhet anbefaler vi å sette et passord."
+msgstr "Et passord for oppstartslasteren hindrer brukere i å gi tilfeldige flagg til kjernen, hvilket styrker sikkerheten."
 
 #: ../iw/blpasswidget.py:77
 msgid "Change _password"
@@ -3098,14 +3076,13 @@ msgstr "Konfigurasjon av oppstartslaster"
 
 #: ../iw/bootloader_main_gui.py:170 ../iw/bootloader_main_gui.py:175
 #: ../iw/bootloader_main_gui.py:212
-#, fuzzy, python-format
+#, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "Installerer oppstartslaster..."
+msgstr "_Installer oppstartslaster på /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:218
-#, fuzzy
 msgid "_Change device"
-msgstr "Bytt disk"
+msgstr "_Bytt enhet"
 
 #: ../iw/congrats_gui.py:31
 msgid "Congratulations"
@@ -3170,21 +3147,21 @@ msgid "Unknown Linux system"
 msgstr "Ukjent Linux-system"
 
 #: ../iw/GroupSelector.py:210
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Pakkevalg"
+msgstr "Pakker i %s"
 
 #: ../iw/GroupSelector.py:482
-#, fuzzy, python-format
+#, python-format
 msgid "%d of %d optional package selected"
 msgid_plural "%d of %d optional packages selected"
-msgstr[0] "Ingen valgfrie pakker valgt"
-msgstr[1] "Ingen valgfrie pakker valgt"
+msgstr[0] "%d av %d valgfri pakke valgt"
+msgstr[1] "%d av %d valgfrie pakker valgt"
 
 #: ../iw/GroupSelector.py:485
 #, python-format
 msgid "<i>%s</i>"
-msgstr ""
+msgstr "<i>%s</i>"
 
 #: ../iw/language_gui.py:30 ../textw/language_text.py:44
 msgid "Language Selection"
@@ -3757,9 +3734,8 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6-prefiks må være mellom 1 og 128."
 
 #: ../iw/osbootwidget.py:50
-#, fuzzy
 msgid "Boot loader operating system list"
-msgstr "Passordet for oppstartslasteren er for kort"
+msgstr "Liste med operativsystemer for oppstartslaster"
 
 #: ../iw/osbootwidget.py:66 ../textw/bootloader_text.py:262
 msgid "Default"
@@ -4139,8 +4115,8 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"Partisjoner av type «%s» må begrenses til en enkelt stasjon. Dette gjøres ved "
-"å velge stasjonen i avkryssingslisten «Tillatte stasjoner»."
+"Partisjoner av type «%s» må begrenses til en enkelt stasjon. Dette gjøres "
+"ved å velge stasjonen i avkryssingslisten «Tillatte stasjoner»."
 
 #: ../iw/partmethod_gui.py:31 ../textw/partmethod_text.py:30
 msgid "Disk Partitioning Setup"
@@ -4389,9 +4365,8 @@ msgstr ""
 "pakker fra lageret ikke vil virke"
 
 #: ../iw/task_gui.py:80
-#, fuzzy
 msgid "Edit Repository"
-msgstr "Legg til lager"
+msgstr "Rediger lager"
 
 #: ../iw/task_gui.py:155
 msgid "Invalid Repository Name"
@@ -4503,7 +4478,7 @@ msgid "Migrate File Systems"
 msgstr "Migrer filsystemer"
 
 #: ../iw/upgrade_migratefs_gui.py:62 ../textw/upgrade_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4511,10 +4486,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Denne utgaven av %s støtter det journalførende ext3-filsystemet. Det har "
-"flere fordeler i forhold til ext2-filsystemet, som tradisjonelt har vært "
-"brukt i %s. Det er mulig å migrere ext2-formaterte partisjoner til ext3 uten "
-"tap av data.\n"
+"Denne utgaven av %s støtter et oppdatert filsystem som har flere fordeler over filsystemet som tradisjonelt har vært brukt i %s. Det er mulig å migrere partisjoner uten tap av data.\n"
 "\n"
 "Hvilke av disse partisjonene vil du migrere?"
 
@@ -5503,14 +5475,10 @@ msgid "Root Password"
 msgstr "Root-passord"
 
 #: ../textw/userauth_text.py:30
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. "
-msgstr ""
-"Velg et root-passord. Du må skrive det inn to ganger for å være sikker på at "
-"du vet hva det er og at du ikke gjorde en skrivefeil. Husk at root-passordet "
-"er kritisk for systemsikkerheten!"
+msgstr "Velg et root-passord. Du må skrive det inn to ganger for å være sikker på at du husker det og at du ikke skrev feil."
 
 #: ../textw/userauth_text.py:64
 msgid "The root password must be at least 6 characters long."
@@ -6069,7 +6037,8 @@ msgstr ""
 #: ../loader2/loader.c:429
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr "Sett inn oppdateringsdisketten i /dev/%s og trykk «OK» for å fortsette."
+msgstr ""
+"Sett inn oppdateringsdisketten i /dev/%s og trykk «OK» for å fortsette."
 
 #: ../loader2/loader.c:431
 msgid "Updates Disk"
@@ -6214,7 +6183,7 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:117
 msgid "Success"
-msgstr ""
+msgstr "Suksess"
 
 #: ../loader2/mediacheck.c:118
 msgid ""
@@ -6454,9 +6423,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Kjører anaconda via telnet..."
 
 #: ../loader2/urlinstall.c:79
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s."
-msgstr "Kan ikke hente %s://%s/%s/%s."
+msgstr "Kan ikke hente %s://%s/%s."
 
 #: ../loader2/urlinstall.c:186
 msgid "Unable to retrieve the install image."
@@ -6477,11 +6446,9 @@ msgid "Unknown Url method %s"
 msgstr "Ukjent URL-metode %s"
 
 #: ../loader2/urls.c:282
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the URL containing the %s images on your server."
-msgstr ""
-"Vennligst oppgi URL som inneholder %s på din\n"
-"tjener.\n"
+msgstr "Vennligst oppgi URL som inneholder bildene for %s på din tjener."
 
 #: ../loader2/urls.c:293
 msgid "Configure proxy"
@@ -6497,7 +6464,7 @@ msgstr "Du må oppgi en URL."
 
 #: ../loader2/urls.c:322
 msgid "URL must be either an ftp or http URL"
-msgstr ""
+msgstr "URL må være enten ftp eller http"
 
 #: ../loader2/urls.c:333
 msgid "Unknown Host"
@@ -6538,9 +6505,8 @@ msgid "Loading %s driver..."
 msgstr "Laster driver %s..."
 
 #: tmp/account.glade.h:2
-#, fuzzy
 msgid "Root Password:"
-msgstr "Root-passord"
+msgstr "Root-passord:"
 
 #: tmp/account.glade.h:3
 msgid ""
@@ -6575,13 +6541,10 @@ msgid "Add Repository"
 msgstr "Legg til lager"
 
 #: tmp/addrepo.glade.h:3
-#, fuzzy
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from."
-msgstr ""
-"Vennligst oppgi plassen hvor din ekstra programvare kan installere fra. Husk "
-"at dette må være et gyldig lager for %s."
+msgstr "Vennligst oppgi en plass du kan installere ekstra programvare fra."
 
 #: tmp/addrepo.glade.h:4
 msgid "Proxy U_RL:"
@@ -6616,9 +6579,8 @@ msgid "_Next"
 msgstr "_Neste"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target:</b>"
-msgstr "<b>_Navn på lager:</b>"
+msgstr "<b>Endre navn på _mål:</b>"
 
 #: tmp/autopart.glade.h:2
 msgid ""
@@ -6639,15 +6601,13 @@ msgid "What drive would you like to _boot this installation from?"
 msgstr "Hvilken enhet _vil du starte opp denne installasjonen fra?"
 
 #: tmp/autopart.glade.h:5
-#, fuzzy
 msgid "Which Partition to resize"
-msgstr "Skriver partisjoner til disk"
+msgstr "Partisjon du vil endre størrelse på"
 
 #: tmp/autopart.glade.h:6
-#, fuzzy
 msgid ""
 "Which partition would you like to resize to make room for your installation?"
-msgstr "Hvilken partisjon inneholder rotpartisjonen til din installasjon?"
+msgstr "Hvilken partisjon vil du endre størrelse på for å lage plass til installasjonen?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
@@ -6662,44 +6622,40 @@ msgid "_Select the drive(s) to use for this installation."
 msgstr "_Velg stasjonen(e) vil du bruke for denne installasjonen."
 
 #: tmp/blwhere.glade.h:1
-#, fuzzy
 msgid "/boot"
-msgstr "Start på nytt"
+msgstr "/boot"
 
 #: tmp/blwhere.glade.h:2
-#, fuzzy
 msgid "BIOS Drive Order"
-msgstr "Rediger rekkefølge på stasjonene"
+msgstr "BIOS-rekkefølge for enhetene"
 
 #: tmp/blwhere.glade.h:3
-#, fuzzy
 msgid "Boot loader device"
-msgstr "Oppstartslaster"
+msgstr "Enhet for oppstartslaster"
 
 #: tmp/blwhere.glade.h:4
 msgid "First BIOS drive:"
-msgstr ""
+msgstr "Første BIOS-enhet:"
 
 #: tmp/blwhere.glade.h:5
 msgid "Fourth BIOS drive:"
-msgstr ""
+msgstr "Fjerde BIOS-enhet:"
 
 #: tmp/blwhere.glade.h:6
 msgid "MBR"
-msgstr ""
+msgstr "MBR"
 
 #: tmp/blwhere.glade.h:7
 msgid "Second BIOS drive:"
-msgstr ""
+msgstr "Andre BIOS-enhet:"
 
 #: tmp/blwhere.glade.h:8
 msgid "Third BIOS drive:"
-msgstr ""
+msgstr "Tredje BIOS-enhet:"
 
 #: tmp/blwhere.glade.h:9
-#, fuzzy
 msgid "Where would you like to install the boot loader for your system?"
-msgstr "Hvor vil du installere oppstartslasteren?"
+msgstr "Hvor vil du installere oppstartslasteren for systemet?"
 
 #: tmp/detailed-dialog.glade.h:1
 msgid "Info"
@@ -6710,9 +6666,8 @@ msgid "_Details"
 msgstr "_Detaljer"
 
 #: tmp/exnSave.glade.h:2
-#, fuzzy
 msgid "Select A File"
-msgstr "Velg driver"
+msgstr "Velg en fil"
 
 #: tmp/exnSave.glade.h:3
 msgid "Select a destination for the exception information."
@@ -6734,33 +6689,28 @@ msgid ""
 msgstr ""
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Deselect"
-msgstr "_Slett"
+msgstr "_Velg bort"
 
 #: tmp/GroupSelector.glade.h:3
-#, fuzzy
 msgid "_Deselect all optional packages"
-msgstr "Installerer pakker"
+msgstr "_Velg bort alle valgfrie pakker"
 
 #: tmp/GroupSelector.glade.h:4
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Ingen valgfrie pakker valgt"
+msgstr "_Valgfrie pakker"
 
 #: tmp/GroupSelector.glade.h:5
-#, fuzzy
 msgid "_Select"
-msgstr "_Slett"
+msgstr "_Velg"
 
 #: tmp/GroupSelector.glade.h:6
-#, fuzzy
 msgid "_Select all optional packages"
-msgstr "Ingen valgfrie pakker valgt"
+msgstr "_Velg alle valgfrie pakker"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -7165,473 +7115,3 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "Mouse Configuration"
-#~ msgstr "Konfigurasjon av mus"
-
-#~ msgid "/dev/ttyS0 (COM1 under DOS)"
-#~ msgstr "/dev/ttyS0 (COM1 i DOS)"
-
-#~ msgid "/dev/ttyS1 (COM2 under DOS)"
-#~ msgstr "/dev/ttyS1 (COM2 i DOS)"
-
-#~ msgid "/dev/ttyS2 (COM3 under DOS)"
-#~ msgstr "/dev/ttyS2 (COM3 i DOS)"
-
-#~ msgid "/dev/ttyS3 (COM4 under DOS)"
-#~ msgstr "/dev/ttyS3 (COM4 i DOS)"
-
-#~ msgid "_Model"
-#~ msgstr "_Modell"
-
-#~ msgid "_Emulate 3 buttons"
-#~ msgstr "_Emuler 3 knapper"
-
-#~ msgid "Select the appropriate mouse for the system."
-#~ msgstr "Velg riktig mus for ditt system."
-
-#~ msgid "What device is your mouse located on?"
-#~ msgstr "Hvilken enhet er musen plassert på?"
-
-#~ msgid "Which model mouse is attached to this computer?"
-#~ msgstr "Hvilken mustype brukes på denne datamaskinen?"
-
-#~ msgid "Emulate 3 Buttons?"
-#~ msgstr "Emuler 3 knapper?"
-
-#~ msgid "Mouse Selection"
-#~ msgstr "Musvalg"
-
-#~ msgid "Set Root Password"
-#~ msgstr "Sett passord for root"
-
-#~ msgid "Advanced Boot Loader Configuration"
-#~ msgstr "Avansert konfigurasjon av oppstartslaster"
-
-#~ msgid "Force LBA32"
-#~ msgstr "Bruk LBA32"
-
-#~ msgid "_Force LBA32 (not normally required)"
-#~ msgstr "_Tvungen bruk av LBA32 (ikke vanligvis nødvendig)"
-
-#~ msgid ""
-#~ "If you wish to add default options to the boot command, enter them into "
-#~ "the 'General kernel parameters' field."
-#~ msgstr ""
-#~ "Hvis du ønsker å legge til forvalgte flagg til oppstartskommandoen "
-#~ "skriver du dem inn i feltet «Generelle kjerneparametere»."
-
-#~ msgid "_General kernel parameters"
-#~ msgstr "_Generelle parametere for kjernen"
-
-#~ msgid "The %s boot loader will be installed on /dev/%s."
-#~ msgstr "Oppstartslasteren %s vil bli installert på /dev/%s."
-
-#~ msgid "No boot loader will be installed."
-#~ msgstr "Ingen oppstartslaster vil bli installert."
-
-#~ msgid "Configure advanced boot loader _options"
-#~ msgstr "Konfigurasjon av avanserte alternativer for _oppstartslaster"
-
-#~ msgid "Install Boot Loader record on:"
-#~ msgstr "Installer oppstartslaster på:"
-
-#~ msgid "_Change Drive Order"
-#~ msgstr "_Endre rekkefølge på stasjonene"
-
-#~ msgid ""
-#~ "Arrange the drives to be in the same order as used by the BIOS. Changing "
-#~ "the drive order may be useful if you have multiple SCSI adapters or both "
-#~ "SCSI and IDE adapters and want to boot from the SCSI device.\n"
-#~ "\n"
-#~ "Changing the drive order will change where the installation program "
-#~ "locates the Master Boot Record (MBR)."
-#~ msgstr ""
-#~ "Plasser stasjonene i samme rekkefølge som brukt av BIOS. Endring av "
-#~ "rekkefølgen for stasjonene kan være nyttig hvis du har flere SCSI-kort "
-#~ "eller både SCSI og IDE-kontrollere og ønsker å starte opp fra SCSI-"
-#~ "enheten.\n"
-#~ "\n"
-#~ "Endring av rekkefølgen for stasjonene vil forandre på hvor "
-#~ "installasjonsprogrammet leter etter Master Boot Record (MBR)."
-
-#~ msgid "Drive"
-#~ msgstr "Stasjon"
-
-#~ msgid "Model"
-#~ msgstr "Modell"
-
-#~ msgid ""
-#~ "You can configure the boot loader to boot other operating systems by "
-#~ "selecting from the list. To add an operating systems that was not "
-#~ "automatically detected, click 'Add.' To change the operating system "
-#~ "booted by default, select 'Default' next to the desired operating system."
-#~ msgstr ""
-#~ "Du kan konfigurere oppstartslasteren til å starte andre operativsystemer, "
-#~ "ved å velge fra listen. For å  legge til flere operativsystemer som ikke "
-#~ "detekteres automatisk, klikker du på «Legg til». For å endre hvilket "
-#~ "operativsystem som settes som forvalgt, velger du «Forvalgt» for ønsket "
-#~ "operativsystem."
-
-#~ msgid "NFS"
-#~ msgstr "NFS"
-
-#~ msgid "Error pulling second part of kickstart config: %s!"
-#~ msgstr "Feil under henting av annen del av kickstart-konfigurasjon: %s!"
-
-#~ msgid "Unknown install method"
-#~ msgstr "ukjent installasjonsmetode"
-
-#~ msgid ""
-#~ "You have specified an install method which isn't supported by anaconda."
-#~ msgstr ""
-#~ "Du har oppgitt en installasjonsmetode som ikke er støttet av anaconda."
-
-#~ msgid "unknown install method: %s"
-#~ msgstr "ukjent installasjonsmetode: %s"
-
-#~ msgid ""
-#~ "You have chosen to remove all partitions (ALL DATA) on the following "
-#~ "drives:%s\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Du har valgt å fjerne alle partisjoner (ALLE DATA) på følgende stasjoner:%"
-#~ "s\n"
-#~ "\n"
-#~ "Er du sikker på at du vil gjøre dette?"
-
-#~ msgid ""
-#~ "You have chosen to remove all Linux partitions (and ALL DATA on them) on "
-#~ "the following drives:%s\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Du har valgt å fjerne alle Linux-partisjoner (og ALLE DATA på dem) på "
-#~ "følgende stasjoner:%s\n"
-#~ "Er du sikker på at du ønsker å gjøre dette?"
-
-#~ msgid "Checking for Bad Blocks"
-#~ msgstr "Leter etter dårlige blokker"
-
-#~ msgid ""
-#~ "Bad blocks have been detected on device /dev/%s. We do not recommend you "
-#~ "use this device.\n"
-#~ "\n"
-#~ "Press <Enter> to exit the installer."
-#~ msgstr ""
-#~ "Ugyldige blokker ble funnet på enhet /dev/%s. Vi anbefaler at du ikke "
-#~ "bruker denne enheten.\n"
-#~ "\n"
-#~ "Trykk <Linjeskift> for å avslutte installasjonsprogrammet."
-
-#~ msgid ""
-#~ "An error occurred searching for bad blocks on %s.  This problem is "
-#~ "serious, and the install cannot continue.\n"
-#~ "\n"
-#~ "Press <Enter> to exit the installer."
-#~ msgstr ""
-#~ "En feil oppstod under søk etter dårlige blokker på %s. Dette problemet er "
-#~ "alvorlig, og installasjonen kan ikke fortsette.\n"
-#~ "\n"
-#~ "Trykk <Linjeskift> for å avslutte installasjonsprogrammet."
-
-#~ msgid ""
-#~ "Please insert a floppy now. All contents of the disk will be erased, so "
-#~ "please choose your diskette carefully."
-#~ msgstr ""
-#~ "Vennligst sett inn en diskett. Alt innhold på disketten vil slettes, så "
-#~ "vær forsiktig når du velger diskett."
-
-#~ msgid ""
-#~ "The file %s cannot be opened.  This is due to a missing file or perhaps a "
-#~ "corrupt package.  Please verify your installation images and that you "
-#~ "have all the required media.\n"
-#~ "\n"
-#~ "If you exit, your system will be left in an inconsistent state that will "
-#~ "likely require reinstallation.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Filen %s kan ikke åpnes. Det kan være pga at filen mangler eller at "
-#~ "pakken er korrupt. Sjekk at du har alle installasjonsmediene og at disse "
-#~ "er i god stand.\n"
-#~ "\n"
-#~ "Hvis du avslutter, vil systemet sannsynligvis måtte reinstalleres da det "
-#~ "ikke er i en konsistent tilstand nå.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "The installer has tried to mount image #%s, but cannot find it on the "
-#~ "server.\n"
-#~ "\n"
-#~ "Please copy this image to the remote server's share path and click Retry. "
-#~ "Click Exit to abort the installation."
-#~ msgstr ""
-#~ "Installasjonen har prøvd å montere bildefilen #%s, men kan ikke finne det "
-#~ "på tjeneren.\n"
-#~ "\n"
-#~ "Vennligst kopier dette bildet til den utdelte katalogen på den eksterne "
-#~ "tjeneren og klikk på «Prøv på nytt». Klikk på «Avslutt» for å avbryte "
-#~ "installasjonen."
-
-#~ msgid ""
-#~ "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  "
-#~ "in the Linux kernel does not allow for more than 15 partitions at this "
-#~ "time.  You will not be able to make changes to the partitioning of this "
-#~ "disk or use any partitions beyond /dev/%s15 in %s"
-#~ msgstr ""
-#~ "Enheten /dev/%s har flere enn 15 partisjoner. SCSI-subsystemet i Linux-"
-#~ "kjernen tillater ikke flere enn 15 partisjoner for øyeblikket. Du vil "
-#~ "ikke ha mulighet til å gjøre endringer i partisjoneringen av denne "
-#~ "enheten eller bruke noen partisjoner etter /dev/%s15 på %s."
-
-#~ msgid "Low Memory"
-#~ msgstr "Lite minne"
-
-#~ msgid ""
-#~ "As you don't have much memory in this machine, we need to turn on swap "
-#~ "space immediately. To do this we'll have to write your new partition "
-#~ "table to the disk immediately. Is that OK?"
-#~ msgstr ""
-#~ "Siden du ikke har mye minne på denne maskinen, må vi benytte et swap-"
-#~ "område med en gang. For å gjøre dette må vi skrive den nye "
-#~ "partisjonstabellen til disken nå. Er dette ok?"
-
-#~ msgid "Save to Remote Host"
-#~ msgstr "Lagre til ekstern vert"
-
-#~ msgid "Save Crash Dump"
-#~ msgstr "Lagre krasjdump"
-
-#~ msgid "Searching"
-#~ msgstr "Søker"
-
-#~ msgid "Searching for %s installations..."
-#~ msgstr "Leter etter installert %s..."
-
-#~ msgid "Connecting..."
-#~ msgstr "Kobler til..."
-
-#~ msgid ""
-#~ "The file %s cannot be opened.  This is due to a missing file or perhaps a "
-#~ "corrupt package.  Please verify your mirror contains all required "
-#~ "packages, and try using a different one.\n"
-#~ "\n"
-#~ "If you exit, your system will be left in an inconsistent state that will "
-#~ "likely require reinstallation.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Filen %s kan ikke åpnes. Det kan være pga en manglende fil eller at "
-#~ "pakken er korrupt.  Vennligst bekreft at ditt dataspeil inneholder alle "
-#~ "pakkene, og forsøk å bruke en annen en.\n"
-#~ "\n"
-#~ "Hvis du avslutter, vil systemet være i en inkonsistent tilstand, som "
-#~ "sannsynligvis vil kreve en reinstallasjon.\n"
-#~ "\n"
-
-#~ msgid "VNC Password Error"
-#~ msgstr "Feil med VNC-passord"
-
-#~ msgid ""
-#~ "You need to specify a vnc password of at least 6 characters long.\n"
-#~ "\n"
-#~ "Press <return> to reboot your system.\n"
-#~ msgstr ""
-#~ "Du må oppgi et passord på minst 6 tegn for VNC.\n"
-#~ "\n"
-#~ "Trykk <linjeskift> for å starte systemet på nytt.\n"
-
-#~ msgid "Unable to set vnc password - using no password!"
-#~ msgstr "Kan ikke sette passord for vnc - starter uten passord!"
-
-#~ msgid "Make sure your password is at least 6 characters in length."
-#~ msgstr "Sjekk at passord for root er minst 6 tegn langt."
-
-#~ msgid "Please connect to %s to begin the install..."
-#~ msgstr "Vennligst koble til %s for å starte installasjonen..."
-
-#~ msgid "Please connect to begin the install..."
-#~ msgstr "Vennligst koble til for å starte installasjonen..."
-
-#~ msgid "About to Install"
-#~ msgstr "Klar til å installere"
-
-#~ msgid "Click next to begin installation of %s."
-#~ msgstr "Klikk neste for å starte installasjonen av %s."
-
-#~ msgid ""
-#~ "A complete log of the installation can be found in the file '%s' after "
-#~ "rebooting your system.\n"
-#~ "\n"
-#~ "A kickstart file containing the installation options selected can be "
-#~ "found in the file '%s' after rebooting the system."
-#~ msgstr ""
-#~ "En full logg av installeringen vil finnes i filen «%s» etter omstart av "
-#~ "systemet.\n"
-#~ "\n"
-#~ "En kickstart-fil som inneholder de valgte installeringsopsjonene vil "
-#~ "finnes i «%s»."
-
-#~ msgid "About to Upgrade"
-#~ msgstr "Klar til å oppgradere"
-
-#~ msgid "Click next to begin upgrade of %s."
-#~ msgstr "Klikk neste for å starte oppgradering av %s."
-
-#~ msgid ""
-#~ "A complete log of the upgrade can be found in the file '%s' after "
-#~ "rebooting your system."
-#~ msgstr ""
-#~ "En komplett logg av oppgraderingen kan finnes i filen «%s» etter omstart "
-#~ "av systemet."
-
-#~ msgid "Netmask"
-#~ msgstr "Nettmaske"
-
-#~ msgid "Leave _unchanged (preserve data)"
-#~ msgstr "La den være _uendret (ta vare på data)"
-
-#~ msgid "_Format partition as:"
-#~ msgstr "_Formater partisjon som:"
-
-#~ msgid "Check for _bad blocks?"
-#~ msgstr "Sjekk etter _dårlige blokker?"
-
-#~ msgid "Release notes are missing.\n"
-#~ msgstr "Merknader for denne utgaven mangler.\n"
-
-#~ msgid "Release Notes"
-#~ msgstr "Versjonsmerknader"
-
-#~ msgid "Unable to load file!"
-#~ msgstr "Kan ikke lese filen!"
-
-#~ msgid "Installation to begin"
-#~ msgstr "Installeringen startes"
-
-#~ msgid ""
-#~ "A complete log of your installation will be in %s after rebooting your "
-#~ "system. You may want to keep this file for later reference."
-#~ msgstr ""
-#~ "En komplett logg av installeringen vil befinne seg i %s etter omstart av "
-#~ "systemet. Du vil kanskje beholde denne filen som et referansepunkt til "
-#~ "senere."
-
-#~ msgid "Upgrade to begin"
-#~ msgstr "Oppgraderingen startes"
-
-#~ msgid ""
-#~ "A complete log of your upgrade will be in %s after rebooting your system. "
-#~ "You may want to keep this file for later reference."
-#~ msgstr ""
-#~ "En komplett logg av oppgraderingen vil befinne seg i %s etter omstart av "
-#~ "systemet. Du vil kanskje beholde denne filen som referansepunkt til "
-#~ "senere."
-
-#~ msgid "%s, %s, %s"
-#~ msgstr "%s, %s, %s"
-
-#~ msgid "%s, %s"
-#~ msgstr "%s, %s"
-
-#~ msgid "Check for bad blocks"
-#~ msgstr "Sjekk etter dårlige blokker"
-
-#~ msgid ""
-#~ "No hard drives have been found.  You probably need to manually choose "
-#~ "device drivers for the installation to succeed.  Would you like to select "
-#~ "drivers now?"
-#~ msgstr ""
-#~ "Ingen harddisker ble funnet. Du må sannsynligvis velge en enhetsdriver "
-#~ "manuelt for å kunne fortsette installasjonen. Vil du velge drivere nå?"
-
-#~ msgid "FAILED"
-#~ msgstr "FEILET"
-
-#~ msgid "PASSED"
-#~ msgstr "OK"
-
-#~ msgid "It is OK to install from this media."
-#~ msgstr "Det er ok å installere fra dette mediet."
-
-#~ msgid "No checksum information available, unable to verify media."
-#~ msgstr "Ingen sjekksum tilgjengelig, kunne ikke kontrollere medie."
-
-#~ msgid "Media Check Result"
-#~ msgstr "Resultat av mediasjekk"
-
-#~ msgid ""
-#~ "%s for the image:\n"
-#~ "\n"
-#~ "   %s"
-#~ msgstr ""
-#~ "%s for avtrykket::\n"
-#~ "\n"
-#~ "   %s"
-
-#~ msgid ""
-#~ "The media check %s\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Mediesjekk %s\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your %s server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      %s for your architecture\n"
-#~ msgstr ""
-#~ "Skriv inn følgende informasjon:\n"
-#~ "\n"
-#~ "    o navnet eller IP-adressen til din %s-tjener\n"
-#~ "    o katalogen på den tjeneren som inneholder\n"
-#~ "      %s for din arkitektur\n"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Web"
-#~ msgstr "Web"
-
-#~ msgid "Web site name:"
-#~ msgstr "Navn på WWW-område:"
-
-#~ msgid "Use non-anonymous ftp"
-#~ msgstr "Bruk ikke-anonym ftp"
-
-#~ msgid "FTP Setup"
-#~ msgstr "FTP-oppsett"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "HTTP-oppsett"
-
-#~ msgid "You must enter a server name."
-#~ msgstr "Du må skrive inn et tjenernavn."
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password "
-#~ "you wish to use below."
-#~ msgstr ""
-#~ "Hvis du bruker ikke-anonym ftp, skriv inn kontonavnet og passordet "
-#~ "du ønsker å bruke nedenfor. Hvis du bruker en FTP-proxy, skriv inn navnet "
-#~ "til FTP-proxytjeneren som skal brukes."
-
-#~ msgid "Account name:"
-#~ msgstr "Kontonavn:"
-
-#~ msgid "Further HTTP Setup"
-#~ msgstr "Videre HTTP-oppsett"
-
-#~ msgid "_Release Notes"
-#~ msgstr "_Kommentarer til denne utgaven"
-
-#~ msgid "Exception Info"
-#~ msgstr "Informasjon om unntak"
-
-#~ msgid "_Exception details"
-#~ msgstr "D_etaljer om unntak"
-
-#~ msgid "_Save to floppy"
-#~ msgstr "Lagre til diskett (floppy)"

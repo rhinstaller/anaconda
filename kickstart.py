@@ -18,6 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from backend import NoSuchGroup
 import iutil
 import isys
 import os
@@ -1005,26 +1006,26 @@ def selectPackages(anaconda):
             default = True
             optional = True
 
-        num = anaconda.backend.selectGroup(grp.name, (default, optional))
-
-        if ksdata.packages.handleMissing == KS_MISSING_IGNORE:
-            continue
-        if num > 0:
-            continue
-        rc = anaconda.intf.messageWindow(_("Missing Group"),
-                                _("You have specified that the "
-                                  "group '%s' should be installed. "
-                                  "This group does not exist. "
-                                  "Would you like to continue or "
-                                  "abort your installation?")
-                                %(grp.name,),
-                                type="custom",
-                                custom_buttons=[_("_Abort"),
-                                                _("_Continue")])
-        if rc == 0:
-            sys.exit(1)
-        else:
-            pass
+        try:
+            anaconda.backend.selectGroup(grp.name, (default, optional))
+        except NoSuchGroup, e:
+            if ksdata.packages.handleMissing == KS_MISSING_IGNORE:
+                pass
+            else:
+                rc = anaconda.intf.messageWindow(_("Missing Group"),
+                                        _("You have specified that the "
+                                          "group '%s' should be installed. "
+                                          "This group does not exist. "
+                                          "Would you like to continue or "
+                                          "abort your installation?")
+                                        %(grp.name,),
+                                        type="custom",
+                                        custom_buttons=[_("_Abort"),
+                                                        _("_Continue")])
+                if rc == 0:
+                    sys.exit(1)
+                else:
+                    pass
 
     map(anaconda.backend.deselectPackage, ksdata.packages.excludedList)
 
