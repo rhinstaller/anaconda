@@ -234,7 +234,6 @@ class PartitionEditor:
                     request.targetSize = self.fsoptionsDict["resizesb"].get_value_as_int()
                 else:
                     request.targetSize = None
-                print "the target size for %s is %s" %(request.mountpoint, request.targetSize)
 
                 # set back if we are not formatting or migrating
 		origfstype = self.origrequest.origfstype
