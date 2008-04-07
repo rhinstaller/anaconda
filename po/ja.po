@@ -2,8 +2,9 @@
 # anaconda/ja.po
 # Copyright (C) 2001 Red Hat, Inc.
 # SATO Satoru <ssato@redhat.com>
+#
 # James Hashida <khashida@redhat.com>, 2002,2003.
-# Noriko Mizumoto <noriko@redhat.com>, 2003, 2004, 2006.
+# Noriko Mizumoto <noriko@redhat.com>, 2003, 2004, 2006, 2008.
 # Yoshinari Takaoka <mumumu@mx.edit.ne.jp>, 2004.
 # Tadashi Jokagi <fedora@elf.no-ip.org>, 2004, 2005.
 # Naoki Shigematsu <sigematu@linuxml.net>, 2004.
@@ -12,18 +13,19 @@
 # Hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>, 2007.
 # Kiyoto Hashida <khashida@redhat.com>, 2007.
 # Makoto Mizukami <mmk9060@aol.com>, 2008.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-04-03 22:02+0900\n"
-"Last-Translator: Makoto Mizukami <mmk9060@aol.com>\n"
+"PO-Revision-Date: 2008-04-07 17:18+1000\n"
+"Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
 "Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=1;plural=0;\n"
 
 #: ../anaconda:289
 #, c-format
@@ -120,8 +122,7 @@ msgstr "テキストモードインストールを強制するインストール
 
 #: ../anaconda:878
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"グラフィカルインストールは使用できません...テキストモードを起動中です。"
+msgstr "グラフィカルインストールは使用できません...テキストモードを起動中です。"
 
 #: ../anaconda:886
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -209,8 +210,7 @@ msgstr ""
 
 #: ../autopart.py:1069
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "ブートパーティション %s は、ご使用のアーキテクチャに関するブート制限を満たし"
 "ていない可能性があります。"
@@ -521,8 +521,7 @@ msgstr "dump が書き込まれました"
 msgid ""
 "Your system's state has been successfully written to the disk. The installer "
 "will now exit."
-msgstr ""
-"システム状態のディスク書き込みに成功しました。インストーラを終了します。"
+msgstr "システム状態のディスク書き込みに成功しました。インストーラを終了します。"
 
 #: ../exception.py:351 ../exception.py:368 ../exception.py:384
 msgid "Dump Not Written"
@@ -1274,8 +1273,7 @@ msgstr "イメージを検出できません。"
 
 #: ../livecd.py:108
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 "与えられた場所は、インストールソースとして使用するための有効な %s ライブ ディ"
 "スク ではありません。"
@@ -1315,8 +1313,7 @@ msgstr "ホスト名は 「a-z」 又は 「A-Z」 の範囲の有効な文字�
 
 #: ../network.py:65
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"ホスト名には 「a-z」、 「A-Z」、 「-」、 「.」以外の文字は使用できません。"
+msgstr "ホスト名には 「a-z」、 「A-Z」、 「-」、 「.」以外の文字は使用できません。"
 
 #: ../network.py:95
 msgid "IP address is missing."
@@ -1620,8 +1617,7 @@ msgstr "これは %s を含む拡張パーティションなので削除でき�
 
 #: ../partIntfHelpers.py:189 ../iw/raid_dialog_gui.py:607
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"このパーティションはハードドライブインストール用のデータを保有しています。"
+msgstr "このパーティションはハードドライブインストール用のデータを保有しています。"
 
 #: ../partIntfHelpers.py:195
 msgid ""
@@ -1639,8 +1635,7 @@ msgstr "削除の確認"
 #: ../partIntfHelpers.py:241
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"デバイス 「/dev/%s」上のすべてのパーティションを削除しようとしています。"
+msgstr "デバイス 「/dev/%s」上のすべてのパーティションを削除しようとしています。"
 
 #: ../partIntfHelpers.py:244 ../partIntfHelpers.py:535
 #: ../iw/lvm_dialog_gui.py:803 ../iw/lvm_dialog_gui.py:1152
@@ -1828,8 +1823,7 @@ msgid "Confirm Reset"
 msgstr "リセットの確認"
 
 #: ../partIntfHelpers.py:543
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "本当に、パーティションテーブル設定をリセットして元の状態に戻しますか?"
 
 #: ../partitions.py:84
@@ -1953,8 +1947,7 @@ msgstr ""
 "量には不足しています。"
 
 #: ../partitions.py:1163
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB デバイス上にインストールしています。稼動するシステムが作成されることもあ"
 "りますが、されないこともあります。"
@@ -1982,8 +1975,7 @@ msgstr "起動可能なパーティションを RAID デバイス上に作成す
 #: ../partitions.py:1194
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr ""
-"起動可能なパーティションを、ファイルシステム %s に作成することはできません。"
+msgstr "起動可能なパーティションを、ファイルシステム %s に作成することはできません。"
 
 #: ../partitions.py:1198
 msgid "Bootable partitions cannot be on an encrypted block device"
@@ -2038,8 +2030,7 @@ msgstr ""
 
 #: ../partRequests.py:278
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "マウントポイントが不適切です。 %s ディレクトリは / ファイルシステム上になけれ"
 "ばなりません。"
@@ -2055,8 +2046,7 @@ msgstr ""
 
 #: ../partRequests.py:290
 msgid "This mount point must be on a linux file system."
-msgstr ""
-"このマウントポイントは linux のファイルシステム上になければなりません。"
+msgstr "このマウントポイントは linux のファイルシステム上になければなりません。"
 
 #: ../partRequests.py:311
 #, python-format
@@ -2072,8 +2062,7 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"%s パーティションのサイズ (%10.2f MB) は最大サイズ %10.2f MB を超えています。"
+msgstr "%s パーティションのサイズ (%10.2f MB) は最大サイズ %10.2f MB を超えています。"
 
 #: ../partRequests.py:533
 #, python-format
@@ -2099,8 +2088,7 @@ msgstr "パーティションが負のシリンダーで終ることはできま
 
 #: ../partRequests.py:746
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"RAID 要求の中にメンバーが含まれていない、または RAID レベルが未指定です。"
+msgstr "RAID 要求の中にメンバーが含まれていない、または RAID レベルが未指定です。"
 
 #: ../partRequests.py:751
 #, python-format
@@ -2330,8 +2318,7 @@ msgid "Welcome to %s"
 msgstr "%s へようこそ"
 
 #: ../text.py:569
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> ヘルプ | <Tab> 項目間の移動 | <Space> 選択 | <F12> 次の画面"
 
 #: ../text.py:571
@@ -2358,8 +2345,7 @@ msgstr ""
 #: ../upgrade.py:110
 #, python-format
 msgid "Would you like to upgrade  the installed system to the %s architecture?"
-msgstr ""
-"インストールされたシステムを、%s アーキテクチャにアップグレードしますか?"
+msgstr "インストールされたシステムを、%s アーキテクチャにアップグレードしますか?"
 
 #: ../upgrade.py:127
 msgid ""
@@ -2757,8 +2743,7 @@ msgstr "パッケージの再ダウンロード..."
 
 #: ../yuminstall.py:715
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "トランザクションの実行中に次のような理由でエラーが発生しました。%s\n"
 
 #: ../yuminstall.py:748 ../yuminstall.py:749
@@ -2907,19 +2892,19 @@ msgstr ""
 
 #: ../yuminstall.py:1538
 msgid "Post Upgrade"
-msgstr "Post Upgrade"
+msgstr "アップグレード後"
 
 #: ../yuminstall.py:1539
 msgid "Performing post upgrade configuration..."
-msgstr "post upgrade の設定を実行中..."
+msgstr "アップグレード後の設定を実行中..."
 
 #: ../yuminstall.py:1541
 msgid "Post Install"
-msgstr "Post Install"
+msgstr "インストール後"
 
 #: ../yuminstall.py:1542
 msgid "Performing post install configuration..."
-msgstr "post install の設定を実行中..."
+msgstr "インストール後の設定を実行中..."
 
 #: ../yuminstall.py:1764
 msgid "Installation Progress"
@@ -3002,8 +2987,7 @@ msgstr ""
 "本当にこのパスワードを使いますか?"
 
 #: ../iw/account_gui.py:133 ../textw/userauth_text.py:72
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "要求されたパスワードには、パスワードに使用できない非 ASCII 文字が含まれていま"
 "す。"
@@ -3052,8 +3036,7 @@ msgstr ""
 
 #: ../iw/autopart_type.py:406 ../textw/partition_text.py:1519
 msgid "Use free space on selected drives and create default layout"
-msgstr ""
-"選択したドライブ上の空き領域を使用して、デフォルトレイアウトを作成します。"
+msgstr "選択したドライブ上の空き領域を使用して、デフォルトレイアウトを作成します。"
 
 #: ../iw/autopart_type.py:407 ../textw/partition_text.py:1520
 msgid "Create custom layout"
@@ -3200,7 +3183,7 @@ msgstr "%s に含まれるパッケージ"
 #, python-format
 msgid "%d of %d optional package selected"
 msgid_plural "%d of %d optional packages selected"
-msgstr[0] "%d 個中 %d 個の追加パッケージが選択されました。"
+msgstr[0] "%d 個 (全 %d 個) の追加パッケージが選択されました。"
 msgstr[1] "%d 個中 %d 個の追加パッケージが選択されました。"
 
 #: ../iw/GroupSelector.py:485
@@ -3398,8 +3381,7 @@ msgstr "不適切な論理ボリューム名"
 #: ../iw/lvm_dialog_gui.py:611 ../textw/partition_text.py:1253
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
+msgstr "論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
 
 #: ../iw/lvm_dialog_gui.py:625
 #, python-format
@@ -3952,17 +3934,13 @@ msgid "Partitioning"
 msgstr "パーティション設定"
 
 #: ../iw/partition_gui.py:638
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
-msgstr ""
-"あなたが要求したパーティション設定案は以下の重大なエラーを起こしました。"
+msgid "The partitioning scheme you requested caused the following critical errors."
+msgstr "あなたが要求したパーティション設定案は以下の重大なエラーを起こしました。"
 
 #: ../iw/partition_gui.py:640
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
-msgstr ""
-"%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
+msgid "You must correct these errors before you continue your installation of %s."
+msgstr "%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
 
 #: ../iw/partition_gui.py:646
 msgid "Partitioning Errors"
@@ -4298,8 +4276,7 @@ msgstr "クローン作成を行うターゲットドライブを選択してく
 #: ../iw/raid_dialog_gui.py:592
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
+msgstr "ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
 
 #: ../iw/raid_dialog_gui.py:611
 #, python-format
@@ -4446,8 +4423,7 @@ msgstr "無効なリポジトリ URL です。"
 
 #: ../iw/task_gui.py:188
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr ""
-"リポジトリには、HTTP, HTTPS, または FTP の URL を入力する必要があります。"
+msgstr "リポジトリには、HTTP, HTTPS, または FTP の URL を入力する必要があります。"
 
 #: ../iw/task_gui.py:232
 #, python-format
@@ -4488,8 +4464,7 @@ msgstr "インストーラーは現在システムで使用中のブートロー
 
 #: ../iw/upgrade_bootloader_gui.py:134 ../textw/upgrade_bootloader_text.py:117
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "インストーラーが現在 %s にインストールされている %s ブートローダーを検出しま"
 "した。"
@@ -4620,8 +4595,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap ファイルは 1 MB から 2000 MB の間の容量にしてください。"
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:182
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "swap パーティション用に選択したデバイスには十分な領域がありません。"
 
 #: ../iw/zipl_gui.py:35
@@ -4767,8 +4741,7 @@ msgstr ""
 "するブートラベルを設定してください。"
 
 #: ../textw/bootloader_text.py:294
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr "<Space> 選択 | <F2> デフォルト選択 | <F4> 削除 | <F12> 次の画面"
 
 #: ../textw/bootloader_text.py:390
@@ -4856,8 +4829,7 @@ msgid "Please select the package groups you would like to install."
 msgstr "インストールしたいパッケージグループを選択してください。"
 
 #: ../textw/grpselect_text.py:112
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr " <Space>,<+>,<-> 選択   |   <F2> グループの詳細   |   <F12> 次の画面"
 
 #: ../textw/grpselect_text.py:124
@@ -5215,8 +5187,7 @@ msgstr "ファイルシステムのオプション"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"このパーティションのファイルシステムをどのようにするか選択してください。"
+msgstr "このパーティションのファイルシステムをどのようにするか選択してください。"
 
 #: ../textw/partition_text.py:623
 msgid "Leave unchanged (preserve data)"
@@ -5240,8 +5211,7 @@ msgstr "サポートされていません"
 
 #: ../textw/partition_text.py:763
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr ""
-"LVM ボリュームグループはグラフィカルインストーラーでしか編集できません。"
+msgstr "LVM ボリュームグループはグラフィカルインストーラーでしか編集できません。"
 
 #: ../textw/partition_text.py:830 ../textw/partition_text.py:878
 msgid "Invalid Entry for Partition Size"
@@ -5315,8 +5285,7 @@ msgstr "新規のパーティションにしますか、新規の論理ボリュ
 
 #: ../textw/partition_text.py:1349
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr ""
-"新規のパーティションを作成しますか、新規の論理ボリュームを作成しますか?"
+msgstr "新規のパーティションを作成しますか、新規の論理ボリュームを作成しますか?"
 
 #: ../textw/partition_text.py:1351
 msgid "partition"
@@ -5343,8 +5312,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1433
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "  <F1>-ヘルプ   <F2>-新規    <F3>-編集  <F4>-削除    <F5>-リセット  <F12>-"
 "OK    "
@@ -5870,8 +5838,7 @@ msgstr "キックスタートの元となるドライバーディスクが不明
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"キックスタートのドライバーディスクコマンドに不正な引数が指定されました: %s %s"
+msgstr "キックスタートのドライバーディスクコマンドに不正な引数が指定されました: %s %s"
 
 #: ../loader2/driverselect.c:65
 #, c-format
@@ -5952,8 +5919,7 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
+msgstr "このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
 
 #: ../loader2/hdinstall.c:349
 #, c-format
@@ -6044,8 +6010,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%s (%s 用)へようこそ - レスキューモード"
 
 #: ../loader2/lang.c:65 ../loader2/loader.c:166
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> 項目間の移動 | <Space> 選択 | <F12> 次の画面 "
 
 #: ../loader2/lang.c:373
@@ -6195,14 +6160,12 @@ msgstr "ローダーはすでに実行されています。シェルの起動中
 #: ../loader2/loader.c:1946
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
-msgstr ""
-"anaconda %s を %s レスキューモードで実行中 - しばらくお待ちください...\n"
+msgstr "anaconda %s を %s レスキューモードで実行中 - しばらくお待ちください...\n"
 
 #: ../loader2/loader.c:1948
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr ""
-"anaconda %s・%s システムインストーラーを実行中 - しばらくお待ちください...\n"
+msgstr "anaconda %s・%s システムインストーラーを実行中 - しばらくお待ちください...\n"
 
 #: ../loader2/mediacheck.c:62
 #, c-format
@@ -6393,16 +6356,14 @@ msgid "Missing Information"
 msgstr "情報が不足しています"
 
 #: ../loader2/net.c:1225
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "有効な IPv4 アドレスとネットマスクまたは CIDR プレフィックスの両方を入力する"
 "必要があります。"
 
 #: ../loader2/net.c:1231
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr ""
-"有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
+msgstr "有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
 
 #: ../loader2/net.c:1552
 msgid "Determining host name and domain..."
@@ -6665,8 +6626,7 @@ msgid "Which Partition to resize"
 msgstr "リサイズするパーティション"
 
 #: tmp/autopart.glade.h:6
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
+msgid "Which partition would you like to resize to make room for your installation?"
 msgstr ""
 "インストール用の空き容量を作るために、サイズを変更するパーティションを選択し"
 "てください。"
@@ -6915,8 +6875,7 @@ msgstr "後でカスタマイズする(_l)"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"ソフトウェアのインストールに使用する予定の追加リポジトリを選択してください。"
+msgstr "ソフトウェアのインストールに使用する予定の追加リポジトリを選択してください。"
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -7182,466 +7141,3 @@ msgstr "ウェールズ語"
 msgid "Zulu"
 msgstr "ズールー語"
 
-#~ msgid "Mouse Configuration"
-#~ msgstr "マウスの設定"
-
-#~ msgid "/dev/ttyS0 (COM1 under DOS)"
-#~ msgstr "/dev/ttyS0 (DOS では COM1)"
-
-#~ msgid "/dev/ttyS1 (COM2 under DOS)"
-#~ msgstr "/dev/ttyS1 (DOS では COM2)"
-
-#~ msgid "/dev/ttyS2 (COM3 under DOS)"
-#~ msgstr "/dev/ttyS2 (DOS では COM3)"
-
-#~ msgid "/dev/ttyS3 (COM4 under DOS)"
-#~ msgstr "/dev/ttyS3 (DOS では COM4)"
-
-#~ msgid "_Model"
-#~ msgstr "モデル(_M)"
-
-#~ msgid "_Emulate 3 buttons"
-#~ msgstr "3 ボタンマウスのエミュレート(_E)"
-
-#~ msgid "Select the appropriate mouse for the system."
-#~ msgstr "システム用の適切なマウスを選択してください。"
-
-#~ msgid "What device is your mouse located on?"
-#~ msgstr "マウスを接続するデバイスを指定してください。"
-
-#~ msgid "Which model mouse is attached to this computer?"
-#~ msgstr "このコンピューターに接続されるマウスのモデルを選択してください。"
-
-#~ msgid "Emulate 3 Buttons?"
-#~ msgstr "3 ボタンマウスをエミュレートしますか?"
-
-#~ msgid "Mouse Selection"
-#~ msgstr "マウスの選択"
-
-#~ msgid "NFS"
-#~ msgstr "NFS"
-
-#~ msgid "Error pulling second part of kickstart config: %s!"
-#~ msgstr "キックスタート設定の第2部分を取り出し中にエラー: %s!"
-
-#~ msgid "Unknown install method"
-#~ msgstr "不明なインストール方法です"
-
-#~ msgid ""
-#~ "You have specified an install method which isn't supported by anaconda."
-#~ msgstr "anaconda がサポートしていないインストール方法が指定されています。"
-
-#~ msgid "unknown install method: %s"
-#~ msgstr "不明なインストール方法です: %s"
-
-#~ msgid ""
-#~ "You have chosen to remove all partitions (ALL DATA) on the following "
-#~ "drives:%s\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "次のドライブにあるすべてのパーティション(全データ)を削除することを選択して"
-#~ "います:%s\n"
-#~ "本当にすべて削除しますか?"
-
-#~ msgid ""
-#~ "You have chosen to remove all Linux partitions (and ALL DATA on them) on "
-#~ "the following drives:%s\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "次のドライブにあるすべての Linux パーティション(及びそのパーティションにあ"
-#~ "る全データ)を削除することを選択しています:%s\n"
-#~ "本当にすべてを削除しますか?"
-
-#~ msgid "Checking for Bad Blocks"
-#~ msgstr "不良ブロックを検査中"
-
-#~ msgid ""
-#~ "Bad blocks have been detected on device /dev/%s. We do not recommend you "
-#~ "use this device.\n"
-#~ "\n"
-#~ "Press <Enter> to exit the installer."
-#~ msgstr ""
-#~ "デバイス /dev/%s 上に不良ブロックが検出されました。このデバイスの使用は推"
-#~ "薦できません。\n"
-#~ "\n"
-#~ "「Enter」 を押してインストーラを終了してください。"
-
-#~ msgid ""
-#~ "An error occurred searching for bad blocks on %s.  This problem is "
-#~ "serious, and the install cannot continue.\n"
-#~ "\n"
-#~ "Press <Enter> to exit the installer."
-#~ msgstr ""
-#~ "%s 上の不良ブロックを検索中にエラーが発生しました。深刻な問題となるためイ"
-#~ "ンストールを続行できません。\n"
-#~ "\n"
-#~ "「Enter」 を押してインストーラを終了してください。"
-
-#~ msgid ""
-#~ "Please insert a floppy now. All contents of the disk will be erased, so "
-#~ "please choose your diskette carefully."
-#~ msgstr ""
-#~ "フロッピーディスクを挿入してください。ディスクの内容はすべて消去されますの"
-#~ "で、注意してディスクを選択してください。"
-
-#~ msgid ""
-#~ "The file %s cannot be opened.  This is due to a missing file or perhaps a "
-#~ "corrupt package.  Please verify your installation images and that you "
-#~ "have all the required media.\n"
-#~ "\n"
-#~ "If you exit, your system will be left in an inconsistent state that will "
-#~ "likely require reinstallation.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "ファイル %s を開けません。ファイルが欠落しているか、パッケージが破損してい"
-#~ "る可能性があります。 インストールイメージ及び必要となるメディアがすべて"
-#~ "揃っているか確認してください。\n"
-#~ "\n"
-#~ "終了するとシステムは矛盾した状態となり、再インストールを必要とする可能性が"
-#~ "高くなります。\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "The installer has tried to mount image #%s, but cannot find it on the "
-#~ "server.\n"
-#~ "\n"
-#~ "Please copy this image to the remote server's share path and click Retry. "
-#~ "Click Exit to abort the installation."
-#~ msgstr ""
-#~ "インストーラーがイメージ #%s のマウントを試行しましたが、サーバー上に見つ"
-#~ "かりません。\n"
-#~ "\n"
-#~ "このイメージをリモートサーバーの共有パスにコピーしてから再試行をクリックし"
-#~ "てください。インストールを中止するには「終了」をクリックします。"
-
-#~ msgid ""
-#~ "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  "
-#~ "in the Linux kernel does not allow for more than 15 partitions at this "
-#~ "time.  You will not be able to make changes to the partitioning of this "
-#~ "disk or use any partitions beyond /dev/%s15 in %s"
-#~ msgstr ""
-#~ "ドライブ /dev/%s には 15 を超えるパーティションがあります。現在の Linux "
-#~ "カーネルの SCSI サブシステムは 15 を超えるパーティションを認めていません。"
-#~ "このディスクのパーティション構成に変更を加えることはできず、/dev/%s15 を超"
-#~ "える %s の どのパーティションも使用できません。"
-
-#~ msgid "Low Memory"
-#~ msgstr "メモリ不足"
-
-#~ msgid ""
-#~ "As you don't have much memory in this machine, we need to turn on swap "
-#~ "space immediately. To do this we'll have to write your new partition "
-#~ "table to the disk immediately. Is that OK?"
-#~ msgstr ""
-#~ "このマシンのメモリが不足しているため、ただちに swap 領域を有効にする必要が"
-#~ "あります。新しいパーティションテーブルを直ちにディスクに書き込まなければな"
-#~ "りません。 よろしいですか?"
-
-#~ msgid "Save to Remote Host"
-#~ msgstr "リモートホストに保存"
-
-#~ msgid "Save Crash Dump"
-#~ msgstr "クラッシュダンプの保存"
-
-#~ msgid "Searching"
-#~ msgstr "検索中"
-
-#~ msgid "Searching for %s installations..."
-#~ msgstr "%s インストールを検索中..."
-
-#~ msgid "Connecting..."
-#~ msgstr "接続中..."
-
-#~ msgid ""
-#~ "The file %s cannot be opened.  This is due to a missing file or perhaps a "
-#~ "corrupt package.  Please verify your mirror contains all required "
-#~ "packages, and try using a different one.\n"
-#~ "\n"
-#~ "If you exit, your system will be left in an inconsistent state that will "
-#~ "likely require reinstallation.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "ファイル %s を開けません。ファイルが欠落しているか、パッケージが破損してい"
-#~ "る可能性があります。 ご使用のミラーに必要なパッケージがすべて含まれている"
-#~ "か確認し、また、別のミラーを使用してみてください。\n"
-#~ "\n"
-#~ "終了すると、システムは矛盾した状態のままになり再インストールが必要となる可"
-#~ "能性があります。\n"
-#~ "\n"
-
-#~ msgid "VNC Password Error"
-#~ msgstr "VNC パスワードのエラー"
-
-#~ msgid ""
-#~ "You need to specify a vnc password of at least 6 characters long.\n"
-#~ "\n"
-#~ "Press <return> to reboot your system.\n"
-#~ msgstr ""
-#~ "最低 6 文字の長さの vnc パスワードを指定する必要があります。\n"
-#~ "\n"
-#~ "[Enter] を押してシステムを再起動してください。\n"
-
-#~ msgid "Unable to set vnc password - using no password!"
-#~ msgstr "vnc パスワードを設定できません - パスワードを使用していません!"
-
-#~ msgid "Make sure your password is at least 6 characters in length."
-#~ msgstr "パスワードが 6 文字以上になっているか確認してください。"
-
-#~ msgid "Please connect to %s to begin the install..."
-#~ msgstr "インストールを開始するには %s に接続してください..."
-
-#~ msgid "Please connect to begin the install..."
-#~ msgstr "インストールを開始するために接続してください..."
-
-#~ msgid "Set Root Password"
-#~ msgstr "root パスワードを設定"
-
-#~ msgid "Advanced Boot Loader Configuration"
-#~ msgstr "高度なブートローダーの設定"
-
-#~ msgid "Force LBA32"
-#~ msgstr "LBA32 を強制使用"
-
-#~ msgid "_Force LBA32 (not normally required)"
-#~ msgstr "LBA32 の強制使用(通常は不必要)(_F)"
-
-#~ msgid ""
-#~ "If you wish to add default options to the boot command, enter them into "
-#~ "the 'General kernel parameters' field."
-#~ msgstr ""
-#~ "ブートコマンドにデフォルトのオプションを追加したい場合は「一般カーネルパラ"
-#~ "メーター」の領域に入力します。"
-
-#~ msgid "_General kernel parameters"
-#~ msgstr "一般カーネルパラメーター(_G)"
-
-#~ msgid "The %s boot loader will be installed on /dev/%s."
-#~ msgstr "%s ブートローダーは、/dev/%s 上にインストールされます。"
-
-#~ msgid "No boot loader will be installed."
-#~ msgstr "ブートローダーはインストールされません。"
-
-#~ msgid "Configure advanced boot loader _options"
-#~ msgstr "高度なブートローダーオプションの設定(_O)"
-
-#~ msgid "Install Boot Loader record on:"
-#~ msgstr "ブートローダーの記録をインストールする場所:"
-
-#~ msgid "_Change Drive Order"
-#~ msgstr "ドライブの順序を変更(_C)"
-
-#~ msgid ""
-#~ "Arrange the drives to be in the same order as used by the BIOS. Changing "
-#~ "the drive order may be useful if you have multiple SCSI adapters or both "
-#~ "SCSI and IDE adapters and want to boot from the SCSI device.\n"
-#~ "\n"
-#~ "Changing the drive order will change where the installation program "
-#~ "locates the Master Boot Record (MBR)."
-#~ msgstr ""
-#~ "BIOS で使用されているのと同じ順でドライブを配置します。複数の SCSI アダプ"
-#~ "ターや SCSI と IDE アダプターの組合せを使用していて、SCSI デバイスからブー"
-#~ "トしたい場合にドライブの順序を変更するとよいかもしれません。\n"
-#~ "\n"
-#~ "ドライブ順を変更することは、インストールプログラムがマスターブートレコー"
-#~ "ド (MBR)の位置を変えることになります。"
-
-#~ msgid "About to Install"
-#~ msgstr "インストール準備完了"
-
-#~ msgid "Click next to begin installation of %s."
-#~ msgstr "[次] をクリックすると %s. のインストールを開始します。"
-
-#~ msgid ""
-#~ "A complete log of the installation can be found in the file '%s' after "
-#~ "rebooting your system.\n"
-#~ "\n"
-#~ "A kickstart file containing the installation options selected can be "
-#~ "found in the file '%s' after rebooting the system."
-#~ msgstr ""
-#~ "インストール作業の完全なログは、システムを再起動した後に %s ファイルの中で"
-#~ "見ることが出来ます。\n"
-#~ "\n"
-#~ "選択したインストールオプションを含むキックスタートファイルは、システムの再"
-#~ "起動後、%sファイルの中にあります。"
-
-#~ msgid "About to Upgrade"
-#~ msgstr "アップグレード準備完了"
-
-#~ msgid "Click next to begin upgrade of %s."
-#~ msgstr "[次]をクリックすると %s. のアップグレードを開始します。"
-
-#~ msgid ""
-#~ "A complete log of the upgrade can be found in the file '%s' after "
-#~ "rebooting your system."
-#~ msgstr ""
-#~ "アップグレード作業の完全なログは、システムの再起動後に%sファイルの中で見る"
-#~ "ことができます。"
-
-#~ msgid "Drive"
-#~ msgstr "ドライブ"
-
-#~ msgid "Model"
-#~ msgstr "モデル"
-
-#~ msgid "Netmask"
-#~ msgstr "ネットマスク"
-
-#~ msgid ""
-#~ "You can configure the boot loader to boot other operating systems by "
-#~ "selecting from the list. To add an operating systems that was not "
-#~ "automatically detected, click 'Add.' To change the operating system "
-#~ "booted by default, select 'Default' next to the desired operating system."
-#~ msgstr ""
-#~ "一覧から選択することで他のオペレーティングシステムをブートできるようにブー"
-#~ "トローダーを設定することができます。 自動的には認識されない他のオペレー"
-#~ "ティングシステムを追加するには、「追加」をクリックします。デフォルトでブー"
-#~ "トするオペレーティングシステムを変更するには、そうしたいオペレーティングシ"
-#~ "ステムの横の「デフォルト」を選択します。"
-
-#~ msgid "Leave _unchanged (preserve data)"
-#~ msgstr "変更しないで残す(データを保存)(_U)"
-
-#~ msgid "_Format partition as:"
-#~ msgstr "次のパーティションタイプでフォーマット(_F):"
-
-#~ msgid "Check for _bad blocks?"
-#~ msgstr "不良ブロックをチェックしますか(_B)?"
-
-#~ msgid "Release notes are missing.\n"
-#~ msgstr "リリースノートが見つかりません。\n"
-
-#~ msgid "Release Notes"
-#~ msgstr "リリースノート"
-
-#~ msgid "Unable to load file!"
-#~ msgstr "ファイルを読み込めません!"
-
-#~ msgid "Installation to begin"
-#~ msgstr "インストール開始"
-
-#~ msgid ""
-#~ "A complete log of your installation will be in %s after rebooting your "
-#~ "system. You may want to keep this file for later reference."
-#~ msgstr ""
-#~ "インストールに関する全記録は、システムの再起動後 %s に保存されます。後日、"
-#~ "参照できるようにこのファイルを保管しておくことをお勧めします。"
-
-#~ msgid "Upgrade to begin"
-#~ msgstr "アップグレード開始"
-
-#~ msgid ""
-#~ "A complete log of your upgrade will be in %s after rebooting your system. "
-#~ "You may want to keep this file for later reference."
-#~ msgstr ""
-#~ "アップグレードに関する全記録は、システムの再起動後 %s に保存されます。後"
-#~ "日、参照できるようにこのファイルを保管しておくことをお勧めします。"
-
-#~ msgid "%s, %s, %s"
-#~ msgstr "%s, %s, %s"
-
-#~ msgid "%s, %s"
-#~ msgstr "%s, %s"
-
-#~ msgid "Check for bad blocks"
-#~ msgstr "不良ブロックをチェックする"
-
-#~ msgid ""
-#~ "No hard drives have been found.  You probably need to manually choose "
-#~ "device drivers for the installation to succeed.  Would you like to select "
-#~ "drivers now?"
-#~ msgstr ""
-#~ "ハードドライブが検出されませんでした。インストールを成功させるには、恐らく"
-#~ "デバイスドライバーを手動で選択する必要があります。ここでドライバーを選択し"
-#~ "ますか?"
-
-#~ msgid "FAILED"
-#~ msgstr "失敗"
-
-#~ msgid "PASSED"
-#~ msgstr "パス"
-
-#~ msgid "It is OK to install from this media."
-#~ msgstr "このメディアからのインストールに問題はありません。"
-
-#~ msgid "No checksum information available, unable to verify media."
-#~ msgstr "チェックサムの情報がなく、メディアの検証ができません。"
-
-#~ msgid "Media Check Result"
-#~ msgstr "メディアチェックの結果"
-
-#~ msgid ""
-#~ "%s for the image:\n"
-#~ "\n"
-#~ "   %s"
-#~ msgstr ""
-#~ "イメージの %s\n"
-#~ "\n"
-#~ "   %s"
-
-#~ msgid ""
-#~ "The media check %s\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s のメディアチェック\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your %s server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      %s for your architecture\n"
-#~ msgstr ""
-#~ "以下の情報を入力してください。\n"
-#~ "\n"
-#~ "    o %s サーバーの名前または IP アドレス\n"
-#~ "    o そのサーバーにあるご使用のアーキテクチャ用の\n"
-#~ "       %s を含むディレクトリ\n"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Web"
-#~ msgstr "ウェブ"
-
-#~ msgid "Web site name:"
-#~ msgstr "Web サイト名:"
-
-#~ msgid "Use non-anonymous ftp"
-#~ msgstr "非 anonymous (匿名) FTP を使用"
-
-#~ msgid "FTP Setup"
-#~ msgstr "FTP の設定"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "HTTP の設定"
-
-#~ msgid "You must enter a server name."
-#~ msgstr "サーバー名を入力してください。"
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password "
-#~ "you wish to use below."
-#~ msgstr ""
-#~ "anonymous (匿名)ではない FTP を使用している場合、使用するアカウント名およ"
-#~ "びパスワードを以下に入力してください。"
-
-#~ msgid "Account name:"
-#~ msgstr "アカウント名:"
-
-#~ msgid "Further HTTP Setup"
-#~ msgstr "HTTP の追加設定"
-
-#~ msgid "_Release Notes"
-#~ msgstr "リリースノート(_R)"
-
-#~ msgid "Exception Info"
-#~ msgstr "例外の情報"
-
-#~ msgid "_Exception details"
-#~ msgstr "例外の詳細(_E)"
-
-#~ msgid "_Save to floppy"
-#~ msgstr "フロッピーに保存 (_S)"
