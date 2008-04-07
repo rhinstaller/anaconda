@@ -332,6 +332,9 @@ class AnacondaYum(YumSorter):
         if not flags.setupFilesystems:
             return
 
+        if self._loopbackFile and os.path.exists(self._loopbackFile):
+            return
+
         stage2img = None
 
         if os.path.exists("/tmp/stage2.img"):
@@ -884,6 +887,9 @@ class YumBackend(AnacondaBackend):
                 pass
 
     def doInitialSetup(self, anaconda):
+        if anaconda.dir == DISPATCH_BACK:
+            return DISPATCH_BACK
+
         if anaconda.id.getUpgrade():
            # FIXME: make sure that the rpmdb doesn't have stale locks :/
            self._resetRpmDb(anaconda.rootPath)
