@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.66
+Version: 11.4.0.67
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,37 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 08 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.67-1
+- Set the initial state of the auto-encrypt checkbutton (#441018) (katzj)
+- Don't treat RAID devices as "disks" to avoid lots of odd
+  behavior (#438358) (katzj)
+- Log a message if we disable selinux on upgrade (katzj)
+- Build efiboot.img on x86_64 and i386 . (pjones)
+- When splitting srpms, only link srpms, nothing else. (jkeating)
+- Don't cause the text to flicker between installed packages. (clumens)
+- Don't cause the screen to jump up and down between
+  packages (#441160). (clumens)
+- Fix zooming and centering in the timezone screen (#439832). (clumens)
+- Handle ia64 kernel path (katzj)
+- And add nas to the list (#439255) (katzj)
+- Set parent so that the dialog centers (#441361) (katzj)
+- Don't show the label column (#441352) (katzj)
+- Do string substitution after we've translated (#441053) (katzj)
+- Set domain on glade file so translations show up (#441053) (katzj)
+- fix compression of modules (notting)
+- More build fixing due to translation breakage. (katzj)
+- Add code to create efiboot.img on i386 and x86_64 (pjones)
+- Remove gnome-panel too, it's no longer multilib. (jkeating)
+- Fix raising new NoSuchGroup exception. (clumens)
+- remove debugging print (notting)
+- Support encrypted RAID member devices. (#429600) (dlehman)
+- No longer require Amiga partitions on Pegasos (dwmw2)
+- Don't copy the stage2 image every time or on the way back. (clumens)
+- Make lukscb.get_data("encrypt") always return a valid value. (pjones)
+- Set the scrollbar color so it doesn't surprise me the same way in
+  the future. (pjones)
+- Translation updates.
+
 * Sun Apr 06 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.66-1
 - Another day, another broken translation commit to fix. (katzj)
 - Work around GL crashes in anaconda X by disabling them. (jkeating)
@@ -248,8 +279,6 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 * Mon Mar 31 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.64-1
 - Fix my tyop (katzj)
 - Fuzzy broken string again (katzj)
-- Merge branch 'master' of git+ssh://git.fedoraproject.org/git/hosted/anaconda (katzj)
-- 2008-03-30  Yulia Poyarkova <ypoyarko)
 
 * Sun Mar 30 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.63-1
 - Fix broken translations.  Again. (katzj)
