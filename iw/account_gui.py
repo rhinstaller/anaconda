@@ -121,7 +121,7 @@ class AccountWindow (InstallWindow):
                                           _("Weak password provided: %s"
                                             "\n\n"
                                             "Would you like to continue with "
-                                            "this password?" % (msg, )),
+                                            "this password?") % (msg, ),
                                           type = "yesno")
             if ret == 0:
                 self.passwordError()

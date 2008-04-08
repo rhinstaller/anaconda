@@ -362,6 +362,8 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
         srpm_disc_list = self.src_list
         # create a list of [[size, srpm]]
         for srpm in os.listdir("%s" % self.src_dir):
+            if not srpm.endswith('.rpm'):
+                continue
             srpm_size = self.getSize("%s/%s" % (self.src_dir, srpm), blocksize=1)
             srpm_list.append([srpm_size, srpm])
 

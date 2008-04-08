@@ -135,7 +135,7 @@ class InstallProgressWindow (InstallWindow):
             box.add(self.adpix)
             self.adbox = box
             frame.add(box)
-            vbox.pack_start(frame);
+            vbox.pack_start(frame, False)
 
 
 	self.progress = gtk.ProgressBar()

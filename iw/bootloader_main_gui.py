@@ -107,6 +107,7 @@ class MainBootloaderWindow(InstallWindow):
         (dxml, dialog) = gui.getGladeWidget("blwhere.glade",
                                             "blwhereDialog")
         gui.addFrame(dialog)
+        dialog.set_transient_for(self.parent)
         dialog.show()
 
         choices = anaconda.id.fsset.bootloaderChoices(anaconda.id.diskset,

@@ -195,7 +195,6 @@ class AnacondaCallback:
             self.doneSize += self.inProgressPo.returnSimple("installedsize") / 1024.0
             self.doneFiles += len(hdr[rpm.RPMTAG_BASENAMES])
 
-            self.progress.set_label("")
             if self.donepkgs <= self.numpkgs:
                 self.progress.set_text(_("%s of %s packages completed")
                                        %(self.donepkgs, self.numpkgs))

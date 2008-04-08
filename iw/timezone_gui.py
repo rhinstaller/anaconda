@@ -27,7 +27,7 @@ import zonetab
 import pango
 import sys
 
-from timezone_map_gui import TimezoneMap
+from timezone_map_gui import TimezoneMap, Enum
 from rhpl.translate import _, textdomain
 from iw_gui import *
 from bootloaderInfo import dosFilesystems
@@ -110,6 +110,10 @@ class TimezoneWindow(InstallWindow):
         return self.vbox
 
 class AnacondaTZMap(TimezoneMap):
+    def __init__(self, zonetab, default, map="", viewportWidth=480):
+        TimezoneMap.__init__(self, zonetab, default, map=map, viewportWidth=viewportWidth)
+        self.columns = Enum("TRANSLATED", "TZ", "ENTRY")
+
     def status_bar_init(self):
         self.status = None
 
@@ -130,11 +134,12 @@ class AnacondaTZMap(TimezoneMap):
                     # York as the default.
                     self.fallbackEntry = entry
 
-            iter = self.tzStore.insert_after(iter, [_(entry.tz), entry.tz])
+            iter = self.tzStore.insert_after(iter, [_(entry.tz), entry.tz, entry])
 
     def timezone_list_init (self, default):
         self.hbox = gtk.HBox()
-        self.tzStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+        self.tzStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING,
+                                     gobject.TYPE_PYOBJECT)
 
         root = self.canvas.root()
 
@@ -155,8 +160,13 @@ class AnacondaTZMap(TimezoneMap):
 
     def selectionChanged(self, widget, *args):
         iter = widget.get_active_iter()
-        entry = self.zonetab.findEntryByTZ(widget.get_model().get_value(iter, 1))
-        self.setCurrent(entry)
+        if iter is None:
+            return
+        entry = widget.get_model().get_value(iter, self.columns.ENTRY)
+        if entry:
+            self.setCurrent (entry, skipList=1)
+            if entry.long != None and entry.lat != None:
+                self.move_to (entry.long, entry.lat)
 
     def updateTimezoneList(self):
         # Find the currently selected item in the combo box and update both
