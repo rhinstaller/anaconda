@@ -217,7 +217,8 @@ class FileSystemType:
                                                  mountpoint, self.getMountName()))
         isys.mount(device, "%s/%s" %(instroot, mountpoint),
                    fstype = self.getMountName(), 
-                   readOnly = readOnly, bindMount = bindMount)
+                   readOnly = readOnly, bindMount = bindMount,
+                   options = self.defaultOptions)
 
         if flags.selinux:
             ret = isys.resetFileContext(mountpoint, instroot)
@@ -939,6 +940,7 @@ class FATFileSystem(FileSystemType):
         self.maxSizeMB = 1024 * 1024
         self.name = "vfat"
         self.packages = [ "dosfstools" ]
+        self.defaultOptions = "umask=0077,shortname=winnt"
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -980,10 +982,9 @@ class EFIFileSystem(FATFileSystem):
     def __init__(self):
         FATFileSystem.__init__(self)
         self.name = "efi"
-        self.partedFileSystemType = parted.file_system_type_get("fat32")
         self.partedPartitionFlags = [ parted.PARTITION_BOOT ]
         self.maxSizeMB = 256
-        self.defaultOptions = "uid=0,gid=0,umask=0077,shortname=winnt"
+        self.defaultOptions = "umask=0077,shortname=winnt"
 
     def getMountName(self, quoted = 0):
         return "vfat"

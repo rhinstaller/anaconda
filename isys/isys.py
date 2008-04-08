@@ -307,9 +307,10 @@ def ddfile(file, megs, pw = None):
 # @param bindMount Is this a bind mount?  (see the mount(8) man page)
 # @param remount Are we mounting an already mounted filesystem?
 # @return The return value from the mount system call.
-def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remount = 0):
+def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remount = 0, options = "defaults"):
     flags = None
     location = os.path.normpath(location)
+    opts = string.split(options)
 
     # We don't need to create device nodes for devices that start with '/'
     # (like '/usbdevfs') and also some special fake devices like 'proc'.
@@ -323,7 +324,6 @@ def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remoun
 	return
 
     if readOnly or bindMount or remount:
-        opts = []
         if readOnly:
             opts.append("ro")
         if bindMount:
