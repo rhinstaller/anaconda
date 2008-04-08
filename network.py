@@ -74,14 +74,17 @@ def isPtpDev(devname):
     return 0
 
 # determine whether any active at boot devices are using dhcp
-def anyUsingDHCP(devices):
+def anyUsingDHCP(devices, anaconda):
     for dev in devices.keys():
-        bootproto = devices[dev].get("bootproto")
-        if bootproto and bootproto.lower() == "dhcp":
-            onboot = devices[dev].get("onboot")
-            if onboot and onboot != "no":
-                return 1
-    return 0
+        bootproto = devices[dev].get("bootproto").lower()
+        if bootproto and bootproto in ['query', 'dhcp']:
+            if anaconda.rescue:
+                return True
+            else:
+                onboot = devices[dev].get("onboot")
+                if onboot and onboot != "no":
+                    return True
+    return False
 
 # sanity check an IP string.
 def sanityCheckIPString(ip_string):

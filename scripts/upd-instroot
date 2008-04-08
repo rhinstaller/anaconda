@@ -203,7 +203,8 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump groff
                 findutils ftp gzip iputils joe krb5-libs less man
                 modutils mtools mt-st mtr net-tools open smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
-                device-mapper device-mapper-multipath kpartx dmraid"
+                device-mapper device-mapper-multipath kpartx dmraid
+                dhclient dhcpv6-client"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGESRESCUE="$PACKAGESRESCUE gpart grub"
@@ -871,6 +872,8 @@ bin/zcat
 etc/joe/*
 sbin/arp
 sbin/depmod
+sbin/dhclient
+sbin/dhcp6c
 sbin/dump
 sbin/ifconfig
 sbin/insmod

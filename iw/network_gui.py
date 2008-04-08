@@ -62,7 +62,7 @@ class NetworkWindow(InstallWindow):
 	# boxes.  Otherwise, don't clear the values out if we are doing
 	# kickstart since we could be in interactive mode.  Don't want to
 	# write out a broken resolv.conf later on, after all.
-	if not self.anyUsingDHCP():
+	if not network.anyUsingDHCP(self.devices, anaconda):
 	    tmpvals = {}
 	    for t in range(len(global_options)):
 		try:
@@ -117,7 +117,7 @@ class NetworkWindow(InstallWindow):
 
     def setHostOptionsSensitivity(self):
         # figure out if they have overridden using dhcp for hostname
-	if self.anyUsingDHCP():
+	if network.anyUsingDHCP(self.devices, anaconda):
 	    self.hostnameUseDHCP.set_sensitive(1)
 
 	    if self.hostname != "localhost.localdomain" and self.network.overrideDHCPhostname:
@@ -134,7 +134,7 @@ class NetworkWindow(InstallWindow):
 	if numactive == 0:
 	    state = False
 	else:
-	    state = not self.anyUsingDHCP()
+	    state = not network.anyUsingDHCP(self.devices, anaconda)
 
 	self.ipTable.set_sensitive(state)
 
@@ -330,17 +330,6 @@ class NetworkWindow(InstallWindow):
 
 	return numactive
 
-    def anyUsingDHCP(self):
-	for device in self.devices.keys():
-	    bootproto = self.devices[device].get("bootproto")
-
-	    if bootproto and bootproto.lower() in ['query', 'dhcp']:
-		onboot = self.devices[device].get("ONBOOT")
-		if onboot != "no":
-		    return 1
-
-	return 0
-	
     def onbootToggleCB(self, row, data):
 	model = self.ethdevices.get_model()
 	iter = model.get_iter((string.atoi(data),))
@@ -519,7 +508,7 @@ class NetworkWindow(InstallWindow):
 	# bring over the value from the loader
 	self.hostnameEntry.set_text(self.network.hostname)
 
-	if not self.anyUsingDHCP():
+	if not network.anyUsingDHCP(self.devices, anaconda):
 	    if self.network.gateway:
                 self.globals[_("Gateway")].set_text(self.network.gateway)
 	    if self.network.primaryNS:
@@ -541,7 +530,7 @@ class NetworkWindow(InstallWindow):
 	self.hostnameEntry.set_sensitive(not self.hostnameUseDHCP.get_active())
 	self.setIPTableSensitivity()
 
-        self.hostnameUseDHCP.set_sensitive(self.anyUsingDHCP())
+        self.hostnameUseDHCP.set_sensitive(network.anyUsingDHCP(self.devices, network))
 
 	return box
 

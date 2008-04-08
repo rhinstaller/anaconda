@@ -618,18 +618,23 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     char * device = NULL;
     char * class = NULL;
     char * r = NULL;
-    char buf[47];
+    char buf[48];
     time_t timeout = 45;
     struct pumpNetIntf *pumpdev = NULL;
     /* FIXME: we call this from rescue mode, need to pass in what user wants */
     DHCP_Preference pref = DHCPv6_DISABLE_RESOLVER|DHCPv4_DISABLE_HOSTNAME_SET;
-    int status, shmpump, i;
+    int status, shmpump = -1, i;
     pid_t pid;
     key_t key;
     ip_addr_t *tip;
     PyObject * rc;
 
-    if (!PyArg_ParseTuple(args, "s|s", &device, &class))
+    /* XXX: known bug with libdhcp+libdhcp6client, disabling for now as a
+     * workaround (problem started in BZ #435978)
+     */
+    pref |= DHCPv6_DISABLE;
+
+    if (!PyArg_ParseTuple(args, "s|z", &device, &class))
         return NULL;
 
     if (class == NULL)
@@ -646,12 +651,14 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
         return Py_None;
     }
 
-    pumpdev = (struct pumpNetIntf *) shmat(shmpump, (void *) pumpdev, SHM_RND);
+    pumpdev = (struct pumpNetIntf *) shmat(shmpump, (void *) pumpdev,
+                                           SHM_RND);
     if (((void *) pumpdev) == ((void *) -1)) {
         Py_INCREF(Py_None);
         return Py_None;
     }
 
+    memset(pumpdev->device, '\0', IF_NAMESIZE);
     strncpy(pumpdev->device, device, IF_NAMESIZE);
 
     /* call libdhcp in a separate process because libdhcp is bad */

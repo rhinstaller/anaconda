@@ -260,6 +260,11 @@ class NetworkDeviceWindow:
 
     def runIPv4Screen(self, screen, dev):
         bootproto = dev.get('bootproto').lower()
+        if not bootproto == "query" and \
+           not bootproto == "dhcp" and \
+           not bootproto == "static":
+            dev.set(('bootproto', 'dhcp'))
+            bootproto = dev.get('bootproto').lower()
 
         radio = RadioGroup()
 
@@ -688,7 +693,7 @@ class NetworkGlobalWindow:
 
         # we don't let you set gateway/dns if you've got any interfaces
         # using dhcp (for better or worse)
-        if network.anyUsingDHCP(devices):
+        if network.anyUsingDHCP(devices, anaconda):
             return INSTALL_NOOP
 
         thegrid = Grid(2, 4)
@@ -776,7 +781,7 @@ class HostnameWindow:
             return INSTALL_NOOP
 
         # figure out if the hostname is currently manually set
-        if network.anyUsingDHCP(devices):
+        if network.anyUsingDHCP(devices, anaconda):
             if (anaconda.id.network.hostname != "localhost.localdomain" and
                 anaconda.id.network.overrideDHCPhostname):
                 manual = 1
@@ -799,7 +804,7 @@ class HostnameWindow:
                          anchorLeft = 1)            
 
         # disable the dhcp if we don't have any dhcp
-        if network.anyUsingDHCP(devices):
+        if network.anyUsingDHCP(devices, anaconda):
             autoCb.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)            
         else:
             autoCb.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)

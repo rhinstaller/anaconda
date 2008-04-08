@@ -131,7 +131,7 @@ def startNetworking(network, intf):
 	log.info("Attempting to start %s", dev.get('device'))
 	if dev.get('bootproto') == "dhcp":
 	    try:
-		ns = isys.pumpNetDevice(dev.get('device'))
+		ns = isys.dhcpNetDevice(dev.get('device'))
 		if ns:
 		    if not dhcpGotNS:
 			dhcpGotNS = 1

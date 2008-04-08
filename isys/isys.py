@@ -543,17 +543,10 @@ def resetResolv():
 def setResolvRetry(count):
     return _isys.setresretry(count)
 
-def dhcpNetDevice(device, klass = None):
+def dhcpNetDevice(device, dhcpclass=None):
     # returns None on failure, "" if no nameserver is found, nameserver IP
     # otherwise
-    if klass is not None:
-        return _isys.dhcpnetdevice(device, klass)
-    else:
-        return _isys.dhcpnetdevice(device)
-
-def pumpNetDevice(device, klass = None):
-    return dhcpNetDevice(device, klass)
-
+    return _isys.dhcpnetdevice(device, dhcpclass)
 
 def readXFSLabel_int(device):
     try:
