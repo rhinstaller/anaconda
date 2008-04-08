@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.111
+Version: 11.1.2.112
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 08 2008 Chris Lumens <clumens@redhat.com> 11.1.2.112-1
+- Make isys.dhcpNetDevice() work in rescue mode (dcantrell).
+  Related: rhbz#435978
+
 * Wed Apr 02 2008 Chris Lumens <clumens@redhat.com> 11.1.2.111-1
 - Don't rebuild the initrds if no modules were installed.
   Resolves: rhbz#439379
