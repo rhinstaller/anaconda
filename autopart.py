@@ -78,7 +78,7 @@ def bootRequestCheck(req, diskset):
             if not part.fs_type.name.startswith("ext"):
                 return BOOT_NOT_EXT2
         elif req.mountpoint == "/boot/efi":
-            if not part.fs_type.name in ("FAT", "fat16", "fat32"):
+            if not part.fs_type.name in ["fat16", "fat32"]:
                 return BOOTEFI_NOT_VFAT
     elif rhpl.getArch() == "alpha":
         return bootAlphaCheckRequirements(part)
@@ -873,6 +873,9 @@ def setPreexistParts(diskset, requests):
         part = disk.next_partition()
         while part:
             if part.geom.start == request.start and part.geom.end == request.end:
+                if partedUtils.isEfiSystemPartition(part) and \
+                        request.fstype.name == "vfat":
+                    request.fstype = fsset.fileSystemTypeGet("efi")
                 # if the partition is being resized, we do that now
                 if request.targetSize is not None:
                     startSec = part.geom.start
@@ -1161,7 +1164,8 @@ def doClearPartAction(anaconda, partitions, diskset):
                                                  part.geom.end)
                 partitions.addDelete(delete)
 
-            # EFI autopartitioning is strange as /boot/efi is vfat --
+            # EFI autopartitioning is strange as /boot/efi is efi (which is
+            # really vfat) --
             # if linuxonly and have an msdos partition and it has the
             # bootable flag set, do not delete it and make it our
             # /boot/efi as it could contain system utils.
@@ -1171,6 +1175,7 @@ def doClearPartAction(anaconda, partitions, diskset):
                     req = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
                     req.mountpoint = "/boot/efi"
                     req.format = 0
+                    req.fstype = fsset.fileSystemTypeGet("efi")
 
                     request = None
                     for req in partitions.autoPartitionRequests:
