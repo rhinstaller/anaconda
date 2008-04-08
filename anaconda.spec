@@ -127,6 +127,7 @@ Requires: createrepo >= 0.4.7, squashfs-tools, mkisofs
 %ifarch %{ix86} x86_64
 Requires: syslinux
 Requires: makebootfat
+Requires: dmsetup
 %endif
 %ifarch s390 s390x
 Requires: openssh
@@ -135,6 +136,7 @@ Requires: xorg-x11-font-utils, netpbm-progs
 Requires: busybox-anaconda
 Requires: isomd5sum
 Requires: yum-utils >= 1.1.11-3
+Requires: util-linux
 
 %description runtime
 The anaconda-runtime package contains parts of the installation system which 
