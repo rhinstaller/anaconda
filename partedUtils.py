@@ -185,8 +185,9 @@ def get_partition_file_system_type(part):
         ptype = fsset.fileSystemTypeGet("swap")
     elif isEfiSystemPartition(part):
         ptype = fsset.fileSystemTypeGet("efi")
-    elif (part.fs_type.name == "FAT" or part.fs_type.name == "fat16"
-          or part.fs_type.name == "fat32"):
+    elif isEfiSystemPartition(part):
+        ptype = fsset.fileSystemTypeGet("efi")
+    elif part.fs_type.name in ("fat16", "fat32"):
         ptype = fsset.fileSystemTypeGet("vfat")
     else:
         try:
@@ -307,11 +308,11 @@ def hasGptLabel(diskset, device):
     return disk.type.name == "gpt"
 
 def isEfiSystemPartition(part):
-    return (part.disk.type.name == "gpt" and
+    return (part.is_active() and
+            part.disk.type.name == "gpt" and
             part.get_name() == "EFI System Partition" and
             part.get_flag(parted.PARTITION_BOOT) == 1 and
-            (part.fs_type.name == "FAT" or part.fs_type.name == "fat16"
-             or part.fs_type.name == "fat32"))
+            part.fs_type.name in ("fat16", "fat32"))
 
 archLabels = {'i386': ['msdos', 'gpt'],
               's390': ['dasd', 'msdos'],
@@ -1359,7 +1360,7 @@ class DiskSet:
 
         drives = []
         for d in isys.removableDriveDict().items():
-            func = lambda p: not p.get_flag(parted.PARTITION_RAID) and not p.get_flag(parted.PARTITION_LVM) and p.fs_type.name in ["ext3", "ext2", "vfat"]
+            func = lambda p: not p.get_flag(parted.PARTITION_RAID) and not p.get_flag(parted.PARTITION_LVM) and p.fs_type.name in ["ext3", "ext2", "fat16", "fat32"]
 
             disk = self.disks[d[0]]
             parts = filter_partitions(disk, func)
