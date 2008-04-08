@@ -780,8 +780,13 @@ for KERNELARCH in $arches; do
 
     if [ "${kernelvers}" = "kernel-xen" ]; then kerneltag="xen" ; fi
 
-    vmlinuz=$(rpm --nodigest --nosignature -qpl $kpackage |grep ^/boot/vmlinuz | head -n 1)
-    version=${vmlinuz##/boot/vmlinuz-}
+    if [ "$BUILDARCH" = "ia64" ]; then
+	vmlinuz=$(rpm --nodigest --nosignature -qpl $kpackage |grep ^/boot/efi/EFI/redhat/vmlinuz | head -n 1)
+	version=${vmlinuz##/boot/efi/EFI/redhat/vmlinuz-}
+    else
+	vmlinuz=$(rpm --nodigest --nosignature -qpl $kpackage |grep ^/boot/vmlinuz | head -n 1)
+	version=${vmlinuz##/boot/vmlinuz-}
+    fi
     arch=$(rpm --nodigest --nosignature --qf '%{ARCH}\n' -qp $kpackage)
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
