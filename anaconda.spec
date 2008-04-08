@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.67
+Version: 11.4.0.68
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,10 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 08 2008 Peter Jones <pjones@redhat.com> - 11.4.0.68-1
+- Handle EFI partitions somewhat better (pjones)
+- Fix typo in mk-images.efi's parted usage (pjones)
+
 * Tue Apr 08 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.67-1
 - Set the initial state of the auto-encrypt checkbutton (#441018) (katzj)
 - Don't treat RAID devices as "disks" to avoid lots of odd
