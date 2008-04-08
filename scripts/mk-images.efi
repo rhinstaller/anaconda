@@ -180,7 +180,7 @@ makeEfiImages() {
 	    --initrd $TOPDESTPATH/images/pxeboot/initrd.img \
 	    --grubpkg ${grubpkg}
 	local ret=$?
-	[ $ret -eq 0] || return $ret
+	[ $ret -eq 0 ] || return $ret
 
 	makeefibootdisk $TOPDESTPATH/images/pxeboot/efiboot.img $TOPDESTPATH/images/efidisk.img
 	return $?
