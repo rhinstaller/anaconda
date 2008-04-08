@@ -23,6 +23,7 @@ makeefibootdisk() {
     MBD_FILENAME=""
     KERNELFILE=""
     INITRDFILE=""
+    grubpkg=""
     MBD_TMPIMAGE=${TMPDIR:-/tmp}/makebootdisk.image.$$
     MBD_BOOTTREE=${TMPDIR:-/tmp}/makebootdisk.tree.$$
     MBD_BOOTTREE_TMP=$MBD_BOOTTREE'_tmp'
@@ -37,6 +38,10 @@ makeefibootdisk() {
 	    continue
 	elif [ $1 = "--imagename" ]; then
 	    MBD_FILENAME=$IMAGEPATH/$2
+	    shift; shift
+	    continue
+	elif [ $1 = "--grubpkg" ]; then
+	    grubpkg=$2
 	    shift; shift
 	    continue
 	fi
@@ -89,12 +94,12 @@ makeefibootdisk() {
 
 # prepare and build an efiboot.img.
 prepareEfiImage() {
-    prepareEfiTree
+    prepareEfiTree || return 1
 
     # dynamically calculate the size of the dosfs
     BOOTDISKSIZE=$(du -kcs $MBD_BOOTTREE_TMP | tail -n1 | awk '{print $1}')
     BOOTDISKSIZE=$(expr $BOOTDISKSIZE + 100)
-    echo "The size of the boot.img dosfs is $BOOTDISKSIZE"
+    echo "The size of the efiboot.img dosfs is $BOOTDISKSIZE"
     dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_FILENAME 2>/dev/null
     mkdosfs -C $MBD_FILENAME $BOOTDISKSIZE >/dev/null
     mount -o loop,shortname=winnt,umask=0077 -t vfat $MBD_FILENAME $MBD_BOOTTREE
@@ -113,22 +118,47 @@ prepareEfiTree() {
     sed -i "s/@PRODUCT@/$PRODUCT/g" $MBD_BOOTTREE_TMP/EFI/boot/grub.conf
     sed -i "s/@VERSION@/$VERSION/g" $MBD_BOOTTREE_TMP/EFI/boot/grub.conf
 
+    yumdownloader -c $yumconf $grubpkg
+    rpm2cpio $grubpkg.rpm | (cd $KERNELROOT; cpio --quiet -iumd)
+    cp $KERNELROOT/boot/efi/EFI/redhat/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/grub.efi
+
     # The first generation Mactel machines get the bootloader name wrong
     # as per the spec.  Awesome, guys.
-    if [ "$efiarch" == "ia32"]; then
+    if [ "$efiarch" == "ia32" ]; then
 	cp $MBD_BOOTTREE_TMP/EFI/boot/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/boot.efi
 	cp $MBD_BOOTTREE_TMP/EFI/boot/grub.conf $MBD_BOOTTREE_TMP/EFI/boot/boot.conf
     fi
 
     mv $MBD_BOOTTREE_TMP/EFI/boot/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/boot${efiarch}.efi
     mv $MBD_BOOTTREE_TMP/EFI/boot/grub.conf $MBD_BOOTTREE_TMP/EFI/boot/boot${efiarch}.conf
+
+    artpkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" -c $yumconf fedora-logos)
+    yumdownloader -c $yumconf $artpkg
+    rpm2cpio $artpkg.rpm | (cd $KERNELROOT; cpio --quiet -iumd)
+    cp $KERNELROOT/boot/grub/splash.xpm.gz $MBD_BOOTTREE_TMP/EFI/boot/splash.xpm.gz
 }
 
 makeEfiImages() {
+    yumconf="$1"
     if [ "$kerneltag" != "xen" ]; then
+	local grubarch=${efiarch}
+	case ${efiarch} in
+	    ia32) grubarch=i386 ;;
+	    x64) grubarch=x86_64 ;;
+	esac
+	grubpkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" -c $yumconf grub.$grubarch)
+	if [ -z "$grubpkg" ]; then
+	    echo "cannot find package grub.$grubarch" >&2
+	    return 1
+	fi
+    	echo "Building efiboot.img for ${efiarch}/$KERNELARCH at $TOPDESTPATH/images/efiboot.img"
+
 	makeefibootdisk \
-	    --imagename $TOPDESTPATH/images/efiboot.img \
+	    --imagename efiboot.img \
 	    --kernel $TOPDESTPATH/images/pxeboot/vmlinuz \
-	    --initrd $TOPDESTPATH/images/pxeboot/initrd.img
+	    --initrd $TOPDESTPATH/images/pxeboot/initrd.img \
+	    --grubpkg ${grubpkg}
+	return $?
     fi
+    return 1
 }

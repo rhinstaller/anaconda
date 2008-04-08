@@ -174,7 +174,7 @@ else
 fi
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES pcmciautils"
+    PACKAGES="$PACKAGES pcmciautils grub"
 fi
 
 if [ $ARCH = i386 -o $ARCH = x86_64 -o $ARCH = ia64 ]; then
@@ -267,7 +267,7 @@ if [ $ARCH = sparc ]; then
 fi
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGESGR="$PACKAGESGR syslinux memtest86+" 
+    PACKAGESGR="$PACKAGESGR syslinux memtest86+ grub" 
 fi
 
 if [ $ARCH = alpha ]; then

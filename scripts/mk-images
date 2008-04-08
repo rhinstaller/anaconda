@@ -122,12 +122,7 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
     KERNELBASE=$TMPDIR/updboot.kernel.$$
 
     KERNELNAME=vmlinuz
-
-    if [ -d /sys/firmware/efi ]; then
-	KERNELDIR="/boot/efi/EFI/redhat"
-    else
-	KERNELDIR="/boot"
-    fi
+    KERNELDIR="/boot"
     
     if [ "$BUILDARCH" = "sparc64" ]; then
 	BASEARCH=sparc
@@ -818,7 +813,7 @@ for KERNELARCH in $arches; do
     # make the boot images
     makeBootImages
 
-    makeEfiImages
+    makeEfiImages $yumconf
   done
 done
 
