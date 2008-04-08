@@ -421,6 +421,10 @@ def driveDict(klassArg):
                 log.info("ignoring st device %s" %(device,))
                 continue
 
+            # we want to ignore md devices as they're not hard disks in our pov
+            if device.startswith("md"):
+                continue
+
             if dev['storage.drive_type'] != 'disk':
                 new[device] = dev
                 continue
