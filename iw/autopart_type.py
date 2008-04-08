@@ -434,6 +434,8 @@ class PartitionTypeWindow(InstallWindow):
         self.review = not self.dispatch.stepInSkipList("partition")
         self.xml.get_widget("reviewButton").set_active(self.review)
 
+        self.xml.get_widget("encryptButton").set_active(self.partitions.autoEncrypt)
+
         active = self.combo.get_active_iter()
         val = self.combo.get_model().get_value(active, 1)
 

@@ -18,8 +18,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-#makeefibootdisk required for EFI bootloader dosfs image
-makeefibootdisk() {
+makeefibootdisk()
+{
+    partimg=$1
+    target=$2
+
+    local partsize=$(ls -l $1 | awk '{ print $5 }')
+    local disksize=$((17408 + $partsize + 17408))
+    disksize=$(($disksize + $(($disksize % 512))))
+    local diskimg=$(mktemp /tmp/efidisk.img.XXXXXX)
+    dd if=/dev/zero of=$diskimg count=1 bs=$disksize
+    local loop=$(losetup -v -f $diskimg | awk '{ print $4 }')
+    dmsetup create efiboot$$ --table "0 $(($disksize / 512)) linear $loop 0"
+    parted --script efiboot$$ mklabel gpt unit b mkpart '"EFI System Partition"' fat32 17408 $((17408 + $partsize)) set 1 boot on
+    dd if=$partimg of=/dev/mapper/efiboot$$p1
+    dmsetup remove /dev/mapper/efiboot$$p1
+    dmsetup remove /dev/mapper/efiboot$$
+    losetup -d $loop
+
+    mv -v $diskimg $target
+}
+
+#makeefibootimage required for EFI bootloader dosfs image
+makeefibootimage() {
     MBD_FILENAME=""
     KERNELFILE=""
     INITRDFILE=""
@@ -153,11 +174,15 @@ makeEfiImages() {
 	fi
     	echo "Building efiboot.img for ${efiarch}/$KERNELARCH at $TOPDESTPATH/images/efiboot.img"
 
-	makeefibootdisk \
-	    --imagename efiboot.img \
+	makeefibootimage \
+	    --imagename pxeboot/efiboot.img \
 	    --kernel $TOPDESTPATH/images/pxeboot/vmlinuz \
 	    --initrd $TOPDESTPATH/images/pxeboot/initrd.img \
 	    --grubpkg ${grubpkg}
+	local ret=$?
+	[ $ret -eq 0] || return $ret
+
+	makeefibootdisk $TOPDESTPATH/images/pxeboot/efiboot.img $TOPDESTPATH/images/efidisk.img
 	return $?
     fi
     return 1
