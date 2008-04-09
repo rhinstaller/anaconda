@@ -170,14 +170,32 @@ char * mountNfsImage(struct installMethod * method,
                 sleep(3);
                 newtPopWindow();
 
-                stage = NFS_STAGE_DONE;
                 tmp = asprintf(&fullPath, "%s:%s", host, directory);
 
                 if ((buf = isNfsIso(fullPath, mountOpts, &foundinvalid, 0)) != NULL)
                     rc = asprintf(&url, "nfsiso:%s:%s", host, directory);
-                else
-                    rc = asprintf(&url, "nfs:%s:%s", host, directory);
+                else {
+                    /* FIXME:  Mount the NFS source here to make sure we
+                     * were given a valid source.  We'll leave it mounted
+                     * going into stage2 just so we're not mounting and
+                     * unmounting repeatedly.  This can go once the repo
+                     * editor supports NFS.
+                     */
+                    if (!doPwMount(fullPath, "/mnt/source", "nfs", mountOpts)) {
+                        rc = asprintf(&url, "nfs:%s:%s", host, directory);
+                    } else {
+                        newtWinMessage(_("Error"), _("OK"),
+                                       _("That directory could not be mounted from "
+                                         "the server."));
+                        stage = NFS_STAGE_NFS;
+                        if (loaderData->method >= 0) {
+                            loaderData->method = -1;
+                        }
+                        break;
+                    }
+                }
 
+                stage = NFS_STAGE_DONE;
                 free(buf);
                 break;
             }
