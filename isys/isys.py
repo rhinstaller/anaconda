@@ -331,9 +331,9 @@ def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remoun
         if remount:
             opts.append("remount")
 
-        flags = ",".join(opts)
+    flags = ",".join(opts)
 
-    log.debug("isys.py:mount()- going to mount %s on %s" %(device, location))
+    log.debug("isys.py:mount()- going to mount %s on %s with options %s" %(device, location, flags))
     rc = _isys.mount(fstype, device, location, flags)
 
     if not rc:
