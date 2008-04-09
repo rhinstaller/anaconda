@@ -122,7 +122,11 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
     KERNELBASE=$TMPDIR/updboot.kernel.$$
 
     KERNELNAME=vmlinuz
-    KERNELDIR="/boot"
+    if [ "$BUILDARCH" = "ia64" ]; then
+	KERNELDIR="/boot/efi/EFI/redhat"
+    else
+	KERNELDIR="/boot"
+    fi
     
     if [ "$BUILDARCH" = "sparc64" ]; then
 	BASEARCH=sparc
