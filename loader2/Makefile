@@ -94,16 +94,16 @@ linuxrc.s390:
 	@echo "Nothing to do for $@"
 
 init: init.o undomounts.o shutdown.o
-	$(CC) $(STATIC) $(COPTS) $(LDFLAGS) -o $@ $^
+	$(REALCC) $(STATIC) $(COPTS) $(LDFLAGS) -o $@ $^ ../isys/libisys.a -lresolv
 
 shutdown: shutdown.o undomounts.o
-	$(CC) $(STATIC) $(COPTS) $(SHUTDOWNOPTS) $(LDFLAGS) -o $@ $^
+	$(CC) $(STATIC) $(COPTS) $(SHUTDOWNOPTS) $(LDFLAGS) -o $@ $^ ../isys/libisys.a -lresolv
 
 init.o: init.c
 	$(CC) $(COPTS) -c -o init.o init.c
 
 undomounts.o: undomounts.c
-	$(CC) $(COPTS) -c -o undomounts.o undomounts.c
+	$(REALCC) $(COPTS) -c -o undomounts.o undomounts.c
 
 shutdown.o: shutdown.c
 	$(CC) $(COPTS) $(SHUTDOWNOPTS) -c -o shutdown.o shutdown.c
