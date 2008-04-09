@@ -126,15 +126,15 @@ expandPackageSet() {
     cat $KEEPFILES | while read spec ; do
       #Pull off path
       path=`echo "$spec" | sed 's,\([^[*\?]*\)/.*,\1,'`
-      for filespec in `find ./$path -path "./$spec"` ; do
+      for filespec in `find ./$path -path "./$spec" 2> /dev/null` ; do
 	if [ ! -e $filespec ]; then
 	    continue
 	elif [ ! -d $filespec ]; then
 	    instFile $filespec $PKGDEST
 	else
-	    for i in `find $filespec -type f` ; do instFile $i $PKGDEST ; done
-	    for i in `find $filespec -type l` ; do instFile $i $PKGDEST ; done
-	    for d in `find $filespec -type d` ; do instDir $d $PKGDEST ; done
+	    for i in `find $filespec -type f 2> /dev/null` ; do instFile $i $PKGDEST ; done
+	    for i in `find $filespec -type l 2> /dev/null` ; do instFile $i $PKGDEST ; done
+	    for d in `find $filespec -type d 2> /dev/null` ; do instDir $d $PKGDEST ; done
 	fi
       done
     done
