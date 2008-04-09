@@ -127,7 +127,7 @@ Requires: createrepo >= 0.4.7, squashfs-tools, mkisofs
 %ifarch %{ix86} x86_64
 Requires: syslinux
 Requires: makebootfat
-Requires: dmsetup
+Requires: device-mapper
 %endif
 %ifarch s390 s390x
 Requires: openssh
@@ -207,6 +207,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 09 2008 Peter Jones <pjones@redhat.com> - 11.4.0.68-2
+- Fix device-mapper dep.
+
 * Tue Apr 08 2008 Peter Jones <pjones@redhat.com> - 11.4.0.68-1
 - Handle EFI partitions somewhat better (pjones)
 - Fix typo in mk-images.efi's parted usage (pjones)
