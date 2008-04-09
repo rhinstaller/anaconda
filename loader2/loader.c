@@ -1746,8 +1746,8 @@ int main(int argc, char ** argv) {
         migrate_runtime_directory("/lib");
         migrate_runtime_directory("/lib64");
         ret = symlink("/mnt/runtime/etc/selinux", "/etc/selinux");
-        copyDirectory("/mnt/runtime/etc","/etc", copyWarnFn, copyErrorFn);
-        copyDirectory("/mnt/runtime/var","/var", copyWarnFn, copyErrorFn);
+        copyDirectory("/mnt/runtime/etc","/etc", NULL, copyErrorFn);
+        copyDirectory("/mnt/runtime/var","/var", NULL, copyErrorFn);
     }
 
     /* now load SELinux policy before exec'ing anaconda and the shell
