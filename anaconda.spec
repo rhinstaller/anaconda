@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.68
+Version: 11.4.0.69
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,14 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 09 2008 Peter Jones <pjones@redhat.com> - 11.4.0.69-1
+- Ignore some warnings copying into /etc and /var (clumens)
+- Try to mount the NFS source in the loader to verify it is correct (clumens)
+- Be as clean as possible when looking for files/directories (jgranado, #431392)
+- More ia64 kernel finding fixage (katzj, #441708)
+- Fix read permissions on efidisk.img (pjones)
+- Use the mount flags passed to isys.mount() (pjones)
+
 * Wed Apr 09 2008 Peter Jones <pjones@redhat.com> - 11.4.0.68-2
 - Fix device-mapper dep.
 
