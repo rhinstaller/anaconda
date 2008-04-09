@@ -37,6 +37,7 @@ makeefibootdisk()
     losetup -d $loop
 
     mv -v $diskimg $target
+    chmod a+r $target
 }
 
 #makeefibootimage required for EFI bootloader dosfs image
@@ -110,6 +111,7 @@ makeefibootimage() {
 	rm -f $MBD_FSIMAGE
     fi
 
+    chmod a+r $MBD_FILENAME
     echo "Wrote $MBD_FILENAME (${left}k free)"
 }
 
