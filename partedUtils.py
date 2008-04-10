@@ -312,7 +312,8 @@ def isEfiSystemPartition(part):
             part.disk.type.name == "gpt" and
             part.get_name() == "EFI System Partition" and
             part.get_flag(parted.PARTITION_BOOT) == 1 and
-            part.fs_type.name in ("fat16", "fat32"))
+            part.fs_type.name in ("fat16", "fat32") and
+            part.geom.length > 81920L) # require at least 40M before we care.
 
 archLabels = {'i386': ['msdos', 'gpt'],
               's390': ['dasd', 'msdos'],
