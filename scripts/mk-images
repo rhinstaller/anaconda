@@ -455,7 +455,6 @@ makeinitrd() {
     PADSIZE=""
     LOADERBIN=""
     INITRDMODULES=""
-    MODULEBALLNAME="modules.cgz"
     MYLANGTABLE=$LANGTABLE
     MYLOADERTR=loader.tr
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
@@ -477,10 +476,6 @@ makeinitrd() {
 	    continue
 	elif [ $1 = "--modules" ]; then
 	    INITRDMODULES=$2
-	    shift; shift
-	    continue
-	elif [ $1 = "--moduleballname" ]; then
-	    MODULEBALLNAME=$2
 	    shift; shift
 	    continue
 	fi
