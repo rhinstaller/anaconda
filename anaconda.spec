@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.70
+Version: 11.4.0.71
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,14 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr 10 2008 Peter Jones <pjones@redhat.com> - 11.4.0.71-1
+- Fix destdir handling in upd-kernel (markmc)
+- Get rid of module ball remnants in mk-images (markmc)
+- Make upd-kernel handle version numbers the way we do them now (markmc)
+- Fix ia64 kernel path problems (katzj, #441846)
+- Don't tag more than one partRequest with mountpoint=/boot/efi (pjones)
+- Don't treat tiny disks as EFI System Partitions during autopart (pjones)
+
 * Thu Apr 10 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.70-1
 - ide-cd_mod, not ide-cd_rom (thanks to jwb) (katzj)
 
