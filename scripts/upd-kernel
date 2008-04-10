@@ -23,14 +23,8 @@
 OLDDIR=`readlink -f $1`
 NEWDIR=$2
 KRPM=`readlink -f $3`
-KNAME=$(rpm -qp --qf "%{NAME}" $KRPM)
-if [ "$KNAME" != "kernel" ]; then
-    var=$(echo $KNAME | sed -e 's/kernel-//')
-fi
 
-ARCH=$(rpm -qp --qf "%{ARCH}" $KRPM)
-NEWVER=$(rpm -qp --qf "%{VERSION}-%{RELEASE}" $KRPM)$var
-
+NEWVER=$(rpm -qp --provides $KRPM | awk -F ' = ' '/kernel-uname-r/ { print $2; }')
 
 if [ -z "$OLDDIR" -o -z "$NEWDIR" -o -z "$KRPM" ]; then
   echo "Usage: $0 <olddir> <newdir> <newkernelrpm>"
