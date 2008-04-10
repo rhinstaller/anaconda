@@ -23,14 +23,8 @@
 OLDDIR=`readlink -f $1`
 NEWDIR=$2
 KRPM=`readlink -f $3`
-KNAME=$(rpm -qp --qf "%{NAME}" $KRPM)
-if [ "$KNAME" != "kernel" ]; then
-    var=$(echo $KNAME | sed -e 's/kernel-//')
-fi
 
-ARCH=$(rpm -qp --qf "%{ARCH}" $KRPM)
-NEWVER=$(rpm -qp --qf "%{VERSION}-%{RELEASE}" $KRPM)$var
-
+NEWVER=$(rpm -qp --provides $KRPM | awk -F ' = ' '/kernel-uname-r/ { print $2; }')
 
 if [ -z "$OLDDIR" -o -z "$NEWDIR" -o -z "$KRPM" ]; then
   echo "Usage: $0 <olddir> <newdir> <newkernelrpm>"
@@ -42,7 +36,7 @@ if [ ! -d $OLDDIR ]; then
   exit 1
 fi
 
-if [ -f $NEWDIR ]; then
+if [ -d $NEWDIR ]; then
     NEWDIR=`readlink -f $NEWDIR`
 else
     NEWDIR=`readlink -f .`/$NEWDIR
@@ -51,38 +45,33 @@ fi
 
 WORKDIR=$(/bin/mktemp -d /tmp/kernrpm.XXXXXX)
 
-pushd $WORKDIR
+pushd $WORKDIR > /dev/null
 
 # explode the rpm
 mkdir rpm
-pushd rpm
-rpm2cpio $KRPM |cpio -id
-popd
+pushd rpm > /dev/null
+rpm2cpio $KRPM | cpio -id --quiet
+popd > /dev/null
 
-# explode the rpm
+# explode the initrd
 mkdir initrd
-pushd initrd
-zcat $OLDDIR/initrd.img |cpio -id
-popd
+pushd initrd > /dev/null
+zcat $OLDDIR/initrd.img | cpio -id --quiet
 
-mkdir initrd/modules/mods
-# explode the moduleball
-pushd initrd/modules/mods
-zcat ../modules.cgz |cpio -id
-popd
+for mod in $(find modules/ -type f -name '*.ko.gz' -exec basename {} \; | sort | uniq) ; do
+    for path in $(find $WORKDIR/rpm/lib/modules/$NEWVER/ -name ${mod%.gz}); do
+        dest=${path##$WORKDIR/rpm/lib/}
+        mkdir -p $(dirname $dest)
+        gzip < $path > $dest.gz
+    done
+done
 
-mkdir -p newmods/$NEWVER/$ARCH
-for i in $(find initrd/modules/mods -type f -name '*.ko' -exec basename {} \;); do find $WORKDIR/rpm/lib/modules/*/ -name $i -exec cp -v {} $WORKDIR/newmods/$NEWVER/$ARCH \; ; done
-rm -rf initrd/modules/mods
+/sbin/depmod -a -b . $NEWVER
+rm -f modules/$NEWVER/modules.*map
 
-pushd newmods
-find . |cpio --quiet -H crc -o |gzip -9 > $WORKDIR/initrd/modules/modules.cgz
-popd
+find . | cpio --quiet -c -o | gzip -9 > $NEWDIR/initrd.img
+popd > /dev/null
 
-pushd initrd
-find . |cpio -c -o |gzip -9 > $NEWDIR/initrd.img
-popd
-
-cp -v $WORKDIR/rpm/boot/vmlinuz-* $NEWDIR/vmlinuz
-popd
+cp $WORKDIR/rpm/boot/vmlinuz-* $NEWDIR/vmlinuz
+popd > /dev/null
 rm -rf $WORKDIR
