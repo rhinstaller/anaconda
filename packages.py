@@ -295,7 +295,7 @@ def rpmKernelVersionList(rootPath = "/"):
             if f.startswith('/boot/vmlinuz-'):
                 return f[14:]
             elif f.startswith('/boot/efi/EFI/redhat/vmlinuz-'):
-                return f[21:]
+                return f[29:]
         return ""
 
     def get_tag(header):
