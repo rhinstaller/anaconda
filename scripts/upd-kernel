@@ -59,7 +59,7 @@ pushd rpm
 rpm2cpio $KRPM |cpio -id
 popd
 
-# explode the rpm
+# explode the initrd
 mkdir initrd
 pushd initrd
 zcat $OLDDIR/initrd.img |cpio -id
