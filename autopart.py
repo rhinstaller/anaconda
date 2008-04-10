@@ -1173,17 +1173,20 @@ def doClearPartAction(anaconda, partitions, diskset):
             if iutil.isEfi() and linuxOnly == 1 and (not anaconda.isKickstart):
                 if partedUtils.isEfiSystemPartition(part):
                     req = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
-                    req.mountpoint = "/boot/efi"
-                    req.format = 0
-                    req.fstype = fsset.fileSystemTypeGet("efi")
+                    other = partitions.getRequestByMountPoint("/boot/efi")
 
-                    request = None
-                    for req in partitions.autoPartitionRequests:
-                        if req.mountpoint == "/boot/efi":
-                            request = req
-                            break
-                    if request:
-                        partitions.autoPartitionRequests.remove(request)
+                    if not other:
+                        req.mountpoint = "/boot/efi"
+                        req.format = 0
+                        req.fstype = fsset.fileSystemTypeGet("efi")
+
+                        request = None
+                        for req in partitions.autoPartitionRequests:
+                            if req.mountpoint == "/boot/efi":
+                                request = req
+                                break
+                        if request:
+                            partitions.autoPartitionRequests.remove(request)
             # hey, what do you know, pseries is weird too.  *grumble*
             elif (((iutil.getPPCMachine() == "pSeries") or
                    (iutil.getPPCMachine() == "iSeries"))
