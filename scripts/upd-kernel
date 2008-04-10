@@ -42,7 +42,7 @@ if [ ! -d $OLDDIR ]; then
   exit 1
 fi
 
-if [ -f $NEWDIR ]; then
+if [ -d $NEWDIR ]; then
     NEWDIR=`readlink -f $NEWDIR`
 else
     NEWDIR=`readlink -f .`/$NEWDIR
