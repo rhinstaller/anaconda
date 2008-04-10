@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.69
+Version: 11.4.0.70
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr 10 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.70-1
+- ide-cd_mod, not ide-cd_rom (thanks to jwb) (katzj)
+
 * Wed Apr 09 2008 Peter Jones <pjones@redhat.com> - 11.4.0.69-1
 - Ignore some warnings copying into /etc and /var (clumens)
 - Try to mount the NFS source in the loader to verify it is correct (clumens)
