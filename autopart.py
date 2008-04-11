@@ -1067,7 +1067,7 @@ def doPartitioning(diskset, requests, doRefresh = 1):
 # given clearpart specification execute it
 # probably want to reset diskset and partition request lists before calling
 # this the first time
-def doClearPartAction(partitions, diskset):
+def doClearPartAction(partitions, diskset, dispatch):
     type = partitions.autoClearPartType
     cleardrives = partitions.autoClearPartDrives
     initAll = partitions.reinitializeDisks
@@ -1107,7 +1107,7 @@ def doClearPartAction(partitions, diskset):
             # 5) the drive contains protected partitions and initAll is set
             if ((linuxOnly == 0) or (ptype and ptype.isLinuxNativeFS()) or 
                 (initAll and \
-                 partedUtils.hasProtectedPartitions(drive, anaconda)) or
+                 partedUtils.hasProtectedPartitions(drive, dispatch)) or
                 (not ptype and
                  partedUtils.isLinuxNativeByNumtype(part.native_type)) or 
                 ((part.native_type == -1) and # the ptable doesn't have types
@@ -1215,7 +1215,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     # XXX only do this if we're dirty
 ##     id.diskset.refreshDevices()
 ##     id.partrequests = PartitionRequests(id.diskset)
-    doClearPartAction(partitions, diskset)
+    doClearPartAction(partitions, diskset, dispatch)
 
     # XXX clearpartdrives is overloaded as drives we want to use for linux
     drives = partitions.autoClearPartDrives

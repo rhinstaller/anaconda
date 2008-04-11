@@ -334,13 +334,13 @@ def checkDiskLabel(disk, intf):
     else:
         return 1
 
-def hasProtectedPartitions(drive, anaconda):
+def hasProtectedPartitions(drive, dispatch):
     rc = False
     if anaconda is None:
         return rc
 
     try:
-        for protected in anaconda.method.protectedPartitions():
+        for protected in dispatch.method.protectedPartitions():
             if protected.startswith(drive):
                 part = protected[len(drive):]
                 if part[0] == "p":
@@ -549,6 +549,7 @@ class DiskSet:
     def __init__ (self):
         self.disks = {}
         self.onlyPrimary = None
+        self.dispatch = dispatch #dispatch is in __builtins__
 
     def onlyPrimaryParts(self):
         for disk in self.disks.values():
@@ -893,7 +894,7 @@ class DiskSet:
             
             if (initAll and ((clearDevs is None) or (len(clearDevs) == 0)
                              or drive in clearDevs) and not flags.test) \
-                             and not hasProtectedPartitions(drive, self.anaconda):
+                             and not hasProtectedPartitions(drive, self.dispatch):
                 if iutil.getArch() == "s390" and drive[:4] == "dasd":
                     if (intf is None or self.dasdFmt(intf, drive)):
                         DiskSet.skippedDisks.append(drive)

@@ -1136,6 +1136,10 @@ instClass.setInstallData(id)
 
 dispatch = dispatch.Dispatcher(intf, id, methodobj, rootPath)
 
+# XXX hack - we kind of forgot to pass dispatch object everywhere
+#            so do it in this ugly ugly ugly way (but hey its rhel4)
+__builtins__.dispatch = dispatch
+
 if lang:
     dispatch.skipStep("language", permanent = 1)
     instClass.setLanguage(id, lang)
