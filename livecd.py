@@ -214,7 +214,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         anaconda.id.fsset.labelEntry(r, anaconda.rootPath, True)
         # ensure we have a random UUID on the rootfs
         # FIXME: this should be abstracted per filesystem type
-        iutil.execWithRedirect("tune2fs", ["-U", "random", r.device.getDevice()],
+        iutil.execWithRedirect("tune2fs", ["-U", "random", "/dev/%s" % (r.device.getDevice())],
                                stdout="/dev/tty5", stderr="/dev/tty5",
                                searchPath = 1)
 
