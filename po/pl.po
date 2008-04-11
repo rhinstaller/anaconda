@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-03-28 17:01+0200\n"
+"PO-Revision-Date: 2008-04-11 22:02+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1387,7 +1387,7 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Dziękujemy za pobranie wydania testowego %s.\n"
+"Dziękujemy za pobranie wydania testowego systemu %s.\n"
 "\n"
 "Nie jest to wydanie oficjalne i nie powinno być stosowane w systemach "
 "produkcyjnych. Celem tego wydania jest zebranie uwag od testerów i nie jest "
@@ -1419,7 +1419,7 @@ msgid ""
 msgstr ""
 "Urządzenie %s jest sformatowane zgodnie ze standardem LDL zamiast CDL. "
 "Urządzenia DASD sformatowane zgodnie z LDL nie są obsługiwane w trakcie "
-"instalacji %s. Jeśli chcesz użyć tego dysku do instalacji, musisz go "
+"instalacji systemu %s. Jeśli chcesz użyć tego dysku do instalacji, musisz go "
 "ponownie zainicjować, co spowoduje utratę WSZYSTKICH DANYCH na tym dysku.\n"
 "\n"
 "Czy chcesz ponownie sformatować urządzenie DASD, używając formatu CDL?"
@@ -1433,9 +1433,9 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"/dev/%s ma obecnie układ partycji %s. Aby użyć tego dysku do instalacji %s, "
-"należy go ponownie zainicjować, co spowoduje utratę WSZYSTKICH DANYCH na tym "
-"dysku.\n"
+"/dev/%s ma obecnie układ partycji %s. Aby użyć tego dysku do instalacji "
+"systemu %s, należy go ponownie zainicjować, co spowoduje utratę WSZYSTKICH "
+"DANYCH na tym dysku.\n"
 "\n"
 "Czy chcesz ponownie zainicjować ten dysk?"
 
@@ -1714,7 +1714,8 @@ msgstr ""
 #: ../partIntfHelpers.py:411
 #, python-format
 msgid "You need to select at least one hard drive to install %s."
-msgstr "Musisz wybrać co najmniej jeden dysk twardy, aby zainstalować %s."
+msgstr ""
+"Musisz wybrać co najmniej jeden dysk twardy, aby zainstalować system %s."
 
 #: ../partIntfHelpers.py:416
 msgid ""
@@ -1757,7 +1758,8 @@ msgid ""
 "%s"
 msgstr ""
 "Wybrany schemat partycjonowania zawiera następujące błędy krytyczne. Błędy "
-"te muszą zostać naprawione, zanim będzie można kontynuować instalację %s.\n"
+"te muszą zostać naprawione, zanim będzie można kontynuować instalację "
+"systemu %s.\n"
 "\n"
 "%s"
 
@@ -2471,12 +2473,12 @@ msgstr "Nie znaleziono %s"
 #: ../vnc.py:145
 #, python-format
 msgid "%s %s installation on host %s"
-msgstr "Instalacja %s %s na komputerze %s"
+msgstr "Instalacja systemu %s %s na komputerze %s"
 
 #: ../vnc.py:147
 #, python-format
 msgid "%s %s installation"
-msgstr "Instalacja %s %s"
+msgstr "Instalacja systemu %s %s"
 
 #: ../vnc.py:174
 #, python-format
@@ -3139,7 +3141,7 @@ msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Naciśnij \"uruchom ponownie\", aby ponownie uruchomić system.\n"
+"Naciśnij \"Uruchom ponownie\", aby ponownie uruchomić system.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:75
@@ -3160,7 +3162,7 @@ msgstr "Aktualizowanie"
 #: ../iw/examine_gui.py:57
 #, python-format
 msgid "_Install %s"
-msgstr "Za_instaluj %s"
+msgstr "Za_instaluj system %s"
 
 #: ../iw/examine_gui.py:59
 msgid ""
@@ -3915,12 +3917,12 @@ msgstr "Wymuś, aby była partycją p_odstawową"
 #: ../iw/partition_gui.py:318
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr "Napęd %s (Geometria: %s/%s/%s) (Model: %s)"
+msgstr "Napęd %s (geometria: %s/%s/%s) (model: %s)"
 
 #: ../iw/partition_gui.py:325
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr "Napęd %s (%-0.f MB) (Model: %s)"
+msgstr "Napęd %s (%-0.f MB) (model: %s)"
 
 #: ../iw/partition_gui.py:370 ../textw/partition_text.py:1423
 msgid "Type"
@@ -3964,7 +3966,8 @@ msgstr ""
 #, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
-msgstr "Te błędy muszą zostać skorygowane przed kontynuowaniem instalacji %s."
+msgstr ""
+"Te błędy muszą zostać skorygowane przed kontynuowaniem instalacji systemu %s."
 
 #: ../iw/partition_gui.py:646
 msgid "Partitioning Errors"
@@ -4869,7 +4872,7 @@ msgstr "Wybór klawiatury"
 
 #: ../textw/keyboard_text.py:47
 msgid "Which model keyboard is attached to this computer?"
-msgstr "Jaki jest model podłączonej klawiatury?"
+msgstr "Jaki jest model klawiatury podłączonej do komputera?"
 
 #: ../textw/network_text.py:58
 #, python-format
@@ -5447,8 +5450,8 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
-"Domyśla instalacja %s zawiera zestaw oprogramowania odpowiedni do ogólnego "
-"używania Internetu. Jakie dodatkowe zadania system ma obsługiwać?"
+"Domyśla instalacja systemu %s zawiera zestaw oprogramowania odpowiedni do "
+"ogólnego używania Internetu. Jakie dodatkowe zadania system ma obsługiwać?"
 
 #: ../textw/task_text.py:72
 msgid "Customize software selection"
@@ -5578,8 +5581,8 @@ msgid ""
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
 msgstr ""
-"Domyśla instalacja %s zawiera zestaw oprogramowania odpowiedni do ogólnego "
-"używania Internetu. Jakie dodatkowe zadania system ma obsługiwać?"
+"Domyśla instalacja systemu %s zawiera zestaw oprogramowania odpowiedni do "
+"ogólnego używania Internetu. Jakie dodatkowe zadania system ma obsługiwać?"
 
 #: ../installclasses/fedora.py:44
 msgid "Office and Productivity"
@@ -5809,7 +5812,7 @@ msgstr "Zamontowanie dysku ze sterownikami nie powiodło się."
 #: ../loader2/driverdisk.c:376
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr "Dysk ze sterownikami jest nieprawidłowy dla tego wydania %s."
+msgstr "Dysk ze sterownikami jest nieprawidłowy dla tego wydania systemu %s."
 
 #: ../loader2/driverdisk.c:439
 msgid "Manually choose"
@@ -5933,8 +5936,8 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
-"Drzewo instalacyjne %s w tym folderze nie wygląda na zgodne z nośnikiem "
-"startowym."
+"Drzewo instalacyjne systemu %s w tym folderze nie wygląda na zgodne z "
+"nośnikiem startowym."
 
 #: ../loader2/hdinstall.c:253
 msgid ""
@@ -6123,7 +6126,7 @@ msgstr "Błąd podczas pobierania obrazu aktualizacyjnego"
 #: ../loader2/loader.c:994
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr "Masz za mało RAM-u, aby zainstalować %s na tym komputerze."
+msgstr "Masz za mało RAM-u, aby zainstalować system %s na tym komputerze."
 
 #: ../loader2/loader.c:1151
 msgid "Rescue Method"
@@ -6439,7 +6442,7 @@ msgstr "Folder %s:"
 #: ../loader2/nfsinstall.c:65
 #, c-format
 msgid "Please enter the server name and path to your %s images."
-msgstr "Podaj nazwę usługi i ścieżkę do obrazów %s."
+msgstr "Podaj nazwę usługi i ścieżkę do obrazów systemu %s."
 
 #: ../loader2/nfsinstall.c:67
 msgid "NFS Setup"
@@ -6505,7 +6508,7 @@ msgstr "Nieznana metoda URL %s"
 #: ../loader2/urls.c:282
 #, c-format
 msgid "Please enter the URL containing the %s images on your server."
-msgstr "Podaj URL zawierający obrazy %s na serwerze."
+msgstr "Podaj URL zawierający obrazy systemu %s na serwerze."
 
 #: ../loader2/urls.c:293
 msgid "Configure proxy"
