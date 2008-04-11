@@ -762,7 +762,15 @@ if __name__ == "__main__":
             pid = startHal(verbose = verbose)
             if not pid:
                 log.error("Unable to start HAL daemon")
-            time.sleep(5)
+            count = 1
+            while count < 30:
+                try:
+                    halobj = bus.get_object("org.freedesktop.Hal","/org/freedesktop/Hal/Manager")
+                    log.debug("Waited %d seconds for hal to start" %(count,))
+                    break
+                except dbus.exceptions.DBusException:
+                    time.sleep(1)
+                    count += 1
 
     #
     # must specify install, rescue mode
