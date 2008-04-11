@@ -850,13 +850,8 @@ EOF
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     cat >> $KEEPFILERESCUE <<-EOF
-boot/grub
 sbin/grub
-sbin/grub-install
-sbin/grub-md5-crypt
-sbin/grub-set-default
 usr/bin/gpart
-usr/bin/mbchk
 usr/share/grub
 EOF
 fi
