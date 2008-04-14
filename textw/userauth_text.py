@@ -338,7 +338,7 @@ class AuthConfigWindow:
 				 "authconfig", 1, 10)
         self.shadow = Checkbox (_("Use Shadow Passwords"), auth.useShadow)
         toplevel.add (self.shadow, 0, 0, (0, 0, 0, 0), anchorLeft = 1)
-        self.md5 = Checkbox (_("Enable MD5 Passwords"), auth.useMD5)
+        self.md5 = Checkbox (_("Enable MD5 Passwords"), auth.salt == 'md5')
         toplevel.add (self.md5, 0, 1, (0, 0, 0, 1), anchorLeft = 1)
 
         # nis support
@@ -443,7 +443,10 @@ class AuthConfigWindow:
 
         result = toplevel.runOnce ()
         
-        auth.useMD5 = self.md5.value ()
+        if self.md5.value ():
+            self.auth.salt = 'md5'
+        else:
+            self.auth.salt = None
         auth.useShadow = self.shadow.value ()
         auth.useNIS = self.nis.selected ()
         auth.nisDomain = self.nisDomain.value ()

@@ -23,6 +23,29 @@ from flags import flags
 
 from rhpl.log import log
 
+def fixLuserConf(instPath, saltname='md5'):
+    """Fix up libuser.conf for instPath."""
+    fn = "%s/etc/libuser.conf" % (instPath,)
+    if not os.access(fn, os.F_OK):
+        return
+
+    if not saltname:
+        saltname = "des"
+
+    fd = open(fn, "r")
+    buf = []
+    for l in fd.readlines():
+        line = l
+        if line.startswith("crypt_style = "):
+            line = "crypt_style = %s\n" % (saltname,)
+        buf.append(line)
+
+    fd.close()
+    os.rename(fn, fn + ".anaconda")
+    fd = open(fn, "w")
+    fd.writelines(buf)
+    fd.close()
+
 class Accounts:
     def __repr__(self):
 	return "<Type Accounts>"
@@ -39,7 +62,7 @@ class Accounts:
 
     def writeKScommands(self, f, auth):
 	for (account, name, password) in self.users:
-	    crypted = cryptPassword(password, auth.useMD5)
+	    crypted = cryptPassword(password, auth.salt)
 
 	    f.write("/usr/sbin/useradd %s\n" % (account));
 	    f.write("chfn -f '%s' %s\n" % (name, account))
@@ -61,7 +84,7 @@ class Accounts:
 	    iutil.execWithRedirect(argv[0], argv, root = instPath,
 				   stdout = None)
 	
-	    setPassword(instPath, account, password, auth.useMD5)
+	    setPassword(instPath, account, password, auth.salt)
 
     def __init__(self):
 	self.users = []
@@ -99,35 +122,40 @@ class RootPassword(Password):
     def write(self, instPath, auth):
 	pure = self.getPure()
 	if pure:
-	    setPassword(instPath, "root", pure, auth.useMD5)
+	    setPassword(instPath, "root", pure, auth.salt)
 	else:
 	    setPassword(instPath, "root", self.getCrypted (),
-                        auth.useMD5, alreadyCrypted = 1)
+                        auth.salt, alreadyCrypted = 1)
 
     def writeKS(self, f, auth):
         pure = self.getPure()
         if pure:
-            f.write("rootpw --iscrypted %s\n" %(cryptPassword(pure, auth.useMD5)))
+            f.write("rootpw --iscrypted %s\n" %(cryptPassword(pure, auth.salt)))
         else:
             f.write("rootpw --iscrypted %s\n" %(self.getCrypted()))
 
-def cryptPassword(password, useMD5):
-    if useMD5:
-	salt = "$1$"
-	saltLen = 8
-    else:
-	salt = ""
-	saltLen = 2
+# These are explained in crypt/crypt-entry.c in glibc's code.  The prefixes
+# we use for the different crypt salts:
+#     $1$    MD5
+#     $5$    SHA256
+#     $6$    SHA512
+def cryptPassword(password, salt=None):
+    salts = {'md5': '$1$', 'sha256': '$5$', 'sha512': '$6$', None: ''}
+    saltstr = salts[salt]
+    saltlen = 2
 
-    for i in range(saltLen):
-	salt = salt + whrandom.choice (string.letters +
-                                       string.digits + './')
+    if salt in ('md5', 'sha256', 'sha512'):
+        saltlen = 16
 
-    return crypt.crypt (password, salt)
+    for i in range(saltlen):
+        saltstr = saltstr + whrandom.choice (string.letters +
+                                             string.digits + './')
 
-def setPassword(instPath, account, password, useMD5, alreadyCrypted = 0):
+    return crypt.crypt (password, saltstr)
+
+def setPassword(instPath, account, password, salt = None, alreadyCrypted = 0):
     if not alreadyCrypted:
-	password = cryptPassword(password, useMD5)
+	password = cryptPassword(password, salt)
 
     devnull = os.open("/dev/null", os.O_RDWR)
 
@@ -139,7 +167,7 @@ def setPassword(instPath, account, password, useMD5, alreadyCrypted = 0):
 class Authentication:
     def __init__ (self):
         self.useShadow = 1
-        self.useMD5 = 1
+        self.salt = 'md5'
 
         self.useNIS = 0
         self.nisDomain = ""
@@ -182,8 +210,8 @@ class Authentication:
         else:
             args.append ("--disableshadow")
 
-        if self.useMD5:
-            args.append ("--enablemd5")
+        if self.salt:
+            args.append ("--passalgo=%s" % (self.salt,))
         else:
             args.append ("--disablemd5")
 
@@ -265,4 +293,6 @@ class Authentication:
                 log("Would have run %s", args)
         except RuntimeError, msg:
             log ("Error running %s: %s", args, msg)
+
+        fixLuserConf(instPath, saltname=self.salt)
 

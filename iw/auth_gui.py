@@ -65,7 +65,10 @@ class AuthWindow (InstallWindow):
 	if not self.__dict__.has_key("md5"):
 	    return None
 
-        self.auth.useMD5 = self.md5.get_active ()
+        if self.md5.get_active ():
+            self.auth.salt = 'md5'
+        else:
+            self.auth.salt = None
         self.auth.useShadow = self.shadow.get_active ()
 
         self.auth.useNIS = self.nis.get_active ()
@@ -104,7 +107,7 @@ class AuthWindow (InstallWindow):
         self.nisDomain = gtk.Entry ()
         self.nisServer = gtk.Entry ()
 
-        self.md5.set_active (self.auth.useMD5)
+        self.md5.set_active (self.auth.salt == 'md5')
         self.shadow.set_active (self.auth.useShadow)
 
         self.nis.set_active (self.auth.useNIS)

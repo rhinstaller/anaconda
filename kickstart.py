@@ -224,7 +224,7 @@ class KickstartBase(BaseInstallClass):
     def doAuthconfig(self, id, args):
 	(args, extra) = isys.getopt(args, '',
                 [ 'useshadow', 'enableshadow',
-		  'enablemd5',
+		  'enablemd5', 'passalgo=',
                   'enablenis', 'nisdomain=', 'nisserver=',
                   'enableldap', 'enableldapauth', 'ldapserver=', 'ldapbasedn=',
                   'enableldaptls', 
@@ -235,7 +235,7 @@ class KickstartBase(BaseInstallClass):
 
 	useShadow = 0
 
-	useMd5 = 0
+	salt = None
 
 	useNis = 0
 	nisServer = ""
@@ -270,7 +270,9 @@ class KickstartBase(BaseInstallClass):
 	    elif (str == '--useshadow') or (str == '--enableshadow'):
 		useShadow = 1
 	    elif (str == '--enablemd5'):
-		useMd5 = 1
+                salt = 'md5'
+            elif (str == '--passalgo') and (arg in ('md5', 'sha256', 'sha512')):
+                salt = arg
 	    elif (str == '--nisserver'):
 		nisServer = arg
 	    elif (str == '--nisdomain'):
@@ -311,7 +313,7 @@ class KickstartBase(BaseInstallClass):
 
 	if useNis and not nisServer: nisBroadcast = 1
 	    
-	self.setAuthentication(id, useShadow, useMd5,
+	self.setAuthentication(id, useShadow, salt,
                                useNis, nisDomain, nisBroadcast, nisServer,
                                useLdap, useLdapauth, ldapServer,
                                ldapBasedn, useLdaptls,

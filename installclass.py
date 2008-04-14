@@ -283,7 +283,7 @@ class BaseInstallClass:
     def setRootPassword(self, id, pw, isCrypted = 0):
 	id.rootPassword.set(pw, isCrypted)
 
-    def setAuthentication(self, id, useShadow, useMd5,
+    def setAuthentication(self, id, useShadow, salt,
                           useNIS = 0, nisDomain = "",  nisBroadcast = 0,
                           nisServer = "",
                           useLdap = 0, useLdapauth = 0, ldapServer = "",
@@ -295,7 +295,7 @@ class BaseInstallClass:
                           enableCache = 0):
 
         id.auth.useShadow = useShadow
-        id.auth.useMD5 = useMd5
+        id.auth.salt = salt
 
         id.auth.useNIS = useNIS
         id.auth.nisDomain = nisDomain
