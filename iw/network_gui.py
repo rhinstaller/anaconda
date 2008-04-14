@@ -531,7 +531,7 @@ class NetworkWindow(InstallWindow):
 	self.hostnameEntry.set_sensitive(not self.hostnameUseDHCP.get_active())
 	self.setIPTableSensitivity()
 
-        self.hostnameUseDHCP.set_sensitive(network.anyUsingDHCP(self.devices, network))
+        self.hostnameUseDHCP.set_sensitive(network.anyUsingDHCP(self.devices, anaconda))
 
 	return box
 
