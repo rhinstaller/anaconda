@@ -2116,6 +2116,26 @@ class VolumeGroupDevice(Device):
             lvm.writeForceConf()            
             lvm.vgscan()
 
+            for (vg, lv, size) in lvm.lvlist():
+                if vg == self.name:
+                    log("removing obsolete LV %s/%s" % (vg, lv))
+                    try:
+                        lvm.lvremove(lv, vg)
+                    except SystemError:
+                        pass
+
+            for (vg, size, pesize) in lvm.vglist():
+                if vg == self.name:
+                    log("removing obsolete VG %s" % (vg,))
+                    try:
+                        lvm.vgremove(self.name)
+                    except SystemError:
+                        pass
+
+            # rescan now that we've tried to nuke obsolete vgs.  woo.
+            lvm.writeForceConf()
+            lvm.vgscan()
+
             args = [ "lvm", "vgcreate", "-v", "-An",
                      "-s", "%sk" %(self.physicalextentsize,),
                      self.name ]
