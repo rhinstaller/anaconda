@@ -62,7 +62,7 @@ class NetworkWindow(InstallWindow):
 	# boxes.  Otherwise, don't clear the values out if we are doing
 	# kickstart since we could be in interactive mode.  Don't want to
 	# write out a broken resolv.conf later on, after all.
-	if not network.anyUsingDHCP(self.devices, anaconda):
+	if not network.anyUsingDHCP(self.devices, self.anaconda):
 	    tmpvals = {}
 	    for t in range(len(global_options)):
 		try:
@@ -117,7 +117,7 @@ class NetworkWindow(InstallWindow):
 
     def setHostOptionsSensitivity(self):
         # figure out if they have overridden using dhcp for hostname
-	if network.anyUsingDHCP(self.devices, anaconda):
+	if network.anyUsingDHCP(self.devices, self.anaconda):
 	    self.hostnameUseDHCP.set_sensitive(1)
 
 	    if self.hostname != "localhost.localdomain" and self.network.overrideDHCPhostname:
@@ -134,7 +134,7 @@ class NetworkWindow(InstallWindow):
 	if numactive == 0:
 	    state = False
 	else:
-	    state = not network.anyUsingDHCP(self.devices, anaconda)
+	    state = not network.anyUsingDHCP(self.devices, self.anaconda)
 
 	self.ipTable.set_sensitive(state)
 
@@ -407,6 +407,7 @@ class NetworkWindow(InstallWindow):
     def getScreen(self, anaconda):
 	self.intf = anaconda.intf
 	self.id = anaconda.id
+        self.anaconda = anaconda
         box = gtk.VBox(False)
         box.set_spacing(6)
 	self.network = anaconda.id.network
