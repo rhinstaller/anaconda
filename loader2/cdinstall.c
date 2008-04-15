@@ -234,7 +234,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
     int i, r, rc;
     int foundinvalid = 0;
     int stage2inram = 0;
-    char *buf, *stage2loc, *discinfoloc, *imageDir;
+    char *buf, *stage2loc, *imageDir;
     char *stage2img;
     struct device ** devices;
     char *cddev = NULL;
@@ -248,11 +248,9 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
     if (loaderData && FL_STAGE2(flags)) {
         stage2loc = strdup(location);
         r = asprintf(&imageDir, "%.*s", (int) (strrchr(location, '/') - location), location);
-        r = asprintf(&discinfoloc, "%s/.discinfo", imageDir);
     } else {
         r = asprintf(&stage2loc, "%s/images/stage2.img", location);
         r = asprintf(&imageDir, "%s/images", location);
-        r = asprintf(&discinfoloc, "%s/.discinfo", location);
     }
 
     /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
@@ -273,9 +271,8 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
             if (!(rc=doPwMount(devices[i]->device, location, "iso9660", "ro"))) {
                 cddev = devices[i]->device;
-                if (!access(stage2loc, R_OK) &&
-                    (!requirepkgs || !access(discinfoloc, R_OK))) {
-
+                if (!access(stage2loc, R_OK) && (!requirepkgs)){    
+                         
                     /* if in rescue mode lets copy stage 2 into RAM so we can */
                     /* free up the CD drive and user can have it avaiable to  */
                     /* aid system recovery.                                   */
@@ -317,7 +314,6 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
                     free(stage2loc);
                     free(imageDir);
-                    free(discinfoloc);
 
                     if (r == -1)
                         return NULL;
@@ -361,7 +357,6 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 err:
     free(stage2loc);
     free(imageDir);
-    free(discinfoloc);
     return NULL;
 }
 
