@@ -19,13 +19,11 @@
 
 all: command-line.txt kickstart-docs.txt
 
-command-line.txt: toc-kill.xsl
-	curl -A "anaconda-build" -o command-line.xml "http://fedoraproject.org/wiki/Anaconda/Options?action=format&mimetype=xml/docbook"
-	xmlto --skip-validation -m toc-kill.xsl txt command-line.xml
+command-line.txt:
+	curl -A "anaconda-build" -o command-line.txt "http://fedoraproject.org/wiki/Anaconda/Options?action=raw"
 
 kickstart-docs.txt:
-	curl -A "anaconda-build" -o kickstart-docs.xml "http://fedoraproject.org/wiki/Anaconda/Kickstart?action=format&mimetype=xml/docbook"
-	xmlto --skip-validation txt kickstart-docs.xml
+	curl -A "anaconda-build" -o kickstart-docs.txt "http://fedoraproject.org/wiki/Anaconda/Kickstart?action=raw"
 
 clean:
 	rm -rf kickstart-docs.txt command-line.txt api *.xml
