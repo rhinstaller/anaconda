@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.84
+Version: 10.1.1.85
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 15 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.85-1
+- Fix detection of xen para-virt environment (msivak)
+  Resolves: rhbz#441729
+- Add bnx2x driver
+  Resolves: rhbz#442563
+- Add myri10ge driver
+  Resolves: rhbz#442545
+
 * Mon Apr 14 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.84-1
 - Tell the nfs server when we unmount the nfs mountpoints (jgranado)
   Resolves: rhbz#208103
