@@ -753,6 +753,7 @@ EOF
 #
 KEEPFILERESCUE=${TMPDIR:-/tmp}/keepfilerescue.$$
 cat > $KEEPFILERESCUE <<EOF
+bin/find
 bin/gunzip
 bin/gzip
 bin/mt
