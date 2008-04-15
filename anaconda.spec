@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.83
+Version: 10.1.1.84
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Apr 14 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.84-1
+- Tell the nfs server when we unmount the nfs mountpoints (jgranado)
+  Resolves: rhbz#208103
+- Fix logic in patch for protecting hard drive install source (msivak)
+  Related: rhbz#220161
+- Remove defunct VG before creating a new one of the same name
+  Resolves: rhbz#257161
+- Use the search path when running mdadm
+  Related: rhbz#185674
+- Support SHA256/SHA512 password encoding from kickstart
+  Resolves: rhbz#427384
+
 * Fri Mar 28 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.83-1
 - Fix a typo in the dhcptimeout patch
   Related: rhbz#246483
