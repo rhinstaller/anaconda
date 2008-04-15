@@ -647,7 +647,7 @@ def doPreInstall(method, id, intf, instPath, dir):
         foundkernel = 0
         xenkernel = 0
 
-        if os.path.exists("/proc/xen") and \
+        if os.path.exists("/proc/xen/capabilities") and \
                select(id.grpset.hdrlist, "kernel-xenU"):
             log("selected xenU kernel")
             foundKernel = 1
