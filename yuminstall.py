@@ -1557,6 +1557,15 @@ class YumBackend(AnacondaBackend):
         if os.path.exists("%s/tmp/cache" % anaconda.rootPath):
             shutil.rmtree("%s/tmp/cache" % anaconda.rootPath)
 
+        # expire yum caches on upgrade
+        if anaconda.id.getUpgrade() and os.path.exists("%s/var/cache/yum" %(anaconda.rootPath,)):
+            log.info("Expiring yum caches")
+            for d in "%s/var/cache/yum" %(anaconda.rootPath,):
+                try:
+                    os.unlink("%s/var/cache/yum/%s/cachecookie" %(anaconda.rootPath, d)):
+                except:
+                    pass
+
         # XXX: write proper lvm config
 
         AnacondaBackend.doPostInstall(self, anaconda)
