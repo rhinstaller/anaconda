@@ -116,5 +116,8 @@ const size_t _nl_category_name_sizes[] = {
 
 /* avoid bringing in glibc's setlocale.o - we want to use our
    fake setlocale() */
-typedef pthread_mutex_t __libc_lock_t;
-__libc_lock_t __libc_setlocale_lock;
+union
+{
+  pthread_mutex_t mtx;
+  pthread_rwlock_t rwlck;
+} __libc_setlocale_lock __attribute__((nocommon));
