@@ -554,12 +554,20 @@ class Network:
             addr = dev.get("hwaddr")
             if not addr:
                 continue
+            devname = dev.get("device")
+            basename = devname
+            while basename is not "" and basename[-1] in string.digits:
+                basename = basename[:-1]
+
             # rules are case senstive for address. Lame.
             addr = addr.lower()
+
             s = "" 
             if len(dev.get("DESC")) > 0:
-                s = "# %s\n" % (dev.get("DESC"),)
-            s = s + 'SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS=="?*", ATTR{address}=="%s", ATTR{type}=="1", NAME="%s"\n' % (addr, dev.get("device"))
+                s = "# %s (rule written by anaconda)\n" % (dev.get("DESC"),)
+            else:
+                s = "# %s (rule written by anaconda)\n" % (devname,)
+            s = s + 'SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS=="?*", ATTR{address}=="%s", ATTR{type}=="1", KERNEL=="%s*", NAME="%s"\n' % (addr, basename, devname)
             f.write(s)
         
         f.close()
