@@ -1562,7 +1562,7 @@ class YumBackend(AnacondaBackend):
             log.info("Expiring yum caches")
             for d in "%s/var/cache/yum" %(anaconda.rootPath,):
                 try:
-                    os.unlink("%s/var/cache/yum/%s/cachecookie" %(anaconda.rootPath, d)):
+                    os.unlink("%s/var/cache/yum/%s/cachecookie" %(anaconda.rootPath, d))
                 except:
                     pass
 
