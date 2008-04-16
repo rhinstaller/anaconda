@@ -115,7 +115,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
     def _getLiveBlockDevice(self):
         return os.path.normpath(self.osimg)
 
-    def _getLiveSizeMB(self):
+    def _getLiveSize(self):
         def parseField(output, field):
             for line in output.split("\n"):
                 if line.startswith(field + ":"):
@@ -127,8 +127,11 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                                   stderr=open('/dev/null', 'w')
                                   ).communicate()[0]
         blkcnt = int(parseField(output, "Block count"))
-        blksize = int(parseField(output, "Block size"))        
-        return blkcnt * blksize / 1024 / 1024
+        blksize = int(parseField(output, "Block size"))
+        return blkcnt * blksize
+
+    def _getLiveSizeMB(self):
+        return self._getLiveSize() / 1048576
 
     def _unmountNonFstabDirs(self, anaconda):
         # unmount things that aren't listed in /etc/fstab.  *sigh*
@@ -182,7 +185,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             r.fsystem = fsset.fileSystemTypeGet(roottype)
 
         readamt = 1024 * 1024 * 8 # 8 megs at a time
-        size = float(self._getLiveSizeMB() * 1024 * 1024)
+        size = self._getLiveSize()
         copied = 0
         while copied < size:
             buf = os.read(osfd, readamt)
@@ -190,7 +193,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             if (written < readamt) and (written < len(buf)):
                 raise RuntimeError, "error copying filesystem!"
             copied += written
-            progress.set_fraction(pct = copied / size)
+            progress.set_fraction(pct = copied / float(size))
             progress.processEvents()
 
         os.close(osfd)
