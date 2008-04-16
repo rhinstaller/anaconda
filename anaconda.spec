@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.112
+Version: 11.1.2.113
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 16 2008 Chris Lumens <clumens@redhat.com> 11.1.2.113-1
+- Require the latest version of libnl-devel.
+  Resolves: rhbz#441922
+- Fix definition of __libc_setlocale_lock for new glibc.
+  Resolves: rhbz#441940
+- Add support for the bcm5710 driver.
+  Resolves: rhbz#442553
+- Require the latest libdhcp (dcantrell).
+  Resolves: rhbz#435978
+- Fix networking tracebacks (pjones, clumens).
+  Resolves: rhbz#442020, rhbz#442093
+
 * Tue Apr 08 2008 Chris Lumens <clumens@redhat.com> 11.1.2.112-1
 - Make isys.dhcpNetDevice() work in rescue mode (dcantrell).
   Related: rhbz#435978
