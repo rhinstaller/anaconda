@@ -271,8 +271,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
             if (!(rc=doPwMount(devices[i]->device, location, "iso9660", "ro"))) {
                 cddev = devices[i]->device;
-                if (!access(stage2loc, R_OK) && (!requirepkgs)){    
-                         
+                if (!access(stage2loc, R_OK)) {
                     /* if in rescue mode lets copy stage 2 into RAM so we can */
                     /* free up the CD drive and user can have it avaiable to  */
                     /* aid system recovery.                                   */
