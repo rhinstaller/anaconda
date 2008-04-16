@@ -230,24 +230,24 @@ char * mountNfsImage(struct installMethod * method,
                     buf = strdup("/mnt/source/images/stage2.img");
                 }
 
-                winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), buf);
-                rc = copyFile(buf, "/tmp/stage2.img");
-                newtPopWindow();
-
-                if (!rc) {
+                if (!access(buf, R_OK)) {
                     logMessage(INFO, "can access %s", buf);
-                    rc = mountStage2("/tmp/stage2.img", stage2dir);
-
-                    free(buf);
+                    rc = mountStage2(buf, stage2dir);
                     free(stage2dir);
 
-                    if (rc && rc == -1) {
+                    if (rc == -1) {
                         foundinvalid = 1;
-                        logMessage(WARNING, "not the right one");
+                        logMessage(WARNING, "not the right stage2 image");
                         umount("/mnt/source");
-                    } else {
+                        free(buf);
+                    } else if (rc == 0) {
                         stage = NFS_STAGE_DONE;
                         rc = asprintf(&url, "nfs:%s:%s", host, directory);
+                        free(buf);
+                        break;
+                    } else {
+                        logMessage(WARNING, "unable to mount %s", buf);
+                        free(buf);
                         break;
                     }
                 } else {
