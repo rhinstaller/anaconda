@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.71
+Version: 11.4.0.72
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,21 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 15 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.72-1
+- Don't use megabytes for the livecd size for copying. (notting)
+- find moved (katzj)
+- Fix up silly syntax error that crept in to this commit (katzj)
+- Back to using the raw version of the docs (#442540) (katzj)
+- Expire yum caches on upgrade (#374921) (katzj)
+- Include KERNEL== in udev rules (#440568) (dwmw2)
+- Don't look for a .discinfo file in rescue 
+  mode (jvonau, #442098). (clumens)
+- Slower machines may take more than five seconds for hal 
+  to start (#442113) (katzj)
+- Pass the full device path (notting)
+- Only include the parts of grub that will work without 
+  crazy tricks (#429785) (katzj)
+
 * Thu Apr 10 2008 Peter Jones <pjones@redhat.com> - 11.4.0.71-1
 - Fix destdir handling in upd-kernel (markmc)
 - Get rid of module ball remnants in mk-images (markmc)
