@@ -112,7 +112,7 @@ rm -rf $RPM_BUILD_ROOT
 - Require the latest libdhcp (dcantrell).
   Resolves: rhbz#435978
 - Fix networking tracebacks (pjones, clumens).
-  Resolves: rhbz#442020, rhbz#442093
+  Resolves: rhbz#442020
 
 * Tue Apr 08 2008 Chris Lumens <clumens@redhat.com> 11.1.2.112-1
 - Make isys.dhcpNetDevice() work in rescue mode (dcantrell).
