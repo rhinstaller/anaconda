@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.72
+Version: 11.4.0.73
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,10 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 16 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.73-1
+- Fix figuring out that the CD has stage2 on it and should be mounted. (clumens)
+- Don't copy the stage2 image on NFS installs (#438377). (clumens)
+
 * Tue Apr 15 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.72-1
 - Don't use megabytes for the livecd size for copying. (notting)
 - find moved (katzj)
