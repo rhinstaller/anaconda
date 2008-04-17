@@ -549,7 +549,6 @@ class DiskSet:
     def __init__ (self):
         self.disks = {}
         self.onlyPrimary = None
-        self.dispatch = dispatch #dispatch is in __builtins__
 
     def onlyPrimaryParts(self):
         for disk in self.disks.values():
@@ -894,7 +893,7 @@ class DiskSet:
             
             if (initAll and ((clearDevs is None) or (len(clearDevs) == 0)
                              or drive in clearDevs) and not flags.test) \
-                             and not hasProtectedPartitions(drive, self.dispatch):
+                             and not hasProtectedPartitions(drive, dispatch): #read the dispatch from __builtins__ namespace
                 if iutil.getArch() == "s390" and drive[:4] == "dasd":
                     if (intf is None or self.dasdFmt(intf, drive)):
                         DiskSet.skippedDisks.append(drive)
