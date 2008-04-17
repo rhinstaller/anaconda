@@ -130,8 +130,21 @@ class NetworkConfigurator:
 
     def run(self):
         gui.addFrame(self.window)
+        busycursor = gui.getBusyCursorStatus()
+        gui.setCursorToNormal()
+
         self.window.show()
-        gtk.main()
+        while True:
+            rc = self.window.run()
+            if rc == gtk.RESPONSE_CANCEL:
+                self._cancel()
+                break
+            if self._ok():
+                break
+
+        # restore busy cursor
+        if busycursor:
+            gui.setCursorToBusy()
         return self.rc
 
     def destroy(self):
@@ -158,7 +171,6 @@ class NetworkConfigurator:
         d.destroy()
 
     def _cancel(self, *args):
-        gtk.main_quit()
         self.rc = gtk.RESPONSE_CANCEL
 
     def _ok(self, *args):
@@ -196,10 +208,10 @@ class NetworkConfigurator:
                 netdev.set(('ipaddr', ipv4addr))
             except network.IPMissing, msg:
                 self._handleIPMissing(_("IP Address"))
-                return
+                return False
             except network.IPError, msg:
                 self._handleIPError(_("IP Address"), msg)
-                return
+                return False
 
             if ipv4nm.find('.') == -1:
                 # user provided a CIDR prefix
@@ -207,13 +219,13 @@ class NetworkConfigurator:
                     if int(ipv4nm) > 32 or int(ipv4nm) < 0:
                         msg = _("IPv4 CIDR prefix must be between 0 and 32.")
                         self._handleIPError(_("IPv4 Network Mask"), msg)
-                        return
+                        return False
                     else:
                         ipv4nm = isys.prefix2netmask(int(ipv4nm))
                         netdev.set(('netmask', ipv4nm))
                 except:
                     self._handleIPMissing(_("IPv4 Network Mask"))
-                    return
+                    return False
             else:
                 # user provided a dotted-quad netmask
                 try:
@@ -221,27 +233,27 @@ class NetworkConfigurator:
                     netdev.set(('netmask', ipv4nm))
                 except network.IPMissing, msg:
                     self._handleIPMissing(_("IPv4 Network Mask"))
-                    return
+                    return False
                 except network.IPError, msg:
                     self._handleIPError(_("IPv4 Network Mask"), msg)
-                    return
+                    return False
 
             try:
                 if gateway:
                     network.sanityCheckIPString(gateway)
             except network.IPMissing, msg:
                 self._handleIPMissing(_("Gateway"))
-                return
+                return False
             except network.IPError, msg:
                 self._handleIPError(_("Gateway"), msg)
-                return
+                return False
 
             try:
                 if ns:
                     network.sanityCheckIPString(ns)
             except network.IPError, msg:
                 self._handleIPError(_("Nameserver"), msg)
-                return
+                return False
 
 
             try:
@@ -251,7 +263,7 @@ class NetworkConfigurator:
                 log = logging.getLogger("anaconda")
                 log.error("Error configuring network device: %s" %(e,))
                 self._handleIPError(_("Error configuring network device:"), e)
-                return
+                return False
 
             self.rc = gtk.RESPONSE_OK
             if ns:
@@ -265,9 +277,8 @@ class NetworkConfigurator:
             gui.MessageWindow(_("Error"),
                               _("Error configuring network device"),
                               type = "ok", custom_icon="error")
-            return
-            
-        gtk.main_quit()
+            return False
+        return True
         
 
 
