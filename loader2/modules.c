@@ -652,7 +652,6 @@ static int removeHostAdapter(char *conf, char *name) {
 
         if (ret || strncmp(buf, "alias scsi_hostadapter", 22)) {
             fputs(buf, out);
-            free(buf);
             continue;
         }
 
