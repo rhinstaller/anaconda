@@ -107,8 +107,11 @@ void logMessage(int level, const char * s, ...) {
     va_end(args);
 }
 
+int tty_logfd = -1;
+int file_logfd = -1;
+
 void openLog(int useLocal) {
-    int flags, fd;
+    int flags;
 
     if (!useLocal) {
         tty_logfile = fopen("/dev/tty3", "w");
@@ -119,15 +122,15 @@ void openLog(int useLocal) {
     }
 
     if (tty_logfile) {
-        fd = fileno(tty_logfile);
-        flags = fcntl(fd, F_GETFD, 0) | FD_CLOEXEC;
-        fcntl(fd, F_SETFD, flags);
+        tty_logfd = fileno(tty_logfile);
+        flags = fcntl(tty_logfd, F_GETFD, 0) | FD_CLOEXEC;
+        fcntl(tty_logfd, F_SETFD, flags);
     }
 
     if (file_logfile) {
-        fd = fileno(file_logfile);
-        flags = fcntl(fd, F_GETFD, 0) | FD_CLOEXEC;
-        fcntl(fd, F_SETFD, flags);
+        file_logfd = fileno(file_logfile);
+        flags = fcntl(file_logfd, F_GETFD, 0) | FD_CLOEXEC;
+        fcntl(file_logfd, F_SETFD, flags);
     }
 }
 

@@ -38,4 +38,7 @@ void closeLog(void);
 void setLogLevel(int minLevel);
 int getLogLevel(void);
 
+extern int tty_logfd;
+extern int file_logfd;
+
 #endif /* _LOG_H_ */
