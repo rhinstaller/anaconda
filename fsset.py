@@ -2681,7 +2681,8 @@ def makeDevice(dev):
     if dev.startswith('md'):
         try:
             (mdname, devices, level, numActive) = raid.lookup_raid_device(dev)
-            device = RAIDDevice(level, devices,
+            devs = [PartitionDevice(d) for d in devices]
+            device = RAIDDevice(level, devs,
                                 minor=int(mdname[2:]),
                                 spares=len(devices) - numActive,
                                 existing=1)
