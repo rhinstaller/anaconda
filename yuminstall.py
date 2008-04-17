@@ -48,6 +48,8 @@ from image import *
 import packages
 from rhpl.translate import _
 
+import network
+
 # specspo stuff
 rpm.addMacro("_i18ndomains", "redhat-dist")
 
@@ -598,6 +600,16 @@ class AnacondaYum(YumSorter):
                 continue
 
     def _handleFailure(self, package):
+        if flags.cmdline.has_key("preupgrade") and os.environ.has_key("DISPLAY") and not network.hasActiveNetDev():
+            from netconfig_dialog import NetworkConfigurator
+            import gtk
+            net = NetworkConfigurator(self.anaconda.id.network)
+            ret = net.run()
+            net.destroy()
+
+            if ret != gtk.RESPONSE_CANCEL:
+                return
+
         if not self.isodir and self.currentMedia:
             buttons = [_("Re_boot"), _("_Eject")]
         else:
