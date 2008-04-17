@@ -43,6 +43,7 @@
 #include "loader.h"
 #include "fwloader.h"
 #include "udelay.h"
+#include "log.h"
 
 struct fw_loader {
     int netlinkfd;
@@ -115,9 +116,7 @@ extern void loaderSegvHandler(int signum);
 static void kill_hotplug_signal(int signum)
 {
     signal(signum, kill_hotplug_signal);
-#if 0
-    fprintf(stderr, "got exit signal, quitting\n");
-#endif
+    logMessage(DEBUGLVL, "fwloader: got exit signal, quitting");
     done = 1;
 }
 
@@ -156,24 +155,18 @@ static int daemonize(struct fw_loader *fwl)
     for (fd = 0; fd < getdtablesize(); fd++) {
         if (fd == STDIN_FILENO || fd == STDOUT_FILENO || fd == STDERR_FILENO)
             continue;
+        if (fd == tty_logfd || fd == file_logfd)
+            continue;
         close(fd);
     }
 
     setsid();
-#if 1
     fd = open("/dev/null", O_RDONLY);
-#else
-    fd = open("/dev/tty5", O_RDONLY);
-#endif
     close(STDIN_FILENO);
     dup2(fd, STDIN_FILENO);
     set_fd_coe(STDIN_FILENO, 1);
     close(fd);
-#if 1
     fd = open("/dev/null", O_WRONLY);
-#else
-    fd = open("/dev/tty5", O_WRONLY);
-#endif
     close(STDOUT_FILENO);
     dup2(fd, STDOUT_FILENO);
     set_fd_coe(STDOUT_FILENO, 1);
@@ -182,9 +175,7 @@ static int daemonize(struct fw_loader *fwl)
     set_fd_coe(STDERR_FILENO, 1);
     close(fd);
 
-#if 0
-    fprintf(stderr, "starting up (pid %d)\n", getpid());
-#endif
+    logMessage(DEBUGLVL, "fwloader: starting up (pid %d)", getpid());
     return 0;
 }
 
@@ -268,9 +259,14 @@ get_loading_fd(const char *device)
     int fd = -1;
     char *loading_path = NULL;
 
-    if (asprintf(&loading_path, "%s/loading", device) < 0)
+    if (asprintf(&loading_path, "%s/loading", device) < 0) {
+        logMessage(ERROR, "fwloader: device %s: asprintf: %m", device);
         return -1;
+    }
+    logMessage(DEBUGLVL, "fwloader: looking for loading file at %s", loading_path);
     fd = open(loading_path, O_RDWR | O_SYNC );
+    if (fd < 0)
+        logMessage(ERROR, "fwloader: open %s: %m", loading_path);
     free(loading_path);
     return fd;
 }
@@ -392,16 +388,19 @@ _load_firmware(struct fw_loader *fwl, int fw_fd, char *sysdir, int timeout)
     int loading = -2;
     size_t count;
 
-    if ((lfd = get_loading_fd(sysdir)) < 0)
-        return lfd;
-
+    logMessage(DEBUGLVL, "fwloader: waiting for firmware dir at %s", sysdir);
     timeout *= 1000000;
     while (access(sysdir, F_OK) && timeout) {
         udelay(100);
         timeout -= 100;
     }
-    if (!timeout)
+    if (!timeout) {
+        logMessage(ERROR, "fwloader: never found firmware dir at %s", sysdir);
         return -ENOENT;
+    }
+
+    if ((lfd = get_loading_fd(sysdir)) < 0)
+        return lfd;
 
     set_loading(lfd, 1);
     loading = -1;
@@ -445,9 +444,7 @@ out:
 
 static void load_firmware(struct fw_loader *fwl, struct uevent *uevent)
 {
-    char *physdevbus = NULL, *physdevdriver = NULL, *physdevpath = NULL,
-         *devpath = NULL, *firmware = NULL, *timeout;
-    char *dp = NULL;
+    char *devpath = NULL, *firmware = NULL, *timeout;
     char *fw_file = NULL, *sys_file = NULL;
     char *entry;
     int timeout_secs;
@@ -456,20 +453,23 @@ static void load_firmware(struct fw_loader *fwl, struct uevent *uevent)
 
     tempfile = strdup("/tmp/fw-XXXXXX");
     fd = mkstemp(tempfile);
-    if (fd == -1)
+    if (fd < 0) {
+        logMessage(ERROR, "fwloader: mkstemp(\"%s\") failed: %m", tempfile);
+        free(tempfile);
         return;
+    }
     unlink(tempfile);
     free(tempfile);
 
     devpath = envz_get(uevent->envz, uevent->envz_len, "DEVPATH");
     firmware = envz_get(uevent->envz, uevent->envz_len, "FIRMWARE");
-    physdevbus = envz_get(uevent->envz, uevent->envz_len, "PHYSDEVBUS");
-    physdevdriver = envz_get(uevent->envz, uevent->envz_len, "PHYSDEVDRIVER");
-    physdevpath = envz_get(uevent->envz, uevent->envz_len, "PHYSDEVPATH");
     timeout = envz_get(uevent->envz, uevent->envz_len, "TIMEOUT");
     
-    if (!devpath || !firmware || !physdevbus || !physdevdriver || !physdevpath)
+    if (!devpath || !firmware) {
+        argz_stringify(uevent->envz, uevent->envz_len, ' ');
+        logMessage(ERROR, "fwloader: environment: %s", uevent->envz);
         return;
+    }
 
     timeout_secs = strtol(timeout, NULL, 10);
 
@@ -479,9 +479,7 @@ static void load_firmware(struct fw_loader *fwl, struct uevent *uevent)
         if (asprintf(&fw_file, "%s/%s", entry, firmware) < 0)
             return;
 
-#if 0
-        fprintf(stderr, "Trying to find %s at %s\n", firmware, fw_file);
-#endif
+        logMessage(INFO, "fwloader: trying to find %s at %s", firmware, fw_file);
 
         if (fetcher(fw_file, fd) >= 0)
             break;
@@ -495,29 +493,11 @@ static void load_firmware(struct fw_loader *fwl, struct uevent *uevent)
     if (!fw_file)
         goto out;
 
-    /* try the new way first */
-    /* PJFIX this is messy */
-    dp = strdup(devpath + 2 + strcspn(devpath+1, "/"));
-    if (!dp)
-        goto out;
-    dp[strcspn(dp, "/")] = ':';
-
-    if (asprintf(&sys_file, "/sys%s/%s/", physdevpath, dp) < 0) {
-        free(dp);
-        goto out;
-    }
-    free(dp);
-    if (_load_firmware(fwl, fd, sys_file, timeout_secs) >= 0)
+    if (asprintf(&sys_file, "/sys%s/", devpath) < 0)
         goto out;
 
-    /* ok, try the old way */
-    free(sys_file);
-    sys_file = NULL;
-
-    if (asprintf(&sys_file, "/sys%s/", devpath) < 0) {
-        goto out;
-    }
     _load_firmware(fwl, fd, sys_file, timeout_secs);
+
 out:
     if (fw_file)
         free(fw_file);
@@ -535,15 +515,7 @@ static void handle_single_uevent(struct fw_loader *fwl, struct uevent *uevent)
     action = envz_get(uevent->envz, uevent->envz_len, "ACTION");
     subsystem = envz_get(uevent->envz, uevent->envz_len, "SUBSYSTEM");
 
-#if 0
-    if (subsystem)
-        fprintf(stderr, "subsystem %s ", subsystem);
-    if (action)
-        fprintf(stderr, "got action %s", action);
-    if (subsystem || action)
-        fprintf(stderr, "\n");
-#endif
-
+    logMessage(DEBUGLVL, "fwloader: subsystem %s got action %s", subsystem, action);
     if (!strcmp(action, "add") && !strcmp(subsystem, "firmware"))
         load_firmware(fwl, uevent);
 }
@@ -563,8 +535,10 @@ static void handle_events(struct fw_loader *fwl)
             fwl->fds[0].revents = 0;
             fwl->fds[0].fd = fwl->netlinkfd;
 
+            //logMessage(DEBUGLVL, "fwloader: polling on netlink socket");
             errno = 0;
             rc = poll(fwl->fds, 1, -1);
+            //logMessage(DEBUGLVL, "fwloader: poll returned %d", rc);
 
             if (done)
                 exit(0);
@@ -635,21 +609,20 @@ void do_fw_loader(struct loaderData_s *loaderData)
     fwl.fw_pathz = loaderData->fw_search_pathz;
     fwl.fw_pathz_len = loaderData->fw_search_pathz_len;
 
+    logMessage(INFO, "fwloader: starting firmware loader");
+
     rc = daemonize(&fwl);
     if (rc < 0) {
-#if 0
-        fprintf(stderr, "daemonize() failed with %d: %m\n", rc);
-#endif
+        logMessage(ERROR, "fwloader: daemonize() failed with %d: %m", rc);
         exit(1);
     }
 
     if (open_uevent_socket(&fwl) < 0) {
-#if 0
-        fprintf(stderr, "open_uevent_socket() failed: %m\n");
-#endif
+        logMessage(ERROR, "fwloader: open_uevent_socket() failed: %m");
         exit(1);
     }
 
+    logMessage(DEBUGLVL, "fwloader: entering event loop");
     handle_events(&fwl);
 
     exit(1);
