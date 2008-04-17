@@ -624,7 +624,7 @@ class InstallKeyWindow:
         self.win.destroy()
 
 class luksPassphraseWindow:
-    def __init__(self, passphrase=None):
+    def __init__(self, passphrase=None, parent = None):
         luksxml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"),
                                 domain="anaconda",
                                 root="luksPassphraseDialog")
@@ -641,6 +641,9 @@ class luksPassphraseWindow:
             self.confirmEntry.set_text(passphrase)
         else:
             self.initialPassphrase = ""
+
+        if parent:
+            self.win.set_transient_for(parent)
 
         addFrame(self.win)
 
@@ -684,7 +687,9 @@ class luksPassphraseWindow:
         self.win.destroy()
 
 class PassphraseEntryWindow:
-    def __init__(self, device):
+    def __init__(self, device, parent = None):
+        def ok(*args):
+            self.win.response(gtk.RESPONSE_OK)
         xml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"),
                             domain="anaconda",
                             root="passphraseEntryDialog")
@@ -697,6 +702,10 @@ class PassphraseEntryWindow:
         self.passphraseEntry = xml.get_widget("passphraseEntry2")
         self.globalcheckbutton = xml.get_widget("globalcheckbutton")
 
+        if parent:
+            self.win.set_transient_for(parent)
+
+        self.passphraseEntry.connect('activate', ok)
         addFrame(self.win)
 
     def run(self):
@@ -1168,14 +1177,24 @@ class InstallInterface:
         return ret
 
     def getLuksPassphrase(self, passphrase = ""):
-        d = luksPassphraseWindow(passphrase)
+        if self.icw:
+            parent = self.icw.window
+        else:
+            parent = None
+
+        d = luksPassphraseWindow(passphrase, parent = parent)
         rc = d.run()
         passphrase = d.getPassphrase()
         d.destroy()
         return passphrase
 
     def passphraseEntryWindow(self, device):
-        d = PassphraseEntryWindow(device)
+        if self.icw:
+            parent = self.icw.window
+        else:
+            parent = None
+
+        d = PassphraseEntryWindow(device, parent = parent)
         rc = d.run()
         d.destroy()
         return rc
