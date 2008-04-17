@@ -1578,6 +1578,13 @@ class YumBackend(AnacondaBackend):
                 except:
                     pass
 
+        # nuke preupgrade
+        if flags.cmdline.has_key("preupgrade") and anaconda.id.getUpgrade() and os.path.exists("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,)):
+            try:
+                shutil.rmtree("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,))
+            except:
+                pass
+
         # XXX: write proper lvm config
 
         AnacondaBackend.doPostInstall(self, anaconda)
