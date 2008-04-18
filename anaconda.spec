@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.85
+Version: 10.1.1.86
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Apr 18 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.86-1
+- Fix dispatch traceback (msivak)
+  Resolves: rhbz#442750
+- Fix loader crash from freeing static bufer (clumens)
+  Resolves: rhbz#442863
+
 * Tue Apr 15 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.85-1
 - Fix detection of xen para-virt environment (msivak)
   Resolves: rhbz#441729
