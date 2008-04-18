@@ -32,6 +32,7 @@ import sys
 import string
 import language
 import fsset
+import lvm
 import shutil
 import traceback
 from flags import flags
@@ -182,7 +183,10 @@ def turnOnFilesystems(anaconda):
                                             stdout = "/dev/tty5",
                                             stderr = "/dev/tty5",
                                             searchPath = 1)
-                anaconda.id.partitions.doMetaResizes(anaconda.id.diskset)
+                try:
+                    anaconda.id.partitions.doMetaResizes(anaconda.id.diskset)
+                except lvm.LVResizeError, e:
+                    handleResizeError("%s" %(e,), "%s/%s" %(e.vgname, e.lvname))
             try:
                 anaconda.id.fsset.growFilesystems(anaconda.id.diskset, anaconda.rootPath)
             except fsset.ResizeError, (e, dev):
