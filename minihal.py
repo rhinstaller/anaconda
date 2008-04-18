@@ -33,11 +33,11 @@ def get_device(udi):
         return None
 
     if props.has_key('block.device'):
-        props['device'] = props['block.device']
+        props['device'] = props['block.device'].encode("utf-8")
     elif props.has_key('linux.device_file'):
-        props['device'] = props['linux.device_file']
+        props['device'] = props['linux.device_file'].encode("utf-8")
     elif props.has_key('net.interface'):
-        props['device'] = props['net.interface']
+        props['device'] = props['net.interface'].encode("utf-8")
     else:
         props['device'] = None
 
