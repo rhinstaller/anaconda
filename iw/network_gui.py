@@ -1,8 +1,8 @@
 #
 # network_gui.py: Network configuration dialog
 #
-# Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005, 2006  Red Hat, Inc.
-# All rights reserved.
+# Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005, 2006,  Red Hat, Inc.
+#               2007, 2008
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -65,36 +65,32 @@ class NetworkWindow(InstallWindow):
 	    newHostname = "localhost.localdomain"
 	    override = 0
 
-	# If we're not using DHCP, skip setting up the network config
-	# boxes.  Otherwise, don't clear the values out if we are doing
-	# kickstart since we could be in interactive mode.  Don't want to
-	# write out a broken resolv.conf later on, after all.
-	if not self.anyUsingDHCP():
-	    tmpvals = {}
-	    for t in range(len(global_options)):
-		try:
-                    network.sanityCheckIPString(self.globals[global_options[t]].get_text())
-		    tmpvals[t] = self.globals[global_options[t]].get_text()
-		except network.IPMissing, msg:
-                    if t < 2 and self.getNumberActiveDevices() > 0:
-			if self.handleMissingOptionalIP(global_options[t]):
-			    raise gui.StayOnScreen
-			else:
-			    tmpvals[t] = None
-		    else:
-			    tmpvals[t] = None
-			
-		except network.IPError, msg:
-		    self.handleIPError(global_options[t], msg)
-		    raise gui.StayOnScreen
+	# FIXME: This is a temporary solution until the UI is reworked.  Since
+	# we do dual IPv4/IPv6 stacks, we could have IPv4 on DHCP and static
+	# IPv6 with a default gateway.  So we may have values in these fields
+	# that we want to pick up.
+	tmpvals = {}
+	for t in range(len(global_options)):
+	    try:
+	        val = self.globals[global_options[t]].get_text()
+	        if val != "":
+	            network.sanityCheckIPString(val)
+	            tmpvals[t] = val
+	    except network.IPMissing, msg:
+	        if t < 2 and self.getNumberActiveDevices() > 0:
+	            if self.handleMissingOptionalIP(global_options[t]):
+	                raise gui.StayOnScreen
+	            else:
+	                tmpvals[t] = None
+	        else:
+	            tmpvals[t] = None
+	    except network.IPError, msg:
+	        self.handleIPError(global_options[t], msg)
+	        raise gui.StayOnScreen
 
-	    self.network.gateway = tmpvals[0]
-	    self.network.primaryNS = tmpvals[1]
-	    self.network.secondaryNS = tmpvals[2]
-	elif self.id.instClass.name != "kickstart":
-	    self.network.gateway = None
-	    self.network.primaryNS = None
-	    self.network.secondaryNS = None
+	self.network.gateway = tmpvals[0]
+	self.network.primaryNS = tmpvals[1]
+	self.network.secondaryNS = tmpvals[2]
 
         iter = self.ethdevices.store.get_iter_first()
 	while iter:
@@ -128,12 +124,17 @@ class NetworkWindow(InstallWindow):
 	self.hostnameManual.set_sensitive(1)
 	self.hostnameManual.set_active(1)
 
+    # FIXME: ipTable should allow for default gateways for IPv4 and IPv6
+    # Disable ipTable (gateway and dns entry fields) if we have no devices
+    # (in which case this whole network post config screen is only useful
+    # for setting the system hostname) or if all devices on the system are
+    # using dhcp.  If we have just one device using manual configuration,
+    # we want to enable these entry fields.
     def setIPTableSensitivity(self):
-	numactive = self.getNumberActiveDevices()
-	if numactive == 0:
-	    state = False
+	if self.getNumberActiveDevices() == 0:
+		state = False
 	else:
-	    state = not self.anyUsingDHCP()
+		state = network.anyUsingStatic(self.devices)
 
 	self.ipTable.set_sensitive(state)
 
@@ -329,17 +330,6 @@ class NetworkWindow(InstallWindow):
 
 	return numactive
 
-    def anyUsingDHCP(self):
-	for device in self.devices.keys():
-	    bootproto = self.devices[device].get("bootproto")
-
-	    if bootproto and bootproto.lower() == 'dhcp':
-		onboot = self.devices[device].get("ONBOOT")
-		if onboot != "no":
-		    return 1
-
-	return 0
-	
     def onbootToggleCB(self, row, data):
 	model = self.ethdevices.get_model()
 	iter = model.get_iter((string.atoi(data),))
@@ -528,7 +518,7 @@ class NetworkWindow(InstallWindow):
 	# bring over the value from the loader
 	self.hostnameEntry.set_text(self.network.hostname)
 
-	if not self.anyUsingDHCP():
+	if not network.anyUsingDHCP(self.devices):
 	    if self.network.gateway:
                 self.globals[_("Gateway")].set_text(self.network.gateway)
 	    if self.network.primaryNS:
@@ -550,7 +540,7 @@ class NetworkWindow(InstallWindow):
 	self.hostnameEntry.set_sensitive(not self.hostnameUseDHCP.get_active())
 	self.setIPTableSensitivity()
 
-        self.hostnameUseDHCP.set_sensitive(self.anyUsingDHCP())
+        self.hostnameUseDHCP.set_sensitive(network.anyUsingDHCP(self.devices))
 
 	return box
 
