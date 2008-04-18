@@ -76,7 +76,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char *path,
     else if (fd < 0) {
         if (!silentErrors) {
             newtWinMessage(_("Error"), _("OK"),
-                           _("Unable to retrieve %s://%s/%s."),
+                           _("Unable to retrieve %s://%s%s."),
                            (ui->protocol == URL_METHOD_FTP ? "ftp" : "http"),
                            ui->address, path);
         }
