@@ -187,7 +187,7 @@ class AnacondaCallback:
             self.openfile = None
 
             repo = self.repos.getRepo(self.inProgressPo.repoid)
-            if os.path.dirname(fn).startswith("%s/tmp/cache/" % self.rootPath):
+            if os.path.dirname(fn).startswith("%s/var/cache/yum/" % self.rootPath):
                 try:
                     os.unlink(fn)
                 except OSError, e:
@@ -243,7 +243,7 @@ class AnacondaYumRepo(YumRepository):
         if mirrorlist:
             self.mirrorlist = mirrorlist
 
-        self.setAttribute('cachedir', os.path.join(root, "tmp/cache", self.id))
+        self.setAttribute('cachedir', os.path.join(root, "var/cache/yum", self.id))
 
     def dirSetup(self):
         # FIXME: this is terrible, awful and shouldn't be allowed to see
@@ -260,6 +260,10 @@ class AnacondaYumRepo(YumRepository):
             os.makedirs(self.pkgdir, mode=0755)
         if not os.path.isdir(self.cachedir):
             os.makedirs(self.cachedir, mode=0755)
+
+    def dirCleanup(self):
+        if os.path.isdir(self.getAttribute('cachedir')):
+            shutil.rmtree(self.getAttribute('cachedir'))
 
     def _getFile(self, url=None, relative=None, local=None, start=None, end=None,
             copy_local=None, checkfunc=None, text=None, reget='simple', cache=True):
@@ -481,7 +485,7 @@ class AnacondaYum(YumSorter):
         self.conf.logfile="/tmp/yum.log"
         self.conf.obsoletes=True
         self.conf.cache=0
-        self.conf.cachedir = "%s/tmp/cache/" % self.anaconda.rootPath
+        self.conf.cachedir = "%s/var/cache/yum" % self.anaconda.rootPath
         self.conf.metadata_expire = 0
 
         if self.anaconda.methodstr.startswith("nfs:"):
@@ -584,7 +588,7 @@ class AnacondaYum(YumSorter):
                                      "/mnt/source/RHupdates/pluginconf.d"])
         self.plugins.run('init')
 
-        self.repos.setCacheDir("%s/tmp/cache" % self.anaconda.rootPath)
+        self.repos.setCacheDir("%s/var/cache/yum" % self.anaconda.rootPath)
 
     def downloadHeader(self, po):
         while True:
@@ -1566,8 +1570,8 @@ class YumBackend(AnacondaBackend):
                 anaconda.id.desktop.setDefaultRunLevel(5)
                 break
 
-        if os.path.exists("%s/tmp/cache" % anaconda.rootPath):
-            shutil.rmtree("%s/tmp/cache" % anaconda.rootPath)
+        for repo in self.ayum.repos.listEnabled():
+            repo.dirCleanup()
 
         # expire yum caches on upgrade
         if anaconda.id.getUpgrade() and os.path.exists("%s/var/cache/yum" %(anaconda.rootPath,)):
