@@ -375,7 +375,7 @@ char * findAnacondaCD(char * location,
 char * mountCdromImage(struct installMethod * method,
                        char * location, struct loaderData_s * loaderData) {
 
-    return setupCdrom(location, loaderData, 1, 1);
+    return setupCdrom(location, loaderData, 1, !FL_RESCUE(flags));
 }
 
 void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {
