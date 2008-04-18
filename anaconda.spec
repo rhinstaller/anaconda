@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.73
+Version: 11.4.0.74
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,29 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Apr 18 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.74-1
+- Don't look for .discinfo on the rescue CD (#442098). (clumens)
+- Use /var/cache/yum as the cachedir since /tmp might be 
+  too small (#443083). (clumens)
+- Revert "Don't look for a .discinfo file in rescue 
+  mode (jvonau, #442098)." (clumens)
+- Revert "Fix figuring out that the CD has stage2 on it and should 
+  be mounted." (clumens)
+- We've always expected devices to be strings, not unicode (#443040) (katzj)
+- Resizing lvs on top of RAID fails, make the error not a traceback (katzj)
+- Don't put an extra slash on the error message (jgranado)
+- Kernel changed howw the uevent API works for firmware 
+  loading *AGAIN*. (pjones)
+- Expose the log file descriptors so fwloader can avoid closing 
+  them (pjones)
+- Minor UI tweaks to passphrase dialogs (katzj)
+- Nuke preupgrade cache once we're done (#442832) (katzj)
+- Support bringing up the network if needed with preupgrade (#442610) (katzj)
+- Use a real GtkDialog instead of some crazy hacked up dialog (katzj)
+- Fix handling of pre-existing raids for the upgrade/rescue 
+  case (#441770) (katzj)
+- Add missing / (Doug Chapman, #442751) (katzj)
+
 * Wed Apr 16 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.73-1
 - Fix figuring out that the CD has stage2 on it and should be mounted. (clumens)
 - Don't copy the stage2 image on NFS installs (#438377). (clumens)
