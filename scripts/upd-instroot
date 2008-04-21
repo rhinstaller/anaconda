@@ -291,7 +291,6 @@ XORGLIBS="libICE libSM libX11 libXcursor libXext libXfixes libXft libXi libxkbfi
 XORGFONTS="xorg-x11-fonts-75dpi xorg-x11-fonts-base xorg-x11-fonts-cyrillic xorg-x11-fonts-ISO8859-15-75dpi xorg-x11-fonts-ISO8859-1-75dpi xorg-x11-fonts-ISO8859-2-75dpi xorg-x11-fonts-ISO8859-9-75dpi xorg-x11-fonts-misc xorg-x11-fonts-ethiopic"
 XORG="$XORGLIBS xorg-x11-drivers $XORGFONTS xorg-x11-server-Xorg xorg-x11-xauth xorg-x11-font-utils xorg-x11-xkb-utils xorg-x11-xkbdata xorg-x11-server-utils xkeyboard-config"
 
-PACKAGES="$PACKAGES $XORGDRIVERS"
 PACKAGESGR="$PACKAGESGR $XORG"
 
 
