@@ -133,7 +133,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
 
 class AutoPart(commands.autopart.F9_AutoPart):
     def parse(self, args):
-        commands.autopart.FC3_AutoPart.parse(self, args)
+        commands.autopart.F9_AutoPart.parse(self, args)
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it

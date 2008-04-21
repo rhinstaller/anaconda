@@ -45,9 +45,9 @@ class IPMissing(Exception):
 
 def inStrRange(v, s):
     if string.find(s, v) == -1:
-	return 0
+	return False
     else:
-	return 1
+	return True
 
 def sanityCheckHostname(hostname):
     if len(hostname) < 1:
@@ -76,18 +76,39 @@ def networkDeviceCheck(anaconda):
 # return if the device is of a type that requires a ptpaddr to be specified
 def isPtpDev(devname):
     if (devname.startswith("ctc") or devname.startswith("iucv")):
-        return 1
-    return 0
+        return True
+    return False
 
-# determine whether any active at boot devices are using dhcp
-def anyUsingDHCP(devices):
+def _anyUsing(devices, method):
+    if method != "dhcp" and method != "static":
+        return False
+
     for dev in devices.keys():
-        bootproto = devices[dev].get("bootproto")
-        if bootproto and bootproto.lower() == "dhcp":
-            onboot = devices[dev].get("onboot")
-            if onboot and onboot != "no":
-                return 1
-    return 0
+        onboot = devices[dev].get("onboot").lower()
+
+        if onboot == "no":
+            continue
+
+        bootproto = devices[dev].get("bootproto").lower()
+        ipv6addr = devices[dev].get("ipv6addr").lower()
+        ipv6ac = devices[dev].get("ipv6_autoconf").lower()
+
+        if method == "dhcp":
+            if bootproto == "dhcp" or ipv6addr == "dhcp" or ipv6ac == "yes":
+                    return True
+        elif method == "static":
+            if bootproto == "static" or ipv6addr != "dhcp" and ipv6ac != "yes":
+                    return True
+
+    return False
+
+# determine whether any active at boot devices are using dhcp or dhcpv6
+def anyUsingDHCP(devices):
+    return _anyUsing(devices, "dhcp")
+
+# determine whether any active at boot devices are using static IP config
+def anyUsingStatic(devices):
+    return _anyUsing(devices, "static")
 
 # sanity check an IP string.
 def sanityCheckIPString(ip_string):
@@ -418,6 +439,11 @@ class Network:
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in self.netdevices.values():
             device = dev.get("device")
+            bootproto = dev.get('BOOTPROTO').lower()
+            ipv6addr = dev.get('IPV6ADDR').lower()
+            ipv6prefix = dev.get('IPV6PREFIX').lower()
+            ipv6autoconf = dev.get('IPV6_AUTOCONF').lower()
+
             fn = "%s/etc/sysconfig/network-scripts/ifcfg-%s" % (instPath,
                                                                 device)
             f = open(fn, "w")
@@ -426,15 +452,14 @@ class Network:
                 f.write("# %s\n" % (dev.get("DESC"),))
 
             # if bootproto is dhcp, unset any static settings (#218489)
-            if dev.get('BOOTPROTO').lower() == 'dhcp':
+            # *but* don't unset if either IPv4 or IPv6 is manual (#433290)
+            if bootproto == 'dhcp' and \
+               (ipv6addr == 'dhcp' or ipv6autoconf == 'yes'):
                 dev.unset('IPADDR')
                 dev.unset('NETMASK')
                 dev.unset('GATEWAY')
 
             # handle IPv6 settings correctly for the ifcfg file
-            ipv6addr = dev.get('IPV6ADDR').lower()
-            ipv6prefix = dev.get('IPV6PREFIX').lower()
-
             dev.unset('IPV6ADDR')
             dev.unset('IPV6PREFIX')
 
@@ -454,7 +479,7 @@ class Network:
             f.write(str(dev))
 
             # write out the hostname as DHCP_HOSTNAME if given (#81613)
-            if (dev.get('bootproto').lower() == 'dhcp' and self.hostname and
+            if (bootproto == 'dhcp' and self.hostname and
                 self.overrideDHCPhostname):
                 f.write("DHCP_HOSTNAME=%s\n" %(self.hostname,))
             if dev.get('dhcpclass'):
@@ -483,8 +508,15 @@ class Network:
             f.write(self.hostname + "\n")
         else:
             f.write("localhost.localdomain\n")
+
         if self.gateway:
-            f.write("GATEWAY=%s\n" % (self.gateway,))
+            if self.gateway.find('.') != -1:
+                f.write("GATEWAY=%s\n" % (self.gateway,))
+                f.write("IPV6_DEFAULTGW=\n")
+            elif self.gateway.find(':') != -1:
+                f.write("GATEWAY=\n")
+                f.write("IPV6_DEFAULTGW=%s\n" % (self.gateway,))
+
         f.close()
 
         # /etc/hosts
