@@ -336,7 +336,7 @@ def checkDiskLabel(disk, intf):
 
 def hasProtectedPartitions(drive, dispatch):
     rc = False
-    if anaconda is None:
+    if dispatch is None:
         return rc
 
     try:
