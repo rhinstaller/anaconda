@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.74
+Version: 11.4.0.75
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Apr 18 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.75-1
+- Listing the directories before expiring yum caches helps (katzj)
+
 * Fri Apr 18 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.74-1
 - Don't look for .discinfo on the rescue CD (#442098). (clumens)
 - Use /var/cache/yum as the cachedir since /tmp might be 
