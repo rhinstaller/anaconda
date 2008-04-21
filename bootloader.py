@@ -147,6 +147,13 @@ def writeBootloader(anaconda):
         
     justConfigFile = not flags.setupFilesystems
 
+    #
+    # FIXME: 32 bit binaries currently aren't supported on x86_64
+    #        pv_ops DomU, so don't run grub-install (#442685)
+    #
+    if os.path.exists("/proc/xen") and rhpl.getArch() == "x86_64":
+        justConfigFile = True
+
     if anaconda.id.bootloader.defaultDevice == -1:
         return
 
