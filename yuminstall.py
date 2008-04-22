@@ -1583,9 +1583,11 @@ class YumBackend(AnacondaBackend):
                     pass
 
         # nuke preupgrade
-        if flags.cmdline.has_key("preupgrade") and anaconda.id.getUpgrade() and os.path.exists("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,)):
+        if flags.cmdline.has_key("preupgrade") and anaconda.id.getUpgrade():
             try:
-                shutil.rmtree("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,))
+                iutil.execWithRedirect("yum", ["clean", "all"],
+                                       stdout="/dev/tty5", stderr="/dev/tty5",
+                                       searchPath = 1)
             except:
                 pass
 
