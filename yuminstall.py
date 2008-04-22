@@ -1837,7 +1837,8 @@ class DownloadHeaderProgress:
 
         if self.ayum is not None and self.ayum.tsInfo is not None:
             self.numpkgs = len(self.ayum.tsInfo.getMembers())
-            self.incr = (1.0 / self.numpkgs) * (1.0 - self.loopstart)
+            if self.numpkgs != 0:
+                self.incr = (1.0 / self.numpkgs) * (1.0 - self.loopstart)
         else:
             self.numpkgs = 0
 
