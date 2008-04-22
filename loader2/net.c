@@ -596,14 +596,16 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
 
         if (!cfg->noDns)
             writeResolvConf(cfg);
+
         return LOADER_NOOP;
     }
 
     /* handle wireless device configuration */
     if (is_wireless_interface(device)) {
         logMessage(INFO, "%s is a wireless adapter", device);
-        if (getWirelessConfig(cfg, device) == LOADER_BACK)
+        if (getWirelessConfig(cfg, device) == LOADER_BACK) {
             return LOADER_BACK;
+        }
 
         if (cfg->essid != NULL)
             newCfg.essid = strdup(cfg->essid);
@@ -649,10 +651,10 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     }
 
     cfg->isDynamic = newCfg.isDynamic;
-    memcpy(&cfg->dev,&newCfg.dev,sizeof(newCfg.dev));
+    memcpy(&cfg->dev, &newCfg.dev, sizeof(newCfg.dev));
 
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
-        if (ipcomps.gw && *ipcomps.gw) {
+        if (ipcomps.gw != NULL) {
             if (inet_pton(AF_INET, ipcomps.gw, &addr) >= 1) {
                 cfg->dev.gateway = ip_addr_in(&addr);
                 cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
@@ -1249,31 +1251,56 @@ void debugNetworkInfo(struct networkDeviceConfig *cfg) {
 
     logMessage(DEBUGLVL, "device = %s", cfg->dev.device);
 
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV4_IP)
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV4_IP) {
         logMessage(DEBUGLVL, "ipv4 = %s", ip_text(cfg->dev.ipv4, buf, 0));
+        free(buf);
+        buf = NULL;
+    }
 
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST) {
         logMessage(DEBUGLVL,"broadcast = %s",ip_text(cfg->dev.broadcast,buf,0));
+        free(buf);
+        buf = NULL;
+    }
 
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK) {
         logMessage(DEBUGLVL, "netmask = %s", ip_text(cfg->dev.netmask, buf, 0));
+        free(buf);
+        buf = NULL;
+    }
 
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_NETWORK)
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_NETWORK) {
         logMessage(DEBUGLVL, "network = %s", ip_text(cfg->dev.network, buf, 0));
+        free(buf);
+        buf = NULL;
+    }
 
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_IP)
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_IP) {
         logMessage(DEBUGLVL, "ipv6 = %s", ip_text(cfg->dev.ipv6, buf, 0));
+        free(buf);
+        buf = NULL;
+    }
 
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX)
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX) {
         logMessage(DEBUGLVL, "ipv6_prefixlen = %d", cfg->dev.ipv6_prefixlen);
+        free(buf);
+        buf = NULL; 
+    }
 
-    if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+    if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
         logMessage(DEBUGLVL, "gateway = %s", ip_text(cfg->dev.gateway, buf, 0));
+        free(buf);
+        buf = NULL;
+    }
 
-    if (cfg->dev.set & PUMP_NETINFO_HAS_DNS)
-        for (i=0; i < cfg->dev.numDns; i++)
+    if (cfg->dev.set & PUMP_NETINFO_HAS_DNS) {
+        for (i=0; i < cfg->dev.numDns; i++) {
             logMessage(DEBUGLVL, "dns[%d] = %s", i,
                        ip_text(cfg->dev.dnsServers[i], buf, 0));
+            free(buf);
+            buf = NULL;
+        }
+    }
 }
 
 int setupWireless(struct networkDeviceConfig *dev) {

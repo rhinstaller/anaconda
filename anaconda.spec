@@ -17,7 +17,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define dmver 1.02.17-6
 %define gettextver 0.11
 %define intltoolver 0.31.2-3
-%define libdhcpver 1.99.6-2
+%define libdhcpver 1.99.8-1
 %define libnlver 1.0
 %define libselinuxver 1.6
 %define mkinitrdver 5.1.2-1
