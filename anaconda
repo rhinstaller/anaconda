@@ -1011,6 +1011,8 @@ if __name__ == "__main__":
            log.error("Exception %s while running Dogtail testcase" % e)
 
     if opts.lang:
+        # this is lame, but make things match what we expect (#443408)
+        opts.lang = opts.lang.replace(".utf8", ".UTF-8")
         anaconda.dispatch.skipStep("language", permanent = 1)
         instClass.setLanguage(anaconda.id, opts.lang)
         instClass.setLanguageDefault(anaconda.id, opts.lang)
