@@ -44,7 +44,7 @@ makeBootImages() {
 	--imagename boot.img \
 	--bootdisksize 24576 \
 	--initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
-		     	    --initrdsize 12288 \
+			    --initrdsize 13000 \
 			    --loaderbin loader \
 			    --modules "$COMMONMODULES $USBMODS $NETMODULES $SCSIMODULES $IDEMODULES =scsi =net"' 
 
