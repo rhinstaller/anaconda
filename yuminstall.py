@@ -340,8 +340,12 @@ class AnacondaYum(YumSorter):
         if self._loopbackFile and os.path.exists(self._loopbackFile):
             return
 
-        stage2img = None
+        # If they booted with a boot.iso, just continue using that stage2.img.
+        if os.path.exists("/mnt/stage2/images/stage2.img"):
+            log.info("Don't need to transfer stage2 image")
+            return
 
+        stage2img = None
         if os.path.exists("/tmp/stage2.img"):
             log.info("Using /tmp/stage2.img as stage2 image")
             stage2img = "/tmp/stage2.img"
