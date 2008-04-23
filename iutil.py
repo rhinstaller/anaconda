@@ -531,7 +531,7 @@ def writeRpmPlatform(root="/"):
 ## Check to see if we are in a xen environment.
 #
 def inXen():
-    if os.path.exists("/proc/xen"):
+    if os.path.exists("/proc/xen/capabilities"):
         return True
     return False
 
