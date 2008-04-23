@@ -111,6 +111,7 @@ char * mountNfsImage(struct installMethod * method,
            NFS_STAGE_DONE } stage = NFS_STAGE_NFS;
 
     int rc, tmp, foundinvalid = 0;
+    int stage2OnCD = 0;
 
     /* JKFIXME: ASSERT -- we have a network device setup when we get here */
     while (stage != NFS_STAGE_DONE) {
@@ -163,7 +164,8 @@ char * mountNfsImage(struct installMethod * method,
             /* Try to see if we're booted off of a CD with stage2.  However,
              * passing stage2= overrides this check.
              */
-            if (!FL_STAGE2(flags) && findAnacondaCD("/mnt/stage2", 0)) {
+            if (!FL_STAGE2(flags) && (stage2OnCD || findAnacondaCD("/mnt/stage2", 0))) {
+                stage2OnCD = 1;
                 logMessage(INFO, "Detected stage 2 image on CD");
                 winStatus(50, 3, _("Media Detected"),
                           _("Local installation media detected..."), 0);
