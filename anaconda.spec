@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.86
+Version: 10.1.1.87
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 22 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.87-1
+- Fix traceback trying to access non-existent anaconda instance
+  Resolves: rhbz#443412
+
 * Fri Apr 18 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.86-1
 - Fix dispatch traceback (msivak)
   Resolves: rhbz#442750
