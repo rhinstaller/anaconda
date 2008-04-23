@@ -73,7 +73,7 @@ static int loadHDImages(char * prefix, char * dir,
      * passing stage2= overrides this check.
      */
     if (!FL_STAGE2(flags))
-        cdurl = findAnacondaCD(location, 0);
+        cdurl = findAnacondaCD("/mnt/stage2", 0);
 
     if (cdurl) {
         logMessage(INFO, "Detected stage 2 image on CD");

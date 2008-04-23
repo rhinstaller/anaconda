@@ -226,8 +226,9 @@ static void queryCDMediaCheck(char *dev, char *location) {
  *
  * requirepkgs=1 means CD should have packages, otherwise we just find stage2
  *
- * side effect: found cdrom is mounted as /mnt/source.  stage2 mounted
- * as /mnt/runtime.
+ * side effect: found cdrom is mounted on 'location' (usually /mnt/source, but
+ * could also be /mnt/stage2 if we're just looking for a stage2 image).  stage2
+ * mounted on /mnt/runtime.
  */
 char * setupCdrom(char * location, struct loaderData_s * loaderData,
                   int interactive, int requirepkgs) {
@@ -290,9 +291,6 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                     }
                     rc = mountStage2(stage2img, imageDir);
 
-                    /* if we failed, umount location (usually /mnt/source) and
-                     * keep going
-                     */
                     if (rc) {
                         logMessage(INFO, "mounting stage2 failed");
 
