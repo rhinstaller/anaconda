@@ -111,6 +111,8 @@ def findIsoImages(path, messageWindow):
 def getDiscNums(line):
     # get the disc numbers for this disc
     nums = line.split(",")
+    if nums == ['ALL']: # Treat "ALL" DVD as disc 1
+        return [1]
     discNums = []
     for num in nums:
         discNums.append(int(num))
