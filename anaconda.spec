@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.87
+Version: 10.1.1.88
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr 24 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.88-1
+- Increase ia64 initrd image size (jgranado)
+  Resolves: rhbz#443373
+- Specify mode when running mdadm
+  Resolves: rhbz#443844
+
 * Tue Apr 22 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.87-1
 - Fix traceback trying to access non-existent anaconda instance
   Resolves: rhbz#443412
