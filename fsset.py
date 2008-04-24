@@ -1443,7 +1443,7 @@ class FileSystemSet:
         This creates a conf file with active arrays.  In other words
         the arrays that we don't want included must be inactive.
         """
-        activeArrays = iutil.execWithCapture("mdadm", ["--detail", "--scan"])
+        activeArrays = iutil.execWithCapture("/usr/sbin/mdadm", ["--detail", "--scan"])
         if len(activeArrays) == 0:
             return
 
