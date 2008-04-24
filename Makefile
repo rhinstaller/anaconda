@@ -72,9 +72,9 @@ subdirs:
 
 testiso: install
 	@if [ "$(REPO)" = "" ]; then echo "ERROR: Need a repo to pull packages from!" ; exit 1 ; fi
-	@pushd scripts ; sudo ./buildinstall --version $(VERSION) --product anaconda --release $(ANACONDA)-$(VERSION) --output $(shell pwd)/outiso --updates $(DESTDIR) $(REPO) ; popd ; cp outiso/images/netinst.iso ./netinst.iso ; sudo rm -rf outiso
+	@pushd scripts ; sudo ./buildinstall --version $(VERSION) --product anaconda --release $(ANACONDA)-$(VERSION) --output $(shell pwd)/outiso --updates $(DESTDIR) $(REPO) ; popd ; cp outiso/images/boot.iso ./boot.iso ; sudo rm -rf outiso
 	@echo
-	@echo "Test iso is located at ./netinst.iso"
+	@echo "Test iso is located at ./boot.iso"
 
 install: 
 	@if [ "$(DESTDIR)" = "" ]; then \
