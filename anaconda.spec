@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.75
+Version: 11.4.0.76
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,28 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr 24 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.76-1
+- Use the execWithCapture wrapper to be consistent. (jgranado)
+- Call the mdadm with full path. (jgranado)
+- Use the correct ls(1) alias. (dcantrell)
+- Set PS1 and ls(1) alias for tty2 shell. (dcantrell)
+- Lookinig for the capabilities file in xen is valid in more cases. (jgranado)
+- Avoid putting virtualization option when in Xen or VMware.
+  (#443373) (jgranado)
+- If the stage2 image is on a CD, don't bother copying it (#441336). (clumens)
+- Once we've found the stage2 media on CD, always use it (#443736). (clumens)
+- Change mount point for CD to /mnt/stage2 when looking for stage2
+  (#443755). (clumens)
+- Switch to using 'yum clean all' to clean up after preupgrade
+  (#374921) (katzj)
+- Handle .utf8 vs .UTF-8 (#443408) (katzj)
+- Avoid dividing by zero (#439160) (katzj)
+- Changes related to BZ #230949 (dcantrell)
+- $XORGDRIVERS no longer exists (markmc)
+- Bump version. (katzj)
+- Write IPv6 values to /etc/sysconfig/... correctly (#433290) (dcantrell)
+- Use the right base class for autopart handler. (clumens)
+
 * Fri Apr 18 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.75-1
 - Listing the directories before expiring yum caches helps (katzj)
 
