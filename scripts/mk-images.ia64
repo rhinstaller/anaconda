@@ -31,7 +31,7 @@ relocatable
 image=vmlinuz
         label=linux
         read-only
-	append="ramdisk_size=12288 maxcpus=1"
+	append="ramdisk_size=13000 maxcpus=1"
 	initrd=initrd.img
 EOF
 
