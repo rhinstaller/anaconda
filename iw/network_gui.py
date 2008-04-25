@@ -69,7 +69,8 @@ class NetworkWindow(InstallWindow):
 	# we do dual IPv4/IPv6 stacks, we could have IPv4 on DHCP and static
 	# IPv6 with a default gateway.  So we may have values in these fields
 	# that we want to pick up.
-	tmpvals = {}
+	tmpvals = {0: None, 1: None, 2: None}
+
 	for t in range(len(global_options)):
 	    try:
 	        val = self.globals[global_options[t]].get_text()
