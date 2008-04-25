@@ -1106,10 +1106,11 @@ class Partitions:
 
         if iutil.isEfi():
             bootreq = self.getRequestByMountPoint("/boot/efi")
-            if (not bootreq) or bootreq.getActualSize(self, diskset) < 50 or \
-                    bootreq.fstype != fsset.fileSystemTypeGet("efi"):
+            if (not bootreq) or \
+                    bootreq.fstype != fsset.fileSystemTypeGet("efi") or \
+                    bootreq.getActualSize(self, diskset) < 10:
                 errors.append(_("You must create an EFI System Partition of "
-                                "type FAT and a size of 50 megabytes."))
+                                "at least 10 megabytes."))
         elif rhpl.getArch() in ("i386", "x86_64"):
             if iutil.isMactel():
                 # mactel checks

@@ -308,12 +308,13 @@ def hasGptLabel(diskset, device):
     return disk.type.name == "gpt"
 
 def isEfiSystemPartition(part):
-    return (part.is_active() and
-            part.disk.type.name == "gpt" and
+    if not part.is_active():
+        return False
+    return (part.disk.type.name == "gpt" and
             part.get_name() == "EFI System Partition" and
             part.get_flag(parted.PARTITION_BOOT) == 1 and
             part.fs_type.name in ("fat16", "fat32") and
-            part.geom.length > 81920L) # require at least 40M before we care.
+            isys.readFSLabel(get_partition_name(part)) != "ANACONDA")
 
 archLabels = {'i386': ['msdos', 'gpt'],
               's390': ['dasd', 'msdos'],
