@@ -124,7 +124,7 @@ prepareEfiImage() {
     BOOTDISKSIZE=$(expr $BOOTDISKSIZE + 100)
     echo "The size of the efiboot.img dosfs is $BOOTDISKSIZE"
     dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_FILENAME 2>/dev/null
-    mkdosfs -C $MBD_FILENAME $BOOTDISKSIZE >/dev/null
+    mkdosfs -n EFI -C $MBD_FILENAME $BOOTDISKSIZE >/dev/null
     mount -o loop,shortname=winnt,umask=0077 -t vfat $MBD_FILENAME $MBD_BOOTTREE
     cp -R $MBD_BOOTTREE_TMP/* $MBD_BOOTTREE
 }
