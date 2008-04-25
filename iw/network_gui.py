@@ -46,7 +46,7 @@ class NetworkWindow(InstallWindow):
 	    if not rc:
 		raise gui.StayOnScreen
 
-	override = 0
+	override = False
 	if self.hostnameManual.get_active():
 	    hname = string.strip(self.hostnameEntry.get_text())
 	    neterrors =  network.sanityCheckHostname(hname)
@@ -60,10 +60,10 @@ class NetworkWindow(InstallWindow):
 		    raise gui.StayOnScreen
 
 	    newHostname = hname
-            override = 1
+            override = True
 	else:
 	    newHostname = "localhost.localdomain"
-	    override = 0
+	    override = False
 
 	# FIXME: This is a temporary solution until the UI is reworked.  Since
 	# we do dual IPv4/IPv6 stacks, we could have IPv4 on DHCP and static
@@ -120,10 +120,13 @@ class NetworkWindow(InstallWindow):
         return None
 
     def setHostOptionsSensitivity(self):
-	# force users to pick a hostname (#408921)
 	self.hostnameUseDHCP.set_sensitive(1)
 	self.hostnameManual.set_sensitive(1)
-	self.hostnameManual.set_active(1)
+
+	if self.network.overrideDHCPhostname:
+	    self.hostnameManual.set_active(1)
+	else:
+	    self.hostnameUseDHCP.set_active(1)
 
     # FIXME: ipTable should allow for default gateways for IPv4 and IPv6
     # Disable ipTable (gateway and dns entry fields) if we have no devices
@@ -347,8 +350,7 @@ class NetworkWindow(InstallWindow):
 	self.setHostOptionsSensitivity()
 	
 	return
-    
-	
+
     def setupDevices(self):
 	devnames = self.devices.keys()
 	devnames.sort()
@@ -406,11 +408,11 @@ class NetworkWindow(InstallWindow):
 	return self.ethdevices
 
     def hostnameUseDHCPCB(self, widget, data):
-	self.network.overrideDHCPhostname = 0
+	self.network.overrideDHCPhostname = False
 	self.hostnameEntry.set_sensitive(not widget.get_active())
 
     def hostnameManualCB(self, widget, data):
-	self.network.overrideDHCPhostname = 1
+	self.network.overrideDHCPhostname = True
 	if widget.get_active():
 	    self.hostnameEntry.grab_focus()
 
@@ -492,7 +494,6 @@ class NetworkWindow(InstallWindow):
 	frame.add(hostbox)
         frame.set_shadow_type(gtk.SHADOW_NONE)
 	box.pack_start(frame, False, False)
-
 
         self.setHostOptionsSensitivity()
         

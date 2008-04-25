@@ -250,7 +250,7 @@ class BaseInstallClass(object):
     def setKeyboard(self, id, kb):
 	id.keyboard.set(kb)
 
-    def setHostname(self, id, hostname, override = 0):
+    def setHostname(self, id, hostname, override = False):
 	id.network.setHostname(hostname);
         id.network.overrideDHCPhostname = override
 

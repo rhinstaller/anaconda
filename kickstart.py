@@ -351,7 +351,7 @@ class Network(commands.network.F8_Network):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % nd.device)
 
         if nd.hostname != "":
-            self.handler.id.instClass.setHostname(self.handler.id, nd.hostname, override=1)
+            self.handler.id.instClass.setHostname(self.handler.id, nd.hostname, override=True)
 
         if nd.nameserver != "":
             self.handler.id.instClass.setNameserver(self.handler.id, nd.nameserver)

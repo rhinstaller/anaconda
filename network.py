@@ -208,7 +208,9 @@ class Network:
         # originally used by the gui but overloaded now
 	# we also test in places if the hostname is localhost.localdomain
 	# to see if its been override. Need some consolidation in future.
-	self.overrideDHCPhostname = 0
+	#
+	# force users to set a manual hostname by default (dcantrell, #408921)
+	self.overrideDHCPhostname = True
 
         if flags.rootpath:
             self.isConfigured = 1

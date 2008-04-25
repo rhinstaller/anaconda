@@ -807,7 +807,7 @@ class HostnameWindow:
                 return INSTALL_BACK
 
             if radio.getSelection() != "manual":
-                anaconda.id.network.overrideDHCPhostname = 0
+                anaconda.id.network.overrideDHCPhostname = False
                 anaconda.id.network.hostname = "localhost.localdomain"
             else:
                 hname = string.strip(hostEntry.value())
@@ -825,7 +825,7 @@ class HostnameWindow:
                                        buttons = [ _("OK") ])
                     continue
 
-                anaconda.id.network.overrideDHCPhostname = 1
+                anaconda.id.network.overrideDHCPhostname = True
                 anaconda.id.network.hostname = hname
             break
 
