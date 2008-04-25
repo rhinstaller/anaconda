@@ -285,7 +285,7 @@ class PassphraseEntryWindow:
         txt = TextboxReflowed(65, self.txt)
         toplevel.add(txt, 0, 0)
 
-        passphraseentry = Entry(128, password = 1)
+        passphraseentry = Entry(60, password = 1)
         toplevel.add(passphraseentry, 0, 1, (0,0,0,1))
 
         globalcheckbox = Checkbox(_("This is a global passphrase"))
