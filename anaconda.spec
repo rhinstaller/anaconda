@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.76
+Version: 11.4.0.77
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,21 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Apr 25 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.77-1
+- Preserve 'set the hostname' setting when going Next/Back (#443414) (dcantrell)
+- Avoid traceback on network configuration screen (#444184) (dcantrell)
+- Add missing backslashes for the .profile here document. (dcantrell)
+- Label the efi boot filesystem on ia64 as well. (pjones)
+- Don't use size to determine if a partition is an EFI system
+  partition; instead, (pjones)
+- Handle the DVD having a disknumber of ALL. (443291) (jkeating)
+- Make the LUKS passphrase prompt fit on an 80x25 screen. (#442100) (dlehman)
+- Don't dd the image from /dev/zero _and_ use
+  "mkdosfs -C <image> <blockcount>" (pjones)
+- label the filesystem in efidisk.img so that HAL and such won't try to
+  mount it. (pjones)
+- fix testiso Makefile target - boot.iso, not netinst.iso (wwoods)
+
 * Thu Apr 24 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.76-1
 - Use the execWithCapture wrapper to be consistent. (jgranado)
 - Call the mdadm with full path. (jgranado)
