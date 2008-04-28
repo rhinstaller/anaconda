@@ -489,6 +489,20 @@ class Network:
             if dev.get('MTU') and dev.get('MTU') != 0:
                 f.write("MTU=%s\n" % dev.get('MTU'))
 
+            # write per-interface DNS information for NetworkManager (#443244)
+            dnsIndex = 1
+            for ns in self.nameservers():
+                if ns:
+                    f.write("DNS%d=%s\n" % (dnsIndex, ns,))
+                    dnsIndex += 1
+
+            if self.domains != ['localdomain'] and self.domains:
+                searchLine = string.joinfields(self.domains, ' ')
+                f.write("SEARCH=\"%s\"\n" % (searchLine,))
+
+            # XXX: write NM_CONTROLLED= for now, until the UI is updated
+            f.write("NM_CONTROLLED=\n")
+
             f.close()
 
             if dev.get("key"):
