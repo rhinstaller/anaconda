@@ -605,10 +605,8 @@ makeinitrd() {
     fi
 
 cat > $MBD_DIR/.profile <<EOF
-PS1="[\W]\\\\$ "
 PATH=/bin:/usr/bin:/usr/sbin:/mnt/sysimage/sbin:/mnt/sysimage/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin
-export PS1 PATH
-alias ls='ls --color=auto'
+export PATH
 EOF
 
     rm -f $MBD_FSIMAGE
