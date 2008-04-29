@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.77
+Version: 11.4.0.78
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Apr 28 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.78-1
+- Write per-interface DNS info to ifcfg files (#443244) (dcantrell)
+- Clean up sanityCheckHostname() in network.py (dcantrell)
+- Activate autorepeat for GUI installs. (jgranado)
+
 * Fri Apr 25 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.77-1
 - Preserve 'set the hostname' setting when going Next/Back (#443414) (dcantrell)
 - Avoid traceback on network configuration screen (#444184) (dcantrell)
