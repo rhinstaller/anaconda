@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.78
+Version: 11.4.0.79
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,12 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 29 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.79-1
+- Disable betanag (#443908) (katzj)
+- Use bash for minstg2 shell (#443700) (katzj)
+- Revert PS1 and PATH changes as they don't work with 
+  busybox as used in minstg2 (katzj)
+
 * Mon Apr 28 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.78-1
 - Write per-interface DNS info to ifcfg files (#443244) (dcantrell)
 - Clean up sanityCheckHostname() in network.py (dcantrell)
