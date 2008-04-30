@@ -173,7 +173,7 @@ class Bootloader(commands.bootloader.F8_Bootloader):
             hds = isys.hardDriveDict().keys()
             for disk in self.driveorder:
                 if disk not in hds:
-                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % disk)
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in driveorder command" % disk)
 
         if location is None:
             self.handler.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
