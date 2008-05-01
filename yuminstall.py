@@ -1599,7 +1599,7 @@ class YumBackend(AnacondaBackend):
         # reasonable for key import on updates
         if not anaconda.id.getUpgrade():
             for key in ("RPM-GPG-KEY-fedora",):
-                if not os.path.exists("%s/etc/pkg/rpm-gpg/%s" %(anaconda.rootPath,
+                if not os.path.exists("%s/etc/pki/rpm-gpg/%s" %(anaconda.rootPath,
                                                                 key)):
                     continue
 
