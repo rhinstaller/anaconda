@@ -159,6 +159,15 @@ def turnOnFilesystems(anaconda):
 	return
 
     if flags.setupFilesystems:
+        # this is kind of lame, but udevd seems to die sometimes (#439633), so
+        # let's at least try to cover for it...
+        log.info("Ensuring that udev is running before we setup filesystems")
+        iutil.execWithRedirect("udevd", ["--daemon"],
+                               stdout = "/dev/tty5", stderr="/dev/tty5",
+                               searchPath = 1)
+        time.sleep(1)
+
+
 	if not anaconda.id.upgrade:
             if not anaconda.id.fsset.isActive():
                 # turn off any swaps that we didn't turn on
