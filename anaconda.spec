@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.79
+Version: 11.4.0.80
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,10 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 30 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.80-1
+- And actually include the bash binary too (#443700) (katzj)
+- Search path rather than hard-coding path to mdadm (#444843) (katzj)
+
 * Tue Apr 29 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.79-1
 - Disable betanag (#443908) (katzj)
 - Use bash for minstg2 shell (#443700) (katzj)
