@@ -234,7 +234,7 @@ static void setLangEnv (int i) {
 }
 
 /* choice is the index of the chosen language in languages */
-static int setupLanguage(int choice) {
+static int setupLanguage(int choice, int forced) {
     char * buf;
     int i;
 
@@ -243,7 +243,7 @@ static int setupLanguage(int choice) {
      * a serial console or iSeries vioconsole, we hope it's smart enough */
     if ((strcmp(languages[choice].font, "latarcyrheb-sun16") && !FL_SERIAL(flags) && 
          !FL_VIRTPCONSOLE(flags) && !isVioConsole())) {
-        if (FL_KICKSTART(flags)) return 0;
+        if (forced == 1) return 0;
 
 	newtWinMessage("Language Unavailable", "OK", 
 		       "%s display is unavailable in text mode.  The "
@@ -311,14 +311,14 @@ static char * getLangNick(char * oldLang) {
     return lang;
 }
 
-int setLanguage (char * key) {
+int setLanguage (char * key, int forced) {
     int i;
 
     if (!languages) loadLanguageList();
 
     for (i = 0; i < numLanguages; i++) {
         if (!strcmp(languages[i].lc_all, key)) {
-            return setupLanguage(i);
+            return setupLanguage(i, forced | FL_KICKSTART(flags));
         }
     }
 
@@ -326,13 +326,13 @@ int setLanguage (char * key) {
      * against short forms and nicks */
     for (i = 0; i < numLanguages; i++) {
         if (!strcmp(getLangShortForm(languages[i].lc_all), key)) {
-            return setupLanguage(i);
+            return setupLanguage(i, forced | FL_KICKSTART(flags));
         }
     }
 
     for (i = 0; i < numLanguages; i++) {
         if (!strcmp(getLangNick(languages[i].lc_all), key)) {
-            return setupLanguage(i);
+            return setupLanguage(i, forced | FL_KICKSTART(flags));
         }
     }
 
@@ -387,7 +387,7 @@ int chooseLanguage(char ** lang) {
     /* this can't happen */
     if (i == numLanguages) abort();
 
-    return setupLanguage(choice);
+    return setupLanguage(choice, 0);
 }
 
 void setKickstartLanguage(struct loaderData_s * loaderData, int argc, 
