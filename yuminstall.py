@@ -1595,6 +1595,25 @@ class YumBackend(AnacondaBackend):
 
         # XXX: write proper lvm config
 
+        # terrible awful hack to work around PackageKit not doing something
+        # reasonable for key import on updates
+        if not anaconda.id.getUpgrade():
+            for key in ("RPM-GPG-KEY-fedora",):
+                if not os.path.exists("%s/etc/pkg/rpm-gpg/%s" %(anaconda.rootPath,
+                                                                key)):
+                    continue
+
+                log.info("Installing GPG key %s" % (key,))
+                try:
+                    iutil.execWithRedirect("rpm", ["--import",
+                                                   "/etc/pki/rpm-gpg/%s" % (key,)],
+                                           stdout="/dev/tty5",
+                                           stderr="/dev/tty5",
+                                           searchPath = 1,
+                                           root = anaconda.rootPath)
+                except:
+                    pass
+
         AnacondaBackend.doPostInstall(self, anaconda)
         w.pop()
 
