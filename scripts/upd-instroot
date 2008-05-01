@@ -308,7 +308,7 @@ KEEPFILE=${TMPDIR:-/tmp}/keepfile.$$
 cat > $KEEPFILE <<EOF
 boot/efi/EFI/redhat/elilo.efi
 boot/efi/EFI/redhat/grub.efi
-bin/ash
+bin/bash
 bin/dbus-daemon
 bin/fdisk*
 bin/sed
