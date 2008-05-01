@@ -318,7 +318,7 @@ int setLanguage (char * key, int forced) {
 
     for (i = 0; i < numLanguages; i++) {
         if (!strcmp(languages[i].lc_all, key)) {
-            return setupLanguage(i, forced | FL_KICKSTART(flags));
+            return setupLanguage(i, forced | !FL_KICKSTART(flags));
         }
     }
 
@@ -326,13 +326,13 @@ int setLanguage (char * key, int forced) {
      * against short forms and nicks */
     for (i = 0; i < numLanguages; i++) {
         if (!strcmp(getLangShortForm(languages[i].lc_all), key)) {
-            return setupLanguage(i, forced | FL_KICKSTART(flags));
+            return setupLanguage(i, forced | !FL_KICKSTART(flags));
         }
     }
 
     for (i = 0; i < numLanguages; i++) {
         if (!strcmp(getLangNick(languages[i].lc_all), key)) {
-            return setupLanguage(i, forced | FL_KICKSTART(flags));
+            return setupLanguage(i, forced | !FL_KICKSTART(flags));
         }
     }
 
