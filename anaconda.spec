@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.80
+Version: 11.4.0.81
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,16 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 01 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.81-1
+- Use 'yum clean all' when cleaning up after an upgrade, not
+  preupgrade (#374921) (katzj)
+- Disable grub-install on x86_64 Xen Domu (#442685) (markmc)
+- Fix typo (katzj)
+- Auto-import gpg key to work around poor PackageKit UI (katzj)
+- Deal with udevd dying sometimes (#439633) (katzj)
+- Kickstart flag is backwards (katzj)
+- If we're given a language, don't warn about console fonts (#444258) (katzj)
+
 * Wed Apr 30 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.80-1
 - And actually include the bash binary too (#443700) (katzj)
 - Search path rather than hard-coding path to mdadm (#444843) (katzj)
