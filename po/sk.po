@@ -11,12 +11,13 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-04-28 16:18+0200\n"
+"PO-Revision-Date: 2008-05-04 18:04+0200\n"
 "Last-Translator: Pavol Šimo <palo.simo@gmail.com>\n"
 "Language-Team: Slovak <fedora-trans-sk@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural= (n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
 
 #: ../anaconda:289
 #, c-format
@@ -142,13 +143,11 @@ msgstr ""
 
 #: ../autopart.py:988
 msgid "Could not allocate partitions as primary partitions.\n"
-msgstr ""
-"Nemožno alokovať oddiely ako primárne oddiely.\n"
+msgstr "Nemožno alokovať oddiely ako primárne oddiely.\n"
 
 #: ../autopart.py:993
 msgid "Could not allocate cylinder-based partitions.\n"
-msgstr ""
-"Nemožno alokovať oddiely založené na cylindroch.\n"
+msgstr "Nemožno alokovať oddiely založené na cylindroch.\n"
 
 #: ../autopart.py:1058
 #, python-format
@@ -157,9 +156,9 @@ msgid ""
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
-"Zavádzací oddiel %s nepatrí do BSD popisu disku. SRM nedokáže zaviesť "
-"systém z tohto oddielu. Použite oddiel patriaci do BSD diskového popisu "
-"alebo zmeňte popisok tohto zariadenia na BSD."
+"Zavádzací oddiel %s nepatrí do BSD popisu disku. SRM nedokáže zaviesť systém "
+"z tohto oddielu. Použite oddiel patriaci do BSD diskového popisu alebo "
+"zmeňte popisok tohto zariadenia na BSD."
 
 #: ../autopart.py:1060
 #, python-format
@@ -195,15 +194,16 @@ msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
 "be able to boot from this partition."
 msgstr ""
-"Zavádzací oddiel %s neobsahuje linuxový súborový systém, ako napr. ext3. EFI nebude "
-"môcť zaviesť systém z tohto oddielu."
+"Zavádzací oddiel %s neobsahuje linuxový súborový systém, ako napr. ext3. EFI "
+"nebude môcť zaviesť systém z tohto oddielu."
 
 #: ../autopart.py:1069
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
-"Zavádzací oddiel %s pravdepodobne nespĺňa zavádzacie podmienky pre vašu architektúru."
+"Zavádzací oddiel %s pravdepodobne nespĺňa zavádzacie podmienky pre vašu "
+"architektúru."
 
 #: ../autopart.py:1094
 #, python-format
@@ -358,8 +358,8 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Toto sa mohlo stať v prípade nedostatku miesta pre inštaláciu na vašom pevnom "
-"disku. %s"
+"Toto sa mohlo stať v prípade nedostatku miesta pre inštaláciu na vašom "
+"pevnom disku. %s"
 
 #: ../autopart.py:1575
 msgid "Unrecoverable Error"
@@ -513,8 +513,8 @@ msgid ""
 "Your system's state has been successfully written to the disk. The installer "
 "will now exit."
 msgstr ""
-"Stav vášho systému bol úspešne zapísaný na disk. Inštalačný program sa "
-"teraz ukončí."
+"Stav vášho systému bol úspešne zapísaný na disk. Inštalačný program sa teraz "
+"ukončí."
 
 #: ../exception.py:351 ../exception.py:368 ../exception.py:384
 msgid "Dump Not Written"
@@ -594,8 +594,8 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
-"Nastala chyba pri migrácii %s na ext3. Ak si to želáte, môžete pokračovať bez "
-"migrácie tohto súborového systému.\n"
+"Nastala chyba pri migrácii %s na ext3. Ak si to želáte, môžete pokračovať "
+"bez migrácie tohto súborového systému.\n"
 "\n"
 "Chceli by ste pokračovať bez migrácie %s?"
 
@@ -681,8 +681,8 @@ msgstr ""
 "     /dev/%s\n"
 "\n"
 "uvedené v súbore /etc/fstab je práve používané ako oddiel softvérového "
-"dočasného zastavenia (software suspend), čo znamená, že váš systém "
-"je hibernovaný. Na vykonanie aktualizácie prosím váš systém vypnite namiesto "
+"dočasného zastavenia (software suspend), čo znamená, že váš systém je "
+"hibernovaný. Na vykonanie aktualizácie prosím váš systém vypnite namiesto "
 "hibernácie."
 
 #: ../fsset.py:1755
@@ -1123,8 +1123,8 @@ msgstr ""
 "ISO obraz má veľkosť %s, ktorá nie je deliteľná 2048 bajtmi.  To môže "
 "znamenať, že bol poškodený počas prenosu do počítača.\n"
 "\n"
-"Odporúča sa aby ste ukončili inštaláciu, ale ak si "
-"myslíte, že je to omyl, môžete pokračovať."
+"Odporúča sa aby ste ukončili inštaláciu, ale ak si myslíte, že je to omyl, "
+"môžete pokračovať."
 
 #: ../image.py:157
 msgid "Couldn't Mount ISO Source"
@@ -1210,8 +1210,8 @@ msgid ""
 "the output in %s.  This is a fatal error and your install will be aborted.  "
 "Press the OK button to exit the installer."
 msgstr ""
-"Vyskytla sa chyba pri behu kickstart skriptu na riadku %s.  Môžete preveriť výstup "
-"v %s.  Toto je fatálna chyba a vaša inštalácia bude prerušená.\n"
+"Vyskytla sa chyba pri behu kickstart skriptu na riadku %s.  Môžete preveriť "
+"výstup v %s.  Toto je fatálna chyba a vaša inštalácia bude prerušená.\n"
 "Stlačte tlačidlo Ok pre ukončenie inštalačného programu."
 
 #: ../kickstart.py:101 ../kickstart.py:103
@@ -1240,8 +1240,8 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"Zadali ste, že balíček '%s' má byť nainštalovaný. Taký balíček však neexistuje. "
-"Chcete pokračovať, alebo ukončiť inštaláciu?"
+"Zadali ste, že balíček '%s' má byť nainštalovaný. Taký balíček však "
+"neexistuje. Chcete pokračovať, alebo ukončiť inštaláciu?"
 
 #: ../kickstart.py:984 ../kickstart.py:1022
 msgid "_Abort"
@@ -1285,8 +1285,8 @@ msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
 msgstr ""
-"Prevádzajú sa po-inštalačné zmeny súborového systému.  Toto môže trvať niekoľko "
-"minút..."
+"Prevádzajú sa po-inštalačné zmeny súborového systému.  Toto môže trvať "
+"niekoľko minút..."
 
 #: ../livecd.py:355
 #, python-format
@@ -1303,7 +1303,8 @@ msgstr "Názov hostiteľa musí mať 64 alebo menej znakov."
 
 #: ../network.py:60
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr "Názov hostiteľa musí začínať platným znakom v rozsahu 'a-z' alebo 'A-Z'"
+msgstr ""
+"Názov hostiteľa musí začínať platným znakom v rozsahu 'a-z' alebo 'A-Z'"
 
 #: ../network.py:65
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1846,8 +1847,8 @@ msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost"
 msgstr ""
-"Vami zvolené možnosti rozdelenia busú teraz zapísané na disk. Všetky údaje na "
-"zmazaných alebo preformátovaných oddieloch budú stratené."
+"Vami zvolené možnosti rozdelenia busú teraz zapísané na disk. Všetky údaje "
+"na zmazaných alebo preformátovaných oddieloch budú stratené."
 
 #: ../partitions.py:119
 msgid "Go _back"
@@ -1890,7 +1891,8 @@ msgid ""
 msgstr ""
 "Ste si istý, že chcete vynechať zadanie hesla pre zariadenie %s?\n"
 "\n"
-"Ak tento krok preskočíte, obsah zariadenia nebude počas inštalácie k dispozícií."
+"Ak tento krok preskočíte, obsah zariadenia nebude počas inštalácie k "
+"dispozícií."
 
 #: ../partitions.py:1026
 #, python-format
@@ -1914,7 +1916,8 @@ msgstr ""
 msgid ""
 "You must create an EFI System Partition of type FAT and a size of 50 "
 "megabytes."
-msgstr "Musíte vytvoriť EFI systémový oddiel typu FAT a o veľkosti 50 megabajtov."
+msgstr ""
+"Musíte vytvoriť EFI systémový oddiel typu FAT a o veľkosti 50 megabajtov."
 
 #: ../partitions.py:1067
 msgid ""
@@ -2333,8 +2336,8 @@ msgid ""
 "is for %s architecture. \n"
 "\n"
 msgstr ""
-"Zvolili ste aktualizáciu pre architektúru %s, ale nainštalovaný systém je pre "
-"architektúru %s. \n"
+"Zvolili ste aktualizáciu pre architektúru %s, ale nainštalovaný systém je "
+"pre architektúru %s. \n"
 "\n"
 
 #: ../upgrade.py:110
@@ -2497,7 +2500,8 @@ msgid ""
 "set a password, it will be used in case the connection \n"
 "to the vncviewer is unsuccessful\n"
 "\n"
-msgstr "\n"
+msgstr ""
+"\n"
 "\n"
 "Zvolili ste si pripojiť sa k načúvajúcemu vncviewer-u.\n"
 "Toto nevyžaduje nastavenie hesla. Ak heslo nastavíte, \n"
@@ -2539,7 +2543,8 @@ msgid ""
 "\n"
 "Unknown Error.  Aborting. \n"
 "\n"
-msgstr "\n"
+msgstr ""
+"\n"
 "\n"
 "Neznáma chyba. Prerušuje sa. \n"
 "\n"
@@ -2784,7 +2789,8 @@ msgstr "Potrebujete viac miesta na nasledujúcich súborových systémoch:\n"
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
-msgstr "Počas kontroly balíčkov na inštalovanie sa vyskytli konflikty súborov:\n"
+msgstr ""
+"Počas kontroly balíčkov na inštalovanie sa vyskytli konflikty súborov:\n"
 "%s\n"
 
 #: ../yuminstall.py:787
@@ -2826,7 +2832,8 @@ msgid ""
 "%s"
 msgstr ""
 "Nepodarilo sa prečítať metadáta balíčkov. Toto môže byť spôsobené chýbajúcim "
-"adresárom repodata.  Prosím zaistite, že váš inštalačný strom bol správne vytvorený.\n"
+"adresárom repodata.  Prosím zaistite, že váš inštalačný strom bol správne "
+"vytvorený.\n"
 "\n"
 "%s"
 
@@ -2878,9 +2885,10 @@ msgid ""
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Architektúra vydania systému %s, na ktorý aktualizujete, sa zdá byť %s. Nekorešponduje "
-"to so s architektúrou predtým nainštalovaného systému %s. Toto pravdepodobne zlyhá.  "
-"Ste si istý, že si želáte pokračovať v procese aktualizácie?"
+"Architektúra vydania systému %s, na ktorý aktualizujete, sa zdá byť %s. "
+"Nekorešponduje to so s architektúrou predtým nainštalovaného systému %s. "
+"Toto pravdepodobne zlyhá.  Ste si istý, že si želáte pokračovať v procese "
+"aktualizácie?"
 
 #: ../yuminstall.py:1538
 msgid "Post Upgrade"
@@ -2952,8 +2960,8 @@ msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
-"Musíte zadať vaše heslo správcu a potvrdiť ho opätovným zadaním, aby ste mohli "
-"pokračovať."
+"Musíte zadať vaše heslo správcu a potvrdiť ho opätovným zadaním, aby ste "
+"mohli pokračovať."
 
 #: ../iw/account_gui.py:106
 msgid "The passwords you entered were different.  Please try again."
@@ -2973,7 +2981,8 @@ msgid ""
 "Weak password provided: %s\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr "Poskytnuté heslo je slabé: %s\n"
+msgstr ""
+"Poskytnuté heslo je slabé: %s\n"
 "\n"
 "Chcete pokračovať s týmto heslom?"
 
@@ -2986,8 +2995,9 @@ msgstr "Požadované heslo obsahuje nie ASCII znaky, ktoré nie sú povolené."
 msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
-msgstr "Na zmenu veľkosti nie sú dostupné žiadne oddiely. Len fyzickým oddielom "
-"s niektorými súborovými systémami môže byť menená veľkosť."
+msgstr ""
+"Na zmenu veľkosti nie sú dostupné žiadne oddiely. Len fyzickým oddielom s "
+"niektorými súborovými systémami môže byť menená veľkosť."
 
 #: ../iw/autopart_type.py:179
 msgid "Do you really want to boot from disk which is not used for instalation?"
@@ -3170,7 +3180,10 @@ msgstr "Balíčky v %s"
 #: ../iw/GroupSelector.py:482
 #, python-format
 msgid "%d of %d optional package selected"
-msgstr "%d z %d voliteľných balíčkov zvolených"
+msgid_plural "%d of %d optional packages selected"
+msgstr[0] "%d z %d voliteľných balíčkov zvolených"
+msgstr[1] "%d z %d voliteľných balíčkov zvolený"
+msgstr[2] "%d z %d voliteľných balíčkov zvolené"
 
 #: ../iw/GroupSelector.py:485
 #, python-format
@@ -4378,8 +4391,8 @@ msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
 msgstr ""
-"Nepodarilo sa nájsť súbor skupiny pre %s.  Toto znemožní ručný výber balíčkov "
-"z repozitára"
+"Nepodarilo sa nájsť súbor skupiny pre %s.  Toto znemožní ručný výber "
+"balíčkov z repozitára"
 
 #: ../iw/task_gui.py:80
 msgid "Edit Repository"
@@ -4414,7 +4427,8 @@ msgstr "Musíte zadať HTTP, HTTPS alebo FTP URL repozitára."
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "Repozitár %s už bol pridaný.  Prosím zvoľte iný názov a URL repozitára."
+msgstr ""
+"Repozitár %s už bol pridaný.  Prosím zvoľte iný názov a URL repozitára."
 
 #: ../iw/timezone_gui.py:62 ../textw/timezone_text.py:95
 msgid "Time Zone Selection"
@@ -4452,8 +4466,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"Inštalátor zistil, že systémový zavádzač %s je nainštalovaný na %s."
+msgstr "Inštalátor zistil, že systémový zavádzač %s je nainštalovaný na %s."
 
 #: ../iw/upgrade_bootloader_gui.py:138
 msgid "This is the recommended option."
@@ -4500,9 +4513,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Toto vydanie %s podporuje aktualizovaný súborový systém, ktorý má "
-"niekoľko výhod oproti súborovému systému tradične poskytovaného v %s.  "
-"Inštalátor môže naformátované oddiely migrovať bez straty dát.\n"
+"Toto vydanie %s podporuje aktualizovaný súborový systém, ktorý má niekoľko "
+"výhod oproti súborovému systému tradične poskytovaného v %s.  Inštalátor "
+"môže naformátované oddiely migrovať bez straty dát.\n"
 "\n"
 "Ktoré z týchto oddielov chcete migrovať?"
 
@@ -5665,8 +5678,8 @@ msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
-"V žiadnej z vašich mechaník nebol nájdený disk s %s. Vložte prosím disk %s "
-"a stlačte %s pre nový pokus."
+"V žiadnej z vašich mechaník nebol nájdený disk s %s. Vložte prosím disk %s a "
+"stlačte %s pre nový pokus."
 
 #: ../loader2/cdinstall.c:200
 msgid "Disc Found"
@@ -6211,8 +6224,8 @@ msgid ""
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
 msgstr ""
-"Práve skontrolovaný obraz bol úspešne overený.  Malo by byť v poriadku inštalovať "
-"z tohto média.  Poznámka: test média nemusí odhaliť všetky chyby."
+"Práve skontrolovaný obraz bol úspešne overený.  Malo by byť v poriadku "
+"inštalovať z tohto média.  Poznámka: test média nemusí odhaliť všetky chyby."
 
 #: ../loader2/method.c:390
 #, c-format
@@ -6627,7 +6640,8 @@ msgstr "Zmena veľkosti oddielu"
 #: tmp/autopart.glade.h:6
 msgid ""
 "Which partition would you like to resize to make room for your installation?"
-msgstr "Ktorému oddielu chcete zmeniť veľkosť na získanie miesta pre vašu inštaláciu?"
+msgstr ""
+"Ktorému oddielu chcete zmeniť veľkosť na získanie miesta pre vašu inštaláciu?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
@@ -6707,9 +6721,9 @@ msgid ""
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
-"Niektoré balíčky asociované s touto skupinou nie je nutné inštalovať, ale môžu "
-"poskytovať pridanú funkcionalitu. Zvoľte, prosím, tie balíčky, ktoré chcete "
-"mať nainštalované."
+"Niektoré balíčky asociované s touto skupinou nie je nutné inštalovať, ale "
+"môžu poskytovať pridanú funkcionalitu. Zvoľte, prosím, tie balíčky, ktoré "
+"chcete mať nainštalované."
 
 #: tmp/GroupSelector.glade.h:2
 msgid "_Deselect"
@@ -6781,7 +6795,8 @@ msgstr "Inštalácia na pevný disk"
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
-msgstr "Zvoľte si heslo pre tento šifrovaný oddiel. Budete vyzvaný na jeho zadanie "
+msgstr ""
+"Zvoľte si heslo pre tento šifrovaný oddiel. Budete vyzvaný na jeho zadanie "
 "počas zavádzania systému."
 
 #: tmp/lukspassphrase.glade.h:2
