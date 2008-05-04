@@ -1581,7 +1581,8 @@ class YumBackend(AnacondaBackend):
             try:
                 iutil.execWithRedirect("yum", ["clean", "all"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
-                                       searchPath = 1)
+                                       searchPath = 1, 
+                                       root = anaconda.rootPath)
             except:
                 pass
 
