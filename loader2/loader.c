@@ -1073,7 +1073,7 @@ static char *doLoaderMain(char * location,
         switch(step) {
         case STEP_LANG:
             if (loaderData->lang && (loaderData->lang_set == 1)) {
-                setLanguage(loaderData->lang);
+                setLanguage(loaderData->lang, 1);
             } else {
                 chooseLanguage(&loaderData->lang);
             }
@@ -1684,7 +1684,7 @@ int main(int argc, char ** argv) {
 #endif
 
     if (loaderData.lang && (loaderData.lang_set == 1)) {
-        setLanguage(loaderData.lang);
+        setLanguage(loaderData.lang, 1);
     }
 
     /* FIXME: this is a bit of a hack */

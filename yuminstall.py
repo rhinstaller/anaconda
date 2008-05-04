@@ -1578,18 +1578,17 @@ class YumBackend(AnacondaBackend):
         # expire yum caches on upgrade
         if anaconda.id.getUpgrade() and os.path.exists("%s/var/cache/yum" %(anaconda.rootPath,)):
             log.info("Expiring yum caches")
-            for d in os.listdir("%s/var/cache/yum" %(anaconda.rootPath,)):
-                try:
-                    os.unlink("%s/var/cache/yum/%s/cachecookie" %(anaconda.rootPath, d))
-                except:
-                    pass
-
-        # nuke preupgrade
-        if flags.cmdline.has_key("preupgrade") and anaconda.id.getUpgrade():
             try:
                 iutil.execWithRedirect("yum", ["clean", "all"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        searchPath = 1)
+            except:
+                pass
+
+        # nuke preupgrade
+        if flags.cmdline.has_key("preupgrade") and anaconda.id.getUpgrade() and os.path.exists("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,)):
+            try:
+                shutil.rmtree("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,))
             except:
                 pass
 
