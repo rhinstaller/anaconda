@@ -40,7 +40,16 @@ checkip()
 checkipv6()
 {
     ip=$1
-    echo $ip | awk -F ':' 'BEGIN{ error = 0} { if (NF > 8) error=1;  i = 1; while (i++<=NF) {if (!match(toupper($i), "^[0-9A-F]*$")){ error=1}}exit error}'
+    DOUBLE_COLON_PAIRS="::[^:]+::" # ipv6 addresses dont have more than 1 ';;'
+    THREE_COLONS=":::" # ipv6 addresses dont have more that 2 consecutive colons.
+    LONLY_END_COLON="[^:]+:$" # ipv6 addresses dont have a lonly colon at the end.
+
+    HITS=`echo $ip | grep -E "($DOUBLE_COLON_PAIRS)|($THREE_COLONS)|($LONLY_END_COLON)" | wc -l`
+    if [ $HITS -gt 0 ]; then
+        return 1
+    fi
+
+    echo $ip | awk -F ':' '{ if (NF > 8 || NF < 3) exit 1;  i = 1; while(i<=NF) {if (!match(toupper($i), "^[0-9A-F]*$")){ exit 1}; i++} exit 0}'
     return $?;
 }
 
