@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.88
+Version: 10.1.1.89
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon May 05 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.89-1
+- Fix field separator spec in awk commands in linuxrc.s390 (jgranado)
+  Resolves: rhbz#444674
+- Fix IPv6 address verification functions in linuxrc.s390 (jgranado)
+  Resolves: rhbz#362411
+- Revert previous change to notify NFS server when we finish install (jgranado)
+  Related: rhbz#208103
+
 * Thu Apr 24 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.88-1
 - Increase ia64 initrd image size (jgranado)
   Resolves: rhbz#443373
