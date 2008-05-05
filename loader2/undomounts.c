@@ -27,17 +27,11 @@
 #include <sys/stat.h>
 #include <sys/swap.h>
 #include <unistd.h>
-#include <ctype.h>
-#include <arpa/inet.h>
 
 #include "devt.h"
-#include "../isys/nfsmount.h"
-#include "../isys/dns.h"
 
 struct unmountInfo {
     char * name;
-    char * fstype;
-    char * device;
     int mounted;
     int loopDevice;
     enum { FS, LOOP } what;
@@ -49,87 +43,6 @@ void undoLoop(struct unmountInfo * fs, int numFs, int this);
 
 static void printstr(char * string) {
     write(1, string, strlen(string));
-}
-
-static int xdr_dir(XDR *xdrsp, char *dirp)
-{
-      return (xdr_string(xdrsp, &dirp, MNTPATHLEN));
-}
-
-static int
-nfs_umount_rpc_call(const char *spec, const char *opts)
-{
-      register CLIENT *clp;
-      struct sockaddr_in saddr;
-      struct timeval pertry, try;
-      enum clnt_stat clnt_stat;
-      int port = 0;
-      int so = RPC_ANYSOCK;
-      char *hostname;
-      char *dirname;
-      char *p;
-      char *tmp;
-
-      if (spec == NULL || (p = strchr(spec,':')) == NULL)
-		return 0;
-      tmp = strdup(spec);
-      hostname = strtok(tmp, ":");
-      dirname = strtok(NULL, ":");
-
-      if (opts && (p = strstr(opts, "addr="))) {
-
-	   free(hostname);
-           tmp = strdup(p);
-           strtok(tmp, "= ,");
-           hostname = strtok(NULL, "= ,");
-      }
-
-      if (opts && (p = strstr(opts, "mountport=")) && isdigit(*(p+10)))
-	   port = atoi(p+10);
-
-      sleep(5);
-      if (hostname[0] >= '0' && hostname[0] <= '9'){
-	   saddr.sin_addr.s_addr = inet_addr(hostname);
-      } else {
-	   if (mygethostbyname(hostname, &saddr.sin_addr) < 0) 
-		return 1;
-      }
-
-      saddr.sin_family = AF_INET;
-      saddr.sin_port = htons(port);
-      pertry.tv_sec = 3;
-      pertry.tv_usec = 0;
-      if (opts && (p = strstr(opts, "tcp"))) {
-	   /* possibly: make sure option is not "notcp"
-	      possibly: try udp if tcp fails */
-	   if ((clp = clnttcp_create(&saddr, MOUNTPROG, MOUNTVERS,
-				     &so, 0, 0)) == NULL) {
-		clnt_pcreateerror("Cannot MOUNTPROG RPC (tcp)");
-		return 1;
-	   }
-      } else {
-           if ((clp = clntudp_create(&saddr, MOUNTPROG, MOUNTVERS,
-				     pertry, &so)) == NULL) {
-		clnt_pcreateerror("Cannot MOUNTPROG RPC");
-		return 1;
-	   }
-      }
-      clp->cl_auth = authunix_create_default();
-      try.tv_sec = 20;
-      try.tv_usec = 0;
-      clnt_stat = clnt_call(clp, MOUNTPROC_UMNT,
-			    (xdrproc_t) xdr_dir, dirname,
-			    (xdrproc_t) xdr_void, (caddr_t) 0,
-			    try);
-
-      if (clnt_stat != RPC_SUCCESS) {
-	   clnt_perror(clp, "Bad UMNT RPC");
-	   return 1;
-      }
-      auth_destroy(clp->cl_auth);
-      clnt_destroy(clp);
-
-      return 0;
 }
 
 void undoMount(struct unmountInfo * fs, int numFs, int this) {
@@ -154,18 +67,11 @@ void undoMount(struct unmountInfo * fs, int numFs, int this) {
     printf("\t%s", fs[this].name);
     /* don't need to unmount /tmp.  it is busy anyway. */
     if (!testing) {
-        if(strcmp(fs[this].fstype, "nfs") == 0){
-            if(nfs_umount_rpc_call(fs[this].device, "") != 0){
-                printf(" umount failed (%d)", errno);
-            }else{
-                printf(" done");
-            }
-        } else{
-            if (umount2(fs[this].name, 0) < 0) 
-                printf(" umount failed (%d)", errno);
-            else
-                printf(" done");
-        }
+	if (umount2(fs[this].name, 0) < 0) {
+	    printf(" umount failed (%d)", errno);
+	} else {
+	    printf(" done");
+	}
     }
     printf("\n");
 }
@@ -206,11 +112,12 @@ void undoLoop(struct unmountInfo * fs, int numFs, int this) {
 void unmountFilesystems(void) {
     int fd, size;
     char buf[65535];			/* this should be big enough */
-    char * chptr, * start, * device, * fst;
+    char * chptr, * start;
     struct unmountInfo filesystems[500];
     int numFilesystems = 0;
     int i;
     struct loop_info li;
+    char * device;
     struct stat sb;
 
     fd = open("/proc/mounts", O_RDONLY, 0);
@@ -234,16 +141,11 @@ void unmountFilesystems(void) {
 	start = chptr;
 	while (*chptr != ' ') chptr++;
 	*chptr++ = '\0';
-        fst = chptr;
-        while (*chptr != ' ') chptr++;
-        *chptr++ = '\0';
 
 	if (strcmp(start, "/") && strcmp(start, "/tmp")) {
 	    filesystems[numFilesystems].name = strdup(start);
 	    filesystems[numFilesystems].what = FS;
 	    filesystems[numFilesystems].mounted = 1;
-            filesystems[numFilesystems].fstype = strdup(fst);
-            filesystems[numFilesystems].device = strdup(device);
 
 	    stat(start, &sb);
 	    if ((sb.st_dev >> 8) == 7) {
