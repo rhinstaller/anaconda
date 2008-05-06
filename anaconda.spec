@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.81
+Version: 11.4.0.82
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 06 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.82-1
+- Look in the right place when ISO images are in a subdirectory
+  (#443580). (clumens)
+- Don't crash when given URLs of the form ftp://user@host/path
+  (#445295). (dlehman)
+- And run in the root (#374921) (katzj)
+
 * Thu May 01 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.81-1
 - Use 'yum clean all' when cleaning up after an upgrade, not
   preupgrade (#374921) (katzj)
