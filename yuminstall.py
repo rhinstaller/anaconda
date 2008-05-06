@@ -295,7 +295,10 @@ class AnacondaYum(YumSorter):
         # directory where Packages/ is located.
         self.tree = "/mnt/source"
 
-        if self.anaconda.methodstr.startswith("hd:") or self.anaconda.methodstr.startswith("nfsiso:"):
+        if self.anaconda.methodstr.startswith("hd:"):
+            (device, fstype, path) = self.anaconda.methodstr[3:].split(":", 3)
+            self.isodir = "/mnt/isodir/%s" % path
+        elif self.anaconda.methodstr.startswith("nfsiso:"):
             self.isodir = "/mnt/isodir"
         else:
             self.isodir = None
@@ -452,7 +455,7 @@ class AnacondaYum(YumSorter):
 
         # mountDirectory checks before doing anything, so it's safe to
         # call this repeatedly.
-        mountDirectory(self.isodir, self.anaconda.methodstr,
+        mountDirectory(self.anaconda.methodstr,
                        self.anaconda.intf.messageWindow)
 
         self._discImages = mountImage(self.isodir, self.tree, discnum,
