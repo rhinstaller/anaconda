@@ -68,6 +68,7 @@ int convertURLToUI(char *url, struct iurlinfo *ui) {
                 ui->password = strdup(url);
                 url = chptr + 1;
             } else {
+                chptr = strchr(url, '@');
                 *chptr = '\0';
                 ui->login = strdup(url);
                 url = chptr + 1;
