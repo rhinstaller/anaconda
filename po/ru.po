@@ -1,7 +1,7 @@
 # translation of anaconda.master.ru.po to
 # Leonid Kanter <leon@asplinux.ru>, 2004, 2006.
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
-# Andrew Martynov <andrewm@inventa.ru>, 2004, 2005, 2006.
+# Andrew Martynov <andrewm@inventa.ru>, 2004, 2005, 2006, 2008.
 # Yuliya Poyarkova <ypoyarko@brisbane.redhat.com>, 2005.
 # wedge <wedge@xwing>, 2006.
 # Yuliya Poyarkova <ypoyarko@redhat.com>, 2006.
@@ -9,21 +9,21 @@
 # Nikolay Sivov <bunglehead@gmail.com>, 2007.
 # Yulia Poyarkova <yulia.poyarkova@redhat.com>, 2008.
 # translation of ru.po to
-# translation of ru.po to
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-03-31 10:02+1100\n"
-"Last-Translator: Yulia Poyarkova <yulia.poyarkova@redhat.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2008-05-08 10:56+0400\n"
+"Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
+"Language-Team: fedora-trans-ru@redhat.com\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 1999-04-03 12:20+0200\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../anaconda:289
 #, c-format
@@ -144,7 +144,8 @@ msgstr "При изменении размера %s раздела его нач
 
 #: ../autopart.py:983
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
-msgstr "Не удается определить разделы, основанные на цилиндрах, как первичные\n"
+msgstr ""
+"Не удается определить разделы, основанные на цилиндрах, как первичные\n"
 
 #: ../autopart.py:988
 msgid "Could not allocate partitions as primary partitions.\n"
@@ -204,7 +205,8 @@ msgstr ""
 
 #: ../autopart.py:1069
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Загрузочный раздел %s не соответствует требованиям загрузки для вашей "
 "архитектуры."
@@ -1271,7 +1273,8 @@ msgstr "Не удается найти образ"
 
 #: ../livecd.py:108
 #, python-format
-msgid "The given location isn't a valid %s live CD to use as an installation source."
+msgid ""
+"The given location isn't a valid %s live CD to use as an installation source."
 msgstr "Указанный путь не является корректным %s live CD для установки."
 
 #: ../livecd.py:167
@@ -1819,8 +1822,10 @@ msgid "Confirm Reset"
 msgstr "Подтвердите возврат"
 
 #: ../partIntfHelpers.py:543
-msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr "Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
+msgstr ""
+"Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
 
 #: ../partitions.py:84
 msgid "Installation cannot continue."
@@ -1941,7 +1946,8 @@ msgstr ""
 "нормальной установки %s. "
 
 #: ../partitions.py:1163
-msgid "Installing on a USB device.  This may or may not produce a working system."
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Установка на USB устройство.  Существует возможность получения нерабочей "
 "системы."
@@ -1973,7 +1979,8 @@ msgstr "Загружаемые разделы не допускаются в ф�
 
 #: ../partitions.py:1198
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "Загружаемые разделы не допускаются на зашифрованных блочных устройствах."
+msgstr ""
+"Загружаемые разделы не допускаются на зашифрованных блочных устройствах."
 
 #: ../partitions.py:1204
 msgid ""
@@ -1988,7 +1995,8 @@ msgstr ""
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr "Вы указали более 32 устройств подкачки. %s поддерживает только 32 устройства."
+msgstr ""
+"Вы указали более 32 устройств подкачки. %s поддерживает только 32 устройства."
 
 #: ../partitions.py:1222
 #, python-format
@@ -2014,11 +2022,13 @@ msgstr "раздел, который является членом группы 
 #: ../partRequests.py:273
 #, python-format
 msgid "The mount point %s must be formatted during live CD installs."
-msgstr "Точка монтирования %s должна быть отформатирована в процессе установки с CD."
+msgstr ""
+"Точка монтирования %s должна быть отформатирована в процессе установки с CD."
 
 #: ../partRequests.py:278
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Точка монтирования неверна. Каталог %s должен быть в корневой (/) файловой "
 "системе."
@@ -2100,7 +2110,8 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr "Размер логического тома должен быть больше, чем размер физического экстента."
+msgstr ""
+"Размер логического тома должен быть больше, чем размер физического экстента."
 
 #: ../rescue.py:157
 msgid "Starting Interface"
@@ -2309,14 +2320,17 @@ msgid "Welcome to %s"
 msgstr "Добро пожаловать в %s"
 
 #: ../text.py:569
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr " <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr ""
+" <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
 
 #: ../text.py:571
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgstr ""
+" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../upgrade.py:105 ../upgrade.py:126
 msgid "Proceed with upgrade?"
@@ -2734,8 +2748,10 @@ msgstr "Повтор попытки получения пакета..."
 
 #: ../yuminstall.py:715
 #, python-format
-msgid "There was an error running your transaction for the following reason: %s\n"
-msgstr "При выполнении вашей транзакции произошла ошибка по следующим причинам: %s\n"
+msgid ""
+"There was an error running your transaction for the following reason: %s\n"
+msgstr ""
+"При выполнении вашей транзакции произошла ошибка по следующим причинам: %s\n"
 
 #: ../yuminstall.py:748 ../yuminstall.py:749
 msgid "file conflicts"
@@ -2791,7 +2807,8 @@ msgstr ""
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
-msgstr "При выполнении вашей транзакции произошла ошибка по следующим причинам: %s\n"
+msgstr ""
+"При выполнении вашей транзакции произошла ошибка по следующим причинам: %s\n"
 
 #: ../yuminstall.py:791
 msgid "Error Running Transaction"
@@ -2924,7 +2941,8 @@ msgstr "Вы не задали номер устройства или номер
 
 #: ../zfcp.py:51
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Вы не задали worldwide port name устройства или имя указано неправильно."
+msgstr ""
+"Вы не задали worldwide port name устройства или имя указано неправильно."
 
 #: ../zfcp.py:53
 msgid "You have not specified a FCP LUN or the number is invalid."
@@ -2979,7 +2997,8 @@ msgstr ""
 "Продолжить работу с этим паролем?"
 
 #: ../iw/account_gui.py:133 ../textw/userauth_text.py:72
-msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgid ""
+"Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "Запрошенный пароль содержит символы, не являющиеся кодами ASCII. В паролях "
 "такие символы не допускаются."
@@ -3012,11 +3031,13 @@ msgstr "Ошибка данных"
 
 #: ../iw/autopart_type.py:403 ../textw/partition_text.py:1517
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr "Удалить все разделы на выбранных дисках и создать разбиение по умолчанию"
+msgstr ""
+"Удалить все разделы на выбранных дисках и создать разбиение по умолчанию"
 
 #: ../iw/autopart_type.py:404 ../textw/partition_text.py:1518
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr "Удалить разделы Linux на выбранных дисках и создать разбиение по умолчанию"
+msgstr ""
+"Удалить разделы Linux на выбранных дисках и создать разбиение по умолчанию"
 
 #: ../iw/autopart_type.py:405
 msgid "Resize existing partition and create default layout in free space"
@@ -3173,12 +3194,12 @@ msgid "Packages in %s"
 msgstr "Пакеты в %s"
 
 #: ../iw/GroupSelector.py:482
-#fuzzy, python-format
+#, python-format
 msgid "%d of %d optional package selected"
 msgid_plural "%d of %d optional packages selected"
 msgstr[0] "Выбран %d дополнительный пакет из %d"
-msgstr[1] "Выбрано %d дополнительных пакетов из %d"
-msgstr[2] "Дополнительных пакетов нет"
+msgstr[1] "Выбрано %d дополнительных пакета из %d"
+msgstr[2] "Выбрано %d дополнительных пакетов из %d"
 
 #: ../iw/GroupSelector.py:485
 #, python-format
@@ -3936,12 +3957,14 @@ msgid "Partitioning"
 msgstr "Разбиение"
 
 #: ../iw/partition_gui.py:638
-msgid "The partitioning scheme you requested caused the following critical errors."
+msgid ""
+"The partitioning scheme you requested caused the following critical errors."
 msgstr "Выбранная схема разбиения вызвала следующие критические ошибки."
 
 #: ../iw/partition_gui.py:640
 #, python-format
-msgid "You must correct these errors before you continue your installation of %s."
+msgid ""
+"You must correct these errors before you continue your installation of %s."
 msgstr "Эти ошибки должны быть исправлены до продолжения установки %s."
 
 #: ../iw/partition_gui.py:646
@@ -4096,7 +4119,8 @@ msgstr "Не удается создать редактор клонирован
 
 #: ../iw/partition_gui.py:1336
 msgid "The drive clone editor could not be created for some reason."
-msgstr "Редактор клонирования дисков не может быть запущен по некоторым причинам."
+msgstr ""
+"Редактор клонирования дисков не может быть запущен по некоторым причинам."
 
 #: ../iw/partition_gui.py:1378
 msgid "Ne_w"
@@ -4423,7 +4447,8 @@ msgstr "Вы должны указать HTTP, HTTPS или FTP URL этого �
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "Репозитарий %s уже добавлен, выберите другое имя репозитария и адрес URL."
+msgstr ""
+"Репозитарий %s уже добавлен, выберите другое имя репозитария и адрес URL."
 
 #: ../iw/timezone_gui.py:62 ../textw/timezone_text.py:95
 msgid "Time Zone Selection"
@@ -4459,7 +4484,8 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:134 ../textw/upgrade_bootloader_text.py:117
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "Программа установки обнаружила загрузчик %s, установленный на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:138
@@ -4589,7 +4615,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Размер файла подкачки должен быть в диапазоне между 1 и 2000 Мб."
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:182
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "Недостаточно места на устройстве, выбранном для раздела подкачки."
 
 #: ../iw/zipl_gui.py:35
@@ -4734,8 +4761,10 @@ msgstr ""
 "обращении к ним."
 
 #: ../textw/bootloader_text.py:294
-msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr " <Space> выбор | <F2> запись по умолчанию | <F4> удалить | <F12> след. экран>"
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr ""
+" <Space> выбор | <F2> запись по умолчанию | <F4> удалить | <F12> след. экран>"
 
 #: ../textw/bootloader_text.py:390
 msgid ""
@@ -4822,8 +4851,10 @@ msgid "Please select the package groups you would like to install."
 msgstr "Укажите группы пакетов, которые вы хотите установить."
 
 #: ../textw/grpselect_text.py:112
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> выбор   |   <F2> Описание группы   |  <F12> след. экран"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr ""
+"<Space>,<+>,<-> выбор   |   <F2> Описание группы   |  <F12> след. экран"
 
 #: ../textw/grpselect_text.py:124
 msgid "No optional packages to select"
@@ -5306,7 +5337,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1433
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "  F1-Помощь F2-Новый F3-Правка F4-Удалить F5-Сброс F12-ОК    "
 
 #: ../textw/partition_text.py:1465
@@ -5594,7 +5626,8 @@ msgstr "Номер установки"
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
-msgstr "Чтобы установить полный набор пакетов вашей подписки, введите Номер Установки"
+msgstr ""
+"Чтобы установить полный набор пакетов вашей подписки, введите Номер Установки"
 
 #: ../installclasses/rhel.py:73
 msgid ""
@@ -5860,7 +5893,8 @@ msgstr "Загрузка диска драйверов"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr "Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
+msgstr ""
+"Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
 
 #: ../loader2/driverselect.c:191
 msgid ""
@@ -6002,8 +6036,10 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "Добро пожаловать в %s для %s - Режим восстановления"
 
 #: ../loader2/lang.c:65 ../loader2/loader.c:166
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../loader2/lang.c:373
 msgid "Choose a Language"
@@ -6128,7 +6164,8 @@ msgstr "В вашей системе были найдены следующие 
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr "Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
+msgstr ""
+"Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
 
 #: ../loader2/loader.c:1421
 msgid "Devices"
@@ -6150,12 +6187,14 @@ msgstr "Загрузчик уже выполнялся.  Запускается 
 #: ../loader2/loader.c:1946
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
-msgstr "Запускается anaconda %s, режим восстановления %s, подождите, пожалуйста...\n"
+msgstr ""
+"Запускается anaconda %s, режим восстановления %s, подождите, пожалуйста...\n"
 
 #: ../loader2/loader.c:1948
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr "Запускается anaconda %s, программа установки %s, подождите, пожалуйста...\n"
+msgstr ""
+"Запускается anaconda %s, программа установки %s, подождите, пожалуйста...\n"
 
 #: ../loader2/mediacheck.c:62
 #, c-format
@@ -6347,7 +6386,8 @@ msgid "Missing Information"
 msgstr "Недостаточно информации"
 
 #: ../loader2/net.c:1225
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Необходимо ввести корректный адрес IPv4 и маску сети или префикс CIDR."
 
 #: ../loader2/net.c:1231
@@ -6615,8 +6655,10 @@ msgid "Which Partition to resize"
 msgstr "Размер какого раздела будет изменен"
 
 #: tmp/autopart.glade.h:6
-msgid "Which partition would you like to resize to make room for your installation?"
-msgstr "Укажите раздел, размер которого вы хотите увеличить для размещения установки?"
+msgid ""
+"Which partition would you like to resize to make room for your installation?"
+msgstr ""
+"Укажите раздел, размер которого вы хотите увеличить для размещения установки?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
@@ -7129,4 +7171,3 @@ msgstr "Валлийский"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Зулусский"
-
