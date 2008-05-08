@@ -129,8 +129,8 @@ def getMediaId(path):
         return None
 
 # This mounts the directory containing the iso images, and places the
-# mount point in isodir.
-def mountDirectory(isodir, methodstr, messageWindow):
+# mount point in /mnt/isodir.
+def mountDirectory(methodstr, messageWindow):
     if methodstr.startswith("hd:"):
         method = methodstr[3:]
         (device, fstype, path) = method.split(":", 3)
@@ -153,7 +153,7 @@ def mountDirectory(isodir, methodstr, messageWindow):
             return
 
     try:
-        isys.mount(device, isodir, fstype = fstype)
+        isys.mount(device, "/mnt/isodir", fstype = fstype)
     except SystemError, msg:
         log.error("couldn't mount ISO source directory: %s" % msg)
         messageWindow(_("Couldn't Mount ISO Source"),
