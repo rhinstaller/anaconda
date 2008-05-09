@@ -37,7 +37,7 @@ fi
 TOPDIR=$(cd $TOPDIR; pwd)
 
 # modules that are needed.  this is the generic "needed for every arch" stuff
-COMMONMODS="fat vfat nfs sunrpc lockd floppy cramfs loop edd pcspkr squashfs ipv6"
+COMMONMODS="fat vfat nfs sunrpc lockd floppy cramfs loop edd pcspkr squashfs ipv6 virtio_pci"
 USBMODS="ohci-hcd uhci-hcd ehci-hcd hid mousedev usb-storage sd_mod sr_mod ub"
 FIREWIREMODS="ieee1394 ohci1394 sbp2"
 IDEMODS="ide-cd"
