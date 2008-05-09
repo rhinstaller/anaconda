@@ -1114,3 +1114,11 @@ xenblk
 xennet
 	eth
 	"Xen network frontend device"
+
+virtio_blk
+	scsi_hostadapter
+	"Virtio block driver"
+
+virtio_net
+	eth
+	"Virtio network driver"
