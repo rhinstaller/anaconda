@@ -147,6 +147,49 @@ void doShell(void) {
     newtResume();
 }
 
+void doGdbserver(struct loaderData_s *loaderData) {
+    int child, rc, fd;
+    char *pid;
+    struct networkDeviceConfig netCfg;
+
+    /* If gdbserver is found, go ahead and run it on the loader process now
+     * before anything bad happens.
+     */
+    if (loaderData->gdbServer && !access("/usr/bin/gdbserver", X_OK)) {
+        pid_t loaderPid = getpid();
+
+        if (kickstartNetworkUp(loaderData, &netCfg)) {
+            logMessage(ERROR, "can't run gdbserver due to no network");
+            return;
+        }
+
+        rc = asprintf(&pid, "%d", loaderPid);
+
+        if (!(child = fork())) {
+            logMessage(INFO, "starting gdbserver: %s %s %s %s",
+                       "/usr/bin/gdbserver", "--attach", loaderData->gdbServer,
+                       pid);
+
+            fd = open("/dev/null", O_RDONLY);
+            close(STDIN_FILENO);
+            dup2(fd, STDIN_FILENO);
+            close(fd);
+            fd = open("/dev/null", O_WRONLY);
+            close(STDOUT_FILENO);
+            dup2(fd, STDOUT_FILENO);
+            close(STDERR_FILENO);
+            dup2(fd, STDERR_FILENO);
+            close(fd);
+
+            if (execl("/usr/bin/gdbserver", "/usr/bin/gdbserver", "--attach",
+                      loaderData->gdbServer, pid, NULL) == -1)
+                logMessage(ERROR, "error running gdbserver: %s", strerror(errno));
+
+            _exit(1);
+        }
+    }
+}
+
 void startNewt(void) {
     if (!newtRunning) {
         char *buf;
@@ -904,6 +947,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags &= ~LOADER_FLAGS_SELINUX;
         else if (!strncasecmp(argv[i], "selinux", 7))
             flags |= LOADER_FLAGS_SELINUX;
+        else if (!strncasecmp(argv[i], "gdb=", 4))
+            loaderData->gdbServer = strdup(argv[i] + 4);
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */
@@ -1711,6 +1756,9 @@ int main(int argc, char ** argv) {
     earlyModuleLoad(0);
 
     busProbe(FL_NOPROBE(flags));
+
+    /* can't run gdbserver until after network modules are loaded */
+    doGdbserver(&loaderData);
 
     /* JKFIXME: we'd really like to do this before the busprobe, but then
      * we won't have network devices available (and that's the only thing
