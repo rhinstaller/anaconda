@@ -69,8 +69,8 @@ static int detectHardware(moduleInfoSet modInfo, char *** modules) {
     devices = probeDevices(CLASS_UNSPEC,
                            BUS_PCI | BUS_SBUS | BUS_VIO | BUS_MACIO |
                            /* Waiting on kudzu to define BUS_EBUS */
-                           /* BUS_PCMCIA | BUS_XEN | BUS_EBUS, */
-                           BUS_PCMCIA | BUS_XEN,
+                           /* BUS_PCMCIA | BUS_XEN | BUS_VIRTIO | BUS_EBUS, */
+                           BUS_PCMCIA | BUS_XEN | BUS_VIRTIO,
                            PROBE_ALL);
 
     logMessage(DEBUGLVL, "finished bus probing");
