@@ -1626,7 +1626,7 @@ class YumBackend(AnacondaBackend):
             # blacklist all device types
             f.write('\nblacklist {\n')
             f.write('        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"\n')
-            f.write('        devnode "^(hd|xvd)[a-z]*"\n')
+            f.write('        devnode "^(hd|xvd|vd)[a-z]*"\n')
             f.write('        wwid "*"\n')
             f.write('}\n')
 
