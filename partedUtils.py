@@ -1462,4 +1462,5 @@ max_logical_partition_count = {
     "ida/": 11,
     "sx8/": 11,
     "xvd": 11,
+    "vd": 11,
 }
