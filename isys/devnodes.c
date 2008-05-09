@@ -87,6 +87,81 @@ static int sd_major(int major_idx) {
     }
 }
 
+/* virtio has a dynamically assigned major; poke around
+ * in /proc/devices for it.
+ */
+static int virtio_major(void) {
+    FILE *f;
+    static int retval = -1;
+
+    if (retval != -1)
+        return retval;
+
+    f = fopen("/proc/devices", "r");
+    if (!f)
+        return -1;
+
+    while (1) {
+        char line[1024], *p, *e = NULL;
+        long major;
+
+        if (!fgets(line, sizeof(line), f))
+            break;
+
+        p = line;
+        while (*p == ' ')
+            p++;
+
+        major = strtol(p, &e, 10);
+        if (e == p ||
+            (errno == ERANGE && (major == LONG_MIN || major == LONG_MAX)))
+            continue;
+
+        p = e;
+        while (*p == ' ')
+            p++;
+
+        if (strncmp(p, "virtblk", sizeof("virtblk") - 1) != 0)
+            continue;
+
+        retval = major;
+        break;
+    }
+
+    fclose(f);
+
+    return retval;
+}
+
+/* virtio supports vda to vdzzz15
+*/
+static int virtio_minor(char * devName) {
+    int minor;
+    int i = 2;
+
+    minor = (devName[i++] - 'a');
+
+    if (devName[i] && !isdigit(devName[i])) {
+	minor = ((minor + 1) * 26) + (devName[i++] - 'a');
+	if (devName[i] && !isdigit(devName[i]))
+	    minor = ((minor + 1) * 26) + (devName[i++] - 'a');
+    }
+
+    minor <<= 4;
+
+    if (devName[i] && isdigit(devName[i])) {
+	long part;
+	char *e = NULL;
+
+	part = strtol(&devName[i], &e, 10);
+	if (e != &devName[i] &&
+	    (errno != ERANGE || (part != LONG_MIN && part != LONG_MAX)))
+	    minor += part;
+    }
+
+    return minor;
+}
+
 static const char digits[] = "0123456789";
 
 int devMakeInode(char * devName, char * path) {
@@ -198,6 +273,12 @@ int devMakeInode(char * devName, char * path) {
                 minor += devName[4] - '0';
             }
 	}
+    } else if (devName[0] == 'v' && devName[1] == 'd') {
+        type = S_IFBLK;
+        major = virtio_major();
+        if (major < 0)
+            return major;
+        minor = virtio_minor(devName);
     } else if (devName[0] == 'u' && devName[1] == 'b') {
         /* usb block (ub) devices */
         type = S_IFBLK;
