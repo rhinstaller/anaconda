@@ -488,7 +488,7 @@ def compareDrives(first, second):
         type1 = 0
     elif first.startswith("sd"):
         type1 = 1
-    elif first.startswith("xvd"):
+    elif (first.startswith("vd") or first.startswith("xvd")):
         type1 = -1
     else:
         type1 = 2
@@ -497,7 +497,7 @@ def compareDrives(first, second):
         type2 = 0
     elif second.startswith("sd"):
 	type2 = 1
-    elif second.startswith("xvd"):
+    elif (second.startswith("vd") or second.startswith("xvd")):
         type2 = -1
     else:
 	type2 = 2
