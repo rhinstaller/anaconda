@@ -538,7 +538,7 @@ def inXen():
 ## Check to see if we are in a vmware environment.
 #
 def inVmware():
-    out = execWithCapture("/usr/sbin/lspci", ["-vvv"])
+    out = execWithCapture("lspci", ["-vvv"])
     if "VMware" in out:
         return True
     return False
