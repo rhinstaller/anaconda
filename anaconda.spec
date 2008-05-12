@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.78
+Version: 11.4.1.0
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,38 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon May 12 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.79-1
+- Stop neutering DRI (notting)
+- make scripts/buildinstall take multiple repos (wwoods)
+- Don't worry about telling people that interactive text mode is in 
+  wrong lang (katzj)
+- Allow cpio updates.img in the tree for URL installs. (dlehman)
+- Declare unpackCpioBall for use from within urlinstall.c. (dlehman)
+- Don't unlink an image we retrieved but could not mount as it 
+  could be .cgz. (dlehman)
+- Don't run lspci with an explicit path (katzj)
+- Include lspci on all images (#445974) (katzj)
+- Add support for attaching gdbserver to the loader early on. (clumens)
+- Add virtio max partition count (markmc)
+- Sort virtio devices first (markmc)
+- Merge branch 'master' of ssh://git.fedorahosted.org/git/anaconda (andrewm)
+- 2008-05-08  Andrew Martynov <andrewm)
+- Look in the right place when ISO images are in a 
+  subdirectory (#443580). (clumens)
+- And run in the root (#374921) (katzj)
+- Don't crash when given URLs of the form ftp://user)
+- Use 'yum clean all' when cleaning up after an upgrade, not 
+  preupgrade (#374921) (katzj)
+- Kickstart flag is backwards (katzj)
+- If we're given a language, don't warn about console fonts (#444258) (katzj)
+- And actually include the bash binary too (#443700) (katzj)
+- Search path rather than hard-coding path to mdadm (#444843) (katzj)
+- Fix incorrect command name in error message. (clumens)
+- Specify which protocol is used for remote saving (#440214). (clumens)
+- Use bash for minstg2 shell (#443700) (katzj)
+- Revert PS1 and PATH changes as they don't work with busybox as used 
+  in minstg2 (katzj)
+
 * Mon Apr 28 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.78-1
 - Write per-interface DNS info to ifcfg files (#443244) (dcantrell)
 - Clean up sanityCheckHostname() in network.py (dcantrell)
