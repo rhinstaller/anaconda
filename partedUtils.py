@@ -1362,7 +1362,7 @@ class DiskSet:
 
         drives = []
         for d in isys.removableDriveDict().items():
-            func = lambda p: not p.get_flag(parted.PARTITION_RAID) and not p.get_flag(parted.PARTITION_LVM) and p.fs_type.name in ["ext3", "ext2", "fat16", "fat32"]
+            func = lambda p: p.is_active() and not p.get_flag(parted.PARTITION_RAID) and not p.get_flag(parted.PARTITION_LVM) and p.fs_type.name in ["ext3", "ext2", "fat16", "fat32"]
 
             disk = self.disks[d[0]]
             parts = filter_partitions(disk, func)

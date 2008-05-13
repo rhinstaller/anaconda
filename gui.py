@@ -764,7 +764,7 @@ class SaveExceptionWindow:
         elif len(dests) > 0:
             for d in dests:
                 iter = store.append(None)
-                store[iter] = (d[0], "/dev/%s - %s" % (d[0], d[1]))
+                store[iter] = ("/dev/%s" % d[0], "/dev/%s - %s" % (d[0], d[1]))
 
             self.diskCombo.set_model(store)
             self.diskCombo.set_active(0)
