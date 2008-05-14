@@ -154,10 +154,9 @@ static void wrongCDMessage(void) {
 static void mountCdromStage2(char *cddev, char *location) {
     int gotcd1=0;
     int rc;
-    char *stage2loc, *imageDir;
+    char *stage2loc;
 
     rc = asprintf(&stage2loc, "%s/images/stage2.img", location);
-    rc = asprintf(&imageDir, "%s/images/", location);
 
     do {
         do {
@@ -169,7 +168,7 @@ static void mountCdromStage2(char *cddev, char *location) {
             }
         } while (1);
 
-        rc = mountStage2(stage2loc, imageDir);
+        rc = mountStage2(stage2loc);
 
         /* if we failed, umount location (usually) /mnt/source and keep going */
         if (rc) {
@@ -182,7 +181,6 @@ static void mountCdromStage2(char *cddev, char *location) {
     } while (!gotcd1);
 
     free(stage2loc);
-    free(imageDir);
 }
 
 /* ask about doing media check */
@@ -235,7 +233,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
     int i, r, rc;
     int foundinvalid = 0;
     int stage2inram = 0;
-    char *buf, *stage2loc, *discinfoloc, *imageDir;
+    char *buf, *stage2loc, *discinfoloc;
     char *stage2img;
     struct device ** devices;
     char *cddev = NULL;
@@ -248,11 +246,9 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
     if (loaderData && FL_STAGE2(flags)) {
         stage2loc = strdup(location);
-        r = asprintf(&imageDir, "%.*s", (int) (strrchr(location, '/') - location), location);
         r = asprintf(&discinfoloc, "%s/.discinfo", imageDir);
     } else {
         r = asprintf(&stage2loc, "%s/images/stage2.img", location);
-        r = asprintf(&imageDir, "%s/images", location);
         r = asprintf(&discinfoloc, "%s/.discinfo", location);
     }
 
@@ -289,7 +285,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                         stage2img = strdup(stage2loc);
                         stage2inram = 0;
                     }
-                    rc = mountStage2(stage2img, imageDir);
+                    rc = mountStage2(stage2img);
 
                     if (rc) {
                         logMessage(INFO, "mounting stage2 failed");
@@ -314,7 +310,6 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                                  devices[i]->device, location);
 
                     free(stage2loc);
-                    free(imageDir);
                     free(discinfoloc);
 
                     if (r == -1)
@@ -358,7 +353,6 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
 err:
     free(stage2loc);
-    free(imageDir);
     free(discinfoloc);
     return NULL;
 }

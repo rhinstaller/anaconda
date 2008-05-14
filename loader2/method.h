@@ -50,7 +50,7 @@ void queryIsoMediaCheck(char * isoDir);
 int verifyStamp(char * path);
 
 void umountStage2(void);
-int mountStage2(char *stage2path, char *imageDir);
+int mountStage2(char *stage2path);
 int copyFileAndLoopbackMount(int fd, char *dest, char *device, char *mntpoint);
 int getFileFromBlockDevice(char *device, char *path, char * dest);
 

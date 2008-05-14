@@ -197,7 +197,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
 
             if (FL_STAGE2(flags)) {
                 if (!copyFile(path, "/tmp/stage2.img")) {
-                    rc = mountStage2("/tmp/stage2.img", dirName);
+                    rc = mountStage2("/tmp/stage2.img");
                     umount("/mnt/isodir");
                     free(path);
 

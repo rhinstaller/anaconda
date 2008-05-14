@@ -147,7 +147,7 @@ char * mountNfsImage(struct installMethod * method,
             break;
 
         case NFS_STAGE_MOUNT: {
-            char *buf, *stage2dir;
+            char *buf;
             struct in_addr ip;
 
             if (loaderData->noDns && !(inet_pton(AF_INET, host, &ip))) {
@@ -224,18 +224,14 @@ char * mountNfsImage(struct installMethod * method,
             stage = NFS_STAGE_NFS;
 
             if (!doPwMount(fullPath, "/mnt/source", "nfs", mountOpts)) {
-                if (FL_STAGE2(flags)) {
-                    stage2dir = strdup("/mnt/source");
+                if (FL_STAGE2(flags))
                     tmp = asprintf(&buf, "/mnt/source/%s", strrchr(directory, '/'));
-                } else {
-                    stage2dir = strdup("/mnt/source/images");
+                else
                     buf = strdup("/mnt/source/images/stage2.img");
-                }
 
                 if (!access(buf, R_OK)) {
                     logMessage(INFO, "can access %s", buf);
-                    rc = mountStage2(buf, stage2dir);
-                    free(stage2dir);
+                    rc = mountStage2(buf);
 
                     if (rc == -1) {
                         foundinvalid = 1;
@@ -257,7 +253,6 @@ char * mountNfsImage(struct installMethod * method,
 
                     logMessage(WARNING, "unable to access %s", buf);
                     free(buf);
-                    free(stage2dir);
                     umount("/mnt/source");
 
                     if ((path = isNfsIso(fullPath, mountOpts, &foundinvalid, 1)) != NULL) {
@@ -272,20 +267,16 @@ char * mountNfsImage(struct installMethod * method,
                             logMessage(WARNING, "failed to mount iso %s loopback", path);
                             free(path);
                         } else {
-                            if (FL_STAGE2(flags)) {
-                                stage2dir = strdup("/mnt/source");
+                            if (FL_STAGE2(flags))
                                 tmp = asprintf(&buf, "/mnt/source/%s", strrchr(directory, '/'));
-                            } else {
-                                stage2dir = strdup("/mnt/source/images");
+                            else
                                 buf = strdup("/mnt/source/images/stage2.img");
-                            }
 
                             rc = copyFile(buf, "/tmp/stage2.img");
-                            rc = mountStage2("/tmp/stage2.img", stage2dir);
+                            rc = mountStage2("/tmp/stage2.img");
                             umountLoopback("/mnt/source", "/dev/loop1");
 
                             free(buf);
-                            free(stage2dir);
                             free(path);
 
                             if (rc && rc == -1) {

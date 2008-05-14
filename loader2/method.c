@@ -530,10 +530,7 @@ void umountStage2(void) {
 
 /* mount a second stage, verify the stamp file, copy updates 
  * Returns 0 on success, 1 on failure to mount, -1 on bad stamp */
-int mountStage2(char *stage2path, char *imageDir) {
-    char *buf;
-    int rc;
-
+int mountStage2(char *stage2path) {
     if (access(stage2path, R_OK)) {
         return 1;
     }
@@ -546,16 +543,6 @@ int mountStage2(char *stage2path, char *imageDir) {
         umountLoopback("/mnt/runtime", "/dev/loop0");
         return -1;
     }
-
-    /* JKFIXME: this is kind of silly.. /mnt/source is hardcoded :/ */
-    rc = asprintf(&buf, "%s/updates.img", imageDir);
-    copyUpdatesImg(buf);
-    free(buf);
-
-    /* more hard coding */
-    rc = asprintf(&buf, "%s/product.img", imageDir);
-    copyProductImg(buf);
-    free(buf);
 
     return 0;
 }
