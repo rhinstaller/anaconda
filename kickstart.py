@@ -334,8 +334,7 @@ class Monitor(commands.monitor.FC6_Monitor):
     def parse(self, args):
         commands.monitor.FC6_Monitor.parse(self, args)
         self.handler.skipSteps.extend(["monitor", "checkmonitorok"])
-        self.handler.id.instClass.setMonitor(self.handler.id, self.hsync,
-                                             self.vsync, self.monitor)
+        log.warning("Used deprecated command monitor!")
 
 class Network(commands.network.F8_Network):
     def parse(self, args):
@@ -627,8 +626,8 @@ class SkipX(commands.skipx.FC3_SkipX):
         self.handler.skipSteps.extend(["checkmonitorok", "setsanex", "videocard",
                                        "monitor", "xcustom", "writexconfig"])
 
-        if self.handler.id.xsetup is not None:
-            self.handler.id.xsetup.skipx = 1
+        if self.handler.id.desktop is not None:
+            self.handler.id.desktop.setDefaultRunLevel(3)
 
 class Timezone(commands.timezone.FC6_Timezone):
     def parse(self, args):
@@ -677,13 +676,7 @@ class VolGroup(commands.volgroup.FC3_VolGroup):
 class XConfig(commands.xconfig.FC6_XConfig):
     def parse(self, args):
         commands.xconfig.FC6_XConfig.parse(self, args)
-
-        self.handler.id.instClass.configureX(self.handler.id, self.driver, self.videoRam,
-                                             self.resolution, self.depth,
-                                             self.startX)
-        self.handler.id.instClass.setDesktop(self.handler.id, self.defaultdesktop)
-        self.handler.skipSteps.extend(["videocard", "monitor", "xcustom",
-                                       "checkmonitorok", "setsanex"])
+        log.warning("Used deprecated command xconfig!")
 
 class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
     def parse(self, args):

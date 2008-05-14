@@ -23,7 +23,6 @@
 import string
 from types import *
 from constants import *
-from packages import writeXConfiguration
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
 from packages import doPostAction
@@ -109,7 +108,6 @@ installSteps = [
     ("writeconfig", writeConfiguration, ),
     ("firstboot", firstbootConfiguration, ),
     ("instbootloader", writeBootloader, ),
-    ("writexconfig", writeXConfiguration, ),
     ("writeksconfig", writeKSConfiguration, ),
     ("writeregkey", writeRegKey, ),
     ("setfilecon", setFileCons, ),

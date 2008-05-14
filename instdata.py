@@ -116,18 +116,6 @@ class InstallData:
     def setKeyboard(self, keyboard):
         self.keyboard = keyboard
 
-    # expects a VideoCardInfo object
-    def setVideoCard(self, video):
-        self.videocard = video
-
-    # expects a Monitor object
-    def setMonitor(self, monitor):
-        self.monitor = monitor
-
-    # expects an XSetup object
-    def setXSetup(self, xsetup):
-        self.xsetup = xsetup
-
     # expects 0/1
     def setHeadless(self, isHeadless):
         self.isHeadless = isHeadless
@@ -183,6 +171,7 @@ class InstallData:
         self.network.write (self.anaconda.rootPath)
         self.firewall.write (self.anaconda.rootPath)
         self.security.write (self.anaconda.rootPath)
+        self.desktop.write(self.anaconda.rootPath)
 
         self.users = users.Users()
 
@@ -245,7 +234,6 @@ class InstallData:
 	self.instLanguage.writeKS(f)
         if not self.isHeadless:
             self.keyboard.writeKS(f)
-            self.xsetup.writeKS(f, self.desktop, self.ksdata)
 	self.network.writeKS(f)
 	self.zfcp.writeKS(f)
 
@@ -298,7 +286,6 @@ class InstallData:
 
         self.monitor = None
         self.videocard = None
-        self.xsetup = None
         self.isHeadless = 0
 	self.extraModules = extraModules
 	self.fsset = fsset.FileSystemSet()

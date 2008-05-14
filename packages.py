@@ -88,41 +88,6 @@ def copyAnacondaLogs(anaconda):
             except:
                 pass
 
-def writeXConfiguration(anaconda):
-    testmode = flags.test
-
-# comment out to test
-    if testmode:
-        return
-# end code to comment to test 
-# uncomment to test writing X config in test mode
-#    try:
-#	os.mkdir("/tmp/etc")
-#    except:
-#	pass
-#    try:
-#	os.mkdir("/tmp/etc/X11")
-#    except:
-#	pass
-#    instPath = '/'
-# end code for test writing
-
-    if anaconda.id.xsetup.skipx:
-        return
-
-    card = anaconda.id.videocard.primaryCard()
-    if not card:
-	return
-
-    log.info("Writing X configuration")
-    if not testmode:
-        fn = anaconda.rootPath
-    else:
-        fn = "/tmp/"
-
-    anaconda.id.xsetup.write(fn+"/etc/X11", anaconda.id.keyboard)
-    anaconda.id.desktop.write(anaconda.rootPath)
-
 def doMigrateFilesystems(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return DISPATCH_NOOP
