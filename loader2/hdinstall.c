@@ -285,9 +285,9 @@ char * mountHardDrive(struct installMethod * method,
     char *kspartition, *ksdirectory;
 
     /* handle kickstart data first if available */
-    if (loaderData->method == METHOD_HD && loaderData->methodData) {
-        kspartition = ((struct hdInstallData *)loaderData->methodData)->partition;
-        ksdirectory = ((struct hdInstallData *)loaderData->methodData)->directory;
+    if (loaderData->method == METHOD_HD && loaderData->stage2Data) {
+        kspartition = ((struct hdInstallData *)loaderData->stage2Data)->partition;
+        ksdirectory = ((struct hdInstallData *)loaderData->stage2Data)->directory;
         logMessage(INFO, "partition  is %s, dir is %s", kspartition, ksdirectory);
 
         /* if exist, duplicate */
@@ -499,11 +499,11 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
     }
 
     loaderData->method = METHOD_HD;
-    loaderData->methodData = calloc(sizeof(struct hdInstallData *), 1);
+    loaderData->stage2Data = calloc(sizeof(struct hdInstallData *), 1);
     if (partition)
-        ((struct hdInstallData *)loaderData->methodData)->partition = partition;
+        ((struct hdInstallData *)loaderData->stage2Data)->partition = partition;
     if (dir)
-        ((struct hdInstallData *)loaderData->methodData)->directory = dir;
+        ((struct hdInstallData *)loaderData->stage2Data)->directory = dir;
 
     logMessage(INFO, "results of hd ks, partition is %s, dir is %s", partition,
                dir);

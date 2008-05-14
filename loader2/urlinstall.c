@@ -221,8 +221,8 @@ char * mountUrlImage(struct installMethod * method,
     while (stage != URL_STAGE_DONE) {
         switch(stage) {
         case URL_STAGE_MAIN:
-            if (loaderData->method == METHOD_URL && loaderData->methodData) {
-                url = ((struct urlInstallData *)loaderData->methodData)->url;
+            if (loaderData->method == METHOD_URL && loaderData->stage2Data) {
+                url = ((struct urlInstallData *)loaderData->stage2Data)->url;
                 logMessage(INFO, "URL_STAGE_MAIN - url is %s", url);
 
                 if (!url) {
@@ -460,8 +460,8 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
         return;
     }
 
-    loaderData->methodData = calloc(sizeof(struct urlInstallData *), 1);
-    ((struct urlInstallData *)loaderData->methodData)->url = url;
+    loaderData->stage2Data = calloc(sizeof(struct urlInstallData *), 1);
+    ((struct urlInstallData *)loaderData->stage2Data)->url = url;
 
     logMessage(INFO, "results of url ks, url %s", url);
 }

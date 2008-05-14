@@ -118,14 +118,14 @@ char * mountNfsImage(struct installMethod * method,
         switch (stage) {
         case NFS_STAGE_NFS:
             logMessage(INFO, "going to do nfsGetSetup");
-            if (loaderData->method == METHOD_NFS && loaderData->methodData) {
-                host = ((struct nfsInstallData *)loaderData->methodData)->host;
-                directory = ((struct nfsInstallData *)loaderData->methodData)->directory;
+            if (loaderData->method == METHOD_NFS && loaderData->stage2Data) {
+                host = ((struct nfsInstallData *)loaderData->stage2Data)->host;
+                directory = ((struct nfsInstallData *)loaderData->stage2Data)->directory;
 
-                if (((struct nfsInstallData *) loaderData->methodData)->mountOpts == NULL)
+                if (((struct nfsInstallData *) loaderData->stage2Data)->mountOpts == NULL)
                     mountOpts = strdup("ro");
                 else
-                    rc = asprintf(&mountOpts, "ro,%s", ((struct nfsInstallData *) loaderData->methodData)->mountOpts);
+                    rc = asprintf(&mountOpts, "ro,%s", ((struct nfsInstallData *) loaderData->stage2Data)->mountOpts);
 
                 logMessage(INFO, "host is %s, dir is %s, opts are '%s'", host, directory, mountOpts);
 
@@ -373,15 +373,15 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
     }
 
     loaderData->method = METHOD_NFS;
-    loaderData->methodData = calloc(sizeof(struct nfsInstallData *), 1);
-    ((struct nfsInstallData *)loaderData->methodData)->host = host;
-    ((struct nfsInstallData *)loaderData->methodData)->directory = dir;
-    ((struct nfsInstallData *)loaderData->methodData)->mountOpts = mountOpts;
+    loaderData->stage2Data = calloc(sizeof(struct nfsInstallData *), 1);
+    ((struct nfsInstallData *)loaderData->stage2Data)->host = host;
+    ((struct nfsInstallData *)loaderData->stage2Data)->directory = dir;
+    ((struct nfsInstallData *)loaderData->stage2Data)->mountOpts = mountOpts;
 
     logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
-               ((struct nfsInstallData *) loaderData->methodData)->host,
-               ((struct nfsInstallData *) loaderData->methodData)->directory,
-               ((struct nfsInstallData *) loaderData->methodData)->mountOpts);
+               ((struct nfsInstallData *) loaderData->stage2Data)->host,
+               ((struct nfsInstallData *) loaderData->stage2Data)->directory,
+               ((struct nfsInstallData *) loaderData->stage2Data)->mountOpts);
 }
 
 

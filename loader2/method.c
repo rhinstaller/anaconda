@@ -624,7 +624,7 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
     return rc;
 }
 
-void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {
+void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
     char * c, * dup;
 
     dup = strdup(arg);
@@ -632,21 +632,21 @@ void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {
     /* : will let us delimit real information on the method */
     if ((c = strtok(c, ":"))) {
         c = strtok(NULL, ":");
- 
+
         if (!strncmp(arg, "nfs:", 4)) {
             ld->method = METHOD_NFS;
-            ld->methodData = calloc(sizeof(struct nfsInstallData *), 1);
+            ld->stage2Data = calloc(sizeof(struct nfsInstallData *), 1);
 
-            ((struct nfsInstallData *)ld->methodData)->mountOpts = NULL;
-            ((struct nfsInstallData *)ld->methodData)->host = strdup(c);
+            ((struct nfsInstallData *)ld->stage2Data)->mountOpts = NULL;
+            ((struct nfsInstallData *)ld->stage2Data)->host = strdup(c);
             if ((c = strtok(NULL, ":"))) {
-                ((struct nfsInstallData *)ld->methodData)->directory = strdup(c);
+                ((struct nfsInstallData *)ld->stage2Data)->directory = strdup(c);
             }
         } else if (!strncmp(arg, "ftp:", 4) || 
                    !strncmp(arg, "http:", 5)) {
             ld->method = METHOD_URL;
-            ld->methodData = calloc(sizeof(struct urlInstallData *), 1);
-            ((struct urlInstallData *)ld->methodData)->url = strdup(arg);
+            ld->stage2Data = calloc(sizeof(struct urlInstallData *), 1);
+            ((struct urlInstallData *)ld->stage2Data)->url = strdup(arg);
 #if !defined(__s390__) && !defined(__s390x__)
         } else if (!strncmp(arg, "cdrom:", 6)) {
             ld->method = METHOD_CDROM;
@@ -654,10 +654,10 @@ void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {
         } else if (!strncmp(arg, "harddrive:", 10) ||
                    !strncmp(arg, "hd:", 3)) {
             ld->method = METHOD_HD;
-            ld->methodData = calloc(sizeof(struct hdInstallData *), 1);
-            ((struct hdInstallData *)ld->methodData)->partition = strdup(c);
+            ld->stage2Data = calloc(sizeof(struct hdInstallData *), 1);
+            ((struct hdInstallData *)ld->stage2Data)->partition = strdup(c);
             if ((c = strtok(NULL, ":"))) {
-                ((struct hdInstallData *)ld->methodData)->directory = strdup(c);
+                ((struct hdInstallData *)ld->stage2Data)->directory = strdup(c);
             }
         }
     }

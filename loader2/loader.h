@@ -130,11 +130,12 @@ struct loaderData_s {
     char * ksFile;
     int method;
     char * ddsrc;
-    void * methodData;
+    void * stage2Data;
     char * logLevel;
     char * updatessrc;
     char * dogtailurl;
     char * gdbServer;
+    char * instRepo;
 
     pid_t fw_loader_pid;
     char *fw_search_pathz;
