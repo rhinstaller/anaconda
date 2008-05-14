@@ -94,8 +94,9 @@ def startMiniWM(root='/'):
     return childpid
 
 # function to handle X startup special issues for anaconda
-def doStartupX11Actions():
+def doStartupX11Actions(runres="800x600"):
     global miniwm_pid
+    import gtk
 
     if not flags.test and flags.setupFilesystems:
         setupGraphicalLinks()
@@ -105,7 +106,6 @@ def doStartupX11Actions():
 	miniwm_pid = startMiniWM()
 	log.info("Started mini-wm")
 
-        import gtk
         i = gtk.Invisible()
         i.selection_owner_set("_ANACONDA_MINI_WM_RUNNING")
     except:
@@ -116,6 +116,17 @@ def doStartupX11Actions():
     # we open and close an X connection in the xutils calls
     # the X server will exit since this is the first X
     # connection (if miniwm isnt running)
+    current_res = "%sx%s" %(gtk.gdk.screen_width(), gtk.gdk.screen_height())
+    if runres != current_res and miniwm_pid is not None:
+        try:
+            isys.vtActivate(6)
+            iutil.execWithRedirect("xrandr", ["-s", runres],
+                                   stdout="/dev/tty5", stderr="/dev/tty5")
+            time.sleep(5)
+        except:
+            pass
+
+
     if miniwm_pid is not None:
 	import xutils
 
@@ -201,9 +212,7 @@ def setupPythonUpdates():
 
 def parseOptions():
     def resolution_cb (option, opt_str, value, parser):
-        global runres_override
         parser.values.runres = value
-        runres_override = True
 
     def rootpath_cb (option, opt_str, value, parser):
         if value.startswith("cd:"):
@@ -608,7 +617,6 @@ if __name__ == "__main__":
     iutil.writeRpmPlatform()
 
     extraModules = []               # XXX: this would be better as a callback
-    runres_override = False
     graphical_failed = 0
     instClass = None                # the install class to use
     vncS = vnc.VncServer()          # The vnc Server object.
@@ -837,12 +845,13 @@ if __name__ == "__main__":
     # running on a redirected X display, so start local X server
     if opts.display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
         try:
-            proc = subprocess.Popen(["Xorg", "-br", "-logfile", "/tmp/X.log", ":1", "vt7", "-s", "1440", "-ac", "-nolisten", "tcp"], close_fds=True)
+            xout = open("/dev/tty5", "w")
+            proc = subprocess.Popen(["Xorg", "-br", "-logfile", "/tmp/X.log", ":1", "vt6", "-s", "1440", "-ac", "-nolisten", "tcp"], close_fds=True, stdout=xout, stderr=xout)
             time.sleep(5)
             if proc.poll() is not None:
                 raise OSError
             os.environ["DISPLAY"] = ":1"
-            doStartupX11Actions()
+            doStartupX11Actions(opts.runres)
             xserver_pid = proc.pid
         except OSError:
             stdoutLog.warning(" X startup failed, falling back to text mode")
@@ -860,7 +869,8 @@ if __name__ == "__main__":
 
     # if they want us to use VNC do that now
     if opts.display_mode == 'g' and flags.usevnc:
-        runVNC(doStartupX11Actions)
+        runVNC()
+        doStartupX11Actions(opts.runres)
 
     anaconda.setInstallInterface(opts.display_mode)
 

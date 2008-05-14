@@ -207,7 +207,7 @@ class VncServer:
         else:
             self.log.info(_("Please manually connect your vnc client to begin the install."))
 
-    def startServer(self, vncStartedCB=None):
+    def startServer(self):
         self.log.info(_("Starting VNC..."))
 
         # Lets call it from here for now.
@@ -269,9 +269,6 @@ class VncServer:
             self.VNCListen()
 
         os.environ["DISPLAY"]=":%s" % self.display
-
-        if vncStartedCB:
-            vncStartedCB()
 
     def changeVNCPasswdWindow(self):
         """ Change the password to a sane parameter.
