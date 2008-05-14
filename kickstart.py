@@ -330,12 +330,6 @@ class Logging(commands.logging.FC6_Logging):
         elif self.host != "":
             logger.addSysLogHandler(log, self.host)
 
-class Monitor(commands.monitor.FC6_Monitor):
-    def parse(self, args):
-        commands.monitor.FC6_Monitor.parse(self, args)
-        self.handler.skipSteps.extend(["monitor", "checkmonitorok"])
-        log.warning("Used deprecated command monitor!")
-
 class Network(commands.network.F8_Network):
     def parse(self, args):
         commands.network.F8_Network.parse(self, args)
@@ -623,8 +617,7 @@ class SkipX(commands.skipx.FC3_SkipX):
     def parse(self, args):
         commands.skipx.FC3_SkipX.parse(self, args)
 
-        self.handler.skipSteps.extend(["checkmonitorok", "setsanex", "videocard",
-                                       "monitor", "xcustom", "writexconfig"])
+        self.handler.skipSteps.extend(["setsanex", "videocard", "xcustom"])
 
         if self.handler.id.desktop is not None:
             self.handler.id.desktop.setDefaultRunLevel(3)
@@ -672,11 +665,6 @@ class VolGroup(commands.volgroup.FC3_VolGroup):
                                                       pesize = vgd.pesize)
         request.uniqueID = uniqueID
         addPartRequest(self.handler.anaconda, request)
-
-class XConfig(commands.xconfig.FC6_XConfig):
-    def parse(self, args):
-        commands.xconfig.FC6_XConfig.parse(self, args)
-        log.warning("Used deprecated command xconfig!")
 
 class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
     def parse(self, args):
@@ -727,7 +715,7 @@ commandMap = {
         "logging": Logging,
         "logvol": LogVol,
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
-        "monitor": Monitor,
+        "monitor": commands.monitor.F10_Monitor,
         "multipath": MultiPath,
         "network": Network,
         "nfs": commands.method.FC6_Method,
@@ -750,7 +738,7 @@ commandMap = {
         "user": commands.user.F8_User,
         "vnc": commands.vnc.FC6_Vnc,
         "volgroup": VolGroup,
-        "xconfig": XConfig,
+        "xconfig": commands.xconfig.F10_XConfig,
         "zerombr": ZeroMbr,
         "zfcp": ZFCP
 }
@@ -1050,13 +1038,6 @@ def setSteps(anaconda):
     if interactive or flags.autostep:
         dispatch.skipStep("installtype")
         dispatch.skipStep("bootdisk")
-
-    # because these steps depend on the monitor being probed
-    # properly, and will stop you if you have an unprobed monitor,
-    # we should skip them for autostep
-    if flags.autostep:
-        dispatch.skipStep("monitor")
-        return
 
     dispatch.skipStep("bootdisk")
     dispatch.skipStep("betanag")

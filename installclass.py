@@ -177,7 +177,6 @@ class BaseInstallClass(object):
 		 "instbootloader",
                  "dopostaction",
                  "postscripts",
-		 "writexconfig",
 		 "writeksconfig",
                  "writeregkey",
                  "methodcomplete",
@@ -223,7 +222,6 @@ class BaseInstallClass(object):
             pass
         else:
 	    dispatch.skipStep("keyboard", permanent = 1)
-	    dispatch.skipStep("writexconfig", permanent = 1)
 
     # modifies the uri from installmethod.getMethodUri() to take into
     # account any installclass specific things including multiple base
