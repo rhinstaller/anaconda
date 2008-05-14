@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.0
+Version: 11.4.1.1
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,12 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 13 2008 Jeremy Katz <katzj@redhat.com> - 11.4.1.1-1
+- Just call the XStartupCB() function directly and randr to the 
+  desired resolution (katzj)
+- Stop writing out an xorg.conf (katzj)
+- Make the "dump to removable device" option work in anaconda. (jgranado)
+
 * Mon May 12 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.79-1
 - Stop neutering DRI (notting)
 - make scripts/buildinstall take multiple repos (wwoods)
