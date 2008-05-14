@@ -60,7 +60,7 @@ class UpgradeMigrateFSWindow (InstallWindow):
         box.set_border_width (5)
 
 	text = (_("This release of %s supports "
-                 "the an updated file system, which has several "
+                 "an updated file system, which has several "
                  "benefits over the file system traditionally shipped "
                  "in %s.  This installation program can migrate "
                  "formatted partitions without data loss.\n\n"
