@@ -106,6 +106,7 @@ Requires: rhpxl >= %{rhpxlver}
 Requires: system-config-keyboard
 %endif
 Requires: hal, dbus-python
+Requires: cracklib-python
 %ifarch %livearches
 Requires: usermode
 Requires: zenity
