@@ -310,95 +310,6 @@ class PassphraseEntryWindow:
         self.screen.popWindow()
 
 class InstallInterface:
-    def helpWindow(self, screen, key):
-        if key == "helponhelp":
-            if self.showingHelpOnHelp:
-                return None
-            else:
-                self.showingHelpOnHelp = 1
-	try:
-            f = None
-
-            arch = "-%s" % (rhpl.getArch(),)
-            tags = ["%s" % (arch,), "" ]
-
-	    # XXX
-	    #
-	    # HelpWindow can't get to the langauge
-
-            found = 0
-            for path in ("./text-", "/mnt/source/RHupdates/", "/tmp/updates/",
-                         "/usr/share/anaconda/"):
-                if found:
-                    break
-                for lang in self.instLanguage.getCurrentLangSearchList():
-                    for tag in tags:
-                        fn = "%shelp/%s/s1-help-screens-%s%s.txt" \
-                             % (path, lang, key, tag)
-
-                        try:
-                            f = open(fn)
-                        except IOError, msg:
-                            continue
-                        found = 1
-                        break
-
-            if not f:
-                ButtonChoiceWindow(screen, _("Help not available"), 
-                                   _("No help is available for this "
-                                     "step of the install."),
-                                   buttons=[TEXT_OK_BUTTON])
-                return None
-
-	    lines = f.readlines()
-            for l in lines:
-                l = l.replace("@RHL@", productName)
-                l = l.replace("@RHLVER@", productVersion)
-	    while not string.strip(l[0]):
-		l = l[1:]
-	    title = string.strip(l[0])
-	    l = l[1:]
-	    while not string.strip(l[0]):
-		l = l[1:]
-	    f.close()
-
-	    height = 10
-	    scroll = 1
-	    if len(l) < height: 
-		height = len(l)
-		scroll = 0
-
-	    width = len(title) + 6
-	    stream = ""
-	    for line in l:
-		line = string.strip(line)
-		stream = stream + line + "\n"
-		if len(line) > width:
-		    width = len(line)
-
-	    bb = ButtonBar(screen, [TEXT_OK_BUTTON])
-	    t = Textbox(width, height, stream, scroll=scroll)
-
-	    g = GridFormHelp(screen, title, "helponhelp", 1, 2)
-	    g.add(t, 0, 0, padding=(0, 0, 0, 1))
-	    g.add(bb, 0, 1, growx=1)
-
-	    g.runOnce()
-            self.showingHelpOnHelp = 0
-	except:
-	    import traceback
-	    (type, value, tb) = sys.exc_info()
-	    from string import joinfields
-	    list = traceback.format_exception(type, value, tb)
-	    text = joinfields(list, "")
-	    win = MainExceptionWindow(text, "/tmp/anacdump.txt", screen=screen)
-            win.run()
-            rc = win.getrc()
-	    if rc == 1:
-		import pdb
-		pdb.post_mortem(tb)
-	    os._exit(1)
-
     def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
         return ProgressWindow(self.screen, title, text, total, updpct, pulse)
 
@@ -565,10 +476,7 @@ class InstallInterface:
         else:
           self.screen.drawRootText (0, 0, _("Welcome to %s") % productName)
 
-	if (os.access("/usr/share/anaconda/help/C/s1-help-screens-lang.txt", os.R_OK)):
-	    self.screen.pushHelpLine(_(" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"))
-	else:
-	    self.screen.pushHelpLine(_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
+        self.screen.pushHelpLine(_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
 
     def setScreen(self, screen):
         self.screen = screen
@@ -581,7 +489,6 @@ class InstallInterface:
 	signal.signal(signal.SIGINT, signal.SIG_IGN)
 	signal.signal(signal.SIGTSTP, signal.SIG_IGN)
 	self.screen = SnackScreen()
-        self.showingHelpOnHelp = 0
 
     def __del__(self):
 	if self.screen:
@@ -610,8 +517,6 @@ class InstallInterface:
                                    "The installation will continue in "
                                    "English." % (instLang.getCurrent(),),
                                    buttons=[TEXT_OK_BUTTON])
-
-	self.screen.helpCallback(self.helpWindow)
 
 	if not self.isRealConsole():
 	    self.screen.suspendCallback(spawnShell, self.screen)
