@@ -272,7 +272,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                 disk.add_partition (newp, constraint)
 
             except parted.error, msg:
-                raise PartitioningError, msg
+                raise PartitioningError, str(msg)
             for flag in request.fstype.getPartedPartitionFlags():
                 if not newp.is_flag_available(flag):
                     disk.delete_partition(newp)
@@ -475,7 +475,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             try:
                 disk.add_partition (newp, constraint)
             except parted.error, msg:
-                raise PartitioningError, msg
+                raise PartitioningError, str(msg)
             for flag in request.fstype.getPartedPartitionFlags():
                 if not newp.is_flag_available(flag):
                     disk.delete_partition(newp)                    

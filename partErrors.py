@@ -30,7 +30,7 @@ class PartitioningError(Exception):
         self.value = value
 
     def __str__ (self):
-        return self.value
+        return str(self.value)
 
 class PartitioningWarning(Exception):
     """A warning which may be ignored and still complete the installation."""
@@ -38,7 +38,7 @@ class PartitioningWarning(Exception):
         self.value = value
 
     def __str__ (self):
-        return self.value
+        return str(self.value)
 
 class LabelError(Exception):
     """The device could not be labeled."""
@@ -46,4 +46,4 @@ class LabelError(Exception):
         self.value = value
 
     def __str__(self):
-        return self.value
+        return str(self.value)
