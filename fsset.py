@@ -187,7 +187,7 @@ class FileSystemType:
         self.extraFormatArgs = []
         self.maxLabelChars = 16
         self.packages = []
-        self.needProgram = None
+        self.needPrograms = []
         self.resizable = False
         self.supportsFsProfiles = False
         self.fsProfileSpecifier = None
@@ -306,9 +306,8 @@ class FileSystemType:
 
     def isSupported(self):
         # check to ensure we have the binaries they need
-        if self.needProgram:
-            if len(filter(lambda d: os.path.exists("%s/%s" %(d,
-                                                             self.needProgram)),
+        for p in self.needProgram:
+            if len(filter(lambda d: os.path.exists("%s/%s" %(d, p)),
                           os.environ["PATH"].split(":"))) == 0:
                 return False
 
@@ -374,7 +373,7 @@ class reiserfsFileSystem(FileSystemType):
 
         self.name = "reiserfs"
         self.packages = [ "reiserfs-utils" ]
-        self.needProgram = "mkreiserfs"
+        self.needProgram = [ "mkreiserfs", "reiserfstune" ]
 
         self.maxSizeMB = 8 * 1024 * 1024
 
@@ -423,7 +422,7 @@ class xfsFileSystem(FileSystemType):
             self.supported = 0
 
         self.packages = [ "xfsprogs" ]
-        self.needProgram = "mkfs.xfs"
+        self.needProgram = [ "mkfs.xfs", "xfs_admin" ]
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -468,7 +467,7 @@ class jfsFileSystem(FileSystemType):
 
         self.name = "jfs"
         self.packages = [ "jfsutils" ]
-        self.needProgram = "mkfs.jfs"
+        self.needProgram = [ "mkfs.jfs", "jfs_tune" ]
 
         self.maxSizeMB = 8 * 1024 * 1024
 
@@ -511,7 +510,7 @@ class gfs2FileSystem(FileSystemType):
 
         self.name = "gfs2"
         self.packages = [ "gfs2-utils" ]
-        self.needProgram = "mkfs.gfs2"
+        self.needProgram = [ "mkfs.gfs2" ]
 
         self.maxSizeMB = 8 * 1024 * 1024
 
@@ -1066,7 +1065,7 @@ class hfsFileSystem(FileSystemType):
         self.checked = 0
         self.name = "hfs"
         self.supported = 0
-        self.needProgram = "hformat"
+        self.needProgram = [ "hformat" ]
 
     def isMountable(self):
         return 0
