@@ -58,6 +58,41 @@ int canProbeDevices(void) {
     return 1;    
 }
 
+static void probeVirtio(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps) {
+    struct device **devices, **device;
+    char modules[1024];
+
+    logMessage(DEBUGLVL, "probing virtio buse");
+
+    devices = probeDevices(CLASS_UNSPEC, BUS_VIRTIO, PROBE_ALL);
+
+    logMessage(DEBUGLVL, "finished virtio bus probing");
+
+    *modules = '\0';
+
+    for (device = devices; device && *device; device++) {
+        char *driver = (*device)->driver;
+
+	if (!driver) {
+	    logMessage(DEBUGLVL, "ignoring driverless device %s", (*device)->desc);
+        } else if (FL_NONET(flags) && ((*device)->type == CLASS_NETWORK)) {
+            logMessage(DEBUGLVL, "ignoring network device %s (%s)",
+                       (*device)->desc, driver);
+        } else {
+            if (*modules)
+                strcat(modules, ":");
+            strcat(modules, driver);
+        }
+
+        freeDevice(*device);
+    }
+
+    free(devices);
+
+    if (*modules)
+        mlLoadModuleSet(modules, modLoaded, modDeps, modInfo);
+}
+
 static int detectHardware(moduleInfoSet modInfo, char *** modules) {
     struct device ** devices, ** device;
     char ** modList;
@@ -232,14 +267,22 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
             for (i = 0; modList[i]; i++)
                 printf("%s\n", modList[i]);
         } else if (modList) {
+            int probeVirtioAgain = 0;
+
             *modules = '\0';
             
             for (i = 0; modList[i]; i++) {
                 if (i) strcat(modules, ":");
                 strcat(modules, modList[i]);
+
+                if (!strcmp(modList[i], "virtio_pci"))
+                    probeVirtioAgain = 1;
             }
             
             mlLoadModuleSet(modules, modLoaded, modDeps, modInfo);
+
+            if (probeVirtioAgain)
+                probeVirtio(modInfo, modLoaded, modDeps);
         } else 
             logMessage(INFO, "found nothing");
     }
