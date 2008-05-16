@@ -59,6 +59,7 @@ log = logging.getLogger("anaconda")
 import urlparse
 urlparse.uses_fragment.append('media')
 
+urlgrabber.grabber.default_grabber.opts.user_agent = "%s (anaconda)/%s" %(productName, productVersion)
 
 import iutil
 import isys
