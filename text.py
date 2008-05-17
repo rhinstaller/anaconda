@@ -155,13 +155,9 @@ class SaveExceptionWindow:
 
     def _destCb(self, *args):
         if self.rg.getSelection() == "disk":
-            self.hostEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.destEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.usernameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.passwordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
         else:
-            self.hostEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
-            self.destEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
             self.usernameEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
             self.passwordEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
 
@@ -175,7 +171,7 @@ class SaveExceptionWindow:
         if self.saveToDisk():
             return self.diskList.current()
         else:
-            return map(lambda e: e.value(), [self.hostEntry, self.destEntry, self.usernameEntry, self.passwordEntry])
+            return map(lambda e: e.value(), [self.usernameEntry, self.passwordEntry])
 
     def pop(self):
         self.screen.popWindow()
@@ -192,18 +188,12 @@ class SaveExceptionWindow:
         self.remoteButton.setCallback(self._destCb, None)
 
         buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
-        self.hostEntry = Entry(24)
-        self.destEntry = Entry(24)
         self.usernameEntry = Entry(24)
         self.passwordEntry = Entry(24, password=1)
 
         self.diskList = Listbox(height=3, scroll=1)
 
-        remoteGrid = Grid(2, 4)
-        remoteGrid.setField(Label(_("Host")), 0, 0, anchorLeft=1)
-        remoteGrid.setField(self.hostEntry, 1, 0)
-        remoteGrid.setField(Label(_("Remote path")), 0, 1, anchorLeft=1)
-        remoteGrid.setField(self.destEntry, 1, 1)
+        remoteGrid = Grid(2, 2)
         remoteGrid.setField(Label(_("User name")), 0, 2, anchorLeft=1)
         remoteGrid.setField(self.usernameEntry, 1, 2)
         remoteGrid.setField(Label(_("Password")), 0, 3, anchorLeft=1)
@@ -223,8 +213,6 @@ class SaveExceptionWindow:
 
 #            self.diskList.setCurrent("sda")
 
-            self.hostEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.destEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.usernameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.passwordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
         else:

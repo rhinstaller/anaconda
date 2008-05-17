@@ -730,8 +730,6 @@ class SaveExceptionWindow:
     def __init__(self, anaconda, longTracebackFile=None, screen=None):
         exnxml = gtk.glade.XML(findGladeFile("exnSave.glade"), domain="anaconda")
 
-        self.hostEntry = exnxml.get_widget("hostEntry")
-        self.destEntry = exnxml.get_widget("destEntry")
         self.usernameEntry = exnxml.get_widget("usernameEntry")
         self.passwordEntry = exnxml.get_widget("passwordEntry")
 
@@ -797,7 +795,7 @@ class SaveExceptionWindow:
         elif self.saveToLocal():
             return self.localChooser.get_filename()
         else:
-            return map(lambda e: e.get_text(), [self.hostEntry, self.destEntry, self.usernameEntry, self.passwordEntry])
+            return map(lambda e: e.get_text(), [self.usernameEntry, self.passwordEntry])
 
     def pop(self):
         self.window.destroy()
