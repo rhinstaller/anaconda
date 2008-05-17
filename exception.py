@@ -45,157 +45,179 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
-dumpHash = {}
+class AnacondaExceptionDump:
+    def __init__(self, type, value, tb):
+        self.type = type
+        self.value = value
+        self.tb = tb
 
-def dumpClass(instance, fd, level=0, parentkey="", skipList=[]):
-    # protect from loops
-    try:
-        if not dumpHash.has_key(instance):
-            dumpHash[instance] = None
-        else:
-            fd.write("Already dumped\n")
+        self._dumpHash = {}
+
+    # Reverse the order that tracebacks are printed so people will hopefully quit
+    # giving us the least useful part of the exception in bug reports.
+    def __str__(self):
+        lst = traceback.format_tb(self.tb)
+        lst.reverse()
+        lst.insert(0, "anaconda %s exception report\n" % os.getenv("ANACONDAVERSION"))
+        lst.insert(1, 'Traceback (most recent call first):\n')
+        lst.extend(traceback.format_exception_only(self.type, self.value))
+        return joinfields(lst, "")
+
+    # Create a string representation of a class and write it to fd.  This
+    # method will recursively handle all attributes of the base given class.
+    def _dumpClass(self, instance, fd, level=0, parentkey="", skipList=[]):
+        # protect from loops
+        try:
+            if not self._dumpHash.has_key(instance):
+                self._dumpHash[instance] = None
+            else:
+                fd.write("Already dumped\n")
+                return
+        except TypeError:
+            fd.write("Cannot dump object\n")
             return
-    except TypeError:
-        fd.write("Cannot dump object\n")
-        return
 
-    if (instance.__class__.__dict__.has_key("__str__") or
-        instance.__class__.__dict__.has_key("__repr__")):
-        fd.write("%s\n" % (instance,))
-        return
-    fd.write("%s instance, containing members:\n" %
-             (instance.__class__.__name__))
-    pad = ' ' * ((level) * 2)
+        if (instance.__class__.__dict__.has_key("__str__") or
+            instance.__class__.__dict__.has_key("__repr__")):
+            fd.write("%s\n" % (instance,))
+            return
+        fd.write("%s instance, containing members:\n" %
+                 (instance.__class__.__name__))
+        pad = ' ' * ((level) * 2)
 
-    for key, value in instance.__dict__.items():
-	if parentkey != "":
-	    curkey = parentkey + "." + key
-	else:
-	    curkey = key
+        for key, value in instance.__dict__.items():
+            if parentkey != "":
+                curkey = parentkey + "." + key
+            else:
+                curkey = key
 
-        # Don't dump objects that are in our skip list, though ones that are
-        # None are probably okay.
-	if eval("instance.%s is not None" % key) and \
-           eval("id(instance.%s)" % key) in skipList:
-            continue
+            # Don't dump objects that are in our skip list, though ones that are
+            # None are probably okay.
+            if eval("instance.%s is not None" % key) and \
+               eval("id(instance.%s)" % key) in skipList:
+                continue
 
-        if type(value) == types.ListType:
-            fd.write("%s%s: [" % (pad, curkey))
-            first = 1
-            for item in value:
-                if not first:
-                    fd.write(", ")
-                else:
-                    first = 0
+            if type(value) == types.ListType:
+                fd.write("%s%s: [" % (pad, curkey))
+                first = 1
+                for item in value:
+                    if not first:
+                        fd.write(", ")
+                    else:
+                        first = 0
+                    if type(item) == types.InstanceType:
+                        self._dumpClass(item, fd, level + 1, skipList=skipList)
+                    else:
+                        fd.write("%s" % (item,))
+                fd.write("]\n")
+            elif type(value) == types.DictType:
+                fd.write("%s%s: {" % (pad, curkey))
+                first = 1
+                for k, v in value.items():
+                    if not first:
+                        fd.write(", ")
+                    else:
+                        first = 0
+                    if type(k) == types.StringType:
+                        fd.write("'%s': " % (k,))
+                    else:
+                        fd.write("%s: " % (k,))
+                    if type(v) == types.InstanceType:
+                        self._dumpClass(v, fd, level + 1, parentkey = curkey, skipList=skipList)
+                    else:
+                        fd.write("%s" % (v,))
+                fd.write("}\n")
+            elif type(value) == types.InstanceType:
+                fd.write("%s%s: " % (pad, curkey))
+                self._dumpClass(value, fd, level + 1, parentkey=curkey, skipList=skipList)
+            else:
+                fd.write("%s%s: %s\n" % (pad, curkey, value))
 
-                if type(item) == types.InstanceType:
-                    dumpClass(item, fd, level + 1, skipList=skipList)
-                else:
-                    s = str(item)
-                    fd.write("%s" % s[:1024])
-            fd.write("]\n")
-        elif type(value) == types.DictType:
-            fd.write("%s%s: {" % (pad, curkey))
-            first = 1
-            for k, v in value.items():
-                if not first:
-                    fd.write(", ")
-                else:
-                    first = 0
+    # Dump the python traceback, internal state, and several files to the given
+    # file descriptor.
+    def dump (self, fd, anaconda):
+        skipList = [ "anaconda.backend.ayum",
+                     "anaconda.backend.dlpkgs",
+                     "anaconda.id.accounts",
+                     "anaconda.id.bootloader.password",
+                     "anaconda.id.comps",
+                     "anaconda.id.dispatch",
+                     "anaconda.id.hdList",
+                     "anaconda.id.ksdata.bootloader",
+                     "anaconda.id.ksdata.rootpw",
+                     "anaconda.id.ksdata.vnc",
+                     "anaconda.id.instLanguage.font",
+                     "anaconda.id.instLanguage.kbd",
+                     "anaconda.id.instLanguage.info",
+                     "anaconda.id.instLanguage.localeInfo",
+                     "anaconda.id.instLanguage.nativeLangNames",
+                     "anaconda.id.instLanguage.tz",
+                     "anaconda.id.keyboard._mods._modelDict",
+                     "anaconda.id.keyboard.modelDict",
+                     "anaconda.id.rootPassword",
+                     "anaconda.id.tmpData",
+                     "anaconda.intf.icw.buff",
+                     "anaconda.intf.icw.stockButtons",
+                     "dispatch.sack.excludes",
+                   ]
+        idSkipList = []
 
-                if type(k) == types.StringType:
-                    fd.write("'%s': " % (k,))
-                else:
-                    fd.write("%s: " % (k,))
+        # Catch attributes that do not exist at the time we do the exception dump
+        # and ignore them.
+        for k in skipList:
+            try:
+                eval("idSkipList.append(id(%s))" % k)
+            except:
+                pass
 
-                if type(v) == types.InstanceType:
-                    dumpClass(v, fd, level + 1, parentkey = curkey, skipList=skipList)
-                else:
-                    s = str(v)
-                    fd.write("%s" % s[:1024])
-            fd.write("}\n")
-        elif type(value) == types.InstanceType:
-            fd.write("%s%s: " % (pad, curkey))
-            dumpClass(value, fd, level + 1, parentkey=curkey, skipList=skipList)
-        else:
-            s = str(value)
-            fd.write("%s%s: %s\n" % (pad, curkey, s[:1024]))
+        p = Pickler(fd)
 
-def dumpException(out, text, tb, anaconda):
-    skipList = [ "anaconda.backend.ayum",
-                 "anaconda.backend.dlpkgs",
-                 "anaconda.id.accounts",
-                 "anaconda.id.bootloader.password",
-                 "anaconda.id.comps",
-                 "anaconda.id.dispatch",
-                 "anaconda.id.hdList",
-                 "anaconda.id.ksdata.bootloader",
-                 "anaconda.id.ksdata.rootpw",
-                 "anaconda.id.ksdata.vnc",
-                 "anaconda.id.instLanguage.font",
-                 "anaconda.id.instLanguage.kbd",
-                 "anaconda.id.instLanguage.info",
-                 "anaconda.id.instLanguage.localeInfo",
-                 "anaconda.id.instLanguage.nativeLangNames",
-                 "anaconda.id.instLanguage.tz",
-                 "anaconda.id.keyboard._mods._modelDict",
-                 "anaconda.id.keyboard.modelDict",
-                 "anaconda.id.rootPassword",
-                 "anaconda.id.tmpData",
-                 "anaconda.intf.icw.buff",
-                 "anaconda.intf.icw.stockButtons",
-                 "dispatch.sack.excludes",
-               ]
-    idSkipList = []
+        fd.write(str(self))
 
-    # Catch attributes that do not exist at the time we do the exception dump
-    # and ignore them.
-    for k in skipList:
+        trace = self.tb
+        if trace is not None:
+            while trace.tb_next:
+                trace = trace.tb_next
+            frame = trace.tb_frame
+            fd.write ("\nLocal variables in innermost frame:\n")
+            try:
+                for (key, value) in frame.f_locals.items():
+                    fd.write ("%s: %s\n" % (key, value))
+            except:
+                pass
+
         try:
-            eval("idSkipList.append(id(%s))" % k)
+            fd.write("\n\n")
+            self._dumpClass(anaconda, fd, skipList=idSkipList)
         except:
-            pass
+            fd.write("\nException occurred during state dump:\n")
+            traceback.print_exc(None, fd)
 
-    p = Pickler(out)
+        for file in ("/tmp/syslog", "/tmp/anaconda.log", "/tmp/netinfo",
+                     "/tmp/lvmout", "/tmp/resize.out",
+                     anaconda.rootPath + "/root/install.log",
+                     anaconda.rootPath + "/root/upgrade.log"):
+            try:
+                f = open(file, 'r')
+                line = "\n\n%s:\n" % (file,)
+                while line:
+                    fd.write(line)
+                    line = f.readline()
+                f.close()
+            except IOError:
+                pass
+            except:
+                fd.write("\nException occurred during %s file copy:\n" % (file,))
+                traceback.print_exc(None, fd)
 
-    out.write(text)
+    def hash(self):
+        import hashlib
+        s = ""
 
-    trace = tb
-    if trace is not None:
-        while trace.tb_next:
-            trace = trace.tb_next
-        frame = trace.tb_frame
-        out.write ("\nLocal variables in innermost frame:\n")
-        try:
-            for (key, value) in frame.f_locals.items():
-                out.write ("%s: %s\n" % (key, value))
-        except:
-            pass
+        for (file, lineno, func, text) in traceback.extract_tb(self.tb):
+            s += "%s %s %s\n" % (file, func, text)
 
-    try:
-        out.write("\n\n")
-        dumpClass(anaconda, out, skipList=idSkipList)
-    except:
-        out.write("\nException occurred during state dump:\n")
-        traceback.print_exc(None, out)
-
-    for file in ("/tmp/syslog", "/tmp/anaconda.log", "/tmp/netinfo",
-                 "/tmp/lvmout", "/tmp/resize.out",
-                 anaconda.rootPath + "/root/install.log",
-                 anaconda.rootPath + "/root/upgrade.log",
-                 "/mnt/source/.treeinfo"):
-        try:
-            f = open(file, 'r')
-            line = "\n\n%s:\n" % (file,)
-            while line:
-                out.write(line)
-                line = f.readline()
-            f.close()
-        except IOError:
-            pass
-        except:
-            out.write("\nException occurred during %s file copy:\n" % (file,))
-            traceback.print_exc(None, out)
+        return hashlib.sha256(s).hexdigest()
 
 # Save the traceback to a removable storage device, such as a floppy disk
 # or a usb/firewire drive.  If there's no filesystem on the disk/partition,
@@ -250,16 +272,6 @@ def copyExceptionToDisk(anaconda, device):
 
     isys.umount("/tmp/crash")
     return True
-
-# Reverse the order that tracebacks are printed so people will hopefully quit
-# giving us the least useful part of the exception in bug reports.
-def formatException (type, value, tb):
-    lst = traceback.format_tb(tb)
-    lst.reverse()
-    lst.insert(0, "anaconda %s exception report\n" % os.getenv("ANACONDAVERSION"))
-    lst.insert(1, 'Traceback (most recent call first):\n')
-    lst.extend(traceback.format_exception_only(type, value))
-    return lst
 
 def runSaveDialog(anaconda, longTracebackFile):
     saveWin = anaconda.intf.saveExceptionWindow(anaconda, longTracebackFile)
@@ -336,13 +348,12 @@ def handleException(anaconda, (type, value, tb)):
     # restore original exception handler
     sys.excepthook = sys.__excepthook__
 
-    # get traceback information
-    list = formatException (type, value, tb)
-    text = joinfields (list, "")
+    exn = AnacondaExceptionDump(type, value, tb)
+    text = str(exn)
 
     # save to local storage first
     out = open("/tmp/anacdump.txt", "w")
-    dumpException (out, text, tb, anaconda)
+    exn.dump(out, anaconda)
     out.close()
 
     # see if /mnt/sysimage is present and put exception there as well
