@@ -45,7 +45,6 @@ log = logging.getLogger("anaconda")
 
 dumpHash = {}
 
-# XXX do length limits on obj dumps.
 def dumpClass(instance, fd, level=0, parentkey="", skipList=[]):
     # protect from loops
     try:
@@ -86,10 +85,12 @@ def dumpClass(instance, fd, level=0, parentkey="", skipList=[]):
                     fd.write(", ")
                 else:
                     first = 0
+
                 if type(item) == types.InstanceType:
                     dumpClass(item, fd, level + 1, skipList=skipList)
                 else:
-                    fd.write("%s" % (item,))
+                    s = str(item)
+                    fd.write("%s" % s[:1024])
             fd.write("]\n")
         elif type(value) == types.DictType:
             fd.write("%s%s: {" % (pad, curkey))
@@ -99,20 +100,24 @@ def dumpClass(instance, fd, level=0, parentkey="", skipList=[]):
                     fd.write(", ")
                 else:
                     first = 0
+
                 if type(k) == types.StringType:
                     fd.write("'%s': " % (k,))
                 else:
                     fd.write("%s: " % (k,))
+
                 if type(v) == types.InstanceType:
                     dumpClass(v, fd, level + 1, parentkey = curkey, skipList=skipList)
                 else:
-                    fd.write("%s" % (v,))
+                    s = str(v)
+                    fd.write("%s" % s[:1024])
             fd.write("}\n")
         elif type(value) == types.InstanceType:
             fd.write("%s%s: " % (pad, curkey))
             dumpClass(value, fd, level + 1, parentkey=curkey, skipList=skipList)
         else:
-            fd.write("%s%s: %s\n" % (pad, curkey, value))
+            s = str(value)
+            fd.write("%s%s: %s\n" % (pad, curkey, s[:1024]))
 
 def dumpException(out, text, tb, anaconda):
     skipList = [ "anaconda.backend.ayum",
