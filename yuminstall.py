@@ -1819,20 +1819,14 @@ class YumBackend(AnacondaBackend):
         except yum.Errors.InstallError:
             log.debug("no package matching %s" %(pkg,))
             return 0
-        
+
     def deselectPackage(self, pkg, *args):
-        sp = pkg.rsplit(".", 2)
-        txmbrs = []
-        if len(sp) == 2:
-            txmbrs = self.ayum.tsInfo.matchNaevr(name=sp[0], arch=sp[1])
-
-        if len(txmbrs) == 0:
-            txmbrs = self.ayum.tsInfo.matchNaevr(name=pkg)
-
-        if len(txmbrs) > 0:
-            map(lambda x: self.ayum.tsInfo.remove(x.pkgtup), txmbrs)
-        else:
-            log.debug("no such package %s" %(pkg,))
+        try:
+            mbrs = self.ayum.remove(pattern=pkg)
+            return len(mbrs)
+        except yum.Errors.RemoveError:
+            log.debug("no package matching %s" % pkg)
+            return 0
 
     def upgradeFindPackages(self):
         # check the installed system to see if the packages just
