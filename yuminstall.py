@@ -174,6 +174,8 @@ class AnacondaCallback:
                     self.openfile = f
                 except yum.Errors.NoMoreMirrorsRepoError:
                     self.ayum._handleFailure(po)
+                except IOError:
+                    self.ayum._handleFailure(po)
                 except yum.Errors.RepoError, e:
                     continue
             self.inProgressPo = po
