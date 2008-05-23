@@ -1273,11 +1273,11 @@ class YumBackend(AnacondaBackend):
                 try:
                     (code, msgs) = self.ayum.buildTransaction()
                 except Exception, e:
-                    buttons = [_("_Exit installer"), "gtk-edit", _("_Retry")]
+                    buttons = [_("_Exit installer"), _("_Retry")]
                 else:
                     break
 
-                # FIXME: this message isn't ideal, but it'll do for now
+                # FIXME: would be nice to be able to recover here
                 rc = anaconda.intf.messageWindow(_("Error"),
                                _("Unable to read package metadata. This may be "
                                  "due to a missing repodata directory.  Please "
@@ -1287,8 +1287,6 @@ class YumBackend(AnacondaBackend):
                                  custom_buttons=buttons)
                 if rc == 0:
                     sys.exit(0)
-                elif rc == 1:
-                    anaconda.intf.editRepoWindow(anaconda, repo)
                 else:
                     continue
 
