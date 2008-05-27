@@ -225,8 +225,8 @@ class AnacondaCallback:
             self.progress.processEvents()
 
 class AnacondaYumRepo(YumRepository):
-    def __init__( self, uri=None, mirrorlist=None,
-                  repoid='anaconda%s' % productStamp,
+    def __init__( self, repoid='anaconda%s' % productStamp,
+                  uri=None, mirrorlist=None,
                   root = "/mnt/sysimage/", addon=True):
         YumRepository.__init__(self, repoid)
         conf = yum.config.RepoConf()
@@ -522,7 +522,7 @@ class AnacondaYum(YumSorter):
         # add default repos
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(methodstr).items():
             rid = name.replace(" ", "")
-            repo = AnacondaYumRepo(uri, addon=False,
+            repo = AnacondaYumRepo(uri=uri, addon=False,
                                    repoid="anaconda-%s-%s" %(rid, productStamp),
                                    root = root)
             repo.name = name
