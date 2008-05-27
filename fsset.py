@@ -984,6 +984,8 @@ class EFIFileSystem(FATFileSystem):
         self.partedPartitionFlags = [ parted.PARTITION_BOOT ]
         self.maxSizeMB = 256
         self.defaultOptions = "umask=0077,shortname=winnt"
+        if not iutil.isEfi():
+            self.supported = 0
 
     def getMountName(self, quoted = 0):
         return "vfat"
