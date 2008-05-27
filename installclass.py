@@ -88,58 +88,6 @@ class BaseInstallClass(object):
     def postAction(self, anaconda):
         anaconda.backend.postAction(anaconda)
 
-    def setBootloader(self, id, location=None, forceLBA=0, password=None,
-                      md5pass=None, appendLine="", driveorder = [],
-                      timeout=None):
-        if appendLine:
-            id.bootloader.args.set(appendLine)
-
-        id.bootloader.setForceLBA(forceLBA)
-
-        if password:
-            id.bootloader.setPassword(password, isCrypted = 0)
-
-        if md5pass:
-            id.bootloader.setPassword(md5pass)
-
-        if location != None:
-            id.bootloader.defaultDevice = location
-        else:
-            id.bootloader.defaultDevice = -1
-
-        if timeout:
-            id.bootloader.timeout = timeout
-
-        # XXX throw out drives specified that don't exist.  anything else
-        # seems silly
-        if driveorder and len(driveorder) > 0:
-            new = []
-            for drive in driveorder:
-                if drive in id.bootloader.drivelist:
-                    new.append(drive)
-                else:
-                    log.warning("requested drive %s in boot drive order "
-                                "doesn't exist" %(drive,))
-            id.bootloader.drivelist = new
-
-    def setIgnoredDisks(self, id, drives):
-        diskset = id.diskset
-        for drive in drives:
-            if not drive in diskset.skippedDisks:
-                diskset.skippedDisks.append(drive)
-
-    def setExclusiveDisks(self, id, drives):
-        diskset = id.diskset
-        for drive in drives:
-            if not drive in diskset.exclusiveDisks:
-                diskset.exclusiveDisks.append(drive)
-
-    def setClearParts(self, id, clear, drives = None, initAll = False):
-	id.partitions.autoClearPartType = clear
-        id.partitions.autoClearPartDrives = drives
-        if initAll:
-            id.partitions.reinitializeDisks = initAll
-
     def setSteps(self, anaconda):
         dispatch = anaconda.dispatch
 	dispatch.setStepList(
@@ -214,15 +162,6 @@ class BaseInstallClass(object):
         if len(availableClasses()) < 2:
             dispatch.skipStep("installtype", permanent=1)
 
-    # called from anaconda so that we can skip steps in the headless case
-    # in a perfect world, the steps would be able to figure this out
-    # themselves by looking at instdata.headless.  but c'est la vie.
-    def setAsHeadless(self, dispatch, isHeadless = 0):
-        if isHeadless == 0:
-            pass
-        else:
-	    dispatch.skipStep("keyboard", permanent = 1)
-
     # modifies the uri from installmethod.getMethodUri() to take into
     # account any installclass specific things including multiple base
     # repositories.  takes a string or list of strings, returns a dict 
@@ -240,81 +179,9 @@ class BaseInstallClass(object):
 	pass
 
     def setGroupSelection(self, anaconda):
-	pass
+        grps = anaconda.backend.getDefaultGroups(anaconda)
+        map(lambda x: anaconda.backend.selectGroup(x), grps)
 
-    def setZeroMbr(self, id, zeroMbr):
-        id.partitions.zeroMbr = zeroMbr
-
-    def setKeyboard(self, id, kb):
-	id.keyboard.set(kb)
-
-    def setHostname(self, id, hostname, override = False):
-	id.network.setHostname(hostname);
-        id.network.overrideDHCPhostname = override
-
-    def setNameserver(self, id, nameserver):
-        id.network.setDNS(nameserver)
-
-    def setGateway(self, id, gateway):
-        id.network.setGateway(gateway)
-
-    def setTimezoneInfo(self, id, timezone, asUtc = 0):
-	id.timezone.setTimezoneInfo(timezone, asUtc)
-
-    def setAuthentication(self, id, authStr):
-        id.auth = authStr
-
-    def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None, onboot = 1, dhcpclass = None, essid = None, wepkey = None):
-	if bootProto:
-	    devices = id.network.netdevices
-            firstdev = id.network.getFirstDeviceName()
-	    if (devices and bootProto):
-		if not device:
-                    if devices.has_key(firstdev):
-                        device = firstdev
-                    else:
-                        list = devices.keys ()
-                        list.sort()
-                        device = list[0]
-		dev = devices[device]
-                dev.set (("bootproto", bootProto))
-                dev.set (("dhcpclass", dhcpclass))
-		if onboot:
-		    dev.set (("onboot", "yes"))
-		else:
-		    dev.set (("onboot", "no"))
-                if bootProto == "static":
-                    if (ip):
-                        dev.set (("ipaddr", ip))
-                    if (netmask):
-                        dev.set (("netmask", netmask))
-                if ethtool:
-                    dev.set (("ethtool_opts", ethtool))
-                if isys.isWireless(device):
-                    if essid:
-                        dev.set(("essid", essid))
-                    if wepkey:
-                        dev.set(("wepkey", wepkey))
-
-    def setLanguageDefault(self, id, default):
-	id.instLanguage.setDefault(default)
-
-    def setLanguage(self, id, nick):
-	id.instLanguage.setRuntimeLanguage(nick)
-
-    def setDesktop(self, id, desktop):
-	id.desktop.setDefaultDesktop (desktop)
-
-    def setSELinux(self, id, sel):
-        id.security.setSELinux(sel)
-
-    def setFirewall(self, id, enable = 1, trusts = [], ports = []):
-	id.firewall.enabled = enable
-	id.firewall.trustdevs = trusts
-
-	for port in ports:
-	    id.firewall.portlist.append (port)
-        
     def getBackend(self, methodstr):
         # this should be overriden in distro install classes
         from backend import AnacondaBackend
@@ -345,21 +212,6 @@ class BaseInstallClass(object):
 	anaconda.id.reset()
 	anaconda.id.instClass = self
 
-	# Classes should call these on __init__ to set up install data
-	#id.setKeyboard()
-	#id.setLanguage()
-	#id.setNetwork()
-	#id.setFirewall()
-	#id.setLanguageDefault()
-	#id.setTimezone()
-	#id.setAuthentication()
-	#id.setHostname()
-	#id.setDesktop()
-
-	# These are callbacks used to let classes configure packages
-	#id.setPackageSelection()
-	#id.setGroupSelection()
-
     def __init__(self, expert):
 	pass
 
@@ -370,6 +222,22 @@ allClasses_hidden = []
 def availableClasses(showHidden=0):
     global allClasses
     global allClasses_hidden
+
+    def _ordering(first, second):
+        ((name1, obj, logo), priority1) = first
+        ((name2, obj, logo), priority2) = second
+
+        if priority1 < priority2:
+            return -1
+        elif priority1 > priority2:
+            return 1
+
+        if name1 < name2:
+            return -1
+        elif name1 > name2:
+            return 1
+
+    return 0
 
     if not showHidden:
         if allClasses: return allClasses
@@ -431,7 +299,7 @@ def availableClasses(showHidden=0):
             if flags.debug: raise
             else: continue
 
-    list.sort(ordering)
+    list.sort(_ordering)
     for (item, priority) in list:
         if showHidden:
             allClasses_hidden.append(item)
@@ -442,22 +310,6 @@ def availableClasses(showHidden=0):
         return allClasses_hidden
     else:
         return allClasses
-
-def ordering(first, second):
-    ((name1, obj, logo), priority1) = first
-    ((name2, obj, logo), priority2) = second
-
-    if priority1 < priority2:
-	return -1
-    elif priority1 > priority2:
-	return 1
-
-    if name1 < name2:
-	return -1
-    elif name1 > name2:
-	return 1
-
-    return 0
 
 def getBaseInstallClass():
     # figure out what installclass we should base on.

@@ -179,9 +179,38 @@ class Bootloader(commands.bootloader.F8_Bootloader):
             self.handler.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
         else:
             self.handler.showSteps.append("bootloader")
-            self.handler.id.instClass.setBootloader(self.handler.id, location, self.forceLBA,
-                                                    self.password, self.md5pass,
-                                                    self.appendLine, self.driveorder, self.timeout)
+
+            if self.appendLine:
+                self.handler.id.bootloader.args.set(self.appendLine)
+
+            self.handler.id.bootloader.setForceLBA(self.forceLBA)
+
+            if self.password:
+                self.handler.id.bootloader.setPassword(self.password, isCrypted = 0)
+
+            if self.md5pass:
+                self.handler.id.bootloader.setPassword(self.md5pass)
+
+            if location != None:
+                self.handler.id.bootloader.defaultDevice = location
+            else:
+                self.handler.id.bootloader.defaultDevice = -1
+
+            if self.timeout:
+                self.handler.id.bootloader.timeout = self.timeout
+
+            # XXX throw out drives specified that don't exist.  anything else
+            # seems silly
+            if self.driveorder and len(self.driveorder) > 0:
+                new = []
+                for drive in self.driveorder:
+                    if drive in self.handler.id.bootloader.drivelist:
+                        new.append(drive)
+                    else:
+                        log.warning("requested drive %s in boot drive order "
+                                    "doesn't exist" %(drive,))
+
+                self.handler.id.bootloader.drivelist = new
 
         self.handler.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
 
@@ -197,15 +226,19 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
             if disk not in hds:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % disk)
 
-        self.handler.id.instClass.setClearParts(self.handler.id, self.type,
-                                                drives=self.drives, initAll=self.initAll)
+        self.handler.id.partitions.autoClearPartType = self.type
+        self.handler.id.partitions.autoClearPartDrives = self.drives
+        if self.initAll:
+            self.handler.id.partitions.reinitializeDisks = self.initAll
 
 class Firewall(commands.firewall.FC3_Firewall):
     def parse(self, args):
         commands.firewall.FC3_Firewall.parse(self, args)
+        self.handler.id.firewall.enabled = self.enabled
+        self.handler.id.firewall.trustdevs = self.trusts
 
-        self.handler.id.instClass.setFirewall(self.handler.id, self.enabled,
-                                              self.trusts, self.ports)
+        for port in self.ports:
+            self.handler.id.firewall.portlist.append (port)
 
 class Firstboot(commands.firstboot.FC3_Firstboot):
     def parse(self, args):
@@ -215,8 +248,16 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
 class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
     def parse(self, args):
         commands.ignoredisk.F8_IgnoreDisk.parse(self, args)
-        self.handler.id.instClass.setIgnoredDisks(self.handler.id, self.ignoredisk)
-        self.handler.id.instClass.setExclusiveDisks(self.handler.id, self.onlyuse)
+
+        diskset = self.handler.id.diskset
+        for drive in self.ignoredisk:
+            if not drive in diskset.skippedDisks:
+                diskset.skippedDisks.append(drive)
+
+        diskset = self.handler.id.diskset
+        for drive in self.onlyuse:
+            if not drive in diskset.exclusiveDisks:
+                diskset.exclusiveDisks.append(drive)
 
 class Iscsi(commands.iscsi.FC6_Iscsi):
     def parse(self, args):
@@ -241,14 +282,14 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
 class Keyboard(commands.keyboard.FC3_Keyboard):
     def parse(self, args):
         commands.keyboard.FC3_Keyboard.parse(self, args)
-        self.handler.id.instClass.setKeyboard(self.handler.id, self.keyboard)
+        self.handler.id.keyboard.set(self.keyboard)
         self.handler.id.keyboard.beenset = 1
         self.handler.skipSteps.append("keyboard")
 
 class Lang(commands.lang.FC3_Lang):
     def parse(self, args):
         commands.lang.FC3_Lang.parse(self, args)
-        self.handler.id.instClass.setLanguage(self.handler.id, self.lang)
+        self.handler.id.instLanguage.setRuntimeLanguage(self.lang)
         self.handler.skipSteps.append("language")
 
 class LogVol(commands.logvol.F9_LogVol):
@@ -336,21 +377,57 @@ class Network(commands.network.F8_Network):
 
         nd = self.network[-1]
 
-        try:
-            self.handler.id.instClass.setNetwork(self.handler.id, nd.bootProto, nd.ip,
-                                                 nd.netmask, nd.ethtool, nd.device,
-                                                 nd.onboot, nd.dhcpclass, nd.essid, nd.wepkey)
-        except KeyError:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % nd.device)
+        if nd.bootProto:
+            devices = self.handler.id.network.netdevices
+            firstdev = self.handler.id.network.getFirstDeviceName()
+            if (devices and bootProto):
+                if not nd.device:
+                    if devices.has_key(firstdev):
+                        device = firstdev
+                    else:
+                        list = devices.keys ()
+                        list.sort()
+                        device = list[0]
+                else:
+                    device = nd.device
+
+                try:
+                    dev = devices[device]
+                except KeyError:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % device)
+
+                dev.set (("bootproto", nd.bootProto))
+                dev.set (("dhcpclass", nd.dhcpclass))
+
+                if nd.onboot:
+                    dev.set (("onboot", "yes"))
+                else:
+                    dev.set (("onboot", "no"))
+
+                if nd.bootProto == "static":
+                    if (nd.ip):
+                        dev.set (("ipaddr", nd.ip))
+                    if (nd.netmask):
+                        dev.set (("netmask", nd.netmask))
+
+                if nd.ethtool:
+                    dev.set (("ethtool_opts", nd.ethtool))
+
+                if isys.isWireless(device):
+                    if nd.essid:
+                        dev.set(("essid", nd.essid))
+                    if nd.wepkey:
+                        dev.set(("wepkey", nd.wepkey))
 
         if nd.hostname != "":
-            self.handler.id.instClass.setHostname(self.handler.id, nd.hostname, override=True)
+            self.handler.id.network.setHostname(nd.hostname)
+            self.handler.id.network.overrideDHCPhostname = True
 
         if nd.nameserver != "":
-            self.handler.id.instClass.setNameserver(self.handler.id, nd.nameserver)
+            self.handler.id.network.setDNS(nd.nameserver)
 
         if nd.gateway != "":
-            self.handler.id.instClass.setGateway(self.handler.id, nd.gateway)
+            self.handler.id.network.setGateway(nd.gateway)
 
 class MultiPath(commands.multipath.FC6_MultiPath):
     def parse(self, args):
@@ -611,7 +688,7 @@ class RootPw(commands.rootpw.F8_RootPw):
 class SELinux(commands.selinux.FC3_SELinux):
     def parse(self, args):
         commands.selinux.FC3_SELinux.parse(self, args)
-        self.handler.id.instClass.setSELinux(self.handler.id, self.selinux)
+        self.handler.id.security.setSELinux(self.selinux)
 
 class SkipX(commands.skipx.FC3_SkipX):
     def parse(self, args):
@@ -626,7 +703,7 @@ class Timezone(commands.timezone.FC6_Timezone):
     def parse(self, args):
         commands.timezone.FC6_Timezone.parse(self, args)
 
-        self.handler.id.instClass.setTimezoneInfo(self.handler.id, self.timezone, self.isUtc)
+        self.handler.id.timezone.setTimezoneInfo(self.timezone, self.isUtc)
         self.handler.skipSteps.append("timezone")
 
 class Upgrade(commands.upgrade.FC3_Upgrade):
@@ -669,7 +746,7 @@ class VolGroup(commands.volgroup.FC3_VolGroup):
 class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
     def parse(self, args):
         commands.zerombr.FC3_ZeroMbr.parse(self, args)
-        self.handler.id.instClass.setZeroMbr(self.handler.id, 1)
+        self.handler.id.partitions.zeroMbr = 1
 
 class ZFCP(commands.zfcp.FC3_ZFCP):
     def parse(self, args):

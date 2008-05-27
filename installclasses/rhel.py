@@ -88,10 +88,6 @@ class InstallClass(BaseInstallClass):
                                                     anaconda.id.partitions,
                                                     CLEARPART_TYPE_LINUX)
 
-    def setGroupSelection(self, anaconda):
-        grps = anaconda.backend.getDefaultGroups(anaconda)
-        map(lambda x: anaconda.backend.selectGroup(x), grps)
-
     def setSteps(self, anaconda):
         dispatch = anaconda.dispatch
 	BaseInstallClass.setSteps(self, dispatch);
