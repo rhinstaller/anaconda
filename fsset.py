@@ -1149,6 +1149,18 @@ class networkFileSystem(FileSystemType):
 
 fileSystemTypeRegister(networkFileSystem())
 
+class nfsv4FileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.formattable = 0
+        self.checked = 0
+        self.name = "nfs4"
+
+    def isMountable(self):
+        return 0
+
+fileSystemTypeRegister(nfsv4FileSystem())
+
 class ForeignFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
