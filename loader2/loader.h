@@ -45,7 +45,7 @@
 #define LOADER_FLAGS_HALT               (((uint64_t) 1) << 13)
 #define LOADER_FLAGS_SELINUX            (((uint64_t) 1) << 14)
 #define LOADER_FLAGS_VIRTPCONSOLE       (((uint64_t) 1) << 15)
-#define LOADER_FLAGS_STAGE2             (((uint64_t) 1) << 16)
+/* #16 unused */
 #define LOADER_FLAGS_NOSHELL            (((uint64_t) 1) << 17)
 #define LOADER_FLAGS_NOPCMCIA           (((uint64_t) 1) << 18)
 #define LOADER_FLAGS_TELNETD            (((uint64_t) 1) << 19)
@@ -79,7 +79,6 @@
 #define FL_SERIAL(a)             ((a) & LOADER_FLAGS_SERIAL)
 #define FL_UPDATES(a)            ((a) & LOADER_FLAGS_UPDATES)
 #define FL_KSFILE(a)             ((a) & LOADER_FLAGS_KSFILE)
-#define FL_STAGE2(a)             ((a) & LOADER_FLAGS_STAGE2)
 #define FL_NOSHELL(a)            ((a) & LOADER_FLAGS_NOSHELL)
 #define FL_TELNETD(a)            ((a) & LOADER_FLAGS_TELNETD)
 #define FL_NOPASS(a)             ((a) & LOADER_FLAGS_NOPASS)
