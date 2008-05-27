@@ -188,8 +188,27 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         size = self._getLiveSize()
         copied = 0
         while copied < size:
-            buf = os.read(osfd, readamt)
-            written = os.write(rootfd, buf)
+            try:
+                buf = os.read(osfd, readamt)
+                written = os.write(rootfd, buf)
+            except:
+                rc = anaconda.intf.messageWindow(_("Error"),
+                        _("There was an error installing the live image to "
+                          "your hard drive.  This could be due to bad media.  "
+                          "Please verify your installation media.\n\nIf you "
+                          "exit, your system will be left in an inconsistent "
+                          "state that will require reinstallation."),
+                        type="custom", custom_icon="error",
+                        custom_buttons=[_("_Exit installer"), _("_Retry")])
+
+                if rc == 0:
+                    sys.exit(0)
+                else:
+                    os.lseek(osfd, 0, 0)
+                    os.lseek(rootfd, 0, 0)
+                    copied = 0
+                    continue
+
             if (written < readamt) and (written < len(buf)):
                 raise RuntimeError, "error copying filesystem!"
             copied += written
