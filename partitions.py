@@ -1652,7 +1652,14 @@ class Partitions:
 
     def doMetaResizes(self, diskset):
         """Does resizing of non-physical volumes."""
-        # NOTE: this should be called with volumes active
+
+        # have to have lvm on, which requires raid to be started
+        diskset.startMPath()
+        diskset.startDmRaid()
+        diskset.startMdRaid()
+        for luksDev in self.encryptedDevices.values():
+            luksDev.openDevice()
+        lvm.vgactivate()
 
         # we only support resizing LVM of these types of things currently
         for lv in self.getLVMLVRequests():
@@ -1667,6 +1674,13 @@ class Partitions:
 
             lvm.lvresize(lv.logicalVolumeName, vg.volumeGroupName,
                          lv.targetSize)
+
+        lvm.vgdeactivate()
+        for luksDev in self.encryptedDevices.values():
+            luksDev.closeDevice()
+        diskset.stopMdRaid()
+        diskset.stopDmRaid()
+        diskset.stopMPath()
 
     def deleteDependentRequests(self, request):
         """Handle deletion of this request and all requests which depend on it.
