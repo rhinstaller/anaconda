@@ -237,7 +237,7 @@ def availableClasses(showHidden=0):
         elif name1 > name2:
             return 1
 
-    return 0
+        return 0
 
     if not showHidden:
         if allClasses: return allClasses
