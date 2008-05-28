@@ -579,6 +579,23 @@ class AnacondaYum(YumSorter):
                 repo = AnacondaYumRepo(uri=ksrepo.baseurl,
                                        mirrorlist=ksrepo.mirrorlist,
                                        repoid=ksrepo.name)
+                if ksrepo.cost:
+                    repo.cost = ksrepo.cost
+
+                if ksrepo.excludepkgs:
+                    s = ""
+                    for pkg in ksrepo.excludepkgs:
+                        s += "%s " % pkg
+
+                    repo.exclude = s
+
+                if ksrepo.includepkgs:
+                    s = ""
+                    for pkg in ksrepo.includepkgs:
+                        s += "%s " % pkg
+
+                    repo.includepkgs = s
+
                 repo.name = ksrepo.name
                 repo.enable()
                 extraRepos.append(repo)
