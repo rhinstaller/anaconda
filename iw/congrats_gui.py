@@ -66,7 +66,8 @@ class CongratulationWindow (InstallWindow):
 
         bootstr = ""
         if rhpl.getArch() == "s390" or os.path.exists("/dev/live-osimg"):
-            floppystr = ""
+            floppystr = _("Please reboot the system to use the installed "
+                          "system.\n\n")
         else:
             floppystr = _("Press the \"Reboot\" button to reboot your system."
                           "\n\n")
