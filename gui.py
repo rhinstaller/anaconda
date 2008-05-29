@@ -42,6 +42,7 @@ import gobject
 import gettext
 from language import expandLangs
 from constants import *
+from product import *
 from network import hasActiveNetDev
 import xutils
 import imputil
@@ -739,22 +740,16 @@ class SaveExceptionWindow:
         self.scpHostEntry = exnxml.get_widget("scpHostEntry")
         self.scpDestEntry = exnxml.get_widget("scpDestEntry")
 
-        self.diskButton = exnxml.get_widget("diskButton")
+        self.notebook = exnxml.get_widget("destNotebook")
+        self.destCombo = exnxml.get_widget("destCombo")
+
         self.diskCombo = exnxml.get_widget("diskCombo")
-        self.bugzillaButton = exnxml.get_widget("bugzillaButton")
-        self.bugzillaBox = exnxml.get_widget("bugzillaHBox")
-        self.scpButton = exnxml.get_widget("scpButton")
-        self.scpBox = exnxml.get_widget("scpHBox")
-        self.localButton = exnxml.get_widget("localButton")
         self.localChooser = exnxml.get_widget("localChooser")
         self.win = exnxml.get_widget("saveDialog")
 
-        self.diskButton.connect("toggled", self.radio_changed)
-        self.bugzillaButton.connect("toggled", self.radio_changed)
-        self.localButton.connect("toggled", self.radio_changed)
-        self.scpButton.connect("toggled", self.radio_changed)
+        self.destCombo.connect("changed", self.combo_changed)
 
-        self.bugzillaButton.set_label(self.bugzillaButton.get_label() % product.bugUrl)
+        self.destCombo.insert_text(2, _("Bugzilla (%s)") % bugUrl)
 
         cell = gtk.CellRendererText()
         self.diskCombo.pack_start(cell, True)
@@ -767,7 +762,10 @@ class SaveExceptionWindow:
         if flags.livecdInstall:
             exnxml.get_widget("diskBox").hide()
             exnxml.get_widget("localBox").show()
-            self.localButton.set_active(True)
+            self.destCombo.remove_text(0)
+            self.destCombo.set_active(0)
+            self.notebook.remove_page(0)
+            self.notebook.set_current_page(0)
         elif len(dests) > 0:
             for d in dests:
                 iter = store.append(None)
@@ -775,21 +773,24 @@ class SaveExceptionWindow:
 
             self.diskCombo.set_model(store)
             self.diskCombo.set_active(0)
+            self.diskCombo.set_sensitive(True)
+
+            self.destCombo.remove_text(1)
+            self.destCombo.set_active(0)
+            self.notebook.remove_page(1)
+            self.notebook.set_current_page(0)
         else:
-            self.diskButton.set_sensitive(False)
-            self.bugzillaButton.set_active(True)
-            self.diskCombo.set_sensitive(False)
-            self.bugzillaBox.set_sensitive(True)
+            self.destCombo.remove_text(1)
+            self.destCombo.set_active(1)
+            self.notebook.remove_page(1)
+            self.notebook.set_current_page(1)
 
         addFrame(self.win)
         self.win.show()
         self.window = self.win
 
-    def radio_changed(self, args):
-        self.diskCombo.set_sensitive(self.diskButton.get_active())
-        self.bugzillaBox.set_sensitive(self.bugzillaButton.get_active())
-        self.localChooser.set_sensitive(self.localButton.get_active())
-        self.scpBox.set_sensitive(self.scpButton.get_active())
+    def combo_changed(self, args):
+        self.notebook.set_current_page(self.destCombo.get_active())
 
     def getrc(self):
         if self.rc == gtk.RESPONSE_OK:
@@ -809,8 +810,8 @@ class SaveExceptionWindow:
         elif self.saveToRemote():
             return map(lambda e: e.get_text(), [self.scpNameEntry,
                                                 self.scpPasswordEntry,
-                                                self.hostEntry,
-                                                self.destEntry])
+                                                self.scpHostEntry,
+                                                self.scpDestEntry])
         else:
             return map(lambda e: e.get_text(), [self.bugzillaNameEntry,
                                                 self.bugzillaPasswordEntry,
@@ -823,13 +824,13 @@ class SaveExceptionWindow:
         self.rc = self.window.run ()
 
     def saveToDisk(self):
-        return self.diskButton.get_active()
+        return self.destCombo.get_active() == 0
 
     def saveToLocal(self):
-        return self.localButton.get_active()
+        return self.destCombo.get_active() == 0
 
     def saveToRemote(self):
-        return self.scpButton.get_active()
+        return self.destCombo.get_active() == 2
 
 class MessageWindow:
     def getrc (self):
