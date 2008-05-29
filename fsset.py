@@ -1907,7 +1907,7 @@ MAILADDR root
     def haveMigratedFilesystems(self):
         return self.migratedfs
 
-    def migrateFilesystems (self, chroot='/'):
+    def migrateFilesystems (self, anaconda):
         if self.migratedfs:
             return
 
@@ -1919,7 +1919,7 @@ MAILADDR root
                 continue
             try: 
                 entry.origfsystem.migrateFileSystem(entry, self.messageWindow,
-                                                    chroot)
+                                                    anaconda.rootPath)
             except SystemError:
                 if self.messageWindow:
                     self.messageWindow(_("Error"),
@@ -1930,6 +1930,13 @@ MAILADDR root
                                          "Press <Enter> to exit the installer.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
+
+        # we need to unmount and remount so that we're mounted as the
+        # new fstype as we want to use the new filesystem type during
+        # the upgrade for ext3->ext4 migrations
+        if self.isActive():
+            self.umountFilesystems(anaconda.rootPath, swapoff = False)
+            self.mountFilesystems(anaconda)
 
         self.migratedfs = 1
 

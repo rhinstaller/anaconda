@@ -95,7 +95,7 @@ def doMigrateFilesystems(anaconda):
     if anaconda.id.fsset.haveMigratedFilesystems():
         return DISPATCH_NOOP
 
-    anaconda.id.fsset.migrateFilesystems (anaconda.rootPath)
+    anaconda.id.fsset.migrateFilesystems (anaconda)
 
     if anaconda.id.upgrade:
         # if we're upgrading, we may need to do lvm device node hackery
