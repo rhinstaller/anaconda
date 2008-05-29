@@ -45,8 +45,6 @@ class InstallClass(BaseInstallClass):
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
              (N_("Web server"), ["web-server"])]
 
-    repos = { "Additional Fedora Software": (None, "http://mirrors.fedoraproject.org/mirrorlist?repo=%s&arch=%s" %(productVersion, rpmUtils.arch.getBaseArch())) }
-
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:
             uri = [uri,]

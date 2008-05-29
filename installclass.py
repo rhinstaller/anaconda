@@ -57,9 +57,6 @@ class BaseInstallClass(object):
     # list of of (txt, grplist) tuples for task selection screen
     tasks = []
 
-    # dict of repoid: (baseurl, mirrorurl) tuples for additional repos
-    repos = {}
-    
     # don't select this class by default
     default = 0
 
