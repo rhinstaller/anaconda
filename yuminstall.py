@@ -46,12 +46,13 @@ from sortedtransaction import SplitMediaTransactionData
 from constants import *
 from image import *
 import packages
-from rhpl.translate import _
+from rhpl.translate import _, textdomain
 
 import network
 
 # specspo stuff
 rpm.addMacro("_i18ndomains", "redhat-dist")
+textdomain("redhat-dist")
 
 import logging
 log = logging.getLogger("anaconda")
@@ -158,7 +159,7 @@ class AnacondaCallback:
             sum = hdr['summary'] or ""
             if type(sum) != unicode:
                 sum = unicode(sum, encoding='utf-8')
-            s += sum
+            s += _(sum.strip())
             self.progress.set_label(s)
 
             self.instLog.write(self.modeText % pkgStr)
