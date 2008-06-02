@@ -187,7 +187,7 @@ class FileSystemType:
         self.extraFormatArgs = []
         self.maxLabelChars = 16
         self.packages = []
-        self.needPrograms = []
+        self.needProgram = []
         self.resizable = False
         self.supportsFsProfiles = False
         self.fsProfileSpecifier = None
