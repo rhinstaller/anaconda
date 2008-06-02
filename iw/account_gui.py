@@ -23,9 +23,11 @@ import gtk
 import string
 import gui
 from iw_gui import *
-from rhpl.translate import _
+from rhpl.translate import _, textdomain
 from flags import flags
 import cracklib
+
+textdomain("cracklib")
 
 class AccountWindow (InstallWindow):
     def getScreen(self, anaconda):
