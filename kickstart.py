@@ -683,8 +683,8 @@ class Repo(commands.repo.F8_Repo):
         repoid = repo.name.replace(" ", "-")
 
         buf = """
-[%(repoid)]
-name=%(name)
+[%(repoid)s]
+name=%(name)s
 enabled=1
 gpgcheck=0
 """ % {"repoid": repoid, "name": repo.name}

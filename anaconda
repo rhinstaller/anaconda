@@ -411,13 +411,13 @@ def expandFTPMethod(opts):
     opts.method = opts.method[:len(opts.method) - 1]
     os.unlink(filename)
 
-def runVNC(vncStartedCB=None):
+def runVNC():
     # dont run vncpassword if in test mode
     global vncS
     if flags.test:
         vncS.password = ""
 
-    vncS.startServer(vncStartedCB=vncStartedCB)
+    vncS.startServer()
 
     child = os.fork()
     if child == 0:
