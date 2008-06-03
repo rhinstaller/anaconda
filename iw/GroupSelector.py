@@ -31,6 +31,7 @@ try:
 except ImportError: # yum 2.9.x
     mdErrors = yum.Errors
 from yum.constants import *
+import yuminstall
 
 I18N_DOMAIN="anaconda"
 
@@ -88,52 +89,6 @@ def _getgladefile(fn):
 t = gettext.translation(I18N_DOMAIN, "/usr/share/locale", fallback = True)
 _ = t.lgettext
 
-def getDefaultLangs():
-    languages = []
-    for envar in ('LANGUAGE', 'LC_ALL', 'LC_MESSAGES', 'LANG'):
-        val = os.environ.get(envar)
-        if val:
-            languages = val.split(':')
-            break
-    if 'C' not in languages:
-        languages.append('C')
-        
-    # now normalize and expand the languages
-    nelangs = []
-    for lang in languages:
-        for nelang in gettext._expand_lang(lang):
-            if nelang not in nelangs:
-                nelangs.append(nelang)
-    return nelangs
-    
-
-# kind of lame caching of translations so we don't always have
-# to do all the looping
-strs = {}
-def _xmltrans(base, thedict):
-    if strs.has_key(base):
-        return strs[base]
-    
-    langs = getDefaultLangs()
-    for l in langs:
-        if thedict.has_key(l):
-            strs[base] = thedict[l]
-            return strs[base]
-    strs[base] = base
-    return base
-
-def _ui_comps_sort(one, two):
-    if one.display_order > two.display_order:
-        return 1
-    elif one.display_order < two.display_order:
-        return -1
-    elif _xmltrans(one.name, one.translated_name) > \
-         _xmltrans(two.name, two.translated_name):
-        return 1
-    elif _xmltrans(one.name, one.translated_name) < \
-         _xmltrans(two.name, two.translated_name):
-        return -1
-    return 0
 
 def _deselectPackage(ayum, group, pkg):
     grpid = group.groupid
@@ -208,7 +163,7 @@ class OptionalPackageSelector:
         if parent:
             self.window.set_transient_for(parent)
         self.window.set_title(_("Packages in %s") %
-                               _xmltrans(group.name, group.translated_name))
+                               yuminstall.xmltrans(group.name, group.translated_name))
         self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.window.set_size_request(600, 400)
         self._createStore()
@@ -412,11 +367,11 @@ class GroupSelector:
     def _populateGroups(self, groups, defaultpix = None):
         grps = map(lambda x: self.ayum.comps.return_group(x),
                    filter(lambda x: self.ayum.comps.has_group(x), groups))
-        grps.sort(_ui_comps_sort)
+        grps.sort(yuminstall.ui_comps_sort)
         for grp in grps:
             if not _groupHasPackages(grp, self.ayum):
                 continue
-            s = "<span size=\"large\" weight=\"bold\">%s</span>" % _xmltrans(grp.name, grp.translated_name)
+            s = "<span size=\"large\" weight=\"bold\">%s</span>" % yuminstall.xmltrans(grp.name, grp.translated_name)
 
             fn = "/usr/share/pixmaps/comps/%s.png" % grp.groupid
             if os.access(fn, os.R_OK):
@@ -456,9 +411,9 @@ class GroupSelector:
             return
         
         if grp.description:
-            txt = _xmltrans(grp.description, grp.translated_description)
+            txt = yuminstall.xmltrans(grp.description, grp.translated_description)
         else:
-            txt = _xmltrans(grp.name, grp.translated_name)
+            txt = yuminstall.xmltrans(grp.name, grp.translated_name)
 
         inst = 0
         cnt = 0
@@ -512,11 +467,11 @@ class GroupSelector:
     def populateCategories(self):
         self.catstore.clear()
         cats = self.ayum.comps.categories
-        cats.sort(_ui_comps_sort)
+        cats.sort(yuminstall.ui_comps_sort)
         for cat in cats:
             if not _catHasGroupWithPackages(cat, self.ayum):
                 continue
-            s = "<span size=\"large\" weight=\"bold\">%s</span>" % _xmltrans(cat.name, cat.translated_name)
+            s = "<span size=\"large\" weight=\"bold\">%s</span>" % yuminstall.xmltrans(cat.name, cat.translated_name)
             self.catstore.append(None, [s, cat])
 
         # select the first category
