@@ -253,14 +253,13 @@ static int getHostAddress(const char * host, void * address, int family) {
 }
 
 int ftpOpen(char *host, int family, char *name, char *password,
-            char *proxy, int port) {
+            int port) {
     static int sock;
     struct in_addr addr;
     struct in6_addr addr6;
     struct sockaddr_in destPort;
     struct sockaddr_in6 destPort6;
     struct passwd * pw;
-    char * buf;
     int rc = 0;
 
     if (port < 0) port = IPPORT_FTP;
@@ -278,12 +277,6 @@ int ftpOpen(char *host, int family, char *name, char *password,
                 strcat(password, "@");
             }
         }
-    }
-
-    if (proxy) {
-        if (asprintf(&buf, "%s@%s", name, host) != -1)
-            name = buf;
-        host = proxy;
     }
 
     if (family == AF_INET)

@@ -102,27 +102,16 @@ static void copyErrorFn (char *msg) {
 }
 
 static int loadUrlImages(struct iurlinfo * ui) {
-    char *stage2img, *buf, *path, *tmp;
+    char *buf, *path, *dest;
     int rc;
 
-    /* We assume that if stage2= was given, it's pointing at a stage2 image
-     * file.  Trim the filename off the end, and that's the directory where
-     * updates.img and friends must live.
+    /* Figure out the path where updates.img and product.img files are
+     * kept.  Since ui->prefix points to a stage2 image file, we just need
+     * to trim off the file name and look in the same directory.
      */
-    if (FL_STAGE2(flags)) {
-        /* Has to have a / in it somewhere, since it has to be a path name. */
-        if (!strrchr(ui->prefix, '/'))
-            return 1;
-        else
-            path = strndup(ui->prefix, strrchr(ui->prefix, '/') - ui->prefix);
+    path = strndup(ui->prefix, strrchr(ui->prefix, '/') - ui->prefix);
 
-        if (!path)
-            return 1;
-    }
-    else
-        rc = asprintf(&path, "%s/images", ui->prefix);
-
-    /* grab the updates.img before netstg1.img so that we minimize our
+    /* grab the updates.img before stage2.img so that we minimize our
      * ramdisk usage */
     rc = asprintf(&buf, "%s/%s", path, "updates.img");
     if (!loadSingleUrlImage(ui, buf,
@@ -140,7 +129,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
 
     free(buf);
 
-    /* grab the product.img before netstg1.img so that we minimize our
+    /* grab the product.img before stage2.img so that we minimize our
      * ramdisk usage */
     rc = asprintf(&buf, "%s/%s", path, "product.img");
     if (!loadSingleUrlImage(ui, buf,
@@ -155,33 +144,9 @@ static int loadUrlImages(struct iurlinfo * ui) {
 
     free(buf);
 
-    if (!FL_STAGE2(flags)) {
-        /* require 128MB for use of graphical stage 2 due to size of image */
-        if (totalMemory() < GUI_STAGE2_RAM) {
-            stage2img = "minstg2.img";
-            logMessage(WARNING, "URLINSTALL falling back to non-GUI stage2 "
-                           "due to insufficient RAM");
-        } else {
-            stage2img = "stage2.img";
-        }
-
-        rc = asprintf(&buf, "%s/%s", path, stage2img);
-        rc = asprintf(&tmp, "/tmp/%s", stage2img);
-        rc = loadSingleUrlImage(ui, buf, tmp,
-                                "/mnt/runtime", "/dev/loop0", 0);
-        free(buf);
-    }
-    else {
-        /* We already covered the case of ui->prefix not having a / in it
-         * at the beginning, so don't worry about it here.
-         */
-        rc = asprintf(&tmp, "/tmp/%s", strrchr(ui->prefix, '/'));
-        rc = loadSingleUrlImage(ui, ui->prefix, tmp, "/mnt/runtime",
-                                "/dev/loop0", 0);
-    }
-
-    free(tmp);
-    free(path);
+    rc = asprintf(&dest, "/tmp/stage2.img");
+    rc = loadSingleUrlImage(ui, ui->prefix, dest, "/mnt/runtime", "/dev/loop0", 0);
+    free(dest);
 
     if (rc) {
         if (rc != 2) 
@@ -205,98 +170,95 @@ static int loadUrlImages(struct iurlinfo * ui) {
     return 0;
 }
 
-char * mountUrlImage(struct installMethod * method,
-                     char * location, struct loaderData_s * loaderData) {
-    int rc;
-    char *url;
+char *mountUrlImage(struct installMethod *method, char *location,
+                    struct loaderData_s *loaderData) {
     struct iurlinfo ui;
-    char needsSecondary = ' ';
-    char * cdurl = NULL;
+    char *url = NULL;
+    int rc;
 
-    enum { URL_STAGE_MAIN, URL_STAGE_SECOND, URL_STAGE_FETCH, 
+    enum { URL_STAGE_MAIN, URL_STAGE_FETCH,
            URL_STAGE_DONE } stage = URL_STAGE_MAIN;
 
     memset(&ui, 0, sizeof(ui));
 
     while (stage != URL_STAGE_DONE) {
         switch(stage) {
-        case URL_STAGE_MAIN:
-            if (loaderData->method == METHOD_URL && loaderData->stage2Data) {
-                url = ((struct urlInstallData *)loaderData->stage2Data)->url;
-                logMessage(INFO, "URL_STAGE_MAIN - url is %s", url);
+            case URL_STAGE_MAIN: {
+                /* If the stage2= parameter was given (or inferred from repo=)
+                 * then use that configuration info to fetch the image.  This
+                 * could also have come from kickstart.  Else, we need to show
+                 * the UI.
+                 */
+                if (loaderData->method == METHOD_URL && loaderData->stage2Data) {
+                    url = ((struct urlInstallData *) loaderData->stage2Data)->url;
+                    logMessage(INFO, "URL_STAGE_MAIN: url is %s", url);
 
-                if (!url) {
-                    logMessage(ERROR, "missing url specification");
-                    flags &= ~LOADER_FLAGS_STAGE2;
-                    loaderData->method = -1;
+                    if (!url) {
+                        logMessage(ERROR, "missing URL specification");
+                        loaderData->method = -1;
+                        free(loaderData->stage2Data);
+                        loaderData->stage2Data = NULL;
+                        break;
+                    }
+
+                    /* explode url into ui struct */
+                    convertURLToUI(url, &ui);
+
+                    /* ks info was adequate, lets skip to fetching image */
+                    stage = URL_STAGE_FETCH;
                     break;
+                } else {
+                    char *substr;
+
+                    if (urlMainSetupPanel(&ui))
+                        return NULL;
+
+                    /* If the user-provided URL points at a repo instead of
+                     * a stage2 image, fix it up now.
+                     */
+                    substr = strstr(ui.prefix, ".img");
+                    if (!substr || (substr && *(substr+4) != '\0')) {
+                        char *stage2img;
+
+                        /* Pick the right stage2 image depending on the
+                         * amount of memory.
+                         */
+                        if (totalMemory() < GUI_STAGE2_RAM) {
+                            stage2img = "minstg2.img";
+                            logMessage(WARNING, "URLINSTALL falling back to non-GUI stage2 "
+                                                "due to insufficient RAM");
+                        } else {
+                            stage2img = "stage2.img";
+                        }
+
+                        rc = asprintf(&ui.prefix, "%s/images/%s", ui.prefix, stage2img);
+                    }
                 }
 
-		/* explode url into ui struct */
-		convertURLToUI(url, &ui);
-
-		/* ks info was adequate, lets skip to fetching image */
-		stage = URL_STAGE_FETCH;
-		break;
-            } else {
-                flags &= ~LOADER_FLAGS_STAGE2;
-
-	        if (urlMainSetupPanel(&ui, &needsSecondary))
-                    return NULL;
-            }
-
-	    /* got required information from user, proceed */
-	    stage = (needsSecondary != ' ') ? URL_STAGE_SECOND : 
-		URL_STAGE_FETCH;
-            break;
-
-        case URL_STAGE_SECOND:
-            rc = urlSecondarySetupPanel(&ui);
-            if (rc) {
-                stage = URL_STAGE_MAIN;
-            } else {
                 stage = URL_STAGE_FETCH;
-            }
-            break;
-
-        case URL_STAGE_FETCH:
-            if (FL_TESTING(flags)) {
-                stage = URL_STAGE_DONE;
                 break;
             }
 
-            /* See if we have a stage2 on a local CD before trying to pull
-             * one over the network.  However, passing stage2= overrides
-             * this check.
-             */
-            if (!FL_STAGE2(flags))
-                cdurl = findAnacondaCD(location);
+            case URL_STAGE_FETCH: {
+                if (FL_TESTING(flags)) {
+                    stage = URL_STAGE_DONE;
+                    break;
+                }
 
-	    if (cdurl) {
-		logMessage(INFO, "Detected stage 2 image on CD");
-		winStatus(50, 3, _("Media Detected"), 
-			  _("Local installation media detected..."), 0);
-		sleep(3);
-		newtPopWindow();
+                if (loadUrlImages(&ui)) {
+                    stage = URL_STAGE_MAIN;
 
-                stage = URL_STAGE_DONE;
-            } else {
-		/* need to find stage 2 on remote site */
-		if (loadUrlImages(&ui)) {
-		    stage = URL_STAGE_MAIN;
-		    if (loaderData->method >= 0) {
-			loaderData->method = -1;
-		    }
+                    if (loaderData->method >= 0)
+                        loaderData->method = -1;
+                } else {
+                    stage = URL_STAGE_DONE;
+                }
 
-                    flags &= ~LOADER_FLAGS_STAGE2;
-		} else {
-		    stage = URL_STAGE_DONE;
-		}
-	    }
-            break;
+                break;
+            }
 
-        case URL_STAGE_DONE:
-            break;
+            case URL_STAGE_DONE:
+                break;
         }
     }
 

@@ -42,7 +42,7 @@ const char * ftpStrerror(int ftpErrno, urlprotocol protocol);
 #define FTPERR_UNKNOWN               -100
 
 int ftpOpen(char * host, int family, char * name, char * password,
-            char * proxy, int port);
+            int port);
 int ftpGetFile(int sock, char * remotename, int dest);
 int ftpGetFileDesc(int sock, struct in6_addr host, int family,
                    char * remotename);

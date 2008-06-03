@@ -38,7 +38,7 @@ int convertURLToUI(char *url, struct iurlinfo *ui);
 char *convertUIToURL(struct iurlinfo *ui);
 
 int setupRemote(struct iurlinfo * ui);
-int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup);
+int urlMainSetupPanel(struct iurlinfo * ui);
 int urlSecondarySetupPanel(struct iurlinfo * ui);
 int urlinstStartTransfer(struct iurlinfo * ui, char *path, char *extraHeaders);
 int urlinstFinishTransfer(struct iurlinfo * ui, int fd);

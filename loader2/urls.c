@@ -199,7 +199,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
         ui->ftpPort = ftpOpen(hostname, family,
                               ui->login ? ui->login : "anonymous", 
                               ui->password ? ui->password : "rhinstall@", 
-                              NULL, port);
+                              port);
         if (ui->ftpPort < 0) {
             if (hostname) free(hostname);
             return -2;
@@ -258,9 +258,9 @@ char * addrToIp(char * hostname) {
         return NULL;
 }
 
-int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
+int urlMainSetupPanel(struct iurlinfo * ui) {
     newtComponent form, okay, cancel, urlEntry;
-    newtComponent answer, text, proxyCheckbox;
+    newtComponent answer, text;
     char *url = "";
     char * reflowedText = NULL;
     int width, height;
@@ -268,11 +268,6 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
     char * chptr;
     char * buf = NULL;
     int r;
-
-    if (ui && (ui->login || ui->password || ui->proxy || ui->proxyPort))
-         *doSecondarySetup = '*';
-    else
-         *doSecondarySetup = ' ';
 
     /* Populate the UI with whatever initial value we've got. */
     if (ui && ui->prefix)
@@ -291,17 +286,13 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
 
     urlEntry = newtEntry(22, 8, url, 60, (const char **) &url,
                          NEWT_ENTRY_SCROLL);
-    proxyCheckbox = newtCheckbox(-1, -1, _("Configure proxy"), *doSecondarySetup,
-                                 NULL, doSecondarySetup);
 
-    grid = newtCreateGrid(1, 4);
+    grid = newtCreateGrid(1, 3);
     newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
                      0, 0, 0, 1, 0, 0);
     newtGridSetField(grid, 0, 1, NEWT_GRID_COMPONENT, urlEntry,
                      0, 0, 0, 1, 0, 0);
-    newtGridSetField(grid, 0, 2, NEWT_GRID_COMPONENT, proxyCheckbox,
-                     0, 0, 0, 1, 0, 0);
-    newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, buttons,
+    newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, buttons,
                      0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 
     form = newtForm(NULL, NULL, 0);
@@ -353,87 +344,8 @@ int urlMainSetupPanel(struct iurlinfo * ui, char * doSecondarySetup) {
     chptr++;
     *chptr = '\0';
 
-    if (*doSecondarySetup != '*') {
-        if (ui->proxy)
-            free(ui->proxy);
-        if (ui->proxyPort)
-            free(ui->proxyPort);
-
-        ui->proxy = ui->proxyPort = NULL;
-    }
-
     newtFormDestroy(form);
     newtPopWindow();
 
     return 0;
 }
-
-int urlSecondarySetupPanel(struct iurlinfo * ui) {
-    newtComponent form, okay, cancel, answer, text;
-    newtComponent proxyEntry = NULL;
-    newtComponent proxyPortEntry = NULL;
-    char * proxy, * proxyPort;
-    newtGrid buttons, entryGrid, grid;
-    char * reflowedText = NULL;
-    int width, height;
-
-    reflowedText = newtReflowText(
-        _("If you are using a HTTP proxy server "
-          "enter the name of the HTTP proxy server to use."),
-        47, 5, 5, &width, &height);
-
-    text = newtTextbox(-1, -1, width, height, NEWT_TEXTBOX_WRAP);
-    newtTextboxSetText(text, reflowedText);
-    free(reflowedText);
-
-    proxyEntry = newtEntry(-1, -1, ui->proxy, 24, (const char **) &proxy, 
-                           NEWT_ENTRY_SCROLL);
-    proxyPortEntry = newtEntry(-1, -1, ui->proxyPort, 6, 
-                               (const char **) &proxyPort, NEWT_FLAG_SCROLL);
-
-    entryGrid = newtCreateGrid(2, 2);
-    newtGridSetField(entryGrid, 0, 0, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, _("Proxy Name:")),
-                     0, 0, 2, 0, NEWT_ANCHOR_LEFT, 0);
-    newtGridSetField(entryGrid, 1, 0, NEWT_GRID_COMPONENT, proxyEntry,
-                     0, 0, 0, 0, 0, 0);
-    newtGridSetField(entryGrid, 0, 1, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, _("Proxy Port:")),
-                     0, 0, 2, 0, NEWT_ANCHOR_LEFT, 0);
-    newtGridSetField(entryGrid, 1, 1, NEWT_GRID_COMPONENT, proxyPortEntry,
-                     0, 0, 0, 0, 0, 0);
-
-    buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
-
-    grid = newtCreateGrid(1, 3);
-    newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text, 0, 0, 0, 0, 0, 0);
-    newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, entryGrid, 
-                     0, 1, 0, 0, 0, 0);
-    newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, buttons, 
-                     0, 1, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
-
-    form = newtForm(NULL, NULL, 0);
-    newtGridAddComponentsToForm(grid, form, 1);
-    newtGridWrappedWindow(grid, _("Further Setup"));
-    newtGridFree(grid, 1);
-
-    answer = newtRunForm(form);
-    if (answer == cancel) {
-        newtFormDestroy(form);
-        newtPopWindow();
-
-        return LOADER_BACK;
-    }
-
-    if (strlen(proxy))
-        ui->proxy = strdup(proxy);
-    if (strlen(proxyPort))
-        ui->proxyPort = strdup(proxyPort);
-
-    newtFormDestroy(form);
-    newtPopWindow();
-
-    return 0;
-}
-
-/* vim:set shiftwidth=4 softtabstop=4: */
