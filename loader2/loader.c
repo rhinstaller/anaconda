@@ -1058,32 +1058,21 @@ static int haveDeviceOfType(int type) {
     return 0;
 }
 
-/* fsm for the basics of the loader. */
-static char *doLoaderMain(char * location,
-                          struct loaderData_s * loaderData,
+static char *doLoaderMain(struct loaderData_s *loaderData,
                           moduleInfoSet modInfo) {
-    enum { STEP_LANG, STEP_KBD, STEP_METHOD, STEP_DRIVER, 
+    enum { STEP_LANG, STEP_KBD, STEP_METHOD, STEP_DRIVER,
            STEP_DRIVERDISK, STEP_NETWORK, STEP_IFACE,
-           STEP_IP, STEP_URL, STEP_DONE } step;
-    char * url = NULL;
-    char * ret = NULL;
-    int dir = 1;
-    int rc, i;
+           STEP_IP, STEP_STAGE2, STEP_DONE } step;
 
-    char * installNames[10]; /* 10 install methods will be enough for anyone */
+    char *url = NULL, *ret = NULL, *devName = NULL, *kbdtype = NULL;
+    static struct networkDeviceConfig netDev;
+    int i, rc, dir = 1;
+    int needsNetwork = 0, class = -1;
+    int haveStage2 = 0;
+
+    char *installNames[10];
     int numValidMethods = 0;
     int validMethods[10];
-    int methodNum = -1;
-
-    int needed = -1;
-    int needsNetwork = 0;
-
-    int rhcdfnd = 0;
-
-    char * devName = NULL;
-    static struct networkDeviceConfig netDev;
-
-    char * kbdtype = NULL;
 
     for (i = 0; i < numMethods; i++, numValidMethods++) {
         installNames[numValidMethods] = installMethods[i].name;
@@ -1091,363 +1080,349 @@ static char *doLoaderMain(char * location,
     }
     installNames[numValidMethods] = NULL;
 
+    if (!FL_CMDLINE(flags))
+        startNewt();
+
     /* have we preselected this to be our install method? */
     if (loaderData->method >= 0) {
-        methodNum = loaderData->method;
         /* disable the fast path (#102652) */
         flags |= LOADER_FLAGS_ASKMETHOD;
     }
 
-    /* check to see if we have a CD.  If we have one, then
-     * we can fast-path the CD and not make people answer questions in 
-     * text mode.  */
-    if (!FL_ASKMETHOD(flags) && !FL_KICKSTART(flags)) {
-        url = findAnacondaCD(location, !FL_RESCUE(flags));
-        /* if we found a CD and we're not in rescue or vnc mode return */
-        /* so we can short circuit straight to stage 2 from CD         */
-        if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride()))
-            return url;
-        else {
-            rhcdfnd = 1;
-            methodNum = 0;
-        }
+    /* If neither the askmethod parameter nor the stage2= parameter was passed,
+     * check for the presence of a CD/DVD.  If there's a stage2 on that, we
+     * use it and bypass all other checks for a stage2 image later.
+     */
+    if (!FL_ASKMETHOD(flags) && !loaderData->stage2Data) {
+        url = findAnacondaCD("/mnt/stage2", 0);
+        if (url)
+            haveStage2 = 1;
     }
 
-    if (!FL_CMDLINE(flags))
-        startNewt();
-
     step = STEP_LANG;
-
     while (step != STEP_DONE) {
         switch(step) {
-        case STEP_LANG:
-            if (loaderData->lang && (loaderData->lang_set == 1)) {
-                setLanguage(loaderData->lang, 1);
-            } else {
-                chooseLanguage(&loaderData->lang);
-            }
-            step = STEP_KBD;
-            dir = 1;
-            break;
-        case STEP_KBD:
-            if (loaderData->kbd && (loaderData->kbd_set == 1)) {
-                /* JKFIXME: this is broken -- we should tell of the 
-                 * failure; best by pulling code out in kbd.c to use */
-                if (isysLoadKeymap(loaderData->kbd)) {
-                    logMessage(WARNING, "requested keymap %s is not valid, asking", loaderData->kbd);
-                    loaderData->kbd = NULL;
-                    loaderData->kbd_set = 0;
-                    break;
-                }
-                rc = LOADER_NOOP;
-            } else {
-                /* JKFIXME: should handle kbdtype, too probably... but it 
-                 * just matters for sparc */
-                if (!FL_CMDLINE(flags))
-                    rc = chooseKeyboard(loaderData, &kbdtype);
+            case STEP_LANG: {
+                if (loaderData->lang && (loaderData->lang_set == 1))
+                    setLanguage(loaderData->lang, 1);
                 else
-                   rc = LOADER_NOOP;
-            }
-            if (rc == LOADER_NOOP) {
-                if (dir == -1)
-                    step = STEP_LANG;
-                else
-                    step = STEP_METHOD;
+                    chooseLanguage(&loaderData->lang);
+
+                step = STEP_KBD;
+                dir = 1;
                 break;
             }
 
-            if (rc == LOADER_BACK) {
-                step = STEP_LANG;
-                dir = -1;
-            } else {
-                step = STEP_METHOD;
-                dir = 1;
+            case STEP_KBD: {
+                if (loaderData->kbd && (loaderData->kbd_set == 1)) {
+                    /* JKFIXME: this is broken -- we should tell of the 
+                     * failure; best by pulling code out in kbd.c to use */
+                    if (isysLoadKeymap(loaderData->kbd)) {
+                        logMessage(WARNING, "requested keymap %s is not valid, asking",
+                                   loaderData->kbd);
+                        loaderData->kbd = NULL;
+                        loaderData->kbd_set = 0;
+                        break;
+                    }
+                    rc = LOADER_NOOP;
+                } else {
+                    /* JKFIXME: should handle kbdtype, too probably... but it 
+                     * just matters for sparc */
+                    if (!FL_CMDLINE(flags))
+                        rc = chooseKeyboard(loaderData, &kbdtype);
+                    else
+                       rc = LOADER_NOOP;
+                }
+
+                if (rc == LOADER_NOOP) {
+                    if (dir == -1)
+                        step = STEP_LANG;
+                    else
+                        step = STEP_METHOD;
+
+                    break;
+                }
+
+                if (rc == LOADER_BACK) {
+                    step = STEP_LANG;
+                    dir = -1;
+                } else {
+                    step = STEP_METHOD;
+                    dir = 1;
+                }
+
+                break;
             }
 
-            break;
+            case STEP_METHOD: {
+                /* If we already found a stage2 image, skip the prompt. */
+                if (haveStage2 || loaderData->method) {
+                    if (dir == 1)
+                        rc = 1;
+                    else
+                        rc = -1;
+                } else {
+                    /* we need to set these each time through so that we get
+                     * updated for language changes (#83672) */
+                    for (i = 0; i < numMethods; i++) {
+                        installNames[i] = _(installMethods[i].name);
+                    }
+                    installNames[i] = NULL;
 
-        case STEP_METHOD:
-            /* this is kind of crappy, but we want the first few questions
-             * to be asked when using rescue mode even if we're going
-             * to short-circuit to the CD.
-             *
-             * Alternately, if we're in a VNC install based from CD we
-             * can skip this step because we already found the CD */
-            if (url) {
-                if (FL_RESCUE(flags)) {
-                    return url;
-                } else if (rhcdfnd) {
+                    rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
+                                     _("Installation Method"),
+                                     FL_RESCUE(flags) ?
+                                     _("What type of media contains the rescue "
+                                       "image?") :
+                                     _("What type of media contains the packages to "
+                                       "be installed?"),
+                                     30, 10, 20, 6, installNames, &loaderData->method,
+                                     _("OK"), _("Back"), NULL);
+                }
+
+                if (rc && rc != 1) {
+                    step = STEP_KBD;
+                    dir = -1;
+                } else {
+                    class = installMethods[validMethods[loaderData->method]].type;
+                    step = STEP_DRIVER;
+                    dir = 1;
+                }
+                break;
+            }
+
+            case STEP_DRIVER: {
+                if (class == -1 || haveDeviceOfType(class)) {
                     step = STEP_NETWORK;
                     dir = 1;
+                    class = -1;
                     break;
                 }
-            }	    
 
-            needed = -1;
-
-            if (loaderData->method != -1 && methodNum != -1) {
-                /* dont forget the dir variable. */
-                if ( dir == 1 ){
-                    rc = 1;
-                }else{
-                    rc = -1;
-                }
-            } else {
-                /* we need to set these each time through so that we get
-                 * updated for language changes (#83672) */
-                for (i = 0; i < numMethods; i++) {
-                    installNames[i] = _(installMethods[i].name);
-                }
-                installNames[i] = NULL;
-
-                rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
-                                 _("Installation Method"),
-                                 FL_RESCUE(flags) ?
-                                 _("What type of media contains the rescue "
-                                   "image?") :
-                                 _("What type of media contains the packages to "
-                                   "be installed?"),
-                                 30, 10, 20, 6, installNames, &methodNum, 
-                                 _("OK"), _("Back"), NULL);
-            } 
-
-            if (rc && rc != 1) {
-                step = STEP_KBD;
-                dir = -1;
-            } else {
-                needed = installMethods[validMethods[methodNum]].type;
-                step = STEP_DRIVER;
-                dir = 1;
-            }
-            break;
-
-        case STEP_DRIVER: {
-            if (needed == -1 || haveDeviceOfType(needed)) {
-                step = STEP_NETWORK;
-                dir = 1;
-                needed = -1;
-                break;
-            }
-
-            rc = newtWinTernary(_("No driver found"), _("Select driver"),
-                                _("Use a driver disk"), _("Back"),
-                                _("Unable to find any devices of the type "
-                                  "needed for this installation type.  "
-                                  "Would you like to manually select your "
-                                  "driver or use a driver disk?"));
-            if (rc == 2) {
-                step = STEP_DRIVERDISK;
-                dir = 1;
-                break;
-            } else if (rc == 3) {
-                step = STEP_METHOD;
-                dir = -1;
-                break;
-            }
-
-            chooseManualDriver(installMethods[validMethods[methodNum]].type,
-                               loaderData);
-            /* it doesn't really matter what we return here; we just want
-             * to reprobe and make sure we have the driver */
-            step = STEP_DRIVER;
-            break;
-        }
-
-        case STEP_DRIVERDISK:
-
-            rc = loadDriverFromMedia(needed, loaderData, 0, 0);
-            if (rc == LOADER_BACK) {
-                step = STEP_DRIVER;
-                dir = -1;
-                break;
-            }
-
-            /* need to come back to driver so that we can ensure that we found
-             * the right kind of driver after loading the driver disk */
-            step = STEP_DRIVER;
-            break;
-
-        case STEP_NETWORK:
-            if ( (installMethods[validMethods[methodNum]].type !=
-                  DEVICE_NETWORK) && (!hasGraphicalOverride()) &&
-                 !FL_ASKNETWORK(flags)) {
-                needsNetwork = 0;
-                if (dir == 1) 
-                    step = STEP_URL;
-                else if (dir == -1)
+                rc = newtWinTernary(_("No driver found"), _("Select driver"),
+                                    _("Use a driver disk"), _("Back"),
+                                    _("Unable to find any devices of the type "
+                                      "needed for this installation type.  "
+                                      "Would you like to manually select your "
+                                      "driver or use a driver disk?"));
+                if (rc == 2) {
+                    step = STEP_DRIVERDISK;
+                    dir = 1;
+                    break;
+                } else if (rc == 3) {
                     step = STEP_METHOD;
-                break;
-            }
+                    dir = -1;
+                    break;
+                }
 
-            needsNetwork = 1;
-            if (!haveDeviceOfType(DEVICE_NETWORK)) {
-                needed = DEVICE_NETWORK;
+                chooseManualDriver(installMethods[validMethods[loaderData->method]].type,
+                                   loaderData);
+                /* it doesn't really matter what we return here; we just want
+                 * to reprobe and make sure we have the driver */
                 step = STEP_DRIVER;
                 break;
             }
-            logMessage(INFO, "need to set up networking");
 
-            initLoopback();
-            memset(&netDev, 0, sizeof(netDev));
-            netDev.isDynamic = 1;
+            case STEP_DRIVERDISK: {
+                rc = loadDriverFromMedia(class, loaderData, 0, 0);
+                if (rc == LOADER_BACK) {
+                    step = STEP_DRIVER;
+                    dir = -1;
+                    break;
+                }
 
-            /* fall through to interface selection */
-        case STEP_IFACE:
-            logMessage(INFO, "going to pick interface");
-
-            /* skip configureTCPIP() screen for kickstart (#260621) */
-            if (loaderData->ksFile)
-                flags |= LOADER_FLAGS_IS_KICKSTART;
-
-            if (FL_HAVE_CMSCONF(flags)) {
-                loaderData->ipinfo_set = 1;
-                loaderData->ipv6info_set = 1;
-            } else {
-                loaderData->ipinfo_set = 0;
-                loaderData->ipv6info_set = 0;
-            }
-
-            rc = chooseNetworkInterface(loaderData);
-            if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
-                ((dir == -1) && (rc == LOADER_NOOP))) {
-                step = STEP_METHOD;
-                dir = -1;
+                /* need to come back to driver so that we can ensure that we found
+                 * the right kind of driver after loading the driver disk */
+                step = STEP_DRIVER;
                 break;
             }
 
-            devName = loaderData->netDev;
-            strcpy(netDev.dev.device, devName);
-
-            /* continue to ip config */
-            step = STEP_IP;
-            dir = 1;
-            break;
-        case STEP_IP:
-            if (!needsNetwork || dir == -1) {
-                step = STEP_METHOD; /* only hit going back */
-                break;
-            }
-
-            if ((ret = malloc(48)) == NULL) {
-                logMessage(ERROR, "malloc failure for ret in STEP_IP");
-                exit(EXIT_FAILURE);
-            }
-
-            logMessage(INFO, "going to do getNetConfig");
-
-            /* s390 provides all config info by way of the CMS conf file */
-            if (FL_HAVE_CMSCONF(flags)) {
-                loaderData->ipinfo_set = 1;
-                loaderData->ipv6info_set = 1;
-            }
-
-            /* populate netDev based on any kickstart data */
-            if (loaderData->ipinfo_set) {
-                netDev.preset = 1;
-            }
-            setupNetworkDeviceConfig(&netDev, loaderData);
-
-            rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum);
-            if (FL_NOIPV4(flags)) {
-                loaderData->ipinfo_set = 0;
-            } else {
-                if (loaderData->ipv4 == NULL) {
-                    if (strcmp((char *) &(netDev.dev.ip), "")) {
-                        ret = (char *) inet_ntop(AF_INET,
-                                                 IP_ADDR(&(netDev.dev.ip)), ret,
-                                                 IP_STRLEN(&(netDev.dev.ip)));
-                    } else {
-                        ret = NULL;
-                        netDev.isDynamic = 1;
-                    }
-
-                    if (netDev.isDynamic || ret == NULL) {
-                        loaderData->ipv4 = strdup("dhcp");
-                    } else {
-                        loaderData->ipv4 = strdup(ret);
-                    }
+            case STEP_NETWORK: {
+                if ((installMethods[validMethods[loaderData->method]].type !=
+                      DEVICE_NETWORK) && (!hasGraphicalOverride()) &&
+                     !FL_ASKNETWORK(flags)) {
+                    needsNetwork = 0;
+                    if (dir == 1) 
+                        step = STEP_STAGE2;
+                    else if (dir == -1)
+                        step = STEP_METHOD;
+                    break;
                 }
 
-                loaderData->ipinfo_set = 1;
+                needsNetwork = 1;
+                if (!haveDeviceOfType(DEVICE_NETWORK)) {
+                    class = DEVICE_NETWORK;
+                    step = STEP_DRIVER;
+                    break;
+                }
+                logMessage(INFO, "need to set up networking");
+
+                initLoopback();
+                memset(&netDev, 0, sizeof(netDev));
+                netDev.isDynamic = 1;
+
+                /* fall through to interface selection */
             }
 
-            if (FL_NOIPV6(flags)) {
-                loaderData->ipv6info_set = 0;
-            } else {
-                if (loaderData->ipv6 == NULL) {
-                    if (strcmp((char *) &(netDev.dev.ip), "")) {
-                        ret = (char *) inet_ntop(AF_INET6,
-                                                 IP_ADDR(&(netDev.dev.ip)), ret,
-                                                 IP_STRLEN(&(netDev.dev.ip)));
-                    } else {
-                        ret = NULL;
-                        netDev.isDynamic = 1;
-                    }
+            case STEP_IFACE: {
+                logMessage(INFO, "going to pick interface");
 
-                    if (netDev.isDynamic || ret == NULL) {
-                        loaderData->ipv6 = strdup("dhcpv6");
-                    } else {
-                        loaderData->ipv6 = strdup(ret);
-                    }
+                /* skip configureTCPIP() screen for kickstart (#260621) */
+                if (loaderData->ksFile)
+                    flags |= LOADER_FLAGS_IS_KICKSTART;
+
+                if (FL_HAVE_CMSCONF(flags)) {
+                    loaderData->ipinfo_set = 1;
+                    loaderData->ipv6info_set = 1;
+                } else {
+                    loaderData->ipinfo_set = 0;
+                    loaderData->ipv6info_set = 0;
                 }
 
-                loaderData->ipv6info_set = 1;
-            }
-
-            /* set the hostname if we have that */
-            if (loaderData->hostname) {
-                if (sethostname(loaderData->hostname,
-                                strlen(loaderData->hostname))) {
-                    logMessage(ERROR, "error setting hostname to %s",
-                               loaderData->hostname);
+                rc = chooseNetworkInterface(loaderData);
+                if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
+                    ((dir == -1) && (rc == LOADER_NOOP))) {
+                    step = STEP_METHOD;
+                    dir = -1;
+                    break;
                 }
-            }
 
-            free(ret);
-            ret = NULL;
+                devName = loaderData->netDev;
+                strcpy(netDev.dev.device, devName);
 
-            if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
-                ((dir == -1) && (rc == LOADER_NOOP))) {
-                step = STEP_IFACE;
-                dir = -1;
-                break;
-            }
-
-            writeNetInfo("/tmp/netinfo", &netDev);
-            step = STEP_URL;
-            dir = 1;
-            break;
-        case STEP_URL:
-            logMessage(INFO, "starting to STEP_URL");
-            /* if we found a CD already short circuit out */
-            /* we get this case when we're doing a VNC install from CD */
-            /* and we didnt short circuit earlier because we had to */
-            /* prompt for network info for vnc to work */
-            if (url && rhcdfnd)
-                return url;
-
-            url = installMethods[validMethods[methodNum]].mountImage(
-                                      installMethods + validMethods[methodNum],
-                                      location, loaderData);
-            if (!url) {
-                step = STEP_IP ;
-                loaderData->ipinfo_set = 0;
-                loaderData->ipv6info_set = 0;
-                dir = -1;
-            } else {
-                logMessage(INFO, "got url %s", url);
-                step = STEP_DONE;
+                /* continue to ip config */
+                step = STEP_IP;
                 dir = 1;
+                break;
             }
-            break;
-        default:
-            break;
+
+            case STEP_IP: {
+                if (!needsNetwork || dir == -1) {
+                    step = STEP_METHOD; /* only hit going back */
+                    break;
+                }
+
+                if ((ret = malloc(48)) == NULL) {
+                    logMessage(ERROR, "malloc failure for ret in STEP_IP");
+                    exit(EXIT_FAILURE);
+                }
+
+                logMessage(INFO, "going to do getNetConfig");
+
+                /* s390 provides all config info by way of the CMS conf file */
+                if (FL_HAVE_CMSCONF(flags)) {
+                    loaderData->ipinfo_set = 1;
+                    loaderData->ipv6info_set = 1;
+                }
+
+                /* populate netDev based on any kickstart data */
+                if (loaderData->ipinfo_set) {
+                    netDev.preset = 1;
+                }
+                setupNetworkDeviceConfig(&netDev, loaderData);
+
+                rc = readNetConfig(devName, &netDev, loaderData->netCls, loaderData->method);
+                if (FL_NOIPV4(flags)) {
+                    loaderData->ipinfo_set = 0;
+                } else {
+                    if (loaderData->ipv4 == NULL) {
+                        if (strcmp((char *) &(netDev.dev.ip), "")) {
+                            ret = (char *) inet_ntop(AF_INET,
+                                                     IP_ADDR(&(netDev.dev.ip)), ret,
+                                                     IP_STRLEN(&(netDev.dev.ip)));
+                        } else {
+                            ret = NULL;
+                            netDev.isDynamic = 1;
+                        }
+
+                        if (netDev.isDynamic || ret == NULL) {
+                            loaderData->ipv4 = strdup("dhcp");
+                        } else {
+                            loaderData->ipv4 = strdup(ret);
+                        }
+                    }
+
+                    loaderData->ipinfo_set = 1;
+                }
+
+                if (FL_NOIPV6(flags)) {
+                    loaderData->ipv6info_set = 0;
+                } else {
+                    if (loaderData->ipv6 == NULL) {
+                        if (strcmp((char *) &(netDev.dev.ip), "")) {
+                            ret = (char *) inet_ntop(AF_INET6,
+                                                     IP_ADDR(&(netDev.dev.ip)), ret,
+                                                     IP_STRLEN(&(netDev.dev.ip)));
+                        } else {
+                            ret = NULL;
+                            netDev.isDynamic = 1;
+                        }
+
+                        if (netDev.isDynamic || ret == NULL) {
+                            loaderData->ipv6 = strdup("dhcpv6");
+                        } else {
+                            loaderData->ipv6 = strdup(ret);
+                        }
+                    }
+
+                    loaderData->ipv6info_set = 1;
+                }
+
+                /* set the hostname if we have that */
+                if (loaderData->hostname) {
+                    if (sethostname(loaderData->hostname,
+                                    strlen(loaderData->hostname))) {
+                        logMessage(ERROR, "error setting hostname to %s",
+                                   loaderData->hostname);
+                    }
+                }
+
+                free(ret);
+                ret = NULL;
+
+                if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
+                    ((dir == -1) && (rc == LOADER_NOOP))) {
+                    step = STEP_IFACE;
+                    dir = -1;
+                    break;
+                }
+
+                writeNetInfo("/tmp/netinfo", &netDev);
+                step = STEP_STAGE2;
+                dir = 1;
+                break;
+            }
+
+            case STEP_STAGE2: {
+                if (url) {
+                    logMessage(INFO, "got stage2 at url %s", url);
+                    return url;
+                }
+
+                logMessage(INFO, "starting STEP_STAGE2");
+                url = installMethods[validMethods[loaderData->method]].mountImage(
+                                          installMethods + validMethods[loaderData->method],
+                                          "/mnt/stage2", loaderData);
+                if (!url) {
+                    step = STEP_IP ;
+                    loaderData->ipinfo_set = 0;
+                    loaderData->ipv6info_set = 0;
+                    dir = -1;
+                } else {
+                    logMessage(INFO, "got stage2 at url %s", url);
+                    step = STEP_DONE;
+                    dir = 1;
+                }
+                break;
+            }
+
+            case STEP_DONE:
+                break;
         }
     }
 
     return url;
 }
-
 static int manualDeviceCheck(struct loaderData_s *loaderData) {
     char ** devices;
     int i, j, rc, num = 0;
@@ -1787,7 +1762,7 @@ int main(int argc, char ** argv) {
     if (FL_TELNETD(flags))
         startTelnetd(&loaderData);
 
-    url = doLoaderMain("/mnt/source", &loaderData, modInfo);
+    url = doLoaderMain(&loaderData, modInfo);
 
     if (!FL_TESTING(flags)) {
         int ret;
