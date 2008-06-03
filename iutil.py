@@ -572,3 +572,6 @@ def isIA64():
         return True
     else:
         return False
+
+def isAlpha():
+    return os.uname()[4].startswith('alpha')
