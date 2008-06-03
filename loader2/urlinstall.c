@@ -270,7 +270,7 @@ char * mountUrlImage(struct installMethod * method,
              * this check.
              */
             if (!FL_STAGE2(flags))
-                cdurl = findAnacondaCD(location, 0);
+                cdurl = findAnacondaCD(location);
 
 	    if (cdurl) {
 		logMessage(INFO, "Detected stage 2 image on CD");

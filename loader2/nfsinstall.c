@@ -164,7 +164,7 @@ char * mountNfsImage(struct installMethod * method,
             /* Try to see if we're booted off of a CD with stage2.  However,
              * passing stage2= overrides this check.
              */
-            if (!FL_STAGE2(flags) && (stage2OnCD || findAnacondaCD("/mnt/stage2", 0))) {
+            if (!FL_STAGE2(flags) && (stage2OnCD || findAnacondaCD("/mnt/stage2"))) {
                 stage2OnCD = 1;
                 logMessage(INFO, "Detected stage 2 image on CD");
                 winStatus(50, 3, _("Media Detected"),

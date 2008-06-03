@@ -67,6 +67,9 @@ void ejectCdrom(char *device) {
     }
 }
 
+/* Commented out for now due to -Wall -Werror */
+#if 0
+
 /*
  * Given cd device cddriver, this function will attempt to check its internal
  * checksum.
@@ -214,27 +217,20 @@ static void queryCDMediaCheck(char *dev, char *location) {
         }
     }
 }
+#endif
 
-/* set up a cdrom, nominally for installation 
+/* Set up a CD/DVD drive to mount the stage2 image from.  If successful, the
+ * stage2 image will be left mounted on /mnt/runtime.
  *
- * location: where to mount the cdrom at
- * interactive: whether or not to prompt about questions/errors (1 is yes)
- *
- * loaderData is the kickstart info, can be NULL meaning no info
- *
- * requirepkgs=1 means CD should have packages, otherwise we just find stage2
- *
- * side effect: found cdrom is mounted on 'location' (usually /mnt/source, but
- * could also be /mnt/stage2 if we're just looking for a stage2 image).  stage2
- * mounted on /mnt/runtime.
+ * location:     Where to mount the media at (usually /mnt/stage2)
+ * interactive:  Whether or not to prompt about questions/errors
+ * loaderData:   The usual, can be NULL if no info
  */
-char * setupCdrom(char * location, struct loaderData_s * loaderData,
-                  int interactive, int requirepkgs) {
+char *setupCdrom(char *location, struct loaderData_s *loaderData,
+                 int interactive) {
     int i, r, rc;
-    int foundinvalid = 0;
     int stage2inram = 0;
-    char *buf, *stage2loc, *discinfoloc;
-    char *stage2img;
+    char *buf, *stage2loc, *stage2img;
     struct device ** devices;
     char *cddev = NULL;
 
@@ -244,13 +240,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
         return NULL;
     }
 
-    if (loaderData && FL_STAGE2(flags)) {
-        stage2loc = strdup(location);
-        r = asprintf(&discinfoloc, "%s/.discinfo", imageDir);
-    } else {
-        r = asprintf(&stage2loc, "%s/images/stage2.img", location);
-        r = asprintf(&discinfoloc, "%s/.discinfo", location);
-    }
+    r = asprintf(&stage2loc, "%s/images/stage2.img", location);
 
     /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
     do {
@@ -270,35 +260,29 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
             if (!(rc=doPwMount(devices[i]->device, location, "iso9660", "ro"))) {
                 cddev = devices[i]->device;
-                if (!access(stage2loc, R_OK) &&
-                    (!requirepkgs || !access(discinfoloc, R_OK))) {
-
+                if (!access(stage2loc, R_OK)) {
                     /* if in rescue mode lets copy stage 2 into RAM so we can */
                     /* free up the CD drive and user can have it avaiable to  */
                     /* aid system recovery.                                   */
                     if (FL_RESCUE(flags) && !FL_TEXT(flags) &&
                         totalMemory() > 128000) {
                         rc = copyFile(stage2loc, "/tmp/stage2.img");
-                        stage2img = "/tmp/stage2.img";
+                        stage2img = strdup("/tmp/stage2.img");
                         stage2inram = 1;
                     } else {
                         stage2img = strdup(stage2loc);
                         stage2inram = 0;
                     }
+
                     rc = mountStage2(stage2img);
+                    free(stage2loc);
+                    free(stage2img);
 
                     if (rc) {
                         logMessage(INFO, "mounting stage2 failed");
-
                         umount(location);
-                        if (rc == -1)
-                            foundinvalid = 1;
                         continue;
                     }
-
-                    /* do the media check */
-                    if (requirepkgs)
-                        queryCDMediaCheck(devices[i]->device, location);
 
                     /* if in rescue mode and we copied stage2 to RAM */
                     /* we can now unmount the CD                     */
@@ -309,14 +293,10 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                     r = asprintf(&buf, "cdrom://%s:%s",
                                  devices[i]->device, location);
 
-                    free(stage2loc);
-                    free(discinfoloc);
-
                     if (r == -1)
                         return NULL;
                     else
                         return buf;
-
                 }
 
                 /* this wasnt the CD we were looking for, clean up and */
@@ -328,16 +308,11 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
         if (interactive) {
             char * buf;
             int i;
-            if (foundinvalid)
-                i = asprintf(&buf, _("No %s disc was found which matches your "
-                                     "boot media.  Please insert the %s disc "
-                                     "and press %s to retry."),
-                        getProductName(), getProductName(), _("OK"));
-            else
-                i = asprintf(&buf, _("The %s disc was not found in any of your "
-                                     "CDROM drives. Please insert the %s disc "
-                                     "and press %s to retry."),
-                        getProductName(), getProductName(), _("OK"));
+
+            i = asprintf(&buf, _("The %s disc was not found in any of your "
+                                 "CDROM drives. Please insert the %s disc "
+                                 "and press %s to retry."),
+                    getProductName(), getProductName(), _("OK"));
 
             ejectCdrom(cddev);
             rc = newtWinChoice(_("Disc Not Found"),
@@ -353,21 +328,18 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
 err:
     free(stage2loc);
-    free(discinfoloc);
     return NULL;
 }
 
 /* try to find a install CD non-interactively */
-char * findAnacondaCD(char * location, 
-                    int requirepkgs) {
-    return setupCdrom(location, NULL, 0, requirepkgs);
+char * findAnacondaCD(char *location) {
+    return setupCdrom(location, NULL, 0);
 }
 
 /* look for a CD and mount it.  if we have problems, ask */
 char * mountCdromImage(struct installMethod * method,
                        char * location, struct loaderData_s * loaderData) {
-
-    return setupCdrom(location, loaderData, 1, !FL_RESCUE(flags));
+    return setupCdrom(location, loaderData, 1);
 }
 
 void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {

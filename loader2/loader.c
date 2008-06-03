@@ -1008,23 +1008,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         }
     }
 
-    /* Here's how it works:  stage2= points to just the location of the
-     * stage2.img file.  repo= points to the installation source.  This is
-     * the same as the old method=, but makes the meaning more explicit.
-     * If stage2= is not given, we will try to piece together a valid
-     * setting based on the contents of repo=.  If repo= is not given, we
-     * will try to figure it out once we're in stage2.
-     */
-    if (loaderData->instRepo && !loaderData->stage2Data) {
-       char *tmp;
-       int rc;
-
-       rc = asprintf(&tmp, "%s/images/stage2.img", loaderData->instRepo);
-       logMessage(INFO, "no stage2= given, assuming %s", tmp);
-       setStage2LocFromCmdline(tmp, loaderData);
-       free(tmp);
-    }
-
     readNetInfo(&loaderData);
 
     /* NULL terminates the array of extra args */
@@ -1119,6 +1102,24 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
         if (url) {
             setStage2LocFromCmdline(url, loaderData);
             haveStage2 = 1;
+
+            logMessage(INFO, "Detected stage 2 image on CD");
+            winStatus(50, 3, _("Media Detected"),
+                      _("Local installation media detected..."), 0);
+            sleep(3);
+            newtPopWindow();
+        } else if (loaderData->instRepo) {
+            /* If no CD/DVD with a stage2 image was found and we were given a
+             * repo=/method= parameter, try to piece together a valid setting
+             * for the stage2= parameter based on that.
+             */
+            char *tmp;
+            int rc;
+
+            rc = asprintf(&tmp, "%s/images/stage2.img", loaderData->instRepo);
+            logMessage(INFO, "no stage2= given, assuming %s", tmp);
+            setStage2LocFromCmdline(tmp, loaderData);
+            free(tmp);
         }
     }
 
@@ -1418,7 +1419,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
             case STEP_STAGE2: {
                 if (url) {
-                    logMessage(INFO, "got stage2 at url %s", url);
+                    logMessage(INFO, "stage2 url is %s", url);
                     return url;
                 }
 
