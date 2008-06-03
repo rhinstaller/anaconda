@@ -26,8 +26,6 @@ import gobject
 import gtk
 import datacombo
 
-from rhpl.translate import _, N_
-
 import gui
 from fsset import *
 from partRequests import *
@@ -35,6 +33,9 @@ from partition_ui_helpers_gui import *
 from constants import *
 import lvm
 from cryptodev import LUKSDevice
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

@@ -24,8 +24,10 @@ import os
 import iutil
 import isys
 import shutil
+from constants import *
 
-from rhpl.translate import _, N_
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

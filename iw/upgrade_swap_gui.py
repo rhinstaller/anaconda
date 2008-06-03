@@ -27,7 +27,9 @@ import gtk
 from iw_gui import *
 from flags import flags
 
-from rhpl.translate import _, N_
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class UpgradeSwapWindow (InstallWindow):		
     windowTitle = N_("Upgrade Swap Partition")

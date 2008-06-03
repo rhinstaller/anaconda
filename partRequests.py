@@ -32,7 +32,9 @@ import os, sys, math
 
 from constants import *
 from flags import *
-from rhpl.translate import _
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import fsset
 import raid

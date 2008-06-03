@@ -32,10 +32,11 @@ import subprocess
 
 import selinux
 
-from rhpl.translate import _, N_
-
 from flags import flags
 from constants import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import backend
 import isys

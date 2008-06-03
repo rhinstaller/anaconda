@@ -36,7 +36,9 @@ from constants import *
 from product import productName
 
 import rhpl
-from rhpl.translate import _
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import rpm
 

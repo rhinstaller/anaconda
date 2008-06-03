@@ -34,12 +34,14 @@ import partRequests
 from constants import *
 from partErrors import *
 
-from rhpl.translate import _, N_
-
 import iutil
 import isys
 
 log = logging.getLogger("anaconda")
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 
 PARTITION_FAIL = -1
 PARTITION_SUCCESS = 0

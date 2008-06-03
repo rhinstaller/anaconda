@@ -46,7 +46,9 @@ from sortedtransaction import SplitMediaTransactionData
 from constants import *
 from image import *
 import packages
-from rhpl.translate import _, textdomain
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import network
 
@@ -159,7 +161,7 @@ class AnacondaCallback:
             sum = hdr['summary'] or ""
             if type(sum) != unicode:
                 sum = unicode(sum, encoding='utf-8')
-            s += _(sum.strip())
+            s += gettext.ldgettext("redhat-dist", sum.strip())
             self.progress.set_label(s)
 
             self.instLog.write(self.modeText % pkgStr)

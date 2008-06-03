@@ -38,7 +38,9 @@ from network import hasActiveNetDev
 import imputil
 
 import rhpl
-from rhpl.translate import _, cat, N_
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

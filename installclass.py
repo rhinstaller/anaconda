@@ -32,7 +32,10 @@ import types
 from instdata import InstallData
 from autopart import getAutopartitionBoot, autoCreatePartitionRequests, autoCreateLVMPartitionRequests
 
-from rhpl.translate import _, N_
+from constants import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

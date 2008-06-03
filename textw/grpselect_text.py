@@ -22,10 +22,32 @@
 import yum.Errors
 from snack import *
 from constants_text import *
-from rhpl.translate import _, N_, getDefaultLangs
+
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
+
+def getDefaultLangs():
+    languages = []
+    for envar in ('LANGUAGE', 'LC_ALL', 'LC_MESSAGES', 'LANG'):
+        val = os.environ.get(envar)
+        if val:
+            languages = val.split(':')
+            break
+    if 'C' not in languages:
+        languages.append('C')
+        
+    # now normalize and expand the languages
+    nelangs = []
+    for lang in languages:
+        for nelang in gettext._expand_lang(lang):
+            if nelang not in nelangs:
+                nelangs.append(nelang)
+    return nelangs
+    
 
 # kind of lame caching of translations so we don't always have
 # to do all the looping

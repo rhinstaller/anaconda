@@ -44,7 +44,9 @@ import partRequests
 import cryptodev
 
 import rhpl
-from rhpl.translate import _
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

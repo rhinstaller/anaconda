@@ -19,7 +19,6 @@
 
 from installclass import BaseInstallClass
 import rhpl
-from rhpl.translate import N_
 from constants import *
 from flags import flags
 import os
@@ -30,6 +29,9 @@ try:
     import instnum
 except ImportError:
     instnum = None
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

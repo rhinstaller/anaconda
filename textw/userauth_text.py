@@ -19,8 +19,11 @@
 
 from snack import *
 from constants_text import *
-from rhpl.translate import _
 import cracklib
+
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class RootPasswordWindow:
     def __call__ (self, screen, anaconda):

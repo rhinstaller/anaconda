@@ -22,7 +22,9 @@ from snack import *
 from constants_text import *
 from flags import flags
 
-from rhpl.translate import _
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

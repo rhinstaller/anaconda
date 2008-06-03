@@ -38,7 +38,8 @@ from snack import *
 from constants_text import *
 from constants import *
 
-from rhpl.translate import _
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

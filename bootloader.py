@@ -30,7 +30,8 @@ import rhpl
 from flags import flags
 from constants import *
 
-from rhpl.translate import _
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

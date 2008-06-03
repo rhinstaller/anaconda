@@ -25,8 +25,6 @@ import copy
 import gobject
 import gtk
 
-from rhpl.translate import _, N_
-
 import gui
 from fsset import *
 from cryptodev import LUKSDevice
@@ -34,6 +32,8 @@ from partRequests import *
 from partition_ui_helpers_gui import *
 from constants import *
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class PartitionEditor:
     def sizespinchangedCB(self, widget, fillmaxszsb):

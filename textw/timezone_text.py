@@ -24,10 +24,11 @@ import iutil
 from time import *
 from snack import *
 from constants_text import *
-from rhpl.translate import _, textdomain
 from bootloader import hasWindows
 
-textdomain("system-config-date")
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 sys.path.append("/usr/share/system-config-date")
 
@@ -84,7 +85,7 @@ class TimezoneWindow:
 	self.l = Listbox(5, scroll = 1, returnExit = 0)
 
         for tz in timezones:
-	    self.l.append(_(tz), tz)
+	    self.l.append(gettext.ldgettext("system-config-date", tz), tz)
 
 	self.l.setCurrent(default.replace("_", " "))
 #	self.l.setCallback(self.updateClock)

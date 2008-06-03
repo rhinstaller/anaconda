@@ -22,8 +22,11 @@
 import gtk
 from gui import WrappingLabel
 from iw_gui import *
-from rhpl.translate import _
 from autopart import PARTMETHOD_TYPE_DESCR_TEXT
+
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class PartitionMethodWindow(InstallWindow):
     def __init__(self, ics):

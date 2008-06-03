@@ -25,7 +25,6 @@ import math
 
 import autopart
 import rhpl
-from rhpl.translate import _, N_
 from constants import *
 import gui
 from partition_ui_helpers_gui import *
@@ -36,6 +35,9 @@ from flags import flags
 import network
 import partitions
 import iscsi
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 def whichToResize(partitions, diskset, intf):
     def getActive(combo):

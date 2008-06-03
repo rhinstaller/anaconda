@@ -41,11 +41,13 @@ import lvm
 import traceback
 from flags import flags
 from partErrors import *
-
-from rhpl.translate import _
+from constants import *
 
 import logging
 log = logging.getLogger("anaconda")
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 fsTypes = {}
 

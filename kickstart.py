@@ -40,7 +40,9 @@ from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.parser import *
 from pykickstart.version import *
-from rhpl.translate import _
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

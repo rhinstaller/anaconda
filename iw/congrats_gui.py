@@ -22,9 +22,11 @@ import gtk
 import gui
 import rhpl
 from iw_gui import *
-from rhpl.translate import _, N_
 from constants import *
 import os
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class CongratulationWindow (InstallWindow):		
 

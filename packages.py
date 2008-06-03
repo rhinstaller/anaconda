@@ -40,11 +40,12 @@ from product import *
 from constants import *
 
 import rhpl
-from rhpl.translate import _
-import rhpl.arch
 
 import logging
 log = logging.getLogger("anaconda")
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 def doPostAction(anaconda):
     anaconda.id.instClass.postAction(anaconda)

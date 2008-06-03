@@ -21,7 +21,10 @@ import gobject
 import gtk
 import gui
 from iw_gui import *
-from rhpl.translate import _, N_
+from constants import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 from gui import setupTreeViewFixupIdleHandler
 

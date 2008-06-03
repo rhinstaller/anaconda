@@ -33,8 +33,8 @@ from partIntfHelpers import *
 from partRequests import *
 from partedUtils import *
 
-import rhpl
-from rhpl.translate import _, N_
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 def istruefalse(val):
     if val is None or not val:

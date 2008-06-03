@@ -36,9 +36,11 @@ import partedUtils
 import rhpl
 from string import joinfields
 from cPickle import Pickler
-from rhpl.translate import _
 from flags import flags
 import kickstart
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

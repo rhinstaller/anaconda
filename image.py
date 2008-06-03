@@ -22,7 +22,9 @@ import os, os.path, stat, string, sys, sets
 from constants import *
 
 import rhpl
-from rhpl.translate import _
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

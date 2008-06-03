@@ -360,14 +360,26 @@ def setupPythonPath():
 
     sys.path.append('/usr/share/system-config-date')
 
+def addPoPath(dir):
+    """ Looks to see what translations are under a given path and tells
+    the gettext module to use that path as the base dir """
+    for d in os.listdir(dir):
+        if not os.path.isdir("%s/%s" %(dir,d)):
+            continue
+        if not os.path.exists("%s/%s/LC_MESSAGES" %(dir,d)):
+            continue
+        for basename in os.listdir("%s/%s/LC_MESSAGES" %(dir,d)):
+            if not basename.endswith(".mo"):
+                continue
+            log.info("setting %s as translation source for %s" %(dir, basename[:-3]))
+            gettext.bindtextdomain(basename[:-3], dir)
+
 def setupTranslations():
     if os.path.isdir("/mnt/source/RHupdates/po"):
-        log.info("adding RHupdates/po")
         addPoPath("/mnt/source/RHupdates/po")
     if os.path.isdir("/tmp/updates/po"):
-        log.info("adding /tmp/updates/po")
         addPoPath("/tmp/updates/po")
-    textdomain("anaconda")
+    gettext.textdomain("anaconda")
 
 def setupEnvironment():
     # Silly GNOME stuff
@@ -597,7 +609,9 @@ if __name__ == "__main__":
     import users
     import kickstart
     from flags import flags
-    from rhpl.translate import _, textdomain, addPoPath
+
+    import gettext
+    _ = lambda x: gettext.ldgettext("anaconda", x)
 
     if rhpl.getArch() != "s390" and os.access("/dev/tty3", os.W_OK):
         logger.addFileHandler ("/dev/tty3", log)

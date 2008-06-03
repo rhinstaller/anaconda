@@ -22,6 +22,7 @@
 
 import upgrade
 from snack import *
+from constants import *
 from constants_text import *
 from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow, stepToClasses
 from flags import flags
@@ -33,7 +34,8 @@ import fsset
 import shutil
 import time
 
-from rhpl.translate import _
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

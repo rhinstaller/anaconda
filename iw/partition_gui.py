@@ -43,13 +43,15 @@ import lvm_dialog_gui
 import raid_dialog_gui
 import partition_dialog_gui
 
-from rhpl.translate import _, N_
 from partIntfHelpers import *
 from partedUtils import *
 from fsset import *
 from partRequests import *
 from constants import *
 from partition_ui_helpers_gui import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
