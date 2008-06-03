@@ -765,7 +765,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
     int argc;
     int numExtraArgs = 0;
     int i;
-    char *front;
+    char *front, *stage2param = NULL;
 
     /* we want to default to graphical and allow override with 'text' */
     flags |= LOADER_FLAGS_GRAPHICAL;
@@ -915,11 +915,15 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->kbd = strdup(argv[i] + 7);
             loaderData->kbd_set = 1;
         }
-        else if (!strncasecmp(argv[i], "method=", 7) && !FL_STAGE2(flags))
-            setMethodFromCmdline(argv[i] + 7, loaderData);
+        else if (!strncasecmp(argv[i], "method=", 7)) {
+            logMessage(WARNING, "method= is deprecated.  Please use repo= instead.");
+            loaderData->instRepo = strdup(argv[i] + 7); 
+        }
+        else if (!strncasecmp(argv[i], "repo=", 5))
+            loaderData->instRepo = strdup(argv[i] + 5);
         else if (!strncasecmp(argv[i], "stage2=", 7)) {
-            flags |= LOADER_FLAGS_STAGE2;
-            setMethodFromCmdline(argv[i] + 7, loaderData);
+            stage2param = strdup(argv[i]+7);
+            setStage2LocFromCmdline(argv[i] + 7, loaderData);
         }
         else if (!strncasecmp(argv[i], "hostname=", 9))
             loaderData->hostname = strdup(argv[i] + 9);
@@ -1002,6 +1006,23 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                 }
             }
         }
+    }
+
+    /* Here's how it works:  stage2= points to just the location of the
+     * stage2.img file.  repo= points to the installation source.  This is
+     * the same as the old method=, but makes the meaning more explicit.
+     * If stage2= is not given, we will try to piece together a valid
+     * setting based on the contents of repo=.  If repo= is not given, we
+     * will try to figure it out once we're in stage2.
+     */
+    if (loaderData->instRepo && !loaderData->stage2Data) {
+       char *tmp;
+       int rc;
+
+       rc = asprintf(&tmp, "%s/images/stage2.img", loaderData->instRepo);
+       logMessage(INFO, "no stage2= given, assuming %s", tmp);
+       setStage2LocFromCmdline(tmp, loaderData);
+       free(tmp);
     }
 
     readNetInfo(&loaderData);
@@ -1089,14 +1110,16 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
         flags |= LOADER_FLAGS_ASKMETHOD;
     }
 
-    /* If neither the askmethod parameter nor the stage2= parameter was passed,
-     * check for the presence of a CD/DVD.  If there's a stage2 on that, we
-     * use it and bypass all other checks for a stage2 image later.
+    /* Before anything else, see if there's a CD/DVD with a stage2 image on
+     * it.  However if stage2= was given, use that value as an override here.
+     * That will also then bypass any method selection UI in loader.
      */
-    if (!FL_ASKMETHOD(flags) && !loaderData->stage2Data) {
-        url = findAnacondaCD("/mnt/stage2", 0);
-        if (url)
+    if (!loaderData->stage2Data) {
+        url = findAnacondaCD("/mnt/stage2");
+        if (url) {
+            setStage2LocFromCmdline(url, loaderData);
             haveStage2 = 1;
+        }
     }
 
     step = STEP_LANG;
@@ -1156,7 +1179,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
             case STEP_METHOD: {
                 /* If we already found a stage2 image, skip the prompt. */
-                if (haveStage2 || loaderData->method) {
+                if (haveStage2 && loaderData->method != -1) {
                     if (dir == 1)
                         rc = 1;
                     else
@@ -1404,12 +1427,13 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                                           installMethods + validMethods[loaderData->method],
                                           "/mnt/stage2", loaderData);
                 if (!url) {
-                    step = STEP_IP ;
+                    step = STEP_IP;
                     loaderData->ipinfo_set = 0;
                     loaderData->ipv6info_set = 0;
                     dir = -1;
                 } else {
                     logMessage(INFO, "got stage2 at url %s", url);
+                    haveStage2 = 1;
                     step = STEP_DONE;
                     dir = 1;
                 }
@@ -1854,7 +1878,7 @@ int main(int argc, char ** argv) {
 
     logMessage(INFO, "Running anaconda script %s", *(argptr-1));
 
-    *argptr++ = "-m";
+    *argptr++ = "--stage2";
     if (strncmp(url, "ftp:", 4)) {
         *argptr++ = url;
     } else {
@@ -1944,6 +1968,11 @@ int main(int argc, char ** argv) {
         if (loaderData.logLevel) {
             *argptr++ = "--loglevel";
             *argptr++ = loaderData.logLevel;
+        }
+
+        if (loaderData.instRepo) {
+           *argptr++ = "--repo";
+           *argptr++ = loaderData.instRepo;
         }
     }
     
