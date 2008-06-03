@@ -95,7 +95,7 @@ char * mountNfsImage(struct installMethod * method,
     enum { NFS_STAGE_NFS, NFS_STAGE_MOUNT, NFS_STAGE_DONE,
            NFS_STAGE_UPDATES } stage = NFS_STAGE_NFS;
 
-    int rc, foundinvalid = 0;
+    int rc;
 
     /* JKFIXME: ASSERT -- we have a network device setup when we get here */
     while (stage != NFS_STAGE_DONE) {
@@ -174,12 +174,7 @@ char * mountNfsImage(struct installMethod * method,
                     logMessage(INFO, "can access %s", buf);
                     rc = mountStage2(buf);
 
-                    if (rc == -1) {
-                        foundinvalid = 1;
-                        logMessage(WARNING, "not the right stage2 image");
-                        umount("/mnt/stage2");
-                        free(buf);
-                    } else if (rc == 0) {
+                    if (rc == 0) {
                         stage = NFS_STAGE_UPDATES;
                         rc = asprintf(&url, "nfs:%s:%s", host, directory);
                         free(buf);
@@ -204,14 +199,9 @@ char * mountNfsImage(struct installMethod * method,
                 break;
             }
 
-            if (foundinvalid)
-                rc = asprintf(&buf, _("The %s installation tree in that "
-                                 "directory does not seem to match "
-                                 "your boot media."), getProductName());
-            else
-                rc = asprintf(&buf, _("That directory does not seem to "
-                                 "contain a %s installation tree."),
-                               getProductName());
+            rc = asprintf(&buf, _("That directory does not seem to "
+                             "contain a %s installation tree."),
+                           getProductName());
 
             newtWinMessage(_("Error"), _("OK"), buf);
             free(buf);

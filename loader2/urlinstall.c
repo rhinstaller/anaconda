@@ -155,18 +155,6 @@ static int loadUrlImages(struct iurlinfo * ui) {
         return 1;
     }
 
-    /* now verify the stamp... */
-    if (!verifyStamp("/mnt/runtime")) {
-        rc = asprintf(&buf, _("The %s installation tree in that directory does "
-                              "not seem to match your boot media."), 
-                 getProductName());
-
-	newtWinMessage(_("Error"), _("OK"), buf);
-
-	umountLoopback("/mnt/runtime", "/dev/loop0");
-	return 1;
-    }
-
     return 0;
 }
 

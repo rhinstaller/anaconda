@@ -111,67 +111,6 @@ int mountLoopback(char *fsystem, char *mntpoint, char *device) {
 }
 
 /* returns the *absolute* path (malloced) to the #1 iso image */
-char * validIsoImages(char * dirName, int *foundinvalid, int checkStage2) {
-    DIR * dir;
-    struct dirent * ent;
-    char isoImage[1024];
-
-    if (!(dir = opendir(dirName))) {
-        newtWinMessage(_("Error"), _("OK"), 
-                   _("Failed to read directory %s: %s"),
-                   dirName, strerror(errno));
-        return 0;
-    }
-
-    /* Walk through the directories looking for a CD image. */
-    errno = 0;
-    while ((ent = readdir(dir))) {
-        if (*ent->d_name == '/')
-           snprintf(isoImage, sizeof(isoImage), "%s%s", dirName, ent->d_name);
-        else
-           snprintf(isoImage, sizeof(isoImage), "%s/%s", dirName, ent->d_name);
-
-        if (!fileIsIso(isoImage)) {
-            errno = 0;
-            continue;
-        }
-
-        if (mountLoopback(isoImage, "/tmp/loopimage", "/dev/loop7")) {
-            logMessage(WARNING, "failed to mount %s", isoImage);
-            errno = 0;
-            continue;
-        }
-
-        if (!checkStage2) {
-           umountLoopback("/tmp/loopimage", "/dev/loop7");
-           break;
-        }
-
-	if (mountLoopback("/tmp/loopimage/images/stage2.img", "/mnt/runtime", "/dev/loop0")) {
-	    umountLoopback("/mnt/runtime", "/dev/loop0");
-	} else {
-	    if (verifyStamp("/mnt/runtime")) {
-		umountLoopback("/mnt/runtime", "/dev/loop0");
-		umountLoopback("/tmp/loopimage", "/dev/loop7");
-		break;
-	    }
-	    logMessage(ERROR, "disc %s is not the right image", isoImage);
-	    umountLoopback("/mnt/runtime", "/dev/loop0");
-	    if (foundinvalid) *foundinvalid = 1;
-	}
-        
-        umountLoopback("/tmp/loopimage", "/dev/loop7");
-        
-        errno = 0;
-    }
-    
-    closedir(dir);
-
-    if (!ent) return NULL;
-
-    return strdup(isoImage);
-}
-
 /* get timestamp and description of ISO image from stamp file */
 /* returns 0 on success, -1 otherwise                         */
 int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
@@ -478,50 +417,6 @@ void copyProductImg(char * path) {
     }
 }
 
-
-/* verify that the stamp files in / of the initrd and the stage2 match */
-int verifyStamp(char * path) {
-    char *stamp1;
-    char *stamp2;
-    FILE *f;
-    int fail = 0;
-    int i;
-    char * p, *q;
-
-    stamp1 = alloca(80);
-    stamp2 = alloca(80);
-
-    /* grab the one from the initrd */
-    f = fopen("/.buildstamp", "r");
-    if (!f) {
-        fail = 1;
-    } else {
-        q = fgets(stamp1, 80, f);
-	fclose(f);
-
-        /* and the runtime */
-        i = asprintf(&p, "%s/.buildstamp", path);
-        f = fopen(p, "r");
-        free(p);
-        if (!f) {
-            fail = 1;
-        } else {
-            q = fgets(stamp2, 80, f);
-	    fclose(f);
-
-            if (strcmp(stamp1, stamp2) != 0) {
-                fail = 1;
-            }
-        }
-    }
-
-    if (fail == 1) {
-        return 0;
-    } else {
-        return 1;
-    }
-}
-
 /* unmount a second stage, if mounted. Used for CDs and mediacheck mostly,
    so we can eject CDs.                                                   */
 void umountStage2(void) {
@@ -537,11 +432,6 @@ int mountStage2(char *stage2path) {
 
     if (mountLoopback(stage2path, "/mnt/runtime", "/dev/loop0")) {
         return 1;
-    }
-
-    if (!verifyStamp("/mnt/runtime")) {
-        umountLoopback("/mnt/runtime", "/dev/loop0");
-        return -1;
     }
 
     return 0;
