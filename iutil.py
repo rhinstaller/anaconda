@@ -542,3 +542,33 @@ def inVmware():
     if "VMware" in out:
         return True
     return False
+
+# Architecture checking functions (replaces rhpl.getArch() calls)
+
+def isX86():
+    arch = os.uname()[4]
+
+    # x86 platforms include:
+    #     i*86
+    #     athlon*
+    #     x86_64
+    #     amd*
+    #     ia32e
+    if (arch.startswith('i') and arch.endswith('86')) or \
+       arch.startswith('athlon') or arch.startswith('amd') or \
+       arch == 'x86_64' or arch == 'ia32e':
+        return True
+    else:
+        return False
+
+def isPPC():
+    return os.uname()[4].startswith('ppc')
+
+def isS390():
+    return os.uname()[4].startswith('s390')
+
+def isIA64():
+    if os.uname()[4] == 'ia64':
+        return True
+    else:
+        return False
