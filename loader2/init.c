@@ -78,24 +78,6 @@
 #define ENV_MALLOC_CHECK    7
 #define ENV_MALLOC_PERTURB  8
 
-/*
- * Snakes On A Plane...
- *
- * Define this macro if you want init to launch /bin/bash instead of loader.
- * You will want to populate initrd.img with bash, libraries, other commands
- * like strace or something, and whatever else you want.  This is purely for
- * debugging loader.  Things you will likely want in a debugging initrd:
- *    /lib/libc.so.6
- *    /lib/libtermcap.so.2
- *    /lib/ld-linux.so.2
- *    /lib/libdl.so.2
- *    /bin/bash
- *    /bin/strace
- * You get the idea.  Be creative.  Be imaginative.  Be bold.
- */
-#undef SNAKES_ON_A_PLANE
-/* #define SNAKES_ON_A_PLANE 1 */
-
 char * env[] = {
     "PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:"
     "/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin:"
@@ -674,14 +656,10 @@ int main(int argc, char **argv) {
 #endif
 
     /* disable Ctrl+Z, Ctrl+C, etc ... but not in rescue mode */
-#ifdef SNAKES_ON_A_PLANE
-    disable_keys = 0;
-#else
     disable_keys = 1;
     if (argc > 1)
         if (mystrstr(argv[1], "rescue"))
             disable_keys = 0;
-#endif
 
     if (disable_keys) {
         tcgetattr(0, &ts);
@@ -752,32 +730,8 @@ int main(int argc, char **argv) {
 
     setsid();
 
-#ifdef SNAKES_ON_A_PLANE
-    printf("> Snakes on a Plane <\n");
-
-    /* hack to load core modules for debugging mode */
-    char * modvc[15];
-    char ** modvp = modvc;
-    *modvp++ = "/bin/modprobe";
-    *modvp++ = "ehci-hcd";
-    *modvp++ = "uhci-hcd";
-    *modvp++ = "ohci-hcd";
-    *modvp++ = NULL;
-    pid_t blah = fork();
-    int qux;
-    if (blah == 0) {
-        printf("loading core debugging modules...\n");
-        execve(modvc[0], modvc, env);
-    } else {
-        waitpid(blah, &qux, WNOHANG);
-    }
-#endif
-
     if (!(installpid = fork())) {
         /* child */
-#ifdef SNAKES_ON_A_PLANE
-        *argvp++ = "/bin/strace";
-#endif
         *argvp++ = "/sbin/loader";
 
         if (isSerial == 3) {
