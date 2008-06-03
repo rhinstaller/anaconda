@@ -30,6 +30,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "copy.h"
 #include "loader.h"
 #include "lang.h"
 #include "loadermisc.h"
@@ -91,8 +92,8 @@ char * mountNfsImage(struct installMethod * method,
     char * fullPath = NULL;
     char * url = NULL;
 
-    enum { NFS_STAGE_NFS, NFS_STAGE_MOUNT, 
-           NFS_STAGE_DONE } stage = NFS_STAGE_NFS;
+    enum { NFS_STAGE_NFS, NFS_STAGE_MOUNT, NFS_STAGE_DONE,
+           NFS_STAGE_UPDATES } stage = NFS_STAGE_NFS;
 
     int rc, foundinvalid = 0;
 
@@ -179,7 +180,7 @@ char * mountNfsImage(struct installMethod * method,
                         umount("/mnt/stage2");
                         free(buf);
                     } else if (rc == 0) {
-                        stage = NFS_STAGE_DONE;
+                        stage = NFS_STAGE_UPDATES;
                         rc = asprintf(&url, "nfs:%s:%s", host, directory);
                         free(buf);
                         break;
@@ -218,6 +219,27 @@ char * mountNfsImage(struct installMethod * method,
             if (loaderData->method >= 0)
                 loaderData->method = -1;
 
+            break;
+        }
+
+        case NFS_STAGE_UPDATES: {
+            char *buf;
+            int rc;
+
+            rc = asprintf(&buf, "%.*s/RHupdates", (int) (strrchr(fullPath, '/')-fullPath),
+                          fullPath);
+            logMessage(INFO, "mounting nfs path %s for updates", buf);
+
+            if (!doPwMount(buf, "/tmp/update-disk", "nfs", mountOpts)) {
+                logMessage(INFO, "Using RHupdates/ for NFS install");
+                copyDirectory("/tmp/update-disk", "/tmp/updates", NULL, NULL);
+                umount("/tmp/update-disk");
+                unlink("/tmp/update-disk");
+            } else {
+                logMessage(INFO, "No RHupdates/ directory found, skipping");
+            }
+
+            stage = NFS_STAGE_DONE;
             break;
         }
 
