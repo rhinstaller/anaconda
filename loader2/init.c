@@ -117,28 +117,6 @@ void shutDown(int noKill, int doReboot, int doPowerOff);
 static int getNoKill(void);
 struct termios ts;
 
-static int mystrstr(char *str1, char *str2) {
-    char *p;
-    int rc=0;
-
-    for (p=str1; *p; p++) {
-        if (*p == *str2) {
-            char *s, *t;
-
-            rc = 1;
-            for (s=p, t=str2; *s && *t; s++, t++)
-                if (*s != *t) {
-                    rc = 0;
-                    p++;
-                }
-
-            if (rc)
-                return rc;
-        } 
-    }
-    return rc;
-}
-
 static void printstr(char * string) {
     int ret;
     ret = write(1, string, strlen(string));
@@ -346,7 +324,7 @@ static int setupTerminal(int fd) {
     if ((fdn = open("/proc/cmdline", O_RDONLY, 0)) != -1) {
         len = read(fdn, buf, sizeof(buf) - 1);
         close(fdn);
-        if (len > 0 && mystrstr(buf, "utf8"))
+        if ((len > 0) && strstr(buf, "utf8"))
             env[ENV_TERM] = "TERM=vt100";
     }
 
@@ -431,7 +409,7 @@ static int getNoKill(void) {
     if ((fd = open("/proc/cmdline", O_RDONLY,0)) > 0) {
         len = read(fd, buf, sizeof(buf) - 1);
         close(fd);
-        if (len > 0 && mystrstr(buf, "nokill"))
+        if ((len > 0) && strstr(buf, "nokill"))
             return 1;
     }
     return 0;
@@ -658,7 +636,7 @@ int main(int argc, char **argv) {
     /* disable Ctrl+Z, Ctrl+C, etc ... but not in rescue mode */
     disable_keys = 1;
     if (argc > 1)
-        if (mystrstr(argv[1], "rescue"))
+        if (strstr(argv[1], "rescue"))
             disable_keys = 0;
 
     if (disable_keys) {
