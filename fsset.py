@@ -37,6 +37,7 @@ import partitions
 import partedUtils
 import raid
 import lvm
+import time
 import types
 from flags import flags
 
@@ -1404,7 +1405,16 @@ class FileSystemSet:
 
     def fstab (self):
         format = "%-23s %-23s %-7s %-15s %d %d\n"
-        fstab = ""
+        fstab = """
+#
+# /etc/fstab
+# Created by anaconda on %s
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or vol_id(8) for more info
+#
+""" % time.asctime()
+
         for entry in self.entries:
             if entry.mountpoint:
                 if entry.getUuid() and entry.device.doLabel is not None:
