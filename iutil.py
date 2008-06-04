@@ -545,7 +545,7 @@ def inVmware():
 
 # Architecture checking functions (replaces rhpl.getArch() calls)
 
-def isX86():
+def isX86(bits=None):
     arch = os.uname()[4]
 
     # x86 platforms include:
@@ -554,12 +554,20 @@ def isX86():
     #     x86_64
     #     amd*
     #     ia32e
-    if (arch.startswith('i') and arch.endswith('86')) or \
-       arch.startswith('athlon') or arch.startswith('amd') or \
-       arch == 'x86_64' or arch == 'ia32e':
-        return True
-    else:
-        return False
+    if bits is None:
+        if (arch.startswith('i') and arch.endswith('86')) or \
+           arch.startswith('athlon') or arch.startswith('amd') or \
+           arch == 'x86_64' or arch == 'ia32e':
+            return True
+    elif bits == '32':
+        if arch.startswith('i') and arch.endswith('86'):
+            return True
+    elif bits == '64':
+        if arch.startswith('athlon') or arch.startswith('amd') or \
+           arch == 'x86_64' or arch == 'ia32e':
+            return True
+
+    return False
 
 def isPPC():
     return os.uname()[4].startswith('ppc')
@@ -568,10 +576,24 @@ def isS390():
     return os.uname()[4].startswith('s390')
 
 def isIA64():
-    if os.uname()[4] == 'ia64':
-        return True
-    else:
-        return False
+    return os.uname()[4] == 'ia64':
 
 def isAlpha():
     return os.uname()[4].startswith('alpha')
+
+def isSparc():
+    return os.uname()[4].startswith('sparc')
+
+def getArch():
+    if isX86(bits='32'):
+        return 'i386'
+    elif isX86(bits='64'):
+        return 'x86_64'
+    elif isPPC():
+        return 'ppc'
+    elif isAlpha():
+        return 'alpha'
+    elif isSparc():
+        return 'sparc'
+    else:
+        return os.uname()[4]
