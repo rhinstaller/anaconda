@@ -1629,7 +1629,7 @@ class PartitionTypeWindow:
         import iscsi
         if iscsi.has_iscsi():
             newdrv.append("Add iSCSI target")
-        if rhpl.getArch() in ("s390", "s390x"):
+        if iutil.isS390():
             newdrv.append( "Add zFCP LUN" )
 
         if len(newdrv) == 0:

@@ -41,8 +41,6 @@ import time
 import types
 from flags import flags
 
-import rhpl
-
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
@@ -60,7 +58,7 @@ class ResizeError(Exception):
 
 defaultMountPoints = ['/', '/boot', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
 
-if rhpl.getArch() == "s390":
+if iutil.isS390():
     # Many s390 have 2G DASDs, we recomment putting /usr/share on its own DASD
     defaultMountPoints.insert(5, '/usr/share')
 
@@ -1608,7 +1606,7 @@ MAILADDR root
             # active
             if iutil.isEfi() \
                     or iutil.getPPCMachine() in ("pSeries", "iSeries", "PMac") \
-                    or (rhpl.getArch() in ("i386", "x86_64") \
+                    or iutil.isX86() \
                              and partedUtils.hasGptLabel(diskset, drive)):
                 if part and part.is_flag_available(parted.PARTITION_BOOT):
                     part.set_flag(parted.PARTITION_BOOT, 1)

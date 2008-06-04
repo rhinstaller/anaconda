@@ -34,7 +34,6 @@ import exception
 import fsset
 import iutil, isys
 import raid
-import rhpl
 import dmraid
 import block
 import lvm
@@ -283,19 +282,19 @@ def getDefaultDiskType():
     """Get the default partition table type for this architecture."""
     if iutil.isEfi():
         return parted.disk_type_get("gpt")
-    elif rhpl.getArch() == "i386":
+    elif iutil.isX86():
         return parted.disk_type_get("msdos")
-    elif rhpl.getArch() == "s390":
+    elif iutil.isS390():
         # the "default" type is dasd, but we don't really do dasd
         # formatting with parted and use dasdfmt directly for them
         # so if we get here, it's an fcp disk and we should write
         # an msdos partition table (#144199)
         return parted.disk_type_get("msdos")
-    elif rhpl.getArch() == "alpha":
+    elif iutil.isAlpha():
         return parted.disk_type_get("bsd")
-    elif rhpl.getArch() == "sparc":
+    elif iutil.isSparc():
         return parted.disk_type_get("sun")
-    elif rhpl.getArch() == "ppc":
+    elif iutil.isPPC():
         ppcMachine = iutil.getPPCMachine()
 
         if ppcMachine == "PMac":
@@ -335,7 +334,7 @@ def labelDisk(deviceFile, forceLabelType=None):
     else:
         if label.name == 'msdos' and \
                 dev.length > (2L**41) / dev.sector_size and \
-                'gpt' in archLabels[rhpl.getArch()]:
+                'gpt' in archLabels[iutil.getArch()]:
             label = parted.disk_type_get('gpt')
 
     disk = dev.disk_new_fresh(label)
@@ -345,7 +344,7 @@ def labelDisk(deviceFile, forceLabelType=None):
 # this is kind of crappy, but we don't really want to allow LDL formatted
 # dasd to be used during the install
 def checkDasdFmt(disk, intf):
-    if rhpl.getArch() != "s390":
+    if not iutil.isS390():
         return 0
 
     if disk.type.name != "dasd":
@@ -385,7 +384,7 @@ def checkDasdFmt(disk, intf):
 
 def checkDiskLabel(disk, intf):
     """Check that the disk label on disk is valid for this machine type."""
-    arch = rhpl.getArch()
+    arch = iutil.getArch()
     if arch in archLabels.keys():
         if disk.type.name in archLabels[arch]:
             # this is kind of a hack since we don't want LDL to be used
@@ -612,7 +611,7 @@ class DiskSet:
     def startDmRaid(self):
         """Start all of the dmraid devices associated with the DiskSet."""
 
-        if rhpl.getArch() in ('s390', 's390x'):
+        if iutil.isS390():
             return
         if not DiskSet.dmList is None:
             return
@@ -630,14 +629,14 @@ class DiskSet:
             (self.driveList(),))
 
     def renameDmRaid(self, rs, name):
-        if rhpl.getArch() in ('s390', 's390x'):
+        if iutil.isS390():
             return
         dmraid.renameRaidSet(rs, name)
 
     def stopDmRaid(self):
         """Stop all of the dmraid devices associated with the DiskSet."""
 
-        if rhpl.getArch() in ('s390', 's390x'):
+        if iutil.isS390():
             return
         if DiskSet.dmList:
             dmraid.stopAllRaid(DiskSet.dmList)
@@ -654,7 +653,7 @@ class DiskSet:
                 disk = m.split('/')[-1]
                 testList.append(disk)
 
-        if not rhpl.getArch() in ('s390','s390x'):
+        if not iutil.isS390():
             for rs in DiskSet.dmList or []:
                 for m in rs.members:
                     if isinstance(m, block.RaidDev):
@@ -952,8 +951,7 @@ class DiskSet:
                 continue
 
             # FIXME: this belongs in parted itself, but let's do a hack...
-            if rhpl.getArch() in ("i386", "x86_64") \
-                    and disk.type.name == "gpt" and not iutil.isEfi():
+            if iutil.isX86() and disk.type.name == "gpt" and not iutil.isEfi():
                 log.debug("syncing gpt to mbr for disk %s" % (disk.dev.path,))
                 iutil.execWithRedirect("gptsync", [disk.dev.path,],
                                        stdout="/tmp/gptsync.log",
@@ -1098,7 +1096,7 @@ class DiskSet:
                         "Would you like to initialize this drive, "
                         "erasing ALL DATA?") % (drive,)
 
-                if rhpl.getArch() == "s390" \
+                if iutil.isS390() \
                         and drive[:4] == "dasd" \
                         and isys.getDasdState(drive):
                     devs = isys.getDasdDevPort()
@@ -1128,7 +1126,7 @@ class DiskSet:
         try:
             try:
                 # FIXME: need the right fix for z/VM formatted dasd
-                if rhpl.getArch() == "s390" \
+                if iutil.isS390() \
                         and drive[:4] == "dasd":
                     if self.dasdFmt(drive):
                         raise LabelError, drive
@@ -1201,7 +1199,7 @@ class DiskSet:
                 initAll = self.anaconda.id.ksdata.clearpart.initAll
 
             # FIXME: need the right fix for z/VM formatted dasd
-            if rhpl.getArch() == "s390" \
+            if iutil.isS390() \
                     and drive[:4] == "dasd" \
                     and isys.getDasdState(drive):
                 try:

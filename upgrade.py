@@ -53,12 +53,12 @@ upgrade_remove_blacklist = [("system-config-mouse",), ("dev",)]
 # multilib package removed.  the new -libs package will then get pulled in
 # automatically by dependencies
 splitpkgs = ("e2fsprogs", "hal", "mysql", "esound", "mkinitrd", "dbus", "kdeaccessibility", "kdebase", "kdeedu", "kdegraphics", "kdemultimedia", "kdemultimedia-extras","kdenetwork", "kdesdk", "kdeutils", "kdewebdev", "gdb", "kmymoney2", "gnome-applets", "geomview", "gnome-panel", "nas")
-if rhpl.getArch() == "x86_64":
+if iutil.isX86(bits=64):
     upgrade_remove_blacklist.extend(map(lambda x: (x, "i386"), splitpkgs))
-if rhpl.getArch() == "ppc":
+if iutil.isPPC():
     upgrade_remove_blacklist.extend(map(lambda x: (x, "ppc64"), splitpkgs))
 
-if rhpl.getArch() == "x86_64":
+if iutil.isX86(bits=64):
     upgrade_remove_blacklist.extend( [("perl","i386")] )
 
 def guessGuestArch(rootdir):
@@ -441,7 +441,7 @@ def upgradeMountFilesystems(anaconda):
         for entry in newfsset.entries:
             anaconda.id.fsset.add(entry)
     if flags.setupFilesystems:
-        if rhpl.getArch() == "ppc":
+        if iutil.isPPC():
             anaconda.id.fsset.formatSwap(anaconda.rootPath, forceFormat=True)
         anaconda.id.fsset.turnOnSwap(anaconda.rootPath, upgrading=True)
         anaconda.id.fsset.mkDevRoot(anaconda.rootPath)
@@ -491,8 +491,8 @@ def setSteps(anaconda):
                 "complete"
             )
 
-    if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
+    if not iutil.isX86():
         dispatch.skipStep("bootloader")
 
-    if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
+    if not iutil.isX86():
         dispatch.skipStep("upgbootloader")            

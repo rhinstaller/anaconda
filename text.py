@@ -37,8 +37,6 @@ from constants import *
 from network import hasActiveNetDev
 import imputil
 
-import rhpl
-
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
@@ -74,7 +72,7 @@ stepToClasses = {
     "complete" : ("complete_text", "FinishedWindow"),
 }
 
-if rhpl.getArch() == 's390':
+if iutil.isS390():
     stepToClasses["bootloader"] = ("zipl_text", ( "ZiplWindow"))
 
 class InstallWindow:

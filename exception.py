@@ -33,7 +33,6 @@ import iutil
 import types
 import bdb
 import partedUtils
-import rhpl
 from string import joinfields
 from cPickle import Pickler
 from flags import flags

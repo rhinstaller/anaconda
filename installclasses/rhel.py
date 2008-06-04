@@ -18,7 +18,6 @@
 #
 
 from installclass import BaseInstallClass
-import rhpl
 from constants import *
 from flags import flags
 import os
@@ -139,9 +138,8 @@ class InstallClass(BaseInstallClass):
                 # virt is only supported on i386/x86_64.  so, let's nuke it
                 # from our repo list on other arches unless you boot with
                 # 'linux debug'
-                if name.lower() == "virt" and ( \
-                        rhpl.getArch() not in ("x86_64","i386")
-                        and not flags.debug):
+                if name.lower() == "virt" and \
+                        (not iutil.isX86() and not flags.debug):
                     continue
                 self.repopaths[name.lower()] = path
                 log.info("Adding %s repo" % (name,))

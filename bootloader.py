@@ -26,7 +26,6 @@ import partedUtils
 import os, sys
 import iutil
 import string
-import rhpl
 from flags import flags
 from constants import *
 

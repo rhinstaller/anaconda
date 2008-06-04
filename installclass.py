@@ -25,7 +25,6 @@ import os, sys, iutil
 import isys
 import string
 import language
-import rhpl
 import imputil
 import types
 
@@ -136,7 +135,7 @@ class BaseInstallClass(object):
 	if not BETANAG:
 	    dispatch.skipStep("betanag", permanent=1)
 
-        if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
+        if not iutil.isX86():
             dispatch.skipStep("bootloader", permanent=1)
 
         # allow backends to disable interactive package selection
@@ -289,7 +288,7 @@ def availableClasses(showHidden=0):
 		sortOrder = 0
 
 	    if obj.__dict__.has_key('arch'):
-                if obj.arch != rhpl.getArch ():
+                if obj.arch != iutil.getArch():
                     obj.hidden = 1
                 
             if obj.hidden == 0 or showHidden == 1:

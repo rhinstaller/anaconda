@@ -24,7 +24,6 @@ import gobject
 import math
 
 import autopart
-import rhpl
 from constants import *
 import gui
 from partition_ui_helpers_gui import *
@@ -325,7 +324,7 @@ class PartitionTypeWindow(InstallWindow):
         (dxml, dialog) = gui.getGladeWidget("adddrive.glade", "addDriveDialog")
         gui.addFrame(dialog)
         dialog.show_all()
-        if rhpl.getArch() not in ("s390", "s390x"):
+        if not iutil.isS390():
             dxml.get_widget("zfcpRadio").hide()
             dxml.get_widget("zfcpRadio").set_group(None)
 
@@ -454,7 +453,7 @@ class PartitionTypeWindow(InstallWindow):
             self.xml.get_widget("bootDriveCombo").set_sensitive(False)
             self.xml.get_widget("encryptButton").set_sensitive(False)
 
-        if rhpl.getArch() not in ["s390", "s390x"] and not iscsi.has_iscsi():
+        if not iutil.isS390() and not iscsi.has_iscsi():
             self.xml.get_widget("addButton").set_sensitive(False)
 
         sigs = { "on_partitionTypeCombo_changed": self.comboChanged,

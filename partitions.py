@@ -43,8 +43,6 @@ import partedUtils
 import partRequests
 import cryptodev
 
-import rhpl
-
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
@@ -1113,7 +1111,7 @@ class Partitions:
                     bootreq.getActualSize(self, diskset) < 10:
                 errors.append(_("You must create an EFI System Partition of "
                                 "at least 10 megabytes."))
-        elif rhpl.getArch() in ("i386", "x86_64"):
+        elif iutil.isX86():
             if iutil.isMactel():
                 # mactel checks
                 bootreqs = self.getBootableRequest() or []
@@ -1244,7 +1242,7 @@ class Partitions:
 
                 # most arches can't have boot on RAID
                 if (isinstance(bootreq, partRequests.RaidRequestSpec) and
-                    rhpl.getArch() not in raid.raidBootArches):
+                    iutil.getArch() not in raid.raidBootArches):
                     errors.append(_("Bootable partitions cannot be on a RAID "
                                     "device."))
 

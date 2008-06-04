@@ -20,7 +20,6 @@
 
 import gtk
 import gui
-import rhpl
 from iw_gui import *
 from constants import *
 import os
@@ -67,7 +66,7 @@ class CongratulationWindow (InstallWindow):
             hbox.pack_start (a, False, False, 36)
 
         bootstr = ""
-        if rhpl.getArch() == "s390" or os.path.exists("/dev/live-osimg"):
+        if iutil.isS390() or os.path.exists("/dev/live-osimg"):
             floppystr = _("Please reboot the system to use the installed "
                           "system.\n\n")
         else:

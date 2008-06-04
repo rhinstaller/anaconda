@@ -36,7 +36,6 @@ import urlgrabber.grabber
 from urlgrabber.grabber import URLGrabber, URLGrabError
 import yum
 import iniparse
-import rhpl
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError, PackageSackError
 from yum.yumRepo import YumRepository
@@ -1262,14 +1261,14 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/mnt/source/RHupdates/yum.rep
                 self.selectPackage("kernel-devel.%s" % (kpkg.arch,))
 
     def selectBootloader(self):
-        if rhpl.getArch() in ("i386", "x86_64"):
+        if iutil.isX86():
             self.selectPackage("grub")
-        elif rhpl.getArch() == "s390":
+        elif iutil.isS390():
             self.selectPackage("s390utils")
-        elif rhpl.getArch() == "ppc":
+        elif iutil.isPPC():
             self.selectPackage("yaboot")
         # XXX this needs to become grub, and we need an upgrade path...
-        elif rhpl.getArch() == "ia64":
+        elif iutil.isIA64():
             self.selectPackage("elilo")
 
     def selectFSPackages(self, fsset, diskset):

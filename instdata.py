@@ -38,7 +38,6 @@ import zfcp
 import urllib
 import iutil
 import users
-import rhpl
 import shlex
 from flags import *
 from constants import *
@@ -85,7 +84,7 @@ class InstallData:
         self.rootParts = None
         self.upgradeSwapInfo = None
 
-        if rhpl.getArch() == "s390" or self.anaconda.isKickstart:
+        if iutil.isS390() or self.anaconda.isKickstart:
             self.firstboot = FIRSTBOOT_SKIP
         else:
             self.firstboot = FIRSTBOOT_DEFAULT
