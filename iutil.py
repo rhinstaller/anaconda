@@ -597,10 +597,10 @@ def isX86(bits=None):
            arch.startswith('athlon') or arch.startswith('amd') or \
            arch == 'x86_64' or arch == 'ia32e':
             return True
-    elif bits == '32':
+    elif bits == 32:
         if arch.startswith('i') and arch.endswith('86'):
             return True
-    elif bits == '64':
+    elif bits == 64:
         if arch.startswith('athlon') or arch.startswith('amd') or \
            arch == 'x86_64' or arch == 'ia32e':
             return True
@@ -623,9 +623,9 @@ def isSparc():
     return os.uname()[4].startswith('sparc')
 
 def getArch():
-    if isX86(bits='32'):
+    if isX86(bits=32):
         return 'i386'
-    elif isX86(bits='64'):
+    elif isX86(bits=64):
         return 'x86_64'
     elif isPPC():
         return 'ppc'
