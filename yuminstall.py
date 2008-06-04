@@ -568,10 +568,23 @@ class AnacondaYum(YumSorter):
         def _getReleasever():
             from ConfigParser import ConfigParser
             c = ConfigParser()
-            ConfigParser.read(c, "%s/.treeinfo" % self.tree)
+
+            if os.access("%s/.treeinfo" % self.methodstr, os.R_OK):
+                ConfigParser.read(c, "%s/.treeinfo" % self.methodstr)
+            else:
+                ug = URLGrabber()
+                ug.urlgrab("%s/.treeinfo" % self.methodstr, "/tmp/.treeinfo",
+                           copy_local=1)
+                ConfigParser.read(c, "/tmp/.treeinfo")
+
             return c.get("general", "version")
 
-        self.yumvar["releasever"] = _getReleasever()
+        try:
+            self.yumvar["releasever"] = _getReleasever()
+        except:
+            log.error("Unable to get .treeinfo file, $releasever substitution "
+                      "will be unavailable.")
+
         YumSorter.getReposFromConfig(self)
 
     # Override this method so yum doesn't nuke our existing logging config.
@@ -585,15 +598,15 @@ class AnacondaYum(YumSorter):
             else:
                 if not os.path.ismount(self.tree):
                     isys.mount(self.anaconda.methodstr[4:], self.tree, "nfs")
-            methodstr = "file://%s" % self.tree
+            self.methodstr = "file://%s" % self.tree
         elif self.anaconda.methodstr.startswith("nfsiso:"):
-            methodstr = "file://%s" % self.tree
+            self.methodstr = "file://%s" % self.tree
         elif self.anaconda.methodstr.startswith("cdrom:"):
-            methodstr = "file://%s" % self.tree
+            self.methodstr = "file://%s" % self.tree
         elif self.anaconda.methodstr.startswith("hd:"):
-            methodstr = "file://%s" % self.tree
+            self.methodstr = "file://%s" % self.tree
         elif self.anaconda.methodstr.startswith("ftp:") or self.anaconda.methodstr.startswith("http:"):
-            methodstr = self.anaconda.methodstr
+            self.methodstr = self.anaconda.methodstr
 
         YumSorter.doConfigSetup(self, fn=fn, root=root)
 
@@ -603,7 +616,7 @@ class AnacondaYum(YumSorter):
 
         _preupgset = False
         # add default repos
-        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(methodstr).items():
+        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.methodstr).items():
             rid = name.replace(" ", "")
             repo = AnacondaYumRepo(uri=uri, addon=False,
                                    repoid="anaconda-%s-%s" %(rid, productStamp),
