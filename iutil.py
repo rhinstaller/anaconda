@@ -299,7 +299,7 @@ def copyDeviceNode(src, dest):
 # @return 1 if so, 0 otherwise.
 def hasiSeriesNativeStorage():
     # this is disgusting and I feel very dirty
-    if not iutil.isPPC():
+    if not isPPC():
         return
 
     f = open("/proc/modules", "r")
@@ -317,7 +317,7 @@ def hasiSeriesNativeStorage():
 ## Get the PPC machine variety type.
 # @return The PPC machine type, or 0 if not PPC.
 def getPPCMachine():
-    if not iutil.isPPC():
+    if not isPPC():
         return 0
 
     ppcMachine = None
@@ -371,7 +371,7 @@ def getPPCMachine():
 def getPPCMacID():
     machine = None
 
-    if not iutil.isPPC():
+    if not isPPC():
         return 0
     if getPPCMachine() != "PMac":
         return 0
@@ -394,7 +394,7 @@ def getPPCMacGen():
     # XXX: should NuBus be here?
     pmacGen = ['OldWorld', 'NewWorld', 'NuBus']
 
-    if not iutil.isPPC():
+    if not isPPC():
         return 0
     if getPPCMachine() != "PMac":
         return 0
@@ -421,7 +421,7 @@ def getPPCMacGen():
 ## Determine if the hardware is an iBook or PowerBook
 # @return 1 if so, 0 otherwise.
 def getPPCMacBook():
-    if not iutil.isPPC():
+    if not isPPC():
         return 0
     if getPPCMachine() != "PMac":
         return 0
@@ -444,7 +444,7 @@ def isCell():
         return cell
 
     cell = False
-    if not iutil.isPPC():
+    if not isPPC():
         return cell
 
     f = open('/proc/cpuinfo', 'r')
@@ -465,7 +465,7 @@ def isMactel():
     if mactel is not None:
         return mactel
 
-    if not iutil.isX86():
+    if not isX86():
         mactel = False
     elif not os.path.exists("/usr/sbin/dmidecode"):
         mactel = False
@@ -487,7 +487,7 @@ def isEfi():
         return efi
 
     efi = False
-    if iutil.isX86():
+    if isX86():
         # XXX need to make sure efivars is loaded...
         if os.path.exists("/sys/firmware/efi"):
             efi = True
@@ -497,7 +497,7 @@ def isEfi():
 ## Extract the CPU feature flags from /proc/cpuinfo
 # @return A list of CPU feature flags, or an empty list on error.
 def cpuFeatureFlags():
-    if not iutil.isX86():
+    if not isX86():
         return False
     f = open("/proc/cpuinfo", "r")
     lines = f.readlines()
