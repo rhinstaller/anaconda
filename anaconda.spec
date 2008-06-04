@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.2
+Version: 11.4.1.3
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -208,6 +208,31 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 04 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.3-1
+- Can't reference iutil.whatever from inside iutil.py. (clumens)
+- When using the boot.iso and URL installs, download the .treeinfo
+  file. (clumens)
+- Fix a couple typos in the getArch commit. (clumens)
+- Be consistent with data type. (dcantrell)
+- Replace rhpl.getArch() calls with iutil calls. (dcantrell)
+- Expand iutil.isX86() and added iutil.getArch() (dcantrell)
+- Add isAlpha() test function to iutil. (dcantrell)
+- Create architecture test functions in iutil (dcantrell)
+- Removed mystrstr() function in loader2/init.c (dcantrell)
+- Don't support Arabic in text mode installs since we don't even do
+  RTL. (clumens)
+- Removed old strace debugging in loader2/init (dcantrell)
+- Keep only one copy of this code for group sorting/display around (katzj)
+- Stop using rhpl.translate and use gettext directly (katzj)
+- Add a descriptive comment to the top of /etc/fstab (#448966). (clumens)
+- Use "message" instead of "value" on errors, and stringify on the front
+  side. (pjones)
+- Translate package descriptions (#449455). (clumens)
+- Translate password error messages (#439981). (clumens)
+- Fix traceback starting vnc (#449295) (katzj)
+- Add Hewbrew to lang-table (oron)
+- Fix errors in python string formatting (#449130). (clumens)
+
 * Thu May 29 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.2-1
 - Allow ext4 migration again for testing at least (katzj)
 - Remount filesystems after migration (#440055) (katzj)
