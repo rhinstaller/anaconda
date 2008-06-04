@@ -614,7 +614,7 @@ def isS390():
     return os.uname()[4].startswith('s390')
 
 def isIA64():
-    return os.uname()[4] == 'ia64':
+    return os.uname()[4] == 'ia64'
 
 def isAlpha():
     return os.uname()[4].startswith('alpha')

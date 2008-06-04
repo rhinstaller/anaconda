@@ -1606,7 +1606,7 @@ MAILADDR root
             # active
             if iutil.isEfi() \
                     or iutil.getPPCMachine() in ("pSeries", "iSeries", "PMac") \
-                    or iutil.isX86() \
+                    or (iutil.isX86() \
                              and partedUtils.hasGptLabel(diskset, drive)):
                 if part and part.is_flag_available(parted.PARTITION_BOOT):
                     part.set_flag(parted.PARTITION_BOOT, 1)
