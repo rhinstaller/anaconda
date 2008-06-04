@@ -794,10 +794,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         if (!strcasecmp(argv[i], "expert")) {
             flags |= LOADER_FLAGS_EXPERT;
             logMessage(INFO, "expert got used, ignoring");
-            /* flags |= (LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK | 
-                        LOADER_FLAGS_ASKMETHOD);*/
-        } else if (!strcasecmp(argv[i], "askmethod"))
-            flags |= LOADER_FLAGS_ASKMETHOD;
+            /* flags |= (LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK);*/
+        }
         else if (!strcasecmp(argv[i], "asknetwork"))
             flags |= LOADER_FLAGS_ASKNETWORK;
         else if (!strcasecmp(argv[i], "noshell"))
@@ -1086,12 +1084,6 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
     if (!FL_CMDLINE(flags))
         startNewt();
-
-    /* have we preselected this to be our install method? */
-    if (loaderData->method >= 0) {
-        /* disable the fast path (#102652) */
-        flags |= LOADER_FLAGS_ASKMETHOD;
-    }
 
     /* Before anything else, see if there's a CD/DVD with a stage2 image on
      * it.  However if stage2= was given, use that value as an override here.

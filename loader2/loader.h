@@ -53,7 +53,7 @@
 /* #21 unused */
 #define LOADER_FLAGS_MEDIACHECK         (((uint64_t) 1) << 22)
 /* #23 unused */
-#define LOADER_FLAGS_ASKMETHOD          (((uint64_t) 1) << 24)
+/* #24 unused */
 #define LOADER_FLAGS_ASKNETWORK         (((uint64_t) 1) << 25)
 /* #26 unused */
 /* #27 unused */
@@ -83,7 +83,6 @@
 #define FL_TELNETD(a)            ((a) & LOADER_FLAGS_TELNETD)
 #define FL_NOPASS(a)             ((a) & LOADER_FLAGS_NOPASS)
 #define FL_MEDIACHECK(a)         ((a) & LOADER_FLAGS_MEDIACHECK)
-#define FL_ASKMETHOD(a)          ((a) & LOADER_FLAGS_ASKMETHOD)
 #define FL_GRAPHICAL(a)          ((a) & LOADER_FLAGS_GRAPHICAL)
 #define FL_CMDLINE(a)            ((a) & LOADER_FLAGS_CMDLINE)
 #define FL_HALT(a)               ((a) & LOADER_FLAGS_HALT)
