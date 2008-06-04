@@ -32,6 +32,7 @@ if flags.cmdline.has_key("dogtail"):
 import string
 import time
 import isys
+import iutil
 import sys
 import parted
 import shutil
@@ -42,11 +43,11 @@ import gettext
 from language import expandLangs
 from constants import *
 from network import hasActiveNetDev
-import rhpl
 import xutils
 import imputil
 
-from rhpl.translate import _, N_
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -80,7 +81,7 @@ stepToClass = {
     "complete" : ("congrats_gui", "CongratulationWindow"),
 }
 
-if rhpl.getArch() == 's390':
+if iutil.isS390():
     stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
 
 #
@@ -764,7 +765,7 @@ class SaveExceptionWindow:
         elif len(dests) > 0:
             for d in dests:
                 iter = store.append(None)
-                store[iter] = (d[0], "/dev/%s - %s" % (d[0], d[1]))
+                store[iter] = ("/dev/%s" % d[0], "/dev/%s - %s" % (d[0], d[1]))
 
             self.diskCombo.set_model(store)
             self.diskCombo.set_active(0)

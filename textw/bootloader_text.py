@@ -20,9 +20,9 @@
 from snack import *
 from constants import *
 from constants_text import *
-from rhpl.translate import _
 from flags import flags
-import string
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class BootloaderChoiceWindow:
 

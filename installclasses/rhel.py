@@ -18,8 +18,6 @@
 #
 
 from installclass import BaseInstallClass
-import rhpl
-from rhpl.translate import N_
 from constants import *
 from flags import flags
 import os
@@ -30,6 +28,9 @@ try:
     import instnum
 except ImportError:
     instnum = None
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -88,10 +89,6 @@ class InstallClass(BaseInstallClass):
                                                     anaconda.id.partitions,
                                                     CLEARPART_TYPE_LINUX)
 
-    def setGroupSelection(self, anaconda):
-        grps = anaconda.backend.getDefaultGroups(anaconda)
-        map(lambda x: anaconda.backend.selectGroup(x), grps)
-
     def setSteps(self, anaconda):
         dispatch = anaconda.dispatch
 	BaseInstallClass.setSteps(self, dispatch);
@@ -141,9 +138,8 @@ class InstallClass(BaseInstallClass):
                 # virt is only supported on i386/x86_64.  so, let's nuke it
                 # from our repo list on other arches unless you boot with
                 # 'linux debug'
-                if name.lower() == "virt" and ( \
-                        rhpl.getArch() not in ("x86_64","i386")
-                        and not flags.debug):
+                if name.lower() == "virt" and \
+                        (not iutil.isX86() and not flags.debug):
                     continue
                 self.repopaths[name.lower()] = path
                 log.info("Adding %s repo" % (name,))

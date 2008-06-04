@@ -17,7 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from rhpl.translate import _
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class InstallWindow:
 

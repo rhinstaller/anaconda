@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from rhpl.translate import _, N_
+from constants import *
 
 INSTALL_OK = 0
 INSTALL_BACK = -1

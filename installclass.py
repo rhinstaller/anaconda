@@ -25,14 +25,16 @@ import os, sys, iutil
 import isys
 import string
 import language
-import rhpl
 import imputil
 import types
 
 from instdata import InstallData
 from autopart import getAutopartitionBoot, autoCreatePartitionRequests, autoCreateLVMPartitionRequests
 
-from rhpl.translate import _, N_
+from constants import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -57,9 +59,6 @@ class BaseInstallClass(object):
     # list of of (txt, grplist) tuples for task selection screen
     tasks = []
 
-    # dict of repoid: (baseurl, mirrorurl) tuples for additional repos
-    repos = {}
-    
     # don't select this class by default
     default = 0
 
@@ -87,58 +86,6 @@ class BaseInstallClass(object):
 
     def postAction(self, anaconda):
         anaconda.backend.postAction(anaconda)
-
-    def setBootloader(self, id, location=None, forceLBA=0, password=None,
-                      md5pass=None, appendLine="", driveorder = [],
-                      timeout=None):
-        if appendLine:
-            id.bootloader.args.set(appendLine)
-
-        id.bootloader.setForceLBA(forceLBA)
-
-        if password:
-            id.bootloader.setPassword(password, isCrypted = 0)
-
-        if md5pass:
-            id.bootloader.setPassword(md5pass)
-
-        if location != None:
-            id.bootloader.defaultDevice = location
-        else:
-            id.bootloader.defaultDevice = -1
-
-        if timeout:
-            id.bootloader.timeout = timeout
-
-        # XXX throw out drives specified that don't exist.  anything else
-        # seems silly
-        if driveorder and len(driveorder) > 0:
-            new = []
-            for drive in driveorder:
-                if drive in id.bootloader.drivelist:
-                    new.append(drive)
-                else:
-                    log.warning("requested drive %s in boot drive order "
-                                "doesn't exist" %(drive,))
-            id.bootloader.drivelist = new
-
-    def setIgnoredDisks(self, id, drives):
-        diskset = id.diskset
-        for drive in drives:
-            if not drive in diskset.skippedDisks:
-                diskset.skippedDisks.append(drive)
-
-    def setExclusiveDisks(self, id, drives):
-        diskset = id.diskset
-        for drive in drives:
-            if not drive in diskset.exclusiveDisks:
-                diskset.exclusiveDisks.append(drive)
-
-    def setClearParts(self, id, clear, drives = None, initAll = False):
-	id.partitions.autoClearPartType = clear
-        id.partitions.autoClearPartDrives = drives
-        if initAll:
-            id.partitions.reinitializeDisks = initAll
 
     def setSteps(self, anaconda):
         dispatch = anaconda.dispatch
@@ -177,7 +124,6 @@ class BaseInstallClass(object):
 		 "instbootloader",
                  "dopostaction",
                  "postscripts",
-		 "writexconfig",
 		 "writeksconfig",
                  "writeregkey",
                  "methodcomplete",
@@ -189,7 +135,7 @@ class BaseInstallClass(object):
 	if not BETANAG:
 	    dispatch.skipStep("betanag", permanent=1)
 
-        if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
+        if not iutil.isX86():
             dispatch.skipStep("bootloader", permanent=1)
 
         # allow backends to disable interactive package selection
@@ -215,16 +161,6 @@ class BaseInstallClass(object):
         if len(availableClasses()) < 2:
             dispatch.skipStep("installtype", permanent=1)
 
-    # called from anaconda so that we can skip steps in the headless case
-    # in a perfect world, the steps would be able to figure this out
-    # themselves by looking at instdata.headless.  but c'est la vie.
-    def setAsHeadless(self, dispatch, isHeadless = 0):
-        if isHeadless == 0:
-            pass
-        else:
-	    dispatch.skipStep("keyboard", permanent = 1)
-	    dispatch.skipStep("writexconfig", permanent = 1)
-
     # modifies the uri from installmethod.getMethodUri() to take into
     # account any installclass specific things including multiple base
     # repositories.  takes a string or list of strings, returns a dict 
@@ -242,177 +178,8 @@ class BaseInstallClass(object):
 	pass
 
     def setGroupSelection(self, anaconda):
-	pass
-
-    def setZeroMbr(self, id, zeroMbr):
-        id.partitions.zeroMbr = zeroMbr
-
-    def setKeyboard(self, id, kb):
-	id.keyboard.set(kb)
-
-    def setHostname(self, id, hostname, override = False):
-	id.network.setHostname(hostname);
-        id.network.overrideDHCPhostname = override
-
-    def setNameserver(self, id, nameserver):
-        id.network.setDNS(nameserver)
-
-    def setGateway(self, id, gateway):
-        id.network.setGateway(gateway)
-
-    def setTimezoneInfo(self, id, timezone, asUtc = 0):
-	id.timezone.setTimezoneInfo(timezone, asUtc)
-
-    def setAuthentication(self, id, authStr):
-        id.auth = authStr
-
-    def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None, onboot = 1, dhcpclass = None, essid = None, wepkey = None):
-	if bootProto:
-	    devices = id.network.netdevices
-            firstdev = id.network.getFirstDeviceName()
-	    if (devices and bootProto):
-		if not device:
-                    if devices.has_key(firstdev):
-                        device = firstdev
-                    else:
-                        list = devices.keys ()
-                        list.sort()
-                        device = list[0]
-		dev = devices[device]
-                dev.set (("bootproto", bootProto))
-                dev.set (("dhcpclass", dhcpclass))
-		if onboot:
-		    dev.set (("onboot", "yes"))
-		else:
-		    dev.set (("onboot", "no"))
-                if bootProto == "static":
-                    if (ip):
-                        dev.set (("ipaddr", ip))
-                    if (netmask):
-                        dev.set (("netmask", netmask))
-                if ethtool:
-                    dev.set (("ethtool_opts", ethtool))
-                if isys.isWireless(device):
-                    if essid:
-                        dev.set(("essid", essid))
-                    if wepkey:
-                        dev.set(("wepkey", wepkey))
-
-    def setLanguageDefault(self, id, default):
-	id.instLanguage.setDefault(default)
-
-    def setLanguage(self, id, nick):
-	id.instLanguage.setRuntimeLanguage(nick)
-
-    def setDesktop(self, id, desktop):
-	id.desktop.setDefaultDesktop (desktop)
-
-    def setSELinux(self, id, sel):
-        id.security.setSELinux(sel)
-
-    def setFirewall(self, id, enable = 1, trusts = [], ports = []):
-	id.firewall.enabled = enable
-	id.firewall.trustdevs = trusts
-
-	for port in ports:
-	    id.firewall.portlist.append (port)
-        
-    def setMiscXSettings(self, id, depth = None, resolution = None,
-                         desktop = None, runlevel = None):
-        if depth:
-            id.xsetup.xserver.hwstate.set_colordepth(depth)
-
-        if resolution:
-            id.xsetup.xserver.hwstate.set_resolution(resolution)
-
-        if desktop is not None:
-            id.desktop.setDefaultDesktop(desktop)
-        if runlevel is not None:
-            id.desktop.setDefaultRunLevel(runlevel)
-
-    def setMonitor(self, id, hsync = None, vsync = None, monitorName = None):
-        if monitorName:
-            usemon = monitorName
-        elif id.monitor.getMonitorID() != "Unprobed Monitor":
-	    usemon = id.monitor.getMonitorName()
-        else:
-            usemon = None
-
-        setmonitor = 0
-        if usemon:
-            monname = usemon
-            try:
-                (model, eisa, vert, horiz) = id.monitor.lookupMonitorByName(usemon)
-		if id.monitor.getMonitorID() != "DDCPROBED":
-		    useid = model
-		else:
-		    useid = "DDCPROBED"
-
-                if not vsync:
-                    vsync = vert
-                if not hsync:
-                    hsync = horiz
-		    
-                id.monitor.setSpecs(hsync, vsync, id=useid, name=model)
-                setmonitor = 1
-            except:
-                log.warning("Couldnt lookup monitor type %s." % usemon)
-                pass
-        else:
-            monname = "Unprobed Monitor"
-
-        if not setmonitor and hsync and vsync:
-            id.monitor.setSpecs(hsync, vsync)
-            setmonitor = 1
-
-        if not setmonitor:
-             # fall back to standard VGA
-             log.warning("Could not probe monitor, and no fallback specified.")
-             log.warning("Falling back to Generic VGA monitor")
-
-             try:
-                 hsync = "31.5-37.9"
-                 vsync = "50.0-61.0"
-                 monname = "Unprobed Monitor"
-                 id.monitor.setSpecs(hsync, vsync)
-             except:
-                 raise RuntimeError, "Could not probe monitor and fallback failed."
-
-        # shove into hw state object, force it to recompute available modes
-        id.xsetup.xserver.hwstate.monitor = id.monitor
-        id.xsetup.xserver.hwstate.set_monitor_name(monname)
-        id.xsetup.xserver.hwstate.set_hsync(hsync)
-        id.xsetup.xserver.hwstate.set_vsync(vsync)
-        id.xsetup.xserver.hwstate.recalc_mode()
-
-    def setVideoCard(self, id, driver = None, videoRam = None):
-        if not id.videocard:
-            log.warning("Skipping video configuration because there's no videocard")
-            return
-
-        primary = id.videocard.primaryCard()
-
-        # rhpxl no longer gives us a list of drivers, so always just trust
-        # what the user gave us.
-        if driver:
-            log.info("Setting video card driver to user value of %s" % driver)
-            primary.setDriver(driver)
-            id.xsetup.xserver.hwstate.set_videocard_name(primary.getDescription())
-            id.xsetup.xserver.hwstate.set_videocard_driver(driver)
-
-        if videoRam:
-            # FIXME: this required casting is ugly
-            primary.setVideoRam(str(videoRam))
-            id.xsetup.xserver.hwstate.set_videocard_ram(int(videoRam))
-
-    def configureX(self, id, driver = None, videoRam = None, resolution = None, depth = None, startX = 0):
-        self.setVideoCard(id, driver, videoRam)
-
-        if startX:
-            rl = 5
-        else:
-            rl = 3
-        self.setMiscXSettings(id, depth, resolution, runlevel = rl)
+        grps = anaconda.backend.getDefaultGroups(anaconda)
+        map(lambda x: anaconda.backend.selectGroup(x), grps)
 
     def getBackend(self, methodstr):
         # this should be overriden in distro install classes
@@ -444,21 +211,6 @@ class BaseInstallClass(object):
 	anaconda.id.reset()
 	anaconda.id.instClass = self
 
-	# Classes should call these on __init__ to set up install data
-	#id.setKeyboard()
-	#id.setLanguage()
-	#id.setNetwork()
-	#id.setFirewall()
-	#id.setLanguageDefault()
-	#id.setTimezone()
-	#id.setAuthentication()
-	#id.setHostname()
-	#id.setDesktop()
-
-	# These are callbacks used to let classes configure packages
-	#id.setPackageSelection()
-	#id.setGroupSelection()
-
     def __init__(self, expert):
 	pass
 
@@ -469,6 +221,22 @@ allClasses_hidden = []
 def availableClasses(showHidden=0):
     global allClasses
     global allClasses_hidden
+
+    def _ordering(first, second):
+        ((name1, obj, logo), priority1) = first
+        ((name2, obj, logo), priority2) = second
+
+        if priority1 < priority2:
+            return -1
+        elif priority1 > priority2:
+            return 1
+
+        if name1 < name2:
+            return -1
+        elif name1 > name2:
+            return 1
+
+        return 0
 
     if not showHidden:
         if allClasses: return allClasses
@@ -520,7 +288,7 @@ def availableClasses(showHidden=0):
 		sortOrder = 0
 
 	    if obj.__dict__.has_key('arch'):
-                if obj.arch != rhpl.getArch ():
+                if obj.arch != iutil.getArch():
                     obj.hidden = 1
                 
             if obj.hidden == 0 or showHidden == 1:
@@ -530,7 +298,7 @@ def availableClasses(showHidden=0):
             if flags.debug: raise
             else: continue
 
-    list.sort(ordering)
+    list.sort(_ordering)
     for (item, priority) in list:
         if showHidden:
             allClasses_hidden.append(item)
@@ -541,22 +309,6 @@ def availableClasses(showHidden=0):
         return allClasses_hidden
     else:
         return allClasses
-
-def ordering(first, second):
-    ((name1, obj, logo), priority1) = first
-    ((name2, obj, logo), priority2) = second
-
-    if priority1 < priority2:
-	return -1
-    elif priority1 > priority2:
-	return 1
-
-    if name1 < name2:
-	return -1
-    elif name1 > name2:
-	return 1
-
-    return 0
 
 def getBaseInstallClass():
     # figure out what installclass we should base on.

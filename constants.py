@@ -19,7 +19,9 @@
 # Author(s): Erik Troan <ewt@redhat.com>
 #
 
-from rhpl.translate import _, N_
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
 
 BETANAG = 1
 

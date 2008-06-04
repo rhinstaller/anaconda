@@ -26,9 +26,10 @@ import parted
 import partedUtils
 import gui
 import datacombo
-from rhpl.translate import _, N_
 from constants import *
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class OSBootWidget:
     """Widget to display OSes to boot and allow adding new ones."""

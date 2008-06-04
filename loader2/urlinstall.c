@@ -133,6 +133,9 @@ static int loadUrlImages(struct iurlinfo * ui) {
         umountLoopback("/tmp/update-disk", "/dev/loop7");
         unlink("/tmp/updates-disk.img");
         unlink("/tmp/update-disk");
+    } else if (!access("/tmp/updates-disk.img", R_OK)) {
+        unpackCpioBall("/tmp/updates-disk.img", "/tmp/updates");
+        unlink("/tmp/updates-disk.img");
     }
 
     free(buf);

@@ -43,8 +43,8 @@ import partedUtils
 import partRequests
 import cryptodev
 
-import rhpl
-from rhpl.translate import _
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -1111,7 +1111,7 @@ class Partitions:
                     bootreq.getActualSize(self, diskset) < 10:
                 errors.append(_("You must create an EFI System Partition of "
                                 "at least 10 megabytes."))
-        elif rhpl.getArch() in ("i386", "x86_64"):
+        elif iutil.isX86():
             if iutil.isMactel():
                 # mactel checks
                 bootreqs = self.getBootableRequest() or []
@@ -1242,7 +1242,7 @@ class Partitions:
 
                 # most arches can't have boot on RAID
                 if (isinstance(bootreq, partRequests.RaidRequestSpec) and
-                    rhpl.getArch() not in raid.raidBootArches):
+                    iutil.getArch() not in raid.raidBootArches):
                     errors.append(_("Bootable partitions cannot be on a RAID "
                                     "device."))
 
@@ -1250,6 +1250,12 @@ class Partitions:
                 # gfs2 and ext4 aren't supported by grub
                 if (bootreq.fstype and
                     bootreq.fstype.getName() in ("xfs", "gfs2", "ext4")):
+                    errors.append(_("Bootable partitions cannot be on an %s "
+                                    "filesystem.")%(bootreq.fstype.getName(),))
+
+                # vfat /boot is insane.
+                if (bootreq.mountpoint and bootreq.mountpoint == "/" and
+                    bootreq.fstype and bootreq.fstype.getName() == "vfat"):
                     errors.append(_("Bootable partitions cannot be on an %s "
                                     "filesystem.")%(bootreq.fstype.getName(),))
 
@@ -1652,7 +1658,14 @@ class Partitions:
 
     def doMetaResizes(self, diskset):
         """Does resizing of non-physical volumes."""
-        # NOTE: this should be called with volumes active
+
+        # have to have lvm on, which requires raid to be started
+        diskset.startMPath()
+        diskset.startDmRaid()
+        diskset.startMdRaid()
+        for luksDev in self.encryptedDevices.values():
+            luksDev.openDevice()
+        lvm.vgactivate()
 
         # we only support resizing LVM of these types of things currently
         for lv in self.getLVMLVRequests():
@@ -1667,6 +1680,13 @@ class Partitions:
 
             lvm.lvresize(lv.logicalVolumeName, vg.volumeGroupName,
                          lv.targetSize)
+
+        lvm.vgdeactivate()
+        for luksDev in self.encryptedDevices.values():
+            luksDev.closeDevice()
+        diskset.stopMdRaid()
+        diskset.stopDmRaid()
+        diskset.stopMPath()
 
     def deleteDependentRequests(self, request):
         """Handle deletion of this request and all requests which depend on it.

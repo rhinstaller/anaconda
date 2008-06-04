@@ -22,38 +22,15 @@
 import yum.Errors
 from snack import *
 from constants_text import *
-from rhpl.translate import _, N_, getDefaultLangs
+import yuminstall
+
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
 
-# kind of lame caching of translations so we don't always have
-# to do all the looping
-strs = {}
-def _xmltrans(base, thedict):
-    if strs.has_key(base):
-        return strs[base]
-    
-    langs = getDefaultLangs()
-    for l in langs:
-        if thedict.has_key(l):
-            strs[base] = thedict[l]
-            return strs[base]
-    strs[base] = base
-    return base
-
-def _ui_comps_sort(one, two):
-    if one.display_order > two.display_order:
-        return 1
-    elif one.display_order < two.display_order:
-        return -1
-    elif _xmltrans(one.name, one.translated_name) > \
-         _xmltrans(two.name, two.translated_name):
-        return 1
-    elif _xmltrans(one.name, one.translated_name) < \
-         _xmltrans(two.name, two.translated_name):
-        return -1
-    return 0
 
 class GroupSelectionWindow:
     def __deselectPackage(self, grp, pkg):
@@ -98,10 +75,10 @@ class GroupSelectionWindow:
         # FIXME: this is very yum backend specific...
         groups = filter(lambda x: x.user_visible,
                         anaconda.backend.ayum.comps.groups)
-        groups.sort(_ui_comps_sort)
+        groups.sort(yuminstall.ui_comps_sort)
         ct = CheckboxTree(height = 6, scroll = (len(groups) > 6))
         for grp in groups:
-            ct.append(_xmltrans(grp.name, grp.translated_name),
+            ct.append(yuminstall.xmltrans(grp.name, grp.translated_name),
                       grp, grp.selected)
         g.add(ct, 0, 2, (0, 0, 0, 1))
 

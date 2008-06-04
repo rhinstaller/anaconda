@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.78
+Version: 11.4.1.2
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -106,6 +106,7 @@ Requires: rhpxl >= %{rhpxlver}
 Requires: system-config-keyboard
 %endif
 Requires: hal, dbus-python
+Requires: cracklib-python
 %ifarch %livearches
 Requires: usermode
 Requires: zenity
@@ -207,6 +208,80 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 29 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.2-1
+- Allow ext4 migration again for testing at least (katzj)
+- Remount filesystems after migration (#440055) (katzj)
+- Add blkid to the keepfiles list so jkeating will whine less (pjones)
+- Don't allow vfat /boot (katzj)
+- Use the base yum doConfigSetup method. (clumens)
+- Include the yum repo files from fedora-release in stage2. (clumens)
+- No longer maintain our own list of extra repos. (clumens)
+- Sort the repos in the UI. (clumens)
+- Add cost, includepkgs, and excludepkgs to the ks repo
+  objects (#448501). (clumens)
+- Stop pretending to support Greek text mode (#208841) (katzj)
+- Make it clear you need to reboot to use the installed
+  system (#238297) (katzj)
+- Activate LVM for when we do meta-resizing (#441706) (katzj)
+- List Norweigian as Bokmål (#437355) (katzj)
+- Simplify the install classes. (clumens)
+- Don't show the EFI filesystem unless we're on an EFI platform (katzj)
+- Add nfsv4 so that we don't nuke them on upgrades (#448145) (katzj)
+- When there are errors reading the live CD, offer a retry. (clumens)
+- Can't recover from buildTransaction errors on a per-repo
+  basis (#447796). (clumens)
+- Set default partition size to 200 MB in the custom partitioning
+  UI. (clumens)
+- Limit the size of things in exception dumps to 1k. (clumens)
+- Catch IOErrors one place they seem to happen most. (clumens)
+- Add a unique user agent for anaconda's grabbing in stage2 (katzj)
+- Remove text mode help support as well. (clumens)
+- Check for all the non-mkfs utilities required for each filesystem
+  type. (clumens)
+- More partitioning error handling fixes (#446453). (clumens)
+- Require cracklib-python for the rootpassword screen. (notting)
+- Use pykickstart's deprecated versions of the xconfig and monitor
+  classes. (clumens)
+- Fix tyop in upgrade migrate screen (#446363) (katzj)
+
+* Tue May 13 2008 Jeremy Katz <katzj@redhat.com> - 11.4.1.1-1
+- Just call the XStartupCB() function directly and randr to the 
+  desired resolution (katzj)
+- Stop writing out an xorg.conf (katzj)
+- Make the "dump to removable device" option work in anaconda. (jgranado)
+
+* Mon May 12 2008 Jeremy Katz <katzj@redhat.com> - 11.4.0.79-1
+- Stop neutering DRI (notting)
+- make scripts/buildinstall take multiple repos (wwoods)
+- Don't worry about telling people that interactive text mode is in 
+  wrong lang (katzj)
+- Allow cpio updates.img in the tree for URL installs. (dlehman)
+- Declare unpackCpioBall for use from within urlinstall.c. (dlehman)
+- Don't unlink an image we retrieved but could not mount as it 
+  could be .cgz. (dlehman)
+- Don't run lspci with an explicit path (katzj)
+- Include lspci on all images (#445974) (katzj)
+- Add support for attaching gdbserver to the loader early on. (clumens)
+- Add virtio max partition count (markmc)
+- Sort virtio devices first (markmc)
+- Merge branch 'master' of ssh://git.fedorahosted.org/git/anaconda (andrewm)
+- 2008-05-08  Andrew Martynov <andrewm)
+- Look in the right place when ISO images are in a 
+  subdirectory (#443580). (clumens)
+- And run in the root (#374921) (katzj)
+- Don't crash when given URLs of the form ftp://user)
+- Use 'yum clean all' when cleaning up after an upgrade, not 
+  preupgrade (#374921) (katzj)
+- Kickstart flag is backwards (katzj)
+- If we're given a language, don't warn about console fonts (#444258) (katzj)
+- And actually include the bash binary too (#443700) (katzj)
+- Search path rather than hard-coding path to mdadm (#444843) (katzj)
+- Fix incorrect command name in error message. (clumens)
+- Specify which protocol is used for remote saving (#440214). (clumens)
+- Use bash for minstg2 shell (#443700) (katzj)
+- Revert PS1 and PATH changes as they don't work with busybox as used 
+  in minstg2 (katzj)
+
 * Mon Apr 28 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.78-1
 - Write per-interface DNS info to ifcfg files (#443244) (dcantrell)
 - Clean up sanityCheckHostname() in network.py (dcantrell)

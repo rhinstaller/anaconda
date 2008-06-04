@@ -23,7 +23,9 @@ import isys
 import gtk
 import string
 from iw_gui import *
-from rhpl.translate import _, N_
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class ZiplWindow (InstallWindow):
     checkMark = None

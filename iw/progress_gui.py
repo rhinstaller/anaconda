@@ -27,7 +27,6 @@ import pango
 import gui
 from flags import flags
 from iw_gui import *
-from rhpl.translate import _, N_
 from constants import *
 import language
 

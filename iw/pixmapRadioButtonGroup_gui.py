@@ -19,7 +19,6 @@
 #
 
 import gtk
-from rhpl.translate import _, N_
 from constants import *
 
 class pixmapRadioButtonGroup:
@@ -200,7 +199,7 @@ if __name__ == "__main__":
     else:
 	opts = ['8.0 - /dev/hda1']
 
-    label = _("The following installed system will be upgraded:")
+    label = "The following installed system will be upgraded:"
     upgradeoption = gtk.OptionMenu()
     upgradeoptionmenu = gtk.Menu()
     for lev in opts:

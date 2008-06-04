@@ -22,9 +22,11 @@ import gtk.glade
 import gobject
 import gui
 from iw_gui import *
-from rhpl.translate import _, N_
-from constants import productName
+from constants import *
 import isys
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 from netconfig_dialog import NetworkConfigurator
 import network
@@ -371,6 +373,8 @@ class TaskWindow(InstallWindow):
         store = gtk.ListStore(gobject.TYPE_BOOLEAN,
                               gobject.TYPE_STRING,
                               gobject.TYPE_PYOBJECT)
+        store.set_sort_column_id(1, gtk.SORT_ASCENDING)
+
         tl = self.xml.get_widget("repoList")
         tl.set_model(store)
 

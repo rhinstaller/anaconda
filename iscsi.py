@@ -18,6 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from constants import *
 import os
 import string
 import signal
@@ -29,7 +30,9 @@ import time
 import md5, random
 log = logging.getLogger("anaconda")
 
-from rhpl.translate import _, N_
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 
 # Note that stage2 copies all files under /sbin to /usr/sbin
 ISCSID="/usr/sbin/iscsid"

@@ -22,7 +22,10 @@ import isys
 import string
 from snack import *
 from constants_text import *
-from rhpl.translate import _
+
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class ZiplWindow:
     def __call__(self, screen, anaconda):

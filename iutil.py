@@ -299,7 +299,7 @@ def copyDeviceNode(src, dest):
 # @return 1 if so, 0 otherwise.
 def hasiSeriesNativeStorage():
     # this is disgusting and I feel very dirty
-    if rhpl.getArch() != "ppc":
+    if not iutil.isPPC():
         return
 
     f = open("/proc/modules", "r")
@@ -317,23 +317,61 @@ def hasiSeriesNativeStorage():
 ## Get the PPC machine variety type.
 # @return The PPC machine type, or 0 if not PPC.
 def getPPCMachine():
-    if rhpl.getArch() != "ppc":
+    if not iutil.isPPC():
         return 0
 
-    machine = rhpl.getPPCMachine()
-    if machine is None:
-        log.warning("Unable to find PowerPC machine type")
-    elif machine == 0:
-        log.warning("Unknown PowerPC machine type: %s" %(machine,))
+    ppcMachine = None
 
-    return machine
+    # ppc machine hash
+    ppcType = { 'Mac'      : 'PMac',
+                'Book'     : 'PMac',
+                'CHRP IBM' : 'pSeries',
+                'Pegasos'  : 'Pegasos',
+                'Efika'    : 'Efika',
+                'iSeries'  : 'iSeries',
+                'pSeries'  : 'pSeries',
+                'PReP'     : 'PReP',
+                'CHRP'     : 'pSeries',
+                'Amiga'    : 'APUS',
+                'Gemini'   : 'Gemini',
+                'Shiner'   : 'ANS',
+                'BRIQ'     : 'BRIQ',
+                'Teron'    : 'Teron',
+                'AmigaOne' : 'Teron',
+                'Maple'    : 'pSeries',
+                'Cell'     : 'pSeries',
+                'Momentum' : 'pSeries',
+                'PS3'      : 'PS3'
+                }
+
+    f = open('/proc/cpuinfo', 'r')
+    lines = f.readlines()
+    f.close()
+    for line in lines:
+        if line.find('machine') != -1:
+            machine = line.split(':')[1]
+        elif line.find('platform') != -1:
+            platform = line.split(':')[1]
+
+    for part in (machine, platform):
+        if ppcMachine is None and part is not None:
+            for type in ppcType.items():
+                if part.find(type[0]) != -1:
+                    ppcMachine = type[1]
+
+    if ppcMachine is None:
+        log.warning("Unable to find PowerPC machine type")
+    elif ppcMachine == 0:
+        log.warning("Unknown PowerPC machine type: %s" %(ppcMachine,))
+
+    return ppcMachine
 
 ## Get the powermac machine ID.
 # @return The powermac machine id, or 0 if not PPC.
 def getPPCMacID():
     machine = None
 
-    if rhpl.getArch() != "ppc":
+    if not iutil.isPPC():
         return 0
     if getPPCMachine() != "PMac":
         return 0
@@ -356,7 +394,7 @@ def getPPCMacGen():
     # XXX: should NuBus be here?
     pmacGen = ['OldWorld', 'NewWorld', 'NuBus']
 
-    if rhpl.getArch() != "ppc":
+    if not iutil.isPPC():
         return 0
     if getPPCMachine() != "PMac":
         return 0
@@ -383,7 +421,7 @@ def getPPCMacGen():
 ## Determine if the hardware is an iBook or PowerBook
 # @return 1 if so, 0 otherwise.
 def getPPCMacBook():
-    if rhpl.getArch() != "ppc":
+    if not iutil.isPPC():
         return 0
     if getPPCMachine() != "PMac":
         return 0
@@ -406,7 +444,7 @@ def isCell():
         return cell
 
     cell = False
-    if rhpl.getArch() != "ppc":
+    if not iutil.isPPC():
         return cell
 
     f = open('/proc/cpuinfo', 'r')
@@ -427,7 +465,7 @@ def isMactel():
     if mactel is not None:
         return mactel
 
-    if rhpl.getArch() not in ("x86_64", "i386"):
+    if not iutil.isX86():
         mactel = False
     elif not os.path.exists("/usr/sbin/dmidecode"):
         mactel = False
@@ -449,7 +487,7 @@ def isEfi():
         return efi
 
     efi = False
-    if rhpl.getArch() in ("ia64", "i386", "x86_64"):
+    if iutil.isX86():
         # XXX need to make sure efivars is loaded...
         if os.path.exists("/sys/firmware/efi"):
             efi = True
@@ -459,7 +497,7 @@ def isEfi():
 ## Extract the CPU feature flags from /proc/cpuinfo
 # @return A list of CPU feature flags, or an empty list on error.
 def cpuFeatureFlags():
-    if rhpl.getArch() not in ("i386", "x86_64"):
+    if not iutil.isX86():
         return False
     f = open("/proc/cpuinfo", "r")
     lines = f.readlines()
@@ -538,7 +576,62 @@ def inXen():
 ## Check to see if we are in a vmware environment.
 #
 def inVmware():
-    out = execWithCapture("/usr/sbin/lspci", ["-vvv"])
+    out = execWithCapture("lspci", ["-vvv"])
     if "VMware" in out:
         return True
     return False
+
+# Architecture checking functions
+
+def isX86(bits=None):
+    arch = os.uname()[4]
+
+    # x86 platforms include:
+    #     i*86
+    #     athlon*
+    #     x86_64
+    #     amd*
+    #     ia32e
+    if bits is None:
+        if (arch.startswith('i') and arch.endswith('86')) or \
+           arch.startswith('athlon') or arch.startswith('amd') or \
+           arch == 'x86_64' or arch == 'ia32e':
+            return True
+    elif bits == 32:
+        if arch.startswith('i') and arch.endswith('86'):
+            return True
+    elif bits == 64:
+        if arch.startswith('athlon') or arch.startswith('amd') or \
+           arch == 'x86_64' or arch == 'ia32e':
+            return True
+
+    return False
+
+def isPPC():
+    return os.uname()[4].startswith('ppc')
+
+def isS390():
+    return os.uname()[4].startswith('s390')
+
+def isIA64():
+    return os.uname()[4] == 'ia64':
+
+def isAlpha():
+    return os.uname()[4].startswith('alpha')
+
+def isSparc():
+    return os.uname()[4].startswith('sparc')
+
+def getArch():
+    if isX86(bits=32):
+        return 'i386'
+    elif isX86(bits=64):
+        return 'x86_64'
+    elif isPPC():
+        return 'ppc'
+    elif isAlpha():
+        return 'alpha'
+    elif isSparc():
+        return 'sparc'
+    else:
+        return os.uname()[4]

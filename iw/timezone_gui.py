@@ -28,17 +28,18 @@ import pango
 import sys
 
 from timezone_map_gui import TimezoneMap, Enum
-from rhpl.translate import _, textdomain
 from iw_gui import *
 from bootloaderInfo import dosFilesystems
 from bootloader import hasWindows
+
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 try:
     import gnomecanvas
 except ImportError:
     import gnome.canvas as gnomecanvas
-
-textdomain("system-config-date")
 
 class TimezoneWindow(InstallWindow):
     def __init__(self, ics):
@@ -134,7 +135,7 @@ class AnacondaTZMap(TimezoneMap):
                     # York as the default.
                     self.fallbackEntry = entry
 
-            iter = self.tzStore.insert_after(iter, [_(entry.tz), entry.tz, entry])
+            iter = self.tzStore.insert_after(iter, [gettext.ldgettext("system-config-date", entry.tz), entry.tz, entry])
 
     def timezone_list_init (self, default):
         self.hbox = gtk.HBox()

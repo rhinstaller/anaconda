@@ -23,9 +23,12 @@ import gtk
 import string
 import gui
 from iw_gui import *
-from rhpl.translate import _
 from flags import flags
+from constants import *
 import cracklib
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class AccountWindow (InstallWindow):
     def getScreen(self, anaconda):
@@ -117,6 +120,7 @@ class AccountWindow (InstallWindow):
 
         msg = cracklib.FascistCheck(pw)
         if msg is not None:
+            msg = gettext.ldgettext("cracklib", msg)
             ret = self.intf.messageWindow(_("Weak Password"),
                                           _("Weak password provided: %s"
                                             "\n\n"

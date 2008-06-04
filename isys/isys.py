@@ -34,7 +34,6 @@ import iutil
 import warnings
 import resource
 import re
-import rhpl
 import struct
 import block
 import minihal
@@ -448,14 +447,14 @@ def driveDict(klassArg):
                     model = peddev.model
 
                     # blacklist *STMF on power5 iSeries boxes
-                    if rhpl.getArch() == "ppc" and \
+                    if iutil.isPPC() and \
                             model.find("IBM *STMF KERNEL") != -1:
                         log.info("%s looks like STMF, ignoring" % (device,))
                         del peddev
                         continue
 
                     # blacklist PS3 flash 
-                    if rhpl.getArch() == "ppc" and \
+                    if iutil.isPPC() and \
                             model.find("SCEI Flash-5") != -1:
                         log.info("%s looks like PS3 flash, ignoring" % \
                             (device,))
@@ -630,7 +629,7 @@ def inet_calcNetBroad (ip, nm):
     return (nw, bc)
 
 def doProbeBiosDisks():
-    if rhpl.getArch() not in ("i386", "x86_64"):
+    if not iutil.isX86():
         return None
     return _isys.biosDiskProbe()
 
@@ -659,7 +658,7 @@ def compareDrives(first, second):
         type1 = 0
     elif first.startswith("sd"):
         type1 = 1
-    elif first.startswith("xvd"):
+    elif (first.startswith("vd") or first.startswith("xvd")):
         type1 = -1
     else:
         type1 = 2
@@ -668,7 +667,7 @@ def compareDrives(first, second):
         type2 = 0
     elif second.startswith("sd"):
 	type2 = 1
-    elif second.startswith("xvd"):
+    elif (second.startswith("vd") or second.startswith("xvd")):
         type2 = -1
     else:
 	type2 = 2
@@ -976,7 +975,7 @@ def isPaeAvailable():
         return isPAE
 
     isPAE = False
-    if rhpl.getArch() not in ("i386", "x86_64"):
+    if not iutil.isX86():
         return isPAE
 
     try:

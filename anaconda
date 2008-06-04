@@ -94,8 +94,9 @@ def startMiniWM(root='/'):
     return childpid
 
 # function to handle X startup special issues for anaconda
-def doStartupX11Actions():
+def doStartupX11Actions(runres="800x600"):
     global miniwm_pid
+    import gtk
 
     if not flags.test and flags.setupFilesystems:
         setupGraphicalLinks()
@@ -105,7 +106,6 @@ def doStartupX11Actions():
 	miniwm_pid = startMiniWM()
 	log.info("Started mini-wm")
 
-        import gtk
         i = gtk.Invisible()
         i.selection_owner_set("_ANACONDA_MINI_WM_RUNNING")
     except:
@@ -116,6 +116,17 @@ def doStartupX11Actions():
     # we open and close an X connection in the xutils calls
     # the X server will exit since this is the first X
     # connection (if miniwm isnt running)
+    current_res = "%sx%s" %(gtk.gdk.screen_width(), gtk.gdk.screen_height())
+    if runres != current_res and miniwm_pid is not None:
+        try:
+            isys.vtActivate(6)
+            iutil.execWithRedirect("xrandr", ["-s", runres],
+                                   stdout="/dev/tty5", stderr="/dev/tty5")
+            time.sleep(5)
+        except:
+            pass
+
+
     if miniwm_pid is not None:
 	import xutils
 
@@ -201,9 +212,7 @@ def setupPythonUpdates():
 
 def parseOptions():
     def resolution_cb (option, opt_str, value, parser):
-        global runres_override
         parser.values.runres = value
-        runres_override = True
 
     def rootpath_cb (option, opt_str, value, parser):
         if value.startswith("cd:"):
@@ -351,14 +360,26 @@ def setupPythonPath():
 
     sys.path.append('/usr/share/system-config-date')
 
+def addPoPath(dir):
+    """ Looks to see what translations are under a given path and tells
+    the gettext module to use that path as the base dir """
+    for d in os.listdir(dir):
+        if not os.path.isdir("%s/%s" %(dir,d)):
+            continue
+        if not os.path.exists("%s/%s/LC_MESSAGES" %(dir,d)):
+            continue
+        for basename in os.listdir("%s/%s/LC_MESSAGES" %(dir,d)):
+            if not basename.endswith(".mo"):
+                continue
+            log.info("setting %s as translation source for %s" %(dir, basename[:-3]))
+            gettext.bindtextdomain(basename[:-3], dir)
+
 def setupTranslations():
     if os.path.isdir("/mnt/source/RHupdates/po"):
-        log.info("adding RHupdates/po")
         addPoPath("/mnt/source/RHupdates/po")
     if os.path.isdir("/tmp/updates/po"):
-        log.info("adding /tmp/updates/po")
         addPoPath("/tmp/updates/po")
-    textdomain("anaconda")
+    gettext.textdomain("anaconda")
 
 def setupEnvironment():
     # Silly GNOME stuff
@@ -402,13 +423,13 @@ def expandFTPMethod(opts):
     opts.method = opts.method[:len(opts.method) - 1]
     os.unlink(filename)
 
-def runVNC(vncStartedCB=None):
+def runVNC():
     # dont run vncpassword if in test mode
     global vncS
     if flags.test:
         vncS.password = ""
 
-    vncS.startServer(vncStartedCB=vncStartedCB)
+    vncS.startServer()
 
     child = os.fork()
     if child == 0:
@@ -447,25 +468,6 @@ def checkMemory(opts):
             opts.display_mode = 't'
             time.sleep(2)
 
-def probeHW(opts, x_already_set, xserver):
-    if not opts.isHeadless:
-        #
-        # Probe what is available for X and setup a hardware state
-        #
-        # try to probe interesting hw
-        xserver.probeHW(forceDriver=opts.xdriver)
-
-        # if the len(videocards) is zero, then let's assume we're isHeadless
-        if len(xserver.videohw.videocards) == 0:
-            stdoutLog.info (_("No video hardware found, assuming headless"))
-            opts.isHeadless = 1
-        else:
-            # setup a X hw state for use later with configuration.
-            try:
-                xserver.setHWState()
-            except Exception, e:
-                stdoutLog.error (_("Unable to instantiate a X hardware state object."))
-
 def setupGraphicalLinks():
     for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
 	       "fb.modes"):
@@ -474,23 +476,6 @@ def setupGraphicalLinks():
 	        os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
         except:
 	    pass
-
-def badEDID(logfile):
-    retval = False
-    f = open(logfile, "r")
-    pattern = re.compile("^.*Monitor name: .*KVM.*$")
-
-    while True:
-        line = f.readline()
-        if line == "":
-            break
-
-        if pattern.match(line):
-            retval = True
-            break
-
-    f.close()
-    return retval
 
 class Anaconda:
     def __init__(self):
@@ -619,14 +604,15 @@ if __name__ == "__main__":
     from exception import handleException
     import dispatch
     import warnings
-    import rhpl
     import vnc
     import users
     import kickstart
     from flags import flags
-    from rhpl.translate import _, textdomain, addPoPath
 
-    if rhpl.getArch() != "s390" and os.access("/dev/tty3", os.W_OK):
+    import gettext
+    _ = lambda x: gettext.ldgettext("anaconda", x)
+
+    if not iutil.isS390() and os.access("/dev/tty3", os.W_OK):
         logger.addFileHandler ("/dev/tty3", log)
 
     warnings.showwarning = AnacondaShowWarning
@@ -644,12 +630,10 @@ if __name__ == "__main__":
     iutil.writeRpmPlatform()
 
     extraModules = []               # XXX: this would be better as a callback
-    runres_override = False
     graphical_failed = 0
     instClass = None                # the install class to use
     vncS = vnc.VncServer()          # The vnc Server object.
     xserver_pid = None
-    got_bad_edid = False
 
     (opts, args) = parseOptions()
 
@@ -721,7 +705,7 @@ if __name__ == "__main__":
         flags.virtpconsole = opts.virtpconsole
 
     # probing for hardware on an s390 seems silly...
-    if rhpl.getArch() == "s390":
+    if iutil.isS390():
         opts.isHeadless = True
 
     if not flags.test and not flags.rootpath:
@@ -828,14 +812,6 @@ if __name__ == "__main__":
 
     import instdata
 
-    if not opts.isHeadless:
-        try:
-            import xsetup
-            import rhpxl.xhwstate
-            import rhpxl.xserver
-            import rhpxl.monitor
-        except ImportError:
-            opts.isHeadless = 1
     import rhpl.keyboard as keyboard
 
     log.info("anaconda called with cmdline = %s" %(sys.argv,))
@@ -860,32 +836,11 @@ if __name__ == "__main__":
     else:
         x_already_set = 0
 
-    if not opts.isHeadless:
-        xserver = rhpxl.xserver.XServer()
-        xserver.resolution = opts.runres
-        # hack for PS3 video (#236510)
-        if rhpl.getArch() == "ppc":
-            try:
-                (x, y, bpp) = isys.fbinfo()
-                if x < 800 or y < 600:
-                    xserver.resolution = "640x480"
-            except Exception, e:
-                log.debug("error getting fbinfo: %s" %(e,))
-    else:
-        xserver = None
-
-    probeHW(opts, x_already_set, xserver)
-
-    #
-    # delay to let use see status of attempt to probe hw
-    #
-    time.sleep(3)
-
     #
     # now determine if we're going to run in GUI or TUI mode
     #
     # if no X server, we have to use text mode
-    if not (flags.test or flags.rootpath or x_already_set) and (rhpl.getArch() != "s390" and not os.access("/usr/bin/Xorg", os.X_OK)):
+    if not (flags.test or flags.rootpath or x_already_set) and (not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK)):
          stdoutLog.warning(_("Graphical installation not available...  "
                              "Starting text mode."))
          time.sleep(2)
@@ -902,30 +857,20 @@ if __name__ == "__main__":
     # if DISPLAY not set either vnc server failed to start or we're not
     # running on a redirected X display, so start local X server
     if opts.display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
-        rhpxl.xhwstate.get_valid_resolution(xserver)
-
-        xserver.logfile = "/tmp/X.log"
-
         try:
-            xserver.generateConfig()
-            xserver.addExtraScreen("Anaconda")
-            xserver.display = ":1"
-            xserver.serverflags.extend(["-screen", "Anaconda", "-dpi", "96", "-br", "-extension", "GLX", "-ardelay", "500", "-arinterval", "50"])
-            xserver_pid = xserver.startX(xStartedCB=doStartupX11Actions)
-        except RuntimeError:
+            xout = open("/dev/tty5", "w")
+            proc = subprocess.Popen(["Xorg", "-br", "-logfile", "/tmp/X.log", ":1", "vt6", "-s", "1440", "-ac", "-nolisten", "tcp"], close_fds=True, stdout=xout, stderr=xout)
+            time.sleep(5)
+            if proc.poll() is not None:
+                raise OSError
+            os.environ["DISPLAY"] = ":1"
+            doStartupX11Actions(opts.runres)
+            xserver_pid = proc.pid
+        except OSError:
             stdoutLog.warning(" X startup failed, falling back to text mode")
             opts.display_mode = 't'
             graphical_failed = 1
             time.sleep(2)
-
-        # If we got bad EDID information from the X server, that means X was
-        # unable to probe the monitor correctly.  This can happen with lots of
-        # crappy KVMs.  For now, switch to text mode and display an error message
-        # so the user knows to run s-c-display after installation.
-        if xserver_pid is not None and badEDID(xserver.logfile):
-            os.kill(xserver_pid, signal.SIGTERM)
-            got_bad_edid = True
-            opts.display_mode = 't'
 
     if opts.display_mode == 't' and graphical_failed and not anaconda.isKickstart:
         ret = vnc.askVncWindow()
@@ -937,41 +882,16 @@ if __name__ == "__main__":
 
     # if they want us to use VNC do that now
     if opts.display_mode == 'g' and flags.usevnc:
-        runVNC(doStartupX11Actions)
+        runVNC()
+        doStartupX11Actions(opts.runres)
 
     anaconda.setInstallInterface(opts.display_mode)
-
-    if got_bad_edid:
-        msg = "anaconda was unable to detect your monitor, possibly due to the presence of a KVM.  The installation will proceed in text mode.  Please run system-config-display after installation to configure your monitor."
-        if anaconda.isKickstart:
-            log.warning(msg)
-        else:
-            anaconda.intf.messageWindow("Unknown monitor", msg)
 
     anaconda.setBackend(instClass)
 
     anaconda.id = instClass.installDataClass(anaconda, extraModules, anaconda.methodstr, opts.display_mode, anaconda.backend)
 
     anaconda.id.x_already_set = x_already_set
-
-    if xserver:
-        if xserver.videohw:
-            anaconda.id.setVideoCard(xserver.videohw)
-
-        if xserver.monitorhw:
-            anaconda.id.setMonitor(xserver.monitorhw)
-
-        # not sure what to do here - somehow we didn't detect anything
-        if xserver.hwstate is None and not opts.isHeadless:
-            try:
-                xserver.setHWState()
-            except Exception, e:
-                stdoutLog.error (_("Unable to instantiate a X hardware state object."))
-                xserver.hwstate = None
-
-        if xserver.hwstate is not None:
-            xsetup = xsetup.XSetup(xserver, anaconda)
-            anaconda.id.setXSetup(xsetup)
 
     anaconda.id.setDisplayMode(opts.display_mode)
     instClass.setInstallData(anaconda)
@@ -1014,13 +934,13 @@ if __name__ == "__main__":
         # this is lame, but make things match what we expect (#443408)
         opts.lang = opts.lang.replace(".utf8", ".UTF-8")
         anaconda.dispatch.skipStep("language", permanent = 1)
-        instClass.setLanguage(anaconda.id, opts.lang)
-        instClass.setLanguageDefault(anaconda.id, opts.lang)
+        anaconda.id.instLanguage.setRuntimeLanguage(opts.lang)
+        anaconda.id.instLanguage.setDefault(opts.lang)
         anaconda.id.timezone.setTimezoneInfo(anaconda.id.instLanguage.getDefaultTimeZone())
 
     if opts.keymap:
         anaconda.dispatch.skipStep("keyboard", permanent = 1)
-        instClass.setKeyboard(anaconda.id, opts.keymap)
+        anaconda.id.keyboard.set(opts.keymap)
         anaconda.id.keyboard.activate()
 
     if anaconda.isKickstart:
@@ -1048,7 +968,7 @@ if __name__ == "__main__":
     # set up the headless case
     if opts.isHeadless == 1:
         anaconda.id.setHeadless(opts.isHeadless)
-        instClass.setAsHeadless(anaconda.dispatch, opts.isHeadless)
+        anaconda.dispatch.skipStep("keyboard", permanent = 1)
 
     if not anaconda.isKickstart:
         instClass.setSteps(anaconda)

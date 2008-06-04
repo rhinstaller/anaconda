@@ -134,6 +134,7 @@ struct loaderData_s {
     char * logLevel;
     char * updatessrc;
     char * dogtailurl;
+    char * gdbServer;
 
     pid_t fw_loader_pid;
     char *fw_search_pathz;

@@ -69,7 +69,11 @@ while [ $# -gt 0 ]; do
 	    ;;
 
 	*)
+        if [ -z "$REPO" ]; then
 	    REPO=$1
+        else
+            EXTRA_REPOS="$EXTRA_REPOS $1"
+        fi
 	    shift
 	    ;;
     esac
@@ -122,6 +126,22 @@ name=anaconda repo
 baseurl=$REPO
 enabled=1
 EOF
+
+n=1
+for r in $EXTRA_REPOS; do
+    if [[ $r =~ ^/ ]]; then
+        r="file://$r"
+    fi
+    cat >> $yumconf <<EOF
+
+[anaconda-extrarepo-$n]
+name=anaconda extra repo $n
+baseurl=$r
+enabled=1
+EOF
+    let n++
+done
+
 
 BUILDINSTDIR=`mktemp -d ${TMPDIR:-/tmp}/buildinstall.tree.XXXXXX`
 TREEDIR=`mktemp -d ${TMPDIR:-/tmp}/treedir.XXXXXX`

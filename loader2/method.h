@@ -54,6 +54,7 @@ int mountStage2(char *stage2path, char *imageDir);
 int copyFileAndLoopbackMount(int fd, char *dest, char *device, char *mntpoint);
 int getFileFromBlockDevice(char *device, char *path, char * dest);
 
+int unpackCpioBall(char * ballPath, char * rootDir);
 void copyUpdatesImg(char * path);
 void copyProductImg(char * path);
 

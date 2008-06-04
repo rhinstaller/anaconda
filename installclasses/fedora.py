@@ -18,10 +18,12 @@
 #
 
 from installclass import BaseInstallClass
-from rhpl.translate import N_,_
 from constants import *
 import os, types
 import iutil
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import installmethod
 import yuminstall
@@ -45,8 +47,6 @@ class InstallClass(BaseInstallClass):
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
              (N_("Web server"), ["web-server"])]
 
-    repos = { "Additional Fedora Software": (None, "http://mirrors.fedoraproject.org/mirrorlist?repo=%s&arch=%s" %(productVersion, rpmUtils.arch.getBaseArch())) }
-
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:
             uri = [uri,]
@@ -59,10 +59,6 @@ class InstallClass(BaseInstallClass):
         if not anaconda.isKickstart:
             BaseInstallClass.setDefaultPartitioning(self, anaconda.id.partitions,
                                                     CLEARPART_TYPE_LINUX)
-
-    def setGroupSelection(self, anaconda):
-        grps = anaconda.backend.getDefaultGroups(anaconda)
-        map(lambda x: anaconda.backend.selectGroup(x), grps)
 
     def setSteps(self, anaconda):
 	BaseInstallClass.setSteps(self, anaconda);

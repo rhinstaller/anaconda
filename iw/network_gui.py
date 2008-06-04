@@ -27,9 +27,12 @@ import gobject
 from iw_gui import *
 import isys
 import gui
-from rhpl.translate import _, N_
 import network
 import checklist
+
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 global_options = [_("Gateway"), _("Primary DNS"), _("Secondary DNS")]
 global_option_labels = [_("_Gateway"), _("_Primary DNS"), _("_Secondary DNS")]

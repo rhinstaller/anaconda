@@ -37,11 +37,12 @@ import partitions
 import partedUtils
 import raid
 import lvm
+import time
 import types
 from flags import flags
 
-import rhpl
-from rhpl.translate import _, N_
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -57,7 +58,7 @@ class ResizeError(Exception):
 
 defaultMountPoints = ['/', '/boot', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
 
-if rhpl.getArch() == "s390":
+if iutil.isS390():
     # Many s390 have 2G DASDs, we recomment putting /usr/share on its own DASD
     defaultMountPoints.insert(5, '/usr/share')
 
@@ -187,7 +188,7 @@ class FileSystemType:
         self.extraFormatArgs = []
         self.maxLabelChars = 16
         self.packages = []
-        self.needProgram = None
+        self.needProgram = []
         self.resizable = False
         self.supportsFsProfiles = False
         self.fsProfileSpecifier = None
@@ -306,9 +307,8 @@ class FileSystemType:
 
     def isSupported(self):
         # check to ensure we have the binaries they need
-        if self.needProgram:
-            if len(filter(lambda d: os.path.exists("%s/%s" %(d,
-                                                             self.needProgram)),
+        for p in self.needProgram:
+            if len(filter(lambda d: os.path.exists("%s/%s" %(d, p)),
                           os.environ["PATH"].split(":"))) == 0:
                 return False
 
@@ -374,7 +374,7 @@ class reiserfsFileSystem(FileSystemType):
 
         self.name = "reiserfs"
         self.packages = [ "reiserfs-utils" ]
-        self.needProgram = "mkreiserfs"
+        self.needProgram = [ "mkreiserfs", "reiserfstune" ]
 
         self.maxSizeMB = 8 * 1024 * 1024
 
@@ -423,7 +423,7 @@ class xfsFileSystem(FileSystemType):
             self.supported = 0
 
         self.packages = [ "xfsprogs" ]
-        self.needProgram = "mkfs.xfs"
+        self.needProgram = [ "mkfs.xfs", "xfs_admin" ]
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -468,7 +468,7 @@ class jfsFileSystem(FileSystemType):
 
         self.name = "jfs"
         self.packages = [ "jfsutils" ]
-        self.needProgram = "mkfs.jfs"
+        self.needProgram = [ "mkfs.jfs", "jfs_tune" ]
 
         self.maxSizeMB = 8 * 1024 * 1024
 
@@ -511,7 +511,7 @@ class gfs2FileSystem(FileSystemType):
 
         self.name = "gfs2"
         self.packages = [ "gfs2-utils" ]
-        self.needProgram = "mkfs.gfs2"
+        self.needProgram = [ "mkfs.gfs2" ]
 
         self.maxSizeMB = 8 * 1024 * 1024
 
@@ -724,7 +724,7 @@ class ext3FileSystem(extFileSystem):
         self.name = "ext3"
         self.extraFormatArgs = [ "-j" ]
         self.partedFileSystemType = parted.file_system_type_get("ext3")
-        if 0:
+        if flags.cmdline.has_key("ext4"):
             self.migratetofs = ['ext4dev']
 
     def formatDevice(self, entry, progress, chroot='/'):
@@ -985,6 +985,8 @@ class EFIFileSystem(FATFileSystem):
         self.partedPartitionFlags = [ parted.PARTITION_BOOT ]
         self.maxSizeMB = 256
         self.defaultOptions = "umask=0077,shortname=winnt"
+        if not iutil.isEfi():
+            self.supported = 0
 
     def getMountName(self, quoted = 0):
         return "vfat"
@@ -1066,7 +1068,7 @@ class hfsFileSystem(FileSystemType):
         self.checked = 0
         self.name = "hfs"
         self.supported = 0
-        self.needProgram = "hformat"
+        self.needProgram = [ "hformat" ]
 
     def isMountable(self):
         return 0
@@ -1149,6 +1151,18 @@ class networkFileSystem(FileSystemType):
         return 0
 
 fileSystemTypeRegister(networkFileSystem())
+
+class nfsv4FileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.formattable = 0
+        self.checked = 0
+        self.name = "nfs4"
+
+    def isMountable(self):
+        return 0
+
+fileSystemTypeRegister(nfsv4FileSystem())
 
 class ForeignFileSystem(FileSystemType):
     def __init__(self):
@@ -1391,7 +1405,16 @@ class FileSystemSet:
 
     def fstab (self):
         format = "%-23s %-23s %-7s %-15s %d %d\n"
-        fstab = ""
+        fstab = """
+#
+# /etc/fstab
+# Created by anaconda on %s
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or vol_id(8) for more info
+#
+""" % time.asctime()
+
         for entry in self.entries:
             if entry.mountpoint:
                 if entry.getUuid() and entry.device.doLabel is not None:
@@ -1583,7 +1606,7 @@ MAILADDR root
             # active
             if iutil.isEfi() \
                     or iutil.getPPCMachine() in ("pSeries", "iSeries", "PMac") \
-                    or (rhpl.getArch() in ("i386", "x86_64") \
+                    or iutil.isX86() \
                              and partedUtils.hasGptLabel(diskset, drive)):
                 if part and part.is_flag_available(parted.PARTITION_BOOT):
                     part.set_flag(parted.PARTITION_BOOT, 1)
@@ -1894,7 +1917,7 @@ MAILADDR root
     def haveMigratedFilesystems(self):
         return self.migratedfs
 
-    def migrateFilesystems (self, chroot='/'):
+    def migrateFilesystems (self, anaconda):
         if self.migratedfs:
             return
 
@@ -1906,7 +1929,7 @@ MAILADDR root
                 continue
             try: 
                 entry.origfsystem.migrateFileSystem(entry, self.messageWindow,
-                                                    chroot)
+                                                    anaconda.rootPath)
             except SystemError:
                 if self.messageWindow:
                     self.messageWindow(_("Error"),
@@ -1917,6 +1940,13 @@ MAILADDR root
                                          "Press <Enter> to exit the installer.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
+
+        # we need to unmount and remount so that we're mounted as the
+        # new fstype as we want to use the new filesystem type during
+        # the upgrade for ext3->ext4 migrations
+        if self.isActive():
+            self.umountFilesystems(anaconda.rootPath, swapoff = False)
+            self.mountFilesystems(anaconda)
 
         self.migratedfs = 1
 

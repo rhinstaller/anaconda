@@ -36,7 +36,6 @@ import urlgrabber.grabber
 from urlgrabber.grabber import URLGrabber, URLGrabError
 import yum
 import iniparse
-import rhpl
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError, PackageSackError
 from yum.yumRepo import YumRepository
@@ -46,12 +45,15 @@ from sortedtransaction import SplitMediaTransactionData
 from constants import *
 from image import *
 import packages
-from rhpl.translate import _
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import network
 
 # specspo stuff
 rpm.addMacro("_i18ndomains", "redhat-dist")
+textdomain("redhat-dist")
 
 import logging
 log = logging.getLogger("anaconda")
@@ -59,6 +61,7 @@ log = logging.getLogger("anaconda")
 import urlparse
 urlparse.uses_fragment.append('media')
 
+urlgrabber.grabber.default_grabber.opts.user_agent = "%s (anaconda)/%s" %(productName, productVersion)
 
 import iutil
 import isys
@@ -80,6 +83,52 @@ def size_string (size):
             return _("%s Byte") %(number_format(size),)                    
         else:
             return _("%s Bytes") %(number_format(size),)
+
+def _getDefaultLangs():
+    languages = []
+    for envar in ('LANGUAGE', 'LC_ALL', 'LC_MESSAGES', 'LANG'):
+        val = os.environ.get(envar)
+        if val:
+            languages = val.split(':')
+            break
+    if 'C' not in languages:
+        languages.append('C')
+
+    # now normalize and expand the languages
+    nelangs = []
+    for lang in languages:
+        for nelang in gettext._expand_lang(lang):
+            if nelang not in nelangs:
+                nelangs.append(nelang)
+    return nelangs
+
+# kind of lame caching of translations so we don't always have
+# to do all the looping
+strs = {}
+def xmltrans(base, thedict):
+    if strs.has_key(base):
+        return strs[base]
+
+    langs = _getDefaultLangs()
+    for l in langs:
+        if thedict.has_key(l):
+            strs[base] = thedict[l]
+            return strs[base]
+    strs[base] = base
+    return base
+
+def ui_comps_sort(one, two):
+    if one.display_order > two.display_order:
+        return 1
+    elif one.display_order < two.display_order:
+        return -1
+    elif _xmltrans(one.name, one.translated_name) > \
+         _xmltrans(two.name, two.translated_name):
+        return 1
+    elif _xmltrans(one.name, one.translated_name) < \
+         _xmltrans(two.name, two.translated_name):
+        return -1
+    return 0
 
 class AnacondaCallback:
 
@@ -157,7 +206,7 @@ class AnacondaCallback:
             sum = hdr['summary'] or ""
             if type(sum) != unicode:
                 sum = unicode(sum, encoding='utf-8')
-            s += sum
+            s += gettext.ldgettext("redhat-dist", sum.strip())
             self.progress.set_label(s)
 
             self.instLog.write(self.modeText % pkgStr)
@@ -172,6 +221,8 @@ class AnacondaCallback:
                     f = open(fn, 'r')
                     self.openfile = f
                 except yum.Errors.NoMoreMirrorsRepoError:
+                    self.ayum._handleFailure(po)
+                except IOError:
                     self.ayum._handleFailure(po)
                 except yum.Errors.RepoError, e:
                     continue
@@ -222,8 +273,8 @@ class AnacondaCallback:
             self.progress.processEvents()
 
 class AnacondaYumRepo(YumRepository):
-    def __init__( self, uri=None, mirrorlist=None,
-                  repoid='anaconda%s' % productStamp,
+    def __init__( self, repoid='anaconda%s' % productStamp,
+                  uri=None, mirrorlist=None,
                   root = "/mnt/sysimage/", addon=True):
         YumRepository.__init__(self, repoid)
         conf = yum.config.RepoConf()
@@ -485,16 +536,49 @@ class AnacondaYum(YumSorter):
                    text=kwargs["text"], range=kwargs["range"], copy_local=1)
         return kwargs["local"]
 
-    def doConfigSetup(self, fn='/etc/yum.conf', root='/'):
-        self.conf = yum.config.YumConf()
-        self.conf.installroot = root
-        self.conf.reposdir=["/tmp/repos.d"]
-        self.conf.logfile="/tmp/yum.log"
-        self.conf.obsoletes=True
-        self.conf.cache=0
-        self.conf.cachedir = "%s/var/cache/yum" % self.anaconda.rootPath
-        self.conf.metadata_expire = 0
+    # XXX: This is straight out of yum, but we need to override it here in
+    # order to use our own repo class.
+    def readRepoConfig(self, parser, section):
+        '''Parse an INI file section for a repository.
 
+        @param parser: ConfParser or similar to read INI file values from.
+        @param section: INI file section to read.
+        @return: YumRepository instance.
+        '''
+        repo = AnacondaYumRepo(section)
+        repo.populate(parser, section, self.conf)
+
+        # Ensure that the repo name is set
+        if not repo.name:
+            repo.name = section
+            self.logger.error(_('Repository %r is missing name in configuration, '
+                    'using id') % section)
+
+        # Set attributes not from the config file
+        repo.basecachedir = self.conf.cachedir
+        repo.yumvar.update(self.conf.yumvar)
+        repo.cfg = parser
+
+        return repo
+
+    # We need to make sure $releasever gets set up before .repo files are
+    # read.  Since there's no redhat-release package in /mnt/sysimage (and
+    # won't be for quite a while), we need to do our own substutition.
+    def getReposFromConfig(self):
+        def _getReleasever():
+            from ConfigParser import ConfigParser
+            c = ConfigParser()
+            ConfigParser.read(c, "%s/.treeinfo" % self.tree)
+            return c.get("general", "version")
+
+        self.yumvar["releasever"] = _getReleasever()
+        YumSorter.getReposFromConfig(self)
+
+    # Override this method so yum doesn't nuke our existing logging config.
+    def doLoggingSetup(self, debuglevel, errorlevel):
+        pass
+
+    def doConfigSetup(self, fn='/etc/yum.conf', root='/'):
         if self.anaconda.methodstr.startswith("nfs:"):
             if os.path.isdir(self.anaconda.methodstr[4:]):
                 self.tree = self.anaconda.methodstr[4:]
@@ -511,7 +595,9 @@ class AnacondaYum(YumSorter):
         elif self.anaconda.methodstr.startswith("ftp:") or self.anaconda.methodstr.startswith("http:"):
             methodstr = self.anaconda.methodstr
 
-        # set up logging to log to our logs
+        YumSorter.doConfigSetup(self, fn=fn, root=root)
+
+        # override default logging to use our logs
         ylog = logging.getLogger("yum")
         map(lambda x: ylog.addHandler(x), log.handlers)
 
@@ -519,7 +605,7 @@ class AnacondaYum(YumSorter):
         # add default repos
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(methodstr).items():
             rid = name.replace(" ", "")
-            repo = AnacondaYumRepo(uri, addon=False,
+            repo = AnacondaYumRepo(uri=uri, addon=False,
                                    repoid="anaconda-%s-%s" %(rid, productStamp),
                                    root = root)
             repo.name = name
@@ -547,19 +633,6 @@ class AnacondaYum(YumSorter):
             repo.enable()
             self.repos.add(repo)
 
-        extraRepos = []
-
-        # add some additional not enabled by default repos.
-        # FIXME: this is a hack and should probably be integrated
-        # with the above
-        for (name, (uri, mirror)) in self.anaconda.id.instClass.repos.items():
-            rid = name.replace(" ", "")
-            repo = AnacondaYumRepo(uri=uri, mirrorlist=mirror, repoid=rid,
-                                   root=root)
-            repo.name = name
-            repo.disable()
-            extraRepos.append(repo)
-
         if self.anaconda.id.extraModules:
             for d in glob.glob("/tmp/DD-*/rpms"):
                 dirname = os.path.basename(os.path.dirname(d))
@@ -569,33 +642,8 @@ class AnacondaYum(YumSorter):
                                        root=root, addon=False)
                 repo.name = "Driver Disk %s" % dirname.split("-")[1]
                 repo.enable()
-                extraRepos.append(repo)
 
-        if self.anaconda.isKickstart:
-            for ksrepo in self.anaconda.id.ksdata.repo.repoList:
-                repo = AnacondaYumRepo(uri=ksrepo.baseurl,
-                                       mirrorlist=ksrepo.mirrorlist,
-                                       repoid=ksrepo.name)
-                repo.name = ksrepo.name
-                repo.enable()
-                extraRepos.append(repo)
-
-        for repo in extraRepos:
-            try:
-                self.repos.add(repo)
-                log.info("added repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
-            except yum.Errors.DuplicateRepoError, e:
-                log.warning("ignoring duplicate repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
-
-        self.doPluginSetup(searchpath=["/usr/lib/yum-plugins",
-                                       "/tmp/updates/yum-plugins",
-                                       "/mnt/source/RHupdates/yum-plugins"], 
-                           confpath=["/etc/yum/pluginconf.d",
-                                     "/tmp/updates/pluginconf.d",
-                                     "/mnt/source/RHupdates/pluginconf.d"])
-        self.plugins.run('init')
-
-        self.repos.setCacheDir("%s/var/cache/yum" % self.anaconda.rootPath)
+        self.repos.setCacheDir("%s/var/cache/yum" % self.conf.cachedir)
 
     def downloadHeader(self, po):
         while True:
@@ -878,6 +926,23 @@ class YumBackend(AnacondaBackend):
     def __init__ (self, anaconda):
         AnacondaBackend.__init__(self, anaconda)
         self.supportsPackageSelection = True
+
+        buf = """
+[main]
+cachedir=%s/var/cache/yum
+installroot=%s
+keepcache=0
+logfile=/tmp/yum.log
+metadata_expire=0
+obsoletes=True
+pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins,/mnt/source/RHupdates/yum-plugins
+pluginconfpath=/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d,/mnt/source/RHupdates/pluginconf.d
+reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/mnt/source/RHupdates/yum.repos.d,/tmp/product/yum.repos.d
+""" % (anaconda.rootPath, anaconda.rootPath)
+
+        fd = open("/etc/yum.conf", "w")
+        fd.write(buf)
+        fd.close()
 
     def complete(self, anaconda):
         try:
@@ -1196,14 +1261,14 @@ class YumBackend(AnacondaBackend):
                 self.selectPackage("kernel-devel.%s" % (kpkg.arch,))
 
     def selectBootloader(self):
-        if rhpl.getArch() in ("i386", "x86_64"):
+        if iutil.isX86():
             self.selectPackage("grub")
-        elif rhpl.getArch() == "s390":
+        elif iutil.isS390():
             self.selectPackage("s390utils")
-        elif rhpl.getArch() == "ppc":
+        elif iutil.isPPC():
             self.selectPackage("yaboot")
         # XXX this needs to become grub, and we need an upgrade path...
-        elif rhpl.getArch() == "ia64":
+        elif iutil.isIA64():
             self.selectPackage("elilo")
 
     def selectFSPackages(self, fsset, diskset):
@@ -1270,11 +1335,11 @@ class YumBackend(AnacondaBackend):
                 try:
                     (code, msgs) = self.ayum.buildTransaction()
                 except Exception, e:
-                    buttons = [_("_Exit installer"), "gtk-edit", _("_Retry")]
+                    buttons = [_("_Exit installer"), _("_Retry")]
                 else:
                     break
 
-                # FIXME: this message isn't ideal, but it'll do for now
+                # FIXME: would be nice to be able to recover here
                 rc = anaconda.intf.messageWindow(_("Error"),
                                _("Unable to read package metadata. This may be "
                                  "due to a missing repodata directory.  Please "
@@ -1284,8 +1349,6 @@ class YumBackend(AnacondaBackend):
                                  custom_buttons=buttons)
                 if rc == 0:
                     sys.exit(0)
-                elif rc == 1:
-                    anaconda.intf.editRepoWindow(anaconda, repo)
                 else:
                     continue
 

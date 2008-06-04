@@ -22,14 +22,17 @@
 import os, sys, string
 import time
 from snack import *
+from constants import *
 from constants_text import *
-from rhpl.translate import _, N_
 import network
 import isys
 import product
 import iutil
 import socket
 import subprocess
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -207,7 +210,7 @@ class VncServer:
         else:
             self.log.info(_("Please manually connect your vnc client to begin the install."))
 
-    def startServer(self, vncStartedCB=None):
+    def startServer(self):
         self.log.info(_("Starting VNC..."))
 
         # Lets call it from here for now.
@@ -269,9 +272,6 @@ class VncServer:
             self.VNCListen()
 
         os.environ["DISPLAY"]=":%s" % self.display
-
-        if vncStartedCB:
-            vncStartedCB()
 
     def changeVNCPasswdWindow(self):
         """ Change the password to a sane parameter.

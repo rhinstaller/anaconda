@@ -26,24 +26,24 @@
 
 class PartitioningError(Exception):
     """A critical error which must be resolved to continue the installation."""
-    def __init__ (self, value):
-        self.value = value
+    def __init__(self, message=""):
+        self.message = str(message)
 
     def __str__ (self):
-        return self.value
+        return self.message
 
 class PartitioningWarning(Exception):
     """A warning which may be ignored and still complete the installation."""
-    def __init__ (self, value):
-        self.value = value
+    def __init__(self, message=""):
+        self.message = str(message)
 
     def __str__ (self):
-        return self.value
+        return self.message
 
 class LabelError(Exception):
     """The device could not be labeled."""
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, message=""):
+        self.message = str(message)
 
     def __str__(self):
-        return self.value
+        return self.message

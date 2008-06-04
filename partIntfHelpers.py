@@ -32,7 +32,8 @@ import fsset
 import iutil
 import partRequests
 
-from rhpl.translate import _
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 def sanityCheckVolumeGroupName(volname):
     """Make sure that the volume group name doesn't contain invalid chars."""

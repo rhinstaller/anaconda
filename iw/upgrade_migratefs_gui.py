@@ -20,13 +20,15 @@
 #
 
 from iw_gui import *
-from rhpl.translate import _, N_
 from constants import *
 import string
 import isys 
 import iutil
 from fsset import *
 import gtk
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class UpgradeMigrateFSWindow (InstallWindow):		
     windowTitle = N_("Migrate File Systems")
@@ -60,7 +62,7 @@ class UpgradeMigrateFSWindow (InstallWindow):
         box.set_border_width (5)
 
 	text = (_("This release of %s supports "
-                 "the an updated file system, which has several "
+                 "an updated file system, which has several "
                  "benefits over the file system traditionally shipped "
                  "in %s.  This installation program can migrate "
                  "formatted partitions without data loss.\n\n"

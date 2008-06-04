@@ -43,13 +43,15 @@ import lvm_dialog_gui
 import raid_dialog_gui
 import partition_dialog_gui
 
-from rhpl.translate import _, N_
 from partIntfHelpers import *
 from partedUtils import *
 from fsset import *
 from partRequests import *
 from constants import *
 from partition_ui_helpers_gui import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -968,8 +970,7 @@ class PartitionWindow(InstallWindow):
             self.diskStripeGraph.selectSlice(partition)
 
     def newCB(self, widget):
-        # create new request of size 1M
-        request = NewPartitionSpec(fileSystemTypeGetDefault(), size = 100)
+        request = NewPartitionSpec(fileSystemTypeGetDefault(), size = 200)
 
         self.editPartitionRequest(request, isNew = 1)
 
@@ -1322,7 +1323,7 @@ class PartitionWindow(InstallWindow):
 
 	# see which option they choose
 	if createRAIDpart.get_active():
-	    rdrequest = NewPartitionSpec(fileSystemTypeGet("software RAID"), size = 100)
+	    rdrequest = NewPartitionSpec(fileSystemTypeGet("software RAID"), size = 200)
 	    rc = self.editPartitionRequest(rdrequest, isNew = 1, restrictfs=["software RAID"])
 	elif createRAIDdev.get_active():
 	    self.editRaidRequest(request, isNew=1)

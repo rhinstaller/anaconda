@@ -165,7 +165,7 @@ PACKAGES="glibc-common setup python newt slang libselinux
 	 device-mapper device-mapper-libs dmraid keyutils-libs libsemanage-python
 	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr pcre
 	 cryptsetup-luks libgcrypt libgpg-error dbus dbus-python hal
-	 cracklib-python module-init-tools cracklib-dicts"
+	 cracklib-python module-init-tools cracklib-dicts system-release"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
@@ -329,6 +329,7 @@ etc/selinux/targeted
 etc/shells
 etc/udev
 etc/yum/pluginconf.d/fedorakmod.conf
+etc/yum.repos.d/*
 lib/terminfo
 $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
@@ -359,6 +360,7 @@ sbin/hdparm
 sbin/hwclock
 sbin/jfs_tune
 sbin/ldconfig
+sbin/lspci
 sbin/lvm*
 sbin/mdadm
 sbin/mkdosfs
@@ -611,6 +613,7 @@ usr/share/X11/locale
 usr/share/X11/rgb*
 usr/share/X11/xkb
 usr/$LIBDIR/xserver/SecurityPolicy
+usr/$LIBDIR/dri
 usr/$LIBDIR/xorg/modules
 usr/bin/chattr*
 usr/bin/gdialog
@@ -762,6 +765,7 @@ bin/tar
 bin/zcat
 etc/joe
 sbin/arp
+sbin/blkid
 sbin/depmod
 sbin/dmraid
 sbin/dmsetup
@@ -769,7 +773,6 @@ sbin/dump
 sbin/ifconfig
 sbin/insmod
 sbin/lsmod
-sbin/lspci
 sbin/modinfo
 sbin/modprobe
 sbin/netstat
