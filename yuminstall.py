@@ -54,7 +54,6 @@ import network
 
 # specspo stuff
 rpm.addMacro("_i18ndomains", "redhat-dist")
-textdomain("redhat-dist")
 
 import logging
 log = logging.getLogger("anaconda")
