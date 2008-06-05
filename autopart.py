@@ -1534,10 +1534,10 @@ def doAutoPartition(anaconda):
         if not anaconda.isKickstart:
             anaconda.intf.messageWindow(_("Warnings During Automatic Partitioning"),
                            _("Following warnings occurred during automatic "
-                           "partitioning:\n\n%s") % (msg.value,),
+                           "partitioning:\n\n%s") % (msg,),
 			       custom_icon='warning')
         else:
-            lvmLog.warning(msg.value)
+            lvmLog.warning(str(msg))
     except PartitioningError, msg:
         # restore drives to original state
         diskset.refreshDevices()
@@ -1550,7 +1550,7 @@ def doAutoPartition(anaconda):
             extra = _("\n\nPress 'OK' to exit the installer.")
         anaconda.intf.messageWindow(_("Error Partitioning"),
                _("Could not allocate requested partitions: \n\n"
-                 "%s.%s") % (msg.value, extra), custom_icon='error')
+                 "%s.%s") % (msg, extra), custom_icon='error')
 
 
         if anaconda.isKickstart:
