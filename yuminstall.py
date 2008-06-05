@@ -394,20 +394,11 @@ class AnacondaYum(YumSorter):
         if self._loopbackFile and os.path.exists(self._loopbackFile):
             return
 
-        # If they booted with a boot.iso, just continue using that stage2.img.
-        if os.path.exists("/mnt/stage2/images/stage2.img"):
-            log.info("Don't need to transfer stage2 image")
-            return
-
-        stage2img = None
-        if os.path.exists("/tmp/stage2.img"):
-            log.info("Using /tmp/stage2.img as stage2 image")
-            stage2img = "/tmp/stage2.img"
-        elif os.path.exists("%s/images/stage2.img" % self.tree):
-            log.info("Using %s/images/stage2.img as stage2 image" % self.tree)
-            stage2img = "%s/images/stage2.img" % self.tree
-        else:
-            log.debug("Not copying stage2.img as we can't find it")
+        # If we've booted off the first CD/DVD (so, not the boot.iso) then
+        # copy the stage2.img to the filesystem and switch loopback devices
+        # to there.  Otherwise we won't be able to unmount and swap media.
+        stage2img = "%s/images/stage2.img" % self.tree
+        if not self.anaconda.mediaDevice or not os.path.exists(stage2img):
             return
 
         self._loopbackFile = "%s%s/rhinstall-stage2.img" % (chroot,
@@ -442,13 +433,6 @@ class AnacondaYum(YumSorter):
             return 1
 
         isys.lochangefd("/dev/loop0", self._loopbackFile)
-
-        # Try to remove the stage2 image from /tmp to decrease memory usage.
-        if stage2img == "/tmp/stage2.img":
-            try:
-                os.unlink(stage2img)
-            except:
-                pass
 
     def _switchCD(self, discnum):
         if os.access("%s/.discinfo" % self.tree, os.R_OK):
