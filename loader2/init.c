@@ -78,24 +78,6 @@
 #define ENV_MALLOC_CHECK    7
 #define ENV_MALLOC_PERTURB  8
 
-/*
- * Snakes On A Plane...
- *
- * Define this macro if you want init to launch /bin/bash instead of loader.
- * You will want to populate initrd.img with bash, libraries, other commands
- * like strace or something, and whatever else you want.  This is purely for
- * debugging loader.  Things you will likely want in a debugging initrd:
- *    /lib/libc.so.6
- *    /lib/libtermcap.so.2
- *    /lib/ld-linux.so.2
- *    /lib/libdl.so.2
- *    /bin/bash
- *    /bin/strace
- * You get the idea.  Be creative.  Be imaginative.  Be bold.
- */
-#undef SNAKES_ON_A_PLANE
-/* #define SNAKES_ON_A_PLANE 1 */
-
 char * env[] = {
     "PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:"
     "/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin:"
@@ -134,28 +116,6 @@ void disableSwap(void);
 void shutDown(int noKill, int doReboot, int doPowerOff);
 static int getNoKill(void);
 struct termios ts;
-
-static int mystrstr(char *str1, char *str2) {
-    char *p;
-    int rc=0;
-
-    for (p=str1; *p; p++) {
-        if (*p == *str2) {
-            char *s, *t;
-
-            rc = 1;
-            for (s=p, t=str2; *s && *t; s++, t++)
-                if (*s != *t) {
-                    rc = 0;
-                    p++;
-                }
-
-            if (rc)
-                return rc;
-        } 
-    }
-    return rc;
-}
 
 static void printstr(char * string) {
     int ret;
@@ -364,7 +324,7 @@ static int setupTerminal(int fd) {
     if ((fdn = open("/proc/cmdline", O_RDONLY, 0)) != -1) {
         len = read(fdn, buf, sizeof(buf) - 1);
         close(fdn);
-        if (len > 0 && mystrstr(buf, "utf8"))
+        if ((len > 0) && strstr(buf, "utf8"))
             env[ENV_TERM] = "TERM=vt100";
     }
 
@@ -449,7 +409,7 @@ static int getNoKill(void) {
     if ((fd = open("/proc/cmdline", O_RDONLY,0)) > 0) {
         len = read(fd, buf, sizeof(buf) - 1);
         close(fd);
-        if (len > 0 && mystrstr(buf, "nokill"))
+        if ((len > 0) && strstr(buf, "nokill"))
             return 1;
     }
     return 0;
@@ -674,14 +634,10 @@ int main(int argc, char **argv) {
 #endif
 
     /* disable Ctrl+Z, Ctrl+C, etc ... but not in rescue mode */
-#ifdef SNAKES_ON_A_PLANE
-    disable_keys = 0;
-#else
     disable_keys = 1;
     if (argc > 1)
-        if (mystrstr(argv[1], "rescue"))
+        if (strstr(argv[1], "rescue"))
             disable_keys = 0;
-#endif
 
     if (disable_keys) {
         tcgetattr(0, &ts);
@@ -752,32 +708,8 @@ int main(int argc, char **argv) {
 
     setsid();
 
-#ifdef SNAKES_ON_A_PLANE
-    printf("> Snakes on a Plane <\n");
-
-    /* hack to load core modules for debugging mode */
-    char * modvc[15];
-    char ** modvp = modvc;
-    *modvp++ = "/bin/modprobe";
-    *modvp++ = "ehci-hcd";
-    *modvp++ = "uhci-hcd";
-    *modvp++ = "ohci-hcd";
-    *modvp++ = NULL;
-    pid_t blah = fork();
-    int qux;
-    if (blah == 0) {
-        printf("loading core debugging modules...\n");
-        execve(modvc[0], modvc, env);
-    } else {
-        waitpid(blah, &qux, WNOHANG);
-    }
-#endif
-
     if (!(installpid = fork())) {
         /* child */
-#ifdef SNAKES_ON_A_PLANE
-        *argvp++ = "/bin/strace";
-#endif
         *argvp++ = "/sbin/loader";
 
         if (isSerial == 3) {

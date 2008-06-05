@@ -27,8 +27,6 @@ import gobject
 import gtk
 import datacombo
 
-from rhpl.translate import _, N_
-
 import gui
 from fsset import *
 from raid import availRaidLevels
@@ -36,6 +34,9 @@ from cryptodev import LUKSDevice
 from partRequests import *
 from partition_ui_helpers_gui import *
 from constants import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class RaidEditor:
 

@@ -18,10 +18,12 @@
 #
 
 from installclass import BaseInstallClass
-from rhpl.translate import N_,_
 from constants import *
 import os, types
 import iutil
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import installmethod
 import yuminstall

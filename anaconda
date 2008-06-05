@@ -360,14 +360,26 @@ def setupPythonPath():
 
     sys.path.append('/usr/share/system-config-date')
 
+def addPoPath(dir):
+    """ Looks to see what translations are under a given path and tells
+    the gettext module to use that path as the base dir """
+    for d in os.listdir(dir):
+        if not os.path.isdir("%s/%s" %(dir,d)):
+            continue
+        if not os.path.exists("%s/%s/LC_MESSAGES" %(dir,d)):
+            continue
+        for basename in os.listdir("%s/%s/LC_MESSAGES" %(dir,d)):
+            if not basename.endswith(".mo"):
+                continue
+            log.info("setting %s as translation source for %s" %(dir, basename[:-3]))
+            gettext.bindtextdomain(basename[:-3], dir)
+
 def setupTranslations():
     if os.path.isdir("/mnt/source/RHupdates/po"):
-        log.info("adding RHupdates/po")
         addPoPath("/mnt/source/RHupdates/po")
     if os.path.isdir("/tmp/updates/po"):
-        log.info("adding /tmp/updates/po")
         addPoPath("/tmp/updates/po")
-    textdomain("anaconda")
+    gettext.textdomain("anaconda")
 
 def setupEnvironment():
     # Silly GNOME stuff
@@ -592,14 +604,15 @@ if __name__ == "__main__":
     from exception import handleException
     import dispatch
     import warnings
-    import rhpl
     import vnc
     import users
     import kickstart
     from flags import flags
-    from rhpl.translate import _, textdomain, addPoPath
 
-    if rhpl.getArch() != "s390" and os.access("/dev/tty3", os.W_OK):
+    import gettext
+    _ = lambda x: gettext.ldgettext("anaconda", x)
+
+    if not iutil.isS390() and os.access("/dev/tty3", os.W_OK):
         logger.addFileHandler ("/dev/tty3", log)
 
     warnings.showwarning = AnacondaShowWarning
@@ -692,7 +705,7 @@ if __name__ == "__main__":
         flags.virtpconsole = opts.virtpconsole
 
     # probing for hardware on an s390 seems silly...
-    if rhpl.getArch() == "s390":
+    if iutil.isS390():
         opts.isHeadless = True
 
     if not flags.test and not flags.rootpath:
@@ -827,7 +840,7 @@ if __name__ == "__main__":
     # now determine if we're going to run in GUI or TUI mode
     #
     # if no X server, we have to use text mode
-    if not (flags.test or flags.rootpath or x_already_set) and (rhpl.getArch() != "s390" and not os.access("/usr/bin/Xorg", os.X_OK)):
+    if not (flags.test or flags.rootpath or x_already_set) and (not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK)):
          stdoutLog.warning(_("Graphical installation not available...  "
                              "Starting text mode."))
          time.sleep(2)

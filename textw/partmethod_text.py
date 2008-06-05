@@ -21,9 +21,11 @@
 #
 
 from snack import *
-from rhpl.translate import _, cat, N_
 from constants_text import *
 from autopart import PARTMETHOD_TYPE_DESCR_TEXT
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class PartitionMethod:
     def __call__(self, screen, partitions, instclass):

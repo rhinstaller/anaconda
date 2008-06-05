@@ -37,11 +37,12 @@ import partitions
 import partedUtils
 import raid
 import lvm
+import time
 import types
 from flags import flags
 
-import rhpl
-from rhpl.translate import _, N_
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -57,7 +58,7 @@ class ResizeError(Exception):
 
 defaultMountPoints = ['/', '/boot', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
 
-if rhpl.getArch() == "s390":
+if iutil.isS390():
     # Many s390 have 2G DASDs, we recomment putting /usr/share on its own DASD
     defaultMountPoints.insert(5, '/usr/share')
 
@@ -1404,7 +1405,16 @@ class FileSystemSet:
 
     def fstab (self):
         format = "%-23s %-23s %-7s %-15s %d %d\n"
-        fstab = ""
+        fstab = """
+#
+# /etc/fstab
+# Created by anaconda on %s
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or vol_id(8) for more info
+#
+""" % time.asctime()
+
         for entry in self.entries:
             if entry.mountpoint:
                 if entry.getUuid() and entry.device.doLabel is not None:
@@ -1596,7 +1606,7 @@ MAILADDR root
             # active
             if iutil.isEfi() \
                     or iutil.getPPCMachine() in ("pSeries", "iSeries", "PMac") \
-                    or (rhpl.getArch() in ("i386", "x86_64") \
+                    or (iutil.isX86() \
                              and partedUtils.hasGptLabel(diskset, drive)):
                 if part and part.is_flag_available(parted.PARTITION_BOOT):
                     part.set_flag(parted.PARTITION_BOOT, 1)

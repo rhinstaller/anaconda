@@ -22,9 +22,11 @@ import gtk.glade
 import gobject
 import gui
 from iw_gui import *
-from rhpl.translate import _, N_
-from constants import productName
+from constants import *
 import isys
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 from netconfig_dialog import NetworkConfigurator
 import network

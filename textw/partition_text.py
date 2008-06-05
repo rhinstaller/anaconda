@@ -38,7 +38,8 @@ from snack import *
 from constants_text import *
 from constants import *
 
-from rhpl.translate import _
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -1628,7 +1629,7 @@ class PartitionTypeWindow:
         import iscsi
         if iscsi.has_iscsi():
             newdrv.append("Add iSCSI target")
-        if rhpl.getArch() in ("s390", "s390x"):
+        if iutil.isS390():
             newdrv.append( "Add zFCP LUN" )
 
         if len(newdrv) == 0:

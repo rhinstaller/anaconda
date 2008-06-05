@@ -24,7 +24,10 @@ import gobject
 import partedUtils
 import gui
 from iw_gui import *
-from rhpl.translate import _, N_
+from constants import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 from osbootwidget import OSBootWidget
 from blpasswidget import BootloaderPasswordWidget

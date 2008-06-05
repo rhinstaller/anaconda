@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import string
 import isys
 import iutil
 import upgrade
@@ -27,7 +26,8 @@ from fsset import *
 from flags import flags
 from constants import *
 
-from rhpl.translate import _
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, anaconda):

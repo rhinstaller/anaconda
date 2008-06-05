@@ -26,7 +26,6 @@ import string, sys
 import fsset
 import lvm
 import logging
-import rhpl
 from anaconda_log import logger, logFile
 import cryptodev
 import partedUtils
@@ -34,12 +33,14 @@ import partRequests
 from constants import *
 from partErrors import *
 
-from rhpl.translate import _, N_
-
 import iutil
 import isys
 
 log = logging.getLogger("anaconda")
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 
 PARTITION_FAIL = -1
 PARTITION_SUCCESS = 0
@@ -80,7 +81,7 @@ def bootRequestCheck(req, diskset):
         elif req.mountpoint == "/boot/efi":
             if not part.fs_type.name in ["fat16", "fat32"]:
                 return BOOTEFI_NOT_VFAT
-    elif rhpl.getArch() == "alpha":
+    elif iutil.isAlpha():
         return bootAlphaCheckRequirements(part)
     elif (iutil.getPPCMachine() == "pSeries" or
           iutil.getPPCMachine() == "iSeries"):
@@ -412,7 +413,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             startSec = freeStartSec
 
 	    # For alpha reserve space at the begining of disk
-	    if rhpl.getArch() == "alpha" and startSec < long((1024L * 1024L)/disk.dev.sector_size):
+	    if iutil.isAlpha() and startSec < long((1024L * 1024L)/disk.dev.sector_size):
 		startSec = long((2 * 1024L * 1024L)/disk.dev.sector_size)
 
             endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sector_size)) - 1

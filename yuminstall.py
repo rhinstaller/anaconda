@@ -36,7 +36,6 @@ import urlgrabber.grabber
 from urlgrabber.grabber import URLGrabber, URLGrabError
 import yum
 import iniparse
-import rhpl
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError, PackageSackError
 from yum.yumRepo import YumRepository
@@ -46,7 +45,9 @@ from sortedtransaction import SplitMediaTransactionData
 from constants import *
 from image import *
 import packages
-from rhpl.translate import _, textdomain
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import network
 
@@ -82,6 +83,52 @@ def size_string (size):
             return _("%s Byte") %(number_format(size),)                    
         else:
             return _("%s Bytes") %(number_format(size),)
+
+def _getDefaultLangs():
+    languages = []
+    for envar in ('LANGUAGE', 'LC_ALL', 'LC_MESSAGES', 'LANG'):
+        val = os.environ.get(envar)
+        if val:
+            languages = val.split(':')
+            break
+    if 'C' not in languages:
+        languages.append('C')
+
+    # now normalize and expand the languages
+    nelangs = []
+    for lang in languages:
+        for nelang in gettext._expand_lang(lang):
+            if nelang not in nelangs:
+                nelangs.append(nelang)
+    return nelangs
+
+# kind of lame caching of translations so we don't always have
+# to do all the looping
+strs = {}
+def xmltrans(base, thedict):
+    if strs.has_key(base):
+        return strs[base]
+
+    langs = _getDefaultLangs()
+    for l in langs:
+        if thedict.has_key(l):
+            strs[base] = thedict[l]
+            return strs[base]
+    strs[base] = base
+    return base
+
+def ui_comps_sort(one, two):
+    if one.display_order > two.display_order:
+        return 1
+    elif one.display_order < two.display_order:
+        return -1
+    elif _xmltrans(one.name, one.translated_name) > \
+         _xmltrans(two.name, two.translated_name):
+        return 1
+    elif _xmltrans(one.name, one.translated_name) < \
+         _xmltrans(two.name, two.translated_name):
+        return -1
+    return 0
 
 class AnacondaCallback:
 
@@ -159,7 +206,7 @@ class AnacondaCallback:
             sum = hdr['summary'] or ""
             if type(sum) != unicode:
                 sum = unicode(sum, encoding='utf-8')
-            s += _(sum.strip())
+            s += gettext.ldgettext("redhat-dist", sum.strip())
             self.progress.set_label(s)
 
             self.instLog.write(self.modeText % pkgStr)
@@ -521,10 +568,23 @@ class AnacondaYum(YumSorter):
         def _getReleasever():
             from ConfigParser import ConfigParser
             c = ConfigParser()
-            ConfigParser.read(c, "%s/.treeinfo" % self.tree)
+
+            if os.access("%s/.treeinfo" % self.methodstr, os.R_OK):
+                ConfigParser.read(c, "%s/.treeinfo" % self.methodstr)
+            else:
+                ug = URLGrabber()
+                ug.urlgrab("%s/.treeinfo" % self.methodstr, "/tmp/.treeinfo",
+                           copy_local=1)
+                ConfigParser.read(c, "/tmp/.treeinfo")
+
             return c.get("general", "version")
 
-        self.yumvar["releasever"] = _getReleasever()
+        try:
+            self.yumvar["releasever"] = _getReleasever()
+        except:
+            log.error("Unable to get .treeinfo file, $releasever substitution "
+                      "will be unavailable.")
+
         YumSorter.getReposFromConfig(self)
 
     # Override this method so yum doesn't nuke our existing logging config.
@@ -538,15 +598,15 @@ class AnacondaYum(YumSorter):
             else:
                 if not os.path.ismount(self.tree):
                     isys.mount(self.anaconda.methodstr[4:], self.tree, "nfs")
-            methodstr = "file://%s" % self.tree
+            self.methodstr = "file://%s" % self.tree
         elif self.anaconda.methodstr.startswith("nfsiso:"):
-            methodstr = "file://%s" % self.tree
+            self.methodstr = "file://%s" % self.tree
         elif self.anaconda.methodstr.startswith("cdrom:"):
-            methodstr = "file://%s" % self.tree
+            self.methodstr = "file://%s" % self.tree
         elif self.anaconda.methodstr.startswith("hd:"):
-            methodstr = "file://%s" % self.tree
+            self.methodstr = "file://%s" % self.tree
         elif self.anaconda.methodstr.startswith("ftp:") or self.anaconda.methodstr.startswith("http:"):
-            methodstr = self.anaconda.methodstr
+            self.methodstr = self.anaconda.methodstr
 
         YumSorter.doConfigSetup(self, fn=fn, root=root)
 
@@ -556,7 +616,7 @@ class AnacondaYum(YumSorter):
 
         _preupgset = False
         # add default repos
-        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(methodstr).items():
+        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.methodstr).items():
             rid = name.replace(" ", "")
             repo = AnacondaYumRepo(uri=uri, addon=False,
                                    repoid="anaconda-%s-%s" %(rid, productStamp),
@@ -1214,14 +1274,14 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/mnt/source/RHupdates/yum.rep
                 self.selectPackage("kernel-devel.%s" % (kpkg.arch,))
 
     def selectBootloader(self):
-        if rhpl.getArch() in ("i386", "x86_64"):
+        if iutil.isX86():
             self.selectPackage("grub")
-        elif rhpl.getArch() == "s390":
+        elif iutil.isS390():
             self.selectPackage("s390utils")
-        elif rhpl.getArch() == "ppc":
+        elif iutil.isPPC():
             self.selectPackage("yaboot")
         # XXX this needs to become grub, and we need an upgrade path...
-        elif rhpl.getArch() == "ia64":
+        elif iutil.isIA64():
             self.selectPackage("elilo")
 
     def selectFSPackages(self, fsset, diskset):

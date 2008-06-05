@@ -24,7 +24,7 @@ import os
 import string
 import locale
 
-from rhpl.translate import cat
+import gettext
 from rhpl.simpleconfig import SimpleConfigFile
 
 import logging
@@ -213,7 +213,10 @@ class Language:
         except locale.Error:
             pass
 
-        cat.setlangs(expandLangs(os.environ["LANG"]))
+        # XXX: oh ick.  this is the sort of thing which you should never do...
+        # but we switch languages at runtime and thus need to invalidate
+        # the set of languages/mofiles which gettext knows about
+        gettext._translations = {}
 
     def write(self, instPath):
 	f = open(instPath + "/etc/sysconfig/i18n", "w")

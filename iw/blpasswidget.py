@@ -21,8 +21,10 @@
 
 import gtk
 import gui
-from rhpl.translate import _, N_
+from constants import *
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class BootloaderPasswordWidget:
     def __init__(self, anaconda, parent):

@@ -39,12 +39,11 @@ from flags import flags
 from product import *
 from constants import *
 
-import rhpl
-from rhpl.translate import _
-import rhpl.arch
-
 import logging
 log = logging.getLogger("anaconda")
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 def doPostAction(anaconda):
     anaconda.id.instClass.postAction(anaconda)
@@ -193,7 +192,7 @@ def setupTimezone(anaconda):
         except OSError, (errno, msg):
             log.error("Error copying timezone (from %s): %s" %(tzfile, msg))
 
-    if rhpl.getArch() == "s390":
+    if iutil.isS390():
         return
     args = [ "--hctosys" ]
     if anaconda.id.timezone.utc:

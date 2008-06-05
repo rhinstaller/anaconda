@@ -30,10 +30,12 @@ from constants import *
 
 import kickstart
 import packages
-from rhpl.translate import _
 
 from flags import flags
 log = logging.getLogger("anaconda")
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class NoSuchGroup(Exception):
     def __init__ (self, value):

@@ -32,6 +32,7 @@ if flags.cmdline.has_key("dogtail"):
 import string
 import time
 import isys
+import iutil
 import sys
 import parted
 import shutil
@@ -42,11 +43,11 @@ import gettext
 from language import expandLangs
 from constants import *
 from network import hasActiveNetDev
-import rhpl
 import xutils
 import imputil
 
-from rhpl.translate import _, N_
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -80,7 +81,7 @@ stepToClass = {
     "complete" : ("congrats_gui", "CongratulationWindow"),
 }
 
-if rhpl.getArch() == 's390':
+if iutil.isS390():
     stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
 
 #

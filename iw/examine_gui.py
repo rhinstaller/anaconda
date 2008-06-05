@@ -22,10 +22,12 @@ import gtk
 import gui
 from iw_gui import *
 from pixmapRadioButtonGroup_gui import pixmapRadioButtonGroup
-from rhpl.translate import _, N_
 from constants import *
 import upgrade
 from flags import flags
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 UPGRADE_STR = "upgrade"
 REINSTALL_STR = "reinstall"

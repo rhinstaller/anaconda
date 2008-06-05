@@ -19,11 +19,11 @@
 
 import sys
 sys.path.append("..")
-from rhpl.translate import _
-import rhpl.translate
 import language
 
-rhpl.translate.cat.setunicode(1)
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 langs = language.Language()
 names = {}

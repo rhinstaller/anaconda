@@ -23,7 +23,9 @@ import gtk
 import gobject
 import gui
 
-from rhpl.translate import _, N_
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import gui
 import network

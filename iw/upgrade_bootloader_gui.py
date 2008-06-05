@@ -23,8 +23,11 @@
 from iw_gui import *
 
 import gtk
-from rhpl.translate import _, N_
 import checkbootloader
+
+from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

@@ -21,18 +21,13 @@ import isys
 import os, os.path, stat, string, sys, sets
 from constants import *
 
-import rhpl
-from rhpl.translate import _
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
 
-# this sucks, but we want to consider s390x as s390x in here but generally
-# don't.  *sigh*
-if os.uname()[4] == "s390x":
-    _arch = "s390x"
-else:
-    _arch = rhpl.getArch()
+_arch = iutil.getArch()
 
 def findIsoImages(path, messageWindow):
     flush = os.stat(path)
