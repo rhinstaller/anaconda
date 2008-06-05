@@ -440,10 +440,17 @@ def runVNC():
                 os.environ['PYTHONSTARTUP'] = p
                 break
 
-	while 1:
-	    print _("Press <enter> for a shell")
-	    sys.stdin.readline()
-            iutil.execConsole()
+	while True:
+	    # s390/s390x are the only places we /really/ need a shell on tty1,
+	    # and everywhere else this just gets in the way of pdb.  But we
+	    # don't want to return, because that'll return try to start X
+	    # a second time.
+	    if iutil.isConsoleOnVirtualTerminal():
+            	time.sleep(10000)
+	    else:
+	    	print _("Press <enter> for a shell")
+	    	sys.stdin.readline()
+            	iutil.execConsole()
 
 def checkMemory(opts):
     if iutil.memInstalled() < isys.MIN_RAM:
