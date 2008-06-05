@@ -40,6 +40,7 @@ import lvm
 import time
 import types
 from flags import flags
+from constants import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
