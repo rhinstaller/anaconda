@@ -37,13 +37,6 @@ log = logging.getLogger("anaconda")
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-class NoSuchGroup(Exception):
-    def __init__ (self, value):
-        self.value = value
-
-    def __str__ (self):
-        return self.value
-
 class AnacondaBackend:
     def __init__(self, anaconda):
         """Abstract backend class all backends should inherit from this

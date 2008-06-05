@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from backend import NoSuchGroup
+from errors import *
 import iutil
 import isys
 import os

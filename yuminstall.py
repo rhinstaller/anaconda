@@ -18,6 +18,7 @@
 #
 
 from flags import flags
+from errors import *
 
 import sys
 import os
@@ -39,7 +40,7 @@ import iniparse
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError, PackageSackError
 from yum.yumRepo import YumRepository
-from backend import AnacondaBackend, NoSuchGroup
+from backend import AnacondaBackend
 from product import productName, productStamp
 from sortedtransaction import SplitMediaTransactionData
 from constants import *
