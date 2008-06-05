@@ -697,8 +697,8 @@ gpgcheck=0
         else:
             buf += "\nbaseurl=%s" % repo.baseurl
 
-        if repo.priority:
-            buf += "\ncost=%s" % repo.priority
+        if repo.cost:
+            buf += "\ncost=%s" % repo.cost
 
         if repo.excludepkgs:
             s = ""
