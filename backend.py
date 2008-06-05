@@ -98,7 +98,7 @@ class AnacondaBackend:
 
     def doInstall(self, anaconda):
         log.warning("doInstall not implemented for backend!")
-        pass
+        raise NotImplemented
 
     def initLog(self, id, instPath):
         upgrade = id.getUpgrade()
@@ -139,50 +139,50 @@ class AnacondaBackend:
         return []
 
     def doInitialSetup(self, anaconda):
-        pass
+        raise NotImplemented
 
     def doRepoSetup(self, anaconda):
         log.warning("doRepoSetup not implemented for backend!")
-        pass
+        raise NotImplemented
 
     def groupExists(self, group):
         log.warning("groupExists not implemented for backend!")
-        pass
+        raise NotImplemented
 
     def selectGroup(self, group, *args):
         log.warning("selectGroup not implemented for backend!")
-        pass
+        raise NotImplemented
 
     def deselectGroup(self, group, *args):
         log.warning("deselectGroup not implemented for backend!")
-        pass
+        raise NotImplemented
 
     def packageExists(self, pkg):
         log.warning("packageExists not implemented for backend!")
-        pass
+        raise NotImplemented
     
     def selectPackage(self, pkg, *args):
         log.warning("selectPackage not implemented for backend!")
-        pass
+        raise NotImplemented
 
     def deselectPackage(self, pkg, *args):
         log.warning("deselectPackage not implemented for backend!")
-        pass
+        raise NotImplemented
 
     def getDefaultGroups(self, anaconda):
         log.warning("getDefaultGroups not implemented for backend!")
-        pass
+        raise NotImplemented
 
     # write out the %packages section of anaconda-ks.cfg
     def writePackagesKS(self, f, anaconda):
         log.warning("writePackagesKS not implemented for backend!")
-        pass
+        raise NotImplemented
 
     # write out any config files that live on the installed system
     # (e.g., /etc/yum.repos.d/* files)
     def writeConfiguration(self):
         log.warning("writeConfig not implemented for backend!")
-        pass
+        raise NotImplemented
 
     # write out any other kickstart bits the backend requires - no warning
     # here because this may not be needed
@@ -191,7 +191,7 @@ class AnacondaBackend:
 
     def getRequiredMedia(self):
         log.warning("getRequiredMedia not implmented for backend!")
-        pass
+        raise NotImplemented
 
     def complete(self, anaconda):
         pass
