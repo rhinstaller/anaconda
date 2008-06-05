@@ -122,11 +122,11 @@ def ui_comps_sort(one, two):
         return 1
     elif one.display_order < two.display_order:
         return -1
-    elif _xmltrans(one.name, one.translated_name) > \
-         _xmltrans(two.name, two.translated_name):
+    elif xmltrans(one.name, one.translated_name) > \
+         xmltrans(two.name, two.translated_name):
         return 1
-    elif _xmltrans(one.name, one.translated_name) < \
-         _xmltrans(two.name, two.translated_name):
+    elif xmltrans(one.name, one.translated_name) < \
+         xmltrans(two.name, two.translated_name):
         return -1
     return 0
 
