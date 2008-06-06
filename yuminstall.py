@@ -41,7 +41,7 @@ from yum.constants import *
 from yum.Errors import RepoError, YumBaseError, PackageSackError
 from yum.yumRepo import YumRepository
 from backend import AnacondaBackend
-from product import productName, productStamp
+from product import *
 from sortedtransaction import SplitMediaTransactionData
 from constants import *
 from image import *
@@ -553,12 +553,12 @@ class AnacondaYum(YumSorter):
             from ConfigParser import ConfigParser
             c = ConfigParser()
 
-            if os.access("%s/.treeinfo" % self.methodstr, os.R_OK):
-                ConfigParser.read(c, "%s/.treeinfo" % self.methodstr)
+            if os.access("%s/.treeinfo" % self.anaconda.methodstr, os.R_OK):
+                ConfigParser.read(c, "%s/.treeinfo" % self.anaconda.methodstr)
             else:
                 ug = URLGrabber()
-                ug.urlgrab("%s/.treeinfo" % self.methodstr, "/tmp/.treeinfo",
-                           copy_local=1)
+                ug.urlgrab("%s/.treeinfo" % self.anaconda.methodstr,
+                           "/tmp/.treeinfo", copy_local=1)
                 ConfigParser.read(c, "/tmp/.treeinfo")
 
             return c.get("general", "version")
@@ -566,8 +566,7 @@ class AnacondaYum(YumSorter):
         try:
             self.yumvar["releasever"] = _getReleasever()
         except:
-            log.error("Unable to get .treeinfo file, $releasever substitution "
-                      "will be unavailable.")
+            self.yumvar["releasever"] = productVersion
 
         YumSorter.getReposFromConfig(self)
 
