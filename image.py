@@ -130,22 +130,18 @@ def mountDirectory(methodstr, messageWindow):
         method = methodstr[3:]
         (device, fstype, path) = method.split(":", 3)
         device = method[0:method.index(":")]
+
+        if not device.startswith("/dev/"):
+            device = "/dev/%s" % device
+    elif methodstr.startswith("nfsiso:"):
+        device = methodstr[7:]
+        fstype = "nfs"
     else:
         return
 
-    # First check to see if isodir is mounted.
-    f = open("/proc/mounts", "r")
-    lines = f.readlines()
-    f.close()
-
-    if not device.startswith("/dev/"):
-        device = "/dev/%s" %(device,)
-
-    for l in lines:
-        s = string.split(l)
-        if s[0] == device:
-            # It is, so there's no need to try again.
-            return
+    # No need to mount it again.
+    if os.path.ismount("/mnt/isodir"):
+        return
 
     try:
         isys.mount(device, "/mnt/isodir", fstype = fstype)
