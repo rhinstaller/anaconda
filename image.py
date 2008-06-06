@@ -268,7 +268,7 @@ def unmountCD(path, messageWindow):
                             "and then click OK to retry.")
                           % (path,))
 
-def verifyMedia(tree, discnum, timestamp):
+def verifyMedia(tree, discnum, timestamp=None):
     if os.access("%s/.discinfo" % tree, os.R_OK):
         f = open("%s/.discinfo" % tree)
 
@@ -290,7 +290,12 @@ def verifyMedia(tree, discnum, timestamp):
             discs = [ 0 ]
 
         f.close()
-        if (newStamp == timestamp and arch == _arch and discnum in discs):
-            return True
+
+        if timestamp is not None:
+            if newStamp == timestamp and arch == _arch and discnum in discs:
+                return True
+        else:
+            if arch == _arch and discnum in discs:
+                return True
 
     return False
