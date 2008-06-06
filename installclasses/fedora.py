@@ -19,6 +19,7 @@
 
 from installclass import BaseInstallClass
 from constants import *
+from flags import flags
 import os, types
 import iutil
 
@@ -64,11 +65,12 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.setSteps(self, anaconda);
 	anaconda.dispatch.skipStep("partition")
 
-    def getBackend(self, methodstr):
-        if methodstr.startswith("livecd://"):
+    def getBackend(self):
+        if flags.livecd:
             import livecd
             return livecd.LiveCDCopyBackend
-        return yuminstall.YumBackend
+        else:
+            return yuminstall.YumBackend
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)

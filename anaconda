@@ -478,7 +478,6 @@ class Anaconda:
         self.intf = None
         self.dir = None
         self.id = None
-        self._loaderMethodstr = None
         self.methodstr = None
         self.backend = None
         self.rootPath = None
@@ -524,29 +523,12 @@ class Anaconda:
         self.intf = InstallInterface()
 
     def setBackend(self, instClass):
-        b = instClass.getBackend(self.methodstr)
+        b = instClass.getBackend()
         self.backend = apply(b, (self,))
 
     def setMethodstr(self, methodstr):
-        # Save the method string we are given from the loader for printing out
-        # later.  For dealing with the backends, we need to convert it into
-        # real URIs, though.
-        self._loaderMethodstr = methodstr
-
-        # Make a best guess at where the repo is by trimming off the image file
-        # from the end.  If this doesn't work, we've got repo reconfig screens
-        # to use later on.
-        if methodstr.endswith(".img"):
-            try:
-                m = methodstr[:methodstr.rindex("/")]
-                m = m[:m.rindex("/")]
-            except:
-                m = methodstr
-        else:
-            m = methodstr
-
-        if m.startswith("cdrom://"):
-            (device, tree) = string.split(m[8:], ":", 1)
+        if methodstr.startswith("cdrom://"):
+            (device, tree) = string.split(methodstr[8:], ":", 1)
 
             if not tree.startswith("/"):
                 tree = "/%s" %(tree,)
@@ -554,23 +536,7 @@ class Anaconda:
             self.mediaDevice = device
             self.methodstr = "cdrom://%s" % tree
         else:
-            self.methodstr = m
-
-    def writeMethodstr(self, f):
-        import urllib
-
-        if self._loaderMethodstr.startswith('ftp://') or self._loaderMethodstr.startswith('http://'):
-            f.write("url --url %s\n" % urllib.unquote(self._loaderMethodstr))
-        elif self._loaderMethodstr.startswith('cdrom://'):
-            f.write("cdrom\n")
-        elif self._loaderMethodstr.startswith('hd:'):
-            (partition, filesystem, dir) = string.split(self._loaderMethodstr[3:], ':')
-            if partition.startswith("/dev/"):
-                partition = partition[5:]
-            f.write("harddrive --partition=%s --dir=%s\n" % (partition, dir))
-        elif self._loaderMethodstr.startswith('nfs:') or self._loaderMethodstr.startswith('nfsiso:'):
-            (method, server, dir) = string.split(self._loaderMethodstr, ':')
-            f.write("nfs --server=%s --dir=%s\n" % (server, dir))
+            self.methodstr = methodstr
 
 if __name__ == "__main__":
     anaconda = Anaconda()
@@ -655,12 +621,9 @@ if __name__ == "__main__":
         if opts.method[0] == '@':
             expandFTPMethod(opts)
 
-        # FIXME: this is terrible, but it gets the desired behavior without
-        # requiring scary loader changes at this point
-        if flags.cmdline.has_key("stage2") and flags.cmdline.has_key("method"):
-            opts.method = flags.cmdline["method"]
-
         anaconda.setMethodstr(opts.method)
+    else:
+        anaconda.methodstr = None
 
     if opts.module:
         for mod in opts.module:
@@ -764,15 +727,11 @@ if __name__ == "__main__":
 
         import rescue, instdata
 
-        anaconda.id = instdata.InstallData(anaconda, [], anaconda.methodstr, opts.display_mode)
+        anaconda.id = instdata.InstallData(anaconda, [], opts.display_mode)
         rescue.runRescue(anaconda, instClass)
 
         # shouldn't get back here
         sys.exit(1)
-    else:
-        if not anaconda.methodstr:
-            sys.stderr.write('no install method specified\n')
-            sys.exit(1)
 
     #
     # Here we have a hook to pull in second half of kickstart file via https
@@ -794,9 +753,7 @@ if __name__ == "__main__":
     # if display_mode wasnt set by command line parameters then set default
     #
     if not opts.display_mode:
-        if (anaconda.methodstr and 
-            anaconda.methodstr.startswith('ftp://') or
-            anaconda.methodstr.startswith('http://')):
+        if opts.stage2 and opts.stage2.find("minstg2.img") != -1:
             opts.display_mode = 't'
         else:
             opts.display_mode = 'g'
@@ -812,7 +769,6 @@ if __name__ == "__main__":
 
     log.info("anaconda called with cmdline = %s" %(sys.argv,))
     log.info("Display mode = %s" %(opts.display_mode,))
-    log.info("Method = %s" %(anaconda.methodstr,))
 
     checkMemory(opts)
 
@@ -885,7 +841,7 @@ if __name__ == "__main__":
 
     anaconda.setBackend(instClass)
 
-    anaconda.id = instClass.installDataClass(anaconda, extraModules, anaconda.methodstr, opts.display_mode, anaconda.backend)
+    anaconda.id = instClass.installDataClass(anaconda, extraModules, opts.display_mode, anaconda.backend)
 
     anaconda.id.x_already_set = x_already_set
 

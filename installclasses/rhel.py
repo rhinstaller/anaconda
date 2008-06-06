@@ -172,7 +172,7 @@ class InstallClass(BaseInstallClass):
 
         log.info("repopaths is %s" %(self.repopaths,))
 
-    def getBackend(self, methodstr):
+    def getBackend(self):
         return yuminstall.YumBackend
 
     def __init__(self, expert):

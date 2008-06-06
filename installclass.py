@@ -181,7 +181,7 @@ class BaseInstallClass(object):
         grps = anaconda.backend.getDefaultGroups(anaconda)
         map(lambda x: anaconda.backend.selectGroup(x), grps)
 
-    def getBackend(self, methodstr):
+    def getBackend(self):
         # this should be overriden in distro install classes
         from backend import AnacondaBackend
         return AnacondaBackend

@@ -98,8 +98,8 @@ class InstallData:
            stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
             target = os.readlink("/dev/live")
             self.partitions.protected = [target]
-        elif self.anaconda._loaderMethodstr.startswith("hd:"):
-            method = self.anaconda._loaderMethodstr[3:]
+        elif self.anaconda.methodstr and self.anaconda.methodstr.startswith("hd:"):
+            method = self.anaconda.methodstr[3:]
             device = method.split(":", 3)[0]
             if device.startswith("/dev/"):
                 device = device[5:]
@@ -222,9 +222,6 @@ class InstallData:
 	else:
 	    f.write("install\n");
 
-	# figure out the install method and write out a line
-        self.anaconda.writeMethodstr(f)
-
         if self.instClass.skipkey:
             f.write("key --skip\n")
         elif self.instClass.installkey:
@@ -275,7 +272,7 @@ class InstallData:
         os.chmod(filename, 0600)
 
 
-    def __init__(self, anaconda, extraModules, methodstr, displayMode, backend = None):
+    def __init__(self, anaconda, extraModules, displayMode, backend = None):
         self.displayMode = displayMode
 
 	self.instLanguage = language.Language(self.displayMode)
@@ -289,5 +286,4 @@ class InstallData:
 	self.extraModules = extraModules
 	self.fsset = fsset.FileSystemSet()
 
-        self.methodstr = methodstr
 	self.reset()
