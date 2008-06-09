@@ -39,7 +39,7 @@ import block
 import lvm
 import traceback
 from flags import flags
-from partErrors import *
+from errors import *
 from constants import *
 
 import logging

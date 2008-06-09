@@ -31,7 +31,7 @@ import cryptodev
 import partedUtils
 import partRequests
 from constants import *
-from partErrors import *
+from errors import *
 
 import iutil
 import isys

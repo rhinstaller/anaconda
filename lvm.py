@@ -38,7 +38,7 @@ output = "/tmp/lvmout"
 
 lvmDevicePresent = 0
 
-from lvmErrors import *
+from errors import *
 
 def has_lvm():
     global lvmDevicePresent
