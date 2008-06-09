@@ -236,8 +236,11 @@ class OptionalPackageSelector:
             po = self.__getPackageObject(pkg)
             if not po:
                 continue
-            if self.ayum.tsInfo.isObsoleted(pkgtup=(po.name, po.arch, po.epoch, po.version, po.release)):
+
+            # Don't display obsolete packages in the UI
+            if self.ayum.up.checkForObsolete([po.pkgtup]).has_key(po.pkgtup):
                 continue
+
             self.pkgstore.append([self.ayum.isPackageInstalled(pkg), listEntryString(po), po])
 
     def run(self):
