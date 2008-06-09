@@ -1965,7 +1965,7 @@ MAILADDR root
                 iutil.makeDMNode(root=instPath)
             if not os.path.isdir(rootdir):
                 os.makedirs(rootdir)
-            dmdev = "/dev/mapper/" + root.device.getDevice().replace("/", "-")
+            dmdev = "/dev/mapper/" + root.device.getDevice().replace("-","--").replace("/", "-")
             if os.path.exists(instPath + dmdev):
                 os.unlink(instPath + dmdev)
             iutil.copyDeviceNode(dmdev, instPath + dmdev)
