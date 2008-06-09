@@ -333,38 +333,77 @@ class AnacondaYum(YumSorter):
     def __init__(self, anaconda):
         YumSorter.__init__(self)
         self.anaconda = anaconda
-        self.currentMedia = None
         self._loopbackFile = None
         self._timestamp = None
 
         # Only needed for hard drive and nfsiso installs.
         self._discImages = {}
+        self.isodir = None
 
-        # Where is the source media mounted?  isodir only matters if we are
-        # doing NFS or HD image installs, and points to the directory where
-        # the ISO images themselves may be found.  tree always points to the
-        # directory where Packages/ is located.
+        # Only needed for media installs.
+        self.currentMedia = None
+        self.mediagrabber = None
+
+        # Where is the source media mounted?  This is the directory
+        # where Packages/ is located.
         self.tree = "/mnt/source"
 
-        if self.anaconda.methodstr.startswith("hd:"):
-            (device, fstype, path) = self.anaconda.methodstr[3:].split(":", 3)
-            self.isodir = "/mnt/isodir/%s" % path
-        elif self.anaconda.methodstr.startswith("nfsiso:"):
-            self.isodir = "/mnt/isodir"
-        else:
-            self.isodir = None
+        # yum doesn't understand all our method URLs, so use this for all
+        # except FTP and HTTP installs.
+        self._baseRepoURL = "file://%s" % self.tree
 
-        # The loader may have mounted the first disc for us, but there's
-        # no guarantee what with the stage2= stuff.
-        if self.anaconda.mediaDevice or self.isodir:
-            if os.path.ismount(self.tree):
-                self.currentMedia = 1
-            else:
+        # We only have a methodstr if method= or repo= was passed to
+        # anaconda.  No source for this base repo (the CD media, NFS,
+        # whatever) is mounted yet since loader only mounts the source
+        # for the stage2 image.  We need to set up the source mount
+        # now.
+        if self.anaconda.methodstr:
+            m = self.anaconda.methodstr
+
+            if m.startswith("hd:"):
+                (device, fstype, path) = m[3:].split(":", 3)
+                self.isodir = "/mnt/isodir/%s" % path
+
+                # This takes care of mounting /mnt/isodir first.
                 self._switchImage(1)
+                self.mediagrabber = self.mediaHandler
+            elif m.startswith("nfsiso:"):
+                self.isodir = "/mnt/isodir"
 
-            self.mediagrabber = self.mediaHandler
+                # This takes care of mounting /mnt/isodir first.
+                self._switchImage(1)
+                self.mediagrabber = self.mediaHandler
+            elif m.startswith("http:") or m.startswith("ftp:"):
+                self._baseRepoURL = m
+            elif m.startswith("nfs:"):
+                isys.mount(m[4:], self.tree, "nfs")
+            elif m.startswith("cdrom:"):
+                self._switchCD(1)
         else:
-            self.mediagrabber = None
+            # No methodstr was given.  In order to find an installation source,
+            # we should first check to see if there's a CD/DVD with packages
+            # on it, and then default to the mirrorlist URL.  The user can
+            # always change the repo with the repo editor later.
+            foundCD = False
+
+            for cdr in map(lambda d: "/dev/%s" % d, isys.cdromList()):
+                if isys.mount(cdr, self.tree, fstype="iso9660", readOnly=1):
+                    continue
+
+                if not verifyMedia(self.tree, 1):
+                    isys.umount(self.tree)
+                    continue
+
+                self.anaconda.mediaDevice = cdr
+                self.currentMedia = 1
+                log.info("found installation media on %s" % cdr)
+                foundCD = True
+                break
+
+            if not foundCD:
+                # No CD with media on it and no repo=/method= parameter, so
+                # default to using whatever's enabled in /etc/yum.repos.d/
+                self._baseRepoURL = None
 
         self.doConfigSetup(root=anaconda.rootPath)
         self.conf.installonlypkgs = []
@@ -575,59 +614,48 @@ class AnacondaYum(YumSorter):
         pass
 
     def doConfigSetup(self, fn='/etc/yum.conf', root='/'):
-        if self.anaconda.methodstr.startswith("nfs:"):
-            if os.path.isdir(self.anaconda.methodstr[4:]):
-                self.tree = self.anaconda.methodstr[4:]
-            else:
-                if not os.path.ismount(self.tree):
-                    isys.mount(self.anaconda.methodstr[4:], self.tree, "nfs")
-            self.methodstr = "file://%s" % self.tree
-        elif self.anaconda.methodstr.startswith("nfsiso:"):
-            self.methodstr = "file://%s" % self.tree
-        elif self.anaconda.methodstr.startswith("cdrom:"):
-            self.methodstr = "file://%s" % self.tree
-        elif self.anaconda.methodstr.startswith("hd:"):
-            self.methodstr = "file://%s" % self.tree
-        elif self.anaconda.methodstr.startswith("ftp:") or self.anaconda.methodstr.startswith("http:"):
-            self.methodstr = self.anaconda.methodstr
-
         YumSorter.doConfigSetup(self, fn=fn, root=root)
 
         # override default logging to use our logs
         ylog = logging.getLogger("yum")
         map(lambda x: ylog.addHandler(x), log.handlers)
 
-        _preupgset = False
-        # add default repos
-        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.methodstr).items():
-            rid = name.replace(" ", "")
-            repo = AnacondaYumRepo(uri=uri, addon=False,
-                                   repoid="anaconda-%s-%s" %(rid, productStamp),
-                                   root = root)
-            repo.name = name
-            repo.cost = 100
+        # Create the "base" repo object, assuming there is one.  Otherwise we
+        # just skip all this and use the defaults from /etc/yum.repos.d.
+        # preupgrade always sets a _baseRepoURL so it'll still get taken care
+        # of with this block.
+        if self._baseRepoURL:
+            _preupgset = False
+            # add default repos
+            for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self._baseRepoURL).items():
+                rid = name.replace(" ", "")
+                repo = AnacondaYumRepo(uri=uri, addon=False,
+                                       repoid="anaconda-%s-%s" %(rid, productStamp),
+                                       root = root)
+                repo.name = name
+                repo.cost = 100
 
-            # if we've been booted with 'preupgrade', then we want to
-            # use the cache on the hd for the upgrade info and thus avoid
-            # needing to use the network.
-            # FIXME: longer-term, I'd like to see
-            # the anaconda-upgrade dir just become a full-fledged repo
-            # (maybe combining input from multiple repos) that we add
-            # in addition to the base repos.  then we catch a depcheck error
-            # and ask if you want to add more repos.
-            if flags.cmdline.has_key("preupgrade") and _preupgset == False:
-                _preupgset = True
-                if os.path.exists("%s/var/cache/yum/anaconda-upgrade" % self.anaconda.rootPath):
-                    repo.cachedir = "%s/var/cache/yum/anaconda-upgrade" % self.anaconda.rootPath
-                    repo.metadata_expire = -1
-                    log.info("setting cachedir for %s to %s based on preupgrade flag" %(rid, repo.cachedir))
+                # if we've been booted with 'preupgrade', then we want to
+                # use the cache on the hd for the upgrade info and thus avoid
+                # needing to use the network.
+                # FIXME: longer-term, I'd like to see
+                # the anaconda-upgrade dir just become a full-fledged repo
+                # (maybe combining input from multiple repos) that we add
+                # in addition to the base repos.  then we catch a depcheck error
+                # and ask if you want to add more repos.
+                if flags.cmdline.has_key("preupgrade") and _preupgset == False:
+                    _preupgset = True
+                    if os.path.exists("%s/var/cache/yum/anaconda-upgrade" % self.anaconda.rootPath):
+                        repo.cachedir = "%s/var/cache/yum/anaconda-upgrade" % self.anaconda.rootPath
+                        repo.metadata_expire = -1
+                        log.info("setting cachedir for %s to %s based on preupgrade flag" %(rid, repo.cachedir))
 
-            if self.anaconda.mediaDevice or self.isodir:
-                repo.mediaid = getMediaId(self.tree)
-                log.info("set mediaid of repo to: %s" % repo.mediaid)
+                if self.anaconda.mediaDevice or self.isodir:
+                    repo.mediaid = getMediaId(self.tree)
+                    log.info("set mediaid of repo to: %s" % repo.mediaid)
 
-            repo.enable()
-            self.repos.add(repo)
+                repo.enable()
+                self.repos.add(repo)
 
         extraRepos = []
 
