@@ -1807,7 +1807,7 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/mnt/source/RHupdates/yum.rep
         # Only write out lines for repositories that weren't added
         # automatically by anaconda.
         for repo in filter(lambda r: r.addon, self.ayum.repos.listEnabled()):
-            line = "repo --name=%s " % (repo.name or repo.repoid)
+            line = "repo --name=\"%s\" " % (repo.name or repo.repoid)
 
             if repo.baseurl:
                 line += " --baseurl=%s\n" % repo.baseurl[0]
