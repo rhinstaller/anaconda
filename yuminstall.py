@@ -18,6 +18,7 @@
 #
 
 from flags import flags
+from errors import *
 
 import sys
 import os
@@ -39,7 +40,7 @@ import iniparse
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError, PackageSackError
 from yum.yumRepo import YumRepository
-from backend import AnacondaBackend, NoSuchGroup
+from backend import AnacondaBackend
 from product import productName, productStamp
 from sortedtransaction import SplitMediaTransactionData
 from constants import *
@@ -53,7 +54,6 @@ import network
 
 # specspo stuff
 rpm.addMacro("_i18ndomains", "redhat-dist")
-textdomain("redhat-dist")
 
 import logging
 log = logging.getLogger("anaconda")
@@ -122,11 +122,11 @@ def ui_comps_sort(one, two):
         return 1
     elif one.display_order < two.display_order:
         return -1
-    elif _xmltrans(one.name, one.translated_name) > \
-         _xmltrans(two.name, two.translated_name):
+    elif xmltrans(one.name, one.translated_name) > \
+         xmltrans(two.name, two.translated_name):
         return 1
-    elif _xmltrans(one.name, one.translated_name) < \
-         _xmltrans(two.name, two.translated_name):
+    elif xmltrans(one.name, one.translated_name) < \
+         xmltrans(two.name, two.translated_name):
         return -1
     return 0
 
@@ -1807,7 +1807,7 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/mnt/source/RHupdates/yum.rep
         # Only write out lines for repositories that weren't added
         # automatically by anaconda.
         for repo in filter(lambda r: r.addon, self.ayum.repos.listEnabled()):
-            line = "repo --name=%s " % (repo.name or repo.repoid)
+            line = "repo --name=\"%s\" " % (repo.name or repo.repoid)
 
             if repo.baseurl:
                 line += " --baseurl=%s\n" % repo.baseurl[0]

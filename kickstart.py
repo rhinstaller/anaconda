@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from backend import NoSuchGroup
+from errors import *
 import iutil
 import isys
 import os
@@ -697,8 +697,8 @@ gpgcheck=0
         else:
             buf += "\nbaseurl=%s" % repo.baseurl
 
-        if repo.priority:
-            buf += "\ncost=%s" % repo.priority
+        if repo.cost:
+            buf += "\ncost=%s" % repo.cost
 
         if repo.excludepkgs:
             s = ""

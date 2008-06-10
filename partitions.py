@@ -34,7 +34,7 @@ import sys
 
 from constants import *
 from flags import flags
-from partErrors import *
+from errors import *
 
 import fsset
 import raid

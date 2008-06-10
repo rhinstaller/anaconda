@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import isys
+import isys, iutil
 import os, os.path, stat, string, sys, sets
 from constants import *
 

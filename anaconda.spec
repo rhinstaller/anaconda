@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.3
+Version: 11.4.1.4
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -208,6 +208,20 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jun 05 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.4-1
+- Fix text mode button translations (#450176). (clumens)
+- Remove a rogue call to textdomain. (clumens)
+- Make "upd-updates /tmp/updates.img" update everything newer in the
+  current (pjones)
+- _xmltrans is undefined.  Try xmltrans instead. (clumens)
+- Fix reference to cost vs. priority (#450168). (clumens)
+- Don't do the "exec shell on tty1" thing in vnc if we've got virtual
+  terminals. (pjones)
+- Import N_ (#450163). (clumens)
+- raise "NotImplementedError", not "NotImplemented" (pjones)
+- Need to import iutil before we use it. (clumens)
+- Don't reference PartitioningError.value . (pjones)
+
 * Wed Jun 04 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.3-1
 - Can't reference iutil.whatever from inside iutil.py. (clumens)
 - When using the boot.iso and URL installs, download the .treeinfo

@@ -1,7 +1,7 @@
 #
-# lvmErrors.py: lvm error exceptions
+# errors.py: exception classes used throughout anaconda
 #
-# Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2002, 2007, 2008  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,12 +17,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author(s): Peter Jones <pjones@redhat.com>
+#            Chris Lumens <clumens@redhat.com>
+#            Matt Wilson <msw@redhat.com>
+#            Jeremy Katz <katzj@redhat.com>
+#            Mike Fulbright <msf@redhat.com>
 #
-
-"""Exceptions for use in lvm operations."""
 
 import string
 from lvm import output
+
+"""Exceptions for use in lvm operations."""
 
 class LvmError(Exception):
     """An error occurred with lvm."""
@@ -116,3 +120,37 @@ class PVCreateError(LvmError):
         return "pvcreate of pv \"%s\" failed\nLog:\n%s" % ( \
             self.pvname, self.log)
 
+"""Exceptions for use in partitioning."""
+
+class PartitioningError(Exception):
+    """A critical error which must be resolved to continue the installation."""
+    def __init__(self, message=""):
+        self.message = str(message)
+
+    def __str__ (self):
+        return self.message
+
+class PartitioningWarning(Exception):
+    """A warning which may be ignored and still complete the installation."""
+    def __init__(self, message=""):
+        self.message = str(message)
+
+    def __str__ (self):
+        return self.message
+
+class LabelError(Exception):
+    """The device could not be labeled."""
+    def __init__(self, message=""):
+        self.message = str(message)
+
+    def __str__(self):
+        return self.message
+
+"""Exceptions for use in package selection."""
+
+class NoSuchGroup(Exception):
+    def __init__ (self, value):
+        self.value = value
+
+    def __str__ (self):
+        return self.value

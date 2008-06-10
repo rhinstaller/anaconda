@@ -18,6 +18,8 @@
 #
 
 from constants import *
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 INSTALL_OK = 0
 INSTALL_BACK = -1
