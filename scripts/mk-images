@@ -355,8 +355,22 @@ instbin() {
     local DEPS="$DSO_DEPS"
     mkdir -p $DIR/$LIBDIR
     for x in $DEPS ; do
-      cp -Lfp $ROOT/$x $DIR/$LIBDIR
-   done
+        cp -Lfp $ROOT/$x $DIR/$LIBDIR
+    done
+
+    pushd $DIR/$LIBDIR
+    if [ -f ld-linux.so.2 ]; then
+        rm -f ld-linux.so.2
+        linker="$(ls -1 ld-*.*.*.so)"
+        found=$(echo $linker | wc -l)
+        if [ $found -ne 1 ]; then
+            echo "Found too many dynamic linkers:" >&2
+            echo $linker >&2
+            exit 1
+        fi
+        ln -s $linker ld-linux.so.2
+    fi
+    popd
 }
 
 setupShellEnvironment() {
