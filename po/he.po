@@ -1,3 +1,4 @@
+# translation of anaconda.master.po to Hebrew
 # Hebrew translations for PACKAGE package.
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -5,26 +6,27 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anconda\n"
+"Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2005-07-17 23:17+0200\n"
-"Last-Translator: David R <ddady1@gmail.com>\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2008-06-08 14:20GMT\n"
+"Last-Translator: Oron Peled <oron@actcom.co.il>\n"
+"Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:289
 #, c-format
 msgid "Error processing %%ksappend lines: %s"
-msgstr ""
+msgstr "שגיאה בעיבוד שורות %%ksappend:  %s"
 
 #: ../anaconda:292
 #, c-format
 msgid "Unknown error processing %%ksappend lines: %s"
-msgstr ""
+msgstr "שגיאה לא מוכרת בעיבוד שורות %%ksappend: %s"
 
 #: ../anaconda:306 ../cmdline.py:78 ../gui.py:1187 ../text.py:509
 #, c-format, python-format
@@ -33,10 +35,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"השגיאה הבאה התגלתה במהלך פיענוח תצורת kickstart שסופקה על ידך:\n"
+"\n"
+"%s"
 
 #: ../anaconda:423
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "יש להקיש <enter> לקבלת שורת פקודה"
 
 #: ../anaconda:438 ../gui.py:234 ../rescue.py:271 ../rescue.py:339
 #: ../rescue.py:366 ../rescue.py:376 ../rescue.py:452 ../rescue.py:458
@@ -80,17 +85,17 @@ msgstr ""
 #: ../loader2/urlinstall.c:455 ../loader2/urls.c:280 ../loader2/urls.c:315
 #: ../loader2/urls.c:321 ../loader2/urls.c:333 ../loader2/urls.c:405
 msgid "OK"
-msgstr ""
+msgstr "כן"
 
 #: ../anaconda:445
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
-msgstr ".אין מספיק זיכרון בכדי להשתמש בהתקנה בתצורה גרפית. מאתחל תצורת טקסט"
+msgstr "אין מספיק זיכרון בכדי להשתמש בהתקנה גרפית. מתחיל הפעלה בתצורת טקסט."
 
 #: ../anaconda:460
 msgid "No video hardware found, assuming headless"
-msgstr ""
+msgstr "לא התגלתה חומרה לתצוגה, מניח הפעלה חסרת מסך"
 
 #: ../anaconda:467 ../anaconda:958
 msgid "Unable to instantiate a X hardware state object."
@@ -98,11 +103,11 @@ msgstr ""
 
 #: ../anaconda:517
 msgid "Starting graphical installation..."
-msgstr "...מתחיל התקנה בתצורה גרפית"
+msgstr "מתחיל התקנה בתצורה גרפית..."
 
 #: ../anaconda:838
 msgid "Install class forcing text mode installation"
-msgstr ""
+msgstr "סוג התקנה מאלץ התקנה שאינה גרפית"
 
 #: ../anaconda:878
 msgid "Graphical installation not available...  Starting text mode."
@@ -110,7 +115,7 @@ msgstr "התקנה בתצורה גרפית אינה זמינה... מאתחל ה�
 
 #: ../anaconda:886
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "המשתנה DISPLAY אינו מוגדר. מפעיל התקנה מבוססת טקסט!"
 
 #: ../autopart.py:888
 #, python-format
@@ -119,23 +124,26 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"שגיאה בשינוי גודל המחיצה %s.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:891
 #, python-format
 msgid "Start of partition %s was moved when resizing"
-msgstr ""
+msgstr "תחילה המחיצה %s הוזזה במהלך שינוי הגודל"
 
 #: ../autopart.py:983
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
-msgstr ""
+msgstr "לא ניתן להקצות מחיצות מבוססות צילינדרים כמחיצות ראשיות (primary).\n"
 
 #: ../autopart.py:988
 msgid "Could not allocate partitions as primary partitions.\n"
-msgstr ""
+msgstr "לא ניתן להקצות מחיצות כמחיצות ראשיות (primary).\n"
 
 #: ../autopart.py:993
 msgid "Could not allocate cylinder-based partitions.\n"
-msgstr ""
+msgstr "לא ניתן להקצות מחיצות מבוססות צילינדרים.\n"
 
 #: ../autopart.py:1058
 #, python-format
@@ -175,8 +183,7 @@ msgstr ""
 
 #: ../autopart.py:1069
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 
 #: ../autopart.py:1094
@@ -247,6 +254,11 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"להלן השגיאות שקרו במהלך חלוקת הדיסק למחיצות:\n"
+"\n"
+"%s\n"
+"\n"
+"יש להקיש 'כן' ליציאה מתכנית ההתקנה."
 
 #: ../autopart.py:1527
 msgid "Warnings During Automatic Partitioning"
@@ -324,25 +336,25 @@ msgstr ""
 
 #: ../autopart.py:1716
 msgid "Remove all partitions on this system"
-msgstr "הסר את כל המחיצות במחשב"
+msgstr "הסרת כל המחיצות במחשב"
 
 #: ../autopart.py:1717
 msgid "Remove all Linux partitions on this system"
-msgstr "הסר את כל מחיצות הלינוקס על המחשב"
+msgstr "הסרת כל מחיצות הלינוקס במחשב"
 
 #: ../autopart.py:1718
 msgid "Keep all partitions and use existing free space"
-msgstr ""
+msgstr "שמירת כל המחיצות ושימוש רק בשטח הפנוי"
 
 #: ../backend.py:126
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "שידרוג"
+msgstr "שדרוג %s\n"
 
 #: ../backend.py:128
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "...מתקין"
+msgstr "התקנה %s\n"
 
 #: ../bootloader.py:44 ../bootloader.py:236 ../image.py:87
 #: ../partedUtils.py:365 ../partedUtils.py:395 ../partedUtils.py:1106
@@ -371,7 +383,7 @@ msgstr ""
 #: ../yuminstall.py:799 ../yuminstall.py:970 ../yuminstall.py:1018
 #: ../yuminstall.py:1251 ../yuminstall.py:1288
 msgid "_Exit installer"
-msgstr ""
+msgstr "י_ציאה מתכנית ההתקנה"
 
 #: ../bootloader.py:49 ../fsset.py:1973 ../image.py:97 ../image.py:250
 #: ../kickstart.py:985 ../kickstart.py:1023 ../partedUtils.py:1262
@@ -386,7 +398,7 @@ msgstr "Bootloader"
 
 #: ../bootloader.py:167
 msgid "Installing bootloader..."
-msgstr "...Bootloader מתקין"
+msgstr "מתקין Bootloader..."
 
 #: ../bootloader.py:237
 msgid ""
@@ -400,7 +412,7 @@ msgstr "הושלם"
 
 #: ../cmdline.py:61
 msgid "In progress...   "
-msgstr "...בתהליך"
+msgstr "בתהליך..."
 
 #: ../cmdline.py:90
 msgid "Can't have a question in command line mode!"
@@ -454,24 +466,22 @@ msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
 #: ../fsset.py:548
-#, fuzzy
 msgid "Checking"
-msgstr "יוצר"
+msgstr "בבדיקה"
 
 #: ../fsset.py:549
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s..."
-msgstr "...%s/dev/ בודק מקטעים פגומים ב"
+msgstr "בדיקת מערכת קבצים על %s..."
 
 #: ../fsset.py:560 ../fsset.py:1015
-#, fuzzy
 msgid "Resizing"
-msgstr "קריאה"
+msgstr "שינוי גודל"
 
 #: ../fsset.py:561 ../fsset.py:1016
-#, fuzzy, python-format
+#, python-format
 msgid "Resizing filesystem on %s..."
-msgstr "%s מפרמט למערכת קבצים"
+msgstr "שינוי גודל מערכת קבצים על %s..."
 
 #: ../fsset.py:704 ../fsset.py:1685 ../fsset.py:1716 ../fsset.py:1792
 #: ../fsset.py:1860 ../fsset.py:1910 ../fsset.py:1995 ../fsset.py:2008
@@ -515,13 +525,12 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1538
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "ערוך מחיצה"
+msgstr "מחיצת מערכת EFI"
 
 #: ../fsset.py:1542
 msgid "RAID Device"
-msgstr ""
+msgstr "התקן RAID"
 
 #: ../fsset.py:1546 ../fsset.py:1552
 msgid "Apple Bootstrap"
@@ -567,9 +576,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1743
-#, fuzzy
 msgid "Reformat"
-msgstr "?לפרמט"
+msgstr "לפרמט מחדש"
 
 #: ../fsset.py:1747
 #, python-format
@@ -605,7 +613,7 @@ msgstr ""
 
 #: ../fsset.py:1770 ../iw/partition_gui.py:373
 msgid "Format"
-msgstr ""
+msgstr "לפרמט"
 
 #: ../fsset.py:1776
 #, python-format
@@ -658,7 +666,7 @@ msgstr ""
 
 #: ../fsset.py:1940 ../fsset.py:1949
 msgid "Invalid mount point"
-msgstr ""
+msgstr "נקודת עיגון לא חוקית"
 
 #: ../fsset.py:1941
 #, python-format
@@ -679,9 +687,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1964
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "אין אפשרות למחוק"
+msgstr "לא ניתן לעגן מערכת קבצים"
 
 #: ../fsset.py:1965
 #, python-format
@@ -825,23 +832,20 @@ msgid "Cancel"
 msgstr "בטל"
 
 #: ../gui.py:582 ../text.py:466
-#, fuzzy
 msgid "Installation Key"
-msgstr "...מתקין"
+msgstr "מפתח התקנה"
 
 #: ../gui.py:656 ../gui.py:664
-#, fuzzy
 msgid "Error with passphrase"
-msgstr "סיסמה לא נכונה"
+msgstr "ססמה שגויה"
 
 #: ../gui.py:657
 msgid "The passphrases you entered were different.  Please try again."
 msgstr ""
 
 #: ../gui.py:665
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "וודא שסיסמתך היא לפחות באורך 6 תווים"
+msgstr "הססמה חייבת להכיל לפחות שמונה תווים."
 
 #: ../gui.py:691 ../text.py:276
 #, python-format
@@ -911,14 +915,12 @@ msgid "_Reboot"
 msgstr "איתחול_"
 
 #: ../gui.py:1331
-#, fuzzy
 msgid "Exiting"
 msgstr "יציאה"
 
 #: ../gui.py:1401
-#, fuzzy
 msgid "Are you sure you wish to exit the installation?"
-msgstr "?באיזה שפה תרצה להשתמש בתהליך ההתקנה"
+msgstr "האם ברצונך לצאת מתהליך ההתקנה?"
 
 #: ../gui.py:1410
 #, python-format
@@ -1018,9 +1020,8 @@ msgid "Scriptlet Failure"
 msgstr ""
 
 #: ../kickstart.py:928 ../kickstart.py:945
-#, fuzzy
 msgid "Running..."
-msgstr "...מתחבר"
+msgstr "מריץ..."
 
 #: ../kickstart.py:929
 msgid "Running post-install scripts"
@@ -1031,9 +1032,8 @@ msgid "Running pre-install scripts"
 msgstr ""
 
 #: ../kickstart.py:977
-#, fuzzy
 msgid "Missing Package"
-msgstr "חבילה"
+msgstr "חבילה חסרה"
 
 #: ../kickstart.py:978
 #, python-format
@@ -1058,25 +1058,21 @@ msgid ""
 msgstr ""
 
 #: ../livecd.py:107
-#, fuzzy
 msgid "Unable to find image"
-msgstr "אין אפשרות לערוך"
+msgstr ""
 
 #: ../livecd.py:108
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
 #: ../livecd.py:167
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "... לדיסק הקשיח Image מעביר התקנת"
+msgstr "מעביר עותק חי לדיסק הקשיח."
 
 #: ../livecd.py:203
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "%s %s התקנה"
+msgstr "מבצע פעולות לאחר התקנה"
 
 #: ../livecd.py:204
 msgid ""
@@ -1104,9 +1100,8 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
 
 #: ../network.py:95
-#, fuzzy
 msgid "IP address is missing."
-msgstr "IP חסרה כתובת"
+msgstr "חסרה כתובת IP."
 
 #: ../network.py:99
 msgid ""
@@ -1115,19 +1110,18 @@ msgid ""
 msgstr ""
 
 #: ../network.py:102
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "הוא לא שם מארח תקף %s "
+msgstr "הכתוכת '%s' אינה כתובת IPv6 חוקית."
 
 #: ../network.py:104
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "הוא לא שם מארח תקף %s "
+msgstr "הכתוכת '%s' אינה כתובת חוקית."
 
 #: ../packages.py:147
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "קריאה"
+msgstr "פעולות שינוי גודל נכשלה"
 
 #: ../packages.py:148
 #, python-format
@@ -1147,9 +1141,8 @@ msgid "The key you entered is invalid."
 msgstr ""
 
 #: ../packages.py:371
-#, fuzzy
 msgid "_Skip"
-msgstr "דלג"
+msgstr "_דלג"
 
 #: ../packages.py:403 ../packages.py:426
 msgid "Warning! This is pre-release software!"
@@ -1529,8 +1522,7 @@ msgid "Confirm Reset"
 msgstr ""
 
 #: ../partIntfHelpers.py:543
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 
 #: ../partitions.py:84
@@ -1555,7 +1547,6 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:119
-#, fuzzy
 msgid "Go _back"
 msgstr "_אחורה"
 
@@ -1583,9 +1574,8 @@ msgid "Continue"
 msgstr "המשך"
 
 #: ../partitions.py:204
-#, fuzzy
 msgid "Confirm"
-msgstr ":א_שר"
+msgstr "א_שר"
 
 #: ../partitions.py:205
 #, python-format
@@ -1638,8 +1628,7 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:1163
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
 #: ../partitions.py:1166
@@ -1661,9 +1650,9 @@ msgid "Bootable partitions cannot be on a RAID device."
 msgstr ""
 
 #: ../partitions.py:1194
-#, fuzzy, python-format
+#, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "הסר את כל המחיצות במחשב"
+msgstr ""
 
 #: ../partitions.py:1198
 msgid "Bootable partitions cannot be on an encrypted block device"
@@ -1708,8 +1697,7 @@ msgstr ""
 
 #: ../partRequests.py:278
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
 #: ../partRequests.py:281
@@ -1896,9 +1884,8 @@ msgid "Save to Disk"
 msgstr ""
 
 #: ../text.py:189
-#, fuzzy
 msgid "Save to Remote"
-msgstr "שמור לדיסקט_"
+msgstr "שמירה למחשב מרוחק"
 
 #: ../text.py:203
 msgid "Host"
@@ -1933,9 +1920,8 @@ msgid "No help is available for this step of the install."
 msgstr ""
 
 #: ../text.py:446
-#, fuzzy
 msgid "Repository editing is not available in text mode."
-msgstr "התקנה בתצורה גרפית אינה זמינה... מאתחל התקנה בתצורה טקסט"
+msgstr ""
 
 #: ../text.py:471
 #, python-format
@@ -1958,8 +1944,7 @@ msgid "Welcome to %s"
 msgstr ""
 
 #: ../text.py:569
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 
 #: ../text.py:571
@@ -2087,9 +2072,9 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr "...נסיון התחברות נוסף תוך 15 שניות"
 
 #: ../vnc.py:197
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d tries!\n"
-msgstr "!מפסיק את נסיונות ההתקשרות אחרי 50 נסיונות\n"
+msgstr "מוותר על נסיונות התקשרות לאחר %d פעמים!\n"
 
 #: ../vnc.py:206
 #, python-format
@@ -2120,7 +2105,6 @@ msgid ""
 msgstr ""
 
 #: ../vnc.py:254
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -2131,9 +2115,9 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"אם תרצה לאבטח את השרת.\n"
-"<password>=VNC תוכל להשתמש בסיסמת האיתחול של ה\n"
-"!פועל ללא סיסמה VNC אזהרה!!! שרת ה\n"
+"אזהרה!!! שרת ה-VNC מופעל ללא ססמה!\n"
+"ניתן להשתמש באפשרות האתחול self.password=<password>\n"
+"בכדי לאבטח את השרת.\n"
 "\n"
 
 #: ../vnc.py:258
@@ -2145,13 +2129,16 @@ msgid ""
 msgstr ""
 
 #: ../vnc.py:260
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Unknown Error.  Aborting. \n"
 "\n"
-msgstr "שגיאה לא מוכרת"
+msgstr ""
+"\n"
+"\n"
+"שגיאה לא מוכרת. נוטש. \n"
+"\n"
 
 #: ../vnc.py:285 ../vnc.py:374
 msgid "VNC Configuration"
@@ -2236,14 +2223,13 @@ msgid "Processing"
 msgstr ""
 
 #: ../yuminstall.py:129
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "...מתוכנן להתקנה"
+msgstr "מתכונן להתקנה..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "...מתקין"
+msgstr "<b>מתקין %s</b> (%s)\n"
 
 #: ../yuminstall.py:205
 #, python-format
@@ -2279,9 +2265,8 @@ msgid ""
 msgstr ""
 
 #: ../yuminstall.py:417
-#, fuzzy
 msgid "Change Disc"
-msgstr "CDROM שנה"
+msgstr "החלף תקליטור"
 
 #: ../yuminstall.py:418
 #, python-format
@@ -2289,23 +2274,21 @@ msgid "Please insert %s disc %d to continue."
 msgstr ""
 
 #: ../yuminstall.py:432
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "שגוי CDROM"
+msgstr "תקליטור שגוי"
 
 #: ../yuminstall.py:433
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s disc."
-msgstr " %s CDROM  אינו נכון ה"
+msgstr "זה איננו תקליטור %s הנכון."
 
 #: ../yuminstall.py:439
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "CDROM לא התאפשרה גישה ל "
+msgstr "לא התאפשרה גישה לתקליטור."
 
 #: ../yuminstall.py:604 ../yuminstall.py:606
 msgid "Re_boot"
-msgstr "אי_תחול"
+msgstr "א_תחול"
 
 #: ../yuminstall.py:604
 msgid "_Eject"
@@ -2323,9 +2306,8 @@ msgid ""
 msgstr ""
 
 #: ../yuminstall.py:650
-#, fuzzy
 msgid "Retrying"
-msgstr "נסה שנית"
+msgstr "מנסה שנית"
 
 #: ../yuminstall.py:650
 msgid "Retrying package download..."
@@ -2333,8 +2315,7 @@ msgstr ""
 
 #: ../yuminstall.py:715
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 
 #: ../yuminstall.py:748 ../yuminstall.py:749
@@ -2400,19 +2381,18 @@ msgid "Error running transaction"
 msgstr ""
 
 #: ../yuminstall.py:956
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "קורא חבילת מידע"
+msgstr "קריאת מידע להתקנה..."
 
 #: ../yuminstall.py:958
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "קורא חבילת מידע"
+msgstr "קריאת מידע להתקנת %s..."
 
 #: ../yuminstall.py:970 ../textw/bootloader_text.py:277
 #: ../textw/constants_text.py:62 ../textw/partition_text.py:1428
 msgid "Edit"
-msgstr ""
+msgstr "עריכה"
 
 #: ../yuminstall.py:982 ../yuminstall.py:1257
 #, python-format
@@ -2466,9 +2446,8 @@ msgid ""
 msgstr ""
 
 #: ../yuminstall.py:1538
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "שידרוג"
+msgstr "סיום שדרוג"
 
 #: ../yuminstall.py:1539
 msgid "Performing post upgrade configuration..."
@@ -2515,14 +2494,12 @@ msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr ""
 
 #: ../iw/account_gui.py:48
-#, fuzzy
 msgid "Root _Password:"
-msgstr "Root הגדר סיסמת"
+msgstr "הגדרת ס_סמת root"
 
 #: ../iw/account_gui.py:50
-#, fuzzy
 msgid "_Confirm:"
-msgstr ":אשר_"
+msgstr "אש_ר:"
 
 #: ../iw/account_gui.py:87
 msgid "Caps Lock is on."
@@ -2548,9 +2525,8 @@ msgid "The root password must be at least six characters long."
 msgstr ""
 
 #: ../iw/account_gui.py:120 ../textw/userauth_text.py:78
-#, fuzzy
 msgid "Weak Password"
-msgstr ":סיסמה"
+msgstr "ססמה חלשה"
 
 #: ../iw/account_gui.py:121 ../textw/userauth_text.py:79
 #, python-format
@@ -2561,8 +2537,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/account_gui.py:133 ../textw/userauth_text.py:72
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 
 #: ../iw/autopart_type.py:96
@@ -2584,29 +2559,24 @@ msgid "You must provide an initiator name."
 msgstr ""
 
 #: ../iw/autopart_type.py:283
-#, fuzzy
 msgid "Error with Data"
-msgstr "סיסמה לא נכונה"
+msgstr ""
 
 #: ../iw/autopart_type.py:403 ../textw/partition_text.py:1517
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr "הסר את כל המחיצות במחשב"
+msgstr "הסרת כל המחיצות על הדיסקים שנבחרו ויצירת פריסה לפי ברירת מחדל"
 
 #: ../iw/autopart_type.py:404 ../textw/partition_text.py:1518
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr "הסר את כל המחיצות במחשב"
+msgstr "הסרת כל מחיצות הלינוקס על הדיסקים שנבחרו ויצירת פריסה לפי ברירת מחדל"
 
 #: ../iw/autopart_type.py:405
-#, fuzzy
 msgid "Resize existing partition and create default layout in free space"
-msgstr "הסר את כל המחיצות במחשב"
+msgstr "הקטנת המחיצה הקיימת ויצירת פריסה לפי ברירת מחדל על השטח הפנוי"
 
 #: ../iw/autopart_type.py:406 ../textw/partition_text.py:1519
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr "הסר את כל המחיצות במחשב"
+msgstr "שימוש בשטח הפנוי על הדיסקים שנבחרו ויצירת פריסה לפי ברירת מחדל"
 
 #: ../iw/autopart_type.py:407 ../textw/partition_text.py:1520
 msgid "Create custom layout"
@@ -2624,11 +2594,11 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:77
 msgid "Change _password"
-msgstr "שנה _סיסמה"
+msgstr "שנוי _ססמה"
 
 #: ../iw/blpasswidget.py:100
 msgid "Enter Boot Loader Password"
-msgstr "Boot Loader הכנס סיסמת"
+msgstr "ססמת תכנית אתחול (boot loader)"
 
 #: ../iw/blpasswidget.py:106
 msgid ""
@@ -2638,11 +2608,11 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:113
 msgid "_Password:"
-msgstr ":סיסמה_"
+msgstr "_ססמה:"
 
 #: ../iw/blpasswidget.py:119
 msgid "Con_firm:"
-msgstr ":א_שר"
+msgstr "אי_שור:"
 
 #: ../iw/blpasswidget.py:140
 msgid "Passwords don't match"
@@ -2664,18 +2634,17 @@ msgstr ""
 #: ../textw/bootloader_text.py:111 ../textw/bootloader_text.py:168
 #: ../textw/bootloader_text.py:286 ../textw/bootloader_text.py:395
 msgid "Boot Loader Configuration"
-msgstr ""
+msgstr "תצורת תכנית אתחול"
 
 #: ../iw/bootloader_main_gui.py:170 ../iw/bootloader_main_gui.py:175
 #: ../iw/bootloader_main_gui.py:212
-#, fuzzy, python-format
+#, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "...Bootloader מתקין"
+msgstr "התקנת תכנית אתחול על /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:218
-#, fuzzy
 msgid "_Change device"
-msgstr "CDROM שנה"
+msgstr "ה_חלף התקן"
 
 #: ../iw/congrats_gui.py:31
 msgid "Congratulations"
@@ -2730,9 +2699,9 @@ msgid "Unknown Linux system"
 msgstr "מערכת לינוקס לא מוכרת"
 
 #: ../iw/GroupSelector.py:210
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "חבילה"
+msgstr "חבילות ב-%s"
 
 #: ../iw/GroupSelector.py:482
 #, python-format
@@ -2785,7 +2754,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:143 ../iw/lvm_dialog_gui.py:203
 #: ../iw/network_gui.py:142 ../iw/network_gui.py:146 ../iw/network_gui.py:166
 msgid "C_ontinue"
-msgstr ""
+msgstr "ה_משך"
 
 #: ../iw/lvm_dialog_gui.py:171
 #, python-format
@@ -2805,7 +2774,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:196
 msgid "Too small"
-msgstr ""
+msgstr "קטן מדי"
 
 #: ../iw/lvm_dialog_gui.py:197
 msgid ""
@@ -2843,7 +2812,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:394 ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:321
 msgid "_Mount Point:"
-msgstr ""
+msgstr "נקודת _עיגון:"
 
 #: ../iw/lvm_dialog_gui.py:402 ../iw/raid_dialog_gui.py:334
 msgid "_File System Type:"
@@ -2872,13 +2841,13 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:386
 msgid "_Size (MB):"
-msgstr ""
+msgstr "_גודל (MB):"
 
 #: ../iw/lvm_dialog_gui.py:454 ../iw/partition_dialog_gui.py:403
 #: ../textw/partition_text.py:320 ../textw/partition_text.py:397
 #: ../textw/partition_text.py:480 ../textw/partition_text.py:588
 msgid "Size (MB):"
-msgstr ""
+msgstr "גודל (MB):"
 
 #: ../iw/lvm_dialog_gui.py:469
 #, python-format
@@ -2888,7 +2857,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:478 ../iw/partition_dialog_gui.py:334
 #: ../iw/partition_ui_helpers_gui.py:300 ../iw/raid_dialog_gui.py:329
 msgid "_Encrypt"
-msgstr ""
+msgstr "ה_צפנה"
 
 #: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1264
 msgid "Illegal size"
@@ -2900,7 +2869,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:579
 msgid "Mount point in use"
-msgstr ""
+msgstr "נקודת עיגון תפוסה"
 
 #: ../iw/lvm_dialog_gui.py:580
 #, python-format
@@ -3044,11 +3013,11 @@ msgstr ""
 #: ../iw/upgrade_swap_gui.py:140 ../textw/partition_text.py:1423
 #: ../textw/upgrade_text.py:120
 msgid "Mount Point"
-msgstr ""
+msgstr "נקודת עיגון"
 
 #: ../iw/lvm_dialog_gui.py:1132 ../iw/partition_gui.py:374
 msgid "Size (MB)"
-msgstr ""
+msgstr "גודל (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1146 ../iw/osbootwidget.py:95
 msgid "_Add"
@@ -3126,11 +3095,11 @@ msgstr ""
 
 #: ../iw/network_gui.py:34 ../iw/network_gui.py:535
 msgid "Primary DNS"
-msgstr ""
+msgstr "שרת שמות ראשי"
 
 #: ../iw/network_gui.py:34 ../iw/network_gui.py:537
 msgid "Secondary DNS"
-msgstr ""
+msgstr "שרת שמות משני"
 
 #: ../iw/network_gui.py:35
 msgid "_Gateway"
@@ -3170,9 +3139,9 @@ msgid ""
 msgstr ""
 
 #: ../iw/network_gui.py:157 ../textw/network_text.py:43
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "סיסמה לא נכונה"
+msgstr ""
 
 #: ../iw/network_gui.py:162 ../textw/network_text.py:64
 msgid "The IPv4 information you have entered is invalid."
@@ -3243,18 +3212,16 @@ msgid "Unknown Ethernet Device"
 msgstr ""
 
 #: ../iw/network_gui.py:640
-#, fuzzy
 msgid "unknown"
 msgstr "לא ידוע"
 
 #: ../iw/network_gui.py:642
 msgid "Hardware address: "
-msgstr ""
+msgstr "כתובת חמרה:"
 
 #: ../iw/network_gui.py:778 ../textw/network_text.py:228 ../loader2/net.c:820
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "חבילה"
+msgstr "פרוטוקול חסר"
 
 #: ../iw/network_gui.py:779 ../textw/network_text.py:229
 msgid "You must select at least IPv4 or IPv6 support."
@@ -3348,7 +3315,7 @@ msgstr ""
 
 #: ../iw/partition_dialog_gui.py:71
 msgid "_Fixed size"
-msgstr ""
+msgstr "גודל _קבוע"
 
 #: ../iw/partition_dialog_gui.py:73
 msgid "Fill all space _up to (MB):"
@@ -3381,11 +3348,11 @@ msgstr ""
 
 #: ../iw/partition_dialog_gui.py:350
 msgid "Allowable _Drives:"
-msgstr ""
+msgstr "_כוננים מותרים:"
 
 #: ../iw/partition_dialog_gui.py:365
 msgid "Drive:"
-msgstr ""
+msgstr "כונן:"
 
 #: ../iw/partition_dialog_gui.py:409
 msgid "_Start Cylinder:"
@@ -3438,14 +3405,12 @@ msgid "Partitioning"
 msgstr ""
 
 #: ../iw/partition_gui.py:638
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:640
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr ""
 
 #: ../iw/partition_gui.py:646
@@ -3616,9 +3581,8 @@ msgid "<Not Applicable>"
 msgstr ""
 
 #: ../iw/partition_ui_helpers_gui.py:284
-#, fuzzy
 msgid "_Format as:"
-msgstr "?לפרמט"
+msgstr ""
 
 #: ../iw/partition_ui_helpers_gui.py:307
 msgid "Mi_grate filesystem to:"
@@ -3896,8 +3860,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:134 ../textw/upgrade_bootloader_text.py:117
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:138
@@ -3944,7 +3907,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:33
 msgid "Upgrade Swap Partition"
-msgstr ""
+msgstr "שדרוג מחיצת החלפה (Swap)"
 
 #: ../iw/upgrade_swap_gui.py:93 ../textw/upgrade_text.py:103
 #, python-format
@@ -4005,8 +3968,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:182
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
 #: ../iw/zipl_gui.py:35
@@ -4044,15 +4006,15 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:32
 msgid "Which boot loader would you like to use?"
-msgstr ""
+msgstr "באיזה תכנית אתחול ברצונך להשתמש?"
 
 #: ../textw/bootloader_text.py:42
 msgid "Use GRUB Boot Loader"
-msgstr ""
+msgstr "שימוש בתכנית האתחול GRUB"
 
 #: ../textw/bootloader_text.py:43
 msgid "No Boot Loader"
-msgstr ""
+msgstr "ללא תכנית אתחול"
 
 #: ../textw/bootloader_text.py:63
 msgid "Skip Boot Loader"
@@ -4123,8 +4085,7 @@ msgid ""
 msgstr ""
 
 #: ../textw/bootloader_text.py:294
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 
 #: ../textw/bootloader_text.py:390
@@ -4136,15 +4097,15 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:400
 msgid "Use a GRUB Password"
-msgstr ""
+msgstr "שימוש בססמת GRUB"
 
 #: ../textw/bootloader_text.py:412
 msgid "Boot Loader Password:"
-msgstr ""
+msgstr "ססמת תוכנית האתחול:"
 
 #: ../textw/bootloader_text.py:413 tmp/account.glade.h:1
 msgid "Confirm:"
-msgstr ""
+msgstr "אימות:"
 
 #: ../textw/bootloader_text.py:442
 msgid "Passwords Do Not Match"
@@ -4199,8 +4160,7 @@ msgid "Please select the package groups you would like to install."
 msgstr ""
 
 #: ../textw/grpselect_text.py:112
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 
 #: ../textw/grpselect_text.py:124
@@ -4257,12 +4217,12 @@ msgstr ""
 #: ../textw/network_text.py:149 ../loader2/net.c:730
 #: tmp/netpostconfig.glade.h:9
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "הפעל תמיכת IPv4"
 
 #: ../textw/network_text.py:156 ../loader2/net.c:743
 #: tmp/netpostconfig.glade.h:10
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "הפעל תמיכת IPv6"
 
 #: ../textw/network_text.py:169
 msgid "P-to-P:"
@@ -4270,11 +4230,11 @@ msgstr ""
 
 #: ../textw/network_text.py:187 tmp/netpostconfig.glade.h:7
 msgid "ESSID:"
-msgstr ""
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:196
 msgid "WEP Key:"
-msgstr ""
+msgstr "מפתח WEP:"
 
 #: ../textw/network_text.py:209
 #, python-format
@@ -4286,19 +4246,17 @@ msgid "point-to-point IP address"
 msgstr ""
 
 #: ../textw/network_text.py:272 tmp/netpostconfig.glade.h:5
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "VNC הגדרת"
+msgstr ""
 
 #: ../textw/network_text.py:275 ../textw/network_text.py:406
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "הגדרת עכבר"
+msgstr "הגדרת כתוכות ידנית"
 
 #: ../textw/network_text.py:295
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "VNC הגדרת"
+msgstr "תצורת IPv4 עבור %s"
 
 #: ../textw/network_text.py:325 ../textw/network_text.py:337
 #: ../textw/network_text.py:340
@@ -4319,23 +4277,22 @@ msgid "Automatic neighbor discovery"
 msgstr ""
 
 #: ../textw/network_text.py:403 tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "VNC הגדרת"
+msgstr ""
 
 #: ../textw/network_text.py:430
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "VNC הגדרת"
+msgstr "תצורת IPv6 עבור %s"
 
 #: ../textw/network_text.py:460 ../textw/network_text.py:471
 #: ../textw/network_text.py:474
 msgid "IPv6 address"
-msgstr ""
+msgstr "כתובת IPv6"
 
 #: ../textw/network_text.py:464 ../textw/network_text.py:483
 msgid "IPv6 prefix"
-msgstr ""
+msgstr "קידומת IPv6"
 
 #: ../textw/network_text.py:509
 msgid "Configure Network Interface"
@@ -4359,17 +4316,16 @@ msgid ""
 msgstr ""
 
 #: ../textw/network_text.py:567
-#, fuzzy
 msgid "Active on boot"
-msgstr "פעיל"
+msgstr "פעיל באתחול"
 
 #: ../textw/network_text.py:569
 msgid "Inactive on boot"
-msgstr ""
+msgstr "לא פעיל באתחול"
 
 #: ../textw/network_text.py:572
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:577
 msgid "Auto IPv6"
@@ -4377,7 +4333,7 @@ msgstr ""
 
 #: ../textw/network_text.py:579
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:678 ../loader2/net.c:1055
 msgid "Gateway:"
@@ -4385,11 +4341,11 @@ msgstr ""
 
 #: ../textw/network_text.py:687
 msgid "Primary DNS:"
-msgstr ""
+msgstr "שרת שמות ראשי:"
 
 #: ../textw/network_text.py:692
 msgid "Secondary DNS:"
-msgstr ""
+msgstr "שרת שמות משני:"
 
 #: ../textw/network_text.py:699
 msgid "Miscellaneous Network Settings"
@@ -4401,23 +4357,23 @@ msgstr ""
 
 #: ../textw/network_text.py:726 ../textw/network_text.py:729
 msgid "primary DNS"
-msgstr ""
+msgstr "שרת שמות ראשי"
 
 #: ../textw/network_text.py:738
 msgid "secondary DNS"
-msgstr ""
+msgstr "שרת שמות משני"
 
 #: ../textw/network_text.py:762
 msgid "automatically via DHCP"
-msgstr ""
+msgstr "אוטומטית דרך DHCP"
 
 #: ../textw/network_text.py:765
 msgid "manually"
-msgstr ""
+msgstr "ידנית"
 
 #: ../textw/network_text.py:784
 msgid "Hostname Configuration"
-msgstr ""
+msgstr "קביעת שם מחשב"
 
 #: ../textw/network_text.py:787
 msgid ""
@@ -4672,8 +4628,7 @@ msgid "RAID"
 msgstr ""
 
 #: ../textw/partition_text.py:1433
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
 #: ../textw/partition_text.py:1465
@@ -4685,9 +4640,8 @@ msgid "Installation requires a / partition."
 msgstr ""
 
 #: ../textw/partition_text.py:1508
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "מחיצה"
+msgstr "אופן חלוקה למחיצות"
 
 #: ../textw/partition_text.py:1510
 msgid ""
@@ -4732,9 +4686,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/partition_text.py:1686 tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "TCP/IP הגדר"
+msgstr ""
 
 #: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:6
 msgid ""
@@ -4763,9 +4716,8 @@ msgid "Package Installation"
 msgstr ""
 
 #: ../textw/task_text.py:51
-#, fuzzy
 msgid "Package selection"
-msgstr "בחירת שפה"
+msgstr "בחירת חבילות"
 
 #: ../textw/task_text.py:57 tmp/tasksel.glade.h:4
 #, no-c-format, python-format
@@ -4919,9 +4871,8 @@ msgid "Multimedia"
 msgstr ""
 
 #: ../installclasses/rhel.py:63
-#, fuzzy
 msgid "Virtualization"
-msgstr "מזל טוב"
+msgstr "הדמיה (Virtualization)"
 
 #: ../installclasses/rhel.py:64
 msgid "Clustering"
@@ -4932,9 +4883,8 @@ msgid "Storage Clustering"
 msgstr ""
 
 #: ../installclasses/rhel.py:69
-#, fuzzy
 msgid "Installation Number"
-msgstr "התקן על המחשב"
+msgstr "מספר התקנה"
 
 #: ../installclasses/rhel.py:70
 msgid ""
@@ -5298,8 +5248,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr ""
 
 #: ../loader2/lang.c:65 ../loader2/loader.c:166
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 
 #: ../loader2/lang.c:373
@@ -5537,9 +5486,8 @@ msgid "Nameserver IP"
 msgstr ""
 
 #: ../loader2/net.c:315
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "חבילה"
+msgstr "שרת שמות מתחם חסר"
 
 #: ../loader2/net.c:316
 msgid ""
@@ -5557,9 +5505,8 @@ msgid "You entered an invalid IP address."
 msgstr ""
 
 #: ../loader2/net.c:589 ../loader2/net.c:695
-#, fuzzy
 msgid "Network Error"
-msgstr "אין סיסמה"
+msgstr "שגיאת רשת"
 
 #: ../loader2/net.c:590 ../loader2/net.c:696
 msgid "There was an error configuring your network interface."
@@ -5606,24 +5553,20 @@ msgid ""
 msgstr ""
 
 #: ../loader2/net.c:1115
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "הגדרת עכבר"
+msgstr "הגדרות ידניות לתצורת TCP/IP"
 
 #: ../loader2/net.c:1224 ../loader2/net.c:1230
 msgid "Missing Information"
 msgstr ""
 
 #: ../loader2/net.c:1225
-#, fuzzy
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "וכתובת מסכת רשת תקפים IP חובה לרשום כתובת "
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "חובה לכתוב הן כתובת IPv4 חוקית והן מסכת רשת או קידומת CIDR."
 
 #: ../loader2/net.c:1231
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "וכתובת מסכת רשת תקפים IP חובה לרשום כתובת "
+msgstr "חובה לכתוב הן כתובת IPv6 חוקית והן מסכת רשת או קידומת CIDR."
 
 #: ../loader2/net.c:1552
 msgid "Determining host name and domain..."
@@ -5730,9 +5673,8 @@ msgid "Please enter the URL containing the %s images on your server."
 msgstr ""
 
 #: ../loader2/urls.c:293
-#, fuzzy
 msgid "Configure proxy"
-msgstr "הגדר חומת אש_"
+msgstr "הגדרת מתווך רשת"
 
 #: ../loader2/urls.c:308
 msgid "URL Setup"
@@ -5783,9 +5725,8 @@ msgid "Loading %s driver..."
 msgstr ""
 
 #: tmp/account.glade.h:2
-#, fuzzy
 msgid "Root Password:"
-msgstr "Root הגדר סיסמת"
+msgstr "הגדרת ססמת root:"
 
 #: tmp/account.glade.h:3
 msgid ""
@@ -5794,9 +5735,8 @@ msgid ""
 msgstr ""
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr ""
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
@@ -5829,9 +5769,8 @@ msgid "Proxy U_RL:"
 msgstr ""
 
 #: tmp/addrepo.glade.h:5
-#, fuzzy
 msgid "Proxy pass_word:"
-msgstr "אין סיסמה"
+msgstr "ססמת מתווך רשת:"
 
 #: tmp/addrepo.glade.h:6
 msgid "Proxy u_sername:"
@@ -5846,9 +5785,8 @@ msgid "Repository _URL"
 msgstr ""
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid "_Proxy configuration"
-msgstr "הגדרת עכבר"
+msgstr "הגדרת תצורת מתווך:"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -5874,24 +5812,20 @@ msgid "Re_view and modify partitioning layout"
 msgstr ""
 
 #: tmp/autopart.glade.h:4
-#, fuzzy
 msgid "What drive would you like to _boot this installation from?"
-msgstr "?באיזה שפה תרצה להשתמש בתהליך ההתקנה"
+msgstr "מאיזה דיסק ברצונך לאתחל מערכת זו?"
 
 #: tmp/autopart.glade.h:5
 msgid "Which Partition to resize"
 msgstr ""
 
 #: tmp/autopart.glade.h:6
-#, fuzzy
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
-msgstr "?באיזה שפה תרצה להשתמש בתהליך ההתקנה"
+msgid "Which partition would you like to resize to make room for your installation?"
+msgstr "איזו מחיצה ברצונך להקטין בכדי לפנות מקום להתקנה זו?"
 
 #: tmp/autopart.glade.h:7
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "הגדרת אימות"
+msgstr "תצורה מתקדמת של שטחי אחסון"
 
 #: tmp/autopart.glade.h:8
 msgid "_Encrypt system"
@@ -5902,18 +5836,16 @@ msgid "_Select the drive(s) to use for this installation."
 msgstr ""
 
 #: tmp/blwhere.glade.h:1
-#, fuzzy
 msgid "/boot"
-msgstr "איתחול_"
+msgstr ""
 
 #: tmp/blwhere.glade.h:2
 msgid "BIOS Drive Order"
 msgstr ""
 
 #: tmp/blwhere.glade.h:3
-#, fuzzy
 msgid "Boot loader device"
-msgstr "Bootloader"
+msgstr ""
 
 #: tmp/blwhere.glade.h:4
 msgid "First BIOS drive:"
@@ -5924,9 +5856,8 @@ msgid "Fourth BIOS drive:"
 msgstr ""
 
 #: tmp/blwhere.glade.h:6
-#, fuzzy
 msgid "MBR"
-msgstr "SMB"
+msgstr "MBR"
 
 #: tmp/blwhere.glade.h:7
 msgid "Second BIOS drive:"
@@ -5937,24 +5868,20 @@ msgid "Third BIOS drive:"
 msgstr ""
 
 #: tmp/blwhere.glade.h:9
-#, fuzzy
 msgid "Where would you like to install the boot loader for your system?"
-msgstr "?באיזה שפה תרצה להשתמש בתהליך ההתקנה"
+msgstr "היכן ברצונך להתקין את תכנית האתחול (boot loader) של המערכת?"
 
 #: tmp/detailed-dialog.glade.h:1
-#, fuzzy
 msgid "Info"
-msgstr "התעלם"
+msgstr "מידע"
 
 #: tmp/detailed-dialog.glade.h:2
-#, fuzzy
 msgid "_Details"
 msgstr "פרטים"
 
 #: tmp/exnSave.glade.h:2
-#, fuzzy
 msgid "Select A File"
-msgstr "מחק_"
+msgstr "בחירת קובץ"
 
 #: tmp/exnSave.glade.h:3
 msgid "Select a destination for the exception information."
@@ -5965,9 +5892,8 @@ msgid "_Disk"
 msgstr ""
 
 #: tmp/exnSave.glade.h:5
-#, fuzzy
 msgid "_Remote"
-msgstr "איתחול_"
+msgstr "מרחוק"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -5977,9 +5903,8 @@ msgid ""
 msgstr ""
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Deselect"
-msgstr "מחק_"
+msgstr "ביטול בחירה"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "_Deselect all optional packages"
@@ -5990,9 +5915,8 @@ msgid "_Optional packages"
 msgstr ""
 
 #: tmp/GroupSelector.glade.h:5
-#, fuzzy
 msgid "_Select"
-msgstr "מחק_"
+msgstr "בחירה"
 
 #: tmp/GroupSelector.glade.h:6
 msgid "_Select all optional packages"
@@ -6013,9 +5937,8 @@ msgid "Please enter your %(instkey)s."
 msgstr ""
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr ":סיסמה_"
+msgstr "<b>ססמה:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
@@ -6034,9 +5957,8 @@ msgid "_Add target"
 msgstr ""
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "...מתקין"
+msgstr "התקנה..."
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
@@ -6123,9 +6045,8 @@ msgid "Encryption Key:"
 msgstr ""
 
 #: tmp/netpostconfig.glade.h:13
-#, fuzzy
 msgid "Manual configuration"
-msgstr "הגדרת עכבר"
+msgstr "תצורה ידנית"
 
 #: tmp/netpostconfig.glade.h:14
 msgid "Point to Point (IP):"
@@ -6164,14 +6085,12 @@ msgid "<b>Device number:</b>"
 msgstr ""
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr ""
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr ":סיסמה_"
+msgstr ""
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -6250,13 +6169,16 @@ msgid "German"
 msgstr "גרמנית"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "ח_דש"
+msgstr "יוונית"
 
 #. generated from lang-table
 msgid "Gujarati"
 msgstr ""
+
+#. generated from lang-table
+msgid "Hebrew"
+msgstr "עברית"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -6303,7 +6225,6 @@ msgid "Malay"
 msgstr "מלאית"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
 msgstr "מלאית"
 
@@ -6344,23 +6265,20 @@ msgid "Punjabi"
 msgstr "(פאנג'בי (הודי -ארי"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "קרואטית"
+msgstr "רומנית"
 
 #. generated from lang-table
 msgid "Russian"
 msgstr "רוסית"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "פרסית"
+msgstr "סרבית"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "פרסית"
+msgstr "סרבית(לטינית)"
 
 #. generated from lang-table
 msgid "Sinhala"
@@ -6697,3 +6615,4 @@ msgstr "זולו"
 
 #~ msgid "southwest Mali"
 #~ msgstr "דרום מערב מאלי"
+
