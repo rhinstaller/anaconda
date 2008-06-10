@@ -2132,13 +2132,10 @@ MAILADDR root
         return ret
 
     def umountFilesystems(self, instPath, ignoreErrors = 0, swapoff = True):
-        # XXX remove special case
-        try:
-            isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
-            log.info("Umount USB OK")
-        except:
-#           log.error("Umount USB Fail")
-            pass
+        # Unmount things bind mounted into the instPath here because they're
+        # not tracked by self.entries.
+        if os.path.ismount("%s/dev" % instPath):
+            isys.umount("%s/dev" % instPath, removeDir=0)
 
         # take a slice so we don't modify self.entries
         reverse = self.entries[:]
