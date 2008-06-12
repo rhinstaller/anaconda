@@ -646,6 +646,8 @@ class AnacondaYum(YumSorter):
             repo.enable()
             self.repos.add(repo)
 
+        extraRepos = []
+
         if self.anaconda.id.extraModules:
             for d in glob.glob("/tmp/DD-*/rpms"):
                 dirname = os.path.basename(os.path.dirname(d))
@@ -655,6 +657,33 @@ class AnacondaYum(YumSorter):
                                        root=root, addon=False)
                 repo.name = "Driver Disk %s" % dirname.split("-")[1]
                 repo.enable()
+                extraRepos.append(repo)
+
+        if self.anaconda.ksKickstart:
+            for ksrepo in self.anaconda.id.ksdata.repo.repoList:
+                repo = AnacondaYumRepo(uri=ksrepo.baseurl,
+                                       mirrorlist=ksrepo.mirrorlist,
+                                       repoid=ksrepo.name)
+                repo.name = ksrepo.name
+
+                if ksrepo.cost:
+                    repo.cost = ksrepo.cost
+
+                if ksrepo.excludepkgs:
+                    repo.exclude = ksrepo.excludepkgs
+
+                if ksrepo.includepkgs:
+                    repo.include = ksrepo.includepkgs
+
+                repo.enable()
+                extraRepos.append(repo)
+
+        for repos in extraRepos:
+            try:
+                self.repos.add(repo)
+                log.info("added repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
+            except:
+                log.warning("ignoring duplicate repository %s with URL %s" (repo.name, repo.mirrorlist or repo.baseurl))
 
         self.repos.setCacheDir("%s/var/cache/yum" % self.conf.cachedir)
 

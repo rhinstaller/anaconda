@@ -678,46 +678,6 @@ class Raid(commands.raid.F9_Raid):
         addPartRequest(self.handler.anaconda, request)
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
-class Repo(commands.repo.F8_Repo):
-    def parse(self, args):
-        commands.repo.F8_Repo.parse(self, args)
-        repo = self.repoList[-1]
-        repoid = repo.name.replace(" ", "-")
-
-        buf = """
-[%(repoid)s]
-name=%(name)s
-enabled=1
-gpgcheck=0
-""" % {"repoid": repoid, "name": repo.name}
-
-        # pykickstart enforces that only one of these options may be specified
-        if repo.mirrorlist:
-            buf += "\nmirrorlist=%s" % repo.mirrorlist
-        else:
-            buf += "\nbaseurl=%s" % repo.baseurl
-
-        if repo.cost:
-            buf += "\ncost=%s" % repo.cost
-
-        if repo.excludepkgs:
-            s = ""
-            for pkg in repo.excludepkgs:
-                s += "%s," % pkg
-
-            buf += "\nexclude=%s" % s[:-1]
-
-        if repo.includepkgs:
-            s = ""
-            for pkg in repo.includepkgs:
-                s += "%s," % pkg
-
-            buf += "\nincludepkgs=%s" % s[:-1]
-
-        fd = open("/etc/yum.repos.d/%s.repo" % repoid, "w")
-        fd.write(buf)
-        fd.close()
-
 class RootPw(commands.rootpw.F8_RootPw):
     def parse(self, args):
         commands.rootpw.F8_RootPw.parse(self, args)
@@ -843,7 +803,7 @@ commandMap = {
         "poweroff": Reboot,
         "raid": Raid,
         "reboot": Reboot,
-        "repo": Repo,
+        "repo": commands.repo.F8_Repo,
         "rootpw": RootPw,
         "selinux": SELinux,
         "services": commands.services.FC6_Services,
