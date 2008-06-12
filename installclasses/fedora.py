@@ -52,7 +52,7 @@ class InstallClass(BaseInstallClass):
         if not type(uri) == types.ListType:
             uri = [uri,]
 
-        return {'Fedora': uri}
+        return {'Installation Repo': uri}
 
     def setInstallData(self, anaconda):
 	BaseInstallClass.setInstallData(self, anaconda)

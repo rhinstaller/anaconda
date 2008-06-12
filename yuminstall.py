@@ -607,6 +607,11 @@ class AnacondaYum(YumSorter):
         repo.yumvar.update(self.conf.yumvar)
         repo.cfg = parser
 
+        # If repo=/method= was passed in, we want to default these extra
+        # repos to off.
+        if self._baseRepoURL:
+            repo.enabled = False
+
         return repo
 
     # We need to make sure $releasever gets set up before .repo files are
