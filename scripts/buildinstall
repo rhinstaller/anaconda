@@ -67,6 +67,10 @@ while [ $# -gt 0 ]; do
 	    UPDATES=$2
 	    shift; shift
 	    ;;
+	--mirrorlist)
+	    MIRRORLIST="$MIRRORLIST $2"
+	    shift; shift
+	    ;;
 
 	*)
         if [ -z "$REPO" ]; then
@@ -141,6 +145,19 @@ enabled=1
 EOF
     let n++
 done
+
+n=1
+for l in $MIRRORLIST; do
+    cat >> $yumconf <<EOF
+
+[anaconda-mirrorlistrepo-$n]
+name=anaconda mirrorlist repo $n
+mirrorlist=$l
+enabled=1
+EOF
+    let n++
+done
+
 
 
 BUILDINSTDIR=`mktemp -d ${TMPDIR:-/tmp}/buildinstall.tree.XXXXXX`
