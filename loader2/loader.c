@@ -388,7 +388,7 @@ static void copyErrorFn (char *msg) {
 void loadUpdates(struct loaderData_s *loaderData) {
     char *device = NULL, *part = NULL, *buf;
     char **devNames = NULL;
-    enum { UPD_DEVICE, UPD_PART, UPD_LOAD, UPD_DONE } stage = UPD_DEVICE;
+    enum { UPD_DEVICE, UPD_PART, UPD_PROMPT, UPD_LOAD, UPD_DONE } stage = UPD_DEVICE;
     int rc, num = 0;
     int dir = 1;
 
@@ -440,7 +440,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
                     stage = UPD_DEVICE;
                 else {
                     part = device;
-                    stage = UPD_LOAD;
+                    stage = UPD_PROMPT;
                 }
 
                 break;
@@ -466,7 +466,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
             stage = UPD_LOAD;
         }
 
-        case UPD_LOAD:
+        case UPD_PROMPT:
             rc = asprintf(&buf, _("Insert your updates disk into /dev/%s and "
                                   "press \"OK\" to continue."), part+5);
             rc = newtWinChoice(_("Updates Disk"), _("OK"), _("Back"), buf);
@@ -478,6 +478,10 @@ void loadUpdates(struct loaderData_s *loaderData) {
                 break;
             }
 
+            stage = UPD_LOAD;
+            break;
+
+        case UPD_LOAD:
             logMessage(INFO, "UPDATES device is %s", part);
 
             if (doPwMount(part, "/tmp/update-disk", "ext2", "ro") &&
@@ -485,6 +489,8 @@ void loadUpdates(struct loaderData_s *loaderData) {
                 doPwMount(part, "/tmp/update-disk", "iso9660", "ro")) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to mount updates disk"));
+                stage = UPD_PROMPT;
+                break;
             } else {
                 /* Copy everything to /tmp/updates so we can unmount the disk  */
                 winStatus(40, 3, _("Updates"), _("Reading anaconda updates..."));
