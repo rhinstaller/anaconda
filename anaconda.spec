@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.4
+Version: 11.4.1.5
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -208,6 +208,19 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jun 13 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.5-1
+- Add a mirrorlist option. (jkeating)
+- Don't display garbage when prompting for the updates device. (clumens)
+- Don't write out yum repo config files in kickstart.py. (clumens)
+- It doesn't make sense to insert a disk into a partition, so don't
+  ask. (clumens)
+- Unmount /mnt/sysimage/dev manually since it doesn't get an entry. (clumens)
+- Link ld-linux.so.2 to ld-*.*.*.so (dcantrell)
+- Quote the repo name in anaconda-ks.cfg in case it includes spaces. (clumens)
+- Move all the exception classes into a single file. (clumens)
+- And import iutil a the end as well. (clumens)
+- Don't display obsoleted packages in the UI. (clumens)
+
 * Thu Jun 05 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.4-1
 - Fix text mode button translations (#450176). (clumens)
 - Remove a rogue call to textdomain. (clumens)
