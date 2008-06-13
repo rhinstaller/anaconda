@@ -659,7 +659,7 @@ class AnacondaYum(YumSorter):
                 repo.enable()
                 extraRepos.append(repo)
 
-        if self.anaconda.ksKickstart:
+        if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repo.repoList:
                 repo = AnacondaYumRepo(uri=ksrepo.baseurl,
                                        mirrorlist=ksrepo.mirrorlist,
