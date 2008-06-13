@@ -439,7 +439,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
                 if (dir == -1)
                     stage = UPD_DEVICE;
                 else {
-                    rc = asprintf(&part, "/dev/%s", device)
+                    rc = asprintf(&part, "/dev/%s", device);
                     stage = UPD_PROMPT;
                 }
 
