@@ -439,7 +439,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
                 if (dir == -1)
                     stage = UPD_DEVICE;
                 else {
-                    part = device;
+                    rc = asprintf(&part, "/dev/%s", device)
                     stage = UPD_PROMPT;
                 }
 
@@ -467,8 +467,8 @@ void loadUpdates(struct loaderData_s *loaderData) {
         }
 
         case UPD_PROMPT:
-            rc = asprintf(&buf, _("Insert your updates disk into /dev/%s and "
-                                  "press \"OK\" to continue."), part+5);
+            rc = asprintf(&buf, _("Insert your updates disk into %s and "
+                                  "press \"OK\" to continue."), part);
             rc = newtWinChoice(_("Updates Disk"), _("OK"), _("Back"), buf);
             free(buf);
 
