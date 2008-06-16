@@ -382,7 +382,7 @@ class Network(commands.network.F8_Network):
         if nd.bootProto:
             devices = self.handler.id.network.netdevices
             firstdev = self.handler.id.network.getFirstDeviceName()
-            if (devices and bootProto):
+            if (devices and nd.bootProto):
                 if not nd.device:
                     if devices.has_key(firstdev):
                         device = firstdev
