@@ -82,21 +82,7 @@ class RepoEditor:
         self.dialog.set_title(_("Edit Repository"))
 
     def _enableRepo(self, repourl):
-        # Only do this for the real base repo, as that's what will get
-        # written out to anaconda-ks.cfg as the method.
-        if not self.repo.addon and not self.repo.name.startswith("Driver Disk"):
-            self.anaconda.setMethodstr(repourl)
-
-            # Ideally we should be able to unmount here, but if not
-            # it's probably not a big deal.
-            try:
-                isys.umount(self.backend.ayum.tree)
-
-                if self.backend.ayum.isodir:
-                    isys.umount(self.backend.ayum.isodir)
-            except:
-                pass
-
+        # FIXME:  Don't do anything here for now.
         return True
 
     def _proxyToggled(self, *args):
@@ -324,11 +310,6 @@ class TaskWindow(InstallWindow):
         i = store.get_iter(int(row))
         wasChecked = store.get_value(i, 0)
         repo = store.get_value(i, 2)
-
-        # The base repositories can never be disabled, but they can be edited.
-        if wasChecked and not repo.addon:
-            button.set_active(True)
-            return
 
         if not wasChecked:
             if not network.hasActiveNetDev():

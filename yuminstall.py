@@ -130,6 +130,15 @@ def ui_comps_sort(one, two):
         return -1
     return 0
 
+def enableNetwork(anaconda):
+    from netconfig_dialog import NetworkConfigurator
+    import gtk
+    net = NetworkConfigurator(anaconda.id.network)
+    ret = net.run()
+    net.destroy()
+
+    return ret != gtk.RESPONSE_CANCEL
+
 class AnacondaCallback:
 
     def __init__(self, ayum, anaconda, instLog, modeText):
@@ -275,7 +284,7 @@ class AnacondaCallback:
 class AnacondaYumRepo(YumRepository):
     def __init__( self, repoid='anaconda%s' % productStamp,
                   uri=None, mirrorlist=None,
-                  root = "/mnt/sysimage/", addon=True):
+                  root = "/mnt/sysimage/"):
         YumRepository.__init__(self, repoid)
         conf = yum.config.RepoConf()
         for k, v in conf.iteritems():
@@ -284,7 +293,6 @@ class AnacondaYumRepo(YumRepository):
         self.gpgcheck = False
         #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
         self.keepalive = False
-        self.addon = addon
 
         if type(uri) == types.ListType:
             self.baseurl = uri
@@ -295,6 +303,17 @@ class AnacondaYumRepo(YumRepository):
             self.mirrorlist = mirrorlist
 
         self.setAttribute('cachedir', os.path.join(root, "var/cache/yum", self.id))
+
+    def needsNetwork(self):
+        def _isURL(s):
+            return s.startswith("http") or s.startswith("ftp")
+
+        if len(self.baseurl) > 0:
+            return len(filter(lambda s: _isURL(s), self.baseurl)) > 0
+        elif self.mirrorlist:
+            return _isURL(self.mirrorlist)
+        else:
+            return False
 
     def dirSetup(self):
         # FIXME: this is terrible, awful and shouldn't be allowed to see
@@ -376,7 +395,13 @@ class AnacondaYum(YumSorter):
             elif m.startswith("http:") or m.startswith("ftp:"):
                 self._baseRepoURL = m
             elif m.startswith("nfs:"):
-                isys.mount(m[4:], self.tree, "nfs")
+                if not network.hasActiveNetDev():
+                    if not enableNetwork(self.anaconda):
+                        self._baseRepoURL = None
+                    else:
+                        isys.mount(m[4:], self.tree, "nfs")
+                else:
+                    isys.mount(m[4:], self.tree, "nfs")
             elif m.startswith("cdrom:"):
                 self._switchCD(1)
         else:
@@ -616,10 +641,6 @@ class AnacondaYum(YumSorter):
     def doConfigSetup(self, fn='/etc/yum.conf', root='/'):
         YumSorter.doConfigSetup(self, fn=fn, root=root)
 
-        # override default logging to use our logs
-        ylog = logging.getLogger("yum")
-        map(lambda x: ylog.addHandler(x), log.handlers)
-
         # Create the "base" repo object, assuming there is one.  Otherwise we
         # just skip all this and use the defaults from /etc/yum.repos.d.
         # preupgrade always sets a _baseRepoURL so it'll still get taken care
@@ -629,8 +650,7 @@ class AnacondaYum(YumSorter):
             # add default repos
             for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self._baseRepoURL).items():
                 rid = name.replace(" ", "")
-                repo = AnacondaYumRepo(uri=uri, addon=False,
-                                       repoid="anaconda-%s-%s" %(rid, productStamp),
+                repo = AnacondaYumRepo(uri=uri, repoid="anaconda-%s-%s" %(rid, productStamp),
                                        root = root)
                 repo.name = name
                 repo.cost = 100
@@ -665,7 +685,7 @@ class AnacondaYum(YumSorter):
                 rid = "anaconda-%s" % dirname
 
                 repo = AnacondaYumRepo(uri="file:///%s" % d, repoid=rid,
-                                       root=root, addon=False)
+                                       root=root)
                 repo.name = "Driver Disk %s" % dirname.split("-")[1]
                 repo.enable()
                 extraRepos.append(repo)
@@ -713,13 +733,7 @@ class AnacondaYum(YumSorter):
 
     def _handleFailure(self, package):
         if flags.cmdline.has_key("preupgrade") and os.environ.has_key("DISPLAY") and not network.hasActiveNetDev():
-            from netconfig_dialog import NetworkConfigurator
-            import gtk
-            net = NetworkConfigurator(self.anaconda.id.network)
-            ret = net.run()
-            net.destroy()
-
-            if ret != gtk.RESPONSE_CANCEL:
+            if not enableNetwork(self.anaconda):
                 return
 
         if not self.isodir and self.currentMedia:
@@ -1106,7 +1120,19 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/tmp/product/yum.repos.d
                         task(thisrepo = repo.id)
                         waitwin.next_task()
                     waitwin.pop()
-                except Exception, e:
+                except RepoError, e:
+                    waitwin.pop()
+                    if repo.needsNetwork() and not network.hasActiveNetDev():
+                        from netconfig_dialog import NetworkConfigurator
+                        import gtk
+                        net = NetworkConfigurator(anaconda.id.network)
+                        ret = net.run()
+                        net.destroy()
+
+                        if ret != gtk.RESPONSE_CANCEL:
+                            repo.mirrorlistparsed = False
+                            continue
+
                     buttons = [_("_Exit installer"), _("Edit"), _("_Retry")]
                 else:
                     break # success
@@ -1844,9 +1870,7 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/tmp/product/yum.repos.d
                 self.selectPackage(new)
 
     def writeKS(self, f):
-        # Only write out lines for repositories that weren't added
-        # automatically by anaconda.
-        for repo in filter(lambda r: r.addon, self.ayum.repos.listEnabled()):
+        for repo in self.ayum.repos.listEnabled():
             line = "repo --name=\"%s\" " % (repo.name or repo.repoid)
 
             if repo.baseurl:
