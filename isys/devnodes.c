@@ -192,7 +192,11 @@ int devMakeInode(char * devName, char * path) {
         major = 202;
 	minor = ( devName[3] - 'a' ) * 16;
         if (devName[4] && isdigit(devName[4])) {
-            minor += devName[4] - '0';
+            if (devName[5] && isdigit(devName[5])) {
+                minor += (devName[4] - '0') * 10 + (num[5] - '0');
+            } else {
+                minor += devName[4] - '0';
+            }
 	}
     } else if (devName[0] == 'u' && devName[1] == 'b') {
         /* usb block (ub) devices */
