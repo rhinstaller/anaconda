@@ -245,8 +245,6 @@ def availableClasses(showHidden=0):
 
     if os.access("installclasses", os.R_OK):
 	path = "installclasses"
-    elif os.access("/mnt/source/RHupdates/installclasses", os.R_OK):
-        path = "/mnt/source/RHupdates/installclasses"
     elif os.access("/tmp/updates/installclasses", os.R_OK):
         path = "/tmp/updates/installclasses"
     elif os.access("/tmp/product/installclasses", os.R_OK):

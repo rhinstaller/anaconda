@@ -358,9 +358,7 @@ static void spawnShell(void) {
         signal(SIGINT, SIG_DFL);
         signal(SIGTSTP, SIG_DFL);
 
-        if (!access("/mnt/source/RHupdates/pyrc.py", R_OK|X_OK))
-            setenv("PYTHONSTARTUP", "/mnt/source/RHupdates/pyrc.py", 1);
-        else if (!access("/tmp/updates/pyrc.py", R_OK|X_OK))
+        if (!access("/tmp/updates/pyrc.py", R_OK|X_OK))
             setenv("PYTHONSTARTUP", "/tmp/updates/pyrc.py", 1);
         else if (!access("/usr/lib/anaconda-runtime/pyrc.py", R_OK|X_OK))
             setenv("PYTHONSTARTUP", "/usr/lib/anaconda-runtime/pyrc.py", 1);
@@ -1609,7 +1607,6 @@ int main(int argc, char ** argv) {
 
     char ** argptr, ** tmparg;
     char * anacondaArgs[50];
-    int useRHupdates = 0;
 
     struct loaderData_s loaderData;
 
@@ -1829,18 +1826,10 @@ int main(int argc, char ** argv) {
         manualDeviceCheck(&loaderData);
     }
 
-    useRHupdates = 0;
     if (loaderData.updatessrc)
         loadUpdatesFromRemote(loaderData.updatessrc, &loaderData);
     else if (FL_UPDATES(flags))
         loadUpdates(&loaderData);
-
-    /* we only want to use RHupdates on nfs installs.  otherwise, we'll 
-     * use files on the first iso image and not be able to umount it */
-    if (!strncmp(url, "nfs:", 4) && !FL_STAGE2(flags)) {
-        logMessage(INFO, "NFS install method detected, will use RHupdates/");
-        useRHupdates = 1;
-    }
 
     /* make sure /tmp/updates exists so that magic in anaconda to */
     /* symlink rhpl/ will work                                    */
@@ -1856,13 +1845,6 @@ int main(int argc, char ** argv) {
     add_to_path_env("LD_LIBRARY_PATH", "/tmp/product");
     add_to_path_env("PATH", "/tmp/updates");
     add_to_path_env("PATH", "/tmp/product");
-
-    if (useRHupdates) {
-        add_to_path_env("PYTHONPATH", "/mnt/source/RHupdates");
-        add_to_path_env("LD_LIBRARY_PATH", "/mnt/source/RHupdates");
-        add_to_path_env("PATH", "/mnt/source/RHupdates");
-        add_fw_search_dir(&loaderData, "/mnt/source/RHupdates/firmware");
-    }
 
     stop_fw_loader(&loaderData);
     start_fw_loader(&loaderData);

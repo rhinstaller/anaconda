@@ -403,8 +403,7 @@ def addFrame(dialog, title=None, showtitle = 1):
     dialog.connect ("key-release-event", handleShiftPrintScrnRelease)
 
 def findGladeFile(file):
-    for dir in ("/mnt/source/RHupdates/", "/tmp/updates/",
-                "ui/", "/usr/share/anaconda/ui/",
+    for dir in ("/tmp/updates/", "ui/", "/usr/share/anaconda/ui/",
                 "/usr/share/pirut/ui/"):
         fn = dir + file
         if os.access(fn, os.R_OK):
@@ -421,9 +420,7 @@ def getGladeWidget(file, rootwidget, i18ndomain="anaconda"):
     return (xml, w)
 
 def findPixmap(file):
-    for dir in ("/mnt/source/RHupdates/pixmaps/",
-                 "/mnt/source/RHupdates/",
-                 "/tmp/updates/pixmaps/", "/tmp/updates/",
+    for dir in ( "/tmp/updates/pixmaps/", "/tmp/updates/",
                  "/tmp/product/pixmaps/", "/tmp/product/", "pixmaps/",
                  "/usr/share/anaconda/pixmaps/",
                  "/usr/share/pixmaps/",

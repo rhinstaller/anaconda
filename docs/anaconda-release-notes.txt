@@ -121,10 +121,8 @@ the main directory of the floppy.  The installer is invoked with an
 'updates' option from the boot command line, and the user is prompted
 to insert the update disk. The files are copied off into a ramdisk
 location which Python has been instructed to look at first of modules.
-For NFS installes, any files in the directory 'RHupdates' under the
-directory mounted in the loader will also be used before the source
-files shipped in the release.  If one is customizing the distribution
-and the installer then installing over NFS is the fastest way to work.
+If one is customizing the distribution and the installer then installing
+over NFS is the fastest way to work.
 
     The installer will also use an 'updates.img' file to get patched
 source files. This is particularly useful for FTP and HTTP based installs.

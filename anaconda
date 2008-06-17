@@ -169,17 +169,6 @@ def setupPythonUpdates():
 
     for pypkg in ("rhpl", "yum", "rpmUtils", "urlgrabber", "rhpxl", "pirut",
                   "pykickstart"):
-	if os.access("/mnt/source/RHupdates/%s" %(pypkg,), os.X_OK):
-	    try:
-		os.mkdir("/tmp/updates/%s" %(pypkg,))
-	    except:
-		pass
-
-	    # symlink the existing ones
-	    for f in os.listdir("/mnt/source/RHupdates/%s" %(pypkg,)):
-		os.symlink("/mnt/source/RHupdates/%s/%s" %(pypkg, f),
-			   "/tmp/updates/%s/%s" %(pypkg, f))
-
 	# get the libdir.  *sigh*
 	if os.access("/usr/lib64/python%s/site-packages/%s" %(pyver, pypkg),
 		     os.X_OK):
@@ -375,8 +364,6 @@ def addPoPath(dir):
             gettext.bindtextdomain(basename[:-3], dir)
 
 def setupTranslations():
-    if os.path.isdir("/mnt/source/RHupdates/po"):
-        addPoPath("/mnt/source/RHupdates/po")
     if os.path.isdir("/tmp/updates/po"):
         addPoPath("/tmp/updates/po")
     gettext.textdomain("anaconda")
@@ -433,8 +420,7 @@ def runVNC():
 
     child = os.fork()
     if child == 0:
-        for p in ('/mnt/source/RHupdates/pyrc.py', \
-                '/tmp/updates/pyrc.py', \
+        for p in ('/tmp/updates/pyrc.py', \
                 '/usr/lib/anaconda-runtime/pyrc.py'):
             if os.access(p, os.R_OK|os.X_OK):
                 os.environ['PYTHONSTARTUP'] = p
@@ -604,7 +590,7 @@ if __name__ == "__main__":
     # pull this in to get product name and versioning
     import product
 
-    # this handles setting up RHupdates for pypackages to minimize the set needed
+    # this handles setting up updates for pypackages to minimize the set needed
     setupPythonUpdates()
 
     import signal, traceback, string, isys, iutil, time

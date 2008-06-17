@@ -371,7 +371,7 @@ class AnacondaYum(YumSorter):
         self.macros = {}
 
         if flags.selinux:
-            for directory in ("/tmp/updates", "/mnt/source/RHupdates",
+            for directory in ("/tmp/updates",
                         "/etc/selinux/targeted/contexts/files",
                         "/etc/security/selinux/src/policy/file_contexts",
                         "/etc/security/selinux"):
@@ -977,9 +977,9 @@ keepcache=0
 logfile=/tmp/yum.log
 metadata_expire=0
 obsoletes=True
-pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins,/mnt/source/RHupdates/yum-plugins
-pluginconfpath=/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d,/mnt/source/RHupdates/pluginconf.d
-reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/mnt/source/RHupdates/yum.repos.d,/tmp/product/yum.repos.d
+pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins
+pluginconfpath=/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d
+reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/tmp/product/yum.repos.d
 """ % (anaconda.rootPath, anaconda.rootPath)
 
         fd = open("/etc/yum.conf", "w")

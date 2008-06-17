@@ -2919,8 +2919,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
         os.close(fd)
 
         env = os.environ
-        configs = [ "/mnt/source/RHupdates/mke2fs.conf",
-                    "/tmp/updates/mke2fs.conf",
+        configs = [ "/tmp/updates/mke2fs.conf",
                     "/etc/mke2fs.conf",
                   ]
         for config in configs:

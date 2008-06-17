@@ -27,7 +27,7 @@
 import sys
 import string
 
-_bdModulePath = "/tmp/updates/bdevid/:/mnt/source/RHupdates/bdevid/:"
+_bdModulePath = "/tmp/updates/bdevid/:"
 import block
 oldPath = block.getBdevidPath()
 if not _bdModulePath in oldPath:
