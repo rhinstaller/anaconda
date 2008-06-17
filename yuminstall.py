@@ -1675,7 +1675,7 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/mnt/source/RHupdates/yum.rep
             anaconda.id.bootloader.args.append("rhgb quiet")
             break
 
-        for tsmbr in self.ayum.tsInfo.matchNaevr(name='gdm') + self.ayum.tsInfo.matchNaevr(name='kdm'):
+        for tsmbr in self.ayum.tsInfo.matchNaevr(name='gdm') + self.ayum.tsInfo.matchNaevr(name='kdebase-workspace'):
             if anaconda.id.displayMode == 'g' and not flags.usevnc:
                 anaconda.id.desktop.setDefaultRunLevel(5)
                 break
