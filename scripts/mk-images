@@ -579,8 +579,6 @@ makeinitrd() {
 
     instbin $IMGPATH /usr/sbin/udevd $MBD_DIR /sbin/udevd
     instbin $IMGPATH /usr/sbin/udevadm $MBD_DIR /sbin/udevadm
-    ln -s udevadm $MBD_DIR/sbin/udevcontrol
-    ln -s udevadm $MBD_DIR/sbin/udevtrigger
     ln -s udevadm $MBD_DIR/sbin/udevsettle
 
     # Indirect dependencies
