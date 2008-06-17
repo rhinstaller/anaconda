@@ -107,6 +107,13 @@ def printMatchingPkgs(fpattern):
         processed[mname] = True
         print mname
 
+def addPackages(ds, pkgLst):
+    ds.initActionTs()
+    for pkg in pkgLst:
+        ds.install(pattern=pkg)
+    ds.resolveDeps()
+    processTransaction(ds)
+
 def addGroups(ds, groupLst):
     ds.initActionTs()
     map(ds.selectGroup, filter(lambda x: ds.comps.has_group(x), groupLst))
@@ -163,7 +170,7 @@ if __name__ == "__main__":
         arch = "i686"
 
     # print out kernel related packages first
-    printMatchingPkgs("kernel-*")        
+    #printMatchingPkgs("kernel-*")        
 
     if os.environ.has_key('TMPDIR'):
         testpath = "%s/pkgorder-%d" %(os.environ['TMPDIR'],os.getpid(),)
@@ -174,11 +181,11 @@ if __name__ == "__main__":
     
     ds = PackageOrderer(arch=arch)
     ds.setup(fn=config, excludes=options.excludeList, root = testpath)
+    
+    # hack, hack, hack... make sure iscsi ends up on disc1 (#208832)
+    addPackages(ds, ["kernel-*","mkinitrd","mdadm"])
 
     addGroups(ds, ["core", "base", "text-internet"])
-
-    # hack, hack, hack... make sure iscsi ends up on disc1 (#208832)
-    printMatchingPkgs("iscsi-*")        
 
     addGroups(ds, ["base-x", "dial-up",
                    "graphical-internet", "editors", 
