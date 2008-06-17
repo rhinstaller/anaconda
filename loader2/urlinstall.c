@@ -102,14 +102,18 @@ static void copyErrorFn (char *msg) {
 }
 
 static int loadUrlImages(struct iurlinfo * ui) {
-    char *buf, *path, *dest;
+    char *buf, *path, *dest, *slash;
     int rc;
 
     /* Figure out the path where updates.img and product.img files are
      * kept.  Since ui->prefix points to a stage2 image file, we just need
      * to trim off the file name and look in the same directory.
      */
-    path = strndup(ui->prefix, strrchr(ui->prefix, '/') - ui->prefix);
+    if ((slash = strrchr(ui->prefix, '/')) == NULL)
+        return 0;
+
+    if ((path = strndup(ui->prefix, slash - ui->prefix)) == NULL)
+        path = ui->prefix;
 
     /* grab the updates.img before stage2.img so that we minimize our
      * ramdisk usage */
@@ -410,7 +414,9 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
         return;
     }
 
-    loaderData->stage2Data = calloc(sizeof(struct urlInstallData *), 1);
+    if ((loaderData->stage2Data = calloc(sizeof(struct urlInstallData *), 1)) == NULL)
+        return;
+
     ((struct urlInstallData *)loaderData->stage2Data)->url = url;
 
     logMessage(INFO, "results of url ks, url %s", url);

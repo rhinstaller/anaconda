@@ -218,6 +218,11 @@ char * mountNfsImage(struct installMethod * method,
 
             rc = asprintf(&buf, "%.*s/RHupdates", (int) (strrchr(fullPath, '/')-fullPath),
                           fullPath);
+            if (rc == -1) {
+                logMessage(CRITICAL, "Couldn't create RHupdates path, aborting");
+                abort();
+            }
+
             logMessage(INFO, "mounting nfs path %s for updates", buf);
 
             if (!doPwMount(buf, "/tmp/update-disk", "nfs", mountOpts)) {
