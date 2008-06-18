@@ -52,8 +52,8 @@
 /* boot flags */
 extern uint64_t flags;
 
-/* ejects the CD device the device node /tmp/cdrom points at */
-void ejectCdrom(char *device) {
+/* ejects the CD device the device node points at */
+static void ejectCdrom(char *device) {
     int ejectfd;
 
     if (!device) return;
@@ -66,9 +66,6 @@ void ejectCdrom(char *device) {
         logMessage(ERROR, "eject failed %d ", errno);
     }
 }
-
-/* Commented out for now due to -Wall -Werror */
-#if 0
 
 /*
  * Given cd device cddriver, this function will attempt to check its internal
@@ -150,45 +147,10 @@ static void wrongCDMessage(void) {
     free(buf);
 }
 
-/* Attempts to get a proper CD #1 in the drive */
-/* Is called after mediacheck is done so that we can proceed with the install */
-/* During mediacheck we have to have CD umount'd so it can be ejected */
-/*                                                                    */
-static void mountCdromStage2(char *cddev, char *location) {
-    int gotcd1=0;
-    int rc;
-    char *stage2loc;
-
-    rc = asprintf(&stage2loc, "%s/images/stage2.img", location);
-
-    do {
-        do {
-            if (doPwMount(cddev, location, "iso9660", "ro")) {
-                ejectCdrom(cddev);
-                wrongCDMessage();
-            } else {
-                break;
-            }
-        } while (1);
-
-        rc = mountStage2(stage2loc);
-
-        /* if we failed, umount location (usually) /mnt/source and keep going */
-        if (rc) {
-            umount(location);
-            ejectCdrom(cddev);
-            wrongCDMessage();
-        } else {
-            gotcd1 = 1;
-        }
-    } while (!gotcd1);
-
-    free(stage2loc);
-}
-
 /* ask about doing media check */
 static void queryCDMediaCheck(char *dev, char *location) {
     int rc;
+    char *stage2loc;
 
     /* dont bother to test in automated installs */
     if (FL_KICKSTART(flags) && !FL_MEDIACHECK(flags))
@@ -204,30 +166,46 @@ static void queryCDMediaCheck(char *dev, char *location) {
              _("OK"), _("Skip"));
 
         if (rc != 2) {
-            /* unmount CD now we've identified */
-            /* a valid disc #1 is present */
-            umountStage2();
+            /* We already mounted the CD earlier to verify there's at least a
+             * stage2 image.  Now we need to unmount to perform the check, then
+             * remount to pretend nothing ever happened.
+             */
             umount(location);
-
-            /* test CD(s) */
             mediaCheckCdrom(dev);
 
-            /* remount stage2 from CD #1 and proceed */
-            mountCdromStage2(dev, location);
+            do {
+                if (doPwMount(dev, location, "iso9660", "ro")) {
+                    ejectCdrom(dev);
+                    wrongCDMessage();
+                    continue;
+                }
+
+                rc = asprintf(&stage2loc, "%s/images/stage2.img", location);
+                if (!access(stage2loc, R_OK)) {
+                    free(stage2loc);
+                    umount(location);
+                    ejectCdrom(dev);
+                    wrongCDMessage();
+                    continue;
+                }
+
+                free(stage2loc);
+                break;
+            } while (1);
         }
     }
 }
-#endif
 
 /* Set up a CD/DVD drive to mount the stage2 image from.  If successful, the
  * stage2 image will be left mounted on /mnt/runtime.
  *
  * location:     Where to mount the media at (usually /mnt/stage2)
- * interactive:  Whether or not to prompt about questions/errors
  * loaderData:   The usual, can be NULL if no info
+ * interactive:  Whether or not to prompt about questions/errors
+ * mediaCheck:   Do we run media check or not?
  */
-char *setupCdrom(char *location, struct loaderData_s *loaderData,
-                 int interactive) {
+static char *setupCdrom(char *location, struct loaderData_s *loaderData,
+                        int interactive, int mediaCheck) {
     int i, r, rc;
     int stage2inram = 0;
     char *buf, *stage2loc, *stage2img;
@@ -261,6 +239,9 @@ char *setupCdrom(char *location, struct loaderData_s *loaderData,
             if (!(rc=doPwMount(devices[i]->device, location, "iso9660", "ro"))) {
                 cddev = devices[i]->device;
                 if (!access(stage2loc, R_OK)) {
+                    if (mediaCheck)
+                        queryCDMediaCheck(devices[i]->device, location);
+
                     /* if in rescue mode lets copy stage 2 into RAM so we can */
                     /* free up the CD drive and user can have it avaiable to  */
                     /* aid system recovery.                                   */
@@ -333,13 +314,13 @@ err:
 
 /* try to find a install CD non-interactively */
 char * findAnacondaCD(char *location) {
-    return setupCdrom(location, NULL, 0);
+    return setupCdrom(location, NULL, 0, 1);
 }
 
 /* look for a CD and mount it.  if we have problems, ask */
 char * mountCdromImage(struct installMethod * method,
                        char * location, struct loaderData_s * loaderData) {
-    return setupCdrom(location, loaderData, 1);
+    return setupCdrom(location, loaderData, 1, 1);
 }
 
 void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {
