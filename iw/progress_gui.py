@@ -93,8 +93,16 @@ class InstallProgressWindow (InstallWindow):
         self.numComplete = self.numComplete + 1
 
 	self.sizeComplete = self.sizeComplete + (header[rpm.RPMTAG_SIZE]/1024)
-
+        
 	self.filesComplete = self.filesComplete + (len(header[rpm.RPMTAG_BASENAMES]))
+
+        #crude fix for the completed packages overflow
+        if self.numComplete>self.numTotal:
+            self.numTotal = self.numComplete
+        if self.sizeComplete>self.totalSize:
+            self.totalSize = self.sizeComplete
+        if self.filesComplete>self.totalFiles:
+            self.totalFiles = self.filesComplete
 
         # check to see if we've started yet
 	elapsedTime = timer.elapsed()

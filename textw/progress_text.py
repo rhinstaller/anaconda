@@ -32,6 +32,13 @@ class InstallProgressWindow:
 
        	self.numComplete = self.numComplete + 1
 	self.sizeComplete = self.sizeComplete + (header[rpm.RPMTAG_SIZE] / 1024)
+
+        #crude fix for the completed packages overflow
+        if self.numComplete>self.numTotal:
+            self.numTotal = self.numComplete
+        if self.sizeComplete>self.sizeTotal:
+            self.sizeTotal=self.sizeComplete
+
 	self.numCompleteW.setText("%12d" % self.numComplete)
 	self.sizeCompleteW.setText("%10dM" % (self.sizeComplete/1024))
 	self.numRemainingW.setText("%12d" % (self.numTotal - self.numComplete))
