@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.5
+Version: 11.4.1.6
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -208,6 +208,18 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 18 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.6-1
+- Enable media check again, and let it check the boot.iso. (clumens)
+- Substitute the version from buildstamp for $releasever if needed. (clumens)
+- Remove the askmethod cmdline option. (clumens)
+- Lots of work to make loader only look for stage2.img, and stage2 do
+  all the install method configuration. (clumens)
+- Add the --stage2= and --repo= options, deprecate --method=. (clumens)
+- Fix pkgorder to include deps of kernel early. (pjones)
+- Deal with udev losing udevcontrol/udevtrigger (katzj)
+- Boot in graphical mode if /usr/bin/kdm exists. (clumens)
+- bootProto isn't a global variable (#451689). (clumens)
+
 * Fri Jun 13 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.5-1
 - Add a mirrorlist option. (jkeating)
 - Don't display garbage when prompting for the updates device. (clumens)
