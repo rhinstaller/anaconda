@@ -123,6 +123,26 @@ int startupPcmciaControllers() {
 	return 0;
 }
 
+int initializePcmciaDevice(struct device *device) {
+    char *path;
+    int fd;
+    struct pcmciaDevice *dev = (struct pcmciaDevice *)device;
+
+    logMessage(DEBUGLVL, "enabling pcmcia allow_func_id_match for device %d.%d", dev->slot, dev->function);
+    if (dev->bus != BUS_PCMCIA)
+        return 0;
+    asprintf(&path,"/sys/bus/pcmcia/devices/%d.%d/allow_func_id_match",dev->slot, dev->function);
+    fd = open(path, O_WRONLY);
+    if (fd == -1) {
+        logMessage(DEBUGLVL, "error opening %s", path);
+        return 1;
+    }
+    write(fd,"1",1);
+    close(fd);
+    logMessage(DEBUGLVL, "enabled pcmcia allow_func_id_match");
+    return 0;
+}
+
 int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
                                moduleInfoSet modInfo) {
     char * pcic = NULL;

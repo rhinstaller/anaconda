@@ -5,6 +5,7 @@
 
 int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
                                 moduleInfoSet modInfo);
+int initializePcmciaDevice(struct device *device);
 void startPcmciaDevices(moduleList modLoaded);
 
 #endif

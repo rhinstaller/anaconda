@@ -118,6 +118,10 @@ static int detectHardware(moduleInfoSet modInfo, char *** modules) {
             logMessage(DEBUGLVL, "ignoring network device %s (%s)",
                        (*device)->desc, driver);
         } else {
+            if ((*device)->bus == BUS_PCMCIA) {
+                  logMessage(DEBUGLVL, "initializing pcmcia device");
+                  initializePcmciaDevice(*device);
+            }
             modList[numMods++] = strdup(driver);
         }
         
