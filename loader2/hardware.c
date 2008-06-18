@@ -60,7 +60,7 @@ static int detectHardware() {
         dup2(fd, 2);
         close(fd);
 
-        rc = execl("/sbin/udevadm", "udevadm", "trigger");
+        rc = execl("/sbin/udevadm", "udevadm", "trigger", NULL);
         _exit(1);
     }
 
