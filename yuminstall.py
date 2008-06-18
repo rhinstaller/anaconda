@@ -855,15 +855,12 @@ class YumBackend(AnacondaBackend):
     def doGroupSetup(self):
         self.ayum.doGroupSetup()
         # FIXME: this is a bad hack to remove support for xen on xen (#179387)
-        if os.path.exists("/proc/xen"):
-            if self.ayum.comps._groups.has_key("virtualization"):
-                del self.ayum.comps._groups["virtualization"]
-
         # FIXME: and another bad hack since our xen kernel is PAE
-        if rpmUtils.arch.getBaseArch() == "i386" and "pae" not in iutil.cpuFeatureFlags():
+        # FIXME: and yet another for vmware.
+        if iutil.inXen() or iutil.inVmware or \
+                (rpmUtils.arch.getBaseArch() == "i386" and "pae" not in iutil.cpuFeatureFlags()):
             if self.ayum.comps._groups.has_key("virtualization"):
                 del self.ayum.comps._groups["virtualization"]
-                
 
     def doRepoSetup(self, anaconda, thisrepo = None, fatalerrors = True):
         # We want to call ayum.doRepoSetup one repo at a time so we have
