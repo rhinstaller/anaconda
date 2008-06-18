@@ -484,7 +484,7 @@ def inXen():
 ## Check to see if we are in a vmware environment.
 #
 def inVmware():
-    lspci = ["/usr/sbin/lspci", "-vvv"] # only the very verbose show the VMware stuff :)
+    lspci = ["lspci", "-vvv"] # only the very verbose show the VMware stuff :)
     proc = subprocess.Popen(lspci, stdout = subprocess.PIPE)
     (out, err) = proc.communicate()
     if "VMware" in out:
