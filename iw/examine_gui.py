@@ -96,13 +96,15 @@ class UpgradeExamineWindow (InstallWindow):
 	vbox.set_border_width (8)
 
 	r = self.createUpgradeOption()
-	b = r.render()
-	if self.doupgrade:
-	    r.setCurrent(UPGRADE_STR)
-	else:
-	    r.setCurrent(REINSTALL_STR)
+        self.r = r
 
-	r.setToggleCallback(self.optionToggled)
+	b = self.r.render()
+	if self.doupgrade:
+	    self.r.setCurrent(UPGRADE_STR)
+	else:
+	    self.r.setCurrent(REINSTALL_STR)
+
+	self.r.setToggleCallback(self.optionToggled)
 	box = gtk.VBox (False)
         box.pack_start(b, False)
 
