@@ -412,7 +412,10 @@ class AnacondaYum(YumSorter):
             foundCD = False
 
             for cdr in map(lambda d: "/dev/%s" % d, isys.cdromList()):
-                if isys.mount(cdr, self.tree, fstype="iso9660", readOnly=1):
+                try:
+                    if isys.mount(cdr, self.tree, fstype="iso9660", readOnly=1):
+                        continue
+                except:
                     continue
 
                 if not verifyMedia(self.tree, 1):
