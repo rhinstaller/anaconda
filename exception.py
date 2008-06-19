@@ -374,8 +374,11 @@ def runSaveDialog(anaconda, longTracebackFile):
                           "disk."))
                     continue
             else:
-                scpInfo = saveWin.getDest()
-                scpSucceeded = copyExceptionToRemote(anaconda.intf, scpInfo)
+                if not network.hasActiveNetDev() and not anaconda.intf.enableNetwork(anaconda):
+                    scpSucceeded = False
+                else:
+                    scpInfo = saveWin.getDest()
+                    scpSucceeded = copyExceptionToRemote(anaconda.intf, scpInfo)
 
                 if scpSucceeded:
                     anaconda.intf.messageWindow(_("Dump Written"),

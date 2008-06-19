@@ -130,15 +130,6 @@ def ui_comps_sort(one, two):
         return -1
     return 0
 
-def enableNetwork(anaconda):
-    from netconfig_dialog import NetworkConfigurator
-    import gtk
-    net = NetworkConfigurator(anaconda.id.network)
-    ret = net.run()
-    net.destroy()
-
-    return ret != gtk.RESPONSE_CANCEL
-
 class AnacondaCallback:
 
     def __init__(self, ayum, anaconda, instLog, modeText):
@@ -396,7 +387,7 @@ class AnacondaYum(YumSorter):
                 self._baseRepoURL = m
             elif m.startswith("nfs:"):
                 if not network.hasActiveNetDev():
-                    if not enableNetwork(self.anaconda):
+                    if not self.anaconda.intf.enableNetwork(self.anaconda):
                         self._baseRepoURL = None
                     else:
                         isys.mount(m[4:], self.tree, "nfs")
@@ -1131,13 +1122,7 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/tmp/product/yum.repos.d
                 except RepoError, e:
                     waitwin.pop()
                     if repo.needsNetwork() and not network.hasActiveNetDev():
-                        from netconfig_dialog import NetworkConfigurator
-                        import gtk
-                        net = NetworkConfigurator(anaconda.id.network)
-                        ret = net.run()
-                        net.destroy()
-
-                        if ret != gtk.RESPONSE_CANCEL:
+                        if anaconda.intf.enableNetwork(anaconda):
                             repo.mirrorlistparsed = False
                             continue
 

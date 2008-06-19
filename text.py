@@ -370,6 +370,11 @@ class InstallInterface:
         w.pop()
         return (passphrase, isglobal)
 
+    def enableNetwork(self, anaconda):
+        self.messageWindow(_("Error"),
+                           _("Network configuration is not available in text mode."))
+        return False
+
     def getInstallKey(self, anaconda, key = ""):
         ic = anaconda.id.instClass
         keyname = _(ic.instkeyname)

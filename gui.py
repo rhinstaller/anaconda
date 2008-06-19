@@ -1103,6 +1103,14 @@ class InstallInterface:
     def shutdown (self):
         pass
 
+    def enableNetwork(self, anaconda):
+        from netconfig_dialog import NetworkConfigurator
+        net = NetworkConfigurator(anaconda.id.network)
+        ret = net.run()
+        net.destroy()
+
+        return ret != gtk.RESPONSE_CANCEL
+
     def setPackageProgressWindow (self, ppw):
         self.ppw = ppw
 
