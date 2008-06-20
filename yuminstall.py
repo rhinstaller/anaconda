@@ -1389,7 +1389,6 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/tmp/product/yum.repos.d
 
         if anaconda.id.getUpgrade():
             from upgrade import upgrade_remove_blacklist
-            self.upgradeFindPackages()
             for pkg in upgrade_remove_blacklist:
                 pkgarch = None
                 pkgnames = None
@@ -1844,23 +1843,6 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/tmp/product/yum.repos.d
         else:
             log.debug("no such package %s to remove" %(pkg,))
             return 0
-
-    def upgradeFindPackages(self):
-        # check the installed system to see if the packages just
-        # are not newer in this release.
-        # Dictionary of newer package to tuple of old packages
-        packageMap = { "firefox": ("mozilla", "netscape-navigator", "netscape-communicator") }
-
-        for new, oldtup in packageMap.iteritems():
-            if self.ayum.isPackageInstalled(new):
-                continue
-            found = 0
-            for p in oldtup:
-                if self.ayum.rpmdb.installed(name=p):
-                    found = 1
-                    break
-            if found > 0:
-                self.selectPackage(new)
 
     def writeKS(self, f):
         for repo in self.ayum.repos.listEnabled():
