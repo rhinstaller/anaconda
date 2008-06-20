@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.6
+Version: 11.4.1.7
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -208,6 +208,12 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jun 20 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.7-1
+- Remove ancient block of code to upgrade Netscape Communicator. (clumens)
+- Move enableNetwork into the interface.  Bring network up for scp. (clumens)
+- If we can't mount for some reason, don't traceback (#452159). (clumens)
+- Fix the upgrade button traceback (#374891). (clumens)
+
 * Wed Jun 18 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.6-1
 - Enable media check again, and let it check the boot.iso. (clumens)
 - Substitute the version from buildstamp for $releasever if needed. (clumens)
