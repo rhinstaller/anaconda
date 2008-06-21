@@ -713,7 +713,7 @@ class AnacondaYum(YumSorter):
                 self.repos.add(repo)
                 log.info("added repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
             except:
-                log.warning("ignoring duplicate repository %s with URL %s" (repo.name, repo.mirrorlist or repo.baseurl))
+                log.warning("ignoring duplicate repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
 
         self.repos.setCacheDir("%s/var/cache/yum" % self.conf.cachedir)
 
