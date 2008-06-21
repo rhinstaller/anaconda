@@ -1357,17 +1357,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self.selectAnacondaNeeds()
 
         if anaconda.id.getUpgrade():
-            from upgrade import upgrade_remove_blacklist
-            for pkg in upgrade_remove_blacklist:
-                pkgarch = None
-                pkgnames = None
-                if len(pkg) == 1:
-                    pkgname = pkg[0]
-                elif len(pkg) == 2:
-                    pkgname, pkgarch = pkg
-                if pkgname is None:
-                    continue
-                self.ayum.remove(name=pkgname, arch=pkgarch)
             self.ayum.update()
 
         try:

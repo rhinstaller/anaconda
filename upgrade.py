@@ -45,22 +45,6 @@ import rpm
 import logging
 log = logging.getLogger("anaconda")
 
-# blacklist made up of (name, arch) or 
-# (name, ) to erase all matches
-upgrade_remove_blacklist = [("system-config-mouse",), ("dev",)] 
-
-# list of things which have been split and thus need to have their
-# multilib package removed.  the new -libs package will then get pulled in
-# automatically by dependencies
-splitpkgs = ("e2fsprogs", "hal", "mysql", "esound", "mkinitrd", "dbus", "kdeaccessibility", "kdebase", "kdeedu", "kdegraphics", "kdemultimedia", "kdemultimedia-extras","kdenetwork", "kdesdk", "kdeutils", "kdewebdev", "gdb", "kmymoney2", "gnome-applets", "geomview", "gnome-panel", "nas")
-if iutil.isX86(bits=64):
-    upgrade_remove_blacklist.extend(map(lambda x: (x, "i386"), splitpkgs))
-if iutil.isPPC():
-    upgrade_remove_blacklist.extend(map(lambda x: (x, "ppc64"), splitpkgs))
-
-if iutil.isX86(bits=64):
-    upgrade_remove_blacklist.extend( [("perl","i386")] )
-
 def guessGuestArch(rootdir):
     """root path -> None|"architecture"
     Guess the architecture of installed system
