@@ -181,7 +181,8 @@ def dumpException(out, text, tb, anaconda):
     for file in ("/tmp/syslog", "/tmp/anaconda.log", "/tmp/netinfo",
                  "/tmp/lvmout", "/tmp/resize.out",
                  anaconda.rootPath + "/root/install.log",
-                 anaconda.rootPath + "/root/upgrade.log"):
+                 anaconda.rootPath + "/root/upgrade.log",
+                 "/mnt/source/.treeinfo"):
         try:
             f = open(file, 'r')
             line = "\n\n%s:\n" % (file,)
