@@ -67,8 +67,6 @@ urlgrabber.grabber.default_grabber.opts.user_agent = "%s (anaconda)/%s" %(produc
 import iutil
 import isys
 
-import whiteout
-
 def size_string (size):
     def number_format(s):
         return locale.format("%s", s, 1)
@@ -334,8 +332,6 @@ class AnacondaYum(YumSorter):
             self.macros["__file_context_path"] = fn
         else:
             self.macros["__file_context_path"]  = "%{nil}"
-
-        self.macros["_dependency_whiteout"] = whiteout.whiteout
 
         self.updates = []
         self.localPackages = []
