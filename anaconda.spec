@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.7
+Version: 11.4.1.8
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -194,6 +194,17 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jun 23 2008 Jeremy Katz <katzj@redhat.com> - 11.4.1.8-1
+- Remove from being installed too (katzj)
+- Remove anaconda-runtime as a separate subpackage (katzj)
+- Remove the stuff we're not calling. (pjones)
+- Remove this since we don't use it anymore (katzj)
+- Don't continue on using the base installclass if we can't find one (katzj)
+- Get rid of wlite and unicode-lite; these were necessary to support (pjones)
+- Remove pkgorder and splittree; these should be in pungi (katzj)
+- Add the .treeinfo file into the exception report. (clumens)
+- Fix a typo (#452140). (clumens)
+
 * Fri Jun 20 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.7-1
 - Remove ancient block of code to upgrade Netscape Communicator. (clumens)
 - Move enableNetwork into the interface.  Bring network up for scp. (clumens)
