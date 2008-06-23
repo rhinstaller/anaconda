@@ -329,8 +329,7 @@ def getBaseInstallClass():
 
     # Default to the base installclass if nothing else is found.
     else:
-        cobject = BaseInstallClass
-        log.info("using baseinstallclass as base")
+        raise RuntimeError, "Unable to find an install class to use!!!"
 
     return cobject
 
