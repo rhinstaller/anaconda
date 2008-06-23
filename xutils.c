@@ -24,18 +24,12 @@
 #include <X11/Xatom.h>
 #include <gdk/gdkx.h>
 
-static PyObject * getRootResources(PyObject *s, PyObject *args);
 static PyObject * setRootResource(PyObject * s, PyObject * args);
-static PyObject * screenHeight (PyObject * s, PyObject * args);
-static PyObject * screenWidth (PyObject * s, PyObject * args);
 static PyObject * getXatom(PyObject *s, PyObject *args);
 
 
 static PyMethodDef xutilsMethods[] = {
-    { "getRootResources", getRootResources, 1, NULL },
     { "setRootResource", setRootResource, 1, NULL },
-    { "screenHeight", screenHeight, 1, NULL },
-    { "screenWidth", screenWidth, 1, NULL },
     { "getXatom", getXatom, 1, NULL },
     { NULL, NULL, 0, NULL }
 };
@@ -43,7 +37,6 @@ static PyMethodDef xutilsMethods[] = {
 typedef struct _Resource {
     char *key, *val;
 } Resource;
-
 
 static int
 openDisplay(Display **dpy, Window *root) 
@@ -153,39 +146,6 @@ freeResources(Resource **rc)
     free(rc);
 }
 
-/* return dictionary of resources on root display */
-PyObject *
-getRootResources(PyObject *s, PyObject *args) {
-    Display *dpy;
-    Window  root;
-    Resource **resources, **p;
-    PyObject *rc;
-
-    if (openDisplay(&dpy, &root) < 0) {
-	PyErr_SetString(PyExc_SystemError, "Could not open display.");
-	return NULL;
-    }
-	
-    resources = getCurrentResources(dpy);
-    if (!resources) {
-	closeDisplay(dpy);
-	Py_INCREF(Py_None);
-	return Py_None;
-    }
-
-    rc = PyDict_New();
-    p = resources;
-    while (*p) {
-	PyDict_SetItemString(rc, (*p)->key,  Py_BuildValue("s", (*p)->val));
-	p++;
-    }
-
-    freeResources(resources);
-    closeDisplay(dpy);
-
-    return rc;
-}
-
 static PyObject *
 setRootResource(PyObject *s, PyObject *args)
 {
@@ -277,48 +237,6 @@ setRootResource(PyObject *s, PyObject *args)
 
     Py_INCREF(Py_None);
     return Py_None;
-}
-
-static PyObject *
-screenHeight(PyObject *s, PyObject *args)
-{
-    Display *dpy;
-    Window  root;
-    int     scrn;
-    PyObject *rc;
-
-    if (openDisplay(&dpy, &root) < 0) {
-	PyErr_SetString(PyExc_SystemError, "Could not open display.");
-	return NULL;
-    }
-
-    scrn=DefaultScreen(dpy);
-
-    rc = Py_BuildValue("i", DisplayHeight(dpy, scrn));
-
-    closeDisplay(dpy);
-    return rc;
-}
-
-static PyObject *
-screenWidth(PyObject *s, PyObject *args)
-{
-    Display *dpy;
-    Window  root;
-    int     scrn;
-    PyObject *rc;
-
-    if (openDisplay(&dpy, &root) < 0) {
-	PyErr_SetString(PyExc_SystemError, "Could not open display.");
-	return NULL;
-    }
-
-    scrn=DefaultScreen(dpy);
-
-    rc = Py_BuildValue("i", DisplayWidth(dpy, scrn));
-
-    closeDisplay(dpy);
-    return rc;
 }
 
 /* this assumes you've already imported gtk and thus have a display */
