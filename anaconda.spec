@@ -113,17 +113,6 @@ Requires: zenity
 Requires(post): desktop-file-utils >= %{desktopfileutilsver}
 Requires(postun): desktop-file-utils >= %{desktopfileutilsver}
 %endif
-Obsoletes: anaconda-images <= 10
-
-%description
-The anaconda package contains the program which was used to install your 
-system.  These files are of little use on an already installed system.
-
-%package runtime
-Summary: Graphical system installer portions needed only for fresh installs
-Group:   Applications/System
-Requires: libxml2-python, python, rpm-python >= %{rpmpythonver}
-Requires: anaconda = %{version}-%{release}
 Requires: createrepo >= 0.4.7, squashfs-tools, mkisofs
 %ifarch %{ix86} x86_64
 Requires: syslinux
@@ -133,16 +122,16 @@ Requires: device-mapper
 %ifarch s390 s390x
 Requires: openssh
 %endif
-Requires: xorg-x11-font-utils, netpbm-progs
 Requires: busybox-anaconda
 Requires: isomd5sum
 Requires: yum-utils >= 1.1.11-3
-Requires: util-linux
+Obsoletes: anaconda-images <= 10
+Obsoletes: anaconda-runtime < %{version}-%{release}
+Provides: anaconda-runtime = %{version}-%{release}
 
-%description runtime
-The anaconda-runtime package contains parts of the installation system which 
-are needed for installing new systems.  These files are used to build media 
-sets, but are not meant for use on already installed systems.
+%description
+The anaconda package contains the program which was used to install your 
+system.  These files are of little use on an already installed system.
 
 %prep
 %setup -q
@@ -191,6 +180,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 %endif
 %{_datadir}/anaconda
 %{_prefix}/lib/anaconda
+%{_prefix}/lib/anaconda-runtime
 %ifarch %livearches
 %{_bindir}/liveinst
 %{_sbindir}/liveinst
@@ -199,10 +189,6 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 %{_sysconfdir}/security/console.apps/*
 %{_datadir}/applications/*.desktop
 %endif
-
-%files runtime
-%defattr(-,root,root)
-%{_prefix}/lib/anaconda-runtime
 
 %triggerun -- anaconda < 8.0-1
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
