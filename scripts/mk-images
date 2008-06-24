@@ -97,6 +97,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     TRIMPCIIDS=$IMGPATH/usr/lib/anaconda-runtime/trimpciids
     TRIMUSBMAP=$IMGPATH/usr/lib/anaconda-runtime/trimusbmap
     GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
+    GENINITRDSZ=$IMGPATH/usr/lib/anaconda-runtime/geninitrdsz
     KEYMAPS=/tmp/keymaps-$BUILDARCH.$$
     SCREENFONT=$IMGPATH/usr/lib/anaconda-runtime/screenfont-${BASEARCH}.gz
     GETMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/moddeps

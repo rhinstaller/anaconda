@@ -11,6 +11,14 @@ CFLAGS = -Wall -g -I.. -I$(LOADERDIR) -Werror
 RPMCFLAGS = $(CFLAGS) -I/usr/include/rpm
 LDFLAGS = -g
 
+UTILS = modlist moddeps snarffont mapshdr readmap genhdlist
+ifeq (s390, $(ARCH))
+UTILS += geninitrdsz
+endif
+ifeq (s390x, $(ARCH))
+UTILS += geninitrdsz
+endif
+
 ifeq (.depend,$(wildcard .depend))
 TARGET=all
 else
@@ -19,7 +27,7 @@ endif
 
 everything: $(TARGET)
 
-all:	modlist moddeps snarffont mapshdr readmap genhdlist
+all:	$(UTILS)
 
 modlist: modlist.o moduleinfo.o
 	$(CC) $(LDFLAGS) -o modlist modlist.o moduleinfo.o $(LOADLIBES)
@@ -38,6 +46,9 @@ moddeps: moddeps.o moduledeps.o
 
 md5.o: md5.c md5.h
 	gcc -c -O -g md5.c
+
+geninitrdsz: geninitrdsz.c
+	$(CC) $(CFLAGS) -o $@ $<
 
 genhdlist: genhdlist.c hash.c
 	$(CC) $(LDFLAGS) $(RPMCFLAGS) -o genhdlist genhdlist.c hash.c \
@@ -59,10 +70,13 @@ install: all
 	install -m755 checkcards.py $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 readmap $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 mapshdr $(DESTDIR)/$(RUNTIMEDIR)
+	if [ -x geninitrdsz ]; then \
+		install -m755 geninitrdsz $(DESTDIR)/$(RUNTIMEDIR) ; \
+	fi
 
 clean:	
 	rm -f modlist moddeps snarffont genhdlist mapshdr readmap \
-	moduledeps.c moduleinfo.c .depend *.o
+	geninitrdsz moduledeps.c moduleinfo.c .depend *.o
 
 depend:
 	$(CPP) -M $(RPMCFLAGS) *.c > .depend

@@ -24,6 +24,8 @@ makeBootImages() {
 	    --initrdsize 20000 \
 	    --loaderbin loader \
 	    --modules "$NETWORKMODULES"
+	sz=$(ls -l $TOPDESTPATH/images/initrd.img | awk '{print $5}')
+	$GENINITRDSZ $sz $TOPDESTPATH/images/initrd.size
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
 
 	cp -v $BOOTDISKDIR/generic.prm $TOPDESTPATH/images/generic.prm
