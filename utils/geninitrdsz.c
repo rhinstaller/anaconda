@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
+#include <libgen.h>
 
 int main(int argc,char **argv) {
     unsigned int zero = 0;
