@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.89
+Version: 10.1.1.90
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jun 24 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.90-1
+- Add geninitrdsz and use it in mk-images.s390
+  Resolves: rhbz#449617
+
 * Mon May 05 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.89-1
 - Fix field separator spec in awk commands in linuxrc.s390 (jgranado)
   Resolves: rhbz#444674
