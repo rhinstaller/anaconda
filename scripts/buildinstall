@@ -166,10 +166,10 @@ TREEDIR=`mktemp -d ${TMPDIR:-/tmp}/treedir.XXXXXX`
 echo "Running buildinstall..."
 
 pushd $BUILDINSTDIR
-BUILDARCH=`repoquery -c $yumconf --qf "%{ARCH}\n" anaconda-runtime`
-yumdownloader -c $yumconf anaconda-runtime || exit 1
-rpm2cpio anaconda-runtime*rpm | cpio --quiet -iumd './usr*'
-rm -f anaconda-runtime*rpm
+BUILDARCH=`repoquery -c $yumconf --qf "%{ARCH}\n" anaconda`
+yumdownloader -c $yumconf anaconda || exit 1
+rpm2cpio anaconda*rpm | cpio --quiet -iumd './usr*'
+rm -f anaconda*rpm
 popd
 
 UPD_INSTROOT=./upd-instroot
