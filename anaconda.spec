@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.8
+Version: 11.4.1.9
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -194,6 +194,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 25 2008 Chris Lumens <clumens@redhat.com> 11.4.1.9-1
+- Query for anaconda rather than anaconda-runtime in buildinstall (jkeating).
+
 * Mon Jun 23 2008 Jeremy Katz <katzj@redhat.com> - 11.4.1.8-1
 - Remove from being installed too (katzj)
 - Remove anaconda-runtime as a separate subpackage (katzj)
