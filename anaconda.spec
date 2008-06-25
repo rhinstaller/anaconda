@@ -77,8 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Tue Jun 24 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.90-1
-- Add geninitrdsz and use it in mk-images.s390
+* Wed Jun 25 2008 Peter Jones <pjones@redhat.com> - 10.1.1.90-1
+- Add support for automatically determining the initramfs size on s390x
   Resolves: rhbz#449617
 
 * Mon May 05 2008 Dave Lehman <dlehman@redhat.com> - 10.1.1.89-1
