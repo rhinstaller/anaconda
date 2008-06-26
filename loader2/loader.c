@@ -1883,7 +1883,7 @@ int main(int argc, char ** argv) {
             ret = fgets(buf, 256, f);
             pid = atoi(buf);
         }
-        kill(pid, SIGUSR1);
+        kill(pid, SIGUSR2);
 #endif
         stop_fw_loader(&loaderData);
         return rc;
