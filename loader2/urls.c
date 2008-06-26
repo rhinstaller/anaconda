@@ -33,6 +33,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <netdb.h>
+#include <errno.h>
 
 #include "ftp.h"
 #include "lang.h"
@@ -176,10 +177,18 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
                ui->address, path);
 
     splitHostname(ui->address, &hostname, &portstr);
-    if (portstr == NULL)
+    if (portstr == NULL) {
         port = -1;
-    else
-        port = atoi(portstr);
+    } else {
+        port = strtol(portstr, NULL, 10);
+
+        if ((errno == ERANGE && (port == LONG_MIN || port == LONG_MAX)) ||
+            (errno != 0 && port == 0)) {
+            logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
+    }
 
     if (inet_pton(AF_INET, hostname, &addr) >= 1)
         family = AF_INET;

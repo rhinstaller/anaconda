@@ -73,7 +73,13 @@ static void cidrCallback(newtComponent co, void * dptr) {
         if (inet_pton(AF_INET, data->cidr4, &addr) >= 1)
             return;
 
-        cidr = atoi(data->cidr4);
+        cidr = strtol(data->cidr4, NULL, 10);
+        if ((errno == ERANGE && (cidr == LONG_MIN || cidr == LONG_MAX)) ||
+            (errno != 0 && cidr == 0)) {
+            logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
 
         if (strcmp(data->ipv4, ""))
             upper = 32;
@@ -81,7 +87,13 @@ static void cidrCallback(newtComponent co, void * dptr) {
         if (data->cidr6 == NULL && data->ipv6 == NULL)
             return;
 
-        cidr = atoi(data->cidr6);
+        cidr = strtol(data->cidr6, NULL, 10);
+        if ((errno == ERANGE && (cidr == LONG_MIN || cidr == LONG_MAX)) ||
+            (errno != 0 && cidr == 0)) {
+            logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
 
         if (strcmp(data->ipv6, ""))
             upper = 128;
@@ -107,7 +119,14 @@ static void ipCallback(newtComponent co, void * dptr) {
         if (data->cidr4 == NULL && data->ipv4 != NULL) {
             buf = strdup(data->ipv4);
             octet = strtok(buf, ".");
-            i = atoi(octet);
+            i = strtol(octet, NULL, 10);
+
+            if ((errno == ERANGE && (i == LONG_MIN || i == LONG_MAX)) ||
+                (errno != 0 && i == 0)) {
+                logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
 
             free(buf);
             free(octet);
@@ -1144,7 +1163,16 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     newCfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
                     have[IPV4]++;
                 } else {
-                    cidr = atoi(ipcomps->cidr4);
+                    cidr = strtol(ipcomps->cidr4, NULL, 10);
+
+                    if ((errno == ERANGE && (cidr == LONG_MIN ||
+                                             cidr == LONG_MAX)) ||
+                        (errno != 0 && cidr == 0)) {
+                        logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                                   strerror(errno));
+                        abort();
+                    }
+
                     if (cidr >= 1 && cidr <= 32) {
                         if (inet_pton(AF_INET, "255.255.255.255", &addr) >= 1) {
                             addr.s_addr = htonl(ntohl(addr.s_addr) << (32 - cidr));
@@ -1168,7 +1196,16 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
             }
 
             if (ipcomps->cidr6) {
-                prefix = atoi(ipcomps->cidr6);
+                prefix = strtol(ipcomps->cidr6, NULL, 10);
+
+                if ((errno == ERANGE && (prefix == LONG_MIN ||
+                                         prefix == LONG_MAX)) ||
+                    (errno != 0 && prefix == 0)) {
+                    logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                               strerror(errno));
+                    abort();
+                }
+
                 if (prefix > 0 || prefix <= 128) {
                     newCfg->dev.ipv6_prefixlen = prefix;
                     newCfg->dev.set |= PUMP_INTFINFO_HAS_IPV6_PREFIX;

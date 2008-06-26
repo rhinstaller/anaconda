@@ -473,6 +473,14 @@ static void load_firmware(struct fw_loader *fwl, struct uevent *uevent)
 
     timeout_secs = strtol(timeout, NULL, 10);
 
+    if ((errno == ERANGE && (timeout_secs == LONG_MIN ||
+                             timeout_secs == LONG_MAX)) ||
+        (errno != 0 && timeout_secs == 0)) {
+        logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                   strerror(errno));
+        abort();
+    }
+
     /* find the file */
     for (entry = fwl->fw_pathz; entry;
             entry = argz_next(fwl->fw_pathz, fwl->fw_pathz_len, entry)) {

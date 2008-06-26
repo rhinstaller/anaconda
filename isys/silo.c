@@ -480,7 +480,15 @@ scan_scsi(void) {
 	while ((enthba = readdir(dirhba))) {
 	    if (enthba->d_name[0] == '.')
 		continue;
-	    host = atoi(enthba->d_name);
+	    host = strtol(enthba->d_name, NULL, 10);
+
+	    if ((errno == ERANGE && (host == LONG_MIN || host == LONG_MAX)) ||
+            (errno != 0 && host == 0)) {
+            logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
+
 	    sprintf (path, "/proc/scsi/%s/%s", ent->d_name, enthba->d_name);
 	    f = fopen (path, "r");
 	    if (f == NULL) continue;
@@ -799,7 +807,15 @@ disk2PromPath (PyObject *self, PyObject *args)
     else if (!disk[0])
 	part = 3;
     else {
-	part = atoi (disk);
+	part = strtol (disk, NULL, 10);
+
+	if ((errno == ERANGE && (part == LONG_MIN || part == LONG_MAX)) ||
+	    (errno != 0 && part == 0)) {
+	    logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+	               strerror(errno));
+	    abort();
+	}
+
 	if (part <= 0 || part > 8) part = -1;
     }
     if (diskno < 0 || part == -1 ||

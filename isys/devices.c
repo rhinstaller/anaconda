@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <limits.h>
 
 #include "devices.h"
 
@@ -72,8 +73,15 @@ struct device **getDevices(enum deviceType type) {
                 close(fd);
                 continue;
             }
+
             close(fd);
             caps = strtol(buf, NULL, 16);
+
+            if ((errno == ERANGE && (caps == LONG_MIN || caps == LONG_MAX)) ||
+                (errno != 0 && caps == 0)) {
+                return NULL;
+            }
+
             if (caps & GENHD_FL_CD)
                 devtype = DEVICE_CDROM;
             else
@@ -86,14 +94,23 @@ struct device **getDevices(enum deviceType type) {
 
                 snprintf(path, 64, "/sys/block/%s/size", ent->d_name);
                 fd = open(path, O_RDONLY);
+
                 if (fd == -1)
                     continue;
                 if (read(fd, buf, 64) <= 0) {
                     close(fd);
                     continue;
                 }
+
                 close(fd);
-                size = atoi(buf);
+                size = strtol(buf, NULL, 10);
+
+                if ((errno == ERANGE && (size == LONG_MIN ||
+                                         size == LONG_MAX)) ||
+                    (errno != 0 && size == 0)) {
+                    return NULL;
+                }
+
                 if (size < MINIMUM_INTERESTING_SIZE)
                     continue;
             }
@@ -135,8 +152,15 @@ storagedone:
                 close(fd);
                 continue;
             }
+
             close(fd);
-            type = atoi(buf);
+            type = strtol(buf, NULL, 10);
+
+            if ((errno == ERANGE && (type == LONG_MIN || type == LONG_MAX)) ||
+                (errno != 0 && type == 0)) {
+                return NULL;
+            }
+
             if (type != 1)
                 continue;
 

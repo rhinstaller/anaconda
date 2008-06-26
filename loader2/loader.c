@@ -643,8 +643,17 @@ static void readNetInfo(struct loaderData_s ** ld) {
             if (!strncmp(vname, "DNS", 3))
                 loaderData->dns = strdup(vparm);
 
-            if (!strncmp(vname, "MTU", 3))
-                loaderData->mtu = atoi(vparm);
+            if (!strncmp(vname, "MTU", 3)) {
+                loaderData->mtu = strtol(vparm, NULL, 10);
+
+                if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
+                                         loaderData->mtu == LONG_MAX)) ||
+                    (errno != 0 && loaderData->mtu == 0)) {
+                    logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                               strerror(errno));
+                    abort();
+                }
+            }
 
             if (!strncmp(vname, "PEERID", 6))
                 loaderData->peerid = strdup(vparm);
@@ -939,16 +948,52 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->ethtool = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "essid=", 6))
             loaderData->essid = strdup(argv[i] + 6);
-        else if (!strncasecmp(argv[i], "mtu=", 4))
-            loaderData->mtu = atoi(argv[i] + 4);
+        else if (!strncasecmp(argv[i], "mtu=", 4)) {
+            loaderData->mtu = strtol(argv[i] + 4, NULL, 10);
+
+            if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
+                                     loaderData->mtu == LONG_MAX)) ||
+                (errno != 0 && loaderData->mtu == 0)) {
+                logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+        }
         else if (!strncasecmp(argv[i], "wepkey=", 7))
             loaderData->wepkey = strdup(argv[i] + 7);
-        else if (!strncasecmp(argv[i], "linksleep=", 10))
-            num_link_checks = atoi(argv[i] + 10);
-        else if (!strncasecmp(argv[i], "nicdelay=", 9))
-            post_link_sleep = atoi(argv[i] + 9);
-        else if (!strncasecmp(argv[i], "dhcptimeout=", 12))
-            loaderData->dhcpTimeout = atoi(argv[i] + 12);
+        else if (!strncasecmp(argv[i], "linksleep=", 10)) {
+            num_link_checks = strtol(argv[i] + 10, NULL, 10);
+
+            if ((errno == ERANGE && (num_link_checks == LONG_MIN ||
+                                     num_link_checks == LONG_MAX)) ||
+                (errno != 0 && num_link_checks == 0)) {
+                logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+        }
+        else if (!strncasecmp(argv[i], "nicdelay=", 9)) {
+            post_link_sleep = strtol(argv[i] + 9, NULL, 10);
+
+            if ((errno == ERANGE && (post_link_sleep == LONG_MIN ||
+                                     post_link_sleep == LONG_MAX)) ||
+                (errno != 0 && post_link_sleep == 0)) {
+                logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+        }
+        else if (!strncasecmp(argv[i], "dhcptimeout=", 12)) {
+            loaderData->dhcpTimeout = strtol(argv[i] + 12, NULL, 10);
+
+            if ((errno == ERANGE && (loaderData->dhcpTimeout == LONG_MIN ||
+                                     loaderData->dhcpTimeout == LONG_MAX)) ||
+                (errno != 0 && loaderData->dhcpTimeout == 0)) {
+                logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+        }
         else if (!strncasecmp(argv[i], "selinux=0", 9))
             flags &= ~LOADER_FLAGS_SELINUX;
         else if (!strncasecmp(argv[i], "selinux", 7))
@@ -2027,10 +2072,19 @@ int main(int argc, char ** argv) {
             char *ret;
 
             ret = fgets(buf, 256, f);
-            pid = atoi(buf);
+            pid = strtol(buf, NULL, 10);
+
+            if ((errno == ERANGE && (pid == LONG_MIN || pid == LONG_MAX)) ||
+                (errno != 0 && pid == 0)) {
+                logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+
             free(buf);
             fclose(f);
         }
+
         kill(pid, SIGUSR2);
 #endif
         stop_fw_loader(&loaderData);
