@@ -504,7 +504,7 @@ class InstallInterface:
         for non-real consoles such as serial, i/p virtual consoles or xen."""
         if flags.serial or flags.virtpconsole:
             return False
-        if isys.isPsudoTTY(0):
+        if isys.isPseudoTTY(0):
             return False
         if isys.isVioConsole():
             return False

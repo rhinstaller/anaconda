@@ -1177,7 +1177,7 @@ class ForeignFileSystem(FileSystemType):
 
 fileSystemTypeRegister(ForeignFileSystem())
 
-class PsudoFileSystem(FileSystemType):
+class PseudoFileSystem(FileSystemType):
     def __init__(self, name):
         FileSystemType.__init__(self)
         self.formattable = 0
@@ -1188,33 +1188,33 @@ class PsudoFileSystem(FileSystemType):
     def isKernelFS(self):
         return True
 
-class SpuFileSystem(PsudoFileSystem):
+class SpuFileSystem(PseudoFileSystem):
     def __init__(self):
-        PsudoFileSystem.__init__(self, "spufs")
+        PseudoFileSystem.__init__(self, "spufs")
 
 fileSystemTypeRegister(SpuFileSystem())
 
-class ProcFileSystem(PsudoFileSystem):
+class ProcFileSystem(PseudoFileSystem):
     def __init__(self):
-        PsudoFileSystem.__init__(self, "proc")
+        PseudoFileSystem.__init__(self, "proc")
 
 fileSystemTypeRegister(ProcFileSystem())
 
-class SysfsFileSystem(PsudoFileSystem):
+class SysfsFileSystem(PseudoFileSystem):
     def __init__(self):
-        PsudoFileSystem.__init__(self, "sysfs")
+        PseudoFileSystem.__init__(self, "sysfs")
 
 fileSystemTypeRegister(SysfsFileSystem())
 
-class SelinuxfsFileSystem(PsudoFileSystem):
+class SelinuxfsFileSystem(PseudoFileSystem):
     def __init__(self):
-        PsudoFileSystem.__init__(self, "selinuxfs")
+        PseudoFileSystem.__init__(self, "selinuxfs")
 
 fileSystemTypeRegister(SelinuxfsFileSystem())
 
-class DevptsFileSystem(PsudoFileSystem):
+class DevptsFileSystem(PseudoFileSystem):
     def __init__(self):
-        PsudoFileSystem.__init__(self, "devpts")
+        PseudoFileSystem.__init__(self, "devpts")
         self.defaultOptions = "gid=5,mode=620"
 
     def isMountable(self):
@@ -1222,18 +1222,18 @@ class DevptsFileSystem(PsudoFileSystem):
 
 fileSystemTypeRegister(DevptsFileSystem())
 
-class DevshmFileSystem(PsudoFileSystem):
+class DevshmFileSystem(PseudoFileSystem):
     def __init__(self):
-        PsudoFileSystem.__init__(self, "tmpfs")
+        PseudoFileSystem.__init__(self, "tmpfs")
 
     def isMountable(self):
         return 0
 
 fileSystemTypeRegister(DevshmFileSystem())
 
-class AutoFileSystem(PsudoFileSystem):
+class AutoFileSystem(PseudoFileSystem):
     def __init__(self):
-        PsudoFileSystem.__init__(self, "auto")
+        PseudoFileSystem.__init__(self, "auto")
 
     def mount(self, device, mountpoint, readOnly=0, bindMount=0,
               instroot = None):
@@ -1264,9 +1264,9 @@ class AutoFileSystem(PsudoFileSystem):
 
 fileSystemTypeRegister(AutoFileSystem())
 
-class BindFileSystem(PsudoFileSystem):
+class BindFileSystem(PseudoFileSystem):
     def __init__(self):
-        PsudoFileSystem.__init__(self, "bind")
+        PseudoFileSystem.__init__(self, "bind")
 
     def isMountable(self):
         return 1
@@ -1338,7 +1338,7 @@ class FileSystemSet:
             return False
 
         def samePseudo (a, b):
-            return isinstance(a.fsystem, PsudoFileSystem) and isinstance (b.fsystem, PsudoFileSystem) and \
+            return isinstance(a.fsystem, PseudoFileSystem) and isinstance (b.fsystem, PseudoFileSystem) and \
                    not isinstance (a.fsystem, BindFileSystem) and not isinstance (b.fsystem, BindFileSystem) and \
                    a.fsystem.getName() == b.fsystem.getName()
 
@@ -2862,7 +2862,7 @@ def readFstab (anaconda):
         elif fields[0].startswith('/dev/'):
             # Older installs may have lines starting with things like /dev/proc
             # so watch out for that on upgrade.
-            if fsystem is not None and isinstance(fsystem, PsudoFileSystem):
+            if fsystem is not None and isinstance(fsystem, PseudoFileSystem):
                 device = Device(device = fields[0][5:])
             else:
                 device = makeDevice(fields[0][5:])

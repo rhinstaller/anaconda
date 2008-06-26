@@ -112,7 +112,7 @@ static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
 static PyObject * doExt2HasJournal(PyObject * s, PyObject * args);
 static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
 static PyObject * doVtActivate(PyObject * s, PyObject * args);
-static PyObject * doisPsudoTTY(PyObject * s, PyObject * args);
+static PyObject * doisPseudoTTY(PyObject * s, PyObject * args);
 static PyObject * doisVioConsole(PyObject * s);
 static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doisIsoImage(PyObject * s, PyObject * args);
@@ -164,7 +164,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "setresretry", (PyCFunction) doSetResolvRetry, METH_VARARGS, NULL },
     { "loadKeymap", (PyCFunction) doLoadKeymap, METH_VARARGS, NULL },
     { "vtActivate", (PyCFunction) doVtActivate, METH_VARARGS, NULL},
-    { "isPsudoTTY", (PyCFunction) doisPsudoTTY, METH_VARARGS, NULL},
+    { "isPseudoTTY", (PyCFunction) doisPseudoTTY, METH_VARARGS, NULL},
     { "isVioConsole", (PyCFunction) doisVioConsole, METH_NOARGS, NULL},
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
     { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
@@ -960,7 +960,7 @@ static PyObject * doVtActivate(PyObject * s, PyObject * args) {
     return Py_None;
 }
 
-static PyObject * doisPsudoTTY(PyObject * s, PyObject * args) {
+static PyObject * doisPseudoTTY(PyObject * s, PyObject * args) {
     int fd;
     struct stat sb;
 
