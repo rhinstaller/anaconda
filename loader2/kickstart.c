@@ -303,7 +303,6 @@ int getKickstartFromBlockDevice(char *device, char *path) {
 
 void getHostPathandLogin(char * ksSource, char **host, char ** file, char ** login, char ** password, char * ip) {
     char *tmp;
-    int i;
 
     *host = strdup(ksSource);
     tmp = strchr(*host, '/');
@@ -325,7 +324,12 @@ void getHostPathandLogin(char * ksSource, char **host, char ** file, char ** log
      */
     if ((*file) && (((*file)[strlen(*file) - 1] == '/') ||
                     ((*file)[strlen(*file) - 1] == '\0'))) {
-        i = asprintf(file, "%s%s-kickstart", *file, ip);
+        if (asprintf(file, "%s%s-kickstart", *file, ip) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
+
         logMessage(DEBUGLVL, "getHostandPath file(2): |%s|", *file);
     }
 

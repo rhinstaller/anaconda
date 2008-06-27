@@ -138,11 +138,16 @@ static char * mediaCheckCdrom(char *cddriver) {
 /* Used by mountCdromStage2()                                      */
 static void wrongCDMessage(void) {
     char *buf = NULL;
-    int i;
-    i = asprintf(&buf, (_("The %s disc was not found "
+
+    if (asprintf(&buf, (_("The %s disc was not found "
                           "in any of your drives. Please insert "
                           "the %s disc and press %s to retry."),
-                getProductName(), getProductName(), _("OK")));
+                 getProductName(), getProductName(), _("OK"))) == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                   strerror(errno));
+        abort();
+    }
+
     newtWinMessage(_("Error"), _("OK"), buf);
     free(buf);
 }
@@ -180,7 +185,13 @@ static void queryCDMediaCheck(char *dev, char *location) {
                     continue;
                 }
 
-                rc = asprintf(&stage2loc, "%s/images/stage2.img", location);
+                if (asprintf(&stage2loc, "%s/images/stage2.img",
+                             location) == -1) {
+                    logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                               strerror(errno));
+                    abort();
+                }
+
                 if (!access(stage2loc, R_OK)) {
                     free(stage2loc);
                     umount(location);
@@ -206,7 +217,7 @@ static void queryCDMediaCheck(char *dev, char *location) {
  */
 static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                         int interactive, int mediaCheck) {
-    int i, r, rc;
+    int i, rc;
     int stage2inram = 0;
     char *buf, *stage2loc, *stage2img;
     struct device ** devices;
@@ -218,7 +229,11 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
         return NULL;
     }
 
-    r = asprintf(&stage2loc, "%s/images/stage2.img", location);
+    if (asprintf(&stage2loc, "%s/images/stage2.img", location) == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                   strerror(errno));
+        abort();
+    }
 
     /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
     do {
@@ -229,7 +244,12 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                 continue;
 
             if (strncmp("/dev/", devices[i]->device, 5)) {
-                r = asprintf(&tmp, "/dev/%s", devices[i]->device);
+                if (asprintf(&tmp, "/dev/%s", devices[i]->device) == -1) {
+                    logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                               strerror(errno));
+                    abort();
+                }
+
                 free(devices[i]->device);
                 devices[i]->device = tmp;
             }
@@ -271,13 +291,12 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                         umount(location);
                     }
 
-                    r = asprintf(&buf, "cdrom://%s:%s",
-                                 devices[i]->device, location);
-
-                    if (r == -1)
-                        return NULL;
-                    else
-                        return buf;
+                    if (asprintf(&buf, "cdrom://%s:%s",
+                                 devices[i]->device, location) == -1) {
+                        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                                   strerror(errno));
+                        abort();
+                    }
                 }
 
                 /* this wasnt the CD we were looking for, clean up and */
@@ -288,12 +307,15 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
 
         if (interactive) {
             char * buf;
-            int i;
 
-            i = asprintf(&buf, _("The %s disc was not found in any of your "
+            if (asprintf(&buf, _("The %s disc was not found in any of your "
                                  "CDROM drives. Please insert the %s disc "
                                  "and press %s to retry."),
-                    getProductName(), getProductName(), _("OK"));
+                         getProductName(), getProductName(), _("OK")) == -1) {
+                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
 
             ejectCdrom(cddev);
             rc = newtWinChoice(_("Disc Not Found"),

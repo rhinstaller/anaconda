@@ -84,7 +84,11 @@ static int detectHardware() {
         close(fd);
 
         if (timeout) {
-            rc = asprintf(&args[2],"--timeout=%d",timeout);
+            if (asprintf(&args[2],"--timeout=%d",timeout) == -1) {
+                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
         }
 
         rc = execv("/sbin/udevsettle",args);

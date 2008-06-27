@@ -148,7 +148,7 @@ void doShell(void) {
 }
 
 void doGdbserver(struct loaderData_s *loaderData) {
-    int child, rc, fd;
+    int child, fd;
     char *pid;
     struct networkDeviceConfig netCfg;
 
@@ -163,7 +163,11 @@ void doGdbserver(struct loaderData_s *loaderData) {
             return;
         }
 
-        rc = asprintf(&pid, "%d", loaderPid);
+        if (asprintf(&pid, "%d", loaderPid) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
 
         if (!(child = fork())) {
             logMessage(INFO, "starting gdbserver: %s %s %s %s",
@@ -193,11 +197,14 @@ void doGdbserver(struct loaderData_s *loaderData) {
 void startNewt(void) {
     if (!newtRunning) {
         char *buf;
-        int ignore;
         char *arch = getProductArch();
-        
-        ignore = asprintf(&buf, _("Welcome to %s for %s"), getProductName(),
-                arch);
+
+        if (asprintf(&buf, _("Welcome to %s for %s"), getProductName(),
+                     arch) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
 
         newtInit();
         newtCls();
@@ -437,7 +444,11 @@ void loadUpdates(struct loaderData_s *loaderData) {
                 if (dir == -1)
                     stage = UPD_DEVICE;
                 else {
-                    rc = asprintf(&part, "/dev/%s", device);
+                    if (asprintf(&part, "/dev/%s", device) == -1) {
+                        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                                   strerror(errno));
+                        abort();
+                    }
                     stage = UPD_PROMPT;
                 }
 
@@ -465,8 +476,13 @@ void loadUpdates(struct loaderData_s *loaderData) {
         }
 
         case UPD_PROMPT:
-            rc = asprintf(&buf, _("Insert your updates disk into %s and "
-                                  "press \"OK\" to continue."), part);
+            if (asprintf(&buf, _("Insert your updates disk into %s and "
+                                 "press \"OK\" to continue."), part) == -1) {
+                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+
             rc = newtWinChoice(_("Updates Disk"), _("OK"), _("Back"), buf);
             free(buf);
 
@@ -1038,13 +1054,22 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
 
                 if (!strncasecmp(argv[i], "vesa", 4)) {
                     if (asprintf(&extraArgs[numExtraArgs],
-                                 "--xdriver=vesa") == -1)
-                        return;
+                                 "--xdriver=vesa") == -1) {
+                        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                                   strerror(errno));
+                        abort();
+                    }
+
                     logMessage(WARNING, "\"vesa\" command line argument is deprecated.  use \"xdriver=vesa\".");
                 } else {
-                    if (asprintf(&extraArgs[numExtraArgs],"--%s",argv[i]) == -1)
-                        return;
+                    if (asprintf(&extraArgs[numExtraArgs],"--%s",
+                                 argv[i]) == -1) {
+                        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                                   strerror(errno));
+                        abort();
+                    }
                 }
+
                 numExtraArgs += 1;
 
                 if (numExtraArgs > (MAX_EXTRA_ARGS - 2)) {
@@ -1089,9 +1114,14 @@ static int checkFrameBuffer() {
 static void checkForRam(void) {
     if (totalMemory() < MIN_RAM) {
         char *buf;
-        int i;
-        i = asprintf(&buf, _("You do not have enough RAM to install %s "
-                             "on this machine."), getProductName());
+
+        if (asprintf(&buf, _("You do not have enough RAM to install %s "
+                             "on this machine."), getProductName()) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
+
         startNewt();
         newtWinMessage(_("Error"), _("OK"), buf);
         free(buf);
@@ -1156,9 +1186,14 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
              * for the stage2= parameter based on that.
              */
             char *tmp;
-            int rc;
 
-            rc = asprintf(&tmp, "%s/images/stage2.img", loaderData->instRepo);
+            if (asprintf(&tmp, "%s/images/stage2.img",
+                         loaderData->instRepo) == -1) {
+                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+
             logMessage(INFO, "no stage2= given, assuming %s", tmp);
             setStage2LocFromCmdline(tmp, loaderData);
             free(tmp);
@@ -1537,12 +1572,22 @@ static void migrate_runtime_directory(char * dirname) {
     char * runtimedir;
     int ret;
 
-    ret = asprintf(&runtimedir, "/mnt/runtime%s", dirname);
+    if (asprintf(&runtimedir, "/mnt/runtime%s", dirname) == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                   strerror(errno));
+        abort();
+    }
+
     if (!access(runtimedir, X_OK)) {
         if (unlink(dirname) == -1) {
             char * olddir;
 
-            ret = asprintf(&olddir, "%s_old", dirname);
+            if (asprintf(&olddir, "%s_old", dirname) == -1) {
+                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+
             ret = rename(dirname, olddir);
             free(olddir);
         }
@@ -1618,11 +1663,15 @@ static int anaconda_trace_init(void) {
 static void add_to_path_env(const char *env, const char *val)
 {
     char *oldenv, *newenv;
-    int rc;
 
     oldenv = getenv(env);
     if (oldenv) {
-        rc = asprintf(&newenv, "%s:%s", val, oldenv);
+        if (asprintf(&newenv, "%s:%s", val, oldenv) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
+
         oldenv = strdupa(newenv);
         free(newenv);
         newenv = oldenv;
@@ -1902,12 +1951,16 @@ int main(int argc, char ** argv) {
 
     path = getenv("PATH");
     while (path && path[0]) {
-        int ret, n = strcspn(path, ":");
+        int n = strcspn(path, ":");
         char c, *binpath;
 
         c = path[n];
         path[n] = '\0';
-        ret = asprintf(&binpath, "%s/anaconda", path);
+        if (asprintf(&binpath, "%s/anaconda", path) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
         path[n] = c;
 
         if (!access(binpath, X_OK)) {

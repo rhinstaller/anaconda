@@ -103,7 +103,8 @@ static void copyErrorFn (char *msg) {
 static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     moduleInfoSet modInfo = loaderData->modInfo;
     char file[200], dest[200];
-    char * title;
+    char *title;
+    char *fwdir = NULL;
     struct moduleBallLocation * location;
     struct stat sb;
     static int disknum = 0;
@@ -143,11 +144,18 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
 
     location = malloc(sizeof(struct moduleBallLocation));
     location->title = strdup(title);
-    ret = asprintf(&location->path, "/tmp/DD-%d/modules.cgz", disknum);
     location->version = version;
 
-    char *fwdir = NULL;
-    ret = asprintf(&fwdir, "/tmp/DD-%d/firmware", disknum);
+    if (asprintf(&location->path, "/tmp/DD-%d/modules.cgz", disknum) == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
+    if (asprintf(&fwdir, "/tmp/DD-%d/firmware", disknum) == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
     if (!access(fwdir, R_OK|X_OK)) {
         add_fw_search_dir(loaderData, fwdir);
         stop_fw_loader(loaderData);
@@ -346,8 +354,14 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
         case DEV_INSERT: {
             char * buf;
 
-            rc = asprintf(&buf, _("Insert your driver disk into /dev/%s "
-                             "and press \"OK\" to continue."), device);
+            if (asprintf(&buf,
+                         _("Insert your driver disk into /dev/%s "
+                           "and press \"OK\" to continue."), device) == -1) {
+                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+
             rc = newtWinChoice(_("Insert Driver Disk"), _("OK"), _("Back"),
                                buf);
             free(buf);

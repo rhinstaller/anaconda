@@ -285,11 +285,16 @@ static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
         essid = get_essid(ifname);
     }
 
-    rc = asprintf(&buf, _("%s is a wireless network adapter.  Please "
-                     "provide the ESSID and encryption key needed "
-                     "to access your wireless network.  If no key "
-                     "is needed, leave this field blank and the "
-                     "install will continue."), ifname);
+    if (asprintf(&buf, _("%s is a wireless network adapter.  Please "
+                         "provide the ESSID and encryption key needed "
+                         "to access your wireless network.  If no key "
+                         "is needed, leave this field blank and the "
+                         "install will continue."), ifname) == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                   strerror(errno));
+        abort();
+    }
+
     do {
         struct newtWinEntry entry[] = { { N_("ESSID"), &essid, 0 },
                                         { N_("Encryption Key"), &wepkey, 0 },
@@ -941,7 +946,7 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
 int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     struct networkDeviceConfig * newCfg,
                     struct intfconfig_s * ipcomps, struct netconfopts * opts) {
-    int i, rows, pos, prefix, cidr, q, have[2], stack[2];
+    int i, rows, pos, prefix, cidr, have[2], stack[2];
     char *buf = NULL;
     char ret[48];
     ip_addr_t *tip;
@@ -1058,10 +1063,19 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
             newtEntrySet(ipcomps->ipv6Entry, ret, 1);
         }
 
-        if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX)
-            q = asprintf(&buf, "%d", cfg->dev.ipv6_prefixlen);
-        else if (newCfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX)
-            q = asprintf(&buf, "%d", newCfg->dev.ipv6_prefixlen);
+        if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX) {
+            if (asprintf(&buf, "%d", cfg->dev.ipv6_prefixlen) == -1) {
+                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+        } else if (newCfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX) {
+            if (asprintf(&buf, "%d", newCfg->dev.ipv6_prefixlen) == -1) {
+                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+        }
 
         if (buf) {
             newtEntrySet(ipcomps->cidr6Entry, buf, 1);
@@ -1120,11 +1134,16 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
     /* main window layout */
     grid = newtCreateGrid(1, 3);
 
-    i = asprintf(&buf, _("Enter the IPv4 and/or the IPv6 address and prefix "
-                     "(address / prefix).  For IPv4, the dotted-quad "
-                     "netmask or the CIDR-style prefix are acceptable. "
-                     "The gateway and name server fields must be valid IPv4 "
-                     "or IPv6 addresses."));
+    if (asprintf(&buf,
+                 _("Enter the IPv4 and/or the IPv6 address and prefix "
+                   "(address / prefix).  For IPv4, the dotted-quad "
+                   "netmask or the CIDR-style prefix are acceptable. "
+                   "The gateway and name server fields must be valid IPv4 "
+                   "or IPv6 addresses.")) == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
     text = newtTextboxReflowed(-1, -1, buf, 52, 0, 10, 0);
 
     newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
@@ -1416,10 +1435,13 @@ char *doDhcp(struct networkDeviceConfig *dev) {
             logMessage(ERROR, "failure running uname() in doDhcp()");
             class = "anaconda";
         } else {
-            int ret;
+            if (asprintf(&class, "anaconda-%s %s %s",
+                         kv.sysname, kv.release, kv.machine) == -1) {
+                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
 
-            ret = asprintf(&class, "anaconda-%s %s %s",
-                           kv.sysname, kv.release, kv.machine);
             logMessage(DEBUGLVL, "sending %s as dhcp vendor-class", class);
         }
     }

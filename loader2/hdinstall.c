@@ -56,7 +56,7 @@ extern uint64_t flags;
 
 /* given a partition device and directory, tries to mount hd install image */
 static char * setupIsoImages(char * device, char * dirName, char * location) {
-    int rc;
+    int rc = 0;
     char *url = NULL, *dirspec, *updpath, *path;
     char *typetry[] = {"ext3", "ext2", "vfat", NULL};
     char **type;
@@ -73,17 +73,37 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
         if (!type)
             return NULL;
 
-        rc = asprintf(&dirspec, "/mnt/isodir%.*s", (int) (strrchr(dirName, '/') - dirName), dirName);
-        rc = asprintf(&path, "/mnt/isodir%s", dirName);
+        if (asprintf(&dirspec, "/mnt/isodir%.*s",
+                     (int) (strrchr(dirName, '/') - dirName), dirName) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
+
+        if (asprintf(&path, "/mnt/isodir%s", dirName) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
 
         if (path) {
             logMessage(INFO, "Path to stage2 image is %s", path);
 
-            rc = asprintf(&updpath, "%s/updates.img", dirspec);
+            if (asprintf(&updpath, "%s/updates.img", dirspec) == -1) {
+                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+
             logMessage(INFO, "Looking for updates for HD in %s", updpath);
             copyUpdatesImg(updpath);
 
-            rc = asprintf(&updpath, "%s/product.img", dirspec);
+            if (asprintf(&updpath, "%s/product.img", dirspec) == -1) {
+                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                           strerror(errno));
+                abort();
+            }
+
             logMessage(INFO, "Looking for product for HD in %s", updpath);
             copyProductImg(updpath);
 
@@ -97,8 +117,13 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
                 umountLoopback("/mnt/runtime", "/dev/loop0");
                 goto err;
             } else {
-                rc = asprintf(&url, "hd:%s:%s:/%s", device, *type,
-                              dirName ? dirName : ".");
+                if (asprintf(&url, "hd:%s:%s:/%s", device, *type,
+                             dirName ? dirName : ".") == -1) {
+                    logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                               strerror(errno));
+                    abort();
+                }
+
                 return url;
             }
         } else {
@@ -213,12 +238,17 @@ char * mountHardDrive(struct installMethod * method,
         }
 
         /* now find out which partition has the stage2 image*/
-        rc = asprintf(&buf, _("What partition and directory on that "
-                              "partition hold the installation images "
-                              "for %s?  If you don't see the disk drive "
-                              "you're using listed here, press F2 to "
-                              "configure additional devices."),
-                getProductName());
+        if (asprintf(&buf, _("What partition and directory on that "
+                             "partition hold the installation images "
+                             "for %s?  If you don't see the disk drive "
+                             "you're using listed here, press F2 to "
+                             "configure additional devices."),
+                     getProductName()) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
+
         text = newtTextboxReflowed(-1, -1, buf, 62, 5, 5, 0);
         free(buf);
 
@@ -308,7 +338,11 @@ char * mountHardDrive(struct installMethod * method,
         else
             stage2img = "stage2.img";
 
-        rc = asprintf(&dir, "%s/%s", dir, stage2img);
+        if (asprintf(&dir, "%s/%s", dir, stage2img) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
 
         url = setupIsoImages(selpart, dir, location);
         if (!url) {

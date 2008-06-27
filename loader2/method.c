@@ -78,7 +78,6 @@ int umountLoopback(char * mntpoint, char * device) {
 
 int mountLoopback(char *fsystem, char *mntpoint, char *device) {
     char *opts;
-    int rc;
 
     if (device == NULL) {
         logMessage(ERROR, "no loopback device given");
@@ -90,7 +89,12 @@ int mountLoopback(char *fsystem, char *mntpoint, char *device) {
        return LOADER_ERROR;
     }
 
-    rc = asprintf(&opts, "ro,loop=%s", device);
+    if (asprintf(&opts, "ro,loop=%s", device) == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                   strerror(errno));
+        abort();
+    }
+
     if (doPwMount(fsystem, mntpoint, "iso9660", opts)) {
         if (doPwMount(fsystem, mntpoint, "ext2", opts)) {
             if (doPwMount(fsystem, mntpoint, "squashfs", opts)) {

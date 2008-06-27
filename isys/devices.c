@@ -50,7 +50,6 @@ struct device **getDevices(enum deviceType type) {
     struct device **ret = NULL;
     struct device *new;
     int numdevices = 0;
-    int rc;
 
     if (type & (DEVICE_DISK | DEVICE_CDROM)) {
         DIR *dir;
@@ -120,7 +119,13 @@ struct device **getDevices(enum deviceType type) {
             new = calloc(1, sizeof(struct device));
             new->device = strdup(ent->d_name);
             /* FIXME */
-            rc = asprintf(&new->description,"Storage device %s",new->device);
+            if (asprintf(&new->description, "Storage device %s",
+                         new->device) == -1) {
+                fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
+                        strerror(errno));
+                fflush(stderr);
+                abort();
+            }
             new->type = devtype;
             if (caps & GENHD_FL_REMOVABLE) {
                 new->priv.removable = 1;
@@ -175,16 +180,29 @@ storagedone:
             if (fd != -1) {
                 if (read(fd, buf, 64) > 0) {
                     int i;
-                    for (i = (strlen(buf)-1); isspace(buf[i]); i--) buf[i] = '\0';
+                    for (i = (strlen(buf)-1); isspace(buf[i]); i--)
+                        buf[i] = '\0';
                     new->priv.hwaddr = strdup(buf);
                 }
             }
 
-            if (new->priv.hwaddr)
-               rc = asprintf(&new->description, "Ethernet device %s - %s",
-                             new->device, new->priv.hwaddr);
-            else
-               rc = asprintf(&new->description, "Ethernet device %s", new->device);
+            if (new->priv.hwaddr) {
+                if (asprintf(&new->description, "Ethernet device %s - %s",
+                             new->device, new->priv.hwaddr) == -1) {
+                    fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
+                            strerror(errno));
+                    fflush(stderr);
+                    abort();
+                }
+            } else {
+                if (asprintf(&new->description, "Ethernet device %s",
+                             new->device) == -1) {
+                    fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
+                            strerror(errno));
+                    fflush(stderr);
+                    abort();
+                }
+            }
 
             ret = realloc(ret, (numdevices+2) * sizeof(struct device));
             ret[numdevices] = new;

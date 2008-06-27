@@ -277,7 +277,6 @@ int urlMainSetupPanel(struct iurlinfo * ui) {
     newtGrid buttons, grid;
     char * chptr;
     char * buf = NULL;
-    int r;
 
     /* Populate the UI with whatever initial value we've got. */
     if (ui && ui->prefix)
@@ -285,8 +284,14 @@ int urlMainSetupPanel(struct iurlinfo * ui) {
 
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
 
-    r = asprintf(&buf, _("Please enter the URL containing the %s images on your server."),
-                 getProductName());
+    if (asprintf(&buf,
+            _("Please enter the URL containing the %s images on your server."),
+                 getProductName()) == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                   strerror(errno));
+        abort();
+    }
+
     reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
     free(buf);
 

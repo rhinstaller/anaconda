@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
 
 #include "modules.h"
 #include "moduleinfo.h"
@@ -62,10 +63,15 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
     }
 
     f = newtForm(NULL, NULL, 0);
-    i = asprintf(&buf, _("Please enter any parameters which you wish to pass "
-                     "to the %s module separated by spaces.  If you don't "
-                     "know what parameters to supply, skip this screen "
-                     "by pressing the \"OK\" button."), mod->moduleName);
+    if (asprintf(&buf,
+                 _("Please enter any parameters which you wish to pass "
+                   "to the %s module separated by spaces.  If you don't "
+                   "know what parameters to supply, skip this screen "
+                   "by pressing the \"OK\" button."), mod->moduleName) == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
     text = newtTextboxReflowed(-1, -1, buf, 60, 0, 10, 0);
     entry = newtEntry(-1, -1, argsEntry, 50, (const char **) &argsEntry, 
                       NEWT_ENTRY_SCROLL);
@@ -205,10 +211,14 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
 
     for (i = 0; i < numSorted; i++) {
         char *buf = NULL;
-        int j;
-        j = asprintf(&buf, "%s (%s)", 
-                modInfo->moduleList[sortedOrder[i].index].description,
-                modInfo->moduleList[sortedOrder[i].index].moduleName);
+
+        if (asprintf(&buf, "%s (%s)", 
+                 modInfo->moduleList[sortedOrder[i].index].description,
+                 modInfo->moduleList[sortedOrder[i].index].moduleName) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
 
         newtListboxAppendEntry(listbox, buf, 
                 INT_TO_POINTER(sortedOrder[i].index));

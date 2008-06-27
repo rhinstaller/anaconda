@@ -601,12 +601,16 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
 
     /* if we lack a user-provided dhcpclass, construct the default */
     if ((dhcpclass == NULL) || (strlen(dhcpclass) == 0))  {
-        if (uname(&kv) == -1)
+        if (uname(&kv) == -1) {
             dhcpclass = "anaconda";
-        else {
-            int ret;
-            ret = asprintf(&dhcpclass, "anaconda-%s %s %s",
-                           kv.sysname, kv.release, kv.machine);
+        } else {
+            if (asprintf(&dhcpclass, "anaconda-%s %s %s",
+                         kv.sysname, kv.release, kv.machine) == -1) {
+                fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
+                        strerror(errno));
+                fflush(stderr);
+                abort();
+            }
         }
     }
 

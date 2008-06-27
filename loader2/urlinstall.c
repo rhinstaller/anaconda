@@ -29,6 +29,7 @@
 #include <string.h>
 #include <sys/mount.h>
 #include <unistd.h>
+#include <errno.h>
 
 #include "../isys/iface.h"
 
@@ -59,12 +60,15 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char *path,
     if (ui->protocol == URL_METHOD_HTTP) {
         char *arch = getProductArch();
         char *name = getProductName();
-        int q;
 
-        q = asprintf(&ehdrs, "User-Agent: anaconda/%s\r\n"
+        if (asprintf(&ehdrs, "User-Agent: anaconda/%s\r\n"
                              "X-Anaconda-Architecture: %s\r\n"
                              "X-Anaconda-System-Release: %s\r\n",
-                     VERSION, arch, name);
+                     VERSION, arch, name) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
     }
 
     fd = urlinstStartTransfer(ui, path, ehdrs);
@@ -117,7 +121,12 @@ static int loadUrlImages(struct iurlinfo * ui) {
 
     /* grab the updates.img before stage2.img so that we minimize our
      * ramdisk usage */
-    rc = asprintf(&buf, "%s/%s", path, "updates.img");
+    if (asprintf(&buf, "%s/%s", path, "updates.img") == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                   strerror(errno));
+        abort();
+    }
+
     if (!loadSingleUrlImage(ui, buf,
                             "/tmp/updates-disk.img", "/tmp/update-disk",
                             "/dev/loop7", 1)) {
@@ -135,7 +144,12 @@ static int loadUrlImages(struct iurlinfo * ui) {
 
     /* grab the product.img before stage2.img so that we minimize our
      * ramdisk usage */
-    rc = asprintf(&buf, "%s/%s", path, "product.img");
+    if (asprintf(&buf, "%s/%s", path, "product.img") == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                   strerror(errno));
+        abort();
+    }
+
     if (!loadSingleUrlImage(ui, buf,
                             "/tmp/product-disk.img", "/tmp/product-disk",
                             "/dev/loop7", 1)) {
@@ -148,7 +162,12 @@ static int loadUrlImages(struct iurlinfo * ui) {
 
     free(buf);
 
-    rc = asprintf(&dest, "/tmp/stage2.img");
+    if (asprintf(&dest, "/tmp/stage2.img") == -1) {
+        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                   strerror(errno));
+        abort();
+    }
+
     rc = loadSingleUrlImage(ui, ui->prefix, dest, "/mnt/runtime", "/dev/loop0", 0);
     free(dest);
 
@@ -166,7 +185,6 @@ char *mountUrlImage(struct installMethod *method, char *location,
                     struct loaderData_s *loaderData) {
     struct iurlinfo ui;
     char *url = NULL;
-    int rc;
 
     enum { URL_STAGE_MAIN, URL_STAGE_FETCH,
            URL_STAGE_DONE } stage = URL_STAGE_MAIN;
@@ -223,7 +241,12 @@ char *mountUrlImage(struct installMethod *method, char *location,
                             stage2img = "stage2.img";
                         }
 
-                        rc = asprintf(&ui.prefix, "%s/images/%s", ui.prefix, stage2img);
+                        if (asprintf(&ui.prefix, "%s/images/%s", ui.prefix,
+                                     stage2img) == -1) {
+                            logMessage(CRITICAL, "%s: %d: %s", __func__,
+                                       __LINE__, strerror(errno));
+                            abort();
+                        }
                     }
                 }
 
@@ -308,17 +331,20 @@ int getFileFromUrl(char * url, char * dest,
     if (proto == URL_METHOD_HTTP) {
         char *arch = getProductArch();
         char *name = getProductName();
-        int q;
 
-        q = asprintf(&ehdrs, "User-Agent: anaconda/%s\r\n"
+        if (asprintf(&ehdrs, "User-Agent: anaconda/%s\r\n"
                              "X-Anaconda-Architecture: %s\r\n"
                              "X-Anaconda-System-Release: %s\r\n",
-                     VERSION, arch, name);
+                     VERSION, arch, name) == -1) {
+            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                       strerror(errno));
+            abort();
+        }
     }
 
     if (proto == URL_METHOD_HTTP && FL_KICKSTART_SEND_MAC(flags)) {
         /* find all ethernet devices and make a header entry for each one */
-        int i, q;
+        int i;
         char *dev, *mac, *tmpstr;
         struct device **devices;
 
@@ -328,8 +354,12 @@ int getFileFromUrl(char * url, char * dest,
             mac = iface_mac2str(dev);
 
             if (mac) {
-                q = asprintf(&tmpstr, "X-RHN-Provisioning-MAC-%d: %s %s\r\n",
-                             i, dev, mac);
+                if (asprintf(&tmpstr, "X-RHN-Provisioning-MAC-%d: %s %s\r\n",
+                             i, dev, mac) == -1) {
+                    logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
+                               strerror(errno));
+                    abort();
+                }
 
                 if (!ehdrs) {
                     ehdrs = strdup(tmpstr);

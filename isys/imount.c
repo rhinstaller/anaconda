@@ -43,17 +43,30 @@ int doPwMount(char *dev, char *where, char *fs, char *options) {
     }
 
     if (strstr(fs, "nfs")) {
-        if (options)
-            rc = asprintf(&opts, "%s,nolock", options);
-        else
+        if (options) {
+            if (asprintf(&opts, "%s,nolock", options) == -1) {
+                fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
+                        strerror(errno));
+                fflush(stderr);
+                abort();
+            }
+        } else {
             opts = strdup("nolock");
+        }
         device = strdup(dev);
     } else {
         if ((options && strstr(options, "bind") == NULL) && 
-            strncmp(dev, "LABEL=", 6) && strncmp(dev, "UUID=", 5) && *dev != '/')
-           rc = asprintf(&device, "/dev/%s", dev);
-        else
+            strncmp(dev, "LABEL=", 6) && strncmp(dev, "UUID=", 5) &&
+            *dev != '/') {
+           if (asprintf(&device, "/dev/%s", dev) == -1) {
+               fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
+                       strerror(errno));
+               fflush(stderr);
+               abort();
+           }
+        } else {
            device = strdup(dev);
+        }
         if (options)
             opts = strdup(options);
     }
