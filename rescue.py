@@ -131,15 +131,6 @@ def makeResolvConf(instPath):
     f.write(buf)
     f.close()
 
-# XXX
-#     probably belongs somewhere else
-#
-def methodUsesNetworking(methodstr):
-    for m in ['http://', 'ftp://', 'nfs:', 'nfsiso:']:
-        if methodstr.startswith(m):
-            return 1
-    return 0
-
 #
 # Write out something useful for networking and start interfaces
 #
@@ -221,7 +212,7 @@ def runRescue(anaconda, instClass):
             pass
 
     # see if they would like networking enabled
-    if not methodUsesNetworking(anaconda.id.methodstr):
+    if not network.hasActiveNetDev():
         screen = SnackScreen()
 
         while 1:

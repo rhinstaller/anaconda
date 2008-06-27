@@ -721,10 +721,6 @@ if __name__ == "__main__":
     if opts.rescue:
         anaconda.rescue = True
 
-        if not anaconda.methodstr:
-            sys.stderr.write('--method required for rescue mode\n')
-            sys.exit(1)
-
         import rescue, instdata
 
         anaconda.id = instdata.InstallData(anaconda, [], opts.display_mode)
