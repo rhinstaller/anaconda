@@ -73,6 +73,7 @@ static void cidrCallback(newtComponent co, void * dptr) {
         if (inet_pton(AF_INET, data->cidr4, &addr) >= 1)
             return;
 
+        errno = 0;
         cidr = strtol(data->cidr4, NULL, 10);
         if ((errno == ERANGE && (cidr == LONG_MIN || cidr == LONG_MAX)) ||
             (errno != 0 && cidr == 0)) {
@@ -87,6 +88,7 @@ static void cidrCallback(newtComponent co, void * dptr) {
         if (data->cidr6 == NULL && data->ipv6 == NULL)
             return;
 
+        errno = 0;
         cidr = strtol(data->cidr6, NULL, 10);
         if ((errno == ERANGE && (cidr == LONG_MIN || cidr == LONG_MAX)) ||
             (errno != 0 && cidr == 0)) {
@@ -119,6 +121,7 @@ static void ipCallback(newtComponent co, void * dptr) {
         if (data->cidr4 == NULL && data->ipv4 != NULL) {
             buf = strdup(data->ipv4);
             octet = strtok(buf, ".");
+            errno = 0;
             i = strtol(octet, NULL, 10);
 
             if ((errno == ERANGE && (i == LONG_MIN || i == LONG_MAX)) ||
@@ -1163,6 +1166,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     newCfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
                     have[IPV4]++;
                 } else {
+                    errno = 0;
                     cidr = strtol(ipcomps->cidr4, NULL, 10);
 
                     if ((errno == ERANGE && (cidr == LONG_MIN ||
@@ -1196,6 +1200,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
             }
 
             if (ipcomps->cidr6) {
+                errno = 0;
                 prefix = strtol(ipcomps->cidr6, NULL, 10);
 
                 if ((errno == ERANGE && (prefix == LONG_MIN ||

@@ -75,6 +75,7 @@ struct device **getDevices(enum deviceType type) {
             }
 
             close(fd);
+            errno = 0;
             caps = strtol(buf, NULL, 16);
 
             if ((errno == ERANGE && (caps == LONG_MIN || caps == LONG_MAX)) ||
@@ -103,6 +104,7 @@ struct device **getDevices(enum deviceType type) {
                 }
 
                 close(fd);
+                errno = 0;
                 size = strtol(buf, NULL, 10);
 
                 if ((errno == ERANGE && (size == LONG_MIN ||
@@ -154,6 +156,7 @@ storagedone:
             }
 
             close(fd);
+            errno = 0;
             type = strtol(buf, NULL, 10);
 
             if ((errno == ERANGE && (type == LONG_MIN || type == LONG_MAX)) ||

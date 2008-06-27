@@ -547,7 +547,8 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     if (inet_pton(AF_INET6, ipv6, &addr6) >= 1) {
         cfg.ipv6 = ip_addr_in6(&addr6);
 
-        if (strlen(prefix))
+        if (strlen(prefix)) {
+            errno = 0;
             i = strtol(prefix, NULL, 10);
 
             if ((errno == ERANGE && (i == LONG_MIN || i == LONG_MAX)) ||
@@ -555,8 +556,10 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
                 return NULL;
             }
 
-            if (i > 0 && i <= 128)
+            if (i > 0 && i <= 128) {
                 cfg.ipv6_prefixlen = i;
+            }
+        }
     }
 
     /* Global */

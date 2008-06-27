@@ -180,6 +180,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
     if (portstr == NULL) {
         port = -1;
     } else {
+        errno = 0;
         port = strtol(portstr, NULL, 10);
 
         if ((errno == ERANGE && (port == LONG_MIN || port == LONG_MAX)) ||

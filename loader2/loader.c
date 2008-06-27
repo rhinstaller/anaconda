@@ -644,6 +644,7 @@ static void readNetInfo(struct loaderData_s ** ld) {
                 loaderData->dns = strdup(vparm);
 
             if (!strncmp(vname, "MTU", 3)) {
+                errno = 0;
                 loaderData->mtu = strtol(vparm, NULL, 10);
 
                 if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
@@ -949,6 +950,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         else if (!strncasecmp(argv[i], "essid=", 6))
             loaderData->essid = strdup(argv[i] + 6);
         else if (!strncasecmp(argv[i], "mtu=", 4)) {
+            errno = 0;
             loaderData->mtu = strtol(argv[i] + 4, NULL, 10);
 
             if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
@@ -962,6 +964,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         else if (!strncasecmp(argv[i], "wepkey=", 7))
             loaderData->wepkey = strdup(argv[i] + 7);
         else if (!strncasecmp(argv[i], "linksleep=", 10)) {
+            errno = 0;
             num_link_checks = strtol(argv[i] + 10, NULL, 10);
 
             if ((errno == ERANGE && (num_link_checks == LONG_MIN ||
@@ -973,6 +976,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             }
         }
         else if (!strncasecmp(argv[i], "nicdelay=", 9)) {
+            errno = 0;
             post_link_sleep = strtol(argv[i] + 9, NULL, 10);
 
             if ((errno == ERANGE && (post_link_sleep == LONG_MIN ||
@@ -984,6 +988,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             }
         }
         else if (!strncasecmp(argv[i], "dhcptimeout=", 12)) {
+            errno = 0;
             loaderData->dhcpTimeout = strtol(argv[i] + 12, NULL, 10);
 
             if ((errno == ERANGE && (loaderData->dhcpTimeout == LONG_MIN ||
@@ -2072,6 +2077,7 @@ int main(int argc, char ** argv) {
             char *ret;
 
             ret = fgets(buf, 256, f);
+            errno = 0;
             pid = strtol(buf, NULL, 10);
 
             if ((errno == ERANGE && (pid == LONG_MIN || pid == LONG_MAX)) ||

@@ -479,7 +479,8 @@ scan_scsi(void) {
 
 	while ((enthba = readdir(dirhba))) {
 	    if (enthba->d_name[0] == '.')
-		continue;
+			continue;
+	    errno = 0;
 	    host = strtol(enthba->d_name, NULL, 10);
 
 	    if ((errno == ERANGE && (host == LONG_MIN || host == LONG_MAX)) ||
@@ -807,6 +808,7 @@ disk2PromPath (PyObject *self, PyObject *args)
     else if (!disk[0])
 	part = 3;
     else {
+	errno = 0;
 	part = strtol (disk, NULL, 10);
 
 	if ((errno == ERANGE && (part == LONG_MIN || part == LONG_MAX)) ||
