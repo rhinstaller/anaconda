@@ -1,23 +1,23 @@
-# translation of zh_TW.po to Traditional Chinese
+# translation of anaconda.master.po to Chinese, Tradition
 # Translation of anaconda to Traditional Chinese
 # Copyright (C) 2002 Red Hat, Inc.
 # This file is distributed under the same license as the anaconda package.
 #
 # Ben Wu <hpwu@redhat.com>, 2002,2003, 2004.
 # Jouston Huang <jouston@jouston.no-ip.com>, 2004.
-# Chester Cheng <ccheng@redhat.com>, 2004, 2005, 2006, 2007.
+# Chester Cheng <ccheng@redhat.com>, 2004, 2005, 2006, 2007, 2008.
 # Chester CHENG <ccheng@redhat.com>, 2004.
 # Waika Liu <wliu@redhat.com>, 2005.
 # Walter Cheuk <wwycheuk@netvigator.com>, 2005-2006.
 # Walter Cheuk <wwycheuk@gmail.com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: zh_TW\n"
+"Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2007-05-29 16:50+1000\n"
+"PO-Revision-Date: 2008-06-27 15:13+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
-"Language-Team: Traditional Chinese <zh_TW@li.org>\n"
+"Language-Team: Chinese, Tradition <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -129,6 +129,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"重新設置分割區 %s 的大小時，發生錯誤。\n"
+"\n"
+"%s"
 
 #: ../autopart.py:891
 #, python-format
@@ -204,8 +207,7 @@ msgstr "Boot 分割區 %s 不是 VFAT 分割區。 EFI 將無法從這個分割�
 
 #: ../autopart.py:1069
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "Boot 分割區 %s 可能不符合您系統架構的開機限制。"
 
 #: ../autopart.py:1094
@@ -431,8 +433,7 @@ msgid ""
 "point.\n"
 "\n"
 "Would you like to continue with the installation?"
-msgstr ""
-"您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
+msgstr "您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
 
 #: ../bootloader.py:49 ../exception.py:348 ../exception.py:363
 #: ../exception.py:381 ../fsset.py:1715 ../fsset.py:1972 ../fsset.py:2711
@@ -1248,8 +1249,7 @@ msgstr "找不到安裝映像檔 %s"
 
 #: ../livecd.py:108
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
 #: ../livecd.py:167
@@ -1781,8 +1781,7 @@ msgid "Confirm Reset"
 msgstr "確認還原"
 
 #: ../partIntfHelpers.py:543
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "您確定要將磁碟分割表重設至原來的狀態？"
 
 #: ../partitions.py:84
@@ -1794,8 +1793,7 @@ msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr ""
-"您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
+msgstr "您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
 
 #: ../partitions.py:113
 #, fuzzy
@@ -1893,8 +1891,7 @@ msgid ""
 msgstr "你的 %s 分割區小於 %s MB，比正常安裝 %s 的建議值還要小。"
 
 #: ../partitions.py:1163
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr "安裝至 USB 裝置上。安裝後的系統可能會、也可能不會正常運作。"
 
 #: ../partitions.py:1166
@@ -1946,8 +1943,7 @@ msgstr "您指定了超過 32 個 swap 裝置。 %s 的核心只支援 32 個。
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr ""
-"您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM)。 這可能會影響效能。"
+msgstr "您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM)。 這可能會影響效能。"
 
 #: ../partitions.py:1517
 msgid "the partition in use by the installer."
@@ -1968,8 +1964,7 @@ msgstr "這個掛載點必須在 linux 檔案系統上。"
 
 #: ../partRequests.py:278
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "掛載點無效。  %s 目錄必須在 / 檔案系統上。"
 
 #: ../partRequests.py:281
@@ -1977,8 +1972,7 @@ msgstr "掛載點無效。  %s 目錄必須在 / 檔案系統上。"
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr ""
-"無法使用掛載點 \"%s\"，它必須是符號連結，系統才能正常運作。請另外指定一個。"
+msgstr "無法使用掛載點 \"%s\"，它必須是符號連結，系統才能正常運作。請另外指定一個。"
 
 #: ../partRequests.py:290
 msgid "This mount point must be on a linux file system."
@@ -2243,8 +2237,7 @@ msgid "Welcome to %s"
 msgstr "歡迎使用 %s"
 
 #: ../text.py:569
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "      <F1> 輔助訊息 | <Tab> 移動游標 | <space> 選取 | <F12> 下一個畫面"
 
 #: ../text.py:571
@@ -2470,8 +2463,7 @@ msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
-"密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
+msgstr "密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
 
 #: ../vnc.py:298 ../vnc.py:389 ../textw/userauth_text.py:44
 msgid "Password:"
@@ -2647,8 +2639,7 @@ msgstr ""
 
 #: ../yuminstall.py:715
 #, fuzzy, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "由於下列原因，異動程序發生錯誤：%s"
 
 #: ../yuminstall.py:748 ../yuminstall.py:749
@@ -2879,8 +2870,7 @@ msgstr "您想要繼續升級系統嗎?"
 
 #: ../iw/account_gui.py:133 ../textw/userauth_text.py:72
 #, fuzzy
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "所要求的密碼含有非 ASCII 的字元，這些字元不允許使用在密碼上。"
 
 #: ../iw/autopart_type.py:96
@@ -3161,8 +3151,7 @@ msgstr "太小"
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr ""
-"這個實體容量數值的變更將會浪費在磁區群組中一或更多的實體磁區上相當大的空間。"
+msgstr "這個實體容量數值的變更將會浪費在磁區群組中一或更多的實體磁區上相當大的空間。"
 
 #: ../iw/lvm_dialog_gui.py:222
 #, python-format
@@ -3534,8 +3523,7 @@ msgstr "您還未指定主機名稱。 取決於您的網路環境，這也許�
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr ""
-"您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
+msgstr "您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
 
 #: ../iw/network_gui.py:150 ../textw/network_text.py:820
 #, python-format
@@ -3830,14 +3818,12 @@ msgid "Partitioning"
 msgstr "設定分割區"
 
 #: ../iw/partition_gui.py:638
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:640
 #, fuzzy, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "在您繼續安裝 %s 之前必須先更正這些錯誤。"
 
 #: ../iw/partition_gui.py:646
@@ -3928,8 +3914,7 @@ msgstr "找不到 RAID 鏡像（minor）裝置的號碼"
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
-"無法建立軟體 RAID 裝置，因為所有的 RAID 鏡像（minor）裝置號碼都已經被使用了。"
+msgstr "無法建立軟體 RAID 裝置，因為所有的 RAID 鏡像（minor）裝置號碼都已經被使用了。"
 
 #: ../iw/partition_gui.py:1252
 msgid "RAID Options"
@@ -4348,8 +4333,7 @@ msgstr "安裝程式偵測不到目前在您系統使用的開機管理程式。
 
 #: ../iw/upgrade_bootloader_gui.py:134 ../textw/upgrade_bootloader_text.py:117
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "安裝程式偵測到 %s 開機管理程式已安裝在 %s。"
 
 #: ../iw/upgrade_bootloader_gui.py:138
@@ -4475,8 +4459,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap 檔案的大小必須介於 1 至 2000 MB 之間。"
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:182
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "您所選擇的裝置空間不足以建立 swap 分割區。"
 
 #: ../iw/zipl_gui.py:35
@@ -4616,8 +4599,7 @@ msgstr ""
 "區，並分別給予一個識別標籤。"
 
 #: ../textw/bootloader_text.py:294
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <Space> 選取 | <F2> 選取預設開機項目 | <F4> 刪除 | <F12> 下一個畫面>"
 
 #: ../textw/bootloader_text.py:390
@@ -4706,8 +4688,7 @@ msgid "Please select the package groups you would like to install."
 msgstr "請選擇您想要安裝的套件群組。"
 
 #: ../textw/grpselect_text.py:112
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "      <Space>,<+>,<-> 選擇   |   <F2> 群組細節   |   <F12> 下一個畫面"
 
 #: ../textw/grpselect_text.py:124
@@ -4731,8 +4712,7 @@ msgstr "您使用的是那一種鍵盤？"
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
-msgstr ""
-"您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
+msgstr "您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
 
 #: ../textw/network_text.py:75
 #, fuzzy, python-format
@@ -5201,8 +5181,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1433
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "    F1-求助     F2-新增     F3-修改    F4-刪除    F5-重置     F12-確定"
 
 #: ../textw/partition_text.py:1465
@@ -5313,8 +5292,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
-msgstr ""
-"%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
+msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
 
 #: ../textw/task_text.py:72
 msgid "Customize software selection"
@@ -5445,8 +5423,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
-msgstr ""
-"%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些額外項目呢？"
+msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些額外項目呢？"
 
 #: ../installclasses/fedora.py:44
 msgid "Office and Productivity"
@@ -5577,8 +5554,7 @@ msgstr ""
 msgid ""
 "No %s disc was found which matches your boot media.  Please insert the %s "
 "disc and press %s to retry."
-msgstr ""
-"在您的光碟機中找不到開機媒體光碟片 %s，請置入 %s 光碟片，並按下 %s 重試。"
+msgstr "在您的光碟機中找不到開機媒體光碟片 %s，請置入 %s 光碟片，並按下 %s 重試。"
 
 #: ../loader2/cdinstall.c:344
 #, fuzzy, c-format
@@ -5875,8 +5851,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "歡迎使用 %s - 救援模式"
 
 #: ../loader2/lang.c:65 ../loader2/loader.c:166
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "      <Tab>/<Alt-Tab> 移動游標 | <Space> 選取 | <F12> 下一個畫面"
 
 #: ../loader2/lang.c:373
@@ -6048,8 +6023,7 @@ msgstr "正在檢查媒體..."
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr ""
-"無法從主卷冊描述中讀取磁碟數值。 這也許表示在建立此磁碟時沒有加上檢測值資訊。"
+msgstr "無法從主卷冊描述中讀取磁碟數值。 這也許表示在建立此磁碟時沒有加上檢測值資訊。"
 
 #: ../loader2/mediacheck.c:109
 msgid ""
@@ -6209,8 +6183,7 @@ msgid "Missing Information"
 msgstr "資訊不足"
 
 #: ../loader2/net.c:1225
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "您必須輸入有效的 IPv4 位址及網路遮罩或 CIDR 前置字元。"
 
 #: ../loader2/net.c:1231
@@ -6487,8 +6460,7 @@ msgstr ""
 
 #: tmp/autopart.glade.h:6
 #, fuzzy
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
+msgid "Which partition would you like to resize to make room for your installation?"
 msgstr "您的 Linux 安裝在那一個分割區呢?"
 
 #: tmp/autopart.glade.h:7
@@ -7018,434 +6990,3 @@ msgstr "威爾斯語"
 msgid "Zulu"
 msgstr "祖魯語"
 
-#~ msgid "Mouse Configuration"
-#~ msgstr "滑鼠設定"
-
-#~ msgid "/dev/ttyS0 (COM1 under DOS)"
-#~ msgstr "/dev/ttyS0 (DOS 下的 COM1)"
-
-#~ msgid "/dev/ttyS1 (COM2 under DOS)"
-#~ msgstr "/dev/ttyS1 (DOS 下的 COM2)"
-
-#~ msgid "/dev/ttyS2 (COM3 under DOS)"
-#~ msgstr "/dev/ttyS2 (DOS 下的 COM3)"
-
-#~ msgid "/dev/ttyS3 (COM4 under DOS)"
-#~ msgstr "/dev/ttyS3 (DOS 下的 COM4)"
-
-#~ msgid "_Model"
-#~ msgstr "型號(_M)"
-
-#~ msgid "_Emulate 3 buttons"
-#~ msgstr "模擬三鍵式滑鼠(_E)"
-
-#~ msgid "Select the appropriate mouse for the system."
-#~ msgstr "選擇系統上所使用的滑鼠。"
-
-#~ msgid "What device is your mouse located on?"
-#~ msgstr "您的滑鼠接在什麼地方？"
-
-#~ msgid "Which model mouse is attached to this computer?"
-#~ msgstr "您所用的滑鼠型號？"
-
-#~ msgid "Emulate 3 Buttons?"
-#~ msgstr "模擬三鍵式滑鼠？"
-
-#~ msgid "Mouse Selection"
-#~ msgstr "選擇滑鼠"
-
-#~ msgid "NFS"
-#~ msgstr "NFS"
-
-#~ msgid "Error pulling second part of kickstart config: %s!"
-#~ msgstr "讀取 kickstart 設定的第二部份時發生錯誤: %s！"
-
-#~ msgid "Unknown install method"
-#~ msgstr "不知名的安裝方式"
-
-#~ msgid ""
-#~ "You have specified an install method which isn't supported by anaconda."
-#~ msgstr "Anaconda 安裝程式並不支援您指定的安裝方法。"
-
-#~ msgid "unknown install method: %s"
-#~ msgstr "不知名的安裝方式：%s"
-
-#~ msgid ""
-#~ "You have chosen to remove all partitions (ALL DATA) on the following "
-#~ "drives:%s\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "您選擇了移除以下磁碟機上所有的分割區（所有資料）:%s\n"
-#~ "您確定要繼續嗎？"
-
-#~ msgid ""
-#~ "You have chosen to remove all Linux partitions (and ALL DATA on them) on "
-#~ "the following drives:%s\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "您選擇了移除以下磁碟機中所有的 Linux 分割區（包含其上的所有資料）:%s\n"
-#~ "您確定要繼續嗎？"
-
-#~ msgid "Checking for Bad Blocks"
-#~ msgstr "格式化時順便檢查是否有損壞的磁區"
-
-#, fuzzy
-#~ msgid ""
-#~ "Bad blocks have been detected on device /dev/%s. We do not recommend you "
-#~ "use this device.\n"
-#~ "\n"
-#~ "Press <Enter> to exit the installer."
-#~ msgstr ""
-#~ "在裝置 /dev/%s 上偵測到損壞的磁區。 我們不建議您使用這個裝置。\n"
-#~ "\n"
-#~ "請按下 <Enter> 鍵重新開機"
-
-#, fuzzy
-#~ msgid ""
-#~ "An error occurred searching for bad blocks on %s.  This problem is "
-#~ "serious, and the install cannot continue.\n"
-#~ "\n"
-#~ "Press <Enter> to exit the installer."
-#~ msgstr ""
-#~ "檢查 %s 是否有損壞磁區時發生錯誤。 這個問題很嚴重，安裝無法繼續。\n"
-#~ "\n"
-#~ "請按 <Enter> 重新啟動您的系統。"
-
-#~ msgid ""
-#~ "Please insert a floppy now. All contents of the disk will be erased, so "
-#~ "please choose your diskette carefully."
-#~ msgstr ""
-#~ "現在請插入一片磁片。 所有磁片上的內容都會被清除，所以請小心的選擇您所插入"
-#~ "的磁片。"
-
-#, fuzzy
-#~ msgid ""
-#~ "The file %s cannot be opened.  This is due to a missing file or perhaps a "
-#~ "corrupt package.  Please verify your installation images and that you "
-#~ "have all the required media.\n"
-#~ "\n"
-#~ "If you exit, your system will be left in an inconsistent state that will "
-#~ "likely require reinstallation.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "無法開啟 %s 檔案，這是因為檔案遺失或是套件毀損。請確定安裝用的映像檔是否正"
-#~ "確，同時您也擁有所有的光碟片。\n"
-#~ "\n"
-#~ "如果您重新開機，電腦將會處於不一致的狀態，可能需要重新安裝。\n"
-#~ "\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "The installer has tried to mount image #%s, but cannot find it on the "
-#~ "server.\n"
-#~ "\n"
-#~ "Please copy this image to the remote server's share path and click Retry. "
-#~ "Click Exit to abort the installation."
-#~ msgstr ""
-#~ "安裝程式試圖掛載映像檔 #%s，但在伺服器上找不到該映像檔。\n"
-#~ "\n"
-#~ "請將這映像檔複製到遠端伺服器的共享路徑中，然後按下「重試」。請按下「重新啟"
-#~ "動」中止安裝程序。"
-
-#~ msgid "Low Memory"
-#~ msgstr "記憶體空間不足"
-
-#~ msgid ""
-#~ "As you don't have much memory in this machine, we need to turn on swap "
-#~ "space immediately. To do this we'll have to write your new partition "
-#~ "table to the disk immediately. Is that OK?"
-#~ msgstr ""
-#~ "因為您的電腦記憶體空間不足，我們需要立即啟動 swap 空間。現在須要立即將您的"
-#~ "新磁碟分割表寫到磁碟，您是否同意？"
-
-#~ msgid "Save to Remote Host"
-#~ msgstr "存至遠端主機"
-
-#~ msgid "Save Crash Dump"
-#~ msgstr "儲存當機轉儲"
-
-#~ msgid "Searching"
-#~ msgstr "正在搜尋"
-
-#~ msgid "Searching for %s installations..."
-#~ msgstr "正在搜尋 %s 現有安裝..."
-
-#~ msgid "Connecting..."
-#~ msgstr "連接中..."
-
-#, fuzzy
-#~ msgid ""
-#~ "The file %s cannot be opened.  This is due to a missing file or perhaps a "
-#~ "corrupt package.  Please verify your mirror contains all required "
-#~ "packages, and try using a different one.\n"
-#~ "\n"
-#~ "If you exit, your system will be left in an inconsistent state that will "
-#~ "likely require reinstallation.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "無法開啟 %s 檔案，這是因為檔案遺失或是套件毀損。請確定映像中包含所有所需的"
-#~ "套件，或使用另一個映像。\n"
-#~ "\n"
-#~ "如果您重新開機，電腦將會處於不一致的狀態，可能需要重新安裝。\n"
-#~ "\n"
-
-#~ msgid "VNC Password Error"
-#~ msgstr "VNC 密碼錯誤"
-
-#~ msgid ""
-#~ "You need to specify a vnc password of at least 6 characters long.\n"
-#~ "\n"
-#~ "Press <return> to reboot your system.\n"
-#~ msgstr ""
-#~ "請指定至少六個字母長的 vnc 密碼。\n"
-#~ "\n"
-#~ "請按下「輸入鍵」（Enter），重新啟動電腦。\n"
-
-#~ msgid "Unable to set vnc password - using no password!"
-#~ msgstr "無法設定 vnc 的密碼 - 密碼未設定！"
-
-#~ msgid "Make sure your password is at least 6 characters in length."
-#~ msgstr "請確定您的密碼不得少於六個字元。"
-
-#~ msgid "Please connect to %s to begin the install..."
-#~ msgstr "請連線至 %s 以進行安裝..."
-
-#~ msgid "Please connect to begin the install..."
-#~ msgstr "請連線以進行安裝..."
-
-#~ msgid "Set Root Password"
-#~ msgstr "設定 Root 密碼"
-
-#~ msgid "Advanced Boot Loader Configuration"
-#~ msgstr "進階開機管理程式設定"
-
-#~ msgid "Force LBA32"
-#~ msgstr "強制使用 LBA32"
-
-#~ msgid "_Force LBA32 (not normally required)"
-#~ msgstr "強制使用 LBA32 (_F)（通常不需要）"
-
-#~ msgid ""
-#~ "If you wish to add default options to the boot command, enter them into "
-#~ "the 'General kernel parameters' field."
-#~ msgstr "假如您想要新增預設的開機選項，請在「一般核心參數」欄位中輸入它們。"
-
-#~ msgid "_General kernel parameters"
-#~ msgstr "一般核心參數(_G)"
-
-#~ msgid "The %s boot loader will be installed on /dev/%s."
-#~ msgstr "%s 開機管理程式將會安裝在 /dev/%s。"
-
-#~ msgid "No boot loader will be installed."
-#~ msgstr "將不安裝開機管理程式。"
-
-#~ msgid "Configure advanced boot loader _options"
-#~ msgstr "設定進階開機管理程式選項(_o)"
-
-#~ msgid "Install Boot Loader record on:"
-#~ msgstr "安裝開機管理程式紀錄於："
-
-#~ msgid "_Change Drive Order"
-#~ msgstr "更改磁碟順序(_C)"
-
-#~ msgid ""
-#~ "Arrange the drives to be in the same order as used by the BIOS. Changing "
-#~ "the drive order may be useful if you have multiple SCSI adapters or both "
-#~ "SCSI and IDE adapters and want to boot from the SCSI device.\n"
-#~ "\n"
-#~ "Changing the drive order will change where the installation program "
-#~ "locates the Master Boot Record (MBR)."
-#~ msgstr ""
-#~ "請依照您的 BIOS 所處理磁碟的順序來安排您的磁碟。  這通常只在當您有多張 "
-#~ "SCSI 介面卡或同時擁有 SCSI 與 IDE 介面卡，而且您想要從 SCSI 裝置開機時才有"
-#~ "用。\n"
-#~ "\n"
-#~ "這將會改變安裝程式找尋主要開機紀錄（MBR）的位置。"
-
-#~ msgid "About to Install"
-#~ msgstr "即將開始安裝"
-
-#~ msgid "Click next to begin installation of %s."
-#~ msgstr "按「下一步」開始安裝 %s。"
-
-#~ msgid ""
-#~ "A complete log of the installation can be found in the file '%s' after "
-#~ "rebooting your system.\n"
-#~ "\n"
-#~ "A kickstart file containing the installation options selected can be "
-#~ "found in the file '%s' after rebooting the system."
-#~ msgstr ""
-#~ "重新開機後，安裝過程的完整紀錄可以在 '%s' 檔案中找到。\n"
-#~ "\n"
-#~ "重新開機後，您可以在 '%s' kickstart 檔案中，找到所選擇的安裝選項。"
-
-#~ msgid "About to Upgrade"
-#~ msgstr "即將開始升級"
-
-#~ msgid "Click next to begin upgrade of %s."
-#~ msgstr "按「下一步」開始升級 %s。"
-
-#~ msgid ""
-#~ "A complete log of the upgrade can be found in the file '%s' after "
-#~ "rebooting your system."
-#~ msgstr "重新開機後，升級過程的完整紀錄可以在 '%s' 檔案中找到。"
-
-#~ msgid "Drive"
-#~ msgstr "磁碟機"
-
-#~ msgid "Model"
-#~ msgstr "型號"
-
-#~ msgid "Netmask"
-#~ msgstr "網路遮罩"
-
-#, fuzzy
-#~ msgid ""
-#~ "You can configure the boot loader to boot other operating systems by "
-#~ "selecting from the list. To add an operating systems that was not "
-#~ "automatically detected, click 'Add.' To change the operating system "
-#~ "booted by default, select 'Default' next to the desired operating system."
-#~ msgstr ""
-#~ "您可以設定開機管理程式來啟動其他的作業系統。 您可以從清單中選擇您要啟動的"
-#~ "作業系統。 如要增加沒有被自動偵測到的作業系統， 請點選「新增」。 如要更改"
-#~ "預設開機的作業系統，請在想要的作業系統上選取「預設開機」。"
-
-#~ msgid "Leave _unchanged (preserve data)"
-#~ msgstr "不變動(_u)（保留資料）"
-
-#~ msgid "_Format partition as:"
-#~ msgstr "格式化分割區為(_F):"
-
-#~ msgid "Check for _bad blocks?"
-#~ msgstr "格式化時檢查是否有損壞的磁區(_b)？"
-
-#~ msgid "Release notes are missing.\n"
-#~ msgstr "缺少發行公告。\n"
-
-#~ msgid "Release Notes"
-#~ msgstr "發行公告"
-
-#~ msgid "Unable to load file!"
-#~ msgstr "無法載入檔案！"
-
-#~ msgid "Installation to begin"
-#~ msgstr "開始安裝"
-
-#~ msgid ""
-#~ "A complete log of your installation will be in %s after rebooting your "
-#~ "system. You may want to keep this file for later reference."
-#~ msgstr ""
-#~ "重新開機後，完整的安裝過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
-
-#~ msgid "Upgrade to begin"
-#~ msgstr "開始升級系統"
-
-#~ msgid ""
-#~ "A complete log of your upgrade will be in %s after rebooting your system. "
-#~ "You may want to keep this file for later reference."
-#~ msgstr ""
-#~ "重新開機後，完整的升級過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
-
-#~ msgid "Check for bad blocks"
-#~ msgstr "格式化時檢查是否有損壞的磁區"
-
-#~ msgid ""
-#~ "No hard drives have been found.  You probably need to manually choose "
-#~ "device drivers for the installation to succeed.  Would you like to select "
-#~ "drivers now?"
-#~ msgstr ""
-#~ "找不到硬碟裝置。 為使安裝順利進行，或許您需要手動選取該裝置的驅動程式。 現"
-#~ "在您想要選取驅動程式嗎？"
-
-#~ msgid "FAILED"
-#~ msgstr "失敗"
-
-#~ msgid "PASSED"
-#~ msgstr "通過測試"
-
-#~ msgid "It is OK to install from this media."
-#~ msgstr "可以使用這個媒體來安裝。"
-
-#~ msgid "No checksum information available, unable to verify media."
-#~ msgstr "找不到任何檢測資訊，無法驗證媒體。"
-
-#~ msgid "Media Check Result"
-#~ msgstr "媒體檢查結果"
-
-#~ msgid ""
-#~ "%s for the image:\n"
-#~ "\n"
-#~ "   %s"
-#~ msgstr ""
-#~ "映像檔的 %s:\n"
-#~ "\n"
-#~ "   %s"
-
-#~ msgid ""
-#~ "The media check %s\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "媒體檢查 %s\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your %s server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      %s for your architecture\n"
-#~ msgstr ""
-#~ "請輸入下列資訊:\n"
-#~ "\n"
-#~ "    o %s 伺服器的名稱或 IP 位址\n"
-#~ "    o 伺服器上含有適用於您主機架構\n"
-#~ "      的 %s 目錄\n"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Web"
-#~ msgstr "Web"
-
-#~ msgid "Web site name:"
-#~ msgstr "網站名稱："
-
-#~ msgid "Use non-anonymous ftp"
-#~ msgstr "使用非匿名登入 FTP"
-
-#~ msgid "FTP Setup"
-#~ msgstr "FTP 設定"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "HTTP 設定"
-
-#~ msgid "You must enter a server name."
-#~ msgstr "您必須輸入伺服器名稱。"
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password "
-#~ "you wish to use below."
-#~ msgstr "如果您使用非匿名的 ftp 站台，請在下面輸入您的帳號以及密碼。"
-
-#~ msgid "Account name:"
-#~ msgstr "帳號名稱："
-
-#~ msgid "Further HTTP Setup"
-#~ msgstr "進階 HTTP 設定"
-
-#~ msgid "_Release Notes"
-#~ msgstr "發行公告(_R)"
-
-#~ msgid "Exception Info"
-#~ msgstr "例外狀況資訊"
-
-#~ msgid "_Exception details"
-#~ msgstr "例外狀況細節(_E)"
-
-#~ msgid "Rebooting System"
-#~ msgstr "正在重新啟動系統"
-
-#~ msgid "Re_try"
-#~ msgstr "重試(_T)"
