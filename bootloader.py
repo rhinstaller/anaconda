@@ -52,10 +52,6 @@ def bootloaderSetupChoices(anaconda):
             sys.exit(0)
         return DISPATCH_FORWARD
 
-    # FIXME: this is a hack...
-    if flags.livecd:
-        return 
-
     if anaconda.id.ksdata and anaconda.id.ksdata.bootloader.driveorder:
         anaconda.id.bootloader.updateDriveList(anaconda.id.ksdata.bootloader.driveorder)
     else:
@@ -187,7 +183,7 @@ def writeBootloader(anaconda):
 	else:
 	    otherList.append((label, longlabel, dev))
 
-    if kernelLabel is None and not flags.livecd: # FIXME
+    if kernelLabel is None:
         log.error("unable to find default image, bailing")
 	if not justConfigFile:
 	    w.pop()
@@ -242,10 +238,7 @@ def writeBootloader(anaconda):
 
 # return instance of the appropriate bootloader for our arch
 def getBootloader():
-    if not flags.livecd:
-        return booty.getBootloader()
-    else:
-        return bootloaderInfo.isolinuxBootloaderInfo()
+    return booty.getBootloader()
 
 def hasWindows(bl):
     foundWindows = False

@@ -204,9 +204,6 @@ def parseOptions():
         parser.values.runres = value
 
     def rootpath_cb (option, opt_str, value, parser):
-        if value.startswith("cd:"):
-            flags.livecd = True
-            value = value[3:]
         parser.values.rootPath = os.path.abspath(value)
         flags.setupFilesystems = False
         flags.rootpath = True
@@ -913,8 +910,7 @@ if __name__ == "__main__":
         anaconda.dispatch.skipStep("bootloaderadvanced", permanent = 1)
         anaconda.dispatch.skipStep("upgbootloader", permanent = 1)
 
-    # we need bootloader on livecds
-    if flags.rootpath and not flags.livecd:
+    if flags.rootpath:
         anaconda.dispatch.skipStep("bootloadersetup", permanent = 1)
         anaconda.dispatch.skipStep("instbootloader", permanent = 1)
 
