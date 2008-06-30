@@ -133,9 +133,6 @@ class RepoEditor:
         # FIXME:  Don't do anything here for now.
         return True
 
-    def _isBaseRepo(self):
-        return not self.repo.addon and not self.repo.name.startswith("Driver Disk")
-
     def _validURL(self, url):
         return len(url) > 0 and (url.startswith("http://") or
                                  url.startswith("https://") or
@@ -305,6 +302,12 @@ class RepoCreator(RepoEditor):
 
 class TaskWindow(InstallWindow):
     def getNext(self):
+        if not self._anyRepoEnabled():
+            self.anaconda.intf.messageWindow(_("No Software Repos Enabled"),
+                _("You must have at least one software repository enabled to "
+                  "continue installation."))
+            raise gui.StayOnScreen
+
         if self.xml.get_widget("customRadio").get_active():
             self.dispatch.skipStep("group-selection", skip = 0)
         else:
@@ -376,6 +379,20 @@ class TaskWindow(InstallWindow):
         val = store.get_value(i, 0)
         store.set_value(i, 0, not val)
 
+    def _anyRepoEnabled(self):
+        model = self.rs.get_model()
+        iter = model.get_iter_first()
+
+        while True:
+            if model.get_value(iter, 0):
+                return True
+
+            iter = model.iter_next(iter)
+            if not iter:
+                return False
+
+        return False
+
     def _repoToggled(self, button, row, store):
         i = store.get_iter(int(row))
         wasChecked = store.get_value(i, 0)
@@ -391,6 +408,7 @@ class TaskWindow(InstallWindow):
                 return
         else:
             repo.disable()
+            repo.close()
 
         store.set_value(i, 0, not wasChecked)
 
