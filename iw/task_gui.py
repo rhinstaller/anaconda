@@ -369,6 +369,10 @@ class TaskWindow(InstallWindow):
         tl.append_column(col)
 
         for (reponame, repo) in self.repos.repos.items():
+            # Filter out source and debuginfo repos for now.
+            if repo.id.find("-source") != -1 or repo.id.find("-debuginfo") != -1:
+                continue
+
             store.append([repo.isEnabled(), repo.name, repo])
 
         return tl
