@@ -28,7 +28,6 @@ import isys
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-from netconfig_dialog import NetworkConfigurator
 import network
 
 from yuminstall import AnacondaYumRepo
@@ -341,10 +340,7 @@ class TaskWindow(InstallWindow):
         repo = None
 
         if not network.hasActiveNetDev():
-            net = NetworkConfigurator(self.anaconda.id.network)
-            ret = net.run()
-            net.destroy()
-            if ret == gtk.RESPONSE_CANCEL:
+            if not self.anaconda.intf.enableNetwork(self.anaconda):
                 return gtk.RESPONSE_CANCEL
 
         # If we were passed an extra argument, it's the repo store and we
@@ -364,10 +360,7 @@ class TaskWindow(InstallWindow):
 
     def _addRepo(self, *args):
         if not network.hasActiveNetDev():
-            net = NetworkConfigurator(self.anaconda.id.network)
-            ret = net.run()
-            net.destroy()
-            if ret == gtk.RESPONSE_CANCEL:
+            if not self.anaconda.intf.enableNetwork(self.anaconda):
                 return gtk.RESPONSE_CANCEL
 
         dialog = RepoCreator(self.anaconda)
@@ -390,10 +383,7 @@ class TaskWindow(InstallWindow):
 
         if not wasChecked:
             if not network.hasActiveNetDev():
-                net = NetworkConfigurator(self.anaconda.id.network)
-                ret = net.run()
-                net.destroy()
-                if ret == gtk.RESPONSE_CANCEL:
+                if not self.anaconda.intf.enableNetwork(self.anaconda):
                     return
 
             repo.enable()
