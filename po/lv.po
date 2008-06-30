@@ -1,20 +1,21 @@
 # translation of lv.po to Latvian
 # Copyright (C) 2006
 # This file is distributed under the same license as the anaconda package.
-#
 # Gatis Kalnins <gatis.kalnins@metatrons.lv>, 2006.
+# Janis Ozolins <johnij@fedoraproject.org>, 2008
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2006-11-20 21:19+0200\n"
-"Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
-"Language-Team: Latvian <locale@laka.lv>\n"
+"PO-Revision-Date: 2008-06-30 21:42+0100\n"
+"Last-Translator: Janis Ozolins <johnij@fedoraproject.org>\n"
+"Language-Team: Latvian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.1\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:289
 #, c-format
@@ -450,9 +451,8 @@ msgstr ""
 #: ../upgrade.py:133 ../yuminstall.py:718 ../yuminstall.py:793
 #: ../yuminstall.py:799 ../yuminstall.py:970 ../yuminstall.py:1018
 #: ../yuminstall.py:1251 ../yuminstall.py:1288
-#, fuzzy
 msgid "_Exit installer"
-msgstr "%s Instalators"
+msgstr ""
 
 #: ../bootloader.py:49 ../fsset.py:1973 ../image.py:97 ../image.py:250
 #: ../kickstart.py:985 ../kickstart.py:1023 ../partedUtils.py:1262
@@ -550,12 +550,12 @@ msgstr ""
 
 #: ../fsset.py:548
 msgid "Checking"
-msgstr ""
+msgstr "Pārbauda"
 
 #: ../fsset.py:549
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s..."
-msgstr "Slikto sektoru meklēšana diskā /dev/%s..."
+msgstr "Pārbauda failu sistēmu uz %s..."
 
 #: ../fsset.py:560 ../fsset.py:1015
 msgid "Resizing"
@@ -1318,9 +1318,8 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Datora nosaukums drīkst saturēt simbolus 'a-z', 'A-Z', '-' vai '.'"
 
 #: ../network.py:95
-#, fuzzy
 msgid "IP address is missing."
-msgstr "IP adrese nav pareiza."
+msgstr "Pazudusi IP adrese."
 
 #: ../network.py:99
 #, fuzzy
@@ -1354,9 +1353,8 @@ msgid "LVM operation failed"
 msgstr "Montēšana neizdevās"
 
 #: ../packages.py:342
-#, fuzzy
 msgid "Invalid Key"
-msgstr "Nekorekts prefikss"
+msgstr "Nederīga atslēga"
 
 #: ../packages.py:343
 #, fuzzy
@@ -1364,9 +1362,8 @@ msgid "The key you entered is invalid."
 msgstr "Ievadītā IP informācija ir nekorekta."
 
 #: ../packages.py:371
-#, fuzzy
 msgid "_Skip"
-msgstr "Izlaist"
+msgstr "Izlai_st"
 
 #: ../packages.py:403 ../packages.py:426
 msgid "Warning! This is pre-release software!"
@@ -1698,9 +1695,9 @@ msgstr ""
 "Vai Jūs vēlaties to formatēt kā swap partīciju?"
 
 #: ../partIntfHelpers.py:411
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
-msgstr "Jums jānorāda vismaz viens cietnis, lai varētu uzstādīt %s."
+msgstr "Jums vajag izvēlēties vismaz vienu cieto disku, lai uzstādītu %s."
 
 #: ../partIntfHelpers.py:416
 #, fuzzy
@@ -1868,7 +1865,7 @@ msgstr ""
 #: ../loader2/net.c:1094 ../loader2/net.c:1863 ../loader2/nfsinstall.c:68
 #: ../loader2/urls.c:280 ../loader2/urls.c:405
 msgid "Back"
-msgstr ""
+msgstr "Atpakaļ"
 
 #: ../partitions.py:200 ../rescue.py:305 ../iw/partition_gui.py:572
 #: ../textw/network_text.py:60 ../loader2/cdinstall.c:117
@@ -2531,13 +2528,16 @@ msgid ""
 msgstr ""
 
 #: ../vnc.py:260
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Unknown Error.  Aborting. \n"
 "\n"
-msgstr "Nezināma kļūda"
+msgstr ""
+"\n"
+"\n"
+"Nezināma kļūda:  Pārtrauc. \n"
+"\n"
 
 #: ../vnc.py:285 ../vnc.py:374
 msgid "VNC Configuration"
@@ -2632,9 +2632,9 @@ msgid "Preparing transaction from installation source..."
 msgstr "Pārbauda transakcijas no instalācijas avota..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "Instalēšana %s\n"
+msgstr "<b>Uzstāda %s</b> (%s)\n"
 
 #: ../yuminstall.py:205
 #, python-format
@@ -2676,9 +2676,8 @@ msgstr ""
 "cietnī nav brīvas vietas."
 
 #: ../yuminstall.py:417
-#, fuzzy
 msgid "Change Disc"
-msgstr "Nomainiet CD"
+msgstr "Nomainiet disku"
 
 #: ../yuminstall.py:418
 #, python-format
@@ -2686,9 +2685,8 @@ msgid "Please insert %s disc %d to continue."
 msgstr "Lūdzu ievietojiet %s disku %d, lai turpinātu."
 
 #: ../yuminstall.py:432
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "Nekorekts CD"
+msgstr "Nepareizs disks"
 
 #: ../yuminstall.py:433
 #, fuzzy, python-format
@@ -2706,7 +2704,7 @@ msgstr "Pārstartēšana"
 
 #: ../yuminstall.py:604
 msgid "_Eject"
-msgstr ""
+msgstr "Attaisīt"
 
 #: ../yuminstall.py:610
 #, fuzzy, python-format
@@ -2726,9 +2724,8 @@ msgstr ""
 "\n"
 
 #: ../yuminstall.py:650
-#, fuzzy
 msgid "Retrying"
-msgstr "Atkārtot"
+msgstr "Mēģina vēlreiz"
 
 #: ../yuminstall.py:650
 msgid "Retrying package download..."
@@ -2815,7 +2812,7 @@ msgstr "Instalēšanas informācijas saņemšana priekš %s..."
 #: ../yuminstall.py:970 ../textw/bootloader_text.py:277
 #: ../textw/constants_text.py:62 ../textw/partition_text.py:1428
 msgid "Edit"
-msgstr ""
+msgstr "Labot"
 
 #: ../yuminstall.py:982 ../yuminstall.py:1257
 #, fuzzy, python-format
@@ -2928,18 +2925,16 @@ msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Jūs neesat norādījis FCP LUN vai arī numurs norādīts nepareizi."
 
 #: ../iw/account_gui.py:48
-#, fuzzy
 msgid "Root _Password:"
-msgstr "Root parole:"
+msgstr "Root _parole:"
 
 #: ../iw/account_gui.py:50
-#, fuzzy
 msgid "_Confirm:"
-msgstr "Atkārtot:"
+msgstr "Apstiprināt:"
 
 #: ../iw/account_gui.py:87
 msgid "Caps Lock is on."
-msgstr ""
+msgstr "Ieslēgts Caps Lock taustiņš"
 
 #: ../iw/account_gui.py:97 ../iw/account_gui.py:105 ../iw/account_gui.py:112
 #: ../iw/account_gui.py:132 ../textw/userauth_text.py:71
@@ -2962,17 +2957,19 @@ msgid "The root password must be at least six characters long."
 msgstr "Root parolei jābūt garākai par sešiem simboliem."
 
 #: ../iw/account_gui.py:120 ../textw/userauth_text.py:78
-#, fuzzy
 msgid "Weak Password"
-msgstr "Parole"
+msgstr "Vāja parole"
 
 #: ../iw/account_gui.py:121 ../textw/userauth_text.py:79
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Weak password provided: %s\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr "Turpināt jaunināšanu?"
+msgstr ""
+"Nodrošināta vāja parole: %s\n"
+"\n"
+"Vai vēlaties turpināt ar šo paroli?!"
 
 #: ../iw/account_gui.py:133 ../textw/userauth_text.py:72
 #, fuzzy
@@ -2990,7 +2987,7 @@ msgstr ""
 
 #: ../iw/autopart_type.py:179
 msgid "Do you really want to boot from disk which is not used for instalation?"
-msgstr ""
+msgstr "Vai tik tiešām vēlaties ielādēt no diska, kurš netika izmantots uzstādīšanai?"
 
 #: ../iw/autopart_type.py:260
 msgid "Invalid Initiator Name"
@@ -3082,17 +3079,16 @@ msgid "Passwords do not match"
 msgstr "Paroles nesakrīt"
 
 #: ../iw/blpasswidget.py:150 ../textw/bootloader_text.py:453
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Jūsu ielādētāja parole ir īsāka par sešiem simboliem. Mēs rekomendējam "
+"Sistēmas ielādētāja parole ir īsāka par sešiem simboliem. Mēs iesakām"
 "izmantot garāku paroli.\n"
 "\n"
-"Vai Jūs vēlaties turpināt ar šo paroli?"
+"Vai vēlaties turpināt lietojot šo paroli?!"
 
 #: ../iw/bootloader_main_gui.py:34 ../textw/bootloader_text.py:46
 #: ../textw/bootloader_text.py:111 ../textw/bootloader_text.py:168
@@ -3183,14 +3179,12 @@ msgstr "Pakotne"
 #: ../iw/GroupSelector.py:482
 #, python-format
 msgid "%d of %d optional package selected"
-msgid_plural "%d of %d optional packages selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../iw/GroupSelector.py:485
 #, python-format
 msgid "<i>%s</i>"
-msgstr ""
+msgstr "<i>%s</i>"
 
 #: ../iw/language_gui.py:30 ../textw/language_text.py:44
 msgid "Language Selection"
@@ -3370,9 +3364,9 @@ msgid "Mount point in use"
 msgstr "Montēšanas punkts jau tiek izmantots"
 
 #: ../iw/lvm_dialog_gui.py:580
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr "Montēšanas punkts \"%s\" jau tiek izmantots, lūdzu norādiet citu."
+msgstr "Montāžas punkts \"%s\" ir lietošanā, lūdzu uzmeklējiet citu."
 
 #: ../iw/lvm_dialog_gui.py:591 ../textw/partition_text.py:1235
 msgid "Illegal Logical Volume Name"
@@ -3604,14 +3598,12 @@ msgid "Nameserver"
 msgstr "Vārdu serveris"
 
 #: ../iw/netconfig_dialog.py:253
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "Kļūme klonēšanā: kļūme rezultātu diska dzēšanā."
+msgstr "Kļūda konfigurējot tīkla ierīci:"
 
 #: ../iw/netconfig_dialog.py:266
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "Kļūme klonēšanā: kļūme rezultātu diska dzēšanā."
+msgstr "Kļūda konfigurējot tīkla ierīci:"
 
 #: ../iw/network_gui.py:34 ../iw/network_gui.py:535
 msgid "Primary DNS"
@@ -3743,9 +3735,8 @@ msgid "Unknown Ethernet Device"
 msgstr ""
 
 #: ../iw/network_gui.py:640
-#, fuzzy
 msgid "unknown"
-msgstr "Nezināma"
+msgstr "Nezināms"
 
 #: ../iw/network_gui.py:642
 #, fuzzy
@@ -3776,7 +3767,7 @@ msgstr "IPv6 prefiksam jābūt robežās no 0 līdz 128."
 
 #: ../iw/osbootwidget.py:50
 msgid "Boot loader operating system list"
-msgstr ""
+msgstr "Sistēmas ielādētāja operētājsistēmu saraksts"
 
 #: ../iw/osbootwidget.py:66 ../textw/bootloader_text.py:262
 msgid "Default"
@@ -4584,13 +4575,12 @@ msgid "Free Space (MB)"
 msgstr "Brīvā vieta (MB)"
 
 #: ../iw/upgrade_swap_gui.py:158
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
 msgstr ""
-"Rekomendējam, ka maiņatmiņas sadaļai jābūt ne mazākai par %d MB. Norādiet "
-"maiņatmiņas sadaļas izmēru:"
+"Ieteicamais swap faila minimālais lielums ir %d MB. Lūdzu ievadiet swap faila lielumu: "
 
 #: ../iw/upgrade_swap_gui.py:173
 msgid "Swap file _size (MB):"
@@ -4776,37 +4766,39 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:400
 msgid "Use a GRUB Password"
-msgstr ""
+msgstr "Lietot GRUB paroli"
 
 #: ../textw/bootloader_text.py:412
 msgid "Boot Loader Password:"
-msgstr ""
+msgstr "Sistēmas ielādētāja parole:"
 
 #: ../textw/bootloader_text.py:413 tmp/account.glade.h:1
 msgid "Confirm:"
-msgstr ""
+msgstr "Apstiprināt:"
 
 #: ../textw/bootloader_text.py:442
 msgid "Passwords Do Not Match"
-msgstr ""
+msgstr "Paroles nesakrīt"
 
 #: ../textw/bootloader_text.py:447
 msgid "Password Too Short"
-msgstr ""
+msgstr "Parole pāŗāk īsa"
 
 #: ../textw/bootloader_text.py:448
 msgid "Boot loader password is too short"
-msgstr ""
+msgstr "Sistēmas ielādētāja parole ir pārāk īsa"
 
 #: ../textw/complete_text.py:31
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
+"Lai pabeigtu uzstādīšanas procesu, nospiediet <Enter> taustiņu.\n"
+"\n"
 
 #: ../textw/complete_text.py:32
 msgid "<Enter> to exit"
-msgstr ""
+msgstr "<Enter> iziet"
 
 #: ../textw/complete_text.py:36
 #, python-format
@@ -4854,11 +4846,11 @@ msgstr ""
 
 #: ../textw/keyboard_text.py:46
 msgid "Keyboard Selection"
-msgstr ""
+msgstr "Tastatūras izvēle"
 
 #: ../textw/keyboard_text.py:47
 msgid "Which model keyboard is attached to this computer?"
-msgstr ""
+msgstr "Kāds tastatūras modelis ir pievienots šim datoram?"
 
 #: ../textw/network_text.py:58
 #, fuzzy, python-format
@@ -4897,7 +4889,7 @@ msgstr "IPv6/Prefikss"
 
 #: ../textw/network_text.py:142
 msgid "Activate on boot"
-msgstr ""
+msgstr "Aktivizēt ielādējot sistēmu"
 
 #: ../textw/network_text.py:149 ../loader2/net.c:730
 #: tmp/netpostconfig.glade.h:9
@@ -4914,9 +4906,8 @@ msgid "P-to-P:"
 msgstr ""
 
 #: ../textw/network_text.py:187 tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:196
 #, fuzzy
@@ -4990,18 +4981,17 @@ msgid "IPv6 prefix"
 msgstr "IPv6/Prefikss"
 
 #: ../textw/network_text.py:509
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Kļūme klonēšanā: kļūme rezultātu diska dzēšanā."
+msgstr ""
 
 #: ../textw/network_text.py:510
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Vai Jūs vēlaties šajā sistēmā startēt tīkla kartes?"
+msgstr ""
 
 #: ../textw/network_text.py:524 ../textw/network_text.py:526
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "NENOKONFIGURĒTS"
 
 #: ../textw/network_text.py:535
 msgid ""
@@ -5012,26 +5002,24 @@ msgid ""
 msgstr ""
 
 #: ../textw/network_text.py:567
-#, fuzzy
 msgid "Active on boot"
-msgstr "Aktivizēt ielādes laikā"
+msgstr ""
 
 #: ../textw/network_text.py:569
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Aktivizēt ielādes laikā"
+msgstr ""
 
 #: ../textw/network_text.py:572
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:577
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:579
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:678 ../loader2/net.c:1055
 msgid "Gateway:"
@@ -5047,12 +5035,11 @@ msgstr ""
 
 #: ../textw/network_text.py:699
 msgid "Miscellaneous Network Settings"
-msgstr ""
+msgstr "Dažādi tīkla uzstādījumi"
 
 #: ../textw/network_text.py:716 ../textw/network_text.py:719
-#, fuzzy
 msgid "gateway"
-msgstr "Vārteja"
+msgstr ""
 
 #: ../textw/network_text.py:726 ../textw/network_text.py:729
 #, fuzzy
@@ -5066,7 +5053,7 @@ msgstr "Otrais DNS"
 
 #: ../textw/network_text.py:762
 msgid "automatically via DHCP"
-msgstr ""
+msgstr "automātiski ar DHCP"
 
 #: ../textw/network_text.py:765
 msgid "manually"
@@ -5090,7 +5077,7 @@ msgstr ""
 
 #: ../textw/network_text.py:814
 msgid "You have not specified a hostname."
-msgstr ""
+msgstr "Jūs neesiet norādījuši datora nosaukumu."
 
 #: ../textw/partition_text.py:50
 msgid "Must specify a value"
@@ -5107,16 +5094,16 @@ msgstr ""
 #: ../textw/partition_text.py:122
 #, python-format
 msgid "RAID Device %s"
-msgstr ""
+msgstr "RAID ierīce %s"
 
 #: ../textw/partition_text.py:250
 #, python-format
 msgid "Warning: %s"
-msgstr ""
+msgstr "Brīdinājums: %s"
 
 #: ../textw/partition_text.py:251
 msgid "Modify Partition"
-msgstr ""
+msgstr "Izmainīt diska daļu"
 
 #: ../textw/partition_text.py:251
 msgid "Add anyway"
@@ -5124,11 +5111,11 @@ msgstr ""
 
 #: ../textw/partition_text.py:289
 msgid "Mount Point:"
-msgstr ""
+msgstr "Montāžas punkts: "
 
 #: ../textw/partition_text.py:341
 msgid "File System type:"
-msgstr ""
+msgstr "Failu sistēmas veids: "
 
 #: ../textw/partition_text.py:375
 msgid "Allowable Drives:"
@@ -5160,11 +5147,11 @@ msgstr ""
 
 #: ../textw/partition_text.py:518
 msgid "RAID Level:"
-msgstr ""
+msgstr "RAID līmenis:"
 
 #: ../textw/partition_text.py:536
 msgid "RAID Members:"
-msgstr ""
+msgstr "RAID dalībnieki:"
 
 #: ../textw/partition_text.py:555
 msgid "Number of spares?"
@@ -5172,7 +5159,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:569
 msgid "File System Type:"
-msgstr ""
+msgstr "Failu sistēmas veids:"
 
 #: ../textw/partition_text.py:582
 msgid "File System Label:"
@@ -5322,11 +5309,11 @@ msgstr ""
 
 #: ../textw/partition_text.py:1429
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
 #: ../textw/partition_text.py:1430
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../textw/partition_text.py:1433
 msgid ""
@@ -5355,7 +5342,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:1534
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr ""
+msgstr "Kuru disku(s) vēlaties izmantot Sai uzstādīšanai?"
 
 #: ../textw/partition_text.py:1549
 #, fuzzy
@@ -5366,11 +5353,11 @@ msgstr ""
 
 #: ../textw/partition_text.py:1616
 msgid "Review Partition Layout"
-msgstr ""
+msgstr "Pārskatīt diska daļu izkārtojumu"
 
 #: ../textw/partition_text.py:1617
 msgid "Review and modify partitioning layout?"
-msgstr ""
+msgstr "Pārskatīt un pārveidot sadalījuma izkārtojumu?"
 
 #: ../textw/partition_text.py:1638 tmp/adddrive.glade.h:3
 #, fuzzy
@@ -5401,7 +5388,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:1686 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
-msgstr ""
+msgstr "Konfigurēt iSCSI parametrus"
 
 #: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:6
 msgid ""
@@ -5421,7 +5408,7 @@ msgstr "Nepareizs iniciatora vārds"
 
 #: ../textw/partmethod_text.py:32
 msgid "Autopartition"
-msgstr ""
+msgstr "Automātiskā sadalīšana"
 
 #: ../textw/partmethod_text.py:33
 msgid "Disk Druid"
@@ -5449,11 +5436,11 @@ msgstr ""
 
 #: ../textw/timezone_text.py:74
 msgid "In which time zone are you located?"
-msgstr ""
+msgstr "Kurā laikā zonā Jūs atrodieties?"
 
 #: ../textw/timezone_text.py:92
 msgid "System clock uses UTC"
-msgstr ""
+msgstr "Sistēmas pulkstenis lieto UTC"
 
 #: ../textw/upgrade_bootloader_text.py:112
 #: ../textw/upgrade_bootloader_text.py:121
@@ -5466,23 +5453,23 @@ msgstr ""
 
 #: ../textw/upgrade_bootloader_text.py:126
 msgid "Create new boot loader configuration"
-msgstr ""
+msgstr "Izveidot jaunu sistēmas ielādētāja konfigurāciju"
 
 #: ../textw/upgrade_text.py:121
 msgid "Free Space"
-msgstr ""
+msgstr "Brīvā vieta"
 
 #: ../textw/upgrade_text.py:136
 msgid "RAM detected (MB):"
-msgstr ""
+msgstr "Atrastā RAM (MB):"
 
 #: ../textw/upgrade_text.py:139
 msgid "Suggested size (MB):"
-msgstr ""
+msgstr "Ieteicamais lielums (MB):"
 
 #: ../textw/upgrade_text.py:142
 msgid "Swap file size (MB):"
-msgstr ""
+msgstr "Swap faila izmērs (MB):"
 
 #: ../textw/upgrade_text.py:150
 msgid "Add Swap"
@@ -5494,11 +5481,11 @@ msgstr ""
 
 #: ../textw/upgrade_text.py:208
 msgid "Reinstall System"
-msgstr ""
+msgstr "Pāruzstādīt sistēmu"
 
 #: ../textw/upgrade_text.py:222
 msgid "System to Upgrade"
-msgstr ""
+msgstr "Uzlabot sistēmu"
 
 #: ../textw/upgrade_text.py:223
 msgid ""
@@ -5507,20 +5494,25 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
+"Izskatās ka uz Jūsu datora ir uzstādīta viena vai vairākas Linux sistēmas.\n"
+"\n"
+"Izvēlieties vienu, kuru uzlabot vai arī izvēlieties \"Pāruzstādīt sistēmu\", lai"
+"no jauna uzstādītu svaigu sistēmu."
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
-msgstr ""
+msgstr "Root parole"
 
 #: ../textw/userauth_text.py:30
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. "
-msgstr ""
+msgstr "Izvēlieties root paroli. Jums to jāievada divreiz, lai pārliecinātos ka to zinat un "
+"izvairītos no pareizrakstības kļūdām. "
 
 #: ../textw/userauth_text.py:64
 msgid "The root password must be at least 6 characters long."
-msgstr ""
+msgstr "Root parolei jābūt vismaz sešas rakstzīmes garai."
 
 #: ../textw/welcome_text.py:27
 #, python-format
@@ -5533,6 +5525,8 @@ msgid ""
 "Welcome to %s!\n"
 "\n"
 msgstr ""
+"Sveicināti uz %s!\n"
+"\n"
 
 #: ../textw/zipl_text.py:32
 msgid ""
@@ -5551,7 +5545,7 @@ msgstr ""
 
 #: ../installclasses/fedora.py:34
 msgid "_Fedora"
-msgstr ""
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:35 ../installclasses/rhel.py:42
 #, python-format
@@ -5580,11 +5574,11 @@ msgstr ""
 
 #: ../installclasses/rhel.py:51
 msgid "Office"
-msgstr ""
+msgstr "Birojs"
 
 #: ../installclasses/rhel.py:52
 msgid "Multimedia"
-msgstr ""
+msgstr "Multimēdija"
 
 #: ../installclasses/rhel.py:63
 #, fuzzy
@@ -5697,7 +5691,7 @@ msgstr "%s nav atrasts"
 
 #: ../loader2/cdinstall.c:422
 msgid "Cannot find kickstart file on CDROM."
-msgstr ""
+msgstr "Nevar atrast kickstart failu uz CDROM."
 
 #: ../loader2/copy.c:51 ../loader2/method.c:121 ../loader2/method.c:347
 #, c-format
@@ -5706,7 +5700,7 @@ msgstr ""
 
 #: ../loader2/driverdisk.c:138
 msgid "Loading"
-msgstr ""
+msgstr "Ielādējas"
 
 #: ../loader2/driverdisk.c:138
 msgid "Reading driver disk..."
@@ -5825,7 +5819,7 @@ msgstr ""
 
 #: ../loader2/driverselect.c:85
 msgid "Enter Module Parameters"
-msgstr ""
+msgstr "Ievadiet moduļa parametrus"
 
 #: ../loader2/driverselect.c:172
 msgid "No drivers found"
@@ -5913,7 +5907,7 @@ msgstr ""
 
 #: ../loader2/hdinstall.c:541 ../loader2/hdinstall.c:597
 msgid "Cannot find kickstart file on hard drive."
-msgstr ""
+msgstr "Nevar atrast kickstart failu uz cietā diska."
 
 #: ../loader2/hdinstall.c:584
 #, c-format
@@ -5922,16 +5916,16 @@ msgstr ""
 
 #: ../loader2/kbd.c:136
 msgid "Keyboard Type"
-msgstr ""
+msgstr "Klaviatūras veids"
 
 #: ../loader2/kbd.c:137
 msgid "What type of keyboard do you have?"
-msgstr ""
+msgstr "Kāds klaviatūras tips Jums ir?"
 
 #: ../loader2/kickstart.c:133
 #, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr ""
+msgstr "Kļūda atverot kickstart failu %s: %s"
 
 #: ../loader2/kickstart.c:143
 #, c-format
@@ -5954,9 +5948,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/kickstart.c:386
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Kļūda Kickstart konfigurācijas apstrādes laikā"
+msgstr "Kļūda lejuplādējot kickstart failu"
 
 #: ../loader2/kickstart.c:530
 #, c-format
@@ -5975,7 +5968,7 @@ msgstr ""
 
 #: ../loader2/lang.c:373
 msgid "Choose a Language"
-msgstr ""
+msgstr "Izvēlieties valodu"
 
 #: ../loader2/loader.c:123
 msgid "Local CD/DVD"
@@ -5983,7 +5976,7 @@ msgstr ""
 
 #: ../loader2/loader.c:125
 msgid "Hard drive"
-msgstr ""
+msgstr "Cietais disks"
 
 #: ../loader2/loader.c:126
 msgid "NFS directory"
@@ -6045,7 +6038,7 @@ msgstr "Kļūda Kickstart konfigurācijas apstrādes laikā"
 #: ../loader2/loader.c:994
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
+msgstr "Jūms pietrūkst RAM, lai uzstādītu %s uz šīs mašīnas."
 
 #: ../loader2/loader.c:1151
 msgid "Rescue Method"
@@ -6083,7 +6076,7 @@ msgstr ""
 
 #: ../loader2/loader.c:1415
 msgid "The following devices have been found on your system."
-msgstr ""
+msgstr "Uz Jūsu sistēmas ir atrastas sekojošas ierīces."
 
 #: ../loader2/loader.c:1417
 msgid ""
@@ -6093,15 +6086,15 @@ msgstr ""
 
 #: ../loader2/loader.c:1421
 msgid "Devices"
-msgstr ""
+msgstr "Ierīces"
 
 #: ../loader2/loader.c:1422
 msgid "Done"
-msgstr ""
+msgstr "Izdarīts"
 
 #: ../loader2/loader.c:1423
 msgid "Add Device"
-msgstr ""
+msgstr "Pievienot ierīci"
 
 #: ../loader2/loader.c:1600
 #, c-format
@@ -6116,7 +6109,7 @@ msgstr ""
 #: ../loader2/loader.c:1948
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr ""
+msgstr "Darbojas anaconda %s, %s sistēmas uzstādītājs - lūdzu uzgaidiet...\n"
 
 #: ../loader2/mediacheck.c:62
 #, c-format
@@ -6126,7 +6119,7 @@ msgstr ""
 #: ../loader2/mediacheck.c:68
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr ""
+msgstr "Pārbauda \"%s\"..."
 
 #: ../loader2/mediacheck.c:70
 #, c-format
@@ -6229,9 +6222,8 @@ msgid "You entered an invalid IP address."
 msgstr ""
 
 #: ../loader2/net.c:589 ../loader2/net.c:695
-#, fuzzy
 msgid "Network Error"
-msgstr "Kļūdaina VNC parole"
+msgstr "Tīkla kļūda"
 
 #: ../loader2/net.c:590 ../loader2/net.c:696
 #, fuzzy
@@ -6262,7 +6254,7 @@ msgstr "IP adrese"
 #: ../loader2/net.c:962 ../loader2/net.c:1014 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:1002
 #, fuzzy
@@ -6315,7 +6307,7 @@ msgstr ""
 
 #: ../loader2/net.c:1859
 msgid "Networking Device"
-msgstr ""
+msgstr "Tīkla ierīce"
 
 #: ../loader2/net.c:1860
 msgid ""
@@ -6325,7 +6317,7 @@ msgstr ""
 
 #: ../loader2/nfsinstall.c:57
 msgid "NFS server name:"
-msgstr ""
+msgstr "NFS servera nosaukums:"
 
 #: ../loader2/nfsinstall.c:60
 #, c-format
@@ -6365,15 +6357,15 @@ msgstr ""
 
 #: ../loader2/telnetd.c:89 ../loader2/telnetd.c:131
 msgid "Telnet"
-msgstr ""
+msgstr "Telnet"
 
 #: ../loader2/telnetd.c:89
 msgid "Waiting for telnet connection..."
-msgstr ""
+msgstr "Gaida telnet pieslēgumu..."
 
 #: ../loader2/telnetd.c:131
 msgid "Running anaconda via telnet..."
-msgstr ""
+msgstr "Anaconda strādā caur telnet..."
 
 #: ../loader2/urlinstall.c:79
 #, c-format
@@ -6410,11 +6402,11 @@ msgstr "Iestatīt %s"
 
 #: ../loader2/urls.c:308
 msgid "URL Setup"
-msgstr ""
+msgstr "URL uzstādīšana"
 
 #: ../loader2/urls.c:316
 msgid "You must enter a URL."
-msgstr ""
+msgstr "Jums jāievada URL."
 
 #: ../loader2/urls.c:322
 msgid "URL must be either an ftp or http URL"
@@ -6457,7 +6449,6 @@ msgid "Loading %s driver..."
 msgstr ""
 
 #: tmp/account.glade.h:2
-#, fuzzy
 msgid "Root Password:"
 msgstr "Root parole:"
 
@@ -6530,7 +6521,7 @@ msgstr "Peles iestatīšana"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr ""
+msgstr "Pārs_tartēt"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
@@ -6582,19 +6573,16 @@ msgid "_Select the drive(s) to use for this installation."
 msgstr ""
 
 #: tmp/blwhere.glade.h:1
-#, fuzzy
 msgid "/boot"
-msgstr "Pārstartēšana"
+msgstr "/boot"
 
 #: tmp/blwhere.glade.h:2
-#, fuzzy
 msgid "BIOS Drive Order"
-msgstr "Labot disku secību"
+msgstr "Disku secība BIOSā"
 
 #: tmp/blwhere.glade.h:3
-#, fuzzy
 msgid "Boot loader device"
-msgstr "Sistēmas ielādētājs"
+msgstr "Sistēmas ielādētāja ierīce"
 
 #: tmp/blwhere.glade.h:4
 #, fuzzy
@@ -6630,7 +6618,7 @@ msgstr "Ignorēt"
 
 #: tmp/detailed-dialog.glade.h:2
 msgid "_Details"
-msgstr ""
+msgstr "_Detaļas"
 
 #: tmp/exnSave.glade.h:2
 #, fuzzy
@@ -6643,7 +6631,7 @@ msgstr ""
 
 #: tmp/exnSave.glade.h:4
 msgid "_Disk"
-msgstr ""
+msgstr "_Disks"
 
 #: tmp/exnSave.glade.h:5
 #, fuzzy
@@ -6696,18 +6684,16 @@ msgid "Please enter your %(instkey)s."
 msgstr "Lūdzu ievadiet sadaļu grupas vārdu."
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "Parole:"
+msgstr "<b>_Parole:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr ""
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "Lietotājvārds"
+msgstr "<b>Lietotājvārds:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
@@ -6853,9 +6839,8 @@ msgid "_Modify repository"
 msgstr "_Rediģēt partīciju"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Ierīces numurs"
+msgstr "<b>Ierīces numurs:</b>"
 
 #: tmp/zfcp-config.glade.h:2
 #, fuzzy
@@ -6944,9 +6929,8 @@ msgid "German"
 msgstr ""
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Brīvs"
+msgstr ""
 
 #. generated from lang-table
 msgid "Gujarati"
