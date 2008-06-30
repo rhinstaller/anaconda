@@ -45,7 +45,7 @@ if [ -z "$LANG" ]; then
 fi
 
 # eventually, we might want to allow a more "normal" install path
-ANACONDA="/usr/sbin/anaconda --method=livecd://$LIVE_BLOCK --lang $LANG"
+ANACONDA="/usr/sbin/anaconda --liveinst --method=livecd://$LIVE_BLOCK --lang $LANG"
 
 if [ -x /usr/sbin/setenforce -a -e /selinux/enforce ]; then
     current=$(cat /selinux/enforce)

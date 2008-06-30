@@ -66,7 +66,7 @@ class InstallClass(BaseInstallClass):
 	anaconda.dispatch.skipStep("partition")
 
     def getBackend(self):
-        if flags.livecd:
+        if flags.livecdInstall:
             import livecd
             return livecd.LiveCDCopyBackend
         else:

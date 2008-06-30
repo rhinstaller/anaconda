@@ -236,6 +236,8 @@ def parseOptions():
     op.add_option("--repo", dest="method", default=None)
     op.add_option("--stage2", dest="stage2", default=None)
 
+    op.add_option("--liveinst", action="store_true", default=False)
+
     # Display
     op.add_option("--headless", dest="isHeadless", action="store_true", default=False)
     op.add_option("--lowres", dest="runres", action="store_const", const="640x480")
@@ -624,6 +626,9 @@ if __name__ == "__main__":
         anaconda.setMethodstr(opts.method)
     else:
         anaconda.methodstr = None
+
+    if opts.liveinst:
+        flags.livecdInstall = True
 
     if opts.module:
         for mod in opts.module:
