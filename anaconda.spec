@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.9
+Version: 11.4.1.10
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -194,6 +194,15 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 01 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.10-1
+- Remove old livecd flag (katzj)
+- Explicitly setup livecd install by passing --liveinst to anaconda (katzj)
+- Check return value of asprintf() consistently (dcantrell)
+- Per strtol(3) man page, set errno=0 before call. (dcantrell)
+- Rescue mode no longer needs access to a methodstr (#453044). (clumens)
+- Use strtol() instead of atoi() (dcantrell)
+- Spell pseudo correctly. (pjones)
+
 * Wed Jun 25 2008 Chris Lumens <clumens@redhat.com> 11.4.1.9-1
 - Query for anaconda rather than anaconda-runtime in buildinstall (jkeating).
 
