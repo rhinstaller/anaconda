@@ -125,7 +125,7 @@ int startupPcmciaControllers() {
 
 int initializePcmciaDevice(struct device *device) {
     char *path;
-    int fd;
+    int fd, ret;
     struct pcmciaDevice *dev = (struct pcmciaDevice *)device;
 
     logMessage(DEBUGLVL, "enabling pcmcia allow_func_id_match for device %d.%d", dev->slot, dev->function);
@@ -137,7 +137,7 @@ int initializePcmciaDevice(struct device *device) {
         logMessage(DEBUGLVL, "error opening %s", path);
         return 1;
     }
-    write(fd,"1",1);
+    ret = write(fd,"1",1);
     close(fd);
     logMessage(DEBUGLVL, "enabled pcmcia allow_func_id_match");
     return 0;
