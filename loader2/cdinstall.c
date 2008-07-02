@@ -276,7 +276,6 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                     }
 
                     rc = mountStage2(stage2img);
-                    free(stage2loc);
                     free(stage2img);
 
                     if (rc) {
