@@ -193,7 +193,7 @@ int devMakeInode(char * devName, char * path) {
 	minor = ( devName[3] - 'a' ) * 16;
         if (devName[4] && isdigit(devName[4])) {
             if (devName[5] && isdigit(devName[5])) {
-                minor += (devName[4] - '0') * 10 + (num[5] - '0');
+                minor += (devName[4] - '0') * 10 + (devName[5] - '0');
             } else {
                 minor += devName[4] - '0';
             }
