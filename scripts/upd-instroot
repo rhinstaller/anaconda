@@ -220,20 +220,21 @@ PACKAGESGR="acl anaconda anaconda-help anaconda-images atk attr bash
 	    gdk-pixbuf glibc-common gnome-python2-canvas gnome-python2-gtkhtml2
 	    gnome-themes gpm gtk2 gtk2-engines gtkhtml2 hal libacl libart_lgpl
 	    libattr libbdevid libbdevid-python libgcc libglade2 libgnomecanvas
-	    libjpeg libpixman libpng libstdc++ libthai libxcb pango pirut
-	    policy policycoreutils popt prelink procps pycairo pygobject2
-	    pygtk2 pygtk2-libglade python-pyblock redhat-artwork redhat-logos
-	    reiserfs-utils rhpl rpm rpm-libs selinux-policy-targeted specspo
-	    synaptics system-config-date system-config-keyboard system-logos
-	    taipeifonts tcp_wrappers ttfonts-bn ttfonts-gu ttfonts-hi
-	    ttfonts-ja ttfonts-ko ttfonts-pa ttfonts-ta ttfonts-zh_CN
-	    ttfonts-zh_TW tzdata udev urw-fonts util-linux-ng VLGothic-fonts
-	    vnc-libs vnc-server Xconfigurator xfsdump xfsprogs Xft xorg-x11
-	    xorg-x11-100dpi-fonts xorg-x11-base xorg-x11-base-fonts
-	    xorg-x11-ISO8859-15-75dpi xorg-x11-ISO8859-15-75dpi-fonts
-	    xorg-x11-ISO8859-2-75dpi-fonts xorg-x11-ISO8859-9-75dpi-fonts
-	    xorg-x11-KOI8-R xorg-x11-KOI8-R-75dpi-fonts xorg-x11-libs
-	    xorg-x11-libs-data xorg-x11-xfs xorg-x11-xfs zenity"
+	    libjpeg libpixman libpng libstdc++ libthai libxcb mesa-dri-drivers
+	    pango pirut policy policycoreutils popt prelink procps pycairo
+	    pygobject2 pygtk2 pygtk2-libglade python-pyblock redhat-artwork
+	    redhat-logos reiserfs-utils rhpl rpm rpm-libs
+	    selinux-policy-targeted specspo synaptics system-config-date
+	    system-config-keyboard system-logos taipeifonts tcp_wrappers
+	    ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-ja ttfonts-ko ttfonts-pa
+	    ttfonts-ta ttfonts-zh_CN ttfonts-zh_TW tzdata udev urw-fonts
+	    util-linux-ng VLGothic-fonts vnc-libs vnc-server Xconfigurator
+	    xfsdump xfsprogs Xft xorg-x11 xorg-x11-100dpi-fonts xorg-x11-base
+	    xorg-x11-base-fonts xorg-x11-ISO8859-15-75dpi
+	    xorg-x11-ISO8859-15-75dpi-fonts xorg-x11-ISO8859-2-75dpi-fonts
+	    xorg-x11-ISO8859-9-75dpi-fonts xorg-x11-KOI8-R
+	    xorg-x11-KOI8-R-75dpi-fonts xorg-x11-libs xorg-x11-libs-data
+	    xorg-x11-xfs xorg-x11-xfs zenity"
 
 #
 # stuff ONLY included for rescue mode
