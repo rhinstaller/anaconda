@@ -206,36 +206,34 @@ fi
 # 
 # Extra stuff we want for rescue mode should go in PACKAGESRESCUE
 #
-PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
-           e2fsprogs coreutils glibc-common
-           popt specspo util-linux-ng rpm rpm-libs tzdata
-           procps bash cpio gpm pygtk2-libglade pygobject2
-           Xconfigurator pygtk2 gdk-pixbuf libpixman
-           reiserfs-utils atk pango freetype gnome-python2-canvas cairo
-           libgnomecanvas libart_lgpl libgcc libacl libattr libstdc++ expat
-           anaconda-images anaconda-help ttfonts-ko taipeifonts rhpl
-           system-config-keyboard Xft fontconfig gtk2-engines gnome-themes
-           gtkhtml2 gnome-python2-gtkhtml2 gail libthai
-           ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts fonts-arabic
-           comps-extras convertdb1 fonts-bengali
-           vnc-server vnc-libs libjpeg tcp_wrappers system-config-date
-           xfsprogs xfsdump dmapi attr acl policy policycoreutils
-           selinux-policy-targeted ttfonts-zh_CN redhat-artwork
-           xorg-x11-libs xorg-x11-ISO8859-2-75dpi-fonts echo-icon-theme
-           xorg-x11-ISO8859-9-75dpi-fonts xorg-x11-100dpi-fonts
-           xorg-x11-xfs xorg-x11 xorg-x11-KOI8-R xorg-x11-KOI8-R-75dpi-fonts
-           xorg-x11-base-fonts xorg-x11-ISO8859-15-75dpi-fonts
-           fonts-xorg-ISO8859-2-75dpi fonts-xorg-ISO8859-15-75dpi
-           fonts-xorg-ISO8859-9-75dpi fonts-xorg-100dpi
-           fonts-xorg-KOI8-R fonts-xorg-KOI8-R-75dpi fonts-xorg-base
-           xorg-x11-base xorg-x11-ISO8859-15-75dpi system-logos
-           xorg-x11-libs-data xorg-x11-xfs prelink redhat-logos fedora-logos
-           ttfonts-ta ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-pa
-           fonts-chinese fonts-korean fonts-indic fonts-sinhala
-           fonts-malayalam fonts-oriya fonts-kannada fonts-telugu cjkunifonts-ukai
-           fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics
-           firstboot pycairo pirut dejavu-fonts libxcb VLGothic-fonts
-           dmraid python-pyblock libbdevid libbdevid-python zenity udev dbus dbus-python hal"
+PACKAGESGR="acl anaconda anaconda-help anaconda-images atk attr bash
+	    bitmap-fonts-cjk cairo cjkunifonts-ukai comps-extras
+	    convertdb1 coreutils cpio dbus dbus-python dejavu-fonts
+	    dmapi dmraid e2fsprogs echo-icon-theme expat fedora-logos
+	    firstboot fontconfig fonts-arabic fonts-bengali fonts-chinese
+	    fonts-gujarati fonts-hindi fonts-indic fonts-ISO8859-2
+	    fonts-ISO8859-9 fonts-kannada fonts-korean fonts-malayalam
+	    fonts-oriya fonts-punjabi fonts-sinhala fonts-tamil fonts-telugu
+	    fonts-xorg-100dpi fonts-xorg-base fonts-xorg-ISO8859-15-75dpi
+	    fonts-xorg-ISO8859-2-75dpi fonts-xorg-ISO8859-9-75dpi
+	    fonts-xorg-KOI8-R fonts-xorg-KOI8-R-75dpi freetype gail
+	    gdk-pixbuf glibc-common gnome-python2-canvas gnome-python2-gtkhtml2
+	    gnome-themes gpm gtk2 gtk2-engines gtkhtml2 hal libacl libart_lgpl
+	    libattr libbdevid libbdevid-python libgcc libglade2 libgnomecanvas
+	    libjpeg libpixman libpng libstdc++ libthai libxcb pango pirut
+	    policy policycoreutils popt prelink procps pycairo pygobject2
+	    pygtk2 pygtk2-libglade python-pyblock redhat-artwork redhat-logos
+	    reiserfs-utils rhpl rpm rpm-libs selinux-policy-targeted specspo
+	    synaptics system-config-date system-config-keyboard system-logos
+	    taipeifonts tcp_wrappers ttfonts-bn ttfonts-gu ttfonts-hi
+	    ttfonts-ja ttfonts-ko ttfonts-pa ttfonts-ta ttfonts-zh_CN
+	    ttfonts-zh_TW tzdata udev urw-fonts util-linux-ng VLGothic-fonts
+	    vnc-libs vnc-server Xconfigurator xfsdump xfsprogs Xft xorg-x11
+	    xorg-x11-100dpi-fonts xorg-x11-base xorg-x11-base-fonts
+	    xorg-x11-ISO8859-15-75dpi xorg-x11-ISO8859-15-75dpi-fonts
+	    xorg-x11-ISO8859-2-75dpi-fonts xorg-x11-ISO8859-9-75dpi-fonts
+	    xorg-x11-KOI8-R xorg-x11-KOI8-R-75dpi-fonts xorg-x11-libs
+	    xorg-x11-libs-data xorg-x11-xfs xorg-x11-xfs zenity"
 
 #
 # stuff ONLY included for rescue mode
