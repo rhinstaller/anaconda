@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.11
+Version: 11.4.1.12
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -194,6 +194,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 03 2008 Peter Jones <pjones@redhat.com> - 11.4.1.12-1
+- Add dmraid-libs to PACKAGES so new dmraid won't break installs.
+
 * Thu Jul 03 2008 Peter Jones <pjones@redhat.com> - 11.4.1.11-1
 - Fix double free in setupCdrom
 - Fix missing psudo->pseudo spelling fix (katzj, #453843)
