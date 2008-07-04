@@ -147,25 +147,25 @@ die () {
     exit 1
 }
 
-PACKAGES="glibc-common setup python newt slang libselinux
-	 libsepol libtermcap zlib bash e2fsprogs util-linux-ng raidtools popt
-	 procps rpm rpm-libs Xconfigurator anaconda tzdata python-libs
-	 anaconda-runtime kudzu hwdata bzip2 beecrypt mdadm libsemanage
-	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
-	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt
-	 rhpl pyxf86config libxml2 glib2 sqlite neon libselinux-python
-	 elfutils-libelf krb5-libs convertdb1 jfsutils audit-libs pam
-	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
-	 policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
-	 libstdc++ expat libgcc readline ncurses yum python-sqlite
-	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
-	 db4 rhpxl xorg-x11-server-Xorg libuser-python libuser system-config-date
-	 yum-metadata-parser gfs2-utils libvolume_id nash yum-fedorakmod
-	 libdhcp libnl libdhcp6client libdhcp4client newt-python nfs-utils
-	 device-mapper device-mapper-libs dmraid keyutils-libs libsemanage-python
-	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr pcre
-	 cryptsetup-luks libgcrypt libgpg-error dbus dbus-python hal
-	 cracklib-python module-init-tools cracklib-dicts system-release"
+PACKAGES="acl anaconda anaconda-runtime attr audit-libs bash beecrypt beecrypt
+	  booty busybox-anaconda bzip2 bzip2-libs convertdb1 cracklib-dicts
+	  cracklib-python cryptsetup-luks db4 dbus dbus-python device-mapper
+	  device-mapper-libs dmapi dmraid dmraid-libs dosfstools e2fsprogs
+	  e2fsprogs-libs elfutils-libelf expat gfs2-utils glib2 glibc-common
+	  hal hdparm hwdata iscsi-initiator-utils jfsutils keyutils-libs
+	  krb5-libs kudzu libacl libattr libbdevid libbdevid-python libdhcp
+	  libdhcp4client libdhcp6client libgcc libgcrypt libgpg-error
+	  libnl libselinux libselinux-python libsemanage libsemanage-python
+	  libsepol libstdc++ libtermcap libuser libuser-python libvolume_id
+	  libxml2 lvm2 mdadm mkinitrd module-init-tools nash ncurses neon
+	  newt newt-python nfs-utils nspr nss pam parted pciutils pcre
+	  policy policycoreutils popt procps pykickstart pyparted python
+	  python-elementtree python-libs python-pyblock python-sqlite
+	  python-urlgrabber pyxf86config raidtools readline reiserfs-utils
+	  rhpl rhpxl rpm rpm-libs rpm-python sed selinux-policy-targeted setup
+	  slang sqlite system-config-date system-release tzdata util-linux-ng
+	  Xconfigurator xfsdump xfsprogs xorg-x11 xorg-x11-server-Xorg yum
+	  yum-fedorakmod yum-metadata-parser zlib"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
