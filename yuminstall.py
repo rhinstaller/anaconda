@@ -1700,9 +1700,10 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/tmp/product/yum.repos.d
             w = anaconda.intf.waitWindow(_("Post Install"),
                                     _("Performing post install configuration..."))
 
-        for tsmbr in self.ayum.tsInfo.matchNaevr(name='rhgb'):
+        if len(self.ayum.tsInfo.matchNaevr(name='rhgb')) > 0:
             anaconda.id.bootloader.args.append("rhgb quiet")
-            break
+        elif len(self.ayum.tsInfo.matchNaevr(name='plymouth')) > 0:
+            anaconda.id.bootloader.args.append("rhgb quiet")
 
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='gdm') + self.ayum.tsInfo.matchNaevr(name='kdebase-workspace'):
             if anaconda.id.displayMode == 'g' and not flags.usevnc:
