@@ -263,7 +263,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
 		    break;
 		} else if (errno == ENOMEDIUM) {
 		    logMessage(DEBUGLVL, "%s reported %m", devices[i]->device);
-		    usleep(100);
+		    usleep(100000);
 		} else {
 		    break;
 		}
