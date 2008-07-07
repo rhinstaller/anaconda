@@ -339,8 +339,10 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         iutil.writeRpmPlatform(anaconda.rootPath)
 
         # maybe heavy handed, but it'll do
-        anaconda.id.bootloader.args.append("rhgb quiet")
-        anaconda.id.desktop.setDefaultRunLevel(5)
+        if os.path.exists(anaconda.rootPath + "/usr/bin/rhgb") or os.path.exists(anaconda.rootPath + "/usr/bin/plymouth"):
+            anaconda.id.bootloader.args.append("rhgb quiet")
+        if os.path.exists(anaconda.rootPath + "/usr/sbin/gdm") or os.path.exists(anaconda.rootPath + "/usr/bin/kdm"):
+            anaconda.id.desktop.setDefaultRunLevel(5)
 
         # now write out the "real" fstab and mtab
         anaconda.id.fsset.write(anaconda.rootPath)
