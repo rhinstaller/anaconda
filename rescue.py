@@ -33,6 +33,7 @@ import iutil
 import fsset
 import shutil
 import time
+import network
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
