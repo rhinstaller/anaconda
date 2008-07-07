@@ -239,6 +239,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
     do {
         for (i = 0; devices[i]; i++) {
             char *tmp = NULL;
+	    int j;
 
             if (!devices[i]->device)
                 continue;
@@ -253,6 +254,20 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                 free(devices[i]->device);
                 devices[i]->device = tmp;
             }
+
+	    for (j = 0; j < 450; j++) {
+		int fd = open(devices[i]->device, O_RDONLY);
+
+		if (fd >= 0) {
+		    close(fd);
+		    break;
+		} else if (errno == ENOMEDIUM) {
+		    logMessage(DEBUGLVL, "%s reported %m", devices[i]->device);
+		    usleep(100);
+		} else {
+		    break;
+		}
+	    }
 
             logMessage(INFO,"trying to mount CD device %s on %s", devices[i]->device, location);
 
