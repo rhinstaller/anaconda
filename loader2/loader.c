@@ -1163,7 +1163,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             setStage2LocFromCmdline(url, loaderData);
             haveStage2 = 1;
 
-            logMessage(INFO, "Detected stage 2 image on CD");
+            logMessage(INFO, "Detected stage 2 image on CD (url: %s)", url);
             winStatus(50, 3, _("Media Detected"),
                       _("Local installation media detected..."), 0);
             sleep(3);
@@ -1188,6 +1188,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
     }
 
     step = STEP_LANG;
+
     while (step != STEP_DONE) {
         switch(step) {
             case STEP_LANG: {
@@ -2143,3 +2144,5 @@ int main(int argc, char ** argv) {
 #endif
     return 1;
 }
+
+/* vim :sw=4 sts=4 et: */
