@@ -48,10 +48,8 @@ int copyDirectory(char * from, char * to, void (*warnFn)(char *),
 
     if (!(dir = opendir(from))) {
         if (errorFn) {
-           if (asprintf(&msg, N_("Failed to read directory %s: %s"), from,
-                        strerror(errno)) == -1) {
-               fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
-                       strerror(errno));
+           if (asprintf(&msg, N_("Failed to read directory %s: %m"), from) == -1) {
+               fprintf(stderr, "%s: %d: %m\n", __func__, __LINE__);
                fflush(stderr);
                abort();
            }
@@ -83,10 +81,9 @@ int copyDirectory(char * from, char * to, void (*warnFn)(char *),
             link[i] = '\0';
             if (symlink(link, filespec2)) {
                 if (warnFn) {
-                    if (asprintf(&msg, "Failed to symlink %s to %s: %s",
-                                 filespec2, link, strerror(errno)) == -1) {
-                        fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
-                                strerror(errno));
+                    if (asprintf(&msg, "Failed to symlink %s to %s: %m",
+                                 filespec2, link) == -1) {
+                        fprintf(stderr, "%s: %d: %m\n", __func__, __LINE__);
                         fflush(stderr);
                         abort();
                     }
@@ -99,10 +96,8 @@ int copyDirectory(char * from, char * to, void (*warnFn)(char *),
             fd = open(filespec, O_RDONLY);
             if (fd == -1) {
                 if (errorFn) {
-                    if (asprintf(&msg, "Failed to open %s: %s", filespec,
-                                 strerror(errno)) == -1) {
-                        fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
-                                strerror(errno));
+                    if (asprintf(&msg, "Failed to open %s: %m", filespec) == -1) {
+                        fprintf(stderr, "%s: %d: %m\n", __func__, __LINE__);
                         fflush(stderr);
                         abort();
                     }
@@ -117,10 +112,8 @@ int copyDirectory(char * from, char * to, void (*warnFn)(char *),
             outfd = open(filespec2, O_RDWR | O_TRUNC | O_CREAT, 0644);
             if (outfd == -1) {
                 if (warnFn) {
-                    if (asprintf(&msg, "Failed to create %s: %s", filespec2,
-                                 strerror(errno)) == -1) {
-                        fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
-                                strerror(errno));
+                    if (asprintf(&msg, "Failed to create %s: %m", filespec2) == -1) {
+                        fprintf(stderr, "%s: %d: %m\n", __func__, __LINE__);
                         fflush(stderr);
                         abort();
                     }

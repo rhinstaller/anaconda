@@ -185,8 +185,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
 
         if ((errno == ERANGE && (port == LONG_MIN || port == LONG_MAX)) ||
             (errno != 0 && port == 0)) {
-            logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
     }
@@ -287,8 +286,7 @@ int urlMainSetupPanel(struct iurlinfo * ui) {
     if (asprintf(&buf,
             _("Please enter the URL containing the %s images on your server."),
                  getProductName()) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                   strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 

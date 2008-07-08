@@ -147,12 +147,12 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     location->version = version;
 
     if (asprintf(&location->path, "/tmp/DD-%d/modules.cgz", disknum) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__, strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
     if (asprintf(&fwdir, "/tmp/DD-%d/firmware", disknum) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__, strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -295,7 +295,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             /* make sure nothing is mounted when we get here */
             num = umount("/tmp/dpart");
             if (num == -1) { 
-                logMessage(ERROR, "error unmounting: %s", strerror(errno));
+                logMessage(ERROR, "error unmounting: %m");
                 if ((errno != EINVAL) && (errno != ENOENT))
                     exit(1);
             }
@@ -357,8 +357,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             if (asprintf(&buf,
                          _("Insert your driver disk into /dev/%s "
                            "and press \"OK\" to continue."), device) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 

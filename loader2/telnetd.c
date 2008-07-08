@@ -68,7 +68,7 @@ int beTelnet(void) {
     struct winsize ws;
 
     if ((sock = socket(PF_INET, SOCK_STREAM, 0)) < 0) {
-	logMessage(ERROR, "socket: %s", strerror(errno));
+	logMessage(ERROR, "socket: %m");
 	return -1;
     }
 
@@ -90,8 +90,7 @@ int beTelnet(void) {
 
     if ((conn = accept(sock, (struct sockaddr *) &address, 
                           &addrLength)) < 0) {
-	newtWinMessage(_("Error"), _("OK"), "accept failed: %s", 
-		       strerror(errno));
+	newtWinMessage(_("Error"), _("OK"), "accept failed: %m");
 	close(sock);
 	return -1;
     }
@@ -196,9 +195,8 @@ int beTelnet(void) {
 	}
 
 
-	if (i < 0) {
-	    logMessage(ERROR, "poll: %s", strerror(errno));
-	} 
+	if (i < 0)
+	    logMessage(ERROR, "poll: %m");
 
 #ifndef DEBUG_TELNET
 	stopNewt();

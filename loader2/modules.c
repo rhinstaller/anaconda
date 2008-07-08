@@ -288,8 +288,7 @@ static int writeModulesConf(char *conf) {
 
     fd = open(conf, O_WRONLY | O_CREAT, 0644);
     if (fd == -1) {
-        logMessage(ERROR, "error opening to %s: %s\n",
-                    conf, strerror(errno));
+        logMessage(ERROR, "error opening to %s: %m\n", conf);
         return 0;
     }
     strcat(buf, "# Module options and blacklists written by anaconda\n");

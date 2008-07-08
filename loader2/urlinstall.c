@@ -65,8 +65,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char *path,
                              "X-Anaconda-Architecture: %s\r\n"
                              "X-Anaconda-System-Release: %s\r\n",
                      VERSION, arch, name) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
     }
@@ -122,8 +121,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
     /* grab the updates.img before stage2.img so that we minimize our
      * ramdisk usage */
     if (asprintf(&buf, "%s/%s", path, "updates.img") == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                   strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -145,8 +143,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
     /* grab the product.img before stage2.img so that we minimize our
      * ramdisk usage */
     if (asprintf(&buf, "%s/%s", path, "product.img") == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                   strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -163,8 +160,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
     free(buf);
 
     if (asprintf(&dest, "/tmp/stage2.img") == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                   strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -243,8 +239,8 @@ char *mountUrlImage(struct installMethod *method, char *location,
 
                         if (asprintf(&ui.prefix, "%s/images/%s", ui.prefix,
                                      stage2img) == -1) {
-                            logMessage(CRITICAL, "%s: %d: %s", __func__,
-                                       __LINE__, strerror(errno));
+                            logMessage(CRITICAL, "%s: %d: %m", __func__,
+                                       __LINE__);
                             abort();
                         }
                     }
@@ -336,8 +332,7 @@ int getFileFromUrl(char * url, char * dest,
                              "X-Anaconda-Architecture: %s\r\n"
                              "X-Anaconda-System-Release: %s\r\n",
                      VERSION, arch, name) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
     }
@@ -356,8 +351,7 @@ int getFileFromUrl(char * url, char * dest,
             if (mac) {
                 if (asprintf(&tmpstr, "X-RHN-Provisioning-MAC-%d: %s %s\r\n",
                              i, dev, mac) == -1) {
-                    logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                               strerror(errno));
+                    logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                     abort();
                 }
 

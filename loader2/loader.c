@@ -164,8 +164,7 @@ void doGdbserver(struct loaderData_s *loaderData) {
         }
 
         if (asprintf(&pid, "%d", loaderPid) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 
@@ -187,7 +186,7 @@ void doGdbserver(struct loaderData_s *loaderData) {
 
             if (execl("/usr/bin/gdbserver", "/usr/bin/gdbserver", "--attach",
                       loaderData->gdbServer, pid, NULL) == -1)
-                logMessage(ERROR, "error running gdbserver: %s", strerror(errno));
+                logMessage(ERROR, "error running gdbserver: %m");
 
             _exit(1);
         }
@@ -201,8 +200,7 @@ void startNewt(void) {
 
         if (asprintf(&buf, _("Welcome to %s for %s"), getProductName(),
                      arch) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 
@@ -373,7 +371,7 @@ static void spawnShell(void) {
         setenv("LANG", "C", 1);
         
         if (execl("/bin/sh", "-/bin/sh", NULL) == -1) {
-            logMessage(CRITICAL, "exec of /bin/sh failed: %s", strerror(errno));
+            logMessage(CRITICAL, "exec of /bin/sh failed: %m");
             exit(1);
         }
     }
@@ -445,8 +443,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
                     stage = UPD_DEVICE;
                 else {
                     if (asprintf(&part, "/dev/%s", device) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                                   strerror(errno));
+                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                         abort();
                     }
                     stage = UPD_PROMPT;
@@ -478,8 +475,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
         case UPD_PROMPT:
             if (asprintf(&buf, _("Insert your updates disk into %s and "
                                  "press \"OK\" to continue."), part) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 
@@ -666,8 +662,7 @@ static void readNetInfo(struct loaderData_s ** ld) {
                 if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
                                          loaderData->mtu == LONG_MAX)) ||
                     (errno != 0 && loaderData->mtu == 0)) {
-                    logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
-                               strerror(errno));
+                    logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
                     abort();
                 }
             }
@@ -972,8 +967,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
                                      loaderData->mtu == LONG_MAX)) ||
                 (errno != 0 && loaderData->mtu == 0)) {
-                logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
         }
@@ -986,8 +980,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             if ((errno == ERANGE && (num_link_checks == LONG_MIN ||
                                      num_link_checks == LONG_MAX)) ||
                 (errno != 0 && num_link_checks == 0)) {
-                logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
         }
@@ -998,8 +991,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             if ((errno == ERANGE && (post_link_sleep == LONG_MIN ||
                                      post_link_sleep == LONG_MAX)) ||
                 (errno != 0 && post_link_sleep == 0)) {
-                logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
         }
@@ -1010,8 +1002,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             if ((errno == ERANGE && (loaderData->dhcpTimeout == LONG_MIN ||
                                      loaderData->dhcpTimeout == LONG_MAX)) ||
                 (errno != 0 && loaderData->dhcpTimeout == 0)) {
-                logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
         }
@@ -1055,8 +1046,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                 if (!strncasecmp(argv[i], "vesa", 4)) {
                     if (asprintf(&extraArgs[numExtraArgs],
                                  "--xdriver=vesa") == -1) {
-                        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                                   strerror(errno));
+                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                         abort();
                     }
 
@@ -1064,8 +1054,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                 } else {
                     if (asprintf(&extraArgs[numExtraArgs],"--%s",
                                  argv[i]) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                                   strerror(errno));
+                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                         abort();
                     }
                 }
@@ -1117,8 +1106,7 @@ static void checkForRam(void) {
 
         if (asprintf(&buf, _("You do not have enough RAM to install %s "
                              "on this machine."), getProductName()) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 
@@ -1189,8 +1177,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
             if (asprintf(&tmp, "%s/images/stage2.img",
                          loaderData->instRepo) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 
@@ -1573,8 +1560,7 @@ static void migrate_runtime_directory(char * dirname) {
     int ret;
 
     if (asprintf(&runtimedir, "/mnt/runtime%s", dirname) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                   strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -1583,8 +1569,7 @@ static void migrate_runtime_directory(char * dirname) {
             char * olddir;
 
             if (asprintf(&olddir, "%s_old", dirname) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 
@@ -1667,8 +1652,7 @@ static void add_to_path_env(const char *env, const char *val)
     oldenv = getenv(env);
     if (oldenv) {
         if (asprintf(&newenv, "%s:%s", val, oldenv) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 
@@ -1896,7 +1880,7 @@ int main(int argc, char ** argv) {
      * (if we're using SELinux) */
     if (FL_SELINUX(flags)) {
         if (mount("/selinux", "/selinux", "selinuxfs", 0, NULL)) {
-            logMessage(ERROR, "failed to mount /selinux: %s, disabling SELinux", strerror(errno));
+            logMessage(ERROR, "failed to mount /selinux: %m, disabling SELinux");
             flags &= ~LOADER_FLAGS_SELINUX;
         } else {
             if (loadpolicy() == 0) {
@@ -1957,8 +1941,7 @@ int main(int argc, char ** argv) {
         c = path[n];
         path[n] = '\0';
         if (asprintf(&binpath, "%s/anaconda", path) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
         path[n] = c;
@@ -2091,7 +2074,7 @@ int main(int argc, char ** argv) {
         if (!(pid = fork())) {
             setenv("ANACONDAVERSION", VERSION, 1);
             if (execv(anacondaArgs[0], anacondaArgs) == -1) {
-               fprintf(stderr,"exec of anaconda failed: %s\n",strerror(errno));
+               fprintf(stderr,"exec of anaconda failed: %m\n");
                exit(1);
             }
         }
@@ -2109,8 +2092,7 @@ int main(int argc, char ** argv) {
                 char * cmd = (FL_POWEROFF(flags) ? strdup("/sbin/poweroff") :
                               strdup("/sbin/halt"));
                 if (execl(cmd, cmd, NULL) == -1) {
-                    fprintf(stderr, "exec of poweroff failed: %s", 
-                            strerror(errno));
+                    fprintf(stderr, "exec of poweroff failed: %m\n");
                     exit(1);
                 }
             }
@@ -2135,8 +2117,7 @@ int main(int argc, char ** argv) {
 
             if ((errno == ERANGE && (pid == LONG_MIN || pid == LONG_MAX)) ||
                 (errno != 0 && pid == 0)) {
-                logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 

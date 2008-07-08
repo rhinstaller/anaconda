@@ -77,8 +77,7 @@ static void cidrCallback(newtComponent co, void * dptr) {
         cidr = strtol(data->cidr4, NULL, 10);
         if ((errno == ERANGE && (cidr == LONG_MIN || cidr == LONG_MAX)) ||
             (errno != 0 && cidr == 0)) {
-            logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 
@@ -92,8 +91,7 @@ static void cidrCallback(newtComponent co, void * dptr) {
         cidr = strtol(data->cidr6, NULL, 10);
         if ((errno == ERANGE && (cidr == LONG_MIN || cidr == LONG_MAX)) ||
             (errno != 0 && cidr == 0)) {
-            logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 
@@ -126,8 +124,7 @@ static void ipCallback(newtComponent co, void * dptr) {
 
             if ((errno == ERANGE && (i == LONG_MIN || i == LONG_MAX)) ||
                 (errno != 0 && i == 0)) {
-                logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 
@@ -251,16 +248,14 @@ void initLoopback(void) {
     strcpy(req.ifr_name, "lo");
 
     if (ioctl(s, SIOCGIFFLAGS, &req)) {
-        logMessage(LOG_ERR, "ioctl SIOCGIFFLAGS failed: %d %s\n", errno,
-                   strerror(errno));
+        logMessage(LOG_ERR, "ioctl SIOCGIFFLAGS failed: %m\n");
         close(s);
         return;
     }
 
     req.ifr_flags |= (IFF_UP | IFF_RUNNING);
     if (ioctl(s, SIOCSIFFLAGS, &req)) {
-        logMessage(LOG_ERR, "ioctl SIOCSIFFLAGS failed: %d %s\n", errno,
-                   strerror(errno));
+        logMessage(LOG_ERR, "ioctl SIOCSIFFLAGS failed: %m\n");
         close(s);
         return;
     }
@@ -290,8 +285,7 @@ static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
                          "to access your wireless network.  If no key "
                          "is needed, leave this field blank and the "
                          "install will continue."), ifname) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                   strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -1065,14 +1059,12 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
 
         if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX) {
             if (asprintf(&buf, "%d", cfg->dev.ipv6_prefixlen) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
         } else if (newCfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX) {
             if (asprintf(&buf, "%d", newCfg->dev.ipv6_prefixlen) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
         }
@@ -1140,7 +1132,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                    "netmask or the CIDR-style prefix are acceptable. "
                    "The gateway and name server fields must be valid IPv4 "
                    "or IPv6 addresses.")) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__, strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -1191,8 +1183,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     if ((errno == ERANGE && (cidr == LONG_MIN ||
                                              cidr == LONG_MAX)) ||
                         (errno != 0 && cidr == 0)) {
-                        logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
-                                   strerror(errno));
+                        logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
                         abort();
                     }
 
@@ -1225,8 +1216,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                 if ((errno == ERANGE && (prefix == LONG_MIN ||
                                          prefix == LONG_MAX)) ||
                     (errno != 0 && prefix == 0)) {
-                    logMessage(ERROR, "%s: %d: %s", __func__, __LINE__,
-                               strerror(errno));
+                    logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
                     abort();
                 }
 
@@ -1374,12 +1364,12 @@ int setupWireless(struct networkDeviceConfig *dev) {
         logMessage(INFO, "setting essid for %s to %s", dev->dev.device,
                    dev->essid);
         if (set_essid(dev->dev.device, dev->essid) < 0) {
-            logMessage(ERROR, "failed to set essid: %s", strerror(errno));
+            logMessage(ERROR, "failed to set essid: %m");
         }
         if (dev->wepkey) {
             logMessage(INFO, "setting encryption key for %s", dev->dev.device);
             if (set_wep_key(dev->dev.device, dev->wepkey) < 0) {
-                logMessage(ERROR, "failed to set wep key: %s", strerror(errno));
+                logMessage(ERROR, "failed to set wep key: %m");
         }
 
         }
@@ -1437,8 +1427,7 @@ char *doDhcp(struct networkDeviceConfig *dev) {
         } else {
             if (asprintf(&class, "anaconda-%s %s %s",
                          kv.sysname, kv.release, kv.machine) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 
@@ -1602,7 +1591,7 @@ int writeResolvConf(struct networkDeviceConfig * net) {
 
     f = fopen(filename, "w");
     if (!f) {
-        logMessage(ERROR, "Cannot create %s: %s\n", filename, strerror(errno));
+        logMessage(ERROR, "Cannot create %s: %m\n", filename);
         return LOADER_ERROR;
     }
 

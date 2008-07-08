@@ -352,8 +352,8 @@ static void createDevices(void) {
         switch (devnodes[i].type) {
         case DIRTYPE:
             if (mkdir(devname, devnodes[i].perms) < 0) {
-                fprintf(stderr, "Unable to create directory %s: %s\n", 
-                        devname, strerror(errno));
+                fprintf(stderr, "Unable to create directory %s: %m\n", 
+                        devname);
             }
             break;
         case CHARDEV:
@@ -367,8 +367,7 @@ static void createDevices(void) {
 
         if (mknod(devname, type | devnodes[i].perms, 
                   makedev(devnodes[i].major, devnodes[i].minor)) < 0)
-            fprintf(stderr, "Unable to create device %s: %s\n", devname, 
-                    strerror(errno));
+            fprintf(stderr, "Unable to create device %s: %m\n", devname);
     }
 }
 
@@ -693,7 +692,7 @@ int main(int argc, char **argv) {
         close(fd);
         free(buf);
     } else {
-        printf("unable to write init.pid (%d): %s\n", errno, strerror(errno));
+        printf("unable to write init.pid (%d): %m\n", errno);
         sleep(2);
     }
 

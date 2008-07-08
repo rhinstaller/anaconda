@@ -43,15 +43,15 @@ int copyFileFd(int infd, char * dest) {
     outfd = open(dest, O_CREAT | O_RDWR, 0666);
 
     if (outfd < 0) {
-	logMessage(ERROR, "failed to open %s: %s", dest, strerror(errno));
-	return 1;
+        logMessage(ERROR, "failed to open %s: %m", dest);
+        return 1;
     }
 
     while ((i = read(infd, buf, sizeof(buf))) > 0) {
-	if (write(outfd, buf, i) != i) {
-	    rc = 1;
-	    break;
-	}
+        if (write(outfd, buf, i) != i) {
+            rc = 1;
+            break;
+        }
     }
 
     close(outfd);
@@ -66,8 +66,8 @@ int copyFile(char * source, char * dest) {
     infd = open(source, O_RDONLY);
 
     if (infd < 0) {
-	logMessage(ERROR, "failed to open %s: %s", source, strerror(errno));
-	return 1;
+        logMessage(ERROR, "failed to open %s: %m", source);
+        return 1;
     }
 
     rc = copyFileFd(infd, dest);
@@ -202,13 +202,13 @@ int totalMemory(void) {
     
     fd = open("/proc/meminfo", O_RDONLY);
     if (fd < 0) {
-        logMessage(ERROR, "failed to open /proc/meminfo: %s", strerror(errno));
+        logMessage(ERROR, "failed to open /proc/meminfo: %m");
         return 0;
     }
     
     bytesRead = read(fd, buf, sizeof(buf) - 1);
     if (bytesRead < 0) {
-        logMessage(ERROR, "failed to read from /proc/meminfo: %s", strerror(errno));
+        logMessage(ERROR, "failed to read from /proc/meminfo: %m");
         close(fd);
         return 0;
     }

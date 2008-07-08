@@ -76,7 +76,7 @@ static char ** get_file_list(char * dirname,
 
     dir = opendir(dirname);
     if (dir == NULL) {
-        fprintf(stderr, "error opening %s: %s", dirname, strerror(errno));
+        fprintf(stderr, "error opening %s: %m", dirname);
         return NULL;
     }
 

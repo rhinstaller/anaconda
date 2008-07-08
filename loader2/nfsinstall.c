@@ -62,7 +62,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
 
     if (asprintf(&entries[1].text, _("%s directory:"),
                  getProductName()) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__, strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -73,7 +73,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
 
     if (asprintf(&buf, _("Please enter the server name and path to your %s "
                          "images."), getProductName()) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__, strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -125,8 +125,7 @@ char * mountNfsImage(struct installMethod * method,
                     if (asprintf(&mountOpts, "ro,%s",
                                  ((struct nfsInstallData *)
                                  loaderData->stage2Data)->mountOpts) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                                   strerror(errno));
+                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                         abort();
                     }
                 }
@@ -159,8 +158,7 @@ char * mountNfsImage(struct installMethod * method,
                 if (!substr || (substr && *(substr+4) != '\0')) {
                     if (asprintf(&directory, "%s/images/%s", directory,
                                  stage2img) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                                   strerror(errno));
+                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                         abort();
                     }
                 }
@@ -185,8 +183,7 @@ char * mountNfsImage(struct installMethod * method,
             if (asprintf(&fullPath, "%s:%.*s", host,
                          (int) (strrchr(directory, '/')-directory),
                          directory) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 
@@ -202,8 +199,7 @@ char * mountNfsImage(struct installMethod * method,
             if (!doPwMount(fullPath, "/mnt/stage2", "nfs", mountOpts)) {
                 if (asprintf(&buf, "/mnt/stage2/%s",
                              strrchr(directory, '/')) == -1) {
-                    logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                               strerror(errno));
+                    logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                     abort();
                 }
 
@@ -216,8 +212,8 @@ char * mountNfsImage(struct installMethod * method,
 
                         if (asprintf(&url, "nfs:%s:%s", host,
                                      directory) == -1) {
-                            logMessage(CRITICAL, "%s: %d: %s", __func__,
-                                       __LINE__, strerror(errno));
+                            logMessage(CRITICAL, "%s: %d: %m", __func__,
+                                       __LINE__);
                             abort();
                         }
 
@@ -246,8 +242,7 @@ char * mountNfsImage(struct installMethod * method,
             if (asprintf(&buf, _("That directory does not seem to "
                                  "contain a %s installation tree."),
                          getProductName()) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 
@@ -266,8 +261,7 @@ char * mountNfsImage(struct installMethod * method,
             if (asprintf(&buf, "%.*s/RHupdates",
                          (int) (strrchr(fullPath, '/')-fullPath),
                          fullPath) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 
@@ -370,8 +364,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
 
             if (asprintf(&url, "%s:%s", ret, "/kickstart/") == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 
@@ -380,8 +373,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
 
             if (asprintf(&url, "%s:%s", ret, netCfg.dev.bootFile) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 
@@ -419,14 +411,12 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
 
         if (*chk == '/' || *path == '/') {
             if (asprintf(&host, "%s%s", host, path) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
         } else {
             if (asprintf(&host, "%s/%s", host, path) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
         }
@@ -438,8 +428,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         char * buf;
 
         if (asprintf(&buf, "/tmp/mnt/%s", file) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 

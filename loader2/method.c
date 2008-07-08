@@ -68,8 +68,7 @@ int umountLoopback(char * mntpoint, char * device) {
     loopfd = open(device, O_RDONLY);
 
     if (ioctl(loopfd, LOOP_CLR_FD, 0) == -1)
-        logMessage(ERROR, "LOOP_CLR_FD failed for %s %s (%s)", mntpoint,
-                   device, strerror(errno));
+        logMessage(ERROR, "LOOP_CLR_FD failed for %s %s: %m", mntpoint, device);
 
     close(loopfd);
 
@@ -90,8 +89,7 @@ int mountLoopback(char *fsystem, char *mntpoint, char *device) {
     }
 
     if (asprintf(&opts, "ro,loop=%s", device) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                   strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -100,8 +98,8 @@ int mountLoopback(char *fsystem, char *mntpoint, char *device) {
             if (doPwMount(fsystem, mntpoint, "squashfs", opts)) {
                 if (doPwMount(fsystem, mntpoint, "cramfs", opts)) {
                     if (doPwMount(fsystem, mntpoint, "vfat", opts)) {
-                        logMessage(ERROR, "failed to mount loopback device %s on %s as %s: %s",
-                                   device, mntpoint, fsystem, strerror(errno));
+                        logMessage(ERROR, "failed to mount loopback device %s on %s as %s: %m",
+                                   device, mntpoint, fsystem);
                         return LOADER_ERROR;
                     }
                 }
@@ -287,8 +285,8 @@ void queryIsoMediaCheck(char *isoFile) {
 
     if (!(dir = opendir(isoDir))) {
 	newtWinMessage(_("Error"), _("OK"), 
-		       _("Failed to read directory %s: %s"),
-		       isoDir, strerror(errno));
+		       _("Failed to read directory %s: %m"),
+		       isoDir);
 	free(isoDir);
 	free(master_timestamp);
 	return;
@@ -461,8 +459,7 @@ int copyFileAndLoopbackMount(int fd, char * dest,
 
     if (mountLoopback(dest, mntpoint, device)) {
         /* JKFIXME: this used to be fatal, but that seems unfriendly */
-        logMessage(ERROR, "Error mounting %s on %s (%s)", device,
-                   mntpoint, strerror(errno));
+        logMessage(ERROR, "Error mounting %s on %s: %m", device, mntpoint);
         return 1;
     }
 
@@ -484,8 +481,7 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
     if (doPwMount(device, "/tmp/mnt", "vfat", "ro") &&
         doPwMount(device, "/tmp/mnt", "ext2", "ro") && 
         doPwMount(device, "/tmp/mnt", "iso9660", "ro")) {
-        logMessage(ERROR, "failed to mount /dev/%s: %s", device,
-                   strerror(errno));
+        logMessage(ERROR, "failed to mount /dev/%s: %m", device);
         return 2;
     }
 

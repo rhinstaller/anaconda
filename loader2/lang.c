@@ -112,8 +112,7 @@ static void loadLanguageList(void) {
     wcwidth(0);
     f = fopen(file, "r");
     if (!f) {
-        newtWinMessage(_("Error"), _("OK"), "cannot open %s: %s",
-                       file, strerror (errno));
+        newtWinMessage(_("Error"), _("OK"), "cannot open %s: %m", file);
         return;
     }
 
@@ -187,8 +186,7 @@ void loadLanguage (char * file) {
     
     fd = open("/tmp/translation", O_RDONLY);
     if (fd < 0) {
-        newtWinMessage("Error", "OK", "Failed to open /tmp/translation: %s\n", 
-                        strerror(errno));
+        newtWinMessage("Error", "OK", "Failed to open /tmp/translation: %m\n");
         return;
     }
 
@@ -264,7 +262,7 @@ static int setupLanguage(int choice, int forced) {
 
     char *fmt = FL_RESCUE(flags) ? _(topLineWelcomeRescue) : _(topLineWelcome);
     if (asprintf(&buf, fmt, getProductName(), getProductArch()) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__, strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 

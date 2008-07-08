@@ -130,8 +130,8 @@ int ksReadCommands(char * cmdFile) {
     if ((fd = open(cmdFile, O_RDONLY)) < 0) {
         startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Error opening kickstart file %s: %s"),
-                       cmdFile, strerror(errno));
+                       _("Error opening kickstart file %s: %m"),
+                       cmdFile);
         return LOADER_ERROR;
     }
 
@@ -140,8 +140,8 @@ int ksReadCommands(char * cmdFile) {
     if (read(fd, buf, sb.st_size) != sb.st_size) {
         startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Error reading contents of kickstart file %s: %s"),
-                       cmdFile, strerror(errno));
+                       _("Error reading contents of kickstart file %s: %m"),
+                       cmdFile);
         close(fd);
         return LOADER_ERROR;
     }
@@ -325,8 +325,7 @@ void getHostPathandLogin(char * ksSource, char **host, char ** file, char ** log
     if ((*file) && (((*file)[strlen(*file) - 1] == '/') ||
                     ((*file)[strlen(*file) - 1] == '\0'))) {
         if (asprintf(file, "%s%s-kickstart", *file, ip) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 

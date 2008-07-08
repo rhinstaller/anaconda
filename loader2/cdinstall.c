@@ -143,8 +143,7 @@ static void wrongCDMessage(void) {
                           "in any of your drives. Please insert "
                           "the %s disc and press %s to retry."),
                  getProductName(), getProductName(), _("OK"))) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                   strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -187,8 +186,7 @@ static void queryCDMediaCheck(char *dev, char *location) {
 
                 if (asprintf(&stage2loc, "%s/images/stage2.img",
                              location) == -1) {
-                    logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                               strerror(errno));
+                    logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                     abort();
                 }
 
@@ -230,8 +228,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
     }
 
     if (asprintf(&stage2loc, "%s/images/stage2.img", location) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                   strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -246,8 +243,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
 
             if (strncmp("/dev/", devices[i]->device, 5)) {
                 if (asprintf(&tmp, "/dev/%s", devices[i]->device) == -1) {
-                    logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                               strerror(errno));
+                    logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                     abort();
                 }
 

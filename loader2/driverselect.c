@@ -68,7 +68,7 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
                    "to the %s module separated by spaces.  If you don't "
                    "know what parameters to supply, skip this screen "
                    "by pressing the \"OK\" button."), mod->moduleName) == -1) {
-        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__, strerror(errno));
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
@@ -215,8 +215,7 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
         if (asprintf(&buf, "%s (%s)", 
                  modInfo->moduleList[sortedOrder[i].index].description,
                  modInfo->moduleList[sortedOrder[i].index].moduleName) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 

@@ -85,8 +85,7 @@ static int detectHardware() {
 
         if (timeout) {
             if (asprintf(&args[2],"--timeout=%d",timeout) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
         }

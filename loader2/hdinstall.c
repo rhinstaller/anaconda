@@ -75,14 +75,12 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
 
         if (asprintf(&dirspec, "/mnt/isodir%.*s",
                      (int) (strrchr(dirName, '/') - dirName), dirName) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 
         if (asprintf(&path, "/mnt/isodir%s", dirName) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 
@@ -90,8 +88,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
             logMessage(INFO, "Path to stage2 image is %s", path);
 
             if (asprintf(&updpath, "%s/updates.img", dirspec) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 
@@ -99,8 +96,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
             copyUpdatesImg(updpath);
 
             if (asprintf(&updpath, "%s/product.img", dirspec) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
 
@@ -119,8 +115,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
             } else {
                 if (asprintf(&url, "hd:%s:%s:/%s", device, *type,
                              dirName ? dirName : ".") == -1) {
-                    logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                               strerror(errno));
+                    logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                     abort();
                 }
 
@@ -244,8 +239,7 @@ char * mountHardDrive(struct installMethod * method,
                              "you're using listed here, press F2 to "
                              "configure additional devices."),
                      getProductName()) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 
@@ -339,8 +333,7 @@ char * mountHardDrive(struct installMethod * method,
             stage2img = "stage2.img";
 
         if (asprintf(&dir, "%s/%s", dir, stage2img) == -1) {
-            logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 
