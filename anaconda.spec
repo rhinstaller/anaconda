@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.90
+Version: 10.1.1.91
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 08 2008 Peter Jones <pjones@redhat.com> - 10.1.1.91-1
+- Add initrd.size to the generic.ins files on s390.  (I think this should
+  solve #454492 , and indicates that the verification of #449617 was an error.)
+  Related: rhbz#454492
+
 * Wed Jun 25 2008 Peter Jones <pjones@redhat.com> - 10.1.1.90-1
 - Add support for automatically determining the initramfs size on s390x
   Resolves: rhbz#449617
