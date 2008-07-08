@@ -148,7 +148,7 @@ int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep) {
 
     for (i = 0; i < num; i++) {
 	if (gunzip_read(f, buf, infoTable[i].size) != infoTable[i].size) {
-	    logMessage(ERROR, "error reading %d bytes from file: %m", 
+	    logMessage(ERROR, "error reading %d bytes from file: %m",
 		       infoTable[i].size);
 	    gunzip_close(f);
 	    rc = LOADER_ERROR;

@@ -352,7 +352,7 @@ static void createDevices(void) {
         switch (devnodes[i].type) {
         case DIRTYPE:
             if (mkdir(devname, devnodes[i].perms) < 0) {
-                fprintf(stderr, "Unable to create directory %s: %m\n", 
+                fprintf(stderr, "Unable to create directory %s: %m\n",
                         devname);
             }
             break;
