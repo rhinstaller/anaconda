@@ -219,7 +219,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                         int interactive, int mediaCheck) {
     int i, rc;
     int stage2inram = 0;
-    char *buf, *stage2loc, *stage2img;
+    char *retbuf = NULL, *stage2loc, *stage2img;
     struct device ** devices;
     char *cddev = NULL;
 
@@ -255,21 +255,22 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                 devices[i]->device = tmp;
             }
 
-	    for (j = 0; j < 450; j++) {
-		int fd = open(devices[i]->device, O_RDONLY);
+            logMessage(INFO, "trying to mount CD device %s on %s",
+                       devices[i]->device, location);
 
-		if (fd >= 0) {
-		    close(fd);
-		    break;
-		} else if (errno == ENOMEDIUM) {
-		    logMessage(DEBUGLVL, "%s reported %m", devices[i]->device);
-		    usleep(100000);
-		} else {
-		    break;
-		}
-	    }
+            for (j = 0; j < 450; j++) {
+                int fd = open(devices[i]->device, O_RDONLY);
 
-            logMessage(INFO,"trying to mount CD device %s on %s", devices[i]->device, location);
+                if (fd >= 0) {
+                    close(fd);
+                    break;
+                } else if (errno == ENOMEDIUM) {
+                    logMessage(DEBUGLVL, "%s reported %m", devices[i]->device);
+                    usleep(100000);
+                } else {
+                    break;
+                }
+            }
 
             if (!(rc=doPwMount(devices[i]->device, location, "iso9660", "ro"))) {
                 cddev = devices[i]->device;
@@ -305,47 +306,47 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                         umount(location);
                     }
 
-                    if (asprintf(&buf, "cdrom://%s:%s",
+                    if (asprintf(&retbuf, "cdrom://%s:%s",
                                  devices[i]->device, location) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                                   strerror(errno));
+                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                         abort();
                     }
+                } else {
+                    /* this wasnt the CD we were looking for, clean up and */
+                    /* try the next CD drive                               */
+                    umount(location);
+                }
+            }
+        }
+
+        if (!retbuf) {
+            if (interactive) {
+                char * buf;
+
+                if (asprintf(&buf, _("The %s disc was not found in any of your "
+                                     "CDROM drives. Please insert the %s disc "
+                                     "and press %s to retry."),
+                    getProductName(), getProductName(), _("OK")) == -1) {
+                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                        abort();
                 }
 
-                /* this wasnt the CD we were looking for, clean up and */
-                /* try the next CD drive                               */
-                umount(location);
-            }
-        }
-
-        if (interactive) {
-            char * buf;
-
-            if (asprintf(&buf, _("The %s disc was not found in any of your "
-                                 "CDROM drives. Please insert the %s disc "
-                                 "and press %s to retry."),
-                         getProductName(), getProductName(), _("OK")) == -1) {
-                logMessage(CRITICAL, "%s: %d: %s", __func__, __LINE__,
-                           strerror(errno));
-                abort();
-            }
-
-            ejectCdrom(cddev);
-            rc = newtWinChoice(_("Disc Not Found"),
-                               _("OK"), _("Back"), buf, _("OK"));
-            free(buf);
-            if (rc == 2)
+                ejectCdrom(cddev);
+                rc = newtWinChoice(_("Disc Not Found"),
+                                   _("OK"), _("Back"), buf, _("OK"));
+                free(buf);
+                if (rc == 2)
+                    goto err;
+            } else {
+                /* we can't ask them about it, so just return not found */
                 goto err;
-        } else {
-            /* we can't ask them about it, so just return not found */
-            goto err;
+            }
         }
-    } while (1);
+    } while (!retbuf);
 
 err:
     free(stage2loc);
-    return NULL;
+    return retbuf;
 }
 
 /* try to find a install CD non-interactively */
@@ -404,4 +405,4 @@ int kickstartFromCD(char *kssrc) {
     return 1;
 }
 
-/* vim:set shiftwidth=4 softtabstop=4: */
+/* vim:set shiftwidth=4 softtabstop=4 et */
