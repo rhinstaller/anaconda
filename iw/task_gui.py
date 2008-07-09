@@ -61,6 +61,34 @@ def setupRepo(anaconda, repo):
     return True
 
 class RepoEditor:
+    # Window-level callbacks
+    def on_addRepoDialog_destroy(self, widget, *args):
+        pass
+
+    def on_cancelButton_clicked(self, widget, *args):
+        pass
+
+    def on_okButton_clicked(self, widget, *args):
+        pass
+
+    def on_typeComboBox_changed(self, widget, *args):
+        if widget.get_active() == -1:
+            return
+
+        # When the combo box's value is changed, set the notebook's current
+        # page to match.  This requires that the combo box and notebook have
+        # the same method types at the same indices (so, HTTP must be the
+        # same position on both, etc.).
+        self.notebook.set_current_page(widget.get_active())
+
+    # URL-specific callbacks
+    def on_proxyCheckbox_toggled(self, widget, *args):
+        table = self.dxml.get_widget("proxyTable")
+        table.set_sensitive(widget.get_active())
+
+    def on_mirrorlistCheckbox_toggled(self, widget, *args):
+        pass
+
     def __init__(self, anaconda, repoObj):
         self.anaconda = anaconda
         self.backend = self.anaconda.backend
@@ -68,30 +96,46 @@ class RepoEditor:
         self.repo = repoObj
 
         (self.dxml, self.dialog) = gui.getGladeWidget("addrepo.glade", "addRepoDialog")
+        self.dxml.signal_autoconnect(self)
+
+        self.notebook = self.dxml.get_widget("typeNotebook")
         self.nameEntry = self.dxml.get_widget("nameEntry")
-        self.baseurlButton = self.dxml.get_widget("baseurlButton")
+        self.typeComboBox = self.dxml.get_widget("typeComboBox")
+
         self.baseurlEntry = self.dxml.get_widget("baseurlEntry")
-        self.mirrorlistButton = self.dxml.get_widget("mirrorlistButton")
-        self.mirrorlistEntry = self.dxml.get_widget("mirrorlistEntry")
+        self.mirrorlistCheckbox = self.dxml.get_widget("mirrorlistCheckbox")
         self.proxyCheckbox = self.dxml.get_widget("proxyCheckbox")
         self.proxyEntry = self.dxml.get_widget("proxyEntry")
         self.proxyTable = self.dxml.get_widget("proxyTable")
         self.usernameEntry = self.dxml.get_widget("usernameEntry")
         self.passwordEntry = self.dxml.get_widget("passwordEntry")
 
-        self.dialog.set_title(_("Edit Repository"))
+        self.nfsServerEntry = self.dxml.get_widget("nfsServerEntry")
+        self.nfsPathEntry = self.dxml.get_widget("nfsPathEntry")
+        self.nfsOptionsEntry = self.dxml.get_widget("nfsOptionsEntry")
+
+        self.partitionComboBox = self.dxml.get_widget("partitionComboBox")
+        self.directoryChooser = self.dxml.get_widget("directoryChooserButton")
+
+    # Given a method string, return the index of the typeComboBox that should
+    # be made active in order to match.
+    def _methodToIndex(self, method):
+        mapping = {"http": 0, "ftp": 0, "https": 0,
+                   "cdrom": 1,
+                   "nfs": 2, "nfsiso": 2,
+                   "hd": 3}
+
+        try:
+            return mapping[method.split(':')[0].lower()]
+        except:
+            return 0
 
     def _enableRepo(self, repourl):
         # FIXME:  Don't do anything here for now.
         return True
 
-    def _proxyToggled(self, *args):
-        self.proxyTable.set_sensitive(self.proxyCheckbox.get_active())
-
-    def _radioChanged(self, *args):
-        active = self.baseurlButton.get_active()
-        self.baseurlEntry.set_sensitive(active)
-        self.mirrorlistEntry.set_sensitive(not active)
+    def _isBaseRepo(self):
+        return not self.repo.addon and not self.repo.name.startswith("Driver Disk")
 
     def _validURL(self, url):
         return len(url) > 0 and (url.startswith("http://") or
@@ -99,37 +143,91 @@ class RepoEditor:
                                  url.startswith("ftp://"))
 
     def createDialog(self):
+        self.dialog.set_title(_("Edit Repository"))
+
         if self.repo:
             self.nameEntry.set_text(self.repo.name)
+            self.typeComboBox.set_active(self._methodToIndex(self.anaconda.methodstr))
 
-            if self.repo.mirrorlist:
-                self.mirrorlistEntry.set_text(self.repo.mirrorlist)
-                self.mirrorlistButton.set_active(True)
+            if self.anaconda.methodstr.startswith("nfs"):
+                (method, server, dir) = self.anaconda.methodstr.split(":")
+                self.nfsServerEntry.set_text(server)
+                self.nfsPathEntry.set_text(dir)
+                self.nfsOptionsEntry.set_text("")
+            elif self.anaconda.methodstr.startswith("cdrom:"):
+                pass
+            elif self.anaconda.methodstr.startswith("hd:"):
+                (device, fstype, path) = self.anaconda.methodstr[3:].split(":", 3)
+                # find device in self.partitionComboBox and select it
+                self.directoryChooser.set_current_folder(path)
             else:
-                self.baseurlEntry.set_text(self.repo.baseurl[0])
-                self.baseurlButton.set_active(True)
+                if self.repo.mirrorlist:
+                    self.baseurlEntry.set_text(self.repo.mirrorlist)
+                    self.mirrorlistCheckbox.set_active(True)
+                else:
+                    self.baseurlEntry.set_text(self.repo.baseurl[0])
+                    self.mirrorlistCheckbox.set_active(True)
 
-            if self.repo.proxy:
-                self.proxyCheckbox.set_active(True)
-                self.proxyTable.set_sensitive(True)
-                self.proxyEntry.set_text(self.repo.proxy)
-                self.usernameEntry.set_text(self.repo.proxy_username)
-                self.passwordEntry.set_text(self.repo.proxy_password)
+                if self.repo.proxy:
+                    self.proxyCheckbox.set_active(True)
+                    self.proxyTable.set_sensitive(True)
+                    self.proxyEntry.set_text(self.repo.proxy)
+                    self.usernameEntry.set_text(self.repo.proxy_username)
+                    self.passwordEntry.set_text(self.repo.proxy_password)
+                else:
+                    self.proxyCheckbox.set_active(False)
+                    self.proxyTable.set_sensitive(False)
+        else:
+            self.typeComboBox.set_active(0)
+            self.proxyCheckbox.set_active(False)
+            self.proxyTable.set_sensitive(False)
 
         gui.addFrame(self.dialog)
-
-        # Initialize UI elements that should be sensitive or not.
-        self._proxyToggled()
-        self._radioChanged()
-
-        self.proxyCheckbox.connect("toggled", self._proxyToggled)
-        self.baseurlButton.connect("toggled", self._radioChanged)
 
         lbl = self.dxml.get_widget("descLabel")
         txt = lbl.get_text()
         lbl.set_text(txt)
 
         self.dialog.show_all()
+
+    def _applyURL(self, repo):
+        if self.proxyCheckbox.get_active():
+            repo.proxy = self.proxyEntry.get_text()
+            repo.proxy.strip()
+            if not self._validURL(repo.proxy):
+                self.intf.messageWindow(_("Invalid Proxy URL"),
+                                        _("You must provide an HTTP, HTTPS, "
+                                          "or FTP URL to a proxy."))
+                return False
+
+            repo.proxy_username = self.usernameEntry.get_text()
+            repo.proxy_password = self.passwordEntry.get_text()
+
+        repourl = self.baseurlEntry.get_text()
+        repourl.strip()
+        if not self._validURL(repourl):
+            self.intf.messageWindow(_("Invalid Repository URL"),
+                                    _("You must provide an HTTP, HTTPS, "
+                                      "or FTP URL to a repository."))
+            return False
+
+        if self.mirrorlistCheckbox.get_active():
+            repo.mirrorlist = [repourl]
+        else:
+            repo.baseurl = repourl
+
+        repo.name = self.nameEntry.get_text()
+        repo.basecachedir = self.backend.ayum.conf.cachedir
+        return True
+
+    def _applyMedia(self, repo):
+        return True
+
+    def _applyNfs(self, repo):
+        return True
+
+    def _applyHd(self, repo):
+        return True
 
     def run(self, createNewRepoObj=False):
         while True:
@@ -144,53 +242,28 @@ class RepoEditor:
                                         _("You must provide a repository name."))
                 continue
 
-            proxy = None
-            proxy_username = None
-            proxy_password = None
-
-            if self.proxyCheckbox.get_active():
-                proxy = self.proxyEntry.get_text()
-                proxy.strip()
-                if not self._validURL(proxy):
-                    self.intf.messageWindow(_("Invalid Proxy URL"),
-                                            _("You must provide an HTTP, HTTPS, "
-                                              "or FTP URL to a proxy."))
-                    continue
-
-                proxy_username = self.usernameEntry.get_text()
-                proxy_password = self.passwordEntry.get_text()
-
             if createNewRepoObj:
                 self.repo = AnacondaYumRepo(repoid=reponame.replace(" ", ""))
             else:
                 self.repo.repoid = reponame.replace(" ", "")
 
-            if self.baseurlButton.get_active():
-                repourl = self.baseurlEntry.get_text()
-            else:
-                repourl = self.mirrorlistEntry.get_text()
+            type = self.typeComboBox.get_active()
 
+            if type == 0:
+                if not self._applyURL(self.repo):
+                    continue
+            elif type == 1:
+                if not self._applyMedia(self.repo):
+                    continue
+            elif type == 2:
+                if not self._applyNfs(self.repo):
+                    continue
+            else:
+                if not self._applyHd(self.repo):
+                    continue
+
+            repourl = self.baseurlEntry.get_text()
             repourl.strip()
-            if not self._validURL(repourl):
-                self.intf.messageWindow(_("Invalid Repository URL"),
-                                        _("You must provide an HTTP, HTTPS, "
-                                          "or FTP URL to a repository."))
-                continue
-
-            if self.baseurlButton.get_active():
-                self.repo.baseurl = [repourl]
-            else:
-                self.repo.mirrorlist = repourl
-
-            self.repo.name = reponame
-            self.repo.basecachedir = self.backend.ayum.conf.cachedir
-
-            if proxy:
-                self.repo.proxy = proxy
-                self.repo.proxy_username = proxy_username
-                self.repo.proxy_password = proxy_password
-
-                self.repo.enable()
 
             if not self._enableRepo(repourl):
                 continue
@@ -211,6 +284,10 @@ class RepoEditor:
 class RepoCreator(RepoEditor):
     def __init__(self, anaconda):
         RepoEditor.__init__(self, anaconda, None)
+
+    def createDialog(self):
+        RepoEditor.createDialog(self)
+        self.dialog.set_title(_("Add Repository"))
 
     def _enableRepo(self, repourl):
         try:
