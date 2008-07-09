@@ -684,6 +684,11 @@ class DiskSet:
     def getLabels(self):
         """Return a list of all of the labels used on partitions."""
         labels = {}
+
+        try:
+            encryptedDevices = self.anaconda.id.partitions.encryptedDevices
+        except:
+            encryptedDevices = {}
         
         drives = self.disks.keys()
         drives.sort()
@@ -698,9 +703,20 @@ class DiskSet:
             parts = filter_partitions(disk, func)
             for part in parts:
                 node = get_partition_name(part)
-                label = isys.readFSLabel(node)
+                crypto = encryptedDevices.get(node)
+                mknode = 1
+                prefix = ""
+                if crypto and not crypto.openDevice():
+                    node = crypto.getDevice()
+                    mknode = 0
+                    prefix = "/dev/"
+
+                label = isys.readFSLabel(prefix + node, makeDevNode = mknode)
                 if label:
                     labels[node] = label
+
+                if crypto:
+                    crypto.closeDevice()
 
         # not doing this right now, because we should _always_ have a
         # partition table of some kind on dmraid.
@@ -711,9 +727,20 @@ class DiskSet:
                     labels[rs.name] = label
 
         for dev, devices, level, numActive in DiskSet.mdList:
-            label = isys.readFSLabel(dev)
+            crypto = encryptedDevices.get(dev)
+            mknode = 1
+            prefix = ""
+            if crypto and not crypto.openDevice():
+                dev = crypto.getDevice()
+                mknode = 0
+                prefix = "/dev/"
+
+            label = isys.readFSLabel(prefix + dev, makeDevNode = mknode)
             if label:
                 labels[dev] = label
+
+            if crypto:
+                crypto.closeDevice()
 
         return labels
 
