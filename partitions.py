@@ -39,6 +39,8 @@ log = logging.getLogger("anaconda")
 
 class Partitions:
     """Defines all of the partition requests and delete requests."""
+    encryptedDevices = {}
+
     def __init__ (self, diskset = None):
         """Initializes a Partitions object.
 

@@ -1358,6 +1358,15 @@ MAILADDR root
             return cf
         return
 
+    def crypttab(self):
+        """set up /etc/crypttab"""
+        crypttab = ""
+        for entry in self.entries:
+            if entry.device.crypto:
+                crypttab += entry.device.crypto.crypttab()
+
+        return crypttab
+
     def write (self, prefix):
         f = open (prefix + "/etc/fstab", "w")
         f.write (self.fstab())
@@ -1369,6 +1378,12 @@ MAILADDR root
             f = open (prefix + "/etc/mdadm.conf", "w")
             f.write (cf)
             f.close ()
+
+        crypttab = self.crypttab()
+        if crypttab:
+            f = open(prefix + "/etc/crypttab", "w")
+            f.write(crypttab)
+            f.close()
 
         # touch mtab
         open (prefix + "/etc/mtab", "w+")
@@ -1970,14 +1985,21 @@ MAILADDR root
                 iutil.makeDMNode(root=instPath)
             if not os.path.isdir(rootdir):
                 os.makedirs(rootdir)
-            dmdev = "/dev/mapper/" + root.device.getDevice().replace("-","--").replace("/", "-")
+            if root.device.crypto is None:
+                dmdev = "/dev/mapper/" + root.device.getDevice().replace("-","--").replace("/", "-")
+            else:
+                dmdev = "/dev/" + root.device.getDevice()
+
             if os.path.exists(instPath + dmdev):
                 os.unlink(instPath + dmdev)
             iutil.copyDeviceNode(dmdev, instPath + dmdev)
             # unlink existing so that we dtrt on upgrades
-            if os.path.exists(instPath + rootDev):
+            if os.path.exists(instPath + rootDev) and not root.device.crypto:
                 os.unlink(instPath + rootDev)
-            os.symlink(dmdev, instPath + rootDev)
+
+            if root.device.crypto is None:
+                os.symlink(dmdev, instPath + rootDev)
+
             if not os.path.isdir("%s/etc/lvm" %(instPath,)):
                 os.makedirs("%s/etc/lvm" %(instPath,))
 
@@ -2042,6 +2064,7 @@ MAILADDR root
 
 	for entry in reverse:
             entry.umount(instPath)
+            entry.device.cleanupDevice(instPath)
 
 class FileSystemSetEntry:
     def __init__ (self, device, mountpoint,
@@ -2171,24 +2194,34 @@ class FileSystemSetEntry:
         
 
 class Device:
-    def __init__(self, device = "none"):
+    def __init__(self, device = "none", encryption=None):
         self.device = device
         self.label = None
         self.isSetup = 0
         self.doLabel = 1
         self.deviceOptions = ""
+        if encryption and encryption.getScheme():
+            self.crypto = encryption
+            if device not in ("none", None):
+                self.crypto.setDevice(device)
+        else:
+            self.crypto = None
 
     def getComment (self):
         return ""
 
     def getDevice (self, asBoot = 0):
-        return self.device
+        if self.crypto:
+            return self.crypto.getDevice()
+        else:
+            return self.device
 
     def setupDevice (self, chroot='/', devPrefix='/tmp'):
         return self.device
 
     def cleanupDevice (self, chroot, devPrefix='/tmp'):
-        pass
+        if self.crypto:
+            self.crypto.closeDevice()
 
     def solidify (self):
         pass
@@ -2220,8 +2253,7 @@ class DevDevice(Device):
     """Device with a device node rooted in /dev that we just always use
        the pre-created device node for."""
     def __init__(self, dev):
-        Device.__init__(self)
-        self.device = dev
+        Device.__init__(self, device=dev)
 
     def getDevice(self, asBoot = 0):
         return self.device
@@ -2238,8 +2270,8 @@ class RAIDDevice(Device):
     # members is a list of Device based instances that will be
     # a part of this raid device
     def __init__(self, level, members, minor=-1, spares=0, existing=0,
-                 chunksize = 64):
-        Device.__init__(self)
+                 chunksize = 64, encryption = None):
+        Device.__init__(self, encryption=encryption)
         self.level = level
         self.members = members
         self.spares = spares
@@ -2274,8 +2306,11 @@ class RAIDDevice(Device):
         self.device = "md" + str(minor)
         self.minor = minor
 
+        if self.crypto:
+            self.crypto.setDevice(self.device)
+
         # make sure the list of raid members is sorted
-        self.members.sort()
+        self.members.sort(cmp=lambda x,y: cmp(x.getDevice(),y.getDevice()))
 
     def __del__ (self):
         del RAIDDevice.usedMajors[self.minor]
@@ -2326,13 +2361,13 @@ class RAIDDevice(Device):
         entry = entry + "persistent-superblock	    1\n"
         entry = entry + "nr-spare-disks		    %d\n" % (self.spares,)
         i = 0
-        for device in self.members[:self.numDisks]:
+        for device in [m.getDevice() for m in self.members[:self.numDisks]]:
             entry = entry + "    device	    %s/%s\n" % (devPrefix,
                                                         device)
             entry = entry + "    raid-disk     %d\n" % (i,)
             i = i + 1
         i = 0
-        for device in self.members[self.numDisks:]:
+        for device in [m.getDevice() for m in self.members[self.numDisks:]]:
             entry = entry + "    device	    %s/%s\n" % (devPrefix,
                                                         device)
             entry = entry + "    spare-disk     %d\n" % (i,)
@@ -2347,9 +2382,9 @@ class RAIDDevice(Device):
         isys.makeDevInode(self.device, node)
 
         if not self.isSetup:
-            for device in self.members:
-                pd = PartitionDevice(device)
-                pd.setupDevice(chroot, devPrefix=devPrefix)
+            memberDevs = []
+            for pd in self.members:
+                memberDevs.append(pd.setupDevice(chroot, devPrefix=devPrefix))
                 if pd.isNetdev(): self.setAsNetdev()
 
             args = ["--create", "/dev/%s" %(self.device,),
@@ -2360,22 +2395,34 @@ class RAIDDevice(Device):
             if self.spares > 0:
                 args.append("--spare-devices=%s" %(self.spares,),)
             
-            args.extend(map(devify, self.members))
+            args.extend(memberDevs)
             log.info("going to run: %s" %(["/usr/sbin/mdadm"] + args,))
             iutil.execWithRedirect ("/usr/sbin/mdadm", args,
                                     stderr="/dev/tty5", stdout="/dev/tty5")
-            raid.register_raid_device(self.device, self.members[:],
+            raid.register_raid_device(self.device,
+                                      [m.getDevice() for m in self.members],
                                       self.level, self.numDisks)
             self.isSetup = 1
         else:
-            isys.raidstart(self.device, self.members[0])
+            isys.raidstart(self.device, self.members[0].getDevice())
+
+        if self.crypto:
+            self.crypto.formatDevice()
+            self.crypto.openDevice()
+            # device mapper nodes won't be in /tmp
+            node = "/dev/%s" % (self.crypto.getDevice(),)
+        else:
+            node = "%s/%s" % (devPrefix, self.device)
+
         return node
 
     def getDevice (self, asBoot = 0):
-        if not asBoot:
+        if not asBoot and self.crypto:
+            return self.crypto.getDevice()
+        elif not asBoot:
             return self.device
         else:
-            return self.members[0]
+            return self.members[0].getDevice(asBoot=asBoot)
 
     def solidify(self):
         return
@@ -2460,8 +2507,8 @@ class VolumeGroupDevice(Device):
 
 class LogicalVolumeDevice(Device):
     # note that size is in megabytes!
-    def __init__(self, vgname, size, lvname, vg, existing = 0):
-        Device.__init__(self)
+    def __init__(self, vgname, size, lvname, vg, existing = 0, encryption=None):
+        Device.__init__(self, encryption=encryption)
         self.vgname = vgname
         self.size = size
         self.name = lvname
@@ -2469,6 +2516,9 @@ class LogicalVolumeDevice(Device):
         self.isSetup = existing
         self.doLabel = None
         self.vg = vg
+
+        if self.crypto:
+            self.crypto.setDevice("mapper/%s-%s" % (self.vgname, self.name))
 
         # these are attributes we might want to expose.  or maybe not.
         # self.chunksize
@@ -2495,29 +2545,43 @@ class LogicalVolumeDevice(Device):
 
             if vgdevice and vgdevice.isNetdev(): self.setAsNetdev()
 
+        if self.crypto:
+            self.crypto.formatDevice()
+            self.crypto.openDevice()
+
         return "/dev/%s" % (self.getDevice(),)
 
     def getDevice(self, asBoot = 0):
-        return "%s/%s" % (self.vgname, self.name)
+        if self.crypto and not asBoot:
+            device = self.crypto.getDevice()
+        else:
+            device = "%s/%s" % (self.vgname, self.name)
+
+        return device
 
     def solidify(self):
         return
             
     
 class PartitionDevice(Device):
-    def __init__(self, partition):
-        Device.__init__(self)
+    def __init__(self, partition, encryption=None):
         if type(partition) != types.StringType:
             raise ValueError, "partition must be a string"
-        self.device = partition
 
+        Device.__init__(self, device=partition, encryption=encryption)
         (disk, pnum) = getDiskPart(partition)
         if isys.driveIsIscsi(disk):
             self.setAsNetdev()
 
     def setupDevice(self, chroot="/", devPrefix='/tmp'):
-        path = '%s/%s' % (devPrefix, self.getDevice(),)
-        isys.makeDevInode(self.getDevice(), path)
+        path = '%s/%s' % (devPrefix, self.device)
+        isys.makeDevInode(self.device, path)
+        if self.crypto:
+            self.crypto.formatDevice(devPrefix=devPrefix)
+            self.crypto.openDevice(devPrefix=devPrefix)
+            # mapped devices can't be in /tmp
+            path = "/dev/%s" % (self.crypto.getDevice(),)
+
         return path
 
 class PartedPartitionDevice(PartitionDevice):

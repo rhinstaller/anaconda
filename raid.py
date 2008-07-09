@@ -42,6 +42,7 @@ import parted
 import isys
 import os
 import partitioning
+import partitions
 import partedUtils
 
 import logging
@@ -60,6 +61,7 @@ def scanForRaid(drives):
     
     raidSets = {}
     raidDevices = {}
+    encryptedDevices = partitions.Partitions.encryptedDevices
 
     for d in drives:
         parts = []
@@ -70,7 +72,14 @@ def scanForRaid(drives):
 
             raidParts = partedUtils.get_raid_partitions(disk)
             for part in raidParts:
-                parts.append(partedUtils.get_partition_name(part))
+                # if the part is encrypted, add the mapped dev instead
+                pname = partedUtils.get_partition_name(part)
+                cryptoDev = encryptedDevices.get(pname)
+                if cryptoDev and not cryptoDev.openDevice():
+                    dev = cryptoDev.getDevice()
+                else:
+                    dev = pname
+                parts.append(dev)
         except:
             pass
 
