@@ -125,13 +125,17 @@ class RepoEditor:
         self.partitionComboBox = self.dxml.get_widget("partitionComboBox")
         self.directoryChooser = self.dxml.get_widget("directoryChooserButton")
 
+        # Remove these until they are actually implemented
+        self.typeComboBox.remove_text(3)
+        self.typeComboBox.remove_text(2)
+
     # Given a method string, return the index of the typeComboBox that should
     # be made active in order to match.
     def _methodToIndex(self, method):
         mapping = {"http": 0, "ftp": 0, "https": 0,
-                   "cdrom": 1,
-                   "nfs": 2, "nfsiso": 2,
-                   "hd": 3}
+                   "cdrom": 1}
+#                   "nfs": 2, "nfsiso": 2,
+#                   "hd": 3}
 
         try:
             return mapping[method.split(':')[0].lower()]
