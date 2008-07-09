@@ -243,6 +243,13 @@ class Partitions:
         drives = diskset.disks.keys()
         drives.sort()
         for drive in drives:
+            if diskset.anaconda.isKickstart and \
+               ((self.autoClearPartType != CLEARPART_TYPE_NONE and \
+                 (not self.autoClearPartDrives or \
+                  drive in self.autoClearPartDrives)) or \
+                 drive in diskset.skippedDisks):
+                continue
+
             disk = diskset.disks[drive]
             part = disk.next_partition()
             while part:
