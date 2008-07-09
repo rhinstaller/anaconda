@@ -180,9 +180,3 @@ ipv6=<method>   IPv6 configuration method to use, either 'auto' for
                 automatic neighbor discovery or 'dhcp' for DHCPv6.
 
 noipv6          Disable IPv6 networking during installation.
-
-nfsmountopts=<opts>  Pass extra NFS mount options to anaconda.  Almost any
-                     options that can be specified in /etc/fstab for an NFS
-                     mount are allowed.  The options are listed in the nfs(5)
-                     man page.  Multiple options are separated with a comma.
-                     The unsupported options are namlen and nolock.
