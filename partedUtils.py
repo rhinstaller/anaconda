@@ -752,15 +752,28 @@ class DiskSet:
         self.startDmRaid()
         self.startMdRaid()
 
+        for dev, crypto in self.anaconda.id.partitions.encryptedDevices.items():
+            # FIXME: order these so LVM and RAID always work on the first try
+            if crypto.openDevice():
+                log.error("failed to open encrypted device %s" % (dev,))
+
         if flags.cmdline.has_key("upgradeany"):
             upgradeany = 1
 
         for dev, devices, level, numActive in self.mdList:
             (errno, msg) = (None, None)
             found = 0
-            for fs in fsset.getFStoTry(dev):
+            theDev = dev
+            crypto = self.anaconda.id.partitions.encryptedDevices.get(dev)
+            if crypto and not crypto.openDevice():
+                theDev = "/dev/%s" % (crypto.getDevice(),)
+            elif crypto:
+                log.error("failed to open encrypted device %s" % dev)
+                crypto = None
+
+            for fs in fsset.getFStoTry(theDev):
                 try:
-                    isys.mount(dev, self.anaconda.rootPath, fs, readOnly = 1)
+                    isys.mount(theDev, self.anaconda.rootPath, fs, readOnly = 1)
                     found = 1
                     break
                 except SystemError, (errno, msg):
@@ -773,25 +786,38 @@ class DiskSet:
                     if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
                         try:
-                            label = isys.readFSLabel(dev, makeDevNode=0)
+                            label = isys.readFSLabel(theDev, makeDevNode=0)
                         except:
                             label = None
             
-                        rootparts.append ((dev, fs, relstr, label))
+                        rootparts.append ((theDev, fs, relstr, label))
                 isys.umount(self.anaconda.rootPath)
 
         # now, look for candidate lvm roots
 	lvm.vgscan()
 	lvm.vgactivate()
 
+        for dev, crypto in self.anaconda.id.partitions.encryptedDevices.items():
+            # FIXME: order these so LVM and RAID always work on the first try
+            if crypto.openDevice():
+                log.error("failed to open encrypted device %s" % (dev,))
+
         for (vg, lv, size, lvorigin) in lvm.lvlist():
             if lvorigin:
                 continue
-            dev = "/dev/%s/%s" %(vg, lv)
+            theDev = "/dev/%s/%s" %(vg, lv)
             found = 0
-            for fs in fsset.getFStoTry(dev):
+            dmnode = "mapper/%s-%s" % (vg, lv)
+            crypto = self.anaconda.id.partitions.encryptedDevices.get(dmnode)
+            if crypto and not crypto.openDevice():
+                theDev = "/dev/%s" % (crypto.getDevice(),)
+            elif crypto:
+                log.error("failed to open encrypted device %s" % dev)
+                crypto = None
+
+            for fs in fsset.getFStoTry(theDev):
                 try:
-                    isys.mount(dev, self.anaconda.rootPath, fs, readOnly = 1)
+                    isys.mount(theDev, self.anaconda.rootPath, fs, readOnly = 1)
                     found = 1
                     break
                 except SystemError:
@@ -804,11 +830,11 @@ class DiskSet:
                     if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
                         try:
-                            label = isys.readFSLabel(dev, makeDevNode=0)
+                            label = isys.readFSLabel(theDev, makeDevNode=0)
                         except:
                             label = None
             
-                        rootparts.append ((dev, fs, relstr, label))
+                        rootparts.append ((theDev, fs, relstr, label))
                 isys.umount(self.anaconda.rootPath)
 
 	lvm.vgdeactivate()
@@ -823,25 +849,39 @@ class DiskSet:
             disk = self.disks[drive]
             part = disk.next_partition ()
             while part:
+                node = get_partition_name(part)
+                crypto = self.anaconda.id.partitions.encryptedDevices.get(node)
                 if (part.is_active()
                     and (part.get_flag(parted.PARTITION_RAID)
                          or part.get_flag(parted.PARTITION_LVM))):
                     pass
-                elif (part.fs_type and
-                      part.fs_type.name in fsset.getUsableLinuxFs()):
-                    node = get_partition_name(part)
+                elif part.fs_type or crypto:
+                    theDev = node
+                    if part.fs_type:
+                        fstype = part.fs_type.name
+
+                    if crypto and not crypto.openDevice():
+                        theDev = crypto.getDevice()
+                        fstype = sniffFilesystemType("/dev/%s" % theDev)
+                    elif crypto:
+                        log.error("failed to open encrypted device %s" % node)
+                        crypto = None
+
+                    if not fstype or fstype not in fsset.getUsableLinuxFs():
+                        part = disk.next_partition(part)
+                        continue
 
                     # In hard drive ISO method, don't try to mount the
                     # protected partitions because that'll throw up a
                     # useless error message.
                     protected = self.anaconda.method.protectedPartitions()
 
-                    if protected and node in protected:
+                    if protected and theDev in protected:
                         part = disk.next_partition(part)
                         continue
 
 		    try:
-			isys.mount(node, self.anaconda.rootPath, part.fs_type.name)
+			isys.mount(theDev, self.anaconda.rootPath, fstype)
 		    except SystemError, (errno, msg):
                         part = disk.next_partition(part)
 			continue
@@ -851,11 +891,11 @@ class DiskSet:
                         if ((upgradeany == 1) or
                             (productMatches(relstr, productName))):
                             try:
-                                label = isys.readFSLabel("/dev/%s" % node, makeDevNode=0)
+                                label = isys.readFSLabel("/dev/%s" % theDev, makeDevNode=0)
                             except:
                                 label = None
             
-                            rootparts.append ((node, part.fs_type.name,
+                            rootparts.append ((theDev, fstype,
                                                relstr, label))
 		    isys.umount(self.anaconda.rootPath)
                     

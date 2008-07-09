@@ -17,7 +17,7 @@
 import upgrade
 from snack import *
 from constants_text import *
-from text import WaitWindow, OkCancelWindow, ProgressWindow, stepToClasses
+from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow, stepToClasses
 from flags import flags
 import sys
 import os
@@ -40,20 +40,44 @@ class RescueInterface:
     def progressWindow(self, title, text, total):
 	return ProgressWindow(self.screen, title, text, total)
 	
-    def messageWindow(self, title, text, type = "ok"):
+    def messageWindow(self, title, text, type="ok", default = None,
+		      custom_icon=None, custom_buttons=[]):
 	if type == "ok":
-	    ButtonChoiceWindow(self.screen, _(title), _(text),
-			       buttons = [ _("OK") ])
+	    ButtonChoiceWindow(self.screen, title, text,
+			       buttons=[TEXT_OK_BUTTON])
         elif type == "yesno":
-            btnlist = [TEXT_YES_BUTTON, TEXT_NO_BUTTON]
-	    rc = ButtonChoiceWindow(self.screen, _(title), _(text),
+            if default and default == "no":
+                btnlist = [TEXT_NO_BUTTON, TEXT_YES_BUTTON]
+            else:
+                btnlist = [TEXT_YES_BUTTON, TEXT_NO_BUTTON]
+	    rc = ButtonChoiceWindow(self.screen, title, text,
 			       buttons=btnlist)
             if rc == "yes":
                 return 1
             else:
                 return 0
+	elif type == "custom":
+	    tmpbut = []
+	    for but in custom_buttons:
+		tmpbut.append(string.replace(but,"_",""))
+
+	    rc = ButtonChoiceWindow(self.screen, title, text, width=60,
+				    buttons=tmpbut)
+
+	    idx = 0
+	    for b in tmpbut:
+		if string.lower(b) == rc:
+		    return idx
+		idx = idx + 1
+	    return 0
 	else:
-	    return OkCancelWindow(self.screen, _(title), _(text))
+	    return OkCancelWindow(self.screen, title, text)
+
+    def passphraseEntryWindow(self, device):
+        w = PassphraseEntryWindow(self.screen, device)
+        (passphrase, isglobal) = w.run()
+        w.pop()
+        return (passphrase, isglobal)
 
     def __init__(self, screen):
 	self.screen = screen
