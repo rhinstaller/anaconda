@@ -27,6 +27,7 @@ from partRequests import *
 from partition_ui_helpers_gui import *
 from constants import *
 import lvm
+from cryptodev import LUKSDevice
 
 import logging
 log = logging.getLogger("anaconda")
@@ -465,6 +466,23 @@ class VolumeGroupEditor:
 	if logrequest.getPreExisting():
 	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(logrequest, maintable, row, mountCombo, showbadblocks=0, ignorefs = ["software RAID", "physical volume (LVM)", "vfat"])
 
+        # checkbutton for encryption using dm-crypt/LUKS
+        if not logrequest.getPreExisting():
+            self.lukscb = gtk.CheckButton(_("_Encrypt"))
+            if logrequest.format or logrequest.type == REQUEST_NEW:
+                self.lukscb.set_data("formatstate", 1)
+            else:
+                self.lukscb.set_data("formatstate", 0)
+
+            if logrequest.encryption:
+                self.lukscb.set_active(1)
+            else:
+                self.lukscb.set_active(0)
+            maintable.attach(self.lukscb, 0, 2, row, row + 1)
+            row = row + 1
+        else:
+            self.lukscb = self.fsoptionsDict.get("lukscb")
+
         dialog.vbox.pack_start(maintable)
         dialog.show_all()
 
@@ -592,6 +610,7 @@ class VolumeGroupEditor:
 
 	    # create potential request
 	    request = copy.copy(logrequest)
+            request.encryption = copy.deepcopy(logrequest.encryption)
 	    pesize = int(self.peCombo.get_active_value())
 	    size = lvm.clampLVSizeRequest(size, pesize, roundup=1)
 
@@ -630,6 +649,23 @@ class VolumeGroupEditor:
 	    # partRequest.py really.
 	    request.dev = None
 	    
+            if self.lukscb and self.lukscb.get_active():
+                if request.encryption:
+                    passphrase = request.encryption.passphrase
+                else:
+                    passphrase = ""
+
+                if not request.encryption or request.encryption.format:
+                    passphrase = self.intf.getLuksPassphrase(passphrase)
+
+                if passphrase and not request.encryption:
+                    request.encryption = LUKSDevice(passphrase=passphrase,
+                                                    format=1)
+                elif passphrase and request.encryption.format:
+                    request.encryption.setPassphrase(passphrase)
+            else:
+                request.encryption = None
+
 	    # make list of original logvol requests so we can skip them
 	    # in tests below. We check for mount point name conflicts
 	    # above within the current volume group, so it is not

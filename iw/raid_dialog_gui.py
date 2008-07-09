@@ -25,6 +25,7 @@ from rhpl.translate import _, N_
 import gui
 from fsset import *
 from raid import availRaidLevels
+from cryptodev import LUKSDevice
 from partRequests import *
 from partition_ui_helpers_gui import *
 from constants import *
@@ -129,6 +130,7 @@ class RaidEditor:
 
 	    # read out UI into a partition specification
 	    request = copy.copy(self.origrequest)
+            request.encryption = copy.deepcopy(self.origrequest.encryption)
 
 	    # doesn't make sense for RAID device
 	    request.badblocks = None
@@ -171,6 +173,23 @@ class RaidEditor:
 		    request.format = self.formatButton.get_active()
 		else:
 		    request.format = 0
+
+                if self.lukscb and self.lukscb.get_active():
+                    if request.encryption:
+                        passphrase = request.encryption.passphrase
+                    else:
+                        passphrase = ""
+
+                    if not request.encryption or request.encryption.format:
+                        passphrase = self.intf.getLuksPassphrase(passphrase)
+
+                    if passphrase and not request.encryption:
+                        request.encryption = LUKSDevice(passphrase=passphrase,
+                                                        format=1)
+                    elif passphrase and request.encryption.format:
+                        request.encryption.setPassphrase(passphrase)
+                else:
+                    request.encryption = None
 	    else:
 		if self.fsoptionsDict.has_key("formatrb"):
 		    formatrb = self.fsoptionsDict["formatrb"]
@@ -205,6 +224,24 @@ class RaidEditor:
                     request.mountpoint =  self.mountCombo.get_children()[0].get_text()
                 else:
                     request.mountpoint = None
+
+                lukscb = self.fsoptionsDict.get("lukscb")
+                if lukscb and lukscb.get_active():
+                    if request.encryption:
+                        passphrase = request.encryption.passphrase
+                    else:
+                        passphrase = ""
+
+                    if not request.encryption or request.encryption.format:
+                        passphrase = self.intf.getLuksPassphrase(passphrase)
+
+                    if passphrase and not request.encryption:
+                        request.encryption = LUKSDevice(passphrase=passphrase,
+                                                        format=1)
+                    elif passphrase and request.encryption.format:
+                        request.encryption.setPassphrase(passphrase)
+                else:
+                    request.encryption = None
 
 	    err = request.sanityCheckRequest(self.partitions)
 	    if err:
@@ -287,6 +324,10 @@ class RaidEditor:
 	lbl.set_mnemonic_widget(self.mountCombo)
 	maintable.attach(self.mountCombo, 1, 2, row, row + 1)
 	row = row + 1
+
+        # we'll maybe add this further down
+        self.lukscb = gtk.CheckButton(_("_Encrypt"))
+        self.lukscb.set_data("formatstate", 1)
 
 	# Filesystem Type
         if not origrequest.getPreExisting():
@@ -414,6 +455,14 @@ class RaidEditor:
             if origrequest.getPreExisting():
                 maintable.attach(self.formatButton, 0, 2, row, row + 1)
                 row = row + 1
+
+            # checkbutton for encryption using dm-crypt/LUKS
+            if self.origrequest.encryption:
+                self.lukscb.set_active(1)
+            else:
+                self.lukscb.set_active(0)
+            maintable.attach(self.lukscb, 0, 2, row, row + 1)
+            row = row + 1
 	else:
 	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo, showbadblocks=0)
 

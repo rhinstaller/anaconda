@@ -22,6 +22,7 @@ from rhpl.translate import _, N_
 
 import gui
 from fsset import *
+from cryptodev import LUKSDevice
 from partRequests import *
 from partition_ui_helpers_gui import *
 from constants import *
@@ -128,6 +129,23 @@ class PartitionEditor:
                 else:
                     primonly = None
 
+                if self.lukscb and self.lukscb.get_active():
+                    if request.encryption:
+                        passphrase = request.encryption.passphrase
+                    else:
+                        passphrase = ""
+
+                    if not request.encryption or request.encryption.format:
+                        passphrase = self.intf.getLuksPassphrase(passphrase)
+
+                    if passphrase and not request.encryption:
+                        request.encryption = LUKSDevice(passphrase=passphrase,
+                                                        format=1)
+                    elif passphrase and request.encryption.format:
+                        request.encryption.setPassphrase(passphrase)
+                else:
+                    request.encryption = None
+
                 if self.badblocks and self.badblocks.get_active():
                     request.badblocks = True
                 else:
@@ -194,6 +212,7 @@ class PartitionEditor:
             else:
                 # preexisting partition, just set mount point and format flag
                 request = copy.copy(self.origrequest)
+                request.encryption = copy.deepcopy(self.origrequest.encryption)
 		
 		if self.fsoptionsDict.has_key("formatrb"):
 		    formatrb = self.fsoptionsDict["formatrb"]
@@ -233,6 +252,24 @@ class PartitionEditor:
                     request.mountpoint =  self.mountCombo.get_children()[0].get_text()
                 else:
                     request.mountpoint = None
+
+                lukscb = self.fsoptionsDict.get("lukscb")
+                if lukscb and lukscb.get_active():
+                    if request.encryption:
+                        passphrase = request.encryption.passphrase
+                    else:
+                        passphrase = ""
+
+                    if not request.encryption or request.encryption.format:
+                        passphrase = self.intf.getLuksPassphrase(passphrase)
+
+                    if passphrase and not request.encryption:
+                        request.encryption = LUKSDevice(passphrase=passphrase,
+                                                        format=1)
+                    elif passphrase and request.encryption.format:
+                        request.encryption.setPassphrase(passphrase)
+                else:
+                    request.encryption = None
 
                 err = request.sanityCheckRequest(self.partitions)
                 if err:
@@ -469,6 +506,16 @@ class PartitionEditor:
             if not self.diskset.onlyPrimaryParts():
                 maintable.attach(self.primonlycheckbutton, 0, 2, row, row+1)
                 row = row + 1
+
+            self.lukscb = gtk.CheckButton(_("_Encrypt"))
+            self.lukscb.set_data("formatstate", 1)
+
+            if self.origrequest.encryption:
+                self.lukscb.set_active(1)
+            else:
+                self.lukscb.set_active(0)
+            maintable.attach(self.lukscb, 0, 2, row, row + 1)
+            row = row + 1
 
 	    # disable option for badblocks checking
 	    self.badblocks = None

@@ -635,6 +635,109 @@ class InstallKeyWindow:
     def destroy(self):
         self.win.destroy()
             
+class luksPassphraseWindow:
+    def __init__(self, passphrase=None, device=None):
+        luksxml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"),
+                                domain="anaconda",
+                                root="luksPassphraseDialog")
+        self.passphraseEntry = luksxml.get_widget("passphraseEntry")
+        self.passphraseEntry.set_visibility(False)
+        self.confirmEntry = luksxml.get_widget("confirmEntry")
+        self.confirmEntry.set_visibility(False)
+        self.win = luksxml.get_widget("luksPassphraseDialog")
+        self.okButton = luksxml.get_widget("okbutton1")
+        if device:
+            deviceStr = " (%s)" % (device,)
+        else:
+            deviceStr = ""
+        self.txt = _("Choose a passphrase for this encrypted device%s. "
+                     "You will be prompted for the passphrase during system "
+                     "boot.") % (deviceStr,)
+        luksxml.get_widget("mainLabel").set_text(self.txt)
+        self.minimumLength = 8  # arbitrary; should probably be much larger
+        if passphrase:
+            self.initialPassphrase = passphrase
+            self.passphraseEntry.set_text(passphrase)
+            self.confirmEntry.set_text(passphrase)
+        else:
+            self.initialPassphrase = ""
+
+        addFrame(self.win)
+
+    def run(self):
+        self.win.show()
+        while True:
+            self.passphraseEntry.grab_focus()
+            self.rc = self.win.run()
+            if self.rc == gtk.RESPONSE_OK:
+                passphrase = self.passphraseEntry.get_text()
+                confirm = self.confirmEntry.get_text()
+                if passphrase != confirm:
+                    MessageWindow(_("Error with passphrase"),
+                                  _("The passphrases you entered were "
+                                    "different.  Please try again."),
+                                  type = "ok", custom_icon = "error")
+                    self.confirmEntry.set_text("")
+                    continue
+
+                if len(passphrase) < self.minimumLength:
+                    MessageWindow(_("Error with passphrase"),
+                                    _("The passphrase must be at least "
+                                      "eight characters long."),
+                                  type = "ok", custom_icon = "error")
+                    self.passphraseEntry.set_text("")
+                    self.confirmEntry.set_text("")
+                    continue
+            else:
+                self.passphraseEntry.set_text(self.initialPassphrase)
+                self.confirmEntry.set_text(self.initialPassphrase)
+
+            return self.rc
+
+    def getPassphrase(self):
+        return self.passphraseEntry.get_text()
+
+    def getrc(self):
+        return self.rc
+
+    def destroy(self):
+        self.win.destroy()
+
+class PassphraseEntryWindow:
+    def __init__(self, device):
+        xml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"),
+                            domain="anaconda",
+                            root="passphraseEntryDialog")
+        self.txt = _("Device %s is encrypted. In order to "
+                     "access the device's contents during "
+                     "installation you must enter the device's "
+                     "passphrase below.") % (device,)
+        self.win = xml.get_widget("passphraseEntryDialog")
+        self.passphraseLabel = xml.get_widget("passphraseLabel")
+        self.passphraseEntry = xml.get_widget("passphraseEntry2")
+        self.globalcheckbutton = xml.get_widget("globalcheckbutton")
+
+        addFrame(self.win)
+
+    def run(self):
+        self.win.show()
+        self.passphraseLabel.set_text(self.txt)
+        self.passphraseEntry.grab_focus()
+        rc = self.win.run()
+        passphrase = None
+        isglobal = False
+        if rc == gtk.RESPONSE_OK:
+            passphrase = self.passphraseEntry.get_text()
+            isglobal = self.globalcheckbutton.get_active()
+
+        self.rc = (passphrase, isglobal)
+        return self.rc
+
+    def getrc(self):
+        return self.rc
+
+    def destroy(self):
+        self.win.destroy()
 
 class ExceptionWindow:
     def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):
@@ -929,6 +1032,19 @@ class InstallInterface:
             ret = d.get_key()
         d.destroy()
         return ret
+
+    def getLuksPassphrase(self, passphrase = "", device = ""):
+        d = luksPassphraseWindow(passphrase = passphrase, device = device)
+        rc = d.run()
+        passphrase = d.getPassphrase()
+        d.destroy()
+        return passphrase
+
+    def passphraseEntryWindow(self, device):
+        d = PassphraseEntryWindow(device)
+        rc = d.run()
+        d.destroy()
+        return rc
 
     def beep(self):
         gtk.gdk.beep()

@@ -211,8 +211,16 @@ def mountptchangeCB(widget, fstypecombo):
         fstypecombo.set_active_text("vfat")
 
 def formatOptionCB(widget, data):
-    (combowidget, mntptcombo, ofstype) = data
+    (combowidget, mntptcombo, ofstype, lukscb) = data
     combowidget.set_sensitive(widget.get_active())
+    if lukscb is not None:
+        lukscb.set_data("formatstate", widget.get_active())
+        if not widget.get_active():
+            # set "Encrypt" checkbutton to match partition's initial state
+            lukscb.set_active(lukscb.get_data("encrypted"))
+            lukscb.set_sensitive(0)
+        else:
+            lukscb.set_sensitive(1)
 
     # inject event for fstype menu
     if widget.get_active():
@@ -285,8 +293,11 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     if not formatrb.get_active() and not origrequest.migrate:
 	mountCombo.set_data("prevmountable", ofstype.isMountable())
 
+    # this gets added to the table a bit later on
+    lukscb = gtk.CheckButton(_("_Encrypt"))
+
     formatrb.connect("toggled", formatOptionCB,
-		     (fstypeCombo, mountCombo, ofstype))
+		     (fstypeCombo, mountCombo, ofstype, lukscb))
 
     noformatrb.connect("toggled", noformatCB2,
 		     (fstypeCombo, mountCombo, origrequest.origfstype))
@@ -329,9 +340,20 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         
     row = row + 1
 
+    if origrequest.encryption:
+        lukscb.set_active(1)
+        lukscb.set_data("encrypted", 1)
+    else:
+        lukscb.set_data("encrypted", 0)
+
+    lukscb.set_sensitive(formatrb.get_active())
+    lukscb.set_data("formatstate", formatrb.get_active())
+    maintable.attach(lukscb, 0, 2, row, row + 1)
+    row = row + 1
+
     rc = {}
     for var in ['noformatrb', 'formatrb', 'fstypeCombo',
-                'migraterb', 'migfstypeCombo', 'badblocks' ]:
+                'migraterb', 'migfstypeCombo', 'badblocks', 'lukscb' ]:
         if eval("%s" % (var,)) is not None:
             rc[var] = eval("%s" % (var,))
 
