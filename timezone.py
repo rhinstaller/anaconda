@@ -13,6 +13,7 @@
 
 import shutil
 import iutil
+import os
 from flags import flags
 
 import logging
@@ -37,10 +38,13 @@ class Timezone:
 	
 	fromFile = instPath + "/usr/share/zoneinfo/" + self.tz
 
-	try:
-	    shutil.copyfile(fromFile, instPath + "/etc/localtime")
-	except OSError, (errno, msg):
-	    log.error("Error copying timezone (from %s): %s" % (fromFile, msg))
+        if not os.access(fromFile, os.R_OK):
+            log.error("Timezone to be copied (%s) doesn't exist" % fromFile)
+        else:
+            try:
+                shutil.copyfile(fromFile, instPath + "/etc/localtime")
+            except OSError, (errno, msg):
+                log.error("Error copying timezone (from %s): %s" % (fromFile, msg))
 
 	f = open(instPath + "/etc/sysconfig/clock", "w")
 
