@@ -22,6 +22,7 @@ import gtk.glade
 import gobject
 import gui
 from iw_gui import *
+from image import *
 from constants import *
 import isys
 
@@ -79,6 +80,14 @@ class RepoEditor:
         # the same method types at the same indices (so, HTTP must be the
         # same position on both, etc.).
         self.notebook.set_current_page(widget.get_active())
+
+        if widget.get_active() == 1:
+            if self.repo:
+                self.proxyCheckbox.set_active(self.repo.proxy is True)
+                self.proxyTable.set_sensitive(self.repo.proxy is True)
+            else:
+                self.proxyCheckbox.set_active(False)
+                self.proxyTable.set_sensitive(False)
 
     # URL-specific callbacks
     def on_proxyCheckbox_toggled(self, widget, *args):
@@ -145,18 +154,7 @@ class RepoEditor:
             self.nameEntry.set_text(self.repo.name)
             self.typeComboBox.set_active(self._methodToIndex(self.anaconda.methodstr))
 
-            if self.anaconda.methodstr.startswith("nfs"):
-                (method, server, dir) = self.anaconda.methodstr.split(":")
-                self.nfsServerEntry.set_text(server)
-                self.nfsPathEntry.set_text(dir)
-                self.nfsOptionsEntry.set_text("")
-            elif self.anaconda.methodstr.startswith("cdrom:"):
-                pass
-            elif self.anaconda.methodstr.startswith("hd:"):
-                (device, fstype, path) = self.anaconda.methodstr[3:].split(":", 3)
-                # find device in self.partitionComboBox and select it
-                self.directoryChooser.set_current_folder(path)
-            else:
+            if not self.anaconda.methodstr or self.anaconda.methodstr.startswith("http") or self.anaconda.methodstr.startswith("ftp"):
                 if self.repo.mirrorlist:
                     self.baseurlEntry.set_text(self.repo.mirrorlist)
                     self.mirrorlistCheckbox.set_active(True)
@@ -173,6 +171,17 @@ class RepoEditor:
                 else:
                     self.proxyCheckbox.set_active(False)
                     self.proxyTable.set_sensitive(False)
+            elif self.anaconda.methodstr.startswith("nfs"):
+                (method, server, dir) = self.anaconda.methodstr.split(":")
+                self.nfsServerEntry.set_text(server)
+                self.nfsPathEntry.set_text(dir)
+                self.nfsOptionsEntry.set_text("")
+            elif self.anaconda.methodstr.startswith("cdrom:"):
+                pass
+            elif self.anaconda.methodstr.startswith("hd:"):
+                (device, fstype, path) = self.anaconda.methodstr[3:].split(":", 3)
+                # find device in self.partitionComboBox and select it
+                self.directoryChooser.set_current_folder(path)
         else:
             self.typeComboBox.set_active(0)
             self.proxyCheckbox.set_active(False)
@@ -214,9 +223,24 @@ class RepoEditor:
 
         repo.name = self.nameEntry.get_text()
         repo.basecachedir = self.backend.ayum.conf.cachedir
+
+        if repo.name == "Installation Repo":
+            self.anaconda.setMethodstr(repourl)
+
         return True
 
     def _applyMedia(self, repo):
+        cdr = scanForMedia(self.anaconda.backend.ayum.tree)
+        if not cdr:
+            self.intf.messageWindow(_("No Media Found"),
+                                    _("No installation media was found. "
+                                      "Please insert a disc into your drive "
+                                      "and try again."))
+            return False
+
+        self.anaconda.setMethodstr("cdrom://%s:%s" % (cdr, self.anaconda.backend.ayum.tree))
+        self.anaconda.backend.ayum.configBaseURL()
+        self.anaconda.backend.ayum.configBaseRepo(replace=True)
         return True
 
     def _applyNfs(self, repo):
