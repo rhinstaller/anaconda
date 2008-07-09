@@ -124,7 +124,8 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
          yum-metadata-parser gfs2-utils libvolume_id rhel-instnum
 	 libdhcp libnl libdhcp6client libdhcp4client device-mapper-multipath
 	 kpartx dmraid python-pyblock mkinitrd libbdevid libbdevid-python
-	 libselinux-python nss udev keyutils-libs nspr python-iniparse"
+	 libselinux-python nss udev keyutils-libs nspr python-iniparse
+	 cryptsetup-luks"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
@@ -333,6 +334,7 @@ lib/udev/scsi_id
 sbin/badblocks
 sbin/busybox.anaconda
 sbin/clock
+sbin/cryptsetup
 sbin/debugfs
 sbin/dosfslabel
 sbin/e2fsck
