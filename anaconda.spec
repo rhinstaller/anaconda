@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.113
+Version: 11.1.2.114
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,36 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 9 2008 Joel Granados <jgranado@redhat.com> 11.1.2.114-1
+- Enable upgrades for mayor version in rhel5 only (jgranado).
+  Resolves: rhbz#436865
+- Handling of invalid timezone value in kickstart added (rvykydal).
+  Resolves: rhbz#404321
+- GCC is complaining about unchecked return value from read call (msivak).
+  Resolves: rhbz#448009
+- Enable re-IPL on s390x after installation (dcantrell).
+  Resolves: rhbz#432416
+- Change the maximum recommended swap size to "2000 + (current ram)" (jgranado).
+  Resolves: rhbz#447372
+- Don't show the virtualization option if we are in Xen or in Vmware (jgranado).
+  Resolves: rhbz#258441
+- Prepare the system a little before initializing the pcmcia devices (msivak).
+  Resolves: rhbz#448009
+- Change the total number of processed packages/files/.. to avoid negative counter in remaining packages (msivak).
+  Resolves: rhbz#436103
+- Create additional /dev/xvda device nodes (clumens).
+  Resolves: rhbz#437752
+- Don't use error messages from dosfslabel as the label (clumens)
+  Resolves: rhbz#427457
+- Add nui driver (jgranado).
+  Resolves: rhbz#444820
+- Allow the use of the "-" character in lvm names (jgranado).
+  Resolves: rhbz#430907
+- yum.remove removes installed packages, not to be installed packages (msivak).
+  Resolves: rhbz#442325
+- Allow removing packages by glob now that yum supports it (msivak).
+  Resolves: rhbz#442325
+
 * Wed Apr 16 2008 Chris Lumens <clumens@redhat.com> 11.1.2.113-1
 - Require the latest version of libnl-devel.
   Resolves: rhbz#441922
