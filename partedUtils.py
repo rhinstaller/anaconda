@@ -550,21 +550,10 @@ def productMatches(oldproduct, newproduct):
         return 1
 
     productUpgrades = {
-        "Red Hat Enterprise Linux AS": ("Red Hat Linux Advanced Server", ),
-        "Red Hat Enterprise Linux WS": ("Red Hat Linux Advanced Workstation",),
-        # FIXME: this probably shouldn't be in a release...
-        "Red Hat Enterprise Linux": ("Red Hat Linux Advanced Server",
-                                     "Red Hat Linux Advanced Workstation",
-                                     "Red Hat Enterprise Linux AS",
-                                     "Red Hat Enterprise Linux ES",
-                                     "Red Hat Enterprise Linux WS"),
-        "Red Hat Enterprise Linux Server": ("Red Hat Enterprise Linux AS",
-                                            "Red Hat Enterprise Linux ES",
-                                            "Red Hat Enterprise Linux WS",
-                                            "Red Hat Enterprise Linux"),
-        "Red Hat Enterprise Linux Client": ("Red Hat Enterprise Linux WS",
-                                            "Red Hat Desktop",
-                                            "Red Hat Enterprise Linux"),
+        "Red Hat Enterprise Linux Server": ("Red Hat Enterprise Linux Client release 5",
+                                            "Red Hat Enterprise Linux Server release 5"),
+        "Red Hat Enterprise Linux Client": ("Red Hat Enterprise Linux Client release 5",
+                                            "Red Hat Enterprise Linux Server release 5"),
         "Fedora Core": ("Red Hat Linux",)
         }
 

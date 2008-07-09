@@ -111,6 +111,14 @@ def findRootParts(anaconda):
     for (dev, fs, meta, label) in anaconda.id.rootParts:
         anaconda.id.upgradeRoot.append( (dev, fs) )
 
+    if len(anaconda.id.rootParts) == 0 and anaconda.isKickstart:
+        message = _("Anaconda did not find any partitions that are "
+                    "valid upgrade candidates.  Note that upgrades "
+                    "between major releases is not supported.")
+        anaconda.intf.messageWindow(_("No valid upgrade partition"),
+                            message)
+        sys.exit(0)
+
     if anaconda.id.rootParts is not None and len(anaconda.id.rootParts) > 0:
         anaconda.dispatch.skipStep("findinstall", skip = 0)
         if productName.find("Red Hat Enterprise Linux") == -1:
