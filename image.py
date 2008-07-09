@@ -242,6 +242,27 @@ def presentRequiredMediaMessage(anaconda):
                                           type="custom", custom_icon="warning",
                                           custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
 
+# Find an attached CD/DVD drive with media in it that contains packages,
+# and return that device name.
+def scanForMedia(tree):
+    drive = None
+
+    for cdr in map(lambda d: "/dev/%s" % d, isys.cdromList()):
+        try:
+            if isys.mount(cdr, tree, fstype="iso9660", readOnly=1):
+                continue
+        except:
+            continue
+
+        if not verifyMedia(tree, 1):
+            isys.umount(tree)
+            continue
+
+        drive = cdr
+        break
+
+    return drive
+
 def umountImage(tree, currentMedia):
     if currentMedia is not None:
         isys.umount(tree, removeDir=0)
