@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-06-08 14:20GMT\n"
+"PO-Revision-Date: 2008-07-09 23:52GMT\n"
 "Last-Translator: Oron Peled <oron@actcom.co.il>\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
@@ -111,7 +111,7 @@ msgstr "סוג התקנה מאלץ התקנה שאינה גרפית"
 
 #: ../anaconda:878
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "התקנה בתצורה גרפית אינה זמינה... מאתחל התקנה בתצורה טקסט"
+msgstr "התקנה בתצורה גרפית אינה זמינה... מאתחל התקנה בתצורה טקסט."
 
 #: ../anaconda:886
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -291,6 +291,9 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
+"לא ניתן להקצות את המחיצות הדרושות: \n"
+"\n"
+"%s.%s"
 
 #: ../autopart.py:1561
 msgid ""
@@ -309,14 +312,20 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation. %s"
 msgstr ""
+"בחלוקת המחיצות שלך אירעו השגיאות הבאות:\n"
+"\n"
+"%s\n"
+"\n"
+"יתכן וזה קרה עקב חוסר שטח פנוי להתקנה על גבי הכוננים "
+"הקשיחים. %s"
 
 #: ../autopart.py:1575
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "לא ניתן להתגבר על השגיאה"
 
 #: ../autopart.py:1576
 msgid "Your system will now be rebooted."
-msgstr ""
+msgstr "המחשב שלך יבצע כעת אתחול מחדש (reboot)."
 
 #: ../autopart.py:1700
 msgid ""
@@ -327,12 +336,20 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
+"חלוקת מחיצות אוטומטית מחלקת את המחיצות לפי סוג ההתקנה שנבחר. ניתן לשנות "
+"את חלוקת המחיצות גם לאחר הבחירה האוטומטית.\n"
+"\n"
+"הכלי לחלוקת מחיצות ידנית, Disk Druid, מאפשר יצירת מחיצות "
+"באופן אינטראקטיבי. ניתן לקבוע את סוגי מערכות הקבצים, נקודות העיגון "
+"שלהן, גדלי המחיצות ועוד."
 
 #: ../autopart.py:1711
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
+"לפני שתכנית ההתקנה יכולה לקבוע אוטומטית את המחיצות, חובה לבחור "
+"כיצד להשתמש בשטח על גבי הכוננים הקשיחים שלך."
 
 #: ../autopart.py:1716
 msgid "Remove all partitions on this system"
@@ -374,6 +391,10 @@ msgid ""
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
+"מערכות הקבצים שלך כבר הופעלו. לא ניתן לחזור אחורה מעבר "
+"לנקודה זו.\n"
+"\n"
+"האם ברצונך להמשיך בהתקנה?"
 
 #: ../bootloader.py:49 ../exception.py:348 ../exception.py:363
 #: ../exception.py:381 ../fsset.py:1715 ../fsset.py:1972 ../fsset.py:2711
@@ -405,6 +426,8 @@ msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
+"לא הותקנו חבילות גרעין (kernel) על המערכת שלך. לכן, לא יבוצעו שינויים בתצורת"
+"האתחול של המערכת."
 
 #: ../cmdline.py:53
 msgid "Completed"
@@ -453,17 +476,17 @@ msgstr ""
 
 #: ../exception.py:352 ../exception.py:369
 msgid "There was a problem writing the system state to the disk."
-msgstr ""
+msgstr "הייתה בעיה בשמירת מצב המערכת לדיסק."
 
 #: ../exception.py:378
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
-msgstr ""
+msgstr "מצב המערכת נשמר בהצלחה למחשב מרוחק. תכנית ההתקנה תסתיים עכשיו."
 
 #: ../exception.py:385
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "הייתה בעיה בשמירת מצב המערכת למחשב מרוחק."
 
 #: ../fsset.py:548
 msgid "Checking"
@@ -523,6 +546,10 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
+"אירעה שגיאה במהלך המרת  %s לפורמט ext3.  ניתן להמשיך מבלי "
+"להמיר את מערכת הקבצים הזו.\n"
+"\n"
+"האם ברצונך להמשיך מבלי להמיר את  %s?"
 
 #: ../fsset.py:1538
 msgid "EFI System Partition"
@@ -556,6 +583,10 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
+"אירעה שגיאה בזמן ניסיון לאתחול שטח החלפה (swap) על התקן  %s.  זוהי בעיה חמורה "
+"ולא ניתן להמשיך את ההתקנה.\n"
+"\n"
+"נא להקיש <Enter> בכדי לצאת מתכנית ההתקנה."
 
 #: ../fsset.py:1715 ../packages.py:368 ../rescue.py:305 ../rescue.py:307
 #: ../textw/upgrade_text.py:132 ../loader2/cdinstall.c:200
@@ -574,6 +605,13 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"ההתקן לשטח ההחלפה:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"מכיל מחיצת החלפה של לינוקס בגרסה 0. אם ברצונך להשתמש במחיצה זו, חובה "
+"לפרמט אותה מחדש כמחיצת החלפה מגרסה 1. אחרת, תכנית ההתקנה תתעלם "
+"ממחיצה זו במהלך ההתקנה."
 
 #: ../fsset.py:1743
 msgid "Reformat"
@@ -610,10 +648,14 @@ msgid ""
 "Choose Skip if you want the installer to ignore this partition during the "
 "upgrade.  Choose Format to reformat the partition as swap space."
 msgstr ""
+"\n"
+"\n"
+"יש לבחור \"דלג\" אם רוצים שתכנית ההתקנה תתעלם ממחיצה זו במהלך השדרוג. "
+"יש לבחור \"פרמט\" כדי לפרמט את המחיצה כשטח החלפה."
 
 #: ../fsset.py:1770 ../iw/partition_gui.py:373
 msgid "Format"
-msgstr "לפרמט"
+msgstr "פרמט"
 
 #: ../fsset.py:1776
 #, python-format
@@ -645,6 +687,11 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
+"שגיאה בהפעלת התקן החלפה %s: %s\n"
+"\n"
+"יש סבירות גבוהה שהדבר נגרם עקב אי אתחול מחיצת ההחלפה.\n"
+"\n"
+"יש ללחוץ אשר ליציאה מתכנית ההתקנה."
 
 #: ../fsset.py:1861
 #, python-format
@@ -654,6 +701,10 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
+"שגיאה אירעה בזמן ניסיון לפרמט את  %s.  זוהי תקלה חמורה ותכנית "
+"ההתקנה אינה יכולה להמשיך.\n"
+"\n"
+"יש ללחוץ <enter> ליציאה מתכנית ההתקנה."
 
 #: ../fsset.py:1911
 #, python-format
@@ -663,6 +714,10 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
+"שגיאה אירעה בזמן ניסיון להגר את %s.  זוהי תקלה חמורה ותכנית "
+"ההתקנה אינה יכולה להמשיך.\n"
+"\n"
+"יש ללחוץ <enter> ליציאה מתכנית ההתקנה."
 
 #: ../fsset.py:1940 ../fsset.py:1949
 msgid "Invalid mount point"
@@ -676,6 +731,10 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
+"שגיאה אירעה בזמן ניסיון ליצור את %s.  אחד ממרכיבי המסלול אינו "
+"תיקיה. זוהי שגיאה חמורה וההתקנה אינה יכולה להמשך.\n"
+"\n"
+"יש ללחוץ <enter> ליציאה מתכנית ההתקנה."
 
 #: ../fsset.py:1950
 #, python-format
@@ -685,6 +744,10 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
+"שגיאה אירעה בזמן ניסיון ליצור את  %s: %s.  זוהי שגיאה חמורה "
+"וההתקנה חייבת להיפסק.\n"
+"\n"
+"יש ללחוץ <enter> ליציאה מתכנית ההתקנה."
 
 #: ../fsset.py:1964
 msgid "Unable to mount filesystem"
@@ -696,6 +759,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"שגיאה אירעה במהלך עיגון ההתקן  %s בנקודה %s.  ניתן להמשיך בהתקנה, "
+"אך עלולות להיות בעיות בהמשך."
 
 #: ../fsset.py:1981
 #, python-format
@@ -903,11 +968,11 @@ msgstr "נסה שנית_"
 
 #: ../gui.py:1325 ../packages.py:189 ../packages.py:421
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "תכנית ההתקנה תסיים כעת..."
 
 #: ../gui.py:1328 ../packages.py:424
 msgid "Your system will now be rebooted..."
-msgstr ""
+msgstr "המערכת שלך תאותחל מחדש כעת..."
 
 #: ../gui.py:1329 ../image.py:250 ../packages.py:190 ../packages.py:425
 #: ../partedUtils.py:1261 ../yuminstall.py:1304
@@ -929,11 +994,11 @@ msgstr ""
 
 #: ../gui.py:1417
 msgid "Unable to load title bar"
-msgstr ""
+msgstr "לא הצלחתי לעדכן את הכותרת"
 
 #: ../gui.py:1470
 msgid "Install Window"
-msgstr ""
+msgstr "חלון התקנה"
 
 #: ../image.py:88
 #, python-format
@@ -944,6 +1009,11 @@ msgid ""
 "It is recommended that you exit and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"גודלו של קובץ תמונת התקליטור  %s  אינו מכפלה של  2048 בתים.  יתכן והדבר "
+"מרמז על כך שהוא נפגם במהלך העברתו למחשב זה.\n"
+"\n"
+"מומלץ להפסיק את ההתקנה ולצאת, אך ניתן להמשיך, אם לדעתך הקובץ תקין "
+"בכל זאת."
 
 #: ../image.py:157
 msgid "Couldn't Mount ISO Source"
@@ -1017,7 +1087,7 @@ msgstr ""
 
 #: ../kickstart.py:101 ../kickstart.py:103
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "תסריטון נכשל"
 
 #: ../kickstart.py:928 ../kickstart.py:945
 msgid "Running..."
@@ -1025,11 +1095,11 @@ msgstr "מריץ..."
 
 #: ../kickstart.py:929
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "מריץ תסריטי סיום התקנה"
 
 #: ../kickstart.py:946
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "מריץ תסריטי קדם התקנה"
 
 #: ../kickstart.py:977
 msgid "Missing Package"
@@ -1048,7 +1118,7 @@ msgstr "_בטל"
 
 #: ../kickstart.py:1014
 msgid "Missing Group"
-msgstr ""
+msgstr "קבוצה חסרה"
 
 #: ../kickstart.py:1015
 #, python-format
@@ -1089,15 +1159,15 @@ msgstr ""
 
 #: ../network.py:57
 msgid "Hostname must be 64 or less characters in length."
-msgstr ""
+msgstr "אורכו של שם המחשב חייב להיות בן 64 תווים ומטה."
 
 #: ../network.py:60
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
+msgstr "שם המחשב חייב להתחיל בתו חוקי בתחום 'a-z' או 'A-Z'"
 
 #: ../network.py:65
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
+msgstr "שם המחשב יכול להכיל רק את התווים 'a-z', 'A-Z', '-' או '.'"
 
 #: ../network.py:95
 msgid "IP address is missing."
@@ -1107,7 +1177,7 @@ msgstr "חסרה כתובת IP."
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr ""
+msgstr "כתובות IPv4 חייבות להכיל ארבעה מספרים בתחום 0 עד 255 המופרדים בנקודות."
 
 #: ../network.py:102
 #, python-format
@@ -1126,19 +1196,19 @@ msgstr "פעולות שינוי גודל נכשלה"
 #: ../packages.py:148
 #, python-format
 msgid "There was an error encountered resizing the device %s."
-msgstr ""
+msgstr "אירעה שגיאה במהלך שינוי גודל ההתקן %s."
 
 #: ../packages.py:188
 msgid "LVM operation failed"
-msgstr ""
+msgstr "פעולת LVM נכשלה"
 
 #: ../packages.py:342
 msgid "Invalid Key"
-msgstr ""
+msgstr "מפתח שגוי"
 
 #: ../packages.py:343
 msgid "The key you entered is invalid."
-msgstr ""
+msgstr "המפתח שהוקלד שגוי."
 
 #: ../packages.py:371
 msgid "_Skip"
@@ -1195,15 +1265,15 @@ msgstr ""
 
 #: ../partedUtils.py:405
 msgid "_Ignore drive"
-msgstr ""
+msgstr "הת_עלם מהדיסק"
 
 #: ../partedUtils.py:406
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "_פרמט מחדש את הדיסק"
 
 #: ../partedUtils.py:994
 msgid "Initializing"
-msgstr ""
+msgstr "מאתחל"
 
 #: ../partedUtils.py:995
 #, python-format
@@ -1246,7 +1316,7 @@ msgstr ""
 
 #: ../partedUtils.py:1342
 msgid "No Drives Found"
-msgstr ""
+msgstr "לא נמצאו דיסקים"
 
 #: ../partedUtils.py:1343
 msgid ""
@@ -1374,7 +1444,7 @@ msgstr "מחק_"
 
 #: ../partIntfHelpers.py:301
 msgid "Notice"
-msgstr ""
+msgstr "התרעה"
 
 #: ../partIntfHelpers.py:302
 #, python-format
@@ -1391,14 +1461,14 @@ msgstr "אין אפשרות לערוך"
 
 #: ../partIntfHelpers.py:319
 msgid "You must select a partition to edit"
-msgstr ""
+msgstr "יש לבחור מחיצה לצורך עריכה"
 
 #: ../partIntfHelpers.py:331 ../partIntfHelpers.py:369
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr ""
-"אינך יכול לערוך את המחיצה:\n"
+"לא ניתן לערוך מחיצה זו:\n"
 "\n"
 
 #: ../partIntfHelpers.py:358
@@ -1407,10 +1477,12 @@ msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
+"לא ניתן לערוך מחיצה זו, מכיוון שהיא מחיצה מורחבת (extended partition) "
+"המכילה %s"
 
 #: ../partIntfHelpers.py:390
 msgid "Format as Swap?"
-msgstr ""
+msgstr "לאתחל כשטח החלפה (swap)?"
 
 #: ../partIntfHelpers.py:391
 #, python-format
@@ -1438,7 +1510,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:424
 msgid "Format?"
-msgstr "?לפרמט"
+msgstr "לפרמט?"
 
 #: ../partIntfHelpers.py:424 ../iw/partition_gui.py:1035
 msgid "_Modify Partition"
@@ -1515,7 +1587,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:532
 msgid "The partition you selected will be deleted."
-msgstr ""
+msgstr "המחיצה שנבחרה תימחק."
 
 #: ../partIntfHelpers.py:542
 msgid "Confirm Reset"
@@ -1527,7 +1599,7 @@ msgstr ""
 
 #: ../partitions.py:84
 msgid "Installation cannot continue."
-msgstr ""
+msgstr "לא ניתן להמשיך בהתקנה."
 
 #: ../partitions.py:85
 msgid ""
@@ -1552,7 +1624,7 @@ msgstr "_אחורה"
 
 #: ../partitions.py:120
 msgid "_Write changes to disk"
-msgstr ""
+msgstr "_כתיבת השינויים לדיסק"
 
 #: ../partitions.py:200 ../textw/constants_text.py:50
 #: ../loader2/cdinstall.c:351 ../loader2/driverdisk.c:236
@@ -1565,7 +1637,7 @@ msgstr ""
 #: ../loader2/net.c:1094 ../loader2/net.c:1863 ../loader2/nfsinstall.c:68
 #: ../loader2/urls.c:280 ../loader2/urls.c:405
 msgid "Back"
-msgstr ""
+msgstr "אחורה"
 
 #: ../partitions.py:200 ../rescue.py:305 ../iw/partition_gui.py:572
 #: ../textw/network_text.py:60 ../loader2/cdinstall.c:117
