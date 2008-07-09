@@ -141,7 +141,7 @@ char * mountNfsImage(struct installMethod * method,
                     directory = strdup(directory);
                 }
             } else {
-                char *stage2img, *substr;
+                char *stage2img, *substr, *tmp;
 
                 if (nfsGetSetup(&host, &directory) == LOADER_BACK)
                     return NULL;
@@ -156,11 +156,16 @@ char * mountNfsImage(struct installMethod * method,
                  */
                 substr = strstr(directory, ".img");
                 if (!substr || (substr && *(substr+4) != '\0')) {
-                    if (asprintf(&directory, "%s/images/%s", directory,
+                    if (asprintf(&tmp, "%s/images/%s", directory,
                                  stage2img) == -1) {
                         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                         abort();
                     }
+
+                    free(((struct nfsInstallData *) loaderData->stage2Data)->directory);
+                    ((struct nfsInstallData *) loaderData->stage2Data)->directory = strdup(tmp);
+                    directory = ((struct nfsInstallData *) loaderData->stage2Data)->directory;
+                    free(tmp);
                 }
             }
 
