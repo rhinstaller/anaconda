@@ -76,6 +76,15 @@ def partitioningComplete(anaconda):
 	if (not request.fstype or (request.fstype.isMountable()
 	    and not request.mountpoint)):
 	    continue
+
+        if anaconda.isKickstart and \
+           request.encryption and not request.encryption.passphrase:
+            dev = request.getDevice(anaconda.id.partitions).getDevice()
+            passphrase = anaconda.intf.getLuksPassphrase(device=dev)
+            if passphrase:
+                request.encryption.setPassphrase(passphrase)
+            else:
+                request.encryption = None
 	    
         entry = request.toEntry(anaconda.id.partitions)
         if entry:

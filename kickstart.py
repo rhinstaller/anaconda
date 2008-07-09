@@ -114,6 +114,10 @@ class AnacondaKSHandlers(KickstartHandlers):
         # if you want it
         self.id.instClass.setDefaultPartitioning(self.id, doClear = 0)
 
+        if self.ksdata.encrypted:
+            self.id.partitions.autoEncrypt = True
+            self.id.partitions.autoEncryptPass = self.ksdata.passphrase
+
         self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
     def doAutoStep(self, args):
@@ -276,6 +280,14 @@ class AnacondaKSHandlers(KickstartHandlers):
 
 	if lvd.fsopts != "":
             request.fsopts = lvd.fsopts
+
+        if lvd.encrypted:
+            try:
+                passphrase = lvd.passphrase
+            except AttributeError:
+                passphrase = ""
+
+            request.encryption = cryptodev.LUKSDevice(passphrase=passphrase, format=lvd.format)
 
         self.id.instClass.addPartRequest(self.id.partitions, request)
         self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
@@ -473,6 +485,14 @@ class AnacondaKSHandlers(KickstartHandlers):
         if pd.fsopts != "":
             request.fsopts = pd.fsopts
 
+        if pd.encrypted:
+            try:
+                passphrase = pd.passphrase
+            except AttributeError:
+                passphrase = ""
+
+            request.encryption = cryptodev.LUKSDevice(passphrase=passphrase, format=pd.format)
+
         self.id.instClass.addPartRequest(self.id.partitions, request)
         self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
@@ -542,6 +562,14 @@ class AnacondaKSHandlers(KickstartHandlers):
             request.device = "md%s" % rd.device
         if rd.fsopts != "":
             request.fsopts = rd.fsopts
+
+        if rd.encrypted:
+            try:
+                passphrase = rd.passphrase
+            except AttributeError:
+                passphrase = ""
+
+            request.encryption = cryptodev.LUKSDevice(passphrase=passphrase, format=rd.format)
 
         self.id.instClass.addPartRequest(self.id.partitions, request)
         self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])

@@ -1157,6 +1157,11 @@ class Partitions:
             if request.badblocks:
                 args.append("--badblocks")
 
+            # device encryption
+            if request.encryption:
+                args.extend(["--encrypted",
+                             "--passphrase=\"%s\"" % (request.encryption.passphrase,)])
+
             # preexisting only
             if request.type == REQUEST_PREEXIST and request.device:
                 args.append("--onpart")
@@ -1218,6 +1223,11 @@ class Partitions:
                 args.extend(["--fstype", request.fstype.getName(quoted = 1)])
             if request.badblocks:
                 args.append("--badblocks")
+
+            # device encryption
+            if request.encryption:
+                args.extend(["--encrypted",
+                             "--passphrase=\"%s\"" % (request.encryption.passphrase,)])
 
             args.append("--level=%s" % (request.raidlevel))
             args.append("--device=md%s" % (request.raidminor))
@@ -1291,6 +1301,11 @@ class Partitions:
                 args.append("--useexisting")
             if request.fstype:
                 args.extend(["--fstype", request.fstype.getName(quoted = 1)])
+
+            # device encryption
+            if request.encryption:
+                args.extend(["--encrypted",
+                             "--passphrase=\"%s\"" % (request.encryption.passphrase,)])
 
             vg = self.getRequestByID(request.volumeGroup)
             if vg is None:
