@@ -38,7 +38,7 @@ from urlgrabber.grabber import URLGrabber, URLGrabError
 import yum
 import iniparse
 from yum.constants import *
-from yum.Errors import RepoError, YumBaseError, PackageSackError
+from yum.Errors import *
 from yum.yumRepo import YumRepository
 from backend import AnacondaBackend
 from product import *
@@ -854,7 +854,7 @@ class AnacondaYum(YumSorter):
                 self.populateTs(keepold=0)
                 self.dsCallback.pop()
                 self.dsCallback = None
-            except Exception, e:
+            except RepoError, e:
                 rc = intf.messageWindow(_("Error"),
                           _("There was an error running your transaction for "
                             "the following reason: %s\n") % str(e),
@@ -1182,7 +1182,7 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/tmp/product/yum.repos.d
         while 1:
             try:
                 self.doGroupSetup()
-            except Exception, e:
+            except (GroupsError, NoSuchGroup, RepoError), e:
                 buttons = [_("_Exit installer"), _("_Retry")]
             else:
                 break # success
@@ -1414,7 +1414,7 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/tmp/product/yum.repos.d
             while 1:
                 try:
                     (code, msgs) = self.ayum.buildTransaction()
-                except Exception, e:
+                except RepoError, e:
                     buttons = [_("_Exit installer"), _("_Retry")]
                 else:
                     break
