@@ -55,11 +55,6 @@ REQUEST_LV = 32 # logical volume
 # a callback
 MAX_PART_SIZE = 1024*1024*1024
 
-# these are used for kickstart
-CHECK_DEPS = 0
-IGNORE_DEPS = 1
-RESOLVE_DEPS = 2
-
 # install key related constants
 SKIP_KEY = -50
 
