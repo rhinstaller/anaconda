@@ -156,6 +156,9 @@ class RequestSpec:
         self.dev = None
         """A Device() as defined in fsset.py to correspond to this request."""
 
+        self.encryption = None
+        """ An optional LUKSDevice describing block device encryption """
+
     def __str__(self):
         if self.fstype:
             fsname = self.fstype.getName()
@@ -186,6 +189,11 @@ class RequestSpec:
         sys.stderr.write("WARNING: Abstract RequestSpec.getDevice() called\n")
         import traceback
         traceback.print_stack()
+
+    def isEncrypted(self, partitions, parentOnly = False):
+        if self.encryption and self.encryption.getScheme() is not None:
+            return True
+        return False
 
     def toEntry(self, partitions):
         """Turn a request into a fsset entry and return the entry."""
@@ -450,13 +458,19 @@ class PartitionSpec(RequestSpec):
         else:
             pre = "Existing"
 
+        if self.encryption is None:
+            crypto = "None"
+        else:
+            crypto = self.encryption.getScheme()
+
         str = ("%(n)s Part Request -- mountpoint: %(mount)s uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
                "  device: %(dev)s drive: %(drive)s  primary: %(primary)s\n"
                "  size: %(size)s  grow: %(grow)s  maxsize: %(max)s\n"
                "  start: %(start)s  end: %(end)s  migrate: %(migrate)s  "
                "  fslabel: %(fslabel)s  origfstype: %(origfs)s\n"
-               "  bytesPerInode: %(bytesPerInode)s  options: '%(fsopts)s'" % 
+               "  bytesPerInode: %(bytesPerInode)s  options: '%(fsopts)s'"
+               "  encryption: %(encryption)s" %
                {"n": pre, "mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "dev": self.device,
                 "drive": self.drive, "primary": self.primary,
@@ -464,13 +478,14 @@ class PartitionSpec(RequestSpec):
                 "start": self.start, "end": self.end, "bb": self.badblocks,
                 "migrate": self.migrate, "fslabel": self.fslabel,
                 "origfs": oldfs, "bytesPerInode": self.bytesPerInode,
-                "fsopts": self.fsopts})
+                "fsopts": self.fsopts, "encryption": crypto})
         return str
 
 
     def getDevice(self, partitions):
         """Return a device to solidify."""
-        self.dev = fsset.PartitionDevice(self.device)
+        self.dev = fsset.PartitionDevice(self.device,
+                                         encryption=self.encryption)
         return self.dev
 
     def getActualSize(self, partitions, diskset):
@@ -611,15 +626,21 @@ class RaidRequestSpec(RequestSpec):
         if self.raidmembers:
             for i in self.raidmembers:
                 raidmem.append(i)
+
+        if self.encryption is None:
+            crypto = "None"
+        else:
+            crypto = self.encryption.getScheme()
                 
         str = ("RAID Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
                "  raidlevel: %(level)s  raidspares: %(spares)s\n"
-               "  raidmembers: %(members)s  bytesPerInode: %(bytesPerInode)s" % 
+               "  raidmembers: %(members)s  bytesPerInode: %(bytesPerInode)s"
+               "  encryption: %(encryption)s" %
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "bb": self.badblocks,
                 "level": self.raidlevel, "spares": self.raidspares,
-                "members": self.raidmembers,
+                "members": self.raidmembers, "encryption": crypto,
                 "bytesPerInode": self.bytesPerInode})
         return str
     
@@ -628,13 +649,25 @@ class RaidRequestSpec(RequestSpec):
         # Alway return a new device for minor changing
         raidmems = []
         for member in self.raidmembers:
-            raidmems.append(partitions.getRequestByID(member).device)
+            request = partitions.getRequestByID(member)
+            raidmems.append(request.getDevice(partitions))
         self.dev = fsset.RAIDDevice(int(self.raidlevel[-1:]),
                                     raidmems, minor = self.raidminor,
                                     spares = self.raidspares,
                                     existing = self.preexist,
-                                    chunksize = self.chunksize)
+                                    chunksize = self.chunksize,
+                                    encryption = self.encryption)
         return self.dev
+
+    def isEncrypted(self, partitions, parentOnly = False):
+        if RequestSpec.isEncrypted(self, partitions) is True:
+            return True
+        if parentOnly:
+            return False
+        for member in self.raidmembers:
+            if partitions.getRequestByID(member).isEncrypted(partitions):
+                return True
+        return False
 
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
@@ -778,6 +811,17 @@ class VolumeGroupRequestSpec(RequestSpec):
                                            existing = self.preexist)
         return self.dev
 
+    def isEncrypted(self, partitions, parentOnly = False):
+        if RequestSpec.isEncrypted(self, partitions) is True:
+            return True
+        if parentOnly:
+            return False
+        for pvid in self.physicalVolumes:
+            pv = partitions.getRequestByID(pvid)
+            if pv.isEncrypted(partitions):
+                return True
+        return False
+
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
 
@@ -881,15 +925,21 @@ class LogicalVolumeRequestSpec(RequestSpec):
         else:
             size = "%s percent" %(self.percent,)
         
+        if self.encryption is None:
+            crypto = "None"
+        else:
+            crypto = self.encryption.getScheme()
+
         str = ("LV Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
                "  size: %(size)s  lvname: %(lvname)s  volgroup: %(vgid)s\n"
-               "  bytesPerInode: %(bytesPerInode)s  options: '%(fsopts)s'" %
+               "  bytesPerInode: %(bytesPerInode)s  options: '%(fsopts)s'"
+               "  encryption: %(encryption)s" %
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "bb": self.badblocks,
                 "lvname": self.logicalVolumeName, "vgid": self.volumeGroup,
 		"size": size, "bytesPerInode": self.bytesPerInode,
-                "fsopts": self.fsopts})
+                "fsopts": self.fsopts, "encryption": crypto})
         return str
     
     def getDevice(self, partitions):
@@ -899,8 +949,19 @@ class LogicalVolumeRequestSpec(RequestSpec):
         self.dev = fsset.LogicalVolumeDevice(vgname, self.size,
                                              self.logicalVolumeName,
                                              vg = vg,
-                                             existing = self.preexist)
+                                             existing = self.preexist,
+                                             encryption = self.encryption)
         return self.dev
+
+    def isEncrypted(self, partitions, parentOnly = False):
+        if RequestSpec.isEncrypted(self, partitions) is True:
+            return True
+        if parentOnly:
+            return False
+        vg = partitions.getRequestByID(self.volumeGroup)
+        if vg.isEncrypted(partitions):
+            return True
+        return False
 
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""

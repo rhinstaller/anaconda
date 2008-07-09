@@ -21,6 +21,7 @@ import lvm
 import logging
 import rhpl
 from anaconda_log import logger, logFile
+import cryptodev
 from partitioning import *
 import partedUtils
 import partRequests
@@ -1377,6 +1378,14 @@ def doAutoPartition(anaconda):
 
             if req.type == REQUEST_NEW and not req.drive:
                 req.drive = drives
+
+            # this is kind of a hack, but if we're doing autopart encryption
+            # and the request has a crypto dev, but no passphrase, then set
+            # the passphrase to the global one
+            if partitions.autoEncrypt and req.encryption is not None and \
+                    req.encryption.passphrase == "":
+                req.encryption.setPassphrase(partitions.autoEncryptPass)
+
             # if this is a multidrive request, we need to create one per drive
             if req.type == REQUEST_NEW and req.multidrive:
                 if not req.drive:
@@ -1384,6 +1393,7 @@ def doAutoPartition(anaconda):
                     
                 for drive in req.drive:
                     r = copy.copy(req)
+                    r.encryption = copy.deepcopy(req.encryption)
                     r.drive = [ drive ]
                     partitions.addRequest(r)
                 continue
@@ -1593,6 +1603,8 @@ def autoCreateLVMPartitionRequests(autoreq):
                                     grow = 1,
                                     format = 1,
                                     multidrive = 1)
+
+    nr.encryption = cryptodev.LUKSDevice(passphrase="", format=1)
     requests.append(nr)
     nr = partRequests.VolumeGroupRequestSpec(fstype = None,
                                              vgname = "lvm",

@@ -72,6 +72,9 @@ class Partitions:
         self.zeroMbr = 0
         """Should the mbr be zero'd?"""
 
+        self.autoEncrypt = False
+        self.autoEncryptPass = ""
+
         # partition method to be used.  not to be touched externally
         self.useAutopartitioning = 1
         self.useFdisk = 0
@@ -1016,6 +1019,10 @@ class Partitions:
                     bootreq.fstype.getName() == "xfs"):
                     errors.append("Bootable partitions cannot be on an XFS "
                                   "filesystem.")
+
+                if (bootreq.isEncrypted(self)):
+                    errors.append("Bootable partitions cannot be on an "
+                                  "encrypted block device")
 
                 # no gfs support in grub
                 if (bootreq and bootreq.fstype and
