@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.12
+Version: 11.4.1.13
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -194,6 +194,23 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 09 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.13-1
+- Filter out source and debuginfo repos from the UI. (clumens)
+- Add the MD5 sum to the boot.iso to avoid errors in loader
+  (#453698). (clumens)
+- Don't strip too much off the NFS directory path. (clumens)
+- Log stage2 url better. (pjones)
+- Fix minor whitespace nits. (pjones)
+- Use %m rather than strerror() where appropriate. (pjones)
+- Make setupCdrom() actually return the path to the stage2 image it
+  found. (pjones)
+- Don't unconditionally pass --lang for live installs (#454101) (katzj)
+- Set up rhgb for plymouth on live.  And conditionalize rhgb + runlevel 5 (katzj)
+- Set up rhgb if plymouth is installed as well as rhgb (katzj)
+- Get the math right on how many usec per second... (pjones)
+- Import missing module "network". (pjones)
+- Wait up to 45 seconds for "No medium found" to stop happening (pjones)
+
 * Thu Jul 03 2008 Peter Jones <pjones@redhat.com> - 11.4.1.12-1
 - Add dmraid-libs to PACKAGES so new dmraid won't break installs.
 
