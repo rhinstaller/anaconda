@@ -127,13 +127,13 @@ class RepoEditor:
 
         # Remove these until they are actually implemented
         self.typeComboBox.remove_text(3)
-        self.typeComboBox.remove_text(2)
 
     # Given a method string, return the index of the typeComboBox that should
     # be made active in order to match.
     def _methodToIndex(self, method):
         mapping = {"http": 0, "ftp": 0, "https": 0,
-                   "cdrom": 1}
+                   "cdrom": 1,
+                   "nfs": 2}
 #                   "nfs": 2, "nfsiso": 2,
 #                   "hd": 3}
 
@@ -248,6 +248,20 @@ class RepoEditor:
         return True
 
     def _applyNfs(self, repo):
+        server = self.nfsServerEntry.get_text()
+        server.strip()
+
+        path = self.nfsPathEntry.get_text()
+        path.strip()
+
+        if not server or not path:
+            self.intf.messageWindow(_("Error"),
+                                    _("Please enter an NFS server and path."))
+            return False
+
+        self.anaconda.setMethodstr("nfs://%s:%s" % (server, path))
+        self.anaconda.backend.ayum.configBaseURL()
+        self.anaconda.backend.ayum.configBaseRepo(replace=True)
         return True
 
     def _applyHd(self, repo):
@@ -335,7 +349,18 @@ class RepoMethodstrEditor(RepoEditor):
         return "cdrom://%s:%s" % (cdr, self.anaconda.backend.ayum.tree)
 
     def _applyNfs(self):
-        return None
+        server = self.nfsServerEntry.get_text()
+        server.strip()
+
+        path = self.nfsPathEntry.get_text()
+        path.strip()
+
+        if not server or not path:
+            self.intf.messageWindow(_("Error"),
+                                    _("Please enter an NFS server and path."))
+            return False
+
+        return "nfs://%s:%s" % (server, path)
 
     def _applyHd(self):
         return None
