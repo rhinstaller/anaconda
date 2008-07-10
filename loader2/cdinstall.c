@@ -133,18 +133,10 @@ static void mediaCheckCdrom(char *cddriver) {
 /* output an error message when CD in drive is not the correct one */
 /* Used by mountCdromStage2()                                      */
 static void wrongCDMessage(void) {
-    char *buf = NULL;
-
-    if (asprintf(&buf, (_("The %s disc was not found "
-                          "in any of your drives. Please insert "
-                          "the %s disc and press %s to retry."),
-                 getProductName(), getProductName(), _("OK"))) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
-
-    newtWinMessage(_("Error"), _("OK"), buf);
-    free(buf);
+    newtWinMessage(_("Error"), _("The %s disc was not found "
+                                 "in any of your drives. Please insert "
+                                 "the %s disc and press %s to retry."),
+                   getProductName(), getProductName(), _("OK"));
 }
 
 /* ask about doing media check */
