@@ -235,7 +235,7 @@ static void queryCDMediaCheck(char *dev, char *location) {
     /* in rescue mode only test if they explicitly asked to */
     if (!FL_RESCUE(flags) || FL_MEDIACHECK(flags)) {
         startNewt();
-        rc = newtWinChoice(_("Disc Found"), _("OK"), _("Skip"), 
+        rc = newtWinChoice(_("Disc Found"), _("OK"), _("Skip"),
              _("To begin testing the media before installation press %s.\n\n"
                "Choose %s to skip the media test and start the installation."),
              _("OK"), _("Skip"));
@@ -331,7 +331,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                     waitForCdromTrayClose(fd);
                     close(fd);
             }
-            
+
             for (j = 0; j < 450; j++) {
                 fd = open(devices[i]->device, O_RDONLY);
                 if (fd >= 0) {
