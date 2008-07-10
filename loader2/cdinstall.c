@@ -67,12 +67,10 @@ static void ejectCdrom(char *device) {
     }
 }
 
-/*
- * Given cd device cddriver, this function will attempt to check its internal
+/* Given cd device cddriver, this function will attempt to check its internal
  * checksum.
- *
- * JKFIXME: this ignores "location", which should be fixed */
-static char * mediaCheckCdrom(char *cddriver) {
+ */
+static void mediaCheckCdrom(char *cddriver) {
     int rc;
     int first;
 
@@ -125,13 +123,11 @@ static char * mediaCheckCdrom(char *cddriver) {
                        _("Test"), _("Continue"));
 
         if (rc == 2) {
-            return NULL;
+            return;
         } else {
             continue;
         }
     } while (1);
-
-    return NULL;
 }
 
 /* output an error message when CD in drive is not the correct one */
