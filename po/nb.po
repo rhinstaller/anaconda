@@ -6,12 +6,13 @@ msgstr ""
 "Project-Id-Version: anaconda FC9\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-04-07 13:15+0200\n"
+"PO-Revision-Date: 2008-07-10 17:55+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@broadpark.no>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../anaconda:289
 #, c-format
@@ -187,7 +188,9 @@ msgstr ""
 msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
 "be able to boot from this partition."
-msgstr "Oppstartspartisjonen %s er ikke et Linux-filsystem som f.eks ext3. Systemet vil ikke kunne starte fra denne partisjonen."
+msgstr ""
+"Oppstartspartisjonen %s er ikke et Linux-filsystem som f.eks ext3. Systemet "
+"vil ikke kunne starte fra denne partisjonen."
 
 #: ../autopart.py:1069
 #, python-format
@@ -484,7 +487,9 @@ msgstr "Unntak fra parted kan ikke håndteres i kommandolinjemodus!"
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
-msgstr "Et uhåndtert unntak har oppstått. Dette er sannsynligvis en feil. Kopier hele teksten fra feilmeldingen og send inn en feilrapport"
+msgstr ""
+"Et uhåndtert unntak har oppstått. Dette er sannsynligvis en feil. Kopier "
+"hele teksten fra feilmeldingen og send inn en feilrapport"
 
 #: ../constants.py:81
 msgid " with the provider of this software."
@@ -1902,7 +1907,8 @@ msgstr ""
 msgid ""
 "You must create an EFI System Partition of type FAT and a size of 50 "
 "megabytes."
-msgstr "Du må lage en EFI systempartisjon av type FAT og med størrelse 50 megabyte."
+msgstr ""
+"Du må lage en EFI systempartisjon av type FAT og med størrelse 50 megabyte."
 
 #: ../partitions.py:1067
 msgid ""
@@ -2273,9 +2279,8 @@ msgid "No help is available for this step of the install."
 msgstr "Ingen hjelp tilgjengelig for denne delen av installeringen."
 
 #: ../text.py:446
-#, fuzzy
 msgid "Repository editing is not available in text mode."
-msgstr "Grafisk installasjon er ikke tilgjengelig... Starter i tekstmodus."
+msgstr "Redigering av lager er ikke tilgjengelig i tekstmodus."
 
 #: ../text.py:471
 #, python-format
@@ -2322,7 +2327,10 @@ msgid ""
 "You have choosen the upgrade for %s architecture, but the installed system "
 "is for %s architecture. \n"
 "\n"
-msgstr "Du har valgt oppgradering for arkitekturen %s, men installert system er for arkitektur %s.\n\n"
+msgstr ""
+"Du har valgt oppgradering for arkitekturen %s, men installert system er for "
+"arkitektur %s.\n"
+"\n"
 
 #: ../upgrade.py:110
 #, python-format
@@ -2721,7 +2729,8 @@ msgstr "Forsøker å laste ned pakke på nytt..."
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
-msgstr "Det oppsto en feil under kjøring av transaksjonen med følgende årsak: %s\n"
+msgstr ""
+"Det oppsto en feil under kjøring av transaksjonen med følgende årsak: %s\n"
 
 #: ../yuminstall.py:748 ../yuminstall.py:749
 msgid "file conflicts"
@@ -2811,7 +2820,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Kan ikke lese metadata for pakken. Dette kan være forårsaket av en menglende repodata-katalog. Vennligst sjekk at installasjonstreet er generert på en korrekt måte.\n"
+"Kan ikke lese metadata for pakken. Dette kan være forårsaket av en menglende "
+"repodata-katalog. Vennligst sjekk at installasjonstreet er generert på en "
+"korrekt måte.\n"
 "\n"
 "%s"
 
@@ -3004,7 +3015,9 @@ msgstr ""
 
 #: ../iw/autopart_type.py:405
 msgid "Resize existing partition and create default layout in free space"
-msgstr "Endre størrelse på eksisterende partisjon og opprett forvalgt utforming fra ledig plass"
+msgstr ""
+"Endre størrelse på eksisterende partisjon og opprett forvalgt utforming fra "
+"ledig plass"
 
 #: ../iw/autopart_type.py:406 ../textw/partition_text.py:1519
 msgid "Use free space on selected drives and create default layout"
@@ -3022,7 +3035,9 @@ msgstr "Br_uk passord for oppstartslaster"
 msgid ""
 "A boot loader password prevents users from changing kernel options, "
 "increasing security."
-msgstr "Et passord for oppstartslasteren hindrer brukere i å gi tilfeldige flagg til kjernen, hvilket styrker sikkerheten."
+msgstr ""
+"Et passord for oppstartslasteren hindrer brukere i å gi tilfeldige flagg til "
+"kjernen, hvilket styrker sikkerheten."
 
 #: ../iw/blpasswidget.py:77
 msgid "Change _password"
@@ -3152,7 +3167,7 @@ msgid "Packages in %s"
 msgstr "Pakker i %s"
 
 #: ../iw/GroupSelector.py:482
-#,fuzzy, python-format
+#, python-format
 msgid "%d of %d optional package selected"
 msgid_plural "%d of %d optional packages selected"
 msgstr[0] "%d av %d valgfri pakke valgt"
@@ -4486,7 +4501,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Denne utgaven av %s støtter et oppdatert filsystem som har flere fordeler over filsystemet som tradisjonelt har vært brukt i %s. Det er mulig å migrere partisjoner uten tap av data.\n"
+"Denne utgaven av %s støtter et oppdatert filsystem som har flere fordeler "
+"over filsystemet som tradisjonelt har vært brukt i %s. Det er mulig å "
+"migrere partisjoner uten tap av data.\n"
 "\n"
 "Hvilke av disse partisjonene vil du migrere?"
 
@@ -5478,7 +5495,9 @@ msgstr "Root-passord"
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. "
-msgstr "Velg et root-passord. Du må skrive det inn to ganger for å være sikker på at du husker det og at du ikke skrev feil."
+msgstr ""
+"Velg et root-passord. Du må skrive det inn to ganger for å være sikker på at "
+"du husker det og at du ikke skrev feil."
 
 #: ../textw/userauth_text.py:64
 msgid "The root password must be at least 6 characters long."
@@ -6382,7 +6401,7 @@ msgstr "Katalog for %s:"
 #: ../loader2/nfsinstall.c:65
 #, c-format
 msgid "Please enter the server name and path to your %s images."
-msgstr ""
+msgstr "Vennligst oppgi navn på tjener og sti til dine %s-bilder."
 
 #: ../loader2/nfsinstall.c:67
 msgid "NFS Setup"
@@ -6607,7 +6626,9 @@ msgstr "Partisjon du vil endre størrelse på"
 #: tmp/autopart.glade.h:6
 msgid ""
 "Which partition would you like to resize to make room for your installation?"
-msgstr "Hvilken partisjon vil du endre størrelse på for å lage plass til installasjonen?"
+msgstr ""
+"Hvilken partisjon vil du endre størrelse på for å lage plass til "
+"installasjonen?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
