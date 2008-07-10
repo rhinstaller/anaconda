@@ -287,8 +287,10 @@ class AnacondaYumRepo(YumRepository):
 
         if type(uri) == types.ListType:
             self.baseurl = uri
-        else:
+        elif uri:
             self.baseurl = [ uri ]
+        else:
+            self.baseurl = []
 
         if mirrorlist:
             self.mirrorlist = mirrorlist
@@ -361,7 +363,18 @@ class AnacondaYum(YumSorter):
         # yum doesn't understand all our method URLs, so use this for all
         # except FTP and HTTP installs.
         self._baseRepoURL = "file://%s" % self.tree
-        self.configBaseURL()
+
+        while True:
+            try:
+                self.configBaseURL()
+                break
+            except SystemError, e:
+                self.anaconda.intf.messageWindow(_("Error Setting Up Repository"),
+                    _("The following error occurred while setting up the "
+                      "installation repository:\n\n%s\n\nPlease provide the "
+                      "correct information for installing %s.") % (e, productName))
+
+                self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow(anaconda)
 
         self.doConfigSetup(root=anaconda.rootPath)
         self.conf.installonlypkgs = []
@@ -567,9 +580,8 @@ class AnacondaYum(YumSorter):
                     repo.baseurl = [uri]
                 except RepoError:
                     replace = False
-
-            # If there was an error finding the "base" repo, create a new one now.
-            if not replace:
+            else:
+                # If there was an error finding the "base" repo, create a new one now.
                 repo = AnacondaYumRepo(uri=uri, repoid="anaconda-%s-%s" %(rid, productStamp),
                                        root = root)
 

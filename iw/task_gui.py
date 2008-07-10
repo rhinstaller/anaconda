@@ -254,6 +254,9 @@ class RepoEditor:
         return True
 
     def run(self, createNewRepoObj=False):
+        applyFuncs = [ self._applyURL, self._applyMedia, self._applyNfs,
+                       self._applyHd ]
+
         while True:
             rc = self.dialog.run()
             if rc == gtk.RESPONSE_CANCEL:
@@ -272,19 +275,8 @@ class RepoEditor:
                 self.repo.repoid = reponame.replace(" ", "")
 
             type = self.typeComboBox.get_active()
-
-            if type == 0:
-                if not self._applyURL(self.repo):
-                    continue
-            elif type == 1:
-                if not self._applyMedia(self.repo):
-                    continue
-            elif type == 2:
-                if not self._applyNfs(self.repo):
-                    continue
-            else:
-                if not self._applyHd(self.repo):
-                    continue
+            if not applyFuncs[type](self.repo):
+                continue
 
             repourl = self.baseurlEntry.get_text()
             repourl.strip()
@@ -305,6 +297,70 @@ class RepoEditor:
         self.dialog.hide()
         return rc
 
+class RepoMethodstrEditor(RepoEditor):
+    def __init__(self, anaconda):
+        RepoEditor.__init__(self, anaconda, None)
+
+    def createDialog(self):
+        RepoEditor.createDialog(self)
+
+        # Hide a bunch of stuff that doesn't apply when we're just prompting
+        # for enough information to form a methodstr.
+        self.dxml.get_widget("nameLabel").hide()
+        self.nameEntry.hide()
+        self.mirrorlistCheckbox.hide()
+        self.proxyCheckbox.hide()
+        self.proxyTable.hide()
+
+    def _applyURL(self):
+        repourl = self.baseurlEntry.get_text()
+        repourl.strip()
+        if not self._validURL(repourl):
+            self.intf.messageWindow(_("Invalid Repository URL"),
+                                    _("You must provide an HTTP, HTTPS, "
+                                      "or FTP URL to a repository."))
+            return False
+
+        return repourl
+
+    def _applyMedia(self):
+        cdr = scanForMedia(self.anaconda.backend.ayum.tree)
+        if not cdr:
+            self.intf.messageWindow(_("No Media Found"),
+                                    _("No installation media was found. "
+                                      "Please insert a disc into your drive "
+                                      "and try again."))
+            return False
+
+        return "cdrom://%s:%s" % (cdr, self.anaconda.backend.ayum.tree)
+
+    def _applyNfs(self):
+        return None
+
+    def _applyHd(self):
+        return None
+
+    def run(self):
+        applyFuncs = [ self._applyURL, self._applyMedia, self._applyNfs,
+                       self._applyHd ]
+
+        while True:
+            rc = self.dialog.run()
+            if rc == gtk.RESPONSE_CANCEL:
+                rc = None
+                break
+
+            type = self.typeComboBox.get_active()
+            retval = applyFuncs[type]()
+            if not retval:
+                continue
+
+            rc = retval
+            break
+
+        self.dialog.hide()
+        return rc
+
 class RepoCreator(RepoEditor):
     def __init__(self, anaconda):
         RepoEditor.__init__(self, anaconda, None)
@@ -312,7 +368,6 @@ class RepoCreator(RepoEditor):
     def createDialog(self):
         RepoEditor.createDialog(self)
         self.dialog.set_title(_("Add Repository"))
-
     def _enableRepo(self, repourl):
         try:
             self.backend.ayum.repos.add(self.repo)
