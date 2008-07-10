@@ -34,6 +34,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <asm/types.h>
+#include <limits.h>
 #include <linux/cdrom.h>
 
 #include "kickstart.h"
@@ -59,11 +60,90 @@ static void ejectCdrom(char *device) {
     if (!device) return;
     logMessage(INFO, "ejecting %s...",device);
     if ((ejectfd = open(device, O_RDONLY | O_NONBLOCK, 0)) >= 0) {
+        ioctl(ejectfd, CDROM_LOCKDOOR, 0);
         if (ioctl(ejectfd, CDROMEJECT, 0))
-            logMessage(ERROR, "eject failed %d ", errno);
+            logMessage(ERROR, "eject failed on device %s: %m", device);
         close(ejectfd);
     } else {
-        logMessage(ERROR, "eject failed %d ", errno);
+        logMessage(ERROR, "could not open device %s: %m", device);
+    }
+}
+
+static char *cdrom_drive_status(int rc) {
+    struct {
+        int code;
+        char *str;
+    } status_codes[] =
+        {
+            { CDS_NO_INFO, "CDS_NO_INFO" },
+            { CDS_NO_DISC, "CDS_NO_DISC" },
+            { CDS_TRAY_OPEN, "CDS_TRAY_OPEN" },
+            { CDS_DRIVE_NOT_READY, "CDS_DRIVE_NOT_READY" },
+            { CDS_DISC_OK, "CDS_DISC_OK" },
+            { CDS_AUDIO, "CDS_AUDIO" },
+            { CDS_DATA_1, "CDS_DATA_1" },
+            { CDS_DATA_2, "CDS_DATA_2" },
+            { CDS_XA_2_1, "CDS_XA_2_1" },
+            { CDS_XA_2_2, "CDS_XA_2_2" },
+            { CDS_MIXED, "CDS_MIXED" },
+            { INT_MAX, NULL },
+        };
+    int i;
+
+    if (rc < 0)
+        return strerror(-rc);
+
+    for (i = 0; status_codes[i].code != INT_MAX; i++) {
+        if (status_codes[i].code == rc)
+            return status_codes[i].str;
+    }
+    return NULL;
+}
+
+static int waitForCdromTrayClose(int fd) {
+    int rc;
+    int prev = INT_MAX;
+
+    do {
+        char *status = NULL;
+        rc = ioctl(fd, CDROM_DRIVE_STATUS, CDSL_CURRENT);
+        if (rc < 0)
+            rc = -errno;
+
+        /* only bother to print the status if it changes */
+        if (prev == INT_MAX || prev != rc) {
+            status = cdrom_drive_status(rc);
+            if (status != NULL) {
+                logMessage(DEBUGLVL, "drive status is %s", status);
+            } else {
+                logMessage(DEBUGLVL, "drive status is unknown status code %d",
+                           rc);
+            }
+        }
+        prev = rc;
+        if (rc == CDS_DRIVE_NOT_READY)
+            usleep(100000);
+    } while (rc == CDS_DRIVE_NOT_READY);
+    return rc;
+}
+
+static void closeCdromTray(char *device) {
+    int fd;
+
+    if (!device || !*device)
+        return;
+
+    logMessage(INFO, "closing CD tray on %s .", device);
+    if ((fd = open(device, O_RDONLY | O_NONBLOCK, 0)) >= 0) {
+        if (ioctl(fd, CDROMCLOSETRAY, 0)) {
+            logMessage(ERROR, "closetray failed on device %s: %m", device);
+        } else {
+            waitForCdromTrayClose(fd);
+            ioctl(fd, CDROM_LOCKDOOR, 1);
+        }
+        close(fd);
+    } else {
+        logMessage(ERROR, "could not open device %s: %m", device);
     }
 }
 
@@ -83,6 +163,8 @@ static void mediaCheckCdrom(char *cddriver) {
         /* init every pass */
         ejectcd = 0;
         descr = NULL;
+
+        closeCdromTray(cddriver);
 
         /* if first time through, see if they want to eject the CD      */
         /* currently in the drive (most likely the CD they booted from) */
@@ -225,7 +307,8 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
     do {
         for (i = 0; devices[i]; i++) {
             char *tmp = NULL;
-	    int j;
+            int j;
+            int fd;
 
             if (!devices[i]->device)
                 continue;
@@ -243,9 +326,14 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
             logMessage(INFO, "trying to mount CD device %s on %s",
                        devices[i]->device, location);
 
+            fd = open(devices[i]->device, O_RDONLY | O_NONBLOCK);
+            if (fd >= 0) {
+                    waitForCdromTrayClose(fd);
+                    close(fd);
+            }
+            
             for (j = 0; j < 450; j++) {
-                int fd = open(devices[i]->device, O_RDONLY);
-
+                fd = open(devices[i]->device, O_RDONLY);
                 if (fd >= 0) {
                     close(fd);
                     break;
