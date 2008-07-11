@@ -695,6 +695,11 @@ void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {
             ((struct nfsInstallData *)ld->methodData)->host = strdup(c);
             if ((c = strtok(NULL, ":"))) {
                 ((struct nfsInstallData *)ld->methodData)->directory = strdup(c);
+
+                if ((c = strtok(NULL, ":"))) {
+                    ((struct nfsInstallData *)ld->methodData)->mountOpts = strdup(c);
+                }
+
             }
         } else if (!strncmp(arg, "ftp:", 4) || 
                    !strncmp(arg, "http:", 5)) {
