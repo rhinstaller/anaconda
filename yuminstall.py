@@ -913,14 +913,14 @@ class AnacondaYum(YumSorter):
                           rpm.RPMPROB_BADOS: _('package for incorrect os'),
             }
 
-            for (descr, (type, mount, need)) in probs.value: # FIXME: probs.value???
-                log.error("%s: %s" %(probTypes[type], descr))
-                if not uniqueProbs.has_key(type) and probTypes.has_key(type):
-                    uniqueProbs[type] = probTypes[type]
+            for (descr, (ty, mount, need)) in probs.value: # FIXME: probs.value???
+                log.error("%s: %s" %(probTypes[ty], descr))
+                if not uniqueProbs.has_key(ty) and probTypes.has_key(ty):
+                    uniqueProbs[ty] = probTypes[ty]
 
-                if type == rpm.RPMPROB_DISKSPACE:
+                if ty == rpm.RPMPROB_DISKSPACE:
                     spaceneeded[mount] = need
-                elif type in [rpm.RPMPROB_NEW_FILE_CONFLICT, rpm.RPMPROB_FILE_CONFLICT]:
+                elif ty in [rpm.RPMPROB_NEW_FILE_CONFLICT, rpm.RPMPROB_FILE_CONFLICT]:
                     fileConflicts.append(descr)
 
             if spaceneeded:
@@ -942,6 +942,12 @@ class AnacondaYum(YumSorter):
 
             msg = _("There was an error running your transaction for "
                     "the following reason(s): %s.\n") % ', '.join(uniqueProbs.values())
+
+            if type(spaceprob) != unicode:
+                spaceprob = unicode(spaceprob, encoding='utf-8')
+
+            if type(fileprob) != unicode:
+                fileprob = unicode(fileprob, encoding='utf-8')
 
             if len(self.anaconda.backend.getRequiredMedia()) > 1:
                 intf.detailedMessageWindow(_("Error Running Transaction"),
