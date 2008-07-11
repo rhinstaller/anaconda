@@ -371,10 +371,11 @@ int chooseLanguage(char ** lang) {
     else
         choice = english;
 
-    newtWinMenu(_("Choose a Language"),
-                _("What language would you like to use during the "
-                  "installation process?"), 40, 5, 5, 8,
-                langs, &choice, _("OK"), NULL);
+    if (!FL_CMDLINE(flags))
+        newtWinMenu(_("Choose a Language"),
+                    _("What language would you like to use during the "
+                      "installation process?"), 40, 5, 5, 8,
+                    langs, &choice, _("OK"), NULL);
 
     langPicked = langs[choice];
     for (i = 0; i < numLanguages; i++) {
