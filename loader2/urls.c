@@ -169,7 +169,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
     int family = -1;
     struct in_addr addr;
     struct in6_addr addr6;
-    char *hostname, *portstr;
+    char *hostname, *portstr, *fileName;
     struct hostent *host;
 
     logMessage(INFO, "transferring %s://%s%s to a fd",
@@ -228,8 +228,11 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
         }
     }
 
-    if (!FL_CMDLINE(flags)) {
-        char *fileName = strrchr(path, '/');
+    fileName = strrchr(path, '/');
+
+    if (FL_CMDLINE(flags)) {
+        printf("%s %s...\n", _("Retrieving"), fileName+1);
+    } else {
         winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), fileName+1);
     }
 
