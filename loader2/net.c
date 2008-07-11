@@ -825,6 +825,9 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
         (FL_IS_KICKSTART(flags))) {
         skipForm = 1;
         newtPopWindow();
+    } else if (FL_CMDLINE(flags)) {
+        fprintf(stderr, "Required network configuration not given for cmdline mode, aborting\n");
+        exit(EXIT_FAILURE);
     }
 
     /* run the form */
@@ -879,9 +882,14 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                                  newCfg->ipv6method == IPV6_DHCP_METHOD))) {
             /* do DHCP if selected */
             if (!FL_TESTING(flags)) {
-                winStatus(55, 3, NULL,
-                          _("Sending request for IP information for %s..."),
-                          device, 0);
+                if (FL_CMDLINE(flags)) {
+                    printf(_("Sending request for IP information for %s...\n"), device);
+                } else {
+                    winStatus(55, 3, NULL,
+                              _("Sending request for IP information for %s..."),
+                              device, 0);
+                }
+
                 waitForLink(device);
                 dret = doDhcp(newCfg);
                 newtPopWindow();
