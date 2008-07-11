@@ -403,7 +403,7 @@ int kickstartFromUrl(char * url, struct loaderData_s * loaderData) {
 void setKickstartUrl(struct loaderData_s * loaderData, int argc,
 		    char ** argv) {
 
-    char *url = NULL;
+    char *url = NULL, *substr = NULL;
     poptContext optCon;
     int rc;
     struct poptOption ksUrlOptions[] = {
@@ -438,10 +438,15 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
         return;
     }
 
-    if ((loaderData->stage2Data = calloc(sizeof(struct urlInstallData *), 1)) == NULL)
-        return;
+    substr = strstr(url, ".img");
+    if (!substr || (substr && *(substr+4) != '\0')) {
+        loaderData->instRepo = strdup(url);
+    } else {
+        if ((loaderData->stage2Data = calloc(sizeof(struct urlInstallData *), 1)) == NULL)
+            return;
 
-    ((struct urlInstallData *)loaderData->stage2Data)->url = url;
+        ((struct urlInstallData *)loaderData->stage2Data)->url = url;
+    }
 
     logMessage(INFO, "results of url ks, url %s", url);
 }
