@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.13
+Version: 11.4.1.14
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -194,6 +194,33 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jul 11 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.14-1
+- Remove an extra tab that was causing problems with the Iloko
+  translation. (clumens)
+- Use the right stage2.img path for kickstart URL installs (#452140). (clumens)
+- Convert package errors to unicode before displaying them (#441200). (clumens)
+- Display a status message while waiting for the CD to become ready. (clumens)
+- Fix window title to be the same as all others. (clumens)
+- In cmdline mode, give some feedback when transferring loader files. (clumens)
+- If network config info isn't provided for cmdline, abort. (clumens)
+- If we're not given a method in cmdline mode, we have to quit. (clumens)
+- In cmdline mode, set language to the default if none is provided. (clumens)
+- Don't stop on the method screen if stage2= is provided. (clumens)
+- Add support for NFS to the repo editor (#443733). (clumens)
+- Fix whitespace silliness. (pjones)
+- Fix closing the drive door so that if the kernel happens to start giving us
+  the right error code, we'll handle it correctly... (pjones)
+- Fix the mysterious Error: OK message. (clumens)
+- The return value from mediaCheckCdrom is totally useless. (clumens)
+- Add better error handling when initializing yum (#453695). (clumens)
+- Add functions for creating repos as well. (clumens)
+- Don't handle all possible exceptions as if they were repo errors. (clumens)
+- Reorganize to make it easier to reset the "base" repository. (clumens)
+- Remove the pkgSack when a repo is disabled. (clumens)
+- Use the new method of calling the NetworkConfigurator. (clumens)
+- Add an updated repo editor. (clumens)
+- Don't suggest text mode to the poor, poor user. (pjones)
+
 * Wed Jul 09 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.13-1
 - Filter out source and debuginfo repos from the UI. (clumens)
 - Add the MD5 sum to the boot.iso to avoid errors in loader
