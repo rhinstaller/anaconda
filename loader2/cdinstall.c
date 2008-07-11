@@ -46,6 +46,7 @@
 #include "method.h"
 #include "cdinstall.h"
 #include "mediacheck.h"
+#include "windows.h"
 
 #include "../isys/imount.h"
 #include "../isys/isys.h"
@@ -326,6 +327,11 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
             logMessage(INFO, "trying to mount CD device %s on %s",
                        devices[i]->device, location);
 
+            if (!FL_CMDLINE(flags))
+                winStatus(60, 3, _("Scanning"), _("Looking for installation media on CD device %s"), devices[i]->device);
+            else
+                printf(_("Looking for installation media on CD device %s"), devices[i]->device);
+
             fd = open(devices[i]->device, O_RDONLY | O_NONBLOCK);
             if (fd >= 0) {
                     waitForCdromTrayClose(fd);
@@ -344,6 +350,9 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                     break;
                 }
             }
+
+            if (!FL_CMDLINE(flags))
+                newtPopWindow();
 
             if (!(rc=doPwMount(devices[i]->device, location, "iso9660", "ro"))) {
                 cddev = devices[i]->device;
