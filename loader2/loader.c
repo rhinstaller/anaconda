@@ -1245,7 +1245,11 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
             case STEP_METHOD: {
                 if (loaderData->method != -1)
-                   skipMethodDialog = 1;
+                    skipMethodDialog = 1;
+                else if (FL_CMDLINE(flags)) {
+                    fprintf(stderr, "No method given for cmdline mode, aborting\n");
+                    exit(EXIT_FAILURE);
+                }
 
                 /* If we already found a stage2 image, skip the prompt. */
                 if (skipMethodDialog) {
