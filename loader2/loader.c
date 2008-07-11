@@ -1138,7 +1138,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
     static struct networkDeviceConfig netDev;
     int i, rc, dir = 1;
     int needsNetwork = 0, class = -1;
-    int haveStage2 = 0;
+    int skipMethodDialog = 0;
 
     char *installNames[10];
     int numValidMethods = 0;
@@ -1161,7 +1161,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
         url = findAnacondaCD("/mnt/stage2");
         if (url) {
             setStage2LocFromCmdline(url, loaderData);
-            haveStage2 = 1;
+            skipMethodDialog = 1;
 
             logMessage(INFO, "Detected stage 2 image on CD (url: %s)", url);
             winStatus(50, 3, _("Media Detected"),
@@ -1244,8 +1244,11 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             }
 
             case STEP_METHOD: {
+                if (loaderData->method != -1)
+                   skipMethodDialog = 1;
+
                 /* If we already found a stage2 image, skip the prompt. */
-                if (haveStage2 && loaderData->method != -1) {
+                if (skipMethodDialog) {
                     if (dir == 1)
                         rc = 1;
                     else
@@ -1496,10 +1499,10 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     step = STEP_IP;
                     loaderData->ipinfo_set = 0;
                     loaderData->ipv6info_set = 0;
+                    skipMethodDialog = 0;
                     dir = -1;
                 } else {
                     logMessage(INFO, "got stage2 at url %s", url);
-                    haveStage2 = 1;
                     step = STEP_DONE;
                     dir = 1;
                 }
