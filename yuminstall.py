@@ -949,7 +949,7 @@ class AnacondaYum(YumSorter):
                    custom_icon="error", custom_buttons=[_("_Exit installer")])
                 sys.exit(1)
             else:
-                rc = intf.detailedMessageWindow(_("Error running transaction"),
+                rc = intf.detailedMessageWindow(_("Error Running Transaction"),
                         msg, spaceprob + "\n" + fileprob, type="custom",
                         custom_icon="error",
                         custom_buttons=[_("_Back"), _("_Exit installer")])
