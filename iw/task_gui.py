@@ -259,7 +259,7 @@ class RepoEditor:
                                     _("Please enter an NFS server and path."))
             return False
 
-        self.anaconda.setMethodstr("nfs://%s:%s" % (server, path))
+        self.anaconda.setMethodstr("nfs:%s:%s" % (server, path))
         self.anaconda.backend.ayum.configBaseURL()
         self.anaconda.backend.ayum.configBaseRepo(replace=True)
         return True
