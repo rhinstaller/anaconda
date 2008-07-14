@@ -360,7 +360,7 @@ class RepoMethodstrEditor(RepoEditor):
                                     _("Please enter an NFS server and path."))
             return False
 
-        return "nfs://%s:%s" % (server, path)
+        return "nfs:%s:%s" % (server, path)
 
     def _applyHd(self):
         return None
