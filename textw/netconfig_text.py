@@ -187,7 +187,7 @@ class NetworkConfiguratorText:
                     break
                 else:
                     f = open("/etc/resolv.conf", "w")
-                    f.write("nameserver %s=n" % ns)
+                    f.write("nameserver %s\n" % ns)
                     f.close()
                     isys.resetResolv()
             else:
