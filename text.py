@@ -375,16 +375,17 @@ class InstallInterface:
         return (passphrase, isglobal)
 
     def enableNetwork(self, anaconda):
-        self.messageWindow(_("Error"),
-                           _("Network configuration is not available in text mode."))
-        return False
+        from netconfig_text import NetworkConfiguratorText
+        w = NetworkConfiguratorText(self.screen, anaconda)
+        ret = w.run()
+        return ret != INSTALL_BACK
 
     def getInstallKey(self, anaconda, key = ""):
         ic = anaconda.id.instClass
         keyname = _(ic.instkeyname)
         if keyname is None:
             keyname = _("Installation Key")
-        
+
         g = GridFormHelp(self.screen, keyname, "instkey", 1, 6)
 
         txt = TextboxReflowed(65, ic.instkeydesc or
