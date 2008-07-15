@@ -754,6 +754,17 @@ if __name__ == "__main__":
             opts.display_mode = 't'
         else:
             opts.display_mode = 'g'
+    
+    if opts.display_mode == 't': #we prefer vnc over text mode, so ask about that
+        title = _("Would you like to use VNC?")
+        message = _("The VNC mode instalation offers more functionality than the text mode, would you like to use it instead?")
+
+        ret = vnc.askVncWindow(title, message)
+        if ret != -1:
+            opts.display_mode = 'g'
+            flags.usevnc = 1
+            if ret is not None:
+                vncpassword = ret
 
     if opts.debug:
         flags.debug = True

@@ -27,12 +27,23 @@ import logging
 log = logging.getLogger("anaconda")
 
 # return -1 to use text mode, None for no vncpass, or vncpass otherwise
-def askVncWindow():
+def askVncWindow(title = None, message = None):
     if not os.access('/usr/bin/Xvnc', os.X_OK):
         return -1
 
     if network.hasActiveNetDev() == False:
         return -1
+
+    if not title:
+        title = _("Unable to Start X")
+    if not message:
+        message = _("X was unable to start on your "
+                    "machine.  Would you like to "
+                    "start VNC to connect to "
+                    "this computer from another "
+                    "computer and perform a "
+                    "graphical install or continue "
+                    "with a text mode install?")
 
     screen = SnackScreen()
     vncpass = None
@@ -44,14 +55,7 @@ def askVncWindow():
     step = 0
     while step < STEP_DONE:
         if step == STEP_MESSAGE:
-            button = ButtonChoiceWindow(screen, _("Unable to Start X"),
-                                        _("X was unable to start on your "
-                                          "machine.  Would you like to "
-                                          "start VNC to connect to "
-                                          "this computer from another "
-                                          "computer and perform a "
-                                          "graphical install or continue "
-                                          "with a text mode install?"),
+            button = ButtonChoiceWindow(screen, title, message,
                                         buttons = [ _("Use text mode"),
                                                     _("Start VNC") ])
 
