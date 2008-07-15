@@ -321,6 +321,8 @@ def getPPCMachine():
         return 0
 
     ppcMachine = None
+    machine = None
+    platform = None
 
     # ppc machine hash
     ppcType = { 'Mac'      : 'PMac',
