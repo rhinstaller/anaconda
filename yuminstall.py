@@ -1030,7 +1030,7 @@ metadata_expire=0
 obsoletes=True
 pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins
 pluginconfpath=/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d
-reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/tmp/product/yum.repos.d
+reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d
 """ % (anaconda.rootPath, anaconda.rootPath)
 
         fd = open("/etc/yum.conf", "w")
@@ -1046,7 +1046,7 @@ reposdir=/etc/yum.repos.d,/tmp/updates/yum.repos.d,/tmp/product/yum.repos.d
         if anaconda.mediaDevice:
             try:
                 shutil.copyfile("%s/media.repo" % self.ayum.tree,
-                                "%s/etc/yum.repos.d/%s-install-media.repo" %(anaconda.rootPath, productName))
+                                "%s/etc/anaconda.repos.d/%s-install-media.repo" %(anaconda.rootPath, productName))
             except Exception, e:
                 log.debug("Error copying media.repo: %s" %(e,))
 

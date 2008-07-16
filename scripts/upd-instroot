@@ -1012,6 +1012,8 @@ for p in $DEST $DESTGR; do
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
 	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/$LIBDIR
 
+	mv $p/etc/yum.repos.d $p/etc/anaconda.repos.d
+
 	# we only want the libunicode-lite stuff on the minimal image
 	if [ $p = $DESTGR ]; then
 	    rm -f $p/usr/$LIBDIR/libunicode-lite*
