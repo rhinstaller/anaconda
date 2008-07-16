@@ -537,7 +537,12 @@ class AnacondaYum(YumSorter):
             elif m.startswith("nfsiso:"):
                 self.isodir = "/mnt/isodir"
 
-                # This takes care of mounting /mnt/isodir first.
+                # Calling _switchImage takes care of mounting /mnt/isodir first.
+                if not network.hasActiveNetDev():
+                    if not self.anaconda.intf.enableNetwork(self.anaconda):
+                        self._baseRepoURL = None
+                        return
+
                 self._switchImage(1)
                 self.mediagrabber = self.mediaHandler
             elif m.startswith("http:") or m.startswith("ftp:"):
@@ -546,10 +551,8 @@ class AnacondaYum(YumSorter):
                 if not network.hasActiveNetDev():
                     if not self.anaconda.intf.enableNetwork(self.anaconda):
                         self._baseRepoURL = None
-                    else:
-                        isys.mount(m[4:], self.tree, "nfs")
-                else:
-                    isys.mount(m[4:], self.tree, "nfs")
+
+                isys.mount(m[4:], self.tree, "nfs")
             elif m.startswith("cdrom:"):
                 self._switchCD(1)
                 self._baseRepoURL = "file://%s" % self.tree
