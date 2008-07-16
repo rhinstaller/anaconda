@@ -260,7 +260,16 @@ class RepoEditor:
             return False
 
         self.anaconda.setMethodstr("nfs:%s:%s" % (server, path))
-        self.anaconda.backend.ayum.configBaseURL()
+
+        try:
+            self.anaconda.backend.ayum.configBaseURL()
+        except SystemError, e:
+            self.intf.messageWindow(_("Error Setting Up Repository"),
+                _("The following error occurred while setting up the "
+                  "installation repository:\n\n%s\n\nPlease provide the "
+                  "correct information for installing %s.") % (e, productName))
+            return False
+
         self.anaconda.backend.ayum.configBaseRepo(replace=True)
         return True
 
