@@ -2000,13 +2000,12 @@ int main(int argc, char ** argv) {
     if (FL_NOIPV6(flags))
         *argptr++ = "--noipv6";
 
+    if (FL_SERIAL(flags))
+        *argptr++ = "--serial";
+
     if (FL_RESCUE(flags)) {
         *argptr++ = "--rescue";
-        if (FL_SERIAL(flags))
-            *argptr++ = "--serial";
     } else {
-        if (FL_SERIAL(flags))
-            *argptr++ = "--serial";
         if (FL_TEXT(flags))
             *argptr++ = "-T";
         else if (FL_GRAPHICAL(flags))
