@@ -23,6 +23,7 @@
 #
 
 from constants import *
+from network import hasActiveNetDev
 import isys
 import sys
 import os
@@ -375,7 +376,7 @@ def runSaveDialog(anaconda, longTracebackFile):
                           "disk."))
                     continue
             else:
-                if not network.hasActiveNetDev() and not anaconda.intf.enableNetwork(anaconda):
+                if not hasActiveNetDev() and not anaconda.intf.enableNetwork(anaconda):
                     scpSucceeded = False
                 else:
                     scpInfo = saveWin.getDest()
