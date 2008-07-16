@@ -221,9 +221,9 @@ class RepoEditor:
             return False
 
         if self.mirrorlistCheckbox.get_active():
-            repo.mirrorlist = [repourl]
+            repo.mirrorlist = repourl
         else:
-            repo.baseurl = repourl
+            repo.baseurl = [repourl]
 
         repo.name = self.nameEntry.get_text()
         repo.basecachedir = self.backend.ayum.conf.cachedir
