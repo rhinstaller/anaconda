@@ -136,6 +136,15 @@ Provides: anaconda-runtime = %{version}-%{release}
 The anaconda package contains the program which was used to install your 
 system.  These files are of little use on an already installed system.
 
+%package yum-plugins
+Summary:  Installation-related yum plugins
+Group:    Applications/System
+Requires: python, yum
+
+%description yum-plugins
+The anaconda yum-plugins package contains yum plugins that are useful for
+anaconda and other system installation-related programs.
+
 %prep
 %setup -q
 
@@ -192,6 +201,10 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 %{_sysconfdir}/security/console.apps/*
 %{_datadir}/applications/*.desktop
 %endif
+
+%files yum-plugins
+%defattr(-,root,root)
+%{_prefix}/lib/yum-plugins/*
 
 %triggerun -- anaconda < 8.0-1
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
