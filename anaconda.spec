@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.14
+Version: 11.4.1.15
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -194,6 +194,14 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 15 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.15-1
+- Add a text-mode network config dialog so default installs can work. (clumens)
+- Use the right format for the NFS methodstr, but harder this time. (clumens)
+- Ask the user if he wants to use VNC instead of text mode (#453551) (msivak)
+- Fix a segfault when displaying the wrong CD message. (clumens)
+- Use the right format for the NFS methodstr. (clumens)
+- Use correct path for FAK plugins in upd-instroot (jgranado)
+
 * Fri Jul 11 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.14-1
 - Remove an extra tab that was causing problems with the Iloko
   translation. (clumens)
