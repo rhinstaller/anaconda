@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.114
+Version: 11.1.2.115
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,28 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 16 2008 Joel Granados <jgranado@redhat.com> 11.1.2.115-1
+- Pass the cmdline options to the nfs structure (jgranado).
+  Resolves: rhbz#432603
+- Remove hicolor-icon-theme>gtk2 from whiteout.py (msivak).
+  Resolves: rhbz#369251
+- Ask the user if he wants to use VNC instead of text mode (msivak).
+  Resolves: rhbz#453551
+- Leftover bits of encrypted block device support (dlehman).
+  Resolves: rhbz#229865
+- Rescue of systems containing encrypted block devices (dlehman).
+  Resolves: rhbz#229865
+- Support preexisting encrypted block devices (dlehman).
+  Resolves: rhbz#229865
+- Kickstart support for encrypted block devices (dlehman).
+  Resolves: rhbz#229865
+- User interface for manipulating encrypted block devices (dlehman).
+  Resolves: rhbz#229865
+- Partitioning with encrypted block devices (dlehman).
+  Resolves: rhbz#229865
+- Device-level support for encrypted block devices (dlehman).
+  Resolves: rhbz#229865
+
 * Wed Jul 9 2008 Joel Granados <jgranado@redhat.com> 11.1.2.114-1
 - Enable upgrades for mayor version in rhel5 only (jgranado).
   Resolves: rhbz#436865
