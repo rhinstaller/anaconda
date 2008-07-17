@@ -150,6 +150,8 @@ class InstallData:
     def write(self):
         self.instLanguage.write (self.anaconda.rootPath)
 
+        self.anaconda.writeXdriver(self.anaconda.rootPath)
+
         if not self.isHeadless:
             self.keyboard.write (self.anaconda.rootPath)
 
