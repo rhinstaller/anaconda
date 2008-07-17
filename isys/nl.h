@@ -25,3 +25,4 @@
 struct nl_cache *nl_get_link_cache(struct nl_handle **handle);
 char *nl_mac2str(char *ifname);
 char *nl_ip2str(char *ifname);
+int nl_set_device_mtu(char *ifname, int mtu);

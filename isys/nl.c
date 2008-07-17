@@ -230,3 +230,52 @@ mac2str_error2:
 
     return buf;
 }
+
+/*
+ * Set the MTU on the specified device
+ */
+int nl_set_device_mtu(char *ifname, int mtu) {
+    int ret = 0;
+    struct nl_handle *handle = NULL;
+    struct nl_cache *cache = NULL;
+    struct rtnl_link *link = NULL;
+    struct rtnl_link *request = NULL;
+
+    if (ifname == NULL) {
+        perror("Missing ifname in nl_set_device_mtu()");
+        return -1;
+    }
+
+    if (mtu <= 0) {
+        perror("MTU cannot be <= 0 in nl_set_device_mtu()");
+        return -2;
+    }
+
+    if ((cache = nl_get_link_cache(&handle)) == NULL) {
+        perror("nl_get_link_cache() failure in nl_set_device_mtu");
+        return -3;
+    }
+
+    if ((link = rtnl_link_get_by_name(cache, ifname)) == NULL) {
+        perror("rtnl_link_get_by_name() failure in nl_set_device_mtu()");
+        ret = -4;
+        goto devmtu_error1;
+    }
+
+    request = rtnl_link_alloc();
+    rtnl_link_set_mtu(request, mtu);
+
+    if (rtnl_link_change(handle, link, request, 0)) {
+        perror("rtnl_link_change() failure in nl_set_device_mtu()");
+        ret = -5;
+        goto devmtu_error2;
+    }
+
+devmtu_error2:
+    rtnl_link_put(link);
+devmtu_error1:
+    nl_close(handle);
+    nl_handle_destroy(handle);
+
+    return ret;
+}

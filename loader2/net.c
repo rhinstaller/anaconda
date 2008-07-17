@@ -1447,6 +1447,7 @@ int doDhcp(struct networkDeviceConfig *dev) {
     DHCP_Preference pref = 0;
     pid_t pid;
     key_t key;
+    int mturet;
 
     /* clear existing IP addresses */
     clearInterface(dev->dev.device);
@@ -1514,6 +1515,15 @@ int doDhcp(struct networkDeviceConfig *dev) {
         /* call libdhcp in a separate process because libdhcp is bad */
         pid = fork();
         if (pid == 0) {
+            if (pumpdev->set & PUMP_INTFINFO_HAS_MTU) {
+                mturet = nl_set_device_mtu((char *) pumpdev->device, pumpdev->mtu);
+
+                if (mturet) {
+                    logMessage(ERROR, "unable to set %s mtu to %d (code %d)",
+                               (char *) pumpdev->device, pumpdev->mtu, mturet);
+                }
+            }
+
             r = pumpDhcpClassRun(pumpdev, NULL, class, pref, 0,
                                  timeout, netlogger, loglevel);
 
@@ -1651,11 +1661,22 @@ int doDhcp(struct networkDeviceConfig *dev) {
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
+    int mturet;
     char *rc = NULL;
 
     if (!dev->isDynamic) {
         clearInterface(dev->dev.device);
         setupWireless(dev);
+
+        if (dev->dev.set & PUMP_INTFINFO_HAS_MTU) {
+            mturet = nl_set_device_mtu((char *) &dev->dev.device, dev->dev.mtu);
+
+            if (mturet) {
+                logMessage(ERROR, "unable to set %s mtu to %d (code %d)",
+                           (char *) &dev->dev.device, dev->dev.mtu, mturet);
+            }
+        }
+
         rc = pumpSetupInterface(&dev->dev);
         if (rc != NULL) {
             logMessage(INFO, "result of pumpSetupInterface is %s", rc);
