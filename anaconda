@@ -457,7 +457,7 @@ def checkMemory(opts):
 
     # override display mode if machine cannot nicely run X
     if not flags.test:
-        if iutil.memInstalled() < isys.MIN_GUI_RAM:
+        if opts.display_mode not in ('t', 'c') and iutil.memInstalled() < isys.MIN_GUI_RAM:
             stdoutLog.warning(_("You do not have enough RAM to use the graphical "
                                 "installer.  Starting text mode."))
             opts.display_mode = 't'
