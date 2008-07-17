@@ -129,7 +129,7 @@ int loadKeymap(gzFile stream) {
     if (gunzip_read(stream, keymaps, sizeof(keymaps)) != sizeof(keymaps))
 	return -EINVAL;
 
-    console = open("/dev/console", O_RDWR);
+    console = open("/dev/tty0", O_RDWR);
     if (console < 0)
 	return -EACCES;
 
