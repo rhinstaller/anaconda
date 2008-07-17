@@ -765,7 +765,7 @@ if __name__ == "__main__":
             opts.display_mode = 'g'
             flags.usevnc = 1
             if ret is not None:
-                vncpassword = ret
+                vncS.password = ret
 
     if opts.debug:
         flags.debug = True
