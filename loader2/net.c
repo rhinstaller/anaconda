@@ -1418,13 +1418,15 @@ char *doDhcp(struct networkDeviceConfig *dev) {
     int loglevel;
     DHCP_Preference pref = 0;
     struct utsname kv;
+    int mturet;
 
     i = &dev->dev;
 
-    if (dev->dhcpTimeout < 0)
-	timeout = 45;
-    else
-	timeout = dev->dhcpTimeout;
+    if (dev->dhcpTimeout < 0) {
+        timeout = 45;
+    } else {
+        timeout = dev->dhcpTimeout;
+    }
 
     if (dev->vendor_class != NULL) {
         class = dev->vendor_class;
@@ -1443,10 +1445,21 @@ char *doDhcp(struct networkDeviceConfig *dev) {
         }
     }
 
-    if (getLogLevel() == DEBUGLVL)
+    if (getLogLevel() == DEBUGLVL) {
         loglevel = LOG_DEBUG;
-    else
+    } else {
         loglevel = LOG_INFO;
+    }
+
+    /* set interface MTU */
+    if (i->set & PUMP_INTFINFO_HAS_MTU) {
+        mturet = iface_set_interface_mtu((char *) i->device, i->mtu);
+
+        if (mturet) {
+            logMessage(ERROR, "unable to set %s mtu to %d (code %d)",
+                       (char *) i->device, i->mtu, mturet);
+        }
+    }
 
     /* dhcp preferences are in /usr/include/libdhcp/dhcp_nic.h */
 
@@ -1484,9 +1497,22 @@ char *doDhcp(struct networkDeviceConfig *dev) {
 
 int configureNetwork(struct networkDeviceConfig * dev) {
     char *rc;
+    int mturet;
+    struct pumpNetIntf *i = &dev->dev;
 
     setupWireless(dev);
-    rc = pumpSetupInterface(&dev->dev);
+
+    /* set interface MTU */
+    if (i->set & PUMP_INTFINFO_HAS_MTU) {
+        mturet = iface_set_interface_mtu((char *) i->device, i->mtu);
+
+        if (mturet) {
+            logMessage(ERROR, "unable to set %s mtu to %d (code %d)",
+                       (char *) i->device, i->mtu, mturet);
+        }
+    }
+
+    rc = pumpSetupInterface(i);
     if (rc != NULL) {
         logMessage(INFO, "result of pumpSetupInterface is %s", rc);
         return 1;
@@ -1495,7 +1521,7 @@ int configureNetwork(struct networkDeviceConfig * dev) {
     /* we need to wait for a link after setting up the interface as some
      * switches decide to reconfigure themselves after that (#115825)
      */
-    waitForLink((char *)&dev->dev.device);
+    waitForLink((char *) i->device);
     return 0;
 }
 

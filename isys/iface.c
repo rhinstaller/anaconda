@@ -231,3 +231,52 @@ mac2str_error2:
 
     return buf;
 }
+
+/*
+ * Set the MTU on the specified device.
+ */
+int iface_set_interface_mtu(char *ifname, int mtu) {
+    int ret = 0;
+    struct nl_handle *handle = NULL;
+    struct nl_cache *cache = NULL;
+    struct rtnl_link *link = NULL;
+    struct rtnl_link *request = NULL;
+
+    if (ifname == NULL) {
+        perror("Missing ifname in iface_set_interface_mtu()");
+        return -1;
+    }
+
+    if (mtu <= 0) {
+        perror("MTU cannot be <= 0 in iface_set_interface_mtu()");
+        return -2;
+    }
+
+    if ((cache = iface_get_link_cache(&handle)) == NULL) {
+        perror("iface_get_link_cache() failure in iface_set_interface_mtu()");
+        return -3;
+    }
+
+    if ((link = rtnl_link_get_by_name(cache, ifname)) == NULL) {
+        perror("rtnl_link_get_by_name() failure in iface_set_interface_mtu()");
+        ret = -4;
+        goto ifacemtu_error1;
+    }
+
+    request = rtnl_link_alloc();
+    rtnl_link_set_mtu(request, mtu);
+
+    if (rtnl_link_change(handle, link, request, 0)) {
+        perror("rtnl_link_change() failure in iface_set_interface_mtu()");
+        ret = -5;
+        goto ifacemtu_error2;
+    }
+
+ifacemtu_error2:
+    rtnl_link_put(link);
+ifacemtu_error1:
+    nl_close(handle);
+    nl_handle_destroy(handle);
+
+    return ret;
+}

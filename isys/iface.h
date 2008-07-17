@@ -26,3 +26,4 @@
 struct nl_cache *iface_get_link_cache(struct nl_handle **handle);
 char *iface_mac2str(char *ifname);
 char *iface_ip2str(char *ifname);
+int iface_set_interface_mtu(char *ifname, int mtu);
