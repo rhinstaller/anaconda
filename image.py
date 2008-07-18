@@ -128,10 +128,14 @@ def getMediaId(path):
 def mountDirectory(methodstr, messageWindow):
     if methodstr.startswith("hd:"):
         method = methodstr[3:]
-        (device, fstype, path) = method.split(":", 3)
-        device = method[0:method.index(":")]
+        if method.count(":") == 1:
+            (device, path) = method.split(":")
+            fstype = "auto"
+        else:
+            (device, fstype, path) = method.split(":")
 
-        if not device.startswith("/dev/"):
+        if not device.startswith("/dev/") and not device.startswith("UUID=") \
+           and not device.startswith("LABEL="):
             device = "/dev/%s" % device
     elif methodstr.startswith("nfsiso:"):
         device = methodstr[7:]

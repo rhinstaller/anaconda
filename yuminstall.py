@@ -528,7 +528,11 @@ class AnacondaYum(YumSorter):
             m = self.anaconda.methodstr
 
             if m.startswith("hd:"):
-                (device, fstype, path) = m[3:].split(":", 3)
+                if m.count(":") == 2:
+                    (device, path) = m[3:].split(":")
+                else:
+                    (device, fstype, path) = m[3:].split(":")
+
                 self.isodir = "/mnt/isodir/%s" % path
 
                 # This takes care of mounting /mnt/isodir first.

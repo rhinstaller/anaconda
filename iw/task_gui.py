@@ -183,7 +183,13 @@ class RepoEditor:
             elif self.anaconda.methodstr.startswith("cdrom:"):
                 pass
             elif self.anaconda.methodstr.startswith("hd:"):
-                (device, fstype, path) = self.anaconda.methodstr[3:].split(":", 3)
+                m = self.anaconda.methodstr[3:]
+                if m.count(":") == 1:
+                    (device, path) = m.split(":")
+                    fstype = "auto"
+                else:
+                    (device, fstype, path) = m.split(":")
+
                 # find device in self.partitionComboBox and select it
                 self.directoryChooser.set_current_folder(path)
         else:
