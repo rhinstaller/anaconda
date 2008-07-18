@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.15
+Version: 11.4.1.16
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -194,6 +194,21 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 17 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.16-1
+- Support xdriver= again (katzj)
+- Fix loadkeys on serial console (niels.devos)
+- don't change from cmdline to textmode on lowmem systems (niels.devos)
+- Update the VNC over text mode patch, so it correctly passes the password
+  to VNC server (#455612) (msivak)
+- Set interface MTU if user specified mtu= param (#435874) (dcantrell)
+- Bring up the network before attempting to mount the NFSISO source. (clumens)
+- Catch mount errors when adding NFS repos (#455645). (clumens)
+- Fix a traceback when trying to save exceptiona via scp. (clumens)
+- Give a progress bar when cleaning up after upgrades (#208725). (clumens)
+- Look for repo config files in /etc/anaconda.repos.d. (clumens)
+- baseurl should be a list, mirrorlist should not. (clumens)
+- It's called crypto_blkcipher.ko these days. (clumens)
+
 * Tue Jul 15 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.15-1
 - Add a text-mode network config dialog so default installs can work. (clumens)
 - Use the right format for the NFS methodstr, but harder this time. (clumens)
