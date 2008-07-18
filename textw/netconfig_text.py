@@ -108,7 +108,7 @@ class NetworkConfiguratorText:
 
         grid.add(self.interfaceList, 0, 1, padding = (0, 0, 0, 1))
 
-        self.dhcpCheckbox = Checkbox(_("Use dynamic IP configuration (DHCP)"))
+        self.dhcpCheckbox = Checkbox(_("Use dynamic IP configuration (DHCP)"), 1)
         grid.add(self.dhcpCheckbox, 0, 2, anchorLeft = 1)
 
         self.ipv4Checkbox = Checkbox(_("Enable IPv4 support"), 1)
