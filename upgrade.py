@@ -112,6 +112,8 @@ def findRootParts(anaconda):
         anaconda.id.upgradeRoot.append( (dev, fs) )
 
     if len(anaconda.id.rootParts) == 0 and anaconda.isKickstart:
+        log.critical("A kickstart upgrade was attempted on a system with "
+                "no valid upgrade candidates.")
         message = _("Anaconda did not find any partitions that are "
                     "valid upgrade candidates.  Note that upgrades "
                     "between major releases is not supported.")
