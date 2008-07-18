@@ -716,10 +716,8 @@ void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {
             ld->method = strncmp(arg, "ftp", 3) ? METHOD_HTTP : METHOD_FTP;
             ld->methodData = calloc(sizeof(struct urlInstallData *), 1);
             ((struct urlInstallData *)ld->methodData)->url = strdup(arg);
-#if !defined(__s390__) && !defined(__s390x__)
         } else if (!strncmp(arg, "cdrom:", 6)) {
             ld->method = METHOD_CDROM;
-#endif
         } else if (!strncmp(arg, "harddrive:", 10) ||
                    !strncmp(arg, "hd:", 3)) {
             ld->method = METHOD_HD;

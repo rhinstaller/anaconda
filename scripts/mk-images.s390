@@ -14,6 +14,13 @@ makeBootImages() {
 
 	cp -v $BOOTDISKDIR/generic.prm $TOPDESTPATH/images/generic.prm
 	cp -v $BOOTDISKDIR/generic.ins $TOPDESTPATH/generic.ins
+
+   $MKS390CDBOOT \
+      -i $TOPDESTPATH/images/kernel.img \
+      -r $TOPDESTPATH/images/initrd.img \
+      -p $TOPDESTPATH/images/generic.prm \
+      -o $TOPDESTPATH/images/cdboot.img
+
     cat << __EOT__ >> $TOPDESTPATH/.treeinfo
 [images-$KERNELARCH]
 kernel = images/kernel.img
@@ -21,6 +28,7 @@ initrd = images/initrd.img
 initrd.size = images/initrd.size
 generic.prm = images/generic.prm
 generic.ins = generic.ins
+cdboot.img = images/cdboot.img
 
 __EOT__
 }

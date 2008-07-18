@@ -110,6 +110,7 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
     TRIMPCIIDS=$IMGPATH/usr/lib/anaconda-runtime/trimpciids
     GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
     GENINITRDSZ=$IMGPATH/usr/lib/anaconda-runtime/geninitrdsz
+    MKS390CDBOOT=$IMGPATH/usr/lib/anaconda-runtime/mk-s390-cdboot
     KEYMAPS=/tmp/keymaps-$BUILDARCH.$$
     SCREENFONT=$IMGPATH/usr/lib/anaconda-runtime/screenfont-${BASEARCH}.gz
     GETMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/moddeps
