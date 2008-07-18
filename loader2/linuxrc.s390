@@ -247,269 +247,307 @@ mount -t ramfs none /tmp
 ifconfig lo 127.0.0.1 netmask 255.0.0.0
 route add -host 127.0.0.1 dev lo 2>/dev/null
 
+# make sure we have an /etc/hosts file (required for telnetd)
+echo -e "127.0.0.1\tlocalhost.localdomain localhost" > /etc/hosts
+echo -e "::1\t\tlocalhost6.localdomain6 localhost6" >> /etc/hosts
+
 LO=""
 
 [ -L /sbin/insmod ] && LO=".ko"
 
+# Parse configuration
 if [ -n "$CMSDASD" -a -n "$CMSCONFFILE" ]; then
    readcmsfile $CMSDASD $CMSCONFFILE
    source /tmp/$CMSCONFFILE #2>/dev/null
 fi
 
-# Parse configuration
-# Check for missing parameters, prompt for them if necessary
-while [ -z "$NETTYPE" ]; do
-   echo $"Which kind of network device do you intend to use"
-   echo $"  (e.g. ctc, iucv, qeth, lcs)."
-   echo $"Enter 'qeth' for OSA-Express Fast Ethernet, Gigabit Ethernet"
-   echo $"  (including 1000Base-T), High Speed Token Ring, and ATM "
-   echo $"  (running Ethernet LAN emulation) features in QDIO mode."
-   echo $"Enter 'lcs' for OSA­2 Ethernet/Token Ring, OSA-Express Fast Ethernet in"
-   echo $"  non-QDIO mode, OSA-Express High Speed Token Ring in non-QDIO mode and"
-   echo $"  Gigabit Ethernet in non-QDIO mode."
-	read NETTYPE
-done
-if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw config
-   if [ -n "$CHANDEV" ]; then
-		echo
-		echo $"The CHANDEV variable isn't used anymore, please update your "
-		echo $".parm or the .conf file"
-		echo
+do_net_install="yes"
+
+if [ -r /sys/firmware/ipl/ipl_type ]; then
+	if [ "`cat /sys/firmware/ipl/ipl_type`" = "fcp" ]; then
+		while [ 1 ]; do
+			echo $"Your IPL device is set to FCP."
+			echo $"Would you like to perform a CD-ROM/DVD-ROM installation? (y/n)"
+			read do_cd_install
+			case $do_cd_install in
+				y|Y|[Yy][Ee][Ss])
+					# set up FCP cdrom here
+					CD_DEVICE="`cat /sys/firmware/ipl/device`"
+					WWPN="`cat /sys/firmware/ipl/wwpn`"
+					LUN="`cat /sys/firmware/ipl/lun`"
+					echo 1 > /sys/bus/ccw/drivers/zfcp/$CD_DEVICE/online
+					echo $WWPN > /sys/bus/ccw/drivers/zfcp/$CD_DEVICE/port_add
+					echo $LUN > /sys/bus/ccw/drivers/zfcp/$CD_DEVICE/$WWPN/unit_add
+					do_net_install="no"
+					break
+					;;
+				n|N|[Nn][Oo])
+					do_net_install="yes"
+					break
+					;;
+				*)
+					echo
+					echo $"*** INVALID ANSWER: $do_cd_install"
+					echo
+					unset do_cd_install
+					;;
+			esac
+		done
 	fi
-   while [ -z "$SUBCHANNELS" ]; do
-		echo $"Enter the bus ID and the device number of your CCW devices."
-		echo $"CTC/ESCON and LCS need two subchannels:"
-		echo $"(e.g. \"0.0.0600,0.0.0601\" will configure the CTC or ESCON interface"
-		echo $"with the subchannels 0x600 and 0x601)"
-		echo $"QETH needs three subchannels p.e. 0.0.0300,0.0.0301,0.0.0302"
-		read SUBCHANNELS
-   done
-	SUBCHANNELS=`echo $SUBCHANNELS | /sbin/busybox tr ABCDEF abcdef`
-	if [ "$NETTYPE" = "qeth" ]; then
-		if [ -z "$PORTNAME" ]; then
-			echo $"Portname of the OSA-Express feature in QDIO mode and z/VM Guest LAN"
-			echo $"This parameter is optional with z/VM 4.4.0 or z/VM 4.3.0 with"
-			echo $"APARs VM63308 and PQ73878"
-			echo $"Press enter if you don't want to enter a portname"
-			read PORTNAME
-		fi
-		if [ -z "$LAYER2" ]; then
-			echo $"Enter the mode of operation for the OSA device"
-			echo $"0 for layer 3 mode (default)"
-			echo $"1 for layer 2 mode"
-			read LAYER2
-		fi
-   fi
 fi
-      
-while [ -z "$HOSTNAME" -o "$HOSTNAME" = "(none)" ]; do
-	echo $"Enter the FQDN of your new Linux guest (e.g. s390.redhat.com):"
-	read HOSTNAME
-done
-while [ -z "$IPADDR" ]; do
-  echo $"Enter a valid IP address of your new Linux guest:"
-  read IPADDR
-  checkip $IPADDR
-  ret=$?
-  if [ $ret -eq 1 ]; then
-    echo -n "Invalid IP address format. "
-    unset IPADDR
-  fi
-done
-while [ -z "$NETWORK" ]; do
-  echo $"Enter a valid network address of the new Linux guest:"
-  read NETWORK
-  checkip $NETWORK
-  ret=$?
-  if [ $ret -eq 1 ]; then
-    echo -n "Invalid network address format. "
-    unset NETWORK
-  fi
-done
-if [ "$NETTYPE" = "qeth" ] || [ "$NETTYPE" = "lcs" ]; then
-	 while [ -z "$NETMASK" ]; do
-		  echo $"Enter the netmask for the new Linux guest (e.g. 255.255.255.0):"
-		  read NETMASK
-		  checkip $NETMASK
-		  ret=$?
-		  if [ $ret -eq 1 ]; then
-		    echo -n "Invalid netmask format. "
-		    unset NETMASK
-		  fi
-	 done
-	 while [ -z "$BROADCAST" ]; do
-		  echo $"Enter the broadcast address for the new Linux guest:"
-		  read BROADCAST
-		  checkip $BROADCAST
-		  ret=$?
-		  if [ $ret -eq 1 ]; then
-		    echo -n "Invalid broadcast address format. "
-		    unset BROADCAST
-		  fi
-	 done
-	 while [ -z "$GATEWAY" ]; do
-		  echo $"Enter your default gateway:"
-		  read GATEWAY
-		  checkip $GATEWAY
-		  ret=$?
-		  if [ $ret -eq 1 ]; then
-		    echo -n "Invalid gateway address format. "
-		    unset GATEWAY
-		  fi
-	 done
-    if [ ":$NETTYPE" = ":lcs" ]; then
-        if [ -n "$RUNKS" -a -z "$PORTNAME" ]; then
-           PORTNAME=0
-        fi
-        while [ -z "$PORTNAME" ]; do
-           echo $"Enter the relative port number of your LCS device"
-           echo $"(required for OSA-Express ATM cards only):"
-           read PORTNAME
-        done
-    fi
-else  # ctc0, iucv0
-    if [ -z "$NETMASK" ]; then
-        # If the user did not supply netmask, we add the right one.
-        # Netmask MUST be present, or pumpSetupInterface() blows routes.
-        NETMASK="255.255.255.255"
-    fi
-	 while [ -z "$GATEWAY" ]; do
-		  echo $"Enter the IP of your CTC / ESCON / IUCV point-to-point partner:"
-		  read GATEWAY
-	 done
 
-	 if [ "$NETTYPE" = "ctc" ]; then
-        if [ -z "$MTU" ]; then
-		      MTU="1500"
-        fi
-        if [ -z "$RUNKS" ]; then
-           if [ -n "$CTCPROT" ]; then
-              validprot=1
-           else
-              validprot=0
-           fi
-           while [ "$validprot" = "0" ]; do
-              echo $"Select which protocol should be used for the CTC interface"
-              echo $"0 for compatibility with p.e. VM TCP service machine (default)"
-              echo $"1 for enhanced package checking for Linux peers"
-              echo $"3 for compatibility with OS/390 or z/OS peers"
-              read CTCPROT
-              case "x$CTCPROT" in
-              x|x0)
-                 validprot=1
-                 unset CTCPROT
-                 ;;
-              x1|x3)
-                 validprot=1
-                 ;;
-              x2)
-                 echo $"CTC tty's are not usable for this installation"
-                 ;;
-              *)
-                 echo $"Invalid selection"
-                 ;;
-              esac
-           done
+if [ "$do_net_install" = "yes" ]; then
+	# Check for missing parameters, prompt for them if necessary
+	while [ -z "$NETTYPE" ]; do
+	   echo $"Which kind of network device do you intend to use"
+	   echo $"  (e.g. ctc, iucv, qeth, lcs)."
+	   echo $"Enter 'qeth' for OSA-Express Fast Ethernet, Gigabit Ethernet"
+	   echo $"  (including 1000Base-T), High Speed Token Ring, and ATM "
+	   echo $"  (running Ethernet LAN emulation) features in QDIO mode."
+	   echo $"Enter 'lcs' for OSA­2 Ethernet/Token Ring, OSA-Express Fast Ethernet in"
+	   echo $"  non-QDIO mode, OSA-Express High Speed Token Ring in non-QDIO mode and"
+	   echo $"  Gigabit Ethernet in non-QDIO mode."
+		read NETTYPE
+	done
+	if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw config
+	   if [ -n "$CHANDEV" ]; then
+			echo
+			echo $"The CHANDEV variable isn't used anymore, please update your "
+			echo $".parm or the .conf file"
+			echo
+		fi
+	   while [ -z "$SUBCHANNELS" ]; do
+			echo $"Enter the bus ID and the device number of your CCW devices."
+			echo $"CTC/ESCON and LCS need two subchannels:"
+			echo $"(e.g. \"0.0.0600,0.0.0601\" will configure the CTC or ESCON interface"
+			echo $"with the subchannels 0x600 and 0x601)"
+			echo $"QETH needs three subchannels p.e. 0.0.0300,0.0.0301,0.0.0302"
+			read SUBCHANNELS
+	   done
+		SUBCHANNELS=`echo $SUBCHANNELS | /sbin/busybox tr ABCDEF abcdef`
+		if [ "$NETTYPE" = "qeth" ]; then
+			if [ -z "$PORTNAME" ]; then
+				echo $"Portname of the OSA-Express feature in QDIO mode and z/VM Guest LAN"
+				echo $"This parameter is optional with z/VM 4.4.0 or z/VM 4.3.0 with"
+				echo $"APARs VM63308 and PQ73878"
+				echo $"Press enter if you don't want to enter a portname"
+				read PORTNAME
+			fi
+			if [ -z "$LAYER2" ]; then
+				echo $"Enter the mode of operation for the OSA device"
+				echo $"0 for layer 3 mode (default)"
+				echo $"1 for layer 2 mode"
+				read LAYER2
+			fi
+	   fi
+	fi
+
+	while [ -z "$HOSTNAME" -o "$HOSTNAME" = "(none)" ]; do
+		echo $"Enter the FQDN of your new Linux guest (e.g. s390.redhat.com):"
+		read HOSTNAME
+	done
+	while [ -z "$IPADDR" ]; do
+	  echo $"Enter a valid IP address of your new Linux guest:"
+	  read IPADDR
+	  checkip $IPADDR
+	  ret=$?
+	  if [ $ret -eq 1 ]; then
+	    echo -n "Invalid IP address format. "
+	    unset IPADDR
+	  fi
+	done
+	while [ -z "$NETWORK" ]; do
+	  echo $"Enter a valid network address of the new Linux guest:"
+	  read NETWORK
+	  checkip $NETWORK
+	  ret=$?
+	  if [ $ret -eq 1 ]; then
+	    echo -n "Invalid network address format. "
+	    unset NETWORK
+	  fi
+	done
+	if [ "$NETTYPE" = "qeth" ] || [ "$NETTYPE" = "lcs" ]; then
+		 while [ -z "$NETMASK" ]; do
+			  echo $"Enter the netmask for the new Linux guest (e.g. 255.255.255.0):"
+			  read NETMASK
+			  checkip $NETMASK
+			  ret=$?
+			  if [ $ret -eq 1 ]; then
+			    echo -n "Invalid netmask format. "
+			    unset NETMASK
+			  fi
+		 done
+		 while [ -z "$BROADCAST" ]; do
+			  echo $"Enter the broadcast address for the new Linux guest:"
+			  read BROADCAST
+			  checkip $BROADCAST
+			  ret=$?
+			  if [ $ret -eq 1 ]; then
+			    echo -n "Invalid broadcast address format. "
+			    unset BROADCAST
+			  fi
+		 done
+		 while [ -z "$GATEWAY" ]; do
+			  echo $"Enter your default gateway:"
+			  read GATEWAY
+			  checkip $GATEWAY
+			  ret=$?
+			  if [ $ret -eq 1 ]; then
+			    echo -n "Invalid gateway address format. "
+			    unset GATEWAY
+			  fi
+		 done
+	    if [ ":$NETTYPE" = ":lcs" ]; then
+	        if [ -n "$RUNKS" -a -z "$PORTNAME" ]; then
+	           PORTNAME=0
+	        fi
+	        while [ -z "$PORTNAME" ]; do
+	           echo $"Enter the relative port number of your LCS device"
+	           echo $"(required for OSA-Express ATM cards only):"
+	           read PORTNAME
+	        done
 	    fi
-	 fi
-	 if [ ":$NETTYPE" = ":iucv" ]; then
-		  while [ -z "$PEERID" ]; do
-			   echo $"Enter the peer id of the VM guest you want to"
-				echo $"connect to (in capital letters)."
-			   read PEERID
-		  done
-	 fi
-fi
-# don't ask for MTU, but use it if it has been set in the .parm file
-# don't overwrite MMTU if it has been set for CTC
-if [ -n "$MTU" -a -z "$MMTU" ]; then
-	 MMTU="mtu $MTU"
-fi
+	else  # ctc0, iucv0
+	    if [ -z "$NETMASK" ]; then
+	        # If the user did not supply netmask, we add the right one.
+	        # Netmask MUST be present, or pumpSetupInterface() blows routes.
+	        NETMASK="255.255.255.255"
+	    fi
+		 while [ -z "$GATEWAY" ]; do
+			  echo $"Enter the IP of your CTC / ESCON / IUCV point-to-point partner:"
+			  read GATEWAY
+		 done
 
-# configure network-interface
-if [ ":$NETTYPE" = ":ctc" ]; then
-   insmod ccwgroup$LO
-	insmod cu3088$LO
-	insmod fsm$LO
-	insmod ctc$LO
-   setupdevice
-   DEVICE=${NETTYPE}0
-	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
-   echo "alias $DEVICE ctc" >> /tmp/modprobe.conf
-elif [ ":$NETTYPE" = ":iucv" ]; then
-	insmod fsm$LO
-	insmod iucv$LO
-	insmod netiucv$LO
-	sysecho /sys/bus/iucv/drivers/netiucv/connection $PEERID
-   DEVICE=${NETTYPE}0
-	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
-   echo "alias $DEVICE netiucv" >> /tmp/modprobe.conf
-elif [ "$NETTYPE" = "lcs" ]; then
-   insmod ccwgroup$LO
-	insmod cu3088$LO
-	insmod lcs$LO
-   setupdevice
-# KH FIXME: Workaround for missing sysfs interface
-#   DEVICE=`cat /sys/devices/lcs/${SUBCHANNELS//,*/}/if_name`
-   getlcsifname ${SUBCHANNELS//,*/}
-	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
-	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
-   echo "alias $DEVICE lcs" >> /tmp/modprobe.conf
-elif [ "$NETTYPE" = "qeth" ]; then
-   insmod ccwgroup$LO
-	insmod qdio$LO
-	insmod ipv6$LO
-	insmod qeth$LO
-   setupdevice
-   DEVICE=`cat /sys/devices/qeth/${SUBCHANNELS//,*/}/if_name`
-	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
-	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
-	echo "alias $DEVICE qeth" >> /tmp/modprobe.conf
-else
-   echo $"Unknown network device, aborting installation"
-   exit 1
-fi
+		 if [ "$NETTYPE" = "ctc" ]; then
+	        if [ -z "$MTU" ]; then
+			      MTU="1500"
+	        fi
+	        if [ -z "$RUNKS" ]; then
+	           if [ -n "$CTCPROT" ]; then
+	              validprot=1
+	           else
+	              validprot=0
+	           fi
+	           while [ "$validprot" = "0" ]; do
+	              echo $"Select which protocol should be used for the CTC interface"
+	              echo $"0 for compatibility with p.e. VM TCP service machine (default)"
+	              echo $"1 for enhanced package checking for Linux peers"
+	              echo $"3 for compatibility with OS/390 or z/OS peers"
+	              read CTCPROT
+	              case "x$CTCPROT" in
+	              x|x0)
+	                 validprot=1
+	                 unset CTCPROT
+	                 ;;
+	              x1|x3)
+	                 validprot=1
+	                 ;;
+	              x2)
+	                 echo $"CTC tty's are not usable for this installation"
+	                 ;;
+	              *)
+	                 echo $"Invalid selection"
+	                 ;;
+	              esac
+	           done
+		    fi
+		 fi
+		 if [ ":$NETTYPE" = ":iucv" ]; then
+			  while [ -z "$PEERID" ]; do
+				   echo $"Enter the peer id of the VM guest you want to"
+					echo $"connect to (in capital letters)."
+				   read PEERID
+			  done
+		 fi
+	fi
+	# don't ask for MTU, but use it if it has been set in the .parm file
+	# don't overwrite MMTU if it has been set for CTC
+	if [ -n "$MTU" -a -z "$MMTU" ]; then
+		 MMTU="mtu $MTU"
+	fi
 
-route add default gw $GATEWAY dev $DEVICE 2>/dev/null
+	# configure network-interface
+	if [ ":$NETTYPE" = ":ctc" ]; then
+	   insmod ccwgroup$LO
+		insmod cu3088$LO
+		insmod fsm$LO
+		insmod ctc$LO
+	   setupdevice
+	   DEVICE=${NETTYPE}0
+		ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
+	   echo "alias $DEVICE ctc" >> /tmp/modprobe.conf
+	elif [ ":$NETTYPE" = ":iucv" ]; then
+		insmod fsm$LO
+		insmod iucv$LO
+		insmod netiucv$LO
+		sysecho /sys/bus/iucv/drivers/netiucv/connection $PEERID
+	   DEVICE=${NETTYPE}0
+		ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
+	   echo "alias $DEVICE netiucv" >> /tmp/modprobe.conf
+	elif [ "$NETTYPE" = "lcs" ]; then
+	   insmod ccwgroup$LO
+		insmod cu3088$LO
+		insmod lcs$LO
+	   setupdevice
+	# KH FIXME: Workaround for missing sysfs interface
+	#   DEVICE=`cat /sys/devices/lcs/${SUBCHANNELS//,*/}/if_name`
+	   getlcsifname ${SUBCHANNELS//,*/}
+		ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
+		route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
+	   echo "alias $DEVICE lcs" >> /tmp/modprobe.conf
+	elif [ "$NETTYPE" = "qeth" ]; then
+	   insmod ccwgroup$LO
+		insmod qdio$LO
+		insmod ipv6$LO
+		insmod qeth$LO
+	   setupdevice
+	   DEVICE=`cat /sys/devices/qeth/${SUBCHANNELS//,*/}/if_name`
+		ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
+		route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
+		echo "alias $DEVICE qeth" >> /tmp/modprobe.conf
+	else
+	   echo $"Unknown network device, aborting installation"
+	   exit 1
+	fi
 
-if [ -z "$DNS" ]; then
-	echo $"Enter your DNS server(s), separated by colons (:):"
-	read DNS
-fi
-if [ -z "$DNS" ]; then
-	echo $"You might encounter problems without a nameserver, especially"
-	echo $"with FTP installs"
-fi
+	route add default gw $GATEWAY dev $DEVICE 2>/dev/null
 
-if [ -n "$DNS" -a -z "$SEARCHDNS" ]; then
-	echo $"Enter your DNS search domain(s) (if any), separated by colons (:):"
-	read SEARCHDNS
-fi
+	if [ -z "$DNS" ]; then
+		echo $"Enter your DNS server(s), separated by colons (:):"
+		read DNS
+	fi
+	if [ -z "$DNS" ]; then
+		echo $"You might encounter problems without a nameserver, especially"
+		echo $"with FTP installs"
+	fi
 
-[ -n "$HOSTNAME" ] && hostname $HOSTNAME
+	if [ -n "$DNS" -a -z "$SEARCHDNS" ]; then
+		echo $"Enter your DNS search domain(s) (if any), separated by colons (:):"
+		read SEARCHDNS
+	fi
 
-# show interfaces and routing table
-ifconfig -a
-route -n
+	[ -n "$HOSTNAME" ] && hostname $HOSTNAME
 
-#echo $"Starting portmap."
-#portmap
+	# show interfaces and routing table
+	ifconfig -a
+	route -n
 
-# convert to space-separated lists
-if [ -n "$SEARCHDNS" ]; then
-	SEARCHDNS=`echo $SEARCHDNS |sed -e 's/:/ /g'`
-	for i in "$SEARCHDNS"; do echo "search $i"; done >> /etc/resolv.conf
-fi
-if [ -n "$DNS" ]; then
-	RESOLVDNS=`echo $DNS |sed -e 's/:/ /g'`
-	for i in $RESOLVDNS; do echo "nameserver $i"; done >> /etc/resolv.conf
-fi
+	#echo $"Starting portmap."
+	#portmap
 
-# make sure we have an /etc/hosts file (required for telnetd)
-echo -e "127.0.0.1\tlocalhost.localdomain localhost" > /etc/hosts
-echo -e "::1\t\tlocalhost6.localdomain6 localhost6" >> /etc/hosts
-if [ ! -z "$HOSTNAME" -a ! -z "$IPADDR" ]; then
-	echo -e "$IPADDR\t$HOSTNAME `echo $HOSTNAME | cut -d '.' -f 1`" >> /etc/hosts
+	# convert to space-separated lists
+	if [ -n "$SEARCHDNS" ]; then
+		SEARCHDNS=`echo $SEARCHDNS |sed -e 's/:/ /g'`
+		for i in "$SEARCHDNS"; do echo "search $i"; done >> /etc/resolv.conf
+	fi
+	if [ -n "$DNS" ]; then
+		RESOLVDNS=`echo $DNS |sed -e 's/:/ /g'`
+		for i in $RESOLVDNS; do echo "nameserver $i"; done >> /etc/resolv.conf
+	fi
+
+	if [ ! -z "$HOSTNAME" -a ! -z "$IPADDR" ]; then
+		echo -e "$IPADDR\t$HOSTNAME `echo $HOSTNAME | cut -d '.' -f 1`" >> /etc/hosts
+	fi
 fi
 
 if [ -z "$DASD" ]; then

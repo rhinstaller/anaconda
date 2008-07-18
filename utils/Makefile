@@ -31,10 +31,10 @@ RPMCFLAGS = $(CFLAGS) -I/usr/include/rpm
 
 UTILS = modlist snarffont mapshdr readmap
 ifeq (s390, $(ARCH))
-UTILS += geninitrdsz
+UTILS += geninitrdsz mk-s390-cdboot
 endif
 ifeq (s390x, $(ARCH))
-UTILS += geninitrdsz
+UTILS += geninitrdsz mk-s390-cdboot
 endif
 
 ifeq (.depend,$(wildcard .depend))
@@ -67,6 +67,9 @@ hash.o : hash.c
 geninitrdsz: geninitrdsz.c
 	$(CC) $(CFLAGS) -o $@ $<
 
+mk-s390-cdboot: mk-s390-cdboot.c
+	$(CC) $(CFLAGS) -o $@ $<
+
 depends:
 
 install: all
@@ -79,6 +82,9 @@ install: all
 	install -m755 mapshdr $(DESTDIR)/$(RUNTIMEDIR)
 	if [ -x geninitrdsz ]; then \
 		install -m755 geninitrdsz $(DESTDIR)/$(RUNTIMEDIR) ; \
+	fi
+	if [ -x mk-s390-cdboot ]; then \
+		install -m755 mk-s390-cdboot $(DESTDIR)/$(RUNTIMEDIR) ; \
 	fi
 
 clean:	

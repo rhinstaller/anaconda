@@ -524,10 +524,8 @@ void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
             ld->method = METHOD_URL;
             ld->stage2Data = calloc(sizeof(struct urlInstallData *), 1);
             ((struct urlInstallData *)ld->stage2Data)->url = strdup(arg);
-#if !defined(__s390__) && !defined(__s390x__)
         } else if (!strncmp(arg, "cdrom:", 6)) {
             ld->method = METHOD_CDROM;
-#endif
         } else if (!strncmp(arg, "harddrive:", 10) ||
                    !strncmp(arg, "hd:", 3)) {
             ld->method = METHOD_HD;
