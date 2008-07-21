@@ -843,10 +843,10 @@ class AnacondaKSHandler(superclass):
         self.id = self.anaconda.id
 
 class VNCHandler(superclass):
-    # We're only interested in the handler for the VNC command.
+    # We're only interested in the handler for the VNC command and display modes.
     def __init__(self, anaconda=None):
         superclass.__init__(self, mapping=commandMap)
-        self.maskAllExcept(["vnc"])
+        self.maskAllExcept(["vnc", "displaymode", "text", "cmdline", "graphical"])
 
 class KickstartPreParser(KickstartParser):
     def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
