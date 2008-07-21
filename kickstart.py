@@ -663,11 +663,15 @@ class AnacondaKSHandlers(KickstartHandlers):
         isys.flushDriveDict()
 
 class VNCHandlers(KickstartHandlers):
-    # We're only interested in the handler for the VNC command.
+    # We're only interested in the handler for the VNC command and display modes.
     def __init__ (self, ksdata):
         KickstartHandlers.__init__(self, ksdata)
         self.resetHandlers()
         self.handlers["vnc"] = self.doVnc
+        
+        self.handlers["text"] = self.doDisplayMode
+        self.handlers["cmdline"] = self.doDisplayMode
+        self.handlers["graphical"] = self.doDisplayMode
 
 class KickstartPreParser(KickstartParser):
     def __init__ (self, ksdata, kshandlers):

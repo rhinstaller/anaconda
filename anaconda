@@ -289,6 +289,10 @@ def setVNCFromKickstart(opts):
 	if vncconnectport == "":
 	    vncconnectport = ksvncport
 
+    from pykickstart.constants import DISPLAY_MODE_GRAPHICAL
+    if vncksdata.displayMode!=DISPLAY_MODE_GRAPHICAL:
+        flags.vncquestion = False
+
     return vncksdata.vnc
 
 def setupPythonPath():
@@ -755,7 +759,8 @@ if __name__ == "__main__":
         else:
             opts.display_mode = 'g'
     
-    if opts.display_mode == 't': #we prefer vnc over text mode, so ask about that
+    #we prefer vnc over text mode, so ask about that, but only if the KS file doesn't specify anything special
+    if opts.display_mode == 't' and flags.vncquestion:
         title = _("Would you like to use VNC?")
         message = _("The VNC mode instalation offers more functionality than the text mode, would you like to use it instead?")
 
