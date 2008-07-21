@@ -776,6 +776,9 @@ class AnacondaYum(YumSorter):
             buttons = [_("Re_boot"), _("_Retry")]
 
         pkgFile = os.path.basename(package.returnSimple('relativepath'))
+        if type(pkgFile) != unicode:
+            pkgFile = unicode(pkgFile, encoding='utf-8')
+
         rc = self.anaconda.intf.messageWindow(_("Error"),
                    _("The file %s cannot be opened.  This is due to a missing "
                      "file, a corrupt package or corrupt media.  Please "
