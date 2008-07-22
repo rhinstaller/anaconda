@@ -19,6 +19,7 @@
 
 from installclass import BaseInstallClass
 from constants import *
+from filer import *
 from flags import flags
 import os
 import iutil
@@ -80,7 +81,8 @@ class InstallClass(BaseInstallClass):
                     "installation of Red Hat Enterprise Linux.\n"
                     "* You will not get software and security updates "
                     "for packages not included in your subscription.")
- 
+
+    bugFiler = BugzillaFiler(bugUrl="https://bugzilla.redhat.com/xmlrpc.cgi")
 
     def setInstallData(self, anaconda):
 	BaseInstallClass.setInstallData(self, anaconda)

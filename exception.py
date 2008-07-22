@@ -23,6 +23,7 @@
 #
 
 from constants import *
+from filer import *
 from network import hasActiveNetDev
 import isys
 import sys
@@ -355,6 +356,30 @@ def saveToBugzilla(anaconda, exn, dest):
     import bugzilla, xmlrpclib
     import product, rpmUtils
 
+    def withBugzillaDo(bz, fn):
+        try:
+            retval = fn(bz)
+            return retval
+        except CommunicationError, e:
+            msg = _("Your bug could not be filed due to the following error "
+                    "when communicating with bugzilla:\n\n%s" % str(e))
+        except ValueError, e:
+            msg = _("Your bug could not be filed due to bad information in "
+                    "the bug fields.  This is most likely an error in "
+                    "anaconda:\n\n%s" % str(e))
+
+        anaconda.intf.messageWindow(_("Unable To File Bug"), msg)
+        return None
+
+    filer = anaconda.id.instClass.bugFiler
+
+    if not filer.supportsFiling() or not filer.bugUrl:
+        anaconda.intf.messageWindow(_("Bug Filing Not Supported"),
+                                    _("Your distribution does not provide a "
+                                      "supported bug filing system, so you "
+                                      "cannot save your exception this way."))
+        return False
+
     if dest[0].strip() == "" or dest[1].strip() == "" or dest[2].strip() == "":
         anaconda.intf.messageWindow(_("Invalid Bug Information"),
                                     _("Please provide a valid username, "
@@ -363,24 +388,10 @@ def saveToBugzilla(anaconda, exn, dest):
 
     hash = exn.hash()
 
-    if product.bugUrl.startswith("http://"):
-        bugUrl = "https://" + product.bugUrl[7:]
-    elif product.bugUrl.startswith("https://"):
-        bugUrl = product.bugUrl
-    else:
-        anaconda.intf.messageWindow(_("No bugzilla URL"),
-                                    _("Your distribution does not provide a "
-                                      "bug reporting URL, so you cannot save "
-                                      "your exception to a remote bug tracking "
-                                      "system."))
-        return False
-
     if not exn.tbFile:
         exn.write(anaconda)
 
-    bz = bugzilla.Bugzilla(url = "%s/xmlrpc.cgi" % bugUrl)
-
-    if not bz.login(dest[0], dest[1]):
+    if not filer.login(dest[0], dest[1]):
         anaconda.intf.messageWindow(_("Unable To Login"),
                                     _("There was an error logging into %s "
                                       "using the provided username and "
@@ -390,30 +401,31 @@ def saveToBugzilla(anaconda, exn, dest):
     # Are there any existing bugs with this hash value?  If so we will just
     # add this traceback to the bug report and put the reporter on the CC
     # list.  Otherwise, we need to create a new bug.
-    try:
-        buglist = bz.query({'status_whiteboard': hash})
-    except xmlrpclib.ProtocolError, e:
-        anaconda.intf.messageWindow(_("Unable To File Bug"),
-                                    _("Your bug could not be filed due to the "
-                                      "following error when communicating with "
-                                      "bugzilla:\n\n%s" % str(e)))
+    wb = "anaconda_trace_hash:%s" % hash
+    buglist = withBugzillaDo(filer, lambda b: b.query({'status_whiteboard': wb,
+                                                       'bug_status': []}))
+    if buglist is None:
         return False
 
     # FIXME:  need to handle all kinds of errors here
     if len(buglist) == 0:
-        bug = bz.createbug(product=product.productName,
-                           component="anaconda",
-                           version=product.productVersion,
-                           rep_platform=rpmUtils.arch.getBaseArch(),
-                           bug_severity="medium",
-                           priority="medium",
-                           op_sys="Linux",
-                           bug_file_loc="http://",
-                           short_desc=dest[2],
-                           comment="This bug was filed automatically by anaconda.")
-        bug.setwhiteboard("anaconda_trace_hash:%s" % hash, which="status")
-        bz.attachfile(bug.bug_id, exn.tbFile, "Attached traceback automatically from anaconda.",
-                      contenttype="text/plain")
+        bug = withBugzillaDo(filer, lambda b: b.createbug(product=product.productName,
+                                       component="anaconda",
+                                       version=product.productVersion,
+                                       rep_platform=rpmUtils.arch.getBaseArch(),
+                                       bug_severity="medium",
+                                       priority="medium",
+                                       op_sys="Linux",
+                                       bug_file_loc="http://",
+                                       short_desc=dest[2],
+                                       comment="This bug was filed automatically by anaconda.",
+                                       status_whiteboard=wb))
+        if bug is None:
+            return False
+
+        withBugzillaDo(filer, lambda b: b.attachfile(bug.bug_id, exn.tbFile,
+                                 "Attached traceback automatically from anaconda.",
+                                 contenttype="text/plain"))
 
         # Tell the user we created a new bug for them and that they should
         # go add a descriptive comment.
@@ -421,15 +433,16 @@ def saveToBugzilla(anaconda, exn, dest):
             _("A new bug has been created with your traceback attached. "
               "Please add additional information such as what you were doing "
               "when you encountered the bug, screenshots, and whatever else "
-              "is appropriate to the following bug:\n\n%s/%s") % (bugUrl, bug.bug_id),
+              "is appropriate to the following bug:\n\n%s/%s") % (bugzillaUrl, bug.bug_id),
             type="custom", custom_icon="info",
             custom_buttons=[_("_Exit installer")])
         sys.exit(0)
     else:
         id = buglist[0].bug_id
-        bz.attachfile(id, exn.tbFile, "Attached traceback automatically from anaconda.",
-                      contenttype="text/plain")
-        bz._updatecc(id, [dest[0]], "add")
+        withBugzillaDo(filer, lambda b: b.attachfile(id, exn.tbFile,
+                                 "Attached traceback automatically from anaconda.",
+                                 contenttype="text/plain"))
+        withBugzillaDo(filer, lambda b: b._updatecc(id, [dest[0]], "add"))
 
         # Tell the user which bug they've been CC'd on and that they should
         # go add a descriptive comment.
@@ -437,7 +450,7 @@ def saveToBugzilla(anaconda, exn, dest):
             _("A bug with your information already exists.  Your account has "
               "been added to the CC list and your traceback added as a "
               "comment.  Please add additional descriptive information to the "
-              "following bug:\n\n%s/%s") % (bugUrl, id),
+              "following bug:\n\n%s/%s") % (bugzillaUrl, id),
             type="custom", custom_icon="info",
             custom_buttons=[_("_Exit installer")])
         sys.exit(0)
