@@ -156,13 +156,29 @@ class SaveExceptionWindow:
 
     def _destCb(self, *args):
         if self.rg.getSelection() == "disk":
-            self.usernameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.passwordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.bugzillaNameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.bugzillaPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.bugDesc.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.scpNameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.scpPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.scpHostEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.scpDestEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+        elif self.rg.getSelection() == "remote":
+            self.bugzillaNameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.bugzillaPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.bugDesc.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.scpNameEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.scpPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.scpHostEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.scpDestEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
         else:
-            self.usernameEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
-            self.passwordEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.bugzillaNameEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.bugzillaPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
             self.bugDesc.setFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.scpNameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.scpPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.scpHostEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.scpDestEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
 
     def getrc(self):
         if self.rc == TEXT_OK_CHECK:
@@ -173,8 +189,14 @@ class SaveExceptionWindow:
     def getDest(self):
         if self.saveToDisk():
             return self.diskList.current()
+        elif self.saveToRemote():
+            return map(lambda e: e.value(), [self.scpNameEntry,
+                                             self.scpPasswordEntry,
+                                             self.scpHostEntry,
+                                             self.scpDestEntry])
         else:
-            return map(lambda e: e.value(), [self.usernameEntry, self.passwordEntry,
+            return map(lambda e: e.value(), [self.bugzillaNameEntry,
+                                             self.bugzillaPasswordEntry,
                                              self.bugDesc])
 
     def pop(self):
@@ -182,35 +204,54 @@ class SaveExceptionWindow:
         self.screen.refresh()
 
     def run(self):
-        toplevel = GridForm(self.screen, _("Save"), 1, 5)
+        toplevel = GridForm(self.screen, _("Save"), 1, 7)
 
         self.rg = RadioGroup()
-        self.diskButton = self.rg.add(_("Save to Disk"), "disk", True)
-        self.remoteButton = self.rg.add(_("Save to Remote (%s)") % product.bugUrl, "remote", False)
+        self.diskButton = self.rg.add(_("Save to local disk"), "disk", True)
+        self.bugzillaButton = self.rg.add(_("Send to bugzilla (%s)") % product.bugUrl, "bugzilla", False)
+        self.remoteButton = self.rg.add(_("Send to remote server (scp)"), "remote", False)
 
         self.diskButton.setCallback(self._destCb, None)
+        self.bugzillaButton.setCallback(self._destCb, None)
         self.remoteButton.setCallback(self._destCb, None)
 
         buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
-        self.usernameEntry = Entry(24)
-        self.passwordEntry = Entry(24, password=1)
+        self.bugzillaNameEntry = Entry(24)
+        self.bugzillaPasswordEntry = Entry(24, password=1)
         self.bugDesc = Entry(24)
 
         self.diskList = Listbox(height=3, scroll=1)
 
-        remoteGrid = Grid(2, 3)
+        bugzillaGrid = Grid(2, 3)
+        bugzillaGrid.setField(Label(_("User name")), 0, 0, anchorLeft=1)
+        bugzillaGrid.setField(self.bugzillaNameEntry, 1, 0)
+        bugzillaGrid.setField(Label(_("Password")), 0, 1, anchorLeft=1)
+        bugzillaGrid.setField(self.bugzillaPasswordEntry, 1, 1)
+        bugzillaGrid.setField(Label(_("Bug Description")), 0, 2, anchorLeft=1)
+        bugzillaGrid.setField(self.bugDesc, 1, 2)
+
+        self.remoteNameEntry = Entry(24)
+        self.remotePasswordEntry = Entry(24, password=1)
+        self.remoteHostEntry = Entry(24)
+        self.remoteDestEntry = Entry(24)
+
+        remoteGrid = Grid(2, 4)
         remoteGrid.setField(Label(_("User name")), 0, 0, anchorLeft=1)
-        remoteGrid.setField(self.usernameEntry, 1, 0)
+        remoteGrid.setField(self.remoteNameEntry, 1, 0)
         remoteGrid.setField(Label(_("Password")), 0, 1, anchorLeft=1)
-        remoteGrid.setField(self.passwordEntry, 1, 1)
-        remoteGrid.setField(Label(_("Bug Description")), 0, 2, anchorLeft=1)
-        remoteGrid.setField(self.bugDesc, 1, 2)
+        remoteGrid.setField(self.remotePasswordEntry, 1, 1)
+        remoteGrid.setField(Label(_("Host (host:port)")), 0, 2, anchorLeft=1)
+        remoteGrid.setField(self.remoteHostEntry, 1, 2)
+        remoteGrid.setField(Label(_("Destination file")), 0, 3, anchorLeft=1)
+        remoteGrid.setField(self.remoteDestEntry, 1, 3)
 
         toplevel.add(self.diskButton, 0, 0, (0, 0, 0, 1))
         toplevel.add(self.diskList, 0, 1, (0, 0, 0, 1))
-        toplevel.add(self.remoteButton, 0, 2, (0, 0, 0, 1))
-        toplevel.add(remoteGrid, 0, 3, (0, 0, 0, 1))
-        toplevel.add(buttons, 0, 4, growx=1)
+        toplevel.add(self.bugzillaButton, 0, 2, (0, 0, 0, 1))
+        toplevel.add(bugzillaGrid, 0, 3, (0, 0, 0, 1))
+        toplevel.add(self.remoteButton, 0, 4, (0, 0, 0, 1))
+        toplevel.adD(remoteGrid, 0, 5, (0, 0, 0, 1))
+        toplevel.add(buttons, 0, 6, growx=1)
 
         dests = self.anaconda.id.diskset.exceptionDisks(self.anaconda)
 
@@ -220,21 +261,25 @@ class SaveExceptionWindow:
 
 #            self.diskList.setCurrent("sda")
 
-            self.usernameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.passwordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.bugzillaNameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.bugzillaPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
         else:
             self.diskButton.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
             self.diskButton.w.checkboxSetValue(" ")
-            self.remoteButton.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)
-            self.remoteButton.w.checkboxSetValue("*")
+            self.bugzillaButton.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.bugzillaButton.w.checkboxSetValue("*")
 
         result = toplevel.run()
         self.rc = buttons.buttonPressed(result)
 
     def saveToDisk(self):
         return self.rg.getSelection() == "disk"
+
     def saveToLocal(self):
         return False
+
+    def saveToRemote(self):
+        return self.rg.getSelection() == "remote"
 
 class MainExceptionWindow:
     def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):

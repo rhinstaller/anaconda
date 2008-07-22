@@ -227,6 +227,76 @@ class AnacondaExceptionDump:
         self.dump(fd, anaconda)
         fd.close()
 
+def scpAuthenticate(master, childpid, password):
+    while 1:
+        # Read up to password prompt.  Propagate OSError exceptions, which
+        # can occur for anything that causes scp to immediately die (bad
+        # hostname, host down, etc.)
+        buf = os.read(master, 4096)
+        if buf.lower().find("password: ") != -1:
+            os.write(master, password+"\n")
+            # read the space and newline that get echoed back
+            os.read(master, 2)
+            break
+
+    while 1:
+        buf = ""
+        try:
+            buf = os.read(master, 4096)
+        except (OSError, EOFError):
+            break
+
+    (pid, childstatus) = os.waitpid (childpid, 0)
+    return childstatus
+
+# Save the traceback to a remote system via SCP.  Returns success or not.
+def copyExceptionToRemote(intf, scpInfo):
+    import pty
+
+    (host, path, user, password) = scpInfo
+
+    if host.find(":") != -1:
+        (host, port) = host.split(":")
+
+        # Try to convert the port to an integer just as a check to see
+        # if it's a valid port number.  If not, they'll get a chance to
+        # correct the information when scp fails.
+        try:
+            int(port)
+            portArgs = ["-P", port]
+        except ValueError:
+            portArgs = []
+    else:
+        portArgs = []
+
+    # Thanks to Will Woods <wwoods@redhat.com> for the scp control
+    # here and in scpAuthenticate.
+
+    # Fork ssh into its own pty
+    (childpid, master) = pty.fork()
+    if childpid < 0:
+        log.critical("Could not fork process to run scp")
+        return False
+    elif childpid == 0:
+        # child process - run scp
+        args = ["scp", "-oNumberOfPasswordPrompts=1",
+                "-oStrictHostKeyChecking=no"] + portArgs + \
+               ["/tmp/anacdump.txt", "%s@%s:%s" % (user, host, path)]
+        os.execvp("scp", args)
+
+    # parent process
+    try:
+        childstatus = scpAuthenticate(master, childpid, password)
+    except OSError:
+        return False
+
+    os.close(master)
+
+    if os.WIFEXITED(childstatus) and os.WEXITSTATUS(childstatus) == 0:
+        return True
+    else:
+        return False
+
 # Save the traceback to a removable storage device, such as a floppy disk
 # or a usb/firewire drive.  If there's no filesystem on the disk/partition,
 # write a vfat one.
@@ -415,6 +485,22 @@ def runSaveDialog(anaconda, exn):
                     anaconda.intf.messageWindow(_("Dump Not Written"),
                         _("There was a problem writing the system state to the "
                           "disk."))
+                    continue
+            elif saveWin.saveToRemote():
+                scpInfo = saveWin.getDest()
+                scpSucceeded = copyExceptionToRemote(anaconda.intf, scpInfo)
+
+                if scpSucceeded:
+                    anaconda.intf.messageWindow(_("Dump Written"),
+                        _("Your system's state has been successfully written to "
+                          "the remote host.  The installer will now exit."),
+                        type="custom", custom_icon="info",
+                        custom_buttons=[_("_Exit installer")])
+                    sys.exit(0)
+                else:
+                    anaconda.intf.messageWindow(_("Dump Not Written"),
+                        _("There was a problem writing the system state to the "
+                          "remote host."))
                     continue
             else:
                 if not saveToBugzilla(anaconda, exn, saveWin.getDest()):
