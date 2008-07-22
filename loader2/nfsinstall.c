@@ -329,15 +329,34 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
     }
 
     loaderData->method = METHOD_NFS;
-    loaderData->stage2Data = calloc(sizeof(struct nfsInstallData *), 1);
-    ((struct nfsInstallData *)loaderData->stage2Data)->host = host;
-    ((struct nfsInstallData *)loaderData->stage2Data)->directory = dir;
-    ((struct nfsInstallData *)loaderData->stage2Data)->mountOpts = mountOpts;
 
-    logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
-               ((struct nfsInstallData *) loaderData->stage2Data)->host,
-               ((struct nfsInstallData *) loaderData->stage2Data)->directory,
-               ((struct nfsInstallData *) loaderData->stage2Data)->mountOpts);
+    substr = strstr(dir, ".img");
+    if (!substr || (substr && *(substr+4) != '\0')) {
+        if (opts) {
+            if (asprintf(&(loaderData->instRepo), "nfs:%s:%s:%s", host, dir, opts)) {
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                abort();
+            }
+        } else {
+            if (asprintf(&(loaderData->instRepo), "nfs:%s:%s", host, dir)) {
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                abort();
+            }
+        }
+
+        logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
+                   host, dir);
+    } else {
+        loaderData->stage2Data = calloc(sizeof(struct nfsInstallData *), 1);
+        ((struct nfsInstallData *)loaderData->stage2Data)->host = host;
+        ((struct nfsInstallData *)loaderData->stage2Data)->directory = dir;
+        ((struct nfsInstallData *)loaderData->stage2Data)->mountOpts = mountOpts;
+
+        logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
+                   ((struct nfsInstallData *) loaderData->stage2Data)->host,
+                   ((struct nfsInstallData *) loaderData->stage2Data)->directory,
+                   ((struct nfsInstallData *) loaderData->stage2Data)->mountOpts);
+    }
 }
 
 
