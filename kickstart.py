@@ -178,7 +178,10 @@ class AnacondaKSHandlers(KickstartHandlers):
 
     def doIgnoreDisk(self, args):
 	KickstartHandlers.doIgnoreDisk(self, args)
-        self.id.instClass.setIgnoredDisks(self.id, self.ksdata.ignoredisk)
+        self.id.instClass.setIgnoredDisks(self.id, 
+                                          self.ksdata.ignoredisk["drives"])
+        self.id.instClass.setExclusiveDisks(self.id,
+                                            self.ksdata.ignoredisk["onlyuse"])
 
     def doIscsi(self, args):
         KickstartHandlers.doIscsi(self, args)

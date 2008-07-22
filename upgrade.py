@@ -158,6 +158,7 @@ def findExistingRoots(anaconda, upgradeany = 0):
 
     # this is a hack... need to clear the skipped disk list after this
     partedUtils.DiskSet.skippedDisks = []
+    partedUtils.DiskSet.exclusiveDisks = []
 
     return rootparts
 
