@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-07-09 23:52GMT\n"
+"PO-Revision-Date: 2008-07-22 11:43GMT\n"
 "Last-Translator: Oron Peled <oron@actcom.co.il>\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
@@ -1262,6 +1262,10 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
+"לכונן ‎/dev/%s יש מבנה מחיצות %s. בכדי להשתמש בכונן זה להתקנת %s, יש לאתחל אותו מחדש, "
+"פעולה שתגרום לאובדן כל המידע שאוחסן על הכונן.\n"
+"\n"
+"האם ברצונך לאתחל כונן זה מחדש?"
 
 #: ../partedUtils.py:405
 msgid "_Ignore drive"
@@ -1326,41 +1330,45 @@ msgstr ""
 
 #: ../partIntfHelpers.py:42
 msgid "Please enter a volume group name."
-msgstr ""
+msgstr "יש להזין שם עבור קבוצת הכרכים."
 
 #: ../partIntfHelpers.py:46
 msgid "Volume Group Names must be less than 128 characters"
-msgstr ""
+msgstr "שמות קבוצות כרכים חייבים להיות קצרים מ‎‏‏-‏128 תווים"
 
 #: ../partIntfHelpers.py:49
 #, python-format
 msgid "Error - the volume group name %s is not valid."
-msgstr ""
+msgstr "שגיאה - שם קבוצת הכרכים %s אינו חוקי."
 
 #: ../partIntfHelpers.py:54
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
+"שגיאה - שם קבוצת הכרכים מכיל רווחים או תווים אחרים שאינם חוקיים. "
+"התווים המותרים בשם הם אותיות לועזיות, ספרות, '.' או '_'."
 
 #: ../partIntfHelpers.py:64
 msgid "Please enter a logical volume name."
-msgstr ""
+msgstr "יש להזין שם כרך."
 
 #: ../partIntfHelpers.py:68
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr ""
+msgstr "שמות כרכים חייבים להיות קצרים מ‎‏‏-‏128 תווים"
 
 #: ../partIntfHelpers.py:72
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr ""
+msgstr "שגיאה - שם הכרך %s אינו חוקי."
 
 #: ../partIntfHelpers.py:78
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
+"שגיאה - שם הכרך מכיל רווחים או תווים אחרים שאינם חוקיים. "
+"התווים המותרים בשם הם אותיות לועזיות, ספרות, '.' או '_'."
 
 #: ../partIntfHelpers.py:102
 #, python-format
@@ -1368,28 +1376,30 @@ msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
+"נקודת העיגון %s אינה חוקית. נקודות עיגון חייבות להתחיל ב-'/', אינן יכולות להסתיים ב-'/' "
+"ואסור להן להכיל רווחים או תווים בלתי נראים אחרים."
 
 #: ../partIntfHelpers.py:109
 msgid "Please specify a mount point for this partition."
-msgstr ""
+msgstr "יש לציין נקודת עיגון עבור מחיצה זו."
 
 #: ../partIntfHelpers.py:119
 #, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr ""
+msgstr "המחיצה היא חלק ממערך דיסקים ‎/dev/md%s."
 
 #: ../partIntfHelpers.py:122
 msgid "This partition is part of a RAID device."
-msgstr ""
+msgstr "מחיצה זו היא חלק ממערך דיסקים (RAID)."
 
 #: ../partIntfHelpers.py:127
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr ""
+msgstr "מחיצה זו שייכת ל-LVM ומהווה חלק מקבוצת הכרכים '%s'."
 
 #: ../partIntfHelpers.py:130
 msgid "This partition is part of a LVM volume group."
-msgstr ""
+msgstr "מחיצה זו שייכת ל-LVM ומהווה חלק מקבוצת כרכים."
 
 #: ../partIntfHelpers.py:145 ../partIntfHelpers.py:153
 #: ../partIntfHelpers.py:160 ../partIntfHelpers.py:170
@@ -1399,11 +1409,11 @@ msgstr "אין אפשרות למחוק"
 
 #: ../partIntfHelpers.py:146
 msgid "You must first select a partition to delete."
-msgstr ""
+msgstr "ראשית, עליך לבחור מחיצה למחיקה."
 
 #: ../partIntfHelpers.py:154
 msgid "You cannot delete free space."
-msgstr ""
+msgstr "לא ניתן למחוק שטח פנוי."
 
 #: ../partIntfHelpers.py:161
 msgid "You cannot delete a partition of a LDL formatted DASD."
@@ -1414,17 +1424,19 @@ msgstr ""
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
+msgstr "לא ניתן למחוק מחיצה זו, מכיוון שהיא מחיצה מורחבת (extended) המכילה %s"
 
 #: ../partIntfHelpers.py:189 ../iw/raid_dialog_gui.py:607
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
+msgstr "זוהי המחיצה המכילה את קבצי ההתקנה לצורך התקנה מדיסק קשיח."
 
 #: ../partIntfHelpers.py:195
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
+"לא ניתן למחוק מחיצה זו:\n"
+"\n"
 
 #: ../partIntfHelpers.py:240 ../partIntfHelpers.py:534
 #: ../iw/lvm_dialog_gui.py:800
@@ -1434,7 +1446,7 @@ msgstr "אשר מחיקה"
 #: ../partIntfHelpers.py:241
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
+msgstr "המחיצות על ההתקן '‎/dev/%s' ימחקו."
 
 #: ../partIntfHelpers.py:244 ../partIntfHelpers.py:535
 #: ../iw/lvm_dialog_gui.py:803 ../iw/lvm_dialog_gui.py:1152
@@ -1453,6 +1465,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"המחיצות הבאות לא נמחקו מכיוון שהן בשימוש:\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:318 ../partIntfHelpers.py:331
 #: ../partIntfHelpers.py:357 ../partIntfHelpers.py:368
@@ -1492,11 +1507,15 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
+"ההתקן ‎/dev/%s מסומן כמחיצה מסוג 0x82 (שטח החלפה עבור לינוקס) אך לא נראה שבוצע "
+"פורמט מתאים למחיצה זו.\n"
+"\n"
+"האם ברצונך לפרמט מחיצה זו כשטח החלפה?"
 
 #: ../partIntfHelpers.py:411
 #, python-format
 msgid "You need to select at least one hard drive to install %s."
-msgstr ""
+msgstr "עליך לבחור לפחות דיסק קשיח אחד להתקנת %s."
 
 #: ../partIntfHelpers.py:416
 msgid ""
@@ -1514,7 +1533,7 @@ msgstr "לפרמט?"
 
 #: ../partIntfHelpers.py:424 ../iw/partition_gui.py:1035
 msgid "_Modify Partition"
-msgstr ""
+msgstr "_עידכון מחיצה"
 
 #: ../partIntfHelpers.py:424
 msgid "Do _Not Format"
@@ -1522,7 +1541,7 @@ msgstr "לא _לפרמט"
 
 #: ../partIntfHelpers.py:432
 msgid "Error with Partitioning"
-msgstr ""
+msgstr "שגיאה בחלוקה למחיצות"
 
 #: ../partIntfHelpers.py:433
 #, python-format
@@ -1583,7 +1602,7 @@ msgstr ""
 #: ../partIntfHelpers.py:529
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr ""
+msgstr "המחיצה ‎/dev/%s תימחק."
 
 #: ../partIntfHelpers.py:532
 msgid "The partition you selected will be deleted."
@@ -1610,13 +1629,13 @@ msgstr ""
 
 #: ../partitions.py:113
 msgid "Writing partitioning to disk"
-msgstr ""
+msgstr "המחיצות נכתבות לדיסק"
 
 #: ../partitions.py:114
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost"
-msgstr ""
+msgstr "מבנה המחיצות שבחרת יכתב עתה לדיסק. המידע שאוחסן על מחיצות שנמחקו או נבחרו לפירמוט, יאבד"
 
 #: ../partitions.py:119
 msgid "Go _back"
@@ -2408,27 +2427,27 @@ msgstr ""
 
 #: ../yuminstall.py:753
 msgid "package conflicts"
-msgstr ""
+msgstr "התנגשות חבילות"
 
 #: ../yuminstall.py:754
 msgid "package already installed"
-msgstr ""
+msgstr "חבילה מותקנת כבר"
 
 #: ../yuminstall.py:755
 msgid "required package"
-msgstr ""
+msgstr "חבילה הכרחית"
 
 #: ../yuminstall.py:756
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "חבילה לארכיטקטורה שגויה"
 
 #: ../yuminstall.py:757
 msgid "package for incorrect os"
-msgstr ""
+msgstr "חבילה למערכת הפעלה שגויה"
 
 #: ../yuminstall.py:771
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "נדרש עוד שטח על מערכות הקבצים הבאות:\n"
 
 #: ../yuminstall.py:784
 #, python-format
@@ -2527,7 +2546,7 @@ msgstr ""
 
 #: ../yuminstall.py:1541
 msgid "Post Install"
-msgstr ""
+msgstr "סיום התקנה"
 
 #: ../yuminstall.py:1542
 msgid "Performing post install configuration..."
@@ -2535,23 +2554,23 @@ msgstr ""
 
 #: ../yuminstall.py:1764
 msgid "Installation Progress"
-msgstr ""
+msgstr "התקדמות התקנה"
 
 #: ../yuminstall.py:1799
 msgid "Install Starting"
-msgstr ""
+msgstr "תחילת התקנה"
 
 #: ../yuminstall.py:1800
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
+msgstr "מתחיל הרצת תהליך התקנה.  יש להמתין מספר דקות..."
 
 #: ../yuminstall.py:1837
 msgid "Dependency Check"
-msgstr ""
+msgstr "בדיקת תלויות"
 
 #: ../yuminstall.py:1838
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
+msgstr "מתבצעת בדיקת תלויות בחבילות שניבחרו להתקנה..."
 
 #: ../zfcp.py:49
 msgid "You have not specified a device number or the number is invalid"
@@ -2580,21 +2599,23 @@ msgstr ""
 #: ../iw/account_gui.py:97 ../iw/account_gui.py:105 ../iw/account_gui.py:112
 #: ../iw/account_gui.py:132 ../textw/userauth_text.py:71
 msgid "Error with Password"
-msgstr "סיסמה לא נכונה"
+msgstr "ססמה לא נכונה"
 
 #: ../iw/account_gui.py:98
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
+"בכדי להמשיך יש להקיש את ססמת השורש (root) ולאשרה על ידי הקלדתה "
+"פעם נוספת."
 
 #: ../iw/account_gui.py:106
 msgid "The passwords you entered were different.  Please try again."
-msgstr ""
+msgstr "הססמאות שהוקלדו שונות אחת מהשניה. יש לנסות שנית."
 
 #: ../iw/account_gui.py:113
 msgid "The root password must be at least six characters long."
-msgstr ""
+msgstr "ססמת השורש חייבת להיות באורך שישה תווים לפחות."
 
 #: ../iw/account_gui.py:120 ../textw/userauth_text.py:78
 msgid "Weak Password"
@@ -2607,20 +2628,25 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
+"ססמה חלשה סופקה:  %s\n"
+"\n"
+"האם ברצונך להמשיך עם ססמה זו?"
 
 #: ../iw/account_gui.py:133 ../textw/userauth_text.py:72
 msgid "Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
+msgstr "הססמה שנבחרה מכילה תווים שאינם תווי ASCII, אשר אסורים בססמאות."
 
 #: ../iw/autopart_type.py:96
 msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
 msgstr ""
+"אין מחיצות שניתן לשנות את גדלן. רק מחיצות פיזיות המכילות מערכות קבצים מסויימות "
+"ניתנות לשינוי גודל."
 
 #: ../iw/autopart_type.py:179
 msgid "Do you really want to boot from disk which is not used for instalation?"
-msgstr ""
+msgstr "האם ברצונך להגדיר אתחול המחשב מדיסק שעליו אין מבוצעת התקנת מערכת ההפעלה?"
 
 #: ../iw/autopart_type.py:260
 msgid "Invalid Initiator Name"
@@ -2652,17 +2678,19 @@ msgstr "שימוש בשטח הפנוי על הדיסקים שנבחרו ויצי
 
 #: ../iw/autopart_type.py:407 ../textw/partition_text.py:1520
 msgid "Create custom layout"
-msgstr ""
+msgstr "הגדרת פריסת מחיצות ייחודית"
 
 #: ../iw/blpasswidget.py:45
 msgid "_Use a boot loader password"
-msgstr ""
+msgstr "הגדרת _ססמה לטעינת מערכת הפעלה"
 
 #: ../iw/blpasswidget.py:46
 msgid ""
 "A boot loader password prevents users from changing kernel options, "
 "increasing security."
 msgstr ""
+"ססמה לטעינת מערכת הפעלה מונעת ממשתמשים לשנות אפשרויות המועברות לגרעין המערכת "
+"במהלך האתחול ובכך משפרת את האבטחה."
 
 #: ../iw/blpasswidget.py:77
 msgid "Change _password"
@@ -2677,6 +2705,8 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
+"יש להקליד את ססמת טעינת מערכת ההפעלה ולאשר אותה. (יש לשים לב שיתכן ומפת המקלדת של "
+"ה-BIOS שונה ממפת המקלדת הרגילה.)"
 
 #: ../iw/blpasswidget.py:113
 msgid "_Password:"
@@ -2701,6 +2731,9 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
+"ססמת טעינת מערכת הפעלה קצרה מששה תווים. אנו ממליצים על ססמה ארוכה יותר.\n"
+"\n"
+"האם ברצונך להמשיך עם ססמה זו?"
 
 #: ../iw/bootloader_main_gui.py:34 ../textw/bootloader_text.py:46
 #: ../textw/bootloader_text.py:111 ../textw/bootloader_text.py:168
@@ -2870,16 +2903,16 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:376 ../textw/partition_text.py:1114
 msgid "Make Logical Volume"
-msgstr ""
+msgstr "יצירת כרך לוגי"
 
 #: ../iw/lvm_dialog_gui.py:379
 #, python-format
 msgid "Edit Logical Volume: %s"
-msgstr ""
+msgstr "עריכת כרך לוגי: %s"
 
 #: ../iw/lvm_dialog_gui.py:381 ../textw/partition_text.py:1112
 msgid "Edit Logical Volume"
-msgstr ""
+msgstr "עריכת כרך לוגי"
 
 #: ../iw/lvm_dialog_gui.py:394 ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:321
@@ -2888,11 +2921,11 @@ msgstr "נקודת _עיגון:"
 
 #: ../iw/lvm_dialog_gui.py:402 ../iw/raid_dialog_gui.py:334
 msgid "_File System Type:"
-msgstr ""
+msgstr "_סוג מערכת קבצים:"
 
 #: ../iw/lvm_dialog_gui.py:412 ../iw/raid_dialog_gui.py:344
 msgid "Original File System Type:"
-msgstr ""
+msgstr "סוג מערכת קבצים מקורית:"
 
 #: ../iw/lvm_dialog_gui.py:417 ../iw/raid_dialog_gui.py:349
 msgid "Unknown"
@@ -2901,15 +2934,15 @@ msgstr "לא ידוע"
 #: ../iw/lvm_dialog_gui.py:423 ../iw/partition_dialog_gui.py:374
 #: ../iw/raid_dialog_gui.py:355
 msgid "Original File System Label:"
-msgstr ""
+msgstr "תווית מערכת קבצים מקורית:"
 
 #: ../iw/lvm_dialog_gui.py:432
 msgid "_Logical Volume Name:"
-msgstr ""
+msgstr "שם כרך _לוגי:"
 
 #: ../iw/lvm_dialog_gui.py:440 ../textw/partition_text.py:305
 msgid "Logical Volume Name:"
-msgstr ""
+msgstr "שם כרך לוגי:"
 
 #: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:386
 msgid "_Size (MB):"
@@ -2950,16 +2983,16 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:591 ../textw/partition_text.py:1235
 msgid "Illegal Logical Volume Name"
-msgstr ""
+msgstr "שם כרך לוגי לא חוקי"
 
 #: ../iw/lvm_dialog_gui.py:610 ../textw/partition_text.py:1252
 msgid "Illegal logical volume name"
-msgstr ""
+msgstr "שם כרך לוגי לא חוקי"
 
 #: ../iw/lvm_dialog_gui.py:611 ../textw/partition_text.py:1253
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
+msgstr "שם הכרך הלוגי \"%s\" כבר בשימוש. יש לבחור שם שונה."
 
 #: ../iw/lvm_dialog_gui.py:625
 #, python-format
@@ -2996,7 +3029,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:772
 msgid "No free space"
-msgstr ""
+msgstr "אין שטח פנוי"
 
 #: ../iw/lvm_dialog_gui.py:773
 msgid ""
@@ -6378,7 +6411,7 @@ msgstr "טמילית"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "טלוגו"
 
 #. generated from lang-table
 msgid "Turkish"
