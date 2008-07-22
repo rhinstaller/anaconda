@@ -338,7 +338,7 @@ class Network:
 	    for dev in self.netdevices.values():
                 if (dev.get('bootproto').lower() == "dhcp" and
                     dev.get('onboot') == "yes"):
-		    ret = isys.pumpNetDevice(dev.get('device'), dev.get('dhcpclass'))
+		    ret = isys.dhcpNetDevice(dev.get('device'), dev.get('dhcpclass'))
                     if ret is None:
                         continue
                     myns = ret

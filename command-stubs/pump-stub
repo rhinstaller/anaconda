@@ -27,7 +27,7 @@ while (argv):
     else:
 	usage()
 	
-ns = isys.pumpNetDevice(iface, None)
+ns = isys.dhcpNetDevice(iface, None)
 if ns:
     f = open("/etc/resolv.conf", "w")
     f.write("nameserver %s\n" % ns)
