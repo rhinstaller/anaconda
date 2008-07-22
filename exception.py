@@ -51,6 +51,8 @@ class AnacondaExceptionDump:
         self.value = value
         self.tb = tb
 
+        self.tbFile = None
+
         self._dumpHash = {}
 
     # Reverse the order that tracebacks are printed so people will hopefully quit
@@ -219,6 +221,12 @@ class AnacondaExceptionDump:
 
         return hashlib.sha256(s).hexdigest()
 
+    def write(self, anaconda):
+        self.tbFile = "/tmp/anacdump.txt"
+        fd = open(self.tbFile, "w")
+        self.dump(fd, anaconda)
+        fd.close()
+
 # Save the traceback to a removable storage device, such as a floppy disk
 # or a usb/firewire drive.  If there's no filesystem on the disk/partition,
 # write a vfat one.
@@ -273,8 +281,99 @@ def copyExceptionToDisk(anaconda, device):
     isys.umount("/tmp/crash")
     return True
 
-def runSaveDialog(anaconda, longTracebackFile):
-    saveWin = anaconda.intf.saveExceptionWindow(anaconda, longTracebackFile)
+def saveToBugzilla(anaconda, exn, dest):
+    import bugzilla, xmlrpclib
+    import product, rpmUtils
+
+    if dest[0].strip() == "" or dest[1].strip() == "" or dest[2].strip() == "":
+        anaconda.intf.messageWindow(_("Invalid Bug Information"),
+                                    _("Please provide a valid username, "
+                                      "password, and short bug description."))
+        return False
+
+    hash = exn.hash()
+
+    if product.bugUrl.startswith("http://"):
+        bugUrl = "https://" + product.bugUrl[7:]
+    elif product.bugUrl.startswith("https://"):
+        bugUrl = product.bugUrl
+    else:
+        anaconda.intf.messageWindow(_("No bugzilla URL"),
+                                    _("Your distribution does not provide a "
+                                      "bug reporting URL, so you cannot save "
+                                      "your exception to a remote bug tracking "
+                                      "system."))
+        return False
+
+    if not exn.tbFile:
+        exn.write(anaconda)
+
+    bz = bugzilla.Bugzilla(url = "%s/xmlrpc.cgi" % bugUrl)
+
+    if not bz.login(dest[0], dest[1]):
+        anaconda.intf.messageWindow(_("Unable To Login"),
+                                    _("There was an error logging into %s "
+                                      "using the provided username and "
+                                      "password.") % product.bugUrl)
+        return False
+
+    # Are there any existing bugs with this hash value?  If so we will just
+    # add this traceback to the bug report and put the reporter on the CC
+    # list.  Otherwise, we need to create a new bug.
+    try:
+        buglist = bz.query({'status_whiteboard': hash})
+    except xmlrpclib.ProtocolError, e:
+        anaconda.intf.messageWindow(_("Unable To File Bug"),
+                                    _("Your bug could not be filed due to the "
+                                      "following error when communicating with "
+                                      "bugzilla:\n\n%s" % str(e)))
+        return False
+
+    # FIXME:  need to handle all kinds of errors here
+    if len(buglist) == 0:
+        bug = bz.createbug(product=product.productName,
+                           component="anaconda",
+                           version=product.productVersion,
+                           rep_platform=rpmUtils.arch.getBaseArch(),
+                           bug_severity="medium",
+                           priority="medium",
+                           op_sys="Linux",
+                           bug_file_loc="http://",
+                           short_desc=dest[2],
+                           comment="This bug was filed automatically by anaconda.")
+        bug.setwhiteboard("anaconda_trace_hash:%s" % hash, which="status")
+        bz.attachfile(bug.bug_id, exn.tbFile, "Attached traceback automatically from anaconda.",
+                      contenttype="text/plain")
+
+        # Tell the user we created a new bug for them and that they should
+        # go add a descriptive comment.
+        anaconda.intf.messageWindow(_("Bug Created"),
+            _("A new bug has been created with your traceback attached. "
+              "Please add additional information such as what you were doing "
+              "when you encountered the bug, screenshots, and whatever else "
+              "is appropriate to the following bug:\n\n%s/%s") % (bugUrl, bug.bug_id),
+            type="custom", custom_icon="info",
+            custom_buttons=[_("_Exit installer")])
+        sys.exit(0)
+    else:
+        id = buglist[0].bug_id
+        bz.attachfile(id, exn.tbFile, "Attached traceback automatically from anaconda.",
+                      contenttype="text/plain")
+        bz._updatecc(id, [dest[0]], "add")
+
+        # Tell the user which bug they've been CC'd on and that they should
+        # go add a descriptive comment.
+        anaconda.intf.messageWindow(_("Bug Updated"),
+            _("A bug with your information already exists.  Your account has "
+              "been added to the CC list and your traceback added as a "
+              "comment.  Please add additional descriptive information to the "
+              "following bug:\n\n%s/%s") % (bugUrl, id),
+            type="custom", custom_icon="info",
+            custom_buttons=[_("_Exit installer")])
+        sys.exit(0)
+
+def runSaveDialog(anaconda, exn):
+    saveWin = anaconda.intf.saveExceptionWindow(anaconda, exn.tbFile)
     if not saveWin:
         anaconda.intf.__del__()
         os.kill(os.getpid(), signal.SIGKILL)
@@ -303,7 +402,7 @@ def runSaveDialog(anaconda, longTracebackFile):
             elif saveWin.saveToLocal():
                 dest = saveWin.getDest()
                 try:
-                    shutil.copyfile("/tmp/anacdump.txt", "%s/InstallError.txt" %(dest,))
+                    shutil.copyfile(exn.tbFile, "%s/InstallError.txt" %(dest,))
                     anaconda.intf.messageWindow(_("Dump Written"),
                         _("Your system's state has been successfully written to "
                           "the disk. The installer will now exit."),
@@ -311,30 +410,14 @@ def runSaveDialog(anaconda, longTracebackFile):
                         custom_buttons=[_("_Exit installer")])
                     sys.exit(0)
                 except Exception, e:
-                    log.error("Failed to copy anacdump.txt to %s/anacdump.txt: %s" %(dest, e))
+                    log.error("Failed to copy %s to %s/anacdump.txt: %s" %(exn.tbFile, dest, e))
                 else:
                     anaconda.intf.messageWindow(_("Dump Not Written"),
                         _("There was a problem writing the system state to the "
                           "disk."))
                     continue
             else:
-                if not hasActiveNetDev() and not anaconda.intf.enableNetwork(anaconda):
-                    scpSucceeded = False
-                else:
-                    scpInfo = saveWin.getDest()
-                    scpSucceeded = copyExceptionToRemote(anaconda.intf, scpInfo)
-
-                if scpSucceeded:
-                    anaconda.intf.messageWindow(_("Dump Written"),
-                        _("Your system's state has been successfully written to "
-                          "the remote host.  The installer will now exit."),
-                        type="custom", custom_icon="info",
-                        custom_buttons=[_("_Exit installer")])
-                    sys.exit(0)
-                else:
-                    anaconda.intf.messageWindow(_("Dump Not Written"),
-                        _("There was a problem writing the system state to the "
-                          "remote host."))
+                if not saveToBugzilla(anaconda, exn, saveWin.getDest()):
                     continue
         elif rc == EXN_CANCEL:
             break
@@ -348,13 +431,10 @@ def handleException(anaconda, (type, value, tb)):
     # restore original exception handler
     sys.excepthook = sys.__excepthook__
 
+    # Save the exception file to local storage first.
     exn = AnacondaExceptionDump(type, value, tb)
+    exn.write(anaconda)
     text = str(exn)
-
-    # save to local storage first
-    out = open("/tmp/anacdump.txt", "w")
-    exn.dump(out, anaconda)
-    out.close()
 
     # see if /mnt/sysimage is present and put exception there as well
     if os.access("/mnt/sysimage/root", os.X_OK):
@@ -371,7 +451,7 @@ def handleException(anaconda, (type, value, tb)):
     except:
         pass
 
-    mainWin = anaconda.intf.mainExceptionWindow(text, "/tmp/anacdump.txt")
+    mainWin = anaconda.intf.mainExceptionWindow(text, exn.tbFile)
     if not mainWin:
         anaconda.intf.__del__()
         os.kill(os.getpid(), signal.SIGKILL)
@@ -415,4 +495,4 @@ def handleException(anaconda, (type, value, tb)):
             pdb.post_mortem (tb)
             os.kill(os.getpid(), signal.SIGKILL)
         elif rc == EXN_SAVE:
-            runSaveDialog(anaconda, "/tmp/anacdump.txt")
+            runSaveDialog(anaconda, exn)

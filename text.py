@@ -29,6 +29,7 @@ import iutil
 import time
 import signal
 import parted
+import product
 import string
 from language import expandLangs
 from flags import flags
@@ -157,9 +158,11 @@ class SaveExceptionWindow:
         if self.rg.getSelection() == "disk":
             self.usernameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.passwordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+            self.bugDesc.setFlags(FLAG_DISABLED, FLAGS_SET)
         else:
             self.usernameEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
             self.passwordEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.bugDesc.setFlags(FLAG_DISABLED, FLAGS_RESET)
 
     def getrc(self):
         if self.rc == TEXT_OK_CHECK:
@@ -171,7 +174,8 @@ class SaveExceptionWindow:
         if self.saveToDisk():
             return self.diskList.current()
         else:
-            return map(lambda e: e.value(), [self.usernameEntry, self.passwordEntry])
+            return map(lambda e: e.value(), [self.usernameEntry, self.passwordEntry,
+                                             self.bugDesc])
 
     def pop(self):
         self.screen.popWindow()
@@ -182,7 +186,7 @@ class SaveExceptionWindow:
 
         self.rg = RadioGroup()
         self.diskButton = self.rg.add(_("Save to Disk"), "disk", True)
-        self.remoteButton = self.rg.add(_("Save to Remote"), "remote", False)
+        self.remoteButton = self.rg.add(_("Save to Remote (%s)") % product.bugUrl, "remote", False)
 
         self.diskButton.setCallback(self._destCb, None)
         self.remoteButton.setCallback(self._destCb, None)
@@ -190,14 +194,17 @@ class SaveExceptionWindow:
         buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
         self.usernameEntry = Entry(24)
         self.passwordEntry = Entry(24, password=1)
+        self.bugDesc = Entry(24)
 
         self.diskList = Listbox(height=3, scroll=1)
 
-        remoteGrid = Grid(2, 2)
-        remoteGrid.setField(Label(_("User name")), 0, 2, anchorLeft=1)
-        remoteGrid.setField(self.usernameEntry, 1, 2)
-        remoteGrid.setField(Label(_("Password")), 0, 3, anchorLeft=1)
-        remoteGrid.setField(self.passwordEntry, 1, 3)
+        remoteGrid = Grid(2, 3)
+        remoteGrid.setField(Label(_("User name")), 0, 0, anchorLeft=1)
+        remoteGrid.setField(self.usernameEntry, 1, 0)
+        remoteGrid.setField(Label(_("Password")), 0, 1, anchorLeft=1)
+        remoteGrid.setField(self.passwordEntry, 1, 1)
+        remoteGrid.setField(Label(_("Bug Description")), 0, 2, anchorLeft=1)
+        remoteGrid.setField(self.bugDesc, 1, 2)
 
         toplevel.add(self.diskButton, 0, 0, (0, 0, 0, 1))
         toplevel.add(self.diskList, 0, 1, (0, 0, 0, 1))

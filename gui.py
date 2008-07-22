@@ -732,6 +732,7 @@ class SaveExceptionWindow:
 
         self.usernameEntry = exnxml.get_widget("usernameEntry")
         self.passwordEntry = exnxml.get_widget("passwordEntry")
+        self.bugDesc = exnxml.get_widget("bugDesc")
 
         self.diskButton = exnxml.get_widget("diskButton")
         self.diskCombo = exnxml.get_widget("diskCombo")
@@ -744,6 +745,8 @@ class SaveExceptionWindow:
         self.diskButton.connect("toggled", self.radio_changed)
         self.remoteButton.connect("toggled", self.radio_changed)
         self.localButton.connect("toggled", self.radio_changed)
+
+        self.remoteButton.set_label(self.remoteButton.get_label() % product.bugUrl)
 
         cell = gtk.CellRendererText()
         self.diskCombo.pack_start(cell, True)
@@ -795,7 +798,8 @@ class SaveExceptionWindow:
         elif self.saveToLocal():
             return self.localChooser.get_filename()
         else:
-            return map(lambda e: e.get_text(), [self.usernameEntry, self.passwordEntry])
+            return map(lambda e: e.get_text(), [self.usernameEntry, self.passwordEntry,
+                                                self.bugDesc])
 
     def pop(self):
         self.window.destroy()
