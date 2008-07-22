@@ -516,6 +516,13 @@ def runSaveDialog(anaconda, exn):
                           "remote host."))
                     continue
             else:
+                if not network.hasActiveNetDev():
+                    if not anaconda.intf.enableNetwork(anaconda):
+                        anaconda.intf.messageWindow(_("No Network Available"),
+                            _("Cannot save a bug report since there is no "
+                              "active networking device available."))
+                        continue
+
                 if not saveToBugzilla(anaconda, exn, saveWin.getDest()):
                     continue
         elif rc == EXN_CANCEL:
