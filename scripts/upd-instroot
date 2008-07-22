@@ -159,7 +159,7 @@ PACKAGES="acl anaconda anaconda-runtime attr audit-libs bash beecrypt beecrypt
 	  libsepol libstdc++ libtermcap libuser libuser-python libvolume_id
 	  libxml2 lvm2 mdadm mkinitrd module-init-tools nash ncurses neon
 	  newt newt-python nfs-utils nspr nss pam parted pciutils pcre
-	  policy policycoreutils popt procps pykickstart pyparted python
+	  policy policycoreutils popt procps pykickstart pyparted python python-bugzilla
 	  python-elementtree python-libs python-pyblock python-sqlite
 	  python-urlgrabber pyxf86config raidtools readline reiserfs-utils
 	  rhpl rhpxl rpm rpm-libs rpm-python sed selinux-policy-targeted setup
@@ -439,6 +439,7 @@ usr/lib/python?.?/site-packages/repomd
 usr/lib/python?.?/site-packages/pirut
 usr/lib/python?.?/site-packages/pykickstart
 usr/lib/python?.?/site-packages/rhpxl
+usr/lib/python?.?/site-packages/bugzilla*
 usr/lib/python?.?/site-packages/cracklibmodule.so
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt

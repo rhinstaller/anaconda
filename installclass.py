@@ -32,6 +32,7 @@ from instdata import InstallData
 from autopart import getAutopartitionBoot, autoCreatePartitionRequests, autoCreateLVMPartitionRequests
 
 from constants import *
+from filer import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -55,6 +56,8 @@ class BaseInstallClass(object):
     pkgstext = ""
     # default to showing the upgrade option
     showUpgrade = True
+
+    bugFiler = AbstractFiler()
 
     # list of of (txt, grplist) tuples for task selection screen
     tasks = []

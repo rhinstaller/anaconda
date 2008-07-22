@@ -42,6 +42,7 @@ import gobject
 import gettext
 from language import expandLangs
 from constants import *
+from product import *
 from network import hasActiveNetDev
 import xutils
 import imputil
@@ -730,22 +731,25 @@ class SaveExceptionWindow:
     def __init__(self, anaconda, longTracebackFile=None, screen=None):
         exnxml = gtk.glade.XML(findGladeFile("exnSave.glade"), domain="anaconda")
 
-        self.hostEntry = exnxml.get_widget("hostEntry")
-        self.destEntry = exnxml.get_widget("destEntry")
-        self.usernameEntry = exnxml.get_widget("usernameEntry")
-        self.passwordEntry = exnxml.get_widget("passwordEntry")
+        self.bugzillaNameEntry = exnxml.get_widget("bugzillaNameEntry")
+        self.bugzillaPasswordEntry = exnxml.get_widget("bugzillaPasswordEntry")
+        self.bugDesc = exnxml.get_widget("bugDesc")
 
-        self.diskButton = exnxml.get_widget("diskButton")
+        self.scpNameEntry = exnxml.get_widget("scpNameEntry")
+        self.scpPasswordEntry = exnxml.get_widget("scpPasswordEntry")
+        self.scpHostEntry = exnxml.get_widget("scpHostEntry")
+        self.scpDestEntry = exnxml.get_widget("scpDestEntry")
+
+        self.notebook = exnxml.get_widget("destNotebook")
+        self.destCombo = exnxml.get_widget("destCombo")
+
         self.diskCombo = exnxml.get_widget("diskCombo")
-        self.remoteButton = exnxml.get_widget("remoteButton")
-        self.remoteBox = exnxml.get_widget("remoteHBox")
-        self.localButton = exnxml.get_widget("localButton")
         self.localChooser = exnxml.get_widget("localChooser")
         self.win = exnxml.get_widget("saveDialog")
 
-        self.diskButton.connect("toggled", self.radio_changed)
-        self.remoteButton.connect("toggled", self.radio_changed)
-        self.localButton.connect("toggled", self.radio_changed)
+        self.destCombo.connect("changed", self.combo_changed)
+
+        self.destCombo.insert_text(2, _("Bugzilla (%s)") % bugUrl)
 
         cell = gtk.CellRendererText()
         self.diskCombo.pack_start(cell, True)
@@ -758,7 +762,10 @@ class SaveExceptionWindow:
         if flags.livecdInstall:
             exnxml.get_widget("diskBox").hide()
             exnxml.get_widget("localBox").show()
-            self.localButton.set_active(True)
+            self.destCombo.remove_text(0)
+            self.destCombo.set_active(0)
+            self.notebook.remove_page(0)
+            self.notebook.set_current_page(0)
         elif len(dests) > 0:
             for d in dests:
                 iter = store.append(None)
@@ -766,20 +773,24 @@ class SaveExceptionWindow:
 
             self.diskCombo.set_model(store)
             self.diskCombo.set_active(0)
+            self.diskCombo.set_sensitive(True)
+
+            self.destCombo.remove_text(1)
+            self.destCombo.set_active(0)
+            self.notebook.remove_page(1)
+            self.notebook.set_current_page(0)
         else:
-            self.diskButton.set_sensitive(False)
-            self.remoteButton.set_active(True)
-            self.diskCombo.set_sensitive(False)
-            self.remoteBox.set_sensitive(True)
+            self.destCombo.remove_text(1)
+            self.destCombo.set_active(1)
+            self.notebook.remove_page(1)
+            self.notebook.set_current_page(1)
 
         addFrame(self.win)
         self.win.show()
         self.window = self.win
 
-    def radio_changed(self, args):
-        self.diskCombo.set_sensitive(self.diskButton.get_active())
-        self.remoteBox.set_sensitive(self.remoteButton.get_active())
-        self.localChooser.set_sensitive(self.localButton.get_active())
+    def combo_changed(self, args):
+        self.notebook.set_current_page(self.destCombo.get_active())
 
     def getrc(self):
         if self.rc == gtk.RESPONSE_OK:
@@ -796,8 +807,15 @@ class SaveExceptionWindow:
             return self.diskCombo.get_model()[active][0]
         elif self.saveToLocal():
             return self.localChooser.get_filename()
+        elif self.saveToRemote():
+            return map(lambda e: e.get_text(), [self.scpNameEntry,
+                                                self.scpPasswordEntry,
+                                                self.scpHostEntry,
+                                                self.scpDestEntry])
         else:
-            return map(lambda e: e.get_text(), [self.hostEntry, self.destEntry, self.usernameEntry, self.passwordEntry])
+            return map(lambda e: e.get_text(), [self.bugzillaNameEntry,
+                                                self.bugzillaPasswordEntry,
+                                                self.bugDesc])
 
     def pop(self):
         self.window.destroy()
@@ -806,10 +824,13 @@ class SaveExceptionWindow:
         self.rc = self.window.run ()
 
     def saveToDisk(self):
-        return self.diskButton.get_active()
+        return self.destCombo.get_active() == 0
 
     def saveToLocal(self):
-        return self.localButton.get_active()
+        return self.destCombo.get_active() == 0
+
+    def saveToRemote(self):
+        return self.destCombo.get_active() == 2
 
 class MessageWindow:
     def getrc (self):

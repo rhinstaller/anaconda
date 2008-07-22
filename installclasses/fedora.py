@@ -19,6 +19,7 @@
 
 from installclass import BaseInstallClass
 from constants import *
+from filer import *
 from flags import flags
 import os, types
 import iutil
@@ -47,6 +48,8 @@ class InstallClass(BaseInstallClass):
     tasks = [(N_("Office and Productivity"), ["graphics", "office", "games"]),
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
              (N_("Web server"), ["web-server"])]
+
+    bugFiler = BugzillaFiler(bugUrl="https://bugzilla.redhat.com/xmlrpc.cgi")
 
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:

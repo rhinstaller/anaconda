@@ -107,6 +107,7 @@ Requires: system-config-keyboard
 %endif
 Requires: hal, dbus-python
 Requires: cracklib-python
+Requires: python-bugzilla
 %ifarch %livearches
 Requires: usermode
 Requires: zenity
