@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.16
+Version: 11.4.1.17
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -195,6 +195,22 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 23 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.17-1
+- Add support for filing bugs straight into bugzilla. (clumens)
+- Running git-tag -f from a makefile rule is a bad idea (katzj)
+- A text message in rescue.py is not gettext-ized (atodorov)
+- Code cleanup - handling of --serial (atodorov)
+- Offer physical NIC identification in stage 1 (#261101) (dcantrell)
+- Specify a default cio_ignore parameter for s390x (#253075) (dcantrell)
+- Fix getting the stage2 image when doing kickstart installs. (clumens)
+- Convert package names to unicode before displaying the error message
+  (#446826). (clumens)
+- When there is text mode specified in the kickstart file, disable the vnc
+  question (#455612) (msivak)
+- We no longer add the fstype to the hd: method in loader. (clumens)
+- Check DHCP by default on the text network configurator screen. (clumens)
+- Support booting from FCP-attached CD/DVD drive on s390 (#184648) (dcantrell)
+
 * Thu Jul 17 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.16-1
 - Support xdriver= again (katzj)
 - Fix loadkeys on serial console (niels.devos)
