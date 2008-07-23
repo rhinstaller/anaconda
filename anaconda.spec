@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.115
+Version: 11.1.2.116
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,26 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 23 2008 Joel Granados <jgranado@redhat.com> 11.1.2.116-1
+- Specify a default cio_ignore parameter for s390x (dcantrell).
+  Resolves: rhbz#253075
+- Call dhcpNetDevice() instead of removed pumpNetDevice() (rvykydal).
+  Resolves: rhbz#452664
+- Add support for the --only-use argument to RHEL5 (rvykydal).
+  Resolves: rhbz#318351
+- When there is no UI mode specified in the kickstart, do not disable the vnc question (msivak).
+  Resolves: rhbz#455612
+- If the user explicitly sets the text mode in kickstart, do not ask the VNC question (msivak).
+  Resolves: rhbz#455612
+- Log a message informing about the critical upgrade error (jgranado).
+  Resolves: rhbz#436865
+- Support booting from FCP-attached CD/DVD drive on s390 (dcantrell).
+  Resolves: rhbz#184648
+- The actual size of a logical volume must be rounted down (jgranado).
+  Resolves: rhbz#415871
+- Set network device MTU if user specified mtu= (dcantrell).
+  Resolves: rhbz#435874
+
 * Wed Jul 16 2008 Joel Granados <jgranado@redhat.com> 11.1.2.115-1
 - Pass the cmdline options to the nfs structure (jgranado).
   Resolves: rhbz#432603
