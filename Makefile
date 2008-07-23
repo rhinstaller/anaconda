@@ -87,7 +87,7 @@ install:
 TAG=anaconda-$(VERSION)-$(RELEASE)
 SRPMDIR=$(shell rpm --eval '%{_srcrpmdir}')
 tag:
-	git tag -a -m "Tag as $(TAG)" -f $(TAG)
+	git tag -a -m "Tag as $(TAG)" $(TAG)
 	@echo "Tagged as $(TAG)"
 
 ChangeLog:
