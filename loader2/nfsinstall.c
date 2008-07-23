@@ -30,6 +30,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <string.h>
 
 #include "copy.h"
 #include "loader.h"
@@ -302,6 +303,7 @@ char * mountNfsImage(struct installMethod * method,
 void setKickstartNfs(struct loaderData_s * loaderData, int argc,
                      char ** argv) {
     char * host = NULL, * dir = NULL, * mountOpts = NULL;
+    char *substr = NULL;
     poptContext optCon;
     int rc;
     struct poptOption ksNfsOptions[] = {
@@ -332,8 +334,8 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 
     substr = strstr(dir, ".img");
     if (!substr || (substr && *(substr+4) != '\0')) {
-        if (opts) {
-            if (asprintf(&(loaderData->instRepo), "nfs:%s:%s:%s", host, dir, opts)) {
+        if (mountOpts) {
+            if (asprintf(&(loaderData->instRepo), "nfs:%s:%s:%s", host, dir, mountOpts)) {
                 logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
@@ -345,7 +347,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
         }
 
         logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
-                   host, dir);
+                   host, dir, mountOpts);
     } else {
         loaderData->stage2Data = calloc(sizeof(struct nfsInstallData *), 1);
         ((struct nfsInstallData *)loaderData->stage2Data)->host = host;

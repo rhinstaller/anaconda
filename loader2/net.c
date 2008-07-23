@@ -1852,7 +1852,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     char **deviceNames;
     char *ksMacAddr = NULL, *seconds = strdup("10"), *idstr = NULL;
     struct device **devs;
-    struct newtWinEntry entry[] = {{_("Seconds:"), (const char **) &seconds, 0},
+    struct newtWinEntry entry[] = {{N_("Seconds:"), (char **) &seconds, 0},
                                    {NULL, NULL, 0 }};
 
     devs = getDevices(DEVICE_NETWORK);
