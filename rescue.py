@@ -198,7 +198,7 @@ def runShell(screen = None, msg=""):
     if os.path.exists("/bin/sh"):
         iutil.execConsole()
     else:
-        print "Unable to find /bin/sh to execute!  Not starting shell"
+        print _("Unable to find /bin/sh to execute!  Not starting shell")
         time.sleep(5)
 
     if screen:
