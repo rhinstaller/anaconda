@@ -423,9 +423,9 @@ def saveToBugzilla(anaconda, exn, dest):
         if bug is None:
             return False
 
-        withBugzillaDo(filer, lambda b: b.attachfile(bug.bug_id, exn.tbFile,
-                                 "Attached traceback automatically from anaconda.",
-                                 contenttype="text/plain"))
+        withBugzillaDo(bug, lambda b: b.attachfile(exn.tbFile,
+                               "Attached traceback automatically from anaconda.",
+                               contenttype="text/plain"))
 
         # Tell the user we created a new bug for them and that they should
         # go add a descriptive comment.
@@ -433,16 +433,16 @@ def saveToBugzilla(anaconda, exn, dest):
             _("A new bug has been created with your traceback attached. "
               "Please add additional information such as what you were doing "
               "when you encountered the bug, screenshots, and whatever else "
-              "is appropriate to the following bug:\n\n%s/%s") % (bugzillaUrl, bug.bug_id),
+              "is appropriate to the following bug:\n\n%s/%s") % (bugzillaUrl, bug.id()),
             type="custom", custom_icon="info",
             custom_buttons=[_("_Exit installer")])
         sys.exit(0)
     else:
-        id = buglist[0].bug_id
-        withBugzillaDo(filer, lambda b: b.attachfile(id, exn.tbFile,
-                                 "Attached traceback automatically from anaconda.",
-                                 contenttype="text/plain"))
-        withBugzillaDo(filer, lambda b: b._updatecc(id, [dest[0]], "add"))
+        bug = buglist[0]
+        withBugzillaDo(bug, lambda b: b.attachfile(exn.tbFile,
+                               "Attached traceback automatically from anaconda.",
+                               contenttype="text/plain"))
+        withBugzillaDo(bug, lambda b: b.addCC(dest[0]))
 
         # Tell the user which bug they've been CC'd on and that they should
         # go add a descriptive comment.
@@ -450,7 +450,7 @@ def saveToBugzilla(anaconda, exn, dest):
             _("A bug with your information already exists.  Your account has "
               "been added to the CC list and your traceback added as a "
               "comment.  Please add additional descriptive information to the "
-              "following bug:\n\n%s/%s") % (bugzillaUrl, id),
+              "following bug:\n\n%s/%s") % (bugzillaUrl, bug.id()),
             type="custom", custom_icon="info",
             custom_buttons=[_("_Exit installer")])
         sys.exit(0)
@@ -516,7 +516,7 @@ def runSaveDialog(anaconda, exn):
                           "remote host."))
                     continue
             else:
-                if not network.hasActiveNetDev():
+                if not hasActiveNetDev():
                     if not anaconda.intf.enableNetwork(anaconda):
                         anaconda.intf.messageWindow(_("No Network Available"),
                             _("Cannot save a bug report since there is no "
