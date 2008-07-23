@@ -102,7 +102,7 @@ install:
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
 tag:
-	@git tag -a -m "Tag as anaconda-$(VERSION)-$(RELEASE)" -f anaconda-$(VERSION)-$(RELEASE)
+	@git tag -a -m "Tag as anaconda-$(VERSION)-$(RELEASE)" anaconda-$(VERSION)-$(RELEASE)
 	@echo "Tagged as anaconda-$(VERSION)-$(RELEASE)"
 
 ChangeLog:
@@ -112,7 +112,7 @@ archive: tag
 	@rm -f ChangeLog docs/kickstart-docs.txt docs/command-line.txt
 	@make ChangeLog
 	@make -C docs kickstart-docs.txt command-line.txt
-	@git-archive --format=tar --prefix=anaconda-$(VERSION)/ HEAD > anaconda-$(VERSION).tar
+	@git-archive --format=tar --prefix=anaconda-$(VERSION)/ anaconda-$(VERSION)-$(RELEASE) > anaconda-$(VERSION).tar
 	@mkdir -p anaconda-$(VERSION)/docs/
 	@cp docs/kickstart-docs.txt docs/command-line.txt anaconda-$(VERSION)/docs/
 	@cp ChangeLog anaconda-$(VERSION)/
