@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.116
+Version: 11.1.2.117
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 23 2008 Joel Granados <jgranado@redhat.com> 11.1.2.117-1
+- Fix the build.
+- Change the Makefile so id doesn't replace tags.
+
 * Wed Jul 23 2008 Joel Granados <jgranado@redhat.com> 11.1.2.116-1
 - Specify a default cio_ignore parameter for s390x (dcantrell).
   Resolves: rhbz#253075
