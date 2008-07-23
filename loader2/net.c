@@ -1846,15 +1846,14 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 /* if multiple interfaces get one to use from user.   */
 /* NOTE - uses kickstart data available in loaderData */
 int chooseNetworkInterface(struct loaderData_s * loaderData) {
-    int i, rc;
+    int i, rc, ask, idrc, secs, deviceNums = 0, deviceNum, foundDev = 0;
     unsigned int max = 40;
-    int deviceNums = 0;
-    int deviceNum;
-    char ** devices;
-    char ** deviceNames;
-    int foundDev = 0;
-    struct device ** devs;
-    char * ksMacAddr = NULL;
+    char **devices;
+    char **deviceNames;
+    char *ksMacAddr = NULL, *seconds = strdup("10"), *idstr = NULL;
+    struct device **devs;
+    struct newtWinEntry entry[] = {{_("Seconds:"), (const char **) &seconds, 0},
+                                   {NULL, NULL, 0 }};
 
     devs = getDevices(DEVICE_NETWORK);
     if (!devs) {
@@ -1970,13 +1969,81 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 
     /* JKFIXME: should display link status */
     deviceNum = 0;
-    rc = newtWinMenu(_("Networking Device"), 
-		     _("You have multiple network devices on this system. "
-		       "Which would you like to install through?"), max, 10, 10,
-		     deviceNums < 6 ? deviceNums : 6, deviceNames,
-		     &deviceNum, _("OK"), _("Back"), NULL);
-    if (rc == 2)
-        return LOADER_BACK;
+    ask = 1;
+    while (ask) {
+        rc = newtWinMenu(_("Networking Device"),
+                         _("You have multiple network devices on this system. "
+                           "Which would you like to install through?"),
+                         max, 10, 10,
+                         deviceNums < 6 ? deviceNums : 6, deviceNames,
+                         &deviceNum, _("OK"), _("Identify"), _("Back"), NULL);
+
+        if (rc == 2) {
+            if (!devices[deviceNum]) {
+                logMessage(ERROR, "NIC %d contains no device name", deviceNum);
+                continue;
+            }
+
+            if (asprintf(&idstr, "%s %s %s",
+                         _("You can identify the physical port for"),
+                         devices[deviceNum],
+                         _("by flashing the LED lights for a number of "
+                           "seconds.  Enter a number between 1 and 30 to "
+                           "set the duration to flash the LED port "
+                           "lights.")) == -1) {
+                logMessage(ERROR, "asprintf() failure in %s: %m", __func__);
+                abort();
+            }
+
+            i = 1;
+            while (i) {
+                idrc = newtWinEntries(_("Identify NIC"), idstr, 50, 5, 15, 24,
+                                      entry, _("OK"), _("Back"), NULL);
+
+                if (idrc == 0 || idrc == 1) {
+                    errno = 0;
+                    secs = strtol((const char *) seconds, NULL, 10);
+                    if (errno == EINVAL || errno == ERANGE) {
+                        logMessage(ERROR, "strtol() failure in %s: %m",
+                                   __func__);
+                        continue;
+                    }
+
+                    if (secs <=0 || secs > 30) {
+                        newtWinMessage(_("Invalid Duration"), _("OK"),
+                                       _("You must enter the number of "
+                                         "seconds as an integer between 1 "
+                                         "and 30."));
+                        continue;
+                    }
+
+                    idrc = 41 + strlen(devices[deviceNum]);
+                    if (secs > 9) {
+                        idrc += 1;
+                    }
+
+                    winStatus(idrc, 3, NULL,
+                              _("Flashing %s port lights for %d seconds..."),
+                              devices[deviceNum], secs);
+
+                    if (identifyNIC(devices[deviceNum], secs)) {
+                        logMessage(ERROR,
+                                   "error during physical NIC identification");
+                    }
+
+                    newtPopWindow();
+                    i = 0;
+                } else if (idrc == 2) {
+                    i = 0;
+                }
+            }
+        } else if (rc == 3) {
+            ask = 0;
+            return LOADER_BACK;
+        } else {
+            ask = 0;
+        }
+    }
 
     loaderData->netDev = devices[deviceNum];
 
