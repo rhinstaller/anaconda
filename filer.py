@@ -18,6 +18,8 @@
 #
 # Author(s): Chris Lumens <clumens@redhat.com>
 #
+import xmlrpclib
+import socket
 
 # An abstraction to make various bug reporting systems all act the same.  This
 # library requires the use of other system-specific python modules to interact
@@ -71,7 +73,7 @@ class AbstractFiler(object):
         return False
 
 class AbstractBug(object):
-    def __init__(self, filer, *args, **kwargs):
+    def __init__(self, filer, bug=None, *args, **kwargs):
         self.filer = filer
 
     def __str__(self):
@@ -80,10 +82,7 @@ class AbstractBug(object):
     def __repr__(self):
         raise NotImplementedError
 
-    def __getattr__(self, name):
-        raise NotImplementedError
-
-    def __setattr__(self, name, val):
+    def addCC(self, address):
         raise NotImplementedError
 
     def addcomment(self, comment):
@@ -93,6 +92,9 @@ class AbstractBug(object):
         raise NotImplementedError
 
     def close(self, resolution, dupeid=0, comment=''):
+        raise NotImplementedError
+
+    def id(self):
         raise NotImplementedError
 
     def setstatus(self, status, comment=''):
@@ -121,9 +123,6 @@ class AbstractBug(object):
 # expect all bug filing systems to act similar to bugzilla.
 class BugzillaFiler(AbstractFiler):
     def __withBugzillaDo(self, fn):
-        import xmlrpclib
-        import socket
-
         try:
             retval = fn(self._bz)
             return retval
@@ -162,25 +161,24 @@ class BugzillaFiler(AbstractFiler):
         for (wb, val) in whiteboards:
             bug.setwhiteboard(val, which=wb)
 
-        return bug
+        return BugzillaBug(self, bug=bug)
 
     def getbug(self, id):
-        return self.__withBugzillaDo(lambda b: b.getbug(id))
+        return BugzillaBug(self, bug=self.__withBugzillaDo(lambda b: b.getbug(id)))
 
     def getbugs(self, idlist):
-        return self.__withBugzillaDo(lambda b: b.getbugs(idlist))
+        lst = self.__withBugzillaDo(lambda b: b.getbugs(idlist))
+        return map(lambda b: BugzillaBug(self, bug=b), lst)
 
     def query(self, query):
-        return self.__withBugzillaDo(lambda b: b.query(query))
+        lst = self.__withBugzillaDo(lambda b: b.query(query))
+        return map(lambda b: BugzillaBug(self, bug=b), lst)
 
     def supportsFiling(self):
         return True
 
 class BugzillaBug(AbstractBug):
     def __withBugDo(self, fn):
-        import xmlrpclib
-        import socket
-
         try:
             retval = fn(self._bug)
             return retval
@@ -191,11 +189,15 @@ class BugzillaBug(AbstractBug):
         except socket.error, e:
             raise CommunicationError(str(e))
 
-    def __init__(self, filer, *args, **kwargs):
+    def __init__(self, filer, bug=None, *args, **kwargs):
         import bugzilla
 
         self.filer = filer
-        self._bug = bugzilla.Bug(self.filer, *args, **kwargs)
+
+        if not bug:
+            self._bug = bugzilla.Bug(self.filer, *args, **kwargs)
+        else:
+            self._bug = bug
 
     def __str__(self):
         return self._bug.__str__()
@@ -203,17 +205,31 @@ class BugzillaBug(AbstractBug):
     def __repr__(self):
         return self._bug.__repr__()
 
-    def __getattr__(self, name):
-        return self._bug.__getattr__(name)
-
-    def __setattr__(self, name, val):
-        raise NotImplementedError
+    def addCC(self, address):
+        try:
+            return self.filer._bz._updatecc(self._bug.bug_id, [address], 'add')
+        except xmlrpclib.ProtocolError, e:
+            raise CommunicationError(str(e))
+        except xmlrpclib.Fault, e:
+            raise ValueError(str(e))
+        except socket.error, e:
+            raise CommunicationError(str(e))
 
     def addcomment(self, comment):
         return self.__withBugDo(lambda b: b.addcomment(comment))
 
     def attachfile(self, file, description, **kwargs):
-        return self.__withBugDo(lambda b : b.attachfile(file, description, **kwargs))
+        try:
+            return self.filer._bz.attachfile(self._bug.bug_id, file, description, **kwargs)
+        except xmlrpclib.ProtocolError, e:
+            raise CommunicationError(str(e))
+        except xmlrpclib.Fault, e:
+            raise ValueError(str(e))
+        except socket.error, e:
+            raise CommunicationError(str(e))
+
+    def id(self):
+        return self._bug.bug_id
 
     def close(self, resolution, dupeid=0, comment=''):
         return self.__withBugDo(lambda b: b.close(resolution, dupeid=dupeid,
