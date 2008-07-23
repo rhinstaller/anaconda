@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.17
+Version: 11.4.1.18
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -195,6 +195,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 23 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.18-1
+- MD_NEW_SIZE_BLOCKS no longer exists in newer kernel headers. (clumens)
+
 * Wed Jul 23 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.17-1
 - Add support for filing bugs straight into bugzilla. (clumens)
 - Running git-tag -f from a makefile rule is a bad idea (katzj)
