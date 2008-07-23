@@ -45,7 +45,7 @@ int main (int argc, char **argv)
 	FILE *fd3;
 	FILE *fd4;
 	char buffer[BUFFER_LEN];
-	int rc, oc, index;
+	int wc, rc, oc, index;
 	unsigned long long initrd_start = INITRD_START;
 	unsigned long long initrd_size;
 	char image[PARAMETER_BUFFER_LEN];
@@ -112,7 +112,7 @@ int main (int argc, char **argv)
 	printf("writing kernel...\n");
 	while (1) {
 		rc = fread(buffer, BUFFER_LEN, 1, fd2);
-		fwrite(buffer, BUFFER_LEN, 1, fd1);
+		wc = fwrite(buffer, BUFFER_LEN, 1, fd1);
 		if (rc == 0) break;
 	}
 
@@ -120,7 +120,7 @@ int main (int argc, char **argv)
 	fseek(fd1, initrd_start, SEEK_SET);
 	while (1) {
 		rc = fread(buffer, BUFFER_LEN, 1, fd3);
-		fwrite(buffer, BUFFER_LEN, 1, fd1);
+		wc = fwrite(buffer, BUFFER_LEN, 1, fd1);
 		if (rc == 0) break;
 	}
 
@@ -129,22 +129,22 @@ int main (int argc, char **argv)
 
 	printf("changing start PSW address to 0x%08x...\n", start_psw_address);
 	fseek(fd1, 0x4, SEEK_SET);
-	fwrite(&start_psw_address, 4, 1, fd1);
+	wc = fwrite(&start_psw_address, 4, 1, fd1);
 
 	printf("writing initrd address and size...\n");
 	printf("INITRD start: 0x%016llx\n",  initrd_start);
 	printf("INITRD size : 0x%016llx\n", initrd_size);
 
 	fseek(fd1, 0x10408, SEEK_SET);
-	fwrite(&initrd_start, 8, 1, fd1);
+	wc = fwrite(&initrd_start, 8, 1, fd1);
 	fseek(fd1, 0x10410, SEEK_SET);
-	fwrite(&initrd_size, 8, 1, fd1);
+	wc = fwrite(&initrd_size, 8, 1, fd1);
 
 	printf("writing parmfile...\n");
 	fseek(fd1, 0x10480, SEEK_SET);
 	while (1) {
 		rc = fread(buffer, 1, 1, fd4);
-		fwrite(buffer, 1, 1, fd1);
+		wc = fwrite(buffer, 1, 1, fd1);
 		if (rc == 0) break;
 	}
 
