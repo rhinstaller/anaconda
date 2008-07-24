@@ -142,23 +142,18 @@ char * mountNfsImage(struct installMethod * method,
                     directory = strdup(directory);
                 }
             } else {
-                char *stage2img, *substr, *tmp;
+                char *substr, *tmp;
 
                 if (nfsGetSetup(&host, &directory) == LOADER_BACK)
                     return NULL;
-
-                if (totalMemory() < GUI_STAGE2_RAM)
-                    stage2img = "minstg2.img";
-                else
-                    stage2img = "stage2.img";
 
                 /* If the user-provided URL points at a repo instead of a
                  * stage2 image, fix that up now.
                  */
                 substr = strstr(directory, ".img");
                 if (!substr || (substr && *(substr+4) != '\0')) {
-                    if (asprintf(&tmp, "%s/images/%s", directory,
-                                 stage2img) == -1) {
+                    if (asprintf(&tmp, "%s/images/stage2.img",
+                                 directory) == -1) {
                         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                         abort();
                     }

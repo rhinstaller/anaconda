@@ -27,8 +27,6 @@
 #define LOADER_NOOP 2
 #define LOADER_ERROR -1
 
-#define GUI_STAGE2_RAM 196608
-
 #define LOADER_FLAGS_TESTING            (((uint64_t) 1) << 0)
 #define LOADER_FLAGS_EXPERT             (((uint64_t) 1) << 1)
 #define LOADER_FLAGS_TEXT               (((uint64_t) 1) << 2)

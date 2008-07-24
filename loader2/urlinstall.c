@@ -224,21 +224,8 @@ char *mountUrlImage(struct installMethod *method, char *location,
                      */
                     substr = strstr(ui.prefix, ".img");
                     if (!substr || (substr && *(substr+4) != '\0')) {
-                        char *stage2img;
-
-                        /* Pick the right stage2 image depending on the
-                         * amount of memory.
-                         */
-                        if (totalMemory() < GUI_STAGE2_RAM) {
-                            stage2img = "minstg2.img";
-                            logMessage(WARNING, "URLINSTALL falling back to non-GUI stage2 "
-                                                "due to insufficient RAM");
-                        } else {
-                            stage2img = "stage2.img";
-                        }
-
-                        if (asprintf(&ui.prefix, "%s/images/%s", ui.prefix,
-                                     stage2img) == -1) {
+                        if (asprintf(&ui.prefix, "%s/images/stage2.img",
+                                     ui.prefix) == -1) {
                             logMessage(CRITICAL, "%s: %d: %m", __func__,
                                        __LINE__);
                             abort();

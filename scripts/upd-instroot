@@ -20,15 +20,10 @@
 
 ORIGDIR=`pwd`
 DEBUG=""
-NEEDGR=yes
 ARCH=`uname -m`
 
 while [ $# -gt 0 ]; do
     case $1 in
-	--nogr)
-	    NEEDGR=""
-	    shift
-	    ;;
 	--debug)
 	    DEBUG="--debug"
 	    shift
@@ -39,13 +34,8 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 
-	--mindir)
-	    DEST=$2
-	    shift; shift
-	    ;;
-
 	--stg2dir)
-	    DESTGR=$2
+	    DEST=$2
 	    shift; shift
 	    ;;
 
@@ -53,6 +43,16 @@ while [ $# -gt 0 ]; do
 	# of 'make install' from anaconda...
 	--updates)
 	    UPDATES=$2
+	    shift; shift
+	    ;;
+
+	--nogr)
+	    echo "*** DeprecationWarning: ignoring --nogr option." >&2
+	    shift
+	    ;;
+
+	--mindir)
+	    echo "*** DeprecationWarning: ignoring --mindir option." >&2
 	    shift; shift
 	    ;;
 
@@ -65,7 +65,7 @@ done
 
 if [ -z "$yumconf" ]; then
 	echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
-	echo "usage:        $0 [--nogr] [--debug] [--arch arch] [--mindir mindir] [--stg2dir stg2dir] [yumconf]"
+	echo "usage:        $0 [--debug] [--arch arch] [--stg2dir stg2dir] [yumconf]"
 	exit 1
 fi
 
@@ -77,10 +77,6 @@ fi
 
 if [ -z "$DEST" ]; then
     DEST=`mktemp -d ${TMPDIR:-/tmp}/dest.XXXXXX`
-fi
-
-if [ -z "$DESTGR" ]; then
-    DESTGR=`mktemp -d ${TMPDIR:-/tmp}/destgr.XXXXXX`
 fi
 
 if [ ! -f $yumconf ]; then
@@ -206,7 +202,7 @@ fi
 # 
 # Extra stuff we want for rescue mode should go in PACKAGESRESCUE
 #
-PACKAGESGR="acl anaconda anaconda-help anaconda-images atk attr bash
+PACKAGES="$PACKAGES acl anaconda anaconda-help anaconda-images atk attr bash
 	    bitmap-fonts-cjk cairo cjkunifonts-ukai comps-extras
 	    convertdb1 coreutils cpio dbus dbus-python dejavu-fonts
 	    dmapi dmraid e2fsprogs echo-icon-theme expat fedora-logos
@@ -239,7 +235,7 @@ PACKAGESGR="acl anaconda anaconda-help anaconda-images atk attr bash
 #
 # stuff ONLY included for rescue mode
 #
-# these packages are combined with the PACKAGES and PACKAGESGR for big stage 2
+# these packages are combined with the PACKAGES for big stage 2
 #
 PACKAGESRESCUE="bzip2 bzip2-libs dump libidn
                 findutils ftp gzip iputils joe krb5-libs less man
@@ -252,94 +248,117 @@ if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGESRESCUE="$PACKAGESRESCUE gpart grub"
 fi
 
-# turn off options we dont want, ie. set package list to something harmless
-if [ -z "$NEEDGR" ]; then
-    PACKAGESGR="bash"
-    PACKAGESRESCUE="bash"
-fi
-
 #
 # add bootloader for particular arch
 #
 if [ $ARCH = sparc ]; then
-    PACKAGESGR="$PACKAGESGR tilo silo"
+    PACKAGES="$PACKAGES tilo silo"
 fi
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGESGR="$PACKAGESGR syslinux memtest86+ grub" 
+    PACKAGES="$PACKAGES syslinux memtest86+ grub"
 fi
 
 if [ $ARCH = alpha ]; then
-    PACKAGESGR="$PACKAGESGR aboot"
+    PACKAGES="$PACKAGES aboot"
 fi
 
 if [ $ARCH = ia64 ]; then
     # XXX this needs to switch to grub at some point...
-    PACKAGESGR="$PACKAGESGR elilo"
+    PACKAGES="$PACKAGES elilo"
 fi
 
 if [ $ARCH = ppc ]; then
-    PACKAGESGR="$PACKAGESGR fbset yaboot ppc64-utils"
+    PACKAGES="$PACKAGES fbset yaboot ppc64-utils"
 fi
 
 # dogtail stuff...
-PACKAGESGR="$PACKAGESGR gail at-spi libbonobo ORBit2 pyspi GConf2 dogtail libXevie libXtst gnome-python2-gconf"
+PACKAGES="$PACKAGES gail at-spi libbonobo ORBit2 pyspi GConf2 dogtail libXevie libXtst gnome-python2-gconf"
 
 # modular xorg...
 XORGLIBS="libICE libSM libX11 libXcursor libXext libXfixes libXft libXi libxkbfile libXmu libXpm libXrandr libXrender libXt libXxf86misc libXaw liblbxutil libXfont libfontenc libXau libXdmcp libXfont libXinerama"
 XORGFONTS="xorg-x11-fonts-75dpi xorg-x11-fonts-base xorg-x11-fonts-cyrillic xorg-x11-fonts-ISO8859-15-75dpi xorg-x11-fonts-ISO8859-1-75dpi xorg-x11-fonts-ISO8859-2-75dpi xorg-x11-fonts-ISO8859-9-75dpi xorg-x11-fonts-misc xorg-x11-fonts-ethiopic"
 XORG="$XORGLIBS xorg-x11-drivers $XORGFONTS xorg-x11-server-Xorg xorg-x11-xauth xorg-x11-font-utils xorg-x11-xkb-utils xorg-x11-xkbdata xorg-x11-server-utils xkeyboard-config"
 
-PACKAGESGR="$PACKAGESGR $XORG"
-
+PACKAGES="$PACKAGES $XORG"
 
 #
 # KEEPFILE is all files to keep from the packages in PACKAGES
 #
-# This is what is present in http, ftp, and hard drive installs, and is
-# supposed to be a small image because these methods keep it in RAM.
+# The files in this list define the stage2 image used for all installation
+# methods.
 #
-# It also is the base on which the other install images build on top of,
-# so if something is needed by all images it should go here
+# The rescue mode of anaconda uses these files as well as those defined
+# by KEEPFILERESCUE below.  The total size of this image should be
+# under the size of the miniature CD used for the rescue CD (around 68MB).
 #
 KEEPFILE=${TMPDIR:-/tmp}/keepfile.$$
-
 cat > $KEEPFILE <<EOF
-boot/efi/EFI/redhat/elilo.efi
-boot/efi/EFI/redhat/grub.efi
-bin/bash
-bin/dbus-daemon
-bin/fdisk*
-bin/sed
-bin/mount
-bin/umount
-etc/dbus-1
-etc/group
-etc/hal
-etc/passwd
-etc/iscsid.conf
-etc/mke2fs.conf
-etc/nsswitch.conf
-etc/pcmcia
-etc/PolicyKit
-etc/protocols
-etc/services
-etc/selinux/targeted
-etc/shells
-etc/udev
-etc/yum/pluginconf.d/fedorakmod.conf
-etc/yum.repos.d/*
-lib/terminfo
-$LIBDIR/libnss_dns*
-$LIBDIR/libnss_files*
+$LIBDIR/bdevid
 $LIBDIR/dbus-1
 $LIBDIR/libfreebl3.so
 $LIBDIR/libnss3.so
+$LIBDIR/libnss_dns*
+$LIBDIR/libnss_files*
 $LIBDIR/libnssckbi.so
 $LIBDIR/libnsspem.so
 $LIBDIR/libsmime3.so
 $LIBDIR/libsoftokn3.so
 $LIBDIR/libssl3.so
+bin/bash
+bin/cat
+bin/chmod
+bin/cp
+bin/cpio
+bin/dbus-daemon
+bin/dd
+bin/df
+bin/du
+bin/fdisk*
+bin/ln
+bin/ls
+bin/mkdir
+bin/mount
+bin/mv
+bin/ps
+bin/rm
+bin/rpm
+bin/sed
+bin/touch
+bin/umount
+boot/*.b
+boot/bootlx
+boot/efi/EFI/redhat/elilo.efi
+boot/efi/EFI/redhat/grub.efi
+boot/efika.forth
+boot/memtest86*
+etc/PolicyKit
+etc/dbus-1
+etc/fb.modes
+etc/fonts
+etc/group
+etc/gtk-2.0/gtkrc*
+etc/hal
+etc/im_palette.pal
+etc/imrc
+etc/iscsid.conf
+etc/man.config
+etc/mke2fs.conf
+etc/nsswitch.conf
+etc/pango
+etc/passwd
+etc/pcmcia
+etc/prelink.conf
+etc/protocols
+etc/rpm/macros.prelink
+etc/selinux/targeted
+etc/services
+etc/shells
+etc/udev
+etc/yum.repos.d/*
+etc/yum/pluginconf.d/fedorakmod.conf
+lib/terminfo
+sbin/*gfs*
 sbin/badblocks
 sbin/busybox.anaconda
 sbin/clock
@@ -347,16 +366,21 @@ sbin/cryptsetup
 sbin/debugfs
 sbin/dosfslabel
 sbin/dumpe2fs
-sbin/e2fsck
 sbin/e2fsadm
+sbin/e2fsck
 sbin/e2label
+sbin/fdisk
+sbin/fsck
 sbin/fsck.ext2
 sbin/fsck.ext3
 sbin/fsck.jfs
+sbin/fsck.reiserfs
 sbin/fsck.xfs
-sbin/fdisk
 sbin/hdparm
 sbin/hwclock
+sbin/iscsiadm
+sbin/iscsid
+sbin/iscsistart
 sbin/jfs_tune
 sbin/ldconfig
 sbin/lspci
@@ -368,133 +392,229 @@ sbin/mkfs.ext2
 sbin/mkfs.ext3
 sbin/mkfs.gfs2
 sbin/mkfs.jfs
-sbin/mkfs.xfs
 sbin/mkfs.msdos
 sbin/mkfs.vfat
-sbin/mkreiserfs
+sbin/mkfs.xfs
 sbin/mkraid
+sbin/mkreiserfs
 sbin/mkswap
 sbin/mount.nfs*
 sbin/parted
 sbin/pcmcia-socket-startup
 sbin/pdisk
 sbin/probe
+sbin/reiserfsck
 sbin/reiserfstune
 sbin/resize2fs
+sbin/setfiles
+sbin/silo
 sbin/tune2fs
+sbin/udev*
 sbin/umount.nfs*
+sbin/xfs_repair
 sbin/xfsdump
 sbin/xfsrestore
-sbin/xfs_repair
-usr/sbin/xfs_admin
-usr/sbin/xfs_db
-usr/sbin/xfs_check
-usr/sbin/xfs_copy
-sbin/*gfs*
-sbin/iscsid
-sbin/iscsiadm
-sbin/iscsistart
-sbin/udev*
-usr/bin/lshal
-usr/bin/python
-usr/bin/python?.?
-usr/bin/hmount
-usr/bin/humount
-usr/bin/hcopy
-usr/bin/hattrib
-usr/bin/hformat
-usr/bin/udevinfo
-usr/lib/anaconda-runtime
-usr/lib/anaconda
-usr/lib/anaconda/installclasses
-usr/lib/anaconda/textw
-usr/lib/booty
+usr/$LIBDIR/dri
+usr/$LIBDIR/gconv
+usr/$LIBDIR/gdk-pixbuf/loaders/*la*
+usr/$LIBDIR/gdk-pixbuf/loaders/*png*
+usr/$LIBDIR/gdk-pixbuf/loaders/*xpm*
+usr/$LIBDIR/gtk-2.0/*/engines/libclearlooks.so
+usr/$LIBDIR/gtk-2.0/*/loaders/*la*
+usr/$LIBDIR/gtk-2.0/*/loaders/*png*
+usr/$LIBDIR/gtk-2.0/*/loaders/*xpm*
+usr/$LIBDIR/gtk-2.0/immodules
 usr/$LIBDIR/hal
+usr/$LIBDIR/libuser/*
+usr/$LIBDIR/pango
 usr/$LIBDIR/python?.?
 usr/$LIBDIR/python?.?/email
-usr/$LIBDIR/python?.?/xml/etree/
-usr/$LIBDIR/python?.?/site-packages/_dbus*
-usr/$LIBDIR/python?.?/site-packages/*kudzu*
-usr/$LIBDIR/python?.?/site-packages/bdevid.so
-usr/$LIBDIR/python?.?/site-packages/rpmmodule.so
-usr/$LIBDIR/python?.?/site-packages/partedmodule.so
-usr/$LIBDIR/python?.?/site-packages/ixf86configmodule.so
-usr/$LIBDIR/python?.?/site-packages/xf86config.py
-usr/$LIBDIR/python?.?/site-packages/libusermodule.so
-usr/$LIBDIR/python?.?/site-packages/*sqlite*
-usr/$LIBDIR/python?.?/site-packages/rhpl
-usr/$LIBDIR/python?.?/site-packages/cElementTree.so
-usr/$LIBDIR/python?.?/site-packages/block
 usr/$LIBDIR/python?.?/site-packages/*.pth
+usr/$LIBDIR/python?.?/site-packages/*kudzu*
 usr/$LIBDIR/python?.?/site-packages/*selinux*
+usr/$LIBDIR/python?.?/site-packages/*sqlite*
+usr/$LIBDIR/python?.?/site-packages/_dbus*
+usr/$LIBDIR/python?.?/site-packages/bdevid.so
+usr/$LIBDIR/python?.?/site-packages/block
+usr/$LIBDIR/python?.?/site-packages/cElementTree.so
+usr/$LIBDIR/python?.?/site-packages/cairo
+usr/$LIBDIR/python?.?/site-packages/firstboot
+usr/$LIBDIR/python?.?/site-packages/gtk*
+usr/$LIBDIR/python?.?/site-packages/gtk*/gtk
+usr/$LIBDIR/python?.?/site-packages/ixf86configmodule.so
+usr/$LIBDIR/python?.?/site-packages/libusermodule.so
+usr/$LIBDIR/python?.?/site-packages/partedmodule.so
+usr/$LIBDIR/python?.?/site-packages/rhpl
+usr/$LIBDIR/python?.?/site-packages/rpmmodule.so
+usr/$LIBDIR/python?.?/site-packages/xf86config.py
+usr/$LIBDIR/python?.?/xml/etree/
+usr/$LIBDIR/rpm/rpmpopt
+usr/$LIBDIR/xorg/modules
+usr/$LIBDIR/xserver/SecurityPolicy
+usr/bin/Xorg
+usr/bin/Xvnc
+usr/bin/chattr*
+usr/bin/gdialog
+usr/bin/gdk-pixbuf-query-loaders*
+usr/bin/gtk-query*
+usr/bin/gtk-update-icon-cache*
+usr/bin/hattrib
+usr/bin/hcopy
+usr/bin/head
+usr/bin/hformat
+usr/bin/hmount
+usr/bin/humount
+usr/bin/lsattr*
+usr/bin/lshal
+usr/bin/maketilo
+usr/bin/mini-wm
+usr/bin/mkzimage
+usr/bin/pango*
+usr/bin/python
+usr/bin/python?.?
+usr/bin/reduce-font
+usr/bin/setxkbmap
+usr/bin/syslinux
+usr/bin/tac
+usr/bin/tail
+usr/bin/tilo
+usr/bin/udevinfo
+usr/bin/uniq
+usr/bin/vncconfig
+usr/bin/vncpasswd
+usr/bin/xkbcomp
+usr/bin/zenity
+usr/lib/anaconda
+usr/lib/anaconda-runtime
+usr/lib/anaconda/installclasses
+usr/lib/anaconda/iw
+usr/lib/anaconda/textw
+usr/lib/booty
+usr/lib/kernel-wrapper
 usr/lib/locale
+usr/lib/python?.?/site-packages/bugzilla*
+usr/lib/python?.?/site-packages/cracklibmodule.so
 usr/lib/python?.?/site-packages/dbus
 usr/lib/python?.?/site-packages/dbus_bindings.py*
 usr/lib/python?.?/site-packages/elementtree
 usr/lib/python?.?/site-packages/iniparse
+usr/lib/python?.?/site-packages/pirut
+usr/lib/python?.?/site-packages/pykickstart
+usr/lib/python?.?/site-packages/repomd
+usr/lib/python?.?/site-packages/rhpxl
 usr/lib/python?.?/site-packages/rpmUtils
 usr/lib/python?.?/site-packages/urlgrabber
 usr/lib/python?.?/site-packages/yum
-usr/lib/python?.?/site-packages/repomd
-usr/lib/python?.?/site-packages/pirut
-usr/lib/python?.?/site-packages/pykickstart
-usr/lib/python?.?/site-packages/rhpxl
-usr/lib/python?.?/site-packages/bugzilla*
-usr/lib/python?.?/site-packages/cracklibmodule.so
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
-boot/efika.forth
-usr/lib/yaboot
-usr/lib/yaboot
+usr/lib/syslinux
 usr/lib/yaboot
 usr/lib/yum-plugins/fedorakmod.py*
-usr/$LIBDIR/libuser/*
 usr/libexec/convertdb1
 usr/libexec/hal*
 usr/libexec/polkit*
-usr/share/cracklib
-usr/share/dbus-1
-usr/share/hal
-usr/share/PolicyKit
-usr/share/locale/*/LC_MESSAGES/anaconda.mo
-usr/share/locale/*/LC_MESSAGES/system-config-date.mo
-usr/share/locale/locale.alias
+usr/sbin/addRamDisk
 usr/sbin/anaconda
+usr/sbin/chroot
 usr/sbin/ddcprobe
 usr/sbin/dmidecode
 usr/sbin/efibootmgr
+usr/sbin/fbset
+usr/sbin/genhomedircon
+usr/sbin/gptsync
 usr/sbin/hald
+usr/sbin/load_policy
+usr/sbin/lvm
 usr/sbin/mkofboot
 usr/sbin/ofpath
-usr/sbin/ybin
-usr/sbin/load_policy
+usr/sbin/prelink
 usr/sbin/semodule
-usr/sbin/genhomedircon
-sbin/setfiles
-usr/sbin/lvm
-usr/sbin/gptsync
 usr/sbin/showpart
+usr/sbin/smartctl
+usr/sbin/wrapper
+usr/sbin/xfs_admin
+usr/sbin/xfs_check
+usr/sbin/xfs_copy
+usr/sbin/xfs_db
+usr/sbin/ybin
+usr/share/PolicyKit
+usr/share/X11/XKeysymDB
+usr/share/X11/fonts/TTF/GohaTibebZemen.ttf
+usr/share/X11/fonts/misc/6x13*
+usr/share/X11/fonts/misc/cursor*
+usr/share/X11/fonts/misc/fonts*
+usr/share/X11/fonts/misc/olcursor*
+usr/share/X11/locale
+usr/share/X11/rgb*
+usr/share/X11/xkb
+usr/share/anaconda
 usr/share/anaconda/anaconda.conf
+usr/share/cracklib
+usr/share/dbus-1
+usr/share/fonts/*/lklug.ttf
+usr/share/fonts/*/lohit_bn.ttf
+usr/share/fonts/*/lohit_gu.ttf
+usr/share/fonts/*/lohit_hi.ttf
+usr/share/fonts/*/lohit_kn.ttf
+usr/share/fonts/*/lohit_ml.ttf
+usr/share/fonts/*/lohit_or.ttf
+usr/share/fonts/*/lohit_pa.ttf
+usr/share/fonts/*/lohit_ta.ttf
+usr/share/fonts/*/lohit_te.ttf
+usr/share/fonts/VLGothic/VL-Gothic-Regular.ttf
+usr/share/fonts/baekmuk-ttf-dotum/dotum.ttf
+usr/share/fonts/cjkunifonts-uming/uming*.ttf
+usr/share/fonts/dejavu/DejaVuSans-Bold.ttf
+usr/share/fonts/dejavu/DejaVuSans.ttf
+usr/share/fonts/dejavu/DejaVuSansMono.ttf
+usr/share/fonts/kacst/KacstFarsi.ttf
+usr/share/fonts/kacst/KacstQura.ttf
+usr/share/hal
+usr/share/hwdata/MonitorsDB
+usr/share/hwdata/pci.ids
+usr/share/hwdata/videoaliases
+usr/share/hwdata/videodrivers
+usr/share/locale/*/LC_MESSAGES/anaconda.mo
+usr/share/locale/*/LC_MESSAGES/gtk20.mo
+usr/share/locale/*/LC_MESSAGES/libc.mo
+usr/share/locale/*/LC_MESSAGES/parted.mo
+usr/share/locale/*/LC_MESSAGES/pirut.mo
+usr/share/locale/*/LC_MESSAGES/redhat-dist.mo
+usr/share/locale/*/LC_MESSAGES/rhpl.mo
+usr/share/locale/*/LC_MESSAGES/rhpxl.mo
+usr/share/locale/*/LC_MESSAGES/system-config-date.mo
+usr/share/locale/*/LC_MESSAGES/system-config-keyboard.mo
+usr/share/locale/*/LC_MESSAGES/zenity.mo
+usr/share/locale/locale.alias
+usr/share/pirut
+usr/share/pixmaps/comps/*.png
+usr/share/pixmaps/gnome-default-dlg.png
+usr/share/pixmaps/gnome-error.png
+usr/share/pixmaps/gnome-info.png
+usr/share/pixmaps/gnome-question.png
+usr/share/pixmaps/gnome-warning.png
+usr/share/pixmaps/no.xpm
+usr/share/pixmaps/yes.xpm
+usr/share/ppc64-utils
+usr/share/system-config-date
 usr/share/system-config-date/zonetab.py*
+usr/share/system-config-keyboard
 usr/share/terminfo/l/linux
 usr/share/terminfo/v/vt100
 usr/share/terminfo/v/vt100-nav
-usr/share/hwdata/pci.ids
-usr/share/hwdata/videoaliases
-usr/share/hwdata/videoaliases
-usr/share/hwdata/videodrivers
-usr/share/hwdata/MonitorsDB
+usr/share/terminfo/x/xterm
 usr/share/xorg/extramodes
 usr/share/xorg/vesamodes
+usr/share/zenity
 usr/share/zoneinfo/zone.tab
+var/cache/hald
+var/lib/PolicyKit*
 var/lib/dbus
 var/lib/hal
-var/lib/PolicyKit*
 var/lib/misc/PolicyKit*
-var/run/dbus
 var/run/PolicyKit
-var/cache/hald
+var/run/dbus
 EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
@@ -544,171 +664,6 @@ usr/bin/xauth
 EOF
 fi
 
-#
-# KEEPFILEGR is all files to keep from the packages in PACKAGESGR
-#
-# This defines the files in addition to KEEPFILE that make up the install
-# images for NFS and CD/DVD based installs.  This image is not loaded into
-# memory so it can be considerably larger.
-#
-# The rescue mode of anaconda uses these files as well as those defined
-# by KEEPFILERESCUE below.  The total size of this image should be
-# under the size of the miniature CD used for the rescue CD (around 68MB).
-#
-KEEPFILEGR=${TMPDIR:-/tmp}/keepfilegr.$$
-cp $KEEPFILE $KEEPFILEGR
-cat >> $KEEPFILEGR <<EOF
-boot/memtest86*
-bin/bash
-bin/cat
-bin/chmod
-bin/cp
-bin/cpio
-bin/dd
-bin/df
-bin/du
-bin/ln
-bin/ls
-bin/mkdir
-bin/mv
-bin/ps
-bin/rm
-bin/rpm
-bin/touch
-boot/*.b
-boot/bootlx
-etc/fb.modes
-etc/gtk-2.0/gtkrc*
-etc/im_palette.pal
-etc/imrc
-etc/man.config
-etc/pango
-etc/fonts
-etc/prelink.conf
-etc/rpm/macros.prelink
-$LIBDIR/bdevid
-sbin/debugfs
-sbin/e2fsck
-sbin/e2label
-sbin/reiserfsck
-sbin/reiserfstune
-sbin/fsck
-sbin/fsck.ext2
-sbin/fsck.ext3
-sbin/fsck.jfs
-sbin/fsck.reiserfs
-sbin/parted
-sbin/silo
-sbin/tune2fs
-usr/bin/Xorg
-usr/bin/setxkbmap
-usr/bin/xkbcomp
-usr/share/X11/XKeysymDB
-usr/share/X11/fonts/misc/6x13*
-usr/share/X11/fonts/misc/fonts*
-usr/share/X11/fonts/misc/cursor*
-usr/share/X11/fonts/misc/olcursor*
-usr/share/X11/fonts/TTF/GohaTibebZemen.ttf
-usr/share/X11/locale
-usr/share/X11/rgb*
-usr/share/X11/xkb
-usr/$LIBDIR/xserver/SecurityPolicy
-usr/$LIBDIR/dri
-usr/$LIBDIR/xorg/modules
-usr/bin/chattr*
-usr/bin/gdialog
-usr/bin/gtk-query*
-usr/bin/gdk-pixbuf-query-loaders*
-usr/bin/gtk-update-icon-cache*
-usr/bin/head
-usr/bin/lsattr*
-usr/bin/maketilo
-usr/bin/mini-wm
-usr/bin/pango*
-usr/bin/syslinux
-usr/bin/mkzimage
-usr/bin/tac
-usr/bin/tail
-usr/bin/tilo
-usr/bin/uniq
-usr/bin/zenity
-usr/bin/Xvnc
-usr/bin/vncconfig
-usr/bin/vncpasswd
-usr/bin/reduce-font
-usr/lib/anaconda/iw
-usr/$LIBDIR/gconv
-usr/$LIBDIR/gdk-pixbuf/loaders/*xpm*
-usr/$LIBDIR/gdk-pixbuf/loaders/*png*
-usr/$LIBDIR/gdk-pixbuf/loaders/*la*
-usr/$LIBDIR/gtk-2.0/*/engines/libclearlooks.so
-usr/$LIBDIR/gtk-2.0/*/loaders/*xpm*
-usr/$LIBDIR/gtk-2.0/*/loaders/*png*
-usr/$LIBDIR/gtk-2.0/*/loaders/*la*
-usr/$LIBDIR/gtk-2.0/immodules
-usr/$LIBDIR/pango
-usr/$LIBDIR/python?.?/site-packages/cairo
-usr/$LIBDIR/python?.?/site-packages/gtk*/gtk
-usr/$LIBDIR/python?.?/site-packages/gtk*
-usr/$LIBDIR/python?.?/site-packages/firstboot
-usr/$LIBDIR/rpm/rpmpopt
-usr/lib/syslinux
-usr/lib/kernel-wrapper
-boot/efika.forth
-usr/sbin/addRamDisk
-usr/sbin/wrapper
-usr/sbin/chroot
-usr/sbin/ddcprobe
-usr/sbin/fbset
-usr/sbin/prelink
-usr/sbin/smartctl
-usr/share/anaconda
-usr/share/fonts/dejavu/DejaVuSans.ttf
-usr/share/fonts/dejavu/DejaVuSans-Bold.ttf
-usr/share/fonts/dejavu/DejaVuSansMono.ttf
-usr/share/fonts/baekmuk-ttf-dotum/dotum.ttf
-usr/share/fonts/VLGothic/VL-Gothic-Regular.ttf
-usr/share/fonts/cjkunifonts-uming/uming*.ttf
-usr/share/fonts/kacst/KacstFarsi.ttf
-usr/share/fonts/kacst/KacstQura.ttf
-usr/share/fonts/*/lohit_ta.ttf
-usr/share/fonts/*/lohit_gu.ttf
-usr/share/fonts/*/lohit_bn.ttf
-usr/share/fonts/*/lohit_hi.ttf
-usr/share/fonts/*/lohit_pa.ttf
-usr/share/fonts/*/lohit_or.ttf
-usr/share/fonts/*/lohit_ml.ttf
-usr/share/fonts/*/lohit_kn.ttf
-usr/share/fonts/*/lohit_te.ttf
-usr/share/fonts/*/lklug.ttf
-usr/share/locale/*/LC_MESSAGES/anaconda.mo
-usr/share/locale/*/LC_MESSAGES/system-config-date.mo
-usr/share/locale/*/LC_MESSAGES/redhat-dist.mo
-usr/share/locale/*/LC_MESSAGES/system-config-keyboard.mo
-usr/share/locale/*/LC_MESSAGES/gtk20.mo
-usr/share/locale/*/LC_MESSAGES/libc.mo
-usr/share/locale/*/LC_MESSAGES/rhpl.mo
-usr/share/locale/*/LC_MESSAGES/rhpxl.mo
-usr/share/locale/*/LC_MESSAGES/parted.mo
-usr/share/locale/*/LC_MESSAGES/pirut.mo
-usr/share/locale/*/LC_MESSAGES/zenity.mo
-usr/share/pirut
-usr/share/pixmaps/comps/*.png
-usr/share/pixmaps/gnome-default-dlg.png
-usr/share/pixmaps/gnome-error.png
-usr/share/pixmaps/gnome-info.png
-usr/share/pixmaps/gnome-question.png
-usr/share/pixmaps/gnome-warning.png
-usr/share/pixmaps/no.xpm
-usr/share/pixmaps/yes.xpm
-usr/share/ppc64-utils
-usr/share/system-config-keyboard
-usr/share/system-config-date
-usr/share/terminfo/x/xterm
-usr/share/zenity
-usr/share/zoneinfo/zone.tab
-EOF
-
 TIMEZONES="
 usr/share/zoneinfo/Africa
 usr/share/zoneinfo/America
@@ -727,7 +682,7 @@ usr/share/zoneinfo/US
 "
 
 # more dogtail stuff...
-cat >> $KEEPFILEGR <<EOF
+cat >> $KEEPFILE <<EOF
 usr/$LIBDIR/gtk-2.0/modules/libatk-bridge.so
 usr/$LIBDIR/gtk-2.0/modules/libgail.so
 usr/libexec/bonobo-activation-server
@@ -741,12 +696,10 @@ usr/$LIBDIR/python?.?/site-packages/atspi.so
 usr/lib/python?.?/site-packages/dogtail/*.py
 EOF
 
-
-
 #
 # KEEPFILERESCUE is all files to keep from the packages in PACKAGESRESCUE
 #
-# This defines the files in addition to KEEPFILE and KEEPFILEGR that make up 
+# This defines the files in addition to KEEPFILE that make up
 # the install images for NFS and CD/DVD based rescue mode installs.  This 
 # image is not loaded into memory so it can be considerably larger.
 #
@@ -860,56 +813,45 @@ EOF
 fi
 
 echo "Assembling package list..."
-RPMS="$PACKAGES"
+RPMS="$PACKAGES $PACKAGESRESCUE"
 [ -n "$DEBUG" ] && echo "RPMS are $RPMS"
-RPMSGR="$PACKAGES $PACKAGESGR $PACKAGESRESCUE"
-[ -n "$DEBUG" ] && echo "RPMSGR are $RPMSGR"
 
-rm -rf $DEST; mkdir -p $DEST/usr/sbin
-rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin $DESTGR/var/lib $DESTGR/boot
-ln -s /tmp $DESTGR/var/lib/xkb 
+rm -rf $DEST; mkdir -p $DEST/usr/sbin $DEST/var/lib $DEST/boot
+ln -s /tmp $DEST/var/lib/xkb
 
 #
-# concat KEEPFILEGR and KEEPFILERESCUE lists
+# concat KEEPFILE and KEEPFILERESCUE lists
 #
-cat $KEEPFILERESCUE >> $KEEPFILEGR
-cat $KEEPFILE >> $KEEPFILEGR
+cat $KEEPFILERESCUE >> $KEEPFILE
 
-echo `date` "Expanding text packages..."
+echo `date` "Expanding packages..."
 YUMDIR=${TMPDIR:-/tmp}/yumdir.$$
 mkdir -p $YUMDIR/var/log
 mkdir -p $YUMDIR/var/lib/yum
 
 expandPackageSet $yumconf $YUMDIR "$RPMS" $DEST $KEEPFILE
-echo `date` "Done Expanding text packages..."
+echo `date` "Done Expanding packages..."
 
-echo `date` "Expanding graphical packages..."
-expandPackageSet $yumconf $YUMDIR "$RPMSGR" $DESTGR $KEEPFILEGR
-echo `date` "Done Expanding graphical packages..."
-
-# more dogtail stuff
-if [ -n "$NEEDGR" ]; then
-    # Dogtail will check this
-    echo "Creating customized GConf2 settings for root"
-    mkdir -p $DESTGR/.gconf/desktop/gnome/interface
-    touch $DESTGR/.gconf/desktop/%gconf.xml
-    touch $DESTGR/.gconf/desktop/gnome/%gconf.xml
-    cat > $DESTGR/.gconf/desktop/gnome/interface/%gconf.xml <<EOF
+# Dogtail will check this
+echo "Creating customized GConf2 settings for root"
+mkdir -p $DEST/.gconf/desktop/gnome/interface
+touch $DEST/.gconf/desktop/%gconf.xml
+touch $DEST/.gconf/desktop/gnome/%gconf.xml
+cat > $DEST/.gconf/desktop/gnome/interface/%gconf.xml <<EOF
 <?xml version="1.0"?>
 <gconf>
         <entry name="accessibility" mtime="1176200664" type="bool" value="true">
         </entry>
 </gconf>
 EOF
-fi
 
 rm -rf $YUMDIR
 
-chown -R root:root $DEST $DESTGR
-chmod -R a+rX-w $DEST $DESTGR
+chown -R root:root $DEST
+chmod -R a+rX-w $DEST
 
 # Remove locales unused during the install
-cat $DESTGR/usr/lib/anaconda/lang-table* | awk '
+cat $DEST/usr/lib/anaconda/lang-table* | awk '
 { gsub("-", "", $4);
   print $4;
   print gensub(/\..*$/,"","",$4);
@@ -919,31 +861,29 @@ cat $DESTGR/usr/lib/anaconda/lang-table* | awk '
   };
   print $2;
 }
-' | sed -e 's/latn/Latn/g' | LC_ALL=C sort -u > $DESTGR/locales
+' | sed -e 's/latn/Latn/g' | LC_ALL=C sort -u > $DEST/locales
 for p in lib share; do (
-cd $DESTGR/usr/$p/locale && {
-ls | grep -v locale.alias | grep -v locale-archive | LC_ALL=C sort > $DESTGR/locales.list
-LC_ALL=C comm -13 $DESTGR/locales $DESTGR/locales.list | xargs rm -rf
+cd $DEST/usr/$p/locale && {
+ls | grep -v locale.alias | grep -v locale-archive | LC_ALL=C sort > $DEST/locales.list
+LC_ALL=C comm -13 $DEST/locales $DEST/locales.list | xargs rm -rf
 }
 ); done
-rm -f $DESTGR/locales $DESTGR/locales.list
+rm -f $DEST/locales $DEST/locales.list
 
 # fixup joe links
-if [ -n "$NEEDGR" -a -d "$DESTDIR"/etc/joe ]; then
-    ln -fs jpicorc $DESTGR/etc/joe/picorc
-    ln -fs jpicorc $DESTGR/etc/joe/jnanorc
-    ln -fs jpicorc $DESTGR/etc/joe/nanorc
-    ln -fs jmacsrc $DESTGR/etc/joe/emacsrc
-    ln -fs jmacs $DESTGR/usr/bin/emacs
-    ln -fs jpico $DESTGR/usr/bin/pico
-    ln -fs jpico $DESTGR/usr/bin/nano
+if [ -d "$DESTDIR"/etc/joe ]; then
+    ln -fs jpicorc $DEST/etc/joe/picorc
+    ln -fs jpicorc $DEST/etc/joe/jnanorc
+    ln -fs jpicorc $DEST/etc/joe/nanorc
+    ln -fs jmacsrc $DEST/etc/joe/emacsrc
+    ln -fs jmacs $DEST/usr/bin/emacs
+    ln -fs jpico $DEST/usr/bin/pico
+    ln -fs jpico $DEST/usr/bin/nano
 fi
 
 # fix up some links for man page related stuff
-for p in $DEST $DESTGR; do
-    for file in nroff groff iconv geqn gtbl gpic grefer ; do
-        ln -fs /mnt/sysimage/usr/bin/$file $p/usr/bin/$file
-    done
+for file in nroff groff iconv geqn gtbl gpic grefer ; do
+    ln -fs /mnt/sysimage/usr/bin/$file $DEST/usr/bin/$file
 done
 
 # create selinux config
@@ -952,7 +892,7 @@ if [ -e $DEST/etc/selinux/targeted ]; then
 SELINUX=permissive
 SELINUXTYPE=targeted
 EOF
-  cp $DEST/etc/selinux/config $DESTGR/etc/selinux/config
+  cp $DEST/etc/selinux/config
 fi
 
 echo "Creating libuser.conf"
@@ -969,10 +909,9 @@ directory = /mnt/sysimage/etc
 directory = /mnt/sysimage/etc
 EOF
 
-cp $DEST/etc/libuser.conf $DESTGR/etc/libuser.conf
+cp $DEST/etc/libuser.conf
 
 sed -i 's|\(installforallkernels\) = 0|\1 = 1|' $DEST/etc/yum/pluginconf.d/fedorakmod.conf
-cp $DEST/etc/yum/pluginconf.d/fedorakmod.conf $DESTGR/etc/yum/pluginconf.d/
 
 #
 # Manual pages in rescue: We dont have man pages in the image, so we point everything (The pages
@@ -980,145 +919,128 @@ cp $DEST/etc/yum/pluginconf.d/fedorakmod.conf $DESTGR/etc/yum/pluginconf.d/
 # man.conf file, so we don't use the $MANPATH env variable.  The executables stay unchanged as
 # they will be soft links to /mnt/sysimage.
 #
-if [ -n "$NEEDGR" ]; then
-    echo "Fixing up /etc/man.config to point into /mnt/sysimage"
-    #
-    # Lets avoid the lines with MANPATH_MAP for now
-    #
-    sed -i "s,^MANPATH[^_MAP][ \t]*,&/mnt/sysimage," $DESTGR/etc/man.config
+echo "Fixing up /etc/man.config to point into /mnt/sysimage"
+#
+# Lets avoid the lines with MANPATH_MAP for now
+#
+sed -i "s,^MANPATH[^_MAP][ \t]*,&/mnt/sysimage," $DEST/etc/man.config
 
-    #
-    # Lets change the lines with MANPATH_MAP.  Don't know how much of a difference this will make.
-    #
-    sed -i "s,^MANPATH_MAP[ \t]*[a-zA-Z0-9/]*[ \t]*,&/mnt/sysimage," $DESTGR/etc/man.config
+#
+# Lets change the lines with MANPATH_MAP.  Don't know how much of a difference this will make.
+#
+sed -i "s,^MANPATH_MAP[ \t]*[a-zA-Z0-9/]*[ \t]*,&/mnt/sysimage," $DEST/etc/man.config
+
+rm -f $KEEPFILE $KEEPFILERESCUE
+
+echo "Scrubbing trees..." "$DEST"
+mkdir -p $DEST/lib
+mkdir -p $DEST/firmware
+ln -snf /modules $DEST/lib/modules
+ln -snf /firmware $DEST/lib/firmware
+cp $DEST/usr/lib/anaconda/raidstart-stub $DEST/usr/bin/raidstart
+cp $DEST/usr/lib/anaconda/raidstop-stub $DEST/usr/bin/raidstop
+cp $DEST/usr/lib/anaconda/losetup-stub $DEST/usr/bin/losetup
+cp $DEST/usr/lib/anaconda/dhcpclient-stub $DEST/usr/bin/dhcpclient
+( cd $DEST/usr/bin && rm -f pump && ln -sf dhcpclient pump )
+cp $DEST/usr/lib/anaconda/list-harddrives-stub $DEST/usr/bin/list-harddrives
+cp $DEST/usr/lib/anaconda/loadkeys-stub $DEST/usr/bin/loadkeys
+cp $DEST/usr/lib/anaconda/mknod-stub $DEST/usr/bin/mknod
+cp $DEST/usr/lib/anaconda/syslogd-stub $DEST/usr/bin/syslogd
+mv $DEST/usr/sbin/anaconda $DEST/usr/bin/anaconda
+mv $DEST/usr/lib/anaconda-runtime/lib* $DEST/usr/$LIBDIR
+
+mv $DEST/etc/yum.repos.d $DEST/etc/anaconda.repos.d
+
+rm -f $DEST/usr/$LIBDIR/libunicode-lite*
+
+find $DEST -type d | xargs chmod 755
+
+if [ -f $DEST/bin/bash ]; then
+    rm -f $DEST/bin/ash
+    ln -s bash $DEST/bin/sh
+else
+    ln -sf busybox $DEST/bin/sh
 fi
 
-rm -f $KEEPFILE $KEEPFILEGR $KEEPFILERESCUE
+[ -d $DEST/bin ] || die "ERROR: directory missing: $DEST/bin"
+[ -d $DEST/sbin ] || die "ERROR: directory missing: $DEST/sbin"
+(cd $DEST/bin; find) | (cd $DEST/bin; /bin/cpio --quiet -pdmu $DEST/usr/bin)
+(cd $DEST/sbin; find) | (cd $DEST/sbin; /bin/cpio --quiet -pdmu $DEST/usr/sbin)
+rm -rf $DEST/bin
+rm -rf $DEST/sbin
 
-for p in $DEST $DESTGR; do
-	echo "Scrubbing trees..." "$p"
-	mkdir -p $p/lib
-	mkdir -p $p/firmware
-	ln -snf /modules $p/lib/modules
-	ln -snf /firmware $p/lib/firmware
-	cp $p/usr/lib/anaconda/raidstart-stub $p/usr/bin/raidstart
-	cp $p/usr/lib/anaconda/raidstop-stub $p/usr/bin/raidstop
-	cp $p/usr/lib/anaconda/losetup-stub $p/usr/bin/losetup
-	cp $p/usr/lib/anaconda/dhcpclient-stub $p/usr/bin/dhcpclient
-	( cd $p/usr/bin && rm -f pump && ln -sf dhcpclient pump )
-	cp $p/usr/lib/anaconda/list-harddrives-stub $p/usr/bin/list-harddrives
-	cp $p/usr/lib/anaconda/loadkeys-stub $p/usr/bin/loadkeys
-	cp $p/usr/lib/anaconda/mknod-stub $p/usr/bin/mknod
-	cp $p/usr/lib/anaconda/syslogd-stub $p/usr/bin/syslogd
-	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
-	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/$LIBDIR
-
-	mv $p/etc/yum.repos.d $p/etc/anaconda.repos.d
-
-	# we only want the libunicode-lite stuff on the minimal image
-	if [ $p = $DESTGR ]; then
-	    rm -f $p/usr/$LIBDIR/libunicode-lite*
-	fi
-
-	find $p -type d | xargs chmod 755
-
-	if [ -f $p/bin/bash ]; then
-	    rm -f $p/bin/ash
-	    ln -s bash $p/bin/sh
-	else
-	    ln -sf busybox $p/bin/sh
-	fi
-
-	[ -d $p/bin ] || die "ERROR: directory missing: $p/bin"
-	[ -d $p/sbin ] || die "ERROR: directory missing: $p/sbin"
-	(cd $p/bin; find) | (cd $p/bin; /bin/cpio --quiet -pdmu $p/usr/bin)
-	(cd $p/sbin; find) | (cd $p/sbin; /bin/cpio --quiet -pdmu $p/usr/sbin)
-	rm -rf $p/bin
-	rm -rf $p/sbin
-
-	# Fix relative links like /usr/bin/udevinfo -> ../../sbin/udevadm
-	for brokenlink in $(find $p/usr/{bin,sbin} -follow -lname '*'); do
-            target="$(readlink $brokenlink)"
-            for pathbit in bin sbin; do
-            # if it starts with "../../sbin/", remove that
-		newtarget="${target##../../$pathbit/}"
-            # if we removed something, replace it with the proper path
-		if [ "$newtarget" != "$target" ]; then
-                # make it ../sbin/ instead
-                    ln -sf "../$pathbit/$newtarget" "$brokenlink"
-		fi
-            done
-	done
-
-	# copy bootloader files for sparc
-	if [ $ARCH = sparc -a $p = $DESTGR ]; then
-	    mkdir -p $p/usr/lib/anaconda-runtime/boot
-	    [ -d $p/boot ] || die "ERROR: directory missing: $p/boot"
-	    (cd $p/boot; find -name "*.b") | (cd $p/boot; /bin/cpio --quiet -pdmu $p/usr/lib/anaconda-runtime/boot)
+# Fix relative links like /usr/bin/udevinfo -> ../../sbin/udevadm
+for brokenlink in $(find $DEST/usr/{bin,sbin} -follow -lname '*') ; do
+    target="$(readlink $brokenlink)"
+    for pathbit in bin sbin; do
+        # if it starts with "../../sbin/", remove that
+        newtarget="${target##../../$DESTathbit/}"
+        # if we removed something, replace it with the proper path
+        if [ "$newtarget" != "$target" ]; then
+            # make it ../sbin/ instead
+            ln -sf "../$DESTathbit/$newtarget" "$brokenlink"
         fi
-
-	# copy bootloader file for ppc
-	if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
-	    mkdir -p $p/usr/lib/anaconda-runtime/boot
-	    cp -af $p/boot/efika.forth $p/usr/lib/anaconda-runtime/boot
-        fi
-	
-	# copy bootloader file for alpha
-	if [ $ARCH = alpha -a $p = $DESTGR ]; then
-	    mkdir -p $p/usr/lib/anaconda-runtime/boot
-	    cp -af $p/boot/bootlx $p/usr/lib/anaconda-runtime/boot
-        fi
-	
-	# copy bootloader files for ia64
-	if [ $ARCH = ia64 -a $p = $DESTGR ]; then
-	    mkdir -p $p/usr/lib/anaconda-runtime/boot
-	    cp -af $p/boot/efi/EFI/redhat//* $p/usr/lib/anaconda-runtime/boot
-	fi    
-
-	# copy bootloader files for i386/x86_64
-	if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-	    if [ $p = $DESTGR ]; then
-		mkdir -p $p/usr/lib/anaconda-runtime/boot
-		cp -af $p/boot/memtest* $p/usr/lib/anaconda-runtime/boot
-	    fi
-	fi
-
-	rm -rf $p/boot $p/home $p/root $p/tmp
-
-	find $p -name "*.a" | grep -v kernel-wrapper/wrapper.a | xargs rm -rf
-	find $p -name "lib*.la" |grep -v "usr/$LIBDIR/gtk-2.0" | xargs rm -rf
-
-	# nuke some python stuff we don't need
-        for d in idle distutils bsddb lib-old hotshot doctest.py pydoc.py site-packages/japanese site-packages/japanese.pth ; do
-	    rm -rf $p/$d
-	done
-
-	$p/usr/lib/anaconda-runtime/scrubtree $p
+    done
 done
+
+# copy bootloader files for sparc
+if [ $ARCH = sparc ]; then
+    mkdir -p $DEST/usr/lib/anaconda-runtime/boot
+    [ -d $DEST/boot ] || die "ERROR: directory missing: $DEST/boot"
+    (cd $DEST/boot; find -name "*.b") | (cd $DEST/boot; /bin/cpio --quiet -pdmu $DEST/usr/lib/anaconda-runtime/boot)
+fi
+
+# copy bootloader file for ppc
+if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
+    mkdir -p $DEST/usr/lib/anaconda-runtime/boot
+    cp -af $DEST/boot/efika.forth $DEST/usr/lib/anaconda-runtime/boot
+fi
+
+# copy bootloader file for alpha
+if [ $ARCH = alpha ]; then
+    mkdir -p $DEST/usr/lib/anaconda-runtime/boot
+    cp -af $DEST/boot/bootlx $DEST/usr/lib/anaconda-runtime/boot
+fi
+
+# copy bootloader files for ia64
+if [ $ARCH = ia64 ]; then
+    mkdir -p $DEST/usr/lib/anaconda-runtime/boot
+    cp -af $DEST/boot/efi/EFI/redhat//* $DEST/usr/lib/anaconda-runtime/boot
+fi
+
+# copy bootloader files for i386/x86_64
+if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
+    mkdir -p $DEST/usr/lib/anaconda-runtime/boot
+    cp -af $DEST/boot/memtest* $DEST/usr/lib/anaconda-runtime/boot
+fi
+
+rm -rf $DEST/boot $DEST/home $DEST/root $DEST/tmp
+
+find $DEST -name "*.a" | grep -v kernel-wrapper/wrapper.a | xargs rm -rf
+find $DEST -name "lib*.la" |grep -v "usr/$LIBDIR/gtk-2.0" | xargs rm -rf
+
+# nuke some python stuff we don't need
+for d in idle distutils bsddb lib-old hotshot doctest.py pydoc.py site-packages/japanese site-packages/japanese.pth ; do
+    rm -rf $DEST/$d
+done
+
+$DEST/usr/lib/anaconda-runtime/scrubtree $DEST
 
 echo "Creating debug dir"
-for p in $DEST $DESTGR ; do
-    mkdir -p $p/usr/lib/debug
-    mkdir -p $p/usr/src/debug
-done
+mkdir -p $DEST/usr/lib/debug
+mkdir -p $DEST/usr/src/debug
 
-for p in $DEST $DESTGR; do
-	find $p -name "*.py" | while read fn; do
-	    rm -f ${fn}o
-	    rm -f ${fn}c
-	    ln -sf /dev/null ${fn}c
-	done
+find $DEST -name "*.py" | while read fn; do
+    rm -f ${fn}o
+    rm -f ${fn}c
+    ln -sf /dev/null ${fn}c
 done
 
 # some python stuff we don't need for stage2
-rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/distutils/
-rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/lib-dynload/japanese
-rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/encodings/
-rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/compiler/
-rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/email/test/
-rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/curses/
-rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/pydoc.py
-
-# this is only for the minimal second stage
-echo "Cleaning ramdisk install images..."
-rm -rf $DEST/usr/lib/anaconda-runtime
+rm -rf $DEST/usr/$LIBDIR/python?.?/site-packages/distutils/
+rm -rf $DEST/usr/$LIBDIR/python?.?/site-packages/lib-dynload/japanese
+rm -rf $DEST/usr/$LIBDIR/python?.?/site-packages/encodings/
+rm -rf $DEST/usr/$LIBDIR/python?.?/site-packages/compiler/
+rm -rf $DEST/usr/$LIBDIR/python?.?/site-packages/email/test/
+rm -rf $DEST/usr/$LIBDIR/python?.?/site-packages/curses/
+rm -rf $DEST/usr/$LIBDIR/python?.?/site-packages/pydoc.py

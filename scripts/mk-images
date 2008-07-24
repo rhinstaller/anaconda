@@ -29,33 +29,24 @@ usage () {
     exit 0
 }
 
-NEEDGR=yes
 DEBUG=""
 BUILDARCH=`uname -m`
 BOOTISO="boot.iso"
 
 while [ $# -gt 0 ]; do
     case $1 in
-	--nogr)
-	    NEEDGR=""
-	    shift
-	    ;;
 	--debug)
 	    DEBUG="--debug"
 	    shift
 	    ;;
-       --noiso)
-           BOOTISO=""
-           shift
-           ;;
+
+	--noiso)
+	    BOOTISO=""
+	    shift
+	    ;;
 
 	--arch)
 	    BUILDARCH=$2
-	    shift; shift
-	    ;;
-
-	--mindir)
-	    INSTIMGTEMPLATE=$2
 	    shift; shift
 	    ;;
 
@@ -84,6 +75,16 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 
+	--nogr)
+	    echo "*** DeprecationWarning: ignoring --nogr option." >&2
+	    shift
+	    ;;
+
+	--mindir)
+	    echo "*** DeprecationWarning: ignoring --mindir option." >&2
+	    shift; shift
+	    ;;
+
 	*)
 	    yumconf=$1
 	    shift
@@ -91,7 +92,7 @@ while [ $# -gt 0 ]; do
     esac
 done
 
-if [ -z "$TOPDESTPATH" -o -z "$INSTIMGTEMPLATE" -o -z "$IMGPATH" -o -z "$PRODUCT" -o -z "$VERSION" ]; then usage; fi
+if [ -z "$TOPDESTPATH" -o -z "$IMGPATH" -o -z "$PRODUCT" -o -z "$VERSION" ]; then usage; fi
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
@@ -649,7 +650,6 @@ makeinstimage () {
     mkdir -p $mntpoint $tmp
 
     mkdir -p $tmp
-    (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmp)
     makeproductfile $tmp
 
     if [ -z "$type" -o "$type" = "cramfs" ]; then 
@@ -719,9 +719,6 @@ makemainimage () {
 
 makeSecondStage() {
     echo "[stage2]" >> $TOPDESTPATH/.treeinfo
-    echo "Building minstg.img"
-    makeinstimage "minstg" "squashfs"
-    [ $? = 0 ] || exit 1
     echo "Building stage2.img"
     makemainimage "stage2" "squashfs"
     [ $? = 0 ] || exit 1
@@ -836,7 +833,7 @@ for KERNELARCH in $arches; do
 done
 
 # do some clean up before making the cramfs of the second stage
-rm -rf $INSTIMGTEMPLATE/usr/lib/anaconda-runtime $INSTIMGTEMPLATE/usr/lib/syslinux $IMGPATH/usr/lib/syslinux
+rm -rf $IMGPATH/usr/lib/anaconda-runtime $IMGPATH/usr/lib/syslinux $IMGPATH/usr/lib/syslinux
 
 if [ -n "$foundakernel" ]; then
   makeSecondStage

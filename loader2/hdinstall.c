@@ -159,7 +159,7 @@ char * mountHardDrive(struct installMethod * method,
     char * dir = strdup("");
     char * tmpDir;
     char * url = NULL;
-    char * buf, *stage2img;
+    char * buf;
     int numPartitions;
 
     char **partition_list;
@@ -327,12 +327,7 @@ char * mountHardDrive(struct installMethod * method,
         /* The user-provided dir points at a repo instead of a stage2
          * image, so we have to fix that up now.
          */
-        if (totalMemory() < GUI_STAGE2_RAM)
-            stage2img = "minstg2.img";
-        else
-            stage2img = "stage2.img";
-
-        if (asprintf(&dir, "%s/%s", dir, stage2img) == -1) {
+        if (asprintf(&dir, "%s/stage2.img", dir) == -1) {
             logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
