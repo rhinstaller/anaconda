@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.18
+Version: 11.4.1.19
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -195,6 +195,16 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 24 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.19-1
+- Fix another NFS kickstart segfault (#456461). (clumens)
+- Remove support for generating a minstg2.img image. (dcantrell)
+- If the xconfig command is given, do something with it (#455938). (clumens)
+- METHOD_CDROM is now supported on s390 (jgranado). (clumens)
+- Fix test for if we could access stage2.img on the CD (wwoods).
+- Look for updates.img and product.img on the boot.iso. (clumens)
+- Suspend the curses interface before calling scripts and resume afterwards
+  (#435314) (msivak)
+
 * Wed Jul 23 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.18-1
 - MD_NEW_SIZE_BLOCKS no longer exists in newer kernel headers. (clumens)
 
