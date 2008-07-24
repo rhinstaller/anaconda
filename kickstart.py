@@ -749,6 +749,16 @@ class VolGroup(commands.volgroup.FC3_VolGroup):
         request.uniqueID = uniqueID
         addPartRequest(self.handler.anaconda, request)
 
+class XConfig(commands.xconfig.F10_XConfig):
+    def parse(self, args):
+        commands.xconfig.F10_XConfig.parse(self, args)
+
+        if self.startX:
+            self.handler.id.desktop.setDefaultRunLevel(5)
+
+        if self.defaultdesktop:
+            self.handler.id.desktop.setDefaultDesktop(self.defaultdesktop)
+
 class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
     def parse(self, args):
         commands.zerombr.FC3_ZeroMbr.parse(self, args)
@@ -821,7 +831,7 @@ commandMap = {
         "user": commands.user.F8_User,
         "vnc": commands.vnc.FC6_Vnc,
         "volgroup": VolGroup,
-        "xconfig": commands.xconfig.F10_XConfig,
+        "xconfig": XConfig,
         "zerombr": ZeroMbr,
         "zfcp": ZFCP
 }
