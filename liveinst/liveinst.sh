@@ -41,11 +41,11 @@ export ANACONDA_BUGURL="https://bugzilla.redhat.com/bugzilla/"
 export PATH=/sbin:/usr/sbin:$PATH
 
 if [ -n "$DISPLAY" -a -n "$LANG" ]; then
-    LANG="--lang $LANG"
+    INSTLANG="--lang $LANG"
 fi
 
 # eventually, we might want to allow a more "normal" install path
-ANACONDA="/usr/sbin/anaconda --liveinst --method=livecd://$LIVE_BLOCK"
+ANACONDA="/usr/sbin/anaconda --liveinst --method=livecd://$LIVE_BLOCK $INSTLANG"
 
 if [ -x /usr/sbin/setenforce -a -e /selinux/enforce ]; then
     current=$(cat /selinux/enforce)
