@@ -357,6 +357,8 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
             if (!(rc=doPwMount(devices[i]->device, location, "iso9660", "ro"))) {
                 cddev = devices[i]->device;
                 if (!access(stage2loc, R_OK)) {
+                    char *updpath;
+
                     if (mediaCheck)
                         queryCDMediaCheck(devices[i]->device, location);
 
@@ -381,6 +383,24 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                         umount(location);
                         continue;
                     }
+
+                    if (asprintf(&updpath, "%s/images/updates.img", location) == -1) {
+                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                        abort();
+                    }
+
+                    logMessage(INFO, "Looking for updates in %s", updpath);
+                    copyUpdatesImg(updpath);
+                    free(updpath);
+
+                    if (asprintf(&updpath, "%s/images/product.img", location) == -1) {
+                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                        abort();
+                    }
+
+                    logMessage(INFO, "Looking for product in %s", updpath);
+                    copyProductImg(updpath);
+                    free(updpath);
 
                     /* if in rescue mode and we copied stage2 to RAM */
                     /* we can now unmount the CD                     */
