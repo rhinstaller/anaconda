@@ -262,7 +262,7 @@ static void queryCDMediaCheck(char *dev, char *location) {
                     abort();
                 }
 
-                if (!access(stage2loc, R_OK)) {
+                if (access(stage2loc, R_OK)) {
                     free(stage2loc);
                     umount(location);
                     ejectCdrom(dev);
