@@ -990,6 +990,12 @@ class InstallInterface:
     def shutdown (self):
         pass
 
+    def suspend(self):
+        pass
+
+    def resume(self):
+        pass
+
     def setPackageProgressWindow (self, ppw):
         self.ppw = ppw
 

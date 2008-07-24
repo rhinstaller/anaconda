@@ -599,6 +599,12 @@ class InstallInterface:
 	self.screen.finish()
 	self.screen = None
 
+    def suspend(self):
+        self.screen.suspend()
+
+    def resume(self):
+        self.screen.resume()
+
     def __init__(self):
 	signal.signal(signal.SIGINT, signal.SIG_IGN)
 	signal.signal(signal.SIGTSTP, signal.SIG_IGN)

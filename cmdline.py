@@ -62,6 +62,12 @@ class InstallInterface:
     def shutdown(self):
         pass
 
+    def suspend(self):
+        pass
+
+    def resume(self):
+        pass
+
     def getInstallKey(self, *args):
         print _("Can't have a question in command line mode!")
         while 1:

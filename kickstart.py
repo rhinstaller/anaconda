@@ -59,9 +59,13 @@ class AnacondaKSScript(Script):
         else:
             messages = "/dev/tty3"
 
+        if intf:
+            intf.suspend()
         rc = iutil.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
                                     stdin = messages, stdout = messages, stderr = messages,
                                     root = scriptRoot)
+        if intf:
+            intf.resume()
 
         # Always log an error.  Only fail if we have a handle on the
         # windowing system and the kickstart file included --erroronfail.
