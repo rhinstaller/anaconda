@@ -24,9 +24,7 @@
 
 /* method identifiers, needs to match struct installMethod order in loader.c */
 enum {
-#if !defined(__s390__) && !defined(__s390x__)
     METHOD_CDROM,
-#endif
     METHOD_HD,
     METHOD_NFS,
     METHOD_URL
