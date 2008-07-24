@@ -72,6 +72,12 @@ class InstallInterface:
     def shutdown(self):
         pass
 
+    def suspend(self):
+        pass
+
+    def resume(self):
+        pass
+
     def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
         return ProgressWindow(title, text, total, updpct, pulse)
 
