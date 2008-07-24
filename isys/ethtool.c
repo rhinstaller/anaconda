@@ -86,3 +86,28 @@ int setEthtoolSettings(char * dev, ethtool_speed speed,
 
     return 0;
 }
+
+int identifyNIC(char *iface, int seconds) {
+    int sock;
+    struct ethtool_value edata;
+    struct ifreq ifr;
+
+    if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+        perror("Unable to create socket");
+        return -1;
+    }
+
+    memset(&ifr, 0, sizeof(ifr));
+    memset(&edata, 0, sizeof(edata));
+
+    strcpy(ifr.ifr_name, iface);
+    edata.cmd = ETHTOOL_PHYS_ID;
+    edata.data = seconds;
+    ifr.ifr_data = (caddr_t) &edata;
+
+    if (ioctl(sock, SIOCETHTOOL, &ifr) < 0) {
+        perror("Unable to identify NIC");
+    }
+
+    return 0;
+}
