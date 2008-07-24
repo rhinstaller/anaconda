@@ -768,17 +768,11 @@ if __name__ == "__main__":
     #
     # Determine install method - GUI or TUI
     #
-    # use GUI by default except for install methods that were traditionally
-    # text based due to the requirement of a small stage 2
-    #
     # if display_mode wasnt set by command line parameters then set default
     #
     if not opts.display_mode:
-        if opts.stage2 and opts.stage2.find("minstg2.img") != -1:
-            opts.display_mode = 't'
-        else:
-            opts.display_mode = 'g'
-    
+        opts.display_mode = 'g'
+
     if opts.display_mode == 't' and flags.vncquestion: #we prefer vnc over text mode, so ask about that
         title = _("Would you like to use VNC?")
         message = _("The VNC mode installation offers more functionality than the text mode, would you like to use it instead?")
