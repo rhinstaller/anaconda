@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.19
+Version: 11.4.1.20
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -195,6 +195,10 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jul 25 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.20-1
+- Clean up some mistakes in the minstg2 removal. (dcantrell)
+- Fix passing the language to anaconda (katzj)
+
 * Thu Jul 24 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.19-1
 - Fix another NFS kickstart segfault (#456461). (clumens)
 - Remove support for generating a minstg2.img image. (dcantrell)
