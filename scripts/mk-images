@@ -650,6 +650,7 @@ makeinstimage () {
     mkdir -p $mntpoint $tmp
 
     mkdir -p $tmp
+    (cd $IMGPATH; find . | cpio --quiet -p $tmp)
     makeproductfile $tmp
 
     if [ -z "$type" -o "$type" = "cramfs" ]; then 

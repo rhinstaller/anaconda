@@ -932,7 +932,7 @@ sed -i "s,^MANPATH_MAP[ \t]*[a-zA-Z0-9/]*[ \t]*,&/mnt/sysimage," $DEST/etc/man.c
 
 rm -f $KEEPFILE $KEEPFILERESCUE
 
-echo "Scrubbing trees..." "$DEST"
+echo "Scrubbing tree..." "$DEST"
 mkdir -p $DEST/lib
 mkdir -p $DEST/firmware
 ln -snf /modules $DEST/lib/modules
@@ -974,11 +974,11 @@ for brokenlink in $(find $DEST/usr/{bin,sbin} -follow -lname '*') ; do
     target="$(readlink $brokenlink)"
     for pathbit in bin sbin; do
         # if it starts with "../../sbin/", remove that
-        newtarget="${target##../../$DESTathbit/}"
+        newtarget="${target##../../$pathbit/}"
         # if we removed something, replace it with the proper path
         if [ "$newtarget" != "$target" ]; then
             # make it ../sbin/ instead
-            ln -sf "../$DESTathbit/$newtarget" "$brokenlink"
+            ln -sf "../$pathbit/$newtarget" "$brokenlink"
         fi
     done
 done
