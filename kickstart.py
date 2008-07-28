@@ -922,7 +922,7 @@ class Kickstart(cobject):
 
         # Only skip the network screen if there are no devices that used
         # network --bootproto=query.
-        if len(filter(lambda nd: nd.bootProto == "query", self.ksdata.network)) == 0:
+        if not self.id.network.query:
             dispatch.skipStep("network")
 
         # Don't show confirmation screens on non-interactive installs.

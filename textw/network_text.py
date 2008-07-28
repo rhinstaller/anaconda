@@ -270,7 +270,7 @@ class NetworkDeviceWindow:
 
         maingrid = Grid(1, 3)
         dhcpCb = radio.add(_("Dynamic IP configuration (DHCP)"),
-                           "dhcp", (bootproto in ["query", "dhcp"]))
+                           "dhcp", (bootproto == "dhcp"))
         maingrid.setField(dhcpCb, 0, 0, growx = 1, anchorLeft = 1)
         manualCb = radio.add(_("Manual address configuration"),
                              "static", (bootproto == "static"))
@@ -398,7 +398,7 @@ class NetworkDeviceWindow:
 
         maingrid = Grid(1, 4)
         autoCb = radio.add(_('Automatic neighbor discovery'), 'auto',
-                           (ipv6autoconf in ['query', 'yes']))
+                           (ipv6autoconf == 'yes'))
         maingrid.setField(autoCb, 0, 0, growx = 1, anchorLeft = 1)
         dhcpCb = radio.add(_('Dynamic IP configuration (DHCPv6)'), 'dhcp',
                            (ipv6addr is not None and ipv6addr == 'dhcp'))
@@ -658,12 +658,12 @@ class NetworkDeviceWindow:
             else:
                 onboot = _("Inactive on boot")
 
-            if dev.get('bootproto').lower() in ['query', 'dhcp']:
+            if dev.get('bootproto').lower() == 'dhcp':
                 ipv4 = _("DHCP")
             else:
                 ipv4 = dev.get('ipaddr')
 
-            if bool(dev.get('ipv6_autoconf')) or dev.get('ipv6addr').lower() == 'query':
+            if bool(dev.get('ipv6_autoconf')):
                 ipv6 = _("Auto IPv6")
             elif dev.get('ipv6addr').lower() == 'dhcp':
                 ipv6 = _("DHCPv6")

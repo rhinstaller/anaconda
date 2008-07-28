@@ -266,7 +266,12 @@ class BaseInstallClass:
                         list.sort()
                         device = list[0]
 		dev = devices[device]
-                dev.set (("bootproto", bootProto))
+
+                if bootProto == "query":
+                    id.network.query = True
+                else:
+                    dev.set (("bootproto", bootProto))
+
                 dev.set (("dhcpclass", dhcpclass))
 		if onboot:
 		    dev.set (("onboot", "yes"))

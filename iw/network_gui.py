@@ -293,7 +293,7 @@ class NetworkWindow(InstallWindow):
 
         if device.get('ipaddr').lower() == 'dhcp':
 	    ip = 'DHCP'
-        elif device.get('bootproto').lower() in ['query', 'dhcp']:
+        elif device.get('bootproto').lower() in ['dhcp']:
             ip = 'DHCP'
 	else:
 	    prefix = str(isys.netmask2prefix(device.get('netmask')))
@@ -309,7 +309,7 @@ class NetworkWindow(InstallWindow):
         addr = device.get('ipv6addr').lower()
         pfx = device.get('ipv6prefix').lower()
 
-        if auto == 'yes' or addr == '' or addr == 'query':
+        if auto == 'yes' or addr == '':
             ip = 'Auto'
         elif addr == 'dhcp':
 	    ip = 'DHCPv6'
@@ -365,7 +365,7 @@ class NetworkWindow(InstallWindow):
 		active = False
 
 	    bootproto = self.devices[device].get("bootproto")
-	    if not bootproto or bootproto == 'query':
+            if not bootproto:
 		bootproto = 'dhcp'
 		self.devices[device].set(("bootproto", bootproto))
 		

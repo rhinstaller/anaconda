@@ -178,6 +178,7 @@ class Network:
         self.domains = []
 	self.isConfigured = 0
         self.hostname = "localhost.localdomain"
+        self.query = False
 
         # if we specify a hostname and are using dhcp, do an override
         # originally used by the gui but overloaded now
