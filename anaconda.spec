@@ -85,6 +85,7 @@ Requires: device-mapper >= %{dmver}
 Requires: device-mapper-libs >= %{dmver}
 Requires: dosfstools
 Requires: e2fsprogs
+Requires: gzip
 %ifarch %{ix86} x86_64 ia64
 Requires: dmidecode
 %endif
