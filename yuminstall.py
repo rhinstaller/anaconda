@@ -674,6 +674,16 @@ class AnacondaYum(YumSorter):
         repo.yumvar.update(self.conf.yumvar)
         repo.cfg = parser
 
+        if repo.id.find("-source") != -1 or repo.id.find("-debuginfo") != -1:
+            name = repo.name
+            del(repo)
+            raise RepoError, "Repo %s contains -source or -debuginfo, excluding" % name
+
+        if betanag and not repo.enabled:
+            name = repo.name
+            del(repo)
+            raise RepoError, "Excluding disabled repo %s for prerelease" % name
+
         # If repo=/method= was passed in, we want to default these extra
         # repos to off.
         if self._baseRepoURL:
