@@ -143,10 +143,13 @@ def turnOnFilesystems(anaconda):
                 # device node creation sometimes.  so wait for device nodes
                 # to settle
                 time.sleep(1)
+                w = anaconda.intf.waitWindow(_("Activating"), _("Activating new partitions and filesystems.  Please wait..."))
                 rc = iutil.execWithRedirect("udevsettle", [],
                                             stdout = "/dev/tty5",
                                             stderr = "/dev/tty5",
                                             searchPath = 1)
+                w.pop()
+
                 try:
                     anaconda.id.partitions.doMetaResizes(anaconda.id.diskset)
                 except lvm.LVResizeError, e:
