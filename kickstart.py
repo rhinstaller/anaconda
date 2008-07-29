@@ -823,6 +823,7 @@ commandMap = {
         "raid": Raid,
         "reboot": Reboot,
         "repo": commands.repo.F8_Repo,
+        "rescue": commands.rescue.F10_Rescue,
         "rootpw": RootPw,
         "selinux": SELinux,
         "services": commands.services.FC6_Services,
@@ -866,6 +867,12 @@ class VNCHandler(superclass):
     def __init__(self, anaconda=None):
         superclass.__init__(self, mapping=commandMap)
         self.maskAllExcept(["vnc", "displaymode", "text", "cmdline", "graphical"])
+
+class RescueHandler(superclass):
+    # We're only interested in the handler for the rescue command
+    def __init__(self, anaconda=None):
+        superclass.__init__(self, mapping=commandMap)
+        self.maskAllExcept(["rescue"])
 
 class KickstartPreParser(KickstartParser):
     def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,

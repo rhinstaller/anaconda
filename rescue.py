@@ -277,40 +277,53 @@ def runRescue(anaconda, instClass):
 
     # Early shell access with no disk access attempts
     if not anaconda.rescue_mount:
-        runShell()
+        # the %post should be responsible for mounting all needed file systems
+        # NOTE: 1st script must be bash or simple python as nothing else might be available in the rescue image
+        if anaconda.isKickstart:
+           from kickstart import runPostScripts
+           runPostScripts(anaconda)
+        else:
+           runShell()
+
         sys.exit(0)
 
-    screen = SnackScreen()
-    anaconda.intf = RescueInterface(screen)
-
-    # prompt to see if we should try and find root filesystem and mount
-    # everything in /etc/fstab on that root
-    rc = ButtonChoiceWindow(screen, _("Rescue"),
-        _("The rescue environment will now attempt to find your "
-          "Linux installation and mount it under the directory "
-          "%s.  You can then make any changes required to your "
-          "system.  If you want to proceed with this step choose "
-          "'Continue'.  You can also choose to mount your file systems "
-          "read-only instead of read-write by choosing 'Read-Only'."
-          "\n\n"
-          "If for some reason this process fails you can choose 'Skip' "
-          "and this step will be skipped and you will go directly to a "
-          "command shell.\n\n") % (anaconda.rootPath,),
-          [_("Continue"), _("Read-Only"), _("Skip")] )
-
-    if rc == string.lower(_("Skip")):
-        runShell(screen)
-        sys.exit(0)
-    elif rc == string.lower(_("Read-Only")):
-        readOnly = 1
+    if anaconda.isKickstart:
+        if anaconda.id.ksdata.rescue and anaconda.id.ksdata.rescue.romount:
+            readOnly = 1
+        else:
+            readOnly = 0
     else:
-        readOnly = 0
+        screen = SnackScreen()
+        anaconda.intf = RescueInterface(screen)
+
+        # prompt to see if we should try and find root filesystem and mount
+        # everything in /etc/fstab on that root
+        rc = ButtonChoiceWindow(screen, _("Rescue"),
+            _("The rescue environment will now attempt to find your "
+              "Linux installation and mount it under the directory "
+              "%s.  You can then make any changes required to your "
+              "system.  If you want to proceed with this step choose "
+              "'Continue'.  You can also choose to mount your file systems "
+              "read-only instead of read-write by choosing 'Read-Only'."
+              "\n\n"
+              "If for some reason this process fails you can choose 'Skip' "
+              "and this step will be skipped and you will go directly to a "
+              "command shell.\n\n") % (anaconda.rootPath,),
+              [_("Continue"), _("Read-Only"), _("Skip")] )
+
+        if rc == string.lower(_("Skip")):
+            runShell(screen)
+            sys.exit(0)
+        elif rc == string.lower(_("Read-Only")):
+            readOnly = 1
+        else:
+            readOnly = 0
 
     disks = upgrade.findExistingRoots(anaconda, upgradeany = 1)
 
     if not disks:
         root = None
-    elif len(disks) == 1:
+    elif (len(disks) == 1) or anaconda.isKickstart:
         root = disks[0]
     else:
         height = min (len (disks), 12)
@@ -352,22 +365,28 @@ def runRescue(anaconda, instClass):
                                             readOnly = readOnly)
 
             if rc == -1:
-                ButtonChoiceWindow(screen, _("Rescue"),
-                    _("Your system had dirty file systems which you chose not "
-                      "to mount.  Press return to get a shell from which "
-                      "you can fsck and mount your partitions.  The system "
-                      "will reboot automatically when you exit from the "
-                      "shell."), [_("OK")], width = 50)
+                if anaconda.isKickstart:
+                    log.error("System had dirty file systems which you chose not to mount")
+                else:
+                    ButtonChoiceWindow(screen, _("Rescue"),
+                        _("Your system had dirty file systems which you chose not "
+                          "to mount.  Press return to get a shell from which "
+                          "you can fsck and mount your partitions.  The system "
+                          "will reboot automatically when you exit from the "
+                          "shell."), [_("OK")], width = 50)
                 rootmounted = 0
             else:
-                ButtonChoiceWindow(screen, _("Rescue"),
-                   _("Your system has been mounted under %s.\n\n"
-                     "Press <return> to get a shell. If you would like to "
-                     "make your system the root environment, run the command:\n\n"
-                     "\tchroot %s\n\nThe system will reboot "
-                     "automatically when you exit from the shell.") %
-                                   (anaconda.rootPath, anaconda.rootPath),
-                                   [_("OK")] )
+                if anaconda.isKickstart:
+                    log.info("System has been mounted under: %s" % anaconda.rootPath)
+                else:
+                    ButtonChoiceWindow(screen, _("Rescue"),
+                       _("Your system has been mounted under %s.\n\n"
+                         "Press <return> to get a shell. If you would like to "
+                         "make your system the root environment, run the command:\n\n"
+                         "\tchroot %s\n\nThe system will reboot "
+                         "automatically when you exit from the shell.") %
+                                       (anaconda.rootPath, anaconda.rootPath),
+                                       [_("OK")] )
                 rootmounted = 1
 
                 # now turn on swap
@@ -438,18 +457,24 @@ def runRescue(anaconda, instClass):
             if exc in (IndexError, ValueError, SyntaxError):
                 raise exc, val, sys.exc_info()[2]
 
-            ButtonChoiceWindow(screen, _("Rescue"),
-                _("An error occurred trying to mount some or all of your "
-                  "system. Some of it may be mounted under %s.\n\n"
-                  "Press <return> to get a shell. The system will reboot "
-                  "automatically when you exit from the shell.") % (anaconda.rootPath,),
-                  [_("OK")] )
+            if anaconda.isKickstart:
+                log.error("An error occurred trying to mount some or all of your system")
+            else:
+                ButtonChoiceWindow(screen, _("Rescue"),
+                    _("An error occurred trying to mount some or all of your "
+                      "system. Some of it may be mounted under %s.\n\n"
+                      "Press <return> to get a shell. The system will reboot "
+                      "automatically when you exit from the shell.") % (anaconda.rootPath,),
+                      [_("OK")] )
     else:
-        ButtonChoiceWindow(screen, _("Rescue Mode"),
-                           _("You don't have any Linux partitions. Press "
-                             "return to get a shell. The system will reboot "
-                             "automatically when you exit from the shell."),
-                           [ _("OK") ], width = 50)
+        if anaconda.isKickstart:
+            log.info("No Linux partitions found")
+        else:
+            ButtonChoiceWindow(screen, _("Rescue Mode"),
+                               _("You don't have any Linux partitions. Press "
+                                 "return to get a shell. The system will reboot "
+                                 "automatically when you exit from the shell."),
+                               [ _("OK") ], width = 50)
 
     msgStr = ""
 
@@ -461,5 +486,11 @@ def runRescue(anaconda, instClass):
             log.error("error making a resolv.conf: %s" %(e,))
         msgStr = _("Your system is mounted under the %s directory.") % (anaconda.rootPath,)
 
-    runShell(screen, msgStr)
+    # run %post if we've mounted everything
+    if anaconda.isKickstart:
+        from kickstart import runPostScripts
+        runPostScripts(anaconda)
+    else:
+        runShell(screen, msgStr)
+
     sys.exit(0)

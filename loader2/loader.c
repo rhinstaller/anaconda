@@ -2018,6 +2018,11 @@ int main(int argc, char ** argv) {
     if (FL_NOIPV6(flags))
         *argptr++ = "--noipv6";
 
+    if (FL_KICKSTART(flags)) {
+        *argptr++ = "--kickstart";
+        *argptr++ = loaderData.ksFile;
+    }
+
     if (FL_SERIAL(flags))
         *argptr++ = "--serial";
 
@@ -2036,11 +2041,6 @@ int main(int argc, char ** argv) {
             *argptr++ = "--noselinux";
         else if (FL_SELINUX(flags))
             *argptr++ = "--selinux";
-
-        if (FL_KICKSTART(flags)) {
-            *argptr++ = "--kickstart";
-            *argptr++ = loaderData.ksFile;
-        }
 
         if (FL_VIRTPCONSOLE(flags)) {
             *argptr++ = "--virtpconsole";

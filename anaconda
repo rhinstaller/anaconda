@@ -325,6 +325,35 @@ def setVNCFromKickstart(opts):
 
     return handler.vnc
 
+def setRescueModeFromKickstart(opts):
+    from kickstart import KickstartError, RescueHandler
+    from pykickstart.parser import KickstartParser, preprocessKickstart
+
+    try:
+        opts.ksfile = preprocessKickstart(opts.ksfile)
+    except KickstartError, msg:
+        stdoutLog.critical(_("Error processing %%ksappend lines: %s") % e)
+        sys.exit(1)
+    except Exception, e:
+        stdoutLog.critical(_("Unknown error processing %%ksappend lines: %s") % e)
+        sys.exit(1)
+
+    # now see if they enabled rescue mode via the kickstart file. 
+    handler = RescueHandler()
+    ksparser = KickstartParser(handler, missingIncludeIsFatal=False)
+
+    # We don't have an intf by now so the best we can do is just print the
+    # exception out.
+    try:
+        ksparser.readKickstart(opts.ksfile)
+    except KickstartError, e:
+        print _("The following error was found while parsing your "
+                "kickstart configuration:\n\n%s") % e
+        sys.exit(1)
+
+    # True or False
+    return handler.rescue.rescue
+
 def setupPythonPath():
     # For anaconda in test mode
     if (os.path.exists('isys')):
@@ -747,12 +776,24 @@ if __name__ == "__main__":
     #
     # must specify install, rescue mode
     #
+    if opts.ksfile and (not opts.rescue):
+        opts.rescue = setRescueModeFromKickstart(opts)
+
     if opts.rescue:
         anaconda.rescue = True
 
         import rescue, instdata
 
         anaconda.id = instdata.InstallData(anaconda, [], opts.display_mode)
+
+        if opts.ksfile:
+            anaconda.isKickstart = True
+            instClass.setInstallData(anaconda)
+            kickstart.processKickstartFile(anaconda, opts.ksfile)
+
+            # command line 'nomount' overrides kickstart /same for vnc/
+            anaconda.rescue_mount = not (opts.rescue_nomount or anaconda.id.ksdata.rescue.nomount)
+
         rescue.runRescue(anaconda, instClass)
 
         # shouldn't get back here
