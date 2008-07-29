@@ -1246,10 +1246,8 @@ class Partitions:
                     errors.append(_("Bootable partitions cannot be on a RAID "
                                     "device."))
 
-                # XFS causes problems as /boot. see #138673 and others
-                # gfs2 and ext4 aren't supported by grub
-                if (bootreq.fstype and
-                    bootreq.fstype.getName() in ("xfs", "gfs2", "ext4")):
+                # Lots of filesystems types don't support /boot.
+                if (bootreq.fstype and not bootreq.fstype.isBootable()):
                     errors.append(_("Bootable partitions cannot be on an %s "
                                     "filesystem.")%(bootreq.fstype.getName(),))
 
@@ -1262,8 +1260,6 @@ class Partitions:
                 if (bootreq.isEncrypted(self)):
                     errors.append(_("Bootable partitions cannot be on an "
                                     "encrypted block device"))
-
-                    
 
         if foundSwap == 0:
             warnings.append(_("You have not specified a swap partition.  "

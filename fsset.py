@@ -194,6 +194,10 @@ class FileSystemType:
         self.supportsFsProfiles = False
         self.fsProfileSpecifier = None
         self.fsprofile = None
+        self.bootable = False
+
+    def isBootable(self):
+        return self.bootable
 
     def isResizable(self):
         return self.resizable
@@ -364,6 +368,7 @@ class reiserfsFileSystem(FileSystemType):
         self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
+        self.bootable = True
         # this is totally, 100% unsupported.  Boot with "linux reiserfs"
         # at the boot: prompt will let you make new reiserfs filesystems
         # in the installer.  Bugs filed when you use this will be closed
@@ -458,6 +463,7 @@ class jfsFileSystem(FileSystemType):
         self.checked = 1
         self.linuxnativefs = 1
         self.maxLabelChars = 16
+        self.bootable = True
         # this is totally, 100% unsupported.  Boot with "linux jfs"
         # at the boot: prompt will let you make new reiserfs filesystems
         # in the installer.  Bugs filed when you use this will be closed
@@ -541,6 +547,7 @@ class extFileSystem(FileSystemType):
         self.supportsFsProfiles = True
         self.fsProfileSpecifier = "-T"
         self.resizable = True
+        self.bootable = True
 
     def resize(self, entry, size, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -759,6 +766,7 @@ class ext4FileSystem(extFileSystem):
         self.partedFileSystemType = parted.file_system_type_get("ext3")
 	# 256-byte inodes are actually default now, but let's be sure.
         self.extraFormatArgs = [ "-j", "-I", "256", "-E", "test_fs" ]
+        self.bootable = False
 
         # this is way way experimental at present...
         if flags.cmdline.has_key("ext4"):
@@ -986,6 +994,7 @@ class EFIFileSystem(FATFileSystem):
         self.partedPartitionFlags = [ parted.PARTITION_BOOT ]
         self.maxSizeMB = 256
         self.defaultOptions = "umask=0077,shortname=winnt"
+        self.bootable = True
         if not iutil.isEfi():
             self.supported = 0
 
@@ -1104,6 +1113,7 @@ class applebootstrapFileSystem(hfsFileSystem):
         self.partedPartitionFlags = [ parted.PARTITION_BOOT ]
         self.maxSizeMB = 1
         self.name = "Apple Bootstrap"
+        self.bootable = True
         if iutil.getPPCMacGen() == "NewWorld":
             self.linuxnativefs = 1
             self.supported = 1
@@ -1121,6 +1131,7 @@ class prepbootFileSystem(FileSystemType):
         self.checked = 0
         self.name = "PPC PReP Boot"
         self.maxSizeMB = 10
+        self.bootable = True
 
         if iutil.getPPCMachine() == "iSeries":
             self.maxSizeMB = 64
