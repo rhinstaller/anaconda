@@ -121,7 +121,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
 	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date
-         yum-metadata-parser gfs2-utils libvolume_id rhel-instnum
+         yum-metadata-parser gfs2-utils libvolume_id rhel-instnum yum-kmod
 	 libdhcp libnl libdhcp6client libdhcp4client device-mapper-multipath
 	 kpartx dmraid python-pyblock mkinitrd libbdevid libbdevid-python
 	 libselinux-python nss udev keyutils-libs nspr python-iniparse
@@ -285,7 +285,7 @@ etc/selinux/targeted/*
 usr/share/selinux/targeted/*
 etc/security/selinux/policy.*
 etc/security/selinux/file_contexts
-etc/yum/pluginconf.d
+etc/yum/pluginconf.d/kmod.conf
 $LIBDIR/bdevid/*
 $LIBDIR/libaudit*.so*
 $LIBDIR/libc[-.]*
@@ -470,7 +470,7 @@ usr/lib/rpm/rpmrc
 usr/lib/yaboot/addnote
 usr/lib/yaboot/ofboot
 usr/lib/yaboot/yaboot
-usr/lib/yum-plugins
+usr/lib/yum-plugins/kmod.py*
 usr/libexec/convertdb1
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/share/locale/locale.alias
@@ -1103,14 +1103,6 @@ directory = /mnt/sysimage/etc
 directory = /mnt/sysimage/etc
 EOF
 
-echo "Creating fedorakmod.conf"
-cat > $DEST/etc/yum/pluginconf.d/fedorakmod.conf <<EOF
-[main]
-enabled = 1
-pinkernels = 0
-installforallkernels = 1
-EOF
-
 echo "Creating multipath.conf"
 cat > $DEST/etc/multipath.conf <<EOF
 defaults {
@@ -1121,12 +1113,10 @@ EOF
 cp $DEST/etc/shells $DESTGR/etc/shells
 cp $DEST/etc/nsswitch.conf $DESTGR/etc/nsswitch.conf
 cp $DEST/etc/libuser.conf $DESTGR/etc/libuser.conf
-cp $DEST/etc/yum/pluginconf.d/fedorakmod.conf $DESTGR/etc/yum/pluginconf.d/fedorakmod.conf
 cp $DEST/etc/multipath.conf $DESTGR/etc/multipath.conf
 
-# set up symlinks so the fedorakmod plugin gets used
-ln -s ../anaconda/fedorakmod.py $DESTGR/usr/lib/yum-plugins/fedorakmod.py
-ln -s ../anaconda/fedorakmod.py $DEST/usr/lib/yum-plugins/fedorakmod.py
+sed -i 's|\(installforallkernels\) = 0|\1 = 1|' $DEST/etc/yum/pluginconf.d/kmod.conf
+cp $DEST/etc/yum/pluginconf.d/kmod.conf $DESTGR/etc/yum/pluginconf.d/
 
 # fixup man.config to point into /mnt/sysimage for rescue
 if [ -n "$NEEDGR" ]; then
