@@ -32,12 +32,13 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define libbdevidver 5.1.2-1
 %define rhpxlver 0.25
 %define desktopfileutilsver 0.8
+%define e2fsver 1.41.0
 
 BuildRequires: audit-libs-devel
 BuildRequires: booty
 BuildRequires: bzip2-devel
 BuildRequires: device-mapper-devel >= %{dmver}
-BuildRequires: e2fsprogs-devel
+BuildRequires: e2fsprogs-devel >= %{e2fsver}
 BuildRequires: elfutils-devel
 BuildRequires: gettext >= %{gettextver}
 BuildRequires: gtk2-devel
@@ -84,7 +85,7 @@ Requires: system-config-date >= %{syscfgdatever}
 Requires: device-mapper >= %{dmver}
 Requires: device-mapper-libs >= %{dmver}
 Requires: dosfstools
-Requires: e2fsprogs
+Requires: e2fsprogs >= %{e2fsver}
 Requires: gzip
 %ifarch %{ix86} x86_64 ia64
 Requires: dmidecode

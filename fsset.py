@@ -730,7 +730,7 @@ class ext3FileSystem(extFileSystem):
     def __init__(self):
         extFileSystem.__init__(self)
         self.name = "ext3"
-        self.extraFormatArgs = [ "-j" ]
+        self.extraFormatArgs = [ "-t ext3" ]
         self.partedFileSystemType = parted.file_system_type_get("ext3")
         if flags.cmdline.has_key("ext4"):
             self.migratetofs = ['ext4dev']
@@ -764,8 +764,7 @@ class ext4FileSystem(extFileSystem):
         extFileSystem.__init__(self)
         self.name = "ext4dev"
         self.partedFileSystemType = parted.file_system_type_get("ext3")
-	# 256-byte inodes are actually default now, but let's be sure.
-        self.extraFormatArgs = [ "-j", "-I", "256", "-E", "test_fs" ]
+        self.extraFormatArgs = [ "-t", "ext4dev" ]
         self.bootable = False
 
         # this is way way experimental at present...
