@@ -36,22 +36,20 @@ prepareBootTree() {
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 
-	if [ -n "$NEEDGR" ]; then
-	    if [ -f $IMGPATH/usr/lib/anaconda-runtime/syslinux-vesa-splash.jpg ]; then
+	if [ -f $IMGPATH/usr/lib/anaconda-runtime/syslinux-vesa-splash.jpg ]; then
 		cp $IMGPATH/usr/lib/anaconda-runtime/syslinux-vesa-splash.jpg $MBD_BOOTTREE/splash.jpg
 		cp $IMGPATH/usr/lib/syslinux/vesamenu.c32 $MBD_BOOTTREE/vesamenu.c32
 		sed -i s'/default linux/default vesamenu.c32/g' $MBD_BOOTTREE/syslinux.cfg
 		sed -i 's/prompt 1/#prompt 1/g' $MBD_BOOTTREE/syslinux.cfg
-	    elif [ -x $IMGPATH/usr/lib/anaconda-runtime/splashtolss.sh ]; then
+	elif [ -x $IMGPATH/usr/lib/anaconda-runtime/splashtolss.sh ]; then
 		$IMGPATH/usr/lib/anaconda-runtime/splashtolss.sh $BOOTDISKDIR/syslinux-splash.png $BOOTDISKDIR/splash.lss
 		if [ $? != 0 ]; then
 		    echo $0: Failed to create splash.lss
 		    exit 1
 		fi    
 		cp $BOOTDISKDIR/splash.lss $MBD_BOOTTREE/splash.lss
-	    elif [ -f $IMGPATH/usr/lib/anaconda-runtime/splash.lss ]; then
+	elif [ -f $IMGPATH/usr/lib/anaconda-runtime/splash.lss ]; then
 		cp $IMGPATH/usr/lib/anaconda-runtime/splash.lss $MBD_BOOTTREE/splash.lss
-	    fi
 	fi
 
 	rm -f $MBD_BOOTTREE/syslinux-splash.png
