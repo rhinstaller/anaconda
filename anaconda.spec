@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.117
+Version: 11.1.2.118
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,9 +102,35 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 30 2008 Joel Granados <jgranado@redhat.com> 11.1.2.118-1
+- Use fedorakmod.py plugin from yum-utils package, don't pack it in anaconda (rvykydal).
+  Resolves: rhbz#434804
+- Make sure bootproto=query settings carry over to stage2 (clumens).
+  Resolves: rhbz#453863
+- Probe BUS_VIRTIO again after probing BUS_PCI (markmc).
+  Resolves: rhbz#446232
+- Add virtio drives to multipath blacklist (markmc).
+  Resolves: rhbz#446232
+- Add virtio max partition count (markmc).
+  Resolves: rhbz#446232
+- Sort virtio devices first (markmc).
+  Resolves: rhbz#446232
+- Probe on BUS_VIRTIO for devices (markmc).
+  Resolves: rhbz#446232
+- Explicitly include virtio_pci in the initrd (markmc).
+  Resolves: rhbz#446232
+- Add virtio to module-info (markmc).
+  Resolves: rhbz#446232
+- Add virtio support to devMakeInode() (markmc).
+  Resolves: rhbz#446232
+- Offer physical NIC identification in stage 1 (dcantrell).
+  Resolves: rhbz:#261101
+- Suspend the curses interface before calling scripts and resume afterwards (msivak).
+  Resolves: rhbz#435314
+
 * Wed Jul 23 2008 Joel Granados <jgranado@redhat.com> 11.1.2.117-1
 - Fix the build.
-- Change the Makefile so id doesn't replace tags.
+- Change the Makefile so it doesn't replace tags.
 
 * Wed Jul 23 2008 Joel Granados <jgranado@redhat.com> 11.1.2.116-1
 - Specify a default cio_ignore parameter for s390x (dcantrell).
