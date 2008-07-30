@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.22
+Version: 11.4.1.23
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -197,6 +197,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 30 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.23-1
+- Fix mke2fs argument passing (#457285). (clumens)
+- Disable logging in the firmware loader, since it clobbers other
+  log messages. (pjones)
+
 * Wed Jul 30 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.22-1
 - udevsettle takes forever, so display a waitWindow. (clumens)
 - Leave anaconda-runtime around for mk-images run. (dcantrell)
