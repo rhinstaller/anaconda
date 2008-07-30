@@ -115,61 +115,6 @@ def devify(device):
     else:
         return device
 
-class LabelFactory:
-    def __init__(self):
-        self.labels = None
-
-    def createLabel(self, mountpoint, maxLabelChars, kslabel = None):
-        if self.labels == None:
-
-            self.labels = {}
-            diskset = partedUtils.DiskSet()
-            diskset.openDevices()
-            diskset.stopMdRaid()
-            diskset.startMdRaid()
-            labels = diskset.getInfo()
-            diskset.stopMdRaid()
-            del diskset
-            self.reserveLabels(labels)
-
-        # If a label was specified in the kickstart file, return that as
-        # the label - unless it's already in the reserved list.  If that's
-        # the case, make a new one.
-        if kslabel and kslabel not in self.labels:
-           self.labels[kslabel] = 1
-           return kslabel
-
-        if len(mountpoint) > maxLabelChars:
-            mountpoint = mountpoint[0:maxLabelChars]
-        count = 0
-        while self.labels.has_key(mountpoint):
-            count = count + 1
-            s = "%s" % count
-            if (len(mountpoint) + len(s)) <= maxLabelChars:
-                mountpoint = mountpoint + s
-            else:
-                strip = len(mountpoint) + len(s) - maxLabelChars
-                mountpoint = mountpoint[0:len(mountpoint) - strip] + s
-        self.labels[mountpoint] = 1
-
-        return mountpoint
-
-    def reserveLabels(self, labels):
-        if self.labels == None:
-            self.labels = {}
-        for device, label in labels.items():
-            self.labels[label] = 1
-
-    def isLabelReserved(self, label):
-        if self.labels == None:
-            return False
-        elif self.labels.has_key(label):
-            return True
-        else:
-            return False
-
-labelFactory = LabelFactory()
-
 class FileSystemType:
     kernelFilesystems = {}
     lostAndFoundContext = None
@@ -195,6 +140,17 @@ class FileSystemType:
         self.fsProfileSpecifier = None
         self.fsprofile = None
         self.bootable = False
+
+    def createLabel(self, mountpoint, maxLabelChars, kslabel = None):
+        # If a label was specified in the kickstart file, return that as the
+        # label.
+        if kslabel:
+            return kslabel
+
+        if len(mountpoint) > maxLabelChars:
+            return mountpoint[0:maxLabelChars]
+        else:
+            return mountpoint
 
     def isBootable(self):
         return self.bootable
@@ -402,8 +358,8 @@ class reiserfsFileSystem(FileSystemType):
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
-        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
-                                         kslabel = entry.label)
+        label = self.createLabel(entry.mountpoint, self.maxLabelChars,
+                                 kslabel = entry.label)
         rc = iutil.execWithRedirect("reiserfstune",
                                     ["--label", label, devicePath],
                                     stdout = "/dev/tty5",
@@ -443,8 +399,8 @@ class xfsFileSystem(FileSystemType):
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
-        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
-                                         kslabel = entry.label)
+        label = self.createLabel(entry.mountpoint, self.maxLabelChars,
+                                 kslabel = entry.label)
         rc = iutil.execWithRedirect("xfs_admin",
                                     ["-L", label, devicePath],
                                     stdout = "/dev/tty5",
@@ -481,8 +437,8 @@ class jfsFileSystem(FileSystemType):
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
-        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
-                                         kslabel = entry.label)
+        label = self.createLabel(entry.mountpoint, self.maxLabelChars,
+                                 kslabel = entry.label)
         rc = iutil.execWithRedirect("jfs_tune",
                                    ["-L", label, devicePath],
                                     stdout = "/dev/tty5",
@@ -625,8 +581,8 @@ class extFileSystem(FileSystemType):
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
-        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
-                                         kslabel = entry.label)
+        label = self.createLabel(entry.mountpoint, self.maxLabelChars,
+                                 kslabel = entry.label)
 
         rc = iutil.execWithRedirect("e2label",
                                     [devicePath, label],
@@ -912,7 +868,7 @@ class swapFileSystem(FileSystemType):
             swapLabel = "SWAP-%s" % (devName[7:],)
         else:
             swapLabel = "SWAP-%s" % (devName)
-        label = labelFactory.createLabel(swapLabel, self.maxLabelChars)
+        label = self.createLabel(swapLabel, self.maxLabelChars)
         rc = iutil.execWithRedirect ("mkswap",
                                      ['-v1', "-L", label, file],
                                      stdout = "/dev/tty5",
@@ -964,8 +920,8 @@ class FATFileSystem(FileSystemType):
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
-        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
-                                         kslabel = entry.label)
+        label = self.createLabel(entry.mountpoint, self.maxLabelChars,
+                                 kslabel = entry.label)
 
         rc = iutil.execWithRedirect("dosfslabel",
                                     [devicePath, label],
@@ -1832,8 +1788,8 @@ MAILADDR root
         label = entry.device.getLabel()
         if label and not ignoreExisting:
             entry.setLabel(label)
-            if labelFactory.isLabelReserved(label):
-                entry.device.doLabel = 1
+            entry.device.doLabel = 1
+
         if entry.device.doLabel is not None:
             entry.fsystem.labelDevice(entry, chroot)
 
@@ -2777,10 +2733,6 @@ def readFstab (anaconda):
 
     labelToDevice = createMapping(labels, intf)
     uuidToDevice = createMapping(uuids, intf)
-
-    # mark these labels found on the system as used so the factory
-    # doesn't give them to another device
-    labelFactory.reserveLabels(labels)
 
     loopIndex = {}
 
