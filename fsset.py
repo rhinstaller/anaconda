@@ -730,7 +730,7 @@ class ext3FileSystem(extFileSystem):
     def __init__(self):
         extFileSystem.__init__(self)
         self.name = "ext3"
-        self.extraFormatArgs = [ "-t ext3" ]
+        self.extraFormatArgs = [ "-t", "ext3" ]
         self.partedFileSystemType = parted.file_system_type_get("ext3")
         if flags.cmdline.has_key("ext4"):
             self.migratetofs = ['ext4dev']
