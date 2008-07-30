@@ -45,6 +45,10 @@
 #include "udelay.h"
 #include "log.h"
 
+#ifndef FWDEBUG
+#define logMessage(x, ...)
+#endif
+
 struct fw_loader {
     int netlinkfd;
     sigset_t sigmask;
