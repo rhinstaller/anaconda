@@ -139,10 +139,6 @@ rm -rf $RPM_BUILD_ROOT
   Resolves: rhbz#452664
 - Add support for the --only-use argument to RHEL5 (rvykydal).
   Resolves: rhbz#318351
-- When there is no UI mode specified in the kickstart, do not disable the vnc question (msivak).
-  Resolves: rhbz#455612
-- If the user explicitly sets the text mode in kickstart, do not ask the VNC question (msivak).
-  Resolves: rhbz#455612
 - Log a message informing about the critical upgrade error (jgranado).
   Resolves: rhbz#436865
 - Support booting from FCP-attached CD/DVD drive on s390 (dcantrell).
