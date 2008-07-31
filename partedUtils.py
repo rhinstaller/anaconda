@@ -992,6 +992,29 @@ class DiskSet:
             #self.disks[disk].close()
             del self.disks[disk]
 
+    def isDisciplineFBA (self, drive):
+        if not iutil.isS390():
+            return False
+
+        drive = drive.replace('/dev/', '')
+
+        if drive.startswith("dasd"):
+            discipline = "/sys/block/%s/device/discipline" % (drive,)
+            if os.path.isfile(discipline):
+                try:
+                    fp = open(discipline, "r")
+                    lines = fp.readlines()
+                    fp.close()
+
+                    if len(lines) == 1:
+                        if lines[0].strip() == "FBA":
+                            return True
+                except:
+                    log.error("failed to check discipline of %s" % (drive,))
+                    pass
+
+        return False
+
     def dasdFmt (self, drive = None):
         """Format dasd devices (s390)."""
 
@@ -1081,12 +1104,14 @@ class DiskSet:
                 return False
 
             rc = 0
-            if ks and (drive in clearDevs) and initAll:
+            if (ks and (drive in clearDevs) and initAll) or \
+                self.isDisciplineFBA(drive):
                 rc = 1
             else:
                 if not intf:
                     self._removeDisk(drive)
                     return False
+
                 msg = _("The partition table on device %s was unreadable. "
                         "To create new partitions it must be initialized, "
                         "causing the loss of ALL DATA on this drive.\n\n"
@@ -1126,8 +1151,8 @@ class DiskSet:
         try:
             try:
                 # FIXME: need the right fix for z/VM formatted dasd
-                if iutil.isS390() \
-                        and drive[:4] == "dasd":
+                if iutil.isS390() and drive[:4] == "dasd" and \
+                   not self.isDisciplineFBA(drive):
                     if self.dasdFmt(drive):
                         raise LabelError, drive
                     dev = parted.PedDevice.get(deviceFile)
