@@ -23,6 +23,7 @@
 #            Jeremy Katz <katzj@redhat.com>
 #
 
+import glob
 import iutil
 import isys
 import os
@@ -278,14 +279,14 @@ def rpmKernelVersionList(rootPath = "/"):
 
     versions = []
 
-    ts = rpm.TransactionSet(rootPath)
-
     # FIXME: and make sure that the rpmdb doesn't have stale locks :/
-    for rpmfile in ["__db.000", "__db.001", "__db.002", "__db.003"]:
+    for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % rootPath):
         try:
-            os.unlink("%s/var/lib/rpm/%s" %(rootPath, rpmfile))
+            os.unlink(rpmfile)
         except:
-            log.debug("failed to unlink /var/lib/rpm/%s" %(rpmfile,))
+            log.debug("failed to unlink %s" % rpmfile)
+
+    ts = rpm.TransactionSet(rootPath)
 
     mi = ts.dbMatch('provides', 'kernel')
     for h in mi:

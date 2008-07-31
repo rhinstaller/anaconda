@@ -1635,11 +1635,11 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self._checkUpgradeArch(anaconda)
 
     def _resetRpmDb(self, rootPath):
-        for rpmfile in ("__db.000", "__db.001", "__db.002", "__db.003"):
+        for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % rootPath):
             try:
-                os.unlink("%s/var/lib/rpm/%s" %(rootPath, rpmfile))
+                os.unlink(rpmfile)
             except Exception, e:
-                log.debug("error %s removing file: /var/lib/rpm/%s" %(e,rpmfile))
+                log.debug("error %s removing file: %s" %(e,rpmfile))
 
     def _checkUpgradeVersion(self, anaconda):
         # Figure out current version for upgrade nag and for determining weird
