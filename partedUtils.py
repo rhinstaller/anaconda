@@ -990,6 +990,29 @@ class DiskSet:
             #self.disks[drive].close()
             self._removeDisk(drive, addSkip=False)
 
+    def isDisciplineFBA (self, drive):
+        if rhpl.getArch() != "s390":
+            return False
+
+        drive = drive.replace('/dev/', '')
+
+        if drive.startswith("dasd"):
+            discipline = "/sys/block/%s/device/discipline" % (drive,)
+            if os.path.isfile(discipline):
+                try:
+                    fp = open(discipline, "r")
+                    lines = fp.readlines()
+                    fp.close()
+
+                    if len(lines) == 1:
+                        if lines[0].strip() == "FBA":
+                            return True
+                except:
+                    log.error("failed to check discipline of %s" % (drive,))
+                    pass
+
+        return False
+
     def dasdFmt (self, drive = None):
         """Format dasd devices (s390)."""
 
@@ -1076,12 +1099,14 @@ class DiskSet:
         # XXX FIXME this test is terrible.
         if self.anaconda is not None:
             rc = 0
-            if ks and (drive in clearDevs) and initAll:
+            if (ks and (drive in clearDevs) and initAll) or \
+                self.isDisciplineFBA(drive):
                 rc = 1
             else:
                 if not intf:
                     self._removeDisk(drive)
                     return False
+
                 msg = _("The partition table on device %s was unreadable. "
                         "To create new partitions it must be initialized, "
                         "causing the loss of ALL DATA on this drive.\n\n"
@@ -1121,12 +1146,13 @@ class DiskSet:
         try:
             try:
                 # FIXME: need the right fix for z/VM formatted dasd
-                if rhpl.getArch() == "s390" \
-                        and drive[:4] == "dasd":
-                    if self.dasdFmt(drive):
-                        raise LabelError, drive
+                if rhpl.getArch() == "s390" and drive[:4] == "dasd" and \
+                   not self.isDisciplineFBA(drive):
                     dev = parted.PedDevice.get(deviceFile)
                     disk = parted.PedDisk.new(dev)
+
+                    if self.dasdFmt(drive):
+                        raise LabelError, drive
                 else:
                     disk = labelDisk(deviceFile)
             except parted.error, msg:
@@ -1135,7 +1161,6 @@ class DiskSet:
         except:
             self._removeDisk(drive)
             raise LabelError, drive
-
 
         self._addDisk(drive, disk)
         return disk, dev
