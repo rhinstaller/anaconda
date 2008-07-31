@@ -177,7 +177,7 @@ class PartitionTypeWindow(InstallWindow):
             defboot = self.bootcombo.get_model().get_value(defiter, 1)
            
             if not defboot in allowdrives:
-                msg = _("Do you really want to boot from disk which is not used for instalation?")
+                msg = _("Do you really want to boot from a disk which is not used for installation?")
                 rc = self.intf.messageWindow(_("Warning"), msg, type="yesno", default="no", custom_icon ="warning")
                 if not rc:
                     raise gui.StayOnScreen
