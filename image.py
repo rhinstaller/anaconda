@@ -209,7 +209,7 @@ def presentRequiredMediaMessage(anaconda):
     if os.access("%s/.discinfo" % anaconda.backend.ayum.tree, os.R_OK):
         discNums = []
         try:
-            f = open("%s/.discinfo", anaconda.backend.ayum.tree)
+            f = open("%s/.discinfo" % anaconda.backend.ayum.tree)
             stamp = f.readline().strip()
             descr = f.readline().strip()
             arch = f.readline().strip()
