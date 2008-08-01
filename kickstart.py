@@ -709,6 +709,11 @@ class Timezone(commands.timezone.FC6_Timezone):
     def parse(self, args):
         commands.timezone.FC6_Timezone.parse(self, args)
 
+        tzfile = "/usr/share/zoneinfo" + self.timezone
+        if not os.access(tzfile, os.R_OK):
+            log.warning("Can't read timezone file set in kickstart, will ask")
+            return
+
         self.handler.id.timezone.setTimezoneInfo(self.timezone, self.isUtc)
         self.handler.skipSteps.append("timezone")
 
