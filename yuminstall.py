@@ -450,6 +450,7 @@ class AnacondaYum(YumSorter):
             return 1
 
         isys.lochangefd("/dev/loop0", self._loopbackFile)
+        isys.umount("/mnt/stage2")
 
     def _switchCD(self, discnum):
         if os.access("%s/.discinfo" % self.tree, os.R_OK):
@@ -559,6 +560,7 @@ class AnacondaYum(YumSorter):
                 isys.mount(m[4:], self.tree, "nfs")
             elif m.startswith("cdrom:"):
                 self._switchCD(1)
+                self.mediagrabber = self.mediaHandler
                 self._baseRepoURL = "file://%s" % self.tree
         else:
             # No methodstr was given.  In order to find an installation source,
@@ -567,6 +569,7 @@ class AnacondaYum(YumSorter):
             # always change the repo with the repo editor later.
             cdr = scanForMedia(self.tree)
             if cdr:
+                self.mediagrabber = self.mediaHandler
                 self.anaconda.mediaDevice = cdr
                 self.currentMedia = 1
                 log.info("found installation media on %s" % cdr)
