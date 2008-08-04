@@ -482,6 +482,7 @@ class Anaconda:
         self.dir = None
         self.id = None
         self.methodstr = None
+        self.stage2 = None
         self.backend = None
         self.rootPath = None
         self.dispatch = None
@@ -642,6 +643,9 @@ if __name__ == "__main__":
         anaconda.setMethodstr(opts.method)
     else:
         anaconda.methodstr = None
+
+    if opts.stage2:
+        anaconda.stage2 = opts.stage2
 
     if opts.liveinst:
         flags.livecdInstall = True

@@ -27,10 +27,24 @@ log = logging.getLogger("anaconda")
 import isys, product
 
 def doMethodComplete(anaconda):
-    anaconda.backend.complete(anaconda)
+    def _ejectDevice():
+        # Ejecting the CD/DVD for kickstart is handled only after %post scripts
+        # have been run.
+        if anaconda.isKickstart:
+            return None
 
-    if not anaconda.isKickstart and anaconda.mediaDevice:
-        isys.ejectCdrom(anaconda.mediaDevice)
+        if anaconda.mediaDevice:
+            return anaconda.mediaDevice
+
+        # If we booted off the boot.iso instead of disc 1, eject that as well.
+        if anaconda.stage2.startswith("cdrom://"):
+            dev = anaconda.stage2[8:].split(':')[0]
+            return dev
+
+    anaconda.backend.complete(anaconda)
+    dev = _ejectDevice()
+    if dev:
+        isys.ejectCdrom(dev)
 
     mtab = "/dev/root / ext3 ro 0 0\n"
     for ent in anaconda.id.fsset.entries:
