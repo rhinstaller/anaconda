@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.24
+Version: 11.4.1.25
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -197,6 +197,22 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 04 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.25-1
+- Eject the CD/DVD if we booted off a boot.iso as well (#442088). (clumens)
+- Fix a GTK warning that only appears with s-c-ks running from a
+  shell (#431844). (clumens)
+- Break a few functions out of yuminstall.py into their own file. (clumens)
+- We're not actually activating new filesystems quite yet. (clumens)
+- Fix a typo in the initial partitioning screen. (clumens)
+- Use system-logos instead of hardcoding fedora-logos (#457378). (clumens)
+- anaconda can no longer be None when we create a DiskSet instance. (clumens)
+- Remove LabelFactory since we now rely on UUIDs for everything. (clumens)
+- Filter out repos that aren't enabled when running in betanag mode. (clumens)
+- Close the transaction between CDs (#457126). (clumens)
+- Split media fixes. (clumens)
+- Handling (ask user) of invalid timezone value in kickstart added
+  (#404323) (rvykydal)
+
 * Thu Jul 31 2008 Jeremy Katz <katzj@redhat.com> - 11.4.1.24-1
 - Don't try to use self.tree as the mode to open .discinfo. (clumens)
 - Remove all the RPM lock files before creating a new transaction (#456949). (clumens)
