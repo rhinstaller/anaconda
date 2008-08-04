@@ -22,7 +22,7 @@
 import yum.Errors
 from snack import *
 from constants_text import *
-import yuminstall
+from compssort import *
 
 from constants import *
 import gettext
@@ -75,10 +75,10 @@ class GroupSelectionWindow:
         # FIXME: this is very yum backend specific...
         groups = filter(lambda x: x.user_visible,
                         anaconda.backend.ayum.comps.groups)
-        groups.sort(yuminstall.ui_comps_sort)
+        groups.sort(ui_comps_sort)
         ct = CheckboxTree(height = 6, scroll = (len(groups) > 6))
         for grp in groups:
-            ct.append(yuminstall.xmltrans(grp.name, grp.translated_name),
+            ct.append(xmltrans(grp.name, grp.translated_name),
                       grp, grp.selected)
         g.add(ct, 0, 2, (0, 0, 0, 1))
 
