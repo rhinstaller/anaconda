@@ -567,7 +567,7 @@ class DiskSet:
     dmList = None
     mpList = None
 
-    def __init__ (self, anaconda = None):
+    def __init__ (self, anaconda):
         self.disks = {}
         self.initializedDisks = {}
         self.onlyPrimary = None
@@ -678,10 +678,7 @@ class DiskSet:
         """
         ret = {}
 
-        if self.anaconda is not None:
-            encryptedDevices = self.anaconda.id.partitions.encryptedDevices
-        else:
-            encryptedDevices = {}
+        encryptedDevices = self.anaconda.id.partitions.encryptedDevices
 
         for drive in self.driveList():
             # Don't read labels from drives we cleared using clearpart, as
@@ -1094,14 +1091,26 @@ class DiskSet:
         return 1
 
     def _askForLabelPermission(self, intf, drive, clearDevs, initAll, ks):
-        # if anaconda is None here, we are called from labelFactory
-        # XXX FIXME this test is terrible.
-        if self.anaconda is not None:
+        #Do not try to initialize device's part. table in rescue mode
+        if self.anaconda.rescue:
+            self._removeDisk(drive)
+            return False
 
-            #Do not try to initialize device's part. table in rescue mode
-            if self.anaconda.rescue:
+        rc = 0
+        if ks and (drive in clearDevs) and initAll:
+            rc = 1
+        else:
+            if not intf:
                 self._removeDisk(drive)
                 return False
+            msg = _("The partition table on device %s was unreadable. "
+                    "To create new partitions it must be initialized, "
+                    "causing the loss of ALL DATA on this drive.\n\n"
+                    "This operation will override any previous "
+                    "installation choices about which drives to "
+                    "ignore.\n\n"
+                    "Would you like to initialize this drive, "
+                    "erasing ALL DATA?") % (drive,)
 
             rc = 0
             if (ks and (drive in clearDevs) and initAll) or \
@@ -1121,25 +1130,9 @@ class DiskSet:
                         "Would you like to initialize this drive, "
                         "erasing ALL DATA?") % (drive,)
 
-                if iutil.isS390() \
-                        and drive[:4] == "dasd" \
-                        and isys.getDasdState(drive):
-                    devs = isys.getDasdDevPort()
-                    msg = \
-                     _("The partition table on device %s (%s) was unreadable. "
-                       "To create new partitions it must be initialized, "
-                       "causing the loss of ALL DATA on this drive.\n\n"
-                       "This operation will override any previous "
-                       "installation choices about which drives to "
-                       "ignore.\n\n"
-                       "Would you like to initialize this drive, "
-                       "erasing ALL DATA?") % (drive, devs[drive])
+        if rc != 0:
+            return True
 
-                rc = intf.messageWindow(_("Warning"), msg, type="yesno")
-
-            if rc != 0:
-                return True
-        
         self._removeDisk(drive)
         return False
 
@@ -1181,12 +1174,8 @@ class DiskSet:
         self.startMPath()
         self.startDmRaid()
 
-        if self.anaconda is None:
-            intf = None
-            zeroMbr = None
-        else:
-            intf = self.anaconda.intf
-            zeroMbr = self.anaconda.id.partitions.zeroMbr
+        intf = self.anaconda.intf
+        zeroMbr = self.anaconda.id.partitions.zeroMbr
 
         for drive in self.driveList():
             # ignoredisk takes precedence over clearpart (#186438).
@@ -1218,7 +1207,7 @@ class DiskSet:
             clearDevs = []
             initAll = False
 
-            if self.anaconda is not None and self.anaconda.isKickstart:
+            if self.anaconda.isKickstart:
                 ks = True
                 clearDevs = self.anaconda.id.ksdata.clearpart.drives
                 initAll = self.anaconda.id.ksdata.clearpart.initAll
@@ -1287,20 +1276,12 @@ class DiskSet:
                         "of this disk or use any partitions beyond /dev/%s15 "
                         "in %s") % (drive, drive, productName)
 
-                if self.anaconda is not None:
-                    rc = intf.messageWindow(_("Warning"), str, 
-                                        type="custom",
-                                        custom_buttons = [_("_Reboot"),
-                                                          _("_Continue")],
-                                        custom_icon="warning")
-                    if rc == 0:
-                        sys.exit(0)
-                else:
-                    (type, value, tb) = sys.exc_info()
-                    lines = exception.formatException(type, value, tb)
-                    for line in lines:
-                        log.error(line)
-                    log.error(str)
+                rc = intf.messageWindow(_("Warning"), str, 
+                                    type="custom",
+                                    custom_buttons = [_("_Reboot"),
+                                                      _("_Continue")],
+                                    custom_icon="warning")
+                if rc == 0:
                     sys.exit(0)
 
             # check that their partition table is valid for their architecture
