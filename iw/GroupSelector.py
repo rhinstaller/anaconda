@@ -389,7 +389,7 @@ class GroupSelector:
                                    [self.ayum.isGroupInstalled(grp),s,grp,pix])
 
         tree = self.xml.get_widget("groupList")
-        gobject.idle_add(lambda x: x.scroll_to_point(0, 0), tree)
+        gobject.idle_add(lambda x: x.flags() & gtk.REALIZED and x.scroll_to_point(0, 0), tree)
         self.xml.get_widget("optionalLabel").set_text("")
         self.xml.get_widget("detailsButton").set_sensitive(False)
 
