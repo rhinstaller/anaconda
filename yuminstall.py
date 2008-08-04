@@ -906,6 +906,8 @@ class AnacondaYum(YumSorter):
                 self.tsInfo.curmedia = None
                 return DISPATCH_BACK
 
+            self.ts.close()
+
     def _run(self, instLog, cb, intf):
         # set log fd.  FIXME: this is ugly.  see changelog entry from 2005-09-13
         self.ts.ts.scriptFd = instLog.fileno()
