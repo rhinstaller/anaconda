@@ -530,10 +530,6 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/run
     mkdir -p $MBD_DIR/var/lock/rpm
 
-    if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
-	mkdir -p $MBD_DIR/dev/iseries
-    fi
-
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
 	mkdir -m 111 -p $MBD_DIR/var/empty/sshd
 	mkdir -p $MBD_DIR/etc/{pam.d,security}
@@ -761,7 +757,7 @@ kerneltags="kernel"
 efiarch=""
 arches="$BUILDARCH"
 if [ "$BUILDARCH" = "ppc" ]; then
-    arches="ppc64 ppc64iseries ppc"
+    arches="ppc64 ppc"
 elif [ "$BUILDARCH" = "i386" ]; then
     arches="i586"
     efiarch="ia32"
