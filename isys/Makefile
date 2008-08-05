@@ -26,7 +26,7 @@ OBJECTS = devices.o imount.o smp.o cpio.o uncpio.o dasd.o \
           ethtool.o wireless.o eddsupport.o iface.o str.o auditd.o
 SOBJECTS = $(patsubst %.o,%.lo,$(OBJECTS))
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
-LOADLIBES = -lresolv -lpopt -lext2fs -lz -ldevmapper -lblkid
+LOADLIBES = -lresolv -lpopt -lext2fs -lz -ldevmapper -lblkid -lX11
 LOADLIBES += $(SELINUXLIBES)
 ifeq ($(USESELINUX),1)
 LOADLIBES += -laudit

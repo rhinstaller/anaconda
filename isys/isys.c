@@ -70,6 +70,10 @@
 
 #include <blkid/blkid.h>
 
+#include <X11/Xlib.h>
+#include <X11/XKBlib.h>
+#include <X11/keysym.h>
+
 #include "iface.h"
 #include "isys.h"
 #include "imount.h"
@@ -136,6 +140,7 @@ static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doAuditDaemon(PyObject *s);
 static PyObject * doPrefixToNetmask(PyObject *s, PyObject *args);
 static PyObject * doGetBlkidData(PyObject * s, PyObject * args);
+static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -188,6 +193,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "auditdaemon", (PyCFunction) doAuditDaemon, METH_NOARGS, NULL },
     { "prefix2netmask", (PyCFunction) doPrefixToNetmask, METH_VARARGS, NULL },
     { "getblkid", (PyCFunction) doGetBlkidData, METH_VARARGS, NULL },
+    { "isCapsLockEnabled", (PyCFunction) doIsCapsLockEnabled, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
 
@@ -1235,6 +1241,23 @@ static PyObject * doGetBlkidData(PyObject * s, PyObject * args) {
  out:
     Py_INCREF(Py_None);
     return Py_None;
+}
+
+static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args) {
+    Display *d = NULL;
+    XkbStateRec state;
+
+    if ((d = XOpenDisplay(NULL)) == NULL) {
+        return NULL;
+    }
+
+    XkbGetState(d, XkbUseCoreKbd, &state);
+
+    if (XCloseDisplay(d)) {
+        return NULL;
+    }
+
+    return PyBool_FromLong(state.locked_mods & LockMask);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */

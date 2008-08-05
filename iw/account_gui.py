@@ -26,6 +26,7 @@ from iw_gui import *
 from flags import flags
 from constants import *
 import cracklib
+import _isys
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -72,6 +73,9 @@ class AccountWindow (InstallWindow):
         self.confirm.connect("activate", lambda widget,
                              vbox=vbox: self.ics.setGrabNext(1))
 
+        # set initial caps lock label text
+        self.setCapsLockLabel()
+
         return self.align
 
     def setFocus(self, area, data):
@@ -86,11 +90,14 @@ class AccountWindow (InstallWindow):
     def handleCapsLockRelease(self, window, event, label):
         if event.keyval == gtk.keysyms.Caps_Lock and \
            event.state & gtk.gdk.LOCK_MASK:
-            if label.get_text() == "":
-                label.set_text("<b>" + _("Caps Lock is on.") + "</b>")
-                label.set_use_markup(True)
-            else:
-                label.set_text("")
+            self.setCapsLockLabel()
+
+    def setCapsLockLabel(self):
+        if _isys.isCapsLockEnabled():
+            self.capslock.set_text("<b>" + _("Caps Lock is on.") + "</b>")
+            self.capslock.set_use_markup(True)
+        else:
+            self.capslock.set_text("")
 
     def getNext (self):
         pw = self.pw.get_text()
