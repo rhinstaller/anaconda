@@ -57,13 +57,6 @@ __EOT__
 		rmdir $TOPDESTPATH/images/netboot || :
 		echo "zimage = images/netboot/ppc64.img" >> $TOPDESTPATH/.treeinfo
 	fi
-	if [ -x $IMGPATH/usr/sbin/addRamDisk ]; then
-		mkdir -p $TOPDESTPATH/images/iSeries
-		$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz	\
-					     $TOPDESTPATH/ppc/ppc64/vmlinuz		\
-					     $TOPDESTPATH/images/iSeries/boot.img
-		rmdir $TOPDESTPATH/images/iSeries || :
-	fi
 
     echo >> $TOPDESTPATH/.treeinfo
 
@@ -156,8 +149,6 @@ doPostImages() {
 	cp -r $TOPDESTPATH/images/netboot $TOPDESTPATH/isopath/images
 	rm -f $TOPDESTPATH/isopath/images/ppc64.img
     fi
-
-    rm -rf $TOPDESTPATH/isopath/ppc/iSeries
 
     if [ -r $TOPDESTPATH/isopath/images/netboot/ppc32.img ]; then
 	PREPBOOT="-prep-boot images/netboot/ppc32.img"
