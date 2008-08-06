@@ -80,11 +80,6 @@ CD-ROM's boot speed would be an advantage.
 
 To use this image file, burn the file onto CD-R (or CD-RW) media as you
 normally would.
-
-The diskboot.img file is a VFAT filesystem image that can be written to a
-USB pendrive or other bootable media larger than a floppy.  Note that
-booting via USB is dependent on your BIOS supporting this.  It should
-be written to the device using dd.
 EOF
 
 makeBootImages() {
