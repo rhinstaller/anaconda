@@ -116,9 +116,14 @@ if [ ! -d "$OUTPUT" ]; then
     mkdir -p $OUTPUT
 fi
 
-yumconf=$(mktemp /tmp/yum.conf.XXXXXX)
+BUILDINSTDIR=$(mktemp -d ${TMPDIR:-/tmp}/buildinstall.tree.XXXXXX)
+TREEDIR=$(mktemp -d ${TMPDIR:-/tmp}/treedir.XXXXXX)
+CACHEDIR=$(mktemp -d ${TMPDIR:-/tmp}/yumcache.XXXXXX)
+
+yumconf=$(mktemp ${TMPDIR:-/tmp}/yum.conf.XXXXXX)
 cat > $yumconf <<EOF
 [main]
+cachedir=$CACHEDIR
 keepcache=0
 gpgcheck=0
 plugins=0
@@ -157,11 +162,6 @@ enabled=1
 EOF
     let n++
 done
-
-
-
-BUILDINSTDIR=`mktemp -d ${TMPDIR:-/tmp}/buildinstall.tree.XXXXXX`
-TREEDIR=`mktemp -d ${TMPDIR:-/tmp}/treedir.XXXXXX`
 
 echo "Running buildinstall..."
 
