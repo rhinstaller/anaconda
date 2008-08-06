@@ -1136,7 +1136,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
     static struct networkDeviceConfig netDev;
     int i, rc, dir = 1;
     int needsNetwork = 0, class = -1;
-    int skipMethodDialog = 0;
+    int skipMethodDialog = 0, skipLangKbd = 0;
 
     char *installNames[10];
     int numValidMethods = 0;
@@ -1166,6 +1166,9 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                       _("Local installation media detected..."), 0);
             sleep(3);
             newtPopWindow();
+
+            skipLangKbd = 1;
+            flags |= LOADER_FLAGS_NOPASS;
         } else if (loaderData->instRepo) {
             /* If no CD/DVD with a stage2 image was found and we were given a
              * repo=/method= parameter, try to piece together a valid setting
@@ -1192,7 +1195,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             case STEP_LANG: {
                 if (loaderData->lang && (loaderData->lang_set == 1))
                     setLanguage(loaderData->lang, 1);
-                else
+                else if (!skipLangKbd)
                     chooseLanguage(&loaderData->lang);
 
                 step = STEP_KBD;
@@ -1212,13 +1215,16 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                         break;
                     }
                     rc = LOADER_NOOP;
-                } else {
+                } else if (!skipLangKbd) {
                     /* JKFIXME: should handle kbdtype, too probably... but it 
                      * just matters for sparc */
                     if (!FL_CMDLINE(flags))
                         rc = chooseKeyboard(loaderData, &kbdtype);
                     else
                        rc = LOADER_NOOP;
+                } else {
+                    step = STEP_METHOD;
+                    dir = 1;
                 }
 
                 if (rc == LOADER_NOOP) {
@@ -1293,6 +1299,12 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     break;
                 }
 
+                if (skipLangKbd) {
+                    skipLangKbd = 0;
+                    step = STEP_KBD;
+                    break;
+                }
+
                 rc = newtWinTernary(_("No driver found"), _("Select driver"),
                                     _("Use a driver disk"), _("Back"),
                                     _("Unable to find any devices of the type "
@@ -1318,6 +1330,12 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             }
 
             case STEP_DRIVERDISK: {
+                if (skipLangKbd) {
+                    skipLangKbd = 0;
+                    step = STEP_KBD;
+                    break;
+                }
+
                 rc = loadDriverFromMedia(class, loaderData, 0, 0);
                 if (rc == LOADER_BACK) {
                     step = STEP_DRIVER;
@@ -2149,4 +2167,4 @@ int main(int argc, char ** argv) {
     return 1;
 }
 
-/* vim :sw=4 sts=4 et: */
+/* vim:set sw=4 sts=4 et: */
