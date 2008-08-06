@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.118
+Version: 11.1.2.119
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Aug 6 2008 Joel Granados <jgranado@redhat.com> 11.1.2.119-1
+- Support VDSK devices on s390x (dcantrell).
+  Resolves: rhbz#264061
+
 * Wed Jul 30 2008 Joel Granados <jgranado@redhat.com> 11.1.2.118-1
 - Use fedorakmod.py plugin from yum-utils package, don't pack it in anaconda (rvykydal).
   Resolves: rhbz#434804
