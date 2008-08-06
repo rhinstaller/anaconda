@@ -83,14 +83,25 @@ normally would.
 EOF
 
 makeBootImages() {
-  if [ "$kerneltag" != "xen" ]; then
-    echo "Building initrd.img"
-    makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
+  local initrd="initrd.img"
+  local kernelimage="vmlinuz"
+
+  if [ "$kernelvers" = "$kernelxen" ] ; then
+    local tag="${kernelvers#kernel}"
+    if [ -n "$tag" -a "$tag" != "$kernelvers" ] ; then
+      initrd="initrd${tag}.img"
+      kernelimage="vmlinuz${tag}"
+    fi
+  fi
+
+  echo "Building $initrd"
+  makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/$initrd \
 	--initrdsize 8192 \
 	--loaderbin loader \
 	--modules "$INITRDMODS"
-    [ $? = 0 ] || exit 1
+  [ $? = 0 ] || exit 1
 
+  if [ "$kernelvers" != "$kernelxen" ] ; then
     if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
 	echo "Building isolinux directory"
 	MBD_BOOTTREE=$TOPDESTPATH/isolinux
@@ -129,20 +140,15 @@ kernel = images/pxeboot/vmlinuz
 initrd = images/pxeboot/initrd.img
 __EOT__
     if [ -n "$BOOTISO" ]; then echo "boot.iso = images/$BOOTISO" >> $TOPDESTPATH/.treeinfo ; fi    
+  fi
 
-  else # set up the boot stuff for the xen guest kernel
-    echo "Building $KERNELARCH guest initrd.img"
-    mkdir -p $TOPDESTPATH/images/xen
-    makeinitrd --initrdto $TOPDESTPATH/images/xen/initrd.img \
-	--initrdsize 8192 \
-	--loaderbin loader \
-	--modules "$INITRDMODS"
-    [ $? = 0 ] || exit 1
-    cp $KERNELROOT/boot/vmlinuz-*xen* $TOPDESTPATH/images/xen/vmlinuz
+  # set up the boot stuff for the xen guest kernel
+  if [ -z "$kernelxen" -o "$kernelvers" = "$kernelxen" ] ; then
+    cp $KERNELROOT/boot/vmlinuz-$version $TOPDESTPATH/images/pxeboot/$kernelimage
     cat << __EOT__ >> $TOPDESTPATH/.treeinfo
 [images-xen]
-kernel = images/xen/vmlinuz
-initrd = images/xen/initrd.img
+kernel = images/pxeboot/$kernelimage
+initrd = images/pxeboot/$initrd
 
 __EOT__
   fi

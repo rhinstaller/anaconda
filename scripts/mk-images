@@ -761,12 +761,13 @@ if [ "$BUILDARCH" = "ppc" ]; then
 elif [ "$BUILDARCH" = "i386" ]; then
     arches="i586"
     efiarch="ia32"
-    kerneltags="kernel kernel-xen"
+    kerneltags="kernel kernel-PAE"
+    kernelxen="kernel-PAE"
 elif [ "$BUILDARCH" = "x86_64" ]; then
-    kerneltags="kernel kernel-xen"
+    kerneltags="kernel"
     efiarch="x64"
 elif [ "$BUILDARCH" = "ia64" ]; then
-    kerneltags="kernel kernel-xen"
+    kerneltags="kernel"
     efiarch="ia64"
 fi
 
@@ -796,8 +797,6 @@ for KERNELARCH in $arches; do
     mkdir -p $KERNELROOT
 
     foundakernel="yes"
-
-    if [ "${kernelvers}" = "kernel-xen" ]; then kerneltag="xen" ; fi
 
     if [ "$BUILDARCH" = "ia64" ]; then
 	vmlinuz=$(rpm --nodigest --nosignature -qpl $kpackage |grep ^/boot/efi/EFI/redhat/vmlinuz | head -n 1)

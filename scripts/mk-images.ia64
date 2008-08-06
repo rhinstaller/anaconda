@@ -124,7 +124,6 @@ EOF
 }
 
 makeBootImages() {
-  if [ "$kerneltag" != "xen" ]; then
     # Because ia64 boxes use EFI there needs to be a boot.img dosfs.
     echo "making boot.img for EFI bootloader"
     makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
@@ -159,24 +158,11 @@ kernel = images/pxeboot/vmlinuz
 initrd = images/pxeboot/initrd.img
 boot.img = images/boot.img
 
-__EOT__
-
-  else # set up the boot stuff for the xen guest kernel
-    echo "Building $KERNELARCH guest initrd.img"
-    mkdir -p $TOPDESTPATH/images/xen
-    makeinitrd --initrdto $TOPDESTPATH/images/xen/initrd.img \
-	--initrdsize 12288 \
-	--loaderbin loader \
-	--modules "$INITRDMODS"
-    [ $? = 0 ] || exit 1
-    cp $KERNELROOT/boot/efi/EFI/redhat/vmlinuz-*xen* $TOPDESTPATH/images/xen/vmlinuz
-    cat << __EOT__ >> $TOPDESTPATH/.treeinfo
 [images-xen]
-kernel = images/xen/vmlinuz
-initrd = images/xen/initrd.img
+kernel = images/pxeboot/vmlinuz
+initrd = images/pxeboot/initrd.img
 
 __EOT__
-  fi
 }
 
 doPostImages() {

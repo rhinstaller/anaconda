@@ -162,7 +162,7 @@ prepareEfiTree() {
 
 makeEfiImages() {
     yumconf="$1"
-    if [ "$kerneltag" != "xen" ]; then
+    if [ "$kernelvers" != "$kernelxen" ]; then
 	local grubarch=${efiarch}
 	case ${efiarch} in
 	    ia32) grubarch=i386 ;;
