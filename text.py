@@ -559,8 +559,6 @@ class InstallInterface:
             return False
         if isys.isVioConsole():
             return False
-        if os.path.exists("/proc/xen"): # this keys us that we're a xen guest
-            return False
         return True
 
     def run(self, anaconda):
