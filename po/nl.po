@@ -15,14 +15,13 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 10:06-0400\n"
-"PO-Revision-Date: 2008-03-28 21:50+0100\n"
+"PO-Revision-Date: 2008-08-07 21:22+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:289
 #, c-format
@@ -1386,8 +1385,7 @@ msgstr "Aanpassen van de grootte is mislukt"
 #: ../packages.py:148
 #, python-format
 msgid "There was an error encountered resizing the device %s."
-msgstr ""
-"Er was een fout bij het aanpassen van de grootte van het apparaat %s."
+msgstr "Er was een fout bij het aanpassen van de grootte van het apparaat %s."
 
 #: ../packages.py:188
 msgid "LVM operation failed"
@@ -1407,7 +1405,7 @@ msgstr "_Overslaan"
 
 #: ../packages.py:403 ../packages.py:426
 msgid "Warning! This is pre-release software!"
-msgstr "Opgepast! Deze software is een proefversie!"
+msgstr "Waarschuwing! Deze software is een proefversie!"
 
 #: ../packages.py:404
 #, python-format
@@ -1427,7 +1425,7 @@ msgstr ""
 "Dank u voor het downloaden van deze proefversie van %s.\n"
 "\n"
 "Dit is niet de uiteindelijke versie en het is niet bedoeld voor gebruik op "
-"productie-systemen. De bedoeling van deze versie is het verzamelen van "
+"productiesystemen. De bedoeling van deze versie is het verzamelen van "
 "feedback van testers. Het is niet geschikt voor dagelijks gebruik.\n"
 "\n"
 "Voor het geven van feedback, ga naar:\n"
@@ -4922,7 +4920,7 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
-"Gefeliciteerd! uw %s installatie is voltooid.\n"
+"Gefeliciteerd, uw %s installatie is voltooid.\n"
 "\n"
 "%s%s"
 
@@ -6316,13 +6314,13 @@ msgstr "Het laden is reeds gedaan.  Shell wordt nu opgestart.\n"
 #: ../loader2/loader.c:1946
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
-msgstr "Opstarten van anaconda %s, de %s herstelmodus - even geduld...\n"
+msgstr "Opstarten van anaconda %s, de %s herstelmodus - even geduld\n"
 
 #: ../loader2/loader.c:1948
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
 msgstr ""
-"Opstarten van anaconda %s, het %s installatieprogramma - even geduld...\n"
+"Opstarten van anaconda %s, het %s installatieprogramma - even geduld\n"
 
 #: ../loader2/mediacheck.c:62
 #, c-format
@@ -6959,7 +6957,7 @@ msgstr "Voer wachtzin in voor versleutelde partitie"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase:"
-msgstr "Voer wachtzin in:"
+msgstr "Wachtzin invoeren:"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
