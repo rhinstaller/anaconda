@@ -1273,26 +1273,10 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # FIXME: this is a bit of a hack.  we shouldn't hard-code and
         # instead check by provides.  but alas.
-        for k in ("kernel", "kernel-smp", "kernel-xen0", "kernel-xen",
-                  "kernel-PAE"):
+        for k in ("kernel", "kernel-smp", "kernel-PAE"):
             if len(self.ayum.tsInfo.matchNaevr(name=k)) > 0:
                 self.selectModulePackages(anaconda, k)
                 foundkernel = True
-
-        if not foundkernel and os.path.exists("/proc/xen"):
-            try:
-                kxen = getBestKernelByArch("kernel-xen", self.ayum)
-                log.info("selecting kernel-xen package for kernel")
-                foundkernel = True
-            except PackageSackError:
-                kxen = None
-                log.debug("no kernel-xen package")
-            else:
-                self.ayum.install(po = kxen)
-                self.selectModulePackages(anaconda, kxen.name)
-                if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
-                    log.debug("selecting kernel-xen-devel")
-                    self.selectPackage("kernel-xen-devel.%s" % (kxen.arch,))
 
         if not foundkernel and (isys.smpAvailable() or isys.htavailable()):
             try:
