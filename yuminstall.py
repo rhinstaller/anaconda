@@ -788,7 +788,7 @@ class AnacondaYum(YumSorter):
 
         delay = 0.25*(2**(obj.tries-1))
         if delay > 1:
-            w = self.anaconda.intf.waitWindow(_("Retrying"), _("Retrying package download..."))
+            w = self.anaconda.intf.waitWindow(_("Retrying"), _("Retrying download..."))
             time.sleep(delay)
             w.pop()
         else:
