@@ -199,9 +199,7 @@ def writeBootloader(anaconda):
                                version))
 	else:
 	    kernelList.append((kernelLabel, kernelLongLabel, version))
-            if nick in ("hypervisor", "guest"): # XXX: *sigh* inconsistent
-                defkern = "kernel-xen-%s" %(nick,)
-            elif nick != "base":
+            if nick != "base":
                 defkern = "kernel-%s" %(nick,)
 	    plainLabelUsed = 1
 
