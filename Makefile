@@ -143,6 +143,13 @@ bumpver:
 	DATELINE="* `date "+%a %b %d %Y"` `git-config user.name` <`git-config user.email`> - $$NEWVERSION-1"  ; \
 	cl=`grep -n %changelog anaconda.spec |cut -d : -f 1` ; \
 	tail --lines=+$$(($$cl + 1)) anaconda.spec > speclog ; \
-	(head -n $$cl anaconda.spec ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > anaconda.spec.new ; \
-	mv anaconda.spec.new anaconda.spec ; rm -f speclog ; \
+	make --quiet rpmlog 2>/dev/null | fold -s -w 77 | while read line ; do \
+		if [ ! "$$(echo $$line | cut -c-2)" = "- " ]; then \
+			echo "  $$line" ; \
+		else \
+			echo "$$line" ; \
+		fi ; \
+	done > newspeclog ; \
+	(head -n $$cl anaconda.spec ; echo "$$DATELINE" ; cat newspeclog ; echo ""; cat speclog) > anaconda.spec.new ; \
+	mv anaconda.spec.new anaconda.spec ; rm -f speclog ; rm -f newspeclog ; \
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" anaconda.spec
