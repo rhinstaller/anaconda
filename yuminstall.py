@@ -1084,15 +1084,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         for txmbr in self.ayum.tsInfo.getMembers():
             txmbr.groups = yum.misc.unique(txmbr.groups)
 
-        # FIXME: hack, are we in xen (#179387)
-        # FIXME: hack, are we in vmware (#219696)
-        # FIXME: and another bad hack since our xen kernel is PAE
-        if iutil.inXen() or \
-                iutil.inVmware() or \
-                rpmUtils.arch.getBaseArch() == "i386" and "pae" not in iutil.cpuFeatureFlags():
-            if self.ayum.comps._groups.has_key("virtualization"):
-                del self.ayum.comps._groups["virtualization"]
-
     def doRepoSetup(self, anaconda, thisrepo = None, fatalerrors = True):
         # We want to call ayum.doRepoSetup one repo at a time so we have
         # some concept of which repo didn't set up correctly.

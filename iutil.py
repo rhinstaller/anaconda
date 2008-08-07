@@ -496,26 +496,6 @@ def isEfi():
 
     return efi
 
-## Extract the CPU feature flags from /proc/cpuinfo
-# @return A list of CPU feature flags, or an empty list on error.
-def cpuFeatureFlags():
-    if not isX86():
-        return False
-    f = open("/proc/cpuinfo", "r")
-    lines = f.readlines()
-    f.close()
-
-    for line in lines:
-        if not line.startswith("flags"):
-            continue
-        # get the actual flags
-        flags = line[:-1].split(":", 1)[1]
-        # and split them
-        flst = flags.split(" ")
-        return flst
-
-    return []
-
 ## Generate the /etc/rpm/platform and /etc/rpm/macros files.
 # @param root The root of the filesystem to create the files in.
 def writeRpmPlatform(root="/"):
@@ -567,21 +547,6 @@ def writeRpmPlatform(root="/"):
         f.write("%_prefer_color   1\n")
 
     f.close()
-
-## Check to see if we are in a xen environment.
-#
-def inXen():
-    if os.path.exists("/proc/xen/capabilities"):
-        return True
-    return False
-
-## Check to see if we are in a vmware environment.
-#
-def inVmware():
-    out = execWithCapture("lspci", ["-vvv"])
-    if "VMware" in out:
-        return True
-    return False
 
 # Architecture checking functions
 
