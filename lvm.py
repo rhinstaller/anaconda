@@ -34,8 +34,6 @@ from constants import *
 
 MAX_LV_SLOTS=256
 
-output = "/tmp/lvmout"
-
 lvmDevicePresent = 0
 
 from errors import *
@@ -65,15 +63,15 @@ has_lvm()
         
 def lvmExec(*args):
     try:
-        return iutil.execWithRedirect("lvm", args, stdout = output,
-            stderr = output, searchPath = 1)
+        return iutil.execWithRedirect("lvm", args, stdout = lvmErrorOutput,
+            stderr = lvmErrorOutput, searchPath = 1)
     except Exception, e:
         log.error("error running lvm command: %s" %(e,)) 
         raise LvmError, args[0]
 
 def lvmCapture(*args):
     try:
-        lvmout = iutil.execWithCapture("lvm", args, stderr = output)
+        lvmout = iutil.execWithCapture("lvm", args, stderr = lvmErrorOutput)
         lines = []
         for line in lvmout.split("\n"):
             lines.append(line.strip().split(':'))
@@ -326,7 +324,7 @@ def pvcreate(node):
     except:
         rc = 1
     if rc:
-        raise PVCreateError(node)
+        raise PVCreateError, node
     unlinkConf()
     wipeOtherMetadataFromPV(node)
 

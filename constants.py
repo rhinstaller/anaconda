@@ -69,6 +69,8 @@ productArch = product.productArch
 productPath = product.productPath
 bugzillaUrl = product.bugUrl
 
+lvmErrorOutput = "/tmp/lvmout"
+
 exceptionText = _("An unhandled exception has occurred.  This "
                   "is most likely a bug.  Please save a copy of "
                   "the detailed exception and file a bug report")

@@ -24,7 +24,8 @@
 #
 
 import string
-from lvm import output
+import os
+from constants import lvmErrorOutput
 
 """Exceptions for use in lvm operations."""
 
@@ -36,7 +37,9 @@ class LvmError(Exception):
         self.log = self.getLvmOutput()
 
     def getLvmOutput(self):
-        f = open(output, "r")
+        if not os.access(lvmErrorOutput, os.R_OK):
+            return ""
+        f = open(lvmErrorOutput, "r")
         lines = reduce(lambda x,y: x + [string.strip(y),], f.readlines(), [])
         lines = string.join(reduce(lambda x,y: x + ["   %s" % (y,)], \
                                     lines, []), "\n")
