@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.25
+Version: 11.4.1.26
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -197,6 +197,40 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 08 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.26-1
+- Remove a bunch of cachedir setting code that is no longer needed. (clumens)
+- Fix segfaults on interactive NFS installs (#458416). (clumens)
+- Fix LVM error handling so the exceptions actually get into the namespace.
+  (pjones)
+- yuminstall: don't look for kernel-xen anymore (markmc)
+- console: kill the /proc/xen hack (markmc)
+- yuminstall: don't ever stop people installing the virt group (markmc)
+- lang: kill xen keymap hack (markmc)
+- bootloader: remove old kernel-xen-{guest, hypervisor} handling (markmc)
+- Preserve baseurl/mirrorlist and mirrorlist checkbox settings across loads.
+  (clumens)
+- It's BETANAG, not betanag. (clumens)
+- Various string fixes (clumens).
+- Wrap spec file changelog lines. (dcantrell)
+- mk-images: replace kernel-xen with pv_ops kernel (markmc)
+- Use a temporary location for yum cache data (#457632). (clumens)
+- Remove extra newtPopWindow() call that was causing a crash (#260621).
+  (dcantrell)
+- Add /sbin/sfdisk (#224297). (dcantrell)
+- Do not call _isys.vtActivate() on s390 or s390x platforms (#217563).
+  (dcantrell)
+- Change the maximum recommended swap size to "2000 + (current
+  ram)".(#447372) (jgranado)
+- Make it >= not > for the memory size comparison (#207573) (pjones)
+- Allow float comparison between nic names in isys.py. (#246135) (joel)
+- Fix formatting on disk sizes >1TB (pjones)
+- Don't traceback when trying to remove /mnt/sysimage (#227650). (dcantrell)
+- If we're booting off the boot.iso, don't prompt for lang or kbd (#457595).
+  (clumens)
+- Don't mention images/diskboot.img anymore (#441092). (clumens)
+- Remove iSeries image generation (#456878) (dcantrell)
+- Display capslock status correctly (#442258) (dcantrell)
+
 * Mon Aug 04 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.25-1
 - Eject the CD/DVD if we booted off a boot.iso as well (#442088). (clumens)
 - Fix a GTK warning that only appears with s-c-ks running from a
