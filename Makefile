@@ -153,3 +153,6 @@ bumpver:
 	(head -n $$cl anaconda.spec ; echo "$$DATELINE" ; cat newspeclog ; echo ""; cat speclog) > anaconda.spec.new ; \
 	mv anaconda.spec.new anaconda.spec ; rm -f speclog ; rm -f newspeclog ; \
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" anaconda.spec
+
+install-buildrequires:
+	yum install $$(grep BuildRequires: anaconda.spec | cut -d ' ' -f 2))
