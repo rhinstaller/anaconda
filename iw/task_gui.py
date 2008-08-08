@@ -164,7 +164,7 @@ class RepoEditor:
                     self.mirrorlistCheckbox.set_active(True)
                 else:
                     self.baseurlEntry.set_text(self.repo.baseurl[0])
-                    self.mirrorlistCheckbox.set_active(True)
+                    self.mirrorlistCheckbox.set_active(False)
 
                 if self.repo.proxy:
                     self.proxyCheckbox.set_active(True)
@@ -227,9 +227,11 @@ class RepoEditor:
             return False
 
         if self.mirrorlistCheckbox.get_active():
+            repo.baseurl = []
             repo.mirrorlist = repourl
         else:
             repo.baseurl = [repourl]
+            repo.mirrorlist = None
 
         repo.name = self.nameEntry.get_text()
         repo.basecachedir = self.backend.ayum.conf.cachedir
