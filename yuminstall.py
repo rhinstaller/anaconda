@@ -257,8 +257,6 @@ class AnacondaYumRepo(YumRepository):
         if mirrorlist:
             self.mirrorlist = mirrorlist
 
-        self.setAttribute('cachedir', os.path.join(root, "var/cache/yum", self.id))
-
     def needsNetwork(self):
         def _isURL(s):
             return s.startswith("http") or s.startswith("ftp")
@@ -269,26 +267,6 @@ class AnacondaYumRepo(YumRepository):
             return _isURL(self.mirrorlist)
         else:
             return False
-
-    def dirSetup(self):
-        # FIXME: this is terrible, awful and shouldn't be allowed to see
-        # the light of day.  but if we use YumRepository.dirSetup(), then
-        # our value of cachedir is overridden.  So just make sure we do
-        # the bits that are done in that parent class for now :-/
-        self.setAttribute('pkgdir', os.path.join(self.cachedir, "packages"))
-        self.setAttribute('hdrdir', os.path.join(self.cachedir, "headers"))
-        self.setAttribute('metadata_cookie', os.path.join(self.cachedir, self.metadata_cookie_fn))
-
-        if not os.path.isdir(self.hdrdir):
-            os.makedirs(self.hdrdir, mode=0755)
-        if not os.path.isdir(self.pkgdir):
-            os.makedirs(self.pkgdir, mode=0755)
-        if not os.path.isdir(self.cachedir):
-            os.makedirs(self.cachedir, mode=0755)
-
-    def dirCleanup(self):
-        if os.path.isdir(self.getAttribute('cachedir')):
-            shutil.rmtree(self.getAttribute('cachedir'))
 
     def _getFile(self, url=None, relative=None, local=None, start=None, end=None,
             copy_local=None, checkfunc=None, text=None, reget='simple', cache=True):
@@ -625,7 +603,6 @@ class AnacondaYum(YumSorter):
                     'using id') % section)
 
         # Set attributes not from the config file
-        repo.basecachedir = self.conf.cachedir
         repo.yumvar.update(self.conf.yumvar)
         repo.cfg = parser
 
@@ -718,7 +695,7 @@ class AnacondaYum(YumSorter):
             except:
                 log.warning("ignoring duplicate repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
 
-        self.repos.setCacheDir("%s/var/cache/yum" % self.conf.cachedir)
+        self.repos.setCacheDir(self.conf.cachedir)
 
     def downloadHeader(self, po):
         while True:
@@ -1009,8 +986,8 @@ class YumBackend(AnacondaBackend):
 
         buf = """
 [main]
-cachedir=%s/var/cache/yum
 installroot=%s
+cachedir=/var/cache/yum
 keepcache=0
 logfile=/tmp/yum.log
 metadata_expire=0
@@ -1018,7 +995,7 @@ obsoletes=True
 pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins
 pluginconfpath=/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d
 reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d
-""" % (anaconda.rootPath, anaconda.rootPath)
+""" % (anaconda.rootPath)
 
         fd = open("/etc/yum.conf", "w")
         fd.write(buf)
