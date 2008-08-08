@@ -50,7 +50,7 @@
 /* boot flags */
 extern uint64_t flags;
 
-int nfsGetSetup(char ** hostptr, char ** dirptr) {
+static int nfsGetSetup(char ** hostptr, char ** dirptr) {
     struct newtWinEntry entries[3];
     char * buf;
     char * newServer = *hostptr ? strdup(*hostptr) : NULL;
@@ -78,8 +78,11 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
         abort();
     }
 
-    rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
-                        24, entries, _("OK"), _("Back"), NULL);
+    do {
+        rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
+                            24, entries, _("OK"), _("Back"), NULL);
+    } while (!strcmp(newServer, "") || !strcmp(newDir, ""));
+
     free(buf);
     free(entries[1].text);
 
@@ -152,16 +155,17 @@ char * mountNfsImage(struct installMethod * method,
                  */
                 substr = strstr(directory, ".img");
                 if (!substr || (substr && *(substr+4) != '\0')) {
-                    if (asprintf(&tmp, "%s/images/stage2.img",
-                                 directory) == -1) {
+                    if (asprintf(&tmp, "nfs:%s:%s/images/stage2.img",
+                                 host, directory) == -1) {
                         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                         abort();
                     }
 
-                    free(((struct nfsInstallData *) loaderData->stage2Data)->directory);
-                    ((struct nfsInstallData *) loaderData->stage2Data)->directory = strdup(tmp);
-                    directory = ((struct nfsInstallData *) loaderData->stage2Data)->directory;
+                    setStage2LocFromCmdline(tmp, loaderData);
+                    free(host);
+                    free(directory);
                     free(tmp);
+                    continue;
                 }
             }
 

@@ -88,7 +88,6 @@ int configureNetwork(struct networkDeviceConfig * dev);
 int writeNetInfo(const char * fn, struct networkDeviceConfig * dev);
 int findHostAndDomain(struct networkDeviceConfig * dev);
 int writeResolvConf(struct networkDeviceConfig * net);
-int nfsGetSetup(char ** hostptr, char ** dirptr);
 void initLoopback(void);
 int chooseNetworkInterface(struct loaderData_s * loaderData);
 void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg, 
