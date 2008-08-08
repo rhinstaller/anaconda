@@ -572,6 +572,7 @@ class DiskSet:
         self.initializedDisks = {}
         self.onlyPrimary = None
         self.anaconda = anaconda
+        self.devicesOpen = False
 
     def onlyPrimaryParts(self):
         for disk in self.disks.values():
@@ -988,6 +989,7 @@ class DiskSet:
         for disk in self.disks.keys():
             #self.disks[disk].close()
             del self.disks[disk]
+        self.devicesOpen = False
 
     def isDisciplineFBA (self, drive):
         if not iutil.isS390():
@@ -1293,6 +1295,7 @@ class DiskSet:
                     disk, dev = self._labelDevice(drive)
                 except:
                     pass
+        self.devicesOpen = True
 
     def partitionTypes (self):
         """Return list of (partition, partition type) tuples for all parts."""
