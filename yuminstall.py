@@ -634,7 +634,7 @@ class AnacondaYum(YumSorter):
             del(repo)
             raise RepoError, "Repo %s contains -source or -debuginfo, excluding" % name
 
-        if betanag and not repo.enabled:
+        if BETANAG and not repo.enabled:
             name = repo.name
             del(repo)
             raise RepoError, "Excluding disabled repo %s for prerelease" % name
