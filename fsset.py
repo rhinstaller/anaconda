@@ -1633,21 +1633,27 @@ MAILADDR root
             return
 
         # we have to have lvm activated to be able to do resizes of LVs
-        active = lvm.vgcheckactive()
-        if not active:
+        lvmActive = lvm.vgcheckactive()
+        devicesActive = diskset.devicesOpen
+
+        if not devicesActive:
+            # should this not be diskset.openDevices() ?
             diskset.startMPath()
             diskset.startDmRaid()
             diskset.startMdRaid()
 
+        if not lvmActive:
             lvm.vgscan()
             lvm.vgactivate()
 
         for entry in todo:
             entry.fsystem.resize(entry, entry.resizeTargetSize,
                                  self.progressWindow, chroot)
-
-        if not active:
+        if not lvmActive:
             lvm.vgdeactivate()
+        
+        if not devicesActive:
+            # should this not be diskset.closeDevices() ?
             diskset.stopMPath()
             diskset.stopDmRaid()
             diskset.stopMdRaid()

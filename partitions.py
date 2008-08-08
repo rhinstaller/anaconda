@@ -1656,9 +1656,13 @@ class Partitions:
         """Does resizing of non-physical volumes."""
 
         # have to have lvm on, which requires raid to be started
-        diskset.startMPath()
-        diskset.startDmRaid()
-        diskset.startMdRaid()
+        devicesActive = diskset.devicesOpen
+        if not devicesActive:
+            # should this not be diskset.openDevices() ?
+            diskset.startMPath()
+            diskset.startDmRaid()
+            diskset.startMdRaid()
+
         for luksDev in self.encryptedDevices.values():
             luksDev.openDevice()
         lvm.vgactivate()
@@ -1680,9 +1684,12 @@ class Partitions:
         lvm.vgdeactivate()
         for luksDev in self.encryptedDevices.values():
             luksDev.closeDevice()
-        diskset.stopMdRaid()
-        diskset.stopDmRaid()
-        diskset.stopMPath()
+
+        if not devicesActive:
+            # should this not be diskset.closeDevices() ?
+            diskset.stopMdRaid()
+            diskset.stopDmRaid()
+            diskset.stopMPath()
 
     def deleteDependentRequests(self, request):
         """Handle deletion of this request and all requests which depend on it.
