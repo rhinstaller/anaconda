@@ -36,7 +36,7 @@ for root, dirs, files in os.walk(path):
         mods[file] = os.path.join(root,file)
 
 modules = { 'scsi_hostadapter' : [ 'block' ], 'eth' : [ 'networking'] }
-blacklist = ("floppy", "scsi_mod", "libiscsi", "b43", "prism54", "b43legacy", "p54pci", "iwl3945", "iwl4965", "adm8211", "atmel", "at76_usb", "ipw2100", "ipw2200", "rt2400pci", "rt2500pci", "rt2500usb", "rt61pci", "rt73usb", "rtl8187", "zd1211rw-mac80211", "ath5k", "bcm4318")
+blacklist = ("floppy", "scsi_mod", "libiscsi")
 
 list = {}
 
