@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.26
+Version: 11.4.1.27
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -197,6 +197,14 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 11 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.27-1
+- Handle 'rescue' and %post in rescue mode (atodorov)
+- Delay the duplicate label error until the label is actually used
+  (#458505). (clumens)
+- Enable wireless modules again for now as a test (#443545). (clumens)
+- udev rules have changed location (#458570). (clumens)
+- Add install-buildrequires target. (dcantrell)
+
 * Fri Aug 08 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.26-1
 - Remove a bunch of cachedir setting code that is no longer needed. (clumens)
 - Fix segfaults on interactive NFS installs (#458416). (clumens)
