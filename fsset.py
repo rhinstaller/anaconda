@@ -2688,36 +2688,33 @@ def makeDevice(dev):
 
 # XXX fix RAID
 def readFstab (anaconda):
-    def createMapping(dict, intf):
+    def createMapping(dict):
         mapping = {}
+        dupes = []
+
         for device, info in dict.items():
             if not mapping.has_key(info):
                 mapping[info] = device
-            elif intf is not None:
-                try:
-                    intf.messageWindow(_("Duplicate Labels"),
-                                       _("Multiple devices on your system are "
-                                         "labelled %s.  Labels across devices must be "
-                                         "unique for your system to function "
-                                         "properly.\n\n"
-                                         "Please fix this problem and restart the "
-                                         "installation process.") %(info,),
-                                       type="custom", custom_icon="error",
-                                       custom_buttons=[_("_Exit installer")])
-                except TypeError:
-                    intf.messageWindow(_("Invalid Label"),
-                                       _("An invalid label was found on device "
-                                         "%s.  Please fix this problem and restart "
-                                         "the installation process.") %(device,),
-                                       type="custom", custom_icon="error",
-                                       custom_buttons=[_("_Exit installer")])
+            elif not info in dupes:
+                dupes.append(info)
 
-                sys.exit(0)
-            else:
-                log.warning("Duplicate labels for %s, but no intf so trying "
-                            "to continue" %(info,))
+        return (mapping, dupes)
 
-        return mapping
+    def showError(label, intf):
+        if intf:
+            intf.messageWindow(_("Duplicate Labels"),
+                               _("Multiple devices on your system are "
+                                 "labelled %s.  Labels across devices must be "
+                                 "unique for your system to function "
+                                 "properly.\n\n"
+                                 "Please fix this problem and restart the "
+                                 "installation process.") %(label,),
+                               type="custom", custom_icon="error",
+                               custom_buttons=[_("_Exit installer")])
+            sys.exit(0)
+        else:
+            log.warning("Duplicate labels for %s, but no intf so trying "
+                        "to continue" %(info,))
 
     path = anaconda.rootPath + '/etc/fstab'
     intf = anaconda.intf
@@ -2731,8 +2728,8 @@ def readFstab (anaconda):
     labels = diskset.getInfo()
     uuids = diskset.getInfo(readFn=lambda d: isys.readFSUuid(d))
 
-    labelToDevice = createMapping(labels, intf)
-    uuidToDevice = createMapping(uuids, intf)
+    (labelToDevice, labelDupes) = createMapping(labels, intf)
+    (uuidToDevice, uuidDupes) = createMapping(uuids, intf)
 
     loopIndex = {}
 
@@ -2789,6 +2786,9 @@ def readFstab (anaconda):
             fsystem = fileSystemTypeGet("bind")
         elif len(fields) >= 6 and fields[0].startswith('LABEL='):
             label = fields[0][6:]
+            if label in labelDupes:
+                showError(label, intf)
+
             if labelToDevice.has_key(label):
                 device = makeDevice(labelToDevice[label])
             else:
@@ -2798,6 +2798,9 @@ def readFstab (anaconda):
                 continue
         elif len(fields) >= 6 and fields[0].startswith('UUID='):
             uuid = fields[0][5:]
+            if uuid in uuidDupes:
+                showError(uuid, intf)
+
             if uuidToDevice.has_key(uuid):
                 device = makeDevice(uuidToDevice[uuid])
             else:
