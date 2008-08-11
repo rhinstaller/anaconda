@@ -520,12 +520,12 @@ makeinitrd() {
     mkdir -p $MBD_DIR/sbin
     mkdir -p $MBD_DIR/dev
     mkdir -p $MBD_DIR/etc
+    mkdir -p $MBD_DIR/lib/udev/rules.d
     mkdir -p $MBD_DIR/proc
     mkdir -p $MBD_DIR/selinux
     mkdir -p $MBD_DIR/sys
     mkdir -p $MBD_DIR/tmp
     mkdir -p $MBD_DIR/etc/terminfo/{a,b,d,l,s,v,x}
-    mkdir -p $MBD_DIR/etc/udev/rules.d
     mkdir -p $MBD_DIR/etc/modprobe.d
     mkdir -p $MBD_DIR/var/run
     mkdir -p $MBD_DIR/var/lock/rpm
@@ -585,11 +585,11 @@ makeinitrd() {
     install -m 755 $IMGPATH/$LIBDIR/libgcc_s.so.1 $MBD_DIR/$LIBDIR/
 
     install -m 644 $IMGPATH/etc/udev/udev.conf $MBD_DIR/etc/udev/udev.conf
-    for i in $IMGPATH/etc/udev/rules.d/*.rules ; do
-       install -m 644 $i $MBD_DIR/etc/udev/rules.d/${i##*/}
+    for i in $IMGPATH/lib/udev/rules.d/*.rules ; do
+       install -m 644 $i $MBD_DIR/lib/udev/rules.d/${i##*/}
     done
-    rm -f $MBD_DIR/etc/udev/rules.d/*persistent*
-    rm -f $MBD_DIR/etc/udev/rules.d/*generator*
+    rm -f $MBD_DIR/lib/udev/rules.d/*persistent*
+    rm -f $MBD_DIR/lib/udev/rules.d/*generator*
 
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
     for i in a/ansi d/dumb l/linux s/screen v/vt100 v/vt100-nav v/vt102 x/xterm x/xterm-color g/gnome ; do
