@@ -155,4 +155,4 @@ bumpver:
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" anaconda.spec
 
 install-buildrequires:
-	yum install $$(grep BuildRequires: anaconda.spec | cut -d ' ' -f 2))
+	yum install $$(grep BuildRequires: anaconda.spec | cut -d ' ' -f 2)
