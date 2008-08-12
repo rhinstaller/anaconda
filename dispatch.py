@@ -68,9 +68,9 @@ log = logging.getLogger("anaconda")
 # gets passed in when we call the function.
 installSteps = [
     ("welcome", ),
-    ("betanag", betaNagScreen, ),
     ("language", ),
     ("keyboard", ),
+    ("betanag", betaNagScreen, ),
     ("regkey", regKeyScreen, ),
     ("findrootparts", findRootParts, ),
     ("findinstall", ),
