@@ -64,7 +64,7 @@ depend:
 	for d in $(SUBDIRS); do make -C $$d depend; done
 
 clean:
-	rm -f *.o *.so *.pyc lang-names mini-wm ChangeLog netinst.iso outiso
+	rm -f *.o *.so *.pyc lang-names mini-wm ChangeLog netinst.iso outiso *.tar.bz2
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 subdirs:
