@@ -23,6 +23,8 @@ all:
 	echo "nothing to make"
 
 install: 
+	mkdir -p $(DESTDIR)/etc/yum/pluginconf.d
+	install *.conf $(DESTDIR)/etc/yum/pluginconf.d
 	mkdir -p $(DESTDIR)/usr/lib/yum-plugins
 	install *.py $(DESTDIR)/usr/lib/yum-plugins
 	../py-compile --basedir $(DESTDIR)/usr/lib/yum-plugins $(DESTDIR)/usr/lib/yum-plugins/*.py

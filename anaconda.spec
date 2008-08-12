@@ -204,6 +204,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 
 %files yum-plugins
 %defattr(-,root,root)
+%{_sysconfdir}/yum/pluginconf.d/*
 %{_prefix}/lib/yum-plugins/*
 
 %triggerun -- anaconda < 8.0-1
