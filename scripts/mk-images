@@ -520,6 +520,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/sbin
     mkdir -p $MBD_DIR/dev
     mkdir -p $MBD_DIR/etc
+    mkdir -p $MBD_DIR/etc/udev/rules.d
     mkdir -p $MBD_DIR/lib/udev/rules.d
     mkdir -p $MBD_DIR/proc
     mkdir -p $MBD_DIR/selinux
@@ -587,6 +588,9 @@ makeinitrd() {
     install -m 644 $IMGPATH/etc/udev/udev.conf $MBD_DIR/etc/udev/udev.conf
     for i in $IMGPATH/lib/udev/rules.d/*.rules ; do
        install -m 644 $i $MBD_DIR/lib/udev/rules.d/${i##*/}
+    done
+    for i in $IMGPATH/lib/udev/*; do
+       if [ -f $i ]; then install -m 755 $i $MBD_DIR/lib/udev/${i##*/}; fi
     done
     rm -f $MBD_DIR/lib/udev/rules.d/*persistent*
     rm -f $MBD_DIR/lib/udev/rules.d/*generator*
