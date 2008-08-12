@@ -1,32 +1,28 @@
 #! /bin/sh
 #
-# linuxrc.s390
+# Copyright (C) 2000-2004 by
+#        Bernhard Rosenkraenzer <bero@redhat.com>
+#        Oliver Paukstadt <opaukstadt@millenux.com>
+#        Karsten Hopp <karsten@redhat.de>
+#        Florian La Roche <laroche@redhat.com>
+#        Nils Philippsen <nils@redhat.de>
+#        Helge Deller <hdeller@redhat.de>
+#        David Sainty <dsainty@redhat.com>
 #
-# Copyright (C) 2000, 2001, 2002, 2003, 2004  Red Hat, Inc.
-# All rights reserved.
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Author(s): Bernhard Rosenkraenzer <bero@redhat.com>
-#            Oliver Paukstadt <opaukstadt@millenux.com>
-#            Karsten Hopp <karsten@redhat.de>
-#            Florian La Roche <laroche@redhat.com>
-#            Nils Philippsen <nils@redhat.de>
-#            Helge Deller <hdeller@redhat.de>
-#            David Sainty <dsainty@redhat.com>
-#
-
 VERSION=1.1
 
 export TEXTDOMAIN=s390installer
@@ -36,6 +32,27 @@ export TEXTDOMAINDIR=/usr/lib/locale
 # param: IP string
 # return: 0 (valid IP) or 1 (invalid IP)
 checkip()
+{
+    checkipv6 $1
+    a=$?
+    checkipv4 $1
+    b=$?
+
+    if [ $a -eq 1 ] || [ $b -eq 1 ]; then
+        return 1
+    else
+        return 0
+    fi
+}
+
+checkipv6()
+{
+    ip=$1
+    echo $ip | awk -F':' 'BEGIN{ error = 0} { if (NF > 8) error=1;  i = 1; while (i++<=NF) {if (!match(toupper($i), "^[0-9A-F]*$")){ error=1}}exit error}'
+    return $?;
+}
+
+checkipv4()
 {
     ip=$1
     echo $ip | awk -F'.' '{ if (NF != 4) { exit 1 } i=1; while (i<=NF) { if ($i>255 || $i<0) { exit 1 }; i=i+1; } exit 0 }'
@@ -51,19 +68,20 @@ doshutdown()
 doreboot()
 {
     # find out the location of /boot and use it to re-ipl
-    boot=`cat /proc/mounts | grep " /mnt/sysimage/boot " | awk -F" " '{print $1}'`
+    boot="$(cat /proc/mounts | grep " /mnt/sysimage/boot " | awk -F" " '{print $1}')"
     if [ -z $boot ]; then
         # use root if /boot not used
-        boot=`cat /proc/mounts | grep " /mnt/sysimage " | awk -F" " '{print $1}'`
+        boot="$(cat /proc/mounts | grep " /mnt/sysimage " | awk -F" " '{print $1}')"
     fi
+
     # lookup dasd disk
     echo $boot | grep "dasd" > /dev/null
     if [ $? -eq 0 ]; then
         type="ccw"
-        boot=`basename $boot`
+        boot="$(basename $boot)"
         # strip partition number from dasd device
-        boot=$(echo ${boot%[0-9]})
-        id=`basename $(readlink /sys/block/$boot/device)`
+        boot="$(echo ${boot%[0-9]})"
+        id="$(basename $(readlink /sys/block/$boot/device))"
         echo $type > /sys/firmware/reipl/reipl_type
         echo $id > /sys/firmware/reipl/$type/device
     else
@@ -92,40 +110,16 @@ sysecho () {
 	[ -f $file ] && echo $* > $file
 }
 
-# jump through some hoops to find out the LCS interface name
-getlcsifname() {
-   local dirs driver readport ifname
-   ifname=""
-   dirs=`/bin/ls -d /sys/class/net/eth* /sys/class/net/tr* 2>/dev/null`
-   for i in $dirs; do
-      driver=`readlink $i/driver`
-      driver=`basename $driver`
-      if [ "$driver" == "lcs" ]; then
-         readport=`readlink $i/device`
-         readport=`basename $readport`
-         if [ "$readport" == "$1" ]; then
-            ifname=`basename $i`
-            break
-         fi
-      fi
-   done
-   if [ -n "$ifname" ]; then
-      DEVICE=$ifname
-   else
-      echo "Could not detect LCS interface, aborting..."
-      exit
-   fi
-}
-
 
 startinetd()
 {
 	echo
-	echo $"Starting sshd to allow login over the network."
+	echo $"Starting telnetd and sshd to allow login over the network."
    echo $"Welcome to the anaconda install environment $VERSION for $S390ARCH" > /etc/issue.net
    echo $"Welcome to the anaconda install environment $VERSION for $S390ARCH" > /etc/motd
    echo >> /etc/motd
 
+	/sbin/xinetd -stayalive -reuse -pidfile /tmp/xinetd.pid
 	/sbin/sshd
 	if [ -z "$RUNKS" ]; then
 	  echo 
@@ -247,7 +241,6 @@ mount -t ramfs none /tmp
 ifconfig lo 127.0.0.1 netmask 255.0.0.0
 route add -host 127.0.0.1 dev lo 2>/dev/null
 
-# make sure we have an /etc/hosts file (required for telnetd)
 echo -e "127.0.0.1\tlocalhost.localdomain localhost" > /etc/hosts
 echo -e "::1\t\tlocalhost6.localdomain6 localhost6" >> /etc/hosts
 
@@ -297,6 +290,7 @@ if [ -r /sys/firmware/ipl/ipl_type ]; then
 fi
 
 if [ "$do_net_install" = "yes" ]; then
+	# Perform a network installation
 	# Check for missing parameters, prompt for them if necessary
 	while [ -z "$NETTYPE" ]; do
 	   echo $"Which kind of network device do you intend to use"
@@ -339,9 +333,19 @@ if [ "$do_net_install" = "yes" ]; then
 				echo $"1 for layer 2 mode"
 				read LAYER2
 			fi
+			if [ "$LAYER2" == 1 ]; then
+			   if [ -z "$VSWITCH" -o "$VSWITCH" == 0 ]; then
+			      if [ -z "$MACADDR" ]; then
+				   echo $"Enter a unique MAC address (eg. 02:00:00:00:00:00)."
+				   echo $"Leave this blank and press enter if connecting to a"
+				   echo $"Layer 2 VSWITCH, as this is automatically assigned"
+				   read MACADDR
+			      fi
+			   fi
+			fi
 	   fi
 	fi
-
+	      
 	while [ -z "$HOSTNAME" -o "$HOSTNAME" = "(none)" ]; do
 		echo $"Enter the FQDN of your new Linux guest (e.g. s390.redhat.com):"
 		read HOSTNAME
@@ -417,7 +421,7 @@ if [ "$do_net_install" = "yes" ]; then
 			  echo $"Enter the IP of your CTC / ESCON / IUCV point-to-point partner:"
 			  read GATEWAY
 		 done
-
+	
 		 if [ "$NETTYPE" = "ctc" ]; then
 	        if [ -z "$MTU" ]; then
 			      MTU="1500"
@@ -465,7 +469,7 @@ if [ "$do_net_install" = "yes" ]; then
 	if [ -n "$MTU" -a -z "$MMTU" ]; then
 		 MMTU="mtu $MTU"
 	fi
-
+	
 	# configure network-interface
 	if [ ":$NETTYPE" = ":ctc" ]; then
 	   insmod ccwgroup$LO
@@ -491,17 +495,22 @@ if [ "$do_net_install" = "yes" ]; then
 	   setupdevice
 	# KH FIXME: Workaround for missing sysfs interface
 	#   DEVICE=`cat /sys/devices/lcs/${SUBCHANNELS//,*/}/if_name`
-	   getlcsifname ${SUBCHANNELS//,*/}
+	   DEVICE=eth0
 		ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 		route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
 	   echo "alias $DEVICE lcs" >> /tmp/modprobe.conf
 	elif [ "$NETTYPE" = "qeth" ]; then
-	   insmod ccwgroup$LO
+		insmod ccwgroup$LO
+		insmod crypto_api$LO
+		insmod xfrm_nalgo$LO
 		insmod qdio$LO
 		insmod ipv6$LO
 		insmod qeth$LO
 	   setupdevice
 	   DEVICE=`cat /sys/devices/qeth/${SUBCHANNELS//,*/}/if_name`
+	   if [ -n "$LAYER2" -a -n "$MACADDR" ]; then
+	       ifconfig $DEVICE hw ether $MACADDR
+	   fi
 		ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 		route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
 		echo "alias $DEVICE qeth" >> /tmp/modprobe.conf
@@ -509,9 +518,11 @@ if [ "$do_net_install" = "yes" ]; then
 	   echo $"Unknown network device, aborting installation"
 	   exit 1
 	fi
-
+	
 	route add default gw $GATEWAY dev $DEVICE 2>/dev/null
-
+	# BH FIXME: Workaround for manual MACADDR, need ping to update arp table
+	ping -c 1 $GATEWAY > /dev/null
+	
 	if [ -z "$DNS" ]; then
 		echo $"Enter your DNS server(s), separated by colons (:):"
 		read DNS
@@ -520,21 +531,18 @@ if [ "$do_net_install" = "yes" ]; then
 		echo $"You might encounter problems without a nameserver, especially"
 		echo $"with FTP installs"
 	fi
-
+	
 	if [ -n "$DNS" -a -z "$SEARCHDNS" ]; then
 		echo $"Enter your DNS search domain(s) (if any), separated by colons (:):"
 		read SEARCHDNS
 	fi
-
+	
 	[ -n "$HOSTNAME" ] && hostname $HOSTNAME
-
+	
 	# show interfaces and routing table
 	ifconfig -a
 	route -n
-
-	#echo $"Starting portmap."
-	#portmap
-
+	
 	# convert to space-separated lists
 	if [ -n "$SEARCHDNS" ]; then
 		SEARCHDNS=`echo $SEARCHDNS |sed -e 's/:/ /g'`
@@ -544,9 +552,10 @@ if [ "$do_net_install" = "yes" ]; then
 		RESOLVDNS=`echo $DNS |sed -e 's/:/ /g'`
 		for i in $RESOLVDNS; do echo "nameserver $i"; done >> /etc/resolv.conf
 	fi
-
+	
+	# make sure we have an /etc/hosts file (required for telnetd)
 	if [ ! -z "$HOSTNAME" -a ! -z "$IPADDR" ]; then
-		echo -e "$IPADDR\t$HOSTNAME `echo $HOSTNAME | cut -d '.' -f 1`" >> /etc/hosts
+	    echo -e "$IPADDR\t$HOSTNAME `echo $HOSTNAME | cut -d '.' -f 1`" >> /etc/hosts
 	fi
 fi
 
@@ -618,6 +627,8 @@ EOF
 [ "$PEERID" != "" ] && echo "PEERID=$PEERID" >> /tmp/netinfo
 [ "$PORTNAME" != "" ] && echo "PORTNAME=$PORTNAME" >> /tmp/netinfo
 [ "$CTCPROT" != "" ] && echo "CTCPROT=$CTCPROT" >> /tmp/netinfo
+[ "$LAYER2" != "" ] && echo "LAYER2=$LAYER2" >> /tmp/netinfo
+[ "$MACADDR" != "" ] && echo "MACADDR=$MACADDR" >> /tmp/netinfo
 
 # so that the vars get propagated into the sshd shells
 mkdir /.ssh
