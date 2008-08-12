@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.27
+Version: 11.4.1.28
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -197,6 +197,12 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Aug 12 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.28-1
+- More fixes to include udev rules in the initrd (#458570). (clumens)
+- Catch the first non-generic-logo package that provides system-logos.
+  (clumens)
+- Remove extra ')' in install-buildrequires (dcantrell)
+
 * Mon Aug 11 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.27-1
 - Handle 'rescue' and %post in rescue mode (atodorov)
 - Delay the duplicate label error until the label is actually used
