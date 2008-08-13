@@ -64,7 +64,6 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
     logMessage(INFO, "mounting device %s for hard drive install", device);
 
     if (!FL_TESTING(flags)) {
-        /* XXX try to mount as ext2 and then vfat */
         for (type=typetry; *type; type++) {
             if (!doPwMount(device, "/mnt/isodir", *type, "ro"))
                 break;
@@ -113,7 +112,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
                 umountLoopback("/mnt/runtime", "/dev/loop0");
                 goto err;
             } else {
-                if (asprintf(&url, "hd:%s:%s:/%s", device, *type,
+                if (asprintf(&url, "hd:%s:/%s", device,
                              dirName ? dirName : ".") == -1) {
                     logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                     abort();
@@ -159,7 +158,7 @@ char * mountHardDrive(struct installMethod * method,
     char * dir = strdup("");
     char * tmpDir;
     char * url = NULL;
-    char * buf;
+    char * buf, *substr;
     int numPartitions;
 
     char **partition_list;
@@ -324,12 +323,15 @@ char * mountHardDrive(struct installMethod * method,
 
         logMessage(INFO, "partition %s selected", selpart);
 
-        /* The user-provided dir points at a repo instead of a stage2
-         * image, so we have to fix that up now.
+        /* If the user-provided URL points at a repo instead of a stage2
+         * image, fix that up now.
          */
-        if (asprintf(&dir, "%s/stage2.img", dir) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
+        substr = strstr(dir, ".img");
+        if (!substr || (substr && *(substr+4) != '\0')) {
+            if (asprintf(&dir, "%s/stage2.img", dir) == -1) {
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                abort();
+            }
         }
 
         url = setupIsoImages(selpart, dir, location);
