@@ -43,6 +43,9 @@ if [ -z "$2" ]; then
 fi
 
 TARGET="$1" ; shift
+if [ ! -f "$1" ]; then
+	echo -n | cpio -H newc --quiet -o | gzip -9 > "$1"
+fi
 
 OK=no
 if [ -e "$TARGET" -a -w "$TARGET" -o -w $(dirname "$TARGET") ] ; then
