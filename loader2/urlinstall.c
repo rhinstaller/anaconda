@@ -204,6 +204,10 @@ char *mountUrlImage(struct installMethod *method, char *location,
                         loaderData->method = -1;
                         free(loaderData->stage2Data);
                         loaderData->stage2Data = NULL;
+
+                        if (loaderData->inferredStage2)
+                            loaderData->invalidRepoParam = 1;
+
                         break;
                     }
 
@@ -248,6 +252,9 @@ char *mountUrlImage(struct installMethod *method, char *location,
 
                     if (loaderData->method >= 0)
                         loaderData->method = -1;
+
+                    if (loaderData->inferredStage2)
+                        loaderData->invalidRepoParam = 1;
                 } else {
                     stage = URL_STAGE_DONE;
                 }

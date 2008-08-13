@@ -1185,6 +1185,15 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             logMessage(INFO, "no stage2= given, assuming %s", tmp);
             setStage2LocFromCmdline(tmp, loaderData);
             free(tmp);
+
+            /* If we had to infer a stage2= location, but the repo= parameter
+             * we based this guess on was wrong, we need to correct the typo
+             * in both places.  Unfortunately we can't really know what the
+             * user meant, so the best we can do is take the results of
+             * running stage2= through the UI and chop off any /images/whatever
+             * path that's at the end of it.
+             */
+            loaderData->inferredStage2 = 1;
         }
     }
 
@@ -1525,7 +1534,27 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     logMessage(INFO, "got stage2 at url %s", url);
                     step = STEP_DONE;
                     dir = 1;
+
+                    if (loaderData->invalidRepoParam) {
+                        char *newInstRepo;
+
+                        /* Doesn't contain /images?  Let's not even try. */
+                        if (strstr(url, "/images") == NULL)
+                            break;
+
+                        if (asprintf(&newInstRepo, "%.*s",
+                                     (int) (strstr(url, "/images")-url), url) == -1) {
+                            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                            abort();
+                        }
+
+                        free(loaderData->instRepo);
+                        loaderData->instRepo = newInstRepo;
+                        logMessage(INFO, "reset repo= parameter to %s",
+                                   loaderData->instRepo);
+                    }
                 }
+
                 break;
             }
 

@@ -138,6 +138,10 @@ char * mountNfsImage(struct installMethod * method,
 
                 if (!host || !directory) {
                     logMessage(ERROR, "missing host or directory specification");
+
+                    if (loaderData->inferredStage2)
+                        loaderData->invalidRepoParam = 1;
+
                     loaderData->method = -1;
                     break;
                 } else {
@@ -181,6 +185,9 @@ char * mountNfsImage(struct installMethod * method,
                                _("Hostname specified with no DNS configured"));
                 if (loaderData->method >= 0)
                     loaderData->method = -1;
+
+                if (loaderData->inferredStage2)
+                    loaderData->invalidRepoParam = 1;
 
                 break;
             }
@@ -241,6 +248,9 @@ char * mountNfsImage(struct installMethod * method,
                 if (loaderData->method >= 0)
                     loaderData->method = -1;
 
+                if (loaderData->inferredStage2)
+                    loaderData->invalidRepoParam = 1;
+
                 break;
             }
 
@@ -256,6 +266,9 @@ char * mountNfsImage(struct installMethod * method,
 
             if (loaderData->method >= 0)
                 loaderData->method = -1;
+
+            if (loaderData->inferredStage2)
+                loaderData->invalidRepoParam = 1;
 
             break;
         }

@@ -138,6 +138,8 @@ struct loaderData_s {
     size_t fw_search_pathz_len;
 
     moduleInfoSet modInfo;
+
+    int inferredStage2, invalidRepoParam;
 };
 
 /* 64 bit platforms, definitions courtesy of glib */

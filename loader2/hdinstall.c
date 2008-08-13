@@ -180,6 +180,9 @@ char * mountHardDrive(struct installMethod * method,
         if (!kspartition || !ksdirectory) {
             logMessage(ERROR, "missing partition or directory specification");
             loaderData->method = -1;
+
+            if (loaderData->inferredStage2)
+                loaderData->invalidRepoParam = 1;
         } else {
             /* if we start with /dev, strip it (#121486) */
             char *kspart = kspartition;
@@ -191,6 +194,9 @@ char * mountHardDrive(struct installMethod * method,
                 logMessage(ERROR, "unable to find %s installation images on hd",
                            getProductName());
                 loaderData->method = -1;
+
+                if (loaderData->inferredStage2)
+                    loaderData->invalidRepoParam = 1;
             } else {
                 free(kspartition);
                 free(ksdirectory);
