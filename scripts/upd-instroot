@@ -34,7 +34,7 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 
-	--stg2dir)
+	--imgdir)
 	    DEST=$2
 	    shift; shift
 	    ;;
@@ -56,6 +56,11 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 
+	--stg2dir)
+	    echo "*** DeprecationWarning: please use --imgdir instead of --stg2dir." >&2
+	    shift; shift
+	    ;;
+
 	*)
 	    yumconf=$1
 	    shift
@@ -65,7 +70,7 @@ done
 
 if [ -z "$yumconf" ]; then
 	echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
-	echo "usage:        $0 [--debug] [--arch arch] [--stg2dir stg2dir] [yumconf]"
+	echo "usage:        $0 [--debug] [--arch arch] [--imgdir imgdir] [yumconf]"
 	exit 1
 fi
 
@@ -285,7 +290,7 @@ PACKAGES="$PACKAGES $XORG"
 #
 # KEEPFILE is all files to keep from the packages in PACKAGES
 #
-# The files in this list define the stage2 image used for all installation
+# The files in this list define the install image used for all installation
 # methods.
 #
 # The rescue mode of anaconda uses these files as well as those defined
@@ -1038,7 +1043,7 @@ find $DEST -name "*.py" | while read fn; do
     ln -sf /dev/null ${fn}c
 done
 
-# some python stuff we don't need for stage2
+# some python stuff we don't need for install image
 rm -rf $DEST/usr/$LIBDIR/python?.?/site-packages/distutils/
 rm -rf $DEST/usr/$LIBDIR/python?.?/site-packages/lib-dynload/japanese
 rm -rf $DEST/usr/$LIBDIR/python?.?/site-packages/encodings/

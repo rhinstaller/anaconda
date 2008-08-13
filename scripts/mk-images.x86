@@ -157,7 +157,7 @@ __EOT__
 
 doPostImages() {
     if [ -n "$BOOTISO" ]; then
-       mkisofs -quiet -o $TOPDESTPATH/images/$BOOTISO -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -V "$PRODUCT" -T -graft-points isolinux=$TOPDESTPATH/isolinux images/stage2.img=$TOPDESTPATH/images/stage2.img
+       mkisofs -quiet -o $TOPDESTPATH/images/$BOOTISO -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -V "$PRODUCT" -T -graft-points isolinux=$TOPDESTPATH/isolinux images/install.img=$TOPDESTPATH/images/install.img
        implantisomd5 $TOPDESTPATH/images/$BOOTISO
     fi
 

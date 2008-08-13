@@ -50,7 +50,7 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 
-	--stg2dir)
+	--imgdir)
 	    IMGPATH=$2
 	    shift; shift
 	    ;;
@@ -82,6 +82,11 @@ while [ $# -gt 0 ]; do
 
 	--mindir)
 	    echo "*** DeprecationWarning: ignoring --mindir option." >&2
+	    shift; shift
+	    ;;
+
+	--stg2dir)
+	    echo "*** DeprecationWarning: please use --imgdir instead of --stg2dir." >&2
 	    shift; shift
 	    ;;
 
@@ -726,8 +731,8 @@ makemainimage () {
 
 makeSecondStage() {
     echo "[stage2]" >> $TOPDESTPATH/.treeinfo
-    echo "Building stage2.img"
-    makemainimage "stage2" "squashfs"
+    echo "Building install.img"
+    makemainimage "install" "squashfs"
     [ $? = 0 ] || exit 1
 }
 
