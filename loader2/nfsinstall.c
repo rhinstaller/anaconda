@@ -155,7 +155,7 @@ char * mountNfsImage(struct installMethod * method,
                  */
                 substr = strstr(directory, ".img");
                 if (!substr || (substr && *(substr+4) != '\0')) {
-                    if (asprintf(&tmp, "nfs:%s:%s/images/stage2.img",
+                    if (asprintf(&tmp, "nfs:%s:%s/images/install.img",
                                  host, directory) == -1) {
                         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                         abort();

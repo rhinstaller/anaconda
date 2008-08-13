@@ -1176,7 +1176,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
              */
             char *tmp;
 
-            if (asprintf(&tmp, "%s/images/stage2.img",
+            if (asprintf(&tmp, "%s/images/install.img",
                          loaderData->instRepo) == -1) {
                 logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();

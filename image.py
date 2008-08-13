@@ -65,10 +65,10 @@ def findIsoImages(path, messageWindow):
                     if num not in discNum or discArch != arch:
                         continue
 
-                    # if it's disc1, it needs to have images/stage2.img
+                    # if it's disc1, it needs to have images/install.img
                     if (num == 1 and not
-                        os.access("/mnt/cdimage/images/stage2.img", os.R_OK)):
-                        log.warning("%s doesn't have a stage2.img, skipping" %(what,))
+                        os.access("/mnt/cdimage/images/install.img", os.R_OK)):
+                        log.warning("%s doesn't have a install.img, skipping" %(what,))
                         continue
                     # we only install binary packages, so let's look for a
                     # product/ dir and hope that this avoids getting

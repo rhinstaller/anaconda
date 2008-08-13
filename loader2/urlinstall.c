@@ -118,7 +118,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
     if ((path = strndup(ui->prefix, slash - ui->prefix)) == NULL)
         path = ui->prefix;
 
-    /* grab the updates.img before stage2.img so that we minimize our
+    /* grab the updates.img before install.img so that we minimize our
      * ramdisk usage */
     if (asprintf(&buf, "%s/%s", path, "updates.img") == -1) {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
@@ -140,7 +140,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
 
     free(buf);
 
-    /* grab the product.img before stage2.img so that we minimize our
+    /* grab the product.img before install.img so that we minimize our
      * ramdisk usage */
     if (asprintf(&buf, "%s/%s", path, "product.img") == -1) {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
@@ -159,7 +159,7 @@ static int loadUrlImages(struct iurlinfo * ui) {
 
     free(buf);
 
-    if (asprintf(&dest, "/tmp/stage2.img") == -1) {
+    if (asprintf(&dest, "/tmp/install.img") == -1) {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
@@ -224,7 +224,7 @@ char *mountUrlImage(struct installMethod *method, char *location,
                      */
                     substr = strstr(ui.prefix, ".img");
                     if (!substr || (substr && *(substr+4) != '\0')) {
-                        if (asprintf(&ui.prefix, "%s/images/stage2.img",
+                        if (asprintf(&ui.prefix, "%s/images/install.img",
                                      ui.prefix) == -1) {
                             logMessage(CRITICAL, "%s: %d: %m", __func__,
                                        __LINE__);

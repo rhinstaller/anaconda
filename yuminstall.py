@@ -348,13 +348,13 @@ class AnacondaYum(YumSorter):
             return
 
         # If we've booted off the first CD/DVD (so, not the boot.iso) then
-        # copy the stage2.img to the filesystem and switch loopback devices
+        # copy the install.img to the filesystem and switch loopback devices
         # to there.  Otherwise we won't be able to unmount and swap media.
-        stage2img = "%s/images/stage2.img" % self.tree
+        stage2img = "%s/images/install.img" % self.tree
         if not self.anaconda.mediaDevice or not os.path.exists(stage2img):
             return
 
-        self._loopbackFile = "%s%s/rhinstall-stage2.img" % (chroot,
+        self._loopbackFile = "%s%s/rhinstall-install.img" % (chroot,
                              fsset.filesystemSpace(chroot)[0][0])
 
         try:
@@ -366,7 +366,7 @@ class AnacondaYum(YumSorter):
             if win:
                 win.pop()
 
-            log.critical("error transferring stage2.img: %s" %(e,))
+            log.critical("error transferring install.img: %s" %(e,))
 
             if isinstance(e, IOError) and e.errno == 5:
                 msg = _("An error occurred transferring the install image "

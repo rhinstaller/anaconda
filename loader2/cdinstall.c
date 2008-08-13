@@ -256,7 +256,7 @@ static void queryCDMediaCheck(char *dev, char *location) {
                     continue;
                 }
 
-                if (asprintf(&stage2loc, "%s/images/stage2.img",
+                if (asprintf(&stage2loc, "%s/images/install.img",
                              location) == -1) {
                     logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                     abort();
@@ -299,7 +299,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
         return NULL;
     }
 
-    if (asprintf(&stage2loc, "%s/images/stage2.img", location) == -1) {
+    if (asprintf(&stage2loc, "%s/images/install.img", location) == -1) {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
@@ -367,8 +367,8 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                     /* aid system recovery.                                   */
                     if (FL_RESCUE(flags) && !FL_TEXT(flags) &&
                         totalMemory() > 128000) {
-                        rc = copyFile(stage2loc, "/tmp/stage2.img");
-                        stage2img = strdup("/tmp/stage2.img");
+                        rc = copyFile(stage2loc, "/tmp/install.img");
+                        stage2img = strdup("/tmp/install.img");
                         stage2inram = 1;
                     } else {
                         stage2img = strdup(stage2loc);
