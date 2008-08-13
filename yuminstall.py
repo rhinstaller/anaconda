@@ -276,6 +276,9 @@ class AnacondaYumRepo(YumRepository):
             return local
         return YumRepository._getFile(self, url, relative, local, start, end, copy_local, checkfunc, text, reget, cache)
 
+    def dirCleanup(self):
+        if os.path.isdir(self.getAttribute('cachedir')):
+            shutil.rmtree(self.getAttribute('cachedir'))
 
 class YumSorter(yum.YumBase):
     def _transactionDataFactory(self):
