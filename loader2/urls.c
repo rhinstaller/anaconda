@@ -287,7 +287,7 @@ int urlMainSetupPanel(struct iurlinfo * ui) {
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
 
     if (asprintf(&buf,
-            _("Please enter the URL containing the %s images on your server."),
+            _("Please enter the URL containing the %s installation image on your server."),
                  getProductName()) == -1) {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();

@@ -137,9 +137,9 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
 
 err:
     newtWinMessage(_("Error"), _("OK"),
-                   _("An error occured reading the install "
-                   "from the ISO images. Please check your ISO "
-                   "images and try again."));
+                   _("An error occured finding the installation image "
+                     "on your hard drive.  Please check your images and "
+                     "try again."));
     return NULL;
 }
 
@@ -232,9 +232,9 @@ char * mountHardDrive(struct installMethod * method,
             continue;
         }
 
-        /* now find out which partition has the stage2 image*/
+        /* now find out which partition has the stage2 image */
         if (asprintf(&buf, _("What partition and directory on that "
-                             "partition hold the installation images "
+                             "partition holds the installation image "
                              "for %s?  If you don't see the disk drive "
                              "you're using listed here, press F2 to "
                              "configure additional devices."),
@@ -260,7 +260,7 @@ char * mountHardDrive(struct installMethod * method,
             kspartition = NULL;
         }
 
-        label = newtLabel(-1, -1, _("Directory holding images:"));
+        label = newtLabel(-1, -1, _("Directory holding image:"));
 
         dirEntry = newtEntry(28, 11, dir, 28, (const char **) &tmpDir,
                              NEWT_ENTRY_SCROLL);
@@ -336,7 +336,7 @@ char * mountHardDrive(struct installMethod * method,
         if (!url) {
             newtWinMessage(_("Error"), _("OK"), 
                            _("Device %s does not appear to contain "
-                             "%s CDROM images."), selpart, getProductName());
+                             "an installation image."), selpart, getProductName());
             continue;
         }
 

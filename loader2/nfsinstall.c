@@ -73,7 +73,7 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr) {
     entries[2].value = NULL;
 
     if (asprintf(&buf, _("Please enter the server name and path to your %s "
-                         "images."), getProductName()) == -1) {
+                         "installation image."), getProductName()) == -1) {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
@@ -245,7 +245,7 @@ char * mountNfsImage(struct installMethod * method,
             }
 
             if (asprintf(&buf, _("That directory does not seem to "
-                                 "contain a %s installation tree."),
+                                 "contain a %s installation image."),
                          getProductName()) == -1) {
                 logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();

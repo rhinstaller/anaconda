@@ -1274,8 +1274,8 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                                      FL_RESCUE(flags) ?
                                      _("What type of media contains the rescue "
                                        "image?") :
-                                     _("What type of media contains the packages to "
-                                       "be installed?"),
+                                     _("What type of media contains the installation "
+                                       "image?"),
                                      30, 10, 20, 6, installNames, &loaderData->method,
                                      _("OK"), _("Back"), NULL);
                 }
