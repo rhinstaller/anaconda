@@ -501,6 +501,13 @@ def runSaveDialog(anaconda, exn):
                           "disk."))
                     continue
             elif saveWin.saveToRemote():
+                if not hasActiveNetDev():
+                    if not anaconda.intf.enableNetwork(anaconda):
+                        anaconda.intf.messageWindow(_("No Network Available"),
+                            _("Cannot save a bug report since there is no "
+                              "active networking device available."))
+                        continue
+
                 scpInfo = saveWin.getDest()
                 scpSucceeded = copyExceptionToRemote(anaconda.intf, scpInfo)
 
