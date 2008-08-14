@@ -810,12 +810,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         return;
 
     for (i=0; i < argc; i++) {
-        if (!strcasecmp(argv[i], "expert")) {
-            flags |= LOADER_FLAGS_EXPERT;
-            logMessage(INFO, "expert got used, ignoring");
-            /* flags |= (LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK);*/
-        }
-        else if (!strcasecmp(argv[i], "asknetwork"))
+        if (!strcasecmp(argv[i], "asknetwork"))
             flags |= LOADER_FLAGS_ASKNETWORK;
         else if (!strcasecmp(argv[i], "noshell"))
             flags |= LOADER_FLAGS_NOSHELL;
@@ -2064,8 +2059,6 @@ int main(int argc, char ** argv) {
             *argptr++ = "--graphical";
         if (FL_CMDLINE(flags))
             *argptr++ = "-C";
-        if (FL_EXPERT(flags))
-            *argptr++ = "--expert";
         if (!FL_SELINUX(flags))
             *argptr++ = "--noselinux";
         else if (FL_SELINUX(flags))

@@ -221,7 +221,6 @@ def parseOptions():
     # Method of operation
     op.add_option("--autostep", action="store_true", default=False)
     op.add_option("-d", "--debug", dest="debug", action="store_true", default=False)
-    op.add_option("--expert", action="store_true", default=False)
     op.add_option("--kickstart", dest="ksfile")
     op.add_option("--rescue", dest="rescue", action="store_true", default=False)
     op.add_option("-r", "--rootpath", action="callback", callback=rootpath_cb, dest="rootPath",
@@ -435,7 +434,7 @@ def setupLoggingFromOpts(opts):
 
 def getInstClass():
     from installclass import DefaultInstall
-    return DefaultInstall(flags.expert)
+    return DefaultInstall()
 
 # ftp installs pass the password via a file in /tmp so
 # ps doesn't show it

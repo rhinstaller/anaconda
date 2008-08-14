@@ -214,7 +214,7 @@ class BaseInstallClass(object):
 	anaconda.id.reset()
 	anaconda.id.instClass = self
 
-    def __init__(self, expert):
+    def __init__(self):
 	pass
 
 allClasses = []
@@ -340,6 +340,6 @@ baseclass = getBaseInstallClass()
 
 # we need to be able to differentiate between this and custom
 class DefaultInstall(baseclass):
-    def __init__(self, expert):
-	BaseInstallClass.__init__(self, expert)
+    def __init__(self):
+	BaseInstallClass.__init__(self)
 

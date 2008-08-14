@@ -177,8 +177,8 @@ class InstallClass(BaseInstallClass):
     def getBackend(self):
         return yuminstall.YumBackend
 
-    def __init__(self, expert):
-	BaseInstallClass.__init__(self, expert)
+    def __init__(self):
+	BaseInstallClass.__init__(self)
 
         self.repopaths = { "base": "%s" %(productPath,) }
 

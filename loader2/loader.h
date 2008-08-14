@@ -28,7 +28,7 @@
 #define LOADER_ERROR -1
 
 #define LOADER_FLAGS_TESTING            (((uint64_t) 1) << 0)
-#define LOADER_FLAGS_EXPERT             (((uint64_t) 1) << 1)
+/* #1 unused */
 #define LOADER_FLAGS_TEXT               (((uint64_t) 1) << 2)
 #define LOADER_FLAGS_RESCUE             (((uint64_t) 1) << 3)
 #define LOADER_FLAGS_KICKSTART          (((uint64_t) 1) << 4)
@@ -66,7 +66,6 @@
 #define LOADER_FLAGS_HAVE_CMSCONF       (((uint64_t) 1) << 37)
 
 #define FL_TESTING(a)            ((a) & LOADER_FLAGS_TESTING)
-#define FL_EXPERT(a)             ((a) & LOADER_FLAGS_EXPERT)
 #define FL_TEXT(a)               ((a) & LOADER_FLAGS_TEXT)
 #define FL_RESCUE(a)             ((a) & LOADER_FLAGS_RESCUE)
 #define FL_KICKSTART(a)          ((a) & LOADER_FLAGS_KICKSTART)

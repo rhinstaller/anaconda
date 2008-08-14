@@ -75,5 +75,5 @@ class InstallClass(BaseInstallClass):
         else:
             return yuminstall.YumBackend
 
-    def __init__(self, expert):
-	BaseInstallClass.__init__(self, expert)
+    def __init__(self):
+	BaseInstallClass.__init__(self)

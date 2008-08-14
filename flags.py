@@ -64,7 +64,6 @@ class Flags:
 	self.__dict__['flags']['test'] = 0
 	self.__dict__['flags']['rootpath'] = 0
 	self.__dict__['flags']['livecdInstall'] = 0
-	self.__dict__['flags']['expert'] = 0
 	self.__dict__['flags']['iscsi'] = 0
 	self.__dict__['flags']['serial'] = 0
 	self.__dict__['flags']['setupFilesystems'] = 1
