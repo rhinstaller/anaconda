@@ -2734,8 +2734,8 @@ def readFstab (anaconda):
     labels = diskset.getInfo()
     uuids = diskset.getInfo(readFn=lambda d: isys.readFSUuid(d))
 
-    (labelToDevice, labelDupes) = createMapping(labels, intf)
-    (uuidToDevice, uuidDupes) = createMapping(uuids, intf)
+    (labelToDevice, labelDupes) = createMapping(labels)
+    (uuidToDevice, uuidDupes) = createMapping(uuids)
 
     loopIndex = {}
 
