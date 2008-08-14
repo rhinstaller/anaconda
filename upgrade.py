@@ -165,9 +165,7 @@ def findExistingRoots(anaconda, upgradeany = 0):
         return []
 
     anaconda.id.diskset.openDevices()
-
-    if anaconda.rescue:
-        anaconda.id.partitions.getEncryptedDevices(anaconda.id.diskset)
+    anaconda.id.partitions.getEncryptedDevices(anaconda.id.diskset)
     rootparts = anaconda.id.diskset.findExistingRootPartitions(upgradeany = upgradeany)
 
     # close the devices to make sure we don't leave things sitting open 
@@ -193,18 +191,20 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
     (root, rootFs) = rootInfo
     bindMount = 0
 
+    encryptedDevices = anaconda.id.partitions.encryptedDevices
     diskset = partedUtils.DiskSet(anaconda)
     diskset.openDevices()
+    for cryptoDev in encryptedDevices.values():
+        cryptoDev.openDevice()
     diskset.startMPath()
     diskset.startDmRaid()
     diskset.startMdRaid()
+    for cryptoDev in encryptedDevices.values():
+        cryptoDev.openDevice()
     lvm.vgscan()
     lvm.vgactivate()
-
-    try:
-        encryptedDevices = anaconda.id.partitions.encryptedDevices
-    except:
-        encryptedDevices = {}
+    for cryptoDev in encryptedDevices.values():
+        cryptoDev.openDevice()
 
     if root in anaconda.id.partitions.protectedPartitions() and os.path.ismount("/mnt/isodir"):
         root = "/mnt/isodir"
