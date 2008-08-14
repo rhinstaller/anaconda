@@ -203,7 +203,7 @@ class RaidEditor:
                         request.encryption = LUKSDevice(passphrase=passphrase,
                                                         format=1)
                     elif passphrase and request.encryption.format:
-                        request.setPassphrase(passphrase)
+                        request.encryption.setPassphrase(passphrase)
                 else:
                     request.encryption = None
 	    else:
@@ -245,7 +245,7 @@ class RaidEditor:
                         request.encryption = LUKSDevice(passphrase=passphrase,
                                                         format=1)
                     elif passphrase and request.encryption.format:
-                        request.setPassphrase(passphrase)
+                        request.encryption.setPassphrase(passphrase)
                 else:
                     request.encryption = None
 
