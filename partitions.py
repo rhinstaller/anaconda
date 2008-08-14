@@ -100,6 +100,39 @@ def partitioningComplete(anaconda):
             and not request.mountpoint)):
             continue
 
+        if anaconda.isKickstart and \
+           request.encryption and not request.encryption.passphrase:
+            partitions = anaconda.id.partitions
+            if partitions.autoEncrypt and partitions.autoEncryptPass:
+                request.encryption.setPassphrase(partitions.autoEncryptPass)
+            else:
+                if partitions.autoEncrypt:
+                    dev = ""
+                else:
+                    dev = request.getDevice(partitions).getDevice(asBoot=1)
+
+                while True:
+                    passphrase = anaconda.intf.getLuksPassphrase(device=dev)
+                    if passphrase:
+                        request.encryption.setPassphrase(passphrase)
+                        if partitions.autoEncrypt:
+                            partitions.autoEncryptPass = passphrase
+                        break
+                    else:
+                        # perhaps a warning that we're not going to encrypt?
+                        rc = anaconda.intf.messageWindow(_("Encrypt device?"),
+                                    _("You specified that device %s should be "
+                                      "encrypted, but you have not supplied a "
+                                      "passphrase. If you do not go back and "
+                                      "provide a passphrase, the device will "
+                                      "not be encrypted.") % (dev,),
+                                      type="custom",
+                                      custom_buttons=[_("Back"), _("Continue")],
+                                      default=0)
+                        if rc == 1:
+                            request.encryption = None
+                            break
+
         entry = request.toEntry(anaconda.id.partitions)
         if entry:
             anaconda.id.fsset.add (entry)
