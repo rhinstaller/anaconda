@@ -340,6 +340,8 @@ char * mountHardDrive(struct installMethod * method,
             }
         }
 
+        loaderData->invalidRepoParam = 1;
+
         url = setupIsoImages(selpart, dir, location);
         if (!url) {
             newtWinMessage(_("Error"), _("OK"), 

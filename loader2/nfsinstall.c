@@ -171,6 +171,8 @@ char * mountNfsImage(struct installMethod * method,
                     free(tmp);
                     continue;
                 }
+
+                loaderData->invalidRepoParam = 1;
             }
 
             stage = NFS_STAGE_MOUNT;
