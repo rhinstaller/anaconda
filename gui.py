@@ -771,7 +771,6 @@ class SaveExceptionWindow:
         if flags.livecdInstall:
             exnxml.get_widget("diskBox").hide()
             exnxml.get_widget("localBox").show()
-            self.destCombo.remove_text(0)
             self.destCombo.set_active(0)
             self.notebook.remove_page(0)
             self.notebook.set_current_page(0)
@@ -784,7 +783,6 @@ class SaveExceptionWindow:
             self.diskCombo.set_active(0)
             self.diskCombo.set_sensitive(True)
 
-            self.destCombo.remove_text(1)
             self.destCombo.set_active(0)
             self.notebook.remove_page(1)
             self.notebook.set_current_page(0)
@@ -1324,6 +1322,7 @@ class InstallControlWindow:
         self.setScreen ()
 
     def nextClicked (self, *args):
+        raise SystemError
         try:
             rc = self.currentWindow.getNext ()
         except StayOnScreen:
