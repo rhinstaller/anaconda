@@ -623,7 +623,7 @@ class InstallKeyWindow:
         self.win.destroy()
 
 class luksPassphraseWindow:
-    def __init__(self, passphrase=None, parent = None):
+    def __init__(self, passphrase=None, device = "", parent = None):
         luksxml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"),
                                 domain="anaconda",
                                 root="luksPassphraseDialog")
@@ -640,6 +640,15 @@ class luksPassphraseWindow:
             self.confirmEntry.set_text(passphrase)
         else:
             self.initialPassphrase = ""
+
+        if device:
+            deviceStr = " (%s)" % (device,)
+        else:
+            deviceStr = ""
+        txt = _("Choose a passphrase for this encrypted device%s. "
+                "You will be prompted for the passphrase during system "
+                "boot.") % (deviceStr,)
+        luksxml.get_widget("mainLabel").set_text(txt)
 
         if parent:
             self.win.set_transient_for(parent)
@@ -1221,13 +1230,13 @@ class InstallInterface:
         d.destroy()
         return ret
 
-    def getLuksPassphrase(self, passphrase = ""):
+    def getLuksPassphrase(self, passphrase = "", device = ""):
         if self.icw:
             parent = self.icw.window
         else:
             parent = None
 
-        d = luksPassphraseWindow(passphrase, parent = parent)
+        d = luksPassphraseWindow(passphrase, device = device, parent = parent)
         rc = d.run()
         passphrase = d.getPassphrase()
         d.destroy()
