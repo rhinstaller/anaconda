@@ -1322,7 +1322,6 @@ class InstallControlWindow:
         self.setScreen ()
 
     def nextClicked (self, *args):
-        raise SystemError
         try:
             rc = self.currentWindow.getNext ()
         except StayOnScreen:
