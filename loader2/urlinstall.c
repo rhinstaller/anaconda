@@ -236,7 +236,7 @@ char *mountUrlImage(struct installMethod *method, char *location,
                         }
                     }
 
-                    loader->invalidRepoParam = 1;
+                    loaderData->invalidRepoParam = 1;
                 }
 
                 stage = URL_STAGE_FETCH;
