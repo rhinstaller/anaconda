@@ -2581,7 +2581,7 @@ class PartitionDevice(Device):
             self.setAsNetdev()
 
     def getDevice(self, asBoot = 0):
-        if self.crypto:
+        if self.crypto and not asBoot:
             return self.crypto.getDevice()
         else:
             return self.device
