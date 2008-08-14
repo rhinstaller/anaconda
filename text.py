@@ -310,6 +310,78 @@ class MainExceptionWindow:
         self.screen.popWindow()
 	self.screen.refresh()
 
+class LuksPassphraseWindow:
+    def __init__(self, screen, passphrase = "", device = ""):
+        self.screen = screen
+        self.passphrase = passphrase
+        self.minLength = 8
+        if device:
+            deviceStr = " (%s)" % (device,)
+        else:
+            deviceStr = ""
+        self.txt = _("Choose a passphrase for this encrypted device%s. "
+                     "You will be prompted for the passphrase during system "
+                     "boot.") % (deviceStr,)
+        self.rc = None
+
+    def run(self):
+        toplevel = GridForm(self.screen, _("Passphrase for encrypted device"),
+                            1, 4)
+
+        txt = TextboxReflowed(65, self.txt)
+        toplevel.add(txt, 0, 0)
+
+        passphraseentry = Entry(60, password = 1)
+        toplevel.add(passphraseentry, 0, 1, (0,0,0,1))
+
+        confirmentry = Entry(60, password = 1)
+        toplevel.add(confirmentry, 0, 2, (0,0,0,1))
+
+        buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
+        toplevel.add(buttons, 0, 3, growx=1)
+
+        passphraseentry.set(self.passphrase)
+        confirmentry.set(self.passphrase)
+
+        while True:
+            rc = toplevel.run()
+            res = buttons.buttonPressed(rc)
+
+            passphrase = None
+            if res == TEXT_OK_CHECK or rc == "F12":
+                passphrase = passphraseentry.value()
+                confirm = confirmentry.value()
+
+                if passphrase != confirm:
+                    ButtonChoiceWindow(self.screen,
+                                       _("Error with passphrase"),
+                                       _("The passphrases you entered were "
+                                         "different.  Please try again."),
+                                       buttons=[TEXT_OK_BUTTON])
+                    passphraseentry.set("")
+                    confirmentry.set("")
+                    continue
+
+                if len(passphrase) < self.minLength:
+                    ButtonChoiceWindow(self.screen,
+                                       _("Error with passphrase"),
+                                       _("The passphrase must be at least "
+                                         "%d characters long.") % (self.minLength,),
+                                       buttons=[TEXT_OK_BUTTON])
+                    passphraseentry.set("")
+                    confirmentry.set("")
+                    continue
+            else:
+                passphrase = self.passphrase
+                passphraseentry.set(self.passphrase)
+                confirmentry.set(self.passphrase)
+
+            self.rc = passphrase
+            return self.rc
+
+    def pop(self):
+        self.screen.popWindow()
+
 class PassphraseEntryWindow:
     def __init__(self, screen, device):
         self.screen = screen
@@ -407,6 +479,13 @@ class InstallInterface:
         r = value[0]
         r.strip()
         return r
+
+    def getLuksPassphrase(self, passphrase = "", device = ""):
+        w = LuksPassphraseWindow(self.screen, passphrase = passphrase,
+                                 device = device)
+        passphrase = w.run()
+        w.pop()
+        return passphrase
 
     def passphraseEntryWindow(self, device):
         w = PassphraseEntryWindow(self.screen, device)
