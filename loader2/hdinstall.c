@@ -86,6 +86,17 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
         if (path) {
             logMessage(INFO, "Path to stage2 image is %s", path);
 
+            rc = copyFile(path, "/tmp/install.img");
+            rc = mountStage2("/tmp/install.img");
+
+            free(path);
+
+            if (rc) {
+                umountLoopback("/mnt/runtime", "/dev/loop0");
+                umount("/mnt/isodir");
+                goto err;
+            }
+
             if (asprintf(&updpath, "%s/updates.img", dirspec) == -1) {
                 logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
@@ -93,6 +104,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
 
             logMessage(INFO, "Looking for updates for HD in %s", updpath);
             copyUpdatesImg(updpath);
+            free(updpath);
 
             if (asprintf(&updpath, "%s/product.img", dirspec) == -1) {
                 logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
@@ -102,24 +114,17 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
             logMessage(INFO, "Looking for product for HD in %s", updpath);
             copyProductImg(updpath);
 
-            rc = mountStage2(path);
-
             free(updpath);
             free(dirspec);
-            free(path);
+            umount("/mnt/isodir");
 
-            if (rc) {
-                umountLoopback("/mnt/runtime", "/dev/loop0");
-                goto err;
-            } else {
-                if (asprintf(&url, "hd:%s:/%s", device,
-                             dirName ? dirName : ".") == -1) {
-                    logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                    abort();
-                }
-
-                return url;
+            if (asprintf(&url, "hd:%s:/%s", device,
+                         dirName ? dirName : ".") == -1) {
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                abort();
             }
+
+            return url;
         } else {
             free(dirspec);
             free(path);
