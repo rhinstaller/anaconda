@@ -1982,19 +1982,16 @@ MAILADDR root
                         else:
                             continue
                     else:
-                        if anaconda.id.getUpgrade() and not entry.getLabel():
+                        if anaconda.id.getUpgrade() and not (entry.getLabel() or entry.getUuid()):
                             errStr = _("Error mounting device %s as %s: "
                                        "%s\n\n"
-                                       "Devices in /etc/fstab should be "
-                                       "specified by label, not by device name."
+                                       "Devices in /etc/fstab should be specified "
+                                       "by label or UUID, not by device name."
                                        "\n\n"
                                        "Press OK to exit the installer.") % (entry.device.getDevice(), entry.mountpoint, msg)
                         else:
                             errStr = _("Error mounting device %s as %s: "
                                        "%s\n\n"
-                                       "This most likely means this "
-                                       "partition has not been formatted."
-                                       "\n\n"
                                        "Press OK to exit the installer.") % (entry.device.getDevice(), entry.mountpoint, msg)
 
                         self.messageWindow(_("Error"), errStr)
