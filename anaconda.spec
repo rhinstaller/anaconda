@@ -5,7 +5,7 @@ License: GPL
 Summary: Graphical system installer
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
-BuildPreReq: kudzu-devel >= 1.2.57.1.18, pciutils-devel
+BuildPreReq: kudzu-devel >= 1.2.57.1.18, pciutils-devel, uuid-devel
 BuildPreReq: bzip2-devel, e2fsprogs-devel, python-devel, gtk2-devel
 BuildPreReq: rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11
 BuildPreReq: rhpl, booty, libxml2-python, zlib-devel, elfutils-devel
