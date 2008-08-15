@@ -329,12 +329,10 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         tip = &(netCfg.dev.nextServer);
         if (!(netCfg.dev.set & PUMP_INTFINFO_HAS_BOOTFILE)) {
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-            ip = strdup(ret);
             i = asprintf(&url, "%s:%s", ret, "/kickstart/");
             logMessage(ERROR, "bootp: no bootfile received");
         } else {
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-            ip = strdup(ret);
             i = asprintf(&url, "%s:%s", ret, netCfg.dev.bootFile);
             logMessage(INFO, "bootp: bootfile is %s", netCfg.dev.bootFile);
         }
@@ -342,7 +340,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
 
     /* get the IP of the target system */
     netlink_init_interfaces_list();
-    if (ip == NULL && (ip = netlink_interfaces_ip2str(loaderData->netDev)) == NULL) {
+    if ((ip = netlink_interfaces_ip2str(loaderData->netDev)) == NULL) {
         logMessage(ERROR, "netlink_interfaces_ip2str returned NULL");
         return 1;
     }

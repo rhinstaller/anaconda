@@ -136,6 +136,8 @@ local: clean
 	@rm -rf ${PKGNAME}-$(VERSION).tar.gz
 	@rm -rf /tmp/${PKGNAME}-$(VERSION) /tmp/${PKGNAME}
 	@dir=$$PWD; cd /tmp; cp -a $$dir ${PKGNAME}
+	@cd /tmp/${PKGNAME} ; curl -A "anaconda-build" -o docs/command-line.txt "http://fedoraproject.org/wiki/Anaconda/Options?action=raw"
+	@cd /tmp/${PKGNAME} ; curl -A "anaconda-build" -o docs/kickstart-docs.txt "http://fedoraproject.org/wiki/Anaconda/Kickstart?action=raw"
 	@mv /tmp/${PKGNAME} /tmp/${PKGNAME}-$(VERSION)
 	@dir=$$PWD; cd /tmp; tar --exclude CVS --exclude .git --exclude anaconda*.tar.bz2 --bzip2 -cvf $$dir/${PKGNAME}-$(VERSION).tar.bz2 ${PKGNAME}-$(VERSION)
 	@rm -rf /tmp/${PKGNAME}-$(VERSION)

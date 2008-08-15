@@ -3,7 +3,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 11.3.0.50
-Release: 6
+Release: 8
 License: GPLv2
 Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -215,6 +215,10 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Mar 29 2008 Jeroen van Meeuwen <kanarip@fedoraunity.org> - 11.3.0.50-8
+- Apply patch for 420281
+- When making local, ensure you generate the proper docs...
+
 * Sun Feb 03 2008 Jeroen van Meeuwen <kanarip@fedoraunity.org> - 11.3.0.50-6
 - Catch libXcomposite.so.1 missing from stage2
 - Give Makefile some sanity
