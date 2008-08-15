@@ -47,6 +47,7 @@
 #define LOADER_FLAGS_IPV6_PARAM         (((uint64_t) 1) << 34)
 #define LOADER_FLAGS_IS_KICKSTART       (((uint64_t) 1) << 35)
 #define LOADER_FLAGS_HAVE_CMSCONF       (((uint64_t) 1) << 36)
+#define LOADER_FLAGS_AUTOMODDISK        (((uint64_t) 1) << 37)
 
 #define FL_TESTING(a)            ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)             ((a) & LOADER_FLAGS_EXPERT)
@@ -89,6 +90,7 @@
 #define FL_IPV6_PARAM(a)         ((a) & LOADER_FLAGS_IPV6_PARAM)
 #define FL_IS_KICKSTART(a)       ((a) & LOADER_FLAGS_IS_KICKSTART)
 #define FL_HAVE_CMSCONF(a)       ((a) & LOADER_FLAGS_HAVE_CMSCONF)
+#define FL_AUTOMODDISK(a)        ((a) & LOADER_FLAGS_AUTOMODDISK)
 
 void startNewt(void);
 void stopNewt(void);

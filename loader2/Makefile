@@ -42,7 +42,7 @@ NETOBJS = net.o urls.o ftp.o telnet.o telnetd.o
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 
-LIBS += -lkudzu_loader -lpci
+LIBS += -lkudzu_loader -lpci -lblkid -luuid
 
 CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
 STATIC = -static
