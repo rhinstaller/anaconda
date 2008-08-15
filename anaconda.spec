@@ -2,7 +2,7 @@
 
 Name: anaconda
 Version: 11.2.0.66
-Release: 1
+Release: 2
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -142,6 +142,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Feb 03 2008 Jeroen van Meeuwen <kanarip@kanarip.com> - 11.2.0.66-2
+- Fix STATE_PRE not being defined
+
 * Fri May 25 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.66-1
 - fix dhcp netconfig in DVD-based rescue mode or repo adding (dcantrell)
 

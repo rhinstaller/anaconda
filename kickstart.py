@@ -735,11 +735,13 @@ class KickstartPreParser(KickstartParser):
         KickstartParser.__init__(self, handler, missingIncludeIsFatal=False)
 
     def addScript (self):
-        if self._state == STATE_PRE:
-            s = AnacondaKSScript (self._script["body"], self._script["interp"],
-			          self._script["chroot"], self._script["log"],
-				  self._script["errorOnFail"])
-            self.handler.scripts.append(s)
+        if self._script["type"] != KS_SCRIPT_PRE:
+            return
+
+        s = AnacondaKSScript (self._script["body"], self._script["interp"],
+                              self._script["chroot"], self._script["log"],
+                              self._script["errorOnFail"])
+        self.handler.scripts.append(s)
 
     def addPackages (self, line):
         pass
