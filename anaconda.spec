@@ -3,7 +3,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 11.3.0.50
-Release: 8
+Release: 10
 License: GPLv2
 Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -215,6 +215,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Mar 30 2008 Jeroen van Meeuwen <kanarip@fedoraunity.org> - 11.3.0.50-10
+- Fix swapon / swapoff
+
 * Sat Mar 29 2008 Jeroen van Meeuwen <kanarip@fedoraunity.org> - 11.3.0.50-8
 - Apply patch for 420281
 - When making local, ensure you generate the proper docs...

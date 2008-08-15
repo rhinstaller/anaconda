@@ -42,7 +42,7 @@ rm $p/etc/ld.so.conf
 #
 mv $p/usr/sbin/busybox.anaconda $p/usr/bin/busybox
 (cd $p/usr/bin;
-set $(./busybox 2>&1| awk '/^\t([[:alnum:]_\.\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
+set $(./busybox 2>&1| awk '/^\t([[:alnum:]\-_\.\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
 dontclobber=(sh busybox reboot shutdown poweroff)
 while [ -n "$1" ]; do
     save=
