@@ -302,7 +302,7 @@ PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
            fonts-malayalam fonts-oriya fonts-kannada fonts-telugu cjkunifonts-ukai
            fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics
            firstboot pycairo pirut dejavu-lgc-fonts libxcb sazanami-fonts-gothic
-           dmraid python-pyblock libbdevid libbdevid-python zenity"
+           dmraid python-pyblock libbdevid libbdevid-python zenity libXcomposite"
 
 #
 # stuff ONLY included for rescue mode
@@ -763,6 +763,7 @@ usr/$LIBDIR/libICE*
 usr/$LIBDIR/libSM*
 usr/$LIBDIR/libXaw.so*
 usr/$LIBDIR/libX11*
+usr/$LIBDIR/libXcomposite*
 usr/$LIBDIR/libXcursor*
 usr/$LIBDIR/libXext*
 usr/$LIBDIR/libXfixes*
