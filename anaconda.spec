@@ -3,7 +3,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 11.3.0.50
-Release: 1
+Release: 3
 License: GPLv2
 Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -215,6 +215,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 29 2008 Jeroen van Meeuwen <kanarip@fedoraunity.org> - 11.3.0.50-3
+* Backport fix for #367731 (i586)
+
 * Wed Oct 31 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.50-1
 - Fix creating users in kickstart (#358901)
 

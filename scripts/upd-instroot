@@ -39,27 +39,6 @@ else
     LIBDIR=lib
 fi
 
-
-prunePackageList() {
-	PACKAGEPATH=$1
-	PACKAGES="$2"
-
-	PATTERN=""
-	PACKAGEFILES=""
-	for PKG in $PACKAGES; do
-	    PATTERN="${PATTERN:+${PATTERN}|}(^$PKG )"
-	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/$PKG*{$ARCH,noarch}.rpm 2>/dev/null)"
-	done
-
-	# gtk+, enough said
-	PATTERN=$(echo $PATTERN | sed 's,[\+\*],\\&,g')
-
-	PACKAGEFILES=$(ls $PACKAGEFILES | sort -u)
-
-	rpm --nodigest --nosignature --qf "%{NAME} $PACKAGEPATH/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
-		-qp $PACKAGEFILES  | egrep "$PATTERN"  | sed 's/.* //' 
-}
-
 # pulled right out of mkinitrd....
 DSO_DEPS=""
 LDSO=""
@@ -238,7 +217,7 @@ rm -rf $DEST $DESTGR
 mkdir -p $DEST
 mkdir -p $DESTGR
 
-PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
+PACKAGES="glibc-common setup python newt slang libselinux
 	 libsepol libtermcap zlib ash e2fsprogs util-linux raidtools popt
 	 procps rpm rpm-libs Xconfigurator anaconda tzdata python-libs
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt mdadm libsemanage
@@ -256,6 +235,12 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 device-mapper device-mapper-libs dmraid keyutils-libs libsemanage-python
 	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr pcre"
 
+if [ $ARCH = i386 ]; then
+    PACKAGES="$PACKAGES glibc.i386 openssl.i386"
+else
+    PACKAGES="$PACKAGES glibc openssl"
+fi
+
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
 fi
@@ -270,7 +255,7 @@ fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils binutils libgcc tcp_wrappers
-              sed net-tools openssl openssh openssh-server coreutils
+              sed net-tools openssh openssh-server coreutils
               login initscripts bash portmap pam 
               login mount grep modutils gawk
               strace xorg-x11-xauth xorg-x11-libs"
@@ -289,7 +274,7 @@ fi
 # Extra stuff we want for rescue mode should go in PACKAGESRESCUE
 #
 PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
-           e2fsprogs coreutils glibc glibc-common
+           e2fsprogs coreutils glibc-common
            popt specspo util-linux rpm rpm-libs tzdata
            procps bash cpio gpm pygtk2-libglade pygobject2
            Xconfigurator pygtk2 gdk-pixbuf libpixman
