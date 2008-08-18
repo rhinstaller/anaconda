@@ -141,7 +141,7 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.skipStep("autopartitionexecute", skip = 0)
 
             if self.xml.get_widget("encryptButton").get_active():
-                thepass = self.intf.getLuksPassphrase(self.partitions.autoEncryptPass)
+                (thepass, isglobal) = self.intf.getLuksPassphrase(self.partitions.autoEncryptPass, isglobal=True)
                 if not thepass:
                     raise gui.StayOnScreen
                 self.partitions.autoEncryptPass = thepass

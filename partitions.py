@@ -94,6 +94,7 @@ def partitioningComplete(anaconda):
 
     anaconda.id.partitions.sortRequests()
     anaconda.id.fsset.reset()
+    undoAutoEncrypt = False
     for request in anaconda.id.partitions.requests:
         # XXX improve sanity checking
         if (not request.fstype or (request.fstype.isMountable()
@@ -105,6 +106,10 @@ def partitioningComplete(anaconda):
             partitions = anaconda.id.partitions
             if partitions.autoEncrypt and partitions.autoEncryptPass:
                 request.encryption.setPassphrase(partitions.autoEncryptPass)
+            elif partitions.globalPassphrase:
+                request.encryption.setPassphrase(partitions.globalPassphrase)
+            elif undoAutoEncrypt:
+                request.encryption = None
             else:
                 if partitions.autoEncrypt:
                     dev = ""
@@ -112,25 +117,34 @@ def partitioningComplete(anaconda):
                     dev = request.getDevice(partitions).getDevice(asBoot=1)
 
                 while True:
-                    passphrase = anaconda.intf.getLuksPassphrase(device=dev)
+                    (passphrase, isglobal) = anaconda.intf.getLuksPassphrase(device=dev, isglobal=partitions.autoEncrypt)
                     if passphrase:
                         request.encryption.setPassphrase(passphrase)
                         if partitions.autoEncrypt:
                             partitions.autoEncryptPass = passphrase
+                        elif isglobal:
+                            partitions.globalPassphrase = passphrase
                         break
                     else:
-                        # perhaps a warning that we're not going to encrypt?
+                        if dev:
+                            devstr = _(" for device %s") % (dev,)
+                        else:
+                            devstr = ""
                         rc = anaconda.intf.messageWindow(_("Encrypt device?"),
-                                    _("You specified that device %s should be "
-                                      "encrypted, but you have not supplied a "
-                                      "passphrase. If you do not go back and "
-                                      "provide a passphrase, the device will "
-                                      "not be encrypted.") % (dev,),
+                                    _("You specified block device encryption "
+                                      "should be enabled%s, but you have not "
+                                      "supplied a passphrase. If you do not "
+                                      "go back and provide a passphrase, "
+                                      "block device encryption%s will be "
+                                      "disabled.") % (devstr, devstr),
                                       type="custom",
                                       custom_buttons=[_("Back"), _("Continue")],
                                       default=0)
                         if rc == 1:
                             request.encryption = None
+                            if partitions.autoEncrypt:
+                                partitions.autoEncrypt = False
+                                undoAutoEncrypt = True
                             break
 
         entry = request.toEntry(anaconda.id.partitions)
@@ -335,6 +349,11 @@ class Partitions:
         diskset.stopMdRaid()
         for luksDev in self.encryptedDevices.values():
             luksDev.closeDevice()
+
+        # We shouldn't have any further need for the global passphrase
+        # except for new device creation, in which case we want to give
+        # the user a chance to establish a new global passphrase.
+        self.globalPassphrase = ""
 
     def setFromDisk(self, diskset):
         """Clear the delete list and set self.requests to reflect disk."""

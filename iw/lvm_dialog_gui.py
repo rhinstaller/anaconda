@@ -661,14 +661,26 @@ class VolumeGroupEditor:
                 else:
                     passphrase = ""
 
+                isglobal = False
                 if not request.encryption or request.encryption.format:
-                    passphrase = self.intf.getLuksPassphrase(passphrase)
+                    if not passphrase and self.partitions.globalPassphrase:
+                        passphrase = self.partitions.globalPassphrase
+                    else:
+                        if passphrase and \
+                           passphrase == self.partitions.globalPassphrase:
+                            isglobal = True
+                        (passphrase, isglobal) = self.intf.getLuksPassphrase(passphrase, isglobal=isglobal)
 
                 if passphrase and not request.encryption:
                     request.encryption = LUKSDevice(passphrase=passphrase,
                                                     format=1)
                 elif passphrase and request.encryption.format:
                     request.encryption.setPassphrase(passphrase)
+                else:
+                    isglobal = False
+
+                if isglobal and not self.partitions.globalPassphrase:
+                    self.partitions.globalPassphrase = passphrase
             else:
                 request.encryption = None
 
