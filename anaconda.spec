@@ -263,7 +263,8 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 
 * Thu Jul 31 2008 Jeremy Katz <katzj@redhat.com> - 11.4.1.24-1
 - Don't try to use self.tree as the mode to open .discinfo. (clumens)
-- Remove all the RPM lock files before creating a new transaction (#456949). (clumens)
+- Remove all the RPM lock files before creating a new 
+  transaction (#456949). (clumens)
 - Support VDSK devices on s390x (#264061) (dcantrell)
 
 * Wed Jul 30 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.23-1
