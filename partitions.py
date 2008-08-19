@@ -1442,6 +1442,10 @@ class Partitions:
             if not request.format:
                 args.append("--noformat")
 
+            # device encryption
+            if request.encryption:
+                args.append("--encrypted")
+
             # preexisting only
             if request.type == REQUEST_PREEXIST and request.device:
                 args.append("--onpart")
@@ -1501,6 +1505,10 @@ class Partitions:
                 args.append("--useexisting")
             if request.fstype:
                 args.extend(["--fstype", request.fstype.getName(quoted = 1)])
+
+            # device encryption
+            if request.encryption:
+                args.append("--encrypted")
 
             args.append("--level=%s" % (request.raidlevel))
             args.append("--device=md%s" % (request.raidminor))
@@ -1574,6 +1582,10 @@ class Partitions:
                 args.append("--useexisting")
             if request.fstype:
                 args.extend(["--fstype", request.fstype.getName(quoted = 1)])
+
+            # device encryption
+            if request.encryption:
+                args.append("--encrypted")
 
             vg = self.getRequestByID(request.volumeGroup)
             if vg is None:
