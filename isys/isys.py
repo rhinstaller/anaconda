@@ -37,6 +37,7 @@ import re
 import struct
 import block
 import minihal
+import rhpl
 
 import logging
 log = logging.getLogger("anaconda")
