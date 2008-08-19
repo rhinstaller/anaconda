@@ -990,7 +990,8 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 - Translation updates (pl, nl, ja)
 - Handle efibootmgr and grub.efi in upd-instroot. (pjones)
 - Merge in branch to implement stage2= parameter. (clumens)
-- Revert the memtest86 bits for EFI, since this gets run on multiple arches. (pjones)
+- Revert the memtest86 bits for EFI, since this gets run on 
+  multiple arches. (pjones)
 - Use iutil.isEfi() instead of testing for ia64-ness. (pjones)
 - Only do gptsync if we're not using EFI. (pjones)
 - Don't do gptsync if we're using EFI. (pjones)
