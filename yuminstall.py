@@ -458,11 +458,14 @@ class AnacondaYum(YumSorter):
                 else:
                     (device, fstype, path) = m[3:].split(":")
 
-                self.isodir = "/mnt/isodir/%s" % path
+                if flags.cmdline.has_key("preupgrade"):
+                    self._baseRepoURL = "file:///mnt/sysimage/%s" % path
+                else:
+                    self.isodir = "/mnt/isodir/%s" % path
 
-                # This takes care of mounting /mnt/isodir first.
-                self._switchImage(1)
-                self.mediagrabber = self.mediaHandler
+                    # This takes care of mounting /mnt/isodir first.
+                    self._switchImage(1)
+                    self.mediagrabber = self.mediaHandler
             elif m.startswith("nfsiso:"):
                 self.isodir = "/mnt/isodir"
 
