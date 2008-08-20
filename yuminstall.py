@@ -266,14 +266,6 @@ class AnacondaYumRepo(YumRepository):
         else:
             return False
 
-    def _getFile(self, url=None, relative=None, local=None, start=None, end=None,
-            copy_local=None, checkfunc=None, text=None, reget='simple', cache=True):
-        # FIXME: we end up doing a regrab in the preupgrade case here for some
-        # reason I can't figure out
-        if os.path.exists(local):
-            return local
-        return YumRepository._getFile(self, url, relative, local, start, end, copy_local, checkfunc, text, reget, cache)
-
     def dirCleanup(self):
         if os.path.isdir(self.getAttribute('cachedir')):
             shutil.rmtree(self.getAttribute('cachedir'))
@@ -513,12 +505,9 @@ class AnacondaYum(YumSorter):
     def configBaseRepo(self, root='/', replace=False):
         # Create the "base" repo object, assuming there is one.  Otherwise we
         # just skip all this and use the defaults from /etc/yum.repos.d.
-        # preupgrade always sets a _baseRepoURL so it'll still get taken care
-        # of with this block.
         if not self._baseRepoURL:
             return
 
-        _preupgset = False
         # add default repos
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self._baseRepoURL).items():
             rid = name.replace(" ", "")
@@ -526,7 +515,7 @@ class AnacondaYum(YumSorter):
             if replace:
                 try:
                     repo = self.repos.getRepo("anaconda-%s-%s" % (rid, productStamp))
-                    repo.baseurl = [uri]
+                    repo.baseurl = uri
                 except RepoError:
                     replace = False
             else:
@@ -536,21 +525,6 @@ class AnacondaYum(YumSorter):
 
             repo.name = name
             repo.cost = 100
-
-            # if we've been booted with 'preupgrade', then we want to
-            # use the cache on the hd for the upgrade info and thus avoid
-            # needing to use the network.
-            # FIXME: longer-term, I'd like to see
-            # the anaconda-upgrade dir just become a full-fledged repo
-            # (maybe combining input from multiple repos) that we add
-            # in addition to the base repos.  then we catch a depcheck error
-            # and ask if you want to add more repos.
-            if flags.cmdline.has_key("preupgrade") and _preupgset == False:
-                _preupgset = True
-                if os.path.exists("%s/var/cache/yum/anaconda-upgrade" % self.anaconda.rootPath):
-                    repo.cachedir = "%s/var/cache/yum/anaconda-upgrade" % self.anaconda.rootPath
-                    repo.metadata_expire = -1
-                    log.info("setting cachedir for %s to %s based on preupgrade flag" %(rid, repo.cachedir))
 
             if self.anaconda.mediaDevice or self.isodir:
                 repo.mediaid = getMediaId(self.tree)
@@ -711,7 +685,7 @@ class AnacondaYum(YumSorter):
                 continue
 
     def _handleFailure(self, package):
-        if flags.cmdline.has_key("preupgrade") and os.environ.has_key("DISPLAY") and not network.hasActiveNetDev():
+        if not network.hasActiveNetDev():
             if not enableNetwork(self.anaconda):
                 return
 
