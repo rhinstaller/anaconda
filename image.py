@@ -147,20 +147,26 @@ def mountDirectory(methodstr, messageWindow):
     if os.path.ismount("/mnt/isodir"):
         return
 
-    try:
-        isys.mount(device, "/mnt/isodir", fstype = fstype)
-    except SystemError, msg:
-        log.error("couldn't mount ISO source directory: %s" % msg)
-        messageWindow(_("Couldn't Mount ISO Source"),
-                      _("An error occurred mounting the source "
-                        "device %s.  This may happen if your ISO "
-                        "images are located on an advanced storage "
-                        "device like LVM or RAID, or if there was a "
-                        "problem mounting a partition.  Click exit "
-                        "to abort the installation.")
-                      % (device,), type="custom", custom_icon="error",
-                      custom_buttons=[_("_Exit")])
-        sys.exit(0)
+    while True:
+        try:
+            isys.mount(device, "/mnt/isodir", fstype = fstype)
+            break
+        except SystemError, msg:
+            log.error("couldn't mount ISO source directory: %s" % msg)
+            ans = messageWindow(_("Couldn't Mount ISO Source"),
+                          _("An error occurred mounting the source "
+                            "device %s.  This may happen if your ISO "
+                            "images are located on an advanced storage "
+                            "device like LVM or RAID, or if there was a "
+                            "problem mounting a partition.  Click exit "
+                            "to abort the installation.")
+                          % (device,), type="custom", custom_icon="error",
+                          custom_buttons=[_("_Exit"), _("_Retry")])
+
+            if ans == 0:
+                sys.exit(0)
+            else:
+                continue
 
 def mountImage(isodir, tree, discnum, messageWindow, discImages={}):
     if os.path.ismount(tree):
@@ -181,8 +187,8 @@ def mountImage(isodir, tree, discnum, messageWindow, discImages={}):
                                   "image #%s, but cannot find it on "
                                   "the hard drive.\n\n"
                                   "Please copy this image to the "
-                                  "drive and click Retry. Click Exit "
-                                  " to abort the installation.")
+                                  "drive and click Retry.  Click Exit "
+                                  "to abort the installation.")
                                   % (discnum,), type="custom",
                                   custom_icon="warning",
                                   custom_buttons=[_("_Exit"), _("_Retry")])
