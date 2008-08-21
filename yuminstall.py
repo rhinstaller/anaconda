@@ -971,6 +971,7 @@ metadata_expire=0
 obsoletes=True
 pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins
 pluginconfpath=/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d
+plugins=1
 reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d
 """ % (anaconda.rootPath)
 
