@@ -166,7 +166,7 @@ PACKAGES="acl anaconda anaconda-runtime attr audit-libs bash beecrypt beecrypt
 	  rhpl rhpxl rpm rpm-libs rpm-python sed selinux-policy-targeted setup
 	  slang sqlite system-config-date system-release tzdata util-linux-ng
 	  Xconfigurator xfsdump xfsprogs xorg-x11 xorg-x11-server-Xorg yum
-	  yum-fedorakmod yum-metadata-parser zlib"
+	  yum-fedorakmod yum-metadata-parser zlib anaconda-yum-plugins"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
@@ -361,7 +361,9 @@ etc/services
 etc/shells
 etc/udev
 etc/yum.repos.d/*
+etc/yum/pluginconf.d/blacklist.conf
 etc/yum/pluginconf.d/fedorakmod.conf
+etc/yum/pluginconf.d/whiteout.conf
 lib/terminfo
 lib/udev
 sbin/*gfs*
@@ -517,7 +519,9 @@ usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
 usr/lib/syslinux
 usr/lib/yaboot
+usr/lib/yum-plugins/blacklist.py*
 usr/lib/yum-plugins/fedorakmod.py*
+usr/lib/yum-plugins/whiteout.py*
 usr/libexec/convertdb1
 usr/libexec/hal*
 usr/libexec/polkit*
