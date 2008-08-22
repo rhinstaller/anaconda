@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.28
+Version: 11.4.1.29
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,67 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 22 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.29-1
+- Enable yum plugins. (clumens)
+- In the preupgrade case, repo=hd: means an exploded tree on the hard drive.
+  (clumens)
+- Remove preupgrade-specific hacks. (clumens)
+- Add conf files for our yum plugins so they can be enabled. (clumens)
+- Create a subpackage containing the yum plugins. (clumens)
+- Add the new blacklist and whiteout yum plugins. (clumens)
+- Allow retrying if the ISO images aren't found (for the USB case). (clumens)
+- Include "--encrypted" in anaconda-ks.cfg partitioning as needed. (#459430)
+  (dlehman)
+- Support establishing a global passphrase when creating encrypted devices.
+  (dlehman)
+- Display the lock icon for encrypted RAID members. (#459123) (dlehman)
+- More descriptive drive message when warning on format. (dcantrell)
+- Need to import rhpl for things like switching to pdb. (clumens)
+- Fix traceback in passphrase handling code for encrypted RAID requests.
+  (#459121) (dlehman)
+- Copy the install.img to /tmp on HD installs. (clumens)
+- Fix a typo (dcantrell).
+- Expert mode was disabled in 2004.  Remove it now. (clumens)
+- Remove an extra "Local disk" option (#459128). (clumens)
+- Clear up error reporting on upgrades when devices are listed by UUID.
+  (clumens)
+- If the UI was used to specify a repo, construct a repo param (#458899).
+  (clumens)
+- Fix a traceback calling createMapping. (clumens)
+- First crack at upgrade of systems with encrypted block devices. (#437604)
+  (dlehman)
+- In kickstart, prompt for new LUKS dev passphrase if not specified.
+  (#446930) (dlehman)
+- Remove passphrase check hack from LUKSDevice.getScheme. (dlehman)
+- Allow specification of a device string for display in passphrase dialog.
+  (dlehman)
+- Add encrypted device passphrase dialog for text mode. (dlehman)
+- Fix PartitionDevice.getDevice to take asBoot into account. (dlehman)
+- Make passphrase dialogs appear in the center of the screen. (#458114)
+  (dlehman)
+- Consider clearpart and ignoredisk when scanning for encrypted partitions.
+  (dlehman)
+- Correctly handle typos in the stage2 location when inferred from repo=.
+  (clumens)
+- Fix the loader UI when prompting for stage2.img on HDISO. (clumens)
+- Rename stage2.img to install.img (dcantrell)
+- Bring up the network before saving a bug via scp. (clumens)
+- Make it more explicit we want the stage2.img URL, not the repo URL.
+  (clumens)
+- Add the match type so we don't find all bugs. (clumens)
+- Make upd-updates create the updates.img you specify if it doesn't already
+  exist. (pjones)
+- Don't base mpath/dmraid/raid startup/stopping based on if lvm is activated
+  yet, (pjones)
+- Add diskset.devicesOpen boolean, so we can tell if devices should be
+  started (pjones)
+- Add dirCleanup back in so we don't leave install metadata behind. (clumens)
+- Move betanag to after keyboard and language are setup. (clumens)
+- Add module dependencies of qeth.ko (#431922). (clumens)
+- Copy the changes from RHEL5 for the linuxrc.s390 over. (clumens)
+- Disable SCSI devices so we can safely remove a LUN (bhinson, #249341).
+  (dcantrell)
+
 * Tue Aug 12 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.28-1
 - More fixes to include udev rules in the initrd (#458570). (clumens)
 - Catch the first non-generic-logo package that provides system-logos.
