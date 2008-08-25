@@ -302,7 +302,6 @@ makemoduletree() {
                 cp $KERNELROOT/lib/firmware/ipw2100* $MBD_DIR/firmware
                 ;;
             ipw2200)
-                cp $KERNELROOT/lib/firmware/ipw-2.4* $MBD_DIR/firmware
                 cp $KERNELROOT/lib/firmware/ipw2200* $MBD_DIR/firmware
                 ;;
             iwl3945)
@@ -449,11 +448,9 @@ EOF
     # copy in the binaries
     instbin $IMGPATH /usr/bin/login $MBD_DIR /sbin/login
     instbin $IMGPATH /usr/sbin/sshd $MBD_DIR /sbin/sshd
-    instbin $IMGPATH /usr/bin/bash $MBD_DIR /sbin/bash
     instbin $IMGPATH /usr/bin/busybox $MBD_DIR /sbin/busybox
     
     # make some symlinks
-    ln -sf bash $MBD_DIR/sbin/sh
     (cd $MBD_DIR/sbin;
     	set $(./busybox 2>&1| awk '/^\t([[:alnum:]_\.\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
     	while [ -n "$1" ]; do
@@ -530,11 +527,34 @@ makeinitrd() {
     mkdir -p $MBD_DIR/proc
     mkdir -p $MBD_DIR/selinux
     mkdir -p $MBD_DIR/sys
-    mkdir -p $MBD_DIR/tmp
     mkdir -p $MBD_DIR/etc/terminfo/{a,b,d,l,s,v,x}
-    mkdir -p $MBD_DIR/etc/modprobe.d
-    mkdir -p $MBD_DIR/var/run
+    mkdir -p $MBD_DIR/tmp
+    mkdir -p $MBD_DIR/usr/libexec
+    mkdir -p $MBD_DIR/usr/lib/NetworkManager
+    mkdir -p $MBD_DIR/usr/share/dbus-1/system-services
+    mkdir -p $MBD_DIR/var/cache/hald
+    mkdir -p $MBD_DIR/var/lib/dbus
+    mkdir -p $MBD_DIR/var/lib/dhclient
     mkdir -p $MBD_DIR/var/lock/rpm
+    mkdir -p $MBD_DIR/var/run
+    mkdir -p $MBD_DIR/var/run/dbus
+    mkdir -p $MBD_DIR/var/run/hald
+    mkdir -p $MBD_DIR/var/run/NetworkManager
+    mkdir -p $MBD_DIR/etc/dbus-1/system.d
+    mkdir -p $MBD_DIR/etc/modprobe.d
+    mkdir -p $MBD_DIR/etc/NetworkManager
+    mkdir -p $MBD_DIR/lib/dbus-1
+    mkdir -p $MBD_DIR/etc/sysconfig/network-scripts
+    mkdir -p $MBD_DIR/usr/share/PolicyKit/policy
+    mkdir -p $MBD_DIR/etc/PolicyKit
+    mkdir -p $MBD_DIR/var/lib/misc
+    mkdir -p $MBD_DIR/etc/hal/fdi
+    mkdir -p $MBD_DIR/usr/share/hal/fdi
+    mkdir -p $MBD_DIR/usr/share/hwdata
+    mkdir -p $MBD_DIR/etc/rc.d/init.d
+    mkdir -p $MBD_DIR/usr/sbin
+    mkdir -p $MBD_DIR/var/run/wpa_supplicant
+    mkdir -p $MBD_DIR/usr/lib/gconv
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
 	mkdir -m 111 -p $MBD_DIR/var/empty/sshd
@@ -583,7 +603,101 @@ makeinitrd() {
 
     instbin $IMGPATH /usr/sbin/udevd $MBD_DIR /sbin/udevd
     instbin $IMGPATH /usr/sbin/udevadm $MBD_DIR /sbin/udevadm
+    instbin $IMGPATH /usr/bin/udevinfo $MBD_DIR /sbin/udevinfo
     ln -s udevadm $MBD_DIR/sbin/udevsettle
+
+    instbin $IMGPATH /usr/bin/bash $MBD_DIR /sbin/bash
+    instbin $IMGPATH /usr/sbin/consoletype $MBD_DIR /sbin/consoletype
+    instbin $IMGPATH /usr/bin/logger $MBD_DIR /sbin/logger
+
+    ( cd $IMGPATH/etc/rc.d/init.d
+      cp -a functions $MBD_DIR/etc/rc.d/init.d
+    )
+
+    ( cd $IMGPATH/etc/sysconfig/network-scripts
+      cp -a network-functions $MBD_DIR/etc/sysconfig/network-scripts
+      cp -a network-functions-ipv6 $MBD_DIR/etc/sysconfig/network-scripts
+    )
+
+    ( cd $MBD_DIR/etc ; ln -sf /etc/rc.d/init.d init.d )
+
+    # DHCP and DHCPv6 client daemons and support programs
+    instbin $IMGPATH /usr/sbin/dhclient $MBD_DIR /sbin/dhclient
+    cp -a $IMGPATH/usr/sbin/dhclient-script $MBD_DIR/sbin/dhclient-script
+    chmod 0755 $MBD_DIR/sbin/dhclient-script
+    instbin $IMGPATH /usr/sbin/dhcp6c $MBD_DIR /sbin/dhcp6c
+    instbin $IMGPATH /usr/sbin/arping $MBD_DIR /sbin/arping
+    instbin $IMGPATH /usr/sbin/ifconfig $MBD_DIR /sbin/ifconfig
+    instbin $IMGPATH /usr/sbin/ip $MBD_DIR /sbin/ip
+    touch $MBD_DIR/etc/resolv.conf
+
+    # hwdata
+    cp -a $IMGPATH/usr/share/hwdata/pci.ids $MBD_DIR/usr/share/hwdata/pci.ids
+    cp -a $IMGPATH/usr/share/hwdata/usb.ids $MBD_DIR/usr/share/hwdata/usb.ids
+
+    # hal
+    instbin $IMGPATH /usr/sbin/hald $MBD_DIR /sbin/hald
+    ( cd $IMGPATH/usr/libexec
+      for f in hald-runner hald-generate-fdi-cache hal*storage* ; do
+          instbin $IMGPATH /usr/libexec/$f $MBD_DIR /usr/libexec/$f
+      done
+    )
+    touch $MBD_DIR/var/run/hald.acl-list
+    cp -a $IMGPATH/usr/share/hal/fdi/* $MBD_DIR/usr/share/hal/fdi
+    cp -a $IMGPATH/etc/hal/fdi/* $MBD_DIR/etc/hal/fdi
+    cp -a $IMGPATH/etc/dbus-1/system.d/hal.conf $MBD_DIR/etc/dbus-1/system.d
+
+    # PolicyKit
+    ( cd $IMGPATH/etc/PolicyKit
+      cp -a PolicyKit.conf $MBD_DIR/etc/PolicyKit
+    )
+    ( cd $IMGPATH/usr/share/dbus-1/system-services
+      cp -a org.freedesktop.PolicyKit.service $MBD_DIR/usr/share/dbus-1/system-services
+    )
+    ( cd $IMGPATH/usr/share/PolicyKit/policy
+      cp -a org.freedesktop.policykit.policy $MBD_DIR/usr/share/PolicyKit/policy
+    )
+    ( cd $IMGPATH/var/lib/misc
+      cp -a PolicyKit.reload $MBD_DIR/var/lib/misc
+    )
+
+    # dbus
+    instbin $IMGPATH /usr/bin/dbus-uuidgen $MBD_DIR /sbin/dbus-uuidgen
+    instbin $IMGPATH /usr/bin/dbus-daemon $MBD_DIR /sbin/dbus-daemon
+    cp -a $IMGPATH/etc/dbus-1/system.conf $MBD_DIR/etc/dbus-1/system.conf
+    cp -a $IMGPATH/lib/dbus-1/dbus-daemon-launch-helper $MBD_DIR/lib/dbus-1
+    chown root:dbus $MBD_DIR/lib/dbus-1/dbus-daemon-launch-helper
+    chmod 04750 $MBD_DIR/lib/dbus-1/dbus-daemon-launch-helper
+
+    # wpa_supplicant
+    instbin $IMGPATH /usr/sbin/wpa_passphrase $MBD_DIR /usr/sbin/wpa_passphrase
+    instbin $IMGPATH /usr/sbin/wpa_supplicant $MBD_DIR /usr/sbin/wpa_supplicant
+    cp -a $IMGPATH/etc/dbus-1/system.d/wpa_supplicant.conf $MBD_DIR/etc/dbus-1/system.d
+    cp -a $IMGPATH/etc/wpa_supplicant/wpa_supplicant.conf $MBD_DIR/etc/wpa_supplicant
+    ( cd $IMGPATH/usr/share/dbus-1/system-services
+      cp -a fi.epitest.hostap.WPASupplicant.service $MBD_DIR/usr/share/dbus-1/system-services
+    )
+
+    # NetworkManager
+    instbin $IMGPATH /usr/sbin/NetworkManager $MBD_DIR /usr/sbin/NetworkManager
+    instbin $IMGPATH /usr/sbin/nm-system-settings $MBD_DIR /usr/sbin/nm-system-settings
+    cp -a $IMGPATH/etc/dbus-1/system.d/nm-*.conf $MBD_DIR/etc/dbus-1/system.d
+    cp -a $IMGPATH/etc/dbus-1/system.d/NetworkManager.conf $MBD_DIR/etc/dbus-1/system.d
+    cp -a $IMGPATH/etc/NetworkManager/nm-system-settings.conf $MBD_DIR/etc/NetworkManager
+    instbin $IMGPATH /usr/lib/NetworkManager/libnm-settings-plugin-ifcfg-fedora.so \
+        $MBD_DIR /usr/lib/NetworkManager/libnm-settings-plugin-ifcfg-fedora.so
+    ( cd $IMGPATH/usr/libexec
+      for f in nm-* ; do
+          instbin $IMGPATH /usr/libexec/$f $MBD_DIR /usr/libexec/$f
+      done
+    )
+    ( cd $IMGPATH/usr/share/dbus-1/system-services
+      cp -a org.freedesktop.NetworkManagerSystemSettings.service $MBD_DIR/usr/share/dbus-1/system-services
+      cp -a org.freedesktop.nm_dispatcher.service $MBD_DIR/usr/share/dbus-1/system-services
+    )
+
+    # gconv
+    cp -a $IMGPATH/usr/lib/gconv/* $MBD_DIR/usr/lib/gconv
 
     # Indirect dependencies
     install -m 755 $IMGPATH/$LIBDIR/libnss_dns.so.2 $MBD_DIR/$LIBDIR/
@@ -593,6 +707,9 @@ makeinitrd() {
     install -m 644 $IMGPATH/etc/udev/udev.conf $MBD_DIR/etc/udev/udev.conf
     for i in $IMGPATH/lib/udev/rules.d/*.rules ; do
        install -m 644 $i $MBD_DIR/lib/udev/rules.d/${i##*/}
+    done
+    for i in $IMGPATH/etc/udev/rules.d/*.rules ; do
+       install -m 644 $i $MBD_DIR/etc/udev/rules.d/${i##*/}
     done
     for i in $IMGPATH/lib/udev/*; do
        if [ -f $i ]; then install -m 755 $i $MBD_DIR/lib/udev/${i##*/}; fi
@@ -612,7 +729,6 @@ makeinitrd() {
 	instbin $IMGPATH /usr/sbin/$n $MBD_DIR /sbin/$n
     done
 
-    ln -s /usr/bin/sh $MBD_DIR/sbin/sh
     ln -s /sbin/init $MBD_DIR/init
     ln -s /proc/mounts $MBD_DIR/etc/mtab
     ln -s sbin $MBD_DIR/bin

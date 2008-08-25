@@ -20,7 +20,7 @@
 include ../Makefile.inc
 
 STUBS = raidstart-stub raidstop-stub list-harddrives-stub \
-	loadkeys-stub losetup-stub dhcpclient-stub mknod-stub syslogd-stub
+	loadkeys-stub losetup-stub mknod-stub syslogd-stub
 
 all:
 	@echo "Nothing to do"

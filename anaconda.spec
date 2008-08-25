@@ -17,7 +17,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define dmver 1.02.17-6
 %define gettextver 0.11
 %define intltoolver 0.31.2-3
-%define libdhcpver 1.99.8-1
 %define libnlver 1.0
 %define libselinuxver 1.6
 %define mkinitrdver 5.1.2-1
@@ -33,6 +32,8 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define rhpxlver 0.25
 %define desktopfileutilsver 0.8
 %define e2fsver 1.41.0
+%define nmver 0.7.0
+%define dbusver 1.2.3
 
 BuildRequires: audit-libs-devel
 BuildRequires: booty
@@ -47,7 +48,6 @@ BuildRequires: isomd5sum-devel
 BuildRequires: libX11-devel
 BuildRequires: libXt-devel
 BuildRequires: libXxf86misc-devel
-BuildRequires: libdhcp-devel >= %{libdhcpver}
 BuildRequires: libnl-devel >= %{libnlver}
 BuildRequires: libselinux-devel >= %{libselinuxver}
 BuildRequires: libsepol-devel
@@ -65,6 +65,8 @@ BuildRequires: slang-devel >= %{slangver}
 BuildRequires: xmlto
 BuildRequires: yum >= %{yumver}
 BuildRequires: zlib-devel
+BuildRequires: NetworkManager-devel >= %{nmver}
+BuildRequires: dbus-devel >= %{dbusver}
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
@@ -128,6 +130,9 @@ Requires: openssh
 Requires: busybox-anaconda
 Requires: isomd5sum
 Requires: yum-utils >= 1.1.11-3
+Requires: NetworkManager >= %{nmver}
+Requires: dhclient
+Requires: dhcpv6-client
 Obsoletes: anaconda-images <= 10
 Obsoletes: anaconda-runtime < %{version}-%{release}
 Provides: anaconda-runtime = %{version}-%{release}

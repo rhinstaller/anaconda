@@ -1,7 +1,7 @@
 /*
- * iface.c - Network interface control functions
+ * iface.c - Network interface configuration API
  *
- * Copyright (C) 2006, 2007, 2008  Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 2006, 2007, 2008  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,40 +21,145 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/utsname.h>
+#include <arpa/inet.h>
+#include <dirent.h>
+#include <fcntl.h>
+#include <netdb.h>
+#include <signal.h>
 #include <netinet/in.h>
 #include <netlink/netlink.h>
 #include <netlink/socket.h>
+#include <netlink/route/rtnl.h>
+#include <netlink/route/route.h>
 #include <netlink/route/addr.h>
 #include <netlink/route/link.h>
 
 #include "iface.h"
 #include "str.h"
 
-/*
- * Return an NETLINK_ROUTE cache.
- */
-struct nl_cache *iface_get_link_cache(struct nl_handle **handle) {
-    struct nl_cache *cache = NULL;
+/* Internal-only function prototypes. */
+static struct nl_handle *_iface_get_handle(void);
+static struct nl_cache *_iface_get_link_cache(struct nl_handle **);
+static int _iface_name_to_index(char *);
+static int _iface_have_valid_addr(void *addr, int family, int length);
+static int _iface_redirect_io(char *device, int fd, int mode);
 
-    if ((*handle = nl_handle_alloc()) == NULL) {
-        perror("nl_handle_alloc() failure in iface_get_link_cache()");
+/*
+ * Return a libnl handle for NETLINK_ROUTE.
+ */
+static struct nl_handle *_iface_get_handle(void) {
+    struct nl_handle *handle = NULL;
+
+    if ((handle = nl_handle_alloc()) == NULL) {
         return NULL;
     }
 
-    if (nl_connect(*handle, NETLINK_ROUTE)) {
-        perror("nl_connect() failure in iface_get_link_cache()");
-        nl_handle_destroy(*handle);
+    if (nl_connect(handle, NETLINK_ROUTE)) {
+        nl_handle_destroy(handle);
+        return NULL;
+    }
+
+    return handle;
+}
+
+/*
+ * Return an NETLINK_ROUTE cache.
+ */
+static struct nl_cache *_iface_get_link_cache(struct nl_handle **handle) {
+    struct nl_cache *cache = NULL;
+
+    if ((*handle = _iface_get_handle()) == NULL) {
         return NULL;
     }
 
     if ((cache = rtnl_link_alloc_cache(*handle)) == NULL) {
-        perror("rtnl_link_alloc_cache() failure in iface_get_link_cache()");
         nl_close(*handle);
         nl_handle_destroy(*handle);
         return NULL;
     }
 
     return cache;
+}
+
+/*
+ * Convert an interface name to index number.
+ */
+static int _iface_name_to_index(char *ifname) {
+    struct nl_handle *handle = NULL;
+    struct nl_cache *cache = NULL;
+
+    if (ifname == NULL) {
+        return -1;
+    }
+
+    if ((cache = _iface_get_link_cache(&handle)) == NULL) {
+        return -1;
+    }
+
+    return rtnl_link_name2i(cache, ifname);
+}
+
+/*
+ * Determine if a struct in_addr or struct in6_addr contains a valid address.
+ */
+static int _iface_have_valid_addr(void *addr, int family, int length) {
+    char buf[length+1];
+
+    if ((addr == NULL) || (family != AF_INET && family != AF_INET6)) {
+        return 0;
+    }
+
+    memset(buf, '\0', sizeof(buf));
+
+    if (inet_ntop(family, addr, buf, length) == NULL) {
+        return 0;
+    } else {
+        /* check for unknown addresses */
+        if (family == AF_INET) {
+            if (!strncmp(buf, "0.0.0.0", 7)) {
+                return 0;
+            }
+        } else if (family == AF_INET6) {
+            if (!strncmp(buf, "::", 2)) {
+                return 0;
+            }
+        }
+    }
+
+    return 1;
+}
+
+/*
+ * Redirect I/O to another device (e.g., stdout to /dev/tty5)
+ */
+int _iface_redirect_io(char *device, int fd, int mode) {
+    int io = -1;
+
+    if ((io = open(device, mode)) == -1) {
+        return 1;
+    }
+
+    if (close(fd) == -1) {
+        return 2;
+    }
+
+    if (dup2(io, fd) == -1) {
+        return 3;
+    }
+
+    if (close(io) == -1) {
+        return 4;
+    }
+
+    return 0;
 }
 
 /*
@@ -74,26 +179,16 @@ char *iface_ip2str(char *ifname) {
     struct rtnl_addr *raddr = NULL;
     struct nl_addr *addr = NULL;
 
-    if (ifname == NULL) {
-        perror("Missing ifname in iface_ip2str()");
-        return NULL;
+    if ((ifindex = _iface_name_to_index(ifname)) == -1) {
+        goto ip2str_error;
     }
-
-    if ((cache = iface_get_link_cache(&handle)) == NULL) {
-        perror("iface_get_link_cache() failure in iface_ip2str()");
-        return NULL;
-    }
-
-    ifindex = rtnl_link_name2i(cache, ifname);
 
     if ((cache = rtnl_addr_alloc_cache(handle)) == NULL) {
-        perror("rtnl_addr_alloc_cache() failure in iface_ip2str()");
         goto ip2str_error;
     }
 
     /* find the IPv4 and IPv6 addresses for this interface */
     if ((obj = nl_cache_get_first(cache)) == NULL) {
-        perror("nl_cache_get_first() failure in iface_ip2str()");
         goto ip2str_error;
     }
 
@@ -128,8 +223,7 @@ char *iface_ip2str(char *ifname) {
 
                 buflen += 1;
 
-                if ((buf = malloc(buflen)) == NULL) {
-                    perror("malloc() failure on buf in iface_ip2str()");
+                if ((buf = calloc(sizeof(char *), buflen)) == NULL) {
                     nl_addr_destroy(addr);
                     goto ip2str_error;
                 }
@@ -141,7 +235,6 @@ char *iface_ip2str(char *ifname) {
                 if ((pos = index(buf, '/')) != NULL) {
                     *pos = '\0';
                     if ((buf = realloc(buf, strlen(buf) + 1)) == NULL) {
-                        perror("realloc() failure on buf in iface_ip2str()");
                         nl_addr_destroy(addr);
                         goto ip2str_error;
                     }
@@ -180,7 +273,7 @@ ip2str_error:
     }
 }
 
-/**
+/*
  * Given an interface name (e.g., eth0), return the MAC address in human
  * readable format (e.g., 00:11:52:12:D9:A0).  Return NULL for no match.
  */
@@ -193,27 +286,22 @@ char *iface_mac2str(char *ifname) {
     struct nl_addr *addr = NULL;
 
     if (ifname == NULL) {
-        perror("Missing ifname in iface_mac2str()");
         return NULL;
     }
 
-    if ((cache = iface_get_link_cache(&handle)) == NULL) {
-        perror("iface_get_link_cache() failure in iface_mac2str()");
+    if ((cache = _iface_get_link_cache(&handle)) == NULL) {
         return NULL;
     }
 
     if ((link = rtnl_link_get_by_name(cache, ifname)) == NULL) {
-        perror("rtnl_link_get_by_name() failure in iface_mac2str()");
         goto mac2str_error2;
     }
 
     if ((addr = rtnl_link_get_addr(link)) == NULL) {
-        perror("rtnl_link_get_addr() failure in iface_mac2str()");
         goto mac2str_error3;
     }
 
-    if ((buf = malloc(buflen)) == NULL) {
-        perror("malloc() failure on buf in iface_mac2str()");
+    if ((buf = calloc(sizeof(char *), buflen)) == NULL) {
         goto mac2str_error4;
     }
 
@@ -233,6 +321,209 @@ mac2str_error2:
 }
 
 /*
+ * Convert an IPv4 CIDR prefix to a dotted-quad netmask.  Return NULL on
+ * failure.
+ */
+struct in_addr *iface_prefix2netmask(int prefix) {
+    int mask = 0;
+    char *buf = NULL;
+    struct in_addr *ret;
+
+    if ((buf = calloc(sizeof(char *), INET_ADDRSTRLEN + 1)) == NULL) {
+        return NULL;
+    }
+
+    mask = htonl(~((1 << (32 - prefix)) - 1));
+
+    if (inet_ntop(AF_INET, (struct in_addr *) &mask, buf,
+                  INET_ADDRSTRLEN) == NULL) {
+        return NULL;
+    }
+
+    if ((ret = calloc(sizeof(struct in_addr), 1)) == NULL) {
+        return NULL;
+    }
+
+    memcpy(ret, (struct in_addr *) &mask, sizeof(struct in_addr));
+    return ret;
+}
+
+/*
+ * Convert an IPv4 netmask to an IPv4 CIDR prefix.  Return -1 on failure.
+ */
+int iface_netmask2prefix(struct in_addr *netmask) {
+    int ret = -1;
+    struct in_addr mask;
+
+    if (netmask == NULL) {
+        return -1;
+    }
+
+    memcpy(&mask, netmask, sizeof(struct in_addr));
+
+    while (mask.s_addr != 0) {
+        mask.s_addr = mask.s_addr >> 1;
+        ret++;
+    }
+
+    return ret;
+}
+
+/*
+ * Look up the hostname and domain for our assigned IP address.  Tries IPv4
+ * first, then IPv6.  Returns 0 on success, non-negative on failure.
+ */
+int iface_dns_lookup(iface_t *iface) {
+    char *ch = NULL;
+    struct sockaddr_in sa;
+    struct sockaddr_in6 sa6;
+
+    if ((iface->hostname != NULL) && (iface->domain != NULL)) {
+        return 0;
+    }
+
+    /* make sure our hostname buffer is large enough */
+    if ((iface->hostname = calloc('\0', NI_MAXHOST+1)) == NULL) {
+        return 1;
+    }
+
+    /* try an IPv4 lookup first */
+    if (iface_have_in_addr(&iface->ipaddr)) {
+        memset(&sa, 0, sizeof(sa));
+        sa.sin_family = AF_INET;
+        sa.sin_addr.s_addr = iface->ipaddr.s_addr;
+
+        if (getnameinfo((struct sockaddr *) &sa, sizeof(sa), iface->hostname,
+                        NI_MAXHOST, NULL, 0, NI_NAMEREQD)) {
+            free(iface->hostname);
+            iface->hostname = NULL;
+        }
+    }
+
+    /* try IPv6 lookup if IPv4 failed */
+    if ((iface->hostname == NULL) && iface_have_in6_addr(&iface->ip6addr)) {
+        memset(&sa6, 0, sizeof(sa6));
+        sa6.sin6_family = AF_INET6;
+        memcpy(&sa6.sin6_addr, &iface->ip6addr, sizeof(iface->ip6addr));
+
+        if (getnameinfo((struct sockaddr *) &sa6, sizeof(sa6), iface->hostname,
+                        NI_MAXHOST, NULL, 0, NI_NAMEREQD)) {
+            free(iface->hostname);
+            iface->hostname = NULL;
+        }
+    }
+
+    /* fill in the domain */
+    if ((iface->domain == NULL) && (iface->hostname != NULL)) {
+        for (ch = iface->hostname; *ch && (*ch != '.'); ch++);
+
+        if (*ch == '.') {
+            iface->domain = strdup(ch + 1);
+        }
+    }
+
+    return 0;
+}
+
+/*
+ * Initialize a new iface_t structure to default values.
+ */
+void iface_init_iface_t(iface_t *iface) {
+    int i;
+
+    memset(&iface->device, '\0', sizeof(iface->device));
+    memset(&iface->ipaddr, 0, sizeof(iface->ipaddr));
+    memset(&iface->netmask, 0, sizeof(iface->netmask));
+    memset(&iface->broadcast, 0, sizeof(iface->broadcast));
+    memset(&iface->ip6addr, 0, sizeof(iface->ip6addr));
+    memset(&iface->gateway, 0, sizeof(iface->gateway));
+    memset(&iface->gateway6, 0, sizeof(iface->gateway6));
+
+    for (i = 0; i < MAXNS; i++) {
+        iface->dns[i] = NULL;
+    }
+
+    iface->macaddr = NULL;
+    iface->ip6prefix = 0;
+    iface->nextserver = NULL;
+    iface->bootfile = NULL;
+    iface->numdns = 0;
+    iface->hostname = NULL;
+    iface->domain = NULL;
+    iface->search = NULL;
+    iface->dhcptimeout = 0;
+    iface->vendorclass = NULL;
+    iface->ssid = NULL;
+    iface->wepkey = NULL;
+    iface->mtu = 0;
+    iface->subchannels = NULL;
+    iface->portname = NULL;
+    iface->peerid = NULL;
+    iface->nettype = NULL;
+    iface->ctcprot = NULL;
+    iface->flags = 0;
+    iface->ipv4method = IPV4_UNUSED_METHOD;
+    iface->ipv6method = IPV6_UNUSED_METHOD;
+
+    return;
+}
+
+/*
+ * Given a pointer to a struct in_addr, return 1 if it contains a valid
+ * address, 0 otherwise.
+ */
+int iface_have_in_addr(struct in_addr *addr) {
+    return _iface_have_valid_addr(addr, AF_INET, INET_ADDRSTRLEN);
+}
+
+/*
+ * Given a pointer to a struct in6_addr, return 1 if it contains a valid
+ * address, 0 otherwise.
+ */
+int iface_have_in6_addr(struct in6_addr *addr6) {
+    return _iface_have_valid_addr(addr6, AF_INET6, INET6_ADDRSTRLEN);
+}
+
+/*
+ * Start NetworkManager -- requires that you have already written out the
+ * control files in /etc/sysconfig for the interface.
+ */
+int iface_start_NetworkManager(iface_t *iface) {
+    int status;
+    pid_t pid;
+
+    /* Start NetworkManager */
+    pid = fork();
+    if (pid == 0) {
+        if (setpgrp() == -1) {
+            exit(1);
+        }
+
+        if (_iface_redirect_io("/dev/null", STDIN_FILENO, O_RDONLY) ||
+            _iface_redirect_io(OUTPUT_TERMINAL, STDOUT_FILENO, O_WRONLY) ||
+            _iface_redirect_io(OUTPUT_TERMINAL, STDERR_FILENO, O_WRONLY)) {
+            exit(2);
+        }
+
+        if (execl(NETWORKMANAGER, NETWORKMANAGER,
+                  "--pid-file=/var/run/NetworkManager/NetworkManager.pid",
+                  NULL) == -1) {
+            exit(3);
+        } else {
+            exit(0);
+        }
+    } else if (pid == -1) {
+        return 1;
+    } else {
+        if (waitpid(pid, &status, 0) == -1) {
+            return 2;
+        }
+    }
+
+    return 0;
+}
+
+/*
  * Set the MTU on the specified device.
  */
 int iface_set_interface_mtu(char *ifname, int mtu) {
@@ -243,22 +534,18 @@ int iface_set_interface_mtu(char *ifname, int mtu) {
     struct rtnl_link *request = NULL;
 
     if (ifname == NULL) {
-        perror("Missing ifname in iface_set_interface_mtu()");
         return -1;
     }
 
     if (mtu <= 0) {
-        perror("MTU cannot be <= 0 in iface_set_interface_mtu()");
         return -2;
     }
 
-    if ((cache = iface_get_link_cache(&handle)) == NULL) {
-        perror("iface_get_link_cache() failure in iface_set_interface_mtu()");
+    if ((cache = _iface_get_link_cache(&handle)) == NULL) {
         return -3;
     }
 
     if ((link = rtnl_link_get_by_name(cache, ifname)) == NULL) {
-        perror("rtnl_link_get_by_name() failure in iface_set_interface_mtu()");
         ret = -4;
         goto ifacemtu_error1;
     }
@@ -267,7 +554,6 @@ int iface_set_interface_mtu(char *ifname, int mtu) {
     rtnl_link_set_mtu(request, mtu);
 
     if (rtnl_link_change(handle, link, request, 0)) {
-        perror("rtnl_link_change() failure in iface_set_interface_mtu()");
         ret = -5;
         goto ifacemtu_error2;
     }

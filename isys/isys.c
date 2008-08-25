@@ -53,6 +53,8 @@
 #include <scsi/scsi_ioctl.h>
 #include <sys/vt.h>
 #include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 #include <linux/fb.h>
 #include <libintl.h>
 #ifdef USESELINUX
@@ -64,9 +66,6 @@
 #include <linux/raid/md_p.h>
 #include <signal.h>
 #include <execinfo.h>
-
-#include <libdhcp/ip_addr.h>
-#include <libdhcp/pump.h>
 
 #include <blkid/blkid.h>
 
@@ -83,6 +82,7 @@
 #include "wireless.h"
 #include "eddsupport.h"
 #include "auditd.h"
+#include "imount.h"
 
 #ifndef CDROMEJECT
 #define CDROMEJECT 0x5309
@@ -523,162 +523,83 @@ void init_isys(void) {
 
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     int i = 0;
-    char *dev, *ipv4, *netmask, *ipv6, *prefix, *gateway;
-    struct pumpNetIntf cfg;
-    struct in_addr addr, nm, nw;
-    struct in6_addr addr6;
+    char *dev, *ipv4, *netmask, *ipv6, *prefix, *gateway, *gateway6, *ep;
+    iface_t iface;
+    struct in_addr tmpaddr;
 
     if (!PyArg_ParseTuple(args, "ssssss", &dev, &ipv4, &netmask,
-                          &ipv6, &prefix, &gateway))
+                          &ipv6, &prefix, &gateway, &gateway6))
         return NULL;
 
-    memset(&cfg, '\0', sizeof(struct pumpNetIntf));
-    strncpy(cfg.device, dev, sizeof(cfg.device) - 1);
+    memset(&iface, '\0', sizeof(iface_t));
+    strncpy(iface.device, dev, sizeof(iface.device) - 1);
 
     /* IPv4 */
-    if (inet_pton(AF_INET, ipv4, &addr) >= 1) {
-        cfg.ipv4 = ip_addr_in(&addr);
-
-        if (inet_pton(AF_INET, netmask, &nm) >= 1) {
-            cfg.netmask = ip_addr_in(&nm);
-
-            /* we have IP and netmask, calculate network and broadcast */
-            cfg.network = ip_addr_v4(ntohl((addr.s_addr) & nm.s_addr));
-            nw = ip_in_addr(&cfg.network);
-            cfg.broadcast = ip_addr_v4(ntohl(nw.s_addr | ~nm.s_addr));
+    if (inet_pton(AF_INET, ipv4, &iface.ipaddr) >= 1) {
+        if (inet_pton(AF_INET, netmask, &iface.netmask) >= 1) {
+            /* we have IP and netmask, calculate broadcast */
+            memset(&tmpaddr, 0, sizeof(tmpaddr));
+            tmpaddr.s_addr = iface.ipaddr.s_addr & iface.netmask.s_addr;
+            iface.broadcast.s_addr = tmpaddr.s_addr | ~iface.netmask.s_addr;
         }
     }
 
     /* IPv6 */
-    if (inet_pton(AF_INET6, ipv6, &addr6) >= 1) {
-        cfg.ipv6 = ip_addr_in6(&addr6);
-
+    if (inet_pton(AF_INET6, ipv6, &iface.ip6addr) >= 1) {
         if (strlen(prefix)) {
-            errno = 0;
-            i = strtol(prefix, NULL, 10);
-
-            if ((errno == ERANGE && (i == LONG_MIN || i == LONG_MAX)) ||
-                (errno != 0 && i == 0)) {
-                return NULL;
-            }
-
+            i = strtol(prefix, &ep, 10);
             if (i > 0 && i <= 128) {
-                cfg.ipv6_prefixlen = i;
+                iface.ip6prefix = i;
             }
         }
     }
 
-    /* Global */
+    /* Gateways */
     if (strlen(gateway)) {
-        if (inet_pton(AF_INET, gateway, &addr) >= 1) {
-            cfg.gateway = ip_addr_in(&addr);
-        } else if (inet_pton(AF_INET6, gateway, &addr6) >= 1) {
-            cfg.gateway = ip_addr_in6(&addr6);
+        if (inet_pton(AF_INET, gateway, &iface.gateway) <= 0) {
+            PyErr_SetFromErrno(PyExc_SystemError);
+            return NULL;
         }
     }
 
-    if (pumpSetupInterface(&cfg)) {
+    if (strlen(gateway6)) {
+        if (inet_pton(AF_INET6, gateway6, &iface.gateway6) <= 0) {
+            PyErr_SetFromErrno(PyExc_SystemError);
+            return NULL;
+        }
+    }
+
+    /* Bring up the interface */
+/*
+    if (iface_config(&iface)) {
         PyErr_SetFromErrno(PyExc_SystemError);
         return NULL;
     }
+*/
 
     Py_INCREF(Py_None);
     return Py_None;
 }
 
-void pumplogger(void *arg, int priority, char *fmt, va_list va) {
-    libdhcp_syslogger(0, priority, fmt, va);
-}
-
 static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
-    char *device = NULL, *r = NULL;
-    char *ipv4method = NULL, *ipv6method = NULL, *dhcpclass = NULL;
-    int useipv4, useipv6;
-    char buf[47];
-    time_t timeout = 45;
-    struct pumpNetIntf cfg;
-    struct utsname kv;
-    DHCP_Preference pref = 0;
-    ip_addr_t *tip;
-    PyObject * rc;
-
-    if (!PyArg_ParseTuple(args, "sisis|s", &device, &useipv4, &ipv4method, &useipv6, &ipv6method, &dhcpclass))
-        return NULL;
-
-    /* if we lack a user-provided dhcpclass, construct the default */
-    if ((dhcpclass == NULL) || (strlen(dhcpclass) == 0))  {
-        if (uname(&kv) == -1) {
-            dhcpclass = "anaconda";
-        } else {
-            if (asprintf(&dhcpclass, "anaconda-%s %s %s",
-                         kv.sysname, kv.release, kv.machine) == -1) {
-                fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
-                        strerror(errno));
-                fflush(stderr);
-                abort();
-            }
-        }
-    }
-
-    memset(&cfg, '\0', sizeof(cfg));
-    strcpy(cfg.device, device);
-
-    /* disable DHCPv4 is user selected manual IPv4 or didn't select IPv4 */
-    if (useipv4 && strlen(ipv4method) > 0) {
-        if (!strncmp(ipv4method, "manual", 6)) {
-            /* IPv4 disabled entirely -or- manual IPv4 config selected */
-            pref |= DHCPv4_DISABLE;
-        }
-    } else if (!useipv4 && strlen(ipv4method) == 0) {
-        pref |= DHCPv4_DISABLE;
-    }
-
-    /* set appropriate IPv6 configuration method */
-    if (strlen(ipv6method) > 0) {
-        if ((!useipv6 && !strncmp(ipv6method, "auto", 4)) ||
-            (useipv6 && !strncmp(ipv6method, "manual", 6))) {
-            pref |= DHCPv6_DISABLE | DHCPv6_DISABLE_ADDRESSES;
-        }
-    } else if (strlen(ipv6method) == 0 && !useipv6) {
-        pref |= DHCPv6_DISABLE | DHCPv6_DISABLE_ADDRESSES;
-    }
-
-    pref |= DHCPv6_DISABLE_RESOLVER | DHCPv4_DISABLE_HOSTNAME_SET;
-
-    if (!(pref & DHCPv4_DISABLE) || !(pref & DHCPv6_DISABLE)) {
-        r = pumpDhcpClassRun(&cfg, NULL, dhcpclass, pref, 0, timeout,
-                             pumplogger, LOG_ERR);
-        if (r) {
-            Py_INCREF(Py_None);
-            return Py_None;
-        } else {
-            if (pumpSetupInterface(&cfg)) {
-                Py_INCREF(Py_None);
-                return Py_None;
-            }
-        }
-    }
-
-    if (cfg.numDns) {
-        tip = &(cfg.dnsServers[0]);
-        inet_ntop(tip->sa_family, IP_ADDR(tip), buf, IP_STRLEN(tip));
-        rc = PyString_FromString(buf);
-    } else {
-        rc = PyString_FromString("");
-    }
-
-    return rc;
+    /* function returns a nameserver address to the caller */
+    /* FIXME: needs to use NetworkManager --dcantrell */
+    return PyString_FromString("");
 }
 
 static PyObject * doPrefixToNetmask (PyObject * s, PyObject * args) {
-	int prefix = 0;
-    int mask = 0;
-    char dst[INET_ADDRSTRLEN];
+    int prefix = 0;
+    struct in_addr *mask = NULL;
+    char dst[INET_ADDRSTRLEN+1];
 
-    if (!PyArg_ParseTuple(args, "i", &prefix)) return NULL;
+    if (!PyArg_ParseTuple(args, "i", &prefix))
+        return NULL;
 
-    mask = htonl(~((1 << (32 - prefix)) - 1));
-    inet_ntop(AF_INET, (struct in_addr *) &mask, dst, INET_ADDRSTRLEN);
+    if ((mask = iface_prefix2netmask(prefix)) == NULL)
+        return NULL;
+
+    if (inet_ntop(AF_INET, mask, dst, INET_ADDRSTRLEN) == NULL)
+        return NULL;
 
     return Py_BuildValue("s", dst);
 }

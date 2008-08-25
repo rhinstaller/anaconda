@@ -68,8 +68,8 @@ int beTelnet(void) {
     struct winsize ws;
 
     if ((sock = socket(PF_INET, SOCK_STREAM, 0)) < 0) {
-	logMessage(ERROR, "socket: %m");
-	return -1;
+        logMessage(ERROR, "socket: %s", strerror(errno));
+        return -1;
     }
 
     address.sin_family = AF_INET;
@@ -88,17 +88,15 @@ int beTelnet(void) {
 
     winStatus(45, 3, _("Telnet"), _("Waiting for telnet connection..."));
 
-    if ((conn = accept(sock, (struct sockaddr *) &address, 
-                          &addrLength)) < 0) {
-	newtWinMessage(_("Error"), _("OK"), "accept failed: %m");
-	close(sock);
-	return -1;
+    if ((conn = accept(sock, (struct sockaddr *) &address, &addrLength)) < 0) {
+        newtWinMessage(_("Error"), _("OK"), "accept failed: %s",
+                       strerror(errno));
+        close(sock);
+        return -1;
     }
 
     stopNewt();
-
     close(sock);
-
     telnet_negotiate(conn, &termType, &height, &width);
 
 #ifdef DEBUG_TELNET
@@ -107,18 +105,18 @@ int beTelnet(void) {
 
     masterFd = open("/dev/ptmx", O_RDWR);
     if (masterFd < 0) {
-	logMessage(CRITICAL, "cannot open /dev/ptmx");
-	close(conn);
-	return -1;
+        logMessage(CRITICAL, "cannot open /dev/ptmx");
+        close(conn);
+        return -1;
     }
 
     if (height != -1 && width != -1) {
 #ifdef DEBUG_TELNET
-	printf("setting window size to %d x %d\n", width, height);
+        printf("setting window size to %d x %d\n", width, height);
 #endif
-	ws.ws_row = height;
-	ws.ws_col = width;
-	ioctl(masterFd, TIOCSWINSZ, &ws);
+        ws.ws_row = height;
+        ws.ws_col = width;
+        ioctl(masterFd, TIOCSWINSZ, &ws);
     }
 
 
@@ -126,86 +124,84 @@ int beTelnet(void) {
 
     if (child) {
 #ifndef DEBUG_TELNET
-	startNewt();
-	winStatus(45, 3, _("Telnet"), _("Running anaconda via telnet..."));
+        startNewt();
+        winStatus(45, 3, _("Telnet"), _("Running anaconda via telnet..."));
 #endif
 
-	fds[0].events = POLLIN;
-	fds[0].fd = masterFd;
+        fds[0].events = POLLIN;
+        fds[0].fd = masterFd;
 
-	fds[1].events = POLLIN;
-	fds[1].fd = conn;
+        fds[1].events = POLLIN;
+        fds[1].fd = conn;
 
-	while ((i = poll(fds, 2, -1)) > 0) {
-	    if (fds[0].revents) {
-		i = read(masterFd, buf, sizeof(buf));
-
+        while ((i = poll(fds, 2, -1)) > 0) {
+            if (fds[0].revents) {
+                i = read(masterFd, buf, sizeof(buf));
 #ifdef DEBUG_TELNET
-		{
-		    int j;
-		    int row;
+                {
+                    int j;
+                    int row;
 
-		    for (row = 0; row < (i / 12) + 1; row++) {
-			printf("wrote:");
-			for (j = (row * 12); j < i && j < ((row + 1) * 12); j++)
-			    printf(" 0x%2x", (unsigned char) buf[j]);
-			printf("\n");
-			printf("wrote:");
-			for (j = (row * 12); j < i && j < ((row + 1) * 12); j++)
-			{
-			    if (isprint(buf[j]))
-				printf("   %c ", buf[j]);
-			    else
-				printf("     ");
-			}
-			printf("\n");
-		    }
-		}
+                    for (row = 0; row < (i / 12) + 1; row++) {
+                        printf("wrote:");
+
+                        for (j = (row * 12); j < i && j < ((row + 1) * 12); j++)
+                            printf(" 0x%2x", (unsigned char) buf[j]);
+
+                        printf("\nwrote:");
+
+                        for (j = (row*12); j < i && j < ((row+1)*12); j++) {
+                            if (isprint(buf[j]))
+                                printf("   %c ", buf[j]);
+                            else
+                                printf("     ");
+                        }
+
+                        printf("\n");
+                    }
+                }
 #endif
-		/* child died */
-		if (i < 0)
-		    break;
+                /* child died */
+                if (i < 0)
+                    break;
 
-		telnet_send_output(conn, buf, i);
-	    }
+                telnet_send_output(conn, buf, i);
+            }
 
-	    if (fds[1].revents) {
-		int ret;
-		i = read(conn, buf, sizeof(buf));
+            if (fds[1].revents) {
+                int ret;
+                i = read(conn, buf, sizeof(buf));
 
-		/* connection went away */
-		if (!i)
-		    break;
+                /* connection went away */
+                if (!i)
+                    break;
 
-		i = telnet_process_input(&ts, buf, i);
-		ret = write(masterFd, buf, i);
-
+                i = telnet_process_input(&ts, buf, i);
+                ret = write(masterFd, buf, i);
 #ifdef DEBUG_TELNET
-		{
-		    int j;
+                {
+                    int j;
 
-		    printf("got:");
-		    for (j = 0; j < i; j++)
-			printf(" 0x%x", (unsigned char) buf[j]);
-		    printf("\n");
-		}
+                    printf("got:");
+                    for (j = 0; j < i; j++)
+                        printf(" 0x%x", (unsigned char) buf[j]);
+                    printf("\n");
+                }
 #endif
+            }
+        }
 
-	    }
-	}
-
-
-	if (i < 0)
-	    logMessage(ERROR, "poll: %m");
+        if (i < 0) {
+            logMessage(ERROR, "poll: %s", strerror(errno));
+        }
 
 #ifndef DEBUG_TELNET
-	stopNewt();
+        stopNewt();
 #endif
 
-	kill(child, SIGTERM);
-	close(conn);
-
-	exit(0);
+        kill(child, SIGTERM);
+        close(conn);
+        exit(0);
     }
 
     unlockpt(masterFd);
@@ -218,9 +214,10 @@ int beTelnet(void) {
     close(2);
 
     if (ttyFd != 0) {
-	dup2(ttyFd, 0);
-	close(ttyFd);
+        dup2(ttyFd, 0);
+        close(ttyFd);
     }
+
     dup2(0, 1);
     dup2(0, 2);
 
@@ -233,20 +230,22 @@ int beTelnet(void) {
 }
 
 void startTelnetd(struct loaderData_s * loaderData) {
-    char ret[47];
-    struct networkDeviceConfig netCfg;
-    ip_addr_t *tip;
+    char ret[INET_ADDRSTRLEN+1];
+    iface_t iface;
 
-    if (kickstartNetworkUp(loaderData, &netCfg)) {
+    iface_init_iface_t(&iface);
+
+    if (kickstartNetworkUp(loaderData, &iface)) {
         logMessage(ERROR, "unable to bring up network");
         return;
     }
 
-    tip = &(netCfg.dev.ip);
-    inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-    logMessage(INFO, "going to beTelnet for %s", ret);
-    if (!beTelnet())
-        flags |= LOADER_FLAGS_TEXT | LOADER_FLAGS_NOSHELL;
+    if (iface.ipaddr.s_addr) {
+        inet_ntop(AF_INET, &iface.ipaddr, ret, INET_ADDRSTRLEN);
+        logMessage(INFO, "going to beTelnet for %s", ret);
+        if (!beTelnet())
+            flags |= LOADER_FLAGS_TEXT | LOADER_FLAGS_NOSHELL;
+    }
 
     return;
 }

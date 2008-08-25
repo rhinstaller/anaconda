@@ -257,7 +257,7 @@ char * addrToIp(char * hostname) {
     char *ret;
     struct hostent *host;
 
-    if ((ret = malloc(48)) == NULL)
+    if ((ret = malloc(INET6_ADDRSTRLEN+1)) == NULL)
         return hostname;
 
     if (inet_ntop(AF_INET, &ad, ret, INET_ADDRSTRLEN) != NULL)

@@ -28,13 +28,20 @@ endif
 
 LIBS = -lnewt -lslang -lz -lpopt ../isys/libisys.a -lcheckisomd5
 
-# dhcp library flags
-LIBS   += $(shell pkg-config --libs libdhcp)
-CFLAGS += $(shell pkg-config --cflags libdhcp)
-
 # devmapper
-LIBS	+= $(shell pkg-config --libs devmapper)
-CFLAGS	+= $(shell pkg-config --cflags devmapper)
+LIBS   += $(shell pkg-config --libs devmapper)
+CFLAGS += $(shell pkg-config --cflags devmapper)
+
+# libnl
+LIBS   += $(shell pkg-config --libs libnl-1)
+CFLAGS += $(shell pkg-config --cflags libnl-1)
+
+# NetworkManager
+CFLAGS += $(shell pkg-config --cflags NetworkManager)
+
+# D-Bus
+LIBS   += $(shell pkg-config --libs dbus-1)
+CFLAGS += $(shell pkg-config --cflags dbus-1)
 
 ifeq (1, $(USESELINUX))
 LIBS += -lselinux -lsepol

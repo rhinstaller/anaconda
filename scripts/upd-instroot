@@ -151,22 +151,24 @@ die () {
 PACKAGES="acl anaconda anaconda-runtime attr audit-libs bash beecrypt beecrypt
 	  booty busybox-anaconda bzip2 bzip2-libs convertdb1 cracklib-dicts
 	  cracklib-python cryptsetup-luks db4 dbus dbus-python device-mapper
-	  device-mapper-libs dmapi dmraid dmraid-libs dosfstools e2fsprogs
-	  e2fsprogs-libs elfutils-libelf expat gfs2-utils glib2 glibc-common
-	  hal hdparm hwdata iscsi-initiator-utils jfsutils keyutils-libs
-	  krb5-libs kudzu libacl libattr libbdevid libbdevid-python libdhcp
-	  libdhcp4client libdhcp6client libgcc libgcrypt libgpg-error
-	  libnl libselinux libselinux-python libsemanage libsemanage-python
-	  libsepol libstdc++ libtermcap libuser libuser-python libvolume_id
-	  libxml2 lvm2 mdadm mkinitrd module-init-tools nash ncurses neon
-	  newt newt-python nfs-utils nspr nss pam parted pciutils pcre
-	  policy policycoreutils popt procps pykickstart pyparted python python-bugzilla
+	  device-mapper-libs dhclient dhcpv6-client dmapi dmraid dmraid-libs
+	  dosfstools e2fsprogs e2fsprogs-libs elfutils-libelf expat gfs2-utils
+	  glib2 glibc-common hal hdparm hwdata iproute iscsi-initiator-utils
+	  jfsutils keyutils-libs krb5-libs kudzu libacl libattr libbdevid
+	  libbdevid-python libdhcp libdhcp4client libdhcp6client
+	  libgcc libgcrypt libgpg-error libnl libselinux libselinux-python
+	  libsemanage libsemanage-python libsepol libstdc++ libtermcap libuser
+	  libuser-python libvolume_id libxml2 lvm2 mdadm mkinitrd
+	  module-init-tools nash ncurses neon net-tools newt newt-python
+	  nfs-utils nspr nss pam parted pciutils pcre policy policycoreutils
+	  popt procps pykickstart pyparted python python-bugzilla
 	  python-elementtree python-libs python-pyblock python-sqlite
-	  python-urlgrabber pyxf86config raidtools readline reiserfs-utils
-	  rhpl rhpxl rpm rpm-libs rpm-python sed selinux-policy-targeted setup
-	  slang sqlite system-config-date system-release tzdata util-linux-ng
+	  python-urlgrabber pyxf86config raidtools readline reiserfs-utils rhpl
+	  rhpxl rpm rpm-libs rpm-python sed selinux-policy-targeted setup slang
+	  sqlite system-config-date system-release tzdata util-linux-ng
 	  Xconfigurator xfsdump xfsprogs xorg-x11 xorg-x11-server-Xorg yum
-	  yum-fedorakmod yum-metadata-parser zlib anaconda-yum-plugins"
+	  yum-fedorakmod yum-metadata-parser zlib NetworkManager
+      anaconda-yum-plugins dbus iputils PolicyKit initscripts wpa_supplicant"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
@@ -219,7 +221,7 @@ PACKAGES="$PACKAGES acl anaconda anaconda-help anaconda-images atk attr bash
 	    fonts-xorg-ISO8859-2-75dpi fonts-xorg-ISO8859-9-75dpi
 	    fonts-xorg-KOI8-R fonts-xorg-KOI8-R-75dpi freetype gail
 	    gdk-pixbuf glibc-common gnome-python2-canvas gnome-python2-gtkhtml2
-	    gnome-themes gpm gtk2 gtk2-engines gtkhtml2 hal libacl libart_lgpl
+	    gnome-themes gpm gtk2 gtk2-engines gtkhtml2 libacl libart_lgpl
 	    libattr libbdevid libbdevid-python libgcc libglade2 libgnomecanvas
 	    libjpeg libpixman libpng libstdc++ libthai libxcb mesa-dri-drivers
 	    pango pirut policy policycoreutils popt prelink procps pycairo
@@ -316,6 +318,7 @@ bin/chmod
 bin/cp
 bin/cpio
 bin/dbus-daemon
+bin/dbus-uuidgen
 bin/dd
 bin/df
 bin/du
@@ -337,8 +340,10 @@ boot/efi/EFI/redhat/elilo.efi
 boot/efi/EFI/redhat/grub.efi
 boot/efika.forth
 boot/memtest86*
-etc/PolicyKit
-etc/dbus-1
+etc/NetworkManager/nm-system-settings.conf
+etc/PolicyKit/*
+etc/dbus-1/*
+etc/dbus-1/system.d/*
 etc/fb.modes
 etc/fonts
 etc/group
@@ -355,11 +360,14 @@ etc/passwd
 etc/pcmcia
 etc/prelink.conf
 etc/protocols
+etc/rc.d/init.d/functions
 etc/rpm/macros.prelink
 etc/selinux/targeted
 etc/services
 etc/shells
+etc/sysconfig/network-scripts/network-functions*
 etc/udev
+etc/wpa_supplicant/wpa_supplicant.conf
 etc/yum.repos.d/*
 etc/yum/pluginconf.d/blacklist.conf
 etc/yum/pluginconf.d/fedorakmod.conf
@@ -367,11 +375,16 @@ etc/yum/pluginconf.d/whiteout.conf
 lib/terminfo
 lib/udev
 sbin/*gfs*
+sbin/arping
 sbin/badblocks
 sbin/busybox.anaconda
 sbin/clock
+sbin/consoletype
 sbin/cryptsetup
 sbin/debugfs
+sbin/dhclient
+sbin/dhclient-script
+sbin/dhcp6c
 sbin/dosfslabel
 sbin/dumpe2fs
 sbin/e2fsadm
@@ -386,6 +399,8 @@ sbin/fsck.reiserfs
 sbin/fsck.xfs
 sbin/hdparm
 sbin/hwclock
+sbin/ifconfig
+sbin/ip
 sbin/iscsiadm
 sbin/iscsid
 sbin/iscsistart
@@ -423,6 +438,7 @@ sbin/umount.nfs*
 sbin/xfs_repair
 sbin/xfsdump
 sbin/xfsrestore
+usr/$LIBDIR/NetworkManager
 usr/$LIBDIR/dri
 usr/$LIBDIR/gconv
 usr/$LIBDIR/gdk-pixbuf/loaders/*la*
@@ -473,6 +489,7 @@ usr/bin/head
 usr/bin/hformat
 usr/bin/hmount
 usr/bin/humount
+usr/bin/logger
 usr/bin/lsattr*
 usr/bin/lshal
 usr/bin/maketilo
@@ -524,7 +541,12 @@ usr/lib/yum-plugins/fedorakmod.py*
 usr/lib/yum-plugins/whiteout.py*
 usr/libexec/convertdb1
 usr/libexec/hal*
+usr/libexec/nm-crash-logger
+usr/libexec/nm-dhcp-client.action
+usr/libexec/nm-dispatcher.action
 usr/libexec/polkit*
+usr/sbin/NetworkManager
+usr/sbin/nm-system-settings
 usr/sbin/addRamDisk
 usr/sbin/anaconda
 usr/sbin/chroot
@@ -543,13 +565,15 @@ usr/sbin/prelink
 usr/sbin/semodule
 usr/sbin/showpart
 usr/sbin/smartctl
+usr/sbin/wpa_passphrase
+usr/sbin/wpa_supplicant
 usr/sbin/wrapper
 usr/sbin/xfs_admin
 usr/sbin/xfs_check
 usr/sbin/xfs_copy
 usr/sbin/xfs_db
 usr/sbin/ybin
-usr/share/PolicyKit
+usr/share/PolicyKit/policy/*
 usr/share/X11/XKeysymDB
 usr/share/X11/fonts/TTF/GohaTibebZemen.ttf
 usr/share/X11/fonts/misc/6x13*
@@ -584,6 +608,7 @@ usr/share/fonts/kacst/KacstQura.ttf
 usr/share/hal
 usr/share/hwdata/MonitorsDB
 usr/share/hwdata/pci.ids
+usr/share/hwdata/usb.ids
 usr/share/hwdata/videoaliases
 usr/share/hwdata/videodrivers
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
@@ -903,7 +928,6 @@ if [ -e $DEST/etc/selinux/targeted ]; then
 SELINUX=permissive
 SELINUXTYPE=targeted
 EOF
-  cp $DEST/etc/selinux/config
 fi
 
 echo "Creating libuser.conf"
@@ -919,8 +943,6 @@ directory = /mnt/sysimage/etc
 [shadow]
 directory = /mnt/sysimage/etc
 EOF
-
-cp $DEST/etc/libuser.conf
 
 sed -i 's|\(installforallkernels\) = 0|\1 = 1|' $DEST/etc/yum/pluginconf.d/fedorakmod.conf
 
@@ -941,8 +963,6 @@ sed -i "s,^MANPATH[^_MAP][ \t]*,&/mnt/sysimage," $DEST/etc/man.config
 #
 sed -i "s,^MANPATH_MAP[ \t]*[a-zA-Z0-9/]*[ \t]*,&/mnt/sysimage," $DEST/etc/man.config
 
-rm -f $KEEPFILE $KEEPFILERESCUE
-
 echo "Scrubbing tree..." "$DEST"
 mkdir -p $DEST/lib
 mkdir -p $DEST/firmware
@@ -951,14 +971,12 @@ ln -snf /firmware $DEST/lib/firmware
 cp $DEST/usr/lib/anaconda/raidstart-stub $DEST/usr/bin/raidstart
 cp $DEST/usr/lib/anaconda/raidstop-stub $DEST/usr/bin/raidstop
 cp $DEST/usr/lib/anaconda/losetup-stub $DEST/usr/bin/losetup
-cp $DEST/usr/lib/anaconda/dhcpclient-stub $DEST/usr/bin/dhcpclient
-( cd $DEST/usr/bin && rm -f pump && ln -sf dhcpclient pump )
 cp $DEST/usr/lib/anaconda/list-harddrives-stub $DEST/usr/bin/list-harddrives
 cp $DEST/usr/lib/anaconda/loadkeys-stub $DEST/usr/bin/loadkeys
 cp $DEST/usr/lib/anaconda/mknod-stub $DEST/usr/bin/mknod
 cp $DEST/usr/lib/anaconda/syslogd-stub $DEST/usr/bin/syslogd
 mv $DEST/usr/sbin/anaconda $DEST/usr/bin/anaconda
-mv $DEST/usr/lib/anaconda-runtime/lib* $DEST/usr/$LIBDIR
+mv $DEST/usr/lib/anaconda-runtime/lib* $DEST/usr/$LIBDIR 2>/dev/null
 
 mv $DEST/etc/yum.repos.d $DEST/etc/anaconda.repos.d
 

@@ -414,7 +414,6 @@ if [ "$do_net_install" = "yes" ]; then
 	else  # ctc0, iucv0
 	    if [ -z "$NETMASK" ]; then
 	        # If the user did not supply netmask, we add the right one.
-	        # Netmask MUST be present, or pumpSetupInterface() blows routes.
 	        NETMASK="255.255.255.255"
 	    fi
 		 while [ -z "$GATEWAY" ]; do

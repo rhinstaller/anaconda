@@ -31,6 +31,9 @@
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 
 #include "copy.h"
 #include "loader.h"
@@ -380,9 +383,9 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
     char * chk = NULL, *ip = NULL;
     int failed = 0;
-    struct networkDeviceConfig netCfg;
+    iface_t iface;
 
-    if (kickstartNetworkUp(loaderData, &netCfg)) {
+    if (kickstartNetworkUp(loaderData, &iface)) {
         logMessage(ERROR, "unable to bring up network");
         return 1;
     }
@@ -390,6 +393,8 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     /* if they just did 'linux ks', they want us to figure it out from
      * the dhcp/bootp information
      */
+/* XXX: fixme NetworkManager integration */
+/*
     if (url == NULL) {
         char ret[47];
         ip_addr_t *tip;
@@ -420,6 +425,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
             logMessage(INFO, "bootp: bootfile is %s", netCfg.dev.bootFile);
         }
     }
+*/
 
     /* get the IP of the target system */
     if ((ip = iface_ip2str(loaderData->netDev)) == NULL) {

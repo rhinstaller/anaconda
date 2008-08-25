@@ -696,6 +696,27 @@ int main(int argc, char **argv) {
         sleep(2);
     }
 
+    /* D-Bus */
+    if (!testing) {
+        if (fork() == 0) {
+            execl("/sbin/dbus-uuidgen", "/sbin/dbus-uuidgen", "--ensure", NULL);
+            exit(1);
+        }
+
+        if (fork() == 0) {
+            execl("/sbin/dbus-daemon", "/sbin/dbus-daemon", "--system", NULL);
+            exit(1);
+        }
+    }
+
+    /* HAL daemon */
+    if (!testing) {
+        if (fork() == 0) {
+            execl("/sbin/hald", "/sbin/hald", NULL);
+            exit(1);
+        }
+    }
+
     /* Go into normal init mode - keep going, and then do a orderly shutdown
        when:
 

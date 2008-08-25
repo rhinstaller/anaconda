@@ -38,10 +38,6 @@ SUBDIRS =
 LOADLIBES += $(shell pkg-config --libs libnl-1)
 CFLAGS    += $(shell pkg-config --cflags libnl-1)
 
-# libdhcp
-LOADLIBES += $(shell pkg-config --libs libdhcp)
-CFLAGS += $(shell pkg-config --cflags libdhcp)
-
 ifeq ($(ARCH),sparc)
 PYMODULES += _silo.so
 SOURCES += silo.c
@@ -79,7 +75,6 @@ clean:
 	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS)
 	rm -f $(OBJECTS)
 	rm -f .depend
-	rm -f nl
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 install: all
@@ -88,10 +83,6 @@ install: all
 
 subdirs:
 	for d in $(SUBDIRS); do make -C $$d; done
-
-nltest: str.o nl.c nl.h
-	$(CC) -c $(CFLAGS) -DTESTING nl.c -o nl.o
-	$(CC) -DTESTING nl.o -o nl $(LOADLIBES) str.o
 
 depend:
 	$(CPP) -M $(CFLAGS) $(SOURCES) > .depend

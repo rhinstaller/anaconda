@@ -42,9 +42,11 @@
 #include <syslog.h>
 #include <unistd.h>
 #include <stdint.h>
+#include <arpa/inet.h>
 
 #include <sys/ioctl.h>
 #include <sys/types.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
 
@@ -132,23 +134,33 @@ void doSuspend(void) {
 }
 
 void doShell(void) {
-    /* this lets us debug the loader just by having a second initramfs
-     * containing /sbin/busybox */
-    int child, status;
+    pid_t child;
+    int status;
 
     newtSuspend();
-    if (!(child = fork())) {
-	    execl("/sbin/busybox", "msh", NULL);
-	    _exit(1);
+    child = fork();
+
+    if (child == 0) {
+        if (execl("/sbin/bash", "/sbin/bash", "-i", NULL) == -1) {
+            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+            _exit(1);
+        }
+    } else if (child == -1) {
+        logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+        newtResume();
+    } else {
+        if (waitpid(child, &status, 0) == -1) {
+            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+        }
+
+        newtResume();
     }
-    waitpid(child, &status, 0);
-    newtResume();
 }
 
 void doGdbserver(struct loaderData_s *loaderData) {
     int child, fd;
     char *pid;
-    struct networkDeviceConfig netCfg;
+    iface_t iface;
 
     /* If gdbserver is found, go ahead and run it on the loader process now
      * before anything bad happens.
@@ -156,7 +168,7 @@ void doGdbserver(struct loaderData_s *loaderData) {
     if (loaderData->gdbServer && !access("/usr/bin/gdbserver", X_OK)) {
         pid_t loaderPid = getpid();
 
-        if (kickstartNetworkUp(loaderData, &netCfg)) {
+        if (kickstartNetworkUp(loaderData, &iface)) {
             logMessage(ERROR, "can't run gdbserver due to no network");
             return;
         }
@@ -1130,7 +1142,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
            STEP_IP, STEP_STAGE2, STEP_DONE } step;
 
     char *url = NULL, *ret = NULL, *devName = NULL, *kbdtype = NULL;
-    static struct networkDeviceConfig netDev;
+    static iface_t iface;
     int i, rc, dir = 1;
     int needsNetwork = 0, class = -1;
     int skipMethodDialog = 0, skipLangKbd = 0;
@@ -1194,6 +1206,12 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
         }
     }
 
+    /* Disable all network interfaces in NetworkManager by default */
+    if ((i = writeDisabledNetInfo()) != 0) {
+        logMessage(ERROR, "writeDisabledNetInfo failure: %d", i);
+    }
+
+    i = 0;
     step = STEP_LANG;
 
     while (step != STEP_DONE) {
@@ -1376,8 +1394,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 logMessage(INFO, "need to set up networking");
 
                 initLoopback();
-                memset(&netDev, 0, sizeof(netDev));
-                netDev.isDynamic = 1;
+                memset(&iface, 0, sizeof(iface));
 
                 /* fall through to interface selection */
             }
@@ -1406,7 +1423,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 }
 
                 devName = loaderData->netDev;
-                strcpy(netDev.dev.device, devName);
+                strcpy(iface.device, devName);
 
                 /* continue to ip config */
                 step = STEP_IP;
@@ -1420,7 +1437,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     break;
                 }
 
-                if ((ret = malloc(48)) == NULL) {
+                if ((ret = malloc(INET6_ADDRSTRLEN+1)) == NULL) {
                     logMessage(ERROR, "malloc failure for ret in STEP_IP");
                     exit(EXIT_FAILURE);
                 }
@@ -1435,25 +1452,24 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
                 /* populate netDev based on any kickstart data */
                 if (loaderData->ipinfo_set) {
-                    netDev.preset = 1;
+                    iface.flags |= IFACE_FLAGS_IS_PRESET;
                 }
-                setupNetworkDeviceConfig(&netDev, loaderData);
+                setupNetworkDeviceConfig(&iface, loaderData);
 
-                rc = readNetConfig(devName, &netDev, loaderData->netCls, loaderData->method);
+                rc = readNetConfig(devName, &iface, loaderData->netCls, loaderData->method);
                 if (FL_NOIPV4(flags)) {
                     loaderData->ipinfo_set = 0;
                 } else {
                     if (loaderData->ipv4 == NULL) {
-                        if (strcmp((char *) &(netDev.dev.ip), "")) {
-                            ret = (char *) inet_ntop(AF_INET,
-                                                     IP_ADDR(&(netDev.dev.ip)), ret,
-                                                     IP_STRLEN(&(netDev.dev.ip)));
+                        if (iface_have_in_addr(&iface.ipaddr)) {
+                            ret = (char *) inet_ntop(AF_INET, &iface.ipaddr,
+                                                     ret, INET_ADDRSTRLEN);
                         } else {
                             ret = NULL;
-                            netDev.isDynamic = 1;
+                            iface.flags |= IFACE_FLAGS_IS_DYNAMIC;
                         }
 
-                        if (netDev.isDynamic || ret == NULL) {
+                        if (IFACE_IS_DYNAMIC(iface.flags) || ret == NULL) {
                             loaderData->ipv4 = strdup("dhcp");
                         } else {
                             loaderData->ipv4 = strdup(ret);
@@ -1467,16 +1483,15 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     loaderData->ipv6info_set = 0;
                 } else {
                     if (loaderData->ipv6 == NULL) {
-                        if (strcmp((char *) &(netDev.dev.ip), "")) {
-                            ret = (char *) inet_ntop(AF_INET6,
-                                                     IP_ADDR(&(netDev.dev.ip)), ret,
-                                                     IP_STRLEN(&(netDev.dev.ip)));
+                        if (iface_have_in6_addr(&iface.ip6addr)) {
+                            ret = (char *) inet_ntop(AF_INET6, &iface.ip6addr,
+                                                     ret, INET6_ADDRSTRLEN);
                         } else {
                             ret = NULL;
-                            netDev.isDynamic = 1;
+                            iface.flags |= IFACE_FLAGS_IS_DYNAMIC;
                         }
 
-                        if (netDev.isDynamic || ret == NULL) {
+                        if (IFACE_IS_DYNAMIC(iface.flags) || ret == NULL) {
                             loaderData->ipv6 = strdup("dhcpv6");
                         } else {
                             loaderData->ipv6 = strdup(ret);
@@ -1505,7 +1520,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     break;
                 }
 
-                writeNetInfo("/tmp/netinfo", &netDev);
+                writeEnabledNetInfo(&iface);
                 step = STEP_STAGE2;
                 dir = 1;
                 break;

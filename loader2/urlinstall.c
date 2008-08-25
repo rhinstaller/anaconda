@@ -281,10 +281,12 @@ int getFileFromUrl(char * url, char * dest,
         !strncmp(url, "ftp://", 6) ? URL_METHOD_FTP : URL_METHOD_HTTP;
     char * host = NULL, * file = NULL, * chptr = NULL, *login = NULL, *password = NULL;
     int fd, rc;
-    struct networkDeviceConfig netCfg;
+    iface_t iface;
     char *ehdrs = NULL, *ip = NULL;
 
-    if (kickstartNetworkUp(loaderData, &netCfg)) {
+    iface_init_iface_t(&iface);
+
+    if (kickstartNetworkUp(loaderData, &iface)) {
         logMessage(ERROR, "unable to bring up network");
         return 1;
     }

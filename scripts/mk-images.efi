@@ -23,7 +23,11 @@ makeefibootdisk()
     partimg=$1
     target=$2
 
-    local partsize=$(ls -l $1 | awk '{ print $5 }')
+    if [ ! -f $1 ]; then
+        return
+    fi
+
+    local partsize=$(ls -l $1 | awk '{ print $5; }')
     local disksize=$((17408 + $partsize + 17408))
     disksize=$(($disksize + $(($disksize % 512))))
     local diskimg=$(mktemp /tmp/efidisk.img.XXXXXX)
