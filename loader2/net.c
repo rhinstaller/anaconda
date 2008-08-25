@@ -170,37 +170,6 @@ static void v6MethodCallback(newtComponent co, void *dptr) {
     return;
 }
 
-static int waitForLink(char * dev) {
-    extern int num_link_checks;
-    extern int post_link_sleep;
-    int tries = 0;
-
-    /* try to wait for a valid link -- if the status is unknown or
-     * up continue, else sleep for 1 second and try again for up
-     * to five times */
-    logMessage(DEBUGLVL, "waiting for link %s...", dev);
-
-    while (tries < num_link_checks) {
-      if (get_link_status(dev) != 0)
-            break;
-        sleep(1);
-        tries++;
-    }
-    logMessage(DEBUGLVL, "   %d seconds.", tries);
-    if (tries < num_link_checks){
-	/* Networks with STP set up will give link when the port
-	 * is isolated from the network, and won't forward packets
-	 * until they decide we're not a switch. */
-	logMessage(DEBUGLVL, "sleep (nicdelay) for %d secs first", post_link_sleep);
-	sleep(post_link_sleep);
-	logMessage(DEBUGLVL, "continuing...");
-        return 0;
-    }
-
-    logMessage(WARNING, "    no network link detected on %s", dev);
-    return 1;
-}
-
 static void parseEthtoolSettings(struct loaderData_s * loaderData) {
     char * option, * buf;
     ethtool_duplex duplex = ETHTOOL_DUPLEX_UNSPEC;
@@ -335,8 +304,6 @@ void setupNetworkDeviceConfig(iface_t * iface,
                        loaderData->netDev);
 
             if (!FL_TESTING(flags)) {
-                waitForLink(loaderData->netDev);
-
                 if (loaderData->noDns) {
                     iface->flags |= IFACE_FLAGS_NO_WRITE_RESOLV_CONF;
                 }
@@ -735,8 +702,6 @@ int configureTCPIP(char * device, iface_t * iface,
                                    iface->ipv6method == IPV6_DHCP_METHOD))) {
             /* do DHCP if selected */
             if (!FL_TESTING(flags)) {
-                waitForLink(device);
-
                 err = writeEnabledNetInfo(iface);
                 if (err) {
                     logMessage(ERROR,
