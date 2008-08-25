@@ -674,7 +674,7 @@ class NetworkGlobalWindow:
 
         # we don't let you set gateway/dns if you've got any interfaces
         # using dhcp (for better or worse)
-        if network.anyUsingDHCP(devices):
+        if network.anyUsingDHCP():
             return INSTALL_NOOP
 
         thegrid = Grid(2, 4)
@@ -775,7 +775,7 @@ class HostnameWindow:
                          anchorLeft = 1)            
 
         # disable the dhcp if we don't have any dhcp
-        if network.anyUsingDHCP(devices):
+        if network.anyUsingDHCP():
             autoCb.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)            
         else:
             autoCb.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)

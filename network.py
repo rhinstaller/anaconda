@@ -29,6 +29,7 @@ import socket
 import os
 import minihal
 import rhpl
+import dbus
 from flags import flags
 
 from rhpl.simpleconfig import SimpleConfigFile
@@ -38,6 +39,14 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
+
+NM_SERVICE = "org.freedesktop.NetworkManager"
+NM_MANAGER_PATH = "/org/freedesktop/NetworkManager"
+NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
+DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
+NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
+NM_CONNECTION_IFACE = "org.freedesktop.NetworkManagerSettings.Connection"
+NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
 
 class IPError(Exception):
     pass
@@ -67,12 +76,10 @@ def sanityCheckHostname(hostname):
 
     return None
 	    
-
 def networkDeviceCheck(anaconda):
     devs = anaconda.id.network.available()
     if not devs:
         anaconda.dispatch.skipStep("network")
-
 
 # return if the device is of a type that requires a ptpaddr to be specified
 def isPtpDev(devname):
@@ -80,36 +87,44 @@ def isPtpDev(devname):
         return True
     return False
 
-def _anyUsing(devices, method):
-    if method != "dhcp" and method != "static":
-        return False
+def _anyUsing(method):
+    # method names that NetworkManager might use
+    if method == 'auto':
+        methods = (method, 'dhcp')
+    else:
+        methods = (method)
 
-    for dev in devices.keys():
-        onboot = devices[dev].get("onboot").lower()
+    bus = dbus.SystemBus()
+    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+    nm_props_iface = dbus.Interface(nm, DBUS_PROPS_IFACE)
 
-        if onboot == "no":
-            continue
+    active_connections = nm_props_iface.Get(NM_MANAGER_IFACE, "ActiveConnections")
 
-        bootproto = devices[dev].get("bootproto").lower()
-        ipv6addr = devices[dev].get("ipv6addr").lower()
-        ipv6ac = devices[dev].get("ipv6_autoconf").lower()
+    for path in active_connections:
+        active = bus.get_object(NM_SERVICE, path)
+        active_props_iface = dbus.Interface(active, DBUS_PROPS_IFACE)
 
-        if method == "dhcp":
-            if bootproto == "dhcp" or ipv6addr == "dhcp" or ipv6ac == "yes":
-                    return True
-        elif method == "static":
-            if bootproto == "static" or ipv6addr != "dhcp" and ipv6ac != "yes":
-                    return True
+        active_service_name = active_props_iface.Get(NM_ACTIVE_CONNECTION_IFACE, "ServiceName")
+        active_path = active_props_iface.Get(NM_ACTIVE_CONNECTION_IFACE, "Connection")
+
+        connection = bus.get_object(active_service_name, active_path)
+        connection_iface = dbus.Interface(connection, NM_CONNECTION_IFACE)
+        settings = connection_iface.GetSettings()
+
+        # XXX: add support for Ip6Config when it appears
+        ip4_setting = settings['ipv4']
+        if not ip4_setting or not ip4_setting['method'] or ip4_setting['method'] in methods:
+            return True
 
     return False
 
 # determine whether any active at boot devices are using dhcp or dhcpv6
-def anyUsingDHCP(devices):
-    return _anyUsing(devices, "dhcp")
+def anyUsingDHCP:
+    return _anyUsing('auto')
 
 # determine whether any active at boot devices are using static IP config
-def anyUsingStatic(devices):
-    return _anyUsing(devices, "static")
+def anyUsingStatic:
+    return _anyUsing('manual')
 
 # sanity check an IP string.
 def sanityCheckIPString(ip_string):
@@ -131,20 +146,21 @@ def sanityCheckIPString(ip_string):
         raise IPError, errstr
 
 def hasActiveNetDev():
-    # try to load /tmp/netinfo and see if we can sniff out network info
-    netinfo = Network()
-    for dev in netinfo.netdevices.keys():
-        try:
-            ip = isys.getIPAddress(dev)
-        except Exception, e:
-            log.error("Got an exception trying to get the ip addr of %s: "
-                      "%s" %(dev, e))
-            continue
-        if ip == '127.0.0.1' or ip is None:
-            continue
-        if isys.getLinkStatus(dev):
-            return True
-    return False
+    bus = dbus.SystemBus()
+    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+    props = dbus.Interface(nm, DBUS_PROPS_IFACE)
+    state = props.Get(NM_SERVICE, "State")
+
+    # State corresponds to NMState in include/NetworkManager.h in NM's source
+    #     0 == NM_STATE_UNKNOWN
+    #     1 == NM_STATE_ASLEEP
+    #     2 == NM_STATE_CONNECTING
+    #     3 == NM_STATE_CONNECTED
+    #     4 == NM_STATE_DISCONNECTED
+    if int(state) == 3:
+        return True
+    else:
+        return False
 
 class NetworkDevice(SimpleConfigFile):
     def __str__(self):

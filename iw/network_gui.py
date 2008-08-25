@@ -141,7 +141,7 @@ class NetworkWindow(InstallWindow):
 	if self.getNumberActiveDevices() == 0:
 		state = False
 	else:
-		state = network.anyUsingStatic(self.devices)
+		state = network.anyUsingStatic()
 
 	self.ipTable.set_sensitive(state)
 
@@ -523,7 +523,7 @@ class NetworkWindow(InstallWindow):
 	# bring over the value from the loader
 	self.hostnameEntry.set_text(self.network.hostname)
 
-	if not network.anyUsingDHCP(self.devices):
+	if not network.anyUsingDHCP():
 	    if self.network.gateway:
                 self.globals[_("Gateway")].set_text(self.network.gateway)
 	    if self.network.primaryNS:
@@ -545,7 +545,7 @@ class NetworkWindow(InstallWindow):
 	self.hostnameEntry.set_sensitive(not self.hostnameUseDHCP.get_active())
 	self.setIPTableSensitivity()
 
-        self.hostnameUseDHCP.set_sensitive(network.anyUsingDHCP(self.devices))
+        self.hostnameUseDHCP.set_sensitive(network.anyUsingDHCP())
 
 	return box
 
