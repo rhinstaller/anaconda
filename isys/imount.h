@@ -30,6 +30,7 @@
 #define IMOUNT_REMOUNT 4
 
 int doPwMount(char *dev, char *where, char *fs, char *options, char **err);
+int doMultiMount(char *dev, char *where, char **fstypes, char *options, char **err);
 int mkdirChain(char * origChain);
 
 #endif

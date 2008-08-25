@@ -24,6 +24,8 @@
 #include "modules.h"
 #include "moduleinfo.h"
 
+extern char *ddFsTypes[];
+
 int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                         int usecancel, int noprobe);
 

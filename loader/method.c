@@ -76,7 +76,8 @@ int umountLoopback(char * mntpoint, char * device) {
 }
 
 int mountLoopback(char *fsystem, char *mntpoint, char *device) {
-    char *opts;
+    char *fstypes[] = {"iso9660", "ext2", "squashfs", "cramfs", "vfat", NULL};
+    char *opts, *err = NULL;
 
     if (device == NULL) {
         logMessage(ERROR, "no loopback device given");
@@ -93,18 +94,10 @@ int mountLoopback(char *fsystem, char *mntpoint, char *device) {
         abort();
     }
 
-    if (doPwMount(fsystem, mntpoint, "iso9660", opts, NULL)) {
-        if (doPwMount(fsystem, mntpoint, "ext2", opts, NULL)) {
-            if (doPwMount(fsystem, mntpoint, "squashfs", opts, NULL)) {
-                if (doPwMount(fsystem, mntpoint, "cramfs", opts, NULL)) {
-                    if (doPwMount(fsystem, mntpoint, "vfat", opts, NULL)) {
-                        logMessage(ERROR, "failed to mount loopback device %s on %s as %s: %m",
-                                   device, mntpoint, fsystem);
-                        return LOADER_ERROR;
-                    }
-                }
-            }
-        }
+    if (doMultiMount(fsystem, mntpoint, fstypes, opts, &err)) {
+        logMessage(ERROR, "failed to mount loopback device %s on %s as %s: %s",
+                   device, mntpoint, fsystem, err);
+        return LOADER_ERROR;
     }
 
     logMessage(INFO, "mounted loopback device %s on %s as %s", mntpoint, device, fsystem);
@@ -476,12 +469,11 @@ int copyFileAndLoopbackMount(int fd, char * dest, char * device, char * mntpoint
 int getFileFromBlockDevice(char *device, char *path, char * dest) {
     int rc;
     char file[4096];
+    char *fstypes[] = {"vfat", "ext2", "iso9660", NULL};
 
     logMessage(INFO, "getFileFromBlockDevice(%s, %s)", device, path);
 
-    if (doPwMount(device, "/tmp/mnt", "vfat", "ro", NULL) &&
-        doPwMount(device, "/tmp/mnt", "ext2", "ro", NULL) && 
-        doPwMount(device, "/tmp/mnt", "iso9660", "ro", NULL)) {
+    if (doMultiMount(device, "/tmp/mnt", fstypes, "ro", NULL)) {
         logMessage(ERROR, "failed to mount /dev/%s: %m", device);
         return 2;
     }

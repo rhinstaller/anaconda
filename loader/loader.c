@@ -504,9 +504,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
         case UPD_LOAD:
             logMessage(INFO, "UPDATES device is %s", part);
 
-            if (doPwMount(part, "/tmp/update-disk", "ext2", "ro", NULL) &&
-                doPwMount(part, "/tmp/update-disk", "vfat", "ro", NULL) &&
-                doPwMount(part, "/tmp/update-disk", "iso9660", "ro", NULL)) {
+            if (doMultiMount(part, "/tmp/update-disk", ddFsTypes, "ro", NULL)) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to mount updates disk"));
                 stage = UPD_PROMPT;
