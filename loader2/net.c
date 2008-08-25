@@ -2037,12 +2037,14 @@ void splitHostname (char *str, char **host, char **port)
  */
 int get_connection(iface_t *iface) {
     int ret;
-    int count = 0;
     DBusConnection *connection = NULL;
     DBusMessage *message = NULL;
     DBusMessage *reply = NULL;
     DBusError error;
-    dbus_uint32_t state = NM_STATE_UNKNOWN;
+    DBusMessageIter iter, variant_iter;
+    dbus_uint32_t state = 0;
+    char *nm_iface = "org.freedesktop.NetworkManager";
+    char *property = "State";
 
     if (iface == NULL) {
         return 1;
@@ -2069,72 +2071,91 @@ int get_connection(iface_t *iface) {
     dbus_error_init(&error);
     connection = dbus_bus_get(DBUS_BUS_SYSTEM, &error);
     if (connection == NULL) {
-        logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
-                   __LINE__, error.name, error.message);
-        dbus_error_free(&error);
+        if (dbus_error_is_set(&error)) {
+            logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
+                       __LINE__, error.name, error.message);
+            dbus_error_free(&error);
+        }
+
         return 3;
     }
 
-    dbus_bus_add_match(connection,
-                       "type='signal',"
-                       "interface='" NM_DBUS_INTERFACE "',"
-                       "sender='" NM_DBUS_SERVICE "',"
-                       "path='" NM_DBUS_PATH "'", &error);
-    if (dbus_error_is_set(&error)) {
-        logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
-                   __LINE__, error.name, error.message);
-        dbus_error_free(&error);
+    dbus_error_init(&error);
+    message = dbus_message_new_method_call(NM_DBUS_SERVICE,
+                                           NM_DBUS_PATH,
+                                           "org.freedesktop.DBus.Properties",
+                                           "Get");
+    if (!message) {
+        if (dbus_error_is_set(&error)) {
+            logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
+                       __LINE__, error.name, error.message);
+            dbus_error_free(&error);
+        }
+
         return 4;
     }
 
-    /* wait for a network connection to appear, calling for sleep(1)
-     * at most 30 times */
-    while (count <= 30) {
-        message = dbus_message_new_method_call(NM_DBUS_SERVICE,
-                                               NM_DBUS_PATH,
-                                               NM_DBUS_INTERFACE,
-                                               "state");
-        if (!message) {
+    dbus_error_init(&error);
+    if (!dbus_message_append_args(message,
+                                  DBUS_TYPE_STRING, &nm_iface,
+                                  DBUS_TYPE_STRING, &property,
+                                  DBUS_TYPE_INVALID)) {
+        if (dbus_error_is_set(&error)) {
             logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
                        __LINE__, error.name, error.message);
             dbus_error_free(&error);
-            return 5;
         }
 
-        reply = dbus_connection_send_with_reply_and_block(connection,
-                                                          message,
-                                                          -1, &error);
         dbus_message_unref(message);
+        return 5;
+    }
 
-        if (!reply) {
+    /* send message and block until a reply or error comes back */
+    dbus_error_init(&error);
+    reply = dbus_connection_send_with_reply_and_block(connection,
+                                                      message, -1,
+                                                      &error);
+    dbus_message_unref(message);
+    if (!reply) {
+        if (dbus_error_is_set(&error)) {
             logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
                        __LINE__, error.name, error.message);
             dbus_error_free(&error);
-            return 6;
-        }
-
-        if (!dbus_message_get_args(reply, &error, DBUS_TYPE_UINT32,
-                                   &state, DBUS_TYPE_INVALID)) {
-            logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
-                       __LINE__, error.name, error.message);
-            dbus_error_free(&error);
-            return 7;
         }
 
         dbus_message_unref(reply);
-
-        /* if we are connected, break the loop */
-        if (state == NM_STATE_CONNECTED) {
-            logMessage(DEBUGLVL, "%s: NetworkManager is connected",
-                       __func__);
-            return 0;
-        }
-
-        sleep(1);
-        count++;
+        return 6;
     }
 
-    return 8;
+    /* extra uint32 'state' property from the returned variant type */
+    dbus_message_iter_init(reply, &iter);
+    if (dbus_message_iter_get_arg_type(&iter) != DBUS_TYPE_VARIANT) {
+        logMessage(DEBUGLVL, "%s (%d): unexpected reply format",
+                   __func__, __LINE__);
+        dbus_message_unref(reply);
+        return 7;
+    }
+
+    /* open the variant */
+    dbus_message_iter_recurse(&iter, &variant_iter);
+    if (dbus_message_iter_get_arg_type(&variant_iter) != DBUS_TYPE_UINT32) {
+        logMessage(DEBUGLVL, "%s (%d): unexpected reply format",
+                   __func__, __LINE__);
+        dbus_message_unref(reply);
+        return 8;
+    }
+
+    dbus_message_iter_get_basic(&variant_iter, &state);
+    if (state == NM_STATE_CONNECTED) {
+        logMessage(DEBUGLVL, "%s (%d): NetworkManager connected",
+                   __func__, __LINE__);
+        dbus_message_unref(reply);
+        return 0;
+    }
+
+    /* NM is not in NM_STATE_CONNECTED if we get here */
+    dbus_message_unref(reply);
+    return 9;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */
