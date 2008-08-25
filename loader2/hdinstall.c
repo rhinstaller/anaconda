@@ -65,7 +65,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
 
     if (!FL_TESTING(flags)) {
         for (type=typetry; *type; type++) {
-            if (!doPwMount(device, "/mnt/isodir", *type, "ro"))
+            if (!doPwMount(device, "/mnt/isodir", *type, "ro", NULL))
                 break;
         }
 

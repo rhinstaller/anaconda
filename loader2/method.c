@@ -93,11 +93,11 @@ int mountLoopback(char *fsystem, char *mntpoint, char *device) {
         abort();
     }
 
-    if (doPwMount(fsystem, mntpoint, "iso9660", opts)) {
-        if (doPwMount(fsystem, mntpoint, "ext2", opts)) {
-            if (doPwMount(fsystem, mntpoint, "squashfs", opts)) {
-                if (doPwMount(fsystem, mntpoint, "cramfs", opts)) {
-                    if (doPwMount(fsystem, mntpoint, "vfat", opts)) {
+    if (doPwMount(fsystem, mntpoint, "iso9660", opts, NULL)) {
+        if (doPwMount(fsystem, mntpoint, "ext2", opts, NULL)) {
+            if (doPwMount(fsystem, mntpoint, "squashfs", opts, NULL)) {
+                if (doPwMount(fsystem, mntpoint, "cramfs", opts, NULL)) {
+                    if (doPwMount(fsystem, mntpoint, "vfat", opts, NULL)) {
                         logMessage(ERROR, "failed to mount loopback device %s on %s as %s: %m",
                                    device, mntpoint, fsystem);
                         return LOADER_ERROR;
@@ -129,7 +129,7 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
     lstat(file, &sb);
     if (S_ISBLK(sb.st_mode)) {
 	filetype = 1;
-	if (doPwMount(file, "/tmp/testmnt", "iso9660", "ro")) {
+	if (doPwMount(file, "/tmp/testmnt", "iso9660", "ro", NULL)) {
 	    logMessage(ERROR, "Failed to mount device %s to get description",
                        file);
 	    return -1;
@@ -478,9 +478,9 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
 
     logMessage(INFO, "getFileFromBlockDevice(%s, %s)", device, path);
 
-    if (doPwMount(device, "/tmp/mnt", "vfat", "ro") &&
-        doPwMount(device, "/tmp/mnt", "ext2", "ro") && 
-        doPwMount(device, "/tmp/mnt", "iso9660", "ro")) {
+    if (doPwMount(device, "/tmp/mnt", "vfat", "ro", NULL) &&
+        doPwMount(device, "/tmp/mnt", "ext2", "ro", NULL) && 
+        doPwMount(device, "/tmp/mnt", "iso9660", "ro", NULL)) {
         logMessage(ERROR, "failed to mount /dev/%s: %m", device);
         return 2;
     }

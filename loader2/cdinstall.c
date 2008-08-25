@@ -250,7 +250,7 @@ static void queryCDMediaCheck(char *dev, char *location) {
             mediaCheckCdrom(dev);
 
             do {
-                if (doPwMount(dev, location, "iso9660", "ro")) {
+                if (doPwMount(dev, location, "iso9660", "ro", NULL)) {
                     ejectCdrom(dev);
                     wrongCDMessage();
                     continue;
@@ -354,7 +354,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
             if (!FL_CMDLINE(flags))
                 newtPopWindow();
 
-            if (!(rc=doPwMount(devices[i]->device, location, "iso9660", "ro"))) {
+            if (!(rc=doPwMount(devices[i]->device, location, "iso9660", "ro", NULL))) {
                 cddev = devices[i]->device;
                 if (!access(stage2loc, R_OK)) {
                     char *updpath;

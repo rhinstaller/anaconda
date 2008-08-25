@@ -441,20 +441,20 @@ static PyObject * doUMount(PyObject * s, PyObject * args) {
 }
 
 static PyObject * doMount(PyObject * s, PyObject * args) {
-    char *fs, *device, *mntpoint, *flags = NULL;
+    char *err = NULL, *fs, *device, *mntpoint, *flags = NULL;
     int rc;
 
     if (!PyArg_ParseTuple(args, "sss|z", &fs, &device, &mntpoint,
 			  &flags)) return NULL;
 
-    rc = doPwMount(device, mntpoint, fs, flags);
-    if (rc == IMOUNT_ERR_ERRNO) 
+    rc = doPwMount(device, mntpoint, fs, flags, &err);
+    if (rc == IMOUNT_ERR_ERRNO)
 	PyErr_SetFromErrno(PyExc_SystemError);
     else if (rc) {
         PyObject *tuple = PyTuple_New(2);
 
         PyTuple_SetItem(tuple, 0, PyInt_FromLong(rc));
-        PyTuple_SetItem(tuple, 1, PyString_FromString("mount failed"));
+        PyTuple_SetItem(tuple, 1, PyString_FromString(err));
         PyErr_SetObject(PyExc_SystemError, tuple);
     }
 

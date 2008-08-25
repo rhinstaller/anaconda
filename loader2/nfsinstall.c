@@ -210,7 +210,7 @@ char * mountNfsImage(struct installMethod * method,
 
             stage = NFS_STAGE_NFS;
 
-            if (!doPwMount(fullPath, "/mnt/stage2", "nfs", mountOpts)) {
+            if (!doPwMount(fullPath, "/mnt/stage2", "nfs", mountOpts, NULL)) {
                 if (asprintf(&buf, "/mnt/stage2/%s",
                              strrchr(directory, '/')) == -1) {
                     logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
@@ -287,7 +287,7 @@ char * mountNfsImage(struct installMethod * method,
 
             logMessage(INFO, "mounting nfs path %s for updates", buf);
 
-            if (!doPwMount(buf, "/tmp/update-disk", "nfs", mountOpts)) {
+            if (!doPwMount(buf, "/tmp/update-disk", "nfs", mountOpts, NULL)) {
                 logMessage(INFO, "Using RHupdates/ for NFS install");
                 copyDirectory("/tmp/update-disk", "/tmp/updates", NULL, NULL);
                 umount("/tmp/update-disk");
@@ -464,7 +464,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
 
     logMessage(INFO, "file location: nfs:%s/%s", host, file);
 
-    if (!doPwMount(host, "/tmp/mnt", "nfs", opts)) {
+    if (!doPwMount(host, "/tmp/mnt", "nfs", opts, NULL)) {
         char * buf;
 
         if (asprintf(&buf, "/tmp/mnt/%s", file) == -1) {

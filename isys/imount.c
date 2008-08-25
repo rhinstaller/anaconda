@@ -34,13 +34,13 @@
 
 static int mkdirIfNone(char * directory);
 
-int doPwMount(char *dev, char *where, char *fs, char *options) {
-    int rc, child, status;
+int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
+    int i = 0, rc, child, status, pipefd[2];
     char *opts = NULL, *device;
+    char buf[4096];
 
-    if (mkdirChain(where)) {
+    if (mkdirChain(where))
         return IMOUNT_ERR_ERRNO;
-    }
 
     if (strstr(fs, "nfs")) {
         if (options) {
@@ -71,12 +71,17 @@ int doPwMount(char *dev, char *where, char *fs, char *options) {
             opts = strdup(options);
     }
 
+    if (pipe(pipefd))
+        return IMOUNT_ERR_ERRNO;
 
     if (!(child = fork())) {
         int fd;
 
-        /* Close off all these filehandles since we don't want errors
-         * spewed to tty1.
+        close(pipefd[0]);
+
+        /* Close stdin entirely, redirect stdout to tty5, and redirect stderr
+         * to a pipe so we can put error messages into exceptions.  We'll
+         * only use these messages should mount also return an error code.
          */
         fd = open("/dev/tty5", O_RDONLY);
         close(STDIN_FILENO);
@@ -86,25 +91,35 @@ int doPwMount(char *dev, char *where, char *fs, char *options) {
         fd = open("/dev/tty5", O_WRONLY);
         close(STDOUT_FILENO);
         dup2(fd, STDOUT_FILENO);
-        close(STDERR_FILENO);
-        dup2(fd, STDERR_FILENO);
-        close(fd);
+
+        dup2(pipefd[1], STDERR_FILENO);
 
         if (opts) {
-            fprintf(stderr, "Running... /bin/mount -n -t %s -o %s %s %s\n",
+            fprintf(stdout, "Running... /bin/mount -n -t %s -o %s %s %s\n",
                     fs, opts, device, where);
             rc = execl("/bin/mount",
                        "/bin/mount", "-n", "-t", fs, "-o", opts, device, where, NULL);
             exit(1);
         }
         else {
-            fprintf(stderr, "Running... /bin/mount -n -t %s %s %s\n",
+            fprintf(stdout, "Running... /bin/mount -n -t %s %s %s\n",
                     fs, device, where);
             rc = execl("/bin/mount", "/bin/mount", "-n", "-t", fs, device, where, NULL);
             exit(1);
         }
     }
 
+    close(pipefd[1]);
+
+    if (err != NULL) {
+        while ((rc = read(pipefd[0], &buf, 4096)) > 1) {
+            i += rc;
+            *err = realloc(*err, i+1);
+            *err = strncat(*err, buf, rc);
+        }
+    }
+
+    close(pipefd[0]);
     waitpid(child, &status, 0);
 
     free(opts);

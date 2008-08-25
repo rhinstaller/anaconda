@@ -29,7 +29,7 @@
 #define IMOUNT_BIND    2
 #define IMOUNT_REMOUNT 4
 
-int doPwMount(char *dev, char *where, char *fs, char *options);
+int doPwMount(char *dev, char *where, char *fs, char *options, char **err);
 int mkdirChain(char * origChain);
 
 #endif
