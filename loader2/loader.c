@@ -810,7 +810,9 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         return;
 
     for (i=0; i < argc; i++) {
-        if (!strcasecmp(argv[i], "asknetwork"))
+        if (!strcasecmp(argv[i], "askmethod"))
+            flags |= LOADER_FLAGS_ASKMETHOD;
+        else if (!strcasecmp(argv[i], "asknetwork"))
             flags |= LOADER_FLAGS_ASKNETWORK;
         else if (!strcasecmp(argv[i], "noshell"))
             flags |= LOADER_FLAGS_NOSHELL;
@@ -1150,7 +1152,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
      * it.  However if stage2= was given, use that value as an override here.
      * That will also then bypass any method selection UI in loader.
      */
-    if (!loaderData->stage2Data) {
+    if (!FL_ASKMETHOD(flags) && !loaderData->stage2Data) {
         url = findAnacondaCD("/mnt/stage2");
         if (url) {
             setStage2LocFromCmdline(url, loaderData);
