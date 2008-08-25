@@ -240,33 +240,6 @@ static void parseEthtoolSettings(struct loaderData_s * loaderData) {
     free(buf);
 }
 
-void initLoopback(void) {
-    struct ifreq req;
-    int s;
-
-    s = socket(AF_INET, SOCK_DGRAM, 0);
-
-    memset(&req, 0, sizeof(req));
-    strcpy(req.ifr_name, "lo");
-
-    if (ioctl(s, SIOCGIFFLAGS, &req)) {
-        logMessage(ERROR, "ioctl SIOCGIFFLAGS failed: %m\n");
-        close(s);
-        return;
-    }
-
-    req.ifr_flags |= (IFF_UP | IFF_RUNNING);
-    if (ioctl(s, SIOCSIFFLAGS, &req)) {
-        logMessage(ERROR, "ioctl SIOCSIFFLAGS failed: %m\n");
-        close(s);
-        return;
-    }
-
-    close(s);
-
-    return;
-}
-
 /* XXX: make this get DNS servers via NM
 static int getDnsServers(iface_t * iface) {
     int rc;
@@ -1713,7 +1686,6 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
      * kickstart file, as %post/%pre scripts might require that.
      */
     if (loaderData->method != METHOD_NFS && loaderData->method != METHOD_URL) {
-        initLoopback();
         if (kickstartNetworkUp(loaderData, &iface))
             logMessage(ERROR, "unable to bring up network");
     }
@@ -1934,8 +1906,6 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
     /* we may have networking already, so return to the caller */
     if ((loaderData->ipinfo_set == 1) || (loaderData->ipv6info_set == 1))
         return 0;
-
-    initLoopback();
 
     memset(iface, 0, sizeof(*iface));
 

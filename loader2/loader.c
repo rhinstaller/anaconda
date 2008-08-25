@@ -1393,7 +1393,6 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 }
                 logMessage(INFO, "need to set up networking");
 
-                initLoopback();
                 memset(&iface, 0, sizeof(iface));
 
                 /* fall through to interface selection */
