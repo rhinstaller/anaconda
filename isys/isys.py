@@ -913,30 +913,38 @@ def isIsoImage(file):
 def fbinfo():
     return _isys.fbinfo()
 
-# Get a D-Bus interface for the specified device's (e.g., eth0) properties
-def getDeviceProperties(dev):
+# Get a D-Bus interface for the specified device's (e.g., eth0) properties.
+# If dev=None, return a hash of the form 'hash[dev] = props_iface' that
+# contains all device properties for all interfaces that NetworkManager knows
+# about.
+def getDeviceProperties(dev=None):
     bus = dbus.SystemBus()
     nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
     devlist = nm.get_dbus_method("GetDevices")()
+    all = {}
 
     for path in devlist:
         device = bus.get_object(NM_SERVICE, path)
         device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
 
-        device_interface = device_props_iface.Get(NM_MANAGER_IFACE, "Interface")
-        if str(device_interface) != dev:
-            continue
+        device_interface = str(device_props_iface.Get(NM_MANAGER_IFACE, "Interface"))
 
-        return device_props_iface
+        if dev is None:
+            all[device_interface] = device_props_iface
+        elif device_interface == dev:
+            return device_props_iface
 
-    return None
+    if dev is None:
+        return all
+    else:
+        return None
 
 # Get the MAC address for a network device.
 def getMacAddress(dev):
     if dev == '' or dev is None:
         return False
 
-    device_props_iface = getDeviceProperties(dev)
+    device_props_iface = getDeviceProperties(dev=dev)
     if device_props_iface is None:
         return None
 
@@ -948,7 +956,7 @@ def isWireless(dev):
     if dev == '' or dev is None:
         return False
 
-    device_props_iface = getDeviceProperties(dev)
+    device_props_iface = getDeviceProperties(dev=dev)
     if device_props_iface is None:
         return None
 
@@ -970,7 +978,7 @@ def getIPAddress(dev):
     if dev == '' or dev is None:
        return None
 
-    device_props_iface = getDeviceProperties(dev)
+    device_props_iface = getDeviceProperties(dev=dev)
     if device_props_iface is None:
         return None
 
