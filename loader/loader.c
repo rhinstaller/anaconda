@@ -42,6 +42,7 @@
 #include <syslog.h>
 #include <unistd.h>
 #include <stdint.h>
+#include <dirent.h>
 #include <arpa/inet.h>
 
 #include <sys/ioctl.h>
@@ -596,22 +597,70 @@ static void writeVNCPasswordFile(char *pfile, char *password) {
     fclose(f);
 }
 
-/* read information from /tmp/netinfo (written by linuxrc) */
+/* XXX: read information from /etc/sysconfig/network-scripts/ifcfg-$INTERFACE
+ * (written by linuxrc), the linuxrc mess should be firing up NM too
+ */
 static void readNetInfo(struct loaderData_s ** ld) {
     int i;
     struct loaderData_s * loaderData = *ld;
-    FILE *f;
-    /* FIXME: arbitrary size that works, but could blow up in the future */
+    DIR *dp = NULL;
+    FILE *f = NULL;
+    struct dirent *ent = NULL;
+    char *cfgfile = NULL;
     int bufsiz = 100;
-    char buf[bufsiz], *vname, *vparm;
+    char buf[bufsiz];
+    char *vname = NULL;
+    char *vparm = NULL;
 
-    f = fopen("/tmp/netinfo", "r");
-    if (!f)
+    /* when this function is called, we can assume only one network device
+     * config file has been written to /etc/sysconfig/network-scripts, so
+     * find it and read it
+     */
+    dp = opendir("/etc/sysconfig/network-scripts");
+    if (dp == NULL) {
         return;
+    }
 
-    /* FIXME: static buffers lead to pain */
-    vname = (char *)malloc(sizeof(char)*15);
-    vparm = (char *)malloc(sizeof(char)*85);
+    while ((ent = readdir(dp)) != NULL) {
+        if (!strncmp(ent->d_name, "ifcfg-", 6)) {
+            if (asprintf(&cfgfile, "/etc/sysconfig/network-scripts/%s",
+                         ent->d_name) == -1) {
+                logMessage(DEBUGLVL, "%s (%d): %m", __func__, __LINE__);
+                abort();
+            }
+
+            break;
+        }
+    }
+
+    if (dp != NULL) {
+        if (closedir(dp) == -1) {
+            logMessage(DEBUGLVL, "%s (%d): %m", __func__, __LINE__);
+            abort();
+        }
+    }
+
+    if (cfgfile == NULL) {
+        logMessage(DEBUGLVL, "no ifcfg files found in /etc/sysconfig/network-scripts");
+        return;
+    }
+
+
+    if ((f = fopen(cfgfile, "r")) == NULL) {
+        logMessage(DEBUGLVL, "%s (%d): %m", __func__, __LINE__);
+        free(cfgfile);
+        return;
+    }
+
+    if ((vname = (char *) malloc(sizeof(char) * 15)) == NULL) {
+        logMessage(DEBUGLVL, "%s (%d): %m", __func__, __LINE__);
+        abort();
+    }
+
+    if ((vparm = (char *) malloc(sizeof(char) * 85)) == NULL) {
+        logMessage(DEBUGLVL, "%s (%d): %m", __func__, __LINE__);
+        abort();
+    }
 
     /* make sure everything is NULL before we begin copying info */
     loaderData->ipv4 = NULL;
@@ -701,10 +750,20 @@ static void readNetInfo(struct loaderData_s ** ld) {
         }
     }
 
-    if (loaderData->ipv4 && loaderData->netmask)
+    if (loaderData->ipv4 && loaderData->netmask) {
         flags |= LOADER_FLAGS_HAVE_CMSCONF;
+    }
 
-    fclose(f);
+    if (fclose(f) == -1) {
+        logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
+        abort();
+    }
+
+    if (cfgfile != NULL) {
+        free(cfgfile);
+    }
+
+    return;
 }
 
 /* parse anaconda or pxelinux-style ip= arguments

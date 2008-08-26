@@ -609,7 +609,14 @@ EOF
 # immediately read it in again to export these into the shell below
 . /tmp/install.cfg
 cat /tmp/install.cfg >> /etc/profile
-cat > /tmp/netinfo << EOF
+
+NETSCRIPTS="/etc/sysconfig/network-scripts"
+IFCFGFILE="$NETSCRIPTS/ifcfg-$DEVICE"
+if [ ! -d "$NETSCRIPTS" ]; then
+    mkdir -p $NETSCRIPTS
+fi
+
+cat > $IFCFGFILE << EOF
 DEVICE=$DEVICE
 ONBOOT=yes
 BOOTPROTO=static
@@ -621,13 +628,13 @@ HOSTNAME=$HOSTNAME
 MTU=$MTU
 SUBCHANNELS=$SUBCHANNELS
 EOF
-[ "$DNS" != "" ] && echo "DNS=`echo $DNS | cut -d ':' -f 1`" >> /tmp/netinfo
-[ "$NETTYPE" != "" ] && echo "NETTYPE=$NETTYPE" >> /tmp/netinfo
-[ "$PEERID" != "" ] && echo "PEERID=$PEERID" >> /tmp/netinfo
-[ "$PORTNAME" != "" ] && echo "PORTNAME=$PORTNAME" >> /tmp/netinfo
-[ "$CTCPROT" != "" ] && echo "CTCPROT=$CTCPROT" >> /tmp/netinfo
-[ "$LAYER2" != "" ] && echo "LAYER2=$LAYER2" >> /tmp/netinfo
-[ "$MACADDR" != "" ] && echo "MACADDR=$MACADDR" >> /tmp/netinfo
+[ "$DNS" != "" ] && echo "DNS=`echo $DNS | cut -d ':' -f 1`" >> $IFCFGFILE
+[ "$NETTYPE" != "" ] && echo "NETTYPE=$NETTYPE" >> $IFCFGFILE
+[ "$PEERID" != "" ] && echo "PEERID=$PEERID" >> $IFCFGFILE
+[ "$PORTNAME" != "" ] && echo "PORTNAME=$PORTNAME" >> $IFCFGFILE
+[ "$CTCPROT" != "" ] && echo "CTCPROT=$CTCPROT" >> $IFCFGFILE
+[ "$LAYER2" != "" ] && echo "LAYER2=$LAYER2" >> $IFCFGFILE
+[ "$MACADDR" != "" ] && echo "MACADDR=$MACADDR" >> $IFCFGFILE
 
 # so that the vars get propagated into the sshd shells
 mkdir /.ssh
