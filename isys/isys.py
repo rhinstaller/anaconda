@@ -38,10 +38,19 @@ import struct
 import block
 import minihal
 import rhpl
+import dbus
 
 import logging
 log = logging.getLogger("anaconda")
 import warnings
+
+NM_SERVICE = "org.freedesktop.NetworkManager"
+NM_MANAGER_PATH = "/org/freedesktop/NetworkManager"
+NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
+DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
+NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
+NM_CONNECTION_IFACE = "org.freedesktop.NetworkManagerSettings.Connection"
+NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
 
 mountCount = {}
 raidCount = {}
@@ -904,20 +913,6 @@ def isIsoImage(file):
 def fbinfo():
     return _isys.fbinfo()
 
-## Determine whether a network device has a link present or not.
-# @param dev The network device to check.
-# @return True if there is a link, False if not or if dev is in an unknown
-#         state.
-def getLinkStatus(dev):
-    if dev == '' or dev is None:
-        return False
-
-    # getLinkStatus returns 1 for link, 0 for no link, -1 for unknown state
-    if _isys.getLinkStatus(dev) == 1:
-        return True
-    else:
-        return False
-
 ## Get the MAC address for a network device.
 # @param dev The network device to check.
 # @return The MAC address for dev as a string, or None on error.
@@ -935,7 +930,33 @@ def isWireless(dev):
 # @see netlink_interfaces_ip2str
 # @return The IPv4 address for dev, or None on error.
 def getIPAddress(dev):
-    return _isys.getIPAddress(dev)
+    if dev == '' or dev is None:
+       return None
+
+    bus = dbus.SystemBus()
+    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+    devlist = nm.get_dbus_method("GetDevices")()
+
+    for path in devlist:
+        device = bus.get_object(NM_SERVICE, path)
+        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
+
+        device_interface = device_props_iface.Get(NM_MANAGER_IFACE, "Interface")
+        if str(device_interface) != dev:
+            continue
+
+        # XXX: add support for IPv6 addresses when NM can do that
+        device_ip4addr = device_props_iface.Get(NM_MANAGER_IFACE, "Ip4Address")
+
+        try:
+            tmp = struct.pack('I', device_ip4addr)
+            address = socket.inet_ntop(socket.AF_INET, tmp)
+        except ValueError, e:
+            return None
+
+        return address
+
+    return None
 
 ## Get the correct context for a file from loaded policy.
 # @param fn The filename to query.

@@ -123,12 +123,10 @@ static PyObject * doisIsoImage(PyObject * s, PyObject * args);
 static PyObject * getFramebufferInfo(PyObject * s, PyObject * args);
 static PyObject * printObject(PyObject * s, PyObject * args);
 static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
-static PyObject * getLinkStatus(PyObject * s, PyObject * args);
 static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
 static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
 static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
 static PyObject * doGetMacAddress(PyObject * s, PyObject * args);
-static PyObject * doGetIPAddress(PyObject * s, PyObject * args);
 #ifdef USESELINUX
 static PyObject * doMatchPathContext(PyObject * s, PyObject * args);
 static PyObject * doSetFileContext(PyObject * s, PyObject * args);
@@ -176,12 +174,10 @@ static PyMethodDef isysModuleMethods[] = {
     { "fbinfo", (PyCFunction) getFramebufferInfo, METH_VARARGS, NULL},
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
     { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
-    { "getLinkStatus", (PyCFunction) getLinkStatus, METH_VARARGS, NULL },
     { "getDasdPorts", (PyCFunction) py_getDasdPorts, METH_VARARGS, NULL},
     { "isUsableDasd", (PyCFunction) py_isUsableDasd, METH_VARARGS, NULL},
     { "isLdlDasd", (PyCFunction) py_isLdlDasd, METH_VARARGS, NULL},
     { "getMacAddress", (PyCFunction) doGetMacAddress, METH_VARARGS, NULL},
-    { "getIPAddress", (PyCFunction) doGetIPAddress, METH_VARARGS, NULL},
 #ifdef USESELINUX
     { "matchPathContext", (PyCFunction) doMatchPathContext, METH_VARARGS, NULL },
     { "setFileContext", (PyCFunction) doSetFileContext, METH_VARARGS, NULL },
@@ -959,18 +955,6 @@ static PyObject * getFramebufferInfo(PyObject * s, PyObject * args) {
     return Py_BuildValue("(iii)", fb.xres, fb.yres, fb.bits_per_pixel);
 }
 
-static PyObject * getLinkStatus(PyObject * s, PyObject * args) {
-    char *dev;
-    int ret;
-
-    if (!PyArg_ParseTuple(args, "s", &dev))
-	return NULL;
-
-    ret = get_link_status(dev);
-    /* returns 1 for link, 0 for no link, -1 for unknown */
-    return Py_BuildValue("i", ret);
-}
-
 static PyObject * doGetMacAddress(PyObject * s, PyObject * args) {
     char *dev;
     char *ret;
@@ -995,17 +979,6 @@ static PyObject * isWireless(PyObject * s, PyObject * args) {
     return Py_BuildValue("i", ret);
 }
 
-static PyObject * doGetIPAddress(PyObject * s, PyObject * args) {
-    char *dev = NULL;
-    char *ret = NULL;
-
-    if (!PyArg_ParseTuple(args, "s", &dev))
-        return NULL;
-
-    ret = iface_ip2str(dev);
-
-    return Py_BuildValue("s", ret);
-}
 #ifdef USESELINUX
 static PyObject * doMatchPathContext(PyObject * s, PyObject * args) {
     char *fn, *buf = NULL;
