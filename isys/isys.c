@@ -79,7 +79,6 @@
 #include "ethtool.h"
 #include "smp.h"
 #include "lang.h"
-#include "wireless.h"
 #include "eddsupport.h"
 #include "auditd.h"
 #include "imount.h"
