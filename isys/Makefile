@@ -38,11 +38,6 @@ SUBDIRS =
 LOADLIBES += $(shell pkg-config --libs libnl-1)
 CFLAGS    += $(shell pkg-config --cflags libnl-1)
 
-ifeq ($(ARCH),sparc)
-PYMODULES += _silo.so
-SOURCES += silo.c
-endif
-
 ifeq ($(ARCH),ppc)
 OBJECTS += minifind.o
 SOURCES += minifind.c
@@ -63,9 +58,6 @@ all: subdirs $(PYMODULES) libisys.a
 
 _isys.so: isys.lo $(SOBJECTS)
 	gcc -shared -g -fPIC -o $@ isys.lo $(SOBJECTS) $(LOADLIBES) $(LDFLAGS)
-
-_silo.so: silo.c
-	gcc -shared $(CFLAGS) -fpic -o $@ silo.c ../balkan/libbalkan.a
 
 libisys.a: libisys.a($(OBJECTS))
 
