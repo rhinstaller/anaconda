@@ -69,8 +69,6 @@ _silo.so: silo.c
 
 libisys.a: libisys.a($(OBJECTS))
 
-filtertest: filtertest.o libisys.a
-
 clean:
 	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS)
 	rm -f $(OBJECTS)
