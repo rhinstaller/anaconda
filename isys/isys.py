@@ -923,7 +923,35 @@ def getMacAddress(dev):
 # @param dev The network device to check.
 # @return True if dev is a wireless network device, False otherwise.
 def isWireless(dev):
-    return _isys.isWireless(dev)
+    if dev == '' or dev is None:
+        return False
+
+    bus = dbus.SystemBus()
+    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+    devlist = nm.get_dbus_method("GetDevices")()
+
+    for path in devlist:
+        device = bus.get_object(NM_SERVICE, path)
+        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
+
+        device_interface = device_props_iface.Get(NM_MANAGER_IFACE, "Interface")
+        if str(device_interface) != dev:
+            continue
+
+        device_type = int(device_props_iface.Get(NM_MANAGER_IFACE, "DeviceType"))
+
+        # from include/NetworkManager.h in the NM source code
+        #    0 == NM_DEVICE_TYPE_UNKNOWN
+        #    1 == NM_DEVICE_TYPE_ETHERNET
+        #    2 == NM_DEVICE_TYPE_WIFI
+        #    3 == NM_DEVICE_TYPE_GSM
+        #    4 == NM_DEVICE_TYPE_CDMA
+        if device_type == 2:
+            return True
+        else:
+            return False
+
+    return False
 
 ## Get the IP address for a network device.
 # @param dev The network device to check.

@@ -131,7 +131,6 @@ static PyObject * doGetMacAddress(PyObject * s, PyObject * args);
 static PyObject * doMatchPathContext(PyObject * s, PyObject * args);
 static PyObject * doSetFileContext(PyObject * s, PyObject * args);
 #endif
-static PyObject * isWireless(PyObject * s, PyObject * args);
 static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args);
 static PyObject * doGetBiosDisk(PyObject * s, PyObject * args); 
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
@@ -182,7 +181,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "matchPathContext", (PyCFunction) doMatchPathContext, METH_VARARGS, NULL },
     { "setFileContext", (PyCFunction) doSetFileContext, METH_VARARGS, NULL },
 #endif
-    { "isWireless", (PyCFunction) isWireless, METH_VARARGS, NULL },
     { "biosDiskProbe", (PyCFunction) doProbeBiosDisks, METH_VARARGS,NULL},
     { "getbiosdisk",(PyCFunction) doGetBiosDisk, METH_VARARGS,NULL},
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
@@ -965,18 +963,6 @@ static PyObject * doGetMacAddress(PyObject * s, PyObject * args) {
     ret = iface_mac2str(dev);
 
     return Py_BuildValue("s", ret);
-}
-
-static PyObject * isWireless(PyObject * s, PyObject * args) {
-    char *dev;
-    int ret;
-
-    if (!PyArg_ParseTuple(args, "s", &dev))
-	return NULL;
-
-    ret = is_wireless_interface(dev);
-
-    return Py_BuildValue("i", ret);
 }
 
 #ifdef USESELINUX
