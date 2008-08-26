@@ -40,7 +40,6 @@
 
 #include "../isys/isys.h"
 #include "../isys/ethtool.h"
-#include "../isys/wireless.h"
 #include "../isys/iface.h"
 #include "../isys/str.h"
 
@@ -1690,11 +1689,6 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 
     for (i = 0; devs[i]; i++) {
         if (!devs[i]->device)
-            continue;
-
-        /* require passing a flag for wireless while our wireless support 
-         * sucks */
-        if (is_wireless_interface(devs[i]->device) && !FL_ALLOW_WIRELESS(flags))
             continue;
 
         if (devs[i]->description) {
