@@ -328,7 +328,7 @@ static int setupTerminal(int fd) {
         if ((fdn = open("/proc/cmdline", O_RDONLY, 0)) != -1) {
             len = read(fdn, buf, sizeof(buf) - 1);
             close(fdn);
-            if (len > 0 && mystrstr(buf, "utf8"))
+            if (len > 0 && strstr(buf, "utf8"))
                 env[ENV_TERM] = "TERM=vt100";
         }
     }
