@@ -27,7 +27,6 @@ import glob
 import iutil
 import isys
 import os
-import timer
 import time
 import sys
 import string
