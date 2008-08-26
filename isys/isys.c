@@ -125,7 +125,6 @@ static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
 static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
 static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
-static PyObject * doGetMacAddress(PyObject * s, PyObject * args);
 #ifdef USESELINUX
 static PyObject * doMatchPathContext(PyObject * s, PyObject * args);
 static PyObject * doSetFileContext(PyObject * s, PyObject * args);
@@ -175,7 +174,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "getDasdPorts", (PyCFunction) py_getDasdPorts, METH_VARARGS, NULL},
     { "isUsableDasd", (PyCFunction) py_isUsableDasd, METH_VARARGS, NULL},
     { "isLdlDasd", (PyCFunction) py_isLdlDasd, METH_VARARGS, NULL},
-    { "getMacAddress", (PyCFunction) doGetMacAddress, METH_VARARGS, NULL},
 #ifdef USESELINUX
     { "matchPathContext", (PyCFunction) doMatchPathContext, METH_VARARGS, NULL },
     { "setFileContext", (PyCFunction) doSetFileContext, METH_VARARGS, NULL },
@@ -950,18 +948,6 @@ static PyObject * getFramebufferInfo(PyObject * s, PyObject * args) {
     close(fd);
 
     return Py_BuildValue("(iii)", fb.xres, fb.yres, fb.bits_per_pixel);
-}
-
-static PyObject * doGetMacAddress(PyObject * s, PyObject * args) {
-    char *dev;
-    char *ret;
-
-    if (!PyArg_ParseTuple(args, "s", &dev))
-        return NULL;
-
-    ret = iface_mac2str(dev);
-
-    return Py_BuildValue("s", ret);
 }
 
 #ifdef USESELINUX

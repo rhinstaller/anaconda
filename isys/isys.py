@@ -913,78 +913,77 @@ def isIsoImage(file):
 def fbinfo():
     return _isys.fbinfo()
 
-## Get the MAC address for a network device.
-# @param dev The network device to check.
-# @return The MAC address for dev as a string, or None on error.
-def getMacAddress(dev):
-    return _isys.getMacAddress(dev)
+# Get a D-Bus interface for the specified device's (e.g., eth0) properties
+def getDeviceProperties(dev):
+    bus = dbus.SystemBus()
+    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+    devlist = nm.get_dbus_method("GetDevices")()
 
-## Determine if a network device is a wireless device.
-# @param dev The network device to check.
-# @return True if dev is a wireless network device, False otherwise.
+    for path in devlist:
+        device = bus.get_object(NM_SERVICE, path)
+        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
+
+        device_interface = device_props_iface.Get(NM_MANAGER_IFACE, "Interface")
+        if str(device_interface) != dev:
+            continue
+
+        return device_props_iface
+
+    return None
+
+# Get the MAC address for a network device.
+def getMacAddress(dev):
+    if dev == '' or dev is None:
+        return False
+
+    device_props_iface = getDeviceProperties(dev)
+    if device_props_iface is None:
+        return None
+
+    device_macaddr = device_props_iface.Get(NM_MANAGER_IFACE, "HwAddress")
+    return device_macaddr.upper()
+
+# Determine if a network device is a wireless device.
 def isWireless(dev):
     if dev == '' or dev is None:
         return False
 
-    bus = dbus.SystemBus()
-    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-    devlist = nm.get_dbus_method("GetDevices")()
+    device_props_iface = getDeviceProperties(dev)
+    if device_props_iface is None:
+        return None
 
-    for path in devlist:
-        device = bus.get_object(NM_SERVICE, path)
-        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
+    device_type = int(device_props_iface.Get(NM_MANAGER_IFACE, "DeviceType"))
 
-        device_interface = device_props_iface.Get(NM_MANAGER_IFACE, "Interface")
-        if str(device_interface) != dev:
-            continue
+    # from include/NetworkManager.h in the NM source code
+    #    0 == NM_DEVICE_TYPE_UNKNOWN
+    #    1 == NM_DEVICE_TYPE_ETHERNET
+    #    2 == NM_DEVICE_TYPE_WIFI
+    #    3 == NM_DEVICE_TYPE_GSM
+    #    4 == NM_DEVICE_TYPE_CDMA
+    if device_type == 2:
+        return True
+    else:
+        return False
 
-        device_type = int(device_props_iface.Get(NM_MANAGER_IFACE, "DeviceType"))
-
-        # from include/NetworkManager.h in the NM source code
-        #    0 == NM_DEVICE_TYPE_UNKNOWN
-        #    1 == NM_DEVICE_TYPE_ETHERNET
-        #    2 == NM_DEVICE_TYPE_WIFI
-        #    3 == NM_DEVICE_TYPE_GSM
-        #    4 == NM_DEVICE_TYPE_CDMA
-        if device_type == 2:
-            return True
-        else:
-            return False
-
-    return False
-
-## Get the IP address for a network device.
-# @param dev The network device to check.
-# @see netlink_interfaces_ip2str
-# @return The IPv4 address for dev, or None on error.
+# Get the IP address for a network device.
 def getIPAddress(dev):
     if dev == '' or dev is None:
        return None
 
-    bus = dbus.SystemBus()
-    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-    devlist = nm.get_dbus_method("GetDevices")()
+    device_props_iface = getDeviceProperties(dev)
+    if device_props_iface is None:
+        return None
 
-    for path in devlist:
-        device = bus.get_object(NM_SERVICE, path)
-        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
+    # XXX: add support for IPv6 addresses when NM can do that
+    device_ip4addr = device_props_iface.Get(NM_MANAGER_IFACE, "Ip4Address")
 
-        device_interface = device_props_iface.Get(NM_MANAGER_IFACE, "Interface")
-        if str(device_interface) != dev:
-            continue
+    try:
+        tmp = struct.pack('I', device_ip4addr)
+        address = socket.inet_ntop(socket.AF_INET, tmp)
+    except ValueError, e:
+        return None
 
-        # XXX: add support for IPv6 addresses when NM can do that
-        device_ip4addr = device_props_iface.Get(NM_MANAGER_IFACE, "Ip4Address")
-
-        try:
-            tmp = struct.pack('I', device_ip4addr)
-            address = socket.inet_ntop(socket.AF_INET, tmp)
-        except ValueError, e:
-            return None
-
-        return address
-
-    return None
+    return address
 
 ## Get the correct context for a file from loaded policy.
 # @param fn The filename to query.
