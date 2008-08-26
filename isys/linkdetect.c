@@ -37,7 +37,7 @@
 #include <linux/sockios.h>
 #include <linux/mii.h>
 #include <linux/ethtool.h>
-#include "net.h"
+#include "ethtool.h"
 
 static struct ifreq ifr;
 

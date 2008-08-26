@@ -31,7 +31,7 @@
 #include <net/if.h>
 
 #include <linux/sockios.h>
-#include "net.h"
+#include "ethtool.h"
 
 static int set_intf_up(struct ifreq ifr, int sock) {
     if (ioctl(sock, SIOCGIFFLAGS, &ifr) < 0) {

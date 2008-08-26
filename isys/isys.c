@@ -76,7 +76,7 @@
 #include "iface.h"
 #include "isys.h"
 #include "imount.h"
-#include "net.h"
+#include "ethtool.h"
 #include "smp.h"
 #include "lang.h"
 #include "wireless.h"
