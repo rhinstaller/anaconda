@@ -1965,7 +1965,7 @@ void splitHostname (char *str, char **host, char **port)
  * Start NetworkManager and wait for a valid link, return non-zero on error.
  */
 int get_connection(iface_t *iface) {
-    int ret;
+    int count = 0;
     DBusConnection *connection = NULL;
     DBusMessage *message = NULL;
     DBusMessage *reply = NULL;
@@ -1992,8 +1992,7 @@ int get_connection(iface_t *iface) {
     /* start NetworkManager for configured interface */
     logMessage(INFO, "starting NetworkManager (%d) for %s", __LINE__,
                iface->device);
-    ret = iface_start_NetworkManager(iface);
-    if (ret > 0) {
+    if (iface_start_NetworkManager(iface) > 0) {
         return 2;
     }
 
@@ -2040,49 +2039,57 @@ int get_connection(iface_t *iface) {
     }
 
     /* send message and block until a reply or error comes back */
-    dbus_error_init(&error);
-    reply = dbus_connection_send_with_reply_and_block(connection,
-                                                      message, -1,
-                                                      &error);
-    dbus_message_unref(message);
-    if (!reply) {
-        if (dbus_error_is_set(&error)) {
-            logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
-                       __LINE__, error.name, error.message);
-            dbus_error_free(&error);
+    while (count < 30) {
+        dbus_error_init(&error);
+        reply = dbus_connection_send_with_reply_and_block(connection,
+                                                          message, -1,
+                                                          &error);
+        if (!reply) {
+            if (dbus_error_is_set(&error)) {
+                logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
+                           __LINE__, error.name, error.message);
+                dbus_error_free(&error);
+            }
+
+            dbus_message_unref(message);
+            dbus_message_unref(reply);
+            return 6;
         }
 
-        dbus_message_unref(reply);
-        return 6;
+        /* extra uint32 'state' property from the returned variant type */
+        dbus_message_iter_init(reply, &iter);
+        if (dbus_message_iter_get_arg_type(&iter) != DBUS_TYPE_VARIANT) {
+            logMessage(DEBUGLVL, "%s (%d): unexpected reply format",
+                       __func__, __LINE__);
+            dbus_message_unref(message);
+            dbus_message_unref(reply);
+            return 7;
+        }
+
+        /* open the variant */
+        dbus_message_iter_recurse(&iter, &variant_iter);
+        if (dbus_message_iter_get_arg_type(&variant_iter) != DBUS_TYPE_UINT32) {
+            logMessage(DEBUGLVL, "%s (%d): unexpected reply format",
+                       __func__, __LINE__);
+            dbus_message_unref(message);
+            dbus_message_unref(reply);
+            return 8;
+        }
+
+        dbus_message_iter_get_basic(&variant_iter, &state);
+        if (state == NM_STATE_CONNECTED) {
+            logMessage(DEBUGLVL, "%s (%d): NetworkManager connected",
+                       __func__, __LINE__);
+            dbus_message_unref(message);
+            dbus_message_unref(reply);
+            return 0;
+        }
+
+        sleep(1);
+        count++;
     }
 
-    /* extra uint32 'state' property from the returned variant type */
-    dbus_message_iter_init(reply, &iter);
-    if (dbus_message_iter_get_arg_type(&iter) != DBUS_TYPE_VARIANT) {
-        logMessage(DEBUGLVL, "%s (%d): unexpected reply format",
-                   __func__, __LINE__);
-        dbus_message_unref(reply);
-        return 7;
-    }
-
-    /* open the variant */
-    dbus_message_iter_recurse(&iter, &variant_iter);
-    if (dbus_message_iter_get_arg_type(&variant_iter) != DBUS_TYPE_UINT32) {
-        logMessage(DEBUGLVL, "%s (%d): unexpected reply format",
-                   __func__, __LINE__);
-        dbus_message_unref(reply);
-        return 8;
-    }
-
-    dbus_message_iter_get_basic(&variant_iter, &state);
-    if (state == NM_STATE_CONNECTED) {
-        logMessage(DEBUGLVL, "%s (%d): NetworkManager connected",
-                   __func__, __LINE__);
-        dbus_message_unref(reply);
-        return 0;
-    }
-
-    /* NM is not in NM_STATE_CONNECTED if we get here */
+    dbus_message_unref(message);
     dbus_message_unref(reply);
     return 9;
 }
