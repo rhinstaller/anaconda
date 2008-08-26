@@ -39,7 +39,7 @@
 #include <NetworkManager.h>
 
 #include "../isys/isys.h"
-#include "../isys/net.h"
+#include "../isys/ethtool.h"
 #include "../isys/wireless.h"
 #include "../isys/iface.h"
 #include "../isys/str.h"
