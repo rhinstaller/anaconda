@@ -208,67 +208,6 @@ static void parseEthtoolSettings(struct loaderData_s * loaderData) {
     free(buf);
 }
 
-/* XXX: make this get DNS servers via NM
-static int getDnsServers(iface_t * iface) {
-    int rc;
-    struct in_addr addr;
-    struct in6_addr addr6;
-    char * ns = "";
-    struct newtWinEntry entry[] = { { N_("Nameserver IP"), &ns, 0 },
-                                      { NULL, NULL, 0 } };
-
-    do {
-        rc = newtWinEntries(_("Missing Nameserver"), 
-                _("Your IP address request returned configuration "
-                  "information, but it did not include a nameserver address. "
-                  "If you do not have this information, you can leave "
-                  "the field blank and the install will continue."),
-                61, 0, 0, 45, entry, _("OK"), _("Back"), NULL);
-
-        if (rc == 2) return LOADER_BACK;
-
-        rc = 0;
-        if (!ns || !*ns) {
-            iface->numdns = 0;
-            break;
-        } else {
-            if ((inet_pton(AF_INET, ns, &addr) >= 1) ||
-                (inet_pton(AF_INET6, ns, &addr6) >= 1)) {
-                iface->dns[0] = strdup(ns);
-            } else {
-                rc = 2;
-            }
-        }
-
-        if (rc) {
-            newtWinMessage(_("Invalid IP Information"), _("Retry"),
-                           _("You entered an invalid IP address."));
-        } else {
-            iface->numdns = 1;
-        }
-    } while (rc == 2);
-
-    return LOADER_OK;
-}
-*/
-
-void printLoaderDataIPINFO(struct loaderData_s *loaderData) {
-    logMessage(DEBUGLVL, "loaderData->ipinfo_set   = |%d|", loaderData->ipinfo_set);
-    logMessage(DEBUGLVL, "loaderData->ipv4         = |%s|", loaderData->ipv4);
-    logMessage(DEBUGLVL, "loaderData->ipv6info_set = |%d|", loaderData->ipv6info_set);
-    logMessage(DEBUGLVL, "loaderData->ipv6         = |%s|", loaderData->ipv6);
-    logMessage(DEBUGLVL, "loaderData->dhcpTimeout  = |%d|", loaderData->dhcpTimeout);
-    logMessage(DEBUGLVL, "loaderData->netmask      = |%s|", loaderData->netmask);
-    logMessage(DEBUGLVL, "loaderData->gateway      = |%s|", loaderData->gateway);
-    logMessage(DEBUGLVL, "loaderData->dns          = |%s|", loaderData->dns);
-    logMessage(DEBUGLVL, "loaderData->hostname     = |%s|", loaderData->hostname);
-    logMessage(DEBUGLVL, "loaderData->noDns        = |%d|", loaderData->noDns);
-    logMessage(DEBUGLVL, "loaderData->netDev_set   = |%d|", loaderData->netDev_set);
-    logMessage(DEBUGLVL, "loaderData->netDev       = |%s|", loaderData->netDev);
-    logMessage(DEBUGLVL, "loaderData->netCls_set   = |%d|", loaderData->netCls_set);
-    logMessage(DEBUGLVL, "loaderData->netCls       = |%s|", loaderData->netCls);
-}
-
 /* given loader data from kickstart, populate network configuration struct */
 void setupNetworkDeviceConfig(iface_t * iface,
                               struct loaderData_s * loaderData) {
@@ -276,11 +215,6 @@ void setupNetworkDeviceConfig(iface_t * iface,
     struct in_addr addr;
     struct in6_addr addr6;
     char * c;
-
-    /* set to 1 to get ks network struct logged */
-#if 0
-    printLoaderDataIPINFO(loaderData);
-#endif
 
     if (loaderData->ethtool) {
         parseEthtoolSettings(loaderData);
@@ -507,18 +441,6 @@ int readNetConfig(char * device, iface_t * iface,
         }
     }
 
-/*
-    if (ipcomps.gw && *ipcomps.gw) {
-        if (inet_pton(AF_INET, ipcomps.gw, &iface->gateway) <= 0) {
-            logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                       strerror(errno));
-        } else if (inet_pton(AF_INET6, ipcomps.gw, &iface->gateway6) <= 0) {
-            logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                       strerror(errno));
-        }
-    }
-*/
-
     /* calculate any missing IPv4 pieces */
     if (opts.ipv4Choice == '*') {
         memset(&addr, 0, sizeof(addr));
@@ -528,9 +450,6 @@ int readNetConfig(char * device, iface_t * iface,
             iface->broadcast.s_addr = addr.s_addr | ~(iface->netmask.s_addr);
         }
     }
-
-    /* dump some network debugging info */
-    debugNetworkInfo(iface);
 
     /* bring up the interface */
     if (!FL_TESTING(flags)) {
@@ -715,40 +634,6 @@ int configureTCPIP(char * device, iface_t * iface,
 
             if (!dret) {
                 iface->flags |= IFACE_FLAGS_IS_DYNAMIC;
-
-/* XXX: if we don't have working DNS lookups, ask for a nameserver,
- * but be friendly to NM.  we should ask NM if it knows about a
- * nameserver and then ask the user for one if NM isn't in the know.
- */
-/*
-                if (iface->numdns == 0) {
-                    logMessage(WARNING,
-                        "dhcp worked, but did not return a DNS server");
-*/
-                    /*
-                     * prompt for a nameserver IP address when:
-                     * - DHCP for IPv4, DHCP/AUTO for IPv6 and both enabled
-                     * - IPv4 disabled and DHCP/AUTO for IPv6
-                     * - IPv6 disabled and DHCP for IPv4
-                     */
-/*
-                    if ((iface->ipv4method == IPV4_DHCP_METHOD
-                         && (iface->ipv6method == IPV6_AUTO_METHOD ||
-                             iface->ipv6method == IPV6_DHCP_METHOD))
-                        || (iface->ipv4method == IPV4_DHCP_METHOD
-                            && FL_NOIPV6(flags))
-                        || (FL_NOIPV4(flags)
-                            && (iface->ipv6method == IPV6_AUTO_METHOD ||
-                                iface->ipv6method == IPV6_DHCP_METHOD))) {
-                        i = getDnsServers(iface);
-                        i = i ? 0 : 1;
-                    } else {
-                        i = 1;
-                    }
-                } else {
-                    i = 1;
-                }
-*/
                 i = 1;
             } else {
                 logMessage(DEBUGLVL, "get_connection() failed, returned %d", dret);
@@ -1019,7 +904,6 @@ int manualNetConfig(char * device, iface_t * iface,
             if (!stack[i]) have[i] = 2;
 
         answer = newtRunForm(f);
-        /* memset(newCfg, 0, sizeof(*newCfg)); */
 
         /* collect IPv4 data */
         if (stack[IPV4]) {
@@ -1144,132 +1028,6 @@ int manualNetConfig(char * device, iface_t * iface,
     return LOADER_OK;
 }
 
-void debugNetworkInfo(iface_t * iface) {
-    int i;
-    char buf[INET6_ADDRSTRLEN];
-
-    logMessage(DEBUGLVL, "device = %s", iface->device);
-
-    if (iface->macaddr != NULL) {
-        logMessage(DEBUGLVL, "MAC address = %s", iface->macaddr);
-    }
-
-    if (iface_have_in_addr(&iface->ipaddr)) {
-        if (inet_ntop(AF_INET, &iface->ipaddr, buf, INET_ADDRSTRLEN) == NULL) {
-            logMessage(DEBUGLVL, "IPv4 address = <unable to convert>");
-        } else {
-            logMessage(DEBUGLVL, "IPv4 address = %s", buf);
-        }
-    }
-
-    if (iface_have_in_addr(&iface->netmask)) {
-        if (inet_ntop(AF_INET, &iface->netmask, buf, INET_ADDRSTRLEN) == NULL) {
-            logMessage(DEBUGLVL, "IPv4 netmask = <unable to convert>");
-        } else {
-            logMessage(DEBUGLVL, "IPv4 netmask = %s", buf);
-        }
-    }
-
-    if (iface_have_in_addr(&iface->broadcast)) {
-        if (inet_ntop(AF_INET, &iface->broadcast, buf,
-                      INET_ADDRSTRLEN) == NULL ) {
-            logMessage(DEBUGLVL, "IPv4 broadcast = <unable to convert>");
-        } else {
-            logMessage(DEBUGLVL, "IPv4 broadcast = %s", buf);
-        }
-    }
-
-    if (iface_have_in_addr(&iface->gateway)) {
-        if (inet_ntop(AF_INET, &iface->gateway, buf, INET_ADDRSTRLEN) == NULL) {
-            logMessage(DEBUGLVL, "Gateway = <unable to convert>");
-        } else {
-            logMessage(DEBUGLVL, "Gateway = %s", buf);
-        }
-    }
-
-    if (iface_have_in6_addr(&iface->ip6addr)) {
-        if (inet_ntop(AF_INET6, &iface->ip6addr, buf,
-                      INET6_ADDRSTRLEN) == NULL) {
-            logMessage(DEBUGLVL, "IPv6 address = <unable to convert>");
-        } else {
-            logMessage(DEBUGLVL, "IPv6 address = %s", buf);
-        }
-    }
-
-    if (iface->ip6prefix) {
-        logMessage(DEBUGLVL, "IPv6 prefix = %d", iface->ip6prefix);
-    }
-
-    if (iface_have_in6_addr(&iface->gateway6)) {
-        if (inet_ntop(AF_INET6, &iface->gateway6, buf,
-                      INET6_ADDRSTRLEN) == NULL) {
-            logMessage(DEBUGLVL, "IPv6 Gateway = <unable to convert>");
-        } else {
-            logMessage(DEBUGLVL, "IPv6 Gateway = %s", buf);
-        }
-    }
-
-    if (iface->numdns > 0) {
-        for (i = 0; i < iface->numdns; i++) {
-            logMessage(DEBUGLVL, "DNS[%d] = %s", i, iface->dns[i]);
-        }
-    }
-
-    if (iface->hostname) {
-        logMessage(DEBUGLVL, "hostname = %s", iface->hostname);
-    }
-
-    if (iface->domain) {
-        logMessage(DEBUGLVL, "domain = %s", iface->domain);
-    }
-
-    if (iface->dhcptimeout) {
-        logMessage(DEBUGLVL, "DHCP timeout = %d", iface->dhcptimeout);
-    }
-
-    if (iface->vendorclass) {
-        logMessage(DEBUGLVL, "DHCP vendor class = %s", iface->vendorclass);
-    }
-
-    if (iface->ssid) {
-        logMessage(DEBUGLVL, "SSID = %s", iface->ssid);
-    }
-
-    if (iface->wepkey) {
-        logMessage(DEBUGLVL, "WEP key = %s", iface->wepkey);
-    }
-
-#if defined(__s390__) || defined(__s390x__)
-    if (iface->mtu) {
-        logMessage(DEBUGLVL, "mtu = %d", iface->mtu);
-    }
-
-    if (iface->subchannels) {
-        logMessage(DEBUGLVL, "subchannels = %s", iface->subchannels);
-    }
-
-    if (iface->portname) {
-        logMessage(DEBUGLVL, "portname = %s", iface->portname);
-    }
-
-    if (iface->peerid) {
-        logMessage(DEBUGLVL, "peerid = %s", iface->peerid);
-    }
-
-    if (iface->nettype) {
-        logMessage(DEBUGLVL, "nettype = %s", iface->nettype);
-    }
-
-    if (iface->ctcprot) {
-        logMessage(DEBUGLVL, "ctcprot = %s", iface->ctcprot);
-    }
-#endif
-
-/* FIXME: print rest of iface structure */
-
-    return;
-}
-
 /*
  * By default, we disable all network interfaces and then only
  * bring up the ones the user wants.
@@ -1347,8 +1105,6 @@ int writeEnabledNetInfo(iface_t *iface) {
         if (iface->ipv4method == IPV4_DHCP_METHOD) {
             fprintf(fp, "BOOTPROTO=dhcp\n");
         } else if (iface->ipv4method == IPV4_MANUAL_METHOD) {
-            fprintf(fp, "BOOTPROTO=static\n");
-
             if (iface_have_in_addr(&iface->ipaddr)) {
                 if (inet_ntop(AF_INET, &iface->ipaddr, buf,
                               INET_ADDRSTRLEN) == NULL) {
@@ -2089,8 +1845,14 @@ int get_connection(iface_t *iface) {
         count++;
     }
 
-    dbus_message_unref(message);
-    dbus_message_unref(reply);
+    if (message) {
+        dbus_message_unref(message);
+    }
+
+    if (reply) {
+        dbus_message_unref(reply);
+    }
+
     return 9;
 }
 
