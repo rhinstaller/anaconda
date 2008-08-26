@@ -2675,18 +2675,30 @@ class LoopbackDevice(Device):
         return "# LOOP1: %s %s /redhat.img\n" % (self.host, self.hostfs)
 
 def makeDevice(dev):
+    cryptoDev = partitions.lookup_cryptodev(dev)
+    if cryptoDev and cryptoDev.getDevice() == dev:
+        dev = cryptoDev.getDevice(encrypted=True)
+
     if dev.startswith('md'):
         try:
             (mdname, devices, level, numActive) = raid.lookup_raid_device(dev)
-            devs = [PartitionDevice(d) for d in devices]
-            device = RAIDDevice(level, devs,
+            # convert devices to Device instances and sort out encryption
+            devList = []
+            for dev in devices:
+                cryptoMem = partitions.lookup_cryptodev(dev)
+                if cryptoMem and cryptoMem.getDevice() == dev:
+                    dev = cryptoMem.getDevice(encrypted=True)
+
+                devList.append(PartitionDevice(dev, encryption=cryptoMem))
+
+            device = RAIDDevice(level, devList,
                                 minor=int(mdname[2:]),
                                 spares=len(devices) - numActive,
-                                existing=1)
+                                existing=1, encryption=cryptoDev)
         except KeyError:
-            device = DevDevice(dev)
+            device = PartitionDevice(dev, encryption=cryptoDev)
     else:
-        device = DevDevice(dev)
+        device = PartitionDevice(dev, encryption=cryptoDev)
     return device
 
 # XXX fix RAID

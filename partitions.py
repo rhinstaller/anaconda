@@ -169,8 +169,16 @@ def partitioningComplete(anaconda):
     if rc == 0:
         return DISPATCH_BACK
 
+def lookup_cryptodev(device):
+    for encryptedDev, cdev in Partitions.encryptedDevices.items():
+        mappedDev = cdev.getDevice()
+        if device == encryptedDev or device == mappedDev:
+            return cdev
+
 class Partitions:
     """Defines all of the partition requests and delete requests."""
+    encryptedDevices = {}
+
     def __init__ (self, anaconda, readDisks=False):
         """Initializes a Partitions object.
 
@@ -212,7 +220,6 @@ class Partitions:
         self.autoEncrypt = False
         self.autoEncryptPass = ""
 
-        self.encryptedDevices = {}
         self.globalPassphrase = ""
 
         # partition method to be used.  not to be touched externally
