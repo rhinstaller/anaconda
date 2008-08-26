@@ -17,7 +17,7 @@ INTLFILES = $(GLADEFILES) $(DESKTOPFILES)
 
 POTFILES = ../anaconda ../*.py ../iw/*.py ../textw/*.py \
            ../installclasses/*.py \
-           ../loader2/*.c 
+           ../loader/*.c 
 
 NONPOTFILES = ../lang-table
 

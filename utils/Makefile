@@ -24,7 +24,7 @@ ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
 ISYSLIB=isys
 
-LOADERDIR = ../loader2
+LOADERDIR = ../loader
 LOADLIBES =  -lpopt
 CFLAGS += -I.. -I$(LOADERDIR) -fno-strict-aliasing
 RPMCFLAGS = $(CFLAGS) -I/usr/include/rpm
