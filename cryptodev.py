@@ -204,6 +204,10 @@ class LUKSDevice:
         return rc
 
     def closeDevice(self):
+        if self.getStatus():
+            # not mapped
+            return 0
+
         log.info("unmapping %s device %s" % (self.getScheme(), self.name))
         rc = iutil.execWithRedirect("cryptsetup",
                                     ["luksClose", self.name],
