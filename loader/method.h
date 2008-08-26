@@ -21,6 +21,7 @@
 #define H_METHOD
 
 #include "loader.h"
+#include "windows.h"
 
 /* method identifiers, needs to match struct installMethod order in loader.c */
 enum {
@@ -46,7 +47,8 @@ void queryIsoMediaCheck(char * isoDir);
 
 void umountStage2(void);
 int mountStage2(char *stage2path);
-int copyFileAndLoopbackMount(int fd, char *dest, char *device, char *mntpoint);
+int copyFileAndLoopbackMount(int fd, char *dest, char *device, char *mntpoint,
+                             progressCB pbcb, struct progressCBdata *data, long long total);
 int getFileFromBlockDevice(char *device, char *path, char * dest);
 
 int unpackCpioBall(char * ballPath, char * rootDir);

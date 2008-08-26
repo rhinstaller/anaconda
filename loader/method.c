@@ -441,12 +441,13 @@ int mountStage2(char *stage2path) {
 
 
 /* copies a second stage from fd to dest and mounts on mntpoint */
-int copyFileAndLoopbackMount(int fd, char * dest,
-                             char * device, char * mntpoint) {
+int copyFileAndLoopbackMount(int fd, char * dest, char * device, char * mntpoint,
+                             progressCB pbcb, struct progressCBdata *data,
+                             long long total) {
     int rc;
     struct stat sb;
 
-    rc = copyFileFd(fd, dest);
+    rc = copyFileFd(fd, dest, pbcb, data, total);
     stat(dest, &sb);
     logMessage(DEBUGLVL, "copied %" PRId64 " bytes to %s (%s)", sb.st_size, dest, 
                ((rc) ? " incomplete" : "complete"));

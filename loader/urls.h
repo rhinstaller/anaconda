@@ -20,6 +20,8 @@
 #ifndef H_LOADER_URLS
 #define H_LOADER_URLS
 
+#include "windows.h"
+
 enum urlprotocol_t { URL_METHOD_FTP, URL_METHOD_HTTP };
 typedef enum urlprotocol_t urlprotocol;
 
@@ -40,7 +42,9 @@ char *convertUIToURL(struct iurlinfo *ui);
 int setupRemote(struct iurlinfo * ui);
 int urlMainSetupPanel(struct iurlinfo * ui);
 int urlSecondarySetupPanel(struct iurlinfo * ui);
-int urlinstStartTransfer(struct iurlinfo * ui, char *path, char *extraHeaders);
-int urlinstFinishTransfer(struct iurlinfo * ui, int fd);
+int urlinstStartTransfer(struct iurlinfo * ui, char *path, char *extraHeaders,
+                         struct progressCBdata **data, long long *size);
+int urlinstFinishTransfer(struct iurlinfo * ui, int fd,
+                          struct progressCBdata **data);
 
 #endif

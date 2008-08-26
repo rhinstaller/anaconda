@@ -56,6 +56,8 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char *path,
     int fd;
     int rc = 0;
     char *ehdrs = NULL;
+    long long size;
+    struct progressCBdata *data = NULL;
 
     if (ui->protocol == URL_METHOD_HTTP) {
         char *arch = getProductArch();
@@ -70,7 +72,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char *path,
         }
     }
 
-    fd = urlinstStartTransfer(ui, path, ehdrs);
+    fd = urlinstStartTransfer(ui, path, ehdrs, &data, &size);
 
     if (fd == -2) {
         if (ehdrs) free (ehdrs);
@@ -89,10 +91,11 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char *path,
     }
 
     if (dest != NULL) {
-        rc = copyFileAndLoopbackMount(fd, dest, device, mntpoint);
+        rc = copyFileAndLoopbackMount(fd, dest, device, mntpoint,
+                                      progressCallback, data, size);
     }
 
-    urlinstFinishTransfer(ui, fd);
+    urlinstFinishTransfer(ui, fd, &data);
     return rc;
 }
 
@@ -283,6 +286,8 @@ int getFileFromUrl(char * url, char * dest,
     int fd, rc;
     iface_t iface;
     char *ehdrs = NULL, *ip = NULL;
+    long long size;
+    struct progressCBdata *data = NULL;
 
     iface_init_iface_t(&iface);
 
@@ -366,14 +371,14 @@ int getFileFromUrl(char * url, char * dest,
         }
     }
 
-    fd = urlinstStartTransfer(&ui, file, ehdrs);
+    fd = urlinstStartTransfer(&ui, file, ehdrs, &data, &size);
     if (fd < 0) {
         logMessage(ERROR, "failed to retrieve http://%s/%s%s", ui.address, ui.prefix, file);
         retval = 1;
         goto err;
     }
 
-    rc = copyFileFd(fd, dest);
+    rc = copyFileFd(fd, dest, progressCallback, data, size);
     if (rc) {
         unlink (dest);
         logMessage(ERROR, "failed to copy file to %s", dest);
@@ -381,7 +386,7 @@ int getFileFromUrl(char * url, char * dest,
         goto err;
     }
 
-    urlinstFinishTransfer(&ui, fd);
+    urlinstFinishTransfer(&ui, fd, &data);
 
 err:
     if (file) free(file);

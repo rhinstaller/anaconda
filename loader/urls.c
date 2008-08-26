@@ -164,7 +164,8 @@ char *convertUIToURL(struct iurlinfo *ui) {
 /* see ftp.c:httpGetFileDesc() for details */
 /* set to NULL if not needed */
 int urlinstStartTransfer(struct iurlinfo * ui, char *path,
-                         char *extraHeaders) {
+                         char *extraHeaders, struct progressCBdata **data,
+                         long long *size) {
     int fd, port;
     int family = -1;
     struct in_addr addr;
@@ -214,14 +215,14 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
             return -2;
         }
 
-        fd = ftpGetFileDesc(ui->ftpPort, addr6, family, path);
+        fd = ftpGetFileDesc(ui->ftpPort, addr6, family, path, size);
         if (fd < 0) {
             close(ui->ftpPort);
             if (hostname) free(hostname);
             return -1;
         }
     } else {
-        fd = httpGetFileDesc(hostname, port, path, extraHeaders);
+        fd = httpGetFileDesc(hostname, port, path, extraHeaders, size);
         if (fd < 0) {
             if (portstr) free(portstr);
             return -1;
@@ -232,6 +233,9 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
 
     if (FL_CMDLINE(flags)) {
         printf("%s %s...\n", _("Retrieving"), fileName+1);
+    } else if (*size) {
+        *data = winProgressBar(70, 5, _("Retrieving"), "%s %s...", _("Retrieving"),
+                               fileName+1);
     } else {
         winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), fileName+1);
     }
@@ -240,7 +244,8 @@ int urlinstStartTransfer(struct iurlinfo * ui, char *path,
     return fd;
 }
 
-int urlinstFinishTransfer(struct iurlinfo * ui, int fd) {
+int urlinstFinishTransfer(struct iurlinfo * ui, int fd, struct progressCBdata **data) {
+    if (*data) free(*data);
     if (ui->protocol == URL_METHOD_FTP)
         close(ui->ftpPort);
     close(fd);

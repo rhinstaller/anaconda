@@ -45,9 +45,10 @@ int ftpOpen(char * host, int family, char * name, char * password,
             int port);
 int ftpGetFile(int sock, char * remotename, int dest);
 int ftpGetFileDesc(int sock, struct in6_addr host, int family,
-                   char * remotename);
+                   char * remotename, long long *size);
 int ftpGetFileDone(int sock);
 
-int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHeaders);
+int httpGetFileDesc(char * hostname, int port, char * remotename,
+                    char *extraHeaders, long long *size);
 
 #endif

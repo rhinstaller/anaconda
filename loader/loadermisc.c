@@ -33,12 +33,15 @@
 #include <stdlib.h>
 
 #include "log.h"
+#include "windows.h"
 
-int copyFileFd(int infd, char * dest) {
+int copyFileFd(int infd, char * dest, progressCB pbcb,
+               struct progressCBdata *data, long long total) {
     int outfd;
     char buf[4096];
     int i;
     int rc = 0;
+    long long count = 0;
 
     outfd = open(dest, O_CREAT | O_RDWR, 0666);
 
@@ -51,6 +54,12 @@ int copyFileFd(int infd, char * dest) {
         if (write(outfd, buf, i) != i) {
             rc = 1;
             break;
+        }
+
+        count += 1;
+
+        if (pbcb && data && total) {
+            pbcb(data, count, total);
         }
     }
 
@@ -70,7 +79,7 @@ int copyFile(char * source, char * dest) {
         return 1;
     }
 
-    rc = copyFileFd(infd, dest);
+    rc = copyFileFd(infd, dest, NULL, NULL, 0);
 
     close(infd);
 

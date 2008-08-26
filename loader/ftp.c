@@ -346,13 +346,15 @@ int ftpOpen(char *host, int family, char *name, char *password,
  * RFC 2428 FTP Extensions for IPv6 and NATs
  */
 int ftpGetFileDesc(int sock, struct in6_addr host, int family,
-                   char * remotename) {
+                   char * remotename, long long *size) {
     int dataSocket;
     struct sockaddr_in dataAddress;
     struct sockaddr_in6 dataAddress6;
     int i, j;
     char * passReply;
     char * chptr;
+    char * sizeCommand;
+    char * sizeReply;
     char * retrCommand;
     int rc;
 
@@ -456,6 +458,33 @@ int ftpGetFileDesc(int sock, struct in6_addr host, int family,
     dataSocket = socket(family, SOCK_STREAM, IPPROTO_IP);
     if (dataSocket < 0) {
         return FTPERR_FAILED_CONNECT;
+    }
+
+    sizeCommand = alloca(strlen(remotename) + 20);
+    sprintf(sizeCommand, "SIZE %s\r\n", remotename);
+    i = strlen(sizeCommand);
+    if (write(sock, sizeCommand, i) != i) {
+        return FTPERR_SERVER_IO_ERROR;
+    }
+
+    if (ftpCheckResponse(sock, &sizeReply)) {
+        /* No worries, the SIZE command isn't in RFC 959 anyway. */
+        *size = 0;
+    } else {
+        /* We have a SIZE response of the form:
+         * 213 95600640
+         * where 95600640 is the size in bytes.
+         */
+
+        /* Skip to first non-space character */
+        while (isspace(*sizeReply) && *sizeReply) sizeReply++;
+        /* Skip reply code */
+        while (!isspace(*sizeReply) && *sizeReply) sizeReply++;
+        /* Skip any remaining whitespace */
+        while (isspace(*sizeReply) && *sizeReply) sizeReply++;
+        /* sizeReply now points to the beginning of the size */
+        if (sscanf(sizeReply, "%lld", size) != 1) *size = 0;
+        if (*size < 0) *size = 0;
     }
 
     retrCommand = alloca(strlen(remotename) + 20);
@@ -668,10 +697,11 @@ static char *find_status_code (char *headers)
  * by '\r\n', ending with '\r\n'.
  */
 int httpGetFileDesc(char * hostname, int port, char * remotename,
-                    char *extraHeaders) {
+                    char *extraHeaders, long long *size) {
     char * buf, *headers = NULL;
     char *status;
     char *hstr;
+    char *contlen;
     int family;
     struct in_addr addr;
     struct in6_addr addr6;
@@ -740,6 +770,22 @@ int httpGetFileDesc(char * hostname, int port, char * remotename,
         if (headers) free(headers);
         return FTPERR_SERVER_IO_ERROR;
     } else if (!strncmp(status, "200", 3)) {
+        contlen = find_header(headers, "Content-Length");
+
+        if (contlen == NULL) {
+            *size = 0;
+        } else {
+            errno = 0;
+            *size = strtoll(contlen, NULL, 10);
+
+            if ((errno == ERANGE && (*size == LLONG_MIN || *size == LLONG_MAX)) ||
+                (errno != 0 && *size == 0)) {
+                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
+                abort();
+            }
+        }
+
+        if (*size < 0) *size = 0;
         if (status) free(status);
         if (headers) free(headers);
         return sock;
@@ -760,7 +806,7 @@ int httpGetFileDesc(char * hostname, int port, char * remotename,
 
         logMessage(INFO, "redirecting to %s", redir_loc);
         convertURLToUI(redir_loc, &ui);
-        retval = httpGetFileDesc (ui.address, -1, ui.prefix, extraHeaders);
+        retval = httpGetFileDesc (ui.address, -1, ui.prefix, extraHeaders, size);
         free(redir_loc);
         return retval;
     } else if (!strncmp(status, "403", 3)) {

@@ -29,7 +29,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <math.h>
 
+#include "log.h"
 #include "windows.h"
 
 void winStatus(int width, int height, char * title, char * text, ...) {
@@ -62,6 +64,55 @@ void winStatus(int width, int height, char * title, char * text, ...) {
 void scsiWindow(const char * driver) {
     winStatus(40, 3, _("Loading SCSI driver"),
         _("Loading %s driver..."), driver);
+}
+
+void progressCallback(void *pbdata, long long pos, long long total) {
+    struct progressCBdata *data = pbdata;
+    char tickmark[2] = "-";
+    char *ticks = "-\\|/";
+
+    newtScaleSet(data->scale, ceil(pos * 100.0 / total));
+    *tickmark = ticks[(total / (pos + 1)) % 5];
+
+    newtLabelSetText(data->label, tickmark);
+    newtRefresh();
+}
+
+struct progressCBdata *winProgressBar(int width, int height, char *title, char *text, ...) {
+    struct progressCBdata *data;
+    char *buf = NULL;
+    va_list args;
+    int llen;
+    newtComponent t, f, scale, label;
+
+    va_start(args, text);
+
+    if (vasprintf(&buf, text, args) != -1) {
+        va_end(args);
+        newtCenteredWindow(width, height, title);
+        t = newtTextbox(1, 1, width - 2, height - 2, NEWT_TEXTBOX_WRAP);
+        newtTextboxSetText(t, buf);
+        llen = strlen(buf);
+        free(buf);
+        label = newtLabel(llen + 1, 1, "-");
+        f = newtForm(NULL, NULL, 0);
+        newtFormAddComponent(f, t);
+        scale = newtScale(3, 3, width - 6, 100);
+        newtFormAddComponent(f, scale);
+        newtDrawForm(f);
+        newtRefresh();
+
+        if ((data = malloc(sizeof(struct progressCBdata))) == NULL) {
+            logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
+            abort();
+        }
+
+        data->scale = scale;
+        data->label = label;
+        return data;
+    }
+
+    return NULL;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */
