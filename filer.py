@@ -154,7 +154,7 @@ class BugzillaFiler(AbstractFiler):
         for (key, val) in kwargs.items():
             if key.endswith("_whiteboard"):
                 wb = key.split("_")[0]
-                whiteboards.push((wb, val))
+                whiteboards.append((wb, val))
                 kwargs.pop(key)
 
         bug = self.__withBugzillaDo(lambda b: b.createbug(**kwargs))
