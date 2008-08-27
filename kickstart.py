@@ -313,7 +313,10 @@ class LogVol(commands.logvol.F9_LogVol):
                 lvd.grow = True
         else:
             if lvd.fstype != "":
-                filesystem = fileSystemTypeGet(lvd.fstype)
+                try:
+                    filesystem = fileSystemTypeGet(lvd.fstype)
+                except KeyError:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % lvd.fstype)
             else:
                 filesystem = fileSystemTypeGetDefault()
 
@@ -518,7 +521,10 @@ class Partition(commands.partition.F9_Partition):
         elif pd.mountpoint == "None":
             pd.mountpoint = ""
             if pd.fstype:
-                filesystem = fileSystemTypeGet(pd.fstype)
+                try:
+                    filesystem = fileSystemTypeGet(pd.fstype)
+                except KeyError:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % pd.fstype)
             else:
                 filesystem = fileSystemTypeGetDefault()
         elif pd.mountpoint == 'appleboot':
@@ -554,7 +560,10 @@ class Partition(commands.partition.F9_Partition):
             fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
         else:
             if pd.fstype != "":
-                filesystem = fileSystemTypeGet(pd.fstype)
+                try:
+                    filesystem = fileSystemTypeGet(pd.fstype)
+                except KeyError:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % pd.fstype)
             else:
                 filesystem = fileSystemTypeGetDefault()
 
@@ -634,7 +643,10 @@ class Raid(commands.raid.F9_Raid):
             rd.mountpoint = ""
         else:
             if rd.fstype != "":
-                filesystem = fileSystemTypeGet(rd.fstype)
+                try:
+                    filesystem = fileSystemTypeGet(rd.fstype)
+                except KeyError:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % rd.fstype)
             else:
                 filesystem = fileSystemTypeGetDefault()
 
