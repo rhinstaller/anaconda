@@ -106,7 +106,7 @@ tag:
 	@echo "Tagged as anaconda-$(VERSION)-$(RELEASE)"
 
 ChangeLog:
-	(GIT_DIR=.git git-log --follow > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
+	(GIT_DIR=.git git-log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
 
 archive: tag
 	@rm -f ChangeLog docs/kickstart-docs.txt docs/command-line.txt
@@ -134,7 +134,7 @@ api:
 	doxygen docs/api.cfg
 
 rpmlog:
-	@git-log --folow --pretty="format:- %s (%ae)" anaconda-$(VERSION)-$(RELEASE).. |sed -e 's/@.*)/)/'
+	@git-log --pretty="format:- %s (%ae)" anaconda-$(VERSION)-$(RELEASE).. |sed -e 's/@.*)/)/'
 	@echo
 
 bumpver:
