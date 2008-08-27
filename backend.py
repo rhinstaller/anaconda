@@ -54,6 +54,8 @@ class AnacondaBackend:
         # FIXME: we should handle this a little more elegantly
         self.skipFormatRoot = False
 
+        self._loopbackFile = None
+
     def postAction(self, anaconda):
         pass
 
@@ -127,6 +129,60 @@ class AnacondaBackend:
             self.modeText = _("Upgrading %s\n")
         else:
             self.modeText = _("Installing %s\n")
+
+    def mountInstallImage(self, anaconda, installimg):
+        if not flags.setupFilesystems:
+            return
+
+        if self._loopbackFile and os.path.exists(self._loopbackFile):
+            return
+
+        # If we've booted off the first CD/DVD (so, not the boot.iso) then
+        # copy the install.img to the filesystem and switch loopback devices
+        # to there.  Otherwise we won't be able to unmount and swap media.
+        if not self.anaconda.mediaDevice or not os.path.exists(installimg):
+            return
+
+        self._loopbackFile = "%s%s/rhinstall-install.img" % (self.anaconda.rootPath,
+                             anaconda.id.fsset.filesystemSpace(self.anaconda.rootPath)[0][0])
+
+        try:
+            win = self.anaconda.intf.waitWindow(_("Copying File"),
+                    _("Transferring install image to hard drive..."))
+            shutil.copyfile(installimg, self._loopbackFile)
+            win.pop()
+        except Exception, e:
+            if win:
+                win.pop()
+
+            log.critical("error transferring install.img: %s" %(e,))
+
+            if isinstance(e, IOError) and e.errno == 5:
+                msg = _("An error occurred transferring the install image "
+                        "to your hard drive.  This is probably due to "
+                        "bad media.")
+            else:
+                msg = _("An error occurred transferring the install image "
+                        "to your hard drive. You are probably out of disk "
+                        "space.")
+
+            self.anaconda.intf.messageWindow(_("Error"), msg)
+            try:
+                os.unlink(self._loopbackFile)
+            except:
+                pass
+
+            return 1
+
+        isys.lochangefd("/dev/loop0", self._loopbackFile)
+        isys.umount("/mnt/stage2")
+
+    def removeInstallImage(self):
+        if self._loopbackFile:
+            try:
+                os.unlink(self._loopbackFile)
+            except SystemError:
+                pass
 
     def kernelVersionList(self, rootPath="/"):
         return []

@@ -278,7 +278,6 @@ class AnacondaYum(YumSorter):
     def __init__(self, anaconda):
         YumSorter.__init__(self)
         self.anaconda = anaconda
-        self._loopbackFile = None
         self._timestamp = None
 
         # Only needed for hard drive and nfsiso installs.
@@ -327,54 +326,6 @@ class AnacondaYum(YumSorter):
 
         self.updates = []
         self.localPackages = []
-
-    def systemMounted(self, fsset, chroot):
-        if not flags.setupFilesystems:
-            return
-
-        if self._loopbackFile and os.path.exists(self._loopbackFile):
-            return
-
-        # If we've booted off the first CD/DVD (so, not the boot.iso) then
-        # copy the install.img to the filesystem and switch loopback devices
-        # to there.  Otherwise we won't be able to unmount and swap media.
-        stage2img = "%s/images/install.img" % self.tree
-        if not self.anaconda.mediaDevice or not os.path.exists(stage2img):
-            return
-
-        self._loopbackFile = "%s%s/rhinstall-install.img" % (chroot,
-                             fsset.filesystemSpace(chroot)[0][0])
-
-        try:
-            win = self.anaconda.intf.waitWindow(_("Copying File"),
-                    _("Transferring install image to hard drive..."))
-            shutil.copyfile(stage2img, self._loopbackFile)
-            win.pop()
-        except Exception, e:
-            if win:
-                win.pop()
-
-            log.critical("error transferring install.img: %s" %(e,))
-
-            if isinstance(e, IOError) and e.errno == 5:
-                msg = _("An error occurred transferring the install image "
-                        "to your hard drive.  This is probably due to "
-                        "bad media.")
-            else:
-                msg = _("An error occurred transferring the install image "
-                        "to your hard drive. You are probably out of disk "
-                        "space.")
-
-            self.anaconda.intf.messageWindow(_("Error"), msg)
-            try:
-                os.unlink(self._loopbackFile)
-            except:
-                pass
-
-            return 1
-
-        isys.lochangefd("/dev/loop0", self._loopbackFile)
-        isys.umount("/mnt/stage2")
 
     def _switchCD(self, discnum):
         if os.access("%s/.discinfo" % self.tree, os.R_OK):
@@ -795,6 +746,13 @@ class AnacondaYum(YumSorter):
             self.tsInfo.reqmedia[0] = None
         mkeys = self.tsInfo.reqmedia.keys()
         mkeys.sort(mediasort)
+
+        if len(mkeys) > 1:
+            stage2img = "%s/images/install.img" % self.tree
+            if self.anaconda.backend.mountInstallImage(self.anaconda, stage2img)
+                self.anaconda.id.fsset.unmountFilesystems(self.anaconda.rootPath)
+                return DISPATCH_BACK
+
         for i in mkeys:
             self.tsInfo.curmedia = i
             if i > 0:
@@ -1002,11 +960,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             except Exception, e:
                 log.debug("Error setting up media repository: %s" %(e,))
 
-        if self.ayum._loopbackFile:
-            try:
-                os.unlink(self.ayum._loopbackFile)
-            except SystemError:
-                pass
+        anaconda.backend.removeInstallImage()
 
     def doInitialSetup(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
@@ -1018,12 +972,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         iutil.writeRpmPlatform()
         self.ayum = AnacondaYum(anaconda)
-
-        if self.ayum.systemMounted (anaconda.id.fsset, anaconda.rootPath):
-            anaconda.id.fsset.umountFilesystems(anaconda.rootPath)
-            return DISPATCH_BACK
-        else:
-            return DISPATCH_FORWARD
 
     def doGroupSetup(self):
         # FIXME: this is a pretty ugly hack to make it so that we don't lose
