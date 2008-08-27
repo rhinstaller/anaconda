@@ -196,7 +196,7 @@ class AnacondaExceptionDump:
             fd.write("\nException occurred during state dump:\n")
             traceback.print_exc(None, fd)
 
-        for file in ("/tmp/syslog", "/tmp/anaconda.log", "/tmp/netinfo",
+        for file in ("/tmp/syslog", "/tmp/anaconda.log",
                      "/tmp/lvmout", "/tmp/resize.out",
                      anaconda.rootPath + "/root/install.log",
                      anaconda.rootPath + "/root/upgrade.log"):

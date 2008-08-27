@@ -96,7 +96,7 @@ class VncServer:
     def initialize(self):
         """Here is were all the relative vars get initialized. """
 
-        # try to load /tmp/netinfo and see if we can sniff out network info
+        # see if we can sniff out network info
         netinfo = network.Network()
 
         # Look for the first configured interface and use its IP address for
