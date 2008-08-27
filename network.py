@@ -1,7 +1,7 @@
 #
 # network.py - network configuration install data
 #
-# Copyright (C) 2001, 2002, 2003  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 #            Erik Troan <ewt@redhat.com>
 #            Mike Fulbright <msf@redhat.com>
 #            Brent Fox <bfox@redhat.com>
+#            David Cantrell <dcantrell@redhat.com>
 #
 
 import string
@@ -39,14 +40,6 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
-
-NM_SERVICE = "org.freedesktop.NetworkManager"
-NM_MANAGER_PATH = "/org/freedesktop/NetworkManager"
-NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
-DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
-NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
-NM_CONNECTION_IFACE = "org.freedesktop.NetworkManagerSettings.Connection"
-NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
 
 class IPError(Exception):
     pass
@@ -76,11 +69,6 @@ def sanityCheckHostname(hostname):
 
     return None
 	    
-def networkDeviceCheck(anaconda):
-    devs = anaconda.id.network.available()
-    if not devs:
-        anaconda.dispatch.skipStep("network")
-
 # return if the device is of a type that requires a ptpaddr to be specified
 def isPtpDev(devname):
     if (devname.startswith("ctc") or devname.startswith("iucv")):
@@ -147,17 +135,11 @@ def sanityCheckIPString(ip_string):
 
 def hasActiveNetDev():
     bus = dbus.SystemBus()
-    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-    props = dbus.Interface(nm, DBUS_PROPS_IFACE)
-    state = props.Get(NM_SERVICE, "State")
+    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+    props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
+    state = props.Get(isys.NM_SERVICE, "State")
 
-    # State corresponds to NMState in include/NetworkManager.h in NM's source
-    #     0 == NM_STATE_UNKNOWN
-    #     1 == NM_STATE_ASLEEP
-    #     2 == NM_STATE_CONNECTING
-    #     3 == NM_STATE_CONNECTED
-    #     4 == NM_STATE_DISCONNECTED
-    if int(state) == 3:
+    if int(state) == isys.NM_STATE_CONNECTED:
         return True
     else:
         return False
@@ -203,8 +185,7 @@ class NetworkDevice(SimpleConfigFile):
         return s
 
     def __init__(self, dev):
-        self.info = { "DEVICE" : dev,
-                      "ONBOOT": "no" }
+        self.info = { "DEVICE" : dev }
 	if dev.startswith('ctc'):
 	    self.info["TYPE"] = "CTC"
 	elif dev.startswith('iucv'):
@@ -218,56 +199,112 @@ class Network:
         self.primaryNS = ""
         self.secondaryNS = ""
         self.domains = []
-	self.isConfigured = 0
-        self.hostname = "localhost.localdomain"
-
-        # if we specify a hostname and are using dhcp, do an override
-        # originally used by the gui but overloaded now
-	# we also test in places if the hostname is localhost.localdomain
-	# to see if its been override. Need some consolidation in future.
-	#
-	# force users to set a manual hostname by default (dcantrell, #408921)
-	self.overrideDHCPhostname = True
+        self.hostname = socket.gethostname()
 
         if flags.rootpath:
             self.isConfigured = 1
 
-        try:
-            f = open("/tmp/netinfo", "r")
-        except:
-            pass
-        else:
-            lines = f.readlines()
-	    f.close()
-            info = {}
-	    self.isConfigured = 1
-            for line in lines:
-                netinf = string.splitfields(line, '=')
-                if len(netinf) >= 2:
-                    info [netinf[0]] = string.strip(netinf[1])
-            self.netdevices [info["DEVICE"]] = NetworkDevice(info["DEVICE"])
-            self.firstnetdevice = info["DEVICE"]
-            for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU",
-                        "NETTYPE", "SUBCHANNELS", "PORTNAME", "CTCPROT",
-                        "PEERID", "ESSID", "KEY", "IPV6ADDR", "IPV6_AUTOCONF"):
-                if info.has_key(key):
-                    self.netdevices [info["DEVICE"]].set((key, info[key]))
+        # populate self.netdevices
+        devhash = isys.getDeviceProperties(dev=None)
+        for dev in devhash.keys():
+            self.netdevices[dev] = NetworkDevice(dev)
+            ifcfg_contents = {}
 
-            self.netdevices [info["DEVICE"]].set(('useIPv4', flags.useIPv4))
-            self.netdevices [info["DEVICE"]].set(('useIPv6', flags.useIPv6))
+            # try to read settings from ifcfg-* file
+            try:
+                ifcfg = "/etc/sysconfig/network-scripts/ifcfg-%s" % (dev,)
+                f = open(f, "r")
+                lines = f.readlines()
+                f.close()
 
-            if info.has_key("GATEWAY"):
-                self.gateway = info["GATEWAY"]
-            if info.has_key("DOMAIN"):
-                self.domains.append(info["DOMAIN"])
-            if info.has_key("HOSTNAME"):
-                self.hostname = info["HOSTNAME"]
-	    if not info.has_key("BOOTPROTO"):
-                if not info.has_key("IPADDR"):
-                    self.netdevices [info["DEVICE"]].set(('useIPv4', False))
-                if not (info.has_key("IPV6ADDR") and info.has_key("IPV6_AUTOCONF")):
-                    self.netdevices [info["DEVICE"]].set(('useIPv6', False))
+                for line in lines:
+                    var = string.splitfields(line, '=')
+                    if len(var) >= 2:
+                        ifcfg_contents[var[0]] = string.strip(var[1])
+            except:
+                pass
 
+            # if NM_CONTROLLED is set to yes, we read in settings from
+            # NetworkManager first, then fill in the gaps with the data
+            # from the ifcfg file
+            useNetworkManager = False
+            if ifcfg_contents.has_key('NM_CONTROLLED'):
+                if ifcfg_contents['NM_CONTROLLED'].lower() == 'yes':
+                    self.netdevices[dev].set(('NM_CONTROLLED', ifcfg_contents['NM_CONTROLLED']))
+                    useNetworkManager = True
+
+            # this interface is managed by NetworkManager, so read from
+            # NetworkManager first
+            if useNetworkManager:
+                props = devhash[dev]
+                active_service_name = props.Get(isys.NM_ACTIVE_CONNECTION_IFACE, 'ServiceName')
+                active_path = props.Get(isys.NM_ACTIVE_CONNECTION_IFACE, 'Connection')
+
+                connection = bus.get_object(active_service_name, active_path)
+                connection_iface = dbus.Interface(connection, isys.NM_CONNECTION_IFACE)
+                settings = connection_iface.GetSettings()
+
+                ip4_setting = settings['ipv4']
+                if not ip4_setting or not ip4_setting['method'] or \
+                   ip4_setting['method'] == 'auto' or \
+                   ip4_setting['method'] == 'dhcp':
+                    self.netdevices[dev].set(('BOOTPROTO', 'dhcp'))
+                else:
+                    config_path = props.Get(isys.NM_MANAGER_IFACE, 'Ip4Config')
+                    config = bus.get_object(isys.NM_SERVICE, config_path)
+                    config_props = dbus.Interface(config, isys.DBUS_PROPS_IFACE)
+
+                    # addresses (3-element list:  ipaddr, netmask, gateway)
+                    addrs = config_props.Get(isys.NM_MANAGER_IFACE, 'Addresses')[0]
+                    try:
+                        tmp = struct.pack('I', addrs[0])
+                        ipaddr = socket.inet_ntop(socket.AF_INET, tmp)
+                        self.netdevices[dev].set(('IPADDR', ipaddr))
+                    except:
+                        pass
+
+                    try:
+                        tmp = struct.pack('I', addrs[1])
+                        netmask = socket.inet_ntop(socket.AF_INET, tmp)
+                        self.netdevices[dev].set(('NETMASK', netmask))
+                    except:
+                        pass
+
+                    try:
+                        tmp = struct.pack('I', addrs[2])
+                        gateway = socket.inet_ntop(socket.AF_INET, tmp)
+                        self.netdevices[dev].set(('GATEWAY', gateway))
+                        self.gateway = gateway
+                    except:
+                        pass
+
+                self.hostname = socket.gethostname()
+
+            # read in remaining settings from ifcfg file
+            for key in ifcfg_contents.keys():
+                if key == 'GATEWAY':
+                    self.netdevices[dev].set((key, ifcfg_contents[key]))
+                    self.gateway = ifcfg_contents[key]
+                elif key == 'DOMAIN':
+                    self.domains.append(ifcfg_contents[key])
+                elif key == 'HOSTNAME':
+                    self.hostname = ifcfg_contents[key]
+                elif not self.netdevices[dev].has_key(key):
+                    self.netdevices[dev].set((key, ifcfg_contents[key]))
+
+            self.netdevices[dev].set(('useIPv4', flags.useIPv4))
+            self.netdevices[dev].set(('useIPv6', flags.useIPv6))
+
+            # XXX: fix this block
+            if not self.netdevices[dev].has_key('BOOTPROTO'):
+                if not self.netdevices[dev].has_key('IPADDR'):
+                    self.netdevices[dev].set(('useIPv4', False))
+                if not (self.netdevices[dev].has_key('IPV6ADDR') and \
+                        self.netdevices[dev].has_key('IPV6_AUTOCONF') and \
+                        self.netdevices[dev].has_key('DHCPV6C')):
+                    self.netdevices[dev].set(('useIPv6', False))
+
+        # XXX: this code needs to be improved too
 	try:
 	    f = open("/etc/resolv.conf", "r")
 	except:
@@ -406,7 +443,6 @@ class Network:
             str = str + ns
         return str
             
-
     def writeKS(self, f):
 	devNames = self.netdevices.keys()
 	devNames.sort()
@@ -457,11 +493,12 @@ class Network:
 
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in self.netdevices.values():
-            device = dev.get("device")
+            device = dev.get('DEVICE')
             bootproto = dev.get('BOOTPROTO').lower()
             ipv6addr = dev.get('IPV6ADDR').lower()
             ipv6prefix = dev.get('IPV6PREFIX').lower()
             ipv6autoconf = dev.get('IPV6_AUTOCONF').lower()
+            dhcpv6c = dev.get('DHCPV6C').lower()
 
             fn = "%s/etc/sysconfig/network-scripts/ifcfg-%s" % (instPath,
                                                                 device)
@@ -484,6 +521,7 @@ class Network:
 
             if ipv6addr == 'dhcp':
                 dev.set(('IPV6INIT', 'yes'))
+                dev.set(('DHCPV6C', 'yes'))
             elif ipv6addr != '' and ipv6addr is not None:
                 dev.set(('IPV6INIT', 'yes'))
 
@@ -518,9 +556,7 @@ class Network:
                 searchLine = string.joinfields(self.domains, ' ')
                 f.write("SEARCH=\"%s\"\n" % (searchLine,))
 
-            # XXX: write NM_CONTROLLED= for now, until the UI is updated
-            f.write("NM_CONTROLLED=\n")
-
+            f.write("NM_CONTROLLED=yes\n")
             f.close()
 
             if dev.get("key"):
