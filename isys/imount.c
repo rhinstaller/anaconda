@@ -112,10 +112,19 @@ int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
     close(pipefd[1]);
 
     if (err != NULL) {
+        if (*err && **err) {
+            free(*err);
+            *err = NULL;
+        }
+
         while ((rc = read(pipefd[0], &buf, 4096)) > 1) {
-            i += rc;
-            *err = realloc(*err, i+1);
-            *err = strncat(*err, buf, rc);
+            i += rc + 1;
+
+            if ((*err = realloc(*err, i)) == NULL) {
+                abort();
+            }
+
+            *err = strncpy(*err, buf, rc);
         }
     }
 
@@ -138,8 +147,10 @@ int doMultiMount(char *dev, char *where, char **fstypes, char *options, char **e
          * get rid of it now.  We only want to preserve the error from the last
          * fstype.
          */
-        if (err && *err)
+        if (err && *err && **err) {
             free(*err);
+            *err = NULL;
+        }
 
         retval = doPwMount(dev, where, fstypes[i], options, err);
         if (!retval)
