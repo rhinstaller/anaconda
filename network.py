@@ -107,11 +107,11 @@ def _anyUsing(method):
     return False
 
 # determine whether any active at boot devices are using dhcp or dhcpv6
-def anyUsingDHCP:
+def anyUsingDHCP():
     return _anyUsing('auto')
 
 # determine whether any active at boot devices are using static IP config
-def anyUsingStatic:
+def anyUsingStatic():
     return _anyUsing('manual')
 
 # sanity check an IP string.
