@@ -111,14 +111,11 @@ typedef struct _iface_t {
 /* Function prototypes */
 
 /*
- * Given an interface name (e.g., eth0), return the IP address in human
- * readable format (i.e., the output from inet_ntop()).  Return NULL for
- * no match.  NOTE:  This function will check for IPv6 and IPv4
- * addresses.  In the case where the interface has both, the IPv4 address
- * is returned.  The only way you will get an IPv6 address from this function
- * is if that's the only address configured for the interface.
+ * Given an interface name (e.g., eth0) and address family (e.g., AF_INET),
+ * return the IP address in human readable format (i.e., the output from
+ * inet_ntop()).  Return NULL for no match or error.
  */
-char *iface_ip2str(char *);
+char *iface_ip2str(char *, int);
 
 /*
  * Given an interface name (e.g., eth0), return the MAC address in human

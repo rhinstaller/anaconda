@@ -35,6 +35,7 @@
 #include <netdb.h>
 #include <signal.h>
 #include <netinet/in.h>
+
 #include <netlink/netlink.h>
 #include <netlink/socket.h>
 #include <netlink/route/rtnl.h>
@@ -42,13 +43,15 @@
 #include <netlink/route/addr.h>
 #include <netlink/route/link.h>
 
+#include <dbus/dbus.h>
+#include <NetworkManager.h>
+
 #include "iface.h"
 #include "str.h"
 
 /* Internal-only function prototypes. */
 static struct nl_handle *_iface_get_handle(void);
 static struct nl_cache *_iface_get_link_cache(struct nl_handle **);
-static int _iface_name_to_index(char *);
 static int _iface_have_valid_addr(void *addr, int family, int length);
 static int _iface_redirect_io(char *device, int fd, int mode);
 
@@ -87,24 +90,6 @@ static struct nl_cache *_iface_get_link_cache(struct nl_handle **handle) {
     }
 
     return cache;
-}
-
-/*
- * Convert an interface name to index number.
- */
-static int _iface_name_to_index(char *ifname) {
-    struct nl_handle *handle = NULL;
-    struct nl_cache *cache = NULL;
-
-    if (ifname == NULL) {
-        return -1;
-    }
-
-    if ((cache = _iface_get_link_cache(&handle)) == NULL) {
-        return -1;
-    }
-
-    return rtnl_link_name2i(cache, ifname);
 }
 
 /*
@@ -163,114 +148,145 @@ int _iface_redirect_io(char *device, int fd, int mode) {
 }
 
 /*
- * Given an interface name (e.g., eth0), return the IP address in human
- * readable format (i.e., the output from inet_ntop()).  Return NULL for
- * no match.  NOTE:  This function will check for IPv6 and IPv4
- * addresses.  In the case where the interface has both, the IPv4 address
- * is returned.  The only way you will get an IPv6 address from this function
- * is if that's the only address configured for the interface.
+ * Given an interface name (e.g., eth0) and address family (e.g., AF_INET),
+ * return the IP address in human readable format (i.e., the output from
+ * inet_ntop()).  Return NULL for no match or error.
  */
-char *iface_ip2str(char *ifname) {
-    int ifindex = -1, buflen = 0, family = 0;
-    char *buf = NULL, *bufv4 = NULL, *bufv6 = NULL, *pos = NULL;
-    struct nl_handle *handle = NULL;
-    struct nl_cache *cache = NULL;
-    struct nl_object *obj = NULL;
-    struct rtnl_addr *raddr = NULL;
-    struct nl_addr *addr = NULL;
+char *iface_ip2str(char *ifname, int family) {
+    char *ipaddr = NULL;
+    char *nm_iface = NM_DBUS_INTERFACE;
+    char *property = NULL;
+    char *device_path = NULL;
+    char *interface = NULL;
+    struct in_addr addr;
+    DBusConnection *connection = NULL;
+    DBusError error;
+    DBusMessage *message = NULL, *reply = NULL, *devreply = NULL;
+    DBusMessageIter iter, a_iter, d_iter, v_iter;
 
-    if ((ifindex = _iface_name_to_index(ifname)) == -1) {
-        goto ip2str_error;
-    }
-
-    if ((cache = rtnl_addr_alloc_cache(handle)) == NULL) {
-        goto ip2str_error;
-    }
-
-    /* find the IPv4 and IPv6 addresses for this interface */
-    if ((obj = nl_cache_get_first(cache)) == NULL) {
-        goto ip2str_error;
-    }
-
-    do {
-        raddr = (struct rtnl_addr *) obj;
-
-        if (rtnl_addr_get_ifindex(raddr) == ifindex) {
-            family = rtnl_addr_get_family(raddr);
-
-            if (family == AF_INET || family == AF_INET6) {
-                /* skip if we have already saved an address */
-                /* FIXME: we should handle multiple addresses for the same
-                 * family per interface
-                 */
-                if (family == AF_INET && bufv4 != NULL) {
-                    continue;
-                }
-
-                if (family == AF_INET6 && bufv6 != NULL) {
-                    continue;
-                }
-
-                /* get the address */
-                addr = rtnl_addr_get_local(raddr);
-
-                /* convert to human readable format */
-                if (family == AF_INET) {
-                    buflen = INET_ADDRSTRLEN;
-                } else if (family == AF_INET6) {
-                    buflen = INET6_ADDRSTRLEN;
-                }
-
-                buflen += 1;
-
-                if ((buf = calloc(sizeof(char *), buflen)) == NULL) {
-                    nl_addr_destroy(addr);
-                    goto ip2str_error;
-                }
-
-                buf = nl_addr2str(addr, buf, buflen);
-                nl_addr_destroy(addr);
-
-                /* trim the prefix notation */
-                if ((pos = index(buf, '/')) != NULL) {
-                    *pos = '\0';
-                    if ((buf = realloc(buf, strlen(buf) + 1)) == NULL) {
-                        nl_addr_destroy(addr);
-                        goto ip2str_error;
-                    }
-                }
-
-                /* save the IP address in the right buffer */
-                if (family == AF_INET) {
-                    bufv4 = strdup(buf);
-                } else if (family == AF_INET6) {
-                    bufv6 = strdup(buf);
-                }
-
-                /* empty the main conversion buffer */
-                if (buf) {
-                    free(buf);
-                    buf = NULL;
-                }
-            }
-        }
-    } while ((obj = nl_cache_get_next(obj)) != NULL);
-
-ip2str_error:
-    nl_close(handle);
-    nl_handle_destroy(handle);
-
-    /* return IPv4 address if we have both families
-     * return IPv6 address if we only have IPv6 family
-     * return NULL otherwise
-     */
-    if ((bufv4 && bufv6) || (bufv4 && !bufv6)) {
-        return bufv4;
-    } else if (!bufv4 && bufv6) {
-        return bufv6;
-    } else {
+    if (ifname == NULL) {
         return NULL;
     }
+
+    /* DCFIXME: add IPv6 once NM gains support */
+    if (family != AF_INET) {
+        return NULL;
+    }
+
+    dbus_error_init(&error);
+    connection = dbus_bus_get(DBUS_BUS_SYSTEM, &error);
+    if (connection == NULL) {
+        dbus_error_free(&error);
+        return NULL;
+    }
+
+    message = dbus_message_new_method_call(NM_DBUS_SERVICE,
+                                           NM_DBUS_PATH,
+                                           NM_DBUS_SERVICE,
+                                           "GetDevices");
+    if (!message) {
+        return NULL;
+    }
+
+    reply = dbus_connection_send_with_reply_and_block(connection,
+                                                      message,
+                                                      -1, &error);
+    dbus_message_unref(message);
+    if (!reply) {
+        return NULL;
+    }
+
+    dbus_message_iter_init(reply, &iter);
+    dbus_message_iter_recurse(&iter, &a_iter);
+
+    while (dbus_message_iter_get_arg_type(&a_iter) != DBUS_TYPE_INVALID) {
+        dbus_message_iter_get_basic(&a_iter, &device_path);
+
+        message = dbus_message_new_method_call(NM_DBUS_SERVICE,
+                                               device_path,
+                                               DBUS_INTERFACE_PROPERTIES,
+                                               "Get");
+        if (!message) {
+            return NULL;
+        }
+
+        property = "Interface";
+        if (!dbus_message_append_args(message,
+                                      DBUS_TYPE_STRING, &nm_iface,
+                                      DBUS_TYPE_STRING, &property,
+                                      DBUS_TYPE_INVALID)) {
+            dbus_message_unref(message);
+            return NULL;
+        }
+
+        devreply = dbus_connection_send_with_reply_and_block(connection,
+                                                             message,
+                                                             -1, &error);
+        dbus_message_unref(message);
+        if (!devreply) {
+            continue;
+        }
+
+        dbus_message_iter_init(devreply, &d_iter);
+        while (dbus_message_iter_get_arg_type(&d_iter) != DBUS_TYPE_INVALID) {
+            dbus_message_iter_recurse(&d_iter, &v_iter);
+            dbus_message_iter_get_basic(&v_iter, &interface);
+
+            if (!strcmp(ifname, interface)) {
+                message = dbus_message_new_method_call(NM_DBUS_SERVICE,
+                              device_path, DBUS_INTERFACE_PROPERTIES, "Get");
+                if (!message) {
+                    return NULL;
+                }
+
+                if (family == AF_INET) {
+                    property = "Ip4Address";
+                }
+
+                if (!dbus_message_append_args(message,
+                                              DBUS_TYPE_STRING, &nm_iface,
+                                              DBUS_TYPE_STRING, &property,
+                                              DBUS_TYPE_INVALID)) {
+                    dbus_message_unref(message);
+                    return NULL;
+                }
+
+                devreply = dbus_connection_send_with_reply_and_block(connection,
+                               message, -1, &error);
+                dbus_message_unref(message);
+                if (!devreply) {
+                    return NULL;
+                }
+
+                dbus_message_iter_init(devreply, &d_iter);
+                dbus_message_iter_recurse(&d_iter, &v_iter);
+                if (dbus_message_iter_get_arg_type(&v_iter)==DBUS_TYPE_UINT32) {
+                    memset(&addr, 0, sizeof(addr));
+                    dbus_message_iter_get_basic(&v_iter, &addr.s_addr);
+
+                    if ((ipaddr = malloc(INET_ADDRSTRLEN+1)) == NULL) {
+                        abort();
+                    }
+
+                    if (inet_ntop(family, &addr, ipaddr,
+                                  INET_ADDRSTRLEN) == NULL) {
+                        abort();
+                    }
+
+                    dbus_connection_unref(connection);
+                    return ipaddr;
+                }
+            }
+
+
+            dbus_message_iter_next(&d_iter);
+        }
+
+        dbus_message_iter_next(&a_iter);
+    }
+
+    dbus_connection_unref(connection);
+    return NULL;
 }
 
 /*
