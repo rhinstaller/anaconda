@@ -102,7 +102,7 @@ install:
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
 tag:
-	@git tag -a -m "Tag as anaconda-$(VERSION)-$(RELEASE)" anaconda-$(VERSION)-$(RELEASE)
+	@git tag -s -a -m "Tag as anaconda-$(VERSION)-$(RELEASE)" anaconda-$(VERSION)-$(RELEASE)
 	@echo "Tagged as anaconda-$(VERSION)-$(RELEASE)"
 
 ChangeLog:
