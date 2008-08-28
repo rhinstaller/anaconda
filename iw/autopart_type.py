@@ -398,7 +398,6 @@ class PartitionTypeWindow(InstallWindow):
         self.combo.set_attributes(cell, text = 0)
         cell.set_property("wrap-width", 455)
         self.combo.set_size_request(480, -1)
-	* iw/autopart_type.py (PartitionTypeWindow.getScreen): fix text wrap:iw/autopart_type.py
 
         store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_INT)
         self.combo.set_model(store)
