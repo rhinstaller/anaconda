@@ -753,7 +753,7 @@ class AnacondaYum(YumSorter):
 
         if len(mkeys) > 1:
             stage2img = "%s/images/install.img" % self.tree
-            if self.anaconda.backend.mountInstallImage(self.anaconda, stage2img)
+            if self.anaconda.backend.mountInstallImage(self.anaconda, stage2img):
                 self.anaconda.id.fsset.unmountFilesystems(self.anaconda.rootPath)
                 return DISPATCH_BACK
 

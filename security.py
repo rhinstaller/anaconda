@@ -19,7 +19,6 @@
 # Author(s): Jeremy Katz <katzj@redhat.com>
 #
 
-import os, string
 import iutil
 from flags import flags
 from pykickstart.constants import *

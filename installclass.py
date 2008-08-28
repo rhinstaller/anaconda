@@ -106,7 +106,6 @@ class BaseInstallClass(object):
 		 "partitiondone",
 		 "bootloadersetup",                 
 		 "bootloader",
-                 "networkdevicecheck",
 		 "network",
 		 "timezone",
 		 "accounts",
