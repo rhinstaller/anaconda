@@ -83,20 +83,20 @@ def _anyUsing(method):
         methods = (method)
 
     bus = dbus.SystemBus()
-    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-    nm_props_iface = dbus.Interface(nm, DBUS_PROPS_IFACE)
+    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+    nm_props_iface = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
 
-    active_connections = nm_props_iface.Get(NM_MANAGER_IFACE, "ActiveConnections")
+    active_connections = nm_props_iface.Get(isys.NM_MANAGER_IFACE, "ActiveConnections")
 
     for path in active_connections:
-        active = bus.get_object(NM_SERVICE, path)
-        active_props_iface = dbus.Interface(active, DBUS_PROPS_IFACE)
+        active = bus.get_object(isys.NM_SERVICE, path)
+        active_props_iface = dbus.Interface(active, isys.DBUS_PROPS_IFACE)
 
-        active_service_name = active_props_iface.Get(NM_ACTIVE_CONNECTION_IFACE, "ServiceName")
-        active_path = active_props_iface.Get(NM_ACTIVE_CONNECTION_IFACE, "Connection")
+        active_service_name = active_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, "ServiceName")
+        active_path = active_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, "Connection")
 
         connection = bus.get_object(active_service_name, active_path)
-        connection_iface = dbus.Interface(connection, NM_CONNECTION_IFACE)
+        connection_iface = dbus.Interface(connection, isys.NM_CONNECTION_IFACE)
         settings = connection_iface.GetSettings()
 
         # XXX: add support for Ip6Config when it appears
@@ -289,19 +289,19 @@ class Network:
                     self.domains.append(ifcfg_contents[key])
                 elif key == 'HOSTNAME':
                     self.hostname = ifcfg_contents[key]
-                elif not self.netdevices[dev].has_key(key):
+                elif self.netdevices[dev].get(key) == '':
                     self.netdevices[dev].set((key, ifcfg_contents[key]))
 
             self.netdevices[dev].set(('useIPv4', flags.useIPv4))
             self.netdevices[dev].set(('useIPv6', flags.useIPv6))
 
             # XXX: fix this block
-            if not self.netdevices[dev].has_key('BOOTPROTO'):
-                if not self.netdevices[dev].has_key('IPADDR'):
+            if self.netdevices[dev].get('BOOTPROTO') == '':
+                if self.netdevices[dev].get('IPADDR') == '':
                     self.netdevices[dev].set(('useIPv4', False))
-                if not (self.netdevices[dev].has_key('IPV6ADDR') and \
-                        self.netdevices[dev].has_key('IPV6_AUTOCONF') and \
-                        self.netdevices[dev].has_key('DHCPV6C')):
+                if (self.netdevices[dev].get('IPV6ADDR') == '' and \
+                    self.netdevices[dev].get('IPV6_AUTOCONF') == '' and \
+                    self.netdevices[dev].get('DHCPV6C') == ''):
                     self.netdevices[dev].set(('useIPv6', False))
 
         # XXX: this code needs to be improved too
@@ -346,6 +346,7 @@ class Network:
 	return self.firstnetdevice
 
     def available(self):
+        # XXX: this should use NetworkManager
         for device in minihal.get_devices_by_type("net"):
             if device.has_key('net.arp_proto_hw_id'):
                 if device['net.arp_proto_hw_id'] == 1:
@@ -361,7 +362,7 @@ class Network:
         if flags.cmdline.has_key("ksdevice"):
             ksdevice = flags.cmdline["ksdevice"]
 
-        if ksdevice and self.netdevices.has_key(ksdevice):
+        if ksdevice and self.netdevices.get(ksdevice) != '':
             self.firstnetdevice = ksdevice
 
         return self.netdevices
