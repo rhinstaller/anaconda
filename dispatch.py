@@ -41,7 +41,6 @@ from flags import flags
 from upgrade import upgradeMountFilesystems, queryUpgradeArch
 from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
 from upgrade import findRootParts, queryUpgradeContinue
-from network import networkDeviceCheck
 from installmethod import doMethodComplete
 from kickstart import runPostScripts
 
@@ -74,7 +73,6 @@ installSteps = [
     ("regkey", regKeyScreen, ),
     ("findrootparts", findRootParts, ),
     ("findinstall", ),
-    ("networkdevicecheck", networkDeviceCheck, ),
     ("network", ),
     ("timezone", ),
     ("accounts", ),
