@@ -1,11 +1,11 @@
 Name: anaconda
 Version: 11.1.2.120
-Release: 1
+Release: 2
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
-BuildPreReq: kudzu-devel >= 1.2.57.1.18, pciutils-devel, uuid-devel
+BuildPreReq: kudzu-devel >= 1.2.57.1.18, pciutils-devel
 BuildPreReq: bzip2-devel, e2fsprogs-devel, python-devel, gtk2-devel
 BuildPreReq: rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11
 BuildPreReq: rhpl, booty, libxml2-python, zlib-devel, elfutils-devel
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Aug 28 2008 Chris Lumens <clumens@redhat.com> 11.1.2.120-2
+- libuuid is provided by e2fsprogs-devel.
+  Related: rhbz#316481.
+
 * Thu Aug 28 2008 Chris Lumens <clumens@redhat.com> 11.1.2.120-1
 - Include the nss libraries that the new RPM is linked against.
   Resolves: rhbz#460375.
