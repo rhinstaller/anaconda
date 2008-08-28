@@ -34,6 +34,8 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define e2fsver 1.41.0
 %define nmver 0.7.0
 %define dbusver 1.2.3
+%define createrepover 0.4.7
+%define yumutilsver 1.1.11-3
 
 BuildRequires: audit-libs-devel
 BuildRequires: booty
@@ -118,7 +120,9 @@ Requires: zenity
 Requires(post): desktop-file-utils >= %{desktopfileutilsver}
 Requires(postun): desktop-file-utils >= %{desktopfileutilsver}
 %endif
-Requires: createrepo >= 0.4.7, squashfs-tools, mkisofs
+Requires: createrepo >= %{createrepover}
+Requires: squashfs-tools
+Requires: mkisofs
 %ifarch %{ix86} x86_64
 Requires: syslinux
 Requires: makebootfat
@@ -129,7 +133,7 @@ Requires: openssh
 %endif
 Requires: busybox-anaconda
 Requires: isomd5sum
-Requires: yum-utils >= 1.1.11-3
+Requires: yum-utils >= %{yumutilsver}
 Requires: NetworkManager >= %{nmver}
 Requires: dhclient
 Requires: dhcpv6-client
