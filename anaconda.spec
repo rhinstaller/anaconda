@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.119
+Version: 11.1.2.120
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -102,6 +102,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Aug 28 2008 Chris Lumens <clumens@redhat.com> 11.1.2.120-1
+- Include the nss libraries that the new RPM is linked against.
+  Resolves: rhbz#460375.
+- Add automatic driver disk detection (msivak).
+  Resolves: rhbz#316481.
+
 * Wed Aug 6 2008 Joel Granados <jgranado@redhat.com> 11.1.2.119-1
 - Support VDSK devices on s390x (dcantrell).
   Resolves: rhbz#264061
