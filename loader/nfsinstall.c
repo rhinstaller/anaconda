@@ -428,7 +428,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
 */
 
     /* get the IP of the target system */
-    if ((ip = iface_ip2str(loaderData->netDev)) == NULL) {
+    if ((ip = iface_ip2str(loaderData->netDev, AF_INET)) == NULL) {
         logMessage(ERROR, "nl_ip2str returned NULL");
         return 1;
     }
