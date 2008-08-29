@@ -252,7 +252,7 @@ class AnacondaYumRepo(YumRepository):
         else:
             self.baseurl = []
 
-        if mirrorlist:
+        if self.mirrorlist and self.mirrorlist != "":
             self.mirrorlist = mirrorlist
 
     def needsNetwork(self):
@@ -621,7 +621,7 @@ class AnacondaYum(YumSorter):
                 repo.enable()
                 extraRepos.append(repo)
 
-        for repos in extraRepos:
+        for repo in extraRepos:
             try:
                 self.repos.add(repo)
                 log.info("added repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
