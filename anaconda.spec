@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.29
+Version: 11.4.1.30
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -220,6 +220,79 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 29 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.30-1
+- Fix a traceback with unencrypted autopart. (dlehman)
+- doLoggingSetup has grown some new arguments (#460654). (clumens)
+- Updated German translation (fabian)
+- Remove references to isConfigured in network.py (dcantrell)
+- Define the NM_STATE_* constants in isys.py (dcantrell)
+- Rewrite NetworkWindow to only prompt for hostname. (dcantrell)
+- Pad the icon more in network.glade (dcantrell)
+- Removed iface_dns_lookup() (dcantrell)
+- Don't pass NULL to dbus_message_unref() (dcantrell)
+- New network configuration screen for GTK+ UI. (dcantrell)
+- Pass family to iface_ip2str() call (dcantrell)
+- Rewrite iface_ip2str() to talk to NetworkManager over D-Bus (dcantrell)
+- New translation (besnik)
+- Pull in the gtkrc file so we can find the theme. (clumens)
+- Use signed git tags (katzj)
+- Skip networkDeviceCheck in dispatch.py (dcantrell)
+- Do not call has_key() on NetworkDevice, use isys.NM_* (dcantrell)
+- Separate lines per BR. (dcantrell)
+- Remove invalid line iw/autopart_type.py (dcantrell)
+- Fix syntax error in yuminstall.py, fix pychecker warnings. (dcantrell)
+- Updated Hungarian translation (sulyokpeti)
+- Add missing () to function definitions. (dcantrell)
+- Fix err handling in doMultiMount() (dcantrell)
+- Revert "Pass --follow to git-log" (dcantrell)
+- Remove references to /tmp/netinfo (dcantrell)
+- Gather network settings from NetworkManager and ifcfg files. (dcantrell)
+- Update the pot file and refresh the pos (katzj)
+- For all HTTP/FTP repos, keep the cached repodata (#173441). (clumens)
+- Fix a traceback when trying to set the status whiteboard on a bug.
+  (clumens)
+- When the wrong filesystem type is used, raise a more explicit error.
+  (clumens)
+- Don't copy the install.img over in single media cases (#216167). (clumens)
+- Remove isys.getopt() (dcantrell)
+- Remove code not used in net.c (dcantrell)
+- Write to /etc/sysconfig/network-scripts/ifcfg-INTERFACE (dcantrell)
+- mystrstr() -> strstr() (dcantrell)
+- Expand getDeviceProperties to return all devices. (dcantrell)
+- Pass --follow to git-log (dcantrell)
+- Support accessing preexisting LUKS devs using LRW or XTS ciphers.
+  (#455063) (dlehman)
+- Use yum's handling of optional/default/mandatory package selection
+  (#448172). (clumens)
+- List iSCSI multipath devices in the installer UI. (dcantrell)
+- Fix text wrap width on the partition type combo, for real this time
+  (#221791) (dlehman)
+- For /dev/hvc0 terminals, set TERM to vt320 (#219556). (dcantrell)
+- The Timer class is no longer used. (clumens)
+- Handle preexisting swraid w/ encrypted member disks/partitions. (dlehman)
+- Don't try to close a dm-crypt mapping that is not open. (dlehman)
+- Remove unused silo code that wouldn't even build if it were used. (clumens)
+- Remove some really old, really unused code. (clumens)
+- Add another mount function that takes a list of fstypes to try. (clumens)
+- Download progress indicator for FTP and HTTP in stage 1. (dcantrell)
+- Make sure we wait for NetworkManager. (dcantrell)
+- Renamed loader2 subdirectory to loader (hooray for git) (dcantrell)
+- Do not include wireless.h or call is_wireless_device() (dcantrell)
+- Add getDeviceProperties() and rewrite getMacAddress() (dcantrell)
+- Do not include wireless.h (dcantrell)
+- Rewrite isys.isWireless() to use D-Bus and NetworkManager (dcantrell)
+- Rewrite isys.getIPAddress() to use D-Bus and NetworkManager. (dcantrell)
+- Include ../isys/ethtool.h instead of ../isys/net.h. (dcantrell)
+- Rename isys/net.h to isys/ethtool.h, removed unnecessary typedefs.
+  (dcantrell)
+- Removed waitForLink() function in loader. (dcantrell)
+- Remove initLoopback() function in loader (dcantrell)
+- Use D-Bus properties to get current NM state. (dcantrell)
+- Use dbus in hasActiveNetDev() and _anyUsing() (dcantrell)
+- Use NetworkManager instead of libdhcp. (#458183) (dcantrell)
+- When mount fails, pass the error message up to the UI layer. (clumens)
+- Bring askmethod back to prompt for the location of install.img. (clumens)
+
 * Fri Aug 22 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.29-1
 - Enable yum plugins. (clumens)
 - In the preupgrade case, repo=hd: means an exploded tree on the hard drive.
