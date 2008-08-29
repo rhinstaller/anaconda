@@ -1808,7 +1808,6 @@ int get_connection(iface_t *iface) {
             }
 
             dbus_message_unref(message);
-            dbus_message_unref(reply);
             return 6;
         }
 
