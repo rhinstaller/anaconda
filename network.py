@@ -201,9 +201,6 @@ class Network:
         self.domains = []
         self.hostname = socket.gethostname()
 
-        if flags.rootpath:
-            self.isConfigured = 1
-
         # populate self.netdevices
         devhash = isys.getDeviceProperties(dev=None)
         for dev in devhash.keys():
@@ -387,7 +384,7 @@ class Network:
 	if not self.primaryNS:
             return
         myns = self.primaryNS
-	if not self.isConfigured:
+	if not hasActiveNetDev():
 	    for dev in self.netdevices.values():
                 if (dev.get('bootproto').lower() == "dhcp" and
                     dev.get('onboot') == "yes"):
@@ -395,26 +392,24 @@ class Network:
                     if ret is None:
                         continue
                     myns = ret
-                    self.isConfigured = 1
                     break
                 elif (dev.get('ipaddr') and dev.get('netmask') and
                       self.gateway is not None and dev.get('onboot') == "yes"):
                     try:
                         isys.configNetDevice(dev, self.gateway)
-                        self.isConfigured = 1
                         break
                     except SystemError:
                         log.error("failed to configure network device %s when "
                                   "looking up host name", dev.get('device'))
 
-            if self.isConfigured and not flags.rootpath:
+            if hasActiveNetDev() and not flags.rootpath:
                 f = open("/etc/resolv.conf", "w")
                 f.write("nameserver %s\n" % myns)
                 f.close()
                 isys.resetResolv()
                 isys.setResolvRetry(1)
 
-	if not self.isConfigured:
+	if not hasActiveNetDev():
             log.warning("no network devices were available to look up host name")
             return None
 
