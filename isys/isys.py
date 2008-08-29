@@ -52,6 +52,12 @@ NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
 NM_CONNECTION_IFACE = "org.freedesktop.NetworkManagerSettings.Connection"
 NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
 
+NM_STATE_UNKNOWN = 0
+NM_STATE_ASLEEP = 1
+NM_STATE_CONNECTING = 2
+NM_STATE_CONNECTED = 3
+NM_STATE_DISCONNECTED = 4
+
 mountCount = {}
 raidCount = {}
 
