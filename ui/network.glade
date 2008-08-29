@@ -62,7 +62,7 @@
 		      <property name="visible">True</property>
 		      <property name="xalign">0.5</property>
 		      <property name="yalign">0.5</property>
-		      <property name="xpad">0</property>
+		      <property name="xpad">10</property>
 		      <property name="ypad">0</property>
 		    </widget>
 		    <packing>
@@ -168,7 +168,7 @@
 		      <property name="text" translatable="yes"></property>
 		      <property name="has_frame">True</property>
 		      <property name="invisible_char">•</property>
-		      <property name="activates_default">False</property>
+		      <property name="activates_default">True</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">1</property>
