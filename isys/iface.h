@@ -135,12 +135,6 @@ struct in_addr *iface_prefix2netmask(int);
 int iface_netmask2prefix(struct in_addr *);
 
 /*
- * Look up the hostname and domain for our assigned IP address.  Tries IPv4
- * first, then IPv6.  Returns 0 on success, non-negative on failure.
- */
-int iface_dns_lookup(iface_t *);
-
-/*
  * Initialize a new iface_t structure to default values.
  */
 void iface_init_iface_t(iface_t *);

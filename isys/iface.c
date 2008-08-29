@@ -386,62 +386,6 @@ int iface_netmask2prefix(struct in_addr *netmask) {
 }
 
 /*
- * Look up the hostname and domain for our assigned IP address.  Tries IPv4
- * first, then IPv6.  Returns 0 on success, non-negative on failure.
- */
-int iface_dns_lookup(iface_t *iface) {
-    char *ch = NULL;
-    struct sockaddr_in sa;
-    struct sockaddr_in6 sa6;
-
-    if ((iface->hostname != NULL) && (iface->domain != NULL)) {
-        return 0;
-    }
-
-    /* make sure our hostname buffer is large enough */
-    if ((iface->hostname = calloc('\0', NI_MAXHOST+1)) == NULL) {
-        return 1;
-    }
-
-    /* try an IPv4 lookup first */
-    if (iface_have_in_addr(&iface->ipaddr)) {
-        memset(&sa, 0, sizeof(sa));
-        sa.sin_family = AF_INET;
-        sa.sin_addr.s_addr = iface->ipaddr.s_addr;
-
-        if (getnameinfo((struct sockaddr *) &sa, sizeof(sa), iface->hostname,
-                        NI_MAXHOST, NULL, 0, NI_NAMEREQD)) {
-            free(iface->hostname);
-            iface->hostname = NULL;
-        }
-    }
-
-    /* try IPv6 lookup if IPv4 failed */
-    if ((iface->hostname == NULL) && iface_have_in6_addr(&iface->ip6addr)) {
-        memset(&sa6, 0, sizeof(sa6));
-        sa6.sin6_family = AF_INET6;
-        memcpy(&sa6.sin6_addr, &iface->ip6addr, sizeof(iface->ip6addr));
-
-        if (getnameinfo((struct sockaddr *) &sa6, sizeof(sa6), iface->hostname,
-                        NI_MAXHOST, NULL, 0, NI_NAMEREQD)) {
-            free(iface->hostname);
-            iface->hostname = NULL;
-        }
-    }
-
-    /* fill in the domain */
-    if ((iface->domain == NULL) && (iface->hostname != NULL)) {
-        for (ch = iface->hostname; *ch && (*ch != '.'); ch++);
-
-        if (*ch == '.') {
-            iface->domain = strdup(ch + 1);
-        }
-    }
-
-    return 0;
-}
-
-/*
  * Initialize a new iface_t structure to default values.
  */
 void iface_init_iface_t(iface_t *iface) {
