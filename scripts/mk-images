@@ -554,7 +554,6 @@ makeinitrd() {
     mkdir -p $MBD_DIR/etc/rc.d/init.d
     mkdir -p $MBD_DIR/usr/sbin
     mkdir -p $MBD_DIR/var/run/wpa_supplicant
-    mkdir -p $MBD_DIR/usr/lib/gconv
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
 	mkdir -m 111 -p $MBD_DIR/var/empty/sshd
@@ -695,9 +694,6 @@ makeinitrd() {
       cp -a org.freedesktop.NetworkManagerSystemSettings.service $MBD_DIR/usr/share/dbus-1/system-services
       cp -a org.freedesktop.nm_dispatcher.service $MBD_DIR/usr/share/dbus-1/system-services
     )
-
-    # gconv
-    cp -a $IMGPATH/usr/lib/gconv/* $MBD_DIR/usr/lib/gconv
 
     # Indirect dependencies
     install -m 755 $IMGPATH/$LIBDIR/libnss_dns.so.2 $MBD_DIR/$LIBDIR/
