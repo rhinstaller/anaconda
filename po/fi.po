@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-08-31 00:07+0300\n"
+"PO-Revision-Date: 2008-08-31 00:48+0300\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
@@ -666,6 +666,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Vikaraporttia ei voitu tehdä, koska bugzillan kanssa kommunikoidessa "
+"tapahtui seuraava virhe:\n"
+"\n"
+"%s"
 
 #: ../exception.py:367
 #, python-format
@@ -675,6 +679,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Vikaraporttia ei voitu tehdä, koska raportin kentissä on virheellistä tietoa. "
+"Tämä on todennäköisesti virhe anacondassa:\n"
+"\n"
+"%s"
 
 # ../partitioning.py:1631 ../partitioning.py:1637 ../partitioning.py:1645
 # ../partitioning.py:1656 ../partitioning.py:1663
@@ -691,6 +699,8 @@ msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
 msgstr ""
+"Tämä jakelu ei tarjoa tuettua vikailmoitusjärjestelmään, joten poikkeusta "
+"ei voi tallentaa näin."
 
 # ../loader/net.c:277
 #: ../exception.py:384
@@ -700,6 +710,7 @@ msgstr "Virheelliset vikailmoitustiedot"
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
 msgstr ""
+"Anna voimassa oleva käyttäjätunnus, salasana ja lyhyt kuvaus ohjelmaviasta."
 
 # ../partitioning.py:1695 ../partitioning.py:1717
 #: ../exception.py:395
@@ -711,10 +722,12 @@ msgstr "Kirjautuminen ei onnistunut"
 msgid ""
 "There was an error logging into %s using the provided username and password."
 msgstr ""
+"Järjestelmään %s kirjauduttaessa käyttäen annettua käyttäjätunnusta "
+"ja salasanaa tapahtui virhe."
 
 #: ../exception.py:433
 msgid "Bug Created"
-msgstr ""
+msgstr "Vikailmoitus on luotu"
 
 #: ../exception.py:434
 #, python-format
@@ -725,6 +738,11 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Uusi vikailmoitus on luotu ja siihen on liitetty virheenjäljitystiedot. "
+"Voit lisätä tietoja kuten mitä olit tekemässä, kun vika ilmaantui, "
+"kuvakaappauksia ja muuta tarvittavaa seuraavaan vikailmoitukseen:\n"
+"\n"
+"%s/%s"
 
 # ../loader/loader.c:2321
 #: ../exception.py:450
@@ -740,6 +758,11 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Näiden tietojen perusteella on jo tehty vikailmoitus. Tilsi on lisätty "
+"CC-listalle ja virheenjäljitystiedot on lisätty kommenttina. Voit lisätä "
+"tietoja seuraavaan vikailmoitukseen:\n"
+"\n"
+"%s/%s"
 
 # ../exception.py:214
 #: ../exception.py:475 ../exception.py:490 ../exception.py:515
@@ -1295,7 +1318,7 @@ msgstr ""
 #: ../gui.py:780
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "Bugzilla (%s)"
 
 # ../text.py:266 ../text.py:267
 #: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
@@ -2256,6 +2279,9 @@ msgid ""
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption%s will be disabled."
 msgstr ""
+"Lohkolaitesalaus on asetettu otettavaksi käyttöön %s, mutta salalausetta ei "
+"ole annettu. Jos et palaa takaisin ja anna salalausetta, lohkolaitesalaus %s "
+"poistetaan käytöstä."
 
 # ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
 # ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:608
@@ -2586,6 +2612,8 @@ msgstr ""
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr ""
+"Ohjelmaa /bin/sh ei löydy suoritettavaksi! Komentotulkkia ei "
+"käynnistetä"
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -3235,10 +3263,11 @@ msgstr "Asemassa ei ole oikeata %s -levyä."
 msgid "Unable to access the disc."
 msgstr "Levyn käyttäminen ei onnistu."
 
+# FIXME: What's the r?
 #: ../yuminstall.py:533
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr ""
+msgstr "Asennuslähteen %r asetuksista puuttuu nimi, käytetään tunnistetta"
 
 # ../iw/partition_gui.py:1528
 #: ../yuminstall.py:651 ../yuminstall.py:653
@@ -6768,7 +6797,7 @@ msgstr "Etsitään"
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "Etsitään asennuskuvia CD-laitteelta %s"
 
 # ../loader/loader.c:968
 #: ../loader/cdinstall.c:428
@@ -7489,21 +7518,24 @@ msgstr "Koneessa on useita verkkolaitteita. Minkä kautta haluat asentaa?"
 
 #: ../loader/net.c:1542
 msgid "Identify"
-msgstr ""
+msgstr "Tunnistaminen"
 
+# Bad bad developers, one message broken into two ;)
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "Fyysisen portin laitteelle "
 
 #: ../loader/net.c:1553
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
+"voi tunnistaa vilkuttamalla LED-valoja muutaman sekunnin ajan. Syötä numero "
+"väliltä 1-30 portin LED-valojen vilkuttamisajan asettamiseksi."
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
-msgstr ""
+msgstr "Verkkoliitännän tunnistaminen"
 
 # ../loader/net.c:277
 #: ../loader/net.c:1576
@@ -7512,12 +7544,12 @@ msgstr "Virheellinen kesto"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "Sekuntien määrä on annettava kokonaislukuna väliltä 1-30."
 
 #: ../loader/net.c:1589
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "Vilkutetaan portin %s valoja %d sekunnin ajan..."
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
 #, c-format
@@ -7703,6 +7735,10 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"Kiintolevy"
 
 #: tmp/addrepo.glade.h:9
 msgid ""
@@ -7755,7 +7791,7 @@ msgstr "_Osio"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "_Polku"
 
 # ../loader/net.c:266 ../loader/net.c:804
 #: tmp/addrepo.glade.h:20
@@ -7870,21 +7906,23 @@ msgstr "_Yksityiskohdat"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "Vian _kuvaus"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "_Kohdetiedosto"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"Paikallinen levy\n"
+"Etäpalvelin (scp)"
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "Valitse minne virheenjäljitystiedot tallennetaan."
 
 # ../iw/fdisk_gui.py:93
 #: tmp/exnSave.glade.h:7
@@ -7893,7 +7931,7 @@ msgstr "Valitse tiedosto"
 
 #: tmp/exnSave.glade.h:8
 msgid "_Host (host:port)"
-msgstr ""
+msgstr "_Kone (kone:portti)"
 
 # ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 # ../loader/urls.c:357 ../textw/userauth_text.py:37
@@ -8216,7 +8254,7 @@ msgstr "gudžarati"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "heprea"
 
 # ../upgrade.py:262
 #. generated from lang-table
