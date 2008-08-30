@@ -10,16 +10,13 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-04-06 13:05+0300\n"
+"PO-Revision-Date: 2008-08-31 00:07+0300\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: Finnish\n"
-"X-Poedit-Country: FINLAND\n"
 
 # ../loader/kickstart.c:59
 #: ../anaconda:288 ../anaconda:334
@@ -134,15 +131,16 @@ msgstr "Käynnistetään graafinen asennus..."
 
 # ../loader/loader.c:322
 #: ../anaconda:821
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "Mitä haluat tehdä?"
+msgstr "Haluatko käyttää VNC:tä?"
 
 #: ../anaconda:822
 msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
 msgstr ""
+"Asennuksen VNC-tilassa on enemmän toimintoja kuin tekstitilassa, haluatko "
+"käyttää VNC-tilaa?"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -681,14 +679,12 @@ msgstr ""
 # ../partitioning.py:1631 ../partitioning.py:1637 ../partitioning.py:1645
 # ../partitioning.py:1656 ../partitioning.py:1663
 #: ../exception.py:371
-#, fuzzy
 msgid "Unable To File Bug"
-msgstr "Poistaminen ei onnistunut"
+msgstr "Vikaraportin lähettäminen ei onnistunut"
 
 #: ../exception.py:377
-#, fuzzy
 msgid "Bug Filing Not Supported"
-msgstr "Ei tuettu"
+msgstr "Vikaraportin lähettämistä ei tueta"
 
 #: ../exception.py:378
 msgid ""
@@ -698,9 +694,8 @@ msgstr ""
 
 # ../loader/net.c:277
 #: ../exception.py:384
-#, fuzzy
 msgid "Invalid Bug Information"
-msgstr "Virheelliset IP-tiedot"
+msgstr "Virheelliset vikailmoitustiedot"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
@@ -708,9 +703,8 @@ msgstr ""
 
 # ../partitioning.py:1695 ../partitioning.py:1717
 #: ../exception.py:395
-#, fuzzy
 msgid "Unable To Login"
-msgstr "Muokkaus ei onnistunut"
+msgstr "Kirjautuminen ei onnistunut"
 
 #: ../exception.py:396
 #, python-format
@@ -734,9 +728,8 @@ msgstr ""
 
 # ../loader/loader.c:2321
 #: ../exception.py:450
-#, fuzzy
 msgid "Bug Updated"
-msgstr "Päivitykset"
+msgstr "Vikailmoitus on päivitetty"
 
 #: ../exception.py:451
 #, python-format
@@ -772,15 +765,16 @@ msgstr "Järjestelmän tilaa levylle kirjoitettaessa tapahtui virhe."
 
 # ../loader/net.c:814
 #: ../exception.py:506 ../exception.py:529
-#, fuzzy
 msgid "No Network Available"
-msgstr "Verkkolaitteet"
+msgstr "Verkko ei ole käytettävissä"
 
 #: ../exception.py:507 ../exception.py:530
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
 msgstr ""
+"Vikailmoitusta ei voida tallentaa, koska järjestelmässä ei ole aktiivista "
+"verkkolaitetta."
 
 # ../exception.py:215
 #: ../exception.py:516
@@ -1087,7 +1081,7 @@ msgstr ""
 
 # ../fsset.py:952
 #: ../fsset.py:1986
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -1098,20 +1092,20 @@ msgid ""
 msgstr ""
 "Virhe liitettäessä laitetta %s kohtaan %s: %s\n"
 "\n"
-"Laitteet tiedostossa /etc/fstab pitäisi määrittää nimiöllä (label), ei "
-"laitenimellä.\n"
+"Laitteet tiedostossa /etc/fstab pitäisi määrittää nimiöllä (label) tai "
+"UUID:llä, ei laitenimellä.\n"
 "\n"
 "Poistu asennusohjelmasta painamalla OK."
 
 # ../autopart.py:857
 #: ../fsset.py:1993
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"RAID-laitteen %s paikallistaminen kohdetta %s varten epäonnistui.\n"
+"Virhe liitettäessä laitetta %s kohtaan %s: %s\n"
 "\n"
 "Poistu asennusohjelmasta painamalla OK."
 
@@ -1266,12 +1260,12 @@ msgid "Installation Key"
 msgstr "Asennusavain"
 
 #: ../gui.py:660 ../text.py:323
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose a passphrase for this encrypted device%s. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
-"Valitse salalause tälle salatulle osiolle. Salalause kysytään käynnistyksen "
+"Valitse salalause salatulle laitteelle %s. Salalause kysytään käynnistyksen "
 "aikana."
 
 # ../textw/userauth_text.py:22
@@ -1461,7 +1455,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Puuttuva ISO 9660 -levykuva"
 
 #: ../image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1603,7 +1597,6 @@ msgid "Copying live image to hard drive."
 msgstr "Kopioidaan live-levykuvaa kiintolevylle."
 
 #: ../livecd.py:197
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -1611,13 +1604,11 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"Tiedostoa %s ei voi avata. Tämä johtuu joko puuttuvasta tiedostosta, "
-"viallisesta paketista tai viallisesta asennusmediasta. Tarkista "
-"asennuslähde.\n"
+"Live-levykuvan asentamisessa kiintolevylle tapahtui virhe. Tämä saattaa "
+"johtua viallisesta asennusmediasta. Tarkista asennusmedia.\n"
 "\n"
 "Jos poistut asennusohjelmasta, järjestelmä jää epävakaaseen tilaan joka "
-"todennäköisesti vaatii uudelleenasennuksen.\n"
-"\n"
+"vaatii uudelleenasennuksen."
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -1642,22 +1633,23 @@ msgstr ""
 
 # ../textw/userauth_text.py:55
 #: ../network.py:64
-#, fuzzy
 msgid "Hostname must be 64 or fewer characters in length."
 msgstr "Konenimi saa olla korkeintaan 64 merkkiä pitkä."
 
 #: ../network.py:70
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
-msgstr "Konenimen ensimmäinen merkki on oltava kirjain väliltä ”a-z” tai ”A-Z”"
+msgstr ""
+"Konenimen ensimmäinen merkki on oltava kirjain väliltä ”a-z”, ”A-Z” "
+"tai ”0-9”"
 
 #: ../network.py:75
-#, fuzzy
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr "Konenimessä saa käyttää vain merkkejä ”a-z”, ”A-Z” tai ”.”"
+msgstr ""
+"Konenimessä saa käyttää vain merkkejä ”a-z”, ”A-Z”, ”0-9”, ”-” tai "
+"”.”"
 
 # ../iw/network_gui.py:194
 #: ../network.py:132
@@ -1696,13 +1688,12 @@ msgstr "Laitteen %s koon muuttamisessa tapahtui virhe."
 
 # ../iw/network_gui.py:183
 #: ../packages.py:146
-#, fuzzy
 msgid "Activating"
-msgstr "Ota käyttöön käynnistyksessä"
+msgstr "Otetaan käyttöön"
 
 #: ../packages.py:146
 msgid "Activating new partitions.  Please wait..."
-msgstr ""
+msgstr "Otetaan käyttöön uusia osioita. Odota..."
 
 # ../upgrade.py:213
 #: ../packages.py:167
@@ -1839,7 +1830,7 @@ msgstr ""
 
 # ../partitioning.py:1407
 #: ../partedUtils.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1850,9 +1841,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Laitteen %s (%s) osiotaulu on lukukelvoton. Jotta uusia osioita voitaisiin "
-"luoda, osiotaulu täytyy alustaa, jolloin tältä levyltä häviävät KAIKKI "
-"TIEDOT.\n"
+"Laitteen %s (%s %-0.f Mt) osiotaulu on lukukelvoton. Jotta uusia osioita "
+"voitaisiin luoda, osiotaulu täytyy alustaa, jolloin tältä levyltä häviävät "
+"KAIKKI TIEDOT.\n"
 "\n"
 "Tämä toiminto ohittaa kaikki aiemmat huomiotta jätettäviä asemia koskevat "
 "valinnat.\n"
@@ -2250,14 +2241,13 @@ msgstr ""
 
 # ../iw/partition_gui.py:724 ../textw/partition_text.py:147
 #: ../partitions.py:130
-#, fuzzy, python-format
+#, python-format
 msgid " for device %s"
-msgstr "RAID-laite %s"
+msgstr " laitteelle %s"
 
 #: ../partitions.py:133
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Salausavain"
+msgstr "Salataanko laite?"
 
 #: ../partitions.py:134
 #, python-format
@@ -2302,13 +2292,12 @@ msgid "Writing partitioning to disk"
 msgstr "Kirjoitetaan osiointi levylle"
 
 #: ../partitions.py:161
-#, fuzzy
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
 msgstr ""
 "Valittu osiointi kirjoitetaan nyt levylle. Kaikki poistetuilla tai uudelleen "
-"alustetuilla osioilla oleva data menetetään"
+"alustetuilla osioilla oleva data menetetään."
 
 # ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
 # ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:608
@@ -2368,10 +2357,9 @@ msgstr ""
 
 # ../partitioning.py:574
 #: ../partitions.py:1177
-#, fuzzy
 msgid "You must create an EFI System Partition of at least 10 megabytes."
 msgstr ""
-"On luotava EFI-järjestelmäosio, jonka tyyppi on FAT ja koko 50 megatavua."
+"On luotava EFI-järjestelmäosio, jonka koko on ainakin 10 megatavua."
 
 #: ../partitions.py:1191
 msgid ""
@@ -2745,18 +2733,17 @@ msgid "Save"
 msgstr "Tallenna"
 
 #: ../text.py:210
-#, fuzzy
 msgid "Save to local disk"
-msgstr "Tallenna levylle"
+msgstr "Tallenna paikalliselle levylle"
 
 #: ../text.py:211
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "Lähetä bugzillaan (%s)"
 
 #: ../text.py:212
 msgid "Send to remote server (scp)"
-msgstr ""
+msgstr "Lähetä etäpalvelimelle (scp)"
 
 # ../textw/userauth_text.py:204
 #: ../text.py:226 ../text.py:239
@@ -2770,33 +2757,30 @@ msgstr "Salasana"
 
 #: ../text.py:230
 msgid "Bug Description"
-msgstr ""
+msgstr "Kuvaus ohjelmavirheestä"
 
 #: ../text.py:243
 msgid "Host (host:port)"
-msgstr ""
+msgstr "Kone (kone:portti)"
 
 # ../upgrade.py:213
 #: ../text.py:245
-#, fuzzy
 msgid "Destination file"
-msgstr "LVM-toiminto epäonnistui"
+msgstr "Kohdetiedosto"
 
 #: ../text.py:329
-#, fuzzy
 msgid "Passphrase for encrypted device"
-msgstr "Syötä salalause salattua osiota varten"
+msgstr "Salalause salattua laitetta varten"
 
 #: ../text.py:347 tmp/lukspassphrase.glade.h:7
-#, fuzzy
 msgid "Use this passphrase for all new encrypted devices"
-msgstr "Syötä salalause salattua osiota varten"
+msgstr "Käytä tätä salalausetta kaikki uusia salattuja laitteita varten"
 
 # ../textw/userauth_text.py:129
 #: ../text.py:378
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "Salalauseen on oltava vähintään kahdeksan merkkiä pitkä."
+msgstr "Salalauseen on oltava vähintään %d merkkiä pitkä."
 
 #: ../text.py:407 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
@@ -3202,18 +3186,16 @@ msgid "%s of %s packages completed"
 msgstr "%s/%s pakettia valmiina"
 
 #: ../yuminstall.py:214
-#, fuzzy
 msgid "Finishing upgrade process..."
-msgstr "Viimeistellään päivitystä"
+msgstr "Viimeistellään päivitystä..."
 
 #: ../yuminstall.py:308 ../iw/task_gui.py:275
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "Muokkaa asennuslähdettä"
+msgstr "Virhe asennuslähteen asettamisessa"
 
 # ../autopart.py:891
 #: ../yuminstall.py:309 ../iw/task_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -3221,11 +3203,11 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"Osiointi tuotti seuraavat virheet:\n"
+"Seuraava virhe tapahtui asetettaessa asennuslähdettä:\n"
 "\n"
 "%s\n"
 "\n"
-"Poistu asennusohjelmasta painamalla OK."
+"Anna oikeat tiedot tuotteen %s asentamiseksi."
 
 # ../image.py:119
 #: ../yuminstall.py:366
@@ -3291,9 +3273,8 @@ msgid "Retrying"
 msgstr "Yritetään uudelleen"
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying download..."
-msgstr "Yritetään paketin lataamista uudelleen..."
+msgstr "Yritetään latausta uudelleen..."
 
 #: ../yuminstall.py:772
 #, python-format
@@ -3577,7 +3558,6 @@ msgstr ""
 "osioiden, joilla on sopivia tiedostojärjestelmiä, kokoa voidaan muuttaa."
 
 #: ../iw/autopart_type.py:180
-#, fuzzy
 msgid ""
 "Do you really want to boot from a disk which is not used for installation?"
 msgstr "Haluatko varmasti käynnistää levyltä jota ei käytetä asennukseen?"
@@ -3717,11 +3697,12 @@ msgid "Congratulations"
 msgstr "Onnittelut"
 
 #: ../iw/congrats_gui.py:71
-#, fuzzy
 msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
-msgstr "Ota yhteys %s-palvelimeen aloittaaksesi asennuksen..."
+msgstr ""
+"Käynnistä järjestelmä uudelleen asennetun järjestelmän käyttämiseksi.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:74
 msgid ""
@@ -5198,20 +5179,18 @@ msgstr "Asennuslähteen HTTP-, HTTPS- tai FTP-osoite on annettava."
 
 # ../partitioning.py:1493
 #: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-#, fuzzy
 msgid "No Media Found"
-msgstr "Asemia ei löytynyt"
+msgstr "Asennusmediaa ei löytynyt"
 
 #: ../iw/task_gui.py:248 ../iw/task_gui.py:361
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
-msgstr ""
+msgstr "Asennusmediaa ei löytynyt. Syötä levy asemaan ja yritä uudelleen."
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
-#, fuzzy
 msgid "Please enter an NFS server and path."
-msgstr "Syötä palvelimen nimi ja polku %s -asennuskuviin."
+msgstr "Syötä NFS-palvelin ja polku."
 
 # ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
 #: ../iw/task_gui.py:299
@@ -5239,15 +5218,16 @@ msgstr ""
 
 #: ../iw/task_gui.py:431
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "Yhtään asennuslähdettä ei ole käytössä"
 
 # ../iw/partition_gui.py:546
 #: ../iw/task_gui.py:432
-#, fuzzy
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr "Nämä virheet pitää korjata ennen %sn asennuksen jatkamista."
+msgstr ""
+"Ainakin yksi asennuslähde on otettava käyttöön, jotta asennusta voidaan "
+"jatkaa."
 
 # ../iw/timezone_gui.py:44 ../textw/timezone_text.py:95
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
@@ -5336,7 +5316,7 @@ msgstr "Muunna tiedostojärjestelmät"
 
 # ../iw/upgrade_migratefs_gui.py:54 ../textw/upgrade_text.py:32
 #: ../iw/upgrade_migratefs_gui.py:64
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -5737,7 +5717,7 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "Millainen näppäimistö tähän tietokoneeseen on liitetty?"
 
 #: ../textw/netconfig_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s"
 msgstr "Kenttään %s pitää syöttää arvo."
 
@@ -5755,9 +5735,8 @@ msgstr ""
 
 # ../loader/net.c:345
 #: ../textw/netconfig_text.py:111
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Säädä IP-asetukset _dynaamisesti (DHCP)"
+msgstr "Säädä IP-asetukset dynaamisesti (DHCP)"
 
 #: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
 #: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
@@ -5771,13 +5750,11 @@ msgstr "Ota käyttöön IPv6-tuki"
 
 # ../loader/net.c:309 ../textw/network_text.py:82
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
 msgstr "IPv4-osoite:"
 
 # ../loader/net.c:309 ../textw/network_text.py:82
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
 msgstr "IPv6-osoite:"
 
@@ -5789,32 +5766,27 @@ msgstr "Yhdyskäytävä:"
 
 # ../loader/net.c:266 ../loader/net.c:804
 #: ../textw/netconfig_text.py:144
-#, fuzzy
 msgid "Nameserver:"
-msgstr "Nimipalvelin"
+msgstr "Nimipalvelin:"
 
 # ../iw/progress_gui.py:28
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "Puuttuva paketti"
+msgstr "Puuttuva laite"
 
 # ../partitioning.py:1696
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "Valitse muokattava osio"
+msgstr "Valitse verkkolaite"
 
 # ../iw/network_gui.py:195 ../loader/net.c:806
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
 msgstr "IPv4-aliverkon peite"
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
-msgstr "Virhe verkkolaitteen asetuksia tehdessä:"
+msgstr "Virhe verkkolaitteen asetuksia tehdessä: "
 
 #: ../textw/network_text.py:60
 #, python-format
@@ -6779,6 +6751,7 @@ msgstr ""
 "\n"
 "Tarkastuksen ohitus ja asennuksen aloitus: %s."
 
+# TODO: Is Scanning always used in a similar context?
 # ../autopart.py:948 ../bootloader.py:280 ../harddrive.py:236
 # ../iw/bootloader_gui.py:58 ../iw/bootloaderpassword_gui.py:29
 # ../iw/partition_gui.py:1280 ../iw/partition_gui.py:1608
@@ -6789,9 +6762,8 @@ msgstr ""
 # ../textw/upgrade_text.py:172 ../upgrade.py:239 ../upgrade.py:357
 # ../upgrade.py:376
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "Varoitus"
+msgstr "Etsitään"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
@@ -6819,9 +6791,9 @@ msgstr "CD:ltä ei löydy kickstart-tiedostoa."
 
 # ../loader/loader.c:536 ../loader/loader.c:2238
 #: ../loader/copy.c:51 ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "Virhe luettaessa hakemistoa %s: %s"
+msgstr "Virhe luettaessa hakemistoa %s: %m"
 
 # ../loader/devices.c:513
 #: ../loader/driverdisk.c:141
@@ -7013,13 +6985,12 @@ msgid "Select Device Driver to Load"
 msgstr "Valitse ladattava ajuri"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
 msgstr ""
-"Virhe luettaessa asennusohjelmaa ISO-levykuvasta. Tarkista levykuvat ja "
-"yritä uudelleen."
+"Virhe etsittäessä asennuskuvaa kiintolevyltä. Tarkista levykuvat ja yritä "
+"uudelleen."
 
 # ../loader/loader.c:817
 #: ../loader/hdinstall.c:232
@@ -7032,21 +7003,20 @@ msgstr ""
 
 # ../loader/loader.c:831
 #: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Mikä osio ja sillä oleva hakemisto sisältää %s-CD-levykuvat (iso9660)? Jos "
+"Mikä osio ja sillä oleva hakemisto sisältää %s-asennuskuvan? Jos "
 "käyttämäsi levyasema ei näy tässä luettelossa, määrittele lisää laitteita "
 "painamalla F2."
 
 # ../loader/loader.c:845
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
-msgstr "Levykuvat sisältävä hakemisto:"
+msgstr "Levykuvan sisältävä hakemisto:"
 
 # ../loader/loader.c:865
 #: ../loader/hdinstall.c:301
@@ -7055,9 +7025,9 @@ msgstr "Valitse osio"
 
 # ../loader/loader.c:913
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "Laite %s ei näytä sisältävän %s -levykuvatiedostoja."
+msgstr "Laite %s ei näytä sisältävän asennuskuvatiedostoa."
 
 # ../loader/net.c:723
 #: ../loader/hdinstall.c:385
@@ -7087,15 +7057,15 @@ msgstr "Millainen näppäimistö koneessa on?"
 
 # ../loader/kickstart.c:59
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "Virhe avattaessa kickstart-tiedostoa %s: %s"
+msgstr "Virhe avattaessa kickstart-tiedostoa %s: %m"
 
 # ../loader/kickstart.c:69
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Virhe luettaessa kickstart-tiedoston %s sisältöä: %s"
+msgstr "Virhe luettaessa kickstart-tiedoston %s sisältöä: %m"
 
 # ../loader/kickstart.c:108
 #: ../loader/kickstart.c:186
@@ -7185,9 +7155,9 @@ msgstr ""
 
 # ../loader/loader.c:2301
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "Syötä päivityslevyke laitteeseen /dev/%s ja jatka painamalla ”OK”."
+msgstr "Syötä päivityslevyke laitteeseen %s ja jatka painamalla ”OK”."
 
 # ../loader/loader.c:2300
 #: ../loader/loader.c:493
@@ -7254,9 +7224,8 @@ msgstr "Minkälainen tallenne sisältää pelastusdatan?"
 
 # ../loader/loader.c:1485
 #: ../loader/loader.c:1358
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "Minkälainen tallenne sisältää pelastusdatan?"
+msgstr "Minkälainen media sisältää asennuskuvan?"
 
 # ../partitioning.py:1493
 #: ../loader/loader.c:1389
@@ -7503,9 +7472,8 @@ msgstr "Epäkelpo käynnistysprotokolla %s network-käskyssä"
 
 # ../iw/network_gui.py:252
 #: ../loader/net.c:1423
-#, fuzzy
 msgid "Seconds:"
-msgstr "2. nimipalvelin:"
+msgstr "Sekuntia:"
 
 # ../loader/loader.c:1057
 #: ../loader/net.c:1537
@@ -7539,9 +7507,8 @@ msgstr ""
 
 # ../loader/net.c:277
 #: ../loader/net.c:1576
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Virheelliset IP-tiedot"
+msgstr "Virheellinen kesto"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
@@ -7553,9 +7520,9 @@ msgid "Flashing %s port lights for %d seconds..."
 msgstr ""
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "Odotetaan telnet-yhteyttä..."
+msgstr "Odotetaan, että NetworkManager tekee asetukset laitteelle %s...\n"
 
 # ../loader/net.c:170
 #: ../loader/nfsinstall.c:63
@@ -7569,7 +7536,7 @@ msgid "%s directory:"
 msgstr "%s -hakemisto:"
 
 #: ../loader/nfsinstall.c:78
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server name and path to your %s installation image."
 msgstr "Syötä palvelimen nimi ja polku %s -asennuskuviin."
 
@@ -7589,9 +7556,9 @@ msgstr "Kyseisen hakemiston liittäminen palvelimelta ei onnistunut"
 
 # ../loader/loader.c:1141
 #: ../loader/nfsinstall.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "Hakemistosta ei löydy %s -asennushakemistopuuta."
+msgstr "Hakemistosta ei löydy %s -asennuskuvaa."
 
 # ../loader/net.c:723
 #: ../loader/nfsinstall.c:338
@@ -7615,9 +7582,9 @@ msgstr "Suoritetaan Anacondaa telnetin kautta..."
 
 # ../loader/urls.c:90 ../loader/urls.c:98
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "Haku epäonnistui: %s://%s/%s."
+msgstr "Haku epäonnistui: %s://%s%s."
 
 # ../loader/loader.c:1214
 #: ../loader/urlinstall.c:176
@@ -7645,10 +7612,10 @@ msgid "Retrieving"
 msgstr "Haen"
 
 #: ../loader/urls.c:295
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the URL containing the %s installation image on your server."
-msgstr "Syötä URL, joka sisältää %s -levykuvat palvelimellasi."
+msgstr "Syötä URL, joka sisältää %s -asennuskuvan palvelimellasi."
 
 # ../loader/net.c:179
 #: ../loader/urls.c:321
@@ -7721,15 +7688,13 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>Asennuslähteen _nimi:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>Asennuslähteen _nimi:</b>"
+msgstr "<b>Asennuslähteen _tyyppi:</b>"
 
 # ../loader/net.c:373
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "Konfiguroi välityspalvelin"
+msgstr "Aseta _välityspalvelin"
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -7740,27 +7705,23 @@ msgid ""
 msgstr ""
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid ""
 "Please provide the configuration information for this software repository."
-msgstr "Anna sijainti, josta lisäohjelmia voidaan asentaa."
+msgstr "Anna tämän asennuslähteen asetustiedot."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL"
-msgstr "Välityspalvelimen U_RL:"
+msgstr "Välityspalvelimen U_RL"
 
 # ../textw/userauth_text.py:22
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "Välityspalvelimen salasana:"
+msgstr "Välityspalvelimen _salasana"
 
 # ../loader/urls.c:190
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "Välityspalvelimen _käyttäjätunnus:"
+msgstr "Välityspalvelimen _käyttäjätunnus"
 
 #: tmp/addrepo.glade.h:13
 msgid "Repository _URL"
@@ -7768,33 +7729,29 @@ msgstr "Asennuslähteen _URL"
 
 # ../iw/fdisk_gui.py:93
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "Valitse tiedosto"
+msgstr "Valitse hakemisto"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "URL on peilipalvelinluettelo"
 
 # ../loader/net.c:173 ../loader/urls.c:194
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "NFS-hakemisto"
+msgstr "_Hakemisto"
 
 # ../textw/partition_text.py:829
 #: tmp/addrepo.glade.h:17
-#, fuzzy
 msgid "_Options"
-msgstr "RAID-valinnat"
+msgstr "_Asetukset"
 
 # ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:432
 # ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:123
 # ../textw/upgrade_text.py:107
 #: tmp/addrepo.glade.h:18
-#, fuzzy
 msgid "_Partition"
-msgstr "Osio"
+msgstr "_Osio"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
@@ -7802,9 +7759,8 @@ msgstr ""
 
 # ../loader/net.c:266 ../loader/net.c:804
 #: tmp/addrepo.glade.h:20
-#, fuzzy
 msgid "_Server"
-msgstr "Nimipalvelin:"
+msgstr "_Palvelin"
 
 # ../iw/partition_gui.py:1528
 #: tmp/anaconda.glade.h:1
@@ -7942,15 +7898,13 @@ msgstr ""
 # ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 # ../loader/urls.c:357 ../textw/userauth_text.py:37
 #: tmp/exnSave.glade.h:9
-#, fuzzy
 msgid "_Password"
-msgstr "_Salasana:"
+msgstr "_Salasana"
 
 # ../textw/userauth_text.py:204
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_User name"
-msgstr "Käyttäjätunnus"
+msgstr "_Käyttäjätunnus"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -8318,9 +8272,8 @@ msgid "Marathi"
 msgstr "marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "norja"
+msgstr "norja (bokmål)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
