@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-08-07 21:22+0200\n"
+"PO-Revision-Date: 2008-08-31 16:24+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -104,9 +104,8 @@ msgid "Starting graphical installation..."
 msgstr "Grafische installatie wordt nu opgestart..."
 
 #: ../anaconda:821
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "Wat wilt u doen?"
+msgstr "Wilt u VNC gebruiken?"
 
 #: ../anaconda:822
 msgid ""
@@ -634,7 +633,7 @@ msgstr ""
 
 #: ../exception.py:433
 msgid "Bug Created"
-msgstr ""
+msgstr "Bug aangemaakt"
 
 #: ../exception.py:434
 #, python-format
@@ -647,9 +646,8 @@ msgid ""
 msgstr ""
 
 #: ../exception.py:450
-#, fuzzy
 msgid "Bug Updated"
-msgstr "Updates"
+msgstr "Bug bijgewerkt"
 
 #: ../exception.py:451
 #, python-format
@@ -684,9 +682,8 @@ msgstr ""
 "naar de schijf."
 
 #: ../exception.py:506 ../exception.py:529
-#, fuzzy
 msgid "No Network Available"
-msgstr "Netwerkapparaten"
+msgstr "Geen netwerk beschikbaar"
 
 #: ../exception.py:507 ../exception.py:530
 msgid ""
@@ -1176,7 +1173,7 @@ msgstr ""
 #: ../gui.py:780
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "Bugzilla (%s)"
 
 #: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
 #: tmp/anaconda.glade.h:2
@@ -1527,13 +1524,12 @@ msgid "There was an error encountered resizing the device %s."
 msgstr "Er was een fout bij het aanpassen van de grootte van het apparaat %s."
 
 #: ../packages.py:146
-#, fuzzy
 msgid "Activating"
-msgstr "Activeren bij het opstarten"
+msgstr "Activeren"
 
 #: ../packages.py:146
 msgid "Activating new partitions.  Please wait..."
-msgstr ""
+msgstr "Activeren van nieuwe partities.  Even geduld..."
 
 #: ../packages.py:167
 msgid "LVM operation failed"
@@ -1663,7 +1659,7 @@ msgstr ""
 
 # drive en device worden hier wel heel erg willekeurig door elkaar gehaald, lijkt het.
 #: ../partedUtils.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1674,9 +1670,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"De partitietabel op apparaat %s (%s) was onleesbaar. Om nieuwe partities te "
-"maken moet deze schijf geïnitialiseerd worden. Hierdoor zullen ALLE GEGEVENS "
-"op dit station verloren gaan.\n"
+"De partitietabel op apparaat %s (%s %-0.f MB) was onleesbaar.\n"
+"Om nieuwe partities te maken moet deze schijf geïnitialiseerd worden. Hierdoor "
+"zullen ALLE GEGEVENS op dit station verloren gaan.\n"
 "\n"
 "Deze actie zal alle voorgaande installatiekeuzes met betrekking tot welke "
 "stations worden genegeerd teniet doen.\n"
@@ -2049,9 +2045,8 @@ msgid " for device %s"
 msgstr "RAID-opstelling %s"
 
 #: ../partitions.py:133
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Encryptiesleutel"
+msgstr "Apparaat versleutelen?"
 
 #: ../partitions.py:134
 #, python-format
@@ -2139,11 +2134,10 @@ msgstr ""
 "s te installeren."
 
 #: ../partitions.py:1177
-#, fuzzy
 msgid "You must create an EFI System Partition of at least 10 megabytes."
 msgstr ""
-"U moet een EFI-systeempartitie aanmaken, van type FAT en met een grootte van "
-"50 megabytes."
+"U moet een EFI-systeempartitie aanmaken met een grootte van tenminste 10 "
+"megabytes."
 
 #: ../partitions.py:1191
 msgid ""
@@ -2488,9 +2482,8 @@ msgid "Save"
 msgstr "Opslaan"
 
 #: ../text.py:210
-#, fuzzy
 msgid "Save to local disk"
-msgstr "Op schijf opslaan"
+msgstr "Op lokale schijf opslaan"
 
 #: ../text.py:211
 #, python-format
@@ -2511,11 +2504,11 @@ msgstr "Wachtwoord"
 
 #: ../text.py:230
 msgid "Bug Description"
-msgstr ""
+msgstr "Bug omschrijving"
 
 #: ../text.py:243
 msgid "Host (host:port)"
-msgstr ""
+msgstr "Host (host:poort)"
 
 #: ../text.py:245
 #, fuzzy
@@ -2533,9 +2526,9 @@ msgid "Use this passphrase for all new encrypted devices"
 msgstr "Voer wachtzin in voor versleutelde partitie"
 
 #: ../text.py:378
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "De wachtzin moet tenminste 8 tekens lang zijn."
+msgstr "De wachtzin moet tenminste %d tekens lang zijn."
 
 #: ../text.py:407 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
@@ -3264,7 +3257,6 @@ msgstr ""
 "aangepast."
 
 #: ../iw/autopart_type.py:180
-#, fuzzy
 msgid ""
 "Do you really want to boot from a disk which is not used for installation?"
 msgstr ""
@@ -4719,9 +4711,8 @@ msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "U moet een HTTP, HTTPS of FTP URL naar een repository opgeven."
 
 #: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-#, fuzzy
 msgid "No Media Found"
-msgstr "Geen stations gevonden"
+msgstr "Geen media gevonden"
 
 #: ../iw/task_gui.py:248 ../iw/task_gui.py:361
 msgid ""
@@ -4844,7 +4835,7 @@ msgid "Migrate File Systems"
 msgstr "Bestandssystemen migreren"
 
 #: ../iw/upgrade_migratefs_gui.py:64
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -5216,9 +5207,8 @@ msgstr ""
 "installatieproces. Configureer een netwerkinterface."
 
 #: ../textw/netconfig_text.py:111
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "_Dynamische IP-configuratie (DHCP) gebruiken"
+msgstr "Dynamische IP-configuratie (DHCP) gebruiken"
 
 #: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
 #: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
@@ -5231,12 +5221,10 @@ msgid "Enable IPv6 support"
 msgstr "IPv6-ondersteuning aanzetten"
 
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
 msgstr "IPv4-adres:"
 
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
 msgstr "IPv6-adres:"
 
@@ -5246,14 +5234,12 @@ msgid "Gateway:"
 msgstr "Gateway:"
 
 #: ../textw/netconfig_text.py:144
-#, fuzzy
 msgid "Nameserver:"
-msgstr "Naamserver"
+msgstr "Naamserver:"
 
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "Ontbrekend pakket"
+msgstr "Ontbrekend apparaat"
 
 #: ../textw/netconfig_text.py:172
 #, fuzzy
@@ -5261,14 +5247,12 @@ msgid "You must select a network device"
 msgstr "De te bewerken partitie moet eerst worden geselecteerd"
 
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
 msgstr "IPv4-netwerkmasker"
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
-msgstr "Fout bij het configureren van netwerkapparaat:"
+msgstr "Fout bij het configureren van netwerkapparaat: "
 
 #: ../textw/network_text.py:60
 #, python-format
@@ -6153,9 +6137,9 @@ msgid "Cannot find kickstart file on CDROM."
 msgstr "Kan kickstart-bestand op CDROM niet vinden."
 
 #: ../loader/copy.c:51 ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "Lezen van map %s: %s is mislukt"
+msgstr "Lezen van map %s: %m is mislukt"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -6359,9 +6343,8 @@ msgstr ""
 "apparaten te configureren."
 
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
-msgstr "Map die de images bevat:"
+msgstr "Map die de image bevat:"
 
 #: ../loader/hdinstall.c:301
 msgid "Select Partition"
@@ -6768,9 +6751,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "Foutief opstartprotocol %s opgegeven in netwerkopdracht"
 
 #: ../loader/net.c:1423
-#, fuzzy
 msgid "Seconds:"
-msgstr "Secundaire DNS-server:"
+msgstr "Seconden:"
 
 #: ../loader/net.c:1537
 msgid "Networking Device"
@@ -6786,7 +6768,7 @@ msgstr ""
 
 #: ../loader/net.c:1542
 msgid "Identify"
-msgstr ""
+msgstr "Identificeren"
 
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
@@ -6800,12 +6782,11 @@ msgstr ""
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
-msgstr ""
+msgstr "NIC identificeren"
 
 #: ../loader/net.c:1576
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Ongeldige IP-informatie"
+msgstr "Ongeldige duur"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
@@ -6870,9 +6851,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Anaconda wordt via telnet opgestart..."
 
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "Niet in staat om %s://%s/%s binnen te halen."
+msgstr "Niet in staat om %s://%s%s binnen te halen."
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
@@ -6970,9 +6951,8 @@ msgid "<b>Repository _type:</b>"
 msgstr "<b>Repository _naam:</b>"
 
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "Proxy configureren"
+msgstr "Proxy c_onfigureren"
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -6981,6 +6961,10 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"Harde schijf"
 
 #: tmp/addrepo.glade.h:9
 #, fuzzy
@@ -6990,57 +6974,49 @@ msgstr ""
 "Geef de locatie op waaruit uw additionele software kan worden geïnstalleerd."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL"
-msgstr "Proxy-U_RL:"
+msgstr "Proxy-U_RL"
 
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "Proxy-wachtwoo_rd:"
+msgstr "Proxy-wachtwoo_rd"
 
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "Proxy-_gebruikersnaam:"
+msgstr "Proxy-_gebruikersnaam"
 
 #: tmp/addrepo.glade.h:13
 msgid "Repository _URL"
 msgstr "Repository _URL"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "Selecteer een bestand"
+msgstr "Selecteer een map"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
 msgstr ""
 
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "NFS-map"
+msgstr "_Map"
 
 #: tmp/addrepo.glade.h:17
-#, fuzzy
 msgid "_Options"
-msgstr "RAID-opties"
+msgstr "_Opties"
 
 # werkwoord of znw?
 #: tmp/addrepo.glade.h:18
-#, fuzzy
 msgid "_Partition"
-msgstr "Partitie"
+msgstr "_Partitie"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "_Pad"
 
 #: tmp/addrepo.glade.h:20
-#, fuzzy
 msgid "_Server"
-msgstr "Naamserver:"
+msgstr "_Server"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -7141,7 +7117,7 @@ msgstr "_Details"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "Bug _omschrijving"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
@@ -7163,17 +7139,15 @@ msgstr "Selecteer een bestand"
 
 #: tmp/exnSave.glade.h:8
 msgid "_Host (host:port)"
-msgstr ""
+msgstr "_Host (host:poort)"
 
 #: tmp/exnSave.glade.h:9
-#, fuzzy
 msgid "_Password"
-msgstr "_Wachtwoord:"
+msgstr "_Wachtwoord"
 
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_User name"
-msgstr "Gebruikersnaam"
+msgstr "_Gebruikersnaam"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -7458,7 +7432,7 @@ msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebreeuws"
 
 # Vinden is letterlijk, maar zoeken is hier beter
 #. generated from lang-table
@@ -7514,9 +7488,8 @@ msgid "Marathi"
 msgstr "Marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "Noors"
+msgstr "Noors(Bokmål)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
