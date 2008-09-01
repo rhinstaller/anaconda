@@ -1485,6 +1485,12 @@ int main(int argc, char ** argv) {
     flags |= LOADER_FLAGS_NOSHELL | LOADER_FLAGS_NOUSB;
 #endif
 
+    /* XXX if RHEL, enable the AUTODD feature by default,
+     * but we should come with more general way how to control this */
+    if(!strncmp(getProductName(), "Red Hat", 7)){
+      flags |= LOADER_FLAGS_AUTOMODDISK;
+    }
+
     openLog(FL_TESTING(flags));
     if (!FL_TESTING(flags))
         openlog("loader", 0, LOG_LOCAL0);
