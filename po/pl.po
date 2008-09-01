@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-01 21:16+0200\n"
+"PO-Revision-Date: 2008-09-01 21:35+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -112,7 +112,8 @@ msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
 msgstr ""
-"Tryb instalacji VNC oferuje więcej funkcji od trybu tekstowego, czy chcesz go użyć?"
+"Tryb instalacji VNC oferuje więcej funkcji od trybu tekstowego, czy chcesz "
+"go użyć?"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -628,7 +629,8 @@ msgstr "Nie można się zalogować"
 msgid ""
 "There was an error logging into %s using the provided username and password."
 msgstr ""
-"Wystąpił błąd podczas logowania się do %s używając podanej nazwy użytkownika i hasła."
+"Wystąpił błąd podczas logowania się do %s używając podanej nazwy użytkownika "
+"i hasła."
 
 #: ../exception.py:433
 msgid "Bug Created"
@@ -1453,8 +1455,8 @@ msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
 msgstr ""
-"Utworzony system plików root jest za mały dla tego obrazu Live systemu (wymagane "
-"jest %.2f MB)."
+"Utworzony system plików root jest za mały dla tego obrazu Live systemu "
+"(wymagane jest %.2f MB)."
 
 #: ../network.py:64
 msgid "Hostname must be 64 or fewer characters in length."
@@ -1465,8 +1467,8 @@ msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
 msgstr ""
-"Nazwa komputera musi rozpoczynać się od prawidłowego znaku z zakresu "
-"\"a-z\", \"A-Z\" lub \"0-9\""
+"Nazwa komputera musi rozpoczynać się od prawidłowego znaku z zakresu \"a-z"
+"\", \"A-Z\" lub \"0-9\""
 
 #: ../network.py:75
 msgid ""
@@ -1666,8 +1668,8 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
-"Dysk /dev/%s posiada więcej niż 15 partycji. Podsystem SCSI w jądrze Linux "
-"w tej chwili nie umożliwia używania więcej niż 15 partycji. Nie będzie można "
+"Dysk /dev/%s posiada więcej niż 15 partycji. Podsystem SCSI w jądrze Linux w "
+"tej chwili nie umożliwia używania więcej niż 15 partycji. Nie będzie można "
 "dokonać zmian w partycjach ani użyć żadnych partycji ponad /dev/%s15 w %s"
 
 #: ../partedUtils.py:1361
@@ -3081,9 +3083,9 @@ msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Chcesz zaktualizować system, który jest za stary, aby można "
-"było go zaktualizować do tej wersji systemu %s. Czy na pewno chcesz "
-"kontynuować aktualizację?"
+"Chcesz zaktualizować system, który jest za stary, aby można było go "
+"zaktualizować do tej wersji systemu %s. Czy na pewno chcesz kontynuować "
+"aktualizację?"
 
 #: ../yuminstall.py:1532
 #, python-format
@@ -3092,10 +3094,9 @@ msgid ""
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Architektura aktualizowanego wydania systemu %s to %s, która"
-"nie zgadza się z poprzednio zainstalowaną architekturą %s. "
-"Prawdopodobnie to się nie powiedzie. Czy na pewno chcesz kontynuować proces "
-"aktualizacji?"
+"Architektura aktualizowanego wydania systemu %s to %s, któranie zgadza się z "
+"poprzednio zainstalowaną architekturą %s. Prawdopodobnie to się nie "
+"powiedzie. Czy na pewno chcesz kontynuować proces aktualizacji?"
 
 #: ../yuminstall.py:1579
 msgid "Post Upgrade"
@@ -4680,7 +4681,8 @@ msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
 msgstr ""
-"Musisz mieć co najmniej jedno włączone repozytorium oprogramowania, aby kontynuować instalację."
+"Musisz mieć co najmniej jedno włączone repozytorium oprogramowania, aby "
+"kontynuować instalację."
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -6217,7 +6219,8 @@ msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
 msgstr ""
-"Podczas wyszukiwania obrazu instalacji na dysku twardym wystąpił błąd. Sprawdź obrazy i spróbuj ponownie."
+"Podczas wyszukiwania obrazu instalacji na dysku twardym wystąpił błąd. "
+"Sprawdź obrazy i spróbuj ponownie."
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6235,8 +6238,8 @@ msgid ""
 "to configure additional devices."
 msgstr ""
 "Na której partycji i w jakim folderze na tej partycji znajdują się obrazy "
-"instalacji dla systemu %s? Jeśli nie widzisz używanego dysku twardego na tej liście, "
-"naciśnij F2, aby skonfigurować dodatkowe urządzenia."
+"instalacji dla systemu %s? Jeśli nie widzisz używanego dysku twardego na tej "
+"liście, naciśnij F2, aby skonfigurować dodatkowe urządzenia."
 
 #: ../loader/hdinstall.c:273
 msgid "Directory holding image:"
@@ -6359,8 +6362,7 @@ msgstr ""
 #: ../loader/loader.c:487
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr ""
-"Włóż dysk aktualizujący do %s i naciśnij \"OK\", aby kontynuować."
+msgstr "Włóż dysk aktualizujący do %s i naciśnij \"OK\", aby kontynuować."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6668,7 +6670,9 @@ msgstr "Można zidentyfikować fizyczny port dla"
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr "przez świecenie diodami LED przez określoną liczbę sekund. Podaj liczbę między 1 a 30, aby ustawić czas świecenia diod LED portów."
+msgstr ""
+"przez świecenie diodami LED przez określoną liczbę sekund. Podaj liczbę "
+"między 1 a 30, aby ustawić czas świecenia diod LED portów."
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
@@ -6858,8 +6862,7 @@ msgstr ""
 #: tmp/addrepo.glade.h:9
 msgid ""
 "Please provide the configuration information for this software repository."
-msgstr ""
-"Podaj informacje o konfiguracji dla tego repozytorium oprogramowania."
+msgstr "Podaj informacje o konfiguracji dla tego repozytorium oprogramowania."
 
 #: tmp/addrepo.glade.h:10
 msgid "Proxy U_RL"
