@@ -8,25 +8,26 @@
 # translation of zh_CN.po to
 # Simplified Chinese Verstion of anaconda file
 # Copyright (C) 2002, Red Hat, Inc.
+#
+#
 # Sarah Wang <sarahs@redhat.com>, 2003,2004.
 # Yusuf Ma <yusufma77@yahoo.com>, 2004.
 # Leah Liu <weliu@redhat.com>, 2005, 2006.
 # Wu Yu <kiluawuyu@gmail.com>, 2007.
 # Leah Liu <lliu@redhat.com>, 2008.
-# Guokai Han <dev.hgk@gmail.com>, 2008
-#
-#
+# Guokai Han <dev.hgk@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-04-04 17:13+0800\n"
+"PO-Revision-Date: 2008-09-01 09:21+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:288 ../anaconda:334
 #, c-format
@@ -106,15 +107,14 @@ msgid "Starting graphical installation..."
 msgstr "正在启动图形化安装..."
 
 #: ../anaconda:821
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "您想怎么办？"
+msgstr "您想使用 VNC 吗？"
 
 #: ../anaconda:822
 msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
-msgstr ""
+msgstr "VNC 安装模式可为您提供比文本模式更多的功能，您是否要使用这个模式呢？"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -198,8 +198,7 @@ msgstr "引导分区 %s 不是 Linux 文件系统，比如 ext3。该系统无�
 
 #: ../autopart.py:1073
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "引导分区 %s 可能没有满足您的体系的引导制约参数。"
 
 #: ../autopart.py:1098
@@ -551,6 +550,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"无法提交您的 bug，因为在与 bugzilla 联系时出现以下错误：\n"
+"\n"
+"%s"
 
 #: ../exception.py:367
 #, python-format
@@ -560,46 +562,44 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"无法提交您的 bug，因为在 bug 字段中出现坏信息。很可能是在 anaconda 中出现错误：\n"
+"\n"
+"%s"
 
 #: ../exception.py:371
-#, fuzzy
 msgid "Unable To File Bug"
-msgstr "无法删除"
+msgstr "无法提交 Bug"
 
 #: ../exception.py:377
-#, fuzzy
 msgid "Bug Filing Not Supported"
-msgstr "不支持"
+msgstr "不支持 Bug 提交"
 
 #: ../exception.py:378
 msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
-msgstr ""
+msgstr "您使用的发行本不支持 bug 提交系统，所以您无法用这个方法保存例外情况。"
 
 #: ../exception.py:384
-#, fuzzy
 msgid "Invalid Bug Information"
-msgstr "IP 信息无效"
+msgstr "无效的 Bug 信息"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "请提供有效用户名、密码和简短 bug 描述。"
 
 #: ../exception.py:395
-#, fuzzy
 msgid "Unable To Login"
-msgstr "无法编辑"
+msgstr "无法登录"
 
 #: ../exception.py:396
 #, python-format
-msgid ""
-"There was an error logging into %s using the provided username and password."
-msgstr ""
+msgid "There was an error logging into %s using the provided username and password."
+msgstr "在使用您提供的用户名和密码登录 %s 时出错。"
 
 #: ../exception.py:433
 msgid "Bug Created"
-msgstr ""
+msgstr "生成 Bug"
 
 #: ../exception.py:434
 #, python-format
@@ -1026,8 +1026,7 @@ msgstr "保存屏幕快照时出错"
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
-msgstr ""
-"保存屏幕快照时出错。如果它在软件包安装过程中出现，您可能要多试几次才能成功。"
+msgstr "保存屏幕快照时出错。如果它在软件包安装过程中出现，您可能要多试几次才能成功。"
 
 #: ../gui.py:233 ../text.py:586
 msgid "Fix"
@@ -1092,8 +1091,7 @@ msgstr "密码至少应包含八个字符。"
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
-msgstr ""
-"设备 %s 是加密的。为了要在安装过程中访问设备的内容，您必须输入以下设备密码。"
+msgstr "设备 %s 是加密的。为了要在安装过程中访问设备的内容，您必须输入以下设备密码。"
 
 #: ../gui.py:780
 #, python-format
@@ -1260,8 +1258,7 @@ msgstr "上一步(_B)"
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
-msgstr ""
-"卸载光盘时出错。请确定您不是从 tty2 上的命令行访问 %s，然后点击确定来重试。"
+msgstr "卸载光盘时出错。请确定您不是从 tty2 上的命令行访问 %s，然后点击确定来重试。"
 
 #: ../installclass.py:73
 msgid "Install on System"
@@ -1321,8 +1318,7 @@ msgstr "缺少软件包组"
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr ""
-"您已指定要安装 '%s' 软件包组。该软件包组不存在。您想要继续还是中止安装？"
+msgstr "您已指定要安装 '%s' 软件包组。该软件包组不存在。您想要继续还是中止安装？"
 
 #: ../livecd.py:108
 msgid "Unable to find image"
@@ -1330,8 +1326,7 @@ msgstr "找不到安装映像"
 
 #: ../livecd.py:109
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr "给出的位置不是一个有效的%s liveCD使用的安装源。"
 
 #: ../livecd.py:171
@@ -1384,8 +1379,7 @@ msgstr "主机名只能以“a-z”或“A-Z”范围内的字符开头"
 
 #: ../network.py:75
 #, fuzzy
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "主机名只能包含字符：“a-z”、“A-Z”、“-”、或“.”。"
 
 #: ../network.py:132
@@ -1604,8 +1598,7 @@ msgstr "错误 - 卷组名 %s 无效。"
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
-"错误 - 卷组名包含不合法字符或空格。可被使用的字符是字母、数字、“.”或“_”。"
+msgstr "错误 - 卷组名包含不合法字符或空格。可被使用的字符是字母、数字、“.”或“_”。"
 
 #: ../partIntfHelpers.py:65
 msgid "Please enter a logical volume name."
@@ -1624,8 +1617,7 @@ msgstr "错误 - 逻辑卷名称 %s 无效。"
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
-"错误 - 逻辑卷名包含不合法字符或空格。可使用的字符是字母、数字、“.”或“_”。"
+msgstr "错误 - 逻辑卷名包含不合法字符或空格。可使用的字符是字母、数字、“.”或“_”。"
 
 #: ../partIntfHelpers.py:103
 #, python-format
@@ -1882,8 +1874,7 @@ msgid "Confirm Reset"
 msgstr "确认重设"
 
 #: ../partIntfHelpers.py:544
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "是否确定要将分区表还原至其最初状态？"
 
 #: ../partitions.py:84
@@ -2012,8 +2003,7 @@ msgid ""
 msgstr "您的 %s 分区小于 %s MB，小于正常安装 %s 的建议值。"
 
 #: ../partitions.py:1287
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr "正在一个 USB 设备上安装。不能保证可以成功安装。"
 
 #: ../partitions.py:1290
@@ -2084,8 +2074,7 @@ msgstr "在实时 CD 安装的过程中必须将挂载点 %s 格式化。"
 
 #: ../partRequests.py:284
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "该挂载点无效，%s 目录必须位于  / file 系统上。"
 
 #: ../partRequests.py:287
@@ -2093,8 +2082,7 @@ msgstr "该挂载点无效，%s 目录必须位于  / file 系统上。"
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr ""
-"挂载点 %s 无法被使用。它必须是符号链接才能使系统正确运行。请另选一个挂载点。"
+msgstr "挂载点 %s 无法被使用。它必须是符号链接才能使系统正确运行。请另选一个挂载点。"
 
 #: ../partRequests.py:296
 msgid "This mount point must be on a linux file system."
@@ -2148,8 +2136,7 @@ msgstr "%s 类型的 RAID 设备至少需要 %s 个成员。"
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
-msgstr ""
-"该 RAID 设备至多可有 %s 个备件。要增加备件，您需要增加 RAID 设备的成员。"
+msgstr "该 RAID 设备至多可有 %s 个备件。要增加备件，您需要增加 RAID 设备的成员。"
 
 #: ../partRequests.py:1033
 msgid ""
@@ -2448,16 +2435,14 @@ msgstr "挂载失败"
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr ""
-"在 /etc/fstab 中列出的文件系统中至少有一个无法挂载，请解决这一问题后再升级。"
+msgstr "在 /etc/fstab 中列出的文件系统中至少有一个无法挂载，请解决这一问题后再升级。"
 
 #: ../upgrade.py:372
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
-msgstr ""
-"/etc/fstab 中列出的文件系统间发生矛盾而无法被挂载，请解决这一问题后再升级。"
+msgstr "/etc/fstab 中列出的文件系统间发生矛盾而无法被挂载，请解决这一问题后再升级。"
 
 #: ../upgrade.py:389
 msgid ""
@@ -2782,8 +2767,7 @@ msgstr "重试软件包下载..."
 
 #: ../yuminstall.py:772
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "在执行处理时出现错误，原因如下：%s\n"
 
 #: ../yuminstall.py:807 ../yuminstall.py:808
@@ -3016,21 +3000,18 @@ msgstr ""
 "是否要继续使用此密码？"
 
 #: ../iw/account_gui.py:144 ../textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "所要求的密码包含非 ASCII 字符，它们不允许被用在密码中。"
 
 #: ../iw/autopart_type.py:97
 msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
-msgstr ""
-"没有可以重新定义大小的分区。只有带特定文件系统的物理分区可重新定义大小。"
+msgstr "没有可以重新定义大小的分区。只有带特定文件系统的物理分区可重新定义大小。"
 
 #: ../iw/autopart_type.py:180
 #, fuzzy
-msgid ""
-"Do you really want to boot from a disk which is not used for installation?"
+msgid "Do you really want to boot from a disk which is not used for installation?"
 msgstr "您确实希望从不进行安装的磁盘中引导吗？"
 
 #: ../iw/autopart_type.py:261
@@ -3176,8 +3157,7 @@ msgstr "安装 %s(_I)"
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr ""
-"选择该选项来重新安装系统。根据您的配置选择而定，现存软件和数据可能会被覆盖。"
+msgstr "选择该选项来重新安装系统。根据您的配置选择而定，现存软件和数据可能会被覆盖。"
 
 #: ../iw/examine_gui.py:65
 msgid "_Upgrade an existing installation"
@@ -3188,8 +3168,7 @@ msgstr "升级现有安装(_U)"
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
-msgstr ""
-"如果您想升级现有的 %s 系统，选择该选项。该选项会保留您的驱动器上的数据。"
+msgstr "如果您想升级现有的 %s 系统，选择该选项。该选项会保留您的驱动器上的数据。"
 
 #: ../iw/examine_gui.py:116
 msgid "The following installed system will be upgraded:"
@@ -3426,8 +3405,7 @@ msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
-msgstr ""
-"您配置的逻辑卷需要 %dMB，但是该卷组只有 %d MB。请扩大该卷组，或缩小该逻辑卷。"
+msgstr "您配置的逻辑卷需要 %dMB，但是该卷组只有 %d MB。请扩大该卷组，或缩小该逻辑卷。"
 
 #: ../iw/lvm_dialog_gui.py:782
 msgid "No free slots"
@@ -3944,14 +3922,12 @@ msgid "Partitioning"
 msgstr "分区"
 
 #: ../iw/partition_gui.py:640
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "您的分区方法产生了如下关键错误。"
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "在继续安装 %s 前您必须更正这些错误。"
 
 #: ../iw/partition_gui.py:648
@@ -4478,8 +4454,7 @@ msgstr "安装程序无法在您的系统上检测到目前使用的引导装载
 
 #: ../iw/upgrade_bootloader_gui.py:137 ../textw/upgrade_bootloader_text.py:120
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "安装程序检测到 %s 引导装载程序目前安装在 %s 上。"
 
 #: ../iw/upgrade_bootloader_gui.py:141
@@ -4593,16 +4568,14 @@ msgstr "我不想创建交换文件(_d)"
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
-msgstr ""
-"强烈建议您创建一个交换文件，否则会导致安装程序非正常中止。您确定要继续么？"
+msgstr "强烈建议您创建一个交换文件，否则会导致安装程序非正常中止。您确定要继续么？"
 
 #: ../iw/upgrade_swap_gui.py:203 ../textw/upgrade_text.py:187
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "交换文件的大小必须在 1MB 到 2000MB 之间。"
 
 #: ../iw/upgrade_swap_gui.py:210 ../textw/upgrade_text.py:182
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "您所选的交换分区在该设备上空间不够。"
 
 #: ../iw/zipl_gui.py:37
@@ -4741,10 +4714,8 @@ msgstr ""
 "一个分区想使用的标签。"
 
 #: ../textw/bootloader_text.py:294
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <Space> 选择按钮 | <F2> 选择默认的引导项目 | <F4> 删除  | <F12> 下一屏幕>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <Space> 选择按钮 | <F2> 选择默认的引导项目 | <F4> 删除  | <F12> 下一屏幕>"
 
 #: ../textw/bootloader_text.py:390
 msgid ""
@@ -4829,8 +4800,7 @@ msgid "Please select the package groups you would like to install."
 msgstr "请选择您想安装的软件包."
 
 #: ../textw/grpselect_text.py:89
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> 选择   |   <F2> 软件包组详情   |   <F12> 下一屏幕"
 
 #: ../textw/grpselect_text.py:101
@@ -5361,10 +5331,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1434
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-帮助       F2-新建      F3-编辑   F4-删除    F5-重设    F12-确定    "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-帮助       F2-新建      F3-编辑   F4-删除    F5-重设    F12-确定    "
 
 #: ../textw/partition_text.py:1466
 msgid "No Root Partition"
@@ -5433,8 +5401,7 @@ msgstr "配置iSCSI参数"
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr ""
-"使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI启动器名称的地址。"
+msgstr "使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI启动器名称的地址。"
 
 #: ../textw/partition_text.py:1689
 msgid "Target IP Address"
@@ -5656,8 +5623,7 @@ msgstr "安装号码"
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
-msgstr ""
-"如果您希望安装你选择的所有选择的软件包，请输入您的Installation Number。"
+msgstr "如果您希望安装你选择的所有选择的软件包，请输入您的Installation Number。"
 
 #: ../installclasses/rhel.py:75
 msgid ""
@@ -6024,8 +5990,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "欢迎为 %s 使用 %s - 援救模式"
 
 #: ../loader/lang.c:65 ../loader/loader.c:223
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "<Tab>/<Alt-Tab> 元素间切换   |  <Space> 选择   |  <F12> 下一屏幕 "
 
 #: ../loader/lang.c:375
@@ -6085,8 +6050,7 @@ msgstr "正在读取 anaconda 更新..."
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
-msgstr ""
-"无法下载更新映像。请修改以下更新位置，或者按取消键在不更新的情况下进行..."
+msgstr "无法下载更新映像。请修改以下更新位置，或者按取消键在不更新的情况下进行..."
 
 #: ../loader/loader.c:560
 msgid "Error downloading updates image"
@@ -6312,8 +6276,7 @@ msgid "Missing Information"
 msgstr "缺少信息"
 
 #: ../loader/net.c:1010
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "必须输入有效的 IPv4 地址和子网掩码或CIDR代码。"
 
 #: ../loader/net.c:1016
@@ -6459,8 +6422,7 @@ msgstr "检索"
 
 #: ../loader/urls.c:295
 #, fuzzy, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
+msgid "Please enter the URL containing the %s installation image on your server."
 msgstr "请在您的服务器中输入包含 %s 映像的 URL。"
 
 #: ../loader/urls.c:321
@@ -6543,8 +6505,7 @@ msgstr ""
 
 #: tmp/addrepo.glade.h:9
 #, fuzzy
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr "请指定安装附加软件的位置。"
 
 #: tmp/addrepo.glade.h:10
@@ -6633,8 +6594,7 @@ msgid "Which Partition to resize"
 msgstr "哪个分区需要重新定义大小？"
 
 #: tmp/autopart.glade.h:6
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
+msgid "Which partition would you like to resize to make room for your installation?"
 msgstr "您想穿行定义哪个分区的大小来为安装提供空间？"
 
 #: tmp/autopart.glade.h:7
@@ -7155,172 +7115,3 @@ msgstr "威尔士语"
 msgid "Zulu"
 msgstr "祖鲁语"
 
-#~ msgid "No video hardware found, assuming headless"
-#~ msgstr "没有找到视频硬件，假定为无头机器"
-
-#~ msgid "Unable to instantiate a X hardware state object."
-#~ msgstr "无法实例化 X 硬件状态对象。"
-
-#~ msgid ""
-#~ "Error mounting device %s as %s: %s\n"
-#~ "\n"
-#~ "This most likely means this partition has not been formatted.\n"
-#~ "\n"
-#~ "Press OK to exit the installer."
-#~ msgstr ""
-#~ "将 %s 设备挂载成 %s 时出错:%s\n"
-#~ "\n"
-#~ "最可能的原因是这个分区还没有被格式化.\n"
-#~ "\n"
-#~ "请按确定退出安装。"
-
-#~ msgid "Invalid Label"
-#~ msgstr "标签无效"
-
-#~ msgid ""
-#~ "An invalid label was found on device %s.  Please fix this problem and "
-#~ "restart the installation process."
-#~ msgstr "驱动器%s上发现一个无效标签.请解决这个问题后重新启动安装过程。"
-
-#~ msgid "Save to Remote"
-#~ msgstr "保存到远程主机"
-
-#~ msgid "Host"
-#~ msgstr "主机"
-
-#~ msgid "Remote path"
-#~ msgstr "远程主机目录"
-
-#~ msgid "Help not available"
-#~ msgstr "无帮助信息"
-
-#~ msgid "No help is available for this step of the install."
-#~ msgstr "这一安装步骤没有帮助信息。"
-
-#~ msgid ""
-#~ " <F1> for help | <Tab> between elements | <Space> selects | <F12> next "
-#~ "screen"
-#~ msgstr "<F1>求助 | <Tab> 元素间切换   |  <Space> 选择   |  <F12> 下一屏幕"
-
-#~ msgid "Finishing upgrade process.  This may take a little while..."
-#~ msgstr "终止升级进程，可能要等一小会..."
-
-#~ msgid "Error running transaction"
-#~ msgstr "执行处理时出错"
-
-#~ msgid ""
-#~ "No %s disc was found which matches your boot media.  Please insert the %s "
-#~ "disc and press %s to retry."
-#~ msgstr ""
-#~ "没有找到%s 光盘匹配您的引导介质 。请插入 %s 光盘，然后按 %s 来重试。"
-
-#~ msgid ""
-#~ "The %s installation tree in that directory does not seem to match your "
-#~ "boot media."
-#~ msgstr "该目录中的 %s 安装树似乎和您的引导介质不符。"
-
-#~ msgid "Welcome to %s%n for %s"
-#~ msgstr "欢迎到%s%n 做 %s"
-
-#~ msgid "What type of media contains the packages to be installed?"
-#~ msgstr "哪一类介质包含要安装的软件包？"
-
-#~ msgid ""
-#~ "%s is a wireless network adapter.  Please provide the ESSID and "
-#~ "encryption key needed to access your wireless network.  If no key is "
-#~ "needed, leave this field blank and the install will continue."
-#~ msgstr ""
-#~ "%s 是无线网络适配器。请提供进入您的无线网络所需的 ESSID 和加密钥匙。如果不"
-#~ "需要钥匙，请把该字段留为空白，安装将会继续。"
-
-#~ msgid "ESSID"
-#~ msgstr "ESSID"
-
-#~ msgid "Wireless Settings"
-#~ msgstr "无线设置"
-
-#~ msgid "Nameserver IP"
-#~ msgstr "名称服务器(DNS) IP"
-
-#~ msgid "Missing Nameserver"
-#~ msgstr "缺失名称服务器"
-
-#~ msgid ""
-#~ "Your IP address request returned configuration information, but it did "
-#~ "not include a nameserver address. If you do not have this information, "
-#~ "you can leave the field blank and the install will continue."
-#~ msgstr ""
-#~ "您的IP请求返回了IP配置信息,但该信息没有包括 DNS 名称服务器地址.您若不知道"
-#~ "此信息,可将该字段留空,安装将继续."
-
-#~ msgid "You entered an invalid IP address."
-#~ msgstr "您输入的 IP 地址无效。"
-
-#~ msgid "Determining host name and domain..."
-#~ msgstr "正在确定主机的名称和域..."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy "
-#~ "server to use."
-#~ msgstr ""
-#~ "如果要使用的是 HTTP 代理服务器，请输入要使用的 HTTP 代理服务器名称。"
-
-#~ msgid "Proxy Name:"
-#~ msgstr "代理服务器名称："
-
-#~ msgid "Proxy Port:"
-#~ msgstr "代理服务器端口："
-
-#~ msgid "Further Setup"
-#~ msgstr "更多设置"
-
-#~ msgid "Repository _Mirror"
-#~ msgstr "库镜像（_M）"
-
-#~ msgid "_Proxy configuration"
-#~ msgstr "代理服务器配置（_P）"
-
-#~ msgid "Select a destination for the exception information."
-#~ msgstr "为例外信息选择目的地。"
-
-#~ msgid "_Disk"
-#~ msgstr "磁盘（_D）"
-
-#~ msgid "_Remote"
-#~ msgstr "远程（_R）"
-
-#~ msgid "Mouse Configuration"
-#~ msgstr "鼠标配置"
-
-#~ msgid "/dev/ttyS0 (COM1 under DOS)"
-#~ msgstr "/dev/ttyS0 (DOS 下的 COM1)"
-
-#~ msgid "/dev/ttyS1 (COM2 under DOS)"
-#~ msgstr "/dev/ttyS1 (DOS 下的 COM2)"
-
-#~ msgid "/dev/ttyS2 (COM3 under DOS)"
-#~ msgstr "/dev/ttyS2 (DOS 下的 COM3)"
-
-#~ msgid "/dev/ttyS3 (COM4 under DOS)"
-#~ msgstr "/dev/ttyS3 (DOS 下的 COM4)"
-
-#~ msgid "_Model"
-#~ msgstr "型号(_M)"
-
-#~ msgid "_Emulate 3 buttons"
-#~ msgstr "模拟三键(_E)"
-
-#~ msgid "Select the appropriate mouse for the system."
-#~ msgstr "为系统选择恰当的鼠标。"
-
-#~ msgid "What device is your mouse located on?"
-#~ msgstr "您的鼠标位于哪个设备上？"
-
-#~ msgid "Which model mouse is attached to this computer?"
-#~ msgstr "与计算机连接的鼠标属于何种型号？"
-
-#~ msgid "Emulate 3 Buttons?"
-#~ msgstr "是否模拟三键鼠标？"
-
-#~ msgid "Mouse Selection"
-#~ msgstr "选择鼠标"
