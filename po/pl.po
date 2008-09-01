@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-04-11 22:02+0200\n"
+"PO-Revision-Date: 2008-09-01 21:16+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -104,15 +104,15 @@ msgid "Starting graphical installation..."
 msgstr "Uruchamianie instalacji graficznej..."
 
 #: ../anaconda:821
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "Co chcesz zrobić?"
+msgstr "Czy chcesz użyć VNC?"
 
 #: ../anaconda:822
 msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
 msgstr ""
+"Tryb instalacji VNC oferuje więcej funkcji od trybu tekstowego, czy chcesz go użyć?"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -577,6 +577,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Nie można zgłosić błędu z powodu następującego błędu podczas komunikacji z "
+"Bugzillą:\n"
+"\n"
+"%s"
 
 #: ../exception.py:367
 #, python-format
@@ -586,46 +590,49 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Nie można zgłosić błędu z powodu błędnych informacji w polach błędu. Jest to "
+"najprawdopodobniej błąd w anacondzie:\n"
+"\n"
+"%s"
 
 #: ../exception.py:371
-#, fuzzy
 msgid "Unable To File Bug"
-msgstr "Nie można usunąć"
+msgstr "Nie można zgłosić błędu"
 
 #: ../exception.py:377
-#, fuzzy
 msgid "Bug Filing Not Supported"
-msgstr "Nieobsługiwane"
+msgstr "Zgłaszanie błędów jest nieobsługiwane"
 
 #: ../exception.py:378
 msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
 msgstr ""
+"Dystrybucja nie dostarcza wspieranego systemu zgłaszania błędów, więc nie "
+"można zapisać wyjątku w ten sposób."
 
 #: ../exception.py:384
-#, fuzzy
 msgid "Invalid Bug Information"
-msgstr "Nieprawidłowa informacja IP"
+msgstr "Nieprawidłowa informacja o błędzie"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "Podaj prawidłową nazwę użytkownika, hasło i krótki opis błędu."
 
 #: ../exception.py:395
-#, fuzzy
 msgid "Unable To Login"
-msgstr "Nie można modyfikować"
+msgstr "Nie można się zalogować"
 
 #: ../exception.py:396
 #, python-format
 msgid ""
 "There was an error logging into %s using the provided username and password."
 msgstr ""
+"Wystąpił błąd podczas logowania się do %s używając podanej nazwy użytkownika i hasła."
 
 #: ../exception.py:433
 msgid "Bug Created"
-msgstr ""
+msgstr "Utworzono błąd"
 
 #: ../exception.py:434
 #, python-format
@@ -636,11 +643,15 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Nowy błąd został utworzony z załączonym wyjątkiem. Dodaj inne informacje, "
+"takie jak wykonywane czynności podczas wystąpienia błędu, zrzuty ekranu i "
+"wszystko inne, co może pomóc do poniższego błędu:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:450
-#, fuzzy
 msgid "Bug Updated"
-msgstr "Aktualizacje"
+msgstr "Błąd został zaktualizowany"
 
 #: ../exception.py:451
 #, python-format
@@ -651,6 +662,11 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Błąd zawierający te informacje już istnieje. Twoje konto zostało dodane do "
+"listy CC, a wyjątek dodany jako komentarz. Dodaj inne informacje do "
+"poniższego błędu:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:475 ../exception.py:490 ../exception.py:515
 msgid "Dump Written"
@@ -673,15 +689,16 @@ msgid "There was a problem writing the system state to the disk."
 msgstr "Wystąpił problem podczas zapisywania stanu systemu na dysk."
 
 #: ../exception.py:506 ../exception.py:529
-#, fuzzy
 msgid "No Network Available"
-msgstr "Urządzenia sieciowe"
+msgstr "Brak dostępnych sieci"
 
 #: ../exception.py:507 ../exception.py:530
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
 msgstr ""
+"Nie można zapisać raportu błędu, ponieważ nie ma dostępnego aktywnego "
+"urządzenia sieciowego."
 
 #: ../exception.py:516
 msgid ""
@@ -967,7 +984,7 @@ msgstr ""
 "instalację, ale mogą wystąpić problemy."
 
 #: ../fsset.py:1986
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -978,19 +995,19 @@ msgid ""
 msgstr ""
 "Błąd podczas montowania urządzenia %s jako %s: %s\n"
 "\n"
-"Urządzenia w /etc/fstab powinny być określone przez etykietę, a nie przez "
-"nazwę urządzenia.\n"
+"Urządzenia w /etc/fstab powinny być określone przez etykietę lub UUID, a nie "
+"przez nazwę urządzenia.\n"
 "\n"
 "Naciśnij OK, aby zakończyć instalator."
 
 #: ../fsset.py:1993
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Nie można ustalić położenia urządzenia RAID %s w celu użycia dla %s.\n"
+"Błąd podczas montowania urządzenia %s jako %s: %s\n"
 "\n"
 "Naciśnij \"OK\", aby zakończyć instalator."
 
@@ -1119,13 +1136,13 @@ msgid "Installation Key"
 msgstr "klucz instalacji"
 
 #: ../gui.py:660 ../text.py:323
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose a passphrase for this encrypted device%s. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
-"Wybierz długie hasło dla tej zaszyfrowanej partycji. Zostaniesz poproszony o "
-"długie hasło podczas uruchamiania systemu."
+"Wybierz długie hasło dla tego zaszyfrowanego urządzenia%s. Zostaniesz "
+"poproszony o długie hasło podczas uruchamiania systemu."
 
 #: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
 msgid "Error with passphrase"
@@ -1137,7 +1154,7 @@ msgstr "Długie hasła, które podano, różnią się. Spróbuj ponownie."
 
 #: ../gui.py:688
 msgid "The passphrase must be at least eight characters long."
-msgstr "Długie hasło musi mieć co najmniej osiem znaków."
+msgstr "Długie hasło musi zawierać co najmniej osiem znaków."
 
 #: ../gui.py:723 ../text.py:400
 #, python-format
@@ -1151,7 +1168,7 @@ msgstr ""
 #: ../gui.py:780
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "Bugzilla (%s)"
 
 #: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
 #: tmp/anaconda.glade.h:2
@@ -1275,7 +1292,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Brak obrazu ISO 9660"
 
 #: ../image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1397,15 +1414,14 @@ msgstr "Nie można znaleźć obrazu"
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
-"Podane położenie nie jest prawidłowym obrazem systemu %s używanym jako "
+"Podane położenie nie jest prawidłowym obrazem Live systemu %s używanym jako "
 "źródło instalacji."
 
 #: ../livecd.py:171
 msgid "Copying live image to hard drive."
-msgstr "Kopiowanie obrazu systemu na dysk twardy."
+msgstr "Kopiowanie obrazu Live systemu na dysk twardy."
 
 #: ../livecd.py:197
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -1413,12 +1429,11 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"Nie można otworzyć pliku %s. Powodem może być brak pliku lub uszkodzony "
-"pakiet lub nośnik. Sprawdź źródło instalacji.\n"
+"Wystąpił błąd podczas instalowania obrazu Live na dysku twardym. Powodem "
+"może być uszkodzony nośnik. Sprawdź nośnik instalacji.\n"
 "\n"
 "Jeśli zakończysz, system pozostanie niespójny, co prawdopodobnie będzie "
-"wymagało ponownej instalacji.\n"
-"\n"
+"wymagało ponownej instalacji."
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -1438,28 +1453,27 @@ msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
 msgstr ""
-"Utworzony system plików root jest za mały dla tego obrazu systemu (wymagane "
+"Utworzony system plików root jest za mały dla tego obrazu Live systemu (wymagane "
 "jest %.2f MB)."
 
 #: ../network.py:64
-#, fuzzy
 msgid "Hostname must be 64 or fewer characters in length."
-msgstr "Nazwa komputera musi składać się z co najwyżej 64 znaków."
+msgstr "Nazwa komputera musi składać się z 64 znaków lub więcej."
 
 #: ../network.py:70
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
 msgstr ""
-"Nazwa komputera musi rozpoczynać się od jednego ze znaków \"a-z\" lub \"A-Z\""
+"Nazwa komputera musi rozpoczynać się od prawidłowego znaku z zakresu "
+"\"a-z\", \"A-Z\" lub \"0-9\""
 
 #: ../network.py:75
-#, fuzzy
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
-"Nazwy komputerów mogą zawierać tylko znaki \"a-z\", \"A-Z\", \"-\" lub \".\""
+"Nazwy komputerów mogą zawierać tylko znaki \"a-z\", \"A-Z\", \"0-9\", \"-\" "
+"lub \".\""
 
 #: ../network.py:132
 msgid "IP address is missing."
@@ -1492,13 +1506,12 @@ msgid "There was an error encountered resizing the device %s."
 msgstr "Podczas zmieniania rozmiaru urządzenia %s wystąpił błąd."
 
 #: ../packages.py:146
-#, fuzzy
 msgid "Activating"
-msgstr "Aktywuj przy uruchamianiu"
+msgstr "Aktywowanie"
 
 #: ../packages.py:146
 msgid "Activating new partitions.  Please wait..."
-msgstr ""
+msgstr "Aktywowanie nowych partycji. Proszę czekać..."
 
 #: ../packages.py:167
 msgid "LVM operation failed"
@@ -1589,7 +1602,7 @@ msgstr ""
 
 #: ../partedUtils.py:407
 msgid "_Ignore drive"
-msgstr "Z_ignoruj napęd"
+msgstr "Z_ignoruj dysk"
 
 #: ../partedUtils.py:408
 msgid "_Re-initialize drive"
@@ -1625,7 +1638,7 @@ msgstr ""
 "Czy chcesz zainicjować ten dysk, usuwając WSZYSTKIE DANE?"
 
 #: ../partedUtils.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1636,9 +1649,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Tablica partycji na urządzeniu %s (%s) jest uszkodzona. Aby utworzyć nowe "
-"partycje, należy ją zainicjować, co spowoduje utratę WSZYSTKICH DANYCH na "
-"tym dysku.\n"
+"Tablica partycji na urządzeniu %s (%s %-0.f MB) jest nieczytelna.\n"
+"Aby utworzyć nowe partycje, należy ją zainicjować, co spowoduje utratę "
+"WSZYSTKICH DANYCH na tym dysku.\n"
 "\n"
 "Operacja ta zastępuje wszystkie wcześniejsze decyzje dotyczące tego, które "
 "dyski mają zostać zignorowane.\n"
@@ -1653,13 +1666,13 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
-"Napęd /dev/%s posiada więcej niż 15 partycji. Podsystem SCSI w jądrze Linux "
+"Dysk /dev/%s posiada więcej niż 15 partycji. Podsystem SCSI w jądrze Linux "
 "w tej chwili nie umożliwia używania więcej niż 15 partycji. Nie będzie można "
 "dokonać zmian w partycjach ani użyć żadnych partycji ponad /dev/%s15 w %s"
 
 #: ../partedUtils.py:1361
 msgid "No Drives Found"
-msgstr "Nie znaleziono napędów"
+msgstr "Nie znaleziono dysków"
 
 #: ../partedUtils.py:1362
 msgid ""
@@ -2002,14 +2015,13 @@ msgstr ""
 "ekranu modyfikowania dysku. Czy chcesz kontynuować instalację?"
 
 #: ../partitions.py:130
-#, fuzzy, python-format
+#, python-format
 msgid " for device %s"
-msgstr "Urządzenie RAID %s"
+msgstr " dla urządzenia %s"
 
 #: ../partitions.py:133
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Klucz szyfrujący"
+msgstr "Zaszyfrować urządzenie?"
 
 #: ../partitions.py:134
 #, python-format
@@ -2018,6 +2030,9 @@ msgid ""
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption%s will be disabled."
 msgstr ""
+"Podano, że szyfrowanie urządzenia blokowego powinno zostać włączone%s, ale "
+"nie podałeś długiego hasła. Jeśli nie wrócisz i nie podasz długiego hasła, "
+"szyfrowanie urządzenia blokowego%s zostanie wyłączone."
 
 #: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
@@ -2043,13 +2058,12 @@ msgid "Writing partitioning to disk"
 msgstr "Zapisywanie partycjonowania na dysku"
 
 #: ../partitions.py:161
-#, fuzzy
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
 msgstr ""
 "Wybrane opcje partycjonowania zostaną teraz zapisane na dysku. Wszystkie "
-"dane na usuniętych lub ponownie formatowanych partycjach zostaną utracone"
+"dane na usuniętych lub ponownie formatowanych partycjach zostaną utracone."
 
 #: ../partitions.py:166
 msgid "Go _back"
@@ -2095,10 +2109,9 @@ msgstr ""
 "zainstalować system %s."
 
 #: ../partitions.py:1177
-#, fuzzy
 msgid "You must create an EFI System Partition of at least 10 megabytes."
 msgstr ""
-"Musisz utworzyć partycję systemową EFI typu FAT o wielkości 50 megabajtów."
+"Musisz utworzyć partycję systemową EFI o wielkości co najmniej 10 megabajtów."
 
 #: ../partitions.py:1191
 msgid ""
@@ -2204,7 +2217,7 @@ msgstr "partycję będącą składnikiem grupy woluminów LVM."
 #, python-format
 msgid "The mount point %s must be formatted during live CD installs."
 msgstr ""
-"Punkt montowania %s musi zostać sformatowany podczas instalacji obrazu."
+"Punkt montowania %s musi zostać sformatowany podczas instalacji obrazu Live."
 
 #: ../partRequests.py:284
 #, python-format
@@ -2307,6 +2320,7 @@ msgstr ""
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr ""
+"Nie można znaleźć /bin/sh do wykonania! Powłoka nie zostanie uruchomiona"
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -2439,18 +2453,17 @@ msgid "Save"
 msgstr "Zapisz"
 
 #: ../text.py:210
-#, fuzzy
 msgid "Save to local disk"
-msgstr "Zapisz na dysk"
+msgstr "Zapisz na dysk lokalny"
 
 #: ../text.py:211
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "Wyślij do Bugzilli (%s)"
 
 #: ../text.py:212
 msgid "Send to remote server (scp)"
-msgstr ""
+msgstr "Wyślij na zdalny serwer (scp)"
 
 #: ../text.py:226 ../text.py:239
 msgid "User name"
@@ -2462,31 +2475,28 @@ msgstr "Hasło"
 
 #: ../text.py:230
 msgid "Bug Description"
-msgstr ""
+msgstr "Opis błędu"
 
 #: ../text.py:243
 msgid "Host (host:port)"
-msgstr ""
+msgstr "Komputer (komputer:port)"
 
 #: ../text.py:245
-#, fuzzy
 msgid "Destination file"
-msgstr "Operacja LVM nie powiodła się"
+msgstr "Plik docelowy"
 
 #: ../text.py:329
-#, fuzzy
 msgid "Passphrase for encrypted device"
-msgstr "Podaj długie hasło dla zaszyfrowanej partycji"
+msgstr "Długie hasło dla zaszyfrowanego urządzenia"
 
 #: ../text.py:347 tmp/lukspassphrase.glade.h:7
-#, fuzzy
 msgid "Use this passphrase for all new encrypted devices"
-msgstr "Podaj długie hasło dla zaszyfrowanej partycji"
+msgstr "Użyj tego długiego hasła dla wszystkich nowych zaszyfrowanej urządzeń"
 
 #: ../text.py:378
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "Długie hasło musi mieć co najmniej osiem znaków."
+msgstr "Długie hasło musi zawierać co najmniej %d znaków."
 
 #: ../text.py:407 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
@@ -2794,7 +2804,7 @@ msgstr "Długość hasła"
 
 #: ../vnc.py:324 ../vnc.py:423
 msgid "The password must be at least six characters long."
-msgstr "Hasło musi mieć co najmniej 6 znaków."
+msgstr "Hasło musi zawierać co najmniej sześć znaków."
 
 #: ../vnc.py:346
 msgid "Unable to Start X"
@@ -2857,17 +2867,15 @@ msgid "%s of %s packages completed"
 msgstr "Zakończono %s z %s pakietów"
 
 #: ../yuminstall.py:214
-#, fuzzy
 msgid "Finishing upgrade process..."
-msgstr "Kończenie aktualizacji"
+msgstr "Kończenie procesu aktualizacji..."
 
 #: ../yuminstall.py:308 ../iw/task_gui.py:275
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "Edytuj repozytorium"
+msgstr "Błąd podczas ustawiania repozytorium"
 
 #: ../yuminstall.py:309 ../iw/task_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -2875,11 +2883,11 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"Partycjonowanie zawiera następujące błędy:\n"
+"Następujący błąd wystąpił podczas ustawiania repozytorium instalacji:\n"
 "\n"
 "%s\n"
 "\n"
-"Naciśnij \"OK\", aby zakończyć instalator."
+"Podaj poprawne informacje, aby zainstalować %s."
 
 #: ../yuminstall.py:366
 msgid "Change Disc"
@@ -2907,6 +2915,7 @@ msgstr "Brak dostępu do płyty."
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
+"Repozytorium %r nie posiada nazwy w konfiguracji, używanie identyfikatora"
 
 #: ../yuminstall.py:651 ../yuminstall.py:653
 msgid "Re_boot"
@@ -2938,9 +2947,8 @@ msgid "Retrying"
 msgstr "Ponownie próbowanie"
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying download..."
-msgstr "Ponowne próbowanie pobrania pakietu..."
+msgstr "Ponowne próbowanie pobrania..."
 
 #: ../yuminstall.py:772
 #, python-format
@@ -3073,7 +3081,7 @@ msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Zdaje się, że chcesz zaktualizować system, który jest za stary, aby można "
+"Chcesz zaktualizować system, który jest za stary, aby można "
 "było go zaktualizować do tej wersji systemu %s. Czy na pewno chcesz "
 "kontynuować aktualizację?"
 
@@ -3084,8 +3092,8 @@ msgid ""
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Zdaje się, że architektura wydania systemu %s, który aktualizujesz to %s, "
-"która nie zgadza się z poprzednio zainstalowaną architekturą %s. "
+"Architektura aktualizowanego wydania systemu %s to %s, która"
+"nie zgadza się z poprzednio zainstalowaną architekturą %s. "
 "Prawdopodobnie to się nie powiedzie. Czy na pewno chcesz kontynuować proces "
 "aktualizacji?"
 
@@ -3168,7 +3176,7 @@ msgstr "Hasła, które podałeś, różnią się. Spróbuj ponownie."
 
 #: ../iw/account_gui.py:123
 msgid "The root password must be at least six characters long."
-msgstr "Hasło roota musi zawierać co najmniej 6 znaków."
+msgstr "Hasło roota musi zawierać co najmniej sześć znaków."
 
 #: ../iw/account_gui.py:131 ../textw/userauth_text.py:81
 msgid "Weak Password"
@@ -3200,7 +3208,6 @@ msgstr ""
 "partycje z określonymi systemami plików."
 
 #: ../iw/autopart_type.py:180
-#, fuzzy
 msgid ""
 "Do you really want to boot from a disk which is not used for installation?"
 msgstr ""
@@ -3320,6 +3327,8 @@ msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
 msgstr ""
+"Uruchom ponownie komputer, aby użyć zainstalowany system.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:74
 msgid ""
@@ -3568,7 +3577,7 @@ msgstr "Niedozwolony rozmiar"
 
 #: ../iw/lvm_dialog_gui.py:545 ../textw/partition_text.py:1266
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr "Podany rozmiar musi być prawidłowo zapisaną liczbą większą od 0."
+msgstr "Podany rozmiar musi być prawidłowo zapisaną liczbą większą od zera."
 
 #: ../iw/lvm_dialog_gui.py:580
 msgid "Mount point in use"
@@ -4090,7 +4099,7 @@ msgstr "Dozwolone _dyski:"
 
 #: ../iw/partition_dialog_gui.py:387
 msgid "Drive:"
-msgstr "Napęd:"
+msgstr "Dysk:"
 
 #: ../iw/partition_dialog_gui.py:431
 msgid "_Start Cylinder:"
@@ -4107,12 +4116,12 @@ msgstr "Wymuś, aby była partycją p_odstawową"
 #: ../iw/partition_gui.py:320
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr "Napęd %s (geometria: %s/%s/%s) (model: %s)"
+msgstr "Dysk %s (geometria: %s/%s/%s) (model: %s)"
 
 #: ../iw/partition_gui.py:327
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr "Napęd %s (%-0.f MB) (model: %s)"
+msgstr "Dysk %s (%-0.f MB) (model: %s)"
 
 #: ../iw/partition_gui.py:372 ../textw/partition_text.py:1424
 msgid "Type"
@@ -4303,7 +4312,7 @@ msgstr "Utworzyć urzą_dzenie RAID [domyślnie=/dev/md%s]."
 #: ../iw/partition_gui.py:1300
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "Sklonować napę_d, aby utworzyć urządzenie RAID [domyślnie=/dev/md%s]."
+msgstr "Sklonować _dysk, aby utworzyć urządzenie RAID [domyślnie=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1339
 msgid "Couldn't Create Drive Clone Editor"
@@ -4462,7 +4471,7 @@ msgstr ""
 "Wybrany dysk źródłowy zawiera partycje, które nie są ograniczone do napędu /"
 "dev/%s.\n"
 "\n"
-"Musisz usunąć te partycje lub ograniczyć je do tego napędu przed klonowaniem "
+"Musisz usunąć te partycje lub ograniczyć je do tego dysku przed klonowaniem "
 "dysku. "
 
 #: ../iw/raid_dialog_gui.py:602
@@ -4484,7 +4493,7 @@ msgstr "Błąd dysku docelowego"
 
 #: ../iw/raid_dialog_gui.py:616
 msgid "Please select the target drives for the clone operation."
-msgstr "Wybierz napędy docelowe dla operacji klonowania."
+msgstr "Wybierz dyski docelowe dla operacji klonowania."
 
 #: ../iw/raid_dialog_gui.py:622
 #, python-format
@@ -4583,7 +4592,7 @@ msgstr "Dyski docelowe:"
 
 #: ../iw/raid_dialog_gui.py:811
 msgid "Drives"
-msgstr "Napędy"
+msgstr "Dyski"
 
 #: ../iw/task_gui.py:46
 #, python-format
@@ -4629,20 +4638,19 @@ msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Musisz podać URL HTTP, HTTPS lub FTP repozytorium."
 
 #: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-#, fuzzy
 msgid "No Media Found"
-msgstr "Nie znaleziono napędów"
+msgstr "Nie znaleziono nośników"
 
 #: ../iw/task_gui.py:248 ../iw/task_gui.py:361
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr ""
+"Nie znaleziono nośnika instalacji. Włóż płytę do napędu i spróbuj ponownie."
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
-#, fuzzy
 msgid "Please enter an NFS server and path."
-msgstr "Podaj nazwę usługi i ścieżkę do obrazów systemu %s."
+msgstr "Podaj serwer NFS i ścieżkę."
 
 #: ../iw/task_gui.py:299
 msgid "Invalid Repository Name"
@@ -4665,15 +4673,14 @@ msgstr "Repozytorium %s zostało już dodane. Wybierz inną nazwę i URL."
 
 #: ../iw/task_gui.py:431
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "Brak włączonych repozytoriów oprogramowania"
 
 #: ../iw/task_gui.py:432
-#, fuzzy
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
 msgstr ""
-"Te błędy muszą zostać skorygowane przed kontynuowaniem instalacji systemu %s."
+"Musisz mieć co najmniej jedno włączone repozytorium oprogramowania, aby kontynuować instalację."
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -4748,7 +4755,7 @@ msgid "Migrate File Systems"
 msgstr "Migruj systemy plików"
 
 #: ../iw/upgrade_migratefs_gui.py:64
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -5097,9 +5104,9 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "Jaki jest model klawiatury podłączonej do komputera?"
 
 #: ../textw/netconfig_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s"
-msgstr "W pole %s musisz wpisać wartość."
+msgstr "W polu %s wymagana jest wartość."
 
 #: ../textw/netconfig_text.py:86 tmp/netconfig.glade.h:9
 msgid "Enable network interface"
@@ -5114,9 +5121,8 @@ msgstr ""
 "Skonfiguruj interfejs sieciowy."
 
 #: ../textw/netconfig_text.py:111
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Użyj _dynamicznej konfiguracji IP (DHCP)"
+msgstr "Użyj dynamicznej konfiguracji IP (DHCP)"
 
 #: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
 #: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
@@ -5129,12 +5135,10 @@ msgid "Enable IPv6 support"
 msgstr "Włącz obsługę IPv6"
 
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
 msgstr "Adres IPv4:"
 
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
 msgstr "Adres IPv6:"
 
@@ -5144,29 +5148,24 @@ msgid "Gateway:"
 msgstr "Brama:"
 
 #: ../textw/netconfig_text.py:144
-#, fuzzy
 msgid "Nameserver:"
-msgstr "Serwer nazw"
+msgstr "Serwer nazw:"
 
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "Brakujący pakiet"
+msgstr "Brakujące urządzenie"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "Musisz wybrać partycję do modyfikacji"
+msgstr "Musisz wybrać urządzenie sieciowe"
 
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
-msgstr "Maska sieci IPv4"
+msgstr "Maska sieci IPv4 "
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
-msgstr "Błąd podczas konfigurowania urządzenia sieciowego:"
+msgstr "Błąd podczas konfigurowania urządzenia sieciowego: "
 
 #: ../textw/network_text.py:60
 #, python-format
@@ -5558,7 +5557,7 @@ msgstr "Za dużo dysków zapasowych"
 
 #: ../textw/partition_text.py:1073
 msgid "You may not use any spares with a RAID0 array."
-msgstr "Nie można używać dysków zapasowych z macierzą RAID."
+msgstr "Nie można używać dysków zapasowych z macierzą RAID0."
 
 #: ../textw/partition_text.py:1152
 msgid "No Volume Groups"
@@ -5654,7 +5653,7 @@ msgstr "Których dysków chcesz użyć do instalacji?"
 #: ../textw/partition_text.py:1550
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 msgstr ""
-"<Spacja>,<+>,<-> wybór   |   <F2> Dodaj napęd   |   <F12> następny ekran"
+"<Spacja>,<+>,<-> wybór   |   <F2> Dodaj dysk   |   <F12> następny ekran"
 
 #: ../textw/partition_text.py:1617
 msgid "Review Partition Layout"
@@ -5670,7 +5669,7 @@ msgstr "Zaawansowane opcje pamięci masowej"
 
 #: ../textw/partition_text.py:1640 tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
-msgstr "Jak chcesz zmodyfikować konfigurację napędu?"
+msgstr "Jak chcesz zmodyfikować konfigurację dysku?"
 
 #: ../textw/partition_text.py:1663
 msgid "Add FCP Device"
@@ -5683,9 +5682,8 @@ msgid ""
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "Komputery zSeries mogą korzystać z urządzeń w standardzie SCSI przez Fibre "
-"Channel (FCP). Musisz podać 16-bitowy numer urządzenia, 16-bitowe SCSI ID, "
-"64-bitowy World Wide Port Name (WWPN) oraz 64-bitowy FCP LUN dla każdego "
-"urządzenia."
+"Channel (FCP). Musisz podać 16-bitowy numer urządzenia, 64-bitowy World Wide "
+"Port Name (WWPN) oraz 64-bitowy FCP LUN dla każdego urządzenia."
 
 #: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5832,7 +5830,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:67
 msgid "The root password must be at least 6 characters long."
-msgstr "Hasło roota musi zawierać co najmniej 6 znaków."
+msgstr "Hasło roota musi zawierać co najmniej sześć znaków."
 
 #: ../textw/welcome_text.py:28
 #, python-format
@@ -6016,14 +6014,13 @@ msgstr ""
 "Wybierz %s, aby pominąć test nośnika i rozpocząć instalację."
 
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "Ostrzeżenie"
+msgstr "Skanowanie"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "Wyszukiwanie obrazów instalacji na urządzeniu CD %s"
 
 #: ../loader/cdinstall.c:428
 #, c-format
@@ -6043,9 +6040,9 @@ msgid "Cannot find kickstart file on CDROM."
 msgstr "Nie można znaleźć pliku kickstart na CD-ROM-ie."
 
 #: ../loader/copy.c:51 ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "Nie można odczytać folderu %s: %s"
+msgstr "Odczytanie folderu %s nie powiodło się: %m"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -6216,13 +6213,11 @@ msgid "Select Device Driver to Load"
 msgstr "Wybierz sterownik do wczytania"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
 msgstr ""
-"Podczas odczytywania instalacji z obrazów ISO wystąpił błąd. Sprawdź obrazy "
-"ISO i spróbuj ponownie."
+"Podczas wyszukiwania obrazu instalacji na dysku twardym wystąpił błąd. Sprawdź obrazy i spróbuj ponownie."
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6233,29 +6228,28 @@ msgstr ""
 "dodatkowe urządzenia?"
 
 #: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Na której partycji i w jakim folderze na tej partycji znajdują się obrazy CD "
-"(ISO9660) dla systemu %s? Jeśli nie widzisz potrzebnego dysku na tej liście, "
+"Na której partycji i w jakim folderze na tej partycji znajdują się obrazy "
+"instalacji dla systemu %s? Jeśli nie widzisz używanego dysku twardego na tej liście, "
 "naciśnij F2, aby skonfigurować dodatkowe urządzenia."
 
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
-msgstr "Folder zawierający obrazy:"
+msgstr "Folder zawierający obraz:"
 
 #: ../loader/hdinstall.c:301
 msgid "Select Partition"
 msgstr "Wybierz partycję"
 
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "Urządzenie %s nie zawiera obrazów CD-ROM %s."
+msgstr "Urządzenie %s nie zawiera obrazu instalacji."
 
 #: ../loader/hdinstall.c:385
 #, c-format
@@ -6280,14 +6274,14 @@ msgid "What type of keyboard do you have?"
 msgstr "Jakiego typu klawiatury używasz?"
 
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "Błąd podczas otwierania pliku kickstart %s: %s"
+msgstr "Błąd podczas otwierania pliku kickstart %s: %m"
 
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Błąd podczas odczytywania zawartości pliku kickstart %s: %s"
+msgstr "Błąd podczas odczytywania zawartości pliku kickstart %s: %m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -6363,10 +6357,10 @@ msgstr ""
 "aktualizującego. Której chcesz użyć?"
 
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr ""
-"Włóż dysk aktualizujący do /dev/%s, a potem naciśnij \"OK\", aby kontynuować."
+"Włóż dysk aktualizujący do %s i naciśnij \"OK\", aby kontynuować."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6422,9 +6416,8 @@ msgid "What type of media contains the rescue image?"
 msgstr "Jakiego typu nośnik zawiera obraz ratunkowy?"
 
 #: ../loader/loader.c:1358
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "Jakiego typu nośnik zawiera obraz ratunkowy?"
+msgstr "Jakiego typu nośnik zawiera obraz instalacji?"
 
 #: ../loader/loader.c:1389
 msgid "No driver found"
@@ -6649,9 +6642,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "Błędnie podany protokół startowy %s w poleceniu sieciowym"
 
 #: ../loader/net.c:1423
-#, fuzzy
 msgid "Seconds:"
-msgstr "Drugi DNS:"
+msgstr "Drugie:"
 
 #: ../loader/net.c:1537
 msgid "Networking Device"
@@ -6666,40 +6658,39 @@ msgstr ""
 
 #: ../loader/net.c:1542
 msgid "Identify"
-msgstr ""
+msgstr "Identyfikacja"
 
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "Można zidentyfikować fizyczny port dla"
 
 #: ../loader/net.c:1553
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "przez świecenie diodami LED przez określoną liczbę sekund. Podaj liczbę między 1 a 30, aby ustawić czas świecenia diod LED portów."
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
-msgstr ""
+msgstr "Identyfikowanie NIC"
 
 #: ../loader/net.c:1576
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Nieprawidłowa informacja IP"
+msgstr "Nieprawidłowy czas trwania"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "Musisz podać liczbę sekund jako liczbę całkowitą między 1 a 30."
 
 #: ../loader/net.c:1589
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "Świecenie diodami portu %s przez %d sekund..."
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "Oczekiwanie na połączenie telnet..."
+msgstr "Oczekiwanie na Menedżera sieci, aby skonfigurować %s...\n"
 
 #: ../loader/nfsinstall.c:63
 msgid "NFS server name:"
@@ -6711,9 +6702,9 @@ msgid "%s directory:"
 msgstr "Folder %s:"
 
 #: ../loader/nfsinstall.c:78
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr "Podaj nazwę usługi i ścieżkę do obrazów systemu %s."
+msgstr "Podaj nazwę serwera i ścieżkę do obrazu instalacji %s."
 
 #: ../loader/nfsinstall.c:85
 msgid "NFS Setup"
@@ -6728,9 +6719,9 @@ msgid "That directory could not be mounted from the server."
 msgstr "Nie można zamontować tego folderu z serwera."
 
 #: ../loader/nfsinstall.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "Ten folder nie zawiera drzewa instalacyjnego systemu %s."
+msgstr "Ten folder nie zawiera obrazu instalacji %s."
 
 #: ../loader/nfsinstall.c:338
 #, c-format
@@ -6750,9 +6741,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Uruchamianie anacondy przez telnet..."
 
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "Nie można pobrać %s://%s/%s."
+msgstr "Nie można pobrać %s://%s%s."
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
@@ -6777,10 +6768,10 @@ msgid "Retrieving"
 msgstr "Pobieranie"
 
 #: ../loader/urls.c:295
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the URL containing the %s installation image on your server."
-msgstr "Podaj URL zawierający obrazy systemu %s na serwerze."
+msgstr "Podaj URL zawierający obraz instalacji %s na serwerze."
 
 #: ../loader/urls.c:321
 msgid "URL Setup"
@@ -6845,14 +6836,12 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>_Nazwa repozytorium:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>_Nazwa repozytorium:</b>"
+msgstr "<b>_Typ repozytorium:</b>"
 
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "Skonfiguruj pośrednika"
+msgstr "_Skonfiguruj pośrednika"
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -6861,65 +6850,60 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"Twardy dysk"
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid ""
 "Please provide the configuration information for this software repository."
 msgstr ""
-"Podaj położenie, z którego można zainstalować dodatkowe oprogramowanie."
+"Podaj informacje o konfiguracji dla tego repozytorium oprogramowania."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL"
-msgstr "U_RL pośrednika:"
+msgstr "U_RL pośrednika"
 
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "_Hasło pośrednika:"
+msgstr "_Hasło pośrednika"
 
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "Nazwa _użytkownika pośrednika:"
+msgstr "Nazwa _użytkownika pośrednika"
 
 #: tmp/addrepo.glade.h:13
 msgid "Repository _URL"
 msgstr "_URL repozytorium"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "Wybierz plik"
+msgstr "Wybierz folder"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "_URL jest listą serwerów lustrzanych"
 
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "Folder NFS"
+msgstr "_Folder"
 
 #: tmp/addrepo.glade.h:17
-#, fuzzy
 msgid "_Options"
-msgstr "Opcje RAID"
+msgstr "_Opcje"
 
 #: tmp/addrepo.glade.h:18
-#, fuzzy
 msgid "_Partition"
-msgstr "Partycja"
+msgstr "_Partycja"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "Ś_cieżka"
 
 #: tmp/addrepo.glade.h:20
-#, fuzzy
 msgid "_Server"
-msgstr "Serwer nazw:"
+msgstr "_Serwer"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6987,11 +6971,11 @@ msgstr "Urządzenie programu startowego"
 
 #: tmp/blwhere.glade.h:4
 msgid "First BIOS drive:"
-msgstr "Pierwszy napęd w BIOS-ie:"
+msgstr "Pierwszy dysk w BIOS-ie:"
 
 #: tmp/blwhere.glade.h:5
 msgid "Fourth BIOS drive:"
-msgstr "Czwarty napęd w BIOS-ie:"
+msgstr "Czwarty dysk w BIOS-ie:"
 
 #: tmp/blwhere.glade.h:6
 msgid "MBR"
@@ -6999,11 +6983,11 @@ msgstr "MBR"
 
 #: tmp/blwhere.glade.h:7
 msgid "Second BIOS drive:"
-msgstr "Drugi napęd w BIOS-ie:"
+msgstr "Drugi dysk w BIOS-ie:"
 
 #: tmp/blwhere.glade.h:8
 msgid "Third BIOS drive:"
-msgstr "Trzeci napęd w BIOS-ie:"
+msgstr "Trzeci dysk w BIOS-ie:"
 
 #: tmp/blwhere.glade.h:9
 msgid "Where would you like to install the boot loader for your system?"
@@ -7019,21 +7003,23 @@ msgstr "_Szczegóły"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "_Opis błędu"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "_Plik docelowy"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"Lokalny dysk\n"
+"Zdalny serwer (scp)"
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "Wybierz miejsce docelowe do zapisania wyjątku."
 
 #: tmp/exnSave.glade.h:7
 msgid "Select A File"
@@ -7041,17 +7027,15 @@ msgstr "Wybierz plik"
 
 #: tmp/exnSave.glade.h:8
 msgid "_Host (host:port)"
-msgstr ""
+msgstr "_Komputer (komputer:port)"
 
 #: tmp/exnSave.glade.h:9
-#, fuzzy
 msgid "_Password"
-msgstr "_Hasło:"
+msgstr "_Hasło"
 
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_User name"
-msgstr "Nazwa użytkownika"
+msgstr "Nazwa _użytkownika"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -7335,7 +7319,7 @@ msgstr "gudżarati"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "hebrajski"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -7390,9 +7374,8 @@ msgid "Marathi"
 msgstr "marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "norweski"
+msgstr "norweski (bokmål)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
@@ -7485,145 +7468,3 @@ msgstr "walijski"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zuluski"
-
-#~ msgid "No video hardware found, assuming headless"
-#~ msgstr "Nie znaleziono żadnego sprzętu graficznego, założono jego brak"
-
-#~ msgid "Unable to instantiate a X hardware state object."
-#~ msgstr "Nie można zainicjować obiektu stanu sprzętu X Window."
-
-#~ msgid ""
-#~ "Error mounting device %s as %s: %s\n"
-#~ "\n"
-#~ "This most likely means this partition has not been formatted.\n"
-#~ "\n"
-#~ "Press OK to exit the installer."
-#~ msgstr ""
-#~ "Błąd podczas montowania urządzenia %s jako %s: %s\n"
-#~ "\n"
-#~ "Prawdopodobnie ta partycja nie została sformatowana.\n"
-#~ "\n"
-#~ "Naciśnij OK, aby zakończyć instalator."
-
-#~ msgid "Invalid Label"
-#~ msgstr "Nieprawidłowa etykieta"
-
-#~ msgid ""
-#~ "An invalid label was found on device %s.  Please fix this problem and "
-#~ "restart the installation process."
-#~ msgstr ""
-#~ "Na urządzeniu %s znaleziono nieprawidłową etykietę. Napraw ten problem i "
-#~ "ponów proces instalacji."
-
-#~ msgid "Save to Remote"
-#~ msgstr "Zapisz zdalnie"
-
-#~ msgid "Host"
-#~ msgstr "Komputer"
-
-#~ msgid "Remote path"
-#~ msgstr "Ścieżka zdalna"
-
-#~ msgid "Help not available"
-#~ msgstr "Pomoc jest niedostępna"
-
-#~ msgid "No help is available for this step of the install."
-#~ msgstr "Dla tego kroku instalacji nie jest dostępna żadna pomoc."
-
-#~ msgid ""
-#~ " <F1> for help | <Tab> between elements | <Space> selects | <F12> next "
-#~ "screen"
-#~ msgstr ""
-#~ " <F1> pomoc | <Tab> między elementami | <Spacja> wybór | <F12> następny "
-#~ "ekran"
-
-#~ msgid "Finishing upgrade process.  This may take a little while..."
-#~ msgstr "Kończenie procesu instalacji. Może to potrwać kilka minut..."
-
-#~ msgid "Error running transaction"
-#~ msgstr "Błąd podczas uruchamiania transakcji"
-
-#~ msgid ""
-#~ "No %s disc was found which matches your boot media.  Please insert the %s "
-#~ "disc and press %s to retry."
-#~ msgstr ""
-#~ "Nie można znaleźć płyty startowej %s. Włóż płytę %s i naciśnij %s, aby "
-#~ "ponowić próbę."
-
-#~ msgid ""
-#~ "The %s installation tree in that directory does not seem to match your "
-#~ "boot media."
-#~ msgstr ""
-#~ "Drzewo instalacyjne systemu %s w tym folderze nie wygląda na zgodne z "
-#~ "nośnikiem startowym."
-
-#~ msgid "Welcome to %s%n for %s"
-#~ msgstr "Witaj w systemie %s%n dla %s"
-
-#~ msgid "What type of media contains the packages to be installed?"
-#~ msgstr "Jaki typ nośnika zawiera pakiety do instalacji?"
-
-#~ msgid ""
-#~ "%s is a wireless network adapter.  Please provide the ESSID and "
-#~ "encryption key needed to access your wireless network.  If no key is "
-#~ "needed, leave this field blank and the install will continue."
-#~ msgstr ""
-#~ "%s jest bezprzewodową kartą sieciową. Podaj ESSID oraz klucz szyfrujący, "
-#~ "aby uzyskać dostęp do sieci bezprzewodowej. Jeśli klucz nie jest "
-#~ "wymagany, zostaw puste pole, a instalacja będzie kontynuowana."
-
-#~ msgid "ESSID"
-#~ msgstr "ESSID"
-
-#~ msgid "Wireless Settings"
-#~ msgstr "Ustawienia sieci bezprzewodowej"
-
-#~ msgid "Nameserver IP"
-#~ msgstr "IP serwera nazw"
-
-#~ msgid "Missing Nameserver"
-#~ msgstr "Brak serwera nazw"
-
-#~ msgid ""
-#~ "Your IP address request returned configuration information, but it did "
-#~ "not include a nameserver address. If you do not have this information, "
-#~ "you can leave the field blank and the install will continue."
-#~ msgstr ""
-#~ "Żądanie dynamicznego przydziału adresu IP zwróciło informację o "
-#~ "konfiguracji, ale bez adresu serwera nazw. Jeśli nie masz tej informacji, "
-#~ "pozostaw pole puste i kontynuuj instalację."
-
-#~ msgid "You entered an invalid IP address."
-#~ msgstr "Podano prawidłowy adres IP."
-
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Ustalanie nazwy komputera i domeny..."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy "
-#~ "server to use."
-#~ msgstr "Jeśli używasz serwera pośredniczącego HTTP, podaj jego nazwę."
-
-#~ msgid "Proxy Name:"
-#~ msgstr "Nazwa pośrednika:"
-
-#~ msgid "Proxy Port:"
-#~ msgstr "Port pośrednika:"
-
-#~ msgid "Further Setup"
-#~ msgstr "Dalsze ustawienia"
-
-#~ msgid "Repository _Mirror"
-#~ msgstr "_Serwer lustrzany repozytorium"
-
-#~ msgid "_Proxy configuration"
-#~ msgstr "_Konfiguracja pośrednika"
-
-#~ msgid "Select a destination for the exception information."
-#~ msgstr "Wybierz cel informacji o wyjątku."
-
-#~ msgid "_Disk"
-#~ msgstr "_Dysk"
-
-#~ msgid "_Remote"
-#~ msgstr "_Zdalnie"
