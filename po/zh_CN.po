@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-01 09:21+1000\n"
+"PO-Revision-Date: 2008-09-02 14:26+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -610,11 +610,13 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"生成了一个新的 bug 并附有您的追述文件。请添加如下附加信息，比如您在遇到这个 bug 时正在做什么、屏幕截图或者其它任由有关以下 bug 的信息：\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:450
-#, fuzzy
 msgid "Bug Updated"
-msgstr "更新"
+msgstr "Bug 更新"
 
 #: ../exception.py:451
 #, python-format
@@ -625,6 +627,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"带有您所提供信息的 bug 已经存在。您的帐户已经被添加到 CC 列表中，且您的追述记录已经作为注释添加到 bug 中。请为以下 bug 添加额外描述：\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:475 ../exception.py:490 ../exception.py:515
 msgid "Dump Written"
@@ -645,15 +650,14 @@ msgid "There was a problem writing the system state to the disk."
 msgstr "将系统状态写入软盘时出现问题。"
 
 #: ../exception.py:506 ../exception.py:529
-#, fuzzy
 msgid "No Network Available"
-msgstr "网络设备"
+msgstr "没有可用网络"
 
 #: ../exception.py:507 ../exception.py:530
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
-msgstr ""
+msgstr "无法保存 bug 报告因为没有可用的联网设备。"
 
 #: ../exception.py:516
 msgid ""
@@ -922,7 +926,7 @@ msgid ""
 msgstr "配置硬件%s 为 %s时出错。您仍可继续安装，但可能无法正常运行。"
 
 #: ../fsset.py:1986
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -931,22 +935,22 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"将 %s 设备挂载成 %s 时出错:%s\n"
+"将设备 %s 挂载成 %s 时出错：%s\n"
 "\n"
-"/etc/fstab 的设备应由标签而非设备名指定.\n"
+"/etc/fstab 中的设备应使用标签或者 UUID 而非设备名指定.\n"
 "\n"
-"请按确定退出安装."
+"请按确定退出安装程序。"
 
 #: ../fsset.py:1993
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"找不到 RAID 设备 %s 以便为 %s 使用.\n"
+"将设备 %s 挂载为 %s 时出错：%s\n"
 "\n"
-"按确定退出安装."
+"按确定退出安装程序。"
 
 #: ../fsset.py:2011
 msgid ""
@@ -1068,11 +1072,11 @@ msgid "Installation Key"
 msgstr "安装码"
 
 #: ../gui.py:660 ../text.py:323
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose a passphrase for this encrypted device%s. You will be prompted for "
 "the passphrase during system boot."
-msgstr "为这个加密分区选择密码句。在系统引导时会提示您输入密码句。"
+msgstr "为这个加密设备 %s 选择密码短语。在系统引导时会提示您输入密码短语。"
 
 #: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
 msgid "Error with passphrase"
@@ -1096,7 +1100,7 @@ msgstr "设备 %s 是加密的。为了要在安装过程中访问设备的内�
 #: ../gui.py:780
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "Bugzilla (%s)"
 
 #: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
 #: tmp/anaconda.glade.h:2
@@ -1216,7 +1220,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "缺少 ISO 9660图像"
 
 #: ../image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1224,9 +1228,9 @@ msgid ""
 "Please copy this image to the drive and click Retry.  Click Exit to abort "
 "the installation."
 msgstr ""
-"安装程序试图加载映像#%s，但在硬盘上无法找到该映像。\n"
+"安装程序试图挂载映像 #%s，但在硬盘上无法找到该映像。\n"
 "\n"
-"请将此图像复制到硬盘中，并点击重试。点击退出来终止安装。"
+"请将此映像复制到硬盘中，并点击重试。点击退出来终止安装。"
 
 #: ../image.py:244
 msgid "Required Install Media"
@@ -1334,7 +1338,6 @@ msgid "Copying live image to hard drive."
 msgstr "正在将安装映像传输到硬盘."
 
 #: ../livecd.py:197
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -1342,11 +1345,10 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"无法打开 %s 文件。这是由于文件遗失、软件包损坏或者介质损坏造成的。请检查您的"
-"安装源。\n"
+"在将即时映像安装到您硬盘中时出错。这是由介质损坏造成的。请检查您的"
+"安装介质。\n"
 "\n"
-"您如果现在退出，您的系统会不稳定需要重新安装。\n"
-"\n"
+"您如果现在退出，您的系统会不稳定需要重新安装。"
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -1366,21 +1368,18 @@ msgid ""
 msgstr "您创建的根文件系统不够大，无法容纳这个实时映像（需要 %.2f MB）。"
 
 #: ../network.py:64
-#, fuzzy
 msgid "Hostname must be 64 or fewer characters in length."
-msgstr "主机名的长度必须小于等于64个字符。"
+msgstr "主机名的长度必须小于等于 64 个字符。"
 
 #: ../network.py:70
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
-msgstr "主机名只能以“a-z”或“A-Z”范围内的字符开头"
+msgstr "主机名只能以“a-z”、“A-Z”或者“0-9”范围内的有效字符开头"
 
 #: ../network.py:75
-#, fuzzy
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr "主机名只能包含字符：“a-z”、“A-Z”、“-”、或“.”。"
+msgstr "主机名只能包含字符“a-z”、“A-Z”、“0-9”、“-”、或“.”。"
 
 #: ../network.py:132
 msgid "IP address is missing."
@@ -1412,13 +1411,12 @@ msgid "There was an error encountered resizing the device %s."
 msgstr "调整设备 %s 大小时遇到错误。"
 
 #: ../packages.py:146
-#, fuzzy
 msgid "Activating"
-msgstr "引导时激活"
+msgstr "激活"
 
 #: ../packages.py:146
 msgid "Activating new partitions.  Please wait..."
-msgstr ""
+msgstr "正在激活新分区，请等待......"
 
 #: ../packages.py:167
 msgid "LVM operation failed"
@@ -1540,7 +1538,7 @@ msgstr ""
 "您想要初始化这个驱动器并删除所有数据吗？"
 
 #: ../partedUtils.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1551,7 +1549,8 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"设备 %s (%s) 上的分区表无法被读取。创建新分区时必须对其执行初始化，从而会导致"
+"无法读取设备 %s（%s %-0.f MB）中的分区表。\n"
+"要创建新分区时必须对其执行初始化，从而会导致"
 "该驱动器中的所有数据丢失。\n"
 "\n"
 "该操作会覆盖所有先前关于要忽略的驱动器的安装选择。\n"
@@ -1889,14 +1888,13 @@ msgid ""
 msgstr "您选择的分区选项已被激活，您将无法返回到磁盘编辑屏幕。您想继续安装吗？"
 
 #: ../partitions.py:130
-#, fuzzy, python-format
+#, python-format
 msgid " for device %s"
-msgstr "RAID 设备 %s"
+msgstr "设备 %s"
 
 #: ../partitions.py:133
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "加密密钥"
+msgstr "加密设备？"
 
 #: ../partitions.py:134
 #, python-format
@@ -1904,7 +1902,7 @@ msgid ""
 "You specified block device encryption should be enabled%s, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption%s will be disabled."
-msgstr ""
+msgstr "您指定的块设备加密法应该启用 %s，但您还没有提供密码短语。如果您不在上一步提供密码短语，则会禁用块设备加密法 %s。"
 
 #: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
@@ -1930,13 +1928,10 @@ msgid "Writing partitioning to disk"
 msgstr "将分区写入磁盘"
 
 #: ../partitions.py:161
-#, fuzzy
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
-msgstr ""
-"现在您选择的分区选项将写入磁盘。所有在被删除或者被重新格式化的分区中的时间都"
-"会丢失。"
+msgstr "现在会将您选择的分区选项写入磁盘。所有在被删除或者被重新格式化的分区中的数据都会丢失。"
 
 #: ../partitions.py:166
 msgid "Go _back"
@@ -1977,9 +1972,8 @@ msgid ""
 msgstr "您的根分区小于 250 MB，这个空间通常太小，不足以安装 %s。"
 
 #: ../partitions.py:1177
-#, fuzzy
 msgid "You must create an EFI System Partition of at least 10 megabytes."
-msgstr "您必须创建一个 FAT 类型的 EFI 系统分区，大小为 50MB。"
+msgstr "您必须创建一个至少有 10MB 大小的 EFI 系统分区。"
 
 #: ../partitions.py:1191
 msgid ""
@@ -2159,7 +2153,7 @@ msgstr "结束后请退出 shell，您的系统将会被重新启动。"
 
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
+msgstr "无法找到要执行的 /bin/sh！没有启动 shell"
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -2282,18 +2276,17 @@ msgid "Save"
 msgstr "保存"
 
 #: ../text.py:210
-#, fuzzy
 msgid "Save to local disk"
-msgstr "保存到磁盘"
+msgstr "保存到本地磁盘"
 
 #: ../text.py:211
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "发送到 bugzilla（%s）"
 
 #: ../text.py:212
 msgid "Send to remote server (scp)"
-msgstr ""
+msgstr "发送到远程服务器（scp）"
 
 #: ../text.py:226 ../text.py:239
 msgid "User name"
@@ -2305,31 +2298,28 @@ msgstr "密码"
 
 #: ../text.py:230
 msgid "Bug Description"
-msgstr ""
+msgstr "Bug 描述"
 
 #: ../text.py:243
 msgid "Host (host:port)"
-msgstr ""
+msgstr "主机（主机:端口）"
 
 #: ../text.py:245
-#, fuzzy
 msgid "Destination file"
-msgstr "LVM 操作失败"
+msgstr "目的地文件"
 
 #: ../text.py:329
-#, fuzzy
 msgid "Passphrase for encrypted device"
-msgstr "为加密分区输入密码句"
+msgstr "加密设备的密码短语"
 
 #: ../text.py:347 tmp/lukspassphrase.glade.h:7
-#, fuzzy
 msgid "Use this passphrase for all new encrypted devices"
-msgstr "为加密分区输入密码句"
+msgstr "所有新的加密设备都使用这个密码短语"
 
 #: ../text.py:378
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "密码至少应包含八个字符。"
+msgstr "密码短语长度至少应有 %d 个字符。"
 
 #: ../text.py:407 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
@@ -2681,17 +2671,15 @@ msgid "%s of %s packages completed"
 msgstr "%s of %s 软件包安装完成"
 
 #: ../yuminstall.py:214
-#, fuzzy
 msgid "Finishing upgrade process..."
-msgstr "完成升级"
+msgstr "完成升级过程......"
 
 #: ../yuminstall.py:308 ../iw/task_gui.py:275
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "编辑库"
+msgstr "设置存储库时出错"
 
 #: ../yuminstall.py:309 ../iw/task_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -2699,11 +2687,11 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"分区时发生了下列错误：\n"
+"设定安装存储库时发生了下列错误：\n"
 "\n"
 "%s\n"
 "\n"
-"请按确定退出安装."
+"请为安装 %s 提供正确的信息。"
 
 #: ../yuminstall.py:366
 msgid "Change Disc"
@@ -2730,7 +2718,7 @@ msgstr "无法读取光盘。"
 #: ../yuminstall.py:533
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr ""
+msgstr "存储库 %r 在配置中没有名称，请使用 id"
 
 #: ../yuminstall.py:651 ../yuminstall.py:653
 msgid "Re_boot"
@@ -2761,9 +2749,8 @@ msgid "Retrying"
 msgstr "重试中"
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying download..."
-msgstr "重试软件包下载..."
+msgstr "重试下载..."
 
 #: ../yuminstall.py:772
 #, python-format
@@ -3010,7 +2997,6 @@ msgid ""
 msgstr "没有可以重新定义大小的分区。只有带特定文件系统的物理分区可重新定义大小。"
 
 #: ../iw/autopart_type.py:180
-#, fuzzy
 msgid "Do you really want to boot from a disk which is not used for installation?"
 msgstr "您确实希望从不进行安装的磁盘中引导吗？"
 
@@ -3124,6 +3110,8 @@ msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
 msgstr ""
+"请使用安装的系统重启该系统。\n"
+"\n"
 
 #: ../iw/congrats_gui.py:74
 msgid ""
@@ -3184,11 +3172,11 @@ msgid "Packages in %s"
 msgstr "%s 中的软件包"
 
 #: ../iw/GroupSelector.py:442
-#, fuzzy, python-format
+#, python-format
 msgid "%d of %d optional package selected"
 msgid_plural "%d of %d optional packages selected"
-msgstr[0] "%d个 (共 %d 个)可选包被选中"
-msgstr[1] "%d个 (共 %d 个)可选包被选中"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../iw/GroupSelector.py:445
 #, python-format
@@ -4379,20 +4367,18 @@ msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "您必须为库提供一个 HTTP、HTTPS 或者或 FTP 链接（URL）。"
 
 #: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-#, fuzzy
 msgid "No Media Found"
-msgstr "未找到任何驱动器"
+msgstr "未找到介质"
 
 #: ../iw/task_gui.py:248 ../iw/task_gui.py:361
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
-msgstr ""
+msgstr "没有找到安装介质。请将磁盘插入您的驱动器中再试一次。"
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
-#, fuzzy
 msgid "Please enter an NFS server and path."
-msgstr "请输入服务器名称以及到您的 %s 映像的路径。"
+msgstr "请输入 NFS 服务器及路径。"
 
 #: ../iw/task_gui.py:299
 msgid "Invalid Repository Name"
@@ -4415,14 +4401,13 @@ msgstr "存储库 %s 已被使用，请另选一个存储库名和 URL。"
 
 #: ../iw/task_gui.py:431
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "没有启用软件存储库"
 
 #: ../iw/task_gui.py:432
-#, fuzzy
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr "在继续安装 %s 前您必须更正这些错误。"
+msgstr "在继续安装前您必须至少有一个软件存储库。"
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -4494,7 +4479,7 @@ msgid "Migrate File Systems"
 msgstr "迁移文件系统"
 
 #: ../iw/upgrade_migratefs_gui.py:64
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4503,7 +4488,7 @@ msgid ""
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "%s 的本次发行版支持更新的文件系统，该文件系统和之前通常在 %s 中使用的文件系统"
-"相比有几个有点。这个安装程序可在不丢失数据的情况下迁移格式化的分区。\n"
+"相比有几个优点。这个安装程序可在不丢失数据的情况下迁移格式化的分区。\n"
 "\n"
 "您想迁移哪些分区？"
 
@@ -4820,9 +4805,9 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "与计算机连接的键盘属于何种型号？"
 
 #: ../textw/netconfig_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s"
-msgstr "%s字段需要输入值。"
+msgstr "%s 字段需要输入值。"
 
 #: ../textw/netconfig_text.py:86 tmp/netconfig.glade.h:9
 msgid "Enable network interface"
@@ -4835,9 +4820,8 @@ msgid ""
 msgstr "您在安装的过程中需要激活网络连接，请配置网络界面。"
 
 #: ../textw/netconfig_text.py:111
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "使用(_d）动态 IP 配置(DHCP)"
+msgstr "请使用动态 IP 配置（DHCP）"
 
 #: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
 #: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
@@ -4850,14 +4834,12 @@ msgid "Enable IPv6 support"
 msgstr "启动IPV6支持"
 
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
 msgstr "IPv4 地址："
 
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
-msgstr "IPv6地址："
+msgstr "IPv6 地址："
 
 #: ../textw/netconfig_text.py:141 ../textw/network_text.py:682
 #: ../loader/net.c:828
@@ -4865,29 +4847,24 @@ msgid "Gateway:"
 msgstr "网关："
 
 #: ../textw/netconfig_text.py:144
-#, fuzzy
 msgid "Nameserver:"
-msgstr "名称服务器"
+msgstr "名称服务器："
 
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "缺少软件包"
+msgstr "缺少设备"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "您必须选择一个要编辑的分区"
+msgstr "您必须选择一个网络设备"
 
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
-msgstr "IPv4/子网掩码"
+msgstr "IPv4 子网掩码"
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
-msgstr "配置网络界面时出错:"
+msgstr "配置网络设备时出错："
 
 #: ../textw/network_text.py:60
 #, python-format
@@ -5703,14 +5680,13 @@ msgstr ""
 "选择 %s 跳过介质测试并开始安装。"
 
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "警告"
+msgstr "扫描"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "在光盘设备 %s 中查找安装映像"
 
 #: ../loader/cdinstall.c:428
 #, c-format
@@ -5728,9 +5704,9 @@ msgid "Cannot find kickstart file on CDROM."
 msgstr "在光盘上找不到 kickstart 文件。"
 
 #: ../loader/copy.c:51 ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "读取目录 %s 失败：%s"
+msgstr "读取目录 %s 失败：%m"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -5890,11 +5866,10 @@ msgid "Select Device Driver to Load"
 msgstr "选择要载入的设备驱动程序"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
-msgstr "从 ISO 映像中读取安装时出错。请检查您的 ISO 映像后重试。"
+msgstr "在从您的硬盘设备中查找安装介质时出错。请检查您的映像后再试一次。"
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -5903,17 +5878,14 @@ msgid ""
 msgstr "您的系统似乎未配备任何硬盘驱动器！是否要配置附加设备？"
 
 #: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
-msgstr ""
-"哪一个分区以及分区上的哪一个目录下存有 %s 的光盘（iso9660）映像？如果您所用的"
-"磁盘驱动器在这里没有被列出，按 F2 键来配置附加的设备。"
+msgstr "那个分区中的什么分区和目录中有 %s 的安装映像？如果您所用的磁盘驱动器在这里没有被列出，按 F2 键来配置附加的设备。"
 
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
 msgstr "包含映像的目录："
 
@@ -5922,9 +5894,9 @@ msgid "Select Partition"
 msgstr "选择分区"
 
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "设备 %s 似乎不包含 %s 光盘映像。"
+msgstr "设备 %s 似乎不包含安装映像。"
 
 #: ../loader/hdinstall.c:385
 #, c-format
@@ -5949,14 +5921,14 @@ msgid "What type of keyboard do you have?"
 msgstr "您使用哪一种类型的键盘？"
 
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "打开 kickstart 文件 %s 时出错：%s"
+msgstr "打开 kickstart 文件 %s 时出错：%m"
 
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "读取 kickstart 文件 %s 的内容时出现错误：%s"
+msgstr "读取 kickstart 文件 %s 的内容时出现错误：%m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -6026,9 +5998,9 @@ msgid ""
 msgstr "这个设备中有多个可能包含更新磁盘映像的分区。您想使用哪一个？"
 
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "在 /dev/%s 中插入更新盘，然后按“确定”来继续。"
+msgstr "在 %s 中插入更新磁盘，然后按“确定”继续。"
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6082,9 +6054,8 @@ msgid "What type of media contains the rescue image?"
 msgstr "哪一类介质包含救援映像？"
 
 #: ../loader/loader.c:1358
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "哪一类介质包含救援映像？"
+msgstr "哪一类介质包含安装映像？"
 
 #: ../loader/loader.c:1389
 msgid "No driver found"
@@ -6294,9 +6265,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "网络命令中指定的 bootproto %s 不对"
 
 #: ../loader/net.c:1423
-#, fuzzy
 msgid "Seconds:"
-msgstr "从 DNS："
+msgstr "秒："
 
 #: ../loader/net.c:1537
 msgid "Networking Device"
@@ -6310,40 +6280,39 @@ msgstr "您的系统上具有多种网络设备。您想通过哪一种设备来
 
 #: ../loader/net.c:1542
 msgid "Identify"
-msgstr ""
+msgstr "确认"
 
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "您可确认物理端口"
 
 #: ../loader/net.c:1553
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "通过让 LED 灯闪几秒。输入一个 1-30 之间的数字设定 LED 端口灯闪烁的时间。"
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
-msgstr ""
+msgstr "确认 NIC"
 
 #: ../loader/net.c:1576
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "IP 信息无效"
+msgstr "无效持续时间"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "您输入的秒数必须是 1-30 之间的一个整数。"
 
 #: ../loader/net.c:1589
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "让 %s 端口灯闪  %d 秒...... "
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "正在等待 telnet 连接..."
+msgstr "正在等待 NetworkManager 配置 %s ......\n"
 
 #: ../loader/nfsinstall.c:63
 msgid "NFS server name:"
@@ -6355,9 +6324,9 @@ msgid "%s directory:"
 msgstr "%s 目录："
 
 #: ../loader/nfsinstall.c:78
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr "请输入服务器名称以及到您的 %s 映像的路径。"
+msgstr "请输入服务器名称以及到您的 %s 安装映像的路径。"
 
 #: ../loader/nfsinstall.c:85
 msgid "NFS Setup"
@@ -6372,9 +6341,9 @@ msgid "That directory could not be mounted from the server."
 msgstr "无法从服务器中挂载该目录。"
 
 #: ../loader/nfsinstall.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "该目录似乎不包含 %s 安装树。"
+msgstr "该目录似乎不包含 %s 安装映像。"
 
 #: ../loader/nfsinstall.c:338
 #, c-format
@@ -6394,9 +6363,9 @@ msgid "Running anaconda via telnet..."
 msgstr "通过 telnet 运行 anaconda ..."
 
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "无法获取 %s://%s/%s。"
+msgstr "无法获取 %s://%s%s。"
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
@@ -6421,9 +6390,9 @@ msgid "Retrieving"
 msgstr "检索"
 
 #: ../loader/urls.c:295
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the URL containing the %s installation image on your server."
-msgstr "请在您的服务器中输入包含 %s 映像的 URL。"
+msgstr "请在您的服务器中输入包含 %s 安装映像的 URL。"
 
 #: ../loader/urls.c:321
 msgid "URL Setup"
@@ -6486,14 +6455,12 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>主机（_n）名称:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>主机（_n）名称:</b>"
+msgstr "<b>存储库类型（_t）：</b>"
 
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "配置代理服务器"
+msgstr "配置代理服务器（_p）"
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -6502,63 +6469,58 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"Hard Drive"
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid "Please provide the configuration information for this software repository."
-msgstr "请指定安装附加软件的位置。"
+msgstr "请为这个软件存储库提供配置信息。"
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL"
 msgstr "代理服务器 URL（_R）："
 
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "代理服务器密码（_w）："
+msgstr "代理服务器密码（_w）"
 
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "代理服务器名称（_s）："
+msgstr "代理服务器用户名（_s）"
 
 #: tmp/addrepo.glade.h:13
 msgid "Repository _URL"
 msgstr "库 URL（_U）"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "选择一个文件"
+msgstr "选择一个目录"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "URL 是一个镜像（_m）列表"
 
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "NFS目录"
+msgstr "目录（_D）"
 
 #: tmp/addrepo.glade.h:17
-#, fuzzy
 msgid "_Options"
-msgstr "RAID 选项"
+msgstr "选项（_O）"
 
 #: tmp/addrepo.glade.h:18
-#, fuzzy
 msgid "_Partition"
-msgstr "分区"
+msgstr "分区（_P）"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "路径（_P）"
 
 #: tmp/addrepo.glade.h:20
-#, fuzzy
 msgid "_Server"
-msgstr "域名服务器(DNS)："
+msgstr "服务器（_S）"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6655,21 +6617,23 @@ msgstr "详情（_D）"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "Bug 描述（_d）"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "目的地文件（_f）"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"本地磁盘\n"
+"远程服务器（scp）"
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "请为保存您的追述文件选择一个目的地。"
 
 #: tmp/exnSave.glade.h:7
 msgid "Select A File"
@@ -6677,17 +6641,15 @@ msgstr "选择一个文件"
 
 #: tmp/exnSave.glade.h:8
 msgid "_Host (host:port)"
-msgstr ""
+msgstr "主机（_H）(主机:端口）"
 
 #: tmp/exnSave.glade.h:9
-#, fuzzy
 msgid "_Password"
-msgstr "密码(_P)："
+msgstr "密码（_P）"
 
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_User name"
-msgstr "用户名"
+msgstr "用户名（_U）"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -6964,7 +6926,7 @@ msgstr "古吉拉特语"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "希伯来域"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -7019,9 +6981,8 @@ msgid "Marathi"
 msgstr "马拉地语"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "挪威语"
+msgstr "挪威语（巴克摩）"
 
 #. generated from lang-table
 msgid "Northern Sotho"
