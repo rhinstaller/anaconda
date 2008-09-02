@@ -23,9 +23,9 @@ msgstr ""
 "Project-Id-Version: anaconda.master.de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-08-29 15:21+0100\n"
-"Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2008-09-02 23:33+0100\n"
+"Last-Translator: Dominik Sandjaja <dominiksandjaja@fedoraproject.org>\n"
+"Language-Team: German <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -42,7 +42,7 @@ msgstr "Fehlerverarbeitung %%ksappend Zeile: %s"
 #: ../anaconda:337
 #, c-format
 msgid "Unknown error processing %%ksappend lines: %s"
-msgstr "Unbekannter Fehler-Verarbeitung %%ksappend Zeile: %s"
+msgstr "Unbekannter Fehler bei der Verarbeitung von %%ksappend Zeilen: %s"
 
 #: ../anaconda:305
 #: ../anaconda:349
@@ -165,7 +165,7 @@ msgstr "Zu wenig Arbeitsspeicher (RAM), um die grafische Installation zu verwend
 
 #: ../anaconda:544
 msgid "Starting graphical installation..."
-msgstr "Grafische Installation wird gestartet ..."
+msgstr "Grafische Installation wird gestartet …"
 
 #: ../anaconda:821
 msgid "Would you like to use VNC?"
@@ -173,7 +173,7 @@ msgstr "Möchten Sie VNC benutzen?"
 
 #: ../anaconda:822
 msgid "The VNC mode installation offers more functionality than the text mode, would you like to use it instead?"
-msgstr ""
+msgstr "Die Installation im VNC-Modus bietet mehr Funktionalitäten als der Text-Modus. Möchten Sie diesen Modus daher nutzen?"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -181,11 +181,11 @@ msgstr "Installationsklasse erfordert Installation im Textmodus"
 
 #: ../anaconda:866
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "Grafische Installation nicht verfügbar ...  Der Textmodus wird gestartet."
+msgstr "Grafische Installation nicht verfügbar … Textmodus wird gestartet."
 
 #: ../anaconda:874
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr "Die DISPLAY-Variable ist nicht gesetzt. Der Textmodus wird gestartet."
+msgstr "Die DISPLAY-Variable ist nicht gesetzt. Textmodus wird gestartet."
 
 #: ../autopart.py:892
 #, python-format
@@ -657,6 +657,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Ihr Fehlerbericht konnte aufgrund des folgenden Kommunikationsfehler mit Bugzilla nicht aufgenommen werden:\n"
+"\n"
+"%s"
 
 #: ../exception.py:367
 #, python-format
@@ -665,6 +668,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Ihr Fehlerbericht konnte wegen falscher Informationen in den Fehler-Feldern nicht veröffentlicht werden. Dies ist höchstwahrscheinlich ein Fehler in anaconda:\n"
+"\n"
+"%s"
 
 #: ../exception.py:371
 msgid "Unable To File Bug"
@@ -676,7 +682,7 @@ msgstr "Fehlerbericht-Ausfüllen ist nicht unterstützt"
 
 #: ../exception.py:378
 msgid "Your distribution does not provide a supported bug filing system, so you cannot save your exception this way."
-msgstr ""
+msgstr "Ihre Distribution bietet kein unterstütztes System zur Fehlerberichterstattung, daher können Sie Ihren Ausnahmefehler nicht auf diese Art speichern."
 
 #: ../exception.py:384
 msgid "Invalid Bug Information"
@@ -684,7 +690,7 @@ msgstr "Ungültige Fehlerberichtsinformationen"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "Bitte geben Sie einen gültigen Benutzernamen, ein Passwort und eine kurze Fehlerbeschreibung an."
 
 #: ../exception.py:395
 msgid "Unable To Login"
@@ -693,7 +699,7 @@ msgstr "Anmelden nicht möglich"
 #: ../exception.py:396
 #, python-format
 msgid "There was an error logging into %s using the provided username and password."
-msgstr ""
+msgstr "Es gab einen Fehler beim Versuch, sich mit dem angegebenen Benutzernamen und Passwort bei %s anzumelden."
 
 #: ../exception.py:433
 msgid "Bug Created"
@@ -718,6 +724,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Ein Fehlerbericht mit Ihren Informationen existiert bereits. Ihr Benutzerkonto wurde der »CC«-Liste hinzugefügt und Ihre Fehleranalyse als Kommentar ergänzt. Bitte geben Sie zusätzliche beschreibende Informationen für den folgenden Fehlerbericht an:\n"
+"\n"
+"%s/%s"
 
 # ../comps/comps-master:483
 #: ../exception.py:475
@@ -751,7 +760,7 @@ msgstr "Kein Netzwerk verfügbar"
 #: ../exception.py:507
 #: ../exception.py:530
 msgid "Cannot save a bug report since there is no active networking device available."
-msgstr ""
+msgstr "Der Fehlerbericht kann nicht gespeichert werden, da kein aktives Netzwerkgerät verfügbar ist."
 
 #: ../exception.py:516
 msgid "Your system's state has been successfully written to the remote host.  The installer will now exit."
@@ -1008,7 +1017,7 @@ msgid "An error occurred mounting device %s as %s.  You may continue installatio
 msgstr "Beim Einhängen des Gerätes %s als %s trat ein Fehler auf.  Sie können die Installation fortsetzen, müssen aber ggf. mit Fehlern rechnen."
 
 #: ../fsset.py:1986
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -1018,18 +1027,18 @@ msgid ""
 msgstr ""
 "Fehler beim Einhängen des Geräts %s als %s: %s\n"
 "\n"
-"Geräte in /etc/fstab sollten durch ihre Bezeichnung und nicht durch den Gerätenamen spezifiziert werden.\n"
+"Geräte in /etc/fstab sollten durch ihre Bezeichnung oder die UUID und nicht durch den Gerätenamen spezifiziert werden.\n"
 "\n"
-"Drücken Sie OK, um den Installer zu beenden."
+"Drücken Sie 'OK', um den Installer zu beenden."
 
 #: ../fsset.py:1993
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Das RAID-Gerät %s zur Verwendung mit %s konnte nicht gefunden werden.\n"
+"Fehler beim Einhängen des Geräts %s als %s: %s\n"
 "\n"
 "Drücken Sie 'OK', um den Installer zu beenden."
 
@@ -1180,9 +1189,9 @@ msgstr "Installationsschlüssel"
 
 #: ../gui.py:660
 #: ../text.py:323
-#, fuzzy, python-format
+#, python-format
 msgid "Choose a passphrase for this encrypted device%s. You will be prompted for the passphrase during system boot."
-msgstr "Wählen Sie ein Passwortsatz für diese verschlüsselte Partition. Sie werden während des Systemstarts nach den Passwortsatz gefragt."
+msgstr "Wählen Sie einen Passwortsatz für diese verschlüsselte Partition%s. Sie werden während des Systemstarts nach den Passwortsatz gefragt."
 
 #: ../gui.py:679
 #: ../gui.py:687
@@ -1348,7 +1357,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Fehlendes ISO-9660-Abbild"
 
 #: ../image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard drive.\n"
 "\n"
@@ -1356,7 +1365,7 @@ msgid ""
 msgstr ""
 "Das Installationsprogramm hat versucht, das Abbild #%s einzubinden, aber kann es auf der Festplatte nicht finden.\n"
 "\n"
-"Bitte kopieren Sie das Abbild auf die Festplatte und drücken Sie 'Wiederholen'. Drücken Sie auf 'Beenden', um die Installation abzubrechen."
+"Bitte kopieren Sie das Abbild auf die Festplatte und drücken Sie 'Wiederholen'. Drücken Sie 'Beenden', um die Installation abzubrechen."
 
 #: ../image.py:244
 msgid "Required Install Media"
@@ -1461,16 +1470,13 @@ msgid "Copying live image to hard drive."
 msgstr "Übertragen des Live-Abbilds auf die Festplatte."
 
 #: ../livecd.py:197
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could be due to bad media.  Please verify your installation media.\n"
 "\n"
 "If you exit, your system will be left in an inconsistent state that will require reinstallation."
 msgstr ""
-"Die Datei %s kann nicht geöffnet werden. Dies ist durch eine fehlende Datei oder eventuell durch ein fehlerhaftes Paket bedingt. Bitte überprüfen Sie, ob Ihre Installationsverzeichnise alle benötigten Pakete enthalten.\n"
-"\n"
-"Wenn Sie die Installation abbrechen, befindet sich das System in einem inkonsistenten Zustand und erfordert höchstwahrscheinlich eine Neuinstallation.\n"
-"\n"
+"Es gab einen Fehler beim Installieren des Live-Abbilds auf die Festplatte. Dies kann an einem defekten Medium liegen. Bitte verifizieren Sie Ihre Installationsmedien.\\n"
+"Wenn Sie die Installation abbrechen, befindet sich das System in einem inkonsistenten Zustand und erfordert eine Neuinstallation."
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -2364,9 +2370,8 @@ msgstr "Passwortsatz für das verschlüsselte Gerät"
 
 #: ../text.py:347
 #: tmp/lukspassphrase.glade.h:7
-#, fuzzy
 msgid "Use this passphrase for all new encrypted devices"
-msgstr "Geben Sie das Passwortsatz für die verschlüsselte Partition ein"
+msgstr "Nutze diesen Passwortsatz für alle neu verschlüsselten Geräte"
 
 #: ../text.py:378
 #, python-format
@@ -2721,19 +2726,17 @@ msgid "%s of %s packages completed"
 msgstr "%s von %s Paketen abgeschlossen"
 
 #: ../yuminstall.py:214
-#, fuzzy
 msgid "Finishing upgrade process..."
-msgstr "Einrichten des Upgradeprozess"
+msgstr "Beenden des Upgrade-Prozesses …"
 
 #: ../yuminstall.py:308
 #: ../iw/task_gui.py:275
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "Einrichten des Gruppenprozess"
+msgstr "Fehler beim Einrichten des Repositories"
 
 #: ../yuminstall.py:309
 #: ../iw/task_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -2741,11 +2744,11 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"Die folgenden Fehler traten bei der Partitionierung auf:\n"
+"Folgende Fehler traten beim Einrichten des Installations-Repositorys auf:\n"
 "\n"
 "%s\n"
 "\n"
-"Drücken Sie 'OK', um den Installer zu beenden."
+"Bitte geben Sie die korrekten Informationen an, um %s zu installieren."
 
 #: ../yuminstall.py:366
 msgid "Change Disc"
@@ -2801,9 +2804,8 @@ msgid "Retrying"
 msgstr "Wiederholen"
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying download..."
-msgstr "Begrenzung der Do&wnloadgeschwindigkeit:"
+msgstr "Versuche Download erneut …"
 
 #: ../yuminstall.py:772
 #, python-format
@@ -3037,9 +3039,8 @@ msgid "No partitions are available to resize.  Only physical partitions with spe
 msgstr "Kein Partitionen zur Größenänderung verfügbar. Nur physikalische Partitionen mit angegebenen Dateisystemen können in der Größe geändert werden."
 
 #: ../iw/autopart_type.py:180
-#, fuzzy
 msgid "Do you really want to boot from a disk which is not used for installation?"
-msgstr "Wollen Sie wirklich von diesem Laufwerk starten, welches nicht für die Installation gebraucht wird?"
+msgstr "Wollen Sie wirklich von einem Laufwerk starten, welches nicht für die Installation gebraucht wird?"
 
 #: ../iw/autopart_type.py:261
 msgid "Invalid Initiator Name"
@@ -4462,9 +4463,8 @@ msgid "No Software Repos Enabled"
 msgstr "Keine Software-Repository aktiviert"
 
 #: ../iw/task_gui.py:432
-#, fuzzy
 msgid "You must have at least one software repository enabled to continue installation."
-msgstr "Diese Fehler müssen korrigiert werden, bevor Sie mit der Installation von %s fortfahren."
+msgstr "Es muss mindestens ein Software-Repository aktiviert sein, um mit der Installation fortzufahren."
 
 #: ../iw/timezone_gui.py:63
 #: ../textw/timezone_text.py:96
@@ -4879,18 +4879,16 @@ msgid "Missing Device"
 msgstr "Fehlendes Gerät"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "Sie müssen zwei Lesezeichen auswählen"
+msgstr "Sie müssen ein Netzwerkgerät auswählen"
 
 #: ../textw/netconfig_text.py:231
 msgid "IPv4 Network Mask "
 msgstr "IPv4-Netzwerkmaske"
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
-msgstr "Fehler bei der Konfiguration des Netzwerkgerätes:"
+msgstr "Fehler bei der Konfiguration des Netzwerkgeräts:"
 
 #: ../textw/network_text.py:60
 #, python-format
@@ -5693,9 +5691,9 @@ msgstr "Kann die Kickstart-Datei nicht auf der CD-ROM finden."
 
 #: ../loader/copy.c:51
 #: ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "Verzeichnis konnte nicht gewechselt werden"
+msgstr "Fehler beim Lesen des Verzeichnisses %s: %m"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -5842,18 +5840,17 @@ msgid "Select Device Driver to Load"
 msgstr "Wählen Sie den zu ladenden Gerätetreiber aus"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid "An error occured finding the installation image on your hard drive.  Please check your images and try again."
-msgstr "Ein Fehler ist beim Lesen der Installation von ISO-Abbildern aufgetreten. Überprüfen Sie Ihre ISO-Abbilder, und versuchen Sie es erneut."
+msgstr "Ein Fehler ist beim Suchen der Installations-Abbilder aufgetreten. Überprüfen Sie Ihre ISO-Abbilder, und versuchen Sie es erneut."
 
 #: ../loader/hdinstall.c:232
 msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
 msgstr "In Ihrem System sind keine Festplatten vorhanden! Möchten Sie jetzt weitere Geräte konfigurieren?"
 
 #: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#, c-format
 msgid "What partition and directory on that partition holds the installation image for %s?  If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
-msgstr "Welche Partition und welches Verzeichnis dieser Partition enthalten die CD (ISO9660) Abbilder für %s? Wenn das Festplattenlaufwerk, das Sie verwenden, nicht in dieser Liste aufgeführt ist, drücken Sie F2, um zusätzliche Geräte zu konfigurieren."
+msgstr "Welche Partition und welches Verzeichnis dieser Partition enthalten die Installations-Abbilder für %s? Wenn das Festplattenlaufwerk, das Sie verwenden, nicht in dieser Liste aufgeführt ist, drücken Sie F2, um zusätzliche Geräte zu konfigurieren."
 
 #: ../loader/hdinstall.c:273
 msgid "Directory holding image:"
@@ -5864,9 +5861,9 @@ msgid "Select Partition"
 msgstr "Partition auswählen"
 
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "Auf dem Gerät %s befinden sich keine Abbilder der %s CD-ROM."
+msgstr "Auf dem Gerät %s scheint sich kein Installations-Abbild zu befinden."
 
 #: ../loader/hdinstall.c:385
 #, c-format
@@ -5892,14 +5889,14 @@ msgid "What type of keyboard do you have?"
 msgstr "Bitte wählen Sie Ihren Tastaturtyp:"
 
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "xml-Datei kann nicht geladen werden"
+msgstr "Fehler beim Öffnen der Kickstart-Datei %s: %m"
 
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Schwerer Fehler beim Lesen einer PNG-Bilddatei"
+msgstr "Fehler beim Lesen des Inhalts der Kickstart-Datei %s: %m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -5963,9 +5960,9 @@ msgid "There are multiple partitions on this device which could contain the upda
 msgstr "Dieses Gerät enthält mehrere Partitionen, die das Abbild der Aktualisierungsdiskette enthalten könnten. Welche möchten Sie verwenden?"
 
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "Legen Sie Ihre Update-Disketten in /dev/%s ein und klicken Sie auf \"OK\", um fortzufahren."
+msgstr "Legen Sie Ihre Update-Disketten in %s ein und klicken Sie auf 'OK', um fortzufahren."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6017,9 +6014,8 @@ msgid "What type of media contains the rescue image?"
 msgstr "Auf welchem Datenträgertyp ist die Rettungsdiskette enthalten?"
 
 #: ../loader/loader.c:1358
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "Auf welchem Datenträgertyp ist die Rettungsdiskette enthalten?"
+msgstr "Auf welchem Datenträgertyp ist das Installationabbild vorhanden?"
 
 #: ../loader/loader.c:1389
 msgid "No driver found"
@@ -6250,9 +6246,9 @@ msgstr "Aufleuchten der %s-Port-LEDs für %d Sekunden..."
 
 #: ../loader/net.c:1740
 #: ../loader/net.c:1744
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "Warte auf Abbruch der Übertragung"
+msgstr "Warte, bis NetworkManager %s konfiguriert hat …\n"
 
 #: ../loader/nfsinstall.c:63
 msgid "NFS server name:"
@@ -6264,9 +6260,9 @@ msgid "%s directory:"
 msgstr "%s Verzeichnis:"
 
 #: ../loader/nfsinstall.c:78
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr "Bitte geben Sie den Server-Namen und den Pfad zu den %s-Abbildern ein."
+msgstr "Bitte geben Sie den Server-Namen und den Pfad zu den %s-Installationsabbildern ein."
 
 #: ../loader/nfsinstall.c:85
 msgid "NFS Setup"
@@ -6281,9 +6277,9 @@ msgid "That directory could not be mounted from the server."
 msgstr "Dieses Verzeichnis konnte nicht vom Server eingebunden werden."
 
 #: ../loader/nfsinstall.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "Dieses Verzeichnis scheint keinen %s Installationsbaum zu enthalten."
+msgstr "Das Verzeichnis scheint kein %s-Installationsabbild zu enthalten."
 
 #: ../loader/nfsinstall.c:338
 #, c-format
@@ -6304,9 +6300,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Anaconda wird via telnet ausgeführt ..."
 
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "Kann Wiedergabeliste nicht finden"
+msgstr "Kann %s://%s%s nicht empfangen."
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
@@ -6333,7 +6329,7 @@ msgid "Retrieving"
 msgstr "Abrufen"
 
 #: ../loader/urls.c:295
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the URL containing the %s installation image on your server."
 msgstr "BItte geben Sie den URL mit den %s-Abbildern auf Ihrem Server ein."
 
@@ -6416,9 +6412,8 @@ msgstr ""
 "Festplatte"
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid "Please provide the configuration information for this software repository."
-msgstr "Bitte geben Sie den Ort an, von dem Ihre zusätzliche Software installiert werden kann."
+msgstr "Bitte geben Sie die Konfigurations-Informationen für dieses Software-Repository an."
 
 #: tmp/addrepo.glade.h:10
 msgid "Proxy U_RL"
