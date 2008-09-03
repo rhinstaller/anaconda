@@ -148,28 +148,50 @@ die () {
     exit 1
 }
 
-PACKAGES="acl anaconda anaconda-runtime attr audit-libs bash beecrypt beecrypt
-	  booty busybox-anaconda bzip2 bzip2-libs convertdb1 cracklib-dicts
-	  cracklib-python cryptsetup-luks db4 dbus dbus-python device-mapper
-	  device-mapper-libs dhclient dhcpv6-client dmapi dmraid dmraid-libs
-	  dosfstools e2fsprogs e2fsprogs-libs elfutils-libelf expat gfs2-utils
-	  glib2 glibc-common hal hdparm hwdata iproute iscsi-initiator-utils
-	  jfsutils keyutils-libs krb5-libs kudzu libacl libattr libbdevid
-	  libbdevid-python libdhcp libdhcp4client libdhcp6client
-	  libgcc libgcrypt libgpg-error libnl libselinux libselinux-python
-	  libsemanage libsemanage-python libsepol libstdc++ libtermcap libuser
-	  libuser-python libvolume_id libxml2 lvm2 mdadm mkinitrd
-	  module-init-tools nash ncurses neon net-tools newt newt-python
-	  nfs-utils nspr nss pam parted pciutils pcre policy policycoreutils
-	  popt procps pykickstart pyparted python python-bugzilla
-	  python-elementtree python-libs python-pyblock python-sqlite
-	  python-urlgrabber pyxf86config raidtools readline reiserfs-utils rhpl
-	  rhpxl rpm rpm-libs rpm-python sed selinux-policy-targeted setup slang
-	  sqlite system-config-date system-release tzdata util-linux-ng
-	  Xconfigurator xfsdump xfsprogs xorg-x11 xorg-x11-server-Xorg yum
-	  yum-fedorakmod yum-metadata-parser zlib NetworkManager
-	  anaconda-yum-plugins dbus iputils PolicyKit initscripts wpa_supplicant
-	  xorg-x11-server-utils"
+PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
+	anaconda-yum-plugins at-spi atk attr audit-libs bash bitmap-fonts-cjk
+	booty busybox-anaconda bzip2 bzip2-libs cairo cjkunifonts-ukai
+	comps-extras coreutils cpio cracklib-dicts cracklib-python
+	cryptsetup-luks db4 dbus dbus-python dejavu-fonts device-mapper
+	device-mapper-libs dhclient dhcpv6-client dmapi dmraid dmraid-libs
+	dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme
+	elfutils-libelf expat firstboot fontconfig fonts-arabic fonts-bengali
+	fonts-chinese fonts-gujarati fonts-hindi fonts-indic fonts-ISO8859-2
+	fonts-kannada fonts-korean fonts-malayalam fonts-oriya fonts-punjabi
+	fonts-sinhala fonts-tamil fonts-telugu freetype gail gdk-pixbuf
+	gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
+	gnome-python2-gtkhtml2 gnome-themes gpm gtk2 gtk2-engines gtkhtml2 hal
+	hdparm hwdata initscripts iproute iputils iscsi-initiator-utils
+	jfsutils keyutils-libs krb5-libs libICE libSM libX11 libXau
+	libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
+	libXi libXinerama libXmu libXpm libXrandr libXrender libXt libXtst
+	libXxf86misc libacl libart_lgpl libattr libbdevid libbdevid-python
+	libbonobo libdhcp libdhcp4client libdhcp6client libfontenc libgcc
+	libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg liblbxutil libnl
+	libpixman libpng libselinux libselinux-python libsemanage
+	libsemanage-python libsepol libstdc++ libtermcap libthai libuser
+	libuser-python libvolume_id libxcb libxkbfile libxml2 lvm2 mdadm
+	mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
+	newt newt-python nfs-utils nspr nss pam pango parted pciutils pcre
+	policy policycoreutils popt prelink procps pycairo pygobject2 pygtk2
+	pygtk2-libglade pykickstart pyparted pyspi python python-bugzilla
+	python-elementtree python-libs python-pyblock python-sqlite
+	python-urlgrabber pyxf86config raidtools readline redhat-artwork
+	reiserfs-utils rhpl rpm rpm-libs rpm-python sed selinux-policy-targeted
+	setup slang specspo sqlite synaptics system-config-date
+	system-config-keyboard system-logos system-release taipeifonts
+	tcp_wrappers ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-ja ttfonts-ko
+	ttfonts-pa ttfonts-ta ttfonts-zh_CN ttfonts-zh_TW tzdata udev urw-fonts
+	util-linux-ng vnc-libs vnc-server wpa_supplicant xkeyboard-config
+	xfsdump xfsprogs xorg-x11 xorg-x11-auth xorg-x11-base
+	xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-100dpi
+	xorg-x11-fonts-75dpi xorg-x11-fonts-ISO8859-1-75dpi
+	xorg-x11-fonts-ISO8859-15-75dpi xorg-x11-fonts-ISO8859-2-75dpi
+	xorg-x11-fonts-ISO8859-9-75dpi xorg-x11-fonts-cyrillic
+	xorg-x11-fonts-ethiopic xorg-x11-fonts-misc xorg-x11-libs
+	xorg-x11-libs-data xorg-x11-server-utils xorg-x11-server-Xorg
+	xorg-x11-xkb-utils xorg-x11-xkbdata xorg-x11-xfs yum yum-fedorakmod
+	yum-metadata-parser zenity zlib /etc/gtk-2.0/gtkrc"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
@@ -202,44 +224,6 @@ if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
     PACKAGES="$PACKAGES pcmciautils pdisk yaboot hfsutils"
 fi
 
-# xpm is missing
-
-# Some packages are listed twice, but that's okay
-#
-# The packages in this list are needed for the graphical installer to run
-# 
-# Extra stuff we want for rescue mode should go in PACKAGESRESCUE
-#
-PACKAGES="$PACKAGES acl anaconda anaconda-help anaconda-images atk attr bash
-	    bitmap-fonts-cjk cairo cjkunifonts-ukai comps-extras
-	    convertdb1 coreutils cpio dbus dbus-python dejavu-fonts
-	    dmapi dmraid e2fsprogs echo-icon-theme expat system-logos
-	    firstboot fontconfig fonts-arabic fonts-bengali fonts-chinese
-	    fonts-gujarati fonts-hindi fonts-indic fonts-ISO8859-2
-	    fonts-ISO8859-9 fonts-kannada fonts-korean fonts-malayalam
-	    fonts-oriya fonts-punjabi fonts-sinhala fonts-tamil fonts-telugu
-	    fonts-xorg-100dpi fonts-xorg-base fonts-xorg-ISO8859-15-75dpi
-	    fonts-xorg-ISO8859-2-75dpi fonts-xorg-ISO8859-9-75dpi
-	    fonts-xorg-KOI8-R fonts-xorg-KOI8-R-75dpi freetype gail
-	    gdk-pixbuf glibc-common gnome-python2-canvas gnome-python2-gtkhtml2
-	    gnome-themes gpm gtk2 gtk2-engines gtkhtml2 libacl libart_lgpl
-	    libattr libbdevid libbdevid-python libgcc libglade2 libgnomecanvas
-	    libjpeg libpixman libpng libstdc++ libthai libxcb mesa-dri-drivers
-	    pango pirut policy policycoreutils popt prelink procps pycairo
-	    pygobject2 pygtk2 pygtk2-libglade python-pyblock redhat-artwork
-	    reiserfs-utils rhpl rpm rpm-libs
-	    selinux-policy-targeted specspo synaptics system-config-date
-	    system-config-keyboard taipeifonts tcp_wrappers
-	    ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-ja ttfonts-ko ttfonts-pa
-	    ttfonts-ta ttfonts-zh_CN ttfonts-zh_TW tzdata udev urw-fonts
-	    util-linux-ng VLGothic-fonts vnc-libs vnc-server Xconfigurator
-	    xfsdump xfsprogs Xft xorg-x11 xorg-x11-100dpi-fonts xorg-x11-base
-	    xorg-x11-base-fonts xorg-x11-ISO8859-15-75dpi
-	    xorg-x11-ISO8859-15-75dpi-fonts xorg-x11-ISO8859-2-75dpi-fonts
-	    xorg-x11-ISO8859-9-75dpi-fonts xorg-x11-KOI8-R
-	    xorg-x11-KOI8-R-75dpi-fonts xorg-x11-libs xorg-x11-libs-data
-	    xorg-x11-xfs xorg-x11-xfs zenity /etc/gtk-2.0/gtkrc"
-
 #
 # stuff ONLY included for rescue mode
 #
@@ -271,24 +255,9 @@ if [ $ARCH = alpha ]; then
     PACKAGES="$PACKAGES aboot"
 fi
 
-if [ $ARCH = ia64 ]; then
-    # XXX this needs to switch to grub at some point...
-    PACKAGES="$PACKAGES elilo"
-fi
-
 if [ $ARCH = ppc ]; then
     PACKAGES="$PACKAGES fbset yaboot ppc64-utils"
 fi
-
-# dogtail stuff...
-PACKAGES="$PACKAGES gail at-spi libbonobo ORBit2 pyspi GConf2 dogtail libXevie libXtst gnome-python2-gconf"
-
-# modular xorg...
-XORGLIBS="libICE libSM libX11 libXcursor libXext libXfixes libXft libXi libxkbfile libXmu libXpm libXrandr libXrender libXt libXxf86misc libXaw liblbxutil libXfont libfontenc libXau libXdmcp libXfont libXinerama"
-XORGFONTS="xorg-x11-fonts-75dpi xorg-x11-fonts-base xorg-x11-fonts-cyrillic xorg-x11-fonts-ISO8859-15-75dpi xorg-x11-fonts-ISO8859-1-75dpi xorg-x11-fonts-ISO8859-2-75dpi xorg-x11-fonts-ISO8859-9-75dpi xorg-x11-fonts-misc xorg-x11-fonts-ethiopic"
-XORG="$XORGLIBS xorg-x11-drivers $XORGFONTS xorg-x11-server-Xorg xorg-x11-xauth xorg-x11-font-utils xorg-x11-xkb-utils xorg-x11-xkbdata xorg-x11-server-utils xkeyboard-config"
-
-PACKAGES="$PACKAGES $XORG"
 
 #
 # KEEPFILE is all files to keep from the packages in PACKAGES
@@ -456,7 +425,6 @@ usr/$LIBDIR/pango
 usr/$LIBDIR/python?.?
 usr/$LIBDIR/python?.?/email
 usr/$LIBDIR/python?.?/site-packages/*.pth
-usr/$LIBDIR/python?.?/site-packages/*kudzu*
 usr/$LIBDIR/python?.?/site-packages/*selinux*
 usr/$LIBDIR/python?.?/site-packages/*sqlite*
 usr/$LIBDIR/python?.?/site-packages/_dbus*
@@ -529,7 +497,6 @@ usr/lib/python?.?/site-packages/iniparse
 usr/lib/python?.?/site-packages/pirut
 usr/lib/python?.?/site-packages/pykickstart
 usr/lib/python?.?/site-packages/repomd
-usr/lib/python?.?/site-packages/rhpxl
 usr/lib/python?.?/site-packages/rpmUtils
 usr/lib/python?.?/site-packages/urlgrabber
 usr/lib/python?.?/site-packages/yum
@@ -620,7 +587,6 @@ usr/share/locale/*/LC_MESSAGES/parted.mo
 usr/share/locale/*/LC_MESSAGES/pirut.mo
 usr/share/locale/*/LC_MESSAGES/redhat-dist.mo
 usr/share/locale/*/LC_MESSAGES/rhpl.mo
-usr/share/locale/*/LC_MESSAGES/rhpxl.mo
 usr/share/locale/*/LC_MESSAGES/system-config-date.mo
 usr/share/locale/*/LC_MESSAGES/system-config-keyboard.mo
 usr/share/locale/*/LC_MESSAGES/zenity.mo
