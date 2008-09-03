@@ -29,7 +29,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define syscfgdatever 1.9.0
 %define pythonpyblockver 0.24-1
 %define libbdevidver 5.1.2-1
-%define rhpxlver 0.25
 %define desktopfileutilsver 0.8
 %define e2fsver 1.41.0
 %define nmver 0.7.0
@@ -108,7 +107,6 @@ Requires: mdadm
 Requires: lvm2
 Requires: util-linux-ng
 %ifnarch s390 s390x ppc64
-Requires: rhpxl >= %{rhpxlver}
 Requires: system-config-keyboard
 %endif
 Requires: hal, dbus-python

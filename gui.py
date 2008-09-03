@@ -405,7 +405,7 @@ def addFrame(dialog, title=None, showtitle = 1):
 
 def findGladeFile(file):
     for dir in ("/tmp/updates/", "/tmp/updates/ui/", "ui/",
-                "/usr/share/anaconda/ui/", "/usr/share/pirut/ui/"):
+                "/usr/share/anaconda/ui/"):
         fn = dir + file
         if os.access(fn, os.R_OK):
             return fn

@@ -20,7 +20,6 @@
 #
 
 # FIXME: group selection isn't currently backend independent
-#from pirut.GroupSelector import GroupSelector
 from GroupSelector import GroupSelector
 
 import gui
