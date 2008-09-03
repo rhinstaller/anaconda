@@ -1,6 +1,6 @@
 Name: anaconda
-Version: 11.1.2.120
-Release: 2
+Version: 11.1.2.121
+Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 03 2008 Chris Lumens <clumens@redhat.com> 11.1.2.121-1
+- Enable the dlabel=on for RHEL by default (msivak).
+  Related: rhbz#316481.
+
 * Thu Aug 28 2008 Chris Lumens <clumens@redhat.com> 11.1.2.120-2
 - libuuid is provided by e2fsprogs-devel.
   Related: rhbz#316481.
