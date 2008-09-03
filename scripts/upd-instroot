@@ -168,7 +168,8 @@ PACKAGES="acl anaconda anaconda-runtime attr audit-libs bash beecrypt beecrypt
 	  sqlite system-config-date system-release tzdata util-linux-ng
 	  Xconfigurator xfsdump xfsprogs xorg-x11 xorg-x11-server-Xorg yum
 	  yum-fedorakmod yum-metadata-parser zlib NetworkManager
-      anaconda-yum-plugins dbus iputils PolicyKit initscripts wpa_supplicant"
+	  anaconda-yum-plugins dbus iputils PolicyKit initscripts wpa_supplicant
+	  xorg-x11-server-utils"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
@@ -509,6 +510,7 @@ usr/bin/uniq
 usr/bin/vncconfig
 usr/bin/vncpasswd
 usr/bin/xkbcomp
+usr/bin/xrandr
 usr/bin/zenity
 usr/lib/anaconda
 usr/lib/anaconda-runtime
