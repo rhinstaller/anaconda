@@ -404,8 +404,8 @@ def addFrame(dialog, title=None, showtitle = 1):
     dialog.connect ("key-release-event", handleShiftPrintScrnRelease)
 
 def findGladeFile(file):
-    for dir in ("/tmp/updates/", "ui/", "/usr/share/anaconda/ui/",
-                "/usr/share/pirut/ui/"):
+    for dir in ("/tmp/updates/", "/tmp/updates/ui/", "ui/",
+                "/usr/share/anaconda/ui/", "/usr/share/pirut/ui/"):
         fn = dir + file
         if os.access(fn, os.R_OK):
             return fn
