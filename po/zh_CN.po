@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-02 14:26+1000\n"
+"PO-Revision-Date: 2008-09-03 14:28+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +53,7 @@ msgstr ""
 
 #: ../anaconda:471
 msgid "Press <enter> for a shell"
-msgstr "按<回车>键执行一个shell命令"
+msgstr "按 <enter> 键执行一个 shell 命令"
 
 #: ../anaconda:486 ../gui.py:236 ../rescue.py:265 ../rescue.py:346
 #: ../rescue.py:376 ../rescue.py:389 ../rescue.py:468 ../rescue.py:477
@@ -732,9 +732,9 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"在初始化 %s 设备上的交换区时出错.问题严重,安装无法继续.\n"
+"在初始化 %s 设备中的交换区时出错。这是一个严重的问题，无法继续安装。\n"
 "\n"
-"请按 <Enter> 键退出安装."
+"请按 <Enter> 键退出安装程序。"
 
 #: ../fsset.py:1713 ../packages.py:349 ../rescue.py:312 ../rescue.py:314
 #: ../textw/upgrade_text.py:132 ../loader/cdinstall.c:239
@@ -870,9 +870,9 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"格式化 %s 时出错.问题严重,安装无法继续.\n"
+"格式化 %s 时出错。这是一个严重的问题，无法继续安装。\n"
 "\n"
-"请按 <Enter> 退出安装."
+"请按 <Enter> 退出安装程序。"
 
 #: ../fsset.py:1909
 #, python-format
@@ -882,9 +882,9 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"在迁移 %s 时出错.问题严重,安装无法继续.\n"
+"迁移 %s 时出错。这是一个严重的问题，无法继续安装。\n"
 "\n"
-"请按 <Enter> 键退出安装."
+"请按 <Enter> 退出安装程序。"
 
 #: ../fsset.py:1945 ../fsset.py:1954
 msgid "Invalid mount point"
@@ -898,9 +898,9 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"在创建 %s 时出错.这个路径中的一些元素不是目录.致命错误,安装无法继续.\n"
+"在创建 %s 时出错。这个路径中的一些元素不是目录。这是一个严重错误，无法继续安装。\n"
 "\n"
-"请按 <Enter> 退出安装."
+"请按 <Enter> 退出安装程序。"
 
 #: ../fsset.py:1955
 #, python-format
@@ -2233,13 +2233,13 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"您的系统已被挂载在 %s 之下。\n"
+"您的系统已被挂载在 %s 下面。\n"
 "\n"
-"请按 <return> 键进入 shell。若想让您的系统成为根环境，执行下一命令：\n"
+"请按 <return> 键进入 shell。若想让您的系统成为根环境，请执行命令：\n"
 "\n"
 "\tchroot %s\n"
 "\n"
-"当您退出 shell 后，系统将会自动被重新引导。"
+"当您退出 shell 后，系统将会自动重启。"
 
 #: ../rescue.py:464
 #, python-format
