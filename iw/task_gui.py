@@ -39,7 +39,8 @@ log = logging.getLogger("anaconda")
 
 def setupRepo(anaconda, repo):
     try:
-        anaconda.backend.doRepoSetup(anaconda, thisrepo = repo.id, fatalerrors = False)
+        anaconda.backend.doRepoSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
+        anaconda.backend.doSackSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
         log.info("added repository %s with with source URL %s" % (repo.name, repo.baseurl[0]))
     except yum.Errors.RepoError, e:
         anaconda.intf.messageWindow(_("Error"),

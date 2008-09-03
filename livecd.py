@@ -366,9 +366,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
     def kernelVersionList(self, rootPath = "/"):
         return packages.rpmKernelVersionList(rootPath)
 
-    def doInitialSetup(self, anaconda):
-        pass
-    def doRepoSetup(self, anaconda):
+    def doBackendSetup(self, anaconda):
         # ensure there's enough space on the rootfs
         # FIXME: really, this should be in the general sanity checking, but
         # trying to weave that in is a little tricky at present.

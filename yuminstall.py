@@ -267,12 +267,16 @@ class AnacondaYumRepo(YumRepository):
             return False
 
     def dirCleanup(self):
-        if os.path.isdir(self.getAttribute('cachedir')):
+        cachedir = self.getAttribute('cachedir')
+
+        if os.path.isdir(cachedir):
             if self.needsNetwork():
-                shutil.rmtree("%s/headers" % self.getAttribute('cachedir'))
-                shutil.rmtree("%s/packages" % self.getAttribute('cachedir'))
+                if os.path.exists("%s/headers" % cachedir):
+                    shutil.rmtree("%s/headers" % cachedir)
+                if os.path.exists("%s/packages" % cachedir):
+                    shutil.rmtree("%s/packages" % cachedir)
             else:
-                shutil.rmtree(self.getAttribute('cachedir'))
+                shutil.rmtree(cachedir)
 
 class YumSorter(yum.YumBase):
     def _transactionDataFactory(self):
@@ -967,7 +971,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         anaconda.backend.removeInstallImage()
 
-    def doInitialSetup(self, anaconda):
+    def doBackendSetup(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
             return DISPATCH_BACK
 
@@ -978,62 +982,86 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         iutil.writeRpmPlatform()
         self.ayum = AnacondaYum(anaconda)
 
-    def doGroupSetup(self):
-        # FIXME: this is a pretty ugly hack to make it so that we don't lose
-        # groups being selected (#237708)
-        sel = filter(lambda g: g.selected, self.ayum.comps.get_groups())
-        self.ayum.doGroupSetup()
-        # now we'll actually reselect groups..
-        map(lambda g: self.selectGroup(g.groupid), sel)
+        self.ayum.doMacros()
 
-        # and now, to add to the hacks, we'll make sure that packages don't
-        # have groups double-listed.  this avoids problems with deselecting
-        # groups later
-        for txmbr in self.ayum.tsInfo.getMembers():
-            txmbr.groups = yum.misc.unique(txmbr.groups)
+        self.doRepoSetup(anaconda)
+        self.doSackSetup(anaconda)
+
+    def doGroupSetup(self):
+        while True:
+            try:
+                # FIXME: this is a pretty ugly hack to make it so that we don't lose
+                # groups being selected (#237708)
+                sel = filter(lambda g: g.selected, self.ayum.comps.get_groups())
+                self.ayum.doGroupSetup()
+                # now we'll actually reselect groups..
+                map(lambda g: self.selectGroup(g.groupid), sel)
+
+                # and now, to add to the hacks, we'll make sure that packages don't
+                # have groups double-listed.  this avoids problems with deselecting
+                # groups later
+                for txmbr in self.ayum.tsInfo.getMembers():
+                    txmbr.groups = yum.misc.unique(txmbr.groups)
+            except (GroupsError, NoSuchGroup, RepoError), e:
+                buttons = [_("_Exit installer"), _("_Retry")]
+            else:
+                break # success
+
+            rc = anaconda.intf.messageWindow(_("Error"),
+                                        _("Unable to read group information "
+                                          "from repositories.  This is "
+                                          "a problem with the generation "
+                                          "of your install tree."),
+                                        type="custom", custom_icon="error",
+                                        custom_buttons = buttons)
+            if rc == 0:
+                sys.exit(0)
+            else:
+                self.ayum._setGroups(None)
+                continue
+
+        self._catchallCategory()
 
     def doRepoSetup(self, anaconda, thisrepo = None, fatalerrors = True):
-        # We want to call ayum.doRepoSetup one repo at a time so we have
-        # some concept of which repo didn't set up correctly.
-        repos = []
+        self.__withFuncDo(anaconda, lambda r: self.ayum.doRepoSetup(thisrepo=r.id),
+                          thisrepo=thisrepo, fatalerrors=fatalerrors, progress=False)
 
+    def doSackSetup(self, anaconda, thisrepo = None, fatalerrors = True):
+        self.__withFuncDo(anaconda, lambda r: self.ayum.doSackSetup(thisrepo=r.id),
+                          thisrepo=thisrepo, fatalerrors=fatalerrors, progress=True)
+
+    def __withFuncDo(self, anaconda, fn, thisrepo=None, fatalerrors=True, progress=True):
         # Don't do this if we're being called as a dispatcher step (instead
         # of being called when a repo is added via the UI) and we're going
         # back.
         if thisrepo is None and anaconda.dir == DISPATCH_BACK:
             return
 
+        # We want to call the function one repo at a time so we have some
+        # concept of which repo didn't set up correctly.
         if thisrepo is not None:
-            repos.append(self.ayum.repos.getRepo(thisrepo))
+            repos = [self.ayum.repos.getRepo(thisrepo)]
         else:
-            repos.extend(self.ayum.repos.listEnabled())
-
-        self.ayum.doMacros()
-
-        longtasks = ( (self.ayum.doRepoSetup, 4),
-                      (self.ayum.doSackSetup, 6) )
-
-        tot = 0
-        for t in longtasks:
-            tot += t[1]
+            repos = self.ayum.repos.listEnabled()
 
         for repo in repos:
-            if repo.name is None:
-                txt = _("Retrieving installation information...")
-            else:
-                txt = _("Retrieving installation information for %s...")%(repo.name)
-            while 1:
-                waitwin = YumProgress(anaconda.intf, txt, tot)
-                self.ayum.repos.callback = waitwin
+            if progress:
+                if repo.name is None:
+                    txt = _("Retrieving installation information...")
+                else:
+                    txt = _("Retrieving installation information for %s...")%(repo.name)
 
+                    waitwin = YumProgress(anaconda.intf, txt, 1)
+                    self.ayum.repos.callback = waitwin
+
+            while True:
                 try:
-                    for (task, incr) in longtasks:
-                        waitwin.set_incr(incr)
-                        task(thisrepo = repo.id)
-                        waitwin.next_task()
-                    waitwin.pop()
+                    fn(repo)
+                    if progress:
+                        waitwin.pop()
                 except RepoError, e:
-                    waitwin.pop()
+                    if progress:
+                        waitwin.pop()
                     if repo.needsNetwork() and not network.hasActiveNetDev():
                         if anaconda.intf.enableNetwork(anaconda):
                             repo.mirrorlistparsed = False
@@ -1046,7 +1074,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 if anaconda.isKickstart:
                     buttons.append(_("_Continue"))
 
-                waitwin.pop()
+                if progress:
+                    waitwin.pop()
+
                 if not fatalerrors:
                     raise RepoError, e
 
@@ -1080,31 +1110,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
             repo.setFailureObj(self.ayum.urlgrabberFailureCB)
             repo.setMirrorFailureObj((self.ayum.mirrorFailureCB, (),
-                                     {"tsInfo":self.ayum.tsInfo, 
-                                      "repo": repo.id}))
+                                     {"repo": repo.id}))
 
-        while 1:
-            try:
-                self.doGroupSetup()
-            except (GroupsError, NoSuchGroup, RepoError), e:
-                buttons = [_("_Exit installer"), _("_Retry")]
-            else:
-                break # success
-
-            rc = anaconda.intf.messageWindow(_("Error"),
-                                        _("Unable to read group information "
-                                          "from repositories.  This is "
-                                          "a problem with the generation "
-                                          "of your install tree."),
-                                        type="custom", custom_icon="error",
-                                        custom_buttons = buttons)
-            if rc == 0:
-                sys.exit(0)
-            else:
-                self.ayum._setGroups(None)
-                continue
-
-        self._catchallCategory()
         self.ayum.repos.callback = None
 
     def _catchallCategory(self):

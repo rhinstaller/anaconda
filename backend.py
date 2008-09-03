@@ -187,11 +187,8 @@ class AnacondaBackend:
     def kernelVersionList(self, rootPath="/"):
         return []
 
-    def doInitialSetup(self, anaconda):
-        raise NotImplementedError
-
-    def doRepoSetup(self, anaconda):
-        log.warning("doRepoSetup not implemented for backend!")
+    def doBackendSetup(self, anaconda):
+        log.warning("doBackendSetup not implemented for backend!")
         raise NotImplementedError
 
     def groupExists(self, group):
@@ -245,10 +242,10 @@ class AnacondaBackend:
     def complete(self, anaconda):
         pass
 
-def doRepoSetup(anaconda):
-    if anaconda.backend.doInitialSetup(anaconda) == DISPATCH_BACK:
+def doBackendSetup(anaconda):
+    if anaconda.backend.doBackendSetup(anaconda) == DISPATCH_BACK:
         return DISPATCH_BACK
-    anaconda.backend.doRepoSetup(anaconda)
+
     if anaconda.id.upgrade:
         anaconda.backend.checkSupportedUpgrade(anaconda)
         iutil.writeRpmPlatform(anaconda.rootPath)

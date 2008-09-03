@@ -44,7 +44,7 @@ from upgrade import findRootParts, queryUpgradeContinue
 from installmethod import doMethodComplete
 from kickstart import runPostScripts
 
-from backend import doPostSelection, doRepoSetup, doBasePackageSelect
+from backend import doPostSelection, doBackendSetup, doBasePackageSelect
 from backend import doPreInstall, doPostInstall, doInstall
 from backend import writeConfiguration
 
@@ -93,7 +93,7 @@ installSteps = [
     ("upgbootloader", ),
     ("bootloadersetup", bootloaderSetupChoices, ),
     ("bootloader", ),
-    ("reposetup", doRepoSetup, ),
+    ("reposetup", doBackendSetup, ),
     ("basepkgsel", doBasePackageSelect, ),
     ("tasksel", ),
     ("group-selection", ),
