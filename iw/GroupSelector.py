@@ -439,9 +439,7 @@ class GroupSelector:
             self.xml.get_widget("optionalLabel").set_text("")
         else:
             self.xml.get_widget("detailsButton").set_sensitive(True)
-            txt = t.ngettext("%d of %d optional package selected",
-                             "%d of %d optional packages selected",
-                             cnt) %(inst, cnt)
+            txt = _("Optional packages selected: %d of %d") % (inst, cnt)
             self.xml.get_widget("optionalLabel").set_markup(_("<i>%s</i>") %(txt,))
 
     def _groupToggled(self, widget, path, sel = None, updateText = True):
