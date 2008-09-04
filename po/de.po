@@ -25,7 +25,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-04 10:20+1000\n"
+"PO-Revision-Date: 2008-09-04 11:10+1000\n"
 "Last-Translator: Daniela Kugelmann <dkugelma@redhat.com >\n"
 "Language-Team: German <i18@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -661,6 +661,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Ein neuer Bug wurde erstellt, der auf Sie zurückgeführt wird. Bitte fügen Sie zusätzliche Informationen bei, wie z.B. wie Sie den Fehler entdeckt haben, Screenshots und alle anderen Informationen die mit den Fehler in Verbindung stehen:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:450
 msgid "Bug Updated"
@@ -2068,7 +2071,7 @@ msgid ""
 "You specified block device encryption should be enabled%s, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption%s will be disabled."
-msgstr ""
+msgstr "Ihr spezifiziertes verschlüsseltes Blockgerät sollte aktiviert werden%s, aber Sie haben noch kein Passwort eingegeben. Falls Sie nicht zurückgehen und ein Passwort bereitstellen, wird Ihre Gerätverschlüsselung%s deaktiviert."
 
 #: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
