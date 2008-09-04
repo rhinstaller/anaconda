@@ -606,6 +606,7 @@ makeinitrd() {
     ln -s udevadm $MBD_DIR/sbin/udevsettle
 
     instbin $IMGPATH /usr/bin/bash $MBD_DIR /sbin/bash
+    ( cd $MBD_DIR/sbin ; ln -sf bash sh )
     instbin $IMGPATH /usr/sbin/consoletype $MBD_DIR /sbin/consoletype
     instbin $IMGPATH /usr/bin/logger $MBD_DIR /sbin/logger
 
