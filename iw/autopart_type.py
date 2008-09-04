@@ -126,11 +126,8 @@ class PartitionTypeWindow(InstallWindow):
         dialog.show_all()
         sg = gtk.SizeGroup(gtk.SIZE_GROUP_HORIZONTAL)
         map(lambda x: sg.add_widget(dxml.get_widget(x)),
-            ("iscsiAddrEntry", "iscsiInitiatorEntry"))
-
-        # we don't currently support username or password...
-        map(lambda x: dxml.get_widget(x).hide(),
-            ("userLabel", "passLabel", "userEntry", "passEntry"))
+            ("iscsiAddrEntry", "iscsiInitiatorEntry", "userEntry", "passEntry",
+             "userinEntry", "passinEntry"))
 
         # get the initiator name if it exists and don't allow changing
         # once set
@@ -152,11 +149,44 @@ class PartitionTypeWindow(InstallWindow):
                                         _("You must provide a non-zero length "
                                           "initiator name."))
                 continue
+
             self.anaconda.id.iscsi.initiator = initiator
 
             target = dxml.get_widget("iscsiAddrEntry").get_text().strip()
             user = dxml.get_widget("userEntry").get_text().strip()
             pw = dxml.get_widget("passEntry").get_text().strip()
+            user_in = dxml.get_widget("userinEntry").get_text().strip()
+            pw_in = dxml.get_widget("passinEntry").get_text().strip()
+
+            if len(user) == 0:
+                user = None
+            if len(pw) == 0:
+                pw = None
+            if len(user_in) == 0:
+                user_in = None
+            if len(pw_in) == 0:
+                pw_in = None
+
+            if user is not None or pw is not None:
+                if user is None:
+                    self.intf.messageWindow(_("Missing value"),
+                        _("CHAP username is required if CHAP password is defined."))
+                    continue
+                if pw is None:
+                    self.intf.messageWindow(_("Missing value"),
+                        _("CHAP password is required if CHAP username is defined."))
+                    continue
+
+            if user_in is not None or pw_in is not None:
+                if user_in is None:
+                    self.intf.messageWindow(_("Missing value"),
+                        _("Reverse CHAP username is required if reverse CHAP password is defined."))
+                    continue
+                if pw_in is None:
+                    self.intf.messageWindow(_("Missing value"),
+                        _("Reverse CHAP password is required if reverse CHAP username is defined."))
+                    continue
+
             err = None
             try:
                 idx = target.rfind(":")
@@ -172,10 +202,11 @@ class PartitionTypeWindow(InstallWindow):
             except network.IPError, msg:
                 err = msg
             if err:
-                self.intf.messageWindow(_("Error with Data"), "%s" %(msg,))
+                self.intf.messageWindow(_("Error with Data"), "%s" %(err,))
                 continue
 
-            self.anaconda.id.iscsi.addTarget(ip, port, user, pw, self.intf)
+            self.anaconda.id.iscsi.addTarget(ip, port, user, pw, user_in, pw_in,
+                                             self.intf)
             break
 
         dialog.destroy()
