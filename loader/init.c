@@ -712,6 +712,8 @@ int main(int argc, char **argv) {
             execl("/sbin/dbus-daemon", "/sbin/dbus-daemon", "--system", NULL);
             exit(1);
         }
+
+        sleep(2);
     }
 
     /* HAL daemon */
