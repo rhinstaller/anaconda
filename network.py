@@ -68,7 +68,7 @@ def sanityCheckHostname(hostname):
 	    return _("Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'")
 
     return None
-	    
+
 # return if the device is of a type that requires a ptpaddr to be specified
 def isPtpDev(devname):
     if (devname.startswith("ctc") or devname.startswith("iucv")):
@@ -82,29 +82,31 @@ def _anyUsing(method):
     else:
         methods = (method)
 
-    bus = dbus.SystemBus()
-    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
-    nm_props_iface = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
+    try:
+        bus = dbus.SystemBus()
+        nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+        nm_props_iface = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
+        active_connections = nm_props_iface.Get(isys.NM_MANAGER_IFACE, "ActiveConnections")
 
-    active_connections = nm_props_iface.Get(isys.NM_MANAGER_IFACE, "ActiveConnections")
+        for path in active_connections:
+            active = bus.get_object(isys.NM_SERVICE, path)
+            active_props_iface = dbus.Interface(active, isys.DBUS_PROPS_IFACE)
 
-    for path in active_connections:
-        active = bus.get_object(isys.NM_SERVICE, path)
-        active_props_iface = dbus.Interface(active, isys.DBUS_PROPS_IFACE)
+            active_service_name = active_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, "ServiceName")
+            active_path = active_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, "Connection")
 
-        active_service_name = active_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, "ServiceName")
-        active_path = active_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, "Connection")
+            connection = bus.get_object(active_service_name, active_path)
+            connection_iface = dbus.Interface(connection, isys.NM_CONNECTION_IFACE)
+            settings = connection_iface.GetSettings()
 
-        connection = bus.get_object(active_service_name, active_path)
-        connection_iface = dbus.Interface(connection, isys.NM_CONNECTION_IFACE)
-        settings = connection_iface.GetSettings()
+            # XXX: add support for Ip6Config when it appears
+            ip4_setting = settings['ipv4']
+            if not ip4_setting or not ip4_setting['method'] or ip4_setting['method'] in methods:
+                return True
 
-        # XXX: add support for Ip6Config when it appears
-        ip4_setting = settings['ipv4']
-        if not ip4_setting or not ip4_setting['method'] or ip4_setting['method'] in methods:
-            return True
-
-    return False
+            return False
+    except:
+        return False
 
 # determine whether any active at boot devices are using dhcp or dhcpv6
 def anyUsingDHCP():
@@ -134,14 +136,17 @@ def sanityCheckIPString(ip_string):
         raise IPError, errstr
 
 def hasActiveNetDev():
-    bus = dbus.SystemBus()
-    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
-    props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
-    state = props.Get(isys.NM_SERVICE, "State")
+    try:
+        bus = dbus.SystemBus()
+        nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+        props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
+        state = props.Get(isys.NM_SERVICE, "State")
 
-    if int(state) == isys.NM_STATE_CONNECTED:
-        return True
-    else:
+        if int(state) == isys.NM_STATE_CONNECTED:
+            return True
+        else:
+            return False
+    except:
         return False
 
 class NetworkDevice(SimpleConfigFile):
