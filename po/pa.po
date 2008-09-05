@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-04 14:26+0530\n"
+"PO-Revision-Date: 2008-09-05 15:39+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <Punjabi-users@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -619,6 +619,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"ਇੱਕ ਨਵਾਂ ਬੱਗ ਪੇਸ਼ ਕੀਤਾ ਗਿਆ ਜਿਸ ਨਾਲ ਤੁਹਾਡੀ ਟਰੇਸਬੈਕ ਨੱਥੀ ਕੀਤੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਵਾਧੂ ਜਾਣਕਾਰੀ ਵੀ ਸ਼ਾਮਿਲ ਕਰੋ ਜਿਵੇਂ ਕਿ ਤੁਸੀਂ ਬੱਗ, ਸਕਰੀਨਸ਼ਾਟ ਵੇਖਣ ਤੇ ਕੀ ਕਰਦੇ ਹੋ, ਅਤੇ ਹੇਠਲੇ ਬੱਗ ਲਈ ਹੋਰ ਕੀ ਜਰੂਰੀ ਹੈ:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:450
 msgid "Bug Updated"
@@ -633,6 +636,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"ਤੁਹਾਡਾ ਜਾਣਕਾਰੀ ਵਾਲਾ ਇੱਕ ਬੱਗ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।  ਤੁਹਾਡਾ ਖਾਤਾ CC ਸੂਚੀ ਵਿੱਚ ਸ਼ਾਮਿਲ ਕੀਤਾ ਗਿਆ ਹੈ ਅਤੇ ਤੁਹਾਡਾ ਟਰੇਸਬੈਕ ਟਿੱਪਣੀ ਦੇ ਤੌਰ ਤੇ ਸ਼ਾਮਿਲ ਕੀਤਾ ਗਿਆ ਹੈ।  ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਲੇ ਬੱਗ ਵਿੱਚ ਵਾਧੂ ਜਾਣਕਾਰੀ ਸ਼ਾਮਿਲ ਕਰੋ।:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:475 ../exception.py:490 ../exception.py:515
 msgid "Dump Written"
@@ -939,7 +945,7 @@ msgstr ""
 "ਸਮੱਸਿਆਵਾਂ ਆ ਸਕਦੀਆਂ ਹਨ।"
 
 #: ../fsset.py:1986
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -950,18 +956,18 @@ msgid ""
 msgstr ""
 "ਜੰਤਰ %s ਨੂੰ %s ਦੇ ਤੌਰ ਤੇ ਮਾਊਂਟ ਕਰਨ ਵਿੱਚ ਗਲਤੀ: %s\n"
 "\n"
-"/etc/fstab ਵਿੱਚ ਜੰਤਰ ਨੂੰ ਲੇਬਲ ਰਾਹੀਂ ਦਿੱਤਾ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ, ਨਾ ਹੀ ਜੰਤਰ ਨਾਂ ਨਾਲ।\n"
+"/etc/fstab ਵਿੱਚ ਜੰਤਰ ਨੂੰ ਲੇਬਲ ਜਾਂ UUID ਰਾਹੀਂ ਦਿੱਤਾ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ, ਨਾ ਕਿ ਜੰਤਰ ਨਾਂ ਨਾਲ।\n"
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ 'ਠੀਕ ਹੈ' ਦਬਾਓ।"
 
 #: ../fsset.py:1993
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"ਰੇਡ ਜੰਤਰ %s, ਜੋ ਕਿ %s ਲਈ ਵਰਤਣਾ ਸੀ, ਨੂੰ ਲੱਭਣ ਵਿੱਚ ਅਸਫਲ।\n"
+"ਜੰਤਰ %s ਨੂੰ %s ਦੇ ਤੌਰ ਤੇ ਮਾਊਂਟ ਕਰਨ ਵਿੱਚ ਗਲਤੀ ਆਈ ਹੈ: %s\n"
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ 'ਠੀਕ ਹੈ' ਦਬਾਓ।"
 
@@ -1088,11 +1094,11 @@ msgid "Installation Key"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਕੁੰਜੀ"
 
 #: ../gui.py:660 ../text.py:323
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose a passphrase for this encrypted device%s. You will be prompted for "
 "the passphrase during system boot."
-msgstr "ਇਸ ਇੰਕ੍ਰਿਪਟਡ ਭਾਗ ਲਈ ਗੁਪਤਕੋਡ ਚੁਣੋ। ਤੁਹਾਨੂੰ ਸਿਸਟਮ ਬੂਟ ਹੋਣ ਤੇ ਗੁਪਤਕੋਡ ਪੁੱਛਿਆ ਜਾਵੇਗਾ।m boot."
+msgstr "ਇਸ ਇੰਕ੍ਰਿਪਟਡ ਜੰਤਰ%s ਲਈ ਗੁਪਤਕੋਡ ਚੁਣੋ। ਤੁਹਾਨੂੰ ਸਿਸਟਮ ਬੂਟ ਹੋਣ ਤੇ ਗੁਪਤਕੋਡ ਪੁੱਛਿਆ ਜਾਵੇਗਾ"
 
 #: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
 msgid "Error with passphrase"
@@ -1118,7 +1124,7 @@ msgstr ""
 #: ../gui.py:780
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "ਬੱਗਜ਼ੀਲਾ (%s)"
 
 #: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
 #: tmp/anaconda.glade.h:2
@@ -1241,7 +1247,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660 ਈਮੇਜ਼ ਨਹੀਂ ਹੈ"
 
 #: ../image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1249,10 +1255,9 @@ msgid ""
 "Please copy this image to the drive and click Retry.  Click Exit to abort "
 "the installation."
 msgstr ""
-"ਇੰਸਟਾਲਰ ਨੇ ਈਮੇਜ਼ #%s ਨੂੰ ਮਾਊਂਟ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼਼ ਕੀਤੀ ਹੈ, ਪਰ ਹਾਰਡ ਡਰਾਈਵ ਉੱਤੇ ਲੱਭਿਆ ਨਹੀਂ ਜਾ "
-"ਸਕਦਾ ਹੈ।\n"
+"ਇੰਸਟਾਲਰ ਨੇ ਈਮੇਜ਼ #%s ਨੂੰ ਮਾਊਂਟ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼਼ ਕੀਤੀ ਹੈ, ਪਰ ਹਾਰਡ ਡਰਾਈਵ ਉੱਤੇ ਲੱਭਿਆ ਨਹੀਂ ਹੈ।\n"
 "\n"
-"ਇਸ ਈਮੇਜ਼ ਨੂੰ ਡਰਾਈਵ ਉੱਤੇ ਨਕਲ ਕਰੋ ਅਤੇ ਮੁੜ-ਕੋਸ਼ਿਸ਼਼ ਦਬਾਓ। ਇੰਸਟਾਲੇਸ਼ਣ ਛੱਡਣ ਲਈ ਬਾਹਰ ਨੂੰ ਦਬਾਓ।"
+"ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਈਮੇਜ਼ ਨੂੰ ਡਰਾਈਵ ਉੱਤੇ ਨਕਲ ਕਰੋ ਅਤੇ ਮੁੜ-ਕੋਸ਼ਿਸ਼਼ ਦਬਾਓ। ਇੰਸਟਾਲੇਸ਼ਣ ਛੱਡਣ ਲਈ ਬਾਹਰ ਨੂੰ ਦਬਾਓ।"
 
 #: ../image.py:244
 msgid "Required Install Media"
@@ -1367,7 +1372,6 @@ msgid "Copying live image to hard drive."
 msgstr "ਲਾਈਵ ਈਮੇਜ਼ ਹਾਰਡ-ਡਿਸਕ ਉੱਤੇ ਨਕਲ ਹੋ ਰਿਹਾ ਹੈ।"
 
 #: ../livecd.py:197
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -1375,12 +1379,10 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"ਫਾਇਲ %s ਖੋਲੀ ਨਹੀਂ ਜਾ ਸਕਦੀ ਹੈ। ਇਸ ਦਾ ਕਾਰਨ ਫਾਇਲ ਦੀ ਗੈਰ-ਮੌਜੂਦਗੀ, ਪੈਕੇਜ ਦਾ ਨਕਾਰਾ ਜਾਂ "
-"ਨਕਾਰਾ ਮੀਡੀਆ ਹੋਣਾ ਹੈ।  ਆਪਣੇ ਇੰਸਟਾਲੇਸ਼ਨ ਸਰੋਤ ਦੀ ਜਾਂਚ ਕਰੋ।\n"
+"ਲਾਈਵ ਈਮੇਜ਼ ਨੂੰ ਤੁਹਾਡੀ ਹਾਰਡ ਡਰਾਈਵ ਉੱਪਰ ਇੰਸਟਾਲ ਕਰਨ ਵਿੱਚ ਗਲਤੀ ਆਈ ਹੈ। ਇਸ ਦਾ ਕਾਰਨ ਖਰਾਬ ਮੀਡੀਆ ਹੋਣਾ ਹੈ।  ਆਪਣੇ ਇੰਸਟਾਲੇਸ਼ਨ ਮੀਡੀਆ ਦੀ ਜਾਂਚ ਕਰੋ।\n"
 "\n"
 "ਜੇਕਰ ਤੁਸੀਂ ਬੰਦ ਕਰ ਦਿੱਤਾ ਤਾਂ ਇਹ ਹੋ ਸਕਦਾ ਹੈ ਕਿ ਸਿਸਟਮ ਇਸ ਹਾਲਤ ਵਿੱਚ ਰਹਿ ਜਾਵੇ ਕਿ ਜਿਸ ਲਈ ਮੁੜ-"
-"ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ ਪਵੇ।\n"
-"\n"
+"ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ ਪਵੇ।"
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -1450,7 +1452,7 @@ msgstr "ਸਰਗਰਮ ਹੋ ਰਿਹਾ ਹੈ"
 
 #: ../packages.py:146
 msgid "Activating new partitions.  Please wait..."
-msgstr ""
+msgstr "ਨਵੇਂ ਭਾਗ ਨੂੰ ਸਰਗਰਮ ਕਰ ਰਿਹਾ ਹੈ।  ਉਡੀਕ ਕਰੋ..."
 
 #: ../packages.py:167
 msgid "LVM operation failed"
@@ -1573,7 +1575,7 @@ msgstr ""
 "ਕੀ ਤੁਸੀਂ ਡਰਾਈਵ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਅਤੇ ਸਾਰਾ ਡਾਟਾ ਖਤਮ ਕਰਨ ਲਈ ਸਹਿਮਤ ਹੋ?"
 
 #: ../partedUtils.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1584,8 +1586,8 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"ਜੰਤਰ %s (%s) ਤੇ ਭਾਗ-ਸਾਰਣੀ ਪੜਨਯੋਗ ਨਹੀਂ ਹੈ। ਇਸ ਨੂੰ ਸ਼ੁਰੂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਪਰ ਇਸ ਡਰਾਈਵ ਤੋਂ "
-"ਸਾਰਾ ਡਾਟਾ ਖਤਮ ਹੋ ਜਾਵੇਗਾ।\n"
+"ਜੰਤਰ %s (%s %-0.f MB) ਤੇ ਭਾਗ-ਸਾਰਣੀ ਪੜਨਯੋਗ ਨਹੀਂ ਹੈ।\n"
+"ਇਸ ਨੂੰ ਸ਼ੁਰੂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਪਰ ਇਸ ਡਰਾਈਵ ਤੋਂ ਸਾਰਾ ਡਾਟਾ ਖਤਮ ਹੋ ਜਾਵੇਗਾ।\n"
 "\n"
 "ਇਸ ਕਾਰਵਾਈ ਨਾਲ ਪਹਿਲਾਂ ਡਰਾਈਵ ਬਾਰੇ ਪਹਿਲਾਂ ਕੀਤੀ ਚੋਣ ਨੂੰ ਰੱਦ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ।\n"
 "\n"
@@ -1947,7 +1949,7 @@ msgid ""
 "You specified block device encryption should be enabled%s, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption%s will be disabled."
-msgstr ""
+msgstr "ਬਲਾਕ ਜੰਤਰ ਇਨਕ੍ਰਿਪਸ਼ਨ ਜੋ ਤੁਸੀਂ ਦਿੱਤੀ ਹੈ ਵਿੱਚ %s ਯੋਗ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ, ਪਰ ਤੁਸੀਂ ਪਾਸਵਰਡ ਨਹੀਂ ਦਿੱਤਾ ਹੈ। ਜੇ ਤੁਸੀਂ ਪਿੱਛੇ ਨਹੀਂ ਜਾਂਦੇ ਅਤੇ ਪਾਸਵਰਡ ਨਹੀਂ ਦਿੰਦੇ, ਤਾਂ ਬਲਾਕ ਜੰਤਰ ਇਨਕ੍ਰਿਪਸ਼ਨ%s ਅਯੋਗ ਹੋ ਜਾਵੇਗੀ।"
 
 #: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
@@ -1973,13 +1975,12 @@ msgid "Writing partitioning to disk"
 msgstr "ਡਿਸਕ ਉੱਪਰ ਭਾਗ ਲਿਖ ਰਿਹਾ ਹੈ"
 
 #: ../partitions.py:161
-#, fuzzy
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
 msgstr ""
-"ਵਿਭਾਗੀਕਰਨ ਚੋਣਾਂ ਜੋ ਤੁਸੀਂ ਚੁਣੀਆਂ ਹਨ ਹੁਣ ਡਿਸਕ ਤੇ ਲਿਖੀਆਂ ਜਾਣਗੀਆਂ। ਹਟਾਈ ਜਾਣ ਮੁੜ-ਫਾਰਮੈਟ ਕੀਤੇ "
-"ਭਾਗ ਦਾ ਡਾਟਾ ਨਸ਼ਟ ਹੋ ਜਾਵੇਗਾ"
+"ਵਿਭਾਗੀਕਰਨ ਚੋਣਾਂ ਜੋ ਤੁਸੀਂ ਚੁਣੀਆਂ ਹਨ ਹੁਣ ਡਿਸਕ ਤੇ ਲਿਖੀਆਂ ਜਾਣਗੀਆਂ। ਹਟਾਈ ਜਾਂ ਮੁੜ-ਫਾਰਮੈਟ ਕੀਤੇ "
+"ਭਾਗ ਦਾ ਡਾਟਾ ਨਸ਼ਟ ਹੋ ਜਾਵੇਗਾ।"
 
 #: ../partitions.py:166
 msgid "Go _back"
@@ -2020,9 +2021,8 @@ msgid ""
 msgstr "ਤੁਸੀਂ ਰੂਟ (root) ਭਾਗ 250 ਮੈਗਾਬਾਈਟ ਤੋਂ ਘੱਟ ਹੈ, ਜੋ ਕਿ ਇੰਸਟਾਲ %s ਲਈ ਬਹੁਤ ਘੱਟ ਹੈ।"
 
 #: ../partitions.py:1177
-#, fuzzy
 msgid "You must create an EFI System Partition of at least 10 megabytes."
-msgstr "ਤੁਹਾਨੂੰ ਇੱਕ FAT ਕਿਸਮ ਦਾ ਅਤੇ 50 ਮੈਗਾਬਾਈਟ ਦਾ EFI ਸਿਸਟਮ ਭਾਗ ਬਣਾਉਣਾ ਜ਼ਰੂਰੀ ਹੈ।"
+msgstr "ਤੁਹਾਨੂੰ 50 ਮੈਗਾਬਾਈਟ ਦਾ ਇੱਕ EFI ਕਿਸਮ ਦਾ ਸਿਸਟਮ ਭਾਗ ਬਣਾਉਣਾ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: ../partitions.py:1191
 msgid ""
@@ -2210,7 +2210,7 @@ msgstr "ਜਦੋਂ ਵੀ ਸਮਾਪਤ ਹੋ ਗਿਆ ਤਾਂ ਸ਼ੈੱ
 
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
+msgstr "ਚਲਾਉਣ ਲਈ /bin/sh ਨੂੰ ਲੱਭ ਨਹੀਂ ਸਕਿਆ! ਸ਼ੈੱਟ ਚਾਲੂ ਨਹੀਂ ਕਰ ਰਿਹਾ"
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -2344,7 +2344,7 @@ msgstr "ਲੋਕਲ ਡਿਸਕ ਤੇ ਸੰਭਾਲੋ"
 #: ../text.py:211
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "ਬੱਗਜ਼ੀਲਾ ਨੂੰ ਭੇਜੋ (%s)"
 
 #: ../text.py:212
 msgid "Send to remote server (scp)"
@@ -2751,7 +2751,7 @@ msgid "Error Setting Up Repository"
 msgstr "ਰਿਪੋਜ਼ਟਰੀ ਸੈੱਟ ਕਰਨ ਵਿੱਚ ਗਲਤੀ ਆਈ ਹੈ"
 
 #: ../yuminstall.py:309 ../iw/task_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -2759,11 +2759,11 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"ਤੁਹਾਡੇ ਭਾਗਾਂ ਵਿੱਚ ਹੇਠ ਲਿਖੀਆਂ ਗਲਤੀਆਂ ਆਈਆਂ ਹਨ:\n"
+"ਇੰਸਟਾਲੇਸ਼ਨ ਰਿਪੋਜ਼ਟਰੀ ਸੈੱਟ ਕਰਨ ਸਮੇਂ ਹੇਠਲੀ ਗਲਤੀ ਆਈ ਹੈ:\n"
 "\n"
 "%s\n"
 "\n"
-"ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ 'ਠੀਕ ਹੈ' ਦਬਾਓ।"
+"%s ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਸਹੀ ਜਾਣਕਾਰੀ ਦਿਓ।"
 
 #: ../yuminstall.py:366
 msgid "Change Disc"
@@ -2790,7 +2790,7 @@ msgstr "ਡਿਸਕ ਨੂੰ ਵਰਤਣ ਵਿੱਚ ਅਸਫਲ।"
 #: ../yuminstall.py:533
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr ""
+msgstr "ਰਿਪੋਜ਼ਟਰੀ %r ਦਾ ਨਾਂ ਸੰਰਚਨਾ ਵਿੱਚ ਨਹੀਂ ਹੈ, id ਵਰਤ ਰਿਹਾ ਹੈ"
 
 #: ../yuminstall.py:651 ../yuminstall.py:653
 msgid "Re_boot"
@@ -3192,13 +3192,15 @@ msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
 msgstr ""
+"ਇੰਸਟਾਲ ਕੀਤਾ ਸਿਸਟਮ ਵਰਤਣ ਲਈ ਸਿਸਟਮ ਮੁੜ-ਚਾਲੂ ਕਰੋ।\n"
+"\n"
 
 #: ../iw/congrats_gui.py:74
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਮੁੜ-ਚਾਲੂ ਕਰਨ ਵਾਸਤੇ \"ਮੁੜ-ਚਾਲੂ\" ਦੱਬੋ।\n"
+"ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਮੁੜ-ਚਾਲੂ ਕਰਨ ਵਾਸਤੇ \"ਮੁੜ-ਚਾਲੂ\" ਦਬਾਓ।\n"
 "\n"
 
 #: ../iw/congrats_gui.py:78
@@ -4473,7 +4475,7 @@ msgstr "ਕੋਈ ਮਾਧਿਅਮ ਨਹੀਂ ਲੱਭਿਆ"
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
-msgstr ""
+msgstr "ਕੋਈ ਇੰਸਟਾਲੇਸ਼ਨ ਮੀਡੀਆ ਨਹੀਂ ਲੱਭਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਡਰਾਈਵ ਵਿੱਚ ਡਿਸਕ ਪਾਓ ਅਤੇ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
 msgid "Please enter an NFS server and path."
@@ -4500,7 +4502,7 @@ msgstr "ਰਿਪੋਜ਼ਟਰੀ %s ਪਹਿਲਾਂ ਹੀ ਸ਼ਾਮਿ
 
 #: ../iw/task_gui.py:431
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "ਕੋਈ ਸਾਫਟਵੇਅਰ ਰਿਪੋ ਯੋਗ ਨਹੀਂ ਕੀਤੀ"
 
 #: ../iw/task_gui.py:432
 msgid ""
@@ -4576,7 +4578,7 @@ msgid "Migrate File Systems"
 msgstr "ਫਾਇਲ-ਸਿਸਟਮ ਮਾਈਗਰੇਟ ਕਰੋ"
 
 #: ../iw/upgrade_migratefs_gui.py:64
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4584,7 +4586,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%s ਦਾ ਇਹ ਜਾਰੀ ਵਰਜਨ ਇੱਕ ਅੱਪਡੇਟਡ ਫਾਇਲ ਸਿਸਟਮ ਲਈ ਸਹਿਯੋਗੀ ਹੈ, ਜਿਸ ਦੇ %s ਵਿੱਚ ਵਰਤੇ ਪੁਰਾਣੇ "
+"%s ਦਾ ਇਹ ਰੀਲੀਜ਼ ਇੱਕ ਅੱਪਡੇਟਡ ਫਾਇਲ ਸਿਸਟਮ ਲਈ ਸਹਿਯੋਗੀ ਹੈ, ਜਿਸ ਦੇ %s ਵਿੱਚ ਵਰਤੇ ਪੁਰਾਣੇ "
 "ਪੁਰਾਣੇ ਫਾਇਲ ਸਿਸਟਮ ਦੇ ਸਾਹਮਣੇ  ਕਈ ਲਾਭ ਹਨ। ਇਹ ਇੰਸਟਾਲੇਸ਼ਨ ਪਰੋਗਰਾਮ ਫਾਰਮੈਟ ਕੀਤੇ ਭਾਗ ਨੂੰ ਬਿਨਾਂ "
 "ਡਾਟਾ ਖਰਾਬ ਕੀਤੇ ਮਾਈਗਰੇਟ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।\n"
 "\n"
@@ -5804,7 +5806,7 @@ msgstr "ਸਕੈਨਿੰਗ"
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "CD ਜੰਤਰ %s ਉੱਪਰ ਇੰਸਟਾਲੇਸ਼ਨ ਈਮੇਜ਼ਾਂ ਨੂੰ ਲੱਭ ਰਿਹਾ ਹੈ"
 
 #: ../loader/cdinstall.c:428
 #, c-format
@@ -5988,13 +5990,10 @@ msgid "Select Device Driver to Load"
 msgstr "ਲੋਡ ਕਰਨ ਲਈ ਜੰਤਰ ਡਰਾਈਵਰ ਚੁਣੋ"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
-msgstr ""
-"ਆਈਸੋ(ISO) ਈਮੇਜ਼ ਤੋਂ ਇੰਸਟਾਲ ਪੜਨ ਦੌਰਾਨ ਗਲਤੀ ਆਈ ਹੈ।  ਆਪਣੇ ਆਈਸੋ (ISO) ਈਮੇਜ਼ ਦੀ ਜਾਂਚ ਕਰਕੇ ਮੁਡ਼ "
-"ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜੀ।"
+msgstr "ਤੁਹਾਡੀ ਹਾਰਡ ਡਰਾਈਵ ਤੋਂ ਇੰਸਟਾਲੇਸ਼ਨ ਈਮੇਜ਼ ਤੋਂ ਇੰਸਟਾਲ ਪੜਨ ਦੌਰਾਨ ਗਲਤੀ ਆਈ ਹੈ।  ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਈਮੇਜ਼ ਦੀ ਜਾਂਚ ਕਰਕੇ ਮੁਡ਼ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6003,13 +6002,13 @@ msgid ""
 msgstr "ਤੁਹਾਡੇ ਕੋਲ ਕੋਈ ਹਾਰਡ-ਡਰਾਈਵ ਨਹੀਂ ਜਾਪਦੀ ਹੈ! ਕੀ ਤੁਸੀਂ ਹੁਣੇ ਹੀ ਹੋਰ ਜੰਤਰ ਚੁਣਨਾ ਪਸੰਦ ਕਰੋਗੇ?"
 
 #: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"ਕਿਹਡ਼ਾ ਭਾਗ ਅਤੇ ਡਾਇਰੈਕਟਰੀ ਹੈ, ਜਿਸ ਉਪੱਰ %s ਲਈ CD (iso9660) ਈਮੇਜ਼ ਸੰਭਾਲਿਆ ਹੈ? ਜੇਕਰ ਤੁਸੀਂ ਉਹ "
+"ਕਿਹਡ਼ਾ ਭਾਗ ਅਤੇ ਡਾਇਰੈਕਟਰੀ ਹੈ, ਜਿਸ ਉਪੱਰ %s ਲਈ ਇੰਸਟਾਲੇਸ਼ਨ ਈਮੇਜ਼ ਸੰਭਾਲਿਆ ਹੈ? ਜੇਕਰ ਤੁਸੀਂ ਉਹ "
 "ਭਾਗ ਜਾਂ ਹਾਰਡ-ਡਿਸਕ ਸੂਚੀ ਵਿੱਚ ਨਹੀਂ ਵੇਖ ਰਹੇ ਹੋ ਤਾਂ ਹੋਰ ਜੰਤਰਾਂ ਨੂੰ ਜੋਡ਼ਨ ਲਈ F2 ਦਬਾਓ।"
 
 #: ../loader/hdinstall.c:273
@@ -6419,13 +6418,13 @@ msgstr "ਪਛਾਣ ਕਰੋ"
 
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "ਤੁਸੀਂ ਇਸ ਲਈ ਭੌਤਿਕ ਪੋਰਟ ਦੇ ਸਕਦੇ ਹੋ"
 
 #: ../loader/net.c:1553
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "ਕੁਝ ਸਕਿੰਟਾਂ ਲਈLED ਲਾਈਟਾਂ ਜਗਾ ਕੇ।  LED ਪੋਰਟ ਲਾਈਟਾਂ ਜਗਣ ਲਈ ਅੰਤਰਾਲ ਨਿਰਧਾਰਤ ਕਰਨ ਵਾਸਤੇ 1 ਅਤੇ 30 ਵਿਚਕਾਰ ਨੰਬਰ ਦਿਓ।"
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
@@ -6437,7 +6436,7 @@ msgstr "ਗਲਤ ਅੰਤਰਾਲ"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "ਤੁਹਾਨੂੰ 1 ਅਤੇ 30 ਵਿਚਕਾਰ ਪੂਰਨ ਅੰਕ ਦੇਣਾ ਜਰੂਰੀ ਹੈ।"
 
 #: ../loader/net.c:1589
 #, c-format
