@@ -788,8 +788,7 @@ class SaveExceptionWindow:
         dests = anaconda.id.diskset.exceptionDisks(anaconda)
 
         if flags.livecdInstall:
-            exnxml.get_widget("diskBox").hide()
-            exnxml.get_widget("localBox").show()
+            self.destCombo.remove_text(0)
             self.destCombo.set_active(0)
             self.notebook.remove_page(0)
             self.notebook.set_current_page(0)
@@ -802,10 +801,18 @@ class SaveExceptionWindow:
             self.diskCombo.set_active(0)
             self.diskCombo.set_sensitive(True)
 
+            self.destCombo.remove_text(1)
             self.destCombo.set_active(0)
             self.notebook.remove_page(1)
             self.notebook.set_current_page(0)
         else:
+            iter = store.append(None)
+            store[iter] = (None, _("No devices found"))
+
+            self.diskCombo.set_model(store)
+            self.diskCombo.set_active(0)
+            self.diskCombo.set_sensitive(False)
+
             self.destCombo.remove_text(1)
             self.destCombo.set_active(1)
             self.notebook.remove_page(1)
@@ -827,7 +834,7 @@ class SaveExceptionWindow:
     def getDest(self):
         if self.saveToDisk():
             active = self.diskCombo.get_active()
-            if active < 0:
+            if active < 0 or self.diskCombo.get_model()[active][0] is None:
                 return None
 
             return self.diskCombo.get_model()[active][0]
@@ -850,10 +857,10 @@ class SaveExceptionWindow:
         self.rc = self.window.run ()
 
     def saveToDisk(self):
-        return self.destCombo.get_active() == 0
+        return self.destCombo.get_active() == 0 and not flags.livecdInstall
 
     def saveToLocal(self):
-        return self.destCombo.get_active() == 0
+        return self.destCombo.get_active() == 0 and flags.livecdInstall
 
     def saveToRemote(self):
         return self.destCombo.get_active() == 2
