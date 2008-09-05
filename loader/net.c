@@ -1748,7 +1748,7 @@ int get_connection(iface_t *iface) {
     /* start NetworkManager for configured interface */
     logMessage(INFO, "starting NetworkManager (%d) for %s", __LINE__,
                iface->device);
-    if (iface_start_NetworkManager(iface) > 0) {
+    if (iface_start_NetworkManager() > 0) {
         return 2;
     }
 
@@ -1795,7 +1795,7 @@ int get_connection(iface_t *iface) {
     }
 
     /* send message and block until a reply or error comes back */
-    while (count < 30) {
+    while (count < 45) {
         dbus_error_init(&error);
         reply = dbus_connection_send_with_reply_and_block(connection,
                                                           message, -1,

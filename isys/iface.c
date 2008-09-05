@@ -448,7 +448,7 @@ int iface_have_in6_addr(struct in6_addr *addr6) {
  * Start NetworkManager -- requires that you have already written out the
  * control files in /etc/sysconfig for the interface.
  */
-int iface_start_NetworkManager(iface_t *iface) {
+int iface_start_NetworkManager(void) {
     int status;
     pid_t pid;
 
@@ -469,8 +469,6 @@ int iface_start_NetworkManager(iface_t *iface) {
                   "--pid-file=/var/run/NetworkManager/NetworkManager.pid",
                   NULL) == -1) {
             exit(3);
-        } else {
-            exit(0);
         }
     } else if (pid == -1) {
         return 1;

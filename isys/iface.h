@@ -154,7 +154,7 @@ int iface_have_in6_addr(struct in6_addr *addr6);
 /*
  * Start NetworkManager
  */
-int iface_start_NetworkManager(iface_t *iface);
+int iface_start_NetworkManager(void);
 
 /*
  * Set Maximum Transfer Unit (MTU) on specified interface
