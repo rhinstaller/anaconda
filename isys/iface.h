@@ -27,6 +27,8 @@
 #include <netlink/cache.h>
 #include <netlink/socket.h>
 
+#include <dbus/dbus.h>
+
 /* Enumerated types used in iface.c as well as loader's network code */
 enum { IPUNUSED, IPV4, IPV6 };
 
@@ -154,7 +156,7 @@ int iface_have_in6_addr(struct in6_addr *addr6);
 /*
  * Start NetworkManager
  */
-int iface_start_NetworkManager(void);
+int iface_start_NetworkManager(DBusConnection *connection, char **error);
 
 /*
  * Set Maximum Transfer Unit (MTU) on specified interface

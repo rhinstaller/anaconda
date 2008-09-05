@@ -444,13 +444,101 @@ int iface_have_in6_addr(struct in6_addr *addr6) {
     return _iface_have_valid_addr(addr6, AF_INET6, INET6_ADDRSTRLEN);
 }
 
+/* Check if NM is already running */
+int is_nm_running(DBusConnection *connection, int *running, char **error_str)
+{
+    DBusError error;
+    DBusMessage *message, *reply;
+    const char *nm_service = NM_DBUS_SERVICE;
+    dbus_bool_t alive = FALSE;
+
+    message = dbus_message_new_method_call("org.freedesktop.DBus",
+                                           "/org/freedesktop/DBus",
+                                           "org.freedesktop.DBus",
+                                           "NameHasOwner");
+    if (!message)
+        return 33;
+
+    if (!dbus_message_append_args(message,
+                                  DBUS_TYPE_STRING, &nm_service,
+                                  DBUS_TYPE_INVALID)) {
+        dbus_message_unref(message);
+        return 34;
+    }
+
+    dbus_error_init(&error);
+    reply = dbus_connection_send_with_reply_and_block(connection,
+                                                        message, 2000,
+                                                        &error);
+    if (!reply) {
+        if (dbus_error_is_set(&error)) {
+            *error_str = strdup(error.message);
+            dbus_error_free(&error);
+        }
+
+        dbus_message_unref(message);
+        return 35;
+    }
+
+    dbus_error_init(&error);
+    if (!dbus_message_get_args(reply, &error,
+                                DBUS_TYPE_BOOLEAN, &alive,
+                                DBUS_TYPE_INVALID)) {
+        if (dbus_error_is_set(&error)) {
+            *error_str = strdup(error.message);
+            dbus_error_free(&error);
+        }
+
+        dbus_message_unref(message);
+        dbus_message_unref(reply);
+        return 36;
+    }
+
+    *running = alive;
+
+    dbus_message_unref(message);
+    dbus_message_unref(reply);
+    return 0;
+}
+
+/*
+ * Wait for NetworkManager to appear on the system bus
+ */
+int wait_for_nm(DBusConnection *connection, char **error_str) {
+    int count = 0;
+
+    /* send message and block until a reply or error comes back */
+    while (count < 45) {
+        int running = 0, ret;
+
+        ret = is_nm_running(connection, &running, error_str);
+        if (ret != 0)
+            return ret;  /* error */
+        if (running)
+            return 0;  /* nm is alive */
+
+        sleep(1);
+        count++;
+    }
+
+    return 37;
+}
+
 /*
  * Start NetworkManager -- requires that you have already written out the
  * control files in /etc/sysconfig for the interface.
  */
-int iface_start_NetworkManager(void) {
-    int status;
+int iface_start_NetworkManager(DBusConnection *connection, char **error) {
     pid_t pid;
+    int ret, running = 0;
+    char *ignore = NULL;
+
+    ret = is_nm_running(connection, &running, &ignore);
+    if (ignore)
+        free(ignore);
+
+    if (ret == 0 && running)
+        return 0;  /* already running */
 
     /* Start NetworkManager */
     pid = fork();
@@ -473,9 +561,7 @@ int iface_start_NetworkManager(void) {
     } else if (pid == -1) {
         return 1;
     } else {
-        if (waitpid(pid, &status, 0) == -1) {
-            return 2;
-        }
+        return wait_for_nm(connection, error);
     }
 
     return 0;
