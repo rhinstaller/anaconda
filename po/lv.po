@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the anaconda package.
 # Gatis Kalnins <gatis.kalnins@metatrons.lv>, 2006.
 # Janis Ozolins <johnij@fedoraproject.org>, 2008
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-06-30 21:42+0100\n"
+"PO-Revision-Date: 2008-09-05 11:07+0100\n"
 "Last-Translator: Janis Ozolins <johnij@fedoraproject.org>\n"
 "Language-Team: Latvian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:288 ../anaconda:334
 #, c-format
@@ -97,9 +97,8 @@ msgid "Starting graphical installation..."
 msgstr "Startējas grafiskā instalēšana..."
 
 #: ../anaconda:821
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "Ko Jūs vēlaties darīt?"
+msgstr "Vai vēlaties lietot VNC?"
 
 #: ../anaconda:822
 msgid ""
@@ -351,7 +350,7 @@ msgstr ""
 "Nospiediet 'OK', lai norādītu citus partīciju parametrus."
 
 #: ../autopart.py:1573
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -360,11 +359,11 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation. %s"
 msgstr ""
-"Sekojošas kļūdas konstatētas diska sadales laikā:\n"
+"Sekojošas kļūdas konstatētas diska sadalīšanas laikā:\n"
 "\n"
 "%s\n"
 "\n"
-"Iespējamais iemesls - datora cietnī nepietiek brīvas vietas instalēšanas "
+"Iespējamais iemesls - uz cietā diska nepietiek vieta instalēšanas "
 "uzsākšanai.%s"
 
 #: ../autopart.py:1584
@@ -604,13 +603,12 @@ msgid ""
 msgstr ""
 
 #: ../exception.py:384
-#, fuzzy
 msgid "Invalid Bug Information"
-msgstr "Nekorekts montēšanas punkts"
+msgstr "Nederīga kļūdas informācija"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "Lūdzu norādiet derīgu lietotājvārdu, paroli un īsu kļūdas aprakstu."
 
 #: ../exception.py:395
 #, fuzzy
@@ -625,7 +623,7 @@ msgstr ""
 
 #: ../exception.py:433
 msgid "Bug Created"
-msgstr ""
+msgstr "Kļūdas ziņojums izveidots"
 
 #: ../exception.py:434
 #, python-format
@@ -639,7 +637,7 @@ msgstr ""
 
 #: ../exception.py:450
 msgid "Bug Updated"
-msgstr ""
+msgstr "Kļūdas ziņojums atjaunots"
 
 #: ../exception.py:451
 #, python-format
@@ -674,15 +672,15 @@ msgid "There was a problem writing the system state to the disk."
 msgstr "Konstatētas problēmas sistēmas stāvokļa fiksācijā disketē"
 
 #: ../exception.py:506 ../exception.py:529
-#, fuzzy
 msgid "No Network Available"
-msgstr "Tīkla ierīces"
+msgstr "Tīkls nav pieejams"
 
 #: ../exception.py:507 ../exception.py:530
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
 msgstr ""
+"Nevar saglabāt kļūdas ziņojumu kamēr nav pieejama aktīva tīkla ierīce."
 
 #: ../exception.py:516
 #, fuzzy
@@ -1114,9 +1112,8 @@ msgid "Cancel"
 msgstr "Atcelt"
 
 #: ../gui.py:581 ../text.py:518
-#, fuzzy
 msgid "Installation Key"
-msgstr "Instalēšanas progress"
+msgstr "Instalēšanas atslēga"
 
 #: ../gui.py:660 ../text.py:323
 #, python-format
@@ -1218,7 +1215,6 @@ msgid "_Reboot"
 msgstr "_Pārstartēt"
 
 #: ../gui.py:1423
-#, fuzzy
 msgid "Exiting"
 msgstr "Iziet"
 
@@ -1433,6 +1429,8 @@ msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
 msgstr ""
+"root failu sitēma, ko Jūs izveidojāt, nav pietiekami liela priekš šī "
+"dzīvā diska (%.2f MB nepieciešami)."
 
 #: ../network.py:64
 #, fuzzy
@@ -1469,9 +1467,9 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' nav korekta IPv6 adrese."
 
 #: ../network.py:141
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "'%s' nav korekta IPv6 adrese."
+msgstr "'%s' nederīga IP adrese."
 
 #: ../packages.py:112
 msgid "Resizing Failed"
@@ -1483,13 +1481,12 @@ msgid "There was an error encountered resizing the device %s."
 msgstr "Kļūme klonēšanā: kļūme rezultātu diska dzēšanā."
 
 #: ../packages.py:146
-#, fuzzy
 msgid "Activating"
-msgstr "Aktivizēt ielādējot sistēmu"
+msgstr "Aktivizē"
 
 #: ../packages.py:146
 msgid "Activating new partitions.  Please wait..."
-msgstr ""
+msgstr "Aktivizē jaunās sadaļas.  Lūdzu uzgaidīt..."
 
 #: ../packages.py:167
 #, fuzzy
@@ -1503,7 +1500,7 @@ msgstr "Nederīga atslēga"
 #: ../packages.py:324
 #, fuzzy
 msgid "The key you entered is invalid."
-msgstr "Ievadītā IP informācija ir nekorekta."
+msgstr "Ievadītā atslēga neder."
 
 #: ../packages.py:352
 msgid "_Skip"
@@ -1979,14 +1976,13 @@ msgstr ""
 "procesu?"
 
 #: ../partitions.py:130
-#, fuzzy, python-format
+#, python-format
 msgid " for device %s"
-msgstr "Labot FCP ierīci %s"
+msgstr "ierīcei %s"
 
 #: ../partitions.py:133
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Šifra atslēga:"
+msgstr "Šifrēt ierīci?"
 
 #: ../partitions.py:134
 #, python-format
@@ -2025,6 +2021,8 @@ msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
 msgstr ""
+"Jūsu izvēlētās sadaļu opcijas tagad tiks ierakstītas diskā.  Jebkuri dati uz "
+"dzēstajām un pārformatizētajām sadaļām būs pazuduši."
 
 #: ../partitions.py:166
 #, fuzzy
@@ -2433,7 +2431,7 @@ msgstr "Parole"
 
 #: ../text.py:230
 msgid "Bug Description"
-msgstr ""
+msgstr "Kļūdas apraksts"
 
 #: ../text.py:243
 msgid "Host (host:port)"
@@ -2856,9 +2854,8 @@ msgid "That's not the correct %s disc."
 msgstr "Nav pareizais %s CD."
 
 #: ../yuminstall.py:385
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "Nav iespējams piekļūt CD saturam."
+msgstr "Nevar piekļūt diskam."
 
 #: ../yuminstall.py:533
 #, python-format
@@ -3135,12 +3132,10 @@ msgstr ""
 "Vai vēlaties turpināt ar šo paroli?!"
 
 #: ../iw/account_gui.py:144 ../textw/userauth_text.py:75
-#, fuzzy
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
-"Ievadītā parole satur ne-ascii grupas simbolus, kas nav atļauti izmantošanai "
-"parolēs."
+"Prasītā parole satur ne-ASCII simbolus, kas nav atļauts."
 
 #: ../iw/autopart_type.py:97
 msgid ""
@@ -3165,39 +3160,32 @@ msgid "You must provide an initiator name."
 msgstr "Jums jānorāda korekts iniciatora vārds."
 
 #: ../iw/autopart_type.py:284
+#, fuzzy
 msgid "Error with Data"
 msgstr "Kļūda datos"
 
 #: ../iw/autopart_type.py:405 ../textw/partition_text.py:1518
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr ""
-"Dzēst visas partīcijas, kas atrodas cietnī un izveidot dalījumu pēc "
-"noklusējuma."
+msgstr "Dzēst visas sadaļas uz izvēlētajiem diskiem un izveidot noklusēto"
+"izvietojumu"
 
 #: ../iw/autopart_type.py:406 ../textw/partition_text.py:1519
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr ""
-"Dzēst visas Linux partīcijas, kas atrodas cietnī un izveidot dalījumu pēc "
-"noklusējuma."
+msgstr "Dzēst visas Linux sadaļas uz izvēlētajiem diskiem un izveidot noklusēto"
+"izvietojumu"
 
 #: ../iw/autopart_type.py:407
-#, fuzzy
 msgid "Resize existing partition and create default layout in free space"
-msgstr ""
-"Dzēst visas Linux partīcijas, kas atrodas cietnī un izveidot dalījumu pēc "
-"noklusējuma."
+msgstr "Izmainīt esošo sadaļu un izveidot noklusēto izvietojumu brīvā vietā"
 
 #: ../iw/autopart_type.py:408 ../textw/partition_text.py:1520
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr "Izmantot cietņa brīvo vietu un izveidot dalījumu pēc noklusējuma."
+msgstr "Izveidot noklusēto izvietojumu izmantojot brīvo vietu "
+"uz izvēlētajiem diskiem"
 
 #: ../iw/autopart_type.py:409 ../textw/partition_text.py:1521
-#, fuzzy
 msgid "Create custom layout"
-msgstr "Izveidot pašrocīgu sadalījumu."
+msgstr "Izveidot specifisku izvietojumu"
 
 #: ../iw/blpasswidget.py:47
 msgid "_Use a boot loader password"
@@ -3278,11 +3266,12 @@ msgid "Congratulations"
 msgstr "Apsveicam"
 
 #: ../iw/congrats_gui.py:71
-#, fuzzy
 msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
-msgstr "Lūdzu pieslēdzieties %s, lai sāktu instalēšanu..."
+msgstr ""
+"Lūdzu pārstartējiet sistēmu, lai lietotu instalēto sistēmu.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:74
 #, fuzzy
@@ -3352,9 +3341,7 @@ msgstr "Pakotne"
 #: ../iw/GroupSelector.py:442
 #, python-format
 msgid "%d of %d optional package selected"
-msgid_plural "%d of %d optional packages selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../iw/GroupSelector.py:445
 #, python-format
@@ -3522,9 +3509,8 @@ msgstr "(Maks. izmērs ir %s MB)"
 
 #: ../iw/lvm_dialog_gui.py:479 ../iw/partition_dialog_gui.py:510
 #: ../iw/partition_ui_helpers_gui.py:301 ../iw/raid_dialog_gui.py:359
-#, fuzzy
 msgid "_Encrypt"
-msgstr "Šifra atslēga:"
+msgstr "Šifrēt"
 
 #: ../iw/lvm_dialog_gui.py:544 ../textw/partition_text.py:1265
 msgid "Illegal size"
@@ -3763,9 +3749,8 @@ msgstr "IPv4 prefiksam jābūt diapazonā no 1 līdz 32."
 #: ../iw/netconfig_dialog.py:237 ../iw/netconfig_dialog.py:240
 #: ../textw/netconfig_text.py:214 ../textw/netconfig_text.py:220
 #: ../textw/netconfig_text.py:228
-#, fuzzy
 msgid "IPv4 Network Mask"
-msgstr "IPv4/Tīkla maska"
+msgstr "IPv4 Tīkla maska"
 
 #: ../iw/netconfig_dialog.py:247 ../iw/netconfig_dialog.py:250
 #: ../iw/network_gui.py:37 ../iw/network_gui.py:528
@@ -3838,9 +3823,9 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:165 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "Kļūda datos"
+msgstr "Kļūda ar %s datiem"
 
 #: ../iw/network_gui.py:170 ../textw/network_text.py:66
 #, fuzzy
@@ -3919,18 +3904,16 @@ msgid "unknown"
 msgstr "Nezināms"
 
 #: ../iw/network_gui.py:638
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Ierīces adrese: %s"
+msgstr "Ierīces adrese: "
 
 #: ../iw/network_gui.py:774 ../textw/network_text.py:230 ../loader/net.c:584
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Trūkstoša grupa"
+msgstr "Pazudis protokols"
 
 #: ../iw/network_gui.py:775 ../textw/network_text.py:231
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr ""
+msgstr "Jums jāizvēlas vismaz IPv4 vai IPv6 atbalsts."
 
 #: ../iw/network_gui.py:798 ../iw/network_gui.py:839 ../iw/network_gui.py:845
 #: ../textw/network_text.py:76 ../loader/net.c:105
@@ -4124,10 +4107,11 @@ msgid ""
 msgstr ""
 
 #: ../iw/partition_gui.py:642
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
-msgstr "Šīs kļūdas ir jāizlabo, lai varētu turpināt %s uzstādīšanu."
+msgstr ""
+"Šīs kļūdas jāizlabo pirms %s instalēšanas."
 
 #: ../iw/partition_gui.py:648
 msgid "Partitioning Errors"
@@ -4312,9 +4296,8 @@ msgid "<Not Applicable>"
 msgstr "<Nav lietojams>"
 
 #: ../iw/partition_ui_helpers_gui.py:285
-#, fuzzy
 msgid "_Format as:"
-msgstr "Formatēt"
+msgstr "_Formatizēt kā:"
 
 #: ../iw/partition_ui_helpers_gui.py:308
 #, fuzzy
@@ -4612,6 +4595,8 @@ msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr ""
+"Nav instalācijas disks atrasts. Lūdzu ielieciet disku diskdzinī un "
+"mēģiniet vēlreiz."
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
 #, fuzzy
@@ -5019,6 +5004,9 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Apsveicam, Jūsu %s instalācija ir pabeigta.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:40
 #, python-format
@@ -5080,9 +5068,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/netconfig_text.py:111
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Izmantot dinamisko IP (DHCP)"
+msgstr "Lietot dinamisko IP konfigurāciju (DHCP)"
 
 #: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
 #: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
@@ -5095,19 +5082,17 @@ msgid "Enable IPv6 support"
 msgstr "Ieslēgt IPv6 atbalstu"
 
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
-msgstr "IPv_4 adrese:"
+msgstr "IPv4 adrese:"
 
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
-msgstr "IPv_6 adrese:"
+msgstr "IPv6 adrese:"
 
 #: ../textw/netconfig_text.py:141 ../textw/network_text.py:682
 #: ../loader/net.c:828
 msgid "Gateway:"
-msgstr ""
+msgstr "Vārteja:"
 
 #: ../textw/netconfig_text.py:144
 #, fuzzy
@@ -5115,24 +5100,20 @@ msgid "Nameserver:"
 msgstr "Vārdu serveris"
 
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "Trūkstošā pakotne"
+msgstr "Pazudusi ierīce"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "Jums jāizvēlas partīcija, kuru vēlaties rediģēt"
+msgstr "Jums jāizvēlas tīkla ierīce"
 
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
-msgstr "IPv4/Tīkla maska"
+msgstr "IPv4 Tīkla maska "
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
-msgstr "Kļūda konfigurējot tīkla ierīci:"
+msgstr "Kļūda konfigurējot tīkla ierīci: "
 
 #: ../textw/network_text.py:60
 #, fuzzy, python-format
@@ -5144,9 +5125,9 @@ msgstr ""
 "tas var radīt problēmas."
 
 #: ../textw/network_text.py:77
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4 prefiksam jābūt diapazonā no 1 līdz 32."
+msgstr "IPv%d prefiksam jābūt diapazonā no 0 līdz %d."
 
 #: ../textw/network_text.py:81
 msgid "Integer Required for Prefix"
@@ -5160,14 +5141,12 @@ msgid ""
 msgstr ""
 
 #: ../textw/network_text.py:89 tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Tīkla maska"
+msgstr "Prefikss (Tīkla maska)"
 
 #: ../textw/network_text.py:91 tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/Prefikss"
+msgstr "Prefikss"
 
 #: ../textw/network_text.py:144
 msgid "Activate on boot"
@@ -5212,20 +5191,17 @@ msgstr "ZFCP iestatīšana"
 
 #: ../textw/network_text.py:327 ../textw/network_text.py:339
 #: ../textw/network_text.py:342
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IP adrese"
+msgstr "IPv4 adrese"
 
 #: ../textw/network_text.py:331
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/Tīkla maska"
+msgstr "IPv4 Tīkla maska"
 
 #: ../textw/network_text.py:357 ../textw/network_text.py:360
 #: ../textw/network_text.py:363
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Tīkla maska"
+msgstr "IPv4 prefikss (Tīkla maska)"
 
 #: ../textw/network_text.py:402 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
@@ -5243,14 +5219,12 @@ msgstr "ZFCP iestatīšana"
 
 #: ../textw/network_text.py:462 ../textw/network_text.py:473
 #: ../textw/network_text.py:476
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IP adrese"
+msgstr "IPv6 adrese"
 
 #: ../textw/network_text.py:466 ../textw/network_text.py:485
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/Prefikss"
+msgstr "IPv6 Prefikss"
 
 #: ../textw/network_text.py:511
 msgid "Configure Network Interface"
@@ -5310,14 +5284,12 @@ msgid "gateway"
 msgstr ""
 
 #: ../textw/network_text.py:730 ../textw/network_text.py:733
-#, fuzzy
 msgid "primary DNS"
-msgstr "Pirmais DNS"
+msgstr "Primārais DNS"
 
 #: ../textw/network_text.py:742
-#, fuzzy
 msgid "secondary DNS"
-msgstr "Otrais DNS"
+msgstr "Papildus DNS"
 
 #: ../textw/network_text.py:766
 msgid "automatically via DHCP"
@@ -5457,7 +5429,7 @@ msgstr ""
 #: ../textw/partition_text.py:614 ../textw/partition_text.py:784
 #: ../textw/partition_text.py:1009 ../textw/partition_text.py:1179
 msgid "File System Options"
-msgstr ""
+msgstr "Failu sistēmas opcijas"
 
 #: ../textw/partition_text.py:617
 msgid ""
@@ -5515,7 +5487,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:995 ../textw/partition_text.py:1166
 msgid "Format partition?"
-msgstr ""
+msgstr "Formatizēt sadaļu?"
 
 #: ../textw/partition_text.py:1057
 msgid "Invalid Entry for RAID Spares"
@@ -5955,9 +5927,8 @@ msgid ""
 msgstr ""
 
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "Brīdinājums"
+msgstr "Skanē"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
@@ -5983,7 +5954,7 @@ msgstr "Nevar atrast kickstart failu uz CDROM."
 #: ../loader/copy.c:51 ../loader/method.c:281
 #, c-format
 msgid "Failed to read directory %s: %m"
-msgstr ""
+msgstr "Neizdevās nolasīt mapi %s: %m"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -6457,9 +6428,8 @@ msgid "Network Error"
 msgstr "Tīkla kļūda"
 
 #: ../loader/net.c:414 ../loader/net.c:468
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "Kļūme klonēšanā: kļūme rezultātu diska dzēšanā."
+msgstr ""
 
 #: ../loader/net.c:540
 msgid "Configure TCP/IP"
@@ -6471,16 +6441,15 @@ msgstr ""
 
 #: ../loader/net.c:592
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "IPv4 vajadzīgs priekš NFS"
 
 #: ../loader/net.c:593
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
 #: ../loader/net.c:697
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "IP adrese"
+msgstr "IPv4 adrese:"
 
 #: ../loader/net.c:709 ../loader/net.c:775 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
@@ -6488,9 +6457,8 @@ msgid "/"
 msgstr "/"
 
 #: ../loader/net.c:763
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "IP adrese"
+msgstr "IPv6 adrese:"
 
 #: ../loader/net.c:836
 msgid "Name Server:"
@@ -6504,9 +6472,8 @@ msgid ""
 msgstr ""
 
 #: ../loader/net.c:895
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "ZFCP iestatīšana"
+msgstr ""
 
 #: ../loader/net.c:1009 ../loader/net.c:1015
 msgid "Missing Information"
@@ -6545,6 +6512,8 @@ msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
+"Jums ir vairākas tīkla ierīces uz šīs sistēmas. Kuru no tām vēlaties"
+"instalēt?"
 
 #: ../loader/net.c:1542
 msgid "Identify"
@@ -6687,12 +6656,12 @@ msgstr ""
 
 #: ../loader/windows.c:65
 msgid "Loading SCSI driver"
-msgstr ""
+msgstr "Ielādē SCSI draiveri"
 
 #: ../loader/windows.c:66
 #, c-format
 msgid "Loading %s driver..."
-msgstr ""
+msgstr "Ielādē %s draiveri..."
 
 #: tmp/account.glade.h:2
 msgid "Root Password:"
@@ -6847,9 +6816,8 @@ msgid "_Advanced storage configuration"
 msgstr "Paplašināta ielādētāja konfigurācija"
 
 #: tmp/autopart.glade.h:8
-#, fuzzy
 msgid "_Encrypt system"
-msgstr "Šifra atslēga:"
+msgstr ""
 
 #: tmp/autopart.glade.h:10
 msgid "_Select the drive(s) to use for this installation."
@@ -6931,12 +6899,10 @@ msgid "_Host (host:port)"
 msgstr ""
 
 #: tmp/exnSave.glade.h:9
-#, fuzzy
 msgid "_Password"
-msgstr "Parole:"
+msgstr "_Parole"
 
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_User name"
 msgstr "Lietotājvārds"
 
@@ -7039,19 +7005,16 @@ msgid "Enter passphrase:"
 msgstr ""
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Vārteja"
+msgstr "<b>Vārteja:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "IP adrese"
+msgstr "<b>IPv4 adrese:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "IP adrese"
+msgstr "<b>IPv6 adrese:</b>"
 
 #: tmp/netconfig.glade.h:5
 msgid "<b>Nameserver:</b>"
@@ -7087,9 +7050,8 @@ msgid "Edit Interface"
 msgstr "Labot karti %s"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "Šifra atslēga:"
+msgstr "Šifrēšanas atslēga:"
 
 #: tmp/netpostconfig.glade.h:13
 #, fuzzy
@@ -7150,11 +7112,11 @@ msgstr "Pievienot FCP ierīci"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikandu (būru)"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arābu"
 
 #. generated from lang-table
 msgid "Assamese"
@@ -7162,15 +7124,15 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "Bengāļu"
 
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr ""
+msgstr "Bengāļu (Indija)"
 
 #. generated from lang-table
 msgid "Bulgarian"
-msgstr ""
+msgstr "Bulgāru"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -7178,59 +7140,59 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr ""
+msgstr "Ķīniešu (Vienkāršotā)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr ""
+msgstr "Ķīniešu (tradicionālā)"
 
 #. generated from lang-table
 msgid "Croatian"
-msgstr ""
+msgstr "Horvātu"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "Čehu"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr ""
+msgstr "Dāņu"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr ""
+msgstr "Holandiešu"
 
 #. generated from lang-table
 msgid "English"
-msgstr ""
+msgstr "Angļu"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "Igauņu"
 
 #. generated from lang-table
 msgid "Finnish"
-msgstr ""
+msgstr "Somu"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "Franču"
 
 #. generated from lang-table
 msgid "German"
-msgstr ""
+msgstr "Vācu"
 
 #. generated from lang-table
 msgid "Greek"
-msgstr ""
+msgstr "Grieķu"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gudžarati"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "Ebreju"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -7238,11 +7200,11 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Ungāru"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandiešu"
 
 #. generated from lang-table
 msgid "Iloko"
@@ -7250,15 +7212,15 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonēziešu"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "Itāļu"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "Japāņu"
 
 #. generated from lang-table
 msgid "Kannada"
@@ -7266,15 +7228,15 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Korean"
-msgstr ""
+msgstr "Korejiešu"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Maķedoniešu"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "Malajas"
 
 #. generated from lang-table
 msgid "Malayalam"
@@ -7286,7 +7248,7 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Norwegian(Bokmål)"
-msgstr ""
+msgstr "Norvēģu (Bokmål)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
@@ -7298,19 +7260,19 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Persian"
-msgstr ""
+msgstr "Persiešu"
 
 #. generated from lang-table
 msgid "Polish"
-msgstr ""
+msgstr "Poļu"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugāļu"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr ""
+msgstr "Portugāļu (Brazījija)"
 
 #. generated from lang-table
 msgid "Punjabi"
@@ -7318,19 +7280,19 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Romanian"
-msgstr ""
+msgstr "Rumāņu"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "Krievu"
 
 #. generated from lang-table
 msgid "Serbian"
-msgstr ""
+msgstr "Serbu"
 
 #. generated from lang-table
 msgid "Serbian(Latin)"
-msgstr ""
+msgstr "Serbu (Latīņu)"
 
 #. generated from lang-table
 msgid "Sinhala"
@@ -7338,19 +7300,19 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr ""
+msgstr "Slovaku"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovēnu"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr ""
+msgstr "Spāņu"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "Zviedru"
 
 #. generated from lang-table
 msgid "Tamil"
@@ -7362,23 +7324,23 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "Turku"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukraiņu"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vjetnamiešu"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "Velsiešu"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "Zulu"
 
 #~ msgid "No video hardware found, assuming headless"
 #~ msgstr ""
