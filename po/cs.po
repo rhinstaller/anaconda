@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-04-07 21:57+0200\n"
+"PO-Revision-Date: 2008-09-06 14:37+0200\n"
 "Last-Translator: Miloslav Trmač <mitr@volny.cz>\n"
 "Language-Team: Czech <fedora-cs-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -100,15 +100,14 @@ msgid "Starting graphical installation..."
 msgstr "Spouštím grafickou instalaci..."
 
 #: ../anaconda:821
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "Co chcete provést?"
+msgstr "Chcete použít VNC?"
 
 #: ../anaconda:822
 msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
-msgstr ""
+msgstr "Instalace v režimu VNC poskytuje více funkcí než textový režim, chcete ji použít?"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -567,6 +566,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Vaši chybu nebylo možné ohlásit kvůli následující chybě při komunikaci s bugzillou:\n"
+"\n"
+"%s"
 
 #: ../exception.py:367
 #, python-format
@@ -576,46 +578,45 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Vaši chybu nebylo možné ohlásit kvůli špatným informacím v polícho chybě.  To je pravděpodobně chyba v anacondě:\n"
+"\n"
+"%s"
 
 #: ../exception.py:371
-#, fuzzy
 msgid "Unable To File Bug"
-msgstr "Nelze odstranit"
+msgstr "Nemohu ohlásit chybu"
 
 #: ../exception.py:377
-#, fuzzy
 msgid "Bug Filing Not Supported"
-msgstr "Nepodporováno"
+msgstr "Hlášení chyb nepodporováno"
 
 #: ../exception.py:378
 msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
-msgstr ""
+msgstr "Vaše distribuce nemá podporovaný systém pro hlášení chyb, takže svou výjimku nemůžete uložit tímto způsobem."
 
 #: ../exception.py:384
-#, fuzzy
 msgid "Invalid Bug Information"
-msgstr "Chybná IP informace"
+msgstr "Neplatné informace o chybě"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "Zadejte prosím platné jméno uživatele, heslo a krátký popis chyby."
 
 #: ../exception.py:395
-#, fuzzy
 msgid "Unable To Login"
-msgstr "Nelze upravit"
+msgstr "Nemohu se přihlásit"
 
 #: ../exception.py:396
 #, python-format
 msgid ""
 "There was an error logging into %s using the provided username and password."
-msgstr ""
+msgstr "Při přihlašování do %s pomocí zadaného jména uživatele a hesla došlo k chybě."
 
 #: ../exception.py:433
 msgid "Bug Created"
-msgstr ""
+msgstr "Chyba vytvořena"
 
 #: ../exception.py:434
 #, python-format
@@ -626,11 +627,13 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Byla vytvořena nová chyba a váš traceback byl přiložen. Přidejte prosím další informace, např. co jste dělali když došlo k chybě, snímky obrazovky, nebo jiné vhodé informace k následující chybě:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:450
-#, fuzzy
 msgid "Bug Updated"
-msgstr "Aktualizace"
+msgstr "Chyba aktualizována"
 
 #: ../exception.py:451
 #, python-format
@@ -641,6 +644,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Chyba s vašimi informacemi již existuje. Váš účet byl přidán do seznamu Cc a váš traceback byl přidán jako komentář.  Přidejte prosím další popisné informace k následující chybě:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:475 ../exception.py:490 ../exception.py:515
 msgid "Dump Written"
@@ -662,15 +668,14 @@ msgid "There was a problem writing the system state to the disk."
 msgstr "Při zápisu stavu systému na disk došlo k chybě."
 
 #: ../exception.py:506 ../exception.py:529
-#, fuzzy
 msgid "No Network Available"
-msgstr "Síťová zařízení"
+msgstr "Síť není k dispozici"
 
 #: ../exception.py:507 ../exception.py:530
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
-msgstr ""
+msgstr "Nemohu uložit hlášení o chybě, protože není k dispozici aktivní síťové zařízení."
 
 #: ../exception.py:516
 msgid ""
@@ -954,7 +959,7 @@ msgstr ""
 "instalaci, mohou však nastat problémy."
 
 #: ../fsset.py:1986
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -965,21 +970,20 @@ msgid ""
 msgstr ""
 "Chyba při připojování zařízení %s jako %s: %s\n"
 "\n"
-"Zařízení v souboru /etc/fstab musí být určena jmenovkou (label) a ne názvem "
-"zařízení.\n"
+"Zařízení v /etc/fstab musí být určena jmenovkou nebo UID, ne názvem zařízení.\n"
 "\n"
-"Klikněte na 'OK' pro ukončení instalace."
+"Ukončete instalaci stisknutím OK."
 
 #: ../fsset.py:1993
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Nemohu nalézt raid zařízení %s pro %s.\n"
+"Chyba při připojování zařízení %s jako %s: %s\n"
 "\n"
-"Klikněte na 'OK' pro ukončení instalace."
+"Ukončete instalaci stisknutím OK."
 
 #: ../fsset.py:2011
 msgid ""
@@ -1104,13 +1108,11 @@ msgid "Installation Key"
 msgstr "Instalační klíč"
 
 #: ../gui.py:660 ../text.py:323
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose a passphrase for this encrypted device%s. You will be prompted for "
 "the passphrase during system boot."
-msgstr ""
-"Zvolte heslo pro tento šifrovaný oddíl. O heslo budete žádáni při zavádění "
-"systému."
+msgstr "Zvolte heslo pro tento šifrovaný oddíl%s. O heslo budete žádáni při zavádění systému."
 
 #: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
 msgid "Error with passphrase"
@@ -1136,7 +1138,7 @@ msgstr ""
 #: ../gui.py:780
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "Bugzilla (%s)"
 
 #: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
 #: tmp/anaconda.glade.h:2
@@ -1260,7 +1262,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Chybějící obraz formátu ISO 9660"
 
 #: ../image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1268,11 +1270,9 @@ msgid ""
 "Please copy this image to the drive and click Retry.  Click Exit to abort "
 "the installation."
 msgstr ""
-"Instalátor se pokusil připojit obraz #%s, ale na pevném disku se ho "
-"nepodařilo nalézt.\n"
+"Instalátor se pokusil připojit obraz #%s, ale na pevném disku se ho nepodařilo nalézt.\n"
 "\n"
-"Zkopírujte požadovaný obraz na disk a stiskněte 'Znovu'. Chcete-li instalaci "
-"opustit, zvolte Ukončit."
+"Zkopírujte požadovaný obraz na disk a stiskněte Znovu. Chcete-li instalaci opustit, zvolte Ukončit."
 
 #: ../image.py:244
 msgid "Required Install Media"
@@ -1392,7 +1392,6 @@ msgid "Copying live image to hard drive."
 msgstr "Kopírování live obrazu na pevný disk."
 
 #: ../livecd.py:197
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -1400,12 +1399,9 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"Nelze otevřít soubor %s. Důvodem může být chybějící soubor, poškozený "
-"balíček nebo poškozené médium. Zkontrolujte prosím svůj zdroj instalace.\n"
+"Při instalaci živého obrazu na váš pevný disk došlo k chybě. To by mohlo být kvůli špatnému médiu. Zkontrolujte prosím své instalační médium.\n"
 "\n"
-"Ukončíte-li instalaci, zůstane systém v nekonzistentním stavu, což bude "
-"pravděpodobně vyžadovat reinstalaci.\n"
-"\n"
+"Ukončíte-li instalaci, zůstane systém v nekonzistentním stavu, což bude vyžadovat reinstalaci."
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -1427,25 +1423,19 @@ msgstr ""
 "dost velký (je třeba %.2f MB)."
 
 #: ../network.py:64
-#, fuzzy
 msgid "Hostname must be 64 or fewer characters in length."
 msgstr "Jméno počítače musí být dlouhé nejvýše 64 znaků."
 
 #: ../network.py:70
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
-msgstr ""
-"Jméno počítače musí začínat znakem 'a-z' nebo 'A-Z' (bez háčků a čárek)"
+msgstr "Jméno počítače musí začínat znakem z rozsahů 'a-z', 'A-Z' nebo '0-9' (bez háčků a čárek)"
 
 #: ../network.py:75
-#, fuzzy
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr ""
-"Jméno počítače může obsahovat jen znaky 'a-z', 'A-Z', '-' nebo '.' (bez "
-"háčků a čárek)"
+msgstr "Jméno počítače může obsahovat jen znaky 'a-z', 'A-Z', '0-9', '-' nebo '.' (bez háčků a čárek)"
 
 #: ../network.py:132
 msgid "IP address is missing."
@@ -1477,13 +1467,12 @@ msgid "There was an error encountered resizing the device %s."
 msgstr "Při změně velikosti zařízení %s došlo k chybě."
 
 #: ../packages.py:146
-#, fuzzy
 msgid "Activating"
-msgstr "Aktivovat při startu"
+msgstr "Aktivuji"
 
 #: ../packages.py:146
 msgid "Activating new partitions.  Please wait..."
-msgstr ""
+msgstr "Aktivuji nové oddíly. Počkejte prosím..."
 
 #: ../packages.py:167
 msgid "LVM operation failed"
@@ -1608,7 +1597,7 @@ msgstr ""
 "Chcete inicializovat disk a smazat VŠECHNA DATA?"
 
 #: ../partedUtils.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1619,13 +1608,12 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Tabulka oddílů na zařízení %s (%s) je nečitelná. Aby mohly být vytvořeny "
-"nové oddíly, musí být tabulka oddílů inicializována, což znamená ztrátu "
-"VŠECH DAT na disku.\n"
+"Tabulka oddílů na zařízení %s (%s %-0.f MB) je nečitelná.\n"
+"Aby mohly být vytvořeny nové oddíly, musí být tabulka oddílů inicializována, což znamená ztrátu VŠECH DAT na disku.\n"
 "\n"
 "Operace nebere ohled na dřívější rozhodnutí, které disky chcete ignorovat.\n"
 "\n"
-"Chcete inicializovat disk a smazat VŠECHNA DATA?"
+"Chcete inicializovat tento disk a smazat VŠECHNA DATA?"
 
 #: ../partedUtils.py:1277
 #, python-format
@@ -1973,14 +1961,13 @@ msgstr ""
 "oddílů. Chcete pokračovat v instalaci?"
 
 #: ../partitions.py:130
-#, fuzzy, python-format
+#, python-format
 msgid " for device %s"
-msgstr "RAID zařízení %s"
+msgstr " pro zařízení %s"
 
 #: ../partitions.py:133
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Šifrovací klíč"
+msgstr "Šifrovat zařízení?"
 
 #: ../partitions.py:134
 #, python-format
@@ -1988,7 +1975,7 @@ msgid ""
 "You specified block device encryption should be enabled%s, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption%s will be disabled."
-msgstr ""
+msgstr "Zadali jste, že se má povolit šifrování blokového zařízení%s, ale nezadali jste heslo. Pokud se nevrátíte a nezadáte heslo, šifrování blokového zařízení%s bude zakázáno."
 
 #: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
@@ -2014,13 +2001,10 @@ msgid "Writing partitioning to disk"
 msgstr "Zapisuji oddíly na disk"
 
 #: ../partitions.py:161
-#, fuzzy
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
-msgstr ""
-"Možnosti rozložení oddílů, které jste zvolili, budou nyní zapsány na disk.  "
-"Všechna data na odstraněných nebo přeformátovaných oddílech budou ztracena"
+msgstr "Možnosti rozložení oddílů, které jste zvolili, budou nyní zapsány na disk. Všechna data na odstraněných nebo přeformátovaných oddílech budou ztracena."
 
 #: ../partitions.py:166
 msgid "Go _back"
@@ -2065,11 +2049,8 @@ msgstr ""
 "distribuce %s."
 
 #: ../partitions.py:1177
-#, fuzzy
 msgid "You must create an EFI System Partition of at least 10 megabytes."
-msgstr ""
-"Musíte vytvořit oddíl systému EFI, který bude typu FAT a jeho velikost bude "
-"50 MB."
+msgstr "Musíte vytvořit systémový oddíl EFI velký aspoň 10 megabajtů."
 
 #: ../partitions.py:1191
 msgid ""
@@ -2273,7 +2254,7 @@ msgstr "Po dokončení práce ukončete shell a váš systém bude restartován.
 
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
+msgstr "Nemohu najít a spustit /bin/sh! Nespouštím shell"
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -2402,18 +2383,17 @@ msgid "Save"
 msgstr "Uložit"
 
 #: ../text.py:210
-#, fuzzy
 msgid "Save to local disk"
-msgstr "Uložit na disk"
+msgstr "Uložit na místní disk"
 
 #: ../text.py:211
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "Poslat do bugzilly (%s)"
 
 #: ../text.py:212
 msgid "Send to remote server (scp)"
-msgstr ""
+msgstr "Poslat na vzdálený server (scp)"
 
 #: ../text.py:226 ../text.py:239
 msgid "User name"
@@ -2425,31 +2405,28 @@ msgstr "Heslo"
 
 #: ../text.py:230
 msgid "Bug Description"
-msgstr ""
+msgstr "Popis chyby"
 
 #: ../text.py:243
 msgid "Host (host:port)"
-msgstr ""
+msgstr "Počítač (počítač:port)"
 
 #: ../text.py:245
-#, fuzzy
 msgid "Destination file"
-msgstr "Operace LVM selhala"
+msgstr "Cílový soubor"
 
 #: ../text.py:329
-#, fuzzy
 msgid "Passphrase for encrypted device"
-msgstr "Zadejte heslo pro šifrovaný oddíl"
+msgstr "Heslo pro šifrované zařízení"
 
 #: ../text.py:347 tmp/lukspassphrase.glade.h:7
-#, fuzzy
 msgid "Use this passphrase for all new encrypted devices"
-msgstr "Zadejte heslo pro šifrovaný oddíl"
+msgstr "Používat toto heslo pro všechna šifrovaná zařízení"
 
 #: ../text.py:378
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "Heslo musí být alespoň osm znaků dlouhé."
+msgstr "Heslo musí být alespoň %d znaků dlouhé."
 
 #: ../text.py:407 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
@@ -2815,17 +2792,15 @@ msgid "%s of %s packages completed"
 msgstr "%s z %s balíčků dokončeno"
 
 #: ../yuminstall.py:214
-#, fuzzy
 msgid "Finishing upgrade process..."
-msgstr "Ukončení aktualizace"
+msgstr "Dokončuji proces aktualizace..."
 
 #: ../yuminstall.py:308 ../iw/task_gui.py:275
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "Upravit repozitář"
+msgstr "Chyba při přípravě repozitáře"
 
 #: ../yuminstall.py:309 ../iw/task_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -2833,11 +2808,11 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"Při vytváření oddílů došlo k následujícím chybám:\n"
+"Při přípravě instalačního repozitáře došlo k následující chybě:\n"
 "\n"
 "%s\n"
 "\n"
-"Klikněte na 'OK' pro ukončení instalace."
+"Zadejte prosím správné informace pro instalaci %s."
 
 #: ../yuminstall.py:366
 msgid "Change Disc"
@@ -2864,7 +2839,7 @@ msgstr "Nelze přistupovat na médium."
 #: ../yuminstall.py:533
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr ""
+msgstr "Repozitář %r v nastavení nemá název, používám id"
 
 #: ../yuminstall.py:651 ../yuminstall.py:653
 msgid "Re_boot"
@@ -2896,9 +2871,8 @@ msgid "Retrying"
 msgstr "Zkouším to znovu"
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying download..."
-msgstr "Znovu se pokouším stáhnout balíček..."
+msgstr "Pokouším se stáhnout znovu..."
 
 #: ../yuminstall.py:772
 #, python-format
@@ -3152,11 +3126,9 @@ msgstr ""
 "fyzických oddílů s konkrétními systémy souborů."
 
 #: ../iw/autopart_type.py:180
-#, fuzzy
 msgid ""
 "Do you really want to boot from a disk which is not used for installation?"
-msgstr ""
-"Opravdu chcete zavádět systém z disku, který se nepoužívá pro instalaci?"
+msgstr "Opravdu chcete zavádět systém z disku, který se nepoužívá pro instalaci?"
 
 #: ../iw/autopart_type.py:261
 msgid "Invalid Initiator Name"
@@ -3274,7 +3246,7 @@ msgstr "Gratulujeme"
 msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
-msgstr ""
+msgstr "Pro používání nainstalovaného systému systém prosím restartujte.\n\n"
 
 #: ../iw/congrats_gui.py:74
 msgid ""
@@ -4577,20 +4549,18 @@ msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Musíte zadat HTTP, HTTPS nebo FTP URL repozitáře."
 
 #: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-#, fuzzy
 msgid "No Media Found"
-msgstr "Nenalezeny žádné disky"
+msgstr "Médium nenalezeno"
 
 #: ../iw/task_gui.py:248 ../iw/task_gui.py:361
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
-msgstr ""
+msgstr "Nebylo nalezeno instalační médium. Vložte prosím do mechaniky disk a zkuste to znovu."
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
-#, fuzzy
 msgid "Please enter an NFS server and path."
-msgstr "Prosím vložte jméno serveru a cestu k obrazu %s."
+msgstr "Zadejte prosím vložte NFS server a cestu."
 
 #: ../iw/task_gui.py:299
 msgid "Invalid Repository Name"
@@ -4613,14 +4583,13 @@ msgstr "Repozitář %s již byl přidán. Zvolte jiné jméno repozitáře a URL
 
 #: ../iw/task_gui.py:431
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "Nebyl povolen žádný repozitář"
 
 #: ../iw/task_gui.py:432
-#, fuzzy
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr "Před pokračováním instalace %s musí být chyby opraveny."
+msgstr "Pro pokračováním instalace musíte mít povolen aspoň jeden repozitář software."
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -4697,7 +4666,7 @@ msgid "Migrate File Systems"
 msgstr "Migrovat systémy souborů"
 
 #: ../iw/upgrade_migratefs_gui.py:64
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4705,9 +4674,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Distribuce %s podporuje akltualizovaný systém souborů, který má proti, verzi "
-"používané v %s, několik významných vylepšení. Tento instalační program může "
-"převést existující naformátované oddíly beze ztráty dat.\n"
+"Tato verze %s podporuje aktualizovaný systém souborů, který má proti verzi obvykle používané v %s několik vylepšení. Tento instalační program může převést naformátované oddíly beze ztráty dat.\n"
 "\n"
 "Které z těchto oddílů chcete převést?"
 
@@ -5042,9 +5009,9 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "Jaký model klávesnice je připojen k počítači?"
 
 #: ../textw/netconfig_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s"
-msgstr "V poli %s je nutné vyplnit hodnotu."
+msgstr "V poli %s je vyžadována hodnota."
 
 #: ../textw/netconfig_text.py:86 tmp/netconfig.glade.h:9
 msgid "Enable network interface"
@@ -5059,9 +5026,8 @@ msgstr ""
 "Nakonfigurujte prosím síťové rozhraní."
 
 #: ../textw/netconfig_text.py:111
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "_Dynamické nastavení IP adresy (DHCP)"
+msgstr "Používat dynamické nastavení IP adresy (DHCP)"
 
 #: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
 #: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
@@ -5074,14 +5040,12 @@ msgid "Enable IPv6 support"
 msgstr "Povolit podporu IPv6"
 
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
-msgstr "IPv4 adresa:"
+msgstr "Adresa IPv4:"
 
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
-msgstr "IPv6 adresa:"
+msgstr "Adresa IPv6:"
 
 #: ../textw/netconfig_text.py:141 ../textw/network_text.py:682
 #: ../loader/net.c:828
@@ -5089,29 +5053,24 @@ msgid "Gateway:"
 msgstr "Brána:"
 
 #: ../textw/netconfig_text.py:144
-#, fuzzy
 msgid "Nameserver:"
-msgstr "DNS server"
+msgstr "DNS server:"
 
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "Chybějící Balíček"
+msgstr "Chybí zařízení"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "Zvolte oddíl, který chcete upravit"
+msgstr "Musíte vybrat síťové zařízení"
 
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
-msgstr "IPv4 maska sítě "
+msgstr "Maska IPv4 sítě "
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
-msgstr "Chyba při konfigurování síťového rozhraní "
+msgstr "Chyba nastavování síťového zařízení: "
 
 #: ../textw/network_text.py:60
 #, python-format
@@ -5955,14 +5914,13 @@ msgstr ""
 "Klikněte na %s pro vynechání testu média a započetí instalace. "
 
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "Varování"
+msgstr "Hledám"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "Hledám instalační obrazy na zařízení CD %s"
 
 #: ../loader/cdinstall.c:428
 #, c-format
@@ -5982,9 +5940,9 @@ msgid "Cannot find kickstart file on CDROM."
 msgstr "Nemohu najít soubor kickstart na CDROM."
 
 #: ../loader/copy.c:51 ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "Nemohu číst adresář %s: %s"
+msgstr "Nemohu číst adresář %s: %m"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -6152,13 +6110,10 @@ msgid "Select Device Driver to Load"
 msgstr "Vyberte ovladač zařízení, který načíst"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
-msgstr ""
-"Při čtení instalačního programu z ISO obrazu došlo k chybě. Zkontrolujte ISO "
-"obrazy a zkuste spustit instalaci znovu."
+msgstr "Při hledání instalačního obrazu na vašem pevném disku došlo k chybě. Zkontrolujte prosím své obrazy a zkuste to znovu."
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6169,29 +6124,25 @@ msgstr ""
 "připojená zařízení?"
 
 #: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
-msgstr ""
-"Který disk, oddíl a adresář obsahuje obrazy s instalačními CD (iso9660) pro %"
-"s? Pokud oddíl ani disk na seznamu nenaleznete, stiskněte klávesu F2 pro "
-"nakonfigurování dalších zařízení."
+msgstr "Který oddíl a adresář v oddílu obsahuje instalační obraz pro %s? Pokud používaný disk nevidíte na seznamu, nastavte další zařízení stisknutím F2."
 
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
-msgstr "Adresář obsahující obrazy:"
+msgstr "Adresář obsahující obraz:"
 
 #: ../loader/hdinstall.c:301
 msgid "Select Partition"
 msgstr "Výběr oddílu"
 
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "Zařízení %s zřejmě neobsahuje obrazy CD %s."
+msgstr "Zařízení %s zřejmě neobsahuje instalační obraz."
 
 #: ../loader/hdinstall.c:385
 #, c-format
@@ -6216,14 +6167,14 @@ msgid "What type of keyboard do you have?"
 msgstr "Jakou mapu kláves chcete použít?"
 
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "Chyba při otevírání souboru kickstart %s: %s"
+msgstr "Chyba při otevírání souboru kickstart %s: %m"
 
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Chyba při čtení obsahu souboru kickstart %s: %s"
+msgstr "Chyba při čtení obsahu souboru kickstart %s: %m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -6299,9 +6250,9 @@ msgstr ""
 "aktualizacemi. Který chcete použít?"
 
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "Vložte disk s aktualizací do /dev/%s a pokračujte stisknutím \"OK\"."
+msgstr "Vložte disk s aktualizací do %s a pokračujte stisknutím \"OK\"."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6357,9 +6308,8 @@ msgid "What type of media contains the rescue image?"
 msgstr "Jaký druh média obsahuje disk pro zotavení?"
 
 #: ../loader/loader.c:1358
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "Jaký druh média obsahuje disk pro zotavení?"
+msgstr "Jaký druh média obsahuje instalační obraz?"
 
 #: ../loader/loader.c:1389
 msgid "No driver found"
@@ -6576,9 +6526,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "Chybný zaváděcí protokol %s v příkazu network"
 
 #: ../loader/net.c:1423
-#, fuzzy
 msgid "Seconds:"
-msgstr "Sekundární DNS:"
+msgstr "Sekundy:"
 
 #: ../loader/net.c:1537
 msgid "Networking Device"
@@ -6593,40 +6542,39 @@ msgstr ""
 
 #: ../loader/net.c:1542
 msgid "Identify"
-msgstr ""
+msgstr "Identifikovat"
 
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "Můžete identifikovat fyzický port pro"
 
 #: ../loader/net.c:1553
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "LED kontrolkami blikajícími na několik sekund. Nastavte dobu blikání LED kontrolek číslem mezi 1 a 30."
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
-msgstr ""
+msgstr "Identifkovat NIC"
 
 #: ../loader/net.c:1576
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Chybná IP informace"
+msgstr "Neplatná doba"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "Počet sekund musíte zadat jako celé číslo mezi 1 a 30."
 
 #: ../loader/net.c:1589
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "Blikám kontrolkami portu %s na %d sekund..."
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "Čekám na telnetové spojení..."
+msgstr "Čekám, až NetworkManager nastaví %s...\n"
 
 #: ../loader/nfsinstall.c:63
 msgid "NFS server name:"
@@ -6638,9 +6586,9 @@ msgid "%s directory:"
 msgstr "Adresář %s:"
 
 #: ../loader/nfsinstall.c:78
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr "Prosím vložte jméno serveru a cestu k obrazu %s."
+msgstr "Zadejte prosím název serveru a cestu k vašemu instalačnímu obrazu %s."
 
 #: ../loader/nfsinstall.c:85
 msgid "NFS Setup"
@@ -6655,9 +6603,9 @@ msgid "That directory could not be mounted from the server."
 msgstr "Uvedený adresář nelze připojit."
 
 #: ../loader/nfsinstall.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "Uvedený adresář zřejmě neobsahuje instalační strom %s."
+msgstr "Uvedený adresář zřejmě neobsahuje instalační obraz %s."
 
 #: ../loader/nfsinstall.c:338
 #, c-format
@@ -6677,9 +6625,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Spouštím Anacondu přes telnet..."
 
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "Nemohu přenést %s://%s/%s."
+msgstr "Nemohu stáhnout %s://%s%s."
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
@@ -6704,10 +6652,10 @@ msgid "Retrieving"
 msgstr "Načítání"
 
 #: ../loader/urls.c:295
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the URL containing the %s installation image on your server."
-msgstr "Zadejte prosím URL, které na vašem server obsahuje obraz %s."
+msgstr "Zadejte prosím URL, které na vašem serveru obsahuje instalační obraz %s."
 
 #: ../loader/urls.c:321
 msgid "URL Setup"
@@ -6771,14 +6719,12 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>_Název repozitáře:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>_Název repozitáře:</b>"
+msgstr "<b>_Typ repozitáře:</b>"
 
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "Nastavit proxy"
+msgstr "Nastavit _proxy"
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -6787,65 +6733,59 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"Pevný disk"
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid ""
 "Please provide the configuration information for this software repository."
-msgstr ""
-"Zadejte prosím umístění, odkud lze nainstalovát váš dodatečný software."
+msgstr "Zadejte prosím informace o nastavení tohto repozitáře software."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL"
-msgstr "_URL proxy:"
+msgstr "_URL proxy"
 
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "_Heslo proxy:"
+msgstr "_Heslo proxy"
 
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "Jméno _uživatele proxy:"
+msgstr "Jméno _uživatele proxy"
 
 #: tmp/addrepo.glade.h:13
 msgid "Repository _URL"
 msgstr "_URL repozitáře"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "Vybrat soubor"
+msgstr "Vyberte adresář"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "URL je _seznam kopií"
 
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "NFS adresář"
+msgstr "_Adresář"
 
 #: tmp/addrepo.glade.h:17
-#, fuzzy
 msgid "_Options"
-msgstr "Nastavení RAID"
+msgstr "_Možnosti"
 
 #: tmp/addrepo.glade.h:18
-#, fuzzy
 msgid "_Partition"
-msgstr "Oddíl"
+msgstr "_Oddíl"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "_Cesta"
 
 #: tmp/addrepo.glade.h:20
-#, fuzzy
 msgid "_Server"
-msgstr "Name server:"
+msgstr "_Server"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6945,21 +6885,23 @@ msgstr "_Podrobnosti"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "_Popis chyby"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "_Cílový soubor"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"Místní disk\n"
+"Vzdálený server (scp)"
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "Zvolte prosím cíl pro uložení vašeho tracebacku."
 
 #: tmp/exnSave.glade.h:7
 msgid "Select A File"
@@ -6967,17 +6909,15 @@ msgstr "Vybrat soubor"
 
 #: tmp/exnSave.glade.h:8
 msgid "_Host (host:port)"
-msgstr ""
+msgstr "_Počítač (počítač:port)"
 
 #: tmp/exnSave.glade.h:9
-#, fuzzy
 msgid "_Password"
-msgstr "_Heslo:"
+msgstr "_Heslo"
 
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_User name"
-msgstr "Uživatelské jméno"
+msgstr "_Jméno uživatele"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -7259,7 +7199,7 @@ msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebrejština"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -7314,9 +7254,8 @@ msgid "Marathi"
 msgstr "Marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "Norština"
+msgstr "Norština(Bokmål)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
