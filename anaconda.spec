@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.30
+Version: 11.4.1.31
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -218,6 +218,26 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Sep 06 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.31-1
+- Use --service=NAME in firewall.py when calling lokkit (dcantrell)
+- Make NM work for the DHCP case, at least (dcbw) (#461071). (clumens)
+- Sleep a little after dbus to give it time before HAL connects. (clumens)
+- Add libsqlite to the initrd, which is needed by NSS libs. (clumens)
+- Add more dlopen()ed libraries to the initrd. (clumens)
+- Fix various problems with the exn saving UI (#461129). (clumens)
+- Fail gracefully if we can't talk to NetworkManager over DBus. (dcantrell)
+- Reword text for easy of translating plurals (#460728). (clumens)
+- Make sure /bin/sh is linked to /bin/bash (dcantrell)
+- Do not include /usr/lib/gconv in install.img (dcantrell)
+- Add /etc/NetworkManager/dispatcher.d to the install.img. (clumens)
+- Remove last vestiges of rhpxl and pirut. (clumens)
+- Only one list of packages in upd-instroot, thanks. (clumens)
+- Add xrandr back into the install.img (#458738). (clumens)
+- Add a couple more directories to search paths. (clumens)
+- Do repo setup and sack setup as separate steps. (clumens)
+- Fix a typo that was causing repos in the kickstart file to be skipped
+  (#451020). (clumens)
+
 * Fri Aug 29 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.30-1
 - Fix a traceback with unencrypted autopart. (dlehman)
 - doLoggingSetup has grown some new arguments (#460654). (clumens)
