@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.31
+Version: 11.4.1.32
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -218,6 +218,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Sep 06 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.32-1
+- Use struct audit_reply instead of struct auditd_reply_list (dcantrell)
+
 * Sat Sep 06 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.31-1
 - Use --service=NAME in firewall.py when calling lokkit (dcantrell)
 - Make NM work for the DHCP case, at least (dcbw) (#461071). (clumens)
