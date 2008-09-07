@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-08-31 16:24+0200\n"
+"PO-Revision-Date: 2008-09-07 13:33+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -601,9 +601,8 @@ msgid "Unable To File Bug"
 msgstr "Niet in staat te verwijderen"
 
 #: ../exception.py:377
-#, fuzzy
 msgid "Bug Filing Not Supported"
-msgstr "Niet ondersteund"
+msgstr "Bug indienen niet ondersteund"
 
 #: ../exception.py:378
 msgid ""
@@ -1671,8 +1670,8 @@ msgid ""
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
 "De partitietabel op apparaat %s (%s %-0.f MB) was onleesbaar.\n"
-"Om nieuwe partities te maken moet deze schijf geïnitialiseerd worden. Hierdoor "
-"zullen ALLE GEGEVENS op dit station verloren gaan.\n"
+"Om nieuwe partities te maken moet deze schijf geïnitialiseerd worden. "
+"Hierdoor zullen ALLE GEGEVENS op dit station verloren gaan.\n"
 "\n"
 "Deze actie zal alle voorgaande installatiekeuzes met betrekking tot welke "
 "stations worden genegeerd teniet doen.\n"
@@ -2040,9 +2039,9 @@ msgstr ""
 "bewerkt. Wilt u verder gaan met het installatieproces?"
 
 #: ../partitions.py:130
-#, fuzzy, python-format
+#, python-format
 msgid " for device %s"
-msgstr "RAID-opstelling %s"
+msgstr " voor apparaat %s"
 
 #: ../partitions.py:133
 msgid "Encrypt device?"
@@ -2345,7 +2344,8 @@ msgstr "Indien gereed, verlaat dan de shell en uw systeem zal herstarten."
 
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
+msgstr "Niet in staat om /bin/sh te vinden om uit te voeren! "
+"Shell wordt niet gestart"
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -2488,11 +2488,11 @@ msgstr "Op lokale schijf opslaan"
 #: ../text.py:211
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "Naar bugzilla sturen (%s)"
 
 #: ../text.py:212
 msgid "Send to remote server (scp)"
-msgstr ""
+msgstr "Naar externe server sturen (scp)"
 
 #: ../text.py:226 ../text.py:239
 msgid "User name"
@@ -2511,9 +2511,8 @@ msgid "Host (host:port)"
 msgstr "Host (host:poort)"
 
 #: ../text.py:245
-#, fuzzy
 msgid "Destination file"
-msgstr "LVM-bewerking mislukt"
+msgstr "Doelbestand"
 
 #: ../text.py:329
 #, fuzzy
@@ -5190,9 +5189,9 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "Wat voor toetsenbord gebruikt u voor deze computer?"
 
 #: ../textw/netconfig_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s"
-msgstr "Voor het veld %s is een waarde vereist."
+msgstr "Voor het veld %s is een waarde vereist"
 
 #: ../textw/netconfig_text.py:86 tmp/netconfig.glade.h:9
 msgid "Enable network interface"
@@ -6110,9 +6109,8 @@ msgstr ""
 "Kies %s om de mediatest over te slaan en met de installatie te beginnen."
 
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "Waarschuwing"
+msgstr "Bezig met scannen"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
@@ -6351,9 +6349,9 @@ msgid "Select Partition"
 msgstr "Partitie selecteren"
 
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "Apparaat %s bevat blijkbaar geen %s CDROM images."
+msgstr "Apparaat %s lijkt geen installatie-image te bevatten."
 
 #: ../loader/hdinstall.c:385
 #, c-format
@@ -6523,9 +6521,8 @@ msgid "What type of media contains the rescue image?"
 msgstr "Op wat voor medium staat het herstel-image?"
 
 #: ../loader/loader.c:1358
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "Op wat voor medium staat het herstel-image?"
+msgstr "Op wat voor medium staat het installatie-image?"
 
 #: ../loader/loader.c:1389
 msgid "No driver found"
@@ -6946,9 +6943,8 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>Repository _naam:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>Repository _naam:</b>"
+msgstr "<b>Repository _type:</b>"
 
 #: tmp/addrepo.glade.h:4
 msgid "Configure _proxy"
@@ -6995,7 +6991,7 @@ msgstr "Selecteer een map"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "URL is een _mirror-lijst"
 
 #: tmp/addrepo.glade.h:16
 msgid "_Directory"
@@ -7121,13 +7117,15 @@ msgstr "Bug _omschrijving"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "Doel_bestand"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"Lokale schijf\n"
+"Externe server (scp)"
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
