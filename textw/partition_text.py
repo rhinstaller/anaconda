@@ -141,7 +141,7 @@ class PartitionWindow:
             part = disk.next_partition()
             while part:
                 if part.type & parted.PARTITION_METADATA:
-#                    print "partition %s has type %d" %(get_partition_name(part), part.type)
+#                    print("partition %s has type %d" %(get_partition_name(part), part.type))
                     part = disk.next_partition(part)
                     continue
                 # ignore the tiny < 1 MB partitions (#119479)

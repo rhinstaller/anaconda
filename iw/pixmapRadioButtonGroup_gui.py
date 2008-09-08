@@ -186,7 +186,7 @@ if __name__ == "__main__":
     def nowquit(widget):
 	global r
 
-	print "selection -> ",r.getCurrent()
+	print("selection -> %s" % (r.getCurrent(),))
 
 	gtk.mainquit()
 	

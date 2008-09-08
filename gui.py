@@ -219,9 +219,9 @@ def partedExceptionWindow(exc):
     if exc.options == parted.EXCEPTION_CANCEL:
         return parted.EXCEPTION_UNHANDLED
     log.critical("parted exception: %s: %s" %(exc.type_string,exc.message))
-    print exc.type_string
-    print exc.message
-    print exc.options
+    print(exc.type_string)
+    print(exc.message)
+    print(exc.options)
     win = gtk.Dialog(exc.type_string, mainWindow, gtk.DIALOG_MODAL)
     addFrame(win)
     win.set_position(gtk.WIN_POS_CENTER)
@@ -1410,7 +1410,7 @@ class InstallControlWindow:
                 newScreenClass = loaded.__dict__[className]
                 break
             except ImportError, e:
-                print e
+                print(e)
                 win = MessageWindow(_("Error!"),
                                     _("An error occurred when attempting "
                                       "to load an installer interface "
@@ -1513,7 +1513,7 @@ class InstallControlWindow:
         p = readImageFromFile("anaconda_header.png",
                               dither = False, image = i)
         if p is None:
-            print _("Unable to load title bar")
+            print(_("Unable to load title bar"))
         if (gtk.gdk.screen_height() < 600) or \
            (gtk.gdk.screen_height() <= 675 and not runningMiniWm()):
             i.hide()

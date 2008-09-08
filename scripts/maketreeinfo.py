@@ -30,7 +30,7 @@ def usage():
     args = ""
     for key in data:
         args = "%s [--%s=%s]" %(args, key, key)
-    print "%s: %s" % (sys.argv[0], args)
+    print("%s: %s" % (sys.argv[0], args))
     sys.exit(1)
 
 # TODO: add composeid, images, etc.
@@ -54,7 +54,7 @@ opts.append("allDiscs")
 
 (args, extra) = getopt.getopt(sys.argv[1:], '', opts)
 if len(extra) > 0:
-    print "had extra args: %s" % extra
+    print("had extra args: %s" % extra)
     usage()
 
 for (str, arg) in args:
@@ -63,7 +63,7 @@ for (str, arg) in args:
     elif str == "--allDiscs":
         allDiscs = 1
     else:
-	print "unknown str of ", str
+	print("unknown str of ", str)
         usage()
 
 # Make sure timestamp is actually a float
@@ -71,31 +71,31 @@ if type(data["timestamp"]) != float:
     data["timestamp"] = float(data["timestamp"])
 
 if data["family"] is None:
-    print >> sys.stderr, "--family missing! This is probably bad!"
+    print("--family missing! This is probably bad!", file=sys.stderr)
     data["family"] = ""
 
 if data["variant"] is None:
-    print >> sys.stderr, "--variant missing, but that's OK."
+    print("--variant missing, but that's OK.", file=sys.stderr)
     data["variant"] = ""
 
 if data["version"] is None:
-    print >> sys.stderr, "--version missing! This is probably bad!"
+    print("--version missing! This is probably bad!", file=sys.stderr)
     data["version"] = ""
 
 if data["arch"] is None:
-    print >> sys.stderr, "--arch missing! This is probably bad!"
+    print("--arch missing! This is probably bad!", file=sys.stderr)
     data["arch"] = ""
     
 if data["discnum"] is None and allDiscs is None:
-    print >> sys.stderr, "--discnum missing; assuming disc 1"
+    print("--discnum missing; assuming disc 1", file=sys.stderr)
     data["discnum"] = "1"
 
 if data["totaldiscs"] is None and allDiscs is None:
-    print >> sys.stderr, "--totaldiscs missing; assuming 1"
+    print("--totaldiscs missing; assuming 1", file=sys.stderr)
     data["totaldiscs"] = "1"
 
 if data["packagedir"] is None:
-    print >> sys.stderr, "--packagedir missing. This might cause some weirdness."
+    print("--packagedir missing. This might cause some weirdness.", file=sys.stderr)
     data["packagedir"] = ""
 
 

@@ -1037,7 +1037,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
 
     def getMaximumResizeMB(self, partitions):
         vg = partitions.getRequestByID(self.volumeGroup)
-        print "max is", self.getActualSize(), vg.free, self.getActualSize() + vg.free
+        print("max is", self.getActualSize(), vg.free, self.getActualSize() + vg.free)
         return self.getActualSize() + vg.free
 
     def getMinimumResizeMB(self, partitions):

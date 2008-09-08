@@ -767,10 +767,10 @@ def debugSelf(screen):
 
 def spawnShell(screen):
     screen.suspend()
-    print "\n\nType <exit> to return to the install program.\n"
+    print("\n\nType <exit> to return to the install program.\n")
     if os.path.exists("/bin/sh"):
         iutil.execConsole()
     else:
-        print "Unable to find /bin/sh to execute!  Not starting shell"
+        print("Unable to find /bin/sh to execute!  Not starting shell")
     time.sleep(5)
     screen.resume()

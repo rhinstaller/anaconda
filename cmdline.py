@@ -40,26 +40,26 @@ class WaitWindow:
     def refresh(self):
         pass
     def __init__(self, title, text):
-        print text
+        print(text)
 
 class ProgressWindow:
     def pop(self):
-        print ""
+        print("")
 
     def pulse(self):
         pass
 
     def set(self, amount):
         if amount == self.total:
-            print _("Completed"),
+            print(_("Completed"))
 
     def refresh(self):
         pass
 
     def __init__(self, title, text, total, updpct = 0.05, pulse = False):
         self.total = total
-        print text
-        print _("In progress...   "),
+        print(text)
+        print(_("In progress...   "))
 
 class InstallInterface:
     def __init__(self):
@@ -84,7 +84,7 @@ class InstallInterface:
     def kickstartErrorWindow(self, text):
         s = _("The following error was found while parsing your "
               "kickstart configuration:\n\n%s") %(text,)
-        print s
+        print(s)
 
         while 1:
             time.sleep(5)
@@ -92,19 +92,19 @@ class InstallInterface:
     def messageWindow(self, title, text, type="ok", default = None,
                       custom_icon = None, custom_buttons = []):
         if type == "ok":
-            print text
+            print(text)
         else:
-            print _("Can't have a question in command line mode!")
-            print title
-            print text
-            print type, custom_buttons
+            print(_("an't have a question in command line mode!"))
+            print(title)
+            print(text)
+            print(type, custom_buttons)
 
             # don't exit
             while 1:
                 time.sleep(5)
 
     def exceptionWindow(self, shortText, longTextFile):
-        print shortText
+        print(shortText)
 
     def partedExceptionWindow(self, exc):
         # if our only option is to cancel, let us handle the exception
@@ -113,8 +113,8 @@ class InstallInterface:
         if exc.options == parted.EXCEPTION_CANCEL:
             return parted.EXCEPTION_UNHANDLED
 
-        print _("Parted exceptions can't be handled in command line mode!")
-        print exc.message
+        print(_("Parted exceptions can't be handled in command line mode!"))
+        print(exc.message)
 
         # don't exit
         while 1:
@@ -139,7 +139,7 @@ class InstallInterface:
                 exec s
                 nextWin(instance)
             else:
-                print "In interactive step %s, can't continue" %(step,)
+                print("In interactive step %s, can't continue" %(step,))
                 while 1:
                     time.sleep(1)
 
@@ -168,7 +168,7 @@ class progressDisplay:
     def set_label(self, txt):
         if txt != self.display:
             self.display = txt
-            print self.display
+            print(self.display)
 
 def setupProgressDisplay(anaconda):
     if anaconda.dir == DISPATCH_BACK:

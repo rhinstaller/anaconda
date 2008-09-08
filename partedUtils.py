@@ -214,7 +214,7 @@ def set_partition_file_system_type(part, fstype):
         else:
             part.set_system(fstype.getPartedFileSystemType())
     except:
-        print "Failed to set partition type to ",fstype.getName()
+        print("Failed to set partition type to ",fstype.getName())
         pass
 
 def get_partition_drive(partition):
@@ -1081,7 +1081,7 @@ class DiskSet:
         try:
             (pid, status) = os.waitpid(childpid, 0)
         except OSError, (num, msg):
-            print __name__, "waitpid:", msg
+            print(__name__, "waitpid:", msg)
 
         os.close(fd)
 

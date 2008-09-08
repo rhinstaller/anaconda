@@ -143,4 +143,4 @@ if __name__ == "__main__":
     p = ipw.get_fraction()
 
     screen.finish()
-    print p
+    print(p)

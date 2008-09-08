@@ -72,7 +72,7 @@ class DataComboBox(gtk.ComboBox):
 if __name__ == "__main__":
     def mycb(widget, *args):
         idx = widget.get_active()
-        print idx, widget.get_stored_data(idx), widget.get_text(idx)
+        print(idx, widget.get_stored_data(idx), widget.get_text(idx))
         
     win = gtk.Window()
 

@@ -579,7 +579,7 @@ def handleException(anaconda, (type, value, tb)):
             os.kill(os.getpid(), signal.SIGKILL)
         elif rc == EXN_DEBUG:
             anaconda.intf.__del__ ()
-            print text
+            print(text)
 
             pidfl = "/tmp/vncshell.pid"
             if os.path.exists(pidfl) and os.path.isfile(pidfl):
@@ -604,7 +604,7 @@ def handleException(anaconda, (type, value, tb)):
             attr[3] = attr[3] & termios.ECHO
             termios.tcsetattr(si, termios.TCSADRAIN, attr)
 
-            print "\nEntering debugger..."
+            print("\nEntering debugger...")
             import pdb
             pdb.post_mortem (tb)
             os.kill(os.getpid(), signal.SIGKILL)

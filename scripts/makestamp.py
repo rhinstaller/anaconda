@@ -27,7 +27,7 @@ def usage():
     args = ""
     for key in data:
         args = "%s [--%s=%s]" %(args, key, key)
-    print "%s: %s" % (sys.argv[0], args)
+    print("%s: %s" % (sys.argv[0], args))
     sys.exit(1)
 
 data = {"timestamp": None,
@@ -44,7 +44,7 @@ opts.append("allDiscs")
 
 (args, extra) = getopt.getopt(sys.argv[1:], '', opts)
 if len(extra) > 0:
-    print "had extra args: %s" % extra
+    print("had extra args: %s" % extra)
     usage()
 
 for (str, arg) in args:
@@ -53,25 +53,25 @@ for (str, arg) in args:
     elif str == "--allDiscs":
         allDiscs = 1
     else:
-	print "unknown str of ", str
+	print("unknown str of ", str)
         usage()
 
 if data["timestamp"] is None:
-    print >> sys.stderr, "timestamp not specified; using the current time"
+    print("timestamp not specified; using the current time", file=sys.stderr)
     data["timestamp"] = time.time()
 else:
     data["timestamp"] = float(data["timestamp"])
 
 if data["releasestr"] is None:
-    print "What should be the release name associated with this disc?"
+    print("What should be the release name associated with this disc?")
     data["releasestr"] = sys.stdin.readline()[:-1]
 
 if data["arch"] is None:
-    print "What arch is this disc for?"
+    print("What arch is this disc for?")
     data["arch"] = sys.stdin.readline()[:-1]
     
 if data["discNum"] is None and allDiscs is None:
-    print >> sys.stderr, "No disc number specified; assuming disc 1"
+    print("No disc number specified; assuming disc 1", file=sys.stderr)
     data["discNum"] = "1"
 
 if data["outfile"] is None:
