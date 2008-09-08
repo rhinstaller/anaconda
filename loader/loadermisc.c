@@ -56,7 +56,7 @@ int copyFileFd(int infd, char * dest, progressCB pbcb,
             break;
         }
 
-        count += 1;
+        count += i;
 
         if (pbcb && data && total) {
             pbcb(data, count, total);
