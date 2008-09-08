@@ -254,7 +254,7 @@ def scpAuthenticate(master, childpid, password):
 def copyExceptionToRemote(intf, scpInfo):
     import pty
 
-    (host, path, user, password) = scpInfo
+    (user, password, host, path) = scpInfo
 
     if host.find(":") != -1:
         (host, port) = host.split(":")
