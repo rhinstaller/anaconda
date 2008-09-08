@@ -205,6 +205,7 @@ class Network:
         self.secondaryNS = ""
         self.domains = []
         self.hostname = socket.gethostname()
+        self.overrideDHCPhostname = False
 
         # populate self.netdevices
         devhash = isys.getDeviceProperties(dev=None)
