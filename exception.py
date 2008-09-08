@@ -418,7 +418,7 @@ def saveToBugzilla(anaconda, exn, dest):
                                        priority="medium",
                                        op_sys="Linux",
                                        bug_file_loc="http://",
-                                       short_desc=dest[2],
+                                       summary=dest[2],
                                        comment="This bug was filed automatically by anaconda.",
                                        status_whiteboard=wb))
         if bug is None:
