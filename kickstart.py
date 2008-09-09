@@ -721,9 +721,17 @@ class Timezone(commands.timezone.FC6_Timezone):
     def parse(self, args):
         commands.timezone.FC6_Timezone.parse(self, args)
 
-        tzfile = "/usr/share/zoneinfo" + self.timezone
-        if not os.access(tzfile, os.R_OK):
-            log.warning("Can't read timezone file set in kickstart, will ask")
+        # check validity
+        f = open('/usr/share/zoneinfo/zone.tab', 'r')
+        for line in f:
+            line = line.strip()
+            if line[0] == '#':
+                continue
+            fields = line.split('\t')
+            if len(fields) > 2 and fields[2] == self.timezone: 
+                break
+        else:
+            log.warning("Timezone %s set in kickstart is not valid, will ask" % (self.timezone,))
             return
 
         self.handler.id.timezone.setTimezoneInfo(self.timezone, self.isUtc)
