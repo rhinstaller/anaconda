@@ -530,7 +530,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/etc/terminfo/{a,b,d,l,s,v,x}
     mkdir -p $MBD_DIR/tmp
     mkdir -p $MBD_DIR/usr/libexec
-    mkdir -p $MBD_DIR/usr/lib/NetworkManager
+    mkdir -p $MBD_DIR/usr/$LIBDIR/NetworkManager
     mkdir -p $MBD_DIR/usr/share/dbus-1/system-services
     mkdir -p $MBD_DIR/var/cache/hald
     mkdir -p $MBD_DIR/var/lib/dbus
@@ -542,8 +542,8 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/run/NetworkManager
     mkdir -p $MBD_DIR/etc/dbus-1/system.d
     mkdir -p $MBD_DIR/etc/modprobe.d
-    mkdir -p $MBD_DIR/etc/NetworkManager
-    mkdir -p $MBD_DIR/lib/dbus-1
+    mkdir -p $MBD_DIR/etc/NetworkManager/dispatcher.d
+    mkdir -p $MBD_DIR/$LIBDIR/dbus-1
     mkdir -p $MBD_DIR/etc/sysconfig/network-scripts
     mkdir -p $MBD_DIR/usr/share/PolicyKit/policy
     mkdir -p $MBD_DIR/etc/PolicyKit
@@ -665,9 +665,9 @@ makeinitrd() {
     instbin $IMGPATH /usr/bin/dbus-uuidgen $MBD_DIR /sbin/dbus-uuidgen
     instbin $IMGPATH /usr/bin/dbus-daemon $MBD_DIR /sbin/dbus-daemon
     cp -a $IMGPATH/etc/dbus-1/system.conf $MBD_DIR/etc/dbus-1/system.conf
-    cp -a $IMGPATH/lib/dbus-1/dbus-daemon-launch-helper $MBD_DIR/lib/dbus-1
-    chown root:dbus $MBD_DIR/lib/dbus-1/dbus-daemon-launch-helper
-    chmod 04750 $MBD_DIR/lib/dbus-1/dbus-daemon-launch-helper
+    cp -a $IMGPATH/$LIBDIR/dbus-1/dbus-daemon-launch-helper $MBD_DIR/$LIBDIR/dbus-1
+    chown root:dbus $MBD_DIR/$LIBDIR/dbus-1/dbus-daemon-launch-helper
+    chmod 04750 $MBD_DIR/$LIBDIR/dbus-1/dbus-daemon-launch-helper
 
     # wpa_supplicant
     instbin $IMGPATH /usr/sbin/wpa_passphrase $MBD_DIR /usr/sbin/wpa_passphrase
@@ -684,8 +684,8 @@ makeinitrd() {
     cp -a $IMGPATH/etc/dbus-1/system.d/nm-*.conf $MBD_DIR/etc/dbus-1/system.d
     cp -a $IMGPATH/etc/dbus-1/system.d/NetworkManager.conf $MBD_DIR/etc/dbus-1/system.d
     cp -a $IMGPATH/etc/NetworkManager/nm-system-settings.conf $MBD_DIR/etc/NetworkManager
-    instbin $IMGPATH /usr/lib/NetworkManager/libnm-settings-plugin-ifcfg-fedora.so \
-        $MBD_DIR /usr/lib/NetworkManager/libnm-settings-plugin-ifcfg-fedora.so
+    instbin $IMGPATH /usr/$LIBDIR/NetworkManager/libnm-settings-plugin-ifcfg-fedora.so \
+        $MBD_DIR /usr/$LIBDIR/NetworkManager/libnm-settings-plugin-ifcfg-fedora.so
     ( cd $IMGPATH/usr/libexec
       for f in nm-* ; do
           instbin $IMGPATH /usr/libexec/$f $MBD_DIR /usr/libexec/$f
