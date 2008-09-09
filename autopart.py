@@ -774,7 +774,7 @@ def growParts(diskset, requests, newParts):
                     imposedMax = 1
 
                 maxfree = largestFree[drive]
-                if maxsect > largestFree[drive]:
+                if maxsect > maxfree + startSize:
                     maxsect = long(maxfree) + startSize
                     imposedMax = 1
 
