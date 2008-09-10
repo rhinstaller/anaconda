@@ -255,7 +255,7 @@ class VncServer:
                                 "to the vncviewer is unsuccessful\n\n"))
         elif self.password == "":
              self.log.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
-                                "You can use the self.password=<password> boot option\n"
+                                "You can use the vncpassword=<password> boot option\n"
                                 "if you would like to secure the server.\n\n"))
         elif self.password != "":
              self.log.warning(_("\n\nYou chose to execute vnc with a password. \n\n"))
