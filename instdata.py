@@ -229,6 +229,28 @@ class InstallData:
         elif self.instClass.installkey:
             f.write("key %s\n" %(self.instClass.installkey,))
 
+        if self.anaconda.stage2:
+            m = self.anaconda.stage2
+
+            if m.startswith("cdrom:"):
+                f.write("cdrom\n")
+            elif m.startswith("hd:"):
+                if m.count(":") == 3:
+                    (part, fs, dir) = string.split(m[3:], ":")
+                else:
+                    (part, dir) = string.split(m[3:])
+
+                f.write("harddrive --partition=%s --dir=%s\n" % (part, dir))
+            elif m.startswith("nfs:"):
+                if m.count(":") == 3:
+                    (server, opts, dir) = string.split(m[4:], ":")
+                    f.write("nfs --server=%s --opts=%s --dir=%s" % (server, opts, dir))
+                else:
+                    (server, dir) = string.split(m[4:], ":")
+                    f.write("nfs --server=%s --dir=%s\n" % (server, dir))
+            elif m.startswith("ftp://") or m.startswith("http://"):
+                f.write("url --url=%s\n" % urllib.unquote(m))
+
 	self.instLanguage.writeKS(f)
         if not self.isHeadless:
             self.keyboard.writeKS(f)
