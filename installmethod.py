@@ -37,7 +37,7 @@ def doMethodComplete(anaconda):
             return anaconda.mediaDevice
 
         # If we booted off the boot.iso instead of disc 1, eject that as well.
-        if anaconda.stage2.startswith("cdrom://"):
+        if anaconda.stage2 and anaconda.stage2.startswith("cdrom://"):
             dev = anaconda.stage2[8:].split(':')[0]
             return dev
 
