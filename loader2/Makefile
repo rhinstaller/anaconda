@@ -35,14 +35,14 @@ METHOBJS = method.o cdinstall.o hdinstall.o nfsinstall.o urlinstall.o
 OBJS = log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
 	lang.o kbd.o modstubs.o driverdisk.o selinux.o \
 	md5.o mediacheck.o kickstart.o driverselect.o \
-	getparts.o dirbrowser.o fwloader.o \
+	getparts.o dirbrowser.o fwloader.o ibft.o \
 	$(HWOBJS) $(METHOBJS)
 LOADEROBJS = loader.o loader-pcmcia.o
 NETOBJS = net.o urls.o ftp.o telnet.o telnetd.o
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 
-LIBS += -lkudzu_loader -lpci -lblkid -luuid
+LIBS += -lkudzu_loader -lpci -lblkid -lfwparam -luuid
 
 CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
 STATIC = -static

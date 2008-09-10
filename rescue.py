@@ -136,7 +136,7 @@ def methodUsesNetworking(methodstr):
 # XXX
 #     hack to write out something useful for networking and start interfaces
 #
-def startNetworking(network, intf):
+def startNetworking(network, intf, anaconda):
 
     # do lo first
     try:
@@ -153,26 +153,53 @@ def startNetworking(network, intf):
 	waitwin = intf.waitWindow(_("Starting Interface"),
 				  _("Attempting to start %s") % (dev.get('device'),))
 	log.info("Attempting to start %s", dev.get('device'))
-	if dev.get('bootproto') == "dhcp":
-	    try:
-		ns = isys.dhcpNetDevice(dev.get('device'))
-		if ns:
-		    if not dhcpGotNS:
-			dhcpGotNS = 1
+        method = dev.get('bootproto')
+        while True:
+            if method = "ibft":
+                try:
+                    if anaconda.id.iscsi.fwinfo["iface.bootproto"].lower() == "dhcp":
+                        method = "dhcp"
+                        continue
+                    else:
+                        hwaddr = isys.getMacAddress(dev)
+                        if hwaddr != anaconda.id.iscsi.fwinfo["iface.hwaddress"]:
+                            log.error("The iBFT configuration does not belong to device %s,"
+                                      "falling back to dhcp", dev.get('device'))
+                            method = "dhcp"
+                            continue
 
-			f = open("/etc/resolv.conf", "w")
-			f.write("nameserver %s\n" % ns)
-			f.close()
-	    except:
-		log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
-	elif dev.get('ipaddr') and dev.get('netmask') and network.gateway is not None:
-	    try:
-		isys.configNetDevice(dev.get('device'),
-				     dev.get('ipaddr'),
-				     dev.get('netmask'),
-				     network.gateway)
-	    except:
-		log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
+                        isys.configNetDevice(dev.get('device'),
+                                             anaconda.id.iscsi.fwinfo["iface.ipaddress"],
+                                             anaconda.id.iscsi.fwinfo["iface.subnet_mask"],
+                                             anaconda.id.iscsi.fwinfo["iface.gateway"])
+                except:
+                    log.error("failed to configure network device %s using "
+                              "iBFT information, falling back to dhcp", dev.get('device'))
+                    usemethod = "dhcp"
+                    continue
+            elif method == "dhcp":
+                try:
+                    ns = isys.dhcpNetDevice(dev.get('device'))
+                    if ns:
+                        if not dhcpGotNS:
+                            dhcpGotNS = 1
+
+                            f = open("/etc/resolv.conf", "w")
+                            f.write("nameserver %s\n" % ns)
+                            f.close()
+                except:
+                    log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
+            elif dev.get('ipaddr') and dev.get('netmask') and network.gateway is not None:
+                try:
+                    isys.configNetDevice(dev.get('device'),
+                                         dev.get('ipaddr'),
+                                         dev.get('netmask'),
+                                         network.gateway)
+                except:
+                    log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
+
+            #do that only once
+            break
 
 	waitwin.pop()
 	
@@ -274,7 +301,7 @@ def runRescue(anaconda):
 		    elif step >= len(classNames):
 			break
 
-		startNetworking(anaconda.id.network, anaconda.intf)
+		startNetworking(anaconda.id.network, anaconda.intf, anaconda)
 		break
 	    else:
 		break

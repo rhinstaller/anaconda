@@ -335,28 +335,58 @@ class Network:
 	if not self.primaryNS:
             return
         myns = self.primaryNS
+
+        usemethod = dev.get('bootproto').lower()
+
 	if not self.isConfigured:
 	    for dev in self.netdevices.values():
-                if (dev.get('bootproto').lower() == "dhcp" and
-                    dev.get('onboot') == "yes"):
-		    ret = isys.dhcpNetDevice(dev.get('device'), dev.get('dhcpclass'))
-                    if ret is None:
-                        continue
-                    myns = ret
-                    self.isConfigured = 1
-                    break
-                elif (dev.get('ipaddr') and dev.get('netmask') and
-                      self.gateway is not None and dev.get('onboot') == "yes"):
-                    try:
-                        isys.configNetDevice(dev.get('device'),
-                                             dev.get('ipaddr'),
-                                             dev.get('netmask'),
-                                             self.gateway)
+                while True:
+                    if (usemethod == "ibft" and dev.get('onboot') == "yes"):
+                        try:
+                            if anaconda.id.iscsi.fwinfo["iface.bootproto"].lower() == "dhcp":
+                                usemethod = "dhcp"
+                                continue
+                            else:
+                                hwaddr = isys.getMacAddress(dev)
+                                if hwaddr != anaconda.id.iscsi.fwinfo["iface.hwaddress"]:
+                                    log.error("The iBFT configuration does not belong to device %s,"
+                                              "falling back to dhcp", dev.get('device'))
+                                    usemethod = "dhcp"
+                                    continue
+
+                                isys.configNetDevice(dev.get('device'),
+                                                     anaconda.id.iscsi.fwinfo["iface.ipaddress"],
+                                                     anaconda.id.iscsi.fwinfo["iface.subnet_mask"],
+                                                     anaconda.id.iscsi.fwinfo["iface.gateway"])
+                                self.isConfigured = 1
+                        except:
+                            log.error("failed to configure network device %s using "
+                                      "iBFT information, falling back to dhcp", dev.get('device'))
+                            usemethod = "dhcp"
+                            continue
+                    elif (usemethod == "dhcp" and
+                        dev.get('onboot') == "yes"):
+                        ret = isys.dhcpNetDevice(dev.get('device'), dev.get('dhcpclass'))
+                        if ret is None:
+                            continue
+                        myns = ret
                         self.isConfigured = 1
                         break
-                    except SystemError:
-                        log.error("failed to configure network device %s when "
-                                  "looking up host name", dev.get('device'))
+                    elif (dev.get('ipaddr') and dev.get('netmask') and
+                          self.gateway is not None and dev.get('onboot') == "yes"):
+                        try:
+                            isys.configNetDevice(dev.get('device'),
+                                                 dev.get('ipaddr'),
+                                                 dev.get('netmask'),
+                                                 self.gateway)
+                            self.isConfigured = 1
+                            break
+                        except SystemError:
+                            log.error("failed to configure network device %s when "
+                                      "looking up host name", dev.get('device'))
+
+                    #try it only once
+                    break
 
             if self.isConfigured and not flags.rootpath:
                 f = open("/etc/resolv.conf", "w")
@@ -406,7 +436,7 @@ class Network:
         for devName in devNames:
             dev = self.netdevices[devName]
 
-            if dev.get('bootproto').lower() == 'dhcp' or dev.get('ipaddr'):
+            if dev.get('bootproto').lower() == 'dhcp' or  dev.get('bootproto').lower() == 'ibft' or dev.get('ipaddr'):
                 f.write("network --device %s" % dev.get('device'))
 
                 if dev.get('MTU') and dev.get('MTU') != 0:
@@ -423,6 +453,8 @@ class Network:
 			if (self.hostname and
 			    self.hostname != "localhost.localdomain"):
 			    f.write(" --hostname %s" % self.hostname)
+                elif dev.get('bootproto').lower() == 'ibft':
+                    f.write(" --bootproto ibft")
                 else:
                     f.write(" --bootproto static --ip %s --netmask %s" % 
                        (dev.get('ipaddr'), dev.get('netmask')))
@@ -456,7 +488,7 @@ class Network:
                 f.write("# %s\n" % (dev.get("DESC"),))
 
             # if bootproto is dhcp, unset any static settings (#218489)
-            if dev.get('BOOTPROTO').lower() == 'dhcp':
+            if dev.get('BOOTPROTO').lower() in ['dhcp', 'ibft']:
                 dev.unset('IPADDR')
                 dev.unset('NETMASK')
                 dev.unset('GATEWAY')

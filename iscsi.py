@@ -224,6 +224,14 @@ class iscsi(object):
         # [root@elm3b87 ~]# iscsiadm -m fw
         # iface.initiatorname = iqn.2007-05.com.ibm.beaverton.elm3b87:01
         # iface.hwaddress = 00:14:5e:b3:8e:b2
+
+        # iface.bootproto = DHCP
+        # or
+        # iface.bootproto = STATIC
+        # iface.ipaddress = 192.168.32.72
+        # iface.subnet_mask = 255.255.252.0
+        # iface.gateway = 192.168.35.254
+
         # node.name = iqn.1992-08.com.netapp:sn.84183797
         # node.conn[0].address = 9.47.67.152
         # node.conn[0].port = 3260

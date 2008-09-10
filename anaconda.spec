@@ -16,6 +16,7 @@ BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: libdhcp-devel >= 1.20-5, mkinitrd-devel >= 5.1.2-1
 BuildPreReq: audit-libs-devel, libnl-devel >= 1.0-0.10.pre5.5
+BuildPreReq: iscsi-initiator-utils >= 6.2.0.868-0.9
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
 Requires: parted >= 1.7.1, pyparted >= 1.7.2
 Requires: kudzu >= 1.2.57.1.18, yum >= 2.9.2, pirut >= 1.1.0

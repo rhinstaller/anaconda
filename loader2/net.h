@@ -28,6 +28,7 @@ struct networkDeviceConfig {
 
     /* misc settings */
     int isDynamic;
+    int isiBFT;
     int noDns;
     int dhcpTimeout;
     int preset;

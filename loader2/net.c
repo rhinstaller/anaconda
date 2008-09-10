@@ -57,6 +57,7 @@
 #include "method.h"
 #include "net.h"
 #include "windows.h"
+#include "ibft.h"
 
 /* boot flags */
 extern uint64_t flags;
@@ -381,6 +382,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     struct in_addr addr;
     struct in6_addr addr6;
     char *c;
+    enum{USE_DHCP, USE_IBFT_STATIC, USE_STATIC} configMode = USE_STATIC;
 
     /* set to 1 to get ks network struct logged */
 #if 0
@@ -413,8 +415,75 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             setupWireless(cfg);
         }
 
+	if (!strncmp(loaderData->ip, "ibft", 4)) {
+	    char *devmacaddr = nl_mac2str(loaderData->netDev);
+	    configMode = USE_IBFT_STATIC;
+            cfg->isiBFT = 1;
+
+	    /* Problems with getting the info from iBFT or iBFT uses dhcp*/
+	    if(!devmacaddr || !ibft_present() || ibft_iface_dhcp()){
+		configMode = USE_DHCP;
+	    }
+	    /* MAC address doesn't match */
+	    else if(strcmp(ibft_iface_mac(), devmacaddr)){
+		configMode = USE_DHCP;
+	    }
+
+	    if(devmacaddr) free(devmacaddr);
+	}
+
         /* this is how we specify dhcp */
         if (!strncmp(loaderData->ip, "dhcp", 4)) {
+	    configMode = USE_DHCP;
+	}
+
+	if (configMode == USE_IBFT_STATIC){
+	    /* Problems with getting the info from iBFT */
+	    if(!ibft_iface_ip() || !ibft_iface_mask() || !ibft_iface_gw()){
+		configMode = USE_DHCP;
+	    }
+	    else{
+		/* static setup from iBFT table */
+		if(inet_pton(AF_INET, ibft_iface_ip(), &addr)>=1){
+		    cfg->dev.ip = ip_addr_in(&addr);
+		    cfg->dev.ipv4 = ip_addr_in(&addr);
+		    cfg->dev.set |= PUMP_INTFINFO_HAS_IP|PUMP_INTFINFO_HAS_IPV4_IP;
+		    cfg->isDynamic = 0;
+		}
+		
+		if(inet_pton(AF_INET, ibft_iface_mask(), &addr)>=1){
+		    cfg->dev.netmask = ip_addr_in(&addr);
+		    cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
+		}
+        
+		if(inet_pton(AF_INET, ibft_iface_gw(), &addr)>=1){
+		    cfg->dev.gateway = ip_addr_in(&addr);
+		    cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
+		}
+                
+		if(cfg->dev.numDns<MAX_DNS_SERVERS){
+		    if(inet_pton(AF_INET, ibft_iface_dns1(), &addr)>=1){
+			cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in(&addr);
+			cfg->dev.numDns++;
+		    }
+		}
+		if(cfg->dev.numDns<MAX_DNS_SERVERS){
+		    if(inet_pton(AF_INET, ibft_iface_dns2(), &addr)>=1){
+			cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in(&addr);
+			cfg->dev.numDns++;
+		    }
+		}
+	    
+		if (cfg->dev.numDns)
+		    cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
+
+		cfg->preset = 1;
+	    }
+	}
+	
+	if (configMode == USE_IBFT_STATIC){
+	    /* do nothing, already done */
+	} else if (configMode == USE_DHCP) {
             /* JKFIXME: this soooo doesn't belong here.  and it needs to
              * be broken out into a function too */
             logMessage(INFO, "sending dhcp request through device %s",
@@ -589,6 +658,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     newCfg.essid = NULL;
     newCfg.wepkey = NULL;
     newCfg.isDynamic = cfg->isDynamic;
+    newCfg.isiBFT = cfg->isiBFT;
     newCfg.noDns = cfg->noDns;
     newCfg.dhcpTimeout = cfg->dhcpTimeout;
     newCfg.preset = cfg->preset;
@@ -668,6 +738,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     }
 
     cfg->isDynamic = newCfg.isDynamic;
+    cfg->isiBFT = newCfg.isiBFT;
     memcpy(&cfg->dev,&newCfg.dev,sizeof(newCfg.dev));
 
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
@@ -1712,7 +1783,9 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
 
     fprintf(f, "ONBOOT=yes\n");
 
-    if (dev->isDynamic) {
+    if (dev->isiBFT) {
+	fprintf(f, "BOOTPROTO=ibft\n");
+    } else if (dev->isDynamic) {
         fprintf(f, "BOOTPROTO=dhcp\n");
     } else {
         fprintf(f, "BOOTPROTO=static\n");
@@ -1999,6 +2072,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 int chooseNetworkInterface(struct loaderData_s * loaderData) {
     int i, rc, ask, idrc, secs, deviceNums = 0, deviceNum, foundDev = 0;
     unsigned int max = 40;
+    int lookForLink = 0;
     char **devices;
     char **deviceNames;
     char *ksMacAddr = NULL, *seconds = strdup("10"), *idstr = NULL;
@@ -2089,8 +2163,50 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
         return LOADER_NOOP;
     }
 
+
+
+    while((loaderData->netDev && (loaderData->netDev_set == 1)) &&
+	!strcmp(loaderData->netDev, "ibft")){
+        char *devmacaddr = NULL;
+	char *ibftmacaddr = "";
+	
+	/* get MAC from the iBFT table */
+	if(!(ibftmacaddr = ibft_iface_mac())){ /* iBFT not present or error */
+	    /* lookForLink = 0; is the w/o iBFT default link or ask? */
+	    break;
+	}
+
+        logMessage(INFO, "looking for iBFT configured device with link");
+	lookForLink = 1;
+
+	for (i = 0; devs[i]; i++) {
+	    if (!devs[i]->device)
+		continue;
+            devmacaddr = nl_mac2str(devs[i]->device);
+	    if(!strcmp(devmacaddr, ibftmacaddr)){
+		free(devmacaddr);
+		if(get_link_status(devices[i]) == 1){
+		    lookForLink = 0;
+		    loaderData->netDev = devices[i];
+                    logMessage(INFO, "%s has link, using it", devices[i]);
+                    return LOADER_NOOP;
+		}
+		break;
+	    }
+	    else{
+		free(devmacaddr);
+	    }
+	}
+
+	break;
+    }
+
     if ((loaderData->netDev && (loaderData->netDev_set == 1)) &&
         !strcmp(loaderData->netDev, "link")) {
+	lookForLink = 1;
+    }
+
+    if (lookForLink){
         logMessage(INFO, "looking for first netDev with link");
         for (rc = 0; rc < 5; rc++) {
             for (i = 0; i < deviceNums; i++) {
