@@ -461,7 +461,7 @@ class iscsi(object):
         commentUser = '#'
         commentUser_in = '#'
 
-        if user is not None or password is not None:
+        if user is not None or pw is not None:
             commentUser = ''
             if user is None:
                 raise ValueError, "user is required"
