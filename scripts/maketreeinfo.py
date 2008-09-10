@@ -71,31 +71,31 @@ if type(data["timestamp"]) != float:
     data["timestamp"] = float(data["timestamp"])
 
 if data["family"] is None:
-    sys.stderr.write("--family missing! This is probably bad!")
+    sys.stderr.write("--family missing! This is probably bad!\n")
     data["family"] = ""
 
 if data["variant"] is None:
-    sys.stderr.write("--variant missing, but that's OK.")
+    sys.stderr.write("--variant missing, but that's OK.\n")
     data["variant"] = ""
 
 if data["version"] is None:
-    sys.stderr.write("--version missing! This is probably bad!")
+    sys.stderr.write("--version missing! This is probably bad!\n")
     data["version"] = ""
 
 if data["arch"] is None:
-    sys.stderr.write("--arch missing! This is probably bad!")
+    sys.stderr.write("--arch missing! This is probably bad!\n")
     data["arch"] = ""
 
 if data["discnum"] is None and allDiscs is None:
-    sys.stderr.write("--discnum missing; assuming disc 1")
+    sys.stderr.write("--discnum missing; assuming disc 1\n")
     data["discnum"] = "1"
 
 if data["totaldiscs"] is None and allDiscs is None:
-    sys.stderr.write("--totaldiscs missing; assuming 1")
+    sys.stderr.write("--totaldiscs missing; assuming 1\n")
     data["totaldiscs"] = "1"
 
 if data["packagedir"] is None:
-    sys.stderr.write("--packagedir missing. This might cause some weirdness.")
+    sys.stderr.write("--packagedir missing. This might cause some weirdness.\n")
     data["packagedir"] = ""
 
 

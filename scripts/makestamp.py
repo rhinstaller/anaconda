@@ -57,13 +57,13 @@ for (str, arg) in args:
         usage()
 
 if data["timestamp"] is None:
-    sys.stderr.write("timestamp not specified; using the current time")
+    sys.stderr.write("timestamp not specified; using the current time\n")
     data["timestamp"] = time.time()
 else:
     data["timestamp"] = float(data["timestamp"])
 
 if data["releasestr"] is None:
-    print("What should be the release name associated with this disc?")
+    print("What should be the release name associated with this disc?\n")
     data["releasestr"] = sys.stdin.readline()[:-1]
 
 if data["arch"] is None:
@@ -71,7 +71,7 @@ if data["arch"] is None:
     data["arch"] = sys.stdin.readline()[:-1]
     
 if data["discNum"] is None and allDiscs is None:
-    sys.stderr.write("No disc number specified; assuming disc 1")
+    sys.stderr.write("No disc number specified; assuming disc 1\n")
     data["discNum"] = "1"
 
 if data["outfile"] is None:

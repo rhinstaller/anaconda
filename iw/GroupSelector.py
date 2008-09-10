@@ -65,7 +65,7 @@ def sanitizeString(s, translate = True):
         try:
             s = unicode(s, "utf-8")
         except UnicodeDecodeError, e:
-            sys.stderr.write("Unable to convert %s to a unicode object: %s" % (s, e))
+            sys.stderr.write("Unable to convert %s to a unicode object: %s\n" % (s, e))
             return ""
     return s
 
