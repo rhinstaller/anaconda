@@ -691,6 +691,115 @@ class ext3FileSystem(extFileSystem):
 
 fileSystemTypeRegister(ext3FileSystem())
 
+class ext4FileSystem(extFileSystem):
+
+    # features are parsed from dumpe4fs output
+    # taken from e4fsprogs lib/blkid/probe.h, lib/e2p/features.c
+    specialFeatures = [
+        'huge_file',
+        'gdt_checksum',
+        'dir_nlink',
+        'extra_size',
+        'extents',
+        'extent',
+        '64brt',
+        'flex_bg',
+    ]
+    
+    # taken from e4fsprogs lib/blkid/probe.c
+    def probe(device):
+        flags, features = getExtFSFlagsFeatures(device) 
+        if not features:
+            log.debug("%s not probed as ext4" % (device,))
+            return False
+        for f in features:
+            if f in ext4FileSystem.specialFeatures:
+                if  flags and "test_filesystem" in flags:
+                    ext4 = fileSystemTypeGet("ext4")
+                    ext4dev = fileSystemTypeGet("ext4dev")
+                    if not ext4dev.isMountable() and ext4.isMountable():
+                        log.debug("%s probed as ext4" % (device,))
+                        return True
+                else:
+                    log.debug("%s probed as ext4" % (device,))
+                    return True
+                break
+        log.debug("%s not probed as ext4" % (device,))
+        return False
+
+    probe = staticmethod(probe)
+
+    def __init__(self):
+        extFileSystem.__init__(self)
+        self.name = "ext4"
+        # options are set in mke4fs.conf
+        #self.extraFormatArgs = [ "-j", "-I", "256"]
+        self.partedFileSystemType = parted.file_system_type_get("ext3")
+        
+        self.packages = [ "e4fsprogs" ]
+
+        # this is tech preview at present...
+        if flags.cmdline.has_key("ext4"):
+            self.supported = -1
+        else:
+            self.supported = 0
+ 
+    def labelDevice(self, entry, chroot):
+        devicePath = entry.device.setupDevice(chroot)
+        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
+                                         kslabel = entry.label)
+
+        rc = iutil.execWithRedirect("/usr/sbin/e4label",
+                                    [devicePath, label],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+        if rc:
+            raise SystemError
+        entry.setLabel(label)
+        
+    def formatDevice(self, entry, progress, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+        devArgs = self.getDeviceArgs(entry.device)
+        args = [ "/usr/sbin/mke4fs", "-T", self.name, devicePath, "-i", str(entry.bytesPerInode) ]
+
+        args.extend(devArgs)
+        args.extend(self.extraFormatArgs)
+
+	log.info("Format command:  %s\n" % str(args))
+
+        rc = ext2FormatFilesystem(args, "/dev/tty5",
+                                  progress,
+                                  entry.mountpoint)
+        if rc:
+            raise SystemError
+
+        extFileSystem.setExt3Options(self, entry, progress, chroot)
+ 
+fileSystemTypeRegister(ext4FileSystem())
+
+class ext4devFileSystem(ext4FileSystem):
+
+    # taken from e4fsprogs lib/blkid/probe.c
+    def probe(device):
+        flags, features = getExtFSFlagsFeatures(device) 
+        if flags and ('test_filesystem' in flags):
+            ext4 = fileSystemTypeGet("ext4")
+            ext4dev = fileSystemTypeGet("ext4dev")
+            if ext4dev.isMountable() or not ext4.isMountable():
+                log.debug("%s probed as ext4dev" % (device,))
+                return True
+        log.debug("%s not probed as ext4dev" % (device,))
+        return False
+    probe = staticmethod(probe)
+
+    def __init__(self):
+        ext4FileSystem.__init__(self)
+        self.name = "ext4dev"
+        # options are set in mke4fs.conf
+        #self.extraFormatArgs = [ "-j", "-I", "256", "-E", "test_fs" ]
+ 
+fileSystemTypeRegister(ext4devFileSystem())
+
 class raidMemberDummyFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
@@ -2951,6 +3060,10 @@ def getFStoTry(device):
             create = 0
         else:
             create = 1
+        if ext4devFileSystem.probe(device):
+            rc.append("ext4dev")
+        if ext4FileSystem.probe(device):
+            rc.append("ext4")
         if isys.ext2HasJournal(device, makeDevNode = create):
             rc.append("ext3")
         rc.append("ext2")
@@ -3086,3 +3199,23 @@ def getDiskPart(dev):
         partNum = None
 
     return (name, partNum)
+
+def getExtFSFlagsFeatures(device):
+
+    args = ["-h", device]
+    output = iutil.execWithCapture("dumpe4fs", args, stderr = "/dev/tty5")
+
+    flags = None
+    features = None
+
+    for line in output.split("\n"):
+        if line[:20] == "Filesystem features:":
+            features = line[20:].split()
+        if line[:17] == "Filesystem flags:":
+            flags = line[17:].split()
+        if flags is not None and features is not None:
+            break
+
+    return (flags, features)
+
+

@@ -1208,6 +1208,12 @@ class Partitions:
                     errors.append("Bootable partitions cannot be on a GFS2 "
                                   "filesystem.")
                     
+                # no ext4dev or ext4 support in grub
+                if (bootreq and bootreq.fstype and
+                    bootreq.fstype.getName() in ["ext4", "ext4dev"]):
+                    errors.append("Bootable partitions cannot be on an %s "
+                                  "filesystem." % bootreq.fstype.getName())
+                    
 
         if foundSwap == 0:
             warnings.append(_("You have not specified a swap partition.  "

@@ -484,7 +484,12 @@ def sniffFilesystemType(device):
     # ext2 check
     if struct.unpack("<H", buf[1080:1082]) == (0xef53,):
         if isys.ext2HasJournal(dev, makeDevNode = 0):
-            return "ext3"
+            if fsset.ext4devFileSystem.probe(dev):
+                return "ext4dev"
+            elif fsset.ext4FileSystem.probe(dev):
+                return "ext4"
+            else:
+                return "ext3"
         else:
             return "ext2"
 

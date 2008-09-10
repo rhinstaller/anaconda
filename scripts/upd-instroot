@@ -125,7 +125,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 libdhcp libnl libdhcp6client libdhcp4client device-mapper-multipath
 	 kpartx dmraid python-pyblock mkinitrd libbdevid libbdevid-python
 	 libselinux-python nss udev keyutils-libs nspr python-iniparse
-	 cryptsetup-luks"
+	 cryptsetup-luks e4fsprogs"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
@@ -193,7 +193,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            fonts-malayalam fonts-oriya fonts-kannada fonts-telugu
            fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics
            firstboot pycairo pirut dejavu-lgc-fonts
-           dmraid python-pyblock libbdevid libbdevid-python"
+           dmraid python-pyblock libbdevid libbdevid-python e4fsprogs"
 
 #
 # stuff ONLY included for rescue mode
