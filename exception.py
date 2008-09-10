@@ -413,7 +413,7 @@ def saveToBugzilla(anaconda, exn, dest):
         bug = withBugzillaDo(filer, lambda b: b.createbug(product=product.productName,
                                        component="anaconda",
                                        version=product.productVersion,
-                                       rep_platform=rpmUtils.arch.getBaseArch(),
+                                       platform=rpmUtils.arch.getBaseArch(),
                                        bug_severity="medium",
                                        priority="medium",
                                        op_sys="Linux",
