@@ -57,7 +57,7 @@ for (str, arg) in args:
         usage()
 
 if data["timestamp"] is None:
-    print("timestamp not specified; using the current time", file=sys.stderr)
+    sys.stderr.write("timestamp not specified; using the current time")
     data["timestamp"] = time.time()
 else:
     data["timestamp"] = float(data["timestamp"])
@@ -71,7 +71,7 @@ if data["arch"] is None:
     data["arch"] = sys.stdin.readline()[:-1]
     
 if data["discNum"] is None and allDiscs is None:
-    print("No disc number specified; assuming disc 1", file=sys.stderr)
+    sys.stderr.write("No disc number specified; assuming disc 1")
     data["discNum"] = "1"
 
 if data["outfile"] is None:

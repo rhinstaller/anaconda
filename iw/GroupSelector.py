@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import os
+import os, sys
 import logging
 import gettext
 
@@ -65,7 +65,7 @@ def sanitizeString(s, translate = True):
         try:
             s = unicode(s, "utf-8")
         except UnicodeDecodeError, e:
-            print("Unable to convert %s to a unicode object: %s" % (s, e), file=sys.stderr)
+            sys.stderr.write("Unable to convert %s to a unicode object: %s" % (s, e))
             return ""
     return s
 
