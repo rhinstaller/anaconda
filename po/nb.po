@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda FC9\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-07-10 17:55+0200\n"
+"PO-Revision-Date: 2008-09-10 12:20+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@broadpark.no>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -94,9 +94,8 @@ msgid "Starting graphical installation..."
 msgstr "Starter grafisk installasjon..."
 
 #: ../anaconda:821
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "Hva vil du gjøre?"
+msgstr "Vil du bruke VNC?"
 
 #: ../anaconda:822
 msgid ""
@@ -576,14 +575,12 @@ msgid ""
 msgstr ""
 
 #: ../exception.py:371
-#, fuzzy
 msgid "Unable To File Bug"
-msgstr "Kan ikke slette"
+msgstr "Kan ikke rapportere feil"
 
 #: ../exception.py:377
-#, fuzzy
 msgid "Bug Filing Not Supported"
-msgstr "Ikke støttet"
+msgstr "Feilrapportering ikke støttet"
 
 #: ../exception.py:378
 msgid ""
@@ -592,18 +589,16 @@ msgid ""
 msgstr ""
 
 #: ../exception.py:384
-#, fuzzy
 msgid "Invalid Bug Information"
-msgstr "Ugyldig IP-informasjon"
+msgstr "Ugyldig informasjon om feil"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
 msgstr ""
 
 #: ../exception.py:395
-#, fuzzy
 msgid "Unable To Login"
-msgstr "Kan ikke redigere"
+msgstr "Kan ikke logge inn"
 
 #: ../exception.py:396
 #, python-format
@@ -613,7 +608,7 @@ msgstr ""
 
 #: ../exception.py:433
 msgid "Bug Created"
-msgstr ""
+msgstr "Feilrapport opprettet"
 
 #: ../exception.py:434
 #, python-format
@@ -626,9 +621,8 @@ msgid ""
 msgstr ""
 
 #: ../exception.py:450
-#, fuzzy
 msgid "Bug Updated"
-msgstr "Oppdateringer"
+msgstr "Feilrapport oppdatert"
 
 #: ../exception.py:451
 #, python-format
@@ -661,9 +655,8 @@ msgid "There was a problem writing the system state to the disk."
 msgstr "Det oppsto et problem under skriving av systemets tilstand til disk."
 
 #: ../exception.py:506 ../exception.py:529
-#, fuzzy
 msgid "No Network Available"
-msgstr "Nettverksenheter"
+msgstr "Nettverk er ikke tilgjengelig"
 
 #: ../exception.py:507 ../exception.py:530
 msgid ""
@@ -1135,7 +1128,7 @@ msgstr ""
 #: ../gui.py:780
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "Bugzilla (%s)"
 
 #: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
 #: tmp/anaconda.glade.h:2
@@ -1426,7 +1419,6 @@ msgstr ""
 "Rotfilsystemet tu laget er ikke stort nok for dette bildet (%.2f MB kreves)."
 
 #: ../network.py:64
-#, fuzzy
 msgid "Hostname must be 64 or fewer characters in length."
 msgstr "Vertsnavnet må være 64 tegn eller mindre i lengde."
 
@@ -1474,13 +1466,12 @@ msgid "There was an error encountered resizing the device %s."
 msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
 #: ../packages.py:146
-#, fuzzy
 msgid "Activating"
-msgstr "Aktiver ved oppstart"
+msgstr "Aktiverer"
 
 #: ../packages.py:146
 msgid "Activating new partitions.  Please wait..."
-msgstr ""
+msgstr "Aktiverer nye partisjoner. Vennligst vent..."
 
 #: ../packages.py:167
 msgid "LVM operation failed"
@@ -1982,14 +1973,13 @@ msgstr ""
 "installasjonsprosessen?"
 
 #: ../partitions.py:130
-#, fuzzy, python-format
+#, python-format
 msgid " for device %s"
-msgstr "RAID-enhet %s"
+msgstr " for enhet %s"
 
 #: ../partitions.py:133
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Krypteringsnøkkel"
+msgstr "Krypter enhet?"
 
 #: ../partitions.py:134
 #, python-format
@@ -2317,8 +2307,8 @@ msgid ""
 msgstr ""
 "Feilrettingsmiljøet vil nå forsøke å finne din Linux installasjon og montere "
 "den under katalogen %s. Du kan da utføre nødvendige endringer på systemet. "
-"Hvis du vil fortsette med denne oppgaven velg «Fortsett». Du kan også velge å "
-"montere filsystemet skrivebeskyttet (kun lesbart).\n"
+"Hvis du vil fortsette med denne oppgaven velg «Fortsett». Du kan også velge "
+"å montere filsystemet skrivebeskyttet (kun lesbart).\n"
 "\n"
 "Hvis denne prosessen feiler av noen grunn kan du velge «Hopp over» så vil "
 "dette steget bli utelatt og du vil gå direkte til et kommandoskall.\n"
@@ -2409,18 +2399,17 @@ msgid "Save"
 msgstr "Lagre"
 
 #: ../text.py:210
-#, fuzzy
 msgid "Save to local disk"
-msgstr "Lagre til disk"
+msgstr "Lagre til lokal disk"
 
 #: ../text.py:211
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "Send til bugzilla (%s)"
 
 #: ../text.py:212
 msgid "Send to remote server (scp)"
-msgstr ""
+msgstr "Send til ekstern tjener (scp)"
 
 #: ../text.py:226 ../text.py:239
 msgid "User name"
@@ -2432,21 +2421,19 @@ msgstr "Passord"
 
 #: ../text.py:230
 msgid "Bug Description"
-msgstr ""
+msgstr "Beskrivelse av feil"
 
 #: ../text.py:243
 msgid "Host (host:port)"
-msgstr ""
+msgstr "Vert (vert:port)"
 
 #: ../text.py:245
-#, fuzzy
 msgid "Destination file"
-msgstr "LVM-operasjon feilet"
+msgstr "Målfil"
 
 #: ../text.py:329
-#, fuzzy
 msgid "Passphrase for encrypted device"
-msgstr "Oppgi passord for kryptert partisjon"
+msgstr "Passord for kryptert enhet"
 
 #: ../text.py:347 tmp/lukspassphrase.glade.h:7
 #, fuzzy
@@ -2820,9 +2807,8 @@ msgid "%s of %s packages completed"
 msgstr "%s av %s pakker er fullført"
 
 #: ../yuminstall.py:214
-#, fuzzy
 msgid "Finishing upgrade process..."
-msgstr "Fullfører oppgraderingen"
+msgstr "Fullfører oppgraderingen..."
 
 #: ../yuminstall.py:308 ../iw/task_gui.py:275
 #, fuzzy
@@ -2901,9 +2887,8 @@ msgid "Retrying"
 msgstr "Prøver på nytt"
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying download..."
-msgstr "Forsøker å laste ned pakke på nytt..."
+msgstr "Prøver nedlasting på nytt..."
 
 #: ../yuminstall.py:772
 #, python-format
@@ -4319,8 +4304,8 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"Partisjoner av type «%s» må begrenses til en enkelt stasjon. Dette gjøres ved "
-"å velge stasjonen i avkryssingslisten «Tillatte stasjoner»."
+"Partisjoner av type «%s» må begrenses til en enkelt stasjon. Dette gjøres "
+"ved å velge stasjonen i avkryssingslisten «Tillatte stasjoner»."
 
 #: ../iw/partmethod_gui.py:34 ../textw/partmethod_text.py:32
 msgid "Disk Partitioning Setup"
@@ -4589,9 +4574,8 @@ msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Du må oppgi en HTTP, HTTPS eller FTP URL til et lager."
 
 #: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-#, fuzzy
 msgid "No Media Found"
-msgstr "Ingen stasjoner funnet"
+msgstr "Ingen medie funnet"
 
 #: ../iw/task_gui.py:248 ../iw/task_gui.py:361
 msgid ""
@@ -4600,9 +4584,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
-#, fuzzy
 msgid "Please enter an NFS server and path."
-msgstr "Vennligst oppgi navn på tjener og sti til dine %s-bilder."
+msgstr "Vennligst oppgi navn og sti til NFS-tjener."
 
 #: ../iw/task_gui.py:299
 msgid "Invalid Repository Name"
@@ -5060,9 +5043,9 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "Hvilken type tastatur brukes på denne datamaskinen?"
 
 #: ../textw/netconfig_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s"
-msgstr "En verdi er krevet for feltet «%s»."
+msgstr "En verdi kreves for felt %s"
 
 #: ../textw/netconfig_text.py:86 tmp/netconfig.glade.h:9
 msgid "Enable network interface"
@@ -5077,9 +5060,8 @@ msgstr ""
 "installasjonen. Vennligst konfigurer en nettverkstilkobling."
 
 #: ../textw/netconfig_text.py:111
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Bruk _dynamisk konfigurasjon av IP (DHCP)"
+msgstr "Bruk dynamisk konfigurasjon av IP (DHCP)"
 
 #: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
 #: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
@@ -5092,12 +5074,10 @@ msgid "Enable IPv6 support"
 msgstr "Aktiver støtte for IPv6"
 
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
 msgstr "IPv4-adresse:"
 
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
 msgstr "IPv6-adresse:"
 
@@ -5107,29 +5087,24 @@ msgid "Gateway:"
 msgstr "Gateway:"
 
 #: ../textw/netconfig_text.py:144
-#, fuzzy
 msgid "Nameserver:"
-msgstr "Navnetjener"
+msgstr "Navnetjener:"
 
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "Manglende pakke"
+msgstr "Mangler enhet"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "Du må velge en partisjon for redigering"
+msgstr "Du må velge en nettverksenhet"
 
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
-msgstr "IPv4-nettmaske"
+msgstr "IPv4-nettmaske "
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
-msgstr "Feil under konfigurasjon av nettverksenhet:"
+msgstr "Feil under konfigurasjon av nettverksenhet: "
 
 #: ../textw/network_text.py:60
 #, python-format
@@ -5980,9 +5955,8 @@ msgstr ""
 "Velg %s for å hoppe over denne testen og starte installasjonen."
 
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "Advarsel"
+msgstr "Søker"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
@@ -6007,9 +5981,9 @@ msgid "Cannot find kickstart file on CDROM."
 msgstr "Kan ikke finne kickstart-fil på CD-ROM."
 
 #: ../loader/copy.c:51 ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "Kunne ikke lese katalog %s: %s"
+msgstr "Kunne ikke lese katalog %s: %m"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -6206,18 +6180,17 @@ msgstr ""
 "trykk F2 for å konfigurere flere enheter."
 
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
-msgstr "Katalog som inneholder bilder:"
+msgstr "Katalog som inneholder bilde:"
 
 #: ../loader/hdinstall.c:301
 msgid "Select Partition"
 msgstr "Velg partisjon"
 
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "Enhet %s ser ikke ut til å inneholde CD-ROM bilder for %s."
+msgstr "Enhet %s ser ikke ut til å inneholde et installasjonsbilde."
 
 #: ../loader/hdinstall.c:385
 #, c-format
@@ -6242,14 +6215,14 @@ msgid "What type of keyboard do you have?"
 msgstr "Hvilken type tastatur har du?"
 
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "Feil under åpning av kickstart-fil %s: %s"
+msgstr "Feil under åpning av kickstart-fil %s: %m"
 
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Feil under lesing av innholdet i kickstart-fil %s: %s"
+msgstr "Feil under lesing av innholdet i kickstart-fil %s: %m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -6325,9 +6298,9 @@ msgstr ""
 "driveroppdateringer. Hvilken vil du bruke?"
 
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "Sett inn oppdateringsdisketten i /dev/%s og trykk «OK» for å fortsette."
+msgstr "Sett inn oppdateringsdisketten i %s og trykk «OK» for å fortsette."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6383,9 +6356,8 @@ msgid "What type of media contains the rescue image?"
 msgstr "Hvilken type media inneholder redningsbildet?"
 
 #: ../loader/loader.c:1358
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "Hvilken type media inneholder redningsbildet?"
+msgstr "Hvilken type media inneholder installasjonsbildet?"
 
 #: ../loader/loader.c:1389
 msgid "No driver found"
@@ -6603,9 +6575,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "Ugyldig bootproto %s spesifisert i nettverkskommandoen"
 
 #: ../loader/net.c:1423
-#, fuzzy
 msgid "Seconds:"
-msgstr "Sekundær DNS:"
+msgstr "Sekunder:"
 
 #: ../loader/net.c:1537
 msgid "Networking Device"
@@ -6621,11 +6592,11 @@ msgstr ""
 
 #: ../loader/net.c:1542
 msgid "Identify"
-msgstr ""
+msgstr "Identifiser"
 
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "Du kan identifisere fysisk port for"
 
 #: ../loader/net.c:1553
 msgid ""
@@ -6635,12 +6606,11 @@ msgstr ""
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
-msgstr ""
+msgstr "Identifiser nettverkskort"
 
 #: ../loader/net.c:1576
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Ugyldig IP-informasjon"
+msgstr "Ugyldig varighet"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
@@ -6683,9 +6653,9 @@ msgid "That directory could not be mounted from the server."
 msgstr "Den katalogen kunne ikke monteres fra tjeneren."
 
 #: ../loader/nfsinstall.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "Den katalogen ser ikke ut til å inneholde et %s-installasjonstre."
+msgstr "Katalogen ser ikke ut til å inneholde et %installasjonsbilde for %s."
 
 #: ../loader/nfsinstall.c:338
 #, c-format
@@ -6705,9 +6675,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Kjører anaconda via telnet..."
 
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "Kan ikke hente %s://%s/%s."
+msgstr "Kan ikke hente %s://%s%s."
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
@@ -6805,9 +6775,8 @@ msgid "<b>Repository _type:</b>"
 msgstr "<b>_Navn på lager:</b>"
 
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "Konfigurer proxy"
+msgstr "Konfigurer _proxy"
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -6816,6 +6785,10 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"Harddisk"
 
 #: tmp/addrepo.glade.h:9
 #, fuzzy
@@ -6824,56 +6797,48 @@ msgid ""
 msgstr "Vennligst oppgi en plass du kan installere ekstra programvare fra."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL"
-msgstr "Proxy-U_RL:"
+msgstr "Proxy-U_RL"
 
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "Passord for pro_xy:"
+msgstr "Passord for pro_xy"
 
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "Brukernavn for _proxy:"
+msgstr "Brukernavn for _proxy"
 
 #: tmp/addrepo.glade.h:13
 msgid "Repository _URL"
 msgstr "URL til lager"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "Velg en fil"
+msgstr "Velg en katalog"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
 msgstr ""
 
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "NFS-katalog"
+msgstr "_Katalog"
 
 #: tmp/addrepo.glade.h:17
-#, fuzzy
 msgid "_Options"
-msgstr "RAID-alternativer"
+msgstr "_Alternativer"
 
 #: tmp/addrepo.glade.h:18
-#, fuzzy
 msgid "_Partition"
-msgstr "Partisjon"
+msgstr "_Partisjon"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "St_i"
 
 #: tmp/addrepo.glade.h:20
-#, fuzzy
 msgid "_Server"
-msgstr "Navnetjener:"
+msgstr "_Tjener"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6974,17 +6939,19 @@ msgstr "_Detaljer"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "_Beskrivelse av feil"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "Mål_fil"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"Lokal disk\n"
+"Ekstern tjener (scp)"
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
@@ -6996,17 +6963,15 @@ msgstr "Velg en fil"
 
 #: tmp/exnSave.glade.h:8
 msgid "_Host (host:port)"
-msgstr ""
+msgstr "_Vert (vert:port)"
 
 #: tmp/exnSave.glade.h:9
-#, fuzzy
 msgid "_Password"
-msgstr "_Passord:"
+msgstr "_Passord"
 
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_User name"
-msgstr "Brukernavn"
+msgstr "Br_ukernavn"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -7285,7 +7250,7 @@ msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebraisk"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -7340,9 +7305,8 @@ msgid "Marathi"
 msgstr "Marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "Norsk"
+msgstr "Norsk bokmål"
 
 #. generated from lang-table
 msgid "Northern Sotho"
@@ -7435,149 +7399,3 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "No video hardware found, assuming headless"
-#~ msgstr "Ingen skjermkort funnet. Antar at du kjører uten skjerm"
-
-#~ msgid "Unable to instantiate a X hardware state object."
-#~ msgstr "Kan ikke lage et maskinvare tilstandsobjekt for X."
-
-#~ msgid ""
-#~ "Error mounting device %s as %s: %s\n"
-#~ "\n"
-#~ "This most likely means this partition has not been formatted.\n"
-#~ "\n"
-#~ "Press OK to exit the installer."
-#~ msgstr ""
-#~ "Feil under montering av enhet %s som %s: %s\n"
-#~ "\n"
-#~ "Dette betyr sannsynligvis at partisjonen ikke er formatert.\n"
-#~ "\n"
-#~ "Trykk OK for å avslutte installasjonsprogrammet."
-
-#~ msgid "Invalid Label"
-#~ msgstr "Ugyldig etikett"
-
-#~ msgid ""
-#~ "An invalid label was found on device %s.  Please fix this problem and "
-#~ "restart the installation process."
-#~ msgstr ""
-#~ "En ugyldig etikett ble funnet på enhet %s. Vennligst rett opp dette "
-#~ "problemet og start installasjonen på nytt."
-
-#~ msgid "Save to Remote"
-#~ msgstr "Lagre til ekstern"
-
-#~ msgid "Host"
-#~ msgstr "Vert"
-
-#~ msgid "Remote path"
-#~ msgstr "Ekstern sti"
-
-#~ msgid "Help not available"
-#~ msgstr "Hjelp ikke tilgjengelig"
-
-#~ msgid "No help is available for this step of the install."
-#~ msgstr "Ingen hjelp tilgjengelig for denne delen av installeringen."
-
-#~ msgid ""
-#~ " <F1> for help | <Tab> between elements | <Space> selects | <F12> next "
-#~ "screen"
-#~ msgstr ""
-#~ " <F1> for hjelp | <Tab> mellom elementer | <Mellomrom> velger | <F12> "
-#~ "neste skjerm"
-
-#~ msgid "Finishing upgrade process.  This may take a little while..."
-#~ msgstr "Fullfører oppgraderingsprosessen. Dette kan ta en stund..."
-
-#~ msgid "Error running transaction"
-#~ msgstr "Feil under kjøring av transaksjon"
-
-#~ msgid ""
-#~ "No %s disc was found which matches your boot media.  Please insert the %s "
-#~ "disc and press %s to retry."
-#~ msgstr ""
-#~ "Fant ingen %s-CD som passer ditt oppstartsmedium. Sett inn %s-CDen og "
-#~ "trykk %s for å prøve på nytt"
-
-#~ msgid ""
-#~ "The %s installation tree in that directory does not seem to match your "
-#~ "boot media."
-#~ msgstr ""
-#~ "Installasjonstreet for %s i denne katalogen passer ikke med ditt "
-#~ "oppstartsmedium."
-
-#~ msgid "Welcome to %s%n for %s"
-#~ msgstr "Velkommen til %s%n for %s"
-
-#~ msgid "What type of media contains the packages to be installed?"
-#~ msgstr "Hvilken type media inneholder pakkene som skal installeres?"
-
-#~ msgid ""
-#~ "%s is a wireless network adapter.  Please provide the ESSID and "
-#~ "encryption key needed to access your wireless network.  If no key is "
-#~ "needed, leave this field blank and the install will continue."
-#~ msgstr ""
-#~ "%s er et trådløst nettverkskort. Vennligst oppgi ESSID og "
-#~ "krypteringsnøkkel som kreves for å aksessere ditt trådløse nettverk. Hvis "
-#~ "ingen nøkkel kreves kan du la dette feltet stå tomt og fortsette "
-#~ "installasjonen."
-
-#~ msgid "ESSID"
-#~ msgstr "ESSID"
-
-#~ msgid "Wireless Settings"
-#~ msgstr "Innstillinger for trådløst nettverk"
-
-#~ msgid "Nameserver IP"
-#~ msgstr "Navnetjeners IP-adresse"
-
-#~ msgid "Missing Nameserver"
-#~ msgstr "Navnetjener mangler"
-
-#~ msgid ""
-#~ "Your IP address request returned configuration information, but it did "
-#~ "not include a nameserver address. If you do not have this information, "
-#~ "you can leave the field blank and the install will continue."
-#~ msgstr ""
-#~ "Din forespørsel om dynamisk IP returnerte informasjon om IP-"
-#~ "konfigurasjonen, men den inkluderte ikke en adresse til en navnetjener. "
-#~ "Hvis du ikke har denne informasjonen, kan du la dette feltet stå tomt og "
-#~ "installasjonen vil fortsette."
-
-#~ msgid "You entered an invalid IP address."
-#~ msgstr "Du skrev inn en ugyldig IP-adresse."
-
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Undersøker vertsnavn og domene..."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy "
-#~ "server to use."
-#~ msgstr ""
-#~ "Hvis du bruker en HTTP-proxytjener, skriv inn navnet til HTTP-"
-#~ "proxytjeneren som skal brukes."
-
-#~ msgid "Proxy Name:"
-#~ msgstr "Navn på proxy:"
-
-#~ msgid "Proxy Port:"
-#~ msgstr "Port for proxy:"
-
-#~ msgid "Further Setup"
-#~ msgstr "Videre oppsett"
-
-#~ msgid "Repository _Mirror"
-#~ msgstr "Speil for _lager"
-
-#~ msgid "_Proxy configuration"
-#~ msgstr "Konfigurasjon av _proxy"
-
-#~ msgid "Select a destination for the exception information."
-#~ msgstr "Velg et mål for unntaksinformasjonen."
-
-#~ msgid "_Disk"
-#~ msgstr "_Disk"
-
-#~ msgid "_Remote"
-#~ msgstr "Ekste_rn"
