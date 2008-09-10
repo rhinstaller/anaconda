@@ -236,6 +236,8 @@ def parseOptions():
     op.add_option("--nodmraid", dest="dmraid", action="store_false", default=True)
     op.add_option("--dmraid", action="store_true")
 
+    op.add_option("--noibft", dest="ibft", action="store_false", default=True)
+    op.add_option("--ibft", action="store_true")
     op.add_option("--noiscsi", dest="iscsi", action="store_false", default=False)
     op.add_option("--iscsi", action="store_true")
 
@@ -661,6 +663,9 @@ if __name__ == "__main__":
         if len(cargs) > 1:
             if len(cargs[1]) > 0:
                 vncconnectport = cargs[1]
+
+    if opts.ibft:
+        flags.ibft = 1
 
     if opts.iscsi:
         flags.iscsi = 1

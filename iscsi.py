@@ -198,7 +198,8 @@ class iscsi(object):
             # automatically attach to it. Do this before testing the initiator
             # name, because it is provided by the iBFT too
 
-            self.loginToDefaultDrive()
+            if flags.ibft:
+                self.loginToDefaultDrive()
 
     def _getInitiator(self):
         if self._initiator != "":
