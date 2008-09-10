@@ -349,6 +349,10 @@ def upgradeMountFilesystems(anaconda):
     # mount everything and turn on swap
 
     if flags.setupFilesystems:
+        if not anaconda.id.upgradeRoot:
+            anaconda.intf.messageWindow(_("No system found"),
+               _("No upgradable system was found."))
+            sys.exit(0)
 	try:
 	    mountRootPartition(anaconda, anaconda.id.upgradeRoot[0], anaconda.id.fsset,
                                allowDirty = 0)
