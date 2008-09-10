@@ -671,23 +671,6 @@ usr/bin/xauth
 EOF
 fi
 
-TIMEZONES="
-usr/share/zoneinfo/Africa
-usr/share/zoneinfo/America
-usr/share/zoneinfo/Antarctica
-usr/share/zoneinfo/Arctic
-usr/share/zoneinfo/Asia
-usr/share/zoneinfo/Atlantic
-usr/share/zoneinfo/Australia
-usr/share/zoneinfo/Canada
-usr/share/zoneinfo/Europe
-usr/share/zoneinfo/Indian
-usr/share/zoneinfo/Japan
-usr/share/zoneinfo/Mideast
-usr/share/zoneinfo/Pacific
-usr/share/zoneinfo/US
-"
-
 # more dogtail stuff...
 cat >> $KEEPFILE <<EOF
 usr/$LIBDIR/gtk-2.0/modules/libatk-bridge.so
