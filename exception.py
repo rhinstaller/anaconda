@@ -363,7 +363,7 @@ def saveToBugzilla(anaconda, exn, dest):
         except CommunicationError, e:
             msg = _("Your bug could not be filed due to the following error "
                     "when communicating with bugzilla:\n\n%s" % str(e))
-        except ValueError, e:
+        except (TypeError, ValueError), e:
             msg = _("Your bug could not be filed due to bad information in "
                     "the bug fields.  This is most likely an error in "
                     "anaconda:\n\n%s" % str(e))
