@@ -201,6 +201,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doIscsiName(self, args)
         self.id.iscsi.initiator = self.ksdata.iscsiname
 
+        self.id.iscsi.startIBFT()
         self.id.iscsi.startup()
         # FIXME: flush the drive dict so we figure drives out again        
         isys.flushDriveDict()

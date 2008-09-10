@@ -192,14 +192,6 @@ class iscsi(object):
         if self.fwinfo and self.fwinfo.has_key("iface.initiatorname"):
             self._initiator = self.fwinfo["iface.initiatorname"]
             self.initiatorSet = True
-            self.startup()
-
-            # If there is a default drive in the iSCSI configuration, then
-            # automatically attach to it. Do this before testing the initiator
-            # name, because it is provided by the iBFT too
-
-            if flags.ibft:
-                self.loginToDefaultDrive()
 
     def _getInitiator(self):
         if self._initiator != "":
@@ -404,6 +396,15 @@ class iscsi(object):
 
         # make a new target
         self.addTarget(**values)
+
+
+    def startIBFT(self):
+        # If there is a default drive in the iSCSI configuration, then
+        # automatically attach to it. Do this before testing the initiator
+        # name, because it is provided by the iBFT too
+
+        if flags.ibft:
+            self.loginToDefaultDrive()
 
     def startup(self, intf = None):
         if not has_iscsi():
