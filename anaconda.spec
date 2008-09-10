@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.32
+Version: 11.4.1.33
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -218,6 +218,21 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 09 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.33-1
+- Include NetworkManager and dbus libraries on 64-bit arches (#461632).
+  (clumens)
+- We need libsqlite3.so in upd-instroot before it can be in the initrd.
+  (clumens)
+- Fix partitions growing (backport of rhbz #442628) (rvykydal)
+- Kickstart timezone validity check fixed (#461526) (rvykydal)
+- Add more kernel crypto modules (#443545). (clumens)
+- Make the progress bar move when downloading the install.img (#461182).
+  (clumens)
+- Add overrideDHCPhostname as an attribute. (clumens)
+- Fix saving to remote hosts (#461500). (clumens)
+- short_desc is now summary. (clumens)
+- Use print() as a function. (pjones)
+
 * Sat Sep 06 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.32-1
 - Use struct audit_reply instead of struct auditd_reply_list (dcantrell)
 
