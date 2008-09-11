@@ -209,7 +209,7 @@ class RequestSpec:
         return self.resizable and self.fstype is not None and self.fstype.isResizable()
 
     def isEncrypted(self, partitions, parentOnly = False):
-        if self.encryption and self.encryption.getScheme() is not None:
+        if self.encryption and self.encryption.passphrase:
             return True
         return False
 
