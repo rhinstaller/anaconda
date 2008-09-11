@@ -624,7 +624,7 @@ class InstallInterface:
             return False
         if isys.isVioConsole():
             return False
-        if os.path.exists("/proc/xen"): # this keys us that we're a xen guest
+        if iutil.inXen():
             return False
         return True
 
