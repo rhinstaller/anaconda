@@ -442,17 +442,21 @@ class TaskWindow(InstallWindow):
 
         tasks = self.xml.get_widget("taskList").get_model()
         for (cb, task, grps) in tasks:
+            # we just set things as default or not; group selection
+            # happens after this screen.
             if cb:
-                map(self.backend.selectGroup, grps)
+                map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
+                                      "default", True), grps)
             else:
-                map(self.backend.deselectGroup, grps)
+                map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
+                                      "default", False), grps)
 
     def groupsInstalled(self, lst):
-        # FIXME: yum specific
+        # FIXME: yum specific.
         rc = False
         for gid in lst:
             g = self.backend.ayum.comps.return_group(gid)
-            if g and not g.selected:
+            if g and not g.default:
                 return False
             elif g:
                 rc = True

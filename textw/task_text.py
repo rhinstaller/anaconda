@@ -30,7 +30,7 @@ class TaskWindow:
         rc = False
         for gid in lst:
             g = self.backend.ayum.comps.return_group(gid)
-            if g and not g.selected:
+            if g and not g.default:
                 return False
             elif g:
                 rc = True
@@ -89,9 +89,11 @@ class TaskWindow:
         sel = ct.getSelection()
         for (txt, grps) in tasks:
             if txt in sel:
-                map(self.backend.selectGroup, grps)
+                map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
+                                      "default", True), grps)
             else:
-                map(self.backend.deselectGroup, grps)
+                map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
+                                      "default", False), grps)
 	screen.popWindow()
 				 
         return INSTALL_OK
