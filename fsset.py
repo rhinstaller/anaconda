@@ -2250,6 +2250,8 @@ class Device:
         self.deviceOptions = ""
         if encryption and encryption.passphrase:
             self.crypto = encryption
+            # mount by device since the name is based only on UUID
+            self.doLabel = None
             if device not in ("none", None):
                 self.crypto.setDevice(device)
         else:
