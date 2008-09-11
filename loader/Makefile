@@ -66,7 +66,6 @@ SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 LIBS +=
 
 CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
-STATIC =
 REALCC=gcc
 
 # linuxrc + shutdown on s390, init everywhere else
@@ -100,10 +99,10 @@ linuxrc.s390:
 	@echo "Nothing to do for $@"
 
 init: init.o undomounts.o shutdown.o copy.o
-	$(CC) $(STATIC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 shutdown: shutdown.o undomounts.o
-	$(CC) $(STATIC) $(CFLAGS) $(SHUTDOWNOPTS) $(LDFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) $(SHUTDOWNOPTS) $(LDFLAGS) -o $@ $^
 
 init.o: init.c devices.h
 	$(CC) $(CFLAGS) -c -o init.o init.c
@@ -130,7 +129,7 @@ loader-net.o: loader.c
 	$(CC) -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $<
 
 loader: loader.o $(OBJS) $(NETOBJS)
-	$(CC) -g $(STATIC) -o $@ $^ $(LIBS) $(LDFLAGS)
+	$(CC) -g -o $@ $^ $(LIBS) $(LDFLAGS)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \
