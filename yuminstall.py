@@ -1127,6 +1127,11 @@ txt)
                 rc.append(g.groupid)
         return rc
 
+    def resetPackageSelections(self):
+        """Reset the package selection to an empty state."""
+        for txmbr in self.ayum.tsInfo:
+            self.ayum.tsInfo.remove(txmbr.pkgtup)
+
     def selectModulePackages(self, anaconda, kernelPkgName):
         (base, sep, ext) = kernelPkgName.partition("-")
 

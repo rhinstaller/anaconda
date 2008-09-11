@@ -220,6 +220,10 @@ class AnacondaBackend:
         log.warning("getDefaultGroups not implemented for backend!")
         raise NotImplementedError
 
+    def resetPackageSelections(self):
+        # we just leave this one unimplemented if it's not needed
+        pass
+
     # write out the %packages section of anaconda-ks.cfg
     def writePackagesKS(self, f, anaconda):
         log.warning("writePackagesKS not implemented for backend!")
@@ -265,6 +269,7 @@ def doInstall(anaconda):
 
 # does this need to be per-backend?  we'll just leave here until it does :)
 def doBasePackageSelect(anaconda):
+    anaconda.backend.resetPackageSelections()
     if anaconda.isKickstart:
         kickstart.selectPackages(anaconda)
     else:
