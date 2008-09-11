@@ -1204,6 +1204,10 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
     int needsNetwork = 0, class = -1;
     int skipMethodDialog = 0, skipLangKbd = 0;
 
+    char *error_str = NULL;
+    DBusError error;
+    DBusConnection *connection = NULL;
+
     char *installNames[10];
     int numValidMethods = 0;
     int validMethods[10];
@@ -1266,6 +1270,23 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
     /* Disable all network interfaces in NetworkManager by default */
     if ((i = writeDisabledNetInfo()) != 0) {
         logMessage(ERROR, "writeDisabledNetInfo failure: %d", i);
+    }
+
+    /* Start NetworkManager now so it's always available to talk to. */
+    dbus_error_init(&error);
+    connection = dbus_bus_get(DBUS_BUS_SYSTEM, &error);
+    if (connection == NULL) {
+        if (dbus_error_is_set(&error)) {
+            logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
+                       __LINE__, error.name, error.message);
+            dbus_error_free(&error);
+        }
+    } else {
+        rc = iface_start_NetworkManager(connection, &error_str);
+        if (rc != 0) {
+            logMessage(INFO, "failed to start NetworkManager (%d): error %d (%s)",
+                       __LINE__, rc, error_str ? error_str : "unknown");
+        }
     }
 
     i = 0;

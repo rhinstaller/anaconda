@@ -1730,12 +1730,12 @@ int get_connection(iface_t *iface) {
     dbus_uint32_t state = 0;
     char *nm_iface = "org.freedesktop.NetworkManager";
     char *property = "State";
-    int ret;
-    char *error_str = NULL;
 
     if (iface == NULL) {
         return 1;
     }
+
+    logMessage(DEBUGLVL, "configuring device %s", iface->device);
 
     /* display status */
     if (FL_CMDLINE(flags)) {
@@ -1757,16 +1757,6 @@ int get_connection(iface_t *iface) {
         }
 
         return 2;
-    }
-
-    /* start NetworkManager for configured interface */
-    logMessage(INFO, "starting NetworkManager (%d) for %s", __LINE__,
-               iface->device);
-    ret = iface_start_NetworkManager(connection, &error_str);
-    if (ret != 0) {
-        logMessage(INFO, "failed to start NetworkManager (%d) for %s: error %d (%s)",
-                   __LINE__, iface->device, ret, error_str ? error_str : "unknown");
-        return 3;
     }
 
     dbus_error_init(&error);
