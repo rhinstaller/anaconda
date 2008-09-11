@@ -25,6 +25,7 @@ from iw_gui import *
 from image import *
 from constants import *
 import isys
+import shutil
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -51,13 +52,6 @@ def setupRepo(anaconda, repo):
                                 type="ok", custom_icon="error")
         anaconda.backend.ayum.repos.delete(repo.id)
         return False
-
-    if not repo.groups_added:
-        anaconda.intf.messageWindow(_("Warning"),
-                       _("Unable to find a group file for %s.  "
-                         "This will prevent manual selection of packages "
-                         "from the repository from working") %(repo.name,),
-                                type="warning")
 
     return True
 
@@ -143,8 +137,17 @@ class RepoEditor:
         except:
             return 0
 
-    def _enableRepo(self, repourl):
-        # FIXME:  Don't do anything here for now.
+    def _enableRepo(self):
+        try:
+            self.backend.ayum.repos.add(self.repo)
+            self.backend.ayum.repos.enableRepo(self.repo.id)
+        except yum.Errors.DuplicateRepoError, e:
+            self.intf.messageWindow(_("Error"),
+                  _("The repository %s has already been added.  Please "
+                    "choose a different repository name and "
+                    "URL.") % reponame, type="ok", custom_icon="error")
+            return False
+
         return True
 
     def _validURL(self, url):
@@ -285,7 +288,7 @@ class RepoEditor:
     def _applyHd(self, repo):
         return True
 
-    def run(self, createNewRepoObj=False):
+    def run(self):
         applyFuncs = [ self._applyURL, self._applyMedia, self._applyNfs,
                        self._applyHd ]
 
@@ -301,25 +304,37 @@ class RepoEditor:
                                         _("You must provide a repository name."))
                 continue
 
-            if createNewRepoObj:
-                self.repo = AnacondaYumRepo(repoid=reponame.replace(" ", ""))
+            # Always create a new repo object here instead of attempting to
+            # somehow expire the metadata and refetch.  We'll just have to make
+            # sure that if we're just editing the repo, we grab all the
+            # attributes from the old one before deleting it.
+            if self.repo:
+                newRepoObj = AnacondaYumRepo(self.repo.id)
+
+                try:
+                    os.unlink("%s/cachecookie" % self.repo.cachedir)
+                    os.unlink("%s/repomd.xml" % self.repo.cachedir)
+                except:
+                    pass
+
+                self.repo.close()
+                self.anaconda.backend.ayum.repos.delete(self.repo.id)
+                try:
+                    shutil.rmtree(self.repo.cachedir)
+                except Exception, e:
+                    log.warning("error removing cachedir for %s: %s" %(self.repo,e))
+                    pass
             else:
-                self.repo.repoid = reponame.replace(" ", "")
+                newRepoObj = AnacondaYumRepo(reponame.replace(" ", ""))
+
+            self.repo = newRepoObj
 
             type = self.typeComboBox.get_active()
             if not applyFuncs[type](self.repo):
                 continue
 
-            repourl = self.baseurlEntry.get_text()
-            repourl.strip()
-
-            if not self._enableRepo(repourl):
+            if not self._enableRepo():
                 continue
-
-            # this is a bit gross... but we need to make sure that
-            # the urls and grabber get set back up based on new urls
-            self.repo._grab = None
-            self.repo._urls = None
 
             if not setupRepo(self.anaconda, self.repo):
                 continue
@@ -411,20 +426,6 @@ class RepoCreator(RepoEditor):
     def createDialog(self):
         RepoEditor.createDialog(self)
         self.dialog.set_title(_("Add Repository"))
-    def _enableRepo(self, repourl):
-        try:
-            self.backend.ayum.repos.add(self.repo)
-        except yum.Errors.DuplicateRepoError, e:
-            self.intf.messageWindow(_("Error"),
-                  _("The repository %s has already been added.  Please "
-                    "choose a different repository name and "
-                    "URL.") % reponame, type="ok", custom_icon="error")
-            return False
-
-        return True
-
-    def run(self, createNewRepoObj=True):
-        return RepoEditor.run(self, createNewRepoObj)
 
 class TaskWindow(InstallWindow):
     def getNext(self):
@@ -486,6 +487,8 @@ class TaskWindow(InstallWindow):
         dialog = RepoEditor(self.anaconda, repo)
         dialog.createDialog()
         dialog.run()
+
+        model.set_value(iter, 2, dialog.repo)
 
     def _addRepo(self, *args):
         if not network.hasActiveNetDev():

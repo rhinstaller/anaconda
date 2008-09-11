@@ -233,28 +233,6 @@ class AnacondaCallback:
         self.progress.processEvents()
 
 class AnacondaYumRepo(YumRepository):
-    def __init__( self, repoid='anaconda%s' % productStamp,
-                  uri=None, mirrorlist=None,
-                  root = "/mnt/sysimage/"):
-        YumRepository.__init__(self, repoid)
-        conf = yum.config.RepoConf()
-        for k, v in conf.iteritems():
-            if v or not self.getAttribute(k):
-                self.setAttribute(k, v)
-        self.gpgcheck = False
-        #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
-        self.keepalive = False
-
-        if type(uri) == types.ListType:
-            self.baseurl = uri
-        elif uri:
-            self.baseurl = [ uri ]
-        else:
-            self.baseurl = []
-
-        if self.mirrorlist and self.mirrorlist != "":
-            self.mirrorlist = mirrorlist
-
     def needsNetwork(self):
         def _isURL(s):
             return s.startswith("http") or s.startswith("ftp")
@@ -482,8 +460,8 @@ class AnacondaYum(YumSorter):
                     replace = False
             else:
                 # If there was an error finding the "base" repo, create a new one now.
-                repo = AnacondaYumRepo(uri=uri, repoid="anaconda-%s-%s" %(rid, productStamp),
-                                       root = root)
+                repo = AnacondaYumRepo("anaconda-%s-%s" % (rid, productStamp))
+                repo.uri = [ uri ]
 
             repo.name = name
             repo.cost = 100
@@ -600,17 +578,17 @@ class AnacondaYum(YumSorter):
                 dirname = os.path.basename(os.path.dirname(d))
                 rid = "anaconda-%s" % dirname
 
-                repo = AnacondaYumRepo(uri="file:///%s" % d, repoid=rid,
-                                       root=root)
+                repo = AnacondaYumRepo(rid)
+                repo.uri = [ "file:///%s" % d ]
                 repo.name = "Driver Disk %s" % dirname.split("-")[1]
                 repo.enable()
                 extraRepos.append(repo)
 
         if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repo.repoList:
-                repo = AnacondaYumRepo(uri=ksrepo.baseurl,
-                                       mirrorlist=ksrepo.mirrorlist,
-                                       repoid=ksrepo.name)
+                repo = AnacondaYumRepo(ksrepo.name)
+                repo.uri = [ ksrepo.baseurl ]
+                repo.mirrorlist = ksrepo.mirrorlist
                 repo.name = ksrepo.name
 
                 if ksrepo.cost:
@@ -986,8 +964,11 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         self.doRepoSetup(anaconda)
         self.doSackSetup(anaconda)
+        self.doGroupSetup(anaconda)
 
-    def doGroupSetup(self):
+        self.ayum.doMacros()
+
+    def doGroupSetup(self, anaconda):
         while True:
             try:
                 # FIXME: this is a pretty ugly hack to make it so that we don't lose
@@ -1051,8 +1032,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 else:
                     txt = _("Retrieving installation information for %s...")%(repo.name)
 
-                    waitwin = YumProgress(anaconda.intf, txt, 1)
-                    self.ayum.repos.callback = waitwin
+                    waitwin = anaconda.intf.waitWindow(_("Installation Progress"),
+txt)
 
             while True:
                 try:
@@ -1790,41 +1771,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
     def getRequiredMedia(self):
         return self.ayum.tsInfo.reqmedia.keys()
-
-class YumProgress:
-    def __init__(self, intf, text, total):
-        window = intf.progressWindow(_("Installation Progress"), text,
-                                     total, 0.01)
-        self.window = window
-        self.current = 0
-        self.incr = 1
-        self.total = total
-        self.popped = False
-
-    def set_incr(self, incr):
-        self.incr = incr
-
-    def progressbar(self, current, total, name=None):
-        if not self.popped:
-            self.window.set(float(current)/total * self.incr + self.current)
-        else:
-            warnings.warn("YumProgress.progressbar called when popped",
-                          RuntimeWarning, stacklevel=2) 
-
-    def pop(self):
-        self.window.pop()
-        self.popped = True
-
-    def next_task(self, current = None):
-        if current:
-            self.current = current
-        else:
-            self.current += self.incr
-        if not self.popped:
-            self.window.set(self.current)
-        else:
-            warnings.warn("YumProgress.set called when popped",
-                          RuntimeWarning, stacklevel=2)             
 
 class DownloadHeaderProgress:
     def __init__(self, intf, ayum=None):
