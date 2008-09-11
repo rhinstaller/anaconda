@@ -451,25 +451,6 @@ class TaskWindow(InstallWindow):
                 map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
                                       "default", False), grps)
 
-    def groupsInstalled(self, lst):
-        # FIXME: yum specific.
-        rc = False
-        for gid in lst:
-            g = self.backend.ayum.comps.return_group(gid)
-            if g and not g.default:
-                return False
-            elif g:
-                rc = True
-        return rc
-
-    def groupsExist(self, lst):
-        # FIXME: yum specific
-        for gid in lst:
-            g = self.backend.ayum.comps.return_group(gid)
-            if not g:
-                return False
-        return True
-
     def _editRepo(self, *args):
         repo = None
 
@@ -562,9 +543,9 @@ class TaskWindow(InstallWindow):
         tl.append_column(col)
 
         for (txt, grps) in self.tasks:
-            if not self.groupsExist(grps):
+            if not self.backend.groupListExists(grps):
                 continue
-            store.append([self.groupsInstalled(grps), _(txt), grps])
+            store.append([self.backend.groupListDefault(grps), _(txt), grps])
 
         return tl
 

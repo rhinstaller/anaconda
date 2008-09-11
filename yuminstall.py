@@ -1709,6 +1709,25 @@ txt)
             log.debug("no such package %s to remove" %(pkg,))
             return 0
 
+    def groupListExists(self, grps):
+        """Returns bool of whether all of the given groups exist."""
+        for gid in grps:
+            g = self.ayum.comps.return_group(gid)
+            if not g:
+                return False
+        return True
+
+    def groupListDefault(self, grps):
+        """Returns bool of whether all of the given groups are default"""
+        rc = False
+        for gid in grps:
+            g = self.ayum.comps.return_group(gid)
+            if g and not g.default:
+                return False
+            elif g:
+                rc = True
+        return rc
+
     def writeKS(self, f):
         for repo in self.ayum.repos.listEnabled():
             line = "repo --name=\"%s\" " % (repo.name or repo.repoid)

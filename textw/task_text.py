@@ -25,17 +25,6 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class TaskWindow:
-    def groupsInstalled(self, lst):
-        # FIXME: yum specific
-        rc = False
-        for gid in lst:
-            g = self.backend.ayum.comps.return_group(gid)
-            if g and not g.default:
-                return False
-            elif g:
-                rc = True
-        return rc
-
     def groupsExist(self, lst):
         # FIXME: yum specific
         for gid in lst:
@@ -61,10 +50,10 @@ class TaskWindow:
 
         ct = CheckboxTree(height = 4, scroll = (len(tasks) > 4))
         for (txt, grps) in tasks:
-            if not self.groupsExist(grps):
+            if not self.backend.groupListExists(grps):
                 continue
             
-            if self.groupsInstalled(grps):
+            if self.backend.groupListDefault(grps)
                 ct.append(_(txt), txt, True)
             else:
                 ct.append(_(txt), txt, False)
