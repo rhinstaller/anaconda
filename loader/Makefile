@@ -132,8 +132,8 @@ loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g -o $@ $^ $(LIBS) $(LDFLAGS)
 
 clean:
-	rm -f *.o *~ .depend init ctype.c mkctype \
-	loader
+	rm -f *.o *~ .depend init ctype.c mkctype loader
+	rm -rf tr/*
 
 depend: $(CTYPEDEP)
 	$(CPP) $(CFLAGS) -DHAVE_CONFIG_H -M $(SOURCES) > .depend
