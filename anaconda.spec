@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.33
+Version: 11.4.1.34
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -218,6 +218,28 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 11 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.34-1
+- Always start NM so we can talk to it in the boot.iso case (#461071).
+  (clumens)
+- Use the device path to identify LUKS devs in /etc/fstab. (#460700)
+  (dlehman)
+- Use the LUKS UUID instead of device nodes in all references. (#460700)
+  (dlehman)
+- LUKSDevice.getScheme() no longer cares if the dev has a passphrase.
+  (#461203) (dlehman)
+- Correct translation to fix the build. (clumens)
+- Add the method string back into anaconda-ks.cfg. (clumens)
+- Let's try pulling libsqlite into the initrd one more time. (clumens)
+- Don't traceback at the end of live installs (katzj)
+- Correct the message telling you to use a VNC password. (clumens)
+- Remove unused TIMEZONES= crud. (clumens)
+- print doesn't yet support the file= syntax in our version of python.
+  (clumens)
+- Catch errors from using the wrong bugzilla field and display them.
+  (clumens)
+- Fix line wrapping on part type screen (jlaska, #461759).
+- rep_platform has been renamed to platform. (clumens)
+
 * Tue Sep 09 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.33-1
 - Include NetworkManager and dbus libraries on 64-bit arches (#461632).
   (clumens)
