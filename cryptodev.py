@@ -66,6 +66,9 @@ class LUKSDevice:
 
         self.setDevice(device)
         self.setPassphrase(passphrase)
+        if self.getUUID():
+            name = "%s-%s" % (self.scheme.lower(), self.uuid)
+            self.setName(name, lock=True)
 
     def getScheme(self):
         """Returns the name of the encryption scheme used by the device."""
@@ -77,6 +80,7 @@ class LUKSDevice:
 
         self._device = device
         if device is not None:
+            # this will be temporary, but may be useful for debugging
             name = "%s-%s" % (self.scheme.lower(),
                               os.path.basename(device))
             self.setName(name)
@@ -126,7 +130,7 @@ class LUKSDevice:
         """Return a crypttab formatted line describing this mapping."""
         format = "%-23s %-15s %s\n"
         line = format % (self.name,
-                         "/dev/%s" % (self.getDevice(encrypted=1),),
+                         "UUID=%s" % (self.getUUID(),),
                          "none")
         return line
 
@@ -184,6 +188,12 @@ class LUKSDevice:
         device = self.getDevice(encrypted=1)
         if not device:
             raise ValueError, "Cannot open mapping without a device."
+
+        uuid = self.getUUID()
+        if not uuid:
+            raise RuntimeError, "Device has no UUID."
+
+        self.setName("%s-%s" % (self.scheme.lower(), uuid), lock=True)
 
         log.info("mapping %s device %s to %s" % (self.getScheme(),
                                                  device,
