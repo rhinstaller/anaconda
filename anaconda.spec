@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.122
+Version: 11.1.2.123
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -16,7 +16,9 @@ BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: libdhcp-devel >= 1.20-5, mkinitrd-devel >= 5.1.2-1
 BuildPreReq: audit-libs-devel, libnl-devel >= 1.0-0.10.pre5.5
+%ifnarch s390 s390x
 BuildPreReq: iscsi-initiator-utils >= 6.2.0.868-0.9
+%endif
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
 Requires: parted >= 1.7.1, pyparted >= 1.7.2
 Requires: kudzu >= 1.2.57.1.18, yum >= 2.9.2, pirut >= 1.1.0
@@ -104,6 +106,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 11 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.123-1
+- Disable iBFT support on s390 and s390x (dcantrell)
+  Related: rhbz#445721
+
 * Thu Sep 11 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.122-1
 - Add full CHAP support to iSCSI (pjones)
   Resolves: rhbz#432819
