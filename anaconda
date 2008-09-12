@@ -41,33 +41,6 @@ miniwm_pid = None
 def AnacondaShowWarning(message, category, filename, lineno, file=sys.stderr):
     log.warning("%s" % warnings.formatwarning(message, category, filename, lineno))
 
-# start DBus
-def startDBus():
-    path = "/bin/dbus-daemon"
-    if not os.access(path, os.X_OK):
-        path = "/usr/bin/dbus-daemon"
-    if not os.access(path, os.X_OK):
-        return None
-    fd = open("/dev/null","rw")
-    try:
-        pid = subprocess.Popen([path,"--system"], stdin = fd, stdout = fd, stderr = fd, close_fds = True).pid
-    except OSError:
-        return None
-    return pid
-
-def startHal(root='/', verbose=False):
-    if not os.access("/usr/sbin/hald", os.X_OK):
-        return None
-    fd = open("/dev/null","rw")
-    args = ["/usr/sbin/hald","--use-syslog"]
-    if verbose:
-        args = args + ["--verbose=yes"]
-    try:
-        pid = subprocess.Popen(args, stdin = fd, stdout = fd, stderr = fd, close_fds = True).pid
-    except OSError:
-        return None
-    return pid
-
 # start miniWM
 def startMiniWM(root='/'):
     (rd, wr) = os.pipe()
@@ -741,40 +714,6 @@ if __name__ == "__main__":
                 os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
         except:
             pass
-
-    # setup dbus, hal, if necessary
-    if not flags.test:
-        import dbus
-
-        try:
-            bus = dbus.SystemBus()
-        except dbus.exceptions.DBusException:
-            log.info("Starting message bus...")
-            pid = startDBus()
-            if not pid:
-                log.error("Unable to start message bus")
-            time.sleep(5)
-            bus = dbus.SystemBus()
-
-        try:
-            halobj = bus.get_object("org.freedesktop.Hal","/org/freedesktop/Hal/Manager")
-        except dbus.exceptions.DBusException:
-            log.info("Starting HAL daemon...")
-            verbose = False
-            if opts.loglevel == "debug":
-                verbose = True
-            pid = startHal(verbose = verbose)
-            if not pid:
-                log.error("Unable to start HAL daemon")
-            count = 1
-            while count < 30:
-                try:
-                    halobj = bus.get_object("org.freedesktop.Hal","/org/freedesktop/Hal/Manager")
-                    log.debug("Waited %d seconds for hal to start" %(count,))
-                    break
-                except dbus.exceptions.DBusException:
-                    time.sleep(1)
-                    count += 1
 
     #
     # must specify install, rescue mode

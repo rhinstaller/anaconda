@@ -719,7 +719,7 @@ int main(int argc, char **argv) {
     /* HAL daemon */
     if (!testing) {
         if (fork() == 0) {
-            execl("/sbin/hald", "/sbin/hald", NULL);
+            execl("/sbin/hald", "/sbin/hald", "--use-syslog", NULL);
             exit(1);
         }
     }
