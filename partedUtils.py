@@ -1099,41 +1099,23 @@ class DiskSet:
             return False
 
         rc = 0
-        if ks and (drive in clearDevs) and initAll:
+        if (ks and (drive in clearDevs) and initAll) or \
+	    self.isDisciplineFBA(drive):
             rc = 1
-        else:
-            if not intf:
-                self._removeDisk(drive)
-                return False
-            msg = _("The partition table on device %s was unreadable. "
+        elif intf:
+            deviceFile = "/dev/" + drive
+            dev = parted.PedDevice.get(deviceFile)
+
+            msg = _("The partition table on device %s (%s %-0.f MB) was unreadable.\n"
                     "To create new partitions it must be initialized, "
                     "causing the loss of ALL DATA on this drive.\n\n"
                     "This operation will override any previous "
                     "installation choices about which drives to "
                     "ignore.\n\n"
                     "Would you like to initialize this drive, "
-                    "erasing ALL DATA?") % (drive,)
+                    "erasing ALL DATA?") % (drive, dev.model, getDeviceSizeMB (dev),)
 
-            rc = 0
-            if (ks and (drive in clearDevs) and initAll) or \
-                self.isDisciplineFBA(drive):
-                rc = 1
-            else:
-                if not intf:
-                    self._removeDisk(drive)
-                    return False
-
-                deviceFile = "/dev/" + drive
-                dev = parted.PedDevice.get(deviceFile)
-
-                msg = _("The partition table on device %s (%s %-0.f MB) was unreadable.\n"
-                        "To create new partitions it must be initialized, "
-                        "causing the loss of ALL DATA on this drive.\n\n"
-                        "This operation will override any previous "
-                        "installation choices about which drives to "
-                        "ignore.\n\n"
-                        "Would you like to initialize this drive, "
-                        "erasing ALL DATA?") % (drive, dev.model, getDeviceSizeMB (dev),)
+            rc = intf.messageWindow(_("Warning"), msg, type="yesno")
 
         if rc != 0:
             return True
