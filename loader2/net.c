@@ -57,7 +57,10 @@
 #include "method.h"
 #include "net.h"
 #include "windows.h"
+
+#if !defined(__s390__) && !defined(__s390x__)
 #include "ibft.h"
+#endif
 
 /* boot flags */
 extern uint64_t flags;
@@ -415,6 +418,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             setupWireless(cfg);
         }
 
+#if !defined(__s390__) && !defined(__s390x__)
 	if (!strncmp(loaderData->ip, "ibft", 4)) {
 	    char *devmacaddr = nl_mac2str(loaderData->netDev);
 	    configMode = USE_IBFT_STATIC;
@@ -431,12 +435,14 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
 	    if(devmacaddr) free(devmacaddr);
 	}
+#endif
 
         /* this is how we specify dhcp */
         if (!strncmp(loaderData->ip, "dhcp", 4)) {
 	    configMode = USE_DHCP;
 	}
 
+#if !defined(__s390__) && !defined(__s390x__)
 	if (configMode == USE_IBFT_STATIC){
 	    /* Problems with getting the info from iBFT */
 	    if(!ibft_iface_ip() || !ibft_iface_mask() || !ibft_iface_gw()){
@@ -480,6 +486,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 		cfg->preset = 1;
 	    }
 	}
+#endif
 	
 	if (configMode == USE_IBFT_STATIC){
 	    /* do nothing, already done */
@@ -2170,11 +2177,13 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
         char *devmacaddr = NULL;
 	char *ibftmacaddr = "";
 	
+#if !defined(__s390__) && !defined(__s390x__)
 	/* get MAC from the iBFT table */
 	if(!(ibftmacaddr = ibft_iface_mac())){ /* iBFT not present or error */
 	    /* lookForLink = 0; is the w/o iBFT default link or ask? */
 	    break;
 	}
+#endif
 
         logMessage(INFO, "looking for iBFT configured device with link");
 	lookForLink = 1;

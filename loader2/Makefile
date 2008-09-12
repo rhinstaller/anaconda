@@ -35,14 +35,14 @@ METHOBJS = method.o cdinstall.o hdinstall.o nfsinstall.o urlinstall.o
 OBJS = log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
 	lang.o kbd.o modstubs.o driverdisk.o selinux.o \
 	md5.o mediacheck.o kickstart.o driverselect.o \
-	getparts.o dirbrowser.o fwloader.o ibft.o \
+	getparts.o dirbrowser.o fwloader.o \
 	$(HWOBJS) $(METHOBJS)
 LOADEROBJS = loader.o loader-pcmcia.o
 NETOBJS = net.o urls.o ftp.o telnet.o telnetd.o
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 
-LIBS += -lkudzu_loader -lpci -lblkid -lfwparam -luuid
+LIBS += -lkudzu_loader -lpci -lblkid -luuid
 
 CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
 STATIC = -static
@@ -55,6 +55,8 @@ ifneq (,$(filter s390 s390x,$(ARCH)))
 BINS += linuxrc.s390 shutdown
 SHUTDOWNOPTS = -DAS_SHUTDOWN=1
 else
+OBJS += ibft.o
+LIBS += -lfwparam
 BINS += init
 endif
 
