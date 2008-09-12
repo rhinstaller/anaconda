@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.121
+Version: 11.1.2.122
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -104,6 +104,29 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 11 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.122-1
+- Add full CHAP support to iSCSI (pjones)
+  Resolves: rhbz#432819
+- Don't set iscsi devices to autostart (pjones)
+  Resolves: rhbz#437891
+- Support iSCSI CHAP and Reverse CHAP authentication (pjones)
+  Resolves: rhbz#402431
+  Resolves: rhbz#432819
+- Partitions growing fixed (rvykydal)
+  Resolves: rhbz#442628
+- Do not traceback when no root partitions are found in upgrade (rvykydal)
+  Resolves: rhbz#444527
+- Add support for ext4dev/ext4 filesystem (rvykydal)
+  Resolves: rhbz#444527
+- Add support for reading NIC setup from the iBFT table (msivak)
+  Resolves: rhbz#445721
+- Add 802.1q driver (rvykydal)
+  Resolves: rhbz#431915
+- Add libfipscheck to the images (clumens)
+  Resolves: rhbz#461923
+- Display drive model and size in MB in partitioning UI (dcantrell)
+  Resolves: rhbz#460697
+
 * Wed Sep 03 2008 Chris Lumens <clumens@redhat.com> 11.1.2.121-1
 - Enable the dlabel=on for RHEL by default (msivak).
   Related: rhbz#316481.
