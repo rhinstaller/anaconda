@@ -1679,20 +1679,16 @@ def queryAutoPartitionOK(anaconda):
 
     drives.sort()
     width = 44
-    str = ""
-    maxlen = 0
     for drive in drives:
-         if (len(drive) > maxlen):
-             maxlen = len(drive)
-    maxlen = maxlen + 8   # 5 for /dev/, 3 for spaces
-    for drive in drives:
-        if (len(str) + maxlen <= width):
-             str = str + "%-*s" % (maxlen, "/dev/"+drive)
+        deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
+        dev = parted.PedDevice.get(deviceFile)
+        str = "%s (%s %-0.f MB)" % (drive, dev.model, partedUtils.getDeviceSizeMB (dev))
+        if len (str) <= width:
+            drvstr = drvstr + str + "\n"
         else:
-             drvstr = drvstr + str + "\n"
-             str = ""
-             str = "%-*s" % (maxlen, "/dev/"+drive)
-    drvstr = drvstr + str + "\n"
+            while len (str) > 0:
+               drvstr = drvstr + str[:width] + "\n"
+               str = str[width:]
     
     rc = anaconda.intf.messageWindow(_("Warning"), _(msg) % drvstr, type="yesno", default="no", custom_icon ="warning")
 
