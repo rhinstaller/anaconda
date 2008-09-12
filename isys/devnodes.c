@@ -87,12 +87,56 @@ static int sd_major(int major_idx) {
     }
 }
 
-/* virtio has a dynamically assigned major; poke around
- * in /proc/devices for it.
+struct devmajor {
+    char *name;
+    short major;
+};
+
+static struct devmajor dynamic_major_cache[] = {
+    { "virtblk",     -1 },
+    { "cciss8",      -1 },
+    { "cciss9",      -1 },
+    { "cciss10",     -1 },
+    { "cciss11",     -1 },
+    { "cciss12",     -1 },
+    { "cciss13",     -1 },
+    { "cciss14",     -1 },
+    { "cciss15",     -1 },
+    { "cciss16",     -1 },
+    { "cciss17",     -1 },
+    { "cciss18",     -1 },
+    { "cciss19",     -1 },
+    { "cciss20",     -1 },
+    { "cciss21",     -1 },
+    { "cciss22",     -1 },
+    { "cciss23",     -1 },
+    { "cciss24",     -1 },
+    { "cciss25",     -1 },
+    { "cciss26",     -1 },
+    { "cciss27",     -1 },
+    { "cciss28",     -1 },
+    { "cciss29",     -1 },
+    { "cciss30",     -1 },
+    { "cciss31",     -1 },
+};
+
+int majCacheSize = sizeof(dynamic_major_cache) / sizeof(struct devmajor);
+
+/* 
+ * find dynamically assigned major in /proc/devices
  */
-static int virtio_major(void) {
+static int dynamic_major(char *devname) {
     FILE *f;
-    static int retval = -1;
+    int retval = -1;
+    int cacheIdx;
+
+    /* look into cache */
+    for (cacheIdx = 0; cacheIdx < majCacheSize; cacheIdx++) {
+        if (!strcmp(dynamic_major_cache[cacheIdx].name, devname)) {
+	    retval = dynamic_major_cache[cacheIdx].major;
+	    break;
+        }
+    }
 
     if (retval != -1)
         return retval;
@@ -121,10 +165,13 @@ static int virtio_major(void) {
         while (*p == ' ')
             p++;
 
-        if (strncmp(p, "virtblk", sizeof("virtblk") - 1) != 0)
+        if (strncmp(p, devname, strlen(devname)) != 0)
             continue;
 
         retval = major;
+        if (cacheIdx != majCacheSize)
+            dynamic_major_cache[cacheIdx].major = major;
+
         break;
     }
 
@@ -275,7 +322,7 @@ int devMakeInode(char * devName, char * path) {
 	}
     } else if (devName[0] == 'v' && devName[1] == 'd') {
         type = S_IFBLK;
-        major = virtio_major();
+        major = dynamic_major("virtblk");
         if (major < 0)
             return major;
         minor = virtio_minor(devName);
@@ -363,7 +410,17 @@ int devMakeInode(char * devName, char * path) {
 	c = d = p = 0;
 	e = sscanf(devName + 6, "c%dd%dp%d", &c, &d, &p);
 	type = S_IFBLK;
-	major = 104 + c;    /* controller */
+        if (c < 8) {
+            /* reserved major numbers */
+            major = 104 + c;    /* controller */
+    	} else {
+            /* dynamically assigned major numbers */		
+            char cname[11];
+            snprintf(cname, 10, "cciss%d", c);	
+            major = dynamic_major(cname); 
+            if (major < 0)
+                return major;
+    	}
 	minor = d * 16;     /* disk */
 	minor += p; 	    /* partition */
     } else if (!strncmp(devName, "ataraid/", 8)) {
