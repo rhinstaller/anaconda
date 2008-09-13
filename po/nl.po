@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-07 13:33+0200\n"
+"PO-Revision-Date: 2008-09-13 22:09+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -112,6 +112,8 @@ msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
 msgstr ""
+"De VNC-installatiemodus biedt meer functionaliteit dan de tekstmodus, "
+"wilt u deze gebruiken?"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -596,9 +598,8 @@ msgid ""
 msgstr ""
 
 #: ../exception.py:371
-#, fuzzy
 msgid "Unable To File Bug"
-msgstr "Niet in staat te verwijderen"
+msgstr "Niet in staat om bug in te dienen"
 
 #: ../exception.py:377
 msgid "Bug Filing Not Supported"
@@ -611,18 +612,16 @@ msgid ""
 msgstr ""
 
 #: ../exception.py:384
-#, fuzzy
 msgid "Invalid Bug Information"
-msgstr "Ongeldige IP-informatie"
+msgstr "Ongeldige bug informatie"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
 msgstr ""
 
 #: ../exception.py:395
-#, fuzzy
 msgid "Unable To Login"
-msgstr "Niet in staat te bewerken"
+msgstr "Niet in staat om aan te melden"
 
 #: ../exception.py:396
 #, python-format
@@ -1473,17 +1472,16 @@ msgstr ""
 "deze live image (%.2f MB vereist)."
 
 #: ../network.py:64
-#, fuzzy
 msgid "Hostname must be 64 or fewer characters in length."
 msgstr "Computernaam moet 64 -of minder- tekens lang zijn."
 
 #: ../network.py:70
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
 msgstr ""
-"Computernaam moet beginnen met een geldig teken in het bereik 'a-z' of 'A-Z'"
+"Computernaam moet beginnen met een geldig teken in het bereik 'a-z', 'A-Z', "
+"of '0-9'"
 
 #: ../network.py:75
 #, fuzzy
@@ -1597,7 +1595,7 @@ msgid ""
 msgstr ""
 "Het apparaat %s is geformatteerd met LDL in plaats van CDL.  LDL "
 "geformatteerde DASDs zijn niet ondersteund voor gebruik gedurende een "
-"installatie van %s.  Als u deze disk voor installatie wilt gebruiken dient "
+"installatie van %s.  Als u deze schijf voor installatie wilt gebruiken dient "
 "deze opnieuw geïnitialiseerd te worden wat inhoud dat ALLE GEGEVENS op dit "
 "station verloren zullen gaan.\n"
 "\n"
@@ -2344,8 +2342,8 @@ msgstr "Indien gereed, verlaat dan de shell en uw systeem zal herstarten."
 
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr "Niet in staat om /bin/sh te vinden om uit te voeren! "
-"Shell wordt niet gestart"
+msgstr ""
+"Niet in staat om /bin/sh te vinden om uit te voeren! Shell wordt niet gestart"
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -3005,7 +3003,7 @@ msgstr "ouder(e) pakket(ten)"
 
 #: ../yuminstall.py:810
 msgid "insufficient disk space"
-msgstr "onvoldoende diskruimte"
+msgstr "onvoldoende schijfruimte"
 
 #: ../yuminstall.py:811
 msgid "insufficient disk inodes"
@@ -3664,7 +3662,7 @@ msgid ""
 msgstr ""
 "De grootte (%10.2f MB), die momenteel verzocht wordt, is groter dan de "
 "maximum logical volume grootte (%10.2f MB). Om deze limiet te verhogen kunt "
-"u meer Physical Volumes vanuit ongepartioneerde diskruimte creëren en deze "
+"u meer Physical Volumes vanuit ongepartioneerde schijfruimte creëren en deze "
 "toevoegen aan deze Volume Group."
 
 #: ../iw/lvm_dialog_gui.py:700 ../iw/partition_dialog_gui.py:211
@@ -4720,9 +4718,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
-#, fuzzy
 msgid "Please enter an NFS server and path."
-msgstr "Voer de servernaam in en het pad naar uw %s images."
+msgstr "Voer een NFS-server in en het pad."
 
 #: ../iw/task_gui.py:299
 msgid "Invalid Repository Name"
@@ -6145,11 +6142,11 @@ msgstr "Bezig met laden"
 
 #: ../loader/driverdisk.c:141
 msgid "Reading driver disk..."
-msgstr "Inlezen van stuurprogrammadiskette..."
+msgstr "Inlezen van stuurprogrammaschijf..."
 
 #: ../loader/driverdisk.c:240 ../loader/driverdisk.c:272
 msgid "Driver Disk Source"
-msgstr "Bron van stuurprogrammadiskette"
+msgstr "Bron van stuurprogrammaschijf"
 
 #: ../loader/driverdisk.c:241
 msgid ""
@@ -6191,20 +6188,20 @@ msgstr "Laden van stuurprogrammabestand mislukt."
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
-"Voer uw stuurprogrammadiskette in /dev/%s en druk op \"OK\" om door te gaan."
+"Voer uw stuurprogrammaschijf in /dev/%s en druk op \"OK\" om door te gaan."
 
 #: ../loader/driverdisk.c:361
 msgid "Insert Driver Disk"
-msgstr "Stuurprogrammadiskette invoeren"
+msgstr "Stuurprogrammaschijf invoeren"
 
 #: ../loader/driverdisk.c:374
 msgid "Failed to mount driver disk."
-msgstr "Aankoppelen stuurprogrammadiskette mislukt."
+msgstr "Aankoppelen stuurprogrammaschijf mislukt."
 
 #: ../loader/driverdisk.c:382
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr "Stuurprogrammadiskette is ongeldig voor deze uitgave van %s."
+msgstr "Stuurprogrammaschijf is ongeldig voor deze uitgave van %s."
 
 #: ../loader/driverdisk.c:445
 msgid "Manually choose"
@@ -6212,7 +6209,7 @@ msgstr "Kies handmatig"
 
 #: ../loader/driverdisk.c:446
 msgid "Load another disk"
-msgstr "Een andere diskette inladen"
+msgstr "Een andere schijf inladen"
 
 #: ../loader/driverdisk.c:447
 msgid ""
@@ -6221,24 +6218,24 @@ msgid ""
 "driver disk?"
 msgstr ""
 "Er zijn geen stuurprogramma's van een geschikt type gevonden op de "
-"stuurprogrammadiskette. Wilt u handmatig een stuurprogramma selecteren, "
-"doorgaan of een andere diskette met stuurprogramma's proberen?"
+"stuurprogrammaschijf. Wilt u handmatig een stuurprogramma selecteren, "
+"doorgaan of een andere schijf met stuurprogramma's proberen?"
 
 #: ../loader/driverdisk.c:485
 msgid "Driver disk"
-msgstr "Stuurprogrammadiskette"
+msgstr "Stuurprogrammaschijf"
 
 #: ../loader/driverdisk.c:486
 msgid "Do you have a driver disk?"
-msgstr "Heeft u een stuurprogrammadiskette?"
+msgstr "Heeft u een stuurprogrammaschijf?"
 
 #: ../loader/driverdisk.c:495
 msgid "More Driver Disks?"
-msgstr "Meer stuurprogrammadiskettes?"
+msgstr "Meer stuurprogrammaschijven?"
 
 #: ../loader/driverdisk.c:496
 msgid "Do you wish to load any more driver disks?"
-msgstr "Wilt u nog meer stuurprogrammadiskettes laden?"
+msgstr "Wilt u nog meer stuurprogrammaschijven laden?"
 
 #: ../loader/driverdisk.c:541 ../loader/driverdisk.c:578
 #: ../loader/hdinstall.c:384 ../loader/kickstart.c:132
@@ -6253,7 +6250,7 @@ msgstr "Kickstart fout"
 #: ../loader/driverdisk.c:542
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "Onbekende stuurprogrammadiskette kickstart-bron: %s"
+msgstr "Onbekende stuurprogrammaschijf kickstart-bron: %s"
 
 #: ../loader/driverdisk.c:579
 #, c-format
@@ -6262,7 +6259,7 @@ msgid ""
 "command: %s:%s"
 msgstr ""
 "Het volgende ongeldige argument was opgegeven voor het kickstart "
-"stuurprogrammadiskette commando: %s:%s"
+"stuurprogrammaschijf commando: %s:%s"
 
 #: ../loader/driverselect.c:67
 #, c-format
@@ -6285,7 +6282,7 @@ msgstr "Geen stuurprogramma's gevonden"
 
 #: ../loader/driverselect.c:178
 msgid "Load driver disk"
-msgstr "Stuurprogrammadiskette laden"
+msgstr "Stuurprogrammaschijf laden"
 
 #: ../loader/driverselect.c:179
 msgid ""
@@ -6293,7 +6290,7 @@ msgid ""
 "disk?"
 msgstr ""
 "Geen handmatige in te voeren stuurprogramma's gevonden.  Wilt u een "
-"stuurprogrammadiskette gebruiken?"
+"stuurprogrammaschijf gebruiken?"
 
 #: ../loader/driverselect.c:197
 msgid ""
@@ -6302,7 +6299,7 @@ msgid ""
 msgstr ""
 "Selecteer het stuurprogramma dat u wilt laden. Als het benodigde "
 "stuurprogramma niet in de lijst voorkomt, en u hebt een aparte "
-"stuurprogrammadiskette, druk dan op F2."
+"stuurprogrammaschijf, druk dan op F2."
 
 #: ../loader/driverselect.c:206
 msgid "Specify optional module arguments"
@@ -6330,14 +6327,14 @@ msgstr ""
 "apparaten configureren?"
 
 #: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
 "Welke partitie en map op die partitie bevat de CD (iso9660) images voor %s? "
-"Als u de disk drive die u gebruikt hier niet ziet, druk dan op F2 om andere "
+"Als u het schijfstation die u gebruikt hier niet ziet, druk dan op F2 om andere "
 "apparaten te configureren."
 
 #: ../loader/hdinstall.c:273
@@ -6360,7 +6357,7 @@ msgstr "Foutief argument voor harde schijf kickstart-methode commando %s: %s"
 
 #: ../loader/hdinstall.c:455 ../loader/hdinstall.c:511
 msgid "Cannot find kickstart file on hard drive."
-msgstr "Kan het kickstart-bestand niet vinden op de harddisk."
+msgstr "Kan het kickstart-bestand niet vinden op de harde schijf."
 
 #: ../loader/hdinstall.c:498
 #, c-format
@@ -6376,14 +6373,14 @@ msgid "What type of keyboard do you have?"
 msgstr "Wat voor soort toetsenbord heeft u?"
 
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "Fout bij het openen van kickstart-bestand %s: %s"
+msgstr "Fout bij het openen van kickstart-bestand %s: %m"
 
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Fout bij het lezen van de inhoud van het kickstart-bestand %s: %s"
+msgstr "Fout bij het lezen van de inhoud van het kickstart-bestand %s: %m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -6442,14 +6439,14 @@ msgstr "NFS-map"
 
 #: ../loader/loader.c:429 ../loader/loader.c:468
 msgid "Update Disk Source"
-msgstr "Bron van updatediskette"
+msgstr "Bron van updateschijf"
 
 #: ../loader/loader.c:430
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
-"U hebt meerdere apparaten op dit systeem die als bron voor updatediskette "
+"U hebt meerdere apparaten op dit systeem die als bron voor updateschijf "
 "gebruikt kunnen worden. Welke wilt u gebruiken?"
 
 # vertaling van "disk image" naar "bestand" ok?
@@ -6462,17 +6459,17 @@ msgstr ""
 "bevatten.  Welke wilt u gebruiken?"
 
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "Voer uw updates-diskette in /dev/%s en druk op \"OK\" om door te gaan."
+msgstr "Voer uw updateschijf in /dev/%s en druk op \"OK\" om door te gaan."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
-msgstr "Updates-diskette"
+msgstr "Updateschijf"
 
 #: ../loader/loader.c:510
 msgid "Failed to mount updates disk"
-msgstr "Aankoppelen update-diskette mislukt"
+msgstr "Aankoppelen updateschijf mislukt"
 
 #: ../loader/loader.c:515
 msgid "Updates"
@@ -6534,7 +6531,7 @@ msgstr "Stuurprogramma selecteren"
 
 #: ../loader/loader.c:1390
 msgid "Use a driver disk"
-msgstr "Stuurprogrammadiskette gebruiken"
+msgstr "Stuurprogrammaschijf gebruiken"
 
 #: ../loader/loader.c:1391
 msgid ""
@@ -6543,7 +6540,7 @@ msgid ""
 msgstr ""
 "Er zijn geen apparaten gevonden die voor dit installatietype nodig zijn. "
 "Wilt u handmatig het stuurprogramma selecteren of gebruik maken van een "
-"diskette met stuurprogramma's?"
+"stuurprogrammaschijf?"
 
 #: ../loader/loader.c:1652
 msgid "The following devices have been found on your system."
@@ -6787,7 +6784,7 @@ msgstr "Ongeldige duur"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "U moet het aantal seconden als een geheel getal tussen 1 en 30 invoeren."
 
 #: ../loader/net.c:1589
 #, c-format
@@ -6809,9 +6806,9 @@ msgid "%s directory:"
 msgstr "%s map:"
 
 #: ../loader/nfsinstall.c:78
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr "Voer de servernaam in en het pad naar uw %s images."
+msgstr "Voer de servernaam in en het pad naar uw %s installatie-image."
 
 #: ../loader/nfsinstall.c:85
 msgid "NFS Setup"
@@ -6875,10 +6872,10 @@ msgid "Retrieving"
 msgstr "Bezig met ophalen"
 
 #: ../loader/urls.c:295
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the URL containing the %s installation image on your server."
-msgstr "Voer de URL in die de %s images op uw server bevat."
+msgstr "Voer de URL in die de %s installatie-image op uw server bevat."
 
 #: ../loader/urls.c:321
 msgid "URL Setup"
@@ -7129,7 +7126,7 @@ msgstr ""
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "Kies een bestemming voor het opslaan van uw traceback."
 
 #: tmp/exnSave.glade.h:7
 msgid "Select A File"
