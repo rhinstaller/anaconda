@@ -137,31 +137,8 @@ class PartitionEditor:
                     primonly = None
 
                 if self.lukscb and self.lukscb.get_active():
-                    if request.encryption:
-                        passphrase = request.encryption.passphrase
-                    else:
-                        passphrase = ""
-
-                    isglobal = False
-                    if not request.encryption or request.encryption.format:
-                        if not passphrase and self.partitions.globalPassphrase:
-                            passphrase = self.partitions.globalPassphrase
-                        else:
-                            if passphrase and \
-                               passphrase == self.partitions.globalPassphrase:
-                                isglobal = True
-                            (passphrase, isglobal) = self.intf.getLuksPassphrase(passphrase, isglobal=isglobal)
-
-                    if passphrase and not request.encryption:
-                        request.encryption = LUKSDevice(passphrase=passphrase,
-                                                        format=1)
-                    elif passphrase and request.encryption.format:
-                        request.encryption.setPassphrase(passphrase)
-                    else:
-                        isglobal = False
-
-                    if isglobal and not self.partitions.globalPassphrase:
-                        self.partitions.globalPassphrase = passphrase
+                    if not request.encryption:
+                        request.encryption = LUKSDevice(passphrase = self.partitions.encryptionPassphrase, format=1)
                 else:
                     request.encryption = None
 
@@ -259,31 +236,8 @@ class PartitionEditor:
 
                 lukscb = self.fsoptionsDict.get("lukscb")
                 if lukscb and lukscb.get_active():
-                    if request.encryption:
-                        passphrase = request.encryption.passphrase
-                    else:
-                        passphrase = ""
-
-                    isglobal = False
-                    if not request.encryption or request.encryption.format:
-                        if not passphrase and self.partitions.globalPassphrase:
-                            passphrase = self.partitions.globalPassphrase
-                        else:
-                            if passphrase and \
-                               passphrase == self.partitions.globalPassphrase:
-                                isglobal = True
-                            (passphrase, isglobal) = self.intf.getLuksPassphrase(passphrase, isglobal=isglobal)
-
-                    if passphrase and not request.encryption:
-                        request.encryption = LUKSDevice(passphrase=passphrase,
-                                                        format=1)
-                    elif passphrase and request.encryption.format:
-                        request.encryption.setPassphrase(passphrase)
-                    else:
-                        isglobal = False
-
-                    if isglobal and not self.partitions.globalPassphrase:
-                        self.partitions.globalPassphrase = passphrase
+                    if not request.encryption:
+                        request.encryption = LUKSDevice(passphrase=self.partitions.encryptionPassphrase, format=1)
                 else:
                     request.encryption = None
 
