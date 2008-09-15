@@ -191,7 +191,22 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doIscsi(self, args)
 
         for target in self.ksdata.iscsi:
-            if self.id.iscsi.addTarget(target.ipaddr, target.port, target.user, target.password):
+            kwargs = {
+                'ipaddr': target.ipaddr,
+                'port': target.port,
+                }
+            if target.user and target.password:
+                kwargs.update({
+                    'user': target.user,
+                    'pw': target.password
+                    })
+            if target.user_in and target.password_in:
+                kwargs.update({
+                    'user_in': target.user_in,
+                    'pw_in': target.password_in
+                    })
+
+            if self.id.iscsi.addTarget(**kwargs):
                 log.info("added iscsi target: %s" %(target.ipaddr,))
 
         # FIXME: flush the drive dict so we figure drives out again
