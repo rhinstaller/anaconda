@@ -775,6 +775,9 @@ def dhcpNetDevice(device):
 
     return _isys.dhcpnetdevice(devname, v4, v4method, v6, v6method, klass)
 
+def getDeviceByToken(token, value):
+    return _isys.getdevicebytoken(token, value)
+
 def readFSUuid(device):
     if not os.path.exists(device):
         device = "/dev/%s" % device

@@ -37,6 +37,7 @@ import iscsi
 import zfcp
 import urllib
 import iutil
+import isys
 import users
 import shlex
 from flags import *
@@ -101,8 +102,15 @@ class InstallData:
         elif self.anaconda.methodstr and self.anaconda.methodstr.startswith("hd:"):
             method = self.anaconda.methodstr[3:]
             device = method.split(":", 3)[0]
+
+            if device.startswith("LABEL="):
+                device = isys.getDeviceByToken("LABEL", device[6:])
+            elif device.startswith("UUID="):
+                device = isys.getDeviceByToken("UUID", device[5:])
+
             if device.startswith("/dev/"):
                 device = device[5:]
+
             self.partitions.protected = [device]
 
     def setInstallProgressClass(self, c):

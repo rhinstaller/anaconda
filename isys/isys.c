@@ -132,6 +132,7 @@ static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doAuditDaemon(PyObject *s);
 static PyObject * doPrefixToNetmask(PyObject *s, PyObject *args);
 static PyObject * doGetBlkidData(PyObject * s, PyObject * args);
+static PyObject * doGetDeviceByToken(PyObject *s, PyObject *args);
 static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
@@ -180,6 +181,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "auditdaemon", (PyCFunction) doAuditDaemon, METH_NOARGS, NULL },
     { "prefix2netmask", (PyCFunction) doPrefixToNetmask, METH_VARARGS, NULL },
     { "getblkid", (PyCFunction) doGetBlkidData, METH_VARARGS, NULL },
+    { "getdevicebytoken", (PyCFunction) doGetDeviceByToken, METH_VARARGS, NULL },
     { "isCapsLockEnabled", (PyCFunction) doIsCapsLockEnabled, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
@@ -930,6 +932,23 @@ static PyObject * doAuditDaemon(PyObject *s) {
     audit_daemonize();
     Py_INCREF(Py_None);
     return Py_None;
+}
+
+static PyObject *doGetDeviceByToken(PyObject *s, PyObject *args) {
+    blkid_cache cache;
+    char *token, *value, *dev;
+
+    if (!PyArg_ParseTuple(args, "ss", &token, &value)) return NULL;
+
+    blkid_get_cache(&cache, NULL);
+
+    dev = blkid_get_devname(cache, token, value);
+    if (dev == NULL) {
+        Py_INCREF(Py_None);
+        return Py_None;
+    } else {
+        return Py_BuildValue("s", dev);
+    }
 }
 
 static PyObject * doGetBlkidData(PyObject * s, PyObject * args) {
