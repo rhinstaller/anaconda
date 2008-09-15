@@ -80,6 +80,8 @@ class iscsiTarget:
         self._portal = None
         self._nodes = []
 
+        find_iscsi_files()
+
     def _getPortal(self):
         if self._portal is None:
             argv = [ "-m", "discovery", "-t", "st", "-p", self.ipaddr ]
