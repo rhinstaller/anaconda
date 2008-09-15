@@ -48,6 +48,51 @@ def has_iscsi():
         return False
     return True
 
+def queryFirmware():
+    # Example:
+    # [root@elm3b87 ~]# iscsiadm -m fw
+    # iface.initiatorname = iqn.2007-05.com.ibm.beaverton.elm3b87:01
+    # iface.hwaddress = 00:14:5e:b3:8e:b2
+    # node.name = iqn.1992-08.com.netapp:sn.84183797
+    # node.conn[0].address = 9.47.67.152
+    # node.conn[0].port = 3260
+
+    retval = {}
+
+    argv = [ "-m", "fw" ]
+    result = iutil.execWithCapture(ISCSIADM, argv)
+    result = result.strip()
+    for line in result.split("\n"):
+        SPLIT = " = "
+        idx = line.find(SPLIT)
+        if idx != -1:
+            lhs = line[:idx]
+            rhs = line[idx+len(SPLIT):]
+            retval[lhs] = rhs
+
+    return retval
+
+def loginToDefaultDrive():
+    # Example:
+    # [root@elm3b87 ~]# iscsiadm -m fw -l
+    # Logging in to [iface: default, target: iqn.1992-08.com.netapp:sn.84183797, portal: 9.47.67.152,3260]
+
+    argv = [ "-m", "fw", "-l" ]
+    result = iutil.execWithCapture(ISCSIADM, argv)
+
+    TARGET = "target: "
+    PORTAL = ", portal: "
+    END    = "]"
+    idxTarget = result.find (TARGET)
+    idxPortal = result.find (PORTAL)
+    idxEnd    = result.find (END)
+
+    if idxTarget == -1 or idxPortal == -1 or idxEnd == -1:
+        return None
+
+    return (result[idxTarget + len (TARGET) : idxPortal],
+            result[idxPortal + len (PORTAL) : idxEnd].replace (',',':'))
+
 class iscsiTarget:
     def __init__(self, ipaddr, port = None, user = None, pw = None):
         # FIXME: validate ipaddr
@@ -89,9 +134,6 @@ class iscsiTarget:
     nodes = property(_getNode)
 
     def discover(self):
-        if flags.test:
-            return True
-
         argv = [ "-m", "discovery", "-t", "st", "-p", 
                  "%s:%s" % (self.ipaddr, self.port) ]
         log.debug("iscsiadm %s" %(string.join(argv),))
@@ -156,25 +198,46 @@ def randomIname():
 
 class iscsi(object):
     def __init__(self):
+        self.fwinfo = queryFirmware()
         self.targets = []
         self._initiator = ""
         self.initiatorSet = False
         self.iscsidStarted = False
+        self.weStartedScsid = False
+        self.oldInitiatorFile = None
+        
+        if self.fwinfo.has_key("iface.initiatorname"):
+          self._initiator = self.fwinfo["iface.initiatorname"]
+          self.initiatorSet = True
 
     def _getInitiator(self):
         if self._initiator != "":
             return self._initiator
-        return randomIname()
+
+        if self.fwinfo.has_key("iface.initiatorname"):
+            return self.fwinfo["iface.initiatorname"]
+        else:
+            return randomIname()
+
     def _setInitiator(self, val):
         if self._initiator != "" and val != self._initiator:
             raise ValueError, "Unable to change iSCSI initiator name once set"
         if len(val) == 0:
             raise ValueError, "Must provide a non-zero length string"
         self._initiator = val
-        self.initiatorSet = True        
+        self.initiatorSet = True
+
     initiator = property(_getInitiator, _setInitiator)
 
     def shutdown(self):
+        if flags.test:
+            if self.oldInitiatorFile != None:
+                f = open(INITIATOR_FILE, "w")
+                for line in self.oldInitiatorFile:
+                    f.write(line)
+                f.close ()
+                self.oldInitiatorFile = None
+
         if not self.iscsidStarted:
             return
 
@@ -182,25 +245,37 @@ class iscsi(object):
         for t in self.targets:
             t.logout()
 
-        # XXX use iscsiadm shutdown when it's available.
-        psout = iutil.execWithCapture("/usr/bin/pidof", ["iscsiadm"])
-        if psout.strip() != "":
-            pid = string.atoi(psout.split()[0])
-            log.info("Killing %s %d" % (ISCSID, pid))
-            os.kill(pid, signal.SIGKILL)
+        if self.weStartedScsid:
+            self.weStartedScsid = False
+
+            # XXX use iscsiadm shutdown when it's available.
+            psout = iutil.execWithCapture("/usr/bin/pidof", ["iscsiadm"])
+            if psout.strip() != "":
+                pid = string.atoi(psout.split()[0])
+                log.info("Killing %s %d" % (ISCSID, pid))
+                os.kill(pid, signal.SIGKILL)
 
         self.iscsidStarted = False;
 
     def startup(self, intf = None):
-        if flags.test:
+        if self.iscsidStarted:
             return
         if not has_iscsi():
             return
+
+        # If there is a default drive in the iSCSI configuration, then automatically
+        # attach to it. Do this before testing the initiator name, because it
+        # is provided by the iBFT too
+        loginToDefaultDrive()
+
         if not self.initiatorSet:
             log.info("no initiator set")
             return
-        if self.iscsidStarted:
-            return
+        if flags.test:
+            if os.access(INITIATOR_FILE, os.R_OK):
+                f = open(INITIATOR_FILE, "r")
+                self.oldInitiatorFile = f.readlines()
+                f.close()
         
         log.info("iSCSI initiator name %s", self.initiator)
 
@@ -217,11 +292,16 @@ class iscsi(object):
         os.write(fd, "InitiatorName=%s\n" %(self.initiator))
         os.close(fd)
 
-        log.info("ISCSID is %s", ISCSID)
-        iutil.execWithRedirect(ISCSID, [],
-                               stdout="/dev/tty5", stderr="/dev/tty5")
+        psout = iutil.execWithCapture("/usr/bin/pidof", ["iscsiadm"])
+        if psout.strip() == "":
+            self.weStartedScsid = False
+
+            log.info("ISCSID is %s" % (ISCSID,))
+            iutil.execWithRedirect(ISCSID, [],
+                                   stdout="/dev/tty5", stderr="/dev/tty5")
+            time.sleep(2)
+
         self.iscsidStarted = True
-        time.sleep(2)
 
         for t in self.targets:
             if not t.discover():
@@ -263,17 +343,18 @@ class iscsi(object):
         if not self.initiatorSet:
             return
 
-        if not os.path.isdir(instPath + "/etc/iscsi"):
-            os.makedirs(instPath + "/etc/iscsi", 0755)
-        fd = os.open(instPath + INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
-        os.write(fd, "InitiatorName=%s\n" %(self.initiator))
-        os.close(fd)
+        if not flags.test:
+            if not os.path.isdir(instPath + "/etc/iscsi"):
+                os.makedirs(instPath + "/etc/iscsi", 0755)
+            fd = os.open(instPath + INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
+            os.write(fd, "InitiatorName=%s\n" %(self.initiator))
+            os.close(fd)
 
-        # copy "db" files.  *sigh*
-        if not os.path.isdir(instPath + "/var/lib/iscsi"):
-            os.makedirs(instPath + "/var/lib/iscsi", 0755)
-        for d in ("/var/lib/iscsi/nodes", "/var/lib/iscsi/send_targets"):
-            if os.path.isdir(d):
-                shutil.copytree(d, instPath + d)
+            # copy "db" files.  *sigh*
+            if not os.path.isdir(instPath + "/var/lib/iscsi"):
+                os.makedirs(instPath + "/var/lib/iscsi", 0755)
+            for d in ("/var/lib/iscsi/nodes", "/var/lib/iscsi/send_targets"):
+                if os.path.isdir(d):
+                    shutil.copytree(d, instPath + d)
 
 # vim:tw=78:ts=4:et:sw=4
