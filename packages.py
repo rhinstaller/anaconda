@@ -150,6 +150,8 @@ def turnOnFilesystems(anaconda):
                                             searchPath = 1)
                 w.pop()
 
+                anaconda.id.partitions.doEncryptionRetrofits()
+
                 try:
                     anaconda.id.partitions.doMetaResizes(anaconda.id.diskset)
                 except lvm.LVResizeError, e:
