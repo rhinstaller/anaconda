@@ -127,18 +127,6 @@ class iscsiTarget:
             return False
         return True
 
-    def startNode(self, node):
-        if node is None or self.portal is None:
-            log.warn("unable to find portal information")
-            return
-
-        argv = [ "-m", "node", "-T", node, "-p", self.portal,
-                 "-o", "update", "-n", "node.conn[0].startup",
-                 "-v", "automatic" ]
-        log.debug("iscsiadm %s" %(string.join(argv),))
-        iutil.execWithRedirect(ISCSIADM, argv,
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
-
     def loginToNode(self, node):
         if node is None or self.portal is None:
             log.warn("unable to find portal information")
@@ -158,14 +146,12 @@ class iscsiTarget:
             log.warn("unable to find portal information")
             return False
 
-
+        # return True if any login to our portal succeeds.
         ret = False
         for node in self.nodes:
             if self.loginToNode(node):
                 ret = True
-                self.startNode(node)
 
-        # we return True if there were any successful logins for our portal.
         return ret
 
     def logout(self):
@@ -393,8 +379,6 @@ class iscsi(object):
             t = iscsiTarget(ipaddr, port, None, None)
             # this actually creates the entries.
             t.discover()
-            # and this sets them to auto-start
-            t.startNode(node)
 
         for t in self.targets:
             if not t.discover():
