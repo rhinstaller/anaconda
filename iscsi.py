@@ -100,12 +100,13 @@ class iscsiTarget:
                     self._portal = portal
                     self._nodes.append(node)
         return self._portal
+    portal = property(_getPortal)
+
     def _getNode(self):
         if len(self._nodes) == 0:
             # _getPortal() fills the list, if possible.
             self._getPortal()
         return self._nodes
-    portal = property(_getPortal)
     nodes = property(_getNode)
 
     def discover(self):
@@ -119,33 +120,35 @@ class iscsiTarget:
             return False
         return True
 
+    def startNode(self, node):
+        argv = [ "-m", "node", "-T", node, "-p", self.portal,
+                 "-o", "update", "-n", "node.conn[0].startup",
+                 "-v", "automatic" ]
+        log.debug("iscsiadm %s" %(string.join(argv),))
+        iutil.execWithRedirect(ISCSIADM, argv,
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
+
+    def loginToNode(self, node):
+        argv = [ "-m", "node", "-T", node, "-p", self.portal, "--login" ]
+        log.debug("iscsiadm %s" %(string.join(argv),))
+        rc = iutil.execWithRedirect(ISCSIADM, argv,
+                                    stdout = "/dev/tty5", stderr="/dev/tty5")
+        if rc != 0:
+            log.warn("iscsiadm failed to login to %s" %(self.ipaddr,))
+            return False
+        return True
+
     def login(self):
         if len(self.nodes) == 0 or self.portal is None:
             log.warn("unable to find portal information")
             return False
-        def _login(node, portal):
-            argv = [ "-m", "node", "-T", node, "-p", portal, "--login" ]
-            log.debug("iscsiadm %s" %(string.join(argv),))
-            rc = iutil.execWithRedirect(ISCSIADM, argv,
-                                    stdout = "/dev/tty5", stderr="/dev/tty5")
-            if rc != 0:
-                log.warn("iscsiadm failed to login to %s" %(self.ipaddr,))
-                return False
-            return True
 
-        def _autostart(node, portal):
-            argv = [ "-m", "node", "-T", node, "-p", portal,
-                     "-o", "update", "-n", "node.conn[0].startup",
-                     "-v", "automatic" ]
-            log.debug("iscsiadm %s" %(string.join(argv),))
-            iutil.execWithRedirect(ISCSIADM, argv,
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
 
         ret = False
         for node in self.nodes:
-            if _login(node, self.portal):
+            if self.LoginToNode(node):
                 ret = True
-                _autostart(node, self.portal)
+                self.StartNode(node)
 
         # we return True if there were any successful logins for our portal.
         return ret
@@ -156,6 +159,7 @@ class iscsiTarget:
             log.debug("iscsiadm %s" %(string.join(argv),))
             rc = iutil.execWithRedirect(ISCSIADM, argv,
                                     stdout = "/dev/tty5", stderr="/dev/tty5")
+
 
 def randomIname():
     """Generate a random initiator name the same way as iscsi-iname"""
@@ -230,7 +234,6 @@ class iscsi(object):
 
         return retval
 
-
     def _startIscsiDaemon(self):
         psout = iutil.execWithCapture("/usr/bin/pidof", ["iscsid"])
         if psout.strip() == "":
@@ -276,20 +279,26 @@ class iscsi(object):
 
         argv = [ "-m", "fw", "-l" ]
         result = iutil.execWithCapture(ISCSIADM, argv)
-        #result = result.strip()
 
         TARGET = "target: "
         PORTAL = ", portal: "
-        END    = "]"
-        idxTarget = result.find (TARGET)
-        idxPortal = result.find (PORTAL)
-        idxEnd    = result.find (END)
+        END = "]"
+        idxTarget = result.find(TARGET)
+        idxPortal = result.find(PORTAL)
+        idxEnd = result.find(END)
 
         if idxTarget == -1 or idxPortal == -1 or idxEnd == -1:
             return None
 
-        return (result[idxTarget + len (TARGET) : idxPortal],
-                result[idxPortal + len (PORTAL) : idxEnd].replace (',',':'))
+        target = result[idxTarget + len(TARGET) : idxPortal]
+        portal = result[idxPortal + len(PORTAL) : idxEnd]
+        port = 3260
+        idxPort = portal.find(',')
+        if idxPort != -1:
+            port = portal[idxPort + 1 :]
+            portal = portal[:idxPort]
+
+        return (target, portal, port)
 
     def startup(self, intf = None):
         if not has_iscsi():
@@ -303,21 +312,13 @@ class iscsi(object):
                 f = open(INITIATOR_FILE, "r")
                 self.oldInitiatorFile = f.readlines()
                 f.close()
-        
-        log.info("iSCSI initiator name %s", self.initiator)
-
-        self._startIscsiDaemon()
-
-        # If there is a default drive in the iSCSI configuration, then
-        # automatically attach to it. Do this before testing the initiator
-        # name, because it is provided by the iBFT too
-        self.loginToDefaultDrive()
 
         if intf:
             w = intf.waitWindow(_("Initializing iSCSI initiator"),
                                 _("Initializing iSCSI initiator"))
 
         log.debug("Setting up %s" % (INITIATOR_FILE, ))
+        log.info("iSCSI initiator name %s", self.initiator)
         if os.path.exists(INITIATOR_FILE):
             os.unlink(INITIATOR_FILE)
         if not os.path.isdir("/etc/iscsi"):
@@ -325,6 +326,30 @@ class iscsi(object):
         fd = os.open(INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
         os.write(fd, "InitiatorName=%s\n" %(self.initiator))
         os.close(fd)
+
+        if not os.path.isdir("/var/lib/iscsi"):
+            os.makedirs("/var/lib/iscsi", 0660)
+        for dir in ['nodes','send_targets','ifaces']:
+            fulldir = "/var/lib/iscsi/%s" % (dir,)
+            if not os.path.isdir(fulldir):
+                os.makedirs(fulldir, 0660)
+
+        self._startIscsiDaemon()
+
+        # If there is a default drive in the iSCSI configuration, then
+        # automatically attach to it. Do this before testing the initiator
+        # name, because it is provided by the iBFT too
+
+        # this will actually log us in, but it won't create the iscsi db
+        # entries.
+        default = self.loginToDefaultDrive()
+        if not default is None:
+            (node, ipaddr, port) = default
+            t = iscsiTarget(ipaddr, port, None, None)
+            # this actually creates the entries.
+            t.discover()
+            # and this sets them to auto-start
+            t.startNode(node)
 
         for t in self.targets:
             if not t.discover():
