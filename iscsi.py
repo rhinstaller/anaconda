@@ -184,7 +184,8 @@ class iscsi(object):
         self._initiator = ""
         self.initiatorSet = False
         self.oldInitiatorFile = None
-        
+        self.iscsidStarted = False
+
         if self.fwinfo and self.fwinfo.has_key("iface.initiatorname"):
             self._initiator = self.fwinfo["iface.initiatorname"]
             self.initiatorSet = True
@@ -245,6 +246,7 @@ class iscsi(object):
             log.info("iSCSI startup")
             iutil.execWithRedirect(ISCSID, [],
                                    stdout="/dev/tty5", stderr="/dev/tty5")
+            self.iscsidStarted = True
             time.sleep(2)
 
     def _stopIscsiDaemon(self):
@@ -264,6 +266,8 @@ class iscsi(object):
                 login.info("killing %s %d" % (ISCSID, pid))
 
                 os.kill(pid, signal.SIGKILL)
+
+            self.iscsidStarted = False
 
     def shutdown(self):
         if not has_iscsi():
