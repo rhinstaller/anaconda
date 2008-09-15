@@ -51,10 +51,8 @@ def sanityCheckHostname(hostname):
     if len(hostname) < 1:
         return None
 
-    # XXX: POSIX says this limit is 255, but Linux also defines HOST_NAME_MAX
-    # as 64, so I don't know which we should believe.  --dcantrell
-    if len(hostname) > 64:
-        return _("Hostname must be 64 or fewer characters in length.")
+    if len(hostname) > 255:
+        return _("Hostname must be 255 or fewer characters in length.")
 
     validStart = string.ascii_letters + string.digits
     validAll = validStart + ".-"
