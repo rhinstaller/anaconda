@@ -32,7 +32,7 @@ if [ ! -b $LIVE_BLOCK ]; then
 fi
 
 # load modules that would get loaded by the loader... (#230945)
-for i in md raid0 raid1 raid5 raid6 raid456 raid10 fat msdos lock_nolock gfs2 reiserfs ext2 ext3 jfs xfs dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin dm-emc vfat ; do /sbin/modprobe $i ; done
+for i in raid0 raid1 raid5 raid6 raid456 raid10 fat msdos gfs2 reiserfs ext2 ext3 jfs xfs dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat ; do /sbin/modprobe $i ; done
 
 export ANACONDA_PRODUCTNAME="Fedora"
 export ANACONDA_PRODUCTVERSION=$(rpm -q fedora-release --qf "%{VERSION}")
