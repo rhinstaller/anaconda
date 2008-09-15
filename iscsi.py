@@ -185,7 +185,7 @@ class iscsi(object):
         self.initiatorSet = False
         self.oldInitiatorFile = None
         
-        if self.fwinfo.has_key("iface.initiatorname"):
+        if self.fwinfo and self.fwinfo.has_key("iface.initiatorname"):
             self._initiator = self.fwinfo["iface.initiatorname"]
             self.initiatorSet = True
             self.startup()
@@ -194,7 +194,7 @@ class iscsi(object):
         if self._initiator != "":
             return self._initiator
 
-        if self.fwinfo.has_key("iface.initiatorname"):
+        if self.fwinfo and self.fwinfo.has_key("iface.initiatorname"):
             return self.fwinfo["iface.initiatorname"]
         else:
             return randomIname()
@@ -219,6 +219,9 @@ class iscsi(object):
         # node.conn[0].port = 3260
 
         find_iscsi_files()
+
+        if not has_iscsi():
+            return
 
         retval = {}
 
@@ -263,6 +266,9 @@ class iscsi(object):
                 os.kill(pid, signal.SIGKILL)
 
     def shutdown(self):
+        if not has_iscsi():
+            return
+
         if flags.test:
             if self.oldInitiatorFile != None:
                 f = open(INITIATOR_FILE, "w")
