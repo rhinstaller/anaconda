@@ -157,7 +157,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
 	dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme
 	elfutils-libelf expat firstboot fontconfig fonts-arabic fonts-bengali
 	fonts-chinese fonts-gujarati fonts-hindi fonts-indic fonts-ISO8859-2
-	fonts-kannada fonts-korean fonts-malayalam fonts-oriya fonts-punjabi
+	fonts-kannada fonts-malayalam fonts-oriya fonts-punjabi
 	fonts-sinhala fonts-tamil fonts-telugu freetype gail gdk-pixbuf
 	gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
 	gnome-python2-gtkhtml2 gnome-themes gpm gtk2 gtk2-engines gtkhtml2 hal
@@ -181,7 +181,8 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
 	setup slang specspo sqlite synaptics system-config-date
 	system-config-keyboard system-logos system-release taipeifonts
 	tcp_wrappers ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-ja ttfonts-ko
-	ttfonts-pa ttfonts-ta ttfonts-zh_CN ttfonts-zh_TW tzdata udev urw-fonts
+	ttfonts-pa ttfonts-ta ttfonts-zh_CN ttfonts-zh_TW tzdata udev
+	un-core-fonts-dotum urw-fonts
 	util-linux-ng vnc-libs vnc-server wpa_supplicant xkeyboard-config
 	xfsdump xfsprogs xorg-x11 xorg-x11-auth xorg-x11-base
 	xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-100dpi
@@ -568,13 +569,13 @@ usr/share/fonts/*/lohit_pa.ttf
 usr/share/fonts/*/lohit_ta.ttf
 usr/share/fonts/*/lohit_te.ttf
 usr/share/fonts/VLGothic/VL-Gothic-Regular.ttf
-usr/share/fonts/baekmuk-ttf-dotum/dotum.ttf
 usr/share/fonts/cjkunifonts-uming/uming*.ttf
 usr/share/fonts/dejavu/DejaVuSans-Bold.ttf
 usr/share/fonts/dejavu/DejaVuSans.ttf
 usr/share/fonts/dejavu/DejaVuSansMono.ttf
 usr/share/fonts/kacst/KacstFarsi.ttf
 usr/share/fonts/kacst/KacstQura.ttf
+usr/share/fonts/un-core/UnDotum.ttf
 usr/share/hal
 usr/share/hwdata/MonitorsDB
 usr/share/hwdata/pci.ids
