@@ -600,7 +600,7 @@ struct ddlist* findDriverDiskByLabel(void)
 
     bIter = blkid_dev_iterate_begin(bCache);
     blkid_dev_set_search(bIter, "LABEL", ddLabel);
-    while((res = blkid_dev_next(bIter, &bDev))!=0){
+    while((res = blkid_dev_next(bIter, &bDev))==0){
 	logMessage(DEBUGLVL, _("Adding driver disc %s to the list of available DDs."), blkid_dev_devname(bDev));
 	ddDevice = ddlist_add(ddDevice, blkid_dev_devname(bDev));
 	/*blkid_free_dev(bDev); -- probably taken care of by the put cache call.. it is not exposed in the API */
