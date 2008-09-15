@@ -1417,11 +1417,10 @@ def doAutoPartition(anaconda):
                 req.drive = drives
 
             # this is kind of a hack, but if we're doing autopart encryption
-            # and the request has a crypto dev, but no passphrase, then set
-            # the passphrase to the global one
-            if partitions.autoEncrypt and req.encryption is not None and \
-                    req.encryption.passphrase == "":
-                req.encryption.setPassphrase(partitions.autoEncryptPass)
+            # and the request is a PV, encrypt it
+            if partitions.autoEncrypt and req.type == REQUEST_NEW and \
+               isinstance(req.fstype, fsset.lvmPhysicalVolumeDummyFileSystem):
+                req.encryption = cryptodev.LUKSDevice(passphrase=partitions.encryptionPassphrase, format=1)
 
             # if this is a multidrive request, we need to create one per drive
             if req.type == REQUEST_NEW and req.multidrive:
@@ -1641,7 +1640,6 @@ def autoCreateLVMPartitionRequests(autoreq):
                                     format = 1,
                                     multidrive = 1)
 
-    nr.encryption = cryptodev.LUKSDevice(passphrase="", format=1)
     requests.append(nr)
     nr = partRequests.VolumeGroupRequestSpec(fstype = None,
                                              vgname = "lvm",
