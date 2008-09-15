@@ -147,7 +147,7 @@ class AutoPart(commands.autopart.F9_AutoPart):
 
         if self.encrypted:
             self.handler.id.partitions.autoEncrypt = True
-            self.handler.id.partitions.autoEncryptPass = self.passphrase
+            self.handler.id.partitions.encryptionPassphrase = self.passphrase
 
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
@@ -365,6 +365,9 @@ class LogVol(commands.logvol.F9_LogVol):
             request.fsopts = lvd.fsopts
 
         if lvd.encrypted:
+            if lvd.passphrase and \
+               not self.handler.anaconda.id.partitions.encryptionPassphrase:
+                self.anaconda.id.partitions.encryptionPassphrase = lvd.passphrase
             request.encryption = cryptodev.LUKSDevice(passphrase=lvd.passphrase, format=lvd.format)
 
         addPartRequest(self.handler.anaconda, request)
@@ -610,6 +613,9 @@ class Partition(commands.partition.F9_Partition):
             request.fsopts = fsopts
 
         if pd.encrypted:
+            if pd.passphrase and \
+               not self.handler.anaconda.id.partitions.encryptionPassphrase:
+                self.anaconda.id.partitions.encryptionPassphrase = pd.passphrase
             request.encryption = cryptodev.LUKSDevice(passphrase=pd.passphrase, format=pd.format)
 
         addPartRequest(self.handler.anaconda, request)
@@ -690,6 +696,9 @@ class Raid(commands.raid.F9_Raid):
             request.fsopts = rd.fsopts
 
         if rd.encrypted:
+            if rd.passphrase and \
+               not self.handler.anaconda.id.partitions.encryptionPassphrase:
+                self.anaconda.id.partitions.encryptionPassphrase = rd.passphrase
             request.encryption = cryptodev.LUKSDevice(passphrase=rd.passphrase, format=rd.format)
 
         addPartRequest(self.handler.anaconda, request)
