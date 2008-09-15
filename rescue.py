@@ -195,10 +195,10 @@ def runShell(screen = None, msg=""):
             "system will reboot."))
     print
 
-    if os.path.exists("/bin/sh"):
+    if os.path.exists("/bin/bash"):
         iutil.execConsole()
     else:
-        print(_"Unable to find /bin/sh to execute!  Not starting shell"))
+        print(_("Unable to find /bin/sh to execute!  Not starting shell"))
         time.sleep(5)
 
     if screen:
