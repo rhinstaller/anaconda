@@ -1937,7 +1937,7 @@ int main(int argc, char ** argv) {
     if (isVioConsole())
         setenv("TERM", "vt100", 1);
 
-    mlLoadModuleSet("cramfs:vfat:nfs:loop:floppy:edd:pcspkr:squashfs:ext4dev:ext3:ext2:iscsi_tcp");
+    mlLoadModuleSet("cramfs:vfat:nfs:loop:floppy:edd:pcspkr:squashfs:ext4dev:ext3:ext2:iscsi_tcp:iscsi_ibft");
 
     if (!FL_NOIPV6(flags))
         mlLoadModule("ipv6", NULL);
