@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-15 10:29-0400\n"
-"PO-Revision-Date: 2008-09-15 02:34+0200\n"
+"PO-Revision-Date: 2008-09-15 14:52+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian\n"
 "MIME-Version: 1.0\n"
@@ -20,9 +20,9 @@ msgstr ""
 
 #: ../anaconda:288
 #: ../anaconda:334
-#, fuzzy, c-format
+#, c-format
 msgid "Error processing %%ksappend lines: %s"
-msgstr "Gabim gjatë trajtimit të ngjarjes ose përgjigjes (%s)."
+msgstr "Gabim gjatë përpunimit të rreshtave %%ksappend: %s"
 
 #: ../anaconda:291
 #: ../anaconda:337
@@ -190,19 +190,16 @@ msgid "Start of partition %s was moved when resizing"
 msgstr ""
 
 #: ../autopart.py:987
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
-msgstr "Nuk sigurova dot si ndarje parësore ndarje me bazë cilindrash"
+msgstr "Nuk sigurova dot si ndarje parësore ndarje me bazë cilindrash.\n"
 
 #: ../autopart.py:992
-#, fuzzy
 msgid "Could not allocate partitions as primary partitions.\n"
-msgstr "Nuk sigurova dot ndarje si ndarje parësore"
+msgstr "Nuk sigurova dot ndarje si ndarje parësore.\n"
 
 #: ../autopart.py:997
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions.\n"
-msgstr "Nuk sigurova dot ndarje me bazë cilindrash"
+msgstr "Nuk sigurova dot ndarje me bazë cilindrash.\n"
 
 #: ../autopart.py:1062
 #, python-format
@@ -220,9 +217,8 @@ msgid "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from
 msgstr "Ndarja nisëse %s nuk është një ndarje VFAT.  EFI nuk do të jetë në gjendje të niset nga kjo ndarje."
 
 #: ../autopart.py:1068
-#, fuzzy
 msgid "The boot partition must entirely be in the first 4GB of the disk.  OpenFirmware won't be able to boot this installation."
-msgstr "Ndarja nisëse nuk gjendet aq herët sa duhet në disk.  OpenFirmware nuk do të jetë në gjendje të nisë këtë instalim."
+msgstr "Ndarja nisëse duhet të përmbahet plotësisht te 4GB-et e parë të diskut.  OpenFirmware-i nuk do të jetë në gjendje ta nisë këtë instalim."
 
 #: ../autopart.py:1070
 #, fuzzy, python-format
@@ -669,18 +665,16 @@ msgid "Your distribution does not provide a supported bug filing system, so you 
 msgstr ""
 
 #: ../exception.py:384
-#, fuzzy
 msgid "Invalid Bug Information"
-msgstr "Të dhëna IP Të pavlefshme"
+msgstr "Të dhëna të Pavlefshme Bug-u"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
 msgstr ""
 
 #: ../exception.py:395
-#, fuzzy
 msgid "Unable To Login"
-msgstr "I pazoti të hyj në AIM"
+msgstr "I pazoti të Futet"
 
 #: ../exception.py:396
 #, python-format
@@ -721,9 +715,8 @@ msgstr "U shkruajt ''Dump''-i"
 
 #: ../exception.py:476
 #: ../exception.py:491
-#, fuzzy
 msgid "Your system's state has been successfully written to the disk. The installer will now exit."
-msgstr "Gjendja e sistemit tuaj u shkruajt me sukses te disketa. Tani sistemi juaj do të riniset."
+msgstr "Gjendja e sistemit tuaj u shkruajt me sukses te disketa. Tani do të dilet nga instaluesi."
 
 #: ../exception.py:482
 #: ../exception.py:499
@@ -733,7 +726,6 @@ msgstr "Nuk u Shkruajti ''Dump''-i"
 
 #: ../exception.py:483
 #: ../exception.py:500
-#, fuzzy
 msgid "There was a problem writing the system state to the disk."
 msgstr "Pati problem me shkrimin e gjendjes së sistemit te disketa."
 
@@ -757,26 +749,24 @@ msgid "There was a problem writing the system state to the remote host."
 msgstr "Pati problem me shkrimin e gjendjes së sistemit te strehë e largët."
 
 #: ../fsset.py:514
-#, fuzzy
 msgid "Checking"
-msgstr "Po kontrolloj %1"
+msgstr "Po kontrollohet"
 
 #: ../fsset.py:515
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s..."
-msgstr "    po kontrolloj leje në: %(path)s"
+msgstr "Po kontrollohet sistemi i kartelave te %s..."
 
 #: ../fsset.py:526
 #: ../fsset.py:984
-#, fuzzy
 msgid "Resizing"
-msgstr "Po ripërmasoj..."
+msgstr "Po ripërmasohet"
 
 #: ../fsset.py:527
 #: ../fsset.py:985
-#, fuzzy, python-format
+#, python-format
 msgid "Resizing filesystem on %s..."
-msgstr "Krijo drejtori të re në sistem kartelash"
+msgstr "Po ripërmasohet sistemi i kartelave te %s... "
 
 #: ../fsset.py:671
 #, python-format
@@ -790,9 +780,8 @@ msgstr ""
 "Do të donit të vazhdohet pa migruar %s?"
 
 #: ../fsset.py:1530
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "S'zbuloj dot sistem kartelash të ndarjes %s"
+msgstr "Ndarje EFI Sistemi"
 
 #: ../fsset.py:1534
 msgid "RAID Device"
@@ -888,7 +877,6 @@ msgstr ""
 "te kartela juaj /etc/fstab është në përdorim, për çastin, si ndarje \"software suspend\", që do të thotë se sistemi juaj është hibernating. Nëse po kryeni një instalim të ri, sigurohuni që instaluesi juaj është rregulluar të formatojë tërë ndarjet \"swap\"."
 
 #: ../fsset.py:1763
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -896,7 +884,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Zgjidhni Anashkalo nëse doni që instaluesi ta shpërfillë këtë pjesëzim gjatë përmirësimit.  Zgjidhni Formato për të riformatuar ndarjen si hapësirë \"swap\".  Zgjidhni Rinise për të rinisur sistemin."
+"Zgjidhni Anashkaloje nëse doni që instaluesi ta shpërfillë këtë pjesëzim gjatë përmirësimit.  Zgjidhni Formatoje për të riformatuar ndarjen si hapësirë \"swap\"."
 
 #: ../fsset.py:1768
 #: ../iw/partition_gui.py:375
@@ -960,15 +948,15 @@ msgstr ""
 "Shtypni <Enter> për të rinisur sistemin tuaj."
 
 #: ../fsset.py:1909
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Pati një gabim gjatë provës për migrimin %s.  Ky problem është serioz, dhe instalimi nuk mund të vazhdojë.\n"
+"Pati një gabim gjatë provës për migrimin e %s.  Ky problem është serioz, dhe instalimi nuk mund të vazhdojë.\n"
 "\n"
-"Shtypni <Enter> për të rinisur sistemin tuaj."
+"Shtypni <Enter> për të dalë nga instaluesi."
 
 #: ../fsset.py:1945
 #: ../fsset.py:1954
@@ -976,26 +964,26 @@ msgid "Invalid mount point"
 msgstr "Pikë montimi e pavlefshme"
 
 #: ../fsset.py:1946
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Pati një gabim gjatë provës për krijimi e %s.  Ndonjë element i këtij shtegu nuk është drejtori. Ky është gabim fatal dhe instalimi nuk mund të vazhdojë.\n"
+"Pati një gabim gjatë provës për krijimin e %s.  Ndonjë element i këtij shtegu nuk është drejtori. Ky është gabim fatal dhe instalimi nuk mund të vazhdojë.\n"
 "\n"
-"Shtypni <Enter> për të rinisur sistemin tuaj."
+"Shtypni <Enter> për të dalë nga instaluesi."
 
 #: ../fsset.py:1955
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Pati një gabim gjatë provës për krijimi e %s: %s.  Ky është gabim fatal dhe instalimi nuk mund të vazhdojë.\n"
+"Pati një gabim gjatë provës për krijimin e %s: %s.  Ky është gabim fatal dhe instalimi nuk mund të vazhdojë.\n"
 "\n"
-"Shtypni <Enter> për të rinisur sistemin tuaj."
+"Shtypni <Enter> për të dalë nga instaluesi."
 
 #: ../fsset.py:1969
 msgid "Unable to mount filesystem"
@@ -1007,7 +995,7 @@ msgid "An error occurred mounting device %s as %s.  You may continue installatio
 msgstr "Ndodhi një gabim gjatë montimit të pajisjes %s si %s.  Mund të vazhdoni instalimin, por mund të ketë probleme."
 
 #: ../fsset.py:1986
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -1017,9 +1005,9 @@ msgid ""
 msgstr ""
 "Gabim montimi të pajisjes %s si %s: %s\n"
 "\n"
-"Kjo më të shumtën do të thotë se ndarja nuk është formatuar.\n"
+"Pajisjet te /etc/fstab duhen treguar përmes etiketës ose UUID-së, jo përmes emrit të pajisjes.\n"
 "\n"
-"Shtypni OK për të rinisur sistemin tuaj."
+"Shtypni OK për të dalë nga instaluesi."
 
 #: ../fsset.py:1993
 #, python-format
@@ -1028,6 +1016,9 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
+"Gabim gjatë montimit të pajisjes %s si %s: %s\n"
+"\n"
+"Shtypni OK për të dalë nga instaluesi."
 
 #: ../fsset.py:2011
 #, fuzzy
@@ -1172,40 +1163,36 @@ msgstr "Anulo"
 
 #: ../gui.py:581
 #: ../text.py:518
-#, fuzzy
 msgid "Installation Key"
-msgstr "gjurmë gishtash kyçi %s: %s\n"
+msgstr "Kyç Instalimi"
 
 #: ../gui.py:660
 #: ../text.py:323
 #, python-format
 msgid "Choose a passphrase for this encrypted device%s. You will be prompted for the passphrase during system boot."
-msgstr ""
+msgstr "Zgjidhni një fjalëkalim për këtë pajisje të koduar %s. Fjalëkalimi do t'ju kërkohet gjatë nisjes së sistemit."
 
 #: ../gui.py:679
 #: ../gui.py:687
 #: ../text.py:367
 #: ../text.py:377
-#, fuzzy
 msgid "Error with passphrase"
-msgstr "Gabim Me Të dhënat"
+msgstr "Gabim me fjalëkalimin"
 
 #: ../gui.py:680
 #: ../text.py:368
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "Fjalëkalimet që dhatë janë të ndryshëm. Ju lutem riprovoni."
 
 #: ../gui.py:688
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "Fjalëkalimi duhet të jetë e pakta 6 shenja i gjatë."
+msgstr "Fjalëkalimi duhet të jetë e pakta tetë shenja i gjatë."
 
 #: ../gui.py:723
 #: ../text.py:400
 #, python-format
 msgid "Device %s is encrypted. In order to access the device's contents during installation you must enter the device's passphrase below."
-msgstr ""
+msgstr "Pajisja %s është e koduar. Që të keni hyrje te përmbajtja e pajisjes gjatë instalimit, duhet të jepni më poshtë fjalëkalimin për pajisjen."
 
 #: ../gui.py:780
 #, python-format
@@ -1308,9 +1295,8 @@ msgid "Exiting"
 msgstr "Po dilet"
 
 #: ../gui.py:1493
-#, fuzzy
 msgid "Are you sure you wish to exit the installation?"
-msgstr "Jeni i sigurt se doni të lejohet %s të lidhet me ju?"
+msgstr "Jeni i sigurt se doni të dilet prej instalimit?"
 
 #: ../gui.py:1502
 #, python-format
@@ -1326,7 +1312,7 @@ msgid "Install Window"
 msgstr "Dritare Instalimi"
 
 #: ../image.py:83
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may mean it was corrupted on transfer to this computer.\n"
 "\n"
@@ -1334,7 +1320,7 @@ msgid ""
 msgstr ""
 "Pamja ISO %s ka një madhësi që nuk është shumëfish 2048 bajtesh.  Kjo mund të tregojë që është dëmtuar gjatë shpërnguljes për te ky kompjuter.\n"
 "\n"
-"Këshillohet rinisja e kompjuterit dhe të ndërprisni instalimin, por mund të zgjidhni vazhdimin nëse mendoni se sa më sipër është gabim."
+"Është e këshillueshme mbyllja dhe ndërprerja e instalimit, por mund të zgjidhni vazhdimin nëse mendoni se sa më sipër është gabim."
 
 #: ../image.py:156
 msgid "Couldn't Mount ISO Source"
@@ -1343,14 +1329,14 @@ msgstr "S'u Montua Dot Burimi ISO"
 #: ../image.py:157
 #, python-format
 msgid "An error occurred mounting the source device %s.  This may happen if your ISO images are located on an advanced storage device like LVM or RAID, or if there was a problem mounting a partition.  Click exit to abort the installation."
-msgstr ""
+msgstr "Ndodhi një gabim gjatë montimit të pajisjes burim %s.  Kjo mund të ndodhë në rast se pamjet tuaja ISO gjenden në një pajisje të përparuar depozitimesh, të tilla si LVM ose RAID, ose nëse pati problem montimi me ndonjë ndarje.  Klikoni Mbylle për të ndërprerë instalimin."
 
 #: ../image.py:185
 msgid "Missing ISO 9660 Image"
 msgstr "Mungon Pamje ISO 9660"
 
 #: ../image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard drive.\n"
 "\n"
@@ -1358,7 +1344,7 @@ msgid ""
 msgstr ""
 "Instaluesi provoi të montojë pamjen #%s, por nuk mund ta gjejë në hard disk.\n"
 "\n"
-"Ju lutem kopjojeni këtë pamje te disku dhe Riprovoni. Për ndërprerjen e instalimit klikoni Rinise."
+"Ju lutem kopjojeni këtë pamje te disku dhe Riprovoni. Për ndërprerjen e instalimit klikoni Dil."
 
 #: ../image.py:244
 msgid "Required Install Media"
@@ -1462,9 +1448,8 @@ msgid "The given location isn't a valid %s live CD to use as an installation sou
 msgstr "Vendi i treguar nuk është live CD %s i vlefshëm për t'u përdorur si burim instalimi."
 
 #: ../livecd.py:171
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "Po shpërngul pamje instalimi tek hd..."
+msgstr "Pamja live po kopjohet te hard disku."
 
 #: ../livecd.py:197
 #, fuzzy
@@ -1489,22 +1474,19 @@ msgstr "Po kryehen ndryshime pasinstalimi në sistemin e kartelave. Ky mund të 
 #: ../livecd.py:380
 #, python-format
 msgid "The root filesystem you created is not large enough for this live image (%.2f MB required)."
-msgstr ""
+msgstr "Sistemi i kartelave për rrënjën që krijuat nuk është aq i madh sa duhet për këtë pamje \"live\" (Lypsen %.2f MB)."
 
 #: ../network.py:64
-#, fuzzy
 msgid "Hostname must be 64 or fewer characters in length."
-msgstr "Emërstreha duhet të jetë 64 ose më pak shenja e gjatë."
+msgstr "Emërstreha duhet të jetë e gjatë 64 ose më pak shenja."
 
 #: ../network.py:70
-#, fuzzy
 msgid "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-9'"
-msgstr "Emërstreha duhet të fillojë me një shenjë të vlefshme brenda intervalit 'a-z' ose 'A-Z'"
+msgstr "Emërstreha duhet të fillojë me një shenjë të vlefshme brenda intervalit 'a-z' ose 'A-Z' ose '0-9'"
 
 #: ../network.py:75
-#, fuzzy
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr "Emërstrehët mund të përmbajnë vetëm shenjat 'a-z', 'A-Z', '-', ose '.'"
+msgstr "Emërstrehët mund të përmbajnë vetëm shenjat 'a-z', 'A-Z', '0-9', '-', ose '.'"
 
 #: ../network.py:132
 msgid "IP address is missing."
@@ -1525,43 +1507,37 @@ msgid "'%s' is an invalid IP address."
 msgstr "'%s' është vendndodhje IP e pavlefshme."
 
 #: ../packages.py:112
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "\"alloca\" dështoi"
+msgstr "Ripërmasimi Dështoi"
 
 #: ../packages.py:113
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered resizing the device %s."
-msgstr "Pati një gabim në pastrimin e \"drive\"-eve objektiv. Klonimi dështoi."
+msgstr "U has një gabim gjatë ripërmasimit të pajisjes %s."
 
 #: ../packages.py:146
-#, fuzzy
 msgid "Activating"
-msgstr "Aktivizo në nisje"
+msgstr "Po aktivizohet"
 
 #: ../packages.py:146
 msgid "Activating new partitions.  Please wait..."
-msgstr ""
+msgstr "Po aktivizohen ndarjet e reja. Ju lutem prisni..."
 
 #: ../packages.py:167
-#, fuzzy
 msgid "LVM operation failed"
-msgstr "Veprim TIFFClose i dështuar"
+msgstr "Veprimi LVM dështoi"
 
 #: ../packages.py:323
-#, fuzzy
 msgid "Invalid Key"
-msgstr "gjurmë gishtash kyçi %s: %s\n"
+msgstr "Kyç i Pavlefshëm"
 
 #: ../packages.py:324
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "Kyçi SecurID i dhënë është i pavlefshëm."
+msgstr "Kyçi që dhatë është i pavlefshëm."
 
 #: ../packages.py:352
-#, fuzzy
 msgid "_Skip"
-msgstr "_Anashkalo"
+msgstr "_Anashkaloje"
 
 #: ../packages.py:384
 #: ../packages.py:407
@@ -1674,7 +1650,7 @@ msgstr ""
 #: ../partedUtils.py:1277
 #, python-format
 msgid "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in the Linux kernel does not allow for more than 15 partitons at this time.  You will not be able to make changes to the partitioning of this disk or use any partitions beyond /dev/%s15 in %s"
-msgstr ""
+msgstr "Pajisja /dev/%s përmban më tepër se 15 ndarje.  Nënsistemi SCSI te kerneli Linux, deri më sot, nuk lejon më tepër se 15 ndarje.  Nuk do të jeni në gjendje të bëni ndryshime te pjesëzimi i këtij disku ose të përdorni ndonjë pjesë tej /dev/%s15 te %s"
 
 #: ../partedUtils.py:1361
 msgid "No Drives Found"
@@ -1974,14 +1950,13 @@ msgid "The partitioning options you have chosen have already been activated. You
 msgstr "Zgjedhjet e bëra nga ju për pjesëzimin janë tashmë vepruese. Nuk ktheheni dot më te hapi i përpunimit të diskut. Doni të vazhdohet me procesin e instalimit?"
 
 #: ../partitions.py:130
-#, fuzzy, python-format
+#, python-format
 msgid " for device %s"
-msgstr "Pajisje Seriale:"
+msgstr "për pajisjen %s"
 
 #: ../partitions.py:133
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Pajisje Seriale:"
+msgstr "Të kodohet pajisja?"
 
 #: ../partitions.py:134
 #, python-format
@@ -2026,23 +2001,20 @@ msgid "Continue"
 msgstr "Vazhdo"
 
 #: ../partitions.py:160
-#, fuzzy
 msgid "Writing partitioning to disk"
-msgstr "Failure while writing to '%1'"
+msgstr "Pjesëzimi po shkruhet te disku"
 
 #: ../partitions.py:161
 msgid "The partitioning options you have selected will now be written to disk.  Any data on deleted or reformatted partitions will be lost."
-msgstr ""
+msgstr "Mundësitë e pjesëzimit që përzgjodhët tani do të shkruhen në disk. Çfarëdo të dhënash te ndarjet e fshira apo të riformatuara do të humbin.  "
 
 #: ../partitions.py:166
-#, fuzzy
 msgid "Go _back"
-msgstr "Shko prapa"
+msgstr "Shko _prapa"
 
 #: ../partitions.py:167
-#, fuzzy
 msgid "_Write changes to disk"
-msgstr "s'shkruaj dot shtytëzën '%s' në disk."
+msgstr "_Shkruaji ndryshimet në disk"
 
 #: ../partitions.py:265
 msgid "Confirm"
@@ -2228,7 +2200,7 @@ msgstr "Pasi të mbaroni ju lutem dilni prej shellit dhe sistemi juaj do të rin
 
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
+msgstr "I pazoti të gjente /bin/sh për përmbushjen!  Nuk ka shell fillimi."
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -2343,19 +2315,17 @@ msgid "Save"
 msgstr "Ruaj"
 
 #: ../text.py:210
-#, fuzzy
 msgid "Save to local disk"
-msgstr "Dështova në ruajtjen e veprimeve në disk."
+msgstr "Ruaje në disk vendor"
 
 #: ../text.py:211
-#, fuzzy, python-format
+#, python-format
 msgid "Send to bugzilla (%s)"
-msgstr "Faks për t'u dërguar"
+msgstr "Dërgoje te bugzilla (%s)"
 
 #: ../text.py:212
-#, fuzzy
 msgid "Send to remote server (scp)"
-msgstr "ping:  Dërgo PING te shërbyesi i lidhur"
+msgstr "Dërgoje te shërbyes i largët (scp)"
 
 #: ../text.py:226
 #: ../text.py:239
@@ -2368,46 +2338,40 @@ msgid "Password"
 msgstr "Fjalëkalim"
 
 #: ../text.py:230
-#, fuzzy
 msgid "Bug Description"
-msgstr "Përshkrim faksi?"
+msgstr "Përshkrim Bug-u"
 
 #: ../text.py:243
-#, fuzzy
 msgid "Host (host:port)"
-msgstr "përdorues@strehë:portë"
+msgstr "Strehë (host:port)"
 
 #: ../text.py:245
-#, fuzzy
 msgid "Destination file"
-msgstr "Kartelë."
+msgstr "Kartelë vendmbërritje"
 
 #: ../text.py:329
-#, fuzzy
 msgid "Passphrase for encrypted device"
-msgstr "Jepni passphrase për kyçin '"
+msgstr "Fjalëkalim për pajisje të koduar"
 
 #: ../text.py:347
 #: tmp/lukspassphrase.glade.h:7
 msgid "Use this passphrase for all new encrypted devices"
-msgstr ""
+msgstr "Përdore këtë fjalëkalim për tërë pajisjet e reja të koduara"
 
 #: ../text.py:378
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "Fjalëkalimi duhet të jetë e pakta 6 shenja i gjatë."
+msgstr "Fjalëkalimi duhet të jetë i gjatë e pakta %d shenja."
 
 #: ../text.py:407
 #: tmp/lukspassphrase.glade.h:5
-#, fuzzy
 msgid "Passphrase"
-msgstr "Parullë"
+msgstr "Fjalëkalim"
 
 #: ../text.py:415
 #: tmp/lukspassphrase.glade.h:6
-#, fuzzy
 msgid "This is a global passphrase"
-msgstr "Ky është versioni %s i fetchmail-it"
+msgstr "Ky është fjalëkalim global"
 
 #: ../text.py:481
 #: ../text.py:485
@@ -2416,22 +2380,22 @@ msgid "Repository editing is not available in text mode."
 msgstr "Nuk kapet dot instalimi grafik...  Po fillohet me mënyrën tekst."
 
 #: ../text.py:523
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Ju lutem jepni fjalëkalimin tuaj"
+msgstr "Ju lutem jepni %(instkey)s tuaj"
 
 #: ../text.py:540
 #: tmp/instkey.glade.h:6
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr "Skip this transaction"
+msgstr "Anashkalo dhënie %(instkey)s"
 
 #: ../text.py:616
 #: ../loader/lang.c:63
 #: ../loader/loader.c:212
-#, fuzzy, c-format, python-format
+#, c-format, python-format
 msgid "Welcome to %s for %s"
-msgstr "Mirësevini te Browsershots!"
+msgstr "Mirësevini te %s për %s"
 
 #: ../text.py:618
 #, python-format
@@ -2453,6 +2417,8 @@ msgid ""
 "You have choosen the upgrade for %s architecture, but the installed system is for %s architecture. \n"
 "\n"
 msgstr ""
+"Zgjodhët përmirësimin për arkitekturën %s, por sistemi i instaluar është për arkitekturën %s. \n"
+"\n"
 
 #: ../upgrade.py:96
 #, fuzzy, python-format
@@ -2560,9 +2526,9 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr "Do të provoj sërish të lidhem pas 15 sekondash..."
 
 #: ../vnc.py:200
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d tries!\n"
-msgstr "PO heq dorë nga përpjekjet për t'u lidhur pas 50 provash!\n"
+msgstr "Po heq dorë nga përpjekjet për t'u lidhur pas %d provash!\n"
 
 #: ../vnc.py:209
 #, python-format
@@ -2593,7 +2559,6 @@ msgid ""
 msgstr ""
 
 #: ../vnc.py:257
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -2606,7 +2571,7 @@ msgstr ""
 "\n"
 "KUJDES!!! Shërbyes VNC që xhiron PA FJALËKALIM!\n"
 "Nëse do të donit të siguroni shërbyesin mund\n"
-"të përdorni opsion nisjeje  vncpassword=<fjalëkalim>.\n"
+"të përdorni opsion nisjeje  self.password=<fjalëkalim>.\n"
 "\n"
 
 #: ../vnc.py:261
@@ -2616,15 +2581,22 @@ msgid ""
 "You chose to execute vnc with a password. \n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"Zgjodhët të ekzekutohet vnc me fjalëkalim. \n"
+"\n"
 
 #: ../vnc.py:263
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Unknown Error.  Aborting. \n"
 "\n"
-msgstr "Gabim"
+msgstr ""
+"\n"
+"\n"
+"Gabim i Panjohur.  Po ndërpritet. \n"
+"\n"
 
 #: ../vnc.py:285
 #: ../vnc.py:378
@@ -2723,9 +2695,9 @@ msgid "Preparing transaction from installation source..."
 msgstr "Po përgatite ndërveprim me burim instalimi..."
 
 #: ../yuminstall.py:155
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "[Po instaloj: %s ] "
+msgstr "<b>Po instalohet %s</b> (%s)\n"
 
 #: ../yuminstall.py:202
 #, fuzzy, python-format
@@ -2733,15 +2705,13 @@ msgid "%s of %s packages completed"
 msgstr "Instalim i plotësuar"
 
 #: ../yuminstall.py:214
-#, fuzzy
 msgid "Finishing upgrade process..."
-msgstr "Anulo procesin e instalimit."
+msgstr "Po përfundohet procesi i përmirësimit..."
 
 #: ../yuminstall.py:308
 #: ../iw/task_gui.py:275
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "Gabim"
+msgstr "Gabim Në Përgatitjen e Depos"
 
 #: ../yuminstall.py:309
 #: ../iw/task_gui.py:276
@@ -2753,11 +2723,15 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
+"Gabimi vijues ndodhi gjatë përgatitjes së depos së instalimit:\n"
+"\n"
+"%s\n"
+"\n"
+"Ju lutem jepni të dhënat e duhura për instalimin e %s."
 
 #: ../yuminstall.py:366
-#, fuzzy
 msgid "Change Disc"
-msgstr "Tip Disku:"
+msgstr "Ndërroni Diskun"
 
 #: ../yuminstall.py:367
 #, python-format
@@ -2765,24 +2739,22 @@ msgid "Please insert %s disc %d to continue."
 msgstr "Ju lutem fusni diskun %s %d për të vazhduar."
 
 #: ../yuminstall.py:378
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "Tip Disku:"
+msgstr "Disk i Gabuar"
 
 #: ../yuminstall.py:379
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s disc."
-msgstr "Ky s'është CDROM-i i saktë %s ."
+msgstr "Ky s'është disku i saktë %s ."
 
 #: ../yuminstall.py:385
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "I pazoti të futem në drejtori"
+msgstr "I pazoti të hyjë në disk."
 
 #: ../yuminstall.py:533
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr ""
+msgstr "Depos %r i mungon emri te formësimi, po përdoret id-ja"
 
 #: ../yuminstall.py:651
 #: ../yuminstall.py:653
@@ -2790,9 +2762,8 @@ msgid "Re_boot"
 msgstr "Ri_nis"
 
 #: ../yuminstall.py:651
-#, fuzzy
 msgid "_Eject"
-msgstr "Nxirr \"%s\""
+msgstr "_Nxirre"
 
 #: ../yuminstall.py:660
 #, fuzzy, python-format
@@ -2808,14 +2779,12 @@ msgstr ""
 "\n"
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying"
-msgstr "Po riprovoj..."
+msgstr "Po riprovohet..."
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying download..."
-msgstr "Shkarkim i %d%% i plotësuar"
+msgstr "Po riprovohet shkarkimi..."
 
 #: ../yuminstall.py:772
 #, fuzzy, python-format
@@ -2877,9 +2846,8 @@ msgstr "Pati një gabim gjatë xhirimit të ndërveprimit tuaj, për arsyen(t) v
 
 #: ../yuminstall.py:856
 #: ../yuminstall.py:861
-#, fuzzy
 msgid "Error Running Transaction"
-msgstr "Gabim në xhirim ndërveprimi"
+msgstr "Gabim në Xhirim Ndërveprimi"
 
 #: ../yuminstall.py:1021
 msgid "Retrieving installation information..."
@@ -2995,9 +2963,8 @@ msgid "_Confirm:"
 msgstr "_Ripohojeni:"
 
 #: ../iw/account_gui.py:97
-#, fuzzy
 msgid "Caps Lock is on."
-msgstr "veprimtaria në %s qe %d, është %d\n"
+msgstr "Caps Lock është vepruese."
 
 #: ../iw/account_gui.py:107
 #: ../iw/account_gui.py:115
@@ -3041,11 +3008,11 @@ msgstr "Fjalëkalimi i nevojshëm përmban shenja jo ascii, të cilat nuk lejohe
 
 #: ../iw/autopart_type.py:97
 msgid "No partitions are available to resize.  Only physical partitions with specific filesystems can be resized."
-msgstr ""
+msgstr "Nuk ka ndarje për ripërmasim. Mund të ripërmasohen vetëm ndarje fizike me sistem të përcaktuar kartelash. "
 
 #: ../iw/autopart_type.py:180
 msgid "Do you really want to boot from a disk which is not used for installation?"
-msgstr ""
+msgstr "Doni vërtet të bëhet nisja prej një disku që nuk është përdorur për instalimin?"
 
 #: ../iw/autopart_type.py:261
 msgid "Invalid Initiator Name"
@@ -3085,9 +3052,8 @@ msgstr "Përdor hapësirën e lirë në \"drive\"-et e përzgjedhur dhe krijo sk
 
 #: ../iw/autopart_type.py:409
 #: ../textw/partition_text.py:1521
-#, fuzzy
 msgid "Create custom layout"
-msgstr "Krijo skemë të përshtatur."
+msgstr "Krijo skemë të përshtatur"
 
 #: ../iw/blpasswidget.py:47
 msgid "_Use a boot loader password"
@@ -3156,9 +3122,8 @@ msgid "_Install boot loader on /dev/%s."
 msgstr "Instalo regjistrim Ngarkuesi Nisjes te:"
 
 #: ../iw/bootloader_main_gui.py:222
-#, fuzzy
 msgid "_Change device"
-msgstr "të ndryshojnë Paisje CD Shkruajtëse"
+msgstr "_Ndrysho pajisje"
 
 #: ../iw/congrats_gui.py:33
 msgid "Congratulations"
@@ -3391,9 +3356,8 @@ msgstr "(Madhësia më e madhe është %s MB)"
 #: ../iw/partition_dialog_gui.py:510
 #: ../iw/partition_ui_helpers_gui.py:301
 #: ../iw/raid_dialog_gui.py:359
-#, fuzzy
 msgid "_Encrypt"
-msgstr "Kyç Kodimi"
+msgstr "_Kodoje"
 
 #: ../iw/lvm_dialog_gui.py:544
 #: ../textw/partition_text.py:1265
@@ -3410,9 +3374,9 @@ msgid "Mount point in use"
 msgstr "Pikë montimi e përdorur"
 
 #: ../iw/lvm_dialog_gui.py:581
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr "Pika e montimit \"%s\" është në përdorim, ju lutem merrni një tjetër."
+msgstr "Pika e montimit \"%s\" është në përdorim. Ju lutem merrni një tjetër."
 
 #: ../iw/lvm_dialog_gui.py:592
 #: ../textw/partition_text.py:1236
@@ -3632,9 +3596,8 @@ msgstr "Vendndodhje IP"
 
 #: ../iw/netconfig_dialog.py:222
 #: ../textw/netconfig_text.py:213
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "Parashtesa IPv4 duhet të jetë nga 0 deri në 32."
+msgstr "Parashtesa IPv4 CIDR duhet të jetë nga 0 deri në 32."
 
 #: ../iw/netconfig_dialog.py:223
 #: ../iw/netconfig_dialog.py:229
@@ -3643,9 +3606,8 @@ msgstr "Parashtesa IPv4 duhet të jetë nga 0 deri në 32."
 #: ../textw/netconfig_text.py:214
 #: ../textw/netconfig_text.py:220
 #: ../textw/netconfig_text.py:228
-#, fuzzy
 msgid "IPv4 Network Mask"
-msgstr "Zbato _Maskë Shtrese "
+msgstr "Maskë Rrjeti IPv4"
 
 #: ../iw/netconfig_dialog.py:247
 #: ../iw/netconfig_dialog.py:250
@@ -4433,19 +4395,16 @@ msgid "Unable to find a group file for %s.  This will prevent manual selection o
 msgstr "I pazoti të gjejë kartelë grupi për %s.  Kjo do të bëjë që përzgjedhja dorazi e paketave prej depos të mos punojë"
 
 #: ../iw/task_gui.py:155
-#, fuzzy
 msgid "Edit Repository"
-msgstr "<b>_URL Depoje:</b>"
+msgstr "Përpunoni Depon"
 
 #: ../iw/task_gui.py:213
-#, fuzzy
 msgid "Invalid Proxy URL"
-msgstr "URL-ja është e pavlefshme"
+msgstr "URL Ndërmjetësi të Pavlefshëm"
 
 #: ../iw/task_gui.py:214
-#, fuzzy
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
-msgstr "Duhet të jepni një URL HTTP ose FTP për te një depo."
+msgstr "Duhet të jepni një URL HTTP, HTTPS, ose FTP për te një ndërmjetës."
 
 #: ../iw/task_gui.py:224
 #: ../iw/task_gui.py:350
@@ -4454,15 +4413,13 @@ msgstr "URL Depoje e Pavlefshme"
 
 #: ../iw/task_gui.py:225
 #: ../iw/task_gui.py:351
-#, fuzzy
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr "Duhet të jepni një URL HTTP ose FTP për te një depo."
+msgstr "Duhet të jepni një URL HTTP, HTTPS, ose FTP për te një depo."
 
 #: ../iw/task_gui.py:247
 #: ../iw/task_gui.py:360
-#, fuzzy
 msgid "No Media Found"
-msgstr "S'u gjetën probleme"
+msgstr "S'u Gjet Media"
 
 #: ../iw/task_gui.py:248
 #: ../iw/task_gui.py:361
@@ -4471,18 +4428,16 @@ msgstr ""
 
 #: ../iw/task_gui.py:267
 #: ../iw/task_gui.py:377
-#, fuzzy
 msgid "Please enter an NFS server and path."
-msgstr "Ju lutem jepni emër grupi vëllimesh."
+msgstr "Ju lutem jepni shërbyes NFS dhe shteg për të."
 
 #: ../iw/task_gui.py:299
 msgid "Invalid Repository Name"
 msgstr "Emër i Pavlefshëm Depoje"
 
 #: ../iw/task_gui.py:300
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "Duhet të jepni një emër shërbyesi."
+msgstr "Duhet të jepni një emër depoje."
 
 #: ../iw/task_gui.py:412
 #: tmp/addrepo.glade.h:3
@@ -4868,9 +4823,9 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "Tastierë e cilit model i është lidhur këtij kompjuteri?"
 
 #: ../textw/netconfig_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s"
-msgstr "Lipset një vlerë për fushën \"%s\"."
+msgstr "Lypset një vlerë për fushën %s."
 
 #: ../textw/netconfig_text.py:86
 #: tmp/netconfig.glade.h:9
@@ -4901,12 +4856,10 @@ msgid "Enable IPv6 support"
 msgstr "Aktivizo mbulim IPv6"
 
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
 msgstr "Vendndodhje IPv4:"
 
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
 msgstr "Vendndodhje IPv6:"
 
@@ -4921,24 +4874,20 @@ msgid "Nameserver:"
 msgstr "Emër shërbyesi:"
 
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "Pajisje Seriale:"
+msgstr "Pajisje që Mungon"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "Duhet të përzgjidhni një zë prurjeje."
+msgstr "Duhet të përzgjidhni një pajisje rrjeti."
 
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
-msgstr "Zbato _Maskë Shtrese "
+msgstr "Maskë Rrjeti IPv4"
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
-msgstr "Gabim në formësim pajisjeje rrjeti"
+msgstr "Gabim në formësim pajisjeje rrjeti:"
 
 #: ../textw/network_text.py:60
 #, python-format
@@ -4946,19 +4895,18 @@ msgid "You have not specified the field %s.  Depending on your network environme
 msgstr "Nuk keni dhënë fushën \"%s\". Në varësi të mjedisit tuaj për rrjetin, kjo mund të shkaktojë probleme më vonë."
 
 #: ../textw/network_text.py:77
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "Parashtesa IPv4 duhet të jetë nga 0 deri në 32."
+msgstr "Parashtesa IPv%d duhet të jetë nga 0 deri në %d."
 
 #: ../textw/network_text.py:81
-#, fuzzy
 msgid "Integer Required for Prefix"
-msgstr "Lipset një vlerë për fushën \"%s\"."
+msgstr ""
 
 #: ../textw/network_text.py:82
 #, python-format
 msgid "You must enter a valid integer for the %s.  For IPv4, the value can be between 0 and 32.  For IPv6 it can be between 0 and 128."
-msgstr ""
+msgstr "Duhet të jepni një numër të plotë të vlefshëm për %s.  Për IPv4-n, vlera mund të jetë nga 0 deri në 32.  Për IPv6-n mund të jetë nga 0 deri në 128."
 
 #: ../textw/network_text.py:89
 #: tmp/netpostconfig.glade.h:16
@@ -5005,14 +4953,13 @@ msgstr "Formësim IP-je dinamike (DHCP)"
 
 #: ../textw/network_text.py:277
 #: ../textw/network_text.py:408
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "Formësim TCP/IP-je dorazi"
+msgstr "Formësim vendndodhjeje dorazi"
 
 #: ../textw/network_text.py:297
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Formësim Rrjeti për %s"
+msgstr "Formësim IPv4-e për %s"
 
 #: ../textw/network_text.py:327
 #: ../textw/network_text.py:339
@@ -5021,16 +4968,14 @@ msgid "IPv4 address"
 msgstr "Vendndodhje IPv4"
 
 #: ../textw/network_text.py:331
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "Zbato _Maskë Shtrese "
+msgstr "Maskë rrjeti IPv4"
 
 #: ../textw/network_text.py:357
 #: ../textw/network_text.py:360
 #: ../textw/network_text.py:363
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Parashtesë (Netmaskë)"
+msgstr "Parashtesë IPv4 (maskë rrjeti)"
 
 #: ../textw/network_text.py:402
 #: tmp/netpostconfig.glade.h:4
@@ -5043,9 +4988,9 @@ msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Formësim IP-je dinamike (DHCPv6)"
 
 #: ../textw/network_text.py:432
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Formësim Rrjeti për %s"
+msgstr "Formësim IPv6-e për %s"
 
 #: ../textw/network_text.py:462
 #: ../textw/network_text.py:473
@@ -5059,9 +5004,8 @@ msgid "IPv6 prefix"
 msgstr "Parashtesë IPv6"
 
 #: ../textw/network_text.py:511
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Aktivizo ndërfaqe rrjeti"
+msgstr "Formësoni Ndërfaqe Rrjeti"
 
 #: ../textw/network_text.py:512
 #, fuzzy, python-format
@@ -5071,21 +5015,19 @@ msgstr "Doni të nisen ndërfaqet e rrjetit për këtë sistem?"
 #: ../textw/network_text.py:526
 #: ../textw/network_text.py:528
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "I PAFOMËRSUAR"
 
 #: ../textw/network_text.py:537
 msgid "The current configuration settings for each interface are listed next to the device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To configure an interface, highlight it and choose Edit.  When you are finished, press OK to continue."
 msgstr ""
 
 #: ../textw/network_text.py:571
-#, fuzzy
 msgid "Active on boot"
-msgstr "Aktivizo në Nisje"
+msgstr "Veprues që në nisje"
 
 #: ../textw/network_text.py:573
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Aktivizo në nisje"
+msgstr "Joveprues që në nisje"
 
 #: ../textw/network_text.py:576
 msgid "DHCP"
@@ -5226,9 +5168,8 @@ msgid "RAID Members:"
 msgstr "Përbërës RAID:"
 
 #: ../textw/partition_text.py:556
-#, fuzzy
 msgid "Number of spares?"
-msgstr "Numër tel.:"
+msgstr ""
 
 #: ../textw/partition_text.py:570
 msgid "File System Type:"
@@ -5297,7 +5238,6 @@ msgid "Not Supported"
 msgstr "E pamuluar"
 
 #: ../textw/partition_text.py:764
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr "Grupe Vëllimesh LVM mund të përpunohen vetëm nga brenda instaluesit grafik."
 
@@ -5337,9 +5277,8 @@ msgid "Invalid Entry for RAID Spares"
 msgstr "Vlerë e Pavlefshme për Cilindër të Fundit"
 
 #: ../textw/partition_text.py:1072
-#, fuzzy
 msgid "Too many spares"
-msgstr "Shumë grupe"
+msgstr ""
 
 #: ../textw/partition_text.py:1073
 msgid "You may not use any spares with a RAID0 array."
@@ -5350,7 +5289,6 @@ msgid "No Volume Groups"
 msgstr "Pa Grupe Vëllimesh"
 
 #: ../textw/partition_text.py:1153
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
 msgstr "Pa grupe vëllimesh te të cilët të krijohet një vëllim logjik"
 
@@ -5463,14 +5401,12 @@ msgid "To use iSCSI disks, you must provide the address of your iSCSI target and
 msgstr "Për të përdorur disqe iSCSI, duhet të jepni vendndodhjen e objektivit tuaj iSCSI dhe emrin e gatitësit iSCSI që keni formësuar për strehën tuaj."
 
 #: ../textw/partition_text.py:1689
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>Vendndodhje IP _Objektiv:</b>"
+msgstr "Vendndodhje IP Objektiv"
 
 #: ../textw/partition_text.py:1690
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>_Emër Gatitësi iSCSI:</b>"
+msgstr "Emër Gatitësi iSCSI"
 
 #: ../textw/partmethod_text.py:34
 msgid "Autopartition"
@@ -5499,7 +5435,6 @@ msgid "Customize software selection"
 msgstr "Përshtasni përzgjedhje software-esh"
 
 #: ../textw/timezone_text.py:75
-#, fuzzy
 msgid "In which time zone are you located?"
 msgstr "Në cilën zonë kohore gjendeni?"
 
@@ -5719,9 +5654,8 @@ msgid "The %s disc was not found in any of your drives. Please insert the %s dis
 msgstr "CD-ja %s nuk u gjet në ndonjë nga \"drive\"-et tuaj CDROM. Ju lutem fusni CD-në %s dhe shtypni %s për të riprovuar."
 
 #: ../loader/cdinstall.c:239
-#, fuzzy
 msgid "Disc Found"
-msgstr "U gjetën %(mesazhe)d mesazhe"
+msgstr "Disku u Gjet"
 
 #: ../loader/cdinstall.c:240
 #, fuzzy, c-format
@@ -5735,9 +5669,8 @@ msgstr ""
 "Zgjidhni %s për të anashkaluar provën e medias dhe për të filluar instalimin."
 
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "Po skanoj kartelë:"
+msgstr "Po skanohet"
 
 #: ../loader/cdinstall.c:331
 #: ../loader/cdinstall.c:333
@@ -5751,9 +5684,8 @@ msgid "The %s disc was not found in any of your CDROM drives. Please insert the 
 msgstr "CD-ja %s nuk u gjet në ndonjë nga \"drive\"-et tuaj CDROM. Ju lutem fusni CD-në %s dhe shtypni %s për të riprovuar."
 
 #: ../loader/cdinstall.c:437
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "Nuk u gjet faqe"
+msgstr "Disku Nuk u Gjet"
 
 #: ../loader/cdinstall.c:504
 msgid "Cannot find kickstart file on CDROM."
@@ -5761,9 +5693,9 @@ msgstr "Nuk gjej dot kartelë \"kickstart\" në CDROM."
 
 #: ../loader/copy.c:51
 #: ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "Dështova në leximin e drejtorisë %s: %s"
+msgstr "Dështoi leximi i drejtorisë %s: %m"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -5924,7 +5856,6 @@ msgid "What partition and directory on that partition holds the installation ima
 msgstr "Cila ndarje dhe drejtori mban pamjet CD (iso9660) për %s? Nëse nuk e shihni në këtë listë diskun që po përdorni, shtypni F2 për të formësuar pajisje shtesë."
 
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
 msgstr "Drejtori që mban pamjet:"
 
@@ -5933,9 +5864,9 @@ msgid "Select Partition"
 msgstr "Përzgjidhni Ndarje"
 
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "Pajisja %s nuk duket se përmban pamje CDROM %s."
+msgstr "Pajisja %s nuk duket se përmban pamje instalimi."
 
 #: ../loader/hdinstall.c:385
 #, c-format
@@ -5961,14 +5892,14 @@ msgid "What type of keyboard do you have?"
 msgstr "Ç'tip tastiere keni?"
 
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "Gabim gjatë hapjes së kartelës \"kickstart\" %s: %s"
+msgstr "Gabim gjatë hapjes së kartelës \"kickstart\" %s: %m"
 
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Gabim gjatë leximit të kartelës \"kickstart\" %s: %s"
+msgstr "Gabim gjatë leximit përmbajtjes së kartelës \"kickstart\" %s: %m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -5994,9 +5925,9 @@ msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Argument i gabuar te urdhër ndalimi metode \"kickstart\" %s: %s"
 
 #: ../loader/lang.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s for %s - Rescue Mode"
-msgstr "Mirësevini te %s - Mënyrë Shpëtimi"
+msgstr "Mirësevini te %s për %s - Mënyra Shpëtim"
 
 #: ../loader/lang.c:65
 #: ../loader/loader.c:223
@@ -6169,7 +6100,6 @@ msgid "The image which was just tested has errors. This could be due to a corrup
 msgstr "Pamja që sapo u provua ka gabime. Kjo mund të vijë nga nja shkarkim i dëmtuar ose nga një disk i keq.  Në mundet, ju lutem pastroni diskun dhe riprovoni.  Nëse prova vazhdon të dështojë nuk do të duhej të vazhdonit instalimin."
 
 #: ../loader/mediacheck.c:117
-#, fuzzy
 msgid "Success"
 msgstr "Sukses"
 
@@ -6283,9 +6213,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "\"Bootproto\" %s e gabuar dhënë në urdhër rrjeti"
 
 #: ../loader/net.c:1423
-#, fuzzy
 msgid "Seconds:"
-msgstr "%d sekonda"
+msgstr "Sekonda:"
 
 #: ../loader/net.c:1537
 msgid "Networking Device"
@@ -6312,13 +6241,12 @@ msgid "Identify NIC"
 msgstr ""
 
 #: ../loader/net.c:1576
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Kohëzgjatje e _fiksuar"
+msgstr "Kohëzgjatje e Pavlefshme"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "Numrin e sekondave duhet ta jepni si numër të plotë nga 1 deri në 30."
 
 #: ../loader/net.c:1589
 #, c-format
@@ -6343,7 +6271,7 @@ msgstr "drejtori %s:"
 #: ../loader/nfsinstall.c:78
 #, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr ""
+msgstr "Ju lutem jepni emrin e shërbyesit dhe shtegun te pamja juaj %s për instalimin."
 
 #: ../loader/nfsinstall.c:85
 msgid "NFS Setup"
@@ -6415,9 +6343,8 @@ msgid "Please enter the URL containing the %s installation image on your server.
 msgstr "Ju lutem jepni çelsin e regjistrimit për versionin tuaj të %s."
 
 #: ../loader/urls.c:321
-#, fuzzy
 msgid "URL Setup"
-msgstr "Rregullim përtypësi"
+msgstr "Përgatitje URL-je"
 
 #: ../loader/urls.c:329
 msgid "You must enter a URL."
@@ -6476,9 +6403,8 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>_Emër depoje:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "Tip llogarie:"
+msgstr "<b>_Lloj depoje:</b>"
 
 #: tmp/addrepo.glade.h:4
 #, fuzzy
@@ -6492,10 +6418,14 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"Hard Disk"
 
 #: tmp/addrepo.glade.h:9
 msgid "Please provide the configuration information for this software repository."
-msgstr ""
+msgstr "Ju lutem jepni të dhënat e formësimit për këtë depo software-i."
 
 #: tmp/addrepo.glade.h:10
 #, fuzzy
@@ -6518,9 +6448,8 @@ msgid "Repository _URL"
 msgstr "<b>_URL Depoje:</b>"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "Përzgjidhni drejtori"
+msgstr "Përzgjidhni Drejtori"
 
 #: tmp/addrepo.glade.h:15
 #, fuzzy
@@ -6588,18 +6517,16 @@ msgid "_Advanced storage configuration"
 msgstr "Formësim i _mëtejshëm depozitimi"
 
 #: tmp/autopart.glade.h:8
-#, fuzzy
 msgid "_Encrypt system"
-msgstr "Regjistrim Sistemi"
+msgstr "_Kodoje sistemin"
 
 #: tmp/autopart.glade.h:10
 msgid "_Select the drive(s) to use for this installation."
 msgstr "_Përzgjidhni një hard disk (hard disqe) për ta përdorur për këtë instalim:"
 
 #: tmp/blwhere.glade.h:1
-#, fuzzy
 msgid "/boot"
-msgstr "Pamje nisëse:"
+msgstr "/boot"
 
 #: tmp/blwhere.glade.h:2
 #, fuzzy
@@ -6636,29 +6563,24 @@ msgid "Third BIOS drive:"
 msgstr "Përpunoni Radhë \"Driver\"-ash"
 
 #: tmp/blwhere.glade.h:9
-#, fuzzy
 msgid "Where would you like to install the boot loader for your system?"
-msgstr "Ku doni të instalohet ngarkuesi i nisjeve?"
+msgstr "Ku doni të instalohet ngarkuesi i nisjeve për sistemin tuaj?"
 
 #: tmp/detailed-dialog.glade.h:1
-#, fuzzy
 msgid "Info"
 msgstr "Të dhëna"
 
 #: tmp/detailed-dialog.glade.h:2
-#, fuzzy
 msgid "_Details"
-msgstr "Hollësi"
+msgstr "_Hollësi"
 
 #: tmp/exnSave.glade.h:1
-#, fuzzy
 msgid "Bug _description"
-msgstr "Përshkrim faksi?"
+msgstr "_Përshkrim bug-u"
 
 #: tmp/exnSave.glade.h:2
-#, fuzzy
 msgid "Destination _file"
-msgstr "Kartelë."
+msgstr "_Kartelë vendmbërritje"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
@@ -6675,9 +6597,8 @@ msgid "Select A File"
 msgstr "Përzgjidhni Një Kartelë"
 
 #: tmp/exnSave.glade.h:8
-#, fuzzy
 msgid "_Host (host:port)"
-msgstr "përdorues@strehë:portë"
+msgstr "_Strehë (host:port)"
 
 #: tmp/exnSave.glade.h:9
 msgid "_Password"
@@ -6696,23 +6617,20 @@ msgid "_Deselect"
 msgstr "_Çpëzgjidhni"
 
 #: tmp/GroupSelector.glade.h:3
-#, fuzzy
 msgid "_Deselect all optional packages"
-msgstr "Nuk ka paketa opsionale për përzgjedhje"
+msgstr "_Çpërzgjidh tërë paketat opsionale"
 
 #: tmp/GroupSelector.glade.h:4
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Po përpunoj paketa..."
+msgstr "Paketa _opsionale"
 
 #: tmp/GroupSelector.glade.h:5
 msgid "_Select"
 msgstr "_Përzgjidhni"
 
 #: tmp/GroupSelector.glade.h:6
-#, fuzzy
 msgid "_Select all optional packages"
-msgstr "Nuk ka paketa opsionale për përzgjedhje"
+msgstr "_Përzgjidh tërë paketat opsionale"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
@@ -6724,9 +6642,9 @@ msgid "%(instkey)s:"
 msgstr "%(instkey)s:"
 
 #: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "Ju lutem jepni fjalëkalimin tuaj"
+msgstr "Ju lutem jepni %(instkey)s tuaj."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6745,9 +6663,8 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>_Emër Gatitësi iSCSI:</b>"
 
 #: tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "_Add target"
-msgstr "Shto objektiv _iSCSI"
+msgstr "_Shto objektiv"
 
 #: tmp/liveinst.desktop.in.h:1
 msgid "Install"
@@ -6755,7 +6672,7 @@ msgstr "Instaloje"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "Instalojeni CD \"live\" te hard disku juaj"
 
 #: tmp/liveinst.desktop.in.h:3
 msgid "Install to Hard Drive"
@@ -6766,19 +6683,16 @@ msgid "Choose a passphrase for this encrypted partition. You will be prompted fo
 msgstr ""
 
 #: tmp/lukspassphrase.glade.h:2
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "Parullë Kanali"
+msgstr "Ripohoni fjalëkalimin:"
 
 #: tmp/lukspassphrase.glade.h:3
-#, fuzzy
 msgid "Enter passphrase for encrypted partition"
-msgstr "Jepni passphrase për një kyç RSA"
+msgstr "Jepni fjalëkalimin për ndarjen e koduar"
 
 #: tmp/lukspassphrase.glade.h:4
-#, fuzzy
 msgid "Enter passphrase:"
-msgstr "Jepni passphrase për kyçin '"
+msgstr "Jepni fjalëkalimin:"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6857,9 +6771,8 @@ msgid "_Customize now"
 msgstr "_Përshtat tani"
 
 #: tmp/tasksel.glade.h:8
-#, fuzzy
 msgid "_Modify repository"
-msgstr "<b>_URL Depoje:</b>"
+msgstr "_Ndryshoni depon"
 
 #: tmp/zfcp-config.glade.h:1
 msgid "<b>Device number:</b>"
