@@ -2248,7 +2248,7 @@ class Device:
         self.isSetup = 0
         self.doLabel = 1
         self.deviceOptions = ""
-        if encryption and encryption.passphrase:
+        if encryption:
             self.crypto = encryption
             # mount by device since the name is based only on UUID
             self.doLabel = None
