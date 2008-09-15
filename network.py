@@ -49,23 +49,23 @@ class IPMissing(Exception):
 
 def sanityCheckHostname(hostname):
     if len(hostname) < 1:
-	return None
+        return None
 
     # XXX: POSIX says this limit is 255, but Linux also defines HOST_NAME_MAX
     # as 64, so I don't know which we should believe.  --dcantrell
     if len(hostname) > 64:
-	return _("Hostname must be 64 or fewer characters in length.")
+        return _("Hostname must be 64 or fewer characters in length.")
 
     validStart = string.ascii_letters + string.digits
     validAll = validStart + ".-"
 
     if string.find(validStart, hostname[0]) == -1:
-	return _("Hostname must start with a valid character in the ranges "
-		 "'a-z', 'A-Z', or '0-9'")
+        return _("Hostname must start with a valid character in the ranges "
+                 "'a-z', 'A-Z', or '0-9'")
 
     for i in range(1, len(hostname)):
-	if string.find(validAll, hostname[i]) == -1:
-	    return _("Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'")
+        if string.find(validAll, hostname[i]) == -1:
+            return _("Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'")
 
     return None
 
@@ -191,14 +191,14 @@ class NetworkDevice(SimpleConfigFile):
 
     def __init__(self, dev):
         self.info = { "DEVICE" : dev }
-	if dev.startswith('ctc'):
-	    self.info["TYPE"] = "CTC"
-	elif dev.startswith('iucv'):
-	    self.info["TYPE"] = "IUCV"
+        if dev.startswith('ctc'):
+            self.info["TYPE"] = "CTC"
+        elif dev.startswith('iucv'):
+            self.info["TYPE"] = "IUCV"
 
 class Network:
     def __init__(self):
-	self.firstnetdevice = None
+        self.firstnetdevice = None
         self.netdevices = {}
         self.gateway = ""
         self.primaryNS = ""
@@ -308,45 +308,45 @@ class Network:
                     self.netdevices[dev].set(('useIPv6', False))
 
         # XXX: this code needs to be improved too
-	try:
-	    f = open("/etc/resolv.conf", "r")
-	except:
-	    pass
-	else:
-	    lines = f.readlines()
-	    f.close()
-	    for line in lines:
-		resolv = string.split(line)
-		if resolv and resolv[0] == 'nameserver':
-		    if self.primaryNS == "":
-			self.primaryNS = resolv[1]
-		    elif self.secondaryNS == "":
-			self.secondaryNS = resolv[1]
+        try:
+            f = open("/etc/resolv.conf", "r")
+        except:
+            pass
+        else:
+            lines = f.readlines()
+            f.close()
+            for line in lines:
+                resolv = string.split(line)
+                if resolv and resolv[0] == 'nameserver':
+                    if self.primaryNS == "":
+                        self.primaryNS = resolv[1]
+                    elif self.secondaryNS == "":
+                        self.secondaryNS = resolv[1]
 
-	# now initialize remaining devices
-	# XXX we just throw return away, the method initialize a
-	# object member so we dont need to
-	available_devices = self.available()
+        # now initialize remaining devices
+        # XXX we just throw return away, the method initialize a
+        # object member so we dont need to
+        available_devices = self.available()
 
-	if len(available_devices) > 0:
-	    # set first device to start up onboot
-	    oneactive = 0
-	    for dev in available_devices.keys():
-		try:
-		    if available_devices[dev].get("onboot") == "yes":
-			oneactive = 1
-			break
-		except:
-		    continue
+        if len(available_devices) > 0:
+            # set first device to start up onboot
+            oneactive = 0
+            for dev in available_devices.keys():
+                try:
+                    if available_devices[dev].get("onboot") == "yes":
+                        oneactive = 1
+                        break
+                except:
+                    continue
 
-	    if not oneactive:
-		self.netdevices[self.firstnetdevice].set(("onboot", "yes"))
+            if not oneactive:
+                self.netdevices[self.firstnetdevice].set(("onboot", "yes"))
 
     def getDevice(self, device):
-	return self.netdevices[device]
+        return self.netdevices[device]
 
     def getFirstDeviceName(self):
-	return self.firstnetdevice
+        return self.firstnetdevice
 
     def available(self):
         # XXX: this should use NetworkManager
@@ -371,7 +371,7 @@ class Network:
         return self.netdevices
 
     def setHostname(self, hn):
-	self.hostname = hn
+        self.hostname = hn
 
     def setDNS(self, ns):
         dns = ns.split(',')
@@ -384,17 +384,17 @@ class Network:
         self.gateway = gw
 
     def lookupHostname(self):
-	# can't look things up if they don't exist!
-	if not self.hostname or self.hostname == "localhost.localdomain":
+        # can't look things up if they don't exist!
+        if not self.hostname or self.hostname == "localhost.localdomain":
             return None
-	if not self.primaryNS:
+        if not self.primaryNS:
             return
         myns = self.primaryNS
-	if not hasActiveNetDev():
-	    for dev in self.netdevices.values():
+        if not hasActiveNetDev():
+            for dev in self.netdevices.values():
                 if (dev.get('bootproto').lower() == "dhcp" and
                     dev.get('onboot') == "yes"):
-		    ret = isys.dhcpNetDevice(dev)
+                    ret = isys.dhcpNetDevice(dev)
                     if ret is None:
                         continue
                     myns = ret
@@ -415,23 +415,23 @@ class Network:
                 isys.resetResolv()
                 isys.setResolvRetry(1)
 
-	if not hasActiveNetDev():
+        if not hasActiveNetDev():
             log.warning("no network devices were available to look up host name")
             return None
 
-	try:
+        try:
             (family, socktype, proto, canonname, sockaddr) = \
                 socket.getaddrinfo(self.hostname, None, socket.AF_INET)[0]
             (ip, port) = sockaddr
-	except:
+        except:
             try:
                 (family, socktype, proto, canonname, sockaddr) = \
                     socket.getaddrinfo(self.hostname, None, socket.AF_INET6)[0]
                 (ip, port, flowinfo, scopeid) = sockaddr
             except:
-	        return None
+                return None
 
-	return ip
+        return ip
 
     def nameservers(self):
         return (self.primaryNS, self.secondaryNS)
@@ -444,11 +444,11 @@ class Network:
             if str: str = str + ","
             str = str + ns
         return str
-            
+
     def writeKS(self, f):
-	devNames = self.netdevices.keys()
-	devNames.sort()
-    
+        devNames = self.netdevices.keys()
+        devNames.sort()
+
         if len(devNames) == 0:
             return
 
@@ -461,30 +461,30 @@ class Network:
                 if dev.get('MTU') and dev.get('MTU') != 0:
                     f.write(" --mtu=%s" % dev.get('MTU'))
 
-		onboot = dev.get("onboot")
-		if onboot and onboot == "no":
-		    f.write(" --onboot no")
+                onboot = dev.get("onboot")
+                if onboot and onboot == "no":
+                    f.write(" --onboot no")
                 if dev.get('bootproto').lower() == 'dhcp':
                     f.write(" --bootproto dhcp")
                     if dev.get('dhcpclass'):
-			f.write(" --class %s" % dev.get('dhcpclass'))
-		    if self.overrideDHCPhostname:
-			if (self.hostname and
-			    self.hostname != "localhost.localdomain"):
-			    f.write(" --hostname %s" % self.hostname)
+                        f.write(" --class %s" % dev.get('dhcpclass'))
+                    if self.overrideDHCPhostname:
+                        if (self.hostname and
+                            self.hostname != "localhost.localdomain"):
+                            f.write(" --hostname %s" % self.hostname)
                 else:
                     f.write(" --bootproto static --ip %s --netmask %s" % 
                        (dev.get('ipaddr'), dev.get('netmask')))
 
-		    if self.gateway is not None:
-			f.write(" --gateway %s" % (self.gateway,))
+                    if self.gateway is not None:
+                        f.write(" --gateway %s" % (self.gateway,))
 
-		    if self.dnsString():
+                    if self.dnsString():
                         f.write(" --nameserver %s" % (self.dnsString(),))
-                        
-		    if (self.hostname and
-			self.hostname != "localhost.localdomain"):
-			f.write(" --hostname %s" % self.hostname)
+
+                    if (self.hostname and
+                        self.hostname != "localhost.localdomain"):
+                        f.write(" --hostname %s" % self.hostname)
 
                 f.write("\n");
 
@@ -672,5 +672,5 @@ class Network:
                 s = "# %s (rule written by anaconda)\n" % (devname,)
             s = s + 'SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS=="?*", ATTR{address}=="%s", ATTR{type}=="1", KERNEL=="%s*", NAME="%s"\n' % (addr, basename, devname)
             f.write(s)
-        
+
         f.close()
