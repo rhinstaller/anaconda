@@ -123,6 +123,10 @@ class iscsiTarget:
         return True
 
     def startNode(self, node):
+        if node is None or self.portal is None:
+            log.warn("unable to find portal information")
+            return
+
         argv = [ "-m", "node", "-T", node, "-p", self.portal,
                  "-o", "update", "-n", "node.conn[0].startup",
                  "-v", "automatic" ]
@@ -131,6 +135,10 @@ class iscsiTarget:
                                stdout = "/dev/tty5", stderr="/dev/tty5")
 
     def loginToNode(self, node):
+        if node is None or self.portal is None:
+            log.warn("unable to find portal information")
+            return
+
         argv = [ "-m", "node", "-T", node, "-p", self.portal, "--login" ]
         log.debug("iscsiadm %s" %(string.join(argv),))
         rc = iutil.execWithRedirect(ISCSIADM, argv,
