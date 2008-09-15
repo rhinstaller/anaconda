@@ -623,8 +623,7 @@ class InstallKeyWindow:
         self.win.destroy()
 
 class luksPassphraseWindow:
-    def __init__(self, passphrase=None, device = "", isglobal = False,
-                 parent = None):
+    def __init__(self, passphrase=None, preexist = False, parent = None):
         luksxml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"),
                                 domain="anaconda",
                                 root="luksPassphraseDialog")
@@ -635,15 +634,12 @@ class luksPassphraseWindow:
         self.win = luksxml.get_widget("luksPassphraseDialog")
         self.okButton = luksxml.get_widget("okbutton1")
         self.globalcheckbutton = luksxml.get_widget("globalcheckbutton")
-        self.isglobal = isglobal
-        if isglobal and not passphrase:
-            # we must be prompting for autopart passphrase
+
+        self.isglobal = preexist
+        if not preexist:
             self.globalcheckbutton.hide()
-        elif not passphrase:
-            # gently encourage the use of a global passphrase
-            self.globalcheckbutton.set_active(True)
         else:
-            self.globalcheckbutton.set_active(isglobal)
+            self.globalcheckbutton.set_active(True)
 
         self.minimumLength = 8  # arbitrary; should probably be much larger
         if passphrase:
@@ -653,13 +649,9 @@ class luksPassphraseWindow:
         else:
             self.initialPassphrase = ""
 
-        if device:
-            deviceStr = " (%s)" % (device,)
-        else:
-            deviceStr = ""
-        txt = _("Choose a passphrase for this encrypted device%s. "
+        txt = _("Choose a passphrase for your encrypted devices. "
                 "You will be prompted for the passphrase during system "
-                "boot.") % (deviceStr,)
+                "boot.")
         luksxml.get_widget("mainLabel").set_text(txt)
 
         if parent:
@@ -692,9 +684,8 @@ class luksPassphraseWindow:
                     self.confirmEntry.set_text("")
                     continue
 
-                if not self.isglobal and not self.initialPassphrase:
+                if self.isglobal:
                     self.isglobal = self.globalcheckbutton.get_active()
-
             else:
                 self.passphraseEntry.set_text(self.initialPassphrase)
                 self.confirmEntry.set_text(self.initialPassphrase)
@@ -1254,14 +1245,14 @@ class InstallInterface:
         d.destroy()
         return ret
 
-    def getLuksPassphrase(self, passphrase = "", device = "", isglobal = False):
+    def getLuksPassphrase(self, passphrase = "", preexist = False):
         if self.icw:
             parent = self.icw.window
         else:
             parent = None
 
-        d = luksPassphraseWindow(passphrase, parent = parent, device = device,
-                                 isglobal = isglobal)
+        d = luksPassphraseWindow(passphrase, parent = parent,
+                                 preexist = preexist)
         rc = d.run()
         passphrase = d.getPassphrase()
         isglobal = d.getGlobal()

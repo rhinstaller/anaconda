@@ -311,18 +311,13 @@ class MainExceptionWindow:
 	self.screen.refresh()
 
 class LuksPassphraseWindow:
-    def __init__(self, screen, passphrase = "", device = "", isglobal = False):
+    def __init__(self, screen, passphrase = "", preexist = False):
         self.screen = screen
         self.passphrase = passphrase
         self.minLength = 8
-        self.isglobal = isglobal
-        if device:
-            deviceStr = " (%s)" % (device,)
-        else:
-            deviceStr = ""
-        self.txt = _("Choose a passphrase for this encrypted device%s. "
-                     "You will be prompted for the passphrase during system "
-                     "boot.") % (deviceStr,)
+        self.preexist = preexist
+        self.txt = _("Choose a passphrase for your encrypted devices. You "
+                     "will be prompted for the passphrase during system boot.")
         self.rc = None
 
     def run(self):
@@ -338,13 +333,8 @@ class LuksPassphraseWindow:
         confirmentry = Entry(60, password = 1)
         toplevel.add(confirmentry, 0, 2, (0,0,0,1))
 
-        if not (self.isglobal and not self.passphrase):
-            if not self.passphrase:
-                isglobal = True
-            else:
-                isglobal = self.isglobal
-            # if we don't hit this we're prompting for autopart passphrase
-            globalcheckbox = Checkbox(_("Use this passphrase for all new encrypted devices"), isOn = isglobal)
+        if self.preexist:
+            globalcheckbox = Checkbox(_("Also add this passphrase to all existing encrypted devices"), isOn = True)
             toplevel.add(globalcheckbox, 0, 3)
 
         buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
@@ -386,10 +376,11 @@ class LuksPassphraseWindow:
                 passphraseentry.set(self.passphrase)
                 confirmentry.set(self.passphrase)
 
-            if not self.isglobal and not self.passphrase:
-                self.isglobal = globalcheckbox.selected()
+            retrofit = False
+            if self.preexist:
+                retrofit = globalcheckbox.selected()
             self.rc = passphrase
-            return (self.rc, self.isglobal)
+            return (self.rc, retrofit)
 
     def pop(self):
         self.screen.popWindow()
@@ -492,12 +483,12 @@ class InstallInterface:
         r.strip()
         return r
 
-    def getLuksPassphrase(self, passphrase = "", device = "", isglobal = False):
+    def getLuksPassphrase(self, passphrase = "", preexist = False):
         w = LuksPassphraseWindow(self.screen, passphrase = passphrase,
-                                 device = device, isglobal = isglobal)
-        (passphrase, isglobal) = w.run()
+                                 preexist = preexist)
+        rc = w.run()
         w.pop()
-        return (passphrase, isglobal)
+        return rc
 
     def passphraseEntryWindow(self, device):
         w = PassphraseEntryWindow(self.screen, device)
