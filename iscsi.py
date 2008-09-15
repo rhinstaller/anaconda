@@ -127,6 +127,17 @@ class iscsiTarget:
             return False
         return True
 
+    def addNode(self, node):
+        if node is None or self.portal is None:
+            log.warn("unable to find portal information")
+            return
+
+        argv = [ "-m", "node", "-T", node, "-p", self.portal,
+                 "-o", "new" ]
+        log.debug("iscsiadm %s" %(string.join(argv),))
+        iutil.execWithRedirect(ISCSIADM, argv,
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
+
     def loginToNode(self, node):
         if node is None or self.portal is None:
             log.warn("unable to find portal information")
@@ -146,12 +157,14 @@ class iscsiTarget:
             log.warn("unable to find portal information")
             return False
 
-        # return True if any login to our portal succeeds.
+
         ret = False
         for node in self.nodes:
             if self.loginToNode(node):
                 ret = True
+                self.addNode(node)
 
+        # we return True if there were any successful logins for our portal.
         return ret
 
     def logout(self):
@@ -189,6 +202,12 @@ class iscsi(object):
             self._initiator = self.fwinfo["iface.initiatorname"]
             self.initiatorSet = True
             self.startup()
+
+            # If there is a default drive in the iSCSI configuration, then
+            # automatically attach to it. Do this before testing the initiator
+            # name, because it is provided by the iBFT too
+
+            self.loginToDefaultDrive()
 
     def _getInitiator(self):
         if self._initiator != "":
@@ -308,28 +327,83 @@ class iscsi(object):
 
         argv = [ "-m", "discovery", "-t", "fw", "-l" ]
         result = iutil.execWithCapture(ISCSIADM, argv)
+        log.debug("iscsiadm result: %s" % (result,))
 
-        TARGET = "target: "
-        PORTAL = ", portal: "
-        END = "]"
-        idxTarget = result.find(TARGET)
-        idxPortal = result.find(PORTAL)
-        idxEnd = result.find(END)
+        start = result.find('[')
+        end = result.rfind(']')
 
-        if idxTarget == -1 or idxPortal == -1 or idxEnd == -1:
-            log.warn("could not find markers.  iscsiadm returned %s" %
+        if start == -1 or end == -1:
+            log.warn("could not find markers.  iscsiadm returned: %s" %
                 (result,))
-            return None
+            return
 
-        target = result[idxTarget + len(TARGET) : idxPortal]
-        portal = result[idxPortal + len(PORTAL) : idxEnd]
-        port = 3260
-        idxPort = portal.find(',')
-        if idxPort != -1:
-            port = portal[idxPort + 1 :]
-            portal = portal[:idxPort]
+        values = {}
+        for kv in string.split(result[start+1:end], ', '):
+            (k, v) = string.split(kv, ': ')
+            values[k] = v
+        del start, end
 
-        return (target, portal, port)
+        if not values.has_key('target'):
+            log.warn("iBFT data missing target.  iscsiadm returned: %s" %
+                (result,))
+
+        if not values.has_key('portal'):
+            log.warn("iBFT data missing portal.  iscsiadm returned: %s" %
+                (result,))
+        else:
+            portal = values['portal']
+            comma = portal.find(',')
+            if comma == -1:
+                values['port'] = 3260
+            else:
+                values['port'] = portal[comma+1:]
+                values['portal'] = portal[0:comma]
+
+        if not values.has_key('chap-username') or not \
+                values.has_key('chap-password'):
+            if values.has_key('chap-username'):
+                log.warn("Invalid iBFT CHAP password.  iscsiadm returned: %s" %
+                    (result,))
+                return
+            if values.has_key('chap-password'):
+                log.warn("Invalid iBFT CHAP username.  iscsiadm returned: %s" %
+                    (result,))
+                return
+                
+        if not values.has_key('rev-chap-username') or not \
+                values.has_key('rev-chap-password'):
+            if values.has_key('rev-chap-username'):
+                log.warn("Invalid iBFT Reverse CHAP password.  " \
+                         "iscsiadm returned %s" % (result,))
+                return
+            if values.has_key('rev-chap-password'):
+                log.warn("Invalid iBFT Reverse CHAP username.  " \
+                         "iscsiadm returned %s" % (result,))
+                return
+
+        target = values['target']
+
+        renames = {
+            'portal': 'ipaddr',
+            'chap-username': 'user',
+            'chap-password': 'pw',
+            'rev-chap-username': 'user_in',
+            'rev-chap-password': 'pw_in',
+            }
+
+        for k,v in renames.items():
+            if values.has_key(k):
+                values[v] = values[k]
+                del values[k]
+
+        badKeys = filter(lambda x: not x in \
+                          ('ipaddr','port','user','pw','user_in','pw_in'),
+                         values.keys())
+        for k in badKeys:
+            del values[k]
+
+        # make a new target
+        self.addTarget(**values)
 
     def startup(self, intf = None):
         if not has_iscsi():
@@ -366,19 +440,6 @@ class iscsi(object):
                 os.makedirs(fulldir, 0660)
 
         self._startIscsiDaemon()
-
-        # If there is a default drive in the iSCSI configuration, then
-        # automatically attach to it. Do this before testing the initiator
-        # name, because it is provided by the iBFT too
-
-        # this will actually log us in, but it won't create the iscsi db
-        # entries.
-        default = self.loginToDefaultDrive()
-        if not default is None:
-            (node, ipaddr, port) = default
-            t = iscsiTarget(ipaddr, port, None, None)
-            # this actually creates the entries.
-            t.discover()
 
         for t in self.targets:
             if not t.discover():
