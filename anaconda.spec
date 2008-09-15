@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.123
+Version: 11.1.2.124
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -106,6 +106,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 15 2008 Chris Lumens <clumens@redhat.com> 11.1.2.124-1
+- Fix blkid_dev_next return value checking (rvykydal).
+  Resolves: rhbz#462175
+- Add the reverse chap bits for kickstart as well (pjones).
+  Related: rhbz#432819
+- Make iBFT reading explicit from a higher level (pjones).
+- Fix device nodes creating for more than 8 cciss devices (rvykydal).
+  Resolves: rhbz#445765
+- Disable iBFT support for s390 and s390x (dcantrell).
+
 * Thu Sep 11 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.123-1
 - Disable iBFT support on s390 and s390x (dcantrell)
   Related: rhbz#445721
