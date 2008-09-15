@@ -20,6 +20,7 @@
 
 from constants import *
 import os
+import errno
 import string
 import signal
 import iutil
@@ -40,6 +41,7 @@ ISCSID=""
 global ISCSIADM
 ISCSIADM = ""
 INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
+ISCSID_CONF="/etc/iscsi/iscsid.conf"
 
 def find_iscsi_files():
     global ISCSID
@@ -69,7 +71,8 @@ def has_iscsi():
     return True
 
 class iscsiTarget:
-    def __init__(self, ipaddr, port = None, user = None, pw = None):
+    def __init__(self, ipaddr, port=None, user=None, pw=None,
+            user_in=None, pw_in=None):
         # FIXME: validate ipaddr
         self.ipaddr = ipaddr
         if not port: # FIXME: hack hack hack
@@ -77,6 +80,8 @@ class iscsiTarget:
         self.port = str(port)
         self.user = user
         self.password = pw
+        self.user_in = user_in
+        self.password_in = pw_in
         self._portal = None
         self._nodes = []
 
@@ -238,6 +243,24 @@ class iscsi(object):
         log.debug("queryFirmware: ISCSIADM is %s" % (ISCSIADM,))
         result = iutil.execWithCapture(ISCSIADM, argv)
         result = result.strip()
+
+        if len(result) == 0 \
+                or result[0].find("iscsiadm -") != -1 \
+                or result[0].find("iscsiadm: ") != -1:
+            log.debug("queryFirmware: iscsiadm %s returns bad output: %s" %
+                (argv,result))
+
+            # Try querying the node records instead
+            argv = [ "-m", "node", "-o", "show", "-S" ]
+            result = iutil.execWithCapture(ISCSIADM, argv)
+
+            if len(result) == 0 \
+                    or result[0].find("iscsiadm -") != -1 \
+                    or result[0].find("iscsiadm: ") != -1:
+                log.debug("queryFirmware: iscsiadm %s returns bad output: %s" %
+                    (argv,result))
+                return retval
+
         for line in result.split("\n"):
             SPLIT = " = "
             idx = line.find(SPLIT)
@@ -292,12 +315,12 @@ class iscsi(object):
 
     def loginToDefaultDrive(self):
         # Example:
-        # [root@elm3b87 ~]# iscsiadm -m fw -l
+        # [root@elm3b87 ~]# iscsiadm -m discovery -t fw -l
         # Logging in to [iface: default, target: iqn.1992-08.com.netapp:sn.84183797, portal: 9.47.67.152,3260]
 
         find_iscsi_files()
 
-        argv = [ "-m", "fw", "-l" ]
+        argv = [ "-m", "discovery", "-t", "fw", "-l" ]
         result = iutil.execWithCapture(ISCSIADM, argv)
 
         TARGET = "target: "
@@ -308,6 +331,8 @@ class iscsi(object):
         idxEnd = result.find(END)
 
         if idxTarget == -1 or idxPortal == -1 or idxEnd == -1:
+            log.warn("could not find markers.  iscsiadm returned %s" %
+                (result,))
             return None
 
         target = result[idxTarget + len(TARGET) : idxPortal]
@@ -379,15 +404,87 @@ class iscsi(object):
         if intf:
             w.pop()
 
-    def addTarget(self, ipaddr, port = "3260", user = None, pw = None,
-                  intf = None):
+    def addTarget(self, ipaddr, port="3260", user=None, pw=None,
+                  user_in=None, pw_in=None, intf=None):
         if not self.iscsidStarted:
             self.startup(intf)
             if not self.iscsidStarted:
                 # can't start for some reason.... just fallback I guess
                 return
 
-        t = iscsiTarget(ipaddr, port, user, pw)
+        commentUser = '#'
+        commentUser_in = '#'
+
+        if user is not None or password is not None:
+            commentUser = ''
+            if user is None:
+                raise ValueError, "user is required"
+            if pw is None:
+                raise ValueError, "pw is required"
+
+        if user_in is not None or pw_in is not None:
+            commentUser_in = ''
+            if user_in is None:
+                raise ValueError, "user_in is required"
+            if pw_in is None:
+                raise ValueError, "pw_in is required"
+
+        # If either a user/pw pair was specified or a user_in/pw_in was
+        # specified, then CHAP is specified.
+        if commentUser == '' or commentUser_in == '':
+            commentChap = ''
+        else:
+            commentChap = '#'
+
+
+        oldIscsidFile = []
+        try:
+            f = open(ISCSID_CONF, "r")
+            oldIscsidFile = f.readlines()
+            f.close()
+        except IOError, x:
+            if x.errno != errno.ENOENT:
+                raise RuntimeError, "Cannot open %s for read." % (ISCSID_CONF,)
+
+        try:
+            f = open(ISCSID_CONF, "w")
+        except:
+            raise RuntimeError, "Cannot open %s for write." % (ISCSID_CONF,)
+
+        vals = {
+            "node.session.auth.authmethod = ": [commentChap, "CHAP"],
+            "node.session.auth.username = ": [commentUser, user],
+            "node.session.auth.password = ": [commentUser, pw],
+            "node.session.auth.username_in = ": [commentUser_in, user_in],
+            "node.session.auth.password_in = ": [commentUser_in, pw_in],
+            "discovery.sendtargets.auth.authmethod = ": [commentChap, "CHAP"],
+            "discovery.sendtargets.auth.username = ": [commentUser, user],
+            "discovery.sendtargets.auth.password = ": [commentUser, pw],
+            "discovery.sendtargets.auth.username_in = ":
+                [commentUser_in, user_in],
+            "discovery.sendtargets.auth.password_in = ":
+                [commentUser_in, pw_in],
+            }
+
+        for line in oldIscsidFile:
+            s  = line.strip()
+            # grab the cr/lf/cr+lf
+            nl = line[line.find(s)+len(s):]
+            found = False
+            for (k, (c, v)) in vals.items():
+                if line.find(k) != -1:
+                    f.write("%s%s%s%s" % (c, k, v, nl))
+                    found=True
+                    del vals[k]
+                    break
+            if not found:
+                f.write(line)
+
+        for (k, (c, v)) in vals.items():
+            f.write("%s%s%s\n" % (c, k, v))
+        f.close ()
+
+        t = iscsiTarget(ipaddr, port, user, pw, user_in, pw_in)
         if not t.discover():
             return
         if not t.login():
@@ -405,6 +502,10 @@ class iscsi(object):
                 f.write(" --user %s" %(t.user,))
             if t.password:
                 f.write(" --password %s" %(t.password,))
+            if t.user_in:
+                f.write(" --reverse-user %s" % (t.user_in,))
+            if t.password_in:
+                f.write(" --reverse-password %s" % (t.password_in,))
             f.write("\n")
 
     def write(self, instPath):

@@ -1687,9 +1687,42 @@ class PartitionTypeWindow:
                                         _("Configure iSCSI Parameters"),
                                         _("To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."),
                                         prompts = [ _("Target IP Address"),
-                                                    _("iSCSI Initiator Name") ])
+                                                    _("iSCSI Initiator Name"),
+                                                    _("CHAP username"),
+                                                    _("CHAP password"),
+                                                    _("Reverse CHAP username"),
+                                                    _("Reverse CHAP password") ])
         if button == TEXT_CANCEL_CHECK:
             return INSTALL_BACK
+
+        (user, pw, user_in, pw_in) = entries[2:5]
+
+        if len(user) == 0:
+            user = None
+        if len(pw) == 0:
+            pw = None
+        if len(user_in) == 0:
+            user_in = None
+        if len(pw_in) == 0:
+            pw_in = None
+
+        if user is not None or pw is not None:
+            if user is None:
+                ButtonChoiceWindow(screen, _("Missing value"),
+                    _("Username is required when password is present."))
+            if pw is None:
+                ButtonChoiceWindow(screen, _("Missing value"),
+                    _("Password is required when username is present."))
+
+        if user_in is not None or pw_in is not None:
+            if user_in is None:
+                ButtonChoiceWindow(screen, _("Missing value"),
+                                   _("Reverse username is required when"
+                                     "reverse password is present."))
+            if pw_in is None:
+                ButtonChoiceWindow(screen, _("Missing value"),
+                                   _("Reverse password is required when"
+                                     "reverse username is present."))
 
         target = entries[0].strip()
         try:
@@ -1709,6 +1742,6 @@ class PartitionTypeWindow:
         iname = entries[1].strip()
         if not self.anaconda.id.iscsi.initiatorSet:
             self.anaconda.id.iscsi.initiator = iname
-        self.anaconda.id.iscsi.addTarget(ip, port)
+        self.anaconda.id.iscsi.addTarget(ip, port, user, pw, user_in, pw_in)
                                         
         return INSTALL_OK
