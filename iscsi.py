@@ -148,9 +148,9 @@ class iscsiTarget:
 
         ret = False
         for node in self.nodes:
-            if self.LoginToNode(node):
+            if self.loginToNode(node):
                 ret = True
-                self.StartNode(node)
+                self.startNode(node)
 
         # we return True if there were any successful logins for our portal.
         return ret
