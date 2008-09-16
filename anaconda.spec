@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.34
+Version: 11.4.1.35
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -218,6 +218,47 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 15 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.35-1
+- Call network.bringDeviceUp() instead of old isys functions. (dcantrell)
+- Pass device name to network.setDNS() and network.setGateway(). (dcantrell)
+- NetworkManager fixes in network.py (dcantrell)
+- Remove code from isys not needed for NetworkManager. (dcantrell)
+- Avoid writing out NM_CONTROLLED more than once. (dcantrell)
+- Write out final ifcfg-DEVICE files correctly. (dcantrell)
+- Use POSIX and LSB hostname length limit. (dcantrell)
+- Consistent whitespace usage in network.py (dcantrell)
+- Do not try to start hald or dbus-daemon from anaconda. (dcantrell)
+- On HDISO installs, mark LABEL= and UUID= partitions as protected. (clumens)
+- Do encrypted device passphrase retrofits while activating partitioning.
+  (dlehman)
+- Use one passphrase for all new LUKS devices and offer retrofit to old
+  ones. (dlehman)
+- There's only one passphrase member (encryptionPassphrase) in Partitions.
+  (dlehman)
+- Only add LUKSDevice instances to PV requests as needed. (dlehman)
+- New device passphrase is now always global w/ option to retrofit. (dlehman)
+- Don't prompt for a passphrase when creating encrypted devices. (dlehman)
+- Define a method to add a passphrase to an existing LUKS device. (dlehman)
+- Fix a traceback when starting a shell in rescue mode (#462148). (clumens)
+- md, lock_nolock, and dm_emc kernel modules no longer exist. (clumens)
+- Fix iscsi disk detection with newer kernels (rh 461839, 461841) (hans)
+- Fix the crash reported in bug 454135 (hans)
+- Make iBFT reading explicit from a higher level (hans)
+- Add ibft flag to ease in testing. (hans)
+- Support iSCSI CHAP and Reverse CHAP authentication (rhbz#402431,
+  rhbz#432819) (hans)
+- Don't set iscsi devices to autostart (rhbz#437891) (hans)
+- Add full CHAP support to iSCSI. (rhbz#432819) (hans)
+- Do not try to initialize iSCSI, when no portal (#435173) (hans)
+- Fix wrong function names for iscsi login/start (rhbz#295154) (hans)
+- Set an attribute when iscsid is started (#431904). (hans)
+- Better fixes for iscsi probing (patch from jlaska) (hans)
+- Make sure ISCSIADM and such are defined (rhbz#431924) (hans)
+- Fix iscsi so that mkinitrd can actually talk to the running daemon (hans)
+- Make iscsi/ibft work (hans)
+- Add mk-images changes forgotten in previous commit (hans)
+- Add support for iSCSI iBFT table (#307761) (hans)
+
 * Thu Sep 11 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.34-1
 - Always start NM so we can talk to it in the boot.iso case (#461071).
   (clumens)
