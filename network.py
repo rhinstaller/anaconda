@@ -159,31 +159,14 @@ class NetworkDevice(SimpleConfigFile):
         if "KEY" in keys:
             keys.remove("KEY")
 
-        # Don't let onboot be turned on unless we have config information
-        # to go along with it
-        proto = self.get('BOOTPROTO') or ""
-        if proto.lower() != 'dhcp' and not self.get('IPADDR'):
-            forceOffOnBoot = 1
-        else:
-            forceOffOnBoot = 0
-
-        onBootWritten = 0
         for key in keys:
-            if key in ("USEIPV4", "USEIPV6", "NM_CONTROLLED"):
+            if key in ("NM_CONTROLLED"):
                 continue
-            if key == 'ONBOOT' and forceOffOnBoot:
-                s = s + key + "=" + 'no' + "\n"
             # make sure we include autoneg in the ethtool line
             elif key == 'ETHTOOL_OPTS' and self.info[key].find("autoneg")== -1:
                 s = s + key + """="autoneg off %s"\n""" % (self.info[key])
             elif self.info[key] is not None:
                 s = s + key + "=" + self.info[key] + "\n"
-
-            if key == 'ONBOOT':
-                onBootWritten = 1
-
-        if not onBootWritten:
-            s = s + 'ONBOOT=no\n'
 
         return s
 
@@ -198,9 +181,6 @@ class Network:
     def __init__(self):
         self.firstnetdevice = None
         self.netdevices = {}
-        self.gateway = ""
-        self.primaryNS = ""
-        self.secondaryNS = ""
         self.domains = []
         self.hostname = socket.gethostname()
         self.overrideDHCPhostname = False
@@ -209,26 +189,7 @@ class Network:
         devhash = isys.getDeviceProperties(dev=None)
         for dev in devhash.keys():
             self.netdevices[dev] = NetworkDevice(dev)
-            ifcfg_contents = {}
-
-            # try to read settings from ifcfg-* file (written by loader)
-            try:
-                ifcfg = "/etc/sysconfig/network-scripts/ifcfg-%s" % (dev,)
-                f = open(ifcfg, "r")
-                lines = f.readlines()
-                f.close()
-
-                for line in lines:
-                    line = line.strip()
-                    if line.startswith('#') or line == '':
-                         continue
-
-                    var = string.splitfields(line, '=')
-                    if len(var) == 2:
-                        var[1] = var[1].replace('"', '')
-                        ifcfg_contents[var[0]] = string.strip(var[1])
-            except:
-                pass
+            ifcfg_contents = self.readIfcfgContents(dev)
 
             # if NM_CONTROLLED is set to yes, we read in settings from
             # NetworkManager first, then fill in the gaps with the data
@@ -271,7 +232,6 @@ class Network:
                         tmp = struct.pack('I', addrs[2])
                         gateway = socket.inet_ntop(socket.AF_INET, tmp)
                         self.netdevices[dev].set(('GATEWAY', gateway))
-                        self.gateway = gateway
                     except:
                         pass
 
@@ -281,40 +241,12 @@ class Network:
             for key in ifcfg_contents.keys():
                 if key == 'GATEWAY':
                     self.netdevices[dev].set((key, ifcfg_contents[key]))
-                    self.gateway = ifcfg_contents[key]
                 elif key == 'DOMAIN':
                     self.domains.append(ifcfg_contents[key])
                 elif key == 'HOSTNAME':
                     self.hostname = ifcfg_contents[key]
                 elif self.netdevices[dev].get(key) == '':
                     self.netdevices[dev].set((key, ifcfg_contents[key]))
-
-            self.netdevices[dev].set(('useIPv4', flags.useIPv4))
-            self.netdevices[dev].set(('useIPv6', flags.useIPv6))
-
-            if self.netdevices[dev].get('BOOTPROTO') == '':
-                if self.netdevices[dev].get('IPADDR') == '':
-                    self.netdevices[dev].set(('useIPv4', False))
-                if (self.netdevices[dev].get('IPV6ADDR') == '' and \
-                    self.netdevices[dev].get('IPV6_AUTOCONF') == '' and \
-                    self.netdevices[dev].get('DHCPV6C') == ''):
-                    self.netdevices[dev].set(('useIPv6', False))
-
-        # XXX: this code needs to be improved too
-        try:
-            f = open("/etc/resolv.conf", "r")
-        except:
-            pass
-        else:
-            lines = f.readlines()
-            f.close()
-            for line in lines:
-                resolv = string.split(line)
-                if resolv and resolv[0] == 'nameserver':
-                    if self.primaryNS == "":
-                        self.primaryNS = resolv[1]
-                    elif self.secondaryNS == "":
-                        self.secondaryNS = resolv[1]
 
         # now initialize remaining devices
         # XXX we just throw return away, the method initialize a
@@ -334,6 +266,29 @@ class Network:
 
             if not oneactive:
                 self.netdevices[self.firstnetdevice].set(("ONBOOT", "yes"))
+
+    def readIfcfgContents(self, dev):
+        ifcfg = "/etc/sysconfig/network-scripts/ifcfg-%s" % (dev,)
+        contents = {}
+
+        try:
+            f = open(ifcfg, "r")
+            lines = f.readlines()
+            f.close()
+
+            for line in lines:
+                line = line.strip()
+                if line.startswith('#') or line == '':
+                    continue
+
+                var = string.splitfields(line, '=')
+                if len(var) == 2:
+                    var[1] = var[1].replace('"', '')
+                    contents[var[0]] = string.strip(var[1])
+        except:
+            return {}
+
+        return contents
 
     def getDevice(self, device):
         return self.netdevices[device]
@@ -366,47 +321,26 @@ class Network:
     def setHostname(self, hn):
         self.hostname = hn
 
-    def setDNS(self, ns):
+    def setDNS(self, ns, device):
         dns = ns.split(',')
-        if len(dns) >= 1:
-            self.primaryNS = dns[0]
-        if len(dns) >= 2:
-            self.secondaryNS = dns[1]
+        i = 1
+        for addr in dns:
+            addr = addr.strip()
+            dnslabel = "DNS%d" % (i,)
+            self.netdevices[device].set((dnslabel, addr))
+            i += 1
 
-    def setGateway(self, gw):
-        self.gateway = gw
+    def setGateway(self, gw, device):
+        self.netdevices[dev].set(('GATEWAY', gw))
 
     def lookupHostname(self):
         # can't look things up if they don't exist!
         if not self.hostname or self.hostname == "localhost.localdomain":
             return None
-        if not self.primaryNS:
-            return
-        myns = self.primaryNS
+
         if not hasActiveNetDev():
             for dev in self.netdevices.values():
-                if (dev.get('bootproto').lower() == "dhcp" and
-                    dev.get('onboot') == "yes"):
-                    ret = isys.dhcpNetDevice(dev)
-                    if ret is None:
-                        continue
-                    myns = ret
-                    break
-                elif (dev.get('ipaddr') and dev.get('netmask') and
-                      self.gateway is not None and dev.get('onboot') == "yes"):
-                    try:
-                        isys.configNetDevice(dev, self.gateway)
-                        break
-                    except SystemError:
-                        log.error("failed to configure network device %s when "
-                                  "looking up host name", dev.get('device'))
-
-            if hasActiveNetDev() and not flags.rootpath:
-                f = open("/etc/resolv.conf", "w")
-                f.write("nameserver %s\n" % myns)
-                f.close()
-                isys.resetResolv()
-                isys.setResolvRetry(1)
+                dev.bringDeviceUp()
 
         if not hasActiveNetDev():
             log.warning("no network devices were available to look up host name")
@@ -425,18 +359,6 @@ class Network:
                 return None
 
         return ip
-
-    def nameservers(self):
-        return (self.primaryNS, self.secondaryNS)
-
-    def dnsString(self):
-        str = ""
-        for ns in self.nameservers():
-            if not ns:
-                continue
-            if str: str = str + ","
-            str = str + ns
-        return str
 
     def writeKS(self, f):
         devNames = self.netdevices.keys()
@@ -469,11 +391,19 @@ class Network:
                     f.write(" --bootproto static --ip %s --netmask %s" % 
                        (dev.get('ipaddr'), dev.get('netmask')))
 
-                    if self.gateway is not None:
-                        f.write(" --gateway %s" % (self.gateway,))
+                    if dev.get('GATEWAY'):
+                        f.write(" --gateway %s" % (dev.get('GATEWAY'),))
 
-                    if self.dnsString():
-                        f.write(" --nameserver %s" % (self.dnsString(),))
+                    dnsline = ''
+                    for key in dev.info.keys():
+                        if key.upper().startswith('DNS'):
+                            if dnsline == '':
+                                dnsline = dev.get(key)
+                            else:
+                                dnsline += "," + dev.get(key)
+
+                    if dnsline != '':
+                        f.write(" --nameserver %s" % (dnsline,))
 
                     if (self.hostname and
                         self.hostname != "localhost.localdomain"):
@@ -481,7 +411,7 @@ class Network:
 
                 f.write("\n");
 
-    def write(self, instPath):
+    def write(self, instPath=''):
         # make sure the directory exists
         if not os.path.isdir("%s/etc/sysconfig/network-scripts" %(instPath,)):
             iutil.mkdirChain("%s/etc/sysconfig/network-scripts" %(instPath,))
@@ -539,13 +469,6 @@ class Network:
             if dev.get('MTU') and dev.get('MTU') != 0:
                 f.write("MTU=%s\n" % dev.get('MTU'))
 
-            # write per-interface DNS information for NetworkManager (#443244)
-            dnsIndex = 1
-            for ns in self.nameservers():
-                if ns:
-                    f.write("DNS%d=%s\n" % (dnsIndex, ns,))
-                    dnsIndex += 1
-
             if self.domains != ['localdomain'] and self.domains:
                 searchLine = string.joinfields(self.domains, ' ')
                 f.write("SEARCH=\"%s\"\n" % (searchLine,))
@@ -572,13 +495,11 @@ class Network:
         else:
             f.write("localhost.localdomain\n")
 
-        if self.gateway:
-            if self.gateway.find('.') != -1:
-                f.write("GATEWAY=%s\n" % (self.gateway,))
-                f.write("IPV6_DEFAULTGW=\n")
-            elif self.gateway.find(':') != -1:
-                f.write("GATEWAY=\n")
-                f.write("IPV6_DEFAULTGW=%s\n" % (self.gateway,))
+        if dev.get('GATEWAY'):
+            f.write("GATEWAY=%s\n" % (dev.get('GATEWAY'),))
+
+        if dev.get('IPV6_DEFAULTGW'):
+            f.write("IPV6_DEFAULTGW=%s\n" % (dev.get('IPV6_DEFAULTGW'),))
 
         f.close()
 
@@ -628,9 +549,10 @@ class Network:
         if self.domains != ['localdomain'] and self.domains:
             f.write("search %s\n" % (string.joinfields(self.domains, ' '),))
 
-        for ns in self.nameservers():
-            if ns:
-                f.write("nameserver %s\n" % (ns,))
+        for key in dev.info.keys():
+            if key.upper().startswith('DNS'):
+                f.write("nameserver %s\n" % (dev.get(key),))
+
         f.close()
 
         # /lib/udev/rules.d/70-persistent-net.rules
@@ -666,3 +588,8 @@ class Network:
             f.write(s)
 
         f.close()
+
+    # write out current configuration state and wait for NetworkManager
+    # to bring the device up
+    def bringDeviceUp(self):
+        self.write()
