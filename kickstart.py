@@ -441,6 +441,9 @@ class AnacondaKSHandlers(KickstartHandlers):
             
             if self.ksRaidMapping.has_key(pd.mountpoint):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined RAID partition multiple times")
+
+            if pd.encrypted:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Software RAID partitions cannot be encrypted")
             
             # get a sort of hackish id
             uniqueID = self.ksID

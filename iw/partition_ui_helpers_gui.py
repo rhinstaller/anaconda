@@ -117,9 +117,16 @@ def setMntPtComboStateFromType(fstype, mountCombo):
 
     mountCombo.set_data("prevmountable", fstype.isMountable())
     
-def fstypechangeCB(widget, mountCombo):
+def fstypechangeCB(widget, data):
+    (mountCombo, lukscb) = data
     fstype = widget.get_active_value()
     setMntPtComboStateFromType(fstype, mountCombo)
+    if lukscb:
+        if fstype == fileSystemTypeGet("software RAID"):
+            lukscb.set_active(0)
+            lukscb.set_sensitive(0)
+        else:
+            lukscb.set_sensitive(1)
 
 def createAllowedDrivesStore(disks, reqdrives, drivelist, updateSrc):
     drivelist.clear()
@@ -163,7 +170,7 @@ def createAllowedDrivesList(disks, reqdrives, updateSrc):
 
 # pass in callback for when fs changes because of python scope issues
 def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
-                     availablefstypes = None, ignorefs = None):
+                     availablefstypes = None, ignorefs = None, lukscb = None):
     store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
     fstypecombo = datacombo.DataComboBox(store)
     
@@ -197,7 +204,7 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
     fstypecombo.set_active(defindex)
 
     if fstypechangeCB and mountCombo:
-        fstypecombo.connect("changed", fstypechangeCB, mountCombo)
+        fstypecombo.connect("changed", fstypechangeCB, (mountCombo, lukscb))
 
     if mountCombo:
         mountCombo.set_data("prevmountable",
@@ -219,6 +226,9 @@ def formatOptionCB(widget, data):
             # set "Encrypt" checkbutton to match partition's initial state
             lukscb.set_active(lukscb.get_data("encrypted"))
             lukscb.set_sensitive(0)
+        elif combowidget.get_active_value() == fileSystemTypeGet("software RAID"):
+            lukscb.set_sensitive(0)
+            lukscb.set_active(0)
         else:
             lukscb.set_sensitive(1)
 
@@ -284,17 +294,16 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	formatrb.set_active(1)
 
     maintable.attach(formatrb, 0, 1, row, row + 1)
+    lukscb = gtk.CheckButton(_("_Encrypt"))
     fstypeCombo = createFSTypeMenu(ofstype, fstypechangeCB,
-                                   mountCombo, ignorefs=ignorefs)
+                                   mountCombo, ignorefs=ignorefs,
+                                   lukscb=lukscb)
     fstypeCombo.set_sensitive(formatrb.get_active())
     maintable.attach(fstypeCombo, 1, 2, row, row + 1)
     row = row + 1
 
     if not formatrb.get_active() and not origrequest.migrate:
 	mountCombo.set_data("prevmountable", ofstype.isMountable())
-
-    # this gets added to the table a bit later on
-    lukscb = gtk.CheckButton(_("_Encrypt"))
 
     formatrb.connect("toggled", formatOptionCB,
 		     (fstypeCombo, mountCombo, ofstype, lukscb))
