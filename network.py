@@ -169,7 +169,7 @@ class NetworkDevice(SimpleConfigFile):
 
         onBootWritten = 0
         for key in keys:
-            if key in ("USEIPV4", "USEIPV6"): # XXX: these are per-device, but not written out
+            if key in ("USEIPV4", "USEIPV6", "NM_CONTROLLED"):
                 continue
             if key == 'ONBOOT' and forceOffOnBoot:
                 s = s + key + "=" + 'no' + "\n"
@@ -533,7 +533,7 @@ class Network:
             if (bootproto == 'dhcp' and self.hostname and
                 self.overrideDHCPhostname):
                 f.write("DHCP_HOSTNAME=%s\n" %(self.hostname,))
-            if dev.get('dhcpclass'):
+            if dev.get('DHCPCLASS'):
                 f.write("DHCP_CLASSID=%s\n" % dev.get('dhcpclass'))
 
             if dev.get('MTU') and dev.get('MTU') != 0:
@@ -553,7 +553,7 @@ class Network:
             f.write("NM_CONTROLLED=\n")
             f.close()
 
-            if dev.get("key"):
+            if dev.get("KEY"):
                 fn = "%s/etc/sysconfig/network-scripts/keys-%s" % (instPath,
                                                                    device)
                 f = open(fn, "w")
