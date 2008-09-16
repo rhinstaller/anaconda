@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.124
+Version: 11.1.2.125
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -106,6 +106,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 16 2008 Chris Lumens <clumens@redhat.com> 11.1.2.125-1
+- Include the programs needed to manage ext4 filesystems (clumens).
+  Resolves: rhbz#462476
+- Fix a reference to a variable before it exists in network.py (clumens).
+  Resolves: rhbz#462480
+
 * Mon Sep 15 2008 Chris Lumens <clumens@redhat.com> 11.1.2.124-1
 - Fix blkid_dev_next return value checking (rvykydal).
   Resolves: rhbz#462175
