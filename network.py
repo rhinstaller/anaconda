@@ -336,10 +336,10 @@ class Network:
             return
         myns = self.primaryNS
 
-        usemethod = dev.get('bootproto').lower()
-
 	if not self.isConfigured:
 	    for dev in self.netdevices.values():
+                usemethod = dev.get('bootproto').lower()
+
                 while True:
                     if (usemethod == "ibft" and dev.get('onboot') == "yes"):
                         try:
