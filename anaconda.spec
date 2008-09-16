@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.35
+Version: 11.4.1.36
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -218,6 +218,10 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 15 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.36-1
+- Remove invalid i18n stuff to let anaconda build. (dcantrell)
+- Remove doConfigNetDevice() prototype. (dcantrell)
+
 * Mon Sep 15 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.35-1
 - Call network.bringDeviceUp() instead of old isys functions. (dcantrell)
 - Pass device name to network.setDNS() and network.setGateway(). (dcantrell)
