@@ -161,8 +161,8 @@ class NetworkDevice(SimpleConfigFile):
 
         # Don't let onboot be turned on unless we have config information
         # to go along with it
-        proto = self.get('bootproto') or ""
-        if proto.lower() != 'dhcp' and not self.get('ipaddr'):
+        proto = self.get('BOOTPROTO') or ""
+        if proto.lower() != 'dhcp' and not self.get('IPADDR'):
             forceOffOnBoot = 1
         else:
             forceOffOnBoot = 0
@@ -211,16 +211,21 @@ class Network:
             self.netdevices[dev] = NetworkDevice(dev)
             ifcfg_contents = {}
 
-            # try to read settings from ifcfg-* file
+            # try to read settings from ifcfg-* file (written by loader)
             try:
                 ifcfg = "/etc/sysconfig/network-scripts/ifcfg-%s" % (dev,)
-                f = open(f, "r")
+                f = open(ifcfg, "r")
                 lines = f.readlines()
                 f.close()
 
                 for line in lines:
+                    line = line.strip()
+                    if line.startswith('#') or line == '':
+                         continue
+
                     var = string.splitfields(line, '=')
-                    if len(var) >= 2:
+                    if len(var) == 2:
+                        var[1] = var[1].replace('"', '')
                         ifcfg_contents[var[0]] = string.strip(var[1])
             except:
                 pass
@@ -230,27 +235,18 @@ class Network:
             # from the ifcfg file
             useNetworkManager = False
             if ifcfg_contents.has_key('NM_CONTROLLED'):
-                if ifcfg_contents['NM_CONTROLLED'].lower() == 'yes':
-                    self.netdevices[dev].set(('NM_CONTROLLED', ifcfg_contents['NM_CONTROLLED']))
+                if ifcfg_contents['NM_CONTROLLED'].lower() == 'yes' or ifcfg_contents['NM_CONTROLLED'] == '':
                     useNetworkManager = True
 
             # this interface is managed by NetworkManager, so read from
             # NetworkManager first
             if useNetworkManager:
                 props = devhash[dev]
-                active_service_name = props.Get(isys.NM_ACTIVE_CONNECTION_IFACE, 'ServiceName')
-                active_path = props.Get(isys.NM_ACTIVE_CONNECTION_IFACE, 'Connection')
 
-                connection = bus.get_object(active_service_name, active_path)
-                connection_iface = dbus.Interface(connection, isys.NM_CONNECTION_IFACE)
-                settings = connection_iface.GetSettings()
-
-                ip4_setting = settings['ipv4']
-                if not ip4_setting or not ip4_setting['method'] or \
-                   ip4_setting['method'] == 'auto' or \
-                   ip4_setting['method'] == 'dhcp':
+                if isys.isDeviceDHCP(dev):
                     self.netdevices[dev].set(('BOOTPROTO', 'dhcp'))
                 else:
+                    self.netdevices[dev].unset('BOOTPROTO')
                     config_path = props.Get(isys.NM_MANAGER_IFACE, 'Ip4Config')
                     config = bus.get_object(isys.NM_SERVICE, config_path)
                     config_props = dbus.Interface(config, isys.DBUS_PROPS_IFACE)
@@ -296,7 +292,6 @@ class Network:
             self.netdevices[dev].set(('useIPv4', flags.useIPv4))
             self.netdevices[dev].set(('useIPv6', flags.useIPv6))
 
-            # XXX: fix this block
             if self.netdevices[dev].get('BOOTPROTO') == '':
                 if self.netdevices[dev].get('IPADDR') == '':
                     self.netdevices[dev].set(('useIPv4', False))
@@ -331,14 +326,14 @@ class Network:
             oneactive = 0
             for dev in available_devices.keys():
                 try:
-                    if available_devices[dev].get("onboot") == "yes":
+                    if available_devices[dev].get("ONBOOT") == "yes":
                         oneactive = 1
                         break
                 except:
                     continue
 
             if not oneactive:
-                self.netdevices[self.firstnetdevice].set(("onboot", "yes"))
+                self.netdevices[self.firstnetdevice].set(("ONBOOT", "yes"))
 
     def getDevice(self, device):
         return self.netdevices[device]
@@ -509,8 +504,7 @@ class Network:
 
             # if bootproto is dhcp, unset any static settings (#218489)
             # *but* don't unset if either IPv4 or IPv6 is manual (#433290)
-            if bootproto == 'dhcp' and \
-               (ipv6addr == 'dhcp' or ipv6autoconf == 'yes'):
+            if bootproto == 'dhcp':
                 dev.unset('IPADDR')
                 dev.unset('NETMASK')
                 dev.unset('GATEWAY')
@@ -556,7 +550,7 @@ class Network:
                 searchLine = string.joinfields(self.domains, ' ')
                 f.write("SEARCH=\"%s\"\n" % (searchLine,))
 
-            f.write("NM_CONTROLLED=yes\n")
+            f.write("NM_CONTROLLED=\n")
             f.close()
 
             if dev.get("key"):
@@ -652,10 +646,10 @@ class Network:
 
 """)
         for dev in self.netdevices.values():
-            addr = dev.get("hwaddr")
+            addr = dev.get("HWADDR")
             if not addr:
                 continue
-            devname = dev.get("device")
+            devname = dev.get("DEVICE")
             basename = devname
             while basename is not "" and basename[-1] in string.digits:
                 basename = basename[:-1]
