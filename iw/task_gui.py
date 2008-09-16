@@ -561,11 +561,23 @@ class TaskWindow(InstallWindow):
 
         return tl
 
+    def __sortRepos(self, store, aIter, bIter):
+        aStr = store.get_value(aIter, 1)
+        bStr = store.get_value(bIter, 1)
+
+        if aStr == "Installation Repo" or aStr < bStr:
+            return -1
+        elif bStr == "Installation Repo" or bStr > aStr:
+            return 1
+        elif aStr == bStr:
+            return 0
+
     def _createRepoStore(self):
         store = gtk.ListStore(gobject.TYPE_BOOLEAN,
                               gobject.TYPE_STRING,
                               gobject.TYPE_PYOBJECT)
         store.set_sort_column_id(1, gtk.SORT_ASCENDING)
+        store.set_sort_func(1, self.__sortRepos)
 
         tl = self.xml.get_widget("repoList")
         tl.set_model(store)
