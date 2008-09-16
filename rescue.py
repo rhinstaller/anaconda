@@ -143,46 +143,15 @@ def startNetworking(network, intf):
         log.error("Error trying to start lo in rescue.py::startNetworking()")
 
     # start up dhcp interfaces first
-    dhcpGotNS = 0
     devs = network.netdevices.keys()
     devs.sort()
     for devname in devs:
         dev = network.netdevices[devname]
         waitwin = intf.waitWindow(_("Starting Interface"),
                                   _("Attempting to start %s") % (dev.get('device'),))
-        log.info("Attempting to start %s", dev.get('device'))
-        if dev.get('bootproto').lower() == "dhcp":
-            try:
-                ns = isys.dhcpNetDevice(dev)
-                if ns:
-                    if not dhcpGotNS:
-                        dhcpGotNS = 1
-
-                        f = open("/etc/resolv.conf", "w")
-                        f.write("nameserver %s\n" % ns)
-                        f.close()
-            except:
-                log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
-        else:
-            try:
-                isys.configNetDevice(dev, network.gateway)
-            except:
-                log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
-
+        log.info("Attempting to start %s", dev.get('DEVICE'))
+        dev.bringDeviceUp()
         waitwin.pop()
-
-    # write out resolv.conf if dhcp didn't get us one
-    if not dhcpGotNS:
-        f = open("/etc/resolv.conf", "w")
-
-        if network.domains != ['localdomain'] and network.domains:
-            f.write("search %s\n" % (string.joinfields(network.domains, ' '),))
-
-        for ns in network.nameservers():
-            if ns:
-                f.write("nameserver %s\n" % (ns,))
-
-        f.close()
 
 def runShell(screen = None, msg=""):
     if screen:

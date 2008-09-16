@@ -85,32 +85,32 @@ class NetworkConfigurator:
         if cb.get_active():
             self.xml.get_widget("ipv4Box").set_sensitive(True)
         else:
-            self.xml.get_widget("ipv4Box").set_sensitive(False)            
+            self.xml.get_widget("ipv4Box").set_sensitive(False)
 
     def _ipv6Toggled(self, cb):
         if self.xml.get_widget("dhcpCheckbutton").get_active():
             return
         if cb.get_active():
-            self.xml.get_widget("ipv6Box").set_sensitive(True)            
+            self.xml.get_widget("ipv6Box").set_sensitive(True)
         else:
             self.xml.get_widget("ipv6Box").set_sensitive(False)
-            
+
     def _dhcpToggled(self, cb):
         boxes = ("ipv4Box", "ipv6Box", "nameserverBox", "gatewayBox")
         if not cb.get_active():
             map(lambda x: self.xml.get_widget(x).set_sensitive(True), boxes)
             self.xml.get_widget("ipv4Box").set_sensitive(self.xml.get_widget("ipv4Checkbutton").get_active())
-            self.xml.get_widget("ipv6Box").set_sensitive(self.xml.get_widget("ipv6Checkbutton").get_active())            
+            self.xml.get_widget("ipv6Box").set_sensitive(self.xml.get_widget("ipv6Checkbutton").get_active())
         else:
             map(lambda x: self.xml.get_widget(x).set_sensitive(False), boxes)
-            
+
     def _populateNetdevs(self):
         combo = self.xml.get_widget("interfaceCombo")
 
         cell = gtk.CellRendererText()
         combo.pack_start(cell, True)
         combo.set_attributes(cell, text = 0)
-        cell.set_property("wrap-width", 525)        
+        cell.set_property("wrap-width", 525)
         combo.set_size_request(480, -1)
 
         store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
@@ -181,24 +181,16 @@ class NetworkConfigurator:
         val = combo.get_model().get_value(active, 1)
         netdev = self.network.available()[val]
 
-        netdev.set(('useipv4', True))
-
         # FIXME: need to do input validation
         if self.xml.get_widget("dhcpCheckbutton").get_active():
-            netdev.set(('bootproto', 'dhcp'))
+            netdev.set(('BOOTPROTO', 'dhcp'))
             self.window.hide()
             w = gui.WaitWindow(_("Dynamic IP"),
                                _("Sending request for IP information "
                                  "for %s...") %(netdev.get("device")))
-            ns = isys.dhcpNetDevice(netdev)
+            netdev.bringDeviceUp()
             w.pop()
-            if ns is not None:
-                self.rc = gtk.RESPONSE_OK
-            if ns:
-                f = open("/etc/resolv.conf", "w")
-                f.write("nameserver %s\n" % ns)
-                f.close()
-                isys.resetResolv()
+            self.rc = gtk.RESPONSE_OK
         else:
             ipv4addr = self.xml.get_widget("ipv4Address").get_text()
             ipv4nm = self.xml.get_widget("ipv4Netmask").get_text()
@@ -259,7 +251,7 @@ class NetworkConfigurator:
 
 
             try:
-                isys.configNetDevice(netdev, gateway)
+                netdev.bringDeviceUp()
             except Exception, e:
                 import logging
                 log = logging.getLogger("anaconda")
@@ -272,8 +264,6 @@ class NetworkConfigurator:
                 f = open("/etc/resolv.conf", "w")
                 f.write("nameserver %s\n" %(ns,))
                 f.close()
-                isys.resetResolv()
-                isys.setResolvRetry(1)
 
         if self.rc != gtk.RESPONSE_OK:
             gui.MessageWindow(_("Error"),
@@ -281,7 +271,7 @@ class NetworkConfigurator:
                               type = "ok", custom_icon="error")
             return False
         return True
-        
+
 
 
 def main():

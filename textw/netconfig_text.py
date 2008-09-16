@@ -173,23 +173,15 @@ class NetworkConfiguratorText:
                 continue
 
             netdev = self.anaconda.id.network.available()[cur]
-            netdev.set(("useipv4", True))
 
             if self.dhcpCheckbox.selected():
                 netdev.set(("bootproto", "dhcp"))
                 w = self.anaconda.intf.waitWindow(_("Dynamic IP"),
                         _("Sending request for IP information "
                           "for %s...") % netdev.get("device"))
-                ns = isys.dhcpNetDevice(netdev)
+                netdev.bringDeviceUp()
                 w.pop()
-
-                if ns is None:
-                    break
-                else:
-                    f = open("/etc/resolv.conf", "w")
-                    f.write("nameserver %s\n" % ns)
-                    f.close()
-                    isys.resetResolv()
+                break
             else:
                 ipv4addr = self.ipv4Address.value()
                 ipv4nm = self.ipv4Netmask.value()
@@ -249,7 +241,7 @@ class NetworkConfiguratorText:
                     continue
 
                 try:
-                    isys.configNetDevice(netdev, gateway)
+                    netdev.bringDeviceUp()
                 except Exception, e:
                     import logging
                     log = logging.getLogger("anaconda")
@@ -262,8 +254,6 @@ class NetworkConfiguratorText:
                     f = open("/etc/resolv.conf", "w")
                     f.write("nameserver %s\n" % ns)
                     f.close()
-                    isys.resetResolv()
-                    isys.setResolvRetry(1)
                     break
 
             break
