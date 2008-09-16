@@ -2978,7 +2978,7 @@ def getDiskPart(dev):
     cut = len(dev)
     if (dev.startswith('rd/') or dev.startswith('ida/') or
             dev.startswith('cciss/') or dev.startswith('sx8/') or
-            dev.startswith('mapper/')):
+            dev.startswith('mapper/') or dev.startswith('mmcblk')):
         if dev[-2] == 'p':
             cut = -1
         elif dev[-3] == 'p':

@@ -159,7 +159,7 @@ def get_partition_name(partition):
     drive = partition.geom.dev.path[5:]
     if (drive.startswith("cciss") or drive.startswith("ida") or
             drive.startswith("rd") or drive.startswith("sx8") or
-            drive.startswith("mapper")):
+            drive.startswith("mapper") or drive.startswith("mmcblk")):
         sep = "p"
     else:
         sep = ""
@@ -1449,4 +1449,5 @@ max_logical_partition_count = {
     "sx8/": 11,
     "xvd": 11,
     "vd": 11,
+    "mmcblk": 5
 }
