@@ -101,7 +101,6 @@ static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args);
 static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args);
 static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
-static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
 static PyObject * doLoadKeymap(PyObject * s, PyObject * args);
 static PyObject * doClobberExt2 (PyObject * s, PyObject * args);
 static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args);
