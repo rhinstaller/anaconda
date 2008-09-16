@@ -1106,7 +1106,7 @@ class DiskSet:
             deviceFile = "/dev/" + drive
             dev = parted.PedDevice.get(deviceFile)
 
-            msg = _("The partition table on device %s (%s %-0.f MB) was unreadable.\n"
+            msg = _("The partition table on device %s (%s %-0.f MB) was unreadable.\n\n"
                     "To create new partitions it must be initialized, "
                     "causing the loss of ALL DATA on this drive.\n\n"
                     "This operation will override any previous "
