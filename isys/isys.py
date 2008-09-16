@@ -725,56 +725,6 @@ def compareNetDevices(first, second):
     else:
         return 0
 
-# called from anaconda (basically rescue mode only) to configure an interface
-# when we have collected all of the configuration information from the user
-def configNetDevice(device, gateway):
-    devname = device.get('device')
-    ipv4 = device.get('ipaddr')
-    netmask = device.get('netmask')
-    ipv6 = device.get('ipv6addr')
-    prefix = device.get('ipv6prefix')
-
-    return _isys.confignetdevice(devname, ipv4, netmask, ipv6, prefix, gateway)
-
-def resetResolv():
-    return _isys.resetresolv()
-
-def setResolvRetry(count):
-    return _isys.setresretry(count)
-
-# called from anaconda to run DHCP (that's DHCP, DHCPv6, or auto neighbor
-# discovery) on a particular interface
-def dhcpNetDevice(device):
-    # returns None on failure, "" if no nameserver is found, nameserver IP
-    # otherwise
-    devname = device.get('device')
-    v4 = 0
-    v6 = 0
-    v4method = ''
-    v6method = ''
-    klass = device.get('dhcpclass')
-
-    if device.get('useipv4'):
-        v4 = 1
-        if device.get('bootproto') == 'dhcp':
-            v4method = 'dhcp'
-        else:
-            v4method = 'manual'
-
-    if device.get('useipv6'):
-        v6 = 1
-        if device.get('ipv6_autoconf') == 'yes':
-            v6method = 'auto'
-        elif device.get('ipv6_autoconf') == 'no' and device.get('bootproto') == 'dhcp':
-            v6method = 'dhcp'
-        else:
-            v6method = 'manual'
-
-    if klass is None:
-        klass = ''
-
-    return _isys.dhcpnetdevice(devname, v4, v4method, v6, v6method, klass)
-
 def getDeviceByToken(token, value):
     return _isys.getdevicebytoken(token, value)
 

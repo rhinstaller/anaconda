@@ -102,9 +102,6 @@ static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args);
 static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
-static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args);
-static PyObject * doResetResolv(PyObject * s, PyObject * args);
-static PyObject * doSetResolvRetry(PyObject * s, PyObject * args);
 static PyObject * doLoadKeymap(PyObject * s, PyObject * args);
 static PyObject * doClobberExt2 (PyObject * s, PyObject * args);
 static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args);
@@ -153,12 +150,8 @@ static PyMethodDef isysModuleMethods[] = {
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "htavailable", (PyCFunction) htAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
-    { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
-    { "dhcpnetdevice", (PyCFunction) doDhcpNetDevice, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
-    { "resetresolv", (PyCFunction) doResetResolv, METH_VARARGS, NULL },
-    { "setresretry", (PyCFunction) doSetResolvRetry, METH_VARARGS, NULL },
     { "loadKeymap", (PyCFunction) doLoadKeymap, METH_VARARGS, NULL },
     { "vtActivate", (PyCFunction) doVtActivate, METH_VARARGS, NULL},
     { "isPseudoTTY", (PyCFunction) doisPseudoTTY, METH_VARARGS, NULL},
@@ -366,72 +359,6 @@ void init_isys(void) {
     PyDict_SetItemString(d, "EARLY_SWAP_RAM", PyInt_FromLong(EARLY_SWAP_RAM));
 }
 
-static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
-    int i = 0;
-    char *dev, *ipv4, *netmask, *ipv6, *prefix, *gateway, *gateway6, *ep;
-    iface_t iface;
-    struct in_addr tmpaddr;
-
-    if (!PyArg_ParseTuple(args, "ssssss", &dev, &ipv4, &netmask,
-                          &ipv6, &prefix, &gateway, &gateway6))
-        return NULL;
-
-    memset(&iface, '\0', sizeof(iface_t));
-    strncpy(iface.device, dev, sizeof(iface.device) - 1);
-
-    /* IPv4 */
-    if (inet_pton(AF_INET, ipv4, &iface.ipaddr) >= 1) {
-        if (inet_pton(AF_INET, netmask, &iface.netmask) >= 1) {
-            /* we have IP and netmask, calculate broadcast */
-            memset(&tmpaddr, 0, sizeof(tmpaddr));
-            tmpaddr.s_addr = iface.ipaddr.s_addr & iface.netmask.s_addr;
-            iface.broadcast.s_addr = tmpaddr.s_addr | ~iface.netmask.s_addr;
-        }
-    }
-
-    /* IPv6 */
-    if (inet_pton(AF_INET6, ipv6, &iface.ip6addr) >= 1) {
-        if (strlen(prefix)) {
-            i = strtol(prefix, &ep, 10);
-            if (i > 0 && i <= 128) {
-                iface.ip6prefix = i;
-            }
-        }
-    }
-
-    /* Gateways */
-    if (strlen(gateway)) {
-        if (inet_pton(AF_INET, gateway, &iface.gateway) <= 0) {
-            PyErr_SetFromErrno(PyExc_SystemError);
-            return NULL;
-        }
-    }
-
-    if (strlen(gateway6)) {
-        if (inet_pton(AF_INET6, gateway6, &iface.gateway6) <= 0) {
-            PyErr_SetFromErrno(PyExc_SystemError);
-            return NULL;
-        }
-    }
-
-    /* Bring up the interface */
-/*
-    if (iface_config(&iface)) {
-        PyErr_SetFromErrno(PyExc_SystemError);
-        return NULL;
-    }
-*/
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
-    /* function returns a nameserver address to the caller */
-    /* FIXME: needs to use NetworkManager --dcantrell */
-    return PyString_FromString("");
-}
-
 static PyObject * doPrefixToNetmask (PyObject * s, PyObject * args) {
     int prefix = 0;
     struct in_addr *mask = NULL;
@@ -599,26 +526,6 @@ static PyObject * doLoadKeymap (PyObject * s, PyObject * args) {
 	return NULL;
     }
     
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doResetResolv(PyObject * s, PyObject * args) {
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-
-    res_init();		/* reinit the resolver so DNS changes take affect */
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doSetResolvRetry(PyObject * s, PyObject * args) {
-    int count;
-
-    if (!PyArg_ParseTuple(args, "i", &count)) return NULL;
-
-    _res.retry = count;
-
     Py_INCREF(Py_None);
     return Py_None;
 }
