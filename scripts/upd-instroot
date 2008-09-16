@@ -274,6 +274,7 @@ etc/group
 etc/passwd
 etc/iscsid.conf
 etc/mke2fs.conf
+etc/mke4fs.conf
 etc/pcmcia/*
 etc/protocols
 etc/services
@@ -339,11 +340,15 @@ sbin/clock
 sbin/cryptsetup
 sbin/debugfs
 sbin/dosfslabel
+sbin/dumpe4fs
 sbin/e2fsck
 sbin/e2fsadm
 sbin/e2label
+sbin/e4label
 sbin/fsck.ext2
 sbin/fsck.ext3
+sbin/fsck.ext4
+sbin/fsck.ext4dev
 sbin/fsck.jfs
 sbin/fsck.xfs
 sbin/fdisk
@@ -355,8 +360,11 @@ sbin/lvm*
 sbin/mdadm
 sbin/mkdosfs
 sbin/mke2fs
+sbin/mke4fs
 sbin/mkfs.ext2
 sbin/mkfs.ext3
+sbin/mkfs.ext4
+sbin/mkfs.ext4dev
 sbin/mkfs.jfs
 sbin/mkfs.xfs
 sbin/mkfs.msdos
