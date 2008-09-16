@@ -437,10 +437,10 @@ class Network(commands.network.F8_Network):
             self.handler.id.network.overrideDHCPhostname = True
 
         if nd.nameserver != "":
-            self.handler.id.network.setDNS(nd.nameserver)
+            self.handler.id.network.setDNS(nd.nameserver, device)
 
         if nd.gateway != "":
-            self.handler.id.network.setGateway(nd.gateway)
+            self.handler.id.network.setGateway(nd.gateway, device)
 
 class MultiPath(commands.multipath.FC6_MultiPath):
     def parse(self, args):
