@@ -201,7 +201,7 @@ class Network:
             for line in lines:
                 netinf = string.splitfields(line, '=')
                 if len(netinf) >= 3:
-                    info [netinf[0]] = string.strip(netinf[1]) + "=" + string.strip(netinf[2])
+                    info[netinf[0]] = '='.join([string.strip(s) for s in netinf[1:]])
                 elif len(netinf) >= 2:
                     info [netinf[0]] = string.strip(netinf[1])
             self.netdevices [info["DEVICE"]] = NetworkDevice(info["DEVICE"])

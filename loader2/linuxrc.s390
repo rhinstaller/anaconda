@@ -172,6 +172,9 @@ setupdevice()
    if [ -n "$LAYER2" -a "$NETTYPE" = "qeth" ]; then
       sysecho /sys/bus/ccwgroup/drivers/qeth/${SYSDIR}/layer2 "$LAYER2"
    fi
+   if [ -n "$PORTNO" -a "$NETTYPE" = "qeth" ]; then
+      sysecho /sys/bus/ccwgroup/drivers/qeth/${SYSDIR}/portno "$PORTNO"
+   fi
    sysecho /sys/bus/ccwgroup/drivers/${NETTYPE}/${SYSDIR}/online 1
 }
 
@@ -332,6 +335,12 @@ if [ "$do_net_install" = "yes" ]; then
 				echo $"0 for layer 3 mode (default)"
 				echo $"1 for layer 2 mode"
 				read LAYER2
+			fi
+			if [ -z "$PORTNO" ]; then
+				echo $"Enter the portnumber for the OSA-Express3 device with 2 ports per CHPID (if unsure, check with Admin. or use default)"
+				echo $"0 for portnumber 0 (default)"
+				echo $"1 for portnumber 1"
+				read PORTNO
 			fi
 			if [ "$LAYER2" == 1 ]; then
 			   if [ -z "$VSWITCH" -o "$VSWITCH" == 0 ]; then
@@ -628,6 +637,7 @@ EOF
 [ "$PORTNAME" != "" ] && echo "PORTNAME=$PORTNAME" >> /tmp/netinfo
 [ "$CTCPROT" != "" ] && echo "CTCPROT=$CTCPROT" >> /tmp/netinfo
 [ "$LAYER2" != "" ] && echo "LAYER2=$LAYER2" >> /tmp/netinfo
+[ "$PORTNO" != "" ] && echo "PORTNO=$PORTNO" >> /tmp/netinfo
 [ "$MACADDR" != "" ] && echo "MACADDR=$MACADDR" >> /tmp/netinfo
 
 # so that the vars get propagated into the sshd shells

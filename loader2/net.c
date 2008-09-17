@@ -629,6 +629,10 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         cfg->layer2 = strdup(loaderData->layer2);
     }
 
+    if (loaderData->portno) {
+        cfg->portno = strdup(loaderData->portno);
+    }
+
     if (loaderData->macaddr) {
         cfg->macaddr = strdup(loaderData->macaddr);
     }
@@ -1776,6 +1780,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
     struct device ** devices;
     char ret[48];
     ip_addr_t *tip;
+    char osa_opts[512] = "";
 
     devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
     if (!devices)
@@ -1834,10 +1839,20 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
         fprintf(f, "NETTYPE=%s\n", dev->nettype);
     if (dev->ctcprot)
         fprintf(f, "CTCPROT=%s\n", dev->ctcprot);
+
     if (dev->layer2 && !strcmp(dev->layer2, "1"))
-        fprintf(f, "OPTIONS=\"layer2=1\"\n");
+	strcat(osa_opts, "layer=2");
     else if (dev->subchannels)
 	fprintf(f, "ARP=no\n");
+    if (dev->portno && !strcmp(dev->portno, "1")) {
+	if (strlen(osa_opts) != 0) {
+	    strcat(osa_opts, " ");
+	}
+	strcat(osa_opts, "portno=1");
+    } 
+    if ((strlen(osa_opts) > 0))
+        fprintf(f, "OPTIONS=\"%s\"\n", osa_opts);
+
     if (dev->macaddr)
         fprintf(f, "MACADDR=%s\n", dev->macaddr);
 
