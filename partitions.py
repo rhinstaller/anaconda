@@ -39,8 +39,7 @@ import logging
 log = logging.getLogger("anaconda")
 
 def lookup_cryptodev(device):
-    encryptedDevices = Partitions.encryptedDevices
-    for encryptedDev, cdev in cryptoDevs.items():
+    for encryptedDev, cdev in Partitions.encryptedDevices.items():
         mappedDev = cdev.getDevice()
         if device == encryptedDev or device == mappedDev:
             return cdev
