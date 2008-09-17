@@ -139,8 +139,7 @@ def findExistingRoots(anaconda, upgradeany = 0):
         return []
 
     anaconda.id.diskset.openDevices()
-    if anaconda.rescue:
-        anaconda.id.partitions.getEncryptedDevices(anaconda.id.diskset)
+    anaconda.id.partitions.getEncryptedDevices(anaconda.id.diskset)
     
     win = anaconda.intf.progressWindow(_("Searching"),
                               _("Searching for %s installations...") %
@@ -176,14 +175,20 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
     (root, rootFs) = rootInfo
 
     diskset = partedUtils.DiskSet(anaconda)
+    encryptedDevices = anaconda.id.partitions.encryptedDevices
     diskset.openDevices()
+    for cryptoDev in encryptedDevices.values():
+        cryptoDev.openDevice()
     diskset.startMPath()
     diskset.startDmRaid()
     diskset.startMdRaid()
+    for cryptoDev in encryptedDevices.values():
+        cryptoDev.openDevice()
     lvm.vgscan()
     lvm.vgactivate()
-
-    encryptedDevices = anaconda.id.partitions.encryptedDevices
+    for cryptoDev in encryptedDevices.values():
+        if cryptoDev.openDevice():
+            log.warning("failed to open encrypted device %s" % (cryptoDev.getDevice(encrypted=True)))
 
     log.info("going to mount %s on %s as %s" %(root, anaconda.rootPath, rootFs))
     isys.mount(root, anaconda.rootPath, rootFs)
@@ -219,10 +224,6 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
             return -1
 
     if flags.setupFilesystems:
-        for dev, crypto in encryptedDevices.items():
-            if crypto.openDevice():
-                log.error("failed to open encrypted device %s" % (dev,))
-
         oldfsset.mountFilesystems(anaconda, readOnly = readOnly)
 
     if (not oldfsset.getEntryByMountPoint("/") or

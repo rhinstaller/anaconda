@@ -223,7 +223,6 @@ class Partitions:
         self.deletes = []
         self.requests = []
         labels = diskset.getLabels()
-        self.getEncryptedDevices(diskset)
         drives = diskset.disks.keys()
         drives.sort()
         for drive in drives:

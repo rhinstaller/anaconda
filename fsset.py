@@ -2363,14 +2363,23 @@ class Device:
 class DevDevice(Device):
     """Device with a device node rooted in /dev that we just always use
        the pre-created device node for."""
-    def __init__(self, dev):
-        Device.__init__(self, device=dev)
+    def __init__(self, dev, encryption=None):
+        Device.__init__(self, device=dev, encryption=encryption)
 
     def getDevice(self, asBoot = 0):
-        return self.device
+        if self.crypto and not asBoot:
+            path = self.crypto.getDevice()
+        else:
+            path = self.device
+
+        return path
 
     def setupDevice(self, chroot='/', devPrefix='/dev'):
-        return "/dev/%s" %(self.getDevice(),)
+        path = '/dev/%s' % (self.getDevice(),)
+        if self.crypto:
+            self.crypto.openDevice()
+
+        return path
 
 class RAIDDevice(Device):
     # XXX usedMajors does not take in account any EXISTING md device
@@ -2796,16 +2805,16 @@ def makeDevice(dev):
                 if cryptoMem and cryptoMem.getDevice() == dev:
                     dev = cryptoMem.getDevice(encrypted=True)
 
-                devList.append(PartitionDevice(dev, encryption=cryptoMem))
+                devList.append(DevDevice(dev, encryption=cryptoMem))
 
             device = RAIDDevice(level, devList,
                                 minor=int(mdname[2:]),
                                 spares=len(devices) - numActive,
                                 existing=1, encryption=cryptoDev)
         except KeyError:
-            device = PartitionDevice(dev, encryption=cryptoDev)
+            device = DevDevice(dev, encryption=cryptoDev)
     else:
-        device = PartitionDevice(dev, encryption=cryptoDev)
+        device = DevDevice(dev, encryption=cryptoDev)
     return device
 
 # XXX fix RAID
