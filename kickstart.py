@@ -620,7 +620,7 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doTimezone(self, args):
         KickstartHandlers.doTimezone(self, args)
         dict = self.ksdata.timezone
-        tzfile = "/usr/share/zoneinfo" + dict["timezone"]
+        tzfile = "/usr/share/zoneinfo/" + dict["timezone"]
         if not os.access(tzfile, os.R_OK):
             log.warning("Can't read timezone file set in kickstart, will ask")
             return
