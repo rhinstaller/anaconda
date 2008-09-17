@@ -895,14 +895,17 @@ int manualNetConfig(char * device, iface_t * iface,
     newtGridWrappedWindow(grid, _("Manual TCP/IP Configuration"));
     newtGridFree(grid, 1);
 
+    have[IPV4] = 0;
+    have[IPV6] = 0;
+
+    for (i = IPV4; i <= IPV6; i++) {
+        if (!stack[i]) {
+            have[i] = 2;
+        }
+    }
+
     /* run the form */
-    while ((have[IPV4] != 2) || (have[IPV6] != 2)) {
-        have[IPV4] = 0;
-        have[IPV6] = 0;
-
-        for (i = 0; i < 2; i++)
-            if (!stack[i]) have[i] = 2;
-
+    while ((have[IPV4] != 2) && (have[IPV6] != 2)) {
         answer = newtRunForm(f);
 
         /* collect IPv4 data */
@@ -917,7 +920,7 @@ int manualNetConfig(char * device, iface_t * iface,
             }
 
             if (ipcomps->cidr4) {
-                if (inet_pton(AF_INET, ipcomps->cidr4, &iface->netmask)>=1) {
+                if (inet_pton(AF_INET, ipcomps->cidr4, &iface->netmask) >= 1) {
                     have[IPV4]++;
                 } else {
                     errno = 0;
@@ -1005,13 +1008,13 @@ int manualNetConfig(char * device, iface_t * iface,
         }
 
         /* we might be done now */
-        if (have[IPV4] != 2) {
+        if (stack[IPV4] && have[IPV4] != 2) {
             newtWinMessage(_("Missing Information"), _("Retry"),
                            _("You must enter both a valid IPv4 address and a "
                              "network mask or CIDR prefix."));
         }
 
-        if (have[IPV6] != 2) {
+        if (stack[IPV6] && have[IPV6] != 2) {
             newtWinMessage(_("Missing Information"), _("Retry"),
                            _("You must enter both a valid IPv6 address and a "
                              "CIDR prefix."));
