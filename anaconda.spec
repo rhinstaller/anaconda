@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.125
+Version: 11.1.2.126
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -106,6 +106,23 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 17 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.126-1
+- Add a stub to cmdline UI for getLuksPassphrase (dlehman)
+  Resolves: rhbz#462491
+- Don't add a LUKSDevice to autopart PVs unless we're encrypting (dlehman)
+  Resolves: rhbz#462640
+- Support upgrade of systems that use encrypted block devices (dlehman)
+  Resolves: rhbz#461696
+- Disallow use or creation of encrypted software RAID partitions (dlehman)
+  Resolves: rhbz#456283
+- Use UUIDs instead of device nodes in crypttab (dlehman)
+  Resolves: rhbz#461702
+- Add support for OSA Express 2 ports per CHPID (rvykydal)
+  Resolves: rhbz#439461
+- Fix kickstart timezone value checking (rvykydal)
+  Resolves: rhbz#462595
+  Resolves: rhbz#404321
+
 * Tue Sep 16 2008 Chris Lumens <clumens@redhat.com> 11.1.2.125-1
 - Include the programs needed to manage ext4 filesystems (clumens).
   Resolves: rhbz#462476
