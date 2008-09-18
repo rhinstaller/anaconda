@@ -107,7 +107,7 @@ build: src
 	brew build $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?anaconda/RHEL-5#$(TAG)'
 
 create-snapshot: ChangeLog tag
-	@git-archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) > anaconda-$(VERSION).tar
+	@git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) > anaconda-$(VERSION).tar
 	@mkdir -p anaconda-$(VERSION)/
 	@cp ChangeLog anaconda-$(VERSION)/
 	@tar --append -f anaconda-$(VERSION).tar anaconda-$(VERSION)
