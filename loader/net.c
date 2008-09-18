@@ -1119,7 +1119,7 @@ int writeEnabledNetInfo(iface_t *iface) {
             }
 
             if (iface_have_in_addr(&iface->netmask)) {
-                if (inet_ntop(AF_INET, &iface->ipaddr, buf,
+                if (inet_ntop(AF_INET, &iface->netmask, buf,
                               INET_ADDRSTRLEN) == NULL) {
                     free(ofile);
                     return 4;
@@ -1129,7 +1129,7 @@ int writeEnabledNetInfo(iface_t *iface) {
             }
 
             if (iface_have_in_addr(&iface->broadcast)) {
-                if (inet_ntop(AF_INET, &iface->ipaddr, buf,
+                if (inet_ntop(AF_INET, &iface->broadcast, buf,
                               INET_ADDRSTRLEN) == NULL) {
                     free(ofile);
                     return 5;
