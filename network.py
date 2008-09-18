@@ -67,6 +67,18 @@ def sanityCheckHostname(hostname):
 
     return None
 
+# Try to determine what the hostname should be for this system
+def getDefaultHostname(anaconda):
+    hn = anaconda.id.network.hostname
+
+    if hn is None or hn == '':
+        hn = socket.gethostname()
+
+    if hn is None or hn == '':
+        hn = 'localhost.localdomain'
+
+    return hn
+
 # return if the device is of a type that requires a ptpaddr to be specified
 def isPtpDev(devname):
     if (devname.startswith("ctc") or devname.startswith("iucv")):
@@ -208,6 +220,7 @@ class Network:
                     self.netdevices[dev].set(('BOOTPROTO', 'dhcp'))
                 else:
                     self.netdevices[dev].unset('BOOTPROTO')
+                    bus = dbus.SystemBus()
                     config_path = props.Get(isys.NM_MANAGER_IFACE, 'Ip4Config')
                     config = bus.get_object(isys.NM_SERVICE, config_path)
                     config_props = dbus.Interface(config, isys.DBUS_PROPS_IFACE)

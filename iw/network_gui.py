@@ -35,15 +35,7 @@ class NetworkWindow(InstallWindow):
     def getScreen(self, anaconda):
         self.intf = anaconda.intf
         self.anaconda = anaconda
-
-        # read in our hostname and try to set a default
-        self.hostname = anaconda.id.network.hostname
-
-        if self.hostname is None or self.hostname == '':
-            self.hostname = socket.gethostname()
-
-        if self.hostname == '':
-            self.hostname = 'localhost.localdomain'
+        self.hostname = network.getDefaultHostname(anaconda)
 
         # load the UI
         (self.xml, self.align) = gui.getGladeWidget("network.glade",
