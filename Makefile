@@ -25,7 +25,7 @@ CVSROOT ?= ${CVSROOT:-$(shell cat CVS/Root 2>/dev/null)}
 
 SUBDIRS = isys loader po \
 	    textw utils scripts bootdisk installclasses \
-	    iw pixmaps command-stubs ui docs yum-plugins
+	    iw pixmaps command-stubs ui docs
 # fonts aren't on s390/s390x
 ifeq (,$(filter s390 s390x, $(ARCH)))
 SUBDIRS += fonts
