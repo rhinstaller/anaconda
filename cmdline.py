@@ -73,6 +73,11 @@ class InstallInterface:
         while 1:
             time.sleep(5)
 
+    def getLuksPassphrase(self, *args):
+        print _("Can't have a question in command line mode!")
+        while 1:
+            time.sleep(5)
+
     def progressWindow(self, title, text, total, updpct = 0.05):
         return ProgressWindow(title, text, total, updpct)
 
