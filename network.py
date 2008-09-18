@@ -71,10 +71,10 @@ def sanityCheckHostname(hostname):
 def getDefaultHostname(anaconda):
     hn = anaconda.id.network.hostname
 
-    if hn is None or hn == '':
+    if hn is None or hn == '' or hn == '(none)' or hn == 'localhost':
         hn = socket.gethostname()
 
-    if hn is None or hn == '':
+    if hn is None or hn == '' or hn == '(none)' or hn == 'localhost':
         hn = 'localhost.localdomain'
 
     return hn
