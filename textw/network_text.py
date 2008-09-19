@@ -36,52 +36,16 @@ import logging
 log = logging.getLogger("anaconda")
 
 class HostnameWindow:
-    def hostTypeCb(self, (radio, hostEntry)):
-        if radio.getSelection() != "manual":
-            sense = FLAGS_SET
-        else:
-            sense = FLAGS_RESET
-
-        hostEntry.setFlags(FLAG_DISABLED, sense)
-
     def __call__(self, screen, anaconda):
-        devices = anaconda.id.network.available ()
-        if not devices:
-            return INSTALL_NOOP
-
-        self.hostname = anaconda.id.network.hostname
-
-        if self.hostname is None or self.hostname == '':
-            self.hostname = socket.gethostname()
-
-        if self.hostname == '':
-            self.hostname = 'localhost.localdomain'
-
-        thegrid = Grid(2, 2)
-        radio = RadioGroup()
-        autoCb = radio.add(_("automatically via DHCP"), "dhcp", 0)
-        thegrid.setField(autoCb, 0, 0, growx = 1, anchorLeft = 1)
-
-        manualCb = radio.add(_("manually"), "manual", 1)
-        thegrid.setField(manualCb, 0, 1, anchorLeft = 1)
-        hostEntry = Entry(24)
-        hostEntry.set(anaconda.id.network.hostname)
-        thegrid.setField(hostEntry, 1, 1, padding = (1, 0, 0, 0),
-                         anchorLeft = 1)
-
-        # disable the dhcp if we don't have any dhcp
-        if network.anyUsingDHCP():
-            autoCb.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)
-        else:
-            autoCb.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
-
-        self.hostTypeCb((radio, hostEntry))
-
-        autoCb.setCallback(self.hostTypeCb, (radio, hostEntry))
-        manualCb.setCallback(self.hostTypeCb, (radio, hostEntry))
-
+        # XXX: currently string frozen for F10, but change the dialog
+        # title to just 'Hostname' after F10 is released
         toplevel = GridFormHelp(screen, _("Hostname Configuration"),
-                                "hostname", 1, 4)
+                                "hostname", 1, 3)
+
+        # XXX: currently string frozen for F10, but change this text
+        # to 'Please name this computer.  The hostname identifies the
+        # computer on a network.' after F10 is released.  This will
+        # have the text interface match the iw interface.
         text = TextboxReflowed(55,
                                _("If your system is part of a larger network "
                                  "where hostnames are assigned by DHCP, "
@@ -91,8 +55,11 @@ class HostnameWindow:
                                  "will be known as 'localhost.'"))
         toplevel.add(text, 0, 0, (0, 0, 0, 1))
 
+        hostEntry = Entry(55)
+        hostEntry.set(network.getDefaultHostname(anaconda))
+        toplevel.add(hostEntry, 0, 1, padding = (0, 0, 0, 1))
+
         bb = ButtonBar(screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
-        toplevel.add(thegrid, 0, 1, padding = (0, 0, 0, 1))
         toplevel.add(bb, 0, 2, growx = 1)
 
         while 1:
@@ -103,27 +70,23 @@ class HostnameWindow:
                 screen.popWindow()
                 return INSTALL_BACK
 
-            if radio.getSelection() != "manual":
-                anaconda.id.network.overrideDHCPhostname = False
-                anaconda.id.network.hostname = "localhost.localdomain"
-            else:
-                hname = string.strip(hostEntry.value())
-                if len(hname) == 0:
-                    ButtonChoiceWindow(screen, _("Invalid Hostname"),
-                                       _("You have not specified a hostname."),
-                                       buttons = [ _("OK") ])
-                    continue
-                neterrors = network.sanityCheckHostname(hname)
-                if neterrors is not None:
-                    ButtonChoiceWindow(screen, _("Invalid Hostname"),
-                                       _("The hostname \"%s\" is not valid "
-                                         "for the following reason:\n\n%s")
-                                       %(hname, neterrors),
-                                       buttons = [ _("OK") ])
-                    continue
+            hname = string.strip(hostEntry.value())
+            if len(hname) == 0:
+                ButtonChoiceWindow(screen, _("Invalid Hostname"),
+                                   _("You have not specified a hostname."),
+                                   buttons = [ _("OK") ])
+                continue
 
-                anaconda.id.network.overrideDHCPhostname = True
-                anaconda.id.network.hostname = hname
+            neterrors = network.sanityCheckHostname(hname)
+            if neterrors is not None:
+                ButtonChoiceWindow(screen, _("Invalid Hostname"),
+                                   _("The hostname \"%s\" is not valid "
+                                     "for the following reason:\n\n%s")
+                                   %(hname, neterrors),
+                                   buttons = [ _("OK") ])
+                continue
+
+            anaconda.id.network.hostname = hname
             break
 
         screen.popWindow()
