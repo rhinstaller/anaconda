@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.127
+Version: 11.1.2.128
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -106,6 +106,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Sep 19 2008 Chris Lumens <clumens@redhat.com> 11.1.2.128-1
+- Include the correct version of the spec file in the source archive.
+  Related: rhbz#461700
+
 * Fri Sep 19 2008 Chris Lumens <clumens@redhat.com> 11.1.2.127-1
 - Support for system-wide passphrase for encrypted block devices (dlehman).
   Resolves: rhbz#461700
