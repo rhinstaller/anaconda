@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.36
+Version: 11.4.1.37
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,30 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Sep 19 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.37-1
+- Set the filename on the traceback when we upload it (wwoods).
+- Don't worry about errors looking up protected partitions on upgrades.
+  (clumens)
+- Fix test for allowing the installation source to be on the root fs
+  (#462769). (clumens)
+- lang-names should really only depend on lang-table (katzj)
+- Don't make the .desktop file unless we actually need to (katzj)
+- Fix lang-name generation (katzj)
+- Look for xrandr in the search path. (clumens)
+- Make the textw network screen match the iw interface by only prompting for
+  hostname (#462592) (dcantrell)
+- Pick up hostname if we have it, otherwise use localhost.localdomain
+  (#461933) (dcantrell)
+- dhclient-script not needed for NetworkManager (dcantrell)
+- Add getDefaultHostname() to network.py (dcantrel)
+- Write out NETMASK and BROADCAST correctly in loader. (dcantrel)
+- Fix problems with manual network configuration in loader. (dcantrel)
+- anaconda-yum-plugins is now in its own source repo. (clumens)
+- Remove most of the network configuration from text mode as well (#462691).
+  (clumens)
+- Add an extra newline to the empty partition table message. (clumens)
+- Fixup DiskSet._askForLabelPermission() (markmc)
+
 * Mon Sep 15 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.36-1
 - Remove invalid i18n stuff to let anaconda build. (dcantrell)
 - Remove doConfigNetDevice() prototype. (dcantrell)
