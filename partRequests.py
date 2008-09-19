@@ -191,7 +191,7 @@ class RequestSpec:
         traceback.print_stack()
 
     def isEncrypted(self, partitions, parentOnly = False):
-        if self.encryption and self.encryption.getScheme() is not None:
+        if self.encryption:
             return True
         return False
 

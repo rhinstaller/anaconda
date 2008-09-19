@@ -120,7 +120,7 @@ class AnacondaKSHandlers(KickstartHandlers):
 
         if self.ksdata.encrypted:
             self.id.partitions.autoEncrypt = True
-            self.id.partitions.autoEncryptPass = self.ksdata.passphrase
+            self.id.partitions.encryptionPassphrase = self.ksdata.passphrase
 
         self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
@@ -309,6 +309,10 @@ class AnacondaKSHandlers(KickstartHandlers):
                 passphrase = lvd.passphrase
             except AttributeError:
                 passphrase = ""
+
+            if passphrase and \
+               not self.handler.anaconda.id.partitions.encryptionPassphrase:
+                self.anaconda.id.partitions.encryptionPassphrase = passphrase
 
             request.encryption = cryptodev.LUKSDevice(passphrase=passphrase, format=lvd.format)
 
@@ -517,6 +521,10 @@ class AnacondaKSHandlers(KickstartHandlers):
             except AttributeError:
                 passphrase = ""
 
+            if passphrase and \
+               not self.handler.anaconda.id.partitions.encryptionPassphrase:
+                self.anaconda.id.partitions.encryptionPassphrase = passphrase
+
             request.encryption = cryptodev.LUKSDevice(passphrase=passphrase, format=pd.format)
 
         self.id.instClass.addPartRequest(self.id.partitions, request)
@@ -594,6 +602,10 @@ class AnacondaKSHandlers(KickstartHandlers):
                 passphrase = rd.passphrase
             except AttributeError:
                 passphrase = ""
+
+            if passphrase and \
+               not self.handler.anaconda.id.partitions.encryptionPassphrase:
+                self.anaconda.id.partitions.encryptionPassphrase = passphrase
 
             request.encryption = cryptodev.LUKSDevice(passphrase=passphrase, format=rd.format)
 

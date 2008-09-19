@@ -80,9 +80,7 @@ class Partitions:
         """Should the mbr be zero'd?"""
 
         self.autoEncrypt = False
-        self.autoEncryptPass = ""
-
-        self.globalPassphrase = ""
+        self.encryptionPassphrase = ""
 
         # partition method to be used.  not to be touched externally
         self.useAutopartitioning = 1
@@ -104,8 +102,8 @@ class Partitions:
             return luksDev
 
         luksDev = cryptodev.LUKSDevice(device)
-        if self.globalPassphrase:
-            luksDev.setPassphrase(self.globalPassphrase)
+        if self.encryptionPassphrase:
+            luksDev.setPassphrase(self.encryptionPassphrase)
             if not luksDev.openDevice():
                 self.encryptedDevices[device] = luksDev
                 return luksDev
@@ -145,7 +143,7 @@ class Partitions:
             else:
                 self.encryptedDevices[device] = luksDev
                 if isglobal:
-                    self.globalPassphrase = passphrase
+                    self.encryptionPassphrase = passphrase
                 break
 
         return self.encryptedDevices.get(device)
@@ -217,6 +215,11 @@ class Partitions:
         diskset.stopMdRaid()
         for luksDev in self.encryptedDevices.values():
             luksDev.closeDevice()
+
+        # We shouldn't have any further need for the global passphrase
+        # except for new device creation, in which case we want to give
+        # the user a chance to establish a new global passphrase.
+        self.encryptionPassphrase = ""
 
     def setFromDisk(self, diskset):
         """Clear the delete list and set self.requests to reflect disk."""

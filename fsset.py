@@ -2310,7 +2310,7 @@ class Device:
         self.isSetup = 0
         self.doLabel = 1
         self.deviceOptions = ""
-        if encryption and encryption.getScheme():
+        if encryption:
             self.crypto = encryption
             self.doLabel = 0
             if device not in ("none", None):

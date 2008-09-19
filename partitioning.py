@@ -71,20 +71,53 @@ def partitioningComplete(anaconda):
 
     anaconda.id.partitions.sortRequests()
     anaconda.id.fsset.reset()
+    undoEncryption = False
+    partitions = anaconda.id.partitions
+    preexist = partitions.hasPreexistingCryptoDev()
     for request in anaconda.id.partitions.requests:
         # XXX improve sanity checking
 	if (not request.fstype or (request.fstype.isMountable()
 	    and not request.mountpoint)):
 	    continue
 
-        if anaconda.isKickstart and \
-           request.encryption and not request.encryption.passphrase:
-            dev = request.getDevice(anaconda.id.partitions).getDevice()
-            passphrase = anaconda.intf.getLuksPassphrase(device=dev)
-            if passphrase:
-                request.encryption.setPassphrase(passphrase)
-            else:
+        # ensure that all newly encrypted devices have a passphrase
+        if request.encryption and request.encryption.format:
+            if anaconda.isKickstart and request.passphrase:
+                # they set a passphrase for this device explicitly
+                pass
+            elif partitions.encryptionPassphrase:
+                request.encryption.setPassphrase(partitions.encryptionPassphrase)
+            elif undoEncryption:
                 request.encryption = None
+                if request.dev:
+                    request.dev.crypto = None
+            else:
+                while True:
+                    (passphrase, retrofit) = anaconda.intf.getLuksPassphrase(preexist=preexist)
+                    if passphrase:
+                        request.encryption.setPassphrase(passphrase)
+                        partitions.encryptionPassphrase = passphrase
+                        partitions.retrofitPassphrase = retrofit
+                        break
+                    else:
+                        rc = anaconda.intf.messageWindow(_("Encrypt device?"),
+                                    _("You specified block device encryption "
+                                      "should be enabled, but you have not "
+                                      "supplied a passphrase. If you do not "
+                                      "go back and provide a passphrase, "
+                                      "block device encryption will be "
+                                      "disabled."),
+                                      type="custom",
+                                      custom_buttons=[_("Back"), _("Continue")],
+                                      default=0)
+                        if rc == 1:
+                            log.info("user elected to not encrypt any devices.")
+                            request.encryption = None
+                            if request.dev:
+                                request.dev.encryption = None
+                            undoEncryption = True
+                            partitions.autoEncrypt = False
+                            break
 	    
         entry = request.toEntry(anaconda.id.partitions)
         if entry:
