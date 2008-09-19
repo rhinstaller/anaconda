@@ -623,12 +623,7 @@ makeinitrd() {
 
     # DHCP and DHCPv6 client daemons and support programs
     instbin $IMGPATH /usr/sbin/dhclient $MBD_DIR /sbin/dhclient
-    cp -a $IMGPATH/usr/sbin/dhclient-script $MBD_DIR/sbin/dhclient-script
-    chmod 0755 $MBD_DIR/sbin/dhclient-script
     instbin $IMGPATH /usr/sbin/dhcp6c $MBD_DIR /sbin/dhcp6c
-    instbin $IMGPATH /usr/sbin/arping $MBD_DIR /sbin/arping
-    instbin $IMGPATH /usr/sbin/ifconfig $MBD_DIR /sbin/ifconfig
-    instbin $IMGPATH /usr/sbin/ip $MBD_DIR /sbin/ip
     touch $MBD_DIR/etc/resolv.conf
 
     # hwdata
