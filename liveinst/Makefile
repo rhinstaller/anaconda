@@ -17,7 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-all:
+all: liveinst.desktop
+
+liveinst.desktop: liveinst.desktop.in
 	LC_ALL=C intltool-merge -d -u ../po liveinst.desktop.in liveinst.desktop
 
 install:
