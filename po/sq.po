@@ -3399,7 +3399,7 @@ msgstr "Emri \"%s\" i vëllimit logjik është tashmë në përdorim. Ju lutem m
 #: ../iw/lvm_dialog_gui.py:627
 #, fuzzy, python-format
 msgid "The current requested size (%10.2f MB) is larger than the maximum logical volume size (%10.2f MB). To increase this limit you can create more Physical Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr "Madhësia e kërkuar (%10.2f MB), për çastin, është më e madhe se sa madhësia më e madhe për një vëllim logjik (%10.2f MB). Për ta rritur këtë cak mund të krijoni prej hapësirash disku të papjesëzuara më tepër Vëllime Fizike dhe t\'i shtoni te ky Grup Vëllimesh."
+msgstr "Madhësia e kërkuar (%10.2f MB), për çastin, është më e madhe se sa madhësia më e madhe për një vëllim logjik (%10.2f MB). Për ta rritur këtë cak mund të krijoni prej hapësirash disku të papjesëzuara më tepër Vëllime Fizike dhe 'i shtoni te ky Grup Vëllimesh."
 
 #: ../iw/lvm_dialog_gui.py:700
 #: ../iw/partition_dialog_gui.py:211
@@ -4299,7 +4299,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "''Drive''-i burim /dev/%s nuk mund të përzgjidhet edhe si ''drive'' objektiv."
 
 #: ../iw/raid_dialog_gui.py:641
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the following reason:\n"
 "\n"
@@ -4307,11 +4307,11 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"\''Drive\''-i i synuar /dev/%s ka një ndarje e cila, për arsyen vijuese, nuk mund të hiqet:\n"
+"'Drive'-i i synuar /dev/%s ka një ndarje e cila, për arsyen vijuese, nuk mund të hiqet:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Duhet ta hiqni këtë ndarje, para se të mund të synohet ky \''drive\''."
+"Duhet ta hiqni këtë ndarje, para se të mund të synohet ky 'drive'."
 
 #: ../iw/raid_dialog_gui.py:702
 msgid "Please select a source drive."
@@ -6327,7 +6327,7 @@ msgid "Retrieving"
 msgstr "Po merret"
 
 #: ../loader/urls.c:295
-#, c-format
+#, fuzzy, c-format
 msgid "Please enter the URL containing the %s installation image on your server."
 msgstr "Ju lutem jepni URL-në që shpie te pamja e instalimit % te shërbyesi juaj."
 
