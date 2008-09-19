@@ -227,4 +227,28 @@ class LUKSDevice:
                                     searchPath = 1)
         return rc
 
+    def addPassphrase(self, newpass):
+        if not newpass:
+            return 1
+
+        if newpass == self.passphrase:
+            return 0
+
+        p = os.pipe()
+        os.write(p[1], "%s\n%s" % (self.passphrase, newpass))
+        os.close(p[1])
+
+        device = self.getDevice(encrypted=1)
+        log.info("adding new passphrase to %s device %s" % (self.getScheme(),
+                                                            device))
+        rc = iutil.execWithRedirect("cryptsetup",
+                                    ["-q",
+                                     "luksAddKey",
+                                     "/dev/%s" % (device,)],
+                                    stdin = p[0],
+                                    stdout = "/dev/null",
+                                    stderr = "/dev/tty5",
+                                    searchPath = 1)
+
+        return rc
 

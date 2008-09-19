@@ -81,6 +81,7 @@ class Partitions:
 
         self.autoEncrypt = False
         self.encryptionPassphrase = ""
+        self.retrofitPassphrase = False
 
         # partition method to be used.  not to be touched externally
         self.useAutopartitioning = 1
@@ -93,6 +94,15 @@ class Partitions:
         if diskset:
             diskset.refreshDevices()
             self.setFromDisk(diskset)
+
+    def hasPreexistingCryptoDev(self):
+        rc = False
+        for request in self.requests:
+            if request.encryption and request.encryption.format == 0:
+                rc = True
+                break
+
+        return rc
 
     def getCryptoDev(self, device, intf):
         log.info("going to get passphrase for encrypted device %s" % device)
@@ -1626,6 +1636,22 @@ class Partitions:
                 del self.encryptedDevices[device]
 
         diskset.stopMdRaid()
+
+    def doEncryptionRetrofits(self):
+        if not self.retrofitPassphrase or not self.encryptionPassphrase:
+            return
+
+        for request in self.requests:
+            if not request.encryption:
+                continue
+
+            # XXX this will only work before the new LUKS devices are created
+            #     since the format flag gets unset when they are formatted
+            if request.encryption.format:
+                continue
+
+            if request.encryption.addPassphrase(self.encryptionPassphrase):
+                log.error("failed to add new passphrase to existing device %s" % (request.encryption.getDevice(encrypted=1),))
 
     def deleteDependentRequests(self, request):
         """Handle deletion of this request and all requests which depend on it.

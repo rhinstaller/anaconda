@@ -145,6 +145,7 @@ def turnOnFilesystems(anaconda):
             anaconda.id.fsset.setActive(anaconda.id.diskset)
             if not anaconda.id.fsset.isActive():
                 anaconda.id.diskset.savePartitions ()
+            anaconda.id.partitions.doEncryptionRetrofits()
             anaconda.id.fsset.checkBadblocks(anaconda.rootPath)
             if not anaconda.id.fsset.volumesCreated:
                 try:
