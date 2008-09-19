@@ -243,7 +243,7 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
 
 def bindMountDevDirectory(instPath):
     fs = fileSystemTypeGet("bind")
-    fs.mount("/dev", "%s/dev" % (instPath,), bindMount=1)
+    fs.mount("/dev", "/dev", bindMount=1, instroot=instPath)
 
 # returns None if no filesystem exist to migrate
 def upgradeMigrateFind(anaconda):
