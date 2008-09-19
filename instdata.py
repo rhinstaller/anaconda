@@ -18,9 +18,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author(s): Erik Troan <ewt@redhat.com>
+#            Chris Lumens <clumens@redhat.com>
 #
 
-import os
+import os, sys
 import stat
 import string
 import language
@@ -104,14 +105,27 @@ class InstallData:
             device = method.split(":", 3)[0]
 
             if device.startswith("LABEL="):
-                device = isys.getDeviceByToken("LABEL", device[6:])
+                dev = isys.getDeviceByToken("LABEL", device[6:])
             elif device.startswith("UUID="):
-                device = isys.getDeviceByToken("UUID", device[5:])
+                dev = isys.getDeviceByToken("UUID", device[5:])
+            else:
+                dev = device
 
-            if device.startswith("/dev/"):
-                device = device[5:]
+            if dev is None:
+                if self.getUpgrade():
+                    return
+                else:
+                    self.anaconda.intf.messageWindow(_("Unknown Device"),
+                        _("The installation source given by device %s "
+                          "could not be found.  Please check your "
+                          "parameters and try again.") % device,
+                        type="custom", custom_buttons = [_("_Exit installer")])
+                    sys.exit(1)
 
-            self.partitions.protected = [device]
+            if dev.startswith("/dev/"):
+                dev = dev[5:]
+
+            self.partitions.protected = [dev]
 
     def setInstallProgressClass(self, c):
 	self.instProgress = c
