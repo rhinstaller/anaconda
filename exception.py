@@ -426,7 +426,7 @@ def saveToBugzilla(anaconda, exn, dest):
 
         withBugzillaDo(bug, lambda b: b.attachfile(exn.tbFile,
                                "Attached traceback automatically from anaconda.",
-                               contenttype="text/plain"))
+                               contenttype="text/plain", filename="anacdump.txt"))
 
         # Tell the user we created a new bug for them and that they should
         # go add a descriptive comment.
@@ -442,7 +442,7 @@ def saveToBugzilla(anaconda, exn, dest):
         bug = buglist[0]
         withBugzillaDo(bug, lambda b: b.attachfile(exn.tbFile,
                                "Attached traceback automatically from anaconda.",
-                               contenttype="text/plain"))
+                               contenttype="text/plain", filename="anacdump.txt"))
         withBugzillaDo(bug, lambda b: b.addCC(dest[0]))
 
         # Tell the user which bug they've been CC'd on and that they should
