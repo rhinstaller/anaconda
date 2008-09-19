@@ -93,11 +93,11 @@ def doStartupX11Actions(runres="800x600"):
     if runres != current_res and miniwm_pid is not None:
         try:
             isys.vtActivate(6)
-            iutil.execWithRedirect("xrandr", ["-s", runres],
+            iutil.execWithRedirect("xrandr", ["-s", runres], searchPath=1,
                                    stdout="/dev/tty5", stderr="/dev/tty5")
             time.sleep(5)
-        except:
-            pass
+        except Exception, e:
+            log.error("Exception when running xrandr: %s" % str(e))
 
 
     if miniwm_pid is not None:
