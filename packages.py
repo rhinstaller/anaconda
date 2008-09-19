@@ -38,6 +38,7 @@ import traceback
 from flags import flags
 from product import *
 from constants import *
+from upgrade import bindMountDevDirectory
 
 import logging
 log = logging.getLogger("anaconda")
@@ -101,7 +102,8 @@ def doMigrateFilesystems(anaconda):
         anaconda.id.fsset.makeLVMNodes(anaconda.rootPath, trylvm1 = 1)
         # and we should write out a new fstab with the migrated fstype
         anaconda.id.fsset.write(anaconda.rootPath)
-    
+        # and make sure /dev is mounted so we can read the bootloader
+        bindMountDevDirectory(anaconda.rootPath)
 
 def turnOnFilesystems(anaconda):
     def handleResizeError(e, dev):
