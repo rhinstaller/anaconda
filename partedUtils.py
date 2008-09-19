@@ -886,20 +886,13 @@ class DiskSet:
                         part = disk.next_partition(part)
                         continue
 
-                    # The root filesystem can be on the same partition as the
-                    # ISO images, but we don't want to try to remount it
-                    # because that'll throw up a useless error message.
-                    if not protected or theDev not in protected:
-                        try:
-                            isys.mount("/dev/%s" % (theDev,),
-                                       self.anaconda.rootPath,
-                                       fstype)
-                            checkRoot = self.anaconda.rootPath
-                        except SystemError:
-                            part = disk.next_partition(part)
-                            continue
-                    else:
-                        checkRoot = "/mnt/isodir"
+                    try:
+                        isys.mount("/dev/%s" % (theDev,),
+                                   self.anaconda.rootPath, fstype)
+                        checkRoot = self.anaconda.rootPath
+                    except SystemError:
+                        part = disk.next_partition(part)
+                        continue
 
                     if os.access (checkRoot + '/etc/fstab', os.R_OK):
                         relstr = getReleaseString(checkRoot)
@@ -914,8 +907,7 @@ class DiskSet:
                             rootparts.append (("/dev/%s" % (theDev,),
                                               fstype, relstr, label))
 
-                    if not protected or node not in protected:
-                        isys.umount(self.anaconda.rootPath)
+                    isys.umount(self.anaconda.rootPath)
 
                 part = disk.next_partition(part)
         return rootparts
