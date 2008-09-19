@@ -650,19 +650,8 @@ class VolumeGroupEditor:
 	    request.dev = None
 	    
             if self.lukscb and self.lukscb.get_active():
-                if request.encryption:
-                    passphrase = request.encryption.passphrase
-                else:
-                    passphrase = ""
-
-                if not request.encryption or request.encryption.format:
-                    passphrase = self.intf.getLuksPassphrase(passphrase)
-
-                if passphrase and not request.encryption:
-                    request.encryption = LUKSDevice(passphrase=passphrase,
-                                                    format=1)
-                elif passphrase and request.encryption.format:
-                    request.encryption.setPassphrase(passphrase)
+                if not request.encryption:
+                    request.encryption = LUKSDevice(passphrase=self.partitions.encryptionPassphrase, format=1)
             else:
                 request.encryption = None
 

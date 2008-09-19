@@ -216,22 +216,19 @@ class ScpWindow:
         pass
 
 class LuksPassphraseWindow:
-    def __init__(self, screen, passphrase = "", device = ""):
+    def __init__(self, screen, passphrase = "", preexist = False):
         self.screen = screen
         self.passphrase = passphrase
         self.minLength = 8
-        if device:
-            deviceStr = " (%s)" % (device,)
-        else:
-            deviceStr = ""
-        self.txt = _("Choose a passphrase for this encrypted device%s. "
+        self.preexist = preexist
+        self.txt = _("Choose a passphrase for your encrypted devices. "
                      "You will be prompted for the passphrase during system "
-                     "boot.") % (deviceStr,)
+                     "boot.")
         self.rc = None
 
     def run(self):
-        toplevel = GridForm(self.screen, _("Passphrase for encrypted device"),
-                            1, 4)
+        toplevel = GridForm(self.screen, _("Passphrase for encrypted devices"),
+                            1, 5)
 
         txt = TextboxReflowed(65, self.txt)
         toplevel.add(txt, 0, 0)
@@ -241,6 +238,10 @@ class LuksPassphraseWindow:
 
         confirmentry = Entry(60, password = 1)
         toplevel.add(confirmentry, 0, 2, (0,0,0,1))
+
+        if self.preexist:
+            globalcheckbox = Checkbox(_("Also add this passphrase to all existing encrypted devices"), isOn = True)
+            toplevel.add(globalcheckbox, 0, 3)
 
         buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
         toplevel.add(buttons, 0, 3, growx=1)
@@ -279,8 +280,11 @@ class LuksPassphraseWindow:
                 self.passphraseentry.set(self.passphrase)
                 self.confirmentry.set(self.passphrase)
 
+            retrofit = False
+            if self.preexist:
+                retrofit = globalcheckbox.selected()
             self.rc = passphrase
-            return self.rc
+            return (passphrase, retrofit)
 
     def pop(self):
         self.screen.popWindow()
@@ -508,12 +512,12 @@ class InstallInterface:
         w.pop()
         return (passphrase, isglobal)
 
-    def getLuksPassphrase(self, passphrase = "", device = ""):
-        w = LuksPassphraseWindow(self.screen, passphrase = passphrase, 
-                                 device = device)
-        passphrase = w.run()
+    def getLuksPassphrase(self, passphrase = "", preexist = False):
+        w = LuksPassphraseWindow(self.screen, passphrase = passphrase,
+                                 preexist = preexist)
+        rc = w.run()
         w.pop()
-        return passphrase
+        return rc
 
     def kickstartErrorWindow(self, text):
         s = _("The following error was found while parsing your "

@@ -52,13 +52,10 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.skipStep("autopartitionexecute", skip = 0)
 
             if self.xml.get_widget("encryptButton").get_active():
-                thepass = self.intf.getLuksPassphrase(self.partitions.autoEncryptPass)
-                if not thepass:
-                    raise gui.StayOnScreen
-                self.partitions.autoEncryptPass = thepass
                 self.partitions.autoEncrypt = True
             else:
-                self.partitions.autoEncryptPass = ""
+                self.partitions.encryptionPassphrase = ""
+                self.partitions.retrofitPassphrase = False
                 self.partitions.autoEncrypt = False
             
             self.partitions.useAutopartitioning = 1
