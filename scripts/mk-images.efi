@@ -158,7 +158,7 @@ prepareEfiTree() {
     mv $MBD_BOOTTREE_TMP/EFI/boot/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/boot${efiarch}.efi
     mv $MBD_BOOTTREE_TMP/EFI/boot/grub.conf $MBD_BOOTTREE_TMP/EFI/boot/boot${efiarch}.conf
 
-    artpkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" --whatprovides system-logos | grep -v generic-logos | head -1)
+    artpkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" $LOGOPKG | head -1 2>/dev/null)
 
     if [ -z "$artpkg" ]; then
        argpkg="generic-logos"

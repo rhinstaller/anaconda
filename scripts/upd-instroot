@@ -60,6 +60,10 @@ while [ $# -gt 0 ]; do
 	    echo "*** DeprecationWarning: please use --imgdir instead of --stg2dir." >&2
 	    shift; shift
 	    ;;
+	--logopkg)
+	    LOGOPKG="$2"
+	    shift; shift
+	    ;;
 
 	*)
 	    yumconf=$1
@@ -87,6 +91,10 @@ fi
 if [ ! -f $yumconf ]; then
     echo "Unable to find yum repo information!"
     exit 1
+fi
+
+if [ -z "$LOGOPKG" ]; then
+    LOGOPKG="system-logos"
 fi
 
 . $(dirname $0)/buildinstall.functions

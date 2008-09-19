@@ -89,6 +89,10 @@ while [ $# -gt 0 ]; do
 	    echo "*** DeprecationWarning: please use --imgdir instead of --stg2dir." >&2
 	    shift; shift
 	    ;;
+	--logopkg)
+	    LOGOPKG="$2"
+	    shift; shift;
+            ;;
 
 	*)
 	    yumconf=$1
@@ -98,6 +102,10 @@ while [ $# -gt 0 ]; do
 done
 
 if [ -z "$TOPDESTPATH" -o -z "$IMGPATH" -o -z "$PRODUCT" -o -z "$VERSION" ]; then usage; fi
+
+if [ -z "$LOGOPKG" ]; then
+    LOGOPKG="fedora-logos"
+fi
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then

@@ -71,6 +71,10 @@ while [ $# -gt 0 ]; do
 	    MIRRORLIST="$MIRRORLIST $2"
 	    shift; shift
 	    ;;
+	--logopkg)
+	    LOGOPKG="$2"
+	    shift; shift
+	    ;;
 
 	*)
         if [ -z "$REPO" ]; then
@@ -103,6 +107,19 @@ if [ -z "$BUGURL" ]; then
     BUGURL="your distribution provided bug reporting tool."
 fi
 
+if [ -z "$LOGOPKG" ]; then
+    # No logos package specified
+    LOGOPKG="fedora-logos"
+else
+    # Now that there is a logos package, prevent excluding the wrong package
+    EXCLUDEPKGS=""
+    for lpkg in fedora-logos redhat-logos generic-logos; do
+        if [ "$lpkg" != "$LOGOPKG ]; then
+            EXCLUDEPKGS="$EXCLUDEPKGS $lpkg"
+        fi
+    done
+fi
+
 if [[ "$REPO" =~ ^/ ]]; then
     [ -n "$OUTPUT" ] || OUTPUT=$REPO
     REPO="file://$REPO"
@@ -129,6 +146,7 @@ gpgcheck=0
 plugins=0
 reposdir=
 tsflags=nodocs
+exclude=$EXCLUDEPKG
 
 [anacondarepo]
 name=anaconda repo
@@ -197,14 +215,14 @@ BUILDINSTALL=$BUILDINSTDIR/buildinstall
 if [ -n "$UPDATES" ]; then UPDATES="--updates $UPDATES"; fi
 
 echo "Building images..."
-$UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH $UPDATES --imgdir $TREEDIR/install $yumconf
+$UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH $UPDATES --imgdir $TREEDIR/install --logopkg $LOGOPKG $yumconf
 
 echo "Writing .treeinfo file..."
 $MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --outfile=$OUTPUT/.treeinfo
 
 # FIXME: need to update mk-images to take the yumconf
 echo "Making images..."
-$MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BUILDARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf
+$MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BUILDARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT --logopkg $LOGOPKG $yumconf
 
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL"  --outfile=$OUTPUT/.discinfo
