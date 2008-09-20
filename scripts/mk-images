@@ -84,6 +84,11 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 
+    --logopkg)
+        LOGOPKG="$2"
+        shift; shift;
+        ;;
+
 	*)
 	    yumconf=$1
 	    shift
@@ -92,6 +97,10 @@ while [ $# -gt 0 ]; do
 done
 
 if [ -z "$TOPDESTPATH" -o -z "$INSTIMGTEMPLATE" -o -z "$IMGPATH" -o -z "$PRODUCT" -o -z "$VERSION" ]; then usage; fi
+
+if [ -z "$LOGOPKG" ]; then
+    LOGOPKG="fedora-logos"
+fi
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then

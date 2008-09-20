@@ -56,7 +56,12 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 
-	*)
+    --logopkg)
+        LOGOPKG="$2"
+        shift; shift
+        ;;
+
+    *)
 	    yumconf=$1
 	    shift
 	    ;;
@@ -81,6 +86,10 @@ fi
 
 if [ -z "$DESTGR" ]; then
     DESTGR=`mktemp -d ${TMPDIR:-/tmp}/destgr.XXXXXX`
+fi
+
+if [ -z "$LOGOPKG" ]; then
+    LOGOPKG="system-logos"
 fi
 
 if [ ! -f $yumconf ]; then
@@ -228,8 +237,8 @@ PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
            fonts-xorg-ISO8859-2-75dpi fonts-xorg-ISO8859-15-75dpi
            fonts-xorg-ISO8859-9-75dpi fonts-xorg-100dpi
            fonts-xorg-KOI8-R fonts-xorg-KOI8-R-75dpi fonts-xorg-base
-           xorg-x11-base xorg-x11-ISO8859-15-75dpi system-logos
-           xorg-x11-libs-data xorg-x11-xfs prelink redhat-logos fedora-logos
+           xorg-x11-base xorg-x11-ISO8859-15-75dpi $LOGOPKG
+           xorg-x11-libs-data xorg-x11-xfs prelink
            ttfonts-ta ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-pa
            fonts-chinese fonts-korean fonts-indic fonts-sinhala
            fonts-malayalam fonts-oriya fonts-kannada fonts-telugu cjkunifonts-ukai

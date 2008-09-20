@@ -68,6 +68,11 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 
+    --logopkg)
+        LOGOPKG=$2
+        shift; shift
+        ;;
+
 	*)
 	    REPO=$1
 	    shift
@@ -95,6 +100,20 @@ if [ -z "$BUGURL" ]; then
     BUGURL="your distribution provided bug reporting tool."
 fi
 
+if [ -z "$LOGOPKG" ]; then
+    # No logos package specified
+    LOGOPKG="fedora-logos"
+else
+    # Now that there is a logos package, prevent excluding the wrong package
+    EXCLUDEPKGS=""
+    for lpkg in fedora-logos redhat-logos generic-logos; do
+        if [ "$lpkg" != "$LOGOPKG" ]; then
+            EXCLUDEPKGS="$EXCLUDEPKGS $lpkg"
+        fi
+    done
+fi
+
+
 if [[ "$REPO" =~ ^/ ]]; then
     [ -n "$OUTPUT" ] || OUTPUT=$REPO
     REPO="file://$REPO"
@@ -108,6 +127,7 @@ if [ ! -d "$OUTPUT" ]; then
     mkdir -p $OUTPUT
 fi
 
+cachedir=$(mktemp /tmp/yum-cache.XXXXXX)
 yumconf=$(mktemp /tmp/yum.conf.XXXXXX)
 cat > $yumconf <<EOF
 [main]
@@ -116,6 +136,8 @@ gpgcheck=0
 plugins=0
 reposdir=
 tsflags=nodocs
+cachedir=$cachedir
+exclude=$EXCLUDEPKG
 
 [anacondarepo]
 name=anaconda repo
@@ -160,14 +182,14 @@ BUILDINSTALL=$BUILDINSTDIR/buildinstall
 if [ -n "$UPDATES" ]; then UPDATES="--updates $UPDATES"; fi
 
 echo "Building images..."
-$UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH $UPDATES --mindir $TREEDIR/minstg2 --stg2dir $TREEDIR/stage2 $yumconf
+$UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH $UPDATES --mindir $TREEDIR/minstg2 --stg2dir $TREEDIR/stage2 --logopkg $LOGOPKG $yumconf
 
 echo "Writing .treeinfo file..."
 $MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --outfile=$OUTPUT/.treeinfo
 
 # FIXME: need to update mk-images to take the yumconf
 echo "Making images..."
-$MK_IMAGES $DEBUGSTR $NOGRSTR --mindir $TREEDIR/minstg2 --stg2dir $TREEDIR/stage2 --arch $BUILDARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf
+$MK_IMAGES $DEBUGSTR $NOGRSTR --mindir $TREEDIR/minstg2 --stg2dir $TREEDIR/stage2 --arch $BUILDARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT --logopkg $LOGOPKG $yumconf
 
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL"  --outfile=$OUTPUT/.discinfo
