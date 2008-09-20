@@ -3,7 +3,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 11.4.0.82
-Release: 9
+Release: 10
 License: GPLv2+
 Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -207,7 +207,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Sat Sep 20 2008 Jeroen van Meeuwen <kanarip@kanarip.com> - 11.4.0.82-9
+* Sat Sep 20 2008 Jeroen van Meeuwen <kanarip@kanarip.com> - 11.4.0.82-10
 - Add an Orange Sombrero installclass
 - Fix auditd.c error
 - Apply rebranding patch for Orange Sombrero

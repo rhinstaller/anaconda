@@ -64,8 +64,6 @@ class InstallClass(BaseInstallClass):
 
     def setSteps(self, anaconda):
         BaseInstallClass.setSteps(self, anaconda);
-        anaconda.dispatch.skipStep("tasksel", skip = 1, permanent=1)
-        anaconda.dispatch.skipStep("group-selection", skip = 1, permanent=1)
         anaconda.dispatch.skipStep("partition")
 
     def getBackend(self, methodstr):
