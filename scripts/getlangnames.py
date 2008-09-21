@@ -21,19 +21,15 @@ import sys
 sys.path.append("..")
 import language
 
+from constants import *
 import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 langs = language.Language()
 names = {}
 for k in langs.localeInfo.keys():
-    for l in language.expandLangs(k):
-        try:
-            f = open("po/%s.mo" %(l,))
-        except (OSError, IOError):
-            continue
-        cat = gettext.GNUTranslations(f)
-        names[langs.localeInfo[k][0]] = cat.lgettext(langs.localeInfo[k][0])
-        break
+    langs.setRuntimeLanguage(k)
+    names[langs.localeInfo[k][0]] = _(langs.localeInfo[k][0])
 
 nameList = names.keys()
 nameList.sort()
