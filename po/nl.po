@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-13 22:09+0200\n"
+"PO-Revision-Date: 2008-09-21 13:34+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -112,8 +112,8 @@ msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
 msgstr ""
-"De VNC-installatiemodus biedt meer functionaliteit dan de tekstmodus, "
-"wilt u deze gebruiken?"
+"De VNC-installatiemodus biedt meer functionaliteit dan de tekstmodus, wilt u "
+"deze gebruiken?"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -983,7 +983,7 @@ msgstr ""
 "verder gaan met de installatie, maar er kunnen problemen optreden."
 
 #: ../fsset.py:1986
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -994,21 +994,21 @@ msgid ""
 msgstr ""
 "Er is een fout opgetreden bij het aankoppelen van apparaat %s als %s: %s\n"
 "\n"
-"Apparaten in /etc/fstab dienen aangegeven te worden via een label, niet via "
-"een apparaatnaam.\n"
+"Apparaten in /etc/fstab dienen aangegeven te worden via een label of UUID, "
+"niet via een apparaatnaam.\n"
 "\n"
 "Druk op OK om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1993
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Niet in staat RAID-opstelling %s te vinden om te gebruiken voor %s.\n"
+"Fout bij het aankoppelen van apparaat %s als %s: %s\n"
 "\n"
-"Druk op 'OK' om het installatieprogramma af te sluiten."
+"Druk op OK om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:2011
 msgid ""
@@ -1057,7 +1057,7 @@ msgstr "Bestandssysteem: %s wordt nu geformatteerd..."
 
 #: ../gui.py:108
 msgid "An error occurred copying the screenshots over."
-msgstr "Er is een fout opgetreden bij het kopieren van de schermafdrukken."
+msgstr "Er is een fout opgetreden bij het kopiëren van de schermafdrukken."
 
 #: ../gui.py:119
 msgid "Screenshots Copied"
@@ -1138,12 +1138,12 @@ msgid "Installation Key"
 msgstr "Installatiesleutel"
 
 #: ../gui.py:660 ../text.py:323
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose a passphrase for this encrypted device%s. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
-"Kies een wachtzin voor deze versleutelde partitie. U zult om deze wachtzin "
+"Kies een wachtzin voor dit versleutelde apparaat%s. U zult om deze wachtzin "
 "worden gevraagd tijdens het opstarten van het systeem."
 
 #: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
@@ -1300,7 +1300,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Ontbrekend ISO 9660 image-bestand"
 
 #: ../image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1433,7 +1433,6 @@ msgid "Copying live image to hard drive."
 msgstr "Het live image-bestand wordt naar de harde schijf gekopieerd."
 
 #: ../livecd.py:197
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -1441,14 +1440,12 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend "
-"bestand, een beschadigd pakket of beschadigde media. Controleer uw "
-"installatiebron.\n"
+"Er is een fout opgetreden bij het installeren van de live-image naar uw "
+"harde schijf. Dit kan te wijten zijn aan slechte media. Controleer uw "
+"installatiemedia.\n"
 "\n"
 "Als u het installatieprogramma afsluit, zal uw systeem zich in een "
-"inconsistente toestand bevinden dat waarschijnlijk een herinstallatie zal "
-"vereisen.\n"
-"\n"
+"inconsistente toestand bevinden dat een herinstallatie zal vereisen."
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -1484,10 +1481,9 @@ msgstr ""
 "of '0-9'"
 
 #: ../network.py:75
-#, fuzzy
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr "Computernamen mogen alleen de tekens 'a-z', 'A-Z', '-' of '.' bevatten"
+msgstr "Computernamen mogen alleen de tekens 'a-z', 'A-Z', '0-9', '-' of '.' bevatten"
 
 #: ../network.py:132
 msgid "IP address is missing."
@@ -2077,14 +2073,13 @@ msgid "Writing partitioning to disk"
 msgstr "Schrijven van partitionering naar schijf"
 
 #: ../partitions.py:161
-#, fuzzy
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
 msgstr ""
 "De partitioneringsopties die u hebt geselecteerd zullen nu worden "
 "weggeschreven naar schijf.  Alle gegevens op verwijderde of opnieuw "
-"geformatteerde partities zullen verloren gaan"
+"geformatteerde partities zullen verloren gaan."
 
 #: ../partitions.py:166
 msgid "Go _back"
@@ -2513,14 +2508,12 @@ msgid "Destination file"
 msgstr "Doelbestand"
 
 #: ../text.py:329
-#, fuzzy
 msgid "Passphrase for encrypted device"
-msgstr "Voer wachtzin in voor versleutelde partitie"
+msgstr "Wachtzin voor versleuteld apparaat"
 
 #: ../text.py:347 tmp/lukspassphrase.glade.h:7
-#, fuzzy
 msgid "Use this passphrase for all new encrypted devices"
-msgstr "Voer wachtzin in voor versleutelde partitie"
+msgstr "Deze wachtzin voor alle nieuwe versleutelde apparaten gebruiken"
 
 #: ../text.py:378
 #, python-format
@@ -2898,17 +2891,15 @@ msgid "%s of %s packages completed"
 msgstr "%s van %s pakketten voltooid"
 
 #: ../yuminstall.py:214
-#, fuzzy
 msgid "Finishing upgrade process..."
-msgstr "Upgrade wordt beëindigd"
+msgstr "Voltooien van het upgradeproces..."
 
 #: ../yuminstall.py:308 ../iw/task_gui.py:275
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "Repository bewerken"
+msgstr "Fout bij het instellen van repository"
 
 #: ../yuminstall.py:309 ../iw/task_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -2916,11 +2907,6 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"Bij uw partitionering zijn de volgende fouten opgetreden:\n"
-"\n"
-"%s\n"
-"\n"
-"Druk op 'OK' om het installatieprogramma af te sluiten."
 
 #: ../yuminstall.py:366
 msgid "Change Disc"
@@ -2981,9 +2967,8 @@ msgid "Retrying"
 msgstr "Opnieuw proberen"
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying download..."
-msgstr "Opnieuw proberen pakketten te downloaden..."
+msgstr "Opnieuw proberen te downloaden..."
 
 #: ../yuminstall.py:772
 #, python-format
@@ -3124,7 +3109,7 @@ msgid ""
 msgstr ""
 "Het lijkt er op dat u probeert te upgraden vanaf een systeem dat te oud is "
 "om opgewaardeerd te worden naar deze versie van %s.  Weet u zeker dat u door "
-"wilt gaan met het upgrade-proces?"
+"wilt gaan met het upgradeproces?"
 
 #: ../yuminstall.py:1532
 #, python-format
@@ -3371,11 +3356,11 @@ msgid "Congratulations"
 msgstr "Gefeliciteerd"
 
 #: ../iw/congrats_gui.py:71
-#, fuzzy
 msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
-msgstr "Maak een verbinding met %s om de installatie te beginnen..."
+msgstr "Herstart het systeem om gebruik te maken van het geïnstalleerde systeem.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:74
 msgid ""
@@ -4743,16 +4728,15 @@ msgstr ""
 
 #: ../iw/task_gui.py:431
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "Geen software-repositories ingeschakeld"
 
 #: ../iw/task_gui.py:432
-#, fuzzy
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
 msgstr ""
-"U moet deze fouten herstellen voordat u verder gaat met uw installatie van %"
-"s."
+"U moet ten minste één software-repository ingeschakeld hebben om verder "
+"te gaan met de installatie."
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -5238,9 +5222,8 @@ msgid "Missing Device"
 msgstr "Ontbrekend apparaat"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "De te bewerken partitie moet eerst worden geselecteerd"
+msgstr "U moet een netwerkapparaat selecteren"
 
 #: ../textw/netconfig_text.py:231
 msgid "IPv4 Network Mask "
@@ -6112,7 +6095,7 @@ msgstr "Bezig met scannen"
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "Bezig met zoeken naar installatie-images op CD-apparaat %s"
 
 #: ../loader/cdinstall.c:428
 #, c-format
@@ -6310,13 +6293,12 @@ msgid "Select Device Driver to Load"
 msgstr "Selecteer een stuurprogramma"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
 msgstr ""
-"Er is een fout opgetreden bij het lezen van de ISO-images. Controleer uw ISO-"
-"images en probeer opnieuw."
+"Er is een fout opgetreden bij het zoeken naar het installatie-image op uw "
+"harde schijf. Controleer uw images en probeer het opnieuw."
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6333,9 +6315,9 @@ msgid ""
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Welke partitie en map op die partitie bevat de CD (iso9660) images voor %s? "
-"Als u het schijfstation die u gebruikt hier niet ziet, druk dan op F2 om andere "
-"apparaten te configureren."
+"Welke partitie en map op die partitie bevat het installatie-image voor %s? "
+"Als u het schijfstation die u gebruikt hier niet ziet, druk dan op F2 om "
+"andere apparaten te configureren."
 
 #: ../loader/hdinstall.c:273
 msgid "Directory holding image:"
@@ -6784,7 +6766,8 @@ msgstr "Ongeldige duur"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr "U moet het aantal seconden als een geheel getal tussen 1 en 30 invoeren."
+msgstr ""
+"U moet het aantal seconden als een geheel getal tussen 1 en 30 invoeren."
 
 #: ../loader/net.c:1589
 #, c-format
@@ -6792,9 +6775,9 @@ msgid "Flashing %s port lights for %d seconds..."
 msgstr ""
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "Bezig met wachten op telnetverbinding..."
+msgstr "Wachten op NetworkManager om %s te configureren...\n"
 
 #: ../loader/nfsinstall.c:63
 msgid "NFS server name:"
@@ -6823,9 +6806,9 @@ msgid "That directory could not be mounted from the server."
 msgstr "Die map kon niet vanaf de server worden aangekoppeld."
 
 #: ../loader/nfsinstall.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "Die map bevat kennelijk geen %s installatiebestanden."
+msgstr "Die map lijkt geen %s installatie-image te bevatten."
 
 #: ../loader/nfsinstall.c:338
 #, c-format
@@ -6838,7 +6821,7 @@ msgstr "Telnet"
 
 #: ../loader/telnetd.c:89
 msgid "Waiting for telnet connection..."
-msgstr "Bezig met wachten op telnetverbinding..."
+msgstr "Wachten op telnetverbinding..."
 
 #: ../loader/telnetd.c:128
 msgid "Running anaconda via telnet..."
@@ -6960,11 +6943,10 @@ msgstr ""
 "Harde schijf"
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid ""
 "Please provide the configuration information for this software repository."
 msgstr ""
-"Geef de locatie op waaruit uw additionele software kan worden geïnstalleerd."
+""
 
 #: tmp/addrepo.glade.h:10
 msgid "Proxy U_RL"
