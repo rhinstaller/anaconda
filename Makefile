@@ -106,7 +106,7 @@ tag:
 	@echo "Tagged as anaconda-$(VERSION)-$(RELEASE)"
 
 ChangeLog:
-	(GIT_DIR=.git git-log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
+	(GIT_DIR=.git git log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
 
 archive: tag
 	@rm -f ChangeLog docs/kickstart-docs.txt docs/command-line.txt
@@ -134,13 +134,13 @@ api:
 	doxygen docs/api.cfg
 
 rpmlog:
-	@git-log --pretty="format:- %s (%ae)" anaconda-$(VERSION)-$(RELEASE).. |sed -e 's/@.*)/)/'
+	@git log --pretty="format:- %s (%ae)" anaconda-$(VERSION)-$(RELEASE).. |sed -e 's/@.*)/)/'
 	@echo
 
 bumpver:
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 4` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1-3,5` ; \
-	DATELINE="* `date "+%a %b %d %Y"` `git-config user.name` <`git-config user.email`> - $$NEWVERSION-1"  ; \
+	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
 	cl=`grep -n %changelog anaconda.spec |cut -d : -f 1` ; \
 	tail --lines=+$$(($$cl + 1)) anaconda.spec > speclog ; \
 	make --quiet rpmlog 2>/dev/null | fold -s -w 77 | while read line ; do \
