@@ -112,7 +112,7 @@ archive: tag
 	@rm -f ChangeLog docs/kickstart-docs.txt docs/command-line.txt
 	@make ChangeLog
 	@make -C docs kickstart-docs.txt command-line.txt
-	@git-archive --format=tar --prefix=anaconda-$(VERSION)/ anaconda-$(VERSION)-$(RELEASE) > anaconda-$(VERSION).tar
+	@git archive --format=tar --prefix=anaconda-$(VERSION)/ anaconda-$(VERSION)-$(RELEASE) > anaconda-$(VERSION).tar
 	@mkdir -p anaconda-$(VERSION)/docs/
 	@cp docs/kickstart-docs.txt docs/command-line.txt anaconda-$(VERSION)/docs/
 	@cp ChangeLog anaconda-$(VERSION)/
