@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.37
+Version: 11.4.1.38
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Sep 20 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.38-1
+- Restore old lang-names generation method (dcantrell)
+- Remount /mnt/sysimage/dev after migrating filesystems. (clumens)
+- Use the instroot parameter like we should be doing. (clumens)
+
 * Fri Sep 19 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.37-1
 - Set the filename on the traceback when we upload it (wwoods).
 - Don't worry about errors looking up protected partitions on upgrades.
