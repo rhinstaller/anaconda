@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.128
+Version: 11.1.2.129
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -106,6 +106,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 22 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.129-1
+- Fix mk-s390-cdboot so it doesn't SIGSEGV when generating images (dcantrell)
+  Related: rhbz#184648
+- Add libfipscheck to initrd for sshd on s390x (clumens)
+  Resolves: rhbz#463273
+
 * Fri Sep 19 2008 Chris Lumens <clumens@redhat.com> 11.1.2.128-1
 - Include the correct version of the spec file in the source archive.
   Related: rhbz#461700
