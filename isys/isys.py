@@ -927,7 +927,7 @@ def isDeviceDHCP(dev=None):
         connection_iface = dbus.Interface(connection, NM_CONNECTION_IFACE)
         settings = connection_iface.GetSettings()
 
-        ip4_setting = settings['ipv4']
+        ip4_setting = settings.get('ipv4')
         if not ip4_setting or not ip4_setting['method'] or ip4_setting['method'] == 'auto':
             return True
 
