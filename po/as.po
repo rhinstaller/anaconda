@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-22 16:43+0530\n"
+"PO-Revision-Date: 2008-09-22 18:01+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
 "Language-Team: Assamese\n"
 "MIME-Version: 1.0\n"
@@ -106,7 +106,7 @@ msgstr "আপুনি VNC ব্যৱহাৰ কৰিব নে ?"
 msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
-msgstr ""
+msgstr "VNC ধৰণে লিখিত ৰূপতকৈ অধিক কাৰ্য্য ক্ষমতা প্ৰদান কৰে, আপুনি ইয়াৰ বিকল্পে সেইটো কৰিব বিচাৰে নেকি ?"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -561,6 +561,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"আপোনাৰ বাগ bugzilla ৰ সৈতে হোৱা নিম্নলিখিত সম্পৰ্কৰ ভুলৰ বাবে প্ৰতিবেদন কৰিব পৰা ন'গ'ল:\n"
+"\n"
+"%s"
 
 #: ../exception.py:367
 #, python-format
@@ -570,6 +573,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"বাগৰ ক্ষেত্ৰসমূহত দিয়া অশুদ্ধ তথ্যৰ বাবে আপোনাৰ বাগৰ প্ৰতিবেদন কৰিব পৰা ন'গ'ল । এইটো অতি সম্ভৱ anaconda ত থকা কোনো ভুল:\n"
+"\n"
+"%s"
 
 #: ../exception.py:371
 msgid "Unable To File Bug"
@@ -583,7 +589,7 @@ msgstr "বাগ প্ৰতিবেদন কৰা সমৰ্থন ক�
 msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
-msgstr ""
+msgstr "আপুনি ব্যৱহাৰ কৰা বিতৰণে বাগ প্ৰতিবেদন কৰা প্ৰণালীৰ সমৰ।থন নকৰে, সেইবাবে আপুনি এই ধৰণে ব্যতিক্ৰম ৰক্ষা কৰিব নোৱাৰে ।"
 
 #: ../exception.py:384
 msgid "Invalid Bug Information"
@@ -591,7 +597,7 @@ msgstr "অবৈধ বাগ তথ্য"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "অনুগ্ৰহ কৰি এটা বৈধ ব্যৱহাৰকৰোঁতাৰ নাম, গুপ্তশব্দ, আৰু এটা চমু বাগৰ বিৱৰণ দিয়ক ।"
 
 #: ../exception.py:395
 msgid "Unable To Login"
@@ -600,11 +606,11 @@ msgstr "প্ৰৱেশ কৰিব পৰা ন'গ'ল"
 #: ../exception.py:396
 #, python-format
 msgid "There was an error logging into %s using the provided username and password."
-msgstr ""
+msgstr "আপুনি দিয়া ব্যৱহাৰ কৰোঁতাৰ নাম আৰু গুপ্তশব্দৰে %s ত প্ৰৱেশ কৰাত ভুল হৈছে ।"
 
 #: ../exception.py:433
 msgid "Bug Created"
-msgstr ""
+msgstr "বাগ সৃষ্টি কৰা হ'ল"
 
 #: ../exception.py:434
 #, python-format
@@ -615,6 +621,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"আপোনাৰ traceback ৰ সৈতে এটা নতুন বাগ সৃষ্টি কৰা হৈছে । অনুগ্ৰহ কৰি অতিৰিক্ত তথ্য দিয়ক যেনে এই বাগ পাওঁতে আপুনি কি কৰি আছিল, পৰ্দ্দাৰ ছবি, আৰু যি কোনো তথ্য যাৰ সম্বন্ধ এই বাগৰ সৈতে হ'ব পাৰে:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:450
 msgid "Bug Updated"
@@ -629,6 +638,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"আপুনি দিয়া তথ্যৰ সৈতে এটা বাগ ইতিমধ্যে আছে । আপোনাৰ হিচাপক CC তালিকত যোগ কৰা হ'ল আৰু আৰু আপোনাৰ traceback ক মন্তব্য হিচাপে যোগ কৰা হ'ল । অনুগ্ৰহ কৰি বিৱৰণৰ অতিৰিক্ত তথ্য তলৰ বাগত যোগ কৰক:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:475 ../exception.py:490 ../exception.py:515
 msgid "Dump Written"
@@ -648,7 +660,7 @@ msgstr "আবৰ্জনা লিখা ন'গ'ল"
 
 #: ../exception.py:483 ../exception.py:500
 msgid "There was a problem writing the system state to the disk."
-msgstr "ব্যৱস্থাপ্ৰণালীৰ অৱস্থা ডিষ্কলৈৈ লিখোঁতে সমস্যা হ'ল । "
+msgstr "ব্যৱস্থাপ্ৰণালীৰ অৱস্থা ডিষ্কলৈ লিখোঁতে সমস্যা হ'ল । "
 
 #: ../exception.py:506 ../exception.py:529
 msgid "No Network Available"
@@ -658,7 +670,7 @@ msgstr "নে'টৱৰ্ক নাই"
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
-msgstr ""
+msgstr "কোনো সক্ৰিয় নে'টৱৰ্ক যন্ত্ৰ নোহোৱাৰ বাবে বাগ প্ৰতিবেদনটো ৰক্ষা  কৰিব নোৱাৰি ।"
 
 #: ../exception.py:516
 msgid ""
@@ -1119,7 +1131,7 @@ msgstr ""
 #: ../gui.py:780
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "Bugzilla (%s)"
 
 #: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
 #: tmp/anaconda.glade.h:2
@@ -1955,7 +1967,7 @@ msgid ""
 "You specified block device encryption should be enabled%s, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption%s will be disabled."
-msgstr ""
+msgstr "আপুনি নিৰ্ধাৰণ কৰা মতে ব্ল'ক যন্ত্ৰৰ গুপুত কৰা সক্ৰিয় কৰিব লাগে %s, কিন্তু আপুনি তাৰ বাবে গুপ্তশব্দ দিয়া নাই । যদি আপুনি পিছলৈ নগৈ গুপ্তশব্দ নিদিয়ে, %s ব্ল'ক যন্ত্ৰৰ গুপুতকৰণ নিষ্ক্ৰীয় কৰা হ'ব ।"
 
 #: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
@@ -2229,7 +2241,7 @@ msgstr ""
 
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
+msgstr "চলাবলৈ /bin/sh পোৱা ন'গ'ল! শ্বেল আৰম্ভ কৰা হোৱা নাই"
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -2818,7 +2830,7 @@ msgstr "ডিষ্ক অভিগমন কৰিব'লৈ অক্ষম �
 #: ../yuminstall.py:533
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr ""
+msgstr "%r ভঁৰালৰ বিন্যাসত নাম নাই, id ব্যৱহাৰ কৰা হৈছে"
 
 #: ../yuminstall.py:651 ../yuminstall.py:653
 msgid "Re_boot"
@@ -3218,6 +3230,8 @@ msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
 msgstr ""
+"সংস্থাপিত ব্যৱস্থাপ্ৰণালী ব্যৱহাৰ কৰিবলৈ ব্যৱস্থাপ্ৰণালীক পুনৰাৰম্ভ কৰক ।\n"
+"\n"
 
 #: ../iw/congrats_gui.py:74
 msgid ""
@@ -4514,7 +4528,7 @@ msgstr "কোনো মাধ্যম পোৱা ন'গ'ল"
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
-msgstr ""
+msgstr "কোনো সংস্থাপনৰ মাধ্যম পোৱা ন'গ'ল । আপোনাৰ ড্ৰাইভত এটা ডিষ্ক ভৰাওক আৰু পুনঃ চেষ্টা কৰক ।"
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
 msgid "Please enter an NFS server and path."
@@ -4543,7 +4557,7 @@ msgstr ""
 
 #: ../iw/task_gui.py:431
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "চালনাজ্ঞানৰ কোনো ভঁৰালক সক্ৰিয় কৰা হোৱা নাই"
 
 #: ../iw/task_gui.py:432
 msgid ""
@@ -5884,7 +5898,7 @@ msgstr "স্কেন কৰা হৈছে"
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "CD যন্ত্ৰ %s ত সংস্থাপনৰ প্ৰতিমূৰ্তি বিচৰা হৈছে"
 
 #: ../loader/cdinstall.c:428
 #, c-format
@@ -6073,7 +6087,7 @@ msgstr "তুলি ল'ব লগীয়া যন্ত্ৰ চালক ন
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
-msgstr ""
+msgstr "আপোনাৰ হাৰ্ড ড্ৰাইভত সংস্থাপনৰ প্ৰতিমূৰ্তি বিচাৰোঁতে ভুল হ'ল । অনুগ্ৰহ কৰি আপোনাৰ প্ৰতিমূৰ্তিসমূহ পৰীক্ষা কৰক আৰু পুনঃ চেষ্টা কৰক ।"
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6507,21 +6521,21 @@ msgstr ""
 
 #: ../loader/net.c:1542
 msgid "Identify"
-msgstr ""
+msgstr "চিনাক্ত কৰক"
 
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "আপুনি দৈহিক প'ৰ্ট চিনাক্ত কৰিব পাৰে"
 
 #: ../loader/net.c:1553
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "LED চাকি কিছু ছেকেণ্ডৰ বাবে চিক্‌মিককৈ জ্বলায় । LED প'ৰ্টৰ চাকি জ্বলোৱাৰ সময়ৰ বাবে১ আৰু ৩০ মাজৰ যি কোনো সংখ্যা এটা দিয়ক ।"
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
-msgstr ""
+msgstr "NIC চিনাক্ত কৰক"
 
 #: ../loader/net.c:1576
 msgid "Invalid Duration"
@@ -6529,12 +6543,12 @@ msgstr "অবৈধ কালাৱধি"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "ছেকেণ্ডৰ মানৰ বাবে ১ আৰু ৩০ মাজৰ এটা পূৰ্ণ সংখ্যা আপুনি দিবই লাগিব ।"
 
 #: ../loader/net.c:1589
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "%s প'ৰ্টৰ চাকিক %d ছেকেণ্ডৰ বাবে জ্বলোৱা হৈছে.."
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
 #, c-format
@@ -6696,6 +6710,10 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"হাৰ্ড ড্ৰাইভ"
 
 #: tmp/addrepo.glade.h:9
 msgid "Please provide the configuration information for this software repository."
@@ -6723,7 +6741,7 @@ msgstr "পঞ্জিকা নিৰ্ব্বাচন কৰক"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "URL প্ৰতিৰূপৰ এটা তালিকা (_m)"
 
 #: tmp/addrepo.glade.h:16
 msgid "_Directory"
@@ -6739,7 +6757,7 @@ msgstr "বিভাজন (_P)"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "পথ (_P)"
 
 #: tmp/addrepo.glade.h:20
 msgid "_Server"
@@ -6841,21 +6859,23 @@ msgstr "বিৱৰণ (_D)"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "বাগৰ বিৱৰণ (_d)"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "গন্তব্যৰ নথিপত্ৰ (_f)"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"স্থানীয় ডিষ্ক\n"
+"দূৰৰ সেৱক (scp)"
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "আপোনাৰ traceback ৰক্ষা কৰিবলৈ এটা গন্তব্য বাচি লওক ।"
 
 #: tmp/exnSave.glade.h:7
 msgid "Select A File"
@@ -6863,7 +6883,7 @@ msgstr "নথিপত্ৰ নিৰ্ব্বাচন কৰক"
 
 #: tmp/exnSave.glade.h:8
 msgid "_Host (host:port)"
-msgstr ""
+msgstr "গৃহস্থ (_H) (host:port)"
 
 #: tmp/exnSave.glade.h:9
 msgid "_Password"
@@ -7154,7 +7174,7 @@ msgstr "গুজৰাটী"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "হিব্ৰিউ"
 
 #. generated from lang-table
 msgid "Hindi"
