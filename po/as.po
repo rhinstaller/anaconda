@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-22 10:48+0530\n"
-"Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
+"PO-Revision-Date: 2008-09-22 16:43+0530\n"
+"Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
 "Language-Team: Assamese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -651,9 +651,8 @@ msgid "There was a problem writing the system state to the disk."
 msgstr "ব্যৱস্থাপ্ৰণালীৰ অৱস্থা ডিষ্কলৈৈ লিখোঁতে সমস্যা হ'ল । "
 
 #: ../exception.py:506 ../exception.py:529
-#, fuzzy
 msgid "No Network Available"
-msgstr "নে'টৱৰ্ক যন্ত্ৰ"
+msgstr "নে'টৱৰ্ক নাই"
 
 #: ../exception.py:507 ../exception.py:530
 msgid ""
@@ -939,7 +938,7 @@ msgstr ""
 "কিন্তু কিছু সমস্যা হ'ব পাৰে ।"
 
 #: ../fsset.py:1986
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -948,22 +947,22 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"%s যন্ত্ৰক %s হিচাপে অভ্যুত্থান কৰোঁতে ভ্ৰান্তি হ'ল: %s\n"
+"%s যন্ত্ৰক %s হিচাপে অভ্যুত্থান কৰোঁতে ভুল হ'ল: %s\n"
 "\n"
-"/etc/fstab ৰ যন্ত্ৰসমূহ লেবেলেৰে নিৰ্দ্ধাৰিত কৰিব লাগে, যন্ত্ৰৰ নামেৰে নহয় ।\n"
+"/etc/fstab ৰ যন্ত্ৰসমূহ লেবেল বা UUID ৰে নিৰ্দ্ধাৰিত কৰিব লাগে, যন্ত্ৰৰ নামেৰে নহয় ।\n"
 "\n"
 "সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ ঠিক আছে টিপক ।"
 
 #: ../fsset.py:1993
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"raid যন্ত্ৰ %s ৰ সন্ধান কৰিব পৰা ন'গ'ল %s ৰ বাবে প্ৰয়োগ কৰিবলৈ ।\n"
+"%s যন্ত্ৰক %s হিচাপে তুলি লওঁতে ভুল: %s\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
+"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ ঠিক আছে টিপক ।"
 
 #: ../fsset.py:2011
 msgid ""
@@ -1088,12 +1087,12 @@ msgid "Installation Key"
 msgstr "সংস্থাপনৰ চাবি"
 
 #: ../gui.py:660 ../text.py:323
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose a passphrase for this encrypted device%s. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
-"এই গুপুত কৰা বিভাজনৰ বাবে গুপ্তশব্দ নিৰ্ব্বাচন কৰক । ব্যৱস্থাপ্ৰণালী আৰম্ভ কৰাৰ সময়ত "
+"এই %s গুপুত কৰা যন্ত্ৰৰ বাবে গুপ্তশব্দ নিৰ্ব্বাচন কৰক । ব্যৱস্থাপ্ৰণালী আৰম্ভ কৰাৰ সময়ত "
 "আপোনাৰ পৰা এই গুপ্তশব্দ বিচৰা হ'ব ।"
 
 #: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
@@ -1240,10 +1239,10 @@ msgstr ""
 
 #: ../image.py:185
 msgid "Missing ISO 9660 Image"
-msgstr "সন্ধানহীন ISO 9660 প্ৰতিমূৰ্ত্তি"
+msgstr "সন্ধানহীন ISO 9660 প্ৰতিমুৰ্তি"
 
 #: ../image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1251,7 +1250,7 @@ msgid ""
 "Please copy this image to the drive and click Retry.  Click Exit to abort "
 "the installation."
 msgstr ""
-"প্ৰতিমূৰ্ত্তি #%s তুলি ল'ব'লৈ সংস্থাপকে চেষ্টা কৰিছিল, কিন্তু তাক হাৰ্ড ড্ৰাইভত নেপালে "
+"প্ৰতিমুৰ্তি #%s তুলি ল'ব'লৈ সংস্থাপকে চেষ্টা কৰিছিল, কিন্তু তাক হাৰ্ড ড্ৰাইভত নেপালে "
 "।\n"
 "\n"
 "অনুগ্ৰহ কৰি এই প্ৰতিমুৰ্তি ড্ৰাইভত নকল কৰি পুনৰচেষ্টা টিপক । সংস্থাপন এৰি যাবলৈ "
@@ -1372,7 +1371,6 @@ msgid "Copying live image to hard drive."
 msgstr "জীৱন্ত প্ৰতিমুৰ্ত্তি হাৰ্ড ড্ৰাইভলৈ নকল কৰা হৈছে ।"
 
 #: ../livecd.py:197
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -1380,12 +1378,10 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"%s নথিপত্ৰ খোলা ন'গ'ল । এইটো সম্ভৱতঃ কোনো সন্ধানহীন নথিপত্ৰ, কোনো অশুদ্ধ সৰঞ্জাম, "
-"বা এটা অশুদ্ধ মাধ্যমৰ কাৰণে হৈছে । অনুগ্ৰহ কৰি আপোনাৰ সংস্থাপনৰ উৎস পৰীক্ষঅ কৰক ।\n"
+"আপোনাৰ হাৰ্ড ড্ৰাইভত জীৱন্ত প্ৰতিমুৰ্তি সংস্থাপন কৰোঁতে ভুল হ'ল । এইটো এটা বেয়া মাধ্যমৰ কাৰণে হ'ব পাৰে। অনুগ্ৰহ কৰি আপোনাৰ সংস্থাপনৰ উৎস পৰীক্ষা কৰক ।\n"
 "\n"
 "প্ৰস্থান কৰিলে, আপোনাৰ ব্যৱস্থাপ্ৰণালী এটা স্থিৰতাহীন অৱস্থাত থাকিব যিটোক "
-"পুনঃসংস্থাপনৰ প্ৰয়োগ হ'ব ।\n"
-"\n"
+"পুনঃসংস্থাপনৰ প্ৰয়োগ হ'ব ।"
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -1403,25 +1399,22 @@ msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
 msgstr ""
-"আপুনি সৃষ্টি কৰা ৰূট নথিপত্ৰপ্ৰণালী এই লাইভ প্ৰতিমূৰ্ত্তিৰ বাবে যথেষ্ট নহয় (%.2f MB ৰ "
+"আপুনি সৃষ্টি কৰা ৰূট নথিপত্ৰপ্ৰণালী এই লাইভ প্ৰতিমুৰ্তিৰ বাবে যথেষ্ট নহয় (%.2f MB ৰ "
 "প্ৰয়োজন) ।"
 
 #: ../network.py:64
-#, fuzzy
 msgid "Hostname must be 64 or fewer characters in length."
 msgstr "গৃহস্থৰ নাম দীৰ্ঘত ৬৪টা বা কমসংখ্যা আখৰৰ হ'ব লাগিব ।"
 
 #: ../network.py:70
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
-msgstr "গৃহস্থৰ নাম 'a-z' বা 'A-Z' অঞ্চলৰ কোনো বৈধ আখৰেৰে আৰম্ভ হ'ব লাগিব  ।"
+msgstr "গৃহস্থৰ নাম 'a-z', 'A-Z', বা '0-9' অঞ্চলৰ কোনো বৈধ আখৰেৰে আৰম্ভ হ'ব লাগিব  ।"
 
 #: ../network.py:75
-#, fuzzy
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr "গৃহস্থৰ নামত অকল 'a-z', 'A-Z', '-', বা '.' আখৰ  থাকিব পাৰিব ।"
+msgstr "গৃহস্থৰ নামত অকল 'a-z', 'A-Z', '0-9', '-', বা '.' আখৰ  থাকিব পাৰিব ।"
 
 #: ../network.py:132
 msgid "IP address is missing."
@@ -1453,13 +1446,12 @@ msgid "There was an error encountered resizing the device %s."
 msgstr "%s যন্ত্ৰক পুনঃ আকাৰ দিওঁতে ভুল হৈছে ।"
 
 #: ../packages.py:146
-#, fuzzy
 msgid "Activating"
-msgstr "আৰম্ভ কৰোঁতে সক্ৰীয় কৰক"
+msgstr "আৰম্ভ কৰা হৈছে"
 
 #: ../packages.py:146
 msgid "Activating new partitions.  Please wait..."
-msgstr ""
+msgstr "নতুন বিভাজন আৰম্ভ কৰা হৈছে । অলপ ৰ'ব..."
 
 #: ../packages.py:167
 msgid "LVM operation failed"
@@ -1584,7 +1576,7 @@ msgstr ""
 "সকলো তথ্য নাশ কৰি আপুনি এই ড্ৰাইভ আৰম্ভ কৰিব খোজে নেকি?"
 
 #: ../partedUtils.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1595,8 +1587,8 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"%s (%s) যন্ত্ৰত থকা আকৃতিৰ সূচি পঢ়িব পৰা ন'গ'ল । নতুন আকৃতি সৃষ্টি কৰিব হ'লে পুনৰাৰম্ভ "
-"কৰিব লাগিব, যাৰ ফলত এই ড্ৰাইভত থকা সকলো তথ্যৰ নাশ হ'ব। \n"
+"%s (%s %-0.f MB) যন্ত্ৰত থকা আকৃতিৰ সূচি পঢ়িব পৰা ন'গ'ল । নতুন আকৃতি সৃষ্টি কৰিব হ'লে পুনৰাৰম্ভ "
+"কৰিব লাগিব, যাৰ ফলত এই ড্ৰাইভত থকা সকলো তথ্যৰ নাশ হ'ব । \n"
 "\n"
 "এই কাৰ্য্যকৰণে পূৰ্ব্বৰ সকলো সংস্থাপনৰ পছন্দ গৰকি যাব য'ত কোনটো ড্ৰাইভ আওকাণ কৰিব "
 "লাগিব, সেই কথা নিৰ্ব্বাচিত কৰা হৈছিল ।\n"
@@ -1949,14 +1941,13 @@ msgstr ""
 "পৰ্দ্দালৈ  প্ৰত্যাৱৰ্তন কৰিব নোৱাৰে । সংস্থাপন প্ৰণালীৰ লগত আগবাঢ়িব খোজে নেকি ?"
 
 #: ../partitions.py:130
-#, fuzzy, python-format
+#, python-format
 msgid " for device %s"
-msgstr "RAID যন্ত্ৰ %s"
+msgstr " %s যন্ত্ৰৰ বাবে"
 
 #: ../partitions.py:133
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "গোপনীয় কৰাৰ চাবি"
+msgstr "যন্ত্ৰক গোপনীয় কৰোঁ ?"
 
 #: ../partitions.py:134
 #, python-format
@@ -1990,7 +1981,6 @@ msgid "Writing partitioning to disk"
 msgstr "ডিষ্কত বিভাজন লিখা হৈছে"
 
 #: ../partitions.py:161
-#, fuzzy
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
@@ -2039,11 +2029,8 @@ msgid ""
 msgstr "আপোনাৰ মূল বিভাজন ২৫০ মেগাবাইটকৈ কম যিটো সাধাৰণতে %s সংস্থাপনৰ বাবে বৰ সৰু ।"
 
 #: ../partitions.py:1177
-#, fuzzy
 msgid "You must create an EFI System Partition of at least 10 megabytes."
-msgstr ""
-"আপুনি FAT ধৰণৰ আৰু ৫০ মেগাবাইট আকাৰৰ এটা EFI ব্যৱস্থাপ্ৰণালীৰ বিভাজন সৃষ্টি কৰিব "
-"লাগিব ।"
+msgstr "আপুনি অতি কমেও ১০ মেগাবাইটৰ এটা EFI ব্যৱস্থাপ্ৰণালীৰ বিভাজন সৃষ্টি কৰিব লাগিব ।"
 
 #: ../partitions.py:1191
 msgid ""
@@ -2371,22 +2358,21 @@ msgid "Save"
 msgstr "ৰক্ষা কৰক"
 
 #: ../text.py:210
-#, fuzzy
 msgid "Save to local disk"
-msgstr "ডিষ্কত ৰক্ষা কৰক"
+msgstr "স্থানীয় ডিষ্কত ৰক্ষা কৰক"
 
 #: ../text.py:211
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "bugzilla (%s) লৈ পঠিয়াওক"
 
 #: ../text.py:212
 msgid "Send to remote server (scp)"
-msgstr ""
+msgstr "দূৰৰ সেৱকলৈ পঠিয়াওক (scp)"
 
 #: ../text.py:226 ../text.py:239
 msgid "User name"
-msgstr "ব্যৱহাৰকৰ্তাৰ নাম"
+msgstr "ব্যৱহাৰকৰোঁতাৰ নাম"
 
 #: ../text.py:228 ../text.py:241
 msgid "Password"
@@ -2394,31 +2380,28 @@ msgstr "গুপ্ত শব্দ"
 
 #: ../text.py:230
 msgid "Bug Description"
-msgstr ""
+msgstr "বাগৰ বিৱৰণ"
 
 #: ../text.py:243
 msgid "Host (host:port)"
-msgstr ""
+msgstr "গৃহস্থ (host:port)"
 
 #: ../text.py:245
-#, fuzzy
 msgid "Destination file"
-msgstr "LVM কাৰ্য্য বিফল"
+msgstr "গন্তব্যৰ নথিপত্ৰ"
 
 #: ../text.py:329
-#, fuzzy
 msgid "Passphrase for encrypted device"
-msgstr "গুপুত কৰা বিভাজনৰ বাবে গুপ্তশব্দ দিয়ক"
+msgstr "গুপুত কৰা বিভাজনৰ বাবে গুপ্তশব্দ"
 
 #: ../text.py:347 tmp/lukspassphrase.glade.h:7
-#, fuzzy
 msgid "Use this passphrase for all new encrypted devices"
-msgstr "গুপুত কৰা বিভাজনৰ বাবে গুপ্তশব্দ দিয়ক"
+msgstr "সকলো গুপুত কৰা বিভাজনৰ বাবে এই গুপ্তশব্দ ব্যৱহাৰ কৰক"
 
 #: ../text.py:378
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "গুপ্ত শব্দ অতি কমেও ৮টা আখৰ দীঘল হ'ব লাগে ।"
+msgstr "গুপ্ত শব্দ অতি কমেও %dটা আখৰ দীঘল হ'ব লাগে ।"
 
 #: ../text.py:407 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
@@ -2788,17 +2771,15 @@ msgid "%s of %s packages completed"
 msgstr "%sটা, মুঠ %sটা সৰঞ্জামৰ, সম্পূৰ্ণ কৰা হ'ল"
 
 #: ../yuminstall.py:214
-#, fuzzy
 msgid "Finishing upgrade process..."
-msgstr "উন্নয়ন সম্পূৰ্ণ কৰা হ'ল"
+msgstr "উন্নয়ন সম্পূৰ্ণ কৰা হ'ল..."
 
 #: ../yuminstall.py:308 ../iw/task_gui.py:275
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "ভঁৰাল সম্পাদন কৰক"
+msgstr "ভঁৰাল প্ৰতিষ্ঠা কৰোঁতে ভুল"
 
 #: ../yuminstall.py:309 ../iw/task_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -2806,11 +2787,11 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"বিভাজন কৰোতে নিম্নলিখিত ভুল সংঘটিত হৈছে:\n"
+"সংস্থাপনৰ ভঁৰাল প্ৰতিষ্ঠা কৰোঁতে নিম্নলিখিত ভুল হ'ল:\n"
 "\n"
 "%s\n"
 "\n"
-"সংস্থাপকৰ পৰা বাহিৰ হ'বলৈ 'ঠিক আছে' টিপক ।"
+"%s ৰ সংস্থপনৰ বাবে অনুগ্ৰহ কৰি শুদ্ধ তথ্য দিয়ক ।"
 
 #: ../yuminstall.py:366
 msgid "Change Disc"
@@ -2869,9 +2850,8 @@ msgid "Retrying"
 msgstr "পুনঃ চেষ্টা কৰা হৈছে"
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying download..."
-msgstr "সৰঞ্জামৰ ডাউন্‌লোড পুনঃ চেষ্টা কৰা হৈছে..."
+msgstr "ডাউন্‌লোড পুনঃ চেষ্টা কৰা হৈছে..."
 
 #: ../yuminstall.py:772
 #, python-format
@@ -3122,7 +3102,6 @@ msgid ""
 msgstr "পুনঃ আকাৰ দিবলৈ কোনো বিভাজন নাই । "
 
 #: ../iw/autopart_type.py:180
-#, fuzzy
 msgid "Do you really want to boot from a disk which is not used for installation?"
 msgstr "সংস্থাপনত ব্যৱহাৰ নকৰা ডিষ্কৰ পৰা আপুনি সঁচাকৈ বুট কৰিব বিচাৰে নেকি ?"
 
@@ -4528,9 +4507,8 @@ msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "আপুনি এটা ভঁৰাললৈ কোনো HTTP বা FTP URL দিব লাগিব ।"
 
 #: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-#, fuzzy
 msgid "No Media Found"
-msgstr "কোনো ড্ৰাইভ পোৱা ন'গ'ল"
+msgstr "কোনো মাধ্যম পোৱা ন'গ'ল"
 
 #: ../iw/task_gui.py:248 ../iw/task_gui.py:361
 msgid ""
@@ -4539,9 +4517,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
-#, fuzzy
 msgid "Please enter an NFS server and path."
-msgstr "আপোনাৰ %s প্ৰতিমূৰ্ত্তিসমূহৰ সেৱকৰ নাম আৰু পথ দিয়ক ।"
+msgstr "এটা NFS সেৱকৰ নাম আৰু পথ দিয়ক ।"
 
 #: ../iw/task_gui.py:299
 msgid "Invalid Repository Name"
@@ -4569,11 +4546,10 @@ msgid "No Software Repos Enabled"
 msgstr ""
 
 #: ../iw/task_gui.py:432
-#, fuzzy
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr "আপোনাৰ %s সংস্থাপনৰ সৈতে আগবঢ়াৰ পূৰ্বে এই ভুল সমূহ আপুনি শুদ্ধ কৰিব লাগিব ।"
+msgstr "সংস্থাপনত আগবাঢ়িবলৈ আপোনাৰ ওচৰত অতি কমেও এটা চালনাজ্ঞানৰ ভঁৰাল সক্ৰিয় হ'ব লাগিব ।"
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -4649,7 +4625,7 @@ msgid "Migrate File Systems"
 msgstr "নথিপত্ৰৰ প্ৰণালী অভিগমন কৰক"
 
 #: ../iw/upgrade_migratefs_gui.py:64
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4657,7 +4633,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%s ৰ এই মুক্তিয়ে উন্নত নথিপত্ৰ প্ৰণালীৰ সমৰ্থন কৰে, যাৰ %s ত পৰম্পৰাগত ভাবে "
+"%s ৰ মুক্তিয়ে উন্নত নথিপত্ৰ প্ৰণালীৰ সমৰ্থন কৰে, যাৰ %s ত পৰম্পৰাগত ভাবে "
 "পৰিবাহিত কৰা নথিপত্ৰ প্ৰণালীতকৈ বহুত সুবিধা আছে । এই সংস্থাপন কাৰ্য্যক্ৰমে তথ্য নাশ "
 "নোহোৱাকৈ আকৃতি দিয়া বিভাজনৰ মাজত অভিগমন কৰিব পাৰে ।\n"
 "\n"
@@ -4992,9 +4968,9 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "কোনটো প্ৰতিৰূপৰ চাবিৰ ফলক এই কম্পিউটাৰত সংলগ্ন হৈ আছে ?"
 
 #: ../textw/netconfig_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s"
-msgstr "%s ক্ষেত্ৰৰ বাবে সংখ্যা এটাৰ প্ৰয়োজন ।"
+msgstr "%s ক্ষেত্ৰৰ বাবে এটা মানৰ প্ৰয়োজন ।"
 
 #: ../textw/netconfig_text.py:86 tmp/netconfig.glade.h:9
 msgid "Enable network interface"
@@ -5009,9 +4985,8 @@ msgstr ""
 "অনুগ্ৰ কৰি এটা নে'টৱৰ্ক সংযোগ মাধ্যম বিন্যাস কৰক ।"
 
 #: ../textw/netconfig_text.py:111
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "গতিশীল IP বিন্যাস (DHCP) ব্যৱহাৰ কৰক (_d)"
+msgstr "গতিশীল IP বিন্যাস (DHCP) ব্যৱহাৰ কৰক"
 
 #: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
 #: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
@@ -5024,12 +4999,10 @@ msgid "Enable IPv6 support"
 msgstr "IPv6 সমৰ্থন সক্ষম কৰক"
 
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
 msgstr "IPv4 ঠিকনা:"
 
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
 msgstr "IPv6 ঠিকনা:"
 
@@ -5039,27 +5012,22 @@ msgid "Gateway:"
 msgstr "দ্বাৰ:"
 
 #: ../textw/netconfig_text.py:144
-#, fuzzy
 msgid "Nameserver:"
-msgstr "নামাঙ্কৰণৰ সেৱক"
+msgstr "নামাঙ্কৰণৰ সেৱক:"
 
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "হেৰোৱা সৰঞ্জাম"
+msgstr "হেৰোৱা যন্ত্ৰ"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "সম্পাদনা কৰিব'লৈ আপুনি বিভাজন নিৰ্দ্দিষ্ট কৰিব লাগিব"
+msgstr "আপুনি এটা নে'টৱৰ্ক যন্ত্ৰ নিৰ্ব্বাচন কৰিব লাগিব"
 
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
 msgstr "IPv4 নে'টৱৰ্ক মাস্ক"
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
 msgstr "নে'টৱৰ্ক যন্ত্ৰ বিন্যাস কৰোঁতে ভুল হ'ল:"
 
@@ -5540,7 +5508,7 @@ msgid ""
 "your own."
 msgstr ""
 "সংস্থাপনৰ বাবে আপোনাৰ হাৰ্ড ড্ৰাইভ বিভাজন কৰাৰ প্ৰয়োজন । অবিকল্পিত ভাবে, এটা "
-"বিভাজনৰ পৰিকল্পনা বাচি লোৱা যি সৰ্বাধিক ব্যৱহাৰকৰ্তাৰ বাবে যুক্তিসঙ্গত । আপুনি "
+"বিভাজনৰ পৰিকল্পনা বাচি লোৱা যি সৰ্বাধিক ব্যৱহাৰকৰোঁতাৰ বাবে যুক্তিসঙ্গত । আপুনি "
 "এইটোকে ব্যৱহাৰ কৰিব পাৰে বা আপোনাৰ নিজৰ সৃষ্টি কৰিব পাৰে ।"
 
 #: ../textw/partition_text.py:1535
@@ -5910,9 +5878,8 @@ msgstr ""
 "মাধ্যমৰ পৰীক্ষা এৰি যাবলৈ %s নিৰ্ব্বাচন কৰক আৰু সংস্থাপন আৰম্ভ কৰক ।"
 
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "সকীয়নী"
+msgstr "স্কেন কৰা হৈছে"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
@@ -5937,9 +5904,9 @@ msgid "Cannot find kickstart file on CDROM."
 msgstr "CDROM-ত kickstart নথিপত্ৰ পোৱা ন'গ'ল ।"
 
 #: ../loader/copy.c:51 ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "%s পঞ্জিকা পঢ়োঁতে ভুল হ'ল: %s"
+msgstr "%s পঞ্জিকা পঢ়োঁতে ভুল : %m"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -6103,13 +6070,10 @@ msgid "Select Device Driver to Load"
 msgstr "তুলি ল'ব লগীয়া যন্ত্ৰ চালক নিৰ্ব্বাচন কৰক"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
 msgstr ""
-"ISO প্ৰতিমূৰ্তিৰ পৰা সংস্থাপন পঢ়োঁতে বুল হ'ল । অনুগ্ৰহ কৰি আপোনাৰ ISO প্ৰতিমূৰ্তি "
-"পৰীক্ষা কৰক আৰু পুনঃ চেষ্টা কৰক ।"
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6120,29 +6084,28 @@ msgstr ""
 "কৰিব বিচাৰেনে?"
 
 #: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"%sৰ বাবে CD (iso9660) প্ৰতিমূৰ্তিসমূহ বিভাজনৰ কোনটো বিভাজন আৰু পঞ্জিকাত আছে ? যদি "
+"%s ৰ বাবে সংস্থাপনৰ প্ৰতিমূৰ্তি বিভাজনৰ কোনটো বিভাজন আৰু পঞ্জিকাত আছে ? যদি "
 "আপুনি ব্যৱহাৰ কৰা ডিষ্ক ড্ৰাইভ তালিকাভুক্ত কৰা দেখা নাই, অতিৰিক্ত যন্ত্ৰৰ বিন্যাসৰ "
 "বাবে F2 টিপক ।"
 
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
-msgstr "প্ৰতিমূৰ্তি থকা পঞ্জিকা"
+msgstr "প্ৰতিমূৰ্তি থকা পঞ্জিকা:"
 
 #: ../loader/hdinstall.c:301
 msgid "Select Partition"
 msgstr "বিভাজন নিৰ্ব্বাচন কৰক"
 
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "%s যন্ত্ৰত %s CDROM প্ৰতিমূৰ্তি থকা যেন নেলাগে ।"
+msgstr "%s যন্ত্ৰত সংস্থাপনৰ প্ৰতিমূৰ্তি থকা যেন নেলাগে ।"
 
 #: ../loader/hdinstall.c:385
 #, c-format
@@ -6167,14 +6130,14 @@ msgid "What type of keyboard do you have?"
 msgstr "আপোনাৰ কেনে ধৰণৰ চাবিৰ ফলক আছে ?"
 
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "%s kickstart নথিপত্ৰ খোলোঁতে ভুল হ'ল: %s"
+msgstr "%s kickstart নথিপত্ৰ খোলোঁতে ভুল হ'ল: %m"
 
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "%s kickstart নথিপত্ৰ বিষয় বস্তু পঢ়োঁতে ভুল হ'ল: %s"
+msgstr "%s kickstart নথিপত্ৰ বিষয় বস্তু পঢ়োঁতে ভুল হ'ল: %m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -6244,14 +6207,14 @@ msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
 msgstr ""
-"উন্নত ডিষ্কৰ প্ৰতিমূৰ্ত্তি থাকিব পৰা এই যন্ত্ৰত একাধিক বিভাজন আছে । আপুনি কোনটো "
+"উন্নত ডিষ্কৰ প্ৰতিমুৰ্তি থাকিব পৰা এই যন্ত্ৰত একাধিক বিভাজন আছে । আপুনি কোনটো "
 "ব্যৱহাৰ কৰিব খোজে ?"
 
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr ""
-"আপোনাৰ ব্যৱস্থাপ্ৰণালী বৰ্ত্তমানলৈ অনাৰ ডিষ্ক /dev/%s-ত ভৰাই দিয়ক আৰু আগবাঢ়িব'লৈ "
+"আপোনাৰ ব্যৱস্থাপ্ৰণালী বৰ্ত্তমানলৈ অনাৰ ডিষ্ক %s ত ভৰাই দিয়ক আৰু আগবাঢ়িব'লৈ "
 "\"ঠিক আছে\" টিপক ।"
 
 #: ../loader/loader.c:493
@@ -6275,12 +6238,12 @@ msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
-"উন্নয়নৰ প্ৰতিমূৰ্ত্তি ডাউন্‌লোড কৰিব পৰা ন'গ'ল । তলৰ উন্নয়নৰ স্থান সলনি কৰক বা উন্নয়ন "
+"উন্নয়নৰ প্ৰতিমুৰ্তি ডাউন্‌লোড কৰিব পৰা ন'গ'ল । তলৰ উন্নয়নৰ স্থান সলনি কৰক বা উন্নয়ন "
 "নকৰাকৈ আগবাঢ়িবলৈ বাতিল টিপক.."
 
 #: ../loader/loader.c:560
 msgid "Error downloading updates image"
-msgstr "উন্নয়নৰ প্ৰতিমূৰ্ত্তি ডাউন্‌লোড কৰোঁতে ভুল"
+msgstr "উন্নয়নৰ প্ৰতিমুৰ্তি ডাউন্‌লোড কৰোঁতে ভুল"
 
 #: ../loader/loader.c:1171
 #, c-format
@@ -6308,9 +6271,8 @@ msgid "What type of media contains the rescue image?"
 msgstr "পৰিত্ৰাণৰ প্ৰতিমূৰ্তিত কোনতো ধৰণৰ মাধ্যমত আছে?"
 
 #: ../loader/loader.c:1358
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "পৰিত্ৰাণৰ প্ৰতিমূৰ্তিত কোনতো ধৰণৰ মাধ্যমত আছে?"
+msgstr "সংস্থাপনৰ প্ৰতিমূৰ্তি কোন ধৰণৰ মাধ্যমত আছে?"
 
 #: ../loader/loader.c:1389
 msgid "No driver found"
@@ -6400,7 +6362,7 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"এইমাত্ৰ পৰীক্ষা কৰা প্ৰতিমূৰ্ত্তিত ভুল আছে । এটা বেয়া ডাউন্‌লোড বা ডিষ্কৰ বাবে এইটো "
+"এইমাত্ৰ পৰীক্ষা কৰা প্ৰতিমুৰ্তিত ভুল আছে । এটা বেয়া ডাউন্‌লোড বা ডিষ্কৰ বাবে এইটো "
 "হ'ব পাৰে । যদি কৰিব পৰা যায়, তেনেহ'লে ডিষ্ক পৰিষ্কাৰ কৰি আকৌ চেষ্টা কৰক । এই "
 "পৰীক্ষা বিফল হৈ থাকিলে আপুনি সংস্থাপনত আগবাঢ়িব নালাগে ।"
 
@@ -6414,7 +6376,7 @@ msgid ""
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
 msgstr ""
-"পৰীক্ষা কৰা প্ৰতিমূৰ্ত্তিক সফলভাবে সত্যাখ্যান কৰা হ'ল । এই মিডিয়াৰ পৰা সংস্থাপন কৰা "
+"পৰীক্ষা কৰা প্ৰতিমুৰ্তিক সফলভাবে সত্যাখ্যান কৰা হ'ল । এই মিডিয়াৰ পৰা সংস্থাপন কৰা "
 "ঠিক হ'ব । মন কৰিব যে সকলো মিডিয়া/ড্ৰাইভৰ ভুল মিডিয়া পৰীক্ষাৰ দ্বাৰা ধৰা নপৰিবও "
 "পাৰে ।"
 
@@ -6528,9 +6490,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "নে'টৱৰ্ক আদেশত বেয়া বুট বিধি %s নিৰ্দ্দিষ্ট কৰা হৈছে"
 
 #: ../loader/net.c:1423
-#, fuzzy
 msgid "Seconds:"
-msgstr "দ্বিতীয় DNS:"
+msgstr "ছেকেণ্ড:"
 
 #: ../loader/net.c:1537
 msgid "Networking Device"
@@ -6563,9 +6524,8 @@ msgid "Identify NIC"
 msgstr ""
 
 #: ../loader/net.c:1576
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "অসিদ্ধ IP তথ্য"
+msgstr "অবৈধ কালাৱধি"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
@@ -6577,9 +6537,9 @@ msgid "Flashing %s port lights for %d seconds..."
 msgstr ""
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "টেলনেট সংযোগৰ বাবে প্ৰতীক্ষা কৰা হৈছে..."
+msgstr "%s বিন্যাস কৰিবলৈ NetworkManager ৰ বাবে প্ৰতীক্ষা কৰা হৈছে ...\n"
 
 #: ../loader/nfsinstall.c:63
 msgid "NFS server name:"
@@ -6591,9 +6551,9 @@ msgid "%s directory:"
 msgstr "%s পঞ্জিকা:"
 
 #: ../loader/nfsinstall.c:78
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr "আপোনাৰ %s প্ৰতিমূৰ্ত্তিসমূহৰ সেৱকৰ নাম আৰু পথ দিয়ক ।"
+msgstr "আপোনাৰ %s সংস্থাপন প্ৰতিমুৰ্তিৰ বাবে সেৱকৰ নাম আৰু পথ দিয়ক ।"
 
 #: ../loader/nfsinstall.c:85
 msgid "NFS Setup"
@@ -6608,9 +6568,9 @@ msgid "That directory could not be mounted from the server."
 msgstr "সেৱকৰ পৰা পঞ্জিকা তুলি ল'ব পৰা ন'গ'ল ।"
 
 #: ../loader/nfsinstall.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "সেই পঞ্জিকাত %s সংস্থাপন তথ্য আকাৰ নোহোৱা যেন লাগে ।"
+msgstr "সেই পঞ্জিকাত %s সংস্থাপন প্ৰতিমূৰ্তি নোহোৱা যেন লাগে ।"
 
 #: ../loader/nfsinstall.c:338
 #, c-format
@@ -6630,9 +6590,9 @@ msgid "Running anaconda via telnet..."
 msgstr "টেলনেটৰ যোগেদি anaconda চলোৱা হৈছে..."
 
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "%s উদ্ধাৰ কৰিব পৰা ন'গ'ল://%s/%s."
+msgstr "%s উদ্ধাৰ কৰিব পৰা ন'গ'ল://%s%s."
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
@@ -6657,9 +6617,9 @@ msgid "Retrieving"
 msgstr "উদ্ধাৰ কৰা হৈছে"
 
 #: ../loader/urls.c:295
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the URL containing the %s installation image on your server."
-msgstr "আপোনাৰ সেৱকত থকা %s প্ৰতিমূৰ্ত্তিসমূহ থকা URL দিয়ক ।"
+msgstr "আপোনাৰ সেৱকত থকা %s সংস্থাপনৰ প্ৰতিমুৰ্তি থকা URL দিয়ক ।"
 
 #: ../loader/urls.c:321
 msgid "URL Setup"
@@ -6699,7 +6659,7 @@ msgstr "ৰূটৰ গুপ্ত শব্দ:"
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr "ৰূটৰ হিচাপ ব্যৱস্থাপ্ৰণালীৰ পৰিচালনাৰ বাবেহে । ৰূট ব্যৱহাৰকৰ্তাৰ বাবে গুপ্ত শব্দ দিয়ক ।"
+msgstr "ৰূটৰ হিচাপ ব্যৱস্থাপ্ৰণালীৰ পৰিচালনাৰ বাবেহে । ৰূট ব্যৱহাৰকৰোঁতাৰ বাবে গুপ্ত শব্দ দিয়ক ।"
 
 #: tmp/adddrive.glade.h:1
 msgid "Add _ZFCP LUN"
@@ -6722,14 +6682,12 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>ভঁৰালৰ নাম (_n):</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>ভঁৰালৰ নাম (_n):</b>"
+msgstr "<b>ভঁৰালৰ ধৰণ (_t):</b>"
 
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "নিযুক্তক বিন্যাস কৰক"
+msgstr "নিযুক্তক বিন্যাস কৰক (_p)"
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -6740,61 +6698,52 @@ msgid ""
 msgstr ""
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid "Please provide the configuration information for this software repository."
-msgstr "অনুগ্ৰহ কৰি আপোনাৰ অতিৰিক্ত চালনাজ্ঞান ক'ৰ পৰা সংস্থাপন কৰা হ'ব সেই স্থান দিয়ক ।"
+msgstr "অনুগ্ৰহ এই চালনাজ্ঞানৰ ভঁৰালৰ বিন্যাসৰ তথ্য দিয়ক ।"
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL"
-msgstr "নিযুক্তকৰ URL (_R):"
+msgstr "নিযুক্তক URL (_R)"
 
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "নিযুক্তকৰ গুপ্ত শব্দ (_w):"
+msgstr "নিযুক্তকৰ গুপ্ত শব্দ (_w)"
 
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "নিযুক্তকৰ ব্যৱহাৰকৰোঁতাৰ নাম (_s):"
+msgstr "নিযুক্তকৰ ব্যৱহাৰকৰোঁতাৰ নাম (_s)"
 
 #: tmp/addrepo.glade.h:13
 msgid "Repository _URL"
 msgstr "ভঁৰালৰ URL (_U)"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "নথিপত্ৰ নিৰ্ব্বাচন কৰক"
+msgstr "পঞ্জিকা নিৰ্ব্বাচন কৰক"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
 msgstr ""
 
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "NFS পঞ্জিকা"
+msgstr "পঞ্জিকা (_D)"
 
 #: tmp/addrepo.glade.h:17
-#, fuzzy
 msgid "_Options"
-msgstr "RAID বিকল্প"
+msgstr "বিকল্প (_O)"
 
 #: tmp/addrepo.glade.h:18
-#, fuzzy
 msgid "_Partition"
-msgstr "বিভাজন"
+msgstr "বিভাজন (_P)"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
 msgstr ""
 
 #: tmp/addrepo.glade.h:20
-#, fuzzy
 msgid "_Server"
-msgstr "নামাংকৰণ সেৱক:"
+msgstr "সেৱক (_S)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6815,7 +6764,7 @@ msgid ""
 "either choose to use this or create your own."
 msgstr ""
 "সংস্থাপনৰ বাবে আপোনাৰ হাৰ্ড ড্ৰাইভ বিভাজন কৰাৰ প্ৰয়োজন । অবিকল্পিত ভাবে, এটা "
-"বিভাজনৰ পৰিকল্পনা বাচি লোৱা যি সৰ্বাধিক ব্যৱহাৰকৰ্তাৰ বাবে যুক্তিসঙ্গত । আপুনি "
+"বিভাজনৰ পৰিকল্পনা বাচি লোৱা যি সৰ্বাধিক ব্যৱহাৰকৰোঁতাৰ বাবে যুক্তিসঙ্গত । আপুনি "
 "এইটোকে ব্যৱহাৰ কৰিব পাৰে বা আপোনাৰ নিজৰ সৃষ্টি কৰিব পাৰে ।"
 
 #: tmp/autopart.glade.h:3
@@ -6917,14 +6866,12 @@ msgid "_Host (host:port)"
 msgstr ""
 
 #: tmp/exnSave.glade.h:9
-#, fuzzy
 msgid "_Password"
-msgstr "গুপ্ত শব্দ(_P)"
+msgstr "গুপ্তশব্দ(_P)"
 
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_User name"
-msgstr "ব্যৱহাৰকৰ্তাৰ নাম"
+msgstr "ব্যৱহাৰকৰোঁতাৰ নাম (_U)"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -6979,7 +6926,7 @@ msgstr "<b>লক্ষ্যৰ IP ঠিকনা (_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
-msgstr "<b>ব্যৱহাৰকৰ্তাৰ নাম (_U):</b>"
+msgstr "<b>ব্যৱহাৰকৰোঁতাৰ নাম (_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
@@ -7262,9 +7209,8 @@ msgid "Marathi"
 msgstr "মাৰাঠি"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "নৰওৱেইয়"
+msgstr "নৰওৱেইয়(ব'কমাল)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
