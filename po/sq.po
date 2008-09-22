@@ -10,13 +10,14 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-15 10:29-0400\n"
-"PO-Revision-Date: 2008-09-19 14:17+0200\n"
+"PO-Revision-Date: 2008-09-22 18:47+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../anaconda:288
 #: ../anaconda:334
@@ -159,7 +160,7 @@ msgstr "Do të donit të përdorej VNC-ja?"
 
 #: ../anaconda:822
 msgid "The VNC mode installation offers more functionality than the text mode, would you like to use it instead?"
-msgstr ""
+msgstr "Mënyra VNC e instalimit ofrn më tepër funksione se mënyra tekst. Doni të përdoret kjo më mirë? "
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -221,9 +222,9 @@ msgid "The boot partition must entirely be in the first 4GB of the disk.  OpenFi
 msgstr "Ndarja nisëse duhet të përmbahet plotësisht te 4GB-et e parë të diskut.  OpenFirmware-i nuk do të jetë në gjendje ta nisë këtë instalim."
 
 #: ../autopart.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't be able to boot from this partition."
-msgstr "Ndarja nisëse %s nuk është një ndarje VFAT.  EFI nuk do të jetë në gjendje të niset nga kjo ndarje."
+msgstr "Ndarja nisëse %s nuk është sistem kartelash Linux, fjala vjen ext3.  Sistemi nuk do të jetë në gjendje të niset nga kjo ndarje."
 
 #: ../autopart.py:1073
 #, python-format
@@ -240,22 +241,22 @@ msgid "Requested Partition Does Not Exist"
 msgstr "Ndarja e Kërkuar Nuk Ekziston"
 
 #: ../autopart.py:1296
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"I pazoti të gjej ku ndodhet ndarja %s për ta përdorur %s.\n"
+"I pazoti të gjej ku ndodhet ndarja %s për ta përdorur për %s.\n"
 "\n"
-"Shtypni 'OK' për të rinisur sistemin tuaj."
+"Shtypni 'OK' për të mbyllur instaluesin."
 
 #: ../autopart.py:1321
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Pajisja Raid e Kërkuar Nuk Ekziston"
 
 #: ../autopart.py:1322
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
@@ -263,14 +264,14 @@ msgid ""
 msgstr ""
 "I pazoti të gjej pajisje raid %s për ta përdorur për %s.\n"
 "\n"
-"Shtypni 'OK' për të rinisur sistemin tuaj."
+"Shtypni 'OK' për të mbyllur instaluesin."
 
 #: ../autopart.py:1351
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Grupi i Kërkuar  i Vëllimeve Nuk Ekziston"
 
 #: ../autopart.py:1352
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
@@ -278,22 +279,22 @@ msgid ""
 msgstr ""
 "I pazoti të gjej grup vëllimesh %s për ta përdorur për %s.\n"
 "\n"
-"Shtypni 'OK' për të rinisur sistemin tuaj."
+"Shtypni 'OK' për të mbyllur instaluesin."
 
 #: ../autopart.py:1389
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Vëllimi Logjik i Nevojshëm Nuk Ekziston"
 
 #: ../autopart.py:1390
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"I pazoti të gje ku ndodhet vëllimi logjik %s për ta përdorur për %s.\n"
+"I pazoti të gjej ku ndodhet vëllimi logjik %s për ta përdorur për %s.\n"
 "\n"
-"Shtypni 'OK' për të rinisur sistemin tuaj."
+"Shtypni 'OK' për të mbyllur instaluesin."
 
 #: ../autopart.py:1525
 #: ../autopart.py:1572
@@ -541,12 +542,14 @@ msgid "Warning"
 msgstr "Kujdes"
 
 #: ../bootloader.py:45
-#, fuzzy
 msgid ""
 "Your filesystems have already been activated.  You cannot go back past this point.\n"
 "\n"
 "Would you like to continue with the installation?"
-msgstr "Zgjedhjet e bëra nga ju për pjesëzimin janë tashmë vepruese. Nuk ktheheni dot më te hapi i përpunimit të diskut. Doni të vazhdohet me procesin e instalimit?"
+msgstr ""
+"Sistemi juaj i kartelave është aktivizuar tashmë. Nuk ktheheni dot më mbrapsht këtej e tutje.\n"
+"\n"
+"Doni të vazhdohet me instalimin?"
 
 #: ../bootloader.py:49
 #: ../exception.py:439
@@ -638,6 +641,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"\"Bug\"-u juaj nuk u depozitua dot, për shkak të gabimit vijues gjatë ndërlidhjes me bugzilla-n:\n"
+"\n"
+"%s"
 
 #: ../exception.py:367
 #, python-format
@@ -646,6 +652,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"\"Bug\"-u juaj nuk u depozitua dot, për shkak të dhënash të gabuara te fushat e \"bug\"-ut.  Ky, sipas shumicës së gjasave, është gabim i anaconda-s:\n"
+"\n"
+"%s"
 
 #: ../exception.py:371
 msgid "Unable To File Bug"
@@ -657,7 +666,7 @@ msgstr "Nuk Mbulohet Depozitimi i \"Bug\"-eve"
 
 #: ../exception.py:378
 msgid "Your distribution does not provide a supported bug filing system, so you cannot save your exception this way."
-msgstr ""
+msgstr "Shpërndarja juaj nuk ka ndonjë sistem të mbuluar për parashtrim \"bug\"-esh, kështu që nuk mund ta ruani në këtë rrugë përjashtimin që ju ndodhi."
 
 #: ../exception.py:384
 msgid "Invalid Bug Information"
@@ -687,6 +696,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"U krijua një \"bug\" i ri me \"traceback\"-un tuaj bashkangjitur. Ju lutem shtoni te \"bug\"-u vijues të dhëna shtesë, të tilla se ç'po bënit kur hasët \"bug\"-un, pamje nga ai, dhe çfarëdo tjetër që është e përshtatshme:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:450
 msgid "Bug Updated"
@@ -699,6 +711,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Ka tashmë një \"bug\" me të dhënat tuaja.  Llogaria juaj u shtua te lista për CC dhe \"traceback\"-u u shtua si koment.  Ju lutem shtoni te \"bug\"-u vijues të dhëna përshkruese shtesë:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:475
 #: ../exception.py:490
@@ -730,7 +745,7 @@ msgstr "Pa Rrjet të Passhëm"
 #: ../exception.py:507
 #: ../exception.py:530
 msgid "Cannot save a bug report since there is no active networking device available."
-msgstr ""
+msgstr "Nuk mund të ruhet dot raportimi i \"bug\"-ut, ngaqë nuk ka të passhme pajisje rrjeti aktive."
 
 #: ../exception.py:516
 msgid "Your system's state has been successfully written to the remote host.  The installer will now exit."
@@ -854,7 +869,7 @@ msgstr ""
 "te kartela juaj /etc/fstab është në përdorim, për çastin, si ndarje \"software suspend\", që do të thotë se sistemi juaj është hibernating. Për të kryer një përditësim, ju lutem fikeni sistemin tuaj në vend që ta kini në \"hibernating\"."
 
 #: ../fsset.py:1753
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -866,7 +881,7 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"te kartela juaj /etc/fstab është në përdorim, për çastin, si ndarje \"software suspend\", që do të thotë se sistemi juaj është hibernating. Nëse po kryeni një instalim të ri, sigurohuni që instaluesi juaj është rregulluar të formatojë tërë ndarjet \"swap\"."
+"te kartela juaj /etc/fstab është hëpërhë në përdorim si ndarje \"software suspend\", që do të thotë se sistemi juaj po dimëron. Nëse po kryeni një instalim të ri, sigurohuni që instaluesi juaj është përgatitur të formatojë tërë ndarjet \"swap\"."
 
 #: ../fsset.py:1763
 msgid ""
@@ -884,7 +899,7 @@ msgid "Format"
 msgstr "Format"
 
 #: ../fsset.py:1774
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -894,12 +909,12 @@ msgid ""
 msgstr ""
 "Gabim gjatë aktivizimit të pjesës swap %s: %s\n"
 "\n"
-"/etc/fstab te ndarja juaj e përditësimit nuk shihet si ndarje swap e vlefshme.\n"
+"Pajisjet te /etc/fstab duhen treguar sipas etiketash, jo përmes emrit të pajisjes.\n"
 "\n"
-"Shtypni OK për të rinisur sistemin tuaj."
+"Shtypni OK për të mbyllur instaluesin."
 
 #: ../fsset.py:1779
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -909,12 +924,12 @@ msgid ""
 msgstr ""
 "Gabim gjatë aktivizimit të pjesës swap %s: %s\n"
 "\n"
-"/etc/fstab te ndarja juaj e përditësimit nuk shihet si ndarje swap e vlefshme.\n"
+"/etc/fstab te ndarja juaj e përditësimit nuk tregon ndonjë ndarje swap të vlefshme.\n"
 "\n"
-"Shtypni OK për të rinisur sistemin tuaj."
+"Shtypni OK për të mbyllur instaluesin."
 
 #: ../fsset.py:1785
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -926,18 +941,18 @@ msgstr ""
 "\n"
 "Kjo më të shumtën do të thotë që ndarja nuk është gatitur.\n"
 "\n"
-"Shtypni OK për të rinisur sistemin tuaj."
+"Shtypni OK për të mbyllur instaluesin."
 
 #: ../fsset.py:1859
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Pati një gabim gjatë provës për formatimin e %s.  Ky problem është serioz, dhe instalimi nuk mund të vazhdojë.\n"
+"Pati një gabim gjatë provës për formatimin e %s.  Ky është problem serioz, dhe instalimi nuk mund të vazhdojë.\n"
 "\n"
-"Shtypni <Enter> për të rinisur sistemin tuaj."
+"Shtypni <Enter> për të mbyllur instaluesin."
 
 #: ../fsset.py:1909
 #, python-format
@@ -1013,7 +1028,6 @@ msgstr ""
 "Shtypni OK për të dalë nga instaluesi."
 
 #: ../fsset.py:2011
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -1025,7 +1039,7 @@ msgstr ""
 "\n"
 "Kjo më të shumtën do të thotë se fstab-i juaj është i pasaktë.\n"
 "\n"
-"Shtypni OK për të rinisur sistemin tuaj."
+"Shtypni OK për të mbyllur instaluesin."
 
 #: ../fsset.py:2720
 msgid "Duplicate Labels"
@@ -1343,14 +1357,14 @@ msgid "Required Install Media"
 msgstr "Media e Nevojshme për Instalim"
 
 #: ../image.py:245
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
 "\n"
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Software-i që keni përzgjedhur për instalim do t'ju kërkojë CD-të vijuese:\n"
+"Software-i që keni përzgjedhur për instalim do t'ju kërkojë disqet vijues:\n"
 "\n"
 "%s\n"
 "Ju lutem kijini gati ata para se të ecni më tej me instalimin.  Nëse keni nevojë të ndërprisni instalimin dhe të bëni rinisje, ju lutem përzgjidhni \"Rinise\"."
@@ -1368,9 +1382,9 @@ msgid "_Back"
 msgstr "_Prapa"
 
 #: ../image.py:292
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred unmounting the disc.  Please make sure you're not accessing %s from the shell on tty2 and then click OK to retry."
-msgstr "Pati një gabim gjatë çmontimit të CD-së.  Ju lutem sigurohuni që nuk po hyni te %s prej një shell-i në tty2 dhe mandej klikoni OK për të riprovuar."
+msgstr "Pati një gabim gjatë çmontimit të diskut.  Ju lutem sigurohuni që nuk po hyni te %s prej një shell-i në tty2 dhe mandej klikoni OK për të riprovuar."
 
 #: ../installclass.py:73
 msgid "Install on System"
@@ -1382,12 +1396,9 @@ msgid "Initializing iSCSI initiator"
 msgstr "Po gatitet gatitësi iSCSI"
 
 #: ../kickstart.py:93
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running the kickstart script at line %s.  You may examine the output in %s.  This is a fatal error and your install will be aborted.  Press the OK button to exit the installer."
-msgstr ""
-"Pati një gabim gjatë xhirimit të programthit.  Mund të shqyrtoni përfundimin te %s.  Ky është gabim fatal dhe instalimi juaj do të ndërpritet.\n"
-"\n"
-"Shtypni butonin OK për të rinisur sistemin tuaj."
+msgstr "Pati një gabim te rreshti %s gjatë xhirimit të programthit për shpejtnisje.  Përfundimin mund ta shqyrtoni te %s.  Ky është gabim fatal dhe instalimi juaj do të ndërpritet. Shtypni butonin OK për të mbyllur instaluesin."
 
 #: ../kickstart.py:108
 #: ../kickstart.py:110
@@ -1444,16 +1455,14 @@ msgid "Copying live image to hard drive."
 msgstr "Pamja live po kopjohet te hard disku."
 
 #: ../livecd.py:197
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could be due to bad media.  Please verify your installation media.\n"
 "\n"
 "If you exit, your system will be left in an inconsistent state that will require reinstallation."
 msgstr ""
-"Kartela %s nuk hapet dot. Kjo mund të vijë nga mungesë kartele ose ndoshta nga paketë e dëmtuar.  Ju lutem verifikoni që pema juaj e instalimit përmban tërë paketat e nevojshme .\n"
+"Pati një gabim gjatë instalimit të pamjes \"live\" te hard disku juaj. Kjo mund të vijë nga media e dëmtuar. Ju lutem verifikoni median tuaj për instalimin.\n"
 "\n"
-"Nëse e rinisni, sistemi juaj do të lihet në gjendje të paqëndrueshme, e cila ka gjasa të kërkojë riinstalim.\n"
-"\n"
+"Nëse e mbyllni, sistemi juaj do të lihet në gjendje të paqëndrueshme, e cila do të kërkojë riinstalim."
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -1580,24 +1589,23 @@ msgstr ""
 "Doni të riformatohet ky DASD duke përdorur formatin CDL?"
 
 #: ../partedUtils.py:398
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the installation of %s, it must be re-initialized, causing the loss of ALL DATA on this drive.\n"
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"/dev/%s ka hëpërhë skemë pjesëzimi %s.  Për të përdorur këtë disk për instalimin e %s, ai duhet rigatitur duke shkaktuar kështu humbjen e TËRË TË DHËNAVE në këtë \"drive\".\n"
+"/dev/%s ka hëpërhë skemë pjesëzimi %s.  Për të përdorur këtë \"drive\" për instalimin e %s, ai duhet rigatitur, duke shkaktuar kështu humbjen e TËRË TË DHËNAVE në këtë \"drive\".\n"
 "\n"
-"Doni të formatohet ky \"drive\"?"
+"Doni të rigatitet ky \"drive\"?"
 
 #: ../partedUtils.py:407
 msgid "_Ignore drive"
 msgstr "_Shpërfill \"drive\""
 
 #: ../partedUtils.py:408
-#, fuzzy
 msgid "_Re-initialize drive"
-msgstr "Përpunoni Radhë \"Driver\"-ash"
+msgstr "_Rigatite \"drive\"-n"
 
 #: ../partedUtils.py:1023
 msgid "Initializing"
@@ -1624,7 +1632,7 @@ msgstr ""
 "Doni të gatitet ky \"drive\", duke fshirë TËRË TË DHËNAT?"
 
 #: ../partedUtils.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL DATA on this drive.\n"
@@ -1633,10 +1641,10 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Tabela e ndarjeve në pajisjen %s (%s) qe e palexueshme. Për krijim ndarjesh të reja ajo duhet gatitur, duke shkaktuar kështu humbjen e TËRË TË DHËNAVE në këtë \"drive\".\n"
+"Tabela e ndarjeve në pajisjen %s (%s %-0.f MB) qe e palexueshme.\n"
+"Për krijim ndarjesh të reja ajo duhet gatitur, duke shkaktuar kështu humbjen e TËRË TË DHËNAVE në këtë \"drive\".\n"
 "\n"
-"Ky veprim do të mbikalojë çfarëdo zgjedhje të mëparshme instalimi mbi atë se cilët \"drive\"-e të shpërfillen.\n"
-"\n"
+"Ky veprim do të mbikalojë çfarëdo zgjedhje të mëparshme instalimi rreth se cilët \"drive\"-e të shpërfillen.\n"
 "Doni të gatitet ky \"drive\", duke fshirë TËRË TË DHËNAT?"
 
 #: ../partedUtils.py:1277
@@ -1832,9 +1840,8 @@ msgid "You need to select at least one hard drive to install %s."
 msgstr "Lypset të përzgjidhni të paktën një \"hard drive\" ku të instalohet %s."
 
 #: ../partIntfHelpers.py:417
-#, fuzzy
 msgid "You have chosen to use a pre-existing partition for this installation without formatting it. We recommend that you format this partition to make sure files from a previous operating system installation do not cause problems with this installation of Linux. However, if this partition contains files that you need to keep, such as home directories, then continue without formatting this partition."
-msgstr "Keni zgjedhur të përdorni për këtë instalim një ndarje të dikurshme pa e formatuar. Për të qenë të sigurtë që kartela prej një instalimi të mëparshëm sistemi operativ të mos shkaktojnë probleme në këtë instalim të Linux-it, ju këshillojmë që ta formatoni këtë ndarje. Sidoqoftë, nëse kjo ndarje përmban kartela që lipset t'i mbani, si p.sh. drejtorira shtëpish, atëherë vazhdoni pa e formatuar këtë ndarje."
+msgstr "Keni zgjedhur të përdorni për këtë instalim një ndarje të dikurshme pa e formatuar. Për të qenë të sigurtë që kartela prej një instalimi të mëparshëm sistemi operativ të mos shkaktojnë probleme në këtë instalim të Linux-it, ju këshillojmë ta formatoni këtë ndarje. Sidoqoftë, nëse kjo ndarje përmban kartela që keni nevojë t'i mbani, si p.sh. drejtorira shtëpish, atëherë vazhdoni pa e formatuar këtë ndarje."
 
 #: ../partIntfHelpers.py:425
 msgid "Format?"
@@ -2034,9 +2041,8 @@ msgid "Your root partition is less than 250 megabytes which is usually too small
 msgstr "Ndarja juaj rrënjë është më pak se 250 megabajt çka zakonisht është shumë e pakët për instalim %s."
 
 #: ../partitions.py:1177
-#, fuzzy
 msgid "You must create an EFI System Partition of at least 10 megabytes."
-msgstr "Duhet të krijoni një ndarje /boot/efi të tipit FAT dhe me madhësi 50 megabajt."
+msgstr "Duhet të krijoni një Ndarje Sistemi EFI e pakta 10 megabajt."
 
 #: ../partitions.py:1191
 msgid "Your boot partition isn't on one of the first four partitions and thus won't be bootable."
@@ -2073,20 +2079,18 @@ msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Ndarjet e nisshme nuk mund të gjenden në një vëllim logjik."
 
 #: ../partitions.py:1311
-#, fuzzy
 msgid "Bootable partitions cannot be on a RAID device."
-msgstr "Ndarjet e nisshme nuk mund të gjenden në një vëllim logjik."
+msgstr "Ndarjet e nisshme nuk mund të gjenden në një pajisje RAID."
 
 #: ../partitions.py:1316
 #: ../partitions.py:1322
-#, fuzzy, python-format
+#, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "Ndarjet e nisshme nuk mund të gjenden në një vëllim logjik."
+msgstr "Ndarjet e nisshme nuk mund të gjenden në një sistem kartelash %s."
 
 #: ../partitions.py:1326
-#, fuzzy
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "Ndarjet e nisshme nuk mund të gjenden në një vëllim logjik."
+msgstr "Ndarjet e nisshme nuk mund të gjenden në një pajisje bllok të koduar."
 
 #: ../partitions.py:1330
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
@@ -2116,9 +2120,9 @@ msgstr "një ndarje e cila është pjesë e një Grupi Vëllimesh LVM."
 
 #: ../partRequests.py:275
 #: ../partRequests.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point %s must be formatted during live CD installs."
-msgstr "Kjo pikë montimi duhet të jetë në një sistem linux kartelash."
+msgstr "Pika e montimit %s duhet formatuar gjatë instalimesh prej CD-sh \"live\"."
 
 #: ../partRequests.py:284
 #, python-format
@@ -2370,9 +2374,8 @@ msgstr "Ky është fjalëkalim global"
 
 #: ../text.py:481
 #: ../text.py:485
-#, fuzzy
 msgid "Repository editing is not available in text mode."
-msgstr "Nuk kapet dot instalimi grafik...  Po fillohet me mënyrën tekst."
+msgstr "Nuk mund të bëhet përpunim deposh që nga mënyra tekst."
 
 #: ../text.py:523
 #, python-format
@@ -2416,9 +2419,9 @@ msgstr ""
 "\n"
 
 #: ../upgrade.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to upgrade  the installed system to the %s architecture?"
-msgstr "Si do të donit ta përgatisni sistemin e kartelave në këtë ndarje?"
+msgstr "Do të donit ta përmirësoni sistemin e instaluar me arkitekturën %s?"
 
 #: ../upgrade.py:113
 msgid ""
@@ -2702,9 +2705,9 @@ msgid "<b>Installing %s</b> (%s)\n"
 msgstr "<b>Po instalohet %s</b> (%s)\n"
 
 #: ../yuminstall.py:202
-#, fuzzy, python-format
+#, python-format
 msgid "%s of %s packages completed"
-msgstr "Instalim i plotësuar"
+msgstr "Janë plotësuar %s nga %s paketa"
 
 #: ../yuminstall.py:214
 msgid "Finishing upgrade process..."
@@ -2768,16 +2771,16 @@ msgid "_Eject"
 msgstr "_Nxirre"
 
 #: ../yuminstall.py:660
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt package or corrupt media.  Please verify your installation source.\n"
 "\n"
 "If you exit, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Kartela %s nuk hapet dot. Kjo mund të vijë nga mungesë kartele ose ndoshta nga paketë e dëmtuar.  Ju lutem verifikoni që pema juaj e instalimit përmban tërë paketat e nevojshme .\n"
+"Kartela %s nuk hapet dot. Kjo vjen nga mungesë kartele, nga paketë ose media e dëmtuar.  Ju lutem verifikoni burimin tuaj të  instalimit.\n"
 "\n"
-"Nëse e rinisni, sistemi juaj do të lihet në gjendje të paqëndrueshme, e cila ka gjasa të kërkojë riinstalim.\n"
+"Nëse e mbyllni, sistemi juaj do të lihet në gjendje të paqëndrueshme, e cila ka gjasa të kërkojë riinstalim.\n"
 "\n"
 
 #: ../yuminstall.py:700
@@ -2789,9 +2792,9 @@ msgid "Retrying download..."
 msgstr "Po riprovohet shkarkimi..."
 
 #: ../yuminstall.py:772
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
-msgstr "Pati një gabim gjatë xhirimit të ndërveprimit tuaj, për arsyen(t) vijuese: %s"
+msgstr "Pati një gabim gjatë xhirimit të ndërveprimit tuaj, për arsyen vijuese: %s\n"
 
 #: ../yuminstall.py:807
 #: ../yuminstall.py:808
@@ -2835,16 +2838,18 @@ msgid "You need more space on the following file systems:\n"
 msgstr "Keni nevojë për më tepër hapësirë në sistemin vijues të kartelave:\n"
 
 #: ../yuminstall.py:843
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
-msgstr "Ç'tip media përmban paketat që duhen instaluar?"
+msgstr ""
+"Pati përplasje kartelash gjatë kontrollit të paketave që duhen instaluar:\n"
+"%s\n"
 
 #: ../yuminstall.py:846
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction for the following reason(s): %s.\n"
-msgstr "Pati një gabim gjatë xhirimit të ndërveprimit tuaj, për arsyen(t) vijuese: %s"
+msgstr "Pati një gabim gjatë xhirimit të ndërveprimit tuaj, për arsyen(t) vijuese: %s.\n"
 
 #: ../yuminstall.py:856
 #: ../yuminstall.py:861
@@ -2869,12 +2874,15 @@ msgstr "Përpunoni"
 
 #: ../yuminstall.py:1053
 #: ../yuminstall.py:1300
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.\n"
 "\n"
 "%s"
-msgstr "I pazoti të lexoj tejtëdhëna pakete.  Kjo mund të vijë nga mungesa e një drejtorie repodata.  Ju lutem sigurohuni që pema juaj e instalimit është krijuar saktë.  %s"
+msgstr ""
+"I pazoti të lexoj tejtëdhëna pakete.  Kjo mund të vijë nga mungesa e një drejtorie repodata.  Ju lutem sigurohuni që pema juaj e instalimit është krijuar saktë.\n"
+"\n"
+"%s"
 
 #: ../yuminstall.py:1094
 msgid "Unable to read group information from repositories.  This is a problem with the generation of your install tree."
@@ -2886,9 +2894,9 @@ msgid "Uncategorized"
 msgstr "I pakategorizuar"
 
 #: ../yuminstall.py:1323
-#, fuzzy, python-format
+#, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or exit the installer."
-msgstr "Paketat e përzgjedhura prej jush lypin %d MB hapësirë të lirë për instalim, por nuk keni hapësirë të mjaftueshme.  Mund të ndryshoni përzgjedhjet ose të rinisni sistemin."
+msgstr "Paketat e përzgjedhura prej jush lypin %d MB hapësirë të lirë për instalim, por nuk keni hapësirë të mjaftueshme.  Mund të ndryshoni përzgjedhjet ose ta mbyllni instaluesin."
 
 #: ../yuminstall.py:1342
 msgid "Reboot?"
@@ -2904,9 +2912,9 @@ msgid "You appear to be upgrading from a system which is too old to upgrade to t
 msgstr "Duket se po përditësoni prej një sistemi i cili është shumë i vjetër për përditësim te ky version i %s-s.  Jeni i sigurt se doni të vazhdohet procesi i përditësimit?"
 
 #: ../yuminstall.py:1532
-#, fuzzy, python-format
+#, python-format
 msgid "The arch of the release of %s you are upgrading to appears to be %s which does not match your previously installed arch of %s.  This is likely to not succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr "Duket se po përditësoni prej një sistemi i cili është shumë i vjetër për përditësim te ky version i %s-s.  Jeni i sigurt se doni të vazhdohet procesi i përditësimit?"
+msgstr "Arkitektura e versionit të %ss që po përmirësoni duket se është %s, e kjo nuk përputhet me atë %s të instalimit të mëparshëm.  Ka gjasa që kjo të mos ketë sukses.  Jeni i sigurt se doni të vazhdohet procesi i përditësimit?"
 
 #: ../yuminstall.py:1579
 msgid "Post Upgrade"
@@ -2995,18 +3003,20 @@ msgstr "Fjalëkalim i Dobët"
 
 #: ../iw/account_gui.py:132
 #: ../textw/userauth_text.py:82
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Weak password provided: %s\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr "Doni të vazhdohet me përditësimin?"
+msgstr ""
+"U dha fjalëkalim i dobët: %s\n"
+"\n"
+"Doni të vazhdohet me këtë fjalëkalim?"
 
 #: ../iw/account_gui.py:144
 #: ../textw/userauth_text.py:75
-#, fuzzy
 msgid "Requested password contains non-ASCII characters, which are not allowed."
-msgstr "Fjalëkalimi i nevojshëm përmban shenja jo ascii, të cilat nuk lejohen për përdorim në fjalëkalim."
+msgstr "Fjalëkalimi i nevojshëm përmban shenja jo ASCII, të cilat nuk lejohen."
 
 #: ../iw/autopart_type.py:97
 msgid "No partitions are available to resize.  Only physical partitions with specific filesystems can be resized."
@@ -3021,9 +3031,8 @@ msgid "Invalid Initiator Name"
 msgstr "Emër i Pavlefshëm Gatitësi"
 
 #: ../iw/autopart_type.py:262
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "Duhet të jepni një emër shërbyesi."
+msgstr "Duhet të jepni një emër gatitësi."
 
 #: ../iw/autopart_type.py:284
 msgid "Error with Data"
@@ -3031,26 +3040,22 @@ msgstr "Gabim me Të dhëna"
 
 #: ../iw/autopart_type.py:405
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr "Hiq tërë ndarjet në \"drive\"-et e përzgjedhur dhe krijo skemën parazgjedhje."
+msgstr "Hiq tërë ndarjet në \"drive\"-et e përzgjedhur dhe krijo skemën parazgjedhje"
 
 #: ../iw/autopart_type.py:406
 #: ../textw/partition_text.py:1519
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr "Hiq tërë ndarjet linux në \"drive\"-et e përzgjedhur dhe krijo skemën parazgjedhje."
+msgstr "Hiq tërë ndarjet linux në \"drive\"-et e përzgjedhur dhe krijo skemën parazgjedhje"
 
 #: ../iw/autopart_type.py:407
-#, fuzzy
 msgid "Resize existing partition and create default layout in free space"
-msgstr "Hiq ndarjet linux në \"drive\"-et e përzgjedhur dhe krijo skemën parazgjedhje."
+msgstr "Hiq ndarjet ekzistuese dhe krijo në hapësirën e lirë skemën parazgjedhje"
 
 #: ../iw/autopart_type.py:408
 #: ../textw/partition_text.py:1520
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr "Përdor hapësirën e lirë në \"drive\"-et e përzgjedhur dhe krijo skemën parazgjedhje."
+msgstr "Përdor hapësirën e lirë në \"drive\"-et e përzgjedhur dhe krijo skemën parazgjedhje"
 
 #: ../iw/autopart_type.py:409
 #: ../textw/partition_text.py:1521
@@ -3062,9 +3067,8 @@ msgid "_Use a boot loader password"
 msgstr "_Përdor fjalëkalim ngarkuesi nisjeje"
 
 #: ../iw/blpasswidget.py:48
-#, fuzzy
 msgid "A boot loader password prevents users from changing kernel options, increasing security."
-msgstr "Fjalëkalimi i ngarkuesit të nisjes u pengon përdoruesve ndryshime në opsione që i kalohen kernelit.  Për siguri sistemi më të madhe, këshillohet që të caktoni një fjalëkalim të tillë."
+msgstr "Fjalëkalimi i ngarkuesit të nisjes u pengon përdoruesve ndryshime në opsione kerneli, duke rritur sigurinë."
 
 #: ../iw/blpasswidget.py:79
 msgid "Change _password"
@@ -3097,13 +3101,12 @@ msgstr "Fjalëkalimet nuk përputhen"
 
 #: ../iw/blpasswidget.py:152
 #: ../textw/bootloader_text.py:453
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Fjalëkalimi juaj për ngarkuesin e nisjest ka më pak se gjashtë shenja.  Ju këshillojmë një fjalëkalim ngarkuesi nisjeje më të gjatë.\n"
+"Fjalëkalimi juaj për ngarkuesin e nisjes ka më pak se gjashtë shenja.  Këshillojmë fjalëkalim ngarkuesi nisjeje më të gjatë.\n"
 "\n"
 "Doni të vazhdohet me këtë fjalëkalim?"
 
@@ -3119,9 +3122,9 @@ msgstr "Formësim Ngarkuesi Nisjeje"
 #: ../iw/bootloader_main_gui.py:174
 #: ../iw/bootloader_main_gui.py:179
 #: ../iw/bootloader_main_gui.py:216
-#, fuzzy, python-format
+#, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "Instalo regjistrim Ngarkuesi Nisjes te:"
+msgstr "_Instaloje ngarkuesin e nisjeve te /dev/%s"
 
 #: ../iw/bootloader_main_gui.py:222
 msgid "_Change device"
@@ -3132,21 +3135,20 @@ msgid "Congratulations"
 msgstr "Përgëzime"
 
 #: ../iw/congrats_gui.py:71
-#, fuzzy
 msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
-msgstr "Ju lutem lidhuni te %s për fillimin e instalimit..."
+msgstr ""
+"Që të përdorni sistemin e instaluar, rinisni sistemin.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:74
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Shtypni butonin \"Rinise\" për të rinisur sistemin tuaj.\n"
 "\n"
-"\n"
-"Shtypni 'OK' për të rinisur sistemin tuaj."
 
 #: ../iw/congrats_gui.py:78
 #, python-format
@@ -3177,9 +3179,9 @@ msgid "_Upgrade an existing installation"
 msgstr "_Përditëso një instalim ekzistues"
 
 #: ../iw/examine_gui.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "Choose this option if you would like to upgrade your existing %s system.  This option preserves the existing data on your drives."
-msgstr "Zgjidhni këtë mundësi nëse do të donit të përditësoni sistemin tuaj %s ekzistues.  Kjo mundësi do të ruajë të dhënat ekzistuese në \"drive\"-et tuaj."
+msgstr "Zgjidhni këtë mundësi nëse do të donit të përmirësoni sistemin tuaj %s ekzistues.  Kjo mundësi do të ruajë të dhënat ekzistuese në \"drive\"-et tuaj."
 
 #: ../iw/examine_gui.py:116
 msgid "The following installed system will be upgraded:"
@@ -3195,11 +3197,11 @@ msgid "Packages in %s"
 msgstr "Paketa te %s"
 
 #: ../iw/GroupSelector.py:442
-#, fuzzy, python-format
+#, python-format
 msgid "%d of %d optional package selected"
 msgid_plural "%d of %d optional packages selected"
-msgstr[0] "Ngjyrë Teksti të Përzgjedhur"
-msgstr[1] "Nuk ka paketa opsionale për përzgjedhje"
+msgstr[0] "U përzgjodh %d nga %d paketë opsionale"
+msgstr[1] "U përzgjodhën %d nga %d paketa opsionale"
 
 #: ../iw/GroupSelector.py:445
 #, python-format
@@ -3239,13 +3241,12 @@ msgid "Confirm Physical Extent Change"
 msgstr "Ripohoni Ndryshim Shtrirje Fizike"
 
 #: ../iw/lvm_dialog_gui.py:135
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of the current logical volume requests to be rounded up in size to an integer multiple of the physical extent.\n"
 "\n"
 "This change will take effect immediately."
 msgstr ""
-"Ky ndryshim i vlerës së shtrirjes fizike do të kërkojë të rrumbullakosen madhësitë e kërkuara të vëllimit logjik për çastin në vlera shumëfishe të plota të shtrirjes fizike.\n"
+"Ky ndryshim i vlerës së shtrirjes fizike do të kërkojë të rrumbullakosen madhësitë e tanishme të kërkuara për vëllime logjike në vlera shumëfishe të plota të shtrirjes fizike.\n"
 "\n"
 "Ky ndryshim do të ketë veprim menjëherë."
 
@@ -3397,9 +3398,9 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Emri \"%s\" i vëllimit logjik është tashmë në përdorim. Ju lutem merrni një tjetër."
 
 #: ../iw/lvm_dialog_gui.py:627
-#, fuzzy, python-format
+#, python-format
 msgid "The current requested size (%10.2f MB) is larger than the maximum logical volume size (%10.2f MB). To increase this limit you can create more Physical Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr "Madhësia e kërkuar (%10.2f MB), për çastin, është më e madhe se sa madhësia më e madhe për një vëllim logjik (%10.2f MB). Për ta rritur këtë cak mund të krijoni prej hapësirash disku të papjesëzuara më tepër Vëllime Fizike dhe 'i shtoni te ky Grup Vëllimesh."
+msgstr "Madhësia e tanishme e kërkuar (%10.2f MB) është më e madhe se sa madhësia më e madhe për një vëllim logjik (%10.2f MB). Për ta rritur këtë cak mund të krijoni prej hapësirash disku të papjesëzuara më tepër Vëllime Fizike dhe t'i shtoni te ky Grup Vëllimesh."
 
 #: ../iw/lvm_dialog_gui.py:700
 #: ../iw/partition_dialog_gui.py:211
@@ -3433,14 +3434,13 @@ msgid "No free space"
 msgstr "Pa hapësirë të lirë"
 
 #: ../iw/lvm_dialog_gui.py:790
-#, fuzzy
 msgid "There is no room left in the volume group to create new logical volumes. To add a logical volume you must reduce the size of one or more of the currently existing logical volumes"
-msgstr "Nuk ka më vend në grupin e vëllimeve që të mund të krijohen vëllime të rinj logjikë. Për të shtuar një vëllim logjik duhet të zvogëloni masën e një ose më shumë vëllimesh logjikë ekzistues për çastin"
+msgstr "Nuk ka më vend në grupin e vëllimeve që të mund të krijohen vëllime të rinj logjikë. Për të shtuar një vëllim logjik, duhet të zvogëloni masën e një ose më shumë vëllimesh logjikë ekzistues të tanishëm"
 
 #: ../iw/lvm_dialog_gui.py:818
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
-msgstr "Jeni i sigurtë se doni të fshini vëllimin logjik \"%s\"?"
+msgstr "Jeni i sigurt se doni të fshini vëllimin logjik \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:953
 msgid "Invalid Volume Group Name"
@@ -3626,9 +3626,8 @@ msgid "Nameserver"
 msgstr "Emër shërbyesi"
 
 #: ../iw/netconfig_dialog.py:267
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "Gabim në formësim pajisjeje rrjeti"
+msgstr "Gabim në formësim pajisjeje rrjeti:"
 
 #: ../iw/netconfig_dialog.py:280
 msgid "Error configuring network device"
@@ -3796,9 +3795,8 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "Parashtesa IPv4 duhet të jetë nga 0 deri në 128."
 
 #: ../iw/osbootwidget.py:51
-#, fuzzy
 msgid "Boot loader operating system list"
-msgstr "Fjalëkalimi i ngarkuesit të nisjeve është shumë i shkurtër"
+msgstr "Listë sistemesh operativë për ngarkuesin e nisjeve"
 
 #: ../iw/osbootwidget.py:67
 #: ../textw/bootloader_text.py:262
@@ -3815,7 +3813,6 @@ msgid "Image"
 msgstr "Pamje"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid "Enter a label for the boot loader menu to display. The device (or hard drive and partition number) is the device from which it boots."
 msgstr "Jepni një etiketë që të shfaqet te menuja e ngarkuesit të nisjeve. Pajisja (ose ''hard drive''-i dhe numri i ndarjes) është pajisja prej të cilës bëhet nisja."
 
@@ -3971,14 +3968,13 @@ msgid "Partitioning"
 msgstr "Pjesëzim"
 
 #: ../iw/partition_gui.py:640
-#, fuzzy
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr "Ka gabimet kritikë vijues me skemën tuaj të kërkuar për pjesëzimin."
+msgstr "Skema e pjesëzimit që kërkuat shkaktoi gabimet kritike vijuese."
 
 #: ../iw/partition_gui.py:642
-#, fuzzy, python-format
+#, python-format
 msgid "You must correct these errors before you continue your installation of %s."
-msgstr "Këta gabime duhen ndrequr përpara se të vazhdohet me instalimin tuaj të %s."
+msgstr "Këto gabime duhen ndrequr përpara se të vazhdohet me instalimin tuaj të %s."
 
 #: ../iw/partition_gui.py:648
 msgid "Partitioning Errors"
@@ -4094,12 +4090,11 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1278
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software RAID'.  Then you can create a RAID device that can be formatted and mounted.\n"
 "\n"
 msgstr ""
-"Për të përdorur RAID së pari duhet të krijoni dy ndarje të tipit 'software RAID'.  Mandej mund të krijoni një pajisje RAID e cila mund të formatohet dhe montohet.\n"
+"Për të përdorur RAID së pari duhet të krijoni të paktën dy ndarje të tipit 'software RAID'.  Mandej mund të krijoni një pajisje RAID e cila mund të formatohet dhe montohet.\n"
 "\n"
 
 #: ../iw/partition_gui.py:1284
@@ -4163,9 +4158,8 @@ msgid "_Format as:"
 msgstr "_Formatoje si:"
 
 #: ../iw/partition_ui_helpers_gui.py:308
-#, fuzzy
 msgid "Mi_grate filesystem to:"
-msgstr "Mi_groje ndarjen te:"
+msgstr "Mi_groje sistemin e kartelave te:"
 
 #: ../iw/partition_ui_helpers_gui.py:328
 #: tmp/autopart.glade.h:9
@@ -4173,7 +4167,7 @@ msgid "_Resize"
 msgstr "_Ripërmasoje"
 
 #: ../iw/partition_ui_helpers_gui.py:384
-#, fuzzy, python-format
+#, python-format
 msgid "Partitions of type '%s' must be constrained to a single drive.  To do this, select the drive in the 'Allowable Drives' checklist."
 msgstr "Ndarjet e tipit '%s' duheh rrasur në një ''drive'' të vetëm. Kjo bëhet duke përzgjedhur ''drive''-in te lista 'Pajisje të Lejueshme'."
 
@@ -4233,9 +4227,8 @@ msgid "_RAID Members:"
 msgstr "Anëtarë _RAID:"
 
 #: ../iw/raid_dialog_gui.py:469
-#, fuzzy
 msgid "Number of _spares:"
-msgstr "Numër tel.:"
+msgstr ""
 
 #: ../iw/raid_dialog_gui.py:479
 msgid "_Format partition?"
@@ -4299,7 +4292,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "''Drive''-i burim /dev/%s nuk mund të përzgjidhet edhe si ''drive'' objektiv."
 
 #: ../iw/raid_dialog_gui.py:641
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the following reason:\n"
 "\n"
@@ -4307,11 +4300,11 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"'Drive'-i i synuar /dev/%s ka një ndarje e cila, për arsyen vijuese, nuk mund të hiqet:\n"
+"\"Drive\"-i i synuar /dev/%s ka një ndarje e cila, për arsyen vijuese, nuk mund të hiqet:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Duhet ta hiqni këtë ndarje, para se të mund të synohet ky 'drive'."
+"Duhet ta hiqni këtë ndarje, para se të mund të synohet ky \"drive\"."
 
 #: ../iw/raid_dialog_gui.py:702
 msgid "Please select a source drive."
@@ -4499,9 +4492,8 @@ msgid "_Create new boot loader configuration"
 msgstr "_Krijo formësim të ri ngarkuesi nisjesh"
 
 #: ../iw/upgrade_bootloader_gui.py:148
-#, fuzzy
 msgid "This option creates a new boot loader configuration.  If you wish to switch boot loaders, you should choose this."
-msgstr "Kjo do t´ju lejojë të krijoni një formësim të ri ngarkuesi nisjesh.  Këtë do të duhej ta zgjidhni nëse dëshironi të këmbeni ngarkuesa nisjesh."
+msgstr "Kjo mundësi krijon një formësim të ri ngarkuesi nisjesh.  Këtë do të duhej ta zgjidhni nëse dëshironi të këmbeni ngarkuesa nisjesh."
 
 #: ../iw/upgrade_bootloader_gui.py:155
 msgid "_Skip boot loader updating"
@@ -5010,7 +5002,7 @@ msgstr "I PAFOMËRSUAR"
 
 #: ../textw/network_text.py:537
 msgid "The current configuration settings for each interface are listed next to the device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To configure an interface, highlight it and choose Edit.  When you are finished, press OK to continue."
-msgstr ""
+msgstr "Rregullimet e tanishme të formësimit për secilën ndërfaqje radhiten ngjitur emrit të pajisjes.  Ndërfaqet e paformësuara tregohen si të PAFORMËSUARA.  Për formësimin e një ndërfaqeje, theksojeni dhe zgjidhni Përpunojeni.  Kur të keni mbaruar, shtypni OK për të vazhduar."
 
 #: ../textw/network_text.py:571
 msgid "Active on boot"
@@ -5262,9 +5254,8 @@ msgid "Format partition?"
 msgstr "Ta formatoj ndarjen?"
 
 #: ../textw/partition_text.py:1057
-#, fuzzy
 msgid "Invalid Entry for RAID Spares"
-msgstr "Vlerë e Pavlefshme për Cilindër të Fundit"
+msgstr ""
 
 #: ../textw/partition_text.py:1072
 msgid "Too many spares"
@@ -5524,9 +5515,8 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:35
-#, fuzzy
 msgid "The z/IPL Boot Loader will be installed on your system after installation is complete. You can now enter any additional kernel and chandev parameters which your machine or your setup require."
-msgstr "Ngarkuesi z/IPL i Nisjeve do të instalohet në sistemin tuaj pasi të jetë plotësuar instalimi. Tani mund të jepni çfarëdo parametrash shtesë kerneli dhe chandev të cilët mund të nevojiten nga makina ose rregullimi juaj."
+msgstr "Ngarkuesi z/IPL i Nisjeve do të instalohet në sistemin tuaj pasi të jetë plotësuar instalimi. Tani mund të jepni çfarëdo parametrash shtesë kerneli dhe \"chandev\", të cilët mund të nevojiten nga makina ose rregullimi juaj."
 
 #: ../textw/zipl_text.py:67
 msgid "z/IPL Configuration"
@@ -5583,9 +5573,8 @@ msgid "Clustering"
 msgstr ""
 
 #: ../installclasses/rhel.py:67
-#, fuzzy
 msgid "Storage Clustering"
-msgstr "Tip ruajtjeje"
+msgstr ""
 
 #: ../installclasses/rhel.py:71
 msgid "Installation Number"
@@ -5834,9 +5823,8 @@ msgid "Select Device Driver to Load"
 msgstr "Përzgjidhni Pajisje Përudhësi për Ngarkim"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid "An error occured finding the installation image on your hard drive.  Please check your images and try again."
-msgstr "Pati një gabim gjatë lecimit të instalimit prej pamjeve ISO. Ju lutem kontrolloni pamjet tuaja ISO dhe riprovoni."
+msgstr "Pati një gabim gjatë gjetjes së pamjes së instalimit te hard disku juaj. Ju lutem kontrolloni pamjet tuaja dhe riprovoni."
 
 #: ../loader/hdinstall.c:232
 msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
@@ -5899,9 +5887,8 @@ msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Gabim në %s te rreshti %d i kartelës \"kickstart\" %s."
 
 #: ../loader/kickstart.c:285
-#, fuzzy
 msgid "Cannot find ks.cfg on removable media."
-msgstr "Nuk gjej dot ks.cfg te disket nisjeje."
+msgstr "Nuk gjendet dot ks.cfg te disqet."
 
 #: ../loader/kickstart.c:380
 msgid "Unable to download the kickstart file.  Please modify the kickstart parameter below or press Cancel to proceed as an interactive installation."
@@ -5952,14 +5939,13 @@ msgid "You have multiple devices which could serve as sources for an update disk
 msgstr "Keni disa pajisje të cila mund të shërbenin si burime disku përditësimi.  Cilën do të donit të përdorej?"
 
 #: ../loader/loader.c:469
-#, fuzzy
 msgid "There are multiple partitions on this device which could contain the update disk image.  Which would you like to use?"
-msgstr "Keni disa ndarje në këtë pajisje të cilat mund të përmbajnë pamjen për disk \"driver\"-ash.  Cilën do të donit të përdorni?"
+msgstr "Në këtë pajisje keni disa ndarje të cilat mund të përmbanin pamjen për disk përditësimesh.  Cilën do të donit të përdorni?"
 
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "Fusni diskun tuaj të përditësimeve te /dev/%s dhe shtypni \"OK\" për të vazhduar."
+msgstr "Fusni diskun tuaj të përditësimeve te %s dhe shtypni \"OK\" për të vazhduar."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6056,14 +6042,14 @@ msgid "loader has already been run.  Starting shell.\n"
 msgstr "ngarkuesi ka mbaruar punë tashmë.  Po niset një shell.\n"
 
 #: ../loader/loader.c:2186
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
-msgstr "Po xhiroj anaconda-n, mënyra shpëtim e %s - ju lutem prisni...\n"
+msgstr "Po xhirohet anaconda %s, mënyra shpëtim e %s - ju lutem prisni...\n"
 
 #: ../loader/loader.c:2188
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr "Po xhiroj anaconda-n, instaluesi i sistemit %s - ju lutem prisni...\n"
+msgstr "Po xhirohet anaconda %s, instaluesi i sistemit %s - ju lutem prisni...\n"
 
 #: ../loader/mediacheck.c:62
 #, c-format
@@ -6117,9 +6103,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Argument i gabuar te urdhër %s pajisjeje metode \"kickstart\": %s"
 
 #: ../loader/modules.c:348
-#, fuzzy
 msgid "A module name must be specified for the kickstart device command."
-msgstr "U dha argumenti vijues i pavlefshëm për urdhër disku përudhësash \"kickstart\": %s:%s"
+msgstr ""
 
 #: ../loader/net.c:106
 msgid "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for IPv6 networks"
@@ -6215,19 +6200,19 @@ msgstr "Keni disa pajisje rrjeti në këtë sistem. Përmes cilës do të donit 
 
 #: ../loader/net.c:1542
 msgid "Identify"
-msgstr ""
+msgstr "Identifikojeni"
 
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "Mund të identifikoni portën fizike për"
 
 #: ../loader/net.c:1553
 msgid "by flashing the LED lights for a number of seconds.  Enter a number between 1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "duke xixëlluar dritëzat LED për një numër sekondash. Jepni një numër nga 1 deri në 30 për të caktuar zgjatjen e xixëllimit të dritëzave LED të portës."
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
-msgstr ""
+msgstr "Identifikoni NIC-un"
 
 #: ../loader/net.c:1576
 msgid "Invalid Duration"
@@ -6240,7 +6225,7 @@ msgstr "Numrin e sekondave duhet ta jepni si numër të plotë nga 1 deri në 30
 #: ../loader/net.c:1589
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "Po xixëllohen dritëzat e portës %s për %d sekonda..."
 
 #: ../loader/net.c:1740
 #: ../loader/net.c:1744
@@ -6327,9 +6312,9 @@ msgid "Retrieving"
 msgstr "Po merret"
 
 #: ../loader/urls.c:295
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the URL containing the %s installation image on your server."
-msgstr "Ju lutem jepni URL-në që shpie te pamja e instalimit % te shërbyesi juaj."
+msgstr "Ju lutem jepni URL-në që shpie te pamja %s e instalimit në shërbyesin tuaj."
 
 #: ../loader/urls.c:321
 msgid "URL Setup"
@@ -6434,9 +6419,8 @@ msgid "Select A Directory"
 msgstr "Përzgjidhni Drejtori"
 
 #: tmp/addrepo.glade.h:15
-#, fuzzy
 msgid "URL is a _mirror list"
-msgstr "Kyç"
+msgstr "URL është listë _pasyqrash"
 
 #: tmp/addrepo.glade.h:16
 msgid "_Directory"
@@ -6467,9 +6451,8 @@ msgid "_Next"
 msgstr "_Pasues"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target:</b>"
-msgstr "Objekt Cytjeje"
+msgstr "<b>Ripërmaso _objektivin:</b>"
 
 #: tmp/autopart.glade.h:2
 msgid "Installation requires partitioning of your hard drive.  By default, a partitioning layout is chosen which is reasonable for most users.  You can either choose to use this or create your own."
@@ -6480,9 +6463,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Ri_shikoni dhe ndryshoni skemën e pjesëzimit"
 
 #: tmp/autopart.glade.h:4
-#, fuzzy
 msgid "What drive would you like to _boot this installation from?"
-msgstr "Çfarë gjuhe do të donit të përdorej gjatë procesit të instalimit?"
+msgstr "Prej cilit \"drive\" do të donit të _nisej ky instalim?"
 
 #: tmp/autopart.glade.h:5
 msgid "Which Partition to resize"
@@ -6509,37 +6491,32 @@ msgid "/boot"
 msgstr "/boot"
 
 #: tmp/blwhere.glade.h:2
-#, fuzzy
 msgid "BIOS Drive Order"
-msgstr "Përpunoni Radhë \"Driver\"-ash"
+msgstr "Radhë \"Drive\"-esh në BIOS"
 
 #: tmp/blwhere.glade.h:3
 msgid "Boot loader device"
 msgstr "Pajisje ngarkuesi nisjeje"
 
 #: tmp/blwhere.glade.h:4
-#, fuzzy
 msgid "First BIOS drive:"
-msgstr "Përpunoni Radhë \"Driver\"-ash"
+msgstr "\"Drive\"-i i parë BIOS"
 
 #: tmp/blwhere.glade.h:5
-#, fuzzy
 msgid "Fourth BIOS drive:"
-msgstr "Përpunoni Radhë \"Driver\"-ash"
+msgstr "\"Drive\"-i i katërt BIOS"
 
 #: tmp/blwhere.glade.h:6
 msgid "MBR"
 msgstr "MBR"
 
 #: tmp/blwhere.glade.h:7
-#, fuzzy
 msgid "Second BIOS drive:"
-msgstr "Përpunoni Radhë \"Driver\"-ash"
+msgstr "\"Drive\"-i i dytë BIOS"
 
 #: tmp/blwhere.glade.h:8
-#, fuzzy
 msgid "Third BIOS drive:"
-msgstr "Përpunoni Radhë \"Driver\"-ash"
+msgstr "\"Drive\"-i i tretë BIOS"
 
 #: tmp/blwhere.glade.h:9
 msgid "Where would you like to install the boot loader for your system?"
@@ -6571,7 +6548,7 @@ msgstr ""
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "Ju lutem zgjidhni një vendmbërritje për ruajtjen e \"traceback\"-ut tuaj."
 
 #: tmp/exnSave.glade.h:7
 msgid "Select A File"
@@ -6591,7 +6568,7 @@ msgstr "Emër _përdoruesi"
 
 #: tmp/GroupSelector.glade.h:1
 msgid "Some packages associated with this group are not required to be installed but may provide additional functionality.  Please choose the packages which you would like to have installed."
-msgstr ""
+msgstr "Disa paketa përshoqëruar këtij grupi nuk është e domosdoshme të instalohen, por mund të sjellin funksione shtesë. Ju lutem zgjidhni paketat që do t'i donit të instaluara. "
 
 #: tmp/GroupSelector.glade.h:2
 msgid "_Deselect"
@@ -6661,7 +6638,7 @@ msgstr "Instalo te Hard Disk"
 
 #: tmp/lukspassphrase.glade.h:1
 msgid "Choose a passphrase for this encrypted partition. You will be prompted for the passphrase during system boot."
-msgstr ""
+msgstr "Zgjidhni një fjalëkalim për këtë ndarje të koduar. Fjalëkalimi do t'ju kërkohet gjatë nisjes së sistemit."
 
 #: tmp/lukspassphrase.glade.h:2
 msgid "Confirm passphrase:"
