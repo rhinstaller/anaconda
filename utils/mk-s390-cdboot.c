@@ -1,9 +1,9 @@
 /*
  * mk-s390-cdboot -- creates one big image using a kernel, a ramdisk and
- *                     a parmfile
- * 
+ *                   a parmfile
  *
  * 2003-07-24 Volker Sameske <sameske@de.ibm.com>
+ * 2008-09-22 Updated by David Cantrell <dcantrell@redhat.com>
  *
  * compile with:
  *     gcc -Wall -o mk-s390-cdboot mk-s390-cdboot.c
@@ -14,143 +14,238 @@
 #include <getopt.h>
 #include <string.h>
 #include <stdarg.h>
+#include <errno.h>
+#include <libgen.h>
 
 #define BUFFER_LEN 1024
 #define INITRD_START 0x0000000000800000LL
 #define START_PSW_ADDRESS 0x80010000
-#define PARAMETER_BUFFER_LEN 80
 
-static struct option getopt_long_options[]=
-{
-        { "image",       1, 0, 'i'},
-        { "ramdisk",     1, 0, 'r'},
-        { "parmfile",    1, 0, 'p'},
-        { "outfile",     1, 0, 'o'},
-        { "help",        0, 0, 'h'},
-        {0, 0, 0, 0}
+static struct option getopt_long_options[]= {
+    { "image", 1, 0, 'i'},
+    { "ramdisk", 1, 0, 'r'},
+    { "parmfile", 1, 0, 'p'},
+    { "outfile", 1, 0, 'o'},
+    { "help", 0, 0, 'h'},
+    {0, 0, 0, 0}
 };
 
-
-static void usage(char *cmd)
-{
-        printf("%s [-h] [-v] -i <kernel> -r <ramdisk> -p <parmfile> -o <outfile>\n", cmd);
+static void usage(char *cmd) {
+    printf("%s [-h] [-v] -i <kernel> -r <ramdisk> -p <parmfile> -o <outfile>\n", cmd);
 }
 
+int main (int argc, char **argv) {
+    char *cmd = basename(argv[0]);
+    FILE *fd1 = NULL;
+    FILE *fd2 = NULL;
+    FILE *fd3 = NULL;
+    FILE *fd4 = NULL;
+    char buffer[BUFFER_LEN];
+    int wc, rc, oc, index;
+    unsigned long long initrd_start = INITRD_START;
+    unsigned long long initrd_size;
+    char *image = NULL;
+    char *ramdisk = NULL;
+    char *parmfile = NULL;
+    char *outfile = NULL;
+    int image_specified = 0;
+    int ramdisk_specified = 0;
+    int parmfile_specified = 0;
+    int outfile_specified = 0;
+    int start_psw_address = START_PSW_ADDRESS;
 
-int main (int argc, char **argv) 
-{
-	char *cmd = basename(argv[0]);
-	FILE *fd1;
-	FILE *fd2;
-	FILE *fd3;
-	FILE *fd4;
-	char buffer[BUFFER_LEN];
-	int wc, rc, oc, index;
-	unsigned long long initrd_start = INITRD_START;
-	unsigned long long initrd_size;
-	char image[PARAMETER_BUFFER_LEN];
-	char ramdisk[PARAMETER_BUFFER_LEN];
-	char parmfile[PARAMETER_BUFFER_LEN];
-	char outfile[PARAMETER_BUFFER_LEN];
-	int image_specified    = 0;
-	int ramdisk_specified  = 0;
-	int parmfile_specified = 0;
-	int outfile_specified  = 0;
-	int start_psw_address  = START_PSW_ADDRESS;
-
-        opterr=0;
-        while (1)
-        {
-                oc = getopt_long(argc, argv, "i:r:p:o:h?", getopt_long_options, &index);
-                if (oc==-1) break;
-
-                switch (oc)
-                {
-                case '?':
-                case 'h':
-                        usage(cmd);
-                        exit(0);
-                case 'i':
-			strcpy(image, optarg);
-                        image_specified = 1;
-                        break;
-		case 'r':
-                        strcpy(ramdisk, optarg);
-                        ramdisk_specified = 1;
-                        break;
-		case 'p':
-                        strcpy(parmfile, optarg);
-                        parmfile_specified = 1;
-                        break;
-		case 'o':
-                        strcpy(outfile, optarg);
-                        outfile_specified = 1;
-                        break;
-		default:
-                        usage(cmd);
-                        exit(0);
-                }
+    opterr = 0;
+    while (1) {
+        oc = getopt_long(argc, argv, "i:r:p:o:h?", getopt_long_options, &index);
+        if (oc == -1) {
+            break;
         }
 
-	if (!image_specified || !ramdisk_specified || 
-	    !parmfile_specified || !outfile_specified) {
-		usage(cmd);
-		exit(0);
-	}
+        switch (oc) {
+            case '?':
+            case 'h':
+                usage(cmd);
+                exit(0);
+            case 'i':
+                image = strdup(optarg);
+                image_specified = 1;
+                break;
+            case 'r':
+                ramdisk = strdup(optarg);
+                ramdisk_specified = 1;
+                break;
+            case 'p':
+                parmfile = strdup(optarg);
+                parmfile_specified = 1;
+                break;
+            case 'o':
+                outfile = strdup(optarg);
+                outfile_specified = 1;
+                break;
+            default:
+                usage(cmd);
+                exit(0);
+        }
+    }
 
-	printf("Creating bootable CD-ROM image...\n");
-        printf("kernel is  : %s\n", image);
-        printf("ramdisk is : %s\n", ramdisk);
-        printf("parmfile is: %s\n", parmfile);
-        printf("outfile is : %s\n", outfile);
+    if (!image_specified || !ramdisk_specified ||
+        !parmfile_specified || !outfile_specified) {
+        usage(cmd);
+        exit(0);
+    }
 
-	fd1 = fopen(outfile, "w");
-	fd2 = fopen(image, "r");
-	fd3 = fopen(ramdisk, "r");
-	fd4 = fopen(parmfile, "r");
+    printf("Creating bootable CD-ROM image...\n");
+    printf("kernel is  : %s\n", image);
+    printf("ramdisk is : %s\n", ramdisk);
+    printf("parmfile is: %s\n", parmfile);
+    printf("outfile is : %s\n", outfile);
 
-	printf("writing kernel...\n");
-	while (1) {
-		rc = fread(buffer, BUFFER_LEN, 1, fd2);
-		wc = fwrite(buffer, BUFFER_LEN, 1, fd1);
-		if (rc == 0) break;
-	}
+    if ((fd1 = fopen(outfile, "w")) == NULL) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
 
-	printf("writing initrd...\n");
-	fseek(fd1, initrd_start, SEEK_SET);
-	while (1) {
-		rc = fread(buffer, BUFFER_LEN, 1, fd3);
-		wc = fwrite(buffer, BUFFER_LEN, 1, fd1);
-		if (rc == 0) break;
-	}
+    if ((fd2 = fopen(image, "r")) == NULL) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
 
-	fseek(fd3, 0 ,SEEK_END);
-	initrd_size = ftell(fd3);
+    if ((fd3 = fopen(ramdisk, "r")) == NULL) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
 
-	printf("changing start PSW address to 0x%08x...\n", start_psw_address);
-	fseek(fd1, 0x4, SEEK_SET);
-	wc = fwrite(&start_psw_address, 4, 1, fd1);
+    if ((fd4 = fopen(parmfile, "r")) == NULL) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
 
-	printf("writing initrd address and size...\n");
-	printf("INITRD start: 0x%016llx\n",  initrd_start);
-	printf("INITRD size : 0x%016llx\n", initrd_size);
+    printf("writing kernel...\n");
+    while (1) {
+        rc = fread(buffer, BUFFER_LEN, 1, fd2);
+        if (rc == 0) {
+            break;
+        }
 
-	fseek(fd1, 0x10408, SEEK_SET);
-	wc = fwrite(&initrd_start, 8, 1, fd1);
-	fseek(fd1, 0x10410, SEEK_SET);
-	wc = fwrite(&initrd_size, 8, 1, fd1);
+        if (feof(fd2) || ferror(fd2)) {
+            fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+            abort();
+        }
 
-	printf("writing parmfile...\n");
-	fseek(fd1, 0x10480, SEEK_SET);
-	while (1) {
-		rc = fread(buffer, 1, 1, fd4);
-		wc = fwrite(buffer, 1, 1, fd1);
-		if (rc == 0) break;
-	}
+        wc = fwrite(buffer, BUFFER_LEN, 1, fd1);
+        if (feof(fd1) || ferror(fd1)) {
+            fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+            abort();
+        }
+    }
 
-	fclose(fd1);
-	fclose(fd2);
-	fclose(fd3);
-	fclose(fd4);
-	return 0;
+    printf("writing initrd...\n");
+    fseek(fd1, initrd_start, SEEK_SET);
+    while (1) {
+        rc = fread(buffer, BUFFER_LEN, 1, fd3);
+        if (rc == 0) {
+            break;
+        }
+
+        if (feof(fd3) || ferror(fd3)) {
+            fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+            abort();
+        }
+
+        wc = fwrite(buffer, BUFFER_LEN, 1, fd1);
+        if (feof(fd1) || ferror(fd1)) {
+            fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+            abort();
+        }
+    }
+
+    if (fseek(fd3, 0, SEEK_END) == -1) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
+    if ((initrd_size = ftell(fd3)) == -1) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
+    printf("changing start PSW address to 0x%08x...\n", start_psw_address);
+    if (fseek(fd1, 0x4, SEEK_SET) == -1) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
+    wc = fwrite(&start_psw_address, 4, 1, fd1);
+    if (feof(fd1) || ferror(fd1)) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
+    printf("writing initrd address and size...\n");
+    printf("INITRD start: 0x%016llx\n",  initrd_start);
+    printf("INITRD size : 0x%016llx\n", initrd_size);
+
+    if (fseek(fd1, 0x10408, SEEK_SET) == -1) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
+    wc = fwrite(&initrd_start, 8, 1, fd1);
+    if (feof(fd1) || ferror(fd1)) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
+    if (fseek(fd1, 0x10410, SEEK_SET) == -1) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
+    wc = fwrite(&initrd_size, 8, 1, fd1);
+    if (feof(fd1) || ferror(fd1)) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
+    printf("writing parmfile...\n");
+    if (fseek(fd1, 0x10480, SEEK_SET) == -1) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+        abort();
+    }
+
+    while (1) {
+        rc = fread(buffer, 1, 1, fd4);
+        if (rc == 0) {
+            break;
+        }
+
+        if (feof(fd4) || ferror(fd4)) {
+            fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+            abort();
+        }
+
+        wc = fwrite(buffer, 1, 1, fd1);
+        if (feof(fd1) || ferror(fd1)) {
+            fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+            abort();
+        }
+    }
+
+    if (fclose(fd1) == EOF) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+    }
+
+    if (fclose(fd2) == EOF) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+    }
+
+    if (fclose(fd3) == EOF) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+    }
+
+    if (fclose(fd4) == EOF) {
+        fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
+    }
+
+    return EXIT_SUCCESS;
 }
