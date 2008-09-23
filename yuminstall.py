@@ -857,7 +857,7 @@ class YumBackend(AnacondaBackend):
         # FIXME: this is a bad hack to remove support for xen on xen (#179387)
         # FIXME: and another bad hack since our xen kernel is PAE
         # FIXME: and yet another for vmware.
-        if iutil.inXen() or iutil.inVmware or \
+        if iutil.inXen() or iutil.inVmware() or \
                 (rpmUtils.arch.getBaseArch() == "i386" and "pae" not in iutil.cpuFeatureFlags()):
             if self.ayum.comps._groups.has_key("virtualization"):
                 del self.ayum.comps._groups["virtualization"]
