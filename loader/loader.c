@@ -1617,6 +1617,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     step = STEP_IP;
                     loaderData->ipinfo_set = 0;
                     loaderData->ipv6info_set = 0;
+                    loaderData->method = -1;
                     skipMethodDialog = 0;
                     dir = -1;
                 } else {
