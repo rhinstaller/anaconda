@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-19 23:12GMT\n"
+"PO-Revision-Date: 2008-09-23 23:27GMT\n"
 "Last-Translator: Oron Peled <oron@actcom.co.il>\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
@@ -109,7 +109,7 @@ msgstr "האם ברצונך להשתמש ב-VNC?"
 #
 #: ../anaconda:822
 msgid "The VNC mode installation offers more functionality than the text mode, would you like to use it instead?"
-msgstr ""
+msgstr "התקנה בעזרת VNC מספקת יותר אפשרויות מאשר התקנה בתצורת טקסט. האם ברצונך להשתמש בה?"
 
 #
 #: ../anaconda:847
@@ -175,24 +175,24 @@ msgstr ""
 #: ../autopart.py:1066
 #, python-format
 msgid "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition."
-msgstr ""
+msgstr "מחיצת האתחול %s אינה מכילה מערכת קבצים מסוג VFAT. מנגנון EFI לא יוכל לאתחל את המערכת ממחיצה זו."
 
 #
 #: ../autopart.py:1068
 msgid "The boot partition must entirely be in the first 4GB of the disk.  OpenFirmware won't be able to boot this installation."
-msgstr ""
+msgstr "מחיצת האתחול חייבת להיות בתחום ה-‏4GB הראשונים של הדיסק. מנגנון OpenFirmware לא יוכל לאתחל את ההתקנה הזו."
 
 #
 #: ../autopart.py:1070
 #, python-format
 msgid "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't be able to boot from this partition."
-msgstr ""
+msgstr "מחיצת האתחול %s אינה מכילה מערכת קבצים לינוקסית כגון ext3. לא יהיה ניתן לבצע אתחול ממחיצה זו."
 
 #
 #: ../autopart.py:1073
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
+msgstr "נראה שמחיצת האתחול %s אינה עומדת במגבלות האתחול עבור ארכיטקטורת המערכת שלך."
 
 #
 #: ../autopart.py:1098
@@ -4496,7 +4496,7 @@ msgstr "כונן(י) יעד:"
 #
 #: ../iw/raid_dialog_gui.py:811
 msgid "Drives"
-msgstr ""
+msgstr "כוננים"
 
 #
 #: ../iw/task_gui.py:46
@@ -4521,7 +4521,7 @@ msgstr "עריכת מאגר"
 #
 #: ../iw/task_gui.py:213
 msgid "Invalid Proxy URL"
-msgstr ""
+msgstr "כתובת (URL) מתווך לא חוקית"
 
 #
 #: ../iw/task_gui.py:214
@@ -4905,6 +4905,8 @@ msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
+"יש ללחוץ <Enter> לסיום תהליך ההתקנה.\n"
+"\n"
 
 #
 #: ../textw/complete_text.py:33
@@ -4919,6 +4921,9 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"מזל טוב, התקנת %s שלך הושלמה.\n"
+"\n"
+"%s%s"
 
 #
 #: ../textw/complete_text.py:40
@@ -5019,7 +5024,7 @@ msgstr "כתובת IPv6:"
 #: ../textw/netconfig_text.py:141 ../textw/network_text.py:682
 #: ../loader/net.c:828
 msgid "Gateway:"
-msgstr ""
+msgstr "נתב:"
 
 #
 #: ../textw/netconfig_text.py:144
@@ -5039,7 +5044,7 @@ msgstr "יש לבחור התקן רשת"
 #
 #: ../textw/netconfig_text.py:231
 msgid "IPv4 Network Mask "
-msgstr ""
+msgstr "מסכת רשת IPv4"
 
 #
 #: ../textw/netconfig_text.py:257
@@ -5056,12 +5061,12 @@ msgstr ""
 #: ../textw/network_text.py:77
 #, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr ""
+msgstr "קידומת כתובת רשת IPv%d חייבת להיות בין 0 ל-%d."
 
 #
 #: ../textw/network_text.py:81
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "קידומת כתובת רשת חייבת להיות מספר שלם"
 
 #
 #: ../textw/network_text.py:82
@@ -5072,12 +5077,12 @@ msgstr ""
 #
 #: ../textw/network_text.py:89 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
-msgstr ""
+msgstr "קידומת (מסכת רשת)"
 
 #
 #: ../textw/network_text.py:91 tmp/netpostconfig.glade.h:15
 msgid "Prefix"
-msgstr ""
+msgstr "קידומת"
 
 #
 #: ../textw/network_text.py:144
@@ -5087,7 +5092,7 @@ msgstr "הפעל באתחול"
 #
 #: ../textw/network_text.py:171
 msgid "P-to-P:"
-msgstr ""
+msgstr "מנקודה-לנקודה:"
 
 #
 #: ../textw/network_text.py:189 tmp/netpostconfig.glade.h:7
@@ -5108,7 +5113,7 @@ msgstr "הגדרות רשת עבור %s"
 #
 #: ../textw/network_text.py:248 ../textw/network_text.py:251
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "כתובת IP מנקודה לנקודה"
 
 #
 #: ../textw/network_text.py:274 tmp/netpostconfig.glade.h:5
@@ -5135,18 +5140,18 @@ msgstr "כתובת IPv4"
 #
 #: ../textw/network_text.py:331
 msgid "IPv4 network mask"
-msgstr ""
+msgstr "מסכת רשת IPv4"
 
 #
 #: ../textw/network_text.py:357 ../textw/network_text.py:360
 #: ../textw/network_text.py:363
 msgid "IPv4 prefix (network mask)"
-msgstr ""
+msgstr "קידומת IPv4 (מסכת רשת)"
 
 #
 #: ../textw/network_text.py:402 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "גילוי שכנים אוטומטי"
 
 #
 #: ../textw/network_text.py:405 tmp/netpostconfig.glade.h:6
@@ -5209,7 +5214,7 @@ msgstr "DHCP"
 #
 #: ../textw/network_text.py:581
 msgid "Auto IPv6"
-msgstr "IPv6 אוטומטי"
+msgstr "‏IPv6 אוטומטי"
 
 #
 #: ../textw/network_text.py:583
@@ -5284,7 +5289,7 @@ msgstr "חובה לציין ערך"
 #
 #: ../textw/partition_text.py:54
 msgid "Requested value is not an integer"
-msgstr ""
+msgstr "הערך המבוקש אינו מספר שלם"
 
 #
 #: ../textw/partition_text.py:56
@@ -5326,12 +5331,12 @@ msgstr "סוג מערכת הקבצים:"
 #
 #: ../textw/partition_text.py:376
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "כוננים מותרים:"
 
 #
 #: ../textw/partition_text.py:432
 msgid "Fixed Size:"
-msgstr ""
+msgstr "גודל קבוע:"
 
 #
 #: ../textw/partition_text.py:434
@@ -5649,7 +5654,7 @@ msgstr ""
 #
 #: ../textw/partmethod_text.py:34
 msgid "Autopartition"
-msgstr ""
+msgstr "קביעת מחיצות אוטומטית"
 
 #
 #: ../textw/partmethod_text.py:35
@@ -5771,12 +5776,12 @@ msgstr "ססמת מנהל מערכת"
 #
 #: ../textw/userauth_text.py:33
 msgid "Pick a root password. You must type it twice to ensure you know it and do not make a typing mistake. "
-msgstr ""
+msgstr "נא לבחור ססמת root. יש להקלידה פעמיים על מנת להבטיח שהנכם זוכרים אותה ולא טעיתם בהקלדה. "
 
 #
 #: ../textw/userauth_text.py:67
 msgid "The root password must be at least 6 characters long."
-msgstr ""
+msgstr "ססמת root חייבת להיות באורך של 6 תווים לפחות."
 
 #
 #: ../textw/welcome_text.py:28
@@ -6299,7 +6304,7 @@ msgstr "דיסק עדכונים"
 #
 #: ../loader/loader.c:510
 msgid "Failed to mount updates disk"
-msgstr ""
+msgstr "עיגון דיסק העדכונים נכשל"
 
 #
 #: ../loader/loader.c:515
@@ -6314,18 +6319,18 @@ msgstr "קורא את עדכוני anaconda..."
 #
 #: ../loader/loader.c:551
 msgid "Unable to download the updates image.  Please modify the updates location below or press Cancel to proceed without updates.."
-msgstr ""
+msgstr "הורדת קובץ העדכונים נכשלה. יש לעדכן את מיקום העדכונים למטה, או לחלופין לבחור 'בטל' כדי להמשיך ללא העדכונים.."
 
 #
 #: ../loader/loader.c:560
 msgid "Error downloading updates image"
-msgstr ""
+msgstr "שגיאה בהורדת קובץ עדכונים"
 
 #
 #: ../loader/loader.c:1171
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
+msgstr "אין ברשותך מספיק זיכרון להתקנת %s על מחשב זה."
 
 #
 #: ../loader/loader.c:1231
@@ -6350,42 +6355,42 @@ msgstr "שיטת התקנה"
 #
 #: ../loader/loader.c:1356
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "באיזה סוג מדיה נמצא קובץ ההצלה?"
 
 #
 #: ../loader/loader.c:1358
 msgid "What type of media contains the installation image?"
-msgstr ""
+msgstr "באיזה סוג מדיה נמצא קובץ ההתקנה?"
 
 #
 #: ../loader/loader.c:1389
 msgid "No driver found"
-msgstr ""
+msgstr "מנהל התקן לא נמצא"
 
 #
 #: ../loader/loader.c:1389
 msgid "Select driver"
-msgstr ""
+msgstr "בחירת מנהל התקן"
 
 #
 #: ../loader/loader.c:1390
 msgid "Use a driver disk"
-msgstr ""
+msgstr "השתמש בדיסק המכיל מנהלי התקנים"
 
 #
 #: ../loader/loader.c:1391
 msgid "Unable to find any devices of the type needed for this installation type.  Would you like to manually select your driver or use a driver disk?"
-msgstr ""
+msgstr "לא נמצאו התקנים המתאימים לסוג ההתקנה שנבחר. האם ברצונך לבחור ידנית מנהל התקן או לספק דיסק המכיל מנהלי התקן?"
 
 #
 #: ../loader/loader.c:1652
 msgid "The following devices have been found on your system."
-msgstr ""
+msgstr "ההתקנים הבאים נמצאו במערכת שלך."
 
 #
 #: ../loader/loader.c:1654
 msgid "No device drivers have been loaded for your system.  Would you like to load any now?"
-msgstr ""
+msgstr "לא נטענו מנהלי התקנים עבור המערכת שלך. האם ברצונך לטעון כעת?"
 
 #
 #: ../loader/loader.c:1658
@@ -6395,7 +6400,7 @@ msgstr "התקנים"
 #
 #: ../loader/loader.c:1659
 msgid "Done"
-msgstr "הסתיים"
+msgstr "בוצע"
 
 #
 #: ../loader/loader.c:1660
@@ -6589,27 +6594,27 @@ msgstr "התקן רשת"
 #
 #: ../loader/net.c:1538
 msgid "You have multiple network devices on this system. Which would you like to install through?"
-msgstr ""
+msgstr "במערכת זו קיימים כמה התקני רשת. באיזה מהם ברצונך להשתמש להתקנה?"
 
 #
 #: ../loader/net.c:1542
 msgid "Identify"
-msgstr ""
+msgstr "זיהוי"
 
 #
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "ניתן לזהות את החיבור הפיזי עבור"
 
 #
 #: ../loader/net.c:1553
 msgid "by flashing the LED lights for a number of seconds.  Enter a number between 1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "בעזרת הבהוב נורית LED למספר שניות. יש להזין מספר בין 1 ל-‏30 לקביעת משך ההבהוב נורית ה-LED הצמודה ליציאה הרצויה."
 
 #
 #: ../loader/net.c:1563
 msgid "Identify NIC"
-msgstr ""
+msgstr "זיהוי יציאת רשת"
 
 #
 #: ../loader/net.c:1576
@@ -6619,13 +6624,13 @@ msgstr "משך זמן לא חוקי"
 #
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "עליך להזין את מספר השניות כמספר שלם בין 1 ל-‏30."
 
 #
 #: ../loader/net.c:1589
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "הבהוב נוריות יציאת הרשת %s למשך %d שניות..."
 
 #
 #: ../loader/net.c:1740 ../loader/net.c:1744
@@ -6690,18 +6695,18 @@ msgstr "ממתין לחיבור telnet..."
 #
 #: ../loader/telnetd.c:128
 msgid "Running anaconda via telnet..."
-msgstr ""
+msgstr "מפעיל את תכנת ההתקנה דרך חיבור telnet..."
 
 #
 #: ../loader/urlinstall.c:84
 #, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr ""
+msgstr "הורדת %s://%s%s נכשלה."
 
 #
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
-msgstr ""
+msgstr "הורדת קובץ ההתקנה נכשלה."
 
 #
 #: ../loader/urlinstall.c:422
@@ -6760,7 +6765,7 @@ msgstr "שם המחשב %s אינו חוקי."
 #
 #: ../loader/windows.c:65
 msgid "Loading SCSI driver"
-msgstr ""
+msgstr "טעינת מנהל התקן SCSI"
 
 #
 #: ../loader/windows.c:66
@@ -6786,7 +6791,7 @@ msgstr ""
 #
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "הוספת מטרת _iSCSI"
 
 #
 #: tmp/adddrive.glade.h:4
@@ -6801,12 +6806,12 @@ msgstr "_הוספת כונן"
 #
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _name:</b>"
-msgstr "<b>_שם המאגר:</b>"
+msgstr "‏<b>_שם המאגר:</b>"
 
 #
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _type:</b>"
-msgstr "<b>_סוג המאגר:</b>"
+msgstr "‏<b>_סוג המאגר:</b>"
 
 #
 #: tmp/addrepo.glade.h:4
@@ -6950,7 +6955,7 @@ msgstr "סדר כונני BIOS"
 #
 #: tmp/blwhere.glade.h:3
 msgid "Boot loader device"
-msgstr ""
+msgstr "התקן מנהל האתחול"
 
 #
 #: tmp/blwhere.glade.h:4
@@ -7008,6 +7013,8 @@ msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"דיסק מקומי\n"
+"שרת מרוחק (scp)"
 
 #
 #: tmp/exnSave.glade.h:5
@@ -7073,38 +7080,38 @@ msgstr "dialog1"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #
 #: tmp/instkey.glade.h:4
 #, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr ""
+msgstr "יש להזין ‎%(instkey)s."
 
 #
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
-msgstr "<b>ססמה:</b>"
+msgstr "‏<b>ססמה:</b>"
 
 #
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "‏<b>_כתובת IP של המטרה:</b>"
 
 #
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
-msgstr "<b>שם _משתמש:</b>"
+msgstr "‏<b>שם _משתמש:</b>"
 
 #
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "‏<b>שם מאתחל iSCSI:‏</b>"
 
 #
 #: tmp/iscsi-config.glade.h:7
 msgid "_Add target"
-msgstr ""
+msgstr "_הוספת מטרה"
 
 #
 #: tmp/liveinst.desktop.in.h:1
@@ -7114,7 +7121,7 @@ msgstr "התקנה"
 #
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "התקנת live CD לכונן הקשיח"
 
 #
 #: tmp/liveinst.desktop.in.h:3
@@ -7384,7 +7391,7 @@ msgstr "איסלנדית"
 #
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "איוקו"
 
 #
 #. generated from lang-table
@@ -7404,7 +7411,7 @@ msgstr "יפנית"
 #
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "קאנאדה"
 
 #
 #. generated from lang-table
@@ -7439,7 +7446,7 @@ msgstr "נורווגית"
 #
 #. generated from lang-table
 msgid "Northern Sotho"
-msgstr ""
+msgstr "סות'ו הצפונית"
 
 #
 #. generated from lang-table
@@ -7494,7 +7501,7 @@ msgstr "סרבית(לטינית)"
 #
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "סינהלה"
 
 #
 #. generated from lang-table
@@ -8219,4 +8226,3 @@ msgstr "זולו"
 #
 #~ msgid "southwest Mali"
 #~ msgstr "דרום מערב מאלי"
-
