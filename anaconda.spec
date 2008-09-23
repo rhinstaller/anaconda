@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.38
+Version: 11.4.1.39
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,10 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 22 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.39-1
+- Fix a traceback when getting the interface settings (#462592). (clumens)
+- self.anaconda -> anaconda (clumens)
+
 * Sat Sep 20 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.38-1
 - Restore old lang-names generation method (dcantrell)
 - Remount /mnt/sysimage/dev after migrating filesystems. (clumens)
