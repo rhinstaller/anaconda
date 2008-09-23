@@ -339,7 +339,7 @@ char * mountHardDrive(struct installMethod * method,
          */
         substr = strstr(dir, ".img");
         if (!substr || (substr && *(substr+4) != '\0')) {
-            if (asprintf(&dir, "%s/install.img", dir) == -1) {
+            if (asprintf(&dir, "%s/images/install.img", dir) == -1) {
                 logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
