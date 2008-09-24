@@ -175,11 +175,12 @@ class NetworkConfiguratorText:
             netdev = self.anaconda.id.network.available()[cur]
 
             if self.dhcpCheckbox.selected():
-                netdev.set(("bootproto", "dhcp"))
+                netdev.set(("BOOTPROTO", "dhcp"))
+                netdev.set(("ONBOOT", "yes"))
                 w = self.anaconda.intf.waitWindow(_("Dynamic IP"),
                         _("Sending request for IP information "
                           "for %s...") % netdev.get("device"))
-                netdev.bringDeviceUp()
+                self.network.bringUp()
                 w.pop()
                 break
             else:
@@ -241,7 +242,7 @@ class NetworkConfiguratorText:
                     continue
 
                 try:
-                    netdev.bringDeviceUp()
+                    self.network.bringUp()
                 except Exception, e:
                     import logging
                     log = logging.getLogger("anaconda")

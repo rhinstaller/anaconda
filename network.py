@@ -385,10 +385,6 @@ class Network:
             return None
 
         if not hasActiveNetDev():
-            for dev in self.netdevices.values():
-                dev.bringDeviceUp()
-
-        if not hasActiveNetDev():
             log.warning("no network devices were available to look up host name")
             return None
 
@@ -637,5 +633,5 @@ class Network:
 
     # write out current configuration state and wait for NetworkManager
     # to bring the device up
-    def bringDeviceUp(self):
+    def bringUp(self):
         self.write()

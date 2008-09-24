@@ -143,15 +143,7 @@ def startNetworking(network, intf):
         log.error("Error trying to start lo in rescue.py::startNetworking()")
 
     # start up dhcp interfaces first
-    devs = network.netdevices.keys()
-    devs.sort()
-    for devname in devs:
-        dev = network.netdevices[devname]
-        waitwin = intf.waitWindow(_("Starting Interface"),
-                                  _("Attempting to start %s") % (dev.get('device'),))
-        log.info("Attempting to start %s", dev.get('DEVICE'))
-        dev.bringDeviceUp()
-        waitwin.pop()
+    network.bringUp()
 
 def runShell(screen = None, msg=""):
     if screen:

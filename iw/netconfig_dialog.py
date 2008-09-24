@@ -184,11 +184,12 @@ class NetworkConfigurator:
         # FIXME: need to do input validation
         if self.xml.get_widget("dhcpCheckbutton").get_active():
             netdev.set(('BOOTPROTO', 'dhcp'))
+            netdev.set(('ONBOOT', 'yes'))
             self.window.hide()
             w = gui.WaitWindow(_("Dynamic IP"),
                                _("Sending request for IP information "
                                  "for %s...") %(netdev.get("device")))
-            netdev.bringDeviceUp()
+            self.network.bringUp()
             w.pop()
             self.rc = gtk.RESPONSE_OK
         else:
@@ -251,7 +252,7 @@ class NetworkConfigurator:
 
 
             try:
-                netdev.bringDeviceUp()
+                self.network.bringUp()
             except Exception, e:
                 import logging
                 log = logging.getLogger("anaconda")
