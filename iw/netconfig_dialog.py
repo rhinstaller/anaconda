@@ -127,8 +127,7 @@ class NetworkConfigurator:
             else:
                 desc = "%s" %(dev,)
             store[i] = (desc, dev)
-            if dev == self.network.firstnetdevice:
-                combo.set_active_iter(i)
+        combo.set_active_iter(0)
 
     def run(self):
         gui.addFrame(self.window)

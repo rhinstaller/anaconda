@@ -224,7 +224,6 @@ class NetworkDevice(SimpleConfigFile):
 
 class Network:
     def __init__(self):
-        self.firstnetdevice = None
         self.netdevices = {}
         self.domains = []
         self.hostname = socket.gethostname()
@@ -310,9 +309,6 @@ class Network:
                 except:
                     continue
 
-            if not oneactive:
-                self.netdevices[self.firstnetdevice].set(("ONBOOT", "yes"))
-
     def readIfcfgContents(self, dev):
         ifcfg = "/etc/sysconfig/network-scripts/ifcfg-%s" % (dev,)
         contents = {}
@@ -339,9 +335,6 @@ class Network:
     def getDevice(self, device):
         return self.netdevices[device]
 
-    def getFirstDeviceName(self):
-        return self.firstnetdevice
-
     def available(self):
         # XXX: this should use NetworkManager
         for device in minihal.get_devices_by_type("net"):
@@ -350,17 +343,12 @@ class Network:
                     dev = device['device']
                     if not self.netdevices.has_key(dev):
                         self.netdevices[dev] = NetworkDevice(dev);
-                    if self.firstnetdevice is None:
-                        self.firstnetdevice = dev
                     self.netdevices[dev].set(('hwaddr', device['net.address']))
                     self.netdevices[dev].set(('desc', device['description']))
 
         ksdevice = None
         if flags.cmdline.has_key("ksdevice"):
             ksdevice = flags.cmdline["ksdevice"]
-
-        if ksdevice and self.netdevices.get(ksdevice) != '':
-            self.firstnetdevice = ksdevice
 
         return self.netdevices
 

@@ -101,7 +101,10 @@ class VncServer:
 
         # Look for the first configured interface and use its IP address for
         # the computer to connect to.
-        dev = netinfo.getFirstDeviceName()
+        devices = netinfo.netdevices
+        list = devices.keys()
+        list.sort()
+        dev = devices[list[0]]
 
         try:
             self.ip = isys.getIPAddress(dev)
