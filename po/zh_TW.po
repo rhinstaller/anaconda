@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-03 14:58+1000\n"
+"PO-Revision-Date: 2008-09-24 14:26+1000\n"
 "Last-Translator: Terry Chuang <tchuang@redhat.com>\n"
 "Language-Team: Traditional Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "處理 %%ksappend 行時發生錯誤：%s"
 #: ../anaconda:291 ../anaconda:337
 #, c-format
 msgid "Unknown error processing %%ksappend lines: %s"
-msgstr "處理 %%ksappend 行時發生未知錯誤：%s"
+msgstr "處理 %%ksappend 行時發生不明錯誤：%s"
 
 #: ../anaconda:305 ../anaconda:349 ../cmdline.py:85 ../gui.py:1279
 #: ../text.py:561
@@ -168,7 +168,7 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
-"開機分割區 %s 並不屬於欲安裝開機管理程式，而起始處有足夠剩餘空間的磁碟。 請確"
+"開機分割區 %s 並不屬於欲安裝開機管理程式，而起始處有足夠剩餘空間的磁碟。請確"
 "定在包含 /boot 的磁碟起始處有至少 5MB 的剩餘空間"
 
 #: ../autopart.py:1066
@@ -176,7 +176,7 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr "Boot 分割區 %s 不是 VFAT 分割區。 EFI 將無法從這個分割區開機。"
+msgstr "Boot 分割區 %s 不是 VFAT 分割區。EFI 將無法從這個分割區開機。"
 
 #: ../autopart.py:1068
 msgid ""
@@ -418,7 +418,7 @@ msgstr "傳送安裝映像檔到硬碟時發生錯誤。這可能是因為媒介
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr "傳送安裝映像檔到硬碟時發生錯誤。 你的硬碟空間可能不夠。"
+msgstr "傳送安裝映像檔到硬碟時發生錯誤。你的硬碟空間可能不夠。"
 
 #: ../backend.py:169 ../fsset.py:670 ../fsset.py:1683 ../fsset.py:1714
 #: ../fsset.py:1790 ../fsset.py:1858 ../fsset.py:1908 ../fsset.py:1997
@@ -502,7 +502,7 @@ msgstr "正在安裝開機管理程式..."
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr "您的系統沒有安裝核心套件。 您的開機管理程式設定將不會變動。"
+msgstr "您的系統沒有安裝核心套件。您的開機管理程式設定將不會變動。"
 
 #: ../cmdline.py:54
 msgid "Completed"
@@ -688,7 +688,7 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
-"轉換 %s 至 ext3 時發生錯誤。 若選擇不轉換則可以繼續安裝下去。\n"
+"轉換 %s 至 ext3 時發生錯誤。若選擇不轉換則可以繼續安裝下去。\n"
 "\n"
 "您要選擇不轉換 %s ，繼續安裝嗎？"
 
@@ -1024,7 +1024,7 @@ msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
-"儲存螢幕截圖時發生錯誤。 假如這發生在套件安裝階段，您也許需要多試幾次才能成"
+"儲存螢幕截圖時發生錯誤。假如這發生在套件安裝階段，您也許需要多試幾次才能成"
 "功。"
 
 #: ../gui.py:233 ../text.py:586
@@ -1471,7 +1471,7 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"裝置 %s 為 LDL 格式化的，非為 CDL 格式化的。  在 %s 的安裝過程中，並不支援 使"
+"裝置 %s 為 LDL 格式化的，非為 CDL 格式化的。在 %s 的安裝過程中，並不支援 使"
 "用 LDL 格式化的 DASDs，如要使用這個磁碟來進行安裝，必須先初始化磁碟，這將 會"
 "造成磁碟上「所有資料」的流失。\n"
 "\n"
@@ -1518,7 +1518,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"無法讀取 %s 裝置上的磁碟分割表。 要建立新分割區必須先初始化分割表，這將會造成"
+"無法讀取 %s 裝置上的磁碟分割表。要建立新分割區必須先初始化分割表，這將會造成"
 "磁碟上所有的資料流失。\n"
 "\n"
 "這個操作將會強制覆寫之前任何關於要忽略那一個磁碟的安裝選擇。\n"
@@ -1563,7 +1563,7 @@ msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
-"發生錯誤 - 找不到可用來建立新檔案系統的磁碟機。 請檢查您的硬體以找出問題發生"
+"發生錯誤 - 找不到可用來建立新檔案系統的磁碟機。請檢查您的硬體以找出問題發生"
 "的原因。"
 
 #: ../partIntfHelpers.py:43
@@ -1584,7 +1584,7 @@ msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"錯誤 - 卷冊群組名稱包含不合規格的字元或空白。  可使用的字元是字母、數字、'.' "
+"錯誤 - 卷冊群組名稱包含不合規格的字元或空白。可使用的字元是字母、數字、'.' "
 "或 '_'。"
 
 #: ../partIntfHelpers.py:65
@@ -1605,7 +1605,7 @@ msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"錯誤 - 邏輯卷冊名稱包含不合規格的字元或空白。  可使用的字元是字母、數字、'.' "
+"錯誤 - 邏輯卷冊名稱包含不合規格的字元或空白。可使用的字元是字母、數字、'.' "
 "或 '_'。"
 
 #: ../partIntfHelpers.py:103
@@ -1786,7 +1786,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"您的磁碟分割發生下列嚴重錯誤。 這些錯誤必須在您繼續安裝 %s 前先更正。\n"
+"您的磁碟分割發生下列嚴重錯誤。這些錯誤必須在您繼續安裝 %s 前先更正。\n"
 "\n"
 "%s"
 
@@ -1871,7 +1871,7 @@ msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr "您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
+msgstr "您選擇的磁碟分割選項已經啟動了。您無法再回到磁碟編輯視窗。您想要繼續安裝嗎？"
 
 #: ../partitions.py:130
 #, python-format
@@ -2018,7 +2018,7 @@ msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
-"您尚未指定 swap 分割區。 雖然並沒有強制規定一定要有，但有的話對安裝效率會有很"
+"您尚未指定 swap 分割區。雖然並沒有強制規定一定要有，但有的話對安裝效率會有很"
 "大的改善。"
 
 #: ../partitions.py:1337
@@ -2026,14 +2026,14 @@ msgstr ""
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr "您指定了超過 32 個 swap 裝置。 %s 的核心只支援 32 個。"
+msgstr "您指定了超過 32 個 swap 裝置。%s 的核心只支援 32 個。"
 
 #: ../partitions.py:1348
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr "您配置了比您系統記憶體（%dM）還要少的 swap 空間（%dM）。 這可能會影響效能。"
+msgstr "您配置了比您系統記憶體（%dM）還要少的 swap 空間（%dM）。這可能會影響效能。"
 
 #: ../partitions.py:1655
 msgid "the partition in use by the installer."
@@ -2055,7 +2055,7 @@ msgstr "%s 掛載點必須在即時的光碟安裝時進行格式化。"
 #: ../partRequests.py:284
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr "掛載點無效。  %s 目錄必須在 / 檔案系統上。"
+msgstr "掛載點無效。%s 目錄必須在 / 檔案系統上。"
 
 #: ../partRequests.py:287
 #, python-format
@@ -2117,7 +2117,7 @@ msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
-"這個磁碟陣列裝置最多能有 %s 個備援裝置（spares）。 想要有更多的備援裝置，您必須"
+"這個磁碟陣列裝置最多能有 %s 個備援裝置（spares）。想要有更多的備援裝置，您必須"
 "新增成員至磁碟陣列裝置中。"
 
 #: ../partRequests.py:1033
@@ -2178,8 +2178,8 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"緊急救援環境會自動幫您找 Linux 安裝的地方並幫您掛載在 %s 目錄下。 您可以視需"
-"求做任何的變更。 若您想要執行這個步驟，請選擇 「繼續」。 您也可以選取「只能讀"
+"緊急救援環境會自動幫您找 Linux 安裝的地方並幫您掛載在 %s 目錄下。您可以視需"
+"求做任何的變更。若您想要執行這個步驟，請選擇 「繼續」。您也可以選取「只能讀"
 "取」來掛載您的檔案系統為只能讀取而不是可以讀寫。\n"
 "\n"
 "若有其他原因造成執行失敗，您可以選擇「跳過」，系統將會帶您進入命令列狀態。\n"
@@ -2195,7 +2195,7 @@ msgstr "要救援的系統"
 
 #: ../rescue.py:344
 msgid "What partition holds the root partition of your installation?"
-msgstr "您的 Linux 安裝在那一個分割區呢?"
+msgstr "您的 Linux 安裝在那一個分割區呢？"
 
 #: ../rescue.py:346 ../rescue.py:350 ../text.py:716 ../text.py:718
 msgid "Exit"
@@ -2207,8 +2207,8 @@ msgid ""
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"您選擇不要掛載在系統的分割區有問題。 按 return 鍵以取得 shell，您可以執行 "
-"fsck 然後掛載分割區。 當您退出 shell 後，系統將自動重新啟動。"
+"您選擇不要掛載在系統的分割區有問題。按 return 鍵以取得 shell，您可以執行 "
+"fsck 然後掛載分割區。當您退出 shell 後，系統將自動重新啟動。"
 
 #: ../rescue.py:383
 #, python-format
@@ -2224,7 +2224,7 @@ msgid ""
 msgstr ""
 "您的系統被掛載在 %s。\n"
 "\n"
-"請按 <return> 進入 shell。 若您想使您的系統成為 root 環境，請執行下列指令：\n"
+"請按 <return> 進入 shell。若您想使您的系統成為 root 環境，請執行下列指令：\n"
 "\n"
 "\tchroot %s\n"
 "\n"
@@ -2239,9 +2239,9 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"在掛載您的系統時發生錯誤。 有些分割區可能已經掛載於 %s。\n"
+"在掛載您的系統時發生錯誤。有些分割區可能已經掛載於 %s。\n"
 "\n"
-"請按 <return> 取得 shell。 當您離開 shell 時，系統將會自動重新啟動。"
+"請按 <return> 取得 shell。當您離開 shell 時，系統將會自動重新啟動。"
 
 #: ../rescue.py:473
 msgid "Rescue Mode"
@@ -2252,7 +2252,7 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"您沒有任何的 Linux 分割區。按 return 鍵以取得 shell。 當您退出 shell 後，系統"
+"您沒有任何的 Linux 分割區。按 return 鍵以取得 shell。當您退出 shell 後，系統"
 "將自動重新啟動。"
 
 #: ../rescue.py:487
@@ -2375,12 +2375,12 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
-"您選擇要升級的檔案系統已經掛載了。 過了這步安裝階段，將無法再來這裡。\n"
+"您選擇要升級的檔案系統已經掛載了。過了這步安裝階段，將無法再來這裡。\n"
 "\n"
 
 #: ../upgrade.py:117
 msgid "Would you like to continue with the upgrade?"
-msgstr "您想要繼續升級系統嗎?"
+msgstr "您想要繼續升級系統嗎？"
 
 #: ../upgrade.py:215 ../upgrade.py:223
 msgid "Dirty File Systems"
@@ -2394,7 +2394,7 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"在你的 Linux 系統上有下列的檔案系統沒有完整的卸載。 請重新開機繼續安裝程式，"
+"在你的 Linux 系統上有下列的檔案系統沒有完整的卸載。請重新開機繼續安裝程式，"
 "並且讓安裝程式自動檢查檔案系統，再來正常關機以進行系統升級。\n"
 "%s"
 
@@ -2405,7 +2405,7 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"在你的 Linux 系統上有下列的檔案系統沒有完整的卸載。 您還是想要掛載它們嗎？\n"
+"在你的 Linux 系統上有下列的檔案系統沒有完整的卸載。您還是想要掛載它們嗎？\n"
 "%s"
 
 #: ../upgrade.py:365 ../upgrade.py:371
@@ -2417,7 +2417,7 @@ msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"一個或多個列在 /etc/fstab 中的檔案系統無法掛載到您的 Linux 系統上。 請修正這"
+"一個或多個列在 /etc/fstab 中的檔案系統無法掛載到您的 Linux 系統上。請修正這"
 "個問題並試著再升級一次。"
 
 #: ../upgrade.py:372
@@ -2426,7 +2426,7 @@ msgid ""
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
-"一個或多個列在 /etc/fstab  中的檔案系統無法掛載到您的 Linux 系統上。 請修正這"
+"一個或多個列在 /etc/fstab  中的檔案系統無法掛載到您的 Linux 系統上。請修正這"
 "個問題並試著再升級一次。"
 
 #: ../upgrade.py:389
@@ -2436,7 +2436,7 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
-"下列檔案為絕對符號連結（absolute symbolic links），在升級時並不支援。 請改成"
+"下列檔案為絕對符號連結（absolute symbolic links），在升級時並不支援。請改成"
 "相對符號連結（relative symbolic links）後再重新執行升級。\n"
 "\n"
 
@@ -3602,7 +3602,7 @@ msgstr "網路設定"
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
-msgstr "您還未指定主機名稱。 取決於您的網路環境，這也許會導致問題的發生。"
+msgstr "您還未指定主機名稱。取決於您的網路環境，這也許會導致問題的發生。"
 
 #: ../iw/network_gui.py:154
 #, python-format
@@ -3636,7 +3636,7 @@ msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
-"您沒有使用中的網路裝置。  預設下，如沒有至少一個使用中的裝置，您的系統將無法"
+"您沒有使用中的網路裝置。預設下，如沒有至少一個使用中的裝置，您的系統將無法"
 "使用網路通訊。"
 
 #: ../iw/network_gui.py:299 ../iw/network_gui.py:313
@@ -4008,8 +4008,8 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
-"軟體 RAID 讓您可以結合許多磁碟成為一個較大的 RAID 裝置。  比起使用單獨的磁"
-"碟，RAID 裝置可以設定為提供額外的速度與可靠性。  如需關於使用 RAID 裝置的更多"
+"軟體 RAID 讓您可以結合許多磁碟成為一個較大的 RAID 裝置。比起使用單獨的磁"
+"碟，RAID 裝置可以設定為提供額外的速度與可靠性。如需關於使用 RAID 裝置的更多"
 "資訊，請參閱 %s 說明文件。\n"
 "\n"
 "您目前可以使用 %s 軟體 RAID 分割區。\n"
@@ -4022,7 +4022,7 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
-"如要使用 RAID，您必須首先建立至少兩個「軟體 RAID」類型的分割區。 然後您便可以"
+"如要使用 RAID，您必須首先建立至少兩個「軟體 RAID」類型的分割區。然後您便可以"
 "建立可格式化與被掛載的 RAID 裝置。\n"
 "\n"
 
@@ -4165,7 +4165,7 @@ msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
-"來源磁碟沒有要複製的分割區。  在做磁碟複製之前，您必須在該磁碟上先定義「軟體 "
+"來源磁碟沒有要複製的分割區。在做磁碟複製之前，您必須在該磁碟上先定義「軟體 "
 "RAID」類型的分割區。"
 
 #: ../iw/raid_dialog_gui.py:570 ../iw/raid_dialog_gui.py:576
@@ -4271,7 +4271,7 @@ msgstr "複製磁碟"
 
 #: ../iw/raid_dialog_gui.py:741
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr "清除目的磁碟時發生錯誤。 磁碟複製失敗。"
+msgstr "清除目的磁碟時發生錯誤。磁碟複製失敗。"
 
 #: ../iw/raid_dialog_gui.py:775
 msgid ""
@@ -4629,7 +4629,7 @@ msgid ""
 msgstr ""
 "若您系統的 BIOS 不支援而強制使用 LBA32 的話，這將會導致您的機器無法開機。\n"
 "\n"
-"您確定要繼續，並強制使用 LBA32 模式嗎?"
+"您確定要繼續，並強制使用 LBA32 模式嗎？"
 
 #: ../textw/bootloader_text.py:169
 msgid "Where do you want to install the boot loader?"
@@ -5673,7 +5673,7 @@ msgstr "驅動程式磁片來源"
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
-msgstr "你的系統有多個裝置可當作驅動程式磁片的來源。 您想要使用那一個？"
+msgstr "你的系統有多個裝置可當作驅動程式磁片的來源。您想要使用那一個？"
 
 #: ../loader/driverdisk.c:273
 msgid ""
@@ -5729,7 +5729,7 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
-"在這片驅動程式磁片上找不到適當的裝置類型。 您想要手動選取驅動程式或繼續進行，"
+"在這片驅動程式磁片上找不到適當的裝置類型。您想要手動選取驅動程式或繼續進行，"
 "或者要放入另一片驅動程式磁片？"
 
 #: ../loader/driverdisk.c:485
@@ -5761,7 +5761,7 @@ msgstr "Kickstart 錯誤"
 #: ../loader/driverdisk.c:542
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "未知的 kickstart 驅動程式磁片來源：%s"
+msgstr "不明的 kickstart 驅動程式磁片來源：%s"
 
 #: ../loader/driverdisk.c:579
 #, c-format
@@ -5777,7 +5777,7 @@ msgid ""
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
-"請輸入您想要傳送到 %s 模組的任何參數（請以空白分隔）。 如果您不知道該加什麼參"
+"請輸入您想要傳送到 %s 模組的任何參數（請以空白分隔）。如果您不知道該加什麼參"
 "數， 請按「確定」鈕來跳過這個畫面。"
 
 #: ../loader/driverselect.c:91
@@ -5936,7 +5936,7 @@ msgstr "更新磁片來源"
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
-msgstr "您的系統有多個裝置可以當作更新磁片的來源。 您想要使用那一個？"
+msgstr "您的系統有多個裝置可以當作更新磁片的來源。您想要使用那一個？"
 
 #: ../loader/loader.c:469
 msgid ""
@@ -6049,7 +6049,7 @@ msgstr "新增裝置"
 #: ../loader/loader.c:1847
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "已經執行載入程式。 正在啟動 shell 。\n"
+msgstr "已經執行載入程式。正在啟動 shell 。\n"
 
 #: ../loader/loader.c:2186
 #, c-format
@@ -6080,7 +6080,7 @@ msgstr "正在檢查媒體..."
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr "無法從主卷冊描述中讀取磁碟數值。 這也許表示在建立此磁碟時沒有加上檢測值資訊。"
+msgstr "無法從主卷冊描述中讀取磁碟數值。這也許表示在建立此磁碟時沒有加上檢測值資訊。"
 
 #: ../loader/mediacheck.c:109
 msgid ""
@@ -6088,8 +6088,8 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"剛剛測試的影像檔的有錯誤，可能是下載檔或碟片已損壞。 如果可能的話，請清潔您的"
-"碟片，然後再試一次。 假如這個測試再次失敗，您不應該繼續安裝。"
+"剛剛測試的影像檔的有錯誤，可能是下載檔或碟片已損壞。如果可能的話，請清潔您的"
+"碟片，然後再試一次。假如這個測試再次失敗，您不應該繼續安裝。"
 
 #: ../loader/mediacheck.c:117
 msgid "Success"
@@ -6218,7 +6218,7 @@ msgstr "網路裝置"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr "你的系統有多個網路裝置。 您想要透過那一個安裝？"
+msgstr "你的系統有多個網路裝置。您想要透過那一個安裝？"
 
 #: ../loader/net.c:1542
 msgid "Identify"
@@ -6325,7 +6325,7 @@ msgstr "必須提供一個 --url 引數給 Url 的 kickstart 方式。"
 #: ../loader/urlinstall.c:440
 #, c-format
 msgid "Unknown Url method %s"
-msgstr "未知的 Url 方式 %s"
+msgstr "不明的 Url 方式 %s"
 
 #: ../loader/urls.c:235 ../loader/urls.c:237 ../loader/urls.c:240
 msgid "Retrieving"
@@ -6350,7 +6350,7 @@ msgstr "URL 必須是 ftp 或 http 網址"
 
 #: ../loader/urls.c:346
 msgid "Unknown Host"
-msgstr "未知的主機"
+msgstr "不明主機"
 
 #: ../loader/urls.c:347
 #, c-format
