@@ -143,7 +143,8 @@ def startNetworking(network, intf):
         log.error("Error trying to start lo in rescue.py::startNetworking()")
 
     # start up dhcp interfaces first
-    network.bringUp()
+    if not network.bringUp():
+        log.error("Error bringing up network interfaces")
 
 def runShell(screen = None, msg=""):
     if screen:
