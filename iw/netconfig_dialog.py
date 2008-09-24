@@ -119,6 +119,7 @@ class NetworkConfigurator:
         netdevs = self.network.available()
         devs = netdevs.keys()
         devs.sort()
+        first = None
         for dev in devs:
             i = store.append(None)
             desc = netdevs[dev].get("desc")
@@ -127,7 +128,9 @@ class NetworkConfigurator:
             else:
                 desc = "%s" %(dev,)
             store[i] = (desc, dev)
-        combo.set_active_iter(0)
+            if first is None:
+                first = i
+        combo.set_active_iter(first)
 
     def run(self):
         gui.addFrame(self.window)
