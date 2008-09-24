@@ -28,6 +28,7 @@ import isys
 import iutil
 import socket
 import os
+import time
 import minihal
 import rhpl
 import dbus
@@ -621,6 +622,25 @@ class Network:
             f.close()
 
     # write out current configuration state and wait for NetworkManager
-    # to bring the device up
+    # to bring the device up, watch NM state and return to the caller
+    # once we have a state
     def bringUp(self):
         self.write()
+
+        bus = dbus.SystemBus()
+        nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+        props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
+
+        i = 45
+        while i < 45:
+            state = props.Get(isys.NM_SERVICE, "State")
+            if int(state) == isys.NM_STATE_CONNECTED:
+                return True
+            i += 1
+            time.sleep(1)
+
+        state = props.Get(isys.NM_SERVICE, "State")
+        if int(state) == isys.NM_STATE_CONNECTED:
+            return True
+
+        return False
