@@ -1383,7 +1383,7 @@ def doAutoPartition(anaconda):
             # and the request is a PV, encrypt it
             if partitions.autoEncrypt and req.type == REQUEST_NEW and \
                isinstance(req.fstype, fsset.lvmPhysicalVolumeDummyFileSystem):
-                req.encryption = cryptodev.LUKSDevice(passphrase=partitions.autoEncryptPass, format=1)
+                req.encryption = cryptodev.LUKSDevice(passphrase=partitions.encryptionPassphrase, format=1)
 
             # if this is a multidrive request, we need to create one per drive
             if req.type == REQUEST_NEW and req.multidrive:
