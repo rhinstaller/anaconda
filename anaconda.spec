@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.130
+Version: 11.1.2.131
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -106,6 +106,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 25 2008 Chris Lumens <clumens@redhat.com> 11.1.2.131-1
+- Fix rescue mode typo.
+  Resolves: rhbz#463920
+- Fix traceback accessing obsolete data member (dlehman).
+  Resolves: rhbz#463778
+
 * Tue Sep 23 2008 Chris Lumens <clumens@redhat.com> 11.1.2.130-1
 - Fix the test for if we should remove the Virt group.
   Resolves: rhbz#462907.
