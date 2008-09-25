@@ -631,16 +631,18 @@ class Network:
         nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
         props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
 
-        i = 45
+        i = 0
         while i < 45:
             state = props.Get(isys.NM_SERVICE, "State")
             if int(state) == isys.NM_STATE_CONNECTED:
+                isys.resetResolv()
                 return True
             i += 1
             time.sleep(1)
 
         state = props.Get(isys.NM_SERVICE, "State")
         if int(state) == isys.NM_STATE_CONNECTED:
+            isys.resetResolv()
             return True
 
         return False

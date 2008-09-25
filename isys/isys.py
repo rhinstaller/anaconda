@@ -725,6 +725,9 @@ def compareNetDevices(first, second):
     else:
         return 0
 
+def resetResolv():
+    return _isys.resetresolv()
+
 def getDeviceByToken(token, value):
     return _isys.getdevicebytoken(token, value)
 
