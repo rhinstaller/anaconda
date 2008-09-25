@@ -158,106 +158,95 @@ class NetworkConfiguratorText:
         self._ipv4Toggled()
         self._ipv6Toggled()
 
+        netdevs = self.anaconda.id.network.available()
+
         while True:
             result = grid.run()
 
             if result == TEXT_BACK_BUTTON:
                 break
 
-            cur = self.interfaceList.getCurrent()
-            if cur:
-                cur = cur.split()[0]
-            else:
+            selected = map(lambda x: x.split()[0], self.interfaceList.getSelection())
+            if selected is None or selected == []:
                 self.anaconda.intf.messageWindow(_("Missing Device"),
                                                  _("You must select a network device"))
                 continue
 
-            netdev = self.anaconda.id.network.available()[cur]
-
-            if self.dhcpCheckbox.selected():
-                netdev.set(("BOOTPROTO", "dhcp"))
-                netdev.set(("ONBOOT", "yes"))
-                w = self.anaconda.intf.waitWindow(_("Dynamic IP"),
-                        _("Sending request for IP information "
-                          "for %s...") % netdev.get("device"))
-                self.network.bringUp()
-                w.pop()
-                break
-            else:
-                ipv4addr = self.ipv4Address.value()
-                ipv4nm = self.ipv4Netmask.value()
-                gateway = self.gatewayEntry.value()
-                ns = self.nameserverEntry.value()
-
-                try:
-                    network.sanityCheckIPString(ipv4addr)
-                    netdev.set(("ipaddr", ipv4addr))
-                except network.IPMissing, msg:
-                    self._handleIPMissing(_("IP Address"))
-                    continue
-                except network.IPError, msg:
-                    self._handleIPError(_("IP Address"), msg)
+            for devname in selected:
+                if not netdevs.has_key(devname):
                     continue
 
-                if ipv4nm.find('.') == -1:
-                    # user provided a CIDR prefix
-                    try:
-                        if int(ipv4nm) > 32 or int(ipv4nm) < 0:
-                            msg = _("IPv4 CIDR prefix must be between 0 and 32.")
-                            self._handleIPError(_("IPv4 Network Mask"), msg)
-                            continue
-                        else:
-                            ipv4nm = isys.prefix2netmask(int(ipv4nm))
-                            netdev.set(("netmask", ipv4nm))
-                    except:
-                        self._handleIPMissing(_("IPv4 Network Mask"))
-                        continue
+                netdev = netdevs[devname]
+
+                if self.dhcpCheckbox.selected():
+                    netdev.set(("BOOTPROTO", "dhcp"))
+                    netdev.set(("ONBOOT", "yes"))
                 else:
-                    # user provided a dotted-quad netmask
+                    ipv4addr = self.ipv4Address.value()
+                    ipv4nm = self.ipv4Netmask.value()
+                    gateway = self.gatewayEntry.value()
+                    ns = self.nameserverEntry.value()
+
                     try:
-                        network.sanityCheckIPString(ipv4nm)
-                        netdev.set(("netmask", ipv4nm))
+                        network.sanityCheckIPString(ipv4addr)
+                        netdev.set(("IPADDR", ipv4addr))
                     except network.IPMissing, msg:
-                        self._handleIPMissing(_("IPv4 Network Mask"))
+                        self._handleIPMissing(_("IP Address"))
                         continue
                     except network.IPError, msg:
-                        self._handleIPError(_("IPv4 Network Mask "), msg)
+                        self._handleIPError(_("IP Address"), msg)
                         continue
 
-                try:
-                    if gateway:
-                        network.sanityCheckIPString(gateway)
-                except network.IPMissing, msg:
-                    self._handleIPMissing(_("Gateway"))
-                    continue
-                except network.IPError, msg:
-                    self._handleIPError(_("Gateway"), msg)
-                    continue
+                    if ipv4nm.find('.') == -1:
+                        # user provided a CIDR prefix
+                        try:
+                            if int(ipv4nm) > 32 or int(ipv4nm) < 0:
+                                msg = _("IPv4 CIDR prefix must be between 0 and 32.")
+                                self._handleIPError(_("IPv4 Network Mask"), msg)
+                                continue
+                            else:
+                                ipv4nm = isys.prefix2netmask(int(ipv4nm))
+                                netdev.set(("NETMASK", ipv4nm))
+                        except:
+                            self._handleIPMissing(_("IPv4 Network Mask"))
+                            continue
+                    else:
+                        # user provided a dotted-quad netmask
+                        try:
+                            network.sanityCheckIPString(ipv4nm)
+                            netdev.set(("NETMASK", ipv4nm))
+                        except network.IPMissing, msg:
+                            self._handleIPMissing(_("IPv4 Network Mask"))
+                            continue
+                        except network.IPError, msg:
+                            self._handleIPError(_("IPv4 Network Mask "), msg)
+                            continue
 
-                try:
-                    if ns:
-                        network.sanityCheckIPString(ns)
-                except network.IPError, msg:
-                    self._handleIPError(_("Nameserver"), msg)
-                    continue
+                    try:
+                        if gateway:
+                            network.sanityCheckIPString(gateway)
+                    except network.IPMissing, msg:
+                        self._handleIPMissing(_("Gateway"))
+                        continue
+                    except network.IPError, msg:
+                        self._handleIPError(_("Gateway"), msg)
+                        continue
 
-                try:
-                    self.network.bringUp()
-                except Exception, e:
-                    import logging
-                    log = logging.getLogger("anaconda")
-                    log.error("Error configuring network device: %s" % e)
-                    self._handleIPError(_("Error configuring network device: "), e)
-                    self.screen.popWindow()
-                    return INSTALL_BACK
+                    try:
+                        if ns:
+                            network.sanityCheckIPString(ns)
+                            f = open("/etc/resolv.conf", "w")
+                            f.write("nameserver %s\n" % ns)
+                            f.close()
+                    except network.IPError, msg:
+                        self._handleIPError(_("Nameserver"), msg)
+                        continue
 
-                if ns:
-                    f = open("/etc/resolv.conf", "w")
-                    f.write("nameserver %s\n" % ns)
-                    f.close()
-                    break
-
-            break
+            w = self.anaconda.intf.waitWindow(_("Configuring Network Interfaces"), _("Waiting for NetworkManager..."))
+            result = self.anaconda.id.network.bringUp()
+            w.pop()
+            if result:
+                break
 
         self.screen.popWindow()
         return INSTALL_OK
