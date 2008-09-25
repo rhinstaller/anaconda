@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.39
+Version: 11.4.1.40
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,17 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 24 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.40-1
+- Fix network interface bring up in text mode (#463861, #462592) (dcantrell)
+- Bring back isys.resetResolv() and fix NetworkManager polling in
+  network.py. (dcantrell)
+- Poll 'State' property from NetworkManager in network.bringUp() (dcantrell)
+- Log error in rescue mode is network.bringUp() fails. (dcantrell)
+- Set the first network device in the list to active. (dcantrell)
+- Get rid of firstnetdevice in Network (dcantrell)
+- Do not write /lib/udev.d rules if instPath is '' (dcantrell)
+- Fix problems with bringDeviceUp() calls (#463512) (dcantrell)
+
 * Mon Sep 22 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.39-1
 - Fix a traceback when getting the interface settings (#462592). (clumens)
 - self.anaconda -> anaconda (clumens)
