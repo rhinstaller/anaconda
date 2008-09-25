@@ -155,7 +155,7 @@ def startNetworking(network, intf, anaconda):
 	log.info("Attempting to start %s", dev.get('device'))
         method = dev.get('bootproto')
         while True:
-            if method = "ibft":
+            if method == "ibft":
                 try:
                     if anaconda.id.iscsi.fwinfo["iface.bootproto"].lower() == "dhcp":
                         method = "dhcp"
