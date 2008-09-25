@@ -1,5 +1,5 @@
-# Svenska translation of anaconda.
-# Copyright (C) 2006, 2008 Free Software Foundation
+# Swedish translation of anaconda.
+# Copyright © 2006, 2008 Free Software Foundation
 # Magnus Larsson <fedoratrans@gmail.com>, 2007.
 # Göran Uddeborg <goeran@uddeborg.se>, 2008.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-04-01 11:48+0200\n"
+"PO-Revision-Date: 2008-09-25 21:14+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -96,15 +96,14 @@ msgid "Starting graphical installation..."
 msgstr "Startar grafisk installation..."
 
 #: ../anaconda:821
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "Vad vill du göra?"
+msgstr "Skulle du vilja använda VNC?"
 
 #: ../anaconda:822
 msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
-msgstr ""
+msgstr "Installation i VNC-läge erbjuder mer funktionalitet än textläget, vill du använde det istället?"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -567,6 +566,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Din felrapport kunde inte registreras på grund av nedanstående fel vid kommunikationen med bugzilla:\n"
+"\n"
+"%s"
 
 #: ../exception.py:367
 #, python-format
@@ -576,46 +578,45 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Din felrapport kunde inte registreras på grund av felaktig information i felfälten.  Detta är förmodligen ett fel i anaconda:\n"
+"\n"
+"%s"
 
 #: ../exception.py:371
-#, fuzzy
 msgid "Unable To File Bug"
-msgstr "Kan inte ta bort"
+msgstr "Kan inte göra en felrapport"
 
 #: ../exception.py:377
-#, fuzzy
 msgid "Bug Filing Not Supported"
-msgstr "Stöds inte"
+msgstr "Rapportering av fel stöds inte"
 
 #: ../exception.py:378
 msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
-msgstr ""
+msgstr "Din distribution har inte ett felrapporteringssystem som stöds, så du kan inte spara din avvikelse på detta sätt."
 
 #: ../exception.py:384
-#, fuzzy
 msgid "Invalid Bug Information"
-msgstr "Ogiltig IP-information"
+msgstr "Ogiltig felinformation"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "Ge ett giltigt användarnamn, lösenord och en kort felbeskrivning."
 
 #: ../exception.py:395
-#, fuzzy
 msgid "Unable To Login"
-msgstr "Kan inte redigera"
+msgstr "Kan inte logga in"
 
 #: ../exception.py:396
 #, python-format
 msgid ""
 "There was an error logging into %s using the provided username and password."
-msgstr ""
+msgstr "Ett fel uppstod vid inloggning till %s med det givna användarnamnet och lösenordet."
 
 #: ../exception.py:433
 msgid "Bug Created"
-msgstr ""
+msgstr "Felrapport skapad"
 
 #: ../exception.py:434
 #, python-format
@@ -626,11 +627,13 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"En ny felrapport har skapats med din stackspårning som bilaga.  Lägg gärna till ytterligare information såsom vad du höll på med när du stötte på felet, skärmdumpar och vad i övrigt som kan vara relevant till följande felrapport:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:450
-#, fuzzy
 msgid "Bug Updated"
-msgstr "Uppdateringar"
+msgstr "Felrapporten uppdaterad"
 
 #: ../exception.py:451
 #, python-format
@@ -641,6 +644,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"En felrapport med din information finns redan.  Ditt konto har lagts till till cc-listan och din stackspårning lagts till som en kommentar.  Lägg gärna till ytterligare beskrivande information till följande felrapport:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:475 ../exception.py:490 ../exception.py:515
 msgid "Dump Written"
@@ -663,15 +669,14 @@ msgid "There was a problem writing the system state to the disk."
 msgstr "Det uppstod ett problem när systemtillståndet skrivs till disken."
 
 #: ../exception.py:506 ../exception.py:529
-#, fuzzy
 msgid "No Network Available"
-msgstr "Nätverksenheter"
+msgstr "Inget nätverk tillgängligt"
 
 #: ../exception.py:507 ../exception.py:530
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
-msgstr ""
+msgstr "Det går inte att spara en felrapport eftersom det inte finns någon aktiv nätverksenhet tillgänglig."
 
 #: ../exception.py:516
 msgid ""
@@ -960,7 +965,7 @@ msgstr ""
 "installationen men det kan bli problem."
 
 #: ../fsset.py:1986
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -971,20 +976,20 @@ msgid ""
 msgstr ""
 "Fel vid montering av enheten %s som %s: %s\n"
 "\n"
-"Enheter i /etc/fstab ska specificeras med etikett och inte med enhetsnamn.\n"
+"Enheter i /etc/fstab ska specificeras med etikett eller UUID, inte med enhetsnamn.\n"
 "\n"
 "Tryck OK för att avsluta installationsprogrammet."
 
 #: ../fsset.py:1993
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Kan inte hitta raid-enheten %s att använda till %s.\n"
+"Fel vid montering av enheten %s som %s: %s\n"
 "\n"
-"Tryck \"OK\" för att avsluta installationsprogrammet."
+"Tryck OK för att avsluta installationsprogrammet."
 
 #: ../fsset.py:2011
 msgid ""
@@ -1110,13 +1115,11 @@ msgid "Installation Key"
 msgstr "Installationsnyckel"
 
 #: ../gui.py:660 ../text.py:323
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose a passphrase for this encrypted device%s. You will be prompted for "
 "the passphrase during system boot."
-msgstr ""
-"Välj en lösenfras för denna krypterade partition.  Du kommer att få en fråga "
-"om lösenfrasen under systemstart."
+msgstr "Välj en lösenfras för denna krypterade enhet%s.  Du kommer att få en fråga om lösenfrasen under systemstart."
 
 #: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
 msgid "Error with passphrase"
@@ -1142,7 +1145,7 @@ msgstr ""
 #: ../gui.py:780
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "Bugzilla (%s)"
 
 #: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
 #: tmp/anaconda.glade.h:2
@@ -1268,7 +1271,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660-avbild saknas"
 
 #: ../image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1276,11 +1279,9 @@ msgid ""
 "Please copy this image to the drive and click Retry.  Click Exit to abort "
 "the installation."
 msgstr ""
-"Installationsprogrammet har försökt att montera avbilden #%s, men kan inte "
-"hitta den på hårddisken.\n"
+"Installationsprogrammet har försökt att montera avbild nr. %s, men kan inte hitta den på hårddisken.\n"
 "\n"
-"Kopiera denna avbild till hårddisken och klicka på Försök igen. Klicka på "
-"Avbryta för att avbryta installationen."
+"Kopiera denna avbild till hårddisken och klicka på Försök igen.  Klicka på Avsluta för att avbryta installationen."
 
 #: ../image.py:244
 msgid "Required Install Media"
@@ -1392,16 +1393,13 @@ msgstr "Kunde inte hitta avbild"
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
-msgstr ""
-"Den angivna platsen är inte en giltig %s live CD som kan användas som "
-"installationskälla."
+msgstr "Den angivna platsen är inte en giltig %s live-CD som kan användas som installationskälla."
 
 #: ../livecd.py:171
 msgid "Copying live image to hard drive."
-msgstr "Överför installationsavbilden till hårddisken."
+msgstr "Överför live-avbilden till hårddisk."
 
 #: ../livecd.py:197
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -1409,12 +1407,9 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"Filen %s kan inte öppnas.  Detta beror på att en fil saknas, ett trasigt "
-"paket eller trasigt medium.  Kontrollera din installationskälla.\n"
+"Det uppstod ett vil vid installation av live-avbilden till din hårddisk.  Detta kan bero på trasigt medium.  Kontrollera ditt installationsmedium.\n"
 "\n"
-"Om du avbryter kommer ditt system hamna i ett inkonsistent läge som troligen "
-"kräver en ominstallation.\n"
-"\n"
+"Om du avbryter kommer ditt system hamna i ett inkonsistent läge som kräver en ominstallation."
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -1433,30 +1428,22 @@ msgstr ""
 msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
-msgstr ""
-"Rotfilsystemet du skapade är inte tillräckligt stort för denna levande "
-"avbild (%.2f MB krävs)."
+msgstr "Rotfilsystemet du skapade är inte tillräckligt stort för denna live-avbild (%.2f MB krävs)."
 
 #: ../network.py:64
-#, fuzzy
 msgid "Hostname must be 64 or fewer characters in length."
 msgstr "Värdnamnet får vara högst 64 tecken långt."
 
 #: ../network.py:70
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
-msgstr ""
-"Värdnamnet måste börja med ett giltigt tecken i intervallet \"a-z\" eller "
-"\"A-Z\""
+msgstr "Värdnamnet måste börja med ett giltigt tecken i intervallet \"a-z\", \"A-Z\" eller \"0-9\""
 
 #: ../network.py:75
-#, fuzzy
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr ""
-"Värdnamn kan endast innehålla tecknen \"a-z\", \"A-Z\", \"-\" eller \".\""
+msgstr "Värdnamn kan endast innehålla tecknen \"a-z\", \"A-Z\", \"0-9\", \"-\" eller \".\""
 
 #: ../network.py:132
 msgid "IP address is missing."
@@ -1490,13 +1477,12 @@ msgid "There was an error encountered resizing the device %s."
 msgstr "Ett fel inträffade vid ändring av storlek på enhet %s."
 
 #: ../packages.py:146
-#, fuzzy
 msgid "Activating"
-msgstr "Aktivera vid uppstart"
+msgstr "Aktiverar"
 
 #: ../packages.py:146
 msgid "Activating new partitions.  Please wait..."
-msgstr ""
+msgstr "Aktiverar nya partitioner.  Var god dröj..."
 
 #: ../packages.py:167
 msgid "LVM operation failed"
@@ -1622,7 +1608,7 @@ msgstr ""
 "Vill du initiera denna enhet och ta bort ALL DATA?"
 
 #: ../partedUtils.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1633,12 +1619,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Partitionstabellen på enhet %s (%s) är oläsbar. För att skapa nya "
-"partitioner måste den initieras, vilket kommer att förstöra ALL DATA på "
-"denna enhet.\n"
+"Partitionstabellen på enhet %s (%s %-0.f MB) var oläsbar.  För att skapa nya partitioner måste den initieras, vilket kommer att förstöra ALL DATA på denna enhet.\n"
 "\n"
-"Denna åtgärd kommer att åsidosätta alla tidigare val under installationen om "
-"vilka enheter som ska ignoreras.\n"
+"Denna åtgärd kommer att åsidosätta alla tidigare val under installationen om vilka enheter som ska ignoreras.\n"
 "\n"
 "Vill du initiera denna enhet och ta bort ALL DATA?"
 
@@ -2000,14 +1983,13 @@ msgstr ""
 "installationen?"
 
 #: ../partitions.py:130
-#, fuzzy, python-format
+#, python-format
 msgid " for device %s"
-msgstr "RAID-enhet %s"
+msgstr " för enhet %s"
 
 #: ../partitions.py:133
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Krypteringsnyckel"
+msgstr "Kryptera enhet?"
 
 #: ../partitions.py:134
 #, python-format
@@ -2015,7 +1997,7 @@ msgid ""
 "You specified block device encryption should be enabled%s, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption%s will be disabled."
-msgstr ""
+msgstr "Du angav att kryptering av blockenheter skulle aktiveras%s, men du har inte gett en lösenfras.  Om du inte går tillbaka och ger en lösenfras kommer kryptering%s av blockenheter att vara avaktiverat."
 
 #: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
@@ -2041,14 +2023,10 @@ msgid "Writing partitioning to disk"
 msgstr "Skriver partitionering till disk"
 
 #: ../partitions.py:161
-#, fuzzy
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
-msgstr ""
-"Partitioneringsinställningarna du har valt kommer nu att skrivas till disk.  "
-"Eventuell data på borttagna eller omformaterade partitioner kommer gå "
-"förlorade"
+msgstr "Partitioneringsinställningarna du har valt kommer nu att skrivas till disk.  Eventuell data på borttagna eller omformaterade partitioner kommer gå förlorade."
 
 #: ../partitions.py:166
 msgid "Go _back"
@@ -2094,11 +2072,8 @@ msgstr ""
 "att installera %s."
 
 #: ../partitions.py:1177
-#, fuzzy
 msgid "You must create an EFI System Partition of at least 10 megabytes."
-msgstr ""
-"Du måste skapa en EFI-systempartition av FAT-typ och med en storlek på 50 "
-"megabyte."
+msgstr "Du måste skapa en EFI-systempartition på minst 10 megabyte."
 
 #: ../partitions.py:1191
 msgid ""
@@ -2306,7 +2281,7 @@ msgstr ""
 
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
+msgstr "Kan inte hitta /bin/sh att köra!  Startar inte ett skal"
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -2438,18 +2413,17 @@ msgid "Save"
 msgstr "Spara"
 
 #: ../text.py:210
-#, fuzzy
 msgid "Save to local disk"
-msgstr "Spara till disk"
+msgstr "Spara till lokal disk"
 
 #: ../text.py:211
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "Skicka till bugzilla (%s)"
 
 #: ../text.py:212
 msgid "Send to remote server (scp)"
-msgstr ""
+msgstr "Skicka till fjärrserver (scp)"
 
 #: ../text.py:226 ../text.py:239
 msgid "User name"
@@ -2461,31 +2435,28 @@ msgstr "Lösenord"
 
 #: ../text.py:230
 msgid "Bug Description"
-msgstr ""
+msgstr "Felbeskrivning"
 
 #: ../text.py:243
 msgid "Host (host:port)"
-msgstr ""
+msgstr "Värd (värd:port)"
 
 #: ../text.py:245
-#, fuzzy
 msgid "Destination file"
-msgstr "LVM-operation misslyckades"
+msgstr "Destinationsfil"
 
 #: ../text.py:329
-#, fuzzy
 msgid "Passphrase for encrypted device"
-msgstr "Ange lösenfras för krypterad partition"
+msgstr "Lösenfras för krypterad enhet"
 
 #: ../text.py:347 tmp/lukspassphrase.glade.h:7
-#, fuzzy
 msgid "Use this passphrase for all new encrypted devices"
-msgstr "Ange lösenfras för krypterad partition"
+msgstr "Använd denna lösenfras för alla nya krypterade enheter"
 
 #: ../text.py:378
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "Lösenfrasen måste vara minst åtta tecken lång."
+msgstr "Lösenfrasen måste vara minst %d tecken lång."
 
 #: ../text.py:407 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
@@ -2856,17 +2827,15 @@ msgid "%s of %s packages completed"
 msgstr "%s av %s paket slutförda"
 
 #: ../yuminstall.py:214
-#, fuzzy
 msgid "Finishing upgrade process..."
-msgstr "Slutför uppgradering"
+msgstr "Slutför uppgraderingprocessen ..."
 
 #: ../yuminstall.py:308 ../iw/task_gui.py:275
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "Redigera förråd"
+msgstr "Fel när förråd sattes upp"
 
 #: ../yuminstall.py:309 ../iw/task_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -2874,11 +2843,11 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"Följande fel inträffade med din partitionering:\n"
+"Följande fel inträffade när installationsförrådet sattes upp:\n"
 "\n"
 "%s\n"
 "\n"
-"Tryck \"OK\" för att avsluta installationsprogrammet."
+"Ange korrekt information för att installera %s."
 
 #: ../yuminstall.py:366
 msgid "Change Disc"
@@ -2905,7 +2874,7 @@ msgstr "Kan inte komma åt skivan."
 #: ../yuminstall.py:533
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr ""
+msgstr "Förrådet %r saknar namn i konfigurationen, använder id"
 
 #: ../yuminstall.py:651 ../yuminstall.py:653
 msgid "Re_boot"
@@ -2937,9 +2906,8 @@ msgid "Retrying"
 msgstr "Försöker igen"
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying download..."
-msgstr "Försöker hämta paket igen ..."
+msgstr "Försöker hämta igen ..."
 
 #: ../yuminstall.py:772
 #, python-format
@@ -3209,10 +3177,9 @@ msgstr ""
 "partitioner med vissa filsystem går att storleksändra."
 
 #: ../iw/autopart_type.py:180
-#, fuzzy
 msgid ""
 "Do you really want to boot from a disk which is not used for installation?"
-msgstr "Vill du verkligen från en disk som inte används för installation?"
+msgstr "Vill du verkligen starta från en disk som inte används för installation?"
 
 #: ../iw/autopart_type.py:261
 msgid "Invalid Initiator Name"
@@ -3328,7 +3295,7 @@ msgstr "Gratulerar"
 msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
-msgstr ""
+msgstr "Starta om systemet för att använda det installerade systemet.\n\n"
 
 #: ../iw/congrats_gui.py:74
 msgid ""
@@ -4634,20 +4601,18 @@ msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Du måste ange en HTTP-, HTTPS- eller FTP-URL till ett förråd."
 
 #: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-#, fuzzy
 msgid "No Media Found"
-msgstr "Inga hårddiskar hittades"
+msgstr "Inget medium hittades"
 
 #: ../iw/task_gui.py:248 ../iw/task_gui.py:361
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
-msgstr ""
+msgstr "Inget installationsmedium hittades.  Sätt in en skiva i din spelare och försök igen."
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
-#, fuzzy
 msgid "Please enter an NFS server and path."
-msgstr "Ange servernamn och sökväg till dina %s-bilder."
+msgstr "Ange en NFS-server och sökväg."
 
 #: ../iw/task_gui.py:299
 msgid "Invalid Repository Name"
@@ -4670,15 +4635,13 @@ msgstr "Förrådet %s har redan lagts till.  Välj ett annat förrådsnamn och U
 
 #: ../iw/task_gui.py:431
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "Inga programvaruförråd aktiverade"
 
 #: ../iw/task_gui.py:432
-#, fuzzy
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr ""
-"Du måste åtgärda dessa fel innan du kan fortsätta med installationen av %s."
+msgstr "Du måste ha åtminstone ett programvaruförråd aktiverat för att fortsätta med installationen."
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -4758,7 +4721,7 @@ msgid "Migrate File Systems"
 msgstr "Migrera filsystem"
 
 #: ../iw/upgrade_migratefs_gui.py:64
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -5111,9 +5074,9 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "Vilken typ av tangentbord är ansluten till denna dator?"
 
 #: ../textw/netconfig_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s"
-msgstr "Ett värde krävs i fältet \"%s\"."
+msgstr "Ett värde krävs i fältet %s"
 
 #: ../textw/netconfig_text.py:86 tmp/netconfig.glade.h:9
 msgid "Enable network interface"
@@ -5128,7 +5091,6 @@ msgstr ""
 "installationsprocessen. Vänligen konfigurera ett nätverksinterface."
 
 #: ../textw/netconfig_text.py:111
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
 msgstr "Använd dynamisk IP-konfiguration (DHCP)"
 
@@ -5143,12 +5105,10 @@ msgid "Enable IPv6 support"
 msgstr "Slå på IPv6 stöd"
 
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
 msgstr "IPv4-adress:"
 
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
 msgstr "IPv6-adress:"
 
@@ -5158,29 +5118,24 @@ msgid "Gateway:"
 msgstr "Gateway:"
 
 #: ../textw/netconfig_text.py:144
-#, fuzzy
 msgid "Nameserver:"
-msgstr "Namnserver"
+msgstr "Namnserver:"
 
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "Paket saknas"
+msgstr "Enhet saknas"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "Du måste välja en partition att redigera"
+msgstr "Du måste välja en nätverksenhet"
 
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
-msgstr "IPv4-nätmask"
+msgstr "IPv4-nätmask "
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
-msgstr "Fel vid konfigurering av nätverksenhet:"
+msgstr "Fel vid konfigurering av nätverksenhet: "
 
 #: ../textw/network_text.py:60
 #, python-format
@@ -6033,14 +5988,13 @@ msgstr ""
 "Välj %s för att hoppa över mediatestet och starta installationen."
 
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "Varning"
+msgstr "Söker"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "Söker efter installationsavbilder på CD-enhet %s"
 
 #: ../loader/cdinstall.c:428
 #, c-format
@@ -6060,9 +6014,9 @@ msgid "Cannot find kickstart file on CDROM."
 msgstr "Kan inte hitta kickstartfil på cdrom-skiva."
 
 #: ../loader/copy.c:51 ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "Kunde inte läsa katalogen %s: %s"
+msgstr "Kunde inte läsa katalogen %s: %m"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -6234,13 +6188,10 @@ msgid "Select Device Driver to Load"
 msgstr "Välj enhetsdrivrutin att läsa in"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
-msgstr ""
-"Det inträffade ett fel vid läsning av installationen från ISO-avbilderna. "
-"Kontrollera dina ISO-avbilder och försök igen."
+msgstr "Det inträffade ett fel vid sökning efter installationsavbilden på din hårddisk.  Kontrollera dina avbilder och försök igen."
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6251,29 +6202,25 @@ msgstr ""
 "ytterligare enheter?"
 
 #: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
-msgstr ""
-"Vilken partition, och katalog på den partitionen, innehåller cd-avbilderna "
-"(iso9660) av %s? Tryck F2 för att konfigurera ytterligare enheter om du inte "
-"ser den disk du använder i denna lista."
+msgstr "Vilken partition, och katalog på den partitionen, innehåller installationsavbilden för %s?  Tryck F2 för att konfigurera ytterligare enheter om du inte ser den disk du använder i denna lista."
 
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
-msgstr "Katalog som innehåller avbilder:"
+msgstr "Katalog som innehåller avbild:"
 
 #: ../loader/hdinstall.c:301
 msgid "Select Partition"
 msgstr "Välj partition"
 
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "Enheten %s ser inte ut att innehålla cd-romavbilder med %s."
+msgstr "Enheten %s ser inte ut att innehålla en installationsavbild."
 
 #: ../loader/hdinstall.c:385
 #, c-format
@@ -6298,14 +6245,14 @@ msgid "What type of keyboard do you have?"
 msgstr "Vilken typ av tangentbord har du?"
 
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "Fel vid öppnande av kickstartfilen %s: %s"
+msgstr "Fel när kickstartfilen %s öppnades: %m"
 
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Fel vid läsning av innehållet i kickstartfil %s: %s"
+msgstr "Fel när innehållet i kickstartfil %s lästes: %m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -6383,10 +6330,9 @@ msgstr ""
 "uppdatering.  Vilken vill du använda?"
 
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr ""
-"Sätt in din uppdateringsdiskett i /dev/%s och tryck \"OK\" för att fortsätta."
+msgstr "Sätt in din uppdateringsdiskett i %s och tryck \"OK\" för att fortsätta."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6443,9 +6389,8 @@ msgid "What type of media contains the rescue image?"
 msgstr "Vilket medium innehåller räddningsavbilden?"
 
 #: ../loader/loader.c:1358
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "Vilket medium innehåller räddningsavbilden?"
+msgstr "Vilket sorts medium innehåller installationsavbilden?"
 
 #: ../loader/loader.c:1389
 msgid "No driver found"
@@ -6672,9 +6617,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "Felaktigt startprotokoll %s angivet i nätverkskommando"
 
 #: ../loader/net.c:1423
-#, fuzzy
 msgid "Seconds:"
-msgstr "Sekundär DNS:"
+msgstr "Sekunder:"
 
 #: ../loader/net.c:1537
 msgid "Networking Device"
@@ -6689,40 +6633,39 @@ msgstr ""
 
 #: ../loader/net.c:1542
 msgid "Identify"
-msgstr ""
+msgstr "Identifiera"
 
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "Du kan identifiera den fysiska porten för"
 
 #: ../loader/net.c:1553
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "genom att blinka LED-lamporna i ett antal sekunder.  Ange ett tal mellan 1 och 30 för att sätta tiden för hur länge portens LED-lampor blinkar."
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
-msgstr ""
+msgstr "Identifiera NIC"
 
 #: ../loader/net.c:1576
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Ogiltig IP-information"
+msgstr "Ogiltig tid"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "Då måste ange antalet sekunder som ett heltal mellan 1 och 30."
 
 #: ../loader/net.c:1589
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "Blinkar lamporna för port %s i %d sekunder..."
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "Väntar på telnet-anslutning..."
+msgstr "Väntar på att NetworkManager skall konfigurera %s...\n"
 
 #: ../loader/nfsinstall.c:63
 msgid "NFS server name:"
@@ -6734,9 +6677,9 @@ msgid "%s directory:"
 msgstr "%s-katalog:"
 
 #: ../loader/nfsinstall.c:78
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr "Ange servernamn och sökväg till dina %s-bilder."
+msgstr "Ange servernamn och sökväg till dina %s-installationsavbild."
 
 #: ../loader/nfsinstall.c:85
 msgid "NFS Setup"
@@ -6751,9 +6694,9 @@ msgid "That directory could not be mounted from the server."
 msgstr "Den katalogen kunde inte monteras från servern."
 
 #: ../loader/nfsinstall.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "Den katalogen verkar inte innehålla ett %s-installationsträd."
+msgstr "Den katalogen verkar inte innehålla en %s-installationsavbild."
 
 #: ../loader/nfsinstall.c:338
 #, c-format
@@ -6773,9 +6716,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Kör anaconda via telnet..."
 
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "Kan inte hämta %s://%s/%s."
+msgstr "Kan inte hämta %s://%s%s."
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
@@ -6800,10 +6743,10 @@ msgid "Retrieving"
 msgstr "Hämtar"
 
 #: ../loader/urls.c:295
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the URL containing the %s installation image on your server."
-msgstr "Ange URL:en som innehåller %s-bilderna på din server."
+msgstr "Ange URL:en som innehåller %s-installationsavbilden på din server."
 
 #: ../loader/urls.c:321
 msgid "URL Setup"
@@ -6868,14 +6811,12 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>Förråds_namn:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>Förråds_namn:</b>"
+msgstr "<b>Förråds_typ:</b>"
 
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "Konfigurera proxy"
+msgstr "Konfigurera _proxy"
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -6884,65 +6825,59 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"Hårddisk"
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid ""
 "Please provide the configuration information for this software repository."
-msgstr ""
-"Ange platsen från vilken dina ytterligare programvaror kan installeras."
+msgstr "Ange konfigurationsinformationen för detta programvaruförråd."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL"
-msgstr "Proxy-U_RL:"
+msgstr "Proxy-U_RL"
 
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "Proxy_lösenord:"
+msgstr "Proxy_lösenord"
 
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "Proxy_användarnamn:"
+msgstr "Proxy_användarnamn"
 
 #: tmp/addrepo.glade.h:13
 msgid "Repository _URL"
 msgstr "Förråds-_URL:"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "Välj en fil"
+msgstr "Välj en katalog"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "URL:en är en s_pegellista"
 
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "NFS-katalog"
+msgstr "_Katalog"
 
 #: tmp/addrepo.glade.h:17
-#, fuzzy
 msgid "_Options"
-msgstr "RAID-alternativ"
+msgstr "_Alternativ"
 
 #: tmp/addrepo.glade.h:18
-#, fuzzy
 msgid "_Partition"
-msgstr "Partition"
+msgstr "_Partition"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "Sök_väg"
 
 #: tmp/addrepo.glade.h:20
-#, fuzzy
 msgid "_Server"
-msgstr "Namnserver:"
+msgstr "_Server"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -7042,21 +6977,23 @@ msgstr "_Detaljer"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "Fel_beskrivning"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "Destinations_fil"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"Lokal disk\n"
+"Fjärrserver (scp)"
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "Ange en destination där din spårning skall sparas."
 
 #: tmp/exnSave.glade.h:7
 msgid "Select A File"
@@ -7064,17 +7001,15 @@ msgstr "Välj en fil"
 
 #: tmp/exnSave.glade.h:8
 msgid "_Host (host:port)"
-msgstr ""
+msgstr "_Värd (värd:port)"
 
 #: tmp/exnSave.glade.h:9
-#, fuzzy
 msgid "_Password"
-msgstr "_Lösenord:"
+msgstr "_Lösenord"
 
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_User name"
-msgstr "Användarnamn"
+msgstr "_Användarnamn"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -7356,7 +7291,7 @@ msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebreiska"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -7411,9 +7346,8 @@ msgid "Marathi"
 msgstr "Marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "Norska"
+msgstr "Norska (bokmål)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
@@ -7506,148 +7440,3 @@ msgstr "Kymriska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "No video hardware found, assuming headless"
-#~ msgstr "Ingen grafikhårdvara hittades, antar huvudlöst"
-
-#~ msgid "Unable to instantiate a X hardware state object."
-#~ msgstr "Kan inte skapa en instans av ett X-hårdvarutillståndsobjekt."
-
-#~ msgid ""
-#~ "Error mounting device %s as %s: %s\n"
-#~ "\n"
-#~ "This most likely means this partition has not been formatted.\n"
-#~ "\n"
-#~ "Press OK to exit the installer."
-#~ msgstr ""
-#~ "Fel vid montering av enheten %s som %s: %s\n"
-#~ "\n"
-#~ "Detta betyder med största sannolikhet att partitionen inte har "
-#~ "formaterats.\n"
-#~ "\n"
-#~ "Tryck OK för att avsluta installationsprogrammet."
-
-#~ msgid "Invalid Label"
-#~ msgstr "Ogiltig etikett"
-
-#~ msgid ""
-#~ "An invalid label was found on device %s.  Please fix this problem and "
-#~ "restart the installation process."
-#~ msgstr ""
-#~ "En ogiltig etikett hittades på enhet %s. Fixa detta problem och starta om "
-#~ "installationen."
-
-#~ msgid "Save to Remote"
-#~ msgstr "Spara till fjärrvärd"
-
-#~ msgid "Host"
-#~ msgstr "Värd"
-
-#~ msgid "Remote path"
-#~ msgstr "Fjärrsökväg"
-
-#~ msgid "Help not available"
-#~ msgstr "Hjälp inte tillgänglig"
-
-#~ msgid "No help is available for this step of the install."
-#~ msgstr "Ingen hjälp finns tillgänglig för detta steg i installationen."
-
-#~ msgid ""
-#~ " <F1> for help | <Tab> between elements | <Space> selects | <F12> next "
-#~ "screen"
-#~ msgstr ""
-#~ " <F1> för hjälp | <Tab> mellan element | <Blanksteg> väljer | <F12> nästa "
-#~ "skärm"
-
-#~ msgid "Finishing upgrade process.  This may take a little while..."
-#~ msgstr "Slutför uppgraderingsprocessen. Detta kan ta ett tag..."
-
-#~ msgid "Error running transaction"
-#~ msgstr "Fel vid körning av transaktion"
-
-#~ msgid ""
-#~ "No %s disc was found which matches your boot media.  Please insert the %s "
-#~ "disc and press %s to retry."
-#~ msgstr ""
-#~ "Ingen skiva med %s kunde hittas som stämmer överens med ditt startmedia. "
-#~ "Sätt i skivan med %s och tryck %s för att försöka igen."
-
-#~ msgid ""
-#~ "The %s installation tree in that directory does not seem to match your "
-#~ "boot media."
-#~ msgstr ""
-#~ "%s-installationsträdet i den katalogen verkar inte stämma överens med "
-#~ "ditt startmedium."
-
-#~ msgid "Welcome to %s%n for %s"
-#~ msgstr "Välkommen till %s%n för %s"
-
-#~ msgid "What type of media contains the packages to be installed?"
-#~ msgstr "Vilket medium innehåller paketen som ska installeras?"
-
-#~ msgid ""
-#~ "%s is a wireless network adapter.  Please provide the ESSID and "
-#~ "encryption key needed to access your wireless network.  If no key is "
-#~ "needed, leave this field blank and the install will continue."
-#~ msgstr ""
-#~ "%s är ett trådlöst nätverkskort. Ange den ESSID och krypteringsnyckel som "
-#~ "behövs för åtkomst at ditt trådlösa nätverk. Om ingen nyckel behövs bör "
-#~ "du lämna fältet tomt, och installationen kommer att fortsätta."
-
-#~ msgid "ESSID"
-#~ msgstr "ESSID"
-
-#~ msgid "Wireless Settings"
-#~ msgstr "Inställningar för trådlöst nätverk"
-
-#~ msgid "Nameserver IP"
-#~ msgstr "Namnserver-IP"
-
-#~ msgid "Missing Nameserver"
-#~ msgstr "Saknar namnserver"
-
-#~ msgid ""
-#~ "Your IP address request returned configuration information, but it did "
-#~ "not include a nameserver address. If you do not have this information, "
-#~ "you can leave the field blank and the install will continue."
-#~ msgstr ""
-#~ "Din begäran av IP-adress returnerade konfigurationsinformation, men den "
-#~ "innehöll inte en DNS-namnserver. Om du inte har denna information kan du "
-#~ "lämna fältet blankt och installationen kommer att fortsätta."
-
-#~ msgid "You entered an invalid IP address."
-#~ msgstr "Du skrev in en ogiltig IP-adress."
-
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Undersöker värdnamn och domän..."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy "
-#~ "server to use."
-#~ msgstr ""
-#~ "Om du använder en HTTP-proxy anger du namnet på den HTTP-proxyserver som "
-#~ "ska användas."
-
-#~ msgid "Proxy Name:"
-#~ msgstr "Proxynamn:"
-
-#~ msgid "Proxy Port:"
-#~ msgstr "Proxyport:"
-
-#~ msgid "Further Setup"
-#~ msgstr "Ytterligare konfiguration"
-
-#~ msgid "Repository _Mirror"
-#~ msgstr "Förråds_spegel"
-
-#~ msgid "_Proxy configuration"
-#~ msgstr "_Proxykonfiguration"
-
-#~ msgid "Select a destination for the exception information."
-#~ msgstr "Välj en destination för undantagsinformationen."
-
-#~ msgid "_Disk"
-#~ msgstr "_Disk"
-
-#~ msgid "_Remote"
-#~ msgstr "_Fjärr"
