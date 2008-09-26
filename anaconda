@@ -291,8 +291,7 @@ def setVNCFromKickstart(opts):
 	if vncconnectport == "":
 	    vncconnectport = ksvncport
 
-    from pykickstart.constants import DISPLAY_MODE_GRAPHICAL
-    if vncksdata.displayMode!=DISPLAY_MODE_GRAPHICAL and vncksdata.displayMode!=None:
+    if vncksdata.displayMode!=None:
         flags.vncquestion = False
 
     return vncksdata.vnc
@@ -881,7 +880,7 @@ if __name__ == "__main__":
             got_bad_edid = True
             opts.display_mode = 't'
 
-    if opts.display_mode == 't' and graphical_failed and not opts.ksfile:
+    if opts.display_mode == 't' and graphical_failed and not anaconda.isKickstart:
         ret = vnc.askVncWindow()
         if ret != -1:
             opts.display_mode = 'g'
