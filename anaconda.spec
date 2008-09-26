@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.131
+Version: 11.1.2.132
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -106,6 +106,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Sep 26 2008 Joel Granados <jgranado@redhat.com> 11.1.2.132-1
+- When we use kickstart with specified UI mode, do not prompt for VNC (msivak).
+  Resolves: rhbz##453551
+
 * Thu Sep 25 2008 Chris Lumens <clumens@redhat.com> 11.1.2.131-1
 - Fix rescue mode typo.
   Resolves: rhbz#463920
