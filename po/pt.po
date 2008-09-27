@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2007-07-18 20:00+0100\n"
+"PO-Revision-Date: 2008-09-27 19:03+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,46 +33,31 @@ msgstr ""
 "X-POFile-SpellExtra: install log ks cfg etc tmp mnt sysimage fstab boot efi\n"
 "X-POFile-SpellExtra: dev ttyS network\n"
 "X-POFile-SpellExtra: \n"
-"X-POFile-SpellExtra: Adelie Aktobe Alagoas Alberta Aleutian Altai Amapa "
-"Amundsen\n"
-"X-POFile-SpellExtra: Amur Anvers Aqtobe Atirau Atol Atyrau Baikal Bailey "
-"Baja \n"
+"X-POFile-SpellExtra: Adelie Aktobe Alagoas Alberta Aleutian Altai Amapa Amundsen\n"
+"X-POFile-SpellExtra: Amur Anvers Aqtobe Atirau Atol Atyrau Baikal Bailey Baja \n"
 "X-POFile-SpellExtra: Bali Bay Bayan Beijing Bering Borneo Campeche Casey \n"
 "X-POFile-SpellExtra: Catamarca Cazaquistão Celebes Chatham Chihuahua Chuuk\n"
 "X-POFile-SpellExtra: Coahuila Columbia County Crawford Dawson Creek Crimea\n"
-"X-POFile-SpellExtra: Dakota Dornod Durango Frances Galápagos Gambier Gansu "
-"Govi\n"
+"X-POFile-SpellExtra: Dakota Dornod Durango Frances Galápagos Gambier Gansu Govi\n"
 "X-POFile-SpellExtra: Gilbert Guangdong Guizhou Gur Havai Heilongjiang Hills\n"
-"X-POFile-SpellExtra: Holiday Holme Hovd Howe Idaho Ittoqqortoormiit Irian "
-"Jan\n"
+"X-POFile-SpellExtra: Holiday Holme Hovd Howe Idaho Ittoqqortoormiit Irian Jan\n"
 "X-POFile-SpellExtra: Jaya Johnston Jujuy Kaliningrad Kamchatka \n"
 "X-POFile-SpellExtra: Kosrae Kwajalein Kyzylorda Kzyl Line Manchuria\n"
 "X-POFile-SpellExtra: Labrador Leon Louisville Lugansk Magadan Malasia Male\n"
-"X-POFile-SpellExtra: Mangghystau Manitoba Mankistau Mawson Mayen McMurdo "
-"Midway\n"
-"X-POFile-SpellExtra: Melilla Mendoza midwest Molucas Mountain Navajo "
-"Nayarit\n"
-"X-POFile-SpellExtra: neck Newfoundland Novosibirsk Nuevo Nunavut Nusa "
-"Olgiy \n"
+"X-POFile-SpellExtra: Mangghystau Manitoba Mankistau Mawson Mayen McMurdo Midway\n"
+"X-POFile-SpellExtra: Melilla Mendoza midwest Molucas Mountain Navajo Nayarit\n"
+"X-POFile-SpellExtra: neck Newfoundland Novosibirsk Nuevo Nunavut Nusa Olgiy \n"
 "X-POFile-SpellExtra: Ongul Ontario Orda Oregon Pangnirtung panhandle\n"
-"X-POFile-SpellExtra: Pituffik Pohnpei Ponape Quebec Queensland Quintana "
-"Qyzylorda\n"
-"X-POFile-SpellExtra: Rainy River Rondonia Roraima Ross Ruthenia  Sabah "
-"Sakhalin \n"
-"X-POFile-SpellExtra: Sarawak Saskatchewan Scoresbysund Scotia Sergipe "
-"Shanghai\n"
+"X-POFile-SpellExtra: Pituffik Pohnpei Ponape Quebec Queensland Quintana Qyzylorda\n"
+"X-POFile-SpellExtra: Rainy River Rondonia Roraima Ross Ruthenia  Sabah Sakhalin \n"
+"X-POFile-SpellExtra: Sarawak Saskatchewan Scoresbysund Scotia Sergipe Shanghai\n"
 "X-POFile-SpellExtra: Sichuan Sinaloa Starke Sukhbaatar Sumatra Svalbard\n"
-"X-POFile-SpellExtra: Switzerland Syowa Tamaulipas Tengarra Terre Thule "
-"Thunder\n"
-"X-POFile-SpellExtra: Tocantins Truk Urais Urville Uvs Uyghur Uzbekistan "
-"Vert\n"
-"X-POFile-SpellExtra: Vestfold Vostok Wayne Wake Wisconsin Xinjiang Yap yev "
-"ye\n"
-"X-POFile-SpellExtra: Yancowinna Yenisei Yucatan Yukon Yunnan Zaporozh "
-"Zavkhan\n"
+"X-POFile-SpellExtra: Switzerland Syowa Tamaulipas Tengarra Terre Thule Thunder\n"
+"X-POFile-SpellExtra: Tocantins Truk Urais Urville Uvs Uyghur Uzbekistan Vert\n"
+"X-POFile-SpellExtra: Vestfold Vostok Wayne Wake Wisconsin Xinjiang Yap yev ye\n"
+"X-POFile-SpellExtra: Yancowinna Yenisei Yucatan Yukon Yunnan Zaporozh Zavkhan\n"
 "X-POFile-SpellExtra: GMT DST EUA UTC PEI Eastern\n"
-"X-POFile-SpellExtra: BA GO DF MG ES RJ SP PR SC RS TF CB CC MZ NB LP LR JY "
-"CE\n"
+"X-POFile-SpellExtra: BA GO DF MG ES RJ SP PR SC RS TF CB CC MZ NB LP LR JY CE\n"
 "X-POFile-SpellExtra: SJ SL SA CH CN CT TM NQ RN FM NE ER MN SF Fibre tty\n"
 "X-POFile-SpellExtra: Fedora Desktop Rothera WS disk screenshots Raid\n"
 "X-POFile-SpellExtra: Channel Evolution Island Rioja DASD Chandev India IPL\n"
@@ -100,16 +85,17 @@ msgstr ""
 "X-POFile-SpellExtra: DHCPv GB Caps Live\n"
 "X-POFile-IgnoreConsistency: Clear\n"
 "X-POFile-IgnoreConsistency: End\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../anaconda:288 ../anaconda:334
-#, fuzzy, c-format
+#, c-format
 msgid "Error processing %%ksappend lines: %s"
-msgstr "Erro ao abrir o ficheiro 'kickstart' %s: %s"
+msgstr "Erro ao processar as linhas '%%ksappend': %s"
 
 #: ../anaconda:291 ../anaconda:337
 #, c-format
 msgid "Unknown error processing %%ksappend lines: %s"
-msgstr ""
+msgstr "Ocorreu um erro desconhecido ao processar as linhas %%ksappend: %s"
 
 #: ../anaconda:305 ../anaconda:349 ../cmdline.py:85 ../gui.py:1279
 #: ../text.py:561
@@ -182,15 +168,14 @@ msgid "Starting graphical installation..."
 msgstr "A iniciar a instalação gráfica..."
 
 #: ../anaconda:821
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "O que deseja fazer?"
+msgstr "Deseja usar o VNC?"
 
 #: ../anaconda:822
 msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
-msgstr ""
+msgstr "A instalação por VNC oferece mais funcionalidades que o modo texto; deseja usá-la em alternativa?"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -211,36 +196,26 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Erro ao dimensionar a partição %s.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:895
 #, python-format
 msgid "Start of partition %s was moved when resizing"
-msgstr ""
+msgstr "O início da partição %s mudou de posição com o dimensionamento"
 
 #: ../autopart.py:987
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
-msgstr ""
-"Não foi possível alocar partições baseadas em cilindros como partições "
-"primárias.\n"
-"\n"
-"%s"
+msgstr "Não foi possível alocar partições baseadas em cilindros como partições primárias.\n"
 
 #: ../autopart.py:992
-#, fuzzy
 msgid "Could not allocate partitions as primary partitions.\n"
-msgstr ""
-"Não foi possível alocar partições como partições primárias.\n"
-"\n"
-"%s"
+msgstr "Não foi possível alocar as partições como partições primárias.\n"
 
 #: ../autopart.py:997
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions.\n"
-msgstr ""
-"Não foi possível alocar partições baseadas em cilindros.\n"
-"\n"
-"%s"
+msgstr "Não foi possível alocar as partições baseadas em cilindros.\n"
 
 #: ../autopart.py:1062
 #, python-format
@@ -284,13 +259,11 @@ msgstr ""
 "GB do disco.  O OpenFirmware não vai conseguir arrancar desta instalação."
 
 #: ../autopart.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
 "be able to boot from this partition."
-msgstr ""
-"A partição de arranque %s não é do tipo VFAT.  O EFI não vai conseguir "
-"arrancar desta partição."
+msgstr "A partição de arranque %s não é de Linux, como por exemplo 'ext3'.  O sistema não vai conseguir arrancar desta partição."
 
 #: ../autopart.py:1073
 #, python-format
@@ -521,13 +494,10 @@ msgid "Transferring install image to hard drive..."
 msgstr "A transferir a imagem de instalação para o disco rígido..."
 
 #: ../backend.py:161
-#, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is probably due to bad media."
-msgstr ""
-"Ocorreu um erro ao transferir a imagem de instalação para o seu disco "
-"rígido. Provavelmente ficou sem espaço em disco."
+msgstr "Ocorreu um erro ao transferir a imagem de instalação para o seu disco rígido. Provavelmente tem dados corrompidos."
 
 #: ../backend.py:165
 msgid ""
@@ -580,16 +550,15 @@ msgid "Warning"
 msgstr "Aviso"
 
 #: ../bootloader.py:45
-#, fuzzy
 msgid ""
 "Your filesystems have already been activated.  You cannot go back past this "
 "point.\n"
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
-"As opções de particionamento que escolheu já foram activadas. Não pode "
-"voltar ao ecrã de edição de discos. Quer continuar com o processo de "
-"instalação?"
+"Os seus sistemas de ficheiros já foram activados. Já não voltar mais atrás a partir deste ponto.\n"
+"\n"
+"Quer continuar com o processo de instalação?"
 
 #: ../bootloader.py:49 ../exception.py:439 ../exception.py:456
 #: ../exception.py:479 ../exception.py:494 ../exception.py:519
@@ -642,23 +611,19 @@ msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "Não é possível tratar excepções do parted no modo linha de comandos!"
 
 #: ../constants.py:74
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
-msgstr ""
-"Ocorreu um erro não recuperável.  Provavelmente isto é um erro do programa.  "
-"Por favor copie o texto da excepção ocorrida e comunique um erro no "
-"componente 'anaconda' em %s"
+msgstr "Ocorreu um erro não recuperável.  Provavelmente isto é um erro do programa. Por favor, guarde a cópia detalhada da excepção e envie um relatório do erro"
 
 #: ../constants.py:80
 msgid " with the provider of this software."
-msgstr ""
+msgstr " com o fornecedor deste 'software'."
 
 #: ../constants.py:84
-#, fuzzy, python-format
+#, python-format
 msgid " against anaconda at %s"
-msgstr "A ler as actualizações do anaconda..."
+msgstr " com o acaconda em %s"
 
 #: ../exception.py:364
 #, python-format
@@ -668,6 +633,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"O seu erro não pôde ser relatado devido ao seguinte erro durante a comunicação com o Bugzilla:\n"
+"\n"
+"%s"
 
 #: ../exception.py:367
 #, python-format
@@ -677,46 +645,45 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"O seu erro não pôde ser relatado devido a dados inválidos nos campos do erro. Isto será provavelmente um erro no Anaconda:\n"
+"\n"
+"%s"
 
 #: ../exception.py:371
-#, fuzzy
 msgid "Unable To File Bug"
-msgstr "Não é Possível Apagar"
+msgstr "Não é Possível Enviar o Erro"
 
 #: ../exception.py:377
-#, fuzzy
 msgid "Bug Filing Not Supported"
-msgstr "Não Suportado"
+msgstr "O Envio do Erro Não é Suportado"
 
 #: ../exception.py:378
 msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
-msgstr ""
+msgstr "A sua diistribuição não oferece um sistema de comunicação de erros suportado, pelo que não poderá guardar a sua excepção desta forma."
 
 #: ../exception.py:384
-#, fuzzy
 msgid "Invalid Bug Information"
-msgstr "Informação IP Inválida"
+msgstr "Informação do Erro Inválida"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "Envie por favor um utilizador, uma senha e uma breve descrição válidos."
 
 #: ../exception.py:395
-#, fuzzy
 msgid "Unable To Login"
-msgstr "Não é Possível Editar"
+msgstr "Não é Possível Autenticar-se"
 
 #: ../exception.py:396
 #, python-format
 msgid ""
 "There was an error logging into %s using the provided username and password."
-msgstr ""
+msgstr "Ocorreu um erro ao registar em %s com o utilizador e senha indicados."
 
 #: ../exception.py:433
 msgid "Bug Created"
-msgstr ""
+msgstr "Erro Criado"
 
 #: ../exception.py:434
 #, python-format
@@ -727,11 +694,13 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Foi criado um novo erro com o seu registo de chamadas em anexo. Por favor adicione algumas informações adicionais, como o que estava a fazer quando lhe ocorreu o erro, algumas imagens e tudo o que seja apropriado para o seguinte ero:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:450
-#, fuzzy
 msgid "Bug Updated"
-msgstr "Actualizações"
+msgstr "Erro Actualizado"
 
 #: ../exception.py:451
 #, python-format
@@ -742,39 +711,37 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Já existe um erro com a sua informação. A sua conta foi adicionada à lista de CC e o seu registo de chamadas foi adicionado como um comentário. Por favor, adicione mais informações descritivas do seguinte erro:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:475 ../exception.py:490 ../exception.py:515
 msgid "Dump Written"
 msgstr "Mensagem de erro escrita"
 
 #: ../exception.py:476 ../exception.py:491
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the disk. The installer "
 "will now exit."
-msgstr ""
-"O estado do seu sistema foi escrito para a disquete. O instalador irá agora "
-"sair."
+msgstr "O estado do seu sistema foi guardado com sucesso no disco. O instalador irá agora sair."
 
 #: ../exception.py:482 ../exception.py:499 ../exception.py:522
 msgid "Dump Not Written"
 msgstr "O Resultado Não Foi Escrito"
 
 #: ../exception.py:483 ../exception.py:500
-#, fuzzy
 msgid "There was a problem writing the system state to the disk."
-msgstr "Ocorreu um problema ao gravar o estado do sistema na disquete."
+msgstr "Ocorreu um problema ao gravar o estado do sistema no disco."
 
 #: ../exception.py:506 ../exception.py:529
-#, fuzzy
 msgid "No Network Available"
-msgstr "Dispositivos de Rede"
+msgstr "Sem Rede Disponível"
 
 #: ../exception.py:507 ../exception.py:530
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
-msgstr ""
+msgstr "Não é possível gravar um relatório de erros por não haver nenhum dispositivo de rede activo disponível."
 
 #: ../exception.py:516
 msgid ""
@@ -789,24 +756,22 @@ msgid "There was a problem writing the system state to the remote host."
 msgstr "Ocorreu um erro ao gravar o estado do sistema na máquina remota."
 
 #: ../fsset.py:514
-#, fuzzy
 msgid "Checking"
-msgstr "A verificar o \"%s\"..."
+msgstr "A Verificar"
 
 #: ../fsset.py:515
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s..."
-msgstr "A verificar Blocos Danificados em /dev/%s..."
+msgstr "A verificar o sistema de ficheiros em %s..."
 
 #: ../fsset.py:526 ../fsset.py:984
-#, fuzzy
 msgid "Resizing"
-msgstr "A obter"
+msgstr "A dimensionar"
 
 #: ../fsset.py:527 ../fsset.py:985
-#, fuzzy, python-format
+#, python-format
 msgid "Resizing filesystem on %s..."
-msgstr "A formatar o sistema de ficheiros %s..."
+msgstr "A dimensionar o sistema de ficheiros em %s..."
 
 #: ../fsset.py:671
 #, python-format
@@ -822,9 +787,8 @@ msgstr ""
 "Quer continuar sem migrar o %s?"
 
 #: ../fsset.py:1530
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "Editar Partição"
+msgstr "Partição do Sistema EFI"
 
 #: ../fsset.py:1534
 msgid "RAID Device"
@@ -946,7 +910,7 @@ msgid "Format"
 msgstr "Formatar"
 
 #: ../fsset.py:1774
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -954,15 +918,14 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Erro ao montar o dispositivo %s como %s: %s\n"
+"Erro ao activar o dispositivo de memória virtual %s: %s\n"
 "\n"
-"Os dispositivos na /etc/fstab deverão ser indicados por legenda, não por "
-"nome do dispositivo.\n"
+"Os dispositivos na /etc/fstab deverão ser indicados por legenda, não por nome do dispositivo.\n"
 "\n"
 "Carregue em OK para sair do instalador."
 
 #: ../fsset.py:1779
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -971,12 +934,11 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"Erro ao inicializar o dispositivo de paginação %s: %s\n"
+"Erro ao activar o dispositivo de memória virtual %s: %s\n"
 "\n"
-"O ficheiro /etc/fstab na partição a actualizar não referência um dispositivo "
-"válido de paginação.\n"
+"O ficheiro /etc/fstab na partição a actualizar não referência um dispositivo válido de paginação.\n"
 "\n"
-"Carregue em OK para sair do instalador."
+"Carregue em OK para sair do instalador"
 
 #: ../fsset.py:1785
 #, python-format
@@ -1064,7 +1026,7 @@ msgstr ""
 "instalação, mas poderão ocorrer problemas."
 
 #: ../fsset.py:1986
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -1081,13 +1043,13 @@ msgstr ""
 "Carregue em OK para sair do instalador."
 
 #: ../fsset.py:1993
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Não foi possível localizar o dispositivo RAID %s, a ser usado como %s.\n"
+"Não foi possível localizar o dispositivo %s como %s: %s\n"
 "\n"
 "Carregue em 'OK' para sair do instalador."
 
@@ -1219,34 +1181,31 @@ msgstr "Chave de Instalação"
 msgid ""
 "Choose a passphrase for this encrypted device%s. You will be prompted for "
 "the passphrase during system boot."
-msgstr ""
+msgstr "Escolha uma frase-senha para este dispositivo encriptado %s. Ser-lhe-á pedida esta frase-senha durante o arranque do sistema."
 
 #: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
-#, fuzzy
 msgid "Error with passphrase"
-msgstr "Erro com a Senha"
+msgstr "Erro com a frase-senha"
 
 #: ../gui.py:680 ../text.py:368
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
-msgstr "As senhas inseridas são diferentes.  Por favor tente novamente."
+msgstr "As frases-senhas inseridas são diferentes.  Por favor tente novamente."
 
 #: ../gui.py:688
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "A senha deve ter pelo menos seis caracteres."
+msgstr "A frase-senha deve ter pelo menos oito caracteres."
 
 #: ../gui.py:723 ../text.py:400
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
-msgstr ""
+msgstr "O dispositivo %s está encriptado. Para poder aceder ao seu conteúdo durante a instalação, terá de indicar a frase-senha do dispositivo em baixo."
 
 #: ../gui.py:780
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "Bugzilla (%s)"
 
 #: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
 #: tmp/anaconda.glade.h:2
@@ -1318,9 +1277,8 @@ msgid "Exiting"
 msgstr "A sair"
 
 #: ../gui.py:1493
-#, fuzzy
 msgid "Are you sure you wish to exit the installation?"
-msgstr "Tem certeza que quer apagar o volume lógico \"%s\"?"
+msgstr "Tem certeza que deseja sair da instalação?"
 
 #: ../gui.py:1502
 #, python-format
@@ -1372,7 +1330,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Falta uma Imagem ISO 9660"
 
 #: ../image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1431,16 +1389,12 @@ msgid "Initializing iSCSI initiator"
 msgstr "A inicializar o iniciador de iSCSI"
 
 #: ../kickstart.py:93
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the kickstart script at line %s.  You may examine "
 "the output in %s.  This is a fatal error and your install will be aborted.  "
 "Press the OK button to exit the installer."
-msgstr ""
-"Ocorreu um erro ao executar o 'scriptlet'.  Pode examinar o resultado em %"
-"s.  Este erro é fatal e a instalação vai ser abortada.\n"
-"\n"
-"Carregue no botão OK para sair do instalador."
+msgstr "Ocorreu um erro ao executar o 'kickstart' na linha %s.  Pode examinar o resultado em %s.  Este erro é fatal e a instalação vai ser abortada. Carregue no botão OK para sair do instalador."
 
 #: ../kickstart.py:108 ../kickstart.py:110
 msgid "Scriptlet Failure"
@@ -1504,7 +1458,6 @@ msgid "Copying live image to hard drive."
 msgstr "A transferir a imagem de execução para o disco rígido."
 
 #: ../livecd.py:197
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -1512,13 +1465,9 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"Não foi possível abrir o ficheiro %s. Isto deve-se a um ficheiro em falta ou "
-"talvez um pacote estragado. Verifique se a sua árvore de instalação tem "
-"todos os pacotes necessários.\n"
+"Não foi possível ao instalar a imagem Live no seu disco rígido. Isto poder-se-á dever a um dispositivo danificado. Verifique o seu suporte físico de instalação.\n"
 "\n"
-"Se sair, o seu sistema ficará num estado inconsistente que poderá necessitar "
-"de reinstalação.\n"
-"\n"
+"Se sair, o seu sistema ficará num estado inconsistente que poderá necessitar de reinstalação."
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -1536,28 +1485,22 @@ msgstr ""
 msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
-msgstr ""
+msgstr "O sistema de ficheiros de raiz que criou não é grande o suficiente para esta imagem Live (são necessários %.2f MB)."
 
 #: ../network.py:64
-#, fuzzy
 msgid "Hostname must be 64 or fewer characters in length."
-msgstr "O nome da máquina deverá ter até 64 caracteres de tamanho."
+msgstr "O nome da máquina deverá ter no máximo 64 caracteres de tamanho."
 
 #: ../network.py:70
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
-msgstr ""
-"O nome da máquina deve começar com um carácter válido no intervalo 'a-z' ou "
-"'A-Z'"
+msgstr "O nome da máquina deve começar com um carácter válido no intervalo 'a-z', 'A-Z' ou '0-9'"
 
 #: ../network.py:75
-#, fuzzy
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr ""
-"Os nomes das máquinas só podem conter os caracteres 'a-z', 'A-Z', '-' ou '.'"
+msgstr "Os nomes das máquinas só podem conter os caracteres 'a-z', 'A-Z', '0-9', '-' ou '.'"
 
 #: ../network.py:132
 msgid "IP address is missing."
@@ -1582,28 +1525,25 @@ msgid "'%s' is an invalid IP address."
 msgstr "O %s não é um endereço IP válido."
 
 #: ../packages.py:112
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "A obter"
+msgstr "O Dimensionamento Falhou"
 
 #: ../packages.py:113
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered resizing the device %s."
-msgstr "Ocorreu um erro ao limpar os dispositivos de destino. A cópia falhou."
+msgstr "Ocorreu um erro ao tentar dimensionar o dispositivo %s."
 
 #: ../packages.py:146
-#, fuzzy
 msgid "Activating"
-msgstr "Activar no arranque"
+msgstr "A activar"
 
 #: ../packages.py:146
 msgid "Activating new partitions.  Please wait..."
-msgstr ""
+msgstr "A activar as novas partições. Espere por favor..."
 
 #: ../packages.py:167
-#, fuzzy
 msgid "LVM operation failed"
-msgstr "Montagem falhou"
+msgstr "A operação de LVM falhou"
 
 #: ../packages.py:323
 msgid "Invalid Key"
@@ -1725,7 +1665,7 @@ msgstr ""
 "Quer inicializar esta unidade, apagando TODOS OS DADOS?"
 
 #: ../partedUtils.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1736,12 +1676,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Não foi possível ler a tabela de partições do dispositivo %s (%s). Para "
-"criar novas partições ela precisa ser inicializada, o que causará a perda de "
-"TODOS OS DADOS neste disco.\n"
+"Não foi possível ler a tabela de partições do dispositivo %s (%s %-0.f MB). Para criar novas partições ela precisa ser inicializada, o que causará a perda de TODOS OS DADOS neste disco.\n"
 "\n"
-"Esta operação sobrepõe quaisquer escolhas de prévias de quais unidades de "
-"armazenamento ignorar.\n"
+"Esta operação sobrepõe quaisquer escolhas prévias das unidades de armazenamento que deseja ignorar.\n"
 "\n"
 "Quer inicializar esta unidade, apagando TODOS OS DADOS?"
 
@@ -1965,7 +1902,6 @@ msgid "You need to select at least one hard drive to install %s."
 msgstr "É necessário que escolha pelo menos um disco onde instalar o %s."
 
 #: ../partIntfHelpers.py:417
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1973,13 +1909,7 @@ msgid ""
 "problems with this installation of Linux. However, if this partition "
 "contains files that you need to keep, such as home directories, then "
 "continue without formatting this partition."
-msgstr ""
-"Optou por utilizar uma partição já existente para a instalação, mas sem a "
-"formatar. É recomendado que formate esta partição para garantir que os "
-"ficheiros de uma instalação anterior do sistema operativo não causam "
-"problemas com a instalação actual. No entanto, se a partição contém "
-"ficheiros que deseja manter, tais como as directorias pessoais dos "
-"utilizadores, então deve continuar sem a formatar."
+msgstr "Optou por utilizar uma partição já existente para a instalação, mas sem a formatar. É recomendado que formate esta partição para garantir que os ficheiros de uma instalação anterior do sistema operativo não causam problemas com esta instalação do Linux. No entanto, se a partição contém ficheiros que deseja manter, tais como as directorias pessoais dos utilizadores, então deve continuar sem a formatar."
 
 #: ../partIntfHelpers.py:425
 msgid "Format?"
@@ -2108,14 +2038,13 @@ msgstr ""
 "instalação?"
 
 #: ../partitions.py:130
-#, fuzzy, python-format
+#, python-format
 msgid " for device %s"
-msgstr "Dispositivo RAID %s"
+msgstr " do dispositivo %s"
 
 #: ../partitions.py:133
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Chave de Encriptação"
+msgstr "Encriptar o dispositivo?"
 
 #: ../partitions.py:134
 #, python-format
@@ -2123,7 +2052,7 @@ msgid ""
 "You specified block device encryption should be enabled%s, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption%s will be disabled."
-msgstr ""
+msgstr "Indicou que a encriptação do dispositivo em bloco deveria ser activada %s, mas não indicou qualquer frase-senha. Se não recuar e indicar uma frase-senha, a encriptação do dispositivo %s ficará desactivada."
 
 #: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
@@ -2135,7 +2064,7 @@ msgstr ""
 #: ../loader/net.c:514 ../loader/net.c:869 ../loader/net.c:1542
 #: ../loader/net.c:1564 ../loader/nfsinstall.c:86 ../loader/urls.c:292
 msgid "Back"
-msgstr "Regressar"
+msgstr "Anterior"
 
 #: ../partitions.py:141 ../partitions.py:260 ../rescue.py:312
 #: ../iw/partition_gui.py:574 ../textw/network_text.py:62
@@ -2145,29 +2074,26 @@ msgid "Continue"
 msgstr "Continuar"
 
 #: ../partitions.py:160
-#, fuzzy
 msgid "Writing partitioning to disk"
-msgstr "Mi_grar a partição para:"
+msgstr "A guardar os dados das partições no disco"
 
 #: ../partitions.py:161
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
-msgstr ""
+msgstr "As opções de particionamento que seleccionou serão agora registadas no disco. Todos os dados nas partições apagadas ou formatadas de novo perder-se-ão."
 
 #: ../partitions.py:166
-#, fuzzy
 msgid "Go _back"
-msgstr "Re_gressar"
+msgstr "Re_cuar"
 
 #: ../partitions.py:167
 msgid "_Write changes to disk"
-msgstr ""
+msgstr "Gravar as alterações _no disco"
 
 #: ../partitions.py:265
-#, fuzzy
 msgid "Confirm"
-msgstr "Confirme:"
+msgstr "Confirmar"
 
 #: ../partitions.py:266
 #, python-format
@@ -2177,6 +2103,9 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
+"Tem a certeza que não deseja introduzir uma frase-senha para o dispositivo %s?\n"
+"\n"
+"Se ignorar este passo, o conteúdo do dispositivo ficará indisponível durante a instalação."
 
 #: ../partitions.py:1146
 #, python-format
@@ -2197,10 +2126,8 @@ msgstr ""
 "provavelmente é demasiado pequena para instalar o %s."
 
 #: ../partitions.py:1177
-#, fuzzy
 msgid "You must create an EFI System Partition of at least 10 megabytes."
-msgstr ""
-"Tem de criar uma partição /boot/efi do tipo FAT e com o tamanho de 50 MB."
+msgstr "Tem de criar uma partição do sistema EFI com pelo menos 10 MB."
 
 #: ../partitions.py:1191
 msgid ""
@@ -2251,19 +2178,17 @@ msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Partições de arranque não são permitidas em volumes lógicos."
 
 #: ../partitions.py:1311
-#, fuzzy
 msgid "Bootable partitions cannot be on a RAID device."
-msgstr "Partições de arranque só são permitidas em dispositivos RAID1."
+msgstr "As partições de arranque não podem estar num dispositivo RAID."
 
 #: ../partitions.py:1316 ../partitions.py:1322
-#, fuzzy, python-format
+#, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "Partições de arranque não são permitidas em volumes lógicos."
+msgstr "As partições de arranque não são permitidas num sistema de ficheiros %s."
 
 #: ../partitions.py:1326
-#, fuzzy
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "Partições de arranque não são permitidas em volumes lógicos."
+msgstr "As partições de arranque não são permitidas num dispositivo encriptado."
 
 #: ../partitions.py:1330
 msgid ""
@@ -2306,9 +2231,9 @@ msgid "a partition which is a member of a LVM Volume Group."
 msgstr "uma partição que é um membro de um Grupo de Volumes de LVM."
 
 #: ../partRequests.py:275 ../partRequests.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point %s must be formatted during live CD installs."
-msgstr "Este ponto de montagem deve estar num sistema de ficheiros do Linux."
+msgstr "O ponto de montagem %s deve ser formatado nas instalações de Live CD."
 
 #: ../partRequests.py:284
 #, python-format
@@ -2413,7 +2338,7 @@ msgstr "Quando terminar saia da consola e o seu sistema será reiniciado."
 
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
+msgstr "Não é possível encontrar o programa a executar '/bin/sh'! A linha de comandos não foi iniciada"
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -2547,18 +2472,17 @@ msgid "Save"
 msgstr "Gravar"
 
 #: ../text.py:210
-#, fuzzy
 msgid "Save to local disk"
-msgstr "Gravar em Di_squete"
+msgstr "Gravar no disco local"
 
 #: ../text.py:211
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "Enviar para o Bugzilla (%s)"
 
 #: ../text.py:212
 msgid "Send to remote server (scp)"
-msgstr ""
+msgstr "Enviar para um servidor remoto (SCP)"
 
 #: ../text.py:226 ../text.py:239
 msgid "User name"
@@ -2570,42 +2494,40 @@ msgstr "Senha"
 
 #: ../text.py:230
 msgid "Bug Description"
-msgstr ""
+msgstr "Descrição do Erro"
 
 #: ../text.py:243
 msgid "Host (host:port)"
-msgstr ""
+msgstr "Servidor (máquina:porto)"
 
 #: ../text.py:245
-#, fuzzy
 msgid "Destination file"
-msgstr "Montagem falhou"
+msgstr "Ficheiro de destino"
 
 #: ../text.py:329
 msgid "Passphrase for encrypted device"
-msgstr ""
+msgstr "Frase-senha do dispositivo encriptado"
 
 #: ../text.py:347 tmp/lukspassphrase.glade.h:7
 msgid "Use this passphrase for all new encrypted devices"
-msgstr ""
+msgstr "Usar esta frase-senha para todos os dispositivos encriptados novos"
 
 #: ../text.py:378
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "A senha deve ter pelo menos seis caracteres."
+msgstr "A frase-senha deve ter pelo menos %d caracteres."
 
 #: ../text.py:407 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
-msgstr ""
+msgstr "Frase-senha"
 
 #: ../text.py:415 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "Esta é uma frase-senha global"
 
 #: ../text.py:481 ../text.py:485
-#, fuzzy
 msgid "Repository editing is not available in text mode."
-msgstr "Instalação gráfica não disponível...  A iniciar o modo texto."
+msgstr "A edição de repositórios não está disponível no modo de texto."
 
 #: ../text.py:523
 #, python-format
@@ -2618,9 +2540,9 @@ msgid "Skip entering %(instkey)s"
 msgstr "Ignorar a introdução de %(instkey)s"
 
 #: ../text.py:616 ../loader/lang.c:63 ../loader/loader.c:212
-#, fuzzy, c-format, python-format
+#, c-format, python-format
 msgid "Welcome to %s for %s"
-msgstr "Bem-vindo ao %s"
+msgstr "Bem-vindo ao %s para %s"
 
 #: ../text.py:618
 #, python-format
@@ -2644,12 +2566,12 @@ msgid ""
 "You have choosen the upgrade for %s architecture, but the installed system "
 "is for %s architecture. \n"
 "\n"
-msgstr ""
+msgstr "Optou pela actualização para a arquitectura %s, mas o sistema instalado é da arquitectura %s.\n\n"
 
 #: ../upgrade.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to upgrade  the installed system to the %s architecture?"
-msgstr "Tem a certeza que quer preparar o sistema de ficheiros desta partição?"
+msgstr "Deseja actualizar o sistema instalado para a arquitectura %s?"
 
 #: ../upgrade.py:113
 msgid ""
@@ -2778,9 +2700,9 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr "Irá tentar ligar-se de novo daqui a 15 segundos..."
 
 #: ../vnc.py:200
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d tries!\n"
-msgstr "A desistir de tentar ligar-se ao fim de 50 tentativas!\n"
+msgstr "A desistir da ligação ao fim de %d tentativas!\n"
 
 #: ../vnc.py:209
 #, python-format
@@ -2813,9 +2735,15 @@ msgid ""
 "to the vncviewer is unsuccessful\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"Optou por ligar-se a um 'vncviewer' à espera de dados.\n"
+"Isto não necessita da definição de uma senha. Se a definir,\n"
+"ela será usada no caso de a ligação ao 'vncviewer' não\n"
+"ter sucesso\n"
+"\n"
 
 #: ../vnc.py:257
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -2827,7 +2755,7 @@ msgstr ""
 "\n"
 "\n"
 "ATENÇÃO!!! O servidor de VNC está a correr SEM SENHA!\n"
-"Você pode usar a opção de arranque vncpassword=<senha>\n"
+"Você pode usar a opção de arranque self.password=<senha>\n"
 "se quiser tornar o servidor seguro.\n"
 "\n"
 
@@ -2837,16 +2765,15 @@ msgid ""
 "\n"
 "You chose to execute vnc with a password. \n"
 "\n"
-msgstr ""
+msgstr "\n\nOptou por executar o 'vnc' com uma senha.\n\n"
 
 #: ../vnc.py:263
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Unknown Error.  Aborting. \n"
 "\n"
-msgstr "Erro Desconhecido"
+msgstr "\n\nErro Desconhecido. A interromper. \n\n"
 
 #: ../vnc.py:285 ../vnc.py:378
 msgid "VNC Configuration"
@@ -2950,17 +2877,15 @@ msgid "%s of %s packages completed"
 msgstr "%s de %s pacotes completos"
 
 #: ../yuminstall.py:214
-#, fuzzy
 msgid "Finishing upgrade process..."
-msgstr "A terminar a actualização"
+msgstr "A terminar o processo de actualização..."
 
 #: ../yuminstall.py:308 ../iw/task_gui.py:275
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "Adicionar um Repositório"
+msgstr "Erro ao Configurar o Repositório"
 
 #: ../yuminstall.py:309 ../iw/task_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -2968,11 +2893,11 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"Ocorreram os seguinte erros com o seu particionamento:\n"
+"Ocorreu o seguinte erro de configuração do repositório de instalação:\n"
 "\n"
 "%s\n"
 "\n"
-"Carregue em 'OK' para sair do instalador."
+"Indique por favor a informação correcta para instalar o %s."
 
 #: ../yuminstall.py:366
 msgid "Change Disc"
@@ -2999,19 +2924,18 @@ msgstr "Não foi possível aceder ao disco."
 #: ../yuminstall.py:533
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr ""
+msgstr "O repositório %r não tem nome na configuração; a usar o seu ID"
 
 #: ../yuminstall.py:651 ../yuminstall.py:653
 msgid "Re_boot"
 msgstr "Re_iniciar"
 
 #: ../yuminstall.py:651
-#, fuzzy
 msgid "_Eject"
-msgstr "Ejectar o Disco"
+msgstr "_Ejectar"
 
 #: ../yuminstall.py:660
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
 "package or corrupt media.  Please verify your installation source.\n"
@@ -3020,29 +2944,24 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Não foi possível abrir o ficheiro %s. Isto deve-se a um ficheiro em falta ou "
-"talvez um pacote estragado. Verifique se a sua árvore de instalação tem "
-"todos os pacotes necessários.\n"
+"Não foi possível abrir o ficheiro %s. Isto deve-se a um ficheiro em falta ou talvez um pacote estragado. Verifique o seu suporte físico de instalação.\n"
 "\n"
-"Se sair, o seu sistema ficará num estado inconsistente que poderá necessitar "
-"de reinstalação.\n"
+"Se sair, o seu sistema ficará num estado inconsistente que poderá necessitar de reinstalação.\n"
 "\n"
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying"
-msgstr "A obter"
+msgstr "A repetir"
 
 #: ../yuminstall.py:700
 msgid "Retrying download..."
-msgstr ""
+msgstr "A repetir a transferência..."
 
 #: ../yuminstall.py:772
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
-msgstr ""
-"Ocorreu um erro ao executar a sua transacção, pelas seguintes razões: %s"
+msgstr "Ocorreu um erro ao executar a sua transacção, pela seguinte razão: %s\n"
 
 #: ../yuminstall.py:807 ../yuminstall.py:808
 msgid "file conflicts"
@@ -3085,24 +3004,24 @@ msgid "You need more space on the following file systems:\n"
 msgstr "É necessário mais espaço nos seguintes sistemas de ficheiros:\n"
 
 #: ../yuminstall.py:843
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
-msgstr "Em que tipo de formato estão os pacotes que vão ser instalados?"
+msgstr ""
+"Ocorreram conflitos de ficheiros ao verificar os pacotes a instalar:\n"
+"%s\n"
 
 #: ../yuminstall.py:846
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
-msgstr ""
-"Ocorreu um erro ao executar a sua transacção, pelas seguintes razões: %s"
+msgstr "Ocorreu um erro ao executar a sua transacção, pelas seguintes razões: %s.\n"
 
 #: ../yuminstall.py:856 ../yuminstall.py:861
-#, fuzzy
 msgid "Error Running Transaction"
-msgstr "Erro ao executar a transacção"
+msgstr "Erro ao Executar a Transacção"
 
 #: ../yuminstall.py:1021
 msgid "Retrieving installation information..."
@@ -3119,7 +3038,7 @@ msgid "Edit"
 msgstr "Editar"
 
 #: ../yuminstall.py:1053 ../yuminstall.py:1300
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
@@ -3127,9 +3046,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Não foi possível ler os meta-dados do pacote. Isto poderá ser devido a uma "
-"pasta 'repodata' em falta. Por favor verifique que a sua árvore de "
-"instalação foi gerada correctamente.  %s"
+"Não foi possível ler os meta-dados do pacote. Isto poderá ser devido a uma pasta 'repodata' em falta. Por favor verifique que a sua árvore de instalação foi gerada correctamente.\n"
+"\n"
+"%s"
 
 #: ../yuminstall.py:1094
 msgid ""
@@ -3173,15 +3092,12 @@ msgstr ""
 "actualização?"
 
 #: ../yuminstall.py:1532
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
-"Parece estar actualizar um sistema que é demasiado antigo para ser "
-"actualizado para esta versão do %s.  Deseja continuar o processo de "
-"actualização?"
+msgstr "A arquitectura da versão do %s que está a actualizar parece ser a %s, que não corresponde à sua arquitectura anterior %s. É provável que isto não resulte. Tem a certeza que deseja continuar o processo de actualização?"
 
 #: ../yuminstall.py:1579
 msgid "Post Upgrade"
@@ -3233,19 +3149,16 @@ msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Não indicou um LUN FCP ou o número é inválido."
 
 #: ../iw/account_gui.py:52
-#, fuzzy
 msgid "Root _Password:"
-msgstr "Senha de _Root: "
+msgstr "Senha de _Root:"
 
 #: ../iw/account_gui.py:54
-#, fuzzy
 msgid "_Confirm:"
-msgstr "_Confirme: "
+msgstr "_Confirme:"
 
 #: ../iw/account_gui.py:97
-#, fuzzy
 msgid "Caps Lock is on."
-msgstr "<b>O Caps Lock está ligado.</b>"
+msgstr "O Caps Lock está ligado."
 
 #: ../iw/account_gui.py:107 ../iw/account_gui.py:115 ../iw/account_gui.py:122
 #: ../iw/account_gui.py:143 ../textw/userauth_text.py:74
@@ -3269,17 +3182,19 @@ msgid "The root password must be at least six characters long."
 msgstr "A senha de root deve ter pelo menos seis caracteres."
 
 #: ../iw/account_gui.py:131 ../textw/userauth_text.py:81
-#, fuzzy
 msgid "Weak Password"
-msgstr "Senha"
+msgstr "Senha Fraca"
 
 #: ../iw/account_gui.py:132 ../textw/userauth_text.py:82
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Weak password provided: %s\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr "Quer continuar com a actualização?"
+msgstr ""
+"Foi indicada uma senha fraca: %s\n"
+"\n"
+"Quer continuar com a actualização?"
 
 #: ../iw/account_gui.py:144 ../textw/userauth_text.py:75
 msgid ""
@@ -3292,12 +3207,12 @@ msgstr ""
 msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
-msgstr ""
+msgstr "Não existem partições para dimensionar. Só é possível dimensionar partições físicas, desde que tenham determinados sistemas de ficheiros"
 
 #: ../iw/autopart_type.py:180
 msgid ""
 "Do you really want to boot from a disk which is not used for installation?"
-msgstr ""
+msgstr "Deseja mesmo arrancar a partir de um disco não usado na instalação?"
 
 #: ../iw/autopart_type.py:261
 msgid "Invalid Initiator Name"
@@ -3324,11 +3239,8 @@ msgstr ""
 "disposição predefinida"
 
 #: ../iw/autopart_type.py:407
-#, fuzzy
 msgid "Resize existing partition and create default layout in free space"
-msgstr ""
-"Remover as partições de Linux nas unidades seleccionadas e criar uma "
-"disposição predefinida"
+msgstr "Dimensionar as partições existentes e criar uma disposição predefinida no espaço livre"
 
 #: ../iw/autopart_type.py:408 ../textw/partition_text.py:1520
 msgid "Use free space on selected drives and create default layout"
@@ -3345,15 +3257,10 @@ msgid "_Use a boot loader password"
 msgstr "_Utilizar uma senha no gestor de arranque"
 
 #: ../iw/blpasswidget.py:48
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from changing kernel options, "
 "increasing security."
-msgstr ""
-"Uma senha no gestor de arranque impede que os utilizadores passem opções "
-"arbitrárias ao 'kernel'. Para uma segurança mais elevada, recomendamos que "
-"insira uma senha, mas isto não é necessário para os utilizadores mais "
-"casuais."
+msgstr "Uma senha no gestor de arranque impede que os utilizadores alterem as opções do 'kernel', o que dá uma segurança mais elevada."
 
 #: ../iw/blpasswidget.py:79
 msgid "Change _password"
@@ -3407,25 +3314,23 @@ msgstr "Configuração do Gestor de Arranque"
 
 #: ../iw/bootloader_main_gui.py:174 ../iw/bootloader_main_gui.py:179
 #: ../iw/bootloader_main_gui.py:216
-#, fuzzy, python-format
+#, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "A instalar o gestor de arranque..."
+msgstr "_Instalar o gestor de arranque em /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:222
-#, fuzzy
 msgid "_Change device"
-msgstr "Mudar de Disco"
+msgstr "_Mudar de dispositivo"
 
 #: ../iw/congrats_gui.py:33
 msgid "Congratulations"
 msgstr "Parabéns"
 
 #: ../iw/congrats_gui.py:71
-#, fuzzy
 msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
-msgstr "Ligue-se por favor a %s para iniciar a instalação..."
+msgstr "Por favor, arranque o computador para usar o sistema instalado.\n\n"
 
 #: ../iw/congrats_gui.py:74
 msgid ""
@@ -3485,21 +3390,21 @@ msgid "Unknown Linux system"
 msgstr "Sistema Linux desconhecido"
 
 #: ../iw/GroupSelector.py:165
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Selecção de pacotes"
+msgstr "Pacotes em %s"
 
 #: ../iw/GroupSelector.py:442
-#, fuzzy, python-format
+#, python-format
 msgid "%d of %d optional package selected"
 msgid_plural "%d of %d optional packages selected"
-msgstr[0] "Não existem pacotes opcionais para seleccionar"
-msgstr[1] "Não existem pacotes opcionais para seleccionar"
+msgstr[0] "%d de %d pacote opcional seleccionado"
+msgstr[1] "%d de %d pacotes opcionais seleccionados"
 
 #: ../iw/GroupSelector.py:445
 #, python-format
 msgid "<i>%s</i>"
-msgstr ""
+msgstr "<i>%s</i>"
 
 #: ../iw/language_gui.py:33 ../textw/language_text.py:46
 msgid "Language Selection"
@@ -3664,9 +3569,8 @@ msgstr "(Tamanho máximo %s MB)"
 
 #: ../iw/lvm_dialog_gui.py:479 ../iw/partition_dialog_gui.py:510
 #: ../iw/partition_ui_helpers_gui.py:301 ../iw/raid_dialog_gui.py:359
-#, fuzzy
 msgid "_Encrypt"
-msgstr "Chave de Encriptação"
+msgstr "_Encriptar"
 
 #: ../iw/lvm_dialog_gui.py:544 ../textw/partition_text.py:1265
 msgid "Illegal size"
@@ -3856,9 +3760,8 @@ msgid "_Edit"
 msgstr "_Editar"
 
 #: ../iw/lvm_dialog_gui.py:1180
-#, fuzzy
 msgid "_Logical Volumes"
-msgstr "Volumes Lógicos"
+msgstr "Volumes _Lógicos"
 
 #: ../iw/netconfig_dialog.py:158 ../textw/netconfig_text.py:36
 #, python-format
@@ -4085,9 +3988,8 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "O prefixo IPv6 deverá ser um número entre 0 e 128."
 
 #: ../iw/osbootwidget.py:51
-#, fuzzy
 msgid "Boot loader operating system list"
-msgstr "A senha do gestor de arranque é demasiado curta"
+msgstr "Lista de sistemas operativos do gestor de arranque"
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:262
 msgid "Default"
@@ -4458,19 +4360,16 @@ msgid "<Not Applicable>"
 msgstr "<Não Aplicável>"
 
 #: ../iw/partition_ui_helpers_gui.py:285
-#, fuzzy
 msgid "_Format as:"
-msgstr "Formatar como:"
+msgstr "_Formatar como:"
 
 #: ../iw/partition_ui_helpers_gui.py:308
-#, fuzzy
 msgid "Mi_grate filesystem to:"
-msgstr "Migrar Sistema de Ficheiros"
+msgstr "Mi_grar o sistema de ficheiros para:"
 
 #: ../iw/partition_ui_helpers_gui.py:328 tmp/autopart.glade.h:9
-#, fuzzy
 msgid "_Resize"
-msgstr "Tamanho _fixo"
+msgstr "Dimensiona_r"
 
 #: ../iw/partition_ui_helpers_gui.py:384
 #, python-format
@@ -4733,44 +4632,38 @@ msgstr ""
 "a selecção manual dos pacotes do repositório não funcione"
 
 #: ../iw/task_gui.py:155
-#, fuzzy
 msgid "Edit Repository"
-msgstr "Adicionar um Repositório"
+msgstr "Editar o Repositório"
 
 #: ../iw/task_gui.py:213
-#, fuzzy
 msgid "Invalid Proxy URL"
-msgstr "URL do Repositório Inválido"
+msgstr "URL do 'Proxy' Inválido"
 
 #: ../iw/task_gui.py:214
-#, fuzzy
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
-msgstr "Terá de indicar um URL de um repositório em HTTP ou FTP."
+msgstr "Terá de indicar um URL de um repositório em HTTP, HTTPS ou FTP."
 
 #: ../iw/task_gui.py:224 ../iw/task_gui.py:350
 msgid "Invalid Repository URL"
 msgstr "URL do Repositório Inválido"
 
 #: ../iw/task_gui.py:225 ../iw/task_gui.py:351
-#, fuzzy
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr "Terá de indicar um URL de um repositório em HTTP ou FTP."
+msgstr "Terá de indicar um URL de um repositório em HTTP, HTTPS ou FTP."
 
 #: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-#, fuzzy
 msgid "No Media Found"
-msgstr "Nenhuma Drive Encontrada"
+msgstr "Nenhum Suporte Encontrado"
 
 #: ../iw/task_gui.py:248 ../iw/task_gui.py:361
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
-msgstr ""
+msgstr "Não foi encontrado nenhum suporte de instalação. Introduza por favor um disco no seu leitor e tente de novo."
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
-#, fuzzy
 msgid "Please enter an NFS server and path."
-msgstr "Por favor indique o nome do grupo de volumes."
+msgstr "Por favor indique um servidor de NFS e a localização neste."
 
 #: ../iw/task_gui.py:299
 msgid "Invalid Repository Name"
@@ -4795,15 +4688,13 @@ msgstr ""
 
 #: ../iw/task_gui.py:431
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "Não Existem Repositórios de 'Software' Activos"
 
 #: ../iw/task_gui.py:432
-#, fuzzy
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr ""
-"Estes erros têm que ser corrigidos antes de continuar com a instalação do %s."
+msgstr "Deve ter pelo menos um repositório de 'software' activo para continuar com a instalação."
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -4881,7 +4772,7 @@ msgid "Migrate File Systems"
 msgstr "Migrar Sistema de Ficheiros"
 
 #: ../iw/upgrade_migratefs_gui.py:64
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4889,10 +4780,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Este versão do %s suporta o sistema de ficheiros transaccional ext3.  Este "
-"oferece várias vantagens em comparação com o sistema de ficheiros ext2, "
-"tradicionalmente utilizado no %s.  É possível migrar as partições formatadas "
-"com ext2 para ext3 sem que ocorra a perda de dados.\n"
+"Esta versão do %s suporta um sistema de ficheiros actualizado, que oferece várias vantagens em comparação com o sistema de ficheiros tradicionalmente utilizado no %s. Este programa pode migrar as partições formatadas, sem que ocorra a perda de dados.\n"
 "\n"
 "Quais destas partições deseja migrar?"
 
@@ -5236,9 +5124,9 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "Que tipo de teclado está ligado a este computador?"
 
 #: ../textw/netconfig_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s"
-msgstr "É necessário inserir um valor no campo \"%s\"."
+msgstr "É necessário inserir um valor no campo \"%s\""
 
 #: ../textw/netconfig_text.py:86 tmp/netconfig.glade.h:9
 msgid "Enable network interface"
@@ -5253,9 +5141,8 @@ msgstr ""
 "de instalação. Configure por favor uma interface de rede."
 
 #: ../textw/netconfig_text.py:111
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Usar uma configuração de IP _dinâmica (DHCP)"
+msgstr "Usar uma configuração de IP dinâmica (DHCP)"
 
 #: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
 #: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
@@ -5268,12 +5155,10 @@ msgid "Enable IPv6 support"
 msgstr "Activar o suporte de IPv6"
 
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
 msgstr "Endereço IPv4:"
 
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
 msgstr "Endereço IPv6:"
 
@@ -5283,27 +5168,22 @@ msgid "Gateway:"
 msgstr "'Gateway':"
 
 #: ../textw/netconfig_text.py:144
-#, fuzzy
 msgid "Nameserver:"
-msgstr "Servidor de nomes"
+msgstr "Servidor de nomes:"
 
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "Pacotes em Falta"
+msgstr "Dispositivo em Falta"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "Deve escolher a partição a editar"
+msgstr "Deve seleccionar um dispositivo de rede"
 
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
-msgstr "Máscara de Rede IPv4"
+msgstr "Máscara de Rede IPv4 "
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
 msgstr "Erro ao configurar o dispositivo de rede:"
 
@@ -5900,7 +5780,7 @@ msgid "Create new boot loader configuration"
 msgstr "Criar nova configuração de gestor de arranque"
 
 #: ../textw/upgrade_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -5908,10 +5788,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Este versão do %s suporta o sistema de ficheiros transaccional ext3.  Este "
-"oferece várias vantagens em comparação com o sistema de ficheiros ext2, "
-"tradicionalmente utilizado no %s.  É possível migrar as partições formatadas "
-"com ext2 para ext3 sem que ocorra a perda de dados.\n"
+"Esta versão do %s suporta um sistema de ficheiros actualizado, que oferece várias vantagens em comparação com o sistema de ficheiros tradicionalmente utilizado no %s.  Este programa de instalação pode migrar as partições formatadas sem que ocorra a perda de dados.\n"
 "\n"
 "Quais destas partições deseja migrar?"
 
@@ -5963,14 +5840,10 @@ msgid "Root Password"
 msgstr "Senha de 'Root'"
 
 #: ../textw/userauth_text.py:33
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. "
-msgstr ""
-"Escolha uma senha para o super-utilizador (root). Você deverá inseri-la duas "
-"vezes para garantir que não se enganou. Lembre-se que a senha de super-"
-"utilizador é uma parte crítica da segurança do seu sistema!"
+msgstr "Escolha uma senha para o super-utilizador (root). Você deverá inseri-la duas vezes para garantir que não se enganou."
 
 #: ../textw/userauth_text.py:67
 msgid "The root password must be at least 6 characters long."
@@ -6158,14 +6031,13 @@ msgstr ""
 "Escolha %s para não efectuar o teste e iniciar a instalação."
 
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "Aviso"
+msgstr "A analisar"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "À procura das imagens de instalação no dispositivo de CD %s"
 
 #: ../loader/cdinstall.c:428
 #, c-format
@@ -6185,9 +6057,9 @@ msgid "Cannot find kickstart file on CDROM."
 msgstr "Não foi possível encontrar o ficheiro 'kickstart' no CDROM."
 
 #: ../loader/copy.c:51 ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "Não foi possível ler directoria %s: %s"
+msgstr "Não foi possível ler a directoria %s: %m"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -6357,13 +6229,10 @@ msgid "Select Device Driver to Load"
 msgstr "Escolha o Controlador de Dispositivo a Carregar"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
-msgstr ""
-"Ocorreu um erro ao carregar a instalação das imagens ISO. Por favor "
-"verifique as imagens ISO e tente novamente."
+msgstr "Ocorreu um erro ao encontrar a imagem de instalação no seu disco rígido. Por favor, verifique as suas imagens e tente novamente."
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6374,29 +6243,25 @@ msgstr ""
 "algum dispositivo adicional?"
 
 #: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
-msgstr ""
-"Que partição e em que directoria nessa partição é que encontram as imagens "
-"(iso9660) dos CDs do %s? Se não vê o disco que quer utilizar listado, "
-"carregue em F2 para configurar mais dispositivos."
+msgstr "Que partição e em que directoria nessa partição é que encontram as imagens de instalação do %s? Se não vê o disco que quer utilizar listado, carregue em F2 para configurar mais dispositivos."
 
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
-msgstr "Directoria que contém as imagens:"
+msgstr "Directoria que contém a imagem:"
 
 #: ../loader/hdinstall.c:301
 msgid "Select Partition"
 msgstr "Seleccione Partição"
 
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "Dispositivo %s não parece conter as imagens dos CDROMs do %s."
+msgstr "O dispositivo %s não parece conter imagens de instalação."
 
 #: ../loader/hdinstall.c:385
 #, c-format
@@ -6421,14 +6286,14 @@ msgid "What type of keyboard do you have?"
 msgstr "Que tipo de teclado é que utiliza?"
 
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "Erro ao abrir o ficheiro 'kickstart' %s: %s"
+msgstr "Erro ao abrir o ficheiro 'kickstart' %s: %m"
 
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Erro ao ler conteúdo do ficheiro 'kickstart' %s: %s"
+msgstr "Erro ao ler o conteúdo do ficheiro 'kickstart' %s: %m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -6436,9 +6301,8 @@ msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Erro em %s na linha %d do ficheiro 'kickstart' %s."
 
 #: ../loader/kickstart.c:285
-#, fuzzy
 msgid "Cannot find ks.cfg on removable media."
-msgstr "Não foi possível encontrar o ficheiro ks.cfg na disquete de arranque."
+msgstr "Não foi possível encontrar o ficheiro 'ks.cfg' no dispositivo removível."
 
 #: ../loader/kickstart.c:380
 msgid ""
@@ -6459,9 +6323,9 @@ msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Argumento inválido para o método 'shutdown' do 'kickstart' %s: %s"
 
 #: ../loader/lang.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s for %s - Rescue Mode"
-msgstr "Bem-vindo ao %s - Modo de Recuperação"
+msgstr "Bem-vindo ao %s para %s - Modo de Recuperação"
 
 #: ../loader/lang.c:65 ../loader/loader.c:223
 msgid ""
@@ -6498,20 +6362,15 @@ msgstr ""
 "actualizações. Qual é que deseja actualizar?"
 
 #: ../loader/loader.c:469
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
-msgstr ""
-"Tem várias partições neste dispositivo que podem ter a imagem do disco de "
-"controladores. Qual é que deseja actualizar?"
+msgstr "Tem várias partições neste dispositivo que podem ter a imagem do disco de actualização. Qual é que deseja actualizar?"
 
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr ""
-"Insira a disquete com as actualizações em /dev/%s e carregue em \"OK\" para "
-"continuar."
+msgstr "Insira a disquete com as actualizações em %s e carregue em \"OK\" para continuar."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6530,19 +6389,14 @@ msgid "Reading anaconda updates..."
 msgstr "A ler as actualizações do anaconda..."
 
 #: ../loader/loader.c:551
-#, fuzzy
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
-msgstr ""
-"Não é possível obter o ficheiro de 'kickstart'. Modifique por favor o "
-"parâmetro de 'kickstart' em baixo ou carregue em Cancelar para prosseguir "
-"como uma instalação interactiva."
+msgstr "Não é possível obter o ficheiro de 'kickstart'. Modifique por favor a localização das actualizações em baixo ou carregue em Cancelar para prosseguir sem as actualizações."
 
 #: ../loader/loader.c:560
-#, fuzzy
 msgid "Error downloading updates image"
-msgstr "Erro ao obter o ficheiro 'kickstart'"
+msgstr "Erro ao obter a imagem das actualizações"
 
 #: ../loader/loader.c:1171
 #, c-format
@@ -6571,9 +6425,8 @@ msgid "What type of media contains the rescue image?"
 msgstr "Que tipo de media contém a imagem de recuperação?"
 
 #: ../loader/loader.c:1358
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "Que tipo de media contém a imagem de recuperação?"
+msgstr "Que tipo de suporte contém a imagem de instalação?"
 
 #: ../loader/loader.c:1389
 msgid "No driver found"
@@ -6626,17 +6479,14 @@ msgid "loader has already been run.  Starting shell.\n"
 msgstr "o carregador já foi executado.  A iniciar a linha de comandos.\n"
 
 #: ../loader/loader.c:2186
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
-msgstr ""
-"A executar o anaconda, no modo de recuperação do %s - aguarde por favor...\n"
+msgstr "A executar o anaconda %s, no modo de recuperação do %s - aguarde por favor...\n"
 
 #: ../loader/loader.c:2188
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr ""
-"A executar o anaconda, o programa de instalação do %s - aguarde por "
-"favor...\n"
+msgstr "A executar o anaconda %s, o programa de instalação do %s - aguarde por favor...\n"
 
 #: ../loader/mediacheck.c:62
 #, c-format
@@ -6674,14 +6524,14 @@ msgstr ""
 
 #: ../loader/mediacheck.c:117
 msgid "Success"
-msgstr ""
+msgstr "Sucesso"
 
 #: ../loader/mediacheck.c:118
 msgid ""
 "The image which was just tested was successfully verified.  It should be OK "
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
-msgstr ""
+msgstr "A imagem que foi agora testada foi verificada com sucesso. Deverá estar tudo OK para instalar a partir deste suporte. Lembre-se que nem todos os erros do dispositivo/unidade poderão ser detectados na verificação."
 
 #: ../loader/method.c:324
 #, c-format
@@ -6704,10 +6554,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Argumento inválido para o método 'device' do 'kickstart' %s: %s"
 
 #: ../loader/modules.c:348
-#, fuzzy
 msgid "A module name must be specified for the kickstart device command."
-msgstr ""
-"Terá de indicar o tipo e o nome do módulo no caso 'device' do 'kickstart'."
+msgstr "Deverá definir um módulo para o comando do dispositivo de 'kickstart'."
 
 #: ../loader/net.c:106
 msgid ""
@@ -6798,9 +6646,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "bootproto %s inválido indicado no comando network"
 
 #: ../loader/net.c:1423
-#, fuzzy
 msgid "Seconds:"
-msgstr "DNS secundário:"
+msgstr "Segundos:"
 
 #: ../loader/net.c:1537
 msgid "Networking Device"
@@ -6816,40 +6663,39 @@ msgstr ""
 
 #: ../loader/net.c:1542
 msgid "Identify"
-msgstr ""
+msgstr "Identificar"
 
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "Poderá identificar a porta física de"
 
 #: ../loader/net.c:1553
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "se piscar as luzes LED durante um determinado número de segundos. Indique um número entre 1 e 30 para definir a duração de intermitência das luzes."
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
-msgstr ""
+msgstr "Identificar a NIC"
 
 #: ../loader/net.c:1576
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Informação IP Inválida"
+msgstr "Duração Inválida"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "Deverá indicar o número de segundos como um inteiro entre 1 e 30."
 
 #: ../loader/net.c:1589
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "A pisar as luzes da porta %s durante %d segundos..."
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "A aguardar pela ligação telnet..."
+msgstr "À espera que o NetworkManager configure o %s...\n"
 
 #: ../loader/nfsinstall.c:63
 msgid "NFS server name:"
@@ -6863,7 +6709,7 @@ msgstr "Directoria %s:"
 #: ../loader/nfsinstall.c:78
 #, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr ""
+msgstr "Indique por favor o nome do servidor e o local da sua imagem de instalação do %s."
 
 #: ../loader/nfsinstall.c:85
 msgid "NFS Setup"
@@ -6878,7 +6724,7 @@ msgid "That directory could not be mounted from the server."
 msgstr "Não foi possível montar essa directoria do servidor."
 
 #: ../loader/nfsinstall.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
 msgstr "Essa directoria não parece conter uma árvore de instalação do %s."
 
@@ -6900,9 +6746,9 @@ msgid "Running anaconda via telnet..."
 msgstr "A executar o anaconda através do telnet..."
 
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "Não foi possível obter %s://%s/%s/%s."
+msgstr "Não foi possível obter o %s://%s%s."
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
@@ -6930,21 +6776,19 @@ msgstr "A obter"
 #, c-format
 msgid ""
 "Please enter the URL containing the %s installation image on your server."
-msgstr ""
+msgstr "Indique por favor o URL que contém a imagem de instalação do %s no seu servidor."
 
 #: ../loader/urls.c:321
-#, fuzzy
 msgid "URL Setup"
-msgstr "Configuração de NFS"
+msgstr "Configuração do URL"
 
 #: ../loader/urls.c:329
-#, fuzzy
 msgid "You must enter a URL."
-msgstr "Tem de inserir uma directoria."
+msgstr "Tem de indicar um URL."
 
 #: ../loader/urls.c:335
 msgid "URL must be either an ftp or http URL"
-msgstr ""
+msgstr "O URL deverá ser de FTP ou de HTTP."
 
 #: ../loader/urls.c:346
 msgid "Unknown Host"
@@ -6965,9 +6809,8 @@ msgid "Loading %s driver..."
 msgstr "A carregar o controlador %s..."
 
 #: tmp/account.glade.h:2
-#, fuzzy
 msgid "Root Password:"
-msgstr "Senha de 'Root'"
+msgstr "Senha de 'Root':"
 
 #: tmp/account.glade.h:3
 msgid ""
@@ -6998,14 +6841,12 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>_Nome do repositório:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>_Nome do repositório:</b>"
+msgstr "<b>_Tipo do repositório:</b>"
 
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "Configurar o TCP/IP"
+msgstr "Configurar o '_proxy'"
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -7014,67 +6855,59 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"Disco Rígido"
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid ""
 "Please provide the configuration information for this software repository."
-msgstr ""
-"Por favor, indique o local a partir de onde poderá instalar o 'software' "
-"adicional. Lembre-se que este deverá ser um repositório válido para o %s."
+msgstr "Por favor, indique a informação de configuração deste repositório de 'software'."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL"
-msgstr "URL do Repositório Inválido"
+msgstr "U_RL do 'Proxy'"
 
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "Sem senha"
+msgstr "Se_nha do 'proxy'"
 
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "Nome do servidor FTP:"
+msgstr "U_tilizador do 'proxy'"
 
 #: tmp/addrepo.glade.h:13
-#, fuzzy
 msgid "Repository _URL"
-msgstr "<b>_URL do Repositório:</b>"
+msgstr "_URL do repositório"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "Escolha o controlador"
+msgstr "Seleccione uma Pasta"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "O URL é uma lista de répli_cas"
 
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "Directoria de NFS"
+msgstr "_Directoria"
 
 #: tmp/addrepo.glade.h:17
-#, fuzzy
 msgid "_Options"
-msgstr "Opções RAID"
+msgstr "_Opções"
 
 #: tmp/addrepo.glade.h:18
-#, fuzzy
 msgid "_Partition"
-msgstr "Partição"
+msgstr "_Partição"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "_Localização"
 
 #: tmp/addrepo.glade.h:20
-#, fuzzy
 msgid "_Server"
-msgstr "Servidor de Nomes:"
+msgstr "_Servidor"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -7082,12 +6915,11 @@ msgstr "Reini_ciar"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
-msgstr "Ava_nçar"
+msgstr "Segui_nte"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target:</b>"
-msgstr "<b>_Nome do repositório:</b>"
+msgstr "<b>Dimensionar o des_tino:</b>"
 
 #: tmp/autopart.glade.h:2
 msgid ""
@@ -7104,154 +6936,140 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Re_ver e modificar a disposição das partições"
 
 #: tmp/autopart.glade.h:4
-#, fuzzy
 msgid "What drive would you like to _boot this installation from?"
-msgstr "A partir de que unidade deseja arrancar esta instalação?"
+msgstr "A partir de que unidade dese_ja arrancar esta instalação?"
 
 #: tmp/autopart.glade.h:5
 msgid "Which Partition to resize"
-msgstr ""
+msgstr "Qual a partição a dimensionar"
 
 #: tmp/autopart.glade.h:6
-#, fuzzy
 msgid ""
 "Which partition would you like to resize to make room for your installation?"
-msgstr "Em que partição está o directório root de sua máquina?"
+msgstr "Que partição deseja dimensionar para criar espaço para a sua instalação?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
 msgstr "Configuração _avançada do armazenamento"
 
 #: tmp/autopart.glade.h:8
-#, fuzzy
 msgid "_Encrypt system"
-msgstr "Chave de Encriptação"
+msgstr "_Encriptar o sistema"
 
 #: tmp/autopart.glade.h:10
 msgid "_Select the drive(s) to use for this installation."
 msgstr "_Seleccione os discos a usar nesta instalação."
 
 #: tmp/blwhere.glade.h:1
-#, fuzzy
 msgid "/boot"
-msgstr "Reiniciar"
+msgstr "/boot"
 
 #: tmp/blwhere.glade.h:2
-#, fuzzy
 msgid "BIOS Drive Order"
-msgstr "Editar Ordem das Unidades"
+msgstr "Ordem das Unidades na BIOS"
 
 #: tmp/blwhere.glade.h:3
-#, fuzzy
 msgid "Boot loader device"
-msgstr "Gestor de Arranque"
+msgstr "Dispositivo do gestor de arranque"
 
 #: tmp/blwhere.glade.h:4
 msgid "First BIOS drive:"
-msgstr ""
+msgstr "Primeiro disco da BIOS:"
 
 #: tmp/blwhere.glade.h:5
 msgid "Fourth BIOS drive:"
-msgstr ""
+msgstr "Quarto disco da BIOS:"
 
 #: tmp/blwhere.glade.h:6
 msgid "MBR"
-msgstr ""
+msgstr "MBR"
 
 #: tmp/blwhere.glade.h:7
 msgid "Second BIOS drive:"
-msgstr ""
+msgstr "Segundo disco da BIOS:"
 
 #: tmp/blwhere.glade.h:8
 msgid "Third BIOS drive:"
-msgstr ""
+msgstr "Terceiro disco da BIOS:"
 
 #: tmp/blwhere.glade.h:9
-#, fuzzy
 msgid "Where would you like to install the boot loader for your system?"
-msgstr "Onde deve ser instalado o carregador de sistemas?"
+msgstr "Onde deseja instalar o gestor de arranque do seu sistema?"
 
 #: tmp/detailed-dialog.glade.h:1
-#, fuzzy
 msgid "Info"
-msgstr "Ignorar"
+msgstr "Informação"
 
 #: tmp/detailed-dialog.glade.h:2
 msgid "_Details"
-msgstr ""
+msgstr "_Detalhes"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "_Descrição do erro"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "_Ficheiro de destino"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"Disco local\n"
+"Servidor remoto (SCP)"
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "Escolha por favor um destino para onde copiar o seu registo de chamadas."
 
 #: tmp/exnSave.glade.h:7
-#, fuzzy
 msgid "Select A File"
-msgstr "Escolha o controlador"
+msgstr "Seleccione um Ficheiro"
 
 #: tmp/exnSave.glade.h:8
 msgid "_Host (host:port)"
-msgstr ""
+msgstr "_Servidor (máquina:porto)"
 
 #: tmp/exnSave.glade.h:9
-#, fuzzy
 msgid "_Password"
-msgstr "Sen_ha:"
+msgstr "Sen_ha"
 
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_User name"
-msgstr "Utilizador"
+msgstr "_Utilizador"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
 "Some packages associated with this group are not required to be installed "
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
-msgstr ""
+msgstr "Alguns dos pacotes associados a este grupo não precisam de estar instalados, mas poderão fornecer alguma funcionalidade acrescida. Escolha por favor os pacotes que gostaria de instalar."
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Deselect"
-msgstr "Apa_gar"
+msgstr "_Desmarcar"
 
 #: tmp/GroupSelector.glade.h:3
-#, fuzzy
 msgid "_Deselect all optional packages"
-msgstr "A Instalar os Pacotes"
+msgstr "_Desmarcar todos os pacotes opcionais"
 
 #: tmp/GroupSelector.glade.h:4
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Não existem pacotes opcionais para seleccionar"
+msgstr "Pacotes _opcionais"
 
 #: tmp/GroupSelector.glade.h:5
-#, fuzzy
 msgid "_Select"
-msgstr "Apa_gar"
+msgstr "_Marcar"
 
 #: tmp/GroupSelector.glade.h:6
-#, fuzzy
 msgid "_Select all optional packages"
-msgstr "Não existem pacotes opcionais para seleccionar"
+msgstr "_Marcar todos os pacotes opcionais"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
-msgstr ""
+msgstr "janela1"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -7299,20 +7117,19 @@ msgstr "Instalar no Disco Rígido"
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
-msgstr ""
+msgstr "Escolha por favor uma frase-senha para esta partição encriptada. Ser-lhe-á pedida a frase-senha durante o arranque do sistema."
 
 #: tmp/lukspassphrase.glade.h:2
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "Confirmar o Reinício"
+msgstr "Confirmar a frase-senha:"
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "Indique a frase-senha da partição encriptada"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase:"
-msgstr ""
+msgstr "Indique a frase-senha:"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7399,9 +7216,8 @@ msgid "_Customize now"
 msgstr "_Personalizar agora"
 
 #: tmp/tasksel.glade.h:8
-#, fuzzy
 msgid "_Modify repository"
-msgstr "_Adicionar um repositório"
+msgstr "_Modificar o repositório"
 
 #: tmp/zfcp-config.glade.h:1
 msgid "<b>Device number:</b>"
@@ -7501,7 +7317,7 @@ msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebreu"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -7556,9 +7372,8 @@ msgid "Marathi"
 msgstr "Marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "Norueguês"
+msgstr "Norueguês(Bokmål)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
@@ -7652,635 +7467,3 @@ msgstr "Galês"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "No video hardware found, assuming headless"
-#~ msgstr "Nenhum dispositivo vídeo encontrado, a assumir sem placa gráfica"
-
-#~ msgid "Unable to instantiate a X hardware state object."
-#~ msgstr ""
-#~ "Não foi possível instanciar um objecto com o estado de hardware do X."
-
-#~ msgid ""
-#~ "Error mounting device %s as %s: %s\n"
-#~ "\n"
-#~ "This most likely means this partition has not been formatted.\n"
-#~ "\n"
-#~ "Press OK to exit the installer."
-#~ msgstr ""
-#~ "Erro ao montar o dispositivo %s como %s: %s\n"
-#~ "\n"
-#~ "Provavelmente isto significa que a partição não foi formatada.\n"
-#~ "\n"
-#~ "Carregue em OK para sair do instalador."
-
-#~ msgid "Invalid Label"
-#~ msgstr "Legenda Inválida"
-
-#~ msgid ""
-#~ "An invalid label was found on device %s.  Please fix this problem and "
-#~ "restart the installation process."
-#~ msgstr ""
-#~ "Foi indicada uma legenda inválida no dispositivo %s. Por favor corrija "
-#~ "este problema e reinicie o processo de instalação."
-
-#, fuzzy
-#~ msgid "Save to Remote"
-#~ msgstr "Gravar _Remotamente"
-
-#~ msgid "Host"
-#~ msgstr "Máquina"
-
-#~ msgid "Remote path"
-#~ msgstr "Local remoto"
-
-#~ msgid "Help not available"
-#~ msgstr "Ajuda não disponível"
-
-#~ msgid "No help is available for this step of the install."
-#~ msgstr "Nenhuma ajuda disponível neste passo da instalação."
-
-#~ msgid ""
-#~ " <F1> for help | <Tab> between elements | <Space> selects | <F12> next "
-#~ "screen"
-#~ msgstr ""
-#~ "  <F1> ajuda | <Tab> entre elementos | <Espaço> selecciona | <F12> "
-#~ "continuar "
-
-#~ msgid "Finishing upgrade process.  This may take a little while..."
-#~ msgstr ""
-#~ "A iniciar o processo de actualização. Pode demorar vários minutos..."
-
-#~ msgid "Error running transaction"
-#~ msgstr "Erro ao executar a transacção"
-
-#~ msgid ""
-#~ "No %s disc was found which matches your boot media.  Please insert the %s "
-#~ "disc and press %s to retry."
-#~ msgstr ""
-#~ "Não foi encontrado nenhum disco do %s que combine com o disco utilizado "
-#~ "para arranque. Por favor insira o disco com o %s e carregue em %s para "
-#~ "voltar a tentar."
-
-#~ msgid ""
-#~ "The %s installation tree in that directory does not seem to match your "
-#~ "boot media."
-#~ msgstr ""
-#~ "A árvore de instalação do %s nessa directoria parece não condizer com o "
-#~ "disco utilizado para arranque."
-
-#, fuzzy
-#~ msgid "Welcome to %s%n for %s"
-#~ msgstr "Bem-vindo ao %s"
-
-#~ msgid "What type of media contains the packages to be installed?"
-#~ msgstr "Em que tipo de formato estão os pacotes que vão ser instalados?"
-
-#~ msgid ""
-#~ "%s is a wireless network adapter.  Please provide the ESSID and "
-#~ "encryption key needed to access your wireless network.  If no key is "
-#~ "needed, leave this field blank and the install will continue."
-#~ msgstr ""
-#~ "%s é um adaptador de rede sem fios.  Por favor indique o ESSID e a chave "
-#~ "de cifragem necessária para aceder à sua rede sem fios.  Se não for "
-#~ "necessária chave, deixe este campo vazio e a instalação irá continuar."
-
-#~ msgid "ESSID"
-#~ msgstr "ESSID"
-
-#~ msgid "Wireless Settings"
-#~ msgstr "Configuração de Dispositivos sem Fios"
-
-#~ msgid "Nameserver IP"
-#~ msgstr "Servidor de nomes IP"
-
-#~ msgid "Missing Nameserver"
-#~ msgstr "Servidor de Nomes em Falta"
-
-#~ msgid ""
-#~ "Your IP address request returned configuration information, but it did "
-#~ "not include a nameserver address. If you do not have this information, "
-#~ "you can leave the field blank and the install will continue."
-#~ msgstr ""
-#~ "O pedido do seu endereço IP forneceu as configurações IP, mas não inclui "
-#~ "um servidor de nomes. Se não tem estes dados, deixe o campo em branco e a "
-#~ "instalação irá continuar."
-
-#~ msgid "You entered an invalid IP address."
-#~ msgstr "Inserir um endereço IP inválido."
-
-#~ msgid "Determining host name and domain..."
-#~ msgstr "A determinar o nome e domínio da máquina..."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy "
-#~ "server to use."
-#~ msgstr ""
-#~ "Se estiver a utilizar um servidor \"proxy\" de HTTP indique o seu nome."
-
-#, fuzzy
-#~ msgid "Further Setup"
-#~ msgstr "Configuração Avançada do FTP"
-
-#, fuzzy
-#~ msgid "Repository _Mirror"
-#~ msgstr "Adicionar um Repositório"
-
-#, fuzzy
-#~ msgid "_Proxy configuration"
-#~ msgstr "Configuração do Rato"
-
-#, fuzzy
-#~ msgid "_Remote"
-#~ msgstr "Remota"
-
-#~ msgid "Mouse Configuration"
-#~ msgstr "Configuração do Rato"
-
-#~ msgid "/dev/ttyS0 (COM1 under DOS)"
-#~ msgstr "/dev/ttyS0 (COM1 em DOS)"
-
-#~ msgid "/dev/ttyS1 (COM2 under DOS)"
-#~ msgstr "/dev/ttyS1 (COM2 em DOS)"
-
-#~ msgid "/dev/ttyS2 (COM3 under DOS)"
-#~ msgstr "/dev/ttyS2 (COM3 em DOS)"
-
-#~ msgid "/dev/ttyS3 (COM4 under DOS)"
-#~ msgstr "/dev/ttyS3 (COM4 em DOS)"
-
-#~ msgid "_Model"
-#~ msgstr "M_odelo"
-
-#~ msgid "_Emulate 3 buttons"
-#~ msgstr "_Emular 3 botões"
-
-#~ msgid "Select the appropriate mouse for the system."
-#~ msgstr "Seleccione o rato que está ligado ao computador."
-
-#~ msgid "What device is your mouse located on?"
-#~ msgstr "A que dispositivo está ligado o seu rato?"
-
-#~ msgid "Which model mouse is attached to this computer?"
-#~ msgstr "Que tipo de rato está ligado a este computador?"
-
-#~ msgid "Emulate 3 Buttons?"
-#~ msgstr "Emular 3 Botões?"
-
-#~ msgid "Mouse Selection"
-#~ msgstr "Seleccione o rato"
-
-#~ msgid "NFS"
-#~ msgstr "NFS"
-
-#~ msgid "Error pulling second part of kickstart config: %s!"
-#~ msgstr "Erro ao ler a segunda parte do ficheiro 'kickstart': %s!"
-
-#~ msgid "Unknown install method"
-#~ msgstr "Método de instalação desconhecido"
-
-#~ msgid ""
-#~ "You have specified an install method which isn't supported by anaconda."
-#~ msgstr ""
-#~ "Você indicou um método de instalação que não é suportado pelo Anaconda."
-
-#~ msgid "unknown install method: %s"
-#~ msgstr "Método de instalação desconhecido: %s"
-
-#~ msgid ""
-#~ "You have chosen to remove all partitions (ALL DATA) on the following "
-#~ "drives:%s\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Escolheu remover todas as partições (TODOS OS DADOS) nos seguintes discos:"
-#~ "%s\n"
-#~ "Tem a certeza que quer fazer isso?"
-
-#~ msgid ""
-#~ "You have chosen to remove all Linux partitions (and ALL DATA on them) on "
-#~ "the following drives:%s\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Escolheu remover todas as partições de Linux (e TODOS OS DADOS que estas "
-#~ "contêm) nos seguintes discos:%s\n"
-#~ "Tem a certeza que quer fazer isso?"
-
-#~ msgid "Checking for Bad Blocks"
-#~ msgstr "A verificar Blocos Danificados"
-
-#~ msgid ""
-#~ "Bad blocks have been detected on device /dev/%s. We do not recommend you "
-#~ "use this device.\n"
-#~ "\n"
-#~ "Press <Enter> to exit the installer."
-#~ msgstr ""
-#~ "Foram detectados blocos danificados no dispositivo /dev/%s. Não o "
-#~ "recomendamos a usar este dispositivo.\n"
-#~ "\n"
-#~ "Carregue em Enter para sair do instalador."
-
-#~ msgid ""
-#~ "An error occurred searching for bad blocks on %s.  This problem is "
-#~ "serious, and the install cannot continue.\n"
-#~ "\n"
-#~ "Press <Enter> to exit the installer."
-#~ msgstr ""
-#~ "Ocorreu um erro ao procurar os blocos inválidos de %s. Este problema é "
-#~ "grave, e a instalação não pode continuar.\n"
-#~ "\n"
-#~ "Carregue em <Enter> para sair do instalador."
-
-#~ msgid ""
-#~ "Please insert a floppy now. All contents of the disk will be erased, so "
-#~ "please choose your diskette carefully."
-#~ msgstr ""
-#~ "Por favor insira uma disquete. Todo o conteúdo desta será apagado, por "
-#~ "isso escolha cuidadosamente a disquete."
-
-#~ msgid ""
-#~ "The file %s cannot be opened.  This is due to a missing file or perhaps a "
-#~ "corrupt package.  Please verify your installation images and that you "
-#~ "have all the required media.\n"
-#~ "\n"
-#~ "If you exit, your system will be left in an inconsistent state that will "
-#~ "likely require reinstallation.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Não foi possível abrir o ficheiro %s. Isto deve-se a um ficheiro em falta "
-#~ "ou talvez um pacote estragado. Verifique as suas imagens de instalação e "
-#~ "se tem todos os discos necessários.\n"
-#~ "\n"
-#~ "Se sair, o seu sistema ficará num estado inconsistente que poderá "
-#~ "necessitar de reinstalação.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "The installer has tried to mount image #%s, but cannot find it on the "
-#~ "server.\n"
-#~ "\n"
-#~ "Please copy this image to the remote server's share path and click Retry. "
-#~ "Click Exit to abort the installation."
-#~ msgstr ""
-#~ "O instalador tentou montar a imagem #%s, mas não a conseguiu encontrar no "
-#~ "servidor.\n"
-#~ "\n"
-#~ "Copie por favor esta imagem para a partilha do servidor remoto e carregue "
-#~ "em Repetir. Carregue em Sair para interromper a instalação."
-
-#~ msgid ""
-#~ "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  "
-#~ "in the Linux kernel does not allow for more than 15 partitions at this "
-#~ "time.  You will not be able to make changes to the partitioning of this "
-#~ "disk or use any partitions beyond /dev/%s15 in %s"
-#~ msgstr ""
-#~ "A unidade /dev/%s tem mais de 15 partições. O sub-sistema de SCSI do "
-#~ "'kernel' do Linux não permite mais de 15 partições nesta altura. Não "
-#~ "poderá fazer alterações ao particionamento do disco ou usar as partições "
-#~ "além da /dev/%s15 no %s"
-
-#~ msgid "Low Memory"
-#~ msgstr "Pouca memória"
-
-#~ msgid ""
-#~ "As you don't have much memory in this machine, we need to turn on swap "
-#~ "space immediately. To do this we'll have to write your new partition "
-#~ "table to the disk immediately. Is that OK?"
-#~ msgstr ""
-#~ "Como não tem muita memória na sua máquina, é necessário ligar a memória "
-#~ "virtual imediatamente. Para o fazer temos que escrever a nova tabela de "
-#~ "partições para o disco imediatamente. OK?"
-
-#~ msgid "Save to Remote Host"
-#~ msgstr "Gravar numa Máquina Remota"
-
-#~ msgid "Save Crash Dump"
-#~ msgstr "Gravar Informações do Estoiro"
-
-#~ msgid "Searching"
-#~ msgstr "A procurar"
-
-#~ msgid "Searching for %s installations..."
-#~ msgstr "A procurar instalações do %s..."
-
-#~ msgid "Connecting..."
-#~ msgstr "A efectuar a ligação..."
-
-#~ msgid ""
-#~ "The file %s cannot be opened.  This is due to a missing file or perhaps a "
-#~ "corrupt package.  Please verify your mirror contains all required "
-#~ "packages, and try using a different one.\n"
-#~ "\n"
-#~ "If you exit, your system will be left in an inconsistent state that will "
-#~ "likely require reinstallation.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Não foi possível abrir o ficheiro %s. Isto deve-se a um ficheiro em falta "
-#~ "ou talvez um pacote estragado. Verifique se a sua réplica contém todos os "
-#~ "pacotes necessários e tente usar uma diferente.\n"
-#~ "\n"
-#~ "Se sair, o seu sistema ficará num estado inconsistente que poderá "
-#~ "necessitar de reinstalação.\n"
-#~ "\n"
-
-#~ msgid "VNC Password Error"
-#~ msgstr "Erro da Senha de VNC"
-
-#~ msgid ""
-#~ "You need to specify a vnc password of at least 6 characters long.\n"
-#~ "\n"
-#~ "Press <return> to reboot your system.\n"
-#~ msgstr ""
-#~ "Terá de iniciar uma senha de VNC com pelo menos 6 caracteres.\n"
-#~ "\n"
-#~ "Carregue em <Return> para reiniciar o seu sistema.\n"
-
-#~ msgid "Unable to set vnc password - using no password!"
-#~ msgstr "Não foi possível configurar a senha do VNC - a executar sem senha!"
-
-#~ msgid "Make sure your password is at least 6 characters in length."
-#~ msgstr "Verique que a sua senha tem pelo menos 6 caracteres."
-
-#~ msgid "Please connect to begin the install..."
-#~ msgstr "Por favor ligue-se para iniciar a instalação..."
-
-#~ msgid "Set Root Password"
-#~ msgstr "Escolher a Senha de Root"
-
-#~ msgid "Advanced Boot Loader Configuration"
-#~ msgstr "Configuração Avançada do Gestor de Arranque"
-
-#~ msgid "Force LBA32"
-#~ msgstr "Forçar o modo LBA32"
-
-#~ msgid "_Force LBA32 (not normally required)"
-#~ msgstr "_Forçar o modo LBA32 (não é normalmente necessário)"
-
-#~ msgid ""
-#~ "If you wish to add default options to the boot command, enter them into "
-#~ "the 'General kernel parameters' field."
-#~ msgstr ""
-#~ "Se desejar adicionar mais opções predefinidas ao comando de arranque, "
-#~ "indique-as no campo 'Parâmetros gerais do kernel'."
-
-#~ msgid "_General kernel parameters"
-#~ msgstr "Parâmetros _gerais do kernel"
-
-#~ msgid "The %s boot loader will be installed on /dev/%s."
-#~ msgstr "O gestor de arranque %s será instalado em /dev/%s."
-
-#~ msgid "No boot loader will be installed."
-#~ msgstr "Não vai ser instalado gestor de arranque."
-
-#~ msgid "Configure advanced boot loader _options"
-#~ msgstr "Configurar as _opções avançadas do gestor de arranque"
-
-#~ msgid "Install Boot Loader record on:"
-#~ msgstr "Instalar gestor de arranque no:"
-
-#~ msgid "_Change Drive Order"
-#~ msgstr "Mudar a _Ordenação das Unidades"
-
-#~ msgid ""
-#~ "Arrange the drives to be in the same order as used by the BIOS. Changing "
-#~ "the drive order may be useful if you have multiple SCSI adapters or both "
-#~ "SCSI and IDE adapters and want to boot from the SCSI device.\n"
-#~ "\n"
-#~ "Changing the drive order will change where the installation program "
-#~ "locates the Master Boot Record (MBR)."
-#~ msgstr ""
-#~ "Organize as unidades de modo a estarem pela mesma ordem na BIOS. A "
-#~ "alteração da ordem poderá ser útil se tiver vários adaptadores SCSI ou se "
-#~ "tiver tanto adaptadores SCSI como IDE e quiser arrancar a partir do "
-#~ "dispositivo SCSI.\n"
-#~ "\n"
-#~ "A alteração da ordem das 'drives' irá modificar a localização do Master "
-#~ "Boot Record (MBR) por parte do programa de instalação."
-
-#~ msgid "About to Install"
-#~ msgstr "Prestes a Instalar"
-
-#~ msgid "Click next to begin installation of %s."
-#~ msgstr "Carregue em próximo para começar a instalar o %s."
-
-#~ msgid ""
-#~ "A complete log of the installation can be found in the file '%s' after "
-#~ "rebooting your system.\n"
-#~ "\n"
-#~ "A kickstart file containing the installation options selected can be "
-#~ "found in the file '%s' after rebooting the system."
-#~ msgstr ""
-#~ "Pode encontrar um registo completo do processo de instalação no ficheiro "
-#~ "'%s' depois de reiniciar o seu sistema.\n"
-#~ "\n"
-#~ "Pode também encontrar um ficheiro 'kickstart' com as opções de instalação "
-#~ "seleccionadas no ficheiro '%s'."
-
-#~ msgid "About to Upgrade"
-#~ msgstr "Prestes a Actualizar"
-
-#~ msgid "Click next to begin upgrade of %s."
-#~ msgstr "Carregue em próximo para começar a actualizar o %s."
-
-#~ msgid ""
-#~ "A complete log of the upgrade can be found in the file '%s' after "
-#~ "rebooting your system."
-#~ msgstr ""
-#~ "Poderá encontrar um registo completo da actualização no ficheiro '%s' "
-#~ "depois de reiniciar o seu sistema."
-
-#~ msgid "Drive"
-#~ msgstr "Unidade"
-
-#~ msgid "Model"
-#~ msgstr "Modelo"
-
-#~ msgid "Netmask"
-#~ msgstr "Máscara"
-
-#~ msgid ""
-#~ "You can configure the boot loader to boot other operating systems by "
-#~ "selecting from the list. To add an operating systems that was not "
-#~ "automatically detected, click 'Add.' To change the operating system "
-#~ "booted by default, select 'Default' next to the desired operating system."
-#~ msgstr ""
-#~ "Pode configurar o gestor de arranque para arrancar outros sistemas "
-#~ "operativos. Isto permite-lhe seleccionar de uma lista qual o sistema "
-#~ "operativo a iniciar. Para adicionar mais sistemas operativos, se não "
-#~ "foram detectados automaticamente, carregue em 'Adicionar'. Para alterar o "
-#~ "sistema operativo que é arrancado por omissão carregue em 'Por omissão' "
-#~ "no sistema operativo desejado."
-
-#~ msgid "Leave _unchanged (preserve data)"
-#~ msgstr "Deixar _inalterada (preserva os dados)"
-
-#~ msgid "_Format partition as:"
-#~ msgstr "_Formatar a partição como:"
-
-#~ msgid "Check for _bad blocks?"
-#~ msgstr "Verificar os _blocos danificados?"
-
-#~ msgid "Release notes are missing.\n"
-#~ msgstr "As notas da versão não foram encontradas.\n"
-
-#~ msgid "Release Notes"
-#~ msgstr "Notas da Versão"
-
-#~ msgid "Unable to load file!"
-#~ msgstr "Não é possível carregar ficheiro!"
-
-#~ msgid "Installation to begin"
-#~ msgstr "Instalação prestes a começar"
-
-#~ msgid ""
-#~ "A complete log of your installation will be in %s after rebooting your "
-#~ "system. You may want to keep this file for later reference."
-#~ msgstr ""
-#~ "Um relatório completo da sua instalação ficará em %s  reiniciar o seu "
-#~ "computador. Pode desejar manter este ficheiro para consulta futura."
-
-#~ msgid "Upgrade to begin"
-#~ msgstr "Actualização vai começar"
-
-#~ msgid ""
-#~ "A complete log of your upgrade will be in %s after rebooting your system. "
-#~ "You may want to keep this file for later reference."
-#~ msgstr ""
-#~ "Um relatório completo da sua actualização ficará em %s após a reiniciar o "
-#~ "seu computador. Pode desejar manter este ficheiro para consulta futura."
-
-#~ msgid "%s, %s, %s"
-#~ msgstr "%s, %s, %s"
-
-#~ msgid "%s, %s"
-#~ msgstr "%s, %s"
-
-#~ msgid "Check for bad blocks"
-#~ msgstr "Verificar blocos danificados"
-
-#~ msgid ""
-#~ "No hard drives have been found.  You probably need to manually choose "
-#~ "device drivers for the installation to succeed.  Would you like to select "
-#~ "drivers now?"
-#~ msgstr ""
-#~ "Nenhum disco rígido encontrado. Provavelmente necessita de seleccionar "
-#~ "manualmente controladores de dispositivos para continuar com a "
-#~ "instalação.  Deseja seleccionar controladores de dispositivos agora?"
-
-#~ msgid "FAILED"
-#~ msgstr "FALHOU"
-
-#~ msgid "PASSED"
-#~ msgstr "PASSOU"
-
-#~ msgid "It is OK to install from this media."
-#~ msgstr "Pode usar este suporte físico para efectuar a instalação."
-
-#~ msgid "No checksum information available, unable to verify media."
-#~ msgstr ""
-#~ "A informação necessária para o teste não foi encontrada, por isso é "
-#~ "impossível verificar."
-
-#~ msgid "Media Check Result"
-#~ msgstr "Resultado da Verificação do Suporte Físico"
-
-#~ msgid ""
-#~ "%s for the image:\n"
-#~ "\n"
-#~ "   %s"
-#~ msgstr ""
-#~ "%s da imagem:\n"
-#~ "\n"
-#~ "   %s"
-
-#~ msgid ""
-#~ "The media check %s\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "A verificação do disco %s\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your %s server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      %s for your architecture\n"
-#~ msgstr ""
-#~ "Indique as seguintes informações:\n"
-#~ "       \n"
-#~ "    o o nome ou o endereço IP do servidor %s\n"
-#~ "    o a directoria no servidor que contém o\n"
-#~ "      %s para a sua arquitectura\n"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Web"
-#~ msgstr "Web"
-
-#~ msgid "Web site name:"
-#~ msgstr "Nome do servidor WWW:"
-
-#~ msgid "Use non-anonymous ftp"
-#~ msgstr "Utilizar FTP não-anónimo"
-
-#~ msgid "FTP Setup"
-#~ msgstr "Configuração do FTP"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "Configuração do HTTP"
-
-#~ msgid "You must enter a server name."
-#~ msgstr "Tem que inserir um nome de servidor."
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password "
-#~ "you wish to use below."
-#~ msgstr ""
-#~ "Se está a utilizar FTP não-anónimo, indique o nome da conta e a senha que "
-#~ "deseja utilizar."
-
-#~ msgid "Account name:"
-#~ msgstr "Nome da conta:"
-
-#~ msgid "Further HTTP Setup"
-#~ msgstr "Configuração Avançada do HTTP"
-
-#~ msgid "_Release Notes"
-#~ msgstr "Notas da _Versão"
-
-#~ msgid "Exception Info"
-#~ msgstr "Informação da Excepção"
-
-#~ msgid "_Exception details"
-#~ msgstr "Detalhes da _excepção"
-
-#~ msgid "Rebooting System"
-#~ msgstr "A Reiniciar o Computador"
-
-#~ msgid "Re_try"
-#~ msgstr "Repe_tir"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Retire qualquer suporte físico utilizado no processo de instalação e "
-#~ "carregue no botão \"Reiniciar\" para reiniciar o computador.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Retire qualquer suporte físico utilizado no processo de instalação e "
-#~ "carregue em <Enter> para reiniciar o computador.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Enter> para reiniciar"
-
-#~ msgid "NFS image"
-#~ msgstr "Imagem em NFS"
