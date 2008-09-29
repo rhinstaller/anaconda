@@ -536,43 +536,56 @@ class Network:
 
         # /etc/hosts
         f = open(instPath + "/etc/hosts", "w")
-        localline = ""
 
         log.info("self.hostname = %s", self.hostname)
 
+        # IP address
         ip = self.lookupHostname()
-        l = string.split(self.hostname, ".")
+        if ip in [ "127.0.0.1", "::1" ]:
+            ip = None
 
-        # If the hostname is not resolvable, tie it to 127.0.0.1
-        if not ip and self.hostname != "localhost.localdomain":
-            localline += self.hostname + " "
-            if len(l) > 1:
-                localline += l[0] + " "
+        # fqdn and hostname
+        if "." in hostname:
+            fqdn = self.hostname
+            hostname = hostname.split('.', 1)[0]
+        else:
+            fqdn = socket.getfqdn(self.hostname)
+            hostname = self.hostname
+        if fqdn in [ "localhost.localdomain", "localhost",
+                     "localhost6.localdomain6", "localhost6" ]:
+            fqdn = None
 
-        # always add the short hostname to 127.0.0.1 (#253979)
-        localline += "localhost.localdomain localhost"
-        if len(l) > 1:
-            localline += " " + l[0]
+        # domainname
+        domainname = fqdn[(fqdn.find('.') + 1):]
+        if domainname in [ "localdomain", "localdomain6" ]:
+            domainname = None
+
+        localline = "localhost.localdomain localhost"
+        if not ip or not fqdn:
+            # There is no ip or no fqdn, tie it to 127.0.0.1.
+            if fqdn:
+                # add fqdn to 127.0.0.1
+                localline += " " + fqdn
+            if hostname and hostname != "localhost":
+                # add short hostname to 127.0.0.1
+                localline += " " + hostname
 
         f.write("# Do not remove the following line, or various programs\n")
         f.write("# that require network functionality will fail.\n")
         f.write("127.0.0.1\t\t" + localline + "\n")
         f.write("::1\t\tlocalhost6.localdomain6 localhost6\n")
 
-        if ip:
-            nameline = "%s\t\t%s" % (ip, self.hostname)
-            n = string.split(self.hostname, ".")
-            if len(n) > 1:
-                nameline = nameline + " " + n[0]
-            f.write("%s\n" %(nameline,))
+        if ip and fqdn:
+            # Add an extra entry for ip, fqdn and hostname
+            f.write("%s\t\t%s %s\n" % (ip, fqdn, hostname))
+
+        f.close()
 
         # If the hostname was not looked up, but typed in by the user,
         # domain might not be computed, so do it now.
         if self.domains == ["localdomain"] or not self.domains:
-            if '.' in self.hostname:
-                # chop off everything before the leading '.'
-                domain = self.hostname[(string.find(self.hostname, '.') + 1):]
-                self.domains = [domain]
+            if domainname:
+                self.domains = [domainname]
 
         # /etc/resolv.conf
         f = open(instPath + "/etc/resolv.conf", "w")
