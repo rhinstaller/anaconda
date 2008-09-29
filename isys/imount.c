@@ -117,6 +117,8 @@ int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
             *err = NULL;
         }
 
+        memset(buf, '\0', 4096);
+
         while ((rc = read(pipefd[0], &buf, 4096)) > 1) {
             i += rc + 1;
 
@@ -124,7 +126,8 @@ int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
                 abort();
             }
 
-            *err = strncpy(*err, buf, rc);
+            *err = strncat(*err, buf, rc);
+            memset(buf, '\0', 4096);
         }
     }
 
