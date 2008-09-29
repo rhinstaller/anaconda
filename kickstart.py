@@ -265,12 +265,27 @@ class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
             if not drive in diskset.exclusiveDisks:
                 diskset.exclusiveDisks.append(drive)
 
-class Iscsi(commands.iscsi.FC6_Iscsi):
+class Iscsi(commands.iscsi.F10_Iscsi):
     def parse(self, args):
-        commands.iscsi.FC6_Iscsi.parse(self, args)
+        commands.iscsi.F10_Iscsi.parse(self, args)
 
         for target in self.iscsi:
-            if self.handler.id.iscsi.addTarget(target.ipaddr, target.port, target.user, target.password):
+            kwargs = {
+                'ipaddr': target.ipaddr,
+                'port': target.port,
+                }
+            if target.user and target.password:
+                kwargs.update({
+                    'user': target.user,
+                    'pw': target.password
+                    })
+            if target.user_in and target.password_in:
+                kwargs.update({
+                    'user_in': target.user_in,
+                    'pw_in': target.password_in
+                    })
+
+            if self.handler.id.iscsi.addTarget(**kwargs):
                 log.info("added iscsi target: %s" %(target.ipaddr,))
 
         # FIXME: flush the drive dict so we figure drives out again
