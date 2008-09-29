@@ -1049,6 +1049,9 @@ class DetailedMessageWindow(MessageWindow):
             iter = textbuf.get_start_iter()
 
             for line in longText:
+                if __builtins__.get("type")(line) != unicode:
+                    line = unicode(line, encoding='utf-8')
+
                 textbuf.insert(iter, line)
 
             self.detailedView.set_buffer(textbuf)
