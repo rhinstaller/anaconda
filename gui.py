@@ -1511,6 +1511,9 @@ class InstallControlWindow:
         if (gtk.gdk.screen_height() < 600) or \
            (gtk.gdk.screen_height() <= 675 and not runningMiniWm()):
             i.hide()
+            self.window.set_resizable(True)
+            self.window.set_size_request(-1, -1)
+            self.window.fullscreen()
         else:
             self.window.set_size_request(800, 600)
             self.window.set_position(gtk.WIN_POS_CENTER_ALWAYS)
