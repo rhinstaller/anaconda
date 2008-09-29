@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-26 16:15+1000\n"
+"PO-Revision-Date: 2008-09-29 16:50+1000\n"
 "Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -115,8 +115,8 @@ msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
 msgstr ""
-"VNC モードのインストールはテキストモードよりも多くの機能を提供します。 "
-"代わりにこちらを使用しますか ？"
+"VNC モードのインストールはテキストモードよりも多くの機能を提供します。 代わり"
+"にこちらを使用しますか ？"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -591,8 +591,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"バグフィールド内の不正な情報のためにバグを提出出来ませんでした。これは "
-"多分 Anaconda 内のエラーによるものです:\n"
+"バグフィールド内の不正な情報のためにバグを提出出来ませんでした。これは 多分 "
+"Anaconda 内のエラーによるものです:\n"
 "\n"
 "%s"
 
@@ -609,8 +609,8 @@ msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
 msgstr ""
-"ご使用のディストリビューションはバグ提出システムに対応していません。 "
-"そのため、この方法では例外エラーを保存できません。"
+"ご使用のディストリビューションはバグ提出システムに対応していません。 そのた"
+"め、この方法では例外エラーを保存できません。"
 
 #: ../exception.py:384
 msgid "Invalid Bug Information"
@@ -621,14 +621,15 @@ msgid "Please provide a valid username, password, and short bug description."
 msgstr "有効なユーザー名、パスワード、及び簡単なバグ説明を記入して下さい。"
 
 #: ../exception.py:395
-#, fuzzy
 msgid "Unable To Login"
-msgstr "編集できません"
+msgstr "ログインできません"
 
 #: ../exception.py:396
 #, python-format
 msgid "There was an error logging into %s using the provided username and password."
-msgstr "提示されたユーザー名とパスワードを使用した %s へのログインにエラーが発生しました。"
+msgstr ""
+"提示されたユーザー名とパスワードを使用した %s へのログインにエラーが発生しま"
+"した。"
 
 #: ../exception.py:433
 msgid "Bug Created"
@@ -643,9 +644,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
-"トレースバックを添付した新規のバグが作成されました。バグ、スクリーンショット、 "
-"そして以下のバグに関連する状況に遭遇した時に操作していたことなど、追加の "
-"情報を記載して下さい:\n"
+"トレースバックを添付した新規のバグが作成されました。バグ、スクリーンショッ"
+"ト、 そして以下のバグに関連する状況に遭遇した時に操作していたことなど、追加"
+"の 情報を記載して下さい:\n"
 "\n"
 "%s/%s"
 
@@ -662,9 +663,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
-"提出された情報のバグは既に存在します。ご使用のアカウントは CC リストに追加されて、 "
-"現在のトレースバックはコメントとして追加されました。以下のバグについて詳細な "
-"説明を追加して下さい:\n"
+"提出された情報のバグは既に存在します。ご使用のアカウントは CC リストに追加さ"
+"れて、 現在のトレースバックはコメントとして追加されました。以下のバグについて"
+"詳細な 説明を追加して下さい:\n"
 "\n"
 "%s/%s"
 
@@ -695,8 +696,8 @@ msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
 msgstr ""
-"使用できる稼働中のネットワークデバイスがないため、バグ報告を "
-"保存することができません。"
+"使用できる稼働中のネットワークデバイスがないため、バグ報告を 保存することがで"
+"きません。"
 
 #: ../exception.py:516
 msgid ""
@@ -980,7 +981,7 @@ msgstr ""
 "続行できますが、問題が生じる場合があります。"
 
 #: ../fsset.py:1986
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -991,20 +992,21 @@ msgid ""
 msgstr ""
 "デバイス %s を %s としてマウントする際にエラーが発生しました:%s。\n"
 "\n"
-"/etc/fstab 内のデバイスはデバイス名ではなく、ラベルで指定されるべきです。\n"
+"/etc/fstab 内のデバイスはデバイス名ではなく、ラベル、又は UUID で "
+"指定されるべきです。\n"
 "\n"
 "「OK」を押してインストーラを終了してください。"
 
 #: ../fsset.py:1993
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"%s に使用する RAID デバイス %s が見つかりません。\n"
+"デバイス %s を %s としてマウントする時にエラーが発生しました: %s \n"
 "\n"
-"OK を押すとインストーラを終了します。"
+"OK を押してインストーラを終了します。"
 
 #: ../fsset.py:2011
 msgid ""
@@ -1129,12 +1131,12 @@ msgid "Installation Key"
 msgstr "インストールキー"
 
 #: ../gui.py:660 ../text.py:323
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose a passphrase for this encrypted device%s. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
-"暗号化されたデバイス用のパスフレーズを選択してください。システムのブート中に"
+"この暗号化されたデバイス %s 用のパスフレーズを選択してください。システムをブートする時に"
 "選択したパスフレーズの入力を求められます。"
 
 #: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
@@ -1286,7 +1288,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660 イメージがありません"
 
 #: ../image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1297,7 +1299,7 @@ msgstr ""
 "インストーラーはイメージ #%s のマウントを試行しましたが、ハードドライブ上に見"
 "つかりませんでした。\n"
 "\n"
-"このイメージをドライブにコピーしてから再試行をクリックしてください。「終了」"
+"このイメージをドライブにコピーしてから「再試行」をクリックしてください。「終了」"
 "をクリックするとインストールを中止します。"
 
 #: ../image.py:244
@@ -1416,7 +1418,6 @@ msgid "Copying live image to hard drive."
 msgstr "ライブイメージをハードドライブに転送中。"
 
 #: ../livecd.py:197
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -1424,12 +1425,11 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"ファイル %s を開けません。ファイルが見つからないか、パッケージやメディアが破"
-"損している可能性があります。インストール元を検証してください。\n"
+"ライブイメージをハードドライブにインストールする時にエラーが発生しました。 "
+"不正なメディアが原因かもしれません。インストールメディアを確認して下さい。\n"
 "\n"
-"終了するとシステムは矛盾した状態となり、再インストールを必要とする可能性が高"
-"くなります。\n"
-"\n"
+"終了するとシステムは矛盾した状態となり、再インストールを必要とするように "
+"なります。"
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -1453,21 +1453,20 @@ msgstr ""
 "サイズより小さすぎます(最低 %.2f MB は必要です)。"
 
 #: ../network.py:64
-#, fuzzy
 msgid "Hostname must be 64 or fewer characters in length."
-msgstr "ホスト名は 64 文字以下の長さにしてください。"
+msgstr "ホスト名は 64 文字かそれ以下の長さにする必要があります。"
 
 #: ../network.py:70
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
-msgstr "ホスト名は 「a-z」 又は 「A-Z」 の範囲の有効な文字で始めてください。"
+msgstr ""
+"ホスト名は 「a-z」 又は 「A-Z」又は 「0-9」 の範囲の有効な文字で開始しなければ "
+"なりません。"
 
 #: ../network.py:75
-#, fuzzy
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr "ホスト名には 「a-z」、 「A-Z」、 「-」、 「.」以外の文字は使用できません。"
+msgstr "ホスト名には 「a-z」、 「A-Z」、 「0-9」、「-」、 「.」以外の文字は使用できません。"
 
 #: ../network.py:132
 msgid "IP address is missing."
@@ -1633,7 +1632,7 @@ msgstr ""
 "すべてのデータを消去して、このドライブを初期化しますか?"
 
 #: ../partedUtils.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1644,8 +1643,8 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"デバイス %s にあるパーティションテーブルを読み込めませんでした (%s)。新規パー"
-"ティションを作成するには初期化が必要ですが、本ドライブにあるすべてのデータを"
+"デバイス %s (%s %-0.f MB) にあるパーティションテーブルを読み込めませんでした。\n "
+"新規パーティションを作成するには初期化が必要ですが、本ドライブにあるすべてのデータを"
 "失うことになります。\n"
 "\n"
 "この操作を行うと、以前のインストールで選択した無視するドライブの選択をすべて"
@@ -2017,9 +2016,9 @@ msgid ""
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption%s will be disabled."
 msgstr ""
-"暗号化が有効になっているはずのブロックデバイスを指定しています%s、しかし、 "
-"パスフレーズが供給されていません。戻ってパスフレーズを記入しないとブロック "
-"デバイスの暗号化%s は無効になります。"
+"暗号化が有効になっているはずのブロックデバイスを指定しています%s、しかし、 パ"
+"スフレーズが供給されていません。戻ってパスフレーズを記入しないとブロック デバ"
+"イスの暗号化%s は無効になります。"
 
 #: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
@@ -2096,11 +2095,8 @@ msgstr ""
 "小さすぎます。"
 
 #: ../partitions.py:1177
-#, fuzzy
 msgid "You must create an EFI System Partition of at least 10 megabytes."
-msgstr ""
-"EFI システムパーティションを作成する必要があります。これは、50 メガバイトの"
-"FAT システムである必要があります。"
+msgstr "少なくとも 10 メガバイトの EFI システムパーティションを作成する必要があります。"
 
 #: ../partitions.py:1191
 msgid ""
@@ -2308,9 +2304,7 @@ msgstr "完了したらシェルを終了してください。システムが再
 
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
-"実行するための /bin/sh が見付かりません。シェルを "
-"開始していません。"
+msgstr "実行するための /bin/sh が見付かりません。シェルを 開始していません。"
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -2441,9 +2435,8 @@ msgid "Save"
 msgstr "保存"
 
 #: ../text.py:210
-#, fuzzy
 msgid "Save to local disk"
-msgstr "ディスクに保存"
+msgstr "ローカルディスクに保存"
 
 #: ../text.py:211
 #, python-format
@@ -2471,24 +2464,21 @@ msgid "Host (host:port)"
 msgstr "ホスト (ホスト:ポート)"
 
 #: ../text.py:245
-#, fuzzy
 msgid "Destination file"
-msgstr "LVM の操作に失敗しました。"
+msgstr "送信先ファイル"
 
 #: ../text.py:329
-#, fuzzy
 msgid "Passphrase for encrypted device"
-msgstr "暗号化されたパーティション用のパスフレーズを入力してください。"
+msgstr "暗号化されたデバイス用のパスフレーズ"
 
 #: ../text.py:347 tmp/lukspassphrase.glade.h:7
-#, fuzzy
 msgid "Use this passphrase for all new encrypted devices"
-msgstr "暗号化されたパーティション用のパスフレーズを入力してください。"
+msgstr "新規の暗号化されたデバイス全てにこのパスフレーズを使用します。"
 
 #: ../text.py:378
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "パスフレーズは最低 6 文字以上でなければなりません。"
+msgstr "パスフレーズは最低 %d 文字の長さでなければなりません。"
 
 #: ../text.py:407 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
@@ -2856,17 +2846,15 @@ msgid "%s of %s packages completed"
 msgstr "%s / %s パッケージが完了しました。"
 
 #: ../yuminstall.py:214
-#, fuzzy
 msgid "Finishing upgrade process..."
-msgstr "アップグレードの終了"
+msgstr "アップグレードプロセスを終了中..."
 
 #: ../yuminstall.py:308 ../iw/task_gui.py:275
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "リポジトリの編集"
+msgstr "リポジトリの設定中にエラー"
 
 #: ../yuminstall.py:309 ../iw/task_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -2874,11 +2862,11 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"パーティション設定中に次のエラーが発生しました:\n"
+"インストールレポジトリ設定中に次のエラーが発生しました:\n"
 "\n"
 "%s\n"
 "\n"
-"OK を押すとインストーラを終了します。"
+" %s のインストールについての正しい情報を提示して下さい。"
 
 #: ../yuminstall.py:366
 msgid "Change Disc"
@@ -2937,9 +2925,8 @@ msgid "Retrying"
 msgstr "再試行中"
 
 #: ../yuminstall.py:700
-#, fuzzy
 msgid "Retrying download..."
-msgstr "パッケージの再ダウンロード..."
+msgstr "ダウンロードの再試行中..."
 
 #: ../yuminstall.py:772
 #, python-format
@@ -3197,9 +3184,8 @@ msgstr ""
 "トされた、物理パーティションのみリサイズできます。"
 
 #: ../iw/autopart_type.py:180
-#, fuzzy
 msgid "Do you really want to boot from a disk which is not used for installation?"
-msgstr "本当にインストールに使用されないディスクからシステムをブートしますか?"
+msgstr "本当にインストール用に使用されていないディスクからシステムをブートしますか?"
 
 #: ../iw/autopart_type.py:261
 msgid "Invalid Initiator Name"
@@ -3387,10 +3373,10 @@ msgid "Packages in %s"
 msgstr "%s に含まれるパッケージ"
 
 #: ../iw/GroupSelector.py:442
-#, fuzzy, python-format
+#, python-format
 msgid "%d of %d optional package selected"
 msgid_plural "%d of %d optional packages selected"
-msgstr[0] "%d 個 (全 %d 個) の追加パッケージが選択されました。"
+msgstr[0] "%d 個内の %d 個 のオプションパッケージが選択されました。"
 msgstr[1] "%d 個中 %d 個の追加パッケージが選択されました。"
 
 #: ../iw/GroupSelector.py:445
@@ -4630,17 +4616,16 @@ msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "リポジトリには、HTTP, HTTPS, または FTP の URL を入力する必要があります。"
 
 #: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-#, fuzzy
 msgid "No Media Found"
-msgstr "ドライブがみつかりませんでした。"
+msgstr "メディアが見つかりません。"
 
 #: ../iw/task_gui.py:248 ../iw/task_gui.py:361
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr ""
-"インストール用メディアが見付かりません。ディスクをドライブに挿入して "
-"もう一度試して下さい。"
+"インストール用メディアが見付かりません。ディスクをドライブに挿入して もう一度"
+"試して下さい。"
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
 msgid "Please enter an NFS server and path."
@@ -4672,11 +4657,12 @@ msgid "No Software Repos Enabled"
 msgstr "ソフトウェアレポジトリが有効になっていません"
 
 #: ../iw/task_gui.py:432
-#, fuzzy
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr "%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
+msgstr ""
+"インストールを続行する為には少なくとも１つのソフトウェアレポジトリが有効に "
+"なっている必要があります。"
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -4750,7 +4736,7 @@ msgid "Migrate File Systems"
 msgstr "ファイルシステムの転換"
 
 #: ../iw/upgrade_migratefs_gui.py:64
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4759,11 +4745,11 @@ msgid ""
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "%s のこのリリースでは最新のファイルシステムをサポートしています。これらは従"
-"来 %s に使われていたファイルシステムに比べ優れた点をいくつか備えています。こ"
-"のインストールプログラムは、データを失うことなくファイルシステムを更新するこ"
-"とができます。\n"
+"来 %s で配布されていたファイルシステムに比べ優れた点をいくつか備えています。こ"
+"のインストールプログラムは、データを失うことなくフォーマットしたパーティションを "
+"移行することができます。\n"
 "\n"
-"どのパーティションを転換しますか?"
+"これらのどのパーティションを移行しますか?"
 
 #: ../iw/upgrade_swap_gui.py:35
 msgid "Upgrade Swap Partition"
@@ -5093,9 +5079,9 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "このコンピューターに接続されるキーボードのモデルを指定してください。"
 
 #: ../textw/netconfig_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s"
-msgstr "フィールド %s には値が必要です。"
+msgstr "フィールド %s 用に値が必要です。"
 
 #: ../textw/netconfig_text.py:86 tmp/netconfig.glade.h:9
 msgid "Enable network interface"
@@ -5110,9 +5096,8 @@ msgstr ""
 "ネットワークインターフェースを設定してください。"
 
 #: ../textw/netconfig_text.py:111
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "動的 IP 設定 (DHCP) を使用する (_D)"
+msgstr "動的 IP 設定 (DHCP) を使用"
 
 #: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
 #: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
@@ -5125,12 +5110,10 @@ msgid "Enable IPv6 support"
 msgstr "IPv6 サポートを有効にする"
 
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
 msgstr "IPv4 アドレス:"
 
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
 msgstr "IPv6 アドレス:"
 
@@ -5140,29 +5123,24 @@ msgid "Gateway:"
 msgstr "ゲートウェイ:"
 
 #: ../textw/netconfig_text.py:144
-#, fuzzy
 msgid "Nameserver:"
-msgstr "ネームサーバー"
+msgstr "ネームサーバー:"
 
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "見つからないパッケージ"
+msgstr "欠如パッケージ"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "編集するパーティションを選択してください"
+msgstr "ネットワークデバイスを選択する必要があります"
 
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
 msgstr "IPv4 ネットワークマスク"
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
-msgstr "ネットワークデバイス設定中にエラー発生:"
+msgstr "ネットワークデバイス設定中にエラー:"
 
 #: ../textw/network_text.py:60
 #, python-format
@@ -6009,9 +5987,8 @@ msgstr ""
 "メディアテストをスキップするには %s を選択して、インストールを開始します。"
 
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "警告"
+msgstr "スキャン中"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
@@ -6036,9 +6013,9 @@ msgid "Cannot find kickstart file on CDROM."
 msgstr "ディスクROM 上にキックスタートファイルが見つかりません。"
 
 #: ../loader/copy.c:51 ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "%s ディレクトリの読み込みに失敗: %s"
+msgstr "%s ディレクトリの読み込みに失敗: %m"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -6206,13 +6183,12 @@ msgid "Select Device Driver to Load"
 msgstr "読み込むデバイスドライバーを選択してください"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
 msgstr ""
-"ISO イメージからのインストールを読み込み中にエラーが発生しました。ISO イメー"
-"ジを確認してからやり直してください。"
+"ハードドライブからインストールイメージを読み込み中にエラーが発生しました。 "
+"ご使用のイメージを確認してからやり直してください。"
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6221,18 +6197,17 @@ msgid ""
 msgstr "このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
 
 #: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"%s 用 ディスク (iso9660) イメージを格納しているパーティション及びそのパーティ"
-"ション内のディレクトリを指定してください。一覧に使用しているディスクドライブ"
-"がなければ、 F2 を押して追加デバイスの設定を行ってください。"
+"%s 用 インストールイメージを格納しているパーティションとディレクトリを "
+"指定してください。一覧内に、使用しているディスクドライブがなければ、 "
+"F2 を押して追加デバイスの設定を行ってください。"
 
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
 msgstr "イメージを格納しているディレクトリ:"
 
@@ -6241,9 +6216,9 @@ msgid "Select Partition"
 msgstr "パーティションを選択してください"
 
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "デバイス %s には %s ディスクROM イメージが含まれていないようです。"
+msgstr "デバイス %s にはインストールイメージが含まれていないようです。"
 
 #: ../loader/hdinstall.c:385
 #, c-format
@@ -6268,14 +6243,14 @@ msgid "What type of keyboard do you have?"
 msgstr "ご使用のキーボードの種類を指定してください。"
 
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "キックスタートファイル %sを開く際にエラー発生: %s"
+msgstr "キックスタートファイル %s を開く際にエラー: %m"
 
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "キックスタートファイル %s の読み込み時にエラー発生: %s"
+msgstr "キックスタートファイル %s の読み込み時にエラー: %m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -6350,9 +6325,9 @@ msgstr ""
 "ションが複数あります。使用するパーティションを指定してください。"
 
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "更新ディスクを /dev/%s に挿入してから 「OK」 を押して続行します。"
+msgstr "更新ディスクを %s に挿入してから 「OK」 を押して続行します。"
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6408,9 +6383,8 @@ msgid "What type of media contains the rescue image?"
 msgstr "レスキューイメージが格納されているメディアタイプを指定してください。"
 
 #: ../loader/loader.c:1358
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "レスキューイメージが格納されているメディアタイプを指定してください。"
+msgstr "インストールイメージが格納されているメディアタイプを指定してください。"
 
 #: ../loader/loader.c:1389
 msgid "No driver found"
@@ -6631,9 +6605,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "ネットワークコマンドで不正な bootproto %s が指定されました"
 
 #: ../loader/net.c:1423
-#, fuzzy
 msgid "Seconds:"
-msgstr "2 番目の DNS:"
+msgstr "2 番目:"
 
 #: ../loader/net.c:1537
 msgid "Networking Device"
@@ -6660,8 +6633,8 @@ msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
-"数秒間だけ LED の光源を点滅することで達成します。１から30までの数字を挿入して "
-"LED ポートの光源を点滅する時間をセットします。"
+"数秒間だけ LED の光源を点滅することで達成します。１から30までの数字を挿入し"
+"て LED ポートの光源を点滅する時間をセットします。"
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
@@ -6681,9 +6654,9 @@ msgid "Flashing %s port lights for %d seconds..."
 msgstr "%s ポートの光源を %d 秒だけ点滅しています..."
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "telnet 接続の待機中..."
+msgstr "NetworkManager の %s の設定を待っています...\n"
 
 #: ../loader/nfsinstall.c:63
 msgid "NFS server name:"
@@ -6695,9 +6668,9 @@ msgid "%s directory:"
 msgstr "%s ディレクトリ:"
 
 #: ../loader/nfsinstall.c:78
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr "%s イメージへのパスとサーバー名を入力してください。"
+msgstr "%s インストールイメージへのパスとサーバー名を入力してください。"
 
 #: ../loader/nfsinstall.c:85
 msgid "NFS Setup"
@@ -6712,9 +6685,9 @@ msgid "That directory could not be mounted from the server."
 msgstr "そのディレクトリはサーバーからマウントできませんでした。"
 
 #: ../loader/nfsinstall.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "そのディレクトリは %s のインストールツリーを含んでいないようです。"
+msgstr "そのディレクトリは %s のインストールイメージを含んでいないようです。"
 
 #: ../loader/nfsinstall.c:338
 #, c-format
@@ -6734,9 +6707,9 @@ msgid "Running anaconda via telnet..."
 msgstr "telnet 経由で anaconda を実行中..."
 
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "%s://%s/%s の取り込みができません。"
+msgstr "%s://%s%s の取り込みが出来ません。"
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
@@ -6761,9 +6734,9 @@ msgid "Retrieving"
 msgstr "取り込み中"
 
 #: ../loader/urls.c:295
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the URL containing the %s installation image on your server."
-msgstr "イメージ %s を含んでいるサーバーのアドレスを入力してください。"
+msgstr "%s のインストールイメージを含んでいるサーバーの URL を入力してください。"
 
 #: ../loader/urls.c:321
 msgid "URL Setup"
@@ -6828,14 +6801,12 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>リポジトリ名 (_N):</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>リポジトリ名 (_N):</b>"
+msgstr "<b>リポジトリタイプ（_T）:</b>"
 
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "プロキシの設定"
+msgstr "プロキシの設定 (_P) "
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -6850,42 +6821,36 @@ msgstr ""
 "Hard Drive"
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid "Please provide the configuration information for this software repository."
-msgstr "追加ソフトウェアのインストール元を入力してください。"
+msgstr "このソフトウェアレポジトリの設定情報を入力してください。"
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL"
-msgstr "プロキシの_URL:"
+msgstr "プロキシの URL（_R）"
 
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "プロキシのパスワード:"
+msgstr "プロキシのパスワード (_W)"
 
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "プロキシのユーザー名 (_U):"
+msgstr "プロキシのユーザー名 (_S)"
 
 #: tmp/addrepo.glade.h:13
 msgid "Repository _URL"
 msgstr "レポジトリの URL (_U)"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "ファイルを選択してください"
+msgstr "ディレクトリを選択してください"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
 msgstr "URL は _mirror list です。"
 
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "NFS ディレクトリ:"
+msgstr "ディレクトリ（_D）"
 
 #: tmp/addrepo.glade.h:17
 msgid "_Options"
@@ -7012,8 +6977,8 @@ msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
-"ローカルディスク\n  "
-"リモートサーバー (scp)"
+"ローカルディスク\n"
+"  リモートサーバー (scp)"
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
@@ -7028,9 +6993,8 @@ msgid "_Host (host:port)"
 msgstr "ホスト(ホスト:ポート)（_H）"
 
 #: tmp/exnSave.glade.h:9
-#, fuzzy
 msgid "_Password"
-msgstr "パスワード(_P):"
+msgstr "パスワード(_P)"
 
 #: tmp/exnSave.glade.h:10
 msgid "_User name"
@@ -7371,9 +7335,8 @@ msgid "Marathi"
 msgstr "マラーティー語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "ノルウェー語"
+msgstr "ノルウェー語 (Bokmål)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
