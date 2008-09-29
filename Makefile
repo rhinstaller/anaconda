@@ -84,6 +84,9 @@ install:
 	strip $(DESTDIR)/$(PYTHONLIBDIR)/*.so
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
+	mkdir -p $(DESTDIR)/usr/share/xml/comps/1.0
+	install -m 0644 comps.dtd $(DESTDIR)/usr/share/xml/comps/1.0/comps.dtd
+
 TAG=anaconda-$(VERSION)-$(RELEASE)
 SRPMDIR=$(shell rpm --eval '%{_srcrpmdir}')
 tag:

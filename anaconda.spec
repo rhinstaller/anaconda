@@ -56,6 +56,8 @@ Requires: syslinux
 Requires: openssh
 %endif
 Requires: /usr/bin/strip, xorg-x11-font-utils, netpbm-progs
+Requires: xml-common
+Requires: /usr/bin/xmlcatalog
 
 %description runtime
 The anaconda-runtime package contains parts of the installation system which 
@@ -80,6 +82,15 @@ strip $RPM_BUILD_ROOT/usr/lib/anaconda/*.so
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post runtime
+CATALOG=/etc/xml/catalog
+/usr/bin/xmlcatalog --noout --add "rewriteSystem" \
+    "comps.dtd" \
+    "/usr/share/xml/comps/1.0/comps.dtd" $CATALOG
+/usr/bin/xmlcatalog --noout --add "rewriteURI" \
+    "comps.dtd" \
+    "/usr/share/xml/comps/1.0/comps.dtd" $CATALOG
+
 %files
 %defattr(-,root,root)
 %doc COPYING
@@ -101,6 +112,7 @@ rm -rf $RPM_BUILD_ROOT
 %files runtime
 %defattr(-,root,root)
 /usr/lib/anaconda-runtime
+/usr/share/xml/comps
 
 %triggerun -- anaconda < 8.0-1
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
