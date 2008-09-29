@@ -24,9 +24,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../anaconda:289
-#, fuzzy, c-format
+#, c-format
 msgid "Error processing %%ksappend lines: %s"
-msgstr "خطأ في فتح ملف kickstart %s: %s"
+msgstr "خطأ في معالجة أسطر %%ksappend: %s"
 
 #: ../anaconda:292
 #, c-format
@@ -137,19 +137,16 @@ msgid "Start of partition %s was moved when resizing"
 msgstr ""
 
 #: ../autopart.py:983
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
-msgstr "لم يمكن تعيين التّجزيئات المبنيّة على الاسطوانات كتجزيئات أوّليّة"
+msgstr "لم يمكن تعيين الأقسام المبنيّة على الاسطوانات كأقسام أوّليّة.\n"
 
 #: ../autopart.py:988
-#, fuzzy
 msgid "Could not allocate partitions as primary partitions.\n"
-msgstr "لم يمكن تعيين التجزيئات كتجزيئات أوّليّة"
+msgstr "لم يمكن تعيين الأقسام كأقسام أوّليّة.\n"
 
 #: ../autopart.py:993
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions.\n"
-msgstr "لم يمكن تعيين التجزيئات المبنيّة على الاسطوانات"
+msgstr "لم يمكن تعيين الاقسام المبنيّة على الاسطوانات.\n"
 
 #: ../autopart.py:1058
 #, python-format
@@ -158,8 +155,8 @@ msgid ""
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
-"جزء الإقلاع %s لا ينتمي إلى علامة قرص BSD. لن يستطيع SRM الإقلاع من هذا "
-"الجزء. استخدم جزء ينتمي إلى علامة قرص BSD أو غيّر علامة هذا القرص إلى BSD."
+"قسم الإقلاع %s لا ينتمي إلى علامة قرص BSD. لن يستطيع SRM الإقلاع من هذا "
+"القسم. استخدم قسم ينتمي إلى علامة قرص BSD أو غيّر علامة هذا القرص إلى BSD."
 
 #: ../autopart.py:1060
 #, python-format
@@ -177,23 +174,24 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr "قسم الإقلاع %s ليس قسم VFAT.  لن يستطيع EFI الإقلاع من هذا التّجزيء."
+msgstr "قسم الإقلاع %s ليس قسم VFAT.  لن يستطيع EFI الإقلاع من هذا القسم."
 
 #: ../autopart.py:1064
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"قسم الإقلاع غير واقع على القرص بقُرب كافي.  لن يستطيع OpenFirmware إقلاع هذا "
-"التّثبيت."
+"قسم الإقلاع يجب أن يقع بالكامل في اول 4GB من القرص."
+"لن يستطيع OpenFirmware إقلاع هذا التّثبيت."
 
 #: ../autopart.py:1066
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
 "be able to boot from this partition."
-msgstr "قسم الإقلاع %s ليس قسم VFAT.  لن يستطيع EFI الإقلاع من هذا التّجزيء."
+msgstr ""
+"قسم الإقلاع %s ليس نظام ملفات لينكس مثل ext3."
+"النظام لن يتمكن من إقلاع هذا القسم."
 
 #: ../autopart.py:1069
 #, python-format
@@ -214,7 +212,7 @@ msgid "Requested Partition Does Not Exist"
 msgstr "القسم المطلوب غير موجود"
 
 #: ../autopart.py:1287
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -222,14 +220,14 @@ msgid ""
 msgstr ""
 "لم يمكن تحديد القسم %s لاستخدامه لـ%s.\n"
 "\n"
-"اضغط الزّر ‘موافق‘ لإعادة تشغيل نظامك."
+"اضغط الزّر ‘موافق‘ للخروج من برنامج التثبيت."
 
 #: ../autopart.py:1312
 msgid "Requested Raid Device Does Not Exist"
 msgstr "جهاز RAID المطلوب غير موجود"
 
 #: ../autopart.py:1313
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
@@ -237,14 +235,14 @@ msgid ""
 msgstr ""
 "لم يمكن العثور على جهاز raid %s لاستخدامه لـ %s.\n"
 "\n"
-"اضغط 'موافق' لتعيد تشغيل نظامك."
+"اضغط 'موافق' للخروج من برنامج التثبيت."
 
 #: ../autopart.py:1342
 msgid "Requested Volume Group Does Not Exist"
 msgstr "مجموعة الكُتل المطلوبة غير موجودة"
 
 #: ../autopart.py:1343
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
@@ -252,14 +250,14 @@ msgid ""
 msgstr ""
 "لم يمكن العثور على مجموعة الكُتل %s لاستخدامها لـ%s.\n"
 "\n"
-"اضغط 'موافق' لتعيد تشغيل نظامك."
+"اضغط 'موافق' للخروج من برنامج التثبيت."
 
 #: ../autopart.py:1380
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "الكتلة المنطقيّة المطلوبة غير موجودة"
 
 #: ../autopart.py:1381
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
@@ -267,14 +265,14 @@ msgid ""
 msgstr ""
 "لم يمكن العثور على الكتلة المنطقيّة %s لاستخدامها لـ%s.\n"
 "\n"
-"اضغط على الزر ‘موافق‘ لتعيد تشغيل نظامك."
+"اضغط على الزر ‘موافق‘ للخروج من برنامج التثبيت."
 
 #: ../autopart.py:1516 ../autopart.py:1563
 msgid "Automatic Partitioning Errors"
-msgstr "أخطاء التجزئة التلقائيّة"
+msgstr "أخطاء التقسيم التلقائيّة"
 
 #: ../autopart.py:1517
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -286,11 +284,11 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"اضغط على الزر ‘موافق‘ لتعيد تشغيل نظامك."
+"اضغط على الزر ‘موافق‘ للخروج من برنامج التثبيت."
 
 #: ../autopart.py:1527
 msgid "Warnings During Automatic Partitioning"
-msgstr "تحذيرات خلال التّجزئة التّلقائيّة"
+msgstr "تحذيرات خلال التقسيم التّلقائيّة"
 
 #: ../autopart.py:1528
 #, python-format
@@ -299,12 +297,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"حدثت التحذيرات التّالية خلال عمليّة التّجزئة التّلقائيّة:\n"
+"حدثت التحذيرات التّالية خلال عمليّة التقسيم التّلقائيّة:\n"
 "\n"
 "%s"
 
 #: ../autopart.py:1542 ../autopart.py:1559
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -312,12 +309,12 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"اضغط على الزر ‘موافق‘ لتعيد تشغيل نظامك."
+"اضغط على الزر ‘موافق‘ للخروج من برنامج التثبيت."
 
 #: ../autopart.py:1543 ../iw/partition_gui.py:1023
 #: ../textw/partition_text.py:246
 msgid "Error Partitioning"
-msgstr "خطأ في التّجزئة"
+msgstr "خطأ في التقسيم"
 
 #: ../autopart.py:1544
 #, python-format
@@ -338,7 +335,7 @@ msgid ""
 msgstr ""
 
 #: ../autopart.py:1564
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -347,11 +344,11 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation. %s"
 msgstr ""
-"حدثت الأخطاء التالية بتجزئتك:\n"
+"حدثت الأخطاء التالية بأقسامك:\n"
 "\n"
 "%s\n"
 "\n"
-"يمكن أن يحدث هذا إن لم يكن هناك مساحة كافية على قرصك الصّلب من أجل التّثبيت.%s"
+"يمكن أن يحدث هذا إن لم يكن هناك مساحة كافية على قرصك الصّلب من أجل التّثبيت. %s"
 
 #: ../autopart.py:1575
 msgid "Unrecoverable Error"
@@ -370,11 +367,11 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"التجزئة الآليّة تحدّد التجزيئات بناءً على نوع التُثبيت المُحدّد. يمكنك أيضاً تخصيص "
-"التجزيئات حالما يتمّ إنشاءها.\n"
+"التقسيم التلقائي يحدّد الأقسام بناءً على نوع التُثبيت المُحدّد. يمكنك أيضاً تخصيص "
+"الأقسام حالما يتمّ إنشاءها.\n"
 "\n"
-"أداة تجزئة القرص اليدويّة، Disk Druid، تمكّنك من إنشاء تجزيئات في بيئة "
-"تفاعليّة. يمكنك تحديد أنواع أنظمة الملفّات، أماكن التّجهيز، أحجام التّجزيئات، "
+"أداة تقسيم القرص اليدويّة، Disk Druid، تمكّنك من إنشاء أقسام في بيئة "
+"تفاعليّة. يمكنك تحديد أنواع أنظمة الملفّات، نقاط الضم، أحجام الأقسام، "
 "والمزيد."
 
 #: ../autopart.py:1711
@@ -382,30 +379,30 @@ msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
-"قبل أن يتمكّن برنامج التثبيت من إعداد التّجزئة التّلقائيّة، عليك أن تحدّد كيفيّة "
+"قبل أن يتمكّن برنامج التثبيت من إعداد التقسم التّلقائيّة، عليك أن تحدّد كيفيّة "
 "استخدام المساحة على أقراصك الصّلبة."
 
 #: ../autopart.py:1716
 msgid "Remove all partitions on this system"
-msgstr "أزل كلّ التجزيئات على هذا النّظام"
+msgstr "أزل كلّ الأقسام على هذا النّظام"
 
 #: ../autopart.py:1717
 msgid "Remove all Linux partitions on this system"
-msgstr "أزل كلّ تجزيئات لينكس على هذا النّظام"
+msgstr "أزل كلّ أقسام لينكس على هذا النّظام"
 
 #: ../autopart.py:1718
 msgid "Keep all partitions and use existing free space"
-msgstr "أبْقِ كلّ التجزيئات واستخدم المساحة الحرّة"
+msgstr "أبْقِ كلّ الأقسام واستخدم المساحة الحرّة"
 
 #: ../backend.py:126
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "جاري تحديث %s-%s-%s.%s.\n"
+msgstr "يجري تحديث %s\n"
 
 #: ../backend.py:128
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "_ثبّت %s"
+msgstr "يجري تثبيت %s\n"
 
 #: ../bootloader.py:44 ../bootloader.py:236 ../image.py:87
 #: ../partedUtils.py:365 ../partedUtils.py:395 ../partedUtils.py:1106
@@ -419,15 +416,14 @@ msgid "Warning"
 msgstr "تحذير"
 
 #: ../bootloader.py:45
-#, fuzzy
 msgid ""
 "Your filesystems have already been activated.  You cannot go back past this "
 "point.\n"
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
-"خيارات التّجزئة التي اخترتها تمّ تفعيلها مسبقاً. لا يمكنك العودة إلى شاشة تحرير "
-"القرص بعد الآن. هل تريد الاستمرار بعمليّة التّثبيت؟"
+"خيارات التقسيم التي اخترتها تمّ تفعيلها مسبقاً. لا يمكنك العودة إلى ما وراء هذه النقطة.\n\n"
+"هل تريد الاستمرار بعمليّة التّثبيت؟"
 
 #: ../bootloader.py:49 ../exception.py:348 ../exception.py:363
 #: ../exception.py:381 ../fsset.py:1715 ../fsset.py:1972 ../fsset.py:2711
@@ -436,9 +432,8 @@ msgstr ""
 #: ../upgrade.py:133 ../yuminstall.py:718 ../yuminstall.py:793
 #: ../yuminstall.py:799 ../yuminstall.py:970 ../yuminstall.py:1018
 #: ../yuminstall.py:1251 ../yuminstall.py:1288
-#, fuzzy
 msgid "_Exit installer"
-msgstr "مُثبّت %s"
+msgstr "إ_نهاء برنامج التثبيت"
 
 #: ../bootloader.py:49 ../fsset.py:1973 ../image.py:97 ../image.py:250
 #: ../kickstart.py:985 ../kickstart.py:1023 ../partedUtils.py:1262
@@ -478,74 +473,67 @@ msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "استثناءات parted لا يمكن التّعامل معها في وضع سطر الأوامر!"
 
 #: ../constants.py:75
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
 msgstr ""
-"حدث استثناء غير معالج.  على الأرجح أنّ هذا عَيْب برمجي.  رجاءً انسخ النّصّ الكامل "
-"لهذا الاستثناء أو أرسل تقرير عَيْب برمجيّ مفصّل بخصوص  anaconda على %s"
+"حدث استثناء غير معالج.  على الأرجح أنّ هذا عَيْب برمجي.  رجاءً احفظ نسخة من تفصيل هذا الاستثناء"
+"وأرسل تقرير عَيْب برمجيّ"
 
 #: ../constants.py:81
 msgid " with the provider of this software."
 msgstr ""
 
 #: ../constants.py:85
-#, fuzzy, python-format
+#, python-format
 msgid " against anaconda at %s"
-msgstr "جاري قراءة تحديثات أناكوندا..."
+msgstr " عن اناكوندا إلى %s"
 
 #: ../exception.py:344 ../exception.py:359 ../exception.py:377
 msgid "Dump Written"
 msgstr "كتبت مخرجات الخلل"
 
 #: ../exception.py:345 ../exception.py:360
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the disk. The installer "
 "will now exit."
 msgstr ""
-"تمّت كتابة حالة نظامك بنجاح إلى القرص المرن. سوف يتمّ الآن إعادة تشغيل نظامك."
+"تمّت كتابة حالة نظامك بنجاح إلى القرص. سيتمّ الآن الخروج من برنامج التثبيت."
 
 #: ../exception.py:351 ../exception.py:368 ../exception.py:384
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "كتبت مخرجات الخلل"
+msgstr "لم تكتب مخرجات الخلل"
 
 #: ../exception.py:352 ../exception.py:369
-#, fuzzy
 msgid "There was a problem writing the system state to the disk."
-msgstr "حدثت مشكلة أثناء كتابة حالة النظام على القرص المرن."
+msgstr "حدثت مشكلة أثناء كتابة حالة النظام على القرص."
 
 #: ../exception.py:378
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
 msgstr ""
-"تمّت كتابة حالة نظامك بنجاح إلى القرص المرن. سوف يتمّ الآن إعادة تشغيل نظامك."
+"تمّت كتابة حالة نظامك بنجاح إلى القرص المرن. سيتمّ الآن الخروج من برنامج التثبيت."
 
 #: ../exception.py:385
 msgid "There was a problem writing the system state to the remote host."
 msgstr "حدثت مشكلة أثناء كتابة حالة النظام إلى المضيف البعيد remote host. "
 
 #: ../fsset.py:548
-#, fuzzy
 msgid "Checking"
-msgstr "جاري فحص \"%s\"..."
+msgstr "فحص"
 
 #: ../fsset.py:549
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s..."
-msgstr "جاري تفحّص وجود كتل سيّئة على /dev/%s..."
+msgstr "يجري تفحّص نظام الملفات على %s..."
 
 #: ../fsset.py:560 ../fsset.py:1015
-#, fuzzy
 msgid "Resizing"
-msgstr "جاري الجَلْب"
+msgstr "إعادة تحجيم"
 
 #: ../fsset.py:561 ../fsset.py:1016
-#, fuzzy, python-format
+#, python-format
 msgid "Resizing filesystem on %s..."
 msgstr "تهيئة نظام الملفّات %s..."
 
@@ -595,9 +583,8 @@ msgstr ""
 "هل تودّ الاستمرار دون ترحيل %s؟"
 
 #: ../fsset.py:1538
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "حرّر قسم"
+msgstr "أقسام نظام EFI"
 
 #: ../fsset.py:1542
 msgid "RAID Device"
@@ -605,7 +592,7 @@ msgstr "جهاز RAID"
 
 #: ../fsset.py:1546 ../fsset.py:1552
 msgid "Apple Bootstrap"
-msgstr "Apple Bootstrap"
+msgstr ""
 
 #: ../fsset.py:1557 ../partitions.py:1121
 msgid "PPC PReP Boot"
@@ -620,7 +607,7 @@ msgid "Master Boot Record (MBR)"
 msgstr "سجلّ الإقلاع الرّئيسي (MBR)"
 
 #: ../fsset.py:1686
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -630,7 +617,7 @@ msgstr ""
 "حدث خطأ خلال ابتداء الذّاكرة البديلة على الجهاز %s.  هذه المشكلة جادّة، ولا "
 "يمكن للتّثبيت الاستمرار.\n"
 "\n"
-"إضغط <Enter> لتعيد تشغيل نظامك."
+"إضغط <Enter> للخروج من برنامج التثبيت."
 
 #: ../fsset.py:1715 ../packages.py:368 ../rescue.py:305 ../rescue.py:307
 #: ../textw/upgrade_text.py:132 ../loader2/cdinstall.c:200
@@ -651,9 +638,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1743
-#, fuzzy
 msgid "Reformat"
-msgstr "تنسيق"
+msgstr "إعادة تهئية"
 
 #: ../fsset.py:1747
 #, python-format
@@ -692,7 +678,7 @@ msgid "Format"
 msgstr "تنسيق"
 
 #: ../fsset.py:1776
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -700,14 +686,15 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"خطأ خلال تجهيز الجهاز %s على شكل %s: %s\n"
+"خطأ خلال تجهيز جهاز ذاكرة التبديل swap "
+"%s: %s\n"
 "\n"
-"يبدو أنّ هذا يعني أنّ هذا التّجزيء لم يتمّ تنسيقه.\n"
+"الأجهزة في ملف ‪/etc/fstab‬ يجب أن تعين من خلال العنوان label وليسم من خلال اسم الجهاز.\n"
 "\n"
-"اضغط موافق لتعيد تشغيل نظامك."
+"اضغط موافق للخروج من برنامج التثبيت."
 
 #: ../fsset.py:1781
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -718,12 +705,12 @@ msgid ""
 msgstr ""
 "وقع خطأ في تمكين جهاز الذّاكرة البديلة %s: %s\n"
 "\n"
-"ملف /etc/fstab لا يشير إلى جزء ذّاكرة بديلة صحيح.\n"
+"ملف ‪/etc/fstab‬ الموجود على القسم الذي تم ترقيته لا يشير إلى جزء ذّاكرة بديلة صحيح.\n"
 "\n"
-"اضغط موافق لإعادة تشغيل نظامك."
+"اضغط موافق للخروج من برنامج التثبيت"
 
 #: ../fsset.py:1787
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -735,21 +722,21 @@ msgstr ""
 "\n"
 "يبدو أنّ هذا يعني أنّ قسم الذّاكرة البديلة لم يُبتدأ.\n"
 "\n"
-"اضغط موافق لتعيد تشغيل نظامك."
+"اضغط موافق للخروج من برنامج التثبيت."
 
 #: ../fsset.py:1861
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"حدث خطأ خلال محاولة تنسيق %s.  هذه المشكلة جادّة، ولا يمكن أن يستمرّ التّثبيت.\n"
-"إضغط <Enter> لتعيد تشغيل نظامك."
+"حدث خطأ خلال محاولة تهيئة %s.  هذه المشكلة جادّة، ولا يمكن أن يستمرّ التّثبيت.\n"
+"إضغط <Enter> للخروج من برنامج التثبيت."
 
 #: ../fsset.py:1911
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -758,14 +745,14 @@ msgid ""
 msgstr ""
 "حدث خطأ خلال ترحيل %s.  هذه المشكلة جادّة، ولا يمكن أن يستمرّ التّثبيت.\n"
 "\n"
-"إضغط <Enter> لتعيد تشغيل نظامك."
+"إضغط <Enter> للخروج من برنامج التثبيت."
 
 #: ../fsset.py:1940 ../fsset.py:1949
 msgid "Invalid mount point"
 msgstr "نقطة تجهيز غير صالحة"
 
 #: ../fsset.py:1941
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
@@ -775,10 +762,10 @@ msgstr ""
 "حدث خطأ خلال محاولة إنشاء %s.  عنصر ما من هذا المسار ليس دليلاً. هذا خطأ فادح "
 "ولا يمكن أن يستمرّ التّثبيت.\n"
 "\n"
-"إضغط <Enter> لتعيد تشغيل نظامك."
+"إضغط <Enter> للخروج من برنامج التثبيت."
 
 #: ../fsset.py:1950
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -787,12 +774,11 @@ msgid ""
 msgstr ""
 "حدث خطأ خلال محاولة إنشاء %s: %s.  هذا خطأ فادح و لا يمكن أن يستمرّ التّثبيت.\n"
 "\n"
-"إضغط <Enter> لتعيد تشغيل نظامك."
+"إضغط <Enter> للخروج من برنامج التثبيت."
 
 #: ../fsset.py:1964
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "لم يمكن تحميل الملف!"
+msgstr "لم يتم ضم نظام الملفات!"
 
 #: ../fsset.py:1965
 #, python-format
@@ -802,7 +788,7 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1981
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -812,12 +798,12 @@ msgid ""
 msgstr ""
 "خطأ خلال تجهيز الجهاز %s على شكل %s: %s\n"
 "\n"
-"يبدو أنّ هذا يعني أنّ هذا التّجزيء لم يتمّ تنسيقه.\n"
+"الأجهزة في ملف ‪/etc/fstab‬ يجب أن تعين من خلال العنوان label وليسم من خلال اسم الجهاز.\n"
 "\n"
-"اضغط موافق لتعيد تشغيل نظامك."
+"اضغط موافق للخروج من برنامج التثبيت."
 
 #: ../fsset.py:1988
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -827,12 +813,11 @@ msgid ""
 msgstr ""
 "خطأ خلال تجهيز الجهاز %s على شكل %s: %s\n"
 "\n"
-"يبدو أنّ هذا يعني أنّ هذا التّجزيء لم يتمّ تنسيقه.\n"
+"يبدو أنّ هذا يعني أنّ هذا القسم لم يتمّ تنسيقه.\n"
 "\n"
-"اضغط موافق لتعيد تشغيل نظامك."
+"اضغط موافق للخروج من برنامج التثبيت."
 
 #: ../fsset.py:2009
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -844,7 +829,7 @@ msgstr ""
 "\n"
 "هذا يعني في الغالب أنّ ملف fstab غير صحيح.\n"
 "\n"
-"اضغط موافق لإعادة تشغيل نظامك."
+"اضغط موافق للخروج من برنامج التثبيت."
 
 #: ../fsset.py:2703
 msgid "Duplicate Labels"
@@ -864,19 +849,16 @@ msgstr ""
 "رجاء صحّح هذه المشكلة وأعد تشغيل عمليّة التّثبيت."
 
 #: ../fsset.py:2713
-#, fuzzy
 msgid "Invalid Label"
-msgstr "عنوان إقلاع غير صالح"
+msgstr "عنوان Label غير صالح"
 
 #: ../fsset.py:2714
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
 msgstr ""
-"هناك عدّة أجهزة على نظامك معنونة %s.  العناوين الخاصّة بالأجهزة يجب أن تكون "
-"فريدة كي يستطيع نظامك العمل بشكل ملائم.\n"
-"\n"
+"وجدت عناوين غير صالحة على الجهاز %s. "
 "رجاء صحّح هذه المشكلة وأعد تشغيل عمليّة التّثبيت."
 
 #: ../fsset.py:2877
@@ -968,22 +950,18 @@ msgid "Cancel"
 msgstr "إلغاء"
 
 #: ../gui.py:582 ../text.py:466
-#, fuzzy
 msgid "Installation Key"
-msgstr "نوع التثبيت"
+msgstr "مفتاح التثبيت"
 
 #: ../gui.py:656 ../gui.py:664
-#, fuzzy
 msgid "Error with passphrase"
 msgstr "خطأ في كلمة المرور"
 
 #: ../gui.py:657
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "كلمات المرور التي أدخلتها كانت مختلفة.  رجاء حاول مجدّداً."
 
 #: ../gui.py:665
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
 msgstr "يجب أن يكون طول كلمة المرور 6 رموز على الأقلّ."
 
@@ -1000,9 +978,8 @@ msgid "_Debug"
 msgstr "ا_صلح العيب"
 
 #: ../gui.py:1025 ../gui.py:1027 ../gui.py:1400 ../livecd.py:112
-#, fuzzy
 msgid "Exit installer"
-msgstr "مُثبّت %s"
+msgstr "إنهاء برنامج التثبيت"
 
 #: ../gui.py:1027 ../text.py:254 ../text.py:262
 msgid "Debug"
@@ -1059,14 +1036,12 @@ msgid "_Reboot"
 msgstr "ا_عد التّشغيل"
 
 #: ../gui.py:1331
-#, fuzzy
 msgid "Exiting"
 msgstr "اخرج"
 
 #: ../gui.py:1401
-#, fuzzy
 msgid "Are you sure you wish to exit the installation?"
-msgstr "هل أنت متأكّد أنّك تريد حذف الكتلة المنطقيّة \"%s\"؟"
+msgstr "هل أنت متأكّد أنّك تريد الخروج من برنامج التثبيت؟"
 
 #: ../gui.py:1410
 #, python-format
@@ -1123,7 +1098,7 @@ msgid "Required Install Media"
 msgstr "وسط التثبيت مطلوب"
 
 #: ../image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
 "\n"
@@ -1144,7 +1119,7 @@ msgid "_Back"
 msgstr "ال_سّابق"
 
 #: ../image.py:268
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
@@ -1157,30 +1132,24 @@ msgid "Install on System"
 msgstr "ثبّت على النّظام"
 
 #: ../iscsi.py:205 ../iscsi.py:206
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "جاري عملية التهيئة"
+msgstr "جاري عملية استهلال iSCSI"
 
 #: ../kickstart.py:86
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the kickstart script at line %s.  You may examine "
 "the output in %s.  This is a fatal error and your install will be aborted.  "
 "Press the OK button to exit the installer."
 msgstr ""
-"وفع خطأ في تشغيل المخطوطة. يمكنك الاطلاع على المخرجات من خلال %s.    هذا خطأ "
-"حرج و سوف يتم العدول عن التثبيت.  .\n"
-"\n"
-"اضغط زرّ موافق لإعادة تشغيل جهازك."
 
 #: ../kickstart.py:101 ../kickstart.py:103
 msgid "Scriptlet Failure"
 msgstr "فشلت المخطوطة"
 
 #: ../kickstart.py:928 ../kickstart.py:945
-#, fuzzy
 msgid "Running..."
-msgstr "جاري الاتّصال..."
+msgstr "يجري التنفيذ..."
 
 #: ../kickstart.py:929
 msgid "Running post-install scripts"
@@ -1191,9 +1160,8 @@ msgid "Running pre-install scripts"
 msgstr "جارى تشغيل النصوص ما قبل التثبيت."
 
 #: ../kickstart.py:977
-#, fuzzy
 msgid "Missing Package"
-msgstr "جاري تثبيت الحزم"
+msgstr "حزمة ناقصة"
 
 #: ../kickstart.py:978
 #, python-format
@@ -1203,14 +1171,12 @@ msgid ""
 msgstr ""
 
 #: ../kickstart.py:984 ../kickstart.py:1022
-#, fuzzy
 msgid "_Abort"
-msgstr "ا_عد التّشغيل"
+msgstr "ا_جهاض"
 
 #: ../kickstart.py:1014
-#, fuzzy
 msgid "Missing Group"
-msgstr "معلومات مفقودة"
+msgstr "مجموعة مفقودة"
 
 #: ../kickstart.py:1015
 #, python-format
@@ -1220,9 +1186,8 @@ msgid ""
 msgstr ""
 
 #: ../livecd.py:107
-#, fuzzy
 msgid "Unable to find image"
-msgstr "لم يمكن العثور على صورة التّثبيت %s"
+msgstr "لم يمكن العثور على صورة التّثبيت"
 
 #: ../livecd.py:108
 #, python-format
@@ -1231,21 +1196,18 @@ msgid ""
 msgstr ""
 
 #: ../livecd.py:167
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "جاري نقل صورة التثبيت إلى القرص الصّلب..."
+msgstr "جاري نقل الصورة الحية إلى القرص الصّلب..."
 
 #: ../livecd.py:203
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "تثبيت %s %s"
+msgstr "ما بعد التثبيت"
 
 #: ../livecd.py:204
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "جاري بدء عمليّة التثبيت، قد يستغرق هذا بضع دقائق..."
+msgstr "يجري تنفيذ عمليات ما بعد التثبيت، قد يستغرق هذا بضع دقائق..."
 
 #: ../livecd.py:355
 #, python-format
@@ -1267,56 +1229,49 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "يمكن لاسم المضيف أن يحتوي فقط الأحرف 'a-z'، 'A-Z'، '-'، أو '.'"
 
 #: ../network.py:95
-#, fuzzy
 msgid "IP address is missing."
 msgstr "عنوان IP مفقود"
 
 #: ../network.py:99
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "عناوين IP يجب أن تحتوي أرقاماً بين 0 و 255"
+msgstr "عناوين IPv4 يجب أن تحتوي أرقاماً بين 0 و 255 تفصلها نقطة."
 
 #: ../network.py:102
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s ليس اسم مضيف صالح."
+msgstr "'%s' عنوان IPv6 غير صالح."
 
 #: ../network.py:104
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "%s ليس اسم مضيف صالح."
+msgstr "'%s' عنوان IP غير صالح."
 
 #: ../packages.py:147
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "جاري الجَلْب"
+msgstr "فشل التحجيم"
 
 #: ../packages.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered resizing the device %s."
-msgstr "كان هناك خطأ في مسح الأقراص المستهدفة.  فشل الاستنساخ."
+msgstr "كان هناك خطأ في تحجيم الأجهزة %s."
 
 #: ../packages.py:188
-#, fuzzy
 msgid "LVM operation failed"
-msgstr "فشل التّجهيز"
+msgstr "فشلت العملية على LVM"
 
 #: ../packages.py:342
-#, fuzzy
 msgid "Invalid Key"
-msgstr "عنوان IP غير صالح"
+msgstr "مفتاح غير صالح"
 
 #: ../packages.py:343
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "القيمة التي أدخلتها هي رقم غير صالح."
+msgstr "المفتاح التي أدخلته غير صالح."
 
 #: ../packages.py:371
-#, fuzzy
 msgid "_Skip"
-msgstr "تخطّي"
+msgstr "ت_خطّي"
 
 #: ../packages.py:403 ../packages.py:426
 msgid "Warning! This is pre-release software!"
@@ -1373,7 +1328,7 @@ msgstr ""
 "هل تودّ إعادة تهيئة الجهاز DASD باستخدام نسق CDL؟"
 
 #: ../partedUtils.py:396
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1381,7 +1336,7 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"يحتوي قرص /dev/%s حالياً على جدول تجزئة %s.  كي تستخدم هذا القرص  لتثبيت %s، "
+"يحتوي قرص ‪/dev/%s‬ حالياً على جدول الأقسام %s.  كي تستخدم هذا القرص  لتثبيت %s، "
 "يجب أن يتمّ إعادة تهيئته ممّا يسبّب خسارة كلّ البيانات على هذا القرص.\n"
 "\n"
 "هل تودّ تهيئة هذا القرص؟"
@@ -1414,7 +1369,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"جدول التّجزئة على الجهاز %s غير مقروء. كي تنشئ تجزيئات جديدة يجب ابتداء "
+"جدول الأقسام على الجهاز %s غير مقروء. كي تنشئ أقسام جديدة يجب تهيئة "
 "الجهاز، ممّا يسبّب خسارة كلّ البيانات على هذا القرص.\n"
 "\n"
 "هذه العمليّة ستتخطّى أي خيارات تثبيت مسبقة حول تجاهل أيّ أقراص.\n"
@@ -1433,7 +1388,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"جدول التّجزئة على الجهاز %s %sغير مقروء. كي تنشئ تجزيئات جديدة يجب تهيئة "
+"جدول الأقسام على الجهاز %s %sغير مقروء. كي تنشئ أقسام جديدة يجب تهيئة "
 "الجهاز، ممّا يسبّب خسارة كلّ البيانات على هذا القرص.\n"
 "\n"
 "هذه العمليّة ستتخطّى أي خيارات تثبيت مسبقة حول تجاهل أيّ أقراص.\n"
@@ -1504,35 +1459,35 @@ msgstr ""
 "هي الأبجديّة، الأرقام، '.' أو '_'."
 
 #: ../partIntfHelpers.py:102
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"مكان التّجهز غير صالح.  يجب أن تبدأ أماكن التّجهيز بعلامة '/' و لم يمكن أن "
+"مكان التّجهز  %s غير صالح.  يجب أن تبدأ أماكن التّجهيز بعلامة '/' و لم يمكن أن "
 "تنتهي بعلامة '/'، ويجب أن تتضمّن أحرفاً مطبوعة ودون مسافات."
 
 #: ../partIntfHelpers.py:109
 msgid "Please specify a mount point for this partition."
-msgstr "رجاء حدّد نقطة تجهيز لهذا التّجزيء."
+msgstr "رجاء حدّد نقطة تجهيز لهذا القسم."
 
 #: ../partIntfHelpers.py:119
 #, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr "هذا التّجزيء هو جزء من جهاز RAID /dev/md%s."
+msgstr "هذا القسم هو جزء من جهاز RAID /dev/md%s."
 
 #: ../partIntfHelpers.py:122
 msgid "This partition is part of a RAID device."
-msgstr "هذا التّجزيء هو جزء من جهاز RAID."
+msgstr "هذا القسم هو جزء من جهاز RAID."
 
 #: ../partIntfHelpers.py:127
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr "هذا التّجزيء هو جزء من مجموع الكتل LVM '%s'."
+msgstr "هذا القسم هو جزء من مجموع الكتل LVM '%s'."
 
 #: ../partIntfHelpers.py:130
 msgid "This partition is part of a LVM volume group."
-msgstr "هذا التّجزيء هو جزء من مجموعة كتل LVM."
+msgstr "هذا القسم هو جزء من مجموعة كتل LVM."
 
 #: ../partIntfHelpers.py:145 ../partIntfHelpers.py:153
 #: ../partIntfHelpers.py:160 ../partIntfHelpers.py:170
@@ -1542,7 +1497,7 @@ msgstr "لم يمكن الحذف"
 
 #: ../partIntfHelpers.py:146
 msgid "You must first select a partition to delete."
-msgstr "يجب عليك أن تحدّد تجزيئً لحذفه أوّلاً."
+msgstr "يجب عليك أن تحدّد قسما لحذفه أوّلاً."
 
 #: ../partIntfHelpers.py:154
 msgid "You cannot delete free space."
@@ -1561,14 +1516,14 @@ msgstr "لا يمكنك حذف هذا القسم، حيث أنه قسم ممتد
 
 #: ../partIntfHelpers.py:189 ../iw/raid_dialog_gui.py:607
 msgid "This partition is holding the data for the hard drive install."
-msgstr "هذا التّجزيء يحتوي بيانات التثبيت من القرص الصّلب."
+msgstr "هذا القسم يحتوي بيانات التثبيت من القرص الصّلب."
 
 #: ../partIntfHelpers.py:195
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
-"لا يمكنك حذف هذا التّجزيء:\n"
+"لا يمكنك حذف هذا القسم:\n"
 "\n"
 
 #: ../partIntfHelpers.py:240 ../partIntfHelpers.py:534
@@ -1579,7 +1534,7 @@ msgstr "أكّد الحذف"
 #: ../partIntfHelpers.py:241
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr "أنت على وشك حذف كلّ التّجزيئات على الجهاز '/dev/%s'."
+msgstr "أنت على وشك حذف كلّ الأقسام على الجهاز ‪'/dev/%s'‬."
 
 #: ../partIntfHelpers.py:244 ../partIntfHelpers.py:535
 #: ../iw/lvm_dialog_gui.py:803 ../iw/lvm_dialog_gui.py:1152
@@ -1598,7 +1553,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"لم يتمّ حذف التجزيئات التالية لأنّها قيد الاستخدام:\n"
+"لم يتمّ حذف الأقسام التالية لأنّها قيد الاستخدام:\n"
 "\n"
 "%s"
 
@@ -1624,7 +1579,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr "لا يمكنك تعديل هذا القسم، حيث أنه تجزي ممتدّ يحتوى %s"
+msgstr "لا يمكنك تعديل هذا القسم، حيث أنه قسم ممتدّ يحتوى %s"
 
 #: ../partIntfHelpers.py:390
 msgid "Format as Swap?"
@@ -1641,15 +1596,14 @@ msgstr ""
 "يحتوي الجهاز /dev/%s على قسم من نوع 0x82 (ذاكرة لينكس بديلة) ولكن لا يبدو "
 "أنّه منسّق كقسم ذاكرة لينكس بديلة.\n"
 "\n"
-"هل تودّ تنسيق هذا التّجزيء كذاكرة بديلة؟"
+"هل تودّ تنسيق هذا القسم كذاكرة بديلة؟"
 
 #: ../partIntfHelpers.py:411
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "عليك أن تختار قرصاً صلباً واحداً على الأقل كي تقوم بتثبيت %s عليه."
 
 #: ../partIntfHelpers.py:416
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1659,9 +1613,9 @@ msgid ""
 "continue without formatting this partition."
 msgstr ""
 "لقد اخترت استخدام قسم موجود مسبقاً لهذا التثبيت دون تنسيقه. نستحسن أن تقوم "
-"بتنسيق هذا التّجزيء كي تتأكّد من عدم حدوث مشاكل بسبب ملفّات تثبيت نظام التّشغيل "
-"السّابق مع هذا التثبيت للينكس. على كلّ حال، إن كان هذا التّجزيء يحتوي على ملفّات "
-"تحتاج إلى إبقائها، كالأدلّة الموطن، فاستمرّ دون تنسيق هذا التّجزيء."
+"بتنسيق هذا القسم كي تتأكّد من عدم حدوث مشاكل بسبب ملفّات تثبيت نظام التّشغيل "
+"السّابق مع هذا التثبيت للينكس. على كلّ حال، إن كان هذا القسم يحتوي على ملفّات "
+"تحتاج إلى إبقائها، كالأدلّة الموطن، فاستمرّ دون تنسيق هذا القسم."
 
 #: ../partIntfHelpers.py:424
 msgid "Format?"
@@ -1669,7 +1623,7 @@ msgstr "أقوم بالتهيئة؟"
 
 #: ../partIntfHelpers.py:424 ../iw/partition_gui.py:1035
 msgid "_Modify Partition"
-msgstr "_عدّل التّجزيء"
+msgstr "_عدّل القسم"
 
 #: ../partIntfHelpers.py:424
 msgid "Do _Not Format"
@@ -1677,7 +1631,7 @@ msgstr "لا _تهيء"
 
 #: ../partIntfHelpers.py:432
 msgid "Error with Partitioning"
-msgstr "خطأ بالتّجزئة"
+msgstr "خطأ بالتقسيم"
 
 #: ../partIntfHelpers.py:433
 #, python-format
@@ -1687,14 +1641,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"الأخطاء الجسيمة التّالية موجودة في خطّة التّجزئة التي طلبتها. هذه الأخطاء يجب "
+"الأخطاء الجسيمة التّالية موجودة في خطّة التقسيم التي طلبتها. هذه الأخطاء يجب "
 "أن تُصحّح قبل الاستمرار بتثبيتك لـ%s.\n"
 "\n"
 "%s"
 
 #: ../partIntfHelpers.py:447
 msgid "Partitioning Warning"
-msgstr "تحذير تجزئة"
+msgstr "تحذير التقسيم"
 
 #: ../partIntfHelpers.py:448
 #, python-format
@@ -1705,24 +1659,24 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
-"التّحذيرات التّالية موجودة بمُخطّط التّجزئة الذي طلبته.\n"
+"التّحذيرات التّالية موجودة بمُخطّط التقسيم الذي طلبته.\n"
 "\n"
 "%s\n"
 "\n"
-"هل تودّ الاستمرار بمُخطّط التّجزئة الذي طلبته؟"
+"هل تودّ الاستمرار بمُخطّط التقسيم الذي طلبته؟"
 
 #: ../partIntfHelpers.py:462 ../iw/partition_gui.py:669
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr "تمّ تحديد التجزيئات الموجودة مسبقاً للتّنسيق، وتدمير كلّ البيانات."
+msgstr "تمّ تحديد الأقسام الموجودة مسبقاً للتهيئة، وتدمير كلّ البيانات."
 
 #: ../partIntfHelpers.py:465
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"اختر 'نعم' لتستمرّ وتنسّق هذه التّجزيئات، أو 'لا' لتعود و تغيّر هذه الإعدادات."
+"اختر 'نعم' لتستمرّ وتهيئة هذه الأقسام، أو 'لا' لتعود و تغيّر هذه الإعدادات."
 
 #: ../partIntfHelpers.py:471
 msgid "Format Warning"
@@ -1735,14 +1689,14 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
-"أنت على وشك حذف مجموعة الكتل \"%s\".\n"
+"أنت على وشك حذف مجموعة الكتل ‪\"%s\"‬.\n"
 "\n"
 "كلّ الكتل المنطقيّة في مجموعة الكتل هذه سوف تفقد!"
 
 #: ../partIntfHelpers.py:523
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr "أنت على وشك حذف الكتلة المنطقية \"%s\"."
+msgstr "أنت على وشك حذف الكتلة المنطقية ‪\"%s\"‬."
 
 #: ../partIntfHelpers.py:526
 msgid "You are about to delete a RAID device."
@@ -1751,11 +1705,11 @@ msgstr "أنت على وشك حذف جهاز RAID."
 #: ../partIntfHelpers.py:529
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr "أنت على وشك حذف التّجزيء /dev/%s."
+msgstr "أنت على وشك حذف القسم ‪/dev/%s‬."
 
 #: ../partIntfHelpers.py:532
 msgid "The partition you selected will be deleted."
-msgstr "التّجزيء الذي اخترته سيتمّ حذفه."
+msgstr "القسم الذي اخترته سيتمّ حذفه."
 
 #: ../partIntfHelpers.py:542
 msgid "Confirm Reset"
@@ -1764,7 +1718,7 @@ msgstr "أكّد الاستعادة"
 #: ../partIntfHelpers.py:543
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
-msgstr "هل أنت متأكّد أنّك تريد استعادة جدول التّجزئة إلى وضعه الأصلي؟"
+msgstr "هل أنت متأكّد أنّك تريد استعادة جدول الأقسام إلى وضعه الأصلي؟"
 
 #: ../partitions.py:84
 msgid "Installation cannot continue."
@@ -1776,28 +1730,27 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"خيارات التّجزئة التي اخترتها تمّ تفعيلها مسبقاً. لا يمكنك العودة إلى شاشة تحرير "
+"خيارات التقسيم التي اخترتها تمّ تفعيلها مسبقاً. لا يمكنك العودة إلى شاشة تحرير "
 "القرص بعد الآن. هل تريد الاستمرار بعمليّة التّثبيت؟"
 
 #: ../partitions.py:113
-#, fuzzy
 msgid "Writing partitioning to disk"
-msgstr "_ترحيل التّجزيء إلى:"
+msgstr "كتابة القسم إلى القرص"
 
 #: ../partitions.py:114
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost"
 msgstr ""
+"ستتم كتابة تقسيمة القرص التي اخترتها على القرص. ستفقد أي بيانات على الأقسام المحذوفة"
 
 #: ../partitions.py:119
-#, fuzzy
 msgid "Go _back"
-msgstr "ال_سّابق"
+msgstr "_عودة"
 
 #: ../partitions.py:120
 msgid "_Write changes to disk"
-msgstr ""
+msgstr "_كتابة التغييرات على القرص"
 
 #: ../partitions.py:200 ../textw/constants_text.py:50
 #: ../loader2/cdinstall.c:351 ../loader2/driverdisk.c:236
@@ -1819,9 +1772,8 @@ msgid "Continue"
 msgstr "استمر"
 
 #: ../partitions.py:204
-#, fuzzy
 msgid "Confirm"
-msgstr "أكّد:"
+msgstr "أكّد"
 
 #: ../partitions.py:205
 #, python-format
@@ -1847,11 +1799,10 @@ msgid ""
 msgstr "القسم الجذريّ أقل من 250 ميجابايت والذي هو عادة قليل جداً لتثبيت %s."
 
 #: ../partitions.py:1053
-#, fuzzy
 msgid ""
 "You must create an EFI System Partition of type FAT and a size of 50 "
 "megabytes."
-msgstr "يجب عليك إنشاء قسم /boot/efi من نوع FAT وبحجم 50 ميجابايت"
+msgstr "يجب عليك إنشاء قسم EFI من نوع FAT وبحجم 50 ميجابايت"
 
 #: ../partitions.py:1067
 msgid ""
@@ -1873,7 +1824,7 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"التّجزيء %s أقلّ حجماً من %s ميجابايت والذي هو أقلّ من المستحسن لتثبيت %s طبيعي."
+"القسم %s أقلّ حجماً من %s ميجابايت والذي هو أقلّ من المستحسن لتثبيت %s طبيعي."
 
 #: ../partitions.py:1163
 msgid ""
@@ -1888,26 +1839,26 @@ msgstr ""
 
 #: ../partitions.py:1176
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "التجزيئات القابلة للإقلاع يمكن أن تكون على أجهزة RAID1 فقط."
+msgstr "الأقسام القابلة للإقلاع يمكن أن تكون على أجهزة RAID1 فقط."
 
 #: ../partitions.py:1181
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "تجزيئات الإقلاع لا يمكن إنشاءها على كتلة منطقيّة."
+msgstr "الأقسام الإقلاع لا يمكن إنشاءها على كتلة منطقيّة."
 
 #: ../partitions.py:1187
 #, fuzzy
 msgid "Bootable partitions cannot be on a RAID device."
-msgstr "التجزيئات القابلة للإقلاع يمكن أن تكون على أجهزة RAID1 فقط."
+msgstr "الأقسام القابلة للإقلاع يمكن أن تكون على أجهزة RAID1 فقط."
 
 #: ../partitions.py:1194
 #, fuzzy, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "تجزيئات الإقلاع لا يمكن إنشاءها على كتلة منطقيّة."
+msgstr "أقسام الإقلاع لا يمكن إنشاءها على كتلة منطقيّة."
 
 #: ../partitions.py:1198
 #, fuzzy
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "تجزيئات الإقلاع لا يمكن إنشاءها على كتلة منطقيّة."
+msgstr "أقسام الإقلاع لا يمكن إنشاءها على كتلة منطقيّة."
 
 #: ../partitions.py:1204
 msgid ""
@@ -1941,7 +1892,7 @@ msgstr "القسم المستخدم حاليّاً من قبل المُثبّت.
 
 #: ../partitions.py:1520
 msgid "a partition which is a member of a RAID array."
-msgstr "التّجزيء الذي هو عضو من صفّ RAID."
+msgstr "القسم الذي هو عضو من صفّ RAID."
 
 #: ../partitions.py:1523
 msgid "a partition which is a member of a LVM Volume Group."
@@ -1984,7 +1935,7 @@ msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
 msgstr ""
-"حجم التّجزيء %s وهو (%10.2f ميجابايت)  يفوق الحجم الأقصى %10.2f ميجابايت."
+"حجم القسم %s وهو (%10.2f ميجابايت)  يفوق الحجم الأقصى %10.2f ميجابايت."
 
 #: ../partRequests.py:533
 #, python-format
@@ -1997,7 +1948,7 @@ msgstr ""
 #: ../partRequests.py:538
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "حجم التّجزيء المطلوب سالب! (size = %s ميجابايت)"
+msgstr "حجم القسم المطلوب سالب! (size = %s ميجابايت)"
 
 #: ../partRequests.py:542
 msgid "Partitions can't start below the first cylinder."
@@ -2005,7 +1956,7 @@ msgstr "لا يمكن أن تبدأ التّجزيئات قبل أوّل اسط�
 
 #: ../partRequests.py:545
 msgid "Partitions can't end on a negative cylinder."
-msgstr "لا يمكن أن تنتهي التجزيئات برقم اسطوانة سالب."
+msgstr "لا يمكن أن ينتهي القسم عند رقم اسطوانة سالب."
 
 #: ../partRequests.py:746
 msgid "No members in RAID request, or not RAID level specified."
@@ -2096,7 +2047,7 @@ msgstr "النّظام المطلوب إنقاذه"
 
 #: ../rescue.py:337
 msgid "What partition holds the root partition of your installation?"
-msgstr "ما هو التّجزيء الذي يحمل التّجزيء الجذري لتثبيتك؟"
+msgstr "ما هو القسم الذي يحمل القسم الجذري لتثبيتك؟"
 
 #: ../rescue.py:339 ../rescue.py:343 ../text.py:669 ../text.py:671
 msgid "Exit"
@@ -2172,12 +2123,10 @@ msgid "Save to Disk"
 msgstr ""
 
 #: ../text.py:189
-#, fuzzy
 msgid "Save to Remote"
-msgstr "الحفظ على المضيف البعيد remote host."
+msgstr "الحفظ على المضيف البعيد remote host"
 
 #: ../text.py:203
-#, fuzzy
 msgid "Host"
 msgstr "اسم المضيف"
 
@@ -2210,14 +2159,13 @@ msgid "No help is available for this step of the install."
 msgstr "لا توجد مساعدة متوفّرة لهذه الخطوة من التثبيت."
 
 #: ../text.py:446
-#, fuzzy
 msgid "Repository editing is not available in text mode."
-msgstr "التثبيت الرسومي غير متوفر... جاري بدء التثبيت النّصّي."
+msgstr "تحرير المستودعات غير متوفر في الطور النصي."
 
 #: ../text.py:471
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "رجاء أدخل اسم مجموعة الكتل."
+msgstr ""
 
 #: ../text.py:488 tmp/instkey.glade.h:6
 #, no-c-format, python-format
@@ -2225,9 +2173,9 @@ msgid "Skip entering %(instkey)s"
 msgstr ""
 
 #: ../text.py:564 ../loader2/lang.c:63
-#, fuzzy, c-format, python-format
+#, c-format, python-format
 msgid "Welcome to %s for %s"
-msgstr "أهلاً بكم إلى %s"
+msgstr "أهلاً بكم إلى %s الخاص ب %s"
 
 #: ../text.py:566
 #, python-format
@@ -2260,9 +2208,9 @@ msgid ""
 msgstr ""
 
 #: ../upgrade.py:110
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to upgrade  the installed system to the %s architecture?"
-msgstr "كيف تودّ تحضير نظام الملفّات على هذا التّجزيء؟"
+msgstr "هل تريد ترقية التثبيت إلى بنية %s ?"
 
 #: ../upgrade.py:127
 msgid ""
@@ -2386,9 +2334,9 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr "سوف أعاود المحاولة خلال 15 ثانية..."
 
 #: ../vnc.py:197
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d tries!\n"
-msgstr "جاري الاستسلام بعد المحاولة خمسين مرّة!\n"
+msgstr "جاري الاستسلام بعد المحاولة %d مرّة!\n"
 
 #: ../vnc.py:206
 #, python-format
@@ -2419,7 +2367,6 @@ msgid ""
 msgstr ""
 
 #: ../vnc.py:254
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -2431,7 +2378,7 @@ msgstr ""
 "\n"
 "\n"
 "تحذير!!! خادم VNC يعمل بلا كلمة سرّ!\n"
-"يمكنك استخدام خيار الإقلاع vncpassword=<password>\n"
+"يمكنك استخدام خيار الإقلاع password=<password>\n"
 "إن كنت ترغب بتأمين الخادم.\n"
 "\n"
 
@@ -2444,13 +2391,16 @@ msgid ""
 msgstr ""
 
 #: ../vnc.py:260
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Unknown Error.  Aborting. \n"
 "\n"
-msgstr "خطأ مجهول"
+msgstr ""
+"\n"
+"\n"
+"خطأ مجهول. إجهاض \n"
+"\n"
 
 #: ../vnc.py:285 ../vnc.py:374
 msgid "VNC Configuration"
@@ -2545,9 +2495,9 @@ msgid "Preparing transaction from installation source..."
 msgstr "جاري التّجهيز للتثبيت..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "_ثبّت %s"
+msgstr "<b>تثبيت ‪%s‬</b> ‪(%s)‬\n"
 
 #: ../yuminstall.py:205
 #, python-format
@@ -2559,9 +2509,8 @@ msgid "Finishing upgrade"
 msgstr ""
 
 #: ../yuminstall.py:218
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr "جاري بدء عمليّة التثبيت، قد يستغرق هذا بضع دقائق..."
+msgstr "يجري اكمال الترقية، قد يستغرق هذا بضع دقائق..."
 
 #: ../yuminstall.py:355
 msgid "Copying File"
@@ -2572,12 +2521,11 @@ msgid "Transferring install image to hard drive..."
 msgstr "جاري نقل صورة التثبيت إلى القرص الصّلب..."
 
 #: ../yuminstall.py:366
-#, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is probably due to bad media."
 msgstr ""
-"حدث خطأ في نقل صورة التثبيت إلى قرصك الصّلب. على ما يبدو أنّ مساحة القرص نفذت."
+"حدث خطأ في نقل صورة التثبيت إلى قرصك الصّلب. غالبا يرجع ذلك إلى وسيط تثبيت سيء."
 
 #: ../yuminstall.py:370
 msgid ""
@@ -2587,9 +2535,8 @@ msgstr ""
 "حدث خطأ في نقل صورة التثبيت إلى قرصك الصّلب. على ما يبدو أنّ مساحة القرص نفذت."
 
 #: ../yuminstall.py:417
-#, fuzzy
 msgid "Change Disc"
-msgstr "بدّل القرص المدمج"
+msgstr "بدّل القرص"
 
 #: ../yuminstall.py:418
 #, python-format
@@ -2597,31 +2544,28 @@ msgid "Please insert %s disc %d to continue."
 msgstr "من فضلك أدخل قرص %s رقم %d للمتابعة.."
 
 #: ../yuminstall.py:432
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "قرص مدمج خطأ"
+msgstr "قرص خطأ"
 
 #: ../yuminstall.py:433
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s disc."
 msgstr "ليس هذا هو قرص %s الصّحيح."
 
 #: ../yuminstall.py:439
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "لم أتمكّن من التّوصّل إلى القرص المدمج."
+msgstr "لم أتمكّن من التّوصّل إلى القرص."
 
 #: ../yuminstall.py:604 ../yuminstall.py:606
 msgid "Re_boot"
 msgstr "أعد التّشغيل"
 
 #: ../yuminstall.py:604
-#, fuzzy
 msgid "_Eject"
-msgstr "أخرج القرص المدمج"
+msgstr "أ_خرج القرص المدمج"
 
 #: ../yuminstall.py:610
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
 "package or corrupt media.  Please verify your installation source.\n"
@@ -2630,29 +2574,24 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"الحزمة %s-%s-%s لا يمكن فتحها. هذا بسبب الملف المفقود أو ربّما الحزمة فاسدة.  "
-"إن كنت تقوم بالتثبيت من وسط قرص مدمج عادة يعني هذا أن القرص فاسد، أو أن قارئ "
-"الأقراص المدمجة غير قادر على قراءة القرص.\n"
+"الملف %s لا يمكن فتحه. هذا بسبب ملف مفقود أو ربّما حزمة فاسدة أو قرص معيب.  نرجوا التأكد من سلامة المصدر.\n"
 "\n"
-"اضغط <return> لتحاول مرّة أخرى."
+"إذا خرجت، سيترك نظامك في حالة غير متناغمة وغالبا سيتطلب ذلك إعادة التثبيت.\n"
 
 #: ../yuminstall.py:650
-#, fuzzy
 msgid "Retrying"
-msgstr "جاري الجَلْب"
+msgstr "إعادة المحاولة"
 
 #: ../yuminstall.py:650
 msgid "Retrying package download..."
 msgstr ""
 
 #: ../yuminstall.py:715
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
-"اسم المضيف \"%s\" ليس صالحاً بسبب التّالي:\n"
-"\n"
-"%s"
+"حدث خطأ في تنفيذ العملية للأسباب التالية: %s\n"
 
 #: ../yuminstall.py:748 ../yuminstall.py:749
 msgid "file conflicts"
@@ -2679,9 +2618,8 @@ msgid "package already installed"
 msgstr ""
 
 #: ../yuminstall.py:755
-#, fuzzy
 msgid "required package"
-msgstr "المساحة الفارغة"
+msgstr "حزمة مطلوبة"
 
 #: ../yuminstall.py:756
 msgid "package for incorrect arch"
@@ -2696,40 +2634,35 @@ msgid "You need more space on the following file systems:\n"
 msgstr ""
 
 #: ../yuminstall.py:784
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
-msgstr "ما نوع الوسط الذي يحتوي الحزم لتثبيتها؟"
+msgstr ""
 
 #: ../yuminstall.py:787
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
 msgstr ""
-"اسم المضيف \"%s\" ليس صالحاً بسبب التّالي:\n"
-"\n"
-"%s"
 
 #: ../yuminstall.py:791
-#, fuzzy
 msgid "Error Running Transaction"
-msgstr "جاري تحضير عمليّة RPM..."
+msgstr ""
 
 #: ../yuminstall.py:796
 msgid "Error running transaction"
-msgstr "جاري تحضير عمليّة RPM..."
+msgstr ""
 
 #: ../yuminstall.py:956
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "جاري قراءة معلومات الحزمة..."
+msgstr "جاري قراءة معلومات التثبيت..."
 
 #: ../yuminstall.py:958
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "جاري قراءة معلومات الحزمة..."
+msgstr "جاري قراءة معلومات التثبيت للحزمة %s..."
 
 #: ../yuminstall.py:970 ../textw/bootloader_text.py:277
 #: ../textw/constants_text.py:62 ../textw/partition_text.py:1428
@@ -2737,7 +2670,7 @@ msgid "Edit"
 msgstr "حرّر"
 
 #: ../yuminstall.py:982 ../yuminstall.py:1257
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
@@ -2745,8 +2678,6 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"ملف comps المرفق بشجرة التثبيت الخاصة بكم ينقصه فئات حرجة. رجاء التأكد من "
-"صحة إنشاء شجرة التثبيت."
 
 #: ../yuminstall.py:1023
 msgid ""
@@ -2784,24 +2715,20 @@ msgstr ""
 "من أنك تريد الإستمرار في عملية الترقية؟"
 
 #: ../yuminstall.py:1491
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"يبدو أن النظام الذي تريد ترقيته إلى هذه النسخة من %s قديم جدا. هل أنت متأكد "
-"من أنك تريد الإستمرار في عملية الترقية؟"
 
 #: ../yuminstall.py:1538
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "تحديث"
+msgstr "ما بعد الترقية"
 
 #: ../yuminstall.py:1539
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "جاري القيام بإعداد ما بعد التثبيت..."
+msgstr "جاري القيام بإعداد ما بعد الترقية..."
 
 #: ../yuminstall.py:1541
 msgid "Post Install"
@@ -2812,9 +2739,8 @@ msgid "Performing post install configuration..."
 msgstr "جاري القيام بإعداد ما بعد التثبيت..."
 
 #: ../yuminstall.py:1764
-#, fuzzy
 msgid "Installation Progress"
-msgstr "نوع التثبيت"
+msgstr "يجري التثبيت"
 
 #: ../yuminstall.py:1799
 msgid "Install Starting"
@@ -2845,12 +2771,10 @@ msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "لم تقم بتحديد رقم وحدة FCP منطقي أو الرقم غير سليم"
 
 #: ../iw/account_gui.py:48
-#, fuzzy
 msgid "Root _Password:"
-msgstr "كلمة _مرور root: "
+msgstr "كلمة _مرور الجذر root: "
 
 #: ../iw/account_gui.py:50
-#, fuzzy
 msgid "_Confirm:"
 msgstr "_تأكيد: "
 
@@ -2879,20 +2803,21 @@ msgid "The root password must be at least six characters long."
 msgstr "كلمة مرور المستخدم root يجب أن تكون بطول ستّة أحرف على الأقلّ."
 
 #: ../iw/account_gui.py:120 ../textw/userauth_text.py:78
-#, fuzzy
 msgid "Weak Password"
-msgstr "كلمة المرور"
+msgstr "كلمة المرور ضعيفة"
 
 #: ../iw/account_gui.py:121 ../textw/userauth_text.py:79
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Weak password provided: %s\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr "هل تريد الاستمرار بالتّحديث؟"
+msgstr ""
+"كلمة المرور المقدمة ضعيفة: \n%s\n"
+"\n"
+"هل تريد الاستمرار بها؟"
 
 #: ../iw/account_gui.py:133 ../textw/userauth_text.py:72
-#, fuzzy
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
@@ -2905,48 +2830,40 @@ msgid ""
 "specific filesystems can be resized."
 msgstr ""
 
-#: ../iw/autopart_type.py:179
 msgid "Do you really want to boot from disk which is not used for instalation?"
 msgstr ""
 
 #: ../iw/autopart_type.py:260
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "اسم غير صالح لمجموعة الكتل"
+msgstr ""
 
 #: ../iw/autopart_type.py:261
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "يجب عليك إدخال اسم خادم."
+msgstr ""
 
 #: ../iw/autopart_type.py:283
-#, fuzzy
 msgid "Error with Data"
 msgstr "خطأ في البيانات"
 
 #: ../iw/autopart_type.py:403 ../textw/partition_text.py:1517
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr "أزل كلّ التجزيئات على هذا النّظام"
+msgstr "أزل كلّ الأقسام على الأقراص المحددة لعمل التقسيمة التلقائية"
 
 #: ../iw/autopart_type.py:404 ../textw/partition_text.py:1518
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr "أزل كلّ التجزيئات على هذا النّظام"
+msgstr "أزل كلّ أقسام لينكس من على الأقراص المحددة لعمل التقسمية التلقائية"
 
 #: ../iw/autopart_type.py:405
-#, fuzzy
 msgid "Resize existing partition and create default layout in free space"
-msgstr "أزل كلّ التجزيئات على هذا النّظام"
+msgstr "تحجيم قسم موجود لإنشاء التقسيمة التلقائية من المساحة المتاحة عليه"
 
 #: ../iw/autopart_type.py:406 ../textw/partition_text.py:1519
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr "أزل كلّ التجزيئات على هذا النّظام"
+msgstr "استخدام المساحة المتاحة على الأقراص المحددة لإنشاء التقسيمة التلقائية"
 
 #: ../iw/autopart_type.py:407 ../textw/partition_text.py:1520
 msgid "Create custom layout"
-msgstr ""
+msgstr "إنشاء تقسيمة مخصصة"
 
 #: ../iw/blpasswidget.py:45
 msgid "_Use a boot loader password"
@@ -2994,7 +2911,6 @@ msgid "Passwords do not match"
 msgstr "كلمات المرور غير متطابقة"
 
 #: ../iw/blpasswidget.py:150 ../textw/bootloader_text.py:453
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -3013,28 +2929,24 @@ msgstr "تهيئة محمّل الإقلاع"
 
 #: ../iw/bootloader_main_gui.py:170 ../iw/bootloader_main_gui.py:175
 #: ../iw/bootloader_main_gui.py:212
-#, fuzzy, python-format
+#, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "جاري تثبيت مُحمّل الإقلاع..."
+msgstr "_تثبيت محمل الإقلاع على ‪/dev/%s‬."
 
 #: ../iw/bootloader_main_gui.py:218
-#, fuzzy
 msgid "_Change device"
-msgstr "بدّل القرص المدمج"
+msgstr "_تبديل الجهاز"
 
 #: ../iw/congrats_gui.py:31
 msgid "Congratulations"
 msgstr "تهانينا"
 
 #: ../iw/congrats_gui.py:71
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"\n"
-"\n"
-"اضغط على الزر ‘موافق‘ لتعيد تشغيل نظامك."
+"اضغط على زر ‘إعادة التشغيل‘ لتعيد تشغيل نظامك.\n\n"
 
 #: ../iw/congrats_gui.py:75
 #, python-format
@@ -3686,9 +3598,8 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "عناوين IP يجب أن تحتوي أرقاماً بين 1 و 255"
 
 #: ../iw/osbootwidget.py:50
-#, fuzzy
 msgid "Boot loader operating system list"
-msgstr "كلمة مرور محمّل الإقلاع قصيرة جدّاً"
+msgstr "قائمةأنظمة التشغيل في محمّل الإقلاع"
 
 #: ../iw/osbootwidget.py:66 ../textw/bootloader_text.py:262
 msgid "Default"
@@ -3703,13 +3614,12 @@ msgid "Image"
 msgstr "صورة"
 
 #: ../iw/osbootwidget.py:136
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
 msgstr ""
 "أدخل عنواناً ليظهر في قائمة محمّل الإقلاع. الجهاز (أو القرص الصّلب ورقم "
-"التّجزيء) هو الجهاز الذي يتمّ منه الإقلاع."
+"القسم) هو الجهاز الذي يتمّ منه الإقلاع."
 
 #: ../iw/osbootwidget.py:144
 msgid "_Label"
@@ -3856,7 +3766,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:547 ../textw/partition_text.py:1417
 msgid "Partitioning"
-msgstr "التّجزئة"
+msgstr "التقسم"
 
 #: ../iw/partition_gui.py:638
 msgid ""
@@ -3871,7 +3781,7 @@ msgstr "يجب تصحيح هذه الأخطاء قبل الاستمرار بتث
 
 #: ../iw/partition_gui.py:646
 msgid "Partitioning Errors"
-msgstr "أخطاء التّجزئة"
+msgstr "أخطاء التقسيم"
 
 #: ../iw/partition_gui.py:652
 msgid "The partitioning scheme you requested generated the following warnings."
@@ -3879,11 +3789,11 @@ msgstr ""
 
 #: ../iw/partition_gui.py:654
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr "هل تودّ الاستمرار بخريطة التّجزئة التي طلبتها؟"
+msgstr "هل تودّ الاستمرار بخريطة التقسيم التي طلبتها؟"
 
 #: ../iw/partition_gui.py:659
 msgid "Partitioning Warnings"
-msgstr "تحذيرات التّجزئة"
+msgstr "تحذيرات التقسيم"
 
 #: ../iw/partition_gui.py:681
 msgid "Format Warnings"
@@ -3930,7 +3840,7 @@ msgstr "فارغ"
 #: ../iw/partition_gui.py:1024 ../textw/partition_text.py:247
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr "لم يمكن تعيين التّجزيءات المطلوبة: %s."
+msgstr "لم يمكن تعيين القسمات المطلوبة: %s."
 
 #: ../iw/partition_gui.py:1033
 #, python-format
@@ -3991,7 +3901,7 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
-"كي تستخدم RAID يجب أن يكون لديك تجزيئين من النّوع 'RAID برامجي'.  ثمّ يمكنك "
+"كي تستخدم RAID يجب أن يكون لديك قسمين من النّوع 'RAID برامجي'.  ثمّ يمكنك "
 "إنشاء جهاز RAID والذي يمكن تنسيقه و تجهيزه.\n"
 "\n"
 
@@ -4069,20 +3979,20 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"التّجزيءات ذات النّوع '%s' يجب أن تكون مُقيّدة بقرص واحد.  يتمّ هذا باختيار "
+"القسمات ذات النّوع '%s' يجب أن تكون مُقيّدة بقرص واحد.  يتمّ هذا باختيار "
 "السّوّاقة من لائحة الاختيار 'السّوّاقات المسموحة'."
 
 #: ../iw/partmethod_gui.py:31 ../textw/partmethod_text.py:30
 msgid "Disk Partitioning Setup"
-msgstr "إعداد تجزئة القرص"
+msgstr "إعداد تقسيم القرص"
 
 #: ../iw/partmethod_gui.py:56
 msgid "_Automatically partition"
-msgstr "نسّق _تلقائيّاً"
+msgstr "تقسيم _تلقائيّاً"
 
 #: ../iw/partmethod_gui.py:59
 msgid "Manually partition with _Disk Druid"
-msgstr "نسّق يدويّاً _باستخدام Disk Druid"
+msgstr "تقسيم يدويّاً _باستخدام Disk Druid"
 
 #: ../iw/progress_gui.py:38
 msgid "Installing Packages"
@@ -4098,7 +4008,7 @@ msgid ""
 msgstr ""
 "إثنان على الأقلّ من تقسيمات RAID البرمجيّة ضروريّة لإنشاء جهاز RAID.\n"
 "\n"
-"قم أوّلاً بإنشاء تجزيئين على الأقل من النّوع \"RAID برامجي\"، وثمّ اختر خيار "
+"قم أوّلاً بإنشاء قسمين على الأقل من النّوع \"RAID برامجي\"، وثمّ اختر خيار "
 "\"RAID\" مجدّداً."
 
 #: ../iw/raid_dialog_gui.py:302 ../iw/raid_dialog_gui.py:735
@@ -4133,14 +4043,14 @@ msgstr "عدد الا_حتياطيات:"
 
 #: ../iw/raid_dialog_gui.py:449
 msgid "_Format partition?"
-msgstr "_تنسيق التّجزيء؟"
+msgstr "_تهيئة القسم؟"
 
 #: ../iw/raid_dialog_gui.py:536
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
-"القرص الحالي ليس له تقسيمات لاستنساخها.  عليك أوّلاً  تعريف التّجزيءات من نوع "
+"القرص الحالي ليس له تقسيمات لاستنساخها.  عليك أوّلاً  تعريف أقسام من نوع "
 "'RAID برامجي' على هذا القرص قبل أن يمكن استنساخها."
 
 #: ../iw/raid_dialog_gui.py:540 ../iw/raid_dialog_gui.py:546
@@ -4158,7 +4068,7 @@ msgid ""
 msgstr ""
 "القرص المصدر المُحدّد عليه تقسيمات ليست من نوع 'RAID برمجي'.\n"
 "\n"
-"يجب إزالة هذه التّجزيءات قبل أن يمكن استنساخ هذا القرص."
+"يجب إزالة هذه الأقسام قبل أن يمكن استنساخ هذا القرص."
 
 #: ../iw/raid_dialog_gui.py:559
 #, fuzzy, python-format
@@ -4171,7 +4081,7 @@ msgid ""
 msgstr ""
 "القرص المصدر المُحدّد عليه تقسيمات غير مُقيّدة بالقرص /dev/%s.\n"
 "\n"
-"يجب إزالة هذه التّجزيءات أو حصرها بهذا القرص قبل أن يمكن استنساخ هذا القرص. "
+"يجب إزالة هذه القسمات أو حصرها بهذا القرص قبل أن يمكن استنساخ هذا القرص. "
 
 #: ../iw/raid_dialog_gui.py:572
 #, fuzzy
@@ -4184,7 +4094,7 @@ msgstr ""
 "القرص المصدر الذي حدّدته يحتوي تقسيمات RAID والتي هي أعضاء من جهاز RAID "
 "برامجي نشِط.\n"
 "\n"
-"يجب إزالة هذه التّجزيءات قبل أن يمكن استنساخ هذا القرص."
+"يجب إزالة هذه القسمات قبل أن يمكن استنساخ هذا القرص."
 
 #: ../iw/raid_dialog_gui.py:585 ../iw/raid_dialog_gui.py:591
 #: ../iw/raid_dialog_gui.py:610
@@ -4214,7 +4124,7 @@ msgstr ""
 "\n"
 "\"%s\"\n"
 "\n"
-"يجب إزالة هذا التّجزيء قبل أن يمكن جعل هذا القرص هو المستهدف."
+"يجب إزالة هذا القسم قبل أن يمكن جعل هذا القرص هو المستهدف."
 
 #: ../iw/raid_dialog_gui.py:672
 msgid "Please select a source drive."
@@ -4274,7 +4184,7 @@ msgstr ""
 "التّخطيط إلىأقراص أخرى ذات أحجام مُساوية.  ثم يمكن إنشاء جهاز RAID.\n"
 "\n"
 "ملاحظة: القرص المصدر يجب أن يحتوي تقسيمات مُقيّدة بكوْنها على ذلك القرص فقط، "
-"ويمكن أن يحتوي فقط على تقسيمات RAID برامجيّة غير مستخدمة.أنواع التّجزيءات "
+"ويمكن أن يحتوي فقط على تقسيمات RAID برامجيّة غير مستخدمة.أنواع القسمات "
 "الأخرى غير مسموح بها.\n"
 "\n"
 "كلّ شيء على الأقراص المستهدفة سيتمّ تدميره بهذه العمليّة."
@@ -4436,7 +4346,7 @@ msgstr ""
 "الملفّات ext2 المشحون تقليديّاً في %s.  من الممكن ترحيل تقسيمات ext2 المُنسّقة "
 "إلى ext3 دون خسارة البيانات.\n"
 "\n"
-"أيّ هذه التّجزيءات تودّ ترحيلها؟"
+"أيّ هذه القسمات تودّ ترحيلها؟"
 
 #: ../iw/upgrade_swap_gui.py:33
 msgid "Upgrade Swap Partition"
@@ -4542,7 +4452,7 @@ msgid ""
 msgstr ""
 "سوف يتمّ الآن تثبيت محمّل الإقلاع z/IPL على نظامك.\n"
 "\n"
-"التّجزيء الجذري سيكون هو الذي حدّدته مسبقاً في إعداد التّجزئة.\n"
+"القسم الجذري سيكون هو الذي حدّدته مسبقاً في إعداد التقسيم.\n"
 "\n"
 "إن أردت القيام بتغييرات لاحقاً بعد التّثبيت فلا تتردّد عن تغيير ملفّ التّهيئة /"
 "etc/zipl.conf.\n"
@@ -4652,7 +4562,7 @@ msgid ""
 "want to use for each of them."
 msgstr ""
 "مُدير الإقلاع الذي يستخدمه %s يمكنه إقلاع أنظمة تشغيل أخرى أيضاً. تحتاج لأن "
-"تُخبرني ما هي التّجزيءات التي تودّ أن تكون قادراً على إقلاعها وما هو العنوان "
+"تُخبرني ما هي القسمات التي تودّ أن تكون قادراً على إقلاعها وما هو العنوان "
 "الذي تريد استخدامه لكلّ منها."
 
 #: ../textw/bootloader_text.py:294
@@ -5030,7 +4940,7 @@ msgstr "تحذير: %s"
 
 #: ../textw/partition_text.py:251
 msgid "Modify Partition"
-msgstr "عدّل التّجزيء"
+msgstr "عدّل القسم"
 
 #: ../textw/partition_text.py:251
 msgid "Add anyway"
@@ -5122,7 +5032,7 @@ msgstr "خيارات نظام الملفّات"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr "رجاء اختر كيف تودّ تحضير نظام الملفّات على هذا التّجزيء."
+msgstr "رجاء اختر كيف تودّ تحضير نظام الملفّات على هذا القسم."
 
 #: ../textw/partition_text.py:623
 msgid "Leave unchanged (preserve data)"
@@ -5151,7 +5061,7 @@ msgstr "مجموعات كتل LVM يمكن تعديلها فقط في المُث
 
 #: ../textw/partition_text.py:830 ../textw/partition_text.py:878
 msgid "Invalid Entry for Partition Size"
-msgstr "مُدخل غير صالح لحجم التّجزيء"
+msgstr "مُدخل غير صالح لحجم القسم"
 
 #: ../textw/partition_text.py:842
 msgid "Invalid Entry for Maximum Size"
@@ -5171,11 +5081,11 @@ msgstr "لا تقسيمات RAID"
 
 #: ../textw/partition_text.py:982
 msgid "At least two software RAID partitions are needed."
-msgstr "بحاجة لتجزئيْ RAID برامجيّان على الأقلّ."
+msgstr "بحاجة لتقسيم RAID برامجيّان على الأقلّ."
 
 #: ../textw/partition_text.py:994 ../textw/partition_text.py:1165
 msgid "Format partition?"
-msgstr "هل أنسّق التّجزيء؟"
+msgstr "هل أهيئ القسم؟"
 
 #: ../textw/partition_text.py:1056
 msgid "Invalid Entry for RAID Spares"
@@ -5264,12 +5174,11 @@ msgstr "لا قسم جذري"
 #: ../textw/partition_text.py:1466
 #, fuzzy
 msgid "Installation requires a / partition."
-msgstr "لم يمكن تعيين التّجزيءات المطلوبة: %s."
+msgstr "لم يمكن تعيين القسمات المطلوبة: %s."
 
 #: ../textw/partition_text.py:1508
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "نوع الجزء"
+msgstr "نوع القسم"
 
 #: ../textw/partition_text.py:1510
 #, fuzzy
@@ -5278,10 +5187,11 @@ msgid ""
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
-"التثبيت يتطلب تجزئة قرصك الصلب. عادةً يتم إختيار التصميم التجزيئى الذى يتلائم "
+"التثبيت يتطلب تقسيم قرصك الصلب. عادةً يتم إختيار تصميم يتلائم "
 "مع معظم المستخدمين. بإمكانك استعمال هذا التصميم أو إنشاء واحد خاص بك."
 
 #: ../textw/partition_text.py:1534
+#, fuzzy
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "أيّ الأقراص تريد أن تستخدمها لهذا التّثبيت؟"
 
@@ -5310,7 +5220,7 @@ msgstr "خيارات الحجم الإضافيّ"
 #: ../textw/partition_text.py:1639 tmp/adddrive.glade.h:5
 #, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "كيف تودّ تحضير نظام الملفّات على هذا التّجزيء؟"
+msgstr "كيف تودّ تحضير نظام الملفّات على هذا القسم؟"
 
 #: ../textw/partition_text.py:1662
 #, fuzzy
@@ -5352,7 +5262,7 @@ msgstr "اسم غير صالح لمجموعة الكتل"
 
 #: ../textw/partmethod_text.py:32
 msgid "Autopartition"
-msgstr "تجزئة آليّة"
+msgstr "تقسيم تلقائي"
 
 #: ../textw/partmethod_text.py:33
 msgid "Disk Druid"
@@ -5695,12 +5605,12 @@ msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"توجد عدّة تجزئات على هذا الجهاز قابلة على احتواء صورة القرص القائد. أيّا منها "
+"توجد عدّة أقسام على هذا الجهاز قابلة على احتواء صورة القرص القائد. أيّا منها "
 "تريد الاستعمال ؟امه؟"
 
 #: ../loader2/driverdisk.c:300
 msgid "Failed to mount partition."
-msgstr "فشلت في تركيب التّجزئة.ت"
+msgstr "فشلت في ضم القسم."
 
 #: ../loader2/driverdisk.c:308
 msgid "Select driver disk image"
@@ -5874,7 +5784,7 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"ما هو التّجزيء والدليل على ذلك التّجزيء تحتوي صور القرص المدمج (iso9660) لـ%s؟ "
+"ما هو القسم والدليل على ذلك القسم تحتوي صور القرص المدمج (iso9660) لـ%s؟ "
 "إن لم ترَ سوّاقة القرص التي تستخدمه مسردة هنا، اضغط F2 كي تهيّئ أجهزة إضافيّة."
 
 #: ../loader2/hdinstall.c:372
@@ -5997,7 +5907,7 @@ msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
 msgstr ""
-"توجد عدّة تجزئات على هذا الجهاز قابلة على احتواء صورة القرص القائد. أيّا منها "
+"توجد عدّة أقسام على هذا الجهاز قابلة على احتواء صورة القرص القائد. أيّا منها "
 "تريد الاستعمال ؟امه؟"
 
 #: ../loader2/loader.c:429
@@ -6564,48 +6474,41 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
-"التثبيت يتطلب تجزئة قرصك الصلب. عادةً يتم إختيار التصميم التجزيئى الذى يتلائم "
+"التثبيت يتطلب تقسيم قرصك الصلب. عادةً يتم إختيار تصميم الأقسام الذى يتلائم "
 "مع معظم المستخدمين. بإمكانك استعمال هذا التصميم أو إنشاء واحد خاص بك."
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "عاين (وعدّل إن كان ضروريّاً) التقسيمات المنشأة"
+msgstr "معاينة وتعديل مخطط التقسيم"
 
 #: tmp/autopart.glade.h:4
-#, fuzzy
 msgid "What drive would you like to _boot this installation from?"
-msgstr "ما اللّغة التي تودّ استخدامها أثناء عمليّة التثبيت؟"
+msgstr "ما محرك الأقراص الذي تريد إقلاع هذا التبيت منه؟"
 
 #: tmp/autopart.glade.h:5
 msgid "Which Partition to resize"
-msgstr ""
+msgstr "ما هو القسم الذي تريد تحجيمه"
 
 #: tmp/autopart.glade.h:6
-#, fuzzy
 msgid ""
 "Which partition would you like to resize to make room for your installation?"
-msgstr "ما هو التّجزيء الذي يحمل التّجزيء الجذري لتثبيتك؟"
+msgstr "ما هو القسم الذي تريد تحجيمه لعمل متسع لهذا التثبيت؟"
 
 #: tmp/autopart.glade.h:7
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "تهيئة محمّل الإقلاع المتقدّمة"
+msgstr "إعدادات التخزين المتقدمة"
 
 #: tmp/autopart.glade.h:8
-#, fuzzy
 msgid "_Encrypt system"
-msgstr "مفتاح التّرميز"
+msgstr "تشفير النظام_"
 
 #: tmp/autopart.glade.h:10
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "حدّد الأقراص لاستخدامها لهذا التّثبيت:"
+msgstr "_حدّد الأقراص لاستخدامها لهذا التّثبيت:"
 
 #: tmp/blwhere.glade.h:1
-#, fuzzy
 msgid "/boot"
-msgstr "أعد التّشغيل"
+msgstr ""
 
 #: tmp/blwhere.glade.h:2
 #, fuzzy
@@ -6638,23 +6541,20 @@ msgid "Third BIOS drive:"
 msgstr ""
 
 #: tmp/blwhere.glade.h:9
-#, fuzzy
 msgid "Where would you like to install the boot loader for your system?"
 msgstr "أين تريد أن تقوم بتثبيت محمّل الإقلاع؟"
 
 #: tmp/detailed-dialog.glade.h:1
-#, fuzzy
 msgid "Info"
-msgstr "تجاهل"
+msgstr "معلومات"
 
 #: tmp/detailed-dialog.glade.h:2
 msgid "_Details"
-msgstr ""
+msgstr "تفاصيل"
 
 #: tmp/exnSave.glade.h:2
-#, fuzzy
 msgid "Select A File"
-msgstr "اختر برنامج تعريف"
+msgstr "اختر ملف"
 
 #: tmp/exnSave.glade.h:3
 msgid "Select a destination for the exception information."
@@ -6662,12 +6562,11 @@ msgstr ""
 
 #: tmp/exnSave.glade.h:4
 msgid "_Disk"
-msgstr ""
+msgstr "_قرص"
 
 #: tmp/exnSave.glade.h:5
-#, fuzzy
 msgid "_Remote"
-msgstr "احذف"
+msgstr "_بعيد"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -6677,9 +6576,8 @@ msgid ""
 msgstr ""
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Deselect"
-msgstr "ا_حذف"
+msgstr "إ_زالة التحديد"
 
 #: tmp/GroupSelector.glade.h:3
 #, fuzzy
@@ -6688,16 +6586,15 @@ msgstr "جاري تثبيت الحزم"
 
 #: tmp/GroupSelector.glade.h:4
 msgid "_Optional packages"
-msgstr ""
+msgstr "حزمة اختيارية"
 
 #: tmp/GroupSelector.glade.h:5
-#, fuzzy
 msgid "_Select"
-msgstr "ا_حذف"
+msgstr "تحديد"
 
 #: tmp/GroupSelector.glade.h:6
 msgid "_Select all optional packages"
-msgstr ""
+msgstr "تحديد كل الحزم الإختيارية"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
@@ -6714,18 +6611,16 @@ msgid "Please enter your %(instkey)s."
 msgstr "رجاء أدخل اسم مجموعة الكتل."
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "ك_لمة المرور:"
+msgstr "<b>ك_لمة المرور</b>:"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_عنوان IP للهدف</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "اسم مستخدم"
+msgstr "<b>ا_سم المستخدم:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
@@ -6733,55 +6628,49 @@ msgstr ""
 
 #: tmp/iscsi-config.glade.h:7
 msgid "_Add target"
-msgstr ""
+msgstr "إ_ضافة هدف"
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "_ثبّت %s"
+msgstr "ثبّت"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "تثبيت القرص الحي على القرص الصلب"
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "التثبيت على وشك البدء"
+msgstr "التثبيت على القرص الصلب"
 
 #: tmp/lukspassphrase.glade.h:1
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
-msgstr ""
+msgstr "اختر كلمة السر لهذا القسم المشفر. ستسأل عنها خلال كل إقلاع للنظام."
 
 #: tmp/lukspassphrase.glade.h:2
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "أكّد الاستعادة"
+msgstr "تأكيد كلمة السر:"
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "أدخل كلمة السر للقسم المشفر"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase:"
-msgstr ""
+msgstr "أدخل كلمة السر:"
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "البوّابة:"
+msgstr "<b>البوّابة</b>:"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "عنوان IP"
+msgstr "<b>عنوان IPv4</b>:"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "عنوان IP"
+msgstr "<b>عنوان IPv6</b>:"
 
 #: tmp/netconfig.glade.h:5
 #, fuzzy
@@ -6794,11 +6683,11 @@ msgstr ""
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "تمكين دعم IPv_4"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "تمكين دعم IPv_6"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
@@ -6876,7 +6765,7 @@ msgstr "خصّص"
 #: tmp/tasksel.glade.h:8
 #, fuzzy
 msgid "_Modify repository"
-msgstr "_عدّل التّجزيء"
+msgstr "_عدّل القسم"
 
 #: tmp/zfcp-config.glade.h:1
 #, fuzzy
@@ -7256,7 +7145,7 @@ msgstr "الزولو"
 #~ "table to the disk immediately. Is that OK?"
 #~ msgstr ""
 #~ "حيث أنّه ليس لديك الكثير من الذّاكرة في هذه الماكينة، نحتاج إلى تشغيل "
-#~ "الذّاكرة البديلة فوراً. لعمل ذلك يجب أن نقوم بكتابة جدول التّجزئة الجديد إلى "
+#~ "الذّاكرة البديلة فوراً. لعمل ذلك يجب أن نقوم بكتابة جدول التقسيم الجديد إلى "
 #~ "القرص حالاً. هل ذلك مقبول؟"
 
 #~ msgid "Save to Remote Host"
@@ -7413,7 +7302,7 @@ msgstr "الزولو"
 #~ msgstr "اتركه _بلا تغيير (حافظ على البيانات)"
 
 #~ msgid "_Format partition as:"
-#~ msgstr "_نسّق التّجزيء بنسق:"
+#~ msgstr "_نسّق القسم بنسق:"
 
 #~ msgid "Check for _bad blocks?"
 #~ msgstr "_تحقّق من وجود كتلة سيّئة؟"
