@@ -99,7 +99,7 @@ def getDefaultHostname(anaconda):
             else:
                 hn = hostname
 
-    if hn is not None:
+    if hn:
         return hn
 
     # NetworkManager didn't give us a hostname, try to find it another way
