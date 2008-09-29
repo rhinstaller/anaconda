@@ -34,9 +34,9 @@ fi
 # load modules that would get loaded by the loader... (#230945)
 for i in raid0 raid1 raid5 raid6 raid456 raid10 fat msdos gfs2 reiserfs ext2 ext3 jfs xfs dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat ; do /sbin/modprobe $i ; done
 
-export ANACONDA_PRODUCTNAME="Fedora"
-export ANACONDA_PRODUCTVERSION=$(rpm -q fedora-release --qf "%{VERSION}")
-export ANACONDA_BUGURL="https://bugzilla.redhat.com/bugzilla/"
+export ANACONDA_PRODUCTNAME=$( cat /etc/system-release | cut -d ' ' -f 1 )
+export ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.*([0-9]+) *\(.*$/\1/' )
+export ANACONDA_BUGURL=${ANACONDA_BUGURL:="https://bugzilla.redhat.com/bugzilla/"}
 
 export PATH=/sbin:/usr/sbin:$PATH
 
