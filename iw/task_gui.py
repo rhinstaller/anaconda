@@ -42,7 +42,7 @@ def setupRepo(anaconda, repo):
     try:
         anaconda.backend.doRepoSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
         anaconda.backend.doSackSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
-        log.info("added repository %s with with source URL %s" % (repo.name, repo.baseurl[0]))
+        log.info("added repository %s with with source URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
     except yum.Errors.RepoError, e:
         anaconda.intf.messageWindow(_("Error"),
               _("Unable to read package metadata from repository.  "
@@ -167,7 +167,11 @@ class RepoEditor:
                     self.baseurlEntry.set_text(self.repo.mirrorlist)
                     self.mirrorlistCheckbox.set_active(True)
                 else:
-                    self.baseurlEntry.set_text(self.repo.baseurl[0])
+                    if self.repo.baseurl:
+                        self.baseurlEntry.set_text(self.repo.baseurl[0])
+                    else:
+                        self.baseurlEntry.set_text("")
+
                     self.mirrorlistCheckbox.set_active(False)
 
                 if self.repo.proxy:
