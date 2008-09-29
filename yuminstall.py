@@ -461,7 +461,7 @@ class AnacondaYum(YumSorter):
             else:
                 # If there was an error finding the "base" repo, create a new one now.
                 repo = AnacondaYumRepo("anaconda-%s-%s" % (rid, productStamp))
-                repo.uri = [ uri ]
+                repo.baseurl = uri
 
             repo.name = name
             repo.cost = 100
@@ -579,7 +579,7 @@ class AnacondaYum(YumSorter):
                 rid = "anaconda-%s" % dirname
 
                 repo = AnacondaYumRepo(rid)
-                repo.uri = [ "file:///%s" % d ]
+                repo.baseurl = [ "file:///%s" % d ]
                 repo.name = "Driver Disk %s" % dirname.split("-")[1]
                 repo.enable()
                 extraRepos.append(repo)
@@ -587,7 +587,7 @@ class AnacondaYum(YumSorter):
         if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repo.repoList:
                 repo = AnacondaYumRepo(ksrepo.name)
-                repo.uri = [ ksrepo.baseurl ]
+                repo.baseurl = [ ksrepo.baseurl ]
                 repo.mirrorlist = ksrepo.mirrorlist
                 repo.name = ksrepo.name
 
