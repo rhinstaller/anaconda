@@ -98,7 +98,7 @@ class NetworkConfiguratorText:
         devs = netdevs.keys()
         devs.sort()
         for dev in devs:
-            desc = netdevs[dev].get("desc")
+            desc = netdevs[dev].get("DESC")
             if desc:
                 desc = "%s - %s" % (dev, desc)
             else:
@@ -177,11 +177,12 @@ class NetworkConfiguratorText:
                     continue
 
                 netdev = netdevs[devname]
+                netdev.set(("ONBOOT", "yes"))
 
                 if self.dhcpCheckbox.selected():
                     netdev.set(("BOOTPROTO", "dhcp"))
-                    netdev.set(("ONBOOT", "yes"))
                 else:
+                    netdev.set(("BOOTPROTO", "static"))
                     ipv4addr = self.ipv4Address.value()
                     ipv4nm = self.ipv4Netmask.value()
                     gateway = self.gatewayEntry.value()
@@ -225,6 +226,7 @@ class NetworkConfiguratorText:
                     try:
                         if gateway:
                             network.sanityCheckIPString(gateway)
+                            netdev.set(("GATEWAY", gateway))
                     except network.IPMissing, msg:
                         self._handleIPMissing(_("Gateway"))
                         continue

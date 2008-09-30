@@ -182,11 +182,11 @@ class NetworkConfigurator:
         active = combo.get_active_iter()
         val = combo.get_model().get_value(active, 1)
         netdev = self.network.available()[val]
+        netdev.set(('ONBOOT', 'yes'))
 
         # FIXME: need to do input validation
         if self.xml.get_widget("dhcpCheckbutton").get_active():
             netdev.set(('BOOTPROTO', 'dhcp'))
-            netdev.set(('ONBOOT', 'yes'))
             self.window.hide()
             w = gui.WaitWindow(_("Dynamic IP"),
                                _("Sending request for IP information "
@@ -195,6 +195,7 @@ class NetworkConfigurator:
             w.pop()
             self.rc = gtk.RESPONSE_OK
         else:
+            netdev.set(('BOOTPROTO', 'static'))
             ipv4addr = self.xml.get_widget("ipv4Address").get_text()
             ipv4nm = self.xml.get_widget("ipv4Netmask").get_text()
             gateway = self.xml.get_widget("gatewayEntry").get_text()
@@ -238,6 +239,7 @@ class NetworkConfigurator:
             try:
                 if gateway:
                     network.sanityCheckIPString(gateway)
+                    netdev.set(('GATEWAY', gateway))
             except network.IPMissing, msg:
                 self._handleIPMissing(_("Gateway"))
                 return False
