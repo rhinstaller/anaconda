@@ -631,7 +631,7 @@ class AnacondaYum(YumSorter):
 
     def _handleFailure(self, package):
         if not network.hasActiveNetDev():
-            if not enableNetwork(self.anaconda):
+            if not self.anaconda.intf.enableNetwork(self.anaconda):
                 return
 
         if not self.isodir and self.currentMedia:
