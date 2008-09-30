@@ -25,6 +25,9 @@ from partErrors import *
 
 from rhpl.translate import _
 
+import logging
+log = logging.getLogger("anaconda")
+
 def partitionObjectsInitialize(anaconda):
     # shut down all dm devices
     anaconda.id.diskset.closeDevices()
