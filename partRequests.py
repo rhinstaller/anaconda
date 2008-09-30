@@ -963,10 +963,14 @@ class LogicalVolumeRequestSpec(RequestSpec):
             return True
         return False
 
-    def getActualSize(self, partitions, diskset):
+    def getActualSize(self, partitions, diskset, pesize=None):
         """Return the actual size allocated for the request in megabytes."""
         retval = 0
         vgreq = partitions.getRequestByID(self.volumeGroup)
+
+        if not pesize:
+            pesize = vgreq.pesize
+
         if self.percent:
 	    vgsize = vgreq.getActualSize(partitions, diskset)
 	    lvsize = int(self.percent * 0.01 * vgsize)
@@ -978,7 +982,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
         # lvm tools round up lvolums using the volume group pv size.
         # If the logical volume is preexisting do NOT touch it.
         if not self.preexist:
-            retval = lvm.clampLVSizeRequest(retval, vgreq.pesize)
+            retval = lvm.clampLVSizeRequest(retval, pesize)
 
         return retval
 
