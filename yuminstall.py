@@ -233,6 +233,10 @@ class AnacondaCallback:
         self.progress.processEvents()
 
 class AnacondaYumRepo(YumRepository):
+    def __init__(self, *args, **kwargs):
+        YumRepository.__init__(self, *args, **kwargs)
+        self.enablegroups = True
+
     def needsNetwork(self):
         def _isURL(s):
             return s.startswith("http") or s.startswith("ftp")
