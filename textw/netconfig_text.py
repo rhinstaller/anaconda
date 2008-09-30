@@ -228,8 +228,7 @@ class NetworkConfiguratorText:
                             network.sanityCheckIPString(gateway)
                             netdev.set(("GATEWAY", gateway))
                     except network.IPMissing, msg:
-                        self._handleIPMissing(_("Gateway"))
-                        continue
+                        pass
                     except network.IPError, msg:
                         self._handleIPError(_("Gateway"), msg)
                         continue
@@ -238,6 +237,8 @@ class NetworkConfiguratorText:
                         if ns:
                             network.sanityCheckIPString(ns)
                             netdev.set(("DNS1", ns))
+                    except network.IPMissing, msg:
+                        pass
                     except network.IPError, msg:
                         self._handleIPError(_("Nameserver"), msg)
                         continue
