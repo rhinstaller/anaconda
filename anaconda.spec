@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.132
+Version: 11.1.2.133
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -129,6 +129,22 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 30 2008 Joel Granados <jgranado@redhat.com> 11.1.2.133-1
+- Set a label on /etc/sysconfig/keyboard (clumens).
+  Resolves: rhbz:#463785
+- Add comps.dtd to anaconda-runtime package (dcantrell).
+  Resolves: rhbz:#442138
+- Make sure /etc/xml/catalog is updated on package removal (dcantrell).
+  Resolves: rhbz:#442138
+- Fix a logging traceback in the encryption code (clumens).
+  Resolves: rhbz:#464771
+- Fix lvm partitioning in gui that was broken (rvykydal).
+  Resolves: rhbz:#415871
+- Fix computing of lvm partition sizes wrt physical extent size in gui (rvykydal).
+  Resolves: rhbz:463780
+- Add pointer initialization (rvykydal).
+  Resolves: rhbz#439461
+
 * Fri Sep 26 2008 Joel Granados <jgranado@redhat.com> 11.1.2.132-1
 - When we use kickstart with specified UI mode, do not prompt for VNC (msivak).
   Resolves: rhbz##453551
