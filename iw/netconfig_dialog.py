@@ -250,10 +250,10 @@ class NetworkConfigurator:
             try:
                 if ns:
                     network.sanityCheckIPString(ns)
+                    netdev.set(('DNS1', ns))
             except network.IPError, msg:
                 self._handleIPError(_("Nameserver"), msg)
                 return False
-
 
             try:
                 self.network.bringUp()
@@ -264,26 +264,18 @@ class NetworkConfigurator:
                 self._handleIPError(_("Error configuring network device:"), e)
                 return False
 
-            self.rc = gtk.RESPONSE_OK
-            if ns:
-                f = open("/etc/resolv.conf", "w")
-                f.write("nameserver %s\n" %(ns,))
-                f.close()
-
         if self.rc != gtk.RESPONSE_OK:
             gui.MessageWindow(_("Error"),
                               _("Error configuring network device"),
                               type = "ok", custom_icon="error")
             return False
+
         return True
-
-
 
 def main():
     net = network.Network()
     d = NetworkConfigurator(net)
     ret = d.run()
-
 
 if __name__ == "__main__":
     main()

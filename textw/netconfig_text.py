@@ -237,9 +237,7 @@ class NetworkConfiguratorText:
                     try:
                         if ns:
                             network.sanityCheckIPString(ns)
-                            f = open("/etc/resolv.conf", "w")
-                            f.write("nameserver %s\n" % ns)
-                            f.close()
+                            netdev.set(("DNS1", ns))
                     except network.IPError, msg:
                         self._handleIPError(_("Nameserver"), msg)
                         continue
