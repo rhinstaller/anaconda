@@ -67,15 +67,15 @@ class NetworkConfigurator:
         val = combo.get_model().get_value(active, 1)
         netdev = self.network.available()[val]
 
-        bootproto = netdev.get("bootproto")
+        bootproto = netdev.get('BOOTPROTO')
         if not bootproto or bootproto == "dhcp":
             self.xml.get_widget("dhcpCheckbutton").set_active(True)
         else:
             self.xml.get_widget("dhcpCheckbutton").set_active(False)
 
             # FIXME: need to set ipv6 here too once we have that
-            if netdev.get("ipaddr"): self.xml.get_widget("ipv4Address").set_text(netdev.get("ipaddr"))
-            if netdev.get("netmask"): self.xml.get_widget("ipv4Netmask").set_text(netdev.get("netmask"))
+            if netdev.get('IPADDR'): self.xml.get_widget("ipv4Address").set_text(netdev.get('IPADDR'))
+            if netdev.get('NETMASK'): self.xml.get_widget("ipv4Netmask").set_text(netdev.get('NETMASK'))
             if self.network.gateway: self.xml.get_widget("gatewayEntry").set_text(self.network.gateway)
             if self.network.primaryNS: self.xml.get_widget("nameserverEntry").set_text(self.network.primaryNS)
 
@@ -190,7 +190,7 @@ class NetworkConfigurator:
             self.window.hide()
             w = gui.WaitWindow(_("Dynamic IP"),
                                _("Sending request for IP information "
-                                 "for %s...") %(netdev.get("device")))
+                                 "for %s...") % (netdev.get('DEVICE'),))
             self.network.bringUp()
             w.pop()
             self.rc = gtk.RESPONSE_OK
@@ -202,7 +202,7 @@ class NetworkConfigurator:
 
             try:
                 network.sanityCheckIPString(ipv4addr)
-                netdev.set(('ipaddr', ipv4addr))
+                netdev.set(('IPADDR', ipv4addr))
             except network.IPMissing, msg:
                 self._handleIPMissing(_("IP Address"))
                 return False
@@ -219,7 +219,7 @@ class NetworkConfigurator:
                         return False
                     else:
                         ipv4nm = isys.prefix2netmask(int(ipv4nm))
-                        netdev.set(('netmask', ipv4nm))
+                        netdev.set(('NETMASK', ipv4nm))
                 except:
                     self._handleIPMissing(_("IPv4 Network Mask"))
                     return False
@@ -227,7 +227,7 @@ class NetworkConfigurator:
                 # user provided a dotted-quad netmask
                 try:
                     network.sanityCheckIPString(ipv4nm)
-                    netdev.set(('netmask', ipv4nm))
+                    netdev.set(('NETMASK', ipv4nm))
                 except network.IPMissing, msg:
                     self._handleIPMissing(_("IPv4 Network Mask"))
                     return False
