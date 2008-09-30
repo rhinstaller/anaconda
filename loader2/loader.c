@@ -448,6 +448,7 @@ static void readNetInfo(struct loaderData_s ** ld) {
     loaderData->ctcprot = NULL;
     loaderData->layer2 = NULL;
     loaderData->macaddr = NULL;
+    loaderData->portno = NULL;
 
     /*
      * The /tmp/netinfo file is written out by /sbin/init on s390x (which is
