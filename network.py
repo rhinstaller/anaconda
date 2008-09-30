@@ -545,19 +545,24 @@ class Network:
             ip = None
 
         # fqdn and hostname
-        if "." in hostname:
+        if "." in self.hostname:
             fqdn = self.hostname
-            hostname = hostname.split('.', 1)[0]
+            hostname = self.hostname.split('.', 1)[0]
         else:
             fqdn = socket.getfqdn(self.hostname)
             hostname = self.hostname
+
         if fqdn in [ "localhost.localdomain", "localhost",
-                     "localhost6.localdomain6", "localhost6" ]:
+                     "localhost6.localdomain6", "localhost6", hostname ] \
+                     or "." not in fqdn:
             fqdn = None
 
         # domainname
-        domainname = fqdn[(fqdn.find('.') + 1):]
-        if domainname in [ "localdomain", "localdomain6" ]:
+        if fqdn:
+            domainname = fqdn.split('.', 1)[1]
+            if domainname in [ "localdomain", "localdomain6" ]:
+                domainname = None
+        else:
             domainname = None
 
         localline = "localhost.localdomain localhost"
