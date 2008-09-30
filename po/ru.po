@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-24 17:45+1000\n"
+"PO-Revision-Date: 2008-09-30 14:02+1000\n"
 "Last-Translator: Yulia Poyarkova <yulia.poyarkova@redhat.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -111,7 +111,9 @@ msgstr "Хотите использовать VNC?"
 msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
-msgstr "Установка в режиме VNC предоставляет больше возможностей по сравнению с текстовой установкой. Использовать режим VNC?"
+msgstr ""
+"Установка в режиме VNC предоставляет больше возможностей по сравнению с "
+"текстовой установкой. Использовать режим VNC?"
 
 #: ../anaconda:847
 msgid "Install class forcing text mode installation"
@@ -570,7 +572,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Отчет об ошибке не был отправлен вследствие проблемы при обращении к Bugzilla:\n"
+"Отчет об ошибке не был отправлен вследствие проблемы при обращении к "
+"Bugzilla:\n"
 "\n"
 "%s"
 
@@ -582,7 +585,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Отчет об ошибке не был отправлен вследствие проблем в полях отчета. Вероятно, причиной является ошибка Anaconda:\n"
+"Отчет об ошибке не был отправлен вследствие проблем в полях отчета. "
+"Вероятно, причиной является ошибка Anaconda:\n"
 "\n"
 "%s"
 
@@ -598,7 +602,9 @@ msgstr "Создание отчетов об ошибках не поддерж�
 msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
-msgstr "Ваш дистрибутив не включает в свой состав систему создания отчетов, поэтому вы не сможете сохранить информацию таким образом."
+msgstr ""
+"Ваш дистрибутив не включает в свой состав систему создания отчетов, поэтому "
+"вы не сможете сохранить информацию таким образом."
 
 #: ../exception.py:384
 msgid "Invalid Bug Information"
@@ -615,7 +621,9 @@ msgstr "Авторизация не успешна"
 #: ../exception.py:396
 #, python-format
 msgid "There was an error logging into %s using the provided username and password."
-msgstr "Ошибка при журналировании в %s с использованием указанных имени пользователя и пароля."
+msgstr ""
+"Ошибка при журналировании в %s с использованием указанных имени пользователя "
+"и пароля."
 
 #: ../exception.py:433
 msgid "Bug Created"
@@ -630,7 +638,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
-"Создан новый отчет об ошибке. Отладочная информация присоединена. Добавьте дополнительные сведения, например, опишите, что именно вы делали когда возникла ошибка, присоедините снимки экрана и т.д.\n"
+"Создан новый отчет об ошибке. Отладочная информация присоединена. Добавьте "
+"дополнительные сведения, например, опишите, что именно вы делали когда "
+"возникла ошибка, присоедините снимки экрана и т.д.\n"
 "\n"
 "%s/%s"
 
@@ -647,7 +657,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
-"Отчет об ошибке уже существует. Ваша учетная запись добавлена в список CC, а отладочная информация добавлена в виде комментария. По желанию введите дополнительные сведения в отчет:\n"
+"Отчет об ошибке уже существует. Ваша учетная запись добавлена в список CC, а "
+"отладочная информация добавлена в виде комментария. По желанию введите "
+"дополнительные сведения в отчет:\n"
 "\n"
 "%s/%s"
 
@@ -679,7 +691,9 @@ msgstr "Сеть недоступна"
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
-msgstr "Не удается сохранить отчет об ошибке, так как нет доступных сетевых устройств."
+msgstr ""
+"Не удается сохранить отчет об ошибке, так как нет доступных сетевых "
+"устройств."
 
 #: ../exception.py:516
 msgid ""
@@ -976,7 +990,8 @@ msgid ""
 msgstr ""
 "Ошибка монтирования устройства %s как %s: %s\n"
 "\n"
-"Устройства в файле /etc/fstab должны быть заданы метками или UUID, а не именами.\n"
+"Устройства в файле /etc/fstab должны быть заданы метками или UUID, а не "
+"именами.\n"
 "\n"
 "Нажмите ОК для выхода из программы установки."
 
@@ -1120,8 +1135,8 @@ msgid ""
 "Choose a passphrase for this encrypted device%s. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
-"Выберите пароль для зашифрованного устройства %s. Ввод пароля будет будет запрошен "
-"при каждой загрузке системы."
+"Выберите пароль для зашифрованного устройства %s. Ввод пароля будет будет "
+"запрошен при каждой загрузке системы."
 
 #: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
 msgid "Error with passphrase"
@@ -1406,7 +1421,8 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"Ошибка при установке «живого» образа на жесткий диск. Возможная причина -- сбойный носитель.\n"
+"Ошибка при установке «живого» образа на жесткий диск. Возможная причина -- "
+"сбойный носитель.\n"
 "Проверьте целостность установочного носителя.\n"
 "\n"
 "При отмене установки система останется в нестабильном состоянии, требующим "
@@ -1994,7 +2010,10 @@ msgid ""
 "You specified block device encryption should be enabled%s, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption%s will be disabled."
-msgstr "Вы включили кодирование блочного устройства %s, но не указали пароль. Вернитесь на предыдущий этап и укажите пароль, в противном случае кодирование %s будет отключено."
+msgstr ""
+"Вы включили кодирование блочного устройства %s, но не указали пароль. "
+"Вернитесь на предыдущий этап и укажите пароль, в противном случае "
+"кодирование %s будет отключено."
 
 #: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
@@ -2865,7 +2884,9 @@ msgstr "Не удаётся получить доступ к CD-ROM."
 #: ../yuminstall.py:533
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr "В конфигурации отсутствует имя репозитория %r. Вместо имени будет использоваться идентификатор."
+msgstr ""
+"В конфигурации отсутствует имя репозитория %r. Вместо имени будет "
+"использоваться идентификатор."
 
 #: ../yuminstall.py:651 ../yuminstall.py:653
 msgid "Re_boot"
@@ -4629,7 +4650,9 @@ msgstr "Не добавлены программные репозитории"
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr "Для продолжения установки необходимо, чтобы был активен как минимум один репозиторий."
+msgstr ""
+"Для продолжения установки необходимо, чтобы был активен как минимум один "
+"репозиторий."
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -4705,7 +4728,7 @@ msgid "Migrate File Systems"
 msgstr "Преобразование файловых систем"
 
 #: ../iw/upgrade_migratefs_gui.py:64
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4715,7 +4738,7 @@ msgid ""
 msgstr ""
 "Эта версия %s поддерживает обновленную файловую систему, которая обладает "
 "преимуществами по сравнению с традиционно поставляемой с %s файловой "
-"системой. Возможно преобразовать разделы ext2 в ext3 без потери данных.\n"
+"системой. Программа установки может выполнить миграцию отформатированных разделов без потери данных.\n"
 "\n"
 "Какие из этих разделов вы хотите преобразовать?"
 
@@ -5065,9 +5088,8 @@ msgstr ""
 "процесса установки. Выполните настройку сетевого интерфейса."
 
 #: ../textw/netconfig_text.py:111
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Использовать _Динамическую конфигурацию IP (DHCP)"
+msgstr "Использовать динамическую конфигурацию IP (DHCP)"
 
 #: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
 #: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
@@ -5080,12 +5102,10 @@ msgid "Enable IPv6 support"
 msgstr "Включить поддержку IPv6"
 
 #: ../textw/netconfig_text.py:121
-#, fuzzy
 msgid "IPv4 Address:"
 msgstr "Адрес IPv4:"
 
 #: ../textw/netconfig_text.py:131
-#, fuzzy
 msgid "IPv6 Address:"
 msgstr "Адрес IPv6:"
 
@@ -5095,27 +5115,22 @@ msgid "Gateway:"
 msgstr "Шлюз:"
 
 #: ../textw/netconfig_text.py:144
-#, fuzzy
 msgid "Nameserver:"
-msgstr "Сервер имен"
+msgstr "Сервер имен:"
 
 #: ../textw/netconfig_text.py:171
-#, fuzzy
 msgid "Missing Device"
-msgstr "Отсутствующий пакет"
+msgstr "Отсутствующее устройство"
 
 #: ../textw/netconfig_text.py:172
-#, fuzzy
 msgid "You must select a network device"
-msgstr "Необходимо указать раздел для правки."
+msgstr "Необходимо выбрать сетевое устройство"
 
 #: ../textw/netconfig_text.py:231
-#, fuzzy
 msgid "IPv4 Network Mask "
 msgstr "Маска сети IPv4"
 
 #: ../textw/netconfig_text.py:257
-#, fuzzy
 msgid "Error configuring network device: "
 msgstr "Ошибка при конфигурации сетевого устройства:"
 
@@ -5960,14 +5975,13 @@ msgstr ""
 "Нажмите %s, чтобы пропустить проверку носителя и запустить установку."
 
 #: ../loader/cdinstall.c:331
-#, fuzzy
 msgid "Scanning"
-msgstr "Внимание!"
+msgstr "Выполняется проверка"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "Выполняется поиск установочных образов на устройстве %s"
 
 #: ../loader/cdinstall.c:428
 #, c-format
@@ -5987,9 +6001,9 @@ msgid "Cannot find kickstart file on CDROM."
 msgstr "Не удается найти файл kickstart на CDROM."
 
 #: ../loader/copy.c:51 ../loader/method.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "Ошибка чтения каталога %s: %s"
+msgstr "Не удалось прочитать каталог %s: %m"
 
 #: ../loader/driverdisk.c:141
 msgid "Loading"
@@ -6158,13 +6172,10 @@ msgid "Select Device Driver to Load"
 msgstr "Выберите драйвер устройства"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
-msgstr ""
-"Произошла ошибка чтения установки из образов ISO. Проверьте ваши образы ISO "
-"и попробуйте еще раз."
+msgstr "Установочный образ на жестком диске не найден. Проверьте ваши образы и попробуйте еще раз."
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6175,38 +6186,36 @@ msgstr ""
 "дополнительные устройства?"
 
 #: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Укажите раздел и каталог на этом разделе, который содержит образы CD "
-"(iso9660) для %s. Если необходимый диск отсутствует в списке, нажмите F2 для "
+"Укажите раздел и каталог в этом разделе, который содержит установочные образы для %s. Если необходимый диск отсутствует в списке, нажмите F2 для "
 "настройки дополнительных устройств."
 
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
-msgstr "Каталог, содержащий образы:"
+msgstr "Каталог, содержащий образ:"
 
 #: ../loader/hdinstall.c:301
 msgid "Select Partition"
 msgstr "Выбор раздела"
 
 #: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "Похоже, что устройство %s не содержит образы %s CDROM."
+msgstr "Похоже, что устройство %s не содержит установочный образ."
 
 #: ../loader/hdinstall.c:385
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "Неверный аргумент команды kickstart HD-метода %s: :%s"
+msgstr "Недопустимый аргумент команды метода кикстарта %s: :%s"
 
 #: ../loader/hdinstall.c:455 ../loader/hdinstall.c:511
 msgid "Cannot find kickstart file on hard drive."
-msgstr "Не удается найти файл kickstart на жестком диске."
+msgstr "Не удается найти файл кикстарта на жестком диске."
 
 #: ../loader/hdinstall.c:498
 #, c-format
@@ -6222,14 +6231,14 @@ msgid "What type of keyboard do you have?"
 msgstr "Укажите тип клавиатуры"
 
 #: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "Ошибка открытия файла kickstart %s: %s"
+msgstr "Ошибка открытия файла кикстарта %s: %m"
 
 #: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Ошибка чтения содержимого файла kickstart %s: %s"
+msgstr "Ошибка чтения содержимого файла кикстарта %s: %m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -6303,17 +6312,17 @@ msgstr ""
 "образ диска с драйверами. Какой из разделов использовать?"
 
 #: ../loader/loader.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "Вставьте диск обновлений в /dev/%s и нажмите \"OK\" для продолжения."
+msgstr "Вставьте диск с обновлениями в %s и нажмите \"OK\" для продолжения."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
-msgstr "Диск обновлений"
+msgstr "Диск с обновлениями"
 
 #: ../loader/loader.c:510
 msgid "Failed to mount updates disk"
-msgstr "Ошибка монтирования диска обновлений"
+msgstr "Ошибка монтирования диска с обновлениями"
 
 #: ../loader/loader.c:515
 msgid "Updates"
@@ -6361,9 +6370,8 @@ msgid "What type of media contains the rescue image?"
 msgstr "Какой носитель содержит спасательный образ?"
 
 #: ../loader/loader.c:1358
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "Какой носитель содержит спасательный образ?"
+msgstr "Какой носитель содержит установочный образ?"
 
 #: ../loader/loader.c:1389
 msgid "No driver found"
@@ -6580,9 +6588,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "В сетевой команде неверно указан bootproto %s"
 
 #: ../loader/net.c:1423
-#, fuzzy
 msgid "Seconds:"
-msgstr "Вторичный DNS:"
+msgstr "Секунды:"
 
 #: ../loader/net.c:1537
 msgid "Networking Device"
@@ -6598,40 +6605,39 @@ msgstr ""
 
 #: ../loader/net.c:1542
 msgid "Identify"
-msgstr ""
+msgstr "Идентификация"
 
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "Можно идентифицировать физический порт для "
 
 #: ../loader/net.c:1553
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "с помощью мерцания светового индикатора на протяжении заданного периода времени. Введите число в диапазоне 1-30, которое определит интервал в секундах."
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
-msgstr ""
+msgstr "Определите NIC"
 
 #: ../loader/net.c:1576
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Неверная информация о IP"
+msgstr "Недопустимая длительность"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "Время должно лежать в диапазоне от 1 до 30 секунд."
 
 #: ../loader/net.c:1589
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "Световые индикаторы порта %s мигают на протяжении %d секунд..."
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "Ожидание соединения telnet..."
+msgstr "Ожидание настройки %s менеджером NetworkManager...\n"
 
 #: ../loader/nfsinstall.c:63
 msgid "NFS server name:"
@@ -6643,9 +6649,9 @@ msgid "%s directory:"
 msgstr "Каталог %s:"
 
 #: ../loader/nfsinstall.c:78
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr "Введите имя сервера и путь к образам %s."
+msgstr "Введите имя сервера и путь к установочному образу %s."
 
 #: ../loader/nfsinstall.c:85
 msgid "NFS Setup"
@@ -6660,9 +6666,9 @@ msgid "That directory could not be mounted from the server."
 msgstr "Этот каталог не может быть смонтирован с сервера."
 
 #: ../loader/nfsinstall.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "Этот каталог не содержит установочное дерево %s."
+msgstr "Этот каталог не содержит установочный образ %s."
 
 #: ../loader/nfsinstall.c:338
 #, c-format
@@ -6682,13 +6688,13 @@ msgid "Running anaconda via telnet..."
 msgstr "Запуск anaconda по telnet..."
 
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "Не удается получить %s://%s/%s."
+msgstr "Не удается получить %s://%s%s."
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
-msgstr "Невозможно получить установочный образ."
+msgstr "Не удается получить установочный образ."
 
 #: ../loader/urlinstall.c:422
 #, c-format
@@ -6709,9 +6715,9 @@ msgid "Retrieving"
 msgstr "Получение"
 
 #: ../loader/urls.c:295
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the URL containing the %s installation image on your server."
-msgstr "Введите URL-ссылку к образам %s на вашем сервере."
+msgstr "Введите URL-ссылку к установочному образу %s на вашем сервере."
 
 #: ../loader/urls.c:321
 msgid "URL Setup"
@@ -6776,14 +6782,12 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>_Имя хранилища:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>_Имя хранилища:</b>"
+msgstr "<b>_Тип репозитория:</b>"
 
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "Настройка прокси"
+msgstr "Настройка п_рокси"
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -6792,65 +6796,58 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"Жесткий диск"
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
 msgid "Please provide the configuration information for this software repository."
-msgstr ""
-"Укажите положение, откуда можно выполнить установку дополнительного "
-"программного обеспечения."
+msgstr "Укажите настройки для этого репозитория с приложениями."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL"
-msgstr "U_RL прокси:"
+msgstr "U_RL прокси"
 
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "_Пароль прокси:"
+msgstr "_Пароль прокси"
 
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "Имя пользователя _прокси:"
+msgstr "_Имя пользователя прокси"
 
 #: tmp/addrepo.glade.h:13
 msgid "Repository _URL"
 msgstr "_URL хранилища"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "Выберите файл"
+msgstr "Выберите каталог"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "URL содержит список _зеркал"
 
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "Каталог NFS"
+msgstr "_Каталог"
 
 #: tmp/addrepo.glade.h:17
-#, fuzzy
 msgid "_Options"
-msgstr "Параметры RAID"
+msgstr "_Параметры"
 
 #: tmp/addrepo.glade.h:18
-#, fuzzy
 msgid "_Partition"
-msgstr "Раздел"
+msgstr "_Раздел"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "П_уть"
 
 #: tmp/addrepo.glade.h:20
-#, fuzzy
 msgid "_Server"
-msgstr "Сервер имен:"
+msgstr "_Сервер"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6948,21 +6945,23 @@ msgstr "_Подробности"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "Описание о_шибки"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "_Целевой файл"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"Локальный диск\n"
+"Удаленный сервер (scp)"
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "Выберите местоположение, где будет сохранена информация отладки."
 
 #: tmp/exnSave.glade.h:7
 msgid "Select A File"
@@ -6970,17 +6969,15 @@ msgstr "Выберите файл"
 
 #: tmp/exnSave.glade.h:8
 msgid "_Host (host:port)"
-msgstr ""
+msgstr "_Узел (узел:порт)"
 
 #: tmp/exnSave.glade.h:9
-#, fuzzy
 msgid "_Password"
-msgstr "_Пароль:"
+msgstr "_Пароль"
 
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_User name"
-msgstr "Имя пользователя"
+msgstr "_Имя пользователя"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -7264,7 +7261,7 @@ msgstr "Гуджарати"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "Иврит"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -7319,9 +7316,8 @@ msgid "Marathi"
 msgstr "Маратхи"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "Норвежский"
+msgstr "Норвежский (Букмол)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
