@@ -427,10 +427,12 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 	    /* Problems with getting the info from iBFT or iBFT uses dhcp*/
 	    if(!devmacaddr || !ibft_present() || ibft_iface_dhcp()){
 		configMode = USE_DHCP;
+                logMessage(INFO, "iBFT is not present or is configured to use DHCP");
 	    }
 	    /* MAC address doesn't match */
 	    else if(strcmp(ibft_iface_mac(), devmacaddr)){
 		configMode = USE_DHCP;
+                logMessage(INFO, "iBFT doesn't know whit NIC to use - falling back to DHCP");
 	    }
 
 	    if(devmacaddr) free(devmacaddr);
@@ -447,6 +449,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 	    /* Problems with getting the info from iBFT */
 	    if(!ibft_iface_ip() || !ibft_iface_mask() || !ibft_iface_gw()){
 		configMode = USE_DHCP;
+                logMessage(INFO, "iBFT doesn't have necessary information - falling back to DHCP");
 	    }
 	    else{
 		/* static setup from iBFT table */
@@ -455,28 +458,33 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 		    cfg->dev.ipv4 = ip_addr_in(&addr);
 		    cfg->dev.set |= PUMP_INTFINFO_HAS_IP|PUMP_INTFINFO_HAS_IPV4_IP;
 		    cfg->isDynamic = 0;
+		    logMessage(INFO, "iBFT: setting IP to %s", ibft_iface_ip());
 		}
 		
 		if(inet_pton(AF_INET, ibft_iface_mask(), &addr)>=1){
 		    cfg->dev.netmask = ip_addr_in(&addr);
 		    cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
+		    logMessage(INFO, "iBFT: setting NETMASK to %s", ibft_iface_mask());
 		}
         
 		if(inet_pton(AF_INET, ibft_iface_gw(), &addr)>=1){
 		    cfg->dev.gateway = ip_addr_in(&addr);
 		    cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
+		    logMessage(INFO, "iBFT: setting GW to %s", ibft_iface_gw());
 		}
                 
 		if(cfg->dev.numDns<MAX_DNS_SERVERS){
 		    if(inet_pton(AF_INET, ibft_iface_dns1(), &addr)>=1){
 			cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in(&addr);
 			cfg->dev.numDns++;
+			logMessage(INFO, "iBFT: setting DNS1 to %s", ibft_iface_dns1());
 		    }
 		}
 		if(cfg->dev.numDns<MAX_DNS_SERVERS){
 		    if(inet_pton(AF_INET, ibft_iface_dns2(), &addr)>=1){
 			cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in(&addr);
 			cfg->dev.numDns++;
+			logMessage(INFO, "iBFT: setting DNS2 to %s", ibft_iface_dns2());
 		    }
 		}
 	    
@@ -2200,7 +2208,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 	}
 #endif
 
-        logMessage(INFO, "looking for iBFT configured device with link");
+        logMessage(INFO, "looking for iBFT configured device %s with link", ibftmacaddr);
 	lookForLink = 1;
 
 	for (i = 0; devs[i]; i++) {
@@ -2208,12 +2216,16 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 		continue;
             devmacaddr = nl_mac2str(devs[i]->device);
 	    if(!strcmp(devmacaddr, ibftmacaddr)){
+                logMessage(INFO, "%s has the right MAC (%s), checking for link", devmacaddr, devices[i]);
 		free(devmacaddr);
 		if(get_link_status(devices[i]) == 1){
 		    lookForLink = 0;
 		    loaderData->netDev = devices[i];
                     logMessage(INFO, "%s has link, using it", devices[i]);
                     return LOADER_NOOP;
+		}
+		else{
+                    logMessage(INFO, "%s has no link, skipping it", devices[i]);
 		}
 		break;
 	    }
