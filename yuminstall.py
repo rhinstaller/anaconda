@@ -252,13 +252,13 @@ class AnacondaYumRepo(YumRepository):
         cachedir = self.getAttribute('cachedir')
 
         if os.path.isdir(cachedir):
-            if self.needsNetwork():
+            if not self.needsNetwork() or repo.name == "Installation Repo":
+                shutil.rmtree(cachedir)
+            else self.needsNetwork():
                 if os.path.exists("%s/headers" % cachedir):
                     shutil.rmtree("%s/headers" % cachedir)
                 if os.path.exists("%s/packages" % cachedir):
                     shutil.rmtree("%s/packages" % cachedir)
-            else:
-                shutil.rmtree(cachedir)
 
 class YumSorter(yum.YumBase):
     def _transactionDataFactory(self):
