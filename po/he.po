@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-23 23:27GMT\n"
+"PO-Revision-Date: 2008-10-01 17:56GMT\n"
 "Last-Translator: Oron Peled <oron@actcom.co.il>\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
@@ -89,7 +89,7 @@ msgstr "יש להקיש <enter> לקבלת שורת פקודה"
 #: ../loader/urlinstall.c:430 ../loader/urlinstall.c:439 ../loader/urls.c:292
 #: ../loader/urls.c:328 ../loader/urls.c:334 ../loader/urls.c:346
 msgid "OK"
-msgstr "כן"
+msgstr "אישור"
 
 #
 #: ../anaconda:493
@@ -170,6 +170,9 @@ msgstr ""
 #, python-format
 msgid "Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot"
 msgstr ""
+"מחיצת האתחול %s שייכת לדיסק שאין בתחילתו מספיק מקום פנוי לאחסון "
+"מנהל האתחול. יש להשאיר לפחות 5MB פנויים בתחילת הדיסק שיכיל את "
+"תיקיית ‎/boot"
 
 #
 #: ../autopart.py:1066
@@ -198,7 +201,7 @@ msgstr "נראה שמחיצת האתחול %s אינה עומדת במגבלות
 #: ../autopart.py:1098
 #, python-format
 msgid "Adding this partition would not leave enough disk space for already allocated logical volumes in %s."
-msgstr ""
+msgstr "הוספת מחיצה זו לא תשאיר מספיק מקום לנפחים הלוגיים שכבר הוקצו ב-%s."
 
 #
 #: ../autopart.py:1295
@@ -213,6 +216,9 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"לא נמצאה מחיצה %s לשימוש עבור ‎%s.‏\n"
+"\n"
+"יש ללחוץ 'אישור' ליציאה מתכנית ההתקנה."
 
 #
 #: ../autopart.py:1321
@@ -227,6 +233,9 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"לא נמצא התקן RAID ‏%s לשימוש עבור ‎%s.‏\n"
+"\n"
+"יש ללחוץ 'אישור' ליציאה מתכנית ההתקנה."
 
 #
 #: ../autopart.py:1351
@@ -241,6 +250,9 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"לא נמצאה קבוצת הנפחים ‏%s לשימוש עבור ‎%s.‏\n"
+"\n"
+"יש ללחוץ 'אישור' ליציאה מתכנית ההתקנה."
 
 #
 #: ../autopart.py:1389
@@ -255,6 +267,9 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"לא נמצא הנפח הלוגי ‏%s לשימוש עבור ‎%s.‏\n"
+"\n"
+"יש ללחוץ 'אישור' ליציאה מתכנית ההתקנה."
 
 #
 #: ../autopart.py:1525 ../autopart.py:1572
@@ -275,12 +290,12 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"יש להקיש 'כן' ליציאה מתכנית ההתקנה."
+"יש להקיש 'אישור' ליציאה מתכנית ההתקנה."
 
 #
 #: ../autopart.py:1536
 msgid "Warnings During Automatic Partitioning"
-msgstr ""
+msgstr "אזהרות במהלך חלוקה אוטומטית למחיצות"
 
 #
 #: ../autopart.py:1537
@@ -290,6 +305,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"במהלך החלוקה האוטומטית למחיצות הופיעו האזהרות להלן:\n"
+"\n"
+"%s"
 
 #
 #: ../autopart.py:1551 ../autopart.py:1568
@@ -298,6 +316,9 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"\n"
+"\n"
+"יש להקיש 'אישור' ליציאה מתכנית ההתקנה."
 
 #
 #: ../autopart.py:1552 ../iw/partition_gui.py:1027
@@ -326,7 +347,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"יש ללחוץ על 'כן' לאפשרויות שונות לבחירת מחיצות."
+"יש ללחוץ על 'אישור' לאפשרויות שונות לבחירת מחיצות."
 
 #
 #: ../autopart.py:1573
@@ -634,17 +655,17 @@ msgstr ""
 #
 #: ../exception.py:475 ../exception.py:490 ../exception.py:515
 msgid "Dump Written"
-msgstr ""
+msgstr "שמירת המצב הסתיימה"
 
 #
 #: ../exception.py:476 ../exception.py:491
 msgid "Your system's state has been successfully written to the disk. The installer will now exit."
-msgstr ""
+msgstr "מצב המערכת שלך נכתב בהצלחה לדיסק. תכנית ההתקנה תצא כעת."
 
 #
 #: ../exception.py:482 ../exception.py:499 ../exception.py:522
 msgid "Dump Not Written"
-msgstr ""
+msgstr "לא בוצעה שמירת מצב"
 
 #
 #: ../exception.py:483 ../exception.py:500
@@ -837,7 +858,7 @@ msgstr ""
 "\n"
 "יש לציין התקנים בקובץ  ‎/etc/fstab באמצעות תוויות ולא שמות. \n"
 "\n"
-"יש ללחוץ על 'כן' בכדי לצאת מתכנית ההתקנה."
+"יש ללחוץ על 'אישור' בכדי לצאת מתכנית ההתקנה."
 
 #
 #: ../fsset.py:1779
@@ -853,7 +874,7 @@ msgstr ""
 "\n"
 "קובץ ‎/etc/fstab במחיצה המשודרגת אינו מתייחס למחיצת דפדוף חוקית.\n"
 "\n"
-"יש ללחוץ על 'כן' בכדי לצאת מתכנית ההתקנה"
+"יש ללחוץ על 'אישור' בכדי לצאת מתכנית ההתקנה"
 
 #
 #: ../fsset.py:1785
@@ -869,7 +890,7 @@ msgstr ""
 "\n"
 "יש סבירות גבוהה שהדבר נגרם עקב אי אתחול מחיצת הדפדוף.\n"
 "\n"
-"יש ללחוץ אשר ליציאה מתכנית ההתקנה."
+"יש ללחוץ 'אישור' ליציאה מתכנית ההתקנה."
 
 #
 #: ../fsset.py:1859
@@ -949,7 +970,7 @@ msgstr ""
 "\n"
 "התקנים בקובץ ‎/etc/fstab צריכים להיות מיוצגים על ידי תווית או UUID, לא על ידי שמ התקן.\n"
 "\n"
-"יש ללחוץ \"כן\" ליציאה מתכנית ההתקנה."
+"יש ללחוץ 'אישור' ליציאה מתכנית ההתקנה."
 
 #
 #: ../fsset.py:1993
@@ -961,7 +982,7 @@ msgid ""
 msgstr ""
 "שגיאה אירעה במהלך עיגון ההתקן %s בנקודה %s: %s\n"
 "\n"
-"יש ללחוץ \"כן\" ליציאה מתכנית ההתקנה."
+"יש ללחוץ 'אישור' ליציאה מתכנית ההתקנה."
 
 #
 #: ../fsset.py:2011
@@ -972,6 +993,11 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
+"לא נמצאה שורה המתייחסת לתיקיית השורש /.‏\n"
+"\n"
+"סביר שזה מצביע על קובץ fstab שאינו תקין.\n"
+"\n"
+"יש ללחוץ על 'אישור' בכדי לצאת מתכנית ההתקנה."
 
 #
 #: ../fsset.py:2720
@@ -986,6 +1012,10 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"לכמה התקנים במערכת שלך יש את התווית %s. לצורך תפקוד תקין של המערכת "
+"יש להימנע מכפילות של תוויות.\n"
+"\n"
+"יש לתקן בעיה זו ולהתחיל את תהליך ההתקנה מחדש."
 
 #
 #: ../fsset.py:2886
@@ -1017,6 +1047,11 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
+"תצלומי המסך נשמרו לתיקייה:\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
+"ניתן לגשת אליהם לאחר הפעלה מחדש וכניסה למערכת כ-root."
 
 #
 #: ../gui.py:163
@@ -1027,7 +1062,7 @@ msgstr "שמור תצלום מסך"
 #: ../gui.py:164
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "תצלום המשך בשם '%s' נשמר."
+msgstr "תצלום המסך בשם '%s' נשמר."
 
 #
 #: ../gui.py:167
@@ -1089,7 +1124,7 @@ msgstr "מפתח התקנה"
 #: ../gui.py:660 ../text.py:323
 #, python-format
 msgid "Choose a passphrase for this encrypted device%s. You will be prompted for the passphrase during system boot."
-msgstr ""
+msgstr "נא לבחור ססמה עבור התקן מוצפן זה %s. ססמה זו תידרש בזמן הפעלת המחשב מחדש."
 
 #
 #: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
@@ -1111,6 +1146,8 @@ msgstr "הססמה חייבת להכיל לפחות שמונה תווים."
 #, python-format
 msgid "Device %s is encrypted. In order to access the device's contents during installation you must enter the device's passphrase below."
 msgstr ""
+"ההתקן %s מוצפן. בכדי לגשת לתכולתו במהלך ההתקנה, חובה להקליד את "
+"ססמת ההתקן בתיבה להלן."
 
 #
 #: ../gui.py:780
@@ -1142,7 +1179,7 @@ msgstr ""
 #
 #: ../gui.py:1281 ../text.py:563
 msgid "Error Parsing Kickstart Config"
-msgstr ""
+msgstr "שגיאה בפענוח הגדרות kickstart"
 
 #
 #: ../gui.py:1327
@@ -1269,6 +1306,11 @@ msgid ""
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
+"להתקנת התכנה שביקשת ידרשו הדיסקים הבאים:\n"
+"\n"
+"%s\n"
+"האם הדיסקים האלו נמצאים? אם ברצונך לעצור את ההתקנה ולצאת, "
+"ניתן לבחור \"הפעלה מחדש\"."
 
 #
 #: ../image.py:253 ../livecd.py:385 ../packages.py:352 ../packages.py:403
@@ -2178,7 +2220,7 @@ msgstr "מנסה להפעיל את %s"
 #
 #: ../rescue.py:194
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
+msgstr "בסיום, יש לצאת מה-shell והמערכת תבצע הפעלה מחדש."
 
 #
 #: ../rescue.py:201
@@ -2257,6 +2299,14 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
+"מערכת הקבצים שלך עוגנה תחת ‎%s.‏\n"
+"\n"
+"לכניסה ל-shell יש להקליד <return>. אם ברצונך להפוך את מערכת הקבצים "
+"שלך לשורש סביבת העבודה, יש להריץ את הפקודה:\n"
+"\n"
+"\tchroot %s\n"
+"\n"
+"המערכת תופעל מחדש באופן אוטומאטי ביציאה מה-shell."
 
 #
 #: ../rescue.py:464
@@ -2276,6 +2326,8 @@ msgstr "מצב הצלה"
 #: ../rescue.py:474
 msgid "You don't have any Linux partitions. Press return to get a shell. The system will reboot automatically when you exit from the shell."
 msgstr ""
+"לא נמצאו מחיצות לינוקס. יש להקליד <return> להפעלת shell. המערכת תופעל "
+"מחדש באופן אוטומאטי ביציאה מה-shell."
 
 #
 #: ../rescue.py:487
@@ -2353,7 +2405,7 @@ msgstr "ססמה"
 #
 #: ../text.py:415 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "זוהי הססמה הכוללת"
 
 #
 #: ../text.py:481 ../text.py:485
@@ -2382,12 +2434,12 @@ msgstr ""
 #: ../text.py:618
 #, python-format
 msgid "Welcome to %s"
-msgstr "ברוך הבא אל %s"
+msgstr "ברוכים הבאים אל %s"
 
 #
 #: ../text.py:620
 msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
-msgstr ""
+msgstr "  <Tab>/<Alt-Tab> ניווט בין מרכיבים   |  <Space> בחירה   |  <F12> מסך הבא"
 
 #
 #: ../upgrade.py:91 ../upgrade.py:112
@@ -2425,7 +2477,7 @@ msgstr "האם ברצונך להמשיך בשדרוג?"
 #
 #: ../upgrade.py:215 ../upgrade.py:223
 msgid "Dirty File Systems"
-msgstr ""
+msgstr "מערכות קבצים פגועות"
 
 #
 #: ../upgrade.py:216
@@ -2434,6 +2486,10 @@ msgid ""
 "The following file systems for your Linux system were not unmounted cleanly.  Please boot your Linux installation, let the file systems be checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
+"להלן רשימת מערכות קבצים שהעיגון שלהן לא נותק באופן מסודר. יש להפעיל מחדש את "
+"התקנת הלינוקס הקיימת לצורך בדיקת מערכות קבצים אלו, לאחר מכן להוריד את "
+"המערכת באופן מסודר לצורך ביצוע השדרוג.\n"
+"%s"
 
 #
 #: ../upgrade.py:224
@@ -2442,6 +2498,9 @@ msgid ""
 "The following file systems for your Linux system were not unmounted cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
+"להלן רשימת מערכות קבצים שהעיגון שלהן לא נותק באופן מסודר. "
+"האם ברצונך לעגן אותן בכל אופן?\n"
+"%s"
 
 #
 #: ../upgrade.py:365 ../upgrade.py:371
@@ -2452,11 +2511,15 @@ msgstr "עגינה נכשלה"
 #: ../upgrade.py:366
 msgid "One or more of the file systems listed in the /etc/fstab on your Linux system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
+"לא ניתן לעגן חלק ממערכות הקבצים הרשומות בקובץ ‎/etc/fstab במערכת הלינוקס "
+"שלך. יש לתקן בעיה זו ולאחר מכן לנסות לשדרג שנית."
 
 #
 #: ../upgrade.py:372
 msgid "One or more of the file systems listed in the /etc/fstab of your Linux system are inconsistent and cannot be mounted.  Please fix this problem and try to upgrade again."
 msgstr ""
+"חלק ממערכות הקבצים הרשומות בקובץ ‎/etc/fstab במערכת הלינוקס שלך פגועות"
+"ולא ניתן לעגן אותן. יש לתקן בעיה זו ולאחר מכן לנסות לשדרג שנית."
 
 #
 #: ../upgrade.py:389
@@ -2464,11 +2527,14 @@ msgid ""
 "The following files are absolute symbolic links, which we do not support during an upgrade. Please change them to relative symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
+"הקבצים הרשומים להלן הינם קישורים סימבוליים מוחלטים שאינם נתמכים במהלך שדרוג. "
+"יש לשנותם לקישורים סימבוליים יחסיים ולהתחיל את תהליך השדרוג מחדש.\n"
+"\n"
 
 #
 #: ../upgrade.py:395
 msgid "Absolute Symlinks"
-msgstr ""
+msgstr "קישורים סימבוליים מוחלטים"
 
 #
 #: ../upgrade.py:406
@@ -2526,12 +2592,12 @@ msgstr "מוותר על ניסיונות התקשרות לאחר %d פעמים!\
 #: ../vnc.py:209
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
+msgstr "יש להתחבר בעזרת vnc אל %s כדי להתחיל בהתקנה."
 
 #
 #: ../vnc.py:211
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
+msgstr "יש להתחבר בעזרת vnc כדי להתחיל בהתקנה."
 
 #
 #: ../vnc.py:214
@@ -2554,6 +2620,13 @@ msgid ""
 "to the vncviewer is unsuccessful\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"בחרת להתחבר ל-vncviewer מאזין.\n"
+"במקרה זה, אין צורך בססמה. אם תוקלד ססמה \n"
+"נשתמש בה במקרה שההתחברות \n"
+"ל-vncviewer תיכשל\n"
+"\n"
 
 #
 #: ../vnc.py:257
@@ -2580,6 +2653,10 @@ msgid ""
 "You chose to execute vnc with a password. \n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"בחרת להפעיל vnc עם ססמה. \n"
+"\n"
 
 #
 #: ../vnc.py:263
@@ -2608,6 +2685,8 @@ msgstr "אין ססמה"
 #: ../vnc.py:290 ../vnc.py:385
 msgid "A password will prevent unauthorized listeners connecting and monitoring your installation progress.  Please enter a password to be used for the installation"
 msgstr ""
+"ססמה תמנע ממאזינים לא מורשים להתחבר ולעקוב אחרי מהלך ההתקנה שלך. "
+"נא להקליד ססמה לצורך ההתקנה"
 
 #
 #: ../vnc.py:298 ../vnc.py:393 ../textw/userauth_text.py:47
@@ -2622,7 +2701,7 @@ msgstr "ססמה (אימות):"
 #
 #: ../vnc.py:317 ../vnc.py:416 ../textw/userauth_text.py:70
 msgid "Password Mismatch"
-msgstr "אי תאימות בססמה"
+msgstr "ססמה לא זהה"
 
 #
 #: ../vnc.py:318 ../vnc.py:417 ../textw/userauth_text.py:71
@@ -2648,16 +2727,19 @@ msgstr "לא ניתן להפעיל את X"
 #: ../vnc.py:348
 msgid "X was unable to start on your machine.  Would you like to start VNC to connect to this computer from another computer and perform a graphical install or continue with a text mode install?"
 msgstr ""
+"הפעלת שרת התצוגה X נכשלה. האם ברצונך להפעיל VNC לצורך התחברות "
+"למחשב זה ממחשב אחר ולבצע התקנה גרפית, או לחלופין, להמשיך בהתקנה "
+"במצב טקסטואלי?"
 
 #
 #: ../vnc.py:367 ../vnc.py:370
 msgid "Use text mode"
-msgstr "שימוש במצב טקסטואלי"
+msgstr "הפעלת מצב טקסטואלי"
 
 #
 #: ../vnc.py:368
 msgid "Start VNC"
-msgstr "הפעל VNC"
+msgstr "הפעלת VNC"
 
 #
 #: ../yuminstall.py:76
@@ -2762,7 +2844,7 @@ msgstr "לא התאפשרה גישה לדיסק."
 #: ../yuminstall.py:533
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr ""
+msgstr "אין בהגדרות שם למאגר %r, משתמש בזיהוי"
 
 #
 #: ../yuminstall.py:651 ../yuminstall.py:653
@@ -2783,6 +2865,12 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
+"לא ניתן לפתוח את הקובץ %s.  סיבות אפשריות הן קובץ חסר, חבילה פגומה או "
+"מדיית התקנה פגומה.  יש לבדוק את מקור ההתקנה.\n"
+"\n"
+"יציאה בשלב זה, תשאיר את המערכת במצב לא עקבי ובפי הנראה תדרוש התקנה "
+"מחדש.\n"
+"\n"
 
 #
 #: ../yuminstall.py:700
@@ -2798,7 +2886,7 @@ msgstr "מנסה להוריד שוב..."
 #: ../yuminstall.py:772
 #, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
-msgstr ""
+msgstr "במהלך ביצוע הפעולה אירעה שגיאה מהסיבה הבאה: ‎%s\n"
 
 #
 #: ../yuminstall.py:807 ../yuminstall.py:808
@@ -2818,7 +2906,7 @@ msgstr "אין מספיק מקום פנוי על הדיסק"
 #
 #: ../yuminstall.py:811
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "אין מספיק inodes פנויים בדיסק"
 
 #
 #: ../yuminstall.py:812
@@ -2857,17 +2945,19 @@ msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
 msgstr ""
+"במהלך בדיקת החבילות להתקנה התגלו התנגשויות קבצים:\n"
+"%s\n"
 
 #
 #: ../yuminstall.py:846
 #, python-format
 msgid "There was an error running your transaction for the following reason(s): %s.\n"
-msgstr ""
+msgstr "בביצוע הפעולה אירעה שגיאה מהסיבה(ות) להלן: ‎%s.‏\n"
 
 #
 #: ../yuminstall.py:856 ../yuminstall.py:861
 msgid "Error Running Transaction"
-msgstr ""
+msgstr "שגיאה בביצוע הפעולה"
 
 #
 #: ../yuminstall.py:1021
@@ -3222,6 +3312,8 @@ msgstr "_התקנת %s"
 #: ../iw/examine_gui.py:61
 msgid "Choose this option to freshly install your system. Existing software and data may be overwritten depending on your configuration choices."
 msgstr ""
+"בחירה באפשרות זו תבצע התקנה מחדש של המערכת שלך. תכנה ונתונים "
+"קיימים עלולים להידרס כתלות באפשרויות שייבחרו במהלך ההתקנה."
 
 #
 #: ../iw/examine_gui.py:65
@@ -3233,6 +3325,8 @@ msgstr "_שדרוג התקנה קיימת"
 #, python-format
 msgid "Choose this option if you would like to upgrade your existing %s system.  This option preserves the existing data on your drives."
 msgstr ""
+"בחירה באפשרות זו תשדרג את מערכת ‎%s שלך. קבצי המידע הקיימים על הדיסקים "
+"ישמרו."
 
 #
 #: ../iw/examine_gui.py:116
@@ -3425,7 +3519,7 @@ msgstr "גודל לא חוקי"
 #
 #: ../iw/lvm_dialog_gui.py:545 ../textw/partition_text.py:1266
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
+msgstr "הגודל שהוזן אינו מספר חוקי הגדול מ‏-‏0."
 
 #
 #: ../iw/lvm_dialog_gui.py:580
@@ -3530,6 +3624,10 @@ msgid ""
 "\n"
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then select the \"LVM\" option again."
 msgstr ""
+"ליצירת קבוצת נפחים של LVM נדרשת לפחות מחיצה אחת שתשמש כנפח פיזי.\n"
+"\n"
+"ראשית יש ליצור מחיצה או מערך דיסקים (RAID) מסוג \"נפח פיזי (LVM)\" ואז "
+"יהיה ניתן לבחור את האפשרות \"LVM\" מחדש."
 
 #
 #: ../iw/lvm_dialog_gui.py:1020
@@ -3782,12 +3880,12 @@ msgstr "התקן"
 #
 #: ../iw/network_gui.py:398
 msgid "IPv4/Netmask"
-msgstr "IPv4/מסכת רשת"
+msgstr "מסכת רשת/IPv4"
 
 #
 #: ../iw/network_gui.py:400
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "תחילית/IPv6"
 
 #
 #: ../iw/network_gui.py:460
@@ -3923,22 +4021,22 @@ msgstr ""
 #
 #: ../iw/osbootwidget.py:249
 msgid "Duplicate Label"
-msgstr ""
+msgstr "תווית כפולה"
 
 #
 #: ../iw/osbootwidget.py:250
 msgid "This label is already in use for another boot entry."
-msgstr ""
+msgstr "תווית זו כבר נבחרה עבור שורת הפעלה אחרת."
 
 #
 #: ../iw/osbootwidget.py:263
 msgid "Duplicate Device"
-msgstr ""
+msgstr "התקן כפול"
 
 #
 #: ../iw/osbootwidget.py:264
 msgid "This device is already being used for another boot entry."
-msgstr ""
+msgstr "התקן זה כבר נבחר עבור שורת הפעלה אחרת."
 
 #
 #: ../iw/osbootwidget.py:328 ../textw/bootloader_text.py:345
@@ -3949,7 +4047,7 @@ msgstr "לא ניתן למחוק"
 #: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:346
 #, python-format
 msgid "This boot target cannot be deleted because it is for the %s system you are about to install."
-msgstr ""
+msgstr "אפשרות זו אינה ניתנת למחיקה כי היא מיועדת למערכת %s המיועדת להתקנה."
 
 #
 #: ../iw/partition_dialog_gui.py:66
@@ -3964,17 +4062,17 @@ msgstr "גודל _קבוע"
 #
 #: ../iw/partition_dialog_gui.py:73
 msgid "Fill all space _up to (MB):"
-msgstr ""
+msgstr "תפוס את כל המקום ה_פנוי עד ל (MB):"
 
 #
 #: ../iw/partition_dialog_gui.py:83
 msgid "Fill to maximum _allowable size"
-msgstr ""
+msgstr "תפוס את המקום הפנוי עד למקסימום ה_מותר"
 
 #
 #: ../iw/partition_dialog_gui.py:212
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr ""
+msgstr "מספר הצילינדר האחרון חייב להיות גדול מהראשון."
 
 #
 #: ../iw/partition_dialog_gui.py:323 ../textw/partition_text.py:713
@@ -4010,12 +4108,12 @@ msgstr "כונן:"
 #
 #: ../iw/partition_dialog_gui.py:431
 msgid "_Start Cylinder:"
-msgstr ""
+msgstr "צילינדר _ראשון:"
 
 #
 #: ../iw/partition_dialog_gui.py:449
 msgid "_End Cylinder:"
-msgstr ""
+msgstr "צילינדר _אחרון:"
 
 #
 #: ../iw/partition_dialog_gui.py:497
@@ -4026,7 +4124,7 @@ msgstr "הכרח להיות מחיצה _ראשית"
 #: ../iw/partition_gui.py:320
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "כונן ‎%s (גאומטריה: ‎%s/%s/%s) (דגם: %s)"
 
 #
 #: ../iw/partition_gui.py:327
@@ -4055,6 +4153,8 @@ msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
+"נקודת עיגון/\n"
+"נפח/RAID"
 
 #
 #: ../iw/partition_gui.py:417
@@ -4267,7 +4367,7 @@ msgstr "_LVM"
 #
 #: ../iw/partition_gui.py:1428
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "הסתר התקני RAID/התקנים פיזיים של LVM"
 
 #
 #: ../iw/partition_ui_helpers_gui.py:102 ../iw/partition_ui_helpers_gui.py:123
@@ -4275,7 +4375,7 @@ msgstr ""
 #: ../textw/partition_text.py:273 ../textw/partition_text.py:275
 #: ../textw/partition_text.py:300
 msgid "<Not Applicable>"
-msgstr ""
+msgstr "<לא ישים>"
 
 #
 #: ../iw/partition_ui_helpers_gui.py:285
@@ -4297,6 +4397,8 @@ msgstr "_שנה גודל"
 #, python-format
 msgid "Partitions of type '%s' must be constrained to a single drive.  To do this, select the drive in the 'Allowable Drives' checklist."
 msgstr ""
+"מחיצות מסוג '%s' חייבות להיות מוכלות בכונן בודד. לצורך כך יש לבחור "
+"את הכונן מהרשימה 'כוננים מותרים'."
 
 #
 #: ../iw/partmethod_gui.py:34 ../textw/partmethod_text.py:32
@@ -4311,7 +4413,7 @@ msgstr "חלוקה _אוטומטית למחיצות"
 #
 #: ../iw/partmethod_gui.py:62
 msgid "Manually partition with _Disk Druid"
-msgstr ""
+msgstr "חלוקת מחיצות ידנית בעזרת _אשף הדיסקים"
 
 #
 #: ../iw/progress_gui.py:37
@@ -4325,6 +4427,10 @@ msgid ""
 "\n"
 "First create at least two partitions of type \"software RAID\", and then select the \"RAID\" option again."
 msgstr ""
+"ליצירת התקן RAID נדרשות לפחות שתי מחיצות RAID תכנה.\n"
+"\n"
+"ראשית, יש ליצור לפחות שתי מחיצות מסוג \"RAID בתכנה\" ואז לבחור מחדש "
+"את האפשרות \"RAID\"."
 
 #
 #: ../iw/raid_dialog_gui.py:332 ../iw/raid_dialog_gui.py:765
@@ -4336,7 +4442,7 @@ msgstr "יצירת התקן RAID"
 #: ../iw/raid_dialog_gui.py:335
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
-msgstr ""
+msgstr "עריכת התקן RAID:‏ ‎/dev/md%s"
 
 #
 #: ../iw/raid_dialog_gui.py:337 ../textw/partition_text.py:943
@@ -4351,17 +4457,17 @@ msgstr "התקן RAID:"
 #
 #: ../iw/raid_dialog_gui.py:411
 msgid "RAID _Level:"
-msgstr ""
+msgstr "_רמת RAID:"
 
 #
 #: ../iw/raid_dialog_gui.py:452
 msgid "_RAID Members:"
-msgstr ""
+msgstr "_מרכיבי ה-RAID:"
 
 #
 #: ../iw/raid_dialog_gui.py:469
 msgid "Number of _spares:"
-msgstr ""
+msgstr "מספר כונני הר_זרווה:"
 
 #
 #: ../iw/raid_dialog_gui.py:479
@@ -4408,7 +4514,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:615 ../iw/raid_dialog_gui.py:621
 #: ../iw/raid_dialog_gui.py:640
 msgid "Target Drive Error"
-msgstr ""
+msgstr "שגיאה בכונן היעד"
 
 #
 #: ../iw/raid_dialog_gui.py:616
@@ -4454,7 +4560,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"אזהרה! כל הנתונים בכונני המטרה ימחקו."
+"אזהרה! כל הנתונים בכונני היעד ימחקו."
 
 #
 #: ../iw/raid_dialog_gui.py:730
@@ -4765,7 +4871,7 @@ msgstr ""
 #
 #: ../iw/zipl_gui.py:90 ../textw/zipl_text.py:71
 msgid "Kernel Parameters"
-msgstr ""
+msgstr "פרמטרים ל-kernel"
 
 #
 #: ../iw/zipl_gui.py:93 ../iw/zipl_gui.py:96
@@ -4785,7 +4891,7 @@ msgstr "שימוש בתכנית האתחול GRUB"
 #
 #: ../textw/bootloader_text.py:43
 msgid "No Boot Loader"
-msgstr "ללא תכנית אתחול"
+msgstr "ללא מנהל אתחול"
 
 #
 #: ../textw/bootloader_text.py:63
@@ -4862,12 +4968,15 @@ msgstr ""
 #
 #: ../textw/bootloader_text.py:294
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
+msgstr " <Space> בחירה | <F2> ברירת מחדל | <F4> מחיקה | <F12> המסך הבא>"
 
 #
 #: ../textw/bootloader_text.py:390
 msgid "A boot loader password prevents users from passing arbitrary options to the kernel.  For highest security, you should set a password, but a password is not necessary for more casual users."
 msgstr ""
+"ססמת מנהל האתחול מונעת ממשתמשים העברה שרירותית של אפשרויות "
+"ל-kernel. לאבטחה מירבית, יש לקבוע ססמה. ניתן לוותר על ססמה "
+"במקרים פשוטים."
 
 #
 #: ../textw/bootloader_text.py:400
@@ -4911,7 +5020,7 @@ msgstr ""
 #
 #: ../textw/complete_text.py:33
 msgid "<Enter> to exit"
-msgstr "<Enter> כדי לצאת"
+msgstr "ליציאה יש להקיש <Enter>"
 
 #
 #: ../textw/complete_text.py:37
@@ -4955,7 +5064,7 @@ msgstr "נא לבחור את קבוצות החבילות שברצונך להתק
 #
 #: ../textw/grpselect_text.py:89
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
+msgstr "<Space>,<+>,<-> בחירה   |   <F2> פרטי הקבוצה   |   <F12> מסך הבא"
 
 #
 #: ../textw/grpselect_text.py:101
@@ -7096,7 +7205,7 @@ msgstr "‏<b>ססמה:</b>"
 #
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr "‏<b>_כתובת IP של המטרה:</b>"
+msgstr "‏<b>_כתובת IP של היעד:</b>"
 
 #
 #: tmp/iscsi-config.glade.h:3
@@ -7111,7 +7220,7 @@ msgstr "‏<b>שם מאתחל iSCSI:‏</b>"
 #
 #: tmp/iscsi-config.glade.h:7
 msgid "_Add target"
-msgstr "_הוספת מטרה"
+msgstr "_הוספת יעדד"
 
 #
 #: tmp/liveinst.desktop.in.h:1
@@ -7166,7 +7275,7 @@ msgstr "<b>כתובת IPv6:</b>"
 #
 #: tmp/netconfig.glade.h:5
 msgid "<b>Nameserver:</b>"
-msgstr ""
+msgstr "<b>שרת שמות:</b>"
 
 #
 #: tmp/netconfig.glade.h:6
@@ -8226,3 +8335,4 @@ msgstr "זולו"
 #
 #~ msgid "southwest Mali"
 #~ msgstr "דרום מערב מאלי"
+
