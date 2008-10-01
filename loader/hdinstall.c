@@ -168,7 +168,7 @@ char * mountHardDrive(struct installMethod * method,
 
     char **partition_list;
     char *selpart;
-    char *kspartition, *ksdirectory;
+    char *kspartition = NULL, *ksdirectory = NULL;
 
     /* handle kickstart/stage2= data first if available */
     if (loaderData->method == METHOD_HD && loaderData->stage2Data) {

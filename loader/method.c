@@ -509,9 +509,10 @@ void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
 
             ((struct nfsInstallData *)ld->stage2Data)->mountOpts = NULL;
             ((struct nfsInstallData *)ld->stage2Data)->host = strdup(c);
-            if ((c = strtok(NULL, ":"))) {
+            if ((c = strtok(NULL, ":")))
                 ((struct nfsInstallData *)ld->stage2Data)->directory = strdup(c);
-            }
+            else
+                ((struct nfsInstallData *)ld->stage2Data)->directory = NULL;
         } else if (!strncmp(arg, "ftp:", 4) || 
                    !strncmp(arg, "http:", 5)) {
             ld->method = METHOD_URL;
@@ -524,9 +525,10 @@ void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
             ld->method = METHOD_HD;
             ld->stage2Data = calloc(sizeof(struct hdInstallData *), 1);
             ((struct hdInstallData *)ld->stage2Data)->partition = strdup(c);
-            if ((c = strtok(NULL, ":"))) {
+            if ((c = strtok(NULL, ":")))
                 ((struct hdInstallData *)ld->stage2Data)->directory = strdup(c);
-            }
+            else
+                ((struct hdInstallData *)ld->stage2Data)->directory = NULL;
         }
     }
     free(dup);
