@@ -47,7 +47,7 @@ class InstallClass(BaseInstallClass):
 
     tasks = [(N_("Office and Productivity"), ["graphics", "office", "games"]),
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
-             (N_("Web server"), ["web-server"])]
+             (N_("Web Server"), ["web-server"])]
 
     bugFiler = BugzillaFiler(bugUrl="https://bugzilla.redhat.com/xmlrpc.cgi")
 
