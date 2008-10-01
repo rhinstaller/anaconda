@@ -260,7 +260,7 @@ class InstallData:
                 if m.count(":") == 3:
                     (part, fs, dir) = string.split(m[3:], ":")
                 else:
-                    (part, dir) = string.split(m[3:])
+                    (part, dir) = string.split(m[3:], ":")
 
                 f.write("harddrive --partition=%s --dir=%s\n" % (part, dir))
             elif m.startswith("nfs:"):
