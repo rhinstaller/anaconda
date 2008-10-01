@@ -208,6 +208,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 
 %changelog
 * Thu Oct 02 2008 Jeroen van Meeuwen <kanarip@kanarip.com> - 11.4.0.82-3
+- Fix auditd.c build errors
 - Apply patch to pkgorder from tcallaway
 
 * Sat May 10 2008 Jeroen van Meeuwen <kanarip@kanarip.com> - 11.4.0.82-2
