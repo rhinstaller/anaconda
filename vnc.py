@@ -36,6 +36,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
+stdoutLog = logging.getLogger("anaconda.stdout")
 
 class VncServer:
 
@@ -229,7 +230,7 @@ class VncServer:
         try:
             xvncp = subprocess.Popen(xvnccommand, stdout=self.openlogfile(), stderr=subprocess.STDOUT)
         except:
-            log.critical("Could not start the VNC server.  Aborting.")
+            stdoutLog.critical("Could not start the VNC server.  Aborting.")
             sys.exit(1)
 
         # Lets give the xvnc time to initialize
