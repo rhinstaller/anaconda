@@ -447,6 +447,9 @@ class Network:
         if not os.path.isdir("%s/etc/sysconfig/network-scripts" %(instPath,)):
             iutil.mkdirChain("%s/etc/sysconfig/network-scripts" %(instPath,))
 
+        if len(self.netdevices.values()) == 0:
+            return
+
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in self.netdevices.values():
             device = dev.get('DEVICE')
