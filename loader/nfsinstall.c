@@ -162,6 +162,12 @@ char * mountNfsImage(struct installMethod * method,
                  */
                 substr = strstr(directory, ".img");
                 if (!substr || (substr && *(substr+4) != '\0')) {
+                    if (asprintf(&(loaderData->instRepo), "nfs:%s:%s",
+                                 host, directory) == -1) {
+                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                        abort();
+                    }
+
                     if (asprintf(&tmp, "nfs:%s:%s/images/install.img",
                                  host, directory) == -1) {
                         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);

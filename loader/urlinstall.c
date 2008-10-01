@@ -231,6 +231,8 @@ char *mountUrlImage(struct installMethod *method, char *location,
                      */
                     substr = strstr(ui.prefix, ".img");
                     if (!substr || (substr && *(substr+4) != '\0')) {
+                        loaderData->instRepo = strdup(ui.prefix);
+
                         if (asprintf(&ui.prefix, "%s/images/install.img",
                                      ui.prefix) == -1) {
                             logMessage(CRITICAL, "%s: %d: %m", __func__,
