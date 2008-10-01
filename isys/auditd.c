@@ -44,7 +44,7 @@ static void sig_done(int sig)
 }
 
 static void do_auditd(int fd) {
-    struct auditd_reply_list *rep = NULL;
+    struct audit_reply rep;
     sigset_t sigs;
     struct sigaction sa;
     struct pollfd pds = {
@@ -74,10 +74,7 @@ static void do_auditd(int fd) {
         struct timespec timeout = { -1, -1 };
         int retval;
 
-        if (rep == NULL) {
-            if (!(rep = calloc(1, sizeof (*rep))))
-                return;
-        }
+        memset(&rep, 0, sizeof(rep));
 
         do {
             retval = ppoll(&pds, 1, &timeout, &sigs);
@@ -86,7 +83,7 @@ static void do_auditd(int fd) {
         if (done)
             break;
 
-        if (audit_get_reply(fd, &rep->reply, GET_REPLY_NONBLOCKING, 0) > 0) {
+        if (audit_get_reply(fd, &rep, GET_REPLY_NONBLOCKING, 0) > 0) {
             /* we don't actually want to do anything here. */
             ;
         }
