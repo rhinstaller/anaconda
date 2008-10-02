@@ -305,6 +305,7 @@ def writeForceConf():
 devices {
   sysfs_scan = 0
   md_component_detection = 1
+  md_chunk_alignment = 0
 }
 """)
 
