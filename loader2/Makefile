@@ -140,6 +140,9 @@ install: all
 	    install -m 755 $$n $(DESTDIR)/$(RUNTIMEDIR)/loader; \
 	done
 	if [ -f keymaps-$(ARCH) ]; then cp keymaps-$(ARCH) $(DESTDIR)/$(RUNTIMEDIR)/keymaps-override-$(ARCH) ; fi
+	if [ "$(ARCH)" = "sparc" -o "$(ARCH)" = "sparc64"]; then \
+		cp $(DESTDIR)/$(RUNTIMEDIR)/keymaps-override-sparc $(DESTDIR)/$(RUNTIMEDIR)/keymaps-override-sparc64 ; \
+	fi
 	install -m 644 unicode-linedraw-chars.txt $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 
