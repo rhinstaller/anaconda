@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.0.82
+Version: 11.4.0.83
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -212,6 +212,18 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 01 2008 David Cantrell <dcantrell@redhat.com> - 11.4.0.83-1
+- Require elftoaout and piggyback on sparc. (dcantrell)
+- Add screenfont-sparc.gz (dcantrell)
+- Add keymaps files for sparc and sparc64. (dcantrell)
+- Do not build on sparc64. (dcantrell)
+- Various sparc fixes. (dcantrell)
+- Fix build errors in auditd.c (kanarip)
+- Fix pkgorder for new yum in F-9 (tcallawa)
+- Make yumdownloader backwards compatible. (dcantrell)
+- Don't run lspci with an explicit path (katzj)
+- Include lspci on all images (#445974) (katzj)
+
 * Wed Oct  1 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 11.4.0.82-5
 - patch pkgorder to work with the latest f9 yum
 - include lspci on all images (katzj)
