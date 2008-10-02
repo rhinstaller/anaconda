@@ -254,7 +254,7 @@ class AnacondaYumRepo(YumRepository):
         if os.path.isdir(cachedir):
             if not self.needsNetwork() or repo.name == "Installation Repo":
                 shutil.rmtree(cachedir)
-            else self.needsNetwork():
+            else:
                 if os.path.exists("%s/headers" % cachedir):
                     shutil.rmtree("%s/headers" % cachedir)
                 if os.path.exists("%s/packages" % cachedir):
