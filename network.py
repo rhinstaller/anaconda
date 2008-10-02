@@ -226,6 +226,7 @@ class NetworkDevice(SimpleConfigFile):
 class Network:
     def __init__(self):
         self.netdevices = {}
+        self.ksdevice = None
         self.domains = []
         self.hostname = socket.gethostname()
         self.overrideDHCPhostname = False
@@ -337,6 +338,10 @@ class Network:
         return self.netdevices[device]
 
     def available(self):
+        ksdevice = None
+        if flags.cmdline.has_key('ksdevice'):
+            ksdevice = flags.cmdline['ksdevice']
+
         # XXX: this should use NetworkManager
         for device in minihal.get_devices_by_type("net"):
             if device.has_key('net.arp_proto_hw_id'):
@@ -344,14 +349,25 @@ class Network:
                     dev = device['device']
                     if not self.netdevices.has_key(dev):
                         self.netdevices[dev] = NetworkDevice(dev);
-                    self.netdevices[dev].set(('hwaddr', device['net.address']))
-                    self.netdevices[dev].set(('desc', device['description']))
+                    self.netdevices[dev].set(('HWADDR', device['net.address']))
+                    self.netdevices[dev].set(('DESC', device['description']))
 
-        ksdevice = None
-        if flags.cmdline.has_key("ksdevice"):
-            ksdevice = flags.cmdline["ksdevice"]
+                    if ksdevice == dev:
+                        self.ksdevice = dev
+                    elif ksdevice.find(':') != -1:
+                        if ksdevice.lower() == device['net.address'].lower():
+                            self.ksdevice = dev
 
         return self.netdevices
+
+    def getKSDevice(self):
+        if self.ksdevice is None:
+            return None
+
+        try:
+            return self.netdevices[self.ksdevice]
+        except:
+            return None
 
     def setHostname(self, hn):
         self.hostname = hn

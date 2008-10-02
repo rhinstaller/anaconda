@@ -97,6 +97,9 @@ class NetworkConfiguratorText:
         netdevs = self.anaconda.id.network.available()
         devs = netdevs.keys()
         devs.sort()
+        ksdevice = self.anaconda.id.network.getKSDevice().get('DEVICE')
+        selected_interface = None
+
         for dev in devs:
             desc = netdevs[dev].get("DESC")
             if desc:
@@ -104,7 +107,15 @@ class NetworkConfiguratorText:
             else:
                 desc = dev
 
+            if selected_interface is None:
+                selected_interface = desc
+
+            if ksdevice == dev:
+                selected_interface = desc
+
             self.interfaceList.append(desc)
+
+        self.interfaceList.setCurrent(selected_interface)
 
         grid.add(self.interfaceList, 0, 1, padding = (0, 0, 0, 1))
 
