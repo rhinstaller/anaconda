@@ -228,7 +228,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 * Sun Sep 28 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 11.4.0.82-2
 - fix sparc support (merge relevant changes from old Aurora)
 
- Tue May 06 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.82-1
+* Tue May 06 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.82-1
 - Look in the right place when ISO images are in a subdirectory
   (#443580). (clumens)
 - Don't crash when given URLs of the form ftp://user@host/path
