@@ -1924,6 +1924,11 @@ MAILADDR root
                 sys.exit(0)
 
         for entry in formatted:
+            if entry.device.crypto is not None:
+                crypto = entry.device.crypto
+                rawdev = crypto.getDevice(encrypted=True)
+                self.anaconda.id.partitions.encryptedDevices[rawdev] = crypto
+
             try:
                 self.labelEntry(entry, chroot)
             except SystemError:
