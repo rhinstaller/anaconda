@@ -310,9 +310,8 @@ class AnacondaKSHandlers(KickstartHandlers):
             except AttributeError:
                 passphrase = ""
 
-            if passphrase and \
-               not self.handler.anaconda.id.partitions.encryptionPassphrase:
-                self.anaconda.id.partitions.encryptionPassphrase = passphrase
+            if passphrase and not self.id.partitions.encryptionPassphrase:
+                self.id.partitions.encryptionPassphrase = passphrase
 
             request.encryption = cryptodev.LUKSDevice(passphrase=passphrase, format=lvd.format)
 
@@ -521,9 +520,8 @@ class AnacondaKSHandlers(KickstartHandlers):
             except AttributeError:
                 passphrase = ""
 
-            if passphrase and \
-               not self.handler.anaconda.id.partitions.encryptionPassphrase:
-                self.anaconda.id.partitions.encryptionPassphrase = passphrase
+            if passphrase and not self.id.partitions.encryptionPassphrase:
+                self.id.partitions.encryptionPassphrase = passphrase
 
             request.encryption = cryptodev.LUKSDevice(passphrase=passphrase, format=pd.format)
 
@@ -603,9 +601,8 @@ class AnacondaKSHandlers(KickstartHandlers):
             except AttributeError:
                 passphrase = ""
 
-            if passphrase and \
-               not self.handler.anaconda.id.partitions.encryptionPassphrase:
-                self.anaconda.id.partitions.encryptionPassphrase = passphrase
+            if passphrase and not self.id.partitions.encryptionPassphrase:
+                self.id.partitions.encryptionPassphrase = passphrase
 
             request.encryption = cryptodev.LUKSDevice(passphrase=passphrase, format=rd.format)
 
