@@ -771,7 +771,7 @@ for KERNELARCH in $arches; do
 	continue
     fi
 
-    yumdownloader -c $yumconf --archlist=$KERNELARCH $kpackage
+    yumdownloader -c $yumconf --archlist=$KERNELARCH $kpackage || yumdownloader -c $yumconf $kpackage
     kpackage="$kpackage.rpm"
     if [ ! -f "$kpackage" ]; then
 	echo "kernel ($kernelvers) doesn't exist for $KERNELARCH.  skipping"
