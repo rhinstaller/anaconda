@@ -1403,9 +1403,10 @@ class FileSystemSet:
         for entry in self.entries:
             if entry.mountpoint:
                 # use LABEL if the device has a label except for multipath
-                # devices.  always use devname on mpath devices
+                # devices and LUKS devices, which always use devname
                 if entry.getLabel() and \
-                   entry.device.getDevice().find('mpath') == -1:
+                   entry.device.getDevice().find('mpath') == -1 and \
+                   not entry.device.crypto:
                     device = "LABEL=%s" % (entry.getLabel(),)
                 else:
                     device = devify(entry.device.getDevice())
