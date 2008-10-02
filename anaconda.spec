@@ -129,7 +129,7 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Thu Oct 2 Joel Granados <jgranado@redhat.com> 11.1.2.134-1
+* Thu Oct 2 2008 Joel Granados <jgranado@redhat.com> 11.1.2.134-1
 - Fix traceback when using kickstart and device encryption (pjones).
   Resolves: rhbz:#461700
 - Fix traceback when using encryption with kickstart (pjones).
