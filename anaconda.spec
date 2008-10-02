@@ -89,6 +89,10 @@ Requires: e2fsprogs
 %ifarch %{ix86} x86_64 ia64
 Requires: dmidecode
 %endif
+%ifarch sparc sparcv9
+Requires: elftoaout
+Requires: piggyback
+%endif
 Requires: python-pyblock >= %{pythonpyblockver}
 Requires: libbdevid >= %{libbdevidver}
 Requires: libbdevid-python
