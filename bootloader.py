@@ -106,7 +106,7 @@ def writeBootloader(anaconda):
         isys.sync()
         isys.sync()
         isys.sync()
-        
+
     justConfigFile = not flags.setupFilesystems
 
     if anaconda.id.bootloader.defaultDevice == -1:
@@ -135,12 +135,24 @@ def writeBootloader(anaconda):
         rootDev = root.device.getDevice()
     else:
         rootDev = None
-    defaultDev = anaconda.id.bootloader.images.getDefault()
 
     kernelLabel = None
     kernelLongLabel = None
 
+    def rectifyLuksName(anaconda, name):
+        if name.startswith('mapper/luks-'):
+            try:
+                newname = anaconda.id.partitions.encryptedDevices.get(name[12:])
+                name = newname.getDevice()
+            except:
+                pass
+        return name
+
+    defaultDev = anaconda.id.bootloader.images.getDefault()
+    defaultDev = rectifyLuksName(anaconda, defaultDev)
+
     for (dev, (label, longlabel, type)) in anaconda.id.bootloader.images.getImages().items():
+        dev = rectifyLuksName(anaconda, dev)
         if (dev == rootDev) or (rootDev is None and kernelLabel is None):
 	    kernelLabel = label
             kernelLongLabel = longlabel
