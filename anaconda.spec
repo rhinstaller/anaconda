@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.40
+Version: 11.4.1.41
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,56 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 01 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.41-1
+- Fix text inconsistency (#465165). (clumens)
+- If there's an error running Xvnc, also print it to the console. (clumens)
+- Set the installation repo when using the askmethod UI (#463472). (clumens)
+- Fix a segfault when the wrong HDISO repo parameter is given. (clumens)
+- Remove the 'Installation Repo' cache directory after install (#464853).
+  (clumens)
+- If there aren't any usable NICs, don't write out a config (#465127).
+  (clumens)
+- It helps to specify what the method string should be split on (#464855).
+  (clumens)
+- Gateway and nameserver are optional for static network configuration.
+  (dcantrell)
+- Store nameserver in NetworkDevice object. (dcantrell)
+- Fix a traceback calling enableNetwork (#464849). (clumens)
+- Enable groups when creating new repos since yum doesn't do that now.
+  (clumens)
+- Update FQDN patch to fix a couple tracebacks (#464191). (clumens)
+- Fix static network configuration from boot.iso installs. (dcantrell)
+- Use all caps naming for the netdev keys. (dcantrell)
+- Left justify text in ui/netconfig.glade interface. (dcantrell)
+- Use the right attribute for repo URLs. (clumens)
+- Use fullscreen for small screens (#444943) (katzj)
+- Another try at fixing up reading errors from mount. (clumens)
+- Don't traceback if no baseurl has been set yet. (clumens)
+- Allow users to enter a hostname or FQDN during installation (#464191)
+  (dcantrell)
+- Whitespace cleanups. (dcantrell)
+- Fix mk-s390-cdboot on s390x (#184648) (dcantrell)
+- Run all text through unicode() before putting it into the TextBuffer.
+  (clumens)
+- Add reverse chap iscsi bits for kickstart (hans)
+- Properly center the passphrase entry dialog. (clumens)
+- Fix test for an empty hostname. (clumens)
+- Support installs to SD via MMC (#461884) (katzj)
+- Set ANACONDA_PRODUCTNAME, etc from /etc/system-release (#464120) (alsadi)
+- Reduce code duplication by moving methods into backend (katzj)
+- Select packages after repos are set up (#457583) (katzj)
+- Add a basic reset method (katzj)
+- Cleanups and simplifications to repo setup (clumens) (katzj)
+- Revert "Revert "lang-names should really only depend on lang-table""
+  (katzj)
+- Fix lang-name generation + fix traceback with LANG=C (katzj)
+- Allow going back to the method selection screen on error (#463473).
+  (clumens)
+- Make the boot loader device dialog less ugly (#463489). (clumens)
+- Look in images/ for install.img on HDISO (#463474). (clumens)
+- Sort Installation Repo to the top of the repo list. (clumens)
+- Fuzzy string to fix translation build (katzj)
+
 * Wed Sep 24 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.40-1
 - Fix network interface bring up in text mode (#463861, #462592) (dcantrell)
 - Bring back isys.resetResolv() and fix NetworkManager polling in
