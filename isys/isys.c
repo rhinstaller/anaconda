@@ -131,6 +131,7 @@ static PyObject * doPrefixToNetmask(PyObject *s, PyObject *args);
 static PyObject * doGetBlkidData(PyObject * s, PyObject * args);
 static PyObject * doGetDeviceByToken(PyObject *s, PyObject *args);
 static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args);
+static PyObject * doGetLinkStatus(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -177,6 +178,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "getblkid", (PyCFunction) doGetBlkidData, METH_VARARGS, NULL },
     { "getdevicebytoken", (PyCFunction) doGetDeviceByToken, METH_VARARGS, NULL },
     { "isCapsLockEnabled", (PyCFunction) doIsCapsLockEnabled, METH_VARARGS, NULL },
+    { "getLinkStatus", (PyCFunction) doGetLinkStatus, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
 
@@ -914,6 +916,20 @@ static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args) {
     }
 
     return PyBool_FromLong(state.locked_mods & LockMask);
+}
+
+static PyObject * doGetLinkStatus(PyObject * s, PyObject * args) {
+    char *dev = NULL;
+
+    if (!PyArg_ParseTuple(args, "s", &dev)) {
+        return NULL;
+    }
+
+    if (get_link_status(dev) == 1) {
+        return PyBool_FromLong(1);
+    }
+
+    return PyBool_FromLong(0);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */

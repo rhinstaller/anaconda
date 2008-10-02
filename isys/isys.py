@@ -1056,6 +1056,9 @@ def isPaeAvailable():
 
     return isPAE
 
+def getLinkStatus(dev):
+    return _isys.getLinkStatus(dev)
+
 auditDaemon = _isys.auditdaemon
 
 handleSegv = _isys.handleSegv

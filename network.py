@@ -352,7 +352,9 @@ class Network:
                     self.netdevices[dev].set(('HWADDR', device['net.address']))
                     self.netdevices[dev].set(('DESC', device['description']))
 
-                    if ksdevice == dev:
+                    if ksdevice == 'link' and isys.getLinkStatus(dev):
+                        self.ksdevice = dev
+                    elif ksdevice == dev:
                         self.ksdevice = dev
                     elif ksdevice.find(':') != -1:
                         if ksdevice.lower() == device['net.address'].lower():
