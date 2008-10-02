@@ -265,6 +265,15 @@ class Partitions:
                         ptype = fsset.fileSystemTypeGet("foreign")
 
                 device = partedUtils.get_partition_name(part)
+
+                # parted doesn't tell ext4/ext4dev from ext3 for us
+                if ptype == fsset.fileSystemTypeGet("ext3"): 
+                    fsname = partedUtils.sniffFilesystemType("/dev/%s" % device)
+                    try:
+                        ptype = fsset.fileSystemTypeGet(fsname)
+                    except:
+                        ptype = fsset.fileSystemTypeGet("foreign")
+
                 luksDev = self.encryptedDevices.get(device)
                 if luksDev and not luksDev.openDevice():
                     mappedDev = luksDev.getDevice()
