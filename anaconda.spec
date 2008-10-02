@@ -11,6 +11,7 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 Source0: anaconda-%{version}.tar.bz2
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+ExcludeArch: sparc64
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
