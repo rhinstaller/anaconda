@@ -34,10 +34,43 @@
 
 static int mkdirIfNone(char * directory);
 
+static int readFD(int fd, char **buf) {
+    char *p;
+    size_t size = 4096;
+    int s, filesize = 0;
+
+    *buf = calloc(4096, sizeof (char));
+    if (*buf == NULL)
+        abort();
+
+    do {
+        p = &(*buf)[filesize];
+        s = read(fd, p, 4096);
+        if (s < 0)
+            break;
+
+        filesize += s;
+        if (s == 0)
+           break;
+
+        size += s;
+        *buf = realloc(*buf, size);
+        if (*buf == NULL)
+            abort();
+    } while (1);
+
+    if (filesize == 0 && s < 0) {
+        free(*buf);
+        *buf = NULL;
+        return -1;
+    }
+
+    return filesize;
+}
+
 int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
-    int i = 0, rc, child, status, pipefd[2];
+    int rc, child, status, pipefd[2];
     char *opts = NULL, *device;
-    char buf[4096];
 
     if (mkdirChain(where))
         return IMOUNT_ERR_ERRNO;
@@ -111,25 +144,8 @@ int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
 
     close(pipefd[1]);
 
-    if (err != NULL) {
-        if (*err && **err) {
-            free(*err);
-            *err = NULL;
-        }
-
-        memset(buf, '\0', 4096);
-
-        while ((rc = read(pipefd[0], &buf, 4096)) > 1) {
-            i += rc + 1;
-
-            if ((*err = realloc(*err, i)) == NULL) {
-                abort();
-            }
-
-            *err = strncat(*err, buf, rc);
-            memset(buf, '\0', 4096);
-        }
-    }
+    if (err != NULL)
+        rc = readFD(pipefd[0], err);
 
     close(pipefd[0]);
     waitpid(child, &status, 0);
