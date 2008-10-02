@@ -208,7 +208,23 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Tue May 06 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.82-1
+* Wed Oct  1 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 11.4.0.82-5
+- patch pkgorder to work with the latest f9 yum
+- include lspci on all images (katzj)
+- don't run lspci with an explicit path (katzj)
+- update oriya translation (mgiri)
+- fallback to the old yumdownloader if the new one isn't found (kanarip)
+
+* Wed Oct  1 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 11.4.0.82-4
+- don't use ".sparc" suffix for patch, confuses during %%install
+
+* Wed Oct  1 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 11.4.0.82-3
+- ExcludeArch: sparc64
+
+* Sun Sep 28 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 11.4.0.82-2
+- fix sparc support (merge relevant changes from old Aurora)
+
+ Tue May 06 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.82-1
 - Look in the right place when ISO images are in a subdirectory
   (#443580). (clumens)
 - Don't crash when given URLs of the form ftp://user@host/path
