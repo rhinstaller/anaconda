@@ -140,6 +140,10 @@ int earlyModuleLoad(int justProbe) {
 }
 
 int busProbe(int justProbe) {
+    /* this is a hack since we can't really probe for the old Sun mouse */
+#ifdef __sparc__
+    mlLoadModuleSet("sermouse");
+#endif
     /* autodetect whatever we can */
     if (justProbe)
         return 0;

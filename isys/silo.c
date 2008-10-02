@@ -20,10 +20,10 @@
  * Author(s): Jakub Jelinek <jakub@redhat.com>
  */
 
-#define _GNU_SOURCE
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
@@ -55,6 +55,7 @@ static char buf[4096];
 static char regstr[40];
 #define DECL_OP(size) struct openpromio *op = (struct openpromio *)buf; op->oprom_size = (size)
 
+/*
 static int
 prom_setcur(int node) {
     DECL_OP(sizeof(int));
@@ -66,6 +67,7 @@ prom_setcur(int node) {
     prom_current_node = *(int *)op->oprom_array;
     return *(int *)op->oprom_array;
 }
+*/
 
 static int
 prom_getsibling(int node) {
@@ -122,6 +124,7 @@ prom_setopt(char *var, char *value) {
     ioctl (promfd, OPROMSETOPT, op);
 }
 
+/*
 static int
 prom_getbool(char *prop) {
     DECL_OP(0);
@@ -137,6 +140,7 @@ prom_getbool(char *prop) {
                 return 1;
     }
 }
+*/
 
 static int
 prom_pci2node(int bus, int devfn) {
@@ -150,6 +154,7 @@ prom_pci2node(int bus, int devfn) {
     return *(int *)op->oprom_array;
 }
 
+/*
 static int
 prom_path2node(char *path) {
     DECL_OP(MAX_VAL);
@@ -160,6 +165,7 @@ prom_path2node(char *path) {
     prom_current_node = *(int *)op->oprom_array;
     return *(int *)op->oprom_array;
 }
+*/
 
 #define PW_TYPE_SBUS	1
 #define PW_TYPE_PCI	2
@@ -253,7 +259,7 @@ prom_init(int mode) {
 static struct sdsk_disk {
     unsigned int prom_node;
     unsigned int type, host, hi, mid, lo;
-    unsigned char *prom_name;
+    char *prom_name;
 } *hd = NULL, *sd = NULL;
 static int hdlen, sdlen;
 
@@ -745,8 +751,8 @@ int main(void) {
 
 static PyObject *disk2PromPath (PyObject *, PyObject *);
 static PyObject *zeroBasedPart (PyObject *, PyObject *);
-static PyObject *hasAliases (void);
-static PyObject *promRootName (void);
+static PyObject *hasAliases (PyObject *, PyObject *);
+static PyObject *promRootName (PyObject *, PyObject *);
 static PyObject *setPromVars (PyObject *, PyObject *);
 
 static PyMethodDef _siloMethods[] = {
@@ -773,7 +779,7 @@ init_silo ()
 static PyObject *
 disk2PromPath (PyObject *self, PyObject *args)
 {
-    unsigned char *disk, prompath[1024];
+    char *disk, prompath[1024];
     int diskno = -1, part;
 
     if (!PyArg_ParseTuple (args, "s", &disk))
@@ -818,13 +824,130 @@ disk2PromPath (PyObject *self, PyObject *args)
     return Py_BuildValue ("s", prompath);
 }
 
-#include "../balkan/balkan.h"
-#include "../balkan/sun.h"
+#define SUN_DISK_MAGIC		0xDABE	/* Disk magic number */
+#define WHOLE_DISK		5
+#define UFS_SUPER_MAGIC		0x00011954
+
+#define be16_to_cpu(x) x
+#define be32_to_cpu(x) x
+#define be64_to_cpu(x) x
+
+#define swab32(x) \
+	((uint32_t)( \
+		(((uint32_t)(x) & (uint32_t)0x000000ffUL) << 24) | \
+		(((uint32_t)(x) & (uint32_t)0x0000ff00UL) <<  8) | \
+		(((uint32_t)(x) & (uint32_t)0x00ff0000UL) >>  8) | \
+		(((uint32_t)(x) & (uint32_t)0xff000000UL) >> 24) ))
+
+struct partition {
+    long startSector;
+    long size;		/* in sectors */
+    int type;		/* -1 for "not used" */
+};
+
+struct partitionTable {
+    int allocationUnit;		/* in sectors */
+    int maxNumPartitions;
+    int sectorSize;
+    struct partition parts[50];
+};
+
+struct singlePartitionTable {
+    unsigned char info[128];	/* Informative text string */
+    unsigned char spare0[14];
+    struct sun_info {
+	unsigned char spare1;
+	unsigned char id;
+	unsigned char spare2;
+	unsigned char flags;
+    } infos[8];
+    unsigned char spare1[246];	/* Boot information etc. */
+    unsigned short rspeed;	/* Disk rotational speed */
+    unsigned short pcylcount;	/* Physical cylinder count */
+    unsigned short sparecyl;	/* extra sects per cylinder */
+    unsigned char spare2[4];	/* More magic... */
+    unsigned short ilfact;	/* Interleave factor */
+    unsigned short ncyl;	/* Data cylinder count */
+    unsigned short nacyl;	/* Alt. cylinder count */
+    unsigned short ntrks;	/* Tracks per cylinder */
+    unsigned short nsect;	/* Sectors per track */
+    unsigned char spare3[4];	/* Even more magic... */
+    struct sun_partition {
+	unsigned int start_cylinder;
+	unsigned int num_sectors;
+    } parts[8];
+    unsigned short magic;	/* Magic number */
+    unsigned short csum;	/* Label xor'd checksum */
+};
+
+long long llseek(int fd, long long offset, int whence);
+
+int sunpReadTable(int fd, struct partitionTable * table) {
+    struct singlePartitionTable singleTable;
+    int i, magic;
+    unsigned short *p, csum;
+
+    table->maxNumPartitions = 8;
+
+    for (i = 0; i < table->maxNumPartitions; i++)
+       table->parts[i].type = -1;
+
+    table->sectorSize = 512;
+
+    if (lseek(fd, 0, SEEK_SET) < 0)
+        return 1;
+    
+    if (read(fd, &singleTable, sizeof(singleTable)) != sizeof(singleTable))
+       return 1;
+
+    if (be16_to_cpu(singleTable.magic) != SUN_DISK_MAGIC)
+       return 2;
+    
+    for (p = (unsigned short *)&singleTable, csum = 0; p < (unsigned short *)(&singleTable+1);)
+       csum ^= *p++;
+
+    if (csum)
+	return 2;
+       
+    for (i = 0; i < 8; i++) {
+       if (!singleTable.parts[i].num_sectors) continue;
+
+       table->parts[i].startSector =
+           be32_to_cpu(singleTable.parts[i].start_cylinder) * be16_to_cpu(singleTable.nsect) * be16_to_cpu(singleTable.ntrks);
+       table->parts[i].size =
+	    be32_to_cpu(singleTable.parts[i].num_sectors);
+       table->parts[i].type = singleTable.infos[i].id;
+    }
+       
+    for (i = 0; i < 8; i++) {
+ 	if (table->parts[i].type == -1) continue;
+       
+       switch (table->parts[i].type) {
+         case 0x83:
+	    table->parts[i].type = 2;
+           break;
+       
+         case 0x82:
+           table->parts[i].type = 5;
+	    break;
+       
+         default:
+           if (table->parts[i].type != WHOLE_DISK && llseek(fd, (8192 + 0x55c + 512 * (unsigned long long)table->parts[i].startSector), SEEK_SET) >= 0 && read(fd, &magic, 4) && (magic == UFS_SUPER_MAGIC || swab32(magic) == UFS_SUPER_MAGIC))
+               table->parts[i].type = 6;
+           else
+               table->parts[i].type = 3;
+           break;
+       }
+    }
+
+    return 0;
+}
+
 
 static PyObject *
 zeroBasedPart (PyObject *self, PyObject *args)
 {
-    unsigned char *disk;
+    char *disk;
     int part = 3, fd, i;
     struct partitionTable table;
 
@@ -851,13 +974,13 @@ zeroBasedPart (PyObject *self, PyObject *args)
 }
 
 static PyObject *
-hasAliases (void)
+hasAliases (PyObject *self, PyObject *args)
 {
     return Py_BuildValue ("i", hasaliases);
 }
 
 static PyObject *
-promRootName (void)
+promRootName (PyObject *self, PyObject *args)
 {
     return Py_BuildValue ("s", prom_root_name ? prom_root_name : "");
 }

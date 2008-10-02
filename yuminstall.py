@@ -1205,6 +1205,8 @@ class YumBackend(AnacondaBackend):
         # XXX this needs to become grub, and we need an upgrade path...
         elif rhpl.getArch() == "ia64":
             self.selectPackage("elilo")
+        elif rhpl.getArch() in ("sparc", "sparc64"):
+            self.selectPackage("silo")
 
     def selectFSPackages(self, fsset, diskset):
         for entry in fsset.entries:

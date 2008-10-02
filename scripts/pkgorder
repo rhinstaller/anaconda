@@ -70,6 +70,9 @@ class PackageOrderer(yum.YumBase):
         self.repos.setCache(0) 
         self.doRepoSetup()
 
+# We have to hack this in here, otherwise, we won't get sparc64v, sparcv9v
+        if arch.startswith("sparc64"):
+            self.arch = "sparc64v" 
         self.doSackSetup(rpmUtils.arch.getArchList(self.arch))
         self.doTsSetup()
         self.doGroupSetup()

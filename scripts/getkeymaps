@@ -45,11 +45,7 @@ TMP=${TMPDIR:-/tmp}/keymaps.$$
 rm -rf $TMP
 mkdir -p $TMP
 
-if [ $ARCH = "sparc" ]; then
-    PATTERN={i386,sun}
-else
-    PATTERN=i386
-fi
+PATTERN=i386
 
 MAPS=$(python -c "import rhpl.keyboard_models ; rhpl.keyboard_models.get_supported_models()")
 

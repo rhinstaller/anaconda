@@ -198,6 +198,10 @@ if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
     PACKAGES="$PACKAGES pcmciautils pdisk yaboot hfsutils"
 fi
 
+if [ $ARCH = sparc -o $ARCH = sparc64 ]; then
+    PACKAGES="$PACKAGES silo"
+fi
+
 # xpm is missing
 
 # Some packages are listed twice, but that's okay

@@ -69,7 +69,7 @@ _isys.so: isys.lo $(SOBJECTS)
 	gcc -shared -g -fPIC -o $@ isys.lo $(SOBJECTS) $(LOADLIBES) $(LDFLAGS)
 
 _silo.so: silo.c
-	gcc -shared $(CFLAGS) -fpic -o $@ silo.c ../balkan/libbalkan.a
+	gcc -shared $(CFLAGS) -fpic -o $@ silo.c
 
 libisys.a: libisys.a($(OBJECTS))
 
