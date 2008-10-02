@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.133
+Version: 11.1.2.134
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -129,6 +129,14 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 2 Joel Granados <jgranado@redhat.com> 11.1.2.134-1
+- Fix traceback when using kickstart and device encryption (pjones).
+  Resolves: rhbz:#461700
+- Fix traceback when using encryption with kickstart (pjones).
+  Resovles: rhbz:#461700
+- Fix ext4/ext4dev detection on existing partitions (rvykydal).
+  Resolves: rhbz:#465248
+
 * Tue Sep 30 2008 Joel Granados <jgranado@redhat.com> 11.1.2.133-1
 - Set a label on /etc/sysconfig/keyboard (clumens).
   Resolves: rhbz:#463785
