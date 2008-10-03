@@ -2230,7 +2230,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 		break;
 	    }
 	    else{
-                logMessage(DEBUG, "%s (%s) is not it...", devices[i], devmacaddr);
+                logMessage(DEBUGLVL, "%s (%s) is not it...", devices[i], devmacaddr);
 		free(devmacaddr);
 	    }
 	}
