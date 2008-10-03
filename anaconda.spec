@@ -1,6 +1,6 @@
 Name: anaconda
 Version: 11.1.2.136
-Release: 1
+Release: 2
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -129,8 +129,13 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 3 2008 Joel Granados <jgranado@redhat.com> 11.1.2.136-2
+- Fix build.
+  Related: rhbz:#445721
+
 * Fri Oct 3 2008 Joel Granados <jgranado@redhat.com> 11.1.2.136-1
 - Rebuild to make brew happy.
+  Related: rhbz:#445721
 
 * Fri Oct 3 2008 Joel Granados <jgranado@redhat.com> 11.1.2.135-1
 - iBFT has MAC addresses with wrong case, use strcasecmp to compare them (msivak).
