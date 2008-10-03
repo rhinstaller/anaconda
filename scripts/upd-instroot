@@ -157,7 +157,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
 	dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme
 	elfutils-libelf expat firstboot fontconfig fonts-arabic fonts-bengali
 	fonts-chinese fonts-gujarati fonts-hindi fonts-indic fonts-ISO8859-2
-	fonts-kannada fonts-malayalam fonts-oriya fonts-punjabi
+	fonts-kannada fonts-oriya fonts-punjabi
 	fonts-sinhala fonts-tamil fonts-telugu freetype gail gdk-pixbuf
 	gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
 	gnome-python2-gtkhtml2 gnome-themes gpm gtk2 gtk2-engines gtkhtml2 hal
@@ -178,7 +178,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
 	python-elementtree python-libs python-pyblock python-sqlite
 	python-urlgrabber pyxf86config raidtools readline redhat-artwork
 	reiserfs-utils rhpl rpm rpm-libs rpm-python sed selinux-policy-targeted
-	setup slang specspo sqlite synaptics system-config-date
+	setup slang smc-fonts-meera specspo sqlite synaptics system-config-date
 	system-config-keyboard system-logos system-release taipeifonts
 	tcp_wrappers ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-ja ttfonts-ko
 	ttfonts-pa ttfonts-ta ttfonts-zh_CN ttfonts-zh_TW tzdata udev
@@ -563,7 +563,6 @@ usr/share/fonts/*/lohit_bn.ttf
 usr/share/fonts/*/lohit_gu.ttf
 usr/share/fonts/*/lohit_hi.ttf
 usr/share/fonts/*/lohit_kn.ttf
-usr/share/fonts/*/lohit_ml.ttf
 usr/share/fonts/*/lohit_or.ttf
 usr/share/fonts/*/lohit_pa.ttf
 usr/share/fonts/*/lohit_ta.ttf
@@ -576,6 +575,7 @@ usr/share/fonts/dejavu/DejaVuSansMono.ttf
 usr/share/fonts/kacst/KacstFarsi.ttf
 usr/share/fonts/kacst/KacstQura.ttf
 usr/share/fonts/un-core/UnDotum.ttf
+usr/share/fonts/smc/Meera*.ttf
 usr/share/hal
 usr/share/hwdata/MonitorsDB
 usr/share/hwdata/pci.ids
