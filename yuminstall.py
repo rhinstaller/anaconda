@@ -570,7 +570,7 @@ class AnacondaYum(YumSorter):
                        syslog_facility=None):
         pass
 
-    def doConfigSetup(self, fn='/etc/yum.conf', root='/'):
+    def doConfigSetup(self, fn='/tmp/anaconda-yum.conf', root='/'):
         YumSorter._getConfig(self, fn=fn, root=root,
                              enabled_plugins=["whiteout", "blacklist"])
         self.configBaseRepo(root=root)
@@ -924,7 +924,7 @@ plugins=1
 reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d
 """ % (anaconda.rootPath)
 
-        fd = open("/etc/yum.conf", "w")
+        fd = open("/tmp/anaconda-yum.conf", "w")
         fd.write(buf)
         fd.close()
 
