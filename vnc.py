@@ -108,14 +108,14 @@ class VncServer:
         dev = devices[list[0]]
 
         try:
-            self.ip = isys.getIPAddress(dev)
-            log.info("ip of %s is %s" % (dev, self.ip))
+            self.ip = isys.getIPAddress(dev.get("DEVICE"))
+            log.info("ip of %s is %s" % (dev.get("DEVICE"), self.ip))
 
             if self.ip == "127.0.0.1" or self.ip == "::1":
                 self.ip = None
         except Exception, e:
             log.warning("Got an exception trying to get the self.ip addr "
-                        "of %s: %s" % (dev, e))
+                        "of %s: %s" % (dev.get("DEVICE"), e))
 
         # If we have a real hostname that resolves against configured DNS
         # servers, use that for the name to connect to.
