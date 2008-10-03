@@ -88,19 +88,17 @@ rm -rf $RPM_BUILD_ROOT
 CATALOG=/etc/xml/catalog
 /usr/bin/xmlcatalog --noout --add "rewriteSystem" \
     "comps.dtd" \
-    "/usr/share/xml/comps/1.0/comps.dtd" $CATALOG
+    "/usr/share/xml/comps/1.0/comps.dtd" $CATALOG || :
 /usr/bin/xmlcatalog --noout --add "rewriteURI" \
     "comps.dtd" \
-    "/usr/share/xml/comps/1.0/comps.dtd" $CATALOG
-|| :
+    "/usr/share/xml/comps/1.0/comps.dtd" $CATALOG || :
 
 %postun runtime
 if [ $1 = 0 ]; then
     CATALOG=/etc/xml/catalog
     /usr/bin/xmlcatalog --noout --del \
-        "/usr/share/xml/comps/1.0/comps.dtd" $CATALOG
+        "/usr/share/xml/comps/1.0/comps.dtd" $CATALOG || :
 fi
-|| :
 
 %files
 %defattr(-,root,root)
