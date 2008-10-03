@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.134
+Version: 11.1.2.135
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -129,11 +129,23 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 3 2008 Joel Granados <jgranado@redhat.com> 11.1.2.135-1
+- iBFT has MAC addresses with wrong case, use strcasecmp to compare them (msivak).
+  Resolves: rhbz:#445721
+- Look up correct luks name before trying to decide on our boot device (pjones).
+  Resolves: rhbz:#464769
+- Add new LUKS devices to partitions.encryptedDevices (dlehman).
+  Resolves: rhbz:#464769
+- Add a workaround for lvm-on-raid size miscomputation (clumens).
+  Resolves: rhbz:#463431
+- Do not use labels to specifiy LUKS devices in /etc/fstab (dlehman).
+  Resolves: rhbz:#461702
+
 * Thu Oct 2 2008 Joel Granados <jgranado@redhat.com> 11.1.2.134-1
 - Fix traceback when using kickstart and device encryption (pjones).
   Resolves: rhbz:#461700
 - Fix traceback when using encryption with kickstart (pjones).
-  Resovles: rhbz:#461700
+  Resolves: rhbz:#461700
 - Fix ext4/ext4dev detection on existing partitions (rvykydal).
   Resolves: rhbz:#465248
 
