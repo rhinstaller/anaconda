@@ -430,9 +430,9 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                 logMessage(INFO, "iBFT is not present or is configured to use DHCP");
 	    }
 	    /* MAC address doesn't match */
-	    else if(strcmp(ibft_iface_mac(), devmacaddr)){
+	    else if(strcasecmp(ibft_iface_mac(), devmacaddr)){
 		configMode = USE_DHCP;
-                logMessage(INFO, "iBFT doesn't know whit NIC to use - falling back to DHCP");
+                logMessage(INFO, "iBFT doesn't know what NIC to use - falling back to DHCP");
 	    }
 
 	    if(devmacaddr) free(devmacaddr);
@@ -2215,7 +2215,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 	    if (!devs[i]->device)
 		continue;
             devmacaddr = nl_mac2str(devs[i]->device);
-	    if(!strcmp(devmacaddr, ibftmacaddr)){
+	    if(!strcasecmp(devmacaddr, ibftmacaddr)){
                 logMessage(INFO, "%s has the right MAC (%s), checking for link", devmacaddr, devices[i]);
 		free(devmacaddr);
 		if(get_link_status(devices[i]) == 1){
@@ -2230,6 +2230,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 		break;
 	    }
 	    else{
+                logMessage(DEBUG, "%s (%s) is not it...", devices[i], devmacaddr);
 		free(devmacaddr);
 	    }
 	}
