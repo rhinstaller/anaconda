@@ -69,7 +69,6 @@ def startMiniWM(root='/'):
 # function to handle X startup special issues for anaconda
 def doStartupX11Actions(runres="800x600"):
     global miniwm_pid
-    import gtk
 
     if not flags.test and flags.setupFilesystems:
         setupGraphicalLinks()
@@ -79,8 +78,6 @@ def doStartupX11Actions(runres="800x600"):
 	miniwm_pid = startMiniWM()
 	log.info("Started mini-wm")
 
-        i = gtk.Invisible()
-        i.selection_owner_set("_ANACONDA_MINI_WM_RUNNING")
     except:
 	miniwm_pid = None
 	log.error("Unable to start mini-wm")
@@ -89,8 +86,7 @@ def doStartupX11Actions(runres="800x600"):
     # we open and close an X connection in the xutils calls
     # the X server will exit since this is the first X
     # connection (if miniwm isnt running)
-    current_res = "%sx%s" %(gtk.gdk.screen_width(), gtk.gdk.screen_height())
-    if runres != current_res and miniwm_pid is not None:
+    if miniwm_pid is not None:
         try:
             isys.vtActivate(6)
             iutil.execWithRedirect("xrandr", ["-s", runres], searchPath=1,
@@ -102,8 +98,12 @@ def doStartupX11Actions(runres="800x600"):
 
     if miniwm_pid is not None:
 	import xutils
+	import gtk
 
 	try:
+	    i = gtk.Invisible()
+	    i.selection_owner_set("_ANACONDA_MINI_WM_RUNNING")
+
 	    xutils.setRootResource('Xcursor.size', '24')
 	    xutils.setRootResource('Xcursor.theme', 'Bluecurve')
 	    xutils.setRootResource('Xcursor.theme_core', 'true')
