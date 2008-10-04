@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.42
+Version: 11.4.1.43
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,20 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 03 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.43-1
+- Disable IPv6 interface widgets in loader for now. (dcantrell)
+- Start NetworkManager earlier (#462083) (hans)
+- Work around gtk2 bug (#465541) (hans)
+- Move our yum.conf out of /etc (#465160) (katzj)
+- Correctly display the IP address a vnc viewer should connect to (#465353).
+  (clumens)
+- lohit-fonts-malayam has been replaced by smc-fonts-meera (#456449).
+  (clumens)
+- Fix a typo in cleaning up repos. (clumens)
+- Fix the mount error reading for real this time (pjones, #465250). (clumens)
+- Support ksdevice=link when booting from boot.iso. (dcantrell)
+- Automatically select NIC based on ksdevice= boot parameter. (dcantrell)
+
 * Wed Oct 01 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.42-1
 - Revert "Finally controlled the plural issue at #508  in Japanese"
   (dcantrell)
