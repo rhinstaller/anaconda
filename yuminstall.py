@@ -252,7 +252,7 @@ class AnacondaYumRepo(YumRepository):
         cachedir = self.getAttribute('cachedir')
 
         if os.path.isdir(cachedir):
-            if not self.needsNetwork() or repo.name == "Installation Repo":
+            if not self.needsNetwork() or self.name == "Installation Repo":
                 shutil.rmtree(cachedir)
             else:
                 if os.path.exists("%s/headers" % cachedir):
