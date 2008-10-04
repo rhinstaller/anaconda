@@ -816,6 +816,7 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
         flags |= LOADER_FLAGS_IP_PARAM;
 }
 
+#ifdef ENABLE_IPV6
 /*
  * parse anaconda ipv6= arguments
  */
@@ -840,6 +841,7 @@ static void parseCmdLineIpv6(struct loaderData_s * loaderData, char *argv)
 
     return;
 }
+#endif
 
 /* parses /proc/cmdline for any arguments which are important to us.  
  * NOTE: in test mode, can specify a cmdline with --cmdline
@@ -926,8 +928,10 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_SERIAL;
         else if (!strcasecmp(argv[i], "noipv4"))
             flags |= LOADER_FLAGS_NOIPV4;
+#ifdef ENABLE_IPV6
         else if (!strcasecmp(argv[i], "noipv6"))
             flags |= LOADER_FLAGS_NOIPV6;
+#endif
         else if (!strcasecmp(argv[i], "kssendmac"))
             flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
         /* deprecated hardware bits */
@@ -1012,8 +1016,10 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->hostname = strdup(argv[i] + 9);
         else if (!strncasecmp(argv[i], "ip=", 3))
             parseCmdLineIp(loaderData, argv[i]);
+#ifdef ENABLE_IPV6
         else if (!strncasecmp(argv[i], "ipv6=", 5))
             parseCmdLineIpv6(loaderData, argv[i]);
+#endif
         else if (!strncasecmp(argv[i], "netmask=", 8)) 
             loaderData->netmask = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "gateway=", 8))
@@ -1464,10 +1470,14 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
                 if (FL_HAVE_CMSCONF(flags)) {
                     loaderData->ipinfo_set = 1;
+#ifdef ENABLE_IPV6
                     loaderData->ipv6info_set = 1;
+#endif
                 } else {
                     loaderData->ipinfo_set = 0;
+#ifdef ENABLE_IPV6
                     loaderData->ipv6info_set = 0;
+#endif
                 }
 
                 rc = chooseNetworkInterface(loaderData);
@@ -1503,7 +1513,9 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 /* s390 provides all config info by way of the CMS conf file */
                 if (FL_HAVE_CMSCONF(flags)) {
                     loaderData->ipinfo_set = 1;
+#ifdef ENABLE_IPV6
                     loaderData->ipv6info_set = 1;
+#endif
                 }
 
                 /* populate netDev based on any kickstart data */
@@ -1535,6 +1547,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     loaderData->ipinfo_set = 1;
                 }
 
+#ifdef ENABLE_IPV6
                 if (FL_NOIPV6(flags)) {
                     loaderData->ipv6info_set = 0;
                 } else {
@@ -1556,6 +1569,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
                     loaderData->ipv6info_set = 1;
                 }
+#endif
 
                 /* set the hostname if we have that */
                 if (loaderData->hostname) {
@@ -1595,7 +1609,9 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 if (!url) {
                     step = STEP_IP;
                     loaderData->ipinfo_set = 0;
+#ifdef ENABLE_IPV6
                     loaderData->ipv6info_set = 0;
+#endif
                     loaderData->method = -1;
                     skipMethodDialog = 0;
                     dir = -1;
@@ -1923,8 +1939,10 @@ int main(int argc, char ** argv) {
 
     mlLoadModuleSet("cramfs:vfat:nfs:loop:floppy:edd:pcspkr:squashfs:ext4dev:ext3:ext2:iscsi_tcp:iscsi_ibft");
 
+#ifdef ENABLE_IPV6
     if (!FL_NOIPV6(flags))
         mlLoadModule("ipv6", NULL);
+#endif
 
     /* now let's do some initial hardware-type setup */
     dasdSetup();
@@ -2136,8 +2154,10 @@ int main(int argc, char ** argv) {
     if (FL_NOIPV4(flags))
         *argptr++ = "--noipv4";
 
+#ifdef ENABLE_IPV6
     if (FL_NOIPV6(flags))
         *argptr++ = "--noipv6";
+#endif
 
     if (FL_KICKSTART(flags)) {
         *argptr++ = "--kickstart";

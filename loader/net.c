@@ -164,10 +164,12 @@ static void v4MethodCallback(newtComponent co, void *dptr) {
     return;
 }
 
+#ifdef ENABLE_IPV6
 static void v6MethodCallback(newtComponent co, void *dptr) {
     setMethodSensitivity(dptr, 3);
     return;
 }
+#endif
 
 static void parseEthtoolSettings(struct loaderData_s * loaderData) {
     char * option, * buf;
@@ -478,7 +480,10 @@ int configureTCPIP(char * device, iface_t * iface,
                    struct netconfopts * opts, int methodNum) {
     int i = 0, z = 0, skipForm = 0, dret = 0, err;
     newtComponent f, okay, back, answer;
-    newtComponent ipv4Checkbox, ipv6Checkbox, v4Method[2], v6Method[3];
+    newtComponent ipv4Checkbox, v4Method[2];
+#ifdef ENABLE_IPV6
+    newtComponent ipv6Checkbox, v6Method[3];
+#endif
     newtGrid grid, checkgrid, buttons;
 
     /* UI WINDOW 1: ask for ipv4 choice, ipv6 choice, and conf methods */
@@ -496,6 +501,7 @@ int configureTCPIP(char * device, iface_t * iface,
     v4Method[0] = newtRadiobutton(-1, -1, DHCP_METHOD_STR, 1, NULL);
     v4Method[1] = newtRadiobutton(-1, -1, MANUAL_METHOD_STR, 0, v4Method[0]);
 
+#ifdef ENABLE_IPV6
     /* IPv6 checkbox */
     if (!opts->ipv6Choice) {
         if (FL_NOIPV6(flags) && !FL_IPV6_PARAM(flags))
@@ -509,12 +515,17 @@ int configureTCPIP(char * device, iface_t * iface,
     v6Method[0] = newtRadiobutton(-1, -1, AUTO_METHOD_STR, 1, NULL);
     v6Method[1] = newtRadiobutton(-1, -1, DHCPV6_METHOD_STR, 0, v6Method[0]);
     v6Method[2] = newtRadiobutton(-1, -1, MANUAL_METHOD_STR, 0, v6Method[1]);
+#endif
 
     /* button bar at the bottom of the window */
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
 
     /* checkgrid contains the toggle options for net configuration */
+#ifdef ENABLE_IPV6
     checkgrid = newtCreateGrid(1, 8);
+#else
+    checkgrid = newtCreateGrid(1, 3);
+#endif
 
     newtGridSetField(checkgrid, 0, 0, NEWT_GRID_COMPONENT, ipv4Checkbox,
                      0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
@@ -522,11 +533,13 @@ int configureTCPIP(char * device, iface_t * iface,
         newtGridSetField(checkgrid, 0, i, NEWT_GRID_COMPONENT, v4Method[i-1],
                          7, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
+#ifdef ENABLE_IPV6
     newtGridSetField(checkgrid, 0, 4, NEWT_GRID_COMPONENT, ipv6Checkbox,
                      0, 1, 0, 0, NEWT_ANCHOR_LEFT, 0);
     for (i = 5; i < 8; i++)
         newtGridSetField(checkgrid, 0, i, NEWT_GRID_COMPONENT, v6Method[i-5],
                          7, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+#endif
 
     /* main window layout */
     grid = newtCreateGrid(1, 2);
@@ -542,15 +555,20 @@ int configureTCPIP(char * device, iface_t * iface,
 
     /* callbacks */
     newtComponentAddCallback(ipv4Checkbox, v4MethodCallback, &v4Method);
+#ifdef ENABLE_IPV6
     newtComponentAddCallback(ipv6Checkbox, v6MethodCallback, &v6Method);
+#endif
 
     /* match radio button sensitivity to initial checkbox choices */
     if (opts->ipv4Choice == ' ')
         setMethodSensitivity(&v4Method, 2);
 
+#ifdef ENABLE_IPV6
     if (opts->ipv6Choice == ' ')
         setMethodSensitivity(&v6Method, 3);
+#endif
 
+#ifdef ENABLE_IPV6
     /* If the user provided any of the following boot paramters, skip
      * prompting for network configuration information:
      *     ip=<val> ipv6=<val>
@@ -567,6 +585,12 @@ int configureTCPIP(char * device, iface_t * iface,
         skipForm = 1;
         newtPopWindow();
     }
+#else
+    if (FL_IP_PARAM(flags) || FL_NOIPV4(flags) || FL_IS_KICKSTART(flags)) {
+        skipForm = 1;
+        newtPopWindow();
+    }
+#endif
 
     /* run the form */
     do {
@@ -579,6 +603,7 @@ int configureTCPIP(char * device, iface_t * iface,
                 return LOADER_BACK;
             }
 
+#ifdef ENABLE_IPV6
             /* need at least one stack */
             if (opts->ipv4Choice == ' ' && opts->ipv6Choice == ' ') {
                 newtWinMessage(_("Missing Protocol"), _("Retry"),
@@ -586,6 +611,7 @@ int configureTCPIP(char * device, iface_t * iface,
                                  "or IPv6)."));
                 continue;
             }
+#endif
 
             /* NFS only works over IPv4 */
             if (opts->ipv4Choice == ' ' && methodNum == METHOD_NFS) {
@@ -605,6 +631,7 @@ int configureTCPIP(char * device, iface_t * iface,
             flags |= LOADER_FLAGS_NOIPV4;
         }
 
+#ifdef ENABLE_IPV6
         if (opts->ipv6Choice == '*') {
             flags &= ~LOADER_FLAGS_NOIPV6;
             for (z = IPV6_FIRST_METHOD; z <= IPV6_LAST_METHOD; z++)
@@ -613,11 +640,16 @@ int configureTCPIP(char * device, iface_t * iface,
         } else {
             flags |= LOADER_FLAGS_NOIPV6;
         }
+#endif
 
         /* do interface configuration (call DHCP here, or return for manual) */
+#ifdef ENABLE_IPV6
         if ((!FL_NOIPV4(flags) && iface->ipv4method == IPV4_DHCP_METHOD) ||
             (!FL_NOIPV6(flags) && (iface->ipv6method == IPV6_AUTO_METHOD ||
                                    iface->ipv6method == IPV6_DHCP_METHOD))) {
+#else
+        if (!FL_NOIPV4(flags) && iface->ipv4method == IPV4_DHCP_METHOD) {
+#endif
             /* do DHCP if selected */
             if (!FL_TESTING(flags)) {
                 err = writeEnabledNetInfo(iface);
@@ -650,8 +682,12 @@ int configureTCPIP(char * device, iface_t * iface,
     newtFormDestroy(f);
     newtPopWindow();
 
+#ifdef ENABLE_IPV6
     if ((!FL_NOIPV4(flags) && iface->ipv4method == IPV4_MANUAL_METHOD) ||
         (!FL_NOIPV6(flags) && iface->ipv6method == IPV6_MANUAL_METHOD))
+#else
+    if (!FL_NOIPV4(flags) && iface->ipv4method == IPV4_MANUAL_METHOD)
+#endif
         return LOADER_OK;
     else
         return LOADER_NOOP;
@@ -663,12 +699,16 @@ int manualNetConfig(char * device, iface_t * iface,
     char *buf = NULL;
     char ret[48];
     struct in_addr addr;
+#ifdef ENABLE_IPV6
     struct in6_addr addr6;
+#endif
     struct in_addr *tmpaddr = NULL;
     newtComponent f, okay, back, answer;
     newtGrid egrid = NULL;
     newtGrid qgrid = NULL;
+#ifdef ENABLE_IPV6
     newtGrid rgrid = NULL;
+#endif
     newtGrid buttons, grid;
     newtComponent text = NULL;
 
@@ -677,8 +717,10 @@ int manualNetConfig(char * device, iface_t * iface,
     /* so we don't perform this test over and over */
     stack[IPV4] = opts->ipv4Choice == '*' &&
                   iface->ipv4method == IPV4_MANUAL_METHOD;
+#ifdef ENABLE_IPV6
     stack[IPV6] = opts->ipv6Choice == '*' &&
                   iface->ipv6method == IPV6_MANUAL_METHOD;
+#endif
 
     /* UI WINDOW 2 (optional): manual IP config for non-DHCP installs */
     rows = 2;
@@ -757,6 +799,7 @@ int manualNetConfig(char * device, iface_t * iface,
         pos++;
     }
 
+#ifdef ENABLE_IPV6
     /* IPv6 entry items */
     if (stack[IPV6]) {
         newtGridSetField(egrid, 0, pos, NEWT_GRID_COMPONENT,
@@ -819,6 +862,7 @@ int manualNetConfig(char * device, iface_t * iface,
 
         pos++;
     }
+#endif
 
     /* common entry items */
     ipcomps->gwEntry = newtEntry(-1, -1, NULL, 41, &ipcomps->gw, 0);
@@ -991,8 +1035,12 @@ int manualNetConfig(char * device, iface_t * iface,
 
         /* gather nameservers */
         if (ipcomps->ns) {
+#ifdef ENABLE_IPV6
             if ((inet_pton(AF_INET, ipcomps->ns, &addr) >= 1) ||
                 (inet_pton(AF_INET6, ipcomps->ns, &addr6) >= 1)) {
+#else
+            if (inet_pton(AF_INET, ipcomps->ns, &addr) >= 1) {
+#endif
                 iface->dns[0] = strdup(ipcomps->ns);
                 if (iface->numdns < 1)
                     iface->numdns = 1;
