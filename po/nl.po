@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-21 13:34+0200\n"
+"PO-Revision-Date: 2008-10-04 17:00+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -566,8 +566,8 @@ msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
 msgstr ""
-"Er is iets uitzonderlijks gebeurd.  Het is waarschijnlijk een fout.  Wij "
-"verzoeken u om de volledige tekst van deze uitzondering te kopiëren en een "
+"Er is een foutsituatie opgetreden, waarschijnlijk een bug. Wij verzoeken "
+"u om de volledige tekst van deze foutsituatie te kopiëren en een "
 "foutrapport in te dienen"
 
 #: ../constants.py:80
@@ -587,6 +587,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Uw bug kan niet worden ingediend vanwege de volgende fout bij het communiceren "
+"met bugzilla:\n"
+"\n"
+"%s"
 
 #: ../exception.py:367
 #, python-format
@@ -596,6 +600,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Uw bug kan niet worden ingediend vanwege onjuiste informatie in de invoervelden. "
+"Dit is zeer waarschijnlijk een fout in anaconda:\n"
+"\n"
+"%s"
 
 #: ../exception.py:371
 msgid "Unable To File Bug"
@@ -610,14 +618,16 @@ msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
 msgstr ""
+"Uw distributie voorziet niet in een ondersteund systeem om bugs in te "
+"dienen, u kunt uw foutsituatie niet op deze manier opslaan."
 
 #: ../exception.py:384
 msgid "Invalid Bug Information"
-msgstr "Ongeldige bug informatie"
+msgstr "Ongeldige bug-informatie"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "Geef een geldige gebruikersnaam, wachtwoord en een korte bug-omschrijving op."
 
 #: ../exception.py:395
 msgid "Unable To Login"
@@ -628,6 +638,8 @@ msgstr "Niet in staat om aan te melden"
 msgid ""
 "There was an error logging into %s using the provided username and password."
 msgstr ""
+"Er is een fout opgetreden bij het aanmelden bij %s met de opgegeven "
+"gebruikersnaam en wachtwoord."
 
 #: ../exception.py:433
 msgid "Bug Created"
@@ -642,6 +654,12 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Er is een nieuwe bug aangemaakt met uw traceback bijgevoegd. Voeg extra "
+"informatie toe, zoals wat u aan het doen was toen u de bug tegenkwam, "
+"schermafbeeldingen, en al het andere dat van toepassing is, aan de volgende "
+"bug:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:450
 msgid "Bug Updated"
@@ -656,6 +674,11 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Er bestaat al een bug met uw informatie. Uw account is toegevoegd aan de "
+"CC-lijst en uw traceback is toegevoegd als een commentaar. Voeg extra "
+"beschrijvende informatie toe aan de volgende bug:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:475 ../exception.py:490 ../exception.py:515
 msgid "Dump Written"
@@ -688,6 +711,8 @@ msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
 msgstr ""
+"Kan geen foutrapport opslaan omdat er geen actief netwerkapparaat "
+"beschikbaar is."
 
 #: ../exception.py:516
 msgid ""
@@ -1189,7 +1214,7 @@ msgstr "Fout zoeken"
 
 #: ../gui.py:1083 ../text.py:298
 msgid "Exception Occurred"
-msgstr "Uitzondering opgetreden"
+msgstr "Foutsituatie opgetreden"
 
 #: ../gui.py:1281 ../text.py:563
 msgid "Error Parsing Kickstart Config"
@@ -1396,7 +1421,7 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"U heeft aangegeven dat het pakket '%s' moet worden geïnstalleerd.  Dit "
+"U hebt aangegeven dat het pakket '%s' moet worden geïnstalleerd.  Dit "
 "pakket bestaat niet. Wilt u doorgaan met uw installatie of wilt u afbreken?"
 
 #: ../kickstart.py:1083 ../kickstart.py:1121
@@ -1413,7 +1438,7 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"U heeft aangegeven dat de groep '%s' moet worden geïnstalleerd.  Deze groep "
+"U hebt aangegeven dat de groep '%s' moet worden geïnstalleerd.  Deze groep "
 "bestaat niet. Wilt u doorgaan met uw installatie of wilt u afbreken?"
 
 #: ../livecd.py:108
@@ -1559,11 +1584,11 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Dank u voor het downloaden van deze proefversie van %s.\n"
+"Bedankt voor het downloaden van deze proefversie van %s.\n"
 "\n"
-"Dit is niet de uiteindelijke versie en het is niet bedoeld voor gebruik op "
-"productiesystemen. De bedoeling van deze versie is het verzamelen van "
-"feedback van testers. Het is niet geschikt voor dagelijks gebruik.\n"
+"Dit is niet de uiteindelijke versie en is niet bedoeld voor gebruik op "
+"productiesystemen. Het doel van deze versie is het verzamelen van feedback "
+"van testers. Het is niet geschikt voor dagelijks gebruik.\n"
 "\n"
 "Voor het geven van feedback, ga naar:\n"
 "\n"
@@ -2048,6 +2073,9 @@ msgid ""
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption%s will be disabled."
 msgstr ""
+"U hebt opgegeven dat blokapparaat-versleuteling moet worden aangezet%s, maar "
+"u hebt geen wachtzin opgegeven. Indien u niet terug gaat en een wachtzin "
+"opgeeft zal blokapparaat-versleuteling%s worden uitgezet."
 
 #: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
@@ -2497,7 +2525,7 @@ msgstr "Wachtwoord"
 
 #: ../text.py:230
 msgid "Bug Description"
-msgstr "Bug omschrijving"
+msgstr "Bug-omschrijving"
 
 #: ../text.py:243
 msgid "Host (host:port)"
@@ -2907,6 +2935,12 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
+"De volgende fout is opgetreden bij het instellen van de installatie-"
+"repository:\n"
+"\n"
+"%s\n"
+"\n"
+"Geef de juiste informatie op voor de installatie van %s."
 
 #: ../yuminstall.py:366
 msgid "Change Disc"
@@ -2915,7 +2949,7 @@ msgstr "Verwissel de schijf"
 #: ../yuminstall.py:367
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Plaats %s CD %d om door te gaan."
+msgstr "Plaats %s schijf %d om door te gaan."
 
 #: ../yuminstall.py:378
 msgid "Wrong Disc"
@@ -2933,7 +2967,7 @@ msgstr "Niet in staat om de schijf te benaderen."
 #: ../yuminstall.py:533
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr ""
+msgstr "Naam ontbreekt in configuratie van repository %r, id wordt gebruikt"
 
 #: ../yuminstall.py:651 ../yuminstall.py:653
 msgid "Re_boot"
@@ -4701,6 +4735,8 @@ msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr ""
+"Geen installatiemedia gevonden. Plaats een schijf in uw station en probeer "
+"het opnieuw."
 
 #: ../iw/task_gui.py:267 ../iw/task_gui.py:377
 msgid "Please enter an NFS server and path."
@@ -4728,14 +4764,14 @@ msgstr ""
 
 #: ../iw/task_gui.py:431
 msgid "No Software Repos Enabled"
-msgstr "Geen software-repositories ingeschakeld"
+msgstr "Geen software-repositories aangezet"
 
 #: ../iw/task_gui.py:432
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
 msgstr ""
-"U moet ten minste één software-repository ingeschakeld hebben om verder "
+"U moet ten minste één software-repository aangezet hebben om verder "
 "te gaan met de installatie."
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
@@ -5798,8 +5834,8 @@ msgid ""
 "support?"
 msgstr ""
 "De standaardinstallatie van %s bevat een softwareverzameling die gebruikt "
-"kan worden voor algemeen internetgebruik. Voor welke additionele taken wilt "
-"u dat uw systeem ondersteuning biedt?"
+"kan worden voor algemeen internetgebruik. Voor welke extra taken wilt u dat "
+"uw systeem ondersteuning biedt?"
 
 #: ../textw/task_text.py:74
 msgid "Customize software selection"
@@ -5948,8 +5984,8 @@ msgid ""
 "include support for?"
 msgstr ""
 "De standaardinstallatie van %s bevat een softwareverzameling die gebruikt "
-"kan worden voor algemeen internetgebruik. Voor welke additionele taken wilt "
-"u dat uw systeem ondersteuning biedt?"
+"kan worden voor algemeen internetgebruik. Voor welke extra taken wilt u dat "
+"uw systeem ondersteuning biedt?"
 
 #: ../installclasses/fedora.py:48
 msgid "Office and Productivity"
@@ -6045,7 +6081,7 @@ msgid ""
 "the disc and insert another for testing."
 msgstr ""
 "Kies \"%s\" om de schijf te testen die zich momenteel in het station bevindt "
-"of kies \"%s\" om de schijf uit te werpen en een andere in te voeren om "
+"of kies \"%s\" om de schijf uit te werpen en een andere te plaatsen om "
 "getest te worden."
 
 #: ../loader/cdinstall.c:199
@@ -6057,12 +6093,12 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each disc prior to using it again."
 msgstr ""
-"Als u additionele mediadragers wilt testen, voer dan de volgende schijf in "
-"en druk op \"%s\". Het testen van elke schijf is niet strikt noodzakelijk, "
-"hoewel het wel sterk wordt aangeraden. De schijven dienen getest te worden "
-"voordat u ze voor de eerste keer gaat gebruiken. Nadat u ze succesvol hebt "
-"getest is het niet vereist om elke schijf opnieuw te testen als u ze weer "
-"gaat gebruiken."
+"Als u extra mediadragers wilt testen, plaats dan de volgende schijf en druk "
+"op \"%s\". Het testen van elke schijf is niet strikt noodzakelijk, hoewel het "
+"wel sterk wordt aangeraden. De schijven dienen getest te worden voordat u "
+"ze voor de eerste keer gaat gebruiken. Nadat u ze succesvol hebt getest is "
+"het niet vereist om elke schijf opnieuw te testen als u ze weer gaat "
+"gebruiken."
 
 #: ../loader/cdinstall.c:220
 #, c-format
@@ -6070,7 +6106,7 @@ msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
-"De %s schijf werd in geen van uw stations gevonden. Voer de %s schijf in en "
+"De %s schijf werd in geen van uw stations gevonden. Plaats de %s schijf en "
 "druk op %s om opnieuw te proberen."
 
 #: ../loader/cdinstall.c:239
@@ -6103,8 +6139,8 @@ msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"De %s schijf werd in geen van uw CDROM-stations gevonden. Voer de %s schijf "
-"in en druk op %s om opnieuw te proberen."
+"De %s schijf werd in geen van uw CDROM-stations gevonden. Plaats de %s schijf "
+"en druk op %s om opnieuw te proberen."
 
 #: ../loader/cdinstall.c:437
 msgid "Disc Not Found"
@@ -6171,11 +6207,11 @@ msgstr "Laden van stuurprogrammabestand mislukt."
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
-"Voer uw stuurprogrammaschijf in /dev/%s en druk op \"OK\" om door te gaan."
+"Plaats uw stuurprogrammaschijf in /dev/%s en druk op \"OK\" om door te gaan."
 
 #: ../loader/driverdisk.c:361
 msgid "Insert Driver Disk"
-msgstr "Stuurprogrammaschijf invoeren"
+msgstr "Stuurprogrammaschijf plaatsen"
 
 #: ../loader/driverdisk.c:374
 msgid "Failed to mount driver disk."
@@ -6443,7 +6479,7 @@ msgstr ""
 #: ../loader/loader.c:487
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "Voer uw updateschijf in /dev/%s en druk op \"OK\" om door te gaan."
+msgstr "Plaats uw updateschijf in /dev/%s en druk op \"OK\" om door te gaan."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6748,13 +6784,16 @@ msgstr "Identificeren"
 
 #: ../loader/net.c:1551
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "U kunt de fysieke poort herkennen"
 
 #: ../loader/net.c:1553
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
+"door het knipperen van de LED-indicatoren gedurende een aantal seconden. "
+"Voer een getal in tussen 1 en 30 om de duur van het knipperen van de LED-"
+"indicatoren in te stellen."
 
 #: ../loader/net.c:1563
 msgid "Identify NIC"
@@ -6772,7 +6811,7 @@ msgstr ""
 #: ../loader/net.c:1589
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "Knipperen van %s LED-indicatoren gedurende %d seconden..."
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
 #, c-format
@@ -6920,11 +6959,11 @@ msgstr "Station _toevoegen"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _name:</b>"
-msgstr "<b>Repository _naam:</b>"
+msgstr "<b>Repository-_naam:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _type:</b>"
-msgstr "<b>Repository _type:</b>"
+msgstr "<b>Repository-_type:</b>"
 
 #: tmp/addrepo.glade.h:4
 msgid "Configure _proxy"
@@ -6946,7 +6985,7 @@ msgstr ""
 msgid ""
 "Please provide the configuration information for this software repository."
 msgstr ""
-""
+"Geef de configuratie-informatie op voor deze software-repository."
 
 #: tmp/addrepo.glade.h:10
 msgid "Proxy U_RL"
@@ -6962,7 +7001,7 @@ msgstr "Proxy-_gebruikersnaam"
 
 #: tmp/addrepo.glade.h:13
 msgid "Repository _URL"
-msgstr "Repository _URL"
+msgstr "Repository-_URL"
 
 #: tmp/addrepo.glade.h:14
 msgid "Select A Directory"
@@ -7092,7 +7131,7 @@ msgstr "_Details"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr "Bug _omschrijving"
+msgstr "Bug-_omschrijving"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
@@ -7133,8 +7172,8 @@ msgid ""
 "you would like to have installed."
 msgstr ""
 "Sommige pakketten die geassocieerd zijn met deze groep zijn niet vereist om "
-"geïnstalleerd te worden, maar bieden mogelijk additionele functionaliteit. "
-"Kies de pakketten die u geïnstalleerd wilt hebben."
+"geïnstalleerd te worden, maar bieden mogelijk extra functionaliteit. Kies "
+"de pakketten die u geïnstalleerd wilt hebben."
 
 #: tmp/GroupSelector.glade.h:2
 msgid "_Deselect"
@@ -7287,9 +7326,7 @@ msgstr "_Later aanpassen"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"Selecteer eventuele additionele repositories die u wilt gebruiken voor "
-"softwareinstallatie."
+msgstr "Selecteer extra repositories die u wilt gebruiken voor softwareinstallatie."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -7301,7 +7338,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "Additionele software-repositories _toevoegen"
+msgstr "Extra repositories _toevoegen"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
