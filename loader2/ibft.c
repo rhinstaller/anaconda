@@ -68,7 +68,7 @@ int ibft_iface_dhcp()
   if(!ibft_present())
     return -1;
 
-  return (strlen(ibft_context.dhcp) && strcmp(ibft_context.dhcp, "0.0.0.0"));
+  return (ibft_context.dhcp!=NULL && strlen(ibft_context.dhcp) && strcmp(ibft_context.dhcp, "0.0.0.0"));
 }
 
 #define ibft_iface_charfunc(name, var) char* ibft_iface_##name()\
@@ -77,6 +77,9 @@ int ibft_iface_dhcp()
     ibft_init();\
 \
   if(!ibft_present())\
+    return NULL;\
+\
+  if(ibft_context.var==NULL)\
     return NULL;\
 \
   if(!strlen(ibft_context.var))\

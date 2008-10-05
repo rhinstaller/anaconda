@@ -474,14 +474,14 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 		}
                 
 		if(cfg->dev.numDns<MAX_DNS_SERVERS){
-		    if(inet_pton(AF_INET, ibft_iface_dns1(), &addr)>=1){
+		    if(ibft_iface_dns1() && inet_pton(AF_INET, ibft_iface_dns1(), &addr)>=1){
 			cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in(&addr);
 			cfg->dev.numDns++;
 			logMessage(INFO, "iBFT: setting DNS1 to %s", ibft_iface_dns1());
 		    }
 		}
 		if(cfg->dev.numDns<MAX_DNS_SERVERS){
-		    if(inet_pton(AF_INET, ibft_iface_dns2(), &addr)>=1){
+		    if(ibft_iface_dns2() && inet_pton(AF_INET, ibft_iface_dns2(), &addr)>=1){
 			cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in(&addr);
 			cfg->dev.numDns++;
 			logMessage(INFO, "iBFT: setting DNS2 to %s", ibft_iface_dns2());
