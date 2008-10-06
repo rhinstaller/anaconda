@@ -1522,7 +1522,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 if (loaderData->ipinfo_set) {
                     iface.flags |= IFACE_FLAGS_IS_PRESET;
                 }
-                setupNetworkDeviceConfig(&iface, loaderData);
+                setupIfaceStruct(&iface, loaderData);
 
                 rc = readNetConfig(devName, &iface, loaderData->netCls, loaderData->method);
                 if (FL_NOIPV4(flags)) {

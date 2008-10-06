@@ -215,9 +215,7 @@ static void parseEthtoolSettings(struct loaderData_s * loaderData) {
 }
 
 /* given loader data from kickstart, populate network configuration struct */
-void setupNetworkDeviceConfig(iface_t * iface,
-                              struct loaderData_s * loaderData) {
-    int err;
+void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
     struct in_addr addr;
     struct in6_addr addr6;
     char * c;
@@ -232,64 +230,34 @@ void setupNetworkDeviceConfig(iface_t * iface,
         iface->vendorclass = NULL;
     }
 
-    if (loaderData->ipinfo_set) {
+    if (loaderData->ipinfo_set && loaderData->ipv4 && *loaderData->ipv4) {
         /* this is how we specify dhcp */
         if (!strncmp(loaderData->ipv4, "dhcp", 4)) {
-            int ret = 0;
-
-            /* JKFIXME: this soooo doesn't belong here.  and it needs to
-             * be broken out into a function too */
-            logMessage(INFO, "sending dhcp request through device %s",
-                       loaderData->netDev);
-
-            if (!FL_TESTING(flags)) {
-                if (loaderData->noDns) {
-                    iface->flags |= IFACE_FLAGS_NO_WRITE_RESOLV_CONF;
-                }
-
-                iface->dhcptimeout = loaderData->dhcpTimeout;
-
-                err = writeEnabledNetInfo(iface);
-                if (err) {
-                    logMessage(ERROR,
-                               "failed to write /etc/sysconfig data for %s (%d)",
-                               iface->device, err);
-                    return;
-                }
-
-                ret = get_connection(iface);
-                newtPopWindow();
-            }
-
-            if (ret) {
-                logMessage(ERROR, "failed to start NetworkManager (%d)", ret);
-                return;
-            }
-
+            iface->dhcptimeout = loaderData->dhcpTimeout;
             iface->flags |= IFACE_FLAGS_IS_DYNAMIC | IFACE_FLAGS_IS_PRESET;
-        } else if (loaderData->ipv4) {
-            if (inet_pton(AF_INET, loaderData->ipv4, &addr) >= 1) {
-                iface->ipaddr = addr;
-                iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
-                iface->flags |= IFACE_FLAGS_IS_PRESET;
-            }
-#ifdef ENABLE_IPV6
-        } else if (loaderData->ipv6) {
-            if (inet_pton(AF_INET6, loaderData->ipv6, &addr6) >= 1) {
-                memcpy(&iface->ip6addr, &addr6, sizeof(struct in6_addr));
-                iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
-                iface->flags |= IFACE_FLAGS_IS_PRESET;
-            }
-#endif
+        } else if (inet_pton(AF_INET, loaderData->ipv4, &addr) >= 1) {
+            iface->ipaddr = addr;
+            iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
+            iface->flags |= IFACE_FLAGS_IS_PRESET;
         } else { /* invalid ip information, disable the setting of ip info */
             loaderData->ipinfo_set = 0;
             iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
             loaderData->ipv4 = NULL;
+        }
+     }
+
 #ifdef ENABLE_IPV6
+    if (loaderData->ipv6info_set && loaderData->ipv6 && *loaderData->ipv6) {
+        if (inet_pton(AF_INET6, loaderData->ipv6, &addr6) >= 1) {
+            memcpy(&iface->ip6addr, &addr6, sizeof(struct in6_addr));
+            iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
+            iface->flags |= IFACE_FLAGS_IS_PRESET;
+        } else {
+            loaderData->ipv6info_set = 0;
             loaderData->ipv6 = NULL;
-#endif
         }
     }
+#endif
 
     if (loaderData->netmask) {
         if (inet_pton(AF_INET, loaderData->netmask, &iface->netmask) <= 0) {
@@ -380,6 +348,8 @@ void setupNetworkDeviceConfig(iface_t * iface,
     }
 
     iface->dhcptimeout = loaderData->dhcpTimeout;
+
+    return;
 }
 
 int readNetConfig(char * device, iface_t * iface,
@@ -1692,7 +1662,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
  * kickstart install so that we can do things like grab the ks.cfg from
  * the network */
 int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
-    int rc;
+    int rc, err;
 
     /* we may have networking already, so return to the caller */
 #ifdef ENABLE_IPV6
@@ -1728,15 +1698,24 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
          * if we're in a kickstart-ish case (#100724) */
         loaderData->netDev_set = 1;
 
-        /* JKFIXME: this is kind of crufty, we depend on the fact that the
-         * ip is set and then just get the network up.  we should probably
-         * add a way to do asking about static here and not be such a hack */
-        if (!loaderData->ipv4) {
-            loaderData->ipv4 = strdup("dhcp");
-        } 
-        loaderData->ipinfo_set = 1;
+        setupIfaceStruct(iface, loaderData);
+        if (!FL_TESTING(flags)) {
+            err = writeEnabledNetInfo(iface);
+            if (err) {
+                logMessage(ERROR,
+                           "failed to write /etc/sysconfig data for %s (%d)",
+                           iface->device, err);
+                return -1;
+            }
 
-        setupNetworkDeviceConfig(iface, loaderData);
+            err = get_connection(iface);
+            newtPopWindow();
+        }
+
+        if (err) {
+            logMessage(ERROR, "failed to start NetworkManager (%d)", err);
+            return -1;
+        }
 
         rc = readNetConfig(loaderData->netDev, iface, loaderData->netCls,
                            loaderData->method);

@@ -62,8 +62,7 @@ void debugNetworkInfo(iface_t * iface);
 int writeDisabledNetInfo(void);
 int writeEnabledNetInfo(iface_t * iface);
 int chooseNetworkInterface(struct loaderData_s * loaderData);
-void setupNetworkDeviceConfig(iface_t * iface,
-                              struct loaderData_s * loaderData);
+void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData);
 int setupWireless(iface_t * iface);
 void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
                          char ** argv);
