@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.136
+Version: 11.1.2.137
 Release: 2
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct 06 2008 Chris Lumens <clumens@redhat.com> 11.1.2.137-2
+- Better error checking when retrieveing info from iBFT (msivak).
+  Related: rhbz#445721
+- Fix a typo in the anaconda-runtime %post scriptlets.
+  Resolves: rhbz#465441
+
 * Fri Oct 3 2008 Joel Granados <jgranado@redhat.com> 11.1.2.136-2
 - Fix build.
   Related: rhbz:#445721
