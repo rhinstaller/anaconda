@@ -503,6 +503,7 @@ int main(int argc, char **argv) {
         if (mount("/dev", "/dev", "tmpfs", 0, NULL))
             fatal_error(1);
         createDevices();
+        printf("done\n");
 	printf("starting udev...");
 	if (fork() == 0) {
 	    execl("/sbin/udevd", "/sbin/udevd","--daemon",NULL);
@@ -714,14 +715,6 @@ int main(int argc, char **argv) {
         }
 
         sleep(2);
-    }
-
-    /* HAL daemon */
-    if (!testing) {
-        if (fork() == 0) {
-            execl("/sbin/hald", "/sbin/hald", "--use-syslog", NULL);
-            exit(1);
-        }
     }
 
     /* Go into normal init mode - keep going, and then do a orderly shutdown

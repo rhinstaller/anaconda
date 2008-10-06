@@ -1979,6 +1979,14 @@ int main(int argc, char ** argv) {
 
     busProbe(FL_NOPROBE(flags));
 
+    /* HAL daemon */
+    if (!FL_TESTING(flags)) {
+        if (fork() == 0) {
+            execl("/sbin/hald", "/sbin/hald", "--use-syslog", NULL);
+            exit(1);
+        }
+    }
+
     /* can't run gdbserver until after network modules are loaded */
     doGdbserver(&loaderData);
 
