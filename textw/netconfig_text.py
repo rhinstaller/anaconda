@@ -44,15 +44,15 @@ class NetworkConfiguratorText:
         if self.dhcpCheckbox.selected():
             self.ipv4Address.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.ipv4Netmask.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.ipv6Address.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.ipv6Netmask.setFlags(FLAG_DISABLED, FLAGS_SET)
+            #self.ipv6Address.setFlags(FLAG_DISABLED, FLAGS_SET)
+            #self.ipv6Netmask.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.gatewayEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.nameserverEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
         else:
             self.ipv4Address.setFlags(FLAG_DISABLED, int(self.ipv4Checkbox.selected()))
             self.ipv4Netmask.setFlags(FLAG_DISABLED, int(self.ipv4Checkbox.selected()))
-            self.ipv6Address.setFlags(FLAG_DISABLED, int(self.ipv6Checkbox.selected()))
-            self.ipv6Netmask.setFlags(FLAG_DISABLED, int(self.ipv6Checkbox.selected()))
+            #self.ipv6Address.setFlags(FLAG_DISABLED, int(self.ipv6Checkbox.selected()))
+            #self.ipv6Netmask.setFlags(FLAG_DISABLED, int(self.ipv6Checkbox.selected()))
             self.gatewayEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
             self.nameserverEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
 
@@ -67,16 +67,16 @@ class NetworkConfiguratorText:
         self.ipv4Address.setFlags(FLAG_DISABLED, flag)
         self.ipv4Netmask.setFlags(FLAG_DISABLED, flag)
 
-    def _ipv6Toggled(self, *args):
-        if self.dhcpCheckbox.selected():
-            return
-
-        flag = FLAGS_RESET
-        if not self.ipv6Checkbox.selected():
-            flag = FLAGS_SET
-
-        self.ipv6Address.setFlags(FLAG_DISABLED, flag)
-        self.ipv6Netmask.setFlags(FLAG_DISABLED, flag)
+    #def _ipv6Toggled(self, *args):
+    #    if self.dhcpCheckbox.selected():
+    #        return
+    #
+    #    flag = FLAGS_RESET
+    #    if not self.ipv6Checkbox.selected():
+    #        flag = FLAGS_SET
+    #
+    #    self.ipv6Address.setFlags(FLAG_DISABLED, flag)
+    #    self.ipv6Netmask.setFlags(FLAG_DISABLED, flag)
 
     def __init__(self, screen, anaconda):
         self.screen = screen
@@ -125,8 +125,8 @@ class NetworkConfiguratorText:
         self.ipv4Checkbox = Checkbox(_("Enable IPv4 support"), 1)
         grid.add(self.ipv4Checkbox, 0, 3, anchorLeft = 1)
 
-        self.ipv6Checkbox = Checkbox(_("Enable IPv6 support"), 0)
-        grid.add(self.ipv6Checkbox, 0, 4, anchorLeft = 1, padding = (0, 0, 0, 1))
+        #self.ipv6Checkbox = Checkbox(_("Enable IPv6 support"), 0)
+        #grid.add(self.ipv6Checkbox, 0, 4, anchorLeft = 1, padding = (0, 0, 0, 1))
 
         ipv4Grid = Grid(4, 1)
         ipv4Grid.setField(Label(_("IPv4 Address:")), 0, 0, padding = (0, 0, 1, 0))
@@ -138,15 +138,15 @@ class NetworkConfiguratorText:
 
         grid.add(ipv4Grid, 0, 5, anchorLeft = 1)
 
-        ipv6Grid = Grid(4, 1)
-        ipv6Grid.setField(Label(_("IPv6 Address:")), 0, 0, padding = (0, 0, 1, 0))
-        self.ipv6Address = Entry(20, scroll=1)
-        ipv6Grid.setField(self.ipv6Address, 1, 0)
-        ipv6Grid.setField(Label("/"), 2, 0)
-        self.ipv6Netmask = Entry(20, scroll=0)
-        ipv6Grid.setField(self.ipv6Netmask, 3, 0)
+        #ipv6Grid = Grid(4, 1)
+        #ipv6Grid.setField(Label(_("IPv6 Address:")), 0, 0, padding = (0, 0, 1, 0))
+        #self.ipv6Address = Entry(20, scroll=1)
+        #ipv6Grid.setField(self.ipv6Address, 1, 0)
+        #ipv6Grid.setField(Label("/"), 2, 0)
+        #self.ipv6Netmask = Entry(20, scroll=0)
+        #ipv6Grid.setField(self.ipv6Netmask, 3, 0)
 
-        grid.add(ipv6Grid, 0, 6, anchorLeft = 1)
+        #grid.add(ipv6Grid, 0, 6, anchorLeft = 1)
 
         extraGrid = Grid(4, 1)
         extraGrid.setField(Label(_("Gateway:")), 0, 0, padding = (0, 0, 1, 0))
@@ -163,11 +163,11 @@ class NetworkConfiguratorText:
 
         self.dhcpCheckbox.setCallback(self._dhcpToggled)
         self.ipv4Checkbox.setCallback(self._ipv4Toggled)
-        self.ipv6Checkbox.setCallback(self._ipv6Toggled)
+        #self.ipv6Checkbox.setCallback(self._ipv6Toggled)
 
         # Call these functions to set initial UI state.
         self._ipv4Toggled()
-        self._ipv6Toggled()
+        #self._ipv6Toggled()
 
         netdevs = self.anaconda.id.network.available()
 
