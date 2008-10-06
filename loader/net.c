@@ -84,6 +84,7 @@ static void cidrCallback(newtComponent co, void * dptr) {
 
         if (strcmp(data->ipv4, ""))
             upper = 32;
+#ifdef ENABLE_IPV6
     } else if (co == data->cidr6Entry) {
         if (data->cidr6 == NULL && data->ipv6 == NULL)
             return;
@@ -98,6 +99,7 @@ static void cidrCallback(newtComponent co, void * dptr) {
 
         if (strcmp(data->ipv6, ""))
             upper = 128;
+#endif
     }
 
     if (upper != 0) {
@@ -141,9 +143,11 @@ static void ipCallback(newtComponent co, void * dptr) {
         }
 
         return;
+#ifdef ENABLE_IPV6
     } else if (co == data->ipv6Entry) {
         /* users must provide a mask, we can't guess for ipv6 */
         return;
+#endif
     }
 }
 
@@ -269,17 +273,21 @@ void setupNetworkDeviceConfig(iface_t * iface,
                 iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
                 iface->flags |= IFACE_FLAGS_IS_PRESET;
             }
+#ifdef ENABLE_IPV6
         } else if (loaderData->ipv6) {
             if (inet_pton(AF_INET6, loaderData->ipv6, &addr6) >= 1) {
                 memcpy(&iface->ip6addr, &addr6, sizeof(struct in6_addr));
                 iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
                 iface->flags |= IFACE_FLAGS_IS_PRESET;
             }
+#endif
         } else { /* invalid ip information, disable the setting of ip info */
             loaderData->ipinfo_set = 0;
             iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
             loaderData->ipv4 = NULL;
+#ifdef ENABLE_IPV6
             loaderData->ipv6 = NULL;
+#endif
         }
     }
 
@@ -385,16 +393,20 @@ int readNetConfig(char * device, iface_t * iface,
 
     /* ipcomps contains the user interface components */
     ipcomps.ipv4 = NULL;
-    ipcomps.ipv6 = NULL;
     ipcomps.cidr4 = NULL;
-    ipcomps.cidr6 = NULL;
     ipcomps.gw = NULL;
+#ifdef ENABLE_IPV6
+    ipcomps.ipv6 = NULL;
+    ipcomps.cidr6 = NULL;
     ipcomps.gw6 = NULL;
+#endif
     ipcomps.ns = NULL;
 
     /* init opts */
     opts.ipv4Choice = 0;
+#ifdef ENABLE_IPV6
     opts.ipv6Choice = 0;
+#endif
 
     /* JKFIXME: we really need a way to override this and be able to change
      * our network config */
@@ -603,15 +615,17 @@ int configureTCPIP(char * device, iface_t * iface,
                 return LOADER_BACK;
             }
 
-#ifdef ENABLE_IPV6
             /* need at least one stack */
+#ifdef ENABLE_IPV6
             if (opts->ipv4Choice == ' ' && opts->ipv6Choice == ' ') {
+#else
+            if (opts->ipv4Choice == ' ') {
+#endif
                 newtWinMessage(_("Missing Protocol"), _("Retry"),
                                _("You must select at least one protocol (IPv4 "
                                  "or IPv6)."));
                 continue;
             }
-#endif
 
             /* NFS only works over IPv4 */
             if (opts->ipv4Choice == ' ' && methodNum == METHOD_NFS) {
@@ -695,12 +709,13 @@ int configureTCPIP(char * device, iface_t * iface,
 
 int manualNetConfig(char * device, iface_t * iface,
                     struct intfconfig_s * ipcomps, struct netconfopts * opts) {
-    int i, rows, pos, prefix, cidr, have[2], stack[2];
+    int i, rows, pos, cidr, have[2], stack[2];
     char *buf = NULL;
     char ret[48];
     struct in_addr addr;
 #ifdef ENABLE_IPV6
     struct in6_addr addr6;
+    int prefix;
 #endif
     struct in_addr *tmpaddr = NULL;
     newtComponent f, okay, back, answer;
@@ -991,6 +1006,7 @@ int manualNetConfig(char * device, iface_t * iface,
             }
         }
 
+#ifdef ENABLE_IPV6
         /* collect IPv6 data */
         if (stack[IPV6]) {
             if (ipcomps->ipv6) {
@@ -1019,6 +1035,7 @@ int manualNetConfig(char * device, iface_t * iface,
                 }
             }
         }
+#endif
 
         /* collect common network settings */
         if (ipcomps->gw) {
@@ -1204,6 +1221,7 @@ int writeEnabledNetInfo(iface_t *iface) {
         }
     }
 
+#ifdef ENABLE_IPV6
     if (!FL_NOIPV6(flags)) {
         if (iface->ipv6method == IPV6_AUTO_METHOD ||
             iface->ipv6method == IPV6_DHCP_METHOD ||
@@ -1231,6 +1249,7 @@ int writeEnabledNetInfo(iface_t *iface) {
             }
         }
     }
+#endif
 
     if (iface->numdns > 0) {
         for (i = 0; i < iface->numdns; i++) {
@@ -1287,9 +1306,11 @@ int writeEnabledNetInfo(iface_t *iface) {
         fprintf(fp, "NETWORKING=yes\n");
     }
 
+#ifdef ENABLE_IPV6
     if (!FL_NOIPV6(flags)) {
         fprintf(fp, "NETWORKING_IPV6=yes\n");
     }
+#endif
 
     if (iface->hostname != NULL) {
         fprintf(fp, "HOSTNAME=%s\n", iface->hostname);
@@ -1447,8 +1468,10 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         if (noipv4)
             flags |= LOADER_FLAGS_NOIPV4;
 
+#ifdef ENABLE_IPV6
         if (noipv6)
             flags |= LOADER_FLAGS_NOIPV6;
+#endif
     }
 
     if (noDns) {
@@ -1672,7 +1695,11 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
     int rc;
 
     /* we may have networking already, so return to the caller */
+#ifdef ENABLE_IPV6
     if ((loaderData->ipinfo_set == 1) || (loaderData->ipv6info_set == 1))
+#else
+    if (loaderData->ipinfo_set == 1)
+#endif
         return 0;
 
     memset(iface, 0, sizeof(*iface));

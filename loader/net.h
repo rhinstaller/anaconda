@@ -25,22 +25,29 @@
 #include "loader.h"
 
 #define DHCP_METHOD_STR   _("Dynamic IP configuration (DHCP)")
-#define DHCPV6_METHOD_STR _("Dynamic IP configuration (DHCPv6)")
 #define MANUAL_METHOD_STR _("Manual configuration")
+#ifdef ENABLE_IPV6
+#define DHCPV6_METHOD_STR _("Dynamic IP configuration (DHCPv6)")
 #define AUTO_METHOD_STR   _("Automatic neighbor discovery")
+#endif
 
 struct intfconfig_s {
     newtComponent ipv4Entry, cidr4Entry;
-    newtComponent ipv6Entry, cidr6Entry;
     newtComponent gwEntry, nsEntry;
     const char *ipv4, *cidr4;
+#ifdef ENABLE_IPV6
+    newtComponent ipv6Entry, cidr6Entry;
     const char *ipv6, *cidr6;
-    const char *gw, *gw6, *ns;
+    const char *gw6;
+#endif
+    const char *gw, *ns;
 };
 
 struct netconfopts {
     char ipv4Choice;
+#ifdef ENABLE_IPV6
     char ipv6Choice;
+#endif
 };
 
 typedef int int32;

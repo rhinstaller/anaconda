@@ -58,9 +58,13 @@
 #define LOADER_FLAGS_CMDLINE            (((uint64_t) 1) << 28)
 #define LOADER_FLAGS_GRAPHICAL          (((uint64_t) 1) << 29)
 #define LOADER_FLAGS_NOIPV4             (((uint64_t) 1) << 31)
+#ifdef ENABLE_IPV6
 #define LOADER_FLAGS_NOIPV6             (((uint64_t) 1) << 32)
+#endif
 #define LOADER_FLAGS_IP_PARAM           (((uint64_t) 1) << 33)
+#ifdef ENABLE_IPV6
 #define LOADER_FLAGS_IPV6_PARAM         (((uint64_t) 1) << 34)
+#endif
 #define LOADER_FLAGS_IS_KICKSTART       (((uint64_t) 1) << 35)
 #define LOADER_FLAGS_ALLOW_WIRELESS     (((uint64_t) 1) << 36)
 #define LOADER_FLAGS_HAVE_CMSCONF       (((uint64_t) 1) << 37)
@@ -88,9 +92,13 @@
 #define FL_VIRTPCONSOLE(a)       ((a) & LOADER_FLAGS_VIRTPCONSOLE)
 #define FL_ASKNETWORK(a)         ((a) & LOADER_FLAGS_ASKNETWORK)
 #define FL_NOIPV4(a)             ((a) & LOADER_FLAGS_NOIPV4)
+#ifdef ENABLE_IPV6
 #define FL_NOIPV6(a)             ((a) & LOADER_FLAGS_NOIPV6)
+#endif
 #define FL_IP_PARAM(a)           ((a) & LOADER_FLAGS_IP_PARAM)
+#ifdef ENABLE_IPV6
 #define FL_IPV6_PARAM(a)         ((a) & LOADER_FLAGS_IPV6_PARAM)
+#endif
 #define FL_IS_KICKSTART(a)       ((a) & LOADER_FLAGS_IS_KICKSTART)
 #define FL_ALLOW_WIRELESS(a)     ((a) & LOADER_FLAGS_ALLOW_WIRELESS)
 #define FL_HAVE_CMSCONF(a)       ((a) & LOADER_FLAGS_HAVE_CMSCONF)
@@ -117,12 +125,15 @@ struct loaderData_s {
     int bootIf_set;
     char * netCls;
     int netCls_set;
-    char *ipv4, *ipv6, *netmask, *gateway, *dns, *hostname, *peerid, *ethtool, *subchannels, *portname, *essid, *wepkey, *nettype, *ctcprot, *layer2, *macaddr;
+    char *ipv4, *netmask, *gateway, *dns, *hostname, *peerid, *ethtool, *subchannels, *portname, *essid, *wepkey, *nettype, *ctcprot, *layer2, *macaddr;
+#ifdef ENABLE_IPV6
+    char *ipv6;
+    int ipv6info_set;
+#endif
     int mtu;
     int noDns;
     int dhcpTimeout;
     int ipinfo_set;
-    int ipv6info_set;
     char * ksFile;
     int method;
     char * ddsrc;
