@@ -311,6 +311,9 @@ makemoduletree() {
             iwl4965)
                 cp $KERNELROOT/lib/firmware/iwlwifi-4965* $MBD_DIR/firmware
                 ;;
+            iwl5000)
+                cp $KERNELROOT/lib/firmware/iwlwifi-5000* $MBD_DIR/firmware
+                ;;
             atmel)
                 cp $KERNELROOT/lib/firmware/atmel_*.bin $MBD_DIR/firmware
                 ;;
