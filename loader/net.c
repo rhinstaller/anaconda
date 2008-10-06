@@ -1156,6 +1156,8 @@ int writeEnabledNetInfo(iface_t *iface) {
         if (iface->ipv4method == IPV4_DHCP_METHOD) {
             fprintf(fp, "BOOTPROTO=dhcp\n");
         } else if (iface->ipv4method == IPV4_MANUAL_METHOD) {
+            fprintf(fp, "BOOTPROTO=static\n");
+
             if (iface_have_in_addr(&iface->ipaddr)) {
                 if (inet_ntop(AF_INET, &iface->ipaddr, buf,
                               INET_ADDRSTRLEN) == NULL) {
