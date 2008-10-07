@@ -51,6 +51,12 @@ static void rebootHandler(int signum) {
 void shutDown(int noKill, int doReboot, int doPowerOff) {
     sync(); sync();
 
+    printf("disabling swap...\n");
+    disableSwap();
+
+    printf("unmounting filesystems...\n"); 
+    unmountFilesystems();
+
     if (!testing && !noKill) {
 	printf("sending termination signals...");
 	kill(-1, 15);
@@ -62,12 +68,6 @@ void shutDown(int noKill, int doReboot, int doPowerOff) {
 	sleep(2);
 	printf("done\n");
     }
-
-    printf("disabling swap...\n");
-    disableSwap();
-
-    printf("unmounting filesystems...\n"); 
-    unmountFilesystems();
 
     if (doReboot) {
 	printf("rebooting system\n");

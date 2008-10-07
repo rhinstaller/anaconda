@@ -35,6 +35,13 @@
 
 #include "devt.h"
 
+/* Defined in linux/fs.h, but inside __KERNEL__. */
+#ifdef MNT_DETACH
+#undef MNT_DETACH
+#endif
+
+#define MNT_DETACH 0x00000002
+
 struct unmountInfo {
     char * name;
     int mounted;
@@ -74,7 +81,7 @@ void undoMount(struct unmountInfo * fs, int numFs, int this) {
     printf("\t%s", fs[this].name);
     /* don't need to unmount /tmp.  it is busy anyway. */
     if (!testing) {
-	if (umount2(fs[this].name, 0) < 0) {
+	if (umount2(fs[this].name, MNT_DETACH) < 0) {
 	    printf(" umount failed (%d)", errno);
 	} else {
 	    printf(" done");
