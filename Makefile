@@ -49,7 +49,7 @@ PYFILES = $(wildcard *.py)
 
 all:  subdirs mini-wm xutils.so $(CATALOGS) lang-table lang-names
 
-lang-names: lang-table
+lang-names: lang-table subdirs
 	PYTHONPATH="." $(PYTHON) scripts/getlangnames.py > lang-names
 
 mini-wm: mini-wm.c
