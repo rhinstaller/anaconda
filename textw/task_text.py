@@ -53,7 +53,7 @@ class TaskWindow:
             if not self.backend.groupListExists(grps):
                 continue
             
-            if self.backend.groupListDefault(grps)
+            if self.backend.groupListDefault(grps):
                 ct.append(_(txt), txt, True)
             else:
                 ct.append(_(txt), txt, False)
