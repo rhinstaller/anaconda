@@ -201,6 +201,8 @@ class Language:
         # but are still valid settings.
         if not canonNick.startswith(nick):
             self.targetLang = nick
+        else:
+            self.targetLang = None
 
         self.setRuntimeDefaults(nick)
 
