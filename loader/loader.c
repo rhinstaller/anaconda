@@ -780,7 +780,7 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
         start = argv + 3;
         end = strstr(start, ":");
         loaderData->ipv4 = strndup(start, end-start);
-        loaderData->ipinfo_set = 0;
+        loaderData->ipinfo_set = 1;
 
         /* Boot server */
         if (end + 1 == '\0')
@@ -809,10 +809,10 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
         loaderData->netmask = strdup(start);
     } else {
         loaderData->ipv4 = strdup(argv + 3);
-        loaderData->ipinfo_set = 0;
+        loaderData->ipinfo_set = 1;
     }
 
-    if (loaderData->ipinfo_set || !strncmp(loaderData->ipv4, "dhcp", 4))
+    if (loaderData->ipinfo_set)
         flags |= LOADER_FLAGS_IP_PARAM;
 }
 
