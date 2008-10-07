@@ -1004,7 +1004,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         }
         else if (!strncasecmp(argv[i], "method=", 7)) {
             logMessage(WARNING, "method= is deprecated.  Please use repo= instead.");
-            loaderData->instRepo = strdup(argv[i] + 7); 
+            loaderData->instRepo = strdup(argv[i] + 7);
         }
         else if (!strncasecmp(argv[i], "repo=", 5))
             loaderData->instRepo = strdup(argv[i] + 5);
@@ -1148,7 +1148,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
     return;
 }
 
-
 #if 0
 /* determine if we are using a framebuffer console.  return 1 if so */
 static int checkFrameBuffer() {
@@ -1167,7 +1166,6 @@ static int checkFrameBuffer() {
     return rc;
 }
 #endif
-
 
 /* make sure they have enough ram */
 static void checkForRam(void) {
@@ -1335,7 +1333,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             }
 
             case STEP_METHOD: {
-                if (loaderData->method != -1)
+                if (loaderData->method != -1 || loaderData->stage2Data)
                     skipMethodDialog = 1;
                 else if (FL_CMDLINE(flags)) {
                     fprintf(stderr, "No method given for cmdline mode, aborting\n");
