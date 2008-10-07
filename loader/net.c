@@ -1891,6 +1891,7 @@ int get_connection(iface_t *iface) {
                        __func__, __LINE__);
             dbus_message_unref(message);
             dbus_message_unref(reply);
+            res_init();
             return 0;
         }
 
