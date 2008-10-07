@@ -1009,13 +1009,13 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
     def doRepoSetup(self, anaconda, thisrepo = None, fatalerrors = True):
         self.__withFuncDo(anaconda, lambda r: self.ayum.doRepoSetup(thisrepo=r.id),
-                          thisrepo=thisrepo, fatalerrors=fatalerrors, progress=False)
+                          thisrepo=thisrepo, fatalerrors=fatalerrors)
 
     def doSackSetup(self, anaconda, thisrepo = None, fatalerrors = True):
         self.__withFuncDo(anaconda, lambda r: self.ayum.doSackSetup(thisrepo=r.id),
-                          thisrepo=thisrepo, fatalerrors=fatalerrors, progress=True)
+                          thisrepo=thisrepo, fatalerrors=fatalerrors)
 
-    def __withFuncDo(self, anaconda, fn, thisrepo=None, fatalerrors=True, progress=True):
+    def __withFuncDo(self, anaconda, fn, thisrepo=None, fatalerrors=True):
         # Don't do this if we're being called as a dispatcher step (instead
         # of being called when a repo is added via the UI) and we're going
         # back.
@@ -1030,23 +1030,19 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             repos = self.ayum.repos.listEnabled()
 
         for repo in repos:
-            if progress:
-                if repo.name is None:
-                    txt = _("Retrieving installation information...")
-                else:
-                    txt = _("Retrieving installation information for %s...")%(repo.name)
+            if repo.name is None:
+                txt = _("Retrieving installation information...")
+            else:
+                txt = _("Retrieving installation information for %s...")%(repo.name)
 
-                    waitwin = anaconda.intf.waitWindow(_("Installation Progress"),
-txt)
+                waitwin = anaconda.intf.waitWindow(_("Installation Progress"), txt)
 
             while True:
                 try:
                     fn(repo)
-                    if progress:
-                        waitwin.pop()
+                    waitwin.pop()
                 except RepoError, e:
-                    if progress:
-                        waitwin.pop()
+                    waitwin.pop()
                     if repo.needsNetwork() and not network.hasActiveNetDev():
                         if anaconda.intf.enableNetwork(anaconda):
                             repo.mirrorlistparsed = False
@@ -1059,8 +1055,7 @@ txt)
                 if anaconda.isKickstart:
                     buttons.append(_("_Continue"))
 
-                if progress:
-                    waitwin.pop()
+                waitwin.pop()
 
                 if not fatalerrors:
                     raise RepoError, e
