@@ -24,11 +24,13 @@ import errno
 import string
 import signal
 import iutil
+import isys
 from flags import flags
 import logging
 import shutil
 import time
 import md5, random
+import partedUtils
 log = logging.getLogger("anaconda")
 
 import gettext
@@ -69,6 +71,29 @@ def has_iscsi():
     if not os.access("/sys/module/iscsi_tcp", os.X_OK):
         return False
     return True
+
+def iscsi_get_node_record(node_settings, record):
+    for line in node_settings:
+        if line.startswith(record):
+            words = line.split(" = ")
+            if len(words) == 2:
+                return words[1]
+            # should never happen but better safe then sorry
+            break
+
+    return None
+
+def iscsi_make_node_autostart(disk):
+    sysfs_path = os.path.realpath("/sys/block/%s/device" %(disk,))
+    argv = [ "-m", "session", "-r", sysfs_path ]
+    log.debug("iscsiadm %s" %(string.join(argv),))
+    node_settings = iutil.execWithCapture(ISCSIADM, argv).splitlines()
+    node_name = iscsi_get_node_record(node_settings, "node.name")
+    argv = [ "-m", "node", "-T", node_name, "-o", "update", "-n",
+             "node.startup", "-v", "automatic" ]
+    log.debug("iscsiadm %s" %(string.join(argv),))
+    iutil.execWithRedirect(ISCSIADM, argv,
+                                stdout = "/dev/tty5", stderr="/dev/tty5")
 
 class iscsiTarget:
     def __init__(self, ipaddr, port=None, user=None, pw=None,
@@ -555,11 +580,31 @@ class iscsi(object):
                 f.write(" --reverse-password %s" % (t.password_in,))
             f.write("\n")
 
-    def write(self, instPath):
+    def write(self, instPath, anaconda):
         if not self.initiatorSet:
             return
 
         if not flags.test:
+            root_drives = [ ]
+            req = anaconda.id.partitions.getRequestByMountPoint("/")
+            root_requests = anaconda.id.partitions.getUnderlyingRequests(req)
+            for req in root_requests:
+                # req.drive is unreliable <sigh> so figure it out ourselves
+                part = partedUtils.get_partition_by_name(anaconda.id.diskset.disks,
+                                                         req.device)
+                if not part:
+                    continue
+                drive = partedUtils.get_partition_drive(part)
+                if drive not in root_drives:
+                    root_drives.append(drive)
+
+            log.debug("iscsi.write: root_drives: %s" % (string.join(root_drives),))
+
+            # set iscsi nodes not used for root to autostart
+            for disk in anaconda.id.diskset.disks.keys():
+                if isys.driveIsIscsi(disk) and not disk in root_drives:
+                    iscsi_make_node_autostart(disk)
+
             if not os.path.isdir(instPath + "/etc/iscsi"):
                 os.makedirs(instPath + "/etc/iscsi", 0755)
             fd = os.open(instPath + INITIATOR_FILE, os.O_RDWR | os.O_CREAT)

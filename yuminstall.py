@@ -1452,7 +1452,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 shutil.copyfile("/etc/modprobe.d/anaconda", 
                                 anaconda.rootPath + "/etc/modprobe.d/anaconda")
             anaconda.id.network.write(anaconda.rootPath)
-            anaconda.id.iscsi.write(anaconda.rootPath)
+            anaconda.id.iscsi.write(anaconda.rootPath, anaconda)
             anaconda.id.zfcp.write(anaconda.rootPath)
             if not anaconda.id.isHeadless:
                 anaconda.id.keyboard.write(anaconda.rootPath)

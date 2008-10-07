@@ -699,6 +699,46 @@ class Partitions:
                 return request
         return None
 
+    def getUnderlyingRequests(self, request):
+        loop = True
+        requests = [ ]
+        requests.append(request)
+
+        # loop over requests descending the storage stack until we
+        # are at the bottom
+        while loop:
+            loop_requests = requests
+            requests = [ ]
+            loop = False
+
+            for request in loop_requests:
+                ids = [ ]
+
+                if (request.type == REQUEST_NEW or \
+                    request.type == REQUEST_PREEXIST):
+                    requests.append(request)
+                elif (request.type == REQUEST_RAID):
+                    if request.raidmembers:
+                        ids = request.raidmembers
+                    else:
+                        requests.append(request)
+                elif (request.type == REQUEST_VG):
+                    ids = request.physicalVolumes
+                elif (request.type == REQUEST_LV):
+                    ids.append(request.volumeGroup)
+                else:
+                    log.error("getUnderlyingRequests unknown request type")
+
+                for id in ids:
+                    tmpreq = self.getRequestByID(id)
+                    if tmpreq:
+                        requests.append(tmpreq)
+                        loop = True
+                    else:
+                        log.error("getUnderlyingRequests could not get request for id %s" % (id,))
+
+        return requests
+
     def getRaidRequests(self):
         """Find and return a list of all of the RAID requests."""
         retval = []
