@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.43
+Version: 11.4.1.44
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,22 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct 06 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.44-1
+- Do not rely on loaderData->noDns to tell if we have DNS configured.
+  (dcantrell)
+- Skip askmethod dialog if user passes repo= and stage2= (dcantrell)
+- Reset resolver in get_connection() (dcantrell)
+- Fix problems dealing with PXE boot and the ksdevice= parameter. (dcantrell)
+- Disable more IPv6 code in loader for now. (dcantrell)
+- Write BOOTPROTO=static for manual IPv4 config. (dcantrell)
+- Disable IPv6 widgets for F-10. (dcantrell)
+- Add iwlagn driver firmware (#465508). (clumens)
+- Move starting HAL to after we've probed for hardware. (clumens)
+- Don't try to load a couple modules that no longer exist. (clumens)
+- The Chinese font package has changed names (#465290). (clumens)
+- Fix a traceback when there's no ksdevice given (#465638). (clumens)
+- Fix traceback in post install configuration (hans)
+
 * Fri Oct 03 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.43-1
 - Disable IPv6 interface widgets in loader for now. (dcantrell)
 - Start NetworkManager earlier (#462083) (hans)
