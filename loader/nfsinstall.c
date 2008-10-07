@@ -34,6 +34,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <netdb.h>
 
 #include "copy.h"
 #include "loader.h"
@@ -190,17 +191,25 @@ char * mountNfsImage(struct installMethod * method,
         case NFS_STAGE_MOUNT: {
             char *buf;
             struct in_addr ip;
+            int err;
 
-            if (loaderData->noDns && !(inet_pton(AF_INET, host, &ip))) {
-                newtWinMessage(_("Error"), _("OK"),
-                               _("Hostname specified with no DNS configured"));
-                if (loaderData->method >= 0)
-                    loaderData->method = -1;
+            /* try to look up the hostname to see if DNS works */
+            err = inet_pton(AF_INET, host, &ip);
+            if (err == 0 || err == -1) {
+                struct hostent *he = NULL;
+                he = gethostbyname2(host, AF_INET);
 
-                if (loaderData->inferredStage2)
-                    loaderData->invalidRepoParam = 1;
+                if (he == NULL) {
+                    newtWinMessage(_("Error"), _("OK"),
+                                   _("Hostname specified with no DNS configured"));
+                    if (loaderData->method >= 0)
+                        loaderData->method = -1;
 
-                break;
+                    if (loaderData->inferredStage2)
+                        loaderData->invalidRepoParam = 1;
+
+                    break;
+                }
             }
 
             if (asprintf(&fullPath, "%s:%.*s", host,
