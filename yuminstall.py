@@ -96,6 +96,8 @@ class AnacondaCallback:
         self.progressWindowClass = anaconda.intf.progressWindow
         self.rootPath = anaconda.rootPath
 
+        self.initWindow = None
+
         self.progressWindow = None
         self.lastprogress = 0
         self.incr = 20
@@ -114,6 +116,7 @@ class AnacondaCallback:
         self.donepkgs = 0
         self.doneSize = 0
         self.doneFiles = 0
+        
 
     def callback(self, what, amount, total, h, user):
         if what == rpm.RPMCALLBACK_TRANS_START:
@@ -206,31 +209,21 @@ class AnacondaCallback:
 
             self.inProgressPo = None
 
-        elif what == rpm.RPMCALLBACK_UNINST_START:
-            self.lastprogress = 0
-
-            self.progressWindow = \
-                self.progressWindowClass(_("Processing"),
-                                         _("Finishing upgrade process..."),
-                                         total)
-            try:
-                self.incr = total / 10
-            except:
-                pass
-
-        elif what == rpm.RPMCALLBACK_UNINST_PROGRESS:
-            if self.progressWindow and amount > self.lastprogress + self.incr:
-                self.progressWindow.set(amount)
-                self.lastprogress = amount
-
-        elif what == rpm.RPMCALLBACK_UNINST_STOP:
-            if self.progressWindow:
-                self.progressWindow.pop()
+        # FIXME: we should probably integrate this into the progress bar
+        # and actually show progress on cleanups.....
+        elif what in (rpm.RPMCALLBACK_UNINST_START,
+                      rpm.RPMCALLBACK_UNINST_STOP):
+            if self.initWindow is None:
+                self.initWindow = self.waitWindow(_("Finishing upgrade"),
+                                                  _("Finishing upgrade process.  This may take a little while..."))
+            else:
+                self.initWindow.refresh()
 
         else:
             pass
 
-        self.progress.processEvents()
+        if self.initWindow is None:
+            self.progress.processEvents()
 
 class AnacondaYumRepo(YumRepository):
     def __init__(self, *args, **kwargs):
@@ -1556,6 +1549,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         cb.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
 
         rc = self.ayum.run(self.instLog, cb, anaconda.intf, anaconda.id)
+
+        if cb.initWindow is not None:
+            cb.initWindow.pop()
 
         self.instLog.close ()
 
