@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 08 2008 Peter Jones <pjones@redhat.com> - 11.1.2.138-2
+- Start the iBFT configured drives during iSCSI startup (msivak)
+  Resolves: rhbz#445721
+
 * Wed Oct 08 2008 Peter Jones <pjones@redhat.com> - 11.1.2.138-1
 - Add note to bootable kernel image on ppc64 (dhowells)
   Related: rhbz#462663
