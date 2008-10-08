@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.137
+Version: 11.1.2.138
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 08 2008 Peter Jones <pjones@redhat.com> - 11.1.2.138-1
+- Add note to bootable kernel image on ppc64 (dhowells)
+  Related: rhbz#462663
+
 * Mon Oct 06 2008 Chris Lumens <clumens@redhat.com> 11.1.2.137-2
 - Better error checking when retrieveing info from iBFT (msivak).
   Related: rhbz#445721
