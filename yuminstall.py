@@ -89,9 +89,9 @@ class AnacondaCallback:
         self.repos = ayum.repos
         self.ts = ayum.ts
         self.ayum = ayum
-        
+
         self.messageWindow = anaconda.intf.messageWindow
-        self.waitWindow = anaconda.intf.waitWindow        
+        self.pulseWindow = anaconda.intf.progressWindow
         self.progress = anaconda.id.instProgress
         self.progressWindowClass = anaconda.intf.progressWindow
         self.rootPath = anaconda.rootPath
@@ -184,6 +184,10 @@ class AnacondaCallback:
             return self.openfile.fileno()
 
         elif what == rpm.RPMCALLBACK_INST_CLOSE_FILE:
+            if self.initWindow:
+                self.initWindow.pop()
+                self.initWindow = None
+
             (hdr, rpmloc) = h
 
             fn = self.openfile.name
@@ -209,15 +213,14 @@ class AnacondaCallback:
 
             self.inProgressPo = None
 
-        # FIXME: we should probably integrate this into the progress bar
-        # and actually show progress on cleanups.....
         elif what in (rpm.RPMCALLBACK_UNINST_START,
                       rpm.RPMCALLBACK_UNINST_STOP):
             if self.initWindow is None:
-                self.initWindow = self.waitWindow(_("Finishing upgrade"),
-                                                  _("Finishing upgrade process.  This may take a little while..."))
+                self.initWindow = self.pulseWindow(_("Finishing upgrade"),
+                                                   _("Finishing upgrade process.  This may take a little while..."),
+                                                   0, pulse=True)
             else:
-                self.initWindow.refresh()
+                self.initWindow.pulse()
 
         else:
             pass
