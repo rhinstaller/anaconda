@@ -441,6 +441,7 @@ class iscsi(object):
                 os.makedirs(fulldir, 0660)
 
         self._startIscsiDaemon()
+        self.startIBFT()
 
         for t in self.targets:
             if not t.discover():

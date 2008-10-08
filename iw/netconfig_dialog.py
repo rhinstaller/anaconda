@@ -60,7 +60,7 @@ class NetworkConfigurator:
         netdev = self.network.available()[val]
 
         bootproto = netdev.get("bootproto")
-        if not bootproto or bootproto == "dhcp":
+        if not bootproto or bootproto == "dhcp" or bootproto == "ibft":
             self.xml.get_widget("dhcpCheckbutton").set_active(True)
         else:
             self.xml.get_widget("dhcpCheckbutton").set_active(False)

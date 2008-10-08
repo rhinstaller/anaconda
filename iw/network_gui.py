@@ -103,6 +103,8 @@ class NetworkWindow(InstallWindow):
 		
 	    if bootproto.lower() == "dhcp":
 		bootproto = 'dhcp'
+	    elif bootproto.lower() == "ibft":
+		bootproto = 'ibft'
 	    else:
 		bootproto = 'static'
 		
@@ -232,7 +234,7 @@ class NetworkWindow(InstallWindow):
         if useipv4:
             bootproto = editwin.getIPv4Method()
 
-            if bootproto == 'dhcp':
+            if bootproto == 'dhcp' or bootproto == 'ibft':
                 self.devices[dev].set(('ipaddr', bootproto))
             elif bootproto == 'static':
                 try:
@@ -295,6 +297,8 @@ class NetworkWindow(InstallWindow):
 	    ip = 'DHCP'
         elif device.get('bootproto').lower() in ['dhcp']:
             ip = 'DHCP'
+        elif device.get('bootproto').lower() in ['ibft']:
+            ip = 'IBFT'
 	else:
 	    prefix = str(isys.netmask2prefix(device.get('netmask')))
 	    ip = "%s/%s" % (device.get('ipaddr'), prefix,)
@@ -649,7 +653,7 @@ class NetworkDeviceEditWindow:
         self.toplevel.resize(1, 1)
 
     def setIPv4Manual(self, ipaddr, netmask):
-        if ipaddr.lower() == 'dhcp':
+        if ipaddr.lower() == 'dhcp' or ipaddr.lower() == 'ibft':
             return
 
         if ipaddr is not None:
@@ -715,6 +719,8 @@ class NetworkDeviceEditWindow:
 
     def selectIPv4Method(self, ipaddr):
         if ipaddr.lower() == 'dhcp':
+            self.dhcp_ipv4.set_active(1)
+        elif ipaddr.lower() == 'ibft':
             self.dhcp_ipv4.set_active(1)
         elif ipaddr != "":
             self.manual_ipv4.set_active(1)
