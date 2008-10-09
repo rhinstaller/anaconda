@@ -140,7 +140,7 @@ def writeBootloader(anaconda):
     kernelLongLabel = None
 
     def rectifyLuksName(anaconda, name):
-        if name.startswith('mapper/luks-'):
+        if name is not None and name.startswith('mapper/luks-'):
             try:
                 newname = anaconda.id.partitions.encryptedDevices.get(name[12:])
                 name = newname.getDevice()
