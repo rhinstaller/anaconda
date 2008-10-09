@@ -220,6 +220,9 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
     struct in6_addr addr6;
     char * c;
 
+    memset(&addr, 0, sizeof(addr));
+    memset(&addr6, 0, sizeof(addr6));
+
     if (loaderData->ethtool) {
         parseEthtoolSettings(loaderData);
     }
@@ -230,13 +233,13 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
         iface->vendorclass = NULL;
     }
 
-    if (loaderData->ipinfo_set && loaderData->ipv4 && *loaderData->ipv4) {
+    if (loaderData->ipinfo_set && loaderData->ipv4 != NULL) {
         /* this is how we specify dhcp */
         if (!strncmp(loaderData->ipv4, "dhcp", 4)) {
             iface->dhcptimeout = loaderData->dhcpTimeout;
             iface->flags |= IFACE_FLAGS_IS_DYNAMIC | IFACE_FLAGS_IS_PRESET;
         } else if (inet_pton(AF_INET, loaderData->ipv4, &addr) >= 1) {
-            iface->ipaddr = addr;
+            iface->ipaddr.s_addr = addr.s_addr;
             iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
             iface->flags |= IFACE_FLAGS_IS_PRESET;
         } else { /* invalid ip information, disable the setting of ip info */
@@ -246,8 +249,22 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
         }
      }
 
+    if (loaderData->netmask != NULL) {
+        if (inet_pton(AF_INET, loaderData->netmask, &iface->netmask) <= 0) {
+            logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+                       strerror(errno));
+        }
+    }
+
+    if (loaderData->gateway != NULL) {
+        if (inet_pton(AF_INET, loaderData->gateway, &iface->gateway) <= 0) {
+            logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+                       strerror(errno));
+        }
+    }
+
 #ifdef ENABLE_IPV6
-    if (loaderData->ipv6info_set && loaderData->ipv6 && *loaderData->ipv6) {
+    if (loaderData->ipv6info_set && loaderData->ipv6 != NULL) {
         if (inet_pton(AF_INET6, loaderData->ipv6, &addr6) >= 1) {
             memcpy(&iface->ip6addr, &addr6, sizeof(struct in6_addr));
             iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
@@ -257,21 +274,14 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
             loaderData->ipv6 = NULL;
         }
     }
+
+    if (loaderData->gateway6 != NULL) {
+        if (inet_pton(AF_INET6, loaderData->gateway6, &iface->gateway6) <= 0) {
+            logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+                       strerror(errno));
+        }
+    }
 #endif
-
-    if (loaderData->netmask) {
-        if (inet_pton(AF_INET, loaderData->netmask, &iface->netmask) <= 0) {
-            logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                       strerror(errno));
-        }
-    }
-
-    if (loaderData->gateway) {
-        if (inet_pton(AF_INET, loaderData->gateway, &iface->gateway) <= 0) {
-            logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                       strerror(errno));
-        }
-    }
 
     /* FIXME: add support for loaderData->gateway6 */
 
@@ -1137,7 +1147,7 @@ int writeEnabledNetInfo(iface_t *iface) {
     fprintf(fp, "DEVICE=%s\n", iface->device);
     fprintf(fp, "HWADDR=%s\n", iface_mac2str(iface->device));
     fprintf(fp, "ONBOOT=yes\n");
-    fprintf(fp, "NM_CONTROLLED=yes\n");
+    fprintf(fp, "NM_CONTROLLED=\n");
 
     if (!FL_NOIPV4(flags)) {
         if (iface->ipv4method == IPV4_DHCP_METHOD) {
@@ -1216,6 +1226,16 @@ int writeEnabledNetInfo(iface_t *iface) {
                         fprintf(fp, "IPV6ADDR=%s\n", buf);
                     }
                 }
+            }
+
+            if (iface_have_in6_addr(&iface->gateway6)) {
+                if (inet_ntop(AF_INET6, &iface->gateway6, buf,
+                              INET6_ADDRSTRLEN) == NULL) {
+                    free(ofile);
+                    return 8;
+                }
+
+                fprintf(fp, "IPV6_DEFAULTGW=%s\n", buf);
             }
         }
     }
