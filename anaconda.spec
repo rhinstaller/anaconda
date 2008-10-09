@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.138
+Version: 11.1.2.139
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 09 2008 Chris Lumens <clumens@redhat.com> 11.1.2.139-1
+- Handle None in luks device name rectification (pjones).
+  Resolves: rhbz#466348
+
 * Wed Oct 08 2008 Peter Jones <pjones@redhat.com> - 11.1.2.138-2
 - Start the iBFT configured drives during iSCSI startup (msivak)
   Resolves: rhbz#445721
