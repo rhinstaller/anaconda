@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.44
+Version: 11.4.1.45
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,18 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 09 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.45-1
+- Fix sorting of repos so we always return an integer value (#466174).
+  (clumens)
+- Change the upgrade progress bar to pulse (#466053). (clumens)
+- Mark iscsi disks not used for / as autostart (rh461840) (hans)
+- Always display the wait window when fetching repo information. (clumens)
+- Lazily unmount everything before killing NetworkManager (#463959).
+  (clumens)
+- lang-names really does need to depend on subdirs (katzj)
+- Reset targetLang on language change (#465981) (katzj)
+- Honor static net parameters with NM (#465270) (dcantrell)
+
 * Mon Oct 06 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.44-1
 - Do not rely on loaderData->noDns to tell if we have DNS configured.
   (dcantrell)
