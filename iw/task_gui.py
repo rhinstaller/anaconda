@@ -557,19 +557,21 @@ class TaskWindow(InstallWindow):
         aStr = store.get_value(aIter, 1)
         bStr = store.get_value(bIter, 1)
 
-        if aStr == "Installation Repo" or aStr < bStr:
+        if aStr == "Installation Repo":
             return -1
-        elif bStr == "Installation Repo" or bStr > aStr:
+        elif bStr == "Installation Repo":
             return 1
-        elif aStr == bStr:
-            return 0
+        elif aStr < bStr or bStr is None:
+            return -1
+        elif aStr > bStr or aStr is None:
+            return 1
+        else:
+            return aStr == bStr
 
     def _createRepoStore(self):
         store = gtk.ListStore(gobject.TYPE_BOOLEAN,
                               gobject.TYPE_STRING,
                               gobject.TYPE_PYOBJECT)
-        store.set_sort_column_id(1, gtk.SORT_ASCENDING)
-        store.set_sort_func(1, self.__sortRepos)
 
         tl = self.xml.get_widget("repoList")
         tl.set_model(store)
@@ -585,6 +587,9 @@ class TaskWindow(InstallWindow):
 
         for (reponame, repo) in self.repos.repos.items():
             store.append([repo.isEnabled(), repo.name, repo])
+
+        store.set_sort_column_id(1, gtk.SORT_ASCENDING)
+        store.set_sort_func(1, self.__sortRepos)
 
         return tl
 
