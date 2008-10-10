@@ -1517,12 +1517,15 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 }
 
                 /* populate netDev based on any kickstart data */
-                if (loaderData->ipinfo_set) {
+                if (loaderData->ipinfo_set && dir != -1) {
                     iface.flags |= IFACE_FLAGS_IS_PRESET;
+                } else {
+                    iface.flags &= ~IFACE_FLAGS_IS_PRESET;
                 }
-                setupIfaceStruct(&iface, loaderData);
 
+                setupIfaceStruct(&iface, loaderData);
                 rc = readNetConfig(devName, &iface, loaderData->netCls, loaderData->method);
+
                 if (FL_NOIPV4(flags)) {
                     loaderData->ipinfo_set = 0;
                 } else {
@@ -1583,6 +1586,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
                 if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                     ((dir == -1) && (rc == LOADER_NOOP))) {
+                    needsNetwork = 1;
                     step = STEP_IFACE;
                     dir = -1;
                     break;

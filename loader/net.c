@@ -283,8 +283,6 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
     }
 #endif
 
-    /* FIXME: add support for loaderData->gateway6 */
-
     if (loaderData->dns) {
         char * buf;
         char ret[INET6_ADDRSTRLEN+1];
