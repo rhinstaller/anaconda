@@ -1517,10 +1517,8 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 }
 
                 /* populate netDev based on any kickstart data */
-                if (loaderData->ipinfo_set && dir != -1) {
+                if (loaderData->ipinfo_set) {
                     iface.flags |= IFACE_FLAGS_IS_PRESET;
-                } else {
-                    iface.flags &= ~IFACE_FLAGS_IS_PRESET;
                 }
 
                 setupIfaceStruct(&iface, loaderData);
@@ -1531,21 +1529,27 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 } else {
                     if (loaderData->ipv4 == NULL) {
                         if (iface_have_in_addr(&iface.ipaddr)) {
-                            ret = (char *) inet_ntop(AF_INET, &iface.ipaddr,
-                                                     ret, INET_ADDRSTRLEN);
+                            iface.ipv4method = IPV4_MANUAL_METHOD;
                         } else {
-                            ret = NULL;
-                            iface.flags |= IFACE_FLAGS_IS_DYNAMIC;
+                            free(loaderData->ipv4);
+                            loaderData->ipv4 = NULL;
+                            loaderData->ipinfo_set = 0;
+                            flags |= LOADER_FLAGS_NOIPV4;
                         }
-
-                        if (IFACE_IS_DYNAMIC(iface.flags) || ret == NULL) {
-                            loaderData->ipv4 = strdup("dhcp");
+                    } else {
+                        if (!strcmp(loaderData->ipv4, "dhcp")) {
+                            iface.ipv4method = IPV4_DHCP_METHOD;
                         } else {
-                            loaderData->ipv4 = strdup(ret);
+                            free(loaderData->ipv4);
+                            loaderData->ipv4 = NULL;
+                            loaderData->ipinfo_set = 0;
+                            flags |= LOADER_FLAGS_NOIPV4;
                         }
                     }
 
-                    loaderData->ipinfo_set = 1;
+                    if (loaderData->ipv4 != NULL) {
+                        loaderData->ipinfo_set = 1;
+                    }
                 }
 
 #ifdef ENABLE_IPV6
@@ -1554,21 +1558,29 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 } else {
                     if (loaderData->ipv6 == NULL) {
                         if (iface_have_in6_addr(&iface.ip6addr)) {
-                            ret = (char *) inet_ntop(AF_INET6, &iface.ip6addr,
-                                                     ret, INET6_ADDRSTRLEN);
+                            iface.ipv6method = IPV6_MANUAL_METHOD;
                         } else {
-                            ret = NULL;
-                            iface.flags |= IFACE_FLAGS_IS_DYNAMIC;
+                            free(loaderData->ipv6);
+                            loaderData->ipv6 = NULL;
+                            loaderData->ipv6info_set = 0;
+                            flags |= LOADER_FLAGS_NOIPV6;
                         }
-
-                        if (IFACE_IS_DYNAMIC(iface.flags) || ret == NULL) {
-                            loaderData->ipv6 = strdup("dhcpv6");
+                    } else {
+                        if (!strcmp(loaderData->ipv6, "auto")) {
+                            iface.ipv6method = IPV6_AUTO_METHOD;
+                        } else if (!strncmp(loaderData->ipv6, "dhcp", 4)) {
+                            iface.ipv6method = IPV6_MANUAL_METHOD;
                         } else {
-                            loaderData->ipv6 = strdup(ret);
+                            free(loaderData->ipv6);
+                            loaderData->ipv6 = NULL;
+                            loaderData->ipv6info_set = 0;
+                            flags |= LOADER_FLAGS_NOIPV6;
                         }
                     }
 
-                    loaderData->ipv6info_set = 1;
+                    if (loaderData->ipv6 != NULL) {
+                        loaderData->ipv6info_set = 1;
+                    }
                 }
 #endif
 
