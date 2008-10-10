@@ -119,7 +119,9 @@ class NetworkConfigurator:
         netdevs = self.network.available()
         devs = netdevs.keys()
         devs.sort()
-        ksdevice = self.network.getKSDevice().get('DEVICE')
+        ksdevice = self.network.getKSDevice()
+        if ksdevice:
+            ksdevice = ksdevice.get('DEVICE')
         selected_interface = None
 
         for dev in devs:
@@ -134,12 +136,15 @@ class NetworkConfigurator:
             if selected_interface is None:
                 selected_interface = i
 
-            if ksdevice == dev:
+            if ksdevice and ksdevice == dev:
                 selected_interface = i
 
             store[i] = (desc, dev)
 
-        combo.set_active_iter(selected_interface)
+        if selected_interface:
+            combo.set_active_iter(selected_interface)
+        else:
+            combo.set_active(0)
 
     def run(self):
         gui.addFrame(self.window)

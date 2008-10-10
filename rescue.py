@@ -81,6 +81,12 @@ class RescueInterface:
 	else:
 	    return OkCancelWindow(self.screen, title, text)
 
+    def enableNetwork(self, anaconda):
+        from netconfig_text import NetworkConfiguratorText
+        w = NetworkConfiguratorText(self.screen, anaconda)
+        ret = w.run()
+        return ret != INSTALL_BACK
+
     def passphraseEntryWindow(self, device):
         w = PassphraseEntryWindow(self.screen, device)
         (passphrase, isglobal) = w.run()
@@ -178,7 +184,7 @@ def runRescue(anaconda, instClass):
     if not network.hasActiveNetDev():
         screen = SnackScreen()
 
-        while 1:
+        while True:
             rc = ButtonChoiceWindow(screen, _("Setup Networking"),
                 _("Do you want to start the network interfaces on "
                   "this system?"), [_("Yes"), _("No")])
@@ -186,49 +192,11 @@ def runRescue(anaconda, instClass):
             if rc != string.lower(_("No")):
                 anaconda.intf = RescueInterface(screen)
 
-                # need to call sequence of screens, have to look in text.py
-                #
-                # this code is based on main loop in text.py, and if it
-                # or the network step in dispatch.py change significantly
-                # then this will certainly break
-                pyfile = "network_text"
-                classNames = ("NetworkDeviceWindow", "NetworkGlobalWindow")
-
-                lastrc = INSTALL_OK
-                step = 0
-                anaconda.dir = 1
-
-                while 1:
-                    s = "from %s import %s; nextWindow = %s" % \
-                        (pyfile, classNames[step], classNames[step])
-                    exec s
-
-                    win = nextWindow()
-
-                    rc = win(screen, anaconda, showonboot = 0)
-
-                    if rc == INSTALL_NOOP:
-                        rc = lastrc
-
-                    if rc == INSTALL_BACK:
-                        step = step - 1
-                        anaconda.dir = - 1
-                    elif rc == INSTALL_OK:
-                        step = step + 1
-                        anaconda.dir = 1
-
-                    lastrc = rc
-
-                    if step == -1:
-                        ButtonChoiceWindow(screen, _("Cancelled"),
-                                           _("I can't go to the previous step "
-                                             "from here. You will have to try "
-                                             "again."),
-                                           buttons=[_("OK")])
-                        anaconda.dir = 1
-                        step = 0
-                    elif step >= len(classNames):
-                        break
+                if not anaconda.intf.enableNetwork(anaconda):
+                    anaconda.intf.messageWindow(_("No Network Available"),
+                        _("Unable to activate a networking device.  Networking "
+                          "will not be available in rescue mode."))
+                    break
 
                 startNetworking(anaconda.id.network, anaconda.intf)
                 break

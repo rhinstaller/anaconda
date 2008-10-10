@@ -97,7 +97,9 @@ class NetworkConfiguratorText:
         netdevs = self.anaconda.id.network.available()
         devs = netdevs.keys()
         devs.sort()
-        ksdevice = self.anaconda.id.network.getKSDevice().get('DEVICE')
+        ksdevice = self.anaconda.id.network.getKSDevice()
+        if ksdevice:
+            ksdevice = ksdevice.get('DEVICE')
         selected_interface = None
 
         for dev in devs:
@@ -110,12 +112,15 @@ class NetworkConfiguratorText:
             if selected_interface is None:
                 selected_interface = desc
 
-            if ksdevice == dev:
+            if ksdevice and ksdevice == dev:
                 selected_interface = desc
 
             self.interfaceList.append(desc)
 
-        self.interfaceList.setCurrent(selected_interface)
+        if selected_interface:
+            self.interfaceList.setCurrent(selected_interface)
+        else:
+            self.interfaceList.setCurrent(0)
 
         grid.add(self.interfaceList, 0, 1, padding = (0, 0, 0, 1))
 
@@ -173,9 +178,11 @@ class NetworkConfiguratorText:
 
         while True:
             result = grid.run()
+            button = buttons.buttonPressed(result)
 
-            if result == TEXT_BACK_BUTTON:
-                break
+            if button == TEXT_BACK_CHECK:
+                self.screen.popWindow()
+                return INSTALL_BACK
 
             selected = map(lambda x: x.split()[0], self.interfaceList.getSelection())
             if selected is None or selected == []:
