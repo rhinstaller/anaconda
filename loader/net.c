@@ -1057,11 +1057,13 @@ int manualNetConfig(char * device, iface_t * iface,
                              "network mask or CIDR prefix."));
         }
 
+#ifdef ENABLE_IPV6
         if (stack[IPV6] && have[IPV6] != 2) {
             newtWinMessage(_("Missing Information"), _("Retry"),
                            _("You must enter both a valid IPv6 address and a "
                              "CIDR prefix."));
         }
+#endif
 
         strcpy(iface->device, device);
         iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
@@ -1313,6 +1315,7 @@ int writeEnabledNetInfo(iface_t *iface) {
         fprintf(fp, "GATEWAY=%s\n", buf);
     }
 
+#ifdef ENABLE_IPV6
     if (iface_have_in6_addr(&iface->gateway6)) {
         if (inet_ntop(AF_INET6, &iface->gateway6, buf,
                       INET6_ADDRSTRLEN) == NULL) {
@@ -1321,6 +1324,7 @@ int writeEnabledNetInfo(iface_t *iface) {
 
         fprintf(fp, "IPV6_DEFAULTGW=%s\n", buf);
     }
+#endif
 
     if (fclose(fp) == EOF) {
         return 12;
