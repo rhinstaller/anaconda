@@ -22,6 +22,7 @@
 
 #include <netdb.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <sys/utsname.h>
@@ -1109,15 +1110,25 @@ int writeDisabledNetInfo(void) {
  */
 int writeEnabledNetInfo(iface_t *iface) {
     int i = 0;
+    mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;
     FILE *fp = NULL;
     char buf[INET6_ADDRSTRLEN+1];
     char *ofile = NULL;
+    char *nfile = NULL;
 
     memset(&buf, '\0', sizeof(buf));
 
-    if (asprintf(&ofile, "/etc/sysconfig/network-scripts/ifcfg-%s",
-                 iface->device) == -1) {
+    if ((mkdir("/.tmp", mode) == -1) && (errno != EEXIST)) {
+        return 16;
+    }
+
+    if (asprintf(&ofile, "/.tmp/ifcfg-%s", iface->device) == -1) {
         return 1;
+    }
+
+    if (asprintf(&nfile, "/etc/sysconfig/network-scripts/ifcfg-%s",
+                 iface->device) == -1) {
+        return 13;
     }
 
     if ((fp = fopen(ofile, "w")) == NULL) {
@@ -1140,6 +1151,7 @@ int writeEnabledNetInfo(iface_t *iface) {
                 if (inet_ntop(AF_INET, &iface->ipaddr, buf,
                               INET_ADDRSTRLEN) == NULL) {
                     free(ofile);
+                    fclose(fp);
                     return 3;
                 }
 
@@ -1150,6 +1162,7 @@ int writeEnabledNetInfo(iface_t *iface) {
                 if (inet_ntop(AF_INET, &iface->netmask, buf,
                               INET_ADDRSTRLEN) == NULL) {
                     free(ofile);
+                    fclose(fp);
                     return 4;
                 }
 
@@ -1160,6 +1173,7 @@ int writeEnabledNetInfo(iface_t *iface) {
                 if (inet_ntop(AF_INET, &iface->broadcast, buf,
                               INET_ADDRSTRLEN) == NULL) {
                     free(ofile);
+                    fclose(fp);
                     return 5;
                 }
 
@@ -1173,8 +1187,9 @@ int writeEnabledNetInfo(iface_t *iface) {
             if (iface_have_in_addr(&iface->gateway)) {
                 if (inet_ntop(AF_INET, &iface->gateway, buf,
                               INET_ADDRSTRLEN) == NULL) {
-                   free(ofile);
-                   return 6;
+                    free(ofile);
+                    fclose(fp);
+                    return 6;
                 }
 
                 fprintf(fp, "GATEWAY=%s\n", buf);
@@ -1198,6 +1213,7 @@ int writeEnabledNetInfo(iface_t *iface) {
                     if (inet_ntop(AF_INET6, &iface->ip6addr, buf,
                                   INET6_ADDRSTRLEN) == NULL) {
                         free(ofile);
+                        fclose(fp);
                         return 7;
                     }
 
@@ -1213,6 +1229,7 @@ int writeEnabledNetInfo(iface_t *iface) {
                 if (inet_ntop(AF_INET6, &iface->gateway6, buf,
                               INET6_ADDRSTRLEN) == NULL) {
                     free(ofile);
+                    fclose(fp);
                     return 8;
                 }
 
@@ -1260,16 +1277,28 @@ int writeEnabledNetInfo(iface_t *iface) {
         fprintf(fp, "CTCPROT=%s\n", iface->ctcprot);
     }
 
+    if (fclose(fp) == EOF) {
+        free(ofile);
+        free(nfile);
+        return 8;
+    }
+
+    if (rename(ofile, nfile) == -1) {
+        free(ofile);
+        free(nfile);
+        return 14;
+    }
+
     if (ofile) {
         free(ofile);
     }
 
-    if (fclose(fp) == EOF) {
-        return 8;
+    if (nfile) {
+        free(nfile);
     }
 
     /* Global settings */
-    if ((fp = fopen("/etc/sysconfig/network", "w")) == NULL) {
+    if ((fp = fopen("/.tmp/network", "w")) == NULL) {
         return 9;
     }
 
@@ -1290,6 +1319,7 @@ int writeEnabledNetInfo(iface_t *iface) {
     if (iface_have_in_addr(&iface->gateway)) {
         if (inet_ntop(AF_INET, &iface->gateway, buf,
                       INET_ADDRSTRLEN) == NULL) {
+            fclose(fp);
             return 10;
         }
 
@@ -1300,6 +1330,7 @@ int writeEnabledNetInfo(iface_t *iface) {
     if (iface_have_in6_addr(&iface->gateway6)) {
         if (inet_ntop(AF_INET6, &iface->gateway6, buf,
                       INET6_ADDRSTRLEN) == NULL) {
+            fclose(fp);
             return 11;
         }
 
@@ -1309,6 +1340,10 @@ int writeEnabledNetInfo(iface_t *iface) {
 
     if (fclose(fp) == EOF) {
         return 12;
+    }
+
+    if (rename("/.tmp/network", "/etc/sysconfig/network") == -1) {
+        return 15;
     }
 
     return 0;
