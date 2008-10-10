@@ -1280,7 +1280,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             case STEP_LANG: {
                 if (loaderData->lang && (loaderData->lang_set == 1))
                     setLanguage(loaderData->lang, 1);
-                else if (!skipLangKbd)
+                else if (FL_RESCUE(flags) || !skipLangKbd)
                     chooseLanguage(&loaderData->lang);
 
                 step = STEP_KBD;
@@ -1300,7 +1300,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                         break;
                     }
                     rc = LOADER_NOOP;
-                } else if (!skipLangKbd) {
+                } else if (FL_RESCUE(flags) || !skipLangKbd) {
                     /* JKFIXME: should handle kbdtype, too probably... but it 
                      * just matters for sparc */
                     if (!FL_CMDLINE(flags))
