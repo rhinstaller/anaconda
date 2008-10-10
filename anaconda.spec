@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.139
+Version: 11.1.2.140
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,13 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 10 2008 Peter Jones <pjones@redhat.com> - 11.1.2.140-1
+- Don't display errors from nl_set_device_mtu() (dcantrell)
+  Resolves: rhbz#466305
+- Use a correct path for addnote, since the one in the original patch
+  wasn't what the kernel group thought they were telling me.
+  Related: rhbz#462663
+
 * Thu Oct 09 2008 Chris Lumens <clumens@redhat.com> 11.1.2.139-1
 - Handle None in luks device name rectification (pjones).
   Resolves: rhbz#466348
