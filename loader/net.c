@@ -642,27 +642,8 @@ int configureTCPIP(char * device, iface_t * iface,
 #else
         if (!FL_NOIPV4(flags) && iface->ipv4method == IPV4_DHCP_METHOD) {
 #endif
-            /* do DHCP if selected */
-            if (!FL_TESTING(flags)) {
-                err = writeEnabledNetInfo(iface);
-                if (err) {
-                    logMessage(ERROR,
-                               "failed to write /etc/sysconfig data for %s (%d)",
-                               iface->device, err);
-                    return LOADER_BACK;
-                }
-
-                dret = get_connection(iface);
-                newtPopWindow();
-            }
-
-            if (!dret) {
-                iface->flags |= IFACE_FLAGS_IS_DYNAMIC;
-                i = 1;
-            } else {
-                logMessage(DEBUGLVL, "get_connection() failed, returned %d", dret);
-                i = 0;
-            }
+            /* DHCP selected, exit the loop */
+            i = 1;
         } else {
             /* manual IP configuration for IPv4 and IPv6 */
             newtFormDestroy(f);
