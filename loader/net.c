@@ -238,14 +238,13 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
         /* this is how we specify dhcp */
         if (!strncmp(loaderData->ipv4, "dhcp", 4)) {
             iface->dhcptimeout = loaderData->dhcpTimeout;
-            iface->flags |= IFACE_FLAGS_IS_DYNAMIC | IFACE_FLAGS_IS_PRESET;
+            iface->ipv4method = IPV4_DHCP_METHOD;
         } else if (inet_pton(AF_INET, loaderData->ipv4, &addr) >= 1) {
             iface->ipaddr.s_addr = addr.s_addr;
-            iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
-            iface->flags |= IFACE_FLAGS_IS_PRESET;
+            iface->ipv4method = IPV4_MANUAL_METHOD;
         } else { /* invalid ip information, disable the setting of ip info */
             loaderData->ipinfo_set = 0;
-            iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
+            iface->ipv4method = 0;
             loaderData->ipv4 = NULL;
         }
      }
@@ -266,11 +265,15 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
 
 #ifdef ENABLE_IPV6
     if (loaderData->ipv6info_set && loaderData->ipv6 != NULL) {
-        if (inet_pton(AF_INET6, loaderData->ipv6, &addr6) >= 1) {
+        if (!strncmp(loaderData->ipv6, "dhcp", 4)) {
+            iface->ipv6method = IPV6_DHCP_METHOD;
+        } else if (!strcmp(loaderData->ipv6, "auto", 4)) {
+            iface->ipv6method = IPV6_AUTO_METHOD;
+        } else if (inet_pton(AF_INET6, loaderData->ipv6, &addr6) >= 1) {
             memcpy(&iface->ip6addr, &addr6, sizeof(struct in6_addr));
-            iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
-            iface->flags |= IFACE_FLAGS_IS_PRESET;
+            iface->ipv6method = IPV6_MANUAL_METHOD;
         } else {
+            iface->ipv6method = 0;
             loaderData->ipv6info_set = 0;
             loaderData->ipv6 = NULL;
         }
@@ -389,7 +392,7 @@ int readNetConfig(char * device, iface_t * iface,
 
     /* JKFIXME: we really need a way to override this and be able to change
      * our network config */
-    if (!FL_TESTING(flags) && IFACE_IS_PRESET(iface->flags)) {
+    if (!FL_TESTING(flags) && ((iface->ipv4method > 0) || (iface->ipv6method > 0))) {
         logMessage(INFO, "doing kickstart... setting it up");
 
         err = writeEnabledNetInfo(iface);
@@ -1048,7 +1051,6 @@ int manualNetConfig(char * device, iface_t * iface,
 #endif
 
         strcpy(iface->device, device);
-        iface->flags &= ~IFACE_FLAGS_IS_DYNAMIC;
     }
 
     free(buf);

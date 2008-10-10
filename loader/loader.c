@@ -1517,10 +1517,6 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 }
 
                 /* populate netDev based on any kickstart data */
-                if (loaderData->ipinfo_set) {
-                    iface.flags |= IFACE_FLAGS_IS_PRESET;
-                }
-
                 setupIfaceStruct(&iface, loaderData);
                 rc = readNetConfig(devName, &iface, loaderData->netCls, loaderData->method);
 

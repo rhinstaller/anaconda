@@ -42,15 +42,9 @@ enum { IPV6_UNUSED_METHOD, IPV6_AUTO_METHOD, IPV6_DHCP_METHOD,
 #define IPV6_FIRST_METHOD IPV6_AUTO_METHOD
 #define IPV6_LAST_METHOD  IPV6_MANUAL_METHOD
 
-/* Flags for the iface_t */
+/* Flags for the iface_t (do we need these?) */
 #define IFACE_FLAGS_NO_WRITE_RESOLV_CONF (((uint64_t) 1) << 0)
-/* FIXME: do we need these? */
-#define IFACE_FLAGS_IS_PRESET            (((uint64_t) 1) << 1)
-#define IFACE_FLAGS_IS_DYNAMIC           (((uint64_t) 1) << 2)
-
 #define IFACE_NO_WRITE_RESOLV_CONF(a)    ((a) & IFACE_FLAGS_NO_WRITE_RESOLV_CONF)
-#define IFACE_IS_PRESET(a)               ((a) & IFACE_FLAGS_IS_PRESET)
-#define IFACE_IS_DYNAMIC(a)              ((a) & IFACE_FLAGS_IS_DYNAMIC)
 
 /* Macros for starting NetworkManager */
 #define NETWORKMANAGER  "/usr/sbin/NetworkManager"
