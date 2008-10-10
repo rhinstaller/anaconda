@@ -25,10 +25,12 @@ __EOT__
 		pushd $TOPDESTPATH/ppc/ppc64
 		cp $IMGPATH/usr/share/ppc64-utils/zImage.lds $TOPDESTPATH/ppc/ppc64/zImage.lds
 		$IMGPATH/usr/bin/mkzimage $TOPDESTPATH/ppc/ppc64/vmlinuz no no $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz $IMGPATH/usr/share/ppc64-utils/zImage.stub $TOPDESTPATH/images/netboot/ppc64.img
-		ADDNOTE=$KERNELROOT/kernel/arch/powerpc/boot/addnote
-		if [ -x "$ADDNOTE" ]
-		then
+		ADDNOTE=$IMGPATH/usr/share/ppc64-utils/addnote
+		if [ -x "$ADDNOTE" ] ; then
+		    echo "Running addnote on $TOPDESTPATH/images/netboot/ppc64.img"
 		    $ADDNOTE $TOPDESTPATH/images/netboot/ppc64.img
+		else
+		    echo "Could not find addnote, skipping"
 		fi
 		rmdir $TOPDESTPATH/images/netboot || :
 		rm -f $TOPDESTPATH/ppc/ppc64/zImage.lds
