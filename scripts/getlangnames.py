@@ -26,6 +26,7 @@ import gettext
 langs = language.Language()
 names = {}
 for k in langs.localeInfo.keys():
+    found = False
     for l in language.expandLangs(k):
         try:
             f = open("po/%s.mo" %(l,))
@@ -34,7 +35,10 @@ for k in langs.localeInfo.keys():
         cat = gettext.GNUTranslations(f)
         cat.set_output_charset("utf-8")
         names[langs.localeInfo[k][0]] = cat.lgettext(langs.localeInfo[k][0])
+        found = True
         break
+    if not found:
+        names[langs.localeInfo[k][0]] = langs.localeInfo[k][0]
 
 nameList = names.keys()
 nameList.sort()
