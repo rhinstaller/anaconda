@@ -468,7 +468,7 @@ int readNetConfig(char * device, iface_t * iface,
 
 int configureTCPIP(char * device, iface_t * iface,
                    struct netconfopts * opts, int methodNum) {
-    int i = 0, z = 0, skipForm = 0, dret = 0, err;
+    int i = 0, z = 0, skipForm = 0;
     newtComponent f, okay, back, answer;
     newtComponent ipv4Checkbox, v4Method[2];
 #ifdef ENABLE_IPV6
