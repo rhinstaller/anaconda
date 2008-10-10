@@ -249,7 +249,7 @@ class SaveExceptionWindow:
         toplevel.add(self.bugzillaButton, 0, 2, (0, 0, 0, 1))
         toplevel.add(bugzillaGrid, 0, 3, (0, 0, 0, 1))
         toplevel.add(self.remoteButton, 0, 4, (0, 0, 0, 1))
-        toplevel.adD(remoteGrid, 0, 5, (0, 0, 0, 1))
+        toplevel.add(remoteGrid, 0, 5, (0, 0, 0, 1))
         toplevel.add(buttons, 0, 6, growx=1)
 
         dests = self.anaconda.id.diskset.exceptionDisks(self.anaconda)
