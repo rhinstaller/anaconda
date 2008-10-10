@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.45
+Version: 11.4.1.46
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 09 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.46-1
+- Pull in static network settings from the boot: line (#465270) (dcantrell)
+- Do not segfault when going back to select a new interface (#465887)
+  (dcantrell)
+- Do not test for DNS settings in mountNfsImage() (dcantrell)
+- Populate struct iface correctly in setupIfaceStruct() (dcantrell)
+
 * Thu Oct 09 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.45-1
 - Fix sorting of repos so we always return an integer value (#466174).
   (clumens)
