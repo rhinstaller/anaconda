@@ -1520,66 +1520,6 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 setupIfaceStruct(&iface, loaderData);
                 rc = readNetConfig(devName, &iface, loaderData->netCls, loaderData->method);
 
-                if (FL_NOIPV4(flags)) {
-                    loaderData->ipinfo_set = 0;
-                } else {
-                    if (loaderData->ipv4 == NULL) {
-                        if (iface_have_in_addr(&iface.ipaddr)) {
-                            iface.ipv4method = IPV4_MANUAL_METHOD;
-                        } else {
-                            free(loaderData->ipv4);
-                            loaderData->ipv4 = NULL;
-                            loaderData->ipinfo_set = 0;
-                            flags |= LOADER_FLAGS_NOIPV4;
-                        }
-                    } else {
-                        if (!strcmp(loaderData->ipv4, "dhcp")) {
-                            iface.ipv4method = IPV4_DHCP_METHOD;
-                        } else {
-                            free(loaderData->ipv4);
-                            loaderData->ipv4 = NULL;
-                            loaderData->ipinfo_set = 0;
-                            flags |= LOADER_FLAGS_NOIPV4;
-                        }
-                    }
-
-                    if (loaderData->ipv4 != NULL) {
-                        loaderData->ipinfo_set = 1;
-                    }
-                }
-
-#ifdef ENABLE_IPV6
-                if (FL_NOIPV6(flags)) {
-                    loaderData->ipv6info_set = 0;
-                } else {
-                    if (loaderData->ipv6 == NULL) {
-                        if (iface_have_in6_addr(&iface.ip6addr)) {
-                            iface.ipv6method = IPV6_MANUAL_METHOD;
-                        } else {
-                            free(loaderData->ipv6);
-                            loaderData->ipv6 = NULL;
-                            loaderData->ipv6info_set = 0;
-                            flags |= LOADER_FLAGS_NOIPV6;
-                        }
-                    } else {
-                        if (!strcmp(loaderData->ipv6, "auto")) {
-                            iface.ipv6method = IPV6_AUTO_METHOD;
-                        } else if (!strncmp(loaderData->ipv6, "dhcp", 4)) {
-                            iface.ipv6method = IPV6_MANUAL_METHOD;
-                        } else {
-                            free(loaderData->ipv6);
-                            loaderData->ipv6 = NULL;
-                            loaderData->ipv6info_set = 0;
-                            flags |= LOADER_FLAGS_NOIPV6;
-                        }
-                    }
-
-                    if (loaderData->ipv6 != NULL) {
-                        loaderData->ipv6info_set = 1;
-                    }
-                }
-#endif
-
                 /* set the hostname if we have that */
                 if (loaderData->hostname) {
                     if (sethostname(loaderData->hostname,
