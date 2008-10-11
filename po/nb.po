@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda FC9\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-10 12:20+0200\n"
+"PO-Revision-Date: 2008-10-11 11:28+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@broadpark.no>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -594,7 +594,7 @@ msgstr "Ugyldig informasjon om feil"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "Vennligst oppgi et gyldig brukernavn, passord og en kort feilbeskrivelse."
 
 #: ../exception.py:395
 msgid "Unable To Login"
@@ -1423,17 +1423,15 @@ msgid "Hostname must be 64 or fewer characters in length."
 msgstr "Vertsnavnet må være 64 tegn eller mindre i lengde."
 
 #: ../network.py:70
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
-msgstr "Vertsnavnet på begynne med et gyldig tegn i området «a-z» eller «A-Z»"
+msgstr "Vertsnavnet på begynne med et gyldig tegn i området «a-z», «A-Z» eller «0-9»"
 
 #: ../network.py:75
-#, fuzzy
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr "Vertsnavn kan kun inneholde tegnene «a-z», «A-Z», «-» eller «.»"
+msgstr "Vertsnavn kan kun inneholde tegnene «a-z», «A-Z», «0-9», «-» eller «.»"
 
 #: ../network.py:132
 msgid "IP address is missing."
@@ -2270,7 +2268,7 @@ msgstr "Avslutt skallet når du er ferdig for å starte systemet på nytt."
 
 #: ../rescue.py:201
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
+msgstr "Kan ikke finne /bin/sh for kjøring! Starter ikke skall"
 
 #: ../rescue.py:220
 msgid "Setup Networking"
@@ -2436,14 +2434,13 @@ msgid "Passphrase for encrypted device"
 msgstr "Passord for kryptert enhet"
 
 #: ../text.py:347 tmp/lukspassphrase.glade.h:7
-#, fuzzy
 msgid "Use this passphrase for all new encrypted devices"
-msgstr "Oppgi passord for kryptert partisjon"
+msgstr "Bruk dette passordet for alle nye krypterte enheter"
 
 #: ../text.py:378
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "Passordet må være minst åtte tegn langt."
+msgstr "Passordet må være minst %d tegn langt."
 
 #: ../text.py:407 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
@@ -2811,9 +2808,8 @@ msgid "Finishing upgrade process..."
 msgstr "Fullfører oppgraderingen..."
 
 #: ../yuminstall.py:308 ../iw/task_gui.py:275
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "Rediger lager"
+msgstr "Feil ved oppsett av lager"
 
 #: ../yuminstall.py:309 ../iw/task_gui.py:276
 #, fuzzy, python-format
@@ -3270,7 +3266,7 @@ msgstr "Gratulerer"
 msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
-msgstr ""
+msgstr "Vennligst start systemet på nytt for å bruke det installerte systemet.\n\n"
 
 #: ../iw/congrats_gui.py:74
 msgid ""
@@ -4610,7 +4606,7 @@ msgstr ""
 
 #: ../iw/task_gui.py:431
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "Ingen programvarelager aktivert"
 
 #: ../iw/task_gui.py:432
 #, fuzzy
@@ -5961,7 +5957,7 @@ msgstr "Søker"
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "Ser etter installasjonsbilder på CD-enhet %s"
 
 #: ../loader/cdinstall.c:428
 #, c-format
@@ -6614,17 +6610,17 @@ msgstr "Ugyldig varighet"
 
 #: ../loader/net.c:1577
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "Du må oppgi antall sekunder som et heltall mellom 1 og 30."
 
 #: ../loader/net.c:1589
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "Blinker med lysene for port %s i %d sekunder..."
 
 #: ../loader/net.c:1740 ../loader/net.c:1744
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "Venter på telnet-forbindelse..."
+msgstr "Venter på av NetworkManager skal konfigurere %s...\n"
 
 #: ../loader/nfsinstall.c:63
 msgid "NFS server name:"
@@ -6770,9 +6766,8 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>_Navn på lager:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>_Navn på lager:</b>"
+msgstr "<b>_Type lager:</b>"
 
 #: tmp/addrepo.glade.h:4
 msgid "Configure _proxy"
@@ -6818,7 +6813,7 @@ msgstr "Velg en katalog"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "URLen er en listte med _speil"
 
 #: tmp/addrepo.glade.h:16
 msgid "_Directory"
@@ -6955,7 +6950,7 @@ msgstr ""
 
 #: tmp/exnSave.glade.h:5
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "Vennligst velg et mål for lagring av feilsøkingsinformasjonen."
 
 #: tmp/exnSave.glade.h:7
 msgid "Select A File"
