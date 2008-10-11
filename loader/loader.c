@@ -1020,7 +1020,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         else if (!strncasecmp(argv[i], "ipv6=", 5))
             parseCmdLineIpv6(loaderData, argv[i]);
 #endif
-        else if (!strncasecmp(argv[i], "netmask=", 8)) 
+        else if (!strncasecmp(argv[i], "netmask=", 8))
             loaderData->netmask = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "gateway=", 8))
             loaderData->gateway = strdup(argv[i] + 8);
@@ -1470,11 +1470,6 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     loaderData->ipinfo_set = 1;
 #ifdef ENABLE_IPV6
                     loaderData->ipv6info_set = 1;
-#endif
-                } else {
-                    loaderData->ipinfo_set = 0;
-#ifdef ENABLE_IPV6
-                    loaderData->ipv6info_set = 0;
 #endif
                 }
 
