@@ -472,7 +472,7 @@ int readNetConfig(char * device, iface_t * iface,
 
 int configureTCPIP(char * device, iface_t * iface,
                    struct netconfopts * opts, int methodNum) {
-    int i = 0, z = 0, skipForm = 0;
+    int i = 0, z = 0, skipForm = 0, ret;
     newtComponent f, okay, back, answer;
     newtComponent ipv4Checkbox, v4Method[2];
 #ifdef ENABLE_IPV6
@@ -647,27 +647,24 @@ int configureTCPIP(char * device, iface_t * iface,
         if (!FL_NOIPV4(flags) && iface->ipv4method == IPV4_DHCP_METHOD) {
 #endif
             /* DHCP selected, exit the loop */
+            ret = LOADER_NOOP;
             i = 1;
-        } else {
-            /* manual IP configuration for IPv4 and IPv6 */
-            newtFormDestroy(f);
-            newtPopWindow();
-            return LOADER_OK;
+#ifdef ENABLE_IPV6
+        } else if ((!FL_NOIPV4(flags) && iface->ipv4method == IPV4_MANUAL_METHOD) ||
+                   (!FL_NOIPV6(flags) && iface->ipv6method == IPV6_MANUAL_METHOD)) {
+#else
+        } else if (!FL_NOIPV4(flags) && iface->ipv4method == IPV4_MANUAL_METHOD) {
+#endif
+
+            /* manual IP configuration selected */
+            ret = LOADER_OK;
+            i = 1;
         }
     } while (i != 1);
 
     newtFormDestroy(f);
     newtPopWindow();
-
-#ifdef ENABLE_IPV6
-    if ((!FL_NOIPV4(flags) && iface->ipv4method == IPV4_MANUAL_METHOD) ||
-        (!FL_NOIPV6(flags) && iface->ipv6method == IPV6_MANUAL_METHOD))
-#else
-    if (!FL_NOIPV4(flags) && iface->ipv4method == IPV4_MANUAL_METHOD)
-#endif
-        return LOADER_OK;
-    else
-        return LOADER_NOOP;
+    return ret;
 }
 
 int manualNetConfig(char * device, iface_t * iface,
