@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.47
+Version: 11.4.1.48
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,23 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 10 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.48-1
+- Remove unnecessary STEP_IP code. (dcantrell)
+- Fix how configureTCPIP() returns. (dcantrell)
+- Write new sysconfig data to a tmpdir first, then move in place. (dcantrell)
+- Write NM_CONTROLLED=yes rather than NM_CONTROLLED= (dcantrell)
+- Get rid of some iface flags that were not doing anything anymore.
+  (dcantrell)
+- Generate new config files in /.tmp in writeEnabledNetInfo() (dcantrell)
+- Remove unused variables from configureTCPIP() (dcantrell)
+- Do not call get_connection() twice for DHCP. (dcantrell)
+- Ask for language and keyboard in rescue mode (#466525). (clumens)
+- Fix bringing up the network in rescue mode (#466523). (clumens)
+- If we don't have a translation for a lang name, just use the English
+  (#466515) (katzj)
+- Disable some more IPv6 checks. (clumens)
+- Fix a typo (second part of #466374) (katzj)
+
 * Thu Oct 09 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.47-1
 - Tag problems in pkgcvs.  Wish we still had force-tag
 
