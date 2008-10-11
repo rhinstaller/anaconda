@@ -463,13 +463,23 @@ class Network:
 
                 f.write("\n");
 
-    def write(self, instPath=''):
-        # make sure the directory exists
-        if not os.path.isdir("%s/etc/sysconfig/network-scripts" %(instPath,)):
-            iutil.mkdirChain("%s/etc/sysconfig/network-scripts" %(instPath,))
+    def hasNameServers(self, hash):
+        if hash.keys() == []:
+            return False
 
+        for key in hash.keys():
+            if key.upper().startswith('DNS'):
+                return True
+
+        return False
+
+    def write(self, instPath=''):
         if len(self.netdevices.values()) == 0:
             return
+
+        tmpdest = "%s/.tmp" % (instPath,)
+        if not os.path.isdir(tmpdest):
+            iutil.mkdirChain(tmpdest)
 
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in self.netdevices.values():
@@ -480,10 +490,8 @@ class Network:
             ipv6autoconf = dev.get('IPV6_AUTOCONF').lower()
             dhcpv6c = dev.get('DHCPV6C').lower()
 
-            fn = "%s/etc/sysconfig/network-scripts/ifcfg-%s" % (instPath,
-                                                                device)
-            f = open(fn, "w")
-            os.chmod(fn, 0644)
+            newifcfg = "%s/ifcfg-%s" % (tmpdest, device,)
+            f = open(newifcfg, "w")
             if len(dev.get("DESC")) > 0:
                 f.write("# %s\n" % (dev.get("DESC"),))
 
@@ -528,19 +536,35 @@ class Network:
                 searchLine = string.joinfields(self.domains, ' ')
                 f.write("SEARCH=\"%s\"\n" % (searchLine,))
 
-            f.write("NM_CONTROLLED=\n")
+            f.write("NM_CONTROLLED=yes\n")
             f.close()
+            os.chmod(newifcfg, 0644)
 
+            # move the new ifcfg in place
+            destdir = "%s/etc/sysconfig/network-scripts" % (instPath,)
+            if not os.path.isdir(destdir):
+                iutil.mkdirChain(destdir)
+
+            destcfg = "%s/ifcfg-%s" % (destdir, device,)
+            shutil.move(newifcfg, destcfg)
+
+            # XXX: is this necessary with NetworkManager?
+            # handle the keys* files if we have those
             if dev.get("KEY"):
-                fn = "%s/etc/sysconfig/network-scripts/keys-%s" % (instPath,
-                                                                   device)
-                f = open(fn, "w")
-                os.chmod(fn, 0600)
-                f.write("KEY=%s\n" % dev.get('key'))
+                newkey = "%s/keys-%s" % (tmpdest, device,)
+                f = open(newkey, "w")
+                f.write("KEY=%s\n" % (dev.get('KEY'),))
                 f.close()
+                os.chmod(newkey, 0600)
+
+                destkey = "%s/keys-%s" % (destdir, device,)
+                shutil.move(newkey, destkey)
 
         # /etc/sysconfig/network
-        f = open(instPath + "/etc/sysconfig/network", "w")
+        newnetwork = "%/network" % (tmpdest,)
+        destnetwork = "%s/etc/sysconfig/network" % (instPath,)
+
+        f = open(newnetwork, "w")
         f.write("NETWORKING=yes\n")
         f.write("HOSTNAME=")
 
@@ -557,6 +581,7 @@ class Network:
             f.write("IPV6_DEFAULTGW=%s\n" % (dev.get('IPV6_DEFAULTGW'),))
 
         f.close()
+        shutil.move(newnetwork, destnetwork)
 
         # /etc/hosts
         f = open(instPath + "/etc/hosts", "w")
@@ -617,16 +642,22 @@ class Network:
                 self.domains = [domainname]
 
         # /etc/resolv.conf
-        f = open(instPath + "/etc/resolv.conf", "w")
+        if (self.domains != ['localdomain'] and self.domains) or \
+            self.hasNameServers(dev.info):
+            newresolv = "%s/resolv.conf" % (tmpdest,)
+            destresolv = "%s/etc/resolv.conf" % (instPath,)
 
-        if self.domains != ['localdomain'] and self.domains:
-            f.write("search %s\n" % (string.joinfields(self.domains, ' '),))
+            f = open(newresolv, "w")
 
-        for key in dev.info.keys():
-            if key.upper().startswith('DNS'):
-                f.write("nameserver %s\n" % (dev.get(key),))
+            if self.domains != ['localdomain'] and self.domains:
+                f.write("search %s\n" % (string.joinfields(self.domains, ' '),))
 
-        f.close()
+            for key in dev.info.keys():
+                if key.upper().startswith('DNS'):
+                    f.write("nameserver %s\n" % (dev.get(key),))
+
+            f.close()
+            shutil.move(newresolv, destresolv)
 
         # /lib/udev/rules.d/70-persistent-net.rules
         if not instPath == '':
