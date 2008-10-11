@@ -24,6 +24,7 @@
 #
 
 import string
+import shutil
 import isys
 import iutil
 import socket
@@ -561,7 +562,7 @@ class Network:
                 shutil.move(newkey, destkey)
 
         # /etc/sysconfig/network
-        newnetwork = "%/network" % (tmpdest,)
+        newnetwork = "%s/network" % (tmpdest,)
         destnetwork = "%s/etc/sysconfig/network" % (instPath,)
 
         f = open(newnetwork, "w")
