@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-10-12 00:46GMT\n"
+"PO-Revision-Date: 2008-10-12 22:07GMT\n"
 "Last-Translator: Oron Peled <oron@actcom.co.il>\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
@@ -5687,6 +5687,8 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"חובה להזין מספר שלם חוקי ל-‏%s. עבור IPv4, הערך יכול להיות בין 0 ל-‏32. עבור "
+"IPv6 הוא יכול להיות בין 0 ל-‏128."
 
 #
 #: ../textw/network_text.py:89 tmp/netpostconfig.glade.h:16
@@ -5798,12 +5800,12 @@ msgstr "הגדרת מנשק רשת"
 #: ../textw/network_text.py:512
 #, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr ""
+msgstr "האם ברצונך להגדיר את התקן הרשת %s במערכת שלך?"
 
 #
 #: ../textw/network_text.py:526 ../textw/network_text.py:528
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "ללא תצורה"
 
 #
 #: ../textw/network_text.py:537
@@ -5813,6 +5815,9 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"ההגדרות הנוכחיות עבור כל אחד מהתקני הרשת רשומות לצד שם ההתקן. התקנים שלא "
+"בוצעה עבורם הגדרה מסומנים \"ללא תצורה\". בכדי להגדיר את ההתקן יש לסמנו "
+"ולבחור פעולת עריכה. לאחר סיום, יש ללחוץ אישור להמשך."
 
 #
 #: ../textw/network_text.py:571
@@ -5857,7 +5862,7 @@ msgstr "הגדרות רשת שונות"
 #
 #: ../textw/network_text.py:720 ../textw/network_text.py:723
 msgid "gateway"
-msgstr ""
+msgstr "נתב"
 
 #
 #: ../textw/network_text.py:730 ../textw/network_text.py:733
@@ -5892,6 +5897,9 @@ msgid ""
 "hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
+"במידה והמחשב שלך מהווה חלק מרשת גדולה יותר שבה שמות המחשבים מחולקים בעזרת "
+"DHCP, נא לבחור אוטומטית בעזרת DHCP. אחרת, נא לבחור ידנית ולהזין שם עבור "
+"המחשב. במידה ולא מוזן שם, המחשב יקבל את השם 'localhost'. "
 
 #
 #: ../textw/network_text.py:817 ../textw/network_text.py:823
@@ -5988,17 +5996,17 @@ msgstr "קבוצת נפחים:"
 #
 #: ../textw/partition_text.py:519
 msgid "RAID Level:"
-msgstr ""
+msgstr "רמת ה-RAID:"
 
 #
 #: ../textw/partition_text.py:537
 msgid "RAID Members:"
-msgstr ""
+msgstr "חלקי ה-RAID:"
 
 #
 #: ../textw/partition_text.py:556
 msgid "Number of spares?"
-msgstr ""
+msgstr "מספר הרזרווים?"
 
 #
 #: ../textw/partition_text.py:570
@@ -6046,12 +6054,12 @@ msgstr "אפשרויות מערכת קבצים"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
+msgstr "נא לבחור כיצד לטפל במערכת הקבצים על גבי מחיצה זו."
 
 #
 #: ../textw/partition_text.py:624
 msgid "Leave unchanged (preserve data)"
-msgstr ""
+msgstr "לא לגעת (שמור נתונים)"
 
 #
 #: ../textw/partition_text.py:633
@@ -6076,7 +6084,7 @@ msgstr "לא נתמך"
 #
 #: ../textw/partition_text.py:764
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr ""
+msgstr "ניתן לערוך קבוצות נפחים רק בתכנית ההתקנה הגרפית."
 
 #
 #: ../textw/partition_text.py:831 ../textw/partition_text.py:879
@@ -6255,7 +6263,7 @@ msgstr "אפשרויות אחסון מתקדמות"
 #
 #: ../textw/partition_text.py:1640 tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
-msgstr ""
+msgstr "באיזה אופן ברצונך לשנות את תצורת הכונן?"
 
 #
 #: ../textw/partition_text.py:1663
@@ -6364,6 +6372,11 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
+"גרסה זו של  %s תומכת בגרסה מעודכנת של מערכת הקבצים הכוללת מספר יתרונות לעומת "
+"מערכת הקבצים המסורתית שהופצה ב-‏%s.  תכנת התקנה זו יכולה לשדרג מחיצות קיימות "
+"ללא אבדן מידע.\n"
+"\n"
+"אילו מהמחיצות להלן ברצונך לשדרג?"
 
 #
 #: ../textw/upgrade_text.py:121
@@ -6634,6 +6647,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
+"לתחילת בדיקת המדיה לפני ההתקנה יש ללחוץ %s.‏\n"
+"\n"
+"ניתן ללחוץ %s כדי לדלג על בדיקת המדיה ולהתחיל ישר בהתקנה."
 
 #
 #: ../loader/cdinstall.c:331
@@ -6644,7 +6660,7 @@ msgstr "מתבצעת סריקה"
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "מחפש קבצי התקנה בכונן תקליטורים %s"
 
 #
 #: ../loader/cdinstall.c:428
@@ -6653,6 +6669,8 @@ msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
+"דיסק התקנה %s לא נמצא באף כונן תקליטורים. יש להכניס את הדיסק %s וללחוץ %s "
+"בכדי לנסות שנית."
 
 #
 #: ../loader/cdinstall.c:437
@@ -6668,7 +6686,7 @@ msgstr ""
 #: ../loader/copy.c:51 ../loader/method.c:281
 #, c-format
 msgid "Failed to read directory %s: %m"
-msgstr ""
+msgstr "קריאת התיקייה %s נכשלה: %m"
 
 #
 #: ../loader/driverdisk.c:141
@@ -6678,12 +6696,12 @@ msgstr "טוען"
 #
 #: ../loader/driverdisk.c:141
 msgid "Reading driver disk..."
-msgstr ""
+msgstr "קורא דיסק מנהלי התקנים..."
 
 #
 #: ../loader/driverdisk.c:240 ../loader/driverdisk.c:272
 msgid "Driver Disk Source"
-msgstr ""
+msgstr "מקור דיסק מנהלי התקנים"
 
 #
 #: ../loader/driverdisk.c:241
@@ -6691,6 +6709,8 @@ msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
+"ברשותך מספר כוננים שיכולים לשמש כמקור לקריאת דיסק מנהלי התקנים. באיזה ברצונך "
+"להשתמש?"
 
 #
 #: ../loader/driverdisk.c:273
@@ -6698,6 +6718,8 @@ msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
+"על הכונן יש מספר מחיצות שיכולות להכיל את קבצי מנהלי ההתקנים. באיזה מהן "
+"ברצונך להשתמש?"
 
 #
 #: ../loader/driverdisk.c:308
@@ -6723,17 +6745,17 @@ msgstr ""
 #: ../loader/driverdisk.c:355
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
+msgstr "יש להכניס דיסק מנהלי התקנים אל ‎/dev/%s וללחוץ \"אישור\" להמשך."
 
 #
 #: ../loader/driverdisk.c:361
 msgid "Insert Driver Disk"
-msgstr ""
+msgstr "נא להכניס דיסק מנהלי התקנים"
 
 #
 #: ../loader/driverdisk.c:374
 msgid "Failed to mount driver disk."
-msgstr ""
+msgstr "עגינת דיסק מנהלי התקנים, נכשלה."
 
 #
 #: ../loader/driverdisk.c:382
@@ -6762,22 +6784,22 @@ msgstr ""
 #
 #: ../loader/driverdisk.c:485
 msgid "Driver disk"
-msgstr ""
+msgstr "דיסק מנהלי התקנים"
 
 #
 #: ../loader/driverdisk.c:486
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "האם ברשותך דיסק מנהלי התקנים?"
 
 #
 #: ../loader/driverdisk.c:495
 msgid "More Driver Disks?"
-msgstr ""
+msgstr "עוד דיסקים המכילים מנהלי התקנים?"
 
 #
 #: ../loader/driverdisk.c:496
 msgid "Do you wish to load any more driver disks?"
-msgstr ""
+msgstr "האם ברצונך לטעון עוד דיסקים עם מנהלי התקנים?"
 
 #
 #: ../loader/driverdisk.c:541 ../loader/driverdisk.c:578
@@ -6812,28 +6834,30 @@ msgid ""
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
+"נא להזין פרמטרים מופרדים ברווחים עבור המודול %s. אם לא ידוע איזה פרמטרים "
+"לספק, ניתן לדלג על מסך זה בלחיצת כפתור \"אישור\"."
 
 #
 #: ../loader/driverselect.c:91
 msgid "Enter Module Parameters"
-msgstr ""
+msgstr "פרמטרים למודול"
 
 #
 #: ../loader/driverselect.c:178
 msgid "No drivers found"
-msgstr ""
+msgstr "לא נמצאו מנהלי התקן"
 
 #
 #: ../loader/driverselect.c:178
 msgid "Load driver disk"
-msgstr ""
+msgstr "טען דיסק מנהלי התקנים"
 
 #
 #: ../loader/driverselect.c:179
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
+msgstr "לא נמצאו מנהלי התקן לטעינה ידנית. האם ברצונך להשתמש בדיסק מנהלי התקן?"
 
 #
 #: ../loader/driverselect.c:197
@@ -6841,16 +6865,18 @@ msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
+"נא לבחור את מנהל ההתקן שברצונך לטעון מהרשימה להלן. אם מנהל ההתקן אינו ברשימה "
+"וברשותך דיסק מנהלי התקנים, נא ללחוץ F2."
 
 #
 #: ../loader/driverselect.c:206
 msgid "Specify optional module arguments"
-msgstr ""
+msgstr "נא לציין פרמטרים אפשריים עבור המודול"
 
 #
 #: ../loader/driverselect.c:234
 msgid "Select Device Driver to Load"
-msgstr ""
+msgstr "נא לבחור דיסק לטעינת מנהלי התקנים"
 
 #
 #: ../loader/hdinstall.c:144
@@ -6864,7 +6890,7 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
+msgstr "לא נראה שיש כוננים קשיחים במערכת! האם ברצונך להגדיר התקנים נוספים?"
 
 #
 #: ../loader/hdinstall.c:246
@@ -6878,7 +6904,7 @@ msgstr ""
 #
 #: ../loader/hdinstall.c:273
 msgid "Directory holding image:"
-msgstr ""
+msgstr "תיקייה המכילה את קובץ ההתקנה:"
 
 #
 #: ../loader/hdinstall.c:301
@@ -6889,7 +6915,7 @@ msgstr "בחירת מחיצה"
 #: ../loader/hdinstall.c:353
 #, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr ""
+msgstr "לא נראה שההתקן %s מכיל קבצי התקנה."
 
 #
 #: ../loader/hdinstall.c:385
@@ -6939,7 +6965,7 @@ msgstr "שגיאה ב-%s בשורה %d של קובץ ה-kickstart %s."
 #
 #: ../loader/kickstart.c:285
 msgid "Cannot find ks.cfg on removable media."
-msgstr ""
+msgstr "קובץ ks.cfg לא נמצא על מדיה שליפה."
 
 #
 #: ../loader/kickstart.c:380
@@ -7002,19 +7028,21 @@ msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
+"קיימים מספר התקנים שיכולים לשמש מקורות לדיסק עדכונים. באיזה מהם ברצונך "
+"להשתמש?"
 
 #
 #: ../loader/loader.c:469
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
-msgstr ""
+msgstr "יש כמה מחיצות היכולות להכיל את קבצי העדכונים. באיזו מהן ברצונך להשתמש?"
 
 #
 #: ../loader/loader.c:487
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr ""
+msgstr "יש להכניס את דיסק העדכונים אל %s וללחוץ \"אישור\" להמשך."
 
 #
 #: ../loader/loader.c:493
@@ -7209,6 +7237,9 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"האם ברצונך לבצע בדיקת סכום ביקורת של קובץ ה-ISO:‏\n"
+"\n"
+"   %s?"
 
 #
 #: ../loader/method.c:327
@@ -7232,6 +7263,7 @@ msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
+"הקידומת חייבת להיות בין 1 ל-‏32 עבור רשתות IPv4 או בין 1 ל-‏128 עבור רשתות IPv6"
 
 #
 #: ../loader/net.c:413 ../loader/net.c:467
@@ -7241,7 +7273,7 @@ msgstr "שגיאת רשת"
 #
 #: ../loader/net.c:414 ../loader/net.c:468
 msgid "There was an error configuring your network interface."
-msgstr ""
+msgstr "אירעה שגיאה בהגדרת התקן הרשת שלך."
 
 #
 #: ../loader/net.c:540
@@ -7291,6 +7323,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"יש להקליד כתובת וקידומת IPv4 ו/או IPv6 (כתובת/קידומת). עבור IPv4 ניתן להשתמש "
+"במסכת רשת המורכבת מ-‏4 מספרים עשרוניים או מקידומת בסגנון CIDR. שדות הנתב ושרת "
+"השמות חייבים להכיל כתובות IPv4 או IPv6 חוקיות."
 
 #
 #: ../loader/net.c:895
@@ -7317,13 +7352,13 @@ msgstr "חובה לכתוב הן כתובת IPv6 חוקית והן מסכת רש
 #: ../loader/net.c:1331
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr ""
+msgstr "פרמטר שגוי לפקודת הרשת %s: ‏%s"
 
 #
 #: ../loader/net.c:1354
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "בפקודת הרשת מצויין  פרוטוקול הפעלה שגוי %s"
 
 #
 #: ../loader/net.c:1423
@@ -7397,7 +7432,7 @@ msgstr "שם שרת NFS:"
 #: ../loader/nfsinstall.c:67
 #, c-format
 msgid "%s directory:"
-msgstr ""
+msgstr "תיקיית %s:"
 
 #
 #: ../loader/nfsinstall.c:78
@@ -7413,18 +7448,18 @@ msgstr "התקנת NFS"
 #
 #: ../loader/nfsinstall.c:190
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "שם שרת צויין מבלי שהוגדר DNS"
 
 #
 #: ../loader/nfsinstall.c:251
 msgid "That directory could not be mounted from the server."
-msgstr ""
+msgstr "עיגון התיקייה מהשרת נכשל."
 
 #
 #: ../loader/nfsinstall.c:262
 #, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr ""
+msgstr "לא נראה שתיקייה זו מכילה קבצי התקנה עבור %s."
 
 #
 #: ../loader/nfsinstall.c:338
@@ -7534,7 +7569,7 @@ msgstr "הגדרת ססמת root:"
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
+msgstr "חשבון root מיועד לניהול המערכת. יש להזין ססמה עבור המשתמש root."
 
 #
 #: tmp/adddrive.glade.h:1
@@ -7579,17 +7614,21 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"תקליטור/DVD\n"
+"NFS\n"
+"כונן קשיח"
 
 #
 #: tmp/addrepo.glade.h:9
 msgid ""
 "Please provide the configuration information for this software repository."
-msgstr ""
+msgstr "יש לספק הגדרות עבור מאגר תכנה זה."
 
 #
 #: tmp/addrepo.glade.h:10
 msgid "Proxy U_RL"
-msgstr ""
+msgstr "_כתובת (URL) מתווך רשת"
 
 #
 #: tmp/addrepo.glade.h:11
@@ -7654,7 +7693,7 @@ msgstr "_הבא"
 #
 #: tmp/autopart.glade.h:1
 msgid "<b>Resize _target:</b>"
-msgstr ""
+msgstr "<b>שינוי גודל ה_יעד:</b>"
 
 #
 #: tmp/autopart.glade.h:2
@@ -7898,7 +7937,7 @@ msgstr "התקנה לכונן הקשיח"
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
-msgstr ""
+msgstr "יש לבחור ססמה עבור מחיצה מוצפנת זו. הססמה תידרש בזמן הפעלת המערכת."
 
 #
 #: tmp/lukspassphrase.glade.h:2
@@ -7918,7 +7957,7 @@ msgstr "יש להזין את הססמה:"
 #
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
-msgstr ""
+msgstr "<b>נתב:</b>"
 
 #
 #: tmp/netconfig.glade.h:3
@@ -7968,7 +8007,7 @@ msgstr "<b>כתובת חומרה: DE:AD:00:BE:EF:00</b>"
 #
 #: tmp/netpostconfig.glade.h:8
 msgid "Edit Interface"
-msgstr "עריכת הממשק"
+msgstr "עריכת ההתקן"
 
 #
 #: tmp/netpostconfig.glade.h:11
