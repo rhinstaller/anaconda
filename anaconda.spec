@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.140
+Version: 11.1.2.141
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct 13 2008 Joel Granados <jgranado@redhat.com> 11.1.2.141-1
+- Prevent creation of encrypted swraid partitions (dlehman).
+  Resolves: rhbz:#456283
+- Enable the iBFT by default and set the fallbacks to mimic the w/o iBFT behaviour (msivak).
+  Resolves: rhbz:#445721
+
 * Fri Oct 10 2008 Peter Jones <pjones@redhat.com> - 11.1.2.140-1
 - Don't display errors from nl_set_device_mtu() (dcantrell)
   Resolves: rhbz#466305
