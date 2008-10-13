@@ -316,11 +316,12 @@ class PartitionEditor:
         if self.origrequest.type == REQUEST_NEW:
 	    lbl = createAlignedLabel(_("File System _Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
-
+            self.lukscb = gtk.CheckButton(_("_Encrypt"))
             self.newfstypeCombo = createFSTypeMenu(self.origrequest.fstype,
                                                    fstypechangeCB,
                                                    self.mountCombo,
-                                                   availablefstypes = restrictfs)
+                                                   availablefstypes = restrictfs,
+                                                   lukscb = self.lukscb)
 	    lbl.set_mnemonic_widget(self.newfstypeCombo)
             maintable.attach(self.newfstypeCombo, 1, 2, row, row + 1)
         else:
@@ -485,7 +486,6 @@ class PartitionEditor:
                 maintable.attach(self.primonlycheckbutton, 0, 2, row, row+1)
                 row = row + 1
 
-            self.lukscb = gtk.CheckButton(_("_Encrypt"))
             self.lukscb.set_data("formatstate", 1)
 
             if self.origrequest.encryption:
