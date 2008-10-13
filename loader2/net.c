@@ -2193,7 +2193,14 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
         return LOADER_NOOP;
     }
 
-
+#if !defined(__s390__) && !defined(__s390x__)
+    /* set the netDev method to ibft if not requested differently */
+    if(loaderData->netDev==NULL && ibft_present()){
+	loaderData->netDev = strdup("ibft");
+	loaderData->netDev_set = 1;
+	logMessage(INFO, "networking will be configured using iBFT values");
+    }
+#endif
 
     while((loaderData->netDev && (loaderData->netDev_set == 1)) &&
 	!strcmp(loaderData->netDev, "ibft")){
@@ -2203,13 +2210,13 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 #if !defined(__s390__) && !defined(__s390x__)
 	/* get MAC from the iBFT table */
 	if(!(ibftmacaddr = ibft_iface_mac())){ /* iBFT not present or error */
-	    /* lookForLink = 0; is the w/o iBFT default link or ask? */
+	    lookForLink = 0; /* the iBFT defaults to ask? */
 	    break;
 	}
 #endif
 
         logMessage(INFO, "looking for iBFT configured device %s with link", ibftmacaddr);
-	lookForLink = 1;
+	lookForLink = 0;
 
 	for (i = 0; devs[i]; i++) {
 	    if (!devs[i]->device)
@@ -2222,6 +2229,12 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 		    lookForLink = 0;
 		    loaderData->netDev = devices[i];
                     logMessage(INFO, "%s has link, using it", devices[i]);
+
+		    /* set the IP method to ibft if not requested differently */
+		    if(loaderData->ip==NULL){
+			loaderData->ip = strdup("ibft");
+			logMessage(INFO, "%s will be configured using iBFT values", devices[i]);
+		    }
                     return LOADER_NOOP;
 		}
 		else{
