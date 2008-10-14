@@ -689,7 +689,7 @@ class ext3FileSystem(extFileSystem):
         self.extraFormatArgs = [ "-t", "ext3" ]
         self.partedFileSystemType = parted.file_system_type_get("ext3")
         if flags.cmdline.has_key("ext4"):
-            self.migratetofs = ['ext4dev']
+            self.migratetofs = ['ext4']
 
     def formatDevice(self, entry, progress, chroot='/'):
         extFileSystem.formatDevice(self, entry, progress, chroot)
@@ -701,26 +701,18 @@ class ext3FileSystem(extFileSystem):
         if not entry.fsystem or not entry.origfsystem:
             raise RuntimeError, ("Trying to migrate fs w/o fsystem or "
                                  "origfsystem set")
-        if entry.fsystem.getName() != "ext4dev":
+        if entry.fsystem.getName() != "ext4":
             raise RuntimeError, ("Trying to migrate ext3 to something other "
                                  "than ext4")
-
-	# This is only needed as long as ext4 is actually "ext4dev"
-        rc = iutil.execWithRedirect("tune2fs",
-                                    ["-E", "test_fs", devicePath ],
-                                    stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5", searchPath = 1)
-        if rc:
-            raise SystemError
 
 fileSystemTypeRegister(ext3FileSystem())
 
 class ext4FileSystem(extFileSystem):
     def __init__(self):
         extFileSystem.__init__(self)
-        self.name = "ext4dev"
+        self.name = "ext4"
         self.partedFileSystemType = parted.file_system_type_get("ext3")
-        self.extraFormatArgs = [ "-t", "ext4dev" ]
+        self.extraFormatArgs = [ "-t", "ext4" ]
         self.bootable = False
 
         # this is way way experimental at present...

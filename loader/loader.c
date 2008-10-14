@@ -1882,7 +1882,7 @@ int main(int argc, char ** argv) {
     if (isVioConsole())
         setenv("TERM", "vt100", 1);
 
-    mlLoadModuleSet("cramfs:vfat:nfs:floppy:edd:pcspkr:squashfs:ext4dev:ext2:iscsi_tcp:iscsi_ibft");
+    mlLoadModuleSet("cramfs:vfat:nfs:floppy:edd:pcspkr:squashfs:ext4:ext2:iscsi_tcp:iscsi_ibft");
 
 #ifdef ENABLE_IPV6
     if (!FL_NOIPV6(flags))

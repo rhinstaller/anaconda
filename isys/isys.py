@@ -772,8 +772,6 @@ def readFSType(device):
                 continue
             if buf[off:].startswith("LVM2"):
                 return "physical volume (LVM)"
-    if fstype == "ext4":
-        return "ext4dev"
     elif fstype == "lvm2pv":
         return "physical volume (LVM)"
     return fstype
