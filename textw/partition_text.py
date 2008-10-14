@@ -1695,7 +1695,7 @@ class PartitionTypeWindow:
         if button == TEXT_CANCEL_CHECK:
             return INSTALL_BACK
 
-        (user, pw, user_in, pw_in) = entries[2:5]
+        (user, pw, user_in, pw_in) = entries[2:]
 
         if len(user) == 0:
             user = None
