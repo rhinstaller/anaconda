@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.or\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-24 15:49+0530\n"
+"POT-Creation-Date: 2008-10-13 10:57-0400\n"
+"PO-Revision-Date: 2008-10-14 16:02+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya\n"
 "MIME-Version: 1.0\n"
@@ -49,18 +49,18 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../anaconda:288 ../anaconda:334
+#: ../anaconda:262 ../anaconda:308
 #, c-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "%% କିକ୍-ଷ୍ଟାର୍ଟ ଫାଇଲ କୁ ଖୋଲିବାରେ ତୃଟି: %s"
 
-#: ../anaconda:291 ../anaconda:337
+#: ../anaconda:265 ../anaconda:311
 #, c-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "%%ksappend lines କୁ ସଂସାଧନ କରିବାରେ ଅଜଣା ତୃଟି: %s"
 
-#: ../anaconda:305 ../anaconda:349 ../cmdline.py:85 ../gui.py:1279
-#: ../text.py:561
+#: ../anaconda:279 ../anaconda:323 ../cmdline.py:85 ../gui.py:1280
+#: ../text.py:551
 #, c-format, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -71,17 +71,14 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../anaconda:471
+#: ../anaconda:445
 msgid "Press <enter> for a shell"
 msgstr "ଗୋଟିଏ ଆବରଣ ପାଇଁ <enter> ଦବାନ୍ତୁ "
 
-#: ../anaconda:486 ../gui.py:236 ../rescue.py:265 ../rescue.py:346
-#: ../rescue.py:376 ../rescue.py:389 ../rescue.py:468 ../rescue.py:477
-#: ../text.py:589 ../text.py:746 ../textw/constants_text.py:44
-#: ../textw/network_text.py:46 ../textw/network_text.py:56
-#: ../textw/network_text.py:78 ../textw/network_text.py:84
-#: ../textw/network_text.py:232 ../textw/network_text.py:819
-#: ../textw/network_text.py:827 ../loader/cdinstall.c:219
+#: ../anaconda:460 ../gui.py:236 ../rescue.py:276 ../rescue.py:306
+#: ../rescue.py:319 ../rescue.py:398 ../rescue.py:407 ../text.py:579
+#: ../text.py:736 ../textw/constants_text.py:44 ../textw/network_text.py:77
+#: ../textw/network_text.py:86 ../loader/cdinstall.c:219
 #: ../loader/cdinstall.c:223 ../loader/cdinstall.c:239
 #: ../loader/cdinstall.c:242 ../loader/cdinstall.c:431
 #: ../loader/cdinstall.c:438 ../loader/cdinstall.c:503
@@ -100,53 +97,53 @@ msgstr "ଗୋଟିଏ ଆବରଣ ପାଇଁ <enter> ଦବାନ୍ତୁ 
 #: ../loader/kickstart.c:375 ../loader/kickstart.c:532 ../loader/lang.c:115
 #: ../loader/lang.c:378 ../loader/loader.c:399 ../loader/loader.c:434
 #: ../loader/loader.c:472 ../loader/loader.c:493 ../loader/loader.c:509
-#: ../loader/loader.c:546 ../loader/loader.c:1178 ../loader/loader.c:1361
+#: ../loader/loader.c:546 ../loader/loader.c:1182 ../loader/loader.c:1365
 #: ../loader/mediacheck.c:62 ../loader/mediacheck.c:101
 #: ../loader/mediacheck.c:108 ../loader/mediacheck.c:117
 #: ../loader/method.c:280 ../loader/method.c:354 ../loader/modules.c:335
-#: ../loader/modules.c:347 ../loader/net.c:514 ../loader/net.c:869
-#: ../loader/net.c:1330 ../loader/net.c:1353 ../loader/net.c:1542
-#: ../loader/net.c:1564 ../loader/net.c:1576 ../loader/nfsinstall.c:86
-#: ../loader/nfsinstall.c:189 ../loader/nfsinstall.c:250
-#: ../loader/nfsinstall.c:269 ../loader/nfsinstall.c:337
-#: ../loader/telnetd.c:92 ../loader/urlinstall.c:83 ../loader/urlinstall.c:107
-#: ../loader/urlinstall.c:175 ../loader/urlinstall.c:421
-#: ../loader/urlinstall.c:430 ../loader/urlinstall.c:439 ../loader/urls.c:292
-#: ../loader/urls.c:328 ../loader/urls.c:334 ../loader/urls.c:346
+#: ../loader/modules.c:347 ../loader/net.c:515 ../loader/net.c:891
+#: ../loader/net.c:1414 ../loader/net.c:1437 ../loader/net.c:1628
+#: ../loader/net.c:1650 ../loader/net.c:1662 ../loader/nfsinstall.c:87
+#: ../loader/nfsinstall.c:244 ../loader/nfsinstall.c:263
+#: ../loader/nfsinstall.c:331 ../loader/telnetd.c:92 ../loader/urlinstall.c:83
+#: ../loader/urlinstall.c:107 ../loader/urlinstall.c:175
+#: ../loader/urlinstall.c:423 ../loader/urlinstall.c:432
+#: ../loader/urlinstall.c:441 ../loader/urls.c:292 ../loader/urls.c:328
+#: ../loader/urls.c:334 ../loader/urls.c:346
 msgid "OK"
 msgstr "ଠିକ ଅଛି"
 
-#: ../anaconda:493
+#: ../anaconda:467
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr "ଆଲେଖୀ ସ୍ଥାପନକୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଆପଣଙ୍କ ପାଖରେ ଯଥେଷ୍ଟ RAM ନାହିଁ। ଅକ୍ଷରାବସ୍ଥାକୁ ଆରମ୍ଭ କରୁଅଛି।"
 
-#: ../anaconda:544
+#: ../anaconda:518
 msgid "Starting graphical installation..."
 msgstr "ଆଲେଖୀ ସ୍ଥାପନ ଆରମ୍ଭ କରୁଅଛି..."
 
-#: ../anaconda:821
+#: ../anaconda:764
 msgid "Would you like to use VNC?"
 msgstr "ଆପଣ VNC ବ୍ୟବହାର କରିବା ପାଇଁ ଚାହାଁନ୍ତି କି?"
 
-#: ../anaconda:822
+#: ../anaconda:765
 msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
 msgstr ""
-"VNC ସ୍ଥାପନ ପ୍ରଣାଳୀ ପାଠ୍ୟ ଧାରା ଅପେକ୍ଷା ଅଧିକ କାର୍ଯ୍ୟକାରିତା ପ୍ରଦାନ କରିଥାଏ, "
-"କଣ ଆପଣ ଏହାକୁ ବ୍ୟବହାର କରିବା ପସନ୍ଦ କରିବେ?"
+"VNC ସ୍ଥାପନ ପ୍ରଣାଳୀ ପାଠ୍ୟ ଧାରା ଅପେକ୍ଷା ଅଧିକ କାର୍ଯ୍ୟକାରିତା ପ୍ରଦାନ କରିଥାଏ, କଣ ଆପଣ ଏହାକୁ "
+"ବ୍ୟବହାର କରିବା ପସନ୍ଦ କରିବେ?"
 
-#: ../anaconda:847
+#: ../anaconda:790
 msgid "Install class forcing text mode installation"
 msgstr "ସ୍ଥାପନ ଶ୍ରେଣୀ ଅକ୍ଷରାବସ୍ଥା ସ୍ଥାପନ ପାଇଁ ବାଧ୍ଯ କରୁଅଛି"
 
-#: ../anaconda:866
+#: ../anaconda:809
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "ଆଲେଖୀ ସ୍ଥାପନ ଉପଲବ୍ଧ ନାହିଁ... ଅକ୍ଷରାବସ୍ଥାକୁ ଆରମ୍ଭ କରୁଅଛି"
 
-#: ../anaconda:874
+#: ../anaconda:817
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "ପ୍ରଦର୍ଶକ ଚଳ ସେଟ ହୋଇନାହିଁ। ଅକ୍ଷରାବସ୍ଥାକୁ ଆରମ୍ଭ କରୁଅଛି!"
 
@@ -220,7 +217,9 @@ msgstr ""
 msgid ""
 "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't "
 "be able to boot from this partition."
-msgstr "%s ବୁଟ୍ ବିଭାଜନଟି ଗୋଟିଏ Linux ଫାଇଲତନ୍ତ୍ର ନୁହେଁ, ଯେପରିକି ext3.  ତନ୍ତ୍ର ଏହି ବିଭାଜନରୁ ବୁଟ କରିପାରିବ ନାହିଁ."
+msgstr ""
+"%s ବୁଟ୍ ବିଭାଜନଟି ଗୋଟିଏ Linux ଫାଇଲତନ୍ତ୍ର ନୁହେଁ, ଯେପରିକି ext3.  ତନ୍ତ୍ର ଏହି ବିଭାଜନରୁ ବୁଟ କରିପାରିବ "
+"ନାହିଁ."
 
 #: ../autopart.py:1073
 #, python-format
@@ -296,11 +295,11 @@ msgstr ""
 "\n"
 "ସ୍ଥାପକକୁ ବନ୍ଦ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
-#: ../autopart.py:1525 ../autopart.py:1572
+#: ../autopart.py:1524 ../autopart.py:1571
 msgid "Automatic Partitioning Errors"
 msgstr "ସ୍ବୟଂଚାଳିତ ବିଭାଜନୀୟ ତୃଟି"
 
-#: ../autopart.py:1526
+#: ../autopart.py:1525
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -315,11 +314,11 @@ msgstr ""
 "\n"
 "ସ୍ଥାପକକୁ ବନ୍ଦ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
-#: ../autopart.py:1536
+#: ../autopart.py:1535
 msgid "Warnings During Automatic Partitioning"
 msgstr "ସ୍ବୟଂଚାଳିତ ବିଭାଜନ ସମୟରେ ଚେତାବନୀ"
 
-#: ../autopart.py:1537
+#: ../autopart.py:1536
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -330,7 +329,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1551 ../autopart.py:1568
+#: ../autopart.py:1550 ../autopart.py:1567
 msgid ""
 "\n"
 "\n"
@@ -340,12 +339,12 @@ msgstr ""
 "\n"
 "ସ୍ଥାପକକୁ ବନ୍ଦ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
-#: ../autopart.py:1552 ../iw/partition_gui.py:1027
+#: ../autopart.py:1551 ../iw/partition_gui.py:1027
 #: ../textw/partition_text.py:247
 msgid "Error Partitioning"
 msgstr "ବିଭାଜନ ସମୟରେ ତୃଟି"
 
-#: ../autopart.py:1553
+#: ../autopart.py:1552
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -356,7 +355,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1570
+#: ../autopart.py:1569
 msgid ""
 "\n"
 "\n"
@@ -366,7 +365,7 @@ msgstr ""
 "\n"
 "ଗୋଟିଏ ଭିନ୍ନ ବିଭାଜନ ବିକଳ୍ପକୁ ଚୟନ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
-#: ../autopart.py:1573
+#: ../autopart.py:1572
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -382,15 +381,15 @@ msgstr ""
 "\n"
 "ଏହା ସମ୍ଭବପର ଯଦି ଆପଣଙ୍କ ହାର୍ଡ ଡ୍ରାଇଭ(ରେ/ମାନଙ୍କରେ) ସ୍ଥାପନ ପାଇଁ ଯଥେଷ୍ଟ ସ୍ଥାନ ନାହିଁ। %s"
 
-#: ../autopart.py:1584
+#: ../autopart.py:1583
 msgid "Unrecoverable Error"
 msgstr "ଅପ୍ରାପ୍ଯ ତୃଟି"
 
-#: ../autopart.py:1585
+#: ../autopart.py:1584
 msgid "Your system will now be rebooted."
 msgstr "ବର୍ତମାନ ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ପୁନର୍ଚାଳିତ ହେବ।"
 
-#: ../autopart.py:1709
+#: ../autopart.py:1707
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -406,7 +405,7 @@ msgstr ""
 "ଅନୁମତି ପ୍ରଦାନ କରିଥାଏ। ଆପଣ ଫାଇଲ ତନ୍ତ୍ରର ପ୍ରକାର, ମାଉଣ୍ଟ ବିନ୍ଦୁ, ବିଭାଜନ ଆକାର, ଏବଂ ଆହୁରି ଅଧିକ "
 "ସାଧନ ମାନଙ୍କୁ ସେଟ କରିପାରିବେ।"
 
-#: ../autopart.py:1720
+#: ../autopart.py:1718
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -414,43 +413,45 @@ msgstr ""
 "ସ୍ଥାପନ କାର୍ଯ୍ଯକ୍ରମ ଦ୍ବାରା ସ୍ବତଃ ବିଭାଜନ ବ୍ଯବସ୍ଥାପିତ ହେବା ପୂର୍ବରୁ, ଆପଣଙ୍କ ହାର୍ଡ-ଡ୍ରାଇଭରେ "
 "ଥିବାସ୍ଥାନକୁ ବ୍ଯବହାର କରିବାର ଉପାୟକୁ ଆପଣ ଚୟନ କରିବା ଉଚିତ।"
 
-#: ../autopart.py:1725
+#: ../autopart.py:1723
 msgid "Remove all partitions on this system"
 msgstr "ଏହି ତନ୍ତ୍ରରୁ ସମସ୍ତ ବିଭାଜନକୁ ଅପସାରିତ କରନ୍ତୁ"
 
-#: ../autopart.py:1726
+#: ../autopart.py:1724
 msgid "Remove all Linux partitions on this system"
 msgstr "ଏହି ତନ୍ତ୍ରରୁ ସମସ୍ତ Linux ବିଭାଜନକୁ ଅପସାରିତ କରନ୍ତୁ"
 
-#: ../autopart.py:1727
+#: ../autopart.py:1725
 msgid "Keep all partitions and use existing free space"
 msgstr "ସମସ୍ତ ବିଭାଜନକୁ ରଖନ୍ତୁ ଏବଂ ଉପସ୍ଥିତ ଖାଲି ସ୍ଥାନକୁ ବ୍ଯବହାର କରନ୍ତୁ"
 
-#: ../backend.py:129
+#: ../backend.py:130
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "%s ର ଉନ୍ନୟନ କରୁଅଛି\n"
 
-#: ../backend.py:131
+#: ../backend.py:132
 #, python-format
 msgid "Installing %s\n"
 msgstr "%s କୁ ସ୍ଥାପନ କରୁଅଛି\n"
 
-#: ../backend.py:150
+#: ../backend.py:151
 msgid "Copying File"
 msgstr "ଫାଇଲର ନକଲ କରୁଅଛି"
 
-#: ../backend.py:151
+#: ../backend.py:152
 msgid "Transferring install image to hard drive..."
 msgstr "ସ୍ଥାପନ ପ୍ରତିଛିବିକୁ ହାର୍ଡ ଡ୍ରାଇଭକୁ ସ୍ଥାନାନ୍ତରିତ କରୁଅଛି..."
 
-#: ../backend.py:161
+#: ../backend.py:162
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is probably due to bad media."
-msgstr "ହାର୍ଡ ଡ୍ରାଇଭକୁ ସ୍ଥାପନ ପ୍ରତିଛବି ସ୍ଥାନାନ୍ତରିତ କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରଲକ୍ଷିତ ହେଲା.  ବୋଧହୁଏ ଏହା ଖରାପ ସଞ୍ଚାର ମାଧ୍ଯମ ଯୋଗୁଁ ହୋଇଛି."
+msgstr ""
+"ହାର୍ଡ ଡ୍ରାଇଭକୁ ସ୍ଥାପନ ପ୍ରତିଛବି ସ୍ଥାନାନ୍ତରିତ କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରଲକ୍ଷିତ ହେଲା.  ବୋଧହୁଏ ଏହା "
+"ଖରାପ ସଞ୍ଚାର ମାଧ୍ଯମ ଯୋଗୁଁ ହୋଇଛି."
 
-#: ../backend.py:165
+#: ../backend.py:166
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -458,18 +459,18 @@ msgstr ""
 "ସ୍ଥାପନ ପ୍ରତିଛବିକୁ ସ୍ଥାନାନ୍ତରିତ କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିିଲିଖିତ ହେଲା। ବୋଧହୁଏ ଆପଣଙ୍କ ନିକଟରେ "
 "ଯଥେଷ୍ଟ ଡିସ୍କ ସ୍ଥାନ ନାହିଁ।"
 
-#: ../backend.py:169 ../fsset.py:670 ../fsset.py:1683 ../fsset.py:1714
+#: ../backend.py:170 ../fsset.py:670 ../fsset.py:1683 ../fsset.py:1714
 #: ../fsset.py:1790 ../fsset.py:1858 ../fsset.py:1908 ../fsset.py:1997
-#: ../fsset.py:2010 ../image.py:291 ../livecd.py:196 ../livecd.py:379
-#: ../partIntfHelpers.py:413 ../text.py:480 ../text.py:484
-#: ../yuminstall.py:384 ../yuminstall.py:659 ../yuminstall.py:771
-#: ../yuminstall.py:1052 ../yuminstall.py:1093 ../yuminstall.py:1299
-#: ../yuminstall.py:1322 ../iw/autopart_type.py:96 ../iw/autopart_type.py:171
-#: ../iw/autopart_type.py:315 ../iw/netconfig_dialog.py:279
+#: ../fsset.py:2010 ../image.py:291 ../livecd.py:196 ../livecd.py:377
+#: ../partIntfHelpers.py:413 ../text.py:470 ../text.py:474
+#: ../yuminstall.py:366 ../yuminstall.py:642 ../yuminstall.py:754
+#: ../yuminstall.py:991 ../yuminstall.py:1059 ../yuminstall.py:1288
+#: ../yuminstall.py:1311 ../iw/autopart_type.py:96 ../iw/autopart_type.py:174
+#: ../iw/autopart_type.py:349 ../iw/netconfig_dialog.py:283
 #: ../iw/osbootwidget.py:215 ../iw/osbootwidget.py:224
-#: ../iw/raid_dialog_gui.py:701 ../iw/raid_dialog_gui.py:740
-#: ../iw/task_gui.py:45 ../iw/task_gui.py:266 ../iw/task_gui.py:376
-#: ../iw/task_gui.py:417 ../textw/grpselect_text.py:100
+#: ../iw/raid_dialog_gui.py:655 ../iw/raid_dialog_gui.py:694
+#: ../iw/task_gui.py:47 ../iw/task_gui.py:145 ../iw/task_gui.py:274
+#: ../iw/task_gui.py:396 ../textw/grpselect_text.py:100
 #: ../textw/partition_text.py:1652 ../textw/partition_text.py:1658
 #: ../textw/partition_text.py:1680 ../textw/upgrade_text.py:174
 #: ../textw/upgrade_text.py:181 ../loader/cdinstall.c:219
@@ -480,19 +481,19 @@ msgstr ""
 #: ../loader/hdinstall.c:352 ../loader/hdinstall.c:454
 #: ../loader/hdinstall.c:497 ../loader/hdinstall.c:510
 #: ../loader/kickstart.c:284 ../loader/lang.c:115 ../loader/loader.c:399
-#: ../loader/loader.c:509 ../loader/loader.c:1178 ../loader/mediacheck.c:62
+#: ../loader/loader.c:509 ../loader/loader.c:1182 ../loader/mediacheck.c:62
 #: ../loader/mediacheck.c:101 ../loader/mediacheck.c:108
-#: ../loader/method.c:280 ../loader/method.c:354 ../loader/nfsinstall.c:189
-#: ../loader/nfsinstall.c:250 ../loader/nfsinstall.c:269
-#: ../loader/telnetd.c:92 ../loader/urlinstall.c:83 ../loader/urlinstall.c:107
-#: ../loader/urlinstall.c:175 ../loader/urls.c:328 ../loader/urls.c:334
+#: ../loader/method.c:280 ../loader/method.c:354 ../loader/nfsinstall.c:244
+#: ../loader/nfsinstall.c:263 ../loader/telnetd.c:92 ../loader/urlinstall.c:83
+#: ../loader/urlinstall.c:107 ../loader/urlinstall.c:175 ../loader/urls.c:328
+#: ../loader/urls.c:334
 msgid "Error"
 msgstr "ତୃଟି"
 
 #: ../bootloader.py:44 ../bootloader.py:230 ../image.py:82
-#: ../partedUtils.py:367 ../partedUtils.py:397 ../partedUtils.py:1284
-#: ../upgrade.py:418 ../yuminstall.py:1504 ../yuminstall.py:1531
-#: ../iw/autopart_type.py:181 ../iw/blpasswidget.py:151 ../iw/task_gui.py:55
+#: ../partedUtils.py:367 ../partedUtils.py:397 ../partedUtils.py:1110
+#: ../partedUtils.py:1258 ../upgrade.py:418 ../yuminstall.py:1493
+#: ../yuminstall.py:1520 ../iw/autopart_type.py:184 ../iw/blpasswidget.py:151
 #: ../iw/upgrade_swap_gui.py:194 ../iw/upgrade_swap_gui.py:202
 #: ../iw/upgrade_swap_gui.py:209 ../textw/bootloader_text.py:127
 #: ../textw/bootloader_text.py:452 ../textw/partition_text.py:251
@@ -507,25 +508,25 @@ msgid ""
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
-"ଆପଣଙ୍କର ଫାଇଲତନ୍ତ୍ରଗୁଡିକ ବିକଳ୍ପକୁ ପୂର୍ବୁ ସକ୍ରିୟଣ କ ରାଯାଏଠାରୁ ଦନ କରି ଏହି ଡିସ୍କକୁ "
-"ପ୍ରତ୍ଯାବର୍ତ୍ତନ କରି ପାରିବେନାହିଁ। \n"
+"ଆପଣଙ୍କର ଫାଇଲତନ୍ତ୍ରଗୁଡିକ ବିକଳ୍ପକୁ ପୂର୍ବୁ ସକ୍ରିୟଣ କ ରାଯାଏଠାରୁ ଦନ କରି ଏହି ଡିସ୍କକୁ ପ୍ରତ୍ଯାବର୍ତ୍ତନ କରି "
+"ପାରିବେନାହିଁ। \n"
 "\n"
 "ଆପଣ ଏହି ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ଜାରି ରଖିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: ../bootloader.py:49 ../exception.py:439 ../exception.py:456
 #: ../exception.py:479 ../exception.py:494 ../exception.py:519
-#: ../fsset.py:1713 ../fsset.py:1977 ../fsset.py:2728 ../gui.py:1284
-#: ../gui.py:1418 ../gui.py:1495 ../image.py:91 ../livecd.py:203
-#: ../livecd.py:386 ../packages.py:117 ../upgrade.py:99 ../upgrade.py:119
-#: ../yuminstall.py:775 ../yuminstall.py:858 ../yuminstall.py:864
-#: ../yuminstall.py:1041 ../yuminstall.py:1089 ../yuminstall.py:1294
-#: ../yuminstall.py:1329
+#: ../fsset.py:1713 ../fsset.py:1977 ../fsset.py:2730 ../gui.py:1285
+#: ../gui.py:1419 ../gui.py:1496 ../image.py:91 ../instdata.py:122
+#: ../livecd.py:203 ../livecd.py:384 ../packages.py:119 ../upgrade.py:99
+#: ../upgrade.py:119 ../yuminstall.py:758 ../yuminstall.py:841
+#: ../yuminstall.py:847 ../yuminstall.py:987 ../yuminstall.py:1047
+#: ../yuminstall.py:1283 ../yuminstall.py:1318
 msgid "_Exit installer"
 msgstr "ସ୍ଥାପକକୁ ବନ୍ଦ କରନ୍ତୁ (_E)"
 
 #: ../bootloader.py:49 ../fsset.py:1978 ../image.py:92 ../image.py:253
-#: ../kickstart.py:1084 ../kickstart.py:1122 ../partedUtils.py:1287
-#: ../upgrade.py:99 ../upgrade.py:119 ../yuminstall.py:1046
+#: ../kickstart.py:1113 ../kickstart.py:1151 ../partedUtils.py:1261
+#: ../upgrade.py:99 ../upgrade.py:119 ../yuminstall.py:1052
 #: ../iw/partition_gui.py:1041
 msgid "_Continue"
 msgstr "ଆଗକୁ ବଢନ୍ତୁ (_C)"
@@ -555,7 +556,7 @@ msgid "In progress...   "
 msgstr "ପ୍ରଗତି ପଥେ..."
 
 #: ../cmdline.py:97
-msgid "Can't have a question in command line mode!"
+msgid "an't have a question in command line mode!"
 msgstr "ପାଠ୍ଯ ନିର୍ଦ୍ଦେଶ ଧାରାରେ କୌଣସି ପ୍ରଶ୍ନ ରହି ପାରିବ ନାହିଁ!"
 
 #: ../cmdline.py:116
@@ -587,8 +588,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"ବଗଜିଲା ସହିତ ଯୋଗାଯୋଗ କରିବା ସମୟରେ ନିମ୍ନଲିଖିତ କାରଣ ହେତୁ ଆପଣଙ୍କର ତ୍ରୁଟି ପୁରଣ "
-"ହୋଇପାରିଲା ନାହିଁ:\n"
+"ବଗଜିଲା ସହିତ ଯୋଗାଯୋଗ କରିବା ସମୟରେ ନିମ୍ନଲିଖିତ କାରଣ ହେତୁ ଆପଣଙ୍କର ତ୍ରୁଟି ପୁରଣ ହୋଇପାରିଲା ନାହିଁ:\n"
 "\n"
 "%s"
 
@@ -651,9 +651,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
-"ଆପଣଙ୍କର ସଂଲଗ୍ନ ପଛଖୋଜା ସହିତ ଗୋଟିଏ ନୂତନ ତ୍ରୁଟି ସୃଷ୍ଟି ହୋଇଛି. ଦୟାକରି ଅତିରିକ୍ତ ସୂଚନା "
-"ଯୋଗକରନ୍ତୁ ଯେପରିକି ସେହି ତ୍ରୁଟିର ସମ୍ମୁଖିନ ହେଲା ପରେ ଆପଣ କଣ କରୁଛନ୍ତି, ସ୍କ୍ରିନସଟ, "
-"ଏବଂ ନିମ୍ନଲିଖିତ ତ୍ରୁଟି ପାଇଁ ଯାହାକିଛି ଉଚିତ:\n"
+"ଆପଣଙ୍କର ସଂଲଗ୍ନ ପଛଖୋଜା ସହିତ ଗୋଟିଏ ନୂତନ ତ୍ରୁଟି ସୃଷ୍ଟି ହୋଇଛି. ଦୟାକରି ଅତିରିକ୍ତ ସୂଚନା ଯୋଗକରନ୍ତୁ "
+"ଯେପରିକି ସେହି ତ୍ରୁଟିର ସମ୍ମୁଖିନ ହେଲା ପରେ ଆପଣ କଣ କରୁଛନ୍ତି, ସ୍କ୍ରିନସଟ, ଏବଂ ନିମ୍ନଲିଖିତ ତ୍ରୁଟି ପାଇଁ "
+"ଯାହାକିଛି ଉଚିତ:\n"
 "\n"
 "%s/%s"
 
@@ -670,9 +670,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
-"ଆପଣଙ୍କର ସୂଚନା ସହିତ ପୂରବରୁ ଗୋଟିଏ ତ୍ରୁଟି ଅବସ୍ଥିତ ଅଛି.  ଆପଣଙ୍କର ଖାତାକୁ CC "
-"ତାଲିକାରେ ଯୋଗ କରିଦିଆଯାଇଛି ଏବଂ ଆପଣଙ୍କର ପଛଖୋଜାକୁ ଟୀପ୍ପଣୀ ଆକାରରେ ଯୋଗକରାଯାଇଛି.  "
-"ଦୟାକରି ନିମ୍ନଲିଖିତ ତ୍ରୁଟି ପାଇଁ ଅତିରିକ୍ତ ବର୍ଣ୍ଣନାତ୍ମକ ସୂଚନା ଯୋଗକରନ୍ତୁ:\n"
+"ଆପଣଙ୍କର ସୂଚନା ସହିତ ପୂରବରୁ ଗୋଟିଏ ତ୍ରୁଟି ଅବସ୍ଥିତ ଅଛି.  ଆପଣଙ୍କର ଖାତାକୁ CC ତାଲିକାରେ ଯୋଗ "
+"କରିଦିଆଯାଇଛି ଏବଂ ଆପଣଙ୍କର ପଛଖୋଜାକୁ ଟୀପ୍ପଣୀ ଆକାରରେ ଯୋଗକରାଯାଇଛି.  ଦୟାକରି ନିମ୍ନଲିଖିତ ତ୍ରୁଟି ପାଇଁ "
+"ଅତିରିକ୍ତ ବର୍ଣ୍ଣନାତ୍ମକ ସୂଚନା ଯୋଗକରନ୍ତୁ:\n"
 "\n"
 "%s/%s"
 
@@ -694,7 +694,7 @@ msgstr "ଅଦରକାରୀ ଜିନିଷ ଲେଖା ଯାଇନାହି
 msgid "There was a problem writing the system state to the disk."
 msgstr "ଡିସ୍କରେ ତନ୍ତ୍ରର ସ୍ଥିତି ଲେଖିବା ସମୟରେ ଗୋଟିଏ ସମସ୍ଯା ଦେଖାଗଲା।"
 
-#: ../exception.py:506 ../exception.py:529
+#: ../exception.py:506 ../exception.py:529 ../rescue.py:196
 msgid "No Network Available"
 msgstr "କୌଣସି ନେଟୱାର୍କ ଉପକରଣ ଉପଲବ୍ଧ ନାହିଁ"
 
@@ -702,9 +702,7 @@ msgstr "କୌଣସି ନେଟୱାର୍କ ଉପକରଣ ଉପଲବ୍
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
-msgstr ""
-"ତ୍ରୁଟି ବିବରଣୀକୁ ସଂରକ୍ଷଣ କରାଯାଇପାରିବ ନାହିଁ ଯେହେତୁ କୌଣସି ସକ୍ରିୟ ନେଟୱର୍କିଙ୍ଗ "
-"ଉପକରଣ ଉପଲବ୍ଧ ନାହିଁ."
+msgstr "ତ୍ରୁଟି ବିବରଣୀକୁ ସଂରକ୍ଷଣ କରାଯାଇପାରିବ ନାହିଁ ଯେହେତୁ କୌଣସି ସକ୍ରିୟ ନେଟୱର୍କିଙ୍ଗ ଉପକରଣ ଉପଲବ୍ଧ ନାହିଁ."
 
 #: ../exception.py:516
 msgid ""
@@ -759,7 +757,7 @@ msgstr "RAID ଉପକରଣ"
 msgid "Apple Bootstrap"
 msgstr "Apple ବୁଟ-ଷ୍ଟ୍ରାପ"
 
-#: ../fsset.py:1549 ../partitions.py:1245
+#: ../fsset.py:1549 ../partitions.py:1288
 msgid "PPC PReP Boot"
 msgstr "PPC PReP ବୁଟ"
 
@@ -783,7 +781,7 @@ msgstr ""
 "ଗମ୍ଭୀର ଅଟେ, ଏବଂ ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ଆଗକୁ ବଢିପାରିବ ନାହିଁ।\n"
 "ସ୍ଥାପକକୁ ବନ୍ଦ କରିବା ପାଇଁ <Enter> ବଟନକୁ ଦବାନ୍ତୁ।"
 
-#: ../fsset.py:1713 ../packages.py:349 ../rescue.py:312 ../rescue.py:314
+#: ../fsset.py:1713 ../packages.py:353 ../rescue.py:242 ../rescue.py:244
 #: ../textw/upgrade_text.py:132 ../loader/cdinstall.c:239
 #: ../loader/cdinstall.c:242 ../loader/method.c:327
 msgid "Skip"
@@ -994,7 +992,8 @@ msgid ""
 msgstr ""
 "%s ଉପକରଣକୁ %s ଭାବରେ ମାଉଣ୍ଟ କରିବା ସମୟରେ ତୃଟି: %s\n"
 "\n"
-"/etc/fstab ରେ ଥିବା ଉପକରଣ ମାନଙ୍କୁ ଉପକରଣ ନାମ ପରିବର୍ତ୍ତେ ସୂଚକ କିମ୍ବା UUID ଦ୍ବାରା ନିର୍ଦ୍ଦିଷ୍ଟ କରିବା ଉଚିତ।\n"
+"/etc/fstab ରେ ଥିବା ଉପକରଣ ମାନଙ୍କୁ ଉପକରଣ ନାମ ପରିବର୍ତ୍ତେ ସୂଚକ କିମ୍ବା UUID ଦ୍ବାରା ନିର୍ଦ୍ଦିଷ୍ଟ "
+"କରିବା ଉଚିତ।\n"
 "\n"
 "ସ୍ଥାପକକୁ ବିଦାୟ କରିବା ପାଇଁ OK ବଟନକୁ ଦବାନ୍ତୁ."
 
@@ -1023,11 +1022,11 @@ msgstr ""
 "\n"
 "ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
-#: ../fsset.py:2720
+#: ../fsset.py:2722
 msgid "Duplicate Labels"
 msgstr "ନକଲି ସୂଚକ"
 
-#: ../fsset.py:2721
+#: ../fsset.py:2723
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -1040,11 +1039,11 @@ msgstr ""
 "\n"
 "ଦୟାକରି ଏହି ସମସ୍ଯାକୁ ସମାଧାନ କରନ୍ତୁ ଏବଂ ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ପୁନର୍ଚାଳିତ କରନ୍ତୁ।"
 
-#: ../fsset.py:2886
+#: ../fsset.py:2888
 msgid "Formatting"
 msgstr "ଫର୍ମାଟ କରୁଅଛି"
 
-#: ../fsset.py:2887
+#: ../fsset.py:2889
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "%s ଫାଇଲ ତନ୍ତ୍ରକୁ ଫର୍ମାଟ କରୁଅଛି..."
@@ -1092,108 +1091,113 @@ msgstr ""
 "ପରଦା ପ୍ରତିଛବି ମାନଙ୍କୁ ସଂରକ୍ଷିତ କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା। ଯଦି ଏହା ପ୍ଯାକେଜ ସ୍ଥାପନ "
 "ସମୟରେ ଘଟିଥାଏ, ଏହାର ସଫଳତା ପାଇଁ ଆପଣଙ୍କୁ ଏକାଧିକ ଥର ପ୍ରଚେଷ୍ଟା କରିବା ପାଇଁ ପଡିବ।"
 
-#: ../gui.py:233 ../text.py:586
+#: ../gui.py:233 ../text.py:576
 msgid "Fix"
 msgstr "ସଠିକ କରନ୍ତୁ"
 
-#: ../gui.py:234 ../rescue.py:222 ../text.py:587
+#: ../gui.py:234 ../rescue.py:190 ../text.py:577
 #: ../textw/bootloader_text.py:72 ../textw/constants_text.py:56
 #: ../loader/driverdisk.c:485 ../loader/driverdisk.c:495
 #: ../loader/hdinstall.c:231
 msgid "Yes"
 msgstr "ହଁ"
 
-#: ../gui.py:235 ../rescue.py:222 ../rescue.py:224 ../text.py:588
+#: ../gui.py:235 ../rescue.py:190 ../rescue.py:192 ../text.py:578
 #: ../textw/bootloader_text.py:72 ../textw/constants_text.py:60
 #: ../loader/driverdisk.c:485 ../loader/driverdisk.c:495
 msgid "No"
 msgstr "ନାଁ"
 
-#: ../gui.py:237 ../text.py:590 ../text.py:716 ../loader/net.c:105
-#: ../loader/net.c:413 ../loader/net.c:467 ../loader/net.c:584
-#: ../loader/net.c:592 ../loader/net.c:1009 ../loader/net.c:1015
+#: ../gui.py:237 ../text.py:580 ../text.py:706 ../loader/net.c:108
+#: ../loader/net.c:409 ../loader/net.c:463 ../loader/net.c:606
+#: ../loader/net.c:614 ../loader/net.c:1040 ../loader/net.c:1047
 msgid "Retry"
 msgstr "ପୁନଃପ୍ରଚେଷ୍ଟା କରନ୍ତୁ"
 
-#: ../gui.py:238 ../text.py:591
+#: ../gui.py:238 ../text.py:581
 msgid "Ignore"
 msgstr "ଆଗ୍ରହ୍ଯ କରିଦିଅନ୍ତୁ"
 
-#: ../gui.py:239 ../gui.py:910 ../gui.py:1495 ../partIntfHelpers.py:245
-#: ../partIntfHelpers.py:536 ../text.py:109 ../text.py:110 ../text.py:592
+#: ../gui.py:239 ../gui.py:908 ../gui.py:1496 ../partIntfHelpers.py:245
+#: ../partIntfHelpers.py:536 ../text.py:108 ../text.py:109 ../text.py:582
 #: ../textw/bootloader_text.py:202 ../textw/constants_text.py:48
 #: ../loader/dirbrowser.c:145 ../loader/driverdisk.c:246
 #: ../loader/kickstart.c:375 ../loader/loader.c:434 ../loader/loader.c:546
 msgid "Cancel"
 msgstr "ବାତିଲ କରନ୍ତୁ"
 
-#: ../gui.py:581 ../text.py:518
+#: ../gui.py:581 ../text.py:508
 msgid "Installation Key"
 msgstr "ସ୍ଥାପନ ଚାବି"
 
-#: ../gui.py:660 ../text.py:323
-#, python-format
+#: ../gui.py:652 ../text.py:318
 msgid ""
-"Choose a passphrase for this encrypted device%s. You will be prompted for "
-"the passphrase during system boot."
+"Choose a passphrase for your encrypted devices. You will be prompted for the "
+"passphrase during system boot."
 msgstr ""
-"ଏହି ସଂଗୁପ୍ତ ଉପକରଣ %s ପାଇଁ ଗୋଟିଏ ପ୍ରବେଶ ସଂକେତ ଚୟନକରନ୍ତୁ. ଆପଣଙ୍କୁ "
-"ତନ୍ତ୍ର ବୁଟ କରିବା ସମୟରେ ପ୍ରବେଶ ସଂକେତ ପଚରାଯିବ."
+"ଆପଣଙ୍କର ସଂଗୁପ୍ତ ଉପକରଣ ପାଇଁ ଗୋଟିଏ ପ୍ରବେଶ ସଂକେତ ଚୟନକରନ୍ତୁ. ଆପଣଙ୍କୁ ତନ୍ତ୍ର ବୁଟ କରିବା ସମୟରେ "
+"ପ୍ରବେଶ ସଂକେତ ପଚରାଯିବ."
 
-#: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
+#: ../gui.py:671 ../gui.py:679 ../text.py:356 ../text.py:366
 msgid "Error with passphrase"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଜନିତ ତୃଟି"
 
-#: ../gui.py:680 ../text.py:368
+#: ../gui.py:672 ../text.py:357
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "ଆପଣ ଭରଣ କରିଥିବା ପ୍ରବେଶ ସଙ୍କେତ ଗୁଡିକ ଅଲଗା ଅଟନ୍ତି।  ଦୟାକରି ପୁନର୍ବାର ପ୍ରଚେଷ୍ଟା କରନ୍ତୁ।"
 
-#: ../gui.py:688
+#: ../gui.py:680
 msgid "The passphrase must be at least eight characters long."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ଅତିକମରେ ଆଠ ଅକ୍ଷର ବିଶିଷ୍ଟ ହେବା ଉଚିତ।"
 
-#: ../gui.py:723 ../text.py:400
+#: ../gui.py:714 ../text.py:390
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
-msgstr "%s ଯନ୍ତ୍ରଟି ସଂଗୁପ୍ତ ଅଟେ। ଯନ୍ତ୍ରର ସୂଚୀଗୁଡିକୁ ସ୍ଥାପନ ସମୟରେ ପାଇବାକୁ ହେଲେ ଆପଣଙ୍କୁ ଯନ୍ତ୍ରର ପ୍ରବେଶ ସଂକେତ ନିମ୍ନରେ ଭରଣ କରିବାକୁ ହେବ।"
+msgstr ""
+"%s ଯନ୍ତ୍ରଟି ସଂଗୁପ୍ତ ଅଟେ। ଯନ୍ତ୍ରର ସୂଚୀଗୁଡିକୁ ସ୍ଥାପନ ସମୟରେ ପାଇବାକୁ ହେଲେ ଆପଣଙ୍କୁ ଯନ୍ତ୍ରର ପ୍ରବେଶ "
+"ସଂକେତ ନିମ୍ନରେ ଭରଣ କରିବାକୁ ହେବ।"
 
-#: ../gui.py:780
+#: ../gui.py:771
 #, python-format
 msgid "Bugzilla (%s)"
 msgstr "Bugzilla (%s)"
 
-#: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
+#: ../gui.py:801
+msgid "No devices found"
+msgstr "କୌଣସି ଉପକରଣ ମିଳିଲା ନାହିଁ"
+
+#: ../gui.py:920 ../gui.py:921 ../gui.py:1033 ../gui.py:1034
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
 msgstr "ତୃଟିମୁକ୍ତ କରନ୍ତୁ (_D)"
 
-#: ../gui.py:1079 ../gui.py:1081 ../gui.py:1492 ../livecd.py:113
+#: ../gui.py:1080 ../gui.py:1082 ../gui.py:1493 ../livecd.py:113
 msgid "Exit installer"
 msgstr "ସ୍ଥାପକକୁ ବନ୍ଦ କରନ୍ତୁ"
 
-#: ../gui.py:1081 ../text.py:294 ../text.py:302
+#: ../gui.py:1082 ../text.py:293 ../text.py:301
 msgid "Debug"
 msgstr "ତୃଟିମୁକ୍ତ କରନ୍ତୁ"
 
-#: ../gui.py:1083 ../text.py:298
+#: ../gui.py:1084 ../text.py:297
 msgid "Exception Occurred"
 msgstr "ବ୍ଯତିକ୍ରମ ପରିଲିକ୍ଷିତ ହେଲା"
 
-#: ../gui.py:1281 ../text.py:563
+#: ../gui.py:1282 ../text.py:553
 msgid "Error Parsing Kickstart Config"
 msgstr "କିକ୍-ଷ୍ଟାର୍ଟ ବିନ୍ଯାସକୁ ବିଶ୍ଲେଷଣ କରିବା ସମୟରେ ତୃଟି"
 
-#: ../gui.py:1327
+#: ../gui.py:1328
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: ../gui.py:1407 ../text.py:711
+#: ../gui.py:1408 ../text.py:701
 msgid "Error!"
 msgstr "ତୃଟି!"
 
-#: ../gui.py:1408 ../text.py:712
+#: ../gui.py:1409 ../text.py:702
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1205,48 +1209,48 @@ msgstr ""
 "\n"
 "ଶ୍ରେଣୀନାମ = %s"
 
-#: ../gui.py:1413 ../image.py:164 ../image.py:194 ../packages.py:398
-#: ../packages.py:403
+#: ../gui.py:1414 ../image.py:164 ../image.py:194 ../packages.py:402
+#: ../packages.py:407
 msgid "_Exit"
 msgstr "ପ୍ରସ୍ଥାନ କରନ୍ତୁ (_E)"
 
-#: ../gui.py:1414 ../image.py:164 ../image.py:194 ../livecd.py:203
-#: ../yuminstall.py:653 ../yuminstall.py:1041 ../yuminstall.py:1089
-#: ../yuminstall.py:1294
+#: ../gui.py:1415 ../image.py:164 ../image.py:194 ../livecd.py:203
+#: ../yuminstall.py:636 ../yuminstall.py:987 ../yuminstall.py:1047
+#: ../yuminstall.py:1283
 msgid "_Retry"
 msgstr "ପୁନଃପ୍ରଚେଷ୍ଟା କରନ୍ତୁ(_R)"
 
-#: ../gui.py:1417 ../packages.py:168 ../packages.py:402
+#: ../gui.py:1418 ../packages.py:172 ../packages.py:406
 msgid "The installer will now exit..."
 msgstr "ସ୍ଥାପକଟି ବର୍ତମାନ ବାହାରକୁ ବାହାରି ଯିବ..."
 
-#: ../gui.py:1420 ../packages.py:405
+#: ../gui.py:1421 ../packages.py:409
 msgid "Your system will now be rebooted..."
 msgstr "ବର୍ତମାନ ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ପୁନର୍ଚାଳିତ ହେବ..."
 
-#: ../gui.py:1421 ../image.py:253 ../packages.py:169 ../packages.py:406
-#: ../partedUtils.py:1286 ../yuminstall.py:1345
+#: ../gui.py:1422 ../image.py:253 ../packages.py:173 ../packages.py:410
+#: ../partedUtils.py:1260 ../yuminstall.py:1334
 msgid "_Reboot"
 msgstr "ପୁନର୍ଚାଳିତ କରନ୍ତୁ (_R)"
 
-#: ../gui.py:1423
+#: ../gui.py:1424
 msgid "Exiting"
 msgstr "ବନ୍ଦ ହେଉଅଛି"
 
-#: ../gui.py:1493
+#: ../gui.py:1494
 msgid "Are you sure you wish to exit the installation?"
 msgstr "ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ସ୍ଥାପନ କ୍ରିୟାରୁ ବାହାରି ଯିବାକୁ ରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
-#: ../gui.py:1502
+#: ../gui.py:1503
 #, python-format
 msgid "%s Installer"
 msgstr "%s ସ୍ଥାପକ"
 
-#: ../gui.py:1509
+#: ../gui.py:1510
 msgid "Unable to load title bar"
 msgstr "ଶୀର୍ଷକ ଦଣ୍ଡକୁ ଧାରଣ କରିବାରେ ଅସମର୍ଥ"
 
-#: ../gui.py:1562
+#: ../gui.py:1566
 msgid "Install Window"
 msgstr "ୱିଣ୍ଡୋକୁ ସ୍ଥାପନ କରନ୍ତୁ"
 
@@ -1320,9 +1324,9 @@ msgstr ""
 "ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ସହିତ ଆଗକୁ ବଢିବା ପୂର୍ବରୁ ଦୟାକରି ଏଗୁଡିକୁ ପ୍ରସ୍ତୁତ ରଖନ୍ତୁ।  ଯଦି ଆପଣଙ୍କୁ ଏହି ସ୍ଥାପନ "
 "ପରିତ୍ଯାଗ କରି ପ୍ରସ୍ଥାନ କରିବା ପାଇଁ ପଡେ ତାହାହେଲେ ଦୟାକରି \"ପୁନର୍ଚାଳନ\" ବିକଳ୍ପକୁ ଚୟନ କରନ୍ତୁ।"
 
-#: ../image.py:253 ../livecd.py:385 ../packages.py:352 ../packages.py:403
-#: ../packages.py:406 ../yuminstall.py:775 ../yuminstall.py:864
-#: ../yuminstall.py:1329 ../yuminstall.py:1345
+#: ../image.py:253 ../livecd.py:383 ../packages.py:356 ../packages.py:407
+#: ../packages.py:410 ../yuminstall.py:758 ../yuminstall.py:847
+#: ../yuminstall.py:1318 ../yuminstall.py:1334
 msgid "_Back"
 msgstr "ପଛକୁ (_B)"
 
@@ -1339,7 +1343,20 @@ msgstr ""
 msgid "Install on System"
 msgstr "ତନ୍ତ୍ରରେ ସ୍ଥାପନ କରନ୍ତୁ"
 
-#: ../iscsi.py:208 ../iscsi.py:209
+#: ../instdata.py:118
+msgid "Unknown Device"
+msgstr "ଅଜଣା ଉପକରଣ"
+
+#: ../instdata.py:119
+#, python-format
+msgid ""
+"The installation source given by device %s could not be found.  Please check "
+"your parameters and try again."
+msgstr ""
+"ଉପକରଣ %s ଦ୍ୱାରା ଦିଆଯାଇଥିବା କୌଣସି ସ୍ଥାପନ ଉତ୍ସ ମିଳିଲା ନାହିଁ.  ଦୟାକରି ଆପଣଙ୍କର ପ୍ରାଚଳଗୁଡ଼ିକୁ ଯାଞ୍ଚ କରନ୍ତୁ ଏବଂ "
+"ପୁଣି ଚେଷ୍ଟାକରନ୍ତୁ."
+
+#: ../iscsi.py:449 ../iscsi.py:450
 msgid "Initializing iSCSI initiator"
 msgstr "iSCSI ପ୍ରାରମ୍ଭକକୁ ପ୍ରାରମ୍ଭିକୃତ କରୁଅଛି"
 
@@ -1350,31 +1367,31 @@ msgid ""
 "the output in %s.  This is a fatal error and your install will be aborted.  "
 "Press the OK button to exit the installer."
 msgstr ""
-" %s ଧାଡିରେ କିକସ୍ଟାର୍ଟ ସ୍କ୍ରିପ୍ଟଟକୁ ଚଳାଇବା ସମୟରେ ଗୋଟିଏ ତୃଟି ଘଟିଲା।  ଆପଣ ନିର୍ଗମକୁ %sରେ ପରୀକ୍ଷଣ କରିପାରିବେ। ଏହା "
-"ଗୋଟିଏ ମାରାତ୍ମକ ତୃଟି ଅଟେ ଏବଂ ଆପଣଙ୍କର ସ୍ଥାପନକୁ ପରିତ୍ଯାଗ କରି ଦିଆଯିବ  n"
-"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ବନ୍ଦ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
+" %s ଧାଡିରେ କିକସ୍ଟାର୍ଟ ସ୍କ୍ରିପ୍ଟଟକୁ ଚଳାଇବା ସମୟରେ ଗୋଟିଏ ତୃଟି ଘଟିଲା।  ଆପଣ ନିର୍ଗମକୁ %sରେ ପରୀକ୍ଷଣ "
+"କରିପାରିବେ। ଏହା ଗୋଟିଏ ମାରାତ୍ମକ ତୃଟି ଅଟେ ଏବଂ ଆପଣଙ୍କର ସ୍ଥାପନକୁ ପରିତ୍ଯାଗ କରି ଦିଆଯିବ  nଆପଣଙ୍କ "
+"ତନ୍ତ୍ରକୁ ବନ୍ଦ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../kickstart.py:108 ../kickstart.py:110
 msgid "Scriptlet Failure"
 msgstr "ସ୍କ୍ରିପଲେଟ୍ ବିଫଳତା"
 
-#: ../kickstart.py:1027 ../kickstart.py:1044
+#: ../kickstart.py:1056 ../kickstart.py:1073
 msgid "Running..."
 msgstr "ଚାଲୁଅଛି..."
 
-#: ../kickstart.py:1028
+#: ../kickstart.py:1057
 msgid "Running post-install scripts"
 msgstr "ପଶ୍ଚାତ ସ୍ଥାପନ ସ୍କ୍ରିପ୍ଟ କୁ ଚଳାଉଛି"
 
-#: ../kickstart.py:1045
+#: ../kickstart.py:1074
 msgid "Running pre-install scripts"
 msgstr "ଉପ ସ୍ଥାପନ ସ୍କ୍ରିପ୍ଟ କୁ ଚଳାଉଛି"
 
-#: ../kickstart.py:1076
+#: ../kickstart.py:1105
 msgid "Missing Package"
 msgstr "ଅନୁପସ୍ଥିତ ପ୍ଯାକେଜ"
 
-#: ../kickstart.py:1077
+#: ../kickstart.py:1106
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1383,15 +1400,15 @@ msgstr ""
 "'%s' ପ୍ଯାକେଜଟି ସ୍ଥାପିତ ହେବ ବୋଲି ଆପଣ ଉଲ୍ଲେଖ କରିଛନ୍ତି। ଏହି ପ୍ଯାକେଜଟି ଉପଲବ୍ଧ ନାହିଁ।ଆପଣ ଆଗକୁ "
 "ବଢିବା ପାଇଁ ଚାହୁଁଛନ୍ତି ନା ଏହି ସ୍ଥାପନକୁ ପରିତ୍ଯାଗ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
-#: ../kickstart.py:1083 ../kickstart.py:1121
+#: ../kickstart.py:1112 ../kickstart.py:1150
 msgid "_Abort"
 msgstr "ବିବରଣୀ (_A)"
 
-#: ../kickstart.py:1113
+#: ../kickstart.py:1142
 msgid "Missing Group"
 msgstr "ଅନୁପସ୍ଥିତ ସମୂହ"
 
-#: ../kickstart.py:1114
+#: ../kickstart.py:1143
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1421,8 +1438,8 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"ଆପଣଙ୍କର ହାର୍ଡ ଡ୍ରଇଭରେ ଜୀବନ୍ତ ପ୍ରତିଛବି ସ୍ଥାପନ କରିବା ଦ୍ୱାରା ଗୋଟିଏ ତ୍ରୁଟି ହୋଇଥିଲା.  "
-"ଏହା ସମ୍ଭବତଃ ଗୋଟିଏ ଖରାପ ସଞ୍ଚାର ମାଧ୍ଯମ ଯୋଗୁଁ ହୋଇଥାଇପାରେ.\n"
+"ଆପଣଙ୍କର ହାର୍ଡ ଡ୍ରଇଭରେ ଜୀବନ୍ତ ପ୍ରତିଛବି ସ୍ଥାପନ କରିବା ଦ୍ୱାରା ଗୋଟିଏ ତ୍ରୁଟି ହୋଇଥିଲା.  ଏହା ସମ୍ଭବତଃ "
+"ଗୋଟିଏ ଖରାପ ସଞ୍ଚାର ମାଧ୍ଯମ ଯୋଗୁଁ ହୋଇଥାଇପାରେ.\n"
 "\n"
 "ଯଦି ଆପଣ ପ୍ରସ୍ଥାନ କରନ୍ତି, ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ଗୋଟିଏ ଅପ୍ରୀତିକର ଅବସ୍ଥାକୁ ଚାଲିଯିବ ଏବଂ ଆପଣଙ୍କୁ ପୁନଃସ୍ଥାପନ "
 "କରିବା ପାଇଁ ପଡିବ।"
@@ -1437,87 +1454,89 @@ msgid ""
 "minutes..."
 msgstr "ସ୍ଥାପନ ପରେ ଫାଇଲ ତନ୍ତ୍ର ମାନଙ୍କୁ ପରିବର୍ତ୍ତନ କରୁଅଛି।  ଏହା କିଛି ମିନିଟ ନେଇପାରେ ..."
 
-#: ../livecd.py:380
+#: ../livecd.py:378
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
 msgstr ""
-"ଆପଣ ସୃଷ୍ଟି କରିଥିବା ମୂଳସ୍ଥାନ ଫାଇଲତନ୍ତ୍ର ଟି ଏହି ଜୀବନ୍ତ ପ୍ରତିଛବି ପାଇଁ ଆବଶ୍ୟକ ମୁତାବକ ବଡ ନୁହଁ "
-"(%.2f MB ଆବଶ୍ୟକ)।"
+"ଆପଣ ସୃଷ୍ଟି କରିଥିବା ମୂଳସ୍ଥାନ ଫାଇଲତନ୍ତ୍ର ଟି ଏହି ଜୀବନ୍ତ ପ୍ରତିଛବି ପାଇଁ ଆବଶ୍ୟକ ମୁତାବକ ବଡ ନୁହଁ (%.2f "
+"MB ଆବଶ୍ୟକ)।"
 
-#: ../network.py:64
-msgid "Hostname must be 64 or fewer characters in length."
-msgstr "ଆଧାରନାମଟି 64 କିମ୍ବା ତଦନିମ୍ନ ଅକ୍ଷର ବିଶିଷ୍ଟ ହୋଇଥିବା ଉଚିତ."
+#: ../network.py:56
+msgid "Hostname must be 255 or fewer characters in length."
+msgstr "ଆଧାରନାମଟି 255 କିମ୍ବା ତଦନିମ୍ନ ଅକ୍ଷର ବିଶିଷ୍ଟ ହୋଇଥିବା ଉଚିତ."
 
-#: ../network.py:70
+#: ../network.py:62
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
-msgstr "ଆଧାରନାମଟି 'a-z', 'A-Z' କିମ୍ବା '0-9' ପରିସର ମଧ୍ଯରେ ଥିବା ଗୋଟିଏ ବୈଧ ଅକ୍ଷର ସହିତ ପ୍ରାରମ୍ଭ ହେବା ଉଚିତ"
+msgstr ""
+"ଆଧାରନାମଟି 'a-z', 'A-Z' କିମ୍ବା '0-9' ପରିସର ମଧ୍ଯରେ ଥିବା ଗୋଟିଏ ବୈଧ ଅକ୍ଷର ସହିତ ପ୍ରାରମ୍ଭ "
+"ହେବା ଉଚିତ"
 
-#: ../network.py:75
+#: ../network.py:67
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "ଆଧାରନାମଟି କେବଳ 'a-z', 'A-Z', '-', କିମ୍ବା '.' ଅକ୍ଷର ମାନଙ୍କୁ ଧାରଣ କରି ପାରିବ।"
 
-#: ../network.py:132
+#: ../network.py:166
 msgid "IP address is missing."
 msgstr "ଆଇ.ପି. ଠିକଣା ମିଳୁନାହିଁ।"
 
-#: ../network.py:136
+#: ../network.py:170
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr "IPv4 ଠିକଣା ଗୁଡିକ ବିନ୍ଦୁ ଦ୍ବାରା ପୃଥକ 0 ଏବଂ 255 ମଧ୍ଯରେ ଚାରିଟି ସଂଖ୍ଯା ଧାରଣ କରିବା ଉଚିତ।"
 
-#: ../network.py:139
+#: ../network.py:173
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
 msgstr "%s ଟି ଗୋଟିଏ ବୈଧ IPv6 ଠିକଣା ନୁହେଁ।"
 
-#: ../network.py:141
+#: ../network.py:175
 #, python-format
 msgid "'%s' is an invalid IP address."
 msgstr "'%s' ଗୋଟିଏ ଅବୈଧ ଆଇ.ପି. ଠିକଣା ଅଟେ।"
 
-#: ../packages.py:112
+#: ../packages.py:114
 msgid "Resizing Failed"
 msgstr "ଆକାର ବଦଳାଇବା ନିଷ୍ଫଳ ହେଲା"
 
-#: ../packages.py:113
+#: ../packages.py:115
 #, python-format
 msgid "There was an error encountered resizing the device %s."
 msgstr "%s ଯନ୍ତ୍ରର ଆକାର ବଦଳାଇବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲକ୍ଷିତ ହେଲା।"
 
-#: ../packages.py:146
+#: ../packages.py:148
 msgid "Activating"
 msgstr "ସକ୍ରିୟଣ କରୁଅଛି"
 
-#: ../packages.py:146
+#: ../packages.py:148
 msgid "Activating new partitions.  Please wait..."
 msgstr "ନୂତନ ବିଭାଜନଗୁଡ଼ିକୁ ସକ୍ରିୟ କରୁଅଛି.  ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ..."
 
-#: ../packages.py:167
+#: ../packages.py:171
 msgid "LVM operation failed"
 msgstr "LVM ପ୍ରୟୋଗ ବିଫଳ ହେଲା"
 
-#: ../packages.py:323
+#: ../packages.py:327
 msgid "Invalid Key"
 msgstr "ଅବୈଧ ଚାବି"
 
-#: ../packages.py:324
+#: ../packages.py:328
 msgid "The key you entered is invalid."
 msgstr "ଆପଣ ଭରଣ କରିଥିବା ଚାବି ଅବୈଧ ଅଟେ।"
 
-#: ../packages.py:352
+#: ../packages.py:356
 msgid "_Skip"
 msgstr "ବାଦ ଦିଅନ୍ତୁ (_S)"
 
-#: ../packages.py:384 ../packages.py:407
+#: ../packages.py:388 ../packages.py:411
 msgid "Warning! This is pre-release software!"
 msgstr "ଚେତାବନୀ! ଏହା ବିମୋଚନ ପୂର୍ବର ସଫଟୱେର (ବିଟା) ଅଟେ!"
 
-#: ../packages.py:385
+#: ../packages.py:389
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1544,123 +1563,9 @@ msgstr ""
 "\n"
 "ଏବଂ '%s' ବିରୋଧରେ ଗୋଟିଏ ତୃଟି ଦାଖଲ କରନ୍ତୁ।\n"
 
-#: ../packages.py:398
+#: ../packages.py:402
 msgid "_Install anyway"
 msgstr "ତଥାପି ସ୍ଥାପିତ କରନ୍ତୁ (_I)"
-
-#: ../partedUtils.py:240 ../textw/partition_text.py:578
-msgid "Foreign"
-msgstr "ବିଦେଶ"
-
-#: ../partedUtils.py:368
-#, python-format
-msgid ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
-"\n"
-"Would you like to reformat this DASD using CDL format?"
-msgstr ""
-"%s ଉପକରଣଟି CDL ଦ୍ବାରା ଫର୍ମାଟ ହେବା ପରିବର୍ତ୍ତେ LDL ଦ୍ବାରା ଫର୍ମାଟ ହୋଇଛି। %sର ଗୋଟିଏ ସ୍ଥାପନ "
-"ସମୟରେ ବ୍ଯବହାର ପାଇଁ LDL ଦ୍ବାରା ଫର୍ମାଟ DASD ଗୁଡିକ ସହାୟକ ନୁହଁନ୍ତି। ଯଦି ଆପଣ ସ୍ଥାପନ ପାଇଁ ଏହି "
-"ଡିସ୍କକୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି, ଏହି ଚାଳନରେ ସମସ୍ତ ତଥ୍ଯକୁ ନଷ୍ଟ କରି ଏହାକୁ ପୁନଃ ପ୍ରାରମ୍ଭିକରଣ "
-"କରିବା ଉଚିତ।\n"
-"\n"
-"ଆପଣ CDL ଶୈଳୀ ବ୍ଯବହାର କରି DASDକୁ ପୁନଃ ସଂରୂପଣ କରିବା ପାଇଁ ଚାହିଁବେ କି?"
-
-#: ../partedUtils.py:398
-#, python-format
-msgid ""
-"/dev/%s currently has a %s partition layout.  To use this drive for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
-"on this drive.\n"
-"\n"
-"Would you like to re-initialize this drive?"
-msgstr ""
-"/dev/%s ନିକଟରେ ବର୍ତମାନ ଗୋଟିଏ %s ବିଭାଜନ ବିନ୍ଯାସ ଅଛି। %sର ସ୍ଥାପନ ପାଇଁ ଏହି ଡ୍ରାଇଭକୁ ବ୍ଯବହାର "
-"କରିବା ପାଇଁ, ଏହାକୁ ପୁନଃ ପ୍ରାରମ୍ଭିକରଣ କରିବା ଉଚିତ, ଯେପରି ଏହି ଡ୍ରାଇଭରେ ଥିବା ସମସ୍ତ ତଥ୍ଯ ଗୁଡିକ ନଷ୍ଟ "
-"ହୋଇଯିବ।\n"
-"\n"
-"ଆପଣ ଏହି ଡ୍ରାଇଭକୁ ପୁନଃପ୍ରାରମ୍ଭିକୃତ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
-
-#: ../partedUtils.py:407
-msgid "_Ignore drive"
-msgstr "ଉପକରଣକୁ ଏଡାଇ ଦିଅନ୍ତୁ (_I)"
-
-#: ../partedUtils.py:408
-msgid "_Re-initialize drive"
-msgstr "ଡ୍ରାଇଭକୁ ପୁନଃ ପ୍ରାରମ୍ଭିକୃତ କରନ୍ତୁ (_R)"
-
-#: ../partedUtils.py:1023
-msgid "Initializing"
-msgstr "ପ୍ରାରମ୍ଭିକରଣ କରୁଅଛି"
-
-#: ../partedUtils.py:1024
-#, python-format
-msgid "Please wait while formatting drive %s...\n"
-msgstr "ଦୟାକରି %s ଡ୍ରାଇଭକୁ ଫର୍ମାଟ କରିବା ପର୍ଯ୍ଯନ୍ତ ଅପେକ୍ଷା କରନ୍ତୁ...\n"
-
-#: ../partedUtils.py:1108
-#, python-format
-msgid ""
-"The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"%s ଉପକରଣରେ ଥିବା ବିଭାଜନ ସାରଣୀକୁ ପଢି ହେଲା ନାହିଁ। ନୂତନ ବିଭାଜନ ସୃଷ୍ଟି କରିବା ପାଇଁ ଏହା "
-"ପ୍ରାରମ୍ଭିକ୍ରୁତ ହୋଇଥିବା ଉଚିତ, ଏହି ଚାଳନରୁ ସମସ୍ତ ତଥ୍ଯକୁ ନଷ୍ଟ କରି।\n"
-"କେଉଁ ଉପକରଣକୁ ଆଗ୍ରହ୍ଯ କରାଯିବ ତାହାର ବିବରଣୀ ଧାରଣ କରିଥିବା ପୂର୍ବ ସ୍ଥାପନ ବିକଳ୍ପକୁ ଏହି ପ୍ରକ୍ରିୟାଟି "
-"ଦାବିଦେଇଯିବ।\n"
-"ସମସ୍ତ ତଥ୍ଯକୁ ଉପସାରିତ କରି, ଆପଣ ଏହି ଉପକରଣକୁ ପ୍ରାରମ୍ଭକରଣ କରିବା ପାଇଁ ଚାହାଁନ୍ତି କି?"
-
-#: ../partedUtils.py:1129
-#, python-format
-msgid ""
-"The partition table on device %s (%s %-0.f MB) was unreadable.\n"
-"To create new partitions it must be initialized, causing the loss of ALL "
-"DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"%s (%s %-0.f MB) ଉପକରଣରେ ବିଭାଜନ ସାରଣୀକୁ ପଢି ହେଲା ନାହିଁ.\n"
-"ନୂତନ ବିଭାଜନ ସୃଷ୍ଟି କରିବା ପାଇଁ ଏହା ପ୍ରାରମ୍ଭିକୃତ ହୋଇଥିବା ଉଚିତ, ଏହି ଡ୍ରାଇଭରୁ ସମସ୍ତ "
-"ତଥ୍ଯକୁ ନଷ୍ଟ କରି.\n"
-"\n"
-"କେଉଁ ଉପକରଣକୁ ଆଗ୍ରହ୍ଯ କରାଯିବ ତାହାର ବିବରଣୀ ଧାରଣ କରିଥିବା ପୂର୍ବ ସ୍ଥାପନ ବିକଳ୍ପକୁ ଏହି ପ୍ରକ୍ରିୟାଟି "
-"ଦାବିଦେଇଯିବ।\n"
-"ସମସ୍ତ ତଥ୍ଯକୁ ଅପସାରିତ କରି, ଆପଣ ଏହି ଉପକରଣକୁ ପ୍ରାରମ୍ଭକରଣ କରିବା ପାଇଁ ଚାହାଁନ୍ତି କି?"
-
-#: ../partedUtils.py:1277
-#, python-format
-msgid ""
-"The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
-"the Linux kernel does not allow for more than 15 partitons at this time.  "
-"You will not be able to make changes to the partitioning of this disk or use "
-"any partitions beyond /dev/%s15 in %s"
-msgstr ""
-"/dev/%s ଡ୍ରାଇଭରେ ୧୫ରୁ ଅଧିକ ବିଭାଜନ ଅଛି।  Linux କର୍ଣ୍ଣଲରେ ଥିବା SCSI ଉପତନ୍ତ୍ର ଏହି ସମୟରେ "
-"୧୫ଟି ବିଭାଜନରୁ ଅଧିକ ବିଭାଜନକୁ ସମର୍ଥନ କରୁନାହିଁ।  ଆପଣ ଏହି ଡିସ୍କର ବିଭାଜନକୁ ପରିବର୍ତ୍ତନ କରିପାରିବେ ନାହିଁ "
-"କିମ୍ବା %s ରେ /dev/%s15 ପରିସର ବାହାରେ କୌଣସି ବିଭାଜନକୁ ବ୍ଯବହାର କରିପାରିବେ ନାହିଁ।"
-
-#: ../partedUtils.py:1361
-msgid "No Drives Found"
-msgstr "କୌଣସି ଡ୍ରାଇଭ ମିଳିଲା ନାହିଁ"
-
-#: ../partedUtils.py:1362
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା - କୌଣସି ବୈଧ ଉପକରଣ ମିଳିଲା ନାହିଁ ଯାହା ଉପରେ ନୂତନ ଫାଇଲ ତନ୍ତ୍ର ସୃଷ୍ଟି "
-"କରାଯିବ।ଏହି ସମସ୍ଯାର କାରଣ ପାଇଁ ଆପଣଙ୍କର ହାର୍ଡୱେରକୁ ଯାଞ୍ଚ କରନ୍ତୁ।"
 
 #: ../partIntfHelpers.py:43
 msgid "Please enter a volume group name."
@@ -1763,7 +1668,7 @@ msgstr ""
 "ଆପଣ ଏହି ବିଭାଜନକୁ ଅପସାରିତ କରିପାରିବେ ନାହିଁ, ଯେହେତୁ ଏହା ଗୋଟିଏ ବିସ୍ତାରିତ ବିଭାଜନ ଯାହାକି %sକୁ ଧାରଣ "
 "କରିଅଛି"
 
-#: ../partIntfHelpers.py:190 ../iw/raid_dialog_gui.py:637
+#: ../partIntfHelpers.py:190 ../iw/raid_dialog_gui.py:591
 msgid "This partition is holding the data for the hard drive install."
 msgstr "ଏହି ବିଭାଜନଟି ହାର୍ଡ ଡ୍ରାଇଭ ସ୍ଥାପନ ପାଇଁ ତଥ୍ଯ ଧାରଣ କରିଛି।"
 
@@ -1776,7 +1681,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:241 ../partIntfHelpers.py:535
-#: ../iw/lvm_dialog_gui.py:817
+#: ../iw/lvm_dialog_gui.py:794
 msgid "Confirm Delete"
 msgstr "ଅପସାରଣକୁ ନିଶ୍ଚିତ କରନ୍ତୁ"
 
@@ -1786,7 +1691,7 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "ଆପଣ '/dev/%s' ଉପକରଣର ସମସ୍ତ ବିଭାଜନକୁ ଅପସାରିତ କରିବା ଉପରେ।"
 
 #: ../partIntfHelpers.py:245 ../partIntfHelpers.py:536
-#: ../iw/lvm_dialog_gui.py:820 ../iw/lvm_dialog_gui.py:1168
+#: ../iw/lvm_dialog_gui.py:797 ../iw/lvm_dialog_gui.py:1145
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1384
 msgid "_Delete"
 msgstr "କାଢନ୍ତୁ(_D)"
@@ -1971,210 +1876,6 @@ msgstr "ପୁନଃସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ନି�
 msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ବିଭାଜନ ସାରଣୀକୁ ଏହାର ପୂର୍ବାବସ୍ଥାକୁ ଆଣିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
-#: ../partitions.py:84
-msgid "Installation cannot continue."
-msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ଜାରି ହୋଇ ପାରିବା ନାହିଁ।"
-
-#: ../partitions.py:85
-msgid ""
-"The partitioning options you have chosen have already been activated. You "
-"can no longer return to the disk editing screen. Would you like to continue "
-"with the installation process?"
-msgstr ""
-"ଆପଣ ଚୟନ କରିଥିବା ବିଭଜନୀୟ ବିକଳ୍ପକୁ ପୂର୍ବରୁ ସକ୍ରିୟଣ କରାଯାଇଛି। ଆପଣ ପରଦାକୁ ସମ୍ପାଦନ କରି ଏହି ଡିସ୍କକୁ "
-"ପ୍ରତ୍ଯାବର୍ତ୍ତନ କରି ପାରିବେନାହିଁ। ଆପଣ ଏହି ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ଜାରି ରଖିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
-
-#: ../partitions.py:130
-#, python-format
-msgid " for device %s"
-msgstr " ଉପକରଣ %s ପାଇଁ"
-
-#: ../partitions.py:133
-msgid "Encrypt device?"
-msgstr "ଉପକରଣକୁ ସଂଗୁପ୍ତ କରିବେ କି?"
-
-#: ../partitions.py:134
-#, python-format
-msgid ""
-"You specified block device encryption should be enabled%s, but you have not "
-"supplied a passphrase. If you do not go back and provide a passphrase, block "
-"device encryption%s will be disabled."
-msgstr ""
-"ଆପଣ ଉଲ୍ଲେଖ କରିଛନ୍ତି ଯେ ବ୍ଲକ ଉପକରଣ ସଂଗୁପ୍ତ %sକୁ ସକ୍ରିୟ କରାଯାଇଛି, କିନ୍ତୁ ଆପଣ "
-"ପ୍ରବେଶ ସଂକେତ ପ୍ରଦାନ କରିନାହାନ୍ତି. ଯଦି ଆପଣ ପଛକୁଯାଇ ପ୍ରବେଶ ସଂକେତ ପ୍ରଦାନ ନକରନ୍ତି, "
-"ତେବେ ବ୍ଲକ ଉପକରଣ ସଂଗୁପ୍ତ%s ନିଷ୍କ୍ରିୟ ହୋଇଯିବ."
-
-#: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
-#: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
-#: ../loader/driverdisk.c:277 ../loader/driverdisk.c:361
-#: ../loader/driverselect.c:81 ../loader/driverselect.c:179
-#: ../loader/driverselect.c:205 ../loader/hdinstall.c:231
-#: ../loader/hdinstall.c:289 ../loader/kbd.c:138 ../loader/loader.c:473
-#: ../loader/loader.c:493 ../loader/loader.c:1361 ../loader/loader.c:1390
-#: ../loader/net.c:514 ../loader/net.c:869 ../loader/net.c:1542
-#: ../loader/net.c:1564 ../loader/nfsinstall.c:86 ../loader/urls.c:292
-msgid "Back"
-msgstr "ପଛକୁ"
-
-#: ../partitions.py:141 ../partitions.py:260 ../rescue.py:312
-#: ../iw/partition_gui.py:574 ../textw/network_text.py:62
-#: ../loader/cdinstall.c:198 ../loader/cdinstall.c:206
-#: ../loader/driverdisk.c:446
-msgid "Continue"
-msgstr "ଆଗକୁ ବଢନ୍ତୁ"
-
-#: ../partitions.py:160
-msgid "Writing partitioning to disk"
-msgstr "ଡିସ୍କକୁ ଲିଖିତ ବିଭାଜନ କରି"
-
-#: ../partitions.py:161
-msgid ""
-"The partitioning options you have selected will now be written to disk.  Any "
-"data on deleted or reformatted partitions will be lost."
-msgstr "ଆପଣ ବାଛିଥିବା ବିଭାଜନ ବିକଳ୍ପକୁ ବର୍ତ୍ତମାନ ଡିସ୍କରେ ଲେଖାଯିବ.  ଅପସାରିତ କିମ୍ବା ପୁନଃ ସଜ୍ଜିକରଣ ଶୈଳୀ ବିଭାଜନରେ ଥିବା ଯେକୌଣସି ତଥ୍ୟ ନଷ୍ଟ ହୋଇଯିବ."
-
-#: ../partitions.py:166
-msgid "Go _back"
-msgstr "ପଛକୁ ଯାଆନ୍ତୁ (_b)"
-
-#: ../partitions.py:167
-msgid "_Write changes to disk"
-msgstr "ଡିସ୍କରେ ଲିଖନ ପରିବର୍ତ୍ତନ (_W)"
-
-#: ../partitions.py:265
-msgid "Confirm"
-msgstr "ନିଶ୍ଚିତ କରନ୍ତୁ"
-
-#: ../partitions.py:266
-#, python-format
-msgid ""
-"Are you sure you want to skip entering a passphrase for device %s?\n"
-"\n"
-"If you skip this step the device's contents will not be available during "
-"installation."
-msgstr ""
-"ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଯନ୍ତ୍ର %s ରେ ପ୍ରବେଶ ସଂକେତ ଭରଣକୁ ଏଡାଇଯିବାକୁ ଚାହୁଁଛନ୍ତି?\n"
-"\n"
-"ଯଦି ଆପଣ ଏହି ସୋପାନକୁ ଏଡାଇଯାଆନ୍ତି ତେବେ ସ୍ଥାପନ ସମୟରେ ଯନ୍ତ୍ରର ସୂଚି ଗୁଡିକ ଉପଲବ୍ଧ ହେବନାହିଁ।"
-
-#: ../partitions.py:1146
-#, python-format
-msgid ""
-"You have not defined a root partition (/), which is required for "
-"installation of %s to continue."
-msgstr ""
-"ଆପଣ ଗୋଟିଏ ରୁଟ ବିଭାଜନ (/) କୁ ବ୍ଯାଖ୍ଯା କରି ନାହାଁନ୍ତି, ଯାହାକି %s ର ସ୍ଥାପନକୁ ଜାରି ରଖିବା ପାଇଁ "
-"ଆବଶ୍ୟକ।"
-
-#: ../partitions.py:1151
-#, python-format
-msgid ""
-"Your root partition is less than 250 megabytes which is usually too small to "
-"install %s."
-msgstr "ଆପଣଙ୍କର ରୁଟ ବିଭାଜନ ୨୫୦ ମେଗା-ବାଇଟରୁ କମ ଅଛି ଯାହାକି ସାଧାରଣତଃ %sର ସ୍ଥାପନ ପାଇଁ ବହୁତ କମ ଅଟେ।"
-
-#: ../partitions.py:1177
-msgid "You must create an EFI System Partition of at least 10 megabytes."
-msgstr "ଅତି କମରେ 10 ମେଗା-ବାଇଟର ଗୋଟିଏ EFI ତନ୍ତ୍ର ବିଭାଜନ ନିର୍ମାଣ କରିବା ଉଚିତ."
-
-#: ../partitions.py:1191
-msgid ""
-"Your boot partition isn't on one of the first four partitions and thus won't "
-"be bootable."
-msgstr ""
-"ଆପଣଙ୍କ ବୁଟ ବିଭାଜନ ପ୍ରଥମ ଚାରିଟି ବିଭାଜନ ମଧ୍ଯରୁ କୌଣସି ଗୋଟିଏରେ ନାହିଁ ଏବଂ ତେଣୁ ଏହାକୁ ବୁଟ କରିହେବ "
-"ନାହିଁ।"
-
-#: ../partitions.py:1212
-msgid "You must create an Apple Bootstrap partition."
-msgstr "ଆପଣ ଗୋଟିଏ Apple Bootstrap ବିଭାଜନ ସୃଷ୍ଟି କରିବା ଉଚିତ।"
-
-#: ../partitions.py:1234
-msgid "You must create a PPC PReP Boot partition."
-msgstr "ଆପଣ ଗୋଟିଏ PPC PReP ବୁଟ ବିଭାଜନ ସୃଷ୍ଟି କରିବା ଉଚିତ।"
-
-#: ../partitions.py:1242 ../partitions.py:1253
-#, python-format
-msgid ""
-"Your %s partition is less than %s megabytes which is lower than recommended "
-"for a normal %s install."
-msgstr ""
-"ଆପଣଙ୍କର %s ବିଭାଜନଟି %s ମେଗା-ବାଇଟରୁ କମ ଅଟେ ଯାହାକି ଗୋଟିଏ ସାଧାରଣ %s ସ୍ଥାପନ ପାଇଁ ପ୍ରତ୍ଯାଶିତ "
-"ଆକାରରୁ ଛୋଟ ଅଟେ।"
-
-#: ../partitions.py:1287
-msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"ଗୋଟିଏ USB ଉପକରଣରେ ସ୍ଥାପନ କରୁଅଛି। ଏହା ଗୋଟିଏ କାର୍ଯ୍ଯକ୍ଷମ ତନ୍ତ୍ର ଉତ୍ପାଦନ କରିପାରେ କିମ୍ବା କରି "
-"ନପାରେ।"
-
-#: ../partitions.py:1290
-msgid ""
-"Installing on a FireWire device.  This may or may not produce a working "
-"system."
-msgstr ""
-"ଅଗ୍ନିକବଚ ଉପକରଣରେ ସ୍ଥାପନ କରୁଅଛି। ଏହା ଗୋଟିଏ କାର୍ଯ୍ଯକ୍ଷମ ତନ୍ତ୍ର ଉତ୍ପାଦନ କରିପାରେ କିମ୍ବା କରି "
-"ନପାରେ।"
-
-#: ../partitions.py:1300
-msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "ବୁଟ କରିବା ଯୋଗ୍ଯ ବିଭାଜନ କେବଳ RAID1 ଉପକରଣରେ ଥାଇପାରେ।"
-
-#: ../partitions.py:1305
-msgid "Bootable partitions cannot be on a logical volume."
-msgstr "ବୁଟ କରିବା ଯୋଗ୍ଯ ବିଭାଜନ କେବେହେଲେ ଗୋଟିଏ ତାର୍କିକ ଘନଫଳରେ ନ ଥିବ।"
-
-#: ../partitions.py:1311
-msgid "Bootable partitions cannot be on a RAID device."
-msgstr "ବୁଟ କରିବା ଯୋଗ୍ଯ ବିଭାଜନ ଗୁଡିକ ଗୋଟିଏ RAID ଉପକରଣରେ ରହିପାରିବ ନାହିଁ।"
-
-#: ../partitions.py:1316 ../partitions.py:1322
-#, python-format
-msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "ବୁଟ କରିବା ଯୋଗ୍ଯ ବିଭାଜନଗୁଡିକ କେବେହେଲେ ଗୋଟିଏ %s ଫାଇଲତନ୍ତ୍ରରେ ରହିପାରିବ ନାହିଁ।"
-
-#: ../partitions.py:1326
-msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "ବୁଟ କରିବା ଯୋଗ୍ଯ ବିଭାଜନ କେବେହେଲେ ଗୋଟିଏ ସଂଗୁପ୍ତ ଘନଫଳରେ ରହିପାରିବ ନାହିଁ।"
-
-#: ../partitions.py:1330
-msgid ""
-"You have not specified a swap partition.  Although not strictly required in "
-"all cases, it will significantly improve performance for most installations."
-msgstr ""
-"ଆପଣ ଗୋଟିଏ swap ବିଭାଜନକୁ ନିର୍ଦ୍ଦିଷ୍ଟ କରି ନାହାଁନ୍ତି। ଯଦିଓ ଏହା ବିଧିବଦ୍ଧ ଭାବରେ ସମସ୍ତ ସ୍ଥିତିରେ ଏହା "
-"ଆବଶ୍ୟକ ନୁହେଁ, ତଥାପି ଏହା ଅଧିକାଂଶ ସ୍ଥାପନର ଉତ୍ପାଦନ ଉଲ୍ଲେଖଯୋଗ୍ଯ ଭାବରେ ବ୍ରୁଦ୍ଧି କରାଇଥାଏ>"
-
-#: ../partitions.py:1337
-#, python-format
-msgid ""
-"You have specified more than 32 swap devices.  The kernel for %s only "
-"supports 32 swap devices."
-msgstr ""
-"ଆପଣ ୩୨ରୁ ଅଧିକ swap ଉପକରଣକୁ ଉଲ୍ଲେଖ କରିଛନ୍ତି। କେବଳ %sର କର୍ଣ୍ଣଲ ୩୨ swap ଉପକରଣ ମାନଙ୍କୁ "
-"ସହାୟକ ହୋଇଥାଏ।"
-
-#: ../partitions.py:1348
-#, python-format
-msgid ""
-"You have allocated less swap space (%dM) than available RAM (%dM) on your "
-"system.  This could negatively impact performance."
-msgstr ""
-"ଆପଣ କମ swap ସ୍ଥାନ (%dM) ବାଣ୍ଟିଛନ୍ତି ଯାହାକି ଆପଣଙ୍କ ତନ୍ତ୍ରରେ ଉପଲବ୍ଧ RAM (%dM) ଠାରୁ କମ "
-"ଅଟେ। ଏହା ଆପଣଙ୍କ ପ୍ରଦର୍ଶନ ଉପରେ ନକରାତ୍ମକ ପ୍ରଭାବ ପକାଇପାରେ।"
-
-#: ../partitions.py:1655
-msgid "the partition in use by the installer."
-msgstr "ସ୍ଥାପକ ଦ୍ବାରା ବ୍ଯବହୃତ ବିଭାଜନ।"
-
-#: ../partitions.py:1658
-msgid "a partition which is a member of a RAID array."
-msgstr "ଗୋଟିଏ ବିଭାଜନ ଯାହାକି RAID ଆରେର ଏକ ସଦସ୍ଯ ଅଟେ।"
-
-#: ../partitions.py:1661
-msgid "a partition which is a member of a LVM Volume Group."
-msgstr "ଗୋଟିଏ ବିଭାଜନ ଯାହାକି LVM ଘନଫଳ ସମୂହର ଏକ ସଦସ୍ଯ ଅଟେ।"
-
 #: ../partRequests.py:275 ../partRequests.py:278
 #, python-format
 msgid "The mount point %s must be formatted during live CD installs."
@@ -2256,44 +1957,333 @@ msgid ""
 "size."
 msgstr "ତାର୍କିକ ଘନଫଳର ଆକାର ଘନଫଳ ସମୂହର ଭୌତିକ ପରିମାଣ ଆକାରରୁ ବୃହତର ହେବା ଉଚିତ।"
 
-#: ../rescue.py:151
-msgid "Starting Interface"
-msgstr "ଅନ୍ତରାପୃଷ୍ଠାକୁ ପ୍ରାରମ୍ଭ କରୁଅଛି"
+#: ../partedUtils.py:240 ../textw/partition_text.py:578
+msgid "Foreign"
+msgstr "ବିଦେଶ"
 
-#: ../rescue.py:152
+#: ../partedUtils.py:368
 #, python-format
-msgid "Attempting to start %s"
-msgstr "%s କୁ ପ୍ରାରମ୍ଭ କରିବାର ପ୍ରଚେଷ୍ଟା କରୁଅଛି"
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+"%s ଉପକରଣଟି CDL ଦ୍ବାରା ଫର୍ମାଟ ହେବା ପରିବର୍ତ୍ତେ LDL ଦ୍ବାରା ଫର୍ମାଟ ହୋଇଛି। %sର ଗୋଟିଏ ସ୍ଥାପନ "
+"ସମୟରେ ବ୍ଯବହାର ପାଇଁ LDL ଦ୍ବାରା ଫର୍ମାଟ DASD ଗୁଡିକ ସହାୟକ ନୁହଁନ୍ତି। ଯଦି ଆପଣ ସ୍ଥାପନ ପାଇଁ ଏହି "
+"ଡିସ୍କକୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି, ଏହି ଚାଳନରେ ସମସ୍ତ ତଥ୍ଯକୁ ନଷ୍ଟ କରି ଏହାକୁ ପୁନଃ ପ୍ରାରମ୍ଭିକରଣ "
+"କରିବା ଉଚିତ।\n"
+"\n"
+"ଆପଣ CDL ଶୈଳୀ ବ୍ଯବହାର କରି DASDକୁ ପୁନଃ ସଂରୂପଣ କରିବା ପାଇଁ ଚାହିଁବେ କି?"
 
-#: ../rescue.py:194
+#: ../partedUtils.py:398
+#, python-format
+msgid ""
+"/dev/%s currently has a %s partition layout.  To use this drive for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
+"\n"
+"Would you like to re-initialize this drive?"
+msgstr ""
+"/dev/%s ନିକଟରେ ବର୍ତମାନ ଗୋଟିଏ %s ବିଭାଜନ ବିନ୍ଯାସ ଅଛି। %sର ସ୍ଥାପନ ପାଇଁ ଏହି ଡ୍ରାଇଭକୁ ବ୍ଯବହାର "
+"କରିବା ପାଇଁ, ଏହାକୁ ପୁନଃ ପ୍ରାରମ୍ଭିକରଣ କରିବା ଉଚିତ, ଯେପରି ଏହି ଡ୍ରାଇଭରେ ଥିବା ସମସ୍ତ ତଥ୍ଯ ଗୁଡିକ ନଷ୍ଟ "
+"ହୋଇଯିବ।\n"
+"\n"
+"ଆପଣ ଏହି ଡ୍ରାଇଭକୁ ପୁନଃପ୍ରାରମ୍ଭିକୃତ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
+
+#: ../partedUtils.py:407
+msgid "_Ignore drive"
+msgstr "ଉପକରଣକୁ ଏଡାଇ ଦିଅନ୍ତୁ (_I)"
+
+#: ../partedUtils.py:408
+msgid "_Re-initialize drive"
+msgstr "ଡ୍ରାଇଭକୁ ପୁନଃ ପ୍ରାରମ୍ଭିକୃତ କରନ୍ତୁ (_R)"
+
+#: ../partedUtils.py:1015
+msgid "Initializing"
+msgstr "ପ୍ରାରମ୍ଭିକରଣ କରୁଅଛି"
+
+#: ../partedUtils.py:1016
+#, python-format
+msgid "Please wait while formatting drive %s...\n"
+msgstr "ଦୟାକରି %s ଡ୍ରାଇଭକୁ ଫର୍ମାଟ କରିବା ପର୍ଯ୍ଯନ୍ତ ଅପେକ୍ଷା କରନ୍ତୁ...\n"
+
+#: ../partedUtils.py:1101
+#, python-format
+msgid ""
+"The partition table on device %s (%s %-0.f MB) was unreadable.\n"
+"\n"
+"To create new partitions it must be initialized, causing the loss of ALL "
+"DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"%s (%s %-0.f MB) ଉପକରଣରେ ବିଭାଜନ ସାରଣୀକୁ ପଢି ହେଲା ନାହିଁ.\n"
+"\n"
+"ନୂତନ ବିଭାଜନ ସୃଷ୍ଟି କରିବା ପାଇଁ ଏହା ପ୍ରାରମ୍ଭିକୃତ ହୋଇଥିବା ଉଚିତ, ଏହି ଡ୍ରାଇଭରୁ ସମସ୍ତ ତଥ୍ଯକୁ ନଷ୍ଟ କରି.\n"
+"\n"
+"କେଉଁ ଉପକରଣକୁ ଆଗ୍ରହ୍ଯ କରାଯିବ ତାହାର ବିବରଣୀ ଧାରଣ କରିଥିବା ପୂର୍ବ ସ୍ଥାପନ ବିକଳ୍ପକୁ ଏହି ପ୍ରକ୍ରିୟାଟି "
+"ଅଧିରୋହଣ କରିବ।\n"
+"\n"
+"ସମସ୍ତ ତଥ୍ଯକୁ ଅପସାରିତ କରି, ଆପଣ ଏହି ଉପକରଣକୁ ପ୍ରାରମ୍ଭକରଣ କରିବା ପାଇଁ ଚାହାଁନ୍ତି କି?"
+
+#: ../partedUtils.py:1251
+#, python-format
+msgid ""
+"The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
+"the Linux kernel does not allow for more than 15 partitons at this time.  "
+"You will not be able to make changes to the partitioning of this disk or use "
+"any partitions beyond /dev/%s15 in %s"
+msgstr ""
+"/dev/%s ଡ୍ରାଇଭରେ ୧୫ରୁ ଅଧିକ ବିଭାଜନ ଅଛି।  Linux କର୍ଣ୍ଣଲରେ ଥିବା SCSI ଉପତନ୍ତ୍ର ଏହି ସମୟରେ "
+"୧୫ଟି ବିଭାଜନରୁ ଅଧିକ ବିଭାଜନକୁ ସମର୍ଥନ କରୁନାହିଁ।  ଆପଣ ଏହି ଡିସ୍କର ବିଭାଜନକୁ ପରିବର୍ତ୍ତନ କରିପାରିବେ ନାହିଁ "
+"କିମ୍ବା %s ରେ /dev/%s15 ପରିସର ବାହାରେ କୌଣସି ବିଭାଜନକୁ ବ୍ଯବହାର କରିପାରିବେ ନାହିଁ।"
+
+#: ../partedUtils.py:1335
+msgid "No Drives Found"
+msgstr "କୌଣସି ଡ୍ରାଇଭ ମିଳିଲା ନାହିଁ"
+
+#: ../partedUtils.py:1336
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+"ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା - କୌଣସି ବୈଧ ଉପକରଣ ମିଳିଲା ନାହିଁ ଯାହା ଉପରେ ନୂତନ ଫାଇଲ ତନ୍ତ୍ର ସୃଷ୍ଟି "
+"କରାଯିବ।ଏହି ସମସ୍ଯାର କାରଣ ପାଇଁ ଆପଣଙ୍କର ହାର୍ଡୱେରକୁ ଯାଞ୍ଚ କରନ୍ତୁ।"
+
+#: ../partitions.py:84
+msgid "Installation cannot continue."
+msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ଜାରି ହୋଇ ପାରିବା ନାହିଁ।"
+
+#: ../partitions.py:85
+msgid ""
+"The partitioning options you have chosen have already been activated. You "
+"can no longer return to the disk editing screen. Would you like to continue "
+"with the installation process?"
+msgstr ""
+"ଆପଣ ଚୟନ କରିଥିବା ବିଭଜନୀୟ ବିକଳ୍ପକୁ ପୂର୍ବରୁ ସକ୍ରିୟଣ କରାଯାଇଛି। ଆପଣ ପରଦାକୁ ସମ୍ପାଦନ କରି ଏହି ଡିସ୍କକୁ "
+"ପ୍ରତ୍ଯାବର୍ତ୍ତନ କରି ପାରିବେନାହିଁ। ଆପଣ ଏହି ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ଜାରି ରଖିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
+
+#: ../partitions.py:125
+msgid "Encrypt device?"
+msgstr "ଉପକରଣକୁ ସଂଗୁପ୍ତ କରିବେ କି?"
+
+#: ../partitions.py:126
+msgid ""
+"You specified block device encryption should be enabled, but you have not "
+"supplied a passphrase. If you do not go back and provide a passphrase, block "
+"device encryption will be disabled."
+msgstr ""
+"ଆପଣ ଉଲ୍ଲେଖ କରିଛନ୍ତି ଯେ ବ୍ଲକ ଉପକରଣ ସଂଗୁପ୍ତକୁ ସକ୍ରିୟ କରାଯାଇଛି, କିନ୍ତୁ ଆପଣ ପ୍ରବେଶ ସଂକେତ "
+"ପ୍ରଦାନ କରିନାହାନ୍ତି. ଯଦି ଆପଣ ପଛକୁଯାଇ ପ୍ରବେଶ ସଂକେତ ପ୍ରଦାନ ନକରନ୍ତି, ତେବେ ବ୍ଲକ ଉପକରଣ "
+"ସଂଗୁପ୍ତ ନିଷ୍କ୍ରିୟ ହୋଇଯିବ."
+
+#: ../partitions.py:133 ../partitions.py:263 ../textw/constants_text.py:52
+#: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
+#: ../loader/driverdisk.c:277 ../loader/driverdisk.c:361
+#: ../loader/driverselect.c:81 ../loader/driverselect.c:179
+#: ../loader/driverselect.c:205 ../loader/hdinstall.c:231
+#: ../loader/hdinstall.c:289 ../loader/kbd.c:138 ../loader/loader.c:473
+#: ../loader/loader.c:493 ../loader/loader.c:1365 ../loader/loader.c:1394
+#: ../loader/net.c:515 ../loader/net.c:891 ../loader/net.c:1628
+#: ../loader/net.c:1650 ../loader/nfsinstall.c:87 ../loader/urls.c:292
+msgid "Back"
+msgstr "ପଛକୁ"
+
+#: ../partitions.py:133 ../partitions.py:263 ../rescue.py:242
+#: ../iw/partition_gui.py:574 ../loader/cdinstall.c:198
+#: ../loader/cdinstall.c:206 ../loader/driverdisk.c:446
+msgid "Continue"
+msgstr "ଆଗକୁ ବଢନ୍ତୁ"
+
+#: ../partitions.py:154
+msgid "Writing partitioning to disk"
+msgstr "ଡିସ୍କକୁ ଲିଖିତ ବିଭାଜନ କରି"
+
+#: ../partitions.py:155
+msgid ""
+"The partitioning options you have selected will now be written to disk.  Any "
+"data on deleted or reformatted partitions will be lost."
+msgstr ""
+"ଆପଣ ବାଛିଥିବା ବିଭାଜନ ବିକଳ୍ପକୁ ବର୍ତ୍ତମାନ ଡିସ୍କରେ ଲେଖାଯିବ.  ଅପସାରିତ କିମ୍ବା ପୁନଃ ସଜ୍ଜିକରଣ ଶୈଳୀ "
+"ବିଭାଜନରେ ଥିବା ଯେକୌଣସି ତଥ୍ୟ ନଷ୍ଟ ହୋଇଯିବ."
+
+#: ../partitions.py:160
+msgid "Go _back"
+msgstr "ପଛକୁ ଯାଆନ୍ତୁ (_b)"
+
+#: ../partitions.py:161
+msgid "_Write changes to disk"
+msgstr "ଡିସ୍କରେ ଲିଖନ ପରିବର୍ତ୍ତନ (_W)"
+
+#: ../partitions.py:268
+msgid "Confirm"
+msgstr "ନିଶ୍ଚିତ କରନ୍ତୁ"
+
+#: ../partitions.py:269
+#, python-format
+msgid ""
+"Are you sure you want to skip entering a passphrase for device %s?\n"
+"\n"
+"If you skip this step the device's contents will not be available during "
+"installation."
+msgstr ""
+"ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଯନ୍ତ୍ର %s ରେ ପ୍ରବେଶ ସଂକେତ ଭରଣକୁ ଏଡାଇଯିବାକୁ ଚାହୁଁଛନ୍ତି?\n"
+"\n"
+"ଯଦି ଆପଣ ଏହି ସୋପାନକୁ ଏଡାଇଯାଆନ୍ତି ତେବେ ସ୍ଥାପନ ସମୟରେ ଯନ୍ତ୍ରର ସୂଚି ଗୁଡିକ ଉପଲବ୍ଧ ହେବନାହିଁ।"
+
+#: ../partitions.py:1189
+#, python-format
+msgid ""
+"You have not defined a root partition (/), which is required for "
+"installation of %s to continue."
+msgstr ""
+"ଆପଣ ଗୋଟିଏ ରୁଟ ବିଭାଜନ (/) କୁ ବ୍ଯାଖ୍ଯା କରି ନାହାଁନ୍ତି, ଯାହାକି %s ର ସ୍ଥାପନକୁ ଜାରି ରଖିବା ପାଇଁ "
+"ଆବଶ୍ୟକ।"
+
+#: ../partitions.py:1194
+#, python-format
+msgid ""
+"Your root partition is less than 250 megabytes which is usually too small to "
+"install %s."
+msgstr "ଆପଣଙ୍କର ରୁଟ ବିଭାଜନ ୨୫୦ ମେଗା-ବାଇଟରୁ କମ ଅଛି ଯାହାକି ସାଧାରଣତଃ %sର ସ୍ଥାପନ ପାଇଁ ବହୁତ କମ ଅଟେ।"
+
+#: ../partitions.py:1220
+msgid "You must create an EFI System Partition of at least 10 megabytes."
+msgstr "ଅତି କମରେ 10 ମେଗା-ବାଇଟର ଗୋଟିଏ EFI ତନ୍ତ୍ର ବିଭାଜନ ନିର୍ମାଣ କରିବା ଉଚିତ."
+
+#: ../partitions.py:1234
+msgid ""
+"Your boot partition isn't on one of the first four partitions and thus won't "
+"be bootable."
+msgstr ""
+"ଆପଣଙ୍କ ବୁଟ ବିଭାଜନ ପ୍ରଥମ ଚାରିଟି ବିଭାଜନ ମଧ୍ଯରୁ କୌଣସି ଗୋଟିଏରେ ନାହିଁ ଏବଂ ତେଣୁ ଏହାକୁ ବୁଟ କରିହେବ "
+"ନାହିଁ।"
+
+#: ../partitions.py:1255
+msgid "You must create an Apple Bootstrap partition."
+msgstr "ଆପଣ ଗୋଟିଏ Apple Bootstrap ବିଭାଜନ ସୃଷ୍ଟି କରିବା ଉଚିତ।"
+
+#: ../partitions.py:1277
+msgid "You must create a PPC PReP Boot partition."
+msgstr "ଆପଣ ଗୋଟିଏ PPC PReP ବୁଟ ବିଭାଜନ ସୃଷ୍ଟି କରିବା ଉଚିତ।"
+
+#: ../partitions.py:1285 ../partitions.py:1296
+#, python-format
+msgid ""
+"Your %s partition is less than %s megabytes which is lower than recommended "
+"for a normal %s install."
+msgstr ""
+"ଆପଣଙ୍କର %s ବିଭାଜନଟି %s ମେଗା-ବାଇଟରୁ କମ ଅଟେ ଯାହାକି ଗୋଟିଏ ସାଧାରଣ %s ସ୍ଥାପନ ପାଇଁ ପ୍ରତ୍ଯାଶିତ "
+"ଆକାରରୁ ଛୋଟ ଅଟେ।"
+
+#: ../partitions.py:1330
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr ""
+"ଗୋଟିଏ USB ଉପକରଣରେ ସ୍ଥାପନ କରୁଅଛି। ଏହା ଗୋଟିଏ କାର୍ଯ୍ଯକ୍ଷମ ତନ୍ତ୍ର ଉତ୍ପାଦନ କରିପାରେ କିମ୍ବା କରି "
+"ନପାରେ।"
+
+#: ../partitions.py:1333
+msgid ""
+"Installing on a FireWire device.  This may or may not produce a working "
+"system."
+msgstr ""
+"ଅଗ୍ନିକବଚ ଉପକରଣରେ ସ୍ଥାପନ କରୁଅଛି। ଏହା ଗୋଟିଏ କାର୍ଯ୍ଯକ୍ଷମ ତନ୍ତ୍ର ଉତ୍ପାଦନ କରିପାରେ କିମ୍ବା କରି "
+"ନପାରେ।"
+
+#: ../partitions.py:1343
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "ବୁଟ କରିବା ଯୋଗ୍ଯ ବିଭାଜନ କେବଳ RAID1 ଉପକରଣରେ ଥାଇପାରେ।"
+
+#: ../partitions.py:1348
+msgid "Bootable partitions cannot be on a logical volume."
+msgstr "ବୁଟ କରିବା ଯୋଗ୍ଯ ବିଭାଜନ କେବେହେଲେ ଗୋଟିଏ ତାର୍କିକ ଘନଫଳରେ ନ ଥିବ।"
+
+#: ../partitions.py:1354
+msgid "Bootable partitions cannot be on a RAID device."
+msgstr "ବୁଟ କରିବା ଯୋଗ୍ଯ ବିଭାଜନ ଗୁଡିକ ଗୋଟିଏ RAID ଉପକରଣରେ ରହିପାରିବ ନାହିଁ।"
+
+#: ../partitions.py:1359 ../partitions.py:1365
+#, python-format
+msgid "Bootable partitions cannot be on an %s filesystem."
+msgstr "ବୁଟ କରିବା ଯୋଗ୍ଯ ବିଭାଜନଗୁଡିକ କେବେହେଲେ ଗୋଟିଏ %s ଫାଇଲତନ୍ତ୍ରରେ ରହିପାରିବ ନାହିଁ।"
+
+#: ../partitions.py:1369
+msgid "Bootable partitions cannot be on an encrypted block device"
+msgstr "ବୁଟ କରିବା ଯୋଗ୍ଯ ବିଭାଜନ କେବେହେଲେ ଗୋଟିଏ ସଂଗୁପ୍ତ ଘନଫଳରେ ରହିପାରିବ ନାହିଁ।"
+
+#: ../partitions.py:1373
+msgid ""
+"You have not specified a swap partition.  Although not strictly required in "
+"all cases, it will significantly improve performance for most installations."
+msgstr ""
+"ଆପଣ ଗୋଟିଏ swap ବିଭାଜନକୁ ନିର୍ଦ୍ଦିଷ୍ଟ କରି ନାହାଁନ୍ତି। ଯଦିଓ ଏହା ବିଧିବଦ୍ଧ ଭାବରେ ସମସ୍ତ ସ୍ଥିତିରେ ଏହା "
+"ଆବଶ୍ୟକ ନୁହେଁ, ତଥାପି ଏହା ଅଧିକାଂଶ ସ୍ଥାପନର ଉତ୍ପାଦନ ଉଲ୍ଲେଖଯୋଗ୍ଯ ଭାବରେ ବ୍ରୁଦ୍ଧି କରାଇଥାଏ>"
+
+#: ../partitions.py:1380
+#, python-format
+msgid ""
+"You have specified more than 32 swap devices.  The kernel for %s only "
+"supports 32 swap devices."
+msgstr ""
+"ଆପଣ ୩୨ରୁ ଅଧିକ swap ଉପକରଣକୁ ଉଲ୍ଲେଖ କରିଛନ୍ତି। କେବଳ %sର କର୍ଣ୍ଣଲ ୩୨ swap ଉପକରଣ ମାନଙ୍କୁ "
+"ସହାୟକ ହୋଇଥାଏ।"
+
+#: ../partitions.py:1391
+#, python-format
+msgid ""
+"You have allocated less swap space (%dM) than available RAM (%dM) on your "
+"system.  This could negatively impact performance."
+msgstr ""
+"ଆପଣ କମ swap ସ୍ଥାନ (%dM) ବାଣ୍ଟିଛନ୍ତି ଯାହାକି ଆପଣଙ୍କ ତନ୍ତ୍ରରେ ଉପଲବ୍ଧ RAM (%dM) ଠାରୁ କମ "
+"ଅଟେ। ଏହା ଆପଣଙ୍କ ପ୍ରଦର୍ଶନ ଉପରେ ନକରାତ୍ମକ ପ୍ରଭାବ ପକାଇପାରେ।"
+
+#: ../partitions.py:1698
+msgid "the partition in use by the installer."
+msgstr "ସ୍ଥାପକ ଦ୍ବାରା ବ୍ଯବହୃତ ବିଭାଜନ।"
+
+#: ../partitions.py:1701
+msgid "a partition which is a member of a RAID array."
+msgstr "ଗୋଟିଏ ବିଭାଜନ ଯାହାକି RAID ଆରେର ଏକ ସଦସ୍ଯ ଅଟେ।"
+
+#: ../partitions.py:1704
+msgid "a partition which is a member of a LVM Volume Group."
+msgstr "ଗୋଟିଏ ବିଭାଜନ ଯାହାକି LVM ଘନଫଳ ସମୂହର ଏକ ସଦସ୍ଯ ଅଟେ।"
+
+#: ../rescue.py:162
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "ସମାପ୍ତ ହୋଇସାରିଲା ପରେ ଦୟାକରି ଆବରଣରୁ ବାହାରକୁ ଚାଲି ଯାଆନ୍ତୁ ଏବଂ ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରନ୍ତୁ।"
 
-#: ../rescue.py:201
+#: ../rescue.py:169
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr "ନିଷ୍ପାଦନ କରିବା ପାଇଁ /bin/shକୁ ଖୋଜିବାରେ ଅସମର୍ଥ!  ସେଲ ଆରମ୍ଭ କରୁନାହିଁ"
 
-#: ../rescue.py:220
+#: ../rescue.py:188
 msgid "Setup Networking"
 msgstr "ବ୍ଯବସ୍ଥାପନ ନେଟୱାର୍କିଙ୍ଗ"
 
-#: ../rescue.py:221
+#: ../rescue.py:189
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "ଆପଣ ନେଟୱାର୍କ ଅନ୍ତରାପୃଷ୍ଠକୁ ଏହି ତନ୍ତ୍ରରେ ପ୍ରାରମ୍ଭ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
-#: ../rescue.py:261 ../text.py:742
-msgid "Cancelled"
-msgstr "ବାତିଲ କରାଯାଇଛି"
+#: ../rescue.py:197
+msgid ""
+"Unable to activate a networking device.  Networking will not be available in "
+"rescue mode."
+msgstr ""
+"ଗୋଟିଏ ନେଟୱର୍କିଙ୍ଗ ଉପକରଣକୁ ସକ୍ରିୟ କରିବାରେ ଅସମର୍ଥ.  ନେଟୱର୍କିଙ୍ଗ ରକ୍ଷା ଧାରାରେ "
+"ଉପଲବ୍ଧ ହେବ ନାହିଁ."
 
-#: ../rescue.py:262 ../text.py:743
-msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "ମୁଁ ପୂର୍ବବର୍ତ୍ତୀ ପଦକ୍ଷେପକୁ ଏଠାରୁ ଯାଇ ପାରିବି ନାହିଁ। ଆପଣଙ୍କୁ ପୁନର୍ବାର ପ୍ରଚେଷ୍ଟା କରିବା ପାଇଁ ପଡିବ।"
-
-#: ../rescue.py:301 ../rescue.py:371 ../rescue.py:382 ../rescue.py:463
+#: ../rescue.py:231 ../rescue.py:301 ../rescue.py:312 ../rescue.py:393
 msgid "Rescue"
 msgstr "ଉଦ୍ଧାର କରନ୍ତୁ"
 
-#: ../rescue.py:302
+#: ../rescue.py:232
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -2316,23 +2306,23 @@ msgstr ""
 "କରିପାରିବେ ଏବଂ ଏହି ପଦକ୍ଷେପକୁ ଏଡାଇ ଦିଆଯିବ ଏବଂ ଆପଣ ସିଧାସଳଖ ଭାବରେ ନିର୍ଦ୍ଦେଶ ଆବରଣକୁ ଚାଲିଯିବେ।\n"
 "\n"
 
-#: ../rescue.py:312 ../rescue.py:317
+#: ../rescue.py:242 ../rescue.py:247
 msgid "Read-Only"
 msgstr "କେବଳ ପଠନୀୟ"
 
-#: ../rescue.py:343
+#: ../rescue.py:273
 msgid "System to Rescue"
 msgstr "ଉଦ୍ଧାର କରିବା ପାଇଁ ତନ୍ତ୍ର"
 
-#: ../rescue.py:344
+#: ../rescue.py:274
 msgid "What partition holds the root partition of your installation?"
 msgstr "ଆପଣଙ୍କ ତନ୍ତ୍ରର ପ୍ରମୂଖ ଚାଳକ (ରୁଟ) ର ବିଭାଜନକୁ କେଉଁ ବିଭାଜନ ଧାରଣ କରିଅଛି?"
 
-#: ../rescue.py:346 ../rescue.py:350 ../text.py:716 ../text.py:718
+#: ../rescue.py:276 ../rescue.py:280 ../text.py:706 ../text.py:708
 msgid "Exit"
 msgstr "ପ୍ରସ୍ଥାନ କରନ୍ତୁ"
 
-#: ../rescue.py:372
+#: ../rescue.py:302
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2342,7 +2332,7 @@ msgstr ""
 "କରିଛନ୍ତି। ଆପଣଙ୍କ ବିଭାଜନକୁ fsck ଏବଂ ମାଉଣ୍ଟ ସମୟରେ ଆବଶ୍ୟକ ଗୋଟିଏ ଆବରଣକୁ ପାଇବା ପାଇଁ ଫେରନ୍ତୁ "
 "ବଟନକୁ ଦବାନ୍ତୁ। ଆପଣ ଆବରଣରୁ ପ୍ରସ୍ଥାନ କଲେ ତନ୍ତ୍ରଟି ସ୍ବତଃପୁନର୍ଚାଳିତ ହୋଇଯିବ।"
 
-#: ../rescue.py:383
+#: ../rescue.py:313
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2359,7 +2349,7 @@ msgstr ""
 "\tchroot %s\n"
 "ଆପଣ ଆବରଣରୁ ପ୍ରସ୍ଥାନ କଲେ ତନ୍ତ୍ରଟି ସ୍ବତଃପୁନର୍ଚାଳିତ ହୋଇଯିବ।"
 
-#: ../rescue.py:464
+#: ../rescue.py:394
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2374,11 +2364,11 @@ msgstr ""
 "ଗୋଟିଏ ଆବରଣକୁ ଯିବା ପାଇଁ <return> ଦବାନ୍ତୁ। ଆପଣ ଆବରଣରୁ ପ୍ରସ୍ଥାନ କଲେ ତନ୍ତ୍ରଟି ସ୍ବତଃପୁନର୍ଚାଳିତ "
 "ହୋଇଯିବ।"
 
-#: ../rescue.py:473
+#: ../rescue.py:403
 msgid "Rescue Mode"
 msgstr "ଉଦ୍ଧାର ଧାରା"
 
-#: ../rescue.py:474
+#: ../rescue.py:404
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2386,98 +2376,106 @@ msgstr ""
 "ଆପଣଙ୍କ ନିକଟରେ କୌଣସି Linux ବିଭାଜନ ନାହିଁ। ଗୋଟିଏ ଆବରଣକୁ ଯିବା ପାଇଁ ଗୋଟିଏ ପ୍ରତ୍ଯାବର୍ତ୍ତନ ବଟନକୁ "
 "ଦବାନ୍ତୁ। ଆପଣ ଆବରଣରୁ ବାହାରକୁ ଗଲେ ତନ୍ତ୍ରଟି ସ୍ବତଃ ପୁନର୍ଚାଳିତ ହେବ।"
 
-#: ../rescue.py:487
+#: ../rescue.py:417
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "%s ଡିରେକ୍ଟୋରି ଅଧୀନରେ ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ମାଉଣ୍ଟ କରାଯାଇଛି।"
 
-#: ../text.py:207 ../text.py:291 ../text.py:304 tmp/exnSave.glade.h:6
+#: ../text.py:206 ../text.py:290 ../text.py:303 tmp/exnSave.glade.h:7
 msgid "Save"
 msgstr "ସଂରକ୍ଷଣ କରନ୍ତୁ"
 
-#: ../text.py:210
+#: ../text.py:209
 msgid "Save to local disk"
 msgstr "ସ୍ଥାନୀୟ ଡିସ୍କରେ ସଂରକ୍ଷଣ କରନ୍ତୁ"
 
-#: ../text.py:211
+#: ../text.py:210
 #, python-format
 msgid "Send to bugzilla (%s)"
 msgstr "ବଗଜିଲା (%s)କୁ ପଠାନ୍ତୁ"
 
-#: ../text.py:212
+#: ../text.py:211
 msgid "Send to remote server (scp)"
 msgstr "ସୁଦୂର ସର୍ଭର (scp)କୁ ପଠାନ୍ତୁ"
 
-#: ../text.py:226 ../text.py:239
+#: ../text.py:225 ../text.py:238
 msgid "User name"
 msgstr "ଚାଳକ ନାମ"
 
-#: ../text.py:228 ../text.py:241
+#: ../text.py:227 ../text.py:240
 msgid "Password"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ"
 
-#: ../text.py:230
+#: ../text.py:229
 msgid "Bug Description"
 msgstr "ତ୍ରୁଟି ବର୍ଣ୍ଣନା"
 
-#: ../text.py:243
+#: ../text.py:242
 msgid "Host (host:port)"
 msgstr "ଆଧାର (ଆଧାର:ସଂଯୋଗିକୀ)"
 
-#: ../text.py:245
+#: ../text.py:244
 msgid "Destination file"
 msgstr "ଲକ୍ଷ୍ଯ ସ୍ଥଳ ଫାଇଲ"
 
-#: ../text.py:329
+#: ../text.py:323
 msgid "Passphrase for encrypted device"
 msgstr "ସଂଗୁପ୍ତ ଉପକରଣ ପାଇଁ ପ୍ରବେଶ ସଂଦେଶ"
 
-#: ../text.py:347 tmp/lukspassphrase.glade.h:7
-msgid "Use this passphrase for all new encrypted devices"
-msgstr "ସମସ୍ତ ନୂତନ ସଂଗୁପ୍ତ ଉପକରଣଗୁଡ଼ିକ ପାଇଁ ଏହି ପ୍ରବେଶ ସଂକେତକୁ ବ୍ୟବହାର କରନ୍ତୁ"
+#: ../text.py:336
+msgid "Also add this passphrase to all existing encrypted devices"
+msgstr "ସମସ୍ତ ସ୍ଥିତବାନ ସଂଗୁପ୍ତ ଉପକରଣଗୁଡ଼ିକରେ ମଧ୍ଯ ଏହି ପ୍ରବେଶ ସଂକେତକୁ ଯୋଗ କରନ୍ତୁ"
 
-#: ../text.py:378
+#: ../text.py:367
 #, python-format
 msgid "The passphrase must be at least %d characters long."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ଅତିକମରେ %d ଅକ୍ଷର ବିଶିଷ୍ଟ ହେବା ଉଚିତ।"
 
-#: ../text.py:407 tmp/lukspassphrase.glade.h:5
+#: ../text.py:397 tmp/lukspassphrase.glade.h:6
 msgid "Passphrase"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ"
 
-#: ../text.py:415 tmp/lukspassphrase.glade.h:6
+#: ../text.py:405 tmp/lukspassphrase.glade.h:7
 msgid "This is a global passphrase"
 msgstr "ଏହା ଗୋଟିଏ ଜାଗତିକ ପ୍ରବେଶ ସଙ୍କେତ ଅଟେ"
 
-#: ../text.py:481 ../text.py:485
+#: ../text.py:471 ../text.py:475
 msgid "Repository editing is not available in text mode."
 msgstr "ଅକ୍ଷରାବସ୍ଥାରେ ସଂଗ୍ରହାଳୟ ସମ୍ପାଦନ ସ୍ଥାପନ ଉପଲବ୍ଧ ନାହିଁ."
 
-#: ../text.py:523
+#: ../text.py:513
 #, python-format
 msgid "Please enter your %(instkey)s"
 msgstr "ଦୟାକରି ଆପଣଙ୍କ %(instkey)s କୁ ଭରଣ କରନ୍ତୁ"
 
-#: ../text.py:540 tmp/instkey.glade.h:6
+#: ../text.py:530 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
 msgstr "%(instkey)s ଭରଣ କରିବା ପ୍ରକ୍ରିୟାକୁ ଏଡାଇ ଦିଅନ୍ତୁ"
 
-#: ../text.py:616 ../loader/lang.c:63 ../loader/loader.c:212
+#: ../text.py:606 ../loader/lang.c:63 ../loader/loader.c:212
 #, c-format, python-format
 msgid "Welcome to %s for %s"
 msgstr "%s ପାଇଁ %s ରେ ଆପଣଙ୍କୁ ସ୍ବାଗତ କରାଯାଉଛି"
 
-#: ../text.py:618
+#: ../text.py:608
 #, python-format
 msgid "Welcome to %s"
 msgstr "%s କୁ ସ୍ବାଗତମ"
 
-#: ../text.py:620
+#: ../text.py:610
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr "  <Tab>/<Alt-Tab> swap   |  <Space> ଚୟନ   |  <F12> ପରବର୍ତ୍ତୀ ପରଦା ପ୍ରଦର୍ଶନ"
+
+#: ../text.py:732
+msgid "Cancelled"
+msgstr "ବାତିଲ କରାଯାଇଛି"
+
+#: ../text.py:733
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr "ମୁଁ ପୂର୍ବବର୍ତ୍ତୀ ପଦକ୍ଷେପକୁ ଏଠାରୁ ଯାଇ ପାରିବି ନାହିଁ। ଆପଣଙ୍କୁ ପୁନର୍ବାର ପ୍ରଚେଷ୍ଟା କରିବା ପାଇଁ ପଡିବ।"
 
 #: ../upgrade.py:91 ../upgrade.py:112
 msgid "Proceed with upgrade?"
@@ -2490,8 +2488,7 @@ msgid ""
 "is for %s architecture. \n"
 "\n"
 msgstr ""
-"ଆପଣ %s ସ୍ଥାପତ୍ୟ ପାଇଁ ଉନ୍ନୟନ ଚୟନ କରିସାରିଛନ୍ତି, କିନ୍ତୁ ସ୍ଥାପିତ "
-"ତନ୍ତ୍ରଟି %s ସ୍ଥାପତ୍ୟ ପାଇଁ। \n"
+"ଆପଣ %s ସ୍ଥାପତ୍ୟ ପାଇଁ ଉନ୍ନୟନ ଚୟନ କରିସାରିଛନ୍ତି, କିନ୍ତୁ ସ୍ଥାପିତ ତନ୍ତ୍ରଟି %s ସ୍ଥାପତ୍ୟ ପାଇଁ। \n"
 "\n"
 
 #: ../upgrade.py:96
@@ -2600,52 +2597,52 @@ msgstr "ଅବୈଧ ଡିରେକ୍ଟୋରି"
 msgid "%s not found"
 msgstr "%s ମିଳିଲା ନାହିଁ"
 
-#: ../vnc.py:148
+#: ../vnc.py:152
 #, python-format
 msgid "%s %s installation on host %s"
 msgstr "%s %s %s ଆଧାର ରେ ସ୍ଥାପିତ ହେଉ ଅଛି"
 
-#: ../vnc.py:150
+#: ../vnc.py:154
 #, python-format
 msgid "%s %s installation"
 msgstr "%s %s ସ୍ଥାପନ"
 
-#: ../vnc.py:177
+#: ../vnc.py:181
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "vnc ଗ୍ରାହକ ସହିତ %s ଆଧାର ରେ ସଂଯୋଗ କରିବା ପାଇଁ ପ୍ରଚେଷ୍ଟା କରୁଛି"
 
-#: ../vnc.py:191
+#: ../vnc.py:195
 msgid "Connected!"
 msgstr "ସଂଯୋଗ ହୋଇଗଲା"
 
-#: ../vnc.py:194
+#: ../vnc.py:198
 msgid "Will try to connect again in 15 seconds..."
 msgstr "୧୫ ସେକେଣ୍ଡ ମଦ୍ଧ୍ଯ ରେ ପୂର୍ନବାର ସଂଯୋଗ କରିବା ପାଇଁ ପ୍ରଚେଷ୍ଟା କରିବ"
 
-#: ../vnc.py:200
+#: ../vnc.py:204
 #, python-format
 msgid "Giving up attempting to connect after %d tries!\n"
 msgstr "%d ଥର ଚେଷ୍ଟାକରିବା ପରେ ସଂଯୋଗ କରିବା ପ୍ରଚେଷ୍ଟାକୁ ପରିତ୍ଯାଗ କରିଛି!\n"
 
-#: ../vnc.py:209
+#: ../vnc.py:213
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ଆରମ୍ଭ କରିବା ପାଇଁ ଦୟାକରି vnc ଗ୍ରାହକ କୁ %s ସହିତ ନିଜ ହାତ ରେ ସଂଯୋଗ କରନ୍ତୁ"
 
-#: ../vnc.py:211
+#: ../vnc.py:215
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ଆରମ୍ଭ କରିବା ପାଇଁ ଦୟାକରି vnc ଗ୍ରାହକ କୁ ନିଜ ହାତ ରେ ସଂଯୋଗ କରନ୍ତୁ"
 
-#: ../vnc.py:214
+#: ../vnc.py:218
 msgid "Starting VNC..."
 msgstr "VNC ଆରମ୍ଭ କରୁଛି"
 
-#: ../vnc.py:239
+#: ../vnc.py:243
 msgid "The VNC server is now running."
 msgstr "VNC ସେବକ ଟି ବର୍ତ୍ତମାନ ଚାଲିଛି"
 
-#: ../vnc.py:252
+#: ../vnc.py:256
 msgid ""
 "\n"
 "\n"
@@ -2663,23 +2660,23 @@ msgstr ""
 "ବିଫଳ ହେଲାପରେ ବ୍ୟବହୃତ ହେବ \n"
 "\n"
 
-#: ../vnc.py:257
+#: ../vnc.py:261
 msgid ""
 "\n"
 "\n"
 "WARNING!!! VNC server running with NO PASSWORD!\n"
-"You can use the self.password=<password> boot option\n"
+"You can use the vncpassword=<password> boot option\n"
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
 "\n"
 "\n"
-"ଚେତାବନୀ!!! VNC ସେବକ ଟି ବିନା ପ୍ରବେଶ ସଙ୍କେତ ରେ ଚାଲିଛି!\n"
-"ଆପଣ self.password=<ପ୍ରବେଶ ସଙ୍କେତ> ବୁଟ୍ ବିକଳ୍ପକୁ ବ୍ଯବହାର କରି ପାରିବେ\n"
-"ଯଦି ଆପଣ ସେବକ କୁ ସୁରକ୍ଷିତ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି\n"
+"ଚେତାବନୀ!!! VNC ସର୍ଭରଟି ବିନା ପ୍ରବେଶ ସଙ୍କେତ ରେ ଚାଲିଛି!\n"
+"ଆପଣ vncpassword=<password> ବୁଟ୍ ବିକଳ୍ପକୁ ବ୍ଯବହାର କରି ପାରିବେ\n"
+"ଯଦି ଆପଣ ସର୍ଭରକୁ ସୁରକ୍ଷିତ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି\n"
 "\n"
 
-#: ../vnc.py:261
+#: ../vnc.py:265
 msgid ""
 "\n"
 "\n"
@@ -2691,7 +2688,7 @@ msgstr ""
 "ଆପଣ vnc କୁ ଗୋଟିଏ ପ୍ରବେଶ ସଂକେତ ସହିତ ନିଷ୍ପାଦନ କରିବାକୁ ପସନ୍ଦ କରିଛନ୍ତି। \n"
 "\n"
 
-#: ../vnc.py:263
+#: ../vnc.py:267
 msgid ""
 "\n"
 "\n"
@@ -2703,15 +2700,15 @@ msgstr ""
 "ଅଜଣା ତୃଟି।  ପରିତ୍ୟାଗ କରୁଅଛି। \n"
 "\n"
 
-#: ../vnc.py:285 ../vnc.py:378
+#: ../vnc.py:289 ../vnc.py:382
 msgid "VNC Configuration"
 msgstr "VNC ବିନ୍ଯାସ"
 
-#: ../vnc.py:288 ../vnc.py:382
+#: ../vnc.py:292 ../vnc.py:386
 msgid "No password"
 msgstr "କୌଣସି ପ୍ରବେଶ ସଙ୍କେତ ନାହିଁ"
 
-#: ../vnc.py:290 ../vnc.py:385
+#: ../vnc.py:294 ../vnc.py:389
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
@@ -2721,35 +2718,35 @@ msgstr ""
 "ତା'ଉପରେ ଦୃଷ୍ଟି ରଖିବାରୁ ନିଷେଧ କରିଥାଏ। ଦୟାକରି ସ୍ଥାପନ ପ୍ରକ୍ରିୟାରେ ବ୍ଯବହାର କରିବା ପାଇଁ ଗୋଟିଏ "
 "ପ୍ରବେଶ ସଙ୍କେତ ଭରଣ କରନ୍ତୁ।"
 
-#: ../vnc.py:298 ../vnc.py:393 ../textw/userauth_text.py:47
+#: ../vnc.py:302 ../vnc.py:397 ../textw/userauth_text.py:47
 msgid "Password:"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ:"
 
-#: ../vnc.py:299 ../vnc.py:394 ../textw/userauth_text.py:49
+#: ../vnc.py:303 ../vnc.py:398 ../textw/userauth_text.py:49
 msgid "Password (confirm):"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ (ନିଶ୍ଚିତ କରନ୍ତୁ):"
 
-#: ../vnc.py:317 ../vnc.py:416 ../textw/userauth_text.py:70
+#: ../vnc.py:321 ../vnc.py:420 ../textw/userauth_text.py:70
 msgid "Password Mismatch"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ ମିଶୁନାହିଁ"
 
-#: ../vnc.py:318 ../vnc.py:417 ../textw/userauth_text.py:71
+#: ../vnc.py:322 ../vnc.py:421 ../textw/userauth_text.py:71
 msgid "The passwords you entered were different. Please try again."
 msgstr "ଆପଣ ଭରଣ କରିଥିବା ପ୍ରବେଶ ସଙ୍କେତଟି ଭିନ୍ନ ଅଟେ। ଦୟାକରି ପୁନର୍ବାର ପ୍ରଚେଷ୍ଟା କରନ୍ତୁ।"
 
-#: ../vnc.py:323 ../vnc.py:422 ../textw/userauth_text.py:66
+#: ../vnc.py:327 ../vnc.py:426 ../textw/userauth_text.py:66
 msgid "Password Length"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଦୈର୍ଘ୍ଯ"
 
-#: ../vnc.py:324 ../vnc.py:423
+#: ../vnc.py:328 ../vnc.py:427
 msgid "The password must be at least six characters long."
 msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ଅତିକମରେ ୬ ଅକ୍ଷର ବିଶିଷ୍ଟ ହେବା ଉଚିତ।"
 
-#: ../vnc.py:346
+#: ../vnc.py:350
 msgid "Unable to Start X"
 msgstr "X କୁ ପ୍ରାରମ୍ଭ କରିବାରେ ଅସମର୍ଥ"
 
-#: ../vnc.py:348
+#: ../vnc.py:352
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
@@ -2759,11 +2756,11 @@ msgstr ""
 "କରିବା ପାଇଁ VNC ପ୍ରାରମ୍ଭ କରି ଗୋଟିଏ ଆଲେଖୀକ ଅନ୍ତରାପୃଷ୍ଠରେ ସ୍ଥାପନ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କିମ୍ବା "
 "ଗୋଟିଏ ପାଠ୍ଯ ଧାରାରେ ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ଜାରି ରଖିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
-#: ../vnc.py:367 ../vnc.py:370
+#: ../vnc.py:371 ../vnc.py:374
 msgid "Use text mode"
 msgstr "ପାଠ୍ଯ ଧାରାକୁ ବ୍ଯବହାର କରନ୍ତୁ"
 
-#: ../vnc.py:368
+#: ../vnc.py:372
 msgid "Start VNC"
 msgstr "VNC କୁ ପ୍ରାରମ୍ଭ କରନ୍ତୁ"
 
@@ -2787,33 +2784,37 @@ msgstr "%s ବାଇଟ୍"
 msgid "%s Bytes"
 msgstr "%s ବାଇଟ୍ସ"
 
-#: ../yuminstall.py:123 ../yuminstall.py:213
+#: ../yuminstall.py:126
 msgid "Processing"
 msgstr "ପ୍ରକ୍ରିୟା"
 
-#: ../yuminstall.py:124
+#: ../yuminstall.py:127
 msgid "Preparing transaction from installation source..."
 msgstr "ସ୍ଥାପନ ଉତ୍ସରୁ ବିନିମୟ ପାଇଁ ପ୍ରସ୍ତୁତ କରୁଅଛି..."
 
-#: ../yuminstall.py:155
+#: ../yuminstall.py:158
 #, python-format
 msgid "<b>Installing %s</b> (%s)\n"
 msgstr "<b>%s କୁ ସ୍ଥାପନ କରୁଅଛି</b> (%s)\n"
 
-#: ../yuminstall.py:202
+#: ../yuminstall.py:209
 #, python-format
 msgid "%s of %s packages completed"
 msgstr "%s ପ୍ୟାକେଜ %s ପ୍ଯାକେଜ ମାନଙ୍କ ମଧ୍ଯରୁ ସମ୍ପୂର୍ଣ୍ଣ"
 
-#: ../yuminstall.py:214
-msgid "Finishing upgrade process..."
-msgstr "ଉନ୍ନୟନ ପ୍ରକ୍ରିୟା ସମାପ୍ତ କରୁଅଛି..."
+#: ../yuminstall.py:219
+msgid "Finishing upgrade"
+msgstr "ଉନ୍ନୟନ ପ୍ରକ୍ରିୟା ସମାପ୍ତ କରୁଅଛି"
 
-#: ../yuminstall.py:308 ../iw/task_gui.py:275
+#: ../yuminstall.py:220
+msgid "Finishing upgrade process.  This may take a little while..."
+msgstr "ଉନ୍ନୟନ ପ୍ରକ୍ରିୟାକୁ ସମାପ୍ତ କରୁଅଛି.  ଏହା କିଛି ସମୟ ନେଇପାରେ..."
+
+#: ../yuminstall.py:290 ../iw/task_gui.py:283
 msgid "Error Setting Up Repository"
 msgstr "ସଂଗ୍ରହାଳୟକୁ ବିନ୍ୟାସ କରିବାରେ ତ୍ରୁଟି"
 
-#: ../yuminstall.py:309 ../iw/task_gui.py:276
+#: ../yuminstall.py:291 ../iw/task_gui.py:284
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -2828,42 +2829,42 @@ msgstr ""
 "\n"
 "ଦୟାକରି ସ୍ଥାପନ କରିବା ପାଇଁ ସଠିକ ସୂଚନା ପ୍ରଦାନ କରନ୍ତୁ %s."
 
-#: ../yuminstall.py:366
+#: ../yuminstall.py:348
 msgid "Change Disc"
 msgstr "ଡିସ୍କ ପରିବର୍ତ୍ତନ କରନ୍ତୁ"
 
-#: ../yuminstall.py:367
+#: ../yuminstall.py:349
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "ଆଗକୁ ବଢିବା ପାଇଁ ଦୟାକରି %s ଡିସ୍କ %d କୁ ଭର୍ତ୍ତି କରନ୍ତୁ।"
 
-#: ../yuminstall.py:378
+#: ../yuminstall.py:360
 msgid "Wrong Disc"
 msgstr "ଭୂଲ ଡିସ୍କ"
 
-#: ../yuminstall.py:379
+#: ../yuminstall.py:361
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "ତାହା ସଠିକ %s ଡିସ୍କ ନୁହେଁ।"
 
-#: ../yuminstall.py:385
+#: ../yuminstall.py:367
 msgid "Unable to access the disc."
 msgstr "ଡିସ୍କକୁ ଅଭିଗମ କରିବାରେ ଅସମର୍ଥ।"
 
-#: ../yuminstall.py:533
+#: ../yuminstall.py:515
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "ପରିଚୟ ବ୍ୟବହାର କରି, ବିନ୍ୟାସରେ ସଂଗ୍ରହାଳୟ %r ର ନାମ ନାହିଁ"
 
-#: ../yuminstall.py:651 ../yuminstall.py:653
+#: ../yuminstall.py:634 ../yuminstall.py:636
 msgid "Re_boot"
 msgstr "ପୁନର୍ଚାଳନ କରନ୍ତୁ (_b)"
 
-#: ../yuminstall.py:651
+#: ../yuminstall.py:634
 msgid "_Eject"
 msgstr "ବାହାର କରନ୍ତୁ (_E)"
 
-#: ../yuminstall.py:660
+#: ../yuminstall.py:643
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -2873,67 +2874,67 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"%s ଫାଇଲକୁ ଖୋଲିହେବ ନାହିଁ। ଏହା ସମ୍ଭବତଃ ଗୋଟିଏ ଅନୁପସ୍ଥିତ ଫାଇଲ, ଗୋଟିଏ ତୃଟିଯୁକ୍ତ ପ୍ଯାକେଜ "
-"କିମ୍ବା ତୃଟିଯୁକ୍ତ ସଞ୍ଚାର ମାଧ୍ଯମ ଯୋଗୁଁ ହୋଇଅଛି।  ଦୟାକରି ଆପଣଙ୍କର ସ୍ଥାପନ ଉତ୍ସକୁ ଯାଞ୍ଚ କରନ୍ତୁ।\n"
+"%s ଫାଇଲକୁ ଖୋଲିହେବ ନାହିଁ। ଏହା ସମ୍ଭବତଃ ଗୋଟିଏ ଅନୁପସ୍ଥିତ ଫାଇଲ, ଗୋଟିଏ ତୃଟିଯୁକ୍ତ ପ୍ଯାକେଜ କିମ୍ବା "
+"ତୃଟିଯୁକ୍ତ ସଞ୍ଚାର ମାଧ୍ଯମ ଯୋଗୁଁ ହୋଇଅଛି।  ଦୟାକରି ଆପଣଙ୍କର ସ୍ଥାପନ ଉତ୍ସକୁ ଯାଞ୍ଚ କରନ୍ତୁ।\n"
 "\n"
-"ଯଦି ଆପଣ ପ୍ରସ୍ଥାନ କରନ୍ତି, ଆପଣଙ୍କ ତନ୍ତ୍ର ଗୋଟିଏ ଅପ୍ରିତୀକର ଅବସ୍ଥାକୁ ଚାଲିଯିବ ଯେଉଁଥି ପାଇଁ ଆପଣଙ୍କୁ "
-"ପୁନଃ ସ୍ଥାପନ କରିବାକୁ ପଡିବ।\n"
+"ଯଦି ଆପଣ ପ୍ରସ୍ଥାନ କରନ୍ତି, ଆପଣଙ୍କ ତନ୍ତ୍ର ଗୋଟିଏ ଅପ୍ରିତୀକର ଅବସ୍ଥାକୁ ଚାଲିଯିବ ଯେଉଁଥି ପାଇଁ ଆପଣଙ୍କୁ ପୁନଃ "
+"ସ୍ଥାପନ କରିବାକୁ ପଡିବ।\n"
 "\n"
 
-#: ../yuminstall.py:700
+#: ../yuminstall.py:683
 msgid "Retrying"
 msgstr "ପୁନଃ ପ୍ରଚେଷ୍ଟା କରୁଅଛି"
 
-#: ../yuminstall.py:700
+#: ../yuminstall.py:683
 msgid "Retrying download..."
 msgstr "ଆହରଣ ପାଇଁ ପୁନଃ ପ୍ରଚେଷ୍ଟା କରୁଅଛି..."
 
-#: ../yuminstall.py:772
+#: ../yuminstall.py:755
 #, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "ନିମ୍ନଲିଖିତ କାରଣ ଯୋଗୁଁ ଆପଣଙ୍କ ତଥ୍ଯ ବିନିମୟ ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲକ୍ଷିତ ହେଲା: %s\n"
 
-#: ../yuminstall.py:807 ../yuminstall.py:808
+#: ../yuminstall.py:790 ../yuminstall.py:791
 msgid "file conflicts"
 msgstr "ଫାଇଲ ବିରୋଧ"
 
-#: ../yuminstall.py:809
+#: ../yuminstall.py:792
 msgid "older package(s)"
 msgstr "ପୁରୁଣା ପ୍ଯାକେଜ(ମାନ)"
 
-#: ../yuminstall.py:810
+#: ../yuminstall.py:793
 msgid "insufficient disk space"
 msgstr "ପର୍ଯ୍ଯାପ୍ତ ଡିସ୍କ ସ୍ଥାନ ନାହିଁ"
 
-#: ../yuminstall.py:811
+#: ../yuminstall.py:794
 msgid "insufficient disk inodes"
 msgstr "ପର୍ଯ୍ଯାପ୍ତ ଡିସ୍କ ଆଇ.ନୋଡ୍ସ ନାହିଁ"
 
-#: ../yuminstall.py:812
+#: ../yuminstall.py:795
 msgid "package conflicts"
 msgstr "ପ୍ଯାକେଜ ବିରୋଧ"
 
-#: ../yuminstall.py:813
+#: ../yuminstall.py:796
 msgid "package already installed"
 msgstr "ପ୍ଯାକେଜ ଟି ପୂର୍ବରୁ ସ୍ଥାପିତ ହୋଇ ସାରିଛି"
 
-#: ../yuminstall.py:814
+#: ../yuminstall.py:797
 msgid "required package"
 msgstr "ଜରୂରୀ ପ୍ଯାକେଜ"
 
-#: ../yuminstall.py:815
+#: ../yuminstall.py:798
 msgid "package for incorrect arch"
 msgstr "ଭୂଲ ସ୍ଥାପତ୍ଯ ପାଇଁ ପ୍ଯାକେଜ"
 
-#: ../yuminstall.py:816
+#: ../yuminstall.py:799
 msgid "package for incorrect os"
 msgstr "ଭୂଲ ପ୍ରଚାଳନ ତନ୍ତ୍ର ପାଇଁ ପ୍ଯାକେଜ"
 
-#: ../yuminstall.py:830
+#: ../yuminstall.py:813
 msgid "You need more space on the following file systems:\n"
 msgstr "ନିମ୍ନଲିଖିତ ଫାଇଲ ତନ୍ତ୍ର ରେ ଆପଣ ଅଧିକ ସ୍ଥାନ ଆବଶ୍ୟକ କରିବେ:\n"
 
-#: ../yuminstall.py:843
+#: ../yuminstall.py:826
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2942,34 +2943,44 @@ msgstr ""
 "ସ୍ଥାପନ କରାଯିବା ପ୍ଯାକେଜ ମାନଙ୍କୁ ଯାଞ୍ଚ କରାଯିବା ସମୟରେ ଫାଇଲ ମତାନୈକ୍ୟ ହେଉଛି:\n"
 "%s\n"
 
-#: ../yuminstall.py:846
+#: ../yuminstall.py:829
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
-msgstr ""
-"ନିମ୍ନଲିଖିତ କାରଣ(ଗୁଡିକ) ପାଇଁ ଆପଣଙ୍କ ତଥ୍ଯ ବିନିମୟ ଚାଲିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲକ୍ଷିତ ହେଲା: %s "
-"s.\n"
+msgstr "ନିମ୍ନଲିଖିତ କାରଣ(ଗୁଡିକ) ପାଇଁ ଆପଣଙ୍କ ତଥ୍ଯ ବିନିମୟ ଚାଲିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲକ୍ଷିତ ହେଲା: %s s.\n"
 
-#: ../yuminstall.py:856 ../yuminstall.py:861
+#: ../yuminstall.py:839 ../yuminstall.py:844
 msgid "Error Running Transaction"
 msgstr "ବିନିମୟ ଚାଲୁଥିବା ସମୟରେ ତୃଟି"
 
-#: ../yuminstall.py:1021
+#: ../yuminstall.py:992
+msgid ""
+"Unable to read group information from repositories.  This is a problem with "
+"the generation of your install tree."
+msgstr ""
+"ଭଣ୍ଡାରରୁ ସମୂହ ସୂଚନା ପଢିବାରେ ଅସମର୍ଥ। ଏହା ଆପଣଙ୍କ ସ୍ଥାପନ ବୃକ୍ଷର ଉତ୍ପତ୍ତ ସମୟରେ ଗୋଟିଏ ସମସ୍ଯା "
+"ଅଟେ।"
+
+#: ../yuminstall.py:1030
 msgid "Retrieving installation information..."
 msgstr "ସ୍ଥାପନ ସୂଚନା କୁ ପୁନରୁଦ୍ଧାର କରୁଅଛି..."
 
-#: ../yuminstall.py:1023
+#: ../yuminstall.py:1032
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "%s ପାଇଁ ସ୍ଥାପନ ସୂଚନା କୁ ପୁନରୁଦ୍ଧାର କରୁଅଛି..."
 
-#: ../yuminstall.py:1041 ../textw/bootloader_text.py:277
+#: ../yuminstall.py:1034
+msgid "Installation Progress"
+msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟା"
+
+#: ../yuminstall.py:1047 ../textw/bootloader_text.py:277
 #: ../textw/constants_text.py:64 ../textw/partition_text.py:1429
 msgid "Edit"
 msgstr "ଅଦ୍ଯତନ କରନ୍ତୁ"
 
-#: ../yuminstall.py:1053 ../yuminstall.py:1300
+#: ../yuminstall.py:1060 ../yuminstall.py:1289
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2983,19 +2994,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:1094
-msgid ""
-"Unable to read group information from repositories.  This is a problem with "
-"the generation of your install tree."
-msgstr ""
-"ଭଣ୍ଡାରରୁ ସମୂହ ସୂଚନା ପଢିବାରେ ଅସମର୍ଥ। ଏହା ଆପଣଙ୍କ ସ୍ଥାପନ ବୃକ୍ଷର ଉତ୍ପତ୍ତ ସମୟରେ ଗୋଟିଏ ସମସ୍ଯା "
-"ଅଟେ।"
-
-#: ../yuminstall.py:1127 ../iw/GroupSelector.py:505
+#: ../yuminstall.py:1111 ../iw/GroupSelector.py:503
 msgid "Uncategorized"
 msgstr "ଅବର୍ଗୀକ୍ରୁତ"
 
-#: ../yuminstall.py:1323
+#: ../yuminstall.py:1312
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -3005,15 +3008,15 @@ msgstr ""
 "ଆପଣଙ୍କ ଦ୍ବାରା ଚୟିତ ପ୍ଯାକେଜଟି ସ୍ଥାପନ ପାଇଁ %d ମେଗା-ବାଇଟ ଖାଲି ସ୍ଥାନ ଆବଶ୍ୟକ କରେ, କିନ୍ତୁ ଆପଣଙ୍କ "
 "ନିକଟରେ ଯଥେଷ୍ଟ ସ୍ଥାନ ନାହିଁ।  ଆପଣ ଆପଣଙ୍କର ଚୟନକୁ ବଦଳାଇ ପାରିବେ କିମ୍ବା ବନ୍ଦ କରିପାରିବେ।"
 
-#: ../yuminstall.py:1342
+#: ../yuminstall.py:1331
 msgid "Reboot?"
 msgstr "ପୁନର୍ଚାଳନ କରିବ କି?"
 
-#: ../yuminstall.py:1343
+#: ../yuminstall.py:1332
 msgid "The system will be rebooted now."
 msgstr "ତନ୍ତ୍ର ଟି ବର୍ତମାନ ପୁନର୍ଚାଳିତ ହେବ।"
 
-#: ../yuminstall.py:1505
+#: ../yuminstall.py:1494
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -3022,50 +3025,46 @@ msgstr ""
 "ଆପଣ ଗୋଟିଏ ଏପରି ତନ୍ତ୍ରରୁ ଉନ୍ନୟନ କରୁଥିବା ପରି ଦୃଶ୍ଯମାନ ହେଉଛନ୍ତି ଯାହାକି %s ତନ୍ତ୍ରକୁ ଉନ୍ନୟନ କରିବା "
 "ପାଇଁ ଖୁବ ପୁରୁଣା ଅଟେ। ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଏହି ଉନ୍ନୟନ ପ୍ରକ୍ରିୟାକୁ ଜାରି ରଖିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
-#: ../yuminstall.py:1532
+#: ../yuminstall.py:1521
 #, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"ଆପଣ ଉନ୍ନୟନ କରୁଥିବା %s ପ୍ରକାଶନର ମୁଖ୍ୟାଂଶ %s ପରି ଦୃଶ୍ଯମାନ ଯାହା ଆପଣଙ୍କର %s ର "
-"ପୂର୍ବ ସ୍ଥାପିତ ମୁଖ୍ୟାଂଶ ସହିତ ମେଳ ଖାଉନାହିଁ. ଏହା ସଫଳ ହୋଇ ନପାରେ।  ଆପଣ ନିଶ୍ଚିତ କି "
-"ଆପଣ ଏହି ଉନ୍ନୟନ ପ୍ରକ୍ରିୟାକୁ ଜାରି ରଖିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
+"ଆପଣ ଉନ୍ନୟନ କରୁଥିବା %s ପ୍ରକାଶନର ମୁଖ୍ୟାଂଶ %s ପରି ଦୃଶ୍ଯମାନ ଯାହା ଆପଣଙ୍କର %s ର ପୂର୍ବ ସ୍ଥାପିତ "
+"ମୁଖ୍ୟାଂଶ ସହିତ ମେଳ ଖାଉନାହିଁ. ଏହା ସଫଳ ହୋଇ ନପାରେ।  ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଏହି ଉନ୍ନୟନ ପ୍ରକ୍ରିୟାକୁ "
+"ଜାରି ରଖିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
-#: ../yuminstall.py:1579
+#: ../yuminstall.py:1571
 msgid "Post Upgrade"
 msgstr "ପଶ୍ଚାତ ଉନ୍ନୟନ"
 
-#: ../yuminstall.py:1580
+#: ../yuminstall.py:1572
 msgid "Performing post upgrade configuration..."
 msgstr "ଉନ୍ନୟନ ପରବର୍ତ୍ତୀ ବିନ୍ଯାସ କୁ ପରିବେଷଣ କରୁଅଛି..."
 
-#: ../yuminstall.py:1582
+#: ../yuminstall.py:1574
 msgid "Post Install"
 msgstr "ପଶ୍ଚାତ୍ ସ୍ଥାପନ"
 
-#: ../yuminstall.py:1583
+#: ../yuminstall.py:1575
 msgid "Performing post install configuration..."
 msgstr "ସ୍ଥାପନ ପରବର୍ତ୍ତୀ ବିନ୍ଯାସକୁ ପରିବେଷଣ କରୁଅଛି..."
 
-#: ../yuminstall.py:1788
-msgid "Installation Progress"
-msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟା"
-
-#: ../yuminstall.py:1823
+#: ../yuminstall.py:1799
 msgid "Install Starting"
 msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ପ୍ରାରମ୍ଭ କରୁଅଛି"
 
-#: ../yuminstall.py:1824
+#: ../yuminstall.py:1800
 msgid "Starting install process.  This may take several minutes..."
 msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ପ୍ରାରମ୍ଭ କରୁଅଛି। ଏହି କିଛି ସମୟ ନେଇପାରେ..."
 
-#: ../yuminstall.py:1862
+#: ../yuminstall.py:1838
 msgid "Dependency Check"
 msgstr "ନିର୍ଭରକ ଯାଞ୍ଚ"
 
-#: ../yuminstall.py:1863
+#: ../yuminstall.py:1839
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "ସ୍ଥାପନ ପାଇଁ ଚୟିତ ହୋଇଥିବା ପ୍ଯାକେଜ ମାନଙ୍କରେ ନିର୍ଭରକ ମାନଙ୍କୁ ଯାଞ୍ଚ କରୁଅଛି..."
 
@@ -3080,6 +3079,21 @@ msgstr "ଆପଣ ଗୋଟିଏ ବୈଷୟିକ ସଂଯୋଗିକୀ �
 #: ../zfcp.py:56
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "ଆପଣ ଗୋଟିଏ FCP LUN କୁ ଉଲ୍ଲେଖ କରି ନାହାଁନ୍ତି କିମ୍ବା ନମ୍ବର ଟି ଅବୈଧ ଅଟେ।"
+
+#: ../iw/GroupSelector.py:165
+#, python-format
+msgid "Packages in %s"
+msgstr "%s ରେ ଥିବା ପ୍ଯାକେଜ ମାନ"
+
+#: ../iw/GroupSelector.py:442
+#, python-format
+msgid "Optional packages selected: %d of %d"
+msgstr "ଇଚ୍ଛାଧୀନ ପ୍ଯାକେଜଗୁଡ଼ିକୁ ଚୟନ କରାଯାଇଛି :  %d ର %d"
+
+#: ../iw/GroupSelector.py:443
+#, python-format
+msgid "<i>%s</i>"
+msgstr "<i>%s</i>"
 
 #: ../iw/account_gui.py:52
 msgid "Root _Password:"
@@ -3140,10 +3154,10 @@ msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
 msgstr ""
-"ଆକାର ବଦଳାଇବା ପାଇଁ ବିଭାଜନ ଉପଲବ୍ଧ ନାହିଁ।  ନିର୍ଦ୍ଦିଷ୍ଟ ଫାଇଲତନ୍ତ୍ର ସହିତ "
-"କେବଳ ଭୌତିକ ବିଭାଜନ ଗୁଡିକର ଆକାର ବଦଳା ଯାଇ ପାରିବ।"
+"ଆକାର ବଦଳାଇବା ପାଇଁ ବିଭାଜନ ଉପଲବ୍ଧ ନାହିଁ।  ନିର୍ଦ୍ଦିଷ୍ଟ ଫାଇଲତନ୍ତ୍ର ସହିତ କେବଳ ଭୌତିକ ବିଭାଜନ ଗୁଡିକର "
+"ଆକାର ବଦଳା ଯାଇ ପାରିବ।"
 
-#: ../iw/autopart_type.py:180
+#: ../iw/autopart_type.py:183
 msgid "Do you really want to boot from a disk which is not used for installation?"
 msgstr "କଣ ଆପଣ ପ୍ରକୃତରେ ଗୋଟିଏ ଡିସ୍କରୁ ବୁଟକରିବାକୁ ଚାହୁଁଛନ୍ତି ଯାହାକି ସ୍ଥାପନରେ ବ୍ୟବହାର ହୁଏନାହିଁ?"
 
@@ -3155,27 +3169,50 @@ msgstr "ଅବୈଧ ପ୍ରାରମ୍ଭକଙ୍କ ନାମ:"
 msgid "You must provide an initiator name."
 msgstr "ଆପଣ ଗୋଟିଏ ପ୍ରାରମ୍ଭକ ନାମ ଭରଣ କରିବା ଉଚିତ।"
 
-#: ../iw/autopart_type.py:284
+#: ../iw/autopart_type.py:284 ../iw/autopart_type.py:288
+#: ../iw/autopart_type.py:294 ../iw/autopart_type.py:298
+#: ../textw/partition_text.py:1711 ../textw/partition_text.py:1714
+#: ../textw/partition_text.py:1719 ../textw/partition_text.py:1723
+msgid "Missing value"
+msgstr "ଅନୁପସ୍ଥିତ ମୂଲ୍ୟ"
+
+#: ../iw/autopart_type.py:285
+msgid "CHAP username is required if CHAP password is defined."
+msgstr "ଯଦି CHAP ପ୍ରବେଶସଂକେତକୁ ବ୍ୟାଖ୍ୟା କରାଯାଇଛି, ତେବେ CHAP ଚାଳକ ନାମ ଆବଶ୍ୟକ."
+
+#: ../iw/autopart_type.py:289
+msgid "CHAP password is required if CHAP username is defined."
+msgstr "ଯଦି CHAP ଚାଳକ ନାମକୁ ବ୍ୟାଖ୍ୟା କରାଯାଇଛି, ତେବେ CHAP ପ୍ରବେଶସଂକେତ ଆବଶ୍ୟକ."
+
+#: ../iw/autopart_type.py:295
+msgid "Reverse CHAP username is required if reverse CHAP password is defined."
+msgstr "ଯଦି ଓଲଟା CHAP ପ୍ରବେଶସଂକେତକୁ ବ୍ୟାଖ୍ୟା କରାଯାଇଛି, ତେବେ ଓଲଟା CHAP ଚାଳକ ନାମ ଆବଶ୍ୟକ."
+
+#: ../iw/autopart_type.py:299
+msgid "Reverse CHAP password is required if reverse CHAP username is defined."
+msgstr "ଯଦି ଓଲଟା CHAP ଚାଳକ ନାମକୁ ବ୍ୟାଖ୍ୟା କରାଯାଇଛି, ତେବେ ଓଲଟା CHAP ପ୍ରବେଶସଂକେତ ଆବଶ୍ୟକ."
+
+#: ../iw/autopart_type.py:317
 msgid "Error with Data"
 msgstr "ତଥ୍ଯ ସହିତ ତୃଟି"
 
-#: ../iw/autopart_type.py:405 ../textw/partition_text.py:1518
+#: ../iw/autopart_type.py:440 ../textw/partition_text.py:1518
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr "ଚୟିତ ଡ୍ରାଇଭରୁ ସମସ୍ତ ବିଭାଜନକୁ ଅପସାରଣ କରନ୍ତୁ ଏବଂ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ବିନ୍ଯାସ ସୃଷ୍ଟି କରନ୍ତୁ।"
 
-#: ../iw/autopart_type.py:406 ../textw/partition_text.py:1519
+#: ../iw/autopart_type.py:441 ../textw/partition_text.py:1519
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr "ଚୟିତ ଡ୍ରାଇଭରୁ linux ବିଭାଜନକୁ ଅପସାରଣ କରନ୍ତୁ ଏବଂ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ବିନ୍ଯାସ ସୃଷ୍ଟି କରନ୍ତୁ।"
 
-#: ../iw/autopart_type.py:407
+#: ../iw/autopart_type.py:442
 msgid "Resize existing partition and create default layout in free space"
 msgstr "ସ୍ଥିତବାନ ବିଭାଜନର ଆକାର ବଦଳାନ୍ତୁ ଏବଂ ମୁକ୍ତ ସ୍ଥାନରେ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ବିନ୍ଯାସ ସୃଷ୍ଟି କରନ୍ତୁ"
 
-#: ../iw/autopart_type.py:408 ../textw/partition_text.py:1520
+#: ../iw/autopart_type.py:443 ../textw/partition_text.py:1520
 msgid "Use free space on selected drives and create default layout"
 msgstr "ଚୟିତ ଡ୍ରାଇଭ ମାନଙ୍କରେ ଖାଲିସ୍ଥାନକୁ ବ୍ଯବହାର କରନ୍ତୁ ଏବଂ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ବିନ୍ଯାସ ସୃଷ୍ଟି କରନ୍ତୁ।"
 
-#: ../iw/autopart_type.py:409 ../textw/partition_text.py:1521
+#: ../iw/autopart_type.py:444 ../textw/partition_text.py:1521
 msgid "Create custom layout"
 msgstr "ଇଚ୍ଛାରୂପଣ ବିନ୍ଯାସ ପ୍ରସ୍ତୁତ କରନ୍ତୁ।"
 
@@ -3188,8 +3225,8 @@ msgid ""
 "A boot loader password prevents users from changing kernel options, "
 "increasing security."
 msgstr ""
-"ଗୋଟିଏ ବୁଟ-ଲୋଡର ପ୍ରବେଶ ସଙ୍କେତ କର୍ଣ୍ଣଲରେ ଥିବା ବିକଳ୍ପ ମାନଙ୍କୁ ପରିବର୍ତ୍ତନ କରିବା ପାଇଁ ସୁରକ୍ଷାରେ ଉନ୍ନତି କରି, ଚାଳକକୁ ନିଷେଧ "
-"କରିଥାଏ."
+"ଗୋଟିଏ ବୁଟ-ଲୋଡର ପ୍ରବେଶ ସଙ୍କେତ କର୍ଣ୍ଣଲରେ ଥିବା ବିକଳ୍ପ ମାନଙ୍କୁ ପରିବର୍ତ୍ତନ କରିବା ପାଇଁ ସୁରକ୍ଷାରେ "
+"ଉନ୍ନତି କରି, ଚାଳକକୁ ନିଷେଧ କରିଥାଏ."
 
 #: ../iw/blpasswidget.py:79
 msgid "Change _password"
@@ -3320,23 +3357,6 @@ msgstr "ନିମ୍ନଲିଖିତ ସ୍ଥିପିତ ତନ୍ତ୍ର 
 msgid "Unknown Linux system"
 msgstr "ଅଜଣା Linux ତନ୍ତ୍ର"
 
-#: ../iw/GroupSelector.py:165
-#, python-format
-msgid "Packages in %s"
-msgstr "%s ରେ ଥିବା ପ୍ଯାକେଜ ମାନ"
-
-#: ../iw/GroupSelector.py:442
-#, python-format
-msgid "%d of %d optional package selected"
-msgid_plural "%d of %d optional packages selected"
-msgstr[0] "%d ର %d ଇଚ୍ଛାଧୀନ ପ୍ୟାକେଜ ଚୟନ କରାଯାଇଛି"
-msgstr[1] "%d ର %d ଇଚ୍ଛାଧୀନ ପ୍ୟାକେଜ ଚୟନ କରାଯାଇଛି"
-
-#: ../iw/GroupSelector.py:445
-#, python-format
-msgid "<i>%s</i>"
-msgstr "<i>%s</i>"
-
 #: ../iw/language_gui.py:33 ../textw/language_text.py:46
 msgid "Language Selection"
 msgstr "ଭାଷା ଚୟନ"
@@ -3348,7 +3368,7 @@ msgstr "ଏହି ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ସମୟରେ
 #: ../iw/lvm_dialog_gui.py:124 ../iw/lvm_dialog_gui.py:171
 #: ../iw/lvm_dialog_gui.py:182 ../iw/lvm_dialog_gui.py:222
 #: ../iw/lvm_dialog_gui.py:296 ../iw/lvm_dialog_gui.py:626
-#: ../iw/lvm_dialog_gui.py:723 ../iw/lvm_dialog_gui.py:941
+#: ../iw/lvm_dialog_gui.py:700 ../iw/lvm_dialog_gui.py:918
 #: ../textw/partition_text.py:1276 ../textw/partition_text.py:1295
 msgid "Not enough space"
 msgstr "ଯଥେଷ୍ଟ ଖାଲି ସ୍ଥାନ ନାହିଁ"
@@ -3380,7 +3400,6 @@ msgstr ""
 "ଏହି ପରିବର୍ତ୍ତନ ତୁରନ୍ତ ପ୍ରଭାବିତ ହେବ।"
 
 #: ../iw/lvm_dialog_gui.py:144 ../iw/lvm_dialog_gui.py:204
-#: ../iw/network_gui.py:150 ../iw/network_gui.py:154 ../iw/network_gui.py:174
 msgid "C_ontinue"
 msgstr "ଆଗକୁ ବଢନ୍ତୁ (_o)"
 
@@ -3447,25 +3466,25 @@ msgstr "ତାର୍କିକ ଘନଫଳକୁ ସମ୍ପାଦିତ କର
 msgid "Edit Logical Volume"
 msgstr "ତାର୍କିକ ଘନଫଳକୁ ସମ୍ପାଦିତ କରନ୍ତୁ"
 
-#: ../iw/lvm_dialog_gui.py:395 ../iw/partition_dialog_gui.py:346
-#: ../iw/raid_dialog_gui.py:351
+#: ../iw/lvm_dialog_gui.py:395 ../iw/partition_dialog_gui.py:300
+#: ../iw/raid_dialog_gui.py:305
 msgid "_Mount Point:"
 msgstr "ମାଉଣ୍ଟ ବିନ୍ଦୁ (_M):"
 
-#: ../iw/lvm_dialog_gui.py:403 ../iw/raid_dialog_gui.py:364
+#: ../iw/lvm_dialog_gui.py:403 ../iw/raid_dialog_gui.py:318
 msgid "_File System Type:"
 msgstr "ଫାଇଲ ତନ୍ତ୍ର ର ପ୍ରକାର (_F):"
 
-#: ../iw/lvm_dialog_gui.py:413 ../iw/raid_dialog_gui.py:374
+#: ../iw/lvm_dialog_gui.py:413 ../iw/raid_dialog_gui.py:328
 msgid "Original File System Type:"
 msgstr "ମୂଳ ଫାଇଲ ତନ୍ତ୍ର ର ପ୍ରକାର:"
 
-#: ../iw/lvm_dialog_gui.py:418 ../iw/raid_dialog_gui.py:379
+#: ../iw/lvm_dialog_gui.py:418 ../iw/raid_dialog_gui.py:333
 msgid "Unknown"
 msgstr "ଅଜଣା"
 
-#: ../iw/lvm_dialog_gui.py:424 ../iw/partition_dialog_gui.py:396
-#: ../iw/raid_dialog_gui.py:385
+#: ../iw/lvm_dialog_gui.py:424 ../iw/partition_dialog_gui.py:350
+#: ../iw/raid_dialog_gui.py:339
 msgid "Original File System Label:"
 msgstr "ମୂଳ ଫାଇଲ ତନ୍ତ୍ର ସୂଚକ:"
 
@@ -3477,11 +3496,11 @@ msgstr "ତାର୍କିକ ଘନଫଳର ନାମ (_L):"
 msgid "Logical Volume Name:"
 msgstr "ତାର୍କିକ ଘନଫଳର ନାମ:"
 
-#: ../iw/lvm_dialog_gui.py:449 ../iw/partition_dialog_gui.py:408
+#: ../iw/lvm_dialog_gui.py:449 ../iw/partition_dialog_gui.py:362
 msgid "_Size (MB):"
 msgstr "ଆକାର (ମେଗା-ବାଇଟ୍) (_S):"
 
-#: ../iw/lvm_dialog_gui.py:455 ../iw/partition_dialog_gui.py:425
+#: ../iw/lvm_dialog_gui.py:455 ../iw/partition_dialog_gui.py:379
 #: ../textw/partition_text.py:321 ../textw/partition_text.py:398
 #: ../textw/partition_text.py:481 ../textw/partition_text.py:589
 msgid "Size (MB):"
@@ -3492,8 +3511,8 @@ msgstr "ଆକାର (ମେଗା-ବାଇଟ୍):"
 msgid "(Max size is %s MB)"
 msgstr "(ସର୍ବାଧିକ ଆକାର ଟି %s ମେଗା-ବାଇଟ୍)"
 
-#: ../iw/lvm_dialog_gui.py:479 ../iw/partition_dialog_gui.py:510
-#: ../iw/partition_ui_helpers_gui.py:301 ../iw/raid_dialog_gui.py:359
+#: ../iw/lvm_dialog_gui.py:479 ../iw/partition_dialog_gui.py:464
+#: ../iw/partition_ui_helpers_gui.py:301 ../iw/raid_dialog_gui.py:313
 msgid "_Encrypt"
 msgstr "ସଂଗୁପ୍ତ (_E)"
 
@@ -3538,15 +3557,15 @@ msgstr ""
 "ବାଇଟ) ଠାରୁ ଅଧିକ ଅଟେ। ଏହି ସୀମାକୁ ବୃଦ୍ଧି କରିବା ପାଇଁ ଆପଣ ଅବିଭାଜିତ ଡିସ୍କ ସ୍ଥାନରୁ ଅଧିକ ଭୌତିକ ଘନଫଳ "
 "ସୃଷ୍ଟି କରିପାରିବେ ଏବଂ ଏହାକୁ ଘନଫଳ ସମୂହରେ ଯୋଗ କରିପାରିବେ।"
 
-#: ../iw/lvm_dialog_gui.py:700 ../iw/partition_dialog_gui.py:211
-#: ../iw/partition_dialog_gui.py:223 ../iw/partition_dialog_gui.py:292
-#: ../iw/raid_dialog_gui.py:278 ../textw/partition_text.py:889
+#: ../iw/lvm_dialog_gui.py:677 ../iw/partition_dialog_gui.py:188
+#: ../iw/partition_dialog_gui.py:200 ../iw/partition_dialog_gui.py:246
+#: ../iw/raid_dialog_gui.py:232 ../textw/partition_text.py:889
 #: ../textw/partition_text.py:910 ../textw/partition_text.py:1083
 #: ../textw/partition_text.py:1314
 msgid "Error With Request"
 msgstr "ନିବେଦନ ସହିତ ତୃଟି"
 
-#: ../iw/lvm_dialog_gui.py:724 ../iw/lvm_dialog_gui.py:942
+#: ../iw/lvm_dialog_gui.py:701 ../iw/lvm_dialog_gui.py:919
 #, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
@@ -3556,20 +3575,20 @@ msgstr ""
 "ଆପଣ ବିନ୍ଯାସ କରିଥିବା ତାର୍କିକ ଘନଫଳ ଗୁଡିକ %d ମେଗା-ବାଇଟ ଆବଶ୍ୟକ କରନ୍ତି, କିନ୍ତୁ ଘନଫଳ ସମୂହରେ କେବଳ %"
 "d ମେଗା-ବାଇଟ ଅଛି।  ଦୟାକରି ଘନଫଳ ସମୂହକୁ ବଡ କରନ୍ତୁ କିମ୍ବା ତାର୍କିକ ଘନଫଳକୁ (ମାନଙ୍କୁ) ଛୋଟ କରନ୍ତୁ।"
 
-#: ../iw/lvm_dialog_gui.py:782
+#: ../iw/lvm_dialog_gui.py:759
 msgid "No free slots"
 msgstr "କୌଣସି ଖାଲି ସ୍ଲଟ୍ ନାହିଁ"
 
-#: ../iw/lvm_dialog_gui.py:783
+#: ../iw/lvm_dialog_gui.py:760
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr "ପ୍ରତି ଘନଫଳ ସମୂହରେ ଆପଣ %s ତାର୍କିକ ଘନଫଳରୁ ଅଧିକ ସୃଷ୍ଟି କରି ପାରିବେ ନାହିଁ।"
 
-#: ../iw/lvm_dialog_gui.py:789
+#: ../iw/lvm_dialog_gui.py:766
 msgid "No free space"
 msgstr "କୌଣସି ଖାଲି ସ୍ଥାନ ନାହିଁ"
 
-#: ../iw/lvm_dialog_gui.py:790
+#: ../iw/lvm_dialog_gui.py:767
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3579,29 +3598,29 @@ msgstr ""
 "ଯୋଗ କରିବା ପାଇଁ ବର୍ତ୍ତମାନ ଅବସ୍ଥିତ ଏକ କିମ୍ବା ଏକାଧିକ ତାର୍କିକ ଘନଫଳ ମାନଙ୍କ ଆକାରକୁ ହ୍ରାସ କରିବା "
 "ଉଚିତ।"
 
-#: ../iw/lvm_dialog_gui.py:818
+#: ../iw/lvm_dialog_gui.py:795
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ \"%s\" ତାର୍କିକ ଘନଫଳକୁ ଅପସାରଣ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
-#: ../iw/lvm_dialog_gui.py:953
+#: ../iw/lvm_dialog_gui.py:930
 msgid "Invalid Volume Group Name"
 msgstr "ଅବୈଧ ଘନଫଳ ସମୂହ ର ନାମ"
 
-#: ../iw/lvm_dialog_gui.py:964
+#: ../iw/lvm_dialog_gui.py:941
 msgid "Name in use"
 msgstr "ନାମ ଯାହାକି ବ୍ଯବହୃତ ହେଉଅଛି"
 
-#: ../iw/lvm_dialog_gui.py:965
+#: ../iw/lvm_dialog_gui.py:942
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "\"%s\" ଘନଫଳ ସମୂହ ର ନାମ ଟି ପୂର୍ବରୁ ବ୍ଯବହୃତ ହେଉଅଛି। ଦୟାକରି ଅନ୍ଯ ଗୋଟିଏ ନାମ ବାଛନ୍ତୁ।"
 
-#: ../iw/lvm_dialog_gui.py:1008
+#: ../iw/lvm_dialog_gui.py:985
 msgid "Not enough physical volumes"
 msgstr "ଯଥେଷ୍ଟ ଭୌତିକ ଆୟତନ ନାହିଁ"
 
-#: ../iw/lvm_dialog_gui.py:1009
+#: ../iw/lvm_dialog_gui.py:986
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3614,75 +3633,75 @@ msgstr ""
 "ଗୋଟିଏ ବିଭାଜନ କିମ୍ବା \"ଭୌତିକ ଘନଫଳ(LVM)\" ପ୍ରକାରର ରେଡ ସାରଣୀ ସୃଷ୍ଟି କରନ୍ତୁ ଏବଂ ତା'ପରେ "
 "ପୁନର୍ବାର \"LVM\" ବିକଳ୍ପକୁ ଚୟନ କରନ୍ତୁ।"
 
-#: ../iw/lvm_dialog_gui.py:1020
+#: ../iw/lvm_dialog_gui.py:997
 msgid "Make LVM Volume Group"
 msgstr "LVM ଘନଫଳ ସମୂହ ପ୍ରସ୍ତୁତ କରନ୍ତୁ"
 
-#: ../iw/lvm_dialog_gui.py:1023
+#: ../iw/lvm_dialog_gui.py:1000
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "LVM ଘନଫଳ ସମୂହ କୁ ସମ୍ପାଦିତ କରନ୍ତୁ: %s"
 
-#: ../iw/lvm_dialog_gui.py:1025
+#: ../iw/lvm_dialog_gui.py:1002
 msgid "Edit LVM Volume Group"
 msgstr "LVM ଘନଫଳ ସମୂହ କୁ ସମ୍ପାଦିତ କରନ୍ତୁ"
 
-#: ../iw/lvm_dialog_gui.py:1041
+#: ../iw/lvm_dialog_gui.py:1018
 msgid "_Volume Group Name:"
 msgstr "ଘନଫଳ ସମୂହ ର ନାମ (_V):"
 
-#: ../iw/lvm_dialog_gui.py:1049
+#: ../iw/lvm_dialog_gui.py:1026
 msgid "Volume Group Name:"
 msgstr "ଘନଫଳ ସମୂହ ର ନାମ:"
 
-#: ../iw/lvm_dialog_gui.py:1057
+#: ../iw/lvm_dialog_gui.py:1034
 msgid "_Physical Extent:"
 msgstr "ଭୌତିକ ବିସ୍ତାର (_P):"
 
-#: ../iw/lvm_dialog_gui.py:1072
+#: ../iw/lvm_dialog_gui.py:1049
 msgid "Physical Volumes to _Use:"
 msgstr "ବ୍ଯବହାର କରିବା ପାଇଁ ଭୌତିକ ଆୟତନ (_U):"
 
-#: ../iw/lvm_dialog_gui.py:1078
+#: ../iw/lvm_dialog_gui.py:1055
 msgid "Used Space:"
 msgstr "ବ୍ଯବହୃତ ସ୍ଥାନ:"
 
-#: ../iw/lvm_dialog_gui.py:1095
+#: ../iw/lvm_dialog_gui.py:1072
 msgid "Free Space:"
 msgstr "ଖାଲି ସ୍ଥାନ:"
 
-#: ../iw/lvm_dialog_gui.py:1113
+#: ../iw/lvm_dialog_gui.py:1090
 msgid "Total Space:"
 msgstr "ସମୁଦାୟ ସ୍ଥାନ:"
 
-#: ../iw/lvm_dialog_gui.py:1142
+#: ../iw/lvm_dialog_gui.py:1119
 msgid "Logical Volume Name"
 msgstr "ତାର୍କିକ ଘନଫଳ ର ନାମ"
 
-#: ../iw/lvm_dialog_gui.py:1145 ../iw/partition_gui.py:371
+#: ../iw/lvm_dialog_gui.py:1122 ../iw/partition_gui.py:371
 #: ../iw/upgrade_swap_gui.py:142 ../textw/partition_text.py:1424
 #: ../textw/upgrade_text.py:120
 msgid "Mount Point"
 msgstr "ମାଉଣ୍ଟ ବିନ୍ଦୁ"
 
-#: ../iw/lvm_dialog_gui.py:1148 ../iw/partition_gui.py:376
+#: ../iw/lvm_dialog_gui.py:1125 ../iw/partition_gui.py:376
 msgid "Size (MB)"
 msgstr "ଆକାର (ମେଗା ବାଇଟ୍)"
 
-#: ../iw/lvm_dialog_gui.py:1162 ../iw/osbootwidget.py:96
+#: ../iw/lvm_dialog_gui.py:1139 ../iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "ଯୋଗ କରନ୍ତୁ (_A)"
 
-#: ../iw/lvm_dialog_gui.py:1165 ../iw/network_gui.py:453
-#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1383
+#: ../iw/lvm_dialog_gui.py:1142 ../iw/osbootwidget.py:100
+#: ../iw/partition_gui.py:1383
 msgid "_Edit"
 msgstr "ସମ୍ପାଦନ(_E)"
 
-#: ../iw/lvm_dialog_gui.py:1180
+#: ../iw/lvm_dialog_gui.py:1157
 msgid "_Logical Volumes"
 msgstr "ତାର୍କିକ ଘନଫଳ (_L)"
 
-#: ../iw/netconfig_dialog.py:158 ../textw/netconfig_text.py:36
+#: ../iw/netconfig_dialog.py:174 ../textw/netconfig_text.py:36
 #, python-format
 msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
@@ -3691,107 +3710,66 @@ msgstr ""
 "\"%s\" ପାଇଁ ପ୍ରବେଶ କରା ଯାଇଥିବା ମୂଲ୍ଯ କୁ ରୂପାନ୍ତରିତ କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା:\n"
 "%s"
 
-#: ../iw/netconfig_dialog.py:160 ../iw/netconfig_dialog.py:169
-#: ../iw/network_gui.py:149 ../iw/network_gui.py:153 ../iw/network_gui.py:157
-#: ../iw/network_gui.py:161 ../iw/network_gui.py:169 ../iw/network_gui.py:174
+#: ../iw/netconfig_dialog.py:176 ../iw/netconfig_dialog.py:185
 #: ../textw/netconfig_text.py:35 ../textw/netconfig_text.py:40
-#: ../textw/network_text.py:54 ../textw/network_text.py:59
-#: ../textw/network_text.py:65
 msgid "Error With Data"
 msgstr "ତଥ୍ଯ ସହିତ ତୃଟି"
 
-#: ../iw/netconfig_dialog.py:168 ../iw/network_gui.py:162
-#: ../textw/network_text.py:55
+#: ../iw/netconfig_dialog.py:184
 #, python-format
 msgid "A value is required for the field %s."
 msgstr "%s କ୍ଷେତ୍ର ପାଇଁ ଗୋଟିଏ ମୂଲ୍ଯ ଆବଶ୍ୟକ।"
 
-#: ../iw/netconfig_dialog.py:190 ../textw/netconfig_text.py:180
+#: ../iw/netconfig_dialog.py:205
 msgid "Dynamic IP"
 msgstr "ଗତିଶୀଳ ଆଇ.ପି."
 
-#: ../iw/netconfig_dialog.py:191 ../textw/netconfig_text.py:181
+#: ../iw/netconfig_dialog.py:206
 #, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "%s ପାଇଁ ଆଇ.ପି. ସୂଚନା ପାଇଁ ଅନୁରୋଧ ପଠାଉଛି..."
 
-#: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:215
-#: ../textw/netconfig_text.py:203 ../textw/netconfig_text.py:206
-#: ../textw/network_text.py:95 tmp/netpostconfig.glade.h:12
+#: ../iw/netconfig_dialog.py:222 ../iw/netconfig_dialog.py:225
+#: ../textw/netconfig_text.py:213 ../textw/netconfig_text.py:216
 msgid "IP Address"
 msgstr "ଆଇ.ପି. ଠିକଣା"
 
-#: ../iw/netconfig_dialog.py:222 ../textw/netconfig_text.py:213
+#: ../iw/netconfig_dialog.py:232 ../textw/netconfig_text.py:223
 msgid "IPv4 CIDR prefix must be between 0 and 32."
 msgstr "IPv6 CIDR ଉପସର୍ଗର ମୂଲ୍ଯ ୦ ଏବଂ ୩୨ ମଧ୍ଯରେ ରହିବା ଉଚିତ।"
 
-#: ../iw/netconfig_dialog.py:223 ../iw/netconfig_dialog.py:229
-#: ../iw/netconfig_dialog.py:237 ../iw/netconfig_dialog.py:240
-#: ../textw/netconfig_text.py:214 ../textw/netconfig_text.py:220
-#: ../textw/netconfig_text.py:228
+#: ../iw/netconfig_dialog.py:233 ../iw/netconfig_dialog.py:239
+#: ../iw/netconfig_dialog.py:247 ../iw/netconfig_dialog.py:250
+#: ../textw/netconfig_text.py:224 ../textw/netconfig_text.py:230
+#: ../textw/netconfig_text.py:238
 msgid "IPv4 Network Mask"
 msgstr "IPv4 ନେଟୱାର୍କ ମାସ୍କ"
 
-#: ../iw/netconfig_dialog.py:247 ../iw/netconfig_dialog.py:250
-#: ../iw/network_gui.py:37 ../iw/network_gui.py:528
-#: ../textw/netconfig_text.py:238 ../textw/netconfig_text.py:241
+#: ../iw/netconfig_dialog.py:260 ../textw/netconfig_text.py:251
 msgid "Gateway"
 msgstr "ଗେଟ-ୱେ"
 
-#: ../iw/netconfig_dialog.py:257 ../textw/netconfig_text.py:248
+#: ../iw/netconfig_dialog.py:270 ../textw/netconfig_text.py:261
 msgid "Nameserver"
 msgstr "ନାମ ସେବକ"
 
-#: ../iw/netconfig_dialog.py:267
+#: ../iw/netconfig_dialog.py:279
 msgid "Error configuring network device:"
 msgstr "ନେଟୱାର୍କ ଉପକରଣକୁ ବିନ୍ଯାସ କରିବା ସମୟରେ ତୃଟି:"
 
-#: ../iw/netconfig_dialog.py:280
+#: ../iw/netconfig_dialog.py:284
 msgid "Error configuring network device"
 msgstr "ନେଟୱାର୍କ ଉପକରଣକୁ ବିନ୍ଯାସ କରିବା ସମୟରେ ତୃଟି"
 
-#: ../iw/network_gui.py:37 ../iw/network_gui.py:530
-msgid "Primary DNS"
-msgstr "ପ୍ରାଥମିକ DNS"
+#: ../iw/network_gui.py:61 ../iw/network_gui.py:67
+msgid "Error with Hostname"
+msgstr "ଆଧାର ନାମ ସହିତ ତୃଟି"
 
-#: ../iw/network_gui.py:37 ../iw/network_gui.py:532
-msgid "Secondary DNS"
-msgstr "ଦ୍ବିତୀୟକ DNS"
+#: ../iw/network_gui.py:62
+msgid "You must enter a valid hostname for this computer."
+msgstr "ଏହି କମ୍ପୁଟର ପାଇଁ ଆପଣଙ୍କୁ ଗୋଟିଏ ବୈଧ ଆଧାର ନାମ ଭରଣ କରିବାକୁ ହେବ."
 
-#: ../iw/network_gui.py:38
-msgid "_Gateway"
-msgstr "ଗେଟ-ୱେ (_G)"
-
-#: ../iw/network_gui.py:38
-msgid "_Primary DNS"
-msgstr "ପ୍ରାଥମିକ DNS (_P)"
-
-#: ../iw/network_gui.py:38
-msgid "_Secondary DNS"
-msgstr "ଦ୍ବିତୀୟକ DNS (_S)"
-
-#: ../iw/network_gui.py:41 ../textw/network_text.py:534
-msgid "Network Configuration"
-msgstr "ନେଟୱାବାର୍କ ବିନ୍ଯାସ"
-
-#: ../iw/network_gui.py:150
-msgid ""
-"You have not specified a hostname.  Depending on your network environment "
-"this may cause problems later."
-msgstr ""
-"ଆପଣ ଗୋଟିଏ ଆଧାର ନାମକୁ ଉଲ୍ଲେଖ କରିନାହାଁନ୍ତି।  ଆପଣଙ୍କ ନେଟୱାର୍କ ପରିବେଶ ଉପରେ ନିର୍ଭର କରି ଏହା "
-"ପରବର୍ତ୍ତୀ ସମଯରେ ସମସ୍ଯା ସୃଷ୍ଟି କରିପାରେ।"
-
-#: ../iw/network_gui.py:154
-#, python-format
-msgid ""
-"You have not specified the field \"%s\".  Depending on your network "
-"environment this may cause problems later."
-msgstr ""
-"ଆପଣ \"%s\" କ୍ଷେତ୍ରକୁ ଉଲ୍ଲେଖ କରି ନାହାଁନ୍ତି।  ଆପଣଙ୍କ ନେଟୱାର୍କ ପରିବେଶ ଉପରେ ନିର୍ଭର କରି ଏହା "
-"ପରବର୍ତ୍ତୀ ସମଯରେ ସମସ୍ଯା ସୃଷ୍ଟି କରିପାରେ।"
-
-#: ../iw/network_gui.py:158 ../textw/network_text.py:824
+#: ../iw/network_gui.py:68 ../textw/network_text.py:83
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3801,110 +3779,6 @@ msgstr ""
 "ନିମ୍ନଲିଖିତ କାରଣ ବଶତଃ \"%s\" ଆଧାର ନାମ ଟି ବୈଧ ନାହିଁ:\n"
 "\n"
 "%s"
-
-#: ../iw/network_gui.py:165 ../textw/network_text.py:45
-#, python-format
-msgid "Error With %s Data"
-msgstr "%s ତଥ୍ଯରେ ତୃଟି"
-
-#: ../iw/network_gui.py:170 ../textw/network_text.py:66
-msgid "The IPv4 information you have entered is invalid."
-msgstr "ଆପଣ ଭରଣ କରିଥିବା IPv4 ସୂଚନାଟି ଅବୈଧ ଅଟେ।"
-
-#: ../iw/network_gui.py:174
-msgid ""
-"You have no active network devices.  Your system will not be able to "
-"communicate over a network by default without at least one device active."
-msgstr ""
-"ଆପଣଙ୍କ ପାଖରେ କୌଣସି ସକ୍ରିୟ ନେଟୱାର୍କ ଉପକରଣ ନାହିଁ।  ଅତିକମରେ ଗୋଟିଏ ଉପକରଣ ସକ୍ରିୟ ନଥିଲେ ଆପଣଙ୍କ "
-"ତନ୍ତ୍ରଟି ଗୋଟିଏ ନେଟୱାର୍କ ଦ୍ବାରା ସମ୍ପର୍କ ସ୍ଥାପନ କରିପାରିବ ନାହିଁ।"
-
-#: ../iw/network_gui.py:299 ../iw/network_gui.py:313
-msgid "Disabled"
-msgstr "ନିଷ୍କ୍ରିୟ"
-
-#: ../iw/network_gui.py:394
-msgid "Active on Boot"
-msgstr "ବୁଟ ରେ ସକ୍ରିୟ କରନ୍ତୁ"
-
-#: ../iw/network_gui.py:396 ../iw/osbootwidget.py:67
-#: ../iw/partition_gui.py:369 ../textw/bootloader_text.py:196
-#: ../textw/bootloader_text.py:262 ../textw/partition_text.py:1424
-msgid "Device"
-msgstr "ଉପକରଣ"
-
-#: ../iw/network_gui.py:398
-msgid "IPv4/Netmask"
-msgstr "IPv4/ନେଟମାସ୍କ"
-
-#: ../iw/network_gui.py:400
-msgid "IPv6/Prefix"
-msgstr "IPv6/ଉପସର୍ଗ"
-
-#: ../iw/network_gui.py:460
-msgid "Network Devices"
-msgstr "ନେଟୱାର୍କ ଉପକରଣ"
-
-#: ../iw/network_gui.py:471
-msgid "Set the hostname:"
-msgstr "ଆଧାର ନାମ କୁ ସେଟ କରନ୍ତୁ"
-
-#: ../iw/network_gui.py:476
-msgid "_automatically via DHCP"
-msgstr "DHCP ଦ୍ବାରା ସ୍ବୟଂଚାଳିତ (_a)"
-
-#: ../iw/network_gui.py:483
-msgid "_manually"
-msgstr "ହସ୍ତକୃତ ଭାବରେ (_m)"
-
-#: ../iw/network_gui.py:488
-msgid "(e.g., host.domain.com)"
-msgstr "(ଉଦାହରଣ ସ୍ବରୂପ, host.domain.com)"
-
-#: ../iw/network_gui.py:494
-msgid "Hostname"
-msgstr "ଆଧାର ନାମ"
-
-#: ../iw/network_gui.py:537
-msgid "Miscellaneous Settings"
-msgstr "ବିବିଧ ବିନ୍ଯାସ"
-
-#: ../iw/network_gui.py:626
-msgid "Edit Device "
-msgstr "ଉପକରଣକୁ ସମ୍ପାଦନ କରନ୍ତୁ "
-
-#: ../iw/network_gui.py:630
-msgid "Unknown Ethernet Device"
-msgstr "ଅଜଣା ଇଥରନେଟ ଉପକରଣ"
-
-#: ../iw/network_gui.py:636
-msgid "unknown"
-msgstr "ଅଜ୍ଞାତ"
-
-#: ../iw/network_gui.py:638
-msgid "Hardware address: "
-msgstr "ହାର୍ଡୱେର ଠିକଣା: "
-
-#: ../iw/network_gui.py:774 ../textw/network_text.py:230 ../loader/net.c:584
-msgid "Missing Protocol"
-msgstr "ଅନୁପସ୍ଥିତ ପ୍ରୋଟୋକଲ"
-
-#: ../iw/network_gui.py:775 ../textw/network_text.py:231
-msgid "You must select at least IPv4 or IPv6 support."
-msgstr "ଆପଣ ଅତିକମରେ IPକଲ (IPv4 କିମ୍ବ ସମର୍ଥନ IPv6) ଚୟନ କରିବା ଉଚିତ।"
-
-#: ../iw/network_gui.py:798 ../iw/network_gui.py:839 ../iw/network_gui.py:845
-#: ../textw/network_text.py:76 ../loader/net.c:105
-msgid "Invalid Prefix"
-msgstr "ଅବୈଧ ଉପସର୍ଗ"
-
-#: ../iw/network_gui.py:799
-msgid "IPv4 prefix must be between 0 and 32."
-msgstr "IPv6 ଉପସର୍ଗର ମୂଲ୍ଯ ୦ ଏବଂ ୩୨ ମଧ୍ଯରେ ରହିବା ଉଚିତ।"
-
-#: ../iw/network_gui.py:840 ../iw/network_gui.py:846
-msgid "IPv6 prefix must be between 0 and 128."
-msgstr "IPv6 ଉପସର୍ଗର ମୂଲ୍ଯ୦ ଏବଂ ୧୨୮ ମଧ୍ଯରେ ରହିବା ଉଚିତ।"
 
 #: ../iw/osbootwidget.py:51
 msgid "Boot loader operating system list"
@@ -3917,6 +3791,12 @@ msgstr "ପୂର୍ବ ନିର୍ଦ୍ଧାରିତ"
 #: ../iw/osbootwidget.py:67 ../iw/partition_gui.py:370
 msgid "Label"
 msgstr "ସୂଚକ"
+
+#: ../iw/osbootwidget.py:67 ../iw/partition_gui.py:369
+#: ../textw/bootloader_text.py:196 ../textw/bootloader_text.py:262
+#: ../textw/partition_text.py:1424
+msgid "Device"
+msgstr "ଉପକରଣ"
 
 #: ../iw/osbootwidget.py:130
 msgid "Image"
@@ -3995,44 +3875,44 @@ msgstr "(ମେଗା ବାଇଟ୍) ପର୍ଯ୍ଯନ୍ତ ସମସ୍�
 msgid "Fill to maximum _allowable size"
 msgstr "ସର୍ବାଧିକ ସ୍ବୀକାର୍ଯ୍ଯ ଆକାର କୁ ପୂର୍ଣ୍ଣ କରନ୍ତୁ (_a)"
 
-#: ../iw/partition_dialog_gui.py:212
+#: ../iw/partition_dialog_gui.py:189
 msgid "The end cylinder must be greater than the start cylinder."
 msgstr "ଅନ୍ତିମ ସିଲିଣ୍ଡର ଟି ପ୍ରାରମ୍ଭିକ ସିଲିଣ୍ଡର ଠାରୁ ବ୍ରୁହତର ହେବା ଉଚିତ।"
 
-#: ../iw/partition_dialog_gui.py:323 ../textw/partition_text.py:713
+#: ../iw/partition_dialog_gui.py:277 ../textw/partition_text.py:713
 msgid "Add Partition"
 msgstr "ପ୍ରତିଛବିକୁ ଯୋଗ କରନ୍ତୁ"
 
-#: ../iw/partition_dialog_gui.py:326
+#: ../iw/partition_dialog_gui.py:280
 #, python-format
 msgid "Edit Partition: /dev/%s"
 msgstr "ପ୍ରତିଛବିକୁ ସମ୍ପାଦିତ କରନ୍ତୁ: /dev/%s"
 
-#: ../iw/partition_dialog_gui.py:328
+#: ../iw/partition_dialog_gui.py:282
 msgid "Edit Partition"
 msgstr "ପ୍ରତିଛବିକୁ ସମ୍ପାଦିତ କରନ୍ତୁ"
 
-#: ../iw/partition_dialog_gui.py:355
+#: ../iw/partition_dialog_gui.py:309
 msgid "File System _Type:"
 msgstr "ଫାଇଲ ତନ୍ତ୍ର ର ପ୍ରକାର (_T):"
 
-#: ../iw/partition_dialog_gui.py:372
+#: ../iw/partition_dialog_gui.py:326
 msgid "Allowable _Drives:"
 msgstr "ସ୍ବୀକାର୍ଯ୍ଯ ଡ୍ରାଇଭ (_D):"
 
-#: ../iw/partition_dialog_gui.py:387
+#: ../iw/partition_dialog_gui.py:341
 msgid "Drive:"
 msgstr "ଡ୍ରାଇଭ:"
 
-#: ../iw/partition_dialog_gui.py:431
+#: ../iw/partition_dialog_gui.py:385
 msgid "_Start Cylinder:"
 msgstr "ପ୍ରାରମ୍ଭିକ ସିଲିଣ୍ଡର (_S):"
 
-#: ../iw/partition_dialog_gui.py:449
+#: ../iw/partition_dialog_gui.py:403
 msgid "_End Cylinder:"
 msgstr "ଅନ୍ତିମ ସିଲିଣ୍ଡର (_E):"
 
-#: ../iw/partition_dialog_gui.py:497
+#: ../iw/partition_dialog_gui.py:451
 msgid "Force to be a _primary partition"
 msgstr "ଗୋଟିଏ ପ୍ରାଥମିକ ଷ୍ଟେସନ ହେବା ପାଇଁ ବଳ ପ୍ରୟୋଗ କରନ୍ତୁ (_p)"
 
@@ -4306,7 +4186,7 @@ msgstr "ଡିସ୍କ ଡୃଇଡ ସହିତ ହସ୍ତକୃତ ଭା�
 msgid "Installing Packages"
 msgstr "ପ୍ଯାକେଜ ମାନଙ୍କୁ ସ୍ଥାପିତ କରୁଅଛି"
 
-#: ../iw/raid_dialog_gui.py:318
+#: ../iw/raid_dialog_gui.py:272
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -4319,41 +4199,41 @@ msgstr ""
 "ପ୍ରଥମେ ଅତିକମରେ \"ସଫଟୱେର ପ୍ରକାରର\" ଦୁଇଟି ବିଭାଜନ ସୃଷ୍ଟି କରନ୍ତୁ, ଏବଂ ପରେ ପୁନର୍ବାର \"ରେଡ\" "
 "ବିକଳ୍ପକୁ ଚୟନ କରନ୍ତୁ।"
 
-#: ../iw/raid_dialog_gui.py:332 ../iw/raid_dialog_gui.py:765
+#: ../iw/raid_dialog_gui.py:286 ../iw/raid_dialog_gui.py:719
 #: ../textw/partition_text.py:945
 msgid "Make RAID Device"
 msgstr "RAID ଉପକରଣକୁ ତିଆରି କରନ୍ତୁ"
 
-#: ../iw/raid_dialog_gui.py:335
+#: ../iw/raid_dialog_gui.py:289
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "RAID ଉପକରଣକୁ ସମ୍ପାଦିତ କରନ୍ତୁ: /dev/md%s"
 
-#: ../iw/raid_dialog_gui.py:337 ../textw/partition_text.py:943
+#: ../iw/raid_dialog_gui.py:291 ../textw/partition_text.py:943
 msgid "Edit RAID Device"
 msgstr "RAID ଉପକରଣକୁ ସମ୍ପାଦିତ କରନ୍ତୁ"
 
-#: ../iw/raid_dialog_gui.py:393
+#: ../iw/raid_dialog_gui.py:347
 msgid "RAID _Device:"
 msgstr "RAID ଉପକରଣ (_D):"
 
-#: ../iw/raid_dialog_gui.py:411
+#: ../iw/raid_dialog_gui.py:365
 msgid "RAID _Level:"
 msgstr "RAID ସ୍ତର (_L):"
 
-#: ../iw/raid_dialog_gui.py:452
+#: ../iw/raid_dialog_gui.py:406
 msgid "_RAID Members:"
 msgstr "_RAID ସଦସ୍ଯ:"
 
-#: ../iw/raid_dialog_gui.py:469
+#: ../iw/raid_dialog_gui.py:423
 msgid "Number of _spares:"
 msgstr "ଅତିରିକ୍ତ ମାନଙ୍କ ସଂଖ୍ଯା (_s):"
 
-#: ../iw/raid_dialog_gui.py:479
+#: ../iw/raid_dialog_gui.py:433
 msgid "_Format partition?"
 msgstr "ପ୍ରତିଛବିକୁ ଫର୍ମାଟ କରନ୍ତୁ (_F)?"
 
-#: ../iw/raid_dialog_gui.py:566
+#: ../iw/raid_dialog_gui.py:520
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
@@ -4361,12 +4241,12 @@ msgstr ""
 "ଉତ୍ସ ଡ୍ରାଇଭରେ କ୍ଲୋନ କରିବା ପାଇଁ କୌଣସି ବିଭାଜନ ନାହିଁ।  ଏହାକୁ କ୍ଲୋନ କରାଯିବା ପୂର୍ବରୁ ଆପଣ ଏହି "
 "ତନ୍ତ୍ରରେ 'ସଫଟୱେର ରେଡ' ବିଭାଜନ ପ୍ରକାରକୁ ସର୍ବପ୍ରଥମେ ବ୍ଯାଖ୍ଯା କରିବା ଉଚିତ।"
 
-#: ../iw/raid_dialog_gui.py:570 ../iw/raid_dialog_gui.py:576
-#: ../iw/raid_dialog_gui.py:588 ../iw/raid_dialog_gui.py:601
+#: ../iw/raid_dialog_gui.py:524 ../iw/raid_dialog_gui.py:530
+#: ../iw/raid_dialog_gui.py:542 ../iw/raid_dialog_gui.py:555
 msgid "Source Drive Error"
 msgstr "ଉତ୍ସ ଡ୍ରାଇଭରେ ତୃଟି"
 
-#: ../iw/raid_dialog_gui.py:577
+#: ../iw/raid_dialog_gui.py:531
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4377,7 +4257,7 @@ msgstr ""
 "\n"
 "ଡ୍ରାଇଭକୁ କ୍ଲୋନ କରିବା ପୂର୍ବରୁ ଆପଣ ଏହି ବିଭାଜନ ମାନଙ୍କୁ ଅପସାରଣ କରିବା ଉଚିତ। "
 
-#: ../iw/raid_dialog_gui.py:589
+#: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
@@ -4391,7 +4271,7 @@ msgstr ""
 "ଡ୍ରାଇଭକୁ କ୍ଲୋନ କରିବା ପୂର୍ବରୁ ଆପଣ ଏହି ଡ୍ରାଇଭରୁ ଏହି ବିଭାଜନ ମାନଙ୍କୁ ଅପସାରଣ କିମ୍ବା ନିଷେଧ କରାଯିବା "
 "ଉଚିତ।"
 
-#: ../iw/raid_dialog_gui.py:602
+#: ../iw/raid_dialog_gui.py:556
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4403,21 +4283,21 @@ msgstr ""
 "\n"
 "ଡ୍ରାଇଭକୁ କ୍ଲୋନ କରାଯିବା ପୂର୍ବରୁ ଆପଣ ଏହି ବିଭାଜନ ମାନଙ୍କୁ ଅପସାରଣ କରିବା ଉଚିତ।"
 
-#: ../iw/raid_dialog_gui.py:615 ../iw/raid_dialog_gui.py:621
-#: ../iw/raid_dialog_gui.py:640
+#: ../iw/raid_dialog_gui.py:569 ../iw/raid_dialog_gui.py:575
+#: ../iw/raid_dialog_gui.py:594
 msgid "Target Drive Error"
 msgstr "ଲକ୍ଷସ୍ଥ ଡ୍ରାଇଭ ତୃଟି"
 
-#: ../iw/raid_dialog_gui.py:616
+#: ../iw/raid_dialog_gui.py:570
 msgid "Please select the target drives for the clone operation."
 msgstr "ଦୟାକରି କ୍ଲୋନ ପ୍ରକ୍ରିୟା ପାଇଁ ଗୋଟିଏ ଲକ୍ଷସ୍ଥ ଡ୍ରାଇଭ ର ଚୟନ କରନ୍ତୁ।"
 
-#: ../iw/raid_dialog_gui.py:622
+#: ../iw/raid_dialog_gui.py:576
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "ଉତ୍ସ ଡ୍ରାଇଭ /dev/%s କୁ ଗୋଟିଏ ଲକ୍ଷ୍ଯ ଡ୍ରାଇଭ ଭାବରେ ମଧ୍ଯ ଚଯନ କରିହେବ ନାହିଁ।"
 
-#: ../iw/raid_dialog_gui.py:641
+#: ../iw/raid_dialog_gui.py:595
 #, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
@@ -4433,11 +4313,11 @@ msgstr ""
 "\n"
 "ଡ୍ରାଇଭକୁ ଲକ୍ଷ୍ଯ କରିବା ପୂର୍ବରୁ ଆପଣ ଏହି ବିଭାଜନକୁ ଅପସାରଣ କରିବା ଉଚିତ।"
 
-#: ../iw/raid_dialog_gui.py:702
+#: ../iw/raid_dialog_gui.py:656
 msgid "Please select a source drive."
 msgstr "ଦୟାକରି ଗୋଟିଏ ଉତ୍ସ ଡ୍ରାଇଭ ର ଚୟନ କରନ୍ତୁ।"
 
-#: ../iw/raid_dialog_gui.py:722
+#: ../iw/raid_dialog_gui.py:676
 #, python-format
 msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
@@ -4446,7 +4326,7 @@ msgstr ""
 "/dev/%s ଡ୍ରାଇଭଟି ନିମ୍ନଲିଖିତ ଡ୍ରାଇଭରେ ବର୍ତ୍ତମାନ କ୍ଲୋନ କରାଯିବ:\n"
 "\n"
 
-#: ../iw/raid_dialog_gui.py:727
+#: ../iw/raid_dialog_gui.py:681
 msgid ""
 "\n"
 "\n"
@@ -4456,19 +4336,19 @@ msgstr ""
 "\n"
 "ଚେତାବନୀ! ଲକ୍ଷ ଡ୍ରାଇଭ ରେ ସମସ୍ତ ତଥ୍ଯ ନଷ୍ଟ ହୋଇଯିବ।"
 
-#: ../iw/raid_dialog_gui.py:730
+#: ../iw/raid_dialog_gui.py:684
 msgid "Final Warning"
 msgstr "ଅନ୍ତିମ ଚେତାବନୀ"
 
-#: ../iw/raid_dialog_gui.py:732
+#: ../iw/raid_dialog_gui.py:686
 msgid "Clone Drives"
 msgstr "ଡ୍ରାଇଭ ମାନଙ୍କ ର କ୍ଲୋନ ପ୍ରସ୍ତୁତ କରନ୍ତୁ"
 
-#: ../iw/raid_dialog_gui.py:741
+#: ../iw/raid_dialog_gui.py:695
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "ଲକ୍ଷସ୍ଥ ଡ୍ରାଇଭ ମାନଙ୍କୁ ସଫା କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା। କ୍ଲୋନିଙ୍ଗ ବିଫଳ ହୋଇଗଲା।"
 
-#: ../iw/raid_dialog_gui.py:775
+#: ../iw/raid_dialog_gui.py:729
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4495,19 +4375,19 @@ msgstr ""
 "ନୁହଁନ୍ତି। \n"
 "ଏହି ପ୍ରକ୍ରିୟା ଦ୍ବାରା ଲକ୍ଷ୍ଯ ଡ୍ରାଇଭରେ (ମାନଙ୍କରେ) ସବୁକିଛି ନଷ୍ଟ ହୋଇଯିବ।"
 
-#: ../iw/raid_dialog_gui.py:795
+#: ../iw/raid_dialog_gui.py:749
 msgid "Source Drive:"
 msgstr "ଉତ୍ସ ଡ୍ରାଇଭ:"
 
-#: ../iw/raid_dialog_gui.py:803
+#: ../iw/raid_dialog_gui.py:757
 msgid "Target Drive(s):"
 msgstr "ଲକ୍ଷସ୍ଥ ଡ୍ରାଇଭ(ମାନ):"
 
-#: ../iw/raid_dialog_gui.py:811
+#: ../iw/raid_dialog_gui.py:765
 msgid "Drives"
 msgstr "ଡ୍ରାଇଭ"
 
-#: ../iw/task_gui.py:46
+#: ../iw/task_gui.py:48
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -4521,64 +4401,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/task_gui.py:56
-#, python-format
-msgid ""
-"Unable to find a group file for %s.  This will prevent manual selection of "
-"packages from the repository from working"
-msgstr ""
-"%s ପାଇଁ ଗୋଟିଏ ସମୂହ ଫାଇଲ ପାଇବାରେ ଅସମର୍ଥ।  ଏହା ଭଣ୍ଡାରରୁ ହସ୍ତକୃତ ଭାବରେ ଚୟନ କରାଯାଇଥିବା "
-"ପ୍ଯାକେଜ ମାନଙ୍କୁ କାର୍ଯ୍ଯ କରିବାରୁ ଅଟକାଇବ"
-
-#: ../iw/task_gui.py:155
-msgid "Edit Repository"
-msgstr "ସଂଗ୍ରହାଳୟକୁ ସମ୍ପାଦନ କରନ୍ତୁ"
-
-#: ../iw/task_gui.py:213
-msgid "Invalid Proxy URL"
-msgstr "ଅବୈଧ ଛାୟା URL"
-
-#: ../iw/task_gui.py:214
-msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
-msgstr "ଆପଣ ଛାୟାକୁ ଗୋଟିଏ HTTP, HTTPS, କିମ୍ବା FTP URL ପ୍ରଦାନ କରିବା ଉଚିତ।"
-
-#: ../iw/task_gui.py:224 ../iw/task_gui.py:350
-msgid "Invalid Repository URL"
-msgstr "ଅବୈଧ ଭଣ୍ଡାର URL"
-
-#: ../iw/task_gui.py:225 ../iw/task_gui.py:351
-msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr "ଆପଣ ଭଣ୍ଡାରକୁ ଗୋଟିଏ HTTP, HTTPS, କିମ୍ବା FTP URL ପ୍ରଦାନ କରିବା ଉଚିତ।"
-
-#: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-msgid "No Media Found"
-msgstr "କୌଣସି ସଞ୍ଚାର ମାଧ୍ଯମ ମିଳିଲା ନାହିଁ"
-
-#: ../iw/task_gui.py:248 ../iw/task_gui.py:361
-msgid ""
-"No installation media was found. Please insert a disc into your drive and "
-"try again."
-msgstr ""
-"କୌଣସି ସ୍ଥାପନ ସଞ୍ଚାର ମାଧ୍ଯମ ମିଳିଲା ନାହିଁ. ଦୟାକରି ଆପଣଙ୍କର ଡ୍ରାଇଭରେ ଗୋଟିଏ "
-"ଡିସ୍କ ଭର୍ତ୍ତିକରନ୍ତୁ ଏବଂ ପୁଣି ଚେଷ୍ଟାକରନ୍ତୁ."
-
-#: ../iw/task_gui.py:267 ../iw/task_gui.py:377
-msgid "Please enter an NFS server and path."
-msgstr "ଦୟାକରି ଗୋଟିଏ NFS ସର୍ଭର ଏବଂ ପଥ ଭରଣ କରନ୍ତୁ."
-
-#: ../iw/task_gui.py:299
-msgid "Invalid Repository Name"
-msgstr "ଅବୈଧ ଭଣ୍ଡାର ନାମ"
-
-#: ../iw/task_gui.py:300
-msgid "You must provide a repository name."
-msgstr "ଆପଣ ଗୋଟିଏ ଭଣ୍ଡାର ନାମକୁ ପ୍ରଦାନ କରିବା ଉଚିତ।"
-
-#: ../iw/task_gui.py:412 tmp/addrepo.glade.h:3
-msgid "Add Repository"
-msgstr "ସଂଗ୍ରହାଳୟକୁ ଯୋଗ କରନ୍ତୁ"
-
-#: ../iw/task_gui.py:418
+#: ../iw/task_gui.py:146
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -4587,17 +4410,65 @@ msgstr ""
 "\"%s\" ଭଣ୍ଡାରକୁ ପୂର୍ବରୁ ଯୋଗ କରାଯାଇଛି। ଦୟାକରି ଗୋଟିଏ ଭିନ୍ନ ଭଣ୍ଡାର ନାମ ଏବଂ ୟୁ.ଆର.ଏଲ. ଚୟନ "
 "କରନ୍ତୁ।"
 
-#: ../iw/task_gui.py:431
+#: ../iw/task_gui.py:159
+msgid "Edit Repository"
+msgstr "ସଂଗ୍ରହାଳୟକୁ ସମ୍ପାଦନ କରନ୍ତୁ"
+
+#: ../iw/task_gui.py:221
+msgid "Invalid Proxy URL"
+msgstr "ଅବୈଧ ଛାୟା URL"
+
+#: ../iw/task_gui.py:222
+msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
+msgstr "ଆପଣ ଛାୟାକୁ ଗୋଟିଏ HTTP, HTTPS, କିମ୍ବା FTP URL ପ୍ରଦାନ କରିବା ଉଚିତ।"
+
+#: ../iw/task_gui.py:232 ../iw/task_gui.py:370
+msgid "Invalid Repository URL"
+msgstr "ଅବୈଧ ଭଣ୍ଡାର URL"
+
+#: ../iw/task_gui.py:233 ../iw/task_gui.py:371
+msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
+msgstr "ଆପଣ ଭଣ୍ଡାରକୁ ଗୋଟିଏ HTTP, HTTPS, କିମ୍ବା FTP URL ପ୍ରଦାନ କରିବା ଉଚିତ।"
+
+#: ../iw/task_gui.py:255 ../iw/task_gui.py:380
+msgid "No Media Found"
+msgstr "କୌଣସି ସଞ୍ଚାର ମାଧ୍ଯମ ମିଳିଲା ନାହିଁ"
+
+#: ../iw/task_gui.py:256 ../iw/task_gui.py:381
+msgid ""
+"No installation media was found. Please insert a disc into your drive and "
+"try again."
+msgstr ""
+"କୌଣସି ସ୍ଥାପନ ସଞ୍ଚାର ମାଧ୍ଯମ ମିଳିଲା ନାହିଁ. ଦୟାକରି ଆପଣଙ୍କର ଡ୍ରାଇଭରେ ଗୋଟିଏ ଡିସ୍କ ଭର୍ତ୍ତିକରନ୍ତୁ ଏବଂ "
+"ପୁଣି ଚେଷ୍ଟାକରନ୍ତୁ."
+
+#: ../iw/task_gui.py:275 ../iw/task_gui.py:397
+msgid "Please enter an NFS server and path."
+msgstr "ଦୟାକରି ଗୋଟିଏ NFS ସର୍ଭର ଏବଂ ପଥ ଭରଣ କରନ୍ତୁ."
+
+#: ../iw/task_gui.py:307
+msgid "Invalid Repository Name"
+msgstr "ଅବୈଧ ଭଣ୍ଡାର ନାମ"
+
+#: ../iw/task_gui.py:308
+msgid "You must provide a repository name."
+msgstr "ଆପଣ ଗୋଟିଏ ଭଣ୍ଡାର ନାମକୁ ପ୍ରଦାନ କରିବା ଉଚିତ।"
+
+#: ../iw/task_gui.py:432 tmp/addrepo.glade.h:3
+msgid "Add Repository"
+msgstr "ସଂଗ୍ରହାଳୟକୁ ଯୋଗ କରନ୍ତୁ"
+
+#: ../iw/task_gui.py:437
 msgid "No Software Repos Enabled"
 msgstr "କୌଣସି ସଫ୍ଟୱେର ସଂଗ୍ରହାଳୟକୁ ସକ୍ରିୟକରାଯାଇ ନାହିଁ"
 
-#: ../iw/task_gui.py:432
+#: ../iw/task_gui.py:438
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
 msgstr ""
-"ସ୍ଥାପନ କ୍ରିୟା ଚାଲୁରଖିବା ପାଇଁ ଆପଣଙ୍କ ପାଖରେ ଅତିକମରେ ଗୋଟିଏ ସଫ୍ଟୱେର "
-"ସଂଗ୍ରହାଳୟ ସକ୍ରିୟ ଥିବା ଆବଶ୍ୟକ."
+"ସ୍ଥାପନ କ୍ରିୟା ଚାଲୁରଖିବା ପାଇଁ ଆପଣଙ୍କ ପାଖରେ ଅତିକମରେ ଗୋଟିଏ ସଫ୍ଟୱେର ସଂଗ୍ରହାଳୟ ସକ୍ରିୟ ଥିବା "
+"ଆବଶ୍ୟକ."
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -4678,8 +4549,8 @@ msgid ""
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "%s ର ଏହି ସଂସ୍କରଣ ଅଦ୍ୟତିତ ଫାଇଲ ତନ୍ତ୍ରକୁ ସମର୍ଥ କରିଥାଏ, ଯାହାର %s ରେ ପାରମ୍ପରିକ ଭାବରେ "
-"ପଠାଯାଇଥିବା ଫାଇଲ ତନ୍ତ୍ର ଅପେକ୍ଷା ଅଧିକ ଉପଯୋଗୀତା ଅଛି।  ଏହି ସ୍ଥାପନ ପ୍ରୋଗ୍ରାମ  "
-"ସଂରୂପୀତ ବିଭାଜନ ମାନଙ୍କୁ ବିନା ତଥ୍ଯ ହାନିରେ ଉପ୍ରବାସିତ କରିପାରିବ।\n"
+"ପଠାଯାଇଥିବା ଫାଇଲ ତନ୍ତ୍ର ଅପେକ୍ଷା ଅଧିକ ଉପଯୋଗୀତା ଅଛି।  ଏହି ସ୍ଥାପନ ପ୍ରୋଗ୍ରାମ  ସଂରୂପୀତ ବିଭାଜନ "
+"ମାନଙ୍କୁ ବିନା ତଥ୍ଯ ହାନିରେ ଉପ୍ରବାସିତ କରିପାରିବ।\n"
 "\n"
 "ଏହି ବିଭାଜନ ମାନଙ୍କ ମଧ୍ଯରୁ ଆପଣ କାହାକୁ ଉପ୍ରବାସନ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
@@ -5025,244 +4896,51 @@ msgstr ""
 "ଏଥିପାଇଁ ସ୍ଥାପନ ସମୟରେ ଗୋଟିଏ ସକ୍ରିୟ ନେଟୱାର୍କ ସଂଯୋଗ ଥିବା ଉଚିତ।  ଦୟାକରି ଗୋଟିଏ ନେଟୱାର୍କ "
 "ଅନ୍ତରାପୃଷ୍ଠକୁ ବିନ୍ଯାସ କରନ୍ତୁ।"
 
-#: ../textw/netconfig_text.py:111
+#: ../textw/netconfig_text.py:127
 msgid "Use dynamic IP configuration (DHCP)"
 msgstr "ଗତିଶୀଳ IP ବିନ୍ଯାସ (DHCP) କୁ ବ୍ଯବହାର କରନ୍ତୁ"
 
-#: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
-#: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
+#: ../textw/netconfig_text.py:130 ../loader/net.c:493
 msgid "Enable IPv4 support"
 msgstr "IPv4 ସହାୟତାକୁ ସକ୍ରିୟ କରନ୍ତୁ"
 
-#: ../textw/netconfig_text.py:117 ../textw/network_text.py:158
-#: ../loader/net.c:507 tmp/netpostconfig.glade.h:10
-msgid "Enable IPv6 support"
-msgstr "IPv6 ସହାୟତାକୁ ସକ୍ରିୟ କରନ୍ତୁ"
-
-#: ../textw/netconfig_text.py:121
+#: ../textw/netconfig_text.py:137
 msgid "IPv4 Address:"
 msgstr "IPv4 ଠିକଣା:"
 
-#: ../textw/netconfig_text.py:131
-msgid "IPv6 Address:"
-msgstr "IPv6 ଠିକଣା:"
-
-#: ../textw/netconfig_text.py:141 ../textw/network_text.py:682
-#: ../loader/net.c:828
+#: ../textw/netconfig_text.py:157 ../loader/net.c:850
 msgid "Gateway:"
 msgstr "ଗେଟ-ୱେ:"
 
-#: ../textw/netconfig_text.py:144
+#: ../textw/netconfig_text.py:160
 msgid "Nameserver:"
 msgstr "ନାମ ସର୍ଭର:"
 
-#: ../textw/netconfig_text.py:171
+#: ../textw/netconfig_text.py:189
 msgid "Missing Device"
 msgstr "ଅନୁପସ୍ଥିତ ଉପକରଣ"
 
-#: ../textw/netconfig_text.py:172
+#: ../textw/netconfig_text.py:190
 msgid "You must select a network device"
 msgstr "ଆପଣ ଗୋଟିଏ ନେଟୱର୍କ ଉପକରଣକୁ ଚୟନ କରିବା ଉଚିତ"
 
-#: ../textw/netconfig_text.py:231
+#: ../textw/netconfig_text.py:241
 msgid "IPv4 Network Mask "
 msgstr "IPv4 ନେଟୱାର୍କ ମାସ୍କ"
 
-#: ../textw/netconfig_text.py:257
-msgid "Error configuring network device: "
-msgstr "ନେଟୱାର୍କ ଉପକରଣକୁ ବିନ୍ଯାସ କରିବା ସମୟରେ ତୃଟି: "
-
-#: ../textw/network_text.py:60
-#, python-format
-msgid ""
-"You have not specified the field %s.  Depending on your network environment "
-"this may cause problems later."
-msgstr ""
-"ଆପଣ %s କ୍ଷେତ୍ରକୁ ନିର୍ଦ୍ଦିଷ୍ଟ କରି ନାହାଁନ୍ତି।  ଆପଣଙ୍କ ନେଟୱାର୍କ ପରିବେଶ ଉପରେ ନିର୍ଭର କରି ଏହା "
-"ପରବର୍ତ୍ତୀ ସମୟରେ ସମସ୍ଯା ସୃଷ୍ଟି କରିପାରେ।"
-
-#: ../textw/network_text.py:77
-#, python-format
-msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv%d ଉପସର୍ଗର ମୂଲ୍ଯ 0 ଏବଂ %d ମଧ୍ଯରେ ରହିବା ଉଚିତ।"
-
-#: ../textw/network_text.py:81
-msgid "Integer Required for Prefix"
-msgstr "ଉପସର୍ଗ ପାଇଁ ପୂର୍ଣ୍ଣସଂଖ୍ଯା ଆବଶ୍ଯକ"
-
-#: ../textw/network_text.py:82
-#, python-format
-msgid ""
-"You must enter a valid integer for the %s.  For IPv4, the value can be "
-"between 0 and 32.  For IPv6 it can be between 0 and 128."
-msgstr ""
-"ଆପଣ %s ପାଇଁ ଗୋଟିଏ ବୈଧ ପୂର୍ଣ୍ଣ ସଂଖ୍ଯା ଭରଣ କରିବା ଉଚିତ।  IPv4 ପାଇଁ, ମୂଲ୍ଯଟି 0 ଏବଂ 32 ମଧ୍ଯରେ "
-"ରହିପାରିବ।  IPv6 ପାଇଁ ଏହା 0 ଏବଂ 128 ମଧ୍ଯରେ ରହିପାରିବ।"
-
-#: ../textw/network_text.py:89 tmp/netpostconfig.glade.h:16
-msgid "Prefix (Netmask)"
-msgstr "ଉପସର୍ଗ (ନେଟମାସ୍କ)"
-
-#: ../textw/network_text.py:91 tmp/netpostconfig.glade.h:15
-msgid "Prefix"
-msgstr "ଉପସର୍ଗ"
-
-#: ../textw/network_text.py:144
-msgid "Activate on boot"
-msgstr "ବୁଟ କରିବା ସମୟରେ ସକ୍ରିୟଣ କରନ୍ତୁ"
-
-#: ../textw/network_text.py:171
-msgid "P-to-P:"
-msgstr "P-to-P:"
-
-#: ../textw/network_text.py:189 tmp/netpostconfig.glade.h:7
-msgid "ESSID:"
-msgstr "ESSID:"
-
-#: ../textw/network_text.py:198
-msgid "WEP Key:"
-msgstr "WEP ଚାବି:"
-
-#: ../textw/network_text.py:211
-#, python-format
-msgid "Network Configuration for %s"
-msgstr "%s ପାଇଁ ନେଟୱାର୍କ ବିନ୍ଯାସ"
-
-#: ../textw/network_text.py:248 ../textw/network_text.py:251
-msgid "point-to-point IP address"
-msgstr "ପଏଣ୍ଟ-to-ପଏଣ୍ଟ ଆଇ.ପି. ଠିକଣା"
-
-#: ../textw/network_text.py:274 tmp/netpostconfig.glade.h:5
-msgid "Dynamic IP configuration (DHCP)"
-msgstr "ଗତିଶୀଳ ଆଇ.ପି. ବିନ୍ଯାସ (DHCP)"
-
-#: ../textw/network_text.py:277 ../textw/network_text.py:408
-msgid "Manual address configuration"
-msgstr "ହସ୍ତକୃତ ଠିକଣା ବିନ୍ଯାସ"
-
-#: ../textw/network_text.py:297
-#, python-format
-msgid "IPv4 Configuration for %s"
-msgstr "%s ପାଇଁ IPv4 ବିନ୍ଯାସ"
-
-#: ../textw/network_text.py:327 ../textw/network_text.py:339
-#: ../textw/network_text.py:342
-msgid "IPv4 address"
-msgstr "IPv4 ଠିକଣା"
-
-#: ../textw/network_text.py:331
-msgid "IPv4 network mask"
-msgstr "IPv4 ନେଟୱାର୍କ ନେଟମାସ୍କ"
-
-#: ../textw/network_text.py:357 ../textw/network_text.py:360
-#: ../textw/network_text.py:363
-msgid "IPv4 prefix (network mask)"
-msgstr "IPv4 ଉପସର୍ଗ (ନେଟୱାର୍କ ନେଟମାସ୍କ)"
-
-#: ../textw/network_text.py:402 tmp/netpostconfig.glade.h:4
-msgid "Automatic neighbor discovery"
-msgstr "ସ୍ବୟଂଚାଳିତ ପଡୋଶୀ ଅନୁସନ୍ଧାନ"
-
-#: ../textw/network_text.py:405 tmp/netpostconfig.glade.h:6
-msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "ଗତିଶୀଳ ଆଇ.ପି. ବିନ୍ଯାସ (DHCPv6)"
-
-#: ../textw/network_text.py:432
-#, python-format
-msgid "IPv6 Configuration for %s"
-msgstr "%s ପାଇଁ IPv6 ବିନ୍ଯାସ"
-
-#: ../textw/network_text.py:462 ../textw/network_text.py:473
-#: ../textw/network_text.py:476
-msgid "IPv6 address"
-msgstr "IPv6 ଠିକଣା"
-
-#: ../textw/network_text.py:466 ../textw/network_text.py:485
-msgid "IPv6 prefix"
-msgstr "IPv6 ଉପସର୍ଗ"
-
-#: ../textw/network_text.py:511
-msgid "Configure Network Interface"
+#: ../textw/netconfig_text.py:264
+msgid "Configuring Network Interfaces"
 msgstr "ନେଟୱାର୍କ ଅନ୍ତରାପୃଷ୍ଠକୁ ବିନ୍ଯାସ କରନ୍ତୁ"
 
-#: ../textw/network_text.py:512
-#, python-format
-msgid "Would you like to configure the %s network interface in your system?"
-msgstr "ଆପଣ %s ନେଟୱାର୍କ ଅନ୍ତରାପୃଷ୍ଠକୁ ଆପଣଙ୍କ ତନ୍ତ୍ରରେ ବିନ୍ଯାସ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
+#: ../textw/netconfig_text.py:264
+msgid "Waiting for NetworkManager..."
+msgstr "ନେଟୱର୍କ ପରିଚାଳକଙ୍କୁ ଅପେକ୍ଷା କରିଅଛି..."
 
-#: ../textw/network_text.py:526 ../textw/network_text.py:528
-msgid "UNCONFIGURED"
-msgstr "ବିନ୍ଯାସ କରାଯାଇ ନାହିଁ"
-
-#: ../textw/network_text.py:537
-msgid ""
-"The current configuration settings for each interface are listed next to the "
-"device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
-"configure an interface, highlight it and choose Edit.  When you are "
-"finished, press OK to continue."
-msgstr ""
-"ପ୍ରତ୍ଯେକ ଅନ୍ତରାପୃଷ୍ଠ ପାଇଁ ବର୍ତ୍ତମାନ ବିନ୍ଯାସ ସଂଯୋଜନା ଗୁଡିକ ଉପକରଣ ନାମ ନିକଟରେ ଲେଖା ଯାଇଛି।  "
-"ଅବିନ୍ଯସ୍ତ ଅନ୍ତରାପୃଷ୍ଠ ମାନଙ୍କୁ ଅବିନ୍ଯସ୍ତ ଭାବରେ ଉଲ୍ଲେଖ କରିଯାଇଛି।  ଗୋଟିଏ ଅନ୍ତରାପୃଷ୍ଠ ବିନ୍ଯାସ କରିବା "
-"ପାଇଁ, ଏହାକୁ ଚୟନ କରନ୍ତୁ ଏବଂ ସମ୍ପାଦନ କରନ୍ତୁ।  ଆପଣ ସମାପ୍ତ କରିସାରିଲା ପରେ, ଜାରି ରଖିବା ପାଇଁ ଠିକ "
-"ଅଛି ବଟନକୁ ଦବାନ୍ତୁ।"
-
-#: ../textw/network_text.py:571
-msgid "Active on boot"
-msgstr "ବୁଟ ସମୟରେ ସକ୍ରିୟ କରନ୍ତୁ"
-
-#: ../textw/network_text.py:573
-msgid "Inactive on boot"
-msgstr "ବୁଟ ସମୟରେ ନିଷ୍କ୍ରିୟ କରନ୍ତୁ"
-
-#: ../textw/network_text.py:576
-msgid "DHCP"
-msgstr "DHCP"
-
-#: ../textw/network_text.py:581
-msgid "Auto IPv6"
-msgstr "ସ୍ବୟଂଚାଳିତ IPv6"
-
-#: ../textw/network_text.py:583
-msgid "DHCPv6"
-msgstr "DHCPv6"
-
-#: ../textw/network_text.py:691
-msgid "Primary DNS:"
-msgstr "ପ୍ରାଥମିକ DNS:"
-
-#: ../textw/network_text.py:696
-msgid "Secondary DNS:"
-msgstr "ଦ୍ବିତୀୟକ DNS:"
-
-#: ../textw/network_text.py:703
-msgid "Miscellaneous Network Settings"
-msgstr "ବିବିଧ ନେଟୱାର୍କ ବିନ୍ଯାସ"
-
-#: ../textw/network_text.py:720 ../textw/network_text.py:723
-msgid "gateway"
-msgstr "ଗେଟ-ୱେ"
-
-#: ../textw/network_text.py:730 ../textw/network_text.py:733
-msgid "primary DNS"
-msgstr "ପ୍ରାଥମିକ DNS"
-
-#: ../textw/network_text.py:742
-msgid "secondary DNS"
-msgstr "ଦ୍ବିତୀୟକ DNS"
-
-#: ../textw/network_text.py:766
-msgid "automatically via DHCP"
-msgstr "ସ୍ବୟଂଚାଳିତ ଭାବରେ DHCP ଦ୍ବାରା"
-
-#: ../textw/network_text.py:769
-msgid "manually"
-msgstr "ହସ୍ତକୃତ ଭାବରେ"
-
-#: ../textw/network_text.py:788
+#: ../textw/network_text.py:42
 msgid "Hostname Configuration"
 msgstr "ଆଧାରନାମ ବିନ୍ଯାସ"
 
-#: ../textw/network_text.py:791
+#: ../textw/network_text.py:50
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5274,11 +4952,11 @@ msgstr ""
 "ଆପଣଙ୍କ ତନ୍ତ୍ର ପାଇଁ ଗୋଟିଏ ଆଧାର ନାମ ଭରଣ କରନ୍ତୁ। ଯଦି ଆପଣ ଏପରି ନ କରନ୍ତି, ତାହାହେଲେ ଆପଣଙ୍କ "
 "ତନ୍ତ୍ରଟି ଗୋଟିଏ 'localhost' ଭାବେ ପରିଚିତ ହେବ।"
 
-#: ../textw/network_text.py:817 ../textw/network_text.py:823
+#: ../textw/network_text.py:75 ../textw/network_text.py:82
 msgid "Invalid Hostname"
 msgstr "ଅବୈଧ ଆଧାରନାମ"
 
-#: ../textw/network_text.py:818
+#: ../textw/network_text.py:76
 msgid "You have not specified a hostname."
 msgstr "ଆପଣ ଗୋଟିଏ ଆଧାରନାମ ଉଲ୍ଲେଖିତ କରି ନାହାଁନ୍ତି।"
 
@@ -5588,11 +5266,11 @@ msgstr ""
 "ପ୍ରତ୍ଯେକ ଉପକରଣ ପାଇଁ ଆପଣ ଗୋଟିଏ ୧୬-ବିଟ ଉପକରଣ ସଂଖ୍ଯା, ଗୋଟିଏ ୬୪-ବିଟ ବିଶ୍ବବ୍ଯାପୀ ସଂଯୋଗିକୀ "
 "ସଂଖ୍ଯା (WWPN), ଗୋଟିଏ ୬୪-ବିଟ FCP LUN ପ୍ରଦାନ କରିବା ଉଚିତ।"
 
-#: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
+#: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:7
 msgid "Configure iSCSI Parameters"
 msgstr "iSCSI ପାରାମିଟରକୁ ବିନ୍ଯାସ କରନ୍ତୁ"
 
-#: ../textw/partition_text.py:1688 tmp/iscsi-config.glade.h:6
+#: ../textw/partition_text.py:1688 tmp/iscsi-config.glade.h:8
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
@@ -5608,6 +5286,38 @@ msgstr "ଲକ୍ଷ୍ଯସ୍ଥ ଆଇ.ପି. ଠିକଣା"
 msgid "iSCSI Initiator Name"
 msgstr "iSCSI ପ୍ରାରମ୍ଭକଙ୍କ ନାମ"
 
+#: ../textw/partition_text.py:1691
+msgid "CHAP username"
+msgstr "CHAP ଚାଳକ ନାମ"
+
+#: ../textw/partition_text.py:1692
+msgid "CHAP password"
+msgstr "CHAP ପ୍ରବେଶ ସଙ୍କେତ"
+
+#: ../textw/partition_text.py:1693
+msgid "Reverse CHAP username"
+msgstr "ଓଲଟା CHAP ଚାଳକ ନାମ"
+
+#: ../textw/partition_text.py:1694
+msgid "Reverse CHAP password"
+msgstr "ଓଲଟା CHAP ପ୍ରବେଶ ସଙ୍କେତ"
+
+#: ../textw/partition_text.py:1712
+msgid "Username is required when password is present."
+msgstr "ପ୍ରବେଶ ସଂକେତ ଉପସ୍ଥିତ ଥିବା ସମୟରେ ଚାଳକ ନାମ ଆବଶ୍ୟକ."
+
+#: ../textw/partition_text.py:1715
+msgid "Password is required when username is present."
+msgstr "ଚାଳକ ନାମ ଉପସ୍ଥିତ ଥିବା ସମୟରେ ପ୍ରବେଶ ସଂକେତ ଆବଶ୍ୟକ."
+
+#: ../textw/partition_text.py:1720
+msgid "Reverse username is required whenreverse password is present."
+msgstr "ଓଲଟା ପ୍ରବେଶ ସଂକେତ ଉପସ୍ଥିତ ଥିବା ସମୟରେ ଓଲଟା ଚାଳକ ନାମ ଆବଶ୍ୟକ."
+
+#: ../textw/partition_text.py:1724
+msgid "Reverse password is required whenreverse username is present."
+msgstr "ଓଲଟା ଚାଳକ ନାମ ଉପସ୍ଥିତ ଥିବା ସମୟରେ ଓଲଟା ପ୍ରବେଶ ସଂକେତ ଆବଶ୍ୟକ."
+
 #: ../textw/partmethod_text.py:34
 msgid "Autopartition"
 msgstr "ସ୍ବତଃବିଭାଜନ"
@@ -5620,11 +5330,11 @@ msgstr "ଡିସ୍କ ଡୃଇଡ"
 msgid "Package Installation"
 msgstr "ପ୍ଯାକେଜ ସ୍ଥାପନ"
 
-#: ../textw/task_text.py:53
+#: ../textw/task_text.py:42
 msgid "Package selection"
 msgstr "ପ୍ଯାକେଜ ଚୟନ"
 
-#: ../textw/task_text.py:59 tmp/tasksel.glade.h:4
+#: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
 #, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -5635,7 +5345,7 @@ msgstr ""
 "ସେଟକୁ ଅନ୍ତର୍ଭୂକ୍ତ କରିଥାଏ।  ଆପଣଙ୍କ ତନ୍ତ୍ରର ସହାୟତା ପାଇଁ ଆପଣ କେଉଁ ଅତିରିକ୍ତ ସାଧନକୁ ସଂଲଗ୍ନିତ କରିବା "
 "ପାଇଁ ଚାହାଁନ୍ତି?"
 
-#: ../textw/task_text.py:74
+#: ../textw/task_text.py:63
 msgid "Customize software selection"
 msgstr "ସଫଟ୍ଟୱେର ଚୟନ କୁ ଇଚ୍ଛାରୂପଣ କରନ୍ତୁ"
 
@@ -5670,8 +5380,8 @@ msgid ""
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "%s ର ଏହି ସଂସ୍କରଣ ଅଦ୍ୟତିତ ଫାଇଲ ତନ୍ତ୍ରକୁ ସମର୍ଥ କରିଥାଏ, ଯାହାର %s ରେ ପାରମ୍ପରିକ ଭାବରେ "
-"ପଠାଯାଇଥିବା ଫାଇଲ ତନ୍ତ୍ର ଅପେକ୍ଷା ଅଧିକ ଉପଯୋଗୀତା ଅଛି।  ଏହି "
-"ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ସଂରୂପୀତ ବିଭାଜନ ମାନଙ୍କୁ ବିନା ତଥ୍ଯ ହାନିରେ ଉତ୍ପ୍ରବାସିତ କରିପାରିବ।\n"
+"ପଠାଯାଇଥିବା ଫାଇଲ ତନ୍ତ୍ର ଅପେକ୍ଷା ଅଧିକ ଉପଯୋଗୀତା ଅଛି।  ଏହି ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ସଂରୂପୀତ ବିଭାଜନ "
+"ମାନଙ୍କୁ ବିନା ତଥ୍ଯ ହାନିରେ ଉତ୍ପ୍ରବାସିତ କରିପାରିବ।\n"
 "\n"
 "ଏହି ବିଭାଜନ ମାନଙ୍କ ମଧ୍ଯରୁ ଆପଣ କାହାକୁ ଉତ୍ପ୍ରବାସନ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
@@ -5791,9 +5501,9 @@ msgstr "ଓଫିସ ଏବଂ ଉତ୍ପାଦିକା ଶକ୍ତି"
 msgid "Software Development"
 msgstr "ସଫଟୱେର ବିକାଶ"
 
-#: ../installclasses/fedora.py:50 ../installclasses/rhel.py:60
-msgid "Web server"
-msgstr "ୱେବ ସେବକ"
+#: ../installclasses/fedora.py:50
+msgid "Web Server"
+msgstr "ୱେବ ସର୍ଭର"
 
 #: ../installclasses/rhel.py:43
 msgid "Red Hat Enterprise Linux"
@@ -5806,6 +5516,10 @@ msgstr "କାର୍ଯ୍ଯାଳୟ"
 #: ../installclasses/rhel.py:54
 msgid "Multimedia"
 msgstr "ବହୁମାଧ୍ଯମ"
+
+#: ../installclasses/rhel.py:60
+msgid "Web server"
+msgstr "ୱେବ ସେବକ"
 
 #: ../installclasses/rhel.py:65
 msgid "Virtualization"
@@ -6046,9 +5760,9 @@ msgstr "ଆପଣ ଆହୁରି ଅଧିକ ଡ୍ରାଇଭର ଡିସ�
 #: ../loader/hdinstall.c:384 ../loader/kickstart.c:132
 #: ../loader/kickstart.c:142 ../loader/kickstart.c:185
 #: ../loader/kickstart.c:532 ../loader/modules.c:335 ../loader/modules.c:347
-#: ../loader/net.c:1330 ../loader/net.c:1353 ../loader/nfsinstall.c:337
-#: ../loader/urlinstall.c:421 ../loader/urlinstall.c:430
-#: ../loader/urlinstall.c:439
+#: ../loader/net.c:1414 ../loader/net.c:1437 ../loader/nfsinstall.c:331
+#: ../loader/urlinstall.c:423 ../loader/urlinstall.c:432
+#: ../loader/urlinstall.c:441
 msgid "Kickstart Error"
 msgstr "କିକ-ଷ୍ଟାର୍ଟ ତୃଟି"
 
@@ -6116,8 +5830,8 @@ msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
 msgstr ""
-"ଆପଣଙ୍କ ହାର୍ଡ ଡ୍ରାଇଭରେ ସ୍ଥାପନ ପ୍ରତିଛବିକୁ ଖୋଜିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା.  ଦୟାକରି "
-"ଆପଣଙ୍କ ପ୍ରତିଛବିକୁ ଯାଞ୍ଚ କରନ୍ତୁ ଏବଂ ପୁନର୍ବାର ପ୍ରଚେଷ୍ଟା କରନ୍ତୁ."
+"ଆପଣଙ୍କ ହାର୍ଡ ଡ୍ରାଇଭରେ ସ୍ଥାପନ ପ୍ରତିଛବିକୁ ଖୋଜିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା.  ଦୟାକରି ଆପଣଙ୍କ "
+"ପ୍ରତିଛବିକୁ ଯାଞ୍ଚ କରନ୍ତୁ ଏବଂ ପୁନର୍ବାର ପ୍ରଚେଷ୍ଟା କରନ୍ତୁ."
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6134,9 +5848,9 @@ msgid ""
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"ସେହି ବିଭାଜନରେ କେଉଁ ନିର୍ଦ୍ଦିଷ୍ଟ ବିଭାଜନ ଏବଂ ଡିରେକ୍ଟୋରି %s ପାଇଁ ସ୍ଥାପନ ପ୍ରତିଛବି ମାନଙ୍କୁ "
-"ଧାରଣ କରିଅଛି? ଏହି ତାଲିକାରେ ଆପଣ ବ୍ଯବହାର କରୁଥିବା ଡିସ୍କ ଡ୍ରାଇଭକୁ ଯଦି ଆପଣ ଦେଖୁ ନାହାଁନ୍ତି, "
-"ତାହାହେଲେ ଅତିରିକ୍ତ ଉପକରଣ ମାନଙ୍କୁ ବିନ୍ଯାସ କରିବା ପାଇଁ F2 ବଟନକୁ ଦବାନ୍ତୁ।"
+"ସେହି ବିଭାଜନରେ କେଉଁ ନିର୍ଦ୍ଦିଷ୍ଟ ବିଭାଜନ ଏବଂ ଡିରେକ୍ଟୋରି %s ପାଇଁ ସ୍ଥାପନ ପ୍ରତିଛବି ମାନଙ୍କୁ ଧାରଣ କରିଅଛି? "
+"ଏହି ତାଲିକାରେ ଆପଣ ବ୍ଯବହାର କରୁଥିବା ଡିସ୍କ ଡ୍ରାଇଭକୁ ଯଦି ଆପଣ ଦେଖୁ ନାହାଁନ୍ତି, ତାହାହେଲେ ଅତିରିକ୍ତ "
+"ଉପକରଣ ମାନଙ୍କୁ ବିନ୍ଯାସ କରିବା ପାଇଁ F2 ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../loader/hdinstall.c:273
 msgid "Directory holding image:"
@@ -6251,8 +5965,8 @@ msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
 msgstr ""
-"ଏହି ଉପକରଣରେ ଏକାଧିକ ବିଭାଜନ ଅଛି ଯାହାକି ଅଦ୍ୟତିତ ଡିସ୍କ ପ୍ରତିଛବିକୁ ଧାରଣ କରି "
-"ଥାଇପାରେ.  ଆପଣ କେଉଁ ଉପକରଣକୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
+"ଏହି ଉପକରଣରେ ଏକାଧିକ ବିଭାଜନ ଅଛି ଯାହାକି ଅଦ୍ୟତିତ ଡିସ୍କ ପ୍ରତିଛବିକୁ ଧାରଣ କରି ଥାଇପାରେ.  ଆପଣ କେଉଁ "
+"ଉପକରଣକୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../loader/loader.c:487
 #, c-format
@@ -6280,55 +5994,55 @@ msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
-"ଅଦ୍ୟତନର ପ୍ରତିଛବିଟ ଫାଇଲକୁ ଆହରଣ କରିବାରେ ଅସମର୍ଥ।  ଦୟାକରି ତଳେ ଅଦ୍ୟତନ ଠିକଣାକୁ "
-"ପରିବର୍ତ୍ତନ କରନ୍ତୁ କିମ୍ବା ଅଦ୍ୟତନ ବିନା ଆଗକୁ ବଢ଼ିବା ପାଇଁ ବାତିଲକରନ୍ତୁକୁ ଦବାନ୍ତୁ.."
+"ଅଦ୍ୟତନର ପ୍ରତିଛବିଟ ଫାଇଲକୁ ଆହରଣ କରିବାରେ ଅସମର୍ଥ।  ଦୟାକରି ତଳେ ଅଦ୍ୟତନ ଠିକଣାକୁ ପରିବର୍ତ୍ତନ କରନ୍ତୁ "
+"କିମ୍ବା ଅଦ୍ୟତନ ବିନା ଆଗକୁ ବଢ଼ିବା ପାଇଁ ବାତିଲକରନ୍ତୁକୁ ଦବାନ୍ତୁ.."
 
 #: ../loader/loader.c:560
 msgid "Error downloading updates image"
 msgstr "ଅଦ୍ୟତିତ ପ୍ରତିଛବି ଫାଇଲ ଆହରଣ କରିବା ସମୟରେ ତୃଟି"
 
-#: ../loader/loader.c:1171
+#: ../loader/loader.c:1175
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "ଏହି ଉପକରଣରେ %s କୁ ସ୍ଥାପନ କରିବା ପାଇଁ ଯଥେଷ୍ଟ RAM ନାହିଁ।"
 
-#: ../loader/loader.c:1231
+#: ../loader/loader.c:1235
 msgid "Media Detected"
 msgstr "ମାଧ୍ଯମ କୁ ଖୋଜି ପାରିଲା"
 
-#: ../loader/loader.c:1232
+#: ../loader/loader.c:1236
 msgid "Local installation media detected..."
 msgstr "ସ୍ଥାନୀୟ ସ୍ଥାପନ ମାଧ୍ଯମ କୁ ଖୋଜି ପାରିଲା..."
 
-#: ../loader/loader.c:1353
+#: ../loader/loader.c:1357
 msgid "Rescue Method"
 msgstr "ରକ୍ଷଣ ପ୍ରଣାଳୀ"
 
-#: ../loader/loader.c:1354
+#: ../loader/loader.c:1358
 msgid "Installation Method"
 msgstr "ସ୍ଥାପନ ପ୍ରଣାଳୀ"
 
-#: ../loader/loader.c:1356
+#: ../loader/loader.c:1360
 msgid "What type of media contains the rescue image?"
 msgstr "ରକ୍ଷଣ ପ୍ରତିଛବି ମାନଙ୍କୁ କେଉଁ ପ୍ରକାର ର ସଞ୍ଚାରମାଧ୍ଯମ ଧାରଣ କରିଛି?"
 
-#: ../loader/loader.c:1358
+#: ../loader/loader.c:1362
 msgid "What type of media contains the installation image?"
 msgstr "କେଉଁ ପ୍ରକାରର ସଞ୍ଚାରମାଧ୍ଯମ ସ୍ଥାପନ ପ୍ରତିଛବି ମାନଙ୍କୁ ଧାରଣ କରିଛି?"
 
-#: ../loader/loader.c:1389
+#: ../loader/loader.c:1393
 msgid "No driver found"
 msgstr "କୌଣସି ଚାଳକ ମିଳିଲା ନାହିଁ"
 
-#: ../loader/loader.c:1389
+#: ../loader/loader.c:1393
 msgid "Select driver"
 msgstr "ଚାଳକ କୁ ଚୟନ କରନ୍ତୁ"
 
-#: ../loader/loader.c:1390
+#: ../loader/loader.c:1394
 msgid "Use a driver disk"
 msgstr "ଗୋଟିଏ ଚାଳକ ଡିସ୍କକୁ ବ୍ଯବହାର କରନ୍ତୁ"
 
-#: ../loader/loader.c:1391
+#: ../loader/loader.c:1395
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6336,11 +6050,11 @@ msgstr ""
 "ଏହି ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ପାଇଁ ଉପଯୁକ୍ତ ପ୍ରକାରର କୌଣସି ଉପକରଣକୁ ପାଇବାରେ ଅସମର୍ଥ।  ଆପଣ ହସ୍ତକୃତ ଭାବରେ "
 "ଆପଣଙ୍କ ଡ୍ରାଇଭରକୁ ଚୟନ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି ଗୋଟିଏ ଡ୍ରାଇଭର ଡିସ୍କ ବ୍ଯବହାର କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
-#: ../loader/loader.c:1652
+#: ../loader/loader.c:1679
 msgid "The following devices have been found on your system."
 msgstr "ନିମ୍ନଲିଖିତ ଉପକରଣ ଗୁଡିକ ଆପଣଙ୍କ ତନ୍ତ୍ରରୁ ମିଳିଲା।"
 
-#: ../loader/loader.c:1654
+#: ../loader/loader.c:1681
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6348,29 +6062,29 @@ msgstr ""
 "ଆପଣଙ୍କ ତନ୍ତ୍ର ପାଇଁ କୌଣସି ଉପକରଣ ଚାଳକ ସ୍ଥାପନ କରାଯାଇ ନାହିଁ। ଆପଣ କୌଣସି ଗୋଟିଏ ଚାଳକ କୁ ବର୍ତମାନ "
 "ଧାରଣ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
-#: ../loader/loader.c:1658
+#: ../loader/loader.c:1685
 msgid "Devices"
 msgstr "ଉପକରଣ ମାନ"
 
-#: ../loader/loader.c:1659
+#: ../loader/loader.c:1686
 msgid "Done"
 msgstr "ସମ୍ପୂର୍ଣ୍ଣ"
 
-#: ../loader/loader.c:1660
+#: ../loader/loader.c:1687
 msgid "Add Device"
 msgstr "ଉପକରଣକୁ ଯୋଗ କରନ୍ତୁ"
 
-#: ../loader/loader.c:1847
+#: ../loader/loader.c:1878
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ଭାରକ କୁ ପୂର୍ବରୁ ଚଳାଯାଇଛି। ଆବରଣ କୁ ପ୍ରାରମ୍ଭ କରୁଅଛି।\n"
 
-#: ../loader/loader.c:2186
+#: ../loader/loader.c:2248
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
 msgstr "ଆନାକୋଣ୍ଡା %s କୁ ଚଳାଉଛି, %s ରକ୍ଷଣ ଧାରା - ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ...\n"
 
-#: ../loader/loader.c:2188
+#: ../loader/loader.c:2250
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
 msgstr "ଆନାକୋଣ୍ଡା %s କୁ ଚଳାଉଛି, %s ତନ୍ତ୍ର ସ୍ଥାପକ - ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ...\n"
@@ -6419,9 +6133,8 @@ msgid ""
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
 msgstr ""
-"ଏବେ ପରିକ୍ଷା କରାଯାଇଥିବା ପ୍ରତିଛବିଟି ସଫଳଭାବେ ଯାଞ୍ଚ କରା ସରିଛି।  ଏହି ମାଧ୍ଯମରୁ ସ୍ଥାପନ "
-"କରିବା ଉଚିତ ହେବ।  ଦୃଷ୍ଟି ଦିଅନ୍ତୁ ଯେ ମାଧ୍ଯମ ଯାଞ୍ଚ ଦ୍ୱାରା ସମସ୍ତ ମାଧ୍ଯମ/ଆଧାର "
-"ତୃଟି ଖୋଜି ହେବ ନାହିଁ।"
+"ଏବେ ପରିକ୍ଷା କରାଯାଇଥିବା ପ୍ରତିଛବିଟି ସଫଳଭାବେ ଯାଞ୍ଚ କରା ସରିଛି।  ଏହି ମାଧ୍ଯମରୁ ସ୍ଥାପନ କରିବା ଉଚିତ "
+"ହେବ।  ଦୃଷ୍ଟି ଦିଅନ୍ତୁ ଯେ ମାଧ୍ଯମ ଯାଞ୍ଚ ଦ୍ୱାରା ସମସ୍ତ ମାଧ୍ଯମ/ଆଧାର ତୃଟି ଖୋଜି ହେବ ନାହିଁ।"
 
 #: ../loader/method.c:324
 #, c-format
@@ -6447,7 +6160,11 @@ msgstr "%s ଉପକରଣ କିକ୍-ଷ୍ଟାର୍ଟ ପ୍ରକ୍ର
 msgid "A module name must be specified for the kickstart device command."
 msgstr "କିକ-ଷ୍ଟାର୍ଟ ଉପକରଣ ନିର୍ଦ୍ଦେଶ ପାଇଁ ଗୋଟିଏ ଏକକାଂଶ ନାମ ଉଲ୍ଲେଖ କରାଯିବା ଉଚିତ।"
 
-#: ../loader/net.c:106
+#: ../loader/net.c:108
+msgid "Invalid Prefix"
+msgstr "ଅବୈଧ ଉପସର୍ଗ"
+
+#: ../loader/net.c:109
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
@@ -6455,48 +6172,55 @@ msgstr ""
 "IPv4 ନେଟୱାର୍କ ପାଇଁ ଉପସର୍ଗ ମୂଲ୍ଯ ୧ ଏବଂ ୩୨ ମଧ୍ଯରେ ହେବା ଉଚିତ କିମ୍ବା IPv6 ନେଟୱାର୍କ ପାଇଁ ୧ "
 "ଏବଂ ୧୨୮ ମଧ୍ଯରେ ହେବା ଉଚିତ।"
 
-#: ../loader/net.c:413 ../loader/net.c:467
+#: ../loader/net.c:409 ../loader/net.c:463
 msgid "Network Error"
 msgstr "ନେଟୱାର୍କ ତୃଟି"
 
-#: ../loader/net.c:414 ../loader/net.c:468
+#: ../loader/net.c:410 ../loader/net.c:464
 msgid "There was an error configuring your network interface."
 msgstr "ଆପଣଙ୍କ ନେଟୱାର୍କ ଅନ୍ତରାପୃଷ୍ଠକୁ ବିନ୍ଯାସ କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା।"
 
-#: ../loader/net.c:540
+#: ../loader/net.c:507
+msgid "Enable IPv6 support"
+msgstr "IPv6 ସହାୟତାକୁ ସକ୍ରିୟ କରନ୍ତୁ"
+
+#: ../loader/net.c:547
 msgid "Configure TCP/IP"
 msgstr "TCP/IP କୁ ବିନ୍ଯାସ କରନ୍ତୁ"
 
-#: ../loader/net.c:585
+#: ../loader/net.c:606
+msgid "Missing Protocol"
+msgstr "ଅନୁପସ୍ଥିତ ପ୍ରୋଟୋକଲ"
+
+#: ../loader/net.c:607
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "ଆପଣ ଅତିକମରେ ଗୋଟିଏ ପ୍ରୋଟୋକଲ (IPv4 କିମ୍ବା IPv6) ଚୟନ କରିବା ଉଚିତ।"
 
-#: ../loader/net.c:592
+#: ../loader/net.c:614
 msgid "IPv4 Needed for NFS"
 msgstr "NFS ପାଇଁ IPv4 ଆବଶ୍ୟକ"
 
-#: ../loader/net.c:593
+#: ../loader/net.c:615
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS ସ୍ଥାପନ ପ୍ରଣାଳୀ IPv4 ସମର୍ଥନ ଆବଶ୍ୟକ କରିଥାଏ।"
 
-#: ../loader/net.c:697
+#: ../loader/net.c:717
 msgid "IPv4 address:"
 msgstr "IPv4 ଠିକଣା:"
 
-#: ../loader/net.c:709 ../loader/net.c:775 tmp/netconfig.glade.h:1
-#: tmp/netpostconfig.glade.h:1
+#: ../loader/net.c:729 ../loader/net.c:796 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader/net.c:763
+#: ../loader/net.c:784
 msgid "IPv6 address:"
 msgstr "IPv6 ଠିକଣା:"
 
-#: ../loader/net.c:836
+#: ../loader/net.c:858
 msgid "Name Server:"
 msgstr "ନାମ ସେବକ:"
 
-#: ../loader/net.c:875
+#: ../loader/net.c:897
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -6506,41 +6230,41 @@ msgstr ""
 "ଦ୍ବାରା ବିଭାଜିତ ନେଟମାସ୍କ କିମ୍ବା CIDR ଶୈଳୀରେ ଥିବା ଉପସର୍ଗ ଗୁଡିକ ଗ୍ରହଣୀୟ। ଗେଟ-ୱେ ଏବଂ ନାମ "
 "ସେବକ କ୍ଷେତ୍ର ଗୁଡିକ ବୈଧ IPv4 କିମ୍ବା IPv6 ଠିକଣା ହୋଇଥିବା ଉଚିତ।"
 
-#: ../loader/net.c:895
+#: ../loader/net.c:917
 msgid "Manual TCP/IP Configuration"
 msgstr "ହସ୍ତକୃତ TCP/IP ବିନ୍ଯାସ"
 
-#: ../loader/net.c:1009 ../loader/net.c:1015
+#: ../loader/net.c:1040 ../loader/net.c:1047
 msgid "Missing Information"
 msgstr "ଅନୁପସ୍ଥିତ ସୂଚନା"
 
-#: ../loader/net.c:1010
+#: ../loader/net.c:1041
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "ଆପଣ ଉଭୟ ଗୋଟିଏ ବୈଧ IPv4 ଠିକଣା ଏବଂ ଗୋଟିଏ ନେଟମାସ୍କ କିମ୍ବା CIDR ଉପସର୍ଗକୁ ଭରଣ କରିବା ଉଚିତ।"
 
-#: ../loader/net.c:1016
+#: ../loader/net.c:1048
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "ଆପଣ ଉଭୟ ଗୋଟିଏ ବୈଧ IPv6 ଠିକଣା ଏବଂ ଗୋଟିଏ CIDR ଉପସର୍ଗକୁ ଭରଣ କରିବା ଉଚିତ।"
 
-#: ../loader/net.c:1331
+#: ../loader/net.c:1415
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "ନେଟୱାର୍କ ନିର୍ଦ୍ଦେଶ %s କୁ କିକ-ଷ୍ଟାର୍ଟ କରିବା ପାଇଁ ଖରାପ ସ୍ବତନ୍ତ୍ରଚର: %s"
 
-#: ../loader/net.c:1354
+#: ../loader/net.c:1438
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "ନେଟୱାର୍କ ନିର୍ଦ୍ଦେଶରେ ଖରାପ ବୁଟପ୍ରୋଟୋ %s କୁ ଉଲ୍ଲେକ କରାଯାଇଛି"
 
-#: ../loader/net.c:1423
+#: ../loader/net.c:1509
 msgid "Seconds:"
 msgstr "ସେକଣ୍ଡ:"
 
-#: ../loader/net.c:1537
+#: ../loader/net.c:1623
 msgid "Networking Device"
 msgstr "ନେଟୱାର୍କିଙ୍ଗ ଉପକରଣ"
 
-#: ../loader/net.c:1538
+#: ../loader/net.c:1624
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6548,76 +6272,72 @@ msgstr ""
 "ଆପଣଙ୍କ ପାଖରେ ଏହି ତନ୍ତ୍ରରେ ଏକାଧିକ ନେଟୱାର୍କ ଉପକରଣ ଅଛି। ଆପଣ କାହାକୁ ସ୍ଥାପନ କରିବା ପାଇଁ "
 "ଚାହୁଁଛନ୍ତି?"
 
-#: ../loader/net.c:1542
+#: ../loader/net.c:1628
 msgid "Identify"
 msgstr "ଚିହ୍ନନ୍ତୁ"
 
-#: ../loader/net.c:1551
+#: ../loader/net.c:1637
 msgid "You can identify the physical port for"
 msgstr "ପାଇଁ ଆପଣ ଭୌତିକ ସଂଯୋଗିକୀକୁ ଚିହ୍ନିପାରିବେ"
 
-#: ../loader/net.c:1553
+#: ../loader/net.c:1639
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
-"କିଛି ସେକଣ୍ଡ ପାଇଁ LED ଆଲୋକକୁ ଉଜ୍ଜଳିତ କରିବା ଦ୍ୱାରା.  LED ସଂଯୋଗିକୀ ଆଲୋକର "
-"ଝଲକ ସମୟ ସେଟକରିବା ପାଇଁ 1 ରୁ 30 ମଧ୍ଯରୁ କୌଣସି ଏକ ସଂଖ୍ୟା ଭରଣ କରନ୍ତୁ "
+"କିଛି ସେକଣ୍ଡ ପାଇଁ LED ଆଲୋକକୁ ଉଜ୍ଜଳିତ କରିବା ଦ୍ୱାରା.  LED ସଂଯୋଗିକୀ ଆଲୋକର ଝଲକ ସମୟ ସେଟକରିବା "
+"ପାଇଁ 1 ରୁ 30 ମଧ୍ଯରୁ କୌଣସି ଏକ ସଂଖ୍ୟା ଭରଣ କରନ୍ତୁ "
 
-#: ../loader/net.c:1563
+#: ../loader/net.c:1649
 msgid "Identify NIC"
 msgstr "NIC କୁ ଚିହ୍ନନ୍ତୁ"
 
-#: ../loader/net.c:1576
+#: ../loader/net.c:1662
 msgid "Invalid Duration"
 msgstr "ଅବୈଧ ଅବଧି"
 
-#: ../loader/net.c:1577
+#: ../loader/net.c:1663
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "1 ଏବଂ 30 ମଧ୍ଯରେ ଥିବା ପୂର୍ଣ୍ଣସଂଖ୍ୟାକୁ ସେକଣ୍ଡ ଆକାରରେ ଆପଣଙ୍କୁ ଭରଣ କରିବା ଉଚିତ."
 
-#: ../loader/net.c:1589
+#: ../loader/net.c:1675
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
 msgstr "%s ସଂଯୋଗିକୀ ଆଲୋକକୁ %d ସେକଣ୍ଡ ପାଇଁ ଉଜ୍ଜଳିତ କରୁଅଛି..."
 
-#: ../loader/net.c:1740 ../loader/net.c:1744
+#: ../loader/net.c:1841 ../loader/net.c:1845
 #, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
 msgstr "%sକୁ ବିନ୍ୟାସ କରିବା ପାଇଁ ନେଟୱର୍କ ପରିଚାଳକଙ୍କୁ ଅପେକ୍ଷା କରୁଅଛି...\n"
 
-#: ../loader/nfsinstall.c:63
+#: ../loader/nfsinstall.c:64
 msgid "NFS server name:"
 msgstr "NFS ସେବକ ନାମ:"
 
-#: ../loader/nfsinstall.c:67
+#: ../loader/nfsinstall.c:68
 #, c-format
 msgid "%s directory:"
 msgstr "%s ଡିରେକ୍ଟୋରି:"
 
-#: ../loader/nfsinstall.c:78
+#: ../loader/nfsinstall.c:79
 #, c-format
 msgid "Please enter the server name and path to your %s installation image."
 msgstr "ଆପଣଙ୍କର %s ସ୍ଥାପନ ପ୍ରତିଛବିରେ ଦୟାକରି ସର୍ଭର ନାମ ଏବଂ ପଥ ଭରଣ କରନ୍ତୁ."
 
-#: ../loader/nfsinstall.c:85
+#: ../loader/nfsinstall.c:86
 msgid "NFS Setup"
 msgstr "NFS ବ୍ଯବସ୍ଥା"
 
-#: ../loader/nfsinstall.c:190
-msgid "Hostname specified with no DNS configured"
-msgstr "ଉଲ୍ଲେଖିତ ଆଧାର ନାମ କୌଣସି DNS ଦ୍ବାରା ବିନ୍ଯସ୍ତ ହୋଇନାହିଁ"
-
-#: ../loader/nfsinstall.c:251
+#: ../loader/nfsinstall.c:245
 msgid "That directory could not be mounted from the server."
 msgstr "ଡିରେକ୍ଟୋରିକୁ ସେବକରୁ ଆହରଣ କରି ପାରିଲା ନାହିଁ।"
 
-#: ../loader/nfsinstall.c:262
+#: ../loader/nfsinstall.c:256
 #, c-format
 msgid "That directory does not seem to contain a %s installation image."
 msgstr "ସେହି ଡିରେକ୍ଟୋରିଟି %s ସ୍ଥାପନ ପ୍ରତିଛବି ଧାରଣ କରିଥିବା ପରି ଜଣାପଡୁ ନାହିଁ."
 
-#: ../loader/nfsinstall.c:338
+#: ../loader/nfsinstall.c:332
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "ଏନ.ଏଫ.ଏସ. କିକ-ଷ୍ଟାର୍ଟ ପଦ୍ଧତି ନିର୍ଦ୍ଦେଶ %s ପାଇଁ ଖରାପ ସ୍ବତନ୍ତ୍ରଚର: %s"
@@ -6643,16 +6363,16 @@ msgstr "%s କୁ ପୁନରୁଦ୍ଧାର କରିବାରେ ଅସମ
 msgid "Unable to retrieve the install image."
 msgstr "ସ୍ଥାପନ ପ୍ରତିବମ୍ବ କୁ ପୁନରୁଦ୍ଧାର କରିବାରେ ଅସମର୍ଥ।"
 
-#: ../loader/urlinstall.c:422
+#: ../loader/urlinstall.c:424
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "%s Url କିକଷ୍ଟାର୍ଟ ପ୍ରଣାଳୀ ର ସନ୍ଦେଶ ପାଇଁ ଖରାପ ସ୍ବତନ୍ତ୍ରଚର: %s"
 
-#: ../loader/urlinstall.c:431
+#: ../loader/urlinstall.c:433
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Url କିକଷ୍ଟାର୍ଟ ପ୍ରଣାଳୀ କୁ ଗୋଟିଏ --url ସ୍ବତନ୍ତ୍ରଚର କୁ ଯୋଗାଇବା ଉଚିତ।"
 
-#: ../loader/urlinstall.c:440
+#: ../loader/urlinstall.c:442
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "ଅଜଣା Url ପ୍ରଣାଳୀ %s"
@@ -6695,6 +6415,39 @@ msgstr "SCSI ଡ୍ରାଇଭରକୁ ଧାରଣ କରୁଅଛି"
 #, c-format
 msgid "Loading %s driver..."
 msgstr "%s ଚାଳକ କୁ ଧାରଣ କରୁଅଛି..."
+
+#: tmp/GroupSelector.glade.h:1
+msgid ""
+"Some packages associated with this group are not required to be installed "
+"but may provide additional functionality.  Please choose the packages which "
+"you would like to have installed."
+msgstr ""
+"ଏହି ସମୁହ ସହିତ ନିହିତ କିଛି ପ୍ୟାକେଜଗୁଡିକ ସ୍ଥାପନ କରିବା ଆବଶ୍ୟକ ନାହିଁ କିନ୍ତୁ ଅତିରିକ୍ତ କାର୍ଯ୍ୟକାରିତା ପ୍ରଦାନ "
+"କରିପାରେ।  ଦୟାକରି ଆପଣ ସ୍ଥାପନ କରିବାପାଇଁ ଇଚ୍ଛାକରୁଥିବା ପ୍ୟାକେଜଗୁଡିକୁ ଚୟନ କରନ୍ତୁ।"
+
+#: tmp/GroupSelector.glade.h:2
+msgid "_Deselect"
+msgstr "ନାପସନ୍ଦ କରନ୍ତୁ (_D)"
+
+#: tmp/GroupSelector.glade.h:3
+msgid "_Deselect all optional packages"
+msgstr "ସମସ୍ତ ଇଚ୍ଛାଧୀନ ପ୍ଯାକେଜ ମାନଙ୍କୁ ନାପସନ୍ଦ କରନ୍ତୁ (_D)"
+
+#: tmp/GroupSelector.glade.h:4
+msgid "_Optional packages"
+msgstr "ଇଚ୍ଛାଧୀନ ପ୍ୟାକେଜଗୁଡ଼ିକ (_O)"
+
+#: tmp/GroupSelector.glade.h:5
+msgid "_Select"
+msgstr "ଚୟନ କରନ୍ତୁ (_S)"
+
+#: tmp/GroupSelector.glade.h:6
+msgid "_Select all optional packages"
+msgstr "ସମସ୍ତ ଇଚ୍ଛାଧୀନ ପ୍ୟାକେଜଗୁଡ଼ିକୁ ଚୟନ କରନ୍ତୁ (_S)"
+
+#: tmp/GroupSelector.glade.h:7
+msgid "dialog1"
+msgstr "ସଂଳାପ1"
 
 #: tmp/account.glade.h:2
 msgid "Root Password:"
@@ -6900,65 +6653,33 @@ msgstr "ଲକ୍ଷ୍ୟ ସ୍ଥଳ ଫାଇଲ (_f)"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
+"Local storage device\n"
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"ସ୍ଥାନୀୟ ସଂରକ୍ଷଣ ଉପକରଣ\n"
 "ସ୍ଥାନୀୟ ଡିସ୍କ\n"
 "ସୁଦୂର ସର୍ଭର (scp)"
 
-#: tmp/exnSave.glade.h:5
+#: tmp/exnSave.glade.h:6
 msgid "Please choose a destination for saving your traceback."
 msgstr "ଆପଣଙ୍କର ପଛଖୋଜାକୁ ସଂରକ୍ଷଣ କରିବା ପାଇଁ ଦୟାକରି ଗୋଟିଏ ଲକ୍ଷ୍ଯସ୍ଥଳ ଚୟନକରନ୍ତୁ"
 
-#: tmp/exnSave.glade.h:7
+#: tmp/exnSave.glade.h:8
 msgid "Select A File"
 msgstr "ଗୋଟିଏ ଫାଇଲ ଚୟନ କରନ୍ତୁ"
 
-#: tmp/exnSave.glade.h:8
+#: tmp/exnSave.glade.h:9
 msgid "_Host (host:port)"
 msgstr "ଆଧାର (ଆଧାର:ସଂଯୋଗିକୀ) (_H)"
 
-#: tmp/exnSave.glade.h:9
+#: tmp/exnSave.glade.h:10
 msgid "_Password"
 msgstr "ପ୍ରବେଶ ସଂକେତ (_P):"
 
-#: tmp/exnSave.glade.h:10
+#: tmp/exnSave.glade.h:11
 msgid "_User name"
 msgstr "ଚାଳକ ନାମ (_U)"
-
-#: tmp/GroupSelector.glade.h:1
-msgid ""
-"Some packages associated with this group are not required to be installed "
-"but may provide additional functionality.  Please choose the packages which "
-"you would like to have installed."
-msgstr ""
-"ଏହି ସମୁହ ସହିତ ନିହିତ କିଛି ପ୍ୟାକେଜଗୁଡିକ ସ୍ଥାପନ କରିବା ଆବଶ୍ୟକ ନାହିଁ କିନ୍ତୁ "
-"ଅତିରିକ୍ତ କାର୍ଯ୍ୟକାରିତା ପ୍ରଦାନ କରିପାରେ।  ଦୟାକରି ଆପଣ ସ୍ଥାପନ କରିବାପାଇଁ "
-"ଇଚ୍ଛାକରୁଥିବା ପ୍ୟାକେଜଗୁଡିକୁ ଚୟନ କରନ୍ତୁ।"
-
-#: tmp/GroupSelector.glade.h:2
-msgid "_Deselect"
-msgstr "ନାପସନ୍ଦ କରନ୍ତୁ (_D)"
-
-#: tmp/GroupSelector.glade.h:3
-msgid "_Deselect all optional packages"
-msgstr "ସମସ୍ତ ଇଚ୍ଛାଧୀନ ପ୍ଯାକେଜ ମାନଙ୍କୁ ନାପସନ୍ଦ କରନ୍ତୁ (_D)"
-
-#: tmp/GroupSelector.glade.h:4
-msgid "_Optional packages"
-msgstr "ଇଚ୍ଛାଧୀନ ପ୍ୟାକେଜଗୁଡ଼ିକ (_O)"
-
-#: tmp/GroupSelector.glade.h:5
-msgid "_Select"
-msgstr "ଚୟନ କରନ୍ତୁ (_S)"
-
-#: tmp/GroupSelector.glade.h:6
-msgid "_Select all optional packages"
-msgstr "ସମସ୍ତ ଇଚ୍ଛାଧୀନ ପ୍ୟାକେଜଗୁଡ଼ିକୁ ଚୟନ କରନ୍ତୁ (_S)"
-
-#: tmp/GroupSelector.glade.h:7
-msgid "dialog1"
-msgstr "ସଂଳାପ1"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -6971,22 +6692,30 @@ msgid "Please enter your %(instkey)s."
 msgstr "ଦୟାକରି ଆପଣଙ୍କ %(instkey)s କୁ ଭରଣ କରନ୍ତୁ।"
 
 #: tmp/iscsi-config.glade.h:1
-msgid "<b>_Password:</b>"
-msgstr "<b>ପ୍ରବେଶ ସଙ୍କେତ (_P):</b>"
+msgid "<b>CHAP _Password:</b>"
+msgstr "<b>CHAP ପ୍ରବେଶ ସଙ୍କେତ (_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
+msgid "<b>CHAP _Username:</b>"
+msgstr "<b>CHAP ଚାଳକ ନାମ (_U):</b>"
+
+#: tmp/iscsi-config.glade.h:3
+msgid "<b>Reverse CHAP P_assword:</b>"
+msgstr "<b>ଓଲଟା CHAP ପ୍ରବେଶ ସଙ୍କେତ (_a):</b>"
+
+#: tmp/iscsi-config.glade.h:4
+msgid "<b>Reverse CHAP U_sername:</b>"
+msgstr "<b>ଓଲଟା CHAP ଚାଳକ ନାମ (_s):</b>"
+
+#: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>ଲକ୍ଷସ୍ଥ ଆଇ.ପି. ଠିକଣା (_T):</b>"
 
-#: tmp/iscsi-config.glade.h:3
-msgid "<b>_Username:</b>"
-msgstr "<b>ଚାଳକ ନାମ (_U):</b>"
-
-#: tmp/iscsi-config.glade.h:4
+#: tmp/iscsi-config.glade.h:6
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI ପ୍ରାରମ୍ଭକଙ୍କ ନାମ (_N):</b>"
 
-#: tmp/iscsi-config.glade.h:7
+#: tmp/iscsi-config.glade.h:9
 msgid "_Add target"
 msgstr "ଲକ୍ଷ୍ଯ ଯୋଗ କରନ୍ତୁ (_A)"
 
@@ -7004,21 +6733,29 @@ msgstr "ହାର୍ଡ ଡ୍ରାଇଭରେ ସ୍ଥାପନ କରନ୍
 
 #: tmp/lukspassphrase.glade.h:1
 msgid ""
+"Also add this passphrase to all existing encrypted devices to streamline the "
+"boot process"
+msgstr ""
+"ବୁଟ ପ୍ରଣାଳୀକୁ ସରଳ କରିବା ପାଇଁ ସମସ୍ତ ସ୍ଥିତବାନ ସଂଗୁପ୍ତ ଉପକରଣଗୁଡ଼ିକ ପାଇଁ ଏହି "
+"ପ୍ରବେଶ ସଂକେତକୁ ଯୋଗକରନ୍ତୁ"
+
+#: tmp/lukspassphrase.glade.h:2
+msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
-"ଏହି ସଂଗୁପ୍ତ ବିଭାଜନ ପାଇଁ ଗୋଟିଏ ପ୍ରବେଶ ସଂକେତ ଚୟନ କରନ୍ତୁ। "
-"ତନ୍ତ୍ର ବୁଟ ସମୟରେ ଆପଣଙ୍କୁ ସେହି ପ୍ରବେଶ ସଂକେତ ପଚରାଯିବ।"
+"ଏହି ସଂଗୁପ୍ତ ବିଭାଜନ ପାଇଁ ଗୋଟିଏ ପ୍ରବେଶ ସଂକେତ ଚୟନ କରନ୍ତୁ। ତନ୍ତ୍ର ବୁଟ ସମୟରେ ଆପଣଙ୍କୁ ସେହି ପ୍ରବେଶ "
+"ସଂକେତ ପଚରାଯିବ।"
 
-#: tmp/lukspassphrase.glade.h:2
+#: tmp/lukspassphrase.glade.h:3
 msgid "Confirm passphrase:"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତକୁ ନିଶ୍ଚିତ କରନ୍ତୁ:"
 
-#: tmp/lukspassphrase.glade.h:3
+#: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase for encrypted partition"
 msgstr "ସଂଗୁପ୍ତ ବିଭାଜନ ପାଇଁ ପ୍ରବେଶ ସଙ୍କେତ ଭରଣ କରନ୍ତୁ"
 
-#: tmp/lukspassphrase.glade.h:4
+#: tmp/lukspassphrase.glade.h:5
 msgid "Enter passphrase:"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଭରଣ କରନ୍ତୁ:"
 
@@ -7054,29 +6791,15 @@ msgstr "IPv_6 ସହାୟତାକୁ ସକ୍ରିୟ କରନ୍ତୁ"
 msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "ଗତିଶୀଳ ଆଇ.ପି. ବିନ୍ଯାସ (DHCP) କୁ ବ୍ଯବହାର କରନ୍ତୁ"
 
-#: tmp/netpostconfig.glade.h:2
-msgid "<b>Description Goes Here</b>"
-msgstr "<b>ଏଠାରେ ବର୍ଣ୍ଣନା କରାଯାଇଛି</b>"
+#: tmp/network.glade.h:1
+msgid "Hostname:"
+msgstr "ଆଧାର ନାମ:"
 
-#: tmp/netpostconfig.glade.h:3
-msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr "<b>ହାର୍ଡୱେର ଠିକଣା: DE:AD:00:BE:EF:00</b>"
-
-#: tmp/netpostconfig.glade.h:8
-msgid "Edit Interface"
-msgstr "ଅନ୍ତରାପୃଷ୍ଠ ସମ୍ପାଦନ କରନ୍ତୁ"
-
-#: tmp/netpostconfig.glade.h:11
-msgid "Encryption Key:"
-msgstr "ଗୋପନୀୟ ଚାବି:"
-
-#: tmp/netpostconfig.glade.h:13
-msgid "Manual configuration"
-msgstr "ହସ୍ତକୃତ ବିନ୍ଯାସ"
-
-#: tmp/netpostconfig.glade.h:14
-msgid "Point to Point (IP):"
-msgstr "ପଏଣ୍ଟ to ପଏଣ୍ଟ (ଆଇ.ପି.)):"
+#: tmp/network.glade.h:2
+msgid ""
+"Please name this computer.  The hostname identifies the computer on a "
+"network."
+msgstr "ଦୟାକରି ଏହି କମ୍ପୁଟରର ନାମକରଣ କରନ୍ତୁ.  ଆଧାରନାମ ଏହି କମ୍ପୁଟରକୁ ନେଟୱର୍କରେ ଚିହ୍ନିପାରେ."
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
