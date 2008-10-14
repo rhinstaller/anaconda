@@ -28,6 +28,7 @@ import shutil
 import isys
 import iutil
 import socket
+import struct
 import os
 import time
 import minihal
@@ -71,6 +72,41 @@ def sanityCheckHostname(hostname):
 
 # Try to determine what the hostname should be for this system
 def getDefaultHostname(anaconda):
+    isys.resetResolv()
+
+    hn = None
+    bus = dbus.SystemBus()
+    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+    nm_props_iface = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
+
+    active_connections = nm_props_iface.Get(isys.NM_MANAGER_IFACE, "ActiveConnections")
+
+    # XXX: account for Ip6Config objects when NetworkManager supports them
+    for connection in active_connections:
+        active_connection = bus.get_object(isys.NM_SERVICE, connection)
+        active_connection_props_iface = dbus.Interface(active_connection, isys.DBUS_PROPS_IFACE)
+        devices = active_connection_props_iface.Get(isys.NM_MANAGER_IFACE, 'Devices')
+
+        for device_path in devices:
+            device = bus.get_object(isys.NM_SERVICE, device_path)
+            device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
+
+            ip4_config_path = device_props_iface.Get(isys.NM_MANAGER_IFACE, 'Ip4Config')
+            ip4_config_obj = bus.get_object(isys.NM_SERVICE, ip4_config_path)
+            ip4_config_props = dbus.Interface(ip4_config_obj, isys.DBUS_PROPS_IFACE)
+
+            # addresses (3-element list:  ipaddr, netmask, gateway)
+            addrs = ip4_config_props.Get(isys.NM_MANAGER_IFACE, "Addresses")[0]
+            try:
+                tmp = struct.pack('I', addrs[0])
+                ipaddr = socket.inet_ntop(socket.AF_INET, tmp)
+                (hn, aliases, addresses) = socket.gethostbyaddr(ipaddr)
+            except:
+                continue
+
+    if not hn and hn != 'localhost' or hn != 'localhost.localdomain':
+        return hn
+
     hn = anaconda.id.network.hostname
 
     if not hn or hn == '(none)' or hn == 'localhost' or hn == 'localhost.localdomain':
