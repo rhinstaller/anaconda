@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.141
+Version: 11.1.2.142
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,14 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 14 2008 Joel Granados <jgranado@redhat.com> 11.1.2.142-1
+- Add the enic driver (jgranado).
+  Resolves: rhbz:#462387
+- Get the right list elements for the iscsi text interface (clumens).
+  Resolves: rhbz:#466902
+- Fix detection of ext4/ext4dev root partitions in rescue (rvykydal).
+  Resolves: rhbz:#466868
+
 * Mon Oct 13 2008 Joel Granados <jgranado@redhat.com> 11.1.2.141-1
 - Prevent creation of encrypted swraid partitions (dlehman).
   Resolves: rhbz:#456283
