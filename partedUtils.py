@@ -866,6 +866,10 @@ class DiskSet:
                     if part.fs_type:
                         fstype = part.fs_type.name
 
+                    # parted doesn't tell ext4/ext4dev from ext3 for us
+                    if fstype == "ext3": 
+                        fstype = sniffFilesystemType("/dev/%s" % theDev)
+
                     if crypto and not crypto.openDevice():
                         theDev = crypto.getDevice()
                         fstype = sniffFilesystemType("/dev/%s" % theDev)
