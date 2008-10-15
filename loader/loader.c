@@ -417,6 +417,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
             if (rc == 1) {
                 device = strdup(devNames[0]);
                 free(devNames);
+                devNames = NULL;
                 if (dir == -1)
                     return;
 
@@ -435,11 +436,13 @@ void loadUpdates(struct loaderData_s *loaderData) {
 
             if (rc == 2) {
                 free(devNames);
+                devNames = NULL;
                 return;
             }
 
             device = strdup(devNames[num]);
             free(devNames);
+            devNames = NULL;
             stage = UPD_PART;
         }
 
@@ -447,12 +450,15 @@ void loadUpdates(struct loaderData_s *loaderData) {
             char ** part_list = getPartitionsList(device);
             int nump = 0, num = 0;
 
-            if (part != NULL) free(part);
+            if (part != NULL) {
+                free(part);
+                part = NULL;
+            }
 
             if ((nump = lenPartitionsList(part_list)) == 0) {
-                if (dir == -1)
+                if (dir == -1) {
                     stage = UPD_DEVICE;
-                else {
+                } else {
                     if (asprintf(&part, "/dev/%s", device) == -1) {
                         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                         abort();
@@ -492,6 +498,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
 
             rc = newtWinChoice(_("Updates Disk"), _("OK"), _("Back"), buf);
             free(buf);
+            buf = NULL;
 
             if (rc == 2) {
                 stage = UPD_PART;

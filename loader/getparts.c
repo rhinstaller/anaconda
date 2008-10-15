@@ -166,11 +166,15 @@ void freePartitionsList(char **list) {
     char **part;
 
     if (!list)
-	return;
+        return;
 
-    for (part = list; *part; part++)
-	if (*part)
-	    free(*part);
+    for (part = list; *part; part++) {
+	if (*part) {
+            free(*part);
+            *part = NULL;
+        }
+    }
 
     free(list);
+    list = NULL;
 }
