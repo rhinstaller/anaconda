@@ -397,8 +397,8 @@ int readNetConfig(char * device, iface_t * iface,
 
         err = writeEnabledNetInfo(iface);
         if (err) {
-            logMessage(ERROR, "failed to write /etc/sysconfig data for %s (%d)",
-                       iface->device, err);
+            logMessage(ERROR, "failed to write %s data for %s (%d)",
+                       SYSCONFIG_PATH, iface->device, err);
             return LOADER_BACK;
         }
 
@@ -451,8 +451,8 @@ int readNetConfig(char * device, iface_t * iface,
     if (!FL_TESTING(flags)) {
         err = writeEnabledNetInfo(iface);
         if (err) {
-            logMessage(ERROR, "failed to write /etc/sysconfig data for %s (%d)",
-                       iface->device, err);
+            logMessage(ERROR, "failed to write %s data for %s (%d)",
+                       SYSCONFIG_PATH, iface->device, err);
             return LOADER_BACK;
         }
 
@@ -1064,6 +1064,7 @@ int manualNetConfig(char * device, iface_t * iface,
 int writeDisabledNetInfo(void) {
     int i = 0;
     char *ofile = NULL;
+    char *nfile = NULL;
     FILE *fp = NULL;
     struct device **devs = NULL;
 
@@ -1074,7 +1075,15 @@ int writeDisabledNetInfo(void) {
     }
 
     for (i = 0; devs[i]; i++) {
-        if (asprintf(&ofile, "/etc/sysconfig/network-scripts/ifcfg-%s",
+        if (asprintf(&ofile, "%s/.ifcfg-%s",
+                     NETWORK_SCRIPTS_PATH,
+                     devs[i]->device) == -1) {
+            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+            abort();
+        }
+
+        if (asprintf(&nfile, "%s/ifcfg-%s",
+                     NETWORK_SCRIPTS_PATH,
                      devs[i]->device) == -1) {
             logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
             abort();
@@ -1090,12 +1099,24 @@ int writeDisabledNetInfo(void) {
         fprintf(fp, "ONBOOT=no\n");
         fprintf(fp, "NM_CONTROLLED=no\n");
 
-        if (ofile) {
-            free(ofile);
-        }
-
         if (fclose(fp) == EOF) {
             return 3;
+        }
+
+        if (rename(ofile, nfile) == -1) {
+            free(ofile);
+            free(nfile);
+            return 4;
+        }
+
+        if (ofile) {
+            free(ofile);
+            ofile = NULL;
+        }
+
+        if (nfile) {
+            free(nfile);
+            nfile = NULL;
         }
     }
 
@@ -1117,16 +1138,17 @@ int writeEnabledNetInfo(iface_t *iface) {
 
     memset(&buf, '\0', sizeof(buf));
 
-    if ((mkdir("/.tmp", mode) == -1) && (errno != EEXIST)) {
+    if ((mkdir(NETWORK_SCRIPTS_PATH, mode) == -1) && (errno != EEXIST)) {
         return 16;
     }
 
-    if (asprintf(&ofile, "/.tmp/ifcfg-%s", iface->device) == -1) {
+    if (asprintf(&ofile, "%s/.ifcfg-%s",
+                 NETWORK_SCRIPTS_PATH, iface->device) == -1) {
         return 1;
     }
 
-    if (asprintf(&nfile, "/etc/sysconfig/network-scripts/ifcfg-%s",
-                 iface->device) == -1) {
+    if (asprintf(&nfile, "%s/ifcfg-%s",
+                 NETWORK_SCRIPTS_PATH, iface->device) == -1) {
         return 13;
     }
 
@@ -1297,7 +1319,7 @@ int writeEnabledNetInfo(iface_t *iface) {
     }
 
     /* Global settings */
-    if ((fp = fopen("/.tmp/network", "w")) == NULL) {
+    if ((fp = fopen(SYSCONFIG_PATH"/.network", "w")) == NULL) {
         return 9;
     }
 
@@ -1341,7 +1363,8 @@ int writeEnabledNetInfo(iface_t *iface) {
         return 12;
     }
 
-    if (rename("/.tmp/network", "/etc/sysconfig/network") == -1) {
+    if (rename(SYSCONFIG_PATH"/.network",
+               SYSCONFIG_PATH"/network") == -1) {
         return 15;
     }
 
@@ -1740,8 +1763,8 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
             err = writeEnabledNetInfo(iface);
             if (err) {
                 logMessage(ERROR,
-                           "failed to write /etc/sysconfig data for %s (%d)",
-                           iface->device, err);
+                           "failed to write %s data for %s (%d)",
+                           SYSCONFIG_PATH, iface->device, err);
                 return -1;
             }
 

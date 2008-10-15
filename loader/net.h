@@ -31,6 +31,9 @@
 #define AUTO_METHOD_STR   _("Automatic neighbor discovery")
 #endif
 
+#define SYSCONFIG_PATH       "/etc/sysconfig"
+#define NETWORK_SCRIPTS_PATH "/etc/sysconfig/network-scripts"
+
 struct intfconfig_s {
     newtComponent ipv4Entry, cidr4Entry;
     newtComponent gwEntry, nsEntry;
