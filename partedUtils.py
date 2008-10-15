@@ -1160,11 +1160,11 @@ class DiskSet:
                 # FIXME: need the right fix for z/VM formatted dasd
                 if rhpl.getArch() == "s390" and drive[:4] == "dasd" and \
                    not self.isDisciplineFBA(drive):
-                    dev = parted.PedDevice.get(deviceFile)
-                    disk = parted.PedDisk.new(dev)
-
                     if self.dasdFmt(drive):
                         raise LabelError, drive
+
+                    dev = parted.PedDevice.get(deviceFile)
+                    disk = parted.PedDisk.new(dev)
                 else:
                     disk = labelDisk(deviceFile)
             except parted.error, msg:
