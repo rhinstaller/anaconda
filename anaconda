@@ -824,7 +824,7 @@ if __name__ == "__main__":
     if opts.display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
         try:
             xout = open("/dev/tty5", "w")
-            proc = subprocess.Popen(["Xorg", "-br", "-logfile", "/tmp/X.log", ":1", "vt6", "-s", "1440", "-ac", "-nolisten", "tcp"], close_fds=True, stdout=xout, stderr=xout)
+            proc = subprocess.Popen(["Xorg", "-br", "-logfile", "/tmp/X.log", ":1", "vt6", "-s", "1440", "-ac", "-nolisten", "tcp", "-dpi", "96"], close_fds=True, stdout=xout, stderr=xout)
             time.sleep(5)
             if proc.poll() is not None:
                 raise OSError
