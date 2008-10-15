@@ -100,11 +100,16 @@ def getDefaultHostname(anaconda):
             try:
                 tmp = struct.pack('I', addrs[0])
                 ipaddr = socket.inet_ntop(socket.AF_INET, tmp)
-                (hn, aliases, addresses) = socket.gethostbyaddr(ipaddr)
+                hinfo = socket.gethostbyaddr(ipaddr)
+
+                if len(hinfo) == 3:
+                    hn = hinfo[0]
+                else:
+                    continue
             except:
                 continue
 
-    if not hn and hn != 'localhost' or hn != 'localhost.localdomain':
+    if hn and hn != 'localhost' and hn != 'localhost.localdomain':
         return hn
 
     hn = anaconda.id.network.hostname
@@ -112,7 +117,7 @@ def getDefaultHostname(anaconda):
     if not hn or hn == '(none)' or hn == 'localhost' or hn == 'localhost.localdomain':
         hn = socket.gethostname()
 
-    if hn == '(none)' or hn == 'localhost':
+    if not hn or hn == '(none)' or hn == 'localhost':
         hn = 'localhost.localdomain'
 
     return hn
