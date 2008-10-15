@@ -1,14 +1,15 @@
 # Swedish translation of anaconda.
 # Copyright © 2006, 2008 Free Software Foundation
-# Magnus Larsson <fedoratrans@gmail.com>, 2007.
+# Magnus Larsson <fedoratrans@gmail.com>, 2007, 2008.
 # Göran Uddeborg <goeran@uddeborg.se>, 2008.
+#
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-25 21:14+0200\n"
+"POT-Creation-Date: 2008-10-13 10:57-0400\n"
+"PO-Revision-Date: 2008-10-15 12:05-0400\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -16,18 +17,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../anaconda:288 ../anaconda:334
+#: ../anaconda:262 ../anaconda:308
 #, c-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Fel när %%ksappend-rader bearbetades: %s"
 
-#: ../anaconda:291 ../anaconda:337
+#: ../anaconda:265 ../anaconda:311
 #, c-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Okänt fel vid bearbetning av %%ksappend-rader: %s"
 
-#: ../anaconda:305 ../anaconda:349 ../cmdline.py:85 ../gui.py:1279
-#: ../text.py:561
+#: ../anaconda:279 ../anaconda:323 ../cmdline.py:85 ../gui.py:1280
+#: ../text.py:551
 #, c-format, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -38,17 +39,14 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../anaconda:471
+#: ../anaconda:445
 msgid "Press <enter> for a shell"
 msgstr "Tryck <retur> för ett skal"
 
-#: ../anaconda:486 ../gui.py:236 ../rescue.py:265 ../rescue.py:346
-#: ../rescue.py:376 ../rescue.py:389 ../rescue.py:468 ../rescue.py:477
-#: ../text.py:589 ../text.py:746 ../textw/constants_text.py:44
-#: ../textw/network_text.py:46 ../textw/network_text.py:56
-#: ../textw/network_text.py:78 ../textw/network_text.py:84
-#: ../textw/network_text.py:232 ../textw/network_text.py:819
-#: ../textw/network_text.py:827 ../loader/cdinstall.c:219
+#: ../anaconda:460 ../gui.py:236 ../rescue.py:276 ../rescue.py:306
+#: ../rescue.py:319 ../rescue.py:398 ../rescue.py:407 ../text.py:579
+#: ../text.py:736 ../textw/constants_text.py:44 ../textw/network_text.py:77
+#: ../textw/network_text.py:86 ../loader/cdinstall.c:219
 #: ../loader/cdinstall.c:223 ../loader/cdinstall.c:239
 #: ../loader/cdinstall.c:242 ../loader/cdinstall.c:431
 #: ../loader/cdinstall.c:438 ../loader/cdinstall.c:503
@@ -67,23 +65,23 @@ msgstr "Tryck <retur> för ett skal"
 #: ../loader/kickstart.c:375 ../loader/kickstart.c:532 ../loader/lang.c:115
 #: ../loader/lang.c:378 ../loader/loader.c:399 ../loader/loader.c:434
 #: ../loader/loader.c:472 ../loader/loader.c:493 ../loader/loader.c:509
-#: ../loader/loader.c:546 ../loader/loader.c:1178 ../loader/loader.c:1361
+#: ../loader/loader.c:546 ../loader/loader.c:1182 ../loader/loader.c:1365
 #: ../loader/mediacheck.c:62 ../loader/mediacheck.c:101
 #: ../loader/mediacheck.c:108 ../loader/mediacheck.c:117
 #: ../loader/method.c:280 ../loader/method.c:354 ../loader/modules.c:335
-#: ../loader/modules.c:347 ../loader/net.c:514 ../loader/net.c:869
-#: ../loader/net.c:1330 ../loader/net.c:1353 ../loader/net.c:1542
-#: ../loader/net.c:1564 ../loader/net.c:1576 ../loader/nfsinstall.c:86
-#: ../loader/nfsinstall.c:189 ../loader/nfsinstall.c:250
-#: ../loader/nfsinstall.c:269 ../loader/nfsinstall.c:337
-#: ../loader/telnetd.c:92 ../loader/urlinstall.c:83 ../loader/urlinstall.c:107
-#: ../loader/urlinstall.c:175 ../loader/urlinstall.c:421
-#: ../loader/urlinstall.c:430 ../loader/urlinstall.c:439 ../loader/urls.c:292
-#: ../loader/urls.c:328 ../loader/urls.c:334 ../loader/urls.c:346
+#: ../loader/modules.c:347 ../loader/net.c:515 ../loader/net.c:891
+#: ../loader/net.c:1414 ../loader/net.c:1437 ../loader/net.c:1628
+#: ../loader/net.c:1650 ../loader/net.c:1662 ../loader/nfsinstall.c:87
+#: ../loader/nfsinstall.c:244 ../loader/nfsinstall.c:263
+#: ../loader/nfsinstall.c:331 ../loader/telnetd.c:92 ../loader/urlinstall.c:83
+#: ../loader/urlinstall.c:107 ../loader/urlinstall.c:175
+#: ../loader/urlinstall.c:423 ../loader/urlinstall.c:432
+#: ../loader/urlinstall.c:441 ../loader/urls.c:292 ../loader/urls.c:328
+#: ../loader/urls.c:334 ../loader/urls.c:346
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:493
+#: ../anaconda:467
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -91,29 +89,31 @@ msgstr ""
 "Du har inte tillräckligt med minne för att använda det grafiska "
 "installationsprogrammet. Startar textläge."
 
-#: ../anaconda:544
+#: ../anaconda:518
 msgid "Starting graphical installation..."
 msgstr "Startar grafisk installation..."
 
-#: ../anaconda:821
+#: ../anaconda:764
 msgid "Would you like to use VNC?"
 msgstr "Skulle du vilja använda VNC?"
 
-#: ../anaconda:822
+#: ../anaconda:765
 msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
-msgstr "Installation i VNC-läge erbjuder mer funktionalitet än textläget, vill du använde det istället?"
+msgstr ""
+"Installation i VNC-läge erbjuder mer funktionalitet än textläget, vill du "
+"använde det istället?"
 
-#: ../anaconda:847
+#: ../anaconda:790
 msgid "Install class forcing text mode installation"
 msgstr "Installationsklassen påtvingar textlägesinstallation"
 
-#: ../anaconda:866
+#: ../anaconda:809
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafisk installation är inte tillgänglig... Startar textläge."
 
-#: ../anaconda:874
+#: ../anaconda:817
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "DISPLAY-variabeln är inte satt. Startar textläge!"
 
@@ -270,11 +270,11 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att avsluta installationsprogrammet."
 
-#: ../autopart.py:1525 ../autopart.py:1572
+#: ../autopart.py:1524 ../autopart.py:1571
 msgid "Automatic Partitioning Errors"
 msgstr "Fel vid automatisk partitionering"
 
-#: ../autopart.py:1526
+#: ../autopart.py:1525
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -289,11 +289,11 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att avsluta installationsprogrammet."
 
-#: ../autopart.py:1536
+#: ../autopart.py:1535
 msgid "Warnings During Automatic Partitioning"
 msgstr "Varningar under automatisk partitionering"
 
-#: ../autopart.py:1537
+#: ../autopart.py:1536
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -304,7 +304,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1551 ../autopart.py:1568
+#: ../autopart.py:1550 ../autopart.py:1567
 msgid ""
 "\n"
 "\n"
@@ -314,12 +314,12 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att avsluta installationsprogrammet."
 
-#: ../autopart.py:1552 ../iw/partition_gui.py:1027
+#: ../autopart.py:1551 ../iw/partition_gui.py:1027
 #: ../textw/partition_text.py:247
 msgid "Error Partitioning"
 msgstr "Fel vid partitionering"
 
-#: ../autopart.py:1553
+#: ../autopart.py:1552
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -330,7 +330,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1570
+#: ../autopart.py:1569
 msgid ""
 "\n"
 "\n"
@@ -340,7 +340,7 @@ msgstr ""
 "\n"
 "Tryck 'OK' för att välja en annan partitioneringsalternativ."
 
-#: ../autopart.py:1573
+#: ../autopart.py:1572
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -357,15 +357,15 @@ msgstr ""
 "Detta kan inträffa om det inte finns tillräckligt med utrymme på din(a) "
 "hårddisk(ar) för installationen. %s"
 
-#: ../autopart.py:1584
+#: ../autopart.py:1583
 msgid "Unrecoverable Error"
 msgstr "Olösligt fel"
 
-#: ../autopart.py:1585
+#: ../autopart.py:1584
 msgid "Your system will now be rebooted."
 msgstr "Ditt system kommer nu att startas om."
 
-#: ../autopart.py:1709
+#: ../autopart.py:1707
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -382,7 +382,7 @@ msgstr ""
 "partitioner i en interaktiv miljö. Du kan ange filsystemstyper, "
 "monteringspunkter, storlek med mera."
 
-#: ../autopart.py:1720
+#: ../autopart.py:1718
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -390,37 +390,37 @@ msgstr ""
 "Innan installationsprogrammet kan genomföra automatisk partitionering måste "
 "du välja hur utrymmet på dina hårddiskar ska användas."
 
-#: ../autopart.py:1725
+#: ../autopart.py:1723
 msgid "Remove all partitions on this system"
 msgstr "Ta bort alla partitioner på detta system"
 
-#: ../autopart.py:1726
+#: ../autopart.py:1724
 msgid "Remove all Linux partitions on this system"
 msgstr "Ta bort alla Linuxpartitioner på detta system"
 
-#: ../autopart.py:1727
+#: ../autopart.py:1725
 msgid "Keep all partitions and use existing free space"
 msgstr "Behåll alla partitioner och använd befintligt ledigt utrymme"
 
-#: ../backend.py:129
+#: ../backend.py:130
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Uppgraderar %s\n"
 
-#: ../backend.py:131
+#: ../backend.py:132
 #, python-format
 msgid "Installing %s\n"
 msgstr "Installerar %s\n"
 
-#: ../backend.py:150
+#: ../backend.py:151
 msgid "Copying File"
 msgstr "Kopierar fil"
 
-#: ../backend.py:151
+#: ../backend.py:152
 msgid "Transferring install image to hard drive..."
 msgstr "Överför installationsavbilden till hårddisken..."
 
-#: ../backend.py:161
+#: ../backend.py:162
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is probably due to bad media."
@@ -428,7 +428,7 @@ msgstr ""
 "Ett fel inträffade när installationsavbilden överfördes till din hårddisk.  "
 "Detta beror troligen på ett dåligt medium."
 
-#: ../backend.py:165
+#: ../backend.py:166
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -436,18 +436,18 @@ msgstr ""
 "Ett fel inträffade vid överföringen av installationsavbilden till din "
 "hårddisk. Du har troligtvis slut på diskutrymme."
 
-#: ../backend.py:169 ../fsset.py:670 ../fsset.py:1683 ../fsset.py:1714
+#: ../backend.py:170 ../fsset.py:670 ../fsset.py:1683 ../fsset.py:1714
 #: ../fsset.py:1790 ../fsset.py:1858 ../fsset.py:1908 ../fsset.py:1997
-#: ../fsset.py:2010 ../image.py:291 ../livecd.py:196 ../livecd.py:379
-#: ../partIntfHelpers.py:413 ../text.py:480 ../text.py:484
-#: ../yuminstall.py:384 ../yuminstall.py:659 ../yuminstall.py:771
-#: ../yuminstall.py:1052 ../yuminstall.py:1093 ../yuminstall.py:1299
-#: ../yuminstall.py:1322 ../iw/autopart_type.py:96 ../iw/autopart_type.py:171
-#: ../iw/autopart_type.py:315 ../iw/netconfig_dialog.py:279
+#: ../fsset.py:2010 ../image.py:291 ../livecd.py:196 ../livecd.py:377
+#: ../partIntfHelpers.py:413 ../text.py:470 ../text.py:474
+#: ../yuminstall.py:366 ../yuminstall.py:642 ../yuminstall.py:754
+#: ../yuminstall.py:991 ../yuminstall.py:1059 ../yuminstall.py:1288
+#: ../yuminstall.py:1311 ../iw/autopart_type.py:96 ../iw/autopart_type.py:174
+#: ../iw/autopart_type.py:349 ../iw/netconfig_dialog.py:283
 #: ../iw/osbootwidget.py:215 ../iw/osbootwidget.py:224
-#: ../iw/raid_dialog_gui.py:701 ../iw/raid_dialog_gui.py:740
-#: ../iw/task_gui.py:45 ../iw/task_gui.py:266 ../iw/task_gui.py:376
-#: ../iw/task_gui.py:417 ../textw/grpselect_text.py:100
+#: ../iw/raid_dialog_gui.py:655 ../iw/raid_dialog_gui.py:694
+#: ../iw/task_gui.py:47 ../iw/task_gui.py:145 ../iw/task_gui.py:274
+#: ../iw/task_gui.py:396 ../textw/grpselect_text.py:100
 #: ../textw/partition_text.py:1652 ../textw/partition_text.py:1658
 #: ../textw/partition_text.py:1680 ../textw/upgrade_text.py:174
 #: ../textw/upgrade_text.py:181 ../loader/cdinstall.c:219
@@ -458,19 +458,19 @@ msgstr ""
 #: ../loader/hdinstall.c:352 ../loader/hdinstall.c:454
 #: ../loader/hdinstall.c:497 ../loader/hdinstall.c:510
 #: ../loader/kickstart.c:284 ../loader/lang.c:115 ../loader/loader.c:399
-#: ../loader/loader.c:509 ../loader/loader.c:1178 ../loader/mediacheck.c:62
+#: ../loader/loader.c:509 ../loader/loader.c:1182 ../loader/mediacheck.c:62
 #: ../loader/mediacheck.c:101 ../loader/mediacheck.c:108
-#: ../loader/method.c:280 ../loader/method.c:354 ../loader/nfsinstall.c:189
-#: ../loader/nfsinstall.c:250 ../loader/nfsinstall.c:269
-#: ../loader/telnetd.c:92 ../loader/urlinstall.c:83 ../loader/urlinstall.c:107
-#: ../loader/urlinstall.c:175 ../loader/urls.c:328 ../loader/urls.c:334
+#: ../loader/method.c:280 ../loader/method.c:354 ../loader/nfsinstall.c:244
+#: ../loader/nfsinstall.c:263 ../loader/telnetd.c:92 ../loader/urlinstall.c:83
+#: ../loader/urlinstall.c:107 ../loader/urlinstall.c:175 ../loader/urls.c:328
+#: ../loader/urls.c:334
 msgid "Error"
 msgstr "Fel"
 
 #: ../bootloader.py:44 ../bootloader.py:230 ../image.py:82
-#: ../partedUtils.py:367 ../partedUtils.py:397 ../partedUtils.py:1284
-#: ../upgrade.py:418 ../yuminstall.py:1504 ../yuminstall.py:1531
-#: ../iw/autopart_type.py:181 ../iw/blpasswidget.py:151 ../iw/task_gui.py:55
+#: ../partedUtils.py:367 ../partedUtils.py:397 ../partedUtils.py:1110
+#: ../partedUtils.py:1258 ../upgrade.py:418 ../yuminstall.py:1493
+#: ../yuminstall.py:1520 ../iw/autopart_type.py:184 ../iw/blpasswidget.py:151
 #: ../iw/upgrade_swap_gui.py:194 ../iw/upgrade_swap_gui.py:202
 #: ../iw/upgrade_swap_gui.py:209 ../textw/bootloader_text.py:127
 #: ../textw/bootloader_text.py:452 ../textw/partition_text.py:251
@@ -492,18 +492,18 @@ msgstr ""
 
 #: ../bootloader.py:49 ../exception.py:439 ../exception.py:456
 #: ../exception.py:479 ../exception.py:494 ../exception.py:519
-#: ../fsset.py:1713 ../fsset.py:1977 ../fsset.py:2728 ../gui.py:1284
-#: ../gui.py:1418 ../gui.py:1495 ../image.py:91 ../livecd.py:203
-#: ../livecd.py:386 ../packages.py:117 ../upgrade.py:99 ../upgrade.py:119
-#: ../yuminstall.py:775 ../yuminstall.py:858 ../yuminstall.py:864
-#: ../yuminstall.py:1041 ../yuminstall.py:1089 ../yuminstall.py:1294
-#: ../yuminstall.py:1329
+#: ../fsset.py:1713 ../fsset.py:1977 ../fsset.py:2730 ../gui.py:1285
+#: ../gui.py:1419 ../gui.py:1496 ../image.py:91 ../instdata.py:122
+#: ../livecd.py:203 ../livecd.py:384 ../packages.py:119 ../upgrade.py:99
+#: ../upgrade.py:119 ../yuminstall.py:758 ../yuminstall.py:841
+#: ../yuminstall.py:847 ../yuminstall.py:987 ../yuminstall.py:1047
+#: ../yuminstall.py:1283 ../yuminstall.py:1318
 msgid "_Exit installer"
 msgstr "_Avsluta installationsprogrammet"
 
 #: ../bootloader.py:49 ../fsset.py:1978 ../image.py:92 ../image.py:253
-#: ../kickstart.py:1084 ../kickstart.py:1122 ../partedUtils.py:1287
-#: ../upgrade.py:99 ../upgrade.py:119 ../yuminstall.py:1046
+#: ../kickstart.py:1113 ../kickstart.py:1151 ../partedUtils.py:1261
+#: ../upgrade.py:99 ../upgrade.py:119 ../yuminstall.py:1052
 #: ../iw/partition_gui.py:1041
 msgid "_Continue"
 msgstr "_Fortsätt"
@@ -533,7 +533,7 @@ msgid "In progress...   "
 msgstr "Pågår...   "
 
 #: ../cmdline.py:97
-msgid "Can't have a question in command line mode!"
+msgid "an't have a question in command line mode!"
 msgstr "Kan inte ha en fråga i kommandoradsläge!"
 
 #: ../cmdline.py:116
@@ -566,7 +566,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Din felrapport kunde inte registreras på grund av nedanstående fel vid kommunikationen med bugzilla:\n"
+"Din felrapport kunde inte registreras på grund av nedanstående fel vid "
+"kommunikationen med bugzilla:\n"
 "\n"
 "%s"
 
@@ -578,7 +579,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Din felrapport kunde inte registreras på grund av felaktig information i felfälten.  Detta är förmodligen ett fel i anaconda:\n"
+"Din felrapport kunde inte registreras på grund av felaktig information i "
+"felfälten.  Detta är förmodligen ett fel i anaconda:\n"
 "\n"
 "%s"
 
@@ -594,7 +596,9 @@ msgstr "Rapportering av fel stöds inte"
 msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
-msgstr "Din distribution har inte ett felrapporteringssystem som stöds, så du kan inte spara din avvikelse på detta sätt."
+msgstr ""
+"Din distribution har inte ett felrapporteringssystem som stöds, så du kan "
+"inte spara din avvikelse på detta sätt."
 
 #: ../exception.py:384
 msgid "Invalid Bug Information"
@@ -612,7 +616,9 @@ msgstr "Kan inte logga in"
 #, python-format
 msgid ""
 "There was an error logging into %s using the provided username and password."
-msgstr "Ett fel uppstod vid inloggning till %s med det givna användarnamnet och lösenordet."
+msgstr ""
+"Ett fel uppstod vid inloggning till %s med det givna användarnamnet och "
+"lösenordet."
 
 #: ../exception.py:433
 msgid "Bug Created"
@@ -627,7 +633,10 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
-"En ny felrapport har skapats med din stackspårning som bilaga.  Lägg gärna till ytterligare information såsom vad du höll på med när du stötte på felet, skärmdumpar och vad i övrigt som kan vara relevant till följande felrapport:\n"
+"En ny felrapport har skapats med din stackspårning som bilaga.  Lägg gärna "
+"till ytterligare information såsom vad du höll på med när du stötte på "
+"felet, skärmdumpar och vad i övrigt som kan vara relevant till följande "
+"felrapport:\n"
 "\n"
 "%s/%s"
 
@@ -644,7 +653,9 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
-"En felrapport med din information finns redan.  Ditt konto har lagts till till cc-listan och din stackspårning lagts till som en kommentar.  Lägg gärna till ytterligare beskrivande information till följande felrapport:\n"
+"En felrapport med din information finns redan.  Ditt konto har lagts till "
+"till cc-listan och din stackspårning lagts till som en kommentar.  Lägg "
+"gärna till ytterligare beskrivande information till följande felrapport:\n"
 "\n"
 "%s/%s"
 
@@ -668,7 +679,7 @@ msgstr "Minnesdump inte skriven"
 msgid "There was a problem writing the system state to the disk."
 msgstr "Det uppstod ett problem när systemtillståndet skrivs till disken."
 
-#: ../exception.py:506 ../exception.py:529
+#: ../exception.py:506 ../exception.py:529 ../rescue.py:196
 msgid "No Network Available"
 msgstr "Inget nätverk tillgängligt"
 
@@ -676,7 +687,9 @@ msgstr "Inget nätverk tillgängligt"
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
-msgstr "Det går inte att spara en felrapport eftersom det inte finns någon aktiv nätverksenhet tillgänglig."
+msgstr ""
+"Det går inte att spara en felrapport eftersom det inte finns någon aktiv "
+"nätverksenhet tillgänglig."
 
 #: ../exception.py:516
 msgid ""
@@ -735,7 +748,7 @@ msgstr "RAID-enhet"
 msgid "Apple Bootstrap"
 msgstr "Apple-bootstrap"
 
-#: ../fsset.py:1549 ../partitions.py:1245
+#: ../fsset.py:1549 ../partitions.py:1288
 msgid "PPC PReP Boot"
 msgstr "PPC PReP-start"
 
@@ -760,7 +773,7 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att avsluta installationsprogrammet."
 
-#: ../fsset.py:1713 ../packages.py:349 ../rescue.py:312 ../rescue.py:314
+#: ../fsset.py:1713 ../packages.py:353 ../rescue.py:242 ../rescue.py:244
 #: ../textw/upgrade_text.py:132 ../loader/cdinstall.c:239
 #: ../loader/cdinstall.c:242 ../loader/method.c:327
 msgid "Skip"
@@ -976,7 +989,8 @@ msgid ""
 msgstr ""
 "Fel vid montering av enheten %s som %s: %s\n"
 "\n"
-"Enheter i /etc/fstab ska specificeras med etikett eller UUID, inte med enhetsnamn.\n"
+"Enheter i /etc/fstab ska specificeras med etikett eller UUID, inte med "
+"enhetsnamn.\n"
 "\n"
 "Tryck OK för att avsluta installationsprogrammet."
 
@@ -1005,11 +1019,11 @@ msgstr ""
 "\n"
 "Tryck OK för att avsluta installationsprogrammet."
 
-#: ../fsset.py:2720
+#: ../fsset.py:2722
 msgid "Duplicate Labels"
 msgstr "Dublettetiketter"
 
-#: ../fsset.py:2721
+#: ../fsset.py:2723
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -1022,11 +1036,11 @@ msgstr ""
 "\n"
 "Korrigera detta problem och starta om installationen."
 
-#: ../fsset.py:2886
+#: ../fsset.py:2888
 msgid "Formatting"
 msgstr "Formaterar"
 
-#: ../fsset.py:2887
+#: ../fsset.py:2889
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Formaterar %s-filsystem..."
@@ -1075,65 +1089,66 @@ msgstr ""
 "installation av paket kan du behöva försöka flera gånger för att det ska "
 "lyckas."
 
-#: ../gui.py:233 ../text.py:586
+#: ../gui.py:233 ../text.py:576
 msgid "Fix"
 msgstr "Fixa"
 
-#: ../gui.py:234 ../rescue.py:222 ../text.py:587
+#: ../gui.py:234 ../rescue.py:190 ../text.py:577
 #: ../textw/bootloader_text.py:72 ../textw/constants_text.py:56
 #: ../loader/driverdisk.c:485 ../loader/driverdisk.c:495
 #: ../loader/hdinstall.c:231
 msgid "Yes"
 msgstr "Ja"
 
-#: ../gui.py:235 ../rescue.py:222 ../rescue.py:224 ../text.py:588
+#: ../gui.py:235 ../rescue.py:190 ../rescue.py:192 ../text.py:578
 #: ../textw/bootloader_text.py:72 ../textw/constants_text.py:60
 #: ../loader/driverdisk.c:485 ../loader/driverdisk.c:495
 msgid "No"
 msgstr "Nej"
 
-#: ../gui.py:237 ../text.py:590 ../text.py:716 ../loader/net.c:105
-#: ../loader/net.c:413 ../loader/net.c:467 ../loader/net.c:584
-#: ../loader/net.c:592 ../loader/net.c:1009 ../loader/net.c:1015
+#: ../gui.py:237 ../text.py:580 ../text.py:706 ../loader/net.c:108
+#: ../loader/net.c:409 ../loader/net.c:463 ../loader/net.c:606
+#: ../loader/net.c:614 ../loader/net.c:1040 ../loader/net.c:1047
 msgid "Retry"
 msgstr "Försök igen"
 
-#: ../gui.py:238 ../text.py:591
+#: ../gui.py:238 ../text.py:581
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: ../gui.py:239 ../gui.py:910 ../gui.py:1495 ../partIntfHelpers.py:245
-#: ../partIntfHelpers.py:536 ../text.py:109 ../text.py:110 ../text.py:592
+#: ../gui.py:239 ../gui.py:908 ../gui.py:1496 ../partIntfHelpers.py:245
+#: ../partIntfHelpers.py:536 ../text.py:108 ../text.py:109 ../text.py:582
 #: ../textw/bootloader_text.py:202 ../textw/constants_text.py:48
 #: ../loader/dirbrowser.c:145 ../loader/driverdisk.c:246
 #: ../loader/kickstart.c:375 ../loader/loader.c:434 ../loader/loader.c:546
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../gui.py:581 ../text.py:518
+#: ../gui.py:581 ../text.py:508
 msgid "Installation Key"
 msgstr "Installationsnyckel"
 
-#: ../gui.py:660 ../text.py:323
-#, python-format
+#: ../gui.py:652 ../text.py:318
 msgid ""
-"Choose a passphrase for this encrypted device%s. You will be prompted for "
-"the passphrase during system boot."
-msgstr "Välj en lösenfras för denna krypterade enhet%s.  Du kommer att få en fråga om lösenfrasen under systemstart."
+"Choose a passphrase for your encrypted devices. You will be prompted for the "
+"passphrase during system boot."
+msgstr ""
+"Välj ett lösenord för dina krypterade enheter. Du kommer att få en fråga om "
+"lösenordet under systemstart."
 
-#: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
+#: ../gui.py:671 ../gui.py:679 ../text.py:356 ../text.py:366
 msgid "Error with passphrase"
 msgstr "Fel med lösenfras"
 
-#: ../gui.py:680 ../text.py:368
+#: ../gui.py:672 ../text.py:357
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "Lösenfraserna du angav var olika.  Försök igen."
 
-#: ../gui.py:688
+#: ../gui.py:680
 msgid "The passphrase must be at least eight characters long."
 msgstr "Lösenfrasen måste vara minst åtta tecken lång."
 
-#: ../gui.py:723 ../text.py:400
+#: ../gui.py:714 ../text.py:390
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
@@ -1142,42 +1157,46 @@ msgstr ""
 "Enhet %s är krypterad.  För att komma åt enhetens innehåll under "
 "installationen måste du ange enhetens lösenfras nedan."
 
-#: ../gui.py:780
+#: ../gui.py:771
 #, python-format
 msgid "Bugzilla (%s)"
 msgstr "Bugzilla (%s)"
 
-#: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
+#: ../gui.py:801
+msgid "No devices found"
+msgstr "Inga enheter hittades"
+
+#: ../gui.py:920 ../gui.py:921 ../gui.py:1033 ../gui.py:1034
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
 msgstr "_Felsök"
 
-#: ../gui.py:1079 ../gui.py:1081 ../gui.py:1492 ../livecd.py:113
+#: ../gui.py:1080 ../gui.py:1082 ../gui.py:1493 ../livecd.py:113
 msgid "Exit installer"
 msgstr "Avsluta installationsprogram"
 
-#: ../gui.py:1081 ../text.py:294 ../text.py:302
+#: ../gui.py:1082 ../text.py:293 ../text.py:301
 msgid "Debug"
 msgstr "Felsökning"
 
-#: ../gui.py:1083 ../text.py:298
+#: ../gui.py:1084 ../text.py:297
 msgid "Exception Occurred"
 msgstr "Undantagsfel inträffade"
 
-#: ../gui.py:1281 ../text.py:563
+#: ../gui.py:1282 ../text.py:553
 msgid "Error Parsing Kickstart Config"
 msgstr "Fel vid tolkning av kickstartkonfigurationen"
 
 # Antar att detta är vänster-till-höger.
-#: ../gui.py:1327
+#: ../gui.py:1328
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: ../gui.py:1407 ../text.py:711
+#: ../gui.py:1408 ../text.py:701
 msgid "Error!"
 msgstr "Fel!"
 
-#: ../gui.py:1408 ../text.py:712
+#: ../gui.py:1409 ../text.py:702
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1189,48 +1208,48 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1413 ../image.py:164 ../image.py:194 ../packages.py:398
-#: ../packages.py:403
+#: ../gui.py:1414 ../image.py:164 ../image.py:194 ../packages.py:402
+#: ../packages.py:407
 msgid "_Exit"
 msgstr "_Avsluta"
 
-#: ../gui.py:1414 ../image.py:164 ../image.py:194 ../livecd.py:203
-#: ../yuminstall.py:653 ../yuminstall.py:1041 ../yuminstall.py:1089
-#: ../yuminstall.py:1294
+#: ../gui.py:1415 ../image.py:164 ../image.py:194 ../livecd.py:203
+#: ../yuminstall.py:636 ../yuminstall.py:987 ../yuminstall.py:1047
+#: ../yuminstall.py:1283
 msgid "_Retry"
 msgstr "_Försök igen"
 
-#: ../gui.py:1417 ../packages.py:168 ../packages.py:402
+#: ../gui.py:1418 ../packages.py:172 ../packages.py:406
 msgid "The installer will now exit..."
 msgstr "Installationsprogrammet kommer nu att avslutas..."
 
-#: ../gui.py:1420 ../packages.py:405
+#: ../gui.py:1421 ../packages.py:409
 msgid "Your system will now be rebooted..."
 msgstr "Ditt system kommer nu att startas om..."
 
-#: ../gui.py:1421 ../image.py:253 ../packages.py:169 ../packages.py:406
-#: ../partedUtils.py:1286 ../yuminstall.py:1345
+#: ../gui.py:1422 ../image.py:253 ../packages.py:173 ../packages.py:410
+#: ../partedUtils.py:1260 ../yuminstall.py:1334
 msgid "_Reboot"
 msgstr "Starta _om"
 
-#: ../gui.py:1423
+#: ../gui.py:1424
 msgid "Exiting"
 msgstr "Avslutar"
 
-#: ../gui.py:1493
+#: ../gui.py:1494
 msgid "Are you sure you wish to exit the installation?"
 msgstr "Är du säker på att du vill avsluta installationen?"
 
-#: ../gui.py:1502
+#: ../gui.py:1503
 #, python-format
 msgid "%s Installer"
 msgstr "Installationsprogram för %s"
 
-#: ../gui.py:1509
+#: ../gui.py:1510
 msgid "Unable to load title bar"
 msgstr "Kan inte läsa in titelrad"
 
-#: ../gui.py:1562
+#: ../gui.py:1566
 msgid "Install Window"
 msgstr "Installationsfönster"
 
@@ -1279,9 +1298,11 @@ msgid ""
 "Please copy this image to the drive and click Retry.  Click Exit to abort "
 "the installation."
 msgstr ""
-"Installationsprogrammet har försökt att montera avbild nr. %s, men kan inte hitta den på hårddisken.\n"
+"Installationsprogrammet har försökt att montera avbild nr. %s, men kan inte "
+"hitta den på hårddisken.\n"
 "\n"
-"Kopiera denna avbild till hårddisken och klicka på Försök igen.  Klicka på Avsluta för att avbryta installationen."
+"Kopiera denna avbild till hårddisken och klicka på Försök igen.  Klicka på "
+"Avsluta för att avbryta installationen."
 
 #: ../image.py:244
 msgid "Required Install Media"
@@ -1302,9 +1323,9 @@ msgstr ""
 "Ha dessa tillhands innan du fortsätter med installationen. Om du måste "
 "avbryta installationen och starta om bör du välja \"Starta om\"."
 
-#: ../image.py:253 ../livecd.py:385 ../packages.py:352 ../packages.py:403
-#: ../packages.py:406 ../yuminstall.py:775 ../yuminstall.py:864
-#: ../yuminstall.py:1329 ../yuminstall.py:1345
+#: ../image.py:253 ../livecd.py:383 ../packages.py:356 ../packages.py:407
+#: ../packages.py:410 ../yuminstall.py:758 ../yuminstall.py:847
+#: ../yuminstall.py:1318 ../yuminstall.py:1334
 msgid "_Back"
 msgstr "Till_baka"
 
@@ -1322,7 +1343,20 @@ msgstr ""
 msgid "Install on System"
 msgstr "Installera på system"
 
-#: ../iscsi.py:208 ../iscsi.py:209
+#: ../instdata.py:118
+msgid "Unknown Device"
+msgstr "Okänd enhet"
+
+#: ../instdata.py:119
+#, python-format
+msgid ""
+"The installation source given by device %s could not be found.  Please check "
+"your parameters and try again."
+msgstr ""
+"Installationskällan angiven av enheten %s kunde inte hittas. Kontrollera "
+"dina parametrar och försök igen."
+
+#: ../iscsi.py:449 ../iscsi.py:450
 msgid "Initializing iSCSI initiator"
 msgstr "Initierar iSCSI initierare"
 
@@ -1343,23 +1377,23 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr "Skriptfel"
 
-#: ../kickstart.py:1027 ../kickstart.py:1044
+#: ../kickstart.py:1056 ../kickstart.py:1073
 msgid "Running..."
 msgstr "Kör..."
 
-#: ../kickstart.py:1028
+#: ../kickstart.py:1057
 msgid "Running post-install scripts"
 msgstr "Kör efterinstallationsskript"
 
-#: ../kickstart.py:1045
+#: ../kickstart.py:1074
 msgid "Running pre-install scripts"
 msgstr "Kör förinstallationsskript"
 
-#: ../kickstart.py:1076
+#: ../kickstart.py:1105
 msgid "Missing Package"
 msgstr "Paket saknas"
 
-#: ../kickstart.py:1077
+#: ../kickstart.py:1106
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1368,15 +1402,15 @@ msgstr ""
 "Du har angivit att paketet \"%s\" ska installeras. Detta paket finns inte. "
 "Vill du fortsätta eller avbryta din installation?"
 
-#: ../kickstart.py:1083 ../kickstart.py:1121
+#: ../kickstart.py:1112 ../kickstart.py:1150
 msgid "_Abort"
 msgstr "_Avbryt"
 
-#: ../kickstart.py:1113
+#: ../kickstart.py:1142
 msgid "Missing Group"
 msgstr "Grupp saknas"
 
-#: ../kickstart.py:1114
+#: ../kickstart.py:1143
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1393,7 +1427,9 @@ msgstr "Kunde inte hitta avbild"
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
-msgstr "Den angivna platsen är inte en giltig %s live-CD som kan användas som installationskälla."
+msgstr ""
+"Den angivna platsen är inte en giltig %s live-CD som kan användas som "
+"installationskälla."
 
 #: ../livecd.py:171
 msgid "Copying live image to hard drive."
@@ -1407,9 +1443,11 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"Det uppstod ett vil vid installation av live-avbilden till din hårddisk.  Detta kan bero på trasigt medium.  Kontrollera ditt installationsmedium.\n"
+"Det uppstod ett vil vid installation av live-avbilden till din hårddisk.  "
+"Detta kan bero på trasigt medium.  Kontrollera ditt installationsmedium.\n"
 "\n"
-"Om du avbryter kommer ditt system hamna i ett inkonsistent läge som kräver en ominstallation."
+"Om du avbryter kommer ditt system hamna i ett inkonsistent läge som kräver "
+"en ominstallation."
 
 #: ../livecd.py:226
 msgid "Doing post-installation"
@@ -1423,33 +1461,39 @@ msgstr ""
 "Utför filsystemsändringar i efterinstallationen. Detta kan ta flera "
 "minuter..."
 
-#: ../livecd.py:380
+#: ../livecd.py:378
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
-msgstr "Rotfilsystemet du skapade är inte tillräckligt stort för denna live-avbild (%.2f MB krävs)."
+msgstr ""
+"Rotfilsystemet du skapade är inte tillräckligt stort för denna live-avbild "
+"(%.2f MB krävs)."
 
-#: ../network.py:64
-msgid "Hostname must be 64 or fewer characters in length."
-msgstr "Värdnamnet får vara högst 64 tecken långt."
+#: ../network.py:56
+msgid "Hostname must be 255 or fewer characters in length."
+msgstr "Värdnamnet får vara högst 255 tecken långt."
 
-#: ../network.py:70
+#: ../network.py:62
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
-msgstr "Värdnamnet måste börja med ett giltigt tecken i intervallet \"a-z\", \"A-Z\" eller \"0-9\""
+msgstr ""
+"Värdnamnet måste börja med ett giltigt tecken i intervallet \"a-z\", \"A-Z\" "
+"eller \"0-9\""
 
-#: ../network.py:75
+#: ../network.py:67
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr "Värdnamn kan endast innehålla tecknen \"a-z\", \"A-Z\", \"0-9\", \"-\" eller \".\""
+msgstr ""
+"Värdnamn kan endast innehålla tecknen \"a-z\", \"A-Z\", \"0-9\", \"-\" eller "
+"\".\""
 
-#: ../network.py:132
+#: ../network.py:166
 msgid "IP address is missing."
 msgstr "IP-adress saknas."
 
-#: ../network.py:136
+#: ../network.py:170
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
@@ -1457,54 +1501,54 @@ msgstr ""
 "IPv4-adresser måste innehålla fyra tal mellan 0 och 255, separerade med "
 "punkter."
 
-#: ../network.py:139
+#: ../network.py:173
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' är ingen giltig IPv6-adress."
 
-#: ../network.py:141
+#: ../network.py:175
 #, python-format
 msgid "'%s' is an invalid IP address."
 msgstr "'%s' är ingen giltig IP-adress."
 
-#: ../packages.py:112
+#: ../packages.py:114
 msgid "Resizing Failed"
 msgstr "Misslyckades ändra storlek"
 
-#: ../packages.py:113
+#: ../packages.py:115
 #, python-format
 msgid "There was an error encountered resizing the device %s."
 msgstr "Ett fel inträffade vid ändring av storlek på enhet %s."
 
-#: ../packages.py:146
+#: ../packages.py:148
 msgid "Activating"
 msgstr "Aktiverar"
 
-#: ../packages.py:146
+#: ../packages.py:148
 msgid "Activating new partitions.  Please wait..."
 msgstr "Aktiverar nya partitioner.  Var god dröj..."
 
-#: ../packages.py:167
+#: ../packages.py:171
 msgid "LVM operation failed"
 msgstr "LVM-operation misslyckades"
 
-#: ../packages.py:323
+#: ../packages.py:327
 msgid "Invalid Key"
 msgstr "Ogiltig nyckel"
 
-#: ../packages.py:324
+#: ../packages.py:328
 msgid "The key you entered is invalid."
 msgstr "Nyckeln du angav är inte giltig."
 
-#: ../packages.py:352
+#: ../packages.py:356
 msgid "_Skip"
 msgstr "_Hoppa över"
 
-#: ../packages.py:384 ../packages.py:407
+#: ../packages.py:388 ../packages.py:411
 msgid "Warning! This is pre-release software!"
 msgstr "Varning! Detta är en förhandsutgåva!"
 
-#: ../packages.py:385
+#: ../packages.py:389
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1531,125 +1575,9 @@ msgstr ""
 "\n"
 "och fyller i en felrapport mot \"%s\".\n"
 
-#: ../packages.py:398
+#: ../packages.py:402
 msgid "_Install anyway"
 msgstr "_Installera ändå"
-
-#: ../partedUtils.py:240 ../textw/partition_text.py:578
-msgid "Foreign"
-msgstr "Främmande"
-
-#: ../partedUtils.py:368
-#, python-format
-msgid ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
-"\n"
-"Would you like to reformat this DASD using CDL format?"
-msgstr ""
-"Enheten %s är LDL-formaterad istället för CDL-formaterad. LDL-formaterade "
-"DASD:er stöds inte för användning under en installation av %s. Om du vill "
-"använda denna hårddisk för installation måste den initieras om, vilket "
-"kommer att förstöra ALL DATA på denna enhet.\n"
-"\n"
-"Vill du formatera om denna DASD med CDL-format?"
-
-#: ../partedUtils.py:398
-#, python-format
-msgid ""
-"/dev/%s currently has a %s partition layout.  To use this drive for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
-"on this drive.\n"
-"\n"
-"Would you like to re-initialize this drive?"
-msgstr ""
-"/dev/%s har för närvarande en %s-partitionslayout. För att denna enhet ska "
-"kunna användas för installation av %s måste den initieras om, vilket kommer "
-"att förstöra ALL DATA på denna enhet.\n"
-"\n"
-"Vill du initiera om denna enhet?"
-
-#: ../partedUtils.py:407
-msgid "_Ignore drive"
-msgstr "_Ignorera enhet"
-
-#: ../partedUtils.py:408
-msgid "_Re-initialize drive"
-msgstr "_Återinitiera enhet"
-
-#: ../partedUtils.py:1023
-msgid "Initializing"
-msgstr "Initierar"
-
-#: ../partedUtils.py:1024
-#, python-format
-msgid "Please wait while formatting drive %s...\n"
-msgstr "Vänta medan enhet %s formateras...\n"
-
-#: ../partedUtils.py:1108
-#, python-format
-msgid ""
-"The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"Partitionstabellen på enhet %s är oläsbar. För att skapa nya partitioner "
-"måste den initieras, vilket kommer att förstöra ALL DATA på denna enhet.\n"
-"\n"
-"Denna åtgärd kommer att åsidosätta alla tidigare val under installationen om "
-"vilka enheter som ska ignoreras.\n"
-"\n"
-"Vill du initiera denna enhet och ta bort ALL DATA?"
-
-#: ../partedUtils.py:1129
-#, python-format
-msgid ""
-"The partition table on device %s (%s %-0.f MB) was unreadable.\n"
-"To create new partitions it must be initialized, causing the loss of ALL "
-"DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"Partitionstabellen på enhet %s (%s %-0.f MB) var oläsbar.  För att skapa nya partitioner måste den initieras, vilket kommer att förstöra ALL DATA på denna enhet.\n"
-"\n"
-"Denna åtgärd kommer att åsidosätta alla tidigare val under installationen om vilka enheter som ska ignoreras.\n"
-"\n"
-"Vill du initiera denna enhet och ta bort ALL DATA?"
-
-#: ../partedUtils.py:1277
-#, python-format
-msgid ""
-"The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
-"the Linux kernel does not allow for more than 15 partitons at this time.  "
-"You will not be able to make changes to the partitioning of this disk or use "
-"any partitions beyond /dev/%s15 in %s"
-msgstr ""
-"Enheten /dev/%s har fler än 15 partitioner. Undersystemet SCSI i Linux-"
-"kärnan tillåter inte fler än 15 partitoner för närvarande. Du kommer inte "
-"kunna göra ändringar av partitioneringen för denna disk eller använda "
-"partitioner över /dev/%s15 i %s"
-
-#: ../partedUtils.py:1361
-msgid "No Drives Found"
-msgstr "Inga hårddiskar hittades"
-
-#: ../partedUtils.py:1362
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"Ett fel har uppstått - inga giltiga enheter som kan användas för att skapa "
-"nya filsystem kunde hittas. Undersök din hårdvara för orsaken till detta "
-"problem."
 
 #: ../partIntfHelpers.py:43
 msgid "Please enter a volume group name."
@@ -1752,7 +1680,7 @@ msgstr ""
 "Du kan inte ta bort denna partition eftersom den är en utökad partition som "
 "innehåller %s"
 
-#: ../partIntfHelpers.py:190 ../iw/raid_dialog_gui.py:637
+#: ../partIntfHelpers.py:190 ../iw/raid_dialog_gui.py:591
 msgid "This partition is holding the data for the hard drive install."
 msgstr "Denna partition innehåller data för hårddiskinstallationen."
 
@@ -1765,7 +1693,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:241 ../partIntfHelpers.py:535
-#: ../iw/lvm_dialog_gui.py:817
+#: ../iw/lvm_dialog_gui.py:794
 msgid "Confirm Delete"
 msgstr "Bekräfta borttagning"
 
@@ -1775,7 +1703,7 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Du är på väg att ta bort alla partitioner på enheten \"/dev/%s\"."
 
 #: ../partIntfHelpers.py:245 ../partIntfHelpers.py:536
-#: ../iw/lvm_dialog_gui.py:820 ../iw/lvm_dialog_gui.py:1168
+#: ../iw/lvm_dialog_gui.py:797 ../iw/lvm_dialog_gui.py:1145
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1384
 msgid "_Delete"
 msgstr "_Ta bort"
@@ -1968,213 +1896,6 @@ msgstr ""
 "Är du säker på att du vill återställa partitionstabellen till dess "
 "ursprungliga tillstånd?"
 
-#: ../partitions.py:84
-msgid "Installation cannot continue."
-msgstr "Installationen kan inte fortsätta."
-
-#: ../partitions.py:85
-msgid ""
-"The partitioning options you have chosen have already been activated. You "
-"can no longer return to the disk editing screen. Would you like to continue "
-"with the installation process?"
-msgstr ""
-"Partitioneringsalternativen du har valt har redan aktiverats. Du kan inte "
-"längre gå tillbaka till diskredigeringsskärmen. Vill du fortsätta med "
-"installationen?"
-
-#: ../partitions.py:130
-#, python-format
-msgid " for device %s"
-msgstr " för enhet %s"
-
-#: ../partitions.py:133
-msgid "Encrypt device?"
-msgstr "Kryptera enhet?"
-
-#: ../partitions.py:134
-#, python-format
-msgid ""
-"You specified block device encryption should be enabled%s, but you have not "
-"supplied a passphrase. If you do not go back and provide a passphrase, block "
-"device encryption%s will be disabled."
-msgstr "Du angav att kryptering av blockenheter skulle aktiveras%s, men du har inte gett en lösenfras.  Om du inte går tillbaka och ger en lösenfras kommer kryptering%s av blockenheter att vara avaktiverat."
-
-#: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
-#: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
-#: ../loader/driverdisk.c:277 ../loader/driverdisk.c:361
-#: ../loader/driverselect.c:81 ../loader/driverselect.c:179
-#: ../loader/driverselect.c:205 ../loader/hdinstall.c:231
-#: ../loader/hdinstall.c:289 ../loader/kbd.c:138 ../loader/loader.c:473
-#: ../loader/loader.c:493 ../loader/loader.c:1361 ../loader/loader.c:1390
-#: ../loader/net.c:514 ../loader/net.c:869 ../loader/net.c:1542
-#: ../loader/net.c:1564 ../loader/nfsinstall.c:86 ../loader/urls.c:292
-msgid "Back"
-msgstr "Tillbaka"
-
-#: ../partitions.py:141 ../partitions.py:260 ../rescue.py:312
-#: ../iw/partition_gui.py:574 ../textw/network_text.py:62
-#: ../loader/cdinstall.c:198 ../loader/cdinstall.c:206
-#: ../loader/driverdisk.c:446
-msgid "Continue"
-msgstr "Fortsätt"
-
-#: ../partitions.py:160
-msgid "Writing partitioning to disk"
-msgstr "Skriver partitionering till disk"
-
-#: ../partitions.py:161
-msgid ""
-"The partitioning options you have selected will now be written to disk.  Any "
-"data on deleted or reformatted partitions will be lost."
-msgstr "Partitioneringsinställningarna du har valt kommer nu att skrivas till disk.  Eventuell data på borttagna eller omformaterade partitioner kommer gå förlorade."
-
-#: ../partitions.py:166
-msgid "Go _back"
-msgstr "Gå till_baka"
-
-#: ../partitions.py:167
-msgid "_Write changes to disk"
-msgstr "_Skriv ändringar till disk"
-
-#: ../partitions.py:265
-msgid "Confirm"
-msgstr "Bekräfta"
-
-#: ../partitions.py:266
-#, python-format
-msgid ""
-"Are you sure you want to skip entering a passphrase for device %s?\n"
-"\n"
-"If you skip this step the device's contents will not be available during "
-"installation."
-msgstr ""
-"Är du säker på att du vill hoppa över att ange en lösenfras för enher %s?\n"
-"\n"
-"Om du hoppar över detta steg kommer enhetens innehåll inte vara tillgängligt "
-"under installationen."
-
-#: ../partitions.py:1146
-#, python-format
-msgid ""
-"You have not defined a root partition (/), which is required for "
-"installation of %s to continue."
-msgstr ""
-"Du har inte angivit någon rotpartition (/), vilket krävs för att "
-"installationen av %s ska kunna fortsätta."
-
-#: ../partitions.py:1151
-#, python-format
-msgid ""
-"Your root partition is less than 250 megabytes which is usually too small to "
-"install %s."
-msgstr ""
-"Din rotpartition är mindre än 250 megabyte, vilket normalt är för litet för "
-"att installera %s."
-
-#: ../partitions.py:1177
-msgid "You must create an EFI System Partition of at least 10 megabytes."
-msgstr "Du måste skapa en EFI-systempartition på minst 10 megabyte."
-
-#: ../partitions.py:1191
-msgid ""
-"Your boot partition isn't on one of the first four partitions and thus won't "
-"be bootable."
-msgstr ""
-"Din start-partition är inte en av de fyra första partitionerna och kommer "
-"därför inte vara startbar."
-
-#: ../partitions.py:1212
-msgid "You must create an Apple Bootstrap partition."
-msgstr "Du måste skapa en Apple Bootstrap-partition."
-
-#: ../partitions.py:1234
-msgid "You must create a PPC PReP Boot partition."
-msgstr "Du måste skapa en PPC PReP-startpartition."
-
-#: ../partitions.py:1242 ../partitions.py:1253
-#, python-format
-msgid ""
-"Your %s partition is less than %s megabytes which is lower than recommended "
-"for a normal %s install."
-msgstr ""
-"Din %s-partition är mindre än %s megabyte vilket är mindre än rekommenderat "
-"för en normal installation av %s."
-
-#: ../partitions.py:1287
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"Installerar på en USB-enhet. Detta kan skapa ett fungerande system, men det "
-"är inte säkert."
-
-#: ../partitions.py:1290
-msgid ""
-"Installing on a FireWire device.  This may or may not produce a working "
-"system."
-msgstr ""
-"Installerar på en FireWire-enhet. Detta kan skapa ett fungerande system, men "
-"det är inte säkert."
-
-#: ../partitions.py:1300
-msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Startbara partitioner kan endast finnas på RAID1-enheter."
-
-#: ../partitions.py:1305
-msgid "Bootable partitions cannot be on a logical volume."
-msgstr "Startbara partitioner kan endast finnas på en logisk volym."
-
-#: ../partitions.py:1311
-msgid "Bootable partitions cannot be on a RAID device."
-msgstr "Startbara partitioner kan inte finnas på en RAID-enhet."
-
-#: ../partitions.py:1316 ../partitions.py:1322
-#, python-format
-msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "Startbara partitioner kan inte finnas på ett %s-filsystem."
-
-#: ../partitions.py:1326
-msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "Startbara partitioner kan inte finnas på en krypterad blockenhet"
-
-#: ../partitions.py:1330
-msgid ""
-"You have not specified a swap partition.  Although not strictly required in "
-"all cases, it will significantly improve performance for most installations."
-msgstr ""
-"Du har inte angivit en växlingspartition. Även om det inte absolut krävs i "
-"alla lägen kommer det att markant förbättra prestanda för de flesta "
-"installationer."
-
-#: ../partitions.py:1337
-#, python-format
-msgid ""
-"You have specified more than 32 swap devices.  The kernel for %s only "
-"supports 32 swap devices."
-msgstr ""
-"Du har angivit mer än 32 växlingsenheter. Kärnan i %s stöder endast 32 "
-"växlingsenheter."
-
-#: ../partitions.py:1348
-#, python-format
-msgid ""
-"You have allocated less swap space (%dM) than available RAM (%dM) on your "
-"system.  This could negatively impact performance."
-msgstr ""
-"Du har allokerat mindre växlingsutrymme (%d MB) än tillgängligt arbetsminne "
-"(%d MB) på ditt system. Detta kan påverka prestanda negativt."
-
-#: ../partitions.py:1655
-msgid "the partition in use by the installer."
-msgstr "partitionen som används av installationsprogrammet."
-
-#: ../partitions.py:1658
-msgid "a partition which is a member of a RAID array."
-msgstr "en partition som är medlem i en RAID-kedja."
-
-#: ../partitions.py:1661
-msgid "a partition which is a member of a LVM Volume Group."
-msgstr "en partition som är medlem i en LVM-volymgrupp."
-
 #: ../partRequests.py:275 ../partRequests.py:278
 #, python-format
 msgid "The mount point %s must be formatted during live CD installs."
@@ -2265,46 +1986,344 @@ msgstr ""
 "Logiska volymstorleken måste vara större än volymgruppens fysiska extent "
 "storlek."
 
-#: ../rescue.py:151
-msgid "Starting Interface"
-msgstr "Startar gränssnittet"
+#: ../partedUtils.py:240 ../textw/partition_text.py:578
+msgid "Foreign"
+msgstr "Främmande"
 
-#: ../rescue.py:152
+#: ../partedUtils.py:368
 #, python-format
-msgid "Attempting to start %s"
-msgstr "Försöker starta %s"
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+"Enheten %s är LDL-formaterad istället för CDL-formaterad. LDL-formaterade "
+"DASD:er stöds inte för användning under en installation av %s. Om du vill "
+"använda denna hårddisk för installation måste den initieras om, vilket "
+"kommer att förstöra ALL DATA på denna enhet.\n"
+"\n"
+"Vill du formatera om denna DASD med CDL-format?"
 
-#: ../rescue.py:194
+#: ../partedUtils.py:398
+#, python-format
+msgid ""
+"/dev/%s currently has a %s partition layout.  To use this drive for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
+"\n"
+"Would you like to re-initialize this drive?"
+msgstr ""
+"/dev/%s har för närvarande en %s-partitionslayout. För att denna enhet ska "
+"kunna användas för installation av %s måste den initieras om, vilket kommer "
+"att förstöra ALL DATA på denna enhet.\n"
+"\n"
+"Vill du initiera om denna enhet?"
+
+#: ../partedUtils.py:407
+msgid "_Ignore drive"
+msgstr "_Ignorera enhet"
+
+#: ../partedUtils.py:408
+msgid "_Re-initialize drive"
+msgstr "_Återinitiera enhet"
+
+#: ../partedUtils.py:1015
+msgid "Initializing"
+msgstr "Initierar"
+
+#: ../partedUtils.py:1016
+#, python-format
+msgid "Please wait while formatting drive %s...\n"
+msgstr "Vänta medan enhet %s formateras...\n"
+
+#: ../partedUtils.py:1101
+#, python-format
+msgid ""
+"The partition table on device %s (%s %-0.f MB) was unreadable.\n"
+"\n"
+"To create new partitions it must be initialized, causing the loss of ALL "
+"DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"Partitionstabellen på enhet %s (%s %-0.f MB) var oläsbar.\n"
+"\n"
+"För att skapa nya partitioner måste den initieras, vilket förstör ALL DATA "
+"på denna enhet.\n"
+"\n"
+"Denna åtgärd kommer att åsidosätta alla tidigare val under installationen om "
+"vilka enheter som ska ignoreras.\n"
+"\n"
+"Vill du initiera denna enhet och ta bort ALL DATA?"
+
+#: ../partedUtils.py:1251
+#, python-format
+msgid ""
+"The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
+"the Linux kernel does not allow for more than 15 partitons at this time.  "
+"You will not be able to make changes to the partitioning of this disk or use "
+"any partitions beyond /dev/%s15 in %s"
+msgstr ""
+"Enheten /dev/%s har fler än 15 partitioner. Undersystemet SCSI i Linux-"
+"kärnan tillåter inte fler än 15 partitoner för närvarande. Du kommer inte "
+"kunna göra ändringar av partitioneringen för denna disk eller använda "
+"partitioner över /dev/%s15 i %s"
+
+#: ../partedUtils.py:1335
+msgid "No Drives Found"
+msgstr "Inga hårddiskar hittades"
+
+#: ../partedUtils.py:1336
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+"Ett fel har uppstått - inga giltiga enheter som kan användas för att skapa "
+"nya filsystem kunde hittas. Undersök din hårdvara för orsaken till detta "
+"problem."
+
+#: ../partitions.py:84
+msgid "Installation cannot continue."
+msgstr "Installationen kan inte fortsätta."
+
+#: ../partitions.py:85
+msgid ""
+"The partitioning options you have chosen have already been activated. You "
+"can no longer return to the disk editing screen. Would you like to continue "
+"with the installation process?"
+msgstr ""
+"Partitioneringsalternativen du har valt har redan aktiverats. Du kan inte "
+"längre gå tillbaka till diskredigeringsskärmen. Vill du fortsätta med "
+"installationen?"
+
+#: ../partitions.py:125
+msgid "Encrypt device?"
+msgstr "Kryptera enhet?"
+
+#: ../partitions.py:126
+msgid ""
+"You specified block device encryption should be enabled, but you have not "
+"supplied a passphrase. If you do not go back and provide a passphrase, block "
+"device encryption will be disabled."
+msgstr ""
+"Du angav att kryptering av blockenheter skulle aktiveras, men du har inte "
+"angett ett lösenord. Om du inte går tillbaka och anger ett lösenord kommer "
+"kryptering av blockenheter vara inaktiverad."
+
+#: ../partitions.py:133 ../partitions.py:263 ../textw/constants_text.py:52
+#: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
+#: ../loader/driverdisk.c:277 ../loader/driverdisk.c:361
+#: ../loader/driverselect.c:81 ../loader/driverselect.c:179
+#: ../loader/driverselect.c:205 ../loader/hdinstall.c:231
+#: ../loader/hdinstall.c:289 ../loader/kbd.c:138 ../loader/loader.c:473
+#: ../loader/loader.c:493 ../loader/loader.c:1365 ../loader/loader.c:1394
+#: ../loader/net.c:515 ../loader/net.c:891 ../loader/net.c:1628
+#: ../loader/net.c:1650 ../loader/nfsinstall.c:87 ../loader/urls.c:292
+msgid "Back"
+msgstr "Tillbaka"
+
+#: ../partitions.py:133 ../partitions.py:263 ../rescue.py:242
+#: ../iw/partition_gui.py:574 ../loader/cdinstall.c:198
+#: ../loader/cdinstall.c:206 ../loader/driverdisk.c:446
+msgid "Continue"
+msgstr "Fortsätt"
+
+#: ../partitions.py:154
+msgid "Writing partitioning to disk"
+msgstr "Skriver partitionering till disk"
+
+#: ../partitions.py:155
+msgid ""
+"The partitioning options you have selected will now be written to disk.  Any "
+"data on deleted or reformatted partitions will be lost."
+msgstr ""
+"Partitioneringsinställningarna du har valt kommer nu att skrivas till disk.  "
+"Eventuell data på borttagna eller omformaterade partitioner kommer gå "
+"förlorade."
+
+#: ../partitions.py:160
+msgid "Go _back"
+msgstr "Gå till_baka"
+
+#: ../partitions.py:161
+msgid "_Write changes to disk"
+msgstr "_Skriv ändringar till disk"
+
+#: ../partitions.py:268
+msgid "Confirm"
+msgstr "Bekräfta"
+
+#: ../partitions.py:269
+#, python-format
+msgid ""
+"Are you sure you want to skip entering a passphrase for device %s?\n"
+"\n"
+"If you skip this step the device's contents will not be available during "
+"installation."
+msgstr ""
+"Är du säker på att du vill hoppa över att ange en lösenfras för enher %s?\n"
+"\n"
+"Om du hoppar över detta steg kommer enhetens innehåll inte vara tillgängligt "
+"under installationen."
+
+#: ../partitions.py:1189
+#, python-format
+msgid ""
+"You have not defined a root partition (/), which is required for "
+"installation of %s to continue."
+msgstr ""
+"Du har inte angivit någon rotpartition (/), vilket krävs för att "
+"installationen av %s ska kunna fortsätta."
+
+#: ../partitions.py:1194
+#, python-format
+msgid ""
+"Your root partition is less than 250 megabytes which is usually too small to "
+"install %s."
+msgstr ""
+"Din rotpartition är mindre än 250 megabyte, vilket normalt är för litet för "
+"att installera %s."
+
+#: ../partitions.py:1220
+msgid "You must create an EFI System Partition of at least 10 megabytes."
+msgstr "Du måste skapa en EFI-systempartition på minst 10 megabyte."
+
+#: ../partitions.py:1234
+msgid ""
+"Your boot partition isn't on one of the first four partitions and thus won't "
+"be bootable."
+msgstr ""
+"Din start-partition är inte en av de fyra första partitionerna och kommer "
+"därför inte vara startbar."
+
+#: ../partitions.py:1255
+msgid "You must create an Apple Bootstrap partition."
+msgstr "Du måste skapa en Apple Bootstrap-partition."
+
+#: ../partitions.py:1277
+msgid "You must create a PPC PReP Boot partition."
+msgstr "Du måste skapa en PPC PReP-startpartition."
+
+#: ../partitions.py:1285 ../partitions.py:1296
+#, python-format
+msgid ""
+"Your %s partition is less than %s megabytes which is lower than recommended "
+"for a normal %s install."
+msgstr ""
+"Din %s-partition är mindre än %s megabyte vilket är mindre än rekommenderat "
+"för en normal installation av %s."
+
+#: ../partitions.py:1330
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
+msgstr ""
+"Installerar på en USB-enhet. Detta kan skapa ett fungerande system, men det "
+"är inte säkert."
+
+#: ../partitions.py:1333
+msgid ""
+"Installing on a FireWire device.  This may or may not produce a working "
+"system."
+msgstr ""
+"Installerar på en FireWire-enhet. Detta kan skapa ett fungerande system, men "
+"det är inte säkert."
+
+#: ../partitions.py:1343
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "Startbara partitioner kan endast finnas på RAID1-enheter."
+
+#: ../partitions.py:1348
+msgid "Bootable partitions cannot be on a logical volume."
+msgstr "Startbara partitioner kan endast finnas på en logisk volym."
+
+#: ../partitions.py:1354
+msgid "Bootable partitions cannot be on a RAID device."
+msgstr "Startbara partitioner kan inte finnas på en RAID-enhet."
+
+#: ../partitions.py:1359 ../partitions.py:1365
+#, python-format
+msgid "Bootable partitions cannot be on an %s filesystem."
+msgstr "Startbara partitioner kan inte finnas på ett %s-filsystem."
+
+#: ../partitions.py:1369
+msgid "Bootable partitions cannot be on an encrypted block device"
+msgstr "Startbara partitioner kan inte finnas på en krypterad blockenhet"
+
+#: ../partitions.py:1373
+msgid ""
+"You have not specified a swap partition.  Although not strictly required in "
+"all cases, it will significantly improve performance for most installations."
+msgstr ""
+"Du har inte angivit en växlingspartition. Även om det inte absolut krävs i "
+"alla lägen kommer det att markant förbättra prestanda för de flesta "
+"installationer."
+
+#: ../partitions.py:1380
+#, python-format
+msgid ""
+"You have specified more than 32 swap devices.  The kernel for %s only "
+"supports 32 swap devices."
+msgstr ""
+"Du har angivit mer än 32 växlingsenheter. Kärnan i %s stöder endast 32 "
+"växlingsenheter."
+
+#: ../partitions.py:1391
+#, python-format
+msgid ""
+"You have allocated less swap space (%dM) than available RAM (%dM) on your "
+"system.  This could negatively impact performance."
+msgstr ""
+"Du har allokerat mindre växlingsutrymme (%d MB) än tillgängligt arbetsminne "
+"(%d MB) på ditt system. Detta kan påverka prestanda negativt."
+
+#: ../partitions.py:1698
+msgid "the partition in use by the installer."
+msgstr "partitionen som används av installationsprogrammet."
+
+#: ../partitions.py:1701
+msgid "a partition which is a member of a RAID array."
+msgstr "en partition som är medlem i en RAID-kedja."
+
+#: ../partitions.py:1704
+msgid "a partition which is a member of a LVM Volume Group."
+msgstr "en partition som är medlem i en LVM-volymgrupp."
+
+#: ../rescue.py:162
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 "När du är färdig avslutar du skalet. Systemet kommer då att startas om."
 
-#: ../rescue.py:201
+#: ../rescue.py:169
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr "Kan inte hitta /bin/sh att köra!  Startar inte ett skal"
 
-#: ../rescue.py:220
+#: ../rescue.py:188
 msgid "Setup Networking"
 msgstr "Konfigurera nätverk"
 
-#: ../rescue.py:221
+#: ../rescue.py:189
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Vill du starta nätverksgränssnitten på detta system?"
 
-#: ../rescue.py:261 ../text.py:742
-msgid "Cancelled"
-msgstr "Avbruten"
-
-#: ../rescue.py:262 ../text.py:743
-msgid "I can't go to the previous step from here. You will have to try again."
+#: ../rescue.py:197
+msgid ""
+"Unable to activate a networking device.  Networking will not be available in "
+"rescue mode."
 msgstr ""
-"Jag kan inte gå till det föregående steget härifrån. Du måste försöka igen."
+"Kan inte aktivera en nätverksenhet. Nätverket kommer inte vara tillgängligt "
+"i räddningsläge."
 
-#: ../rescue.py:301 ../rescue.py:371 ../rescue.py:382 ../rescue.py:463
+#: ../rescue.py:231 ../rescue.py:301 ../rescue.py:312 ../rescue.py:393
 msgid "Rescue"
 msgstr "Räddning"
 
-#: ../rescue.py:302
+#: ../rescue.py:232
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -2328,23 +2347,23 @@ msgstr ""
 "direkt.\n"
 "\n"
 
-#: ../rescue.py:312 ../rescue.py:317
+#: ../rescue.py:242 ../rescue.py:247
 msgid "Read-Only"
 msgstr "Skrivskyddad"
 
-#: ../rescue.py:343
+#: ../rescue.py:273
 msgid "System to Rescue"
 msgstr "System att rädda"
 
-#: ../rescue.py:344
+#: ../rescue.py:274
 msgid "What partition holds the root partition of your installation?"
 msgstr "Vilken partition innehåller rotpartitionen i din installation?"
 
-#: ../rescue.py:346 ../rescue.py:350 ../text.py:716 ../text.py:718
+#: ../rescue.py:276 ../rescue.py:280 ../text.py:706 ../text.py:708
 msgid "Exit"
 msgstr "Avsluta"
 
-#: ../rescue.py:372
+#: ../rescue.py:302
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2355,7 +2374,7 @@ msgstr ""
 "partitioner. Systemet kommer automatiskt att startas om när du avslutar "
 "skalet."
 
-#: ../rescue.py:383
+#: ../rescue.py:313
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2376,7 +2395,7 @@ msgstr ""
 "\n"
 "Systemet kommer automatiskt att startas om när du avslutar skalet."
 
-#: ../rescue.py:464
+#: ../rescue.py:394
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2391,11 +2410,11 @@ msgstr ""
 "Tryck <Retur> för att komma till ett skal. Systemet kommer automatiskt att "
 "startas om när du avslutar skalet."
 
-#: ../rescue.py:473
+#: ../rescue.py:403
 msgid "Rescue Mode"
 msgstr "Räddningsläge"
 
-#: ../rescue.py:474
+#: ../rescue.py:404
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2403,100 +2422,109 @@ msgstr ""
 "Du har inga Linuxpartitioner. Tryck Retur för att komma till ett skal. "
 "Systemet kommer automatiskt att startas om när du avslutar skalet."
 
-#: ../rescue.py:487
+#: ../rescue.py:417
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Ditt system är monterat under katalogen %s."
 
-#: ../text.py:207 ../text.py:291 ../text.py:304 tmp/exnSave.glade.h:6
+#: ../text.py:206 ../text.py:290 ../text.py:303 tmp/exnSave.glade.h:7
 msgid "Save"
 msgstr "Spara"
 
-#: ../text.py:210
+#: ../text.py:209
 msgid "Save to local disk"
 msgstr "Spara till lokal disk"
 
-#: ../text.py:211
+#: ../text.py:210
 #, python-format
 msgid "Send to bugzilla (%s)"
 msgstr "Skicka till bugzilla (%s)"
 
-#: ../text.py:212
+#: ../text.py:211
 msgid "Send to remote server (scp)"
 msgstr "Skicka till fjärrserver (scp)"
 
-#: ../text.py:226 ../text.py:239
+#: ../text.py:225 ../text.py:238
 msgid "User name"
 msgstr "Användarnamn"
 
-#: ../text.py:228 ../text.py:241
+#: ../text.py:227 ../text.py:240
 msgid "Password"
 msgstr "Lösenord"
 
-#: ../text.py:230
+#: ../text.py:229
 msgid "Bug Description"
 msgstr "Felbeskrivning"
 
-#: ../text.py:243
+#: ../text.py:242
 msgid "Host (host:port)"
 msgstr "Värd (värd:port)"
 
-#: ../text.py:245
+#: ../text.py:244
 msgid "Destination file"
 msgstr "Destinationsfil"
 
-#: ../text.py:329
+#: ../text.py:323
 msgid "Passphrase for encrypted device"
 msgstr "Lösenfras för krypterad enhet"
 
-#: ../text.py:347 tmp/lukspassphrase.glade.h:7
-msgid "Use this passphrase for all new encrypted devices"
-msgstr "Använd denna lösenfras för alla nya krypterade enheter"
+#: ../text.py:336
+msgid "Also add this passphrase to all existing encrypted devices"
+msgstr "Lägg också till detta lösenord för alla befintliga krypterade enheter"
 
-#: ../text.py:378
+#: ../text.py:367
 #, python-format
 msgid "The passphrase must be at least %d characters long."
 msgstr "Lösenfrasen måste vara minst %d tecken lång."
 
-#: ../text.py:407 tmp/lukspassphrase.glade.h:5
+#: ../text.py:397 tmp/lukspassphrase.glade.h:6
 msgid "Passphrase"
 msgstr "Lösenfras"
 
-#: ../text.py:415 tmp/lukspassphrase.glade.h:6
+#: ../text.py:405 tmp/lukspassphrase.glade.h:7
 msgid "This is a global passphrase"
 msgstr "Detta är en global lösenfras"
 
-#: ../text.py:481 ../text.py:485
+#: ../text.py:471 ../text.py:475
 msgid "Repository editing is not available in text mode."
 msgstr "Förrådsredigering är inte tillgängligt i textläge."
 
-#: ../text.py:523
+#: ../text.py:513
 #, python-format
 msgid "Please enter your %(instkey)s"
 msgstr "Ange din %(instkey)s"
 
-#: ../text.py:540 tmp/instkey.glade.h:6
+#: ../text.py:530 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
 msgstr "Hoppa över inmatning %(instkey)s"
 
-#: ../text.py:616 ../loader/lang.c:63 ../loader/loader.c:212
+#: ../text.py:606 ../loader/lang.c:63 ../loader/loader.c:212
 #, c-format, python-format
 msgid "Welcome to %s for %s"
 msgstr "Välkommen till %s för %s"
 
-#: ../text.py:618
+#: ../text.py:608
 #, python-format
 msgid "Welcome to %s"
 msgstr "Välkommen till %s"
 
-#: ../text.py:620
+#: ../text.py:610
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> mellan element   |  <Blanksteg> väljer  |  <F12> nästa "
 "skärm"
+
+#: ../text.py:732
+msgid "Cancelled"
+msgstr "Avbruten"
+
+#: ../text.py:733
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr ""
+"Jag kan inte gå till det föregående steget härifrån. Du måste försöka igen."
 
 #: ../upgrade.py:91 ../upgrade.py:112
 msgid "Proceed with upgrade?"
@@ -2621,52 +2649,52 @@ msgstr "Ogiltiga kataloger"
 msgid "%s not found"
 msgstr "%s hittades inte"
 
-#: ../vnc.py:148
+#: ../vnc.py:152
 #, python-format
 msgid "%s %s installation on host %s"
 msgstr "Installationsprogram för %s %s på värden %s"
 
-#: ../vnc.py:150
+#: ../vnc.py:154
 #, python-format
 msgid "%s %s installation"
 msgstr "Installation av %s %s"
 
-#: ../vnc.py:177
+#: ../vnc.py:181
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "Försöker ansluta till vnc-klienten på värden %s..."
 
-#: ../vnc.py:191
+#: ../vnc.py:195
 msgid "Connected!"
 msgstr "Ansluten!"
 
-#: ../vnc.py:194
+#: ../vnc.py:198
 msgid "Will try to connect again in 15 seconds..."
 msgstr "Försöker igen om 15 sekunder..."
 
-#: ../vnc.py:200
+#: ../vnc.py:204
 #, python-format
 msgid "Giving up attempting to connect after %d tries!\n"
 msgstr "Ger upp försök att ansluta efter %d försök!\n"
 
-#: ../vnc.py:209
+#: ../vnc.py:213
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr "Anslut din vnc-klient manuellt till %s för att påbörja installationen."
 
-#: ../vnc.py:211
+#: ../vnc.py:215
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "Anslut din vnc-klient manuellt för att påbörja installationen."
 
-#: ../vnc.py:214
+#: ../vnc.py:218
 msgid "Starting VNC..."
 msgstr "Startar VNC..."
 
-#: ../vnc.py:239
+#: ../vnc.py:243
 msgid "The VNC server is now running."
 msgstr "VNC-servern kör nu."
 
-#: ../vnc.py:252
+#: ../vnc.py:256
 msgid ""
 "\n"
 "\n"
@@ -2684,23 +2712,23 @@ msgstr ""
 "till vncviwer:n inte lyckas.\n"
 "\n"
 
-#: ../vnc.py:257
+#: ../vnc.py:261
 msgid ""
 "\n"
 "\n"
 "WARNING!!! VNC server running with NO PASSWORD!\n"
-"You can use the self.password=<password> boot option\n"
+"You can use the vncpassword=<password> boot option\n"
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
 "\n"
 "\n"
 "VARNING!!! VNC-servern kör UTAN LÖSENORD!\n"
-"Du kan använda uppstartsflaggan self.password=<lösenord>\n"
+"Du kan använda startflaggan vncpassword=<lösenord>\n"
 "om du vill säkra servern.\n"
 "\n"
 
-#: ../vnc.py:261
+#: ../vnc.py:265
 msgid ""
 "\n"
 "\n"
@@ -2712,7 +2740,7 @@ msgstr ""
 "Du valde att köra vnc med ett lösenord. \n"
 "\n"
 
-#: ../vnc.py:263
+#: ../vnc.py:267
 msgid ""
 "\n"
 "\n"
@@ -2724,15 +2752,15 @@ msgstr ""
 "Okänt fel.  Avbryter. \n"
 "\n"
 
-#: ../vnc.py:285 ../vnc.py:378
+#: ../vnc.py:289 ../vnc.py:382
 msgid "VNC Configuration"
 msgstr "VNC-konfiguration"
 
-#: ../vnc.py:288 ../vnc.py:382
+#: ../vnc.py:292 ../vnc.py:386
 msgid "No password"
 msgstr "Inget lösenord"
 
-#: ../vnc.py:290 ../vnc.py:385
+#: ../vnc.py:294 ../vnc.py:389
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
@@ -2742,35 +2770,35 @@ msgstr ""
 "övervaka installationsförloppet. Ange ett lösenord att använda för "
 "installationen"
 
-#: ../vnc.py:298 ../vnc.py:393 ../textw/userauth_text.py:47
+#: ../vnc.py:302 ../vnc.py:397 ../textw/userauth_text.py:47
 msgid "Password:"
 msgstr "Lösenord:"
 
-#: ../vnc.py:299 ../vnc.py:394 ../textw/userauth_text.py:49
+#: ../vnc.py:303 ../vnc.py:398 ../textw/userauth_text.py:49
 msgid "Password (confirm):"
 msgstr "Lösenord (bekräfta):"
 
-#: ../vnc.py:317 ../vnc.py:416 ../textw/userauth_text.py:70
+#: ../vnc.py:321 ../vnc.py:420 ../textw/userauth_text.py:70
 msgid "Password Mismatch"
 msgstr "Olika lösenord"
 
-#: ../vnc.py:318 ../vnc.py:417 ../textw/userauth_text.py:71
+#: ../vnc.py:322 ../vnc.py:421 ../textw/userauth_text.py:71
 msgid "The passwords you entered were different. Please try again."
 msgstr "Lösenorden du skrev in var olika. Var vänlig och försök igen."
 
-#: ../vnc.py:323 ../vnc.py:422 ../textw/userauth_text.py:66
+#: ../vnc.py:327 ../vnc.py:426 ../textw/userauth_text.py:66
 msgid "Password Length"
 msgstr "Lösenordslängd"
 
-#: ../vnc.py:324 ../vnc.py:423
+#: ../vnc.py:328 ../vnc.py:427
 msgid "The password must be at least six characters long."
 msgstr "Lösenordet måste vara minst sex tecken långt."
 
-#: ../vnc.py:346
+#: ../vnc.py:350
 msgid "Unable to Start X"
 msgstr "Kan inte starta X"
 
-#: ../vnc.py:348
+#: ../vnc.py:352
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
@@ -2780,11 +2808,11 @@ msgstr ""
 "denna dator från en annan dator och utföra en grafisk installation, eller "
 "fortsätta med en textläge installation?"
 
-#: ../vnc.py:367 ../vnc.py:370
+#: ../vnc.py:371 ../vnc.py:374
 msgid "Use text mode"
 msgstr "Använd textläge"
 
-#: ../vnc.py:368
+#: ../vnc.py:372
 msgid "Start VNC"
 msgstr "Starta VNC"
 
@@ -2808,33 +2836,37 @@ msgstr "%s byte"
 msgid "%s Bytes"
 msgstr "%s byte"
 
-#: ../yuminstall.py:123 ../yuminstall.py:213
+#: ../yuminstall.py:126
 msgid "Processing"
 msgstr "Bearbetar"
 
-#: ../yuminstall.py:124
+#: ../yuminstall.py:127
 msgid "Preparing transaction from installation source..."
 msgstr "Förbereder transaktion från installationskälla..."
 
-#: ../yuminstall.py:155
+#: ../yuminstall.py:158
 #, python-format
 msgid "<b>Installing %s</b> (%s)\n"
 msgstr "<b>Installerar %s</b> (%s)\n"
 
-#: ../yuminstall.py:202
+#: ../yuminstall.py:209
 #, python-format
 msgid "%s of %s packages completed"
 msgstr "%s av %s paket slutförda"
 
-#: ../yuminstall.py:214
-msgid "Finishing upgrade process..."
-msgstr "Slutför uppgraderingprocessen ..."
+#: ../yuminstall.py:219
+msgid "Finishing upgrade"
+msgstr "Slutför uppgraderingen"
 
-#: ../yuminstall.py:308 ../iw/task_gui.py:275
+#: ../yuminstall.py:220
+msgid "Finishing upgrade process.  This may take a little while..."
+msgstr "Startar uppgraderingen. Detta kan ta ett tag..."
+
+#: ../yuminstall.py:290 ../iw/task_gui.py:283
 msgid "Error Setting Up Repository"
 msgstr "Fel när förråd sattes upp"
 
-#: ../yuminstall.py:309 ../iw/task_gui.py:276
+#: ../yuminstall.py:291 ../iw/task_gui.py:284
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -2849,42 +2881,42 @@ msgstr ""
 "\n"
 "Ange korrekt information för att installera %s."
 
-#: ../yuminstall.py:366
+#: ../yuminstall.py:348
 msgid "Change Disc"
 msgstr "Byt skiva"
 
-#: ../yuminstall.py:367
+#: ../yuminstall.py:349
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Sätt in %s-skiva %d för att fortsätta."
 
-#: ../yuminstall.py:378
+#: ../yuminstall.py:360
 msgid "Wrong Disc"
 msgstr "Fel skiva"
 
-#: ../yuminstall.py:379
+#: ../yuminstall.py:361
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "Detta är inte rätt %s skiva."
 
-#: ../yuminstall.py:385
+#: ../yuminstall.py:367
 msgid "Unable to access the disc."
 msgstr "Kan inte komma åt skivan."
 
-#: ../yuminstall.py:533
+#: ../yuminstall.py:515
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "Förrådet %r saknar namn i konfigurationen, använder id"
 
-#: ../yuminstall.py:651 ../yuminstall.py:653
+#: ../yuminstall.py:634 ../yuminstall.py:636
 msgid "Re_boot"
 msgstr "Starta _om"
 
-#: ../yuminstall.py:651
+#: ../yuminstall.py:634
 msgid "_Eject"
 msgstr "_Mata ut"
 
-#: ../yuminstall.py:660
+#: ../yuminstall.py:643
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -2901,61 +2933,61 @@ msgstr ""
 "kräver en ominstallation.\n"
 "\n"
 
-#: ../yuminstall.py:700
+#: ../yuminstall.py:683
 msgid "Retrying"
 msgstr "Försöker igen"
 
-#: ../yuminstall.py:700
+#: ../yuminstall.py:683
 msgid "Retrying download..."
 msgstr "Försöker hämta igen ..."
 
-#: ../yuminstall.py:772
+#: ../yuminstall.py:755
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr "Ett fel uppstod när transaktionen kördes av följande skäl: %s\n"
 
-#: ../yuminstall.py:807 ../yuminstall.py:808
+#: ../yuminstall.py:790 ../yuminstall.py:791
 msgid "file conflicts"
 msgstr "filkonflikter"
 
-#: ../yuminstall.py:809
+#: ../yuminstall.py:792
 msgid "older package(s)"
 msgstr "äldre paket"
 
-#: ../yuminstall.py:810
+#: ../yuminstall.py:793
 msgid "insufficient disk space"
 msgstr "inte tillräckligt med diskutrymme"
 
-#: ../yuminstall.py:811
+#: ../yuminstall.py:794
 msgid "insufficient disk inodes"
 msgstr "inte tillräckligt med diskinoder"
 
-#: ../yuminstall.py:812
+#: ../yuminstall.py:795
 msgid "package conflicts"
 msgstr "paketkonflikter"
 
-#: ../yuminstall.py:813
+#: ../yuminstall.py:796
 msgid "package already installed"
 msgstr "paket som redan är installerat"
 
-#: ../yuminstall.py:814
+#: ../yuminstall.py:797
 msgid "required package"
 msgstr "paket som krävs"
 
-#: ../yuminstall.py:815
+#: ../yuminstall.py:798
 msgid "package for incorrect arch"
 msgstr "paket för felaktig arkitektur"
 
-#: ../yuminstall.py:816
+#: ../yuminstall.py:799
 msgid "package for incorrect os"
 msgstr "paket för felaktigt os"
 
-#: ../yuminstall.py:830
+#: ../yuminstall.py:813
 msgid "You need more space on the following file systems:\n"
 msgstr "Du behöver mer utrymme på följande filsystem:\n"
 
-#: ../yuminstall.py:843
+#: ../yuminstall.py:826
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2964,32 +2996,44 @@ msgstr ""
 "Det fanns konflikter vid kontrollen av paketen som skulle installeras:\n"
 "%s\n"
 
-#: ../yuminstall.py:846
+#: ../yuminstall.py:829
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
 msgstr "Ett fel uppstod när din transaktion kördes av följande skäl: %s\n"
 
-#: ../yuminstall.py:856 ../yuminstall.py:861
+#: ../yuminstall.py:839 ../yuminstall.py:844
 msgid "Error Running Transaction"
 msgstr "Fel när transaktion kördes"
 
-#: ../yuminstall.py:1021
+#: ../yuminstall.py:992
+msgid ""
+"Unable to read group information from repositories.  This is a problem with "
+"the generation of your install tree."
+msgstr ""
+"Kan inte läsa gruppinformation från datalager.  Detta är ett problem med "
+"generationen av ditt installationsträd."
+
+#: ../yuminstall.py:1030
 msgid "Retrieving installation information..."
 msgstr "Hämtar installationsinformation..."
 
-#: ../yuminstall.py:1023
+#: ../yuminstall.py:1032
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Hämtar installationsinformation för %s..."
 
-#: ../yuminstall.py:1041 ../textw/bootloader_text.py:277
+#: ../yuminstall.py:1034
+msgid "Installation Progress"
+msgstr "Installationsförlopp"
+
+#: ../yuminstall.py:1047 ../textw/bootloader_text.py:277
 #: ../textw/constants_text.py:64 ../textw/partition_text.py:1429
 msgid "Edit"
 msgstr "Redigera"
 
-#: ../yuminstall.py:1053 ../yuminstall.py:1300
+#: ../yuminstall.py:1060 ../yuminstall.py:1289
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -3004,19 +3048,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:1094
-msgid ""
-"Unable to read group information from repositories.  This is a problem with "
-"the generation of your install tree."
-msgstr ""
-"Kan inte läsa gruppinformation från datalager.  Detta är ett problem med "
-"generationen av ditt installationsträd."
-
-#: ../yuminstall.py:1127 ../iw/GroupSelector.py:505
+#: ../yuminstall.py:1111 ../iw/GroupSelector.py:503
 msgid "Uncategorized"
 msgstr "Okategoriserat"
 
-#: ../yuminstall.py:1323
+#: ../yuminstall.py:1312
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -3027,15 +3063,15 @@ msgstr ""
 "du har inte tillräckligt mycket ledigt. Du kan ändra dina val eller avsluta "
 "installationsprogrammet."
 
-#: ../yuminstall.py:1342
+#: ../yuminstall.py:1331
 msgid "Reboot?"
 msgstr "Starta om?"
 
-#: ../yuminstall.py:1343
+#: ../yuminstall.py:1332
 msgid "The system will be rebooted now."
 msgstr "Systemet kommer nu att startas om."
 
-#: ../yuminstall.py:1505
+#: ../yuminstall.py:1494
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -3045,7 +3081,7 @@ msgstr ""
 "uppgradera till denna version av %s. Är du säker på att du vill fortsätta "
 "uppgraderingsprocessen?"
 
-#: ../yuminstall.py:1532
+#: ../yuminstall.py:1521
 #, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
@@ -3057,45 +3093,41 @@ msgstr ""
 "antagligen inte att lyckas.  Är du säker på att du vill fortsätta "
 "uppgraderingsprocessen?"
 
-#: ../yuminstall.py:1579
+#: ../yuminstall.py:1571
 msgid "Post Upgrade"
 msgstr "Efteruppgradering"
 
 # För många klagomål på "postinstallationskonfiguration", det får bli
 # "efterinstallationskonfiguration" istället, och motsvarande.
-#: ../yuminstall.py:1580
+#: ../yuminstall.py:1572
 msgid "Performing post upgrade configuration..."
 msgstr "Utför konfigurering efter uppgradering..."
 
 # För många klagomål på "postinstallation", det får bli "efterinstallation"
 # istället.
-#: ../yuminstall.py:1582
+#: ../yuminstall.py:1574
 msgid "Post Install"
 msgstr "Efter installation"
 
 # För många klagomål på "postinstallationskonfiguration", det får bli
 # "efterinstallationskonfiguration" istället.
-#: ../yuminstall.py:1583
+#: ../yuminstall.py:1575
 msgid "Performing post install configuration..."
 msgstr "Utför konfiguration efter installation..."
 
-#: ../yuminstall.py:1788
-msgid "Installation Progress"
-msgstr "Installationsförlopp"
-
-#: ../yuminstall.py:1823
+#: ../yuminstall.py:1799
 msgid "Install Starting"
 msgstr "Installationen startar"
 
-#: ../yuminstall.py:1824
+#: ../yuminstall.py:1800
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Startar installationen. Detta kan ta flera minuter..."
 
-#: ../yuminstall.py:1862
+#: ../yuminstall.py:1838
 msgid "Dependency Check"
 msgstr "Beroendekontroll"
 
-#: ../yuminstall.py:1863
+#: ../yuminstall.py:1839
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kontrollerar beroenden hos de paket som valts för installation..."
 
@@ -3112,6 +3144,21 @@ msgstr ""
 #: ../zfcp.py:56
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Du har inte angivit ett FCP-LUN eller så är numret ogiltigt."
+
+#: ../iw/GroupSelector.py:165
+#, python-format
+msgid "Packages in %s"
+msgstr "Paket i %s"
+
+#: ../iw/GroupSelector.py:442
+#, python-format
+msgid "Optional packages selected: %d of %d"
+msgstr "Valfria paket valda: %d av %d"
+
+#: ../iw/GroupSelector.py:443
+#, python-format
+msgid "<i>%s</i>"
+msgstr "<i>%s</i>"
 
 #: ../iw/account_gui.py:52
 msgid "Root _Password:"
@@ -3176,10 +3223,11 @@ msgstr ""
 "Inga partitioner är tillgängliga att ändra storlek på.  Endast fysiska "
 "partitioner med vissa filsystem går att storleksändra."
 
-#: ../iw/autopart_type.py:180
+#: ../iw/autopart_type.py:183
 msgid ""
 "Do you really want to boot from a disk which is not used for installation?"
-msgstr "Vill du verkligen starta från en disk som inte används för installation?"
+msgstr ""
+"Vill du verkligen starta från en disk som inte används för installation?"
 
 #: ../iw/autopart_type.py:261
 msgid "Invalid Initiator Name"
@@ -3189,29 +3237,52 @@ msgstr "Ogiltigt initierarnamn"
 msgid "You must provide an initiator name."
 msgstr "Du måste ange ett initierarnamn."
 
-#: ../iw/autopart_type.py:284
+#: ../iw/autopart_type.py:284 ../iw/autopart_type.py:288
+#: ../iw/autopart_type.py:294 ../iw/autopart_type.py:298
+#: ../textw/partition_text.py:1711 ../textw/partition_text.py:1714
+#: ../textw/partition_text.py:1719 ../textw/partition_text.py:1723
+msgid "Missing value"
+msgstr "Värde saknas"
+
+#: ../iw/autopart_type.py:285
+msgid "CHAP username is required if CHAP password is defined."
+msgstr "CHAP-användarnamn krävs om CHAP-lösenord angivits."
+
+#: ../iw/autopart_type.py:289
+msgid "CHAP password is required if CHAP username is defined."
+msgstr "CHAP-lösenord krävs om CHAP-användarnamn angivits."
+
+#: ../iw/autopart_type.py:295
+msgid "Reverse CHAP username is required if reverse CHAP password is defined."
+msgstr "Omvänt CHAP-användarnamn krävs om omvänt CHAP-lösenord angivits."
+
+#: ../iw/autopart_type.py:299
+msgid "Reverse CHAP password is required if reverse CHAP username is defined."
+msgstr "Omvänt CHAP-lösenord krävs om omvänt CHAP-användarnamn angivits."
+
+#: ../iw/autopart_type.py:317
 msgid "Error with Data"
 msgstr "Fel med data"
 
-#: ../iw/autopart_type.py:405 ../textw/partition_text.py:1518
+#: ../iw/autopart_type.py:440 ../textw/partition_text.py:1518
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr "Ta bort alla partitioner på valda enheter och skapa en standardlayout."
 
-#: ../iw/autopart_type.py:406 ../textw/partition_text.py:1519
+#: ../iw/autopart_type.py:441 ../textw/partition_text.py:1519
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr "Ta bort Linuxpartitioner på valda enheter och skapa en standardlayout."
 
-#: ../iw/autopart_type.py:407
+#: ../iw/autopart_type.py:442
 msgid "Resize existing partition and create default layout in free space"
 msgstr ""
 "Ändra storlek på existerande partitioner och skapa en standardlayout på "
 "fritt utrymme."
 
-#: ../iw/autopart_type.py:408 ../textw/partition_text.py:1520
+#: ../iw/autopart_type.py:443 ../textw/partition_text.py:1520
 msgid "Use free space on selected drives and create default layout"
 msgstr "Använd ledigt utrymme på valda enheter och skapa en standardlayout."
 
-#: ../iw/autopart_type.py:409 ../textw/partition_text.py:1521
+#: ../iw/autopart_type.py:444 ../textw/partition_text.py:1521
 msgid "Create custom layout"
 msgstr "Skapa anpassad layout"
 
@@ -3295,7 +3366,9 @@ msgstr "Gratulerar"
 msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
-msgstr "Starta om systemet för att använda det installerade systemet.\n\n"
+msgstr ""
+"Starta om systemet för att använda det installerade systemet.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:74
 msgid ""
@@ -3355,23 +3428,6 @@ msgstr "Följande installerade system kommer att uppgraderas:"
 msgid "Unknown Linux system"
 msgstr "Okänt Linux-system"
 
-#: ../iw/GroupSelector.py:165
-#, python-format
-msgid "Packages in %s"
-msgstr "Paket i %s"
-
-#: ../iw/GroupSelector.py:442
-#, python-format
-msgid "%d of %d optional package selected"
-msgid_plural "%d of %d optional packages selected"
-msgstr[0] "%d av %d valfritt paket valt"
-msgstr[1] "%d av %d valfria paket valda"
-
-#: ../iw/GroupSelector.py:445
-#, python-format
-msgid "<i>%s</i>"
-msgstr "<i>%s</i>"
-
 #: ../iw/language_gui.py:33 ../textw/language_text.py:46
 msgid "Language Selection"
 msgstr "Språkval"
@@ -3383,7 +3439,7 @@ msgstr "Vilket språk vill du använda under installationen?"
 #: ../iw/lvm_dialog_gui.py:124 ../iw/lvm_dialog_gui.py:171
 #: ../iw/lvm_dialog_gui.py:182 ../iw/lvm_dialog_gui.py:222
 #: ../iw/lvm_dialog_gui.py:296 ../iw/lvm_dialog_gui.py:626
-#: ../iw/lvm_dialog_gui.py:723 ../iw/lvm_dialog_gui.py:941
+#: ../iw/lvm_dialog_gui.py:700 ../iw/lvm_dialog_gui.py:918
 #: ../textw/partition_text.py:1276 ../textw/partition_text.py:1295
 msgid "Not enough space"
 msgstr "Inte tillräckligt med utrymme"
@@ -3417,7 +3473,6 @@ msgstr ""
 "Denna ändring kommer att börja gälla omedelbart."
 
 #: ../iw/lvm_dialog_gui.py:144 ../iw/lvm_dialog_gui.py:204
-#: ../iw/network_gui.py:150 ../iw/network_gui.py:154 ../iw/network_gui.py:174
 msgid "C_ontinue"
 msgstr "F_ortsätt"
 
@@ -3487,25 +3542,25 @@ msgstr "Redigera logisk volym: %s"
 msgid "Edit Logical Volume"
 msgstr "Redigera logisk volym"
 
-#: ../iw/lvm_dialog_gui.py:395 ../iw/partition_dialog_gui.py:346
-#: ../iw/raid_dialog_gui.py:351
+#: ../iw/lvm_dialog_gui.py:395 ../iw/partition_dialog_gui.py:300
+#: ../iw/raid_dialog_gui.py:305
 msgid "_Mount Point:"
 msgstr "_Monteringspunkt:"
 
-#: ../iw/lvm_dialog_gui.py:403 ../iw/raid_dialog_gui.py:364
+#: ../iw/lvm_dialog_gui.py:403 ../iw/raid_dialog_gui.py:318
 msgid "_File System Type:"
 msgstr "_Filsystemstyp:"
 
-#: ../iw/lvm_dialog_gui.py:413 ../iw/raid_dialog_gui.py:374
+#: ../iw/lvm_dialog_gui.py:413 ../iw/raid_dialog_gui.py:328
 msgid "Original File System Type:"
 msgstr "Ursprunglig filsystemstyp:"
 
-#: ../iw/lvm_dialog_gui.py:418 ../iw/raid_dialog_gui.py:379
+#: ../iw/lvm_dialog_gui.py:418 ../iw/raid_dialog_gui.py:333
 msgid "Unknown"
 msgstr "Okänd"
 
-#: ../iw/lvm_dialog_gui.py:424 ../iw/partition_dialog_gui.py:396
-#: ../iw/raid_dialog_gui.py:385
+#: ../iw/lvm_dialog_gui.py:424 ../iw/partition_dialog_gui.py:350
+#: ../iw/raid_dialog_gui.py:339
 msgid "Original File System Label:"
 msgstr "Ursprunglig filsystemsetikett:"
 
@@ -3517,11 +3572,11 @@ msgstr "Namn på _logisk volym:"
 msgid "Logical Volume Name:"
 msgstr "Namn på logisk volym:"
 
-#: ../iw/lvm_dialog_gui.py:449 ../iw/partition_dialog_gui.py:408
+#: ../iw/lvm_dialog_gui.py:449 ../iw/partition_dialog_gui.py:362
 msgid "_Size (MB):"
 msgstr "_Storlek (MB):"
 
-#: ../iw/lvm_dialog_gui.py:455 ../iw/partition_dialog_gui.py:425
+#: ../iw/lvm_dialog_gui.py:455 ../iw/partition_dialog_gui.py:379
 #: ../textw/partition_text.py:321 ../textw/partition_text.py:398
 #: ../textw/partition_text.py:481 ../textw/partition_text.py:589
 msgid "Size (MB):"
@@ -3532,8 +3587,8 @@ msgstr "Storlek (MB):"
 msgid "(Max size is %s MB)"
 msgstr "(Maximal storlek är %s MB)"
 
-#: ../iw/lvm_dialog_gui.py:479 ../iw/partition_dialog_gui.py:510
-#: ../iw/partition_ui_helpers_gui.py:301 ../iw/raid_dialog_gui.py:359
+#: ../iw/lvm_dialog_gui.py:479 ../iw/partition_dialog_gui.py:464
+#: ../iw/partition_ui_helpers_gui.py:301 ../iw/raid_dialog_gui.py:313
 msgid "_Encrypt"
 msgstr "_Kryptera"
 
@@ -3579,15 +3634,15 @@ msgstr ""
 "fler fysiska volymer från opartitionerat diskutrymme och lägga till dem i "
 "denna volymgrupp."
 
-#: ../iw/lvm_dialog_gui.py:700 ../iw/partition_dialog_gui.py:211
-#: ../iw/partition_dialog_gui.py:223 ../iw/partition_dialog_gui.py:292
-#: ../iw/raid_dialog_gui.py:278 ../textw/partition_text.py:889
+#: ../iw/lvm_dialog_gui.py:677 ../iw/partition_dialog_gui.py:188
+#: ../iw/partition_dialog_gui.py:200 ../iw/partition_dialog_gui.py:246
+#: ../iw/raid_dialog_gui.py:232 ../textw/partition_text.py:889
 #: ../textw/partition_text.py:910 ../textw/partition_text.py:1083
 #: ../textw/partition_text.py:1314
 msgid "Error With Request"
 msgstr "Fel i begäran"
 
-#: ../iw/lvm_dialog_gui.py:724 ../iw/lvm_dialog_gui.py:942
+#: ../iw/lvm_dialog_gui.py:701 ../iw/lvm_dialog_gui.py:919
 #, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
@@ -3598,20 +3653,20 @@ msgstr ""
 "har endast %d MB. Gör antingen volymgruppen större eller de logiska "
 "volymerna mindre."
 
-#: ../iw/lvm_dialog_gui.py:782
+#: ../iw/lvm_dialog_gui.py:759
 msgid "No free slots"
 msgstr "Inga lediga platser"
 
-#: ../iw/lvm_dialog_gui.py:783
+#: ../iw/lvm_dialog_gui.py:760
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr "Du kan inte skapa mer än %s logiska volymer per volymgrupp."
 
-#: ../iw/lvm_dialog_gui.py:789
+#: ../iw/lvm_dialog_gui.py:766
 msgid "No free space"
 msgstr "Inget ledigt utrymme"
 
-#: ../iw/lvm_dialog_gui.py:790
+#: ../iw/lvm_dialog_gui.py:767
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3621,29 +3676,29 @@ msgstr ""
 "volymer. För att lägga till en logisk volym måste du minska storleken på en "
 "eller flera av de befintliga logiska volymerna"
 
-#: ../iw/lvm_dialog_gui.py:818
+#: ../iw/lvm_dialog_gui.py:795
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Är du säker på att du vill ta bort den logiska volymen \"%s\"?"
 
-#: ../iw/lvm_dialog_gui.py:953
+#: ../iw/lvm_dialog_gui.py:930
 msgid "Invalid Volume Group Name"
 msgstr "Ogiltigt namn på volymgrupp"
 
-#: ../iw/lvm_dialog_gui.py:964
+#: ../iw/lvm_dialog_gui.py:941
 msgid "Name in use"
 msgstr "Namnet används"
 
-#: ../iw/lvm_dialog_gui.py:965
+#: ../iw/lvm_dialog_gui.py:942
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "Volymgruppsnamnet \"%s\" används redan. Välj ett annat."
 
-#: ../iw/lvm_dialog_gui.py:1008
+#: ../iw/lvm_dialog_gui.py:985
 msgid "Not enough physical volumes"
 msgstr "Inte tillräckligt med logiska volymer"
 
-#: ../iw/lvm_dialog_gui.py:1009
+#: ../iw/lvm_dialog_gui.py:986
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3656,75 +3711,75 @@ msgstr ""
 "Skapa en partition eller RAID-kedja av typen \"fysisk volym (LVM)\" och välj "
 "sedan alternativet \"LVM\" igen."
 
-#: ../iw/lvm_dialog_gui.py:1020
+#: ../iw/lvm_dialog_gui.py:997
 msgid "Make LVM Volume Group"
 msgstr "Skapa LVM-volymgrupp"
 
-#: ../iw/lvm_dialog_gui.py:1023
+#: ../iw/lvm_dialog_gui.py:1000
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Redigera LVM-volymgrupp: %s"
 
-#: ../iw/lvm_dialog_gui.py:1025
+#: ../iw/lvm_dialog_gui.py:1002
 msgid "Edit LVM Volume Group"
 msgstr "Redigera LVM-volymgrupp"
 
-#: ../iw/lvm_dialog_gui.py:1041
+#: ../iw/lvm_dialog_gui.py:1018
 msgid "_Volume Group Name:"
 msgstr "Namn på _volymgrupp:"
 
-#: ../iw/lvm_dialog_gui.py:1049
+#: ../iw/lvm_dialog_gui.py:1026
 msgid "Volume Group Name:"
 msgstr "Namn på volymgrupp:"
 
-#: ../iw/lvm_dialog_gui.py:1057
+#: ../iw/lvm_dialog_gui.py:1034
 msgid "_Physical Extent:"
 msgstr "_Fysisk yta:"
 
-#: ../iw/lvm_dialog_gui.py:1072
+#: ../iw/lvm_dialog_gui.py:1049
 msgid "Physical Volumes to _Use:"
 msgstr "Fysiska volymer att _använda:"
 
-#: ../iw/lvm_dialog_gui.py:1078
+#: ../iw/lvm_dialog_gui.py:1055
 msgid "Used Space:"
 msgstr "Använt diskutrymme:"
 
-#: ../iw/lvm_dialog_gui.py:1095
+#: ../iw/lvm_dialog_gui.py:1072
 msgid "Free Space:"
 msgstr "Ledigt utrymme:"
 
-#: ../iw/lvm_dialog_gui.py:1113
+#: ../iw/lvm_dialog_gui.py:1090
 msgid "Total Space:"
 msgstr "Totalt utrymme:"
 
-#: ../iw/lvm_dialog_gui.py:1142
+#: ../iw/lvm_dialog_gui.py:1119
 msgid "Logical Volume Name"
 msgstr "Namn på logisk volym"
 
-#: ../iw/lvm_dialog_gui.py:1145 ../iw/partition_gui.py:371
+#: ../iw/lvm_dialog_gui.py:1122 ../iw/partition_gui.py:371
 #: ../iw/upgrade_swap_gui.py:142 ../textw/partition_text.py:1424
 #: ../textw/upgrade_text.py:120
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../iw/lvm_dialog_gui.py:1148 ../iw/partition_gui.py:376
+#: ../iw/lvm_dialog_gui.py:1125 ../iw/partition_gui.py:376
 msgid "Size (MB)"
 msgstr "Storlek (MB)"
 
-#: ../iw/lvm_dialog_gui.py:1162 ../iw/osbootwidget.py:96
+#: ../iw/lvm_dialog_gui.py:1139 ../iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_Lägg till"
 
-#: ../iw/lvm_dialog_gui.py:1165 ../iw/network_gui.py:453
-#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1383
+#: ../iw/lvm_dialog_gui.py:1142 ../iw/osbootwidget.py:100
+#: ../iw/partition_gui.py:1383
 msgid "_Edit"
 msgstr "_Redigera"
 
-#: ../iw/lvm_dialog_gui.py:1180
+#: ../iw/lvm_dialog_gui.py:1157
 msgid "_Logical Volumes"
 msgstr "Logiska _volymer"
 
-#: ../iw/netconfig_dialog.py:158 ../textw/netconfig_text.py:36
+#: ../iw/netconfig_dialog.py:174 ../textw/netconfig_text.py:36
 #, python-format
 msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
@@ -3733,107 +3788,66 @@ msgstr ""
 "Ett fel inträffade vid konvertering av värdet som angavs för \"%s\":\n"
 "%s"
 
-#: ../iw/netconfig_dialog.py:160 ../iw/netconfig_dialog.py:169
-#: ../iw/network_gui.py:149 ../iw/network_gui.py:153 ../iw/network_gui.py:157
-#: ../iw/network_gui.py:161 ../iw/network_gui.py:169 ../iw/network_gui.py:174
+#: ../iw/netconfig_dialog.py:176 ../iw/netconfig_dialog.py:185
 #: ../textw/netconfig_text.py:35 ../textw/netconfig_text.py:40
-#: ../textw/network_text.py:54 ../textw/network_text.py:59
-#: ../textw/network_text.py:65
 msgid "Error With Data"
 msgstr "Fel med data"
 
-#: ../iw/netconfig_dialog.py:168 ../iw/network_gui.py:162
-#: ../textw/network_text.py:55
+#: ../iw/netconfig_dialog.py:184
 #, python-format
 msgid "A value is required for the field %s."
 msgstr "Ett värde krävs i fältet \"%s\"."
 
-#: ../iw/netconfig_dialog.py:190 ../textw/netconfig_text.py:180
+#: ../iw/netconfig_dialog.py:205
 msgid "Dynamic IP"
 msgstr "Dynamisk IP"
 
-#: ../iw/netconfig_dialog.py:191 ../textw/netconfig_text.py:181
+#: ../iw/netconfig_dialog.py:206
 #, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "Skickar förfrågan om IP-information för %s..."
 
-#: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:215
-#: ../textw/netconfig_text.py:203 ../textw/netconfig_text.py:206
-#: ../textw/network_text.py:95 tmp/netpostconfig.glade.h:12
+#: ../iw/netconfig_dialog.py:222 ../iw/netconfig_dialog.py:225
+#: ../textw/netconfig_text.py:213 ../textw/netconfig_text.py:216
 msgid "IP Address"
 msgstr "IP-adress"
 
-#: ../iw/netconfig_dialog.py:222 ../textw/netconfig_text.py:213
+#: ../iw/netconfig_dialog.py:232 ../textw/netconfig_text.py:223
 msgid "IPv4 CIDR prefix must be between 0 and 32."
 msgstr "IPv4 CIDR-prefix måste vara mellan 0 och 32."
 
-#: ../iw/netconfig_dialog.py:223 ../iw/netconfig_dialog.py:229
-#: ../iw/netconfig_dialog.py:237 ../iw/netconfig_dialog.py:240
-#: ../textw/netconfig_text.py:214 ../textw/netconfig_text.py:220
-#: ../textw/netconfig_text.py:228
+#: ../iw/netconfig_dialog.py:233 ../iw/netconfig_dialog.py:239
+#: ../iw/netconfig_dialog.py:247 ../iw/netconfig_dialog.py:250
+#: ../textw/netconfig_text.py:224 ../textw/netconfig_text.py:230
+#: ../textw/netconfig_text.py:238
 msgid "IPv4 Network Mask"
 msgstr "IPv4-nätmask"
 
-#: ../iw/netconfig_dialog.py:247 ../iw/netconfig_dialog.py:250
-#: ../iw/network_gui.py:37 ../iw/network_gui.py:528
-#: ../textw/netconfig_text.py:238 ../textw/netconfig_text.py:241
+#: ../iw/netconfig_dialog.py:260 ../textw/netconfig_text.py:251
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/netconfig_dialog.py:257 ../textw/netconfig_text.py:248
+#: ../iw/netconfig_dialog.py:270 ../textw/netconfig_text.py:261
 msgid "Nameserver"
 msgstr "Namnserver"
 
-#: ../iw/netconfig_dialog.py:267
+#: ../iw/netconfig_dialog.py:279
 msgid "Error configuring network device:"
 msgstr "Fel vid konfigurering av nätverksenhet:"
 
-#: ../iw/netconfig_dialog.py:280
+#: ../iw/netconfig_dialog.py:284
 msgid "Error configuring network device"
 msgstr "Fel vid konfigurering av nätverksenhet"
 
-#: ../iw/network_gui.py:37 ../iw/network_gui.py:530
-msgid "Primary DNS"
-msgstr "Primär DNS"
+#: ../iw/network_gui.py:61 ../iw/network_gui.py:67
+msgid "Error with Hostname"
+msgstr "Fel med värdnamn"
 
-#: ../iw/network_gui.py:37 ../iw/network_gui.py:532
-msgid "Secondary DNS"
-msgstr "Sekundär DNS"
+#: ../iw/network_gui.py:62
+msgid "You must enter a valid hostname for this computer."
+msgstr "Du måste ange ett giltigt värdnamn för denna dator."
 
-#: ../iw/network_gui.py:38
-msgid "_Gateway"
-msgstr "_Gateway"
-
-#: ../iw/network_gui.py:38
-msgid "_Primary DNS"
-msgstr "_Primär DNS"
-
-#: ../iw/network_gui.py:38
-msgid "_Secondary DNS"
-msgstr "_Sekundär DNS"
-
-#: ../iw/network_gui.py:41 ../textw/network_text.py:534
-msgid "Network Configuration"
-msgstr "Nätverkskonfiguration"
-
-#: ../iw/network_gui.py:150
-msgid ""
-"You have not specified a hostname.  Depending on your network environment "
-"this may cause problems later."
-msgstr ""
-"Du har inte angivit ett värdnamn. Beroende på din nätverksmiljö kan detta "
-"orsaka problem senare."
-
-#: ../iw/network_gui.py:154
-#, python-format
-msgid ""
-"You have not specified the field \"%s\".  Depending on your network "
-"environment this may cause problems later."
-msgstr ""
-"Du har inte angivit ett värde i fältet \"%s\". Beroende på din nätverksmiljö "
-"kan detta orsaka problem senare."
-
-#: ../iw/network_gui.py:158 ../textw/network_text.py:824
+#: ../iw/network_gui.py:68 ../textw/network_text.py:83
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3843,110 +3857,6 @@ msgstr ""
 "Värdnamnet \"%s\" är inte giltigt av följande skäl:\n"
 "\n"
 "%s"
-
-#: ../iw/network_gui.py:165 ../textw/network_text.py:45
-#, python-format
-msgid "Error With %s Data"
-msgstr "Fel med data för %s"
-
-#: ../iw/network_gui.py:170 ../textw/network_text.py:66
-msgid "The IPv4 information you have entered is invalid."
-msgstr "IPv4-informationen du angav är ogiltig."
-
-#: ../iw/network_gui.py:174
-msgid ""
-"You have no active network devices.  Your system will not be able to "
-"communicate over a network by default without at least one device active."
-msgstr ""
-"Du har inga aktiva nätverksenheter. Ditt system kommer inte att kunna "
-"kommunicera över ett nätverk som standard utan åtminstone en aktiv enhet."
-
-#: ../iw/network_gui.py:299 ../iw/network_gui.py:313
-msgid "Disabled"
-msgstr "Inaktiverad"
-
-#: ../iw/network_gui.py:394
-msgid "Active on Boot"
-msgstr "Aktivera vid uppstart"
-
-#: ../iw/network_gui.py:396 ../iw/osbootwidget.py:67
-#: ../iw/partition_gui.py:369 ../textw/bootloader_text.py:196
-#: ../textw/bootloader_text.py:262 ../textw/partition_text.py:1424
-msgid "Device"
-msgstr "Enhet"
-
-#: ../iw/network_gui.py:398
-msgid "IPv4/Netmask"
-msgstr "IPv4/Nätmask"
-
-#: ../iw/network_gui.py:400
-msgid "IPv6/Prefix"
-msgstr "IPv6/Prefix"
-
-#: ../iw/network_gui.py:460
-msgid "Network Devices"
-msgstr "Nätverksenheter"
-
-#: ../iw/network_gui.py:471
-msgid "Set the hostname:"
-msgstr "Ställ in värdnamnet:"
-
-#: ../iw/network_gui.py:476
-msgid "_automatically via DHCP"
-msgstr "_automatiskt via DHCP"
-
-#: ../iw/network_gui.py:483
-msgid "_manually"
-msgstr "_manuellt"
-
-#: ../iw/network_gui.py:488
-msgid "(e.g., host.domain.com)"
-msgstr "(t.ex. värd.domän.se)"
-
-#: ../iw/network_gui.py:494
-msgid "Hostname"
-msgstr "Värdnamn"
-
-#: ../iw/network_gui.py:537
-msgid "Miscellaneous Settings"
-msgstr "Diverse inställningar"
-
-#: ../iw/network_gui.py:626
-msgid "Edit Device "
-msgstr "Redigera enhet"
-
-#: ../iw/network_gui.py:630
-msgid "Unknown Ethernet Device"
-msgstr "Okänd Ethernet-enhet"
-
-#: ../iw/network_gui.py:636
-msgid "unknown"
-msgstr "okänd"
-
-#: ../iw/network_gui.py:638
-msgid "Hardware address: "
-msgstr "Hårdvaruadress:"
-
-#: ../iw/network_gui.py:774 ../textw/network_text.py:230 ../loader/net.c:584
-msgid "Missing Protocol"
-msgstr "Protokoll saknas"
-
-#: ../iw/network_gui.py:775 ../textw/network_text.py:231
-msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Du måste välja minst stöd för IPv4 eller IPv6."
-
-#: ../iw/network_gui.py:798 ../iw/network_gui.py:839 ../iw/network_gui.py:845
-#: ../textw/network_text.py:76 ../loader/net.c:105
-msgid "Invalid Prefix"
-msgstr "Ogiltigt prefix"
-
-#: ../iw/network_gui.py:799
-msgid "IPv4 prefix must be between 0 and 32."
-msgstr "IPv4-prefix får bara innehålla tal mellan 0 och 32."
-
-#: ../iw/network_gui.py:840 ../iw/network_gui.py:846
-msgid "IPv6 prefix must be between 0 and 128."
-msgstr "IPv6-prefix får bara innehålla tal mellan 0 och 128."
 
 #: ../iw/osbootwidget.py:51
 msgid "Boot loader operating system list"
@@ -3959,6 +3869,12 @@ msgstr "Standard"
 #: ../iw/osbootwidget.py:67 ../iw/partition_gui.py:370
 msgid "Label"
 msgstr "Etikett"
+
+#: ../iw/osbootwidget.py:67 ../iw/partition_gui.py:369
+#: ../textw/bootloader_text.py:196 ../textw/bootloader_text.py:262
+#: ../textw/partition_text.py:1424
+msgid "Device"
+msgstr "Enhet"
 
 #: ../iw/osbootwidget.py:130
 msgid "Image"
@@ -4037,44 +3953,44 @@ msgstr "Fyll allt _utrymme upp till (MB):"
 msgid "Fill to maximum _allowable size"
 msgstr "Fyll till största ti_llåtna storlek"
 
-#: ../iw/partition_dialog_gui.py:212
+#: ../iw/partition_dialog_gui.py:189
 msgid "The end cylinder must be greater than the start cylinder."
 msgstr "Slutcylindern måste vara större än startcylindern."
 
-#: ../iw/partition_dialog_gui.py:323 ../textw/partition_text.py:713
+#: ../iw/partition_dialog_gui.py:277 ../textw/partition_text.py:713
 msgid "Add Partition"
 msgstr "Lägg till partition"
 
-#: ../iw/partition_dialog_gui.py:326
+#: ../iw/partition_dialog_gui.py:280
 #, python-format
 msgid "Edit Partition: /dev/%s"
 msgstr "Redigera partition: /dev/%s"
 
-#: ../iw/partition_dialog_gui.py:328
+#: ../iw/partition_dialog_gui.py:282
 msgid "Edit Partition"
 msgstr "Redigera partition"
 
-#: ../iw/partition_dialog_gui.py:355
+#: ../iw/partition_dialog_gui.py:309
 msgid "File System _Type:"
 msgstr "Filsystems_typ:"
 
-#: ../iw/partition_dialog_gui.py:372
+#: ../iw/partition_dialog_gui.py:326
 msgid "Allowable _Drives:"
 msgstr "Tillåtna _hårddiskar:"
 
-#: ../iw/partition_dialog_gui.py:387
+#: ../iw/partition_dialog_gui.py:341
 msgid "Drive:"
 msgstr "Hårddisk:"
 
-#: ../iw/partition_dialog_gui.py:431
+#: ../iw/partition_dialog_gui.py:385
 msgid "_Start Cylinder:"
 msgstr "_Startcylinder:"
 
-#: ../iw/partition_dialog_gui.py:449
+#: ../iw/partition_dialog_gui.py:403
 msgid "_End Cylinder:"
 msgstr "Slut_cylinder:"
 
-#: ../iw/partition_dialog_gui.py:497
+#: ../iw/partition_dialog_gui.py:451
 msgid "Force to be a _primary partition"
 msgstr "Tvinga att vara en _primär partition"
 
@@ -4349,7 +4265,7 @@ msgstr "Partitionera manuellt med _Disk Druid"
 msgid "Installing Packages"
 msgstr "Installerar paket"
 
-#: ../iw/raid_dialog_gui.py:318
+#: ../iw/raid_dialog_gui.py:272
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -4363,41 +4279,41 @@ msgstr ""
 "Skapa först minst två partitioner av typen \"programvaru-RAID\" och välj "
 "sedan alternativet \"RAID\" igen."
 
-#: ../iw/raid_dialog_gui.py:332 ../iw/raid_dialog_gui.py:765
+#: ../iw/raid_dialog_gui.py:286 ../iw/raid_dialog_gui.py:719
 #: ../textw/partition_text.py:945
 msgid "Make RAID Device"
 msgstr "Skapa RAID-enhet"
 
-#: ../iw/raid_dialog_gui.py:335
+#: ../iw/raid_dialog_gui.py:289
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "Redigera RAID-enhet: /dev/md%s"
 
-#: ../iw/raid_dialog_gui.py:337 ../textw/partition_text.py:943
+#: ../iw/raid_dialog_gui.py:291 ../textw/partition_text.py:943
 msgid "Edit RAID Device"
 msgstr "Redigera RAID-enhet"
 
-#: ../iw/raid_dialog_gui.py:393
+#: ../iw/raid_dialog_gui.py:347
 msgid "RAID _Device:"
 msgstr "RAID-_enhet_"
 
-#: ../iw/raid_dialog_gui.py:411
+#: ../iw/raid_dialog_gui.py:365
 msgid "RAID _Level:"
 msgstr "RAID-_nivå:"
 
-#: ../iw/raid_dialog_gui.py:452
+#: ../iw/raid_dialog_gui.py:406
 msgid "_RAID Members:"
 msgstr "_RAID-medlemmar:"
 
-#: ../iw/raid_dialog_gui.py:469
+#: ../iw/raid_dialog_gui.py:423
 msgid "Number of _spares:"
 msgstr "Antal reser_ver:"
 
-#: ../iw/raid_dialog_gui.py:479
+#: ../iw/raid_dialog_gui.py:433
 msgid "_Format partition?"
 msgstr "_Formatera partitionen?"
 
-#: ../iw/raid_dialog_gui.py:566
+#: ../iw/raid_dialog_gui.py:520
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
@@ -4405,12 +4321,12 @@ msgstr ""
 "Källhårddisken har inga partitioner som kan klonas. Du måste först definiera "
 "partitioner av typen \"programvaru-RAID\" på hårddisken innan den kan klonas."
 
-#: ../iw/raid_dialog_gui.py:570 ../iw/raid_dialog_gui.py:576
-#: ../iw/raid_dialog_gui.py:588 ../iw/raid_dialog_gui.py:601
+#: ../iw/raid_dialog_gui.py:524 ../iw/raid_dialog_gui.py:530
+#: ../iw/raid_dialog_gui.py:542 ../iw/raid_dialog_gui.py:555
 msgid "Source Drive Error"
 msgstr "Källhårddiskfel"
 
-#: ../iw/raid_dialog_gui.py:577
+#: ../iw/raid_dialog_gui.py:531
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4422,7 +4338,7 @@ msgstr ""
 "\n"
 "Du måste ta bort dessa partitioner innan hårddisken kan klonas. "
 
-#: ../iw/raid_dialog_gui.py:589
+#: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
@@ -4437,7 +4353,7 @@ msgstr ""
 "Du måste ta bort dessa partitioner eller begränsa dem till denna enhet innan "
 "hårddisken kan klonas. "
 
-#: ../iw/raid_dialog_gui.py:602
+#: ../iw/raid_dialog_gui.py:556
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4449,21 +4365,21 @@ msgstr ""
 "\n"
 "Du måste ta bort dessa partitioner innan denna enhet kan klonas."
 
-#: ../iw/raid_dialog_gui.py:615 ../iw/raid_dialog_gui.py:621
-#: ../iw/raid_dialog_gui.py:640
+#: ../iw/raid_dialog_gui.py:569 ../iw/raid_dialog_gui.py:575
+#: ../iw/raid_dialog_gui.py:594
 msgid "Target Drive Error"
 msgstr "Målhårddiskfel"
 
-#: ../iw/raid_dialog_gui.py:616
+#: ../iw/raid_dialog_gui.py:570
 msgid "Please select the target drives for the clone operation."
 msgstr "Välj målhårddiskarna för kloningsåtgärden."
 
-#: ../iw/raid_dialog_gui.py:622
+#: ../iw/raid_dialog_gui.py:576
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "Källhårddisken /dev/%s kan inte även väljas som en målhårddisk."
 
-#: ../iw/raid_dialog_gui.py:641
+#: ../iw/raid_dialog_gui.py:595
 #, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
@@ -4480,11 +4396,11 @@ msgstr ""
 "\n"
 "Du måste ta bort denna partition innan hårddisken kan vara ett mål."
 
-#: ../iw/raid_dialog_gui.py:702
+#: ../iw/raid_dialog_gui.py:656
 msgid "Please select a source drive."
 msgstr "Välj en källenhet."
 
-#: ../iw/raid_dialog_gui.py:722
+#: ../iw/raid_dialog_gui.py:676
 #, python-format
 msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
@@ -4493,7 +4409,7 @@ msgstr ""
 "Hårddisken /dev/%s kommer nu att klonas till följande hårddiskar:\n"
 "\n"
 
-#: ../iw/raid_dialog_gui.py:727
+#: ../iw/raid_dialog_gui.py:681
 msgid ""
 "\n"
 "\n"
@@ -4503,20 +4419,20 @@ msgstr ""
 "\n"
 "VARNING! ALL DATA PÅ MÅLHÅRDDISKARNA KOMMER ATT FÖRSTÖRAS."
 
-#: ../iw/raid_dialog_gui.py:730
+#: ../iw/raid_dialog_gui.py:684
 msgid "Final Warning"
 msgstr "Slutgiltig varning"
 
-#: ../iw/raid_dialog_gui.py:732
+#: ../iw/raid_dialog_gui.py:686
 msgid "Clone Drives"
 msgstr "Klona hårddiskar"
 
-#: ../iw/raid_dialog_gui.py:741
+#: ../iw/raid_dialog_gui.py:695
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr ""
 "Ett fel inträffade vid tömning av målhårddiskarna. Kloning misslyckades."
 
-#: ../iw/raid_dialog_gui.py:775
+#: ../iw/raid_dialog_gui.py:729
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4545,19 +4461,19 @@ msgstr ""
 "\n"
 "ALLTING på målenheterna kommer att förstöras av denna process."
 
-#: ../iw/raid_dialog_gui.py:795
+#: ../iw/raid_dialog_gui.py:749
 msgid "Source Drive:"
 msgstr "Källhårddisk:"
 
-#: ../iw/raid_dialog_gui.py:803
+#: ../iw/raid_dialog_gui.py:757
 msgid "Target Drive(s):"
 msgstr "Målhårddisk(ar):"
 
-#: ../iw/raid_dialog_gui.py:811
+#: ../iw/raid_dialog_gui.py:765
 msgid "Drives"
 msgstr "Hårddiskar"
 
-#: ../iw/task_gui.py:46
+#: ../iw/task_gui.py:48
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -4571,77 +4487,72 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/task_gui.py:56
-#, python-format
-msgid ""
-"Unable to find a group file for %s.  This will prevent manual selection of "
-"packages from the repository from working"
-msgstr ""
-"Kan inte hitta en gruppfil för %s. Detta förhindrar att man manuellt kan "
-"välja paket från förrådet"
-
-#: ../iw/task_gui.py:155
-msgid "Edit Repository"
-msgstr "Redigera förråd"
-
-#: ../iw/task_gui.py:213
-msgid "Invalid Proxy URL"
-msgstr "Ogiltig proxy-URL"
-
-#: ../iw/task_gui.py:214
-msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
-msgstr "Du måste ange en HTTP-, HTTPS- eller FTP-URL till en proxy."
-
-#: ../iw/task_gui.py:224 ../iw/task_gui.py:350
-msgid "Invalid Repository URL"
-msgstr "Ogiltig förråds-URL"
-
-#: ../iw/task_gui.py:225 ../iw/task_gui.py:351
-msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr "Du måste ange en HTTP-, HTTPS- eller FTP-URL till ett förråd."
-
-#: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-msgid "No Media Found"
-msgstr "Inget medium hittades"
-
-#: ../iw/task_gui.py:248 ../iw/task_gui.py:361
-msgid ""
-"No installation media was found. Please insert a disc into your drive and "
-"try again."
-msgstr "Inget installationsmedium hittades.  Sätt in en skiva i din spelare och försök igen."
-
-#: ../iw/task_gui.py:267 ../iw/task_gui.py:377
-msgid "Please enter an NFS server and path."
-msgstr "Ange en NFS-server och sökväg."
-
-#: ../iw/task_gui.py:299
-msgid "Invalid Repository Name"
-msgstr "Ogiltigt förrådsnamn"
-
-#: ../iw/task_gui.py:300
-msgid "You must provide a repository name."
-msgstr "Du måste ange ett förrådsnamn."
-
-#: ../iw/task_gui.py:412 tmp/addrepo.glade.h:3
-msgid "Add Repository"
-msgstr "Lägg till förråd"
-
-#: ../iw/task_gui.py:418
+#: ../iw/task_gui.py:146
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr "Förrådet %s har redan lagts till.  Välj ett annat förrådsnamn och URL."
 
-#: ../iw/task_gui.py:431
+#: ../iw/task_gui.py:159
+msgid "Edit Repository"
+msgstr "Redigera förråd"
+
+#: ../iw/task_gui.py:221
+msgid "Invalid Proxy URL"
+msgstr "Ogiltig proxy-URL"
+
+#: ../iw/task_gui.py:222
+msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
+msgstr "Du måste ange en HTTP-, HTTPS- eller FTP-URL till en proxy."
+
+#: ../iw/task_gui.py:232 ../iw/task_gui.py:370
+msgid "Invalid Repository URL"
+msgstr "Ogiltig förråds-URL"
+
+#: ../iw/task_gui.py:233 ../iw/task_gui.py:371
+msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
+msgstr "Du måste ange en HTTP-, HTTPS- eller FTP-URL till ett förråd."
+
+#: ../iw/task_gui.py:255 ../iw/task_gui.py:380
+msgid "No Media Found"
+msgstr "Inget medium hittades"
+
+#: ../iw/task_gui.py:256 ../iw/task_gui.py:381
+msgid ""
+"No installation media was found. Please insert a disc into your drive and "
+"try again."
+msgstr ""
+"Inget installationsmedium hittades.  Sätt in en skiva i din spelare och "
+"försök igen."
+
+#: ../iw/task_gui.py:275 ../iw/task_gui.py:397
+msgid "Please enter an NFS server and path."
+msgstr "Ange en NFS-server och sökväg."
+
+#: ../iw/task_gui.py:307
+msgid "Invalid Repository Name"
+msgstr "Ogiltigt förrådsnamn"
+
+#: ../iw/task_gui.py:308
+msgid "You must provide a repository name."
+msgstr "Du måste ange ett förrådsnamn."
+
+#: ../iw/task_gui.py:432 tmp/addrepo.glade.h:3
+msgid "Add Repository"
+msgstr "Lägg till förråd"
+
+#: ../iw/task_gui.py:437
 msgid "No Software Repos Enabled"
 msgstr "Inga programvaruförråd aktiverade"
 
-#: ../iw/task_gui.py:432
+#: ../iw/task_gui.py:438
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr "Du måste ha åtminstone ett programvaruförråd aktiverat för att fortsätta med installationen."
+msgstr ""
+"Du måste ha åtminstone ett programvaruförråd aktiverat för att fortsätta med "
+"installationen."
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -5090,244 +5001,51 @@ msgstr ""
 "Detta kräver att du har en fungerande nätverksuppkoppling under "
 "installationsprocessen. Vänligen konfigurera ett nätverksinterface."
 
-#: ../textw/netconfig_text.py:111
+#: ../textw/netconfig_text.py:127
 msgid "Use dynamic IP configuration (DHCP)"
 msgstr "Använd dynamisk IP-konfiguration (DHCP)"
 
-#: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
-#: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
+#: ../textw/netconfig_text.py:130 ../loader/net.c:493
 msgid "Enable IPv4 support"
 msgstr "Slå på IPv4 stöd"
 
-#: ../textw/netconfig_text.py:117 ../textw/network_text.py:158
-#: ../loader/net.c:507 tmp/netpostconfig.glade.h:10
-msgid "Enable IPv6 support"
-msgstr "Slå på IPv6 stöd"
-
-#: ../textw/netconfig_text.py:121
+#: ../textw/netconfig_text.py:137
 msgid "IPv4 Address:"
 msgstr "IPv4-adress:"
 
-#: ../textw/netconfig_text.py:131
-msgid "IPv6 Address:"
-msgstr "IPv6-adress:"
-
-#: ../textw/netconfig_text.py:141 ../textw/network_text.py:682
-#: ../loader/net.c:828
+#: ../textw/netconfig_text.py:157 ../loader/net.c:850
 msgid "Gateway:"
 msgstr "Gateway:"
 
-#: ../textw/netconfig_text.py:144
+#: ../textw/netconfig_text.py:160
 msgid "Nameserver:"
 msgstr "Namnserver:"
 
-#: ../textw/netconfig_text.py:171
+#: ../textw/netconfig_text.py:189
 msgid "Missing Device"
 msgstr "Enhet saknas"
 
-#: ../textw/netconfig_text.py:172
+#: ../textw/netconfig_text.py:190
 msgid "You must select a network device"
 msgstr "Du måste välja en nätverksenhet"
 
-#: ../textw/netconfig_text.py:231
+#: ../textw/netconfig_text.py:241
 msgid "IPv4 Network Mask "
 msgstr "IPv4-nätmask "
 
-#: ../textw/netconfig_text.py:257
-msgid "Error configuring network device: "
-msgstr "Fel vid konfigurering av nätverksenhet: "
+#: ../textw/netconfig_text.py:264
+msgid "Configuring Network Interfaces"
+msgstr "Konfigurera nätverksgränssnitt"
 
-#: ../textw/network_text.py:60
-#, python-format
-msgid ""
-"You have not specified the field %s.  Depending on your network environment "
-"this may cause problems later."
-msgstr ""
-"Du har inte angivit ett värde i fältet \"%s\". Beroende på din nätverksmiljö "
-"kan detta orsaka problem senare."
+#: ../textw/netconfig_text.py:264
+msgid "Waiting for NetworkManager..."
+msgstr "Väntar på NetworkManager.."
 
-#: ../textw/network_text.py:77
-#, python-format
-msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv%d-prefix får bara innehålla tal mellan 0 och %d."
-
-#: ../textw/network_text.py:81
-msgid "Integer Required for Prefix"
-msgstr "Heltal krävs för prefix"
-
-#: ../textw/network_text.py:82
-#, python-format
-msgid ""
-"You must enter a valid integer for the %s.  For IPv4, the value can be "
-"between 0 and 32.  For IPv6 it can be between 0 and 128."
-msgstr ""
-"Du måste ange ett giltigt heltal för %s. För IPv4, kan värdet vara mellan 0 "
-"och 32. För IPv6 kan det vara mellan 0 och 128."
-
-#: ../textw/network_text.py:89 tmp/netpostconfig.glade.h:16
-msgid "Prefix (Netmask)"
-msgstr "Prefix(Nätmask)"
-
-#: ../textw/network_text.py:91 tmp/netpostconfig.glade.h:15
-msgid "Prefix"
-msgstr "Prefix"
-
-#: ../textw/network_text.py:144
-msgid "Activate on boot"
-msgstr "Aktivera vid uppstart"
-
-#: ../textw/network_text.py:171
-msgid "P-to-P:"
-msgstr "P-till-P:"
-
-#: ../textw/network_text.py:189 tmp/netpostconfig.glade.h:7
-msgid "ESSID:"
-msgstr "ESSID:"
-
-#: ../textw/network_text.py:198
-msgid "WEP Key:"
-msgstr "WEP-nyckel:"
-
-#: ../textw/network_text.py:211
-#, python-format
-msgid "Network Configuration for %s"
-msgstr "Nätverkskonfiguration för %s"
-
-#: ../textw/network_text.py:248 ../textw/network_text.py:251
-msgid "point-to-point IP address"
-msgstr "IP-adress för punkt-till-punkt"
-
-#: ../textw/network_text.py:274 tmp/netpostconfig.glade.h:5
-msgid "Dynamic IP configuration (DHCP)"
-msgstr "Dynamisk IP-konfiguration (DHCP)"
-
-#: ../textw/network_text.py:277 ../textw/network_text.py:408
-msgid "Manual address configuration"
-msgstr "Manuell adresskonfiguration"
-
-#: ../textw/network_text.py:297
-#, python-format
-msgid "IPv4 Configuration for %s"
-msgstr "IPv4-konfiguration för %s"
-
-#: ../textw/network_text.py:327 ../textw/network_text.py:339
-#: ../textw/network_text.py:342
-msgid "IPv4 address"
-msgstr "IPv4-adress"
-
-#: ../textw/network_text.py:331
-msgid "IPv4 network mask"
-msgstr "IPv4-nätmask"
-
-#: ../textw/network_text.py:357 ../textw/network_text.py:360
-#: ../textw/network_text.py:363
-msgid "IPv4 prefix (network mask)"
-msgstr "IPv4-prefix(nätmask)"
-
-#: ../textw/network_text.py:402 tmp/netpostconfig.glade.h:4
-msgid "Automatic neighbor discovery"
-msgstr "Automatisk upptäckt av grannar"
-
-#: ../textw/network_text.py:405 tmp/netpostconfig.glade.h:6
-msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Dynamisk IP-konfiguration (DHCPv6)"
-
-#: ../textw/network_text.py:432
-#, python-format
-msgid "IPv6 Configuration for %s"
-msgstr "IPv6-konfiguration för %s"
-
-#: ../textw/network_text.py:462 ../textw/network_text.py:473
-#: ../textw/network_text.py:476
-msgid "IPv6 address"
-msgstr "IPv6-adress"
-
-#: ../textw/network_text.py:466 ../textw/network_text.py:485
-msgid "IPv6 prefix"
-msgstr "IPv6-prefix"
-
-#: ../textw/network_text.py:511
-msgid "Configure Network Interface"
-msgstr "Konfigurera nätverksgränssnittet"
-
-#: ../textw/network_text.py:512
-#, python-format
-msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Vill du konfigurera nätverksgränssnittet %s på ditt system?"
-
-#: ../textw/network_text.py:526 ../textw/network_text.py:528
-msgid "UNCONFIGURED"
-msgstr "OKONFIGURERAD"
-
-#: ../textw/network_text.py:537
-msgid ""
-"The current configuration settings for each interface are listed next to the "
-"device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
-"configure an interface, highlight it and choose Edit.  When you are "
-"finished, press OK to continue."
-msgstr ""
-"De nuvarande konfigurationsinställningarna för varje gränssnitt är listade "
-"brevid enhetsnamnet. Okonfigurerade gränssnitt visas som OKONFIGURERAD. För "
-"att konfigurera ett gränssnitt, markera det och välj Redigera. När du är "
-"klar, tryck OK för att att fortsätta."
-
-#: ../textw/network_text.py:571
-msgid "Active on boot"
-msgstr "Aktivera vid uppstart"
-
-#: ../textw/network_text.py:573
-msgid "Inactive on boot"
-msgstr "Avaktivera vid uppstart"
-
-#: ../textw/network_text.py:576
-msgid "DHCP"
-msgstr "DHCP"
-
-#: ../textw/network_text.py:581
-msgid "Auto IPv6"
-msgstr "Auto IPv6"
-
-#: ../textw/network_text.py:583
-msgid "DHCPv6"
-msgstr "DHCPv6"
-
-#: ../textw/network_text.py:691
-msgid "Primary DNS:"
-msgstr "Primär DNS:"
-
-#: ../textw/network_text.py:696
-msgid "Secondary DNS:"
-msgstr "Sekundär DNS:"
-
-#: ../textw/network_text.py:703
-msgid "Miscellaneous Network Settings"
-msgstr "Diverse nätverksinställningar"
-
-#: ../textw/network_text.py:720 ../textw/network_text.py:723
-msgid "gateway"
-msgstr "gateway"
-
-#: ../textw/network_text.py:730 ../textw/network_text.py:733
-msgid "primary DNS"
-msgstr "primär DNS"
-
-#: ../textw/network_text.py:742
-msgid "secondary DNS"
-msgstr "sekundär DNS"
-
-#: ../textw/network_text.py:766
-msgid "automatically via DHCP"
-msgstr "automatiskt via DHCP"
-
-#: ../textw/network_text.py:769
-msgid "manually"
-msgstr "manuellt"
-
-#: ../textw/network_text.py:788
+#: ../textw/network_text.py:42
 msgid "Hostname Configuration"
 msgstr "Värdnamnskonfiguration"
 
-#: ../textw/network_text.py:791
+#: ../textw/network_text.py:50
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5339,11 +5057,11 @@ msgstr ""
 "manuellt och ange ett värdnamn för ditt system. Om du inte gör detta kommer "
 "ditt system att gå under namnet \"localhost\"."
 
-#: ../textw/network_text.py:817 ../textw/network_text.py:823
+#: ../textw/network_text.py:75 ../textw/network_text.py:82
 msgid "Invalid Hostname"
 msgstr "Ogiltigt värdnamn"
 
-#: ../textw/network_text.py:818
+#: ../textw/network_text.py:76
 msgid "You have not specified a hostname."
 msgstr "Du har inte angivit ett värdnamn."
 
@@ -5657,11 +5375,11 @@ msgstr ""
 "Fibre Channel (FCP). Du måste ange ett 16-bitars enhetsnummer, ett 64-bitars "
 "World Wide Port Name (WWPN) och ett 64-bitars FCP-LUN för varje enhet."
 
-#: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
+#: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:7
 msgid "Configure iSCSI Parameters"
 msgstr "Konfigurera iSCSI-parametrar"
 
-#: ../textw/partition_text.py:1688 tmp/iscsi-config.glade.h:6
+#: ../textw/partition_text.py:1688 tmp/iscsi-config.glade.h:8
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
@@ -5677,6 +5395,38 @@ msgstr "IP-adress för mål"
 msgid "iSCSI Initiator Name"
 msgstr "iSCSI-initierarnamn"
 
+#: ../textw/partition_text.py:1691
+msgid "CHAP username"
+msgstr "CHAP-användarnamn"
+
+#: ../textw/partition_text.py:1692
+msgid "CHAP password"
+msgstr "CHAP-lösenord"
+
+#: ../textw/partition_text.py:1693
+msgid "Reverse CHAP username"
+msgstr "Omvänt CHAP-användarnamn"
+
+#: ../textw/partition_text.py:1694
+msgid "Reverse CHAP password"
+msgstr "Omvänt CHAP-lösenord"
+
+#: ../textw/partition_text.py:1712
+msgid "Username is required when password is present."
+msgstr "Användarnamn krävs när ett lösenord angivits."
+
+#: ../textw/partition_text.py:1715
+msgid "Password is required when username is present."
+msgstr "Lösenord krävs när ett användarnamn angivits."
+
+#: ../textw/partition_text.py:1720
+msgid "Reverse username is required whenreverse password is present."
+msgstr "Omvänt användarnamn krävs när ett omvänt lösenord angivits."
+
+#: ../textw/partition_text.py:1724
+msgid "Reverse password is required whenreverse username is present."
+msgstr "Omvänt lösenord krävs när ett omvänt användarnamn angivits."
+
 #: ../textw/partmethod_text.py:34
 msgid "Autopartition"
 msgstr "Partitionera automatiskt"
@@ -5689,11 +5439,11 @@ msgstr "Disk Druid"
 msgid "Package Installation"
 msgstr "Paketinstallation"
 
-#: ../textw/task_text.py:53
+#: ../textw/task_text.py:42
 msgid "Package selection"
 msgstr "Val av paket"
 
-#: ../textw/task_text.py:59 tmp/tasksel.glade.h:4
+#: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
 #, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -5704,7 +5454,7 @@ msgstr ""
 "för allmän Internetanvändning. Vilka ytterligare uppgifter vill du att "
 "systemet ska ha stöd för?"
 
-#: ../textw/task_text.py:74
+#: ../textw/task_text.py:63
 msgid "Customize software selection"
 msgstr "Anpassa valet av programvara"
 
@@ -5739,9 +5489,8 @@ msgid ""
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "Denna utgåva av %s stödjer ett uppdaterat filsystem, som har flera fördelar "
-"jämfört med filsystemet som normalt använts i %s.  Detta "
-"installationsprogram kan migrera formaterade partitioner utan förlust av "
-"data.\n"
+"jämfört med filsystemet som normalt använts i %s. Detta installationsprogram "
+"kan migrera formaterade partitioner utan förlust av data.\n"
 "\n"
 "Vilka av dessa partitioner vill du migrera?"
 
@@ -5861,8 +5610,8 @@ msgstr "Kontor och produktivitet"
 msgid "Software Development"
 msgstr "Programvaruutveckling"
 
-#: ../installclasses/fedora.py:50 ../installclasses/rhel.py:60
-msgid "Web server"
+#: ../installclasses/fedora.py:50
+msgid "Web Server"
 msgstr "Webbserver"
 
 #: ../installclasses/rhel.py:43
@@ -5876,6 +5625,10 @@ msgstr "Kontor"
 #: ../installclasses/rhel.py:54
 msgid "Multimedia"
 msgstr "Multimedia"
+
+#: ../installclasses/rhel.py:60
+msgid "Web server"
+msgstr "Webbserver"
 
 #: ../installclasses/rhel.py:65
 msgid "Virtualization"
@@ -6120,9 +5873,9 @@ msgstr "Vill du läsa in fler drivrutinsdisketter?"
 #: ../loader/hdinstall.c:384 ../loader/kickstart.c:132
 #: ../loader/kickstart.c:142 ../loader/kickstart.c:185
 #: ../loader/kickstart.c:532 ../loader/modules.c:335 ../loader/modules.c:347
-#: ../loader/net.c:1330 ../loader/net.c:1353 ../loader/nfsinstall.c:337
-#: ../loader/urlinstall.c:421 ../loader/urlinstall.c:430
-#: ../loader/urlinstall.c:439
+#: ../loader/net.c:1414 ../loader/net.c:1437 ../loader/nfsinstall.c:331
+#: ../loader/urlinstall.c:423 ../loader/urlinstall.c:432
+#: ../loader/urlinstall.c:441
 msgid "Kickstart Error"
 msgstr "Kickstartfel"
 
@@ -6191,7 +5944,9 @@ msgstr "Välj enhetsdrivrutin att läsa in"
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
-msgstr "Det inträffade ett fel vid sökning efter installationsavbilden på din hårddisk.  Kontrollera dina avbilder och försök igen."
+msgstr ""
+"Det inträffade ett fel vid sökning efter installationsavbilden på din "
+"hårddisk.  Kontrollera dina avbilder och försök igen."
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6207,7 +5962,10 @@ msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
-msgstr "Vilken partition, och katalog på den partitionen, innehåller installationsavbilden för %s?  Tryck F2 för att konfigurera ytterligare enheter om du inte ser den disk du använder i denna lista."
+msgstr ""
+"Vilken partition, och katalog på den partitionen, innehåller "
+"installationsavbilden för %s?  Tryck F2 för att konfigurera ytterligare "
+"enheter om du inte ser den disk du använder i denna lista."
 
 #: ../loader/hdinstall.c:273
 msgid "Directory holding image:"
@@ -6332,7 +6090,8 @@ msgstr ""
 #: ../loader/loader.c:487
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "Sätt in din uppdateringsdiskett i %s och tryck \"OK\" för att fortsätta."
+msgstr ""
+"Sätt in din uppdateringsdiskett i %s och tryck \"OK\" för att fortsätta."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6362,49 +6121,49 @@ msgstr ""
 msgid "Error downloading updates image"
 msgstr "Fel vid nedladdning av uppdateringsavbild"
 
-#: ../loader/loader.c:1171
+#: ../loader/loader.c:1175
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "Du har inte tillräckligt med minne för att installera %s på denna maskin."
 
-#: ../loader/loader.c:1231
+#: ../loader/loader.c:1235
 msgid "Media Detected"
 msgstr "Medium detekterades"
 
-#: ../loader/loader.c:1232
+#: ../loader/loader.c:1236
 msgid "Local installation media detected..."
 msgstr "Lokalt installationsmedium detekterades..."
 
-#: ../loader/loader.c:1353
+#: ../loader/loader.c:1357
 msgid "Rescue Method"
 msgstr "Räddningsmetod"
 
-#: ../loader/loader.c:1354
+#: ../loader/loader.c:1358
 msgid "Installation Method"
 msgstr "Installationsmetod"
 
-#: ../loader/loader.c:1356
+#: ../loader/loader.c:1360
 msgid "What type of media contains the rescue image?"
 msgstr "Vilket medium innehåller räddningsavbilden?"
 
-#: ../loader/loader.c:1358
+#: ../loader/loader.c:1362
 msgid "What type of media contains the installation image?"
 msgstr "Vilket sorts medium innehåller installationsavbilden?"
 
-#: ../loader/loader.c:1389
+#: ../loader/loader.c:1393
 msgid "No driver found"
 msgstr "Ingen drivrutin hittades"
 
-#: ../loader/loader.c:1389
+#: ../loader/loader.c:1393
 msgid "Select driver"
 msgstr "Välj drivrutin"
 
-#: ../loader/loader.c:1390
+#: ../loader/loader.c:1394
 msgid "Use a driver disk"
 msgstr "Använd en drivrutinsdiskett"
 
-#: ../loader/loader.c:1391
+#: ../loader/loader.c:1395
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6413,11 +6172,11 @@ msgstr ""
 "installationstyp. Vill du välja din drivrutin manuellt eller använda en "
 "drivrutinsdiskett?"
 
-#: ../loader/loader.c:1652
+#: ../loader/loader.c:1679
 msgid "The following devices have been found on your system."
 msgstr "Följande enheter har hittats i ditt system."
 
-#: ../loader/loader.c:1654
+#: ../loader/loader.c:1681
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6425,29 +6184,29 @@ msgstr ""
 "Inga enhetsdrivrutiner för ditt system har lästs in. Vill du läsa in några "
 "nu?"
 
-#: ../loader/loader.c:1658
+#: ../loader/loader.c:1685
 msgid "Devices"
 msgstr "Enheter"
 
-#: ../loader/loader.c:1659
+#: ../loader/loader.c:1686
 msgid "Done"
 msgstr "Färdig"
 
-#: ../loader/loader.c:1660
+#: ../loader/loader.c:1687
 msgid "Add Device"
 msgstr "Lägg till enhet"
 
-#: ../loader/loader.c:1847
+#: ../loader/loader.c:1878
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "inläsaren har redan körts. Startar skal.\n"
 
-#: ../loader/loader.c:2186
+#: ../loader/loader.c:2248
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
 msgstr "Kör anaconda %s, räddningsläget för %s - var vänlig vänta ...\n"
 
-#: ../loader/loader.c:2188
+#: ../loader/loader.c:2250
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
 msgstr ""
@@ -6526,7 +6285,11 @@ msgstr "Felaktigt argument till enhetskickstartmetodkommandot %s: %s"
 msgid "A module name must be specified for the kickstart device command."
 msgstr "Ett modulnamn måste anges för kickstartenhetskommandot."
 
-#: ../loader/net.c:106
+#: ../loader/net.c:108
+msgid "Invalid Prefix"
+msgstr "Ogiltigt prefix"
+
+#: ../loader/net.c:109
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
@@ -6534,50 +6297,57 @@ msgstr ""
 "Prefix måste vara mellan 1 och 32 för IPv4-nätverk eller mellan 1 och 128 "
 "för IPv6-nätverk"
 
-#: ../loader/net.c:413 ../loader/net.c:467
+#: ../loader/net.c:409 ../loader/net.c:463
 msgid "Network Error"
 msgstr "Nätverksfel"
 
-#: ../loader/net.c:414 ../loader/net.c:468
+#: ../loader/net.c:410 ../loader/net.c:464
 msgid "There was an error configuring your network interface."
 msgstr ""
 "Ett fel inträffade vid konfigurertömning av målhårddiskarna. Kloning "
 "misslyckades."
 
-#: ../loader/net.c:540
+#: ../loader/net.c:507
+msgid "Enable IPv6 support"
+msgstr "Slå på IPv6 stöd"
+
+#: ../loader/net.c:547
 msgid "Configure TCP/IP"
 msgstr "Konfigurera TCP/IP"
 
-#: ../loader/net.c:585
+#: ../loader/net.c:606
+msgid "Missing Protocol"
+msgstr "Protokoll saknas"
+
+#: ../loader/net.c:607
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "Du måste välja minst ett protokoll (IPv4 eller IPv6)."
 
-#: ../loader/net.c:592
+#: ../loader/net.c:614
 msgid "IPv4 Needed for NFS"
 msgstr "IPv4 behövs för NFS"
 
-#: ../loader/net.c:593
+#: ../loader/net.c:615
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS-installationsmetod kräver IPv4-stöd."
 
-#: ../loader/net.c:697
+#: ../loader/net.c:717
 msgid "IPv4 address:"
 msgstr "IPv4-adress:"
 
-#: ../loader/net.c:709 ../loader/net.c:775 tmp/netconfig.glade.h:1
-#: tmp/netpostconfig.glade.h:1
+#: ../loader/net.c:729 ../loader/net.c:796 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader/net.c:763
+#: ../loader/net.c:784
 msgid "IPv6 address:"
 msgstr "IPv6-adress:"
 
-#: ../loader/net.c:836
+#: ../loader/net.c:858
 msgid "Name Server:"
 msgstr "Namnserver:"
 
-#: ../loader/net.c:875
+#: ../loader/net.c:897
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -6587,118 +6357,116 @@ msgstr ""
 "punkt-kvadruppel nätmask eller prefix i CIDR-stil tillåtet. Fälten gateway "
 "och namnserver måste vara giltiga IPv4- eller IPv6-adresser."
 
-#: ../loader/net.c:895
+#: ../loader/net.c:917
 msgid "Manual TCP/IP Configuration"
 msgstr "Manuell TCP/IP-konfiguration"
 
-#: ../loader/net.c:1009 ../loader/net.c:1015
+#: ../loader/net.c:1040 ../loader/net.c:1047
 msgid "Missing Information"
 msgstr "Information saknas"
 
-#: ../loader/net.c:1010
+#: ../loader/net.c:1041
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Du måste skriva in både en giltig IPv4-adress och en nätmask eller CIDR "
 "prefix."
 
-#: ../loader/net.c:1016
+#: ../loader/net.c:1048
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Du måste skriva in både en giltig IPv6-adress och ett CIDR prefix."
 
-#: ../loader/net.c:1331
+#: ../loader/net.c:1415
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Felaktigt argument till kickstartnätverkskommandot %s: %s"
 
-#: ../loader/net.c:1354
+#: ../loader/net.c:1438
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Felaktigt startprotokoll %s angivet i nätverkskommando"
 
-#: ../loader/net.c:1423
+#: ../loader/net.c:1509
 msgid "Seconds:"
 msgstr "Sekunder:"
 
-#: ../loader/net.c:1537
+#: ../loader/net.c:1623
 msgid "Networking Device"
 msgstr "Nätverksenhet"
 
-#: ../loader/net.c:1538
+#: ../loader/net.c:1624
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 "Du har flera nätverksenheter i detta system. Vilken vill du installera via?"
 
-#: ../loader/net.c:1542
+#: ../loader/net.c:1628
 msgid "Identify"
 msgstr "Identifiera"
 
-#: ../loader/net.c:1551
+#: ../loader/net.c:1637
 msgid "You can identify the physical port for"
 msgstr "Du kan identifiera den fysiska porten för"
 
-#: ../loader/net.c:1553
+#: ../loader/net.c:1639
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr "genom att blinka LED-lamporna i ett antal sekunder.  Ange ett tal mellan 1 och 30 för att sätta tiden för hur länge portens LED-lampor blinkar."
+msgstr ""
+"genom att blinka LED-lamporna i ett antal sekunder.  Ange ett tal mellan 1 "
+"och 30 för att sätta tiden för hur länge portens LED-lampor blinkar."
 
-#: ../loader/net.c:1563
+#: ../loader/net.c:1649
 msgid "Identify NIC"
 msgstr "Identifiera NIC"
 
-#: ../loader/net.c:1576
+#: ../loader/net.c:1662
 msgid "Invalid Duration"
 msgstr "Ogiltig tid"
 
-#: ../loader/net.c:1577
+#: ../loader/net.c:1663
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "Då måste ange antalet sekunder som ett heltal mellan 1 och 30."
 
-#: ../loader/net.c:1589
+#: ../loader/net.c:1675
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
 msgstr "Blinkar lamporna för port %s i %d sekunder..."
 
-#: ../loader/net.c:1740 ../loader/net.c:1744
+#: ../loader/net.c:1841 ../loader/net.c:1845
 #, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
 msgstr "Väntar på att NetworkManager skall konfigurera %s...\n"
 
-#: ../loader/nfsinstall.c:63
+#: ../loader/nfsinstall.c:64
 msgid "NFS server name:"
 msgstr "Namn på NFS-server:"
 
-#: ../loader/nfsinstall.c:67
+#: ../loader/nfsinstall.c:68
 #, c-format
 msgid "%s directory:"
 msgstr "%s-katalog:"
 
-#: ../loader/nfsinstall.c:78
+#: ../loader/nfsinstall.c:79
 #, c-format
 msgid "Please enter the server name and path to your %s installation image."
 msgstr "Ange servernamn och sökväg till dina %s-installationsavbild."
 
-#: ../loader/nfsinstall.c:85
+#: ../loader/nfsinstall.c:86
 msgid "NFS Setup"
 msgstr "NFS-konfiguration"
 
-#: ../loader/nfsinstall.c:190
-msgid "Hostname specified with no DNS configured"
-msgstr "Värdnamn angivet utan att DNS är konfigurerat"
-
-#: ../loader/nfsinstall.c:251
+#: ../loader/nfsinstall.c:245
 msgid "That directory could not be mounted from the server."
 msgstr "Den katalogen kunde inte monteras från servern."
 
-#: ../loader/nfsinstall.c:262
+#: ../loader/nfsinstall.c:256
 #, c-format
 msgid "That directory does not seem to contain a %s installation image."
 msgstr "Den katalogen verkar inte innehålla en %s-installationsavbild."
 
-#: ../loader/nfsinstall.c:338
+#: ../loader/nfsinstall.c:332
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "Felaktigt argument till NFS-kickstartmetodkommandot %s: %s"
@@ -6724,16 +6492,16 @@ msgstr "Kan inte hämta %s://%s%s."
 msgid "Unable to retrieve the install image."
 msgstr "Kan inte hämta installationsavbilden."
 
-#: ../loader/urlinstall.c:422
+#: ../loader/urlinstall.c:424
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Felaktigt argument till Url-kickstartmetodkommandot %s: %s"
 
-#: ../loader/urlinstall.c:431
+#: ../loader/urlinstall.c:433
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Måste ange ett --url-argument till Url-kickstartmetoden."
 
-#: ../loader/urlinstall.c:440
+#: ../loader/urlinstall.c:442
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Url-metoden %s är okänd"
@@ -6777,6 +6545,39 @@ msgstr "Läser in SCSI-drivrutin"
 #, c-format
 msgid "Loading %s driver..."
 msgstr "Läser in %s-drivrutinen..."
+
+#: tmp/GroupSelector.glade.h:1
+msgid ""
+"Some packages associated with this group are not required to be installed "
+"but may provide additional functionality.  Please choose the packages which "
+"you would like to have installed."
+msgstr ""
+"Några paket associerade med denna grupp måste inte installeras men kan ge "
+"extra funktionalitet.  Välj de paket du vill ha installerade."
+
+#: tmp/GroupSelector.glade.h:2
+msgid "_Deselect"
+msgstr "_Välj bort"
+
+#: tmp/GroupSelector.glade.h:3
+msgid "_Deselect all optional packages"
+msgstr "_Välj bort alla valfria paket"
+
+#: tmp/GroupSelector.glade.h:4
+msgid "_Optional packages"
+msgstr "_Valfria paket"
+
+#: tmp/GroupSelector.glade.h:5
+msgid "_Select"
+msgstr "_Välj"
+
+#: tmp/GroupSelector.glade.h:6
+msgid "_Select all optional packages"
+msgstr "_Välj alla valfria paket"
+
+#: tmp/GroupSelector.glade.h:7
+msgid "dialog1"
+msgstr "dialog1"
 
 #: tmp/account.glade.h:2
 msgid "Root Password:"
@@ -6985,64 +6786,33 @@ msgstr "Destinations_fil"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
+"Local storage device\n"
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"Lokal lagringsenhet\n"
 "Lokal disk\n"
 "Fjärrserver (scp)"
 
-#: tmp/exnSave.glade.h:5
+#: tmp/exnSave.glade.h:6
 msgid "Please choose a destination for saving your traceback."
 msgstr "Ange en destination där din spårning skall sparas."
 
-#: tmp/exnSave.glade.h:7
+#: tmp/exnSave.glade.h:8
 msgid "Select A File"
 msgstr "Välj en fil"
 
-#: tmp/exnSave.glade.h:8
+#: tmp/exnSave.glade.h:9
 msgid "_Host (host:port)"
 msgstr "_Värd (värd:port)"
 
-#: tmp/exnSave.glade.h:9
+#: tmp/exnSave.glade.h:10
 msgid "_Password"
 msgstr "_Lösenord"
 
-#: tmp/exnSave.glade.h:10
+#: tmp/exnSave.glade.h:11
 msgid "_User name"
 msgstr "_Användarnamn"
-
-#: tmp/GroupSelector.glade.h:1
-msgid ""
-"Some packages associated with this group are not required to be installed "
-"but may provide additional functionality.  Please choose the packages which "
-"you would like to have installed."
-msgstr ""
-"Några paket associerade med denna grupp måste inte installeras men kan ge "
-"extra funktionalitet.  Välj de paket du vill ha installerade."
-
-#: tmp/GroupSelector.glade.h:2
-msgid "_Deselect"
-msgstr "_Välj bort"
-
-#: tmp/GroupSelector.glade.h:3
-msgid "_Deselect all optional packages"
-msgstr "_Välj bort alla valfria paket"
-
-#: tmp/GroupSelector.glade.h:4
-msgid "_Optional packages"
-msgstr "_Valfria paket"
-
-#: tmp/GroupSelector.glade.h:5
-msgid "_Select"
-msgstr "_Välj"
-
-#: tmp/GroupSelector.glade.h:6
-msgid "_Select all optional packages"
-msgstr "_Välj alla valfria paket"
-
-#: tmp/GroupSelector.glade.h:7
-msgid "dialog1"
-msgstr "dialog1"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -7055,22 +6825,30 @@ msgid "Please enter your %(instkey)s."
 msgstr "Ange din %(instkey)s."
 
 #: tmp/iscsi-config.glade.h:1
-msgid "<b>_Password:</b>"
-msgstr "<b>_Lösenord:</b>"
+msgid "<b>CHAP _Password:</b>"
+msgstr "<b>CHAP-_lösenord:</b>"
 
 #: tmp/iscsi-config.glade.h:2
+msgid "<b>CHAP _Username:</b>"
+msgstr "<b>CHAP-_användarnamn:</b>"
+
+#: tmp/iscsi-config.glade.h:3
+msgid "<b>Reverse CHAP P_assword:</b>"
+msgstr "<b>Omvänt CHAP-l_ösenord:</b>"
+
+#: tmp/iscsi-config.glade.h:4
+msgid "<b>Reverse CHAP U_sername:</b>"
+msgstr "<b>Omvänt CHAP-a_nvändarnamn:</b>"
+
+#: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>_Mål-IP-adress:</b>"
 
-#: tmp/iscsi-config.glade.h:3
-msgid "<b>_Username:</b>"
-msgstr "<b>_Användarnamn:</b>"
-
-#: tmp/iscsi-config.glade.h:4
+#: tmp/iscsi-config.glade.h:6
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI-initierar_namn:</b>"
 
-#: tmp/iscsi-config.glade.h:7
+#: tmp/iscsi-config.glade.h:9
 msgid "_Add target"
 msgstr "_Lägg till destination"
 
@@ -7088,21 +6866,29 @@ msgstr "Installation till h"
 
 #: tmp/lukspassphrase.glade.h:1
 msgid ""
+"Also add this passphrase to all existing encrypted devices to streamline the "
+"boot process"
+msgstr ""
+"Lägg också till detta lösenord till alla befintliga krypterade enheter för "
+"att förenkla uppstartsprocessen"
+
+#: tmp/lukspassphrase.glade.h:2
+msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
 "Välj en lösenfras för denna krypterade partition.  Du kommer att få en fråga "
 "om lösenfrasen under systemstart."
 
-#: tmp/lukspassphrase.glade.h:2
+#: tmp/lukspassphrase.glade.h:3
 msgid "Confirm passphrase:"
 msgstr "Bekräfta lösenfras:"
 
-#: tmp/lukspassphrase.glade.h:3
+#: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase for encrypted partition"
 msgstr "Ange lösenfras för krypterad partition"
 
-#: tmp/lukspassphrase.glade.h:4
+#: tmp/lukspassphrase.glade.h:5
 msgid "Enter passphrase:"
 msgstr "Ange lösenfras:"
 
@@ -7138,29 +6924,15 @@ msgstr "Slå på IPv_6 stöd"
 msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Använd dynamisk IP-konfiguration (DHCP)"
 
-#: tmp/netpostconfig.glade.h:2
-msgid "<b>Description Goes Here</b>"
-msgstr "<b>Beskrivning anges här</b>"
+#: tmp/network.glade.h:1
+msgid "Hostname:"
+msgstr "Värdnamn:"
 
-#: tmp/netpostconfig.glade.h:3
-msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr "<b>Maskinvaru-adress: DE:AD:00:BE:EF:00</b>"
-
-#: tmp/netpostconfig.glade.h:8
-msgid "Edit Interface"
-msgstr "Redigera gränssnitt"
-
-#: tmp/netpostconfig.glade.h:11
-msgid "Encryption Key:"
-msgstr "Krypteringsnyckel:"
-
-#: tmp/netpostconfig.glade.h:13
-msgid "Manual configuration"
-msgstr "Manuell konfiguration"
-
-#: tmp/netpostconfig.glade.h:14
-msgid "Point to Point (IP):"
-msgstr "Punkt till punkt (IP):"
+#: tmp/network.glade.h:2
+msgid ""
+"Please name this computer.  The hostname identifies the computer on a "
+"network."
+msgstr "Namnge din dator. Värdnamnet identifierar datorn i ett nätverk."
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -7440,3 +7212,294 @@ msgstr "Kymriska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid ""
+#~ "The partition table on device %s was unreadable. To create new partitions "
+#~ "it must be initialized, causing the loss of ALL DATA on this drive.\n"
+#~ "\n"
+#~ "This operation will override any previous installation choices about "
+#~ "which drives to ignore.\n"
+#~ "\n"
+#~ "Would you like to initialize this drive, erasing ALL DATA?"
+#~ msgstr ""
+#~ "Partitionstabellen på enhet %s är oläsbar. För att skapa nya partitioner "
+#~ "måste den initieras, vilket kommer att förstöra ALL DATA på denna enhet.\n"
+#~ "\n"
+#~ "Denna åtgärd kommer att åsidosätta alla tidigare val under installationen "
+#~ "om vilka enheter som ska ignoreras.\n"
+#~ "\n"
+#~ "Vill du initiera denna enhet och ta bort ALL DATA?"
+
+#~ msgid " for device %s"
+#~ msgstr " för enhet %s"
+
+#~ msgid "Starting Interface"
+#~ msgstr "Startar gränssnittet"
+
+#~ msgid "Attempting to start %s"
+#~ msgstr "Försöker starta %s"
+
+#~ msgid "%d of %d optional package selected"
+#~ msgid_plural "%d of %d optional packages selected"
+#~ msgstr[0] "%d av %d valfritt paket valt"
+#~ msgstr[1] "%d av %d valfria paket valda"
+
+#~ msgid "Primary DNS"
+#~ msgstr "Primär DNS"
+
+#~ msgid "Secondary DNS"
+#~ msgstr "Sekundär DNS"
+
+#~ msgid "_Gateway"
+#~ msgstr "_Gateway"
+
+#~ msgid "_Primary DNS"
+#~ msgstr "_Primär DNS"
+
+#~ msgid "_Secondary DNS"
+#~ msgstr "_Sekundär DNS"
+
+#~ msgid "Network Configuration"
+#~ msgstr "Nätverkskonfiguration"
+
+#~ msgid ""
+#~ "You have not specified a hostname.  Depending on your network environment "
+#~ "this may cause problems later."
+#~ msgstr ""
+#~ "Du har inte angivit ett värdnamn. Beroende på din nätverksmiljö kan detta "
+#~ "orsaka problem senare."
+
+#~ msgid ""
+#~ "You have not specified the field \"%s\".  Depending on your network "
+#~ "environment this may cause problems later."
+#~ msgstr ""
+#~ "Du har inte angivit ett värde i fältet \"%s\". Beroende på din "
+#~ "nätverksmiljö kan detta orsaka problem senare."
+
+#~ msgid "Error With %s Data"
+#~ msgstr "Fel med data för %s"
+
+#~ msgid "The IPv4 information you have entered is invalid."
+#~ msgstr "IPv4-informationen du angav är ogiltig."
+
+#~ msgid ""
+#~ "You have no active network devices.  Your system will not be able to "
+#~ "communicate over a network by default without at least one device active."
+#~ msgstr ""
+#~ "Du har inga aktiva nätverksenheter. Ditt system kommer inte att kunna "
+#~ "kommunicera över ett nätverk som standard utan åtminstone en aktiv enhet."
+
+#~ msgid "Disabled"
+#~ msgstr "Inaktiverad"
+
+#~ msgid "Active on Boot"
+#~ msgstr "Aktivera vid uppstart"
+
+#~ msgid "IPv4/Netmask"
+#~ msgstr "IPv4/Nätmask"
+
+#~ msgid "IPv6/Prefix"
+#~ msgstr "IPv6/Prefix"
+
+#~ msgid "Network Devices"
+#~ msgstr "Nätverksenheter"
+
+#~ msgid "Set the hostname:"
+#~ msgstr "Ställ in värdnamnet:"
+
+#~ msgid "_automatically via DHCP"
+#~ msgstr "_automatiskt via DHCP"
+
+#~ msgid "_manually"
+#~ msgstr "_manuellt"
+
+#~ msgid "(e.g., host.domain.com)"
+#~ msgstr "(t.ex. värd.domän.se)"
+
+#~ msgid "Miscellaneous Settings"
+#~ msgstr "Diverse inställningar"
+
+#~ msgid "Edit Device "
+#~ msgstr "Redigera enhet"
+
+#~ msgid "unknown"
+#~ msgstr "okänd"
+
+#~ msgid "Hardware address: "
+#~ msgstr "Hårdvaruadress:"
+
+#~ msgid "You must select at least IPv4 or IPv6 support."
+#~ msgstr "Du måste välja minst stöd för IPv4 eller IPv6."
+
+#~ msgid "IPv4 prefix must be between 0 and 32."
+#~ msgstr "IPv4-prefix får bara innehålla tal mellan 0 och 32."
+
+#~ msgid "IPv6 prefix must be between 0 and 128."
+#~ msgstr "IPv6-prefix får bara innehålla tal mellan 0 och 128."
+
+#~ msgid ""
+#~ "Unable to find a group file for %s.  This will prevent manual selection "
+#~ "of packages from the repository from working"
+#~ msgstr ""
+#~ "Kan inte hitta en gruppfil för %s. Detta förhindrar att man manuellt kan "
+#~ "välja paket från förrådet"
+
+#~ msgid "IPv6 Address:"
+#~ msgstr "IPv6-adress:"
+
+#~ msgid "Error configuring network device: "
+#~ msgstr "Fel vid konfigurering av nätverksenhet: "
+
+#~ msgid ""
+#~ "You have not specified the field %s.  Depending on your network "
+#~ "environment this may cause problems later."
+#~ msgstr ""
+#~ "Du har inte angivit ett värde i fältet \"%s\". Beroende på din "
+#~ "nätverksmiljö kan detta orsaka problem senare."
+
+#~ msgid "IPv%d prefix must be between 0 and %d."
+#~ msgstr "IPv%d-prefix får bara innehålla tal mellan 0 och %d."
+
+#~ msgid "Integer Required for Prefix"
+#~ msgstr "Heltal krävs för prefix"
+
+#~ msgid ""
+#~ "You must enter a valid integer for the %s.  For IPv4, the value can be "
+#~ "between 0 and 32.  For IPv6 it can be between 0 and 128."
+#~ msgstr ""
+#~ "Du måste ange ett giltigt heltal för %s. För IPv4, kan värdet vara mellan "
+#~ "0 och 32. För IPv6 kan det vara mellan 0 och 128."
+
+#~ msgid "Prefix (Netmask)"
+#~ msgstr "Prefix(Nätmask)"
+
+#~ msgid "Prefix"
+#~ msgstr "Prefix"
+
+#~ msgid "Activate on boot"
+#~ msgstr "Aktivera vid uppstart"
+
+#~ msgid "P-to-P:"
+#~ msgstr "P-till-P:"
+
+#~ msgid "ESSID:"
+#~ msgstr "ESSID:"
+
+#~ msgid "WEP Key:"
+#~ msgstr "WEP-nyckel:"
+
+#~ msgid "Network Configuration for %s"
+#~ msgstr "Nätverkskonfiguration för %s"
+
+#~ msgid "point-to-point IP address"
+#~ msgstr "IP-adress för punkt-till-punkt"
+
+#~ msgid "Dynamic IP configuration (DHCP)"
+#~ msgstr "Dynamisk IP-konfiguration (DHCP)"
+
+#~ msgid "Manual address configuration"
+#~ msgstr "Manuell adresskonfiguration"
+
+#~ msgid "IPv4 Configuration for %s"
+#~ msgstr "IPv4-konfiguration för %s"
+
+#~ msgid "IPv4 address"
+#~ msgstr "IPv4-adress"
+
+#~ msgid "IPv4 network mask"
+#~ msgstr "IPv4-nätmask"
+
+#~ msgid "IPv4 prefix (network mask)"
+#~ msgstr "IPv4-prefix(nätmask)"
+
+#~ msgid "Automatic neighbor discovery"
+#~ msgstr "Automatisk upptäckt av grannar"
+
+#~ msgid "Dynamic IP configuration (DHCPv6)"
+#~ msgstr "Dynamisk IP-konfiguration (DHCPv6)"
+
+#~ msgid "IPv6 Configuration for %s"
+#~ msgstr "IPv6-konfiguration för %s"
+
+#~ msgid "IPv6 address"
+#~ msgstr "IPv6-adress"
+
+#~ msgid "IPv6 prefix"
+#~ msgstr "IPv6-prefix"
+
+#~ msgid "Would you like to configure the %s network interface in your system?"
+#~ msgstr "Vill du konfigurera nätverksgränssnittet %s på ditt system?"
+
+#~ msgid "UNCONFIGURED"
+#~ msgstr "OKONFIGURERAD"
+
+#~ msgid ""
+#~ "The current configuration settings for each interface are listed next to "
+#~ "the device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
+#~ "configure an interface, highlight it and choose Edit.  When you are "
+#~ "finished, press OK to continue."
+#~ msgstr ""
+#~ "De nuvarande konfigurationsinställningarna för varje gränssnitt är "
+#~ "listade brevid enhetsnamnet. Okonfigurerade gränssnitt visas som "
+#~ "OKONFIGURERAD. För att konfigurera ett gränssnitt, markera det och välj "
+#~ "Redigera. När du är klar, tryck OK för att att fortsätta."
+
+#~ msgid "Active on boot"
+#~ msgstr "Aktivera vid uppstart"
+
+#~ msgid "Inactive on boot"
+#~ msgstr "Avaktivera vid uppstart"
+
+#~ msgid "DHCP"
+#~ msgstr "DHCP"
+
+#~ msgid "Auto IPv6"
+#~ msgstr "Auto IPv6"
+
+#~ msgid "DHCPv6"
+#~ msgstr "DHCPv6"
+
+#~ msgid "Primary DNS:"
+#~ msgstr "Primär DNS:"
+
+#~ msgid "Secondary DNS:"
+#~ msgstr "Sekundär DNS:"
+
+#~ msgid "Miscellaneous Network Settings"
+#~ msgstr "Diverse nätverksinställningar"
+
+#~ msgid "gateway"
+#~ msgstr "gateway"
+
+#~ msgid "primary DNS"
+#~ msgstr "primär DNS"
+
+#~ msgid "secondary DNS"
+#~ msgstr "sekundär DNS"
+
+#~ msgid "automatically via DHCP"
+#~ msgstr "automatiskt via DHCP"
+
+#~ msgid "manually"
+#~ msgstr "manuellt"
+
+#~ msgid "Hostname specified with no DNS configured"
+#~ msgstr "Värdnamn angivet utan att DNS är konfigurerat"
+
+#~ msgid "<b>Description Goes Here</b>"
+#~ msgstr "<b>Beskrivning anges här</b>"
+
+#~ msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
+#~ msgstr "<b>Maskinvaru-adress: DE:AD:00:BE:EF:00</b>"
+
+#~ msgid "Edit Interface"
+#~ msgstr "Redigera gränssnitt"
+
+#~ msgid "Encryption Key:"
+#~ msgstr "Krypteringsnyckel:"
+
+#~ msgid "Manual configuration"
+#~ msgstr "Manuell konfiguration"
+
+#~ msgid "Point to Point (IP):"
+#~ msgstr "Punkt till punkt (IP):"
