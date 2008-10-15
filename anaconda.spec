@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.142
+Version: 11.1.2.143
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 15 2008 Joel Granados <jgranado@redhat.com>  11.1.2.143-1
+- Change order when calling dasdFmt to avoid race condition while formating dasd drives (jgranado).
+  Resolves: rhbz:#466474
+
 * Tue Oct 14 2008 Joel Granados <jgranado@redhat.com> 11.1.2.142-1
 - Add the enic driver (jgranado).
   Resolves: rhbz:#462387
