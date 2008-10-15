@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.48
+Version: 11.4.1.49
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,21 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 14 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.49-1
+- Make kickstart installs work again (#374271, #392021, #448096, #466340,
+  #466304) (dcantrell)
+- Let users go Back when loading updates. (dcantrell)
+- Write ifcfg files to /etc/sysconfig/network-scripts instead of /.tmp
+  (dcantrell)
+- Handle unknown hosts in getDefaultHostname (#466775) (dcantrell)
+- Try to look up the hostname by the IP address NM reports (#466775)
+  (dcantrell)
+- NM no longer provides the hostname as a property (#466775). (clumens)
+- ext4dev -> ext4 (esandeen). (clumens)
+- Move persistent network udev rule to under /etc (#464844). (clumens)
+- Update keymaps to include latest Romanian settings (#466117). (clumens)
+- Take ip= parameter values by not resetting ipinfo_set. (dcantrell)
+
 * Fri Oct 10 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.48-1
 - Remove unnecessary STEP_IP code. (dcantrell)
 - Fix how configureTCPIP() returns. (dcantrell)
