@@ -168,6 +168,7 @@ void doGdbserver(struct loaderData_s *loaderData) {
      */
     if (loaderData->gdbServer && !access("/usr/bin/gdbserver", X_OK)) {
         pid_t loaderPid = getpid();
+        iface_init_iface_t(&iface);
 
         if (kickstartNetworkUp(loaderData, &iface)) {
             logMessage(ERROR, "can't run gdbserver due to no network");
@@ -1274,11 +1275,6 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
         }
     }
 
-    /* Disable all network interfaces in NetworkManager by default */
-    if ((i = writeDisabledNetInfo()) != 0) {
-        logMessage(ERROR, "writeDisabledNetInfo failure: %d", i);
-    }
-
     i = 0;
     step = STEP_LANG;
 
@@ -1757,7 +1753,7 @@ static void add_to_path_env(const char *env, const char *val)
 }
 
 int main(int argc, char ** argv) {
-    int rc;
+    int rc, i;
 
     struct stat sb;
     struct serial_struct si;
@@ -1774,6 +1770,7 @@ int main(int argc, char ** argv) {
     char * anacondaArgs[50];
 
     struct loaderData_s loaderData;
+    iface_t iface;
 
     char *error_str = NULL;
     DBusError error;
@@ -1939,8 +1936,10 @@ int main(int argc, char ** argv) {
         }
     }
 
-    /* can't run gdbserver until after network modules are loaded */
-    doGdbserver(&loaderData);
+    /* Disable all network interfaces in NetworkManager by default */
+    if ((i = writeDisabledNetInfo()) != 0) {
+        logMessage(ERROR, "writeDisabledNetInfo failure: %d", i);
+    }
 
     /* Start NetworkManager now so it's always available to talk to. */
     dbus_error_init(&error);
@@ -1959,6 +1958,9 @@ int main(int argc, char ** argv) {
         }
     }
 
+    /* can't run gdbserver until after network modules are loaded */
+    doGdbserver(&loaderData);
+
     /* JKFIXME: we'd really like to do this before the busprobe, but then
      * we won't have network devices available (and that's the only thing
      * we support with this right now */
@@ -1971,6 +1973,11 @@ int main(int argc, char ** argv) {
      * kind of weird. */
     if (loaderData.ksFile || ksFile) {
         logMessage(INFO, "getting kickstart file");
+        iface_init_iface_t(&iface);
+
+        if (kickstartNetworkUp(&loaderData, &iface)) {
+            logMessage(ERROR, "failed to bring up %s for kickstart", loaderData.netDev);
+        }
 
         if (!ksFile)
             getKickstartFile(&loaderData);

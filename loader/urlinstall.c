@@ -301,11 +301,6 @@ int getFileFromUrl(char * url, char * dest,
     memset(&ui, 0, sizeof(ui));
     ui.protocol = proto;
 
-    if ((ip = iface_ip2str(loaderData->netDev, AF_INET)) == NULL) {
-        logMessage(ERROR, "getFileFromUrl: no client IP information");
-        return 1;
-    }
-
     getHostPathandLogin((proto == URL_METHOD_FTP ? url + 6 : url + 7),
                    &host, &file, &login, &password, ip);
 

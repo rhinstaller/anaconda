@@ -1724,14 +1724,6 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
     int rc, err;
 
-    /* we may have networking already, so return to the caller */
-#ifdef ENABLE_IPV6
-    if ((loaderData->ipinfo_set == 1) || (loaderData->ipv6info_set == 1))
-#else
-    if (loaderData->ipinfo_set == 1)
-#endif
-        return 0;
-
     memset(iface, 0, sizeof(*iface));
 
     do {
@@ -1758,7 +1750,31 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
          * if we're in a kickstart-ish case (#100724) */
         loaderData->netDev_set = 1;
 
+        /* default to DHCP for IPv4 if nothing is provided */
+        if (loaderData->ipv4 == NULL) {
+            loaderData->ipv4 = strdup("dhcp");
+            loaderData->ipinfo_set = 1;
+        }
+
         setupIfaceStruct(iface, loaderData);
+        rc = readNetConfig(loaderData->netDev, iface, loaderData->netCls,
+                           loaderData->method);
+
+        if (rc == LOADER_ERROR) {
+            logMessage(ERROR, "unable to setup networking");
+            return -1;
+        } else if (rc == LOADER_BACK) {
+            /* Going back to the interface selection screen, so unset anything
+             * we set before attempting to bring the incorrect interface up.
+             */
+            loaderData->netDev_set = 0;
+            loaderData->ipinfo_set = 0;
+            free(loaderData->ipv4);
+            loaderData->ipv4 = NULL;
+        } else {
+            break;
+        }
+
         if (!FL_TESTING(flags)) {
             err = writeEnabledNetInfo(iface);
             if (err) {
@@ -1776,24 +1792,6 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
             logMessage(ERROR, "failed to start NetworkManager (%d)", err);
             return -1;
         }
-
-        rc = readNetConfig(loaderData->netDev, iface, loaderData->netCls,
-                           loaderData->method);
-
-        if (rc == LOADER_ERROR) {
-            logMessage(ERROR, "unable to setup networking");
-            return -1;
-        }
-        else if (rc == LOADER_BACK) {
-            /* Going back to the interface selection screen, so unset anything
-             * we set before attempting to bring the incorrect interface up.
-             */
-            loaderData->netDev_set = 0;
-            free(loaderData->ipv4);
-            loaderData->ipinfo_set = 0;
-        }
-        else
-            break;
     } while (1);
 
     return 0;
