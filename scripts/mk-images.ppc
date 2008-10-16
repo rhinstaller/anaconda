@@ -30,7 +30,7 @@ __EOT__
 		    echo "Running addnote on $TOPDESTPATH/images/netboot/ppc64.img"
 		    $ADDNOTE $TOPDESTPATH/images/netboot/ppc64.img
 		else
-		    echo "Could not find addnote, skipping"
+		    echo "Could not find addnote at \"$ADDNOTE\", skipping"
 		fi
 		rmdir $TOPDESTPATH/images/netboot || :
 		rm -f $TOPDESTPATH/ppc/ppc64/zImage.lds
