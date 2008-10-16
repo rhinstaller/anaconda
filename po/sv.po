@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2008-10-15 12:05-0400\n"
+"PO-Revision-Date: 2008-10-16 16:37-0400\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +103,7 @@ msgid ""
 "would you like to use it instead?"
 msgstr ""
 "Installation i VNC-läge erbjuder mer funktionalitet än textläget, vill du "
-"använde det istället?"
+"använda det istället?"
 
 #: ../anaconda:790
 msgid "Install class forcing text mode installation"
@@ -597,8 +597,8 @@ msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
 msgstr ""
-"Din distribution har inte ett felrapporteringssystem som stöds, så du kan "
-"inte spara din avvikelse på detta sätt."
+"I din distribution finns det inte något felrapporteringssystem som stöds, så "
+"du kan inte spara din avvikelse på detta sätt."
 
 #: ../exception.py:384
 msgid "Invalid Bug Information"
@@ -1443,7 +1443,7 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"Det uppstod ett vil vid installation av live-avbilden till din hårddisk.  "
+"Det uppstod ett fell vid installation av live-avbilden till din hårddisk.  "
 "Detta kan bero på trasigt medium.  Kontrollera ditt installationsmedium.\n"
 "\n"
 "Om du avbryter kommer ditt system hamna i ett inkonsistent läge som kräver "
@@ -1479,8 +1479,8 @@ msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
 msgstr ""
-"Värdnamnet måste börja med ett giltigt tecken i intervallet \"a-z\", \"A-Z\" "
-"eller \"0-9\""
+"Värdnamnet måste börja med ett giltigt tecken i något av intervallen \"a-z"
+"\", \"A-Z\" eller \"0-9\""
 
 #: ../network.py:67
 msgid ""
@@ -2071,7 +2071,7 @@ msgid ""
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
 "Enheten /dev/%s har fler än 15 partitioner. Undersystemet SCSI i Linux-"
-"kärnan tillåter inte fler än 15 partitoner för närvarande. Du kommer inte "
+"kärnan tillåter för närvarande inte fler än 15 partitioner. Du kommer inte "
 "kunna göra ändringar av partitioneringen för denna disk eller använda "
 "partitioner över /dev/%s15 i %s"
 
@@ -2144,7 +2144,7 @@ msgid ""
 "data on deleted or reformatted partitions will be lost."
 msgstr ""
 "Partitioneringsinställningarna du har valt kommer nu att skrivas till disk.  "
-"Eventuell data på borttagna eller omformaterade partitioner kommer gå "
+"Eventuella data på borttagna eller omformaterade partitioner kommer gå "
 "förlorade."
 
 #: ../partitions.py:160
@@ -5850,7 +5850,7 @@ msgid ""
 "driver disk?"
 msgstr ""
 "Inga enheter av rätt typ hittades på denna drivrutinsdiskett. Vill du välja "
-"drivrutinen manuellt, fortsätta ändå, eller läsa in en annan "
+"drivrutinen manuellt, fortsätta ändå eller läsa in en annan "
 "drivrutinsdiskett?"
 
 #: ../loader/driverdisk.c:485
@@ -6069,14 +6069,14 @@ msgstr "NFS-katalog"
 
 #: ../loader/loader.c:429 ../loader/loader.c:468
 msgid "Update Disk Source"
-msgstr "Källa för uppdateringsdiskett"
+msgstr "Diskkälla för uppdatering"
 
 #: ../loader/loader.c:430
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
-"Du har flera enheter som kan tjäna som källor för en uppdateringsdiskett. "
+"Du har flera enheter som skulle kunna vara källor för en uppdateringsdisk. "
 "Vilken vill du använda?"
 
 #: ../loader/loader.c:469
@@ -6090,16 +6090,15 @@ msgstr ""
 #: ../loader/loader.c:487
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr ""
-"Sätt in din uppdateringsdiskett i %s och tryck \"OK\" för att fortsätta."
+msgstr "Sätt in din uppdateringsdisk i %s och tryck \"OK\" för att fortsätta."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
-msgstr "Uppdateringsdiskett"
+msgstr "Uppdateringsdisk"
 
 #: ../loader/loader.c:510
 msgid "Failed to mount updates disk"
-msgstr "Montering av uppdateringsdisketten misslyckades."
+msgstr "Montering av uppdateringsdisk misslyckades."
 
 #: ../loader/loader.c:515
 msgid "Updates"
@@ -6877,8 +6876,8 @@ msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
-"Välj en lösenfras för denna krypterade partition.  Du kommer att få en fråga "
-"om lösenfrasen under systemstart."
+"Välj ett lösenord denna krypterade partition. Systemet kommer fråga efter "
+"lösenordet under systemstart."
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Confirm passphrase:"
