@@ -54,7 +54,7 @@ fi
 MAPS=$(python -c "import rhpl.keyboard_models ; rhpl.keyboard_models.get_supported_models()")
 
 for map in $MAPS ; do 
- eval find /lib/kbd/keymaps/$PATTERN -name "$map.map*" | while read n; do
+ eval find /lib/kbd/keymaps/$PATTERN -name "$map.map*.gz" | while read n; do
     /bin/loadkeys `basename $n .gz` >/dev/null
     $READMAP $TMP/`basename $n .map.gz`.map
   done
