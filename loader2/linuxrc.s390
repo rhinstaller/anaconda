@@ -157,6 +157,15 @@ setupdevice()
       echo $"SUBCHANNELS or NETTYPE empty, cannot continue."
       exit 1
    fi
+
+   if [ -r /proc/cio_ignore ]; then
+      # enable subchannels
+      for subchannel in ${SUBCHANNELS//,/ } ; do
+          echo free $subchannel > /proc/cio_ignore
+          /sbin/chccwdev -e $subchannel
+      done
+   fi
+
    SYSDIR=${SUBCHANNELS//,*/}   # get first subchannel. This is where the device can be brought online
    sysecho /sys/bus/ccwgroup/drivers/${NETTYPE}/group "$SUBCHANNELS"
    if [ -n "$PORTNAME" ]; then
@@ -576,10 +585,25 @@ if [ -z "$DASD" ]; then
    read DASD
 fi
 if [ -n "$DASD" ]; then
-       echo "DASD=$DASD" > /tmp/dasd_ports
+   # enable DASD devices
+   if [ -r /proc/cio_ignore ]; then
+      for dev in ${DASD//,/ } ; do
+          echo free $dev > /proc/cio_ignore
+          /sbin/chccwdev -e $dev
+      done
+   fi
+
+   echo "DASD=$DASD" > /tmp/dasd_ports
 fi
 
 for i in ${!FCP_*}; do
+   # enable FCP devices
+   if [ -r /proc/cio_ignore ]; then
+      dev="$(echo ${!i} | cut -d ' ' -f 1)"
+      echo free $dev > /proc/cio_ignore
+      /sbin/chccwdev -e $dev
+   fi
+
    echo "${!i}" >> /tmp/fcpconfig
 done
 
