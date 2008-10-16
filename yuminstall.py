@@ -962,6 +962,20 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         self.ayum.doMacros()
 
+        # If any enabled repositories require networking, go ahead and bring
+        # it up now.  No need to have people wait for the timeout when we
+        # know this in advance.
+        if len(filter(lambda r: r.needsNetwork(), self.ayum.repos.listEnabled())) > 0 and \
+           not network.hasActiveNetDev():
+               if not anaconda.intf.enableNetwork(anaconda):
+                   anaconda.intf.messageWindow(_("No Network Available"),
+                       _("Some of your software repositories require "
+                         "networking, but there was an error enabling the "
+                         "network on your system."),
+                       type="custom", custom_icon="error",
+                       custom_buttons=[_("_Exit installer")])
+                   sys.exit(1)
+
         self.doRepoSetup(anaconda)
         self.doSackSetup(anaconda)
         self.doGroupSetup(anaconda)
