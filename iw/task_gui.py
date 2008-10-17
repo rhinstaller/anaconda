@@ -458,10 +458,6 @@ class TaskWindow(InstallWindow):
     def _editRepo(self, *args):
         repo = None
 
-        if not network.hasActiveNetDev():
-            if not self.anaconda.intf.enableNetwork(self.anaconda):
-                return gtk.RESPONSE_CANCEL
-
         # If we were passed an extra argument, it's the repo store and we
         # are editing an existing repo as opposed to adding a new one.
         if len(args) > 1:
@@ -473,6 +469,10 @@ class TaskWindow(InstallWindow):
         else:
             return
 
+        if repo.needsNetwork() and not network.hasActiveNetDev():
+            if not self.anaconda.intf.enableNetwork(self.anaconda):
+                return gtk.RESPONSE_CANCEL
+
         dialog = RepoEditor(self.anaconda, repo)
         dialog.createDialog()
         dialog.run()
@@ -480,14 +480,14 @@ class TaskWindow(InstallWindow):
         model.set_value(iter, 2, dialog.repo)
 
     def _addRepo(self, *args):
-        if not network.hasActiveNetDev():
-            if not self.anaconda.intf.enableNetwork(self.anaconda):
-                return gtk.RESPONSE_CANCEL
-
         dialog = RepoCreator(self.anaconda)
         dialog.createDialog()
         if dialog.run() == gtk.RESPONSE_CANCEL:
             return gtk.RESPONSE_CANCEL
+
+        if dialog.repo.needsNetwork() and not network.hasActiveNetDev():
+            if not self.anaconda.intf.enableNetwork(self.anaconda):
+                return gtk.RESPONSE_CANCEL
 
         s = self.xml.get_widget("repoList").get_model()
         s.append([dialog.repo.isEnabled(), dialog.repo.name, dialog.repo])
@@ -517,7 +517,7 @@ class TaskWindow(InstallWindow):
         repo = store.get_value(i, 2)
 
         if not wasChecked:
-            if not network.hasActiveNetDev():
+            if repo.needsNetwork() and not network.hasActiveNetDev():
                 if not self.anaconda.intf.enableNetwork(self.anaconda):
                     return
 
