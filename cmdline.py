@@ -94,7 +94,7 @@ class InstallInterface:
         if type == "ok":
             print(text)
         else:
-            print(_("an't have a question in command line mode!"))
+            print(_("Can't have a question in command line mode!"))
             print(title)
             print(text)
             print(type, custom_buttons)
