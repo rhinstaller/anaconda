@@ -1,4 +1,4 @@
-# translation of it.po to Italiano
+# translation of anaconda.master.po to
 # translation of it.po to
 # Copyright (C) 2001, 2008 Free Software Foundation, Inc.
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
@@ -13,33 +13,34 @@
 # Silvio Pierro <perplesso82@gmail.com>, 2008,
 # Francesco Tombolini <tombo@adamantio.net>, 2008,
 # Franco Godone <francog@fedoraproject.org>, 2008.
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: it\n"
+"Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-27 21:19-0400\n"
-"PO-Revision-Date: 2008-09-27 12:47+0200\n"
-"Last-Translator: Franco Godone <francog@fedoraproject.org>\n"
-"Language-Team: Italian\n"
+"POT-Creation-Date: 2008-10-13 10:57-0400\n"
+"PO-Revision-Date: 2008-10-17 14:56+1000\n"
+"Last-Translator: \n"
+"Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.4\n"
 
-#: ../anaconda:288 ../anaconda:334
+#: ../anaconda:262 ../anaconda:308
 #, c-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Errore nell'elaborazione delle linee %%ksappend: %s"
 
-#: ../anaconda:291 ../anaconda:337
+#: ../anaconda:265 ../anaconda:311
 #, c-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Errore sconosciuto nell'elaborazione delle linee %%ksappend: %s"
 
-#: ../anaconda:305 ../anaconda:349 ../cmdline.py:85 ../gui.py:1279
-#: ../text.py:561
+#: ../anaconda:279 ../anaconda:323 ../cmdline.py:85 ../gui.py:1280
+#: ../text.py:551
 #, c-format, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -51,17 +52,14 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../anaconda:471
+#: ../anaconda:445
 msgid "Press <enter> for a shell"
 msgstr "Premere <invio> per una shell"
 
-#: ../anaconda:486 ../gui.py:236 ../rescue.py:265 ../rescue.py:346
-#: ../rescue.py:376 ../rescue.py:389 ../rescue.py:468 ../rescue.py:477
-#: ../text.py:589 ../text.py:746 ../textw/constants_text.py:44
-#: ../textw/network_text.py:46 ../textw/network_text.py:56
-#: ../textw/network_text.py:78 ../textw/network_text.py:84
-#: ../textw/network_text.py:232 ../textw/network_text.py:819
-#: ../textw/network_text.py:827 ../loader/cdinstall.c:219
+#: ../anaconda:460 ../gui.py:236 ../rescue.py:276 ../rescue.py:306
+#: ../rescue.py:319 ../rescue.py:398 ../rescue.py:407 ../text.py:579
+#: ../text.py:736 ../textw/constants_text.py:44 ../textw/network_text.py:77
+#: ../textw/network_text.py:86 ../loader/cdinstall.c:219
 #: ../loader/cdinstall.c:223 ../loader/cdinstall.c:239
 #: ../loader/cdinstall.c:242 ../loader/cdinstall.c:431
 #: ../loader/cdinstall.c:438 ../loader/cdinstall.c:503
@@ -80,23 +78,23 @@ msgstr "Premere <invio> per una shell"
 #: ../loader/kickstart.c:375 ../loader/kickstart.c:532 ../loader/lang.c:115
 #: ../loader/lang.c:378 ../loader/loader.c:399 ../loader/loader.c:434
 #: ../loader/loader.c:472 ../loader/loader.c:493 ../loader/loader.c:509
-#: ../loader/loader.c:546 ../loader/loader.c:1178 ../loader/loader.c:1361
+#: ../loader/loader.c:546 ../loader/loader.c:1182 ../loader/loader.c:1365
 #: ../loader/mediacheck.c:62 ../loader/mediacheck.c:101
 #: ../loader/mediacheck.c:108 ../loader/mediacheck.c:117
 #: ../loader/method.c:280 ../loader/method.c:354 ../loader/modules.c:335
-#: ../loader/modules.c:347 ../loader/net.c:514 ../loader/net.c:869
-#: ../loader/net.c:1330 ../loader/net.c:1353 ../loader/net.c:1542
-#: ../loader/net.c:1564 ../loader/net.c:1576 ../loader/nfsinstall.c:86
-#: ../loader/nfsinstall.c:189 ../loader/nfsinstall.c:250
-#: ../loader/nfsinstall.c:269 ../loader/nfsinstall.c:337
-#: ../loader/telnetd.c:92 ../loader/urlinstall.c:83 ../loader/urlinstall.c:107
-#: ../loader/urlinstall.c:175 ../loader/urlinstall.c:421
-#: ../loader/urlinstall.c:430 ../loader/urlinstall.c:439 ../loader/urls.c:292
-#: ../loader/urls.c:328 ../loader/urls.c:334 ../loader/urls.c:346
+#: ../loader/modules.c:347 ../loader/net.c:515 ../loader/net.c:891
+#: ../loader/net.c:1414 ../loader/net.c:1437 ../loader/net.c:1628
+#: ../loader/net.c:1650 ../loader/net.c:1662 ../loader/nfsinstall.c:87
+#: ../loader/nfsinstall.c:244 ../loader/nfsinstall.c:263
+#: ../loader/nfsinstall.c:331 ../loader/telnetd.c:92 ../loader/urlinstall.c:83
+#: ../loader/urlinstall.c:107 ../loader/urlinstall.c:175
+#: ../loader/urlinstall.c:423 ../loader/urlinstall.c:432
+#: ../loader/urlinstall.c:441 ../loader/urls.c:292 ../loader/urls.c:328
+#: ../loader/urls.c:334 ../loader/urls.c:346
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:493
+#: ../anaconda:467
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -104,29 +102,31 @@ msgstr ""
 "RAM insufficiente per l'utilizzo dell'installatore grafico. Avvio della "
 "modalità di testo."
 
-#: ../anaconda:544
+#: ../anaconda:518
 msgid "Starting graphical installation..."
 msgstr "Inizio installazione grafica..."
 
-#: ../anaconda:821
+#: ../anaconda:764
 msgid "Would you like to use VNC?"
 msgstr "Si desidera utilizzare VNC?"
 
-#: ../anaconda:822
+#: ../anaconda:765
 msgid ""
 "The VNC mode installation offers more functionality than the text mode, "
 "would you like to use it instead?"
-msgstr "La modalità di installazione VNC offre più funzionalità della modalità testo, si desidera utilizzarla?"
+msgstr ""
+"La modalità di installazione VNC offre più funzionalità della modalità "
+"testo, si desidera utilizzarla?"
 
-#: ../anaconda:847
+#: ../anaconda:790
 msgid "Install class forcing text mode installation"
 msgstr "Installa classe forzando l'installazione in modalità di testo"
 
-#: ../anaconda:866
+#: ../anaconda:809
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Installazione grafica non disponibile...  Avvio della modalità testo."
 
-#: ../anaconda:874
+#: ../anaconda:817
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "Variabile DISPLAY non impostata. Avvio in modalità testo!"
 
@@ -211,8 +211,7 @@ msgstr ""
 
 #: ../autopart.py:1073
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "La partizione boot %s potrebbe non rispondere alle esigenze d'avvio "
 "dell'architettura."
@@ -286,11 +285,11 @@ msgstr ""
 "\n"
 "Premere 'OK' per uscire dal programma d'installazione."
 
-#: ../autopart.py:1525 ../autopart.py:1572
+#: ../autopart.py:1524 ../autopart.py:1571
 msgid "Automatic Partitioning Errors"
 msgstr "Errori di partizionamento automatico"
 
-#: ../autopart.py:1526
+#: ../autopart.py:1525
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -305,11 +304,11 @@ msgstr ""
 "\n"
 "Premere 'OK' per uscire dal programma d'installazione."
 
-#: ../autopart.py:1536
+#: ../autopart.py:1535
 msgid "Warnings During Automatic Partitioning"
 msgstr "Avvisi durante il partizionamento automatico"
 
-#: ../autopart.py:1537
+#: ../autopart.py:1536
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -320,7 +319,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1551 ../autopart.py:1568
+#: ../autopart.py:1550 ../autopart.py:1567
 msgid ""
 "\n"
 "\n"
@@ -330,12 +329,12 @@ msgstr ""
 "\n"
 "Premere 'OK' per uscire dal programma d'installazione."
 
-#: ../autopart.py:1552 ../iw/partition_gui.py:1027
+#: ../autopart.py:1551 ../iw/partition_gui.py:1027
 #: ../textw/partition_text.py:247
 msgid "Error Partitioning"
 msgstr "Errore durante il partizionamento"
 
-#: ../autopart.py:1553
+#: ../autopart.py:1552
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -346,7 +345,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1570
+#: ../autopart.py:1569
 msgid ""
 "\n"
 "\n"
@@ -356,7 +355,7 @@ msgstr ""
 "\n"
 "Premere 'OK' per scegliere una opzione di partizionamento differente."
 
-#: ../autopart.py:1573
+#: ../autopart.py:1572
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -373,15 +372,15 @@ msgstr ""
 "Può succedere quando non c'è spazio sufficiente sui dischi fissi per "
 "l'installazione.%s"
 
-#: ../autopart.py:1584
+#: ../autopart.py:1583
 msgid "Unrecoverable Error"
 msgstr "Errore irrecuperabile"
 
-#: ../autopart.py:1585
+#: ../autopart.py:1584
 msgid "Your system will now be rebooted."
 msgstr "Il sistema verrà ora riavviato."
 
-#: ../autopart.py:1709
+#: ../autopart.py:1707
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -398,7 +397,7 @@ msgstr ""
 "creare partizioni in un ambiente interattivo. E' possibile impostare il tipo "
 "di filesystem, i mount point, le dimensioni della partizione e molto altro."
 
-#: ../autopart.py:1720
+#: ../autopart.py:1718
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -407,37 +406,37 @@ msgstr ""
 "automatico, è necessario scegliere come utilizzare lo spazio sui dischi "
 "fissi."
 
-#: ../autopart.py:1725
+#: ../autopart.py:1723
 msgid "Remove all partitions on this system"
 msgstr "Rimuovi tutte le partizioni dal sistema"
 
-#: ../autopart.py:1726
+#: ../autopart.py:1724
 msgid "Remove all Linux partitions on this system"
 msgstr "Rimuovi tutte le partizioni Linux dal sistema"
 
-#: ../autopart.py:1727
+#: ../autopart.py:1725
 msgid "Keep all partitions and use existing free space"
 msgstr "Mantieni tutte le partizioni e utilizza lo spazio disponibile."
 
-#: ../backend.py:129
+#: ../backend.py:130
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Aggiornamento di %s\n"
 
-#: ../backend.py:131
+#: ../backend.py:132
 #, python-format
 msgid "Installing %s\n"
 msgstr "Installazione di %s\n"
 
-#: ../backend.py:150
+#: ../backend.py:151
 msgid "Copying File"
 msgstr "Copia del file in corso"
 
-#: ../backend.py:151
+#: ../backend.py:152
 msgid "Transferring install image to hard drive..."
 msgstr "Trasferimento dell'immagine di installazione sul disco fisso..."
 
-#: ../backend.py:161
+#: ../backend.py:162
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is probably due to bad media."
@@ -446,7 +445,7 @@ msgstr ""
 "d'installazione sul disco fisso. Probabilmente a causa di un media di "
 "installazione non integro."
 
-#: ../backend.py:165
+#: ../backend.py:166
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -455,18 +454,18 @@ msgstr ""
 "d'installazione sul disco fisso. Probabilmente lo spazio disponibile non è "
 "sufficiente."
 
-#: ../backend.py:169 ../fsset.py:670 ../fsset.py:1683 ../fsset.py:1714
+#: ../backend.py:170 ../fsset.py:670 ../fsset.py:1683 ../fsset.py:1714
 #: ../fsset.py:1790 ../fsset.py:1858 ../fsset.py:1908 ../fsset.py:1997
-#: ../fsset.py:2010 ../image.py:291 ../livecd.py:196 ../livecd.py:379
-#: ../partIntfHelpers.py:413 ../text.py:480 ../text.py:484
-#: ../yuminstall.py:384 ../yuminstall.py:659 ../yuminstall.py:771
-#: ../yuminstall.py:1052 ../yuminstall.py:1093 ../yuminstall.py:1299
-#: ../yuminstall.py:1322 ../iw/autopart_type.py:96 ../iw/autopart_type.py:171
-#: ../iw/autopart_type.py:315 ../iw/netconfig_dialog.py:279
+#: ../fsset.py:2010 ../image.py:291 ../livecd.py:196 ../livecd.py:377
+#: ../partIntfHelpers.py:413 ../text.py:470 ../text.py:474
+#: ../yuminstall.py:366 ../yuminstall.py:642 ../yuminstall.py:754
+#: ../yuminstall.py:991 ../yuminstall.py:1059 ../yuminstall.py:1288
+#: ../yuminstall.py:1311 ../iw/autopart_type.py:96 ../iw/autopart_type.py:174
+#: ../iw/autopart_type.py:349 ../iw/netconfig_dialog.py:283
 #: ../iw/osbootwidget.py:215 ../iw/osbootwidget.py:224
-#: ../iw/raid_dialog_gui.py:701 ../iw/raid_dialog_gui.py:740
-#: ../iw/task_gui.py:45 ../iw/task_gui.py:266 ../iw/task_gui.py:376
-#: ../iw/task_gui.py:417 ../textw/grpselect_text.py:100
+#: ../iw/raid_dialog_gui.py:655 ../iw/raid_dialog_gui.py:694
+#: ../iw/task_gui.py:47 ../iw/task_gui.py:145 ../iw/task_gui.py:274
+#: ../iw/task_gui.py:396 ../textw/grpselect_text.py:100
 #: ../textw/partition_text.py:1652 ../textw/partition_text.py:1658
 #: ../textw/partition_text.py:1680 ../textw/upgrade_text.py:174
 #: ../textw/upgrade_text.py:181 ../loader/cdinstall.c:219
@@ -477,19 +476,19 @@ msgstr ""
 #: ../loader/hdinstall.c:352 ../loader/hdinstall.c:454
 #: ../loader/hdinstall.c:497 ../loader/hdinstall.c:510
 #: ../loader/kickstart.c:284 ../loader/lang.c:115 ../loader/loader.c:399
-#: ../loader/loader.c:509 ../loader/loader.c:1178 ../loader/mediacheck.c:62
+#: ../loader/loader.c:509 ../loader/loader.c:1182 ../loader/mediacheck.c:62
 #: ../loader/mediacheck.c:101 ../loader/mediacheck.c:108
-#: ../loader/method.c:280 ../loader/method.c:354 ../loader/nfsinstall.c:189
-#: ../loader/nfsinstall.c:250 ../loader/nfsinstall.c:269
-#: ../loader/telnetd.c:92 ../loader/urlinstall.c:83 ../loader/urlinstall.c:107
-#: ../loader/urlinstall.c:175 ../loader/urls.c:328 ../loader/urls.c:334
+#: ../loader/method.c:280 ../loader/method.c:354 ../loader/nfsinstall.c:244
+#: ../loader/nfsinstall.c:263 ../loader/telnetd.c:92 ../loader/urlinstall.c:83
+#: ../loader/urlinstall.c:107 ../loader/urlinstall.c:175 ../loader/urls.c:328
+#: ../loader/urls.c:334
 msgid "Error"
 msgstr "Errore"
 
 #: ../bootloader.py:44 ../bootloader.py:230 ../image.py:82
-#: ../partedUtils.py:367 ../partedUtils.py:397 ../partedUtils.py:1284
-#: ../upgrade.py:418 ../yuminstall.py:1504 ../yuminstall.py:1531
-#: ../iw/autopart_type.py:181 ../iw/blpasswidget.py:151 ../iw/task_gui.py:55
+#: ../partedUtils.py:367 ../partedUtils.py:397 ../partedUtils.py:1110
+#: ../partedUtils.py:1258 ../upgrade.py:418 ../yuminstall.py:1493
+#: ../yuminstall.py:1520 ../iw/autopart_type.py:184 ../iw/blpasswidget.py:151
 #: ../iw/upgrade_swap_gui.py:194 ../iw/upgrade_swap_gui.py:202
 #: ../iw/upgrade_swap_gui.py:209 ../textw/bootloader_text.py:127
 #: ../textw/bootloader_text.py:452 ../textw/partition_text.py:251
@@ -511,18 +510,18 @@ msgstr ""
 
 #: ../bootloader.py:49 ../exception.py:439 ../exception.py:456
 #: ../exception.py:479 ../exception.py:494 ../exception.py:519
-#: ../fsset.py:1713 ../fsset.py:1977 ../fsset.py:2728 ../gui.py:1284
-#: ../gui.py:1418 ../gui.py:1495 ../image.py:91 ../livecd.py:203
-#: ../livecd.py:386 ../packages.py:117 ../upgrade.py:99 ../upgrade.py:119
-#: ../yuminstall.py:775 ../yuminstall.py:858 ../yuminstall.py:864
-#: ../yuminstall.py:1041 ../yuminstall.py:1089 ../yuminstall.py:1294
-#: ../yuminstall.py:1329
+#: ../fsset.py:1713 ../fsset.py:1977 ../fsset.py:2730 ../gui.py:1285
+#: ../gui.py:1419 ../gui.py:1496 ../image.py:91 ../instdata.py:122
+#: ../livecd.py:203 ../livecd.py:384 ../packages.py:119 ../upgrade.py:99
+#: ../upgrade.py:119 ../yuminstall.py:758 ../yuminstall.py:841
+#: ../yuminstall.py:847 ../yuminstall.py:987 ../yuminstall.py:1047
+#: ../yuminstall.py:1283 ../yuminstall.py:1318
 msgid "_Exit installer"
 msgstr "Uscir_e dal programma d'installazione"
 
 #: ../bootloader.py:49 ../fsset.py:1978 ../image.py:92 ../image.py:253
-#: ../kickstart.py:1084 ../kickstart.py:1122 ../partedUtils.py:1287
-#: ../upgrade.py:99 ../upgrade.py:119 ../yuminstall.py:1046
+#: ../kickstart.py:1113 ../kickstart.py:1151 ../partedUtils.py:1261
+#: ../upgrade.py:99 ../upgrade.py:119 ../yuminstall.py:1052
 #: ../iw/partition_gui.py:1041
 msgid "_Continue"
 msgstr "_Continua"
@@ -552,9 +551,8 @@ msgid "In progress...   "
 msgstr "In progresso...    "
 
 #: ../cmdline.py:97
-msgid "Can't have a question in command line mode!"
-msgstr ""
-"Non è possibile avere un interrogativo nella modalità a linea di comando!"
+msgid "an't have a question in command line mode!"
+msgstr "Non è possibile avere una domanda nella modalità linea di comando!"
 
 #: ../cmdline.py:116
 msgid "Parted exceptions can't be handled in command line mode!"
@@ -587,7 +585,9 @@ msgid ""
 "with bugzilla:\n"
 "\n"
 "%s"
-msgstr "Il bug non può essere schedato a causa del seguente errore nella comunicazione con bugzilla:\n"
+msgstr ""
+"Il bug non può essere schedato a causa del seguente errore nella "
+"comunicazione con bugzilla:\n"
 "\n"
 "%s"
 
@@ -598,7 +598,9 @@ msgid ""
 "is most likely an error in anaconda:\n"
 "\n"
 "%s"
-msgstr "Il bug non può essere schedato a causa delle informazioni errate nei campi del bug. Questo è probabilmente un errore di anaconda:\n"
+msgstr ""
+"Il bug non può essere schedato a causa delle informazioni errate nei campi "
+"del bug. Questo è probabilmente un errore di anaconda:\n"
 "\n"
 "%s"
 
@@ -615,7 +617,9 @@ msgstr "Schedatura dei bug non supportato"
 msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
-msgstr "La distribuzione in uso non fornisce un sistema di archiviazione dei bug supportata, quindi non è possibile salvare l'eccezione in questo modo."
+msgstr ""
+"La distribuzione in uso non fornisce un sistema di archiviazione dei bug "
+"supportata, quindi non è possibile salvare l'eccezione in questo modo."
 
 #: ../exception.py:384
 msgid "Invalid Bug Information"
@@ -631,9 +635,10 @@ msgstr "Impossibile accedere"
 
 #: ../exception.py:396
 #, python-format
-msgid ""
-"There was an error logging into %s using the provided username and password."
-msgstr "Si è verificato un errore di accesso in %s usando il nome utente e la password forniti."
+msgid "There was an error logging into %s using the provided username and password."
+msgstr ""
+"Si è verificato un errore di accesso in %s usando il nome utente e la "
+"password forniti."
 
 #: ../exception.py:433
 msgid "Bug Created"
@@ -647,7 +652,11 @@ msgid ""
 "bug, screenshots, and whatever else is appropriate to the following bug:\n"
 "\n"
 "%s/%s"
-msgstr "È stato creato un nuovo bug con in allegato il tuo commento. Si prega di aggiungere informazioni aggiuntive come l'attività che si stava svolgendo quando si è riscontrato il bug, schermate, e qualsiasi altra cosa sia appropriata al seguente bug:\n"
+msgstr ""
+"È stato creato un nuovo bug con in allegato il tuo commento. Si prega di "
+"aggiungere informazioni aggiuntive come l'attività che si stava svolgendo "
+"quando si è riscontrato il bug, schermate, e qualsiasi altra cosa sia "
+"appropriata al seguente bug:\n"
 "\n"
 "%s/%s"
 
@@ -663,7 +672,10 @@ msgid ""
 "descriptive information to the following bug:\n"
 "\n"
 "%s/%s"
-msgstr "Un bug con queste informazioni esiste già.  L'account è stato aggiunto alla lista dei CC e il rapporto aggiunto come commento.  Prego, aggiungere ulteriori informazioni descrittive per il seguente bug:\n"
+msgstr ""
+"Un bug con queste informazioni esiste già.  L'account è stato aggiunto alla "
+"lista dei CC e il rapporto aggiunto come commento.  Prego, aggiungere "
+"ulteriori informazioni descrittive per il seguente bug:\n"
 "\n"
 "%s/%s"
 
@@ -689,7 +701,7 @@ msgstr "Dump non scritto"
 msgid "There was a problem writing the system state to the disk."
 msgstr "Si è verificato un problema scrivendo lo stato del sistema sul disco."
 
-#: ../exception.py:506 ../exception.py:529
+#: ../exception.py:506 ../exception.py:529 ../rescue.py:196
 msgid "No Network Available"
 msgstr "Nessuna rete disponibile"
 
@@ -697,7 +709,9 @@ msgstr "Nessuna rete disponibile"
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
-msgstr "Impossibile salvare un rapporto bug fintanto che non esistono dispositivi di rete disponibili."
+msgstr ""
+"Impossibile salvare un rapporto bug fintanto che non esistono dispositivi di "
+"rete disponibili."
 
 #: ../exception.py:516
 msgid ""
@@ -709,8 +723,7 @@ msgstr ""
 
 #: ../exception.py:523
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
-"Si è verificato un problema scrivendo lo stato del sistema sull'host remoto."
+msgstr "Si è verificato un problema scrivendo lo stato del sistema sull'host remoto."
 
 #: ../fsset.py:514
 msgid "Checking"
@@ -755,7 +768,7 @@ msgstr "Dispositivo RAID"
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1549 ../partitions.py:1245
+#: ../fsset.py:1549 ../partitions.py:1288
 msgid "PPC PReP Boot"
 msgstr "Avvio di PPC PReP"
 
@@ -780,7 +793,7 @@ msgstr ""
 "\n"
 "Premere <Invio> per uscire dal programma d'installazione."
 
-#: ../fsset.py:1713 ../packages.py:349 ../rescue.py:312 ../rescue.py:314
+#: ../fsset.py:1713 ../packages.py:353 ../rescue.py:242 ../rescue.py:244
 #: ../textw/upgrade_text.py:132 ../loader/cdinstall.c:239
 #: ../loader/cdinstall.c:242 ../loader/method.c:327
 msgid "Skip"
@@ -1000,7 +1013,8 @@ msgid ""
 msgstr ""
 "Si è verificato un errore montando la periferica %s come %s: %s\n"
 "\n"
-"I dispositivi in /etc/fstab dovrebbero essere specificati da un etichetta o da un UUID, non dal nome di dispositivo.\n"
+"I dispositivi in /etc/fstab dovrebbero essere specificati da un etichetta o "
+"da un UUID, non dal nome di dispositivo.\n"
 "\n"
 "Premere OK per uscire dal programma d'installazione."
 
@@ -1029,11 +1043,11 @@ msgstr ""
 "\n"
 "Premere OK per uscire dal programma d'installazione."
 
-#: ../fsset.py:2720
+#: ../fsset.py:2722
 msgid "Duplicate Labels"
 msgstr "Duplica etichette"
 
-#: ../fsset.py:2721
+#: ../fsset.py:2723
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -1047,11 +1061,11 @@ msgstr ""
 "\n"
 "Risolvere questo problema e rilanciare il processo di installazione."
 
-#: ../fsset.py:2886
+#: ../fsset.py:2888
 msgid "Formatting"
 msgstr "Formattazione in corso"
 
-#: ../fsset.py:2887
+#: ../fsset.py:2889
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Formattazione del filesystem %s..."
@@ -1100,66 +1114,66 @@ msgstr ""
 "errore si è verificato durante l'installazione di un pacchetto, sarà "
 "necessario riprovare diverse volte prima di riuscire."
 
-#: ../gui.py:233 ../text.py:586
+#: ../gui.py:233 ../text.py:576
 msgid "Fix"
 msgstr "Correzione"
 
-#: ../gui.py:234 ../rescue.py:222 ../text.py:587
+#: ../gui.py:234 ../rescue.py:190 ../text.py:577
 #: ../textw/bootloader_text.py:72 ../textw/constants_text.py:56
 #: ../loader/driverdisk.c:485 ../loader/driverdisk.c:495
 #: ../loader/hdinstall.c:231
 msgid "Yes"
 msgstr "Sì"
 
-#: ../gui.py:235 ../rescue.py:222 ../rescue.py:224 ../text.py:588
+#: ../gui.py:235 ../rescue.py:190 ../rescue.py:192 ../text.py:578
 #: ../textw/bootloader_text.py:72 ../textw/constants_text.py:60
 #: ../loader/driverdisk.c:485 ../loader/driverdisk.c:495
 msgid "No"
 msgstr "No"
 
-#: ../gui.py:237 ../text.py:590 ../text.py:716 ../loader/net.c:105
-#: ../loader/net.c:413 ../loader/net.c:467 ../loader/net.c:584
-#: ../loader/net.c:592 ../loader/net.c:1009 ../loader/net.c:1015
+#: ../gui.py:237 ../text.py:580 ../text.py:706 ../loader/net.c:108
+#: ../loader/net.c:409 ../loader/net.c:463 ../loader/net.c:606
+#: ../loader/net.c:614 ../loader/net.c:1040 ../loader/net.c:1047
 msgid "Retry"
 msgstr "Riprova"
 
-#: ../gui.py:238 ../text.py:591
+#: ../gui.py:238 ../text.py:581
 msgid "Ignore"
 msgstr "Ignora"
 
-#: ../gui.py:239 ../gui.py:910 ../gui.py:1495 ../partIntfHelpers.py:245
-#: ../partIntfHelpers.py:536 ../text.py:109 ../text.py:110 ../text.py:592
+#: ../gui.py:239 ../gui.py:908 ../gui.py:1496 ../partIntfHelpers.py:245
+#: ../partIntfHelpers.py:536 ../text.py:108 ../text.py:109 ../text.py:582
 #: ../textw/bootloader_text.py:202 ../textw/constants_text.py:48
 #: ../loader/dirbrowser.c:145 ../loader/driverdisk.c:246
 #: ../loader/kickstart.c:375 ../loader/loader.c:434 ../loader/loader.c:546
 msgid "Cancel"
 msgstr "Annulla"
 
-#: ../gui.py:581 ../text.py:518
+#: ../gui.py:581 ../text.py:508
 msgid "Installation Key"
 msgstr "Chiave d'installazione"
 
-#: ../gui.py:660 ../text.py:323
-#, python-format
+#: ../gui.py:652 ../text.py:318
 msgid ""
-"Choose a passphrase for this encrypted device%s. You will be prompted for "
-"the passphrase during system boot."
+"Choose a passphrase for your encrypted devices. You will be prompted for the "
+"passphrase during system boot."
 msgstr ""
-"Scegliere una frase segreta per la seguente partizione criptata %s. La frase segreta sarà richiesta durante l'avvio del sistema."
+"Scegliere una frase segreta per i dispositivi cifrati. La frase segreta sarà richiesta durante "
+"l'avvio del sistema."
 
-#: ../gui.py:679 ../gui.py:687 ../text.py:367 ../text.py:377
+#: ../gui.py:671 ../gui.py:679 ../text.py:356 ../text.py:366
 msgid "Error with passphrase"
 msgstr "Errore nella frase segreta"
 
-#: ../gui.py:680 ../text.py:368
+#: ../gui.py:672 ../text.py:357
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "Le frasi segrete digitate sono diverse.  Si prega di riprovare."
 
-#: ../gui.py:688
+#: ../gui.py:680
 msgid "The passphrase must be at least eight characters long."
 msgstr "La frase segreta deve essere lunga almeno 8 caratteri."
 
-#: ../gui.py:723 ../text.py:400
+#: ../gui.py:714 ../text.py:390
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
@@ -1169,41 +1183,45 @@ msgstr ""
 "dispositivo durante l'installazione si deve immettere la frase segreta del "
 "dispositivo qui sotto."
 
-#: ../gui.py:780
+#: ../gui.py:771
 #, python-format
 msgid "Bugzilla (%s)"
 msgstr "Bugzilla (%s)"
 
-#: ../gui.py:922 ../gui.py:923 ../gui.py:1035 ../gui.py:1036
+#: ../gui.py:801
+msgid "No devices found"
+msgstr "Nessun dispositivo trovato"
+
+#: ../gui.py:920 ../gui.py:921 ../gui.py:1033 ../gui.py:1034
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
 msgstr "_Debug"
 
-#: ../gui.py:1079 ../gui.py:1081 ../gui.py:1492 ../livecd.py:113
+#: ../gui.py:1080 ../gui.py:1082 ../gui.py:1493 ../livecd.py:113
 msgid "Exit installer"
 msgstr "Uscire dall'installazione"
 
-#: ../gui.py:1081 ../text.py:294 ../text.py:302
+#: ../gui.py:1082 ../text.py:293 ../text.py:301
 msgid "Debug"
 msgstr "Debug"
 
-#: ../gui.py:1083 ../text.py:298
+#: ../gui.py:1084 ../text.py:297
 msgid "Exception Occurred"
 msgstr "Si è verificata una eccezione"
 
-#: ../gui.py:1281 ../text.py:563
+#: ../gui.py:1282 ../text.py:553
 msgid "Error Parsing Kickstart Config"
 msgstr "Errore nell'analisi della configurazione del kickstart"
 
-#: ../gui.py:1327
+#: ../gui.py:1328
 msgid "default:LTR"
 msgstr "predefinito:LTR"
 
-#: ../gui.py:1407 ../text.py:711
+#: ../gui.py:1408 ../text.py:701
 msgid "Error!"
 msgstr "Errore!"
 
-#: ../gui.py:1408 ../text.py:712
+#: ../gui.py:1409 ../text.py:702
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1215,48 +1233,48 @@ msgstr ""
 "\n"
 "Nome della classe = %s"
 
-#: ../gui.py:1413 ../image.py:164 ../image.py:194 ../packages.py:398
-#: ../packages.py:403
+#: ../gui.py:1414 ../image.py:164 ../image.py:194 ../packages.py:402
+#: ../packages.py:407
 msgid "_Exit"
 msgstr "_Esci"
 
-#: ../gui.py:1414 ../image.py:164 ../image.py:194 ../livecd.py:203
-#: ../yuminstall.py:653 ../yuminstall.py:1041 ../yuminstall.py:1089
-#: ../yuminstall.py:1294
+#: ../gui.py:1415 ../image.py:164 ../image.py:194 ../livecd.py:203
+#: ../yuminstall.py:636 ../yuminstall.py:987 ../yuminstall.py:1047
+#: ../yuminstall.py:1283
 msgid "_Retry"
 msgstr "_Riprova"
 
-#: ../gui.py:1417 ../packages.py:168 ../packages.py:402
+#: ../gui.py:1418 ../packages.py:172 ../packages.py:406
 msgid "The installer will now exit..."
 msgstr "L'installatore uscirà tra qualche istante..."
 
-#: ../gui.py:1420 ../packages.py:405
+#: ../gui.py:1421 ../packages.py:409
 msgid "Your system will now be rebooted..."
 msgstr "Il sistema verrà riavviato..."
 
-#: ../gui.py:1421 ../image.py:253 ../packages.py:169 ../packages.py:406
-#: ../partedUtils.py:1286 ../yuminstall.py:1345
+#: ../gui.py:1422 ../image.py:253 ../packages.py:173 ../packages.py:410
+#: ../partedUtils.py:1260 ../yuminstall.py:1334
 msgid "_Reboot"
 msgstr "_Riavvia"
 
-#: ../gui.py:1423
+#: ../gui.py:1424
 msgid "Exiting"
 msgstr "Uscita"
 
-#: ../gui.py:1493
+#: ../gui.py:1494
 msgid "Are you sure you wish to exit the installation?"
 msgstr "Si è sicuri di voler uscire dall'installazione?"
 
-#: ../gui.py:1502
+#: ../gui.py:1503
 #, python-format
 msgid "%s Installer"
 msgstr "Programma di installazione di %s"
 
-#: ../gui.py:1509
+#: ../gui.py:1510
 msgid "Unable to load title bar"
 msgstr "Impossibile caricare la barra del titolo"
 
-#: ../gui.py:1562
+#: ../gui.py:1566
 msgid "Install Window"
 msgstr "Finestra di installazione"
 
@@ -1309,7 +1327,8 @@ msgstr ""
 "Il programma d'installazione ha provato a montare l'immagine #%s, ma non è "
 "in grado di trovarla sul disco fisso.\n"
 "\n"
-"Si prega di copiare questa immagine sul disco e cliccare su Riprova.  Cliccare Uscita per annullare l'installazione."
+"Si prega di copiare questa immagine sul disco e cliccare su Riprova.  "
+"Cliccare Uscita per annullare l'installazione."
 
 #: ../image.py:244
 msgid "Required Install Media"
@@ -1331,9 +1350,9 @@ msgstr ""
 "l'installazione.  Se si ha bisogno di annullare l'installazione ed uscire "
 "selezionare \"Riavvia\"."
 
-#: ../image.py:253 ../livecd.py:385 ../packages.py:352 ../packages.py:403
-#: ../packages.py:406 ../yuminstall.py:775 ../yuminstall.py:864
-#: ../yuminstall.py:1329 ../yuminstall.py:1345
+#: ../image.py:253 ../livecd.py:383 ../packages.py:356 ../packages.py:407
+#: ../packages.py:410 ../yuminstall.py:758 ../yuminstall.py:847
+#: ../yuminstall.py:1318 ../yuminstall.py:1334
 msgid "_Back"
 msgstr "_Indietro"
 
@@ -1350,7 +1369,20 @@ msgstr ""
 msgid "Install on System"
 msgstr "Installazione sul sistema"
 
-#: ../iscsi.py:208 ../iscsi.py:209
+#: ../instdata.py:118
+msgid "Unknown Device"
+msgstr "Dispositivo sconosciuto"
+
+#: ../instdata.py:119
+#, python-format
+msgid ""
+"The installation source given by device %s could not be found.  Please check "
+"your parameters and try again."
+msgstr ""
+"Il media d'installazione dato dal dispositivo %s non è stato trovato.  Si prega di "
+"controllare i parametri e riprovare."
+
+#: ../iscsi.py:449 ../iscsi.py:450
 msgid "Initializing iSCSI initiator"
 msgstr "Inizializzazione iSCSI initiator"
 
@@ -1370,23 +1402,23 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr "Errore Scriptlet"
 
-#: ../kickstart.py:1027 ../kickstart.py:1044
+#: ../kickstart.py:1056 ../kickstart.py:1073
 msgid "Running..."
 msgstr "Esecuzione..."
 
-#: ../kickstart.py:1028
+#: ../kickstart.py:1057
 msgid "Running post-install scripts"
 msgstr "Esecuzione script post-installazione"
 
-#: ../kickstart.py:1045
+#: ../kickstart.py:1074
 msgid "Running pre-install scripts"
 msgstr "Esecuzione script pre-installazione"
 
-#: ../kickstart.py:1076
+#: ../kickstart.py:1105
 msgid "Missing Package"
 msgstr "Pacchetto mancante"
 
-#: ../kickstart.py:1077
+#: ../kickstart.py:1106
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1396,15 +1428,15 @@ msgstr ""
 "pacchetto non esiste. Si desidera continuare oppure interrompere "
 "l'installazione."
 
-#: ../kickstart.py:1083 ../kickstart.py:1121
+#: ../kickstart.py:1112 ../kickstart.py:1150
 msgid "_Abort"
 msgstr "_Interrompi"
 
-#: ../kickstart.py:1113
+#: ../kickstart.py:1142
 msgid "Missing Group"
 msgstr "Gruppo mancante"
 
-#: ../kickstart.py:1114
+#: ../kickstart.py:1143
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1419,8 +1451,7 @@ msgstr "Impossibile trovare l'immagine"
 
 #: ../livecd.py:109
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 "La locazione data non è un valido %s live CD da usare come sorgente "
 "d'installazione."
@@ -1437,7 +1468,9 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"Si è verificato un errore durante l'installazione dell'immagine live sul disco fisso.  Questo può dipendere da un supporto danneggiato.  Verificare la sorgente di installazione.\n"
+"Si è verificato un errore durante l'installazione dell'immagine live sul "
+"disco fisso.  Questo può dipendere da un supporto danneggiato.  Verificare "
+"la sorgente di installazione.\n"
 "\n"
 "Se si esce, il sistema verrà lasciato in uno stato inconsistente che "
 "richiederà un ulteriore installazione."
@@ -1454,7 +1487,7 @@ msgstr ""
 "Applicazione cambiamenti sul filesystem post-installazione.  Potrebbero "
 "occorrere alcuni minuti..."
 
-#: ../livecd.py:380
+#: ../livecd.py:378
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
@@ -1463,28 +1496,29 @@ msgstr ""
 "Il filesystem root appena creato non è abbastanza grande per questa immagine "
 "live (%.2f MB richiesti)."
 
-#: ../network.py:64
-msgid "Hostname must be 64 or fewer characters in length."
-msgstr "L'Hostname deve essere lungo al massimo 64 caratteri."
+#: ../network.py:56
+msgid "Hostname must be 255 or fewer characters in length."
+msgstr "L'Hostname può avere un massimo di 255 caratteri."
 
-#: ../network.py:70
+#: ../network.py:62
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
 msgstr ""
-"L'Hostname deve iniziare con un carattere valido compreso tra 'a-z', 'A-Z', oppure '0-9'"
+"L'Hostname deve iniziare con un carattere valido compreso tra 'a-z', 'A-Z', "
+"oppure '0-9'"
 
-#: ../network.py:75
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+#: ../network.py:67
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
-"Gli hostname possono contenere solo i caratteri 'a-z', 'A-Z', '0-9', '-', o '.'"
+"Gli hostname possono contenere solo i caratteri 'a-z', 'A-Z', '0-9', '-', o "
+"'.'"
 
-#: ../network.py:132
+#: ../network.py:166
 msgid "IP address is missing."
 msgstr "Indirizzo IP mancante."
 
-#: ../network.py:136
+#: ../network.py:170
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
@@ -1492,55 +1526,54 @@ msgstr ""
 "Gli indirizzi IPv4 devono contenere quattro numeri compresi tra 0 e 255, "
 "separati da punti."
 
-#: ../network.py:139
+#: ../network.py:173
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' non è un indirizzo IPV6 valido."
 
-#: ../network.py:141
+#: ../network.py:175
 #, python-format
 msgid "'%s' is an invalid IP address."
 msgstr "'%s' non è un indirizzo IP valido."
 
-#: ../packages.py:112
+#: ../packages.py:114
 msgid "Resizing Failed"
 msgstr "Ridimensionamento fallito"
 
-#: ../packages.py:113
+#: ../packages.py:115
 #, python-format
 msgid "There was an error encountered resizing the device %s."
-msgstr ""
-"Si è verificato un errore durante il ridimensionamento del dispositivo %s."
+msgstr "Si è verificato un errore durante il ridimensionamento del dispositivo %s."
 
-#: ../packages.py:146
+#: ../packages.py:148
 msgid "Activating"
 msgstr "Attivazione"
 
-#: ../packages.py:146
+#: ../packages.py:148
 msgid "Activating new partitions.  Please wait..."
 msgstr "Attivazione delle nuove partizioni in corso.  Attendere prego..."
 
-#: ../packages.py:167
+#: ../packages.py:171
 msgid "LVM operation failed"
 msgstr "Operazione LVM non riuscita"
 
-#: ../packages.py:323
+#: ../packages.py:327
 msgid "Invalid Key"
 msgstr "Chiave non valida"
 
-#: ../packages.py:324
+#: ../packages.py:328
 msgid "The key you entered is invalid."
 msgstr "La chiave immessa non è valida."
 
-#: ../packages.py:352
+#: ../packages.py:356
 msgid "_Skip"
 msgstr "_Salta"
 
-#: ../packages.py:384 ../packages.py:407
+#: ../packages.py:388 ../packages.py:411
 msgid "Warning! This is pre-release software!"
 msgstr "Attenzione! Questo è un software pre-release!"
 
-#: ../packages.py:385
+#: ../packages.py:389
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1567,129 +1600,9 @@ msgstr ""
 "\n"
 "e stilare un rapporto su '%s'.\n"
 
-#: ../packages.py:398
+#: ../packages.py:402
 msgid "_Install anyway"
 msgstr "_Installa comunque"
-
-#: ../partedUtils.py:240 ../textw/partition_text.py:578
-msgid "Foreign"
-msgstr "Straniero"
-
-#: ../partedUtils.py:368
-#, python-format
-msgid ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
-"\n"
-"Would you like to reformat this DASD using CDL format?"
-msgstr ""
-"La periferica %s è formattata in LDL invece che in CDL.  I DASD formattati "
-"in LDL non sono supportati per l'uso durante un'installazione di %s.  Per "
-"usare questo disco per l'installazione, occorre re-inizializzarlo provocando "
-"la perdita di TUTTI I DATI su questo drive.\n"
-"\n"
-"Si desidera riformattare questo DASD utilizzando il formato CDL?"
-
-#: ../partedUtils.py:398
-#, python-format
-msgid ""
-"/dev/%s currently has a %s partition layout.  To use this drive for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
-"on this drive.\n"
-"\n"
-"Would you like to re-initialize this drive?"
-msgstr ""
-"/dev/%s attualmente possiede uno schema di partizione %s. Per usare questo "
-"disco per l'installazione di %s, occorre reinizializzarlo provocando la "
-"perdita di TUTTI I DATI su questo disco.\n"
-"\n"
-"Si desidera formattare il disco?"
-
-#: ../partedUtils.py:407
-msgid "_Ignore drive"
-msgstr "_Ignora l'unità"
-
-#: ../partedUtils.py:408
-msgid "_Re-initialize drive"
-msgstr "_Formatta disco"
-
-#: ../partedUtils.py:1023
-msgid "Initializing"
-msgstr "Inizializzazione in corso"
-
-#: ../partedUtils.py:1024
-#, python-format
-msgid "Please wait while formatting drive %s...\n"
-msgstr "Attendere durante la formattazione del drive %s...\n"
-
-#: ../partedUtils.py:1108
-#, python-format
-msgid ""
-"The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"La tabella delle partizioni sul dispositivo %s è illegibile. Per creare "
-"nuove partizioni è necessario inizializzarla, causando la perdita di TUTTI I "
-"DATI presenti sul drive.\n"
-"\n"
-"Questa operazione escluderá tutte le scelte fatte durante precedenti "
-"installazioni che riguardano quali dischi ignorare. \n"
-"\n"
-"Inizializzare questa unità eliminando TUTTI I DATI?"
-
-#: ../partedUtils.py:1129
-#, python-format
-msgid ""
-"The partition table on device %s (%s %-0.f MB) was unreadable.\n"
-"To create new partitions it must be initialized, causing the loss of ALL "
-"DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"La tabella delle partizioni sul dispositivo %s (%s %-0.f MB) è illeggibile.\n"
-"Per creare nuove partizioni è necessario inizializzarla, causando la perdita di "
-"TUTTI I DATI presenti sul drive.\n"
-"\n"
-"Questa operazione escluderá tutte le scelte fatte durante precedenti "
-"installazioni che riguardano quali dischi ignorare. \n"
-"\n"
-"Si desidera inizializzare questa unità eliminando TUTTI I DATI?"
-
-#: ../partedUtils.py:1277
-#, python-format
-msgid ""
-"The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
-"the Linux kernel does not allow for more than 15 partitons at this time.  "
-"You will not be able to make changes to the partitioning of this disk or use "
-"any partitions beyond /dev/%s15 in %s"
-msgstr ""
-"Il disco /dev/%s ha più di 15 partizioni.  Il sottosistema SCSI nel kernel "
-"di Linux non permette al momento più di 15 partizioni.  Non si potranno fare "
-"cambiamenti al partizionamento di questo disco o usare qualsiasi partizione "
-"superiore a /dev/%s15 in %s"
-
-#: ../partedUtils.py:1361
-msgid "No Drives Found"
-msgstr "Nessun drive trovato"
-
-#: ../partedUtils.py:1362
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"Si è verificato un errore - non è stato trovato alcun dispositivo valido sul "
-"quale creare nuovi filesystem. Controllare l'hardware per individuare la "
-"causa del problema."
 
 #: ../partIntfHelpers.py:43
 msgid "Please enter a volume group name."
@@ -1792,7 +1705,7 @@ msgstr ""
 "Non è possibile eliminare la partizione poiché si tratta di una partizione "
 "estesa che contiene %s"
 
-#: ../partIntfHelpers.py:190 ../iw/raid_dialog_gui.py:637
+#: ../partIntfHelpers.py:190 ../iw/raid_dialog_gui.py:591
 msgid "This partition is holding the data for the hard drive install."
 msgstr "Questa partizione contiene i dati per l'installazione del disco fisso."
 
@@ -1805,7 +1718,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:241 ../partIntfHelpers.py:535
-#: ../iw/lvm_dialog_gui.py:817
+#: ../iw/lvm_dialog_gui.py:794
 msgid "Confirm Delete"
 msgstr "Conferma rimozione"
 
@@ -1815,7 +1728,7 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Tutte le partizioni sul dispositivo '/dev/%s' verranno eliminate."
 
 #: ../partIntfHelpers.py:245 ../partIntfHelpers.py:536
-#: ../iw/lvm_dialog_gui.py:820 ../iw/lvm_dialog_gui.py:1168
+#: ../iw/lvm_dialog_gui.py:797 ../iw/lvm_dialog_gui.py:1145
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1384
 msgid "_Delete"
 msgstr "_Elimina"
@@ -2002,233 +1915,17 @@ msgid "Confirm Reset"
 msgstr "Conferma Reimposta"
 
 #: ../partIntfHelpers.py:544
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Reimpostare la tabella delle partizioni secondo il suo stato originario?"
-
-#: ../partitions.py:84
-msgid "Installation cannot continue."
-msgstr "L'installazione non può continuare."
-
-#: ../partitions.py:85
-msgid ""
-"The partitioning options you have chosen have already been activated. You "
-"can no longer return to the disk editing screen. Would you like to continue "
-"with the installation process?"
-msgstr ""
-"Le opzioni scelte per il partizionamento sono già state attivate. Non è più "
-"possibile ritornare alla schermata di modifica del disco. Continuare il "
-"processo di installazione?"
-
-#: ../partitions.py:130
-#, python-format
-msgid " for device %s"
-msgstr " per il dispositivo %s"
-
-#: ../partitions.py:133
-msgid "Encrypt device?"
-msgstr "Codifica dispositivo?"
-
-#: ../partitions.py:134
-#, python-format
-msgid ""
-"You specified block device encryption should be enabled%s, but you have not "
-"supplied a passphrase. If you do not go back and provide a passphrase, block "
-"device encryption%s will be disabled."
-msgstr "Si è specificato che il criptaggio del dispositivo a blocchi deve essere abilitato%s, ma non è stata fornita alcuna frase di accesso. Se non si torna indietro per fornire una frase di accesso, il criptaggio del dispositivo a blocchi%s verrà disabilitato."
-
-#: ../partitions.py:141 ../partitions.py:260 ../textw/constants_text.py:52
-#: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
-#: ../loader/driverdisk.c:277 ../loader/driverdisk.c:361
-#: ../loader/driverselect.c:81 ../loader/driverselect.c:179
-#: ../loader/driverselect.c:205 ../loader/hdinstall.c:231
-#: ../loader/hdinstall.c:289 ../loader/kbd.c:138 ../loader/loader.c:473
-#: ../loader/loader.c:493 ../loader/loader.c:1361 ../loader/loader.c:1390
-#: ../loader/net.c:514 ../loader/net.c:869 ../loader/net.c:1542
-#: ../loader/net.c:1564 ../loader/nfsinstall.c:86 ../loader/urls.c:292
-msgid "Back"
-msgstr "Indietro"
-
-#: ../partitions.py:141 ../partitions.py:260 ../rescue.py:312
-#: ../iw/partition_gui.py:574 ../textw/network_text.py:62
-#: ../loader/cdinstall.c:198 ../loader/cdinstall.c:206
-#: ../loader/driverdisk.c:446
-msgid "Continue"
-msgstr "Continua"
-
-#: ../partitions.py:160
-msgid "Writing partitioning to disk"
-msgstr "Scrittura delle partizioni sul disco."
-
-#: ../partitions.py:161
-msgid ""
-"The partitioning options you have selected will now be written to disk.  Any "
-"data on deleted or reformatted partitions will be lost."
-msgstr ""
-"Le opzioni di partizionamento selezionate verranno ora scritte sul disco.  Qualsiasi dato sulle partizioni eliminate o riformattate verrà perso."
-
-#: ../partitions.py:166
-msgid "Go _back"
-msgstr "_Torna indietro"
-
-#: ../partitions.py:167
-msgid "_Write changes to disk"
-msgstr "_Scrivi i cambiamenti su disco"
-
-#: ../partitions.py:265
-msgid "Confirm"
-msgstr "Conferma"
-
-#: ../partitions.py:266
-#, python-format
-msgid ""
-"Are you sure you want to skip entering a passphrase for device %s?\n"
-"\n"
-"If you skip this step the device's contents will not be available during "
-"installation."
-msgstr ""
-"Si è sicuri di voler saltare l'immissione della frase segreta per il "
-"dispositivo %s?\n"
-"\n"
-"Se si salta questo passo i contenuti del dispositivo non saranno disponibili "
-"durante l'installazione."
-
-#: ../partitions.py:1146
-#, python-format
-msgid ""
-"You have not defined a root partition (/), which is required for "
-"installation of %s to continue."
-msgstr ""
-"Non è stata definita alcuna partizione root (/) necessaria per completare "
-"l'installazione di %s."
-
-#: ../partitions.py:1151
-#, python-format
-msgid ""
-"Your root partition is less than 250 megabytes which is usually too small to "
-"install %s."
-msgstr ""
-"La capacità della partizione di root è inferiore a 250 megabyte, "
-"insufficiente da installare %s."
-
-#: ../partitions.py:1177
-msgid "You must create an EFI System Partition of at least 10 megabytes."
-msgstr ""
-"Si deve creare una partizione di sistema EFI di tipo FAT di almeno 10 megabyte."
-
-#: ../partitions.py:1191
-msgid ""
-"Your boot partition isn't on one of the first four partitions and thus won't "
-"be bootable."
-msgstr ""
-"La partizione di avvio non è una delle prime quattro partizioni perciò non "
-"sarà avviabile."
-
-#: ../partitions.py:1212
-msgid "You must create an Apple Bootstrap partition."
-msgstr "E' necessario creare una partizione di tipo Apple Bootstrap."
-
-#: ../partitions.py:1234
-msgid "You must create a PPC PReP Boot partition."
-msgstr "E' necessario creare una partizione boot PPC PReP. "
-
-#: ../partitions.py:1242 ../partitions.py:1253
-#, python-format
-msgid ""
-"Your %s partition is less than %s megabytes which is lower than recommended "
-"for a normal %s install."
-msgstr ""
-"La capacità della partizione %s è inferiore a %s megabyte, ancor meno della "
-"capacità consigliata per una installazione di %s normale."
-
-#: ../partitions.py:1287
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"Installazione su di un dispositivo USB in corso.  Tale operazione potrebbe, "
-"o meno, produrre un sistema funzionante."
-
-#: ../partitions.py:1290
-msgid ""
-"Installing on a FireWire device.  This may or may not produce a working "
-"system."
-msgstr ""
-"Installazione su di un dispositivo FireWire in corso.  Tale operazione "
-"potrebbe, o meno, produrre un sistema funzionante."
-
-#: ../partitions.py:1300
-msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Le partizioni avviabili possono trovarsi solo su dispositivi RAID1."
-
-#: ../partitions.py:1305
-msgid "Bootable partitions cannot be on a logical volume."
-msgstr "Le partizioni di avvio non possono trovarsi su di un volume logico."
-
-#: ../partitions.py:1311
-msgid "Bootable partitions cannot be on a RAID device."
-msgstr "Le partizioni avviabili non possono trovarsi su un dispositivo RAID."
-
-#: ../partitions.py:1316 ../partitions.py:1322
-#, python-format
-msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "Le partizioni avviabili non possono trovarsi su un filesystem %s."
-
-#: ../partitions.py:1326
-msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr ""
-"Le partizioni avviabili non possono trovarsi su un dispositivo a blocchi "
-"criptato."
-
-#: ../partitions.py:1330
-msgid ""
-"You have not specified a swap partition.  Although not strictly required in "
-"all cases, it will significantly improve performance for most installations."
-msgstr ""
-"Non è stata specificata alcuna partizione swap. Benché non sia sempre "
-"necessaria, la partizione migliora significativamente le prestazioni della "
-"maggior parte delle installazioni."
-
-#: ../partitions.py:1337
-#, python-format
-msgid ""
-"You have specified more than 32 swap devices.  The kernel for %s only "
-"supports 32 swap devices."
-msgstr ""
-"Sono stati specificati più di 32 dispositivi di swap. Il kernel di %s ne "
-"supporta solo 32."
-
-#: ../partitions.py:1348
-#, python-format
-msgid ""
-"You have allocated less swap space (%dM) than available RAM (%dM) on your "
-"system.  This could negatively impact performance."
-msgstr ""
-"E' stato allocato meno spazio di swap (%dM) rispetto alla RAM disponibile (%"
-"dM) nel sistema. Ciò potrebbe avere effetti negativi sulle prestazioni."
-
-#: ../partitions.py:1655
-msgid "the partition in use by the installer."
-msgstr "la partizione utilizzata dal programma di installazione."
-
-#: ../partitions.py:1658
-msgid "a partition which is a member of a RAID array."
-msgstr "una partizione che fa parte di un array RAID."
-
-#: ../partitions.py:1661
-msgid "a partition which is a member of a LVM Volume Group."
-msgstr "una partizione che fa parte del gruppo di volumi LVM."
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Reimpostare la tabella delle partizioni secondo il suo stato originario?"
 
 #: ../partRequests.py:275 ../partRequests.py:278
 #, python-format
 msgid "The mount point %s must be formatted during live CD installs."
-msgstr ""
-"Il mount point %s deve essere formattato durante l'installazione del live CD."
+msgstr "Il mount point %s deve essere formattato durante l'installazione del live CD."
 
 #: ../partRequests.py:284
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Il mount point richiesto non è valido. La directory %s deve essere sul "
 "filesystem /."
@@ -2252,8 +1949,7 @@ msgstr "Il mount point richiesto deve essere su un filesystem di Linux."
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"Il mount point \"%s\" è già in uso, scegliere un mount point differente."
+msgstr "Il mount point \"%s\" è già in uso, scegliere un mount point differente."
 
 #: ../partRequests.py:331
 #, python-format
@@ -2276,8 +1972,7 @@ msgstr ""
 #: ../partRequests.py:544
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
-"Le dimensioni della partizione richiesta sono negative! (dimensioni = %s MB)"
+msgstr "Le dimensioni della partizione richiesta sono negative! (dimensioni = %s MB)"
 
 #: ../partRequests.py:548
 msgid "Partitions can't start below the first cylinder."
@@ -2315,44 +2010,347 @@ msgstr ""
 "La dimensione del volume logico deve essere più grande dell'estensione "
 "fisica del gruppo di volumi."
 
-#: ../rescue.py:151
-msgid "Starting Interface"
-msgstr "Avvio dell'interfaccia"
+#: ../partedUtils.py:240 ../textw/partition_text.py:578
+msgid "Foreign"
+msgstr "Straniero"
 
-#: ../rescue.py:152
+#: ../partedUtils.py:368
 #, python-format
-msgid "Attempting to start %s"
-msgstr "Tentativo di avvio di %s"
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+"La periferica %s è formattata in LDL invece che in CDL.  I DASD formattati "
+"in LDL non sono supportati per l'uso durante un'installazione di %s.  Per "
+"usare questo disco per l'installazione, occorre re-inizializzarlo provocando "
+"la perdita di TUTTI I DATI su questo drive.\n"
+"\n"
+"Si desidera riformattare questo DASD utilizzando il formato CDL?"
 
-#: ../rescue.py:194
+#: ../partedUtils.py:398
+#, python-format
+msgid ""
+"/dev/%s currently has a %s partition layout.  To use this drive for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
+"\n"
+"Would you like to re-initialize this drive?"
+msgstr ""
+"/dev/%s attualmente possiede uno schema di partizione %s. Per usare questo "
+"disco per l'installazione di %s, occorre reinizializzarlo provocando la "
+"perdita di TUTTI I DATI su questo disco.\n"
+"\n"
+"Si desidera formattare il disco?"
+
+#: ../partedUtils.py:407
+msgid "_Ignore drive"
+msgstr "_Ignora l'unità"
+
+#: ../partedUtils.py:408
+msgid "_Re-initialize drive"
+msgstr "_Formatta disco"
+
+#: ../partedUtils.py:1015
+msgid "Initializing"
+msgstr "Inizializzazione in corso"
+
+#: ../partedUtils.py:1016
+#, python-format
+msgid "Please wait while formatting drive %s...\n"
+msgstr "Attendere durante la formattazione del drive %s...\n"
+
+#: ../partedUtils.py:1101
+#, python-format
+msgid ""
+"The partition table on device %s (%s %-0.f MB) was unreadable.\n"
+"\n"
+"To create new partitions it must be initialized, causing the loss of ALL "
+"DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"La tabella delle partizioni sul dispositivo %s (%s %-0.f MB) è illeggibile.\n"
+"\n"
+"Per creare nuove partizioni è necessario inizializzarla, causando la perdita "
+"di TUTTI I DATI presenti sul drive.\n"
+"\n"
+"Questa operazione annullerà tutte le scelte fatte durante precedenti "
+"installazioni che riguardano quali dischi ignorare. \n"
+"\n"
+"Si desidera inizializzare questa unità eliminando TUTTI I DATI?"
+
+#: ../partedUtils.py:1251
+#, python-format
+msgid ""
+"The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
+"the Linux kernel does not allow for more than 15 partitons at this time.  "
+"You will not be able to make changes to the partitioning of this disk or use "
+"any partitions beyond /dev/%s15 in %s"
+msgstr ""
+"Il disco /dev/%s ha più di 15 partizioni.  Il sottosistema SCSI nel kernel "
+"di Linux non permette al momento più di 15 partizioni.  Non si potranno fare "
+"cambiamenti al partizionamento di questo disco o usare qualsiasi partizione "
+"superiore a /dev/%s15 in %s"
+
+#: ../partedUtils.py:1335
+msgid "No Drives Found"
+msgstr "Nessun drive trovato"
+
+#: ../partedUtils.py:1336
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+"Si è verificato un errore - non è stato trovato alcun dispositivo valido sul "
+"quale creare nuovi filesystem. Controllare l'hardware per individuare la "
+"causa del problema."
+
+#: ../partitions.py:84
+msgid "Installation cannot continue."
+msgstr "L'installazione non può continuare."
+
+#: ../partitions.py:85
+msgid ""
+"The partitioning options you have chosen have already been activated. You "
+"can no longer return to the disk editing screen. Would you like to continue "
+"with the installation process?"
+msgstr ""
+"Le opzioni scelte per il partizionamento sono già state attivate. Non è più "
+"possibile ritornare alla schermata di modifica del disco. Continuare il "
+"processo di installazione?"
+
+#: ../partitions.py:125
+msgid "Encrypt device?"
+msgstr "Codifica dispositivo?"
+
+#: ../partitions.py:126
+msgid ""
+"You specified block device encryption should be enabled, but you have not "
+"supplied a passphrase. If you do not go back and provide a passphrase, block "
+"device encryption will be disabled."
+msgstr ""
+"Si è specificato che la cifratura del dispositivo a blocchi deve essere "
+"abilitato, ma non è stata fornita alcuna frase di accesso. Se non si torna "
+"indietro per fornire una frase di accesso, la cifratura del dispositivo a "
+"blocchi verrà disabilitato."
+
+#: ../partitions.py:133 ../partitions.py:263 ../textw/constants_text.py:52
+#: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
+#: ../loader/driverdisk.c:277 ../loader/driverdisk.c:361
+#: ../loader/driverselect.c:81 ../loader/driverselect.c:179
+#: ../loader/driverselect.c:205 ../loader/hdinstall.c:231
+#: ../loader/hdinstall.c:289 ../loader/kbd.c:138 ../loader/loader.c:473
+#: ../loader/loader.c:493 ../loader/loader.c:1365 ../loader/loader.c:1394
+#: ../loader/net.c:515 ../loader/net.c:891 ../loader/net.c:1628
+#: ../loader/net.c:1650 ../loader/nfsinstall.c:87 ../loader/urls.c:292
+msgid "Back"
+msgstr "Indietro"
+
+#: ../partitions.py:133 ../partitions.py:263 ../rescue.py:242
+#: ../iw/partition_gui.py:574 ../loader/cdinstall.c:198
+#: ../loader/cdinstall.c:206 ../loader/driverdisk.c:446
+msgid "Continue"
+msgstr "Continua"
+
+#: ../partitions.py:154
+msgid "Writing partitioning to disk"
+msgstr "Scrittura delle partizioni sul disco."
+
+#: ../partitions.py:155
+msgid ""
+"The partitioning options you have selected will now be written to disk.  Any "
+"data on deleted or reformatted partitions will be lost."
+msgstr ""
+"Le opzioni di partizionamento selezionate verranno ora scritte sul disco.  "
+"Qualsiasi dato sulle partizioni eliminate o riformattate verrà perso."
+
+#: ../partitions.py:160
+msgid "Go _back"
+msgstr "_Torna indietro"
+
+#: ../partitions.py:161
+msgid "_Write changes to disk"
+msgstr "_Scrivi i cambiamenti su disco"
+
+#: ../partitions.py:268
+msgid "Confirm"
+msgstr "Conferma"
+
+#: ../partitions.py:269
+#, python-format
+msgid ""
+"Are you sure you want to skip entering a passphrase for device %s?\n"
+"\n"
+"If you skip this step the device's contents will not be available during "
+"installation."
+msgstr ""
+"Si è sicuri di voler saltare l'immissione della frase segreta per il "
+"dispositivo %s?\n"
+"\n"
+"Se si salta questo passo i contenuti del dispositivo non saranno disponibili "
+"durante l'installazione."
+
+#: ../partitions.py:1189
+#, python-format
+msgid ""
+"You have not defined a root partition (/), which is required for "
+"installation of %s to continue."
+msgstr ""
+"Non è stata definita alcuna partizione root (/) necessaria per completare "
+"l'installazione di %s."
+
+#: ../partitions.py:1194
+#, python-format
+msgid ""
+"Your root partition is less than 250 megabytes which is usually too small to "
+"install %s."
+msgstr ""
+"La capacità della partizione di root è inferiore a 250 megabyte, "
+"insufficiente da installare %s."
+
+#: ../partitions.py:1220
+msgid "You must create an EFI System Partition of at least 10 megabytes."
+msgstr ""
+"Si deve creare una partizione di sistema EFI di tipo FAT di almeno 10 "
+"megabyte."
+
+#: ../partitions.py:1234
+msgid ""
+"Your boot partition isn't on one of the first four partitions and thus won't "
+"be bootable."
+msgstr ""
+"La partizione di avvio non è una delle prime quattro partizioni perciò non "
+"sarà avviabile."
+
+#: ../partitions.py:1255
+msgid "You must create an Apple Bootstrap partition."
+msgstr "E' necessario creare una partizione di tipo Apple Bootstrap."
+
+#: ../partitions.py:1277
+msgid "You must create a PPC PReP Boot partition."
+msgstr "E' necessario creare una partizione boot PPC PReP. "
+
+#: ../partitions.py:1285 ../partitions.py:1296
+#, python-format
+msgid ""
+"Your %s partition is less than %s megabytes which is lower than recommended "
+"for a normal %s install."
+msgstr ""
+"La capacità della partizione %s è inferiore a %s megabyte, ancor meno della "
+"capacità consigliata per una installazione di %s normale."
+
+#: ../partitions.py:1330
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr ""
+"Installazione su di un dispositivo USB in corso.  Tale operazione potrebbe, "
+"o meno, produrre un sistema funzionante."
+
+#: ../partitions.py:1333
+msgid ""
+"Installing on a FireWire device.  This may or may not produce a working "
+"system."
+msgstr ""
+"Installazione su di un dispositivo FireWire in corso.  Tale operazione "
+"potrebbe, o meno, produrre un sistema funzionante."
+
+#: ../partitions.py:1343
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "Le partizioni avviabili possono trovarsi solo su dispositivi RAID1."
+
+#: ../partitions.py:1348
+msgid "Bootable partitions cannot be on a logical volume."
+msgstr "Le partizioni di avvio non possono trovarsi su di un volume logico."
+
+#: ../partitions.py:1354
+msgid "Bootable partitions cannot be on a RAID device."
+msgstr "Le partizioni avviabili non possono trovarsi su un dispositivo RAID."
+
+#: ../partitions.py:1359 ../partitions.py:1365
+#, python-format
+msgid "Bootable partitions cannot be on an %s filesystem."
+msgstr "Le partizioni avviabili non possono trovarsi su un filesystem %s."
+
+#: ../partitions.py:1369
+msgid "Bootable partitions cannot be on an encrypted block device"
+msgstr ""
+"Le partizioni avviabili non possono trovarsi su un dispositivo a blocchi "
+"criptato."
+
+#: ../partitions.py:1373
+msgid ""
+"You have not specified a swap partition.  Although not strictly required in "
+"all cases, it will significantly improve performance for most installations."
+msgstr ""
+"Non è stata specificata alcuna partizione swap. Benché non sia sempre "
+"necessaria, la partizione migliora significativamente le prestazioni della "
+"maggior parte delle installazioni."
+
+#: ../partitions.py:1380
+#, python-format
+msgid ""
+"You have specified more than 32 swap devices.  The kernel for %s only "
+"supports 32 swap devices."
+msgstr ""
+"Sono stati specificati più di 32 dispositivi di swap. Il kernel di %s ne "
+"supporta solo 32."
+
+#: ../partitions.py:1391
+#, python-format
+msgid ""
+"You have allocated less swap space (%dM) than available RAM (%dM) on your "
+"system.  This could negatively impact performance."
+msgstr ""
+"E' stato allocato meno spazio di swap (%dM) rispetto alla RAM disponibile (%"
+"dM) nel sistema. Ciò potrebbe avere effetti negativi sulle prestazioni."
+
+#: ../partitions.py:1698
+msgid "the partition in use by the installer."
+msgstr "la partizione utilizzata dal programma di installazione."
+
+#: ../partitions.py:1701
+msgid "a partition which is a member of a RAID array."
+msgstr "una partizione che fa parte di un array RAID."
+
+#: ../partitions.py:1704
+msgid "a partition which is a member of a LVM Volume Group."
+msgstr "una partizione che fa parte del gruppo di volumi LVM."
+
+#: ../rescue.py:162
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Una volta terminato, uscire dalla shell. Il sistema si riavvierà."
 
-#: ../rescue.py:201
+#: ../rescue.py:169
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr "Impossibile trovare /bin/sh da eseguire!  Non avvio la shell"
 
-#: ../rescue.py:220
+#: ../rescue.py:188
 msgid "Setup Networking"
 msgstr "Impostazione della rete"
 
-#: ../rescue.py:221
+#: ../rescue.py:189
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Si desidera avviare le interfacce di rete su questo sistema?"
 
-#: ../rescue.py:261 ../text.py:742
-msgid "Cancelled"
-msgstr "Cancellato"
+#: ../rescue.py:197
+msgid ""
+"Unable to activate a networking device.  Networking will not be available in "
+"rescue mode."
+msgstr ""
+"Impossibile attivare un dispositivo per il networking.  Networking non sarà "
+"disponibile in modalità rescue."
 
-#: ../rescue.py:262 ../text.py:743
-msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "Impossibile tornare alla fase precedente. Provare di nuovo."
-
-#: ../rescue.py:301 ../rescue.py:371 ../rescue.py:382 ../rescue.py:463
+#: ../rescue.py:231 ../rescue.py:301 ../rescue.py:312 ../rescue.py:393
 msgid "Rescue"
 msgstr "Ripristino"
 
-#: ../rescue.py:302
+#: ../rescue.py:232
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -2375,23 +2373,23 @@ msgstr ""
 "scegliere 'Ignora' per passare direttamente alla shell dei comandi.\n"
 "\n"
 
-#: ../rescue.py:312 ../rescue.py:317
+#: ../rescue.py:242 ../rescue.py:247
 msgid "Read-Only"
 msgstr "Sola-lettura"
 
-#: ../rescue.py:343
+#: ../rescue.py:273
 msgid "System to Rescue"
 msgstr "Sistema da ripristinare"
 
-#: ../rescue.py:344
+#: ../rescue.py:274
 msgid "What partition holds the root partition of your installation?"
 msgstr "Quale partizione contiene la partizione di root?"
 
-#: ../rescue.py:346 ../rescue.py:350 ../text.py:716 ../text.py:718
+#: ../rescue.py:276 ../rescue.py:280 ../text.py:706 ../text.py:708
 msgid "Exit"
 msgstr "Esci"
 
-#: ../rescue.py:372
+#: ../rescue.py:302
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2402,7 +2400,7 @@ msgstr ""
 "le partizioni. Il sistema si riavvierà automaticamente una volta chiusa la "
 "shell."
 
-#: ../rescue.py:383
+#: ../rescue.py:313
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2423,7 +2421,7 @@ msgstr ""
 "\n"
 "Il sistema si riavvierà automaticamente una volta chiusa la shell."
 
-#: ../rescue.py:464
+#: ../rescue.py:394
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2438,11 +2436,11 @@ msgstr ""
 "Premere <Invio> per aprire una shell. Il sistema si riavvierà "
 "automaticamente una volta chiusa la shell."
 
-#: ../rescue.py:473
+#: ../rescue.py:403
 msgid "Rescue Mode"
 msgstr "Modalità di ripristino"
 
-#: ../rescue.py:474
+#: ../rescue.py:404
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2450,100 +2448,108 @@ msgstr ""
 "Non è stata trovata alcuna partizione Linux. Premere Invio per ottenere una "
 "shell. Il sistema si riavvierà automaticamente una volta chiusa la shell."
 
-#: ../rescue.py:487
+#: ../rescue.py:417
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Il sistema è stato montato sotto la cartella %s."
 
-#: ../text.py:207 ../text.py:291 ../text.py:304 tmp/exnSave.glade.h:6
+#: ../text.py:206 ../text.py:290 ../text.py:303 tmp/exnSave.glade.h:7
 msgid "Save"
 msgstr "Salva"
 
-#: ../text.py:210
+#: ../text.py:209
 msgid "Save to local disk"
 msgstr "Salva su disco locale"
 
-#: ../text.py:211
+#: ../text.py:210
 #, python-format
 msgid "Send to bugzilla (%s)"
 msgstr "Invia a bugzilla (%s)"
 
-#: ../text.py:212
+#: ../text.py:211
 msgid "Send to remote server (scp)"
 msgstr "Invia a server remoto (scp)"
 
-#: ../text.py:226 ../text.py:239
+#: ../text.py:225 ../text.py:238
 msgid "User name"
 msgstr "Nome utente"
 
-#: ../text.py:228 ../text.py:241
+#: ../text.py:227 ../text.py:240
 msgid "Password"
 msgstr "Password"
 
-#: ../text.py:230
+#: ../text.py:229
 msgid "Bug Description"
 msgstr "Descrizione bug"
 
-#: ../text.py:243
+#: ../text.py:242
 msgid "Host (host:port)"
 msgstr "Host (host:port)"
 
-#: ../text.py:245
+#: ../text.py:244
 msgid "Destination file"
 msgstr "File di destinazione"
 
-#: ../text.py:329
+#: ../text.py:323
 msgid "Passphrase for encrypted device"
 msgstr "Frase segreta per la partizione criptata"
 
-#: ../text.py:347 tmp/lukspassphrase.glade.h:7
-msgid "Use this passphrase for all new encrypted devices"
-msgstr "Usare questa frase segreta per tutti i nuovi dispositivi criptati"
+#: ../text.py:336
+msgid "Also add this passphrase to all existing encrypted devices"
+msgstr "Aggiungere anche questa frase segreta per tutti i dispositivi cifrati esistenti"
 
-#: ../text.py:378
+#: ../text.py:367
 #, python-format
 msgid "The passphrase must be at least %d characters long."
 msgstr "La frase segreta deve essere lunga almeno %d caratteri."
 
-#: ../text.py:407 tmp/lukspassphrase.glade.h:5
+#: ../text.py:397 tmp/lukspassphrase.glade.h:6
 msgid "Passphrase"
 msgstr "Passphrase"
 
-#: ../text.py:415 tmp/lukspassphrase.glade.h:6
+#: ../text.py:405 tmp/lukspassphrase.glade.h:7
 msgid "This is a global passphrase"
 msgstr "Questa è una frase segreta globale"
 
-#: ../text.py:481 ../text.py:485
+#: ../text.py:471 ../text.py:475
 msgid "Repository editing is not available in text mode."
 msgstr "La modifica dei repositori non è disponibile in modalità testo."
 
-#: ../text.py:523
+#: ../text.py:513
 #, python-format
 msgid "Please enter your %(instkey)s"
 msgstr "Si prega di inserire la %(instkey)s"
 
-#: ../text.py:540 tmp/instkey.glade.h:6
+#: ../text.py:530 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
 msgstr "Salta l'immissione della %(instkey)s"
 
-#: ../text.py:616 ../loader/lang.c:63 ../loader/loader.c:212
+#: ../text.py:606 ../loader/lang.c:63 ../loader/loader.c:212
 #, c-format, python-format
 msgid "Welcome to %s for %s"
 msgstr "Benvenuti in %s per %s"
 
-#: ../text.py:618
+#: ../text.py:608
 #, python-format
 msgid "Welcome to %s"
 msgstr "Benvenuti in %s"
 
-#: ../text.py:620
+#: ../text.py:610
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> fra elementi   |  <Space> seleziona   |  <F12> schermo "
 "successivo"
+
+#: ../text.py:732
+msgid "Cancelled"
+msgstr "Cancellato"
+
+#: ../text.py:733
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr "Impossibile tornare alla fase precedente. Provare di nuovo."
 
 #: ../upgrade.py:91 ../upgrade.py:112
 msgid "Proceed with upgrade?"
@@ -2668,53 +2674,52 @@ msgstr "Cartelle non valide"
 msgid "%s not found"
 msgstr "%s non trovato"
 
-#: ../vnc.py:148
+#: ../vnc.py:152
 #, python-format
 msgid "%s %s installation on host %s"
 msgstr "Installazione di %s %s su host %s"
 
-#: ../vnc.py:150
+#: ../vnc.py:154
 #, python-format
 msgid "%s %s installation"
 msgstr "Installazione di %s %s"
 
-#: ../vnc.py:177
+#: ../vnc.py:181
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "Tentativo di connessione al client vnc sull'host %s..."
 
-#: ../vnc.py:191
+#: ../vnc.py:195
 msgid "Connected!"
 msgstr "Connesso!"
 
-#: ../vnc.py:194
+#: ../vnc.py:198
 msgid "Will try to connect again in 15 seconds..."
 msgstr "Verrà effettuato un altro tentativo di connessione tra 15 secondi..."
 
-#: ../vnc.py:200
+#: ../vnc.py:204
 #, python-format
 msgid "Giving up attempting to connect after %d tries!\n"
 msgstr "Abbandono dopo %d tentativi di connessione!\n"
 
-#: ../vnc.py:209
+#: ../vnc.py:213
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Connettere manualmente il client vnc a %s per far iniziare l'installazione."
+msgstr "Connettere manualmente il client vnc a %s per far iniziare l'installazione."
 
-#: ../vnc.py:211
+#: ../vnc.py:215
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "Connettere manualmente il client vnc per iniziare l'installazione."
 
-#: ../vnc.py:214
+#: ../vnc.py:218
 msgid "Starting VNC..."
 msgstr "Avvio VNC..."
 
-#: ../vnc.py:239
+#: ../vnc.py:243
 msgid "The VNC server is now running."
 msgstr "Il server VNC è in esecuzione."
 
-#: ../vnc.py:252
+#: ../vnc.py:256
 msgid ""
 "\n"
 "\n"
@@ -2732,23 +2737,23 @@ msgstr ""
 "al vncviewer non avesse successo\n"
 "\n"
 
-#: ../vnc.py:257
+#: ../vnc.py:261
 msgid ""
 "\n"
 "\n"
 "WARNING!!! VNC server running with NO PASSWORD!\n"
-"You can use the self.password=<password> boot option\n"
+"You can use the vncpassword=<password> boot option\n"
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
 "\n"
 "\n"
 "ATTENZIONE!!! Il server VNC è in esecuzione SENZA PASSWORD!\n"
-"E' possibile utilizzare l'opzione di boot self.password=<password>\n"
+"E' possibile utilizzare l'opzione di boot vncpassword=<password>\n"
 "se si vuole rendere sicuro il server.\n"
 "\n"
 
-#: ../vnc.py:261
+#: ../vnc.py:265
 msgid ""
 "\n"
 "\n"
@@ -2760,7 +2765,7 @@ msgstr ""
 "Si è scelto di eseguire vnc con una password. \n"
 "\n"
 
-#: ../vnc.py:263
+#: ../vnc.py:267
 msgid ""
 "\n"
 "\n"
@@ -2772,15 +2777,15 @@ msgstr ""
 "Errore sconosciuto.  Annullamento. \n"
 "\n"
 
-#: ../vnc.py:285 ../vnc.py:378
+#: ../vnc.py:289 ../vnc.py:382
 msgid "VNC Configuration"
 msgstr "Configurazione VNC"
 
-#: ../vnc.py:288 ../vnc.py:382
+#: ../vnc.py:292 ../vnc.py:386
 msgid "No password"
 msgstr "Nessuna password"
 
-#: ../vnc.py:290 ../vnc.py:385
+#: ../vnc.py:294 ../vnc.py:389
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
@@ -2790,35 +2795,35 @@ msgstr ""
 "collegarsi e controllare il progresso dell'installazione. Si prega di "
 "inserire una password da usare per l'installazione"
 
-#: ../vnc.py:298 ../vnc.py:393 ../textw/userauth_text.py:47
+#: ../vnc.py:302 ../vnc.py:397 ../textw/userauth_text.py:47
 msgid "Password:"
 msgstr "Password:"
 
-#: ../vnc.py:299 ../vnc.py:394 ../textw/userauth_text.py:49
+#: ../vnc.py:303 ../vnc.py:398 ../textw/userauth_text.py:49
 msgid "Password (confirm):"
 msgstr "Password (conferma):"
 
-#: ../vnc.py:317 ../vnc.py:416 ../textw/userauth_text.py:70
+#: ../vnc.py:321 ../vnc.py:420 ../textw/userauth_text.py:70
 msgid "Password Mismatch"
 msgstr "Le password non corrispondono"
 
-#: ../vnc.py:318 ../vnc.py:417 ../textw/userauth_text.py:71
+#: ../vnc.py:322 ../vnc.py:421 ../textw/userauth_text.py:71
 msgid "The passwords you entered were different. Please try again."
 msgstr "Le password digitate non corrispondono. Riprovare."
 
-#: ../vnc.py:323 ../vnc.py:422 ../textw/userauth_text.py:66
+#: ../vnc.py:327 ../vnc.py:426 ../textw/userauth_text.py:66
 msgid "Password Length"
 msgstr "Lunghezza della password"
 
-#: ../vnc.py:324 ../vnc.py:423
+#: ../vnc.py:328 ../vnc.py:427
 msgid "The password must be at least six characters long."
 msgstr "La password deve contenere almeno 6 caratteri."
 
-#: ../vnc.py:346
+#: ../vnc.py:350
 msgid "Unable to Start X"
 msgstr "Impossibile avviare X"
 
-#: ../vnc.py:348
+#: ../vnc.py:352
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
@@ -2828,11 +2833,11 @@ msgstr ""
 "computer da un altro computer ed eseguire una installazione grafica, oppure "
 "si vuole continuare con l'installazione in modalità testo?"
 
-#: ../vnc.py:367 ../vnc.py:370
+#: ../vnc.py:371 ../vnc.py:374
 msgid "Use text mode"
 msgstr "Usa modalità di testo"
 
-#: ../vnc.py:368
+#: ../vnc.py:372
 msgid "Start VNC"
 msgstr "Avvia VNC"
 
@@ -2856,33 +2861,37 @@ msgstr "%s Byte"
 msgid "%s Bytes"
 msgstr "%s Bytes"
 
-#: ../yuminstall.py:123 ../yuminstall.py:213
+#: ../yuminstall.py:126
 msgid "Processing"
 msgstr "Elaborazione in corso"
 
-#: ../yuminstall.py:124
+#: ../yuminstall.py:127
 msgid "Preparing transaction from installation source..."
 msgstr "Preparazione della transazione dalla sorgente d'installazione..."
 
-#: ../yuminstall.py:155
+#: ../yuminstall.py:158
 #, python-format
 msgid "<b>Installing %s</b> (%s)\n"
 msgstr "<b>Installazione di %s</b> (%s)\n"
 
-#: ../yuminstall.py:202
+#: ../yuminstall.py:209
 #, python-format
 msgid "%s of %s packages completed"
 msgstr "%s di %s pacchetti completati"
 
-#: ../yuminstall.py:214
-msgid "Finishing upgrade process..."
-msgstr "Termine processo di aggiornamento in corso..."
+#: ../yuminstall.py:219
+msgid "Finishing upgrade"
+msgstr "Aggiornamento quasi terminato"
 
-#: ../yuminstall.py:308 ../iw/task_gui.py:275
+#: ../yuminstall.py:220
+msgid "Finishing upgrade process.  This may take a little while..."
+msgstr "Termine del processo di aggiornamento.  Potrebbero occorrere alcuni minuti..."
+
+#: ../yuminstall.py:290 ../iw/task_gui.py:283
 msgid "Error Setting Up Repository"
 msgstr "Errore settaggio repositorio"
 
-#: ../yuminstall.py:309 ../iw/task_gui.py:276
+#: ../yuminstall.py:291 ../iw/task_gui.py:284
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -2891,48 +2900,49 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"Si è verificato il seguente errore durante il settaggio del repositorio di installazione:\n"
+"Si è verificato il seguente errore durante il settaggio del repositorio di "
+"installazione:\n"
 "\n"
 "%s\n"
 "\n"
 "Prego, fornire le corrette informazioni per l'installazione di %s."
 
-#: ../yuminstall.py:366
+#: ../yuminstall.py:348
 msgid "Change Disc"
 msgstr "Cambio disco"
 
-#: ../yuminstall.py:367
+#: ../yuminstall.py:349
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Si prega di inserire %s disco %d per continuare."
 
-#: ../yuminstall.py:378
+#: ../yuminstall.py:360
 msgid "Wrong Disc"
 msgstr "Disco errato"
 
-#: ../yuminstall.py:379
+#: ../yuminstall.py:361
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "Questo non è il disco %s corretto."
 
-#: ../yuminstall.py:385
+#: ../yuminstall.py:367
 msgid "Unable to access the disc."
 msgstr "Impossibile accedere al disco."
 
-#: ../yuminstall.py:533
+#: ../yuminstall.py:515
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "Manca il nome nella configurazione del repositorio %r, si utilizza l'id"
 
-#: ../yuminstall.py:651 ../yuminstall.py:653
+#: ../yuminstall.py:634 ../yuminstall.py:636
 msgid "Re_boot"
 msgstr "_Riavvia"
 
-#: ../yuminstall.py:651
+#: ../yuminstall.py:634
 msgid "_Eject"
 msgstr "_Espelli"
 
-#: ../yuminstall.py:660
+#: ../yuminstall.py:643
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -2949,63 +2959,62 @@ msgstr ""
 "richiederà un ulteriore installazione.\n"
 "\n"
 
-#: ../yuminstall.py:700
+#: ../yuminstall.py:683
 msgid "Retrying"
 msgstr "Riprovare"
 
-#: ../yuminstall.py:700
+#: ../yuminstall.py:683
 msgid "Retrying download..."
 msgstr "Nuovo tentativo di download..."
 
-#: ../yuminstall.py:772
+#: ../yuminstall.py:755
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 "Si è verificato un errore eseguendo la transazione per il seguente motivo: %"
 "s\n"
 
-#: ../yuminstall.py:807 ../yuminstall.py:808
+#: ../yuminstall.py:790 ../yuminstall.py:791
 msgid "file conflicts"
 msgstr "conflitti del file"
 
-#: ../yuminstall.py:809
+#: ../yuminstall.py:792
 msgid "older package(s)"
 msgstr "pacchetti vecchi"
 
-#: ../yuminstall.py:810
+#: ../yuminstall.py:793
 msgid "insufficient disk space"
 msgstr "spazio disco insufficiente"
 
-#: ../yuminstall.py:811
+#: ../yuminstall.py:794
 msgid "insufficient disk inodes"
 msgstr "inode disco insufficienti"
 
-#: ../yuminstall.py:812
+#: ../yuminstall.py:795
 msgid "package conflicts"
 msgstr "conflitti del pacchetto"
 
-#: ../yuminstall.py:813
+#: ../yuminstall.py:796
 msgid "package already installed"
 msgstr "pacchetto già installato"
 
-#: ../yuminstall.py:814
+#: ../yuminstall.py:797
 msgid "required package"
 msgstr "pacchetto necessario"
 
-#: ../yuminstall.py:815
+#: ../yuminstall.py:798
 msgid "package for incorrect arch"
 msgstr "pacchetto per architettura incorretta"
 
-#: ../yuminstall.py:816
+#: ../yuminstall.py:799
 msgid "package for incorrect os"
 msgstr "pacchetto per os incorretto"
 
-#: ../yuminstall.py:830
+#: ../yuminstall.py:813
 msgid "You need more space on the following file systems:\n"
 msgstr "Si ha bisogno di più spazio sui seguenti file system:\n"
 
-#: ../yuminstall.py:843
+#: ../yuminstall.py:826
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -3015,7 +3024,7 @@ msgstr ""
 "installare:\n"
 "%s\n"
 
-#: ../yuminstall.py:846
+#: ../yuminstall.py:829
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
@@ -3024,25 +3033,37 @@ msgstr ""
 "Si è verificato un errore eseguendo la transazione per il seguente motivo"
 "(i): %s\n"
 
-#: ../yuminstall.py:856 ../yuminstall.py:861
+#: ../yuminstall.py:839 ../yuminstall.py:844
 msgid "Error Running Transaction"
 msgstr "Errore nell'esecuzione della transazione"
 
-#: ../yuminstall.py:1021
+#: ../yuminstall.py:992
+msgid ""
+"Unable to read group information from repositories.  This is a problem with "
+"the generation of your install tree."
+msgstr ""
+"Impossibile leggere le informazioni di gruppo dai repositori.  Questo è un "
+"problema con la generazione dell'albero d'installazione."
+
+#: ../yuminstall.py:1030
 msgid "Retrieving installation information..."
 msgstr "Raccolta delle informazioni d'installazione..."
 
-#: ../yuminstall.py:1023
+#: ../yuminstall.py:1032
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Raccolta delle informazioni d'installazione per %s..."
 
-#: ../yuminstall.py:1041 ../textw/bootloader_text.py:277
+#: ../yuminstall.py:1034
+msgid "Installation Progress"
+msgstr "Progresso installazione"
+
+#: ../yuminstall.py:1047 ../textw/bootloader_text.py:277
 #: ../textw/constants_text.py:64 ../textw/partition_text.py:1429
 msgid "Edit"
 msgstr "Modifica"
 
-#: ../yuminstall.py:1053 ../yuminstall.py:1300
+#: ../yuminstall.py:1060 ../yuminstall.py:1289
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -3057,19 +3078,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:1094
-msgid ""
-"Unable to read group information from repositories.  This is a problem with "
-"the generation of your install tree."
-msgstr ""
-"Impossibile leggere le informazioni di gruppo dai repositori.  Questo è un "
-"problema con la generazione dell'albero d'installazione."
-
-#: ../yuminstall.py:1127 ../iw/GroupSelector.py:505
+#: ../yuminstall.py:1111 ../iw/GroupSelector.py:503
 msgid "Uncategorized"
 msgstr "Non categorizzato"
 
-#: ../yuminstall.py:1323
+#: ../yuminstall.py:1312
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -3080,15 +3093,15 @@ msgstr ""
 "disposizione %d MB di spazio libero, che attualmente non è disponibile.  È "
 "possibile modificare le selezioni o uscire dal programma d'installazione."
 
-#: ../yuminstall.py:1342
+#: ../yuminstall.py:1331
 msgid "Reboot?"
 msgstr "Riavvio?"
 
-#: ../yuminstall.py:1343
+#: ../yuminstall.py:1332
 msgid "The system will be rebooted now."
 msgstr "Il sistema verrà ora riavviato."
 
-#: ../yuminstall.py:1505
+#: ../yuminstall.py:1494
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -3098,7 +3111,7 @@ msgstr ""
 "essere aggiornato alla versione di %s. Si è sicuri di voler continuare il "
 "processo di aggiornamento?"
 
-#: ../yuminstall.py:1532
+#: ../yuminstall.py:1521
 #, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
@@ -3110,56 +3123,64 @@ msgstr ""
 "probabile che non si avrà successo.  Si è certi di voler continuare il "
 "processo di aggiornamento?"
 
-#: ../yuminstall.py:1579
+#: ../yuminstall.py:1571
 msgid "Post Upgrade"
 msgstr "Post Aggiornamento"
 
-#: ../yuminstall.py:1580
+#: ../yuminstall.py:1572
 msgid "Performing post upgrade configuration..."
 msgstr "Esecuzione configurazione post aggiornamento..."
 
-#: ../yuminstall.py:1582
+#: ../yuminstall.py:1574
 msgid "Post Install"
 msgstr "Post installazione"
 
-#: ../yuminstall.py:1583
+#: ../yuminstall.py:1575
 msgid "Performing post install configuration..."
 msgstr "Esecuzione configurazione post installazione..."
 
-#: ../yuminstall.py:1788
-msgid "Installation Progress"
-msgstr "Progresso installazione"
-
-#: ../yuminstall.py:1823
+#: ../yuminstall.py:1799
 msgid "Install Starting"
 msgstr "Inizio installazione"
 
-#: ../yuminstall.py:1824
+#: ../yuminstall.py:1800
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"Inizio del processo di installazione.  Potrebbero occorrere alcuni minuti..."
+msgstr "Inizio del processo di installazione.  Potrebbero occorrere alcuni minuti..."
 
-#: ../yuminstall.py:1862
+#: ../yuminstall.py:1838
 msgid "Dependency Check"
 msgstr "Controllo delle dipendenze"
 
-#: ../yuminstall.py:1863
+#: ../yuminstall.py:1839
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Controllo delle dipendenze dei pacchetti da installare..."
 
 #: ../zfcp.py:52
 msgid "You have not specified a device number or the number is invalid"
-msgstr ""
-"Non si è specificato il numero del dispositivo o il numero non è valido"
+msgstr "Non si è specificato il numero del dispositivo o il numero non è valido"
 
 #: ../zfcp.py:54
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
-"Non si è specificato il nome della porta worldwide o il nome non è valido."
+msgstr "Non si è specificato il nome della porta worldwide o il nome non è valido."
 
 #: ../zfcp.py:56
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Non si è specificato un FCP LUN o il numero non è valido."
+
+#: ../iw/GroupSelector.py:165
+#, python-format
+msgid "Packages in %s"
+msgstr "Pacchetti in %s"
+
+#: ../iw/GroupSelector.py:442
+#, python-format
+msgid "Optional packages selected: %d of %d"
+msgstr "Pacchetti opzionali selezionati: %d di %d"
+
+#: ../iw/GroupSelector.py:443
+#, python-format
+msgid "<i>%s</i>"
+msgstr "<i>%s</i>"
 
 #: ../iw/account_gui.py:52
 msgid "Root _Password:"
@@ -3210,8 +3231,7 @@ msgstr ""
 "Continuare con questa password?"
 
 #: ../iw/account_gui.py:144 ../textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "La password richiesta contiene dei caratteri non-ASCII che non sono "
 "consentiti."
@@ -3224,11 +3244,9 @@ msgstr ""
 "Nessuna partizione disponibile per il ridimensionamento.  Solo partizioni "
 "fisiche con specifici filesystem possono essere ridimensionate."
 
-#: ../iw/autopart_type.py:180
-msgid ""
-"Do you really want to boot from a disk which is not used for installation?"
-msgstr ""
-"Si desidera veramente avviare da un disco non utilizzato per l'installazione?"
+#: ../iw/autopart_type.py:183
+msgid "Do you really want to boot from a disk which is not used for installation?"
+msgstr "Si desidera veramente avviare da un disco non utilizzato per l'installazione?"
 
 #: ../iw/autopart_type.py:261
 msgid "Invalid Initiator Name"
@@ -3238,35 +3256,58 @@ msgstr "Nome inizializzatore non valido"
 msgid "You must provide an initiator name."
 msgstr "E' necessario fornire il nome di un inizializzatore."
 
-#: ../iw/autopart_type.py:284
+#: ../iw/autopart_type.py:284 ../iw/autopart_type.py:288
+#: ../iw/autopart_type.py:294 ../iw/autopart_type.py:298
+#: ../textw/partition_text.py:1711 ../textw/partition_text.py:1714
+#: ../textw/partition_text.py:1719 ../textw/partition_text.py:1723
+msgid "Missing value"
+msgstr "Valore mancante"
+
+#: ../iw/autopart_type.py:285
+msgid "CHAP username is required if CHAP password is defined."
+msgstr "Il nome utente CHAP è necessario se la password CHAP è stata definita."
+
+#: ../iw/autopart_type.py:289
+msgid "CHAP password is required if CHAP username is defined."
+msgstr "La password di CHAP è necessaria se il nome utente CHAP è stato definito."
+
+#: ../iw/autopart_type.py:295
+msgid "Reverse CHAP username is required if reverse CHAP password is defined."
+msgstr "Il nome utente per il CHAP inverso è necessario se è stata definita la password per il CHAP inverso."
+
+#: ../iw/autopart_type.py:299
+msgid "Reverse CHAP password is required if reverse CHAP username is defined."
+msgstr "La password per il CHAP inverso è necessaria se è stato definito il nome utente per il CHAP inverso."
+
+#: ../iw/autopart_type.py:317
 msgid "Error with Data"
 msgstr "Errore con i dati"
 
-#: ../iw/autopart_type.py:405 ../textw/partition_text.py:1518
+#: ../iw/autopart_type.py:440 ../textw/partition_text.py:1518
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr ""
 "Rimuovere tutte le partizioni sulle unità selezionate e creare una struttura "
 "predefinita"
 
-#: ../iw/autopart_type.py:406 ../textw/partition_text.py:1519
+#: ../iw/autopart_type.py:441 ../textw/partition_text.py:1519
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr ""
 "Rimuovere tutte le partizioni Linux sulle unità selezionate e creare una "
 "struttura predefinita"
 
-#: ../iw/autopart_type.py:407
+#: ../iw/autopart_type.py:442
 msgid "Resize existing partition and create default layout in free space"
 msgstr ""
 "Ridimensionare la partizione esistente e creare una struttura predefinita "
 "nello spazio libero"
 
-#: ../iw/autopart_type.py:408 ../textw/partition_text.py:1520
+#: ../iw/autopart_type.py:443 ../textw/partition_text.py:1520
 msgid "Use free space on selected drives and create default layout"
 msgstr ""
 "Utilizzare lo spazio libero sulle unità selezionate e creare la struttura "
 "predefinita"
 
-#: ../iw/autopart_type.py:409 ../textw/partition_text.py:1521
+#: ../iw/autopart_type.py:444 ../textw/partition_text.py:1521
 msgid "Create custom layout"
 msgstr "Creare una struttura personalizzata"
 
@@ -3351,7 +3392,8 @@ msgstr "Congratulazioni"
 msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
-msgstr "Prego, riavviare il sistema per utilizzare il sistema installato.\n"
+msgstr ""
+"Prego, riavviare il sistema per utilizzare il sistema installato.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:74
@@ -3412,23 +3454,6 @@ msgstr "Il seguente sistema installato verrà aggiornato:"
 msgid "Unknown Linux system"
 msgstr "Sistema Linux sconosciuto"
 
-#: ../iw/GroupSelector.py:165
-#, python-format
-msgid "Packages in %s"
-msgstr "Pacchetti in %s"
-
-#: ../iw/GroupSelector.py:442
-#, python-format
-msgid "%d of %d optional package selected"
-msgid_plural "%d of %d optional packages selected"
-msgstr[0] "%d di %d pacchetto aggiuntivo selezionato"
-msgstr[1] "%d di %d pacchetti aggiuntivi selezionati"
-
-#: ../iw/GroupSelector.py:445
-#, python-format
-msgid "<i>%s</i>"
-msgstr "<i>%s</i>"
-
 #: ../iw/language_gui.py:33 ../textw/language_text.py:46
 msgid "Language Selection"
 msgstr "Selezione della lingua"
@@ -3440,7 +3465,7 @@ msgstr "Quale lingua si desidera usare durante il processo d'installazione?"
 #: ../iw/lvm_dialog_gui.py:124 ../iw/lvm_dialog_gui.py:171
 #: ../iw/lvm_dialog_gui.py:182 ../iw/lvm_dialog_gui.py:222
 #: ../iw/lvm_dialog_gui.py:296 ../iw/lvm_dialog_gui.py:626
-#: ../iw/lvm_dialog_gui.py:723 ../iw/lvm_dialog_gui.py:941
+#: ../iw/lvm_dialog_gui.py:700 ../iw/lvm_dialog_gui.py:918
 #: ../textw/partition_text.py:1276 ../textw/partition_text.py:1295
 msgid "Not enough space"
 msgstr "Spazio non sufficiente"
@@ -3474,7 +3499,6 @@ msgstr ""
 "Tale modifica avrà effetto immediato."
 
 #: ../iw/lvm_dialog_gui.py:144 ../iw/lvm_dialog_gui.py:204
-#: ../iw/network_gui.py:150 ../iw/network_gui.py:154 ../iw/network_gui.py:174
 msgid "C_ontinue"
 msgstr "C_ontinua"
 
@@ -3545,25 +3569,25 @@ msgstr "Modifica volume logico: %s"
 msgid "Edit Logical Volume"
 msgstr "Modifica volume logico"
 
-#: ../iw/lvm_dialog_gui.py:395 ../iw/partition_dialog_gui.py:346
-#: ../iw/raid_dialog_gui.py:351
+#: ../iw/lvm_dialog_gui.py:395 ../iw/partition_dialog_gui.py:300
+#: ../iw/raid_dialog_gui.py:305
 msgid "_Mount Point:"
 msgstr "_Mount Point:"
 
-#: ../iw/lvm_dialog_gui.py:403 ../iw/raid_dialog_gui.py:364
+#: ../iw/lvm_dialog_gui.py:403 ../iw/raid_dialog_gui.py:318
 msgid "_File System Type:"
 msgstr "Tipo di _file system:"
 
-#: ../iw/lvm_dialog_gui.py:413 ../iw/raid_dialog_gui.py:374
+#: ../iw/lvm_dialog_gui.py:413 ../iw/raid_dialog_gui.py:328
 msgid "Original File System Type:"
 msgstr "Tipo di file system originale:"
 
-#: ../iw/lvm_dialog_gui.py:418 ../iw/raid_dialog_gui.py:379
+#: ../iw/lvm_dialog_gui.py:418 ../iw/raid_dialog_gui.py:333
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-#: ../iw/lvm_dialog_gui.py:424 ../iw/partition_dialog_gui.py:396
-#: ../iw/raid_dialog_gui.py:385
+#: ../iw/lvm_dialog_gui.py:424 ../iw/partition_dialog_gui.py:350
+#: ../iw/raid_dialog_gui.py:339
 msgid "Original File System Label:"
 msgstr "Etichetta originale del file system:"
 
@@ -3575,11 +3599,11 @@ msgstr "Nome del volume _logico:"
 msgid "Logical Volume Name:"
 msgstr "Nome del volume logico:"
 
-#: ../iw/lvm_dialog_gui.py:449 ../iw/partition_dialog_gui.py:408
+#: ../iw/lvm_dialog_gui.py:449 ../iw/partition_dialog_gui.py:362
 msgid "_Size (MB):"
 msgstr "Dimen_sioni (MB):"
 
-#: ../iw/lvm_dialog_gui.py:455 ../iw/partition_dialog_gui.py:425
+#: ../iw/lvm_dialog_gui.py:455 ../iw/partition_dialog_gui.py:379
 #: ../textw/partition_text.py:321 ../textw/partition_text.py:398
 #: ../textw/partition_text.py:481 ../textw/partition_text.py:589
 msgid "Size (MB):"
@@ -3590,8 +3614,8 @@ msgstr "Dimensioni (MB):"
 msgid "(Max size is %s MB)"
 msgstr "(La dimensione massima è %s MB)"
 
-#: ../iw/lvm_dialog_gui.py:479 ../iw/partition_dialog_gui.py:510
-#: ../iw/partition_ui_helpers_gui.py:301 ../iw/raid_dialog_gui.py:359
+#: ../iw/lvm_dialog_gui.py:479 ../iw/partition_dialog_gui.py:464
+#: ../iw/partition_ui_helpers_gui.py:301 ../iw/raid_dialog_gui.py:313
 msgid "_Encrypt"
 msgstr "_Crittografa"
 
@@ -3637,15 +3661,15 @@ msgstr ""
 "più Volumi Fisici dallo spazio del disco non partizionato, ed aggiungerli a "
 "questo Gruppo di Volumi."
 
-#: ../iw/lvm_dialog_gui.py:700 ../iw/partition_dialog_gui.py:211
-#: ../iw/partition_dialog_gui.py:223 ../iw/partition_dialog_gui.py:292
-#: ../iw/raid_dialog_gui.py:278 ../textw/partition_text.py:889
+#: ../iw/lvm_dialog_gui.py:677 ../iw/partition_dialog_gui.py:188
+#: ../iw/partition_dialog_gui.py:200 ../iw/partition_dialog_gui.py:246
+#: ../iw/raid_dialog_gui.py:232 ../textw/partition_text.py:889
 #: ../textw/partition_text.py:910 ../textw/partition_text.py:1083
 #: ../textw/partition_text.py:1314
 msgid "Error With Request"
 msgstr "Errore di richiesta"
 
-#: ../iw/lvm_dialog_gui.py:724 ../iw/lvm_dialog_gui.py:942
+#: ../iw/lvm_dialog_gui.py:701 ../iw/lvm_dialog_gui.py:919
 #, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
@@ -3656,20 +3680,20 @@ msgstr ""
 "%d MB. Aumentare le dimensioni del gruppo di volumi oppure ridurre quelle "
 "del volume logico."
 
-#: ../iw/lvm_dialog_gui.py:782
+#: ../iw/lvm_dialog_gui.py:759
 msgid "No free slots"
 msgstr "Nessuno slot libero"
 
-#: ../iw/lvm_dialog_gui.py:783
+#: ../iw/lvm_dialog_gui.py:760
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr "Non è possibile creare più di %s volumi logici per gruppo di volumi."
 
-#: ../iw/lvm_dialog_gui.py:789
+#: ../iw/lvm_dialog_gui.py:766
 msgid "No free space"
 msgstr "Nessuno spazio libero disponibile"
 
-#: ../iw/lvm_dialog_gui.py:790
+#: ../iw/lvm_dialog_gui.py:767
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3679,30 +3703,29 @@ msgstr ""
 "aggiungere un volume logico, è necessario ridurre le dimensioni di uno o più "
 "volumi logici esistenti"
 
-#: ../iw/lvm_dialog_gui.py:818
+#: ../iw/lvm_dialog_gui.py:795
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Si è sicuri di voler cancellare il volume logico \"%s\"?"
 
-#: ../iw/lvm_dialog_gui.py:953
+#: ../iw/lvm_dialog_gui.py:930
 msgid "Invalid Volume Group Name"
 msgstr "Nome del gruppo di volumi non valido"
 
-#: ../iw/lvm_dialog_gui.py:964
+#: ../iw/lvm_dialog_gui.py:941
 msgid "Name in use"
 msgstr "Nome in uso"
 
-#: ../iw/lvm_dialog_gui.py:965
+#: ../iw/lvm_dialog_gui.py:942
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Il nome del gruppo di volumi \"%s\" è già in uso. Selezionarne un altro."
+msgstr "Il nome del gruppo di volumi \"%s\" è già in uso. Selezionarne un altro."
 
-#: ../iw/lvm_dialog_gui.py:1008
+#: ../iw/lvm_dialog_gui.py:985
 msgid "Not enough physical volumes"
 msgstr "Volumi fisici insufficienti"
 
-#: ../iw/lvm_dialog_gui.py:1009
+#: ../iw/lvm_dialog_gui.py:986
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3716,75 +3739,75 @@ msgstr ""
 "Creare una partizione o un array RAID del tipo \"volume fisico (LVM)\", "
 "quindi selezionare di nuovo l'opzione \"LVM\"."
 
-#: ../iw/lvm_dialog_gui.py:1020
+#: ../iw/lvm_dialog_gui.py:997
 msgid "Make LVM Volume Group"
 msgstr "Crea gruppi di volumi LVM"
 
-#: ../iw/lvm_dialog_gui.py:1023
+#: ../iw/lvm_dialog_gui.py:1000
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Modifica gruppo di volumi LVM: %s"
 
-#: ../iw/lvm_dialog_gui.py:1025
+#: ../iw/lvm_dialog_gui.py:1002
 msgid "Edit LVM Volume Group"
 msgstr "Modifica gruppo di volumi LVM"
 
-#: ../iw/lvm_dialog_gui.py:1041
+#: ../iw/lvm_dialog_gui.py:1018
 msgid "_Volume Group Name:"
 msgstr "Nome gruppo di _volumi:"
 
-#: ../iw/lvm_dialog_gui.py:1049
+#: ../iw/lvm_dialog_gui.py:1026
 msgid "Volume Group Name:"
 msgstr "Nome gruppo di volumi:"
 
-#: ../iw/lvm_dialog_gui.py:1057
+#: ../iw/lvm_dialog_gui.py:1034
 msgid "_Physical Extent:"
 msgstr "_Estensioni fisiche:"
 
-#: ../iw/lvm_dialog_gui.py:1072
+#: ../iw/lvm_dialog_gui.py:1049
 msgid "Physical Volumes to _Use:"
 msgstr "Volumi fisici da _utilizzare:"
 
-#: ../iw/lvm_dialog_gui.py:1078
+#: ../iw/lvm_dialog_gui.py:1055
 msgid "Used Space:"
 msgstr "Spazio utilizzato:"
 
-#: ../iw/lvm_dialog_gui.py:1095
+#: ../iw/lvm_dialog_gui.py:1072
 msgid "Free Space:"
 msgstr "Spazio libero:"
 
-#: ../iw/lvm_dialog_gui.py:1113
+#: ../iw/lvm_dialog_gui.py:1090
 msgid "Total Space:"
 msgstr "Spazio totale:"
 
-#: ../iw/lvm_dialog_gui.py:1142
+#: ../iw/lvm_dialog_gui.py:1119
 msgid "Logical Volume Name"
 msgstr "Nome del volume logico"
 
-#: ../iw/lvm_dialog_gui.py:1145 ../iw/partition_gui.py:371
+#: ../iw/lvm_dialog_gui.py:1122 ../iw/partition_gui.py:371
 #: ../iw/upgrade_swap_gui.py:142 ../textw/partition_text.py:1424
 #: ../textw/upgrade_text.py:120
 msgid "Mount Point"
 msgstr "Mount Point"
 
-#: ../iw/lvm_dialog_gui.py:1148 ../iw/partition_gui.py:376
+#: ../iw/lvm_dialog_gui.py:1125 ../iw/partition_gui.py:376
 msgid "Size (MB)"
 msgstr "Dimensione (MB)"
 
-#: ../iw/lvm_dialog_gui.py:1162 ../iw/osbootwidget.py:96
+#: ../iw/lvm_dialog_gui.py:1139 ../iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_Aggiungi"
 
-#: ../iw/lvm_dialog_gui.py:1165 ../iw/network_gui.py:453
-#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1383
+#: ../iw/lvm_dialog_gui.py:1142 ../iw/osbootwidget.py:100
+#: ../iw/partition_gui.py:1383
 msgid "_Edit"
 msgstr "_Modifica"
 
-#: ../iw/lvm_dialog_gui.py:1180
+#: ../iw/lvm_dialog_gui.py:1157
 msgid "_Logical Volumes"
 msgstr "Volumi _logici"
 
-#: ../iw/netconfig_dialog.py:158 ../textw/netconfig_text.py:36
+#: ../iw/netconfig_dialog.py:174 ../textw/netconfig_text.py:36
 #, python-format
 msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
@@ -3794,109 +3817,66 @@ msgstr ""
 "\":\n"
 "%s"
 
-#: ../iw/netconfig_dialog.py:160 ../iw/netconfig_dialog.py:169
-#: ../iw/network_gui.py:149 ../iw/network_gui.py:153 ../iw/network_gui.py:157
-#: ../iw/network_gui.py:161 ../iw/network_gui.py:169 ../iw/network_gui.py:174
+#: ../iw/netconfig_dialog.py:176 ../iw/netconfig_dialog.py:185
 #: ../textw/netconfig_text.py:35 ../textw/netconfig_text.py:40
-#: ../textw/network_text.py:54 ../textw/network_text.py:59
-#: ../textw/network_text.py:65
 msgid "Error With Data"
 msgstr "Dati errati"
 
-#: ../iw/netconfig_dialog.py:168 ../iw/network_gui.py:162
-#: ../textw/network_text.py:55
+#: ../iw/netconfig_dialog.py:184
 #, python-format
 msgid "A value is required for the field %s."
 msgstr "E' richiesto un valore per il campo %s."
 
-#: ../iw/netconfig_dialog.py:190 ../textw/netconfig_text.py:180
+#: ../iw/netconfig_dialog.py:205
 msgid "Dynamic IP"
 msgstr "IP dinamico"
 
-#: ../iw/netconfig_dialog.py:191 ../textw/netconfig_text.py:181
+#: ../iw/netconfig_dialog.py:206
 #, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "Invio richiesta per le informazioni IP per %s..."
 
-#: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:215
-#: ../textw/netconfig_text.py:203 ../textw/netconfig_text.py:206
-#: ../textw/network_text.py:95 tmp/netpostconfig.glade.h:12
+#: ../iw/netconfig_dialog.py:222 ../iw/netconfig_dialog.py:225
+#: ../textw/netconfig_text.py:213 ../textw/netconfig_text.py:216
 msgid "IP Address"
 msgstr "Indirizzo IP"
 
-#: ../iw/netconfig_dialog.py:222 ../textw/netconfig_text.py:213
+#: ../iw/netconfig_dialog.py:232 ../textw/netconfig_text.py:223
 msgid "IPv4 CIDR prefix must be between 0 and 32."
 msgstr "Il prefisso IPv4 CIDR deve essere fra 0 e 32."
 
-#: ../iw/netconfig_dialog.py:223 ../iw/netconfig_dialog.py:229
-#: ../iw/netconfig_dialog.py:237 ../iw/netconfig_dialog.py:240
-#: ../textw/netconfig_text.py:214 ../textw/netconfig_text.py:220
-#: ../textw/netconfig_text.py:228
+#: ../iw/netconfig_dialog.py:233 ../iw/netconfig_dialog.py:239
+#: ../iw/netconfig_dialog.py:247 ../iw/netconfig_dialog.py:250
+#: ../textw/netconfig_text.py:224 ../textw/netconfig_text.py:230
+#: ../textw/netconfig_text.py:238
 msgid "IPv4 Network Mask"
 msgstr "Maschera di rete IPv4"
 
-#: ../iw/netconfig_dialog.py:247 ../iw/netconfig_dialog.py:250
-#: ../iw/network_gui.py:37 ../iw/network_gui.py:528
-#: ../textw/netconfig_text.py:238 ../textw/netconfig_text.py:241
+#: ../iw/netconfig_dialog.py:260 ../textw/netconfig_text.py:251
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/netconfig_dialog.py:257 ../textw/netconfig_text.py:248
+#: ../iw/netconfig_dialog.py:270 ../textw/netconfig_text.py:261
 msgid "Nameserver"
 msgstr "Nameserver"
 
-#: ../iw/netconfig_dialog.py:267
+#: ../iw/netconfig_dialog.py:279
 msgid "Error configuring network device:"
-msgstr ""
-"Si è verificato un errore durante la configurazione dell'interfaccia di rete:"
+msgstr "Si è verificato un errore durante la configurazione dell'interfaccia di rete:"
 
-#: ../iw/netconfig_dialog.py:280
+#: ../iw/netconfig_dialog.py:284
 msgid "Error configuring network device"
-msgstr ""
-"Si è verificato un errore durante la configurazione dell'interfaccia di rete."
+msgstr "Si è verificato un errore durante la configurazione dell'interfaccia di rete."
 
-#: ../iw/network_gui.py:37 ../iw/network_gui.py:530
-msgid "Primary DNS"
-msgstr "DNS primario"
+#: ../iw/network_gui.py:61 ../iw/network_gui.py:67
+msgid "Error with Hostname"
+msgstr "Errore con il nome host"
 
-#: ../iw/network_gui.py:37 ../iw/network_gui.py:532
-msgid "Secondary DNS"
-msgstr "DNS secondario"
+#: ../iw/network_gui.py:62
+msgid "You must enter a valid hostname for this computer."
+msgstr "È necessario inserire un nome host valido per questo computer."
 
-#: ../iw/network_gui.py:38
-msgid "_Gateway"
-msgstr "_Gateway"
-
-#: ../iw/network_gui.py:38
-msgid "_Primary DNS"
-msgstr "_DNS primario"
-
-#: ../iw/network_gui.py:38
-msgid "_Secondary DNS"
-msgstr "_DNS secondario"
-
-#: ../iw/network_gui.py:41 ../textw/network_text.py:534
-msgid "Network Configuration"
-msgstr "Configurazione della rete"
-
-#: ../iw/network_gui.py:150
-msgid ""
-"You have not specified a hostname.  Depending on your network environment "
-"this may cause problems later."
-msgstr ""
-"Il nome host non è stato specificato. Questo può causare problemi in base "
-"all'ambiente di rete in uso."
-
-#: ../iw/network_gui.py:154
-#, python-format
-msgid ""
-"You have not specified the field \"%s\".  Depending on your network "
-"environment this may cause problems later."
-msgstr ""
-"Il campo \"%s\" non è stato specificato. Questo può causare dei problemi in "
-"base all'ambiente di rete in uso."
-
-#: ../iw/network_gui.py:158 ../textw/network_text.py:824
+#: ../iw/network_gui.py:68 ../textw/network_text.py:83
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3906,110 +3886,6 @@ msgstr ""
 "Il nome host \"%s\" non è valido per questo motivo:\n"
 "\n"
 "%s"
-
-#: ../iw/network_gui.py:165 ../textw/network_text.py:45
-#, python-format
-msgid "Error With %s Data"
-msgstr "Dati errati %s"
-
-#: ../iw/network_gui.py:170 ../textw/network_text.py:66
-msgid "The IPv4 information you have entered is invalid."
-msgstr "Le informazioni IPv4 inserite non sono valide."
-
-#: ../iw/network_gui.py:174
-msgid ""
-"You have no active network devices.  Your system will not be able to "
-"communicate over a network by default without at least one device active."
-msgstr ""
-"Non ci sono dispositivi di rete attivi.  Il sistema non sarà in grado di "
-"comunicare attraverso la rete senza almeno un dispositivo attivo."
-
-#: ../iw/network_gui.py:299 ../iw/network_gui.py:313
-msgid "Disabled"
-msgstr "Disabilitato"
-
-#: ../iw/network_gui.py:394
-msgid "Active on Boot"
-msgstr "Attiva all'avvio"
-
-#: ../iw/network_gui.py:396 ../iw/osbootwidget.py:67
-#: ../iw/partition_gui.py:369 ../textw/bootloader_text.py:196
-#: ../textw/bootloader_text.py:262 ../textw/partition_text.py:1424
-msgid "Device"
-msgstr "Dispositivo"
-
-#: ../iw/network_gui.py:398
-msgid "IPv4/Netmask"
-msgstr "IPv4/Netmask"
-
-#: ../iw/network_gui.py:400
-msgid "IPv6/Prefix"
-msgstr "IPv6/Prefisso"
-
-#: ../iw/network_gui.py:460
-msgid "Network Devices"
-msgstr "Dispositivi di rete"
-
-#: ../iw/network_gui.py:471
-msgid "Set the hostname:"
-msgstr "Imposta il nome host:"
-
-#: ../iw/network_gui.py:476
-msgid "_automatically via DHCP"
-msgstr "_automaticamente tramite DHCP"
-
-#: ../iw/network_gui.py:483
-msgid "_manually"
-msgstr "_manualmente"
-
-#: ../iw/network_gui.py:488
-msgid "(e.g., host.domain.com)"
-msgstr "(es. host.domain.com)"
-
-#: ../iw/network_gui.py:494
-msgid "Hostname"
-msgstr "Hostname"
-
-#: ../iw/network_gui.py:537
-msgid "Miscellaneous Settings"
-msgstr "Impostazioni Miscellanee"
-
-#: ../iw/network_gui.py:626
-msgid "Edit Device "
-msgstr "Modifica dispositivo "
-
-#: ../iw/network_gui.py:630
-msgid "Unknown Ethernet Device"
-msgstr "Dispositivo Ethernet sconosciuto"
-
-#: ../iw/network_gui.py:636
-msgid "unknown"
-msgstr "sconosciuto"
-
-#: ../iw/network_gui.py:638
-msgid "Hardware address: "
-msgstr "Indirizzo hardware: "
-
-#: ../iw/network_gui.py:774 ../textw/network_text.py:230 ../loader/net.c:584
-msgid "Missing Protocol"
-msgstr "Protocollo mancante"
-
-#: ../iw/network_gui.py:775 ../textw/network_text.py:231
-msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Selezionare almeno il supporto IPv4 o IPv6."
-
-#: ../iw/network_gui.py:798 ../iw/network_gui.py:839 ../iw/network_gui.py:845
-#: ../textw/network_text.py:76 ../loader/net.c:105
-msgid "Invalid Prefix"
-msgstr "Prefisso non valido"
-
-#: ../iw/network_gui.py:799
-msgid "IPv4 prefix must be between 0 and 32."
-msgstr "Il prefisso IPv4 deve essere fra 0 e 32."
-
-#: ../iw/network_gui.py:840 ../iw/network_gui.py:846
-msgid "IPv6 prefix must be between 0 and 128."
-msgstr "Il prefisso IPv6 deve essere fra 0 e 128."
 
 #: ../iw/osbootwidget.py:51
 msgid "Boot loader operating system list"
@@ -4022,6 +3898,12 @@ msgstr "Predefinito"
 #: ../iw/osbootwidget.py:67 ../iw/partition_gui.py:370
 msgid "Label"
 msgstr "Etichetta"
+
+#: ../iw/osbootwidget.py:67 ../iw/partition_gui.py:369
+#: ../textw/bootloader_text.py:196 ../textw/bootloader_text.py:262
+#: ../textw/partition_text.py:1424
+msgid "Device"
+msgstr "Dispositivo"
 
 #: ../iw/osbootwidget.py:130
 msgid "Image"
@@ -4101,44 +3983,44 @@ msgstr "Occupa tutto lo spazio _fino a (MB):"
 msgid "Fill to maximum _allowable size"
 msgstr "Occupa fino alle dimensioni _massime consentite"
 
-#: ../iw/partition_dialog_gui.py:212
+#: ../iw/partition_dialog_gui.py:189
 msgid "The end cylinder must be greater than the start cylinder."
 msgstr "Il cilindro finale deve essere più grande di quello iniziale."
 
-#: ../iw/partition_dialog_gui.py:323 ../textw/partition_text.py:713
+#: ../iw/partition_dialog_gui.py:277 ../textw/partition_text.py:713
 msgid "Add Partition"
 msgstr "Aggiungi partizione"
 
-#: ../iw/partition_dialog_gui.py:326
+#: ../iw/partition_dialog_gui.py:280
 #, python-format
 msgid "Edit Partition: /dev/%s"
 msgstr "Modifica partizione: /dev/%s"
 
-#: ../iw/partition_dialog_gui.py:328
+#: ../iw/partition_dialog_gui.py:282
 msgid "Edit Partition"
 msgstr "Modifica partizione"
 
-#: ../iw/partition_dialog_gui.py:355
+#: ../iw/partition_dialog_gui.py:309
 msgid "File System _Type:"
 msgstr "_Tipo di file system:"
 
-#: ../iw/partition_dialog_gui.py:372
+#: ../iw/partition_dialog_gui.py:326
 msgid "Allowable _Drives:"
 msgstr "Unità _disponibili:"
 
-#: ../iw/partition_dialog_gui.py:387
+#: ../iw/partition_dialog_gui.py:341
 msgid "Drive:"
 msgstr "Unità:"
 
-#: ../iw/partition_dialog_gui.py:431
+#: ../iw/partition_dialog_gui.py:385
 msgid "_Start Cylinder:"
 msgstr "Cilindro _iniziale:"
 
-#: ../iw/partition_dialog_gui.py:449
+#: ../iw/partition_dialog_gui.py:403
 msgid "_End Cylinder:"
 msgstr "Cilindro _finale:"
 
-#: ../iw/partition_dialog_gui.py:497
+#: ../iw/partition_dialog_gui.py:451
 msgid "Force to be a _primary partition"
 msgstr "Rendi la partizione _primaria"
 
@@ -4185,15 +4067,12 @@ msgid "Partitioning"
 msgstr "Partizionamento in corso"
 
 #: ../iw/partition_gui.py:640
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
-msgstr ""
-"Lo schema di partizionamento richiesto ha causato i seguenti errori critici."
+msgid "The partitioning scheme you requested caused the following critical errors."
+msgstr "Lo schema di partizionamento richiesto ha causato i seguenti errori critici."
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "Correggere gli errori prima di proseguire l'installazione di %s."
 
 #: ../iw/partition_gui.py:648
@@ -4414,7 +4293,7 @@ msgstr "Partizionamento manuale con _Disk Druid"
 msgid "Installing Packages"
 msgstr "Installazione dei pacchetti"
 
-#: ../iw/raid_dialog_gui.py:318
+#: ../iw/raid_dialog_gui.py:272
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -4428,41 +4307,41 @@ msgstr ""
 "Creare innanzitutto due partizioni di tipo \"RAID software\", quindi "
 "selezionare nuovamente l'opzione \"RAID\"."
 
-#: ../iw/raid_dialog_gui.py:332 ../iw/raid_dialog_gui.py:765
+#: ../iw/raid_dialog_gui.py:286 ../iw/raid_dialog_gui.py:719
 #: ../textw/partition_text.py:945
 msgid "Make RAID Device"
 msgstr "Crea dispositivo RAID"
 
-#: ../iw/raid_dialog_gui.py:335
+#: ../iw/raid_dialog_gui.py:289
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "Modifica dispositivo RAID: /dev/md%s"
 
-#: ../iw/raid_dialog_gui.py:337 ../textw/partition_text.py:943
+#: ../iw/raid_dialog_gui.py:291 ../textw/partition_text.py:943
 msgid "Edit RAID Device"
 msgstr "Modifica dispositivo RAID"
 
-#: ../iw/raid_dialog_gui.py:393
+#: ../iw/raid_dialog_gui.py:347
 msgid "RAID _Device:"
 msgstr "_Dispositivo RAID:"
 
-#: ../iw/raid_dialog_gui.py:411
+#: ../iw/raid_dialog_gui.py:365
 msgid "RAID _Level:"
 msgstr "_Livello RAID:"
 
-#: ../iw/raid_dialog_gui.py:452
+#: ../iw/raid_dialog_gui.py:406
 msgid "_RAID Members:"
 msgstr "Elementi _RAID:"
 
-#: ../iw/raid_dialog_gui.py:469
+#: ../iw/raid_dialog_gui.py:423
 msgid "Number of _spares:"
 msgstr "Numero di _spare:"
 
-#: ../iw/raid_dialog_gui.py:479
+#: ../iw/raid_dialog_gui.py:433
 msgid "_Format partition?"
 msgstr "_Formattare la partizione?"
 
-#: ../iw/raid_dialog_gui.py:566
+#: ../iw/raid_dialog_gui.py:520
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
@@ -4471,12 +4350,12 @@ msgstr ""
 "definire le partizioni di tipo 'RAID software' su questa unità prima di "
 "clonarla."
 
-#: ../iw/raid_dialog_gui.py:570 ../iw/raid_dialog_gui.py:576
-#: ../iw/raid_dialog_gui.py:588 ../iw/raid_dialog_gui.py:601
+#: ../iw/raid_dialog_gui.py:524 ../iw/raid_dialog_gui.py:530
+#: ../iw/raid_dialog_gui.py:542 ../iw/raid_dialog_gui.py:555
 msgid "Source Drive Error"
 msgstr "Errore dell'unità sorgente"
 
-#: ../iw/raid_dialog_gui.py:577
+#: ../iw/raid_dialog_gui.py:531
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4488,7 +4367,7 @@ msgstr ""
 "\n"
 "Queste partizioni devono essere rimosse prima che l'unità venga clonata."
 
-#: ../iw/raid_dialog_gui.py:589
+#: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
@@ -4503,7 +4382,7 @@ msgstr ""
 "Queste partizioni devono essere rimosse o ristrette a questa unità prima "
 "della clonazione."
 
-#: ../iw/raid_dialog_gui.py:602
+#: ../iw/raid_dialog_gui.py:556
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4515,23 +4394,23 @@ msgstr ""
 "\n"
 "Queste partizioni devono essere rimosse prima della clonazione dell'unità."
 
-#: ../iw/raid_dialog_gui.py:615 ../iw/raid_dialog_gui.py:621
-#: ../iw/raid_dialog_gui.py:640
+#: ../iw/raid_dialog_gui.py:569 ../iw/raid_dialog_gui.py:575
+#: ../iw/raid_dialog_gui.py:594
 msgid "Target Drive Error"
 msgstr "Errore dell'unità di destinazione"
 
-#: ../iw/raid_dialog_gui.py:616
+#: ../iw/raid_dialog_gui.py:570
 msgid "Please select the target drives for the clone operation."
 msgstr "Selezionare le unità di destinazione per l'operazione di clonazione."
 
-#: ../iw/raid_dialog_gui.py:622
+#: ../iw/raid_dialog_gui.py:576
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr ""
 "L'unità sorgente /dev/%s non può essere selezionata come unità di "
 "destinazione."
 
-#: ../iw/raid_dialog_gui.py:641
+#: ../iw/raid_dialog_gui.py:595
 #, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
@@ -4549,11 +4428,11 @@ msgstr ""
 "Questa partizione deve essere rimossa prima che questa unità diventi la "
 "destinazione."
 
-#: ../iw/raid_dialog_gui.py:702
+#: ../iw/raid_dialog_gui.py:656
 msgid "Please select a source drive."
 msgstr "Selezionare un'unità sorgente."
 
-#: ../iw/raid_dialog_gui.py:722
+#: ../iw/raid_dialog_gui.py:676
 #, python-format
 msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
@@ -4562,7 +4441,7 @@ msgstr ""
 "L'unità /dev/%s sarà ora clonata nelle seguenti unità:\n"
 "\n"
 
-#: ../iw/raid_dialog_gui.py:727
+#: ../iw/raid_dialog_gui.py:681
 msgid ""
 "\n"
 "\n"
@@ -4573,21 +4452,21 @@ msgstr ""
 "ATTENZIONE! TUTTI I DATI PRESENTI SULLE UNITÀ DI DESTINAZIONE SARANNO "
 "DISTRUTTI."
 
-#: ../iw/raid_dialog_gui.py:730
+#: ../iw/raid_dialog_gui.py:684
 msgid "Final Warning"
 msgstr "Avviso finale"
 
-#: ../iw/raid_dialog_gui.py:732
+#: ../iw/raid_dialog_gui.py:686
 msgid "Clone Drives"
 msgstr "Clonazione unità"
 
-#: ../iw/raid_dialog_gui.py:741
+#: ../iw/raid_dialog_gui.py:695
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr ""
 "Si è verificato un errore durante la cancellazione delle unità di "
 "destinazione. Clonazione fallita."
 
-#: ../iw/raid_dialog_gui.py:775
+#: ../iw/raid_dialog_gui.py:729
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4616,19 +4495,19 @@ msgstr ""
 "\n"
 "Questo processo distruggerà TUTTO il contenuto dell'unità di destinazione."
 
-#: ../iw/raid_dialog_gui.py:795
+#: ../iw/raid_dialog_gui.py:749
 msgid "Source Drive:"
 msgstr "Unità sorgente:"
 
-#: ../iw/raid_dialog_gui.py:803
+#: ../iw/raid_dialog_gui.py:757
 msgid "Target Drive(s):"
 msgstr "Unità di destinazione:"
 
-#: ../iw/raid_dialog_gui.py:811
+#: ../iw/raid_dialog_gui.py:765
 msgid "Drives"
 msgstr "Unità"
 
-#: ../iw/task_gui.py:46
+#: ../iw/task_gui.py:48
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -4643,63 +4522,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/task_gui.py:56
-#, python-format
-msgid ""
-"Unable to find a group file for %s.  This will prevent manual selection of "
-"packages from the repository from working"
-msgstr ""
-"Impossibile trovare un gruppo di file per %s.  Ciò renderà la selezione "
-"manuale dei pacchetti dal repositorio non funzionante"
-
-#: ../iw/task_gui.py:155
-msgid "Edit Repository"
-msgstr "Edita repositorio"
-
-#: ../iw/task_gui.py:213
-msgid "Invalid Proxy URL"
-msgstr "URL del proxy non valido"
-
-#: ../iw/task_gui.py:214
-msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
-msgstr "Si deve fornire un URL HTTP, HTTPS o FTP ad un proxy."
-
-#: ../iw/task_gui.py:224 ../iw/task_gui.py:350
-msgid "Invalid Repository URL"
-msgstr "URL del repositorio non valido"
-
-#: ../iw/task_gui.py:225 ../iw/task_gui.py:351
-msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr "Si deve fornire un URL HTTP, HTTPS o FTP ad un repositorio."
-
-#: ../iw/task_gui.py:247 ../iw/task_gui.py:360
-msgid "No Media Found"
-msgstr "Nessun dispositivo trovato"
-
-#: ../iw/task_gui.py:248 ../iw/task_gui.py:361
-msgid ""
-"No installation media was found. Please insert a disc into your drive and "
-"try again."
-msgstr "Non è stato trovato nessun supporto di installazione. Prego, inserire un disco nel drive e riprovare."
-
-#: ../iw/task_gui.py:267 ../iw/task_gui.py:377
-msgid "Please enter an NFS server and path."
-msgstr ""
-"Si prega di inserire un server NFS e il percorso."
-
-#: ../iw/task_gui.py:299
-msgid "Invalid Repository Name"
-msgstr "Nome repositorio non valido"
-
-#: ../iw/task_gui.py:300
-msgid "You must provide a repository name."
-msgstr "E' necessario fornire il nome di un repositorio."
-
-#: ../iw/task_gui.py:412 tmp/addrepo.glade.h:3
-msgid "Add Repository"
-msgstr "Aggiungi repositorio"
-
-#: ../iw/task_gui.py:418
+#: ../iw/task_gui.py:146
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -4708,15 +4531,65 @@ msgstr ""
 "Il repositorio %s è già stato aggiunto.  Si prega di scegliere un nome di "
 "repositorio ed URL differenti."
 
-#: ../iw/task_gui.py:431
+#: ../iw/task_gui.py:159
+msgid "Edit Repository"
+msgstr "Edita repositorio"
+
+#: ../iw/task_gui.py:221
+msgid "Invalid Proxy URL"
+msgstr "URL del proxy non valido"
+
+#: ../iw/task_gui.py:222
+msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
+msgstr "Si deve fornire un URL HTTP, HTTPS o FTP ad un proxy."
+
+#: ../iw/task_gui.py:232 ../iw/task_gui.py:370
+msgid "Invalid Repository URL"
+msgstr "URL del repositorio non valido"
+
+#: ../iw/task_gui.py:233 ../iw/task_gui.py:371
+msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
+msgstr "Si deve fornire un URL HTTP, HTTPS o FTP ad un repositorio."
+
+#: ../iw/task_gui.py:255 ../iw/task_gui.py:380
+msgid "No Media Found"
+msgstr "Nessun dispositivo trovato"
+
+#: ../iw/task_gui.py:256 ../iw/task_gui.py:381
+msgid ""
+"No installation media was found. Please insert a disc into your drive and "
+"try again."
+msgstr ""
+"Non è stato trovato nessun supporto di installazione. Prego, inserire un "
+"disco nel drive e riprovare."
+
+#: ../iw/task_gui.py:275 ../iw/task_gui.py:397
+msgid "Please enter an NFS server and path."
+msgstr "Si prega di inserire un server NFS e il percorso."
+
+#: ../iw/task_gui.py:307
+msgid "Invalid Repository Name"
+msgstr "Nome repositorio non valido"
+
+#: ../iw/task_gui.py:308
+msgid "You must provide a repository name."
+msgstr "E' necessario fornire il nome di un repositorio."
+
+#: ../iw/task_gui.py:432 tmp/addrepo.glade.h:3
+msgid "Add Repository"
+msgstr "Aggiungi repositorio"
+
+#: ../iw/task_gui.py:437
 msgid "No Software Repos Enabled"
 msgstr "Nessun repository software abilitato"
 
-#: ../iw/task_gui.py:432
+#: ../iw/task_gui.py:438
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr "È necessario avere almeno un repositorio software abilitato per continuare l'installazione."
+msgstr ""
+"È necessario avere almeno un repositorio software abilitato per continuare "
+"l'installazione."
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -4752,8 +4625,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:137 ../textw/upgrade_bootloader_text.py:120
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Il programma di installazione ha individuato il boot loader %s correntemente "
 "installato su %s."
@@ -4803,8 +4675,10 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Questa versione di %s supporta un file system aggiornato che offre diversi vantaggi rispetto al file system generalmente fornito con %s.  Questo programma di "
-"installazione puó migrare partizioni formattate senza perdita di dati.\n"
+"Questa versione di %s supporta un file system aggiornato che offre diversi "
+"vantaggi rispetto al file system generalmente fornito con %s.  Questo "
+"programma di installazione puó migrare partizioni formattate senza perdita "
+"di dati.\n"
 "\n"
 "Quali di queste partizioni si desidera migrare?"
 
@@ -4884,8 +4758,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "La dimensione del file di swap deve essere compresa fra 1 e 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:210 ../textw/upgrade_text.py:182
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Non c'è abbastanza spazio sul dispositivo selezionato per creare la "
 "partizione."
@@ -5033,8 +4906,7 @@ msgstr ""
 "etichetta usare per ciascuna di loro."
 
 #: ../textw/bootloader_text.py:294
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Spazio> seleziona | <F2> selezione predefinita | <F4> cancella |<F12> "
 "schermata successiva>"
@@ -5122,12 +4994,10 @@ msgstr "Riavvia"
 
 #: ../textw/grpselect_text.py:71
 msgid "Please select the package groups you would like to install."
-msgstr ""
-"Si prega di selezionare i gruppi di pacchetti che si desidera installare."
+msgstr "Si prega di selezionare i gruppi di pacchetti che si desidera installare."
 
 #: ../textw/grpselect_text.py:89
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Spazio>,<+>,<-> selezione   |   <F2> Descrizione   |   <F12> prossima "
 "schermata"
@@ -5165,246 +5035,51 @@ msgstr ""
 "E' necessario avere una connessione di rete attiva durante il processo "
 "d'intallazione.  Si prega di configurare l'interfaccia di rete."
 
-#: ../textw/netconfig_text.py:111
+#: ../textw/netconfig_text.py:127
 msgid "Use dynamic IP configuration (DHCP)"
 msgstr "Usa la configurazione IP dinamica (DHCP)"
 
-#: ../textw/netconfig_text.py:114 ../textw/network_text.py:151
-#: ../loader/net.c:494 tmp/netpostconfig.glade.h:9
+#: ../textw/netconfig_text.py:130 ../loader/net.c:493
 msgid "Enable IPv4 support"
 msgstr "Abilita il supporto IPv4"
 
-#: ../textw/netconfig_text.py:117 ../textw/network_text.py:158
-#: ../loader/net.c:507 tmp/netpostconfig.glade.h:10
-msgid "Enable IPv6 support"
-msgstr "Abilita il supporto IPv6"
-
-#: ../textw/netconfig_text.py:121
+#: ../textw/netconfig_text.py:137
 msgid "IPv4 Address:"
 msgstr "Indirizzo IPv4:"
 
-#: ../textw/netconfig_text.py:131
-msgid "IPv6 Address:"
-msgstr "Indirizzo IPv6:"
-
-#: ../textw/netconfig_text.py:141 ../textw/network_text.py:682
-#: ../loader/net.c:828
+#: ../textw/netconfig_text.py:157 ../loader/net.c:850
 msgid "Gateway:"
 msgstr "Gateway:"
 
-#: ../textw/netconfig_text.py:144
+#: ../textw/netconfig_text.py:160
 msgid "Nameserver:"
 msgstr "Nameserver:"
 
-#: ../textw/netconfig_text.py:171
+#: ../textw/netconfig_text.py:189
 msgid "Missing Device"
 msgstr "Dispositivo mancante"
 
-#: ../textw/netconfig_text.py:172
+#: ../textw/netconfig_text.py:190
 msgid "You must select a network device"
 msgstr "Selezionare un dispositivo di rete"
 
-#: ../textw/netconfig_text.py:231
+#: ../textw/netconfig_text.py:241
 msgid "IPv4 Network Mask "
 msgstr "Maschera di rete IPv4 "
 
-#: ../textw/netconfig_text.py:257
-msgid "Error configuring network device: "
-msgstr ""
-"Si è verificato un errore durante la configurazione del dispositivo di rete: "
+#: ../textw/netconfig_text.py:264
+msgid "Configuring Network Interfaces"
+msgstr "Configurazione interfaccia di rete in corso"
 
-#: ../textw/network_text.py:60
-#, python-format
-msgid ""
-"You have not specified the field %s.  Depending on your network environment "
-"this may cause problems later."
-msgstr ""
-"Il campo %s non è stato specificato. In base all'ambiente di rete in uso "
-"questo può causare problemi successivamente."
+#: ../textw/netconfig_text.py:264
+msgid "Waiting for NetworkManager..."
+msgstr "In attesa di NetworkManager..."
 
-#: ../textw/network_text.py:77
-#, python-format
-msgid "IPv%d prefix must be between 0 and %d."
-msgstr "Il prefisso IPv%d deve essere fra 0 e %d."
-
-#: ../textw/network_text.py:81
-msgid "Integer Required for Prefix"
-msgstr "Il prefisso deve essere un intero"
-
-#: ../textw/network_text.py:82
-#, python-format
-msgid ""
-"You must enter a valid integer for the %s.  For IPv4, the value can be "
-"between 0 and 32.  For IPv6 it can be between 0 and 128."
-msgstr ""
-"Si immetta un intero valido per il %s.  Per IPv4, il valore può essere fra 0 "
-"e 32.  Per IPv6 può essere fra 0 e 128."
-
-#: ../textw/network_text.py:89 tmp/netpostconfig.glade.h:16
-msgid "Prefix (Netmask)"
-msgstr "Prefisso (Netmask)"
-
-#: ../textw/network_text.py:91 tmp/netpostconfig.glade.h:15
-msgid "Prefix"
-msgstr "Prefisso"
-
-#: ../textw/network_text.py:144
-msgid "Activate on boot"
-msgstr "Attiva all'avvio"
-
-#: ../textw/network_text.py:171
-msgid "P-to-P:"
-msgstr "P-to-P:"
-
-#: ../textw/network_text.py:189 tmp/netpostconfig.glade.h:7
-msgid "ESSID:"
-msgstr "ESSID:"
-
-#: ../textw/network_text.py:198
-msgid "WEP Key:"
-msgstr "Chiave WEP:"
-
-#: ../textw/network_text.py:211
-#, python-format
-msgid "Network Configuration for %s"
-msgstr "Configurazione di rete per %s"
-
-#: ../textw/network_text.py:248 ../textw/network_text.py:251
-msgid "point-to-point IP address"
-msgstr "Indirizzo IP point-to-point"
-
-#: ../textw/network_text.py:274 tmp/netpostconfig.glade.h:5
-msgid "Dynamic IP configuration (DHCP)"
-msgstr "Configurazione IP dinamica (DHCP)"
-
-#: ../textw/network_text.py:277 ../textw/network_text.py:408
-msgid "Manual address configuration"
-msgstr "Configurazione indirizzo manuale"
-
-#: ../textw/network_text.py:297
-#, python-format
-msgid "IPv4 Configuration for %s"
-msgstr "Configurazione IPv4 per %s"
-
-#: ../textw/network_text.py:327 ../textw/network_text.py:339
-#: ../textw/network_text.py:342
-msgid "IPv4 address"
-msgstr "Indirizzo IPv4"
-
-#: ../textw/network_text.py:331
-msgid "IPv4 network mask"
-msgstr "Maschera di rete IPv4"
-
-#: ../textw/network_text.py:357 ../textw/network_text.py:360
-#: ../textw/network_text.py:363
-msgid "IPv4 prefix (network mask)"
-msgstr "Prefisso IPv4 (maschera di rete)"
-
-#: ../textw/network_text.py:402 tmp/netpostconfig.glade.h:4
-msgid "Automatic neighbor discovery"
-msgstr "Rilevamento automatico vicini"
-
-#: ../textw/network_text.py:405 tmp/netpostconfig.glade.h:6
-msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Configurazione IP dinamica (DHCPv6)"
-
-#: ../textw/network_text.py:432
-#, python-format
-msgid "IPv6 Configuration for %s"
-msgstr "Configurazione IPv6 per %s"
-
-#: ../textw/network_text.py:462 ../textw/network_text.py:473
-#: ../textw/network_text.py:476
-msgid "IPv6 address"
-msgstr "Indirizzo IPv6"
-
-#: ../textw/network_text.py:466 ../textw/network_text.py:485
-msgid "IPv6 prefix"
-msgstr "Prefisso IPv6"
-
-#: ../textw/network_text.py:511
-msgid "Configure Network Interface"
-msgstr "Configura interfaccia di rete"
-
-#: ../textw/network_text.py:512
-#, python-format
-msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Si desidera configurare l'interfaccia di rete %s su questo sistema?"
-
-#: ../textw/network_text.py:526 ../textw/network_text.py:528
-msgid "UNCONFIGURED"
-msgstr "NON CONFIGURATA"
-
-#: ../textw/network_text.py:537
-msgid ""
-"The current configuration settings for each interface are listed next to the "
-"device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
-"configure an interface, highlight it and choose Edit.  When you are "
-"finished, press OK to continue."
-msgstr ""
-"Le attuali impostazioni di configurazione per ciascun interfaccia sono "
-"elencate di seguito al nome del dispositivo.  Le interfacce non configurate "
-"sono visualizzate come NON CONFIGURATA.  Per configurare un interfaccia, "
-"selezionarla e scegliere Modifica.  Quando si ha finito, premere OK per "
-"continuare."
-
-#: ../textw/network_text.py:571
-msgid "Active on boot"
-msgstr "Attivare all'avvio"
-
-#: ../textw/network_text.py:573
-msgid "Inactive on boot"
-msgstr "Non attivare all'avvio"
-
-#: ../textw/network_text.py:576
-msgid "DHCP"
-msgstr "DHCP"
-
-#: ../textw/network_text.py:581
-msgid "Auto IPv6"
-msgstr "Auto IPv6"
-
-#: ../textw/network_text.py:583
-msgid "DHCPv6"
-msgstr "DHCPv6"
-
-#: ../textw/network_text.py:691
-msgid "Primary DNS:"
-msgstr "DNS primario:"
-
-#: ../textw/network_text.py:696
-msgid "Secondary DNS:"
-msgstr "DNS secondario:"
-
-#: ../textw/network_text.py:703
-msgid "Miscellaneous Network Settings"
-msgstr "Impostazioni varie della rete"
-
-#: ../textw/network_text.py:720 ../textw/network_text.py:723
-msgid "gateway"
-msgstr "gateway"
-
-#: ../textw/network_text.py:730 ../textw/network_text.py:733
-msgid "primary DNS"
-msgstr "DNS primario"
-
-#: ../textw/network_text.py:742
-msgid "secondary DNS"
-msgstr "DNS secondario"
-
-#: ../textw/network_text.py:766
-msgid "automatically via DHCP"
-msgstr "automaticamente tramite DHCP"
-
-#: ../textw/network_text.py:769
-msgid "manually"
-msgstr "manualmente"
-
-#: ../textw/network_text.py:788
+#: ../textw/network_text.py:42
 msgid "Hostname Configuration"
 msgstr "Configurazione dell'hostname"
 
-#: ../textw/network_text.py:791
+#: ../textw/network_text.py:50
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5416,11 +5091,11 @@ msgstr ""
 "selezionare 'manualmente' e inserire un hostname per il sistema. Se non lo "
 "si farà, il sistema sarà conosciuto come 'localhost.'"
 
-#: ../textw/network_text.py:817 ../textw/network_text.py:823
+#: ../textw/network_text.py:75 ../textw/network_text.py:82
 msgid "Invalid Hostname"
 msgstr "Hostname non valido"
 
-#: ../textw/network_text.py:818
+#: ../textw/network_text.py:76
 msgid "You have not specified a hostname."
 msgstr "Non si è specificato un nome host."
 
@@ -5668,10 +5343,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1434
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Help  F2-Nuovo   F3-Modifica   F4-Cancella   F5-Reimposta  F12-Ok   "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Help  F2-Nuovo   F3-Modifica   F4-Cancella   F5-Reimposta  F12-Ok   "
 
 #: ../textw/partition_text.py:1466
 msgid "No Root Partition"
@@ -5737,11 +5410,11 @@ msgstr ""
 "16bit, un World Wide Port Name (WWPN) ed un FCP LUN a 64bit per ciascun "
 "dispositivo."
 
-#: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
+#: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:7
 msgid "Configure iSCSI Parameters"
 msgstr "Configurazione parametri iSCSI"
 
-#: ../textw/partition_text.py:1688 tmp/iscsi-config.glade.h:6
+#: ../textw/partition_text.py:1688 tmp/iscsi-config.glade.h:8
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
@@ -5757,6 +5430,38 @@ msgstr "Indirizzo IP destinazione"
 msgid "iSCSI Initiator Name"
 msgstr "Nome inizializzatore iSCSI"
 
+#: ../textw/partition_text.py:1691
+msgid "CHAP username"
+msgstr "Nome utente CHAP"
+
+#: ../textw/partition_text.py:1692
+msgid "CHAP password"
+msgstr "Password CHAP"
+
+#: ../textw/partition_text.py:1693
+msgid "Reverse CHAP username"
+msgstr "Nome utente CHAP inverso"
+
+#: ../textw/partition_text.py:1694
+msgid "Reverse CHAP password"
+msgstr "Password CHAP inverso"
+
+#: ../textw/partition_text.py:1712
+msgid "Username is required when password is present."
+msgstr "Il nome utente è necessario quando è presente la password."
+
+#: ../textw/partition_text.py:1715
+msgid "Password is required when username is present."
+msgstr "La password è necessaria quando è presente il nome utente."
+
+#: ../textw/partition_text.py:1720
+msgid "Reverse username is required whenreverse password is present."
+msgstr "Il nome utente inverso è necessario quando è presente la password inversa."
+
+#: ../textw/partition_text.py:1724
+msgid "Reverse password is required whenreverse username is present."
+msgstr "La password inversa è necessaria quando è presente il nome utente inverso."
+
 #: ../textw/partmethod_text.py:34
 msgid "Autopartition"
 msgstr "Autopartizionamento"
@@ -5769,11 +5474,11 @@ msgstr "Disk Druid"
 msgid "Package Installation"
 msgstr "Installazione dei pacchetti"
 
-#: ../textw/task_text.py:53
+#: ../textw/task_text.py:42
 msgid "Package selection"
 msgstr "Selezione dei pacchetti"
 
-#: ../textw/task_text.py:59 tmp/tasksel.glade.h:4
+#: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
 #, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -5784,7 +5489,7 @@ msgstr ""
 "un uso generico di internet.  Di quali altri compiti si desidera che il "
 "sistema includa il supporto?"
 
-#: ../textw/task_text.py:74
+#: ../textw/task_text.py:63
 msgid "Customize software selection"
 msgstr "Selezione personalizzata del software"
 
@@ -5941,9 +5646,9 @@ msgstr "Ufficio e produttività"
 msgid "Software Development"
 msgstr "Sviluppo software"
 
-#: ../installclasses/fedora.py:50 ../installclasses/rhel.py:60
-msgid "Web server"
-msgstr "Web server"
+#: ../installclasses/fedora.py:50
+msgid "Web Server"
+msgstr "Web Server"
 
 #: ../installclasses/rhel.py:43
 msgid "Red Hat Enterprise Linux"
@@ -5956,6 +5661,10 @@ msgstr "Ufficio"
 #: ../installclasses/rhel.py:54
 msgid "Multimedia"
 msgstr "Multimedia"
+
+#: ../installclasses/rhel.py:60
+msgid "Web server"
+msgstr "Web server"
 
 #: ../installclasses/rhel.py:65
 msgid "Virtualization"
@@ -6145,8 +5854,7 @@ msgstr "Impossibile montare dal file il dischetto del driver ."
 #: ../loader/driverdisk.c:355
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Inserire il dischetto dei driver in /dev/%s e premere \"OK\" per continuare."
+msgstr "Inserire il dischetto dei driver in /dev/%s e premere \"OK\" per continuare."
 
 #: ../loader/driverdisk.c:361
 msgid "Insert Driver Disk"
@@ -6199,9 +5907,9 @@ msgstr "Si desidera caricare altri dischetti dei driver?"
 #: ../loader/hdinstall.c:384 ../loader/kickstart.c:132
 #: ../loader/kickstart.c:142 ../loader/kickstart.c:185
 #: ../loader/kickstart.c:532 ../loader/modules.c:335 ../loader/modules.c:347
-#: ../loader/net.c:1330 ../loader/net.c:1353 ../loader/nfsinstall.c:337
-#: ../loader/urlinstall.c:421 ../loader/urlinstall.c:430
-#: ../loader/urlinstall.c:439
+#: ../loader/net.c:1414 ../loader/net.c:1437 ../loader/nfsinstall.c:331
+#: ../loader/urlinstall.c:423 ../loader/urlinstall.c:432
+#: ../loader/urlinstall.c:441
 msgid "Kickstart Error"
 msgstr "Errore Kickstart"
 
@@ -6215,8 +5923,7 @@ msgstr "Sorgente del dischetto driver del kickstart sconosciuta: %s"
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"Argomento non corretto per il comando kickstart dischetto del driver: %s:%s"
+msgstr "Argomento non corretto per il comando kickstart dischetto del driver: %s:%s"
 
 #: ../loader/driverselect.c:67
 #, c-format
@@ -6270,7 +5977,8 @@ msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
 msgstr ""
-"Si è verificato un errore cercando l'immagine di installazione sul disco fisso.  Controllare le immagini e riprovare."
+"Si è verificato un errore cercando l'immagine di installazione sul disco "
+"fisso.  Controllare le immagini e riprovare."
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -6287,7 +5995,9 @@ msgid ""
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Quale partizione e cartella della partizione interessata contengono le immagini CD per %s? Se l'unità disco in uso non è in elenco, premere F2 per configurare altri dispositivi."
+"Quale partizione e cartella della partizione interessata contengono le "
+"immagini CD per %s? Se l'unità disco in uso non è in elenco, premere F2 per "
+"configurare altri dispositivi."
 
 #: ../loader/hdinstall.c:273
 msgid "Directory holding image:"
@@ -6359,8 +6069,7 @@ msgstr "Errore nel download del file kickstart"
 #: ../loader/kickstart.c:533
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
-"Argomento non corretto per terminare un comando del metodo kickstart %s: %s"
+msgstr "Argomento non corretto per terminare un comando del metodo kickstart %s: %s"
 
 #: ../loader/lang.c:64
 #, c-format
@@ -6368,10 +6077,8 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "Benvenuti in %s per %s - Modalità di salvataggio"
 
 #: ../loader/lang.c:65 ../loader/loader.c:223
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"<Tab>/<Alt-Tab> fra elementi | <Space> seleziona | <F12> schermata succ."
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "<Tab>/<Alt-Tab> fra elementi | <Space> seleziona | <F12> schermata succ."
 
 #: ../loader/lang.c:375
 msgid "Choose a Language"
@@ -6412,8 +6119,7 @@ msgstr ""
 #: ../loader/loader.c:487
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr ""
-"Inserire il disco degli aggiornamenti in %s e premere \"OK\" per continuare."
+msgstr "Inserire il disco degli aggiornamenti in %s e premere \"OK\" per continuare."
 
 #: ../loader/loader.c:493
 msgid "Updates Disk"
@@ -6446,48 +6152,48 @@ msgstr ""
 "Si è verificato un errore durante il download dell'immagine degli "
 "aggiornamenti"
 
-#: ../loader/loader.c:1171
+#: ../loader/loader.c:1175
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Memoria RAM insufficiente per installare %s sul computer."
 
-#: ../loader/loader.c:1231
+#: ../loader/loader.c:1235
 msgid "Media Detected"
 msgstr "Media rilevato"
 
-#: ../loader/loader.c:1232
+#: ../loader/loader.c:1236
 msgid "Local installation media detected..."
 msgstr "Rilevato media d'installazione locale..."
 
-#: ../loader/loader.c:1353
+#: ../loader/loader.c:1357
 msgid "Rescue Method"
 msgstr "Metodo rescue"
 
-#: ../loader/loader.c:1354
+#: ../loader/loader.c:1358
 msgid "Installation Method"
 msgstr "Metodo d'installazione"
 
-#: ../loader/loader.c:1356
+#: ../loader/loader.c:1360
 msgid "What type of media contains the rescue image?"
 msgstr "Che tipo di media contiene l'immagine rescue?"
 
-#: ../loader/loader.c:1358
+#: ../loader/loader.c:1362
 msgid "What type of media contains the installation image?"
 msgstr "Che tipo di media contiene l'immagine di installazione?"
 
-#: ../loader/loader.c:1389
+#: ../loader/loader.c:1393
 msgid "No driver found"
 msgstr "Nessun driver trovato"
 
-#: ../loader/loader.c:1389
+#: ../loader/loader.c:1393
 msgid "Select driver"
 msgstr "Scegliere il driver"
 
-#: ../loader/loader.c:1390
+#: ../loader/loader.c:1394
 msgid "Use a driver disk"
 msgstr "Utilizzate un dischetto dei driver"
 
-#: ../loader/loader.c:1391
+#: ../loader/loader.c:1395
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6496,42 +6202,41 @@ msgstr ""
 "tipo d'installazione. Si desidera selezionare un driver manualmente oppure "
 "utilizzare un disco dei driver?"
 
-#: ../loader/loader.c:1652
+#: ../loader/loader.c:1679
 msgid "The following devices have been found on your system."
 msgstr "Sono stati trovati i seguenti dispositivi all'interno del sistema."
 
-#: ../loader/loader.c:1654
+#: ../loader/loader.c:1681
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Non è stato caricato alcun driver dei dispositivi nel sistema. Caricarli ora?"
+msgstr "Non è stato caricato alcun driver dei dispositivi nel sistema. Caricarli ora?"
 
-#: ../loader/loader.c:1658
+#: ../loader/loader.c:1685
 msgid "Devices"
 msgstr "Dispositivi"
 
-#: ../loader/loader.c:1659
+#: ../loader/loader.c:1686
 msgid "Done"
 msgstr "Eseguito"
 
-#: ../loader/loader.c:1660
+#: ../loader/loader.c:1687
 msgid "Add Device"
 msgstr "Aggiungi dispositivo"
 
-#: ../loader/loader.c:1847
+#: ../loader/loader.c:1878
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "Il loader è stato già eseguito.  Avvio della shell.\n"
 
-#: ../loader/loader.c:2186
+#: ../loader/loader.c:2248
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
 msgstr ""
 "Esecuzione di anaconda %s, il %s modalità di salvataggio - si prega di "
 "attendere...\n"
 
-#: ../loader/loader.c:2188
+#: ../loader/loader.c:2250
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
 msgstr ""
@@ -6604,8 +6309,7 @@ msgstr "Controllo checksum"
 #: ../loader/modules.c:336
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
-"Argomento errato per il comando del metodo dispositivo del kickstart %s: %s"
+msgstr "Argomento errato per il comando del metodo dispositivo del kickstart %s: %s"
 
 #: ../loader/modules.c:348
 msgid "A module name must be specified for the kickstart device command."
@@ -6613,7 +6317,11 @@ msgstr ""
 "Un nome di modulo deve essere specificato per il comando del dispositivo di "
 "kickstart."
 
-#: ../loader/net.c:106
+#: ../loader/net.c:108
+msgid "Invalid Prefix"
+msgstr "Prefisso non valido"
+
+#: ../loader/net.c:109
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
@@ -6621,49 +6329,55 @@ msgstr ""
 "I prefissi devono essere compresi fra 1 e 32 per le reti IPv4 o 1 e 128 per "
 "le reti IPv6"
 
-#: ../loader/net.c:413 ../loader/net.c:467
+#: ../loader/net.c:409 ../loader/net.c:463
 msgid "Network Error"
 msgstr "Errore di rete"
 
-#: ../loader/net.c:414 ../loader/net.c:468
+#: ../loader/net.c:410 ../loader/net.c:464
 msgid "There was an error configuring your network interface."
-msgstr ""
-"Si è verificato un errore durante la configurazione dell'interfaccia di rete."
+msgstr "Si è verificato un errore durante la configurazione dell'interfaccia di rete."
 
-#: ../loader/net.c:540
+#: ../loader/net.c:507
+msgid "Enable IPv6 support"
+msgstr "Abilita il supporto IPv6"
+
+#: ../loader/net.c:547
 msgid "Configure TCP/IP"
 msgstr "Configurazione TCP/IP"
 
-#: ../loader/net.c:585
+#: ../loader/net.c:606
+msgid "Missing Protocol"
+msgstr "Protocollo mancante"
+
+#: ../loader/net.c:607
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "Selezionare almeno un protocollo (IPv4 o IPv6)."
 
-#: ../loader/net.c:592
+#: ../loader/net.c:614
 msgid "IPv4 Needed for NFS"
 msgstr "IPv4 è necessario per NFS"
 
-#: ../loader/net.c:593
+#: ../loader/net.c:615
 msgid "NFS installation method requires IPv4 support."
 msgstr "Il metodo di installazione NFS richiede il supporto IPv4."
 
-#: ../loader/net.c:697
+#: ../loader/net.c:717
 msgid "IPv4 address:"
 msgstr "Indirizzo IPv4:"
 
-#: ../loader/net.c:709 ../loader/net.c:775 tmp/netconfig.glade.h:1
-#: tmp/netpostconfig.glade.h:1
+#: ../loader/net.c:729 ../loader/net.c:796 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader/net.c:763
+#: ../loader/net.c:784
 msgid "IPv6 address:"
 msgstr "Indirizzo IPv6:"
 
-#: ../loader/net.c:836
+#: ../loader/net.c:858
 msgid "Name Server:"
 msgstr "Name Server:"
 
-#: ../loader/net.c:875
+#: ../loader/net.c:897
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -6674,43 +6388,41 @@ msgstr ""
 "prefisso CIDR. Il gateway ed il campo name server devono essere indirizzi "
 "validi IPv4 o IPv6."
 
-#: ../loader/net.c:895
+#: ../loader/net.c:917
 msgid "Manual TCP/IP Configuration"
 msgstr "Configurazione manuale TCP/IP"
 
-#: ../loader/net.c:1009 ../loader/net.c:1015
+#: ../loader/net.c:1040 ../loader/net.c:1047
 msgid "Missing Information"
 msgstr "Informazioni mancanti"
 
-#: ../loader/net.c:1010
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"Inserire un indirizzo IPv4 valido ed una maschera di rete o prefisso CIDR."
+#: ../loader/net.c:1041
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "Inserire un indirizzo IPv4 valido ed una maschera di rete o prefisso CIDR."
 
-#: ../loader/net.c:1016
+#: ../loader/net.c:1048
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Inserire sia un indirizzo IPv6 valido che un prefisso CIDR."
 
-#: ../loader/net.c:1331
+#: ../loader/net.c:1415
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Argomento errato per il comando di rete del kickstart %s: %s"
 
-#: ../loader/net.c:1354
+#: ../loader/net.c:1438
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Bootproto %s specificato nel comando di rete errato"
 
-#: ../loader/net.c:1423
+#: ../loader/net.c:1509
 msgid "Seconds:"
 msgstr "Secondari:"
 
-#: ../loader/net.c:1537
+#: ../loader/net.c:1623
 msgid "Networking Device"
 msgstr "Dispositivo di rete"
 
-#: ../loader/net.c:1538
+#: ../loader/net.c:1624
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6718,75 +6430,75 @@ msgstr ""
 "Sono presenti più dispositivi di rete su questo sistema. Attraverso quale si "
 "desidera effettuare l'installazione?"
 
-#: ../loader/net.c:1542
+#: ../loader/net.c:1628
 msgid "Identify"
 msgstr "Identificazione"
 
-#: ../loader/net.c:1551
+#: ../loader/net.c:1637
 msgid "You can identify the physical port for"
 msgstr "È possibile identificare la porta fisica"
 
-#: ../loader/net.c:1553
+#: ../loader/net.c:1639
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr "illuminando le luci LED per un numero di secondi.  Inserire un numero compreso fra 1 e 30 per settare la durata del flash delle luci LED della porta."
+msgstr ""
+"illuminando le luci LED per un numero di secondi.  Inserire un numero "
+"compreso fra 1 e 30 per settare la durata del flash delle luci LED della "
+"porta."
 
-#: ../loader/net.c:1563
+#: ../loader/net.c:1649
 msgid "Identify NIC"
 msgstr "Identificazione NIC"
 
-#: ../loader/net.c:1576
+#: ../loader/net.c:1662
 msgid "Invalid Duration"
 msgstr "Durata non corretta"
 
-#: ../loader/net.c:1577
+#: ../loader/net.c:1663
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "Bisogna inserire il numero di secondi come intero compreso fra 1 e 30."
 
-#: ../loader/net.c:1589
+#: ../loader/net.c:1675
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
 msgstr "Illuminazione delle luci della porta %s per %d secondi..."
 
-#: ../loader/net.c:1740 ../loader/net.c:1744
+#: ../loader/net.c:1841 ../loader/net.c:1845
 #, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
 msgstr "Attesa per NetworkManager per configurare %s...\n"
 
-#: ../loader/nfsinstall.c:63
+#: ../loader/nfsinstall.c:64
 msgid "NFS server name:"
 msgstr "Nome del server NFS:"
 
-#: ../loader/nfsinstall.c:67
+#: ../loader/nfsinstall.c:68
 #, c-format
 msgid "%s directory:"
 msgstr "Cartella %s:"
 
-#: ../loader/nfsinstall.c:78
+#: ../loader/nfsinstall.c:79
 #, c-format
 msgid "Please enter the server name and path to your %s installation image."
 msgstr ""
-"Si prega di inserire il nome del server ed il percorso all'immagine di installazione %s."
+"Si prega di inserire il nome del server ed il percorso all'immagine di "
+"installazione %s."
 
-#: ../loader/nfsinstall.c:85
+#: ../loader/nfsinstall.c:86
 msgid "NFS Setup"
 msgstr "Impostazioni NFS"
 
-#: ../loader/nfsinstall.c:190
-msgid "Hostname specified with no DNS configured"
-msgstr "Hostname specificato senza DNS configurato"
-
-#: ../loader/nfsinstall.c:251
+#: ../loader/nfsinstall.c:245
 msgid "That directory could not be mounted from the server."
 msgstr "Non è stato possibile montare la cartella dal server."
 
-#: ../loader/nfsinstall.c:262
+#: ../loader/nfsinstall.c:256
 #, c-format
 msgid "That directory does not seem to contain a %s installation image."
 msgstr "La cartella non sembra contenere un'immagine di installazione %s."
 
-#: ../loader/nfsinstall.c:338
+#: ../loader/nfsinstall.c:332
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "Argomento errato per il comando del metodo NFS del kickstart %s: %s"
@@ -6812,16 +6524,16 @@ msgstr "Impossibile recuperare %s://%s%s."
 msgid "Unable to retrieve the install image."
 msgstr "Impossibile caricare l'immagine per l'installazione."
 
-#: ../loader/urlinstall.c:422
+#: ../loader/urlinstall.c:424
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Argomento errato per il comando del metodo Url del kickstart %s: %s"
 
-#: ../loader/urlinstall.c:431
+#: ../loader/urlinstall.c:433
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Fornire un argomento --url al metodo Url del kickstart."
 
-#: ../loader/urlinstall.c:440
+#: ../loader/urlinstall.c:442
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Metodo Url sconosciuto %s"
@@ -6832,9 +6544,10 @@ msgstr "Recupero in corso"
 
 #: ../loader/urls.c:295
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
-msgstr "Si prega di inserire l'URL contenente l'immagine di installazione %s sul server."
+msgid "Please enter the URL containing the %s installation image on your server."
+msgstr ""
+"Si prega di inserire l'URL contenente l'immagine di installazione %s sul "
+"server."
 
 #: ../loader/urls.c:321
 msgid "URL Setup"
@@ -6865,6 +6578,40 @@ msgstr "Caricamento driver SCSI"
 #, c-format
 msgid "Loading %s driver..."
 msgstr "Caricamento del driver %s..."
+
+#: tmp/GroupSelector.glade.h:1
+msgid ""
+"Some packages associated with this group are not required to be installed "
+"but may provide additional functionality.  Please choose the packages which "
+"you would like to have installed."
+msgstr ""
+"Alcuni pacchetti associati a questo gruppo non sono richiesti per "
+"l'installazione ma possono comunque fornire funzionalitá aggiuntive.  Si "
+"prega di scegliere i pacchetti che si desidera installare."
+
+#: tmp/GroupSelector.glade.h:2
+msgid "_Deselect"
+msgstr "_Deseleziona"
+
+#: tmp/GroupSelector.glade.h:3
+msgid "_Deselect all optional packages"
+msgstr "_Deselezionare tutti i pacchetti opzionali"
+
+#: tmp/GroupSelector.glade.h:4
+msgid "_Optional packages"
+msgstr "Pacchetti _opzionali"
+
+#: tmp/GroupSelector.glade.h:5
+msgid "_Select"
+msgstr "_Seleziona"
+
+#: tmp/GroupSelector.glade.h:6
+msgid "_Select all optional packages"
+msgstr "_Seleziona tutti i pacchetti opzionali"
+
+#: tmp/GroupSelector.glade.h:7
+msgid "dialog1"
+msgstr "dialog1"
 
 #: tmp/account.glade.h:2
 msgid "Root Password:"
@@ -6919,10 +6666,10 @@ msgstr ""
 "Disco fisso"
 
 #: tmp/addrepo.glade.h:9
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr ""
-"Si prega di fornire le informazioni di configurazioneper questo repository software."
+"Si prega di fornire le informazioni di configurazioneper questo repository "
+"software."
 
 #: tmp/addrepo.glade.h:10
 msgid "Proxy U_RL"
@@ -7004,8 +6751,7 @@ msgid "Which Partition to resize"
 msgstr "Partizione da ridimensionare"
 
 #: tmp/autopart.glade.h:6
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
+msgid "Which partition would you like to resize to make room for your installation?"
 msgstr ""
 "Quale partizione si desidera ridimensionare per fare spazio "
 "all'installazione?"
@@ -7076,64 +6822,33 @@ msgstr "_File di destinazione"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
+"Local storage device\n"
 "Local disk\n"
 "Remote server (scp)"
-msgstr "Disco locale\n"
+msgstr ""
+"Dispositivo di storage locale\n"
+"Disco locale\n"
 "Server remoto (scp)"
 
-#: tmp/exnSave.glade.h:5
+#: tmp/exnSave.glade.h:6
 msgid "Please choose a destination for saving your traceback."
 msgstr "Prego, selezionare una destinazione per il salvataggio del resoconto."
 
-#: tmp/exnSave.glade.h:7
+#: tmp/exnSave.glade.h:8
 msgid "Select A File"
 msgstr "Selezionare un file"
 
-#: tmp/exnSave.glade.h:8
+#: tmp/exnSave.glade.h:9
 msgid "_Host (host:port)"
 msgstr "_Host (host:port)"
 
-#: tmp/exnSave.glade.h:9
+#: tmp/exnSave.glade.h:10
 msgid "_Password"
 msgstr "_Password"
 
-#: tmp/exnSave.glade.h:10
+#: tmp/exnSave.glade.h:11
 msgid "_User name"
 msgstr "Nome _utente"
-
-#: tmp/GroupSelector.glade.h:1
-msgid ""
-"Some packages associated with this group are not required to be installed "
-"but may provide additional functionality.  Please choose the packages which "
-"you would like to have installed."
-msgstr ""
-"Alcuni pacchetti associati a questo gruppo non sono richiesti per "
-"l'installazione ma possono comunque fornire funzionalitá aggiuntive.  Si "
-"prega di scegliere i pacchetti che si desidera installare."
-
-#: tmp/GroupSelector.glade.h:2
-msgid "_Deselect"
-msgstr "_Deseleziona"
-
-#: tmp/GroupSelector.glade.h:3
-msgid "_Deselect all optional packages"
-msgstr "_Deselezionare tutti i pacchetti opzionali"
-
-#: tmp/GroupSelector.glade.h:4
-msgid "_Optional packages"
-msgstr "Pacchetti _opzionali"
-
-#: tmp/GroupSelector.glade.h:5
-msgid "_Select"
-msgstr "_Seleziona"
-
-#: tmp/GroupSelector.glade.h:6
-msgid "_Select all optional packages"
-msgstr "_Seleziona tutti i pacchetti opzionali"
-
-#: tmp/GroupSelector.glade.h:7
-msgid "dialog1"
-msgstr "dialog1"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -7146,22 +6861,30 @@ msgid "Please enter your %(instkey)s."
 msgstr "Si prega di inserire la %(instkey)s."
 
 #: tmp/iscsi-config.glade.h:1
-msgid "<b>_Password:</b>"
-msgstr "<b>_Password:</b>"
+msgid "<b>CHAP _Password:</b>"
+msgstr "<b>_Password CHAP:</b>"
 
 #: tmp/iscsi-config.glade.h:2
+msgid "<b>CHAP _Username:</b>"
+msgstr "<b>_Nome utente CHAP :</b>"
+
+#: tmp/iscsi-config.glade.h:3
+msgid "<b>Reverse CHAP P_assword:</b>"
+msgstr "<b>P_assword CHAP inverso:</b>"
+
+#: tmp/iscsi-config.glade.h:4
+msgid "<b>Reverse CHAP U_sername:</b>"
+msgstr "<b>N_ome utente CHAP inverso:</b>"
+
+#: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>Indirizzo IP _Destinazione:</b>"
 
-#: tmp/iscsi-config.glade.h:3
-msgid "<b>_Username:</b>"
-msgstr "<b>_Username:</b>"
-
-#: tmp/iscsi-config.glade.h:4
+#: tmp/iscsi-config.glade.h:6
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>_Nome inizializzatore iSCSI:</b>"
 
-#: tmp/iscsi-config.glade.h:7
+#: tmp/iscsi-config.glade.h:9
 msgid "_Add target"
 msgstr "_Aggiungere target"
 
@@ -7179,21 +6902,29 @@ msgstr "Installa sul disco rigido"
 
 #: tmp/lukspassphrase.glade.h:1
 msgid ""
+"Also add this passphrase to all existing encrypted devices to streamline the "
+"boot process"
+msgstr ""
+"Aggiungere anche questa frase segreta a tutti i dispositivi cifrati esistenti per ottimizzare "
+"il processo d'avvio"
+
+#: tmp/lukspassphrase.glade.h:2
+msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
 "Scegliere una frase segreta per la partizione criptata. La frase segreta "
 "sarà richiesta durante l'avvio del sistema."
 
-#: tmp/lukspassphrase.glade.h:2
+#: tmp/lukspassphrase.glade.h:3
 msgid "Confirm passphrase:"
 msgstr "Conferma frase segreta:"
 
-#: tmp/lukspassphrase.glade.h:3
+#: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase for encrypted partition"
 msgstr "Immettere la frase segreta per la partizione criptata"
 
-#: tmp/lukspassphrase.glade.h:4
+#: tmp/lukspassphrase.glade.h:5
 msgid "Enter passphrase:"
 msgstr "Inserire frase segreta:"
 
@@ -7229,29 +6960,17 @@ msgstr "Abilita supporto IPv_6"
 msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Usa la configurazione IP _dinamica (DHCP)"
 
-#: tmp/netpostconfig.glade.h:2
-msgid "<b>Description Goes Here</b>"
-msgstr "<b>La descrizione va qui</b>"
+#: tmp/network.glade.h:1
+msgid "Hostname:"
+msgstr "Nome host:"
 
-#: tmp/netpostconfig.glade.h:3
-msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr "<b>Indirizzo hardware: DE:AD:00:BE:EF:00</b>"
-
-#: tmp/netpostconfig.glade.h:8
-msgid "Edit Interface"
-msgstr "Modifica interfaccia"
-
-#: tmp/netpostconfig.glade.h:11
-msgid "Encryption Key:"
-msgstr "Chiave di codifica:"
-
-#: tmp/netpostconfig.glade.h:13
-msgid "Manual configuration"
-msgstr "Configurazione manuale"
-
-#: tmp/netpostconfig.glade.h:14
-msgid "Point to Point (IP):"
-msgstr "Point to Point (IP):"
+#: tmp/network.glade.h:2
+msgid ""
+"Please name this computer.  The hostname identifies the computer on a "
+"network."
+msgstr ""
+"Si prega di dare un nome al computer. Il nome host identifica il "
+"computer su di una rete."
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -7534,151 +7253,3 @@ msgstr "Gallese"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "No video hardware found, assuming headless"
-#~ msgstr "Nessun hardware video trovato, si presume senza monitor"
-
-#~ msgid "Unable to instantiate a X hardware state object."
-#~ msgstr ""
-#~ "Impossibile iniziare una istanza dell'oggetto dello stato di X hardware."
-
-#~ msgid ""
-#~ "Error mounting device %s as %s: %s\n"
-#~ "\n"
-#~ "This most likely means this partition has not been formatted.\n"
-#~ "\n"
-#~ "Press OK to exit the installer."
-#~ msgstr ""
-#~ "Si è verificato un errore nel montare la periferica %s come %s: %s\n"
-#~ "\n"
-#~ "L'errore è probabilmente causato dalla mancata formattazione della "
-#~ "partizione.\n"
-#~ "\n"
-#~ "Premere OK per uscire dal programma d'installazione."
-
-#~ msgid "Invalid Label"
-#~ msgstr "Etichetta non valida"
-
-#~ msgid ""
-#~ "An invalid label was found on device %s.  Please fix this problem and "
-#~ "restart the installation process."
-#~ msgstr ""
-#~ "E' stata trovata un etichetta non valida sul dispositivo %s.  Si prega di "
-#~ "risolvere questo problema e riavviare il processo d'installazione."
-
-#~ msgid "Save to Remote"
-#~ msgstr "Salva in remoto"
-
-#~ msgid "Host"
-#~ msgstr "Host"
-
-#~ msgid "Remote path"
-#~ msgstr "Percorso remoto"
-
-#~ msgid "Help not available"
-#~ msgstr "Aiuto non disponibile"
-
-#~ msgid "No help is available for this step of the install."
-#~ msgstr "Nessun Aiuto disponibile per questa fase dell'installazione."
-
-#~ msgid ""
-#~ " <F1> for help | <Tab> between elements | <Space> selects | <F12> next "
-#~ "screen"
-#~ msgstr ""
-#~ " <F1> aiuto | <Tab> fra elementi | <Space> seleziona | <F12> schermo succ."
-
-#~ msgid "Finishing upgrade process.  This may take a little while..."
-#~ msgstr ""
-#~ "Termine del processo di aggiornamento.  Potrebbero occorrere alcuni "
-#~ "minuti..."
-
-#~ msgid "Error running transaction"
-#~ msgstr "Errore nell'esecuzione della transazione"
-
-#~ msgid ""
-#~ "No %s disc was found which matches your boot media.  Please insert the %s "
-#~ "disc and press %s to retry."
-#~ msgstr ""
-#~ "Non è stato trovato alcun disco %s che corrisponda al media di avvio. "
-#~ "Inserire il disco %s e premere %s per riprovare."
-
-#~ msgid ""
-#~ "The %s installation tree in that directory does not seem to match your "
-#~ "boot media."
-#~ msgstr ""
-#~ "L'albero d'installazione %s nella cartella interessata, non corrisponde "
-#~ "al media utilizzato per il boot."
-
-#~ msgid "Welcome to %s%n for %s"
-#~ msgstr "Benvenuti in %s%n per %s"
-
-#~ msgid "What type of media contains the packages to be installed?"
-#~ msgstr "Che tipo di media contiene i pacchetti da installare?"
-
-#~ msgid ""
-#~ "%s is a wireless network adapter.  Please provide the ESSID and "
-#~ "encryption key needed to access your wireless network.  If no key is "
-#~ "needed, leave this field blank and the install will continue."
-#~ msgstr ""
-#~ "%s è un adattatore di rete di tipo wireless. Si prega di fornire l'ESSID "
-#~ "e la chiave di codifica necessaria per accedere alla rete wireless. Se la "
-#~ "suddetta chiave non è necessaria, lasciare questo campo vuoto, e "
-#~ "procedere con l'installazione."
-
-#~ msgid "ESSID"
-#~ msgstr "ESSID"
-
-#~ msgid "Wireless Settings"
-#~ msgstr "Impostazioni di tipo wireless"
-
-#~ msgid "Nameserver IP"
-#~ msgstr "Nameserver IP"
-
-#~ msgid "Missing Nameserver"
-#~ msgstr "Nameserver mancante"
-
-#~ msgid ""
-#~ "Your IP address request returned configuration information, but it did "
-#~ "not include a nameserver address. If you do not have this information, "
-#~ "you can leave the field blank and the install will continue."
-#~ msgstr ""
-#~ "La richiesta di un indirizzo IP ha ottenuto le informazioni di "
-#~ "configurazione, ma non includono l'indirizzo di un server DNS. Se non si "
-#~ "è a conoscenza di questa informazione, è possibile lasciare il campo "
-#~ "vuoto e l'installazione continuerà."
-
-#~ msgid "You entered an invalid IP address."
-#~ msgstr "E' stato inserito un indirizzo IP non valido."
-
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Ricerca hostname e dominio..."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy "
-#~ "server to use."
-#~ msgstr ""
-#~ "Se viene usato un server proxy HTTP, inserire il nome del server proxy "
-#~ "HTTP da utilizzare."
-
-#~ msgid "Proxy Name:"
-#~ msgstr "Nome proxy:"
-
-#~ msgid "Proxy Port:"
-#~ msgstr "Porta proxy:"
-
-#~ msgid "Further Setup"
-#~ msgstr "Ulteriori impostazioni"
-
-#~ msgid "Repository _Mirror"
-#~ msgstr "_Mirror repositorio"
-
-#~ msgid "_Proxy configuration"
-#~ msgstr "Configurazione _proxy"
-
-#~ msgid "Select a destination for the exception information."
-#~ msgstr "Selezionare una destinazione per l'informazione eccezione."
-
-#~ msgid "_Disk"
-#~ msgstr "_Disco"
-
-#~ msgid "_Remote"
-#~ msgstr "_Remoto"
