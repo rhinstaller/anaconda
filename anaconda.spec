@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.49
+Version: 11.4.1.50
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,18 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 17 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.50-1
+- Update several font package names that we were missing. (clumens)
+- Only bring up the netconfig dialog if the repo requires networking.
+  (clumens)
+- cmdline.py: Fix a small typo in a message (rh 467338) (hansg)
+- Enable CCW devices used for installation (#253075) (dcantrell)
+- I don't know what trq.map.trq-map is, but let's not include it. (clumens)
+- If networking is needed for yum repos, bring it up before fetching
+  repodata. (clumens)
+- Force DPI to 96 when launching X. (#458738) (ajax)
+- Lots of translation updates.
+
 * Tue Oct 14 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.49-1
 - Make kickstart installs work again (#374271, #392021, #448096, #466340,
   #466304) (dcantrell)
