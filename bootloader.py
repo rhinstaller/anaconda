@@ -143,6 +143,11 @@ def writeBootloader(anaconda):
         if name is not None and name.startswith('mapper/luks-'):
             try:
                 newname = anaconda.id.partitions.encryptedDevices.get(name[12:])
+                if newname is None:
+                    for luksdev in anaconda.id.partitions.encryptedDevices.values():
+                        if os.path.basename(luksdev.getDevice(encrypted=1)) == name[12:]:
+                            newname = luksdev
+                            break
                 name = newname.getDevice()
             except:
                 pass
