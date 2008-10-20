@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.144
+Version: 11.1.2.145
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct 20 2008 Dave Lehman <dlehman@redhat.com> 11.1.2.145-1
+- Handle device names containing "/" in LUKS name fixup
+  Related: rhbz#464769
+
 * Thu Oct 16 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.144-1
 - Enable CCW devices used for installation (dcantrell)
   Resolves: rhbz#253075
