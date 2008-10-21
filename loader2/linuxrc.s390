@@ -137,6 +137,16 @@ readcmsfile() # $1=dasdport $2=filename
 {
    local dev
    if [ $# -ne 2 ]; then return; fi
+   if [ -r /proc/cio_ignore ]; then
+      # enable DASD device with conf file
+      if sysecho /proc/cio_ignore "free $1"; then
+          udevsettle
+          sleep 1
+          # the DASD device will be set online when loading the dasd driver
+      else
+          echo $"Could not free DASD $1 with conf file from device blacklist"
+      fi
+   fi
    mknod /dev/dasda b 94 0
    insmod dasd_mod$LO dasd=$1
    insmod dasd_eckd_mod$LO
@@ -161,8 +171,19 @@ setupdevice()
    if [ -r /proc/cio_ignore ]; then
       # enable subchannels
       for subchannel in ${SUBCHANNELS//,/ } ; do
-          echo free $subchannel > /proc/cio_ignore
-          /sbin/chccwdev -e $subchannel
+          if sysecho /proc/cio_ignore "free $subchannel"; then
+              # /proc/cio_ignore won't block on freeing devices until resensing
+              # has been completed, so wait until the udev event queue depletes
+              # (without udevsettle we could wait 2 seconds unconditionally)
+              # udevsettle only works if udevd is running (/dev/.udev/queue)!
+              udevsettle
+              # even though the device might now be online, some of its
+              # sysfs attributes (e.g. cutype) might not yet be available
+              sleep 1
+              # network channels cannot be set online, only the group later on
+          else
+              echo $"Could not free channel $subchannel from device blacklist"
+          fi
       done
    fi
 
@@ -255,6 +276,10 @@ route add -host 127.0.0.1 dev lo 2>/dev/null
 
 echo -e "127.0.0.1\tlocalhost.localdomain localhost" > /etc/hosts
 echo -e "::1\t\tlocalhost6.localdomain6 localhost6" >> /etc/hosts
+
+# udevd required by udevsettle
+# (important to start udevd at the right time, e.g. after setup of /dev)
+udevd --daemon
 
 LO=""
 
@@ -587,9 +612,19 @@ fi
 if [ -n "$DASD" ]; then
    # enable DASD devices
    if [ -r /proc/cio_ignore ]; then
+      # ATTENTION: The loader passes $DASD as kernel module parameter value
+      # to the dasd driver and that syntax allows much more than what is
+      # assumed here. Please see the device drivers book for the details.
+      # The question is, if the user is allowed to take advantage of the full
+      # syntax supported by the dasd driver module?
       for dev in ${DASD//,/ } ; do
-          echo free $dev > /proc/cio_ignore
-          /sbin/chccwdev -e $dev
+         if sysecho /proc/cio_ignore "free $dev"; then
+            udevsettle
+            sleep 1
+            # the DASD devices will be set online when loading the dasd driver
+         else
+            echo $"Could not free DASD device $dev from device blacklist"
+         fi
       done
    fi
 
@@ -598,14 +633,22 @@ fi
 
 for i in ${!FCP_*}; do
    # enable FCP devices
-   if [ -r /proc/cio_ignore ]; then
-      dev="$(echo ${!i} | cut -d ' ' -f 1)"
-      echo free $dev > /proc/cio_ignore
-      /sbin/chccwdev -e $dev
+   dev="$(echo ${!i} | cut -d ' ' -f 1)"
+   if [ -r /proc/cio_ignore ] && \
+      sysecho /proc/cio_ignore "free $dev"; then
+      udevsettle
+      sleep 1
+      # the FCP device will be set online later on when loading the zfcp driver
+   else
+       echo $"Could not free FCP device $dev from device blacklist"
    fi
 
    echo "${!i}" >> /tmp/fcpconfig
 done
+
+# undo startup of udevd, only needed it for possible calls of udevsettle
+killall udevd
+# Do NOT use udevsettle after udevd has been terminated!
 
 grep -q ext3 /proc/filesystems
 if [ "$?" != "0" ]; then

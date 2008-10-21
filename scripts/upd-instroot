@@ -144,7 +144,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
               sed net-tools xinetd openssl openssh openssh-server coreutils
               login initscripts XFree86-xauth bash portmap pam 
               telnet-server login mount grep modutils gawk
-              XFree86-libs strace xorg-x11-xauth xorg-x11-libs"
+              XFree86-libs strace xorg-x11-xauth xorg-x11-libs udev"
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
@@ -286,6 +286,7 @@ etc/selinux/targeted/*
 usr/share/selinux/targeted/*
 etc/security/selinux/policy.*
 etc/security/selinux/file_contexts
+etc/udev/udev.conf
 etc/yum/pluginconf.d/kmod.conf
 $LIBDIR/bdevid/*
 $LIBDIR/libaudit*.so*
@@ -541,7 +542,6 @@ usr/sbin/sshd
 usr/sbin/glibc_post_upgrade
 usr/sbin/in.telnetd
 usr/sbin/xinetd
-sbin/chccwdev
 sbin/cmsfslst
 sbin/cmsfscat
 sbin/busybox.anaconda
@@ -553,6 +553,8 @@ sbin/dasdfmt
 sbin/swapon
 sbin/swapoff
 sbin/mkswap
+sbin/udevd
+sbin/udevsettle
 bin/bash
 bin/dd
 bin/gawk
