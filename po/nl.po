@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2008-10-15 21:34+0200\n"
+"PO-Revision-Date: 2008-10-21 23:18+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1162,12 +1162,11 @@ msgid "Installation Key"
 msgstr "Installatiesleutel"
 
 #: ../gui.py:652 ../text.py:318
-#, fuzzy
 msgid ""
 "Choose a passphrase for your encrypted devices. You will be prompted for the "
 "passphrase during system boot."
 msgstr ""
-"Kies een wachtzin voor dit versleutelde apparaat%s. U zult om deze wachtzin "
+"Kies een wachtzin voor uw versleutelde apparaten. U zult om deze wachtzin "
 "worden gevraagd tijdens het opstarten van het systeem."
 
 #: ../gui.py:671 ../gui.py:679 ../text.py:356 ../text.py:366
@@ -2084,7 +2083,7 @@ msgstr "Een ogenblik geduld, station %s wordt nu geformatteerd...\n"
 
 # drive en device worden hier wel heel erg willekeurig door elkaar gehaald, lijkt het.
 #: ../partedUtils.py:1101
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "\n"
@@ -2096,14 +2095,15 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"De partitietabel op apparaat %s (%s %-0.f MB) was onleesbaar.\n"
-"Om nieuwe partities te maken moet deze schijf geïnitialiseerd worden. "
+"De partitietabel op apparaat %s (%s %-0.f MB) is onleesbaar.\n"
+"\n"
+"Om nieuwe partities te maken moet dit apparaat geïnitialiseerd worden.\n"
 "Hierdoor zullen ALLE GEGEVENS op dit station verloren gaan.\n"
 "\n"
-"Deze actie zal alle voorgaande installatiekeuzes met betrekking tot welke "
-"stations worden genegeerd teniet doen.\n"
+"Deze actie zal alle voorafgaande installatiekeuzes met betrekking tot "
+"welke stations worden genegeerd teniet doen.\n"
 "\n"
-"Wilt u dit station initialiseren?"
+"Wilt u dit station initialiseren en daarbij ALLE GEGEVENS wissen?"
 
 #: ../partedUtils.py:1251
 #, python-format
@@ -2150,15 +2150,14 @@ msgid "Encrypt device?"
 msgstr "Apparaat versleutelen?"
 
 #: ../partitions.py:126
-#, fuzzy
 msgid ""
 "You specified block device encryption should be enabled, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
 msgstr ""
-"U hebt opgegeven dat blokapparaat-versleuteling moet worden aangezet%s, maar "
-"u hebt geen wachtzin opgegeven. Indien u niet terug gaat en een wachtzin "
-"opgeeft zal blokapparaat-versleuteling%s worden uitgezet."
+"U hebt opgegeven dat blokapparaatversleuteling moet worden aangezet, maar u "
+"hebt geen wachtzin opgegeven. Als u niet teruggaat en een wachtzin opgeeft, "
+"zal blokapparaatversleuteling worden uitgezet."
 
 #: ../partitions.py:133 ../partitions.py:263 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
@@ -2363,8 +2362,8 @@ msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
 msgstr ""
-"Niet in staat om een netwerkapparaat te activeren. Netwerk zal niet beschikbaar "
-"zijn in herstelmodus."
+"Niet in staat om een netwerkapparaat te activeren. Netwerk zal niet "
+"beschikbaar zijn in herstelmodus."
 
 #: ../rescue.py:231 ../rescue.py:301 ../rescue.py:312 ../rescue.py:393
 msgid "Rescue"
@@ -2765,7 +2764,6 @@ msgstr ""
 "\n"
 
 #: ../vnc.py:261
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -2776,8 +2774,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"WAARSCHUWING!!! VNC-server functioneert ZONDER WACHTWOORD!\n"
-"U kunt de boot-optie self.password=<wachtwoord> gebruiken\n"
+"WAARSCHUWING!!! VNC-server draait ZONDER WACHTWOORD!\n"
+"U kunt de boot-optie vncpassword=<wachtwoord> gebruiken\n"
 "als u de server wilt beveiligen.\n"
 "\n"
 
@@ -3913,9 +3911,8 @@ msgid "Error with Hostname"
 msgstr "Fout met computernaam"
 
 #: ../iw/network_gui.py:62
-#, fuzzy
 msgid "You must enter a valid hostname for this computer."
-msgstr "U dient een servernaam op te geven."
+msgstr "U moet een geldige computernaam voor deze computer opgeven."
 
 #: ../iw/network_gui.py:68 ../textw/network_text.py:83
 #, python-format
@@ -5123,9 +5120,8 @@ msgid "IPv4 Network Mask "
 msgstr "IPv4-netwerkmasker"
 
 #: ../textw/netconfig_text.py:264
-#, fuzzy
 msgid "Configuring Network Interfaces"
-msgstr "Netwerkinterface configureren"
+msgstr "Configureren van netwerkinterfaces"
 
 #: ../textw/netconfig_text.py:264
 msgid "Waiting for NetworkManager..."
@@ -5495,11 +5491,11 @@ msgstr "CHAP-wachtwoord"
 
 #: ../textw/partition_text.py:1693
 msgid "Reverse CHAP username"
-msgstr ""
+msgstr "Reverse CHAP-gebruikersnaam"
 
 #: ../textw/partition_text.py:1694
 msgid "Reverse CHAP password"
-msgstr ""
+msgstr "Reverse CHAP-wachtwoord"
 
 #: ../textw/partition_text.py:1712
 msgid "Username is required when password is present."
@@ -6937,14 +6933,12 @@ msgid "<b>CHAP _Username:</b>"
 msgstr "<b>CHAP-_gebruikersnaam:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>_Wachtwoord:</b>"
+msgstr "<b>Reverse CHAP-w_achtwoord:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>_Gebruikersnaam:</b>"
+msgstr "<b>Reverse CHAP-g_ebruikersnaam:</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
