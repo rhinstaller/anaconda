@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.145
+Version: 11.1.2.146
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 21 2008 David Cantrell <dcnatrell@redhat.com> 11.1.2.146-1
+- Fix up CCW device enabling on s390x (dcantrell)
+  Resolves: rhbz#253075
+
 * Mon Oct 20 2008 Dave Lehman <dlehman@redhat.com> 11.1.2.145-1
 - Handle device names containing "/" in LUKS name fixup
   Related: rhbz#464769
