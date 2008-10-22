@@ -1116,18 +1116,6 @@ class DiskSet:
                     self._removeDisk(drive)
                     return False
 
-                deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
-                dev = parted.PedDevice.get(deviceFile)
-
-                msg = _("The partition table on device %s (%s %-0.f MB) was unreadable.\n"
-                        "To create new partitions it must be initialized, "
-                        "causing the loss of ALL DATA on this drive.\n\n"
-                        "This operation will override any previous "
-                        "installation choices about which drives to "
-                        "ignore.\n\n"
-                        "Would you like to initialize this drive, "
-                        "erasing ALL DATA?") % (drive, dev.model, getDeviceSizeMB (dev),)
-
                 if rhpl.getArch() == "s390" \
                         and drive[:4] == "dasd" \
                         and isys.getDasdState(drive):
@@ -1141,6 +1129,19 @@ class DiskSet:
                        "ignore.\n\n"
                        "Would you like to initialize this drive, "
                        "erasing ALL DATA?") % (drive, devs[drive])
+
+                 else:
+                    deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
+                    dev = parted.PedDevice.get(deviceFile)
+
+                    msg = _("The partition table on device %s (%s %-0.f MB) was unreadable.\n"
+                            "To create new partitions it must be initialized, "
+                            "causing the loss of ALL DATA on this drive.\n\n"
+                            "This operation will override any previous "
+                            "installation choices about which drives to "
+                            "ignore.\n\n"
+                            "Would you like to initialize this drive, "
+                            "erasing ALL DATA?") % (drive, dev.model, getDeviceSizeMB (dev),)
 
                 rc = intf.messageWindow(_("Warning"), msg, type="yesno")
 
