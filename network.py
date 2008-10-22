@@ -545,7 +545,6 @@ class Network:
                 searchLine = string.joinfields(self.domains, ' ')
                 f.write("SEARCH=\"%s\"\n" % (searchLine,))
 
-            f.write("NM_CONTROLLED=yes\n")
             f.close()
             os.chmod(newifcfg, 0644)
 
