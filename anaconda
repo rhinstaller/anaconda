@@ -412,11 +412,17 @@ def getInstClass():
 
 # ftp installs pass the password via a file in /tmp so
 # ps doesn't show it
-def expandFTPMethod(opts):
-    filename = opts.method[1:]
-    opts.method = open(filename, "r").readline()
-    opts.method = opts.method[:len(opts.method) - 1]
-    os.unlink(filename)
+def expandFTPMethod(str):
+    ret = None
+
+    try:
+        filename = str[1:]
+        ret = open(filename, "r").readline()
+        ret = ret[:len(ret) - 1]
+        os.unlink(filename)
+        return ret
+    except:
+        return None
 
 def runVNC():
     # dont run vncpassword if in test mode
@@ -640,13 +646,16 @@ if __name__ == "__main__":
 
     if opts.method:
         if opts.method[0] == '@':
-            expandFTPMethod(opts)
+            opts.method = expandFTPMethod(opts.method)
 
         anaconda.setMethodstr(opts.method)
     else:
         anaconda.methodstr = None
 
     if opts.stage2:
+        if opts.stage2[0] == '@':
+            opts.stage2 = expandFTPMethod(opts.stage2)
+
         anaconda.stage2 = opts.stage2
 
     if opts.liveinst:

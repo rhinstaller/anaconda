@@ -2093,11 +2093,11 @@ int main(int argc, char ** argv) {
     } else {
         int fd, ret;
 
-        fd = open("/tmp/method", O_CREAT | O_TRUNC | O_RDWR, 0600);
+        fd = open("/tmp/ftp-stage2", O_CREAT | O_TRUNC | O_RDWR, 0600);
         ret = write(fd, url, strlen(url));
         ret = write(fd, "\r", 1);
         close(fd);
-        *argptr++ = "@/tmp/method";
+        *argptr++ = "@/tmp/ftp-stage2";
     }
 
     /* add extra args - this potentially munges extraArgs */
@@ -2180,7 +2180,17 @@ int main(int argc, char ** argv) {
 
         if (loaderData.instRepo) {
            *argptr++ = "--repo";
-           *argptr++ = loaderData.instRepo;
+            if (strncmp(loaderData.instRepo, "ftp:", 4)) {
+                *argptr++ = loaderData.instRepo;
+            } else {
+                int fd, ret;
+
+                fd = open("/tmp/ftp-repo", O_CREAT | O_TRUNC | O_RDWR, 0600);
+                ret = write(fd, loaderData.instRepo, strlen(loaderData.instRepo));
+                ret = write(fd, "\r", 1);
+                close(fd);
+                *argptr++ = "@/tmp/ftp-repo";
+            }
         }
     }
     
