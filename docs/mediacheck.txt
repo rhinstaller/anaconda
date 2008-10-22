@@ -1,5 +1,5 @@
 Mediacheck documentation
-August, 2002
+October, 2008
 
 
 Mediacheck is a tool we use to test the integrity of ISO images.  The
@@ -21,6 +21,5 @@ To check a ISO image you can use this command line:
 
    checkisomd5 <isoname>
 
-The tools are in the anaconda-runtime package, currently in the
-/usr/lib/anaconda-runtime/ directory.
+The tools are in the isomd5sum package.
 
