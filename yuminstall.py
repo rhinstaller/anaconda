@@ -1742,6 +1742,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
     def writeKS(self, f):
         for repo in self.ayum.repos.listEnabled():
+            if repo.name == "Installation Repo":
+                continue
+
             line = "repo --name=\"%s\" " % (repo.name or repo.repoid)
 
             if repo.baseurl:
