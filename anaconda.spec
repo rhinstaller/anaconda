@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.146
+Version: 11.1.2.147
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 23 2008 Joel Granados <jgranado@redhat.com>  11.1.2.147-1
+- Dont execute the extra information message for all the devices (jgranado).
+  Resolves: rhbz:#466291
+
 * Tue Oct 21 2008 David Cantrell <dcnatrell@redhat.com> 11.1.2.146-1
 - Fix up CCW device enabling on s390x (dcantrell)
   Resolves: rhbz#253075
