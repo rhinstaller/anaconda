@@ -75,8 +75,6 @@ void progressCallback(void *pbdata, long long pos, long long total) {
     newtScaleSet(data->scale, x);
     *tickmark = ticks[x % 4];
 
-    logMessage(INFO, "pos=%lld, total=%lld, x=%d, x%%4=%d, ticks[%d]='%c'", pos, total, x, x%4, x%4, ticks[x%4]);
-
     newtLabelSetText(data->label, tickmark);
     newtRefresh();
 }
