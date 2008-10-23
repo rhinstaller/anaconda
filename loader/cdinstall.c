@@ -332,28 +332,28 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
 
             fd = open(devices[i]->device, O_RDONLY | O_NONBLOCK);
             if (fd < 0) {
-		logMessage(ERROR, "Couldn't open %s: %m", devices[i]->device);
-            	if (!FL_CMDLINE(flags))
-                    newtPopWindow();
-		continue;
-	    }
+                logMessage(ERROR, "Couldn't open %s: %m", devices[i]->device);
+                    if (!FL_CMDLINE(flags))
+                        newtPopWindow();
+                continue;
+            }
 
             rc = waitForCdromTrayClose(fd);
             close(fd);
-	    switch (rc) {
-		case CDS_NO_INFO:
-		    logMessage(ERROR, "Drive tray reports CDS_NO_INFO");
-		    break;
-		case CDS_NO_DISC:
-            	    if (!FL_CMDLINE(flags))
-                        newtPopWindow();
-		    continue;
-		case CDS_TRAY_OPEN:
-		    logMessage(ERROR, "Drive tray reports open when it should be closed");
-		    break;
-		default:
-		    break;
-	    }
+            switch (rc) {
+                case CDS_NO_INFO:
+                    logMessage(ERROR, "Drive tray reports CDS_NO_INFO");
+                    break;
+                case CDS_NO_DISC:
+                        if (!FL_CMDLINE(flags))
+                            newtPopWindow();
+                    continue;
+                case CDS_TRAY_OPEN:
+                    logMessage(ERROR, "Drive tray reports open when it should be closed");
+                    break;
+                default:
+                    break;
+            }
 
             if (!FL_CMDLINE(flags))
                 newtPopWindow();
