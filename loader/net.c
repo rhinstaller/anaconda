@@ -1556,7 +1556,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
         if (devs[i]->description) {
                 deviceNames[deviceNums] = alloca(strlen(devs[i]->device) +
                                           strlen(devs[i]->description) + 4);
-                sprintf(deviceNames[deviceNums],"%s - %s",
+                sprintf(deviceNames[deviceNums],"%s - %.50s",
                         devs[i]->device, devs[i]->description);
                 if (strlen(deviceNames[deviceNums]) > max)
                         max = strlen(deviceNames[deviceNums]);

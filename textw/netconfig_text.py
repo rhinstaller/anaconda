@@ -105,7 +105,7 @@ class NetworkConfiguratorText:
         for dev in devs:
             desc = netdevs[dev].get("DESC")
             if desc:
-                desc = "%s - %s" % (dev, desc)
+                desc = "%s - %.50s" % (dev, desc)
             else:
                 desc = dev
 
