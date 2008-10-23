@@ -86,7 +86,7 @@ def doStartupX11Actions(runres="800x600"):
     # we open and close an X connection in the xutils calls
     # the X server will exit since this is the first X
     # connection (if miniwm isnt running)
-    if miniwm_pid is not None:
+    if miniwm_pid is not None and not flags.usevnc:
         try:
             isys.vtActivate(6)
             iutil.execWithRedirect("xrandr", ["-s", runres], searchPath=1,
