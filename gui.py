@@ -508,6 +508,7 @@ class WaitWindow:
     def pop(self):
         self.window.destroy()
         rootPopBusyCursor()
+        processEvents()
 
 class ProgressWindow:
     def __init__(self, title, text, total, updpct = 0.05, updsecs=10,
@@ -565,6 +566,7 @@ class ProgressWindow:
     def pop(self):
         self.window.destroy ()
         rootPopBusyCursor()
+        processEvents()
 
 class InstallKeyWindow:
     def __init__(self, anaconda, key):
@@ -621,6 +623,7 @@ class InstallKeyWindow:
 
     def destroy(self):
         self.win.destroy()
+        processEvents()
 
 class luksPassphraseWindow:
     def __init__(self, passphrase=None, preexist = False, parent = None):
@@ -703,6 +706,7 @@ class luksPassphraseWindow:
 
     def destroy(self):
         self.win.destroy()
+        processEvents()
 
 class PassphraseEntryWindow:
     def __init__(self, device, parent = None):
@@ -745,6 +749,7 @@ class PassphraseEntryWindow:
 
     def destroy(self):
         self.win.destroy()
+        processEvents()
 
 class SaveExceptionWindow:
     def __init__(self, anaconda, longTracebackFile=None, screen=None):
@@ -959,6 +964,7 @@ class MessageWindow:
 
         if destroy:
             self.dialog.destroy()
+            processEvents()
 
         # restore busy cursor
         if busycursor:
