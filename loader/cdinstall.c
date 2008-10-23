@@ -115,10 +115,9 @@ static int waitForCdromTrayClose(int fd) {
         if (prev == INT_MAX || prev != rc) {
             status = cdrom_drive_status(rc);
             if (status != NULL) {
-                logMessage(DEBUGLVL, "drive status is %s", status);
+                logMessage(INFO, "drive status is %s", status);
             } else {
-                logMessage(DEBUGLVL, "drive status is unknown status code %d",
-                           rc);
+                logMessage(INFO, "drive status is unknown status code %d", rc);
             }
         }
         prev = rc;
