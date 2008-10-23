@@ -70,9 +70,12 @@ void progressCallback(void *pbdata, long long pos, long long total) {
     struct progressCBdata *data = pbdata;
     char tickmark[2] = "-";
     char *ticks = "-\\|/";
+    int x = ceil(pos * 100.0 / total);
 
-    newtScaleSet(data->scale, ceil(pos * 100.0 / total));
-    *tickmark = ticks[(total / (pos + 1)) % 5];
+    newtScaleSet(data->scale, x);
+    *tickmark = ticks[x % 4];
+
+    logMessage(INFO, "pos=%lld, total=%lld, x=%d, x%%4=%d, ticks[%d]='%c'", pos, total, x, x%4, x%4, ticks[x%4]);
 
     newtLabelSetText(data->label, tickmark);
     newtRefresh();

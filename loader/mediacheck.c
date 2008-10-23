@@ -32,23 +32,7 @@
 
 #include "lang.h"
 #include "log.h"
-
-struct progressCBdata {
-    newtComponent scale;
-    newtComponent label;
-};
-
-static void readCB(void *co, long long pos, long long total) {
-    struct progressCBdata *data = co;
-    char tickmark[2] = "-";
-    char * ticks = "-\\|/";
-
-    newtScaleSet(data->scale, pos * 100.0 / total);
-    *tickmark = ticks[(total / (pos + 1)) % 5];
-
-    newtLabelSetText(data->label, tickmark);
-    newtRefresh();
-}
+#include "windows.h"
 
 int doMediaCheck(char *file, char *descr) {
     struct progressCBdata data;
@@ -91,7 +75,7 @@ int doMediaCheck(char *file, char *descr) {
     data.scale = scale;
     data.label = label;
 
-    rc = mediaCheckFile(file, readCB, &data);
+    rc = mediaCheckFile(file, progressCallback, &data);
 
     newtFormDestroy(f);
     newtPopWindow();
