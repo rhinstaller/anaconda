@@ -307,7 +307,6 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
     do {
         for (i = 0; devices[i]; i++) {
             char *tmp = NULL;
-            int j;
             int fd;
 
             if (!devices[i]->device)
@@ -332,23 +331,29 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                 printf(_("Looking for installation images on CD device %s"), devices[i]->device);
 
             fd = open(devices[i]->device, O_RDONLY | O_NONBLOCK);
-            if (fd >= 0) {
-                    waitForCdromTrayClose(fd);
-                    close(fd);
-            }
+            if (fd < 0) {
+		logMessage(ERROR, "Couldn't open %s: %m", devices[i]->device);
+            	if (!FL_CMDLINE(flags))
+                    newtPopWindow();
+		continue;
+	    }
 
-            for (j = 0; j < 450; j++) {
-                fd = open(devices[i]->device, O_RDONLY);
-                if (fd >= 0) {
-                    close(fd);
-                    break;
-                } else if (errno == ENOMEDIUM) {
-                    logMessage(DEBUGLVL, "%s reported %m", devices[i]->device);
-                    usleep(100000);
-                } else {
-                    break;
-                }
-            }
+            rc = waitForCdromTrayClose(fd);
+            close(fd);
+	    switch (rc) {
+		case CDS_NO_INFO:
+		    logMessage(ERROR, "Drive tray reports CDS_NO_INFO");
+		    break;
+		case CDS_NO_DISC:
+            	    if (!FL_CMDLINE(flags))
+                        newtPopWindow();
+		    continue;
+		case CDS_TRAY_OPEN:
+		    logMessage(ERROR, "Drive tray reports open when it should be closed");
+		    break;
+		default:
+		    break;
+	    }
 
             if (!FL_CMDLINE(flags))
                 newtPopWindow();
