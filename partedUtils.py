@@ -876,6 +876,10 @@ class DiskSet:
                     if part.fs_type:
                         fstype = part.fs_type.name
 
+                    # parted doesn't tell ext4 from ext3
+                    if fstype == "ext3": 
+                        fstype = isys.readFSType(theDev)
+
                     if crypto and not crypto.openDevice():
                         theDev = crypto.getDevice()
                         fstype = isys.readFSType("/dev/%s" % theDev)
