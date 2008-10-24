@@ -597,6 +597,7 @@ struct ddlist* findDriverDiskByLabel(void)
     blkid_dev bDev;
 
     blkid_get_cache(&bCache, NULL);
+    blkid_probe_all(bCache);
 
     bIter = blkid_dev_iterate_begin(bCache);
     blkid_dev_set_search(bIter, "LABEL", ddLabel);
