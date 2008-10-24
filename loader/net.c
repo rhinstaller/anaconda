@@ -1075,6 +1075,23 @@ int writeDisabledNetInfo(void) {
     }
 
     for (i = 0; devs[i]; i++) {
+        /* remove dhclient-DEVICE.conf if we have it */
+        if (asprintf(&ofile, "/etc/dhclient-%s.conf", devs[i]->device) == -1) {
+            return 5;
+        }
+
+        if (!access(ofile, R_OK|W_OK)) {
+            if (unlink(ofile)) {
+                logMessage(ERROR, "error removing %s", ofile);
+            }
+        }
+
+        if (ofile) {
+            free(ofile);
+            ofile = NULL;
+        }
+
+        /* write disabled ifcfg-DEVICE file */
         if (asprintf(&ofile, "%s/.ifcfg-%s",
                      NETWORK_SCRIPTS_PATH,
                      devs[i]->device) == -1) {
@@ -1142,6 +1159,32 @@ int writeEnabledNetInfo(iface_t *iface) {
         return 16;
     }
 
+    /* write vendor class if we have that */
+    if (iface->vendorclass != NULL) {
+        if (asprintf(&ofile, "/etc/dhclient-%s.conf", iface->device) == -1) {
+            return 17;
+        }
+
+        if ((fp = fopen(ofile, "w")) == NULL) {
+            free(ofile);
+            return 18;
+        }
+
+        fprintf(fp, "send vendor-class-identifier \"%s\";\n",
+                iface->vendorclass);
+
+        if (fclose(fp) == EOF) {
+            free(ofile);
+            return 19;
+        }
+
+        if (ofile) {
+            free(ofile);
+            ofile = NULL;
+        }
+    }
+
+    /* write out new ifcfg-DEVICE file */
     if (asprintf(&ofile, "%s/.ifcfg-%s",
                  NETWORK_SCRIPTS_PATH, iface->device) == -1) {
         return 1;
