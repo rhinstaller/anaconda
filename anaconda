@@ -840,7 +840,7 @@ if __name__ == "__main__":
             os.environ["DISPLAY"] = ":1"
             doStartupX11Actions(opts.runres)
             xserver_pid = proc.pid
-        except OSError:
+        except OSError, RuntimeError:
             stdoutLog.warning(" X startup failed, falling back to text mode")
             opts.display_mode = 't'
             graphical_failed = 1
