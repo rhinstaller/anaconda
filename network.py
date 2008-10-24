@@ -396,7 +396,7 @@ class Network:
             i += 1
 
     def setGateway(self, gw, device):
-        self.netdevices[dev].set(('GATEWAY', gw))
+        self.netdevices[device].set(('GATEWAY', gw))
 
     def lookupHostname(self):
         # can't look things up if they don't exist!
