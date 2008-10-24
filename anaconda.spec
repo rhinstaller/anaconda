@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.147
+Version: 11.1.2.148
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 24 2008 Joel Granados <jgranado@redhat.com> 11.1.2.148-1
+- Probe the devices to populate cache for DD routines (msivak).
+  Resolves: rhbz:#316481
+
 * Thu Oct 23 2008 Joel Granados <jgranado@redhat.com>  11.1.2.147-1
 - Dont execute the extra information message for all the devices (jgranado).
   Resolves: rhbz:#466291
