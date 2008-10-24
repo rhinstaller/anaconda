@@ -1056,7 +1056,11 @@ class DetailedMessageWindow(MessageWindow):
 
             for line in longText:
                 if __builtins__.get("type")(line) != unicode:
-                    line = unicode(line, encoding='utf-8')
+                    try:
+                        line = unicode(line, encoding='utf-8')
+                    except UnicodeDecodeError, e:
+                        log.error("UnicodeDecodeException: line = %s" % (line,))
+                        log.error("UnicodeDecodeException: %s" % (str(e),))
 
                 textbuf.insert(iter, line)
 
