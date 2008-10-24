@@ -1203,7 +1203,6 @@ int writeEnabledNetInfo(iface_t *iface) {
     fprintf(fp, "DEVICE=%s\n", iface->device);
     fprintf(fp, "HWADDR=%s\n", iface_mac2str(iface->device));
     fprintf(fp, "ONBOOT=yes\n");
-    fprintf(fp, "NM_CONTROLLED=yes\n");
 
     if (!FL_NOIPV4(flags)) {
         if (iface->ipv4method == IPV4_DHCP_METHOD) {
