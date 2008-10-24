@@ -443,9 +443,6 @@ PermitUserEnvironment yes
 EOF
     chmod 600 $MBD_DIR/etc/ssh/sshd_config
 
-    mkdir -p $MBD_DIR/etc/udev
-    cp -f $IMGPATH/etc/udev/udev.conf $MBD_DIR/etc/udev/udev.conf
-
     # copy in the binaries
     cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
     cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
@@ -453,8 +450,6 @@ EOF
     cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
     cp -f $IMGPATH/usr/bin/bash $MBD_DIR/sbin/bash
     cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
-    cp -f $IMGPATH/usr/sbin/udevd $MBD_DIR/sbin/udevd
-    cp -f $IMGPATH/usr/sbin/udevsettle $MBD_DIR/sbin/udevsettle
 
     # make some symlinks
     ln -sf bash $MBD_DIR/sbin/sh
