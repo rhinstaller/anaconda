@@ -1911,7 +1911,7 @@ int get_connection(iface_t *iface) {
     connection = dbus_bus_get(DBUS_BUS_SYSTEM, &error);
     if (connection == NULL) {
         if (dbus_error_is_set(&error)) {
-            logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
+            logMessage(ERROR, "%s (%d): %s: %s", __func__,
                        __LINE__, error.name, error.message);
             dbus_error_free(&error);
         }
@@ -1926,7 +1926,7 @@ int get_connection(iface_t *iface) {
                                            "Get");
     if (!message) {
         if (dbus_error_is_set(&error)) {
-            logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
+            logMessage(ERROR, "%s (%d): %s: %s", __func__,
                        __LINE__, error.name, error.message);
             dbus_error_free(&error);
         }
@@ -1940,7 +1940,7 @@ int get_connection(iface_t *iface) {
                                   DBUS_TYPE_STRING, &property,
                                   DBUS_TYPE_INVALID)) {
         if (dbus_error_is_set(&error)) {
-            logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
+            logMessage(ERROR, "%s (%d): %s: %s", __func__,
                        __LINE__, error.name, error.message);
             dbus_error_free(&error);
         }
@@ -1957,7 +1957,7 @@ int get_connection(iface_t *iface) {
                                                           &error);
         if (!reply) {
             if (dbus_error_is_set(&error)) {
-                logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
+                logMessage(ERROR, "%s (%d): %s: %s", __func__,
                            __LINE__, error.name, error.message);
                 dbus_error_free(&error);
             }
@@ -1969,7 +1969,7 @@ int get_connection(iface_t *iface) {
         /* extra uint32 'state' property from the returned variant type */
         dbus_message_iter_init(reply, &iter);
         if (dbus_message_iter_get_arg_type(&iter) != DBUS_TYPE_VARIANT) {
-            logMessage(DEBUGLVL, "%s (%d): unexpected reply format",
+            logMessage(ERROR, "%s (%d): unexpected reply format",
                        __func__, __LINE__);
             dbus_message_unref(message);
             dbus_message_unref(reply);
@@ -1979,7 +1979,7 @@ int get_connection(iface_t *iface) {
         /* open the variant */
         dbus_message_iter_recurse(&iter, &variant_iter);
         if (dbus_message_iter_get_arg_type(&variant_iter) != DBUS_TYPE_UINT32) {
-            logMessage(DEBUGLVL, "%s (%d): unexpected reply format",
+            logMessage(ERROR, "%s (%d): unexpected reply format",
                        __func__, __LINE__);
             dbus_message_unref(message);
             dbus_message_unref(reply);
@@ -1988,7 +1988,7 @@ int get_connection(iface_t *iface) {
 
         dbus_message_iter_get_basic(&variant_iter, &state);
         if (state == NM_STATE_CONNECTED) {
-            logMessage(DEBUGLVL, "%s (%d): NetworkManager connected",
+            logMessage(INFO, "%s (%d): NetworkManager connected",
                        __func__, __LINE__);
             dbus_message_unref(message);
             dbus_message_unref(reply);
