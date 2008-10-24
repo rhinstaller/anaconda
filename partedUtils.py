@@ -1130,7 +1130,7 @@ class DiskSet:
                        "Would you like to initialize this drive, "
                        "erasing ALL DATA?") % (drive, devs[drive])
 
-                 else:
+                else:
                     deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
                     dev = parted.PedDevice.get(deviceFile)
 
