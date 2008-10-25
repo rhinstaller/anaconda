@@ -267,6 +267,8 @@ class NetworkConfiguratorText:
             w.pop()
             if result:
                 break
+            else:
+                 self.anaconda.intf.messageWindow(_("Error"), _("Error configuring network device"), _("Error configuring network device %s") % netdev.get('DEVICE'))
 
         self.screen.popWindow()
         return INSTALL_OK

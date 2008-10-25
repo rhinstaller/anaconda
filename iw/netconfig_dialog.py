@@ -188,10 +188,23 @@ class NetworkConfigurator:
         d.run()
         d.destroy()
 
+    def _handleNetworkError(self, field):
+        d = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR,
+                              gtk.BUTTONS_OK,
+                              _("An error occurred trying to bring up the "
+                                "%s network interface.") % (field,))
+        d.set_title(_("Error Configuring Network"))
+        d.set_position(gtk.WIN_POS_CENTER)
+        gui.addFrame(d)
+        d.run()
+        d.destroy()
+
     def _cancel(self, *args):
         self.rc = gtk.RESPONSE_CANCEL
 
     def _ok(self, *args):
+        self.rc = gtk.RESPONSE_OK
+        haveNet = False
         combo = self.xml.get_widget("interfaceCombo")
         active = combo.get_active_iter()
         val = combo.get_model().get_value(active, 1)
@@ -205,9 +218,8 @@ class NetworkConfigurator:
             w = gui.WaitWindow(_("Dynamic IP"),
                                _("Sending request for IP information "
                                  "for %s...") % (netdev.get('DEVICE'),))
-            self.network.bringUp()
+            haveNet = self.network.bringUp()
             w.pop()
-            self.rc = gtk.RESPONSE_OK
         else:
             netdev.set(('BOOTPROTO', 'static'))
             ipv4addr = self.xml.get_widget("ipv4Address").get_text()
@@ -271,7 +283,7 @@ class NetworkConfigurator:
                 return False
 
             try:
-                self.network.bringUp()
+                haveNet = self.network.bringUp()
             except Exception, e:
                 import logging
                 log = logging.getLogger("anaconda")
@@ -279,10 +291,8 @@ class NetworkConfigurator:
                 self._handleIPError(_("Error configuring network device:"), e)
                 return False
 
-        if self.rc != gtk.RESPONSE_OK:
-            gui.MessageWindow(_("Error"),
-                              _("Error configuring network device"),
-                              type = "ok", custom_icon="error")
+        if not haveNet:
+            self._handleNetworkError(netdev.get('DEVICE'))
             return False
 
         return True
