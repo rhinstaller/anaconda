@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.50
+Version: 11.4.1.51
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,35 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 24 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.51-1
+- Catch UnicodeDecodeError so traceback messages display anyway. (dcantrell)
+- Do not write NM_CONTROLLED=yes to ifcfg files (#468028) (dcantrell)
+- Log D-Bus messages at ERROR or INFO level. (dcantrell)
+- Write dhcpclass to the dhclient conf file for the device (#468436)
+  (dcantrell)
+- Tell NetworkManager not to touch network interfaces when / is a netfs
+  (hans)
+- Catch more X failures and fallback to text (#467158). (clumens)
+- Fix a typo when using network --gateway (#468364). (clumens)
+- Fix icon (#468273) (katzj)
+- Remove extra debug info. (pjones)
+- Fix the damn spinner in the progress bar. (pjones)
+- Fix whitespace. (pjones)
+- Fix "looking for installation images" when there's no disc at all. (pjones)
+- Make sure dialog deletions take effect sooner (#455676). (clumens)
+- Make cdrom drive door status messages be INFO not DEBUG. (pjones)
+- Don't switch to tty6 on vnc installs. (clumens)
+- Update font list (#462295). (clumens)
+- Don't display the entire lengthy device description (#467825). (clumens)
+- Fix ext4 detection on existing partitions (#467047) (rvykydal)
+- Make sure we handle the /tmp/method file for FTP correctly (#467753).
+  (clumens)
+- Do not write NM_CONTROLLED=yes to ifcfg files (#468028) (dcantrell)
+- Revert "dhclient-script not needed for NetworkManager" (clumens)
+- Skip Installation Repo when writing out repo kickstart lines. (clumens)
+- Correct media check docs (#468061). (clumens)
+- Many translation updates
+
 * Fri Oct 17 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.50-1
 - Update several font package names that we were missing. (clumens)
 - Only bring up the netconfig dialog if the repo requires networking.
