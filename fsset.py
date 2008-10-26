@@ -520,7 +520,7 @@ class extFileSystem(FileSystemType):
                                          stderr="/tmp/resize.out",
                                          progress = w)
         if rc >= 4:
-            raise ResizeError, ("Check of %s failed" %(devicePath,), devicePath)
+            raise ResizeError, ("Check of %s failed: %s" %(devicePath, rc), devicePath)
         if progress:
             w.pop()
             w = progress(_("Resizing"),
@@ -536,7 +536,7 @@ class extFileSystem(FileSystemType):
         if progress:
             w.pop()
         if rc:
-            raise ResizeError, ("Resize of %s failed" %(devicePath,), devicePath)
+            raise ResizeError, ("Resize of %s failed: %s" %(devicePath, rc), devicePath)
 
     def getMinimumSize(self, device):
         """Return the minimum filesystem size in megabytes"""
