@@ -1974,7 +1974,7 @@ MAILADDR root
                         else:
                             continue
                     else:
-                        if anaconda.id.getUpgrade() and not (entry.getLabel() or entry.getUuid()):
+                        if anaconda.id.getUpgrade() and not (entry.getLabel() or entry.getUuid()) and entry.device.getDevice().startswith("/dev"):
                             errStr = _("Error mounting device %s as %s: "
                                        "%s\n\n"
                                        "Devices in /etc/fstab should be specified "
