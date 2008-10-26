@@ -211,7 +211,7 @@ def lvresize(lvname, vgname, size):
     if flags.test or lvmDevicePresent == 0:
         return
 
-    args = ["lvresize", "-An", "-L", "%dM" %(size,), "-v",
+    args = ["lvresize", "-An", "-L", "%dM" %(size,), "-v", "--force",
             "/dev/%s/%s" %(vgname, lvname,)]
 
     try:
