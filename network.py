@@ -482,7 +482,7 @@ class Network:
 
         return False
 
-    def write(self, instPath, anaconda):
+    def write(self, instPath='', anaconda=None):
         if len(self.netdevices.values()) == 0:
             return
 
@@ -549,9 +549,10 @@ class Network:
             # installation when / is on a network device. Ideally we would only
             # tell NM not to touch the interface(s) actually used for /, but we
             # have no logic to determine that
-            rootdev = anaconda.id.fsset.getEntryByMountPoint("/").device
-            if rootdev.isNetdev():
-                f.write("NM_CONTROLLED=no\n")
+            if anaconda is not None:
+                rootdev = anaconda.id.fsset.getEntryByMountPoint("/").device
+                if rootdev.isNetdev():
+                    f.write("NM_CONTROLLED=no\n")
 
             f.close()
             os.chmod(newifcfg, 0644)
