@@ -156,10 +156,10 @@ class AnacondaCallback:
 
             pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.arch)
             s = _("<b>Installing %s</b> (%s)\n") %(pkgStr, size_string(hdr['size']))
-            sum = hdr['summary'] or ""
-            if type(sum) != unicode:
-                sum = unicode(sum, encoding='utf-8')
-            s += gettext.ldgettext("redhat-dist", sum.strip())
+            summary = gettext.ldgettext("redhat-dist", hdr['summary'] or "")
+            if type(summary) != unicode:
+                summary = unicode(summary, encoding='utf-8')
+            s += summary.strip()
             self.progress.set_label(s)
 
             self.instLog.write(self.modeText % pkgStr)
