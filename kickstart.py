@@ -239,7 +239,7 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
 
 class Firewall(commands.firewall.F10_Firewall):
     def parse(self, args):
-        commands.firewall.F10_10rewall.parse(self, args)
+        commands.firewall.F10_Firewall.parse(self, args)
         self.handler.id.firewall.enabled = self.enabled
         self.handler.id.firewall.trustdevs = self.trusts
 
