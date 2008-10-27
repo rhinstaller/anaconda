@@ -66,7 +66,7 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
     try:
         pipe = subprocess.Popen([command] + argv, stdin=stdin,
                                 stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT,
+                                stderr=stderr,
                                 preexec_fn=chroot, cwd=root)
     except OSError, (errno, msg):
         raise RuntimeError, "Error running " + command + ": " + msg
