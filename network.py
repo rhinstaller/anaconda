@@ -486,9 +486,12 @@ class Network:
         if len(self.netdevices.values()) == 0:
             return
 
-        tmpdest = "%s/.tmp" % (instPath,)
-        if not os.path.isdir(tmpdest):
-            iutil.mkdirChain(tmpdest)
+        sysconfig = "%s/etc/sysconfig" % (instPath,)
+        netscripts = "%s/network-scripts" % (sysconfig,)
+        destnetwork = "%s/network" % (sysconfig,)
+
+        if not os.path.isdir(netscripts):
+            iutil.mkdirChain(netscripts)
 
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in self.netdevices.values():
@@ -499,7 +502,7 @@ class Network:
             ipv6autoconf = dev.get('IPV6_AUTOCONF').lower()
             dhcpv6c = dev.get('DHCPV6C').lower()
 
-            newifcfg = "%s/ifcfg-%s" % (tmpdest, device,)
+            newifcfg = "%s/ifcfg-%s.new" % (netscripts, device,)
             f = open(newifcfg, "w")
             if len(dev.get("DESC")) > 0:
                 f.write("# %s\n" % (dev.get("DESC"),))
@@ -558,28 +561,23 @@ class Network:
             os.chmod(newifcfg, 0644)
 
             # move the new ifcfg in place
-            destdir = "%s/etc/sysconfig/network-scripts" % (instPath,)
-            if not os.path.isdir(destdir):
-                iutil.mkdirChain(destdir)
-
-            destcfg = "%s/ifcfg-%s" % (destdir, device,)
+            destcfg = "%s/ifcfg-%s" % (netscripts, device,)
             shutil.move(newifcfg, destcfg)
 
             # XXX: is this necessary with NetworkManager?
             # handle the keys* files if we have those
             if dev.get("KEY"):
-                newkey = "%s/keys-%s" % (tmpdest, device,)
+                newkey = "%s/keys-%s.new" % (netscripts, device,)
                 f = open(newkey, "w")
                 f.write("KEY=%s\n" % (dev.get('KEY'),))
                 f.close()
                 os.chmod(newkey, 0600)
 
-                destkey = "%s/keys-%s" % (destdir, device,)
+                destkey = "%s/keys-%s" % (netscripts, device,)
                 shutil.move(newkey, destkey)
 
         # /etc/sysconfig/network
-        newnetwork = "%s/network" % (tmpdest,)
-        destnetwork = "%s/etc/sysconfig/network" % (instPath,)
+        newnetwork = "%s.new" % (destnetwork,)
 
         f = open(newnetwork, "w")
         f.write("NETWORKING=yes\n")
@@ -661,10 +659,9 @@ class Network:
         # /etc/resolv.conf
         if (self.domains != ['localdomain'] and self.domains) or \
             self.hasNameServers(dev.info):
-            newresolv = "%s/resolv.conf" % (tmpdest,)
-            destresolv = "%s/etc/resolv.conf" % (instPath,)
+            resolv = "%s/etc/resolv.conf" % (instPath,)
 
-            f = open(newresolv, "w")
+            f = open(resolv, "w")
 
             if self.domains != ['localdomain'] and self.domains:
                 f.write("search %s\n" % (string.joinfields(self.domains, ' '),))
@@ -674,7 +671,6 @@ class Network:
                     f.write("nameserver %s\n" % (dev.get(key),))
 
             f.close()
-            shutil.move(newresolv, destresolv)
 
         # /etc/udev/rules.d/70-persistent-net.rules
         if not instPath == '':
