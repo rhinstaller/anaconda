@@ -417,6 +417,8 @@ class Partitions:
                         ptype = fsset.fileSystemTypeGet(fsname)
                     except:
                         ptype = fsset.fileSystemTypeGet("foreign")
+                elif cryptodev.isLuks("/dev/%s" % device):
+                    ptype = fsset.fileSystemTypeGet("foreign")
 
                 start = part.geom.start
                 end = part.geom.end
@@ -902,6 +904,10 @@ class Partitions:
             for part in partedUtils.get_lvm_partitions(disk):
                 partname = partedUtils.get_partition_name(part)
                 partrequest = self.getRequestByDeviceName(partname)
+                if partrequest.encryption is None and cryptodev.isLuks("/dev/%s" % partname):
+                    # we don't want to treat encrypted an PV like a PV if the
+                    # user chose not to provide a passphrase for this device
+                    continue
                 used = 0
                 for volgroup in volgroups:
                     if volgroup.physicalVolumes:
