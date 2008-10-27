@@ -237,9 +237,9 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
         if self.initAll:
             self.handler.id.partitions.reinitializeDisks = self.initAll
 
-class Firewall(commands.firewall.FC3_Firewall):
+class Firewall(commands.firewall.F10_Firewall):
     def parse(self, args):
-        commands.firewall.FC3_Firewall.parse(self, args)
+        commands.firewall.F10_10rewall.parse(self, args)
         self.handler.id.firewall.enabled = self.enabled
         self.handler.id.firewall.trustdevs = self.trusts
 
