@@ -1363,8 +1363,7 @@ class Partitions:
 
             # device encryption
             if request.encryption:
-                args.extend(["--encrypted",
-                             "--passphrase=\"%s\"" % (request.encryption.passphrase,)])
+                args.append("--encrypted")
 
             # preexisting only
             if request.type == REQUEST_PREEXIST and request.device:
