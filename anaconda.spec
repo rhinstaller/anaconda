@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.51
+Version: 11.4.1.52
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,20 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct 27 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.52-1
+- Let DNS lookups work from %post scripts (#468132) (dcantrell)
+- Do not use /.tmp for temporary files (#468720) (dcantrell)
+- Don't treat encrypted PVs as available if we don't have the key. (#465240)
+  (dlehman)
+- Do all new device passphrase prompting from partitioningComplete. (dlehman)
+- Fix the obviously stupid typo. (clumens)
+- There's a new version of the firewall command for F10 (#467753). (clumens)
+- Another fix for printing package summaries in text mode (#468283).
+  (clumens)
+- Fix traceback in network.bringUp() (#468651) (dcantrell)
+- lvresize requires a --force arg now (#468478) (katzj)
+- Include return code on resize failure error message (#468479) (katzj)
+
 * Fri Oct 24 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.51-1
 - Catch UnicodeDecodeError so traceback messages display anyway. (dcantrell)
 - Do not write NM_CONTROLLED=yes to ifcfg files (#468028) (dcantrell)
