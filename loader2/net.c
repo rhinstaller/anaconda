@@ -1849,7 +1849,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
         fprintf(f, "CTCPROT=%s\n", dev->ctcprot);
 
     if (dev->layer2 && !strcmp(dev->layer2, "1"))
-	strcat(osa_opts, "layer=2");
+	strcat(osa_opts, "layer2=1");
     else if (dev->subchannels)
 	fprintf(f, "ARP=no\n");
     if (dev->portno && !strcmp(dev->portno, "1")) {
