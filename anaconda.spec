@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.148
+Version: 11.1.2.149
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,16 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 28 2008 Joel Granados <jgranado@redhat.com> 11.1.2.149-1
+- Actually use the stderr parameter instead of duping to stdout (dlehman).
+  Resolves: rhbz:#467289
+- Revert "Specify a default cio_ignore parameter for s390x (#253075)" (dcantrell).
+  Related: rhbz:#253075
+- Revert "Enable CCW devices used for installation (#253075)" (dcantrell).
+  Related: rhbz:#253075
+- Revert "Correctly enable ignored CCW devices in linuxrc.s390 (#253075)" (dcantrell).
+  Related: rhbz:#253075
+
 * Fri Oct 24 2008 Joel Granados <jgranado@redhat.com> 11.1.2.148-1
 - Probe the devices to populate cache for DD routines (msivak).
   Resolves: rhbz:#316481
