@@ -51,8 +51,9 @@ class CommunicationError(Exception):
 # supported.  They also define the interface that concrete classes should use,
 # as this is what will be expected by exception.py.
 class AbstractFiler(object):
-    def __init__(self, bugUrl=None):
+    def __init__(self, bugUrl=None, develVersion=None):
         self.bugUrl = bugUrl
+        self.develVersion = develVersion
 
     def login(self, username, password):
         raise NotImplementedError
@@ -64,6 +65,9 @@ class AbstractFiler(object):
         raise NotImplementedError
 
     def getbugs(self, idlist):
+        raise NotImplementedError
+
+    def getversion(self, ver, prod):
         raise NotImplementedError
 
     def query(self, query):
@@ -133,8 +137,8 @@ class BugzillaFiler(AbstractFiler):
         except socket.error, e:
             raise CommunicationError(str(e))
 
-    def __init__(self, bugUrl=None):
-        AbstractFiler.__init__(self, bugUrl=bugUrl)
+    def __init__(self, bugUrl=None, develVersion=None):
+        AbstractFiler.__init__(self, bugUrl=bugUrl, develVersion=develVersion)
         self._bz = None
 
     def login(self, username, password):
@@ -169,6 +173,19 @@ class BugzillaFiler(AbstractFiler):
     def getbugs(self, idlist):
         lst = self.__withBugzillaDo(lambda b: b.getbugs(idlist))
         return map(lambda b: BugzillaBug(self, bug=b), lst)
+
+    def getversion(self, ver, prod):
+        details = self.__withBugzillaDo(lambda b: b._proxy.bugzilla.getProductDetails(prod))
+        bugzillaVers = details[1]
+        bugzillaVers.sort()
+
+        if ver not in bugzillaVers:
+            if self.develVersion:
+                return self.develVersion
+            else:
+                return bugzillaVers[-1]
+        else:
+            return ver
 
     def query(self, query):
         lst = self.__withBugzillaDo(lambda b: b.query(query))

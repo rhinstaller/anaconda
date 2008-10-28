@@ -49,7 +49,8 @@ class InstallClass(BaseInstallClass):
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
              (N_("Web Server"), ["web-server"])]
 
-    bugFiler = BugzillaFiler(bugUrl="https://bugzilla.redhat.com/xmlrpc.cgi")
+    bugFiler = BugzillaFiler(bugUrl="https://bugzilla.redhat.com/xmlrpc.cgi",
+                             develVersion="rawhide")
 
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:
