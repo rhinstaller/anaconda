@@ -657,7 +657,7 @@ class Network:
                 self.domains = [domainname]
 
         # /etc/resolv.conf
-        if os.path.isfile('/etc/resolv.conf'):
+        if os.path.isfile('/etc/resolv.conf') and instPath != '':
             destresolv = "%s/etc/resolv.conf" % (instPath,)
             shutil.copy('/etc/resolv.conf', destresolv)
         elif (self.domains != ['localdomain'] and self.domains) or \
