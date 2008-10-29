@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.52
+Version: 11.4.1.53
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,24 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 29 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.53-1
+- Don't sleep(5) after xrandr (ajax)
+- Force DPI to 96 even harder (#458738) (ajax)
+- Don't try to switch VT to the one that X is on (ajax)
+- Only copy /etc/resolv.conf if instPath != '/' (dcantrell)
+- 'is not' -> '!=' (dcantrell)
+- Write --dhcpclass instead of --class to the anaconda ks file. (jgranado)
+- Fix 2 issues in pyparted found by pychecker (hdegoede)
+- Add a bit of documentation to the top of runpychecker.sh (hdegoede)
+- Add runpychecker.sh script and pychecker-false-positives file (hdegoede)
+- Fix saving tracebacks via scp while in text mode. (clumens)
+- Search for the hash in the whiteboard, not as the entire whiteboard.
+  (clumens)
+- Fix various syntax errors caught by PyChecker (hdegoede)
+- Wouldn't it be nice to have some real documentation in filer.py? (clumens)
+- Make sure the productVersion given by .treeinfo exists in bugzilla
+  (#468657). (clumens)
+
 * Mon Oct 27 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.52-1
 - Let DNS lookups work from %%post scripts (#468132) (dcantrell)
 - Do not use /.tmp for temporary files (#468720) (dcantrell)
