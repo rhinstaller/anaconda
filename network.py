@@ -694,7 +694,7 @@ class Network:
                     continue
                 devname = dev.get("DEVICE")
                 basename = devname
-                while basename is not "" and basename[-1] in string.digits:
+                while basename != "" and basename[-1] in string.digits:
                     basename = basename[:-1]
 
                 # rules are case senstive for address. Lame.
