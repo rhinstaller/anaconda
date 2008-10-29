@@ -206,7 +206,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 
 %changelog
 * Mon Oct 27 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.52-1
-- Let DNS lookups work from %post scripts (#468132) (dcantrell)
+- Let DNS lookups work from %%post scripts (#468132) (dcantrell)
 - Do not use /.tmp for temporary files (#468720) (dcantrell)
 - Don't treat encrypted PVs as available if we don't have the key. (#465240)
   (dlehman)
