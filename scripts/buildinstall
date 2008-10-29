@@ -148,10 +148,9 @@ BUILDINSTALL=$BUILDINSTDIR/buildinstall
 echo "Building images..."
 $UPD_INSTROOT $DEBUGSTR $NOGRSTR $PKGDIR $TREEDIR/image-template $TREEDIR/instimage
 
-echo "Creating repository metadata..."
-createrepo -g "$COMPSFILE" -q $p
-
 if [ -n "$PKGORDER" ]; then
+    echo "Creating repository metadata..."
+    createrepo -g "$COMPSFILE" -q $p
     echo "Getting package order..."
     echo "PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH $PRODUCTPATH"
     PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH $PRODUCTPATH > $PKGORDER
