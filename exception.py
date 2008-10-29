@@ -403,7 +403,7 @@ def saveToBugzilla(anaconda, exn, dest):
     # list.  Otherwise, we need to create a new bug.
     wb = "anaconda_trace_hash:%s" % hash
     buglist = withBugzillaDo(filer, lambda b: b.query({'status_whiteboard': wb,
-                                                       'status_whiteboard_type':'allwordsexact',
+                                                       'status_whiteboard_type':'allwordssubstr',
                                                        'bug_status': []}))
     if buglist is None:
         return False
