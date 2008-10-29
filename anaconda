@@ -88,7 +88,6 @@ def doStartupX11Actions(runres="800x600"):
     # connection (if miniwm isnt running)
     if miniwm_pid is not None and not flags.usevnc:
         try:
-            isys.vtActivate(6)
             iutil.execWithRedirect("xrandr", ["-s", runres], searchPath=1,
                                    stdout="/dev/tty5", stderr="/dev/tty5")
             time.sleep(5)
