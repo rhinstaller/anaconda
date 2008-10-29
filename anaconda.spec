@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.149
+Version: 11.1.2.150
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 29 2008 Joel Granados <jgranado@redhat.com> 11.1.2.150-1
+- Call createrepo in buildinstall only if --pkgorder is present (rvykydal).
+  Resolves: rhbz:#467341
+
 * Tue Oct 28 2008 Joel Granados <jgranado@redhat.com> 11.1.2.149-1
 - Actually use the stderr parameter instead of duping to stdout (dlehman).
   Resolves: rhbz:#467289
