@@ -52,6 +52,9 @@ from pykickstart.version import versionToString, DEVEL
 import logging
 log = logging.getLogger("anaconda")
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 # Collector class for all data related to an install/upgrade.
 
 class InstallData:

@@ -36,6 +36,7 @@ import lvm
 import warnings
 import upgrade
 import pykickstart.commands as commands
+import cryptodev
 from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.parser import *
@@ -382,7 +383,7 @@ class LogVol(commands.logvol.F9_LogVol):
         if lvd.encrypted:
             if lvd.passphrase and \
                not self.handler.anaconda.id.partitions.encryptionPassphrase:
-                self.anaconda.id.partitions.encryptionPassphrase = lvd.passphrase
+                self.handler.anaconda.id.partitions.encryptionPassphrase = lvd.passphrase
             request.encryption = cryptodev.LUKSDevice(passphrase=lvd.passphrase, format=lvd.format)
 
         addPartRequest(self.handler.anaconda, request)
@@ -626,7 +627,7 @@ class Partition(commands.partition.F9_Partition):
         if pd.encrypted:
             if pd.passphrase and \
                not self.handler.anaconda.id.partitions.encryptionPassphrase:
-                self.anaconda.id.partitions.encryptionPassphrase = pd.passphrase
+                self.handler.anaconda.id.partitions.encryptionPassphrase = pd.passphrase
             request.encryption = cryptodev.LUKSDevice(passphrase=pd.passphrase, format=pd.format)
 
         addPartRequest(self.handler.anaconda, request)
@@ -709,7 +710,7 @@ class Raid(commands.raid.F9_Raid):
         if rd.encrypted:
             if rd.passphrase and \
                not self.handler.anaconda.id.partitions.encryptionPassphrase:
-                self.anaconda.id.partitions.encryptionPassphrase = rd.passphrase
+                self.handler.anaconda.id.partitions.encryptionPassphrase = rd.passphrase
             request.encryption = cryptodev.LUKSDevice(passphrase=rd.passphrase, format=rd.format)
 
         addPartRequest(self.handler.anaconda, request)

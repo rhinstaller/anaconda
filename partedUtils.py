@@ -1027,7 +1027,7 @@ class DiskSet:
                     "-F",
                     "-P",
                     "-f",
-                    "/dev/%s" % (dev,)]
+                    "/dev/%s" % (drive,)]
 
         fd = os.open("/dev/null", os.O_RDWR | os.O_CREAT | os.O_APPEND)
         p = os.pipe()

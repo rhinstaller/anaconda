@@ -265,7 +265,7 @@ def scanForMPath(drives):
     return reduce(lambda x,y: x + [updateName(y),], mpaths, [])
 
 def renameMPath(mpath, name):
-    cacheDrives.rename(rs, name)
+    cacheDrives.rename(mpath, name)
 
 def startMPath(mpath):
     if flags.mpath == 0:

@@ -39,7 +39,7 @@ class GroupSelectionWindow:
             pkgs = self.ayum.pkgSack.returnNewestByName(pkg)
         except yum.Errors.PackageSackError:
             log.debug("no such package %s from group %s" %
-                      (pkg, self.group.groupid))
+                      (pkg, grpid))
         if pkgs:
             pkgs = self.ayum.bestPackagesFromList(pkgs)
         for po in pkgs:

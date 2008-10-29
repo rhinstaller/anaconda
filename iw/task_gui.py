@@ -145,7 +145,7 @@ class RepoEditor:
             self.intf.messageWindow(_("Error"),
                   _("The repository %s has already been added.  Please "
                     "choose a different repository name and "
-                    "URL.") % reponame, type="ok", custom_icon="error")
+                    "URL.") % self.repo.name, type="ok", custom_icon="error")
             return False
 
         return True

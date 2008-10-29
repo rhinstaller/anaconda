@@ -96,8 +96,7 @@ def _deselectPackage(ayum, group, pkg):
         pkgs = ayum.pkgSack.returnNewestByName(pkg)
     except mdErrors.PackageSackError:
         log = logging.getLogger("yum.verbose")
-        log.debug("no such package %s from group %s" %(pkg,
-                                                       self.group.groupid))
+        log.debug("no such package %s from group %s" % (pkg, grpid))
     if pkgs:
         pkgs = ayum.bestPackagesFromList(pkgs)
     for po in pkgs:

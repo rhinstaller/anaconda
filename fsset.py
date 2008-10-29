@@ -2723,7 +2723,7 @@ def readFstab (anaconda):
             sys.exit(0)
         else:
             log.warning("Duplicate labels for %s, but no intf so trying "
-                        "to continue" %(info,))
+                        "to continue" %(label,))
 
     path = anaconda.rootPath + '/etc/fstab'
     intf = anaconda.intf

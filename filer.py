@@ -266,8 +266,8 @@ class AbstractBug(object):
            systems support the concept of whiteboards, so this method is
            optional.  If provided, it should return some non-None value on
            success.  Currently, anaconda does not call this method.
-       """
-       return True
+        """
+        return True
 
 
 # Concrete classes for automatically filing bugs against Bugzilla instances.

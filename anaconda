@@ -259,7 +259,7 @@ def setVNCFromKickstart(opts):
     try:
         opts.ksfile = preprocessKickstart(opts.ksfile)
     except KickstartError, msg:
-        stdoutLog.critical(_("Error processing %%ksappend lines: %s") % e)
+        stdoutLog.critical(_("Error processing %%ksappend lines: %s") % msg)
         sys.exit(1)
     except Exception, e:
         stdoutLog.critical(_("Unknown error processing %%ksappend lines: %s") % e)
@@ -305,7 +305,7 @@ def setRescueModeFromKickstart(opts):
     try:
         opts.ksfile = preprocessKickstart(opts.ksfile)
     except KickstartError, msg:
-        stdoutLog.critical(_("Error processing %%ksappend lines: %s") % e)
+        stdoutLog.critical(_("Error processing %%ksappend lines: %s") % msg)
         sys.exit(1)
     except Exception, e:
         stdoutLog.critical(_("Unknown error processing %%ksappend lines: %s") % e)
@@ -840,7 +840,7 @@ if __name__ == "__main__":
             os.environ["DISPLAY"] = ":1"
             doStartupX11Actions(opts.runres)
             xserver_pid = proc.pid
-        except OSError, RuntimeError:
+        except (OSError, RuntimeError):
             stdoutLog.warning(" X startup failed, falling back to text mode")
             opts.display_mode = 't'
             graphical_failed = 1
