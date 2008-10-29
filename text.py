@@ -162,7 +162,7 @@ class SaveExceptionWindow:
             self.scpPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.scpHostEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.scpDestEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-        elif self.rg.getSelection() == "remote":
+        elif self.rg.getSelection() == "scp":
             self.bugzillaNameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.bugzillaPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
             self.bugDesc.setFlags(FLAG_DISABLED, FLAGS_SET)
@@ -208,11 +208,11 @@ class SaveExceptionWindow:
         self.rg = RadioGroup()
         self.diskButton = self.rg.add(_("Save to local disk"), "disk", True)
         self.bugzillaButton = self.rg.add(_("Send to bugzilla (%s)") % product.bugUrl, "bugzilla", False)
-        self.remoteButton = self.rg.add(_("Send to remote server (scp)"), "remote", False)
+        self.scpButton = self.rg.add(_("Send to remote server (scp)"), "scp", False)
 
         self.diskButton.setCallback(self._destCb, None)
         self.bugzillaButton.setCallback(self._destCb, None)
-        self.remoteButton.setCallback(self._destCb, None)
+        self.scpButton.setCallback(self._destCb, None)
 
         buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
         self.bugzillaNameEntry = Entry(24)
@@ -229,27 +229,27 @@ class SaveExceptionWindow:
         bugzillaGrid.setField(Label(_("Bug Description")), 0, 2, anchorLeft=1)
         bugzillaGrid.setField(self.bugDesc, 1, 2)
 
-        self.remoteNameEntry = Entry(24)
-        self.remotePasswordEntry = Entry(24, password=1)
-        self.remoteHostEntry = Entry(24)
-        self.remoteDestEntry = Entry(24)
+        self.scpNameEntry = Entry(24)
+        self.scpPasswordEntry = Entry(24, password=1)
+        self.scpHostEntry = Entry(24)
+        self.scpDestEntry = Entry(24)
 
-        remoteGrid = Grid(2, 4)
-        remoteGrid.setField(Label(_("User name")), 0, 0, anchorLeft=1)
-        remoteGrid.setField(self.remoteNameEntry, 1, 0)
-        remoteGrid.setField(Label(_("Password")), 0, 1, anchorLeft=1)
-        remoteGrid.setField(self.remotePasswordEntry, 1, 1)
-        remoteGrid.setField(Label(_("Host (host:port)")), 0, 2, anchorLeft=1)
-        remoteGrid.setField(self.remoteHostEntry, 1, 2)
-        remoteGrid.setField(Label(_("Destination file")), 0, 3, anchorLeft=1)
-        remoteGrid.setField(self.remoteDestEntry, 1, 3)
+        scpGrid = Grid(2, 4)
+        scpGrid.setField(Label(_("User name")), 0, 0, anchorLeft=1)
+        scpGrid.setField(self.scpNameEntry, 1, 0)
+        scpGrid.setField(Label(_("Password")), 0, 1, anchorLeft=1)
+        scpGrid.setField(self.scpPasswordEntry, 1, 1)
+        scpGrid.setField(Label(_("Host (host:port)")), 0, 2, anchorLeft=1)
+        scpGrid.setField(self.scpHostEntry, 1, 2)
+        scpGrid.setField(Label(_("Destination file")), 0, 3, anchorLeft=1)
+        scpGrid.setField(self.scpDestEntry, 1, 3)
 
         toplevel.add(self.diskButton, 0, 0, (0, 0, 0, 1))
         toplevel.add(self.diskList, 0, 1, (0, 0, 0, 1))
         toplevel.add(self.bugzillaButton, 0, 2, (0, 0, 0, 1))
         toplevel.add(bugzillaGrid, 0, 3, (0, 0, 0, 1))
-        toplevel.add(self.remoteButton, 0, 4, (0, 0, 0, 1))
-        toplevel.add(remoteGrid, 0, 5, (0, 0, 0, 1))
+        toplevel.add(self.scpButton, 0, 4, (0, 0, 0, 1))
+        toplevel.add(scpGrid, 0, 5, (0, 0, 0, 1))
         toplevel.add(buttons, 0, 6, growx=1)
 
         dests = self.anaconda.id.diskset.exceptionDisks(self.anaconda)
@@ -278,7 +278,7 @@ class SaveExceptionWindow:
         return False
 
     def saveToRemote(self):
-        return self.rg.getSelection() == "remote"
+        return self.rg.getSelection() == "scp"
 
 class MainExceptionWindow:
     def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):
