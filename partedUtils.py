@@ -713,11 +713,11 @@ class DiskSet:
 
         # not doing this right now, because we should _always_ have a
         # partition table of some kind on dmraid.
-        if False:
-            for rs in DiskSet.dmList or [] + DiskSet.mpList or []:
-                label = isys.readFSLabel(rs.name)
-                if label:
-                    labels[rs.name] = label
+        #if False:
+        #    for rs in DiskSet.dmList or [] + DiskSet.mpList or []:
+        #        label = isys.readFSLabel(rs.name)
+        #        if label:
+        #            labels[rs.name] = label
 
         for dev, devices, level, numActive in DiskSet.mdList:
             crypto = encryptedDevices.get(dev)
@@ -1140,7 +1140,8 @@ class DiskSet:
                 raise
         except:
             (type, value, tb) = sys.exc_info()
-            lines = exception.formatException(type, value, tb)
+            exn = exception.AnacondaExceptionDump(type, value, tb)
+            lines = exn.__str__()
             for line in lines:
                 log.error(line)
             self._removeDisk(drive)
