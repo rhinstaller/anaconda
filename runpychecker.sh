@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# This script will check anaconda for any pychecker warning using a set of
+# options minimizing false positives, in combination with filtering of any
+# warning regularexpressions listed in pychecker-false-positives.
+# 
+# If any warnings our found they will be stored in pychecker-log and printed
+# to stdout and this script will exit with a status of 1, if no (non filtered)
+# warnings are found it exits with a status of 0
+
 FALSE_POSITIVES=pychecker-false-positives
 
 if [ "`tail -c 1 pychecker-false-positives`" == "`echo`" ]; then
