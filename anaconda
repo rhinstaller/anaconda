@@ -88,8 +88,9 @@ def doStartupX11Actions(runres="800x600"):
     # connection (if miniwm isnt running)
     if miniwm_pid is not None and not flags.usevnc:
         try:
-            iutil.execWithRedirect("xrandr", ["-s", runres], searchPath=1,
-                                   stdout="/dev/tty5", stderr="/dev/tty5")
+            iutil.execWithRedirect("xrandr", ["-s", runres, "--dpi", "96"],
+				   searchPath=1, stdout="/dev/tty5",
+				   stderr="/dev/tty5")
             time.sleep(5)
         except Exception, e:
             log.error("Exception when running xrandr: %s" % str(e))
