@@ -134,7 +134,7 @@ api:
 	doxygen docs/api.cfg
 
 rpmlog:
-	@git log --pretty="format:- %s (%ae)" anaconda-$(VERSION)-$(RELEASE).. |sed -e 's/@.*)/)/'
+	@git log --pretty="format:- %s (%ae)" anaconda-$(VERSION)-$(RELEASE).. | sed -e 's/@.*)/)/' | sed -e 's/%/%%/g'
 	@echo
 
 bumpver:
