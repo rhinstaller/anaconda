@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.150
+Version: 11.1.2.151
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 29 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.151-1
+- Write correct OPTIONS line to ifcfg files on s390 for layer2 (dcantrell)
+  Resolves: rhbz#468755
+
 * Wed Oct 29 2008 Joel Granados <jgranado@redhat.com> 11.1.2.150-1
 - Call createrepo in buildinstall only if --pkgorder is present (rvykydal).
   Resolves: rhbz:#467341
