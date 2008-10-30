@@ -255,9 +255,14 @@ class InstallData:
         elif self.instClass.installkey:
             f.write("key %s\n" %(self.instClass.installkey,))
 
-        if self.anaconda.stage2:
+        m = None
+
+        if self.anaconda.methodstr:
+            m = self.anaconda.methodstr
+        elif self.anaconda.stage2:
             m = self.anaconda.stage2
 
+        if m:
             if m.startswith("cdrom:"):
                 f.write("cdrom\n")
             elif m.startswith("hd:"):
