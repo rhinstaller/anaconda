@@ -1226,9 +1226,6 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
     }
     installNames[numValidMethods] = NULL;
 
-    if (!FL_CMDLINE(flags))
-        startNewt();
-
     /* Before anything else, see if there's a CD/DVD with a stage2 image on
      * it.  However if stage2= was given, use that value as an override here.
      * That will also then bypass any method selection UI in loader.
@@ -1906,11 +1903,11 @@ int main(int argc, char ** argv) {
     /* FIXME: this is a bit of a hack */
     loaderData.modInfo = modInfo;
 
-    if (FL_MODDISK(flags)) {
+    if (!FL_CMDLINE(flags))
         startNewt();
 
+    if (FL_MODDISK(flags))
         loadDriverDisks(DEVICE_ANY, &loaderData);
-    }
 
     if (!access("/dd.img", R_OK)) {
         logMessage(INFO, "found /dd.img, loading drivers");
