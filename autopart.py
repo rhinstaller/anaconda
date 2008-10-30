@@ -198,7 +198,7 @@ class partlist:
 def getMinimumSector(disk):
     if disk.type.name == 'sun':
         start = long(disk.dev.sectors * disk.dev.heads)
-        start /= (1024 / disk.dev.sector_size)
+        start /= long(1024 / disk.dev.sector_size)
         return start + 1
     return 0L
 

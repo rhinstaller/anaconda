@@ -48,7 +48,7 @@ class WideCheckList(checklist.CheckList):
 	if self.clickCB:
 	    rc = self.clickCB(data, row)
 
-	if rc == True:
+	if rc:
 	    checklist.CheckList.toggled_item(self, data, row)
 
     

@@ -88,7 +88,7 @@ class VolumeGroupEditor:
                 pesize = 32768
 	    pvreq = self.partitions.getRequestByID(id)
 	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
-            pvsize = lvm.clampPVSize(pvsize, pesize) - (pesize/1024)
+            pvsize = lvm.clampPVSize(pvsize, pesize) - int(pesize/1024)
 	    if first:
 		minpvsize = pvsize
 		first = 0
