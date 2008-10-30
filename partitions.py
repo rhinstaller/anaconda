@@ -1363,8 +1363,7 @@ class Partitions:
 
             # device encryption
             if request.encryption:
-                args.extend(["--encrypted",
-                             "--passphrase=\"%s\"" % (request.encryption.passphrase,)])
+                args.append("--encrypted")
 
             # preexisting only
             if request.type == REQUEST_PREEXIST and request.device:
@@ -1430,8 +1429,7 @@ class Partitions:
 
             # device encryption
             if request.encryption:
-                args.extend(["--encrypted",
-                             "--passphrase=\"%s\"" % (request.encryption.passphrase,)])
+                args.append("--encrypted")
 
             args.append("--level=%s" % (request.raidlevel))
             args.append("--device=md%s" % (request.raidminor))
@@ -1508,8 +1506,7 @@ class Partitions:
 
             # device encryption
             if request.encryption:
-                args.extend(["--encrypted",
-                             "--passphrase=\"%s\"" % (request.encryption.passphrase,)])
+                args.append("--encrypted")
 
             vg = self.getRequestByID(request.volumeGroup)
             if vg is None:
