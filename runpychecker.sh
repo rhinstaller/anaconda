@@ -9,6 +9,27 @@
 # warnings are found it exits with a status of 0
 
 FALSE_POSITIVES=pychecker-false-positives
+NON_STRICT_OPTIONS="--no-deprecated --no-returnvalues --no-abstract"
+
+usage () {
+  echo "usage: `basename $0` [--strict] [--help]"
+  exit $1
+}
+
+while [ $# -gt 0 ]; do
+  case $1 in
+    --strict)
+      NON_STRICT_OPTIONS=""
+      ;;
+    --help)
+      usage 0
+      ;;
+    *)
+      echo "Error unknown option: $1"
+      usage 1
+  esac
+  shift
+done
 
 if [ "`tail -c 1 pychecker-false-positives`" == "`echo`" ]; then
   echo "Error $FALSE_POSITIVES ends with an enter."
@@ -23,6 +44,7 @@ pychecker --only --limit 1000 \
   --no-callinit --no-local --no-shadow --no-shadowbuiltin \
   --no-import --no-miximport --no-pkgimport --no-reimport \
   --no-argsused --no-varargsused --no-override \
+  $NON_STRICT_OPTIONS \
   anaconda anaconda *.py textw/*.py iw/*.py installclasses/*.py isys/*.py | \
   egrep -v "`cat $FALSE_POSITIVES | tr '\n' '|'`" > pychecker-log
 
