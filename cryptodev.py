@@ -163,6 +163,20 @@ class LUKSDevice:
         if not device:
             raise ValueError, "Cannot open mapping without a device."
 
+        # zero out the 1MB at the beginning and end of the device in the
+        # hope that it will wipe any metadata from filesystems that
+        # previously occupied this device
+        log.debug("zeroing out beginning and end of %s..." % device)
+        try:
+            fd = os.open("%s/%s" % (devPrefix, device), os.O_RDWR)
+            buf = '\0' * 1024 * 1024
+            os.write(fd, buf)
+            os.lseek(fd, -1024 * 1024, 2)
+            os.write(fd, buf)
+            os.close(fd)
+        except Exception, e:
+            log.error("error zeroing out %s/%s: %s" % (devPrefix, device, e))
+
         log.info("formatting %s as %s" % (device, self.getScheme()))
         p = os.pipe()
         os.write(p[1], "%s\n" % (self.passphrase,))
