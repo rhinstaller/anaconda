@@ -422,6 +422,16 @@ class AnacondaYum(YumSorter):
                         self._baseRepoURL = None
 
                 isys.mount(m[4:], self.tree, "nfs")
+
+                # This really should be fixed in loader instead but for now see
+                # if there's images and if so go with this being an NFSISO
+                # install instead.
+                images = findIsoImages(self.tree, self.anaconda.intf.messageWindow)
+                if images != {}:
+                    isys.umount(self.tree, removeDir=0)
+                    self.anaconda.methodstr = "nfsiso:%s" % m[4:]
+                    self.configBaseURL()
+                    return
             elif m.startswith("cdrom:"):
                 self._switchCD(1)
                 self.mediagrabber = self.mediaHandler
