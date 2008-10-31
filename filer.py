@@ -66,7 +66,7 @@ class AbstractFiler(object):
        ValueError         -- For all other operations where the client
                              supplied values are not correct.
     """
-    def __init__(self, bugUrl=None, develVersion=None):
+    def __init__(self, bugUrl=None, develVersion=None, defaultProduct=None):
         """Create a new AbstractFiler instance.  This method need not be
            overridden by subclasses.
 
@@ -75,6 +75,9 @@ class AbstractFiler(object):
                            the development version.  This is used in case
                            anaconda attempts to file bugs against invalid
                            versions.  It need not be set.
+           defaultProduct -- The product bugs should be filed against, should
+                             anaconda get an invalid product name from the
+                             boot media.  This must be set.
         """
         self.bugUrl = bugUrl
         self.develVersion = develVersion
@@ -108,6 +111,14 @@ class AbstractFiler(object):
            invalid IDs.
         """
         raise NotImplementedError
+
+    def getproduct(self, prod):
+        """Verify that prod is a valid product name.  If it is, return that
+           same product name.  If not, return self.defaultProduct.  This method
+           queries the bug filing system for a list of valid products.  It must
+           be provided by all subclasses.
+       """
+       raise NotImplementedError
 
     def getversion(self, ver, prod):
         """Verify that ver is a valid version number for the product name prod.
@@ -286,8 +297,9 @@ class BugzillaFiler(AbstractFiler):
         except socket.error, e:
             raise CommunicationError(str(e))
 
-    def __init__(self, bugUrl=None, develVersion=None):
-        AbstractFiler.__init__(self, bugUrl=bugUrl, develVersion=develVersion)
+    def __init__(self, bugUrl=None, develVersion=None, defaultProduct=None):
+        AbstractFiler.__init__(self, bugUrl=bugUrl, develVersion=develVersion,
+                               defaultProduct=defaultProduct)
         self._bz = None
 
     def login(self, username, password):
@@ -310,6 +322,11 @@ class BugzillaFiler(AbstractFiler):
                 whiteboards.append((wb, val))
                 kwargs.pop(key)
 
+            if key == "platform":
+                platformLst = self.__withBugzillaDo(lambda b: b._proxy.Bug.legal_values({'field': 'platform'}))
+                if not val in platformLst:
+                    kwargs[key] = platformList[0]
+
         bug = self.__withBugzillaDo(lambda b: b.createbug(**kwargs))
         for (wb, val) in whiteboards:
             bug.setwhiteboard(val, which=wb)
@@ -322,6 +339,16 @@ class BugzillaFiler(AbstractFiler):
     def getbugs(self, idlist):
         lst = self.__withBugzillaDo(lambda b: b.getbugs(idlist))
         return map(lambda b: BugzillaBug(self, bug=b), lst)
+
+    def getproduct(self, prod):
+        details = self.__withBugzillaDo(lambda b: b.getproducts())
+        if prod not in details.keys():
+            if self.defaultProduct:
+                return self.defaultProduct
+            else:
+                raise ValueError, "The product %s is not valid and no defaultProduct is set." % prod
+        else:
+            return prod
 
     def getversion(self, ver, prod):
         details = self.__withBugzillaDo(lambda b: b._proxy.bugzilla.getProductDetails(prod))

@@ -50,7 +50,7 @@ class InstallClass(BaseInstallClass):
              (N_("Web Server"), ["web-server"])]
 
     bugFiler = BugzillaFiler(bugUrl="https://bugzilla.redhat.com/xmlrpc.cgi",
-                             develVersion="rawhide")
+                             develVersion="rawhide", defaultProduct="Fedora")
 
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:

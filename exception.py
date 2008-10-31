@@ -408,9 +408,8 @@ def saveToBugzilla(anaconda, exn, dest):
     if buglist is None:
         return False
 
-    # FIXME:  need to handle all kinds of errors here
     if len(buglist) == 0:
-        bug = withBugzillaDo(filer, lambda b: b.createbug(product=product.productName,
+        bug = withBugzillaDo(filer, lambda b: b.createbug(product=filer.getproduct(product.productName),
                                        component="anaconda",
                                        version=filer.getversion(product.productVersion,
                                                                 product.productName),
