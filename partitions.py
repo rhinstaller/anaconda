@@ -904,9 +904,14 @@ class Partitions:
             for part in partedUtils.get_lvm_partitions(disk):
                 partname = partedUtils.get_partition_name(part)
                 partrequest = self.getRequestByDeviceName(partname)
-                if partrequest.encryption is None and cryptodev.isLuks("/dev/%s" % partname):
-                    # we don't want to treat encrypted an PV like a PV if the
-                    # user chose not to provide a passphrase for this device
+                if partrequest.encryption is None and \
+                   cryptodev.isLuks("/dev/%s" % partname) and \
+                   not self.encryptedDevices.get(partname):
+                    log.debug("ignoring PV %s since we cannot access it's contents" % partname)
+                    # We don't want to treat an encrypted PV like a PV if the
+                    # user chose not to provide a passphrase for this device.
+                    # However, if the LUKS device belongs to a just-deleted
+                    # request then we know it is available.
                     continue
                 used = 0
                 for volgroup in volgroups:
