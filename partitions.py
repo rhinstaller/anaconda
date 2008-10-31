@@ -104,7 +104,7 @@ def partitioningComplete(anaconda):
             continue
 
         if request.encryption and request.encryption.format:
-            if anaconda.isKickstart and request.passphrase:
+            if anaconda.isKickstart and request.encryption.passphrase:
                 # they set a passphrase for this device explicitly
                 pass
             elif partitions.encryptionPassphrase:
