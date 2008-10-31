@@ -31,6 +31,7 @@ makeBootImages() {
 	$GENINITRDSZ $sz $TOPDESTPATH/images/initrd.size
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
 
+	cp -v $BOOTDISKDIR/redhat.exec $TOPDESTPATH/images/redhat.exec
 	cp -v $BOOTDISKDIR/generic.prm $TOPDESTPATH/images/generic.prm
 	cp -v $BOOTDISKDIR/generic.ins $TOPDESTPATH/generic.ins
 
