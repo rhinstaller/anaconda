@@ -325,7 +325,7 @@ class BugzillaFiler(AbstractFiler):
             if key == "platform":
                 platformLst = self.__withBugzillaDo(lambda b: b._proxy.Bug.legal_values({'field': 'platform'}))
                 if not val in platformLst:
-                    kwargs[key] = platformList[0]
+                    kwargs[key] = platformLst[0]
 
         bug = self.__withBugzillaDo(lambda b: b.createbug(**kwargs))
         for (wb, val) in whiteboards:
