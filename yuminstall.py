@@ -911,6 +911,35 @@ class AnacondaYum(YumSorter):
             return True
         return False
 
+    def _pkgExists(self, pkg):
+        """Whether or not a given package exists in our universe."""
+        try:
+            pkgs = self.pkgSack.returnNewestByName(pkg)
+            return True
+        except yum.Errors.PackageSackError:
+            pass
+        try:
+            pkgs = self.rpmdb.returnNewestByName(pkg)
+            return True
+        except (IndexError, yum.Errors.PackageSackError):
+            pass
+        return False
+
+    def _groupHasPackages(self, grp):
+        # this checks to see if the given group has any packages available
+        # (ie, already installed or in the sack of available packages)
+        # so that we don't show empty groups.  also, if there are mandatory
+        # packages and we have none of them, don't show
+        for pkg in grp.mandatory_packages.keys():
+            if self._pkgExists(pkg):
+                return True
+        if len(grp.mandatory_packages) > 0:
+            return False
+        for pkg in grp.default_packages.keys() + grp.optional_packages.keys():
+            if self._pkgExists(pkg):
+                return True
+        return False
+
 class YumBackend(AnacondaBackend):
     def __init__ (self, anaconda):
         AnacondaBackend.__init__(self, anaconda)

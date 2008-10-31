@@ -120,28 +120,11 @@ def _selectPackage(ayum, group, pkg):
     else:
         map(lambda x: x.groups.append(grpid), txmbrs)
 
-def _groupHasPackages(grp, ayum):
-    # this checks to see if the given group has any packages available
-    # (ie, already installed or in the sack of available packages)
-    # so that we don't show empty groups
-    for p in grp.packages:
-        try:
-            pkgs = ayum.pkgSack.returnNewestByName(p)
-            return True
-        except yum.Errors.PackageSackError:
-            pass
-        try:
-            pkgs = ayum.rpmdb.returnNewestByName(p)
-            return True
-        except (IndexError, yum.Errors.PackageSackError):
-            pass
-    return False
-
 def _catHasGroupWithPackages(cat, ayum):
     grps = map(lambda x: ayum.comps.return_group(x),
                    filter(lambda x: ayum.comps.has_group(x), cat.groups))
     for g in grps:
-        if _groupHasPackages(g, ayum):
+        if ayum._groupHasPackages(g):
             return True
     return False
 
@@ -373,7 +356,7 @@ class GroupSelector:
                    filter(lambda x: self.ayum.comps.has_group(x), groups))
         grps.sort(ui_comps_sort)
         for grp in grps:
-            if not _groupHasPackages(grp, self.ayum):
+            if not self.ayum._groupHasPackages(grp):
                 continue
             s = "<span size=\"large\" weight=\"bold\">%s</span>" % xmltrans(grp.name, grp.translated_name)
 
@@ -488,7 +471,7 @@ class GroupSelector:
         # conceivably should be handled by yum
         grps = {}
         for g in self.ayum.comps.groups:
-            if g.user_visible and _groupHasPackages(g, self.ayum):
+            if g.user_visible and self.ayum._groupHasPackages(g):
                 grps[g.groupid] = g
 
         for cat in self.ayum.comps.categories:

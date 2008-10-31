@@ -75,6 +75,8 @@ class GroupSelectionWindow:
         # FIXME: this is very yum backend specific...
         groups = filter(lambda x: x.user_visible,
                         anaconda.backend.ayum.comps.groups)
+        groups = filter(lambda x: anaconda.backend.ayum.._groupHasPackages(x),
+                        groups)
         groups.sort(ui_comps_sort)
         ct = CheckboxTree(height = 6, scroll = (len(groups) > 6))
         for grp in groups:
