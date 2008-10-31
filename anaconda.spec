@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.151
+Version: 11.1.2.152
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,14 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 31 2008 Joel Granados <jgranado@redhat.com> 11.1.2.152-1
+- Prepare environemnt so the AutoDD is properly detected (msivak).
+  Resolves: rhbz:#316481
+- Don't write luks passphrases to anaconda-ks.cfg (dlehman).
+  Resolves: rhbz:#468907
+- Write zeros to remove metadata before running luksFormat (dlehman).
+  Resolves: rhbz:#469177
+
 * Wed Oct 29 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.151-1
 - Write correct OPTIONS line to ifcfg files on s390 for layer2 (dcantrell)
   Resolves: rhbz#468755
