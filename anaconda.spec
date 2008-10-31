@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.53
+Version: 11.4.1.54
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,13 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 30 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.54-1
+- Call startNewt earlier than network bring up (#469171). (clumens)
+- Write out the path to the repo, not anaconda-ks.cfg (#467753). (clumens)
+- Allow specifying devices by path if they're files (#468504) (katzj)
+- Fix the last pychecker warnings in master (hdegoede)
+- Add --strict option to runpychecker.sh (hdegoede)
+
 * Wed Oct 29 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.53-1
 - Don't sleep(5) after xrandr (ajax)
 - Force DPI to 96 even harder (#458738) (ajax)
