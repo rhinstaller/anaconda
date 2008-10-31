@@ -1649,13 +1649,13 @@ class PartitionTypeWindow:
             try:
                 return self.addZFCPDriveDialog(screen)
             except ValueError, e:
-                ButtonChoiceWindow(screen, _("Error"), e)
+                ButtonChoiceWindow(screen, _("Error"), str(e))
                 return INSTALL_BACK
         else:
             try:
                 return self.addIscsiDriveDialog(screen)
             except ValueError, e:
-                ButtonChoiceWindow(screen, _("Error"), e)
+                ButtonChoiceWindow(screen, _("Error"), str(e))
                 return INSTALL_BACK
 
     def addZFCPDriveDialog(self, screen):
