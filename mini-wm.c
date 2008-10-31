@@ -25,6 +25,7 @@
 
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#include <X11/extensions/Xcomposite.h>
 
 static gboolean
 is_focusable (Window window)
@@ -92,6 +93,9 @@ void
 mini_wm_start (void)
 {
   XWindowAttributes attrs;
+
+  XCompositeRedirectSubwindows (GDK_DISPLAY(), GDK_ROOT_WINDOW(),
+				CompositeRedirectAutomatic);
 
   XGetWindowAttributes (GDK_DISPLAY(), GDK_ROOT_WINDOW(), &attrs);
   XSelectInput (GDK_DISPLAY(), GDK_ROOT_WINDOW(),
