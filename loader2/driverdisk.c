@@ -596,12 +596,21 @@ struct ddlist* findDriverDiskByLabel(void)
     blkid_dev_iterate bIter;
     blkid_dev bDev;
 
-    blkid_get_cache(&bCache, NULL);
-    blkid_probe_all(bCache);
+    if(blkid_get_cache(&bCache, NULL)<0){
+	logMessage(ERROR, _("Cannot initialize cache instance for blkid"));
+	return NULL;
+    }
+    if((res = blkid_probe_all(bCache))<0){
+	logMessage(ERROR, _("Cannot probe devices in blkid: %d"), res);
+	return NULL;
+    }
 
     bIter = blkid_dev_iterate_begin(bCache);
     blkid_dev_set_search(bIter, "LABEL", ddLabel);
     while((res = blkid_dev_next(bIter, &bDev))==0){
+        bDev = blkid_verify(bCache, bDev);
+	if(!bDev)
+	  continue;
 	logMessage(DEBUGLVL, _("Adding driver disc %s to the list of available DDs."), blkid_dev_devname(bDev));
 	ddDevice = ddlist_add(ddDevice, blkid_dev_devname(bDev));
 	/*blkid_free_dev(bDev); -- probably taken care of by the put cache call.. it is not exposed in the API */

@@ -4,5 +4,6 @@
 char **getPartitionsList(char * disk);
 int lenPartitionsList(char **list);
 void freePartitionsList(char **list);
+int createPartitionNodes();
 
 #endif

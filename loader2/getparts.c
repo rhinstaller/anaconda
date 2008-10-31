@@ -17,7 +17,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <errno.h>
 #include <ctype.h>
 #include <string.h>
@@ -152,6 +155,89 @@ int lenPartitionsList(char **list) {
     for (rc = 0, part = list; *part; rc++, part++);
 
     return rc;
+}
+
+/* Ensure all the device nodes from /proc/partitions exist in /dev
+ * returns number of partitions found
+ */
+int createPartitionNodes() {
+    FILE *f;
+    int numfound = 0;
+
+    f = fopen("/proc/partitions", "r");
+    if (!f) {
+	logMessage(ERROR, "getPartitionsList: could not open /proc/partitions");
+	return -1;
+    }
+
+    /* read through /proc/partitions and parse out partitions */
+    while (1) {
+	char *tmpptr, *pptr;
+	char tmpstr[4096];
+
+	tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
+
+	if (tmpptr) {
+	    char *a, *b;
+	    int toknum = 0;
+	    int major, minor;
+
+	    a = tmpstr;
+	    while (1) {
+		b = strsep(&a, " \n");
+
+		/* if no fields left abort */
+		if (!b)
+		    break;
+
+		/* if field was empty means we hit another delimiter */
+		if (!*b)
+		    continue;
+
+		/* make sure this is a valid partition line, should start */
+		/* with a numeral */
+		if (toknum == 0) {
+		    if (!isdigit(*b))
+			break;
+		    else
+		        major = atoi(b);
+		/* minor number */
+		} else if (toknum == 1) {
+		    if (!isdigit(*b))
+			break;
+		    else
+		        minor = atoi(b);
+		} else if (toknum == 2) {
+		    /* if size is exactly 1 then ignore it as an extended */
+		    if (!strcmp(b, "1"))
+			break;
+		} else if (toknum == 3) {
+		    /* this should be the partition name */
+		    /* now we need to see if this is the block device or */
+		    /* actually a partition name                         */
+		    if (!isPartitionName(b))
+			break;
+
+		    /* we found a partition! */
+		    pptr = (char *) malloc(strlen(b) + 7);
+		    sprintf(pptr, "/dev/%s", b);
+		    mknod(pptr, 0600 | S_IFBLK, makedev(major, minor));
+		    logMessage(INFO, "creating device node for %s as b %d %d", pptr, major, minor);
+		    free(pptr);
+
+		    numfound++;
+		    break;
+		}
+		toknum++;
+	    }
+	} else {
+	    break;
+	}
+    }
+
+    fclose(f);
+
+    return numfound;
 }
 
 /* frees partition list */

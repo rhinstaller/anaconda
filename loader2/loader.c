@@ -64,6 +64,7 @@
 #include "moduledeps.h"
 #include "modstubs.h"
 
+#include "getparts.h"
 #include "driverdisk.h"
 
 /* hardware stuff */
@@ -1577,21 +1578,6 @@ int main(int argc, char ** argv) {
     loaderData.modDepsPtr = &modDeps;
     loaderData.modInfo = modInfo;
 
-    if(FL_AUTOMODDISK(flags)){
-      logMessage(INFO, "Trying to detect vendor driver discs");
-      dd = findDriverDiskByLabel();
-      dditer = dd;
-      while(dditer){
-	if(loadDriverDiskFromPartition(&loaderData, dditer->device)){
-	  logMessage(ERROR, "Automatic driver disk loader failed for %s.", dditer->device);
-	}
-	else{
-	  logMessage(INFO, "Automatic driver disk loader succeeded for %s.", dditer->device);
-	}
-	dditer = dditer->next;
-      }
-      ddlist_free(dd);
-    }
 
     if (!canProbeDevices() || FL_MODDISK(flags)) {
         startNewt();
@@ -1612,7 +1598,30 @@ int main(int argc, char ** argv) {
      */
     earlyModuleLoad(modInfo, modLoaded, modDeps, 0);
 
+    /* The detection requires at least the basic drivers and device nodes to be present... */
     busProbe(modInfo, modLoaded, modDeps, 0);
+    createPartitionNodes();
+
+    if(FL_AUTOMODDISK(flags)){
+      mkdirChain("/etc/blkid");
+      logMessage(INFO, "Trying to detect vendor driver discs");
+      dd = findDriverDiskByLabel();
+      dditer = dd;
+      while(dditer){
+	if(loadDriverDiskFromPartition(&loaderData, dditer->device)){
+	  logMessage(ERROR, "Automatic driver disk loader failed for %s.", dditer->device);
+	}
+	else{
+	  logMessage(INFO, "Automatic driver disk loader succeeded for %s.", dditer->device);
+	}
+	dditer = dditer->next;
+      }
+      ddlist_free(dd);
+
+      //rescan after the DD loades
+      busProbe(modInfo, modLoaded, modDeps, 0); 
+    }
+
 
     /* JKFIXME: we'd really like to do this before the busprobe, but then
      * we won't have network devices available (and that's the only thing
