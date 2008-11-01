@@ -27,10 +27,10 @@ log = logging.getLogger("anaconda")
 
 class Timezone:
     def writeKS(self, f):
-    f.write("timezone")
-    if self.utc:
-        f.write(" --utc")
-    f.write(" %s\n" % self.tz)
+        f.write("timezone")
+        if self.utc:
+            f.write(" --utc")
+        f.write(" %s\n" % self.tz)
 
     def write(self, instPath):
         # dont do this in test mode!
