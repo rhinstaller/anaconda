@@ -25,10 +25,6 @@ from flags import flags
 import logging
 log = logging.getLogger("anaconda")
 
-def bool(val):
-    if val: return "true"
-    return "false"
-
 class Timezone:
 
     def writeKS(self, f):
