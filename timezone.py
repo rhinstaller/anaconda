@@ -26,19 +26,18 @@ import logging
 log = logging.getLogger("anaconda")
 
 class Timezone:
-
     def writeKS(self, f):
-	f.write("timezone")
-	if self.utc:
-	    f.write(" --utc")
-	f.write(" %s\n" % self.tz)
+    f.write("timezone")
+    if self.utc:
+        f.write(" --utc")
+    f.write(" %s\n" % self.tz)
 
     def write(self, instPath):
-	# dont do this in test mode!
-	if flags.test:
-	    return
-	
-	fromFile = instPath + "/usr/share/zoneinfo/" + self.tz
+        # dont do this in test mode!
+        if flags.test:
+            return
+
+        fromFile = instPath + "/usr/share/zoneinfo/" + self.tz
 
         if not os.access(fromFile, os.R_OK):
             log.error("Timezone to be copied (%s) doesn't exist" % fromFile)
@@ -48,34 +47,34 @@ class Timezone:
             except OSError, (errno, msg):
                 log.error("Error copying timezone (from %s): %s" % (fromFile, msg))
 
-	f = open(instPath + "/etc/sysconfig/clock", "w")
+        f = open(instPath + "/etc/sysconfig/clock", "w")
 
-	f.write('ZONE="%s"\n' % self.tz)
-	f.close()
+        f.write('ZONE="%s"\n' % self.tz)
+        f.close()
 
-	try:
-	    f = open(instPath + "/etc/adjtime", "r")
-	    lines = f.readlines()
-	    f.close()
-	except:
-	    lines = [ "0.0 0 0.0\n", "0\n" ]
+        try:
+            f = open(instPath + "/etc/adjtime", "r")
+            lines = f.readlines()
+            f.close()
+        except:
+            lines = [ "0.0 0 0.0\n", "0\n" ]
 
-	f = open(instPath + "/etc/adjtime", "w")
-	f.write(lines[0])
-	f.write(lines[1])
-	if self.utc:
-	    f.write("UTC\n")
-	else:
-	    f.write("LOCAL\n")
-	f.close()
+        f = open(instPath + "/etc/adjtime", "w")
+        f.write(lines[0])
+        f.write(lines[1])
+        if self.utc:
+            f.write("UTC\n")
+        else:
+            f.write("LOCAL\n")
+        f.close()
 
     def getTimezoneInfo(self):
-	return (self.tz, self.utc)
+        return (self.tz, self.utc)
 
     def setTimezoneInfo(self, timezone, asUtc = 0):
-	self.tz = timezone
-	self.utc = asUtc
+        self.tz = timezone
+        self.utc = asUtc
 
     def __init__(self):
-	self.tz = "America/New_York"
-	self.utc = 0
+        self.tz = "America/New_York"
+        self.utc = 0
