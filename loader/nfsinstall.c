@@ -345,16 +345,9 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 
     substr = strstr(dir, ".img");
     if (!substr || (substr && *(substr+4) != '\0')) {
-        if (mountOpts) {
-            if (asprintf(&(loaderData->instRepo), "nfs:%s:%s:%s", host, dir, mountOpts) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-        } else {
-            if (asprintf(&(loaderData->instRepo), "nfs:%s:%s", host, dir) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
+        if (asprintf(&(loaderData->instRepo), "nfs:%s:%s", host, dir) == -1) {
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+            abort();
         }
 
         logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
