@@ -621,6 +621,7 @@ if __name__ == "__main__":
     graphical_failed = 0
     instClass = None                # the install class to use
     vncS = vnc.VncServer()          # The vnc Server object.
+    vncS.anaconda = anaconda
     xserver_pid = None
 
     (opts, args) = parseOptions()

@@ -202,6 +202,36 @@ def hasActiveNetDev():
     except:
         return False
 
+# Return a list of device names (e.g., eth0) for all active devices.
+# Returning a list here even though we will almost always have one
+# device.  NM uses lists throughout its D-Bus communication, so trying
+# to follow suit here.  Also, if this uses a list now, we can think
+# about multihomed hosts during installation later.
+def getActiveNetDevs():
+    active_devs = set()
+
+    bus = dbus.SystemBus()
+    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+    nm_props_iface = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
+
+    active_connections = nm_props_iface.Get(isys.NM_MANAGER_IFACE, "ActiveConnections")
+
+    for connection in active_connections:
+        active_connection = bus.get_object(isys.NM_SERVICE, connection)
+        active_connection_props_iface = dbus.Interface(active_connection, isys.DBUS_PROPS_IFACE)
+        devices = active_connection_props_iface.Get(isys.NM_MANAGER_IFACE, 'Devices')
+
+        for device_path in devices:
+            device = bus.get_object(isys.NM_SERVICE, device_path)
+            device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
+
+            interface_name = device_props_iface.Get(isys.NM_MANAGER_IFACE, 'Interface')
+            active_devs.add(interface_name)
+
+    ret = list(active_devs)
+    ret.sort()
+    return ret
+
 class NetworkDevice(SimpleConfigFile):
     def __str__(self):
         s = ""

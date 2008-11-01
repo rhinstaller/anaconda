@@ -56,6 +56,7 @@ class VncServer:
         self.pw_file = pw_file
         self.pw_init_file = pw_init_file
         self.connxinfo = None
+        self.anaconda = None
         self.log = logging.getLogger("anaconda.stdout")
 
     def recoverVNCPassword(self):
@@ -100,52 +101,36 @@ class VncServer:
         # see if we can sniff out network info
         netinfo = network.Network()
 
-        # Look for the first configured interface and use its IP address for
-        # the computer to connect to.
         devices = netinfo.netdevices
-        list = devices.keys()
-        list.sort()
-        dev = devices[list[0]]
+        active_devs = network.getActiveNetDevs()
 
-        try:
-            self.ip = isys.getIPAddress(dev.get("DEVICE"))
-            log.info("ip of %s is %s" % (dev.get("DEVICE"), self.ip))
+        if active_devs != []:
+            dev = devices[active_devs[0]]
 
-            if self.ip == "127.0.0.1" or self.ip == "::1":
-                self.ip = None
-        except Exception, e:
-            log.warning("Got an exception trying to get the self.ip addr "
-                        "of %s: %s" % (dev.get("DEVICE"), e))
-
-        # If we have a real hostname that resolves against configured DNS
-        # servers, use that for the name to connect to.
-        if netinfo.hostname != "localhost.localdomain":
-            if netinfo.lookupHostname() is not None:
-                self.name = netinfo.hostname
-            elif self.ip is None:
-                # If we get here and there's no valid IP address, just use the
-                # hostname and hope for the best (better than displaying nothing)
-                self.name = netinfo.hostname
-
-        if self.name is not None:
-            self.connxinfo = "%s:%s" % (self.name, self.display)
-
-        if self.ip is not None:
             try:
-                tmp = socket.inet_pton(socket.AF_INET6, self.ip)
-                family = socket.AF_INET6
-            except socket.error:
-                family = socket.AF_INET
+                self.ip = isys.getIPAddress(dev.get("DEVICE"))
+                log.info("ip of %s is %s" % (dev.get("DEVICE"), self.ip))
 
-            if family == socket.AF_INET6:
-                ipstr = "[%s]" % self.ip
-            else:
-                ipstr = self.ip
+                if self.ip == "127.0.0.1" or self.ip == "::1":
+                    self.ip = None
+            except Exception, e:
+                log.warning("Got an exception trying to get the self.ip addr "
+                            "of %s: %s" % (dev.get("DEVICE"), e))
+        else:
+            self.ip = None
 
-            if self.connxinfo is None:
-                self.connxinfo = "%s:%s" % (ipstr, self.display)
-            else:
-                self.connxinfo += " (%s)" % ipstr
+        self.name = network.getDefaultHostname(self.anaconda)
+        ipstr = self.ip
+
+        if self.ip.find(':') != -1:
+            ipstr = "[%s]" % (self.ip,)
+
+        if (self.name is not None) and (not self.name.startswith('localhost')) and (ipstr is not None):
+            self.connxinfo = "%s:%s (%s)" % (socket.getfqdn(name=self.name), self.display, ipstr,)
+        elif ipstr is not None:
+            self.connxinfo = "%s:%s" % (ipstr, self.display,)
+        else:
+            self.connxinfo = None
 
         # figure out product info
         if self.name is not None:
