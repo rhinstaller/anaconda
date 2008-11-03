@@ -81,6 +81,7 @@ class AbstractFiler(object):
         """
         self.bugUrl = bugUrl
         self.develVersion = develVersion
+        self.defaultProduct = defaultProduct
 
     def login(self, username, password):
         """Using the given username and password, attempt to login to the
