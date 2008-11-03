@@ -626,11 +626,10 @@ int loadDriverDiskFromPartition(struct loaderData_s *loaderData, char* device)
 {
     int rc;
 
-    devMakeInode(device, "/tmp/dddev");
     logMessage(INFO, "trying to mount %s", device);
-    if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", IMOUNT_RDONLY, NULL)) {
-      if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", IMOUNT_RDONLY, NULL)) {
-	if (doPwMount("/tmp/dddev", "/tmp/drivers", "iso9660", IMOUNT_RDONLY, NULL)) {
+    if (doPwMount(device, "/tmp/drivers", "vfat", IMOUNT_RDONLY, NULL)) {
+      if (doPwMount(device, "/tmp/drivers", "ext2", IMOUNT_RDONLY, NULL)) {
+	if (doPwMount(device, "/tmp/drivers", "iso9660", IMOUNT_RDONLY, NULL)) {
 	    logMessage(ERROR, _("Failed to mount driver disk."));
 	    return -1;
 	}
