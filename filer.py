@@ -117,8 +117,8 @@ class AbstractFiler(object):
            same product name.  If not, return self.defaultProduct.  This method
            queries the bug filing system for a list of valid products.  It must
            be provided by all subclasses.
-       """
-       raise NotImplementedError
+        """
+        raise NotImplementedError
 
     def getversion(self, ver, prod):
         """Verify that ver is a valid version number for the product name prod.
