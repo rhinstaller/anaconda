@@ -1216,6 +1216,15 @@ class Partitions:
                               "megabytes which is usually too small to "
                               "install %s.") % (productName,))
 
+        if (slash and self.anaconda and 
+            (slash.getActualSize(self, diskset) < 
+             self.anaconda.backend.getMinimumSizeMB("/"))):
+            errors.append(_("Your %s partition is less than %s "
+                            "megabytes which is lower than recommended "
+                            "for a normal %s install.")
+                          %("/", self.anaconda.backend.getMinimumSizeMB("/"), 
+                            productName))
+
         def getBaseReqs(reqs):
             n = 0
             while not reduce(lambda x,y: x and (y.type not in [REQUEST_RAID, REQUEST_LV]),
