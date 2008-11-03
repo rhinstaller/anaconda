@@ -26,7 +26,7 @@ from constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-from gui import setupTreeViewFixupIdleHandler
+from gui import setupTreeViewFixupIdleHandler, StayOnScreen
 
 class LanguageWindow (InstallWindow):
 
@@ -39,7 +39,9 @@ class LanguageWindow (InstallWindow):
         anaconda = self.ics.getICW().anaconda
 
         (model, iter) = self.listView.get_selection().get_selected()
-	assert iter, "No selection found on language list!"
+        if not iter:
+            raise StayOnScreen
+
 	choice = self.listStore.get_value(iter, 1)
         self.lang = self.instLang.getNickByName(choice)
 
