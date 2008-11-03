@@ -188,6 +188,10 @@ class AnacondaBackend:
     def kernelVersionList(self, rootPath="/"):
         return []
 
+    def getMinimumSizeMB(self, part):
+        """Return the minimal size for part in megabytes if we can."""
+        return 0
+
     def doBackendSetup(self, anaconda):
         log.warning("doBackendSetup not implemented for backend!")
         raise NotImplementedError

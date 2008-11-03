@@ -366,6 +366,11 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
     def kernelVersionList(self, rootPath = "/"):
         return packages.rpmKernelVersionList(rootPath)
 
+    def getMinimumSizeMB(self, part):
+        if part == "/":
+            return self._getLiveSizeMB()
+        return 0
+
     def doBackendSetup(self, anaconda):
         # ensure there's enough space on the rootfs
         # FIXME: really, this should be in the general sanity checking, but
