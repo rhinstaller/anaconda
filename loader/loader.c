@@ -1903,11 +1903,10 @@ int main(int argc, char ** argv) {
     /* FIXME: this is a bit of a hack */
     loaderData.modInfo = modInfo;
 
-    if (!FL_CMDLINE(flags))
+    if (FL_MODDISK(flags)) {
         startNewt();
-
-    if (FL_MODDISK(flags))
         loadDriverDisks(DEVICE_ANY, &loaderData);
+    }
 
     if (!access("/dd.img", R_OK)) {
         logMessage(INFO, "found /dd.img, loading drivers");
@@ -1954,6 +1953,9 @@ int main(int argc, char ** argv) {
                        __LINE__, rc, error_str ? error_str : "unknown");
         }
     }
+
+    if (!FL_CMDLINE(flags))
+        startNewt();
 
     /* can't run gdbserver until after network modules are loaded */
     doGdbserver(&loaderData);
