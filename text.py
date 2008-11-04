@@ -496,6 +496,8 @@ class InstallInterface:
         return (passphrase, isglobal)
 
     def enableNetwork(self, anaconda):
+        if len(anaconda.id.network.netdevices) == 0:
+            return False
         from netconfig_text import NetworkConfiguratorText
         w = NetworkConfiguratorText(self.screen, anaconda)
         ret = w.run()
