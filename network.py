@@ -448,7 +448,7 @@ class Network:
                 if dev.get('bootproto').lower() == 'dhcp':
                     f.write(" --bootproto dhcp")
                     if dev.get('dhcpclass'):
-			f.write(" --class %s" % dev.get('dhcpclass'))
+			f.write(" --dhcpclass %s" % dev.get('dhcpclass'))
 		    if self.overrideDHCPhostname:
 			if (self.hostname and
 			    self.hostname != "localhost.localdomain"):
