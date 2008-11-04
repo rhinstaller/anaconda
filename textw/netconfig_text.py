@@ -173,6 +173,7 @@ class NetworkConfiguratorText:
         # Call these functions to set initial UI state.
         self._ipv4Toggled()
         #self._ipv6Toggled()
+        self._dhcpToggled()
 
         netdevs = self.anaconda.id.network.available()
 
