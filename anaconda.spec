@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.54
+Version: 11.4.1.55
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,36 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov 03 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.55-1
+- Revert "Make sure dialog deletions take effect sooner (#455676)." (clumens)
+- Don't set up the launcher for the installer on XO (katzj)
+- Whitespace cleanups for timezone.py (dcantrell)
+- Do not store mount options in loaderData->instRepo (#467760) (dcantrell)
+- Make sure we look up the IP address for the correct device (#469439)
+  (dcantrell)
+- Remove unused bool() function. (dcantrell)
+- Check for required space for / on live installs (#468867) (katzj)
+- Add a basic method for checking the minimal size needed for a backend
+  (katzj)
+- Fix typo that somehow snuck in (katzj)
+- If there's no language selected, don't traceback (#469578). (clumens)
+- Improve filtering of non-available groups (#469438) (katzj)
+- filer.py: set defaultProduct in __init__ (hdegoede)
+- Fix indentation error in filer.py (again) (hdegoede)
+- Rebuild keymaps to get rid of trq.map (#469433). (clumens)
+- Provide sample punch card reader script for s390x (#462953) (dcantrell)
+- Fix a typo that shouldn't have even gotten though. (clumens)
+- Check that the platform and product are also correct (#469367). (clumens)
+- Remove cio_ignore functionality for s390x (dcantrell)
+- Remove bootdisk/s390 (dcantrell)
+- If method=nfs: is given, check if it's really an NFSISO install (#468885).
+  (clumens)
+- Get the right list elements for the iscsi text interface (#466902).
+  (clumens)
+- Don't traceback when displaying error messages (#469372). (clumens)
+- Make sure we differentiate locked luks devs from deleted ones. (dlehman)
+- Fix a typo that breaks kickstart with encryption. (#469318) (dlehman)
+
 * Thu Oct 30 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.54-1
 - Call startNewt earlier than network bring up (#469171). (clumens)
 - Write out the path to the repo, not anaconda-ks.cfg (#467753). (clumens)
