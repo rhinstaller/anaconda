@@ -453,6 +453,8 @@ int readNetConfig(char * device, iface_t * iface,
         if (err) {
             logMessage(ERROR, "failed to write %s data for %s (%d)",
                        SYSCONFIG_PATH, iface->device, err);
+            iface->ipv4method = IPV4_UNUSED_METHOD;
+            iface->ipv6method = IPV6_UNUSED_METHOD;
             return LOADER_BACK;
         }
 
@@ -463,6 +465,8 @@ int readNetConfig(char * device, iface_t * iface,
             newtWinMessage(_("Network Error"), _("Retry"),
                            _("There was an error configuring your network "
                              "interface."));
+            iface->ipv4method = IPV4_UNUSED_METHOD;
+            iface->ipv6method = IPV6_UNUSED_METHOD;
             return LOADER_BACK;
         }
     }
