@@ -1084,7 +1084,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             else:
                 txt = _("Retrieving installation information for %s...")%(repo.name)
 
-                waitwin = anaconda.intf.waitWindow(_("Installation Progress"), txt)
+            waitwin = anaconda.intf.waitWindow(_("Installation Progress"), txt)
 
             while True:
                 try:
