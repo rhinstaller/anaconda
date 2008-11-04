@@ -321,14 +321,16 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	migtypes = origrequest.origfstype.getMigratableFSTargets()
 
 	maintable.attach(migraterb, 0, 1, row, row + 1)
+        lukscb = gtk.CheckButton(_("_Encrypt"))
 	migfstypeCombo = createFSTypeMenu(ofstype, None, None,
+                                          lukscb = lukscb,
                                           availablefstypes = migtypes)
 	migfstypeCombo.set_sensitive(migraterb.get_active())
 	maintable.attach(migfstypeCombo, 1, 2, row, row + 1)
 	row = row + 1
 
 	migraterb.connect("toggled", formatOptionCB,
-                          (migfstypeCombo, mountCombo, ofstype))
+                          (migfstypeCombo, mountCombo, ofstype, lukscb))
     else:
 	migraterb = None
 	migfstypeCombo = None
