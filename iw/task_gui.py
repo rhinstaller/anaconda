@@ -199,7 +199,7 @@ class RepoEditor:
                     (device, fstype, path) = m.split(":")
 
                 # find device in self.partitionComboBox and select it
-                self.directoryChooser.set_current_folder(path)
+                self.directoryChooser.set_current_folder("%s%s" % (self.anaconda.backend.ayum.isodir, path))
         else:
             self.typeComboBox.set_active(0)
             self.proxyCheckbox.set_active(False)
