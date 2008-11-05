@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.152
+Version: 11.1.2.153
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,16 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 5 2008 Joel Granados <jgranado@redhat.com> 11.1.2.153-1
+- Use struct audit_reply instead of struct auditd_reply_list (hdegoede).
+  Resolves: rhbz:#469873
+- The Encryption button was missing in one migrate case (msivak).
+  Resolves:#469849
+- kickstart expects --dhcpclass instead of --class (clumens).
+  Resolves: rhbz:#468972
+- Fix the mounting procedure for autodetected driverdiscs (msivak).
+  Resolves: rhbz:#316481
+
 * Fri Oct 31 2008 Joel Granados <jgranado@redhat.com> 11.1.2.152-1
 - Prepare environemnt so the AutoDD is properly detected (msivak).
   Resolves: rhbz:#316481
