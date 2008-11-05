@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.153
+Version: 11.1.2.154
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 05 2008 Chris Lumens <clumens@redhat.com> 11.1.2.154-1
+- Include the new fnic driver (jgranado).
+  Related: rhbz#462387
+- Run the busProbe after we have all driver disks loaded (msivak).
+  Related: rhbz#316481
+
 * Wed Nov 5 2008 Joel Granados <jgranado@redhat.com> 11.1.2.153-1
 - Use struct audit_reply instead of struct auditd_reply_list (hdegoede).
   Resolves: rhbz:#469873
