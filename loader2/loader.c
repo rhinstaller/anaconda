@@ -1590,16 +1590,7 @@ int main(int argc, char ** argv) {
         getDDFromSource(&loaderData, "path:/dd.img");
     }
     
-    /* this allows us to do an early load of modules specified on the
-     * command line to allow automating the load order of modules so that
-     * eg, certain scsi controllers are definitely first.
-     * FIXME: this syntax is likely to change in a future release
-     *        but is done as a quick hack for the present.
-     */
-    earlyModuleLoad(modInfo, modLoaded, modDeps, 0);
-
-    /* The detection requires at least the basic drivers and device nodes to be present... */
-    busProbe(modInfo, modLoaded, modDeps, 0);
+    /* The detection requires at least the basic device nodes to be present... */
     createPartitionNodes();
 
     if(FL_AUTOMODDISK(flags)){
@@ -1617,11 +1608,16 @@ int main(int argc, char ** argv) {
 	dditer = dditer->next;
       }
       ddlist_free(dd);
-
-      //rescan after the DD loades
-      busProbe(modInfo, modLoaded, modDeps, 0); 
     }
-
+    
+    /* this allows us to do an early load of modules specified on the
+     * command line to allow automating the load order of modules so that
+     * eg, certain scsi controllers are definitely first.
+     * FIXME: this syntax is likely to change in a future release
+     *        but is done as a quick hack for the present.
+     */
+    earlyModuleLoad(modInfo, modLoaded, modDeps, 0);
+    busProbe(modInfo, modLoaded, modDeps, 0);
 
     /* JKFIXME: we'd really like to do this before the busprobe, but then
      * we won't have network devices available (and that's the only thing
