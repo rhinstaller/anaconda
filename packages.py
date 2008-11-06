@@ -298,6 +298,10 @@ def rpmKernelVersionList(rootPath = "/"):
         if v == "" or tag == "":
             log.warning("Unable to determine kernel type/version for %s-%s-%s.%s" %(h['name'], h['version'], h['release'], h['arch'])) 
             continue
+        # rpm really shouldn't return the same kernel more than once... but
+        # sometimes it does (#467822)
+        if (v, h['arch'], tag) in versions:
+            continue
         versions.append( (v, h['arch'], tag) )
 
     return versions
