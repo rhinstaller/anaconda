@@ -570,7 +570,7 @@ class AnacondaYum(YumSorter):
                     self.repos.add(repo)
                     log.info("added repository %s with source URL %s" % (repo.name, repo.baseurl))
                 except yum.Errors.DuplicateRepoError, e:
-                    log.warning("ignoring duplicate repository %s with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))
+                    log.warning("ignoring duplicate repository %s with source URL %s" % (repo.name, repo.baseurl or repo.mirrorlist))
 
         if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repoList:

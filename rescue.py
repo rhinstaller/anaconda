@@ -27,6 +27,7 @@ import fsset
 import shutil
 import fcntl
 import termios
+import time
 
 from rhpl.translate import _
 

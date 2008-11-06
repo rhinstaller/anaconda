@@ -291,7 +291,7 @@ class iscsi(object):
 
             for pidstr in psout.split():
                 pid = string.atoi(pidstr)
-                login.info("killing %s %d" % (ISCSID, pid))
+                log.info("killing %s %d" % (ISCSID, pid))
 
                 os.kill(pid, signal.SIGKILL)
 

@@ -277,8 +277,8 @@ class LuksPassphraseWindow:
                     continue
             else:
                 passphrase = self.passphrase
-                self.passphraseentry.set(self.passphrase)
-                self.confirmentry.set(self.passphrase)
+                passphraseentry.set(self.passphrase)
+                confirmentry.set(self.passphrase)
 
             retrofit = False
             if self.preexist:

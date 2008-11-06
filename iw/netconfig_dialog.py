@@ -22,6 +22,9 @@ from rhpl.translate import _, N_
 import gui
 import network
 import isys
+import logging
+
+log = logging.getLogger("anaconda")
 
 class NetworkConfigurator:
     def __init__(self, network):

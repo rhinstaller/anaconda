@@ -800,7 +800,7 @@ class ExceptionWindow:
                     textbuf.insert(iter, line)
 
                 exnView.set_buffer(textbuf)
-            except IOError (errnum, msg):
+            except IOError, (errnum, msg):
                 log.error("Could not read %s, skipping: %s" % (longTracebackFile, msg))
                 vbox.remove(expander)
         else:

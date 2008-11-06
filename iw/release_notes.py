@@ -129,7 +129,7 @@ class ReleaseNotesViewer:
 				try:
 					f = self.openURI(uri)
 				except OSError:
-					self.log("Failed to open %s" % (link,))
+					self.log("Failed to open %s" % (uri,))
 					return
 
 				if f is not None:

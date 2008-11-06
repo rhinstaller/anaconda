@@ -1277,7 +1277,7 @@ class PartitionWindow:
                     self.intf.messageWindow(_("Illegal logical volume name"),
                                             _("The logical volume name \"%s\" "
                                               "is already in use. Please "
-                                              "pick another.") % (lvname,),
+                                              "pick another.") % (lvn,),
                                             custom_icon="error")
                     continue
                     

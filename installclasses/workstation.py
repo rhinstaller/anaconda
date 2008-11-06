@@ -27,7 +27,7 @@ class InstallClass(personal_desktop.InstallClass):
     hidden = 1
 
     def setGroupSelection(self, anaconda):
-        personal_desktop.InstallClass.setGroupSelection(self, anaconda.backend, intf)
+        personal_desktop.InstallClass.setGroupSelection(self, anaconda.backend)
         anaconda.backend.selectGroup("emacs")
         anaconda.backend.selectGroup("gnome-software-development")
 	anaconda.backend.selectGroup("x-software-development")

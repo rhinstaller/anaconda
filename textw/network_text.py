@@ -484,7 +484,7 @@ class NetworkDeviceWindow:
                 continue
 
             # set the manual IPv6 address/prefix
-            if prefix is not '':
+            if prefix != '':
                 addr = "%s/%s" % (ip, prefix,)
             else:
                 addr = "%s" % (ip,)
