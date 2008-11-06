@@ -312,20 +312,6 @@ class iscsi(object):
         result = iutil.execWithCapture(ISCSIADM, ["-k", "0"])
         result.strip()
         if result == "":
-            return
-
-        psout = iutil.execWithCapture("/usr/bin/pidof", ["iscsid"])
-        if psout.strip() != "":
-            log.info("iSCSI shutdown")
-            for t in self.targets:
-                t.logout()
-
-            for pidstr in psout.split():
-                pid = string.atoi(pidstr)
-                log.info("killing %s %d" % (ISCSID, pid))
-
-                os.kill(pid, signal.SIGKILL)
-
             self.iscsidStarted = False
 
     def shutdown(self):
