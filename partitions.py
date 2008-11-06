@@ -54,7 +54,6 @@ def partitionObjectsInitialize(anaconda):
     # shut down all dm devices
     anaconda.id.diskset.closeDevices()
     anaconda.id.diskset.stopMdRaid()
-    anaconda.id.iscsi.shutdown()
     anaconda.id.zfcp.shutdown()
 
     # clean slate about drives
@@ -62,9 +61,6 @@ def partitionObjectsInitialize(anaconda):
 
     if anaconda.dir == DISPATCH_BACK:
         return
-
-    # ensure iscsi devs are up
-    anaconda.id.iscsi.startup(anaconda.intf)
 
     # ensure zfcp devs are up
     anaconda.id.zfcp.startup()
