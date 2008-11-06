@@ -459,11 +459,6 @@ class iscsi(object):
 
         self._startIscsiDaemon()
 
-        for t in self.targets:
-            if not t.discover():
-                continue
-            t.login()
-
         if intf:
             w.pop()
 
