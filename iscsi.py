@@ -189,6 +189,11 @@ class iscsiTarget:
                 ret = True
                 self.addNode(node)
 
+        # Wait for udev to create the devices for the just added disks
+        if ret:
+            iutil.execWithRedirect("/sbin/udevsettle", [ ], 
+                                   stdout = "/dev/tty5", stderr="/dev/tty5")
+
         # we return True if there were any successful logins for our portal.
         return ret
 
