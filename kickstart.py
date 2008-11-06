@@ -298,7 +298,6 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
 
         self.handler.id.iscsi.initiator = self.iscsiname
         self.handler.id.iscsi.startIBFT()
-        self.handler.id.iscsi.startup()
         # FIXME: flush the drive dict so we figure drives out again
         isys.flushDriveDict()
 
