@@ -1121,6 +1121,11 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                     flags |= LOADER_FLAGS_GRAPHICAL;
                 }
 
+                if (!strncasecmp(argv[i], "syslog", 6)) {
+                    logMessage(INFO, "early networking required for syslog");
+                    flags |= LOADER_FLAGS_EARLY_NETWORKING;
+                }
+
                 if (!strncasecmp(argv[i], "vesa", 4)) {
                     if (asprintf(&extraArgs[numExtraArgs],
                                  "--xdriver=vesa") == -1) {
@@ -1377,7 +1382,8 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             }
 
             case STEP_DRIVER: {
-                if (class == -1 || haveDeviceOfType(class)) {
+                if ((FL_EARLY_NETWORKING(flags) && haveDeviceOfType(DEVICE_NETWORK)) ||
+                    (class == -1 || haveDeviceOfType(class))) {
                     step = STEP_NETWORK;
                     dir = 1;
                     class = -1;
@@ -1437,7 +1443,8 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             case STEP_NETWORK: {
                 if ((installMethods[validMethods[loaderData->method]].type !=
                       DEVICE_NETWORK) && (!hasGraphicalOverride()) &&
-                     !FL_ASKNETWORK(flags)) {
+                     !FL_ASKNETWORK(flags) &&
+                     !FL_EARLY_NETWORKING(flags)) {
                     needsNetwork = 0;
                     if (dir == 1) 
                         step = STEP_STAGE2;
