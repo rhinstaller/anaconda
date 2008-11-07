@@ -257,8 +257,6 @@ if [ -n "$CMSDASD" -a -n "$CMSCONFFILE" ]; then
    source /tmp/$CMSCONFFILE #2>/dev/null
 fi
 
-do_net_install="yes"
-
 if [ -r /sys/firmware/ipl/ipl_type ]; then
 	if [ "`cat /sys/firmware/ipl/ipl_type`" = "fcp" ]; then
 		while [ 1 ]; do
@@ -268,17 +266,19 @@ if [ -r /sys/firmware/ipl/ipl_type ]; then
 			case $do_cd_install in
 				y|Y|[Yy][Ee][Ss])
 					# set up FCP cdrom here
+					insert_module qdio$LO
+					insert_module scsi_mod$LO
+					insert_module scsi_transport_fc$LO
+					insert_module zfcp$LO
 					CD_DEVICE="`cat /sys/firmware/ipl/device`"
 					WWPN="`cat /sys/firmware/ipl/wwpn`"
 					LUN="`cat /sys/firmware/ipl/lun`"
 					echo 1 > /sys/bus/ccw/drivers/zfcp/$CD_DEVICE/online
 					echo $WWPN > /sys/bus/ccw/drivers/zfcp/$CD_DEVICE/port_add
 					echo $LUN > /sys/bus/ccw/drivers/zfcp/$CD_DEVICE/$WWPN/unit_add
-					do_net_install="no"
 					break
 					;;
 				n|N|[Nn][Oo])
-					do_net_install="yes"
 					break
 					;;
 				*)
@@ -292,7 +292,6 @@ if [ -r /sys/firmware/ipl/ipl_type ]; then
 	fi
 fi
 
-if [ "$do_net_install" = "yes" ]; then
 	# Perform a network installation
 	# Check for missing parameters, prompt for them if necessary
 	while [ -z "$NETTYPE" ]; do
@@ -566,7 +565,6 @@ if [ "$do_net_install" = "yes" ]; then
 	if [ ! -z "$HOSTNAME" -a ! -z "$IPADDR" ]; then
 	    echo -e "$IPADDR\t$HOSTNAME `echo $HOSTNAME | cut -d '.' -f 1`" >> /etc/hosts
 	fi
-fi
 
 if [ -z "$DASD" ]; then
    echo
