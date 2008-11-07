@@ -122,7 +122,8 @@ int main (int argc, char **argv) {
 
     printf("writing kernel...\n");
     while (1) {
-        rc = fread(buffer, BUFFER_LEN, 1, fd2);
+        rc = fread(buffer, 1, 1, fd2);
+
         if (rc == 0) {
             break;
         }
@@ -132,17 +133,23 @@ int main (int argc, char **argv) {
             abort();
         }
 
-        wc = fwrite(buffer, BUFFER_LEN, 1, fd1);
+        wc = fwrite(buffer, 1, 1, fd1);
         if (feof(fd1) || ferror(fd1)) {
             fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
             abort();
+        }
+
+        if (wc != rc) {
+          fprintf(stderr, "could only write %i of %i bytes of kernel\n",
+                  wc, rc);
         }
     }
 
     printf("writing initrd...\n");
     fseek(fd1, initrd_start, SEEK_SET);
     while (1) {
-        rc = fread(buffer, BUFFER_LEN, 1, fd3);
+        rc = fread(buffer, 1, 1, fd3);
+
         if (rc == 0) {
             break;
         }
@@ -152,10 +159,15 @@ int main (int argc, char **argv) {
             abort();
         }
 
-        wc = fwrite(buffer, BUFFER_LEN, 1, fd1);
+        wc = fwrite(buffer, 1, 1, fd1);
         if (feof(fd1) || ferror(fd1)) {
             fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
             abort();
+        }
+
+        if (wc != rc) {
+          fprintf(stderr, "could only write %i of %i bytes of initrd\n",
+                  wc, rc);
         }
     }
 
@@ -175,10 +187,15 @@ int main (int argc, char **argv) {
         abort();
     }
 
-    wc = fwrite(&start_psw_address, 4, 1, fd1);
+    wc = fwrite(&start_psw_address, 1, 4, fd1);
     if (feof(fd1) || ferror(fd1)) {
         fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
         abort();
+    }
+
+    if (wc != 4) {
+        fprintf(stderr, "could only write %i of %i bytes of PSW address\n",
+                wc, 4);
     }
 
     printf("writing initrd address and size...\n");
@@ -190,10 +207,15 @@ int main (int argc, char **argv) {
         abort();
     }
 
-    wc = fwrite(&initrd_start, 8, 1, fd1);
+    wc = fwrite(&initrd_start, 1, 8, fd1);
     if (feof(fd1) || ferror(fd1)) {
         fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
         abort();
+    }
+
+    if (wc != 8) {
+        fprintf(stderr, "could only write %i of %i bytes of INITRD start\n",
+                wc, 8);
     }
 
     if (fseek(fd1, 0x10410, SEEK_SET) == -1) {
@@ -201,10 +223,15 @@ int main (int argc, char **argv) {
         abort();
     }
 
-    wc = fwrite(&initrd_size, 8, 1, fd1);
+    wc = fwrite(&initrd_size, 1, 8, fd1);
     if (feof(fd1) || ferror(fd1)) {
         fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
         abort();
+    }
+
+    if (wc != 8) {
+        fprintf(stderr, "could only write %i of %i bytes of INITRD size\n",
+                wc, 8);
     }
 
     printf("writing parmfile...\n");
@@ -215,6 +242,7 @@ int main (int argc, char **argv) {
 
     while (1) {
         rc = fread(buffer, 1, 1, fd4);
+
         if (rc == 0) {
             break;
         }
@@ -228,6 +256,11 @@ int main (int argc, char **argv) {
         if (feof(fd1) || ferror(fd1)) {
             fprintf(stderr, "%s (%d): %s\n", __func__, __LINE__, strerror(errno));
             abort();
+        }
+
+        if (wc != 1) {
+            fprintf(stderr, "could only write %i of %i bytes of parmfile\n",
+                    wc, 1);
         }
     }
 
