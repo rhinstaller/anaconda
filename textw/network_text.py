@@ -37,22 +37,10 @@ log = logging.getLogger("anaconda")
 
 class HostnameWindow:
     def __call__(self, screen, anaconda):
-        # XXX: currently string frozen for F10, but change the dialog
-        # title to just 'Hostname' after F10 is released
-        toplevel = GridFormHelp(screen, _("Hostname Configuration"),
-                                "hostname", 1, 3)
-
-        # XXX: currently string frozen for F10, but change this text
-        # to 'Please name this computer.  The hostname identifies the
-        # computer on a network.' after F10 is released.  This will
-        # have the text interface match the iw interface.
+        toplevel = GridFormHelp(screen, _("Hostname"), "hostname", 1, 3)
         text = TextboxReflowed(55,
-                               _("If your system is part of a larger network "
-                                 "where hostnames are assigned by DHCP, "
-                                 "select automatically via DHCP. Otherwise, "
-                                 "select manually and enter a hostname for "
-                                 "your system. If you do not, your system "
-                                 "will be known as 'localhost.'"))
+                               _("Please name this computer.  The hostname "
+                                 "identifies the computer on a network."))
         toplevel.add(text, 0, 0, (0, 0, 0, 1))
 
         hostEntry = Entry(55)
@@ -70,23 +58,25 @@ class HostnameWindow:
                 screen.popWindow()
                 return INSTALL_BACK
 
-            hname = string.strip(hostEntry.value())
-            if len(hname) == 0:
-                ButtonChoiceWindow(screen, _("Invalid Hostname"),
-                                   _("You have not specified a hostname."),
+            hostname = string.strip(hostEntry.value())
+            neterrors = network.sanityCheckHostname(hostname)
+
+            if not hostname:
+                ButtonChoiceWindow(_("Error with Hostname"),
+                                   _("You must enter a valid hostname for this "
+                                     "computer."),
                                    buttons = [ _("OK") ])
                 continue
 
-            neterrors = network.sanityCheckHostname(hname)
             if neterrors is not None:
-                ButtonChoiceWindow(screen, _("Invalid Hostname"),
-                                   _("The hostname \"%s\" is not valid "
-                                     "for the following reason:\n\n%s")
-                                   %(hname, neterrors),
-                                   buttons = [ _("OK") ])
+                ButtonChoiceWindow(_("Error with Hostname"),
+                                    _("The hostname \"%s\" is not valid for the "
+                                      "following reason:\n\n%s")
+                                    % (hostname, herrors,),
+                                    buttons = [ _("OK") ])
                 continue
 
-            anaconda.id.network.hostname = hname
+            anaconda.id.network.hostname = hostname
             break
 
         screen.popWindow()
