@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.55
+Version: 11.4.1.56
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,24 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Nov 06 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.56-1
+- Don't have the key icon take up so much space on the LUKS dialog
+  (#470338). (clumens)
+- Avoid getting linux-base in the kernel list (katzj)
+- Deselect groups when we reset things also (#469854) (katzj)
+- make iscsi login code wait for udev to create the devices (#466661,
+  #470073) (hdegoede)
+- Set the correct path when using the directory chooser. (clumens)
+- We always need a wait window, not just when the repo has a name. (clumens)
+- Set initial state of IP configuration fields in text mode (#469933)
+  (dcantrell)
+- Prevent traceback when there are no network devices (#469339) (dcantrell)
+- Indentation fix. (pjones)
+- Let users edit net settings on network failure in stage 1 (#465887)
+  (dcantrell)
+- Move startNewt later to avoid printing extra messages on the screen
+  (#469687). (clumens)
+
 * Mon Nov 03 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.55-1
 - Revert "Make sure dialog deletions take effect sooner (#455676)." (clumens)
 - Don't set up the launcher for the installer on XO (katzj)
