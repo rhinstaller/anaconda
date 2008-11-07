@@ -191,6 +191,9 @@ class iscsiTarget:
 
         # Wait for udev to create the devices for the just added disks
         if ret:
+            # It is possible when we get here the events for the new devices
+            # are not send yet, so sleep to make sure the events are fired
+            time.sleep(1)
             iutil.execWithRedirect("/sbin/udevsettle", [ ], 
                                    stdout = "/dev/tty5", stderr="/dev/tty5")
 
