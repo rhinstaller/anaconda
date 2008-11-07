@@ -369,6 +369,8 @@ class Partitions:
         """Clear the delete list and set self.requests to reflect disk."""
         self.deletes = []
         self.requests = []
+        if diskset.anaconda.isKickstart and not diskset.anaconda.id.upgrade:
+            self.getEncryptedDevices(diskset)
         labels = diskset.getInfo()
         drives = diskset.disks.keys()
         drives.sort()
