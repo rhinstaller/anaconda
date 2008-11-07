@@ -34,5 +34,6 @@ class KeyboardWindow(InstallWindow, installKeyboardWindow):
         installKeyboardWindow.getNext(self)
 
     def getScreen(self, anaconda):
+        anaconda.id.keyboard.beenset = 1
         return installKeyboardWindow.getScreen(self, anaconda.id.instLanguage.getDefaultKeyboard(),
                                                anaconda.id.keyboard)
