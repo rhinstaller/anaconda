@@ -263,10 +263,10 @@ if [ -r /sys/firmware/ipl/ipl_type ]; then
 			case $do_cd_install in
 				y|Y|[Yy][Ee][Ss])
 					# set up FCP cdrom here
-					insert_module qdio$LO
-					insert_module scsi_mod$LO
-					insert_module scsi_transport_fc$LO
-					insert_module zfcp$LO
+					insmod qdio$LO
+					insmod scsi_mod$LO
+					insmod scsi_transport_fc$LO
+					insmod zfcp$LO
 					CD_DEVICE="`cat /sys/firmware/ipl/device`"
 					WWPN="`cat /sys/firmware/ipl/wwpn`"
 					LUN="`cat /sys/firmware/ipl/lun`"
