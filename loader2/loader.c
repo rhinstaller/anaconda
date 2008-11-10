@@ -1790,6 +1790,9 @@ int main(int argc, char ** argv) {
         tmparg++;
     }
 
+    if (FL_AUTOMODDISK(flags))
+        *argptr++ = "--dlabel";
+
     if (FL_NOIPV4(flags))
         *argptr++ = "--noipv4";
 
