@@ -325,8 +325,8 @@ class BugzillaFiler(AbstractFiler):
 
             if key == "platform":
                 platformLst = self.__withBugzillaDo(lambda b: b._proxy.Bug.legal_values({'field': 'platform'}))
-                if not val in platformLst:
-                    kwargs[key] = platformLst[0]
+                if not val in platformLst['values']:
+                    kwargs[key] = platformLst['values'][0]
 
         bug = self.__withBugzillaDo(lambda b: b.createbug(**kwargs))
         for (wb, val) in whiteboards:
@@ -343,13 +343,14 @@ class BugzillaFiler(AbstractFiler):
 
     def getproduct(self, prod):
         details = self.__withBugzillaDo(lambda b: b.getproducts())
-        if prod not in details.keys():
-            if self.defaultProduct:
-                return self.defaultProduct
-            else:
-                raise ValueError, "The product %s is not valid and no defaultProduct is set." % prod
+        for d in details:
+            if d['name'] == prod:
+                return prod
+
+        if self.defaultProduct:
+            return self.defaultProduct
         else:
-            return prod
+            raise ValueError, "The product %s is not valid and no defaultProduct is set." % prod
 
     def getversion(self, ver, prod):
         details = self.__withBugzillaDo(lambda b: b._proxy.bugzilla.getProductDetails(prod))
