@@ -479,16 +479,16 @@ class iscsi(object):
         if user is not None or pw is not None:
             commentUser = ''
             if user is None:
-                raise ValueError, "user is required"
+                raise ValueError, _("CHAP username is required if CHAP password is defined.")
             if pw is None:
-                raise ValueError, "pw is required"
+                raise ValueError, _("CHAP password is required if CHAP username is defined.")
 
         if user_in is not None or pw_in is not None:
             commentUser_in = ''
             if user_in is None:
-                raise ValueError, "user_in is required"
+                raise ValueError, _("Reverse CHAP username is required if reverse CHAP password is defined.")
             if pw_in is None:
-                raise ValueError, "pw_in is required"
+                raise ValueError, _("Reverse CHAP password is required if reverse CHAP username is defined.")
 
         # If either a user/pw pair was specified or a user_in/pw_in was
         # specified, then CHAP is specified.

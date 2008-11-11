@@ -273,26 +273,6 @@ class PartitionTypeWindow(InstallWindow):
             if len(pw_in) == 0:
                 pw_in = None
 
-            if user is not None or pw is not None:
-                if user is None:
-                    self.intf.messageWindow(_("Missing value"),
-                        _("CHAP username is required if CHAP password is defined."))
-                    continue
-                if pw is None:
-                    self.intf.messageWindow(_("Missing value"),
-                        _("CHAP password is required if CHAP username is defined."))
-                    continue
-
-            if user_in is not None or pw_in is not None:
-                if user_in is None:
-                    self.intf.messageWindow(_("Missing value"),
-                        _("Reverse CHAP username is required if reverse CHAP password is defined."))
-                    continue
-                if pw_in is None:
-                    self.intf.messageWindow(_("Missing value"),
-                        _("Reverse CHAP password is required if reverse CHAP username is defined."))
-                    continue
-
             err = None
             try:
                 idx = target.rfind(":")
@@ -311,8 +291,12 @@ class PartitionTypeWindow(InstallWindow):
                 self.intf.messageWindow(_("Error with Data"), "%s" %(err,))
                 continue
 
-            self.anaconda.id.iscsi.addTarget(ip, port, user, pw, user_in, pw_in,
-                                             self.intf)
+            try:
+                self.anaconda.id.iscsi.addTarget(ip, port, user, pw, user_in, pw_in,
+                                                 self.intf)
+            except ValueError, e:
+                self.intf.messageWindow(_("Error"), str(e))
+                continue
             break
 
         dialog.destroy()
