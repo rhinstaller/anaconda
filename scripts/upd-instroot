@@ -151,7 +151,7 @@ die () {
 PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
 	anaconda-yum-plugins at-spi atk attr audit-libs bash bitmap-fonts-cjk
 	booty busybox-anaconda bzip2 bzip2-libs cairo cjkunifonts-uming
-	comps-extras coreutils cpio cracklib-dicts cracklib-python
+	comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
 	cryptsetup-luks db4 dbus dbus-python dejavu-fonts device-mapper
 	device-mapper-libs dhclient dhcpv6-client dmapi dmraid dmraid-libs
 	dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme
@@ -575,6 +575,7 @@ usr/share/hwdata/usb.ids
 usr/share/hwdata/videoaliases
 usr/share/hwdata/videodrivers
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
+usr/share/locale/*/LC_MESSAGES/cracklib.mo
 usr/share/locale/*/LC_MESSAGES/gtk20.mo
 usr/share/locale/*/LC_MESSAGES/libc.mo
 usr/share/locale/*/LC_MESSAGES/parted.mo

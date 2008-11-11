@@ -125,9 +125,8 @@ class AccountWindow (InstallWindow):
                                     custom_icon="error")
             self.passwordError()
 
-        msg = cracklib.FascistCheck(pw)
+        msg = gettext.ldgettext("cracklib", cracklib.FascistCheck(pw))
         if msg is not None:
-            msg = gettext.ldgettext("cracklib", msg)
             ret = self.intf.messageWindow(_("Weak Password"),
                                           _("Weak password provided: %s"
                                             "\n\n"

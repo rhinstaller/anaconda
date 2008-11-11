@@ -76,7 +76,7 @@ class RootPasswordWindow:
                       "which are not allowed."),
                     buttons = [ TEXT_OK_BUTTON ], width = 50)
             else:
-                msg = cracklib.FascistCheck(entry1.value())
+                msg = gettext.ldgettext("cracklib", cracklib.FascistCheck(entry1.value()))
                 if msg is not None:
                     ret = anaconda.intf.messageWindow(_("Weak Password"),
                              _("Weak password provided: %s\n\n"
