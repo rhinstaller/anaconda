@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.154
+Version: 11.1.2.155
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,18 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 11 2008 Joel Granados <jgranado@redhat.com> 11.1.2.155-1
+- Enable the DD repository if the DD autodetection feature was used (msivak).
+  Related: rhbz:#316631
+- Call insmod in linuxrc.s390, not insert_module (dcantrell).
+  Related: rhbz:#184648
+- Load FCP modules early for CD/DVD install (dcantrell).
+  Related: rhbz:#184648
+- Update mk-s390-cdboot.c to work with large kernel images (dcantrell).
+  Related: rhbz:#184648
+- Fix all trivial (1 liner fixes) errors found by pychecker (hdegoede).
+  Related: rhbz:#469730
+
 * Wed Nov 05 2008 Chris Lumens <clumens@redhat.com> 11.1.2.154-1
 - Include the new fnic driver (jgranado).
   Related: rhbz#462387
