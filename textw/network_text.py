@@ -163,9 +163,9 @@ class NetworkDeviceWindow:
         if isPtp:
             ipmiscgrid.setField(Label(_("P-to-P:")), 0, ipmiscrow,
                                 anchorLeft = 1, padding = (0, 1, 1, 0))
-            ptplist = Entry(41)
-            ptplist.set(dev.get('remip'))
-            ipmiscgrid.setField(ptplist, 1, ipmiscrow, anchorLeft = 1,
+            ptpaddr = Entry(41)
+            ptpaddr.set(dev.get('remip'))
+            ipmiscgrid.setField(ptpaddr, 1, ipmiscrow, anchorLeft = 1,
                                 padding = (0, 1, 0, 0))
 
             ipmiscrow += 1
