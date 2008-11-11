@@ -134,6 +134,14 @@ class NetworkConfigurator:
     def destroy(self):
         self.window.destroy()
 
+    def _handleIPMissing(self, field):
+        d = gtk.MessageDialog(_("Error With Data"), 0, gtk.MESSAGE_ERROR,
+                              gtk.BUTTONS_OK,
+                              _("A value is required for the field %s.")
+                              % (field,))
+        d.run()
+        d.destroy()
+
     def _handleIPError(self, field, errmsg):
         d = gtk.MessageDialog(_("Error With Data"), 0, gtk.MESSAGE_ERROR,
                               gtk.BUTTONS_OK,
