@@ -259,19 +259,21 @@ class LuksPassphraseWindow:
                 confirm = confirmentry.value()
 
                 if passphrase != confirm:
-                    MessageWindow(_("Error with passphrase"),
-                                  _("The passphrases you entered were "
-                                    "different.  Please try again."),
-                                  type = "ok", custom_icon = "error")
+                    ButtonChoiceWindow(self.screen,
+                                       _("Error with passphrase"),
+                                       _("The passphrases you entered were "
+                                         "different.  Please try again."),
+                                       buttons=[TEXT_OK_BUTTON])
                     passphraseentry.set("")
                     confirmentry.set("")
                     continue
 
                 if len(passphrase) < self.minLength:
-                    MessageWindow(_("Error with passphrase"),
-                                    _("The passphrase must be at least "
-                                      "%d characters long.") % (self.minLength,),
-                                  type = "ok", custom_icon = "error")
+                    ButtonChoiceWindow(self.screen,
+                                       _("Error with passphrase"),
+                                       _("The passphrase must be at least "
+                                         "%d characters long.") % (self.minLength,),
+                                       buttons=[TEXT_OK_BUTTON])
                     passphraseentry.set("")
                     confirmentry.set("")
                     continue
