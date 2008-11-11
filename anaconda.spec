@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.56
+Version: 11.4.1.57
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,31 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 11 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.57-1
+- Fix more UnicodeDecodeErrors, hopefully for good this time (#470733).
+  (clumens)
+- iscsi do missing value check only once (hdegoede)
+- Don't try to label XFS filesystems on livecd installs (#470951). (clumens)
+- Include cracklib .mo files and look up strings in the right domain.
+  (clumens)
+- Bugzilla has changed its return values for a couple queries. (clumens)
+- Set the default keyboard based on the language (#470446). (clumens)
+- Prevent traceback for vnc installs on KVM guests (#470559) (dcantrell)
+- Bring up networking early enough for syslog= param (#470513) (dcantrell)
+- Sleep a bit before calling udevsettle in iscsiTarget.login (#470073,
+  #466661) (hdegoede)
+- kickstart, iscsi do not call iscsi.startup after startIBFT has been called
+  (hdegoede)
+- Do not stop and restart iscsid when rescanning disks/partitions (#470223)
+  (hdegoede)
+- iscsi.startup should not login to targets as we are already logged in
+  (#470230) (hdegoede)
+- Remove obsolete normally never reached code from _stopIscsiDaemon
+  (#470229) (hdegoede)
+- The function getEncryptedDevice gets called correctly expect when we are
+  in (jgranado)
+- More translations
+
 * Thu Nov 06 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.56-1
 - Don't have the key icon take up so much space on the LUKS dialog
   (#470338). (clumens)
