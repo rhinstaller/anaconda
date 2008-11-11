@@ -472,7 +472,7 @@ class InstallInterface:
 
         txt = TextboxReflowed(65, ic.instkeydesc or
                               _("Please enter your %(instkey)s") %
-                              {instkey: keyname,})
+                              {"instkey": keyname,})
         g.add(txt, 0, 0, (0,0,0,1))
 
 
