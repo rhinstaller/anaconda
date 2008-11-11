@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2008-11-11 00:39+0100\n"
+"PO-Revision-Date: 2008-11-11 12:41+0100\n"
 "Last-Translator: Rui Gouveia <rui.gouveia@globaltek.pt>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1462,9 +1462,9 @@ msgid "Unknown Device"
 msgstr "Dispositivo Desconhecido"
 
 #: ../instdata.py:119
-#, fuzzy, python-format
+#, python-format
 msgid "The installation source given by device %s could not be found.  Please check your parameters and try again."
-msgstr "Não foi encontrado nenhum suporte de instalação. Introduza por favor um disco no seu leitor e tente de novo."
+msgstr "Não foram encontrados ficheiros de instalação no dispositivo %s. Por favor, verifique e tente de novo."
 
 #: ../iscsi.py:449
 #: ../iscsi.py:450
@@ -2039,7 +2039,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Por favor aguarde enquanto é formatada a unidade %s...\n"
 
 #: ../partedUtils.py:1101
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "\n"
@@ -2049,9 +2049,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Não foi possível ler a tabela de partições do dispositivo %s (%s %-0.f MB). Para criar novas partições ela precisa ser inicializada, o que causará a perda de TODOS OS DADOS neste disco.\n"
+"Não foi possível ler a tabela de partições do dispositivo %s (%s %-0.f MB).\n"
 "\n"
-"Esta operação sobrepõe quaisquer escolhas prévias das unidades de armazenamento que deseja ignorar.\n"
+"Para criar novas partições ela precisa ser inicializada, o que causará a perda de TODOS OS DADOS neste disco.\n"
+"\n"
+"Esta operação sobrepõe quaisquer escolha prévia das unidades de armazenamento que deseja ignorar.\n"
 "\n"
 "Quer inicializar esta unidade, apagando TODOS OS DADOS?"
 
@@ -2081,9 +2083,8 @@ msgid "Encrypt device?"
 msgstr "Encriptar o dispositivo?"
 
 #: ../partitions.py:126
-#, fuzzy
 msgid "You specified block device encryption should be enabled, but you have not supplied a passphrase. If you do not go back and provide a passphrase, block device encryption will be disabled."
-msgstr "Indicou que a encriptação do dispositivo em bloco deveria ser activada %s, mas não indicou qualquer frase-senha. Se não recuar e indicar uma frase-senha, a encriptação do dispositivo %s ficará desactivada."
+msgstr "Indicou que a encriptação do dispositivo deveria ser activada, mas não indicou qualquer frase-senha. Se não voltar atrás e indicar uma frase-senha, a encriptação será desactivada."
 
 #: ../partitions.py:133
 #: ../partitions.py:263
@@ -2612,7 +2613,6 @@ msgstr ""
 "\n"
 
 #: ../vnc.py:261
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -2624,7 +2624,7 @@ msgstr ""
 "\n"
 "\n"
 "ATENÇÃO!!! O servidor de VNC está a correr SEM SENHA!\n"
-"Você pode usar a opção de arranque self.password=<senha>\n"
+"Você pode usar a opção de arranque vncpassword=<senha>\n"
 "se quiser tornar o servidor seguro.\n"
 "\n"
 
@@ -3022,9 +3022,9 @@ msgid "Packages in %s"
 msgstr "Pacotes em %s"
 
 #: ../iw/GroupSelector.py:442
-#, fuzzy, python-format
+#, python-format
 msgid "Optional packages selected: %d of %d"
-msgstr "Não existem pacotes opcionais para seleccionar"
+msgstr "Seleccionados pacotes opcionais: %d de %d"
 
 #: ../iw/GroupSelector.py:443
 #, python-format
@@ -3122,11 +3122,11 @@ msgstr "Palavra chave CHAP é obrigatória quando nome de utilizador CHAP está 
 
 #: ../iw/autopart_type.py:295
 msgid "Reverse CHAP username is required if reverse CHAP password is defined."
-msgstr ""
+msgstr "Utilizador CHAP em sentido contrário é obrigatório quando a senha CHAP está definida."
 
 #: ../iw/autopart_type.py:299
 msgid "Reverse CHAP password is required if reverse CHAP username is defined."
-msgstr ""
+msgstr "Senha CHAP em sentido contrário é obrigatória quando o utilizador CHAP está definido."
 
 #: ../iw/autopart_type.py:317
 msgid "Error with Data"
@@ -3694,7 +3694,7 @@ msgstr "Erro com o nome da máquina"
 
 #: ../iw/network_gui.py:62
 msgid "You must enter a valid hostname for this computer."
-msgstr ""
+msgstr "Tem de inserir um nome de máquina válido para este computador."
 
 #: ../iw/network_gui.py:68
 #: ../textw/network_text.py:83
@@ -4774,14 +4774,12 @@ msgid "IPv4 Network Mask "
 msgstr "Máscara de Rede IPv4 "
 
 #: ../textw/netconfig_text.py:264
-#, fuzzy
 msgid "Configuring Network Interfaces"
-msgstr "Configurar a Interface de Rede"
+msgstr "A configurar interface de Rede"
 
 #: ../textw/netconfig_text.py:264
-#, fuzzy
 msgid "Waiting for NetworkManager..."
-msgstr "À espera que o NetworkManager configure o %s...\n"
+msgstr "À espera do NetworkManager..."
 
 #: ../textw/network_text.py:42
 msgid "Hostname Configuration"
@@ -5114,38 +5112,36 @@ msgid "iSCSI Initiator Name"
 msgstr "Nome do Iniciador iSCSI"
 
 #: ../textw/partition_text.py:1691
-#, fuzzy
 msgid "CHAP username"
-msgstr "U_tilizador do 'proxy'"
+msgstr "Nome do utilizador CHAP"
 
 #: ../textw/partition_text.py:1692
-#, fuzzy
 msgid "CHAP password"
-msgstr "Senha"
+msgstr "Senha CHAP"
 
 #: ../textw/partition_text.py:1693
 msgid "Reverse CHAP username"
-msgstr ""
+msgstr "Utilizador CHAP em sentido contrário"
 
 #: ../textw/partition_text.py:1694
 msgid "Reverse CHAP password"
-msgstr ""
+msgstr "Senha CHAP em sentido contrário"
 
 #: ../textw/partition_text.py:1712
 msgid "Username is required when password is present."
-msgstr ""
+msgstr "Nome de utilizador é obrigatório quando a senha está definida."
 
 #: ../textw/partition_text.py:1715
 msgid "Password is required when username is present."
-msgstr ""
+msgstr "A senha é obrigatória quando o nome de utilizador está definido."
 
 #: ../textw/partition_text.py:1720
 msgid "Reverse username is required whenreverse password is present."
-msgstr ""
+msgstr "O nome de utilizador em sentido contrário é obrigatório quando a senha em sentido contrário está definida."
 
 #: ../textw/partition_text.py:1724
 msgid "Reverse password is required whenreverse username is present."
-msgstr ""
+msgstr "A senha em sentido contrário é obrigatória quando o nome de utilizador está definido."
 
 #: ../textw/partmethod_text.py:34
 msgid "Autopartition"
@@ -5306,7 +5302,6 @@ msgid "Software Development"
 msgstr "Desenvolvimento de 'Software'"
 
 #: ../installclasses/fedora.py:50
-#, fuzzy
 msgid "Web Server"
 msgstr "Servidor Web"
 
@@ -6335,14 +6330,14 @@ msgid "Destination _file"
 msgstr "_Ficheiro de destino"
 
 #: tmp/exnSave.glade.h:3
-#, fuzzy
 msgid ""
 "Local storage device\n"
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"Dispositivo de armazenamento local\n"
 "Disco local\n"
-"Servidor remoto (SCP)"
+"Servidor remoto (scp)"
 
 #: tmp/exnSave.glade.h:6
 msgid "Please choose a destination for saving your traceback."
@@ -6375,24 +6370,20 @@ msgid "Please enter your %(instkey)s."
 msgstr "Por favor indique a sua %(instkey)s."
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>CHAP _Password:</b>"
-msgstr "<b>Sen_ha:</b>"
+msgstr "<b>Sen_ha CHAP:</b>"
 
 #: tmp/iscsi-config.glade.h:2
-#, fuzzy
 msgid "<b>CHAP _Username:</b>"
-msgstr "<b>_Utilizador:</b>"
+msgstr "<b>_Utilizador CHAP:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>Sen_ha:</b>"
+msgstr "<b>Sen_ha CHAP em sentido contrário:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>_Utilizador:</b>"
+msgstr "<b>_Utilizador CHAP em sentido contrário:</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
@@ -6419,9 +6410,8 @@ msgid "Install to Hard Drive"
 msgstr "Instalar no Disco Rígido"
 
 #: tmp/lukspassphrase.glade.h:1
-#, fuzzy
 msgid "Also add this passphrase to all existing encrypted devices to streamline the boot process"
-msgstr "Usar esta frase-senha para todos os dispositivos encriptados novos"
+msgstr "Usar esta frase-senha para todos os dispositivos cifrados para facilitar o processo de arranque"
 
 #: tmp/lukspassphrase.glade.h:2
 msgid "Choose a passphrase for this encrypted partition. You will be prompted for the passphrase during system boot."
@@ -6477,7 +6467,7 @@ msgstr "Nome da Máquina:"
 
 #: tmp/network.glade.h:2
 msgid "Please name this computer.  The hostname identifies the computer on a network."
-msgstr ""
+msgstr "Por favor, atribua um nome a este computador. O nome da máquina identifica o computador na rede."
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
