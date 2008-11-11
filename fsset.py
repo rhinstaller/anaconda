@@ -381,7 +381,7 @@ class xfsFileSystem(FileSystemType):
         self.maxSizeMB = 16 * 1024 * 1024
         self.maxLabelChars = 12
         self.supported = -1
-        if not os.path.exists("/sbin/mkfs.xfs") and not os.path.exists("/usr/sbin/mkfs.xfs"):
+        if not os.path.exists("/sbin/mkfs.xfs") and not os.path.exists("/usr/sbin/mkfs.xfs") and not os.path.exists("/usr/sbin/xfs_admin"):
             self.supported = 0
 
         self.packages = [ "xfsprogs" ]
@@ -1874,9 +1874,10 @@ MAILADDR root
                 label = isys.readFSLabel(dev)
             except:
                 continue
+
             if label:
                 entry.setLabel(label)
-            else:
+            elif entry.fsystem.isSupported():
                 self.labelEntry(entry, chroot)
 
     def haveMigratedFilesystems(self):
