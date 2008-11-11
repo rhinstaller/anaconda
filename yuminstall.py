@@ -39,6 +39,7 @@ import yum
 import iniparse
 from yum.constants import *
 from yum.Errors import *
+from yum.misc import to_unicode
 from yum.yumRepo import YumRepository
 from backend import AnacondaBackend
 from product import *
@@ -71,17 +72,21 @@ def size_string (size):
     def number_format(s):
         return locale.format("%s", s, 1)
 
+    retval = None
+
     if size > 1024 * 1024:
         size = size / (1024*1024)
-        return _("%s MB") %(number_format(size),)
+        retval = _("%s MB") %(number_format(size),)
     elif size > 1024:
         size = size / 1024
-        return _("%s KB") %(number_format(size),)        
+        retval = _("%s KB") %(number_format(size),)
     else:
         if size == 1:
-            return _("%s Byte") %(number_format(size),)                    
+            retval = _("%s Byte") %(number_format(size),)
         else:
-            return _("%s Bytes") %(number_format(size),)
+            retval = _("%s Bytes") %(number_format(size),)
+
+    return to_unicode(retval)
 
 class AnacondaCallback:
 
@@ -155,14 +160,12 @@ class AnacondaCallback:
             repo = self.repos.getRepo(po.repoid)
 
             pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.arch)
-            s = _("<b>Installing %s</b> (%s)\n") %(pkgStr, size_string(hdr['size']))
-            summary = gettext.ldgettext("redhat-dist", hdr['summary'] or "")
-            if type(summary) != unicode:
-                summary = unicode(summary, encoding='utf-8')
+            s = to_unicode(_("<b>Installing %s</b> (%s)\n")) %(pkgStr, size_string(hdr['size']))
+            summary = to_unicode(gettext.ldgettext("redhat-dist", hdr['summary'] or ""))
             s += summary.strip()
             self.progress.set_label(s)
 
-            self.instLog.write(self.modeText % pkgStr)
+            self.instLog.write(self.modeText % str(pkgStr))
 
             self.instLog.flush()
             self.openfile = None
@@ -645,9 +648,7 @@ class AnacondaYum(YumSorter):
         else:
             buttons = [_("Re_boot"), _("_Retry")]
 
-        pkgFile = os.path.basename(package.returnSimple('relativepath'))
-        if type(pkgFile) != unicode:
-            pkgFile = unicode(pkgFile, encoding='utf-8')
+        pkgFile = to_unicode(os.path.basename(package.returnSimple('relativepath')))
 
         rc = self.anaconda.intf.messageWindow(_("Error"),
                    _("The file %s cannot be opened.  This is due to a missing "
@@ -839,11 +840,8 @@ class AnacondaYum(YumSorter):
             msg = _("There was an error running your transaction for "
                     "the following reason(s): %s.\n") % ', '.join(uniqueProbs.values())
 
-            if type(spaceprob) != unicode:
-                spaceprob = unicode(spaceprob, encoding='utf-8')
-
-            if type(fileprob) != unicode:
-                fileprob = unicode(fileprob, encoding='utf-8')
+            spaceprob = to_unicode(spaceprob)
+            fileprob = to_unicode(fileprob)
 
             if len(self.anaconda.backend.getRequiredMedia()) > 1:
                 intf.detailedMessageWindow(_("Error Running Transaction"),
