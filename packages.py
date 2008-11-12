@@ -101,6 +101,7 @@ def doMigrateFilesystems(anaconda):
         # if we're upgrading, we may need to do lvm device node hackery
         anaconda.id.fsset.makeLVMNodes(anaconda.rootPath, trylvm1 = 1)
         # and we should write out a new fstab with the migrated fstype
+        shutil.copyfile("%s/etc/fstab" % anaconda.rootPath, "%s/etc/fstab.anaconda" % anaconda.rootPath)
         anaconda.id.fsset.write(anaconda.rootPath)
         # and make sure /dev is mounted so we can read the bootloader
         bindMountDevDirectory(anaconda.rootPath)
