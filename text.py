@@ -412,7 +412,7 @@ class InstallInterface:
 	    from string import joinfields
 	    list = traceback.format_exception(type, value, tb)
 	    text = joinfields(list, "")
-	    win = self.exceptionWindow(text)
+	    win = self.exceptionWindow(text, None)
             win.run()
             rc = win.getrc()
 	    if rc == 1:
