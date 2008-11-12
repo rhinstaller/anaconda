@@ -205,6 +205,7 @@ static void mediaCheckCdrom(char *cddriver) {
                        _("Test"), _("Continue"));
 
         if (rc == 2) {
+            closeCdromTray(cddriver);
             return;
         } else {
             continue;
