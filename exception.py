@@ -89,6 +89,9 @@ class AnacondaExceptionDump:
         pad = ' ' * ((level) * 2)
 
         for key, value in instance.__dict__.items():
+            if key.startswith("_%s__" % instance.__class__.__name__):
+                continue
+
             if parentkey != "":
                 curkey = parentkey + "." + key
             else:
