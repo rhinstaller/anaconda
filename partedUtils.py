@@ -312,11 +312,12 @@ def checkDasdFmt(disk, intf):
     if intf:
         try:
             devs = isys.getDasdDevPort()
-            dev = "/dev/%s (%s)" %(disk.dev.path[5:], devs[device])
+            devnode = disk.dev.path[5:]
+            dev = "/dev/%s (%s)" % (devnode, devs[devnode],)
         except Exception, e:
             log.critical("exception getting dasd dev ports: %s" %(e,))
             dev = "/dev/%s" %(disk.dev.path[5:],)
-        
+
         rc = intf.messageWindow(_("Warning"),
                        _("The device %s is LDL formatted instead of "
                          "CDL formatted.  LDL formatted DASDs are not "
@@ -333,7 +334,7 @@ def checkDasdFmt(disk, intf):
             return -1
     else:
         return 1
-    
+
 
 def checkDiskLabel(disk, intf):
     """Check that the disk label on disk is valid for this machine type."""
