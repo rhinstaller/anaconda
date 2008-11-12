@@ -769,7 +769,7 @@ class DiskSet:
         for dev, devices, level, numActive in self.mdList:
             (errno, msg) = (None, None)
             found = 0
-            theDev = dev
+            theDev = "/dev/%s" % (dev,)
             crypto = self.anaconda.id.partitions.encryptedDevices.get(dev)
             if crypto and not crypto.openDevice():
                 theDev = "/dev/%s" % (crypto.getDevice(),)
