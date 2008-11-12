@@ -55,7 +55,7 @@ class LUKSDevice:
        functional."""
     def __init__(self, device=None, passphrase=None, format=0):
         self._device = None
-        self.passphrase = ""
+        self.__passphrase = ""
         self.name = ""
         self.uuid = None
         self.nameLocked = False
@@ -124,7 +124,10 @@ class LUKSDevice:
 
     def setPassphrase(self, passphrase):
         """Set the (plaintext) passphrase used to access the device."""
-        self.passphrase = passphrase
+        self.__passphrase = passphrase
+
+    def hasPassphrase(self):
+        return self.__passphrase not in (None, "")
 
     def crypttab(self):
         """Return a crypttab formatted line describing this mapping."""
@@ -155,7 +158,7 @@ class LUKSDevice:
             log.debug("refusing to format active mapping %s" % (self.name,))
             return 1
 
-        if not self.passphrase:
+        if not self.hasPassphrase():
             raise RuntimeError, "Cannot create mapping without a passphrase."
 
         device = self.getDevice(encrypted=1)
@@ -164,7 +167,7 @@ class LUKSDevice:
 
         log.info("formatting %s as %s" % (device, self.getScheme()))
         p = os.pipe()
-        os.write(p[1], "%s\n" % (self.passphrase,))
+        os.write(p[1], "%s\n" % (self.__passphrase,))
         os.close(p[1])
 
         rc = iutil.execWithRedirect("cryptsetup",
@@ -182,7 +185,7 @@ class LUKSDevice:
             # already mapped
             return 0
 
-        if not self.passphrase:
+        if not self.hasPassphrase():
             raise RuntimeError, "Cannot create mapping without a passphrase."
 
         device = self.getDevice(encrypted=1)
@@ -200,7 +203,7 @@ class LUKSDevice:
                                                  self.name))
 
         p = os.pipe()
-        os.write(p[1], "%s\n" % (self.passphrase,))
+        os.write(p[1], "%s\n" % (self.__passphrase,))
         os.close(p[1])
 
         rc = iutil.execWithRedirect("cryptsetup",
@@ -230,11 +233,11 @@ class LUKSDevice:
         if not newpass:
             return 1
 
-        if newpass == self.passphrase:
+        if newpass == self.__passphrase:
             return 0
 
         p = os.pipe()
-        os.write(p[1], "%s\n%s" % (self.passphrase, newpass))
+        os.write(p[1], "%s\n%s" % (self.__passphrase, newpass))
         os.close(p[1])
 
         device = self.getDevice(encrypted=1)
