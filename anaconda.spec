@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.155
+Version: 11.1.2.156
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,14 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 12 2008 Chris Lumens <clumens@redhat.com> 11.1.2.156-1
+- Fix a variety of pychecker errors (clumens, dcantrell, dlehman, rvykydal).
+  Resolves: rhbz#469734
+- Remove defunct VG before creating new one of the same name (rvykydal).
+  Resolves: rhbz#469700
+- Fix detection of ext4 on raid in rescue and upgrade (rvykydal).
+  Resolves: rhbz#470221
+
 * Tue Nov 11 2008 Joel Granados <jgranado@redhat.com> 11.1.2.155-1
 - Enable the DD repository if the DD autodetection feature was used (msivak).
   Related: rhbz:#316631
