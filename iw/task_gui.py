@@ -21,6 +21,7 @@ import gtk
 import gtk.glade
 import gobject
 import gui
+import gzip
 from iw_gui import *
 from image import *
 from constants import *
@@ -43,6 +44,21 @@ def setupRepo(anaconda, repo):
         anaconda.backend.doRepoSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
         anaconda.backend.doSackSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
         log.info("added repository %s with with source URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
+        # FIXME: need a per-repo way of doing this; largely cut and paste
+        # from yum right now
+        if not repo.groups_added:
+            try:
+                groupfile = repo.getGroups()
+                # open it up as a file object so iterparse can cope
+                # with our gz file
+                if groupfile is not None and groupfile.endswith('.gz'):
+                    groupfile = gzip.open(groupfile)
+                anaconda.backend.ayum._comps.add(groupfile)
+            except Exception, e:
+                log.debug("unable to add group information for repository %s" %(repo.name))
+            else:
+                repo.groups_added = True
+                log.info("added group information for repository %s" %(repo.name))
     except yum.Errors.RepoError, e:
         anaconda.intf.messageWindow(_("Error"),
               _("Unable to read package metadata from repository.  "
