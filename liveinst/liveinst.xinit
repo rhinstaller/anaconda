@@ -2,7 +2,7 @@
 # Set up a launcher on the desktop for the live installer if we're on
 # a live CD
 
-if [ \`grep -c Geode /proc/cpuinfo\` -ne 0 ]; then
+if grep -q Geode /proc/cpuinfo ; then
     exit 0
 fi
 
