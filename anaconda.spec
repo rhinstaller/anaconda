@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.57
+Version: 11.4.1.58
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,18 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 12 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.58-1
+- Add comps groups for new repos that are added (#470653) (katzj)
+- Support upgrades of systems whose rootfs is on an LV. (#471288) (dlehman)
+- Use hasPassphrase() instead of directly accessing passphrase member.
+  (dlehman)
+- Don't dump private class members (those with leading "__") (dlehman)
+- Explicitly close the CD drive after the user hits "continue" (#375011)
+  (pjones)
+- Fix shell syntax error (#471090) (ivazqueznet)
+- Save the /etc/fstab before overwriting it on upgrades (#452768, #470392).
+  (clumens)
+
 * Tue Nov 11 2008 David Cantrell <dcantrell@redhat.com> - 11.4.1.57-1
 - Fix more UnicodeDecodeErrors, hopefully for good this time (#470733).
   (clumens)
