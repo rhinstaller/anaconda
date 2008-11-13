@@ -2696,6 +2696,23 @@ def makeDevice(dev):
         device = PartitionDevice(dev, encryption=cryptoDev)
     return device
 
+def findBackingDevInCrypttab(mappingName):
+    backingDev = None
+    try:
+        lines = open("/mnt/sysimage/etc/crypttab").readlines()
+    except IOError, e:
+        pass
+    else:
+        for line in lines:
+            fields = line.split()
+            if len(fields) < 2:
+                continue
+            if fields[0] == mappingName:
+                backingDev = fields[1]
+                break
+
+    return backingDev
+
 # XXX fix RAID
 def readFstab (anaconda):
     def createMapping(dict):
@@ -2834,6 +2851,39 @@ def readFstab (anaconda):
             if loopIndex.has_key(device):
                 (dev, fs) = loopIndex[device]
                 device = LoopbackDevice(dev, fs)
+        elif fields[0].startswith("/dev/mapper/luks-"):
+            backingDev = findBackingDevInCrypttab(fields[0][12:])
+            log.debug("device %s has backing device %s" % (fields[0],
+                                                           backingDev))
+            if backingDev is None:
+                log.error("unable to resolve backing device for %s" % fields[0])
+                continue
+            elif backingDev.startswith('LABEL='):
+                label = backingDev[6:]
+                if label in labelDupes:
+                    showError(label, intf)
+
+                if labelToDevice.has_key(label):
+                    device = makeDevice(labelToDevice[label])
+                else:
+                    log.warning ("crypttab file has LABEL=%s, but this label "
+                                 "could not be found on any file system", label)
+                    # bad luck, skip this entry.
+                    continue
+            elif backingDev.startswith('UUID='):
+                uuid = backingDev[5:]
+                if uuid in uuidDupes:
+                    showError(uuid, intf)
+
+                if uuidToDevice.has_key(uuid):
+                    device = makeDevice(uuidToDevice[uuid])
+                else:
+                    log.warning ("crypttab file has UUID=%s, but this UUID"
+                                 "could not be found on any file system", uuid)
+                    # bad luck, skip this entry.
+                    continue
+            else:
+                device = makeDevice(backingDev[5:])
         elif fields[0].startswith('/dev/'):
             # Older installs may have lines starting with things like /dev/proc
             # so watch out for that on upgrade.
