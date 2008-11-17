@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.58
+Version: 11.4.1.59
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,15 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov 17 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.59-1
+- Disable BETANAG.  It's release time! (clumens)
+- Do not bring up network for non-remote kickstart locations (#471658)
+  (dcantrell)
+- Resolve dm-X devices returned by pvdisplay. (#448129) (dlehman)
+- More shell script syntax fixing (katzj)
+- Only bring up the network dialog on package failures if required
+  (#471502). (clumens)
+
 * Wed Nov 12 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.58-1
 - Add comps groups for new repos that are added (#470653) (katzj)
 - Support upgrades of systems whose rootfs is on an LV. (#471288) (dlehman)
