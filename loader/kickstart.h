@@ -45,6 +45,7 @@ int ksReadCommands(char * cmdFile);
 int ksGetCommand(int cmd, char ** last, int * argc, char *** argv);
 int ksHasCommand(int cmd);
 
+int isKickstartFileRemote(char *ksFile);
 void getKickstartFile(struct loaderData_s * loaderData);
 void runKickstart(struct loaderData_s * loaderData);
 int getKickstartFromBlockDevice(char *device, char *path);

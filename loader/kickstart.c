@@ -401,6 +401,27 @@ static char *newKickstartLocation(const char *origLocation) {
     return retval;
 }
 
+int isKickstartFileRemote(char *ksFile) {
+    char *location = NULL;
+
+    if (ksFile == NULL) {
+        return 0;
+    }
+
+    if (!strncmp(ksFile, "ks=", 3)) {
+        location = ksFile + 3;
+    }
+
+    if (!strncmp(location, "ks", 2) ||
+        !strncmp(location, "http://", 7) ||
+        !strncmp(location, "ftp://", 6) ||
+        !strncmp(location, "nfs:", 4))
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 void getKickstartFile(struct loaderData_s *loaderData) {
     char *c;
     int rc = 1;

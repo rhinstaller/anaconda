@@ -1121,7 +1121,13 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                     flags |= LOADER_FLAGS_GRAPHICAL;
                 }
 
-                if (!strncasecmp(argv[i], "syslog", 6)) {
+                /* the following things require networking to be configured
+                 * by loader, so an active connection is ready once we get
+                 * to anaconda
+                 */
+                if (!strncasecmp(argv[i], "syslog", 6) ||
+                    !strncasecmp(argv[i], "vnc", 3) ||
+                    isKickstartFileRemote(loaderData->ksFile)) {
                     logMessage(INFO, "early networking required for syslog");
                     flags |= LOADER_FLAGS_EARLY_NETWORKING;
                 }
@@ -1979,11 +1985,6 @@ int main(int argc, char ** argv) {
      * kind of weird. */
     if (loaderData.ksFile || ksFile) {
         logMessage(INFO, "getting kickstart file");
-        iface_init_iface_t(&iface);
-
-        if (kickstartNetworkUp(&loaderData, &iface)) {
-            logMessage(ERROR, "failed to bring up %s for kickstart", loaderData.netDev);
-        }
 
         if (!ksFile)
             getKickstartFile(&loaderData);
