@@ -373,6 +373,19 @@ def pvlist():
             size = long(math.floor(long(size) / (1024 * 1024)))
         except:
             continue
+
+        if dev.startswith("/dev/dm-"):
+            from block import dm
+            try:
+                sb = os.stat(dev)
+                (major, minor) = (os.major(sb.st_rdev), os.minor(sb.st_rdev))
+                for map in dm.maps():
+                    if map.dev.major == major and map.dev.minor == minor:
+                        dev = "/dev/mapper/%s" % map.name
+                        break
+            except:
+                pass
+
         log.info("pv is %s in vg %s, size is %s" %(dev, vg, size))
         pvs.append( (dev, vg, size) )
 
