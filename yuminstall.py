@@ -639,16 +639,16 @@ class AnacondaYum(YumSorter):
                 continue
 
     def _handleFailure(self, package):
-        if not network.hasActiveNetDev():
-            if not self.anaconda.intf.enableNetwork(self.anaconda):
-                return
-
         if not self.isodir and self.currentMedia:
             buttons = [_("Re_boot"), _("_Eject")]
         else:
             buttons = [_("Re_boot"), _("_Retry")]
 
-        pkgFile = to_unicode(os.path.basename(package.returnSimple('relativepath')))
+        pkgFile = to_unicode(os.path.basename(package.remote_path))
+
+        if package.repo.needsNetwork() and not network.hasActiveNetDev():
+            if not self.anaconda.intf.enableNetwork(self.anaconda):
+                return
 
         rc = self.anaconda.intf.messageWindow(_("Error"),
                    _("The file %s cannot be opened.  This is due to a missing "
