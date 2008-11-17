@@ -1780,7 +1780,6 @@ int main(int argc, char ** argv) {
     char * anacondaArgs[50];
 
     struct loaderData_s loaderData;
-    iface_t iface;
 
     char *error_str = NULL;
     DBusError error;

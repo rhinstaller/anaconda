@@ -415,7 +415,7 @@ int isKickstartFileRemote(char *ksFile) {
     if (!strncmp(location, "ks", 2) ||
         !strncmp(location, "http://", 7) ||
         !strncmp(location, "ftp://", 6) ||
-        !strncmp(location, "nfs:", 4))
+        !strncmp(location, "nfs:", 4)) {
         return 1;
     } else {
         return 0;
