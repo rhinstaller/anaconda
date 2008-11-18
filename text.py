@@ -67,7 +67,6 @@ stepToClasses = {
     "timezone" : ("timezone_text", "TimezoneWindow"),
     "accounts" : ("userauth_text", "RootPasswordWindow"),
     "tasksel": ("task_text", "TaskWindow"),
-    "group-selection": ("grpselect_text", "GroupSelectionWindow"),
     "install" : ("progress_text", "setupForInstall"),
     "complete" : ("complete_text", "FinishedWindow"),
 }
