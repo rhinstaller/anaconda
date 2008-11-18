@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.60
+Version: 11.4.1.61
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 18 2008 Jeremy Katz <katzj@redhat.com> - 11.4.1.61-1
+- Fix death on login of an OLPC on a live image (#472097)
+
 * Tue Nov 18 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.60-1
 - Fix ld-*.so globbing for glibc-2.9. (pjones)
 
