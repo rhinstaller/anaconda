@@ -372,6 +372,9 @@ instbin() {
     if [ -f ld-linux.so.2 ]; then
         rm -f ld-linux.so.2
         linker="$(ls -1 ld-*.*.*.so)"
+        if [ -z "$linker" ]; then
+            linker="$(ls -1 ld-*.*.so)"
+        fi
         found=$(echo $linker | wc -l)
         if [ $found -ne 1 ]; then
             echo "Found too many dynamic linkers:" >&2
