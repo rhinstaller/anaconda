@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.59
+Version: 11.4.1.60
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 18 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.60-1
+- Fix ld-*.so globbing for glibc-2.9. (pjones)
+
 * Mon Nov 17 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.59-1
 - Disable BETANAG.  It's release time! (clumens)
 - Do not bring up network for non-remote kickstart locations (#471658)
