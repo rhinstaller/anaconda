@@ -263,6 +263,7 @@ def runRescue(instPath, mountroot, id):
 	sys.exit(0)
 
     # lets create some devices
+    isys.flushDriveDict()
     iutil.makeDriveDeviceNodes()
 
     # need loopback devices too
