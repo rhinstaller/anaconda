@@ -1607,7 +1607,7 @@ class PartitionTypeWindow:
 
         # ask to review autopartition layout - but only if it's not custom partitioning
         anaconda.dispatch.skipStep("partition", skip = 0)
-        anaconda.dispatch.skipStep("bootloader", skip = 0)
+        anaconda.dispatch.skipStep("bootloader", skip = 1)
 
 	if partmethod_ans != -1:
             reviewLayout = anaconda.intf.messageWindow(_("Review Partition Layout"),
@@ -1616,7 +1616,6 @@ class PartitionTypeWindow:
 
             if reviewLayout != 1:
                 anaconda.dispatch.skipStep("partition", skip = 1)
-                anaconda.dispatch.skipStep("bootloader", skip = 1)
 
         return INSTALL_OK
 
