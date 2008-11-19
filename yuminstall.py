@@ -539,10 +539,10 @@ class AnacondaYum(YumSorter):
             del(repo)
             raise RepoError, "Repo %s contains -source or -debuginfo, excluding" % name
 
-        if BETANAG and not repo.enabled:
+        if not repo.enabled:
             name = repo.name
             del(repo)
-            raise RepoError, "Excluding disabled repo %s for prerelease" % name
+            raise RepoError, "Excluding disabled repo %s" % name
 
         # If repo=/method= was passed in, we want to default these extra
         # repos to off.
