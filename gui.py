@@ -65,7 +65,6 @@ stepToClass = {
     "keyboard" : ("kbd_gui", "KeyboardWindow"),
     "welcome" : ("welcome_gui", "WelcomeWindow"),
     "zfcpconfig" : ("zfcp_gui", "ZFCPWindow"),
-    "partitionmethod" : ("partmethod_gui", "PartitionMethodWindow"),
     "partition" : ("partition_gui", "PartitionWindow"),
     "parttype" : ("autopart_type", "PartitionTypeWindow"),
     "findinstall" : ("examine_gui", "UpgradeExamineWindow"),
