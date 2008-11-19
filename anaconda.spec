@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.61
+Version: 11.4.1.62
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 19 2008 Jeremy Katz <katzj@redhat.com> - 11.4.1.62-1
+- Do not show disabled repos such as rawhide during the install. (jkeating)
+
 * Tue Nov 18 2008 Jeremy Katz <katzj@redhat.com> - 11.4.1.61-1
 - Fix death on login of an OLPC on a live image (#472097)
 
