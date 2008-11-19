@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.156
+Version: 11.1.2.157
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 19 2008 Chris Lumens <clumens@redhat.com> 11.1.2.157-1
+- Include ide-cs module into initrd (msivak).
+  Related: rhbz#448009
+
 * Wed Nov 12 2008 Chris Lumens <clumens@redhat.com> 11.1.2.156-1
 - Fix a variety of pychecker errors (clumens, dcantrell, dlehman, rvykydal).
   Resolves: rhbz#469734
