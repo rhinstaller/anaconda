@@ -1209,9 +1209,11 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         def getBestKernelByArch(pkgname, ayum):
             """Convenience func to find the best arch of a kernel by name"""
-            pkgs = ayum.pkgSack.returnNewestByName(pkgname)
-            if len(pkgs) == 0:
+            try:
+                pkgs = ayum.pkgSack.returnNewestByName(pkgname)
+            except yum.Errors.PackageSackError:
                 return None
+
             pkgs = self.ayum.bestPackagesFromList(pkgs)
             if len(pkgs) == 0:
                 return None
@@ -1556,10 +1558,12 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
     def _checkUpgradeArch(self, anaconda):
         # get the arch of the initscripts package
-        pkgs = self.ayum.pkgSack.returnNewestByName('initscripts')
-        if len(pkgs) == 0:
+        try:
+            pkgs = self.ayum.pkgSack.returnNewestByName('initscripts')
+        except yum.Errors.PackageSackError:
             log.info("no packages named initscripts")
-            return
+            return None
+
         pkgs = self.ayum.bestPackagesFromList(pkgs)
         if len(pkgs) == 0:
             log.info("no best package")
