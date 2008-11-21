@@ -1756,6 +1756,8 @@ class Partitions:
         lvm_parent_deletes = []
         tmp = {}
         def addSnap(name, vg):
+            if not snapshots.has_key(name):
+                return
             snaps = snapshots[name]
             for snap, snapvg in snaps:
                 addSnap(snap, snapvg)
