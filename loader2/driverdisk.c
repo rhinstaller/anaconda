@@ -588,7 +588,7 @@ int ddlist_free(struct ddlist *list)
  */
 struct ddlist* findDriverDiskByLabel(void)
 {
-    char *ddLabel = "oemdrv";
+    char *ddLabel = "OEMDRV";
     struct ddlist *ddDevice = NULL;
     blkid_cache bCache;
     
