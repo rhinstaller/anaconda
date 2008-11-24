@@ -804,7 +804,10 @@ if __name__ == "__main__":
 
     if opts.display_mode == 't' and flags.vncquestion: #we prefer vnc over text mode, so ask about that
         title = _("Would you like to use VNC?")
-        message = _("The VNC mode installation offers more functionality than the text mode, would you like to use it instead?")
+        message = _("Text mode provides a limited set of installation options.  "
+                    "It does not allow you to specify your own partitioning "
+                    "layout or package selections.  Would you like to use VNC "
+                    "mode instead?")
 
         ret = vnc.askVncWindow(title, message)
         if ret != -1:
