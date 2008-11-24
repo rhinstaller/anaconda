@@ -235,22 +235,17 @@ def presentRequiredMediaMessage(anaconda):
             return
 
     reqcds.sort()
-    reqcdstr = ""
-    for cdnum in reqcds:
-        if cdnum == -99: # non-CD bits
-            continue
-        reqcdstr += "\t\t%s %s disc #%d\n" % (product.productName, product.productVersion, cdnum,)
+    reqcds = map(lambda disc: "#%s" % disc, filter(lambda disc: disc != -99, reqcds))
+    reqcdstr = ", ".join(reqcds)
 
-    return anaconda.intf.messageWindow( _("Required Install Media"),
-                                        _("The software you have selected to "
-                                          "install will require the following discs:\n\n"
-                                          "%s\nPlease "
-                                          "have these ready before proceeding with "
-                                          "the installation.  If you need to abort "
-                                          "the installation and exit please "
-                                          "select \"Reboot\".") % (reqcdstr,),
-                                          type="custom", custom_icon="warning",
-                                          custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
+    return anaconda.intf.messageWindow(_("Required Install Media"),
+               _("The software you have selected to install will require the "
+                 "following %s %s discs:\n\n%s\nPlease have these ready "
+                 "before proceeding with the installation.  If you need to "
+                 "abort the installation and exit please select "
+                 "\"Reboot\".") % (product.productName, product.productVersion, reqcdstr)
+                 type="custom", custom_icon="warning",
+                 custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
 
 # Find an attached CD/DVD drive with media in it that contains packages,
 # and return that device name.
