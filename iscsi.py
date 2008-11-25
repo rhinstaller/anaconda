@@ -63,7 +63,7 @@ def has_iscsi():
 
 class iscsiTarget:
     def __init__(self, ipaddr, port=None, user=None, pw=None,
-            user_in=None, pw_in=None):
+            user_in=None, pw_in=None, discover=True, login=True):
         # FIXME: validate ipaddr
         self.ipaddr = ipaddr
         if not port: # FIXME: hack hack hack
@@ -75,6 +75,8 @@ class iscsiTarget:
         self.password_in = pw_in
         self._portal = None
         self._nodes = []
+        self.doDiscovery = discover
+        self.doLogin = login
 
         find_iscsi_files()
 
@@ -310,93 +312,88 @@ class iscsi(object):
                 self.oldInitiatorFile = None
         self._stopIscsiDaemon()
 
-    def loginToDefaultDrive(self):
-        # Example:
-        # [root@elm3b87 ~]# iscsiadm -m discovery -t fw -l
-        # Logging in to [iface: default, target: iqn.1992-08.com.netapp:sn.84183797, portal: 9.47.67.152,3260]
+    def updateIscsidConf(self, values):
+        oldIscsidFile = []
+        try:
+            f = open(ISCSID_CONF, "r")
+            oldIscsidFile = f.readlines()
+            f.close()
+        except IOError, x:
+            if x.errno != errno.ENOENT:
+                raise RuntimeError, "Cannot open %s for read." % (ISCSID_CONF,)
 
+        try:
+            f = open(ISCSID_CONF, "w")
+        except:
+            raise RuntimeError, "Cannot open %s for write." % (ISCSID_CONF,)
+
+        lines = {}
+        for line in oldIscsidFile:
+            line = line.strip()
+            (k,v) = line.split('=')
+            k = k.strip()
+            v = v.strip()
+
+        for k,v in values.items():
+            commentK = '#%s' % (k,)
+            if lines.has_key(commentK):
+                del lines[commentK]
+            lines[k] = v
+
+        for k,v in lines.items():
+            f.write("%s = %s\n" % (k, v))
+        f.close()
+
+    def loginToDefaultDrive(self):
         find_iscsi_files()
 
-        argv = [ "-m", "discovery", "-t", "fw", "-l" ]
+        argv = [ "-m", "fw" ]
+        log.debug("iscsiadm %s" % (string.join(argv),))
         result = iutil.execWithCapture(ISCSIADM, argv)
         log.debug("iscsiadm result: %s" % (result,))
 
-        start = result.find('[')
-        end = result.rfind(']')
+        result = result.strip()
+        result = string.split(result, '\n')
+        results = []
+        n = -1
 
-        if start == -1 or end == -1:
-            log.warn("could not find markers.  iscsiadm returned: %s" %
-                (result,))
-            return
+        in_record = False
+        for x in range(0, len(result)):
+            line = result[x]
+            if line == '# BEGIN RECORD':
+                n += 1
+                results.append({})
+                in_record = True
+                continue
+            elif line == '# END RECORD':
+                in_record = False
+                continue
+            elif in_record:
+                try:
+                    (k,v) = line.split(' = ')
+                    results[n][k] = v
+                except ValueError:
+                    pass
 
-        values = {}
-        for kv in string.split(result[start+1:end], ', '):
-            (k, v) = string.split(kv, ': ')
-            values[k] = v
-        del start, end
+        for n in range(0, len(results)):
+            record = results[n]
+            replacements = {}
+            for k,v in record.items():
+                if '[0]' in k:
+                    replacements[k] = k.replace('[0]','[%s]' % (n,))
+            for k0,k1 in replacements.items():
+                v = record[k0]
+                del record[k0]
+                record[k1] = v
+                    
+            self.updateIscsidConf(record)
 
-        if not values.has_key('target'):
-            log.warn("iBFT data missing target.  iscsiadm returned: %s" %
-                (result,))
-
-        if not values.has_key('portal'):
-            log.warn("iBFT data missing portal.  iscsiadm returned: %s" %
-                (result,))
-        else:
-            portal = values['portal']
-            comma = portal.find(',')
-            if comma == -1:
-                values['port'] = 3260
-            else:
-                values['port'] = portal[comma+1:]
-                values['portal'] = portal[0:comma]
-
-        if not values.has_key('chap-username') or not \
-                values.has_key('chap-password'):
-            if values.has_key('chap-username'):
-                log.warn("Invalid iBFT CHAP password.  iscsiadm returned: %s" %
-                    (result,))
-                return
-            if values.has_key('chap-password'):
-                log.warn("Invalid iBFT CHAP username.  iscsiadm returned: %s" %
-                    (result,))
-                return
-                
-        if not values.has_key('rev-chap-username') or not \
-                values.has_key('rev-chap-password'):
-            if values.has_key('rev-chap-username'):
-                log.warn("Invalid iBFT Reverse CHAP password.  " \
-                         "iscsiadm returned %s" % (result,))
-                return
-            if values.has_key('rev-chap-password'):
-                log.warn("Invalid iBFT Reverse CHAP username.  " \
-                         "iscsiadm returned %s" % (result,))
-                return
-
-        target = values['target']
-
-        renames = {
-            'portal': 'ipaddr',
-            'chap-username': 'user',
-            'chap-password': 'pw',
-            'rev-chap-username': 'user_in',
-            'rev-chap-password': 'pw_in',
-            }
-
-        for k,v in renames.items():
-            if values.has_key(k):
-                values[v] = values[k]
-                del values[k]
-
-        badKeys = filter(lambda x: not x in \
-                          ('ipaddr','port','user','pw','user_in','pw_in'),
-                         values.keys())
-        for k in badKeys:
-            del values[k]
-
-        # make a new target
-        self.addTarget(**values)
-
+            t = iscsiTarget(ipaddr=record['node.conn[%s].address' % (n,)],
+                            port=record['node.conn[%s].port' % (n,)],
+                            user=record['node.session.auth.username'],
+                            pw=record['node.session.auth.password'],
+                            discover = False)
+            self.targets.append(t)
 
     def startIBFT(self):
         # If there is a default drive in the iSCSI configuration, then
@@ -435,7 +432,7 @@ class iscsi(object):
 
         if not os.path.isdir("/var/lib/iscsi"):
             os.makedirs("/var/lib/iscsi", 0660)
-        for dir in ['nodes','send_targets','ifaces']:
+        for dir in ['ifaces','isns','nodes','send_targets','slp','static']:
             fulldir = "/var/lib/iscsi/%s" % (dir,)
             if not os.path.isdir(fulldir):
                 os.makedirs(fulldir, 0660)
@@ -444,100 +441,14 @@ class iscsi(object):
         self.startIBFT()
 
         for t in self.targets:
-            if not t.discover():
-                continue
-            t.login()
+            if t.doDiscovery:
+                if not t.discover():
+                    continue
+            if t.doLogin:
+                t.login()
 
         if intf:
             w.pop()
-
-    def addTarget(self, ipaddr, port="3260", user=None, pw=None,
-                  user_in=None, pw_in=None, intf=None):
-        if not self.iscsidStarted:
-            self.startup(intf)
-            if not self.iscsidStarted:
-                # can't start for some reason.... just fallback I guess
-                return
-
-        commentUser = '#'
-        commentUser_in = '#'
-
-        if user is not None or pw is not None:
-            commentUser = ''
-            if user is None:
-                raise ValueError, "user is required"
-            if pw is None:
-                raise ValueError, "pw is required"
-
-        if user_in is not None or pw_in is not None:
-            commentUser_in = ''
-            if user_in is None:
-                raise ValueError, "user_in is required"
-            if pw_in is None:
-                raise ValueError, "pw_in is required"
-
-        # If either a user/pw pair was specified or a user_in/pw_in was
-        # specified, then CHAP is specified.
-        if commentUser == '' or commentUser_in == '':
-            commentChap = ''
-        else:
-            commentChap = '#'
-
-
-        oldIscsidFile = []
-        try:
-            f = open(ISCSID_CONF, "r")
-            oldIscsidFile = f.readlines()
-            f.close()
-        except IOError, x:
-            if x.errno != errno.ENOENT:
-                raise RuntimeError, "Cannot open %s for read." % (ISCSID_CONF,)
-
-        try:
-            f = open(ISCSID_CONF, "w")
-        except:
-            raise RuntimeError, "Cannot open %s for write." % (ISCSID_CONF,)
-
-        vals = {
-            "node.session.auth.authmethod = ": [commentChap, "CHAP"],
-            "node.session.auth.username = ": [commentUser, user],
-            "node.session.auth.password = ": [commentUser, pw],
-            "node.session.auth.username_in = ": [commentUser_in, user_in],
-            "node.session.auth.password_in = ": [commentUser_in, pw_in],
-            "discovery.sendtargets.auth.authmethod = ": [commentChap, "CHAP"],
-            "discovery.sendtargets.auth.username = ": [commentUser, user],
-            "discovery.sendtargets.auth.password = ": [commentUser, pw],
-            "discovery.sendtargets.auth.username_in = ":
-                [commentUser_in, user_in],
-            "discovery.sendtargets.auth.password_in = ":
-                [commentUser_in, pw_in],
-            }
-
-        for line in oldIscsidFile:
-            s  = line.strip()
-            # grab the cr/lf/cr+lf
-            nl = line[line.find(s)+len(s):]
-            found = False
-            for (k, (c, v)) in vals.items():
-                if line.find(k) != -1:
-                    f.write("%s%s%s%s" % (c, k, v, nl))
-                    found=True
-                    del vals[k]
-                    break
-            if not found:
-                f.write(line)
-
-        for (k, (c, v)) in vals.items():
-            f.write("%s%s%s\n" % (c, k, v))
-        f.close ()
-
-        t = iscsiTarget(ipaddr, port, user, pw, user_in, pw_in)
-        if not t.discover():
-            return
-        if not t.login():
-            return
-        self.targets.append(t)
-        return
 
     def writeKS(self, f):
         if not self.initiatorSet:
