@@ -110,7 +110,7 @@ class iscsiTarget:
     nodes = property(_getNode)
 
     def discover(self):
-        argv = [ "-m", "discovery", "-t", "st", "-p", 
+        argv = [ "-m", "discovery", "-t", "st", "-p",
                  "%s:%s" % (self.ipaddr, self.port) ]
         log.debug("iscsiadm %s" %(string.join(argv),))
         rc = iutil.execWithRedirect(ISCSIADM, argv,
@@ -385,7 +385,7 @@ class iscsi(object):
                 v = record[k0]
                 del record[k0]
                 record[k1] = v
-                    
+
             self.updateIscsidConf(record)
 
             t = iscsiTarget(ipaddr=record['node.conn[%s].address' % (n,)],
