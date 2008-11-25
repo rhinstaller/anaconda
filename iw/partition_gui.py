@@ -867,9 +867,9 @@ class PartitionWindow(InstallWindow):
 		    else:
 			self.tree[iter]['Mount Point'] = ""
 
-                    if request.isEncrypted(self.partitions, True) and request.format:
+                    if request and request.isEncrypted(self.partitions, True) and request.format:
                         self.tree[iter]['Format'] = self.lock_pixbuf
-                    elif request.format:
+                    elif request and request.format:
                         self.tree[iter]['Format'] = self.checkmark_pixbuf
 
 			
@@ -905,9 +905,9 @@ class PartitionWindow(InstallWindow):
                     else:
                         ptype = part.fs_type.name
 
-                    if request.isEncrypted(self.partitions, True) and request.format:
+                    if request and request.isEncrypted(self.partitions, True) and request.format:
 			self.tree[iter]['Format'] = self.lock_pixbuf
-                    elif request.format:
+                    elif request and request.format:
 			self.tree[iter]['Format'] = self.checkmark_pixbuf
                 else:
                     if request and request.fstype != None:
