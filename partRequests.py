@@ -836,6 +836,13 @@ class VolumeGroupRequestSpec(RequestSpec):
                 pvreq = partitions.getRequestByID(pvid)
                 size = pvreq.getActualSize(partitions, diskset)
                 clamped = lvm.clampPVSize(size, self.pesize)
+                if size == clamped:
+                    # This is a corner case were we say that the available size of the VG
+                    # is the total size of the paritition.  Given that the pvs need metadata
+                    # it is better to be on the safe side and give ourselves on pe of extra
+                    # space.  This code is repeated in iw/lvm_dialog_gui.py.
+                    clamped = clamped - (self.pesize / 1024)
+
                 log.debug("  got pv.size of %s, clamped to %s" % (size,clamped))
                 totalspace = totalspace + clamped
             log.debug("  total space: %s" % (totalspace,))

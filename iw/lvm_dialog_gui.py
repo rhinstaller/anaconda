@@ -818,17 +818,26 @@ class VolumeGroupEditor:
 	return pv
 
     def computeVGSize(self, pvlist, curpe):
-	availSpaceMB = 0L
-	for id in pvlist:
-	    pvreq = self.partitions.getRequestByID(id)
-	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
-	    # have to clamp pvsize to multiple of PE
-	    pvsize = lvm.clampPVSize(pvsize, curpe)
+        availSpaceMB = 0L
+        if self.origvgrequest.preexist and self.origvgrequest.preexist_size:
+            availSpaceMB = lvm.clampPVSize(self.origvgrequest.preexist_size, curpe)
+        else:
+            for id in pvlist:
+                pvreq = self.partitions.getRequestByID(id)
+                pvsize = pvreq.getActualSize(self.partitions, self.diskset)
+                # have to clamp pvsize to multiple of PE
+                clampedSize = lvm.clampPVSize(pvsize, curpe)
+                if pvsize == clampedSize:
+                    # This is a corner case were we say that the available size of the VG
+                    # is the total size of the paritition.  Given that the pvs need metadata
+                    # it is better to be on the safe side and give ourselves on pe of extra
+                    # space.
+                    clampedSize = clampedSize - (curpe / 1024)
 
-	    availSpaceMB = availSpaceMB + pvsize
+                availSpaceMB = availSpaceMB + clampedSize
 
         log.debug("computeVGSize: vgsize is %s" % (availSpaceMB,))
-	return availSpaceMB
+        return availSpaceMB
 
     def computeLVSpaceNeeded(self, logreqs, pesize):
 	neededSpaceMB = 0
