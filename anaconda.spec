@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.157
+Version: 11.1.2.158
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,17 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 25 2008 Chris Lumens <clumens@redhat.com> 11.1.2.158-1
+- Fix up ibft use cases (pjones).
+- Partition requests can be None when populating the tree (dlehman).
+  Resolves: rhbz#472788
+- Remove the name check on driver disk packages.
+  Resolves: rhbz#472951
+- Remove missing PVs before removing obsolete VG (rvykydal).
+  Resolves: rhbz#468431
+- Make the driverdisc label uppercase (msivak).
+  Related: rhbz#316481
+
 * Wed Nov 19 2008 Chris Lumens <clumens@redhat.com> 11.1.2.157-1
 - Include ide-cs module into initrd (msivak).
   Related: rhbz#448009
