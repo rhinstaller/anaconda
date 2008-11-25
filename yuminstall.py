@@ -993,9 +993,9 @@ class YumBackend(AnacondaBackend):
 
         for (path, name) in anaconda.id.extraModules:
             if ext != "":
-                moduleProvides = "kmod-%s-%s" % (name, ext)
+                moduleProvides = "dud-%s-%s" % (name, ext)
             else:
-                moduleProvides = "%s-kmod" % name
+                moduleProvides = "dud-%s" % name
 
             pkgs = self.ayum.returnPackagesByDep(moduleProvides)
 
@@ -1003,16 +1003,9 @@ class YumBackend(AnacondaBackend):
                 log.warning("Didn't find any package providing module %s" % name)
 
             for pkg in pkgs:
-                if ext == "" and pkg.name == "kmod-"+name:
-                    log.info("selecting package %s for module %s" % (pkg.name, name))
-                    self.ayum.install(po=pkg)
-                    self._installedDriverModules.append((path, name))
-                elif ext != "" and pkg.name.find("-"+ext) != -1:
-                    log.info("selecting package %s for module %s" % (pkg.name, name))
-                    self.ayum.install(po=pkg)
-                    self._installedDriverModules.append((path, name))
-                else:
-                    continue
+                log.info("selecting package %s for module %s" % (pkg.name, name))
+                self.ayum.install(po=pkg)
+                self._installedDriverModules.append((path, name))
 
     def copyExtraModules(self, anaconda, modulesList):
         kernelVersions = self.kernelVersionList()
