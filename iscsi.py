@@ -450,6 +450,94 @@ class iscsi(object):
         if intf:
             w.pop()
 
+    def addTarget(self, ipaddr, port="3260", user=None, pw=None,
+                  user_in=None, pw_in=None, intf=None):
+        if not self.iscsidStarted:
+            self.startup(intf)
+            if not self.iscsidStarted:
+                # can't start for some reason.... just fallback I guess
+                return
+
+        commentUser = '#'
+        commentUser_in = '#'
+
+        if user is not None or pw is not None:
+            commentUser = ''
+            if user is None:
+                raise ValueError, "user is required"
+            if pw is None:
+                raise ValueError, "pw is required"
+
+        if user_in is not None or pw_in is not None:
+            commentUser_in = ''
+            if user_in is None:
+                raise ValueError, "user_in is required"
+            if pw_in is None:
+                raise ValueError, "pw_in is required"
+
+        # If either a user/pw pair was specified or a user_in/pw_in was
+        # specified, then CHAP is specified.
+        if commentUser == '' or commentUser_in == '':
+            commentChap = ''
+        else:
+            commentChap = '#'
+
+
+        oldIscsidFile = []
+        try:
+            f = open(ISCSID_CONF, "r")
+            oldIscsidFile = f.readlines()
+            f.close()
+        except IOError, x:
+            if x.errno != errno.ENOENT:
+                raise RuntimeError, "Cannot open %s for read." % (ISCSID_CONF,)
+
+        try:
+            f = open(ISCSID_CONF, "w")
+        except:
+            raise RuntimeError, "Cannot open %s for write." % (ISCSID_CONF,)
+
+        vals = {
+            "node.session.auth.authmethod = ": [commentChap, "CHAP"],
+            "node.session.auth.username = ": [commentUser, user],
+            "node.session.auth.password = ": [commentUser, pw],
+            "node.session.auth.username_in = ": [commentUser_in, user_in],
+            "node.session.auth.password_in = ": [commentUser_in, pw_in],
+            "discovery.sendtargets.auth.authmethod = ": [commentChap, "CHAP"],
+            "discovery.sendtargets.auth.username = ": [commentUser, user],
+            "discovery.sendtargets.auth.password = ": [commentUser, pw],
+            "discovery.sendtargets.auth.username_in = ":
+                [commentUser_in, user_in],
+            "discovery.sendtargets.auth.password_in = ":
+                [commentUser_in, pw_in],
+            }
+
+        for line in oldIscsidFile:
+            s  = line.strip()
+            # grab the cr/lf/cr+lf
+            nl = line[line.find(s)+len(s):]
+            found = False
+            for (k, (c, v)) in vals.items():
+                if line.find(k) != -1:
+                    f.write("%s%s%s%s" % (c, k, v, nl))
+                    found=True
+                    del vals[k]
+                    break
+            if not found:
+                f.write(line)
+
+        for (k, (c, v)) in vals.items():
+            f.write("%s%s%s\n" % (c, k, v))
+        f.close ()
+
+        t = iscsiTarget(ipaddr, port, user, pw, user_in, pw_in)
+        if not t.discover():
+            return
+        if not t.login():
+            return
+        self.targets.append(t)
+        return
+
     def writeKS(self, f):
         if not self.initiatorSet:
             return
