@@ -588,6 +588,7 @@ etc/security/limits.conf
 etc/security/pam_env.conf
 lib/security
 $LIBDIR/security/pam_*
+$LIBDIR/libwrap.so*
 usr/$LIBDIR/libwrap.so*
 usr/$LIBDIR/libXmuu.so*
 usr/$LIBDIR/libX11.so*
@@ -646,6 +647,7 @@ $LIBDIR/libattr*
 $LIBDIR/libgcc*
 $LIBDIR/libnss_dns*
 $LIBDIR/libproc*
+$LIBDIR/libwrap*
 sbin/addRamDisk
 sbin/addSystemMap
 sbin/debugfs
