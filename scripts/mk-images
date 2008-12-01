@@ -117,8 +117,7 @@ LVMMODS="dm-mod dm-zero dm-snapshot dm-mirror dm-multipath dm-round-robin dm-cry
 RAIDMODS="raid0 raid1 raid5 raid6 raid456 raid10 linear"
 CRYPTOMODS="sha256_generic cbc xts lrw aes_generic crypto_blkcipher crc32c ecb arc4"
 PCMCIASOCKMODS="yenta_socket i82365 tcic pcmcia"
-DRMMODS="drm i810 i830 i915 mga nouveau r128 radeon savage sis tdfx via"
-INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $COMMONMODS $PCMCIASOCKMODS $DRMMODS $SDMODS =scsi =net"
+INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $COMMONMODS $PCMCIASOCKMODS $SDMODS =scsi =net =drm"
 
 . $(dirname $0)/buildinstall.functions
 
@@ -261,7 +260,16 @@ expandModuleSet() {
 	char=$(echo $name | cut -c1)
         if [ $char = '=' ]; then
 	    NAME=$(echo $name | cut -c2-)
-	    SET="$SET $($MODLIST --modinfo-file $MODINFO $NAME)"
+	    if [ "$NAME" = "ata" ]; then
+		SET="$SET $(cat $MBD_DIR/lib/modules/$kernel/modules.block |egrep '(ata|ahci)' |sed -e 's/.ko//')"
+	    elif [ "$NAME" = "scsi" ]; then
+		SET="$SET $(cat $MBD_DIR/lib/modules/$kernel/modules.block) |sed -e 's/.ko//')"
+	    else
+                # Ignore if group list does not exist
+                if [ -e $MBD_DIR/lib/modules/$kernel/modules.$NAME ]; then
+		    SET="$SET $(cat $MBD_DIR/lib/modules/$kernel/modules.$NAME |sed -e 's/.ko//')"
+                fi
+	    fi
 	else
 	    SET="$SET $name"
 	fi
