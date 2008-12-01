@@ -1508,16 +1508,12 @@ class PartitionTypeWindow:
         while 1:
             g = GridFormHelp(screen, _("Partitioning Type"), "autopart", 1, 6)
 
-            txt = TextboxReflowed(65, _("Installation requires partitioning "
-                                    "of your hard drive.  The default "
-                                    "layout is reasonable for most "
-                                    "users.  You can either choose "
-                                    "to use this or create your own."))
+            txt = TextboxReflowed(65, _("Installation requires partitioning of your hard drive.  The default layout is suitable for most users.  Select what space to use and which drives to use as the install target. You can also choose to create your own custom layout."))
             g.add(txt, 0, 0, (0, 0, 0, 0))
 
-            opts = ((_("Remove all partitions on selected drives and create default layout"), CLEARPART_TYPE_ALL),
-                    (_("Remove Linux partitions on selected drives and create default layout"), CLEARPART_TYPE_LINUX),
-                    (_("Use free space on selected drives and create default layout"), CLEARPART_TYPE_NONE),
+            opts = ((_("Use entire drive"), CLEARPART_TYPE_ALL),
+                    (_("Replace existing Linux system"), CLEARPART_TYPE_LINUX),
+                    (_("Use free space"), CLEARPART_TYPE_NONE),
                     (_("Create custom layout"), -1))
             typebox = Listbox(height = len(opts), scroll = 0)
             for (txt, val) in opts:

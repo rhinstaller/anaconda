@@ -30,7 +30,7 @@
       <child>
 	<widget class="GtkLabel" id="mainlabel">
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">Installation requires partitioning of your hard drive.  By default, a partitioning layout is chosen which is reasonable for most users.  You can either choose to use this or create your own.</property>
+	  <property name="label" translatable="yes">Installation requires partitioning of your hard drive.  The default layout is suitable for most users.  Select what space to use and which drives to use as the install target. You can also choose to create your own custom layout.</property>
 	  <property name="use_underline">False</property>
 	  <property name="use_markup">False</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>
