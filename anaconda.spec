@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.158
+Version: 11.1.2.159
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Dec 1 2008 Joel Granados <jgranado@redhat.com> 11.1.2.159-1
+- The LV size is smaller than the totall sum of the partitions that make it up (jgranado).
+  Resolves: rhbz:#468944
+
 * Tue Nov 25 2008 Chris Lumens <clumens@redhat.com> 11.1.2.158-1
 - Fix up ibft use cases (pjones).
 - Partition requests can be None when populating the tree (dlehman).
