@@ -66,17 +66,12 @@ class CongratulationWindow (InstallWindow):
 	    a.set_size_request(200, -1)
             hbox.pack_start (a, False, False, 36)
 
-        bootstr = ""
-        if iutil.isS390() or os.path.exists("/dev/live-osimg"):
-            floppystr = _("Please reboot the system to use the installed "
-                          "system.\n\n")
-        else:
-            floppystr = _("Press the \"Reboot\" button to reboot your system."
-                          "\n\n")
-
-
-        txt = _("Congratulations, the installation is complete.\n\n"
-                "%s%s") %(floppystr, bootstr)
+        txt = _("Congratulations, your %s installation is complete.\n\n"
+                "Please reboot the system to use the installed system.  "
+                "Note that updates may be available to ensure the proper "
+                "functioning of your system and installation of these "
+                "updates is recommended after initially booting your "
+                "system.") %(productName,)
 	label = gui.WrappingLabel(txt)
         label.set_size_request(250, -1)
 

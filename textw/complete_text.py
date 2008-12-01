@@ -29,20 +29,16 @@ class FinishedWindow:
   def __call__ (self, screen, anaconda):
         bootstr = ""
 
-        floppystr = _("Press <Enter> to end the installation process.\n\n")
         bottomstr = _("<Enter> to exit")
 
         screen.pushHelpLine (string.center(bottomstr, screen.width))
 
-        txt = _("Congratulations, your %s installation is "
-                "complete.\n\n"
-                "%s%s") %(productName, floppystr, bootstr)
-        foo = _("For information on errata (updates and bug fixes), visit "
-                "http://www.redhat.com/errata/.\n\n"
-                "Information on using your "
-                "system is available in the %s manuals at "
-                "http://www.redhat.com/docs/.") %(productName,)
-
+        txt = _("Congratulations, your %s installation is complete.\n\n"
+                "Please reboot the system to use the installed system.  "
+                "Note that updates may be available to ensure the proper "
+                "functioning of your system and installation of these "
+                "updates is recommended after initially booting your "
+                "system.") %(productName,)
         rc = ButtonChoiceWindow (screen, _("Complete"), txt,
                                  [ _("Reboot") ], help = "finished", width=60)
 
