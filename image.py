@@ -243,7 +243,7 @@ def presentRequiredMediaMessage(anaconda):
                  "following %s %s discs:\n\n%s\nPlease have these ready "
                  "before proceeding with the installation.  If you need to "
                  "abort the installation and exit please select "
-                 "\"Reboot\".") % (product.productName, product.productVersion, reqcdstr)
+                 "\"Reboot\".") % (product.productName, product.productVersion, reqcdstr),
                  type="custom", custom_icon="warning",
                  custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
 
