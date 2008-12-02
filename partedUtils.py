@@ -901,6 +901,8 @@ class DiskSet:
                     theDev = node
                     if part.fs_type:
                         fstype = part.fs_type.name
+                    else:
+                        fstype = None
 
                     # parted doesn't tell ext4 from ext3 for us
                     if fstype == "ext3": 
