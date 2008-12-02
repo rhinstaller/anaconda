@@ -265,7 +265,7 @@ class AbstractBug(object):
         """
         return True
 
-    def prependwhitebaord(self, text, which=''):
+    def prependwhiteboard(self, text, which=''):
         """Put the given text at the front of the given whiteboard.  Not all
            bug filing systems support the concept of whiteboards, so this
            method is optional.  If provided, it should return some non-None
@@ -444,7 +444,7 @@ class BugzillaBug(AbstractBug):
     def appendwhiteboard(self, text, which='status'):
         return self.__withBugDo(lambda b: b.appendwhiteboard(text, which=which))
 
-    def prependwhitebaord(self, text, which='status'):
+    def prependwhiteboard(self, text, which='status'):
         return self.__withBugDo(lambda b: b.prependwhiteboard(text, which=which))
 
     def setwhiteboard(self, text, which='status'):
