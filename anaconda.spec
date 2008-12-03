@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.160
+Version: 11.1.2.161
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Dec 3 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.161-1
+- Include the libwrap in the initrd image
+  Resolves: rhbz#473955
+
 * Mon Dec 1 2008 Joel Granados <jgranado@redhat.com> 11.1.2.160-1
 - Allow ssh and telnet to the install (jgranado).
   Resolves: rhbz:#473955
