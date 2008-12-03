@@ -1463,7 +1463,7 @@ def doAutoPartition(anaconda):
                     # FIXME: this is a hack so that autopartition'd vgs
                     # can have a unique name
                     if req.autoname == 1 and req.volumeGroupName == "lvm":
-                        n = lvm.createSuggestedVGName(partitions)
+                        n = lvm.createSuggestedVGName(partitions, anaconda.id.network)
                         req.volumeGroupName = n
 
             if (isinstance(req, partRequests.LogicalVolumeRequestSpec)):
@@ -1649,11 +1649,15 @@ def autoCreateLVMPartitionRequests(autoreq):
     requests.append(nr)
 
     volnum = 0
+    swapvol = 0
+    totalswaps = 0
+
     for (mntpt, fstype, minsize, maxsize, grow, format, asvol) in autoreq:
-        if fstype:
-            ptype = fsset.fileSystemTypeGet(fstype)
-        else:
-            ptype = fsset.fileSystemTypeGetDefault()
+        if fsset.fileSystemTypeGet(fstype) == fsset.fileSystemTypeGet("swap"):
+            totalswaps += 1
+
+    for (mntpt, fstype, minsize, maxsize, grow, format, asvol) in autoreq:
+        ptype = fsset.fileSystemTypeGet(fstype)
 
         if not asvol:
             newrequest = partRequests.PartitionSpec(ptype,
@@ -1663,17 +1667,38 @@ def autoCreateLVMPartitionRequests(autoreq):
                                                     grow = grow,
                                                     format = format)
         else:
+            # try to incorporate the mount point in to the logical volume name
+            if mntpt is not None and mntpt != '':
+                if mntpt == '/':
+                    lvtemplate = 'lv_root'
+                else:
+                    tmp = string.strip(mntpt)
+                    tmp = tmp.replace('/', '_')
+
+                    while tmp.startswith('_'):
+                        tmp = tmp[1:]
+
+                    lvtemplate = "lv_%s" % (tmp,)
+            else:
+                if ptype == fsset.fileSystemTypeGet("swap"):
+                    if totalswaps > 1:
+                        lvtemplate = "lv_swap%02d" % (swapvol,)
+                        swapvol += 1
+                    else:
+                        lvtemplate = "lv_swap"
+                else:
+                    lvtemplate = "LogVol%02d" % (volnum,)
+                    volnum += 1
+
             newrequest = partRequests.LogicalVolumeRequestSpec(ptype,
                                                                mountpoint = mntpt,
                                                                size = minsize,
                                                                maxSizeMB = maxsize,
                                                                grow = grow,
                                                                format = format,
-                                                               lvname = "LogVol%02d" %(volnum,),
+                                                               lvname = "%s" % (lvtemplate,),
                                                                volgroup = "lvm")
-            volnum += 1
 
-        
         requests.append(newrequest)
 
     return requests

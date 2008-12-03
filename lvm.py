@@ -528,45 +528,62 @@ def getMaxLVSize(pe):
         else:
             return (16*1024*1024) #Max is 16TiB
 
-def createSuggestedVGName(partitions):
+def createSuggestedVGName(partitions, network):
     """Given list of partition requests, come up with a reasonable VG name
 
     partitions - list of requests
     """
-    i = 0
-    while 1:
-	tmpname = "VolGroup%02d" % (i,)
-	if not partitions.isVolumeGroupNameInUse(tmpname):
-	    break
 
-	i = i + 1
-	if i>99:
-	    tmpname = ""
+    # try to create a volume group name incorporating the hostname
+    hn = network.hostname
+    if hn is not None and hn != '':
+        if hn == 'localhost' or hn == 'localhost.localdomain':
+            vgtemplate = "VolGroup"
+        elif hn.find('.') != -1:
+            vgtemplate = "vg_%s" % (hn.split('.')[0].lower(),)
+        else:
+            vgtemplate = "vg_%s" % (hn.lower(),)
+    else:
+        vgtemplate = "VolGroup"
 
-    return tmpname
-	    
+    if not partitions.isVolumeGroupNameInUse(vgtemplate):
+        return vgtemplate
+    else:
+        i = 0
+        while 1:
+            tmpname = "%s%02d" % (vgtemplate, i,)
+            if not partitions.isVolumeGroupNameInUse(tmpname):
+                break
+
+            i += 1
+            if i > 99:
+                tmpname = ""
+
+        return tmpname
+
 def createSuggestedLVName(logreqs):
     """Given list of LV requests, come up with a reasonable LV name
 
     partitions - list of LV requests for this VG
     """
+
     i = 0
 
     lnames = []
     for lv in logreqs:
-	lnames.append(lv.logicalVolumeName)
-    
-    while 1:
-	tmpname = "LogVol%02d" % (i,)
-	if (logreqs is None) or (tmpname not in lnames):
-	    break
+        lnames.append(lv.logicalVolumeName)
 
-	i = i + 1
-	if i>99:
-	    tmpname = ""
+    while 1:
+        tmpname = "LogVol%02d" % (i,)
+        if (logreqs is None) or (tmpname not in lnames):
+            break
+
+        i += 1
+        if i > 99:
+            tmpname = ""
 
     return tmpname
-	    
+
 def getVGUsedSpace(vgreq, requests, diskset):
     vgused = 0
     for request in requests.requests:

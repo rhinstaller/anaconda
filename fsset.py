@@ -78,7 +78,10 @@ def fileSystemTypeGetDefault():
 
 
 def fileSystemTypeGet(key):
-    return fileSystemTypes[key]
+    if fileSystemTypes.has_key(key):
+        return fileSystemTypes[key]
+    else:
+        return fileSystemTypeGetDefault()
 
 def fileSystemTypeRegister(klass):
     fileSystemTypes[klass.getName()] = klass
