@@ -865,11 +865,33 @@ if __name__ == "__main__":
     # running on a redirected X display, so start local X server
     if opts.display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
         try:
+	    # start X with its USR1 handler set to ignore.  this will make it send
+	    # us SIGUSR1 if it succeeds.  if it fails, catch SIGCHLD and bomb out.
+
+	    def sigchld_handler(num, frame):
+		raise OSError
+
+	    def sigusr1_handler(num, frame):
+		pass
+
+	    def preexec_fn():
+		signal.signal(signal.SIGUSR1, signal.SIG_IGN)
+
             xout = open("/dev/tty5", "w")
-            proc = subprocess.Popen(["Xorg", "-br", "-logfile", "/tmp/X.log", ":1", "vt6", "-s", "1440", "-ac", "-nolisten", "tcp", "-dpi", "96"], close_fds=True, stdout=xout, stderr=xout)
-            time.sleep(5)
-            if proc.poll() is not None:
-                raise OSError
+	    old_sigusr1 = signal.signal(signal.SIGUSR1, sigusr1_handler)
+	    old_sigchld = signal.signal(signal.SIGCHLD, sigchld_handler)
+
+            proc = subprocess.Popen(["Xorg", "-br", "-logfile", "/tmp/X.log",
+				     ":1", "vt6", "-s", "1440", "-ac",
+				     "-nolisten", "tcp", "-dpi", "96"],
+				     close_fds=True, stdout=xout, stderr=xout,
+				     preexec_fn=preexec_fn)
+
+	    signal.pause()
+
+	    signal.signal(signal.SIGUSR1, old_sigusr1)
+	    signal.signal(signal.SIGCHLD, old_sigchld)
+
             os.environ["DISPLAY"] = ":1"
             doStartupX11Actions(opts.runres)
             xserver_pid = proc.pid
