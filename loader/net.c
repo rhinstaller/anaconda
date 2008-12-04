@@ -1156,6 +1156,7 @@ int writeEnabledNetInfo(iface_t *iface) {
     char buf[INET6_ADDRSTRLEN+1];
     char *ofile = NULL;
     char *nfile = NULL;
+    struct utsname kv;
 
     memset(&buf, '\0', sizeof(buf));
 
@@ -1163,29 +1164,38 @@ int writeEnabledNetInfo(iface_t *iface) {
         return 16;
     }
 
-    /* write vendor class if we have that */
-    if (iface->vendorclass != NULL) {
-        if (asprintf(&ofile, "/etc/dhclient-%s.conf", iface->device) == -1) {
-            return 17;
+    /* write vendor class */
+    if (iface->vendorclass == NULL) {
+        if (uname(&kv) == -1) {
+            iface->vendorclass = "anaconda";
+        } else {
+            if (asprintf(&iface->vendorclass, "anaconda-%s %s %s",
+                         kv.sysname, kv.release, kv.machine)) {
+                return 20;
+            }
         }
+    }
 
-        if ((fp = fopen(ofile, "w")) == NULL) {
-            free(ofile);
-            return 18;
-        }
+    if (asprintf(&ofile, "/etc/dhclient-%s.conf", iface->device) == -1) {
+        return 17;
+    }
 
-        fprintf(fp, "send vendor-class-identifier \"%s\";\n",
-                iface->vendorclass);
+    if ((fp = fopen(ofile, "w")) == NULL) {
+        free(ofile);
+        return 18;
+    }
 
-        if (fclose(fp) == EOF) {
-            free(ofile);
-            return 19;
-        }
+    fprintf(fp, "send vendor-class-identifier \"%s\";\n",
+            iface->vendorclass);
 
-        if (ofile) {
-            free(ofile);
-            ofile = NULL;
-        }
+    if (fclose(fp) == EOF) {
+        free(ofile);
+        return 19;
+    }
+
+    if (ofile) {
+        free(ofile);
+        ofile = NULL;
     }
 
     /* write out new ifcfg-DEVICE file */
