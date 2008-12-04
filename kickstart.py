@@ -1088,6 +1088,7 @@ def runTracebackScripts(anaconda):
 
 def selectPackages(anaconda):
     ksdata = anaconda.id.ksdata
+    ignoreAll = False
 
     # If no %packages header was seen, use the installclass's default group
     # selections.  This can also be explicitly specified with %packages
@@ -1098,7 +1099,7 @@ def selectPackages(anaconda):
 
     for pkg in ksdata.packages.packageList:
         num = anaconda.backend.selectPackage(pkg)
-        if ksdata.packages.handleMissing == KS_MISSING_IGNORE:
+        if ksdata.packages.handleMissing == KS_MISSING_IGNORE or ignoreAll:
             continue
         if num > 0:
             continue
@@ -1110,11 +1111,12 @@ def selectPackages(anaconda):
                                   "abort your installation?") %(pkg,),
                                 type="custom",
                                 custom_buttons=[_("_Abort"),
+                                                _("_Ignore All"),
                                                 _("_Continue")])
         if rc == 0:
             sys.exit(1)
-        else:
-            pass
+        elif rc == 1:
+            ignoreAll = True
 
     anaconda.backend.selectGroup("Core")
 
@@ -1136,7 +1138,7 @@ def selectPackages(anaconda):
         try:
             anaconda.backend.selectGroup(grp.name, (default, optional))
         except NoSuchGroup, e:
-            if ksdata.packages.handleMissing == KS_MISSING_IGNORE:
+            if ksdata.packages.handleMissing == KS_MISSING_IGNORE or ignoreAll:
                 pass
             else:
                 rc = anaconda.intf.messageWindow(_("Missing Group"),
@@ -1148,11 +1150,12 @@ def selectPackages(anaconda):
                                         %(grp.name,),
                                         type="custom",
                                         custom_buttons=[_("_Abort"),
+                                                        _("_Ignore All"),
                                                         _("_Continue")])
                 if rc == 0:
                     sys.exit(1)
-                else:
-                    pass
+                elif rc == 1:
+                    ignoreAll = True
 
     map(anaconda.backend.deselectPackage, ksdata.packages.excludedList)
 
