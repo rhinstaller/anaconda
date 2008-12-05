@@ -608,3 +608,19 @@ def isConsoleOnVirtualTerminal():
     if isS390():
         return False
     return not flags.serial
+
+def strip_markup(text):
+    if text.find("<") == -1:
+        return text
+    r = ""
+    inTag = False
+    for c in text:
+        if c == ">" and inTag:
+            inTag = False
+            continue
+        elif c == "<" and not inTag:
+            inTag = True
+            continue
+        elif not inTag:
+            r += c
+    return r.encode("utf-8")

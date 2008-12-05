@@ -21,28 +21,13 @@
 from constants import *
 from snack import *
 from constants_text import *
+from iutil import strip_markup
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
-
-def strip_markup(text):
-    if text.find("<") == -1:
-        return text
-    r = ""
-    inTag = False
-    for c in text:
-        if c == ">" and inTag:
-            inTag = False
-            continue
-        elif c == "<" and not inTag:
-            inTag = True
-            continue
-        elif not inTag:
-            r += c
-    return r.encode("utf-8")
 
 class InstallProgressWindow:
     def __init__(self, screen):
