@@ -1257,10 +1257,6 @@ int writeEnabledNetInfo(iface_t *iface) {
                 fprintf(fp, "BROADCAST=%s\n", buf);
             }
 
-            /* XXX: this should not be here, but ifcfg-fedora
-             * in NM does not currently read the global
-             * /etc/sysconfig/network file.
-             */
             if (iface_have_in_addr(&iface->gateway)) {
                 if (inet_ntop(AF_INET, &iface->gateway, buf,
                               INET_ADDRSTRLEN) == NULL) {
