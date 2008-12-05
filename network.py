@@ -529,6 +529,11 @@ class Network:
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in self.netdevices.values():
             device = dev.get('DEVICE')
+
+            cfgfile = "%s/ifcfg-%s" % (netscripts, device,)
+            if os.path.isfile(cfgfile):
+                continue
+
             bootproto = dev.get('BOOTPROTO').lower()
             ipv6addr = dev.get('IPV6ADDR').lower()
             ipv6prefix = dev.get('IPV6PREFIX').lower()
@@ -600,6 +605,10 @@ class Network:
             # XXX: is this necessary with NetworkManager?
             # handle the keys* files if we have those
             if dev.get("KEY"):
+                cfgfile = "%s/keys-%s" % (netscripts, device,)
+                if os.path.isfile(cfgfile):
+                    continue
+
                 newkey = "%s/keys-%s.new" % (netscripts, device,)
                 f = open(newkey, "w")
                 f.write("KEY=%s\n" % (dev.get('KEY'),))
@@ -610,78 +619,80 @@ class Network:
                 shutil.move(newkey, destkey)
 
         # /etc/sysconfig/network
-        newnetwork = "%s.new" % (destnetwork,)
+        if not os.path.isfile(destnetwork):
+            newnetwork = "%s.new" % (destnetwork,)
 
-        f = open(newnetwork, "w")
-        f.write("NETWORKING=yes\n")
-        f.write("HOSTNAME=")
+            f = open(newnetwork, "w")
+            f.write("NETWORKING=yes\n")
+            f.write("HOSTNAME=")
 
-        # use instclass hostname if set(kickstart) to override
-        if self.hostname:
-            f.write(self.hostname + "\n")
-        else:
-            f.write("localhost.localdomain\n")
+            # use instclass hostname if set(kickstart) to override
+            if self.hostname:
+                f.write(self.hostname + "\n")
+            else:
+                f.write("localhost.localdomain\n")
 
-        if dev.get('GATEWAY'):
-            f.write("GATEWAY=%s\n" % (dev.get('GATEWAY'),))
+            if dev.get('GATEWAY'):
+                f.write("GATEWAY=%s\n" % (dev.get('GATEWAY'),))
 
-        if dev.get('IPV6_DEFAULTGW'):
-            f.write("IPV6_DEFAULTGW=%s\n" % (dev.get('IPV6_DEFAULTGW'),))
+            if dev.get('IPV6_DEFAULTGW'):
+                f.write("IPV6_DEFAULTGW=%s\n" % (dev.get('IPV6_DEFAULTGW'),))
 
-        f.close()
-        shutil.move(newnetwork, destnetwork)
+            f.close()
+            shutil.move(newnetwork, destnetwork)
 
         # /etc/hosts
-        f = open(instPath + "/etc/hosts", "w")
+        if not os.path.isfile(instPath + "/etc/hosts"):
+            f = open(instPath + "/etc/hosts", "w")
 
-        log.info("self.hostname = %s", self.hostname)
+            log.info("self.hostname = %s", self.hostname)
 
-        # IP address
-        ip = self.lookupHostname()
-        if ip in [ "127.0.0.1", "::1" ]:
-            ip = None
+            # IP address
+            ip = self.lookupHostname()
+            if ip in [ "127.0.0.1", "::1" ]:
+                ip = None
 
-        # fqdn and hostname
-        if "." in self.hostname:
-            fqdn = self.hostname
-            hostname = self.hostname.split('.', 1)[0]
-        else:
-            fqdn = socket.getfqdn(self.hostname)
-            hostname = self.hostname
+            # fqdn and hostname
+            if "." in self.hostname:
+                fqdn = self.hostname
+                hostname = self.hostname.split('.', 1)[0]
+            else:
+                fqdn = socket.getfqdn(self.hostname)
+                hostname = self.hostname
 
-        if fqdn in [ "localhost.localdomain", "localhost",
-                     "localhost6.localdomain6", "localhost6", hostname ] \
-                     or "." not in fqdn:
-            fqdn = None
+            if fqdn in [ "localhost.localdomain", "localhost",
+                         "localhost6.localdomain6", "localhost6", hostname ] \
+                         or "." not in fqdn:
+                fqdn = None
 
-        # domainname
-        if fqdn:
-            domainname = fqdn.split('.', 1)[1]
-            if domainname in [ "localdomain", "localdomain6" ]:
-                domainname = None
-        else:
-            domainname = None
-
-        localline = "localhost.localdomain localhost"
-        if not ip or not fqdn:
-            # There is no ip or no fqdn, tie it to 127.0.0.1.
+            # domainname
             if fqdn:
-                # add fqdn to 127.0.0.1
-                localline += " " + fqdn
-            if hostname and hostname != "localhost":
-                # add short hostname to 127.0.0.1
-                localline += " " + hostname
+                domainname = fqdn.split('.', 1)[1]
+                if domainname in [ "localdomain", "localdomain6" ]:
+                    domainname = None
+            else:
+                domainname = None
 
-        f.write("# Do not remove the following line, or various programs\n")
-        f.write("# that require network functionality will fail.\n")
-        f.write("127.0.0.1\t\t" + localline + "\n")
-        f.write("::1\t\tlocalhost6.localdomain6 localhost6\n")
+            localline = "localhost.localdomain localhost"
+            if not ip or not fqdn:
+                # There is no ip or no fqdn, tie it to 127.0.0.1.
+                if fqdn:
+                    # add fqdn to 127.0.0.1
+                    localline += " " + fqdn
+                if hostname and hostname != "localhost":
+                    # add short hostname to 127.0.0.1
+                    localline += " " + hostname
 
-        if ip and fqdn:
-            # Add an extra entry for ip, fqdn and hostname
-            f.write("%s\t\t%s %s\n" % (ip, fqdn, hostname))
+            f.write("# Do not remove the following line, or various programs\n")
+            f.write("# that require network functionality will fail.\n")
+            f.write("127.0.0.1\t\t" + localline + "\n")
+            f.write("::1\t\tlocalhost6.localdomain6 localhost6\n")
 
-        f.close()
+            if ip and fqdn:
+                # Add an extra entry for ip, fqdn and hostname
+                f.write("%s\t\t%s %s\n" % (ip, fqdn, hostname))
+
+            f.close()
 
         # If the hostname was not looked up, but typed in by the user,
         # domain might not be computed, so do it now.
@@ -690,30 +701,32 @@ class Network:
                 self.domains = [domainname]
 
         # /etc/resolv.conf
-        if os.path.isfile('/etc/resolv.conf') and instPath != '':
-            destresolv = "%s/etc/resolv.conf" % (instPath,)
-            shutil.copy('/etc/resolv.conf', destresolv)
-        elif (self.domains != ['localdomain'] and self.domains) or \
-            self.hasNameServers(dev.info):
-            resolv = "%s/etc/resolv.conf" % (instPath,)
+        if not os.path.isfile(instPath + '/etc/resolv.conf'):
+            if os.path.isfile('/etc/resolv.conf') and instPath != '':
+                destresolv = "%s/etc/resolv.conf" % (instPath,)
+                shutil.copy('/etc/resolv.conf', destresolv)
+            elif (self.domains != ['localdomain'] and self.domains) or \
+                self.hasNameServers(dev.info):
+                resolv = "%s/etc/resolv.conf" % (instPath,)
 
-            f = open(resolv, "w")
+                f = open(resolv, "w")
 
-            if self.domains != ['localdomain'] and self.domains:
-                f.write("search %s\n" % (string.joinfields(self.domains, ' '),))
+                if self.domains != ['localdomain'] and self.domains:
+                    f.write("search %s\n" % (string.joinfields(self.domains, ' '),))
 
-            for key in dev.info.keys():
-                if key.upper().startswith('DNS'):
-                    f.write("nameserver %s\n" % (dev.get(key),))
+                for key in dev.info.keys():
+                    if key.upper().startswith('DNS'):
+                        f.write("nameserver %s\n" % (dev.get(key),))
 
-            f.close()
+                f.close()
 
         # /etc/udev/rules.d/70-persistent-net.rules
-        if not instPath == '':
+        rules = instPath + "/etc/udev/rules.d/70-persistent-net.rules"
+        if (not instPath) and (not os.path.isfile(rules)):
             if not os.path.isdir("%s/etc/udev/rules.d" %(instPath,)):
                 iutil.mkdirChain("%s/etc/udev/rules.d" %(instPath,))
 
-            f = open(instPath + "/etc/udev/rules.d/70-persistent-net.rules", "w")
+            f = open(rules, "w")
             f.write("""
 # This file was automatically generated by the /lib/udev/write_net_rules
 # program run by the persistent-net-generator.rules rules file.
