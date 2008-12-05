@@ -34,11 +34,10 @@ class FinishedWindow:
         screen.pushHelpLine (string.center(bottomstr, screen.width))
 
         txt = _("Congratulations, your %s installation is complete.\n\n"
-                "Please reboot the system to use the installed system.  "
+                "Please reboot to use the installed system.  "
                 "Note that updates may be available to ensure the proper "
                 "functioning of your system and installation of these "
-                "updates is recommended after initially booting your "
-                "system.") %(productName,)
+                "updates is recommended after the reboot.") %(productName,)
         rc = ButtonChoiceWindow (screen, _("Complete"), txt,
                                  [ _("Reboot") ], help = "finished", width=60)
 

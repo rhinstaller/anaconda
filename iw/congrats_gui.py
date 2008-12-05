@@ -67,11 +67,10 @@ class CongratulationWindow (InstallWindow):
             hbox.pack_start (a, False, False, 36)
 
         txt = _("Congratulations, your %s installation is complete.\n\n"
-                "Please reboot the system to use the installed system.  "
+                "Please reboot to use the installed system.  "
                 "Note that updates may be available to ensure the proper "
                 "functioning of your system and installation of these "
-                "updates is recommended after initially booting your "
-                "system.") %(productName,)
+                "updates is recommended after the reboot.") %(productName,)
 	label = gui.WrappingLabel(txt)
         label.set_size_request(250, -1)
 
