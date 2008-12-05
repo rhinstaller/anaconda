@@ -74,10 +74,29 @@ class NetworkConfigurator:
             self.xml.get_widget("dhcpCheckbutton").set_active(False)
 
             # FIXME: need to set ipv6 here too once we have that
-            if netdev.get('IPADDR'): self.xml.get_widget("ipv4Address").set_text(netdev.get('IPADDR'))
-            if netdev.get('NETMASK'): self.xml.get_widget("ipv4Netmask").set_text(netdev.get('NETMASK'))
-            if self.network.gateway: self.xml.get_widget("gatewayEntry").set_text(self.network.gateway)
-            if self.network.primaryNS: self.xml.get_widget("nameserverEntry").set_text(self.network.primaryNS)
+            try:
+                if netdev.get('IPADDR'):
+                    self.xml.get_widget("ipv4Address").set_text(netdev.get('IPADDR'))
+            except:
+                pass
+
+            try:
+                if netdev.get('NETMASK'):
+                    self.xml.get_widget("ipv4Netmask").set_text(netdev.get('NETMASK'))
+            except:
+                pass
+
+            try:
+                if self.network.gateway:
+                    self.xml.get_widget("gatewayEntry").set_text(self.network.gateway)
+            except:
+                pass
+
+            try:
+                if self.network.primaryNS:
+                    self.xml.get_widget("nameserverEntry").set_text(self.network.primaryNS)
+            except:
+                pass
 
     def _ipv4Toggled(self, cb):
         if self.xml.get_widget("dhcpCheckbutton").get_active():
