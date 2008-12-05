@@ -582,10 +582,6 @@ class Network:
             if dev.get('MTU') and dev.get('MTU') != 0:
                 f.write("MTU=%s\n" % dev.get('MTU'))
 
-            if self.domains != ['localdomain'] and self.domains:
-                searchLine = string.joinfields(self.domains, ' ')
-                f.write("SEARCH=\"%s\"\n" % (searchLine,))
-
             # tell NetworkManager not to touch any interfaces used during
             # installation when / is on a network device. Ideally we would only
             # tell NM not to touch the interface(s) actually used for /, but we
