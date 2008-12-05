@@ -86,17 +86,6 @@ int copyFile(char * source, char * dest) {
     return rc;
 }
 
-char * readLine(FILE * f) {
-    char buf[1024], *ret;
-
-    ret = fgets(buf, sizeof(buf), f);
-
-    /* chop */
-    buf[strlen(buf) - 1] = '\0';
-
-    return strdup(buf);
-}
-
 /* FIXME: when we only depend on glibc, we could use strvercmp instead */
 /* compare alpha and numeric segments of two versions */
 /* return 1: a is newer than b */
