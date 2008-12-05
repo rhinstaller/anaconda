@@ -65,7 +65,7 @@ SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 
 LIBS +=
 
-CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"' -D_GNU_SOURCE
+CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
 REALCC=gcc
 
 # linuxrc + shutdown on s390, init everywhere else
