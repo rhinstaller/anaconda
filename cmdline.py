@@ -25,6 +25,7 @@ import signal
 import parted
 from constants import *
 from flags import flags
+from iutil import strip_markup
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -166,8 +167,9 @@ class progressDisplay:
     def set_text(self, txt):
         pass
     def set_label(self, txt):
-        if txt != self.display:
-            self.display = txt
+        stripped = strip_markup(txt)
+        if stripped != self.display:
+            self.display = stripped
             print(self.display)
 
 def setupProgressDisplay(anaconda):
