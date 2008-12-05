@@ -25,16 +25,18 @@ from constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-class WelcomeWindow (InstallWindow):		
+class WelcomeWindow (InstallWindow):
 
     windowTitle = "" #N_("Welcome")
 
     def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
+        InstallWindow.__init__ (self, ics)
         ics.setGrabNext (1)
+        self.anaconda = None
 
     # WelcomeWindow tag="wel"
     def getScreen (self, anaconda):
+        self.anaconda = anaconda
         # this is a bit ugly... but scale the image if we're not at 800x600
         (w, h) = self.ics.cw.window.get_size_request()
         if w >= 800:
@@ -48,3 +50,18 @@ class WelcomeWindow (InstallWindow):
         box.add (pix)
         return box
 
+    def getNext (self):
+        if self.anaconda.requiresNetworkInstall():
+            self.anaconda.intf.messageWindow(_("Network Install Required"),
+                                             _("Your installation source is set to "
+                                               "a network location, but no netork "
+                                               "devices were found on your "
+                                               "system.  To avoid a network "
+                                               "installation, boot with the full "
+                                               "DVD, full CD set, or do not pass "
+                                               "a repo= parameter that specifies "
+                                               "a network source."),
+                                             type="custom",
+                                             custom_icon="error",
+                                             custom_buttons=[_("E_xit Installer")])
+            sys.exit(0)

@@ -873,6 +873,13 @@ def isIsoImage(file):
 def fbinfo():
     return _isys.fbinfo()
 
+# Return number of network devices
+def getNetworkDeviceCount():
+    bus = dbus.SystemBus()
+    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+    devlist = nm.get_dbus_method("GetDevices")()
+    return len(devlist)
+
 # Get a D-Bus interface for the specified device's (e.g., eth0) properties.
 # If dev=None, return a hash of the form 'hash[dev] = props_iface' that
 # contains all device properties for all interfaces that NetworkManager knows

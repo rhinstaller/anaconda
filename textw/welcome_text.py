@@ -25,10 +25,22 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class WelcomeWindow:
     def __call__(self, screen, anaconda):
-        rc = ButtonChoiceWindow(screen, _("%s") % (productName,), 
+        rc = ButtonChoiceWindow(screen, _("%s") % (productName,),
                                 _("Welcome to %s!\n\n")
                                 % (productName, ),
                                 buttons = [TEXT_OK_BUTTON], width = 50,
-				help = "welcome")
+                                help = "welcome")
+
+        if anaconda.requiresNetworkInstall():
+            anaconda.intf.messageWindow(_("Network Install Required"),
+                                        _("Your installation source is set to "
+                                          "a network location, but no netork "
+                                          "devices were found on your "
+                                          "system.  To avoid a network "
+                                          "installation, boot with the full "
+                                          "DVD, full CD set, or do not pass "
+                                          "a repo= parameter that specifies "
+                                          "a network source."))
+            sys.exit(0)
 
         return INSTALL_OK
