@@ -224,6 +224,7 @@ char *iface_ip2str(char *ifname, int family) {
                                                              -1, &error);
         dbus_message_unref(message);
         if (!devreply) {
+            dbus_message_iter_next(&a_iter);
             continue;
         }
 
