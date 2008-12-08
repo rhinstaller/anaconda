@@ -839,8 +839,20 @@ class swapFileSystem(FileSystemType):
         isys.swapon (device)
 
     def umount(self, device, path):
-        # unfortunately, turning off swap is bad.
-        raise RuntimeError, "unable to turn off swap"
+        if os.path.exists("/dev/" + device.device):
+            swapFile = os.path.realpath("/dev/" + device.device)
+        else:
+            # path is something like /mnt/sysimage/swap, which is not very
+            # useful.  But since we don't have instPath anywhere else, so
+            # we have to pull it out of path and add the real swap file to
+            # the end of it.
+            swapFile = os.path.realpath(os.path.dirname(path) + "/" + device.device)
+
+        try:
+            iutil.execWithRedirect("swapoff", [swapFile], stdout="/dev/tty5",
+                                   stderr="/dev/tty5", searchPath=1)
+        except:
+            raise RuntimeError, "unable to turn off swap"
 
     def formatDevice(self, entry, progress, chroot='/'):
         file = entry.device.setupDevice(chroot)
@@ -1910,8 +1922,9 @@ MAILADDR root
         # new fstype as we want to use the new filesystem type during
         # the upgrade for ext3->ext4 migrations
         if self.isActive():
-            self.umountFilesystems(anaconda.rootPath, swapoff = False)
+            self.umountFilesystems(anaconda.rootPath)
             self.mountFilesystems(anaconda)
+            self.turnOnSwap(anaconda.rootPath)
 
         self.migratedfs = 1
 
