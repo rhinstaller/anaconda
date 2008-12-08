@@ -169,8 +169,9 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
 	libpixman libpng libselinux libselinux-python libsemanage
 	libsemanage-python libsepol libstdc++ libtermcap libthai libuser
 	libuser-python libvolume_id libxcb libxkbfile libxml2 lohit-fonts-bengali
-	lohit-fonts-gujarati lohit-fonts-hindi lohit-fonts-kannada lohit-fonts-oriya
-	lohit-fonts-punjabi lohit-fonts-tamil lohit-fonts-telugu lvm2 mdadm
+	lohit-fonts-gujarati lohit-fonts-hindi lohit-fonts-kannada lohit-fonts-maithili
+	lohit-fonts-oriya lohit-fonts-punjabi lohit-fonts-tamil lohit-fonts-telugu
+	lvm2 madan-fonts mdadm
 	mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
 	newt newt-python nfs-utils nspr nss ntfs-3g pam pango parted pciutils pcre
 	policy policycoreutils popt prelink procps pycairo pygobject2 pygtk2
@@ -560,6 +561,7 @@ usr/share/fonts/*/lohit_bn.ttf
 usr/share/fonts/*/lohit_gu.ttf
 usr/share/fonts/*/lohit_hi.ttf
 usr/share/fonts/*/lohit_kn.ttf
+usr/share/fonts/*/lohit_mai.ttf
 usr/share/fonts/*/lohit_or.ttf
 usr/share/fonts/*/lohit_pa.ttf
 usr/share/fonts/*/lohit_ta.ttf
@@ -571,6 +573,7 @@ usr/share/fonts/dejavu/DejaVuSans.ttf
 usr/share/fonts/dejavu/DejaVuSansMono.ttf
 usr/share/fonts/kacst/KacstFarsi.ttf
 usr/share/fonts/kacst/KacstQura.ttf
+usr/share/fonts/madan/Madan.ttf
 usr/share/fonts/un-core/UnDotum.ttf
 usr/share/fonts/smc/Meera*.ttf
 usr/share/hal
