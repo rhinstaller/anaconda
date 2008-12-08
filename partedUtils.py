@@ -37,7 +37,7 @@ import raid
 import dmraid
 import block
 import lvm
-import traceback
+import inspect
 from flags import flags
 from errors import *
 from constants import *
@@ -1142,7 +1142,8 @@ class DiskSet:
                 raise
         except:
             (type, value, tb) = sys.exc_info()
-            exn = exception.AnacondaExceptionDump(type, value, tb)
+            stack = inspect.getinnerframes(tb)
+            exn = exception.AnacondaExceptionDump(type, value, stack)
             lines = exn.__str__()
             for line in lines:
                 log.error(line)

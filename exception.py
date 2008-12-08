@@ -31,6 +31,7 @@ import os
 import shutil
 import signal
 import traceback
+import inspect
 import iutil
 import types
 import bdb
@@ -47,10 +48,17 @@ import logging
 log = logging.getLogger("anaconda")
 
 class AnacondaExceptionDump:
-    def __init__(self, type, value, tb):
+    def __init__(self, type, value, stack):
         self.type = type
         self.value = value
-        self.tb = tb
+
+        # this isn't used, but it's an option if we want to leave the
+        # two instantiations of this class as they are instead of
+        # passing in a stack
+        if inspect.istraceback(stack):
+            stack = inspect.getinnerframes(stack)
+
+        self.stack = stack
 
         self.tbFile = None
 
@@ -59,12 +67,24 @@ class AnacondaExceptionDump:
     # Reverse the order that tracebacks are printed so people will hopefully quit
     # giving us the least useful part of the exception in bug reports.
     def __str__(self):
-        lst = traceback.format_tb(self.tb)
+        lst = self.format_stack()
         lst.reverse()
         lst.insert(0, "anaconda %s exception report\n" % os.getenv("ANACONDAVERSION"))
         lst.insert(1, 'Traceback (most recent call first):\n')
         lst.extend(traceback.format_exception_only(self.type, self.value))
         return joinfields(lst, "")
+
+    def format_stack(self):
+        frames = []
+        for (frame, file, lineno, func, ctx, idx) in self.stack:
+            if type(ctx) == type([]):
+                code = "".join(ctx)
+            else:
+                code = ctx
+
+            frames.append((file, lineno, func, code))
+
+        return traceback.format_list(frames)
 
     # Create a string representation of a class and write it to fd.  This
     # method will recursively handle all attributes of the base given class.
@@ -180,11 +200,8 @@ class AnacondaExceptionDump:
 
         fd.write(str(self))
 
-        trace = self.tb
-        if trace is not None:
-            while trace.tb_next:
-                trace = trace.tb_next
-            frame = trace.tb_frame
+        if self.stack:
+            frame = self.stack[-1][0]
             fd.write ("\nLocal variables in innermost frame:\n")
             try:
                 for (key, value) in frame.f_locals.items():
@@ -220,7 +237,9 @@ class AnacondaExceptionDump:
         import hashlib
         s = ""
 
-        for (file, lineno, func, text) in traceback.extract_tb(self.tb):
+        for (file, lineno, func, text) in [f[1:5] for f in self.stack]:
+            if type(text) == type([]):
+                text = "".join(text)
             s += "%s %s %s\n" % (file, func, text)
 
         return hashlib.sha256(s).hexdigest()
@@ -548,8 +567,11 @@ def handleException(anaconda, (type, value, tb)):
     # restore original exception handler
     sys.excepthook = sys.__excepthook__
 
+    # convert the traceback to a stack
+    stack = inspect.getinnerframes(tb)
+
     # Save the exception file to local storage first.
-    exn = AnacondaExceptionDump(type, value, tb)
+    exn = AnacondaExceptionDump(type, value, stack)
     exn.write(anaconda)
     text = str(exn)
 
