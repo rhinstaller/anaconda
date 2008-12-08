@@ -788,6 +788,9 @@ def ext2HasJournal(device):
     return hasjournal
 
 def ejectCdrom(device):
+    if not os.path.exists(device):
+        device = "/dev/%s" % device
+
     fd = os.open(device, os.O_RDONLY|os.O_NONBLOCK)
 
     # this is a best effort
