@@ -502,6 +502,15 @@ class Anaconda:
         # *sigh* we still need to be able to write this out
         self.xdriver = None
 
+    def dumpState(self):
+        from exception import AnacondaExceptionDump
+        from inspect import stack as _stack
+        # Skip the frames for dumpState and the signal handler.
+        stack = _stack()[2:]
+        stack.reverse()
+        exn = AnacondaExceptionDump(None, None, stack)
+        exn.write(anaconda)
+
     def writeXdriver(self, instPath="/"):
         # this should go away at some point, but until it does, we
         # need to keep it around.  it could go into instdata but this
@@ -609,7 +618,7 @@ if __name__ == "__main__":
     # this handles setting up updates for pypackages to minimize the set needed
     setupPythonUpdates()
 
-    import signal, traceback, string, isys, iutil, time
+    import signal, string, isys, iutil, time
     from exception import handleException
     import dispatch
     import warnings
@@ -631,6 +640,9 @@ if __name__ == "__main__":
     # reset python's default SIGINT handler
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     signal.signal(signal.SIGSEGV, isys.handleSegv)
+
+    # add our own additional signal handlers
+    signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
 
     setupEnvironment()
 

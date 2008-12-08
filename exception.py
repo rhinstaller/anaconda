@@ -71,7 +71,10 @@ class AnacondaExceptionDump:
         lst.reverse()
         lst.insert(0, "anaconda %s exception report\n" % os.getenv("ANACONDAVERSION"))
         lst.insert(1, 'Traceback (most recent call first):\n')
-        lst.extend(traceback.format_exception_only(self.type, self.value))
+
+        if self.type is not None and self.value is not None:
+            lst.extend(traceback.format_exception_only(self.type, self.value))
+
         return joinfields(lst, "")
 
     def format_stack(self):
