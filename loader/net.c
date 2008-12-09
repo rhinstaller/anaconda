@@ -1897,7 +1897,7 @@ int get_connection(iface_t *iface) {
     DBusError error;
     DBusMessageIter iter, variant_iter;
     dbus_uint32_t state = 0;
-    char *nm_iface = "org.freedesktop.NetworkManager";
+    char *nm_iface = NM_DBUS_INTERFACE;
     char *property = "State";
 
     if (iface == NULL) {
@@ -1931,7 +1931,7 @@ int get_connection(iface_t *iface) {
     dbus_error_init(&error);
     message = dbus_message_new_method_call(NM_DBUS_SERVICE,
                                            NM_DBUS_PATH,
-                                           "org.freedesktop.DBus.Properties",
+                                           DBUS_INTERFACE_PROPERTIES,
                                            "Get");
     if (!message) {
         if (dbus_error_is_set(&error)) {
