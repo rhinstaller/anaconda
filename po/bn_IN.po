@@ -1,24 +1,24 @@
-# translation of bn_IN.po to Bengali India
+# translation of bn_IN.po to Bengali INDIA
 # Bangla INDIA translation of Anaconda.
 # Copyright (C) 2003, 2004, Red Hat, Inc.
 # This file is distributed under the same license as the anaconda package.
+#
 # Deepayan Sarkar <deepayan@BengaLinux.Org>, 2003.
 # Jamil Ahmed <jamil@bengalinux.org>, 2003.
 # Progga <progga@BengaLinux.Org>, 2003, 2004.
-# Runa Bhattacharjee <runab@redhat.com>, 2004, 2005, 2006, 2007.
-#
+# Runa Bhattacharjee <runab@redhat.com>, 2004, 2005, 2006, 2007, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 13:23-0500\n"
-"PO-Revision-Date: 2007-02-06 09:37+0530\n"
+"PO-Revision-Date: 2008-12-10 17:02+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
-"Language-Team: Bengali India\n"
+"Language-Team: Bengali INDIA <fedora-trans-bn_IN@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 "\n"
@@ -110,15 +110,16 @@ msgid "Starting graphical installation..."
 msgstr "গ্রাফিকাল ইনস্টলেশন প্রক্রিয়া আরম্ভ করা হচ্ছে..."
 
 #: ../anaconda:772
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "এই অবস্থায় আপনি কি করতে ইচ্ছুক?"
+msgstr "আপনি কি VNC ব্যবহার করতে ইচ্ছুক?"
 
 #: ../anaconda:773
 msgid ""
 "The VNC mode instalation offers more functionality than the text mode, would "
 "you like to use it instead?"
 msgstr ""
+"টেক্সট মোডে ইনস্টলেশনের তুলনায় VNC মোডে ইনস্টলেশনের সময় অধিক সুযোগ উপলব্ধ করা হয়। "
+"আপনি কি VNC মোড ব্যবহার করতে ইচ্ছুক?"
 
 # FIXME
 # modified for RHEL
@@ -151,30 +152,18 @@ msgstr "অজ্ঞাত ইনস্টলেশন প্রণালী: %s
 
 # modified for RHEL
 #: ../autopart.py:950
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
-msgstr ""
-"প্রধান পার্টিশন হিসাবে কোনো সিলিন্ডার-ভিত্তিক পার্টিশন নির্ধারণ করা যায়নি।\n"
-"\n"
-"%s"
+msgstr "প্রধান পার্টিশন হিসাবে কোনো সিলিন্ডার-ভিত্তিক পার্টিশন নির্ধারণ করা যায়নি।\n"
 
 # modified for RHEL
 #: ../autopart.py:955
-#, fuzzy
 msgid "Could not allocate partitions as primary partitions.\n"
-msgstr ""
-"প্রধান পার্টিশন রূপে কোনো পার্টিশন নির্ধারণ করা যায়নি।\n"
-"\n"
-"%s"
+msgstr "প্রধান পার্টিশন রূপে কোনো পার্টিশন নির্ধারণ করা যায়নি।\n"
 
 # modified for RHEL
 #: ../autopart.py:960
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions.\n"
-msgstr ""
-"সিলিন্ডার-ভিত্তিক পার্টিশন নির্ধারণ করা যায়নি।\n"
-"\n"
-"%s"
+msgstr "সিলিন্ডার-ভিত্তিক পার্টিশন নির্ধারণ করা যায়নি।\n"
 
 # modified for RHEL
 #: ../autopart.py:1020
@@ -222,8 +211,7 @@ msgstr ""
 # modified for RHEL
 #: ../autopart.py:1033
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "%s নামক boot পার্টিশনের দ্বারা আপনার সিস্টেমের আর্কিটেকচার অনুযায়ী বুট সংক্রান্ত "
 "নিয়ম পালন করা সম্ভব না হতে পারে।"
@@ -1093,21 +1081,20 @@ msgid ""
 "Choose a passphrase for your encrypted devices. You will be prompted for the "
 "passphrase during system boot."
 msgstr ""
+"এনক্রিপ্ট করা ডিভাইসে-র জন্য পরিচয়-পংক্তি নির্বাচন করুন। সিস্টেম বুট করার সময় "
+"পরিচয়-পংক্তি লেখার অনুরোধ জানানো হবে।"
 
 #: ../gui.py:680 ../gui.py:688 ../text.py:263 ../text.py:273
-#, fuzzy
 msgid "Error with passphrase"
-msgstr "পাসওয়ার্ড সঠিক নয়"
+msgstr "পরিচয়-পংক্তি সংক্রান্ত সমস্যা"
 
 #: ../gui.py:681 ../text.py:264
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
-msgstr "আপনার লেখা পাসওয়ার্ড দুটি এক নয়।  অনুগ্রহ করে পুনরায় প্রচেষ্টা করুন।"
+msgstr "আপনার লেখা পরিচয়-পংক্তি দুটি এক নয়।  অনুগ্রহ করে পুনরায় প্রচেষ্টা করুন।"
 
 #: ../gui.py:689
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "পাসওয়ার্ডে অন্তত ৬ অক্ষর বিশিষ্ট হওয়া আবশ্যক।"
+msgstr "পরিচয়-পংক্তি অন্তত ৮অক্ষর বিশিষ্ট হওয়া আবশ্যক।"
 
 #: ../gui.py:721 ../text.py:297
 #, python-format
@@ -1115,6 +1102,8 @@ msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
 msgstr ""
+"%s ডিভাইসটি এনক্রিপ্ট করা হয়েছে। ইনস্টলেশনের সময় সংশ্লিষ্ট ডিভাইসের মধ্যে উপস্থিত "
+"সামগ্রী ব্যবহারের জন্য ডিভাইসের পরিচয়-পংক্তি উল্লেখ করা আবশ্যক।"
 
 #: ../gui.py:893 tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -1430,14 +1419,12 @@ msgstr "হোস্ট-নেম ৬৪ অক্ষরের মধ্যে �
 # modified for RHEL
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"হোস্ট-নেমের প্রারম্ভে 'a-z' অথবা 'A-Z' -র মধ্যবর্তী বৈধ অক্ষর ব্যবহার করা আবশ্যক"
+msgstr "হোস্ট-নেমের প্রারম্ভে 'a-z' অথবা 'A-Z' -র মধ্যবর্তী বৈধ অক্ষর ব্যবহার করা আবশ্যক"
 
 # modified for RHEL
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"হোস্ট-নেম লেখার জন্য শুধুমাত্র 'a-z', 'A-Z', '-' অথবা '.' অক্ষরগুলি ব্যবহার করা যাবে"
+msgstr "হোস্ট-নেম লেখার জন্য শুধুমাত্র 'a-z', 'A-Z', '-' অথবা '.' অক্ষরগুলি ব্যবহার করা যাবে"
 
 #: ../network.py:92
 msgid "IP address is missing."
@@ -1462,9 +1449,8 @@ msgid "'%s' is an invalid IP address."
 msgstr "'%s' বৈধ IP ঠিকানা নয়।"
 
 #: ../packages.py:155
-#, fuzzy
 msgid "LVM operation failed"
-msgstr "মাউন্ট করতে ব্যর্থ"
+msgstr "LVM সংক্রান্ত কর্ম সঞ্চালনে ব্যর্থ"
 
 #: ../packages.py:272
 msgid "Invalid Key"
@@ -1633,8 +1619,7 @@ msgstr "LDL ফরম্যাট করা কোনো DASD পার্টি
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"%s ধারণকারী একটি extended পার্টিশন হওয়ার দরুন, এই পার্টিশনটি মুছে ফেলা সম্ভব নয়।"
+msgstr "%s ধারণকারী একটি extended পার্টিশন হওয়ার দরুন, এই পার্টিশনটি মুছে ফেলা সম্ভব নয়।"
 
 # modified for RHEL
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:585
@@ -1710,8 +1695,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"%s ধারণকারী extended পার্টিশন হওয়ার দরুন এই পার্টিশনটি সম্পাদন করা সম্ভব নয়।"
+msgstr "%s ধারণকারী extended পার্টিশন হওয়ার দরুন এই পার্টিশনটি সম্পাদন করা সম্ভব নয়।"
 
 # modified for RHEL
 #: ../partIntfHelpers.py:384
@@ -1869,15 +1853,13 @@ msgstr "রিসেট কর্ম নিশ্চায়ন"
 
 # modified for RHEL
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "আপনি কি নিশ্চিতরূপে পার্টিশন টেবিলটি মূল অবস্থায় প্রত্যাবর্তন করতে ইচ্ছুক?"
 
 # modified for RHEL
 #: ../partRequests.py:263
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "এই মাউন্ট-পয়েন্টটি বৈধ নয়।  %s ডিরেক্টরিটি / ফাইল-সিস্টেমের উপর অবস্থিত হওয়া "
 "আবশ্যক।"
@@ -1911,8 +1893,7 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"%s পার্টিশনের আয়তন (%10.2f মেগাবাইট) সর্বোচ্চ মাপ %10.2f মেগাবাইট অতিক্রম করছে।"
+msgstr "%s পার্টিশনের আয়তন (%10.2f মেগাবাইট) সর্বোচ্চ মাপ %10.2f মেগাবাইট অতিক্রম করছে।"
 
 #: ../partRequests.py:511
 #, python-format
@@ -1926,8 +1907,7 @@ msgstr ""
 #: ../partRequests.py:516
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
-"অনুরোধ করা পার্টিশনের জন্য নঞার্থক মাপ উল্লেখ করা হয়েছে! (আকার = %s মেগাবাইট)"
+msgstr "অনুরোধ করা পার্টিশনের জন্য নঞার্থক মাপ উল্লেখ করা হয়েছে! (আকার = %s মেগাবাইট)"
 
 #: ../partRequests.py:520
 msgid "Partitions can't start below the first cylinder."
@@ -1965,8 +1945,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
-"লজিকাল ভলিউমের মাপ ভলিউম গ্রুপের প্রকৃত এক্সটেন্টের (PE) মাপ থেকে অধিক হওয়া আবশ্যক।"
+msgstr "লজিকাল ভলিউমের মাপ ভলিউম গ্রুপের প্রকৃত এক্সটেন্টের (PE) মাপ থেকে অধিক হওয়া আবশ্যক।"
 
 # modified for RHEL
 #: ../partedUtils.py:205 ../textw/partition_text.py:559
@@ -2050,7 +2029,7 @@ msgstr ""
 
 # modified for RHEL
 #: ../partedUtils.py:1138
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -2061,14 +2040,15 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"ডিভাইস %s (%s) -র পার্টিশন টেবিল পড়া যাচ্ছে না।  নতুন কোনো পার্টিশন তৈরি করতে "
-"হলে পার্টিশন টেবিলটি পুনরায় প্রস্তুত করা আবশ্যক যায় ফলে এই ড্রাইভে অবস্থিত সমস্ত ডাটা "
+"ডিভাইস %s (%s %-0.f MB)-র পার্টিশন টেবিল পড়া যাচ্ছে না।\n"
+"\n"
+"নতুন কোনো পার্টিশন তৈরি করতে হলে এটি প্রস্তুত করা আবশ্যক এবং এর ফলে এই ড্রাইভে অবস্থিত সমস্ত তথ্য "
 "মুছে যাবে।\n"
 "\n"
-"ইনস্টলেশন প্রক্রিয়ার সময় উপেক্ষা করার জন্য ড্রাইভ চিহ্নিত করতে পূর্বে নির্ধারিত মান, "
-"এই কর্মের ফলে অগ্রাহ্য করা হবে।\n"
+"ইনস্টলেশন প্রক্রিয়ার সময় উপেক্ষা করার জন্য চিহ্নিত ড্রাইভের পূর্ব নির্ধারিত মান, এই "
+"কর্মের ফলে অগ্রাহ্য করা হবে।\n"
 "\n"
-"সমস্ত ডাটা হারিয়ে ফেলার সম্ভাবনা সত্ত্বেও কি আপনি এই ড্রাইভটি প্রস্তুত করতে ইচ্ছুক?"
+"সমস্ত তথ্য হারিয়ে ফেলার সম্ভাবনা সত্ত্বেও কি আপনি এই ড্রাইভটি প্রস্তুত করতে ইচ্ছুক?"
 
 #: ../partedUtils.py:1288
 #, python-format
@@ -2078,6 +2058,10 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"/dev/%s ড্রাইভে ১৫-র অধিক পার্টিশন উপস্থিত রয়েছে। Linux কার্নেলের মধ্যে উপস্থিত "
+"SCSI সাব-সিস্টেম দ্বারা একযোগে ১৫-র বেশি পার্টিশন সমর্থন করা সম্ভব নয়। %s-র মধ্যে "
+"এই ডিস্কের পার্টিশনে কোনো ধরনের পরিবর্তন করা যাবে না এবং /dev/%s15-র অধিক কোনো "
+"পার্টিশন ব্যবহার করা সম্ভব হবে না"
 
 # modified for RHEL
 #: ../partedUtils.py:1373
@@ -2111,9 +2095,8 @@ msgstr ""
 "যেতে ইচ্ছুক?"
 
 #: ../partitioning.py:106
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "এনক্রিপশন-কি"
+msgstr "ডিভাইস এনক্রিপ্ট করা হবে কি?"
 
 #: ../partitioning.py:107
 msgid ""
@@ -2121,6 +2104,9 @@ msgid ""
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
 msgstr ""
+"ব্লক ডিভাইসের জন্য এনক্রিপশন সক্রিয়করণের নির্দেশ দেওয়া হলেও, প্রয়োজনীয় পরিচয়-"
+"পংক্তি উল্লেখ করা হয়নি। পূর্ববর্তী ধাপে ফেরৎ গিয়ে পরিচয়-পংক্তি উল্লেখ না করা হলে "
+"ডিভাইসের এনক্রিপশন নিষ্ক্রিয় করা হবে।"
 
 #: ../partitioning.py:114 ../partitions.py:126 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:28 ../textw/confirm_text.py:54
@@ -2161,9 +2147,8 @@ msgstr ""
 "ইচ্ছুক?"
 
 #: ../partitions.py:131
-#, fuzzy
 msgid "Confirm"
-msgstr "পাসওয়ার্ড নিশ্চিত করুন:"
+msgstr "নিশ্চিত করুন"
 
 #: ../partitions.py:132
 #, python-format
@@ -2173,6 +2158,10 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
+"আপনি কি নিশ্চিতরূপে %s ডিভাইসের জন্য পরিচয়-পংক্তি উল্লেখ না করতে ইচ্ছুক?\n"
+"\n"
+"পরিচয়-পংক্তি উল্লেখ না করা হলে, ইনস্টলেশনের সময় ডিভাইসের মধ্যে উপস্থিত বিষয়বস্তু পড়া "
+"সম্ভব হবে নয়।"
 
 # modified for RHEL
 #: ../partitions.py:1029
@@ -2196,10 +2185,8 @@ msgstr ""
 
 # modified for RHEL
 #: ../partitions.py:1067 ../partitions.py:1090
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"FAT ধরনের এবং ৫০ মেগাবাইট মাপের একটি /boot/efi পার্টিশন নির্মাণ করা আবশ্যক।"
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "FAT ধরনের এবং ৫০ মেগাবাইট মাপের একটি /boot/efi পার্টিশন নির্মাণ করা আবশ্যক।"
 
 #: ../partitions.py:1078
 msgid ""
@@ -2213,7 +2200,7 @@ msgstr ""
 msgid ""
 "Your boot partition is on a disk using the GPT partitioning scheme but this "
 "machine cannot boot using GPT."
-msgstr ""
+msgstr "GPT পার্টিশন ব্যবস্থা প্রয়োগকারী একটি ডিস্কের উপর বুট পার্টিশন উপস্থিত রয়েছে, এবং বর্তমান মেশিনটি GPT সহযোগে বুট করতে সক্ষম নয়।"
 
 # modified for RHEL
 #: ../partitions.py:1110
@@ -2236,8 +2223,7 @@ msgstr ""
 "আবশ্যক মাপের থেকেও কম।"
 
 #: ../partitions.py:1185
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB ডিভাইসে ইনস্টল করা হচ্ছে। এর ফলে সিস্টেমে স্বাভাবিক কর্মসঞ্চালন করা সম্ভব নাও "
 "হতে পারে।"
@@ -2326,8 +2312,7 @@ msgstr "বাতিল করা হয়েছে"
 
 #: ../rescue.py:296 ../text.py:715
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"এই স্থান থেকে পূর্ববর্তী ধাপে প্রত্যাবর্তন করা সম্ভব নয়। পুনরায় প্রচেষ্টা করা আবশ্যক।"
+msgstr "এই স্থান থেকে পূর্ববর্তী ধাপে প্রত্যাবর্তন করা সম্ভব নয়। পুনরায় প্রচেষ্টা করা আবশ্যক।"
 
 #: ../rescue.py:328 ../rescue.py:395 ../rescue.py:403 ../rescue.py:489
 msgid "Rescue"
@@ -2475,24 +2460,24 @@ msgstr "পাসওয়ার্ড"
 
 #: ../text.py:230
 msgid "Passphrase for encrypted devices"
-msgstr ""
+msgstr "এনক্রিপ্ট করা ডিভাইসের জন্য পরিচয়-পংক্তি"
 
 #: ../text.py:243
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr ""
+msgstr "উপরন্তু, এনক্রিপ্ট করা সকল উপস্থিত ডিভাইসের জন্য এই পরিচয়-পংক্তি যোগ করুন"
 
 #: ../text.py:274
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "পাসওয়ার্ডে অন্তত ৬ অক্ষর বিশিষ্ট হওয়া আবশ্যক।"
+msgstr "পরিচয়-পংক্তি অন্তত %d অক্ষর বিশিষ্ট হওয়া আবশ্যক।"
 
 #: ../text.py:304 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
-msgstr ""
+msgstr "পরিচয়-পংক্তি"
 
 #: ../text.py:312 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "সার্বজনীন পরিচয়-পংক্তি"
 
 #: ../text.py:368
 msgid "Help not available"
@@ -2523,10 +2508,8 @@ msgid "Welcome to %s"
 msgstr "%s-এ স্বাগত"
 
 #: ../text.py:597
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> সাহায্য| <Tab> অদল বদল | <Space> নির্বাচন | <F12> পরবর্তী পর্দা প্রদর্শন"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> সাহায্য| <Tab> অদল বদল | <Space> নির্বাচন | <F12> পরবর্তী পর্দা প্রদর্শন"
 
 #: ../text.py:599
 msgid ""
@@ -2559,12 +2542,11 @@ msgstr "আপনি কি উন্নীতকরণ কর্ম অগ্�
 msgid ""
 "Anaconda did not find any partitions that are valid upgrade candidates.  "
 "Note that upgrades between major releases is not supported."
-msgstr ""
+msgstr "আপগ্রেড করার উদ্দেশ্যে যথাযত পার্টিশন Anaconda দ্বারা সনাক্ত করা সম্ভব হয়নি।  উল্লেখ্য, প্রধান রিলিজের মধ্যে আপগ্রেড প্রণালী বর্তমানে সমর্থিত নয়।"
 
 #: ../upgrade.py:120
-#, fuzzy
 msgid "No valid upgrade partition"
-msgstr "Swap পার্টিশন আপগ্রেড করুন"
+msgstr "আপগ্রেড করার উদ্দেশ্যে কোনো বৈধ পার্টিশন উপস্থিত নেই"
 
 #: ../upgrade.py:144
 msgid "Searching"
@@ -2604,13 +2586,12 @@ msgstr ""
 "%s"
 
 #: ../upgrade.py:354
-#, fuzzy
 msgid "No system found"
-msgstr "কোনো ড্রাইভার পাওয়া যায়নি"
+msgstr "কোনো সিস্টেম পাওয়া যায়নি"
 
 #: ../upgrade.py:355
 msgid "No upgradable system was found."
-msgstr ""
+msgstr "আপগ্রেড করার যোগ্য কোনো সিস্টেম পাওয়া যায়নি।"
 
 #: ../upgrade.py:361 ../upgrade.py:367
 msgid "Mount failed"
@@ -2844,8 +2825,7 @@ msgstr "৫০ বার ব্যর্থ প্রচেষ্টার প�
 #: ../vnc.py:306
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"ইনস্টলেশন প্রক্রিয়া আরম্ভ করার জন্য অনুগ্রহ করে  %s-র সাথে vnc ক্লায়েন্ট সংযুক্ত করুন।"
+msgstr "ইনস্টলেশন প্রক্রিয়া আরম্ভ করার জন্য অনুগ্রহ করে  %s-র সাথে vnc ক্লায়েন্ট সংযুক্ত করুন।"
 
 # modified for RHEL
 #: ../vnc.py:308
@@ -2878,7 +2858,7 @@ msgstr "ইনস্টলেশন উৎসস্থল থেকে তথ্
 
 # modified for RHEL
 #: ../yuminstall.py:612
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
 "package or corrupt media.  Please verify your installation source.\n"
@@ -2947,8 +2927,7 @@ msgstr "ট্রানসাকশান সঞ্চালনে সমস্�
 
 #: ../yuminstall.py:760
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "নিম্নলিখিত কারণে আপনার ট্রানসাকসান সঞ্চালন করতে সমস্যা হয়েছে: %s"
 
 #: ../yuminstall.py:895
@@ -2976,6 +2955,8 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
+"সংগ্রহস্থল থেকে সংকলন সংক্রান্ত তথ্য পড়তে ব্যর্থ। ইনস্টল-ট্রি নির্মাণে ত্রুটির ফলে এই "
+"সমস্যা।"
 
 #: ../yuminstall.py:972
 msgid "Uncategorized"
@@ -2994,12 +2975,12 @@ msgstr ""
 #: ../yuminstall.py:1517
 #, python-format
 msgid "Too many WWIDs collected for %s, found:"
-msgstr ""
+msgstr "%s-র জন্য অত্যাধিক সংখ্যক WWID পাওয়া গিয়েছে, প্রাপ্ত সংখ্যা:"
 
 #: ../yuminstall.py:1519
 #, python-format
 msgid "    %s for %s"
-msgstr ""
+msgstr "    %s, %s-র জন্য"
 
 #: ../yuminstall.py:1661
 #, python-format
@@ -3122,25 +3103,24 @@ msgstr "শূণ্যের থেকে অধিক মাপের এক�
 #: ../iw/autopart_type.py:179 ../iw/autopart_type.py:183
 #: ../textw/partition_text.py:1733 ../textw/partition_text.py:1736
 #: ../textw/partition_text.py:1741 ../textw/partition_text.py:1745
-#, fuzzy
 msgid "Missing value"
-msgstr "অনুপস্থিত প্যাকেজ"
+msgstr "অনুপস্থিত মান"
 
 #: ../iw/autopart_type.py:170
 msgid "CHAP username is required if CHAP password is defined."
-msgstr ""
+msgstr "CHAP পাসওয়ার্ড নির্ধারিত হলে, CHAP-র ব্যবহারকারীর নাম উল্লেখ করা আবশ্যক।"
 
 #: ../iw/autopart_type.py:174
 msgid "CHAP password is required if CHAP username is defined."
-msgstr ""
+msgstr "CHAP-র ব্যবহারকারীর নাম নির্ধারিত হলে, CHAP পাসওয়ার্ড উল্লেখ করা আবশ্যক।"
 
 #: ../iw/autopart_type.py:180
 msgid "Reverse CHAP username is required if reverse CHAP password is defined."
-msgstr ""
+msgstr "CHAP-র বিপরীত পাসওয়ার্ড নির্ধারিত হলে বিপরীত CHAP ব্যবহারকারীর নাম উল্লেখ করা আবশ্যক।"
 
 #: ../iw/autopart_type.py:184
 msgid "Reverse CHAP password is required if reverse CHAP username is defined."
-msgstr ""
+msgstr "CHAP-র বিপরীত ব্যবহারকারীর নাম নির্ধারিত হলে বিপরীত CHAP পাসওয়ার্ড উল্লেখ করা আবশ্যক।"
 
 #: ../iw/autopart_type.py:202
 msgid "Error with Data"
@@ -3157,8 +3137,7 @@ msgstr "নির্বাচিত ড্রাইভের সমস্ত lin
 
 #: ../iw/autopart_type.py:300 ../textw/partition_text.py:1539
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
-"নির্বাচিত ড্রাইভের সমস্ত অবশিষ্ট স্থান প্রয়োগ করে ডিফল্ট বিন্যাস স্থাপন করা হবে।"
+msgstr "নির্বাচিত ড্রাইভের সমস্ত অবশিষ্ট স্থান প্রয়োগ করে ডিফল্ট বিন্যাস স্থাপন করা হবে।"
 
 #: ../iw/autopart_type.py:301 ../textw/partition_text.py:1540
 msgid "Create custom layout."
@@ -3598,9 +3577,8 @@ msgstr "(সর্বোচ্চ মাপ %s মেগাবাইট)"
 #: ../iw/lvm_dialog_gui.py:473 ../iw/partition_dialog_gui.py:319
 #: ../iw/partition_ui_helpers_gui.py:297 ../iw/partition_ui_helpers_gui.py:324
 #: ../iw/raid_dialog_gui.py:307
-#, fuzzy
 msgid "_Encrypt"
-msgstr "এনক্রিপশন-কি"
+msgstr "এনক্রিপ্ট করুন (_E)"
 
 #: ../iw/lvm_dialog_gui.py:542 ../textw/partition_text.py:1289
 msgid "Illegal size"
@@ -3868,15 +3846,13 @@ msgid "IP Address"
 msgstr "IP ঠিকানা"
 
 #: ../iw/netconfig_dialog.py:197
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4 প্রেফিক্সের মান 0 ও 32'র মধ্যে হওয়া আবশ্যক।"
+msgstr "IPv4 CIDR প্রেফিক্সের মান 0 ও 32-র মধ্যে হওয়া আবশ্যক।"
 
 #: ../iw/netconfig_dialog.py:198 ../iw/netconfig_dialog.py:204
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "IPv4 Network Mask"
-msgstr "IPv4/নেটমাস্ক"
+msgstr "IPv4 নেটওয়ার্ক মাস্ক"
 
 #: ../iw/netconfig_dialog.py:222 ../iw/network_gui.py:27
 #: ../iw/network_gui.py:518
@@ -4020,23 +3996,20 @@ msgid "Miscellaneous Settings"
 msgstr "বিবিধ বৈশিষ্ট্যসূচক মান"
 
 #: ../iw/network_gui.py:615
-#, fuzzy
 msgid "Edit Device "
-msgstr "চিহ্নিত RAID ডিভাইস সম্পাদন করুন"
+msgstr "ডিভাইসের তথ্য সম্পাদনা"
 
 #: ../iw/network_gui.py:619
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "অজানা ইথারনেট ডিভাইস"
 
 #: ../iw/network_gui.py:625
-#, fuzzy
 msgid "unknown"
 msgstr "অজ্ঞাত"
 
 #: ../iw/network_gui.py:627
-#, fuzzy
 msgid "Hardware address: "
-msgstr "হার্ডওয়্যার ঠিকানা: %s"
+msgstr "হার্ডওয়্যার ঠিকানা: "
 
 #: ../iw/network_gui.py:765 ../textw/network_text.py:223 ../loader2/net.c:943
 msgid "Missing Protocol"
@@ -4239,14 +4212,12 @@ msgid "Partitioning"
 msgstr "পার্টিশন নির্মাণ ব্যবস্থা"
 
 #: ../iw/partition_gui.py:638
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "আপনার পার্টিশন পরিকল্পনায় নিম্নোক্ত গুরুতর সমস্যা রয়েছে।"
 
 #: ../iw/partition_gui.py:641
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "%s ইনস্টল করার পূর্বে এই সমস্যাগুলি সমাধান করা আবশ্যক।"
 
 #: ../iw/partition_gui.py:647
@@ -4392,8 +4363,7 @@ msgstr "একটি RAID ডিভাইস তৈরি করুন [ডি�
 #: ../iw/partition_gui.py:1283
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
-"RAID ডিভাইস [ডিফল্ট=/dev/md%s] তৈরির জন্য কোনো একটি ড্রাইভের ক্লোন তৈরি করুন। (_d)"
+msgstr "RAID ডিভাইস [ডিফল্ট=/dev/md%s] তৈরির জন্য কোনো একটি ড্রাইভের ক্লোন তৈরি করুন। (_d)"
 
 #: ../iw/partition_gui.py:1322
 msgid "Couldn't Create Drive Clone Editor"
@@ -4807,10 +4777,8 @@ msgstr "এর দ্বারা বর্তমান বুট-লোডা�
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"ইনস্টলার দ্বারা সনাক্ত করা হয়েছে %s বুট-লোডারটি বর্তমানে %s-এ ইনস্টল করা রয়েছে।"
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "ইনস্টলার দ্বারা সনাক্ত করা হয়েছে %s বুট-লোডারটি বর্তমানে %s-এ ইনস্টল করা রয়েছে।"
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -4946,8 +4914,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Swap ফাইলের মাপ ১ থেকে ২০০০ মেগাবাইটের মধ্যে সীমাবদ্ধ রাখা আবশ্যক।"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:177
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Swap পার্টিশনের জন্য নির্ধারিত ডিভাইসে পর্যাপ্ত স্থান উপস্থিত নেই।"
 
 #: ../iw/zipl_gui.py:28
@@ -5087,8 +5054,7 @@ msgstr ""
 "উল্লেখ করুন।"
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> নির্বাচন | <F2> ডিফল্ট বুট এন্ট্রি নির্বাচন | <F4> অপসারণ | <F12> পরবর্তী "
 "পর্দা প্রদর্শন>"
@@ -5213,8 +5179,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "ইনস্টলেশনের জন্য অনুগ্রহ করে প্যাকেজ সংকলন নির্বাচন করুন।"
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Space>,<+>,<-> নির্বাচন   |   <F2> সংকলনের বিস্তারিত বিবরণ   |   <F12> পরবর্তী "
 "পর্দা"
@@ -5261,29 +5226,28 @@ msgstr ""
 "কোনো সময়ে সমস্যা দেখা দিতে পারে।"
 
 #: ../textw/network_text.py:70
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4 প্রেফিক্সের মান 0 ও 32'র মধ্যে হওয়া আবশ্যক।"
+msgstr "IPv%d প্রেফিক্সের মান ০ ও %d-র মধ্যে হওয়া আবশ্যক।"
 
 #: ../textw/network_text.py:74
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "প্রেফিক্সের জন্য পূর্ণসংখ্যা মান আবশ্যক"
 
 #: ../textw/network_text.py:75
 #, python-format
 msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
-msgstr ""
+msgstr "%s-র জন্য একটি বৈধ পূর্ণসংখ্যা মান লেখা আবশ্যক।  IPv4-র ক্ষেত্রে, 0(০) থেকে 32(৩২)-র মধ্যে একটি মান ব্যবহার করা যাবে এবং IPv6-র ক্ষেত্রে 0(০) থেকে 128(১২৮)-র মধ্যে হওয়ার আবশ্যক।"
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
 msgstr "প্রেফিক্স (নেটমাস্ক)"
 
 #: ../textw/network_text.py:84 tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/প্রেফিক্স"
+msgstr "প্রেফিক্স"
 
 #: ../textw/network_text.py:137
 msgid "Activate on boot"
@@ -5318,78 +5282,69 @@ msgstr "%s'র নেটওয়ার্ক কনফিগারেশন"
 
 #: ../textw/network_text.py:241 ../textw/network_text.py:244
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "পয়েন্ট-টু-পয়েন্ট IP ঠিকানা"
 
 #: ../textw/network_text.py:272 tmp/netpostconfig.glade.h:5
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "ডাইনামিক IP কনফিগারেশন প্রয়োগ করা হবে (DHCP)"
+msgstr "ডাইনামিক IP কনফিগারেশন (DHCP)"
 
 #: ../textw/network_text.py:275 ../textw/network_text.py:406
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "ব্যবহারকারী দ্বারা TCP/IP কনফিগারেশন"
+msgstr "ব্যবহারকারী দ্বারা ঠিকানা কনফিগারেশন"
 
 #: ../textw/network_text.py:295
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "%s'র নেটওয়ার্ক কনফিগারেশন"
+msgstr "%s-র জন্য IPv4 কনফিগারেশন"
 
 #: ../textw/network_text.py:325 ../textw/network_text.py:337
 #: ../textw/network_text.py:340
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4 ঠিকানা:"
+msgstr "IPv4 ঠিকানা"
 
 #: ../textw/network_text.py:329
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/নেটমাস্ক"
+msgstr "IPv4 নেটওয়ার্ক মাস্ক"
 
 #: ../textw/network_text.py:355 ../textw/network_text.py:358
 #: ../textw/network_text.py:361
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "প্রেফিক্স (নেটমাস্ক)"
+msgstr "IPv4 প্রেফিক্স (নেটওয়ার্ক মাস্ক)"
 
 #: ../textw/network_text.py:400 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "নিকটে উপস্থিত সিস্টেমের স্বয়ংক্রিয় সনাক্তকরণ"
 
 #: ../textw/network_text.py:403 tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "ডাইনামিক IP কনফিগারেশন প্রয়োগ করা হবে (DHCP)"
+msgstr "ডাইনামিক IP কনফিগারেশন (DHCPv6)"
 
 #: ../textw/network_text.py:430
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "%s'র নেটওয়ার্ক কনফিগারেশন"
+msgstr "%s-র জন্য IPv6 কনফিগারেশন"
 
 #: ../textw/network_text.py:460 ../textw/network_text.py:471
 #: ../textw/network_text.py:474
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6 ঠিকানা:"
+msgstr "IPv6 ঠিকানা"
 
 #: ../textw/network_text.py:464 ../textw/network_text.py:483
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/প্রেফিক্স"
+msgstr "IPv6 প্রেফিক্স"
 
 #: ../textw/network_text.py:509
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "নেটওয়ার্ক ইন্টারফেস সক্রিয় করা হবে"
+msgstr "নেটওয়ার্ক ইন্টারফেস কনফিগার করুন"
 
 #: ../textw/network_text.py:510
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "আপনি কি এই সিস্টেমের নেটওয়ার্ক ইন্টারফেস সক্রিয় করতে ইচ্ছুক?"
+msgstr "আপনি কি এই সিস্টেমের %s নেটওয়ার্ক ইন্টারফেস কনফিগার করতে ইচ্ছুক?"
 
 #: ../textw/network_text.py:524 ../textw/network_text.py:526
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "UNCONFIGURED"
 
 #: ../textw/network_text.py:535
 msgid ""
@@ -5397,40 +5352,38 @@ msgid ""
 "device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
-msgstr ""
+msgstr "প্রতিটি ইন্টারফেসের জন্য বর্তমানে কনফিগার করা সমস্ত মান, ডিভাইসের নামের পাশে তালিকাভুক্ত করা হয়েছে।  কনফিগার না করা ইন্টারফেসগুলির ক্ষেত্রে UNCONFIGURED প্রদর্শন করা হয়।  ইন্টারফেস কনফিগার করার জন্য, প্রথমে সেটি বাছাই করুন ও এর পরে সম্পাদনা নির্বাচন করুন।  কর্ম সমাপ্ত হলে, ঠিক আছে টিপে এগিয়ে চলুন।"
 
 #: ../textw/network_text.py:578 ../textw/network_text.py:657
-#, fuzzy
 msgid "Active on boot"
 msgstr "বুট করার সময় সক্রিয় করা হবে"
 
 #: ../textw/network_text.py:580 ../textw/network_text.py:659
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "বুট করার সময় সক্রিয় করা হবে"
+msgstr "বুট করার সময় সক্রিয় করা হবে না"
 
 #: ../textw/network_text.py:583 ../textw/network_text.py:662
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:588 ../textw/network_text.py:667
 msgid "Auto IPv6"
-msgstr ""
+msgstr "স্বয়ংক্রিয় IPv6"
 
 #: ../textw/network_text.py:590 ../textw/network_text.py:669
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:596 ../textw/network_text.py:675
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:598 ../textw/network_text.py:600
 #: ../textw/network_text.py:677 ../textw/network_text.py:679
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:701 ../loader2/net.c:1178
 msgid "Gateway:"
@@ -5449,17 +5402,14 @@ msgid "Miscellaneous Network Settings"
 msgstr "নেটওয়ার্ক সংক্রান্ত বিবিধ বৈশিষ্ট্য"
 
 #: ../textw/network_text.py:739 ../textw/network_text.py:742
-#, fuzzy
 msgid "gateway"
 msgstr "গেটওয়ে"
 
 #: ../textw/network_text.py:749 ../textw/network_text.py:752
-#, fuzzy
 msgid "primary DNS"
 msgstr "প্রধান DNS"
 
 #: ../textw/network_text.py:761
-#, fuzzy
 msgid "secondary DNS"
 msgstr "দ্বিতীয় DNS"
 
@@ -5476,7 +5426,6 @@ msgid "Hostname Configuration"
 msgstr "হোস্ট-নেম কনফিগারেশন প্রণালী"
 
 #: ../textw/network_text.py:820
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5486,7 +5435,7 @@ msgstr ""
 "আপনার সিস্টেমটি DHCP দ্বারা হোস্ট-নেম নির্ধারণের বৈশিষ্ট্যসহ কোনো বৃহত্তোর "
 "নেটওয়ার্কের অংশ হলে 'DHCP'র মাধ্যমে স্বয়ংক্রিয়রূপে' বিকল্পটি নির্বাচন করুন। অন্যথা "
 "'ব্যবহারকারী দ্বারা' বিকল্পটি নির্বাচন করে আপনার সিস্টেমের জন্য একটি হোস্ট-নেম "
-"লিখুন। হোস্ট-নেম উল্লেখ না করা হলে সিস্টেমটি localhost নামে পরিচিত হবে।"
+"লিখুন। হোস্ট-নেম উল্লেখ না করা হলে সিস্টেমটি 'localhost' নামে পরিচিত হবে।"
 
 #: ../textw/network_text.py:846 ../textw/network_text.py:852
 msgid "Invalid Hostname"
@@ -5738,8 +5687,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1456
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-সহায়তা     F2-নতুন     F3-সম্পাদনা   F4-অপসারণ    F5-রিসেট    F12-ঠিক "
 "আছে        "
@@ -5773,8 +5721,7 @@ msgstr "বর্তমান ইনস্টলেশনের জন্য ক
 
 #: ../textw/partition_text.py:1569
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> নির্বাচন   |   <F2> ড্রাইভ সংযোজন   |   <F12> পরবর্তী পর্দা"
+msgstr "<Space>,<+>,<-> নির্বাচন   |   <F2> ড্রাইভ সংযোজন   |   <F12> পরবর্তী পর্দা"
 
 #: ../textw/partition_text.py:1638
 msgid "Review Partition Layout"
@@ -5821,19 +5768,19 @@ msgstr ""
 
 #: ../textw/partition_text.py:1734
 msgid "Username is required when password is present."
-msgstr ""
+msgstr "পাসওয়ার্ড উপস্থিত থাকলে ব্যবহারকারীর নাম উল্লেখ করা আবশ্যক।"
 
 #: ../textw/partition_text.py:1737
 msgid "Password is required when username is present."
-msgstr ""
+msgstr "ব্যবহারকারীর নাম উপস্থিত থাকলে পাসওয়ার্ড উল্লেখ করা আবশ্যক।"
 
 #: ../textw/partition_text.py:1742
 msgid "Reverse username is required whenreverse password is present."
-msgstr ""
+msgstr "বিপরীত পাসওয়ার্ড উপস্থিত থাকলে বিপরীত ব্যবহারকারীর নাম উল্লেখ করা আবশ্যক।"
 
 #: ../textw/partition_text.py:1746
 msgid "Reverse password is required whenreverse username is present."
-msgstr ""
+msgstr "বিপরীত ব্যবহারকারীর নাম উপস্থিত থাকলে বিপরীত পাসওয়ার্ড উল্লেখ করা আবশ্যক।"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -6138,12 +6085,17 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
+"এই মুহূর্তে ইনস্টলেশন সংখ্যা (সাবস্ক্রিশন সংখ্যা নামেও পরিচিত) লিখতে ইচ্ছুক কি? এর ফলে, আপনার সাবস্ক্রিপশনের সাথে উপলব্ধ কোনো অতিরিক্ত সামগ্রী ব্যবহারের অধিক উপস্থিত থাকলে, ইনস্টলার দ্বারা সেগুলি প্রয়োগ করা সম্ভব হবে।  এই ধাপটি উপেক্ষা করা হলে, ব্যবহারকারী স্বয়ং পরে এই সমস্ত অতিরিক্ত সামগ্রী ইনস্টল করতে পারবেন।\n"
+"\n"
+"অধিক বিবরণের জন্য http://www.redhat.com/InstNum/ দেখুন।"
 
 #: ../installclasses/rhel.py:57
 msgid ""
 "If you cannot locate the Installation Number, consult http://www.redhat.com/"
 "InstNum/"
 msgstr ""
+"ইনস্টলেশন সংখ্যা সনাক্ত করতে সমস্যা দেখা দিলে, http://www.redhat.com/"
+"InstNum/-এ উপস্থিত তথ্য পড়ুন"
 
 # **************************************************************************************************
 # পরবর্তী অধিকাংশ পঙ্‌ক্তির অনুবাদক - মহামান্য দীপায়ন সরকার
@@ -6378,17 +6330,17 @@ msgstr "আপনি কি অতিরিক্ত ড্রাইভার �
 
 #: ../loader2/driverdisk.c:600
 msgid "Cannot initialize cache instance for blkid"
-msgstr ""
+msgstr "blkid-র জন্য ক্যাশে ইনস্ট্যান্স আরম্ভ করতে ব্যর্থ"
 
 #: ../loader2/driverdisk.c:604
 #, c-format
 msgid "Cannot probe devices in blkid: %d"
-msgstr ""
+msgstr "blkid-র মধ্যে ডিভাইস প্রোব করতে ব্যর্থ: %d"
 
 #: ../loader2/driverdisk.c:614
 #, c-format
 msgid "Adding driver disc %s to the list of available DDs."
-msgstr ""
+msgstr "উপলব্ধ DD-র তালিকায় %s ড্রাইভার ডিস্ক যোগ করা হবে।"
 
 #: ../loader2/driverdisk.c:682 ../loader2/driverdisk.c:719
 #: ../loader2/hdinstall.c:404 ../loader2/kickstart.c:124
@@ -6472,8 +6424,7 @@ msgstr "%s ড্রাইভার লোড করা হচ্ছে..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"চিহ্নিত ডিরেক্টরির মধ্যে উপস্থিত %s ইনস্টলেশন ট্রি প্রদত্ত বুট মিডিয়ার সাথে সুসংগত নয়।"
+msgstr "চিহ্নিত ডিরেক্টরির মধ্যে উপস্থিত %s ইনস্টলেশন ট্রি প্রদত্ত বুট মিডিয়ার সাথে সুসংগত নয়।"
 
 #: ../loader2/hdinstall.c:158
 msgid ""
@@ -6487,8 +6438,7 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"আপনার সিস্টেমে কোনো হার্ড-ড্রাইভ পাওয়া যায়নি! অতিরিক্ত ডিভাইস কনফিগার করা হবে কি?"
+msgstr "আপনার সিস্টেমে কোনো হার্ড-ড্রাইভ পাওয়া যায়নি! অতিরিক্ত ডিভাইস কনফিগার করা হবে কি?"
 
 #: ../loader2/hdinstall.c:280
 #, c-format
@@ -6578,8 +6528,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s-এ স্বাগতম - রেসকিউ মোড"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:159
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> অদল বদল  | <Space> নির্বাচন | <F12> পরবর্তী পর্দা "
 
 #: ../loader2/lang.c:366
@@ -6821,16 +6770,11 @@ msgstr "Checksum পরীক্ষা"
 #: ../loader2/modules.c:1064
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
-"ডিভাইস kickstart প্রণালী কমান্ড %s'র ক্ষেত্রে অশুদ্ধ আর্গুমেন্ট উল্লিখিত হয়েছে: %s"
+msgstr "ডিভাইস kickstart প্রণালী কমান্ড %s'র ক্ষেত্রে অশুদ্ধ আর্গুমেন্ট উল্লিখিত হয়েছে: %s"
 
 #: ../loader2/modules.c:1077
-#, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
-msgstr ""
-"kickstart ড্রাইভার ডিস্কের কমান্ডের সাথে নিম্নলিখিত অবৈধ কমান্ড উল্লিখিত হয়েছে: %s:"
-"%s"
+msgid "Both module type and name must be specified for the kickstart device command."
+msgstr "কিক-স্টার্ট ডিভাইস কমান্ডের জন্য মডিউলের নাম ও ধড়ন, উভয় উল্লেখ করা আবশ্যক।"
 
 #: ../loader2/net.c:69
 #, c-format
@@ -6964,10 +6908,8 @@ msgid "Missing Information"
 msgstr "অনুপস্থিত তথ্য"
 
 #: ../loader2/net.c:1347
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"বৈধ IPv4 ঠিকানা ও একটি নেটওয়ার্ক মাস্ক অথবা CIDR প্রেফিক্স উল্লেখ করা আবশ্যক।"
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "বৈধ IPv4 ঠিকানা ও একটি নেটওয়ার্ক মাস্ক অথবা CIDR প্রেফিক্স উল্লেখ করা আবশ্যক।"
 
 #: ../loader2/net.c:1353
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
@@ -6988,9 +6930,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "নেটওয়ার্ক কমান্ডে ভুল bootproto %s উল্লেখ করা হয়েছে"
 
 #: ../loader2/net.c:2110
-#, fuzzy
 msgid "Seconds:"
-msgstr "দ্বিতীয় DNS:"
+msgstr "সেকেন্ড:"
 
 #: ../loader2/net.c:2283
 msgid "Networking Device"
@@ -7006,35 +6947,36 @@ msgstr ""
 
 #: ../loader2/net.c:2288
 msgid "Identify"
-msgstr ""
+msgstr "সনাক্তকরণ"
 
 #: ../loader2/net.c:2297
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "সুনির্দিষ্ট সেকেন্ড অবধি LED আলো ঝলকে "
 
 #: ../loader2/net.c:2299
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
+"জন্য চিহ্নিত প্রকৃত পোর্ট সনাক্ত করা সম্ভব হবে।  LED পোর্টের আলো ঝলকানোর সময়কাল "
+"উল্লেখ করার জন্য ১ থেকে ৩০-র মধ্যে একটি সংখ্যা লিখুন।"
 
 #: ../loader2/net.c:2309
 msgid "Identify NIC"
-msgstr ""
+msgstr "NIC সনাক্তকরণ"
 
 #: ../loader2/net.c:2322
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "IP সংক্রান্ত তথ্য বৈধ নয়"
+msgstr "অবধীকাল বৈধ নয়"
 
 #: ../loader2/net.c:2323
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "১ থেকে ৩০-র মধ্যে একটি পূর্ণসংখ্যা দ্বারা সেকেন্ডের সংখ্যা উল্লেখ করা আবশ্যক।"
 
 #: ../loader2/net.c:2335
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "%s পোর্টের আলো %d সেকেন্ডের জন্য জ্বালানো হবে..."
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -7248,9 +7190,8 @@ msgid "_Release Notes"
 msgstr "রিলিজ নোটস (_R)"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "Encrypt system"
-msgstr "এনক্রিপশন-কি"
+msgstr "সিস্টেম এনক্রিপ্ট করুন"
 
 #: tmp/autopart.glade.h:2
 msgid ""
@@ -7290,24 +7231,20 @@ msgid "%(instkey)s:"
 msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>CHAP _Password:</b>"
-msgstr "<b>পাসওয়ার্ড: (_P)</b>"
+msgstr "<b>CHAP পাসওয়ার্ড: (_P)</b>"
 
 #: tmp/iscsi-config.glade.h:2
-#, fuzzy
 msgid "<b>CHAP _Username:</b>"
-msgstr "<b>ব্যবহারকারীর নাম: (_U)</b>"
+msgstr "<b>CHAP ব্যবহারকারীর নাম: (_U)</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>পাসওয়ার্ড: (_P)</b>"
+msgstr "<b>বিপরীত CHAP পাসওয়ার্ড: (_a)</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>ব্যবহারকারীর নাম: (_U)</b>"
+msgstr "<b>বিপরীত CHAP ব্যবহারকারীর নাম: (_s)</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
@@ -7321,21 +7258,20 @@ msgstr "<b>iSCSI প্রারম্ভকারীর নাম: (_N)</b>"
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
-msgstr ""
+msgstr "বুট প্রণালী সংক্ষিপ্ত করার জন্য, এনক্রিপ্ট করা সকল উপস্থিত ডিভাইসের জন্য এই পরিচয়-পংক্তি ব্যবহার করা হবে"
 
 # modified for RHEL
 #: tmp/lukspassphrase.glade.h:2
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "রিসেট কর্ম নিশ্চায়ন"
+msgstr "পরিচয়-পংক্তি নিশ্চয়াণ:"
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "এনক্রিপ্ট করা পার্টিশনের জন্য একটি পরিচয়-পংক্তি লিখুন"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase:"
-msgstr ""
+msgstr "পরিচয়-পংক্তি লিখুন:"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7382,33 +7318,28 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "ডাইনামিক IP কনফিগারেশন ব্যবস্থা ব্যবহার করা হবে (DHCP) (_d)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "বিবরণ: %s"
+msgstr "<b>এই স্থানে বিবরণ লিখুন</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>হার্ডওয়্যার ঠিকানা: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "Edit Interface"
-msgstr "%s ইন্টারফেস সম্পাদন করুন"
+msgstr "ইন্টারফেস সম্পাদনা"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "এনক্রিপশন-কি: (_K)"
+msgstr "এনক্রিপশন-কি:"
 
 #: tmp/netpostconfig.glade.h:13
-#, fuzzy
 msgid "Manual configuration"
-msgstr "ব্যবহারকারী দ্বারা TCP/IP কনফিগারেশন"
+msgstr "ব্যবহারকারী দ্বারা কনফিগারেশন"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "পয়েন্ট-টু-পয়েন্ট (IP): (_P)"
+msgstr "পয়েন্ট-টু-পয়েন্ট (IP):"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -7513,8 +7444,7 @@ msgstr "আটলান্টিক সময় - নোভা স্কোটি�
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"আটলান্টিক সময় - নোভা স্কোটিয়া - যে সমস্ত স্থানে DST 1966-1971 অনুসরণ করা হয় না"
+msgstr "আটলান্টিক সময় - নোভা স্কোটিয়া - যে সমস্ত স্থানে DST 1966-1971 অনুসরণ করা হয় না"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -7573,9 +7503,8 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "মধ্য সময় - কোয়াহুইলা, দুরাংগো, নভ্যু লিওন, তামাউলিপাস"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Perry County"
-msgstr "মধ্য সময় - ইন্ডিয়ানা - পাইক কাউন্টি"
+msgstr "মধ্য সময় - ইন্ডিয়ানা - পেরি কাউন্টি"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -7630,9 +7559,8 @@ msgid "Dornod, Sukhbaatar"
 msgstr "ডর্নোড, সুখবাতার"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Dumont-d'Urville Station, Terre Adelie"
-msgstr "দুমন্ত-দ্য'আর্ভিল বেস, তেরে আদেলি"
+msgstr "দুমন্ত-দ্য'আর্ভিল স্টেশন, তেরে আদেলি"
 
 #. generated from zone.tab
 msgid "E Amazonas"
@@ -7655,14 +7583,12 @@ msgid "Eastern Time - Indiana - Crawford County"
 msgstr "ইস্টার্ন সময় - ইন্ডিয়ানা - ক্রফোর্ড কাউন্টি"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Daviess, Dubois, Knox & Martin Counties"
-msgstr "মধ্য সময় - ইন্ডিয়ানা - ডেভিস, ডুবোই, নক্স, মার্টিন, পেরি ও পুলাস্কি কাউন্টি"
+msgstr "ইস্টার্ন সময় - ইন্ডিয়ানা - ডেভিস, ডুবোই, নক্স ও মার্টিন কাউন্টি"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Pulaski County"
-msgstr "ইস্টার্ন সময় - ইন্ডিয়ানা - স্টার্ক কাউন্টি"
+msgstr "ইস্টার্ন সময় - ইন্ডিয়ানা - পুলাস্কি কাউন্টি"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
@@ -7689,10 +7615,8 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "ইস্টার্ন সময় - মিশিগান - অধিকাংশ অঞ্চল"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"ইস্টার্ন সময় - ওন্টারিও ও ক উবেক- যে সমস্ত স্থানে DST 1967-1973 অনুসরণ করা হয় না"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "ইস্টার্ন সময় - ওন্টারিও ও ক উবেক- যে সমস্ত স্থানে DST 1967-1973 অনুসরণ করা হয় না"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
@@ -7707,18 +7631,16 @@ msgid "Eastern Time - Quebec - most locations"
 msgstr "ইস্টার্ন সময় - কিউবেক - অধিকাংশ অঞ্চল"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Resolute, Nunavut"
-msgstr "ইস্টার্ন সময় - পূর্ব নুনাভুট"
+msgstr "ইস্টার্ন সময় - রেসোলিউট, নুনাভুট"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
 msgstr "ইস্টার্ন টাইম - থান্ডার বে, ওন্টারিও"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut - most locations"
-msgstr "ইস্টার্ন সময় - ইন্ডিয়ানা - অধিকাংশ স্থান"
+msgstr "ইস্টার্ন সময় - পূর্ব নুনাভুট - অধিকাংশ স্থান"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -7874,8 +7796,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "মাউন্টেন স্ট্যান্ডার্ড সময় - অ্যারিজোনা"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "মাউন্টেন স্ট্যান্ডার্ড সময় - ডসন ক্রিক ও ফোর্ট সেন্ট জন, ব্রিটিশ কোলোম্বিয়া"
 
 #. generated from zone.tab
@@ -7915,9 +7836,8 @@ msgid "Mountain Time - west Northwest Territories"
 msgstr "মাউন্টেন টাইম - মধ্যে উত্তরপশ্চীম অঞ্চল"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mountain Time - west Nunavut"
-msgstr "মধ্য সময় - পশ্চিম নুনাভুট"
+msgstr "মাউন্টেন সময় - পশ্চিম নুনাভুট"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
@@ -7984,9 +7904,8 @@ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 msgstr "কিজিলোর্দা"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Rondonia"
-msgstr "পশ্চিম পারা, রন্ডোনিয়া"
+msgstr "রন্ডোনিয়া"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -8013,9 +7932,8 @@ msgid "San Juan (SJ)"
 msgstr "সান হুয়ান (SJ)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "San Luis (SL)"
-msgstr "সান হুয়ান (SJ)"
+msgstr "সান লুই (SL)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
@@ -8079,7 +7997,7 @@ msgstr "পশ্চিম আমাজোনা"
 
 #. generated from zone.tab
 msgid "W Para"
-msgstr ""
+msgstr "পঃ পারা"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -8090,19 +8008,16 @@ msgid "West Kazakhstan"
 msgstr "পশ্চিম কাজাখস্তান"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "পশ্চিম অস্ট্রেলিয়া"
+msgstr "পশ্চিম অস্ট্রেলিয়া - ইউক্লা অঞ্চল"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "মধ্য সময় - অধিকাংশ স্থান"
+msgstr "পশ্চিম অস্ট্রেলিয়া - অধিকাংশ স্থান"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Zaporozh'ye, E Lugansk / Zaporizhia, E Luhansk"
-msgstr "জাপোরোজ'য়ে, পূর্ব লুগানস্ক"
+msgstr "জাপোরোজ'য়ে, পূর্ব লুগানস্ক / জাপোরিজিয়া, পূর্ব লুগানস্ক"
 
 #. generated from zone.tab
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
@@ -8141,9 +8056,8 @@ msgid "most locations"
 msgstr "অধিকাংশ অঞ্চল"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF)"
-msgstr "অধিকাংশ অঞ্চল (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+msgstr "অধিকাংশ অঞ্চল  (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
@@ -8402,96 +8316,3 @@ msgstr "ওয়েলশ"
 msgid "Zulu"
 msgstr "জুলু"
 
-# modified for RHEL
-#~ msgid ""
-#~ "The partition table on device %s was unreadable. To create new partitions "
-#~ "it must be initialized, causing the loss of ALL DATA on this drive.\n"
-#~ "\n"
-#~ "This operation will override any previous installation choices about "
-#~ "which drives to ignore.\n"
-#~ "\n"
-#~ "Would you like to initialize this drive, erasing ALL DATA?"
-#~ msgstr ""
-#~ "ডিভাইস %s -র পার্টিশন টেবিল পড়া যাচ্ছে না।  নতুন কোনো পার্টিশন তৈরি করতে হলে "
-#~ "পার্টিশন টেবিলটি পুনরায় প্রস্তুত করা আবশ্যক যায় ফলে এই ড্রাইভে অবস্থিত সমস্ত ডাটা "
-#~ "মুছে যাবে।\n"
-#~ "\n"
-#~ "ইনস্টলেশন প্রক্রিয়ার সময় উপেক্ষা করার জন্য ড্রাইভ চিহ্নিত করতে পূর্বে নির্ধারিত "
-#~ "মান, এই কর্মের ফলে অগ্রাহ্য করা হবে।\n"
-#~ "\n"
-#~ "সমস্ত ডাটা হারিয়ে ফেলার সম্ভাবনা সত্ত্বেও কি আপনি এই ড্রাইভটি প্রস্তুত করতে ইচ্ছুক?"
-
-#~ msgid "Netmask"
-#~ msgstr "নেটমাস্ক"
-
-#~ msgid ""
-#~ "To install the full set of supported packages included in your "
-#~ "subscription, please enter your Installation Number"
-#~ msgstr ""
-#~ "আপনার সাবস্ক্রিপশনের মধ্যে অন্তর্ভুক্ত সমর্থিত প্যাকেজের সম্পূর্ণ সংকলন ইনস্টলেশন করার "
-#~ "জন্য অনুগ্রহ করে ইনস্টলেশন সংখ্যা লিখুন"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you're unable to locate the Installation Number, consult http://www."
-#~ "redhat.com/apps/support/in.html.\n"
-#~ "\n"
-#~ "If you skip:\n"
-#~ "* You may not get access to the full set of packages included in your "
-#~ "subscription.\n"
-#~ "* It may result in an unsupported/uncertified installation of Red Hat "
-#~ "Enterprise Linux.\n"
-#~ "* You will not get software and security updates for packages included in "
-#~ "your subscription."
-#~ msgstr ""
-#~ "ইনস্টলেশন সংখ্যা পাওয়া না গেলে, http://www.redhat.com/apps/support/in.html "
-#~ "দেখুন।\n"
-#~ "\n"
-#~ "উপেক্ষা করা হলে:\n"
-#~ "* আপনার সাবস্ক্রিপশনের সাথে যুক্ত সম্পূর্ণ প্যাকেজ সংকলন ব্যবহারের সুঢ়োগ আপনার "
-#~ "হাতছাড়া হতে পারে।\n"
-#~ "* অসমর্থিত/অননুমোদিত Red Hat Enterprise Linux ইনস্টলেশন স্থাপিত হবে।\n"
-#~ "* আপনার সাবস্ক্রিপশনের মধ্যে অন্তর্ভুক্ত না করা প্যাকেজের জন্য সফ্টওয়্যার ও নিরাপত্তা "
-#~ "সংক্রান্ত আপডেট উপলব্ধ করা হবে না।"
-
-#~ msgid "Jan Mayen"
-#~ msgstr "ইয়ান মায়েন"
-
-#~ msgid "Svalbard"
-#~ msgstr "সভালবার্ড"
-
-#~ msgid "Use dynamic IP configuration (_DHCP)"
-#~ msgstr "ডাইনামিক IP কনফিগারেশন প্রয়োগ করা হবে (DHCP) (_D)"
-
-#~ msgid "_Activate on boot"
-#~ msgstr "বুট হওয়ার সময় সক্রিয় করা হবে (_A)"
-
-#~ msgid "Address"
-#~ msgstr "ঠিকানা"
-
-#~ msgid "IPv_4:"
-#~ msgstr "IPv_4:"
-
-#~ msgid "IPv_6:"
-#~ msgstr "IPv_6:"
-
-#~ msgid "_ESSID:"
-#~ msgstr "_ESSID:"
-
-#~ msgid "Configure %s"
-#~ msgstr "%s কনফিগার করুন"
-
-#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-#~ msgstr "অবৈধ অথবা অনুপস্থিত IPv6 প্রেফিক্স (০ থেকে ১২৮'র মধ্যে হওয়া আবশ্যক)।"
-
-#~ msgid "Hardware Address: %s"
-#~ msgstr "হার্ডওয়্যার ঠিকানা: %s"
-
-#~ msgid "IPv4:"
-#~ msgstr "IPv4:"
-
-#~ msgid "IPv6:"
-#~ msgstr "IPv6:"
-
-#~ msgid "Persian"
-#~ msgstr "ফার্সি"
