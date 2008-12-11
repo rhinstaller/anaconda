@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.162
+Version: 11.1.2.163
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Dec 10 2008 Chris Lumens <clumens@redhat.com> 11.1.2.163-1
+- Mark some new translations as fuzzy to fix the build.
+  Related: rhbz#474375
+
 * Wed Dec 10 2008 Chris Lumens <clumens@redhat.com> 11.1.2.162-1
 - Update translation files for the instnum text change.
   Related: rhbz#474375
