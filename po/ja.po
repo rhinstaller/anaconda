@@ -1,8 +1,9 @@
+# translation of ja.po to ja-JP
 # translation of ja.po to
-# translation of ja.po to Japanese
 # anaconda/ja.po
 # Copyright (C) 2001 Red Hat, Inc.
 # SATO Satoru <ssato@redhat.com>
+#
 # James Hashida <khashida@redhat.com>, 2002,2003.
 # Noriko Mizumoto <noriko@redhat.com>, 2003, 2004, 2006.
 # Yoshinari Takaoka <mumumu@mx.edit.ne.jp>, 2004.
@@ -10,19 +11,19 @@
 # Naoki Shigematsu <sigematu@linuxml.net>, 2004.
 # Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004, 2005, 2006.
 # Kiyoto James Hashida <khashida@redhat.com>, 2006.
-#
+# Takuro Nagamoto <tnagamot@redhat.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 13:23-0500\n"
-"PO-Revision-Date: 2006-12-01 13:43+1000\n"
-"Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
-"Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
+"PO-Revision-Date: 2008-12-10 16:44+1000\n"
+"Last-Translator: Takuro Nagamoto <tnagamot@redhat.com>\n"
+"Language-Team: ja-JP\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:265
 msgid "Unknown Error"
@@ -102,15 +103,14 @@ msgid "Starting graphical installation..."
 msgstr "グラフィカルインストールを開始中..."
 
 #: ../anaconda:772
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "どうしますか?"
+msgstr "VNC を使用しますか?"
 
 #: ../anaconda:773
 msgid ""
 "The VNC mode instalation offers more functionality than the text mode, would "
 "you like to use it instead?"
-msgstr ""
+msgstr "VNC モードインストールはテキストモードよりも多くの機能を提供します。VNC モードインストールを代わりに使用しますか?"
 
 #: ../anaconda:812
 msgid "Install class forcing text mode installation"
@@ -118,8 +118,7 @@ msgstr "テキストモードインストールを強制するインストール
 
 #: ../anaconda:844
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"グラフィカルインストールは使用できません...テキストモードを起動中です。"
+msgstr "グラフィカルインストールは使用できません...テキストモードを起動中です。"
 
 #: ../anaconda:852
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -139,29 +138,18 @@ msgid "unknown install method: %s"
 msgstr "不明なインストール方法です: %s"
 
 #: ../autopart.py:950
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
 msgstr ""
 "シリンダベースのパーティションを基本パーティションとして割り当てることができ"
 "ませんでした。\n"
-"\n"
-"%s"
 
 #: ../autopart.py:955
-#, fuzzy
 msgid "Could not allocate partitions as primary partitions.\n"
-msgstr ""
-"パーティションを基本パーティションとして割り当てることができませんでした。\n"
-"\n"
-"%s"
+msgstr "パーティションを基本パーティションとして割り当てることができませんでした。\n"
 
 #: ../autopart.py:960
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions.\n"
-msgstr ""
-"シリンダベースのパーティションを割り当てることができませんでした。\n"
-"\n"
-"%s"
+msgstr "シリンダベースのパーティションを割り当てることができませんでした。\n"
 
 #: ../autopart.py:1020
 #, python-format
@@ -204,8 +192,7 @@ msgstr ""
 
 #: ../autopart.py:1033
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "ブートパーティション %s は、ご使用のアーキテクチャに関するブート制限を満たし"
 "ていない可能性があります。"
@@ -525,8 +512,7 @@ msgstr "dump が書き込まれました"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"システムの状態が正常にフロッピーに書き込まれました。システムを再起動します。"
+msgstr "システムの状態が正常にフロッピーに書き込まれました。システムを再起動します。"
 
 #: ../exception.py:404 ../exception.py:421 ../fsset.py:2047 ../fsset.py:2868
 #: ../gui.py:1075 ../gui.py:1225 ../harddrive.py:80 ../image.py:93
@@ -1008,29 +994,26 @@ msgstr "インストールキー"
 msgid ""
 "Choose a passphrase for your encrypted devices. You will be prompted for the "
 "passphrase during system boot."
-msgstr ""
+msgstr "デバイスを暗号化するためのパスフレーズを選択してください。システムのブート時にパスフレーズを入力するよう求められます。"
 
 #: ../gui.py:680 ../gui.py:688 ../text.py:263 ../text.py:273
-#, fuzzy
 msgid "Error with passphrase"
-msgstr "パスワードにエラー"
+msgstr "パスフレーズにエラー"
 
 #: ../gui.py:681 ../text.py:264
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
-msgstr "入力したパスワードが異ります。再度やり直してください。"
+msgstr "入力したパスフレーズが異ります。再度やり直してください。"
 
 #: ../gui.py:689
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "パスワードは最低 6 文字以上でなければなりません。"
+msgstr "パスフレーズは最低 8 文字以上でなければなりません。"
 
 #: ../gui.py:721 ../text.py:297
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
-msgstr ""
+msgstr "デバイス %s は暗号化されています。インストール時にこのデバイスの内容にアクセスするには、以下のデバイスのパスフレーズを入力する必要があります。"
 
 #: ../gui.py:893 tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -1327,8 +1310,7 @@ msgstr "ホスト名は 「a-z」 又は 「A-Z」 の範囲の有効な文字�
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"ホスト名には 「a-z」、 「A-Z」、 「-」、 「.」以外の文字は使用できません。"
+msgstr "ホスト名には 「a-z」、 「A-Z」、 「-」、 「.」以外の文字は使用できません。"
 
 #: ../network.py:92
 msgid "IP address is missing."
@@ -1353,9 +1335,8 @@ msgid "'%s' is an invalid IP address."
 msgstr "%s は無効な IP アドレスです。"
 
 #: ../packages.py:155
-#, fuzzy
 msgid "LVM operation failed"
-msgstr "マウントに失敗しました"
+msgstr "LVM の操作に失敗"
 
 #: ../packages.py:272
 msgid "Invalid Key"
@@ -1505,8 +1486,7 @@ msgstr "これは %s を含む拡張パーティションなので削除でき�
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:585
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"このパーティションはハードドライブインストール用のデータを保有しています。"
+msgstr "このパーティションはハードドライブインストール用のデータを保有しています。"
 
 #: ../partIntfHelpers.py:188
 msgid ""
@@ -1524,8 +1504,7 @@ msgstr "削除の確認"
 #: ../partIntfHelpers.py:234
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"デバイス 「/dev/%s」上のすべてのパーティションを削除しようとしています。"
+msgstr "デバイス 「/dev/%s」上のすべてのパーティションを削除しようとしています。"
 
 #: ../partIntfHelpers.py:237 ../partIntfHelpers.py:530
 #: ../iw/lvm_dialog_gui.py:785 ../iw/lvm_dialog_gui.py:1145
@@ -1713,14 +1692,12 @@ msgid "Confirm Reset"
 msgstr "リセットの確認"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "本当に、パーティションテーブル設定をリセットして元の状態に戻しますか?"
 
 #: ../partRequests.py:263
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "マウントポイントが不適切です。 %s ディレクトリは / ファイルシステム上になけれ"
 "ばなりません。"
@@ -1736,8 +1713,7 @@ msgstr ""
 
 #: ../partRequests.py:273
 msgid "This mount point must be on a linux file system."
-msgstr ""
-"このマウントポイントは linux のファイルシステム上になければなりません。"
+msgstr "このマウントポイントは linux のファイルシステム上になければなりません。"
 
 #: ../partRequests.py:294
 #, python-format
@@ -1753,8 +1729,7 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"%s パーティションのサイズ (%10.2f MB) は最大サイズ %10.2f MB を超えています。"
+msgstr "%s パーティションのサイズ (%10.2f MB) は最大サイズ %10.2f MB を超えています。"
 
 #: ../partRequests.py:511
 #, python-format
@@ -1780,8 +1755,7 @@ msgstr "パーティションが負のシリンダで終ることはできませ
 
 #: ../partRequests.py:708
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"RAID 要求の中にメンバーが含まれていない、または RAID レベルが未指定です。"
+msgstr "RAID 要求の中にメンバーが含まれていない、または RAID レベルが未指定です。"
 
 #: ../partRequests.py:716 ../partitions.py:1197
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1884,7 +1858,7 @@ msgstr ""
 "すべてのデータを消去して、このドライブを初期化しますか?"
 
 #: ../partedUtils.py:1138
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1895,12 +1869,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"デバイス %s にあるパーティションテーブルを読み込めませんでした (%s)。新規パー"
+"デバイス %s (%s %-0.f MB) にあるパーティションテーブルを読み込めませんでした。\n新規パー"
 "ティションを作成するには初期化が必要ですが、本ドライブにあるすべてのデータを"
 "失うことになります。\n"
 "\n"
-"この操作を行うと、以前のインストールで選択した無視するドライブの選択をすべて"
-"上書きしてしまいます。\n"
+"この操作は、以前のインストールで選択した無視するドライブの選択よりも優先されます。\n"
 "\n"
 "すべてのデータを消去して、このドライブを初期化しますか?"
 
@@ -1911,7 +1884,7 @@ msgid ""
 "the Linux kernel does not allow for more than 15 partitons at this time.  "
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
-msgstr ""
+msgstr "ドライブ /dev/%s には 15 個を超えるパーティションが存在します。Linux カーネルの SCSI サブシステムでは、現時点で 15 個を超えるパーティションは許可されません。このディスクのパーティションを変更できません、または /dev/%s15 (%s) を超えるパーティションを使用できません。"
 
 #: ../partedUtils.py:1373
 msgid "No Drives Found"
@@ -1939,16 +1912,15 @@ msgstr ""
 "ク編集画面に戻ることはできません。インストールを続けますか?"
 
 #: ../partitioning.py:106
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "暗号キー"
+msgstr "デバイスは暗号化されていますか?"
 
 #: ../partitioning.py:107
 msgid ""
 "You specified block device encryption should be enabled, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
-msgstr ""
+msgstr "ブロックデバイスの暗号化を有効にするよう指定しましたがパスフレーズを提供しませんでした。パスフレーズを提供しないと、ブロックデバイスの暗号化が無効になります。"
 
 #: ../partitioning.py:114 ../partitions.py:126 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:28 ../textw/confirm_text.py:54
@@ -1987,9 +1959,8 @@ msgstr ""
 "せん。 よろしいですか?"
 
 #: ../partitions.py:131
-#, fuzzy
 msgid "Confirm"
-msgstr "確認:"
+msgstr "確認"
 
 #: ../partitions.py:132
 #, python-format
@@ -1999,6 +1970,9 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
+"デバイス %s に対するパスフレーズの入力を省略しますか?\n"
+"\n"
+"このステップを省略すると、インストール時にデバイスの内容を利用できません。"
 
 #: ../partitions.py:1029
 #, python-format
@@ -2019,8 +1993,7 @@ msgstr ""
 "小さすぎます。"
 
 #: ../partitions.py:1067 ../partitions.py:1090
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "/boot/efi パーティションはタイプが FAT、サイズが 50MB で作成しなければなりま"
 "せん。"
@@ -2037,7 +2010,7 @@ msgstr ""
 msgid ""
 "Your boot partition is on a disk using the GPT partitioning scheme but this "
 "machine cannot boot using GPT."
-msgstr ""
+msgstr "ディスク上のブートパーティションは GPT パーティションスキームを使用しています。ただし、このマシンは GPT を使用してブートできません。"
 
 #: ../partitions.py:1110
 msgid "You must create an Apple Bootstrap partition."
@@ -2057,8 +2030,7 @@ msgstr ""
 "量には不足しています。"
 
 #: ../partitions.py:1185
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB デバイス上にインストールしています。稼動するシステムが作成されることもあ"
 "りますが、されないこともあります。"
@@ -2288,24 +2260,24 @@ msgstr "パスワード"
 
 #: ../text.py:230
 msgid "Passphrase for encrypted devices"
-msgstr ""
+msgstr "暗号化されたデバイスのためのパスフレーズ"
 
 #: ../text.py:243
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr ""
+msgstr "このパスフレーズを既存のすべての暗号化されたデバイスに追加する"
 
 #: ../text.py:274
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "パスワードは最低 6 文字以上でなければなりません。"
+msgstr "パスフレーズは最低 %d 文字以上でなければなりません。"
 
 #: ../text.py:304 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
-msgstr ""
+msgstr "パスフレーズ"
 
 #: ../text.py:312 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "これはグローバルなパスフレーズです。"
 
 #: ../text.py:368
 msgid "Help not available"
@@ -2335,8 +2307,7 @@ msgid "Welcome to %s"
 msgstr "%s へようこそ"
 
 #: ../text.py:597
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> ヘルプ | <Tab> 項目間の移動 | <Space> 選択 | <F12> 次の画面"
 
 #: ../text.py:599
@@ -2367,12 +2338,11 @@ msgstr "アップグレードを続行しますか?"
 msgid ""
 "Anaconda did not find any partitions that are valid upgrade candidates.  "
 "Note that upgrades between major releases is not supported."
-msgstr ""
+msgstr "Anaconda で有効なアップグレードのパーティションが見つかりませんでした。メジャーリリース間のアップグレードはサポートされていないことに注意してください。"
 
 #: ../upgrade.py:120
-#, fuzzy
 msgid "No valid upgrade partition"
-msgstr "swap パーティションのアップグレード"
+msgstr "有効なアップグレードのパーティションがありません"
 
 #: ../upgrade.py:144
 msgid "Searching"
@@ -2412,13 +2382,12 @@ msgstr ""
 "%s"
 
 #: ../upgrade.py:354
-#, fuzzy
 msgid "No system found"
-msgstr "ドライバが見つかりません"
+msgstr "システムが見つかりません"
 
 #: ../upgrade.py:355
 msgid "No upgradable system was found."
-msgstr ""
+msgstr "アップグレード可能なシステムが見つかりません。"
 
 #: ../upgrade.py:361 ../upgrade.py:367
 msgid "Mount failed"
@@ -2677,7 +2646,7 @@ msgid "Preparing transaction from installation source..."
 msgstr "インストールソースからのトランザクションを準備中..."
 
 #: ../yuminstall.py:612
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
 "package or corrupt media.  Please verify your installation source.\n"
@@ -2686,11 +2655,10 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"ファイル %s を開けません。ファイルが欠落しているか、パッケージが破損している"
-"可能性があります。 インストールツリーに必要なパッケージがすべて含まれているか"
-"確認してください。\n"
+"ファイル %s を開けません。ファイルが不明であるか、パッケージまたはメディアが破損している"
+"可能性があります。インストールソースを検証してください。\n"
 "\n"
-"再起動するとシステムは矛盾した状態となり、再インストールを必要とする可能性が"
+"終了するとシステムは整合性のない状態となり、再インストールを必要とする可能性が"
 "高くなります。\n"
 "\n"
 
@@ -2745,8 +2713,7 @@ msgstr "トランザクション実行中にエラーが発生"
 
 #: ../yuminstall.py:760
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "トランザクションの実行中に次のような理由でエラーが発生しました。%s"
 
 #: ../yuminstall.py:895
@@ -2773,7 +2740,7 @@ msgstr ""
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
-msgstr ""
+msgstr "リポジトリからグループ情報を読み取ることができません。インストールツリーの生成に問題があります。"
 
 #: ../yuminstall.py:972
 msgid "Uncategorized"
@@ -2791,12 +2758,12 @@ msgstr ""
 #: ../yuminstall.py:1517
 #, python-format
 msgid "Too many WWIDs collected for %s, found:"
-msgstr ""
+msgstr "%s に対して収集された WWID が多すぎます:"
 
 #: ../yuminstall.py:1519
 #, python-format
 msgid "    %s for %s"
-msgstr ""
+msgstr "    %s (%s)"
 
 #: ../yuminstall.py:1661
 #, python-format
@@ -2916,25 +2883,24 @@ msgstr "長さがゼロにならないようイニシエータ名を入力して
 #: ../iw/autopart_type.py:179 ../iw/autopart_type.py:183
 #: ../textw/partition_text.py:1733 ../textw/partition_text.py:1736
 #: ../textw/partition_text.py:1741 ../textw/partition_text.py:1745
-#, fuzzy
 msgid "Missing value"
-msgstr "見つからないパッケージ"
+msgstr "不明な値"
 
 #: ../iw/autopart_type.py:170
 msgid "CHAP username is required if CHAP password is defined."
-msgstr ""
+msgstr "CHAP パスワードが定義されている場合は CHAP ユーザー名が必要です。"
 
 #: ../iw/autopart_type.py:174
 msgid "CHAP password is required if CHAP username is defined."
-msgstr ""
+msgstr "CHAP ユーザー名が定義されている場合は CHAP パスワードが必要です。"
 
 #: ../iw/autopart_type.py:180
 msgid "Reverse CHAP username is required if reverse CHAP password is defined."
-msgstr ""
+msgstr "逆の CHAP パスワードが定義されている場合は逆の CHAP ユーザー名が必要です。"
 
 #: ../iw/autopart_type.py:184
 msgid "Reverse CHAP password is required if reverse CHAP username is defined."
-msgstr ""
+msgstr "逆の CHAP ユーザー名が定義されている場合は逆の CHAP ユーザー名が必要です。"
 
 #: ../iw/autopart_type.py:202
 msgid "Error with Data"
@@ -3394,13 +3360,12 @@ msgstr "(最大サイズは %s MB)"
 #: ../iw/lvm_dialog_gui.py:473 ../iw/partition_dialog_gui.py:319
 #: ../iw/partition_ui_helpers_gui.py:297 ../iw/partition_ui_helpers_gui.py:324
 #: ../iw/raid_dialog_gui.py:307
-#, fuzzy
 msgid "_Encrypt"
-msgstr "暗号キー"
+msgstr "_Encrypt"
 
 #: ../iw/lvm_dialog_gui.py:542 ../textw/partition_text.py:1289
 msgid "Illegal size"
-msgstr "不適切なサイズ"
+msgstr "不正なサイズ"
 
 #: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1290
 msgid "The requested size as entered is not a valid number greater than 0."
@@ -3428,8 +3393,7 @@ msgstr "不適切な論理ボリューム名"
 #: ../iw/lvm_dialog_gui.py:608 ../textw/partition_text.py:1278
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
+msgstr "論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
 
 #: ../iw/lvm_dialog_gui.py:623
 #, python-format
@@ -3664,15 +3628,13 @@ msgid "IP Address"
 msgstr "IP アドレス"
 
 #: ../iw/netconfig_dialog.py:197
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4 のプレフィックスは 0 から 32 の間にしてください。"
+msgstr "IPv4 CIDR のプレフィックスは 0 から 32 の間にしてください。"
 
 #: ../iw/netconfig_dialog.py:198 ../iw/netconfig_dialog.py:204
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "IPv4 Network Mask"
-msgstr "IPv4/ネットマスク"
+msgstr "IPv4 ネットワークマスク"
 
 #: ../iw/netconfig_dialog.py:222 ../iw/network_gui.py:27
 #: ../iw/network_gui.py:518
@@ -3815,23 +3777,20 @@ msgid "Miscellaneous Settings"
 msgstr "その他の設定"
 
 #: ../iw/network_gui.py:615
-#, fuzzy
 msgid "Edit Device "
-msgstr "RAID デバイスの編集"
+msgstr "デバイスの編集"
 
 #: ../iw/network_gui.py:619
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "不明な Ethernet デバイス"
 
 #: ../iw/network_gui.py:625
-#, fuzzy
 msgid "unknown"
 msgstr "不明"
 
 #: ../iw/network_gui.py:627
-#, fuzzy
 msgid "Hardware address: "
-msgstr "ハードウェアのアドレス: %s"
+msgstr "ハードウェアアドレス: "
 
 #: ../iw/network_gui.py:765 ../textw/network_text.py:223 ../loader2/net.c:943
 msgid "Missing Protocol"
@@ -4033,16 +3992,13 @@ msgid "Partitioning"
 msgstr "パーティション設定"
 
 #: ../iw/partition_gui.py:638
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "要求されたパーティション設定に次の致命的なエラーが存在しています。"
 
 #: ../iw/partition_gui.py:641
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
-"%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
+msgid "These errors must be corrected prior to continuing with your install of %s."
+msgstr "%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
 
 #: ../iw/partition_gui.py:647
 msgid "Partitioning Errors"
@@ -4433,8 +4389,7 @@ msgstr "クローン作成を行うターゲットドライブを選択してく
 #: ../iw/raid_dialog_gui.py:570
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
+msgstr "ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
 
 #: ../iw/raid_dialog_gui.py:589
 #, python-format
@@ -4610,8 +4565,7 @@ msgstr "これで現在のブートローダを更新します。"
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "インストーラーが現在 %s にインストールされている %s ブートローダを検出しまし"
 "た。"
@@ -4748,8 +4702,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap ファイルは 1 MB から 2000 MB の間の容量にしてください。"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:177
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "swap パーティション用に選択したデバイスには十分な領域がありません。"
 
 #: ../iw/zipl_gui.py:28
@@ -4891,8 +4844,7 @@ msgstr ""
 "ブートラベルを設定してください。"
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr "<Space> 選択 | <F2> デフォルト選択 | <F4> 削除 | <F12> 次の画面"
 
 #: ../textw/bootloader_text.py:387
@@ -5016,8 +4968,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "インストールするパッケージグループを選択してください。"
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr " <Space>,<+>,<-> 選択   |   <F2> グループの詳細   |   <F12> 次の画面"
 
 #: ../textw/grpselect_text.py:117
@@ -5062,29 +5013,28 @@ msgstr ""
 "能性があります。"
 
 #: ../textw/network_text.py:70
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4 のプレフィックスは 0 から 32 の間にしてください。"
+msgstr "IPv%d のプレフィックスは 0 から %d の間にしてください。"
 
 #: ../textw/network_text.py:74
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "プレフィックスに必要な整数"
 
 #: ../textw/network_text.py:75
 #, python-format
 msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
-msgstr ""
+msgstr "%s に有効な整数を入力してください。IPv4 の場合は 0 から 32 の間の値を入力できます。IPv6 の場合は 0 から 128 の間の値を入力できます。."
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
 msgstr "プレフィックス (ネットマスク)"
 
 #: ../textw/network_text.py:84 tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/プレフィックス"
+msgstr "プレフィックス"
 
 #: ../textw/network_text.py:137
 msgid "Activate on boot"
@@ -5119,78 +5069,69 @@ msgstr "%s 用のネットワーク設定"
 
 #: ../textw/network_text.py:241 ../textw/network_text.py:244
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "ポイントツーポイント IP アドレス"
 
 #: ../textw/network_text.py:272 tmp/netpostconfig.glade.h:5
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "動的 IP 設定を使用する (DHCP)"
+msgstr "動的 IP 設定 (DHCP)"
 
 #: ../textw/network_text.py:275 ../textw/network_text.py:406
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "手動による TCP/IP 設定"
+msgstr "手動アドレス設定"
 
 #: ../textw/network_text.py:295
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "%s 用のネットワーク設定"
+msgstr "%s 用の IPv4 設定"
 
 #: ../textw/network_text.py:325 ../textw/network_text.py:337
 #: ../textw/network_text.py:340
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4 アドレス:"
+msgstr "IPv4 アドレス"
 
 #: ../textw/network_text.py:329
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/ネットマスク"
+msgstr "IPv4 ネットワークマスク"
 
 #: ../textw/network_text.py:355 ../textw/network_text.py:358
 #: ../textw/network_text.py:361
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "プレフィックス (ネットマスク)"
+msgstr "IPv4 プレフィックス (ネットワークマスク)"
 
 #: ../textw/network_text.py:400 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "自動近接ノード検出"
 
 #: ../textw/network_text.py:403 tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "動的 IP 設定を使用する (DHCP)"
+msgstr "動的 IP 設定 (DHCPv6)"
 
 #: ../textw/network_text.py:430
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "%s 用のネットワーク設定"
+msgstr "%s 用の IPv6 設定"
 
 #: ../textw/network_text.py:460 ../textw/network_text.py:471
 #: ../textw/network_text.py:474
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6 アドレス:"
+msgstr "IPv6 アドレス"
 
 #: ../textw/network_text.py:464 ../textw/network_text.py:483
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/プレフィックス"
+msgstr "IPv6 プレフィックス"
 
 #: ../textw/network_text.py:509
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "ネットワークインターフェースを有効にする"
+msgstr "ネットワークインターフェースの設定"
 
 #: ../textw/network_text.py:510
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "このシステムでネットワークインターフェースを開始しますか?"
+msgstr "このシステムで %s ネットワークインターフェースを設定しますか?"
 
 #: ../textw/network_text.py:524 ../textw/network_text.py:526
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "未設定"
 
 #: ../textw/network_text.py:535
 msgid ""
@@ -5198,40 +5139,38 @@ msgid ""
 "device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
-msgstr ""
+msgstr "各インターフェースの現在の設定はデバイス名の横に表示されます。未設定のインターフェースは「未設定 (UNCONFIGURED)」と表示されます。インターフェースを設定するには、インターフェースを強調表示し、[編集] を選択します。完了したら [OK] をクリックして作業を続行します。"
 
 #: ../textw/network_text.py:578 ../textw/network_text.py:657
-#, fuzzy
 msgid "Active on boot"
 msgstr "起動時にアクティブにする"
 
 #: ../textw/network_text.py:580 ../textw/network_text.py:659
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "起動時にアクティブにする"
+msgstr "起動時に非アクティブにする"
 
 #: ../textw/network_text.py:583 ../textw/network_text.py:662
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:588 ../textw/network_text.py:667
 msgid "Auto IPv6"
-msgstr ""
+msgstr "自動 IPv6"
 
 #: ../textw/network_text.py:590 ../textw/network_text.py:669
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:596 ../textw/network_text.py:675
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:598 ../textw/network_text.py:600
 #: ../textw/network_text.py:677 ../textw/network_text.py:679
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:701 ../loader2/net.c:1178
 msgid "Gateway:"
@@ -5250,17 +5189,14 @@ msgid "Miscellaneous Network Settings"
 msgstr "その他ネットワークの設定"
 
 #: ../textw/network_text.py:739 ../textw/network_text.py:742
-#, fuzzy
 msgid "gateway"
 msgstr "ゲートウェイ"
 
 #: ../textw/network_text.py:749 ../textw/network_text.py:752
-#, fuzzy
 msgid "primary DNS"
 msgstr "1 番目の DNS"
 
 #: ../textw/network_text.py:761
-#, fuzzy
 msgid "secondary DNS"
 msgstr "2 番目の DNS"
 
@@ -5277,7 +5213,6 @@ msgid "Hostname Configuration"
 msgstr "ホスト名の設定"
 
 #: ../textw/network_text.py:820
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5285,7 +5220,7 @@ msgid ""
 "'localhost.'"
 msgstr ""
 "システムが大きなネットワークの一部になっていて、ホスト名が DHCP で割り当てら"
-"れる場合、 「DHCP 経由で自動設定」を選択します。これ以外は、「自動設定」を選"
+"れる場合、「DHCP 経由で自動設定」を選択します。これ以外は、「手動」を選"
 "択してシステムのホスト名を入力します。ホスト名を入力しなかった場合、"
 "「localhost」になります。"
 
@@ -5413,8 +5348,7 @@ msgstr "ファイルシステムのオプション"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"このパーティションのファイルシステムをどのようにするか選択してください。"
+msgstr "このパーティションのファイルシステムをどのようにするか選択してください。"
 
 #: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
@@ -5442,8 +5376,7 @@ msgstr "サポートされていません"
 
 #: ../textw/partition_text.py:772
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"LVM ボリュームグループはグラフィカルインストーラーでしか編集できません。"
+msgstr "LVM ボリュームグループはグラフィカルインストーラーでしか編集できません。"
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
@@ -5517,8 +5450,7 @@ msgstr "新規のパーティションにしますか、新規の論理ボリュ
 
 #: ../textw/partition_text.py:1375
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr ""
-"新規のパーティションを作成しますか、新規の論理ボリュームを作成しますか?"
+msgstr "新規のパーティションを作成しますか、新規の論理ボリュームを作成しますか?"
 
 #: ../textw/partition_text.py:1377
 msgid "partition"
@@ -5541,8 +5473,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1456
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "  <F1>-ヘルプ   <F2>-新規    <F3>-編集  <F4>-削除    <F5>-リセット  <F12>-"
 "OK    "
@@ -5622,19 +5553,19 @@ msgstr ""
 
 #: ../textw/partition_text.py:1734
 msgid "Username is required when password is present."
-msgstr ""
+msgstr "パスワードが存在する場合はユーザー名が必要です。"
 
 #: ../textw/partition_text.py:1737
 msgid "Password is required when username is present."
-msgstr ""
+msgstr "ユーザー名が存在する場合はパスワードが必要です。"
 
 #: ../textw/partition_text.py:1742
 msgid "Reverse username is required whenreverse password is present."
-msgstr ""
+msgstr "逆のパスワードが存在する場合は逆のユーザー名が必要です。"
 
 #: ../textw/partition_text.py:1746
 msgid "Reverse password is required whenreverse username is present."
-msgstr ""
+msgstr "逆のユーザー名が存在する場合は逆のパスワードが必要です。"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5940,12 +5871,17 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
+"今インストール番号 (サブスクリプション番号と呼ばれることもあります) を入力しますか? この機能によりインストーラはサブスクリプションに含まれる追加コンポーネントにアクセスできるようになります。このステップを省略した場合は、追加コンポーネントを後で手動でインストールできます。\n"
+"\n"
+"詳細については、http://www.redhat.com/InstNum/ を参照してください。"
 
 #: ../installclasses/rhel.py:57
 msgid ""
 "If you cannot locate the Installation Number, consult http://www.redhat.com/"
 "InstNum/"
 msgstr ""
+"インストール番号を見つけることができない場合は、http://www.redhat.com/"
+"InstNum/ を参照してください。"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6172,17 +6108,17 @@ msgstr "他のドライバディスクを読み込みますか?"
 
 #: ../loader2/driverdisk.c:600
 msgid "Cannot initialize cache instance for blkid"
-msgstr ""
+msgstr "blkid に対してキャッシュインスタンスを初期化できません"
 
 #: ../loader2/driverdisk.c:604
 #, c-format
 msgid "Cannot probe devices in blkid: %d"
-msgstr ""
+msgstr "blkid: %d でデバイスをプローブできません"
 
 #: ../loader2/driverdisk.c:614
 #, c-format
 msgid "Adding driver disc %s to the list of available DDs."
-msgstr ""
+msgstr "ドライバディスク %s を利用可能な DD の一覧に追加します。"
 
 #: ../loader2/driverdisk.c:682 ../loader2/driverdisk.c:719
 #: ../loader2/hdinstall.c:404 ../loader2/kickstart.c:124
@@ -6204,8 +6140,7 @@ msgstr "キックスタートの元となるドライバディスクが不明で
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"キックスタートのドライバディスクコマンドに不正な引数が指定されました: %s %s"
+msgstr "キックスタートのドライバディスクコマンドに不正な引数が指定されました: %s %s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6234,8 +6169,7 @@ msgstr "ドライバディスクの読み込み"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"手動で挿入するドライバが見つかりませんでした。ドライバディスクを使用しますか?"
+msgstr "手動で挿入するドライバが見つかりませんでした。ドライバディスクを使用しますか?"
 
 #: ../loader2/driverselect.c:198
 msgid ""
@@ -6280,8 +6214,7 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
+msgstr "このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
 
 #: ../loader2/hdinstall.c:280
 #, c-format
@@ -6371,8 +6304,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s へようこそ - レスキューモード"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:159
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> 項目間の移動 | <Space> 選択 | <F12> 次の画面 "
 
 #: ../loader2/lang.c:366
@@ -6482,8 +6414,7 @@ msgstr "システム上で次のデバイスが検出されました。"
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"デバイスドライバはシステムにロードされていません。ドライバをロードしますか?"
+msgstr "デバイスドライバはシステムにロードされていません。ドライバをロードしますか?"
 
 #: ../loader2/loader.c:1284
 msgid "Devices"
@@ -6510,8 +6441,7 @@ msgstr "anaconda を %s レスキューモードで実行中 - しばらくお�
 #: ../loader2/loader.c:1880
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"anaconda %s システムインストーラーを実行中 - しばらくお待ちください...\n"
+msgstr "anaconda %s システムインストーラーを実行中 - しばらくお待ちください...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6614,11 +6544,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "デバイスキックスタートのコマンド %s に対する引数が不正です: %s"
 
 #: ../loader2/modules.c:1077
-#, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
-msgstr ""
-"キックスタートのドライバディスクコマンドに不正な引数が指定されました: %s %s"
+msgid "Both module type and name must be specified for the kickstart device command."
+msgstr "キックスタートのデバイスコマンドにはモジュールの種類と名前の両方を指定する必要があります。"
 
 #: ../loader2/net.c:69
 #, c-format
@@ -6754,16 +6681,14 @@ msgid "Missing Information"
 msgstr "情報が不足しています"
 
 #: ../loader2/net.c:1347
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "有効な IPv4 アドレスとネットマスクまたは CIDR プレフィックスの両方を入力する"
 "必要があります。"
 
 #: ../loader2/net.c:1353
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr ""
-"有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
+msgstr "有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
 
 #: ../loader2/net.c:1929
 msgid "Determining host name and domain..."
@@ -6780,13 +6705,12 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "ネットワークコマンドで不正な bootproto %s が指定されました"
 
 #: ../loader2/net.c:2110
-#, fuzzy
 msgid "Seconds:"
-msgstr "2 番目の DNS:"
+msgstr "秒:"
 
 #: ../loader2/net.c:2283
 msgid "Networking Device"
-msgstr "ネットワーク構築デバイス"
+msgstr "ネットワークデバイス"
 
 #: ../loader2/net.c:2284
 msgid ""
@@ -6798,35 +6722,34 @@ msgstr ""
 
 #: ../loader2/net.c:2288
 msgid "Identify"
-msgstr ""
+msgstr "ID"
 
 #: ../loader2/net.c:2297
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "次の物理ポートを識別できます"
 
 #: ../loader2/net.c:2299
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "LED ランプをある秒数の間点滅させます。1 から 30 までの数字を入力し、LED ポートランプを点滅させる時間を設定します。"
 
 #: ../loader2/net.c:2309
 msgid "Identify NIC"
-msgstr ""
+msgstr "NIC の識別"
 
 #: ../loader2/net.c:2322
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "無効な IP 情報"
+msgstr "無効な時間"
 
 #: ../loader2/net.c:2323
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "秒数は 1 から 30 の間の整数で入力する必要があります。"
 
 #: ../loader2/net.c:2335
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "%s ポートランプを %d 秒間点滅中..."
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -7037,9 +6960,8 @@ msgid "_Release Notes"
 msgstr "リリースノート(_R)"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "Encrypt system"
-msgstr "暗号キー"
+msgstr "暗号化されたシステム"
 
 #: tmp/autopart.glade.h:2
 msgid ""
@@ -7077,24 +6999,20 @@ msgid "%(instkey)s:"
 msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>CHAP _Password:</b>"
-msgstr "<b>パスワード (_P):</b>"
+msgstr "<b>CHAP パスワード (_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
-#, fuzzy
 msgid "<b>CHAP _Username:</b>"
-msgstr "<b>ユーザー名 (_U):</b>"
+msgstr "<b>CHAP ユーザー名(_U):</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>パスワード (_P):</b>"
+msgstr "<b>逆の CHAP パスワード (_A):</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>ユーザー名 (_U):</b>"
+msgstr "<b>逆の CHAP ユーザー名 (_S):</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
@@ -7108,20 +7026,19 @@ msgstr "<b>iSCSI イニシエータ名(_N):</b>"
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
-msgstr ""
+msgstr "ブートプロセスを簡略化するために既存のすべての暗号化デバイスにもこのパスフレーズを追加します"
 
 #: tmp/lukspassphrase.glade.h:2
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "リセットの確認"
+msgstr "パスフレーズの確認:"
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "暗号化されたパーティションにパスフレーズを入力します"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase:"
-msgstr ""
+msgstr "パスフレーズの入力:"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7168,33 +7085,28 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "動的 IP 設定を使用する (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "説明: %s"
+msgstr "<b>説明をここに記述</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>ハードウェアアドレス: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "Edit Interface"
-msgstr "インターフェイス %s を編集"
+msgstr "インターフェイスの編集"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "暗号キー(_K):"
+msgstr "暗号キー:"
 
 #: tmp/netpostconfig.glade.h:13
-#, fuzzy
 msgid "Manual configuration"
-msgstr "手動による TCP/IP 設定"
+msgstr "手動設定"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "ポイントツーポイント (IP)(_P):"
+msgstr "ポイントツーポイント (IP):"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -7204,8 +7116,7 @@ msgstr "後でカスタマイズする(_l)"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"ソフトウェアのインストールに使用する予定の追加リポジトリを選択してください。"
+msgstr "ソフトウェアのインストールに使用する予定の追加リポジトリを選択してください。"
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -7357,9 +7268,8 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "中央時間 - コアウィラ、デュランゴ、ヌエボ=レオン、タモゥリパス"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Perry County"
-msgstr "中央時間 - インディアナ - パイク郡"
+msgstr "中央時間 - インディアナ - ペリー郡"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -7371,8 +7281,7 @@ msgstr "中央時間 - マニトバ、西オンタリオ"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
-"中央時間 - ミシガン - ディックソン、ゴギービック、アイアンおよびメノミニー郡"
+msgstr "中央時間 - ミシガン - ディックソン、ゴギービック、アイアンおよびメノミニー郡"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
@@ -7420,7 +7329,6 @@ msgstr "ドルノド、スフバータル(モンゴル)"
 
 # 南極
 #. generated from zone.tab
-#, fuzzy
 msgid "Dumont-d'Urville Station, Terre Adelie"
 msgstr "デュモン-デュルヴィル基地、テレ=アデリー"
 
@@ -7445,16 +7353,12 @@ msgid "Eastern Time - Indiana - Crawford County"
 msgstr "東部時間 - インディアナ - クロフォード郡"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Daviess, Dubois, Knox & Martin Counties"
-msgstr ""
-"中央時間 - インディアナ - デービス、デュボア、ノックス、マーチン、ペリーとプ"
-"ラスキ地区"
+msgstr "中央時間 - インディアナ - デービス、デュボア、ノックス、マーチン郡"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Pulaski County"
-msgstr "東部時間 - インディアナ - スターク郡"
+msgstr "東部時間 - インディアナ - プラスキー郡"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
@@ -7481,8 +7385,7 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "東部時間 - ミシガン--ほとんどの地域"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "東部時間 - オンタリオ、ケベック - DST 1967-1973 で未認識の地域"
 
 #. generated from zone.tab
@@ -7498,18 +7401,16 @@ msgid "Eastern Time - Quebec - most locations"
 msgstr "東部時間 - ケベック - ほとんどの地域"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Resolute, Nunavut"
-msgstr "東部時間 - 東ヌナブット"
+msgstr "東部時間 - レゾリュート、ヌナブット"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
 msgstr "東部時間 - サンダーベイ、オンタリオ"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut - most locations"
-msgstr "東部時間 - インディアナ - ほとんどの地域"
+msgstr "東部時間 - 東ヌナブット - ほとんどの地域"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -7665,10 +7566,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "山岳標準時 - アリゾナ"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"山岳標準時 - ドーソン川、フォートセントジョン、ブリティッシュコロンビア"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "山岳標準時 - ドーソン川、フォートセントジョン、ブリティッシュコロンビア"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7680,8 +7579,7 @@ msgstr "山岳標準時"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"山岳標準時 - アルバータ、東ブリティッシュコロンビア、西サスカチュワーン"
+msgstr "山岳標準時 - アルバータ、東ブリティッシュコロンビア、西サスカチュワーン"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
@@ -7709,9 +7607,8 @@ msgstr "山岳標準時 - 西北西地方"
 
 # イヌイット自治州
 #. generated from zone.tab
-#, fuzzy
 msgid "Mountain Time - west Nunavut"
-msgstr "中央時間 - 西ヌナブット"
+msgstr "山岳部時間 - 西ヌナブット"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
@@ -7779,9 +7676,8 @@ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)(カザフスタン)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Rondonia"
-msgstr "西パラ、ロンドニア"
+msgstr "ロンドニア"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -7809,9 +7705,8 @@ msgid "San Juan (SJ)"
 msgstr "サンファン (SJ)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "San Luis (SL)"
-msgstr "サンファン (SJ)"
+msgstr "サンルイス (SL)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
@@ -7875,7 +7770,7 @@ msgstr "西アマゾン"
 
 #. generated from zone.tab
 msgid "W Para"
-msgstr ""
+msgstr "W パラ"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -7886,19 +7781,16 @@ msgid "West Kazakhstan"
 msgstr "西カザフスタン"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "西オーストラリア"
+msgstr "西オーストラリア - ユークラ地域"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "中央時間 - ほとんどの地域"
+msgstr "西オーストラリア - ほとんどの地域"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Zaporozh'ye, E Lugansk / Zaporizhia, E Luhansk"
-msgstr "ザポロージェ/東ルガンスク"
+msgstr "ザポロージェ、東ルガンスク/ザポリジア、東ルハンスク"
 
 #. generated from zone.tab
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
@@ -7937,9 +7829,8 @@ msgid "most locations"
 msgstr "ほとんどの地域"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF)"
-msgstr "ほとんどの地域(CB, CC, CH, ER, FM, LP, LR, MN, NQ, RN, SE, SF, SL)"
+msgstr "ほとんどの地域 (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
@@ -8181,99 +8072,3 @@ msgstr "ウェールズ語"
 msgid "Zulu"
 msgstr "ズールー語"
 
-#~ msgid ""
-#~ "The partition table on device %s was unreadable. To create new partitions "
-#~ "it must be initialized, causing the loss of ALL DATA on this drive.\n"
-#~ "\n"
-#~ "This operation will override any previous installation choices about "
-#~ "which drives to ignore.\n"
-#~ "\n"
-#~ "Would you like to initialize this drive, erasing ALL DATA?"
-#~ msgstr ""
-#~ "デバイス %s のパーティションテーブルが読み込めませんでした。新規パーティ"
-#~ "ションを作成するには初期化が必要ですが、本ドライブにあるすべてのデータを失"
-#~ "うことになります。\n"
-#~ "\n"
-#~ "この操作を行うと、以前のインストールで選択した無視するドライブの選択をすべ"
-#~ "て上書きしてしまいます。\n"
-#~ "\n"
-#~ "すべてのデータを消去して、このドライブを初期化しますか?"
-
-#~ msgid "Netmask"
-#~ msgstr "ネットマスク"
-
-#~ msgid ""
-#~ "To install the full set of supported packages included in your "
-#~ "subscription, please enter your Installation Number"
-#~ msgstr ""
-#~ "サブスクリプションに含まれているサポートパッケージ群をフルセットでインス"
-#~ "トールするためインストール番号を入力してください。"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you're unable to locate the Installation Number, consult http://www."
-#~ "redhat.com/apps/support/in.html.\n"
-#~ "\n"
-#~ "If you skip:\n"
-#~ "* You may not get access to the full set of packages included in your "
-#~ "subscription.\n"
-#~ "* It may result in an unsupported/uncertified installation of Red Hat "
-#~ "Enterprise Linux.\n"
-#~ "* You will not get software and security updates for packages included in "
-#~ "your subscription."
-#~ msgstr ""
-#~ "インストール番号が見つけられない場合は、 http://www.redhat.com/apps/"
-#~ "support/in.html をご覧ください。\n"
-#~ "\n"
-#~ "このステップを省略すると、\n"
-#~ "*サブスクリプションに含まれている全パッケージ群にアクセスできない場合があ"
-#~ "ります。\n"
-#~ "*サポートされない/認証されない Red Hat Enterprise Linux インストールになる"
-#~ "場合があります。\n"
-#~ "*サブスクリプションに含まれないパッケージのソフトウェア及びセキュリティ更"
-#~ "新は取得しません。"
-
-#~ msgid "Jan Mayen"
-#~ msgstr "ジャンマイェン"
-
-# Norway
-#~ msgid "Svalbard"
-#~ msgstr "スバールバル"
-
-#~ msgid "Use dynamic IP configuration (_DHCP)"
-#~ msgstr "動的 IP 設定を使用する (DHCP)(_D)"
-
-#~ msgid "_Activate on boot"
-#~ msgstr "起動時にアクティブにする(_A)"
-
-#~ msgid "Address"
-#~ msgstr "アドレス"
-
-#~ msgid "IPv_4:"
-#~ msgstr "IPv_4:"
-
-#~ msgid "IPv_6:"
-#~ msgstr "IPv_6:"
-
-#~ msgid "_ESSID:"
-#~ msgstr "_ESSID (_E):"
-
-#~ msgid "Configure %s"
-#~ msgstr "%s を設定"
-
-#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-#~ msgstr ""
-#~ "IPv6 のプレフィックスが不適切であるか見つかりません (0 から 128 の間にして"
-#~ "ください)。"
-
-#~ msgid "Hardware Address: %s"
-#~ msgstr "ハードウェアアドレス: %s"
-
-#~ msgid "IPv4:"
-#~ msgstr "IPv4:"
-
-#~ msgid "IPv6:"
-#~ msgstr "IPv6:"
-
-#~ msgid "Persian"
-#~ msgstr "ペルシア語"

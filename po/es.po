@@ -1,4 +1,4 @@
-# translation of anaconda.rhel5-branch.es.po to Spanish
+# translation of es.po to Spanish
 # translation of es.po to
 # Copyright (C) 2000,2003,2004, 2005, 2006, 2008 Free Software Foundation, Inc.
 #
@@ -13,10 +13,10 @@
 # Gladys Guerrero Lozano <gguerrer@redhat.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.rhel5-branch.es\n"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 13:23-0500\n"
-"PO-Revision-Date: 2008-09-25 09:48+1000\n"
+"PO-Revision-Date: 2008-12-10 17:04+1000\n"
 "Last-Translator: Gladys Guerrero Lozano <gguerrer@redhat.com>\n"
 "Language-Team: Spanish <fedora-trans-es@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -147,7 +147,7 @@ msgid ""
 "mode."
 msgstr ""
 "No tiene suficiente RAM para usar la instalación gráfica. Inicio en modo "
-"detexto."
+"de texto."
 
 #: ../anaconda:443
 msgid "No video hardware found, assuming headless"
@@ -168,15 +168,14 @@ msgstr "Iniciando la instalación gráfica..."
 # ../loader/loader.c:322
 # ../loader/loader.c:322
 #: ../anaconda:772
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "¿Qué opción prefiere?"
+msgstr "¿Desea utilizar VNC?"
 
 #: ../anaconda:773
 msgid ""
 "The VNC mode instalation offers more functionality than the text mode, would "
 "you like to use it instead?"
-msgstr ""
+msgstr "La instalación en modo VNC ofrece más funcionalidad que en modo de texto, desearía utilizar ésta en su lugar?"
 
 #: ../anaconda:812
 msgid "Install class forcing text mode installation"
@@ -202,8 +201,7 @@ msgstr "Método de instalación desconocido"
 
 #: ../anaconda:914
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Ha especificado un método de instalación que no es soportado por Anaconda."
+msgstr "Ha especificado un método de instalación que no es soportado por Anaconda."
 
 # ../textw/xconfig_text.py:564
 # ../textw/xconfig_text.py:576
@@ -217,35 +215,27 @@ msgstr "Método de instalación desconocido: %s "
 # ../autopart.py:682
 # ../autopart.py:682
 #: ../autopart.py:950
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
 msgstr ""
-"No se han podido asignar las particiones basadas en cilindros como "
+"No se pudieron asignar las particiones basadas en cilindros como "
 "particiones primarias.\n"
 "\n"
-"%s"
 
 # ../autopart.py:678
 # ../autopart.py:685
 # ../autopart.py:685
 #: ../autopart.py:955
-#, fuzzy
 msgid "Could not allocate partitions as primary partitions.\n"
 msgstr ""
-"No se han podido asignar las particiones como particiones primarias.\n"
+"No se pudieron asignar las particiones como particiones primarias.\n"
 "\n"
-"%s"
 
 # ../autopart.py:681
 # ../autopart.py:688
 # ../autopart.py:688
 #: ../autopart.py:960
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions.\n"
-msgstr ""
-"No se han podido asignar las particiones basadas en cilindros.\n"
-"\n"
-"%s"
+msgstr "No se pudieron asignar las particiones basadas en cilindros.\n"
 
 #: ../autopart.py:1020
 #, python-format
@@ -267,8 +257,7 @@ msgid ""
 msgstr ""
 "La partición de arranque %s no pertenece a un disco con suficiente espacio "
 "disponible al comienzo para que el gestor de arranque se hospede. Asegúrese "
-"de tener al menos 5MB de espacio libre al comienzo del disco que contiene /"
-"boot"
+"de tener al menos 5MB de espacio libre al comienzo del disco que contiene /boot"
 
 #: ../autopart.py:1024
 #, python-format
@@ -292,8 +281,7 @@ msgstr ""
 # ../autopart.py:739
 #: ../autopart.py:1033
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "La partición  de arranque %s podría no reunir las restricciones de arranque "
 "para su arquitectura."
@@ -591,7 +579,7 @@ msgstr "Eliminar todas las particiones de este sistema"
 # ../autopart.py:973
 #: ../autopart.py:1714
 msgid "Remove all Linux partitions on this system"
-msgstr "Eliminar todas la particiones Linux en este sistema"
+msgstr "Eliminar todas las particiones Linux en este sistema"
 
 # ../autopart.py:967
 # ../autopart.py:974
@@ -698,8 +686,7 @@ msgstr ""
 
 #: ../cmdline.py:116
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
-"¡No se pueden manejar excepciones separadas en modo de línea de comandos!"
+msgstr "¡No se pueden manejar excepciones separadas en modo de línea de comandos!"
 
 #: ../cmdline.py:161
 #, python-format
@@ -1439,40 +1426,37 @@ msgstr "Llave de instalación"
 msgid ""
 "Choose a passphrase for your encrypted devices. You will be prompted for the "
 "passphrase during system boot."
-msgstr ""
+msgstr "Escoja una contraseña para sus dispositivos cifrados. Se le solicitará una contraseña durante el arranque del sistema."
 
 # ../textw/userauth_text.py:21
 # ../textw/userauth_text.py:22
 # ../textw/userauth_text.py:22
 #: ../gui.py:680 ../gui.py:688 ../text.py:263 ../text.py:273
-#, fuzzy
 msgid "Error with passphrase"
-msgstr "Error con la contraseña"
+msgstr "Error en contraseña"
 
 # ../textw/userauth_text.py:59 ../textw/userauth_text.py:129
 # ../textw/userauth_text.py:60 ../textw/userauth_text.py:137
 # ../textw/userauth_text.py:60 ../textw/userauth_text.py:137
 #: ../gui.py:681 ../text.py:264
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
 msgstr ""
-"Las contraseñas que ha introducido son diferentes. Por favor inténtelo de "
+"Las contraseñas que ha introducido son diferentes.  Por favor intente de "
 "nuevo."
 
 # ../textw/userauth_text.py:121
 # ../textw/userauth_text.py:129
 # ../textw/userauth_text.py:129
 #: ../gui.py:689
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "La contraseña debe tener al menos 6 caracteres de largo."
+msgstr "La contraseña debe tener por lo menos ocho caracteres de largo."
 
 #: ../gui.py:721 ../text.py:297
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
-msgstr ""
+msgstr "El dispositivo %s está cifrado. Para acceder al contenido del dispositivo durante la instalación usted debe entrar la contraseña del dispositivo a continuación."
 
 # ../text.py:265 ../text.py:266
 # ../text.py:265 ../text.py:266
@@ -1929,8 +1913,7 @@ msgstr "El nombre de host debe ser de 64 o menos caracteres de largo."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"el nombre del host empieza con un caracter válido en el rango 'a-z' o 'A-Z'"
+msgstr "el nombre del host empieza con un caracter válido en el rango 'a-z' o 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1971,9 +1954,8 @@ msgstr "'%s' no es una dirección IP válida."
 
 # ../upgrade.py:214
 #: ../packages.py:155
-#, fuzzy
 msgid "LVM operation failed"
-msgstr "Montaje falló"
+msgstr "Operación LVM falló"
 
 # ../loader/net.c:277
 # ../loader/net.c:277
@@ -2200,8 +2182,7 @@ msgstr ""
 # ../partitioning.py:1647
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:585
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Esta partición cuenta con los datos para la instalación del disco duro."
+msgstr "Esta partición cuenta con los datos para la instalación del disco duro."
 
 # ../partitioning.py:1551
 # ../partitioning.py:1571
@@ -2228,8 +2209,7 @@ msgstr "Confirmar la eliminación"
 #: ../partIntfHelpers.py:234
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"Está a punto de borrar todas las particiones en el dispositivo '/dev/%s."
+msgstr "Está a punto de borrar todas las particiones en el dispositivo '/dev/%s."
 
 # ../iw/partition_gui.py:1515
 # ../iw/partition_gui.py:1517
@@ -2344,7 +2324,7 @@ msgstr ""
 "que los archivos provenientes de una instalación previa de un sistema "
 "operativo no causen problemas con esta instalación de Linux. Sin embargo, si "
 "esta partición contiene archivos que necesita mantener, tales como "
-"directorios principales de usuarios, entonces deberia continuar sin "
+"directorios principales de usuarios, entonces debería continuar sin "
 "formatear esta partición."
 
 # ../partitioning.py:1745 ../partitioning.py:1763
@@ -2495,18 +2475,15 @@ msgstr "Confirmar el reinicio"
 # ../partitioning.py:1582
 # ../partitioning.py:1585
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"¿Está seguro de querer reiniciar la tabla de partición a su estado original?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "¿Está seguro de querer reiniciar la tabla de partición a su estado original?"
 
 # ../partitioning.py:421
 # ../partitioning.py:436
 # ../partitioning.py:436
 #: ../partRequests.py:263
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Este punto de montaje no es válido.  El directorio %s debe estar en el "
 "sistema de archivos /."
@@ -2655,7 +2632,7 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"El dispositivo %s está formateado a LDL en vez de a CDL. DASD formateados a "
+"El dispositivo %s está formateado a LDL en vez de a CDL.  DASD formateados a "
 "LDL no pueden ser usados durante una instalación de %s. Si quiere usar este "
 "disco para la instalación, deberá volver a iniciarlo y como consecuencia "
 "perderá TODOS LOS DATOS de la unidad.\n"
@@ -2734,7 +2711,7 @@ msgstr ""
 # ../partitioning.py:1399
 # ../partitioning.py:1402
 #: ../partedUtils.py:1138
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -2745,8 +2722,8 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"No se puede leer la tabla de particiones del dispositivo %s (%s). Para crear "
-"nuevas particiones debe ser inicializada, provocando la pérdida de TODOS LOS "
+"No se pudo leer la tabla de particiones del dispositivo %s (%s %-0.f MB). \n"
+"Para crear nuevas particiones debe ser inicializada, provocando la pérdida de TODOS LOS "
 "DATOS de esta unidad.\n"
 "\n"
 "Esta operación ignorará cualquier selección previa de instalación sobre las "
@@ -2807,16 +2784,15 @@ msgstr ""
 "proceso de instalación?"
 
 #: ../partitioning.py:106
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Llave de cifrado"
+msgstr "¿Dispositivo de cifrado?"
 
 #: ../partitioning.py:107
 msgid ""
 "You specified block device encryption should be enabled, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
-msgstr ""
+msgstr "Usted especificó que el cifrado de dispositivo de bloque debería estar activado, pero no ha proporcionado la contraseña. Si usted no vuelve y entrega su contraseña, el dispositivo de bloque se desactivará."
 
 # ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
 # ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:596
@@ -2897,9 +2873,8 @@ msgstr ""
 # ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
 # ../textw/bootloader_text.py:390
 #: ../partitions.py:131
-#, fuzzy
 msgid "Confirm"
-msgstr "Confirmar: "
+msgstr "Confirmar:"
 
 #: ../partitions.py:132
 #, python-format
@@ -2909,6 +2884,9 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
+"¿Está seguro que desea saltar la contraseña para dispositivo%s?\n"
+"\n"
+"Si se salta este paso el contenido del dispositivo no estará disponible durante la instalación."
 
 # ../partitioning.py:548
 # ../partitioning.py:563
@@ -2918,9 +2896,7 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"No ha definido una partición root (/), necesaria para que la instalación de %"
-"s continue."
+msgstr "No ha definido una partición root (/), necesaria para que la instalación de %s continue."
 
 # ../partitioning.py:551
 # ../partitioning.py:566
@@ -2938,10 +2914,8 @@ msgstr ""
 # ../partitioning.py:571
 # ../partitioning.py:574
 #: ../partitions.py:1067 ../partitions.py:1090
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Debe crear una partición /boot/efi del tipo FAT y un tamaño de 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Debe crear una partición /boot/efi del tipo FAT y un tamaño de 50 megabytes."
 
 #: ../partitions.py:1078
 msgid ""
@@ -2955,7 +2929,7 @@ msgstr ""
 msgid ""
 "Your boot partition is on a disk using the GPT partitioning scheme but this "
 "machine cannot boot using GPT."
-msgstr ""
+msgstr "Su partición de arranque está en un disco utilizando el esquema de particionamiento GPT, pero esta máquina no puede arrancar con GPT."
 
 #: ../partitions.py:1110
 msgid "You must create an Apple Bootstrap partition."
@@ -2978,10 +2952,8 @@ msgstr ""
 "una instalación %s normal."
 
 #: ../partitions.py:1185
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"Instalando en un dispositivo USB. Esto puedo o no crear un sistema funcional."
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "Instalando en un dispositivo USB. Esto puedo o no crear un sistema funcional."
 
 #: ../partitions.py:1188
 msgid ""
@@ -3302,27 +3274,27 @@ msgstr "Contraseña"
 
 #: ../text.py:230
 msgid "Passphrase for encrypted devices"
-msgstr ""
+msgstr "Contraseña para dispositivos cifrados"
 
 #: ../text.py:243
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr ""
+msgstr "También agregue esta contraseña a todos los dispositivos cifrados existentes."
 
 # ../textw/userauth_text.py:121
 # ../textw/userauth_text.py:129
 # ../textw/userauth_text.py:129
 #: ../text.py:274
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "La contraseña debe tener al menos 6 caracteres de largo."
+msgstr "La contraseña debe tener al menos %d caracteres de largo."
 
 #: ../text.py:304 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
-msgstr ""
+msgstr "Contraseña"
 
 #: ../text.py:312 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "Esta es una contraseña global"
 
 # ../text.py:174
 # ../text.py:174
@@ -3370,8 +3342,7 @@ msgstr "Bienvenido a %s"
 # ../text.py:303
 # ../text.py:304
 #: ../text.py:597
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "<F1> ayuda|<Tab> cambiar entre elementos|<Espacio> seleccionar|<F12> "
 "siguiente"
@@ -3383,8 +3354,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
+msgstr " <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
 
 # ../iw/package_gui.py:30 ../packages.py:37
 # ../iw/package_gui.py:30 ../packages.py:37
@@ -3418,15 +3388,14 @@ msgstr "¿Desea continuar con la actualización?"
 msgid ""
 "Anaconda did not find any partitions that are valid upgrade candidates.  "
 "Note that upgrades between major releases is not supported."
-msgstr ""
+msgstr "Anaconda no halló particiones que fueran candidatas de actualización válidas.  Observe que las actualizaciones entre los lanzamientos principales no están soportadas."
 
 # ../iw/upgrade_swap_gui.py:30
 # ../iw/upgrade_swap_gui.py:30
 # ../iw/upgrade_swap_gui.py:30
 #: ../upgrade.py:120
-#, fuzzy
 msgid "No valid upgrade partition"
-msgstr "Actualización de la partición swap"
+msgstr "Actualización de partición no válida"
 
 # ../upgrade.py:43
 # ../upgrade.py:43
@@ -3485,13 +3454,12 @@ msgstr ""
 # ../partitioning.py:1485
 # ../partitioning.py:1488
 #: ../upgrade.py:354
-#, fuzzy
 msgid "No system found"
-msgstr "No se encontró el controlador"
+msgstr "No se encontró el sistema"
 
 #: ../upgrade.py:355
 msgid "No upgradable system was found."
-msgstr ""
+msgstr "No se encontró ningún sistema que se pueda actualizar"
 
 # ../upgrade.py:214
 #: ../upgrade.py:361 ../upgrade.py:367
@@ -3693,7 +3661,7 @@ msgstr "Contraseñas distintas"
 #: ../vnc.py:109 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
 msgstr ""
-"Las contraseñas que ha introducido son diferentes. Por favor inténtelo de "
+"Las contraseñas que ha introducido son diferentes. Por favor intente de "
 "nuevo."
 
 # ../textw/userauth_text.py:53 ../textw/userauth_text.py:120
@@ -3801,8 +3769,7 @@ msgstr ""
 
 #: ../vnc.py:308
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Por favor conecte manualmente su cliente vnc para iniciar la instalación."
+msgstr "Por favor conecte manualmente su cliente vnc para iniciar la instalación."
 
 #: ../vnc.py:312
 msgid "Will try to connect again in 15 seconds..."
@@ -3832,7 +3799,7 @@ msgid "Preparing transaction from installation source..."
 msgstr "Preparando la transacción desde la fuente de instalación..."
 
 #: ../yuminstall.py:612
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
 "package or corrupt media.  Please verify your installation source.\n"
@@ -3842,10 +3809,10 @@ msgid ""
 "\n"
 msgstr ""
 "El archivo %s no se pudo abrir. Esto se puede deber a que falta el archivo o "
-"quizás el paquete esté dañado. Por favor, verifique que su árbol de "
-"instalación contenga todos los paquetes requeridos.\n"
+"quizás el paquete esté dañado. Por favor, verifique su fuente de "
+"instalación.\n"
 "\n"
-"Si reinicia, su sistema quedará en un estado inconsistente que seguramente "
+"Si sale, su sistema quedará en un estado inconsistente que seguramente "
 "necesitará reinstalación.\n"
 "\n"
 
@@ -3912,10 +3879,8 @@ msgstr "Error al ejecutar la transacción"
 
 #: ../yuminstall.py:760
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Ocurrió un error durante su transacción, por la(s) siguiente(s) razon(es): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
+msgstr "Ocurrió un error durante su transacción, por la(s) siguiente(s) razon(es): %s"
 
 # ../packages.py:96
 # ../packages.py:96
@@ -3968,12 +3933,12 @@ msgstr ""
 #: ../yuminstall.py:1517
 #, python-format
 msgid "Too many WWIDs collected for %s, found:"
-msgstr ""
+msgstr "Se hallaron demasiados WWID recolectados para %s:"
 
 #: ../yuminstall.py:1519
 #, python-format
 msgid "    %s for %s"
-msgstr ""
+msgstr "    %s para %s"
 
 #: ../yuminstall.py:1661
 #, python-format
@@ -3994,8 +3959,7 @@ msgstr "Inicio de la instalación"
 
 #: ../yuminstall.py:1694
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"Iniciando el proceso de instalación. Esto puede tardar varios minutos..."
+msgstr "Iniciando el proceso de instalación. Esto puede tardar varios minutos..."
 
 # ../installclasses/upgradeclass.py:12
 # ../installclasses/upgradeclass.py:12
@@ -4052,8 +4016,7 @@ msgstr "No ha especificado un número de dispositivo o el número es inválido"
 
 #: ../zfcp.py:46
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
-"No ha especificado un nombre de puerto universal o el nombre es inválido."
+msgstr "No ha especificado un nombre de puerto universal o el nombre es inválido."
 
 #: ../zfcp.py:48
 msgid "You have not specified a FCP LUN or the number is invalid."
@@ -4088,7 +4051,7 @@ msgstr ""
 #: ../iw/account_gui.py:49
 msgid "The passwords you entered were different.  Please try again."
 msgstr ""
-"Las contraseñas que ha introducido son diferentes. Por favor inténtelo de "
+"Las contraseñas que ha introducido son diferentes. Por favor intente de "
 "nuevo."
 
 # ../textw/userauth_text.py:54
@@ -4143,25 +4106,24 @@ msgstr "Debe proveer un nombre de iniciación de longitud distinto a cero."
 #: ../iw/autopart_type.py:179 ../iw/autopart_type.py:183
 #: ../textw/partition_text.py:1733 ../textw/partition_text.py:1736
 #: ../textw/partition_text.py:1741 ../textw/partition_text.py:1745
-#, fuzzy
 msgid "Missing value"
-msgstr "Paquete faltante"
+msgstr "Valor faltante"
 
 #: ../iw/autopart_type.py:170
 msgid "CHAP username is required if CHAP password is defined."
-msgstr ""
+msgstr "El nombre de usuario CHAP es requerido si la contraseña de CHAP es definida."
 
 #: ../iw/autopart_type.py:174
 msgid "CHAP password is required if CHAP username is defined."
-msgstr ""
+msgstr "La contraseña de CHAP es requerida si el nombre de usuario es definido."
 
 #: ../iw/autopart_type.py:180
 msgid "Reverse CHAP username is required if reverse CHAP password is defined."
-msgstr ""
+msgstr "El nombre de usuario CHAP inverso es requerido si la contraseña de CHAP inversa es definida."
 
 #: ../iw/autopart_type.py:184
 msgid "Reverse CHAP password is required if reverse CHAP username is defined."
-msgstr ""
+msgstr "La contraseña de CHAP inversa es requerida si el nombre de usuario de CHAP inverso es definido."
 
 # ../iw/partition_gui.py:1159 ../iw/partition_gui.py:1168
 # ../iw/partition_gui.py:1206 ../iw/partition_gui.py:1468
@@ -4243,7 +4205,7 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-"Teclear una contraseña para el gestor de arranque y luego confirmalo. (Tenga "
+"Teclear una contraseña para el gestor de arranque y luego confirmarlo. (Tenga "
 "en cuenta que el mapa de teclado (keymap) del BIOS puede ser distinto al que "
 "está utilizando.)"
 
@@ -4341,7 +4303,7 @@ msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
-"Si desea añadir opciones preterminadas para arrancar el comando, "
+"Si desea añadir opciones predeterminadas para arrancar el comando, "
 "introdúzcalas en el campo 'Parámetros generales del kernel'."
 
 # ../iw/silo_gui.py:216
@@ -4797,9 +4759,8 @@ msgstr "El tamaño máximo es de %s MB)"
 #: ../iw/lvm_dialog_gui.py:473 ../iw/partition_dialog_gui.py:319
 #: ../iw/partition_ui_helpers_gui.py:297 ../iw/partition_ui_helpers_gui.py:324
 #: ../iw/raid_dialog_gui.py:307
-#, fuzzy
 msgid "_Encrypt"
-msgstr "Llave de cifrado"
+msgstr "_Cifrar"
 
 # ../textw/packages_text.py:116
 # ../textw/packages_text.py:116
@@ -4813,8 +4774,7 @@ msgstr "Tamaño no válido"
 # ../textw/upgrade_text.py:161
 #: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1290
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"El tamaño necesario como se ha introducido no es un número válido mayor de 0."
+msgstr "El tamaño necesario como se ha introducido no es un número válido mayor de 0."
 
 # ../iw/partition_gui.py:1533 ../iw/upgrade_swap_gui.py:121
 # ../packages.py:565 ../packages.py:585 ../textw/upgrade_text.py:106
@@ -5199,16 +5159,14 @@ msgstr "Dirección IP"
 # ../iw/upgrade_swap_gui.py:178 ../textw/upgrade_text.py:173
 # ../iw/upgrade_swap_gui.py:180 ../textw/upgrade_text.py:173
 #: ../iw/netconfig_dialog.py:197
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "El prefijo IPv4 debe estar entre 0 y 32."
+msgstr "El prefijo IPv4 CIDR debe estar entre 0 y 32."
 
 # ../iw/network_gui.py:195 ../loader/net.c:806
 # ../iw/network_gui.py:195 ../loader/net.c:806
 # ../iw/network_gui.py:195 ../loader/net.c:806
 #: ../iw/netconfig_dialog.py:198 ../iw/netconfig_dialog.py:204
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "IPv4 Network Mask"
 msgstr "Máscara de red IPv4"
 
@@ -5218,7 +5176,7 @@ msgstr "Máscara de red IPv4"
 #: ../iw/netconfig_dialog.py:222 ../iw/network_gui.py:27
 #: ../iw/network_gui.py:518
 msgid "Gateway"
-msgstr "Puerta de enlance"
+msgstr "Puerta de enlace"
 
 # ../loader/net.c:266 ../loader/net.c:804
 # ../loader/net.c:266 ../loader/net.c:804
@@ -5250,7 +5208,7 @@ msgstr "DNS Secundario"
 # ../iw/network_gui.py:251
 #: ../iw/network_gui.py:28
 msgid "_Gateway"
-msgstr "_Puerta de enlance"
+msgstr "_Puerta de enlace"
 
 # ../iw/network_gui.py:251
 # ../iw/network_gui.py:251
@@ -5560,7 +5518,7 @@ msgstr "Debe especificar una etiqueta para la entrada"
 # ../textw/bootloader_text.py:229
 #: ../iw/osbootwidget.py:226
 msgid "Boot label contains illegal characters"
-msgstr "La etiqueta de inicio contiene carácteres no válidos"
+msgstr "La etiqueta de inicio contiene caracteres no válidos"
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
@@ -5769,18 +5727,15 @@ msgstr "Particionamiento"
 # ../iw/partition_gui.py:543
 # ../iw/partition_gui.py:543
 #: ../iw/partition_gui.py:638
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
-msgstr ""
-"Existen los siguientes errores graves con su esquema de particionamiento."
+msgid "The following critical errors exist with your requested partitioning scheme."
+msgstr "Existen los siguientes errores graves con su esquema de particionamiento."
 
 # ../iw/partition_gui.py:546
 # ../iw/partition_gui.py:546
 # ../iw/partition_gui.py:546
 #: ../iw/partition_gui.py:641
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Estos errores deben ser corregidos antes de continuar con la instalación de %"
 "s."
@@ -5993,8 +5948,7 @@ msgstr "Crear un _dispositivo RAID [default=/dev/md%s]."
 #: ../iw/partition_gui.py:1283
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
-"Clonar un _dispositivo para crear un dispositivo RAID [default=/dev/md%s]."
+msgstr "Clonar un _dispositivo para crear un dispositivo RAID [default=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1322
 msgid "Couldn't Create Drive Clone Editor"
@@ -6005,8 +5959,7 @@ msgstr "No se ha podido crear el editor de clonación del dispositivo"
 # ../loader/loader.c:1146
 #: ../iw/partition_gui.py:1323
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Por algún motivo no se ha podido crear el editor de clonación de la unidad."
+msgstr "Por algún motivo no se ha podido crear el editor de clonación de la unidad."
 
 # ../textw/partition_text.py:976
 # ../textw/partition_text.py:976
@@ -6345,8 +6298,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:570
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"La unidad fuente /dev/%s no puede ser seleccionada como unidad en cuestión."
+msgstr "La unidad fuente /dev/%s no puede ser seleccionada como unidad en cuestión."
 
 #: ../iw/raid_dialog_gui.py:589
 #, python-format
@@ -6582,8 +6534,7 @@ msgstr "Esto actualizará su gestor de arranque actual."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "El instalador ha detectado que el gestor de arranque %s está instalado en la "
 "actualidad en %s."
@@ -6791,8 +6742,7 @@ msgstr "El archivo swap debe tener entre 1 y 2000 MB de tamaño."
 # ../iw/upgrade_swap_gui.py:185 ../textw/upgrade_text.py:168
 # ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:168
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:177
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "No existe espacio suficiente en el dispositivo que ha seleccionado para la "
 "partición swap."
@@ -6986,7 +6936,7 @@ msgstr "La etiqueta de inicio no puede estar vacía"
 # ../textw/bootloader_text.py:229
 #: ../textw/bootloader_text.py:230
 msgid "Boot label contains illegal characters."
-msgstr "La etiqueta de inicio contiene carácteres no válidos."
+msgstr "La etiqueta de inicio contiene caracteres no válidos."
 
 # ../iw/account_gui.py:332 ../textw/bootloader_text.py:274
 # ../textw/fdisk_text.py:41 ../textw/partition_text.py:976
@@ -7020,8 +6970,7 @@ msgstr ""
 "qué etiquetas quiere utilizar para cada una de ellas."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 "<Espacio> seleccionar | <F2> seleccionar predeterminada | <F4> borrar | "
 "<F12> próxima pantalla>"
@@ -7205,8 +7154,7 @@ msgstr "Por favor seleccione los grupos de paquetes que desea instalar."
 # ../textw/packages_text.py:245
 # ../textw/packages_text.py:245
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Espacio>,<+>,<-> selección | <F2> Detalles del grupo | <F12> siguiente "
 "pantalla"
@@ -7822,8 +7770,7 @@ msgstr "No está soportado"
 
 #: ../textw/partition_text.py:772
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"Los grupos de volumen LVM pueden ser modificados en el instalador gráfico."
+msgstr "Los grupos de volumen LVM pueden ser modificados en el instalador gráfico."
 
 # ../textw/partition_text.py:690 ../textw/partition_text.py:739
 # ../textw/partition_text.py:690 ../textw/partition_text.py:739
@@ -7980,8 +7927,7 @@ msgstr "RAID"
 # ../textw/partition_text.py:979
 # ../textw/partition_text.py:990
 #: ../textw/partition_text.py:1456
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "   F1-Ayuda   F2-Nuevo   F3-Modificar   F4-Eliminar   F5-Reiniciar   F12-"
 "Aceptar "
@@ -8090,19 +8036,19 @@ msgstr ""
 
 #: ../textw/partition_text.py:1734
 msgid "Username is required when password is present."
-msgstr ""
+msgstr "El nombre de usuario es requerido cuando la contraseña está presernte."
 
 #: ../textw/partition_text.py:1737
 msgid "Password is required when username is present."
-msgstr ""
+msgstr "La contraseña es requerida cuando el nombre de usuario está presente."
 
 #: ../textw/partition_text.py:1742
 msgid "Reverse username is required whenreverse password is present."
-msgstr ""
+msgstr "El nombre de usuario inverso es requerido cuando la contraseña inversa está presente."
 
 #: ../textw/partition_text.py:1746
 msgid "Reverse password is required whenreverse username is present."
-msgstr ""
+msgstr "La contraseña inversa es requerida cuando el nombre de usuario inverso está presente."
 
 # ../textw/partmethod_text.py:26
 # ../textw/partmethod_text.py:26
@@ -8541,12 +8487,17 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
+"¿Desearía entrar un número de instalación (algunas veces llamado el número de subscripción) ahora? Esta característica permite al instalador acceder a cualquier componente adicional incluido en la subscripción. SI usted se salta este paso, los componentes adicionales se pueden instalar manualmente más adelante.\n"
+"\n"
+"Para mayor información consulte: http://www.redhat.com/InstNum/"
 
 #: ../installclasses/rhel.py:57
 msgid ""
 "If you cannot locate the Installation Number, consult http://www.redhat.com/"
 "InstNum/"
 msgstr ""
+"Si usted no puede localizar el Número de instalación, consulte http://www.redhat.com/"
+"InstNum/"
 
 # ../installclasses/server.py:9
 # ../installclasses/server.py:9
@@ -8844,17 +8795,17 @@ msgstr "¿Desea cargar más discos de controladores? "
 
 #: ../loader2/driverdisk.c:600
 msgid "Cannot initialize cache instance for blkid"
-msgstr ""
+msgstr "No puede inicializar la instancia caché para blkid"
 
 #: ../loader2/driverdisk.c:604
 #, c-format
 msgid "Cannot probe devices in blkid: %d"
-msgstr ""
+msgstr "No puede sondear dispositivos en blkid: %d"
 
 #: ../loader2/driverdisk.c:614
 #, c-format
 msgid "Adding driver disc %s to the list of available DDs."
-msgstr ""
+msgstr "Adición de disco de dispositivo %s a la lista de DD disponibles."
 
 # ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 # ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
@@ -8982,7 +8933,7 @@ msgid ""
 "ISO images and try again."
 msgstr ""
 "Se ha producido un error al leer la instalación desde las imágenes ISO. "
-"Compruebe sus imágenes ISO e inténtelo de nuevo."
+"Compruebe sus imágenes ISO e intente de nuevo."
 
 # ../loader/loader.c:817
 # ../loader/loader.c:817
@@ -9131,10 +9082,8 @@ msgstr "Bienvenido a %s - Modo de rescate"
 # ../loader/lang.c:41 ../loader/loader.c:188
 # ../loader/lang.c:41 ../loader/loader.c:188
 #: ../loader2/lang.c:57 ../loader2/loader.c:159
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
 
 # ../loader/lang.c:298
 # ../loader/lang.c:297
@@ -9398,7 +9347,7 @@ msgid ""
 msgstr ""
 "La imagen que acaba de probar tiene errores. Esto puede ser debido a un "
 "archivo descargado dañado o a un disco con errores. Si aplica, por favor "
-"limpie el disco e inténtelo nuevamente. Si esta prueba continúa fallando, "
+"limpie el disco e intente nuevamente. Si esta prueba continúa fallando, "
 "debe suspender la instalación."
 
 #: ../loader2/mediacheck.c:408
@@ -9473,15 +9422,13 @@ msgstr "Prueba de suma de control"
 #: ../loader2/modules.c:1064
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
-"Mal argumento para el dispositivo del comando del método kickstart %s: %s"
+msgstr "Mal argumento para el dispositivo del comando del método kickstart %s: %s"
 
 # ../loader/net.c:723
 # ../loader/net.c:723
 # ../loader/net.c:723
 #: ../loader2/modules.c:1077
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
+msgid "Both module type and name must be specified for the kickstart device command."
 msgstr ""
 "Se especificó el siguiente argumento inválido para el comando del "
 "controlador de disco de kickstart: %s: %s"
@@ -9670,8 +9617,7 @@ msgstr "Falta información"
 # ../loader/net.c:405
 # ../loader/net.c:405
 #: ../loader2/net.c:1347
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Debe introducir una dirección IPv4 y una máscara de red o prefijo CIDR "
 "válidas."
@@ -9710,9 +9656,8 @@ msgstr "bootproto erróneo %s especificado en el comando de red"
 # ../iw/network_gui.py:252
 # ../iw/network_gui.py:252
 #: ../loader2/net.c:2110
-#, fuzzy
 msgid "Seconds:"
-msgstr "DNS Secundario:"
+msgstr "Segundos:"
 
 # ../loader/loader.c:1057
 # ../loader/loader.c:1057
@@ -9734,38 +9679,37 @@ msgstr ""
 
 #: ../loader2/net.c:2288
 msgid "Identify"
-msgstr ""
+msgstr "Identidad"
 
 #: ../loader2/net.c:2297
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "Usted puede identificar el puerto físico para"
 
 #: ../loader2/net.c:2299
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "al prender y apagar las luces LED por un número de segundos. Escriba un número de 1 a 30 para establecer la duración de parpadeo de las luces de puerto LED."
 
 #: ../loader2/net.c:2309
 msgid "Identify NIC"
-msgstr ""
+msgstr "Identificar NIC"
 
 # ../loader/net.c:277
 # ../loader/net.c:277
 # ../loader/net.c:277
 #: ../loader2/net.c:2322
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Información IP no válida"
+msgstr "Duración no válida"
 
 #: ../loader2/net.c:2323
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "Debe entrar el número de segundos como un número entero de 1 a 30."
 
 #: ../loader2/net.c:2335
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "Parpadeo de luces de puerto %s por %d segundos..."
 
 # ../loader/net.c:170
 # ../loader/net.c:170
@@ -10072,9 +10016,8 @@ msgid "_Release Notes"
 msgstr "_Notas de lanzamiento"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "Encrypt system"
-msgstr "Llave de cifrado"
+msgstr "Sistema de cifrado"
 
 #: tmp/autopart.glade.h:2
 msgid ""
@@ -10137,14 +10080,12 @@ msgstr "%(instkey)s:"
 # ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 # ../loader/urls.c:357 ../textw/userauth_text.py:37
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>CHAP _Password:</b>"
-msgstr "<b>_Contraseña:</b>"
+msgstr "<b>Contraseña _CHAP:</b>"
 
 #: tmp/iscsi-config.glade.h:2
-#, fuzzy
 msgid "<b>CHAP _Username:</b>"
-msgstr "<b>Número de Usuario:</b>"
+msgstr "<b>Nombre de usuario _CHAP:</b>"
 
 # ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 # ../loader/urls.c:357 ../textw/userauth_text.py:36
@@ -10153,14 +10094,12 @@ msgstr "<b>Número de Usuario:</b>"
 # ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 # ../loader/urls.c:357 ../textw/userauth_text.py:37
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>_Contraseña:</b>"
+msgstr "<b>Contraseña CHAP P_inversa:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>Número de Usuario:</b>"
+msgstr "<b>Nombre de U_suario CHAP inverso:</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
@@ -10168,29 +10107,28 @@ msgstr "<b>Dirección IP obje_tivo:</b>"
 
 #: tmp/iscsi-config.glade.h:6
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr "<b>_Nombre de inicializador iSCSI:</b>"
+msgstr "<b>_Nombre de iniciador iSCSI:</b>"
 
 #: tmp/lukspassphrase.glade.h:1
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
-msgstr ""
+msgstr "También agregue esta contraseña a todos los dispositivos cifrados existentes para agilizar el proceso de arranque"
 
 # ../partitioning.py:1561
 # ../partitioning.py:1581
 # ../partitioning.py:1584
 #: tmp/lukspassphrase.glade.h:2
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "Confirmar el reinicio"
+msgstr "Confirmar contraseña:"
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "Entrar contraseña para partición cifrada"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase:"
-msgstr ""
+msgstr "Entrar contraseña:"
 
 # ../iw/network_gui.py:251
 # ../iw/network_gui.py:251
@@ -10419,8 +10357,7 @@ msgstr "Hora del Atlántico - Nueva Escocia (la mayoría de lugares), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Hora del Atlántico- Nueva Escocia- lugares que no observaron DST 1966-1971"
+msgstr "Hora del Atlántico- Nueva Escocia- lugares que no observaron DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -10479,9 +10416,8 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Hora Central - Coahuila, Durango, Nuevo León, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Perry County"
-msgstr "Hora central - Indiana - Condado de Pike"
+msgstr "Hora central - Indiana - Condado de Perry"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -10493,8 +10429,7 @@ msgstr "Hora Central - Manitoba & Ontario del Este"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
-"Hora central - Michigan - Condados de Dickinson, Gogebic, Iron & Menominee"
+msgstr "Hora central - Michigan - Condados de Dickinson, Gogebic, Iron & Menominee"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
@@ -10537,9 +10472,8 @@ msgid "Dornod, Sukhbaatar"
 msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Dumont-d'Urville Station, Terre Adelie"
-msgstr "Dumont-d'Urville Base, Terre Adélie"
+msgstr "Estación Dumont-d'Urville, Terre Adélie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
@@ -10559,51 +10493,47 @@ msgstr "Hora del Este"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Hora estándar oriental - Indiana - Condado de Crawford"
+msgstr "Hora del Éste - Indiana - Condado de Crawford"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Daviess, Dubois, Knox & Martin Counties"
-msgstr ""
-"Hora central - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
+msgstr "Hora del Éste - Indiana - Daviess, Dubois, Knox & Condados Martin"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Pulaski County"
-msgstr "Hora oriental - Indiana - Condado de Pulaski"
+msgstr "Hora del Éste - Indiana - Condado de Pulaski"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Hora oriental - Indiana - Condado de Starke"
+msgstr "Hora del Éste- Indiana - Condado de Starke"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Hora oriental - Indiana - Condado de Suiza"
+msgstr "Hora del Éste - Indiana - Condado de Suiza"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Hora oriental - Indiana - la mayoría de localidades "
+msgstr "Hora del Éste - Indiana - la mayoría de localidades"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "Hora del Este - Kentucky - Área de Louisville"
+msgstr "Hora del Éste - Kentucky - Área de Louisville"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr "Hora del Este - Kentucky - Condado de Wayne"
+msgstr "Hora del Éste - Kentucky - Condado de Wayne"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr "Hora del Este - Michigan - gran parte de las localidades"
+msgstr "Hora del Éste - Michigan - gran parte de las localidades"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Hora del Este - Ontario & Quebec - lugares que no observaban DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Hora del Éste - Ontario & Quebec - lugares que no observaban DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr "Hora del Este - Ontario - la mayoría de localidades"
+msgstr "Hora del Éste - Ontario - la mayoría de localidades"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -10611,11 +10541,11 @@ msgstr "Hora del Este - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr "Hora del Este - Quebec - la mayoría de localidades"
+msgstr "Hora del Éste - Quebec - la mayoría de localidades"
 
 #. generated from zone.tab
 msgid "Eastern Time - Resolute, Nunavut"
-msgstr "Hora estándar del Este - Nunavut del Este"
+msgstr "Hora del Éste - Resolute, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -10675,7 +10605,7 @@ msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr "Line Islands"
+msgstr "Islas Line"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
@@ -10778,8 +10708,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Hora de las montañas Rocayosas - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 "Hora de las montañas Rocayosas - Dawson Creek & Fort Saint John, British "
 "Columbia"
@@ -10790,41 +10719,39 @@ msgstr "Hora de las montañas Rocayosas - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr "Mountain Time"
+msgstr "Hora de la montaña"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"Mountain Time - Alberta, British Columbia del Este & Skatchewan del Oeste"
+msgstr "Hora de la montaña - Alberta, British Columbia del Este & Skatchewan del Oeste"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr "Mountain Time - Chihuahua"
+msgstr "Hora de la montaña - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr "Mountain Time - Navajo"
+msgstr "Hora de la montaña Time - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
+msgstr "Hora de la montaña - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr "Mountain Time - Territorios del Noroeste Central"
+msgstr "Hora de la montaña - Territorios del Noroeste Central"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "Mountain Time - Idaho del Sur & Oregón del Este"
+msgstr "Hora de la montaña - Idaho del Sur & Oregón del Este"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr "Mountain Time - Territorios del Noroeste del Oeste"
+msgstr "Hora de la montaña - Territorios del Noroeste del Oeste"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mountain Time - west Nunavut"
-msgstr "Hora Central - Nunavut del Este "
+msgstr "Hora de la montaña - Nunavut occidental"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
@@ -10891,9 +10818,8 @@ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Rondonia"
-msgstr "Para del oeste, Rondonia"
+msgstr "Rondonia"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -10920,9 +10846,8 @@ msgid "San Juan (SJ)"
 msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "San Luis (SL)"
-msgstr "San Juan (SJ)"
+msgstr "San Juan (SL)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
@@ -10986,7 +10911,7 @@ msgstr "W Amazonas"
 
 #. generated from zone.tab
 msgid "W Para"
-msgstr ""
+msgstr "W Para"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -11005,9 +10930,8 @@ msgid "Western Australia - most locations"
 msgstr "Hora Central - mayoría de lugares"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Zaporozh'ye, E Lugansk / Zaporizhia, E Luhansk"
-msgstr "Zaporozh'ye, E Lugansk"
+msgstr "Zaporozh'ye, E Lugansk / Zaporizhia, E Luhansk"
 
 #. generated from zone.tab
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
@@ -11019,8 +10943,7 @@ msgstr "Crimea central"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"Borneo del Este y del Sur, Celebes, Bali, Nusa Tengarra, Timor del Este"
+msgstr "Borneo del Este y del Sur, Celebes, Bali, Nusa Tengarra, Timor del Este"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
@@ -11050,10 +10973,8 @@ msgid "most locations"
 msgstr "la mayoría de lugares"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF)"
-msgstr ""
-"la mayoría de lugares (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+msgstr "la mayoría de lugares (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
@@ -11310,65 +11231,3 @@ msgstr "Galés"
 msgid "Zulu"
 msgstr "Zulú"
 
-# ../partitioning.py:1379
-# ../partitioning.py:1399
-# ../partitioning.py:1402
-#~ msgid ""
-#~ "The partition table on device %s was unreadable. To create new partitions "
-#~ "it must be initialized, causing the loss of ALL DATA on this drive.\n"
-#~ "\n"
-#~ "This operation will override any previous installation choices about "
-#~ "which drives to ignore.\n"
-#~ "\n"
-#~ "Would you like to initialize this drive, erasing ALL DATA?"
-#~ msgstr ""
-#~ "La tabla de particiones del dispositivo %s está dañada. Para crear nuevas "
-#~ "particiones debe ser inicializado, provocando la pérdida de TODOS LOS "
-#~ "DATOS de esta unidad.\n"
-#~ "\n"
-#~ "Esta operación sobrescribirá cualquier selección previa sobre qué "
-#~ "unidades se deben ignorar.\n"
-#~ "\n"
-#~ "¿Desea inicializar esta unidad y eliminar todos los datos?"
-
-# ../iw/network_gui.py:195 ../loader/net.c:806
-# ../iw/network_gui.py:195 ../loader/net.c:806
-# ../iw/network_gui.py:195 ../loader/net.c:806
-#~ msgid "Netmask"
-#~ msgstr "Máscara de red"
-
-#~ msgid ""
-#~ "To install the full set of supported packages included in your "
-#~ "subscription, please enter your Installation Number"
-#~ msgstr ""
-#~ "Para instalar el conjunto completo de paquetes soportados incluidos en su "
-#~ "suscripción, por favor introduzca su número de Instalación"
-
-#~ msgid ""
-#~ "If you're unable to locate the Installation Number, consult http://www."
-#~ "redhat.com/apps/support/in.html.\n"
-#~ "\n"
-#~ "If you skip:\n"
-#~ "* You may not get access to the full set of packages included in your "
-#~ "subscription.\n"
-#~ "* It may result in an unsupported/uncertified installation of Red Hat "
-#~ "Enterprise Linux.\n"
-#~ "* You will not get software and security updates for packages included in "
-#~ "your subscription."
-#~ msgstr ""
-#~ "Si no puede ubicar el número de instalación, consulte http://www.redhat."
-#~ "com/apps/support/in.html.\n"
-#~ "\n"
-#~ "Si no lo introduce:\n"
-#~ "* Usted podría no tener acceso al conjunto total de paquetes incluidos en "
-#~ "su suscripción.\n"
-#~ "* Podría resultar en una instalación no soportada o no certificada de Red "
-#~ "Hat Enterprise Linux.\n"
-#~ "* No podrá obtener actualizaciones de software y erratas para los "
-#~ "paquetes no incluidos en su suscripción."
-
-#~ msgid "Jan Mayen"
-#~ msgstr "Jan Mayen"
-
-#~ msgid "Svalbard"
-#~ msgstr "Svalbard"
