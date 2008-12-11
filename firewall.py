@@ -35,7 +35,7 @@ class Firewall:
 	self.enabled = 1
         self.trustdevs = []
 	self.portlist = []
-        self.servicelist = ["ssh"]
+        self.servicelist = []
 
     def writeKS(self, f):
 	f.write("firewall")
@@ -54,7 +54,10 @@ class Firewall:
         if not self.enabled:
             args.append("--disabled")
             return args
-        
+
+        if not "ssh" in self.servicelist and not "22:tcp" in self.portlist:
+            args += ["--service=ssh"]
+
         for dev in self.trustdevs:
             args = args + [ "--trust=%s" %(dev,) ]
 

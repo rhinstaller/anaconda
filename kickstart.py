@@ -247,6 +247,9 @@ class Firewall(commands.firewall.F10_Firewall):
         for port in self.ports:
             self.handler.id.firewall.portlist.append (port)
 
+        for svc in self.services:
+            self.handler.id.firewall.servicelist.append (svc)
+
 class Firstboot(commands.firstboot.FC3_Firstboot):
     def parse(self, args):
         commands.firstboot.FC3_Firstboot.parse(self, args)
