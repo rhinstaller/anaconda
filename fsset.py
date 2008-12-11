@@ -1537,6 +1537,11 @@ MAILADDR root
             ret['boot'] = (bootDev.device, N_("EFI System Partition"))
             return ret
 
+        if bootDev.getName() == "RAIDDevice":
+            ret['boot'] = (bootDev.device, N_("RAID Device"))
+            ret['mbr'] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
+            return ret
+
         if iutil.getPPCMacGen() == "NewWorld":
             ret['boot'] = (bootDev.device, N_("Apple Bootstrap"))
             n = 1
