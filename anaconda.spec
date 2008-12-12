@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.163
+Version: 11.1.2.164
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Dec 12 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.164-1
+- Fix non-CHAP iBFT install cases (hdegoede)
+  Resolves: rhbz#432819
+- More translations for the instnum text (clumens)
+  Related: rhbz#474375
+
 * Wed Dec 10 2008 Chris Lumens <clumens@redhat.com> 11.1.2.163-1
 - Mark some new translations as fuzzy to fix the build.
   Related: rhbz#474375
