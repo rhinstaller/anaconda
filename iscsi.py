@@ -388,10 +388,20 @@ class iscsi(object):
 
             self.updateIscsidConf(record)
 
+            if record.has_key('node.session.auth.username'):
+                username = record['node.session.auth.username']
+            else:
+                username = None
+
+            if record.has_key('node.session.auth.password'):
+                password = record['node.session.auth.password']
+            else:
+                password = None
+
             t = iscsiTarget(ipaddr=record['node.conn[%s].address' % (n,)],
                             port=record['node.conn[%s].port' % (n,)],
-                            user=record['node.session.auth.username'],
-                            pw=record['node.session.auth.password'],
+                            user=username,
+                            pw=password,
                             discover = False)
             self.targets.append(t)
 
