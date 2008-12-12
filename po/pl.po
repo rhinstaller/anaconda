@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 13:23-0500\n"
-"PO-Revision-Date: 2008-10-31 20:34+0100\n"
+"PO-Revision-Date: 2008-12-12 20:29+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -102,15 +102,16 @@ msgid "Starting graphical installation..."
 msgstr "Uruchamianie instalacji graficznej..."
 
 #: ../anaconda:772
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "Co chcesz zrobić?"
+msgstr "Czy chcesz użyć VNC?"
 
 #: ../anaconda:773
 msgid ""
 "The VNC mode instalation offers more functionality than the text mode, would "
 "you like to use it instead?"
 msgstr ""
+"Tryb instalacji VNC oferuje więcej funkcji od trybu tekstowego, czy chcesz "
+"go użyć?"
 
 #: ../anaconda:812
 msgid "Install class forcing text mode installation"
@@ -139,28 +140,17 @@ msgid "unknown install method: %s"
 msgstr "nieznana metoda instalacji: %s"
 
 #: ../autopart.py:950
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
 msgstr ""
 "Nie można przydzielić partycji opartych na cylindrach jako podstawowych.\n"
-"\n"
-"%s"
 
 #: ../autopart.py:955
-#, fuzzy
 msgid "Could not allocate partitions as primary partitions.\n"
-msgstr ""
-"Nie można przydzielić partycji jako podstawowych.\n"
-"\n"
-"%s"
+msgstr "Nie można przydzielić partycji jako podstawowych.\n"
 
 #: ../autopart.py:960
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions.\n"
-msgstr ""
-"Nie można przydzielić partycji opartych na cylindrach.\n"
-"\n"
-"%s"
+msgstr "Nie można przydzielić partycji opartych na cylindrach.\n"
 
 #: ../autopart.py:1020
 #, python-format
@@ -1013,21 +1003,20 @@ msgid ""
 "Choose a passphrase for your encrypted devices. You will be prompted for the "
 "passphrase during system boot."
 msgstr ""
+"Wybierz długie hasło dla zaszyfrowanych urządzeń. Zostaniesz poproszony o "
+"długie hasło podczas uruchamiania systemu."
 
 #: ../gui.py:680 ../gui.py:688 ../text.py:263 ../text.py:273
-#, fuzzy
 msgid "Error with passphrase"
-msgstr "Błąd hasła"
+msgstr "Błąd długiego hasła"
 
 #: ../gui.py:681 ../text.py:264
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
-msgstr "Hasła, które podałeś, różnią się. Spróbuj ponownie."
+msgstr "Długie hasła, które podałeś, różnią się. Spróbuj ponownie."
 
 #: ../gui.py:689
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "Hasło musi zawierać co najmniej sześć znaków."
+msgstr "Długie hasło musi zawierać co najmniej osiem znaków."
 
 #: ../gui.py:721 ../text.py:297
 #, python-format
@@ -1035,6 +1024,8 @@ msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
 msgstr ""
+"Urządzenie %s jest zaszyfrowane. Aby uzyskać dostęp do zawartości urządzenia "
+"podczas instalacji, musisz podać poniżej długie hasło urządzenia."
 
 #: ../gui.py:893 tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -1356,9 +1347,8 @@ msgid "'%s' is an invalid IP address."
 msgstr "\"%s\" nie jest prawidłowym adresem IP."
 
 #: ../packages.py:155
-#, fuzzy
 msgid "LVM operation failed"
-msgstr "Montowanie nie powiodło się"
+msgstr "Operacja LVM nie powiodła się"
 
 #: ../packages.py:272
 msgid "Invalid Key"
@@ -1889,7 +1879,7 @@ msgstr ""
 "Czy chcesz zainicjować ten dysk, usuwając WSZYSTKIE DANE?"
 
 #: ../partedUtils.py:1138
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1900,11 +1890,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Tablica partycji na urządzeniu %s (%s) jest nieczytelna. Aby utworzyć nowe "
-"partycje, należy ją zainicjować, co spowoduje utratę WSZYSTKICH DANYCH na "
-"tym dysku.\n"
+"Tablica partycji na urządzeniu %s (%s %-0.f MB) jest nieczytelna.\n"
+"Aby utworzyć nowe partycje, należy ją zainicjować, co spowoduje utratę "
+"WSZYSTKICH DANYCH na tym dysku.\n"
 "\n"
-"Operacja ta zastępuje wszystkie wcześniejsze decyzje dotyczące tego, które "
+"Ta operacja zastępuje wszystkie wcześniejsze decyzje dotyczące tego, które "
 "dyski mają zostać zignorowane.\n"
 "\n"
 "Czy chcesz zainicjować ten dysk, usuwając WSZYSTKIE DANE?"
@@ -1947,9 +1937,8 @@ msgstr ""
 "ekranu modyfikowania dysku. Czy chcesz kontynuować instalację?"
 
 #: ../partitioning.py:106
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Klucz szyfrowania"
+msgstr "Zaszyfrować urządzenie?"
 
 #: ../partitioning.py:107
 msgid ""
@@ -1957,6 +1946,9 @@ msgid ""
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
 msgstr ""
+"Podano, że szyfrowanie urządzenia blokowego powinno zostać włączone, ale "
+"nie podałeś długiego hasła. Jeśli nie wrócisz i nie podasz długiego hasła, "
+"szyfrowanie urządzenia blokowego zostanie wyłączone."
 
 #: ../partitioning.py:114 ../partitions.py:126 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:28 ../textw/confirm_text.py:54
@@ -1995,9 +1987,8 @@ msgstr ""
 "chcesz to zrobić?"
 
 #: ../partitions.py:131
-#, fuzzy
 msgid "Confirm"
-msgstr "Potwierdź:"
+msgstr "Potwierdź"
 
 #: ../partitions.py:132
 #, python-format
@@ -2007,6 +1998,10 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
+"Czy na pewno chcesz pominąć podawanie długiego hasła dla urządzenia %s?\n"
+"\n"
+"Jeśli chcesz pominąć ten krok, zawartość urządzenia nie będzie dostępna "
+"podczas instalacji."
 
 #: ../partitions.py:1029
 #, python-format
@@ -2046,6 +2041,8 @@ msgid ""
 "Your boot partition is on a disk using the GPT partitioning scheme but this "
 "machine cannot boot using GPT."
 msgstr ""
+"Partycja startowa znajduje się na dysku używającym schematu partycjonowania "
+"GPT, ale ten komputer nie może być uruchamiany używając GPT."
 
 #: ../partitions.py:1110
 msgid "You must create an Apple Bootstrap partition."
@@ -2299,24 +2296,26 @@ msgstr "Hasło"
 
 #: ../text.py:230
 msgid "Passphrase for encrypted devices"
-msgstr ""
+msgstr "Długi hasło dla zaszyfrowanych urządzeń"
 
 #: ../text.py:243
 msgid "Also add this passphrase to all existing encrypted devices"
 msgstr ""
+"Dodaj to długie hasło także do wszystkich istniejących zaszyfrowanych "
+"urządzeń"
 
 #: ../text.py:274
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "Hasło musi zawierać co najmniej sześć znaków."
+msgstr "Długie hasło musi zawierać co najmniej %d znaków."
 
 #: ../text.py:304 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
-msgstr ""
+msgstr "Długie hasło"
 
 #: ../text.py:312 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "To jest globalne długie hasło"
 
 #: ../text.py:368
 msgid "Help not available"
@@ -2383,11 +2382,13 @@ msgid ""
 "Anaconda did not find any partitions that are valid upgrade candidates.  "
 "Note that upgrades between major releases is not supported."
 msgstr ""
+"Anaconda nie znalazła żadnych partycji będących prawidłowymi kandydatami do "
+"aktualizacji. Zauważ, że aktualizacje między dużymi wydaniami nie są "
+"obsługiwane."
 
 #: ../upgrade.py:120
-#, fuzzy
 msgid "No valid upgrade partition"
-msgstr "Zaktualizuj partycję wymiany"
+msgstr "Brak prawidłowej partycji aktualizacji"
 
 #: ../upgrade.py:144
 msgid "Searching"
@@ -2427,13 +2428,12 @@ msgstr ""
 "%s"
 
 #: ../upgrade.py:354
-#, fuzzy
 msgid "No system found"
-msgstr "Nie znaleziono sterownika"
+msgstr "Nie znaleziono systemu"
 
 #: ../upgrade.py:355
 msgid "No upgradable system was found."
-msgstr ""
+msgstr "Nie znaleziono systemu do zaktualizowania."
 
 #: ../upgrade.py:361 ../upgrade.py:367
 msgid "Mount failed"
@@ -2690,7 +2690,7 @@ msgid "Preparing transaction from installation source..."
 msgstr "Przygotowywanie transakcji ze źródła instalacji..."
 
 #: ../yuminstall.py:612
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
 "package or corrupt media.  Please verify your installation source.\n"
@@ -2699,11 +2699,11 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Nie można otworzyć pliku %s. Powodem może być brak pliku lub uszkodzony "
-"pakiet. Sprawdź, czy drzewo instalacji zawiera wszystkie wymagane pakiety.\n"
+"Nie można otworzyć pliku %s. Powodem może być brak pliku, uszkodzony "
+"pakiet lub nośnik. Sprawdź, czy źródło instalacji.\n"
 "\n"
-"Jeśli ponownie uruchomisz, system pozostanie niespójny, co prawdopodobnie "
-"będzie wymagało ponownej instalacji.\n"
+"Jeśli zakończysz, system pozostanie niespójny, co prawdopodobnie będzie "
+"wymagało ponownej instalacji.\n"
 "\n"
 
 #: ../yuminstall.py:619 ../yuminstall.py:764 ../yuminstall.py:950
@@ -2804,12 +2804,12 @@ msgstr ""
 #: ../yuminstall.py:1517
 #, python-format
 msgid "Too many WWIDs collected for %s, found:"
-msgstr ""
+msgstr "Zebrano za dużo WWID dla %s, znaleziono:"
 
 #: ../yuminstall.py:1519
 #, python-format
 msgid "    %s for %s"
-msgstr ""
+msgstr "    %s dla %s"
 
 #: ../yuminstall.py:1661
 #, python-format
@@ -2929,25 +2929,28 @@ msgstr "Musisz podać niepustą nazwę inicjatora."
 #: ../iw/autopart_type.py:179 ../iw/autopart_type.py:183
 #: ../textw/partition_text.py:1733 ../textw/partition_text.py:1736
 #: ../textw/partition_text.py:1741 ../textw/partition_text.py:1745
-#, fuzzy
 msgid "Missing value"
-msgstr "Brak pakietu"
+msgstr "Brak wartości"
 
 #: ../iw/autopart_type.py:170
 msgid "CHAP username is required if CHAP password is defined."
-msgstr ""
+msgstr "Nazwa użytkownika CHAP jest wymagana, jeśli podano hasło CHAP."
 
 #: ../iw/autopart_type.py:174
 msgid "CHAP password is required if CHAP username is defined."
-msgstr ""
+msgstr "Hasło CHAP jest wymagane, jeśli podano nazwę użytkownika CHAP."
 
 #: ../iw/autopart_type.py:180
 msgid "Reverse CHAP username is required if reverse CHAP password is defined."
 msgstr ""
+"Odwrotna nazwa użytkownika CHAP jest wymagana, jeśli podano odwrotne hasło "
+"CHAP."
 
 #: ../iw/autopart_type.py:184
 msgid "Reverse CHAP password is required if reverse CHAP username is defined."
 msgstr ""
+"Odwrotne hasło CHAP jest wymagane, jeśli podano odwrotną nazwę użytkownika "
+"CHAP."
 
 #: ../iw/autopart_type.py:202
 msgid "Error with Data"
@@ -3403,9 +3406,8 @@ msgstr "(Maksymalny rozmiar to %s MB)"
 #: ../iw/lvm_dialog_gui.py:473 ../iw/partition_dialog_gui.py:319
 #: ../iw/partition_ui_helpers_gui.py:297 ../iw/partition_ui_helpers_gui.py:324
 #: ../iw/raid_dialog_gui.py:307
-#, fuzzy
 msgid "_Encrypt"
-msgstr "Klucz szyfrowania"
+msgstr "_Zaszyfruj"
 
 #: ../iw/lvm_dialog_gui.py:542 ../textw/partition_text.py:1289
 msgid "Illegal size"
@@ -3669,13 +3671,11 @@ msgid "IP Address"
 msgstr "Adres IP"
 
 #: ../iw/netconfig_dialog.py:197
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "Przedrostek IPv4 musi być między 0 a 32."
+msgstr "Przedrostek CIDR IPv4 musi być między 0 a 32."
 
 #: ../iw/netconfig_dialog.py:198 ../iw/netconfig_dialog.py:204
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "IPv4 Network Mask"
 msgstr "Maska sieci IPv4"
 
@@ -5607,19 +5607,21 @@ msgstr ""
 
 #: ../textw/partition_text.py:1734
 msgid "Username is required when password is present."
-msgstr ""
+msgstr "Nazwa użytkownika jest wymagana, jeśli obecne jest hasło."
 
 #: ../textw/partition_text.py:1737
 msgid "Password is required when username is present."
-msgstr ""
+msgstr "Hasło jest wymagane, jeśli obecna jest nazwa użytkownika."
 
 #: ../textw/partition_text.py:1742
 msgid "Reverse username is required whenreverse password is present."
 msgstr ""
+"Odwrotna nazwa użytkownika jest wymagana, jeśli obecne jest odwrotne hasło."
 
 #: ../textw/partition_text.py:1746
 msgid "Reverse password is required whenreverse username is present."
 msgstr ""
+"Odwrotne hasło jest wymagane, jeśli obecna jest odwrotna nazwa użytkownika."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5922,12 +5924,20 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
+"Czy chcesz teraz podać numer instalacji (czasami nazywany numerem "
+"subskrypcji)? Ta funkcja umożliwia instalatorowi dostęp do dodatkowych "
+"składników zawartych w subskrypcji. Jeśli pominiesz ten krok, dodatkowe "
+"składniki mogą zostać później zainstalowane ręczenie.\n"
+"\n"
+"Zobacz http://www.redhat.com/InstNum/, aby dowiedzieć się więcej."
 
 #: ../installclasses/rhel.py:57
 msgid ""
 "If you cannot locate the Installation Number, consult http://www.redhat.com/"
 "InstNum/"
 msgstr ""
+"Jeśli nie możesz znaleźć numeru instalacji, skontaktuj się z "
+"http://www.redhat.com/InstNum/"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6156,17 +6166,17 @@ msgstr "Czy chcesz wczytać więcej dysków ze sterownikami?"
 
 #: ../loader2/driverdisk.c:600
 msgid "Cannot initialize cache instance for blkid"
-msgstr ""
+msgstr "Nie można zainicjować pamięci podręcznej dla blkid"
 
 #: ../loader2/driverdisk.c:604
 #, c-format
 msgid "Cannot probe devices in blkid: %d"
-msgstr ""
+msgstr "Nie można wykryć urządzeń w blkid: %d"
 
 #: ../loader2/driverdisk.c:614
 #, c-format
 msgid "Adding driver disc %s to the list of available DDs."
-msgstr ""
+msgstr "Dodawanie numeru płyty %s do listy dostępnych DD."
 
 #: ../loader2/driverdisk.c:682 ../loader2/driverdisk.c:719
 #: ../loader2/hdinstall.c:404 ../loader2/kickstart.c:124
@@ -6769,9 +6779,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "Błędnie podany protokół startowy %s w poleceniu sieciowym"
 
 #: ../loader2/net.c:2110
-#, fuzzy
 msgid "Seconds:"
-msgstr "Drugi DNS:"
+msgstr "Sekundy:"
 
 #: ../loader2/net.c:2283
 msgid "Networking Device"
@@ -6786,35 +6795,36 @@ msgstr ""
 
 #: ../loader2/net.c:2288
 msgid "Identify"
-msgstr ""
+msgstr "Identyfikacja"
 
 #: ../loader2/net.c:2297
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "Można zidentyfikować fizyczny port dla"
 
 #: ../loader2/net.c:2299
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
+"przez świecenie diodami LED przez określoną liczbę sekund. Podaj liczbę "
+"między 1 a 30, aby ustawić czas świecenia diod LED portów."
 
 #: ../loader2/net.c:2309
 msgid "Identify NIC"
-msgstr ""
+msgstr "Identyfikacja NIC"
 
 #: ../loader2/net.c:2322
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Nieprawidłowa informacja o IP"
+msgstr "Nieprawidłowy czas trwania"
 
 #: ../loader2/net.c:2323
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "Musisz podać liczbę sekund jako liczbę całkowitą między 1 a 30."
 
 #: ../loader2/net.c:2335
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "Świecenie diodami portu %s przez %d sekund..."
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -7021,9 +7031,8 @@ msgid "_Release Notes"
 msgstr "Info_rmacje o wydaniu"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "Encrypt system"
-msgstr "Klucz szyfrowania"
+msgstr "Zaszyfruj system"
 
 #: tmp/autopart.glade.h:2
 msgid ""
@@ -7061,24 +7070,20 @@ msgid "%(instkey)s:"
 msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>CHAP _Password:</b>"
-msgstr "<b>_Hasło:</b>"
+msgstr "<b>_Hasło CHAP:</b>"
 
 #: tmp/iscsi-config.glade.h:2
-#, fuzzy
 msgid "<b>CHAP _Username:</b>"
-msgstr "<b>Nazwa _użytkownika:</b>"
+msgstr "<b>Nazwa _użytkownika CHAP:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>_Hasło:</b>"
+msgstr "<b>Odwrotne h_asło CHAP:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>Nazwa _użytkownika:</b>"
+msgstr "<b>Odwrotna _nazwa użytkownika CHAP:</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
@@ -7093,19 +7098,20 @@ msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
 msgstr ""
+"Dodaj to długie hasła dla wszystkich istniejących zaszyfrowanej urządzeń, "
+"aby ułatwić proces uruchamiania"
 
 #: tmp/lukspassphrase.glade.h:2
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "Potwierdź przywrócenie"
+msgstr "Potwierdź długie hasło:"
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "Podaj długie hasło dla zaszyfrowanej partycji"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase:"
-msgstr ""
+msgstr "Podaj długie hasło:"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7336,13 +7342,12 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Czas środkowy - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Perry County"
-msgstr "Czas środkowy - Indiana - okręg Starke"
+msgstr "Czas środkowy - Indiana - okręg Perry"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
-msgstr "Czas środkowy - Indiana - okręg Starke"
+msgstr "Czas środkowy - Indiana - okręg Pike"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
@@ -7394,9 +7399,8 @@ msgid "Dornod, Sukhbaatar"
 msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Dumont-d'Urville Station, Terre Adelie"
-msgstr "Dumont-d'Urville Base, Terre Adelie"
+msgstr "Stacja Dumont-d'Urville, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
@@ -7420,13 +7424,12 @@ msgid "Eastern Time - Indiana - Crawford County"
 msgstr "Czas wschodni - Indiana - okręg Crawford"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Daviess, Dubois, Knox & Martin Counties"
-msgstr "Czas środkowy - Indiana - okręgi Daviess, Dubois, Knox, Martin i Perry"
+msgstr "Czas środkowy - Indiana - okręgi Daviess, Dubois, Knox i Martin"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Pulaski County"
-msgstr "Czas wschodni - Indiana - okręg Starke"
+msgstr "Czas wschodni - Indiana - okręg Pulaski"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
@@ -7677,9 +7680,8 @@ msgid "Mountain Time - west Northwest Territories"
 msgstr "Czas górski - zachodnie Terytoria Północno Zachodnie"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mountain Time - west Nunavut"
-msgstr "Czas środkowy - zachodni Nunavut"
+msgstr "Czas górski - zachodni Nunavut"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
@@ -7746,9 +7748,8 @@ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Rondonia"
-msgstr "Zachodnia Para, Rondonia"
+msgstr "Rondonia"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -7777,9 +7778,8 @@ msgid "San Juan (SJ)"
 msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "San Luis (SL)"
-msgstr "San Juan (SJ)"
+msgstr "San Luis (SL)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
@@ -7843,7 +7843,7 @@ msgstr "Zachodnia Amazonia"
 
 #. generated from zone.tab
 msgid "W Para"
-msgstr ""
+msgstr "Zachodnie Para"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -7862,7 +7862,6 @@ msgid "Western Australia - most locations"
 msgstr "Zachodnia Australia - większość lokalizacji"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Zaporozh'ye, E Lugansk / Zaporizhia, E Luhansk"
 msgstr "Zaporoże, wschodni Lugańsk"
 
@@ -7904,10 +7903,9 @@ msgid "most locations"
 msgstr "większość lokalizacji"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF)"
 msgstr ""
-"większość lokalizacji (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+"większość lokalizacji (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
@@ -8148,60 +8146,3 @@ msgstr "walijski"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zuluski"
-
-#~ msgid ""
-#~ "The partition table on device %s was unreadable. To create new partitions "
-#~ "it must be initialized, causing the loss of ALL DATA on this drive.\n"
-#~ "\n"
-#~ "This operation will override any previous installation choices about "
-#~ "which drives to ignore.\n"
-#~ "\n"
-#~ "Would you like to initialize this drive, erasing ALL DATA?"
-#~ msgstr ""
-#~ "Tablica partycji na urządzeniu %s jest nieczytelna. Aby utworzyć nowe "
-#~ "partycje, należy ją zainicjować, co spowoduje utratę WSZYSTKICH DANYCH na "
-#~ "tym dysku.\n"
-#~ "\n"
-#~ "Operacja ta zastępuje wszystkie wcześniejsze decyzje dotyczące tego, "
-#~ "które dyski mają zostać zignorowane.\n"
-#~ "\n"
-#~ "Czy chcesz zainicjować ten dysk, usuwając WSZYSTKIE DANE?"
-
-#~ msgid "Netmask"
-#~ msgstr "Maska sieci"
-
-#~ msgid ""
-#~ "To install the full set of supported packages included in your "
-#~ "subscription, please enter your Installation Number"
-#~ msgstr ""
-#~ "Aby zainstalować pełny zestaw obsługiwanych pakietów zawartych w "
-#~ "subskrypcji, podaj numer instalacji"
-
-#~ msgid ""
-#~ "If you're unable to locate the Installation Number, consult http://www."
-#~ "redhat.com/apps/support/in.html.\n"
-#~ "\n"
-#~ "If you skip:\n"
-#~ "* You may not get access to the full set of packages included in your "
-#~ "subscription.\n"
-#~ "* It may result in an unsupported/uncertified installation of Red Hat "
-#~ "Enterprise Linux.\n"
-#~ "* You will not get software and security updates for packages included in "
-#~ "your subscription."
-#~ msgstr ""
-#~ "Jeśli nie możesz znaleźć numeru instalacji, skontaktuj się z http://www."
-#~ "redhat.com/apps/support/in.html.\n"
-#~ "\n"
-#~ "Jeśli to pominiesz:\n"
-#~ "* Możesz nie mieć dostępu do pełnego zestawu pakietów zawartych w "
-#~ "subskrypcji.\n"
-#~ "* Instalacja Red Hat Enterprise Linuksa będzie nieobsługiwana/"
-#~ "niecertyfikowana.\n"
-#~ "* Nie otrzymasz aktualizacji oprogramowania i bezpieczeństwa dla pakietów "
-#~ "niezawartych w subskrypcji."
-
-#~ msgid "Jan Mayen"
-#~ msgstr "Jan Mayen"
-
-#~ msgid "Svalbard"
-#~ msgstr "Svalbard"
