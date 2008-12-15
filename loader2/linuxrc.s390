@@ -60,6 +60,24 @@ checkipv4()
     return $?
 }
 
+checkdns()
+{
+    dns=$1
+    # DNS syntax is addr1:addr2:addr3 so first split by ":"
+    dnslist=$(echo $dns |  awk -F ':' '{i=1; while (i<=NF) {print $i; i=i+1}}')
+    found=0
+    for i in $dnslist; do
+        # note: only support ipv4 DNS currently,
+        # since both ipv6 address and DNS= parameter can contain ":"
+        checkipv4 $i
+        [ $? -eq 1 ] && return 1
+        # track whether we've found at least one valid IP
+        found=1
+    done
+    [ $found -eq 1 ] && return 0
+    return 1
+}
+
 doshutdown()
 {
 	 exec /sbin/shutdown
@@ -457,13 +475,29 @@ route add default gw $GATEWAY dev $DEVICE 2>/dev/null
 # BH FIXME: Workaround for manual MACADDR, need ping to update arp table
 ping -c 1 $GATEWAY > /dev/null
 
-if [ -z "$DNS" ]; then
-	echo $"Enter your DNS server(s), separated by colons (:):"
+# DNS is optional, but if specified it must be correct
+if [ -n "$DNS" ]; then
+   checkdns $DNS
+   ret=$?
+fi
+if [ -z "$DNS" ] || [ $ret -ne 0 ]; then
+	echo $"Enter your DNS server(s), separated by colons (:)"
+	echo $"Leave this blank and press enter to skip"
 	read DNS
+   checkdns $DNS
+   ret=$?
+   while [ -n "$DNS" ] && [ $ret -ne 0 ]; do
+     echo -n "Invalid DNS address format. "
+	  echo $"Enter your DNS server(s), separated by colons (:)"
+	  echo $"Leave this blank and press enter to skip"
+     read DNS
+     checkdns $DNS
+     ret=$?
+   done
 fi
 if [ -z "$DNS" ]; then
-	echo $"You might encounter problems without a nameserver, especially"
-	echo $"with FTP installs"
+	echo $"WARNING: You might encounter problems without a nameserver,"
+	echo $"especially with FTP installs"
 fi
 
 if [ -n "$DNS" -a -z "$SEARCHDNS" ]; then
