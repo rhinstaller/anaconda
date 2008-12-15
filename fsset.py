@@ -1340,6 +1340,11 @@ MAILADDR root
 
 	if bootDev.getName() == "RAIDDevice":
             ret['boot'] = (bootDev.device, N_("RAID Device"))
+            try:
+                # we won't have this on zFCP-only zSeries systems
+                ret['mbr'] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
+            except:
+                pass
             return ret
 
         if iutil.getPPCMacGen() == "NewWorld":

@@ -85,7 +85,8 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
             log("MBR not suitable as boot device; installing to partition")
             bl.defaultDevice = "boot"
         bl.setDevice(choices[bl.defaultDevice][0])
-    elif choices and choices.has_key("mbr"):
+    elif choices and choices.has_key("mbr") and not \
+         (choices.has_key("boot") and choices["boot"][1] == N_("RAID Device")):
         bl.setDevice(choices["mbr"][0])
     elif choices and choices.has_key("boot"):
         bl.setDevice(choices["boot"][0])
