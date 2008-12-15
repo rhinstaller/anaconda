@@ -600,9 +600,13 @@ class AnacondaYum(YumSorter):
         if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repo.repoList:
                 repo = AnacondaYumRepo(ksrepo.name)
-                repo.baseurl = [ ksrepo.baseurl ]
                 repo.mirrorlist = ksrepo.mirrorlist
                 repo.name = ksrepo.name
+
+                if not ksrepo.baseurl:
+                    repo.baseurl = []
+                else:
+                    repo.baseurl = [ ksrepo.baseurl ]
 
                 if ksrepo.cost:
                     repo.cost = ksrepo.cost
