@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.165
+Version: 11.1.2.166
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Dec 16 2008 Joel Granados <jgranado@redhat.com> 11.1.2.166-1
+- Load the raid45 modules at init time (jgranado).
+  Related: rhbz#475385
+- Make sure the raid45 modules are in the images (jgranado).
+  Related: rhbz#475385
+
 * Mon Dec 15 2008 David Cantrell <dcantrell@redhat.com> 11.1.2.165-1
 - Final translations for instnum text (clumens)
   Related: rhbz#474375
