@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.166
+Version: 11.1.2.167
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Dec 17 2008 Joel Granados <jgranado@redhat.com> 11.1.2.167-1
+- Fix anaconda build (hdegoede).
+  Related: rhbz:#476739
+
 * Tue Dec 16 2008 Joel Granados <jgranado@redhat.com> 11.1.2.166-1
 - Load the raid45 modules at init time (jgranado).
   Related: rhbz#475385
