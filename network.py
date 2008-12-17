@@ -677,14 +677,9 @@ class Network:
                 domainname = None
 
             localline = "localhost.localdomain localhost"
-            if not ip or not fqdn:
-                # There is no ip or no fqdn, tie it to 127.0.0.1.
-                if fqdn:
-                    # add fqdn to 127.0.0.1
-                    localline += " " + fqdn
-                if hostname and hostname != "localhost":
-                    # add short hostname to 127.0.0.1
-                    localline += " " + hostname
+            if not ip and (hostname and hostname != "localhost"):
+                # add short hostname to 127.0.0.1
+                localline += " " + hostname
 
             f.write("# Do not remove the following line, or various programs\n")
             f.write("# that require network functionality will fail.\n")
