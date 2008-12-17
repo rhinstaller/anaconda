@@ -576,8 +576,6 @@ class Network:
             if (bootproto == 'dhcp' and self.hostname and
                 self.overrideDHCPhostname):
                 f.write("DHCP_HOSTNAME=%s\n" %(self.hostname,))
-            if dev.get('DHCPCLASS'):
-                f.write("DHCP_CLASSID=%s\n" % dev.get('dhcpclass'))
 
             if dev.get('MTU') and dev.get('MTU') != 0:
                 f.write("MTU=%s\n" % dev.get('MTU'))
@@ -613,6 +611,15 @@ class Network:
 
                 destkey = "%s/keys-%s" % (netscripts, device,)
                 shutil.move(newkey, destkey)
+
+            # /etc/dhclient-DEVICE.conf
+            dhclientconf = '/etc/dhclient-' + device + '.conf'
+            if os.path.isfile(dhclientconf):
+                destdhclientconf = '%s%s' % (instPath, dhclientconf,)
+                try:
+                    shutil.copy(dhclientconf, destdhclientconf)
+                except:
+                    log.warning("unable to copy %s to target system" % (dhclientconf,))
 
         # /etc/sysconfig/network
         if not os.path.isfile(destnetwork):

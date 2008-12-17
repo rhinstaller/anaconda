@@ -231,7 +231,8 @@ def setFileCons(anaconda):
                  "/etc/mdadm.conf", "/etc/hosts", "/etc/sysconfig/network",
                  "/etc/udev/rules.d/70-persistent-net.rules",
                  "/root/install.log", "/root/install.log.syslog",
-                 "/etc/shadow", "/etc/shadow-", "/etc/gshadow"]
+                 "/etc/shadow", "/etc/shadow-", "/etc/gshadow"] + \
+                glob.glob('/etc/dhclient-*.conf')
 
         vgs = []
         for entry in anaconda.id.partitions.requests:
