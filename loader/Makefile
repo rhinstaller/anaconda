@@ -39,9 +39,9 @@ CFLAGS += $(shell pkg-config --cflags libnl-1)
 # NetworkManager
 CFLAGS += $(shell pkg-config --cflags NetworkManager)
 
-# D-Bus
-LIBS   += $(shell pkg-config --libs dbus-1)
-CFLAGS += $(shell pkg-config --cflags dbus-1)
+# libnm-glib
+CFLAGS += $(shell pkg-config --cflags libnm_glib)
+LIBS   += $(shell pkg-config --libs libnm_glib)
 
 ifeq (1, $(USESELINUX))
 LIBS += -lselinux -lsepol
