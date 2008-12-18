@@ -2,13 +2,13 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.58
+Version: 11.5.0.0
 Release: 1
 License: GPLv2+
 Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
 
-Source0: anaconda-%{version}.tar.bz2
+Source0: %{name}-%{version}.tar.bz2
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -206,6 +206,94 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 18 2008 David Cantrell <dcantrell@redhat.com> - 11.5.0.0-1
+- Reduce direct D-Bus calls in isys/iface.c. (dcantrell)
+- Allow 'ks' to function as it once did (#471812) (dcantrell)
+- Fix telnet install support (#471082) (dcantrell)
+- Call 'udevadm settle' instead of 'udevsettle'. (dcantrell)
+- When using anaconda with kickstart file with UI mode - do not show the VNC
+  question (#476548) (msivak)
+- Check error from asprintf() correctly for dhcpclass handling. (dcantrell)
+- Use libnm_glib in net.c:get_connection() (dcantrell)
+- Add libnm_glib CFLAGS and LIBS to loader's Makefile. (dcantrell)
+- BR NetworkManager-glib-devel. (dcantrell)
+- Only write the short hostname to the localhost line (#474086) (dcantrell)
+- Updated Tajik Translation - Victor Ibragimov (victor.ibragimov)
+- Copy /etc/dhclient-DEV.conf file to target system (#476364) (dcantrell)
+- Use macros for D-Bus paths (dcantrell)
+- Let X tell us when it's launched rather than just sleeping. (ajax)
+- When there's no baseurl, set a default of [] instead of [''] (#476208).
+  (clumens)
+- cracklib now raises exceptions on bad passwords (rzhou, #476312). (clumens)
+- Make sure ssh doesn't get duplicated in the open port list (#474937).
+  (clumens)
+- mdraid1: default to putting grub on partition instead of mbr (#217176)
+  (hdegoede)
+- Don't install the games group as part of office/productivity (#472324).
+  (clumens)
+- Don't dump encryption passphrases. (dlehman)
+- Write anacdump.txt upon receipt of SIGUSR2 (from clumens). (dlehman)
+- Use stacks instead of tracebacks in traceback handlers. (dlehman)
+- Unmount swap devices when migrating filesystems, then reactivate
+  (#473260). (clumens)
+- Handle both /dev/sr0 and sr0, since that's what cdromList gives (#475083).
+  (clumens)
+- In iface_ip2str(), make sure to advance to next item before continue.
+  (dcantrell)
+- We already have _GNU_SOURCE defined in Makefile.inc (dcantrell)
+- Remove XXX comment in net.c about GATEWAY (dcantrell)
+- Use strverscmp() from glibc in place of rpmvercmp() (dcantrell)
+- Remove readLine() function from loader/loadermisc.c (dcantrell)
+- Do not write SEARCH line to ifcfg-DEVICE file (#474858) (dcantrell)
+- Preserve existing network configuration files during install (#461550)
+  (dcantrell)
+- Send unique vendor class identifier unless user specifies one. (dcantrell)
+- Avoid tracebacks when filling in static network config fields (#474275)
+  (dcantrell)
+- Prevent network install when no network devices are found (#470144)
+  (dcantrell)
+- Remove markup from text before printing it in cmdline mode (#470253).
+  (clumens)
+- Move strip_markup() into iutil. (clumens)
+- Fix up plural forms header so that python doesn't blow up for us (katzj)
+- Change text to reflect Jesse's comments (katzj)
+- Add support for the Tajik language (#455963). (clumens)
+- Add a button to the UI to ignore all missing packages. (clumens)
+- First small eu.po transtation, just to be sure that the system is set up
+  OK. (mikel.paskual)
+- mini-wm: Turn on automatic window redirection. (ajax)
+- Better naming for LVM volume groups and logical volumes (#461682)
+  (dcantrell)
+- Partition requests can be None when populating the tree. (#474284)
+  (dlehman)
+- Say we are unable to configure the network interface (#467960) (dcantrell)
+- Match textw/network_text.py strings to iw/network_gui.py (#470145)
+  (dcantrell)
+- In addSnap(), check snapshots for data key before continuing (#433824)
+  (dcantrell)
+- Load FCP modules early for CD/DVD install (#184648) (dcantrell)
+- Update mk-s390-cdboot.c to work with large kernel images (#184648)
+  (dcantrell)
+- Make sure fstype exists before we try to test it (#473498). (clumens)
+- Updated a small correction in kn locale (svenkate)
+- Use modules.* files for finding modules of a type rather than modinfo
+  (katzj)
+- Make complete text mention updates (#244431) (katzj)
+- Make text for autopartitioning types clearer (#441350) (katzj)
+- Allow installing grub on the MBR if /boot is on mdraid (#217176) (hdegoede)
+- Fix some spelling errors in German translation (fabian)
+- Make the required media dialog less wordy (#469557). (clumens)
+- returnNewestByName now raises an error instead of returning [] (#472462).
+  (clumens)
+- Fix death on login of an OLPC on a live image (katzj)
+- Fix ld-*.so globbing for glibc-2.9 . (pjones)
+- Do not bring up network for non-remote kickstart locations (#471658)
+  (dcantrell)
+- Resolve dm-X devices returned by pvdisplay. (#448129) (dlehman)
+- More shell script syntax fixing (katzj)
+- Only bring up the network dialog on package failures if required
+  (#471502). (clumens)
+
 * Wed Nov 12 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.58-1
 - Add comps groups for new repos that are added (#470653) (katzj)
 - Support upgrades of systems whose rootfs is on an LV. (#471288) (dlehman)
