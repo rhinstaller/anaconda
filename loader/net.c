@@ -1172,7 +1172,7 @@ int writeEnabledNetInfo(iface_t *iface) {
             iface->vendorclass = "anaconda";
         } else {
             if (asprintf(&iface->vendorclass, "anaconda-%s %s %s",
-                         kv.sysname, kv.release, kv.machine)) {
+                         kv.sysname, kv.release, kv.machine) == -1 ) {
                 return 20;
             }
         }
