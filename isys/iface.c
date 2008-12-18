@@ -43,8 +43,10 @@
 #include <netlink/route/addr.h>
 #include <netlink/route/link.h>
 
+#include <glib.h>
 #include <dbus/dbus.h>
 #include <NetworkManager.h>
+#include <nm-client.h>
 
 #include "iface.h"
 #include "str.h"
@@ -446,99 +448,47 @@ int iface_have_in6_addr(struct in6_addr *addr6) {
 }
 
 /* Check if NM is already running */
-int is_nm_running(DBusConnection *connection, int *running, char **error_str)
-{
-    DBusError error;
-    DBusMessage *message, *reply;
-    const char *nm_service = NM_DBUS_SERVICE;
-    dbus_bool_t alive = FALSE;
+gboolean is_nm_running(void) {
+    gboolean running;
+    NMClient *client = NULL;
 
-    message = dbus_message_new_method_call("org.freedesktop.DBus",
-                                           "/org/freedesktop/DBus",
-                                           "org.freedesktop.DBus",
-                                           "NameHasOwner");
-    if (!message)
-        return 33;
+    g_type_init();
 
-    if (!dbus_message_append_args(message,
-                                  DBUS_TYPE_STRING, &nm_service,
-                                  DBUS_TYPE_INVALID)) {
-        dbus_message_unref(message);
-        return 34;
-    }
+    client = nm_client_new();
+    if (!client)
+        return FALSE;
 
-    dbus_error_init(&error);
-    reply = dbus_connection_send_with_reply_and_block(connection,
-                                                        message, 2000,
-                                                        &error);
-    if (!reply) {
-        if (dbus_error_is_set(&error)) {
-            *error_str = strdup(error.message);
-            dbus_error_free(&error);
-        }
-
-        dbus_message_unref(message);
-        return 35;
-    }
-
-    dbus_error_init(&error);
-    if (!dbus_message_get_args(reply, &error,
-                                DBUS_TYPE_BOOLEAN, &alive,
-                                DBUS_TYPE_INVALID)) {
-        if (dbus_error_is_set(&error)) {
-            *error_str = strdup(error.message);
-            dbus_error_free(&error);
-        }
-
-        dbus_message_unref(message);
-        dbus_message_unref(reply);
-        return 36;
-    }
-
-    *running = alive;
-
-    dbus_message_unref(message);
-    dbus_message_unref(reply);
-    return 0;
+    running = nm_client_get_manager_running(client);
+    g_object_unref(client);
+    return running;
 }
 
 /*
  * Wait for NetworkManager to appear on the system bus
  */
-int wait_for_nm(DBusConnection *connection, char **error_str) {
+int wait_for_nm(void) {
     int count = 0;
 
     /* send message and block until a reply or error comes back */
     while (count < 45) {
-        int running = 0, ret;
-
-        ret = is_nm_running(connection, &running, error_str);
-        if (ret != 0)
-            return ret;  /* error */
-        if (running)
-            return 0;  /* nm is alive */
+        if (is_nm_running())
+            return 0;
 
         sleep(1);
         count++;
     }
 
-    return 37;
+    return 1;
 }
 
 /*
  * Start NetworkManager -- requires that you have already written out the
  * control files in /etc/sysconfig for the interface.
  */
-int iface_start_NetworkManager(DBusConnection *connection, char **error) {
+int iface_start_NetworkManager(void) {
     pid_t pid;
-    int ret, running = 0;
-    char *ignore = NULL;
 
-    ret = is_nm_running(connection, &running, &ignore);
-    if (ignore)
-        free(ignore);
-
-    if (ret == 0 && running)
+    if (is_nm_running())
         return 0;  /* already running */
 
     /* Start NetworkManager */
@@ -562,7 +512,7 @@ int iface_start_NetworkManager(DBusConnection *connection, char **error) {
     } else if (pid == -1) {
         return 1;
     } else {
-        return wait_for_nm(connection, error);
+        return wait_for_nm();
     }
 
     return 0;

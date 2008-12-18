@@ -1781,10 +1781,6 @@ int main(int argc, char ** argv) {
 
     struct loaderData_s loaderData;
 
-    char *error_str = NULL;
-    DBusError error;
-    DBusConnection *connection = NULL;
-
     char *path;
     char * cmdLine = NULL;
     char * ksFile = NULL;
@@ -1950,21 +1946,8 @@ int main(int argc, char ** argv) {
     }
 
     /* Start NetworkManager now so it's always available to talk to. */
-    dbus_error_init(&error);
-    connection = dbus_bus_get(DBUS_BUS_SYSTEM, &error);
-    if (connection == NULL) {
-        if (dbus_error_is_set(&error)) {
-            logMessage(DEBUGLVL, "%s (%d): %s: %s", __func__,
-                       __LINE__, error.name, error.message);
-            dbus_error_free(&error);
-        }
-    } else {
-        rc = iface_start_NetworkManager(connection, &error_str);
-        if (rc != 0) {
-            logMessage(INFO, "failed to start NetworkManager (%d): error %d (%s)",
-                       __LINE__, rc, error_str ? error_str : "unknown");
-        }
-    }
+    if (iface_start_NetworkManager())
+        logMessage(INFO, "failed to start NetworkManager");
 
     if (!FL_CMDLINE(flags))
         startNewt();

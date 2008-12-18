@@ -34,10 +34,6 @@ endif
 PYMODULES = _isys.so
 SUBDIRS = 
 
-# D-Bus
-LOADLIBES += $(shell pkg-config --libs dbus-1)
-CFLAGS    += $(shell pkg-config --cflags dbus-1)
-
 # NetworkManager
 LOADLIBES += $(shell pkg-config --libs NetworkManager)
 CFLAGS    += $(shell pkg-config --cflags NetworkManager)
@@ -45,6 +41,10 @@ CFLAGS    += $(shell pkg-config --cflags NetworkManager)
 # libnl
 LOADLIBES += $(shell pkg-config --libs libnl-1)
 CFLAGS    += $(shell pkg-config --cflags libnl-1)
+
+# libnm-glib
+LOADLIBES += $(shell pkg-config --libs libnm_glib)
+CFLAGS    += $(shell pkg-config --cflags libnm_glib)
 
 ifeq ($(ARCH),ppc)
 OBJECTS += minifind.o
