@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.167
+Version: 11.1.2.168
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 18 2008 Joel Granados <jgranado@redhat.com> 11.1.2.168-1
+-  Make anaconda work with new API change in YUM (jgranado)
+   Resolves: rhbz:#476957
+
 * Wed Dec 17 2008 Joel Granados <jgranado@redhat.com> 11.1.2.167-1
 - Fix anaconda build (hdegoede).
   Related: rhbz:#476739
