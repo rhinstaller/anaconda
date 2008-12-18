@@ -230,7 +230,7 @@ int beTelnet(void) {
 }
 
 void startTelnetd(struct loaderData_s * loaderData) {
-    char ret[INET_ADDRSTRLEN+1];
+    char *ipaddr = NULL;
     iface_t iface;
 
     iface_init_iface_t(&iface);
@@ -240,12 +240,16 @@ void startTelnetd(struct loaderData_s * loaderData) {
         return;
     }
 
-    if (iface.ipaddr.s_addr) {
-        inet_ntop(AF_INET, &iface.ipaddr, ret, INET_ADDRSTRLEN);
-        logMessage(INFO, "going to beTelnet for %s", ret);
-        if (!beTelnet())
-            flags |= LOADER_FLAGS_TEXT | LOADER_FLAGS_NOSHELL;
+    ipaddr = iface_ip2str(iface.device, AF_INET);
+    if (ipaddr == NULL) {
+        logMessage(ERROR, "%s (%d): no IP address found for %s",
+                   __func__, __LINE__, iface.device);
+        return;
     }
+
+    logMessage(INFO, "going to beTelnet for %s", ipaddr);
+    if (!beTelnet())
+        flags |= LOADER_FLAGS_TEXT | LOADER_FLAGS_NOSHELL;
 
     return;
 }
