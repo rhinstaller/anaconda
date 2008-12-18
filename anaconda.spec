@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.0
+Version: 11.5.0.1
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -206,6 +206,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 18 2008 David Cantrell <dcantrell@redhat.com> - 11.5.0.1-1
+- Remove plural forms from po/tg.mo (katzj)
+
 * Thu Dec 18 2008 David Cantrell <dcantrell@redhat.com> - 11.5.0.0-1
 - Reduce direct D-Bus calls in isys/iface.c. (dcantrell)
 - Allow 'ks' to function as it once did (#471812) (dcantrell)
