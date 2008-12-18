@@ -75,7 +75,7 @@ static int detectHardware() {
     logMessage(DEBUGLVL, "waiting for hardware to initialize");
 
     if (!(child = fork())) {
-        char *args[] = { "/sbin/udevsettle", "udevsettle", NULL, NULL };
+        char *args[] = { "/sbin/udevadm", "settle", NULL, NULL };
         int fd = open("/dev/tty3", O_RDWR);
 
         dup2(fd, 0);
@@ -84,13 +84,13 @@ static int detectHardware() {
         close(fd);
 
         if (timeout) {
-            if (asprintf(&args[2],"--timeout=%d",timeout) == -1) {
+            if (asprintf(&args[2], "--timeout=%d", timeout) == -1) {
                 logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
         }
 
-        rc = execv("/sbin/udevsettle",args);
+        rc = execv("/sbin/udevadm", args);
         _exit(1);
     }
 
