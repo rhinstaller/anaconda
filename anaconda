@@ -292,7 +292,7 @@ def setVNCFromKickstart(opts):
             vncS.vncconnectport = handler.vnc.port
 
     from pykickstart.constants import DISPLAY_MODE_GRAPHICAL
-    if handler.displaymode.displayMode!=DISPLAY_MODE_GRAPHICAL and handler.displaymode.displayMode!=None:
+    if handler.displaymode.displayMode!=None:
             flags.vncquestion = False
 
     return handler.vnc
