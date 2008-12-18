@@ -35,6 +35,10 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <glib.h>
+#include <nm-client.h>
+#include <nm-device.h>
+#include <nm-dhcp4-config.h>
 
 #include "copy.h"
 #include "loader.h"
@@ -369,8 +373,11 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
     char * chk = NULL, *ip = NULL;
-    int failed = 0;
+    int failed = 0, i = 0;
     iface_t iface;
+    NMClient *client = NULL;
+    NMState state;
+    const GPtrArray *devices;
 
     if (kickstartNetworkUp(loaderData, &iface)) {
         logMessage(ERROR, "unable to bring up network");
@@ -380,43 +387,91 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     /* if they just did 'linux ks', they want us to figure it out from
      * the dhcp/bootp information
      */
-/* XXX: fixme NetworkManager integration */
-/*
-    if (url == NULL) {
-        char ret[47];
-        ip_addr_t *tip;
+    g_type_init();
 
-        if (!(netCfg.dev.set & PUMP_INTFINFO_HAS_NEXTSERVER)) {
+    client = nm_client_new();
+    if (!client) {
+        logMessage(CRITICAL, "%s (%d): failure creating NM proxy",
+                   __func__, __LINE__);
+        return 1;
+    }
+
+    state = nm_client_get_state(client);
+    if (state != NM_STATE_CONNECTED) {
+        logMessage(ERROR, "%s (%d): no active network devices",
+                   __func__, __LINE__);
+        g_object_unref(client);
+        return 1;
+    }
+
+    devices = nm_client_get_devices(client);
+    for (i = 0; i < devices->len; i++) {
+        NMDevice *candidate = g_ptr_array_index(devices, i);
+        const char *devname = nm_device_get_iface(candidate);
+        NMDHCP4Config *dhcp = NULL;
+        const char *server_name = NULL;
+        const char *filename = NULL;
+        struct in_addr addr;
+        char nextserver[INET_ADDRSTRLEN+1];
+
+        if (nm_device_get_state(candidate) != NM_DEVICE_STATE_ACTIVATED)
+            continue;
+
+        if (strcmp(iface.device, devname))
+            continue;
+
+        dhcp = nm_device_get_dhcp4_config(candidate);
+        if (!dhcp) {
+            logMessage(ERROR, "no boot options received by DHCP");
+            continue;
+        }
+
+        server_name = nm_dhcp4_config_get_one_option(dhcp, "server_name");
+        if (!server_name) {
             logMessage(ERROR, "no bootserver was found");
+            g_object_unref(client);
             return 1;
         }
 
-        tip = &(netCfg.dev.nextServer);
-        if (!(netCfg.dev.set & PUMP_INTFINFO_HAS_BOOTFILE)) {
-            inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-
-            if (asprintf(&url, "%s:%s", ret, "/kickstart/") == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
+        /* 'server_name' may be a hostname or an IPv4 address */
+        memset(&nextserver, '\0', sizeof(nextserver));
+        if (inet_pton(AF_INET, server_name, &addr) >= 1) {
+            strcpy(nextserver, server_name);
+        } else {
+            struct hostent *he = gethostbyname(server_name);
+            if (he != NULL) {
+                if (inet_ntop(AF_INET, he->h_addr_list[0],
+                              nextserver, INET_ADDRSTRLEN) == NULL) {
+                    memset(&nextserver, '\0', sizeof(nextserver));
+                }
             }
+        }
+
+        filename = nm_dhcp4_config_get_one_option(dhcp, "filename");
+        if (filename == NULL) {
+             if (asprintf(&url, "%s:/kickstart/", nextserver) == -1) {
+                 logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                 abort();
+             }
 
             logMessage(ERROR, "bootp: no bootfile received");
         } else {
-            inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+             if (asprintf(&url, "%s:%s", nextserver, filename) == -1) {
+                 logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                 abort();
+             }
 
-            if (asprintf(&url, "%s:%s", ret, netCfg.dev.bootFile) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-
-            logMessage(INFO, "bootp: bootfile is %s", netCfg.dev.bootFile);
+            logMessage(INFO, "bootp: bootfile is %s", filename);
         }
+
+        break;
     }
-*/
+
+    g_object_unref(client);
 
     /* get the IP of the target system */
     if ((ip = iface_ip2str(loaderData->netDev, AF_INET)) == NULL) {
-        logMessage(ERROR, "nl_ip2str returned NULL");
+        logMessage(ERROR, "iface_ip2str returned NULL");
         return 1;
     }
 
