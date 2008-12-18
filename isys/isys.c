@@ -679,7 +679,7 @@ static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args) {
     /* put the size in 1k blocks */
     size >>= 1;
 
-    if (lseek64(fd, ((off64_t) 1024) * (off64_t) MD_NEW_SIZE_BLOCKS(size), SEEK_SET) < 0) {
+    if (lseek64(fd, ((off64_t) 512) * (off64_t) MD_NEW_SIZE_SECTORS(size), SEEK_SET) < 0) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     } 
@@ -711,7 +711,7 @@ static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args) {
     /* put the size in 1k blocks */
     size >>= 1;
 
-    if (lseek64(fd, ((off64_t) 1024) * (off64_t) MD_NEW_SIZE_BLOCKS(size), SEEK_SET) < 0) {
+    if (lseek64(fd, ((off64_t) 512) * (off64_t) MD_NEW_SIZE_SECTORS(size), SEEK_SET) < 0) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     } 
@@ -749,7 +749,7 @@ static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args) {
     /* put the size in 1k blocks */
     size >>= 1;
 
-    if (lseek64(fd, ((off64_t) 1024) * (off64_t) MD_NEW_SIZE_BLOCKS(size), SEEK_SET) < 0) {
+    if (lseek64(fd, ((off64_t) 512) * (off64_t) MD_NEW_SIZE_SECTORS(size), SEEK_SET) < 0) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     } 
