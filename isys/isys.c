@@ -98,13 +98,11 @@ static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
 static PyObject * doLoChangeFd(PyObject * s, PyObject * args);
 static PyObject * doDdFile(PyObject * s, PyObject * args);
 static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args);
-static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args);
 static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
 static PyObject * doResetResolv(PyObject * s, PyObject * args);
 static PyObject * doLoadKeymap(PyObject * s, PyObject * args);
 static PyObject * doClobberExt2 (PyObject * s, PyObject * args);
-static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args);
 static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
 static PyObject * doExt2HasJournal(PyObject * s, PyObject * args);
 static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
@@ -137,10 +135,8 @@ static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
     { "e2dirty", (PyCFunction) doExt2Dirty, METH_VARARGS, NULL },
     { "e2hasjournal", (PyCFunction) doExt2HasJournal, METH_VARARGS, NULL },
-    { "e2fslabel", (PyCFunction) doReadE2fsLabel, METH_VARARGS, NULL },
     { "e2fsclobber", (PyCFunction) doClobberExt2, METH_VARARGS, NULL },
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
-    { "getraidsb", (PyCFunction) doGetRaidSuperblock, METH_VARARGS, NULL },
     { "wiperaidsb", (PyCFunction) doWipeRaidSuperblock, METH_VARARGS, NULL },
     { "getraidchunk", (PyCFunction) doGetRaidChunkSize, METH_VARARGS, NULL },
     { "lochangefd", (PyCFunction) doLoChangeFd, METH_VARARGS, NULL },
@@ -422,45 +418,6 @@ static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args) {
     return Py_None;
 }
 
-static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args) {
-    int fd;
-    unsigned long size;
-    mdp_super_t sb;
-    char uuid[36];
-
-    if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
-
-    if (ioctl(fd, BLKGETSIZE, &size)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    /* put the size in 1k blocks */
-    size >>= 1;
-
-    if (lseek64(fd, ((off64_t) 512) * (off64_t) MD_NEW_SIZE_SECTORS(size), SEEK_SET) < 0) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    } 
-
-    if (read(fd, &sb, sizeof(sb)) != sizeof(sb)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    if (sb.md_magic != MD_SB_MAGIC) {
-	PyErr_SetString(PyExc_ValueError, "bad md magic on device");
-	return NULL;
-    }
-
-    sprintf(uuid, "%08x:%08x:%08x:%08x", sb.set_uuid0, sb.set_uuid1,
-            sb.set_uuid2, sb.set_uuid3);
-
-    return Py_BuildValue("(iisiiii)", sb.major_version, sb.minor_version,
-		         uuid, sb.level, sb.nr_disks, sb.raid_disks,
-			 sb.md_minor);
-}
-
 static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args) {
     int fd;
     unsigned long size;
@@ -571,30 +528,6 @@ static PyObject * doClobberExt2 (PyObject * s, PyObject * args) {
 
     Py_INCREF(Py_None);
     return Py_None;
-}
-
-static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args) {
-    char * device;
-    ext2_filsys fsys;
-    char buf[50];
-    int rc;
-
-    if (!PyArg_ParseTuple(args, "s", &device)) return NULL;
-
-    rc = ext2fs_open(device, EXT2_FLAG_FORCE, 0, 0, unix_io_manager,
-		     &fsys);
-    if (rc) {
-	Py_INCREF(Py_None);
-	return Py_None;
-    }
-
-    memset(buf, 0, sizeof(buf));
-    strncpy(buf, fsys->super->s_volume_name, 
-	    sizeof(fsys->super->s_volume_name));
-
-    ext2fs_close(fsys);
-
-    return Py_BuildValue("s", buf); 
 }
 
 static PyObject * doExt2Dirty(PyObject * s, PyObject * args) {
