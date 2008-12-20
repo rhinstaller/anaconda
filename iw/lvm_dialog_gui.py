@@ -967,7 +967,7 @@ class VolumeGroupEditor:
 	    self.dialog.destroy()
 	self.dialog = None
 
-    def __init__(self, partitions, diskset, intf, parent, origvgrequest, isNew = 0):
+    def __init__(self, anaconda, partitions, diskset, intf, parent, origvgrequest, isNew = 0):
 	self.partitions = partitions
 	self.diskset = diskset
 	self.origvgrequest = origvgrequest
@@ -1021,7 +1021,7 @@ class VolumeGroupEditor:
             if not self.isNew:
                 self.volnameEntry.set_text(self.origvgrequest.volumeGroupName)
             else:
-                self.volnameEntry.set_text(lvm.createSuggestedVGName(self.partitions))
+                self.volnameEntry.set_text(lvm.createSuggestedVGName(self.partitions, anaconda.id.network))
         else:
             lbl = createAlignedLabel(_("Volume Group Name:"))
             self.volnameEntry = gtk.Label(self.origvgrequest.volumeGroupName)

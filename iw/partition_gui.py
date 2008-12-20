@@ -1146,7 +1146,8 @@ class PartitionWindow(InstallWindow):
 	return 1
 
     def editLVMVolumeGroup(self, origvgrequest, isNew = 0):
-	vgeditor = lvm_dialog_gui.VolumeGroupEditor(self.partitions,
+	vgeditor = lvm_dialog_gui.VolumeGroupEditor(self.anaconda,
+						    self.partitions,
 						    self.diskset,
 						    self.intf, self.parent,
 						    origvgrequest, isNew)

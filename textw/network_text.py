@@ -59,7 +59,7 @@ class HostnameWindow:
                 return INSTALL_BACK
 
             hostname = string.strip(hostEntry.value())
-            neterrors = network.sanityCheckHostname(hostname)
+            herrors = network.sanityCheckHostname(hostname)
 
             if not hostname:
                 ButtonChoiceWindow(_("Error with Hostname"),
@@ -68,7 +68,7 @@ class HostnameWindow:
                                    buttons = [ _("OK") ])
                 continue
 
-            if neterrors is not None:
+            if herrors is not None:
                 ButtonChoiceWindow(_("Error with Hostname"),
                                     _("The hostname \"%s\" is not valid for the "
                                       "following reason:\n\n%s")

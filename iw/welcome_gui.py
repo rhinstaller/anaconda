@@ -19,6 +19,7 @@
 
 import gtk
 import gui
+import sys
 from iw_gui import *
 
 from constants import *
