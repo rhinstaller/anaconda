@@ -44,9 +44,11 @@
 #include <netlink/route/link.h>
 
 #include <glib.h>
-#include <dbus/dbus.h>
 #include <NetworkManager.h>
 #include <nm-client.h>
+#include <nm-device.h>
+#include <nm-ip4-config.h>
+#include <nm-setting-ip4-config.h>
 
 #include "iface.h"
 #include "str.h"
@@ -155,16 +157,15 @@ int _iface_redirect_io(char *device, int fd, int mode) {
  * inet_ntop()).  Return NULL for no match or error.
  */
 char *iface_ip2str(char *ifname, int family) {
-    char *ipaddr = NULL;
-    char *nm_iface = NM_DBUS_INTERFACE;
-    char *property = NULL;
-    char *device_path = NULL;
-    char *interface = NULL;
-    struct in_addr addr;
-    DBusConnection *connection = NULL;
-    DBusError error;
-    DBusMessage *message = NULL, *reply = NULL, *devreply = NULL;
-    DBusMessageIter iter, a_iter, d_iter, v_iter;
+    int i;
+    NMClient *client = NULL;
+    NMIP4Config *ip4config = NULL;
+    NMIP4Address *ipaddr = NULL;
+    NMDevice *candidate = NULL;
+    struct in_addr tmp_addr;
+    const GPtrArray *devices;
+    const char *iface;
+    char ipstr[INET_ADDRSTRLEN+1];
 
     if (ifname == NULL) {
         return NULL;
@@ -175,120 +176,48 @@ char *iface_ip2str(char *ifname, int family) {
         return NULL;
     }
 
-    dbus_error_init(&error);
-    connection = dbus_bus_get(DBUS_BUS_SYSTEM, &error);
-    if (connection == NULL) {
-        dbus_error_free(&error);
+    g_type_init();
+
+    client = nm_client_new();
+    if (!client) {
         return NULL;
     }
 
-    message = dbus_message_new_method_call(NM_DBUS_SERVICE,
-                                           NM_DBUS_PATH,
-                                           NM_DBUS_SERVICE,
-                                           "GetDevices");
-    if (!message) {
+    if (nm_client_get_state(client) != NM_STATE_CONNECTED) {
+        g_object_unref(client);
         return NULL;
     }
 
-    reply = dbus_connection_send_with_reply_and_block(connection,
-                                                      message,
-                                                      -1, &error);
-    dbus_message_unref(message);
-    if (!reply) {
-        return NULL;
-    }
+    devices = nm_client_get_devices(client);
+    for (i=0; i < devices->len; i++) {
+        candidate = g_ptr_array_index(devices, i);
+        iface = nm_device_get_iface(candidate);
 
-    dbus_message_iter_init(reply, &iter);
-    dbus_message_iter_recurse(&iter, &a_iter);
-
-    while (dbus_message_iter_get_arg_type(&a_iter) != DBUS_TYPE_INVALID) {
-        dbus_message_iter_get_basic(&a_iter, &device_path);
-
-        message = dbus_message_new_method_call(NM_DBUS_SERVICE,
-                                               device_path,
-                                               DBUS_INTERFACE_PROPERTIES,
-                                               "Get");
-        if (!message) {
-            return NULL;
-        }
-
-        property = "Interface";
-        if (!dbus_message_append_args(message,
-                                      DBUS_TYPE_STRING, &nm_iface,
-                                      DBUS_TYPE_STRING, &property,
-                                      DBUS_TYPE_INVALID)) {
-            dbus_message_unref(message);
-            return NULL;
-        }
-
-        devreply = dbus_connection_send_with_reply_and_block(connection,
-                                                             message,
-                                                             -1, &error);
-        dbus_message_unref(message);
-        if (!devreply) {
-            dbus_message_iter_next(&a_iter);
+        if (nm_device_get_state(candidate) != NM_DEVICE_STATE_ACTIVATED)
             continue;
+
+        if (!iface || strcmp(iface, ifname))
+            continue;
+
+        if (!(ip4config = nm_device_get_ip4_config(candidate)))
+            continue;
+
+        if (!(ipaddr = nm_ip4_config_get_addresses(ip4config)->data))
+            continue;
+
+        memset(&ipstr, '\0', sizeof(ipstr));
+        tmp_addr.s_addr = nm_ip4_address_get_address(ipaddr);
+
+        if (inet_ntop(AF_INET, &tmp_addr, ipstr, INET_ADDRSTRLEN) == NULL) {
+            g_object_unref(client);
+            return NULL;
         }
 
-        dbus_message_iter_init(devreply, &d_iter);
-        while (dbus_message_iter_get_arg_type(&d_iter) != DBUS_TYPE_INVALID) {
-            dbus_message_iter_recurse(&d_iter, &v_iter);
-            dbus_message_iter_get_basic(&v_iter, &interface);
-
-            if (!strcmp(ifname, interface)) {
-                message = dbus_message_new_method_call(NM_DBUS_SERVICE,
-                              device_path, DBUS_INTERFACE_PROPERTIES, "Get");
-                if (!message) {
-                    return NULL;
-                }
-
-                if (family == AF_INET) {
-                    property = "Ip4Address";
-                }
-
-                if (!dbus_message_append_args(message,
-                                              DBUS_TYPE_STRING, &nm_iface,
-                                              DBUS_TYPE_STRING, &property,
-                                              DBUS_TYPE_INVALID)) {
-                    dbus_message_unref(message);
-                    return NULL;
-                }
-
-                devreply = dbus_connection_send_with_reply_and_block(connection,
-                               message, -1, &error);
-                dbus_message_unref(message);
-                if (!devreply) {
-                    return NULL;
-                }
-
-                dbus_message_iter_init(devreply, &d_iter);
-                dbus_message_iter_recurse(&d_iter, &v_iter);
-                if (dbus_message_iter_get_arg_type(&v_iter)==DBUS_TYPE_UINT32) {
-                    memset(&addr, 0, sizeof(addr));
-                    dbus_message_iter_get_basic(&v_iter, &addr.s_addr);
-
-                    if ((ipaddr = malloc(INET_ADDRSTRLEN+1)) == NULL) {
-                        abort();
-                    }
-
-                    if (inet_ntop(family, &addr, ipaddr,
-                                  INET_ADDRSTRLEN) == NULL) {
-                        abort();
-                    }
-
-                    dbus_connection_unref(connection);
-                    return ipaddr;
-                }
-            }
-
-
-            dbus_message_iter_next(&d_iter);
-        }
-
-        dbus_message_iter_next(&a_iter);
+        g_object_unref(client);
+        return g_strdup(ipstr);
     }
 
-    dbus_connection_unref(connection);
+    g_object_unref(client);
     return NULL;
 }
 
