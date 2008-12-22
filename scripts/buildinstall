@@ -18,6 +18,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+die() {
+   [ -n "$TREEDIR" ] && rm -rf $TREEDIR
+   [ -n "$BUILDINSTDIR" ] && rm -rf $BUILDINSTDIR
+   [ -n "$yumconf" ] && rm -rf $yumconf
+   echo "Aborting buildinstall"
+   echo "$@"
+   exit 1
+}
+
 usage() {
 	echo "Usage: buildinstall --version <version> --product <product> --release <comment> [--output outputdir] [--discs <discstring>] <root>" >&2
 	exit 1
@@ -197,14 +206,14 @@ BUILDINSTALL=$BUILDINSTDIR/buildinstall
 if [ -n "$UPDATES" ]; then UPDATES="--updates $UPDATES"; fi
 
 echo "Building images..."
-$UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH $UPDATES --imgdir $TREEDIR/install $yumconf
+$UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH $UPDATES --imgdir $TREEDIR/install $yumconf || die "upd-instroot failed"
 
 echo "Writing .treeinfo file..."
 $MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --outfile=$OUTPUT/.treeinfo
 
 # FIXME: need to update mk-images to take the yumconf
 echo "Making images..."
-$MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BUILDARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf
+$MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BUILDARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
 
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL"  --outfile=$OUTPUT/.discinfo
