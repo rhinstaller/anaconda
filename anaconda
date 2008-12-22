@@ -578,9 +578,9 @@ class Anaconda:
         numNetDevs = isys.getNetworkDeviceCount()
 
         if self.methodstr is not None:
-            if (methodstr.startswith("http://") or \
-                methodstr.startswith("ftp://") or \
-                methodstr.startswith("nfs:")) and \
+            if (self.methodstr.startswith("http://") or \
+                self.methodstr.startswith("ftp://") or \
+                self.methodstr.startswith("nfs:")) and \
                numNetDevs == 0:
                 fail = True
         elif self.stage2 is not None:
