@@ -866,7 +866,7 @@ commandMap = {
         "poweroff": Reboot,
         "raid": Raid,
         "reboot": Reboot,
-        "repo": commands.repo.F8_Repo,
+        "repo": commands.repo.F11_Repo,
         "rescue": commands.rescue.F10_Rescue,
         "rootpw": RootPw,
         "selinux": SELinux,
