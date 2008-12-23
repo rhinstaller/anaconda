@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.1
+Version: 11.5.0.2
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -206,6 +206,14 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Dec 23 2008 David Cantrell <dcantrell@redhat.com> - 11.5.0.2-1
+- Require latest pykickstart for repo command (clumens)
+- Remove libdhcp* from scripts/upd-instroot (dcantrell)
+- methodstr -> self.methodstr (dcantrell)
+- Rewrite iface_ip2str() to use libnm-glib (dcantrell)
+- Fix a few syntax error caugh by pychecker (hdegoede)
+- Remove isys.e2fslabel() and isys.getraidsb() (dcantrell)
+
 * Thu Dec 18 2008 David Cantrell <dcantrell@redhat.com> - 11.5.0.1-1
 - Remove plural forms from po/tg.mo (katzj)
 
