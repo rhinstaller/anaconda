@@ -645,6 +645,7 @@ class Network:
             shutil.move(newnetwork, destnetwork)
 
         # /etc/hosts
+        domainname = None
         if not os.path.isfile(instPath + "/etc/hosts"):
             f = open(instPath + "/etc/hosts", "w")
 
