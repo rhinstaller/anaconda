@@ -27,7 +27,6 @@ from constants_text import *
 import network
 import isys
 import product
-import iutil
 import socket
 import subprocess
 

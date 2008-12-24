@@ -24,7 +24,6 @@
 
 import string
 import network
-import socket
 from snack import *
 from constants_text import *
 from constants import *
