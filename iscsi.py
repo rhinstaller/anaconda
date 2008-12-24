@@ -194,7 +194,7 @@ class iscsiTarget:
             # It is possible when we get here the events for the new devices
             # are not send yet, so sleep to make sure the events are fired
             time.sleep(1)
-            iutil.execWithRedirect("/sbin/udevsettle", [ ], 
+            iutil.execWithRedirect("/sbin/udevadm", [ "settle" ],
                                    stdout = "/dev/tty5", stderr="/dev/tty5")
 
         # we return True if there were any successful logins for our portal.

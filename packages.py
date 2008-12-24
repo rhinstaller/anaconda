@@ -147,7 +147,7 @@ def turnOnFilesystems(anaconda):
                 # to settle
                 time.sleep(1)
                 w = anaconda.intf.waitWindow(_("Activating"), _("Activating new partitions.  Please wait..."))
-                rc = iutil.execWithRedirect("udevsettle", [],
+                rc = iutil.execWithRedirect("/sbin/udevadm", [ "settle" ],
                                             stdout = "/dev/tty5",
                                             stderr = "/dev/tty5",
                                             searchPath = 1)
