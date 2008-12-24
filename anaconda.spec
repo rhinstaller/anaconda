@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.2
+Version: 11.5.0.3
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -206,6 +206,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Dec 23 2008 David Cantrell <dcantrell@redhat.com> - 11.5.0.3-1
+- Initialize domainname to None (#477831) (dcantrell)
+- Do not import unused modules. (dcantrell)
+- Call '/sbin/udevadm settle' instead of /sbin/udevsettle (dcantrell)
+
 * Tue Dec 23 2008 David Cantrell <dcantrell@redhat.com> - 11.5.0.2-1
 - Require latest pykickstart for repo command (clumens)
 - Remove libdhcp* from scripts/upd-instroot (dcantrell)
