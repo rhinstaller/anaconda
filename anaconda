@@ -584,7 +584,7 @@ class Anaconda:
                numNetDevs == 0:
                 fail = True
         elif self.stage2 is not None:
-            if stage2.startswith("cdrom://") and \
+            if self.stage2.startswith("cdrom://") and \
                not os.path.isdir("/mnt/source/Packages") and \
                numNetDevs == 0:
                 fail = True
