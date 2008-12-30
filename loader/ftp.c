@@ -645,7 +645,7 @@ static char *find_header (char *headers, char *to_find)
     if (asprintf(&searching_for, "\r\n%s:", to_find) == -1)
         return NULL;
 
-    if ((start = strstr(headers, searching_for)) == NULL) {
+    if ((start = strcasestr(headers, searching_for)) == NULL) {
         free(searching_for);    
         return NULL;
     }
