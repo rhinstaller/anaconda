@@ -31,7 +31,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define libbdevidver 5.1.2-1
 %define desktopfileutilsver 0.8
 %define e2fsver 1.41.0
-%define nmver 0.7.0
+%define nmver 1:0.7.0-1.git20090102
 %define dbusver 1.2.3
 %define createrepover 0.4.7
 %define yumutilsver 1.1.11-3
