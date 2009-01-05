@@ -33,6 +33,15 @@
 #include <sys/mount.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+/* FIXME Remove hack when: https://bugzilla.redhat.com/show_bug.cgi?id=478663
+   is resolved */
+/* Hack both __BIG_ENDIAN and __LITTLE_ENDIAN get defined by glibc, the
+   kernel headers we need do not like this! */
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+#undef __BIG_ENDIAN 
+#else
+#undef __LITTLE_ENDIAN
+#endif
 #include <asm/types.h>
 #include <limits.h>
 #include <linux/cdrom.h>

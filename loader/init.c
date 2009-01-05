@@ -61,7 +61,6 @@
 #endif
 
 #include <asm/types.h>
-#include <linux/cdrom.h>
 #include <linux/serial.h>
 
 #ifndef MS_REMOUNT
