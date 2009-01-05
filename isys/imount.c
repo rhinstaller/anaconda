@@ -158,27 +158,6 @@ int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
     return 0;
 }
 
-int doMultiMount(char *dev, char *where, char **fstypes, char *options, char **err) {
-    int retval = 0, i;
-
-    for (i = 0; fstypes[i]; i++) {
-        /* If we made a previous call to mount and it returned an error message,
-         * get rid of it now.  We only want to preserve the error from the last
-         * fstype.
-         */
-        if (err && *err && **err) {
-            free(*err);
-            *err = NULL;
-        }
-
-        retval = doPwMount(dev, where, fstypes[i], options, err);
-        if (!retval)
-            return retval;
-    }
-
-    return retval;
-}
-
 int mkdirChain(char * origChain) {
     char * chain;
     char * chptr;
