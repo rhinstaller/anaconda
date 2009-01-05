@@ -513,7 +513,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
         case UPD_LOAD:
             logMessage(INFO, "UPDATES device is %s", part);
 
-            if (doMultiMount(part, "/tmp/update-disk", ddFsTypes, "ro", NULL)) {
+            if (doPwMount(part, "/tmp/update-disk", "auto", "ro", NULL)) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to mount updates disk"));
                 stage = UPD_PROMPT;

@@ -76,7 +76,6 @@ int umountLoopback(char * mntpoint, char * device) {
 }
 
 int mountLoopback(char *fsystem, char *mntpoint, char *device) {
-    char *fstypes[] = {"iso9660", "ext2", "squashfs", "cramfs", "vfat", NULL};
     char *opts, *err = NULL;
 
     if (device == NULL) {
@@ -94,7 +93,7 @@ int mountLoopback(char *fsystem, char *mntpoint, char *device) {
         abort();
     }
 
-    if (doMultiMount(fsystem, mntpoint, fstypes, opts, &err)) {
+    if (doPwMount(fsystem, mntpoint, "auto", opts, &err)) {
         logMessage(ERROR, "failed to mount loopback device %s on %s as %s: %s",
                    device, mntpoint, fsystem, err);
         return LOADER_ERROR;
@@ -469,11 +468,10 @@ int copyFileAndLoopbackMount(int fd, char * dest, char * device, char * mntpoint
 int getFileFromBlockDevice(char *device, char *path, char * dest) {
     int rc;
     char file[4096];
-    char *fstypes[] = {"vfat", "ext2", "iso9660", NULL};
 
     logMessage(INFO, "getFileFromBlockDevice(%s, %s)", device, path);
 
-    if (doMultiMount(device, "/tmp/mnt", fstypes, "ro", NULL)) {
+    if (doPwMount(device, "/tmp/mnt", "auto", "ro", NULL)) {
         logMessage(ERROR, "failed to mount /dev/%s: %m", device);
         return 2;
     }

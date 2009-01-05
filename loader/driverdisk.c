@@ -58,8 +58,6 @@ extern uint64_t flags;
 static char * driverDiskFiles[] = { "modinfo", "modules.dep", 
                                     "modules.cgz", "modules.alias", NULL };
 
-char *ddFsTypes[] = {"vfat", "ext2", "iso9660", NULL};
-
 static int verifyDriverDisk(char *mntpt) {
     char ** fnPtr;
     char file[200];
@@ -303,7 +301,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             }
 
             logMessage(INFO, "trying to mount %s as partition", part);
-            if (doMultiMount(part, "/tmp/dpart", ddFsTypes, "ro", NULL)) {
+            if (doPwMount(part, "/tmp/dpart", "auto", "ro", NULL)) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to mount partition."));
                 stage = DEV_PART;
@@ -369,7 +367,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             dir = 1;
 
             logMessage(INFO, "trying to mount %s", device);
-            if (doMultiMount(device, "/tmp/drivers", ddFsTypes, "ro", NULL)) {
+            if (doPwMount(device, "/tmp/drivers", "auto", "ro", NULL)) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to mount driver disk."));
                 stage = DEV_INSERT;
@@ -621,7 +619,7 @@ static void getDDFromDev(struct loaderData_s * loaderData, char * dev,
             logMessage(ERROR, "unable to mount %s as %s", dev, fs);
             return;
         }
-    } else if (doMultiMount(dev, "/tmp/drivers", ddFsTypes, "ro", NULL)) {
+    } else if (doPwMount(dev, "/tmp/drivers", "auto", "ro", NULL)) {
         logMessage(ERROR, "unable to mount driver disk %s", dev);
         return;
     }
