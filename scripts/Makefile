@@ -22,15 +22,16 @@ include ../Makefile.inc
 all:
 
 install:
-	install -m 755 upd-instroot $(DESTDIR)/$(RUNTIMEDIR)
-	install -m 755 mk-images* $(DESTDIR)/$(RUNTIMEDIR)
-	install -m 755 buildinstall $(DESTDIR)/$(RUNTIMEDIR)
-	install -m 755 buildinstall.functions $(DESTDIR)/$(RUNTIMEDIR)
-	install -m 755 scrubtree $(DESTDIR)/$(RUNTIMEDIR)
-	install -m 755 getkeymaps $(DESTDIR)/$(RUNTIMEDIR)
-	install -m 755 makestamp.py $(DESTDIR)/$(RUNTIMEDIR)
-	install -m 755 maketreeinfo.py $(DESTDIR)/$(RUNTIMEDIR)
-	install -m 755 pyrc.py $(DESTDIR)/$(RUNTIMEDIR)
-	install -m 755 upd-updates $(DESTDIR)/$(RUNTIMEDIR)
+	install -p -m 755 upd-instroot $(DESTDIR)/$(RUNTIMEDIR)
+	install -p -m 755 mk-images $(DESTDIR)/$(RUNTIMEDIR)
+	install -p -m 644 mk-images.* $(DESTDIR)/$(RUNTIMEDIR)
+	install -p -m 755 buildinstall $(DESTDIR)/$(RUNTIMEDIR)
+	install -p -m 755 buildinstall.functions $(DESTDIR)/$(RUNTIMEDIR)
+	install -p -m 755 scrubtree $(DESTDIR)/$(RUNTIMEDIR)
+	install -p -m 755 getkeymaps $(DESTDIR)/$(RUNTIMEDIR)
+	install -p -m 755 makestamp.py $(DESTDIR)/$(RUNTIMEDIR)
+	install -p -m 755 maketreeinfo.py $(DESTDIR)/$(RUNTIMEDIR)
+	install -p -m 644 pyrc.py $(DESTDIR)/$(RUNTIMEDIR)
+	install -p -m 755 upd-updates $(DESTDIR)/$(RUNTIMEDIR)
 
 depend:

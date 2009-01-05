@@ -24,7 +24,7 @@ all:
 
 install: 
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)/iw
-	install *.py $(DESTDIR)/$(PYTHONLIBDIR)/iw
+	install -p -m 644 *.py $(DESTDIR)/$(PYTHONLIBDIR)/iw
 	../py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR)/iw $(DESTDIR)/$(PYTHONLIBDIR)/iw/*.py
 
 clean:

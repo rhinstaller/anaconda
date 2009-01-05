@@ -30,7 +30,7 @@ all:
 
 install: 
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)/installclasses
-	install $(CLASSES) $(DESTDIR)/$(PYTHONLIBDIR)/installclasses
+	install -p -m 644 $(CLASSES) $(DESTDIR)/$(PYTHONLIBDIR)/installclasses
 	../py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR)/installclasses $(DESTDIR)/$(PYTHONLIBDIR)/installclasses/*.py
 
 clean:

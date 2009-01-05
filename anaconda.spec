@@ -8,6 +8,10 @@ License: GPLv2+
 Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
 
+# To generate Source0 do:
+# git clone http://git.fedorahosted.org/git/anaconda.git
+# git checkout -b archive-branch anaconda-%{version}-%{release}
+# make archive-no-tag
 Source0: %{name}-%{version}.tar.bz2
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -29,7 +33,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define syscfgdatever 1.9.0
 %define pythonpyblockver 0.24-1
 %define libbdevidver 5.1.2-1
-%define desktopfileutilsver 0.8
 %define e2fsver 1.41.0
 %define nmver 0.7.0
 %define dbusver 1.2.3
@@ -97,7 +100,6 @@ Requires: dmidecode
 Requires: python-pyblock >= %{pythonpyblockver}
 Requires: libbdevid >= %{libbdevidver}
 Requires: libbdevid-python
-Requires: audit-libs
 Requires: libuser-python
 Requires: newt-python
 Requires: authconfig
@@ -116,8 +118,6 @@ Requires: python-bugzilla
 %ifarch %livearches
 Requires: usermode
 Requires: zenity
-Requires(post): desktop-file-utils >= %{desktopfileutilsver}
-Requires(postun): desktop-file-utils >= %{desktopfileutilsver}
 %endif
 Requires: createrepo >= %{createrepover}
 Requires: squashfs-tools
@@ -138,6 +138,7 @@ Requires: dhclient
 Requires: dhcpv6-client
 Requires: anaconda-yum-plugins
 Obsoletes: anaconda-images <= 10
+Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
 Provides: anaconda-runtime = %{version}-%{release}
 
@@ -167,12 +168,12 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 
 %ifarch %livearches
 %post
-/usr/bin/update-desktop-database %{_datadir}/applications
+update-desktop-database &> /dev/null || :
 %endif
 
 %ifarch %livearches
 %postun
-/usr/bin/update-desktop-database %{_datadir}/applications
+update-desktop-database &> /dev/null || :
 %endif
 
 %files -f %{name}.lang
@@ -196,14 +197,11 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 %ifarch %livearches
 %{_bindir}/liveinst
 %{_sbindir}/liveinst
-%{_sysconfdir}/pam.d/*
+%config(noreplace) %{_sysconfdir}/pam.d/*
+%config(noreplace) %{_sysconfdir}/security/console.apps/*
 %{_sysconfdir}/X11/xinit/xinitrc.d/*
-%{_sysconfdir}/security/console.apps/*
 %{_datadir}/applications/*.desktop
 %endif
-
-%triggerun -- anaconda < 8.0-1
-/sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
 * Tue Dec 23 2008 David Cantrell <dcantrell@redhat.com> - 11.5.0.3-1
@@ -903,7 +901,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 - Remove extra ')' in install-buildrequires (dcantrell)
 
 * Mon Aug 11 2008 Chris Lumens <clumens@redhat.com> - 11.4.1.27-1
-- Handle 'rescue' and %post in rescue mode (atodorov)
+- Handle 'rescue' and %%post in rescue mode (atodorov)
 - Delay the duplicate label error until the label is actually used
   (#458505). (clumens)
 - Enable wireless modules again for now as a test (#443545). (clumens)
@@ -1073,7 +1071,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 - Don't strip too much off the NFS directory path. (clumens)
 - Log stage2 url better. (pjones)
 - Fix minor whitespace nits. (pjones)
-- Use %m rather than strerror() where appropriate. (pjones)
+- Use %%m rather than strerror() where appropriate. (pjones)
 - Make setupCdrom() actually return the path to the stage2 image it
   found. (pjones)
 - Don't unconditionally pass --lang for live installs (#454101) (katzj)
@@ -1427,7 +1425,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 * Wed Apr 02 2008 Chris Lumens <clumens@redhat.com> - 11.4.0.65-1
 - Only do verbose hal logging if loglevel=debug (katzj)
 - Avoid AttributeError in HardDriveDict (#432362) (pjones)
-- Don't use %n with gettext to avoid segfaults (#439861) (katzj)
+- Don't use %%n with gettext to avoid segfaults (#439861) (katzj)
 - Require live installs to be to an ext2 or ext3 filesystem (#397871) (katzj)
 - Don't allow migrations to ext4 for now (katzj)
 - Change ext4 parameter to ext4, not iamanext4developer (katzj)
@@ -1809,7 +1807,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 - remove yumcache (katzj)
 - Don't do fixmtimes anymore (katzj)
 - Don't compress translations (katzj)
-- Don't manually duplicate things from package %post scripts (katzj)
+- Don't manually duplicate things from package %%post scripts (katzj)
 - Remove some unused options (--discs and --buildinstdir) (katzj)
 - Keep /etc/nsswitch.conf and /etc/shells (katzj)
 - Stop forcing passive mode for FTP by patching urllib (katzj)
@@ -2140,7 +2138,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 - Add linear.ko to the modules available for rescue mode (#151742).
 - Update implantisomd5 usage to give correct option name (#364611).
 - Start removing unneeded install method code.
-- Run %post scripts on upgrade (#392201).
+- Run %%post scripts on upgrade (#392201).
 - Correct nicdelay patch (msivak, #349521).
 - Only run media check if we're installing off the CD (#362561).
 - Fix display of package names in non-English text installs (#376231).
@@ -2620,7 +2618,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 - Fix for mirror errors (dlehman)
 - Fix splittree (Joel Andres Granados, #233384)
 - Fix ppc32 netboot (pnasrat, #237988)
-- Fix %packages for media installs (clumens, #231121, #235881)
+- Fix %%packages for media installs (clumens, #231121, #235881)
 - Fix rescue mode networking (dcantrell, #238080)
 - Adjust for unbreaking the yum API
 - Fix rescue mode traceback (#238261)
@@ -2832,7 +2830,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 - BR newt-static
 
 * Thu Mar 01 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.28-1
-- Support multiple %ksappend lines (#222201).
+- Support multiple %%ksappend lines (#222201).
 - Set the ksdata after setting the initial timezone values (#230472).
 - New progress screen interface that's easier on backends (katzj).
 - Handle KickstartError exns better than just dumping a backtrace.
@@ -2956,7 +2954,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 * Fri Jan 19 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.13-1
 - Kickstart and upgrade are no longer installclasses.
 - Update x86_64 syslinux config (katzj).
-- Support %packages --default (#221305).
+- Support %%packages --default (#221305).
 - Fix early kickstart UI traceback.
 - Remove cruft in x86 images (katzj).
 - Fix error handling in loader netconfig screen (dcantrell).
@@ -3066,7 +3064,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 - Update kickstart documentation.
 - Don't always write out xconfig and monitor in anaconda-ks.cfg (#211977).
 - Follow drive order specified in kickstart file (#214881).
-- Unmount source on image installs before %post is run (#214677).
+- Unmount source on image installs before %%post is run (#214677).
 - Check return value of getBiosDisk (pjones, #214653).
 - splittree shouldn't fail with non-rpms in the directory (jkeating).
 - Order bind mounts correctly on upgrades (#212270).
@@ -4540,7 +4538,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 - Move repo setup and group selection earlier (pnasrat)
 
 * Tue Sep 20 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.24-1
-- Some kickstart %packages fixes (clumens)
+- Some kickstart %%packages fixes (clumens)
 - Don't copy null bytes into syslog (clumens)
 - New exception dialog (clumens)
 - Fix a traceback (pnasrat)
@@ -4994,7 +4992,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 
 * Sat Feb 12 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.19-1
 - fix x86_64 installs for bad urlgrabber import
-- Fix traceback with no %post (clumens)
+- Fix traceback with no %%post (clumens)
 - Put hostname in the text entry (clumens, #132826)
 
 * Tue Feb  8 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.18-1
@@ -5003,7 +5001,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 - Add needed requirements for rpm 4.4
 - Fix segfault when rpm tries to write to non-existent fd during 
   transaction ordering
-- Support --erroronfail as an option for %pre/%post (clumens, #124386)
+- Support --erroronfail as an option for %%pre/%%post (clumens, #124386)
 
 * Tue Feb  8 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.17-1
 - Use rhpl.archscore to fix iseries upgrades (pnasrat, #146915)
@@ -5190,7 +5188,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 - Update for new Indic font filenames
 
 * Mon Oct 18 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.20-1
-- Fix traceback with %post logging (Gijs Hollestelle, #136154)
+- Fix traceback with %%post logging (Gijs Hollestelle, #136154)
 - When using a local stage2.img for FTP/HTTP install, give an error earlier 
   if you point at an invalid tree (#135603, #117155, #120101)
 - Add a trailing newline to /etc/sysconfig/kernel
@@ -5201,7 +5199,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 - Fix font size to fit on disk display better (#135731)
 - Write out part lines for autopart lvm correctly (#135714)
 - Remove empty row in drive order for boot loader (#135944)
-- Replace % in URLs to avoid format string weirdness (#135929)
+- Replace %% in URLs to avoid format string weirdness (#135929)
 - Bind mount /dev for rescue mode (#135860)
 - Fix Dutch and Danish keyboard defaults (#135839)
 - add s2io 10GbE driver
@@ -5249,7 +5247,7 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 * Mon Oct  4 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.11-1
 - Handle 32 raid devs (#134438)
 - Fix LCS PORTNAME (#134487)
-- Add logging of kickstart scripts with --log to %post/%pre
+- Add logging of kickstart scripts with --log to %%post/%%pre
 - Copy /tmp/anaconda.log and /tmp/syslog to /var/log/anaconda.log 
   and /var/log/anaconda.syslog respectively (#124370)
 - Fix Polish (#134554)

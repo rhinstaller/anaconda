@@ -77,7 +77,7 @@ clean:
 
 install: all
 	install -s $(PYMODULES) $(DESTDIR)/$(PYTHONLIBDIR)
-	install isys.py $(DESTDIR)/$(PYTHONLIBDIR)
+	install -p -m 644 isys.py $(DESTDIR)/$(PYTHONLIBDIR)
 
 subdirs:
 	for d in $(SUBDIRS); do make -C $$d; done

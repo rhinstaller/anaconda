@@ -24,7 +24,7 @@ all:
 
 install: 
 	mkdir -p $(DESTDIR)/$(ANACONDADATADIR)/ui
-	install *.glade $(DESTDIR)/$(ANACONDADATADIR)/ui
+	install -p -m 644 *.glade $(DESTDIR)/$(ANACONDADATADIR)/ui
 
 depend:
 
