@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.3
+Version: 11.5.0.4
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Jan 05 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.4-1
+- Various packaging fixed from review (#225246) (hdegoede)
+- Show the header in certain non-lowres cases (#478765, alsadi).
+- Remove doMultiMount. (clumens)
+- Use mount -t auto instead of passing a list of valid fstypes (#477328).
+  (clumens)
+- Fix case sensitivity when searching for headers (kanarip)
+- Fix a traceback in checking for network install (ricky).
+
 * Tue Dec 23 2008 David Cantrell <dcantrell@redhat.com> - 11.5.0.3-1
 - Initialize domainname to None (#477831) (dcantrell)
 - Do not import unused modules. (dcantrell)
