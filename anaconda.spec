@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.4.1.62
+Version: 11.4.1.63
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -205,6 +205,9 @@ desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{bu
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jan 05 2009 David Cantrell <dcantrell@redhat.com> - 11.4.1.63-1
+- Require latest NetworkManager in F-10. (dcantrell)
+
 * Wed Nov 19 2008 Jeremy Katz <katzj@redhat.com> - 11.4.1.62-1
 - Do not show disabled repos such as rawhide during the install. (jkeating)
 
