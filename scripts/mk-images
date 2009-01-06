@@ -698,8 +698,7 @@ makeinitrd() {
     cp -a $IMGPATH/etc/dbus-1/system.d/nm-*.conf $MBD_DIR/etc/dbus-1/system.d
     cp -a $IMGPATH/etc/dbus-1/system.d/NetworkManager.conf $MBD_DIR/etc/dbus-1/system.d
     cp -a $IMGPATH/etc/NetworkManager/nm-system-settings.conf $MBD_DIR/etc/NetworkManager
-    instbin $IMGPATH /usr/$LIBDIR/NetworkManager/libnm-settings-plugin-ifcfg-fedora.so \
-        $MBD_DIR /usr/$LIBDIR/NetworkManager/libnm-settings-plugin-ifcfg-fedora.so
+    cp -a $IMGPATH/usr/$LIBDIR/NetworkManager/*.so $MBD_DIR/usr/$LIBDIR/NetworkManager
     ( cd $IMGPATH/usr/libexec
       for f in nm-* ; do
           instbin $IMGPATH /usr/libexec/$f $MBD_DIR /usr/libexec/$f
