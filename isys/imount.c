@@ -71,6 +71,7 @@ static int readFD(int fd, char **buf) {
 int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
     int rc, child, status, pipefd[2];
     char *opts = NULL, *device;
+    int programLogFD;
 
     if (mkdirChain(where))
         return IMOUNT_ERR_ERRNO;
@@ -104,6 +105,8 @@ int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
             opts = strdup(options);
     }
 
+    programLogFD = open("/tmp/program.log", O_APPEND|O_CREAT, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+
     if (pipe(pipefd))
         return IMOUNT_ERR_ERRNO;
 
@@ -112,18 +115,17 @@ int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
 
         close(pipefd[0]);
 
-        /* Close stdin entirely, redirect stdout to tty5, and redirect stderr
-         * to a pipe so we can put error messages into exceptions.  We'll
-         * only use these messages should mount also return an error code.
+        /* Close stdin entirely, redirect stdout to /tmp/program.log, and
+         * redirect stderr to a pipe so we can put error messages into exceptions.
+         * We'll only use these messages should mount also return an error code.
          */
         fd = open("/dev/tty5", O_RDONLY);
         close(STDIN_FILENO);
         dup2(fd, STDIN_FILENO);
         close(fd);
 
-        fd = open("/dev/tty5", O_WRONLY);
         close(STDOUT_FILENO);
-        dup2(fd, STDOUT_FILENO);
+        dup2(programLogFD, STDOUT_FILENO);
 
         dup2(pipefd[1], STDERR_FILENO);
 
@@ -144,11 +146,15 @@ int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
 
     close(pipefd[1]);
 
-    if (err != NULL)
+    if (err != NULL) {
         rc = readFD(pipefd[0], err);
+        rc = write(programLogFD, err, 4096);
+    }
 
     close(pipefd[0]);
     waitpid(child, &status, 0);
+
+    close(programLogFD);
 
     free(opts);
     free(device);
