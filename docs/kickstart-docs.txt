@@ -336,6 +336,7 @@ Creating the Kickstart File
                 --driveorder
 
                         Specify which drive is first in the BIOS boot order.
+                        The ordered list must include all the drives in the system.
                         For example:
 
                         bootloader --driveorder=sda,hda                 
