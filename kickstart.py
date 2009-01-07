@@ -761,7 +761,7 @@ class Timezone(commands.timezone.FC6_Timezone):
         self.handler.id.timezone.setTimezoneInfo(self.timezone, self.isUtc)
         self.handler.skipSteps.append("timezone")
 
-class Upgrade(commands.upgrade.FC3_Upgrade):
+class Upgrade(commands.upgrade.F11_Upgrade):
     def parse(self, args):
         commands.upgrade.FC3_Upgrade.parse(self, args)
         self.handler.id.setUpgrade(self.upgrade)
