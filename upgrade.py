@@ -128,9 +128,17 @@ def findRootParts(anaconda):
     if anaconda.id.rootParts is None:
         anaconda.id.rootParts = findExistingRoots(anaconda)
 
+    root_device = None
+    # ks.cfg can pass device as raw device, label or uuid. no quotes allowed
+    if anaconda.isKickstart and anaconda.id.ksdata.upgrade.root_device is not None:
+        root_device=anaconda.id.ksdata.upgrade.root_device
+
     anaconda.id.upgradeRoot = []
     for (dev, fs, meta, label, uuid) in anaconda.id.rootParts:
-        anaconda.id.upgradeRoot.append( (dev, fs) )
+        if (root_device is not None) and ((dev == root_device) or (("UUID=%s" % uuid) == root_device) or (("LABEL=%s" % label) == root_device)):
+            anaconda.id.upgradeRoot.append( (dev, fs) )
+        else:
+            anaconda.id.upgradeRoot.append( (dev, fs) )
 
     if anaconda.id.rootParts is not None and len(anaconda.id.rootParts) > 0:
         anaconda.dispatch.skipStep("findinstall", skip = 0)
