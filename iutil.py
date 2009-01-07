@@ -59,18 +59,38 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
     if type(stderr) == type("string"):
         stderr = open(stderr, "w")
 
+    runningLog = open("/tmp/program.log", "a")
+    runningLog.write("Running... %s\n" % ([command] + argv,))
+
     if stdout is not None and type(stdout) != int:
         stdout.write("Running... %s\n" %([command] + argv,))
 
     try:
-        proc = subprocess.Popen([command] + argv, stdin=stdin, stdout=stdout,
-                                stderr=stderr, preexec_fn=chroot, cwd=root)
-        ret = proc.wait()
+        proc = subprocess.Popen([command] + argv, stdin=stdin,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE,
+                                preexec_fn=chroot, cwd=root)
+
+        while True:
+            (outStr, errStr) = proc.communicate()
+            if outStr:
+                stdout.write(outStr)
+                runningLog.write(outStr)
+            if errStr:
+                stderr.write(errStr)
+                runningLog.write(errStr)
+
+            if proc.returncode is not None:
+                ret = proc.returncode
+                break
     except OSError, (errno, msg):
         errstr = "Error running %s: %s" % (command, msg)
-        log.error (errstr)
+        log.error(errstr)
+        runningLog.write(errstr)
+        runningLog.close()
         raise RuntimeError, errstr
 
+    runningLog.close()
     return ret
 
 ## Run an external program and capture standard out.
@@ -84,6 +104,8 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
     def chroot():
         os.chroot(root)
 
+    rc = ""
+
     argv = list(argv)
     if type(stdin) == type("string"):
         if os.access(stdin, os.R_OK):
@@ -93,17 +115,30 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
     if type(stderr) == type("string"):
         stderr = open(stderr, "w")
 
+    runningLog = open("/tmp/program.log", "a")
+    runningLog.write("Running... %s\n" % ([command] + argv,))
+
     try:
-        pipe = subprocess.Popen([command] + argv, stdin=stdin,
+        proc = subprocess.Popen([command] + argv, stdin=stdin,
                                 stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT,
+                                stderr=subprocess.PIPE,
                                 preexec_fn=chroot, cwd=root)
+
+        while True:
+            (outStr, errStr) = proc.communicate()
+            if outStr:
+                runningLog.write(outStr)
+                rc += outStr
+            if errStr:
+                runningLog.write(errStr)
+                sys.__stdout__.write(errStr)
+
+            if proc.returncode is not None:
+                break
     except OSError, (errno, msg):
         log.error ("Error running " + command + ": " + msg)
         raise RuntimeError, "Error running " + command + ": " + msg
 
-    rc = pipe.stdout.read()
-    pipe.wait()
     return rc
 
 def execWithPulseProgress(command, argv, stdin = 0, stdout = 1, stderr = 2,

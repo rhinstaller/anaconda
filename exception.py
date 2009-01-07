@@ -223,6 +223,7 @@ class AnacondaExceptionDump:
 
         for file in ("/tmp/syslog", "/tmp/anaconda.log",
                      "/tmp/lvmout", "/tmp/resize.out",
+                     "/tmp/program.log",
                      anaconda.rootPath + "/root/install.log",
                      anaconda.rootPath + "/root/upgrade.log"):
             try:
