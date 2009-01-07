@@ -1617,6 +1617,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         if cb.initWindow is not None:
             cb.initWindow.pop()
 
+        self.instLog.write("*** FINISHED INSTALLING PACKAGES ***")
         self.instLog.close ()
 
         anaconda.id.instProgress = None
