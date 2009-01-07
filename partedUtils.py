@@ -801,8 +801,9 @@ class DiskSet:
                         except:
                             label = None
             
+                        uuid = isys.readFSUuid(theDev)
                         # XXX we could add the "raw" dev and let caller decrypt
-                        rootparts.append ((theDev, fs, relstr, label))
+                        rootparts.append ((theDev, fs, relstr, label, uuid))
                 isys.umount(self.anaconda.rootPath)
 
         # now, look for candidate lvm roots
@@ -846,8 +847,9 @@ class DiskSet:
                             label = isys.readFSLabel(theDev)
                         except:
                             label = None
-            
-                        rootparts.append ((theDev, fs, relstr, label))
+
+                        uuid = isys.readFSUuid(theDev)
+                        rootparts.append ((theDev, fs, relstr, label, uuid))
                 isys.umount(self.anaconda.rootPath)
 
 	lvm.vgdeactivate()
@@ -910,8 +912,9 @@ class DiskSet:
                             except:
                                 label = None
 
+                            uuid = isys.readFSUuid("/dev/%s" % (theDev,))
                             rootparts.append (("/dev/%s" % (theDev,),
-                                              fstype, relstr, label))
+                                              fstype, relstr, label, uuid))
 
                     isys.umount(self.anaconda.rootPath)
 

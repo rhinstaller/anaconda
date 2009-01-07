@@ -265,7 +265,7 @@ def runRescue(anaconda, instClass):
             scroll = 0
 
         partList = []
-        for (drive, fs, relstr, label) in disks:
+        for (drive, fs, relstr, label, uuid) in disks:
             if label:
                 partList.append("%s (%s)" % (drive, label))
             else:

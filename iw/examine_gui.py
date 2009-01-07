@@ -123,7 +123,7 @@ class UpgradeExamineWindow (InstallWindow):
         self.upgradecombo.pack_start(cell, True)
         self.upgradecombo.set_attributes(cell, markup=0)
 
-	for (part, filesystem, desc, label) in self.parts:
+	for (part, filesystem, desc, label, uuid) in self.parts:
             iter = model.append()
 	    if (desc is None) or len(desc) < 1:
 		desc = _("Unknown Linux system")

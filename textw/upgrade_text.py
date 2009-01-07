@@ -212,7 +212,7 @@ class UpgradeExamineWindow:
         else:
             default = 0
 
-        for (drive, fs, desc, label) in parts:
+        for (drive, fs, desc, label, uuid) in parts:
 	    if drive[:5] != "/dev/":
 		devname = "/dev/" + drive
 	    else:
