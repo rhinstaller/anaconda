@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.4
+Version: 11.5.0.5
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,24 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jan 08 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.5-1
+- NetworkManager system settings plugins were renamed, change mk-images.
+  (dcantrell)
+- Add a message to install.log when package installation is done (#476953).
+  (clumens)
+- Add support for specifying which partition to upgrade (atodorov, #471232).
+  (clumens)
+- pykickstart has a new version of the upgrade command. (clumens)
+- Log all calls to mount to /tmp/program.log as well. (clumens)
+- Log everything from execWithRedirect or execWithCapture (#467690).
+  (clumens)
+- Update partedUtils.py:findExistingRootPartitions to return UUID
+  (atodorov). (clumens)
+- Don't skip the method screen when going back and forth (#477991). (clumens)
+- Die on errors from upd-instroot/mk-images rather than continuing on (katzj)
+- The FTP USER command does not need to be followed by a PASS (#477536).
+  (clumens)
+
 * Mon Jan 05 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.4-1
 - Workaround compile error due to (# 478663) (hdegoede)
 - Various packaging fixed from review (#225246) (hdegoede)
