@@ -89,7 +89,7 @@ int loadKeymap(gzFile stream) {
 #endif
     if (isVioConsole())
         return 0;
-    if (!access("/proc/xen", R_OK)) /* xen can't load keymaps */
+    if (!access("/proc/xen/capabilities", R_OK)) /* xen can't load keymaps */
         return 0;
 
     /* assume that if we're already on a pty loading a keymap is silly */
