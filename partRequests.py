@@ -752,21 +752,19 @@ class VolumeGroupRequestSpec(RequestSpec):
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
 
-        # this seems like a bogus check too...
-        if self.physicalVolumes is None:
-            return 0
-
         # if we have a preexisting size, use it
         if self.preexist and self.preexist_size:
-            totalspace = ((self.preexist_size / self.pesize) *
-                          self.pesize)
+            totalspace = lvm.clampPVSize(self.preexist_size, self.pesize)
         else:
             totalspace = 0
             for pvid in self.physicalVolumes:
                 pvreq = partitions.getRequestByID(pvid)
                 size = pvreq.getActualSize(partitions, diskset)
-                size = lvm.clampPVSize(size, self.pesize)
-                totalspace = totalspace + size
+                #log("size for pv %s is %s" % (pvid, size))
+                clamped = lvm.clampPVSize(size, self.pesize)
+                log("  got pv.size of %s, clamped to %s" % (size,clamped))
+                #log("  clamped size is %s" % (size,))
+                totalspace = totalspace + clamped
 
         return totalspace
 
@@ -862,16 +860,30 @@ class LogicalVolumeRequestSpec(RequestSpec):
                                              existing = self.preexist)
         return self.dev
 
-    def getActualSize(self, partitions, diskset):
+    def getActualSize(self, partitions, diskset, pesize=None):
         """Return the actual size allocated for the request in megabytes."""
+        retval = 0
+        vgreq = partitions.getRequestByID(self.volumeGroup)
+
+        if not pesize:
+            pesize = vgreq.pesize
+
         if self.percent:
-            vgreq = partitions.getRequestByID(self.volumeGroup)
 	    vgsize = vgreq.getActualSize(partitions, diskset)
 	    lvsize = int(self.percent * 0.01 * vgsize)
-	    lvsize = lvm.clampLVSizeRequest(lvsize, vgreq.pesize)
-            return lvsize
+            #lvsize = lvm.clampLVSizeRequest(lvsize, vgreq.pesize)
+            retval = lvsize
         else:
-            return self.size
+            retval = self.size
+
+        # lvm tools round up lvolums using the volume group pv size.
+        # If the logical volume is preexisting do NOT touch it.
+        if not self.preexist:
+            retval = lvm.clampLVSizeRequest(retval, pesize)
+
+        return retval
+
+
 
     def getStartSize(self):
         """Return the starting size allocated for the request in megabytes."""

@@ -45,7 +45,7 @@ class VolumeGroupEditor:
         else:
             pvlist = alt_pvlist
 	tspace = self.computeVGSize(pvlist, pesize)
-	uspace = self.computeLVSpaceNeeded(self.logvolreqs)
+	uspace = self.computeLVSpaceNeeded(self.logvolreqs, pesize)
 	fspace =  tspace - uspace
 
 	return (tspace, uspace, fspace)
@@ -71,8 +71,13 @@ class VolumeGroupEditor:
 	first = 1
         pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
 	for id in pvlist:
+            try:
+                pesize = int(self.peCombo.get_active_value())
+            except:
+                pesize = 32768
 	    pvreq = self.partitions.getRequestByID(id)
 	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
+            pvsize = lvm.clampPVSize(pvsize, pesize)
 	    if first:
 		minpvsize = pvsize
 		first = 0
@@ -82,8 +87,8 @@ class VolumeGroupEditor:
 	return minpvsize
 
 
-    def reclampLV(self, newpe):
-        """ given a new pe value, set logical volume sizes accordingly
+    def reclampLV(self, oldpe, newpe):
+        """ given an old and a new pe value, set logical volume sizes accordingly
 
         newpe - (int) new value of PE, in KB
         """
@@ -96,7 +101,7 @@ class VolumeGroupEditor:
         used = 0
 	resize = 0
         for lv in self.logvolreqs:
-            osize = lv.getActualSize(self.partitions, self.diskset)
+            osize = lv.getActualSize(self.partitions, self.diskset, pesize=oldpe)
             oldused = oldused + osize
             nsize = lvm.clampLVSizeRequest(osize, newpe, roundup=1)
 	    if nsize != osize:
@@ -130,7 +135,7 @@ class VolumeGroupEditor:
 		return 0
         
         for lv in self.logvolreqs:
-            osize = lv.getActualSize(self.partitions, self.diskset)
+            osize = lv.getActualSize(self.partitions, self.diskset, pesize=oldpe)
             nsize = lvm.clampLVSizeRequest(osize, newpe, roundup=1)
             lv.setSize(nsize)
 
@@ -192,7 +197,7 @@ class VolumeGroupEditor:
 
 	# now see if we need to fixup effect PV and LV sizes based on PE
         if curval > lastval:
-            rc = self.reclampLV(curval)
+            rc = self.reclampLV(lastval, curval)
             if not rc:
 		widget.set_active(lastidx)
 		return 0
@@ -201,7 +206,8 @@ class VolumeGroupEditor:
 	else:
 	    maxlv = lvm.getMaxLVSize(curval)
 	    for lv in self.logvolreqs:
-		lvsize = lv.getActualSize(self.partitions, self.diskset)
+		lvsize = lv.getActualSize(self.partitions, self.diskset,
+                             pesize=lastval)
 		if lvsize > maxlv:
 		    self.intf.messageWindow(_("Not enough space"),
 					    _("The physical extent size "
@@ -416,7 +422,8 @@ class VolumeGroupEditor:
             sizeEntry = gtk.Entry(16)
             lbl.set_mnemonic_widget(sizeEntry)
             if logrequest:
-                sizeEntry.set_text("%g" % (logrequest.getActualSize(self.partitions, self.diskset),))
+                pesize = int(self.peCombo.get_active_value())
+                sizeEntry.set_text("%Ld" % (logrequest.getActualSize(self.partitions, self.diskset, pesize=pesize),))
         else:
             lbl = createAlignedLabel(_("Size (MB):"))
             sizeEntry = gtk.Label(str(logrequest.size))
@@ -432,7 +439,7 @@ class VolumeGroupEditor:
 
             # add in size of current logical volume if it has a size
             if logrequest and not isNew:
-                maxlv = maxlv + logrequest.getActualSize(self.partitions, self.diskset)
+                maxlv = maxlv + logrequest.getActualSize(self.partitions, self.diskset, pesize=pesize)
             maxlabel = createAlignedLabel(_("(Max size is %s MB)") % (maxlv,))
             maintable.attach(maxlabel, 1, 2, row, row + 1)
 
@@ -637,7 +644,7 @@ class VolumeGroupEditor:
 		tmplogreqs.append(l)
 
 	    tmplogreqs.append(request)
-	    neededSpaceMB = self.computeLVSpaceNeeded(tmplogreqs)
+	    neededSpaceMB = self.computeLVSpaceNeeded(tmplogreqs, pesize)
 
 	    if neededSpaceMB > availSpaceMB:
 		self.intf.messageWindow(_("Not enough space"),
@@ -768,26 +775,28 @@ class VolumeGroupEditor:
 	availSpaceMB = 0
 	for id in pvlist:
 	    pvreq = self.partitions.getRequestByID(id)
-	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
-	    pvsize = lvm.clampPVSize(pvsize, curpe)
+            pvsize = pvreq.getActualSize(self.partitions, self.diskset)
+            pvsize = lvm.clampPVSize(pvsize, curpe)
 
 	    # have to clamp pvsize to multiple of PE
 	    availSpaceMB = availSpaceMB + pvsize
 
+        log("computeVGSize: vgsize is %s" % (availSpaceMB,))
 	return availSpaceMB
 
-    def computeLVSpaceNeeded(self, logreqs):
+    def computeLVSpaceNeeded(self, logreqs, pesize):
 	neededSpaceMB = 0
 	for lv in logreqs:
-	    neededSpaceMB = neededSpaceMB + lv.getActualSize(self.partitions, self.diskset)
+	    neededSpaceMB = neededSpaceMB + lv.getActualSize(self.partitions, self.diskset, pesize=pesize)
 
 	return neededSpaceMB
 
     def updateLogVolStore(self):
         self.logvolstore.clear()
+        pesize = int(self.peCombo.get_active_value())
         for lv in self.logvolreqs:
             iter = self.logvolstore.append()
-            size = lv.getActualSize(self.partitions, self.diskset)
+            size = lv.getActualSize(self.partitions, self.diskset, pesize=pesize)
             lvname = lv.logicalVolumeName
             mntpt = lv.mountpoint
             if lvname:
@@ -847,7 +856,7 @@ class VolumeGroupEditor:
 	    pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
 	    pesize = int(self.peCombo.get_active_value())
 	    availSpaceMB = self.computeVGSize(pvlist, pesize)
-	    neededSpaceMB = self.computeLVSpaceNeeded(self.logvolreqs)
+	    neededSpaceMB = self.computeLVSpaceNeeded(self.logvolreqs, pesize)
 
 	    if neededSpaceMB > availSpaceMB:
 		self.intf.messageWindow(_("Not enough space"),
@@ -869,7 +878,7 @@ class VolumeGroupEditor:
 	    if self.origvgrequest:
 		origvname = self.origvgrequest.volumeGroupName
 	    else:
-		origname = None
+		origvname = None
 
 	    if origvname != volname:
 		tmpreq = VolumeGroupRequestSpec(physvols = pvlist,
@@ -1051,7 +1060,8 @@ class VolumeGroupEditor:
 		    self.logvolstore.set_value(iter, 1, lvrequest.mountpoint)
 		else:
 		    self.logvolstore.set_value(iter, 1, "")
-		self.logvolstore.set_value(iter, 2, "%g" % (lvrequest.getActualSize(self.partitions, self.diskset)))
+                pesize = int(self.peCombo.get_active_value())
+		self.logvolstore.set_value(iter, 2, "%Ld" % (lvrequest.getActualSize(self.partitions, self.diskset, pesize=pesize)))
 
 	self.logvollist = gtk.TreeView(self.logvolstore)
         col = gtk.TreeViewColumn(_("Logical Volume Name"),

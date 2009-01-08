@@ -152,6 +152,13 @@ def vgremove(vgname):
     if flags.test or lvmDevicePresent == 0:
         return
 
+    # find the Physical Volumes which make up this Volume Group, so we
+    # can prune and recreate them.
+    pvs = []
+    for pv in pvlist():
+        if pv[1] == vgname:
+            pvs.append(pv[0])
+
     # we'll try to deactivate... if it fails, we'll probably fail on
     # the removal too... but it's worth a shot
     try:
@@ -161,12 +168,38 @@ def vgremove(vgname):
 
     args = ["lvm", "vgremove", vgname]
 
+    log(string.join(args, ' '))
     rc = iutil.execWithRedirect(args[0], args,
                                 stdout = output,
                                 stderr = output,
                                 searchPath = 1)
     if rc:
         raise SystemError, "vgremove failed"
+    # now iterate all the PVs we've just freed up, so we reclaim the metadata
+    # space.  This is an LVM bug, AFAICS.
+    for pvname in pvs:
+        args = ["lvm", "pvremove", pvname]
+
+        log(string.join(args, ' '))
+        rc = iutil.execWithRedirect(args[0], args,
+                                    stdout = output,
+                                    stderr = output,
+                                    searchPath = 1)
+
+        if rc:
+            raise SystemError, "pvremove failed"
+
+        args = ["lvm", "pvcreate", "-ff", "-y", "-v", pvname]
+
+        log(string.join(args, ' '))
+        rc = iutil.execWithRedirect(args[0], args,
+                                    stdout = output,
+                                    stderr = output,
+                                    searchPath = 1)
+
+        if rc:
+            raise SystemError, "pvcreate failed for %s" % (pvname,)
+
 
 def lvlist():
     global lvmDevicePresent
@@ -312,13 +345,10 @@ def clampLVSizeRequest(size, pe, roundup=0):
     """
 
     if roundup:
-	factor = 1
+        func = math.ceil
     else:
-	factor = 0
-    if ((size*1024L) % pe) == 0:
-	return size
-    else:
-	return ((long((size*1024L)/pe)+factor)*pe)/1024
+        func = math.floor
+    return (long(func((size*1024L)/pe))*pe)/1024
 
 def clampPVSize(pvsize, pesize):
     """Given a PV size and a PE, returns the usable space of the PV.
@@ -329,27 +359,9 @@ def clampPVSize(pvsize, pesize):
     pesize - PE size (in KB)
     """
 
-    # calculate the number of physical extents.  this is size / pesize
-    # with an appropriate factor for kb/mb matchup
-    numpes = math.floor(pvsize * 1024 / pesize)
-
-    # now, calculate our "real" overhead.  4 bytes for each PE + 128K
-    overhead = (4 * numpes / 1024) + 128
-
-    # now, heuristically, the max of ceil(pesize + 2*overhead) and
-    # ceil(2*overhead) is greater than the real overhead, so we won't
-    # get people in a situation where they overcommit the vg
-    one = math.ceil(pesize + 2 * overhead)
-    two = math.ceil(2 * overhead)
-
-    # now we have to do more unit conversion since our overhead in in KB
-    if one > two:
-        usable = pvsize - math.ceil(one / 1024.0)
-    else:
-        usable = pvsize - math.ceil(two / 1024.0)
-
-    # finally, clamp to being at a pesize boundary
-    return (long(usable*1024/pesize)*pesize)/1024
+    # we want Kbytes as a float for our math
+    pvsize *= 1024.0
+    return long((math.floor(pvsize / pesize) * pesize) / 1024)
 
 def getMaxLVSize(pe):
     """Given a PE size in KB, returns maximum size (in MB) of a logical volume.
@@ -409,5 +421,9 @@ def getVGUsedSpace(vgreq, requests, diskset):
 
 def getVGFreeSpace(vgreq, requests, diskset):
     used = getVGUsedSpace(vgreq, requests, diskset)
-    
-    return vgreq.getActualSize(requests, diskset) - used
+    log("used space is %s" % (used,))
+     
+    total = vgreq.getActualSize(requests, diskset)
+    log("actual space is %s" % (total,))
+    return total - used
+
