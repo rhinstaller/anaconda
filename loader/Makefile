@@ -26,7 +26,7 @@ else
 TARGET=depend $(PROGS)
 endif
 
-LIBS = -lnewt -lslang -lz -lpopt ../isys/libisys.a -lcheckisomd5
+LIBS = -lnewt -lslang -lz -lpopt ../isys/libisys.a -lcheckisomd5 -lblkid -luuid
 
 # devmapper
 LIBS   += $(shell pkg-config --libs devmapper)

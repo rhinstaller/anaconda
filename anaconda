@@ -246,6 +246,7 @@ def parseOptions():
     op.add_option("--nomount", dest="rescue_nomount", action="store_true", default=False)
     op.add_option("--updates", dest="updateSrc", action="store", type="string")
     op.add_option("--dogtail", dest="dogtail",   action="store", type="string")
+    op.add_option("--dlabel", action="store_true", default=False)
 
     return op.parse_args()
 
@@ -667,6 +668,9 @@ if __name__ == "__main__":
     anaconda.rootPath = opts.rootPath
     # Default is to prompt to mount the installed system.
     anaconda.rescue_mount = not opts.rescue_nomount
+
+    if opts.dlabel: #autodetected driverdisc in use
+        flags.dlabel = True
 
     if opts.noipv4:
         flags.useIPv4 = False

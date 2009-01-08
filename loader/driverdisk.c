@@ -30,6 +30,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include <blkid/blkid.h>
+
 #include "copy.h"
 #include "loader.h"
 #include "log.h"
@@ -508,6 +510,112 @@ static void loadFromLocation(struct loaderData_s * loaderData, char * dir) {
 
     loadDriverDisk(loaderData, dir);
     busProbe(0);
+}
+
+/*
+ * Utility functions to maintain linked-list of device names
+ * */
+
+struct ddlist* ddlist_add(struct ddlist *list, const char* device)
+{
+  struct ddlist* item;
+
+  item = (struct ddlist*)malloc(sizeof(struct ddlist));
+  if(item==NULL){
+    return list;
+  }
+
+  item->device = strdup(device);
+  item->next = list;
+
+  return item;
+}
+
+int ddlist_free(struct ddlist *list)
+{
+  struct ddlist *next;
+  int count = 0;
+
+  while(list!=NULL){
+    next = list->next;
+    free(list->device);
+    free(list);
+    list = next;
+    count++;
+  }
+
+  return count;
+}
+
+
+/*
+ * Look for partition with specific label (part of #316481)
+ */
+struct ddlist* findDriverDiskByLabel(void)
+{
+    char *ddLabel = "OEMDRV";
+    struct ddlist *ddDevice = NULL;
+    blkid_cache bCache;
+    
+    int res;
+    blkid_dev_iterate bIter;
+    blkid_dev bDev;
+
+    if(blkid_get_cache(&bCache, NULL)<0){
+      logMessage(ERROR, _("Cannot initialize cache instance for blkid"));
+      return NULL;
+    }
+    if((res = blkid_probe_all(bCache))<0){
+      logMessage(ERROR, _("Cannot probe devices in blkid: %d"), res);
+      return NULL;
+    }
+
+    bIter = blkid_dev_iterate_begin(bCache);
+    blkid_dev_set_search(bIter, "LABEL", ddLabel);
+    while((res = blkid_dev_next(bIter, &bDev))!=0){
+	bDev = blkid_verify(bCache, bDev);
+	if(!bDev)
+	  continue;
+	logMessage(DEBUGLVL, _("Adding driver disc %s to the list of available DDs."), blkid_dev_devname(bDev));
+	ddDevice = ddlist_add(ddDevice, blkid_dev_devname(bDev));
+	/*blkid_free_dev(bDev); -- probably taken care of by the put cache call.. it is not exposed in the API */
+    }
+    blkid_dev_iterate_end(bIter);
+    
+    blkid_put_cache(bCache);
+
+    return ddDevice;
+}
+
+int loadDriverDiskFromPartition(struct loaderData_s *loaderData, char* device)
+{
+    int rc;
+
+    logMessage(INFO, "trying to mount %s", device);
+    if (doPwMount(device, "/tmp/drivers", "vfat", IMOUNT_RDONLY, NULL)) {
+      if (doPwMount(device, "/tmp/drivers", "ext2", IMOUNT_RDONLY, NULL)) {
+	if (doPwMount(device, "/tmp/drivers", "iso9660", IMOUNT_RDONLY, NULL)) {
+	    logMessage(ERROR, _("Failed to mount driver disk."));
+	    return -1;
+	}
+      }
+    }
+
+    rc = verifyDriverDisk("/tmp/drivers");
+    if (rc == LOADER_BACK) {
+	logMessage(ERROR, _("Driver disk is invalid for this "
+			 "release of %s."), getProductName());
+	umount("/tmp/drivers");
+	return -2;
+    }
+
+    rc = loadDriverDisk(loaderData, "/tmp/drivers");
+    umount("/tmp/drivers");
+    if (rc == LOADER_BACK) {
+	return -3;
+    }
+
+    return 0;
 }
 
 void getDDFromSource(struct loaderData_s * loaderData, char * src) {
