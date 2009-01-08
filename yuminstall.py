@@ -586,7 +586,7 @@ class AnacondaYum(YumSorter):
 
         extraRepos = []
 
-        if self.anaconda.id.extraModules or flags.dlabel:
+        if self.anaconda.id.extraModules:
             for d in glob.glob("/tmp/DD-*/rpms"):
                 dirname = os.path.basename(os.path.dirname(d))
                 rid = "anaconda-%s" % dirname
