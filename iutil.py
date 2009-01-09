@@ -20,7 +20,7 @@
 # Author(s): Erik Troan <ewt@redhat.com>
 #
 
-import os, string, stat
+import os, string, stat, sys
 import os.path
 from errno import *
 import rhpl
