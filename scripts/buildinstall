@@ -28,67 +28,66 @@ die() {
 }
 
 usage() {
-	echo "Usage: buildinstall --version <version> --product <product> --release <comment> [--output outputdir] [--discs <discstring>] <root>" >&2
-	exit 1
+    echo "Usage: buildinstall --version <version> --product <product> --release <comment> [--output outputdir] [--discs <discstring>] <root>" >&2
+    exit 1
 }
 
 PRODUCTPATH="anaconda"
 
 while [ $# -gt 0 ]; do
     case $1 in
-	# general options affecting how we build things
-	--nogr)
-	    NOGRSTR="--nogr"
-	    shift
-	    ;;
-	--debug)
-	    DEBUGSTR="--debug"
-	    shift
-	    ;;
+        # general options affecting how we build things
+        --nogr)
+            NOGRSTR="--nogr"
+            shift
+        ;;
+        --debug)
+            DEBUGSTR="--debug"
+            shift
+        ;;
 
-	# release information
-	--version)
-	    VERSION=$2
-	    shift; shift
-	    ;;
-	--release)
-	    RELEASESTR=$2
-	    shift; shift
-	    ;;
+        # release information
+        --version)
+            VERSION=$2
+            shift; shift
+        ;;
+        --release)
+            RELEASESTR=$2
+            shift; shift
+        ;;
         --product)
-	    PRODUCTSTR=$2
-	    shift; shift
-	    ;;
-	--variant)
-	    VARIANT=$2
-	    shift; shift
-	    ;;
-	--bugurl)
-	    BUGURL=$2
-	    shift; shift
-	    ;;
+            PRODUCTSTR=$2
+            shift; shift
+        ;;
+        --variant)
+            VARIANT=$2
+            shift; shift
+        ;;
+        --bugurl)
+            BUGURL=$2
+            shift; shift
+        ;;
+        --output)
+            OUTPUT=$2
+            shift; shift
+        ;;
+        --updates)
+            UPDATES=$2
+            shift; shift
+        ;;
+        --mirrorlist)
+            MIRRORLIST="$MIRRORLIST $2"
+            shift; shift
+        ;;
 
-	--output)
-	    OUTPUT=$2
-	    shift; shift
-	    ;;
-	--updates)
-	    UPDATES=$2
-	    shift; shift
-	    ;;
-	--mirrorlist)
-	    MIRRORLIST="$MIRRORLIST $2"
-	    shift; shift
-	    ;;
-
-	*)
-        if [ -z "$REPO" ]; then
-	    REPO=$1
-        else
-            EXTRA_REPOS="$EXTRA_REPOS $1"
-        fi
-	    shift
-	    ;;
+        *)
+            if [ -z "$REPO" ]; then
+                REPO=$1
+            else
+                EXTRA_REPOS="$EXTRA_REPOS $1"
+            fi
+            shift
+        ;;
     esac
 done
 
@@ -189,11 +188,11 @@ BUILDINSTALL=./buildinstall
 
 for f in $UPD_INSTROOT $MK_IMAGES $MK_STAMP $MK_TREEINFO $BUILDINSTALL; do
     if [ -n "$UPDATES" -a -f $UPDATES/usr/lib/anaconda-runtime/$f ]; then
-	cp -a $UPDATES/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
+        cp -a $UPDATES/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
     elif [ ! -f $f ]; then
-	cp -a $BUILDINSTDIR/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
+        cp -a $BUILDINSTDIR/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
     else
-	cp -a $f* $BUILDINSTDIR/
+        cp -a $f* $BUILDINSTDIR/
     fi
 done
 
