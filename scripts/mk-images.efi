@@ -53,40 +53,40 @@ makeefibootimage() {
     MBD_BOOTTREE=${TMPDIR:-/tmp}/makebootdisk.tree.$$
     MBD_BOOTTREE_TMP=$MBD_BOOTTREE'_tmp'
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
-	if [ $1 = "--kernel" ]; then
-	    KERNELFILE=$2
-	    shift; shift
-	    continue
-	elif [ $1 = "--initrd" ]; then
-	    INITRDFILE=$2
-	    shift; shift
-	    continue
-	elif [ $1 = "--imagename" ]; then
-	    MBD_FILENAME=$IMAGEPATH/$2
-	    shift; shift
-	    continue
-	elif [ $1 = "--grubpkg" ]; then
-	    grubpkg=$2
-	    shift; shift
-	    continue
-	fi
-	echo "Unknown option passed to makebootdisk"
-	exit 1
+    if [ $1 = "--kernel" ]; then
+        KERNELFILE=$2
+        shift; shift
+        continue
+    elif [ $1 = "--initrd" ]; then
+        INITRDFILE=$2
+        shift; shift
+        continue
+    elif [ $1 = "--imagename" ]; then
+        MBD_FILENAME=$IMAGEPATH/$2
+        shift; shift
+        continue
+    elif [ $1 = "--grubpkg" ]; then
+        grubpkg=$2
+        shift; shift
+        continue
+    fi
+    echo "Unknown option passed to makebootdisk"
+    exit 1
     done
 
     if [ -z "$MBD_FILENAME" ]; then
-	echo "No imagename passed"
-	exit 1
+        echo "No imagename passed"
+        exit 1
     fi
 
     if [ -z "$KERNELFILE" ]; then
-	echo "No kernel file passed"
-	exit 1
+        echo "No kernel file passed"
+        exit 1
     fi
 
     if [ -z "$INITRDFILE" ]; then
-	echo "No initrd file passed"
-	exit 1
+        echo "No initrd file passed"
+        exit 1
     fi
     MBD_FSIMAGE="$INITRDFILE"
 
@@ -104,14 +104,14 @@ makeefibootimage() {
     umount $MBD_BOOTTREE
 
     if [ -n "$EXTRAKERNELPATH" ]; then
-	mkdir -p `dirname $EXTRAKERNELPATH`
-	cp -f $KERNELROOT/$KERNELDIR/${KERNELNAME}-* $EXTRAKERNELPATH
+        mkdir -p `dirname $EXTRAKERNELPATH`
+        cp -f $KERNELROOT/$KERNELDIR/${KERNELNAME}-* $EXTRAKERNELPATH
     fi
 
     mkdir -p `dirname $MBD_FILENAME`
     rm -rf $MBD_TMPIMAGE $MBD_MNTPOINT $MBD_BOOTTREE
     if [ -z "$INITRDFILE" ]; then
-	rm -f $MBD_FSIMAGE
+        rm -f $MBD_FSIMAGE
     fi
 
     chmod a+r $MBD_FILENAME
@@ -150,8 +150,8 @@ prepareEfiTree() {
     # The first generation Mactel machines get the bootloader name wrong
     # as per the spec.  Awesome, guys.
     if [ "$efiarch" == "ia32" ]; then
-	cp $MBD_BOOTTREE_TMP/EFI/boot/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/boot.efi
-	cp $MBD_BOOTTREE_TMP/EFI/boot/grub.conf $MBD_BOOTTREE_TMP/EFI/boot/boot.conf
+        cp $MBD_BOOTTREE_TMP/EFI/boot/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/boot.efi
+        cp $MBD_BOOTTREE_TMP/EFI/boot/grub.conf $MBD_BOOTTREE_TMP/EFI/boot/boot.conf
     fi
 
     mv $MBD_BOOTTREE_TMP/EFI/boot/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/boot${efiarch}.efi
@@ -171,28 +171,30 @@ prepareEfiTree() {
 makeEfiImages() {
     yumconf="$1"
     if [ "$kernelvers" != "$kernelxen" ]; then
-	local grubarch=${efiarch}
-	case ${efiarch} in
-	    ia32) grubarch=i386 ;;
-	    x64) grubarch=x86_64 ;;
-	esac
-	grubpkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" -c $yumconf grub.$grubarch)
-	if [ -z "$grubpkg" ]; then
-	    echo "cannot find package grub.$grubarch" >&2
-	    return 1
-	fi
-    	echo "Building efiboot.img for ${efiarch}/$KERNELARCH at $TOPDESTPATH/images/efiboot.img"
+        local grubarch=${efiarch}
+        case ${efiarch} in
+            ia32) grubarch=i386 ;;
+            x64) grubarch=x86_64 ;;
+        esac
 
-	makeefibootimage \
-	    --imagename pxeboot/efiboot.img \
-	    --kernel $TOPDESTPATH/images/pxeboot/vmlinuz \
-	    --initrd $TOPDESTPATH/images/pxeboot/initrd.img \
-	    --grubpkg ${grubpkg}
-	local ret=$?
-	[ $ret -eq 0 ] || return $ret
+        grubpkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" -c $yumconf grub.$grubarch)
 
-	makeefibootdisk $TOPDESTPATH/images/pxeboot/efiboot.img $TOPDESTPATH/images/efidisk.img
-	return $?
+        if [ -z "$grubpkg" ]; then
+            echo "cannot find package grub.$grubarch" >&2
+            return 1
+        fi
+        echo "Building efiboot.img for ${efiarch}/$KERNELARCH at $TOPDESTPATH/images/efiboot.img"
+
+        makeefibootimage \
+            --imagename pxeboot/efiboot.img \
+            --kernel $TOPDESTPATH/images/pxeboot/vmlinuz \
+            --initrd $TOPDESTPATH/images/pxeboot/initrd.img \
+            --grubpkg ${grubpkg}
+        local ret=$?
+        [ $ret -eq 0 ] || return $ret
+
+        makeefibootdisk $TOPDESTPATH/images/pxeboot/efiboot.img $TOPDESTPATH/images/efidisk.img
+        return $?
     fi
     return 1
 }
