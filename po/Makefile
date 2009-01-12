@@ -15,9 +15,12 @@ GLADEFILES = ../ui/*.glade
 DESKTOPFILES = ../liveinst/*.desktop.in
 INTLFILES = $(GLADEFILES) $(DESKTOPFILES)
 
-POTFILES = ../anaconda ../*.py ../iw/*.py ../textw/*.py \
-           ../installclasses/*.py \
-           ../loader/*.c 
+PYPOTFILES = ../anaconda ../*.py ../iw/*.py ../textw/*.py \
+           ../installclasses/*.py
+
+CPOTFILES = ../loader/*.c 
+
+POTFILES = $(PYPOTFILES) $(CPOTFILES)
 
 NONPOTFILES = ../lang-table
 
@@ -25,7 +28,9 @@ all: $(FMTCATALOGS)
 
 $(NLSPACKAGE).pot: $(POTFILES) $(NONPOTFILES) intltool-po
 	xgettext --from-code=UTF-8 --default-domain=$(NLSPACKAGE) \
-		 --keyword=_ --keyword=N_ $(POTFILES) tmp/*.h
+		 --keyword=_ --keyword=N_ --lang=python $(PYPOTFILES)
+	xgettext --from-code=UTF-8 --default-domain=$(NLSPACKAGE) -j \
+		 --keyword=_ --keyword=N_ --lang=c $(CPOTFILES) tmp/*.h
 	cat ../lang-table | cut -f1 | while read line; do echo -e "\n#. generated from lang-table\nmsgid \"$$line\"\nmsgstr \"\""; done >> $(NLSPACKAGE).po
 	if cmp -s $(NLSPACKAGE).po $(NLSPACKAGE).pot; then \
 	    rm -f $(NLSPACKAGE).po; \
