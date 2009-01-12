@@ -172,7 +172,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
 	lohit-fonts-gujarati lohit-fonts-hindi lohit-fonts-kannada lohit-fonts-oriya
 	lohit-fonts-punjabi lohit-fonts-tamil lohit-fonts-telugu lvm2 mdadm
 	mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
-	newt newt-python nfs-utils nspr nss pam pango parted pciutils pcre
+	newt newt-python nfs-utils nspr nss ntfs-3g pam pango parted pciutils pcre
 	policy policycoreutils popt prelink procps pycairo pygobject2 pygtk2
 	pygtk2-libglade pykickstart pyparted pyspi python python-bugzilla
 	python-elementtree python-libs python-pyblock python-sqlite
@@ -293,6 +293,7 @@ bin/ls
 bin/mkdir
 bin/mount
 bin/mv
+bin/ntfs-3g
 bin/ps
 bin/rm
 bin/rpm
@@ -388,6 +389,7 @@ sbin/mkraid
 sbin/mkreiserfs
 sbin/mkswap
 sbin/mount.nfs*
+sbin/mount.ntfs*
 sbin/parted
 sbin/pcmcia-socket-startup
 sbin/pdisk

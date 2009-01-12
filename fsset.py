@@ -128,6 +128,7 @@ class FileSystemType:
         self.checked = 0
         self.name = ""
         self.linuxnativefs = 0
+        self.fusefs = 0
         self.partedFileSystemType = None
         self.partedPartitionFlags = []
         self.maxSizeMB = 8 * 1024 * 1024
@@ -266,6 +267,8 @@ class FileSystemType:
     def isMountable(self):
         if not FileSystemType.kernelFilesystems:
             self.readProcFilesystems()
+        if self.fusefs:
+            return FileSystemType.kernelFilesystems.has_key("fuse")
 
         return FileSystemType.kernelFilesystems.has_key(self.getMountName()) or self.getName() == "auto"
 
@@ -982,6 +985,9 @@ class NTFSFileSystem(FileSystemType):
         if len(filter(lambda d: os.path.exists("%s/ntfsresize" %(d,)),
                       os.environ["PATH"].split(":"))) > 0:
             self.resizable = True
+        if len(filter(lambda d: os.path.exists("%s/mount.ntfs-3g" %(d,)),
+                      os.environ["PATH"].split(":"))) > 0:
+            self.fusefs = 1
 
     def resize(self, entry, size, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
