@@ -2044,7 +2044,7 @@ int main(int argc, char ** argv) {
     stop_fw_loader(&loaderData);
     start_fw_loader(&loaderData);
 
-    mlLoadModuleSet("raid0:raid1:raid5:raid6:raid456:raid10:linear:fat:msdos:gfs2:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-crypt:cbc:sha256:lrw:xts");
+    mlLoadModuleSet("raid0:raid1:raid5:raid6:raid456:raid10:linear:fat:msdos:gfs2:reiserfs:jfs:xfs:btrfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-crypt:cbc:sha256:lrw:xts");
 
     if (!access("/mnt/runtime/usr/lib/libunicode-lite.so.1", R_OK))
         setenv("LD_PRELOAD", "/mnt/runtime/usr/lib/libunicode-lite.so.1", 1);

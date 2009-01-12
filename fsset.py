@@ -727,6 +727,71 @@ class ext4FileSystem(extFileSystem):
 
 fileSystemTypeRegister(ext4FileSystem())
 
+class btrfsFileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.formattable = 1
+        self.checked = 1
+        self.linuxnativefs = 1
+        self.bootable = False
+        self.maxLabelChars = 256
+        # Wow, you must be brave!
+        # this is totally, 100% unsupported.  Boot with "linux btrfs"
+        # at the boot: prompt will let you make new btrfs filesystems
+        # in the installer.
+        if flags.cmdline.has_key("icantbelieveitsnotbtr"):
+            self.supported = -1
+        else:
+            self.supported = 0
+
+        self.name = "btrfs"
+        self.packages = [ "btrfs-progs" ]
+        self.needProgram = [ "mkfs.btrfs", "btrfsctl" ]
+
+	# Bigger, really, depending on machine
+        self.maxSizeMB = 16 * 1024 * 1024
+
+    # We'll sneakily label it here, too.
+    def formatDevice(self, entry, progress, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+        label = self.createLabel(entry.mountpoint, self.maxLabelChars,
+                                 kslabel = entry.label)
+
+        rc = iutil.execWithRedirect("mkfs.btrfs",
+				    ["-L", label, devicePath],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5", searchPath = 1)
+
+        if rc:
+            raise SystemError
+        entry.setLabel(label)
+    def labelDevice(self, entry, chroot):
+        # We did this on the initial format; no standalone labeler yet
+        pass
+
+    def resize(self, entry, size, progress, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+        log.info("resizing %s" %(devicePath,))
+
+        w = None
+        if progress:
+            w = progress(_("Resizing"),
+                         _("Resizing filesystem on %s...") %(devicePath),
+                         100, pulse = True)
+
+        rc = iutil.execWithPulseProgress("btrfsctl",
+                                         ["-r", "%sM" %(size,), devicePath],
+                                         stdout="/tmp/resize.out",
+                                         stderr="/tmp/resize.out",
+                                         progress = w)
+        if progress:
+            w.pop()
+        if rc:
+            raise ResizeError, ("Resize of %s failed: %s" %(devicePath, rc), devicePath)
+
+
+fileSystemTypeRegister(btrfsFileSystem())
+
 class raidMemberDummyFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)

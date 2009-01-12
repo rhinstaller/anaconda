@@ -150,7 +150,7 @@ die () {
 
 PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
 	anaconda-yum-plugins at-spi atk attr audit-libs bash bitmap-fonts-cjk
-	booty busybox-anaconda bzip2 bzip2-libs cairo cjkunifonts-uming
+	booty btrfs-progs busybox-anaconda bzip2 bzip2-libs cairo cjkunifonts-uming
 	comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
 	cryptsetup-luks db4 dbus dbus-python dejavu-sans-fonts
 	dejavu-sans-mono-fonts device-mapper
@@ -345,6 +345,8 @@ lib/udev
 sbin/*gfs*
 sbin/arping
 sbin/badblocks
+sbin/btrfsctl
+sbin/btrfsck
 sbin/busybox.anaconda
 sbin/clock
 sbin/consoletype
@@ -379,6 +381,7 @@ sbin/lvm*
 sbin/mdadm
 sbin/mkdosfs
 sbin/mke2fs
+sbin/mkfs.btrfs
 sbin/mkfs.ext2
 sbin/mkfs.ext3
 sbin/mkfs.gfs2
