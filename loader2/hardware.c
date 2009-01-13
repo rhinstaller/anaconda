@@ -59,6 +59,41 @@ int canProbeDevices(void) {
     return 1;    
 }
 
+static void probeVirtio(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps, int flags) {
+    struct device ** devices, ** device;
+    char modules[1024];
+
+    logMessage("probing virtio buse");
+
+    devices = probeDevices(CLASS_UNSPEC, BUS_VIRTIO, PROBE_ALL);
+
+    logMessage("finished virtio bus probing");
+
+    *modules = '\0';
+
+    for (device = devices; device && *device; device++) {
+        char *driver = (*device)->driver;
+
+	if (!driver) {
+            logMessage("ignoring driverless device %s", (*device)->desc);
+	} else if (FL_NONET(flags) && ((*device)->type == CLASS_NETWORK)) {
+            logMessage("ignoring network device %s (%s)",
+                       (*device)->desc, driver);
+	} else {
+            if (*modules)
+                strcat(modules, ":");
+            strcat(modules, driver);
+	}
+
+	freeDevice(*device);
+    }
+
+    free(devices);
+
+    if (*modules)
+        mlLoadModuleSet(modules, modLoaded, modDeps, modInfo, flags);
+}
+
 static int detectHardware(moduleInfoSet modInfo, 
                           char *** modules, int flags) {
     struct device ** devices, ** device;
@@ -297,6 +332,10 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
             }
             
             mlLoadModuleSet(modules, modLoaded, modDeps, modInfo, flags);
+
+            /* The virtio bus only becomes available after loading the
+               virtio_pci driver so we must probe virtio devices separately */
+            probeVirtio(modInfo, modLoaded, modDeps, flags);
 
             startPcmciaDevices(modLoaded, flags);
         } else 
