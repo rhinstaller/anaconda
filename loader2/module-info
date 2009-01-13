@@ -1106,6 +1106,14 @@ orinoco_tmd
 	eth
 	"Orinoco, Prism II and similar wireless ethernet"
 
+virtio_blk
+	scsi_hostadapter
+	"Virtio block driver"
+
+virtio_net
+	eth
+	"Virtio network driver"
+
 wavelan_cs
 	eth
 	"WaveLAN PCMCIA wireless ethernet"
