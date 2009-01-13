@@ -78,7 +78,7 @@ RAIDMODS="md raid0 raid1 raid5 raid6"
 SECSTAGE="agpgart $RAIDMODS $LVMMODS $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
 
 BTERMMODULES="vga16fb vgastate"
-COMMONMODULES="fat vfat nfs sunrpc lockd floppy cramfs loop edd $USBMODS $BTERMMODULES"
+COMMONMODULES="fat vfat nfs sunrpc lockd floppy cramfs loop edd virtio_pci $USBMODS $BTERMMODULES"
 LOCALMODULES="$COMMONMODULES aic7xxx megaraid_mbox sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES 3c59x 
 	       e100 tulip 8139too"
