@@ -6,11 +6,11 @@ License: GPL
 Summary: Graphical system installer
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
-BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.1.95.23, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, rhpl, booty, libxml2-python, zlib-devel, bogl-devel >= 0:0.1.9-17, bogl-bterm >= 0:0.1.9-17, elfutils-devel, beecrypt-devel, libselinux-devel >= 1.6, xorg-x11-devel
+BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.1.95.26, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, rhpl, booty, libxml2-python, zlib-devel, bogl-devel >= 0:0.1.9-17, bogl-bterm >= 0:0.1.9-17, elfutils-devel, beecrypt-devel, libselinux-devel >= 1.6, xorg-x11-devel
 %ifarch i386
 BuildRequires: dietlibc
 %endif
-Requires: rpm-python >= 4.2-0.61, rhpl > 0.63, parted >= 1.6.3-7, booty, kudzu
+Requires: rpm-python >= 4.2-0.61, rhpl > 0.63, parted >= 1.6.19-23, booty, kudzu
 Requires: pyparted, libxml2-python, dosfstools >= 2.8-17
 Requires: anaconda-help, system-logos
 Obsoletes: anaconda-images <= 10
