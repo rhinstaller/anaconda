@@ -590,6 +590,9 @@ def growLogicalVolumes(diskset, requests):
                 if DEBUG_LVM_GROW:
 		    log("Name, size, cursize, vgfree, fraction = %s %s %s %s %s", req.logicalVolumeName, req.size, cursize[req.logicalVolumeName], vgfree, fraction)
 		    
+                if req.size < 0:
+                    req.size = 0
+
 		completed.append(req)
 
 	    if nochange:
