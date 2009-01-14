@@ -135,12 +135,13 @@ class AnacondaKSPackages(Packages):
 
 class Authconfig(commands.authconfig.FC3_Authconfig):
     def parse(self, args):
-        commands.authconfig.FC3_Authconfig.parse(self, args)
+        retval = commands.authconfig.FC3_Authconfig.parse(self, args)
         self.handler.id.auth = self.authconfig
+        return retval
 
 class AutoPart(commands.autopart.F9_AutoPart):
     def parse(self, args):
-        commands.autopart.F9_AutoPart.parse(self, args)
+        retval = commands.autopart.F9_AutoPart.parse(self, args)
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
@@ -151,16 +152,18 @@ class AutoPart(commands.autopart.F9_AutoPart):
             self.handler.id.partitions.encryptionPassphrase = self.passphrase
 
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        return retval
 
 class AutoStep(commands.autostep.FC3_AutoStep):
     def parse(self, args):
-        commands.autostep.FC3_AutoStep.parse(self, args)
+        retval = commands.autostep.FC3_AutoStep.parse(self, args)
         flags.autostep = 1
         flags.autoscreenshot = self.autoscreenshot
+        return retval
 
 class Bootloader(commands.bootloader.F8_Bootloader):
     def parse(self, args):
-        commands.bootloader.F8_Bootloader.parse(self, args)
+        retval = commands.bootloader.F8_Bootloader.parse(self, args)
 
         if self.location == "none":
             location = None
@@ -220,10 +223,11 @@ class Bootloader(commands.bootloader.F8_Bootloader):
                 self.handler.id.bootloader.drivelist = new
 
         self.handler.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
+        return retval
 
 class ClearPart(commands.clearpart.FC3_ClearPart):
     def parse(self, args):
-        commands.clearpart.FC3_ClearPart.parse(self, args)
+        retval = commands.clearpart.FC3_ClearPart.parse(self, args)
 
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
@@ -238,9 +242,11 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
         if self.initAll:
             self.handler.id.partitions.reinitializeDisks = self.initAll
 
+        return retval
+
 class Firewall(commands.firewall.F10_Firewall):
     def parse(self, args):
-        commands.firewall.F10_Firewall.parse(self, args)
+        retval = commands.firewall.F10_Firewall.parse(self, args)
         self.handler.id.firewall.enabled = self.enabled
         self.handler.id.firewall.trustdevs = self.trusts
 
@@ -250,14 +256,17 @@ class Firewall(commands.firewall.F10_Firewall):
         for svc in self.services:
             self.handler.id.firewall.servicelist.append (svc)
 
+        return retval
+
 class Firstboot(commands.firstboot.FC3_Firstboot):
     def parse(self, args):
-        commands.firstboot.FC3_Firstboot.parse(self, args)
+        retval = commands.firstboot.FC3_Firstboot.parse(self, args)
         self.handler.id.firstboot = self.firstboot
+        return retval
 
 class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
     def parse(self, args):
-        commands.ignoredisk.F8_IgnoreDisk.parse(self, args)
+        retval = commands.ignoredisk.F8_IgnoreDisk.parse(self, args)
 
         diskset = self.handler.id.diskset
         for drive in self.ignoredisk:
@@ -269,9 +278,11 @@ class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
             if not drive in diskset.exclusiveDisks:
                 diskset.exclusiveDisks.append(drive)
 
+        return retval
+
 class Iscsi(commands.iscsi.F10_Iscsi):
     def parse(self, args):
-        commands.iscsi.F10_Iscsi.parse(self, args)
+        retval = commands.iscsi.F10_Iscsi.parse(self, args)
 
         for target in self.iscsi:
             kwargs = {
@@ -294,34 +305,36 @@ class Iscsi(commands.iscsi.F10_Iscsi):
 
         # FIXME: flush the drive dict so we figure drives out again
         isys.flushDriveDict()
+        return retval
 
 class IscsiName(commands.iscsiname.FC6_IscsiName):
     def parse(self, args):
-        commands.iscsiname.FC6_IscsiName.parse(self, args)
+        retval = commands.iscsiname.FC6_IscsiName.parse(self, args)
 
         self.handler.id.iscsi.initiator = self.iscsiname
         self.handler.id.iscsi.startIBFT()
         # FIXME: flush the drive dict so we figure drives out again
         isys.flushDriveDict()
+        return retval
 
 class Keyboard(commands.keyboard.FC3_Keyboard):
     def parse(self, args):
-        commands.keyboard.FC3_Keyboard.parse(self, args)
+        retval = commands.keyboard.FC3_Keyboard.parse(self, args)
         self.handler.id.keyboard.set(self.keyboard)
         self.handler.id.keyboard.beenset = 1
         self.handler.skipSteps.append("keyboard")
+        return retval
 
 class Lang(commands.lang.FC3_Lang):
     def parse(self, args):
-        commands.lang.FC3_Lang.parse(self, args)
+        retval = commands.lang.FC3_Lang.parse(self, args)
         self.handler.id.instLanguage.setRuntimeLanguage(self.lang)
         self.handler.skipSteps.append("language")
+        return retval
 
 class LogVol(commands.logvol.F9_LogVol):
     def parse(self, args):
-        commands.logvol.F9_LogVol.parse(self, args)
-
-        lvd = self.lvList[-1]
+        lvd = commands.logvol.F9_LogVol.parse(self, args)
 
         if lvd.mountpoint == "swap":
             filesystem = fileSystemTypeGet("swap")
@@ -391,9 +404,11 @@ class LogVol(commands.logvol.F9_LogVol):
         addPartRequest(self.handler.anaconda, request)
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
+        return lvd
+
 class Logging(commands.logging.FC6_Logging):
     def parse(self, args):
-        commands.logging.FC6_Logging.parse(self, args)
+        retval = commands.logging.FC6_Logging.parse(self, args)
 
         log.setHandlersLevel(logLevelMap[self.level])
 
@@ -402,11 +417,11 @@ class Logging(commands.logging.FC6_Logging):
         elif self.host != "":
             logger.addSysLogHandler(log, self.host)
 
+        return retval
+
 class Network(commands.network.F8_Network):
     def parse(self, args):
-        commands.network.F8_Network.parse(self, args)
-
-        nd = self.network[-1]
+        nd = commands.network.F8_Network.parse(self, args)
 
         if nd.bootProto:
             devices = self.handler.id.network.netdevices
@@ -456,15 +471,16 @@ class Network(commands.network.F8_Network):
         if nd.gateway != "":
             self.handler.id.network.setGateway(nd.gateway, device)
 
+        return nd
+
 class MultiPath(commands.multipath.FC6_MultiPath):
     def parse(self, args):
-        commands.multipath.FC6_MultiPath.parse(self, args)
+        mpath = commands.multipath.FC6_MultiPath.parse(self, args)
 
         from partedUtils import DiskSet
         ds = DiskSet(self.handler.anaconda)
         ds.startMPath()
 
-        mpath = self.mpaths[-1]
         log.debug("Searching for mpath '%s'" % (mpath.name,))
         for mp in DiskSet.mpList or []:
             it = True
@@ -480,18 +496,19 @@ class MultiPath(commands.multipath.FC6_MultiPath):
                     % (mp.name, mpath.name))
                 newname = mpath.name
                 ds.renameMPath(mp, newname)
-                return
+                return mpath
+
         ds.startMPath()
+        return mpath
 
 class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
-        commands.dmraid.FC6_DmRaid.parse(self, args)
+        raid = commands.dmraid.FC6_DmRaid.parse(self, args)
 
         from partedUtils import DiskSet
         ds = DiskSet(self.handler.anaconda)
         ds.startDmRaid()
 
-        raid = self.dmraids[-1]
         log.debug("Searching for dmraid '%s'" % (raid.name,))
         for rs in DiskSet.dmList or []:
             it = True
@@ -508,14 +525,15 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
                 # why doesn't rs.name go through the setter here?
                 newname = raid.name
                 ds.renameDmRaid(rs, newname)
-                return
+                return raid
+
         ds.startDmRaid()
+        return raid
 
 class Partition(commands.partition.F9_Partition):
     def parse(self, args):
-        commands.partition.F9_Partition.parse(self, args)
+        pd = commands.partition.F9_Partition.parse(self, args)
 
-        pd = self.partitions[-1]
         uniqueID = None
 
         fsopts = ""
@@ -635,16 +653,17 @@ class Partition(commands.partition.F9_Partition):
         addPartRequest(self.handler.anaconda, request)
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
+        return pd
+
 class Reboot(commands.reboot.FC6_Reboot):
     def parse(self, args):
-        commands.reboot.FC6_Reboot.parse(self, args)
+        retval = commands.reboot.FC6_Reboot.parse(self, args)
         self.handler.skipSteps.append("complete")
+        return retval
 
 class Raid(commands.raid.F9_Raid):
     def parse(self, args):
-        commands.raid.F9_Raid.parse(self, args)
-
-        rd = self.raidList[-1]
+        rd = commands.raid.F9_Raid.parse(self, args)
 
         uniqueID = None
 
@@ -717,33 +736,38 @@ class Raid(commands.raid.F9_Raid):
 
         addPartRequest(self.handler.anaconda, request)
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        return rd
 
 class RootPw(commands.rootpw.F8_RootPw):
     def parse(self, args):
-        commands.rootpw.F8_RootPw.parse(self, args)
+        retval = commands.rootpw.F8_RootPw.parse(self, args)
 
         self.handler.id.rootPassword["password"] = self.password
         self.handler.id.rootPassword["isCrypted"] = self.isCrypted
         self.handler.id.rootPassword["lock"] = self.lock
         self.handler.skipSteps.append("accounts")
+        return retval
 
 class SELinux(commands.selinux.FC3_SELinux):
     def parse(self, args):
-        commands.selinux.FC3_SELinux.parse(self, args)
+        retval = commands.selinux.FC3_SELinux.parse(self, args)
         self.handler.id.security.setSELinux(self.selinux)
+        return retval
 
 class SkipX(commands.skipx.FC3_SkipX):
     def parse(self, args):
-        commands.skipx.FC3_SkipX.parse(self, args)
+        retval = commands.skipx.FC3_SkipX.parse(self, args)
 
         self.handler.skipSteps.extend(["setsanex", "videocard", "xcustom"])
 
         if self.handler.id.desktop is not None:
             self.handler.id.desktop.setDefaultRunLevel(3)
 
+        return retval
+
 class Timezone(commands.timezone.FC6_Timezone):
     def parse(self, args):
-        commands.timezone.FC6_Timezone.parse(self, args)
+        retval = commands.timezone.FC6_Timezone.parse(self, args)
 
         # check validity
         f = open('/usr/share/zoneinfo/zone.tab', 'r')
@@ -756,21 +780,21 @@ class Timezone(commands.timezone.FC6_Timezone):
                 break
         else:
             log.warning("Timezone %s set in kickstart is not valid, will ask" % (self.timezone,))
-            return
+            return retval
 
         self.handler.id.timezone.setTimezoneInfo(self.timezone, self.isUtc)
         self.handler.skipSteps.append("timezone")
+        return retval
 
 class Upgrade(commands.upgrade.F11_Upgrade):
     def parse(self, args):
-        commands.upgrade.FC3_Upgrade.parse(self, args)
+        retval = commands.upgrade.FC3_Upgrade.parse(self, args)
         self.handler.id.setUpgrade(self.upgrade)
+        return retval
 
 class VolGroup(commands.volgroup.FC3_VolGroup):
     def parse(self, args):
-        commands.volgroup.FC3_VolGroup.parse(self, args)
-
-        vgd = self.vgList[-1]
+        vgd = commands.volgroup.FC3_VolGroup.parse(self, args)
         pvs = []
 
         # get the unique ids of each of the physical volumes
@@ -797,10 +821,11 @@ class VolGroup(commands.volgroup.FC3_VolGroup):
                                                       pesize = vgd.pesize)
         request.uniqueID = uniqueID
         addPartRequest(self.handler.anaconda, request)
+        return vgd
 
 class XConfig(commands.xconfig.F10_XConfig):
     def parse(self, args):
-        commands.xconfig.F10_XConfig.parse(self, args)
+        retval = commands.xconfig.F10_XConfig.parse(self, args)
 
         if self.startX:
             self.handler.id.desktop.setDefaultRunLevel(5)
@@ -808,18 +833,22 @@ class XConfig(commands.xconfig.F10_XConfig):
         if self.defaultdesktop:
             self.handler.id.desktop.setDefaultDesktop(self.defaultdesktop)
 
+        return retval
+
 class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
     def parse(self, args):
-        commands.zerombr.FC3_ZeroMbr.parse(self, args)
+        retval = commands.zerombr.FC3_ZeroMbr.parse(self, args)
         self.handler.id.partitions.zeroMbr = 1
+        return retval
 
 class ZFCP(commands.zfcp.FC3_ZFCP):
     def parse(self, args):
-        commands.zfcp.FC3_ZFCP.parse(self, args)
+        retval = commands.zfcp.FC3_ZFCP.parse(self, args)
         for fcp in self.zfcp:
             self.handler.id.zfcp.addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
 
         isys.flushDriveDict()
+        return retval
 
 
 ###
