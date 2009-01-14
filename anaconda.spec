@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.6
+Version: 11.5.0.7
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jan 14 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.7-1
+- How to get raw pages from the wiki has changed again. (clumens)
+- Make sure the 'anaconda' file gets the right detected type (alsadi,
+  #479574).
+- Include the missing import. (clumens)
+
 * Thu Jan 08 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.6-1
 - Collect DSO deps for NetworkManager plugins. (dcantrell)
 
