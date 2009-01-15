@@ -531,7 +531,7 @@ class Network:
             device = dev.get('DEVICE')
 
             cfgfile = "%s/ifcfg-%s" % (netscripts, device,)
-            if os.path.isfile(cfgfile):
+            if (instPath) and (os.path.isfile(cfgfile)):
                 continue
 
             bootproto = dev.get('BOOTPROTO').lower()
@@ -600,7 +600,7 @@ class Network:
             # handle the keys* files if we have those
             if dev.get("KEY"):
                 cfgfile = "%s/keys-%s" % (netscripts, device,)
-                if os.path.isfile(cfgfile):
+                if not instPath == '' and os.path.isfile(cfgfile):
                     continue
 
                 newkey = "%s/keys-%s.new" % (netscripts, device,)
@@ -622,7 +622,7 @@ class Network:
                     log.warning("unable to copy %s to target system" % (dhclientconf,))
 
         # /etc/sysconfig/network
-        if not os.path.isfile(destnetwork):
+        if (not instPath) and (not os.path.isfile(destnetwork)):
             newnetwork = "%s.new" % (destnetwork,)
 
             f = open(newnetwork, "w")
@@ -646,7 +646,7 @@ class Network:
 
         # /etc/hosts
         domainname = None
-        if not os.path.isfile(instPath + "/etc/hosts"):
+        if (not instPath) and (not os.path.isfile(instPath + "/etc/hosts")):
             f = open(instPath + "/etc/hosts", "w")
 
             log.info("self.hostname = %s", self.hostname)
@@ -700,7 +700,7 @@ class Network:
                 self.domains = [domainname]
 
         # /etc/resolv.conf
-        if not os.path.isfile(instPath + '/etc/resolv.conf'):
+        if (not instPath) and (not os.path.isfile(instPath + '/etc/resolv.conf')):
             if os.path.isfile('/etc/resolv.conf') and instPath != '':
                 destresolv = "%s/etc/resolv.conf" % (instPath,)
                 shutil.copy('/etc/resolv.conf', destresolv)
