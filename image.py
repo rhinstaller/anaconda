@@ -18,7 +18,7 @@
 #
 
 import isys, iutil
-import os, os.path, stat, string, sys, sets
+import os, os.path, stat, string, sys
 from constants import *
 
 import gettext
@@ -226,8 +226,8 @@ def presentRequiredMediaMessage(anaconda):
 
         log.info("discNums is %s" %(discNums,))
         haveall = 0
-        s = sets.Set(reqcds)
-        t = sets.Set(discNums)
+        s = set(reqcds)
+        t = set(discNums)
         if s.issubset(t):
             haveall = 1
 
