@@ -1895,6 +1895,8 @@ int get_connection(iface_t *iface) {
     int count = 0;
     NMClient *client = NULL;
     NMState state;
+    GMainLoop *loop;
+    GMainContext *ctx;
 
     if (iface == NULL) {
         return 1;
@@ -1921,8 +1923,21 @@ int get_connection(iface_t *iface) {
         return 2;
     }
 
+    /* Create a loop for processing dbus signals */
+    loop = g_main_loop_new(NULL, FALSE);
+    ctx = g_main_loop_get_context(loop);
+
+    /* pump the loop until all the messages are clear */
+    while (g_main_context_pending (ctx)) {
+        g_main_context_iteration (ctx, FALSE);
+    }
+
     /* send message and block until a reply or error comes back */
     while (count < 45) {
+        /* pump the loop again to clear the messages */
+        while (g_main_context_pending (ctx)) {
+            g_main_context_iteration (ctx, FALSE);
+        }
         state = nm_client_get_state(client);
 
         if (state == NM_STATE_CONNECTED) {
@@ -1937,6 +1952,7 @@ int get_connection(iface_t *iface) {
         count++;
     }
 
+    g_main_loop_unref(loop);
     g_object_unref(client);
     return 3;
 }
