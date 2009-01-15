@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.91
+Version: 10.1.1.92
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,28 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jan 15 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.92-1
+- Flush the drive dict first so CD-ROM device nodes get made (clumens).
+  Resolves: rhbz:#435926
+- Protect installation source partition from deletion (msivak).
+  Resolves: rhbz:#461855
+- Allow bootloader on mbr when /boot is dmraid1 (hdegoede).
+  Resolves: rhbz:#217176
+- Allow empty DNS variable in s390 CMS conf file (dcantrell).
+  Resolves: rhbz:#465175
+- Write /etc/resolv.conf and /etc/hosts in stage1 on s390 (dcantrell).
+  Resolves: rhbz:#459730
+- docs update for driveorder ks command (msivak).
+  Resolves: rhbz:#430476
+- Fix detection of xen environment for kbd setting (rvykydal).
+  Resolves: rhbz:#459785
+- Fix clamping of size of lvm physical volumes (backport) (rvykydal).
+  Resolves: rhbz:#233050
+- Add virtio support (clalance).
+  Related: rhbz:#479134,446215
+- Do a check in lvm grow to catch negative sizes (jgranado).
+  Related: rhbz:#144676
+
 * Tue Jul 08 2008 Peter Jones <pjones@redhat.com> - 10.1.1.91-1
 - Add initrd.size to the generic.ins files on s390.  (I think this should
   solve #454492 , and indicates that the verification of #449617 was an error.)
