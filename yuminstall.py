@@ -1325,11 +1325,12 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self.ayum.dsCallback = dscb
 
         # do some sanity checks for kernel and bootloader
-        self.selectBestKernel(anaconda)
-        self.selectBootloader()
-        self.selectFSPackages(anaconda.id.fsset, anaconda.id.diskset)
-
-        self.selectAnacondaNeeds()
+        if not anaconda.id.getUpgrade():
+            # New installs only - upgrades will already have all this stuff.
+            self.selectBestKernel(anaconda)
+            self.selectBootloader()
+            self.selectFSPackages(anaconda.id.fsset, anaconda.id.diskset)
+            self.selectAnacondaNeeds()
 
         if anaconda.id.getUpgrade():
             self.ayum.update()
