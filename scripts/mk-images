@@ -264,6 +264,8 @@ expandModuleSet() {
 		SET="$SET $(cat $MBD_DIR/lib/modules/$kernel/modules.block |egrep '(ata|ahci)' |sed -e 's/.ko//')"
 	    elif [ "$NAME" = "scsi" ]; then
 		SET="$SET $(cat $MBD_DIR/lib/modules/$kernel/modules.block) |sed -e 's/.ko//')"
+	    elif [ "$NAME" = "net" ]; then
+		SET="$SET $(cat $MBD_DIR/lib/modules/$kernel/modules.networking) |sed -e 's/.ko//')"
 	    else
                 # Ignore if group list does not exist
                 if [ -e $MBD_DIR/lib/modules/$kernel/modules.$NAME ]; then
