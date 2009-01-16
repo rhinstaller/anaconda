@@ -694,7 +694,7 @@ class ext3FileSystem(extFileSystem):
         self.name = "ext3"
         self.extraFormatArgs = [ "-t", "ext3" ]
         self.partedFileSystemType = parted.file_system_type_get("ext3")
-        if flags.cmdline.has_key("ext4"):
+        if flags.cmdline.has_key("ext4migrate"):
             self.migratetofs = ['ext4']
 
     def formatDevice(self, entry, progress, chroot='/'):
@@ -720,13 +720,6 @@ class ext4FileSystem(extFileSystem):
         self.partedFileSystemType = parted.file_system_type_get("ext3")
         self.extraFormatArgs = [ "-t", "ext4" ]
         self.bootable = False
-
-        # this is way way experimental at present...
-        if flags.cmdline.has_key("ext4"):
-            self.supported = -1
-        else:
-            self.supported = 0
-
 
     def formatDevice(self, entry, progress, chroot='/'):
         extFileSystem.formatDevice(self, entry, progress, chroot)
