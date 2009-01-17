@@ -425,6 +425,7 @@ usr/$LIBDIR/python?.?/email
 usr/$LIBDIR/python?.?/site-packages/*.pth
 usr/$LIBDIR/python?.?/site-packages/*selinux*
 usr/$LIBDIR/python?.?/site-packages/*sqlite*
+usr/$LIBDIR/python?.?/site-packages/_cracklibmodule.so
 usr/$LIBDIR/python?.?/site-packages/_dbus*
 usr/$LIBDIR/python?.?/site-packages/bdevid.so
 usr/$LIBDIR/python?.?/site-packages/block
@@ -488,7 +489,7 @@ usr/lib/booty
 usr/lib/kernel-wrapper
 usr/lib/locale
 usr/lib/python?.?/site-packages/bugzilla*
-usr/lib/python?.?/site-packages/cracklibmodule.so
+usr/lib/python?.?/site-packages/cracklib.py*
 usr/lib/python?.?/site-packages/dbus
 usr/lib/python?.?/site-packages/dbus_bindings.py*
 usr/lib/python?.?/site-packages/elementtree
