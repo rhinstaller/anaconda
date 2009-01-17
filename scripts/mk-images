@@ -261,15 +261,15 @@ expandModuleSet() {
         if [ $char = '=' ]; then
 	    NAME=$(echo $name | cut -c2-)
 	    if [ "$NAME" = "ata" ]; then
-		SET="$SET $(egrep '(ata|ahci)' $MBD_DIR/lib/modules/$version/modules.block |sed -e 's/.ko//')"
+		SET="$SET $(egrep '(ata|ahci)' $KERNELROOT/lib/modules/$version/modules.block |sed -e 's/.ko//')"
 	    elif [ "$NAME" = "scsi" ]; then
-		SET="$SET $(sed -e 's/.ko//' $MBD_DIR/lib/modules/$version/modules.block)"
+		SET="$SET $(sed -e 's/.ko//' $KERNELROOT/lib/modules/$version/modules.block)"
 	    elif [ "$NAME" = "net" ]; then
-		SET="$SET $(sed -e 's/.ko//' $MBD_DIR/lib/modules/$version/modules.networking)"
+		SET="$SET $(sed -e 's/.ko//' $KERNELROOT/lib/modules/$version/modules.networking)"
 	    else
                 # Ignore if group list does not exist
-                if [ -e $MBD_DIR/lib/modules/$version/modules.$NAME ]; then
-		    SET="$SET $(sed -e 's/.ko//' $MBD_DIR/lib/modules/$version/modules.$NAME)"
+                if [ -e $KERNELROOT/lib/modules/$version/modules.$NAME ]; then
+		    SET="$SET $(sed -e 's/.ko//' $KERNELROOT/lib/modules/$version/modules.$NAME)"
                 fi
 	    fi
 	else
