@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.8
+Version: 11.5.0.9
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,19 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jan 16 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.9-1
+- Cracklib moved locations, account for this in our keepfiles. (jkeating)
+- Look in the right path for kernel module lists. (jkeating)
+- Fix more problems in expandModuleSet, based on a patch from markmc
+  (#480307). (clumens)
+- Allow ext4 without magic argument (keep a flag for migrate) (katzj)
+- Fix pulling in network modules (katzj)
+- Support mounting NTFS filesystems (#430084) (katzj)
+- dejavu fonts changed package names, pick up new names. (jkeating)
+- TightVNC is now the default VNC server in Fedora (#480308). (clumens)
+- Only skip (over)writing netconfig if we have an actual instPath (jkeating)
+- The sets module is deprecated, so no longer use it. (clumens)
+
 * Wed Jan 14 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.8-1
 - Fix D-Bus usage in get_connection in loader (jkeating)
 
