@@ -1,12 +1,13 @@
 # translation of anaconda.master.eu_ES.po to Basque
 # Mikel Pascual Aldabaldetreku <mikel.paskual@gmail.com>, 2008.
+# Mikel Pascual Aldabaldetreku <mikel.paskual@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.eu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2008-12-04 15:10+0100\n"
+"PO-Revision-Date: 2009-01-19 04:03+0100\n"
 "Last-Translator: Mikel Pascual Aldabaldetreku <mikel.paskual@gmail.com>\n"
 "Language-Team: eu <mikel.paskual@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -221,11 +222,11 @@ msgstr "Posible da %s abio-partizioak zure arkitekturaren abio-baldintzak ez bet
 #: ../autopart.py:1098
 #, python-format
 msgid "Adding this partition would not leave enough disk space for already allocated logical volumes in %s."
-msgstr ""
+msgstr "Partizio hau gehituz gero, ez litzateke jadanik '%s'-n esleitutako bolumen logikoentzako lekurik geratuko."
 
 #: ../autopart.py:1295
 msgid "Requested Partition Does Not Exist"
-msgstr ""
+msgstr "Partizioa ez da existitzen"
 
 #: ../autopart.py:1296
 #, python-format
@@ -234,10 +235,13 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"Ezin %s partizioa aurkitu '%s'-rako erabiltzeko.\n"
+"\n"
+"'Ados' sakatu instalatzailetik irteteko."
 
 #: ../autopart.py:1321
 msgid "Requested Raid Device Does Not Exist"
-msgstr ""
+msgstr "Raid gailua ez da existitzen"
 
 #: ../autopart.py:1322
 #, python-format
@@ -246,10 +250,13 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"Ezin %s raid gailua aurkitu '%s'-rako erabiltzeko.\n"
+"\n"
+"'Ados' sakatu instalatzailetik irteteko."
 
 #: ../autopart.py:1351
 msgid "Requested Volume Group Does Not Exist"
-msgstr ""
+msgstr "Bolumen taldea ez da existitzen"
 
 #: ../autopart.py:1352
 #, python-format
@@ -258,10 +265,13 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"Ezin %s bolument taldea aurkitu '%s'-rako erabiltzeko.\n"
+"\n"
+"'Ados' sakatu instalatzailetik irteteko."
 
 #: ../autopart.py:1389
 msgid "Requested Logical Volume Does Not Exist"
-msgstr ""
+msgstr "Bolumen logikoa ez da existitzen"
 
 #: ../autopart.py:1390
 #, python-format
@@ -270,11 +280,14 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"Ezin %s bolumen logikoa aurkitu '%s'-rako erabiltzeko.\n"
+"\n"
+"'Ados' sakatu instalatzailetik irteteko."
 
 #: ../autopart.py:1524
 #: ../autopart.py:1571
 msgid "Automatic Partitioning Errors"
-msgstr ""
+msgstr "Erroreak partizionatze automatikoan"
 
 #: ../autopart.py:1525
 #, python-format
@@ -285,10 +298,15 @@ msgid ""
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
+"Errore hauek gertatu dira zure partizionatzean:\n"
+"\n"
+"%s\n"
+"\n"
+"'Ados' sakatu instalatzailetik irteteko."
 
 #: ../autopart.py:1535
 msgid "Warnings During Automatic Partitioning"
-msgstr ""
+msgstr "Abisuak partizionatze automatikoan"
 
 #: ../autopart.py:1536
 #, python-format
@@ -297,6 +315,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Abisu hauek gertatu dira partizionatzean:\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1550
 #: ../autopart.py:1567
@@ -322,6 +343,9 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
+"Ezin eskatutako partizioak esleitu: \n"
+"\n"
+"%s.%s"
 
 #: ../autopart.py:1569
 msgid ""
@@ -329,6 +353,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"'Ados' sakatu beste partizionatze-aukera bat hautatzeko."
 
 #: ../autopart.py:1572
 #, python-format
@@ -339,14 +366,19 @@ msgid ""
 "\n"
 "This can happen if there is not enough space on your hard drive(s) for the installation. %s"
 msgstr ""
+"Errore hauek gertatu dira zure partizionatzean:\n"
+"\n"
+"%s\n"
+"\n"
+"Zure disko gogorrean instalaziorako leku libre nahikoa ez dagoelako gertatu daiteke hau. %s"
 
 #: ../autopart.py:1583
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "Errore berreskuraezina"
 
 #: ../autopart.py:1584
 msgid "Your system will now be rebooted."
-msgstr ""
+msgstr "Zure sistema berrabiaraziko da orain."
 
 #: ../autopart.py:1707
 msgid ""
@@ -354,48 +386,51 @@ msgid ""
 "\n"
 "The manual disk partitioning tool, Disk Druid, allows you to create partitions in an interactive environment. You can set the file system types, mount points, partition sizes, and more."
 msgstr ""
+"Hautatutako instalazio-motaren arabera ezartzen ditu partizioak partizionatze automatikoak. Sortuak izan ondoren ere pertsonalizatu ditzakezu partizioak.\n"
+"\n"
+"Disk Druid, eskuzko partizionatze-tresna, erabil dezakezu partizioak sortzeko ingurune interaktibo batean. Fitxategi-sistema motak, muntatze-puntuak, partizio-tamainak, etab ezarri ditzakezu."
 
 #: ../autopart.py:1718
 msgid "Before automatic partitioning can be set up by the installation program, you must choose how to use the space on your hard drives."
-msgstr ""
+msgstr "Instalazio-programak partizionatze-automatikoa ezarri aurretik, zure disko gogorren lekua nola erabili hautatu behar duzu."
 
 #: ../autopart.py:1723
 msgid "Remove all partitions on this system"
-msgstr ""
+msgstr "Sistema honen partizio guztiak kendu"
 
 #: ../autopart.py:1724
 msgid "Remove all Linux partitions on this system"
-msgstr ""
+msgstr "Sistema honen Linux-partizio guztiak kendu"
 
 #: ../autopart.py:1725
 msgid "Keep all partitions and use existing free space"
-msgstr ""
+msgstr "Partizio guztiak mantendu eta leku librea erabili"
 
 #: ../backend.py:130
 #, python-format
 msgid "Upgrading %s\n"
-msgstr ""
+msgstr "%s eguneratzen\n"
 
 #: ../backend.py:132
 #, python-format
 msgid "Installing %s\n"
-msgstr ""
+msgstr "%s instalatzen\n"
 
 #: ../backend.py:151
 msgid "Copying File"
-msgstr ""
+msgstr "Fitxategia kopiatzen"
 
 #: ../backend.py:152
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "Instalazio-irudia disko gogorrera transferitzen..."
 
 #: ../backend.py:162
 msgid "An error occurred transferring the install image to your hard drive.  This is probably due to bad media."
-msgstr ""
+msgstr "Errore bat gertatu da instalazio-irudia zure disko gogorrera transferitzean. Euskarri txar baten ondorio da zihurrenik."
 
 #: ../backend.py:166
 msgid "An error occurred transferring the install image to your hard drive. You are probably out of disk space."
-msgstr ""
+msgstr "Errore bat gertatu da instalazio-irudia zure disko gogorrera transferitzean. Lekurik gabe zaude zihurrenik."
 
 #: ../backend.py:170
 #: ../fsset.py:670
@@ -469,7 +504,7 @@ msgstr ""
 #: ../loader/urls.c:328
 #: ../loader/urls.c:334
 msgid "Error"
-msgstr ""
+msgstr "Errorea"
 
 #: ../bootloader.py:44
 #: ../bootloader.py:230
@@ -491,7 +526,7 @@ msgstr ""
 #: ../textw/partition_text.py:251
 #: ../textw/upgrade_text.py:186
 msgid "Warning"
-msgstr ""
+msgstr "Abisua"
 
 #: ../bootloader.py:45
 msgid ""
@@ -499,6 +534,9 @@ msgid ""
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
+"Dagoeneko aktibatu dira zure fitxategi-sistemak. jada ezin duzu atzera itzuli.\n"
+"\n"
+"Instalazioarekin jarraitu nahi al duzu?"
 
 #: ../bootloader.py:49
 #: ../exception.py:439
@@ -527,7 +565,7 @@ msgstr ""
 #: ../yuminstall.py:1283
 #: ../yuminstall.py:1318
 msgid "_Exit installer"
-msgstr ""
+msgstr "_Irten"
 
 #: ../bootloader.py:49
 #: ../fsset.py:1978
@@ -541,27 +579,27 @@ msgstr ""
 #: ../yuminstall.py:1052
 #: ../iw/partition_gui.py:1041
 msgid "_Continue"
-msgstr ""
+msgstr "_Jarraitu"
 
 #: ../bootloader.py:163
 msgid "Bootloader"
-msgstr ""
+msgstr "Abio-kargatzailea"
 
 #: ../bootloader.py:163
 msgid "Installing bootloader..."
-msgstr ""
+msgstr "Abio-kargatzailea instalatzen..."
 
 #: ../bootloader.py:231
 msgid "No kernel packages were installed on your system.  Your boot loader configuration will not be changed."
-msgstr ""
+msgstr "Ez da kernel-paketerik instalatu zure sisteman. Ez da zure abio-kargatzailearen konfigurazioa aldatuko."
 
 #: ../cmdline.py:54
 msgid "Completed"
-msgstr ""
+msgstr "Amaituta"
 
 #: ../cmdline.py:62
 msgid "In progress...   "
-msgstr ""
+msgstr "Jarraitzen..."
 
 #: ../cmdline.py:97
 msgid "an't have a question in command line mode!"
@@ -569,20 +607,20 @@ msgstr ""
 
 #: ../cmdline.py:116
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
+msgstr "Parted-en salbuespenak ezin dira agindu-lerro moduan kudeatu!"
 
 #: ../constants.py:74
 msgid "An unhandled exception has occurred.  This is most likely a bug.  Please save a copy of the detailed exception and file a bug report"
-msgstr ""
+msgstr "Kudeatu gabeko salbuespena gertatu da. Zihurrenik akats baten ondorio da. mesedez, salbuespenaren kopia xehetasundun bat gorde eta akatsaren berri eman ezazu."
 
 #: ../constants.py:80
 msgid " with the provider of this software."
-msgstr ""
+msgstr " software honen hornitzailearekin."
 
 #: ../constants.py:84
 #, python-format
 msgid " against anaconda at %s"
-msgstr ""
+msgstr " anacondaren aurka '%s'-n"
 
 #: ../exception.py:364
 #, python-format
@@ -591,6 +629,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Ezin izan da akatsaren berri eman, errore hau gertatu da-eta bugzillarekin komunikatzean:\n"
+"\n"
+"%s"
 
 #: ../exception.py:367
 #, python-format
@@ -599,39 +640,42 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Ezin izan da akatsaren berri eman, informazio okerra dago-eta eremuren batean. Zihurrenik anacondaren errorea da:\n"
+"\n"
+"%s"
 
 #: ../exception.py:371
 msgid "Unable To File Bug"
-msgstr ""
+msgstr "Ezin akatsaren berri eman"
 
 #: ../exception.py:377
 msgid "Bug Filing Not Supported"
-msgstr ""
+msgstr "Ezin da akatsen berri eman"
 
 #: ../exception.py:378
 msgid "Your distribution does not provide a supported bug filing system, so you cannot save your exception this way."
-msgstr ""
+msgstr "Zure distribuzioak ez du akatsen berri emateko sistemarik eskaintzen, beraz, ezin duzu metodo hau erabili salbuespenaren berri emateko."
 
 #: ../exception.py:384
 msgid "Invalid Bug Information"
-msgstr ""
+msgstr "Akats-informazio okerra"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "Erabiltzaile, pasahitz eta akats-deskribapen baliozkoak eskaini itzazu."
 
 #: ../exception.py:395
 msgid "Unable To Login"
-msgstr ""
+msgstr "Ezin sartu"
 
 #: ../exception.py:396
 #, python-format
 msgid "There was an error logging into %s using the provided username and password."
-msgstr ""
+msgstr "Erroreren bat gertatu da zuk eskainitako erabiltzaile eta pasahitzak erabiliz '%s'-ra sartzean."
 
 #: ../exception.py:433
 msgid "Bug Created"
-msgstr ""
+msgstr "Akatsa sortua"
 
 #: ../exception.py:434
 #, python-format
@@ -640,10 +684,13 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Akats berri bat sortu da zuk eskainitako informazioarekin. Mesedez, akatsa aurkitzean egiten ari zinenaren inguruko informazioa gehitzen saiatu zaitez (pantaila kapturak, zein beste edozeni informazio baliagarri):\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:450
 msgid "Bug Updated"
-msgstr ""
+msgstr "Akatsa eguneratuta"
 
 #: ../exception.py:451
 #, python-format
@@ -652,67 +699,70 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"Dagoeneko existitzen da akatsaren inguruko informazioa. CC-zerrendara gehitu da zure kontua, eta iruzkin modura gehitu da zure informazioa. Mesedez, akatsa honetan gehitu ezazu edozein informazio gehigarri:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:475
 #: ../exception.py:490
 #: ../exception.py:515
 msgid "Dump Written"
-msgstr ""
+msgstr "Iraulketa idatzi da"
 
 #: ../exception.py:476
 #: ../exception.py:491
 msgid "Your system's state has been successfully written to the disk. The installer will now exit."
-msgstr ""
+msgstr "Zure sistemaren egoera ongi idatzi da diskoan. Instalatzailea itxiko da orain."
 
 #: ../exception.py:482
 #: ../exception.py:499
 #: ../exception.py:522
 msgid "Dump Not Written"
-msgstr ""
+msgstr "Ez da iraulketa idatzi "
 
 #: ../exception.py:483
 #: ../exception.py:500
 msgid "There was a problem writing the system state to the disk."
-msgstr ""
+msgstr "Arazo bat egon da zure sistemaren egoera diskoan idaztean."
 
 #: ../exception.py:506
 #: ../exception.py:529
 #: ../rescue.py:196
 msgid "No Network Available"
-msgstr ""
+msgstr "Sarerik ez eskuragarri"
 
 #: ../exception.py:507
 #: ../exception.py:530
 msgid "Cannot save a bug report since there is no active networking device available."
-msgstr ""
+msgstr "Ezin da akatsaren txostena gorde, ez dagoelako sare-gailurik eskuragarri."
 
 #: ../exception.py:516
 msgid "Your system's state has been successfully written to the remote host.  The installer will now exit."
-msgstr ""
+msgstr "Zure sistemaren egoera ongi idatzi da hurruneko ostalarian. Instalatzailea itxiko da orain."
 
 #: ../exception.py:523
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Arazo bat egon da zure sistemaren egoera hurruneko ostalarian idaztean."
 
 #: ../fsset.py:514
 msgid "Checking"
-msgstr ""
+msgstr "Egiaztatzen"
 
 #: ../fsset.py:515
 #, python-format
 msgid "Checking filesystem on %s..."
-msgstr ""
+msgstr "'%s'-ko fitxategi-sistema egiaztatzen..."
 
 #: ../fsset.py:526
 #: ../fsset.py:984
 msgid "Resizing"
-msgstr ""
+msgstr "Tamaina aldatzen"
 
 #: ../fsset.py:527
 #: ../fsset.py:985
 #, python-format
 msgid "Resizing filesystem on %s..."
-msgstr ""
+msgstr "'%s'-ko fitxategi-sistemaren tamaina aldatzen..."
 
 #: ../fsset.py:671
 #, python-format
@@ -721,32 +771,35 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
+"Errore bat gertatu da %s ext3-ra migratzean. Nahiez gero, fitxategi-sistema migratu gabe jarraitu dezakezu.\n"
+"\n"
+"%s migratzen jarraitu nahi al duzu?"
 
 #: ../fsset.py:1530
 msgid "EFI System Partition"
-msgstr ""
+msgstr "EFI sistema-partizioa"
 
 #: ../fsset.py:1534
 msgid "RAID Device"
-msgstr ""
+msgstr "RAID gailua"
 
 #: ../fsset.py:1538
 #: ../fsset.py:1544
 msgid "Apple Bootstrap"
-msgstr ""
+msgstr "Apple autoabioa"
 
 #: ../fsset.py:1549
 #: ../partitions.py:1288
 msgid "PPC PReP Boot"
-msgstr ""
+msgstr "PPC PReP abioa"
 
 #: ../fsset.py:1552
 msgid "First sector of boot partition"
-msgstr ""
+msgstr "Abio-partizioaren lehen sektorea"
 
 #: ../fsset.py:1553
 msgid "Master Boot Record (MBR)"
-msgstr ""
+msgstr "Abio-erregistro nagusia (MBR)"
 
 #: ../fsset.py:1684
 #, python-format
@@ -755,6 +808,9 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
+"Errorea gertatu da trukea %s gailuan hasiaraztean. Arazo hau larria da, eta instalatzaileak ezin du jarraitu.\n"
+"\n"
+"<Entrar> sakatu ezazu instalatzailetik irteteko."
 
 #: ../fsset.py:1713
 #: ../packages.py:353
@@ -765,7 +821,7 @@ msgstr ""
 #: ../loader/cdinstall.c:242
 #: ../loader/method.c:327
 msgid "Skip"
-msgstr ""
+msgstr "Saltatu"
 
 #: ../fsset.py:1734
 #, python-format
@@ -776,10 +832,15 @@ msgid ""
 "\n"
 "is a version 0 Linux swap partition. If you want to use this device, you must reformat as a version 1 Linux swap partition. If you skip it, the installer will ignore it during the installation."
 msgstr ""
+"Truke-gailua:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"0 bertsioko Linux truke-partizioa da. Gailu hau erabili nahi baduzu, 1 bertsioko Linux truke-partizio bezala formateatu beharko duzu. Hau saltatuz gero, instalatzaileak ezikusi egingo du instalazioan zehar."
 
 #: ../fsset.py:1741
 msgid "Reformat"
-msgstr ""
+msgstr "Birformateatu"
 
 #: ../fsset.py:1745
 #, python-format
@@ -790,6 +851,11 @@ msgid ""
 "\n"
 "in your /etc/fstab file is currently in use as a software suspend partition, which means your system is hibernating. To perform an upgrade, please shut down your system rather than hibernating it."
 msgstr ""
+"Zure /etc/fstab fitxategiko truke-gailua:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"software esekitze-partizio bezala erabili izaten ari da, beraz, zure sistema hibernatzen ari da. Eguneratze bat burutzeko, zure sistema itzali ezazu hibernatu ordez."
 
 #: ../fsset.py:1753
 #, python-format
@@ -800,6 +866,11 @@ msgid ""
 "\n"
 "in your /etc/fstab file is currently in use as a software suspend partition, which means your system is hibernating. If you are performing a new install, make sure the installer is set to format all swap partitions."
 msgstr ""
+"Zure /etc/fstab fitxategiko truke-gailua:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"software esekitze-partizio bezala erabili izaten ari da, beraz, zure sistema hibernatzen ari da. Instalazio berri bat burutzeko, instalatzaileak truke-partizio guztiak formateatuko dituela egiaztatu ezazu."
 
 #: ../fsset.py:1763
 msgid ""
@@ -807,11 +878,14 @@ msgid ""
 "\n"
 "Choose Skip if you want the installer to ignore this partition during the upgrade.  Choose Format to reformat the partition as swap space."
 msgstr ""
+"\n"
+"\n"
+"'Saltatu' hautatu ezazu eguneraketan zehar instalatzaileak partizio hau ezikusi dezan. 'Formateatu' hautatu ezazu partizioa truke-leku bezala birformateatzeko."
 
 #: ../fsset.py:1768
 #: ../iw/partition_gui.py:375
 msgid "Format"
-msgstr ""
+msgstr "Formateatu"
 
 #: ../fsset.py:1774
 #, python-format
@@ -822,6 +896,11 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
+"Errorea %s truke-gailua gaitzean: %s\n"
+"\n"
+"/etc/fstab fitxategiko gailuak etiketa bidez zehaztu beharko lirateke gailu-izenez baino.\n"
+"\n"
+"'Ados' sakatu ezazu instalatzailetik irteteko."
 
 #: ../fsset.py:1779
 #, python-format
@@ -832,6 +911,11 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
+"Errorea %s truke-gailua gaitzean: %s\n"
+"\n"
+"Zure eguneraketa-partizioko /etc/fstab fitxategian erreferentziatutako truke-partizioa ez da baliozkoa.\n"
+"\n"
+"'Ados' sakatu ezazu instalatzailetik irteteko."
 
 #: ../fsset.py:1785
 #, python-format
@@ -842,6 +926,11 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
+"Errorea %s truke-gailua gaitzean: %s\n"
+"\n"
+"Ziurrenik, truke-partizioa ez dela hasiarazia izan esan nahi du.\n"
+"\n"
+"'Ados' sakatu ezazu instalatzailetik irteteko."
 
 #: ../fsset.py:1859
 #, python-format
@@ -850,6 +939,9 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
+"Errorea gertatu da %s formateatzen saiatzen. Arazo hau larria da, eta instalazioak ezin du jarraitu.\n"
+"\n"
+"<Entrar> sakatu ezazu instalatzailetik irteteko."
 
 #: ../fsset.py:1909
 #, python-format
@@ -858,11 +950,14 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
+"Errorea gertatu da %s migratzen saiatzen. Arazo hau larria da, eta instalazioak ezin du jarraitu.\n"
+"\n"
+"<Entrar> sakatu ezazu instalatzailetik irteteko."
 
 #: ../fsset.py:1945
 #: ../fsset.py:1954
 msgid "Invalid mount point"
-msgstr ""
+msgstr "Muntatze-puntu baliogabea"
 
 #: ../fsset.py:1946
 #, python-format
@@ -871,6 +966,9 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
+"Errorea gertatu da %s sortzen saiatzean. Bide honen elementuren bat ez da direktorio bat. Errore hau larria da eta instalazioak ezin du jarraitu.\n"
+"\n"
+"<Entrar> sakatu ezazu instalatzailetik irteteko."
 
 #: ../fsset.py:1955
 #, python-format
@@ -879,15 +977,18 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
+"Errorea gertatu da %s sortzen saiatzean: %s.  Errore hau larria da eta instalazioak ezin du jarraitu.\n"
+"\n"
+"<Entrar> sakatu ezazu instalatzailetik irteteko."
 
 #: ../fsset.py:1969
 msgid "Unable to mount filesystem"
-msgstr ""
+msgstr "Ezin fitxategi-sistema muntatu"
 
 #: ../fsset.py:1970
 #, python-format
 msgid "An error occurred mounting device %s as %s.  You may continue installation, but there may be problems."
-msgstr ""
+msgstr "Errorea gertatu da %s gailua %s bezala muntatzean. Instalazioarekin jarraitu dezakezu, baina arazoak egon litezke."
 
 #: ../fsset.py:1986
 #, python-format
@@ -898,6 +999,11 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
+"Errorea %s gailua %s bezala muntatzean:%s\n"
+"\n"
+"/etc/fstab fitxategiko gailuak etiketa edo UUID bidez zehaztu beharko lirateke, gailu-izenez baino.\n"
+"\n"
+"'Ados' sakatu ezazu instalatzailetik irteteko."
 
 #: ../fsset.py:1993
 #, python-format
@@ -906,6 +1012,9 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
+"Errorea %s gailua %s bezala muntatzean:%s\n"
+"\n"
+"'Ados' sakatu ezazu instalatzailetik irteteko."
 
 #: ../fsset.py:2011
 msgid ""
@@ -915,10 +1024,15 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
+"Errorea / sarrera bilatzean.\n"
+"\n"
+"Zure fstab okerra dela esan nahi du ziurrenik.\n"
+"\n"
+"'Ados' sakatu ezazu instalatzailetik irteteko."
 
 #: ../fsset.py:2722
 msgid "Duplicate Labels"
-msgstr ""
+msgstr "Etiketa bikoiztuak"
 
 #: ../fsset.py:2723
 #, python-format
@@ -927,15 +1041,18 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"%s etiketa dute zure sistemako gailu ugarik. Gailuen etiketak ezin dira bikoiztu, zure sistemak ongi funtziona dezan.\n"
+"\n"
+"Arazo hau konpondu ezazu instalazio-prozesua berriro hasi aurretik."
 
 #: ../fsset.py:2888
 msgid "Formatting"
-msgstr ""
+msgstr "Formateatzen"
 
 #: ../fsset.py:2889
 #, python-format
 msgid "Formatting %s file system..."
-msgstr ""
+msgstr "%s fitxategi-sistema formateatzen..."
 
 #: ../gui.py:108
 msgid "An error occurred copying the screenshots over."
