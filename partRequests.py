@@ -274,10 +274,9 @@ class RequestSpec:
         if flags.livecdInstall and self.mountpoint == "/" and not self.format:
             return _("The mount point %s must be formatted during live CD "
                      "installs.") % self.mountpoint
-        if flags.livecdInstall and self.mountpoint == "/" and self.fstype.getName() not in ["ext3", "ext2"]:
-            return _("The mount point %s must be formatted during live CD "
-                     "installs.") % self.mountpoint
-
+        if flags.livecdInstall and self.mountpoint == "/" and self.fstype.getName() not in ["ext4", "ext3", "ext2"]:
+            return _("The mount point %s must be formatted to match the live "
+                     "rootfs during live CD installs.") % self.mountpoint
 
         if self.fstype.isMountable():
             if self.mountpoint in mustbeonroot:
