@@ -622,7 +622,7 @@ class Network:
                     log.warning("unable to copy %s to target system" % (dhclientconf,))
 
         # /etc/sysconfig/network
-        if (not instPath) and (not os.path.isfile(destnetwork)):
+        if (not instPath) or (not os.path.isfile(destnetwork)):
             newnetwork = "%s.new" % (destnetwork,)
 
             f = open(newnetwork, "w")
@@ -646,7 +646,7 @@ class Network:
 
         # /etc/hosts
         domainname = None
-        if (not instPath) and (not os.path.isfile(instPath + "/etc/hosts")):
+        if (not instPath) or (not os.path.isfile(instPath + "/etc/hosts")):
             f = open(instPath + "/etc/hosts", "w")
 
             log.info("self.hostname = %s", self.hostname)
@@ -700,7 +700,7 @@ class Network:
                 self.domains = [domainname]
 
         # /etc/resolv.conf
-        if (not instPath) and (not os.path.isfile(instPath + '/etc/resolv.conf')):
+        if (not instPath) or (not os.path.isfile(instPath + '/etc/resolv.conf')):
             if os.path.isfile('/etc/resolv.conf') and instPath != '':
                 destresolv = "%s/etc/resolv.conf" % (instPath,)
                 shutil.copy('/etc/resolv.conf', destresolv)
@@ -721,7 +721,7 @@ class Network:
 
         # /etc/udev/rules.d/70-persistent-net.rules
         rules = instPath + "/etc/udev/rules.d/70-persistent-net.rules"
-        if (not instPath) and (not os.path.isfile(rules)):
+        if (not instPath) or (not os.path.isfile(rules)):
             if not os.path.isdir("%s/etc/udev/rules.d" %(instPath,)):
                 iutil.mkdirChain("%s/etc/udev/rules.d" %(instPath,))
 
