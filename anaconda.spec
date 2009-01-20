@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.9
+Version: 11.5.0.10
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Jan 19 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.10-1
+- btrfs install support (sandeen)
+- Default / to be ext4 (katzj)
+- Allow live installs to use ext4 as root and make the error message clearer
+  (katzj)
+- Add support for Maithili and Nepali (#473209). (clumens)
+
 * Fri Jan 16 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.9-1
 - Cracklib moved locations, account for this in our keepfiles. (jkeating)
 - Look in the right path for kernel module lists. (jkeating)
