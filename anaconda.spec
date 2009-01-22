@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.10
+Version: 11.5.0.11
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jan 21 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.11-1
+- Fix a logic problem with network file write outs. (480769) (jkeating)
+- Only run selectBestKernel, selectBootloader, etc. for new installs.
+  (wwoods)
+
 * Mon Jan 19 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.10-1
 - btrfs install support (sandeen)
 - Default / to be ext4 (katzj)
