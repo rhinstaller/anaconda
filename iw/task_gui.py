@@ -231,14 +231,16 @@ class RepoEditor:
 
     def _applyURL(self, repo):
         if self.proxyCheckbox.get_active():
-            repo.proxy = self.proxyEntry.get_text()
-            repo.proxy.strip()
-            if not self._validURL(repo.proxy):
+            proxy = self.proxyEntry.get_text()
+            proxy.strip()
+
+            if not self._validURL(proxy):
                 self.intf.messageWindow(_("Invalid Proxy URL"),
                                         _("You must provide an HTTP, HTTPS, "
                                           "or FTP URL to a proxy."))
                 return False
 
+            repo.proxy = proxy
             repo.proxy_username = self.usernameEntry.get_text()
             repo.proxy_password = self.passwordEntry.get_text()
 
