@@ -48,10 +48,6 @@ log = logging.getLogger("anaconda")
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-def getPartSize(partition):
-    """Return the size of partition in sectors."""
-    return partition.geom.length
-
 def getMaxAvailPartSizeMB(part):
     """Return the maximum size this partition can grow to by looking
     at contiguous freespace partitions."""

@@ -623,7 +623,7 @@ def growParts(diskset, requests, newParts):
             freeSize[key] = 0
             largestFree[key] = 0
             for part in free[key]:
-                sz = partedUtils.getPartSize(part)
+                sz = part.geom.length
                 freeSize[key] += sz
                 if sz > largestFree[key]:
                     largestFree[key] = sz
@@ -738,7 +738,7 @@ def growParts(diskset, requests, newParts):
 
                 # get amount of space actually used by current allocation
                 part = partedUtils.get_partition_by_name(diskset.disks, request.device)
-                startSize = partedUtils.getPartSize(part)
+                startSize = part.geometry.length
 
                 # compute fraction of freespace which to give to this
                 # request. Weight by original request size
