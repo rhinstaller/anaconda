@@ -2995,7 +2995,7 @@ def readFstab (anaconda):
         # if we fail at all, though, just ignore it
         if fsystem == "auto" and device.getDevice() != "none":
             try:
-                tmp = partedUtils.sniffFilesystemType("/dev/%s" %(device.setupDevice(),))
+                tmp = isys.readFSType("/dev/%s" %(device.setupDevice(),))
                 if tmp is not None:
                     fsystem = tmp
             except:

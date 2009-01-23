@@ -462,13 +462,6 @@ def isLinuxNativeByNumtype(numtype):
 
     return 0
 
-def sniffFilesystemType(device):
-    """Sniff to determine the type of fs on device.  
-
-    device - name of device to sniff.
-    """
-    return isys.readFSType(device)
-
 def getReleaseString(mountpoint):
     if os.access(mountpoint + "/etc/redhat-release", os.R_OK):
         f = open(mountpoint + "/etc/redhat-release", "r")

@@ -314,7 +314,7 @@ class Partitions:
                     continue
 
                 device = partedUtils.get_partition_name(part)
-                fs = partedUtils.sniffFilesystemType("/dev/%s" % (device,))
+                fs = isys.readFSType("/dev/%s" % (device,))
                 if fs and fs.endswith("raid"):
                     part = disk.next_partition(part)
                     continue
@@ -403,8 +403,7 @@ class Partitions:
 
                 # parted doesn't tell ext4 from ext3
                 if ptype == fsset.fileSystemTypeGet("ext3"): 
-                    fsname = partedUtils.sniffFilesystemType("/dev/%s" %
-                                                             device)
+                    fsname = isys.readFSType("/dev/%s" % (device,))
                     try:
                         ptype = fsset.fileSystemTypeGet(fsname)
                     except:
@@ -413,7 +412,7 @@ class Partitions:
                 luksDev = self.encryptedDevices.get(device)
                 if luksDev and not luksDev.openDevice():
                     mappedDev = luksDev.getDevice()
-                    fsname = partedUtils.sniffFilesystemType("/dev/%s" % mappedDev)
+                    fsname = isys.readFSType("/dev/%s" % (mappedDev,))
                     try:
                         ptype = fsset.fileSystemTypeGet(fsname)
                     except:
@@ -485,7 +484,7 @@ class Partitions:
             else:
                 device = theDev
 
-            fs = partedUtils.sniffFilesystemType("/dev/%s" %(device,))
+            fs = isys.readFSType("/dev/%s" %(device,))
             try:
                 fsystem = fsset.fileSystemTypeGet(fs)
             except:
@@ -562,7 +561,7 @@ class Partitions:
                 else:
                     device = theDev
 
-                fs = partedUtils.sniffFilesystemType(device)
+                fs = isys.readFSType(device)
                 fslabel = None
 
                 try:

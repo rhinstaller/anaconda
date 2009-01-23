@@ -349,7 +349,7 @@ def copyExceptionToDisk(anaconda, device):
 
     os.close(fd)
 
-    fstype = partedUtils.sniffFilesystemType(device)
+    fstype = isys.readFSType(device)
     if fstype == None:
         fstype = 'vfat'
     try:
