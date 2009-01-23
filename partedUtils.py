@@ -1,7 +1,7 @@
 #
 # partedUtils.py: helper functions for use with parted objects
 #
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007  Red Hat, Inc.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009  Red Hat, Inc.
 # All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -47,15 +47,6 @@ log = logging.getLogger("anaconda")
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
-
-fsTypes = {}
-
-fs_type = parted.file_system_type_get_next ()
-while fs_type:
-    fsTypes[fs_type.name] = fs_type
-    fs_type = parted.file_system_type_get_next (fs_type)
-
-
 
 def get_flags (part):
     """Retrieve a list of strings representing the flags on the partition."""
@@ -248,11 +239,6 @@ def filter_partitions(disk, func):
         part = disk.next_partition (part)
 
     return rc
-
-def get_all_partitions(disk):
-    """Return a list of all PedPartition objects on disk."""
-    func = lambda part: part.is_active()
-    return filter_partitions(disk, func)
 
 def get_logical_partitions(disk):
     """Return a list of logical PedPartition objects on disk."""
@@ -1372,9 +1358,6 @@ class DiskSet:
                     drives.append((os.path.basename(name), d[1]))
 
         return drives
-
-# XXX is this all of the possibilities?
-dosPartitionTypes = [ 1, 6, 7, 11, 12, 14, 15 ]
 
 # master list of partition types
 allPartitionTypesDict = {
