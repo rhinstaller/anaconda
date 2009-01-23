@@ -17,6 +17,8 @@
 
  -  If you have an installer update disk, type: 01linux updates <ENTER>07.
 
+ -  If you have video driver problems, type: 01linux xdriver=vesa <ENTER>07.
+
  -  To test the memory in your system type: 01memtest86 <ENTER>07.
     (This option is only available when booting from CD.)
 
