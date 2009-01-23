@@ -352,8 +352,8 @@ def askVncWindow(title = None, message = None):
     while step < STEP_DONE:
         if step == STEP_MESSAGE:
             button = ButtonChoiceWindow(screen, title, message,
-                                        buttons = [ _("Use text mode"),
-                                                    _("Start VNC") ])
+                                        buttons = [ _("Start VNC"),
+                                                    _("Use text mode") ])
 
 	    if button == string.lower (_("Use text mode")):
                 screen.finish()
