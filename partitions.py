@@ -433,7 +433,7 @@ class Partitions:
                                                              format = format)
                 spec.device = fsset.PartedPartitionDevice(part).getDevice()
                 spec.encryption = luksDev
-                spec.maxResizeSize = partedUtils.getMaxAvailPartSizeMB(part)
+                spec.maxResizeSize = part.getMaxAvailableSize(unit="MB")
 
                 # set label if makes sense
                 if ptype and ptype.isMountable():

@@ -1026,7 +1026,7 @@ def processPartitioning(diskset, requests, newParts):
             # we need to keep track of the max size of preexisting partitions
             # FIXME: we should also get the max size for LVs at some point
             part = partedUtils.get_partition_by_name(diskset.disks, request.device)
-            request.maxResizeSize = partedUtils.getMaxAvailPartSizeMB(part)
+            request.maxResizeSize = part.getMaxAvailableSize(unit="MB")
 
 ##     print("disk layout after everything is done")
 ##     print(diskset.diskState())

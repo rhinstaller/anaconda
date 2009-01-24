@@ -48,24 +48,6 @@ log = logging.getLogger("anaconda")
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-def getMaxAvailPartSizeMB(part):
-    """Return the maximum size this partition can grow to by looking
-    at contiguous freespace partitions."""
-
-    disk = part.disk
-    maxlen = part.geom.length
-
-    # let's look at the next partition(s) and if they're freespace,
-    # they can add to our maximum size.
-    np = disk.next_partition(part)
-    while np:
-        if np.type & parted.PARTITION_FREESPACE:
-            maxlen += np.geom.length
-        else:
-            break
-        np = disk.next_partition(np)
-    return math.floor(maxlen * part.geom.dev.sector_size / 1024.0 / 1024.0)
-
 def get_partition_by_name(disks, partname):
     """Return the parted part object associated with partname.  
 
