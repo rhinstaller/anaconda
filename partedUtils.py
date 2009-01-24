@@ -75,11 +75,6 @@ def getPartSizeMB(partition):
     return (partition.geom.length * partition.geom.dev.sector_size
             / 1024.0 / 1024.0)
 
-def getDeviceSizeMB(dev):
-    """Return the size of dev in megabytes."""
-    return (float(dev.heads * dev.cylinders * dev.sectors) / (1024 * 1024)
-            * dev.sector_size)
-
 def getMaxAvailPartSizeMB(part):
     """Return the maximum size this partition can grow to by looking
     at contiguous freespace partitions."""

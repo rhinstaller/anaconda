@@ -384,7 +384,7 @@ class PartitionTypeWindow(InstallWindow):
         for disk in self.diskset.disks.values():
             if not disk.dev.path[5:] in self.anaconda.id.bootloader.drivelist:
                 continue
-            size = partedUtils.getDeviceSizeMB(disk.dev)
+            size = disk.dev.getSize(unit="MB")
             dispstr = "%s %8.0f MB %s" %(disk.dev.path[5:], size, disk.dev.model)
             i = bootstore.append(None)
             bootstore[i] = (dispstr, disk.dev.path[5:])

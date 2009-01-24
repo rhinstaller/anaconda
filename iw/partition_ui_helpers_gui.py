@@ -137,7 +137,7 @@ def createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=True,
     drives = disks.keys()
     drives.sort()
     for drive in drives:
-        size = getDeviceSizeMB(disks[drive].dev)
+        size = disks[drive].dev.getSize(unit="MB")
 	selected = 0
 
         if selectDrives:

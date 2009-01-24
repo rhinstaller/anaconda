@@ -326,7 +326,7 @@ class DiskStripeGraph:
 	else:
 	    drivetext = _("Drive %s (%-0.f MB) "
 			 "(Model: %s)") % ('/dev/' + drive,
-					   partedUtils.getDeviceSizeMB(disk.dev),
+					   disk.dev.getSize(unit="MB"),
 					   disk.dev.model)
 
 

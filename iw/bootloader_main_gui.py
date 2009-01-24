@@ -97,7 +97,7 @@ class MainBootloaderWindow(InstallWindow):
             keys.sort()
 
             for d in keys:
-                size = partedUtils.getDeviceSizeMB(disks[d].dev)
+                size = disks[d].dev.getSize(unit="MB")
                 m = disks[d].dev.model
 
                 i = model.append(None)

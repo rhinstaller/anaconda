@@ -102,7 +102,7 @@ class PartitionTypeWindow:
             cleardrives = anaconda.id.partitions.autoClearPartDrives
 
             for disk in disks:
-                size = getDeviceSizeMB(anaconda.id.diskset.disks[disk].dev)
+                size = anaconda.id.diskset.disks[disk].dev.getSize(unit="MB")
                 model = anaconda.id.diskset.disks[disk].dev.model
 
                 if not cleardrives or len(cleardrives) < 1:
