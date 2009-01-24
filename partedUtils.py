@@ -167,17 +167,6 @@ def get_partition_drive(partition):
     """Return the device name for disk that PedPartition partition is on."""
     return partition.geometry.device.path[5:]
 
-def get_max_logical_partitions(disk):
-    if not disk.type.check_feature(parted.DISK_TYPE_EXTENDED):
-        return 0
-    dev = disk.dev.path[5:]
-    for key in max_logical_partition_count.keys():
-        if dev.startswith(key):
-            return max_logical_partition_count[key]
-    # FIXME: if we don't know about it, should we pretend it can't have
-    # logicals?  probably safer to just use something reasonable
-    return 11
-
 def map_foreign_to_fsname(type):
     """Return the partition type associated with the numeric type.""" 
     if type in allPartitionTypesDict.keys():
@@ -1378,18 +1367,3 @@ allPartitionTypesDict = {
     0xfd: "Linux RAID",
     0xff: "BBT"
     }
-
-max_logical_partition_count = {
-    "hd": 59,
-    "sd": 11,
-    "ataraid/": 11,
-    "rd/": 3,
-    "cciss/": 11,
-    "i2o/": 11,
-    "iseries/vd": 3,
-    "ida/": 11,
-    "sx8/": 11,
-    "xvd": 11,
-    "vd": 11,
-    "mmcblk": 5
-}

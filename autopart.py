@@ -246,7 +246,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                         raise PartitioningError, "Cannot create another primary partition for %s." % request.mountpoint
                     # check to make sure we can still create more logical parts
                     if (len(partedUtils.get_logical_partitions(disk)) ==
-                        partedUtils.get_max_logical_partitions(disk)):
+                        disk.getMaxLogicalPartitions()):
                         raise PartitioningError, "Cannot create another logical partition for %s." % request.mountpoint
                 else:
                     partType = parted.PARTITION_PRIMARY
@@ -365,7 +365,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 		    numPrimary = numPrimary + 1
 		    
                 maxPrimary = disk.max_primary_partition_count
-                maxLogical = partedUtils.get_max_logical_partitions(disk)
+                maxLogical = disk.getMaxLogicalPartitions()
 
                 for part in free[drive]:
 		    # if this is a free space outside extended partition
