@@ -48,23 +48,6 @@ log = logging.getLogger("anaconda")
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-def get_flags (part):
-    """Retrieve a list of strings representing the flags on the partition."""
-    string=""
-    if not part.is_active ():
-        return string
-    first=1
-    flag = parted.partition_flag_next (0)
-    while flag:
-        if part.get_flag (flag):
-            string = string + parted.partition_flag_get_name (flag)
-            if first:
-                first = 0
-            else:
-                string = string + ", "
-        flag = parted.partition_flag_next (flag)
-    return string
-
 def start_sector_to_cyl(device, sector):
     """Return the closest cylinder (round down) to sector on device."""
     return int(math.floor((float(sector)
@@ -1311,7 +1294,7 @@ class DiskSet:
                         device = get_partition_name(part)
                     if part.fs_type:
                         fs_type_name = part.fs_type.name
-                    partFlags = get_flags (part)
+                    partFlags = part.getFlags()
                     rc = rc + ("%-9s %-12s %-12s %-10ld %-10ld %-10ld %7s\n"
                                % (device, part.type_name, fs_type_name,
                               part.geom.start, part.geom.end, part.geom.length,
