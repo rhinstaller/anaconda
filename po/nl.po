@@ -1,27 +1,30 @@
+# translation of anaconda.master.nl.po to Dutch
 # Dutch translation of anaconda
-# Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 #
-# Arjan van de Ven <arjanv@redhat.com>, 2001.
-# Tino Meinen <a.t.meinen@chello.nl>, 2002, 2003.
-# Peter van Egdom <p.van.egdom@gmail.com>, 2002, 2003, 2004, 2005, 2006, 2007, 2008.
 # ----------------------------------------------------
 # device - apparaat, partitie, opstelling (voor RAID)
 # alloceren - toewijzen
 # driver - stuurprogramma
 # root altijd met kleine letters schrijven (dus geen Root)
 #
+# Arjan van de Ven <arjanv@redhat.com>, 2001.
+# Tino Meinen <a.t.meinen@chello.nl>, 2002, 2003.
+# Peter van Egdom <p.van.egdom@gmail.com>, 2002, 2003, 2004, 2005, 2006, 2007, 2008.
+# R.E. van der Luit <nippur@fedoraproject.org>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda\n"
+"Project-Id-Version: anaconda.master.nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2008-10-21 23:18+0200\n"
-"Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
-"Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
+"PO-Revision-Date: 2009-01-25 21:09+0100\n"
+"Last-Translator: R.E. van der Luit <nippur@fedoraproject.org>\n"
+"Language-Team: Dutch <nippur@fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:262 ../anaconda:308
 #, c-format
@@ -118,8 +121,7 @@ msgstr "Installatieklasse forceert een installatie in tekstmodus"
 
 #: ../anaconda:809
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Grafische installatie niet beschikbaar...  Tekstmodus wordt nu opgestart."
+msgstr "Grafische installatie niet beschikbaar...  Tekstmodus wordt nu opgestart."
 
 #: ../anaconda:817
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -143,8 +145,7 @@ msgstr "Het begin van partitie %s was verplaatst bij aanpassen van de grootte"
 
 #: ../autopart.py:987
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
-msgstr ""
-"Kon cilinder-gebaseerde partities niet als primaire partities toewijzen.\n"
+msgstr "Kon cilinder-gebaseerde partities niet als primaire partities toewijzen.\n"
 
 #: ../autopart.py:992
 msgid "Could not allocate partitions as primary partitions.\n"
@@ -206,8 +207,7 @@ msgstr ""
 
 #: ../autopart.py:1073
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Opstartpartitie %s voldoet mogelijk niet aan de opstart-voorwaarden voor uw "
 "architectuur."
@@ -556,8 +556,7 @@ msgstr "Op de opdrachtregel geen vraagtekens gebruiken!"
 
 #: ../cmdline.py:116
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
-"Uitzonderingen op Parted kunnen niet op de opdrachtregel behandeld worden!"
+msgstr "Uitzonderingen op Parted kunnen niet op de opdrachtregel behandeld worden!"
 
 #: ../constants.py:74
 msgid ""
@@ -625,8 +624,7 @@ msgstr "Ongeldige bug-informatie"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
-"Geef een geldige gebruikersnaam, wachtwoord en een korte bug-omschrijving op."
+msgstr "Geef een geldige gebruikersnaam, wachtwoord en een korte bug-omschrijving op."
 
 #: ../exception.py:395
 msgid "Unable To Login"
@@ -634,8 +632,7 @@ msgstr "Niet in staat om aan te melden"
 
 #: ../exception.py:396
 #, python-format
-msgid ""
-"There was an error logging into %s using the provided username and password."
+msgid "There was an error logging into %s using the provided username and password."
 msgstr ""
 "Er is een fout opgetreden bij het aanmelden bij %s met de opgegeven "
 "gebruikersnaam en wachtwoord."
@@ -1175,8 +1172,7 @@ msgstr "Fout bij de wachtzin"
 
 #: ../gui.py:672 ../text.py:357
 msgid "The passphrases you entered were different.  Please try again."
-msgstr ""
-"De wachtzinnen die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
+msgstr "De wachtzinnen die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
 
 #: ../gui.py:680
 msgid "The passphrase must be at least eight characters long."
@@ -1387,13 +1383,11 @@ msgid "Unknown Device"
 msgstr "Onbekend apparaat"
 
 #: ../instdata.py:119
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation source given by device %s could not be found.  Please check "
 "your parameters and try again."
-msgstr ""
-"Geen installatiemedia gevonden. Plaats een schijf in uw station en probeer "
-"het opnieuw."
+msgstr "De installatiebron aangegeven door apparaat %s kon niet worden gevonden. Kijk alstublieft uw instellingen na en probeer opnieuw."
 
 #: ../iscsi.py:449 ../iscsi.py:450
 msgid "Initializing iSCSI initiator"
@@ -1462,8 +1456,7 @@ msgstr "Kan image-bestand niet vinden"
 
 #: ../livecd.py:109
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 "De opgegeven locatie is geen geldige %s live CD om te gebruiken als "
 "installatiebron."
@@ -1521,10 +1514,8 @@ msgstr ""
 "of '0-9'"
 
 #: ../network.py:67
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr ""
-"Computernamen mogen alleen de tekens 'a-z', 'A-Z', '0-9', '-' of '.' bevatten"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgstr "Computernamen mogen alleen de tekens 'a-z', 'A-Z', '0-9', '-' of '.' bevatten"
 
 #: ../network.py:166
 msgid "IP address is missing."
@@ -1718,8 +1709,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:190 ../iw/raid_dialog_gui.py:591
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Deze partitie bevat de gegevens voor installatie vanaf de harde schijf."
+msgstr "Deze partitie bevat de gegevens voor installatie vanaf de harde schijf."
 
 #: ../partIntfHelpers.py:196
 msgid ""
@@ -1737,8 +1727,7 @@ msgstr "Verwijderen bevestigen"
 #: ../partIntfHelpers.py:242
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"U staat op het punt alle partities op het apparaat '/dev/%s' te verwijderen."
+msgstr "U staat op het punt alle partities op het apparaat '/dev/%s' te verwijderen."
 
 #: ../partIntfHelpers.py:245 ../partIntfHelpers.py:536
 #: ../iw/lvm_dialog_gui.py:797 ../iw/lvm_dialog_gui.py:1145
@@ -1930,8 +1919,7 @@ msgid "Confirm Reset"
 msgstr "Herstellen bevestigen"
 
 #: ../partIntfHelpers.py:544
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Weet u zeker dat u de partitietabel wilt herstellen naar de oorspronkelijke "
 "toestand?"
@@ -1939,13 +1927,11 @@ msgstr ""
 #: ../partRequests.py:275 ../partRequests.py:278
 #, python-format
 msgid "The mount point %s must be formatted during live CD installs."
-msgstr ""
-"Het koppelpunt %s moet worden geformatteerd tijdens live CD installaties."
+msgstr "Het koppelpunt %s moet worden geformatteerd tijdens live CD installaties."
 
 #: ../partRequests.py:284
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Dit koppelpunt is ongeldig.  De map %s moet zich op het / -bestandssysteem "
 "bevinden."
@@ -1975,8 +1961,7 @@ msgstr "Het koppelpunt \"%s\" is reeds in gebruik. Kies een ander koppelpunt."
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"De grootte van partitie %s (%10.2f MB) overschrijdt de limiet van %10.2f MB."
+msgstr "De grootte van partitie %s (%10.2f MB) overschrijdt de limiet van %10.2f MB."
 
 #: ../partRequests.py:539
 #, python-format
@@ -2100,8 +2085,8 @@ msgstr ""
 "Om nieuwe partities te maken moet dit apparaat geïnitialiseerd worden.\n"
 "Hierdoor zullen ALLE GEGEVENS op dit station verloren gaan.\n"
 "\n"
-"Deze actie zal alle voorafgaande installatiekeuzes met betrekking tot "
-"welke stations worden genegeerd teniet doen.\n"
+"Deze actie zal alle voorafgaande installatiekeuzes met betrekking tot welke "
+"stations worden genegeerd teniet doen.\n"
 "\n"
 "Wilt u dit station initialiseren en daarbij ALLE GEGEVENS wissen?"
 
@@ -2266,10 +2251,8 @@ msgstr ""
 "een normale %s installatie."
 
 #: ../partitions.py:1330
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"Installeren op een USB-apparaat. Dit kan een niet-werkend systeem opleveren."
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "Installeren op een USB-apparaat. Dit kan een niet-werkend systeem opleveren."
 
 #: ../partitions.py:1333
 msgid ""
@@ -2345,8 +2328,7 @@ msgstr "Indien gereed, verlaat dan de shell en uw systeem zal herstarten."
 
 #: ../rescue.py:169
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
-"Niet in staat om /bin/sh te vinden om uit te voeren! Shell wordt niet gestart"
+msgstr "Niet in staat om /bin/sh te vinden om uit te voeren! Shell wordt niet gestart"
 
 #: ../rescue.py:188
 msgid "Setup Networking"
@@ -2519,9 +2501,8 @@ msgid "Passphrase for encrypted device"
 msgstr "Wachtzin voor versleuteld apparaat"
 
 #: ../text.py:336
-#, fuzzy
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr "Deze wachtzin voor alle nieuwe versleutelde apparaten gebruiken"
+msgstr "Deze wachtwoordzin eveneens voor alle nieuwe versleutelde apparaten gebruiken"
 
 #: ../text.py:367
 #, python-format
@@ -2564,8 +2545,7 @@ msgstr "Welkom bij %s"
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"   <Tab>/<Alt-Tab> tussen items | <Spatie> selecteren | <F12> volgend scherm"
+msgstr "   <Tab>/<Alt-Tab> tussen items | <Spatie> selecteren | <F12> volgend scherm"
 
 #: ../text.py:732
 msgid "Cancelled"
@@ -2573,8 +2553,7 @@ msgstr "Geannuleerd"
 
 #: ../text.py:733
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Het is niet mogelijk om naar de vorige stap terug te gaan. Probeer opnieuw."
+msgstr "Het is niet mogelijk om naar de vorige stap terug te gaan. Probeer opnieuw."
 
 #: ../upgrade.py:91 ../upgrade.py:112
 msgid "Proceed with upgrade?"
@@ -2730,8 +2709,7 @@ msgstr "Stoppen met verbinding maken na het %d keer te hebben geprobeerd!\n"
 #: ../vnc.py:213
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Maak met uw vnc-cliënt verbinding met %s om de installatie te beginnen."
+msgstr "Maak met uw vnc-cliënt verbinding met %s om de installatie te beginnen."
 
 #: ../vnc.py:215
 msgid "Please manually connect your vnc client to begin the install."
@@ -2835,8 +2813,7 @@ msgstr "Wachtwoorden komen niet overeen"
 
 #: ../vnc.py:322 ../vnc.py:421 ../textw/userauth_text.py:71
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
-"De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
+msgstr "De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
 
 #: ../vnc.py:327 ../vnc.py:426 ../textw/userauth_text.py:66
 msgid "Password Length"
@@ -2999,8 +2976,7 @@ msgstr "Opnieuw proberen te downloaden..."
 
 #: ../yuminstall.py:755
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 "Er was een fout bij het uitvoeren van uw transactie, vanwege de volgende "
 "reden: %s\n"
@@ -3176,8 +3152,7 @@ msgstr "De installatie gaat nu beginnen"
 
 #: ../yuminstall.py:1800
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"Het installatieproces wordt nu opgestart. Dit kan enkele minuten duren..."
+msgstr "Het installatieproces wordt nu opgestart. Dit kan enkele minuten duren..."
 
 #: ../yuminstall.py:1838
 msgid "Dependency Check"
@@ -3185,8 +3160,7 @@ msgstr "Controle van afhankelijkheden"
 
 #: ../yuminstall.py:1839
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
-"De afhankelijkheden in de geselecteerde pakketten worden gecontroleerd..."
+msgstr "De afhankelijkheden in de geselecteerde pakketten worden gecontroleerd..."
 
 #: ../zfcp.py:52
 msgid "You have not specified a device number or the number is invalid"
@@ -3221,7 +3195,7 @@ msgstr "Root-_wachtwoord:"
 
 #: ../iw/account_gui.py:54
 msgid "_Confirm:"
-msgstr "_Bevestigen:"
+msgstr "t_Bevestigen:"
 
 #: ../iw/account_gui.py:97
 msgid "Caps Lock is on."
@@ -3242,8 +3216,7 @@ msgstr ""
 
 #: ../iw/account_gui.py:116
 msgid "The passwords you entered were different.  Please try again."
-msgstr ""
-"De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
+msgstr "De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
 
 #: ../iw/account_gui.py:123
 msgid "The root password must be at least six characters long."
@@ -3266,10 +3239,8 @@ msgstr ""
 
 # misschien 'gevraagde' beter weglaten voor duidelijkheid
 #: ../iw/account_gui.py:144 ../textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"Het gevraagde wachtwoord bevat non-ASCII tekens, hetgeen niet is toegestaan."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgstr "Het gevraagde wachtwoord bevat non-ASCII tekens, hetgeen niet is toegestaan."
 
 #: ../iw/autopart_type.py:97
 msgid ""
@@ -3281,8 +3252,7 @@ msgstr ""
 "aangepast."
 
 #: ../iw/autopart_type.py:183
-msgid ""
-"Do you really want to boot from a disk which is not used for installation?"
+msgid "Do you really want to boot from a disk which is not used for installation?"
 msgstr ""
 "Wilt u echt opstarten van een schijf die niet gebruikt is voor de "
 "installatie?"
@@ -3304,19 +3274,19 @@ msgstr "Ontbrekende waarde"
 
 #: ../iw/autopart_type.py:285
 msgid "CHAP username is required if CHAP password is defined."
-msgstr ""
+msgstr "CHAP gebruikersnaam is vereist als CHAP wachtwoord is gedefinieerd"
 
 #: ../iw/autopart_type.py:289
 msgid "CHAP password is required if CHAP username is defined."
-msgstr ""
+msgstr "CHAP wachtwoord is vereist als CHAP gebruikersnaam is gedefinieerd"
 
 #: ../iw/autopart_type.py:295
 msgid "Reverse CHAP username is required if reverse CHAP password is defined."
-msgstr ""
+msgstr "Achterwaartse CHAP gebruikersnaam is vereist indien achterwaarts CHAP wachtwoord is gedefinieerd."
 
 #: ../iw/autopart_type.py:299
 msgid "Reverse CHAP password is required if reverse CHAP username is defined."
-msgstr ""
+msgstr "Achterwaarts CHAP wachtwoord vereist indien achterwaartse CHAP gwbruikersnaam is gedefinieerd."
 
 #: ../iw/autopart_type.py:317
 msgid "Error with Data"
@@ -3332,8 +3302,7 @@ msgstr "Linux partities op de stations verwijderen en standaard opmaak maken"
 
 #: ../iw/autopart_type.py:442
 msgid "Resize existing partition and create default layout in free space"
-msgstr ""
-"Bestaande partitiegrootte aanpassen en standaard opmaak in vrije ruimte maken"
+msgstr "Bestaande partitiegrootte aanpassen en standaard opmaak in vrije ruimte maken"
 
 #: ../iw/autopart_type.py:443 ../textw/partition_text.py:1520
 msgid "Use free space on selected drives and create default layout"
@@ -4108,16 +4077,14 @@ msgid "Partitioning"
 msgstr "Partitioneren"
 
 #: ../iw/partition_gui.py:640
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 "Het door u aangevraagde partitioneringsschema zorgde voor de volgende "
 "kritische fouten."
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr ""
 "U moet deze fouten herstellen voordat u verder gaat met uw installatie van %"
 "s."
@@ -4268,8 +4235,7 @@ msgstr "Een RAID-_opstelling maken (standaard=/dev/md%s)."
 #: ../iw/partition_gui.py:1300
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
-"Een _station klonen om een RAID-opstelling te maken (standaard=/dev/md%s)."
+msgstr "Een _station klonen om een RAID-opstelling te maken (standaard=/dev/md%s)."
 
 #: ../iw/partition_gui.py:1339
 msgid "Couldn't Create Drive Clone Editor"
@@ -4277,8 +4243,7 @@ msgstr "Kon de 'stationskloon-editor' niet aanmaken"
 
 #: ../iw/partition_gui.py:1340
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"De stationskloon-editor kon om een of andere reden niet aangemaakt worden."
+msgstr "De stationskloon-editor kon om een of andere reden niet aangemaakt worden."
 
 #: ../iw/partition_gui.py:1382
 msgid "Ne_w"
@@ -4513,8 +4478,7 @@ msgstr "Kloonstations"
 
 #: ../iw/raid_dialog_gui.py:695
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Er was een fout bij het schonen van de doelstations.  Klonen is mislukt."
+msgstr "Er was een fout bij het schonen van de doelstations.  Klonen is mislukt."
 
 #: ../iw/raid_dialog_gui.py:729
 msgid ""
@@ -4576,8 +4540,7 @@ msgstr ""
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr ""
-"De repository %s is al toegevoegd. Kies een andere repository naam en URL."
+msgstr "De repository %s is al toegevoegd. Kies een andere repository naam en URL."
 
 #: ../iw/task_gui.py:159
 msgid "Edit Repository"
@@ -4673,8 +4636,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:137 ../textw/upgrade_bootloader_text.py:120
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Het installatieprogramma heeft de bootloader %s gedetecteerd, momenteel op %"
 "s geïnstalleerd."
@@ -4807,8 +4769,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "De grootte van het wisselbestand moet liggen tussen 1 en 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:210 ../textw/upgrade_text.py:182
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Er is niet voldoende ruimte vrij op het apparaat dat u selecteerde voor de "
 "wisselgeheugenpartitie."
@@ -4958,10 +4919,8 @@ msgstr ""
 "voor elk van deze partities wilt gebruiken."
 
 #: ../textw/bootloader_text.py:294
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <Spatie> selecteer | <F2> standaard | <F4> verwijder | <F12> volgend scherm"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <Spatie> selecteer | <F2> standaard | <F4> verwijder | <F12> volgend scherm"
 
 #: ../textw/bootloader_text.py:390
 msgid ""
@@ -5048,10 +5007,8 @@ msgid "Please select the package groups you would like to install."
 msgstr "Selecteer de pakketgroepen die u wilt installeren."
 
 #: ../textw/grpselect_text.py:89
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"   <Spatie>,<+>,<-> selectie  |  <F2> groep details  |  <F12> volgend scherm"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "   <Spatie>,<+>,<-> selectie  |  <F2> groep details  |  <F12> volgend scherm"
 
 #: ../textw/grpselect_text.py:101
 msgid "No optional packages to select"
@@ -5292,8 +5249,7 @@ msgstr "Niet ondersteund"
 
 #: ../textw/partition_text.py:764
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr ""
-"U kunt LVM Volume Groups alleen tijdens de grafische installatie bewerken."
+msgstr "U kunt LVM Volume Groups alleen tijdens de grafische installatie bewerken."
 
 #: ../textw/partition_text.py:831 ../textw/partition_text.py:879
 msgid "Invalid Entry for Partition Size"
@@ -5395,10 +5351,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1434
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Hulp   F2-Nieuw   F3-Bewerken   F4-Verwijderen   F5-Herstellen   F12-OK"
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Hulp   F2-Nieuw   F3-Bewerken   F4-Verwijderen   F5-Herstellen   F12-OK"
 
 #: ../textw/partition_text.py:1466
 msgid "No Root Partition"
@@ -5428,8 +5382,7 @@ msgstr "Welke station(s) wilt u gebruiken voor de installatie?"
 
 #: ../textw/partition_text.py:1550
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Spatie>,<+>,<-> selectie  |  <F2> Station toevoegen  |  <F12> volgend scherm"
+msgstr "<Spatie>,<+>,<-> selectie  |  <F2> Station toevoegen  |  <F12> volgend scherm"
 
 #: ../textw/partition_text.py:1617
 msgid "Review Partition Layout"
@@ -5507,11 +5460,11 @@ msgstr "Wachtwoord is vereist wanneer gebruikersnaam aanwezig is."
 
 #: ../textw/partition_text.py:1720
 msgid "Reverse username is required whenreverse password is present."
-msgstr ""
+msgstr "Achterwaartse gebruikersnaam is verplicht als achterwaarts wachtwoord aanwezig is"
 
 #: ../textw/partition_text.py:1724
 msgid "Reverse password is required whenreverse username is present."
-msgstr ""
+msgstr "Achterwaarts wachtwoord is verplicht indien achterwaartse gebruikersnaam aanwezig is"
 
 #: ../textw/partmethod_text.py:34
 msgid "Autopartition"
@@ -5913,8 +5866,7 @@ msgstr "Laden van stuurprogrammabestand mislukt."
 #: ../loader/driverdisk.c:355
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Plaats uw stuurprogrammaschijf in /dev/%s en druk op \"OK\" om door te gaan."
+msgstr "Plaats uw stuurprogrammaschijf in /dev/%s en druk op \"OK\" om door te gaan."
 
 #: ../loader/driverdisk.c:361
 msgid "Insert Driver Disk"
@@ -6141,10 +6093,8 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "Welkom bij %s voor %s - Herstelmodus"
 
 #: ../loader/lang.c:65 ../loader/loader.c:223
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"   <Tab>/<Alt-Tab> tussen items | <Spatie> selecteren | <F12> volgend scherm"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "   <Tab>/<Alt-Tab> tussen items | <Spatie> selecteren | <F12> volgend scherm"
 
 #: ../loader/lang.c:375
 msgid "Choose a Language"
@@ -6219,8 +6169,7 @@ msgstr "Fout bij het downloaden van updates-bestand"
 #: ../loader/loader.c:1175
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
-"U hebt te weinig RAM-geheugen in deze machine om %s te kunnen installeren."
+msgstr "U hebt te weinig RAM-geheugen in deze machine om %s te kunnen installeren."
 
 #: ../loader/loader.c:1235
 msgid "Media Detected"
@@ -6275,8 +6224,7 @@ msgstr "De volgende apparaten zijn op uw systeem gevonden."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Er zijn geen stuurprogramma's voor uw systeem geladen. Wilt u deze nu laden?"
+msgstr "Er zijn geen stuurprogramma's voor uw systeem geladen. Wilt u deze nu laden?"
 
 #: ../loader/loader.c:1685
 msgid "Devices"
@@ -6378,8 +6326,7 @@ msgstr "Foutief argument voor schijf kickstart methode commando %s: %s"
 
 #: ../loader/modules.c:348
 msgid "A module name must be specified for the kickstart device command."
-msgstr ""
-"Een modulenaam moet worden opgegeven voor het kickstart-apparaat commando."
+msgstr "Een modulenaam moet worden opgegeven voor het kickstart-apparaat commando."
 
 #: ../loader/net.c:108
 msgid "Invalid Prefix"
@@ -6460,8 +6407,7 @@ msgid "Missing Information"
 msgstr "Ontbrekende informatie"
 
 #: ../loader/net.c:1041
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "U moet zowel een geldig IPv4-adres en een netwerkmasker of CIDR-prefix "
 "invoeren."
@@ -6523,8 +6469,7 @@ msgstr "Ongeldige duur"
 
 #: ../loader/net.c:1663
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
-"U moet het aantal seconden als een geheel getal tussen 1 en 30 invoeren."
+msgstr "U moet het aantal seconden als een geheel getal tussen 1 en 30 invoeren."
 
 #: ../loader/net.c:1675
 #, c-format
@@ -6609,8 +6554,7 @@ msgstr "Bezig met ophalen"
 
 #: ../loader/urls.c:295
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
+msgid "Please enter the URL containing the %s installation image on your server."
 msgstr "Voer de URL in die de %s installatie-image op uw server bevat."
 
 #: ../loader/urls.c:321
@@ -6730,8 +6674,7 @@ msgstr ""
 "Harde schijf"
 
 #: tmp/addrepo.glade.h:9
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr "Geef de configuratie-informatie op voor deze software-repository."
 
 #: tmp/addrepo.glade.h:10
@@ -6814,8 +6757,7 @@ msgid "Which Partition to resize"
 msgstr "Van welke partitie moet de grootte worden aangepast"
 
 #: tmp/autopart.glade.h:6
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
+msgid "Which partition would you like to resize to make room for your installation?"
 msgstr ""
 "Van welke partitie wilt u de grootte aanpassen om ruimte te maken voor uw "
 "installatie?"
@@ -6965,11 +6907,10 @@ msgid "Install to Hard Drive"
 msgstr "Naar harde schijf installeren"
 
 #: tmp/lukspassphrase.glade.h:1
-#, fuzzy
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
-msgstr "Deze wachtzin voor alle nieuwe versleutelde apparaten gebruiken"
+msgstr "Deze wachtwoordzin eveneens voor alle nieuwe versleutelde apparaten gebruiken om het bootproces te stroomlijnen"
 
 #: tmp/lukspassphrase.glade.h:2
 msgid ""
@@ -7043,8 +6984,7 @@ msgstr "_Later aanpassen"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"Selecteer extra repositories die u wilt gebruiken voor softwareinstallatie."
+msgstr "Selecteer extra repositories die u wilt gebruiken voor softwareinstallatie."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -7318,948 +7258,3 @@ msgstr "Welsh"
 msgid "Zulu"
 msgstr "Zulu"
 
-# drive en device worden hier wel heel erg willekeurig door elkaar gehaald, lijkt het.
-#~ msgid ""
-#~ "The partition table on device %s was unreadable. To create new partitions "
-#~ "it must be initialized, causing the loss of ALL DATA on this drive.\n"
-#~ "\n"
-#~ "This operation will override any previous installation choices about "
-#~ "which drives to ignore.\n"
-#~ "\n"
-#~ "Would you like to initialize this drive, erasing ALL DATA?"
-#~ msgstr ""
-#~ "De partitietabel op apparaat %s was onleesbaar. Om nieuwe partities te "
-#~ "maken moet deze schijf geïnitialiseerd worden. Hierdoor zullen ALLE "
-#~ "GEGEVENS op dit station verloren gaan.\n"
-#~ "\n"
-#~ "Deze actie zal alle voorgaande installatiekeuzes met betrekking tot welke "
-#~ "stations worden genegeerd teniet doen.\n"
-#~ "\n"
-#~ "Wilt u dit station initialiseren?"
-
-#~ msgid " for device %s"
-#~ msgstr " voor apparaat %s"
-
-# instellen hier beter dan bewerken of aanpassen
-#~ msgid "Starting Interface"
-#~ msgstr "Interface instellen"
-
-#~ msgid "Attempting to start %s"
-#~ msgstr "Trachten om %s op te starten"
-
-#~ msgid "%d of %d optional package selected"
-#~ msgid_plural "%d of %d optional packages selected"
-#~ msgstr[0] "%d van %d optioneel pakket geselecteerd"
-#~ msgstr[1] "%d van %d optionele pakketten geselecteerd"
-
-#~ msgid "Primary DNS"
-#~ msgstr "Primaire DNS-server"
-
-#~ msgid "Secondary DNS"
-#~ msgstr "Secundaire DNS-server"
-
-#~ msgid "_Gateway"
-#~ msgstr "_Gateway"
-
-#~ msgid "_Primary DNS"
-#~ msgstr "_Primaire DNS-server"
-
-#~ msgid "_Secondary DNS"
-#~ msgstr "_Secundaire DNS-server"
-
-#~ msgid "Network Configuration"
-#~ msgstr "Netwerkconfiguratie"
-
-#~ msgid ""
-#~ "You have not specified a hostname.  Depending on your network environment "
-#~ "this may cause problems later."
-#~ msgstr ""
-#~ "U hebt geen computernaam opgegeven.  Afhankelijk van uw netwerkomgeving, "
-#~ "kan dit later problemen geven."
-
-#~ msgid ""
-#~ "You have not specified the field \"%s\".  Depending on your network "
-#~ "environment this may cause problems later."
-#~ msgstr ""
-#~ "U hebt het veld \"%s\" niet opgegeven. Afhankelijk van uw netwerkomgeving "
-#~ "kan dit later problemen geven."
-
-#~ msgid "Error With %s Data"
-#~ msgstr "Fout met %s gegevens"
-
-#~ msgid "The IPv4 information you have entered is invalid."
-#~ msgstr "De ingevoerde IPv4-informatie is ongeldig."
-
-#~ msgid ""
-#~ "You have no active network devices.  Your system will not be able to "
-#~ "communicate over a network by default without at least one device active."
-#~ msgstr ""
-#~ "U hebt geen actieve netwerkapparaten.  Uw systeem zal niet over een "
-#~ "netwerk kunnen communiceren zonder tenminste één actief apparaat."
-
-#~ msgid "Disabled"
-#~ msgstr "Uitgezet"
-
-#~ msgid "Active on Boot"
-#~ msgstr "Actief bij het opstarten"
-
-#~ msgid "IPv4/Netmask"
-#~ msgstr "IPv4/Netmasker"
-
-#~ msgid "IPv6/Prefix"
-#~ msgstr "IPv6/Prefix"
-
-#~ msgid "Network Devices"
-#~ msgstr "Netwerkapparaten"
-
-#~ msgid "Set the hostname:"
-#~ msgstr "Computernaam instellen:"
-
-# a wordt al gebruikt voor _Aanpassen
-#~ msgid "_automatically via DHCP"
-#~ msgstr "a_utomatisch via DHCP"
-
-#~ msgid "_manually"
-#~ msgstr "hand_matig"
-
-#~ msgid "(e.g., host.domain.com)"
-#~ msgstr "(bijv., host.domain.com)"
-
-#~ msgid "Miscellaneous Settings"
-#~ msgstr "Overige instellingen"
-
-#~ msgid "Edit Device "
-#~ msgstr "Apparaat bewerken "
-
-#~ msgid "unknown"
-#~ msgstr "onbekend"
-
-#~ msgid "Hardware address: "
-#~ msgstr "Hardware-adres: "
-
-#~ msgid "You must select at least IPv4 or IPv6 support."
-#~ msgstr "U moet tenminste IPv4 of IPv6-ondersteuning kiezen."
-
-#~ msgid "IPv4 prefix must be between 0 and 32."
-#~ msgstr "IPv4-prefix moet tussen 0 en 32 liggen."
-
-#~ msgid "IPv6 prefix must be between 0 and 128."
-#~ msgstr "IPv6-prefix moet tussen 0 en 128 liggen."
-
-#~ msgid ""
-#~ "Unable to find a group file for %s.  This will prevent manual selection "
-#~ "of packages from the repository from working"
-#~ msgstr ""
-#~ "Er is geen groepsbestand voor %s gevonden. Dit maakt een handmatige "
-#~ "selectie van pakketten uit de repository niet mogelijk"
-
-#~ msgid "IPv6 Address:"
-#~ msgstr "IPv6-adres:"
-
-#~ msgid "Error configuring network device: "
-#~ msgstr "Fout bij het configureren van netwerkapparaat: "
-
-#~ msgid ""
-#~ "You have not specified the field %s.  Depending on your network "
-#~ "environment this may cause problems later."
-#~ msgstr ""
-#~ "U hebt het veld %s niet opgegeven. Afhankelijk van uw netwerkomgeving kan "
-#~ "dit later problemen geven."
-
-#~ msgid "IPv%d prefix must be between 0 and %d."
-#~ msgstr "IPv%d-prefix moet tussen 0 en %d liggen."
-
-#~ msgid "Integer Required for Prefix"
-#~ msgstr "Integer vereist voor prefix"
-
-#~ msgid ""
-#~ "You must enter a valid integer for the %s.  For IPv4, the value can be "
-#~ "between 0 and 32.  For IPv6 it can be between 0 and 128."
-#~ msgstr ""
-#~ "U dient een geldige integer op te geven voor de %s.  Voor IPv4 kan de "
-#~ "waarde tussen 0 en 32 liggen.  Voor IPv6 kan de waarde tussen 0 en 128 "
-#~ "liggen."
-
-#~ msgid "Prefix (Netmask)"
-#~ msgstr "Prefix (netmask)"
-
-#~ msgid "Prefix"
-#~ msgstr "Prefix"
-
-#~ msgid "Activate on boot"
-#~ msgstr "Activeren bij het opstarten"
-
-#~ msgid "P-to-P:"
-#~ msgstr "P-to-P:"
-
-#~ msgid "ESSID:"
-#~ msgstr "ESSID:"
-
-#~ msgid "WEP Key:"
-#~ msgstr "WEP-sleutel:"
-
-#~ msgid "Network Configuration for %s"
-#~ msgstr "Netwerkconfiguratie voor %s"
-
-#~ msgid "point-to-point IP address"
-#~ msgstr "point-to-point IP-adres"
-
-#~ msgid "Dynamic IP configuration (DHCP)"
-#~ msgstr "Dynamische IP-configuratie (DHCP)"
-
-#~ msgid "Manual address configuration"
-#~ msgstr "Handmatige adresconfiguratie"
-
-#~ msgid "IPv4 Configuration for %s"
-#~ msgstr "IPv4-configuratie voor %s"
-
-#~ msgid "IPv4 address"
-#~ msgstr "IPv4-adres"
-
-#~ msgid "IPv4 network mask"
-#~ msgstr "IPv4-netwerkmasker"
-
-#~ msgid "IPv4 prefix (network mask)"
-#~ msgstr "IPv4-prefix (netwerkmasker)"
-
-#~ msgid "Automatic neighbor discovery"
-#~ msgstr "Automatische neighbor discovery"
-
-#~ msgid "Dynamic IP configuration (DHCPv6)"
-#~ msgstr "Dynamische IP-configuratie (DHCPv6)"
-
-#~ msgid "IPv6 Configuration for %s"
-#~ msgstr "IPv6-configuratie voor %s"
-
-#~ msgid "IPv6 address"
-#~ msgstr "IPv6-adres"
-
-#~ msgid "IPv6 prefix"
-#~ msgstr "IPv6-prefix"
-
-# Interfaces hier niet vertaald
-#~ msgid "Would you like to configure the %s network interface in your system?"
-#~ msgstr "Wilt u de %s netwerkinterface op dit systeem configureren?"
-
-#~ msgid "UNCONFIGURED"
-#~ msgstr "NIET-GECONFIGUREERD"
-
-#~ msgid ""
-#~ "The current configuration settings for each interface are listed next to "
-#~ "the device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
-#~ "configure an interface, highlight it and choose Edit.  When you are "
-#~ "finished, press OK to continue."
-#~ msgstr ""
-#~ "De huidige configuratie-instellingen voor elke interface worden naast de "
-#~ "apparaatnaam getoond.  Niet-geconfigureerde interfaces worden weergegeven "
-#~ "als NIET-GECONFIGUREERD.  Om een interface te configureren, markeer deze "
-#~ "en kies Bewerken.  Druk op OK om door te gaan als u klaar bent."
-
-#~ msgid "Active on boot"
-#~ msgstr "Actief bij het opstarten"
-
-#~ msgid "Inactive on boot"
-#~ msgstr "Inactief bij het opstarten"
-
-#~ msgid "DHCP"
-#~ msgstr "DHCP"
-
-#~ msgid "Auto IPv6"
-#~ msgstr "Automatisch IPv6"
-
-#~ msgid "DHCPv6"
-#~ msgstr "DHCPv6"
-
-#~ msgid "Primary DNS:"
-#~ msgstr "Primaire DNS-server:"
-
-#~ msgid "Secondary DNS:"
-#~ msgstr "Secundaire DNS-server:"
-
-#~ msgid "Miscellaneous Network Settings"
-#~ msgstr "Overige netwerkinstellingen"
-
-#~ msgid "gateway"
-#~ msgstr "gateway"
-
-#~ msgid "primary DNS"
-#~ msgstr "primaire DNS-server"
-
-#~ msgid "secondary DNS"
-#~ msgstr "secundaire DNS-server"
-
-#~ msgid "automatically via DHCP"
-#~ msgstr "automatisch via DHCP"
-
-#~ msgid "manually"
-#~ msgstr "handmatig"
-
-#~ msgid "Hostname specified with no DNS configured"
-#~ msgstr "Computernaam opgegeven zonder DNS geconfigureerd"
-
-#~ msgid "<b>Description Goes Here</b>"
-#~ msgstr "<b>Beschrijving komt hier</b>"
-
-#~ msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-#~ msgstr "<b>Hardware-adres: DE:AD:00:BE:EF:00</b>"
-
-# instellen hier beter dan bewerken of aanpassen
-#~ msgid "Edit Interface"
-#~ msgstr "Interface bewerken"
-
-#~ msgid "Encryption Key:"
-#~ msgstr "Encryptiesleutel:"
-
-#~ msgid "Manual configuration"
-#~ msgstr "Handmatige configuratie"
-
-#~ msgid "Point to Point (IP):"
-#~ msgstr "Point to Point (IP):"
-
-#~ msgid "No video hardware found, assuming headless"
-#~ msgstr "Geen video hardware gevonden, headless wordt gebruikt"
-
-# FIXME dit is niet helemaal een correcte vertaling
-#~ msgid "Unable to instantiate a X hardware state object."
-#~ msgstr "Er ging wat mis in de X installatie."
-
-#~ msgid ""
-#~ "Error mounting device %s as %s: %s\n"
-#~ "\n"
-#~ "This most likely means this partition has not been formatted.\n"
-#~ "\n"
-#~ "Press OK to exit the installer."
-#~ msgstr ""
-#~ "Er is een fout opgetreden bij het aankoppelen van apparaat %s als %s: %s\n"
-#~ "\n"
-#~ "Dit is waarschijnlijk veroorzaakt doordat deze partitie niet "
-#~ "geformatteerd is.\n"
-#~ "\n"
-#~ "Druk op OK om het installatieprogramma af te sluiten."
-
-#~ msgid "Invalid Label"
-#~ msgstr "Ongeldig label"
-
-#~ msgid ""
-#~ "An invalid label was found on device %s.  Please fix this problem and "
-#~ "restart the installation process."
-#~ msgstr ""
-#~ "Er was een ongeldig label gevonden op apparaat %s.  Verhelp dit probleem "
-#~ "en start het installatieproces opnieuw."
-
-#~ msgid "Save to Remote"
-#~ msgstr "Op externe computer opslaan"
-
-#~ msgid "Host"
-#~ msgstr "Host"
-
-#~ msgid "Remote path"
-#~ msgstr "Extern pad"
-
-#~ msgid "Help not available"
-#~ msgstr "Hulptekst niet beschikbaar"
-
-#~ msgid "No help is available for this step of the install."
-#~ msgstr "Voor dit installatie-onderdeel is geen hulptekst beschikbaar."
-
-#~ msgid ""
-#~ " <F1> for help | <Tab> between elements | <Space> selects | <F12> next "
-#~ "screen"
-#~ msgstr ""
-#~ " <F1> hulp | <Tab> tussen items | <Spatie> selecteren | <F12> volgend "
-#~ "scherm"
-
-#~ msgid "Error running transaction"
-#~ msgstr "Fout bij het uitvoeren van transactie"
-
-#~ msgid ""
-#~ "No %s disc was found which matches your boot media.  Please insert the %s "
-#~ "disc and press %s to retry."
-#~ msgstr ""
-#~ "Er is geen %s schijf gevonden overeenkomstig met uw opstartmedia. Voer de "
-#~ "%s schijf in en druk op %s om opnieuw te proberen."
-
-#~ msgid ""
-#~ "The %s installation tree in that directory does not seem to match your "
-#~ "boot media."
-#~ msgstr ""
-#~ "De %s installatiebestanden in die map komen niet overeen met uw opstart-"
-#~ "medium."
-
-#~ msgid "Welcome to %s%n for %s"
-#~ msgstr "Welkom bij %s%n voor %s"
-
-#~ msgid "What type of media contains the packages to be installed?"
-#~ msgstr "Op wat voor medium staan de te installeren pakketten?"
-
-#~ msgid ""
-#~ "%s is a wireless network adapter.  Please provide the ESSID and "
-#~ "encryption key needed to access your wireless network.  If no key is "
-#~ "needed, leave this field blank and the install will continue."
-#~ msgstr ""
-#~ "%s is een draadloze netwerkadapter. Voer de ESSID en de encryptiesleutel "
-#~ "in die nodig zijn om uw draadloos netwerk te benaderen.  Als er geen "
-#~ "sleutel nodig is kunt u dit veld leeg laten. De installatie zal dan "
-#~ "verder gaan."
-
-#~ msgid "ESSID"
-#~ msgstr "ESSID"
-
-#~ msgid "Wireless Settings"
-#~ msgstr "Draadloze instellingen"
-
-#~ msgid "Nameserver IP"
-#~ msgstr "Naamserver IP"
-
-#~ msgid "Missing Nameserver"
-#~ msgstr "Ontbrekende naamserver"
-
-#~ msgid ""
-#~ "Your IP address request returned configuration information, but it did "
-#~ "not include a nameserver address. If you do not have this information, "
-#~ "you can leave the field blank and the install will continue."
-#~ msgstr ""
-#~ "Uw IP-adres verzoek gaf configuratieinformatie terug, maar het gaf geen "
-#~ "naamserver-adres. Als u deze informatie niet hebt, kunt u het veld leeg "
-#~ "houden en de installatie zal verder gaan."
-
-#~ msgid "You entered an invalid IP address."
-#~ msgstr "U hebt een ongeldig IP-adres ingevuld."
-
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Computernaam en domein worden vastgesteld..."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy "
-#~ "server to use."
-#~ msgstr ""
-#~ "Als u een HTTP-proxyserver gebruikt, moet u de naam van de HTTP-"
-#~ "proxyserver invoeren."
-
-#~ msgid "Proxy Name:"
-#~ msgstr "Proxy-naam:"
-
-#~ msgid "Proxy Port:"
-#~ msgstr "Proxy-poort:"
-
-#~ msgid "Further Setup"
-#~ msgstr "Verdere configuratie"
-
-#~ msgid "Repository _Mirror"
-#~ msgstr "Repository _mirror"
-
-#~ msgid "_Proxy configuration"
-#~ msgstr "_Proxy-configuratie"
-
-#~ msgid "Select a destination for the exception information."
-#~ msgstr "Selecteer een bestemming voor de uitzonderingsinformatie."
-
-#~ msgid "_Disk"
-#~ msgstr "_Schijf"
-
-#~ msgid "_Remote"
-#~ msgstr "_Extern"
-
-#~ msgid "Mouse Configuration"
-#~ msgstr "Muis configureren"
-
-#~ msgid "/dev/ttyS0 (COM1 under DOS)"
-#~ msgstr "/dev/ttyS0 (COM1 onder DOS)"
-
-#~ msgid "/dev/ttyS1 (COM2 under DOS)"
-#~ msgstr "/dev/ttyS1 (COM2 onder DOS)"
-
-#~ msgid "/dev/ttyS2 (COM3 under DOS)"
-#~ msgstr "/dev/ttyS2 (COM3 onder DOS)"
-
-#~ msgid "/dev/ttyS3 (COM4 under DOS)"
-#~ msgstr "/dev/ttyS3 (COM4 onder DOS)"
-
-#~ msgid "_Model"
-#~ msgstr "_Model"
-
-#~ msgid "_Emulate 3 buttons"
-#~ msgstr "3 knoppen _emuleren"
-
-#~ msgid "Select the appropriate mouse for the system."
-#~ msgstr "Kies de juiste muis voor dit systeem."
-
-#~ msgid "What device is your mouse located on?"
-#~ msgstr "Op welke communicatiepoort zit uw muis?"
-
-#~ msgid "Which model mouse is attached to this computer?"
-#~ msgstr "Wat voor muis gebruikt u voor deze computer?"
-
-#~ msgid "Emulate 3 Buttons?"
-#~ msgstr "3 knoppen emuleren?"
-
-# misschien beter: Muis kiezen (net als Toetsenbord kiezen)
-#~ msgid "Mouse Selection"
-#~ msgstr "Muiskeuze"
-
-#~ msgid "NFS"
-#~ msgstr "NFS"
-
-#~ msgid "Error pulling second part of kickstart config: %s!"
-#~ msgstr ""
-#~ "Fout bij het lezen van het tweede deel van de kickstart-configuratie: %s!"
-
-#~ msgid "Unknown install method"
-#~ msgstr "Onbekende installatiemethode"
-
-#~ msgid ""
-#~ "You have specified an install method which isn't supported by anaconda."
-#~ msgstr ""
-#~ "U hebt een installatiemethode opgegeven die niet ondersteund is door "
-#~ "anaconda."
-
-#~ msgid "unknown install method: %s"
-#~ msgstr "Onbekende installatiemethode: %s"
-
-#~ msgid ""
-#~ "You have chosen to remove all partitions (ALL DATA) on the following "
-#~ "drives:%s\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "U hebt ervoor gekozen om alle partities (ALLE GEGEVENS) te verwijderen op "
-#~ "de volgende stations:%s\n"
-#~ "Weet u zeker dat u dit wilt doen?"
-
-#~ msgid ""
-#~ "You have chosen to remove all Linux partitions (and ALL DATA on them) on "
-#~ "the following drives:%s\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "U hebt ervoor gekozen om alle Linux-partities (en ALLE GEGEVENS hierop) "
-#~ "te verwijderen op de volgende stations:%s\n"
-#~ "Weet u zeker dat u dit wilt doen?"
-
-#~ msgid "Checking for Bad Blocks"
-#~ msgstr "Er wordt nu gecontroleerd op schijffouten"
-
-#~ msgid ""
-#~ "Bad blocks have been detected on device /dev/%s. We do not recommend you "
-#~ "use this device.\n"
-#~ "\n"
-#~ "Press <Enter> to exit the installer."
-#~ msgstr ""
-#~ "Er zijn schijffouten gevonden op apparaat /dev/%s. We raden u af om dit "
-#~ "apparaat te gebruiken.\n"
-#~ "\n"
-#~ "Druk op <Enter> om het installatieprogramma af te sluiten."
-
-#~ msgid ""
-#~ "An error occurred searching for bad blocks on %s.  This problem is "
-#~ "serious, and the install cannot continue.\n"
-#~ "\n"
-#~ "Press <Enter> to exit the installer."
-#~ msgstr ""
-#~ "Er is een fout opgetreden bij het zoeken naar schijffouten op %s.  Dit is "
-#~ "een ernstig probleem en de installatie moet worden afgebroken.\n"
-#~ "\n"
-#~ "Druk op <Enter> om het installatieprogramma af te sluiten."
-
-#~ msgid ""
-#~ "Please insert a floppy now. All contents of the disk will be erased, so "
-#~ "please choose your diskette carefully."
-#~ msgstr ""
-#~ "Voer nu een diskette in. Alle gegevens op de diskette zullen worden "
-#~ "verwijderd, dus let goed op welke diskette u gebruikt."
-
-#~ msgid ""
-#~ "The file %s cannot be opened.  This is due to a missing file or perhaps a "
-#~ "corrupt package.  Please verify your installation images and that you "
-#~ "have all the required media.\n"
-#~ "\n"
-#~ "If you exit, your system will be left in an inconsistent state that will "
-#~ "likely require reinstallation.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend "
-#~ "bestand of misschien door een beschadigd pakket. Controleer de "
-#~ "installatie-images en controleer of u alle vereiste media hebt.\n"
-#~ "\n"
-#~ "Als u het installatieprogramma afsluit, zal uw systeem zich in een "
-#~ "inconsistente toestand bevinden dat waarschijnlijk een herinstallatie zal "
-#~ "vereisen.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "The installer has tried to mount image #%s, but cannot find it on the "
-#~ "server.\n"
-#~ "\n"
-#~ "Please copy this image to the remote server's share path and click Retry. "
-#~ "Click Exit to abort the installation."
-#~ msgstr ""
-#~ "Het installatieprogramma heeft geprobeerd om image-bestand #%s aan te "
-#~ "koppelen, maar kan het bestand niet op de server vinden.\n"
-#~ "\n"
-#~ "Kopieer dit bestand naar het pad van de gedeelde bron op de externe "
-#~ "server en klik op Opnieuw. Klik op Afsluiten om de installatie af te "
-#~ "breken."
-
-#~ msgid ""
-#~ "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  "
-#~ "in the Linux kernel does not allow for more than 15 partitions at this "
-#~ "time.  You will not be able to make changes to the partitioning of this "
-#~ "disk or use any partitions beyond /dev/%s15 in %s"
-#~ msgstr ""
-#~ "Het station /dev/%s bevat meer dan 15 partities.  Het SCSI-subsysteem in "
-#~ "de Linux kernel staat op dit moment niet meer dan 15 partities toe.  U "
-#~ "zult geen aanpassingen meer aan de partitionering van deze schijf kunnen "
-#~ "doen of partities voorbij /dev/%s15 kunnen gebruiken in %s"
-
-#~ msgid "Low Memory"
-#~ msgstr "Weinig geheugen"
-
-#~ msgid ""
-#~ "As you don't have much memory in this machine, we need to turn on swap "
-#~ "space immediately. To do this we'll have to write your new partition "
-#~ "table to the disk immediately. Is that OK?"
-#~ msgstr ""
-#~ "Omdat deze machine weinig geheugen heeft moeten we het wisselgeheugen "
-#~ "meteen aanzetten. Om dit te kunnen doen moeten we nu meteen uw "
-#~ "partitietabel naar de schijf schrijven. Is dat OK?"
-
-#~ msgid "Save to Remote Host"
-#~ msgstr "Op externe computer opslaan"
-
-#~ msgid "Save Crash Dump"
-#~ msgstr "Crash-dump opslaan"
-
-#~ msgid "Searching"
-#~ msgstr "Bezig met zoeken"
-
-#~ msgid "Searching for %s installations..."
-#~ msgstr "Bezig met zoeken naar %s installaties..."
-
-#~ msgid "Connecting..."
-#~ msgstr "Verbinden..."
-
-#~ msgid ""
-#~ "The file %s cannot be opened.  This is due to a missing file or perhaps a "
-#~ "corrupt package.  Please verify your mirror contains all required "
-#~ "packages, and try using a different one.\n"
-#~ "\n"
-#~ "If you exit, your system will be left in an inconsistent state that will "
-#~ "likely require reinstallation.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend "
-#~ "bestand of misschien door een beschadigd pakket. Controleer of de mirror "
-#~ "alle vereiste pakketten bevat en kies een andere mirror.\n"
-#~ "\n"
-#~ "Als u het installatieprogramma afsluit, zal uw systeem zich in een "
-#~ "inconsistente toestand bevinden dat waarschijnlijk een herinstallatie zal "
-#~ "vereisen.\n"
-#~ "\n"
-
-#~ msgid "VNC Password Error"
-#~ msgstr "VNC-wachtwoord fout"
-
-#~ msgid ""
-#~ "You need to specify a vnc password of at least 6 characters long.\n"
-#~ "\n"
-#~ "Press <return> to reboot your system.\n"
-#~ msgstr ""
-#~ "U dient een vnc-wachtwoord op te geven van tenminste 6 tekens lang.\n"
-#~ "\n"
-#~ "Druk op <Enter> om uw systeem te herstarten.\n"
-
-#~ msgid "Unable to set vnc password - using no password!"
-#~ msgstr ""
-#~ "Instellen van VNC-wachtwoord is niet gelukt - er wordt geen wachtwoord "
-#~ "gebruikt!"
-
-#~ msgid "Make sure your password is at least 6 characters in length."
-#~ msgstr "Zorg ervoor dat uw wachtwoord tenminste 6 tekens lang is."
-
-#~ msgid "Please connect to begin the install..."
-#~ msgstr "Maak een verbinding om de installatie te beginnen..."
-
-#~ msgid "Set Root Password"
-#~ msgstr "Het root-wachtwoord instellen"
-
-#~ msgid "Advanced Boot Loader Configuration"
-#~ msgstr "Geavanceerde bootloader-configuratie"
-
-#~ msgid "Force LBA32"
-#~ msgstr "LBA32 forceren"
-
-#~ msgid "_Force LBA32 (not normally required)"
-#~ msgstr "LBA32 _forceren (meestal niet nodig)"
-
-#~ msgid ""
-#~ "If you wish to add default options to the boot command, enter them into "
-#~ "the 'General kernel parameters' field."
-#~ msgstr ""
-#~ "Als u standaardopties wilt toevoegen aan de opstartopdracht, voer deze "
-#~ "dan in in het veld: 'Algemene kernel-parameters'."
-
-#~ msgid "_General kernel parameters"
-#~ msgstr "_Algemene kernel-parameters"
-
-#~ msgid "The %s boot loader will be installed on /dev/%s."
-#~ msgstr "De bootloader %s zal worden geïnstalleerd op /dev/%s."
-
-#~ msgid "No boot loader will be installed."
-#~ msgstr "Er zal geen bootloader worden geïnstalleerd."
-
-#~ msgid "Configure advanced boot loader _options"
-#~ msgstr "_Geavanceerde bootloader-opties configureren"
-
-#~ msgid "Install Boot Loader record on:"
-#~ msgstr "Bootloader installeren op:"
-
-#~ msgid "_Change Drive Order"
-#~ msgstr "Stationsvolgorde _veranderen"
-
-#~ msgid ""
-#~ "Arrange the drives to be in the same order as used by the BIOS. Changing "
-#~ "the drive order may be useful if you have multiple SCSI adapters or both "
-#~ "SCSI and IDE adapters and want to boot from the SCSI device.\n"
-#~ "\n"
-#~ "Changing the drive order will change where the installation program "
-#~ "locates the Master Boot Record (MBR)."
-#~ msgstr ""
-#~ "Arrangeer de stations zo dat ze in dezelfde volgorde staan als in het "
-#~ "BIOS. De stationsvolgorde aanpassen kan nuttig zijn als u meerdere SCSI-"
-#~ "adapters hebt of als u zowel SCSI als IDE-adapters hebt en u van het SCSI-"
-#~ "apparaat wilt opstarten.\n"
-#~ "\n"
-#~ "Het veranderen van de stationsvolgorde zal invloed hebben op waar het "
-#~ "installatieprogramma het Master Boot Record (MBR) vindt."
-
-# about to--op het punt te, betekent kennelijk dat vanaf nu er geen weg meer terug is. Hierna gaat het beginnen, vandaar: (daadwerkelijk) beginnen met de installatie.
-#~ msgid "About to Install"
-#~ msgstr "Beginnen met installatie"
-
-#~ msgid "Click next to begin installation of %s."
-#~ msgstr "Kies 'Volgende' om te beginnen met de installatie van %s."
-
-#~ msgid ""
-#~ "A complete log of the installation can be found in the file '%s' after "
-#~ "rebooting your system.\n"
-#~ "\n"
-#~ "A kickstart file containing the installation options selected can be "
-#~ "found in the file '%s' after rebooting the system."
-#~ msgstr ""
-#~ "Na het herstarten van uw systeem vindt u een compleet logboek van de "
-#~ "installatie in het bestand '%s'.\n"
-#~ "\n"
-#~ "Een kickstart-bestand met de gekozen installatieopties vindt u vervolgens "
-#~ "in het bestand '%s'."
-
-#~ msgid "About to Upgrade"
-#~ msgstr "Beginnen met upgrade"
-
-#~ msgid "Click next to begin upgrade of %s."
-#~ msgstr "Kies 'Volgende' om te beginnen met de upgrade van %s."
-
-#~ msgid ""
-#~ "A complete log of the upgrade can be found in the file '%s' after "
-#~ "rebooting your system."
-#~ msgstr ""
-#~ "Nadat uw systeem opnieuw is opgestart vindt u een compleet logboek van de "
-#~ "upgrade in het bestand '%s'."
-
-#~ msgid "Drive"
-#~ msgstr "Station"
-
-#~ msgid "Model"
-#~ msgstr "Model"
-
-#~ msgid "Netmask"
-#~ msgstr "Netmask"
-
-#~ msgid ""
-#~ "You can configure the boot loader to boot other operating systems by "
-#~ "selecting from the list. To add an operating systems that was not "
-#~ "automatically detected, click 'Add.' To change the operating system "
-#~ "booted by default, select 'Default' next to the desired operating system."
-#~ msgstr ""
-#~ "U kunt de bootloader configureren om andere besturingssystemen op te "
-#~ "starten door te selecteren uit de lijst. Klik op 'Toevoegen' om een "
-#~ "besturingssysteem dat niet automatisch werd gedetecteerd toe te voegen. "
-#~ "Selecteer 'Standaard' naast het gewenste besturingssysteem om het "
-#~ "besturingssysteem dat standaard moet worden opgestart te veranderen."
-
-# De 'O' wordt al gebruikt voor OK
-#~ msgid "Leave _unchanged (preserve data)"
-#~ msgstr "O_nveranderd laten (gegevens behouden)"
-
-#~ msgid "_Format partition as:"
-#~ msgstr "_Partitie formatteren als:"
-
-#~ msgid "Check for _bad blocks?"
-#~ msgstr "Controleren op schijf_fouten?"
-
-#~ msgid "Release notes are missing.\n"
-#~ msgstr "Versie-informatie ontbreekt.\n"
-
-#~ msgid "Release Notes"
-#~ msgstr "Versie-informatie"
-
-#~ msgid "Unable to load file!"
-#~ msgstr "Kan bestand niet laden!"
-
-# zelfde als bij: About to install
-#~ msgid "Installation to begin"
-#~ msgstr "Beginnen met installatie"
-
-#~ msgid ""
-#~ "A complete log of your installation will be in %s after rebooting your "
-#~ "system. You may want to keep this file for later reference."
-#~ msgstr ""
-#~ "Na het herstarten van uw systeem vindt u een compleet logboek van uw "
-#~ "installatie in %s. Het is raadzaam dit bestand te bewaren voor "
-#~ "referentiedoeleinden."
-
-#~ msgid "Upgrade to begin"
-#~ msgstr "Beginnen met upgrade"
-
-#~ msgid ""
-#~ "A complete log of your upgrade will be in %s after rebooting your system. "
-#~ "You may want to keep this file for later reference."
-#~ msgstr ""
-#~ "Na het herstarten van uw systeem vindt u een compleet logboek van uw "
-#~ "upgrade in %s. Het is handig dit bestand te bewaren voor "
-#~ "referentiedoeleinden."
-
-#~ msgid "%s, %s, %s"
-#~ msgstr "%s, %s, %s"
-
-#~ msgid "%s, %s"
-#~ msgstr "%s, %s"
-
-#~ msgid "Check for bad blocks"
-#~ msgstr "Controleren op schijffouten"
-
-#~ msgid ""
-#~ "No hard drives have been found.  You probably need to manually choose "
-#~ "device drivers for the installation to succeed.  Would you like to select "
-#~ "drivers now?"
-#~ msgstr ""
-#~ "Er zijn geen harde schijven gevonden. U moet waarschijnlijk handmatig "
-#~ "stuurprogramma's kiezen om door te kunnen gaan met de installatie. Wilt u "
-#~ "nu stuurprogramma's selecteren?"
-
-#~ msgid "FAILED"
-#~ msgstr "MISLUKT"
-
-#~ msgid "PASSED"
-#~ msgstr "GESLAAGD"
-
-#~ msgid "It is OK to install from this media."
-#~ msgstr "Het is OK om vanaf dit medium te installeren."
-
-#~ msgid "No checksum information available, unable to verify media."
-#~ msgstr ""
-#~ "Geen controlesom-informatie beschikbaar, kon het medium niet verifiëren."
-
-#~ msgid "Media Check Result"
-#~ msgstr "Resultaat mediacontrole"
-
-#~ msgid ""
-#~ "%s for the image:\n"
-#~ "\n"
-#~ "   %s"
-#~ msgstr ""
-#~ "%s voor het bestand:\n"
-#~ "\n"
-#~ "   %s"
-
-#~ msgid ""
-#~ "The media check %s\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "De medium-controle %s\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your %s server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      %s for your architecture\n"
-#~ msgstr ""
-#~ "Geef de volgende informatie:\n"
-#~ "\n"
-#~ "    o de naam of het IP-nummer van uw %s-server\n"
-#~ "    o de map op die server die %s bevat\n"
-#~ "      voor uw architectuur\n"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Web"
-#~ msgstr "Web"
-
-#~ msgid "Web site name:"
-#~ msgstr "Website-naam:"
-
-#~ msgid "Use non-anonymous ftp"
-#~ msgstr "Niet-anonieme ftp gebruiken"
-
-#~ msgid "FTP Setup"
-#~ msgstr "FTP-instellingen"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "HTTP-instellingen"
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password "
-#~ "you wish to use below."
-#~ msgstr ""
-#~ "Als u niet-anonieme ftp gebruikt, moet u de accountnaam die u wilt "
-#~ "gebruiken en het wachtwoord, hieronder invoeren."
-
-#~ msgid "Account name:"
-#~ msgstr "Accountnaam:"
-
-#~ msgid "Further HTTP Setup"
-#~ msgstr "Overige HTTP-instellingen"
-
-#~ msgid "_Release Notes"
-#~ msgstr "Versie-_informatie"
-
-#~ msgid "Exception Info"
-#~ msgstr "Uitzondering informatie"
-
-#~ msgid "_Exception details"
-#~ msgstr "_Uitzondering details"
-
-#~ msgid "_Save to floppy"
-#~ msgstr "Op _diskette opslaan"
-
-#~ msgid "Rebooting System"
-#~ msgstr "Systeem herstarten"
-
-#~ msgid "Re_try"
-#~ msgstr "Op_nieuw"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Verwijder alle media die tijdens het installatieproces gebruikt is en "
-#~ "klik op \"Herstarten\" om uw systeem te herstarten.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Verwijder alle media die tijdens het installatieproces gebruikt is en "
-#~ "druk op <Enter> om uw systeem te herstarten.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Enter> voor herstarten"
-
-#~ msgid "NFS image"
-#~ msgstr "NFS-image"
