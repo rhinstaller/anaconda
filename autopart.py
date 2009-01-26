@@ -575,7 +575,6 @@ def growLogicalVolumes(diskset, requests):
 		newsize = lvm.clampPVSize(vgfree*fraction, vgreq.pesize)
                 newsize += cursize[req.logicalVolumeName]
 
-		newsize = cursize[req.logicalVolumeName] + vgfree*fraction
 		if req.maxSizeMB:
 		    newsize = min(newsize, req.maxSizeMB)
 		    
