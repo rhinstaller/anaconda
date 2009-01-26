@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.92
+Version: 10.1.1.93
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jan 26 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.93-1
+- Correct backport from REHL5 (jgranados).
+  Resolves: rhbz:#480793
+
 * Thu Jan 15 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.92-1
 - Flush the drive dict first so CD-ROM device nodes get made (clumens).
   Resolves: rhbz:#435926
