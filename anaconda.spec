@@ -78,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Mon Jan 26 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.93-1
-- Correct backport from REHL5 (jgranados).
+- Correct backport from RHEL5 (jgranados).
   Resolves: rhbz:#480793
 
 * Thu Jan 15 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.92-1
