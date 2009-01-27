@@ -1696,7 +1696,7 @@ class Partitions:
 
     def deleteAllLogicalPartitions(self, part):
         """Add delete specs for all logical partitions in part."""
-        for partition in partedUtils.get_logical_partitions(part.disk):
+        for partition in part.disk.getLogicalPartitions():
             partName = partition.getDeviceNodeName()
             request = self.getRequestByDeviceName(partName)
             self.removeRequest(request)

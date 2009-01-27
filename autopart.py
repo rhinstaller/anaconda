@@ -245,7 +245,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                     if request.primary: # they've required a primary and we can't do it
                         raise PartitioningError, "Cannot create another primary partition for %s." % request.mountpoint
                     # check to make sure we can still create more logical parts
-                    if (len(partedUtils.get_logical_partitions(disk)) ==
+                    if (len(disk.getLogicalPartitions()) ==
                         disk.getMaxLogicalPartitions()):
                         raise PartitioningError, "Cannot create another logical partition for %s." % request.mountpoint
                 else:
@@ -358,7 +358,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 ##               print("Trying drive", drive)
                 disk = diskset.disks[drive]
                 numPrimary = len(partedUtils.get_primary_partitions(disk))
-                numLogical = len(partedUtils.get_logical_partitions(disk))
+                numLogical = len(disk.getLogicalPartitions())
 
                 # if there is an extended partition add it in
 		if disk.extended_partition:
@@ -1222,7 +1222,7 @@ def doClearPartAction(anaconda, partitions, diskset):
         disk = diskset.disks[drive]
         ext = disk.extended_partition
         # if the extended is empty, blow it away
-        if ext and len(partedUtils.get_logical_partitions(disk)) == 0:
+        if ext and len(disk.getLogicalPartitions()) == 0:
             delete = partRequests.DeleteSpec(drive, ext.geom.start,
                                              ext.geom.end)
             old = partitions.getRequestByDeviceName(ext.getDeviceNodeName())
