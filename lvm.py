@@ -166,7 +166,17 @@ def vgremove(vgname):
     except:
         pass
 
-    args = ["lvm", "vgremove", vgname]
+    args = ["lvm", "vgreduce", "-v", "--removemissing", "--force", vgname]
+
+    log(string.join(args, ' '))
+    rc = iutil.execWithRedirect(args[0], args,
+                                stdout = output,
+                                stderr = output,
+                                searchPath = 1)
+    if rc:
+        raise SystemError, "vgreduce failed"
+
+    args = ["lvm", "vgremove", "-v", vgname]
 
     log(string.join(args, ' '))
     rc = iutil.execWithRedirect(args[0], args,
@@ -178,7 +188,7 @@ def vgremove(vgname):
     # now iterate all the PVs we've just freed up, so we reclaim the metadata
     # space.  This is an LVM bug, AFAICS.
     for pvname in pvs:
-        args = ["lvm", "pvremove", pvname]
+        args = ["lvm", "pvremove", "-ff", "-y", "-v", pvname]
 
         log(string.join(args, ' '))
         rc = iutil.execWithRedirect(args[0], args,
