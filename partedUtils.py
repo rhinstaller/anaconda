@@ -960,7 +960,7 @@ class DiskSet:
                     disk = parted.Disk(device=dev)
                 else:
                     disk = labelDisk(deviceFile)
-            except parted.error, msg:
+            except Exception, msg:
                 log.error("parted error: %s" % (msg,))
                 raise
         except:
@@ -1047,7 +1047,7 @@ class DiskSet:
                 if not dev:
                     dev = parted.getDevice("/dev/%s" % (drive,))
                     disk = None
-            except parted.error, msg:
+            except Exception, msg:
                 log.debug("parted error: %s" % (msg,))
                 self._removeDisk(drive, disk)
                 continue
@@ -1056,7 +1056,7 @@ class DiskSet:
                 if not disk:
                     disk = parted.Disk(device=dev)
                     self._addDisk(drive, disk)
-            except parted.error, msg:
+            except Exception, msg:
                 recreate = 0
                 if zeroMbr:
                     log.error("zeroMBR was set and invalid partition table "
