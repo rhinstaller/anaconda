@@ -168,7 +168,7 @@ def labelDisk(deviceFile, forceLabelType=None):
                 'gpt' in parted.archLabels[iutil.getArch()]:
             label = parted.diskType['gpt']
 
-    disk = dev.disk_new_fresh(label)
+    disk = parted.freshDisk(dev, label)
     disk.commit()
     return disk
 
@@ -291,10 +291,10 @@ def validateFsType(part):
     # now check each type, and set the partition system accordingly.
     for fsname in fsnames:
         fstype = fsTypes[fsname]
-        if fstype.probe_specific(part.geom) != None:
+        if parted.probeForSpecificFileSystem(fstype, part.geometry) != None:
             # XXX verify that this will not modify system type
             # in the case where a user does not modify partitions
-            part.set_system(fstype)
+            part.system = fstype
             return
 
 def isLinuxNativeByNumtype(numtype):
@@ -938,7 +938,7 @@ class DiskSet:
                     "installation choices about which drives to "
                     "ignore.\n\n"
                     "Would you like to initialize this drive, "
-                    "erasing ALL DATA?") % (drive, device.model, device.getSize(unit="MB"),)
+                    "erasing ALL DATA?") % (drive, dev.model, dev.getSize(unit="MB"),)
 
             rc = intf.messageWindow(_("Warning"), msg, type="yesno")
 
