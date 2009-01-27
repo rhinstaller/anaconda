@@ -168,7 +168,7 @@ def bestPartType(disk, request):
         return parted.PARTITION_NORMAL
     if ((numPrimary == (maxPrimary - 1)) and
         not disk.extended_partition and
-        disk.type.check_feature(parted.DISK_TYPE_EXTENDED)):
+        disk.supportsFeature(parted.DISK_TYPE_EXTENDED)):
         return parted.PARTITION_EXTENDED
     return parted.PARTITION_NORMAL
 
@@ -238,7 +238,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
             if startSec < minSec:
                 startSec = minSec
 
-            if disk.type.check_feature(parted.DISK_TYPE_EXTENDED) and disk.extended_partition:
+            if disk.supportsFeature(parted.DISK_TYPE_EXTENDED) and disk.extended_partition:
 
                 if (disk.extended_partition.geom.start < startSec) and (disk.extended_partition.geom.end >= endSec):
                     partType = parted.PARTITION_LOGICAL
@@ -1142,12 +1142,12 @@ def doClearPartAction(anaconda, partitions, diskset):
             # 4) the ptable doesn't support numeric ids, but it appears to be
             #    a RAID or LVM device (#107319)
             # 5) the drive contains protected partitions and initAll is set
-            if ((linuxOnly == 0) or (ptype and ptype.isLinuxNativeFS()) or 
+            if ((linuxOnly == 0) or (ptype and ptype.isLinuxNativeFS()) or
                 (initAll and
                  partedUtils.hasProtectedPartitions(drive, anaconda)) or
                 (not ptype and
-                 partedUtils.isLinuxNativeByNumtype(part.native_type)) or 
-                ((part.native_type == -1) and # the ptable doesn't have types
+                 partedUtils.isLinuxNative(part)) or
+                ((part._fileSystem is None) and # the ptable doesn't have types
                  ((part.is_flag_available(parted.PARTITION_RAID) and part.get_flag(parted.PARTITION_RAID)) or  # this is a RAID
                   (part.is_flag_available(parted.PARTITION_LVM) and part.get_flag(parted.PARTITION_LVM)) or # or an LVM
                   (iutil.isMactel() and not ptype)))): # or we're on a mactel and have a blank partition from bootcamp #FIXME: this could be dangerous...
@@ -1193,7 +1193,7 @@ def doClearPartAction(anaconda, partitions, diskset):
                   and (linuxOnly == 1)
                   and (not anaconda.isKickstart) and
                   part.is_flag_available(parted.PARTITION_BOOT) and
-                  (part.native_type == 0x41) and
+                  (part.get_flag(parted.PARTITION_PREP)) and
                   part.get_flag(parted.PARTITION_BOOT)):
                 req = partitions.getRequestByDeviceName(part.getDeviceNodeName())
                 req.mountpoint = None

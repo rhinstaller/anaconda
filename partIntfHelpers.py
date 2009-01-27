@@ -382,7 +382,7 @@ def checkForSwapNoMatch(anaconda):
         
         part = parted.getPartitionByName(request.device)
         if (part and (not part.type & parted.PARTITION_FREESPACE)
-            and (part.native_type == 0x82)
+            and (part.get_flag(parted.LINUX_SWAP))
             and (request.fstype and request.fstype.getName() != "swap")
             and (not request.format)):
             rc = anaconda.intf.messageWindow(_("Format as Swap?"),

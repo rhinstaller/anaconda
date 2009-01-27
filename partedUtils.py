@@ -57,7 +57,7 @@ def get_partition_file_system_type(part):
     Return:
     Filesystem object (as defined in fsset.py)
     """
-    if part.fileSystem is None and part.native_type == 0x41:
+    if part.fileSystem is None and part.getFlag(parted.PARTITION_PREP):
         ptype = fsset.fileSystemTypeGet("PPC PReP Boot")
     elif part.fileSystem == None:
         return None
@@ -103,12 +103,9 @@ def get_partition_drive(partition):
     """Return the device name for disk that PedPartition partition is on."""
     return partition.geometry.device.path[5:]
 
-def map_foreign_to_fsname(type):
+def map_foreign_to_fsname(part):
     """Return the partition type associated with the numeric type.""" 
-    if type in allPartitionTypesDict.keys():
-        return allPartitionTypesDict[type]
-    else:
-        return _("Foreign")
+    return part._fileSystem._type.name
 
 def filter_partitions(disk, func):
     rc = []
@@ -297,15 +294,14 @@ def validateFsType(part):
             part.system = fstype
             return
 
-def isLinuxNativeByNumtype(numtype):
+def isLinuxNative(part):
     """Check if the type is a 'Linux native' filesystem."""
-    linuxtypes = [0x82, 0x83, 0x8e, 0xfd]
-
-    for t in linuxtypes:
-        if int(numtype) == t:
-            return 1
-
-    return 0
+    fstype = part._fileSystem._type
+    if part.getFlag(parted.PARTITION_RAID) or parted.getFlag(parted.PARTITION_LVM) or \
+       part.getFlag(parted.PARTITION_SWAP) or fstype.name in ["ext2", "ext3", "jfs", "reiserfs", "xfs"]:
+        return True
+    else:
+        return False
 
 def getReleaseString(mountpoint):
     if os.access(mountpoint + "/etc/redhat-release", os.R_OK):
@@ -400,7 +396,7 @@ class DiskSet:
 
     def onlyPrimaryParts(self):
         for disk in self.disks.values():
-            if disk.type.check_feature(parted.DISK_TYPE_EXTENDED):
+            if disk.supportsFeature(parted.DISK_TYPE_EXTENDED):
                 return 0
 
         return 1
@@ -1011,7 +1007,7 @@ class DiskSet:
                 if not self.disks.has_key(drive):
                     try:
                         dev = parted.getDevice("/dev/%s" % (drive,))
-                        disk = parted.Disk.(device=dev)
+                        disk = parted.Disk(device=dev)
                         self._addDisk(drive, disk)
                     except:
                         self._removeDisk(drive)

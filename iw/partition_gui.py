@@ -914,7 +914,7 @@ class PartitionWindow(InstallWindow):
                     if request and request.fstype != None:
                         ptype = self.getShortFSTypeName(request.fstype.getName())
                         if ptype == "foreign":
-                            ptype = map_foreign_to_fsname(part.native_type)
+                            ptype = map_foreign_to_fsname(part)
                     else:
                         ptype = part.fs_type.name
 
@@ -927,7 +927,7 @@ class PartitionWindow(InstallWindow):
                         ptype = self.getShortFSTypeName(request.fstype.getName())
                         
                         if ptype == "foreign":
-                            ptype = map_foreign_to_fsname(part.native_type)
+                            ptype = map_foreign_to_fsname(part)
                     else:
                         ptype = _("None")
                 if part.type & parted.PARTITION_FREESPACE:

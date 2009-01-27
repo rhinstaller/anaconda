@@ -88,7 +88,7 @@ def bootloaderSetupChoices(anaconda):
             disk = anaconda.id.diskset.disks[drive]
             part = disk.next_partition()
             while part:
-                if part.is_active() and part.native_type == 0x41:
+                if part.is_active() and part.get_flag(parted.PARTITION_PREP):
                     bootPart = part.getDeviceNodeName()
                     break
                 part = disk.next_partition(part)
