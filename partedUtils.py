@@ -163,13 +163,6 @@ def filter_partitions(disk, func):
 
     return rc
 
-def get_lvm_partitions(disk):
-    """Return a list of physical volume-type PedPartition objects on disk."""
-    func = lambda part: (part.is_active()
-                         and part.get_flag(parted.PARTITION_LVM) == 1)
-    return filter_partitions(disk, func)
-
-
 def getDefaultDiskType():
     """Get the default partition table type for this architecture."""
     if iutil.isEfi():

@@ -901,7 +901,7 @@ class Partitions:
         pvlist = lvm.pvlist()
         for drive in drives:
             disk = diskset.disks[drive]
-            for part in partedUtils.get_lvm_partitions(disk):
+            for part in disk.getLVMPartitions():
                 partname = part.getDeviceNodeName()
                 partrequest = self.getRequestByDeviceName(partname)
                 if partrequest.encryption is None and \
