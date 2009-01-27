@@ -212,39 +212,6 @@ def processEvents():
     while gtk.events_pending():
         gtk.main_iteration(False)
 
-def partedExceptionWindow(exc):
-    # if our only option is to cancel, let us handle the exception
-    # in our code and avoid popping up the exception window here.
-    if exc.options == parted.EXCEPTION_CANCEL:
-        return parted.EXCEPTION_UNHANDLED
-    log.critical("parted exception: %s: %s" %(exc.type_string,exc.message))
-    print(exc.type_string)
-    print(exc.message)
-    print(exc.options)
-    win = gtk.Dialog(exc.type_string, mainWindow, gtk.DIALOG_MODAL)
-    addFrame(win)
-    win.set_position(gtk.WIN_POS_CENTER)
-    label = WrappingLabel(exc.message)
-    win.vbox.pack_start (label)
-    numButtons = 0
-    buttonToAction = {}
-
-    exflags = ((parted.EXCEPTION_FIX, N_("Fix")),
-             (parted.EXCEPTION_YES, N_("Yes")),
-             (parted.EXCEPTION_NO, N_("No")),
-             (parted.EXCEPTION_OK, N_("OK")),
-             (parted.EXCEPTION_RETRY, N_("Retry")),
-             (parted.EXCEPTION_IGNORE, N_("Ignore")),
-             (parted.EXCEPTION_CANCEL, N_("Cancel")))
-    for flag, string in exflags:
-        if exc.options & flag:
-            win.add_button(_(string), flag)
-    win.show_all()
-    rc = win.run()
-    win.destroy()
-
-    return rc
-
 def widgetExpander(widget, growTo=None):
     widget.connect("size-allocate", growToParent, growTo)
 
@@ -1303,8 +1270,6 @@ class InstallInterface:
         anaconda.id.fsset.registerMessageWindow(self.messageWindow)
         anaconda.id.fsset.registerProgressWindow(self.progressWindow)
         anaconda.id.fsset.registerWaitWindow(self.waitWindow)
-
-        parted.exception_set_handler(partedExceptionWindow)
 
         self.icw = InstallControlWindow (self.anaconda)
         self.icw.run (self.runres)

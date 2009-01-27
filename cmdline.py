@@ -107,20 +107,6 @@ class InstallInterface:
     def exceptionWindow(self, shortText, longTextFile):
         print(shortText)
 
-    def partedExceptionWindow(self, exc):
-        # if our only option is to cancel, let us handle the exception
-        # in our code and avoid popping up the exception window here.
-        log.critical("parted exception: %s: %s" %(exc.type_string,exc.message))
-        if exc.options == parted.EXCEPTION_CANCEL:
-            return parted.EXCEPTION_UNHANDLED
-
-        print(_("Parted exceptions can't be handled in command line mode!"))
-        print(exc.message)
-
-        # don't exit
-        while 1:
-            time.sleep(5)
-
     def waitWindow(self, title, text):
         return WaitWindow(title, text)
 
@@ -131,7 +117,6 @@ class InstallInterface:
         anaconda.id.fsset.registerMessageWindow(self.messageWindow)
         anaconda.id.fsset.registerProgressWindow(self.progressWindow)
         anaconda.id.fsset.registerWaitWindow(self.waitWindow)        
-        parted.exception_set_handler(self.partedExceptionWindow)        
 
         (step, instance) = anaconda.dispatch.currentStep()
         while step:

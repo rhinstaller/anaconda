@@ -557,34 +557,6 @@ class InstallInterface:
         win = SaveExceptionWindow (anaconda, longTextFile, self.screen)
         return win
 
-    def partedExceptionWindow(self, exc):
-        # if our only option is to cancel, let us handle the exception
-        # in our code and avoid popping up the exception window here.
-        if exc.options == parted.EXCEPTION_CANCEL:
-            return parted.EXCEPTION_UNHANDLED
-        log.critical("parted exception: %s: %s" %(exc.type_string,exc.message))
-        buttons = []
-        buttonToAction = {}
-        flags = ((parted.EXCEPTION_FIX, N_("Fix")),
-                 (parted.EXCEPTION_YES, N_("Yes")),
-                 (parted.EXCEPTION_NO, N_("No")),
-                 (parted.EXCEPTION_OK, N_("OK")),
-                 (parted.EXCEPTION_RETRY, N_("Retry")),
-                 (parted.EXCEPTION_IGNORE, N_("Ignore")),
-                 (parted.EXCEPTION_CANCEL, N_("Cancel")))
-        for flag, errorstring in flags:
-            if exc.options & flag:
-                buttons.append(_(errorstring))
-                buttonToAction[string.lower(_(errorstring))] = flag
-
-        rc = None
-        while not buttonToAction.has_key(rc):
-            rc = ButtonChoiceWindow(self.screen, exc.type_string, exc.message,
-                                    buttons=buttons)
-
-        return buttonToAction[rc]
-    
-
     def waitWindow(self, title, text):
 	return WaitWindow(self.screen, title, text)
 
@@ -660,8 +632,6 @@ class InstallInterface:
         anaconda.id.fsset.registerMessageWindow(self.messageWindow)
         anaconda.id.fsset.registerProgressWindow(self.progressWindow)
         anaconda.id.fsset.registerWaitWindow(self.waitWindow)
-
-	parted.exception_set_handler(self.partedExceptionWindow)
 
 	lastrc = INSTALL_OK
 	(step, instance) = anaconda.dispatch.currentStep()
