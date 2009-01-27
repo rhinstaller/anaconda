@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.93
+Version: 10.1.1.94
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 27 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.94-1
+- Remove missing PVs before removing obsolete VG (jgranado).
+  Resolves: rhbz:#481698
+
 * Mon Jan 26 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.93-1
 - Correct backport from RHEL5 (jgranados).
   Resolves: rhbz:#480793
