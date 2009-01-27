@@ -161,7 +161,7 @@ def labelDisk(deviceFile, forceLabelType=None):
         label = forceLabelType
     else:
         if label.name == 'msdos' and \
-                dev.length > (2L**41) / dev.sector_size and \
+                dev.length > (2L**41) / dev.sectorSize and \
                 'gpt' in parted.archLabels[iutil.getArch()]:
             label = parted.diskType['gpt']
 

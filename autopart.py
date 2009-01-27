@@ -86,7 +86,7 @@ def bootRequestCheck(req, diskset):
     elif (iutil.getPPCMachine() == "pSeries" or
           iutil.getPPCMachine() == "iSeries"):
         part = parted.getPartitionByName(req.device)
-        if part and ((part.geom.end * part.geom.dev.sector_size /
+        if part and ((part.geom.end * part.geom.dev.sectorSize /
                       (1024.0 * 1024)) > 4096):
             return BOOTIPSERIES_TOO_HIGH
         
@@ -197,7 +197,7 @@ class partlist:
 def getMinimumSector(disk):
     if disk.type.name == 'sun':
         start = long(disk.dev.sectors * disk.dev.heads)
-        start /= long(1024 / disk.dev.sector_size)
+        start /= long(1024 / disk.dev.sectorSize)
         return start + 1
     return 0L
 
@@ -226,7 +226,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
             if request.end:
                 endCyl = request.end
             elif request.size:
-                endCyl = disk.dev.endSectorToCylinder(((1024L * 1024L * request.size) / disk.dev.sector_size) + startSec)
+                endCyl = disk.dev.endSectorToCylinder(((1024L * 1024L * request.size) / disk.dev.sectorSize) + startSec)
 
             endSec = disk.dev.endCylinderToSector(endCyl)
 
@@ -381,8 +381,8 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     partSize = part.getSize(unit="MB")
                     # figure out what the request size will be given the
                     # geometry (#130885)
-                    requestSectors = long((request.requestSize * 1024L * 1024L) / part.disk.dev.sector_size) - 1
-                    requestSizeMB = long((requestSectors * part.disk.dev.sector_size) / 1024L / 1024L)
+                    requestSectors = long((request.requestSize * 1024L * 1024L) / part.disk.dev.sectorSize) - 1
+                    requestSizeMB = long((requestSectors * part.disk.dev.sectorSize) / 1024L / 1024L)
 		    lvmLog.debug("partSize %s  request %s" % (partSize, request.requestSize))
                     if partSize >= requestSizeMB and partSize > largestPart[0]:
                         if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
@@ -412,10 +412,10 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             startSec = freeStartSec
 
 	    # For alpha reserve space at the begining of disk
-	    if iutil.isAlpha() and startSec < long((1024L * 1024L)/disk.dev.sector_size):
-		startSec = long((2 * 1024L * 1024L)/disk.dev.sector_size)
+	    if iutil.isAlpha() and startSec < long((1024L * 1024L)/disk.dev.sectorSize):
+		startSec = long((2 * 1024L * 1024L)/disk.dev.sectorSize)
 
-            endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sector_size)) - 1
+            endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sectorSize)) - 1
 
             if endSec > freeEndSec:
                 endSec = freeEndSec
@@ -457,7 +457,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                         raise PartitioningError, "Could not find free space after making new extended partition"
 
                     startSec = freeStartSec
-                    endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sector_size)) - 1
+                    endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sectorSize)) - 1
 
                     if endSec > freeEndSec:
                         endSec = freeEndSec
@@ -697,7 +697,7 @@ def growParts(diskset, requests, newParts):
             # pull out list of requests we want to grow on this drive
             growList = growable[drive]
 
-            sector_size = diskset.disks[drive].dev.sector_size
+            sectorSize = diskset.disks[drive].dev.sectorSize
             cylsectors = diskset.disks[drive].dev.sectors*diskset.disks[drive].dev.heads
             
             # sort in order of request size, consider biggest first
@@ -755,7 +755,7 @@ def growParts(diskset, requests, newParts):
                 imposedMax = 0
                 if request.maxSizeMB:
                     # round down a cylinder, see comment below
-                    tmpint = request.maxSizeMB*1024.0*1024.0/sector_size
+                    tmpint = request.maxSizeMB*1024.0*1024.0/sectorSize
                     tmpint = long(tmpint / cylsectors)
                     maxUserSize = tmpint * cylsectors
                     if maxsect > maxUserSize:
@@ -769,10 +769,10 @@ def growParts(diskset, requests, newParts):
 			(xxxint, tmpint) = iutil.swapSuggestion(quiet=1)
 
 			# convert to sectors
-			tmpint = tmpint*1024*1024/sector_size
+			tmpint = tmpint*1024*1024/sectorSize
 			tmpint = long(tmpint / cylsectors)
 			maxsugswap = tmpint * cylsectors
-			userstartsize = origSize[request.uniqueID]*1024*1024/sector_size
+			userstartsize = origSize[request.uniqueID]*1024*1024/sectorSize
 			if maxsugswap >= userstartsize:
 			    maxsect = maxsugswap
 			    imposedMax = 1
@@ -782,7 +782,7 @@ def growParts(diskset, requests, newParts):
                 # round max fs limit down a cylinder, helps when growing
                 # so we don't end up with a free cylinder at end if
                 # maxlimit fell between cylinder boundaries
-                tmpint = request.fstype.getMaxSizeMB()*1024.0*1024.0/sector_size
+                tmpint = request.fstype.getMaxSizeMB()*1024.0*1024.0/sectorSize
                 tmpint = long(tmpint / cylsectors)
                 maxFSSize = tmpint * cylsectors
                 if maxsect > maxFSSize:
@@ -795,7 +795,7 @@ def growParts(diskset, requests, newParts):
                     imposedMax = 1
 
 #                print("freesize, max, maxfree = ",freeSize[drive],maxsect, maxfree)
-#                print("freeSizeMB, maxMB = ", freeSize[drive] * sector_size/(1024.0 * 1024.0), maxsect * sector_size/(1024.0*1024.0), largestFree[drive] * sector_size/(1024.0*1024.0))
+#                print("freeSizeMB, maxMB = ", freeSize[drive] * sectorSize/(1024.0 * 1024.0), maxsect * sectorSize/(1024.0*1024.0), largestFree[drive] * sectorSize/(1024.0*1024.0))
 #                print("startsize = ", startSize)
 
                 min = startSize
@@ -813,7 +813,7 @@ def growParts(diskset, requests, newParts):
 
                     # XXX need to request in sectors preferably, more accurate
 ## 		    print("trying cur=%s" % cur)
-                    request.requestSize = (cur*sector_size)/1024.0/1024.0
+                    request.requestSize = (cur*sectorSize)/1024.0/1024.0
 
                     # try adding
                     try:
@@ -845,7 +845,7 @@ def growParts(diskset, requests, newParts):
                 # should go back to the smaller size
                 if ret == PARTITION_FAIL:
 #                    print("growing finally failed at size", min)
-                    request.requestSize = min*sector_size/1024.0/1024.0
+                    request.requestSize = min*sectorSize/1024.0/1024.0
                     processPartitioning(diskset, newRequest, newParts)
 
 #                print("end min, max, cur, diffs = ",min,max,cur,diff,lastDiff)
@@ -879,7 +879,7 @@ def setPreexistParts(diskset, requests):
                 # if the partition is being resized, we do that now
                 if request.targetSize is not None:
                     startSec = part.geom.start
-                    endSec = part.geom.start + long(((request.targetSize * 1024L * 1024L) / disk.dev.sector_size)) - 1
+                    endSec = part.geom.start + long(((request.targetSize * 1024L * 1024L) / disk.dev.sectorSize)) - 1
 
                     try:
                         g = part.geom.duplicate()

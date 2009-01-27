@@ -54,6 +54,6 @@ for drive in driveList:
 	continue
 
     sizeMB = (float(dev.heads * dev.cylinders * dev.sectors) / (1024 * 1024)
-		            * dev.sector_size)
+		            * dev.sectorSize)
 
     print drive, sizeMB
