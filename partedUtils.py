@@ -49,32 +49,32 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 def get_partition_file_system_type(part):
-    """Return the file system type of the PedPartition part.
+    """Return the file system type of the parted.Partition part.
 
     Arguments:
-    part -- PedPartition object
+    part -- parted.Partition object
 
     Return:
     Filesystem object (as defined in fsset.py)
     """
-    if part.fs_type is None and part.native_type == 0x41:
+    if part.fileSystem is None and part.native_type == 0x41:
         ptype = fsset.fileSystemTypeGet("PPC PReP Boot")
-    elif part.fs_type == None:
+    elif part.fileSystem == None:
         return None
-    elif (part.get_flag(parted.PARTITION_BOOT) == 1 and
-          part.getSize(unit="MB") <= 1 and part.fs_type.name == "hfs"):
+    elif (part.getFlag(parted.PARTITION_BOOT) and
+          part.getSize(unit="MB") <= 1 and part.fileSystem.name == "hfs"):
         ptype = fsset.fileSystemTypeGet("Apple Bootstrap")
-    elif part.fs_type.name == "linux-swap":
+    elif part.fileSystem.name == "linux-swap":
         ptype = fsset.fileSystemTypeGet("swap")
     elif isEfiSystemPartition(part):
         ptype = fsset.fileSystemTypeGet("efi")
     elif isEfiSystemPartition(part):
         ptype = fsset.fileSystemTypeGet("efi")
-    elif part.fs_type.name in ("fat16", "fat32"):
+    elif part.fileSystem.name in ("fat16", "fat32"):
         ptype = fsset.fileSystemTypeGet("vfat")
     else:
         try:
-            ptype = fsset.fileSystemTypeGet(part.fs_type.name)
+            ptype = fsset.fileSystemTypeGet(part.fileSystem.name)
         except:
             ptype = fsset.fileSystemTypeGet("foreign")
 
@@ -87,16 +87,16 @@ def set_partition_file_system_type(part, fstype):
         return
     try:
         for flag in fstype.getPartedPartitionFlags():
-            if not part.is_flag_available(flag):
-                raise PartitioningError, ("requested FileSystemType needs "
+            if not part.isFlagAvailable(flag):
+                raise PartitioningError, ("requested file system type needs "
                                           "a flag that is not available.")
-            part.set_flag(flag, 1)
+            part.setFlag(flag, True)
         if isEfiSystemPartition(part):
-            part.set_system(parted.file_system_type_get("fat32"))
+            part.system = parted.fileSystemType["fat32"]
         else:
-            part.set_system(fstype.getPartedFileSystemType())
+            part.system = fstype.getPartedFileSystemType()
     except:
-        print("Failed to set partition type to ",fstype.getName())
+        print("Failed to set partition type to ", fstype.getName())
         pass
 
 def get_partition_drive(partition):
@@ -112,55 +112,52 @@ def map_foreign_to_fsname(type):
 
 def filter_partitions(disk, func):
     rc = []
-    part = disk.next_partition ()
-    while part:
+    for part in disk.partitions.values():
         if func(part):
             rc.append(part)
-        part = disk.next_partition (part)
-
     return rc
 
 def getDefaultDiskType():
     """Get the default partition table type for this architecture."""
     if iutil.isEfi():
-        return parted.disk_type_get("gpt")
+        return parted.diskType["gpt"]
     elif iutil.isX86():
-        return parted.disk_type_get("msdos")
+        return parted.diskType["msdos"]
     elif iutil.isS390():
         # the "default" type is dasd, but we don't really do dasd
         # formatting with parted and use dasdfmt directly for them
         # so if we get here, it's an fcp disk and we should write
         # an msdos partition table (#144199)
-        return parted.disk_type_get("msdos")
+        return parted.diskType["msdos"]
     elif iutil.isAlpha():
-        return parted.disk_type_get("bsd")
+        return parted.diskType["bsd"]
     elif iutil.isSparc():
-        return parted.disk_type_get("sun")
+        return parted.diskType["sun"]
     elif iutil.isPPC():
         ppcMachine = iutil.getPPCMachine()
 
         if ppcMachine == "PMac":
-            return parted.disk_type_get("mac")
+            return parted.diskType["mac"]
         else:
-            return parted.disk_type_get("msdos")
+            return parted.diskType["msdos"]
     else:
-        return parted.disk_type_get("msdos")
+        return parted.diskType["msdos"]
 
 def hasGptLabel(diskset, device):
     disk = diskset.disks[device]
     return disk.type.name == "gpt"
 
 def isEfiSystemPartition(part):
-    if not part.is_active():
+    if not part.active:
         return False
     return (part.disk.type.name == "gpt" and
-            part.get_name() == "EFI System Partition" and
-            part.get_flag(parted.PARTITION_BOOT) == 1 and
-            part.fs_type.name in ("fat16", "fat32") and
+            part.name == "EFI System Partition" and
+            part.getFlag(parted.PARTITION_BOOT) and
+            part.fileSystem.name in ("fat16", "fat32") and
             isys.readFSLabel(part.getDeviceNodeName()) != "ANACONDA")
 
 def labelDisk(deviceFile, forceLabelType=None):
-    dev = parted.PedDevice.get(deviceFile)
+    dev = parted.getDevice(deviceFile)
     label = getDefaultDiskType()
 
     if not forceLabelType is None:
@@ -169,7 +166,7 @@ def labelDisk(deviceFile, forceLabelType=None):
         if label.name == 'msdos' and \
                 dev.length > (2L**41) / dev.sector_size and \
                 'gpt' in parted.archLabels[iutil.getArch()]:
-            label = parted.disk_type_get('gpt')
+            label = parted.diskType['gpt']
 
     disk = dev.disk_new_fresh(label)
     disk.commit()
@@ -186,18 +183,18 @@ def checkDasdFmt(disk, intf):
 
     # FIXME: there has to be a better way to check LDL vs CDL
     # how do I test ldl vs cdl?
-    if disk.max_primary_partition_count > 1:
+    if disk.maxPrimaryPartitionCount > 1:
         return 0
 
     if intf:
         try:
-            device = disk.dev.path[5:]
+            device = disk.device.path[5:]
             devs = isys.getDasdDevPort()
             dev = "/dev/%s (%s)" %(device, devs[device])
         except Exception, e:
             log.critical("exception getting dasd dev ports: %s" %(e,))
-            dev = "/dev/%s" %(disk.dev.path[5:],)
-        
+            dev = "/dev/%s" %(disk.device.path[5:],)
+
         rc = intf.messageWindow(_("Warning"),
                        _("The device %s is LDL formatted instead of "
                          "CDL formatted.  LDL formatted DASDs are not "
@@ -214,7 +211,7 @@ def checkDasdFmt(disk, intf):
             return -1
     else:
         return 1
-    
+
 
 def checkDiskLabel(disk, intf):
     """Check that the disk label on disk is valid for this machine type."""
@@ -236,7 +233,7 @@ def checkDiskLabel(disk, intf):
                                   "ALL DATA on this drive.\n\n"
                                   "Would you like to re-initialize this "
                                   "drive?")
-                                %(disk.dev.path[5:], disk.type.name,
+                                %(disk.device.path[5:], disk.type.name,
                                   productName), type="custom",
                                 custom_buttons = [ _("_Ignore drive"),
                                                    _("_Re-initialize drive") ],
@@ -272,13 +269,13 @@ def hasProtectedPartitions(drive, anaconda):
 # didn't probe as one type or another.
 def validateFsType(part):
     # we only care about primary and logical partitions
-    if not part.type in (parted.PARTITION_PRIMARY,
+    if not part.type in (parted.PARTITION_NORMAL,
                          parted.PARTITION_LOGICAL):
         return
     # if the partition already has a type, no need to search
-    if part.fs_type:
+    if part.fileSystem:
         return
-    
+
     # first fsystem to probe wins, so sort the types into a preferred
     # order.
     fsnames = fsTypes.keys()
@@ -299,7 +296,7 @@ def validateFsType(part):
             # in the case where a user does not modify partitions
             part.set_system(fstype)
             return
-            
+
 def isLinuxNativeByNumtype(numtype):
     """Check if the type is a 'Linux native' filesystem."""
     linuxtypes = [0x82, 0x83, 0x8e, 0xfd]
@@ -325,7 +322,7 @@ def getReleaseString(mountpoint):
         # return the first line with the newline at the end stripped
         if len(lines) == 0:
             return ""
-	relstr = string.strip(lines[0][:-1])
+        relstr = string.strip(lines[0][:-1])
 
         # get the release name and version
         # assumes that form is something
@@ -521,9 +518,9 @@ class DiskSet:
                 continue
 
             disk = self.disks[drive]
-            func = lambda part: (part.is_active() and
-                                 not (part.get_flag(parted.PARTITION_RAID)
-                                      or part.get_flag(parted.PARTITION_LVM)))
+            func = lambda part: (part.active and
+                                 not (part.getFlag(parted.PARTITION_RAID)
+                                      or part.getFlag(parted.PARTITION_LVM)))
             parts = filter_partitions(disk, func)
             for part in parts:
                 node = part.getDeviceNodeName()
@@ -627,15 +624,15 @@ class DiskSet:
                             label = isys.readFSLabel(theDev)
                         except:
                             label = None
-            
+
                         uuid = isys.readFSUuid(theDev)
                         # XXX we could add the "raw" dev and let caller decrypt
                         rootparts.append ((theDev, fs, relstr, label, uuid))
                 isys.umount(self.anaconda.rootPath)
 
         # now, look for candidate lvm roots
-	lvm.vgscan()
-	lvm.vgactivate()
+        lvm.vgscan()
+        lvm.vgactivate()
 
         for dev, crypto in self.anaconda.id.partitions.encryptedDevices.items():
             # FIXME: order these so LVM and RAID always work on the first try
@@ -667,7 +664,7 @@ class DiskSet:
             if found:
                 if os.access (self.anaconda.rootPath + '/etc/fstab', os.R_OK):
                     relstr = getReleaseString(self.anaconda.rootPath)
-                    
+
                     if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
                         try:
@@ -679,7 +676,7 @@ class DiskSet:
                         rootparts.append ((theDev, fs, relstr, label, uuid))
                 isys.umount(self.anaconda.rootPath)
 
-	lvm.vgdeactivate()
+        lvm.vgdeactivate()
 
         # don't stop raid until after we've looked for lvm on top of it
         self.stopMdRaid()
@@ -696,14 +693,14 @@ class DiskSet:
                 node = part.getDeviceNodeName()
                 crypto = self.anaconda.id.partitions.encryptedDevices.get(node)
                 if (part.is_active()
-                    and (part.get_flag(parted.PARTITION_RAID)
-                         or part.get_flag(parted.PARTITION_LVM))):
-                    part = disk.next_partition(part)
+                    and (part.getFlag(parted.PARTITION_RAID)
+                         or part.getFlag(parted.PARTITION_LVM))):
+                    part = part.nextPartition()
                     continue
-                elif part.fs_type or crypto:
+                elif part.fileSystem or crypto:
                     theDev = node
-                    if part.fs_type:
-                        fstype = part.fs_type.name
+                    if part.fileSystem:
+                        fstype = part.fileSystem.name
                     else:
                         fstype = None
 
@@ -718,7 +715,7 @@ class DiskSet:
                         log.error("failed to open encrypted device %s" % node)
 
                     if not fstype or fstype not in fsset.getUsableLinuxFs():
-                        part = disk.next_partition(part)
+                        part = part.nextPartition()
                         continue
 
                     try:
@@ -726,7 +723,7 @@ class DiskSet:
                                    self.anaconda.rootPath, fstype)
                         checkRoot = self.anaconda.rootPath
                     except SystemError:
-                        part = disk.next_partition(part)
+                        part = part.nextPartition()
                         continue
 
                     if os.access (checkRoot + '/etc/fstab', os.R_OK):
@@ -750,23 +747,23 @@ class DiskSet:
 
     def driveList (self):
         """Return the list of drives on the system."""
-	drives = isys.hardDriveDict().keys()
-	drives.sort (isys.compareDrives)
-	return drives
+        drives = isys.hardDriveDict().keys()
+        drives.sort (isys.compareDrives)
+        return drives
 
     def drivesByName (self):
         """Return a dictionary of the drives on the system."""
-	return isys.hardDriveDict()
+        return isys.hardDriveDict()
 
     def savePartitions (self):
         """Write the partition tables out to the disks."""
         for disk in self.disks.values():
-            if disk.dev.path[5:].startswith("sd") and disk.get_last_partition_num() > 15:
+            if disk.device.path[5:].startswith("sd") and disk.lastPartitionNumber > 15:
                 log.debug("not saving partition table of disk with > 15 partitions")
                 del disk
                 continue
 
-            log.info("disk.commit() for %s" % (disk.dev.path,))
+            log.info("disk.commit() for %s" % (disk.device.path,))
             try:
                 disk.commit()
             except:
@@ -778,8 +775,8 @@ class DiskSet:
 
             # FIXME: this belongs in parted itself, but let's do a hack...
             if iutil.isX86() and disk.type.name == "gpt" and not iutil.isEfi():
-                log.debug("syncing gpt to mbr for disk %s" % (disk.dev.path,))
-                iutil.execWithRedirect("gptsync", [disk.dev.path,],
+                log.debug("syncing gpt to mbr for disk %s" % (disk.device.path,))
+                iutil.execWithRedirect("gptsync", [disk.device.path,],
                                        stdout="/tmp/gptsync.log",
                                        stderr="/tmp/gptsync.err",
                                        searchPath = 1)
@@ -873,7 +870,7 @@ class DiskSet:
             os.execv(argList[0], argList)
             log.critical("failed to exec %s", argList)
             os._exit(1)
-			    
+
         os.close(p[1])
 
         num = ''
@@ -914,7 +911,7 @@ class DiskSet:
         os.close(fd)
 
         w and w.pop()
-        
+
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
             return 0
 
@@ -928,11 +925,11 @@ class DiskSet:
 
         rc = 0
         if (ks and (drive in clearDevs) and initAll) or \
-	    self.isDisciplineFBA(drive):
+            self.isDisciplineFBA(drive):
             rc = 1
         elif intf:
             deviceFile = "/dev/" + drive
-            dev = parted.PedDevice.get(deviceFile)
+            dev = parted.getDevice(deviceFile)
 
             msg = _("The partition table on device %s (%s %-0.f MB) was unreadable.\n\n"
                     "To create new partitions it must be initialized, "
@@ -941,7 +938,7 @@ class DiskSet:
                     "installation choices about which drives to "
                     "ignore.\n\n"
                     "Would you like to initialize this drive, "
-                    "erasing ALL DATA?") % (drive, dev.model, getDeviceSizeMB (dev),)
+                    "erasing ALL DATA?") % (drive, device.model, device.getSize(unit="MB"),)
 
             rc = intf.messageWindow(_("Warning"), msg, type="yesno")
 
@@ -963,8 +960,8 @@ class DiskSet:
                    not self.isDisciplineFBA(drive):
                     if self.dasdFmt(drive):
                         raise LabelError, drive
-                    dev = parted.PedDevice.get(deviceFile)
-                    disk = parted.PedDisk.new(dev)
+                    dev = parted.getDevice(deviceFile)
+                    disk = parted.Disk(device=dev)
                 else:
                     disk = labelDisk(deviceFile)
             except parted.error, msg:
@@ -1013,10 +1010,10 @@ class DiskSet:
             if self.initializedDisks.has_key(drive):
                 if not self.disks.has_key(drive):
                     try:
-                        dev = parted.PedDevice.get("/dev/%s" % (drive,))
-                        disk = parted.PedDisk.new(dev)
+                        dev = parted.getDevice("/dev/%s" % (drive,))
+                        disk = parted.Disk.(device=dev)
                         self._addDisk(drive, disk)
-                    except parted.error, msg:
+                    except:
                         self._removeDisk(drive)
                 continue
 
@@ -1052,7 +1049,7 @@ class DiskSet:
 
             try:
                 if not dev:
-                    dev = parted.PedDevice.get("/dev/%s" % (drive,))
+                    dev = parted.getDevice("/dev/%s" % (drive,))
                     disk = None
             except parted.error, msg:
                 log.debug("parted error: %s" % (msg,))
@@ -1061,7 +1058,7 @@ class DiskSet:
 
             try:
                 if not disk:
-                    disk = parted.PedDisk.new(dev)
+                    disk = parted.Disk(device=dev)
                     self._addDisk(drive, disk)
             except parted.error, msg:
                 recreate = 0
@@ -1085,7 +1082,7 @@ class DiskSet:
             filter_partitions(disk, validateFsType)
 
             # check for more than 15 partitions (libata limit)
-            if drive.startswith('sd') and disk.get_last_partition_num() > 15:
+            if drive.startswith('sd') and disk.lastPartitionNumber > 15:
                 str = _("The drive /dev/%s has more than 15 partitions on it.  "
                         "The SCSI subsystem in the Linux kernel does not "
                         "allow for more than 15 partitons at this time.  You "
@@ -1120,18 +1117,16 @@ class DiskSet:
 
         for drive in drives:
             disk = self.disks[drive]
-            part = disk.next_partition ()
-            while part:
-                if part.type in (parted.PARTITION_PRIMARY,
+            for part in disk.partitions.values():
+                if part.type in (parted.PARTITION_NORMAL,
                                  parted.PARTITION_LOGICAL):
                     device = part.getDeviceNodeName()
-                    if part.fs_type:
-                        ptype = part.fs_type.name
+                    if part.fileSystem:
+                        ptype = part.fileSystem.name
                     else:
                         ptype = None
                     rc.append((device, ptype))
-                part = disk.next_partition (part)
-      
+
         return rc
 
     def diskState (self):
@@ -1140,31 +1135,29 @@ class DiskSet:
         for disk in self.disks.values():
             rc = rc + ("%s: %s length %ld, maximum "
                        "primary partitions: %d\n" %
-                       (disk.dev.path,
-                        disk.dev.model,
-                        disk.dev.length,
-                        disk.max_primary_partition_count))
+                       (disk.device.path,
+                        disk.device.model,
+                        disk.device.length,
+                        disk.maxPrimaryPartitionCount))
 
-            part = disk.next_partition()
-            if part:
+            for part in disk.partitions.values():
                 rc = rc + ("Device    Type         Filesystem   Start      "
                            "End        Length        Flags\n")
                 rc = rc + ("------    ----         ----------   -----      "
                            "---        ------        -----\n")
-            while part:
                 if not part.type & parted.PARTITION_METADATA:
                     device = ""
                     fs_type_name = ""
-                    if part.num > 0:
+                    if part.number > 0:
                         device = part.getDeviceNodeName()
-                    if part.fs_type:
-                        fs_type_name = part.fs_type.name
-                    partFlags = part.getFlags()
+                    if part.fileSystem:
+                        fs_type_name = part.fileSystem.name
+                    partFlags = part.getFlagsAsString()
                     rc = rc + ("%-9s %-12s %-12s %-10ld %-10ld %-10ld %7s\n"
-                               % (device, part.type_name, fs_type_name,
-                              part.geom.start, part.geom.end, part.geom.length,
-                              partFlags))
-                part = disk.next_partition(part)
+                               % (device, part.type.name, fs_type_name,
+                              part.geometry.start, part.geometry.end,
+                              part.geometry.length, partFlags))
+
         return rc
 
     def checkNoDisks(self):
@@ -1177,7 +1170,7 @@ class DiskSet:
                                  "of this problem."))
             return True
         return False
-    
+
 
     def exceptionDisks(self, anaconda, probe=True):
         if probe:
@@ -1186,7 +1179,7 @@ class DiskSet:
 
         drives = []
         for d in isys.removableDriveDict().items():
-            func = lambda p: p.is_active() and not p.get_flag(parted.PARTITION_RAID) and not p.get_flag(parted.PARTITION_LVM) and p.fs_type.name in ["ext3", "ext2", "fat16", "fat32"]
+            func = lambda p: p.active and not p.getFlag(parted.PARTITION_RAID) and not p.getFlag(parted.PARTITION_LVM) and p.fileSystem.name in ["ext3", "ext2", "fat16", "fat32"]
 
             disk = self.disks[d[0]]
             parts = filter_partitions(disk, func)
@@ -1195,7 +1188,7 @@ class DiskSet:
                 drives.append(d)
             else:
                 for part in parts:
-                    name = "%s%s" % (part.disk.dev.path, part.num)
+                    name = "%s%s" % (part.disk.device.path, part.number)
                     drives.append((os.path.basename(name), d[1]))
 
         return drives

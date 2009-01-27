@@ -165,12 +165,12 @@ def bestPartType(disk, request):
     if numPrimary == maxPrimary:
         raise PartitioningError, "Unable to create additional primary partitions on /dev/%s" % (disk.dev.path[5:])
     if request.primary:
-        return parted.PARTITION_PRIMARY
+        return parted.PARTITION_NORMAL
     if ((numPrimary == (maxPrimary - 1)) and
         not disk.extended_partition and
         disk.type.check_feature(parted.DISK_TYPE_EXTENDED)):
         return parted.PARTITION_EXTENDED
-    return parted.PARTITION_PRIMARY
+    return parted.PARTITION_NORMAL
 
 class partlist:
     def __init__(self):
@@ -249,13 +249,13 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                         disk.getMaxLogicalPartitions()):
                         raise PartitioningError, "Cannot create another logical partition for %s." % request.mountpoint
                 else:
-                    partType = parted.PARTITION_PRIMARY
+                    partType = parted.PARTITION_NORMAL
             else:
                 # XXX need a better way to do primary vs logical stuff
                 ret = bestPartType(disk, request)
 
-                if ret == parted.PARTITION_PRIMARY:
-                    partType = parted.PARTITION_PRIMARY
+                if ret == parted.PARTITION_NORMAL:
+                    partType = parted.PARTITION_NORMAL
                 elif ret == parted.PARTITION_EXTENDED:
                     newp = disk.partition_new(parted.PARTITION_EXTENDED, None, startSec, endSec)
                     constraint = disk.dev.constraint_any()
@@ -428,8 +428,8 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 # XXX need a better way to do primary vs logical stuff
                 ret = bestPartType(disk, request)
 
-                if ret == parted.PARTITION_PRIMARY:
-                    partType = parted.PARTITION_PRIMARY
+                if ret == parted.PARTITION_NORMAL:
+                    partType = parted.PARTITION_NORMAL
                 elif ret == parted.PARTITION_EXTENDED:
                     newp = disk.partition_new(parted.PARTITION_EXTENDED, None, startSec, endSec)
                     constraint = dev.constraint_any()
@@ -1128,7 +1128,7 @@ def doClearPartAction(anaconda, partitions, diskset):
         part = disk.next_partition()
         while part:
             if (not part.is_active() or (part.type == parted.PARTITION_EXTENDED) or
-               (part.disk.type.name == "mac" and part.num == 1 and part.get_name() == "Apple")):
+               (part.disk.type.name == "mac" and part.num == 1 and part.name == "Apple")):
                 part = disk.next_partition(part)
                 continue
             if part.fs_type:
