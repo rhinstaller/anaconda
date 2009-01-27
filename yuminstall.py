@@ -580,8 +580,14 @@ class AnacondaYum(YumSorter):
         pass
 
     def doConfigSetup(self, fn='/tmp/anaconda-yum.conf', root='/'):
-        YumSorter._getConfig(self, fn=fn, root=root,
-                             enabled_plugins=["whiteout", "blacklist"])
+        if hasattr(self, "preconf"):
+            self.preconf.fn = fn
+            self.preconf.root = root
+            self.preconf.enabled_plugins = ["whiteout", "blacklist"]
+            self.conf
+        else:
+            YumSorter._getConfig(self, fn=fn, root=root,
+                                 enabled_plugins=["whiteout", "blacklist"])
         self.configBaseRepo(root=root)
 
         extraRepos = []
