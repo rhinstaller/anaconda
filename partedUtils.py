@@ -163,12 +163,6 @@ def filter_partitions(disk, func):
 
     return rc
 
-def get_raid_partitions(disk):
-    """Return a list of RAID-type PedPartition objects on disk."""
-    func = lambda part: (part.is_active()
-                         and part.get_flag(parted.PARTITION_RAID) == 1)
-    return filter_partitions(disk, func)
-
 def get_lvm_partitions(disk):
     """Return a list of physical volume-type PedPartition objects on disk."""
     func = lambda part: (part.is_active()

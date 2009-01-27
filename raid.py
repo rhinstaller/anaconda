@@ -76,7 +76,7 @@ def scanForRaid(drives):
             dev = parted.PedDevice.get("/dev/%s" % (d,))
             disk = parted.PedDisk.new(dev)
 
-            raidParts = partedUtils.get_raid_partitions(disk)
+            raidParts = disk.getRaidPartitions()
             for part in raidParts:
                 # if the part is encrypted, add the mapped dev instead
                 pname = part.getDeviceNodeName()

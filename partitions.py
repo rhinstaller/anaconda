@@ -791,7 +791,7 @@ class Partitions:
         drives.sort()
         for drive in drives:
             disk = diskset.disks[drive]
-            for part in partedUtils.get_raid_partitions(disk):
+            for part in disk.getRaidPartitions():
                 partname = part.getDeviceNodeName()
                 used = 0
                 for raid in raiddevs:
