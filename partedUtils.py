@@ -163,11 +163,6 @@ def filter_partitions(disk, func):
 
     return rc
 
-def get_primary_partitions(disk):
-    """Return a list of primary PedPartition objects on disk."""
-    func = lambda part: part.type == parted.PARTITION_PRIMARY
-    return filter_partitions(disk, func)
-
 def get_raid_partitions(disk):
     """Return a list of RAID-type PedPartition objects on disk."""
     func = lambda part: (part.is_active()

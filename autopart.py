@@ -160,7 +160,7 @@ def findFreespace(diskset):
 
 
 def bestPartType(disk, request):
-    numPrimary = len(partedUtils.get_primary_partitions(disk))
+    numPrimary = len(disk.getPrimaryPartitions())
     maxPrimary = disk.max_primary_partition_count
     if numPrimary == maxPrimary:
         raise PartitioningError, "Unable to create additional primary partitions on /dev/%s" % (disk.dev.path[5:])
@@ -357,7 +357,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     break
 ##               print("Trying drive", drive)
                 disk = diskset.disks[drive]
-                numPrimary = len(partedUtils.get_primary_partitions(disk))
+                numPrimary = len(disk.getPrimaryPartitions())
                 numLogical = len(disk.getLogicalPartitions())
 
                 # if there is an extended partition add it in
