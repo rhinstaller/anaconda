@@ -382,7 +382,7 @@ def checkForSwapNoMatch(anaconda):
         
         part = parted.getPartitionByName(request.device)
         if (part and (not part.type & parted.PARTITION_FREESPACE)
-            and (part.get_flag(parted.LINUX_SWAP))
+            and (part.getFlag(parted.PARTITION_SWAP))
             and (request.fstype and request.fstype.getName() != "swap")
             and (not request.format)):
             rc = anaconda.intf.messageWindow(_("Format as Swap?"),
@@ -393,15 +393,15 @@ def checkForSwapNoMatch(anaconda):
                                       "Would you like to format this "
                                       "partition as a swap partition?")
                                     % (request.device), type = "yesno",
-				    custom_icon="question")
+                                    custom_icon="question")
             if rc == 1:
                 request.format = 1
                 request.fstype = fsset.fileSystemTypeGet("swap")
                 if request.fstype.getName() == "software RAID":
-                    part.set_flag(parted.PARTITION_RAID, 1)
+                    part.setFlag(parted.PARTITION_RAID)
                 else:
-                    part.set_flag(parted.PARTITION_RAID, 0)
-                    
+                    part.unsetFlag(parted.PARTITION_RAID)
+
                 partedUtils.set_partition_file_system_type(part,
                                                            request.fstype)
 

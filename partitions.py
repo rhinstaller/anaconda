@@ -375,10 +375,8 @@ class Partitions:
         drives.sort()
         for drive in drives:
             disk = diskset.disks[drive]
-            part = disk.next_partition()
-            while part:
+            for part in disk.partitions.values():
                 if part.type & parted.PARTITION_METADATA:
-                    part = disk.next_partition(part)
                     continue
 
                 format = None
@@ -386,9 +384,9 @@ class Partitions:
                     ptype = None
                 elif part.type & parted.PARTITION_EXTENDED:
                     ptype = None
-                elif part.get_flag(parted.PARTITION_RAID) == 1:
+                elif part.getFlag(parted.PARTITION_RAID) == 1:
                     ptype = fsset.fileSystemTypeGet("software RAID")
-                elif part.get_flag(parted.PARTITION_LVM) == 1:
+                elif part.getFlag(parted.PARTITION_LVM) == 1:
                     ptype = fsset.fileSystemTypeGet("physical volume (LVM)")
                 else:
                     ptype = partedUtils.get_partition_file_system_type(part)
@@ -444,7 +442,6 @@ class Partitions:
                         if labels[mappedDev] and len(labels[mappedDev])>0:
                             spec.fslabel = labels[mappedDev]
                 self.addRequest(spec)
-                part = disk.next_partition(part)
 
         # now we need to read in all pre-existing RAID stuff
         diskset.startMPath()
@@ -664,14 +661,12 @@ class Partitions:
 
         rc = []
         disk = diskset.disks[device]
-        part = disk.next_partition()
-        while part:
+        for part in disk.partitions.values():
             dev = part.getDeviceNodeName()
             request = self.getRequestByDeviceName(dev)
 
             if request:
                 rc.append(request)
-            part = disk.next_partition(part)
 
         if len(rc) > 0:
             return rc
@@ -1716,8 +1711,8 @@ class Partitions:
 
         disk = part.disk
         while part:
-            if not part.is_active():
-                part = disk.next_partition(part)
+            if not part.active:
+                part = disk.nextPartition(part)
                 continue
 
             device = part.getDeviceNodeName()
@@ -1732,8 +1727,8 @@ class Partitions:
 
                 if self.isLVMVolumeGroupMember(request):
                     return _("a partition which is a member of a LVM Volume Group.")
-                    
-            part = disk.next_partition(part)
+
+            part = disk.nextPartition(part)
         return None
 
 

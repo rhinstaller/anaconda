@@ -836,7 +836,7 @@ class PartitionWindow(InstallWindow):
                     continue
                 # ignore the tiny < 1 MB partitions (#119479)
                 if part.getSize(unit="MB") <= 1.0:
-                    if not part.is_active() or not part.get_flag(parted.PARTITION_BOOT):
+                    if not part.is_active() or not part.getFlag(parted.PARTITION_BOOT):
                         part = disk.next_partition(part)                    
                         continue
 
@@ -890,7 +890,7 @@ class PartitionWindow(InstallWindow):
                     ptype = _("Free space")
                 elif part.type == parted.PARTITION_EXTENDED:
                     ptype = _("Extended")
-                elif part.get_flag(parted.PARTITION_RAID) == 1:
+                elif part.getFlag(parted.PARTITION_RAID) == 1:
                     ptype = _("software RAID")
 		    parreq = self.partitions.getRaidMemberParent(request)
 		    if parreq:

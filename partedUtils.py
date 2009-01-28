@@ -91,7 +91,7 @@ def set_partition_file_system_type(part, fstype):
             if not part.isFlagAvailable(flag):
                 raise PartitioningError, ("requested file system type needs "
                                           "a flag that is not available.")
-            part.setFlag(flag, True)
+            part.setFlag(flag)
         if isEfiSystemPartition(part):
             part.system = parted.fileSystemType["fat32"]
         else:
@@ -215,7 +215,7 @@ def checkDiskLabel(disk, intf):
     """Check that the disk label on disk is valid for this machine type."""
     arch = iutil.getArch()
     if arch in parted.archLabels.keys():
-        if disk.type.name in parted.archLabels[arch]:
+        if disk.type in parted.archLabels[arch]:
             # this is kind of a hack since we don't want LDL to be used
             return checkDasdFmt(disk, intf)
     else:
@@ -685,19 +685,17 @@ class DiskSet:
 
         for drive in drives:
             disk = self.disks[drive]
-            part = disk.next_partition ()
-            while part:
+            for part in disk.partitions.values():
                 node = part.getDeviceNodeName()
                 crypto = self.anaconda.id.partitions.encryptedDevices.get(node)
-                if (part.is_active()
+                if (part.active
                     and (part.getFlag(parted.PARTITION_RAID)
                          or part.getFlag(parted.PARTITION_LVM))):
-                    part = part.nextPartition()
                     continue
                 elif part.fileSystem or crypto:
                     theDev = node
                     if part.fileSystem:
-                        fstype = part.fileSystem.name
+                        fstype = part.fileSystem.type
                     else:
                         fstype = None
 
@@ -712,7 +710,6 @@ class DiskSet:
                         log.error("failed to open encrypted device %s" % node)
 
                     if not fstype or fstype not in fsset.getUsableLinuxFs():
-                        part = part.nextPartition()
                         continue
 
                     try:
@@ -720,7 +717,6 @@ class DiskSet:
                                    self.anaconda.rootPath, fstype)
                         checkRoot = self.anaconda.rootPath
                     except SystemError:
-                        part = part.nextPartition()
                         continue
 
                     if os.access (checkRoot + '/etc/fstab', os.R_OK):
@@ -739,7 +735,6 @@ class DiskSet:
 
                     isys.umount(self.anaconda.rootPath)
 
-                part = disk.next_partition(part)
         return rootparts
 
     def driveList (self):

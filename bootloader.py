@@ -65,12 +65,10 @@ def bootloaderSetupChoices(anaconda):
         bootPart = None
         for drive in drives:
             disk = anaconda.id.diskset.disks[drive]
-            part = disk.next_partition()
-            while part:
-                if part.is_active() and partedUtils.isEfiSystemPartition(part):
+            for part in disk.partitions.values():
+                if part.active and partedUtils.isEfiSystemPartition(part):
                     bootPart = part.getDeviceNodeName()
                     break
-                part = disk.next_partition(part)
             if bootPart:
                 break
         if bootPart:
@@ -80,18 +78,16 @@ def bootloaderSetupChoices(anaconda):
             anaconda.id.fsset.add(FileSystemSetEntry(dev, None, fileSystemTypeGet("efi")))
 
 # iSeries bootloader on upgrades
-    if iutil.getPPCMachine() == "iSeries" and not anaconda.id.bootloader.device:        
+    if iutil.getPPCMachine() == "iSeries" and not anaconda.id.bootloader.device:
         drives = anaconda.id.diskset.disks.keys()
         drives.sort()
         bootPart = None
         for drive in drives:
             disk = anaconda.id.diskset.disks[drive]
-            part = disk.next_partition()
-            while part:
-                if part.is_active() and part.get_flag(parted.PARTITION_PREP):
+            for part in disk.partitions.values():
+                if part.active and part.getFlag(parted.PARTITION_PREP):
                     bootPart = part.getDeviceNodeName()
                     break
-                part = disk.next_partition(part)
             if bootPart:
                 break
         if bootPart:

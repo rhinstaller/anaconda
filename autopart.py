@@ -114,11 +114,9 @@ def bootAlphaCheckRequirements(part):
 
     # The first free space should start at the begining of the drive
     # and span for a megabyte or more.
-    free = disk.next_partition()
-    while free:
+    for free in disk.partitions.values():
         if free.type & parted.PARTITION_FREESPACE:
             break
-        free = disk.next_partition(free)
     if (not free or free.geom.start != 1L or free.getSize(unit="MB") < 1):
         return BOOTALPHA_NO_RESERVED_SPACE
 
@@ -151,11 +149,9 @@ def findFreespace(diskset):
     for drive in diskset.disks.keys():
         disk = diskset.disks[drive]
         free[drive] = []
-        part = disk.next_partition()
-        while part:
+        for part in disk.partitions.values():
             if part.type & parted.PARTITION_FREESPACE:
                 free[drive].append(part)
-            part = disk.next_partition(part)
     return free
 
 
@@ -274,11 +270,11 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
             except Exception, msg:
                 raise PartitioningError, str(msg)
             for flag in request.fstype.getPartedPartitionFlags():
-                if not newp.is_flag_available(flag):
-                    disk.delete_partition(newp)
+                if not newp.isFlagAvailable(flag):
+                    disk.deletePartition(newp)
                     raise PartitioningError, ("requested FileSystemType needs "
                                            "a flag that is not available.")
-                newp.set_flag(flag, 1)
+                newp.setFlag(flag)
             request.device = fsset.PartedPartitionDevice(newp).getDevice()
             request.currentDrive = request.drive[0]
             newParts.parts.append(newp)
@@ -442,16 +438,13 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     # now need to update freespace since adding extended
                     # took some space
                     found = 0
-                    part = disk.next_partition()
-                    while part:
+                    for part in disk.partitions.values():
                         if part.type & parted.PARTITION_FREESPACE:
                             if part.geom.start > freeStartSec and part.geom.end <= freeEndSec:
                                 found = 1
                                 freeStartSec = part.geom.start
                                 freeEndSec = part.geom.end
                                 break
-
-                        part = disk.next_partition(part)
 
                     if not found:
                         raise PartitioningError, "Could not find free space after making new extended partition"
@@ -477,11 +470,11 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             except Exception, msg:
                 raise PartitioningError, str(msg)
             for flag in request.fstype.getPartedPartitionFlags():
-                if not newp.is_flag_available(flag):
-                    disk.delete_partition(newp)                    
+                if not newp.isFlagAvailable(flag):
+                    disk.deletePartition(newp)
                     raise PartitioningError, ("requested FileSystemType needs "
                                            "a flag that is not available.")
-                newp.set_flag(flag, 1)
+                newp.setFlag(flag)
 
             request.device = fsset.PartedPartitionDevice(newp).getDevice()
             drive = newp.geom.dev.path[5:]
@@ -870,8 +863,7 @@ def setPreexistParts(diskset, requests):
             lvmLog.info("pre-existing partition on non-native disk %s, ignoring" %(request.drive,))
             continue
         disk = diskset.disks[request.drive]
-        part = disk.next_partition()
-        while part:
+        for part in disk.partitions.values():
             if part.geom.start == request.start and part.geom.end == request.end:
                 if partedUtils.isEfiSystemPartition(part) and \
                         request.fstype.name == "vfat":
@@ -896,30 +888,27 @@ def setPreexistParts(diskset, requests):
                 request.device = part.getDeviceNodeName()
                 if request.fstype:
                     if request.fstype.getName() != request.origfstype.getName():
-                        if part.is_flag_available(parted.PARTITION_RAID):
+                        if part.isFlagAvailable(parted.PARTITION_RAID):
                             if request.fstype.getName() == "software RAID":
-                                part.set_flag(parted.PARTITION_RAID, 1)
+                                part.setFlag(parted.PARTITION_RAID)
                             else:
-                                part.set_flag(parted.PARTITION_RAID, 0)
-                        if part.is_flag_available(parted.PARTITION_LVM):
+                                part.unsetFlag(parted.PARTITION_RAID)
+                        if part.isFlagAvailable(parted.PARTITION_LVM):
                             if request.fstype.getName() == "physical volume (LVM)":
-                                part.set_flag(parted.PARTITION_LVM, 1)
+                                part.setFlag(parted.PARTITION_LVM)
                             else:
-                                part.set_flag(parted.PARTITION_LVM, 0)
+                                part.unsetFlag(parted.PARTITION_LVM)
 
                         partedUtils.set_partition_file_system_type(part, request.fstype)
-                            
+
                 break
-            part = disk.next_partition(part)
 
 def deletePart(diskset, delete):
     disk = diskset.disks[delete.drive]
-    part = disk.next_partition()
-    while part:
+    for part in disk.partitions.values():
         if part.geom.start == delete.start and part.geom.end == delete.end:
-            disk.delete_partition(part)
+            disk.deletePartition(part)
             return
-        part = disk.next_partition(part)
 
 def processPartitioning(diskset, requests, newParts):
     # collect a hash of all the devices that we have created extended
@@ -947,7 +936,7 @@ def processPartitioning(diskset, requests, newParts):
     # Finally, remove all of the partitions we added in the last try from
     # the disks.  We'll start again from there.
     for part in newParts.parts:
-        part.disk.delete_partition(part)
+        part.disk.deletePartition(part)
 
     newParts.reset()
 
@@ -959,7 +948,7 @@ def processPartitioning(diskset, requests, newParts):
 
     # sort requests by size
     requests.sortRequests()
-    
+
     # partitioning algorithm in simplistic terms
     #
     # we want to allocate partitions such that the most specifically
@@ -1115,7 +1104,7 @@ def doClearPartAction(anaconda, partitions, diskset):
         return
     else:
         raise ValueError, "Invalid clear part type in doClearPartAction"
-        
+
     drives = diskset.disks.keys()
     drives.sort()
 
@@ -1125,11 +1114,9 @@ def doClearPartAction(anaconda, partitions, diskset):
            drive in diskset.skippedDisks:
             continue
         disk = diskset.disks[drive]
-        part = disk.next_partition()
-        while part:
-            if (not part.is_active() or (part.type == parted.PARTITION_EXTENDED) or
+        for part in disk.partitions.values():
+            if (not part.active or (part.type == parted.PARTITION_EXTENDED) or
                (part.disk.type.name == "mac" and part.num == 1 and part.name == "Apple")):
-                part = disk.next_partition(part)
                 continue
             if part.fs_type:
                 ptype = partedUtils.get_partition_file_system_type(part)
@@ -1148,12 +1135,11 @@ def doClearPartAction(anaconda, partitions, diskset):
                 (not ptype and
                  partedUtils.isLinuxNative(part)) or
                 ((part._fileSystem is None) and # the ptable doesn't have types
-                 ((part.is_flag_available(parted.PARTITION_RAID) and part.get_flag(parted.PARTITION_RAID)) or  # this is a RAID
-                  (part.is_flag_available(parted.PARTITION_LVM) and part.get_flag(parted.PARTITION_LVM)) or # or an LVM
+                 ((part.isFlagAvailable(parted.PARTITION_RAID) and part.getFlag(parted.PARTITION_RAID)) or  # this is a RAID
+                  (part.isFlagAvailable(parted.PARTITION_LVM) and part.getFlag(parted.PARTITION_LVM)) or # or an LVM
                   (iutil.isMactel() and not ptype)))): # or we're on a mactel and have a blank partition from bootcamp #FIXME: this could be dangerous...
                 old = partitions.getRequestByDeviceName(part.getDeviceNodeName())
                 if old.getProtected():
-                    part = disk.next_partition(part)
                     continue
 
                 partitions.deleteDependentRequests(old)
@@ -1192,9 +1178,9 @@ def doClearPartAction(anaconda, partitions, diskset):
                    (iutil.getPPCMachine() == "iSeries"))
                   and (linuxOnly == 1)
                   and (not anaconda.isKickstart) and
-                  part.is_flag_available(parted.PARTITION_BOOT) and
-                  (part.get_flag(parted.PARTITION_PREP)) and
-                  part.get_flag(parted.PARTITION_BOOT)):
+                  part.isFlagAvailable(parted.PARTITION_BOOT) and
+                  (part.getFlag(parted.PARTITION_PREP)) and
+                  part.getFlag(parted.PARTITION_BOOT)):
                 req = partitions.getRequestByDeviceName(part.getDeviceNodeName())
                 req.mountpoint = None
                 req.format = 0
@@ -1205,8 +1191,6 @@ def doClearPartAction(anaconda, partitions, diskset):
                         break
                 if request:
                     partitions.autoPartitionRequests.remove(request)
-                
-            part = disk.next_partition(part)
 
     # set the diskset up
     try:

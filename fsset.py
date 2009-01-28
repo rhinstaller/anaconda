@@ -1656,8 +1656,8 @@ MAILADDR root
                     or iutil.getPPCMachine() in ("pSeries", "iSeries", "PMac") \
                     or (iutil.isX86() \
                              and partedUtils.hasGptLabel(diskset, drive)):
-                if part and part.is_flag_available(parted.PARTITION_BOOT):
-                    part.set_flag(parted.PARTITION_BOOT, 1)
+                if part and part.isFlagAvailable(parted.PARTITION_BOOT):
+                    part.setFlag(parted.PARTITION_BOOT)
                 return
 
         for drive in diskset.disks.keys():
@@ -1666,18 +1666,16 @@ MAILADDR root
             if partedUtils.hasGptLabel(diskset, drive):
                 continue
             disk = diskset.disks[drive]
-            part = disk.next_partition()
-            while part:
-                if not part.is_active():
-                    part = disk.next_partition(part)
+            for part in disk.partitions.values():
+                if not part.active:
                     continue
 
-                if not part.is_flag_available(parted.PARTITION_BOOT):
+                if not part.isFlagAvailable(parted.PARTITION_BOOT):
                     foundActive = 1
                     part = None
                     continue
 
-                if part.get_flag(parted.PARTITION_BOOT):
+                if part.getFlag(parted.PARTITION_BOOT):
                     foundActive = 1
                     part = None
                     continue
@@ -1688,10 +1686,8 @@ MAILADDR root
                 if part.getDeviceNodeName() == bootDev:
                     bootPart = part
 
-                part = disk.next_partition(part)
-
             if bootPart and not foundActive:
-                bootPart.set_flag(parted.PARTITION_BOOT, 1)
+                bootPart.setFlag(parted.PARTITION_BOOT)
 
             if bootPart:
                 del bootPart

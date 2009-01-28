@@ -158,8 +158,8 @@ class OSBootWidget:
             parts = []
             disks = self.diskset.disks
             func = lambda part: (part.is_active() and
-                                 part.get_flag(parted.PARTITION_LVM) != 1 and
-                                 part.get_flag(parted.PARTITION_RAID) != 1)
+                                 part.getFlag(parted.PARTITION_LVM) != 1 and
+                                 part.getFlag(parted.PARTITION_RAID) != 1)
             for drive in disks.keys():
                 pedparts.extend(partedUtils.filter_partitions(disks[drive], func))
             for part in pedparts:
