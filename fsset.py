@@ -335,7 +335,7 @@ class FileSystemType:
 class reiserfsFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("reiserfs")
+        self.partedFileSystemType = parted.fileSystemType["reiserfs"]
         self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
@@ -388,7 +388,7 @@ fileSystemTypeRegister(reiserfsFileSystem())
 class xfsFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("xfs")
+        self.partedFileSystemType = parted.fileSystemType["xfs"]
         self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
@@ -429,7 +429,7 @@ fileSystemTypeRegister(xfsFileSystem())
 class jfsFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("jfs")
+        self.partedFileSystemType = parted.fileSystemType["jfs"]
         self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
@@ -649,7 +649,7 @@ class ext2FileSystem(extFileSystem):
     def __init__(self):
         extFileSystem.__init__(self)
         self.name = "ext2"
-        self.partedFileSystemType = parted.file_system_type_get("ext2")
+        self.partedFileSystemType = parted.fileSystemType["ext2"]
         self.migratetofs = ['ext3']
 
     def migrateFileSystem(self, entry, message, chroot='/'):
@@ -702,7 +702,7 @@ class ext3FileSystem(extFileSystem):
         extFileSystem.__init__(self)
         self.name = "ext3"
         self.extraFormatArgs = [ "-t", "ext3" ]
-        self.partedFileSystemType = parted.file_system_type_get("ext3")
+        self.partedFileSystemType = parted.fileSystemType["ext3"]
         if flags.cmdline.has_key("ext4migrate"):
             self.migratetofs = ['ext4']
 
@@ -726,7 +726,7 @@ class ext4FileSystem(extFileSystem):
     def __init__(self):
         extFileSystem.__init__(self)
         self.name = "ext4"
-        self.partedFileSystemType = parted.file_system_type_get("ext3")
+        self.partedFileSystemType = parted.fileSystemType["ext3"]
         self.extraFormatArgs = [ "-t", "ext4" ]
         self.bootable = False
 
@@ -804,7 +804,7 @@ fileSystemTypeRegister(btrfsFileSystem())
 class raidMemberDummyFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("ext2")
+        self.partedFileSystemType = parted.fileSystemType["ext2"]
         self.partedPartitionFlags = [ parted.PARTITION_RAID ]
         self.formattable = 1
         self.checked = 0
@@ -827,7 +827,7 @@ fileSystemTypeRegister(raidMemberDummyFileSystem())
 class lvmPhysicalVolumeDummyFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("ext2")
+        self.partedFileSystemType = parted.fileSystemType["ext2"]
         self.partedPartitionFlags = [ parted.PARTITION_LVM ]
         self.formattable = 1
         self.checked = 0
@@ -849,7 +849,7 @@ fileSystemTypeRegister(lvmPhysicalVolumeDummyFileSystem())
 class lvmVolumeGroupDummyFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("ext2")
+        self.partedFileSystemType = parted.fileSystemType["ext2"]
         self.formattable = 1
         self.checked = 0
         self.linuxnativefs = 0
@@ -872,7 +872,7 @@ class swapFileSystem(FileSystemType):
 
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("linux-swap")
+        self.partedFileSystemType = parted.fileSystemType["linux-swap"]
         self.formattable = 1
         self.name = "swap"
         self.maxSizeMB = 8 * 1024 * 1024
@@ -975,7 +975,7 @@ fileSystemTypeRegister(swapFileSystem())
 class FATFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("fat32")
+        self.partedFileSystemType = parted.fileSystemType["fat32"]
         self.formattable = 1
         self.checked = 0
         self.maxSizeMB = 1024 * 1024
@@ -1045,7 +1045,7 @@ fileSystemTypeRegister(EFIFileSystem())
 class NTFSFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("ntfs")
+        self.partedFileSystemType = parted.fileSystemType["ntfs"]
         self.formattable = 0
         self.checked = 0
         self.name = "ntfs"
@@ -1108,7 +1108,7 @@ fileSystemTypeRegister(NTFSFileSystem())
 class hfsFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("hfs")
+        self.partedFileSystemType = parted.fileSystemType["hfs"]
         self.formattable = 1
         self.checked = 0
         self.name = "hfs"
@@ -1135,7 +1135,7 @@ fileSystemTypeRegister(hfsFileSystem())
 class HfsPlusFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("hfs+")
+        self.partedFileSystemType = parted.fileSystemType["hfs+"]
         self.formattable = 0
         self.checked = 0
         self.name = "hfs+"
