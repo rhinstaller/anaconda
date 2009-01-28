@@ -63,19 +63,19 @@ def get_partition_file_system_type(part):
     elif part.fileSystem == None:
         return None
     elif (part.getFlag(parted.PARTITION_BOOT) and
-          part.getSize(unit="MB") <= 1 and part.fileSystem.name == "hfs"):
+          part.getSize(unit="MB") <= 1 and part.fileSystem.type == "hfs"):
         ptype = fsset.fileSystemTypeGet("Apple Bootstrap")
-    elif part.fileSystem.name == "linux-swap":
+    elif part.fileSystem.type == "linux-swap":
         ptype = fsset.fileSystemTypeGet("swap")
     elif isEfiSystemPartition(part):
         ptype = fsset.fileSystemTypeGet("efi")
     elif isEfiSystemPartition(part):
         ptype = fsset.fileSystemTypeGet("efi")
-    elif part.fileSystem.name in ("fat16", "fat32"):
+    elif part.fileSystem.type in ("fat16", "fat32"):
         ptype = fsset.fileSystemTypeGet("vfat")
     else:
         try:
-            ptype = fsset.fileSystemTypeGet(part.fileSystem.name)
+            ptype = fsset.fileSystemTypeGet(part.fileSystem.type)
         except:
             ptype = fsset.fileSystemTypeGet("foreign")
 
@@ -148,10 +148,10 @@ def hasGptLabel(diskset, device):
 def isEfiSystemPartition(part):
     if not part.active:
         return False
-    return (part.disk.type.name == "gpt" and
+    return (part.disk.type == "gpt" and
             part.name == "EFI System Partition" and
             part.getFlag(parted.PARTITION_BOOT) and
-            part.fileSystem.name in ("fat16", "fat32") and
+            part.fileSystem.type in ("fat16", "fat32") and
             isys.readFSLabel(part.getDeviceNodeName()) != "ANACONDA")
 
 def labelDisk(deviceFile, forceLabelType=None):
@@ -1114,7 +1114,7 @@ class DiskSet:
                                  parted.PARTITION_LOGICAL):
                     device = part.getDeviceNodeName()
                     if part.fileSystem:
-                        ptype = part.fileSystem.name
+                        ptype = part.fileSystem.type
                     else:
                         ptype = None
                     rc.append((device, ptype))
@@ -1143,7 +1143,7 @@ class DiskSet:
                     if part.number > 0:
                         device = part.getDeviceNodeName()
                     if part.fileSystem:
-                        fs_type_name = part.fileSystem.name
+                        fs_type_name = part.fileSystem.type
                     partFlags = part.getFlagsAsString()
                     rc = rc + ("%-9s %-12s %-12s %-10ld %-10ld %-10ld %7s\n"
                                % (device, part.type.name, fs_type_name,
@@ -1171,7 +1171,7 @@ class DiskSet:
 
         drives = []
         for d in isys.removableDriveDict().items():
-            func = lambda p: p.active and not p.getFlag(parted.PARTITION_RAID) and not p.getFlag(parted.PARTITION_LVM) and p.fileSystem.name in ["ext3", "ext2", "fat16", "fat32"]
+            func = lambda p: p.active and not p.getFlag(parted.PARTITION_RAID) and not p.getFlag(parted.PARTITION_LVM) and p.fileSystem.type in ["ext3", "ext2", "fat16", "fat32"]
 
             disk = self.disks[d[0]]
             parts = filter_partitions(disk, func)
