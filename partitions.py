@@ -307,22 +307,17 @@ class Partitions:
                 continue
 
             disk = diskset.disks[drive]
-            part = disk.next_partition()
-            while part:
+            for part in disk.partitions:
                 if part.type & parted.PARTITION_METADATA:
-                    part = disk.next_partition(part)
                     continue
 
                 device = part.getDeviceNodeName()
                 fs = isys.readFSType("/dev/%s" % (device,))
                 if fs and fs.endswith("raid"):
-                    part = disk.next_partition(part)
                     continue
 
                 if cryptodev.isLuks("/dev/%s" % device):
                     self.getCryptoDev(device)
-
-                part = disk.next_partition(part)
 
         diskset.startMPath()
         diskset.startDmRaid()
@@ -375,7 +370,7 @@ class Partitions:
         drives.sort()
         for drive in drives:
             disk = diskset.disks[drive]
-            for part in disk.partitions.values():
+            for part in disk.partitions:
                 if part.type & parted.PARTITION_METADATA:
                     continue
 
@@ -661,7 +656,7 @@ class Partitions:
 
         rc = []
         disk = diskset.disks[device]
-        for part in disk.partitions.values():
+        for part in disk.partitions:
             dev = part.getDeviceNodeName()
             request = self.getRequestByDeviceName(dev)
 

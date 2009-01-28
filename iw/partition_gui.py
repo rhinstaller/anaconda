@@ -828,15 +828,12 @@ class PartitionWindow(InstallWindow):
             sectorsPerCyl = heads * sectors
 
             extendedParent = None
-            part = disk.next_partition()
-            while part:
+            for part in disk.partitions:
                 if part.type & parted.PARTITION_METADATA:
-                    part = disk.next_partition(part)
                     continue
                 # ignore the tiny < 1 MB partitions (#119479)
                 if part.getSize(unit="MB") <= 1.0:
                     if not part.is_active() or not part.getFlag(parted.PARTITION_BOOT):
-                        part = disk.next_partition(part)                    
                         continue
 
                 stripe.add(part)
@@ -858,7 +855,7 @@ class PartitionWindow(InstallWindow):
                 else:
                     iter = self.tree.append(parent)
                     self.tree[iter]['IsLeaf'] = True
-                    
+
                 if request and request.mountpoint:
                     self.tree[iter]['Mount Point'] = request.mountpoint
                 else:
@@ -871,7 +868,6 @@ class PartitionWindow(InstallWindow):
 			    self.tree[iter]['Mount Point'] = vgreq.volumeGroupName
 			else:
 			    self.tree.appendToHiddenPartitionsList(part)
-			    part = disk.next_partition(part)
 			    self.tree.remove(iter)
 			    continue
 		    else:
@@ -884,7 +880,7 @@ class PartitionWindow(InstallWindow):
 		
                 if request and request.fstype:
                     self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
-                
+
                 if part.type & parted.PARTITION_FREESPACE:
                     ptype = _("Free space")
                 elif part.type == parted.PARTITION_EXTENDED:
@@ -901,7 +897,6 @@ class PartitionWindow(InstallWindow):
 			    self.tree[iter]['Mount Point'] = mddevice
 			else:
 			    self.tree.appendToHiddenPartitionsList(part)
-			    part = disk.next_partition(part)
 			    self.tree.remove(iter)
 			    continue
 		    else:
@@ -924,7 +919,7 @@ class PartitionWindow(InstallWindow):
                 else:
                     if request and request.fstype != None:
                         ptype = self.getShortFSTypeName(request.fstype.getName())
-                        
+
                         if ptype == "foreign":
                             ptype = map_foreign_to_fsname(part)
                     else:
@@ -949,8 +944,6 @@ class PartitionWindow(InstallWindow):
                     sizestr = "%Ld" % (size)
                 self.tree[iter]['Size (MB)'] = sizestr
                 self.tree[iter]['PyObject'] = part
-                
-                part = disk.next_partition(part)
 
         canvas = self.diskStripeGraph.getCanvas()
         apply(canvas.set_scroll_region, canvas.root().get_bounds())
@@ -959,7 +952,7 @@ class PartitionWindow(InstallWindow):
     def treeActivateCb(self, view, path, col):
         if self.tree.getCurrentPartition():
             self.editCb()
-        
+
     def treeSelectCb(self, selection, *args):
         model, iter = selection.get_selected()
         if not iter:

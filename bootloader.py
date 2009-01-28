@@ -65,7 +65,7 @@ def bootloaderSetupChoices(anaconda):
         bootPart = None
         for drive in drives:
             disk = anaconda.id.diskset.disks[drive]
-            for part in disk.partitions.values():
+            for part in disk.partitions:
                 if part.active and partedUtils.isEfiSystemPartition(part):
                     bootPart = part.getDeviceNodeName()
                     break
@@ -84,7 +84,7 @@ def bootloaderSetupChoices(anaconda):
         bootPart = None
         for drive in drives:
             disk = anaconda.id.diskset.disks[drive]
-            for part in disk.partitions.values():
+            for part in disk.partitions:
                 if part.active and part.getFlag(parted.PARTITION_PREP):
                     bootPart = part.getDeviceNodeName()
                     break

@@ -110,7 +110,7 @@ def map_foreign_to_fsname(part):
 
 def filter_partitions(disk, func):
     rc = []
-    for part in disk.partitions.values():
+    for part in disk.partitions:
         if func(part):
             rc.append(part)
     return rc
@@ -685,7 +685,7 @@ class DiskSet:
 
         for drive in drives:
             disk = self.disks[drive]
-            for part in disk.partitions.values():
+            for part in disk.partitions:
                 node = part.getDeviceNodeName()
                 crypto = self.anaconda.id.partitions.encryptedDevices.get(node)
                 if (part.active
@@ -1109,7 +1109,7 @@ class DiskSet:
 
         for drive in drives:
             disk = self.disks[drive]
-            for part in disk.partitions.values():
+            for part in disk.partitions:
                 if part.type in (parted.PARTITION_NORMAL,
                                  parted.PARTITION_LOGICAL):
                     device = part.getDeviceNodeName()
@@ -1132,7 +1132,7 @@ class DiskSet:
                         disk.device.length,
                         disk.maxPrimaryPartitionCount))
 
-            for part in disk.partitions.values():
+            for part in disk.partitions:
                 rc = rc + ("Device    Type         Filesystem   Start      "
                            "End        Length        Flags\n")
                 rc = rc + ("------    ----         ----------   -----      "

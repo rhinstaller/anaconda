@@ -114,7 +114,7 @@ def bootAlphaCheckRequirements(part):
 
     # The first free space should start at the begining of the drive
     # and span for a megabyte or more.
-    for free in disk.partitions.values():
+    for free in disk.partitions:
         if free.type & parted.PARTITION_FREESPACE:
             break
     if (not free or free.geometry.start != 1L or free.getSize(unit="MB") < 1):
@@ -149,7 +149,7 @@ def findFreespace(diskset):
     for drive in diskset.disks.keys():
         disk = diskset.disks[drive]
         free[drive] = []
-        for part in disk.partitions.values():
+        for part in disk.partitions:
             if part.type & parted.PARTITION_FREESPACE:
                 free[drive].append(part)
     return free
@@ -453,7 +453,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     # now need to update freespace since adding extended
                     # took some space
                     found = 0
-                    for part in disk.partitions.values():
+                    for part in disk.partitions:
                         if part.type & parted.PARTITION_FREESPACE:
                             if part.geometry.start > freeStartSec and part.geometry.end <= freeEndSec:
                                 found = 1
@@ -883,7 +883,7 @@ def setPreexistParts(diskset, requests):
             lvmLog.info("pre-existing partition on non-native disk %s, ignoring" %(request.drive,))
             continue
         disk = diskset.disks[request.drive]
-        for part in disk.partitions.values():
+        for part in disk.partitions:
             if part.geometry.start == request.start and part.geometry.end == request.end:
                 if partedUtils.isEfiSystemPartition(part) and \
                         request.fstype.name == "vfat":
@@ -925,7 +925,7 @@ def setPreexistParts(diskset, requests):
 
 def deletePart(diskset, delete):
     disk = diskset.disks[delete.drive]
-    for part in disk.partitions.values():
+    for part in disk.partitions:
         if part.geometry.start == delete.start and part.geometry.end == delete.end:
             disk.deletePartition(part)
             return
@@ -1134,7 +1134,7 @@ def doClearPartAction(anaconda, partitions, diskset):
            drive in diskset.skippedDisks:
             continue
         disk = diskset.disks[drive]
-        for part in disk.partitions.values():
+        for part in disk.partitions:
             if (not part.active or (part.type == parted.PARTITION_EXTENDED) or
                (part.disk.type == "mac" and part.number == 1 and part.name == "Apple")):
                 continue

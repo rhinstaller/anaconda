@@ -1666,7 +1666,7 @@ MAILADDR root
             if partedUtils.hasGptLabel(diskset, drive):
                 continue
             disk = diskset.disks[drive]
-            for part in disk.partitions.values():
+            for part in disk.partitions:
                 if not part.active:
                     continue
 
