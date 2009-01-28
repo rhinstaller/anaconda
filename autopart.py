@@ -76,10 +76,10 @@ def bootRequestCheck(req, diskset):
 
     if iutil.isEfi():
         if req.mountpoint == "/boot":
-            if not part.fs_type.name.startswith("ext"):
+            if not part.fileSystem.type.startswith("ext"):
                 return BOOT_NOT_EXT2
         elif req.mountpoint == "/boot/efi":
-            if not part.fs_type.name in ["fat16", "fat32"]:
+            if not part.fileSystem.type in ["fat16", "fat32"]:
                 return BOOTEFI_NOT_VFAT
     elif iutil.isAlpha():
         return bootAlphaCheckRequirements(part)
@@ -157,13 +157,13 @@ def findFreespace(diskset):
 
 def bestPartType(disk, request):
     numPrimary = len(disk.getPrimaryPartitions())
-    maxPrimary = disk.max_primary_partition_count
+    maxPrimary = disk.maxPrimaryPartitionCount
     if numPrimary == maxPrimary:
         raise PartitioningError, "Unable to create additional primary partitions on /dev/%s" % (disk.device.path[5:])
     if request.primary:
         return parted.PARTITION_NORMAL
     if ((numPrimary == (maxPrimary - 1)) and
-        not disk.extended_partition and
+        not disk.getExtendedPartition() and
         disk.supportsFeature(parted.DISK_TYPE_EXTENDED)):
         return parted.PARTITION_EXTENDED
     return parted.PARTITION_NORMAL
@@ -192,7 +192,8 @@ class partlist:
 
 def getMinimumSector(disk):
     if disk.type.name == 'sun':
-        start = long(disk.device.sectors * disk.device.heads)
+        (cylinders, heads, sectors) = disk.device.biosGeometry
+        start = long(sectors * heads)
         start /= long(1024 / disk.device.sectorSize)
         return start + 1
     return 0L
@@ -234,9 +235,9 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
             if startSec < minSec:
                 startSec = minSec
 
-            if disk.supportsFeature(parted.DISK_TYPE_EXTENDED) and disk.extended_partition:
-
-                if (disk.extended_partition.geometry.start < startSec) and (disk.extended_partition.geometry.end >= endSec):
+            if disk.supportsFeature(parted.DISK_TYPE_EXTENDED) and disk.getExtendedPartition():
+                extpart = disk.getExtendedPartition()
+                if (extpart.geometry.start < startSec) and (extpart.geometry.end >= endSec):
                     partType = parted.PARTITION_LOGICAL
                     if request.primary: # they've required a primary and we can't do it
                         raise PartitioningError, "Cannot create another primary partition for %s." % request.mountpoint
@@ -253,19 +254,28 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                 if ret == parted.PARTITION_NORMAL:
                     partType = parted.PARTITION_NORMAL
                 elif ret == parted.PARTITION_EXTENDED:
-                    newp = disk.partition_new(parted.PARTITION_EXTENDED, None, startSec, endSec)
-                    constraint = disk.device.constraint_any()
-                    disk.add_partition(newp, constraint)
-                    disk.maximize_partition (newp, constraint)
+                    geometry = parted.Geometry(device=disk.device,
+                                               start=startSec,
+                                               end=endSec)
+                    newp = parted.Partition(disk=disk,
+                                            type=parted.PARTITION_EXTENDED,
+                                            geometry=geometry)
+                    constraint = parted.Constraint(device=disk.device)
+                    disk.addPartition(newp, constraint)
+                    disk.maximizePartition(newp, constraint)
                     newParts.parts.append(newp)
                     requests.nextUniqueID = requests.nextUniqueID + 1
                     partType = parted.PARTITION_LOGICAL
                 else: # shouldn't get here
                     raise PartitioningError, "Impossible partition type to create"
-            newp = disk.partition_new (partType, fsType, startSec, endSec)
-            constraint = disk.device.constraint_any ()
+            geometry = parted.Geometry(device=disk.device,
+                                       start=startSec,
+                                       end=endSec)
+            newp = parted.Partition(disk=disk, type=partType,
+                                    fs=fsType, geometry=geometry)
+            constraint = parted.Constraint(device=disk.device)
             try:
-                disk.add_partition (newp, constraint)
+                disk.addPartition(newp, constraint)
 
             except Exception, msg:
                 raise PartitioningError, str(msg)
@@ -296,7 +306,7 @@ def getDriveList(request, diskset):
     drives.sort(isys.compareDrives)
 
     return drives
-    
+
 
 # fit partitions of a specific size with or without a specific disk
 # into the freespace
@@ -341,7 +351,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 isBoot = 1
             else:
                 isBoot = 0
-                
+
             largestPart = (0, None)
             drives = getDriveList(request, diskset)
             lvmLog.debug("Trying drives to find best free space out of %s" %(free,))
@@ -357,29 +367,29 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 numLogical = len(disk.getLogicalPartitions())
 
                 # if there is an extended partition add it in
-		if disk.extended_partition:
-		    numPrimary = numPrimary + 1
-		    
-                maxPrimary = disk.max_primary_partition_count
+                if disk.getExtendedPartition():
+                    numPrimary = numPrimary + 1
+
+                maxPrimary = disk.maxPrimaryPartitionCount
                 maxLogical = disk.getMaxLogicalPartitions()
 
                 for part in free[drive]:
-		    # if this is a free space outside extended partition
-		    # make sure we have free primary partition slots
-		    if not part.type & parted.PARTITION_LOGICAL:
-			if numPrimary == maxPrimary:
-			    continue
+                    # if this is a free space outside extended partition
+                    # make sure we have free primary partition slots
+                    if not part.type & parted.PARTITION_LOGICAL:
+                        if numPrimary == maxPrimary:
+                            continue
                     else:
                         if numLogical == maxLogical:
                             continue
-		    
+
                     lvmLog.debug( "Trying partition %s" % (printFreespaceitem(part),))
                     partSize = part.getSize(unit="MB")
                     # figure out what the request size will be given the
                     # geometry (#130885)
                     requestSectors = long((request.requestSize * 1024L * 1024L) / part.disk.device.sectorSize) - 1
                     requestSizeMB = long((requestSectors * part.disk.device.sectorSize) / 1024L / 1024L)
-		    lvmLog.debug("partSize %s  request %s" % (partSize, request.requestSize))
+                    lvmLog.debug("partSize %s  request %s" % (partSize, request.requestSize))
                     if partSize >= requestSizeMB and partSize > largestPart[0]:
                         if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
                             largestPart = (partSize, part)
@@ -407,9 +417,9 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 
             startSec = freeStartSec
 
-	    # For alpha reserve space at the begining of disk
-	    if iutil.isAlpha() and startSec < long((1024L * 1024L)/disk.device.sectorSize):
-		startSec = long((2 * 1024L * 1024L)/disk.device.sectorSize)
+            # For alpha reserve space at the begining of disk
+            if iutil.isAlpha() and startSec < long((1024L * 1024L)/disk.device.sectorSize):
+                startSec = long((2 * 1024L * 1024L)/disk.device.sectorSize)
 
             endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.device.sectorSize)) - 1
 
@@ -427,10 +437,15 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 if ret == parted.PARTITION_NORMAL:
                     partType = parted.PARTITION_NORMAL
                 elif ret == parted.PARTITION_EXTENDED:
-                    newp = disk.partition_new(parted.PARTITION_EXTENDED, None, startSec, endSec)
-                    constraint = dev.constraint_any()
-                    disk.add_partition(newp, constraint)
-                    disk.maximize_partition (newp, constraint)
+                    geometry = parted.Geometry(device=disk.device,
+                                               start=startSec,
+                                               end=endSec)
+                    newp = parted.Partition(disk=disk,
+                                            type=parted.PARTITION_EXTENDED,
+                                            geometry=geometry)
+                    constraint = parted.Constraint(device=disk.device)
+                    disk.addPartition(newp, constraint)
+                    disk.maximizePartition(newp, constraint)
                     newParts.parts.append(newp)
                     requests.nextUniqueID = requests.nextUniqueID + 1
                     partType = parted.PARTITION_LOGICAL
@@ -462,11 +477,15 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 
             fsType = request.fstype.getPartedFileSystemType()
             lvmLog.debug("creating newp with start=%s, end=%s, len=%s" % (startSec, endSec, endSec - startSec))
-            newp = disk.partition_new (partType, fsType, startSec, endSec)
-            constraint = dev.constraint_any ()
+            geometry = parted.Geometry(device=disk.device,
+                                       start=startSec,
+                                       end=endSec)
+            newp = parted.Partition(disk=disk, type=partType,
+                                    fs=fsType, geometry=geometry)
+            constraint = parted.Constraint(device=disk.device)
 
             try:
-                disk.add_partition (newp, constraint)
+                disk.addPartition(newp, constraint)
             except Exception, msg:
                 raise PartitioningError, str(msg)
             for flag in request.fstype.getPartedPartitionFlags():
@@ -691,7 +710,7 @@ def growParts(diskset, requests, newParts):
             growList = growable[drive]
 
             sectorSize = diskset.disks[drive].device.sectorSize
-            cylsectors = diskset.disks[drive].device.sectors*diskset.disks[drive].device.heads
+            cylsectors = diskset.disks[drive].device.biosGeometry.sectors*diskset.disks[drive].device.biosGeometry.heads
 
             # sort in order of request size, consider biggest first
             n = 0
@@ -874,11 +893,11 @@ def setPreexistParts(diskset, requests):
                     endSec = part.geometry.start + long(((request.targetSize * 1024L * 1024L) / disk.device.sectorSize)) - 1
 
                     try:
-                        g = part.geometry.duplicate()
-                        g.set_end(endSec)
-                        constraint = g.constraint_exact()
-                        part.set_geometry(constraint, startSec, endSec)
-                    except parted.error, msg:
+                        g = copy.deepcopy(part.geometry)
+                        g.end = endSec
+                        constraint = parted.Constraint(exactGeom=g)
+                        part.geometry = g
+                    except Exception, msg:
                         log.error("error setting geometry for partition %s: %s" %(part.getDeviceNodeName(), msg))
                         raise PartitioningError, _("Error resizing partition %s.\n\n%s") %(part.getDeviceNodeName(), msg)
 
@@ -1007,10 +1026,10 @@ def processPartitioning(diskset, requests, newParts):
         elif request.type == REQUEST_VG:
             request.size = request.getActualSize(requests, diskset)
         elif request.type == REQUEST_LV:
-	    if request.grow:
-		request.setSize(request.getStartSize())
-	    else:
-		request.size = request.getActualSize(requests, diskset)
+            if request.grow:
+                request.setSize(request.getStartSize())
+            else:
+                request.size = request.getActualSize(requests, diskset)
         elif request.preexist:
             # we need to keep track of the max size of preexisting partitions
             # FIXME: we should also get the max size for LVs at some point
@@ -1062,13 +1081,13 @@ def doPartitioning(diskset, requests, doRefresh = 1):
 
     # now grow the logical partitions
     growLogicalVolumes(diskset, requests)
-    
+
     # make sure our logical volumes still fit
     #
     # XXXX should make all this used lvm.getVGFreeSpace() and
     # lvm.getVGUsedSpace() at some point
     #
-    
+
     vgused = {}
     for request in requests.requests:
         if request.type == REQUEST_LV:
@@ -1078,10 +1097,10 @@ def doPartitioning(diskset, requests, doRefresh = 1):
                                                size)
             else:
                 vgused[request.volumeGroup] = size
-	    
+
     for vg in vgused.keys():
         request = requests.getRequestByID(vg)
-	lvmLog.info("Used size vs. available for vg %s:  %s %s", request.volumeGroupName, vgused[vg], request.getActualSize(requests, diskset))
+        lvmLog.info("Used size vs. available for vg %s:  %s %s", request.volumeGroupName, vgused[vg], request.getActualSize(requests, diskset))
         if vgused[vg] > request.getActualSize(requests, diskset):
             raise PartitioningError, _("Adding this partition would not "
                                        "leave enough disk space for already "
@@ -1116,9 +1135,9 @@ def doClearPartAction(anaconda, partitions, diskset):
         disk = diskset.disks[drive]
         for part in disk.partitions.values():
             if (not part.active or (part.type == parted.PARTITION_EXTENDED) or
-               (part.disk.type.name == "mac" and part.num == 1 and part.name == "Apple")):
+               (part.disk.type == "mac" and part.number == 1 and part.name == "Apple")):
                 continue
-            if part.fs_type:
+            if part.fileSystem:
                 ptype = partedUtils.get_partition_file_system_type(part)
             else:
                 ptype = None
@@ -1134,7 +1153,7 @@ def doClearPartAction(anaconda, partitions, diskset):
                  partedUtils.hasProtectedPartitions(drive, anaconda)) or
                 (not ptype and
                  partedUtils.isLinuxNative(part)) or
-                ((part._fileSystem is None) and # the ptable doesn't have types
+                ((part.fileSystem is None) and # the ptable doesn't have types
                  ((part.isFlagAvailable(parted.PARTITION_RAID) and part.getFlag(parted.PARTITION_RAID)) or  # this is a RAID
                   (part.isFlagAvailable(parted.PARTITION_LVM) and part.getFlag(parted.PARTITION_LVM)) or # or an LVM
                   (iutil.isMactel() and not ptype)))): # or we're on a mactel and have a blank partition from bootcamp #FIXME: this could be dangerous...
@@ -1204,7 +1223,7 @@ def doClearPartAction(anaconda, partitions, diskset):
             continue
 
         disk = diskset.disks[drive]
-        ext = disk.extended_partition
+        ext = disk.getExtendedPartition()
         # if the extended is empty, blow it away
         if ext and len(disk.getLogicalPartitions()) == 0:
             delete = partRequests.DeleteSpec(drive, ext.geometry.start,
@@ -1280,7 +1299,7 @@ def doAutoPartition(anaconda):
                                      "for %s.\n\n"
                                      "Press 'OK' to exit the installer.")
                                    % (request.device, request.mountpoint),
-				   custom_icon='error')
+                                   custom_icon='error')
                 sys.exit(0)
 
             # now go through and set things from the request to the
@@ -1363,7 +1382,6 @@ def doAutoPartition(anaconda):
                 for lv in partitions.getLVMLVForVGID(oldid):
                     lv.volumeGroup = req.uniqueID
 
-
         elif (isinstance(request, partRequests.LogicalVolumeRequestSpec) and
               request.preexist == 1):
             # get the preexisting partition they want to use
@@ -1375,7 +1393,7 @@ def doAutoPartition(anaconda):
                                      "Press 'OK' to exit the installer.")
                                    % (request.logicalVolumeName,
                                       request.mountpoint),
-				   custom_icon='error')
+                                   custom_icon='error')
                 sys.exit(0)
 
             # now go through and set things from the request to the
@@ -1409,7 +1427,7 @@ def doAutoPartition(anaconda):
             if req.type == REQUEST_NEW and req.multidrive:
                 if not req.drive:
                     req.drive = diskset.disks.keys()
-                    
+
                 for drive in req.drive:
                     r = copy.copy(req)
                     r.encryption = copy.deepcopy(req.encryption)
@@ -1465,7 +1483,7 @@ def doAutoPartition(anaconda):
                         req.volumeGroup = r.uniqueID
                     else:
                         raise RuntimeError, "Unable to find the volume group for logical volume %s" %(req.logicalVolumeName,)
-                        
+
             partitions.addRequest(req)
 
     # Remove all preexisting VG requests that reference nonexistant PV
@@ -1518,7 +1536,7 @@ def doAutoPartition(anaconda):
             anaconda.intf.messageWindow(_("Warnings During Automatic Partitioning"),
                            _("Following warnings occurred during automatic "
                            "partitioning:\n\n%s") % (msg,),
-			       custom_icon='warning')
+                           custom_icon='warning')
         else:
             lvmLog.warning(str(msg))
     except PartitioningError, msg:
@@ -1581,21 +1599,21 @@ def autoCreatePartitionRequests(autoreq):
     format = 0 or 1, whether to format
     asvol = 0 or 1, whether or not it should be a logical volume (ignored)
     """
-    
+
     requests = []
     for (mntpt, fstype, minsize, maxsize, grow, format, asvol) in autoreq:
         if fstype:
             ptype = fsset.fileSystemTypeGet(fstype)
         else:
             ptype = fsset.fileSystemTypeGetDefault()
-            
+
         newrequest = partRequests.PartitionSpec(ptype,
                                                 mountpoint = mntpt,
                                                 size = minsize,
                                                 maxSizeMB = maxsize,
                                                 grow = grow,
                                                 format = format)
-        
+
         requests.append(newrequest)
 
     return requests
