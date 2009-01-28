@@ -301,12 +301,16 @@ makemoduletree() {
         }
     done
 
-    # Copy in driver firmware we want during installation.  NOTE:  This isn't
-    # the ideal solution, but we'll do this for now.  What we really want is
-    # for the kernel modules to include a modinfo field that names the firmware
-    # file we should have.  If we can get that it would make it even easier to
-    # push the kernel people to depend on the firmware packages in the kernel,
-    # but we have to take small steps first.
+    echo "Copying required firmware..."
+    find $MMB_DIR/lib/modules/ -name *.ko | while read module ; do
+        for fw in $(modinfo -F firmware $module); do
+            cp $KERNELROOT/lib/firmware/$fw $MBD_DIR/firmware
+        done
+    done
+
+    # Copy in driver firmware we know we'll want during installation. This is
+    # required for modules which still don't (or can't) export information
+    # about what firmware files they require.
     for module in $MODSET ; do
         case $module in
             ipw2100)
@@ -318,20 +322,11 @@ makemoduletree() {
             iwl3945)
                 cp $KERNELROOT/lib/firmware/iwlwifi-3945* $MBD_DIR/firmware
                 ;;
-            iwl4965)
-                cp $KERNELROOT/lib/firmware/iwlwifi-4965* $MBD_DIR/firmware
-                ;;
-            iwl5000)
-                cp $KERNELROOT/lib/firmware/iwlwifi-5000* $MBD_DIR/firmware
-                ;;
             atmel)
                 cp $KERNELROOT/lib/firmware/atmel_*.bin $MBD_DIR/firmware
                 ;;
             zd1211rw)
                 cp -r $KERNELROOT/lib/firmware/zd1211 $MBD_DIR/firmware
-                ;;
-            qla2xxx)
-                cp $KERNELROOT/lib/firmware/ql* $MBD_DIR/firmware
                 ;;
         esac
     done
