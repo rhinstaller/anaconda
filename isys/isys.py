@@ -462,7 +462,7 @@ def driveDict(klassArg):
                         continue
 
                 if device.startswith("sd"):
-                    peddev = parted.PedDevice.get(dev['device'])
+                    peddev = parted.getDevice(dev['device'])
                     model = peddev.model
 
                     # blacklist *STMF on power5 iSeries boxes

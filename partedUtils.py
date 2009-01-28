@@ -21,6 +21,7 @@
 #            Jeremy Katz <katzj@redhat.com>
 #            Mike Fulbright <msf@redhat.com>
 #            Karsten Hopp <karsten@redhat.com>
+#            David Cantrell <dcantrell@redhat.com>
 #
 
 """Helper functions for use when dealing with parted objects."""

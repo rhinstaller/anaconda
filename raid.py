@@ -66,15 +66,15 @@ def scanForRaid(drives):
     drives is a list of device names.
     Returns a list of (mdMinor, devices, level, totalDisks) tuples.
     """
-    
+
     raidSets = {}
     raidDevices = {}
 
     for d in drives:
         parts = []
         try:
-            dev = parted.PedDevice.get("/dev/%s" % (d,))
-            disk = parted.PedDisk.new(dev)
+            dev = parted.getDevice("/dev/%s" % (d,))
+            disk = parted.Disk(device=dev)
 
             raidParts = disk.getRaidPartitions()
             for part in raidParts:
