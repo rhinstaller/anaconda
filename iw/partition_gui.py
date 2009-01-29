@@ -904,13 +904,13 @@ class PartitionWindow(InstallWindow):
 
                     if request and request.isEncrypted(self.partitions, True) and request.format:
 			self.tree[iter]['Format'] = self.lock_pixbuf
-                elif part.fs_type:
+                elif part.fileSystem:
                     if request and request.fstype != None:
                         ptype = self.getShortFSTypeName(request.fstype.getName())
                         if ptype == "foreign":
                             ptype = map_foreign_to_fsname(part)
                     else:
-                        ptype = part.fs_type.name
+                        ptype = part.fileSystem.type
 
                     if request and request.isEncrypted(self.partitions, True) and request.format:
 			self.tree[iter]['Format'] = self.lock_pixbuf
