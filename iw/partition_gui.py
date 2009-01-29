@@ -154,9 +154,8 @@ class DiskStripeSlice:
 
     def update(self):
         disk = self.parent.getDisk()
-        totalSectors = float(disk.device.heads
-                             * disk.device.sectors
-                             * disk.device.cylinders)
+        (cylinders, heads, sectors) = disk.device.biosGeometry
+        totalSectors = float(heads * sectors * cylinders)
 
         # XXX hack but will work for now
         if gtk.gdk.screen_width() > 640:
@@ -317,11 +316,10 @@ class DiskStripeGraph:
                                       size_points=9)
 	show_geometry = 0
 	if show_geometry:
+	    (cylinders, heads, sectors) = disk.device.biosGeometry
 	    drivetext = _("Drive %s (Geom: %s/%s/%s) "
 			 "(Model: %s)") % ('/dev/' + drive,
-					   disk.device.cylinders,
-					   disk.device.heads,
-					   disk.device.sectors,
+					   cylinders, heads, sectors,
 					   disk.device.model)
 	else:
 	    drivetext = _("Drive %s (%-0.f MB) "
@@ -826,7 +824,8 @@ class PartitionWindow(InstallWindow):
             parent = self.tree.append(drvparent)
             self.tree[parent]['Device'] = '/dev/%s' % (drive,)
             self.tree[parent]['PyObject'] = str('/dev/%s' % (drive,))
-            sectorsPerCyl = disk.device.heads * disk.device.sectors
+            (cylinders, heads, sectors) = disk.device.biosGeometry
+            sectorsPerCyl = heads * sectors
 
             extendedParent = None
             part = disk.next_partition()

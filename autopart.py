@@ -710,7 +710,8 @@ def growParts(diskset, requests, newParts):
             growList = growable[drive]
 
             sectorSize = diskset.disks[drive].device.sectorSize
-            cylsectors = diskset.disks[drive].device.biosGeometry.sectors*diskset.disks[drive].device.biosGeometry.heads
+            (cylinders, heads, sectors) = diskset.disks[drive].device.biosGeometry
+            cylsectors = sectors * heads
 
             # sort in order of request size, consider biggest first
             n = 0
