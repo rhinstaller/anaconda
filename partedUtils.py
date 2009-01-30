@@ -270,13 +270,17 @@ def validateFsType(part):
     if not part.type in (parted.PARTITION_NORMAL,
                          parted.PARTITION_LOGICAL):
         return
+
+    if part.getFlag(parted.PARTITION_LVM) or part.getFlag(parted.PARTITION_RAID):
+        return
+
     # if the partition already has a type, no need to search
     if part.fileSystem:
         return
 
     # first fsystem to probe wins, so sort the types into a preferred
     # order.
-    fsnames = fsTypes.keys()
+    fsnames = parted.fileSystemType.keys()
     goodTypes = ['ext3', 'ext2']
     badTypes = ['linux-swap',]
     for fstype in goodTypes:
@@ -288,18 +292,20 @@ def validateFsType(part):
 
     # now check each type, and set the partition system accordingly.
     for fsname in fsnames:
-        fstype = fsTypes[fsname]
-        if parted.probeForSpecificFileSystem(fstype, part.geometry) != None:
+        fstype = parted.fileSystemType[fsname]
+        try:
+            parted.probeForSpecificFileSystem(fstype.name, part.geometry)
             # XXX verify that this will not modify system type
             # in the case where a user does not modify partitions
             part.system = fstype
             return
+        except (parted.FileSystemException, parted.IOException):
+            pass
 
 def isLinuxNative(part):
     """Check if the type is a 'Linux native' filesystem."""
-    fstype = part._fileSystem._type
-    if part.getFlag(parted.PARTITION_RAID) or parted.getFlag(parted.PARTITION_LVM) or \
-       part.getFlag(parted.PARTITION_SWAP) or fstype.name in ["ext2", "ext3", "jfs", "reiserfs", "xfs"]:
+    if part.getFlag(parted.PARTITION_RAID) or part.getFlag(parted.PARTITION_LVM) or \
+       part.getFlag(parted.PARTITION_SWAP) or part._fileSystem._type.name in ["ext2", "ext3", "jfs", "reiserfs", "xfs"]:
         return True
     else:
         return False
