@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.94
+Version: 10.1.1.95
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan 30 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.95-1
+- Avoid devices where the lvm metadata is not present (jgranado).
+  Resolves: rhbz:#481698
+- Don't show the root password dialog, password was provided by ks file (msivak).
+  Resolves: rhbz:#481597
+
 * Tue Jan 27 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.94-1
 - Remove missing PVs before removing obsolete VG (jgranado).
   Resolves: rhbz:#481698
