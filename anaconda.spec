@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.11
+Version: 11.5.0.12
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jan 29 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.12-1
+- If ks=nfs:... is given, don't try to find the file via boot options
+  (#480210). (clumens)
+- Fix cdrom install on machines with no network devices (wwoods)
+- updated fuzzy strings (jsingh)
+- Use modinfo to find out what firmware we need in initrd (wwoods)
+- Use the preconf object for yum configuration now (jantill). (clumens)
+- Updated Dutch translation adn only 1 -fuzzy- string left (zuma)
+- Add a boot target for the xdriver=vesa parameter and document it. (clumens)
+- repo.proxy is now a property, so check before setting it (#481342).
+  (clumens)
+
 * Wed Jan 21 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.11-1
 - Fix a logic problem with network file write outs. (480769) (jkeating)
 - Only run selectBestKernel, selectBootloader, etc. for new installs.
