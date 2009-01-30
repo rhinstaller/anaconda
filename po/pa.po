@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2009-01-29 16:33+0530\n"
+"PO-Revision-Date: 2009-01-30 16:28+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <Punjabi-users@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: ../anaconda:262 ../anaconda:308
 #, c-format
 msgid "Error processing %%ksappend lines: %s"
-msgstr "%%ksappend ਸਤਰਾਂ ਖੋਲ੍ਹਣ ਵਿੱਚ ਅਸਫਲ: %s"
+msgstr "%%ksappend ਸਤਰਾਂ ਖੋਲ੍ਹਣ ਵਿੱਚ ਗਲਤੀ: %s"
 
 #: ../anaconda:265 ../anaconda:311
 #, c-format
@@ -1098,7 +1098,7 @@ msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਕੁੰਜੀ"
 msgid ""
 "Choose a passphrase for your encrypted devices. You will be prompted for the "
 "passphrase during system boot."
-msgstr "ਆਪਣੇ ਇੰਕ੍ਰਿਪਟਡ ਜੰਤਰ ਲਈ ਗੁਪਤਕੋਡ ਚੁਣੋ। ਤੁਹਾਨੂੰ ਸਿਸਟਮ ਬੂਟ ਹੋਣ ਤੇ ਗੁਪਤਕੋਡ ਪੁੱਛਿਆ ਜਾਵੇਗਾ।"
+msgstr "ਆਪਣੇ ਇੰਕ੍ਰਿਪਟਡ ਜੰਤਰਾਂ ਲਈ ਗੁਪਤਕੋਡ ਚੁਣੋ। ਤੁਹਾਨੂੰ ਸਿਸਟਮ ਬੂਟ ਹੋਣ ਤੇ ਗੁਪਤਕੋਡ ਪੁੱਛਿਆ ਜਾਵੇਗਾ।"
 
 #: ../gui.py:671 ../gui.py:679 ../text.py:356 ../text.py:366
 msgid "Error with passphrase"
@@ -1311,7 +1311,7 @@ msgstr "ਅਣਜਾਣ ਜੰਤਰ"
 msgid ""
 "The installation source given by device %s could not be found.  Please check "
 "your parameters and try again."
-msgstr "ਜੰਤਰ %s ਦੁਆਰਾ ਦਿੱਤਾ ਕੋਈ ਇੰਸਟਾਲੇਸ਼ਨ ਸਰੋਤ ਨਹੀਂ ਲੱਭਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਪੈਰਾਮੀਟਰ ਜਾਂਚ ਕਰੋ ਅਤੇ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+msgstr "%s ਜੰਤਰ ਦੁਆਰਾ ਦਿੱਤਾ ਕੋਈ ਇੰਸਟਾਲੇਸ਼ਨ ਮੀਡੀਆ ਨਹੀਂ ਲੱਭ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਪੈਰਾਮੀਟਰ ਜਾਂਚ ਕਰੋ ਅਤੇ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
 #: ../iscsi.py:449 ../iscsi.py:450
 msgid "Initializing iSCSI initiator"
@@ -1420,7 +1420,7 @@ msgstr "ਰੂਟ ਫਾਇਲ-ਸਿਸਟਮ ਜੋ ਤੁਸੀਂ ਬਣਾ�
 
 #: ../network.py:56
 msgid "Hostname must be 255 or fewer characters in length."
-msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ 255 ਜਾਂ ਘੱਟ ਅੱਖਰਾਂ ਦਾ ਹੋਣਾ ਜ਼ਰੂਰੀ ਹੈ।"
+msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ 255  ਜਾਂ ਘੱਟ ਅੱਖਰਾਂ ਦਾ ਹੋਣਾ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: ../network.py:62
 msgid ""
@@ -1959,7 +1959,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "%s ਜੰਤਰ ਨੂੰ ਫਾਰਮੈਟ ਕਰਨ ਵੇਲੇ ਤੱਕ ਉਡੀਕੋ...\n"
 
 #: ../partedUtils.py:1101
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "\n"
@@ -1971,8 +1971,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"ਜੰਤਰ %s (%s %-0.f MB) ਤੇ ਭਾਗ-ਸਾਰਣੀ ਪੜਨਯੋਗ ਨਹੀਂ ਹੈ।\n"
-"ਇਸ ਨੂੰ ਸ਼ੁਰੂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਪਰ ਇਸ ਡਰਾਈਵ ਤੋਂ ਸਾਰਾ ਡਾਟਾ ਖਤਮ ਹੋ ਜਾਵੇਗਾ।\n"
+"ਜੰਤਰ %s (%s %-0.f MB) ਤੇ ਭਾਗ-ਸਾਰਣੀ ਪੜਨਯੋਗ ਨਹੀਂ ਸੀ।\n"
+"\n"
+"ਨਵਾਂ ਭਾਗ ਬਣਾਉਣ ਲਈ ਇਸ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨਾ ਜਰੂਰੀ ਹੈ, ਪਰ ਇਸ ਡਰਾਈਵ ਤੋਂ ਸਾਰਾ ਡਾਟਾ ਖਤਮ ਹੋ ਜਾਵੇਗਾ।\n"
 "\n"
 "ਇਸ ਕਾਰਵਾਈ ਨਾਲ ਪਹਿਲਾਂ ਡਰਾਈਵ ਬਾਰੇ ਪਹਿਲਾਂ ਕੀਤੀ ਚੋਣ ਨੂੰ ਰੱਦ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ।\n"
 "\n"
@@ -2020,14 +2021,13 @@ msgid "Encrypt device?"
 msgstr "ਜੰਤਰ ਇਨਕ੍ਰਿਪਟ ਕਰਨਾ?"
 
 #: ../partitions.py:126
-#, fuzzy
 msgid ""
 "You specified block device encryption should be enabled, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
 msgstr ""
-"ਬਲਾਕ ਜੰਤਰ ਇਨਕ੍ਰਿਪਸ਼ਨ ਜੋ ਤੁਸੀਂ ਦਿੱਤੀ ਹੈ ਵਿੱਚ %s ਯੋਗ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ, ਪਰ ਤੁਸੀਂ ਪਾਸਵਰਡ ਨਹੀਂ "
-"ਦਿੱਤਾ ਹੈ। ਜੇ ਤੁਸੀਂ ਪਿੱਛੇ ਨਹੀਂ ਜਾਂਦੇ ਅਤੇ ਪਾਸਵਰਡ ਨਹੀਂ ਦਿੰਦੇ, ਤਾਂ ਬਲਾਕ ਜੰਤਰ ਇਨਕ੍ਰਿਪਸ਼ਨ%s ਅਯੋਗ ਹੋ "
+"ਬਲਾਕ ਜੰਤਰ ਇਨਕ੍ਰਿਪਸ਼ਨ ਜੋ ਤੁਸੀਂ ਦਿੱਤੀ ਹੈ ਯੋਗ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ, ਪਰ ਤੁਸੀਂ ਪਾਸਵਰਡ ਨਹੀਂ "
+"ਦਿੱਤਾ ਹੈ। ਜੇ ਤੁਸੀਂ ਪਿੱਛੇ ਨਹੀਂ ਜਾਂਦੇ ਅਤੇ ਪਾਸਵਰਡ ਨਹੀਂ ਦਿੰਦੇ, ਤਾਂ ਬਲਾਕ ਜੰਤਰ ਇਨਕ੍ਰਿਪਸ਼ਨ ਅਯੋਗ ਹੋ "
 "ਜਾਵੇਗੀ।"
 
 #: ../partitions.py:133 ../partitions.py:263 ../textw/constants_text.py:52
@@ -2361,9 +2361,8 @@ msgid "Passphrase for encrypted device"
 msgstr "ਇਨਕ੍ਰਿਪਟਡ ਜੰਤਰ ਲਈ ਪਾਸਵਰਡ ਦਿਓ"
 
 #: ../text.py:336
-#, fuzzy
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr "ਇਨਕ੍ਰਿਪਟਡ ਜੰਤਰਾਨ ਲਈ ਇਹ ਪਾਸਵਰਡ ਵਰਤੋ"
+msgstr "ਇਸ ਪਾਸਵਰਡ ਨੂੰ ਸਭ ਇਨਕ੍ਰਿਪਟਡ ਜੰਤਰਾਂ ਲਈ ਸ਼ਾਮਿਲ ਕਰੋ"
 
 #: ../text.py:367
 #, python-format
@@ -2597,7 +2596,6 @@ msgstr ""
 "\n"
 
 #: ../vnc.py:261
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -2609,7 +2607,7 @@ msgstr ""
 "\n"
 "\n"
 "WARNING!!! VNC server running with NO PASSWORD!\n"
-"You can use the self.password=<password> boot option\n"
+"You can use the vncpassword=<password> boot option\n"
 "if you would like to secure the server.\n"
 "\n"
 
@@ -2739,14 +2737,12 @@ msgid "%s of %s packages completed"
 msgstr "%s ਪੈਕਜ, %s ਵਿੱਚ ਪੂਰੇ ਹੋਏ"
 
 #: ../yuminstall.py:219
-#, fuzzy
 msgid "Finishing upgrade"
-msgstr "ਅੱਪਗਰੇਡ ਕਾਰਵਾਈ ਮੁਕੰਮਲ ਹੋ ਰਹੀ ਹੈ..."
+msgstr "ਅੱਪਗਰੇਡ ਮੁਕੰਮਲ ਹੋ ਰਹੀ ਹੈ..."
 
 #: ../yuminstall.py:220
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr "ਇੰਸਟਾਲ ਕਾਰਜ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ। ਇਸ ਨੂੰ ਕੁੱਝ ਮਿੰਟ ਲੱਗ ਸਕਦੇ ਹਨ..."
+msgstr "ਇੰਸਟਾਲ ਕਾਰਜ ਮੁਕੰਮਲ ਹੋ ਰਿਹਾ ਹੈ। ਇਸ ਨੂੰ ਕੁੱਝ ਮਿੰਟ ਲੱਗ ਸਕਦੇ ਹਨ..."
 
 #: ../yuminstall.py:290 ../iw/task_gui.py:283
 msgid "Error Setting Up Repository"
@@ -3023,9 +3019,9 @@ msgid "Packages in %s"
 msgstr "%s ਵਿਚਲੇ ਪੈਕੇਜ"
 
 #: ../iw/GroupSelector.py:442
-#, fuzzy, python-format
+#, python-format
 msgid "Optional packages selected: %d of %d"
-msgstr "ਕੋਈ ਚੋਣਵਾਂ ਪੈਕੇਜ ਨਹੀਂ ਚੁਣਿਆ"
+msgstr "ਚੋਣਵੇਂ ਪੈਕੇਜ ਚੁਣੇ ਗਏ ਹਨ: %d, %d ਦਾ"
 
 #: ../iw/GroupSelector.py:443
 #, python-format
@@ -3108,9 +3104,8 @@ msgstr "ਤੁਹਾਨੂੰ initiator ਨਾਂ ਦੇਣਾ ਪਵੇਗਾ�
 #: ../iw/autopart_type.py:294 ../iw/autopart_type.py:298
 #: ../textw/partition_text.py:1711 ../textw/partition_text.py:1714
 #: ../textw/partition_text.py:1719 ../textw/partition_text.py:1723
-#, fuzzy
 msgid "Missing value"
-msgstr "ਗੈਰ-ਮੌਜੂਦ ਜੰਤਰ"
+msgstr "ਗੈਰ-ਮੌਜੂਦ ਮੁੱਲ"
 
 #: ../iw/autopart_type.py:285
 msgid "CHAP username is required if CHAP password is defined."
@@ -3698,9 +3693,8 @@ msgid "Error configuring network device"
 msgstr "ਨੈੱਟਵਰਕ ਜੰਤਰ ਸੰਰਚਨਾ ਦੌਰਾਨ ਗਲਤੀ"
 
 #: ../iw/network_gui.py:61 ../iw/network_gui.py:67
-#, fuzzy
 msgid "Error with Hostname"
-msgstr "ਡਾਟੇ ਨਾਲ ਗਲਤੀ"
+msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ ਨਾਲ ਗਲਤੀ"
 
 #: ../iw/network_gui.py:62
 msgid "You must enter a valid hostname for this computer."
@@ -4844,14 +4838,12 @@ msgid "IPv4 Network Mask "
 msgstr "IPv4 ਨੈੱਟਵਰਕ ਮਾਸਕ"
 
 #: ../textw/netconfig_text.py:264
-#, fuzzy
 msgid "Configuring Network Interfaces"
 msgstr "ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਸੰਰਚਨਾ"
 
 #: ../textw/netconfig_text.py:264
-#, fuzzy
 msgid "Waiting for NetworkManager..."
-msgstr "ਨੈੱਟਵਰਕ ਮੈਨੇਜਰ ਦੁਆਰਾ %s ਦੀ ਸੰਰਚਨਾ ਲਈ ਉਡੀਕਿਆ ਜਾ ਰਿਹਾ ਹੈ...\n"
+msgstr "ਨੈੱਟਵਰਕ ਮੈਨੇਜਰ ਲਈ ਚੇਤਾਵਨੀ..."
 
 #: ../textw/network_text.py:42
 msgid "Hostname Configuration"
@@ -5195,14 +5187,12 @@ msgid "iSCSI Initiator Name"
 msgstr "iSCSI Initiator ਨਾਂ"
 
 #: ../textw/partition_text.py:1691
-#, fuzzy
 msgid "CHAP username"
-msgstr "ਪਰਾਕਸੀ ਉਪਭੋਗੀ-ਨਾਂ (_S)"
+msgstr "CHAP ਉਪਭੋਗੀ-ਨਾਂ"
 
 #: ../textw/partition_text.py:1692
-#, fuzzy
 msgid "CHAP password"
-msgstr "ਪਾਸਵਰਡ"
+msgstr "CHAP ਪਾਸਵਰਡ"
 
 #: ../textw/partition_text.py:1693
 msgid "Reverse CHAP username"
@@ -5408,7 +5398,6 @@ msgid "Software Development"
 msgstr "ਸਾਫਟਵੇਅਰ ਡੀਵੈਲਪਮਿੰਟ"
 
 #: ../installclasses/fedora.py:50
-#, fuzzy
 msgid "Web Server"
 msgstr "ਵੈੱਬ ਸਰਵਰ"
 
@@ -6538,12 +6527,12 @@ msgid "Destination _file"
 msgstr "ਮੰਜ਼ਿਲ ਫਾਇਲ (_f)"
 
 #: tmp/exnSave.glade.h:3
-#, fuzzy
 msgid ""
 "Local storage device\n"
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"ਲੋਕਲ ਸਟੋਰੇਜ਼ ਡਿਸਕ\n"
 "ਲੋਕਲ ਡਿਸਕ\n"
 "ਰਿਮੋਟ ਸਰਵਰ (scp)"
 
@@ -6578,24 +6567,20 @@ msgid "Please enter your %(instkey)s."
 msgstr "ਆਪਣੀ %(instkey)s ਕੁੰਜੀ ਦਿਓ ਜੀ"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>CHAP _Password:</b>"
-msgstr "<b>ਪਾਸਵਰਡ(_P):</b>"
+msgstr "<b>CHAP ਪਾਸਵਰਡ(_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
-#, fuzzy
 msgid "<b>CHAP _Username:</b>"
-msgstr "<b>ਉਪਭੋਗੀ ਨਾਂ(_U):</b>"
+msgstr "<b> CHAP ਉਪਭੋਗੀ ਨਾਂ(_U):</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>ਪਾਸਵਰਡ(_P):</b>"
+msgstr "<b>ਰਾਖਵਾਂ CHAP ਪਾਸਵਰਡ(_a):</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>ਉਪਭੋਗੀ ਨਾਂ(_U):</b>"
+msgstr "<b>ਰਾਖਵਾਂ CHAP ਉਪਭੋਗੀ ਨਾਂ(_s):</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
@@ -6622,11 +6607,10 @@ msgid "Install to Hard Drive"
 msgstr "ਹਾਰਡ ਡਰਾਈਵ ਉੱਤੇ ਇੰਸਟਾਲ"
 
 #: tmp/lukspassphrase.glade.h:1
-#, fuzzy
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
-msgstr "ਇਨਕ੍ਰਿਪਟਡ ਜੰਤਰਾਨ ਲਈ ਇਹ ਪਾਸਵਰਡ ਵਰਤੋ"
+msgstr "ਸਭ ਇਨਕ੍ਰਿਪਟਡ ਜੰਤਰਾਂ ਲਈ ਇਹ ਪਾਸਵਰਡ ਵਰਤੋ ਤਾਂ ਜੋ ਬੂਟ ਕਾਰਜ ਹੋ ਸਕੇ"
 
 #: tmp/lukspassphrase.glade.h:2
 msgid ""
@@ -6679,9 +6663,8 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "ਡਾਇਨਾਮਿਕ IP ਸੰਰਚਨਾ ਵਰਤੋ(_DHCP)"
 
 #: tmp/network.glade.h:1
-#, fuzzy
 msgid "Hostname:"
-msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ"
+msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ:"
 
 #: tmp/network.glade.h:2
 msgid ""
