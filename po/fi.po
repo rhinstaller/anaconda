@@ -4,13 +4,13 @@
 # Raimo Koski <rk@raimokoski.com>, 1998, 2002, 2003.
 # Lauri Nurmi <lanurmi@iki.fi>, 2004-2007.
 # Mikko Ikola <ikola@iki.fi>, 2004.
-# Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>, 2006-2008.
+# Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>, 2006-2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2008-10-15 01:28+0300\n"
+"PO-Revision-Date: 2009-02-01 00:58+0200\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
@@ -2307,8 +2307,8 @@ msgid ""
 msgstr ""
 "Laitteen %s (%s %-0.f Mt) osiotaulu on lukukelvoton.\n"
 "\n"
-"Jotta uusia osioita voitaisiin luoda, osiotaulu täytyy alustaa, jolloin tältä "
-"levyltä häviävät KAIKKI TIEDOT.\n"
+"Jotta uusia osioita voitaisiin luoda, osiotaulu täytyy alustaa, jolloin "
+"tältä levyltä häviävät KAIKKI TIEDOT.\n"
 "\n"
 "Tämä toiminto ohittaa kaikki aiemmat huomiotta jätettäviä asemia koskevat "
 "valinnat.\n"
@@ -2366,8 +2366,8 @@ msgid ""
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
 msgstr ""
-"Lohkolaitesalaus on asetettu otettavaksi käyttöön, mutta salalausetta ei "
-"ole annettu. Jos et palaa takaisin ja anna salalausetta, lohkolaitesalaus "
+"Lohkolaitesalaus on asetettu otettavaksi käyttöön, mutta salalausetta ei ole "
+"annettu. Jos et palaa takaisin ja anna salalausetta, lohkolaitesalaus "
 "poistetaan käytöstä."
 
 # ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
@@ -3625,11 +3625,13 @@ msgstr "CHAP-salasana on pakollinen, kun CHAP-käyttäjätunnus on annettu."
 
 #: ../iw/autopart_type.py:295
 msgid "Reverse CHAP username is required if reverse CHAP password is defined."
-msgstr "Käänteisen CHAPin käyttäjätunnus on pakollinen, kun salasana on annettu."
+msgstr ""
+"Käänteisen CHAPin käyttäjätunnus on pakollinen, kun salasana on annettu."
 
 #: ../iw/autopart_type.py:299
 msgid "Reverse CHAP password is required if reverse CHAP username is defined."
-msgstr "Käänteisen CHAPin salasana on pakollinen, kun käyttäjätunnus on annettu."
+msgstr ""
+"Käänteisen CHAPin salasana on pakollinen, kun käyttäjätunnus on annettu."
 
 # ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
 # ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1479
@@ -5668,7 +5670,7 @@ msgid ""
 msgstr ""
 "Jos koneesi on osa suurempaa verkkoa, jossa konenimet jaetaan DHCP:llä, "
 "valitse automaattisesti DHCP:llä. Muussa tapauksessa valitse manuaalinen ja "
-"syötä konenimi. Jos et syötä mitään, järjestelmän nimeksi tulee ”localhost”."
+"syötä konenimi. Jos et syötä mitään, järjestelmän nimeksi tulee \"localhost\"."
 
 # ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
 #: ../textw/network_text.py:75 ../textw/network_text.py:82
@@ -6043,7 +6045,7 @@ msgid ""
 msgstr ""
 "zSeries-sarjan koneet voivat käyttää teollisuusstandardin mukaisia SCSI-"
 "laitteita kuitukanavan (FCP) kautta. Jokainen laite tarvitsee 16-bittisen "
-"laitenumeron, 64-bittisen ”maailmanlaajuisen porttinimen” (WWPN) sekä 64-"
+"laitenumeron, 64-bittisen \"maailmanlaajuisen porttinimen\" (WWPN) sekä 64-"
 "bittisen FCP LUN:in."
 
 # ../iw/bootloader_gui.py:326
@@ -6233,7 +6235,7 @@ msgid ""
 msgstr ""
 "Järjestelmästä löytyi yksi tai useampi Linux-asennus.\n"
 "\n"
-"Valitse jokin päivitettäväksi, tai valitse ”Asenna järjestelmä uudelleen”, "
+"Valitse jokin päivitettäväksi, tai valitse \"Asenna järjestelmä uudelleen\", "
 "jolloin asennetaan puhdas järjestelmä."
 
 # ../textw/userauth_text.py:22
@@ -6407,7 +6409,7 @@ msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
 msgstr ""
-"Valitse ”%s” tarkastaaksesi asemassa olevan levyn, tai ”%s” poistaaksesi sen "
+"Valits  \"%s\" tarkastaaksesi asemassa olevan levyn, tai \"%s\" poistaaksesi sen "
 "ja syöttääksesi toisen levyn testausta varten."
 
 #: ../loader/cdinstall.c:199
@@ -6419,7 +6421,7 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each disc prior to using it again."
 msgstr ""
-"Jos haluat tarkastaa lisää levyjä, syötä seuraava levy ja valitse ”%s”. "
+"Jos haluat tarkastaa lisää levyjä, syötä seuraava levy ja valitse \"%s\". "
 "Jokaisen levyn tarkastaminen ei ole välttämätöntä, mutta erittäin "
 "suositeltavaa. Levyt tulisi tarkastaa ennen ensimmäistä käyttökertaa. Kun ne "
 "ovat kerran läpäisseet tarkastuksen, ei ole välttämätöntä tarkastaa jokaista "
@@ -6551,7 +6553,7 @@ msgstr "Ajurilevykkeen lataaminen tiedostosta epäonnistui."
 #: ../loader/driverdisk.c:355
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Syötä ajurilevyke /dev/%s:iin ja jatka painamalla ”OK”."
+msgstr "Syötä ajurilevyke /dev/%s:iin ja jatka painamalla \"OK\"."
 
 # ../loader/devices.c:532
 #: ../loader/driverdisk.c:361
@@ -6640,7 +6642,7 @@ msgid ""
 msgstr ""
 "Tälle moduulille (%s) voidaan antaa sen toimintaan vaikuttavia parametreja "
 "välilyönneillä erotettuna.  Jos et tiedä syötettäviä parametreja, voit "
-"ohittaa tämän ruudun painamalla ”OK”-painiketta."
+"ohittaa tämän ruudun painamalla \"OK\"-painiketta."
 
 # ../loader/devices.c:91
 #: ../loader/driverselect.c:91
@@ -6856,7 +6858,7 @@ msgstr ""
 #: ../loader/loader.c:487
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "Syötä päivityslevyke laitteeseen %s ja jatka painamalla ”OK”."
+msgstr "Syötä päivityslevyke laitteeseen %s ja jatka painamalla \"OK\"."
 
 # ../loader/loader.c:2300
 #: ../loader/loader.c:493
@@ -7005,7 +7007,7 @@ msgstr "Asennuksen levykuvaa %s ei löydy"
 #: ../loader/mediacheck.c:68
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr "Tarkastetaan ”%s”..."
+msgstr "Tarkastetaan \"%s\"..."
 
 #: ../loader/mediacheck.c:70
 #, c-format
