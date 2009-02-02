@@ -584,7 +584,7 @@ class AnacondaYum(YumSorter):
             self.preconf.fn = fn
             self.preconf.root = root
             self.preconf.enabled_plugins = ["whiteout", "blacklist"]
-            self.conf
+            YumSorter._getConfig(self)
         else:
             YumSorter._getConfig(self, fn=fn, root=root,
                                  enabled_plugins=["whiteout", "blacklist"])
