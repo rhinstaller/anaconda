@@ -53,6 +53,10 @@ def get_device(udi):
         pdev = get_device(props['net.originating_device'])
         props['description'] = pdev['description']
 
+    # mmc block devices don't show up as disks (#481431)
+    if props.has_key('storage.drive_type') and props['storage.drive_type'] == "sd_mmc":
+        props['storage.drive_type'] = "disk"
+
     return props
 
 def get_devices_by_type(type):
