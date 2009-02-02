@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2009-01-30 16:28+0530\n"
+"PO-Revision-Date: 2009-02-02 13:01+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <Punjabi-users@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -2212,7 +2212,7 @@ msgstr "ਕੀ ਤੁਸੀਂ ਸਿਸਟਮ ਤੇ ਨੈੱਟਵਰਕ ਇ�
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
-msgstr ""
+msgstr "ਨੈੱਟਵਰਕਿੰਗ ਜੰਤਰ ਸਰਗਰਮ ਕਰਨ ਤੋਂ ਅਸਮਰਥ ਹੈ।  ਸੰਕਟਕਾਲੀਨ ਮੋਡ ਵਿੱਚ ਨੈੱਟਵਰਕਿੰਗ ਉਪਲੱਬਧ ਨਹੀਂ ਹੋਵੇਗੀ।"
 
 #: ../rescue.py:231 ../rescue.py:301 ../rescue.py:312 ../rescue.py:393
 msgid "Rescue"
@@ -3109,19 +3109,19 @@ msgstr "ਗੈਰ-ਮੌਜੂਦ ਮੁੱਲ"
 
 #: ../iw/autopart_type.py:285
 msgid "CHAP username is required if CHAP password is defined."
-msgstr ""
+msgstr "CHAP ਉਪਭੋਗੀ-ਨਾਂ ਲੋੜੀਂਦਾ ਹੈ ਜੇ CHAP ਪਾਸਵਰਡ ਦਿੱਤਾ ਹੈ।"
 
 #: ../iw/autopart_type.py:289
 msgid "CHAP password is required if CHAP username is defined."
-msgstr ""
+msgstr "CHAP ਪਾਸਵਰਡ ਲੋੜੀਂਦਾ ਹੈ ਜੇ CHAP ਉਪਭੋਗੀ-ਨਾਂ ਦਿੱਤਾ ਹੈ।"
 
 #: ../iw/autopart_type.py:295
 msgid "Reverse CHAP username is required if reverse CHAP password is defined."
-msgstr ""
+msgstr "ਉਲਟਾ CHAP ਉਪਭੋਗੀ-ਨਾਂ ਲੋੜੀਂਦਾ ਹੈ ਜੇ ਉਲਟਾ CHAP ਪਾਸਵਰਡ ਦਿੱਤਾ ਹੈ।"
 
 #: ../iw/autopart_type.py:299
 msgid "Reverse CHAP password is required if reverse CHAP username is defined."
-msgstr ""
+msgstr "ਉਲਟਾ CHAP ਪਾਸਵਰਡ ਲੋੜੀਂਦਾ ਹੈ ਜੇ ਉਲਟਾ CHAP ਉਪਭੋਗੀ-ਨਾਂ ਦਿੱਤਾ ਹੈ।"
 
 #: ../iw/autopart_type.py:317
 msgid "Error with Data"
@@ -3698,7 +3698,7 @@ msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ ਨਾਲ ਗਲਤੀ"
 
 #: ../iw/network_gui.py:62
 msgid "You must enter a valid hostname for this computer."
-msgstr ""
+msgstr "ਤੁਹਾਨੂੰ ਇਸ ਕੰਪਿਊਟਰ ਲਈ ਯੋਗ ਮੇਜ਼ਬਾਨ-ਨਾਂ ਦੇਣਾ ਜਰੂਰੀ ਹੈ।"
 
 #: ../iw/network_gui.py:68 ../textw/network_text.py:83
 #, python-format
@@ -5196,27 +5196,27 @@ msgstr "CHAP ਪਾਸਵਰਡ"
 
 #: ../textw/partition_text.py:1693
 msgid "Reverse CHAP username"
-msgstr ""
+msgstr "ਉਲਟਾ CHAP ਉਪਭੋਗੀ-ਨਾਂ"
 
 #: ../textw/partition_text.py:1694
 msgid "Reverse CHAP password"
-msgstr ""
+msgstr "ਉਲਟਾ CHAP ਪਾਸਵਰਡ"
 
 #: ../textw/partition_text.py:1712
 msgid "Username is required when password is present."
-msgstr ""
+msgstr "ਜਦੋਂ ਪਾਸਵਰਡ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਤਾਂ ਉਪਭੋਗੀ-ਨਾਂ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।"
 
 #: ../textw/partition_text.py:1715
 msgid "Password is required when username is present."
-msgstr ""
+msgstr "ਜਦੋਂ ਉਪਭੋਗੀ-ਨਾਂ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਤਾਂ ਪਾਸਵਰਡ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।"
 
 #: ../textw/partition_text.py:1720
 msgid "Reverse username is required whenreverse password is present."
-msgstr ""
+msgstr "ਉਲਟਾ ਉਪਭੋਗੀ-ਨਾਂ ਲੋੜੀਂਦਾ ਹੈ ਜਦੋਂ ਉਲਟਾ ਪਾਸਵਰਡ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ।"
 
 #: ../textw/partition_text.py:1724
 msgid "Reverse password is required whenreverse username is present."
-msgstr ""
+msgstr "ਉਲਟਾ ਪਾਸਵਰਡ ਲੋੜੀਂਦਾ ਹੈ ਜਦੋਂ ਉਲਟਾ ਉਪਭੋਗੀ-ਨਾਂ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ।"
 
 #: ../textw/partmethod_text.py:34
 msgid "Autopartition"
@@ -6576,11 +6576,11 @@ msgstr "<b> CHAP ਉਪਭੋਗੀ ਨਾਂ(_U):</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>ਰਾਖਵਾਂ CHAP ਪਾਸਵਰਡ(_a):</b>"
+msgstr "<b>ਉਲਟਾ CHAP ਪਾਸਵਰਡ(_a):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>ਰਾਖਵਾਂ CHAP ਉਪਭੋਗੀ ਨਾਂ(_s):</b>"
+msgstr "<b>ਉਲਟਾ CHAP ਉਪਭੋਗੀ ਨਾਂ(_s):</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
@@ -6670,7 +6670,7 @@ msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ:"
 msgid ""
 "Please name this computer.  The hostname identifies the computer on a "
 "network."
-msgstr ""
+msgstr "ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਕੰਪਿਊਟਰ ਦਾ ਨਾਂ ਦਿਓ। ਮੇਜ਼ਬਾਨ-ਨਾਂ ਨੈੱਟਵਰਕ ਉੱਪਰ ਇਸ ਕੰਪਿਊਟਰ ਦੀ ਪਛਾਣ ਹੈ।"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
