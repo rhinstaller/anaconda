@@ -2873,6 +2873,12 @@ def readFstab (anaconda):
             fstotry = fstotry.split(",")
         else:
             fstotry = [ fstotry ]
+
+        # ext4 used to be listed as ext4dev, so handle that possibility
+        for i in range(0, len(fstotry)):
+            if fstotry[i] == "ext4dev":
+                fstotry[i] = "ext4"
+
         fsystem = None
         for fs in fstotry:
             # if we don't support mounting the filesystem, continue
