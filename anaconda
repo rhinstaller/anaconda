@@ -38,8 +38,8 @@ from optparse import OptionParser
 miniwm_pid = None
 
 # Make sure messages sent through python's warnings module get logged.
-def AnacondaShowWarning(message, category, filename, lineno, file=sys.stderr):
-    log.warning("%s" % warnings.formatwarning(message, category, filename, lineno))
+def AnacondaShowWarning(message, category, filename, lineno, file=sys.stderr, line=None):
+    log.warning("%s" % warnings.formatwarning(message, category, filename, lineno, line))
 
 # start miniWM
 def startMiniWM(root='/'):
