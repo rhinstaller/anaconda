@@ -87,7 +87,7 @@ def iscsi_make_node_autostart(disk):
     sysfs_path = os.path.realpath("/sys/block/%s/device" %(disk,))
     argv = [ "-m", "session", "-r", sysfs_path ]
     log.debug("iscsiadm %s" %(string.join(argv),))
-    node_settings = iutil.execWithCapture(ISCSIADM, argv).splitlines()
+    node_settings = iutil.execWithCapture(ISCSIADM, argv, stderr="/dev/tty5").splitlines()
     node_name = iscsi_get_node_record(node_settings, "node.name")
     argv = [ "-m", "node", "-T", node_name, "-o", "update", "-n",
              "node.startup", "-v", "automatic" ]
@@ -116,7 +116,7 @@ class iscsiTarget:
         if self._portal is None:
             argv = [ "-m", "discovery", "-t", "st", "-p", self.ipaddr ]
             log.debug("iscsiadm %s" %(string.join(argv),))
-            records = iutil.execWithCapture(ISCSIADM, argv)
+            records = iutil.execWithCapture(ISCSIADM, argv, stderr="/dev/tty5")
             records = records.strip()
             for line in records.split("\n"):
                 log.debug("  %s" % (line,))
@@ -272,7 +272,7 @@ class iscsi(object):
 
         argv = [ "-m", "fw" ]
         log.debug("queryFirmware: ISCSIADM is %s" % (ISCSIADM,))
-        result = iutil.execWithCapture(ISCSIADM, argv)
+        result = iutil.execWithCapture(ISCSIADM, argv, stderr="/dev/tty5")
         result = result.strip()
 
         if len(result) == 0 \
@@ -283,7 +283,7 @@ class iscsi(object):
 
             # Try querying the node records instead
             argv = [ "-m", "node", "-o", "show", "-S" ]
-            result = iutil.execWithCapture(ISCSIADM, argv)
+            result = iutil.execWithCapture(ISCSIADM, argv, stderr="/dev/tty5")
 
             if len(result) == 0 \
                     or result[0].find("iscsiadm -") != -1 \
@@ -312,7 +312,7 @@ class iscsi(object):
             time.sleep(2)
 
     def _stopIscsiDaemon(self):
-        result = iutil.execWithCapture(ISCSIADM, ["-k", "0"])
+        result = iutil.execWithCapture(ISCSIADM, ["-k", "0"], stderr="/dev/tty5")
         result.strip()
         if result == "":
             self.iscsidStarted = False
@@ -338,7 +338,7 @@ class iscsi(object):
         find_iscsi_files()
 
         argv = [ "-m", "discovery", "-t", "fw", "-l" ]
-        result = iutil.execWithCapture(ISCSIADM, argv)
+        result = iutil.execWithCapture(ISCSIADM, argv, stderr="/dev/tty5")
         log.debug("iscsiadm result: %s" % (result,))
 
         start = result.find('[')
