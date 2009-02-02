@@ -105,15 +105,18 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
         os.chroot(root)
 
     rc = ""
-
     argv = list(argv)
+
     if type(stdin) == type("string"):
         if os.access(stdin, os.R_OK):
             stdin = open(stdin)
         else:
             stdin = 0
+
     if type(stderr) == type("string"):
         stderr = open(stderr, "w")
+    else:
+        stderr = stderr
 
     runningLog = open("/tmp/program.log", "a")
     runningLog.write("Running... %s\n" % ([command] + argv,))
@@ -131,7 +134,7 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
                 rc += outStr
             if errStr:
                 runningLog.write(errStr)
-                sys.__stdout__.write(errStr)
+                stderr.write(errStr)
 
             if proc.returncode is not None:
                 break
