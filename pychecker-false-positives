@@ -16,10 +16,16 @@ setattr
 ^network.py:[0-9]*: Object \(.*props\) has no attribute \(Get\)$
 ^partedUtils.py:[0-9]*: No module attribute \(__dict__\) found$
 ^partedUtils.py:[0-9]*: No module attribute \(DEVICE_SX8\) found$
+^partedUtils.py:[0-9]*: Object \(productUpgrades\) has no attribute \(has_key\)$
 ^kickstart.py:[0-9]*: No global \(fileSystemTypeGet.*\) found$
+^kickstart.py:[0-9]*: Object \(kwargs\) has no attribute \(update\)$
 ^upgrade.py:[0-9]*: No global \(getUsableLinuxFs\) found$
 ^upgrade.py:[0-9]*: No global \(SwapFileDevice\) found$
 ^upgrade.py:[0-9]*: No global \(fileSystemTypeGet\) found$
 ^upgrade.py:[0-9]*: No global \(FileSystemSetEntry\) found$
 ^upgrade.py:[0-9]*: No global \(readFstab\) found$
+^iutil.py:[0-9]*: Object \(ppcType\) has no attribute \(items\)$
+^livecd.py:[0-9]*: Object \(fsdict\) has no attribute \(keys\)$
+^packages.py:[0-9]*: Object \(publicBetas\) has no attribute \(items\)$
+^partRequests.py:[0-9]*: Format string argument count \(0\) doesn't match arguments \(1\)$
 Note this last line must never end with a newline
