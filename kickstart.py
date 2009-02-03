@@ -37,6 +37,7 @@ import warnings
 import upgrade
 import pykickstart.commands as commands
 import cryptodev
+import zonetab
 from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.parser import *
@@ -770,15 +771,9 @@ class Timezone(commands.timezone.FC6_Timezone):
         retval = commands.timezone.FC6_Timezone.parse(self, args)
 
         # check validity
-        f = open('/usr/share/zoneinfo/zone.tab', 'r')
-        for line in f:
-            line = line.strip()
-            if line[0] == '#':
-                continue
-            fields = line.split('\t')
-            if len(fields) > 2 and fields[2] == self.timezone: 
-                break
-        else:
+        tab = zonetab.ZoneTab()
+        if self.timezone not in (entry.tz.replace(' ','_') for entry in
+                                 tab.getEntries()):
             log.warning("Timezone %s set in kickstart is not valid, will ask" % (self.timezone,))
             return retval
 
