@@ -190,7 +190,7 @@ class BaseInstallClass(object):
 
     def setDefaultPartitioning(self, partitions, clear = CLEARPART_TYPE_LINUX,
                                doClear = 1, useLVM = True):
-        autorequests = [ ("/", "ext4", 1024, None, 1, 1, 1) ]
+        autorequests = [ ("/", None, 1024, None, 1, 1, 1) ]
 
         bootreq = getAutopartitionBoot(partitions)
         if bootreq:

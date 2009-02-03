@@ -1705,6 +1705,7 @@ def autoCreateLVMPartitionRequests(autoreq):
 
 def getAutopartitionBoot(partitions):
     """Return the proper shorthand for the boot dir (arch dependent)."""
+    fsname = fsset.fileSystemTypeGetDefaultBoot().getName()
     if iutil.isEfi():
         ret = [ ["/boot/efi", "efi", 50, 200, 1, 1, 0] ]
         for req in partitions.requests:
@@ -1712,20 +1713,20 @@ def getAutopartitionBoot(partitions):
                     and not req.mountpoint:
                 req.mountpoint = "/boot/efi"
                 ret = []
-        ret.append(("/boot", None, 200, None, 0, 1, 0))
+        ret.append(("/boot", fsname, 200, None, 0, 1, 0))
         return ret
     elif (iutil.getPPCMachine() == "pSeries"):
         return [ (None, "PPC PReP Boot", 4, None, 0, 1, 0),
-                 ("/boot", None, 200, None, 0, 1, 0) ]
+                 ("/boot", fsname, 200, None, 0, 1, 0) ]
     elif (iutil.getPPCMachine() == "iSeries") and not iutil.hasiSeriesNativeStorage():
         return [ (None, "PPC PReP Boot", 16, None, 0, 1, 0) ]
     elif (iutil.getPPCMachine() == "iSeries") and iutil.hasiSeriesNativeStorage():
         return []
     elif (iutil.getPPCMachine() == "PMac") and iutil.getPPCMacGen() == "NewWorld":
         return [ ( None, "Apple Bootstrap", 1, 1, 0, 1, 0), 
-                 ("/boot", None, 200, None, 0, 1, 0) ]
+                 ("/boot", fsname, 200, None, 0, 1, 0) ]
     else:
-        return [ ("/boot", None, 200, None, 0, 1, 0) ]
+        return [ ("/boot", fsname, 200, None, 0, 1, 0) ]
 
 
 # XXX hack but these are common strings to TUI and GUI

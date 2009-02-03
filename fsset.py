@@ -69,13 +69,22 @@ if iutil.isEfi():
 fileSystemTypes = {}
 
 def fileSystemTypeGetDefault():
+    if fileSystemTypeGet('ext4').isSupported():
+        return fileSystemTypeGet('ext4')
+    if fileSystemTypeGet('ext3').isSupported():
+        return fileSystemTypeGet('ext3')
+    elif fileSystemTypeGet('ext2').isSupported():
+        return fileSystemTypeGet('ext2')
+    else:
+        raise ValueError, "None of ext4, ext3 or ext2 is supported in your kernel!"
+
+def fileSystemTypeGetDefaultBoot():
     if fileSystemTypeGet('ext3').isSupported():
         return fileSystemTypeGet('ext3')
     elif fileSystemTypeGet('ext2').isSupported():
         return fileSystemTypeGet('ext2')
     else:
         raise ValueError, "You have neither ext3 or ext2 support in your kernel!"
-
 
 def fileSystemTypeGet(key):
     if fileSystemTypes.has_key(key):

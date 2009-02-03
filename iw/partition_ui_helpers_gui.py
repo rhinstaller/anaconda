@@ -217,6 +217,8 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
 def mountptchangeCB(widget, fstypecombo):
     if iutil.isEfi() and widget.get_children()[0].get_text() == "/boot/efi":
         fstypecombo.set_active_text("efi")
+    if widget.get_children()[0].get_text() == "/boot":
+        fstypecombo.set_active_text(fileSystemTypeGetDefaultBoot().getName())
 
 def resizeOptionCB(widget, resizesb):
     resizesb.set_sensitive(widget.get_active())
