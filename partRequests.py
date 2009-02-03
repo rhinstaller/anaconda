@@ -855,7 +855,18 @@ class LogicalVolumeRequestSpec(RequestSpec):
         """Return a device which can be solidified."""
         vg = partitions.getRequestByID(self.volumeGroup)
         vgname = vg.volumeGroupName
-        self.dev = fsset.LogicalVolumeDevice(vgname, self.size,
+
+        # we must pass the clamped size just in case.  When the request has
+        # gone through a grow process, it will have the clamped size.  But if
+        # it is not-growable, we need to make sure.  Don't touch if its
+        # preexisting.  We dont change self.size, because we don't want to be
+        # intrusive.
+        size = self.size
+        if self.preexist != 1:
+            vgreq = partitions.getRequestByID(self.volumeGroup)
+            size = lvm.clampLVSizeRequest(size, vgreq.pesize)
+
+        self.dev = fsset.LogicalVolumeDevice(vgname, size,
                                              self.logicalVolumeName,
                                              existing = self.preexist)
         return self.dev
