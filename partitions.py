@@ -370,8 +370,10 @@ class Partitions:
         drives.sort()
         for drive in drives:
             disk = diskset.disks[drive]
-            for part in disk.partitions:
+            part = disk.getFirstPartition()
+            while part:
                 if part.type & parted.PARTITION_METADATA:
+                    part = part.nextPartition()
                     continue
 
                 format = None
@@ -437,6 +439,8 @@ class Partitions:
                         if labels[mappedDev] and len(labels[mappedDev])>0:
                             spec.fslabel = labels[mappedDev]
                 self.addRequest(spec)
+
+                part = part.nextPartition()
 
         # now we need to read in all pre-existing RAID stuff
         diskset.startMPath()

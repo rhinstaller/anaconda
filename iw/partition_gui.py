@@ -828,12 +828,15 @@ class PartitionWindow(InstallWindow):
             sectorsPerCyl = heads * sectors
 
             extendedParent = None
-            for part in disk.partitions:
+            part = disk.getFirstPartition()
+            while part:
                 if part.type & parted.PARTITION_METADATA:
+                    part = part.nextPartition()
                     continue
                 # ignore the tiny < 1 MB partitions (#119479)
                 if part.getSize(unit="MB") <= 1.0:
                     if not part.is_active() or not part.getFlag(parted.PARTITION_BOOT):
+                        part = part.nextPartition()
                         continue
 
                 stripe.add(part)
@@ -898,6 +901,7 @@ class PartitionWindow(InstallWindow):
 			else:
 			    self.tree.appendToHiddenPartitionsList(part)
 			    self.tree.remove(iter)
+			    part = part.nextPartition()
 			    continue
 		    else:
 			self.tree[iter]['Mount Point'] = ""
@@ -944,6 +948,8 @@ class PartitionWindow(InstallWindow):
                     sizestr = "%Ld" % (size)
                 self.tree[iter]['Size (MB)'] = sizestr
                 self.tree[iter]['PyObject'] = part
+
+                part = part.nextPartition()
 
         canvas = self.diskStripeGraph.getCanvas()
         apply(canvas.set_scroll_region, canvas.root().get_bounds())

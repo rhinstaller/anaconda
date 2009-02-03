@@ -114,9 +114,11 @@ def bootAlphaCheckRequirements(part):
 
     # The first free space should start at the begining of the drive
     # and span for a megabyte or more.
-    for free in disk.partitions:
+    free = disk.getFirstPartition()
+    while free:
         if free.type & parted.PARTITION_FREESPACE:
             break
+        free = free.nextPartition()
     if (not free or free.geometry.start != 1L or free.getSize(unit="MB") < 1):
         return BOOTALPHA_NO_RESERVED_SPACE
 
@@ -148,10 +150,7 @@ def findFreespace(diskset):
     free = {}
     for drive in diskset.disks.keys():
         disk = diskset.disks[drive]
-        free[drive] = []
-        for part in disk.partitions:
-            if part.type & parted.PARTITION_FREESPACE:
-                free[drive].append(part)
+        free[drive] = disk.getFreeSpacePartitions()
     return free
 
 
@@ -453,13 +452,12 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     # now need to update freespace since adding extended
                     # took some space
                     found = 0
-                    for part in disk.partitions:
-                        if part.type & parted.PARTITION_FREESPACE:
-                            if part.geometry.start > freeStartSec and part.geometry.end <= freeEndSec:
-                                found = 1
-                                freeStartSec = part.geometry.start
-                                freeEndSec = part.geometry.end
-                                break
+                    for part in disk.getFreeSpacePartitions():
+                        if part.geometry.start > freeStartSec and part.geometry.end <= freeEndSec:
+                            found = 1
+                            freeStartSec = part.geometry.start
+                            freeEndSec = part.geometry.end
+                            break
 
                     if not found:
                         raise PartitioningError, "Could not find free space after making new extended partition"
