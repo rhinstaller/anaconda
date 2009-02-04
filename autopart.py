@@ -478,8 +478,9 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             geometry = parted.Geometry(device=disk.device,
                                        start=startSec,
                                        end=endSec)
+            fs=parted.FileSystem(type=fsType.name, geometry=geometry)
             newp = parted.Partition(disk=disk, type=partType,
-                                    fs=fsType, geometry=geometry)
+                                    fs=fs, geometry=geometry)
             constraint = parted.Constraint(device=disk.device)
 
             try:
