@@ -372,14 +372,14 @@ class Partitions:
             disk = diskset.disks[drive]
             part = disk.getFirstPartition()
             while part:
-                if part.type & parted.PARTITION_METADATA:
+                if (part.type & parted.PARTITION_METADATA) or \
+                   (part.type & parted.PARTITION_FREESPACE) or \
+                   (part.type & parted.PARTITION_PROTECTED):
                     part = part.nextPartition()
                     continue
 
                 format = None
-                if part.type & parted.PARTITION_FREESPACE:
-                    ptype = None
-                elif part.type & parted.PARTITION_EXTENDED:
+                if part.type & parted.PARTITION_EXTENDED:
                     ptype = None
                 elif part.getFlag(parted.PARTITION_RAID) == 1:
                     ptype = fsset.fileSystemTypeGet("software RAID")
