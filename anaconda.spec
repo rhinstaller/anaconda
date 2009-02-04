@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.95
+Version: 10.1.1.96
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Feb 4 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.96-1
+- Don't show the root password dialog, make patch work better (msivak).
+  Resolves: rhbz:#481597
+- Clamp the lv size on LV device creation (jgranados).
+  Resolves: rhbz:#480793
+
 * Fri Jan 30 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.95-1
 - Avoid devices where the lvm metadata is not present (jgranado).
   Resolves: rhbz:#481698
