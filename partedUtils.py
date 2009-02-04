@@ -247,14 +247,6 @@ def isEfiSystemPartition(part):
             part.fs_type.name in ("fat16", "fat32") and
             isys.readFSLabel(get_partition_name(part)) != "ANACONDA")
 
-archLabels = {'i386': ['msdos', 'gpt'],
-              's390': ['dasd', 'msdos'],
-              'alpha': ['bsd', 'msdos'],
-              'sparc': ['sun'],
-              'ia64': ['msdos', 'gpt'],
-              'ppc': ['msdos', 'mac', 'amiga', 'gpt'],
-              'x86_64': ['msdos', 'gpt']}
-
 def labelDisk(deviceFile, forceLabelType=None):
     dev = parted.PedDevice.get(deviceFile)
     label = getDefaultDiskType()
@@ -264,7 +256,7 @@ def labelDisk(deviceFile, forceLabelType=None):
     else:
         if label.name == 'msdos' and \
                 dev.length > (2L**41) / dev.sector_size and \
-                'gpt' in archLabels[iutil.getArch()]:
+                'gpt' in parted.archLabels[iutil.getArch()]:
             label = parted.disk_type_get('gpt')
 
     disk = dev.disk_new_fresh(label)
@@ -315,8 +307,8 @@ def checkDasdFmt(disk, intf):
 def checkDiskLabel(disk, intf):
     """Check that the disk label on disk is valid for this machine type."""
     arch = iutil.getArch()
-    if arch in archLabels.keys():
-        if disk.type.name in archLabels[arch]:
+    if arch in parted.archLabels.keys():
+        if disk.type.name in parted.archLabels[arch]:
             # this is kind of a hack since we don't want LDL to be used
             return checkDasdFmt(disk, intf)
     else:
@@ -1295,75 +1287,3 @@ class DiskSet:
                     drives.append((os.path.basename(name), d[1]))
 
         return drives
-
-# master list of partition types
-allPartitionTypesDict = {
-    0 : "Empty",
-    1: "DOS 12-bit FAT",
-    2: "XENIX root",
-    3: "XENIX usr",
-    4: "DOS 16-bit <32M",
-    5: "Extended",
-    6: "DOS 16-bit >=32M",
-    7: "NTFS/HPFS",
-    8: "AIX",
-    9: "AIX bootable",
-    10: "OS/2 Boot Manager",
-    0xb: "Win95 FAT32",
-    0xc: "Win95 FAT32",
-    0xe: "Win95 FAT16",
-    0xf: "Win95 Ext'd",
-    0x10: "OPUS",
-    0x11: "Hidden FAT12",
-    0x12: "Compaq Setup",
-    0x14: "Hidden FAT16 <32M",
-    0x16: "Hidden FAT16",
-    0x17: "Hidden HPFS/NTFS",
-    0x18: "AST SmartSleep",
-    0x1b: "Hidden Win95 FAT32",
-    0x1c: "Hidden Win95 FAT32 (LBA)",
-    0x1e: "Hidden Win95 FAT16 (LBA)",
-    0x24: "NEC_DOS",
-    0x39: "Plan 9",
-    0x40: "Venix 80286",
-    0x41: "PPC_PReP Boot",
-    0x42: "SFS",
-    0x4d: "QNX4.x",
-    0x4e: "QNX4.x 2nd part",
-    0x4f: "QNX4.x 2nd part",
-    0x51: "Novell?",
-    0x52: "Microport",
-    0x63: "GNU HURD",
-    0x64: "Novell Netware 286",
-    0x65: "Novell Netware 386",
-    0x75: "PC/IX",
-    0x80: "Old MINIX",
-    0x81: "Linux/MINIX",
-    0x82: "Linux swap",
-    0x83: "Linux native",
-    0x84: "OS/2 hidden C:",
-    0x85: "Linux Extended",
-    0x86: "NTFS volume set",
-    0x87: "NTFS volume set",
-    0x8e: "Linux LVM",
-    0x93: "Amoeba",
-    0x94: "Amoeba BBT",
-    0x9f: "BSD/OS",
-    0xa0: "IBM Thinkpad hibernation",
-    0xa5: "BSD/386",
-    0xa6: "OpenBSD",
-    0xb7: "BSDI fs",
-    0xb8: "BSDI swap",
-    0xbf: "Solaris",
-    0xc7: "Syrinx",
-    0xdb: "CP/M",
-    0xde: "Dell Utility",
-    0xe1: "DOS access",
-    0xe3: "DOS R/O",
-    0xeb: "BEOS",
-    0xee: "EFI GPT",    
-    0xef: "EFI (FAT-12/16/32)",
-    0xf2: "DOS secondary",
-    0xfd: "Linux RAID",
-    0xff: "BBT"
-    }
