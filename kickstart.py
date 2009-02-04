@@ -1259,3 +1259,22 @@ def setSteps(anaconda):
             dispatch.skipStep(n, permanent=1)
     for n in ksdata.showSteps:
         dispatch.skipStep(n, skip = 0)
+
+    # Text mode doesn't have all the steps that graphical mode does, so we
+    # can't stop and prompt for missing information.  Make sure we've got
+    # everything that would be provided by a missing section now and error
+    # out if we don't.
+    if ksdata.displaymode.displayMode == DISPLAY_MODE_TEXT:
+        missingSteps = [("bootloader", "Bootloader configuration"),
+                        ("group-selection", "Package selection")]
+        errors = []
+
+        for (step, msg) in missingSteps:
+            if not dispatch.stepInSkipList(step):
+                errors.append(msg)
+
+        if len(errors) > 0:
+            anaconda.intf.kickstartErrorWindow(_("Your kickstart file is missing "
+                "required information that anaconda cannot prompt for.  Please "
+                "add the following sections and try again:\n%s") % ", ".join(errors))
+            sys.exit(0)
