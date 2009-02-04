@@ -35,7 +35,7 @@ class AccountWindow (InstallWindow):
 	if not self.__dict__.has_key("pw"): return None
 
         # check if we already have a crypted password from kickstart
-        if self.rootPw.getCrypted(): return None
+        if self.rootPw.getCrypted() and not self.rootPw.getPure(): return None
 
         pw = self.pw.get_text()
         confirm = self.confirm.get_text()
