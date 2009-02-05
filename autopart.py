@@ -1672,12 +1672,7 @@ def autoCreateLVMPartitionRequests(autoreq):
                 if mntpt == '/':
                     lvtemplate = 'lv_root'
                 else:
-                    tmp = string.strip(mntpt)
-                    tmp = tmp.replace('/', '_')
-
-                    while tmp.startswith('_'):
-                        tmp = tmp[1:]
-
+                    tmp = lvm.safeLvmName(mntpt)
                     lvtemplate = "lv_%s" % (tmp,)
             else:
                 if ptype == fsset.fileSystemTypeGet("swap"):

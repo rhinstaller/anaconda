@@ -24,6 +24,7 @@ import os,sys
 import string
 import math
 import isys
+import re
 
 from flags import flags
 
@@ -528,6 +529,14 @@ def getMaxLVSize(pe):
         else:
             return (16*1024*1024) #Max is 16TiB
 
+def safeLvmName(str):
+    tmp = string.strip(str)
+    tmp = tmp.replace("/", "_")
+    tmp = re.sub("[^0-9a-zA-Z._]", "", str)
+    tmp = tmp.lstrip("_")
+
+    return tmp
+
 def createSuggestedVGName(partitions, network):
     """Given list of partition requests, come up with a reasonable VG name
 
@@ -540,8 +549,10 @@ def createSuggestedVGName(partitions, network):
         if hn == 'localhost' or hn == 'localhost.localdomain':
             vgtemplate = "VolGroup"
         elif hn.find('.') != -1:
+            hn = safeLvmName(hn)
             vgtemplate = "vg_%s" % (hn.split('.')[0].lower(),)
         else:
+            hn = safeLvmName(hn)
             vgtemplate = "vg_%s" % (hn.lower(),)
     else:
         vgtemplate = "VolGroup"
