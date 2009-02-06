@@ -1569,14 +1569,14 @@ MAILADDR root
         mntDict = {}
         bootDev = None
         for entry in self.entries:
-            mntDict[entry.mountpoint] = entry.device
+            mntDict[entry.mountpoint] = entry
 
         # FIXME: this ppc stuff feels kind of crufty -- the abstraction
         # here needs a little bit of work
         if iutil.getPPCMacGen() == "NewWorld":
             for entry in self.entries:
                 if entry.fsystem.getName() == "Apple Bootstrap":
-                    bootDev = entry.device
+                    bootDev = entry
         elif (iutil.getPPCMachine() == "pSeries" or
               iutil.getPPCMachine() == "iSeries"):
             # we want the first prep partition or the first newly formatted one
@@ -1587,7 +1587,7 @@ MAILADDR root
                          ((bestprep.format == 0) and (entry.format == 1)))):
                     bestprep = entry
             if bestprep:
-                bootDev = bestprep.device
+                bootDev = bestprep
         elif iutil.isEfi():
             if mntDict.has_key("/boot/efi"):
                 bootDev = mntDict['/boot/efi']
@@ -1638,20 +1638,18 @@ MAILADDR root
     # if an active partition is set, leave it alone; if none set
     # set either our boot partition or the first partition on the drive active
     def setActive(self, diskset, requests):
-        dev = self.getBootDev()
+        bootDev = self.getBootDev()
 
-        if dev is None:
+        if bootDev is None:
             return
 
-        bootDev = dev.device
-
-        if dev.getName() != "RAIDDevice":
+        if bootDev.device.getName() != "RAIDDevice":
             for request in requests:
                 if request.mountpoint == bootDev.mountpoint:
                     break
 
             for drive in request.drive:
-                part = diskset.disks[drive].getPartitionByPath("/dev/%s" % bootDev)
+                part = diskset.disks[drive].getPartitionByPath("/dev/%s" % bootDev.device.device)
                 if part:
                     break
 
@@ -1689,7 +1687,7 @@ MAILADDR root
                 if not bootPart:
                     bootPart = part
 
-                if part.getDeviceNodeName() == bootDev:
+                if part.getDeviceNodeName() == bootDev.device.device:
                     bootPart = part
 
             if bootPart and not foundActive:
