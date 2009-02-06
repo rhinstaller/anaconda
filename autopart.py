@@ -130,17 +130,6 @@ def bootAlphaCheckRequirements(part):
 
     return PARTITION_SUCCESS
 
-def printNewRequestsCyl(diskset, newRequest):
-    for req in newRequest.requests:
-        if req.type != REQUEST_NEW:
-            continue
-
-        for drive in req.drive:
-            part = diskset.disks[drive].getPartitionByPath(req.device)
-##           print(req)
-##           print("Start Cyl:%s    End Cyl: %s" % (part.geometry.device.startSectorToCylinder(part.geometry.start),
-##                                  part.geometry.device.endSectorToCylinder(part.geometry.end),))
-
 def printFreespaceitem(part):
     return part.getDeviceNodeName(), part.geometry.start, part.geometry.end, part.getSize(unit="MB")
 
@@ -652,12 +641,6 @@ def growParts(diskset, requests, newParts):
     ####
     newRequest = requests.copy()
 
-##     print("new requests")
-##     printNewRequestsCyl(diskset, requests)
-##     print("orig requests")
-##     printNewRequestsCyl(diskset, newRequest)
-##     print("\n\n\n")
-    
     (free, freeSize, largestFree) = getFreeSpace(diskset)
 
     # find growable partitions
@@ -677,10 +660,6 @@ def growParts(diskset, requests, newParts):
     # there aren't any drives with growable partitions, this is easy!
     if not growable.keys():
         return
-    
-##     print("new requests before looping")
-##     printNewRequestsCyl(diskset, requests)
-##     print("\n\n\n")
 
     # loop over all drives, grow all growable partitions one at a time
     grownList = []
@@ -831,8 +810,6 @@ def growParts(diskset, requests, newParts):
                 inner_iter = 0
                 ret = PARTITION_SUCCESS # request succeeded with initial size
                 while (max != min) and (lastDiff != diff) and (inner_iter < 2000):
-##                     printNewRequestsCyl(diskset, newRequest)
-
                     # XXX need to request in sectors preferably, more accurate
 ## 		    print("trying cur=%s" % cur)
                     request.requestSize = (cur*sectorSize)/1024.0/1024.0
