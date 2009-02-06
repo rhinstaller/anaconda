@@ -115,8 +115,6 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
 
     if type(stderr) == type("string"):
         stderr = open(stderr, "w")
-    else:
-        stderr = stderr
 
     runningLog = open("/tmp/program.log", "a")
     runningLog.write("Running... %s\n" % ([command] + argv,))
