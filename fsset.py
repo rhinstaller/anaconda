@@ -1647,7 +1647,7 @@ MAILADDR root
 
         if dev.getName() != "RAIDDevice":
             for request in requests:
-                if request.mountpoint = bootDev.mountpoint:
+                if request.mountpoint == bootDev.mountpoint:
                     break
 
             for drive in request.drive:
