@@ -143,7 +143,7 @@ def getDefaultDiskType():
 
 def hasGptLabel(diskset, device):
     disk = diskset.disks[device]
-    return disk.type.name == "gpt"
+    return disk.type == "gpt"
 
 def isEfiSystemPartition(part):
     if not part.active:
@@ -176,7 +176,7 @@ def checkDasdFmt(disk, intf):
     if not iutil.isS390():
         return 0
 
-    if disk.type.name != "dasd":
+    if disk.type != "dasd":
         return 0
 
     # FIXME: there has to be a better way to check LDL vs CDL
@@ -219,7 +219,7 @@ def checkDiskLabel(disk, intf):
             # this is kind of a hack since we don't want LDL to be used
             return checkDasdFmt(disk, intf)
     else:
-        if disk.type.name == "msdos":
+        if disk.type == "msdos":
             return 0
 
     if intf:
@@ -231,7 +231,7 @@ def checkDiskLabel(disk, intf):
                                   "ALL DATA on this drive.\n\n"
                                   "Would you like to re-initialize this "
                                   "drive?")
-                                %(disk.device.path[5:], disk.type.name,
+                                %(disk.device.path[5:], disk.type,
                                   productName), type="custom",
                                 custom_buttons = [ _("_Ignore drive"),
                                                    _("_Re-initialize drive") ],
@@ -772,7 +772,7 @@ class DiskSet:
                 continue
 
             # FIXME: this belongs in parted itself, but let's do a hack...
-            if iutil.isX86() and disk.type.name == "gpt" and not iutil.isEfi():
+            if iutil.isX86() and disk.type == "gpt" and not iutil.isEfi():
                 log.debug("syncing gpt to mbr for disk %s" % (disk.device.path,))
                 iutil.execWithRedirect("gptsync", [disk.device.path,],
                                        stdout="/tmp/gptsync.log",

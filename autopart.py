@@ -115,7 +115,7 @@ def bootAlphaCheckRequirements(part):
     disk = part.disk
 
     # Disklabel check
-    if not disk.type.name == "bsd":
+    if not disk.type == "bsd":
         return BOOTALPHA_NOT_BSD
 
     # The first free space should start at the begining of the drive
@@ -185,7 +185,7 @@ class partlist:
         self.parts = []
 
 def getMinimumSector(disk):
-    if disk.type.name == 'sun':
+    if disk.type == 'sun':
         (cylinders, heads, sectors) = disk.device.biosGeometry
         start = long(sectors * heads)
         start /= long(1024 / disk.device.sectorSize)
