@@ -149,6 +149,9 @@ def findRootParts(anaconda):
         anaconda.dispatch.skipStep("installtype", skip = 0)
 
 def findExistingRoots(anaconda, upgradeany = 0):
+    # make ibft configured iscsi disks available
+    anaconda.id.iscsi.startup(anaconda.intf)
+
     if not flags.setupFilesystems:
         relstr = partedUtils.getReleaseString (anaconda.rootPath)
         if ((flags.cmdline.has_key("upgradeany")) or

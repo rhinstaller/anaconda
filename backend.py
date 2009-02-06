@@ -79,9 +79,21 @@ class AnacondaBackend:
                 log.error("Could not copy firmware file %s: %s" % (f, e.strerror))
 
     def doPostInstall(self, anaconda):
+        has_iscsi_disk = False
+
+        # See if we have an iscsi disk. If we do we rerun mkinitrd, as
+        # the initrd might need iscsi-initiator-utils, and chances are
+        # it was not installed yet the first time mkinitrd was run, as
+        # mkinitrd does not require it.
+        for disk in anaconda.id.diskset.disks.keys():
+            if isys.driveIsIscsi(disk):
+                has_iscsi_disk = True
+                break
+
         if anaconda.id.extraModules:
             self.copyFirmware(anaconda)
 
+        if anaconda.id.extraModules or has_iscsi_disk:
             for (n, arch, tag) in self.kernelVersionList(anaconda.rootPath):
                 packages.recreateInitrd(n, anaconda.rootPath)
 

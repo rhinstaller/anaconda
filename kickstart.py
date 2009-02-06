@@ -313,9 +313,6 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
         retval = commands.iscsiname.FC6_IscsiName.parse(self, args)
 
         self.handler.id.iscsi.initiator = self.iscsiname
-        self.handler.id.iscsi.startIBFT()
-        # FIXME: flush the drive dict so we figure drives out again
-        isys.flushDriveDict()
         return retval
 
 class Keyboard(commands.keyboard.FC3_Keyboard):

@@ -205,6 +205,7 @@ def runRescue(anaconda, instClass):
             else:
                 break
 
+        anaconda.intf = None
         screen.finish()
 
     # Early shell access with no disk access attempts

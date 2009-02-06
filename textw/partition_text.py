@@ -187,7 +187,7 @@ class PartitionTypeWindow:
         else:
             try:
                 return self.addIscsiDriveDialog(screen)
-            except ValueError, e:
+            except (ValueError, IOError), e:
                 ButtonChoiceWindow(screen, _("Error"), str(e))
                 return INSTALL_BACK
 

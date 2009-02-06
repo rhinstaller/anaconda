@@ -62,6 +62,9 @@ def partitionObjectsInitialize(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return
 
+    # make ibft configured iscsi disks available when findrootparts was skipped
+    anaconda.id.iscsi.startup(anaconda.intf)
+
     # ensure zfcp devs are up
     anaconda.id.zfcp.startup()
 

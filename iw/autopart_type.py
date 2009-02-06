@@ -247,7 +247,6 @@ class PartitionTypeWindow(InstallWindow):
             rc = dialog.run()
             if rc == gtk.RESPONSE_CANCEL:
                 break
-                return rc
 
             initiator = dxml.get_widget("iscsiInitiatorEntry").get_text()
             initiator.strip()
@@ -297,6 +296,9 @@ class PartitionTypeWindow(InstallWindow):
             except ValueError, e:
                 self.intf.messageWindow(_("Error"), str(e))
                 continue
+            except IOError, e:
+                self.intf.messageWindow(_("Error"), str(e))
+                rc = gtk.RESPONSE_CANCEL
             break
 
         dialog.destroy()
@@ -362,12 +364,15 @@ class PartitionTypeWindow(InstallWindow):
         dialog.destroy()
 
         if rc != gtk.RESPONSE_CANCEL:
+            w = self.intf.waitWindow(_("Rescanning disks"),
+                                     _("Rescanning disks"))
             partitions.partitionObjectsInitialize(self.anaconda)
             createAllowedDrivesStore(self.diskset.disks,
                                      self.partitions.autoClearPartDrives,
                                      self.drivelist,
                                      disallowDrives=[self.anaconda.updateSrc])
             self._fillBootStore()
+            w.pop()
 
     def _fillBootStore(self):
         bootstore = self.bootcombo.get_model()
