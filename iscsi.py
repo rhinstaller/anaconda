@@ -301,7 +301,7 @@ class iscsi(object):
             root_requests = anaconda.id.partitions.getUnderlyingRequests(req)
             for req in root_requests:
                 for drive in req.drive:
-                    part = anaconda.id.diskset.disks[drive].getPartitionByPath(req.device)
+                    part = anaconda.id.diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
                     if part:
                         break
                 if not part:

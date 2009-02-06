@@ -520,7 +520,7 @@ class PartitionSpec(RequestSpec):
         size = 0
 
         for drive in self.drive:
-            part = diskset.disks[drive].getPartitionByPath(self.device)
+            part = diskset.disks[drive].getPartitionByPath("/dev/%s" % self.device)
 
             if not part:
                 # XXX kickstart might still call this before allocating the partitions

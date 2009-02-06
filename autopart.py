@@ -72,7 +72,7 @@ def bootRequestCheck(req, diskset):
         return PARTITION_SUCCESS
 
     for drive in req.drive:
-        part = diskset.disks[drive].getPartitionByPath(req.device)
+        part = diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
         if part:
             break
 
@@ -91,7 +91,7 @@ def bootRequestCheck(req, diskset):
     elif (iutil.getPPCMachine() == "pSeries" or
           iutil.getPPCMachine() == "iSeries"):
         for drive in req.drive:
-            part = diskset.disks[drive].getPartitionByPath(req.device)
+            part = diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
             if part and ((part.geometry.end * part.geometry.device.sectorSize /
                           (1024.0 * 1024)) > 4096):
                 return BOOTIPSERIES_TOO_HIGH
@@ -735,7 +735,7 @@ def growParts(diskset, requests, newParts):
 
                 # get amount of space actually used by current allocation
                 for drive in request.drive:
-                    part = diskset.disks[drive].getPartitionByPath(request.device)
+                    part = diskset.disks[drive].getPartitionByPath("/dev/%s" % request.device)
                     if part:
                         break
 
@@ -1021,7 +1021,7 @@ def processPartitioning(diskset, requests, newParts):
             # we need to keep track of the max size of preexisting partitions
             # FIXME: we should also get the max size for LVs at some point
             for drive in request.drive:
-                part = diskset.disks[drive].getPartitionByPath(request.device)
+                part = diskset.disks[drive].getPartitionByPath("/dev/%s" % request.device)
                 if part:
                     break
             request.maxResizeSize = part.getMaxAvailableSize(unit="MB")

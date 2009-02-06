@@ -1651,7 +1651,7 @@ MAILADDR root
                     break
 
             for drive in request.drive:
-                part = diskset.disks[drive].getPartitionByPath(bootDev)
+                part = diskset.disks[drive].getPartitionByPath("/dev/%s" % bootDev)
                 if part:
                     break
 

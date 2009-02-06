@@ -258,7 +258,7 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
 
     for req in requests:
         for drive in req.drive:
-            part = diskset.disks[drive].getPartitionByPath(req.device)
+            part = diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
 
             if part.type & parted.PARTITION_FREESPACE or \
                part.type & parted.PARTITION_METADATA or \
@@ -298,7 +298,7 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
 
         for req in left_requests:
             for drive in req.drive:
-                part = diskset.disks[drive].getPartitionByPath(req.device)
+                part = diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
 
                 if part.type & parted.PARTITION_FREESPACE or \
                    part.type & parted.PARTITION_METADATA or \
@@ -402,11 +402,11 @@ def checkForSwapNoMatch(anaconda):
     diskset = anaconda.id.diskset
 
     for request in anaconda.id.partitions.requests:
-        if not request.device or not request.fstype:
+        if not request.dev or not request.fstype:
             continue
 
         for drive in request.drive:
-            part = diskset.disks[drive].getPartitionByPath(request.device)
+            part = diskset.disks[drive].getPartitionByPath("/dev/%s" % request.device)
 
             if (part and (not part.type & parted.PARTITION_FREESPACE)
                 and (part.getFlag(parted.PARTITION_SWAP))
