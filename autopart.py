@@ -1020,10 +1020,7 @@ def processPartitioning(diskset, requests, newParts):
         elif request.preexist:
             # we need to keep track of the max size of preexisting partitions
             # FIXME: we should also get the max size for LVs at some point
-            for drive in request.drive:
-                part = diskset.disks[drive].getPartitionByPath("/dev/%s" % request.device)
-                if part:
-                    break
+            part = diskset.disks[request.drive].getPartitionByPath("/dev/%s" % request.device)
             request.maxResizeSize = part.getMaxAvailableSize(unit="MB")
 
 ##     print("disk layout after everything is done")
