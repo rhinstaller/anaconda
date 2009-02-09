@@ -26,20 +26,19 @@ msgstr ""
 "Project-Id-Version: anaconda.master.de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2008-11-26 00:11+0100\n"
+"PO-Revision-Date: 2009-02-09 21:43+0100\n"
 "Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
 
 #: ../anaconda:262
 #: ../anaconda:308
 #, c-format
 msgid "Error processing %%ksappend lines: %s"
-msgstr "Fehlerverarbeitung %%ksappend Zeile: %s"
+msgstr "Fehler in der Verarbeitung von %%ksappend Zeilen: %s"
 
 #: ../anaconda:265
 #: ../anaconda:311
@@ -58,7 +57,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Bei der syntaktischen Analyse der Kickstart-Konfiguration trat folgender Fehler auf:\n"
+"Bei der Syntaxanalyse der Kickstart-Konfiguration trat folgender Fehler auf:\n"
 "\n"
 "%s"
 
@@ -169,7 +168,7 @@ msgstr "Möchten Sie VNC benutzen?"
 
 #: ../anaconda:765
 msgid "The VNC mode installation offers more functionality than the text mode, would you like to use it instead?"
-msgstr "Die Installation im VNC-Modus bietet mehr Funktionalitäten als der Text-Modus. Möchten Sie diesen Modus daher nutzen?"
+msgstr "Die Installation im VNC-Modus bietet mehr Funktionalitäten als der Text-Modus. Möchten Sie diesen Modus nutzen?"
 
 #: ../anaconda:790
 msgid "Install class forcing text mode installation"
@@ -219,7 +218,7 @@ msgstr "Die Boot-Partition %s gehört zu keiner BSD-Plattenkennung. SRM kann von
 #: ../autopart.py:1064
 #, python-format
 msgid "Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot"
-msgstr "Die Boot-Partition %s gehört zu keiner Platte mit genügend freiem Speicher am Anfang, auf welchem der Bootloader Platz finden könnte. Stellen Sie sicher, dass mindestens 5 MB freier Speicher am Anfang der Platte sind, die /boot enthält."
+msgstr "Die Boot-Partition %s gehört zu keiner Platte mit genügend freiem Speicher am Anfang, auf welchem der Bootloader Platz finden könnte. Stellen Sie sicher, dass mindestens 5 MB freier Speicher am Anfang der Platte frei sind, die /boot enthält."
 
 #: ../autopart.py:1066
 #, python-format
@@ -233,7 +232,7 @@ msgstr "Die Boot-Partition muss sich komplett innerhalb der ersten 4 GB der Plat
 #: ../autopart.py:1070
 #, python-format
 msgid "Boot partition %s is not a Linux filesystem, such as ext3.  The system won't be able to boot from this partition."
-msgstr "Die Boot-Partition %s ist keine Linux-Partition, wie ext3. Das System wird nicht von dieser Partition booten können."
+msgstr "Die Boot-Partition %s ist keine Linux-Partition, wie beispielsweise ext3. Das System wird nicht von dieser Partition booten können."
 
 #: ../autopart.py:1073
 #, python-format
@@ -397,7 +396,7 @@ msgstr ""
 
 #: ../autopart.py:1583
 msgid "Unrecoverable Error"
-msgstr "Schwerwiegender Fehler"
+msgstr "Nicht behebbaerer Fehler"
 
 #: ../autopart.py:1584
 msgid "Your system will now be rebooted."
@@ -708,7 +707,7 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
-"Ein neuer Bug wurde erstellt, der auf Sie zurückgeführt wird. Bitte fügen Sie zusätzliche Informationen bei, wie z.B. wie Sie den Fehler entdeckt haben, Screenshots und alle anderen Informationen die mit den Fehler in Verbindung stehen:\n"
+"Ein neuer Bug wurde erstellt, mit Ihren Traceback-Informationen im Anhang. Bitte fügen Sie zusätzliche Informationen bei, wie z.B. wie Sie den Fehler entdeckt haben, Screenshots und alle anderen Informationen die mit den Fehler in Verbindung stehen:\n"
 "\n"
 "%s/%s"
 
@@ -732,7 +731,7 @@ msgstr ""
 #: ../exception.py:490
 #: ../exception.py:515
 msgid "Dump Written"
-msgstr "Dump wurde geschrieben"
+msgstr "Abbild wurde geschrieben"
 
 #: ../exception.py:476
 #: ../exception.py:491
@@ -6908,4 +6907,3 @@ msgstr "Zulu"
 #~ msgstr "Manuelle Konfiguration"
 #~ msgid "Point to Point (IP):"
 #~ msgstr "Punkt-zu-Punkt (IP):"
-
