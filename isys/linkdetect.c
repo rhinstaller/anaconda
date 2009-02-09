@@ -25,6 +25,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <sys/ioctl.h>
 #include <string.h>
 #include <unistd.h>
@@ -41,19 +42,26 @@
 
 static struct ifreq ifr;
 
-static int mdio_read(int skfd, int location)
+static int mdio_read(int skfd, uint16_t location)
 {
-    void *data = &ifr.ifr_data;
-    struct mii_ioctl_data *mii = data;
-    mii->reg_num = location;
+    struct mii_ioctl_data mii;
+
+    memset(&mii, 0, sizeof(mii));
+    memcpy(&mii, &ifr.ifr_data, sizeof(mii));
+    mii.reg_num = location;
+    memcpy(&ifr.ifr_data, &mii, sizeof(mii));
+
     if (ioctl(skfd, SIOCGMIIREG, &ifr) < 0) {
 #ifdef STANDALONE
-	fprintf(stderr, "SIOCGMIIREG on %s failed: %s\n", ifr.ifr_name,
-		strerror(errno));
+        fprintf(stderr, "SIOCGMIIREG on %s failed: %s\n", ifr.ifr_name,
+                strerror(errno));
 #endif
-	return -1;
+        return -1;
+    } else {
+        memcpy(&mii, &ifr.ifr_data, sizeof(mii));
     }
-    return mii->val_out;
+
+    return mii.val_out;
 }
 
 /* we don't need writing right now */
