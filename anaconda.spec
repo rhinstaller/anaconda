@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.12
+Version: 11.5.0.13
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,33 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 09 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.13-1
+- Check that required kickstart commands are present early on (#483048).
+  (clumens)
+- Simplify the text mode interface. (clumens)
+- Fix truncated translation string for livecd installs (#484430). (clumens)
+- Calcutta -> Kolkata (#484638). (clumens)
+- Fix runpychecker.sh to find zonetab module (hdegoede)
+- Strip invalid characters from automatically made VG/LV names (#483571).
+  (clumens)
+- Fix systemtime setting during installation (#6175, #461526). (rvykydal)
+- Workaround MMC block devs showing up not as disks from hal (#481431)
+  (katzj)
+- Add some new false positives to pychecker false positives filtering
+  (hdegoede)
+- Make kickstart timezone value check consistent with system-config-date
+  (#483094) (rvykydal)
+- Make ext4 default in UI filesystem selection (bug #481112) (rvykydal)
+- Redirect iscsiadm's stderr away from the console. (clumens)
+- Pay attention to the stderr parameter to execWithCapture. (clumens)
+- For python2.6, our showwarnings function must take a line= parameter.
+  (clumens)
+- If ext4dev is seen in the /etc/fstab, treat it as ext4 instead (#474484).
+  (clumens)
+- Make sure to call _getConfig from our YumSorter subclass. (clumens)
+- Set proper text mode font for Greeks (#470589) (msivak)
+- Lots of translation updates.
+
 * Thu Jan 29 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.12-1
 - If ks=nfs:... is given, don't try to find the file via boot options
   (#480210). (clumens)
