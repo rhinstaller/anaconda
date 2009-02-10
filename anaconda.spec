@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.14
+Version: 11.5.0.15
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 09 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.15-1
+- Fix gptsync/lib.c for gcc strict aliasing rules. (dcantrell)
+- Fix gcc warning for gptsync memset() usage. (dcantrell)
+
 * Mon Feb 09 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.14-1
 - Rewrite mdio_read() in linkdetect.c for strict aliasing rules. (dcantrell)
 
