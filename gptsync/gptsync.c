@@ -145,7 +145,7 @@ static UINTN write_mbr(VOID)
     }
     if (!have_bootcode) {
         // no boot code found in the MBR, add the syslinux MBR code
-        SetMem(sector, MBR_BOOTCODE_SIZE, 0);
+        SetMem(sector, 0, MBR_BOOTCODE_SIZE);
         CopyMem(sector, syslinux_mbr, SYSLINUX_MBR_SIZE);
     }
     
