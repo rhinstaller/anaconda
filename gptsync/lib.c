@@ -316,7 +316,7 @@ UINTN detect_mbrtype_fs(UINT64 partlba, UINTN *parttype, CHARN **fsname)
         return status;
     
     // detect XFS
-    signature = *((UINT32 *)(sector));
+    memcpy(&signature, sector, sizeof(UINT32));
     if (signature == 0x42534658) {
         *parttype = 0x83;
         *fsname = STR("XFS");
@@ -393,7 +393,7 @@ UINTN detect_mbrtype_fs(UINT64 partlba, UINTN *parttype, CHARN **fsname)
         return status;
     
     // detect HFS+
-    signature = *((UINT16 *)(sector));
+    memcpy(&signature, sector, sizeof(UINT16));
     if (signature == 0x4442) {
         *parttype = 0xaf;
         if (*((UINT16 *)(sector + 0x7c)) == 0x2B48)
