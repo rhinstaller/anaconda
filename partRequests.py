@@ -522,11 +522,11 @@ class PartitionSpec(RequestSpec):
         for drive in self.drive:
             part = diskset.disks[drive].getPartitionByPath("/dev/%s" % self.device)
 
-            if not part:
-                # XXX kickstart might still call this before allocating the partitions
-                raise RuntimeError, "Checking the size of a partition which hasn't been allocated yet"
+            if part:
+                size += part.getSize(unit="MB")
 
-            size += part.getSize(unit="MB")
+        if size == 0:
+            return self.requestSize
 
         return size
 
