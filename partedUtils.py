@@ -60,7 +60,7 @@ def get_partition_file_system_type(part):
     """
     if part.fileSystem is None and part.getFlag(parted.PARTITION_PREP):
         ptype = fsset.fileSystemTypeGet("PPC PReP Boot")
-    elif part.fileSystem == None:
+    elif part.fileSystem is None:
         return None
     elif (part.getFlag(parted.PARTITION_BOOT) and
           part.getSize(unit="MB") <= 1 and part.fileSystem.type == "hfs"):
