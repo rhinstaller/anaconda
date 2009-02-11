@@ -374,7 +374,7 @@ instbin() {
     done
 
     pushd $DIR/$LIBDIR
-    if [ -f ld-linux.so.2 ]; then
+    if [ -f ld-linux.so.2 -a ! -L ld-linux.so.2 ]; then
         rm -f ld-linux.so.2
         linker="$(ls -1 ld-*.*.*.so)"
         if [ -z "$linker" ]; then
