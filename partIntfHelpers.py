@@ -208,8 +208,9 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
                 if partition.type & parted.PARTITION_EXTENDED:
                     requestlist.deleteAllLogicalPartitions(partition)
 
-                delete = partRequests.DeleteSpec(drive, partition.geom.start,
-                                                 partition.geom.end)
+                delete = partRequests.DeleteSpec(drive,
+                                                 partition.geometry.start,
+                                                 partition.geometry.end)
                 requestlist.addDelete(delete)
             elif isinstance(request, partRequests.LogicalVolumeRequestSpec):
                 vgreq = requestlist.getRequestByID(request.volumeGroup)
@@ -343,14 +344,14 @@ def doEditPartitionByRequest(intf, requestlist, part):
 	    return (None, None)
     elif part.type & parted.PARTITION_FREESPACE:
         request = partRequests.PartitionSpec(fsset.fileSystemTypeGetDefault(),
-            start = part.geom.dev.startSectorToCylinder(part.geom.start),
-            end = part.geom.dev.endSectorToCylinder(part.geom.end),
+            start = part.geometry.device.startSectorToCylinder(part.geometry.start),
+            end = part.geometry.device.endSectorToCylinder(part.geometry.end),
             drive = [ partedUtils.get_partition_drive(part) ])
 
         return ("NEW", request)
     elif part.type & parted.PARTITION_EXTENDED:
         return (None, None)
-    
+
     ret = requestlist.containsImmutablePart(part)
     if ret:
         intf.messageWindow(_("Unable To Edit"),

@@ -126,7 +126,7 @@ def setMntPtComboStateFromType(fstype, mountCombo):
         mountCombo.set_sensitive(0)
 
     mountCombo.set_data("prevmountable", fstype.isMountable())
-    
+
 def fstypechangeCB(widget, mountCombo):
     fstype = widget.get_active_value()
     setMntPtComboStateFromType(fstype, mountCombo)
@@ -137,8 +137,8 @@ def createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=True,
     drives = disks.keys()
     drives.sort()
     for drive in drives:
-        size = disks[drive].dev.getSize(unit="MB")
-	selected = 0
+        size = disks[drive].device.getSize(unit="MB")
+        selected = 0
 
         if selectDrives:
             if reqdrives:
@@ -148,11 +148,11 @@ def createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=True,
                 if drive not in disallowDrives:
                     selected = 1
 
-	sizestr = "%8.0f MB" % size
-	drivelist.append_row((drive, sizestr, disks[drive].dev.model), selected)
+        sizestr = "%8.0f MB" % size
+        drivelist.append_row((drive, sizestr, disks[drive].device.model), selected)
 
     if len(disks.keys()) < 2:
-	drivelist.set_sensitive(False)
+        drivelist.set_sensitive(False)
     else:
         drivelist.set_sensitive(True)
 

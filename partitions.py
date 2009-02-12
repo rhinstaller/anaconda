@@ -418,8 +418,8 @@ class Partitions:
                 elif cryptodev.isLuks("/dev/%s" % device):
                     ptype = fsset.fileSystemTypeGet("foreign")
 
-                start = part.geom.start
-                end = part.geom.end
+                start = part.geometry.start
+                end = part.geometry.end
                 size = part.getSize(unit="MB")
                 drive = partedUtils.get_partition_drive(part)
 
@@ -1697,8 +1697,9 @@ class Partitions:
             self.removeRequest(request)
             if request.preexist:
                 drive = partedUtils.get_partition_drive(partition)
-                delete = partRequests.DeleteSpec(drive, partition.geom.start,
-                                                 partition.geom.end)
+                delete = partRequests.DeleteSpec(drive,
+                                                 partition.geometry.start,
+                                                 partition.geometry.end)
                 self.addDelete(delete)
 
     def containsImmutablePart(self, part):

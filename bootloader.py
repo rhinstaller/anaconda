@@ -120,22 +120,22 @@ def bootloaderSetupChoices(anaconda):
         anaconda.id.bootloader.setDevice(choices["mbr"][0])
     elif choices and choices.has_key("boot"):
         anaconda.id.bootloader.setDevice(choices["boot"][0])
-    
+
 
     bootDev = anaconda.id.fsset.getEntryByMountPoint("/")
     if not bootDev:
         bootDev = anaconda.id.fsset.getEntryByMountPoint("/boot")
     part = parted.getPartitionByName(bootDev.device.getDevice())
-    if part and part.geom.dev.endSectorToCylinder(part.geom.end) >= 1024:
+    if part and part.geometry.device.endSectorToCylinder(part.geometry.end) >= 1024:
         anaconda.id.bootloader.above1024 = 1
-    
+
 
 def writeBootloader(anaconda):
     def dosync():
         isys.sync()
         isys.sync()
         isys.sync()
-        
+
     justConfigFile = not flags.setupFilesystems
 
     if anaconda.id.bootloader.defaultDevice == -1:

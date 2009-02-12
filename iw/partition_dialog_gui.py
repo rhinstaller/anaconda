@@ -384,7 +384,7 @@ class PartitionEditor:
 		lbl = createAlignedLabel(_("_Start Cylinder:"))
                 maintable.attach(lbl, 0, 1, row, row + 1)
 
-                maxcyl = self.diskset.disks[origrequest.drive[0]].dev.cylinders
+                maxcyl = self.diskset.disks[origrequest.drive[0]].device.cylinders
                 cylAdj = gtk.Adjustment(value=origrequest.start,
                                         lower=origrequest.start,
                                         upper=maxcyl,

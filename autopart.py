@@ -86,10 +86,10 @@ def bootRequestCheck(req, diskset):
     elif (iutil.getPPCMachine() == "pSeries" or
           iutil.getPPCMachine() == "iSeries"):
         part = parted.getPartitionByName(req.device)
-        if part and ((part.geom.end * part.geom.dev.sectorSize /
+        if part and ((part.geometry.end * part.geometry.device.sectorSize /
                       (1024.0 * 1024)) > 4096):
             return BOOTIPSERIES_TOO_HIGH
-        
+
     return PARTITION_SUCCESS
 
 # Alpha requires a BSD partition to boot. Since we can be called after:
@@ -117,7 +117,7 @@ def bootAlphaCheckRequirements(part):
     for free in disk.partitions.values():
         if free.type & parted.PARTITION_FREESPACE:
             break
-    if (not free or free.geom.start != 1L or free.getSize(unit="MB") < 1):
+    if (not free or free.geometry.start != 1L or free.getSize(unit="MB") < 1):
         return BOOTALPHA_NO_RESERVED_SPACE
 
     return PARTITION_SUCCESS
@@ -127,14 +127,14 @@ def printNewRequestsCyl(diskset, newRequest):
     for req in newRequest.requests:
         if req.type != REQUEST_NEW:
             continue
-        
+
         part = parted.getPartitionByName(req.device)
 ##         print(req)
-##         print("Start Cyl:%s    End Cyl: %s" % (part.geom.dev.startSectorToCylinder(part.geom.start),
-##                                  part.geom.dev.endSectorToCylinder(part.geom.end),))
+##         print("Start Cyl:%s    End Cyl: %s" % (part.geometry.device.startSectorToCylinder(part.geometry.start),
+##                                  part.geometry.device.endSectorToCylinder(part.geometry.end),))
 
 def printFreespaceitem(part):
-    return part.getDeviceNodeName(), part.geom.start, part.geom.end, part.getSize(unit="MB")
+    return part.getDeviceNodeName(), part.geometry.start, part.geometry.end, part.getSize(unit="MB")
 
 def printFreespace(free):
     print("Free Space Summary:")
@@ -159,7 +159,7 @@ def bestPartType(disk, request):
     numPrimary = len(disk.getPrimaryPartitions())
     maxPrimary = disk.max_primary_partition_count
     if numPrimary == maxPrimary:
-        raise PartitioningError, "Unable to create additional primary partitions on /dev/%s" % (disk.dev.path[5:])
+        raise PartitioningError, "Unable to create additional primary partitions on /dev/%s" % (disk.device.path[5:])
     if request.primary:
         return parted.PARTITION_NORMAL
     if ((numPrimary == (maxPrimary - 1)) and
@@ -187,13 +187,13 @@ class partlist:
         for part in dellist:
             self.parts.remove(part)
             del part
-            
+
         self.parts = []
 
 def getMinimumSector(disk):
     if disk.type.name == 'sun':
-        start = long(disk.dev.sectors * disk.dev.heads)
-        start /= long(1024 / disk.dev.sectorSize)
+        start = long(disk.device.sectors * disk.device.heads)
+        start /= long(1024 / disk.device.sectorSize)
         return start + 1
     return 0L
 
@@ -217,16 +217,16 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
             if not disk: # this shouldn't happen
                 raise PartitioningError, "Selected to put partition on non-existent disk!"
 
-            startSec = disk.dev.startCylinderToSector(request.start)
+            startSec = disk.device.startCylinderToSector(request.start)
 
             if request.end:
                 endCyl = request.end
             elif request.size:
-                endCyl = disk.dev.endSectorToCylinder(((1024L * 1024L * request.size) / disk.dev.sectorSize) + startSec)
+                endCyl = disk.device.endSectorToCylinder(((1024L * 1024L * request.size) / disk.device.sectorSize) + startSec)
 
-            endSec = disk.dev.endCylinderToSector(endCyl)
+            endSec = disk.device.endCylinderToSector(endCyl)
 
-            if endSec > disk.dev.length:
+            if endSec > disk.device.length:
                 raise PartitioningError, "Unable to create partition which extends beyond the end of the disk."
 
             # XXX need to check overlaps properly here
@@ -236,7 +236,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
 
             if disk.supportsFeature(parted.DISK_TYPE_EXTENDED) and disk.extended_partition:
 
-                if (disk.extended_partition.geom.start < startSec) and (disk.extended_partition.geom.end >= endSec):
+                if (disk.extended_partition.geometry.start < startSec) and (disk.extended_partition.geometry.end >= endSec):
                     partType = parted.PARTITION_LOGICAL
                     if request.primary: # they've required a primary and we can't do it
                         raise PartitioningError, "Cannot create another primary partition for %s." % request.mountpoint
@@ -254,7 +254,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                     partType = parted.PARTITION_NORMAL
                 elif ret == parted.PARTITION_EXTENDED:
                     newp = disk.partition_new(parted.PARTITION_EXTENDED, None, startSec, endSec)
-                    constraint = disk.dev.constraint_any()
+                    constraint = disk.device.constraint_any()
                     disk.add_partition(newp, constraint)
                     disk.maximize_partition (newp, constraint)
                     newParts.parts.append(newp)
@@ -263,7 +263,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                 else: # shouldn't get here
                     raise PartitioningError, "Impossible partition type to create"
             newp = disk.partition_new (partType, fsType, startSec, endSec)
-            constraint = disk.dev.constraint_any ()
+            constraint = disk.device.constraint_any ()
             try:
                 disk.add_partition (newp, constraint)
 
@@ -377,8 +377,8 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     partSize = part.getSize(unit="MB")
                     # figure out what the request size will be given the
                     # geometry (#130885)
-                    requestSectors = long((request.requestSize * 1024L * 1024L) / part.disk.dev.sectorSize) - 1
-                    requestSizeMB = long((requestSectors * part.disk.dev.sectorSize) / 1024L / 1024L)
+                    requestSectors = long((request.requestSize * 1024L * 1024L) / part.disk.device.sectorSize) - 1
+                    requestSizeMB = long((requestSectors * part.disk.device.sectorSize) / 1024L / 1024L)
 		    lvmLog.debug("partSize %s  request %s" % (partSize, request.requestSize))
                     if partSize >= requestSizeMB and partSize > largestPart[0]:
                         if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
@@ -399,19 +399,19 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 
             lvmLog.debug("largestPart is %s" % (largestPart,))
             freespace = largestPart[1]
-            freeStartSec = freespace.geom.start
-            freeEndSec = freespace.geom.end
+            freeStartSec = freespace.geometry.start
+            freeEndSec = freespace.geometry.end
 
-            dev = freespace.geom.dev
+            dev = freespace.geometry.device
             disk = freespace.disk
 
             startSec = freeStartSec
 
 	    # For alpha reserve space at the begining of disk
-	    if iutil.isAlpha() and startSec < long((1024L * 1024L)/disk.dev.sectorSize):
-		startSec = long((2 * 1024L * 1024L)/disk.dev.sectorSize)
+	    if iutil.isAlpha() and startSec < long((1024L * 1024L)/disk.device.sectorSize):
+		startSec = long((2 * 1024L * 1024L)/disk.device.sectorSize)
 
-            endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sectorSize)) - 1
+            endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.device.sectorSize)) - 1
 
             if endSec > freeEndSec:
                 endSec = freeEndSec
@@ -440,17 +440,17 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     found = 0
                     for part in disk.partitions.values():
                         if part.type & parted.PARTITION_FREESPACE:
-                            if part.geom.start > freeStartSec and part.geom.end <= freeEndSec:
+                            if part.geometry.start > freeStartSec and part.geometry.end <= freeEndSec:
                                 found = 1
-                                freeStartSec = part.geom.start
-                                freeEndSec = part.geom.end
+                                freeStartSec = part.geometry.start
+                                freeEndSec = part.geometry.end
                                 break
 
                     if not found:
                         raise PartitioningError, "Could not find free space after making new extended partition"
 
                     startSec = freeStartSec
-                    endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sectorSize)) - 1
+                    endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.device.sectorSize)) - 1
 
                     if endSec > freeEndSec:
                         endSec = freeEndSec
@@ -477,7 +477,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 newp.setFlag(flag)
 
             request.device = fsset.PartedPartitionDevice(newp).getDevice()
-            drive = newp.geom.dev.path[5:]
+            drive = newp.geometry.device.path[5:]
             request.currentDrive = drive
             newParts.parts.append(newp)
             free = findFreespace(diskset)
@@ -616,7 +616,7 @@ def growParts(diskset, requests, newParts):
             freeSize[key] = 0
             largestFree[key] = 0
             for part in free[key]:
-                sz = part.geom.length
+                sz = part.geometry.length
                 freeSize[key] += sz
                 if sz > largestFree[key]:
                     largestFree[key] = sz
@@ -682,17 +682,17 @@ def growParts(diskset, requests, newParts):
 ##             print("\n")
 
 ##             print(diskset.diskState())
-            
-            
+
+
             outer_iter = outer_iter + 1
             donegrowing = 1
 
             # pull out list of requests we want to grow on this drive
             growList = growable[drive]
 
-            sectorSize = diskset.disks[drive].dev.sectorSize
-            cylsectors = diskset.disks[drive].dev.sectors*diskset.disks[drive].dev.heads
-            
+            sectorSize = diskset.disks[drive].device.sectorSize
+            cylsectors = diskset.disks[drive].device.sectors*diskset.disks[drive].device.heads
+
             # sort in order of request size, consider biggest first
             n = 0
             while n < len(growList):
@@ -864,17 +864,17 @@ def setPreexistParts(diskset, requests):
             continue
         disk = diskset.disks[request.drive]
         for part in disk.partitions.values():
-            if part.geom.start == request.start and part.geom.end == request.end:
+            if part.geometry.start == request.start and part.geometry.end == request.end:
                 if partedUtils.isEfiSystemPartition(part) and \
                         request.fstype.name == "vfat":
                     request.fstype = fsset.fileSystemTypeGet("efi")
                 # if the partition is being resized, we do that now
                 if request.targetSize is not None:
-                    startSec = part.geom.start
-                    endSec = part.geom.start + long(((request.targetSize * 1024L * 1024L) / disk.dev.sectorSize)) - 1
+                    startSec = part.geometry.start
+                    endSec = part.geometry.start + long(((request.targetSize * 1024L * 1024L) / disk.device.sectorSize)) - 1
 
                     try:
-                        g = part.geom.duplicate()
+                        g = part.geometry.duplicate()
                         g.set_end(endSec)
                         constraint = g.constraint_exact()
                         part.set_geometry(constraint, startSec, endSec)
@@ -882,7 +882,7 @@ def setPreexistParts(diskset, requests):
                         log.error("error setting geometry for partition %s: %s" %(part.getDeviceNodeName(), msg))
                         raise PartitioningError, _("Error resizing partition %s.\n\n%s") %(part.getDeviceNodeName(), msg)
 
-                    if startSec != part.geom.start:
+                    if startSec != part.geometry.start:
                         raise PartitioningError, _("Start of partition %s was moved when resizing") %(part.getDeviceNodeName(),)
 
                 request.device = part.getDeviceNodeName()
@@ -906,7 +906,7 @@ def setPreexistParts(diskset, requests):
 def deletePart(diskset, delete):
     disk = diskset.disks[delete.drive]
     for part in disk.partitions.values():
-        if part.geom.start == delete.start and part.geom.end == delete.end:
+        if part.geometry.start == delete.start and part.geometry.end == delete.end:
             disk.deletePartition(part)
             return
 
@@ -918,7 +918,7 @@ def processPartitioning(diskset, requests, newParts):
 
     for part in newParts.parts:
         if part.type == parted.PARTITION_EXTENDED:
-            extendeds[part.geom.dev.path] = None
+            extendeds[part.geometry.device.path] = None
 
     # Go through the list again and check for each logical partition we have.
     # If we created the extended partition on the same device as the logical
@@ -927,7 +927,7 @@ def processPartitioning(diskset, requests, newParts):
     dellist = []
     for part in newParts.parts:
         if (part.type & parted.PARTITION_LOGICAL
-            and extendeds.has_key(part.geom.dev.path)):
+            and extendeds.has_key(part.geometry.device.path)):
             dellist.append(part)
 
     for part in dellist:
@@ -1146,8 +1146,8 @@ def doClearPartAction(anaconda, partitions, diskset):
                 partitions.removeRequest(old)
 
                 drive = partedUtils.get_partition_drive(part)
-                delete = partRequests.DeleteSpec(drive, part.geom.start,
-                                                 part.geom.end)
+                delete = partRequests.DeleteSpec(drive, part.geometry.start,
+                                                 part.geometry.end)
                 partitions.addDelete(delete)
 
             # EFI autopartitioning is strange as /boot/efi is efi (which is
@@ -1207,21 +1207,21 @@ def doClearPartAction(anaconda, partitions, diskset):
         ext = disk.extended_partition
         # if the extended is empty, blow it away
         if ext and len(disk.getLogicalPartitions()) == 0:
-            delete = partRequests.DeleteSpec(drive, ext.geom.start,
-                                             ext.geom.end)
+            delete = partRequests.DeleteSpec(drive, ext.geometry.start,
+                                             ext.geometry.end)
             old = partitions.getRequestByDeviceName(ext.getDeviceNodeName())
             partitions.removeRequest(old)
             partitions.addDelete(delete)
             deletePart(diskset, delete)
             continue
-    
+
 def doAutoPartition(anaconda):
     instClass = anaconda.id.instClass
     diskset = anaconda.id.diskset
     partitions = anaconda.id.partitions
 
     if anaconda.isKickstart:
-	partitions.setProtected(anaconda.dispatch)
+        partitions.setProtected(anaconda.dispatch)
 
     if anaconda.dir == DISPATCH_BACK:
         diskset.refreshDevices()
@@ -1253,7 +1253,7 @@ def doAutoPartition(anaconda):
       for drive in filter (lambda d: d in initial_free_keys, partitions.autoClearPartDrives):
         free = 0
         for f in initial_free[drive]:
-            size = f.geom.end - f.geom.start
+            size = f.geometry.end - f.geometry.start
             # don't count any partition smaller than 1M
             if (size > 2048):
                 free += size

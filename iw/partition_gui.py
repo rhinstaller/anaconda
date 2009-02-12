@@ -154,9 +154,9 @@ class DiskStripeSlice:
 
     def update(self):
         disk = self.parent.getDisk()
-        totalSectors = float(disk.dev.heads
-                             * disk.dev.sectors
-                             * disk.dev.cylinders)
+        totalSectors = float(disk.device.heads
+                             * disk.device.sectors
+                             * disk.device.cylinders)
 
         # XXX hack but will work for now
         if gtk.gdk.screen_width() > 640:
@@ -164,8 +164,8 @@ class DiskStripeSlice:
         else:
             width = CANVAS_WIDTH_640
 
-        xoffset = self.partition.geom.start / totalSectors * width
-        xlength = self.partition.geom.length / totalSectors * width
+        xoffset = self.partition.geometry.start / totalSectors * width
+        xlength = self.partition.geometry.length / totalSectors * width
         if self.partition.type & parted.PARTITION_LOGICAL:
             yoffset = 0.0 + LOGICAL_INSET
             yheight = STRIPE_HEIGHT - (LOGICAL_INSET * 2)
@@ -319,15 +319,15 @@ class DiskStripeGraph:
 	if show_geometry:
 	    drivetext = _("Drive %s (Geom: %s/%s/%s) "
 			 "(Model: %s)") % ('/dev/' + drive,
-					   disk.dev.cylinders,
-					   disk.dev.heads,
-					   disk.dev.sectors,
-					   disk.dev.model)
+					   disk.device.cylinders,
+					   disk.device.heads,
+					   disk.device.sectors,
+					   disk.device.model)
 	else:
 	    drivetext = _("Drive %s (%-0.f MB) "
 			 "(Model: %s)") % ('/dev/' + drive,
-					   disk.dev.getSize(unit="MB"),
-					   disk.dev.model)
+					   disk.device.getSize(unit="MB"),
+					   disk.device.model)
 
 
         text.set(text=drivetext, fill_color='black', anchor=gtk.ANCHOR_NW,
@@ -826,7 +826,7 @@ class PartitionWindow(InstallWindow):
             parent = self.tree.append(drvparent)
             self.tree[parent]['Device'] = '/dev/%s' % (drive,)
             self.tree[parent]['PyObject'] = str('/dev/%s' % (drive,))
-            sectorsPerCyl = disk.dev.heads * disk.dev.sectors
+            sectorsPerCyl = disk.device.heads * disk.device.sectors
 
             extendedParent = None
             part = disk.next_partition()
@@ -941,8 +941,8 @@ class PartitionWindow(InstallWindow):
                     self.tree[iter]['Label'] = ""
 
                 self.tree[iter]['Type'] = ptype
-                self.tree[iter]['Start'] = str(disk.dev.startSectorToCylinder(part.geom.start))
-                self.tree[iter]['End'] = str(disk.dev.endSectorToCylinder(part.geom.end))
+                self.tree[iter]['Start'] = str(disk.device.startSectorToCylinder(part.geometry.start))
+                self.tree[iter]['End'] = str(disk.device.endSectorToCylinder(part.geometry.end))
                 size = part.getSize(unit="MB")
                 if size < 1.0:
                     sizestr = "< 1"
