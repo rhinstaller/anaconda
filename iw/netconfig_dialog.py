@@ -67,8 +67,8 @@ class NetworkConfigurator:
         val = combo.get_model().get_value(active, 1)
         netdev = self.network.available()[val]
 
-        bootproto = netdev.get('BOOTPROTO')
-        if not bootproto or bootproto == "dhcp":
+        bootproto = netdev.get("BOOTPROTO")
+        if not bootproto or bootproto == "dhcp" or bootproto == "ibft":
             self.xml.get_widget("dhcpCheckbutton").set_active(True)
         else:
             self.xml.get_widget("dhcpCheckbutton").set_active(False)

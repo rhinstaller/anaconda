@@ -53,6 +53,7 @@
 #include "method.h"
 #include "net.h"
 #include "windows.h"
+#include "ibft.h"
 
 /* boot flags */
 extern uint64_t flags;
@@ -237,8 +238,30 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
     }
 
     if (loaderData->ipinfo_set && loaderData->ipv4 != NULL) {
+	/* this is iBFT configured device */
+	if (!strncmp(loaderData->ip, "ibft", 4)) {
+	    char *devmacaddr = nl_mac2str(loaderData->netDev);
+	    iface->ipv4method = IPV4_IBFT_METHOD;
+	    iface->isiBFT = 1;
+
+	    /* Problems with getting the info from iBFT or iBFT uses dhcp*/
+	    if(!devmacaddr || !ibft_present()){
+		iface->ipv4method = IPV4_DHCP_METHOD;
+		logMessage(INFO, "iBFT is not present");
+	    }
+	    /* MAC address doesn't match */
+	    else if(strcasecmp(ibft_iface_mac(), devmacaddr)){
+		iface->ipv4method = IPV4_DHCP_METHOD;
+		logMessage(INFO, "iBFT doesn't know what NIC to use - falling back to DHCP");
+	    }
+	    else if(ibft_iface_dhcp()){
+		iface->ipv4method = IPV4_IBFT_DHCP_METHOD;
+		logMessage(INFO, "iBFT is configured to use DHCP");
+	    }
+	    if(devmacaddr) free(devmacaddr);
+	}
         /* this is how we specify dhcp */
-        if (!strncmp(loaderData->ipv4, "dhcp", 4)) {
+        else if (!strncmp(loaderData->ipv4, "dhcp", 4)) {
             iface->dhcptimeout = loaderData->dhcpTimeout;
             iface->ipv4method = IPV4_DHCP_METHOD;
         } else if (inet_pton(AF_INET, loaderData->ipv4, &addr) >= 1) {
@@ -289,6 +312,24 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
     }
 #endif
 
+    /* iBFT configured DNS */
+    if(iface->ipv4method == IPV4_IBFT_METHOD){
+	if(iface->numdns<MAXNS){
+	    if(ibft_iface_dns1() && inet_pton(AF_INET, ibft_iface_dns1(), &addr)>=1){
+		iface->dns[iface->numdns] = strdup(ibft_iface_dns1());
+		iface->numdns++;
+		logMessage(INFO, "adding iBFT dns server %s", ibft_iface_dns1());
+	    }
+	}
+	if(iface->numdns<MAXNS){
+	    if(ibft_iface_dns2() && inet_pton(AF_INET, ibft_iface_dns2(), &addr)>=1){
+		iface->dns[iface->numdns] = strdup(ibft_iface_dns2());
+		iface->numdns++;
+		logMessage(INFO, "adding iBFT dns server %s", ibft_iface_dns2());
+	    }
+	}
+    }
+
     if (loaderData->dns) {
         char * buf;
         char ret[INET6_ADDRSTRLEN+1];
@@ -319,6 +360,8 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
                 }
             }
         }
+
+
 
         logMessage(INFO, "dnsservers is %s", loaderData->dns);
     }
@@ -1221,7 +1264,17 @@ int writeEnabledNetInfo(iface_t *iface) {
     fprintf(fp, "ONBOOT=yes\n");
 
     if (!FL_NOIPV4(flags)) {
-        if (iface->ipv4method == IPV4_DHCP_METHOD) {
+        if (iface->ipv4method == IPV4_IBFT_METHOD) {
+	    /* When initrd and NM support iBFT, we should just write
+	     * BOOTPROTO=ibft and let NM deal with it. Until than,
+	     * just use static and do it ourselves. */
+            fprintf(fp, "BOOTPROTO=static\n");
+	    if(ibft_iface_ip()) fprintf(fp, "IPADDR=%s\n", ibft_iface_ip());
+	    if(ibft_iface_mask()) fprintf(fp, "NETMASK=%s\n", ibft_iface_mask());
+	    if(ibft_iface_gw()) fprintf(fp, "GATEWAY=%s\n", ibft_iface_gw());
+        else if (iface->ipv4method == IPV4_IBFT_DHCP_METHOD) {
+            fprintf(fp, "BOOTPROTO=dhcp\n");
+        else if (iface->ipv4method == IPV4_DHCP_METHOD) {
             fprintf(fp, "BOOTPROTO=dhcp\n");
         } else if (iface->ipv4method == IPV4_MANUAL_METHOD) {
             fprintf(fp, "BOOTPROTO=static\n");
@@ -1580,6 +1633,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     char **deviceNames;
     char *ksMacAddr = NULL, *seconds = strdup("10"), *idstr = NULL;
     struct device **devs;
+    int lookForLink = 0;
     struct newtWinEntry entry[] = {{N_("Seconds:"), (char **) &seconds, 0},
                                    {NULL, NULL, 0 }};
 
@@ -1669,8 +1723,60 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
         return LOADER_NOOP;
     }
 
+    while((loaderData->netDev && (loaderData->netDev_set == 1)) &&
+	    !strcmp(loaderData->netDev, "ibft")){
+	char *devmacaddr = NULL;
+	char *ibftmacaddr = "";
+
+	/* get MAC from the iBFT table */
+	if(!(ibftmacaddr = ibft_iface_mac())){ /* iBFT not present or error */
+	    lookForLink = 0;
+	    break;
+	}
+
+	logMessage(INFO, "looking for iBFT configured device %s with link", ibftmacaddr);
+	lookForLink = 0;
+
+	for (i = 0; devs[i]; i++) {
+	    if (!devs[i]->device)
+		continue;
+	    devmacaddr = nl_mac2str(devs[i]->device);
+	    if(!strcasecmp(devmacaddr, ibftmacaddr)){
+		logMessage(INFO, "%s has the right MAC (%s), checking for link", devmacaddr, devices[i]);
+		free(devmacaddr);
+		if(get_link_status(devices[i]) == 1){
+		    lookForLink = 0;
+		    loaderData->netDev = devices[i];
+		    logMessage(INFO, "%s has link, using it", devices[i]);
+
+		    /* set the IP method to ibft if not requested differently */
+		    if(loaderData->ip==NULL){
+			loaderData->ip = strdup("ibft");
+			logMessage(INFO, "%s will be configured using iBFT values", devices[i]);
+		    }
+		    return LOADER_NOOP;
+		}
+		else{
+		    logMessage(INFO, "%s has no link, skipping it", devices[i]);
+		}
+
+		break;
+	    }
+	    else{
+		free(devmacaddr);
+	    }
+	}
+
+	break;
+    }
+
+
     if ((loaderData->netDev && (loaderData->netDev_set == 1)) &&
         !strcmp(loaderData->netDev, "link")) {
+	lookForLink = 1;
+    }
+
+    if(lookForLink){
         logMessage(INFO, "looking for first netDev with link");
         for (rc = 0; rc < 5; rc++) {
             for (i = 0; i < deviceNums; i++) {
