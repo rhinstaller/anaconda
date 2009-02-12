@@ -30,7 +30,7 @@
 /* Enumerated types used in iface.c as well as loader's network code */
 enum { IPUNUSED, IPV4, IPV6 };
 
-enum { IPV4_UNUSED_METHOD, IPV4_DHCP_METHOD, IPV4_MANUAL_METHOD };
+enum { IPV4_UNUSED_METHOD, IPV4_DHCP_METHOD, IPV4_MANUAL_METHOD, IPV4_IBFT_METHOD, IPV4_IBFT_DHCP_METHOD };
 enum { IPV6_UNUSED_METHOD, IPV6_AUTO_METHOD, IPV6_DHCP_METHOD,
        IPV6_MANUAL_METHOD };
 
@@ -100,6 +100,7 @@ typedef struct _iface_t {
     uint64_t flags;
     int ipv4method;
     int ipv6method;
+    int isiBFT;
 } iface_t;
 
 /* Function prototypes */

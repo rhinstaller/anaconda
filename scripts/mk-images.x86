@@ -33,7 +33,7 @@ fi
 prepareBootTree() {
 	(cd $BOOTDISKDIR; find . -maxdepth 1 ! -name "*.msg" ! -type d | cpio --quiet -p $MBD_BOOTTREE)
 	
-	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
+	ln $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 
 	if [ -f $IMGPATH/usr/lib/anaconda-runtime/syslinux-vesa-splash.jpg ]; then

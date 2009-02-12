@@ -26,7 +26,7 @@ else
 TARGET=depend $(PROGS)
 endif
 
-LIBS = -lnewt -lslang -lz -lpopt ../isys/libisys.a -lcheckisomd5
+LIBS = -lnewt -lslang -lz -lpopt ../isys/libisys.a -lcheckisomd5 -liscsi
 
 # devmapper
 LIBS   += $(shell pkg-config --libs devmapper)
@@ -57,7 +57,7 @@ METHOBJS = method.o cdinstall.o hdinstall.o nfsinstall.o urlinstall.o
 OBJS = copy.o log.o moduleinfo.o loadermisc.o modules.o windows.o \
 	lang.o kbd.o driverdisk.o selinux.o \
 	mediacheck.o kickstart.o driverselect.o \
-	getparts.o dirbrowser.o fwloader.o \
+	getparts.o dirbrowser.o fwloader.o ibft.o \
 	$(HWOBJS) $(METHOBJS)
 LOADEROBJS = loader.o loader-pcmcia.o
 NETOBJS = net.o urls.o ftp.o telnet.o telnetd.o

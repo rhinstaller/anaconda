@@ -1261,7 +1261,7 @@ def setSteps(anaconda):
     # can't stop and prompt for missing information.  Make sure we've got
     # everything that would be provided by a missing section now and error
     # out if we don't.
-    if ksdata.displaymode.displayMode == DISPLAY_MODE_TEXT:
+    if anaconda.id.displayMode == "t":
         missingSteps = [("bootloader", "Bootloader configuration"),
                         ("group-selection", "Package selection")]
         errors = []

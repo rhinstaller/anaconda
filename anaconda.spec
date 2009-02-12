@@ -38,6 +38,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define dbusver 1.2.3
 %define createrepover 0.4.7
 %define yumutilsver 1.1.11-3
+%define iscsiver 6.2.0.870-3
 
 BuildRequires: audit-libs-devel
 BuildRequires: booty
@@ -75,6 +76,7 @@ BuildRequires: dbus-devel >= %{dbusver}
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
+BuildRequires: iscsi-initiator-utils-devel >= %{iscsiver}
 
 Requires: policycoreutils
 Requires: rpm-python >= %{rpmpythonver}
