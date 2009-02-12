@@ -48,24 +48,6 @@ log = logging.getLogger("anaconda")
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-def start_sector_to_cyl(device, sector):
-    """Return the closest cylinder (round down) to sector on device."""
-    return int(math.floor((float(sector)
-                           / (device.heads * device.sectors)) + 1))
-
-def end_sector_to_cyl(device, sector):
-    """Return the closest cylinder (round up) to sector on device."""    
-    return int(math.ceil(float((sector + 1))
-                         / (device.heads * device.sectors)))
-
-def start_cyl_to_sector(device, cyl):
-    "Return the sector corresponding to cylinder as a starting cylinder."
-    return long((cyl - 1) * (device.heads * device.sectors))
-
-def end_cyl_to_sector(device, cyl):
-    "Return the sector corresponding to cylinder as a ending cylinder."    
-    return long(((cyl) * (device.heads * device.sectors)) - 1)
-
 def getPartSize(partition):
     """Return the size of partition in sectors."""
     return partition.geom.length

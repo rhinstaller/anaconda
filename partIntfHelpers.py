@@ -343,10 +343,8 @@ def doEditPartitionByRequest(intf, requestlist, part):
 	    return (None, None)
     elif part.type & parted.PARTITION_FREESPACE:
         request = partRequests.PartitionSpec(fsset.fileSystemTypeGetDefault(),
-            start = partedUtils.start_sector_to_cyl(part.geom.dev,
-                                                    part.geom.start),
-            end = partedUtils.end_sector_to_cyl(part.geom.dev,
-                                                part.geom.end),
+            start = part.geom.dev.startSectorToCylinder(part.geom.start),
+            end = part.geom.dev.endSectorToCylinder(part.geom.end),
             drive = [ partedUtils.get_partition_drive(part) ])
 
         return ("NEW", request)

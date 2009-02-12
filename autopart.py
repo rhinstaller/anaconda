@@ -132,8 +132,8 @@ def printNewRequestsCyl(diskset, newRequest):
         
         part = partedUtils.get_partition_by_name(diskset.disks, req.device)
 ##         print(req)
-##         print("Start Cyl:%s    End Cyl: %s" % (partedUtils.start_sector_to_cyl(part.geom.dev, part.geom.start),
-##                                  partedUtils.end_sector_to_cyl(part.geom.dev, part.geom.end)))
+##         print("Start Cyl:%s    End Cyl: %s" % (part.geom.dev.startSectorToCylinder(part.geom.start),
+##                                  part.geom.dev.endSectorToCylinder(part.geom.end),))
 
 def printFreespaceitem(part):
     return partedUtils.get_partition_name(part), part.geom.start, part.geom.end, part.getSize(unit="MB")
@@ -221,14 +221,14 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
             if not disk: # this shouldn't happen
                 raise PartitioningError, "Selected to put partition on non-existent disk!"
 
-            startSec = partedUtils.start_cyl_to_sector(disk.dev, request.start)
+            startSec = disk.dev.startCylinderToSector(request.start)
 
             if request.end:
                 endCyl = request.end
             elif request.size:
-                endCyl = partedUtils.end_sector_to_cyl(disk.dev, ((1024L * 1024L * request.size) / disk.dev.sector_size) + startSec)
+                endCyl = disk.dev.endSectorToCylinder(((1024L * 1024L * request.size) / disk.dev.sector_size) + startSec)
 
-            endSec = partedUtils.end_cyl_to_sector(disk.dev, endCyl)
+            endSec = disk.dev.endCylinderToSector(endCyl)
 
             if endSec > disk.dev.length:
                 raise PartitioningError, "Unable to create partition which extends beyond the end of the disk."

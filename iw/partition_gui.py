@@ -941,10 +941,8 @@ class PartitionWindow(InstallWindow):
                     self.tree[iter]['Label'] = ""
 
                 self.tree[iter]['Type'] = ptype
-                self.tree[iter]['Start'] = str(start_sector_to_cyl(disk.dev,
-                                                                   part.geom.start))
-                self.tree[iter]['End'] = str(end_sector_to_cyl(disk.dev,
-                                                               part.geom.end))
+                self.tree[iter]['Start'] = str(disk.dev.startSectorToCylinder(part.geom.start))
+                self.tree[iter]['End'] = str(disk.dev.endSectorToCylinder(part.geom.end))
                 size = part.getSize(unit="MB")
                 if size < 1.0:
                     sizestr = "< 1"

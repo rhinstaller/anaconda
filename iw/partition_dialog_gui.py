@@ -52,9 +52,8 @@ class PartitionEditor:
 
     def cylspinchangedCB(self, widget, data):
 	(dev, startcylspin, endcylspin, bycyl_sizelabel) = data
-	startsec = start_cyl_to_sector(dev,
-				       startcylspin.get_value_as_int())
-	endsec = end_cyl_to_sector(dev, endcylspin.get_value_as_int())
+	startsec = dev.startCylinderToSector(startcylspin.get_value_as_int())
+	endsec = dev.endCylinderToSector(endcylspin.get_value_as_int())
 	cursize = (endsec - startsec)/2048
 	bycyl_sizelabel.set_text("%s" % (int(cursize))) 
 
@@ -414,8 +413,8 @@ class PartitionEditor:
 					(dev, self.startcylspin,
 					 self.endcylspin, bycyl_sizelabel))
                 
-                startsec = start_cyl_to_sector(dev, origrequest.start)
-                endsec = end_cyl_to_sector(dev, origrequest.end)
+                startsec = dev.startCylinderToSector(origrequest.start)
+                endsec = dev.endCylinderToSector(origrequest.end)
                 cursize = (endsec - startsec)/2048
                 bycyl_sizelabel.set_text("%s" % (int(cursize)))
         else:
