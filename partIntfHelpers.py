@@ -253,43 +253,65 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
         return
 
     # get list of unique IDs of these requests
-    reqIDs = []
+    reqIDs = set()
+    reqparts = {}
+
     for req in requests:
-	part = parted.getPartitionByName(req.device)
-	if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA or part.type & parted.PARTITION_PROTECTED:
-	    continue
-	reqIDs.append(req.uniqueID)
+        for drive in req.drive:
+            part = diskset.disks[drive].getPartitionByPath(req.device)
+
+            if part.type & parted.PARTITION_FREESPACE or \
+               part.type & parted.PARTITION_METADATA or \
+               part.type & parted.PARTITION_PROTECTED:
+                continue
+
+            reqIDs.add(req.uniqueID)
+
+            if reqparts.has_key(req.uniqueID):
+                reqparts[req.uniqueID].append(part)
+            else:
+                reqparts[req.uniqueID] = [ part ]
+
+    reqIDs = list(reqIDs)
 
     # now go thru and try to delete the unique IDs
     for id in reqIDs:
         try:
-	    req = requestlist.getRequestByID(id)
-	    if req is None:
-		continue
-            part = parted.getPartitionByName(req.device)
-            rc = doDeletePartitionByRequest(intf, requestlist, part,
-                                            confirm=0, quiet=1)
-            if not rc:
-		pass
+            req = requestlist.getRequestByID(id)
+            if req is None:
+                continue
+            for partlist in reqparts[id]:
+                for part in partlist:
+                    rc = doDeletePartitionByRequest(intf, requestlist, part,
+                                                    confirm=0, quiet=1)
+                    if not rc:
+                        pass
         except:
-	    pass
+            pass
 
     # see which partitions are left
     notdeleted = []
     left_requests = requestlist.getRequestsByDevice(diskset, device)
     if left_requests:
-	# get list of unique IDs of these requests
-	leftIDs = []
-	for req in left_requests:
-	    part = parted.getPartitionByName(req.device)
-	    if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA or part.type & parted.PARTITION_PROTECTED:
-		continue
-	    leftIDs.append(req.uniqueID)
+        # get list of unique IDs of these requests
+        leftIDs = set()
 
-	for id in leftIDs:
-	    req = requestlist.getRequestByID(id)
-	    notdeleted.append(req)
-	    
+        for req in left_requests:
+            for drive in req.drive:
+                part = diskset.disks[drive].getPartitionByPath(req.device)
+
+                if part.type & parted.PARTITION_FREESPACE or \
+                   part.type & parted.PARTITION_METADATA or \
+                   part.type & parted.PARTITION_PROTECTED:
+                    continue
+
+                leftIDs.add(req.uniqueID)
+
+        leftIDs = list(leftIDs)
+
+        for id in leftIDs:
+            req = requestlist.getRequestByID(id)
+            notdeleted.append(req)
 
     # see if we need to report any failures - some were because we removed
     # an extended partition which contained other members of our delete list
@@ -377,34 +399,38 @@ def doEditPartitionByRequest(intf, requestlist, part):
 
 def checkForSwapNoMatch(anaconda):
     """Check for any partitions of type 0x82 which don't have a swap fs."""
+    diskset = anaconda.id.diskset
+
     for request in anaconda.id.partitions.requests:
         if not request.device or not request.fstype:
             continue
-        
-        part = parted.getPartitionByName(request.device)
-        if (part and (not part.type & parted.PARTITION_FREESPACE)
-            and (part.getFlag(parted.PARTITION_SWAP))
-            and (request.fstype and request.fstype.getName() != "swap")
-            and (not request.format)):
-            rc = anaconda.intf.messageWindow(_("Format as Swap?"),
-                                    _("/dev/%s has a partition type of 0x82 "
-                                      "(Linux swap) but does not appear to "
-                                      "be formatted as a Linux swap "
-                                      "partition.\n\n"
-                                      "Would you like to format this "
-                                      "partition as a swap partition?")
-                                    % (request.device), type = "yesno",
-                                    custom_icon="question")
-            if rc == 1:
-                request.format = 1
-                request.fstype = fsset.fileSystemTypeGet("swap")
-                if request.fstype.getName() == "software RAID":
-                    part.setFlag(parted.PARTITION_RAID)
-                else:
-                    part.unsetFlag(parted.PARTITION_RAID)
 
-                partedUtils.set_partition_file_system_type(part,
-                                                           request.fstype)
+        for drive in request.drive:
+            part = diskset.disks[drive].getPartitionByPath(request.device)
+
+            if (part and (not part.type & parted.PARTITION_FREESPACE)
+                and (part.getFlag(parted.PARTITION_SWAP))
+                and (request.fstype and request.fstype.getName() != "swap")
+                and (not request.format)):
+                rc = anaconda.intf.messageWindow(_("Format as Swap?"),
+                                        _("/dev/%s has a partition type of 0x82 "
+                                          "(Linux swap) but does not appear to "
+                                          "be formatted as a Linux swap "
+                                          "partition.\n\n"
+                                          "Would you like to format this "
+                                          "partition as a swap partition?")
+                                        % (request.device), type = "yesno",
+                                        custom_icon="question")
+                if rc == 1:
+                    request.format = 1
+                    request.fstype = fsset.fileSystemTypeGet("swap")
+                    if request.fstype.getName() == "software RAID":
+                        part.setFlag(parted.PARTITION_RAID)
+                    else:
+                        part.unsetFlag(parted.PARTITION_RAID)
+
+                    partedUtils.set_partition_file_system_type(part,
+                                                               request.fstype)
 
 def mustHaveSelectedDrive(intf):
     txt =_("You need to select at least one hard drive to install %s.") % (productName,)

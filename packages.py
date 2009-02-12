@@ -134,7 +134,7 @@ def turnOnFilesystems(anaconda):
                                        stdout = "/dev/tty5", stderr="/dev/tty5",
                                        searchPath = 1)
             anaconda.id.partitions.doMetaDeletes(anaconda.id.diskset)
-            anaconda.id.fsset.setActive(anaconda.id.diskset)
+            anaconda.id.fsset.setActive(anaconda.id.diskset, anaconda.id.partitions.requests)
             try:
                 anaconda.id.fsset.shrinkFilesystems(anaconda.id.diskset, anaconda.rootPath)
             except fsset.ResizeError, (e, dev):

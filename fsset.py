@@ -1637,7 +1637,7 @@ MAILADDR root
     # set active partition on disks
     # if an active partition is set, leave it alone; if none set
     # set either our boot partition or the first partition on the drive active
-    def setActive(self, diskset):
+    def setActive(self, diskset, requests):
         dev = self.getBootDev()
 
         if dev is None:
@@ -1646,8 +1646,14 @@ MAILADDR root
         bootDev = dev.device
 
         if dev.getName() != "RAIDDevice":
-            part = parted.getPartitionByName(bootDev)
-            drive = partedUtils.get_partition_drive(part)
+            for request in requests:
+                if request.mountpoint = bootDev.mountpoint:
+                    break
+
+            for drive in request.drive:
+                part = diskset.disks[drive].getPartitionByPath(bootDev)
+                if part:
+                    break
 
             # on EFI systems, *only* /boot/efi should be marked bootable
             # similarly, on pseries, we really only want the PReP partition

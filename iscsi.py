@@ -300,11 +300,12 @@ class iscsi(object):
             req = anaconda.id.partitions.getRequestByMountPoint("/")
             root_requests = anaconda.id.partitions.getUnderlyingRequests(req)
             for req in root_requests:
-                # req.drive is unreliable <sigh> so figure it out ourselves
-                part = parted.getPartitionByName(req.device)
+                for drive in req.drive:
+                    part = anaconda.id.diskset.disks[drive].getPartitionByPath(req.device)
+                    if part:
+                        break
                 if not part:
                     continue
-                drive = partedUtils.get_partition_drive(part)
                 if drive not in root_drives:
                     root_drives.append(drive)
 

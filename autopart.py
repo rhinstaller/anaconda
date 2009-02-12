@@ -70,7 +70,12 @@ else:
 def bootRequestCheck(req, diskset):
     if not req.device or req.ignoreBootConstraints:
         return PARTITION_SUCCESS
-    part = parted.getPartitionByName(req.device)
+
+    for drive in req.drive:
+        part = diskset.disks[drive].getPartitionByPath(req.device)
+        if part:
+            break
+
     if not part:
         return PARTITION_SUCCESS
 
@@ -85,10 +90,11 @@ def bootRequestCheck(req, diskset):
         return bootAlphaCheckRequirements(part)
     elif (iutil.getPPCMachine() == "pSeries" or
           iutil.getPPCMachine() == "iSeries"):
-        part = parted.getPartitionByName(req.device)
-        if part and ((part.geometry.end * part.geometry.device.sectorSize /
-                      (1024.0 * 1024)) > 4096):
-            return BOOTIPSERIES_TOO_HIGH
+        for drive in req.drive:
+            part = diskset.disks[drive].getPartitionByPath(req.device)
+            if part and ((part.geometry.end * part.geometry.device.sectorSize /
+                          (1024.0 * 1024)) > 4096):
+                return BOOTIPSERIES_TOO_HIGH
 
     return PARTITION_SUCCESS
 
@@ -124,15 +130,15 @@ def bootAlphaCheckRequirements(part):
 
     return PARTITION_SUCCESS
 
-
 def printNewRequestsCyl(diskset, newRequest):
     for req in newRequest.requests:
         if req.type != REQUEST_NEW:
             continue
 
-        part = parted.getPartitionByName(req.device)
-##         print(req)
-##         print("Start Cyl:%s    End Cyl: %s" % (part.geometry.device.startSectorToCylinder(part.geometry.start),
+        for drive in req.drive:
+            part = diskset.disks[drive].getPartitionByPath(req.device)
+##           print(req)
+##           print("Start Cyl:%s    End Cyl: %s" % (part.geometry.device.startSectorToCylinder(part.geometry.start),
 ##                                  part.geometry.device.endSectorToCylinder(part.geometry.end),))
 
 def printFreespaceitem(part):
@@ -749,7 +755,11 @@ def growParts(diskset, requests, newParts):
                 donegrowing = 0
 
                 # get amount of space actually used by current allocation
-                part = parted.getPartitionByName(request.device)
+                for drive in request.drive:
+                    part = diskset.disks[drive].getPartitionByPath(request.device)
+                    if part:
+                        break
+
                 startSize = part.geometry.length
 
                 # compute fraction of freespace which to give to this
@@ -1033,7 +1043,10 @@ def processPartitioning(diskset, requests, newParts):
         elif request.preexist:
             # we need to keep track of the max size of preexisting partitions
             # FIXME: we should also get the max size for LVs at some point
-            part = parted.getPartitionByName(request.device)
+            for drive in request.drive:
+                part = diskset.disks[drive].getPartitionByPath(request.device)
+                if part:
+                    break
             request.maxResizeSize = part.getMaxAvailableSize(unit="MB")
 
 ##     print("disk layout after everything is done")

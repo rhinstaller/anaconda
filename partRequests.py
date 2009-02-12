@@ -517,11 +517,18 @@ class PartitionSpec(RequestSpec):
 
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
-        part = parted.getPartitionByName(self.device)
-        if not part:
-            # XXX kickstart might still call this before allocating the partitions
-            raise RuntimeError, "Checking the size of a partition which hasn't been allocated yet"
-        return part.getSize(unit="MB")
+        size = 0
+
+        for drive in self.drive:
+            part = diskset.disks[drive].getPartitionByPath(self.device)
+
+            if not part:
+                # XXX kickstart might still call this before allocating the partitions
+                raise RuntimeError, "Checking the size of a partition which hasn't been allocated yet"
+
+            size += part.getSize(unit="MB")
+
+        return size
 
     def doSizeSanityCheck(self):
         """Sanity check that the size of the partition is sane."""
