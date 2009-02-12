@@ -26,13 +26,13 @@ msgstr ""
 "Project-Id-Version: anaconda.master.de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2009-02-09 21:43+0100\n"
-"Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
+"PO-Revision-Date: 2009-02-10 23:35+0100\n"
+"Last-Translator: Felix Kaechele <felix@fetzig.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../anaconda:262
 #: ../anaconda:308
@@ -176,7 +176,7 @@ msgstr "Installationsklasse erfordert Installation im Textmodus"
 
 #: ../anaconda:809
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "Grafische Installation nicht verfügbar … Textmodus wird gestartet."
+msgstr "Grafische Installation nicht verfügbar… Textmodus wird gestartet."
 
 #: ../anaconda:817
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -743,7 +743,7 @@ msgstr "Der Zustand Ihres Systems wurde erfolgreich auf den Datenträger geschri
 #: ../exception.py:499
 #: ../exception.py:522
 msgid "Dump Not Written"
-msgstr "Dump wurde nicht geschrieben"
+msgstr "Abbild wurde nicht geschrieben"
 
 #: ../exception.py:483
 #: ../exception.py:500
@@ -1211,7 +1211,7 @@ msgstr "Das Passwortausdruck muss aus mindestens acht Zeichen bestehen."
 #: ../text.py:390
 #, python-format
 msgid "Device %s is encrypted. In order to access the device's contents during installation you must enter the device's passphrase below."
-msgstr "Gerät %s ist verschlüsselt. Um während der Installation Zugriff auf den Geräte-Inhalt zu haben, müssen Sie das Geräte-Passwort unten eingeben"
+msgstr "Gerät %s ist verschlüsselt. Um während der Installation Zugriff auf den Geräteinhalt zu haben, müssen Sie das Gerätepasswort unten eingeben"
 
 #: ../gui.py:771
 #, python-format
@@ -1220,7 +1220,7 @@ msgstr "Bugzilla (%s)"
 
 #: ../gui.py:801
 msgid "No devices found"
-msgstr "Keine Gerät gefunden"
+msgstr "Keine Geräte gefunden"
 
 #: ../gui.py:920
 #: ../gui.py:921
@@ -1998,9 +1998,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Die Partitionstabelle des Geräts %s (%s %-0.f MB) war nicht lesbar.\n"
+"Die Partitionstabelle des Geräts %s (%s %-0.f MB) ist nicht lesbar.\n"
 "\n"
-"Um neue Partitionen zu erstellen, muss die Platte eingerichtet werden. Dabei gehen ALLE AUF IHR GESPEICHERTEN DATEN verloren.\n"
+"Um neue Partitionen zu erstellen, muss das Gerät initialisiert werden. Dabei gehen ALLE DARAUF GESPEICHERTEN DATEN verloren.\n"
 "\n"
 "Diese Operation überschreibt alle in der vorangegangenen Installation gewählten Optionen der zu ignorierenden Laufwerke.\n"
 "\n"
@@ -2196,7 +2196,7 @@ msgstr "Nach Beendigung verlassen Sie bitte die Shell ('exit'). Ihr System wird 
 
 #: ../rescue.py:169
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr "Kann /bin/sh nicht finden und ausführen! Starte Shell nicht"
+msgstr "Kann /bin/sh nicht finden und ausführen! Shell wird nicht gestartet"
 
 #: ../rescue.py:188
 msgid "Setup Networking"
@@ -2316,7 +2316,7 @@ msgstr "An Bugzilla senden (%s)"
 
 #: ../text.py:211
 msgid "Send to remote server (scp)"
-msgstr "Schicke an Remote-Server (scp)"
+msgstr "An Remote-Server schicken (scp)"
 
 #: ../text.py:225
 #: ../text.py:238
@@ -2346,7 +2346,7 @@ msgstr "Passwortsatz für das verschlüsselte Gerät"
 
 #: ../text.py:336
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr "Fügen die diesen Passwortsatz für alle vorhandenen verschlüsselten Geräte hinzu"
+msgstr "Diesen Passwortsatz für alle vorhandenen verschlüsselten Geräte hinzufügen"
 
 #: ../text.py:367
 #, python-format
@@ -2420,7 +2420,7 @@ msgstr ""
 #: ../upgrade.py:96
 #, python-format
 msgid "Would you like to upgrade  the installed system to the %s architecture?"
-msgstr "Wie möchten Sie das installierte System auf die %s-Architektur aktualisieren?"
+msgstr "Möchten Sie das installierte System auf die %s-Architektur aktualisieren?"
 
 #: ../upgrade.py:113
 msgid ""
@@ -2512,7 +2512,7 @@ msgstr "%s %s Installation durchführen"
 #: ../vnc.py:181
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr "Versuche, mich mit dem VNC-Client auf Rechner %s zu verbinden ..."
+msgstr "Versuche mit dem VNC-Client auf Rechner %s zu verbinden ..."
 
 #: ../vnc.py:195
 msgid "Connected!"
@@ -2520,7 +2520,7 @@ msgstr "Verbunden!"
 
 #: ../vnc.py:198
 msgid "Will try to connect again in 15 seconds..."
-msgstr "Werde versuchen in 15 Sekunden erneut zu verbinden ..."
+msgstr "Versuche in 15 Sekunden erneut zu verbinden ..."
 
 #: ../vnc.py:204
 #, python-format
@@ -2809,11 +2809,11 @@ msgstr "ältere(s) Paket(e)"
 
 #: ../yuminstall.py:793
 msgid "insufficient disk space"
-msgstr "ungenügend Plattenspeicher"
+msgstr "zu wenig Festplattenspeicherplatz"
 
 #: ../yuminstall.py:794
 msgid "insufficient disk inodes"
-msgstr "ungenügend Inodes auf der Platte"
+msgstr "zu wenig Disk-Inodes verbleibend"
 
 #: ../yuminstall.py:795
 msgid "package conflicts"
@@ -2829,7 +2829,7 @@ msgstr "Benötigtes Paket"
 
 #: ../yuminstall.py:798
 msgid "package for incorrect arch"
-msgstr "Paket für inkorrekte arch"
+msgstr "Paket für inkorrekte Architektur"
 
 #: ../yuminstall.py:799
 msgid "package for incorrect os"
@@ -3026,7 +3026,7 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Schwaches Passwort bereitgestellt: %s\n"
+"Schwaches Passwort gewählt: %s\n"
 "\n"
 "Möchten Sie mit diesem Passwort fortfahren?"
 
@@ -3060,7 +3060,7 @@ msgstr "Sie müssen einen Initiatornamen angeben."
 #: ../textw/partition_text.py:1719
 #: ../textw/partition_text.py:1723
 msgid "Missing value"
-msgstr "Fehlende Wert"
+msgstr "Fehlender Wert"
 
 #: ../iw/autopart_type.py:285
 msgid "CHAP username is required if CHAP password is defined."
@@ -3183,7 +3183,7 @@ msgid ""
 "Please reboot the system to use the installed system.\n"
 "\n"
 msgstr ""
-"Bitte starten Sie den Rechner neu zur Benutzung des installierten Systems.\n"
+"Bitte starten Sie den Rechner zur Benutzung des installierten Systems neu.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:74
@@ -4677,7 +4677,7 @@ msgstr "Welcher Tastaturtyp ist an Ihren Computer angeschlossen?"
 #: ../textw/netconfig_text.py:41
 #, python-format
 msgid "A value is required for the field %s"
-msgstr "Ein gültiger Wert für das Feld %s"
+msgstr "Ein Wert für das Feld %s ist erforderlich"
 
 #: ../textw/netconfig_text.py:86
 #: tmp/netconfig.glade.h:9
@@ -6071,7 +6071,7 @@ msgstr "_Abwählen"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "_Deselect all optional packages"
-msgstr "_Abwählen aller optionaler Pakete"
+msgstr "_Alle optionalen Pakete abwählen"
 
 #: tmp/GroupSelector.glade.h:4
 msgid "_Optional packages"
@@ -6083,7 +6083,7 @@ msgstr "_Wählen"
 
 #: tmp/GroupSelector.glade.h:6
 msgid "_Select all optional packages"
-msgstr "_Wähle alle optionalen Pakete"
+msgstr "Alle optionalen Pakete _wählen"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
@@ -6183,7 +6183,7 @@ msgstr "_Pfad"
 
 #: tmp/addrepo.glade.h:20
 msgid "_Server"
-msgstr "_Sserver"
+msgstr "_Server"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6355,11 +6355,11 @@ msgstr "Installieren"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr "Installieren der Live-CD auf der Festplatte"
+msgstr "Installieren der Live-CD auf die Festplatte"
 
 #: tmp/liveinst.desktop.in.h:3
 msgid "Install to Hard Drive"
-msgstr "Auf der Festplatte installieren"
+msgstr "Auf die Festplatte installieren"
 
 #: tmp/lukspassphrase.glade.h:1
 msgid "Also add this passphrase to all existing encrypted devices to streamline the boot process"
@@ -6419,7 +6419,7 @@ msgstr "Rechnername:"
 
 #: tmp/network.glade.h:2
 msgid "Please name this computer.  The hostname identifies the computer on a network."
-msgstr "Bitte "
+msgstr "Bitte vergeben Sie einen Namen für den Computer. Der Rechnername identifiziert den Computer im Netzwerk."
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6907,3 +6907,4 @@ msgstr "Zulu"
 #~ msgstr "Manuelle Konfiguration"
 #~ msgid "Point to Point (IP):"
 #~ msgstr "Punkt-zu-Punkt (IP):"
+
