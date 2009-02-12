@@ -210,7 +210,7 @@ def set_partition_file_system_type(part, fstype):
 
 def get_partition_drive(partition):
     """Return the device name for disk that PedPartition partition is on."""
-    return "%s" %(partition.geom.dev.path[5:])
+    return partition.geometry.device.path[5:]
 
 def get_max_logical_partitions(disk):
     if not disk.type.check_feature(parted.DISK_TYPE_EXTENDED):
