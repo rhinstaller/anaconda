@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.16
+Version: 11.5.0.17
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -204,6 +204,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Feb 11 2009 Hans de Goede <hdegoede@redhat.com> - 11.5.0.17-1
+- Revert broken German translation fixes so that we will build again
+- Sync up module list (#484984) (katzj)
+
 * Wed Feb 11 2009 Hans de Goede <hdegoede@redhat.com> - 11.5.0.16-1
 - Rewrite iscsi support using libiscsi (hdegoede)
 
