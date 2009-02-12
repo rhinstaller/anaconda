@@ -136,7 +136,7 @@ def printNewRequestsCyl(diskset, newRequest):
 ##                                  part.geom.dev.endSectorToCylinder(part.geom.end),))
 
 def printFreespaceitem(part):
-    return partedUtils.get_partition_name(part), part.geom.start, part.geom.end, part.getSize(unit="MB")
+    return part.getDeviceNodeName(), part.geom.start, part.geom.end, part.getSize(unit="MB")
 
 def printFreespace(free):
     print("Free Space Summary:")
@@ -179,7 +179,7 @@ class partlist:
     def __str__(self):
         retval = ""
         for p in self.parts:
-            retval = retval + "\t%s %s %s\n" % (partedUtils.get_partition_name(p), partedUtils.get_partition_file_system_type(p), p.getSize(unit="MB"))
+            retval = retval + "\t%s %s %s\n" % (p.getDeviceNodeName(), partedUtils.get_partition_file_system_type(p), p.getSize(unit="MB"))
 
         return retval
 
@@ -887,13 +887,13 @@ def setPreexistParts(diskset, requests):
                         constraint = g.constraint_exact()
                         part.set_geometry(constraint, startSec, endSec)
                     except parted.error, msg:
-                        log.error("error setting geometry for partition %s: %s" %(partedUtils.get_partition_name(part), msg))
-                        raise PartitioningError, _("Error resizing partition %s.\n\n%s") %(partedUtils.get_partition_name(part), msg)
+                        log.error("error setting geometry for partition %s: %s" %(part.getDeviceNodeName(), msg))
+                        raise PartitioningError, _("Error resizing partition %s.\n\n%s") %(part.getDeviceNodeName(), msg)
 
                     if startSec != part.geom.start:
-                        raise PartitioningError, _("Start of partition %s was moved when resizing") %(partedUtils.get_partition_name(part),)
+                        raise PartitioningError, _("Start of partition %s was moved when resizing") %(part.getDeviceNodeName(),)
 
-                request.device = partedUtils.get_partition_name(part)
+                request.device = part.getDeviceNodeName()
                 if request.fstype:
                     if request.fstype.getName() != request.origfstype.getName():
                         if part.is_flag_available(parted.PARTITION_RAID):
@@ -1151,7 +1151,7 @@ def doClearPartAction(anaconda, partitions, diskset):
                  ((part.is_flag_available(parted.PARTITION_RAID) and part.get_flag(parted.PARTITION_RAID)) or  # this is a RAID
                   (part.is_flag_available(parted.PARTITION_LVM) and part.get_flag(parted.PARTITION_LVM)) or # or an LVM
                   (iutil.isMactel() and not ptype)))): # or we're on a mactel and have a blank partition from bootcamp #FIXME: this could be dangerous...
-                old = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
+                old = partitions.getRequestByDeviceName(part.getDeviceNodeName())
                 if old.getProtected():
                     part = disk.next_partition(part)
                     continue
@@ -1172,7 +1172,7 @@ def doClearPartAction(anaconda, partitions, diskset):
             # doesn't apply on kickstart installs or if no boot flag
             if iutil.isEfi() and linuxOnly == 1 and (not anaconda.isKickstart):
                 if partedUtils.isEfiSystemPartition(part):
-                    req = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
+                    req = partitions.getRequestByDeviceName(part.getDeviceNodeName())
                     other = partitions.getRequestByMountPoint("/boot/efi")
 
                     if not other:
@@ -1195,7 +1195,7 @@ def doClearPartAction(anaconda, partitions, diskset):
                   part.is_flag_available(parted.PARTITION_BOOT) and
                   (part.native_type == 0x41) and
                   part.get_flag(parted.PARTITION_BOOT)):
-                req = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))                
+                req = partitions.getRequestByDeviceName(part.getDeviceNodeName())
                 req.mountpoint = None
                 req.format = 0
                 request = None
@@ -1225,7 +1225,7 @@ def doClearPartAction(anaconda, partitions, diskset):
         if ext and len(partedUtils.get_logical_partitions(disk)) == 0:
             delete = partRequests.DeleteSpec(drive, ext.geom.start,
                                              ext.geom.end)
-            old = partitions.getRequestByDeviceName(partedUtils.get_partition_name(ext))
+            old = partitions.getRequestByDeviceName(ext.getDeviceNodeName())
             partitions.removeRequest(old)
             partitions.addDelete(delete)
             deletePart(diskset, delete)

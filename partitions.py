@@ -313,7 +313,7 @@ class Partitions:
                     part = disk.next_partition(part)
                     continue
 
-                device = partedUtils.get_partition_name(part)
+                device = part.getDeviceNodeName()
                 fs = isys.readFSType("/dev/%s" % (device,))
                 if fs and fs.endswith("raid"):
                     part = disk.next_partition(part)
@@ -399,7 +399,7 @@ class Partitions:
                     if ptype is None:
                         ptype = fsset.fileSystemTypeGet("foreign")
 
-                device = partedUtils.get_partition_name(part)
+                device = part.getDeviceNodeName()
 
                 # parted doesn't tell ext4 from ext3
                 if ptype == fsset.fileSystemTypeGet("ext3"): 
@@ -666,7 +666,7 @@ class Partitions:
         disk = diskset.disks[device]
         part = disk.next_partition()
         while part:
-            dev = partedUtils.get_partition_name(part)
+            dev = part.getDeviceNodeName()
             request = self.getRequestByDeviceName(dev)
 
             if request:
@@ -792,7 +792,7 @@ class Partitions:
         for drive in drives:
             disk = diskset.disks[drive]
             for part in partedUtils.get_raid_partitions(disk):
-                partname = partedUtils.get_partition_name(part)
+                partname = part.getDeviceNodeName()
                 used = 0
                 for raid in raiddevs:
                     if raid.raidmembers:
@@ -902,7 +902,7 @@ class Partitions:
         for drive in drives:
             disk = diskset.disks[drive]
             for part in partedUtils.get_lvm_partitions(disk):
-                partname = partedUtils.get_partition_name(part)
+                partname = part.getDeviceNodeName()
                 partrequest = self.getRequestByDeviceName(partname)
                 if partrequest.encryption is None and \
                    cryptodev.isLuks("/dev/%s" % partname) and \
@@ -1697,7 +1697,7 @@ class Partitions:
     def deleteAllLogicalPartitions(self, part):
         """Add delete specs for all logical partitions in part."""
         for partition in partedUtils.get_logical_partitions(part.disk):
-            partName = partedUtils.get_partition_name(partition)
+            partName = partition.getDeviceNodeName()
             request = self.getRequestByDeviceName(partName)
             self.removeRequest(request)
             if request.preexist:
@@ -1720,7 +1720,7 @@ class Partitions:
                 part = disk.next_partition(part)
                 continue
 
-            device = partedUtils.get_partition_name(part)
+            device = part.getDeviceNodeName()
             request = self.getRequestByDeviceName(device)
 
             if request:

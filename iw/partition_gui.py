@@ -145,12 +145,12 @@ class DiskStripeSlice:
         if self.partition.type & parted.PARTITION_FREESPACE:
             rc = "Free\n"
         else:
-            rc = "%s\n" % (get_partition_name(self.partition),)
+            rc = "%s\n" % (self.partition.getDeviceNodeName(),)
         rc = rc + "%Ld MB" % (self.partition.getSize(unit="MB"),)
         return rc
 
     def getDeviceName(self):
-        return get_partition_name(self.partition)
+        return self.partition.getDeviceNodeName()
 
     def update(self):
         disk = self.parent.getDisk()
@@ -841,7 +841,7 @@ class PartitionWindow(InstallWindow):
                         continue
 
                 stripe.add(part)
-                device = get_partition_name(part)
+                device = part.getDeviceNodeName()
                 request = self.partitions.getRequestByDeviceName(device)
 
                 if part.type == parted.PARTITION_EXTENDED:

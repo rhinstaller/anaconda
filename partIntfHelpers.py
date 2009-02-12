@@ -163,7 +163,7 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
 			   custom_icon="error")
         return 0
     else:
-        device = partedUtils.get_partition_name(partition)
+        device = partition.getDeviceNodeName()
 
     ret = requestlist.containsImmutablePart(partition)
     if ret:
@@ -359,7 +359,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
                              "which contains %s") %(ret), custom_icon="error")
         return (None, None)
 
-    name = partedUtils.get_partition_name(part)
+    name = part.getDeviceNodeName()
     request = requestlist.getRequestByDeviceName(name)
     if request:
 	state = isNotChangable(request, requestlist)
@@ -371,7 +371,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
         return ("PARTITION", request)
     else: # shouldn't ever happen
         raise ValueError, ("Trying to edit non-existent partition %s"
-                           % (partedUtils.get_partition_name(part)))
+                           % (part.getDeviceNodeName(),))
 
 
 def checkForSwapNoMatch(anaconda):

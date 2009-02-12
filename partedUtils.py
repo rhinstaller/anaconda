@@ -84,33 +84,12 @@ def get_partition_by_name(disks, partname):
         disk = disks[diskname]
         part = disk.next_partition()
         while part:
-            if get_partition_name(part) == partname:
+            if part.getDeviceNodeName() == partname:
                 return part
 
             part = disk.next_partition(part)
 
     return None
-
-def get_partition_name(partition):
-    """Return the device name for the PedPartition partition."""
-    if (partition.geom.dev.type == parted.DEVICE_DAC960
-        or partition.geom.dev.type == parted.DEVICE_CPQARRAY):
-        return "%sp%d" % (partition.geom.dev.path[5:],
-                          partition.num)
-    if (parted.__dict__.has_key("DEVICE_SX8") and
-        partition.geom.dev.type == parted.DEVICE_SX8):
-        return "%sp%d" % (partition.geom.dev.path[5:],
-                          partition.num)
-
-    drive = partition.geom.dev.path[5:]
-    if (drive.startswith("cciss") or drive.startswith("ida") or
-            drive.startswith("rd") or drive.startswith("sx8") or
-            drive.startswith("mapper") or drive.startswith("mmcblk")):
-        sep = "p"
-    else:
-        sep = ""
-    return "%s%s%d" % (partition.geom.dev.path[5:], sep, partition.num)
-
 
 def get_partition_file_system_type(part):
     """Return the file system type of the PedPartition part.
@@ -245,7 +224,7 @@ def isEfiSystemPartition(part):
             part.get_name() == "EFI System Partition" and
             part.get_flag(parted.PARTITION_BOOT) == 1 and
             part.fs_type.name in ("fat16", "fat32") and
-            isys.readFSLabel(get_partition_name(part)) != "ANACONDA")
+            isys.readFSLabel(part.getDeviceNodeName()) != "ANACONDA")
 
 def labelDisk(deviceFile, forceLabelType=None):
     dev = parted.PedDevice.get(deviceFile)
@@ -614,7 +593,7 @@ class DiskSet:
                                       or part.get_flag(parted.PARTITION_LVM)))
             parts = filter_partitions(disk, func)
             for part in parts:
-                node = get_partition_name(part)
+                node = part.getDeviceNodeName()
                 crypto = encryptedDevices.get(node)
                 if crypto and not crypto.openDevice():
                     node = crypto.getDevice()
@@ -781,7 +760,7 @@ class DiskSet:
             disk = self.disks[drive]
             part = disk.next_partition ()
             while part:
-                node = get_partition_name(part)
+                node = part.getDeviceNodeName()
                 crypto = self.anaconda.id.partitions.encryptedDevices.get(node)
                 if (part.is_active()
                     and (part.get_flag(parted.PARTITION_RAID)
@@ -1212,7 +1191,7 @@ class DiskSet:
             while part:
                 if part.type in (parted.PARTITION_PRIMARY,
                                  parted.PARTITION_LOGICAL):
-                    device = get_partition_name(part)
+                    device = part.getDeviceNodeName()
                     if part.fs_type:
                         ptype = part.fs_type.name
                     else:
@@ -1244,7 +1223,7 @@ class DiskSet:
                     device = ""
                     fs_type_name = ""
                     if part.num > 0:
-                        device = get_partition_name(part)
+                        device = part.getDeviceNodeName()
                     if part.fs_type:
                         fs_type_name = part.fs_type.name
                     partFlags = part.getFlags()

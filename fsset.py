@@ -1685,7 +1685,7 @@ MAILADDR root
                 if not bootPart:
                     bootPart = part
 
-                if partedUtils.get_partition_name(part) == bootDev:
+                if part.getDeviceNodeName() == bootDev:
                     bootPart = part
 
                 part = disk.next_partition(part)
@@ -2686,7 +2686,7 @@ class PartedPartitionDevice(PartitionDevice):
         if not self.partition:
             return self.device
 
-        return partedUtils.get_partition_name(self.partition)
+        return self.partition.getDeviceNodeName()
 
     def solidify(self):
         # drop reference on the parted partition object and note

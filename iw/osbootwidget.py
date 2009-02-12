@@ -163,7 +163,7 @@ class OSBootWidget:
             for drive in disks.keys():
                 pedparts.extend(partedUtils.filter_partitions(disks[drive], func))
             for part in pedparts:
-                parts.append(partedUtils.get_partition_name(part))
+                parts.append(part.getDeviceNodeName())
             del pedparts
             parts.sort()
 
