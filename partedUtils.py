@@ -70,11 +70,6 @@ def getPartSize(partition):
     """Return the size of partition in sectors."""
     return partition.geom.length
 
-def getPartSizeMB(partition):
-    """Return the size of partition in megabytes."""
-    return (partition.geom.length * partition.geom.dev.sector_size
-            / 1024.0 / 1024.0)
-
 def getMaxAvailPartSizeMB(part):
     """Return the maximum size this partition can grow to by looking
     at contiguous freespace partitions."""
@@ -149,7 +144,7 @@ def get_partition_file_system_type(part):
     elif part.fs_type == None:
         return None
     elif (part.get_flag(parted.PARTITION_BOOT) == 1 and
-          getPartSizeMB(part) <= 1 and part.fs_type.name == "hfs"):
+          part.getSize(unit="MB") <= 1 and part.fs_type.name == "hfs"):
         ptype = fsset.fileSystemTypeGet("Apple Bootstrap")
     elif part.fs_type.name == "linux-swap":
         ptype = fsset.fileSystemTypeGet("swap")

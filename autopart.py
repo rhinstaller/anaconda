@@ -119,8 +119,7 @@ def bootAlphaCheckRequirements(part):
         if free.type & parted.PARTITION_FREESPACE:
             break
         free = disk.next_partition(free)
-    if (not free or free.geom.start != 1L or
-        partedUtils.getPartSizeMB(free) < 1):
+    if (not free or free.geom.start != 1L or free.getSize(unit="MB") < 1):
         return BOOTALPHA_NO_RESERVED_SPACE
 
     return PARTITION_SUCCESS
@@ -137,7 +136,7 @@ def printNewRequestsCyl(diskset, newRequest):
 ##                                  partedUtils.end_sector_to_cyl(part.geom.dev, part.geom.end)))
 
 def printFreespaceitem(part):
-    return partedUtils.get_partition_name(part), part.geom.start, part.geom.end, partedUtils.getPartSizeMB(part)
+    return partedUtils.get_partition_name(part), part.geom.start, part.geom.end, part.getSize(unit="MB")
 
 def printFreespace(free):
     print("Free Space Summary:")
@@ -180,7 +179,7 @@ class partlist:
     def __str__(self):
         retval = ""
         for p in self.parts:
-            retval = retval + "\t%s %s %s\n" % (partedUtils.get_partition_name(p), partedUtils.get_partition_file_system_type(p), partedUtils.getPartSizeMB(p))
+            retval = retval + "\t%s %s %s\n" % (partedUtils.get_partition_name(p), partedUtils.get_partition_file_system_type(p), p.getSize(unit="MB"))
 
         return retval
 
@@ -379,7 +378,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                             continue
 		    
                     lvmLog.debug( "Trying partition %s" % (printFreespaceitem(part),))
-                    partSize = partedUtils.getPartSizeMB(part)
+                    partSize = part.getSize(unit="MB")
                     # figure out what the request size will be given the
                     # geometry (#130885)
                     requestSectors = long((request.requestSize * 1024L * 1024L) / part.disk.dev.sector_size) - 1

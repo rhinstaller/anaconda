@@ -146,7 +146,7 @@ class DiskStripeSlice:
             rc = "Free\n"
         else:
             rc = "%s\n" % (get_partition_name(self.partition),)
-        rc = rc + "%Ld MB" % (getPartSizeMB(self.partition),)
+        rc = rc + "%Ld MB" % (self.partition.getSize(unit="MB"),)
         return rc
 
     def getDeviceName(self):
@@ -835,7 +835,7 @@ class PartitionWindow(InstallWindow):
                     part = disk.next_partition(part)
                     continue
                 # ignore the tiny < 1 MB partitions (#119479)
-                if getPartSizeMB(part) <= 1.0:
+                if part.getSize(unit="MB") <= 1.0:
                     if not part.is_active() or not part.get_flag(parted.PARTITION_BOOT):
                         part = disk.next_partition(part)                    
                         continue
@@ -945,7 +945,7 @@ class PartitionWindow(InstallWindow):
                                                                    part.geom.start))
                 self.tree[iter]['End'] = str(end_sector_to_cyl(disk.dev,
                                                                part.geom.end))
-                size = getPartSizeMB(part)
+                size = part.getSize(unit="MB")
                 if size < 1.0:
                     sizestr = "< 1"
                 else:

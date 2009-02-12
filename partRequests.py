@@ -521,7 +521,7 @@ class PartitionSpec(RequestSpec):
         if not part:
             # XXX kickstart might still call this before allocating the partitions
             raise RuntimeError, "Checking the size of a partition which hasn't been allocated yet"
-        return partedUtils.getPartSizeMB(part)
+        return part.getSize(unit="MB")
 
     def doSizeSanityCheck(self):
         """Sanity check that the size of the partition is sane."""

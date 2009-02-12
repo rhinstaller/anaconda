@@ -422,7 +422,7 @@ class Partitions:
 
                 start = part.geom.start
                 end = part.geom.end
-                size = partedUtils.getPartSizeMB(part)
+                size = part.getSize(unit="MB")
                 drive = partedUtils.get_partition_drive(part)
 
                 spec = partRequests.PreexistingPartitionSpec(ptype,
@@ -806,7 +806,7 @@ class Partitions:
                                 break
                     if used:
                         break
-                size = partedUtils.getPartSizeMB(part)
+                size = part.getSize(unit="MB")
 
                 if not used:
                     rc.append((partname, size, 0))
@@ -932,7 +932,7 @@ class Partitions:
                 if size is None:
                     # if we get here, there's no PV data in the partition,
                     # so clamp the partition's size to 64M
-                    size = partedUtils.getPartSizeMB(part)
+                    size = part.getSize(unit="MB")
                     size = lvm.clampPVSize(size, 65536)
 
                 if used == 0:
