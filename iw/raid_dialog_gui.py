@@ -494,8 +494,7 @@ class RaidCloneDialog:
         requests = []
         for req in allrequests:
             try:
-                part = partedUtils.get_partition_by_name(self.diskset.disks,
-                                                         req.device)
+                part = parted.getPartitionByName(req.device)
             except:
                 part = None
 

@@ -70,7 +70,7 @@ else:
 def bootRequestCheck(req, diskset):
     if not req.device or req.ignoreBootConstraints:
         return PARTITION_SUCCESS
-    part = partedUtils.get_partition_by_name(diskset.disks, req.device)
+    part = parted.getPartitionByName(req.device)
     if not part:
         return PARTITION_SUCCESS
 
@@ -85,7 +85,7 @@ def bootRequestCheck(req, diskset):
         return bootAlphaCheckRequirements(part)
     elif (iutil.getPPCMachine() == "pSeries" or
           iutil.getPPCMachine() == "iSeries"):
-        part = partedUtils.get_partition_by_name(diskset.disks, req.device)
+        part = parted.getPartitionByName(req.device)
         if part and ((part.geom.end * part.geom.dev.sector_size /
                       (1024.0 * 1024)) > 4096):
             return BOOTIPSERIES_TOO_HIGH
@@ -130,7 +130,7 @@ def printNewRequestsCyl(diskset, newRequest):
         if req.type != REQUEST_NEW:
             continue
         
-        part = partedUtils.get_partition_by_name(diskset.disks, req.device)
+        part = parted.getPartitionByName(req.device)
 ##         print(req)
 ##         print("Start Cyl:%s    End Cyl: %s" % (part.geom.dev.startSectorToCylinder(part.geom.start),
 ##                                  part.geom.dev.endSectorToCylinder(part.geom.end),))
@@ -737,7 +737,7 @@ def growParts(diskset, requests, newParts):
                 donegrowing = 0
 
                 # get amount of space actually used by current allocation
-                part = partedUtils.get_partition_by_name(diskset.disks, request.device)
+                part = parted.getPartitionByName(request.device)
                 startSize = part.geometry.length
 
                 # compute fraction of freespace which to give to this
@@ -1025,7 +1025,7 @@ def processPartitioning(diskset, requests, newParts):
         elif request.preexist:
             # we need to keep track of the max size of preexisting partitions
             # FIXME: we should also get the max size for LVs at some point
-            part = partedUtils.get_partition_by_name(diskset.disks, request.device)
+            part = parted.getPartitionByName(request.device)
             request.maxResizeSize = part.getMaxAvailableSize(unit="MB")
 
 ##     print("disk layout after everything is done")

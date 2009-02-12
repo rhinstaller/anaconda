@@ -517,7 +517,7 @@ class PartitionSpec(RequestSpec):
 
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
-        part = partedUtils.get_partition_by_name(diskset.disks, self.device)
+        part = parted.getPartitionByName(self.device)
         if not part:
             # XXX kickstart might still call this before allocating the partitions
             raise RuntimeError, "Checking the size of a partition which hasn't been allocated yet"

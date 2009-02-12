@@ -129,8 +129,7 @@ def bootloaderSetupChoices(anaconda):
     bootDev = anaconda.id.fsset.getEntryByMountPoint("/")
     if not bootDev:
         bootDev = anaconda.id.fsset.getEntryByMountPoint("/boot")
-    part = partedUtils.get_partition_by_name(anaconda.id.diskset.disks,
-                                              bootDev.device.getDevice())
+    part = parted.getPartitionByName(bootDev.device.getDevice())
     if part and part.geom.dev.endSectorToCylinder(part.geom.end) >= 1024:
         anaconda.id.bootloader.above1024 = 1
     

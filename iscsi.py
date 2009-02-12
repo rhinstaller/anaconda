@@ -301,8 +301,7 @@ class iscsi(object):
             root_requests = anaconda.id.partitions.getUnderlyingRequests(req)
             for req in root_requests:
                 # req.drive is unreliable <sigh> so figure it out ourselves
-                part = partedUtils.get_partition_by_name(anaconda.id.diskset.disks,
-                                                         req.device)
+                part = parted.getPartitionByName(req.device)
                 if not part:
                     continue
                 drive = partedUtils.get_partition_drive(part)

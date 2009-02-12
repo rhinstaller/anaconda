@@ -48,27 +48,6 @@ log = logging.getLogger("anaconda")
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-def get_partition_by_name(disks, partname):
-    """Return the parted part object associated with partname.  
-
-    Arguments:
-    disks -- Dictionary of diskname->PedDisk objects
-    partname -- Name of partition to find
-
-    Return:
-    PedPartition object with name partname.  None if no such partition.
-    """
-    for diskname in disks.keys():
-        disk = disks[diskname]
-        part = disk.next_partition()
-        while part:
-            if part.getDeviceNodeName() == partname:
-                return part
-
-            part = disk.next_partition(part)
-
-    return None
-
 def get_partition_file_system_type(part):
     """Return the file system type of the PedPartition part.
 

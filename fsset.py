@@ -1646,7 +1646,7 @@ MAILADDR root
         bootDev = dev.device
 
         if dev.getName() != "RAIDDevice":
-            part = partedUtils.get_partition_by_name(diskset.disks, bootDev)
+            part = parted.getPartitionByName(bootDev)
             drive = partedUtils.get_partition_drive(part)
 
             # on EFI systems, *only* /boot/efi should be marked bootable

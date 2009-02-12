@@ -254,7 +254,7 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
     # get list of unique IDs of these requests
     reqIDs = []
     for req in requests:
-	part = partedUtils.get_partition_by_name(diskset.disks, req.device)
+	part = parted.getPartitionByName(req.device)
 	if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA or part.type & parted.PARTITION_PROTECTED:
 	    continue
 	reqIDs.append(req.uniqueID)
@@ -265,7 +265,7 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
 	    req = requestlist.getRequestByID(id)
 	    if req is None:
 		continue
-            part = partedUtils.get_partition_by_name(diskset.disks, req.device)
+            part = parted.getPartitionByName(req.device)
             rc = doDeletePartitionByRequest(intf, requestlist, part,
                                             confirm=0, quiet=1)
             if not rc:
@@ -280,7 +280,7 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
 	# get list of unique IDs of these requests
 	leftIDs = []
 	for req in left_requests:
-	    part = partedUtils.get_partition_by_name(diskset.disks, req.device)
+	    part = parted.getPartitionByName(req.device)
 	    if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA or part.type & parted.PARTITION_PROTECTED:
 		continue
 	    leftIDs.append(req.uniqueID)
@@ -380,8 +380,7 @@ def checkForSwapNoMatch(anaconda):
         if not request.device or not request.fstype:
             continue
         
-        part = partedUtils.get_partition_by_name(anaconda.id.diskset.disks,
-                                                 request.device)
+        part = parted.getPartitionByName(request.device)
         if (part and (not part.type & parted.PARTITION_FREESPACE)
             and (part.native_type == 0x82)
             and (request.fstype and request.fstype.getName() != "swap")
