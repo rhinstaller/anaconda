@@ -30,6 +30,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define yumver 2.9.2
 %define rhplver 0.170
 %define partedver 1.8.1
+%define pypartedver 2.0.0
 %define syscfgdatever 1.9.0
 %define pythonpyblockver 0.24-1
 %define libbdevidver 5.1.2-1
@@ -84,7 +85,7 @@ Requires: comps-extras
 Requires: rhpl >= %{rhplver}
 Requires: booty
 Requires: parted >= %{partedver}
-Requires: pyparted >= %{partedver}
+Requires: pyparted >= %{pypartedver}
 Requires: yum >= %{yumver}
 Requires: libxml2-python
 Requires: python-urlgrabber
