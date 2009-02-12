@@ -34,7 +34,7 @@ Requires: audit-libs
 Requires: rhpxl >= 0.25
 %endif
 Obsoletes: anaconda-images <= 10
-Url: http://fedora.redhat.com/projects/anaconda-installer/
+Url: http://fedoraproject.org/wiki/Anaconda
 
 BuildRoot: %{_tmppath}/anaconda-%{PACKAGE_VERSION}
 
