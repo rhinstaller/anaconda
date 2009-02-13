@@ -1216,7 +1216,6 @@ def setSteps(anaconda):
     dispatch.skipStep("betanag")
     dispatch.skipStep("regkey")
     dispatch.skipStep("installtype")
-    dispatch.skipStep("tasksel")
     dispatch.skipStep("network")
 
     # Don't show confirmation screens on non-interactive installs.
@@ -1232,22 +1231,21 @@ def setSteps(anaconda):
     # If the package section included anything, skip group selection unless
     # they're in interactive.
     if ksdata.upgrade.upgrade:
-        ksdata.skipSteps.append("group-selection")
+        ksdata.skipSteps.extend(["tasksel", "group-selection"])
 
         # Special check for this, since it doesn't make any sense.
         if ksdata.packages.seen:
             warnings.warn("Ignoring contents of %packages section due to upgrade.")
     elif havePackages(ksdata.packages):
         if interactive:
-            ksdata.showSteps.append("group-selection")
+            ksdata.showSteps.extend(["tasksel", "group-selection"])
         else:
-            ksdata.skipSteps.append("group-selection")
+            ksdata.skipSteps.extend(["tasksel", "group-selection"])
     else:
-        ksdata.skipSteps.append("group-selection")
         if ksdata.packages.seen:
-            ksdata.skipSteps.append("group-selection")
+            ksdata.skipSteps.extend(["tasksel", "group-selection"])
         else:
-            ksdata.showSteps.append("group-selection")
+            ksdata.showSteps.extend(["tasksel", "group-selection"])
 
     if not interactive:
         for n in ksdata.skipSteps:
