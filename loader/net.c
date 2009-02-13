@@ -239,8 +239,8 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
 
     if (loaderData->ipinfo_set && loaderData->ipv4 != NULL) {
 	/* this is iBFT configured device */
-	if (!strncmp(loaderData->ip, "ibft", 4)) {
-	    char *devmacaddr = nl_mac2str(loaderData->netDev);
+	if (!strncmp(loaderData->ipv4, "ibft", 4)) {
+	    char *devmacaddr = iface_mac2str(loaderData->netDev);
 	    iface->ipv4method = IPV4_IBFT_METHOD;
 	    iface->isiBFT = 1;
 
@@ -1272,9 +1272,9 @@ int writeEnabledNetInfo(iface_t *iface) {
 	    if(ibft_iface_ip()) fprintf(fp, "IPADDR=%s\n", ibft_iface_ip());
 	    if(ibft_iface_mask()) fprintf(fp, "NETMASK=%s\n", ibft_iface_mask());
 	    if(ibft_iface_gw()) fprintf(fp, "GATEWAY=%s\n", ibft_iface_gw());
-        else if (iface->ipv4method == IPV4_IBFT_DHCP_METHOD) {
+        } else if (iface->ipv4method == IPV4_IBFT_DHCP_METHOD) {
             fprintf(fp, "BOOTPROTO=dhcp\n");
-        else if (iface->ipv4method == IPV4_DHCP_METHOD) {
+        } else if (iface->ipv4method == IPV4_DHCP_METHOD) {
             fprintf(fp, "BOOTPROTO=dhcp\n");
         } else if (iface->ipv4method == IPV4_MANUAL_METHOD) {
             fprintf(fp, "BOOTPROTO=static\n");
@@ -1740,7 +1740,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 	for (i = 0; devs[i]; i++) {
 	    if (!devs[i]->device)
 		continue;
-	    devmacaddr = nl_mac2str(devs[i]->device);
+	    devmacaddr = iface_mac2str(devs[i]->device);
 	    if(!strcasecmp(devmacaddr, ibftmacaddr)){
 		logMessage(INFO, "%s has the right MAC (%s), checking for link", devmacaddr, devices[i]);
 		free(devmacaddr);
@@ -1750,8 +1750,8 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 		    logMessage(INFO, "%s has link, using it", devices[i]);
 
 		    /* set the IP method to ibft if not requested differently */
-		    if(loaderData->ip==NULL){
-			loaderData->ip = strdup("ibft");
+		    if(loaderData->ipv4 == NULL){
+			loaderData->ipv4 = strdup("ibft");
 			logMessage(INFO, "%s will be configured using iBFT values", devices[i]);
 		    }
 		    return LOADER_NOOP;
