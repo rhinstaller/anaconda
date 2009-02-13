@@ -153,10 +153,8 @@ def findExistingRoots(anaconda, upgradeany = 0):
     anaconda.id.iscsi.startup(anaconda.intf)
 
     if not flags.setupFilesystems:
-        relstr = partedUtils.getReleaseString (anaconda.rootPath)
-        if ((flags.cmdline.has_key("upgradeany")) or
-            (upgradeany == 1) or
-            (partedUtils.productMatches(relstr, productName))):
+        (prod, ver) = partedUtils.getReleaseString (anaconda.rootPath)
+        if flags.cmdline.has_key("upgradeany") or upgradeany == 1 or anaconda.id.instClass.productUpgradable(prod, ver):
             return [(anaconda.rootPath, 'ext2', "")]
         return []
 

@@ -213,6 +213,15 @@ class BaseInstallClass(object):
 	anaconda.id.reset()
 	anaconda.id.instClass = self
 
+    def versionMatches(self, oldver):
+        pass
+
+    def productMatches(self, oldprod):
+        pass
+
+    def productUpgradable(self, oldprod, oldver):
+        return self.productMatches(oldprod) and self.versionMatches(oldver)
+
     def __init__(self):
 	pass
 

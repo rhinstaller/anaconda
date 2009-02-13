@@ -311,6 +311,9 @@ def isLinuxNative(part):
         return False
 
 def getReleaseString(mountpoint):
+    relName = None
+    relVer = None
+
     if os.access(mountpoint + "/etc/redhat-release", os.R_OK):
         f = open(mountpoint + "/etc/redhat-release", "r")
         try:
@@ -320,11 +323,14 @@ def getReleaseString(mountpoint):
                 f.close()
             except:
                 pass
-            return ""
+            return (relName, relVer)
+
         f.close()
+
         # return the first line with the newline at the end stripped
         if len(lines) == 0:
-            return ""
+            return (relName, relVer)
+
         relstr = string.strip(lines[0][:-1])
 
         # get the release name and version
@@ -333,56 +339,20 @@ def getReleaseString(mountpoint):
         if relstr.find("release") != -1:
             try:
                 idx = relstr.find("release")
-                prod = relstr[:idx - 1]
+                relName = relstr[:idx - 1]
+                relVer = ""
 
-                ver = ""
                 for a in relstr[idx + 8:]:
                     if a in string.digits + ".":
-                        ver = ver + a
+                        relVer += a
                     else:
                         break
 
                     relstr = prod + " " + ver
             except:
                 pass # don't worry, just use the relstr as we have it
-        return relstr
-    return ""
 
-def productMatches(oldproduct, newproduct):
-    """Determine if this is a reasonable product to upgrade old product"""
-    if oldproduct.startswith(newproduct):
-        return 1
-
-    productUpgrades = {
-        "Red Hat Enterprise Linux AS": ("Red Hat Linux Advanced Server", ),
-        "Red Hat Enterprise Linux WS": ("Red Hat Linux Advanced Workstation",),
-        # FIXME: this probably shouldn't be in a release...
-        "Red Hat Enterprise Linux": ("Red Hat Linux Advanced Server",
-                                     "Red Hat Linux Advanced Workstation",
-                                     "Red Hat Enterprise Linux AS",
-                                     "Red Hat Enterprise Linux ES",
-                                     "Red Hat Enterprise Linux WS"),
-        "Red Hat Enterprise Linux Server": ("Red Hat Enterprise Linux AS",
-                                            "Red Hat Enterprise Linux ES",
-                                            "Red Hat Enterprise Linux WS",
-                                            "Red Hat Enterprise Linux"),
-        "Red Hat Enterprise Linux Client": ("Red Hat Enterprise Linux WS",
-                                            "Red Hat Enterprise Linux Desktop",
-                                            "Red Hat Enterprise Linux"),
-        "Fedora Core": ("Red Hat Linux",),
-        "Fedora": ("Fedora Core",)
-        }
-
-    if productUpgrades.has_key(newproduct):
-        acceptable = productUpgrades[newproduct]
-    else:
-        acceptable = ()
-
-    for p in acceptable:
-        if oldproduct.startswith(p):
-            return 1
-
-    return 0
+    return (relName, relVer)
 
 class DiskSet:
     """The disks in the system."""
@@ -619,10 +589,9 @@ class DiskSet:
 
             if found:
                 if os.access (self.anaconda.rootPath + '/etc/fstab', os.R_OK):
-                    relstr = getReleaseString(self.anaconda.rootPath)
+                    (prod, ver) = getReleaseString(self.anaconda.rootPath)
 
-                    if ((upgradeany == 1) or
-                        (productMatches(relstr, productName))):
+                    if upgradeany == 1 or self.anaconda.id.instClass.productUpgradable(prod, ver):
                         try:
                             label = isys.readFSLabel(theDev)
                         except:
@@ -630,7 +599,7 @@ class DiskSet:
 
                         uuid = isys.readFSUuid(theDev)
                         # XXX we could add the "raw" dev and let caller decrypt
-                        rootparts.append ((theDev, fs, relstr, label, uuid))
+                        rootparts.append ((theDev, fs, prod+" "+ver, label, uuid))
                 isys.umount(self.anaconda.rootPath)
 
         # now, look for candidate lvm roots
@@ -666,17 +635,16 @@ class DiskSet:
 
             if found:
                 if os.access (self.anaconda.rootPath + '/etc/fstab', os.R_OK):
-                    relstr = getReleaseString(self.anaconda.rootPath)
+                    (prod, ver) = getReleaseString(self.anaconda.rootPath)
 
-                    if ((upgradeany == 1) or
-                        (productMatches(relstr, productName))):
+                    if upgradeany == 1 or self.anaconda.id.instClass.productUpgradable(prod, ver):
                         try:
                             label = isys.readFSLabel(theDev)
                         except:
                             label = None
 
                         uuid = isys.readFSUuid(theDev)
-                        rootparts.append ((theDev, fs, relstr, label, uuid))
+                        rootparts.append ((theDev, fs, prod+" "+ver, label, uuid))
                 isys.umount(self.anaconda.rootPath)
 
         lvm.vgdeactivate()
@@ -726,10 +694,9 @@ class DiskSet:
                         continue
 
                     if os.access (checkRoot + '/etc/fstab', os.R_OK):
-                        relstr = getReleaseString(checkRoot)
+                        (prod, ver) = getReleaseString(checkRoot)
 
-                        if ((upgradeany == 1) or
-                            (productMatches(relstr, productName))):
+                        if upgradeany == 1 or self.anaconda.id.instClass.productUpgradable(prod, ver):
                             try:
                                 label = isys.readFSLabel("/dev/%s" % theDev)
                             except:
@@ -737,7 +704,7 @@ class DiskSet:
 
                             uuid = isys.readFSUuid("/dev/%s" % (theDev,))
                             rootparts.append (("/dev/%s" % (theDev,),
-                                              fstype, relstr, label, uuid))
+                                              fstype, prod+" "+ver, label, uuid))
 
                     isys.umount(self.anaconda.rootPath)
 

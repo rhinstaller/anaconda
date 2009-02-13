@@ -19,6 +19,7 @@
 
 from installclass import BaseInstallClass
 from constants import *
+from product import *
 from filer import *
 from flags import flags
 import os
@@ -176,6 +177,42 @@ class InstallClass(BaseInstallClass):
 
     def getBackend(self):
         return yuminstall.YumBackend
+
+    def productMatches(self, oldprod):
+        if oldprod.startswith(productName):
+            return True
+
+        productUpgrades = {
+            "Red Hat Enterprise Linux AS": ("Red Hat Linux Advanced Server", ),
+            "Red Hat Enterprise Linux WS": ("Red Hat Linux Advanced Workstation",),
+            # FIXME: this probably shouldn't be in a release...
+            "Red Hat Enterprise Linux": ("Red Hat Linux Advanced Server",
+                                         "Red Hat Linux Advanced Workstation",
+                                         "Red Hat Enterprise Linux AS",
+                                         "Red Hat Enterprise Linux ES",
+                                         "Red Hat Enterprise Linux WS"),
+            "Red Hat Enterprise Linux Server": ("Red Hat Enterprise Linux AS",
+                                                "Red Hat Enterprise Linux ES",
+                                                "Red Hat Enterprise Linux WS",
+                                                "Red Hat Enterprise Linux"),
+            "Red Hat Enterprise Linux Client": ("Red Hat Enterprise Linux WS",
+                                                "Red Hat Enterprise Linux Desktop",
+                                                "Red Hat Enterprise Linux"),
+        }
+
+        if productUpgrades.has_key(productName):
+            acceptable = productUpgrades[productName]
+        else:
+            acceptable = ()
+
+        for p in acceptable:
+            if oldprod.startswith(p):
+                return True
+
+        return False
+
+    def versionMatches(self, oldver):
+        return True
 
     def __init__(self):
 	BaseInstallClass.__init__(self)

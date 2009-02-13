@@ -19,6 +19,7 @@
 
 from installclass import BaseInstallClass
 from constants import *
+from product import *
 from filer import *
 from flags import flags
 import os, types
@@ -75,6 +76,37 @@ class InstallClass(BaseInstallClass):
             return livecd.LiveCDCopyBackend
         else:
             return yuminstall.YumBackend
+
+    def productMatches(self, oldprod):
+        if oldprod.startswith(productName):
+            return True
+
+        productUpgrades = {
+                "Fedora Core": ("Red Hat Linux", ),
+                "Fedora": ("Fedora Core", )
+        }
+
+        if productUpgrades.has_key(productName):
+            acceptable = productUpgrades[productName]
+        else:
+            acceptable = ()
+
+        for p in acceptable:
+            if oldprod.startswith(p):
+                return True
+
+        return False
+
+    def versionMatches(self, oldver):
+        try:
+            oldVer = float(oldver)
+            newVer = float(productVersion)
+        except ValueError:
+            return True
+
+        # This line means we do not support upgrading from anything older
+        # than two versions ago!
+        return newVer > oldVer and newVer - oldVer <= 2
 
     def __init__(self):
 	BaseInstallClass.__init__(self)
