@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.18
+Version: 11.5.0.19
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Feb 13 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.19-1
+- Fix build errors in the new net.c code. (clumens)
+
 * Fri Feb 13 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.18-1
 - Require pyparted >= 2.0.0 (dcantrell)
 - Update to use the new pyparted. (dcantrell, clumens)
