@@ -28,17 +28,37 @@ class FinishedWindow:
   
   def __call__ (self, screen, anaconda):
         bootstr = ""
+        buttonstr = _("Reboot")
 
         bottomstr = _("<Enter> to exit")
 
         screen.pushHelpLine (string.center(bottomstr, screen.width))
 
-        txt = _("Congratulations, your %s installation is complete.\n\n"
-                "Please reboot to use the installed system.  "
-                "Note that updates may be available to ensure the proper "
-                "functioning of your system and installation of these "
-                "updates is recommended after the reboot.") %(productName,)
+        if iutil.isS390():
+            txt = _("Congratulations, your %s installation is complete.\n\n") % (productName,)
+
+            if not anaconda.canReIPL:
+                buttonstr = _("Shutdown")
+
+                txt = txt + _("Please shutdown to use the installed system.\n")
+            else:
+                txt = txt + _("Please reboot to use the installed system.\n")
+
+            if not anaconda.reIPLMessage is None:
+                txt = txt + "\n" + anaconda.reIPLMessage + "\n\n"
+
+            txt = txt + _("Note that updates may be available to ensure the proper "
+                          "functioning of your system and installation of these "
+                          "updates is recommended after the reboot.")
+        else:
+            txt = _("Congratulations, your %s installation is complete.\n\n"
+                    "Please reboot to use the installed system.  "
+                    "Note that updates may be available to ensure the proper "
+                    "functioning of your system and installation of these "
+                    "updates is recommended after the reboot.") %(productName,)
+
+
         rc = ButtonChoiceWindow (screen, _("Complete"), txt,
-                                 [ _("Reboot") ], help = "finished", width=60)
+                                 [ buttonstr ], help = "finished", width=60)
 
         return INSTALL_OK

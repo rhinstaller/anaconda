@@ -498,6 +498,8 @@ class Anaconda:
         self.rescue = False
         self.updateSrc = None
         self.mediaDevice = None
+        self.canReIPL = False
+        self.reIPLMessage = None
 
         # *sigh* we still need to be able to write this out
         self.xdriver = None
@@ -1023,3 +1025,11 @@ if __name__ == "__main__":
             isys.ejectCdrom(drive)
 
     del anaconda.intf
+
+    if iutil.isS390():
+        if anaconda.canReIPL:
+            log.info(_("reipl configuration successful => reboot"))
+            os.kill(os.getppid(), signal.SIGUSR2)
+        else:
+            log.info(_("reipl configuration failed => halt"))
+            os.kill(os.getppid(), signal.SIGUSR1)

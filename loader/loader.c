@@ -121,6 +121,8 @@ uint64_t flags = LOADER_FLAGS_SELINUX;
 int num_link_checks = 5;
 int post_link_sleep = 0;
 
+static pid_t init_pid = 1;
+
 static struct installMethod installMethods[] = {
     { N_("Local CD/DVD"), 0, DEVICE_CDROM, mountCdromImage },
     { N_("Hard drive"), 0, DEVICE_DISK, mountHardDrive },
@@ -1716,6 +1718,11 @@ void loaderSegvHandler(int signum) {
     exit(1);
 }
 
+void loaderUsrXHandler(int signum) {
+    logMessage(INFO, "Sending signal %d to process %d\n", signum, init_pid);
+    kill(init_pid, signum);
+}
+
 static int anaconda_trace_init(void) {
 #ifdef USE_MTRACE
     setenv("MALLOC_TRACE","/malloc",1);
@@ -1797,6 +1804,26 @@ int main(int argc, char ** argv) {
         { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
+
+    /* get init PID if we have it */
+    if ((f = fopen("/var/run/init.pid", "r")) != NULL) {
+        char linebuf[256];
+        memset(linebuf, '\0', sizeof(linebuf));
+
+        while (fgets(linebuf, sizeof(linebuf) - 1, f) != NULL) {
+            errno = 0;
+            init_pid = strtol((const char *) &linebuf, NULL, 10);
+            if (errno == EINVAL || errno == ERANGE) {
+                logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+                init_pid = 1;
+            }
+        }
+
+        fclose(f);
+    }
+
+    signal(SIGUSR1, loaderUsrXHandler);
+    signal(SIGUSR2, loaderUsrXHandler);
 
     /* Make sure sort order is right. */
     setenv ("LC_COLLATE", "C", 1);	
@@ -2228,34 +2255,6 @@ int main(int argc, char ** argv) {
             waitpid(pid, &status, 0);
         }
 
-#if defined(__s390__) || defined(__s390x__)
-        /* FIXME: we have to send a signal to linuxrc on s390 so that shutdown
-         * can happen.  this is ugly */
-        FILE * f;
-        f = fopen("/var/run/init.pid", "r");
-        if (!f) {
-            logMessage(WARNING, "can't find init.pid, guessing that init is pid 1");
-            pid = 1;
-        } else {
-            char * buf = malloc(256);
-            char *ret;
-
-            ret = fgets(buf, 256, f);
-            errno = 0;
-            pid = strtol(buf, NULL, 10);
-
-            if ((errno == ERANGE && (pid == LONG_MIN || pid == LONG_MAX)) ||
-                (errno != 0 && pid == 0)) {
-                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-
-            free(buf);
-            fclose(f);
-        }
-
-        kill(pid, SIGUSR2);
-#endif
         stop_fw_loader(&loaderData);
         return rc;
     }

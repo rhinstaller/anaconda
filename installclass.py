@@ -113,6 +113,7 @@ class BaseInstallClass(object):
 		 "tasksel",                                  
 		 "postselection",
 		 "confirminstall",
+                 "reipl",
 		 "install",
 		 "enablefilesystems",
                  "migratefilesystems",

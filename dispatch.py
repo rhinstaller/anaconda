@@ -48,6 +48,8 @@ from backend import doPostSelection, doBackendSetup, doBasePackageSelect
 from backend import doPreInstall, doPostInstall, doInstall
 from backend import writeConfiguration
 
+from packages import doReIPL
+
 import logging
 log = logging.getLogger("anaconda")
 
@@ -99,6 +101,7 @@ installSteps = [
     ("basepkgsel", doBasePackageSelect, ),
     ("group-selection", ),
     ("postselection", doPostSelection, ),
+    ("reipl", doReIPL, ),
     ("install", ),
     ("preinstallconfig", doPreInstall, ),
     ("installpackages", doInstall, ),
