@@ -835,7 +835,7 @@ class PartitionWindow(InstallWindow):
                     continue
                 # ignore the tiny < 1 MB partitions (#119479)
                 if part.getSize(unit="MB") <= 1.0:
-                    if not part.is_active() or not part.getFlag(parted.PARTITION_BOOT):
+                    if not part.active or not part.getFlag(parted.PARTITION_BOOT):
                         part = part.nextPartition()
                         continue
 
