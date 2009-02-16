@@ -297,27 +297,6 @@ struct in_addr *iface_prefix2netmask(int prefix) {
 }
 
 /*
- * Convert an IPv4 netmask to an IPv4 CIDR prefix.  Return -1 on failure.
- */
-int iface_netmask2prefix(struct in_addr *netmask) {
-    int ret = -1;
-    struct in_addr mask;
-
-    if (netmask == NULL) {
-        return -1;
-    }
-
-    memcpy(&mask, netmask, sizeof(struct in_addr));
-
-    while (mask.s_addr != 0) {
-        mask.s_addr = mask.s_addr >> 1;
-        ret++;
-    }
-
-    return ret;
-}
-
-/*
  * Initialize a new iface_t structure to default values.
  */
 void iface_init_iface_t(iface_t *iface) {

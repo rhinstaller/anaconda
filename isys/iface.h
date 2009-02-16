@@ -125,11 +125,6 @@ char *iface_mac2str(char *);
 struct in_addr *iface_prefix2netmask(int);
 
 /*
- * Convert an IPv4 netmask to an IPv4 CIDR prefix.  Return -1 on failure.
- */
-int iface_netmask2prefix(struct in_addr *);
-
-/*
  * Initialize a new iface_t structure to default values.
  */
 void iface_init_iface_t(iface_t *);
