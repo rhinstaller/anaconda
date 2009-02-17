@@ -180,7 +180,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
 	python-urlgrabber pyxf86config raidtools readline redhat-artwork
 	reiserfs-utils rhpl rpm rpm-libs rpm-python sed selinux-policy-targeted
 	setup slang smc-fonts-meera specspo sqlite synaptics system-config-date
-	system-config-keyboard system-logos system-release taipeifonts tcp_wrappers
+	system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release taipeifonts tcp_wrappers
 	tzdata udev un-core-fonts-dotum urw-fonts util-linux-ng tightvnc-server
 	tightvnc-server-module
 	wpa_supplicant xkeyboard-config xfsdump xfsprogs xorg-x11 xorg-x11-auth

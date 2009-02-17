@@ -124,6 +124,10 @@ if [ ! -d "$OUTPUT" ]; then
     mkdir -p $OUTPUT
 fi
 
+# The first -release and -logos package we are going to look for is the lowercase
+# equivalent of the PRODUCTSTR
+export brandpkgname="`echo $PRODUCTSTR | tr '[:upper:]' '[:lower:]'`"
+
 BUILDINSTDIR=$(mktemp -d ${TMPDIR:-/tmp}/buildinstall.tree.XXXXXX)
 TREEDIR=$(mktemp -d ${TMPDIR:-/tmp}/treedir.XXXXXX)
 CACHEDIR=$(mktemp -d ${TMPDIR:-/tmp}/yumcache.XXXXXX)
