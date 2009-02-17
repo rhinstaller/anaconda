@@ -103,7 +103,7 @@ def iscsi_make_node_autostart(disk):
 def randomIname():
     """Generate a random initiator name the same way as iscsi-iname"""
     
-    s = "iqn.2005-03.com.max:01."
+    s = "iqn.1994-05.com.fedora:01."
     m = md5.md5()
     u = os.uname()
     for i in u:
