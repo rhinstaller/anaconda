@@ -25,7 +25,7 @@ IMAGEUUID=$(date +%Y%m%d%H%M).$(uname -i)
 TMPDIR=${TMPDIR:-/tmp}
 
 usage () {
-	echo "usage: mk-images <pkgsrc> <toplevel> <template> <imgdir> <buildarch> <productname> <version> [<productpath>]"
+    echo "usage: mk-images <pkgsrc> <toplevel> <template> <imgdir> <buildarch> <productname> <version> [<productpath>]"
     exit 0
 }
 
@@ -35,65 +35,54 @@ BOOTISO="boot.iso"
 
 while [ $# -gt 0 ]; do
     case $1 in
-	--debug)
-	    DEBUG="--debug"
-	    shift
-	    ;;
-
-	--noiso)
-	    BOOTISO=""
-	    shift
-	    ;;
-
-	--arch)
-	    BUILDARCH=$2
-	    shift; shift
-	    ;;
-
-	--imgdir)
-	    IMGPATH=$2
-	    shift; shift
-	    ;;
-
-	--product)
-	    PRODUCT=$2
-	    shift; shift
-	    ;;
-
-	--version)
-	    VERSION=$2
-	    shift; shift
-	    ;;
-
-	--bugurl)
-	    BUGURL=$2
-	    shift; shift
-	    ;;
-
-	--output)
-	    TOPDESTPATH=$2
-	    shift; shift
-	    ;;
-
-	--nogr)
-	    echo "*** DeprecationWarning: ignoring --nogr option." >&2
-	    shift
-	    ;;
-
-	--mindir)
-	    echo "*** DeprecationWarning: ignoring --mindir option." >&2
-	    shift; shift
-	    ;;
-
-	--stg2dir)
-	    echo "*** DeprecationWarning: please use --imgdir instead of --stg2dir." >&2
-	    shift; shift
-	    ;;
-
-	*)
-	    yumconf=$1
-	    shift
-	    ;;
+        --debug)
+            DEBUG="--debug"
+            shift
+        ;;
+        --noiso)
+            BOOTISO=""
+            shift
+        ;;
+        --arch)
+            BUILDARCH=$2
+            shift; shift
+        ;;
+        --imgdir)
+            IMGPATH=$2
+            shift; shift
+        ;;
+        --product)
+            PRODUCT=$2
+            shift; shift
+        ;;
+        --version)
+            VERSION=$2
+            shift; shift
+        ;;
+        --bugurl)
+            BUGURL=$2
+            shift; shift
+        ;;
+        --output)
+            TOPDESTPATH=$2
+            shift; shift
+        ;;
+        --nogr)
+            echo "*** DeprecationWarning: ignoring --nogr option." >&2
+            shift
+        ;;
+        --mindir)
+            echo "*** DeprecationWarning: ignoring --mindir option." >&2
+            shift; shift
+        ;;
+        --stg2dir)
+            echo "*** DeprecationWarning: please use --imgdir instead of --stg2dir." >&2
+            shift; shift
+        ;;
+        *)
+            yumconf=$1
+            shift
+        ;;
     esac
 done
 
@@ -122,110 +111,110 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
 . $(dirname $0)/buildinstall.functions
 
 # Set, verify, and create paths
-    IMAGEPATH=$TOPDESTPATH/images
-    FULLMODPATH=$TMPDIR/instimagemods.$$
-    FINALFULLMODPATH=$IMGPATH/modules
-    INSTIMGPATH=$TOPDESTPATH/images
-    KERNELBASE=$TMPDIR/updboot.kernel.$$
+IMAGEPATH=$TOPDESTPATH/images
+FULLMODPATH=$TMPDIR/instimagemods.$$
+FINALFULLMODPATH=$IMGPATH/modules
+INSTIMGPATH=$TOPDESTPATH/images
+KERNELBASE=$TMPDIR/updboot.kernel.$$
 
-    KERNELNAME=vmlinuz
-    if [ "$BUILDARCH" = "ia64" ]; then
-	KERNELDIR="/boot/efi/EFI/redhat"
-    else
-	KERNELDIR="/boot"
-    fi
-    
-    if [ "$BUILDARCH" = "sparc64" ]; then
-	BASEARCH=sparc
-    else
-	BASEARCH=$BUILDARCH
-    fi
+KERNELNAME=vmlinuz
+if [ "$BUILDARCH" = "ia64" ]; then
+    KERNELDIR="/boot/efi/EFI/redhat"
+else
+    KERNELDIR="/boot"
+fi
 
-    # explicit block size setting for some arches (FIXME: we compose 
-    # ppc64-ish trees as ppc, so we have to set the "wrong" block size)
-    if [ "$BUILDARCH" = "sparc64" ]; then
-	CRAMBS="--blocksize 8192"
-    elif [ "$BUILDARCH" = "sparc" ]; then
-	CRAMBS="--blocksize 4096"
-    else
-	CRAMBS=""
-    fi
+if [ "$BUILDARCH" = "sparc64" ]; then
+    BASEARCH=sparc
+else
+    BASEARCH=$BUILDARCH
+fi
 
-    if [ $BUILDARCH = x86_64 -o $BUILDARCH = s390x ]; then
-	LIBDIR=lib64
-    else
-	LIBDIR=lib
-    fi
+# explicit block size setting for some arches (FIXME: we compose
+# ppc64-ish trees as ppc, so we have to set the "wrong" block size)
+if [ "$BUILDARCH" = "sparc64" ]; then
+    CRAMBS="--blocksize 8192"
+elif [ "$BUILDARCH" = "sparc" ]; then
+    CRAMBS="--blocksize 4096"
+else
+    CRAMBS=""
+fi
 
-    rm -rf $IMAGEPATH
-    rm -rf $FULLMODPATH
-    rm -rf $FINALFULLMODPATH
-    rm -rf $KERNELBASE
-    mkdir -p $IMAGEPATH
-    mkdir -p $FULLMODPATH
-    mkdir -p $FINALFULLMODPATH
-    mkdir -p $KERNELBASE
-    mkdir -p $INSTIMGPATH
+if [ $BUILDARCH = x86_64 -o $BUILDARCH = s390x ]; then
+    LIBDIR=lib64
+else
+    LIBDIR=lib
+fi
+
+rm -rf $IMAGEPATH
+rm -rf $FULLMODPATH
+rm -rf $FINALFULLMODPATH
+rm -rf $KERNELBASE
+mkdir -p $IMAGEPATH
+mkdir -p $FULLMODPATH
+mkdir -p $FINALFULLMODPATH
+mkdir -p $KERNELBASE
+mkdir -p $INSTIMGPATH
 
 # Stuff that we need
-    TRIMPCIIDS=$IMGPATH/usr/lib/anaconda-runtime/trimpciids
-    GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
-    GENINITRDSZ=$IMGPATH/usr/lib/anaconda-runtime/geninitrdsz
-    MKS390CDBOOT=$IMGPATH/usr/lib/anaconda-runtime/mk-s390-cdboot
-    GENMODINFO=$IMGPATH/usr/lib/anaconda-runtime/genmodinfo
-    KEYMAPS=$TMPDIR/keymaps-$BUILDARCH.$$
-    SCREENFONT=$IMGPATH/usr/lib/anaconda-runtime/screenfont-${BASEARCH}.gz
-    MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
-    MODINFO=$TMPDIR/modinfo-$BUILDARCH.$$
-    LOADERBINDIR=$IMGPATH/usr/lib/anaconda-runtime/loader
-    BOOTDISKDIR=$IMGPATH/usr/lib/anaconda-runtime/boot
-    LANGTABLE=$IMGPATH/usr/lib/anaconda/lang-table
-    PCIIDS=$IMGPATH/usr/share/hwdata/pci.ids
-    XDRIVERS=$IMGPATH/usr/share/hwdata/videoaliases
-    XDRIVERDESCS=$IMGPATH/usr/share/hwdata/videodrivers
+TRIMPCIIDS=$IMGPATH/usr/lib/anaconda-runtime/trimpciids
+GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
+GENINITRDSZ=$IMGPATH/usr/lib/anaconda-runtime/geninitrdsz
+MKS390CDBOOT=$IMGPATH/usr/lib/anaconda-runtime/mk-s390-cdboot
+GENMODINFO=$IMGPATH/usr/lib/anaconda-runtime/genmodinfo
+KEYMAPS=$TMPDIR/keymaps-$BUILDARCH.$$
+SCREENFONT=$IMGPATH/usr/lib/anaconda-runtime/screenfont-${BASEARCH}.gz
+MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
+MODINFO=$TMPDIR/modinfo-$BUILDARCH.$$
+LOADERBINDIR=$IMGPATH/usr/lib/anaconda-runtime/loader
+BOOTDISKDIR=$IMGPATH/usr/lib/anaconda-runtime/boot
+LANGTABLE=$IMGPATH/usr/lib/anaconda/lang-table
+PCIIDS=$IMGPATH/usr/share/hwdata/pci.ids
+XDRIVERS=$IMGPATH/usr/share/hwdata/videoaliases
+XDRIVERDESCS=$IMGPATH/usr/share/hwdata/videodrivers
 
-    REQUIREMENTS="$TRIMPCIIDS $PCIIDS $XDRIVERDESCS $GENMODINFO
-		  $LANGTABLE $GETKEYMAPS"
+REQUIREMENTS="$TRIMPCIIDS $PCIIDS $XDRIVERDESCS $GENMODINFO
+      $LANGTABLE $GETKEYMAPS"
 
-    dieLater=
-    for n in $REQUIREMENTS; do
-	if [ ! -f $n ]; then
-	    echo "$n doesn't exist"
-	    dieLater=1
-	fi
-    done
-
-    for n in $BOOTDISKDIR; do
-	if [ ! -d $n ]; then
-	    echo "$n doesn't exist"
-	    dieLater=1
-	fi
-    done
-
-    if [ -n "$dieLater" ]; then exit 1; fi
-
-    if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
-       # go ahead and create the keymaps so we only have to do it once
-       if [ -f $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BUILDARCH ]; then
-	   echo "Found keymap override, using it"
-	   cp $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BUILDARCH $KEYMAPS
-       else
-	   echo "Running: $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
-	   $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
-	   if [ $? != 0 ]; then
-	       echo "Unable to create keymaps and thus can't create initrd."
-	       exit 1
-	   fi
-       fi
+dieLater=
+for n in $REQUIREMENTS; do
+    if [ ! -f $n ]; then
+        echo "$n doesn't exist"
+        dieLater=1
     fi
- 
+done
+
+for n in $BOOTDISKDIR; do
+    if [ ! -d $n ]; then
+        echo "$n doesn't exist"
+        dieLater=1
+    fi
+done
+
+if [ -n "$dieLater" ]; then exit 1; fi
+
+if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
+    # go ahead and create the keymaps so we only have to do it once
+    if [ -f $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BUILDARCH ]; then
+        echo "Found keymap override, using it"
+        cp $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BUILDARCH $KEYMAPS
+    else
+        echo "Running: $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
+        $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
+        if [ $? != 0 ]; then
+            echo "Unable to create keymaps and thus can't create initrd."
+            exit 1
+        fi
+    fi
+fi
+
 findPackage() {
     name=$1
 
     pkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" -c $yumconf --archlist=$KERNELARCH $name.$KERNELARCH)
     if [ -n "$pkg" ]; then
-	echo $pkg
-	return
+        echo $pkg
+        return
     fi
     echo "cannot find package $name" >&2
 }
@@ -257,7 +246,7 @@ resdeps () {
 expandModuleSet() {
     SET=""
     for name in $1; do
-	char=$(echo $name | cut -c1)
+        char=$(echo $name | cut -c1)
         if [ $char = '=' ]; then
 	    NAME=$(echo $name | cut -c2-)
 	    if [ "$NAME" = "ata" ]; then
@@ -271,10 +260,10 @@ expandModuleSet() {
                 if [ -e $KERNELROOT/lib/modules/$version/modules.$NAME ]; then
 		    SET="$SET $(sed -e 's/.ko//' $KERNELROOT/lib/modules/$version/modules.$NAME)"
                 fi
-	    fi
-	else
-	    SET="$SET $name"
-	fi
+            fi
+        else
+            SET="$SET $name"
+        fi
     done
 
     echo $SET
@@ -315,35 +304,37 @@ makemoduletree() {
         case $module in
             ipw2100)
                 cp $KERNELROOT/lib/firmware/ipw2100* $MBD_DIR/firmware
-                ;;
+            ;;
             ipw2200)
                 cp $KERNELROOT/lib/firmware/ipw2200* $MBD_DIR/firmware
-                ;;
+            ;;
             iwl3945)
                 cp $KERNELROOT/lib/firmware/iwlwifi-3945* $MBD_DIR/firmware
-                ;;
             atmel)
                 cp $KERNELROOT/lib/firmware/atmel_*.bin $MBD_DIR/firmware
-                ;;
+            ;;
             zd1211rw)
                 cp -r $KERNELROOT/lib/firmware/zd1211 $MBD_DIR/firmware
-                ;;
+            ;;
+            qla2xxx)
+                cp $KERNELROOT/lib/firmware/ql* $MBD_DIR/firmware
+            ;;
         esac
     done
 
     # clean up leftover cruft
     find -H $MMB_DIR/lib/modules -type d -exec rmdir -f {} \; 2>/dev/null
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
-	$MMB_MODULESET > $MMB_DIR/lib/modules/module-info
+    $MMB_MODULESET > $MMB_DIR/lib/modules/module-info
     # compress modules
     find -H $MMB_DIR/lib/modules -type f -name *.ko -exec gzip -9 {} \;
     rundepmod $MMB_DIR
     rm -f $MMB_DIR/lib/modules/*/modules.*map
     rm -f $MMB_DIR/lib/modules/*/{build,source}
-    
+
     # create the pci.ids, from modules.alias and the X driver aliases
     awk '!/^(\t\t|#)/ { print ;if ($0 == "ffff  Illegal Vendor ID") nextfile; }' < $PCIIDS | \
-      $TRIMPCIIDS $MMB_DIR/lib/modules/*/modules.alias $XDRIVERS/* > ../pci.ids
+        $TRIMPCIIDS $MMB_DIR/lib/modules/*/modules.alias $XDRIVERS/* > ../pci.ids
 }
 
 
@@ -355,7 +346,7 @@ makeproductfile() {
     echo $PRODUCT >> $root/.buildstamp
     echo $VERSION >> $root/.buildstamp
     if [ -n "$BUGURL" ]; then
-	echo $BUGURL >> $root/.buildstamp
+        echo $BUGURL >> $root/.buildstamp
     fi
 }
 
@@ -369,6 +360,7 @@ instbin() {
     get_dso_deps $ROOT "$BIN"
     local DEPS="$DSO_DEPS"
     mkdir -p $DIR/$LIBDIR
+
     for x in $DEPS ; do
         cp -Lfp $ROOT/$x $DIR/$LIBDIR
     done
@@ -396,9 +388,9 @@ setupShellEnvironment() {
 
     # PAM configuration
     for i in pam_limits.so pam_env.so pam_unix.so pam_deny.so; do
-       cp -f $IMGPATH/$LIBDIR/security/$i $MBD_DIR/$LIBDIR/security
+        cp -f $IMGPATH/$LIBDIR/security/$i $MBD_DIR/$LIBDIR/security
     done
-    
+
     cp -f $IMGPATH/etc/pam.d/other $MBD_DIR/etc/pam.d
     cat > $MBD_DIR/etc/pam.d/login << EOF
 #%PAM-1.0
@@ -435,7 +427,6 @@ EOF
         chmod 600 ssh_host_key ssh_host_rsa_key ssh_host_dsa_key; \
         chmod 644 ssh_host_key.pub ssh_host_rsa_key.pub ssh_host_dsa_key.pub; )
 
-
     cat > $MBD_DIR/etc/ssh/sshd_config <<EOF
 Port 22
 HostKey /etc/ssh/ssh_host_key
@@ -461,21 +452,21 @@ EOF
     instbin $IMGPATH /usr/bin/login $MBD_DIR /sbin/login
     instbin $IMGPATH /usr/sbin/sshd $MBD_DIR /sbin/sshd
     instbin $IMGPATH /usr/bin/busybox $MBD_DIR /sbin/busybox
-    
+
     # make some symlinks
     (cd $MBD_DIR/sbin;
-    	set $(./busybox 2>&1| awk '/^\t([[:alnum:]_\.\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
-    	while [ -n "$1" ]; do
-    	      if [ $1 != "busybox" -a $1 != "sh" ]; then
-              	 # if file doesnt already exist, link to busybox
-		   if [ ! -f "$1" ]; then
-	    	      ln -sf ./busybox $1
-		   else
-		      [ -n "$DEBUG" ] && echo "Overriding busybox version of $1"
-		   fi
-    	      fi
-    	      shift
-	 done )
+        set $(./busybox 2>&1| awk '/^\t([[:alnum:]_\.\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
+        while [ -n "$1" ]; do
+              if [ $1 != "busybox" -a $1 != "sh" ]; then
+                # if file doesnt already exist, link to busybox
+                if [ ! -f "$1" ]; then
+                    ln -sf ./busybox $1
+                else
+                    [ -n "$DEBUG" ] && echo "Overriding busybox version of $1"
+                fi
+            fi
+            shift
+        done )
 }
 
 
@@ -489,40 +480,40 @@ makeinitrd() {
     MYLANGTABLE=$LANGTABLE
     MYLOADERTR=loader.tr
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
-	if [ $1 = "--initrdto" ]; then
-	    EXTRAINITRDPATH=$2
-	    shift; shift
-	    continue
-	elif [ $1 = "--keep" ]; then
-	    KEEP=yes
-	    shift
-	    continue
-	elif [ $1 = "--initrdsize" ]; then
-	    INITRDSIZE=$2
-	    shift; shift
-	    continue
-	elif [ $1 = "--loaderbin" ]; then
-	    LOADERBIN=$2
-	    shift; shift
-	    continue
-	elif [ $1 = "--modules" ]; then
-	    INITRDMODULES=$2
-	    shift; shift
-	    continue
-	fi
-	echo "Unknown option passed to makeinitrd"
-	exit 1
+        if [ $1 = "--initrdto" ]; then
+            EXTRAINITRDPATH=$2
+            shift; shift
+            continue
+        elif [ $1 = "--keep" ]; then
+            KEEP=yes
+            shift
+            continue
+        elif [ $1 = "--initrdsize" ]; then
+            INITRDSIZE=$2
+            shift; shift
+            continue
+        elif [ $1 = "--loaderbin" ]; then
+            LOADERBIN=$2
+            shift; shift
+            continue
+        elif [ $1 = "--modules" ]; then
+            INITRDMODULES=$2
+            shift; shift
+            continue
+        fi
+        echo "Unknown option passed to makeinitrd"
+        exit 1
     done
     if [ -z "$LOADERBIN" ]; then
-	echo "no loader binary specified!" >&2
-	exit 1
+        echo "no loader binary specified!" >&2
+        exit 1
     fi
     if [ -z "$INITRDMODULES" ]; then
-	echo "warning: no loader modules specified!" >&2
+        echo "warning: no loader modules specified!" >&2
     fi
     if [ -z "$INITRDSIZE" ]; then
-	echo "I don't know how big to make the initrd image!" >&2
-	exit 1
+        echo "I don't know how big to make the initrd image!" >&2
+        exit 1
     fi
 
     MBD_DIR=$TMPDIR/makebootdisk.dir.$$
@@ -568,17 +559,17 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/run/wpa_supplicant
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-	mkdir -m 111 -p $MBD_DIR/var/empty/sshd
-	mkdir -p $MBD_DIR/etc/{pam.d,security}
-	mkdir -p $MBD_DIR/$LIBDIR/security
-	cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
-	ln -s /tmp $MBD_DIR/var/state/xkb
-	cp $IMGPATH/usr/bin/xauth $MBD_DIR/sbin/xauth
+        mkdir -m 111 -p $MBD_DIR/var/empty/sshd
+        mkdir -p $MBD_DIR/etc/{pam.d,security}
+        mkdir -p $MBD_DIR/$LIBDIR/security
+        cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
+        ln -s /tmp $MBD_DIR/var/state/xkb
+        cp $IMGPATH/usr/bin/xauth $MBD_DIR/sbin/xauth
         cp $IMGPATH/usr/sbin/cmsfs* $MBD_DIR/sbin/
     fi
 
     if [ -n "$INITRDMODULES" ]; then
-	MODSET=`expandModuleSet "$INITRDMODULES"`
+        MODSET=`expandModuleSet "$INITRDMODULES"`
         makemoduletree $MBD_DIR "$MODSET"
     fi
 
@@ -589,19 +580,20 @@ makeinitrd() {
     instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/$LOADERBIN $MBD_DIR /sbin/loader
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
         instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/init $MBD_DIR /sbin/init
-	ln -s ./init $MBD_DIR/sbin/reboot
-	ln -s ./init $MBD_DIR/sbin/halt
-	ln -s ./init $MBD_DIR/sbin/poweroff
+        ln -s ./init $MBD_DIR/sbin/reboot
+        ln -s ./init $MBD_DIR/sbin/halt
+        ln -s ./init $MBD_DIR/sbin/poweroff
     else
-	instbin $IMGPATH ${LOADERBINDIR##IMGPATH}/shutdown $MBD_DIR /sbin/shutdown
-	instbin $IMGPATH /usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR /sbin/init
-	instbin $IMGPATH /usr/sbin/dasdfmt $MBD_DIR /sbin/dasdfmt
+        instbin $IMGPATH ${LOADERBINDIR##IMGPATH}/shutdown $MBD_DIR /sbin/shutdown
+        instbin $IMGPATH /usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR /sbin/init
+        instbin $IMGPATH /usr/sbin/dasdfmt $MBD_DIR /sbin/dasdfmt
     fi
 
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
        install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
        install -m 644 $SCREENFONT $MBD_DIR/etc/screenfont.gz
     fi
+
     install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
     install -m 644 $IMGPATH/etc/passwd $MBD_DIR/etc/passwd
     install -m 644 $IMGPATH/etc/group $MBD_DIR/etc/group
@@ -733,14 +725,14 @@ makeinitrd() {
 
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
     for i in a/ansi d/dumb l/linux s/screen v/vt100 v/vt100-nav v/vt102 x/xterm x/xterm-color g/gnome ; do
-	[ -f $IMGPATH/usr/share/terminfo/$i ] && \
-	  install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
+        [ -f $IMGPATH/usr/share/terminfo/$i ] && \
+        install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
     done
 
     makeproductfile $MBD_DIR
 
     for n in insmod rmmod modprobe; do
-	instbin $IMGPATH /usr/sbin/$n $MBD_DIR /sbin/$n
+        instbin $IMGPATH /usr/sbin/$n $MBD_DIR /sbin/$n
     done
 
     ln -s /sbin/init $MBD_DIR/init
@@ -751,7 +743,7 @@ makeinitrd() {
 
     # s390/s390x need sshd setup
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-	setupShellEnvironment
+        setupShellEnvironment
     fi
 
 cat > $MBD_DIR/.profile <<EOF
@@ -767,12 +759,12 @@ EOF
     echo "Wrote $MBD_FSIMAGE (${size}k compressed)"
 
     if [ -n "$EXTRAINITRDPATH" ]; then
-	mkdir -p `dirname $EXTRAINITRDPATH`
-	cp -a $MBD_FSIMAGE $EXTRAINITRDPATH
+        mkdir -p `dirname $EXTRAINITRDPATH`
+        cp -a $MBD_FSIMAGE $EXTRAINITRDPATH
     fi
 
     if [ -z "$KEEP" ]; then
-	rm -rf $MBD_FSIMAGE $MBD_BOOTTREE
+        rm -rf $MBD_FSIMAGE $MBD_BOOTTREE
     fi
 }
 
@@ -788,7 +780,7 @@ makeinstimage () {
     (cd $IMGPATH; find . | cpio --quiet -p $tmp)
     makeproductfile $tmp
 
-    if [ -z "$type" -o "$type" = "cramfs" ]; then 
+    if [ -z "$type" -o "$type" = "cramfs" ]; then
         echo "Running mkcramfs $CRAMBS $tmp $INSTIMGPATH/${imagename}2.img"
         mkfs.cramfs $CRAMBS $tmp $TMPDIR/${imagename}2.img.$$
     elif [ "$type" = "squashfs" ]; then
@@ -810,29 +802,29 @@ makemainimage () {
     type=$2
     mmi_tmpimage=$TMPDIR/instimage.img.$$
     mmi_mntpoint=$TMPDIR/instimage.mnt.$$
-    
+
     rm -rf $mmi_tmpimage $mmi_mntpoint
     mkdir $mmi_mntpoint
 
     if [ $type = "ext2" ]; then
         SIZE=$(du -sk $IMGPATH | awk '{ print int($1 * 1.1) }')
         if [ -d $IMGPATH/usr/lib/anaconda-runtime ]; then
-	    ERROR=$(du -sk $IMGPATH/usr/lib/anaconda-runtime | awk '{ print $1 }')
-	    SIZE=$(expr $SIZE - $ERROR)
+            ERROR=$(du -sk $IMGPATH/usr/lib/anaconda-runtime | awk '{ print $1 }')
+            SIZE=$(expr $SIZE - $ERROR)
         fi
         if [ -d $IMGPATH/usr/lib/syslinux ]; then
-	    ERROR=$(du -sk $IMGPATH/usr/lib/syslinux | awk '{ print $1 }')
-	    SIZE=$(expr $SIZE - $ERROR)
+            ERROR=$(du -sk $IMGPATH/usr/lib/syslinux | awk '{ print $1 }')
+            SIZE=$(expr $SIZE - $ERROR)
         fi
         dd if=/dev/zero bs=1k count=${SIZE} of=$mmi_tmpimage 2>/dev/null
-        mke2fs -q -F $mmi_tmpimage > /dev/null 
+        mke2fs -q -F $mmi_tmpimage > /dev/null
         tune2fs -c0 -i0 $mmi_tmpimage >/dev/null
         mount -o loop $mmi_tmpimage $mmi_mntpoint
 
         (cd $IMGPATH; find . |
-	        fgrep -v "./usr/lib/anaconda-runtime" |
-	        fgrep -v "./usr/lib/syslinux"
-	        cpio -H crc -o) | (cd $mmi_mntpoint; cpio -iumd)
+            fgrep -v "./usr/lib/anaconda-runtime" |
+            fgrep -v "./usr/lib/syslinux"
+            cpio -H crc -o) | (cd $mmi_mntpoint; cpio -iumd)
         makeproductfile $mmi_mntpoint
         umount $mmi_mntpoint
         rmdir $mmi_mntpoint
@@ -848,14 +840,14 @@ makemainimage () {
         mkfs.cramfs $CRAMBS $IMGPATH $mmi_tmpimage
         SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
     fi
-    
+
     cp $mmi_tmpimage $INSTIMGPATH/${imagename}.img
     chmod 644 $INSTIMGPATH/${imagename}.img
 
     echo "Wrote $INSTIMGPATH/${imagename}.img (${SIZE}k)"
     relpath=${INSTIMGPATH#$TOPDESTPATH/}
     echo "mainimage = ${relpath}/${imagename}.img" >> $TOPDESTPATH/.treeinfo
-    
+
     rm $mmi_tmpimage
 }
 
@@ -883,7 +875,7 @@ if [ ${BUILDARCH} = s390x ]; then
     source $TOPDIR/mk-images.s390
 elif [ ${BUILDARCH} = ppc64 ]; then
     # ... and similar for ppc64
-    source $TOPDIR/mk-images.ppc 
+    source $TOPDIR/mk-images.ppc
 elif [ ${BUILDARCH} = "x86_64" -o ${BUILDARCH} = "i386" ]; then
     source $TOPDIR/mk-images.x86
     source $TOPDIR/mk-images.efi
@@ -912,70 +904,74 @@ fi
 
 foundakernel=""
 for KERNELARCH in $arches; do
-  for kernelvers in $kerneltags; do
-    kpackage=$(findPackage $kernelvers)
-    if [ "$KERNELARCH" = "i586" -a -z "$kpackage" ]; then
-	echo "No i586 kernel, trying i686..."
-	KERNELARCH="i686"
-	kpackage=$(findPackage $kernelvers)
-    fi
+    for kernelvers in $kerneltags; do
+        kpackage=$(findPackage $kernelvers)
+        if [ "$KERNELARCH" = "i586" -a -z "$kpackage" ]; then
+            echo "No i586 kernel, trying i686..."
+            KERNELARCH="i686"
+            kpackage=$(findPackage $kernelvers)
+        fi
 
-    if [ -z "$kpackage" ]; then
-	echo "Unable to find kernel package $kernelvers"
-	continue
-    fi
+        if [ -z "$kpackage" ]; then
+            echo "Unable to find kernel package $kernelvers"
+            continue
+        fi
 
-    yumdownloader -c $yumconf --archlist=$KERNELARCH $kpackage
-    kpackage="$kpackage.rpm"
-    if [ ! -f "$kpackage" ]; then
-	echo "kernel ($kernelvers) doesn't exist for $KERNELARCH.  skipping"
-	continue
-    fi
+        yumdownloader -c $yumconf --archlist=$KERNELARCH $kpackage
+        kpackage="$kpackage.rpm"
+        if [ ! -f "$kpackage" ]; then
+            echo "kernel ($kernelvers) doesn't exist for $KERNELARCH.  skipping"
+            continue
+        fi
 
-    KERNELROOT=$KERNELBASE/$KERNELARCH
-    mkdir -p $KERNELROOT
+        KERNELROOT=$KERNELBASE/$KERNELARCH
+        mkdir -p $KERNELROOT
 
-    foundakernel="yes"
+        foundakernel="yes"
 
-    if [ "$BUILDARCH" = "ia64" ]; then
-	vmlinuz=$(rpm --nodigest --nosignature -qpl $kpackage |grep ^/boot/efi/EFI/redhat/vmlinuz | head -n 1)
-	version=${vmlinuz##/boot/efi/EFI/redhat/vmlinuz-}
-    else
-	vmlinuz=$(rpm --nodigest --nosignature -qpl $kpackage |grep ^/boot/vmlinuz | head -n 1)
-	version=${vmlinuz##/boot/vmlinuz-}
-    fi
-    arch=$(rpm --nodigest --nosignature --qf '%{ARCH}\n' -qp $kpackage)
+        if [ "$BUILDARCH" = "ia64" ]; then
+            vmlinuz=$(rpm --nodigest --nosignature -qpl $kpackage |grep ^/boot/efi/EFI/redhat/vmlinuz | head -n 1)
+            version=${vmlinuz##/boot/efi/EFI/redhat/vmlinuz-}
+        else
+            vmlinuz=$(rpm --nodigest --nosignature -qpl $kpackage |grep ^/boot/vmlinuz | head -n 1)
+            version=${vmlinuz##/boot/vmlinuz-}
+        fi
+        arch=$(rpm --nodigest --nosignature --qf '%{ARCH}\n' -qp $kpackage)
 
-    rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
-    rm -f $kpackage
-    # expand out any available firmware too
-    for p in $(repoquery -c $yumconf '*firmware*') ; do yumdownloader -c $yumconf $p ; rpm2cpio *firmware*.rpm | (cd $KERNELROOT; cpio --quiet -iumd) ; rm -f *firmware*.rpm ; done
+        rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
+        rm -f $kpackage
+        # expand out any available firmware too
+        for p in $(repoquery -c $yumconf '*firmware*') ; do
+            yumdownloader -c $yumconf $p
+            rpm2cpio *firmware*.rpm | (cd $KERNELROOT; cpio --quiet -iumd)
+            rm -f *firmware*.rpm
+        done
 
-    if [ ! -d "$KERNELROOT/lib/modules/$version" ]; then
-	echo "$KERNELROOT/lib/modules/$version is not a valid modules directory" 2>&1
-	exit 1
-    fi
+        if [ ! -d "$KERNELROOT/lib/modules/$version" ]; then
+            echo "$KERNELROOT/lib/modules/$version is not a valid modules directory" 2>&1
+            exit 1
+        fi
 
-    if [ ! -f "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version" ]; then
-	echo "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version does not exist"
-	exit 1
-    fi
+        if [ ! -f "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version" ]; then
+            echo "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version does not exist"
+            exit 1
+        fi
 
-    allmods=$(find $KERNELROOT/lib/modules/$version -name *.ko)
+        allmods=$(find $KERNELROOT/lib/modules/$version -name *.ko)
 
-    rundepmod $KERNELROOT
-    $GENMODINFO $KERNELROOT/lib/modules/$version > $MODINFO
+        rundepmod $KERNELROOT
+        $GENMODINFO $KERNELROOT/lib/modules/$version > $MODINFO
 
-    # make the boot images
-    makeBootImages
+        # make the boot images
+        makeBootImages
 
-    makeEfiImages $yumconf
-  done
+        makeEfiImages $yumconf
+    done
 done
 
 if [ -n "$foundakernel" ]; then
-  makeSecondStage
-  rm -rf $KERNELBASE
+    makeSecondStage
+    rm -rf $KERNELBASE
 fi
 
 doPostImages
