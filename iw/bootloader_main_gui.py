@@ -97,8 +97,8 @@ class MainBootloaderWindow(InstallWindow):
             keys.sort()
 
             for d in keys:
-                size = disks[d].dev.getSize(unit="MB")
-                m = disks[d].dev.model
+                size = disks[d].device.getSize(unit="MB")
+                m = disks[d].device.model
 
                 i = model.append(None)
                 model[i] = ("%s %8.0f MB %s" %(d, size, m), "%s" %(d,))
