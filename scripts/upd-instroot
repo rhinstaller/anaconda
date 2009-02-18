@@ -150,7 +150,7 @@ die () {
     exit 1
 }
 
-PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
+PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     anaconda-yum-plugins at-spi atk attr audit-libs bash bitmap-fonts-cjk
     booty btrfs-progs busybox-anaconda bzip2 bzip2-libs cairo cjkunifonts-uming
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
@@ -184,7 +184,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
     setup slang smc-fonts-meera specspo sqlite synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release taipeifonts tcp_wrappers
     tzdata udev un-core-fonts-dotum urw-fonts util-linux-ng tightvnc-server
-    tightvnc-server-module
+    tightvnc-server-module vlgothic-fonts
     wpa_supplicant xkeyboard-config xfsdump xfsprogs xorg-x11 xorg-x11-auth
     xorg-x11-base xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-ethiopic
     xorg-x11-fonts-misc xorg-x11-libs xorg-x11-libs-data xorg-x11-server-utils
@@ -574,7 +574,6 @@ usr/share/fonts/*/lohit_or.ttf
 usr/share/fonts/*/lohit_pa.ttf
 usr/share/fonts/*/lohit_ta.ttf
 usr/share/fonts/*/lohit_te.ttf
-usr/share/fonts/VLGothic/VL-Gothic-Regular.ttf
 usr/share/fonts/cjkunifonts-uming/uming*.ttc
 usr/share/fonts/dejavu/DejaVuSans-Bold.ttf
 usr/share/fonts/dejavu/DejaVuSans.ttf
@@ -583,6 +582,7 @@ usr/share/fonts/kacst/KacstFarsi.ttf
 usr/share/fonts/kacst/KacstQura.ttf
 usr/share/fonts/madan/Madan.ttf
 usr/share/fonts/un-core/UnDotum.ttf
+usr/share/fonts/*/VL-Gothic-Regular.ttf
 usr/share/fonts/smc/Meera*.ttf
 usr/share/hal
 usr/share/hwdata/MonitorsDB
