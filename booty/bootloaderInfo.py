@@ -307,7 +307,7 @@ class bootloaderInfo:
     # to get it how we do now from anaconda.  probably by having the
     # first thing in the chain create a "fsset" object that has the
     # dictionary of mounted filesystems since that's what we care about
-    def getBootloaderConfig(self, instRoot, fsset, bl, langs, kernelList,
+    def getBootloaderConfig(self, instRoot, fsset, bl, kernelList,
                             chainList, defaultDev):
         images = bl.images.getImages()
 
@@ -425,10 +425,10 @@ class bootloaderInfo:
 
         return lilo
 
-    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def write(self, instRoot, fsset, bl, kernelList, chainList,
             defaultDev, justConfig, intf = None):
         if len(kernelList) >= 1:
-            config = self.getBootloaderConfig(instRoot, fsset, bl, langs,
+            config = self.getBootloaderConfig(instRoot, fsset, bl,
                                               kernelList, chainList,
                                               defaultDev)
             config.write(instRoot + self.configfile, perms = self.perms)
@@ -680,7 +680,7 @@ class grubBootloaderInfo(bootloaderInfo):
 
             self.runGrubInstall(instRoot, bootDev, cmds, cfPath)
 
-    def writeGrub(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def writeGrub(self, instRoot, fsset, bl, kernelList, chainList,
             defaultDev, justConfigFile):
         
         images = bl.images.getImages()
@@ -937,11 +937,10 @@ class grubBootloaderInfo(bootloaderInfo):
             return "(%s)" %(self.grubbyDiskName(name))
     
 
-    def getBootloaderConfig(self, instRoot, fsset, bl, langs, kernelList,
+    def getBootloaderConfig(self, instRoot, fsset, bl, kernelList,
                             chainList, defaultDev):
         config = bootloaderInfo.getBootloaderConfig(self, instRoot, fsset,
-                                                    bl, langs,
-                                                    kernelList, chainList,
+                                                    bl, kernelList, chainList,
                                                     defaultDev)
 
         liloTarget = bl.getDevice()
@@ -954,14 +953,6 @@ class grubBootloaderInfo(bootloaderInfo):
         if self.pure is not None and not self.useGrubVal:
             config.addEntry("restricted", replace = 0)
             config.addEntry("password", self.pure, replace = 0)
-        
-
-        import language
-        for lang in language.expandLangs(langs.getDefault()):
-            fn = "/boot/message." + lang
-            if os.access(instRoot + fn, os.R_OK):
-                message = fn
-                break
 
         if self.serial == 1:
            # grab the 0-based number of the serial console device
@@ -985,7 +976,7 @@ class grubBootloaderInfo(bootloaderInfo):
     # this is a hackish function that depends on the way anaconda writes
     # out the grub.conf with a #boot= comment
     # XXX this falls into the category of self.doUpgradeOnly
-    def upgradeGrub(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def upgradeGrub(self, instRoot, fsset, bl, kernelList, chainList,
                     defaultDev, justConfigFile):
         if justConfigFile:
             return ""
@@ -1081,7 +1072,7 @@ class grubBootloaderInfo(bootloaderInfo):
                 f.write("forcelba=0\n")
             f.close()
         
-    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def write(self, instRoot, fsset, bl, kernelList, chainList,
             defaultDev, justConfig, intf):
         if self.timeout is None and chainList:
             self.timeout = 5
@@ -1089,14 +1080,14 @@ class grubBootloaderInfo(bootloaderInfo):
         # XXX HACK ALERT - see declaration above
         if self.doUpgradeOnly:
             if self.useGrubVal:
-                self.upgradeGrub(instRoot, fsset, bl, langs, kernelList,
+                self.upgradeGrub(instRoot, fsset, bl, kernelList,
                                  chainList, defaultDev, justConfig)
             return        
 
         if len(kernelList) < 1:
             self.noKernelsWarn(intf)
 
-        out = self.writeGrub(instRoot, fsset, bl, langs, kernelList, 
+        out = self.writeGrub(instRoot, fsset, bl, kernelList, 
                              chainList, defaultDev,
                              justConfig | (not self.useGrubVal))
 
@@ -1200,9 +1191,9 @@ class efiBootloaderInfo(bootloaderInfo):
             self.kernelLocation = ""
 
 class x86BootloaderInfo(grubBootloaderInfo, efiBootloaderInfo):
-    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def write(self, instRoot, fsset, bl, kernelList, chainList,
             defaultDev, justConfig, intf):
-        grubBootloaderInfo.write(self, instRoot, fsset, bl, langs, kernelList,
+        grubBootloaderInfo.write(self, instRoot, fsset, bl, kernelList,
                                  chainList, defaultDev, justConfig, intf)
 
         # XXX move the lilo.conf out of the way if they're using GRUB
@@ -1223,29 +1214,28 @@ class x86BootloaderInfo(grubBootloaderInfo, efiBootloaderInfo):
         efiBootloaderInfo.__init__(self, initialize=False)
 
 class ia64BootloaderInfo(efiBootloaderInfo):
-    def getBootloaderConfig(self, instRoot, fsset, bl, langs, kernelList,
+    def getBootloaderConfig(self, instRoot, fsset, bl, kernelList,
                             chainList, defaultDev):
         config = bootloaderInfo.getBootloaderConfig(self, instRoot, fsset,
-                                                    bl, langs,
-                                                    kernelList, chainList,
+                                                    bl, kernelList, chainList,
                                                     defaultDev)
         # altix boxes need relocatable (#120851)
         config.addEntry("relocatable")
 
         return config
             
-    def writeLilo(self, instRoot, fsset, bl, langs, kernelList, 
+    def writeLilo(self, instRoot, fsset, bl, kernelList, 
                   chainList, defaultDev, justConfig):
-        config = self.getBootloaderConfig(instRoot, fsset, bl, langs,
+        config = self.getBootloaderConfig(instRoot, fsset, bl,
                                           kernelList, chainList, defaultDev)
         config.write(instRoot + self.configfile, perms = 0755)
 
         return ""
         
-    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def write(self, instRoot, fsset, bl, kernelList, chainList,
             defaultDev, justConfig, intf):
         if len(kernelList) >= 1:
-            out = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
+            out = self.writeLilo(instRoot, fsset, bl, kernelList, 
                                  chainList, defaultDev, justConfig)
         else:
             self.noKernelsWarn(intf)
@@ -1262,7 +1252,7 @@ class ia64BootloaderInfo(efiBootloaderInfo):
         self._bootloader = "elilo.efi"
 
 class s390BootloaderInfo(bootloaderInfo):
-    def getBootloaderConfig(self, instRoot, fsset, bl, langs, kernelList,
+    def getBootloaderConfig(self, instRoot, fsset, bl, kernelList,
                             chainList, defaultDev):
         images = bl.images.getImages()
 
@@ -1377,7 +1367,7 @@ class s390BootloaderInfo(bootloaderInfo):
         return ""
         
     
-    def writeZipl(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def writeZipl(self, instRoot, fsset, bl, kernelList, chainList,
                   defaultDev, justConfigFile):
         images = bl.images.getImages()
         rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
@@ -1422,9 +1412,9 @@ class s390BootloaderInfo(bootloaderInfo):
             
         return ""
 
-    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def write(self, instRoot, fsset, bl, kernelList, chainList,
             defaultDev, justConfig, intf):
-        out = self.writeZipl(instRoot, fsset, bl, langs, kernelList, 
+        out = self.writeZipl(instRoot, fsset, bl, kernelList, 
                              chainList, defaultDev,
                              justConfig | (not self.useZiplVal))
         out = self.writeChandevConf(bl, instRoot)
@@ -1447,7 +1437,7 @@ class alphaBootloaderInfo(bootloaderInfo):
         (foo, partitionNumber) = getDiskPart(path)
         return partitionNumber + 1
 
-    def writeAboot(self, instRoot, fsset, bl, langs, kernelList,
+    def writeAboot(self, instRoot, fsset, bl, kernelList,
                    chainList, defaultDev, justConfig):
         # Get bootDevice and rootDevice
         rootDevice = fsset.getEntryByMountPoint("/").device.getDevice()
@@ -1558,12 +1548,12 @@ class alphaBootloaderInfo(bootloaderInfo):
                                     stderr = "/dev/tty5")
 
 
-    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def write(self, instRoot, fsset, bl, kernelList, chainList,
             defaultDev, justConfig, intf):
         if len(kernelList) < 1:
             self.noKernelsWarn(intf)
 
-        self.writeAboot(instRoot, fsset, bl, langs, kernelList, 
+        self.writeAboot(instRoot, fsset, bl, kernelList, 
                         chainList, defaultDev, justConfig)
 
     def __init__(self):
@@ -1609,7 +1599,7 @@ class ppcBootloaderInfo(bootloaderInfo):
         return devs
 
 
-    def writeYaboot(self, instRoot, fsset, bl, langs, kernelList, 
+    def writeYaboot(self, instRoot, fsset, bl, kernelList, 
                   chainList, defaultDev, justConfigFile):
 
         yabootTarget = string.join(self.getBootDevs(fsset, bl))
@@ -1734,10 +1724,10 @@ class ppcBootloaderInfo(bootloaderInfo):
         # or not
         self.password = val
         
-    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def write(self, instRoot, fsset, bl, kernelList, chainList,
             defaultDev, justConfig, intf):
         if len(kernelList) >= 1:
-            out = self.writeYaboot(instRoot, fsset, bl, langs, kernelList, 
+            out = self.writeYaboot(instRoot, fsset, bl, kernelList, 
                                  chainList, defaultDev, justConfig)
         else:
             self.noKernelsWarn(intf)
@@ -1766,7 +1756,7 @@ class iseriesBootloaderInfo(bootloaderInfo):
 
         return size
         
-    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def write(self, instRoot, fsset, bl, kernelList, chainList,
               defaultDev, justConfig, intf):
         if len(kernelList) < 1:
             self.noKernelsWarn(intf)
@@ -1856,7 +1846,7 @@ class isolinuxBootloaderInfo(bootloaderInfo):
         self.kernelLocation = "/boot"
         self.configfile = "/boot/isolinux/isolinux.cfg"
 
-    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def write(self, instRoot, fsset, bl, kernelList, chainList,
               defaultDev, justConfig, intf = None):
         if not os.path.isdir(instRoot + "/boot/isolinux"):
             os.mkdir(instRoot + "/boot/isolinux")
@@ -1894,7 +1884,7 @@ class isolinuxBootloaderInfo(bootloaderInfo):
     
         
 class sparcBootloaderInfo(bootloaderInfo):
-    def writeSilo(self, instRoot, fsset, bl, langs, kernelList,
+    def writeSilo(self, instRoot, fsset, bl, kernelList,
                 chainList, defaultDev, justConfigFile):
 
         bootDev = fsset.getEntryByMountPoint("/boot")
@@ -2000,10 +1990,10 @@ class sparcBootloaderInfo(bootloaderInfo):
         # silo just handles the password unencrypted
         self.password = val
 
-    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+    def write(self, instRoot, fsset, bl, kernelList, chainList,
             defaultDev, justConfig, intf):
         if len(kernelList) >= 1:
-            self.writeSilo(instRoot, fsset, bl, langs, kernelList, chainList,
+            self.writeSilo(instRoot, fsset, bl, kernelList, chainList,
                         defaultDev, justConfig)
         else:
             self.noKernelsWarn(intf)
