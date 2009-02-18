@@ -26,7 +26,6 @@ from copy import copy
 
 from lilo import LiloConfigFile
 import rhpl
-#from rhpl.log import log
 from rhpl.translate import _, N_
 import rhpl.executil
 
@@ -130,7 +129,6 @@ class KernelArguments:
                         self.cargs.append(vparm)
                 except Exception, e:
                     pass
-                    #log("exception parsing %s: %s" % (cfgFilename, e))
             f.close()
 
         # look for kernel arguments we know should be preserved and add them
@@ -227,7 +225,6 @@ class BootImages:
                     devs.append((dev, type))
                     foundDos = 1
                 except Exception, e:
-                    #log("exception checking %s: %s" %(dev, e))
                     pass
             elif ((type == 'ntfs' or type =='hpfs') and not foundDos
                   and doesDualBoot()):
@@ -576,7 +573,6 @@ class grubBootloaderInfo(bootloaderInfo):
             return
         
         if isCrypted and self.useGrubVal == 0:
-            #log("requested crypted password with lilo; ignoring")
             self.pure = None
             return
         elif isCrypted:
@@ -628,9 +624,6 @@ class grubBootloaderInfo(bootloaderInfo):
         return [device]
 
     def runGrubInstall(self, instRoot, bootDev, cmds, cfPath):
-        #log("GRUB commands:")
-        #for cmd in cmds:
-        #    log("\t%s\n", cmd)
         if cfPath == "/":
             syncDataToDisk(bootDev, "/boot", instRoot)
         else:
@@ -1071,7 +1064,6 @@ class grubBootloaderInfo(bootloaderInfo):
             cmds.append(cmd)
         
             if not justConfigFile:
-                #log("GRUB command %s", cmd)
                 self.runGrubInstall(instRoot, bootDev.device.setupDevice(),
                                     cmds, cfPath)
  
@@ -1549,7 +1541,6 @@ class alphaBootloaderInfo(bootloaderInfo):
             # to and the second argument is a path to the bootstrap loader
             # file.
             args = ("swriteboot", ("/dev/%s" % wbd), "/boot/bootlx")
-            #log("swriteboot command: %s" %(args,))
             rhpl.executil.execWithRedirect ('/sbin/swriteboot', args,
                                     root = instRoot,
                                     stdout = "/dev/tty5",
@@ -1561,7 +1552,6 @@ class alphaBootloaderInfo(bootloaderInfo):
             # It's always the boot partition whether it's / or /boot (with
             # the mount point being omitted.)
             args = ("abootconf", ("/dev/%s" % wbd), str (bdpn))
-            #log("abootconf command: %s" %(args,))            
             rhpl.executil.execWithRedirect ('/sbin/abootconf', args,
                                     root = instRoot,
                                     stdout = "/dev/tty5",
@@ -1725,7 +1715,6 @@ class ppcBootloaderInfo(bootloaderInfo):
 
         ybinargs = [ yabootProg, "-f", "-C", cf ]
         
-        #log("running: %s" %(ybinargs,))
         if not flags.test:
             rhpl.executil.execWithRedirect(ybinargs[0],
                                            ybinargs,
@@ -1782,10 +1771,6 @@ class iseriesBootloaderInfo(bootloaderInfo):
         if len(kernelList) < 1:
             self.noKernelsWarn(intf)
             return
-        #if len(kernelList) > 1:
-        #    # FIXME: how can this happen?
-        #    log("more than one kernel on iSeries.  bailing and just using "
-        #        "the first")
 
         # iseries is Weird (tm) -- here's the basic theory 
         # a) have /boot/vmlinitrd-$(version) 
@@ -1818,16 +1803,13 @@ class iseriesBootloaderInfo(bootloaderInfo):
         # OS/400 will load as NWSSTG
         bootDev = bl.getDevice()
         if bootDev:
-            #log("Writing kernel %s to PReP partition %s" %(kernelFile, bootDev))
             try:
                 self.ddFile(instRoot + kernelFile, "%s/dev/%s" %(instRoot,
                                                                  bootDev))
             except Exception, e:
                 # FIXME: should this be more fatal
-                #log("Failed to write kernel: %s" %(e,))
                 pass
         else:
-            #log("No PReP boot partition, not writing kernel for NWSSTG")
             pass
 
 
@@ -1835,7 +1817,6 @@ class iseriesBootloaderInfo(bootloaderInfo):
         # into OS/400, so set up side C (used by default for NWSSTG) with
         # our current bits
         for side in ("C", "B"):
-            #log("Writing kernel and cmdline to side %s" %(side,))
             wrotekernel = 0
             try:
                 self.ddFile(instRoot + kernelFile,
@@ -1843,7 +1824,6 @@ class iseriesBootloaderInfo(bootloaderInfo):
                 wrotekernel = 1
             except Exception, e:
                 # FIXME: should this be more fatal?
-                #log("Failed to write kernel to side %s: %s" %(side, e))
                 pass
 
             if wrotekernel == 1:
@@ -1860,11 +1840,8 @@ class iseriesBootloaderInfo(bootloaderInfo):
                                 "%s/proc/iSeries/mf/%s/cmdline" %(instRoot,
                                                                   side))
                 except Exception, e:
-                    #log("Failed to write kernel command line to side %s: %s"
-                    #    %(side, e))
                     pass
 
-        #log("Setting default side to C")
         f = open(instRoot + "/proc/iSeries/mf/side", "w")
         f.write("C")
         f.close()
@@ -2005,7 +1982,6 @@ class sparcBootloaderInfo(bootloaderInfo):
         else:
             sbinargs += ["-U"]
 
-        #log("running: %s" % (sbinargs,))
         if not flags.test:
             rhpl.executil.execWithRedirect(sbinargs[0],
                                             sbinargs,
