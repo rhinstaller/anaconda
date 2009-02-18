@@ -81,14 +81,3 @@ def addImage(path, initrd, label, config, default):
             entry.addEntry(key, default.getEntry(key))
 
     config.addImage(entry, 1)
-
-
-# note that this function no longer actually creates an initrd.
-# the kernel's %post does this now
-def makeInitrd (kernelTag, instRoot):
-    if rhpl.getArch() == 'ia64':
-        initrd = "/boot/efi/EFI/redhat/initrd%s.img" % (kernelTag, )
-    else:
-        initrd = "/boot/initrd%s.img" % (kernelTag, )
-
-    return initrd

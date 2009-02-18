@@ -300,6 +300,9 @@ class bootloaderInfo:
         else:
             self.defaultDevice = "partition"
 
+    def makeInitrd(self, kernelTag):
+        return "/boot/initrd%s.img" % kernelTag
+
     # XXX need to abstract out the requirement for a fsset to be able
     # to get it "on the fly" on a running system as well as being able
     # to get it how we do now from anaconda.  probably by having the
@@ -355,7 +358,7 @@ class bootloaderInfo:
 
             sl = LiloConfigFile(imageType = "image", path = kernelFile)
 
-            initrd = booty.makeInitrd (kernelTag, instRoot)
+            initrd = self.makeInitrd(kernelTag)
 
             sl.addEntry("label", label)
             if os.access (instRoot + initrd, os.R_OK):
@@ -803,7 +806,7 @@ class grubBootloaderInfo(bootloaderInfo):
             kernelTag = "-" + version
             kernelFile = "%svmlinuz%s" % (cfPath, kernelTag)
 
-            initrd = booty.makeInitrd (kernelTag, instRoot)
+            initrd = self.makeInitrd(kernelTag)
 
             f.write('title %s (%s)\n' % (longlabel, version))
             f.write('\troot %s\n' % self.grubbyPartitionName(bootDevs[0]))
@@ -1267,6 +1270,9 @@ class ia64BootloaderInfo(efiBootloaderInfo):
         self.removeOldEfiEntries(instRoot)
         self.addNewEfiEntry(instRoot, fsset)
 
+    def makeInitrd(self, kernelTag):
+        return "/boot/efi/EFI/redhat/initrd%s.img" % kernelTag
+
     def __init__(self):
         efiBootloaderInfo.__init__(self)
         self._configname = "elilo.conf"
@@ -1315,7 +1321,7 @@ class s390BootloaderInfo(bootloaderInfo):
 
             sl = LiloConfigFile(imageType = "image", path = kernelFile)
 
-            initrd = booty.makeInitrd (kernelTag, instRoot)
+            initrd = self.makeInitrd(kernelTag)
 
             sl.addEntry("label", label)
             if os.access (instRoot + initrd, os.R_OK):
@@ -1411,7 +1417,7 @@ class s390BootloaderInfo(bootloaderInfo):
             kernelTag = "-" + version
             kernelFile = "%svmlinuz%s" % (cfPath, kernelTag)
 
-            initrd = booty.makeInitrd (kernelTag, instRoot)
+            initrd = self.makeInitrd(kernelTag)
             f.write('[%s]\n' % (label))
             f.write('\timage=%s\n' % (kernelFile))
             if os.access (instRoot + initrd, os.R_OK):
@@ -1523,7 +1529,7 @@ class alphaBootloaderInfo(bootloaderInfo):
             f.write("%d:%d%s" %(lines, bpn, kernelFile))
 
             # See if we can come up with an initrd argument that exists
-            initrd = booty.makeInitrd (kernelTag, instRoot)
+            initrd = self.makeInitrd(kernelTag)
             if os.path.isfile(instRoot + initrd):
                 f.write(" initrd=%sinitrd%s.img" %(kernelPath, kernelTag))
 
@@ -1700,7 +1706,7 @@ class ppcBootloaderInfo(bootloaderInfo):
             f.write("\tlabel=%s\n" %(label,))
             f.write("\tread-only\n")
 
-            initrd = booty.makeInitrd(kernelTag, instRoot)
+            initrd = self.makeInitrd(kernelTag)
             if os.access(instRoot + initrd, os.R_OK):
                 f.write("\tinitrd=%s/initrd%s.img\n" %(cfPath,kernelTag))
 
@@ -1975,7 +1981,7 @@ class sparcBootloaderInfo(bootloaderInfo):
             f.write("\tlabel=%s\n" % (label,))
             f.write("\tread-only\n")
 
-            initrd = booty.makeInitrd(kernelTag, instRoot)
+            initrd = self.makeInitrd(kernelTag)
             if os.access(instRoot + initrd, os.R_OK):
                 f.write("\tinitrd=%s/initrd%s.img\n" % (cfPath, kernelTag))
 
