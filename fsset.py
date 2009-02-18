@@ -2453,7 +2453,8 @@ class RAIDDevice(Device):
                    1: "raid1",
                    4: "raid5",
                    5: "raid5",
-                   6: "raid6" }
+                   6: "raid6",
+                  10: "raid10" }
 
         # If we can't find the device for some reason, revert to old behavior.
         try:

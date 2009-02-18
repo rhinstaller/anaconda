@@ -25,10 +25,12 @@ def getRaidLevels():
         for l in f.readlines():
             if not l.startswith("Personalities"):
                 continue
-            for tok in l.split():
-                for lev in ("RAID0", "RAID1", "RAID5", "RAID6"):
-                    if tok.upper().find(lev) != -1:
-                        avail.append(lev)
+
+            lst = l.split()
+
+            for lev in ["RAID0", "RAID1", "RAID5", "RAID6", "RAID10"]:
+                if "[" + lev + "]" in lst or "[" + lev.lower() + "]" in lst:
+                    avail.append(lev)
 
         f.close()
 
@@ -148,6 +150,12 @@ def stopAllRaid(mdList):
     for dev, devices, level, numActive in mdList:
 	isys.raidstop(dev)
 
+def isRaid10(raidlevel):
+    """Return whether raidlevel is a valid descriptor of RAID10."""
+    if raidlevel in ("RAID10", "10", 10):
+        return True
+    return False
+
 def isRaid6(raidlevel):
     """Return whether raidlevel is a valid descriptor of RAID6."""
     if raidlevel in ("RAID6", "6", 6):
@@ -182,6 +190,8 @@ def get_raid_min_members(raidlevel):
         return 3
     elif isRaid6(raidlevel):
         return 4
+    elif isRaid10(raidlevel):
+        return 2
     else:
         raise ValueError, "invalid raidlevel in get_raid_min_members"
 
@@ -189,7 +199,7 @@ def get_raid_max_spares(raidlevel, nummembers):
     """Return the maximum number of raid spares for raidlevel."""
     if isRaid0(raidlevel):
         return 0
-    elif isRaid1(raidlevel) or isRaid5(raidlevel) or isRaid6(raidlevel):
+    elif isRaid1(raidlevel) or isRaid5(raidlevel) or isRaid6(raidlevel) or isRaid10(raidlevel):
         return max(0, nummembers - get_raid_min_members(raidlevel))
     else:
         raise ValueError, "invalid raidlevel in get_raid_max_spares"

@@ -651,7 +651,7 @@ class RaidRequestSpec(RequestSpec):
         for member in self.raidmembers:
             request = partitions.getRequestByID(member)
             raidmems.append(request.getDevice(partitions))
-        self.dev = fsset.RAIDDevice(int(self.raidlevel[-1:]),
+        self.dev = fsset.RAIDDevice(int(self.raidlevel[4:]),
                                     raidmems, minor = self.raidminor,
                                     spares = self.raidspares,
                                     existing = self.preexist,
@@ -698,6 +698,8 @@ class RaidRequestSpec(RequestSpec):
             return (nummembers-1) * smallest
         elif raid.isRaid6(self.raidlevel):
             return (nummembers-2) * smallest
+        elif raid.isRaid10(self.raidlevel):
+            return (nummembers/2) * smallest
         else:
             raise ValueError, "Invalid raidlevel in RaidRequest.getActualSize"
         
