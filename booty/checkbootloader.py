@@ -206,17 +206,3 @@ def getBootloaderTypeAndBoot(instRoot = "/"):
                     return ("SILO", bootDev)
 
     return (None, None)
-
-def whichBootLoader(instRoot = "/"):        
-    ret = getBootloaderTypeAndBoot(instRoot)
-    if not ret:
-        return None
-    else:
-        return ret[0]
-
-if __name__ == "__main__":
-    bootloader = whichBootLoader()
-    if bootloader:
-        print "Found %s." % (bootloader)
-    else:
-        print "Unable to determine boot loader."
