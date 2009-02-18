@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.19
+Version: 11.5.0.20
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,24 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Feb 17 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.20-1
+- Fix indentation on upd-instroot (kanarip)
+- Fix the indentation in mk-images (kanarip)
+- Remove unused iface_netmask2prefix() function. (dcantrell)
+- A parted.Disk has no attribute named "dev".  It's named "device"
+  (#486007). (clumens)
+- Use brandpkgname for the efi art too (katzj)
+- Let's use the product string for a brandpackage name. (kanarip)
+- Fix indentation in mk-images.efi (kanarip)
+- Fix indentation in buildinstall script (kanarip)
+- It's part.active, not part.is_active(). (clumens)
+- File the basic traceback as the first comment instead of a generic
+  message. (clumens)
+- Encode our upgrade policy in productMatches/versionMatches and enforce it.
+  (clumens)
+- If we'd show package selection on kickstart installs, also show tasksel.
+  (clumens)
+
 * Fri Feb 13 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.19-1
 - Fix build errors in the new net.c code. (clumens)
 
