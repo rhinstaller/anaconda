@@ -317,9 +317,6 @@ makemoduletree() {
             zd1211rw)
                 cp -r $KERNELROOT/lib/firmware/zd1211 $MBD_DIR/firmware
             ;;
-            qla2xxx)
-                cp $KERNELROOT/lib/firmware/ql* $MBD_DIR/firmware
-            ;;
         esac
     done
 
