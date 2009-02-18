@@ -190,7 +190,7 @@ update-desktop-database &> /dev/null || :
 %doc docs/anaconda-release-notes.txt
 %{_bindir}/mini-wm
 %{_sbindir}/anaconda
-%ifarch i386 x86_64
+%ifarch i386 i486 i586 i686 x86_64
 %{_sbindir}/gptsync
 %{_sbindir}/showpart
 %endif
