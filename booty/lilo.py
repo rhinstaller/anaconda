@@ -51,24 +51,6 @@ class UserDictCase(UserDict):
     def dict(self):
         return self.data
 
-
-def needsEnterpriseKernel():
-    rc = 0
-
-    try:
-        f = open("/proc/e820info", "r")
-    except IOError:
-        return 0
-    for l in f.readlines():
-        l = string.split(l)
-        if l[3] == '(reserved)': continue
-
-        regionEnd = (string.atol(l[0], 16) - 1) + string.atol(l[2], 16)
-        if regionEnd > 0xffffffffL:
-            rc = 1
-
-    return rc
-
 class LiloConfigFile:
     """class representing a lilo.conf lilo configuration file. Used to
     manipulate the file directly"""
