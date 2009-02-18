@@ -1458,25 +1458,6 @@ class alphaBootloaderInfo(bootloaderInfo):
         (foo, partitionNumber) = getDiskPart(path)
         return partitionNumber + 1
 
-    # See if we would have to use MILO. MILO isn't supported by Red Hat. 
-    def useMilo (self):
-        try:
-            f = open ('/proc/cpuinfo', 'ro')
-        except:
-            return
-        lines = f.readlines ()
-        f.close()
-        serial = ""
-        for line in lines:
-            if line.find("system serial number") != -1:
-                serial = string.strip (string.split (line, ':')[1])
-                break
-
-        if serial and len (serial) >= 4 and serial.startswith("MILO"):
-            return 1
-        else:
-            return 0
-
     def writeAboot(self, instRoot, fsset, bl, langs, kernelList,
                    chainList, defaultDev, justConfig):
         # Get bootDevice and rootDevice
@@ -1595,17 +1576,9 @@ class alphaBootloaderInfo(bootloaderInfo):
         if len(kernelList) < 1:
             self.noKernelsWarn(intf)
 
-        if self.useMilo():
-            intf.messageWindow(_("MILO Not Supported"),
-                               "This system requires the support of MILO to " +
-                               "boot linux (MILO is not included in this " +
-                               "distribution.) The installation of the " +
-                               "bootloader can't be completed on this system.")
-        # elif not justConfig FIXME.
-        else:
-            self.writeAboot(instRoot, fsset, bl, langs, kernelList, 
-                            chainList, defaultDev, justConfig)
-    
+        self.writeAboot(instRoot, fsset, bl, langs, kernelList, 
+                        chainList, defaultDev, justConfig)
+
     def __init__(self):
         bootloaderInfo.__init__(self)
         self.useGrubVal = 0
