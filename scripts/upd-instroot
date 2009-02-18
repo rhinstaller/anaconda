@@ -24,54 +24,54 @@ ARCH=`uname -m`
 
 while [ $# -gt 0 ]; do
     case $1 in
-	--debug)
-	    DEBUG="--debug"
-	    shift
-	    ;;
+        --debug)
+            DEBUG="--debug"
+            shift
+        ;;
 
-	--arch)
-	    ARCH=$2
-	    shift; shift
-	    ;;
+        --arch)
+            ARCH=$2
+            shift; shift
+        ;;
 
-	--imgdir)
-	    DEST=$2
-	    shift; shift
-	    ;;
+        --imgdir)
+            DEST=$2
+            shift; shift
+        ;;
 
-	# a filesystem tree to use as updates.  could be the output
-	# of 'make install' from anaconda...
-	--updates)
-	    UPDATES=$2
-	    shift; shift
-	    ;;
+        # a filesystem tree to use as updates.  could be the output
+        # of 'make install' from anaconda...
+        --updates)
+            UPDATES=$2
+            shift; shift
+        ;;
 
-	--nogr)
-	    echo "*** DeprecationWarning: ignoring --nogr option." >&2
-	    shift
-	    ;;
+        --nogr)
+            echo "*** DeprecationWarning: ignoring --nogr option." >&2
+            shift
+        ;;
 
-	--mindir)
-	    echo "*** DeprecationWarning: ignoring --mindir option." >&2
-	    shift; shift
-	    ;;
+        --mindir)
+            echo "*** DeprecationWarning: ignoring --mindir option." >&2
+            shift; shift
+        ;;
 
-	--stg2dir)
-	    echo "*** DeprecationWarning: please use --imgdir instead of --stg2dir." >&2
-	    shift; shift
-	    ;;
+        --stg2dir)
+            echo "*** DeprecationWarning: please use --imgdir instead of --stg2dir." >&2
+            shift; shift
+        ;;
 
-	*)
-	    yumconf=$1
-	    shift
-	    ;;
+        *)
+            yumconf=$1
+            shift
+        ;;
     esac
 done
 
 if [ -z "$yumconf" ]; then
-	echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
-	echo "usage:        $0 [--debug] [--arch arch] [--imgdir imgdir] [yumconf]"
-	exit 1
+    echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
+    echo "usage:        $0 [--debug] [--arch arch] [--imgdir imgdir] [yumconf]"
+    exit 1
 fi
 
 if [ $ARCH = x86_64 -o $ARCH = s390x -o $ARCH = ppc64 ]; then
@@ -99,45 +99,47 @@ expandPackageSet() {
     KEEPFILES=$5
 
     [ -d $PKGDEST ] || die "ERROR: directory missing: $PKGDEST"
-    if [ -z "$DEBUG" ]; then outlvl="--quiet" ; else outlvl="--verbose"; fi
+
+    [ -z "$DEBUG" ] && outlvl="--quiet" || outlvl="--verbose"
+
     yum $outlvl -c $YUMCONF -y --installroot=$YUMDIR install $RPMS 2>&1 || die "ERROR: could not install packages"
 
     if [ -n "$UPDATES" ]; then
-	(cd $UPDATES; find) | (cd $UPDATES ; /bin/cpio --quiet -pmdu $YUMDIR)
+        (cd $UPDATES; find) | (cd $UPDATES ; /bin/cpio --quiet -pmdu $YUMDIR)
     fi
 
     # figure out the theme to keep
     if [ -f $YUMDIR/etc/gtk-2.0/gtkrc ]; then
-	gtktheme=$(grep "gtk-theme-name" $YUMDIR/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
-	echo "usr/share/themes/$gtktheme" >> $KEEPFILES
-	# find gtk engine needed
-	for engine in `grep engine $YUMDIR/usr/share/themes/$gtktheme/gtk-2.0/gtkrc | awk {'print $2;'} | sed -e 's/"//g' | sort -u` ; do
-	    echo "usr/$LIBDIR/gtk-2.0/*/engines/*$engine*" >> $KEEPFILES
-	done
-	
-	theme=$(grep "gtk-icon-theme-name" $YUMDIR/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
-	while [ -n "$theme" ]; do 
-	    echo "usr/share/icons/$theme" >> $KEEPFILES
-	    theme=$(grep Inherits $YUMDIR/usr/share/icons/$theme/index.theme | cut -d = -f 2)
-	done
+        gtktheme=$(grep "gtk-theme-name" $YUMDIR/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
+        echo "usr/share/themes/$gtktheme" >> $KEEPFILES
+        # find gtk engine needed
+        for engine in `grep engine $YUMDIR/usr/share/themes/$gtktheme/gtk-2.0/gtkrc | awk {'print $2;'} | sed -e 's/"//g' | sort -u` ; do
+            echo "usr/$LIBDIR/gtk-2.0/*/engines/*$engine*" >> $KEEPFILES
+        done
+
+        theme=$(grep "gtk-icon-theme-name" $YUMDIR/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
+        while [ -n "$theme" ]; do
+            echo "usr/share/icons/$theme" >> $KEEPFILES
+            theme=$(grep Inherits $YUMDIR/usr/share/icons/$theme/index.theme | cut -d = -f 2)
+        done
     fi
 
     echo `date` "Installing files"
     pushd $YUMDIR >/dev/null
     cat $KEEPFILES | while read spec ; do
-      #Pull off path
-      path=`echo "$spec" | sed 's,\([^[*\?]*\)/.*,\1,'`
-      for filespec in `find ./$path -path "./$spec" 2> /dev/null` ; do
-	if [ ! -e $filespec ]; then
-	    continue
-	elif [ ! -d $filespec ]; then
-	    instFile $filespec $PKGDEST
-	else
-	    for i in `find $filespec -type f 2> /dev/null` ; do instFile $i $PKGDEST ; done
-	    for i in `find $filespec -type l 2> /dev/null` ; do instFile $i $PKGDEST ; done
-	    for d in `find $filespec -type d 2> /dev/null` ; do instDir $d $PKGDEST ; done
-	fi
-      done
+        #Pull off path
+        path=`echo "$spec" | sed 's,\([^[*\?]*\)/.*,\1,'`
+        for filespec in `find ./$path -path "./$spec" 2> /dev/null` ; do
+            if [ ! -e $filespec ]; then
+                continue
+            elif [ ! -d $filespec ]; then
+                instFile $filespec $PKGDEST
+            else
+                for i in `find $filespec -type f 2> /dev/null` ; do instFile $i $PKGDEST ; done
+                for i in `find $filespec -type l 2> /dev/null` ; do instFile $i $PKGDEST ; done
+                for d in `find $filespec -type d 2> /dev/null` ; do instDir $d $PKGDEST ; done
+            fi
+        done
     done
     popd >/dev/null
 }
@@ -149,45 +151,45 @@ die () {
 }
 
 PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit VLGothic-fonts acl anaconda
-	anaconda-yum-plugins at-spi atk attr audit-libs bash bitmap-fonts-cjk
-	booty btrfs-progs busybox-anaconda bzip2 bzip2-libs cairo cjkunifonts-uming
-	comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
-	cryptsetup-luks db4 dbus dbus-python dejavu-sans-fonts
-	dejavu-sans-mono-fonts device-mapper
-	device-mapper-libs dhclient dhcpv6-client dmapi dmraid dmraid-libs
-	dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme
-	elfutils-libelf expat firstboot fontconfig fonts-ISO8859-2 freetype gail
-	gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
-	gnome-python2-gtkhtml2 gnome-themes gpm gtk2 gtk2-engines gtkhtml2 hal
-	hdparm hwdata initscripts iproute iputils iscsi-initiator-utils
-	jfsutils keyutils-libs krb5-libs libICE libSM libX11 libXau
-	libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
-	libXi libXinerama libXmu libXpm libXrandr libXrender libXt libXtst
-	libXxf86misc libacl libart_lgpl libattr libbdevid libbdevid-python
-	libbonobo libfontenc libgcc
-	libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg liblbxutil libnl
-	libpixman libpng libselinux libselinux-python libsemanage
-	libsemanage-python libsepol libstdc++ libtermcap libthai libuser
-	libuser-python libvolume_id libxcb libxkbfile libxml2 lohit-fonts-bengali
-	lohit-fonts-gujarati lohit-fonts-hindi lohit-fonts-kannada lohit-fonts-maithili
-	lohit-fonts-oriya lohit-fonts-punjabi lohit-fonts-tamil lohit-fonts-telugu
-	lvm2 madan-fonts mdadm
-	mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
-	newt newt-python nfs-utils nspr nss ntfs-3g pam pango parted pciutils pcre
-	policy policycoreutils popt prelink procps pycairo pygobject2 pygtk2
-	pygtk2-libglade pykickstart pyparted pyspi python python-bugzilla
-	python-elementtree python-libs python-pyblock python-sqlite
-	python-urlgrabber pyxf86config raidtools readline redhat-artwork
-	reiserfs-utils rhpl rpm rpm-libs rpm-python sed selinux-policy-targeted
-	setup slang smc-fonts-meera specspo sqlite synaptics system-config-date
-	system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release taipeifonts tcp_wrappers
-	tzdata udev un-core-fonts-dotum urw-fonts util-linux-ng tightvnc-server
-	tightvnc-server-module
-	wpa_supplicant xkeyboard-config xfsdump xfsprogs xorg-x11 xorg-x11-auth
-	xorg-x11-base xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-ethiopic
-	xorg-x11-fonts-misc xorg-x11-libs xorg-x11-libs-data xorg-x11-server-utils
-	xorg-x11-server-Xorg xorg-x11-xkb-utils xorg-x11-xkbdata xorg-x11-xfs yum
-	yum-fedorakmod yum-metadata-parser zenity zlib /etc/gtk-2.0/gtkrc"
+    anaconda-yum-plugins at-spi atk attr audit-libs bash bitmap-fonts-cjk
+    booty btrfs-progs busybox-anaconda bzip2 bzip2-libs cairo cjkunifonts-uming
+    comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
+    cryptsetup-luks db4 dbus dbus-python dejavu-sans-fonts
+    dejavu-sans-mono-fonts device-mapper
+    device-mapper-libs dhclient dhcpv6-client dmapi dmraid dmraid-libs
+    dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme
+    elfutils-libelf expat firstboot fontconfig fonts-ISO8859-2 freetype gail
+    gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
+    gnome-python2-gtkhtml2 gnome-themes gpm gtk2 gtk2-engines gtkhtml2 hal
+    hdparm hwdata initscripts iproute iputils iscsi-initiator-utils
+    jfsutils keyutils-libs krb5-libs libICE libSM libX11 libXau
+    libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
+    libXi libXinerama libXmu libXpm libXrandr libXrender libXt libXtst
+    libXxf86misc libacl libart_lgpl libattr libbdevid libbdevid-python
+    libbonobo libfontenc libgcc
+    libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg liblbxutil libnl
+    libpixman libpng libselinux libselinux-python libsemanage
+    libsemanage-python libsepol libstdc++ libtermcap libthai libuser
+    libuser-python libvolume_id libxcb libxkbfile libxml2 lohit-fonts-bengali
+    lohit-fonts-gujarati lohit-fonts-hindi lohit-fonts-kannada lohit-fonts-maithili
+    lohit-fonts-oriya lohit-fonts-punjabi lohit-fonts-tamil lohit-fonts-telugu
+    lvm2 madan-fonts mdadm
+    mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
+    newt newt-python nfs-utils nspr nss ntfs-3g pam pango parted pciutils pcre
+    policy policycoreutils popt prelink procps pycairo pygobject2 pygtk2
+    pygtk2-libglade pykickstart pyparted pyspi python python-bugzilla
+    python-elementtree python-libs python-pyblock python-sqlite
+    python-urlgrabber pyxf86config raidtools readline redhat-artwork
+    reiserfs-utils rhpl rpm rpm-libs rpm-python sed selinux-policy-targeted
+    setup slang smc-fonts-meera specspo sqlite synaptics system-config-date
+    system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release taipeifonts tcp_wrappers
+    tzdata udev un-core-fonts-dotum urw-fonts util-linux-ng tightvnc-server
+    tightvnc-server-module
+    wpa_supplicant xkeyboard-config xfsdump xfsprogs xorg-x11 xorg-x11-auth
+    xorg-x11-base xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-ethiopic
+    xorg-x11-fonts-misc xorg-x11-libs xorg-x11-libs-data xorg-x11-server-utils
+    xorg-x11-server-Xorg xorg-x11-xkb-utils xorg-x11-xkbdata xorg-x11-xfs yum
+    yum-fedorakmod yum-metadata-parser zenity zlib /etc/gtk-2.0/gtkrc"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
@@ -211,7 +213,7 @@ fi
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils binutils libgcc tcp_wrappers
               sed net-tools openssh openssh-server coreutils
-              login initscripts bash portmap pam 
+              login initscripts bash portmap pam
               login mount grep modutils gawk
               strace xorg-x11-xauth xorg-x11-libs"
 fi
@@ -698,7 +700,7 @@ EOF
 # KEEPFILERESCUE is all files to keep from the packages in PACKAGESRESCUE
 #
 # This defines the files in addition to KEEPFILE that make up
-# the install images for NFS and CD/DVD based rescue mode installs.  This 
+# the install images for NFS and CD/DVD based rescue mode installs.  This
 # image is not loaded into memory so it can be considerably larger.
 #
 # NOTE: hd, ftp, and http rescue mode use and image based on KEEPFILE since
@@ -861,11 +863,12 @@ cat $DEST/usr/lib/anaconda/lang-table* | awk '
 }
 ' | sed -e 's/latn/Latn/g' | LC_ALL=C sort -u > $DEST/locales
 for p in lib share; do (
-cd $DEST/usr/$p/locale && {
-ls | grep -v locale.alias | grep -v locale-archive | LC_ALL=C sort > $DEST/locales.list
-LC_ALL=C comm -13 $DEST/locales $DEST/locales.list | xargs rm -rf
-}
+    cd $DEST/usr/$p/locale && {
+        ls | grep -v locale.alias | grep -v locale-archive | LC_ALL=C sort > $DEST/locales.list
+        LC_ALL=C comm -13 $DEST/locales $DEST/locales.list | xargs rm -rf
+    }
 ); done
+
 rm -f $DEST/locales $DEST/locales.list
 
 # fixup joe links
@@ -915,6 +918,7 @@ sed -i 's|\(installforallkernels\) = 0|\1 = 1|' $DEST/etc/yum/pluginconf.d/fedor
 # they will be soft links to /mnt/sysimage.
 #
 echo "Fixing up /etc/man.config to point into /mnt/sysimage"
+
 #
 # Lets avoid the lines with MANPATH_MAP for now
 #
