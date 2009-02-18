@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.20
+Version: 11.5.0.21
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Feb 17 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.21-1
+- Building for i586 only now in Fedora. (dcantrell)
+
 * Tue Feb 17 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.20-1
 - Fix indentation on upd-instroot (kanarip)
 - Fix the indentation in mk-images (kanarip)
