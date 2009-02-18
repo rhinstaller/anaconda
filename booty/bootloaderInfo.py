@@ -30,6 +30,7 @@ import rhpl
 from rhpl.translate import _, N_
 import rhpl.executil
 
+from flags import flags
 from fsset import getDiskPart
 import iutil
 from product import *
@@ -133,16 +134,17 @@ class KernelArguments:
             f.close()
 
         # look for kernel arguments we know should be preserved and add them
-        ourargs = ["speakup_synth=", "apic", "noapic", "apm=", "ide=nodma", 
-                   "noht", "acpi=", "video=", "pci=", "nodmraid", "nompath"]
-        f = open("/proc/cmdline")
-        cmdline = f.read()[:-1]
-        f.close()
-        cmdlineargs = cmdline.split(" ")
-        for arg in cmdlineargs:
-            for check in ourargs:
-                if arg.startswith(check):
-                    newArgs.append(arg)
+        ourargs = ["speakup_synth", "apic", "noapic", "apm", "ide", "noht",
+                   "acpi", "video", "pci", "nodmraid", "nompath"]
+        for arg in ourargs:
+            if not flags.cmdline.has_key(arg):
+                continue
+
+            val = flags.cmdline.get(arg, "")
+            if val:
+                newArgs.append("%s=%s" % (arg, val))
+            else:
+                newArgs.append(arg)
 
         self.args = " ".join(newArgs)
 
@@ -528,31 +530,20 @@ class bootloaderInfo:
 
         self._drivelist = None
 
-        from flags import flags
         if flags.serial != 0:
-            # now look at /proc/cmdline to pull any serial console
-            # args
-            f = open("/proc/cmdline", "r")
-            cmdline = f.read()[:-1]
-            f.close()
-
             options = ""
-            device = None
-            cmdlineargs = cmdline.split(" ")
-            for arg in cmdlineargs:
-                # found a console argument
-                if arg.startswith("console="):
-                    (foo, console) = arg.split("=")
-                    # the options are everything after the comma
-                    comma = console.find(",")
-                    if comma != -1:
-                        options = console[comma:]
-                        device = console[:comma]
-                    else:
-                        options = ""
-                        device = console
+            device = ""
+            console = flags.get("console", "")
 
-            if device is None and rhpl.getArch() != "ia64":
+            # the options are everything after the comma
+            comma = console.find(",")
+            if comma != -1:
+                options = console[comma:]
+                device = console[:comma]
+            else:
+                device = console
+
+            if not device and rhpl.getArch() != "ia64":
                 self.serialDevice = "ttyS0"
                 self.serialOptions = ""
             else:
@@ -1631,8 +1622,6 @@ class ppcBootloaderInfo(bootloaderInfo):
     def writeYaboot(self, instRoot, fsset, bl, langs, kernelList, 
                   chainList, defaultDev, justConfigFile):
 
-        from flags import flags
-
         yabootTarget = string.join(self.getBootDevs(fsset, bl))
 
         bootDev = fsset.getEntryByMountPoint("/boot")
@@ -1930,8 +1919,6 @@ class isolinuxBootloaderInfo(bootloaderInfo):
 class sparcBootloaderInfo(bootloaderInfo):
     def writeSilo(self, instRoot, fsset, bl, langs, kernelList,
                 chainList, defaultDev, justConfigFile):
-
-        from flags import flags
 
         bootDev = fsset.getEntryByMountPoint("/boot")
         mf = '/silo.message'
