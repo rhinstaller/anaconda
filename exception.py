@@ -419,7 +419,9 @@ def saveToBugzilla(anaconda, exn, dest):
     if not exn.tbFile:
         exn.write(anaconda)
 
-    if not filer.login(dest[0], dest[1]):
+    try:
+        cred = withBugzillaDo(filer, lambda b: b.login(dest[0], dest[1]))
+    except LoginError:
         anaconda.intf.messageWindow(_("Unable To Login"),
                                     _("There was an error logging into %s "
                                       "using the provided username and "
