@@ -96,7 +96,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
 # modules that are needed.  this is the generic "needed for every arch" stuff
 COMMONMODS="fat vfat nfs sunrpc lockd floppy cramfs loop edd pcspkr squashfs ipv6 virtio_pci"
-USBMODS="ohci-hcd uhci-hcd ehci-hcd hid mousedev usb-storage sd_mod sr_mod ub appletouch"
+USBMODS="ohci-hcd uhci-hcd ehci-hcd usbhid mousedev usb-storage sd_mod sr_mod ub appletouch"
 FIREWIREMODS="ohci1394 sbp2 fw-ohci fw-sbp2 firewire-sbp2 firewire-ohci"
 SDMODS="mmc-block sdhci sdhci-pci"
 IDEMODS="ide-cd ide-cd_mod"
