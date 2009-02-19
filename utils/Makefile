@@ -22,12 +22,9 @@ include ../Makefile.inc
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
-ISYSLIB=isys
-
 LOADERDIR = ../loader
 LOADLIBES =  -lpopt
-CFLAGS += -I.. -I$(LOADERDIR) -fno-strict-aliasing
-RPMCFLAGS = $(CFLAGS) -I/usr/include/rpm
+CFLAGS += -I.. -I$(LOADERDIR)
 
 UTILS = modlist snarffont mapshdr readmap
 ifeq (s390, $(ARCH))
@@ -58,12 +55,6 @@ moduledeps.o: $(LOADERDIR)/moduledeps.c
 	cp $(LOADERDIR)/moduledeps.c ./
 	$(CC) $(CFLAGS) -c moduledeps.c
 
-md5.o: md5.c md5.h
-	gcc -c -O -g md5.c -D_FORTIFY_SOURCE=2
-
-hash.o : hash.c
-	$(CC) $(RPMCFLAGS) -c -o $@ $<
-
 geninitrdsz: geninitrdsz.c
 	$(CC) $(CFLAGS) -o $@ $<
 
@@ -92,7 +83,7 @@ clean:
 	moduledeps.c moduleinfo.c .depend *.o
 
 depend:
-	$(CPP) -M $(RPMCFLAGS) *.c > .depend
+	$(CPP) -M -I$(LOADERDIR) *.c > .depend
 
 ifeq (.depend,$(wildcard .depend))
 include .depend
