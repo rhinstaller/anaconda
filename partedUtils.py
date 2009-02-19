@@ -308,7 +308,7 @@ def validateFsType(part):
 def isLinuxNative(part):
     """Check if the type is a 'Linux native' filesystem."""
     if part.getFlag(parted.PARTITION_RAID) or part.getFlag(parted.PARTITION_LVM) or \
-       part.getFlag(parted.PARTITION_SWAP) or map_foreign_to_fsname(part) in ["ext2", "ext3", "jfs", "reiserfs", "xfs"]):
+            part.getFlag(parted.PARTITION_SWAP) or map_foreign_to_fsname(part) in ["ext2", "ext3", "jfs", "reiserfs", "xfs"]:
         return True
     else:
         return False
