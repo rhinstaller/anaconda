@@ -105,8 +105,11 @@ def get_partition_drive(partition):
     return partition.geometry.device.path[5:]
 
 def map_foreign_to_fsname(part):
-    """Return the partition type associated with the numeric type.""" 
-    return part._fileSystem._type.name
+    """Return the name associated with a foreign filesystem type."""
+    if part._fileSystem:
+        return part._fileSystem._type.name
+    else:
+        return _("None")
 
 def filter_partitions(disk, func):
     rc = []
@@ -305,7 +308,7 @@ def validateFsType(part):
 def isLinuxNative(part):
     """Check if the type is a 'Linux native' filesystem."""
     if part.getFlag(parted.PARTITION_RAID) or part.getFlag(parted.PARTITION_LVM) or \
-       part.getFlag(parted.PARTITION_SWAP) or part._fileSystem._type.name in ["ext2", "ext3", "jfs", "reiserfs", "xfs"]:
+       part.getFlag(parted.PARTITION_SWAP) or map_foreign_to_fsname(part) in ["ext2", "ext3", "jfs", "reiserfs", "xfs"]):
         return True
     else:
         return False
