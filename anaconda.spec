@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.21
+Version: 11.5.0.22
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Feb 19 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.22-1
+- Updated Romanian translation (alexxed)
+- Remove the qla2xxx line from mk-images again (wwoods).
+- Fix broken shell syntax from 3bdcd64d2 (jkeating)
+- The VLGothic-fonts package has changed name and location (#486080).
+  (clumens)
+
 * Tue Feb 17 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.21-1
 - Building for i586 only now in Fedora. (dcantrell)
 
