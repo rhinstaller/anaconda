@@ -18,6 +18,7 @@
 
 import rhpl
 from bootloaderInfo import *
+from bootloader import *
 
 # return instance of the appropriate bootloader for our arch
 def getBootloader():
