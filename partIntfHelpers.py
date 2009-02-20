@@ -402,7 +402,7 @@ def checkForSwapNoMatch(anaconda):
     diskset = anaconda.id.diskset
 
     for request in anaconda.id.partitions.requests:
-        if not request.dev or not request.fstype:
+        if not hasattr(request, "drive") or not request.fstype:
             continue
 
         for drive in request.drive:
