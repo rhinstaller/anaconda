@@ -1648,10 +1648,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         elif len(self.ayum.tsInfo.matchNaevr(name='plymouth')) > 0:
             anaconda.id.bootloader.args.append("rhgb quiet")
 
-        for tsmbr in self.ayum.tsInfo.matchNaevr(name='gdm') + self.ayum.tsInfo.matchNaevr(name='kdebase-workspace'):
-            if anaconda.id.displayMode == 'g' and not flags.usevnc:
-                anaconda.id.desktop.setDefaultRunLevel(5)
-                break
+        if self.ayum.tsInfo.getProvides("service(graphical-login)") != {} and anaconda.id.displayMode == 'g' and not flags.usevnc:
+            anaconda.id.desktop.setDefaultRunLevel(5)
 
         for repo in self.ayum.repos.listEnabled():
             repo.dirCleanup()
