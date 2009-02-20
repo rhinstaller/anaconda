@@ -1658,18 +1658,15 @@ MAILADDR root
             for drive in request.drive:
                 part = diskset.disks[drive].getPartitionByPath("/dev/%s" % bootDev.device.device)
                 if part:
-                    break
-
-            # on EFI systems, *only* /boot/efi should be marked bootable
-            # similarly, on pseries, we really only want the PReP partition
-            # active
-            if iutil.isEfi() \
-                    or iutil.getPPCMachine() in ("pSeries", "iSeries", "PMac") \
-                    or (iutil.isX86() \
-                             and partedUtils.hasGptLabel(diskset, drive)):
-                if part and part.isFlagAvailable(parted.PARTITION_BOOT):
-                    part.setFlag(parted.PARTITION_BOOT)
-                return
+                    # on EFI systems, *only* /boot/efi should be marked bootable
+                    # similarly, on pseries, we really only want the PReP partition
+                    # active
+                    if iutil.isEfi() or \
+                       iutil.getPPCMachine() in ("pSeries", "iSeries", "PMac") or \
+                       (iutil.isX86() and partedUtils.hasGptLabel(diskset, drive)):
+                        if part and part.isFlagAvailable(parted.PARTITION_BOOT):
+                            part.setFlag(parted.PARTITION_BOOT)
+                            return
 
         for drive in diskset.disks.keys():
             foundActive = 0

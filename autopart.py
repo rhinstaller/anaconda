@@ -71,10 +71,13 @@ def bootRequestCheck(req, diskset):
     if not req.device or req.ignoreBootConstraints:
         return PARTITION_SUCCESS
 
+    part = None
+
+    if not hasattr(req, "drive"):
+        return PARTITION_SUCCESS
+
     for drive in req.drive:
         part = diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
-        if part:
-            break
 
     if not part:
         return PARTITION_SUCCESS
@@ -734,12 +737,12 @@ def growParts(diskset, requests, newParts):
                 donegrowing = 0
 
                 # get amount of space actually used by current allocation
+                startSize = 0
+
                 for drive in request.drive:
                     part = diskset.disks[drive].getPartitionByPath("/dev/%s" % request.device)
                     if part:
-                        break
-
-                startSize = part.geometry.length
+                        startSize += part.geometry.length
 
                 # compute fraction of freespace which to give to this
                 # request. Weight by original request size
@@ -865,11 +868,20 @@ def setPreexistParts(diskset, requests):
     for request in requests:
         if request.type != REQUEST_PREEXIST:
             continue
-        if not diskset.disks.has_key(request.drive):
-            lvmLog.info("pre-existing partition on non-native disk %s, ignoring" %(request.drive,))
-            continue
-        disk = diskset.disks[request.drive]
-        for part in disk.partitions:
+
+        disks = set()
+        for drive in request.drive:
+            if not diskset.disks.has_key(drive):
+                lvmLog.info("pre-existing partition on non-native disk %s, ignoring" %(drive,))
+                continue
+            disks.add(diskset.disks[drive])
+
+        parts = set()
+        for disk in list(disks):
+            for part in disk.partitions:
+                parts.add(part)
+
+        for part in list(parts):
             if part.geometry.start == request.start and part.geometry.end == request.end:
                 if partedUtils.isEfiSystemPartition(part) and \
                         request.fstype.name == "vfat":
@@ -1020,8 +1032,13 @@ def processPartitioning(diskset, requests, newParts):
         elif request.preexist:
             # we need to keep track of the max size of preexisting partitions
             # FIXME: we should also get the max size for LVs at some point
-            part = diskset.disks[request.drive].getPartitionByPath("/dev/%s" % request.device)
-            request.maxResizeSize = part.getMaxAvailableSize(unit="MB")
+            if request.maxResizeSize is None:
+                request.maxResizeSize = 0
+
+            for drive in request.drive:
+                part = diskset.disks[drive].getPartitionByPath("/dev/%s" % request.device)
+                if part:
+                    request.maxResizeSize += part.getMaxAvailableSize(unit="MB")
 
 ##     print("disk layout after everything is done")
 ##     print(diskset.diskState())
@@ -1264,7 +1281,7 @@ def doAutoPartition(anaconda):
             if (size > 2048):
                 free += size
         for req in partitions.deletes:
-            if isinstance(req, partRequests.DeleteSpec) and req.drive == drive:
+            if isinstance(req, partRequests.DeleteSpec) and (drive in req.drive):
                 size = req.end - req.start
                 # don't count any partition smaller than 1M
                 if (size > 2048):

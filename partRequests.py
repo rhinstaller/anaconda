@@ -455,7 +455,11 @@ class PartitionSpec(RequestSpec):
         self.start = start
         self.end = end
 
-        self.drive = drive
+        if (type(drive) != type([])) and (drive is not None):
+            self.drive = [ drive ]
+        else:
+            self.drive = drive
+
         self.primary = primary
         self.multidrive = multidrive
 

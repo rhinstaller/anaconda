@@ -1146,7 +1146,7 @@ class Partitions:
                     self.requests[index] = tmp
                 # for cylinder-based, sort by order on the drive
                 elif (request.start and self.requests[n].start and
-                      (request.drive == self.requests[n].drive) and
+                      (request.drive in self.requests[n].drive) and
                       (request.type == self.requests[n].type) and 
                       (request.start > self.requests[n].start)):
                     tmp = self.requests[n]
