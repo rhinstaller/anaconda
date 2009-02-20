@@ -193,15 +193,17 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
+elif [ $ARCH = i586 ]; then
+    PACKAGES="$PACKAGES glibc.i586 openssl.i586"
 else
     PACKAGES="$PACKAGES glibc openssl"
 fi
 
-if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
+if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils grub"
 fi
 
-if [ $ARCH = i386 -o $ARCH = x86_64 -o $ARCH = ia64 ]; then
+if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 -o $ARCH = ia64 ]; then
     PACKAGES="$PACKAGES dmidecode efibootmgr"
 fi
 
@@ -234,7 +236,7 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump libidn
                 device-mapper device-mapper-libs dmraid ntfsprogs samba-client
                 firstaidkit-plugin-all"
 
-if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
+if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
     PACKAGESRESCUE="$PACKAGESRESCUE gpart grub"
 fi
 
@@ -245,7 +247,7 @@ if [ $ARCH = sparc ]; then
     PACKAGES="$PACKAGES tilo silo"
 fi
 
-if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
+if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES syslinux memtest86+ grub"
 fi
 
@@ -804,7 +806,7 @@ usr/$LIBDIR/firstaidkit/plugins/
 usr/lib/python?.?/site-packages/pyfirstaidkit/
 EOF
 
-if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
+if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
     cat >> $KEEPFILERESCUE <<-EOF
 sbin/grub
 usr/bin/gpart
@@ -1004,7 +1006,7 @@ if [ $ARCH = ia64 ]; then
 fi
 
 # copy bootloader files for i386/x86_64
-if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
+if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
     mkdir -p $DEST/usr/lib/anaconda-runtime/boot
     cp -af $DEST/boot/memtest* $DEST/usr/lib/anaconda-runtime/boot
 fi
