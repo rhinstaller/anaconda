@@ -1614,30 +1614,30 @@ MAILADDR root
             return ret
 
         if iutil.isEfi():
-            ret['boot'] = (bootDev.device, N_("EFI System Partition"))
+            ret['boot'] = (bootDev.device.getDevice(), N_("EFI System Partition"))
             return ret
 
         if bootDev.device.getName() == "RAIDDevice":
-            ret['boot'] = (bootDev.device, N_("RAID Device"))
+            ret['boot'] = (bootDev.device.getDevice(), N_("RAID Device"))
             ret['mbr'] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
             return ret
 
         if iutil.getPPCMacGen() == "NewWorld":
-            ret['boot'] = (bootDev.device, N_("Apple Bootstrap"))
+            ret['boot'] = (bootDev.device.getDevice(), N_("Apple Bootstrap"))
             n = 1
             for entry in self.entries:
                 if ((entry.fsystem.getName() == "Apple Bootstrap") and (
-                    entry.device.getDevice() != bootDev.device)):
+                    entry.device.getDevice() != bootDev.device.getDevice())):
                     ret['boot%d' %(n,)] = (entry.device.getDevice(),
                                            N_("Apple Bootstrap"))
                     n = n + 1
             return ret
         elif (iutil.getPPCMachine() == "pSeries" or
               iutil.getPPCMachine() == "iSeries"):
-            ret['boot'] = (bootDev.device, N_("PPC PReP Boot"))
+            ret['boot'] = (bootDev.device.getDevice(), N_("PPC PReP Boot"))
             return ret
 
-        ret['boot'] = (bootDev.device, N_("First sector of boot partition"))
+        ret['boot'] = (bootDev.device.getDevice(), N_("First sector of boot partition"))
         ret['mbr'] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
         return ret
 
