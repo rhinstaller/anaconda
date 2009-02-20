@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.22
+Version: 11.5.0.23
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -207,6 +207,23 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Feb 20 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.23-1
+- Remove old content from utils/ (dcantrell)
+- Ensure request.drive is always a list (#485622) (dcantrell)
+- Pick up pyblock if it exists in block/ on an updates.img. (dcantrell)
+- Don't check for a swapfs on things that aren't partitions (#485977).
+  (clumens)
+- Perform ext3->ext4 filesystem migration if ext4migrate is given (#484330).
+  (clumens)
+- Translate i?86 into i386 as a base arch. (jkeating)
+- Teach upd-instroot about i586 arch, for sake of glibc.i586/openssl.i586
+  (jkeating)
+- Fix the obvious typo. (clumens)
+- filer.login raises an exception with it can't login, not returns None
+  (#486454). (clumens)
+- Take into account that a parted.Partition's _fileSystem can be None
+  (#485644). (clumens)
+
 * Thu Feb 19 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.22-1
 - Updated Romanian translation (alexxed)
 - Remove the qla2xxx line from mk-images again (wwoods).
