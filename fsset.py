@@ -720,6 +720,13 @@ class ext3FileSystem(extFileSystem):
             raise RuntimeError, ("Trying to migrate ext3 to something other "
                                  "than ext4")
 
+        rc = iutil.execWithRedirect("tune2fs", ["-O", "extents", devicePath],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5", searchPath = 1)
+
+        if rc:
+            raise SystemError
+
 fileSystemTypeRegister(ext3FileSystem())
 
 class ext4FileSystem(extFileSystem):
