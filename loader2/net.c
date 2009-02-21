@@ -1850,7 +1850,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
 
     if (dev->layer2 && !strcmp(dev->layer2, "1"))
 	strcat(osa_opts, "layer2=1");
-    else if (dev->subchannels)
+    else if (dev->subchannels && !strcmp(dev->nettype, "qeth"))
 	fprintf(f, "ARP=no\n");
     if (dev->portno && !strcmp(dev->portno, "1")) {
 	if (strlen(osa_opts) != 0) {
