@@ -46,7 +46,7 @@ class LoggerClass(logging.Logger):
 
     # Specialized addHandler that also adds the autoSetLevel attribute.
     def addHandler(self, hdlr, autoSetLevel=True):
-        setattr(hdlr, "autoSetLevel", autoSetLevel)
+        hdlr.autoSetLevel = autoSetLevel
         logging.Logger.addHandler(self, hdlr)
 
 class AnacondaLog:
