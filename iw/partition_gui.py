@@ -47,7 +47,6 @@ from partIntfHelpers import *
 from partedUtils import *
 from fsset import *
 from partRequests import *
-from constants import *
 from partition_ui_helpers_gui import *
 
 import gettext

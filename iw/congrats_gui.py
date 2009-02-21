@@ -20,7 +20,6 @@
 
 import gtk
 import gui
-import iutil
 from iw_gui import *
 from constants import *
 import os

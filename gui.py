@@ -34,7 +34,6 @@ import time
 import isys
 import iutil
 import sys
-import parted
 import shutil
 import gtk
 import gtk.glade
