@@ -26,13 +26,13 @@ msgstr ""
 "Project-Id-Version: anaconda.master.de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-15 19:12+0100\n"
-"PO-Revision-Date: 2009-02-15 20:20+0100\n"
+"PO-Revision-Date: 2009-02-22 20:33+0100\n"
 "Last-Translator: Felix Kaechele <felix@fetzig.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
 
 #: ../anaconda:261
 #: ../anaconda:307
@@ -444,11 +444,11 @@ msgstr "%s wird aktualisiert\n"
 #: ../backend.py:144
 #, python-format
 msgid "Installing %s\n"
-msgstr "%s installieren\n"
+msgstr "%s wird installiert\n"
 
 #: ../backend.py:163
 msgid "Copying File"
-msgstr "Datei kopieren"
+msgstr "Datei wird kopiert"
 
 #: ../backend.py:164
 msgid "Transferring install image to hard drive..."
@@ -676,7 +676,7 @@ msgstr ""
 
 #: ../exception.py:399
 msgid "Unable To File Bug"
-msgstr "Konnte Fehlerbericht nicht ausfüllen"
+msgstr "Fehlerbericht konnte nicht ausgefüllt werden"
 
 #: ../exception.py:405
 msgid "Bug Filing Not Supported"
@@ -720,7 +720,7 @@ msgstr ""
 
 #: ../exception.py:478
 msgid "Bug Updated"
-msgstr "Fehlerbericht aktualisiert"
+msgstr "Fehlerbericht wurde aktualisiert"
 
 #: ../exception.py:479
 #, python-format
@@ -840,7 +840,7 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Beim Initialisieren des Swap-Bereichs auf Gerät %s trat ein Fehler auf. Hierbei handelt es sich um ein schwerwiegendes Problem, und die Installation kann nicht fortgesetzt werden.\n"
+"Beim Initialisieren des Auslagerungsbereichs (Swap) auf Gerät %s trat ein Fehler auf. Hierbei handelt es sich um ein schwerwiegendes Problem, und die Installation kann nicht fortgesetzt werden.\n"
 "\n"
 "Drücken Sie <Enter>, um den Installer zu beenden."
 
@@ -943,9 +943,9 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"Fehler beim Aktivieren des Auslagerungsgeräts %s: %s\n"
+"Fehler beim Aktivieren des Auslagerungspartition %s: %s\n"
 "\n"
-"Die Datei /etc/fstab auf Ihrer Aktualisierungspartition enthält eine ungültige Swap-Partition.\n"
+"Die Datei /etc/fstab auf Ihrer zu aktualisierenden Partition enthält eine ungültige Auslagerungspartition.\n"
 "\n"
 "Drücken Sie OK, um den Installer zu beenden."
 
@@ -958,9 +958,9 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Fehler beim Aktivieren des Auslagerungsgeräts %s: %s\n"
+"Fehler beim Aktivieren des Auslagerungsgeräts (Swap) %s: %s\n"
 "\n"
-"Das heisst, dass diese Swap-Partition nicht initialisiert wurde.\n"
+"Das heisst, dass diese Auslagerungspartition (Swap) nicht initialisiert wurde.\n"
 "\n"
 "Drücken Sie OK, um den Installer zu beenden."
 
@@ -1832,7 +1832,7 @@ msgstr "Sie können diese Partition nicht bearbeiten, da es eine erweiterte Part
 
 #: ../partIntfHelpers.py:415
 msgid "Format as Swap?"
-msgstr "Als Swap formatieren?"
+msgstr "Als Auslagerungspartition (Swap) formatieren?"
 
 #: ../partIntfHelpers.py:416
 #, python-format
@@ -1841,9 +1841,9 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s hat den Partitionstyp 0x82 (Linux Swap), wurde aber offensichtlich nicht als Swap-Partition formatiert.\n"
+"/dev/%s hat den Partitionstyp 0x82 (Linux Swap), wurde aber offensichtlich nicht als Auslagerungspartition (Swap) formatiert.\n"
 "\n"
-"Möchten Sie diese Partition als Swap-Partition formatieren?"
+"Möchten Sie diese Partition als Auslagerungspartition (Swap) formatieren?"
 
 #: ../partIntfHelpers.py:436
 #, python-format
@@ -2099,7 +2099,7 @@ msgstr "Bootbare Partitionen können nicht auf einem verschlüsselten Block-Ger�
 
 #: ../partitions.py:1397
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
-msgstr "Sie haben keine Swap-Partition angegeben. Obwohl diese nicht in jedem Fall unbedingt erforderlich ist, verbessert dies doch die Leistung bei den meisten Installationen."
+msgstr "Sie haben keine Auslagerungspartition (Swap) angegeben. Obwohl diese nicht in jedem Fall unbedingt erforderlich ist, verbessert dies doch die Leistung bei den meisten Installationen."
 
 #: ../partitions.py:1404
 #, python-format
@@ -2109,7 +2109,7 @@ msgstr "Sie haben mehr als 32 Auslagerungsgeräte angegeben. Der Kernel von %s u
 #: ../partitions.py:1415
 #, python-format
 msgid "You have allocated less swap space (%dM) than available RAM (%dM) on your system.  This could negatively impact performance."
-msgstr "Sie haben weniger Swap-Bereich (%dM) angegeben, als RAM (%dM) in Ihrem System zur Verfügung steht. Dies könnte sich negativ auf die Leistung auswirken."
+msgstr "Sie haben weniger Auslagerungsbereich (Swap) (%dM) angegeben, als RAM (%dM) in Ihrem System zur Verfügung steht. Dies könnte sich negativ auf die Leistung auswirken."
 
 #: ../partitions.py:1723
 msgid "the partition in use by the installer."
@@ -4328,13 +4328,13 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:35
 msgid "Upgrade Swap Partition"
-msgstr "Swap-Partition aktualisieren"
+msgstr "Auslagerungspartition (Swap) aktualisieren"
 
 #: ../iw/upgrade_swap_gui.py:95
 #: ../textw/upgrade_text.py:103
 #, python-format
 msgid "Recent kernels (2.4 or newer) need significantly more swap than older kernels, up to twice the amount of RAM on the system.  You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr "Aktuelle Kernel (2.4 oder neuer) benötigen wesentlich mehr Swap-Bereich als die älteren Kernel. Es wird empfohlen, doppelt soviel Swap-Bereich zu haben, wie physischer Arbeitsspeicher im System vorhanden ist. Sie haben derzeit %d MB konfiguriert, können jedoch zusätzlichen Swap-Bereich in einem Ihrer Dateisysteme erstellen."
+msgstr "Aktuelle Kernel (2.4 oder neuer) benötigen wesentlich mehr Auslagerungsbereich (Swap) als die älteren Kernel. Es wird empfohlen, doppelt soviel Auslagerungsbereich (Swap) zu haben, wie physischer Arbeitsspeicher im System vorhanden ist. Sie haben derzeit %d MB konfiguriert, können jedoch zusätzlichen Auslagerungsbereich (Swap) in einem Ihrer Dateisysteme erstellen."
 
 #: ../iw/upgrade_swap_gui.py:102
 #, python-format
@@ -4353,7 +4353,7 @@ msgstr "Ich möchte eine S_wap-Datei erstellen"
 
 #: ../iw/upgrade_swap_gui.py:123
 msgid "Select the _partition to put the swap file on:"
-msgstr "Wählen Sie die _Partition für die Swap-Datei:"
+msgstr "Wählen Sie die _Partition für die Auslagerungsdatei (Swap):"
 
 #: ../iw/upgrade_swap_gui.py:142
 #: ../textw/upgrade_text.py:121
@@ -4367,29 +4367,29 @@ msgstr "Freier Platz (MB)"
 #: ../iw/upgrade_swap_gui.py:160
 #, python-format
 msgid "A minimum swap file size of %d MB is recommended.  Please enter a size for the swap file:"
-msgstr "Für Ihre Swap-Datei werden mindestens %d MB empfohlen. Geben Sie die Grösse für diese Swap-Datei an:"
+msgstr "Für Ihre Auslagerungsdatei (Swap) werden mindestens %d MB empfohlen. Geben Sie die Grösse für diese Auslagerungsdatei an:"
 
 #: ../iw/upgrade_swap_gui.py:175
 msgid "Swap file _size (MB):"
-msgstr "Grösse der _Swap-Datei (MB):"
+msgstr "_Grösse der Auslagerungsdatei (Swap) in MB:"
 
 #: ../iw/upgrade_swap_gui.py:185
 msgid "I _don't want to create a swap file"
-msgstr "Ich möchte keine Swap-_Datei erstellen"
+msgstr "Ich möchte keine _Auslagerungsdatei (Swap) erstellen"
 
 #: ../iw/upgrade_swap_gui.py:195
 msgid "A swap file is strongly recommended. Failure to create one could cause the installer to abort abnormally.  Are you sure you wish to continue?"
-msgstr "Es wird dringend empfohlen, eine Swap-Datei zu erstellen. Wenn Sie dies nicht tun, könnte es Probleme während der Installation geben. Möchten Sie wirklich fortfahren?"
+msgstr "Es wird dringend empfohlen, eine Auslagerungsdatei (Swap) zu erstellen. Wenn Sie dies nicht tun, könnte es Probleme während der Installation geben. Möchten Sie wirklich fortfahren?"
 
 #: ../iw/upgrade_swap_gui.py:203
 #: ../textw/upgrade_text.py:187
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Die Swap-Datei muss eine Grösse zwischen 1 und 2000 MB besitzen."
+msgstr "Die Grösse der Auslagerungsdatei (Swap) muss zwischen 1 und 2000 MB sein."
 
 #: ../iw/upgrade_swap_gui.py:210
 #: ../textw/upgrade_text.py:182
 msgid "There is not enough space on the device you selected for the swap partition."
-msgstr "Auf dem Gerät, das Sie für die Swap-Partition gewählt haben, steht nicht genügend Platz zur Verfügung."
+msgstr "Auf dem Gerät, das Sie für die Auslagerungspartition (Swap) gewählt haben, steht nicht genügend Platz zur Verfügung."
 
 #: ../iw/welcome_gui.py:56
 #: ../textw/welcome_text.py:36
@@ -4651,11 +4651,11 @@ msgstr "Empfohlene Grösse (MB):"
 
 #: ../textw/upgrade_text.py:142
 msgid "Swap file size (MB):"
-msgstr "Grösse der Swap-Datei (MB):"
+msgstr "Grösse der Auslagerungsdatei (Swap) in MB:"
 
 #: ../textw/upgrade_text.py:150
 msgid "Add Swap"
-msgstr "Swap hinzufügen"
+msgstr "Auslagerungsplatz (Swap) hinzufügen"
 
 #: ../textw/upgrade_text.py:175
 msgid "The value you entered is not a valid number."
@@ -6791,4 +6791,3 @@ msgstr "Zulu"
 #~ msgstr "Manuelle Konfiguration"
 #~ msgid "Point to Point (IP):"
 #~ msgstr "Punkt-zu-Punkt (IP):"
-
