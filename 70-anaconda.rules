@@ -1,0 +1,29 @@
+ACTION!="add|change", GOTO="anaconda_end"
+SUBSYSTEM!="block", GOTO="anaconda_end"
+
+KERNEL!="dm-*", GOTO="anaconda_raid_probe"
+
+IMPORT{program}="/sbin/dmsetup info -c --nameprefixes --unquoted --rows --noheadings -o name,uuid,suspended,readonly,major,minor,open,tables_loaded -j%M -m%m"
+ENV{DM_NAME}!="?*", GOTO="anaconda_end"
+
+SYMLINK+="disk/by-id/dm-name-$env{DM_NAME}"
+ENV{DM_UUID}=="?*", SYMLINK+="disk/by-id/dm-uuid-$env{DM_UUID}"
+
+ENV{DM_STATE}=="SUSPENDED", GOTO="anaconda_end"
+
+IMPORT{program}="vol_id --export $tempnode"
+OPTIONS="link_priority=-100"
+ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{ID_FS_UUID_ENC}=="?*", SYMLINK+="disk/by-uuid/$env{ID_FS_UUID_ENC}"
+
+LABEL="anaconda_raid_probe"
+
+# probe raid metadata of mdraid member devices
+ENV{ID_FS_TYPE}=="linux_raid_member", IMPORT{program}="/sbin/mdadm --examine --export $root/%k"
+
+# probe metadata of LVM2 physical volumes
+ENV{ID_FS_TYPE}=="LVM2_member", IMPORT{program}="/sbin/lvm pvs --units k --nosuffix --nameprefixes --rows --unquoted --noheadings -opv_name,pv_uuid,pv_size,vg_name,vg_uuid,pv_pe_count,pv_pe_alloc_count,pe_start $root/%k"
+ENV{ID_FS_TYPE}=="LVM2_member", IMPORT{program}="/sbin/lvm vgs --units k --nosuffix --nameprefixes --rows --unquoted --noheadings -ouuid,size,free,extent_size,extent_count,free_count,pv_count $env{LVM2_VG_NAME}"
+ENV{ID_FS_TYPE}=="LVM2_member", IMPORT{program}="/sbin/lvm lvs  --units k --nosuffix --nameprefixes --rows --unquoted --noheadings -olv_name,lv_uuid,lv_size $env{LVM2_VG_NAME}"
+
+LABEL="anaconda_end"
+
