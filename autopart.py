@@ -1411,13 +1411,13 @@ def doAutoPartition(anaconda):
                                 len(partitions.autoClearPartDrives) == 0):
                                 valid = 1
                             else:
-                                if not isinstance(r, partRequests.RaidRequestSpec):
+                                if (isinstance(r, partRequests.PartitionSpec) and r.drive):
                                     for d in r.drive:
                                         if d in partitions.autoClearPartDrives:
                                             valid = 1
                                             break
 
-                            if not isinstance(r, partRequests.RaidRequestSpec):
+                            if isinstance(r, partRequests.PartitionSpec):
                                 if not r.multidrive:
                                     valid = 0
 
