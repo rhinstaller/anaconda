@@ -1,0 +1,2338 @@
+# devices.py
+# Device classes for anaconda's storage configuration module.
+# 
+# Copyright (C) 2009  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+# Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
+#
+
+
+"""
+    Device classes for use by anaconda.
+
+    This is the hierarchy of device objects that anaconda will use for
+    managing storage devices in the system. These classes will
+    individually make use of external support modules as needed to
+    perform operations specific to the type of device they represent.
+
+    TODO:
+        - see how to do network devices (NetworkManager may help)
+          - perhaps just a wrapper here
+        - document return values of all methods/functions
+        - find out what other kinds of wild and crazy devices we need to
+          represent here (iseries? xen? more mainframe? mac? ps?)
+            - PReP
+              - this is a prime candidate for a PseudoDevice
+            - DASD
+            - ZFCP
+            - XEN
+
+    What specifications do we allow?              new        existing
+        partitions                              
+            usage                                  +            +
+                filesystem, partition type are implicit
+            mountpoint                             +            +
+            size
+                exact                              +            -
+                range                              +            -
+                resize                             -            +
+            format                                 -            +
+            encryption                             +            +
+
+            disk                                                 
+                exact                              +            -
+                set                                +            -
+                    how will we specify this?
+                        partition w/ multiple parents cannot otherwise occur
+            primary                                +            -
+
+        mdraid sets
+            filesystem (*)                         +            +
+            mountpoint                             +            +
+            size?                                                
+            format                                 -            +
+            encryption                             +            +
+
+            level                                  +            ? 
+            device minor                           +            ? 
+            member devices                         +            ? 
+            spares                                 +            ? 
+            name?
+            bitmap? (boolean)                      +            -
+
+        volume groups
+            name                                   +            - 
+            member pvs                             +            +
+            pesize                                 +            ?
+
+        logical volumes
+            filesystem                             +            +
+            mountpoint                             +            +
+            size
+                exact                              +            ?
+            format                                 -            +
+            encryption                             +            +
+
+            name                                   +            ?
+            vgname                                 +            ?
+
+
+"""
+import os
+import math
+
+# device backend modules
+import mdraid
+import lvm
+#import block
+import dm
+
+# XXX temporary
+import sys
+sys.path.insert(0, "/root/pyparted/src")
+sys.path.insert(1, "/root/pyparted/src/.libs")
+sys.path.append("devicelibs")
+import parted
+
+from errors import *
+from iutil import log_method_call, notify_kernel, numeric_type
+from udev import udev_settle
+from deviceformat import get_device_format_class, getFormat
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
+import logging
+log = logging.getLogger("storage")
+
+def get_device_majors():
+    majors = {}
+    for line in open("/proc/devices").readlines():
+        try:
+            (major, device) = line.split()
+        except ValueError:
+            continue
+        try:
+            majors[int(major)] = device
+        except ValueError:
+            continue
+    return majors
+device_majors = get_device_majors()
+
+class Device(object):
+    """ A generic device.
+
+        Device instances know which devices they depend upon (parents
+        attribute). They do not know which devices depend upon them, but
+        they do know whether or not they have any dependent devices
+        (isleaf attribute).
+
+        A Device's setup method should set up all parent devices as well
+        as the device itself. It should not run the resident format's
+        setup method.
+
+            Which Device types rely on their parents' formats being active?
+                DMCryptDevice
+
+        A Device's teardown method should accept the keyword argument
+        recursive, which takes a boolean value and indicates whether or
+        not to recursively close parent devices.
+
+        A Device's create method should create all parent devices as well
+        as the device itself. It should also run the Device's setup method
+        after creating the device. The create method should not create a
+        device's resident format.
+
+            Which device type rely on their parents' formats to be created
+            before they can be created/assembled?
+                VolumeGroup
+                DMCryptDevice
+
+        A Device's destroy method should destroy any resident format
+        before destroying the device itself.
+
+    """
+    _type = "generic device"
+    _packages = []
+
+    def __init__(self, name, parents=None, description=''):
+        """ Create a Device instance.
+
+            Arguments:
+
+                name -- the device name (generally a device node's basename)
+
+            Keyword Arguments:
+
+                parents -- a list of required Device instances
+                description -- a string describing the device
+
+        """
+        self._name = name
+        if parents is None:
+            parents = []
+        elif not isinstance(parents, list):
+            raise ValueError("parents must be a list of Device instances")
+        self.parents = parents
+        self.kids = 0
+        self.description = description
+
+        for parent in self.parents:
+            parent.addChild()
+
+    def removeChild(self):
+        log_method_call(self, name=self.name, kids=self.kids)
+        self.kids -= 1
+
+    def addChild(self):
+        log_method_call(self, name=self.name, kids=self.kids)
+        self.kids += 1
+
+    def setup(self, intf=None):
+        """ Open, or set up, a device. """
+        raise NotImplementedError("setup method not defined for Device")
+
+    def teardown(self, recursive=None):
+        """ Close, or tear down, a device. """
+        raise NotImplementedError("teardown method not defined for Device")
+
+    def create(self, intf=None):
+        """ Create the device. """
+        raise NotImplementedError("create method not defined for Device")
+
+    def destroy(self):
+        """ Destroy the device. """
+        raise NotImplementedError("destroy method not defined for Device")
+
+    def setupParents(self):
+        """ Run setup method of all parent devices. """
+        for parent in self.parents:
+            parent.setup()
+
+    def teardownParents(self, recursive=None):
+        """ Run teardown method of all parent devices. """
+        for parent in self.parents:
+            parent.teardown(recursive=recursive)
+
+    def createParents(self):
+        """ Run create method of all parent devices. """
+        log.info("NOTE: recursive device creation disabled")
+        for parent in self.parents:
+            if not parent.exists:
+                raise DeviceError("parent device does not exist")
+            #parent.create()
+
+    def dependsOn(self, dep):
+        """ Return True if this device depends on dep. """
+        # XXX does a device depend on itself?
+        if dep in self.parents:
+            return True
+
+        for parent in self.parents:
+            if parent.dependsOn(dep):
+                return True
+
+        return False
+
+    @property
+    def status(self):
+        """ This device's status.
+
+            For now, this should return a boolean:
+                True    the device is open and ready for use
+                False   the device is not open
+        """
+        return False
+
+    @property
+    def name(self):
+        """ This device's name. """
+        return self._name
+
+    @property
+    def isleaf(self):
+        """ True if this device has no children. """
+        return self.kids == 0
+
+    @property
+    def typeDescription(self):
+        """ String describing the device type. """
+        return self._type
+
+    @property
+    def type(self):
+        """ Device type. """
+        return self._type
+
+    @property
+    def packages(self):
+        """ List of packages required to manage devices of this type.
+
+            This list includes the packages required by this device's
+            format type as well those required by all of its parent 
+            devices.
+        """
+        packages = self._packages
+        packages.extend(self.format.packages)
+        for parent in parents:
+            for package in parent.packages:
+                if package not in packages:
+                    packages.append(package)
+
+            for package in parent.format.packages:
+                if package not in packages:
+                    packages.append(package)
+
+        return packages
+
+
+class NetworkDevice(Device):
+    """ A network device """
+    _type = "network device"
+
+    def __init__(self, name, parents=None):
+        """ Create a NetworkDevice instance.
+
+            Arguments:
+
+                name -- the device name (generally an interface name)
+
+            Keyword Arguments:
+
+                parents -- a list of required Device instances
+                description -- a string describing the device
+
+        """
+        Device.__init__(self, name, parents=parents)
+        self.active = False
+
+
+class StorageDevice(Device):
+    """ A generic storage device.
+
+        A fully qualified path to the device node can be obtained via the
+        path attribute, although it is not guaranteed to be useful, or
+        even present, unless the StorageDevice's setup method has been
+        run.
+
+        StorageDevice instances can optionally contain a filesystem,
+        represented by an FS instance. A StorageDevice's create method
+        should create a filesystem if one has been specified.
+    """
+    _type = "storage device"
+    devDir = "/dev"
+    sysfsBlockDir = "/class/block"
+    _resizable = False
+
+    def __init__(self, device, format=None,
+                 size=None, major=None, minor=None,
+                 sysfsPath='', parents=None, exists=None):
+        """ Create a StorageDevice instance.
+
+            Arguments:
+
+                device -- the device name (generally a device node's basename)
+
+            Keyword Arguments:
+
+                size -- the device's size (units/format TBD)
+                major -- the device major
+                minor -- the device minor
+                sysfsPath -- sysfs device path
+                format -- a DeviceFormat instance
+                parents -- a list of required Device instances
+                description -- a string describing the device
+
+        """
+        # allow specification of individual parents
+        if isinstance(parents, Device):
+            parents = [parents]
+
+        Device.__init__(self, device, parents=parents)
+
+        self.uuid = None
+        self.format = None
+        self._size = numeric_type(size)
+        self.major = numeric_type(major)
+        self.minor = numeric_type(minor)
+        self.sysfsPath = sysfsPath
+        self.exists = exists
+
+        # this may be handy for disk, dmraid, mpath, mdraid
+        self.diskLabel = None
+
+        self.format = format
+        self.fstabComment = ""
+
+    @property
+    def path(self):
+        """ Device node representing this device. """
+        return "%s/%s" % (self.devDir, self.name)
+
+    def probe(self):
+        """ Probe for any missing information about this device. """
+        raise NotImplementedError("probe method not defined for StorageDevice")
+
+    def updateSysfsPath(self):
+        """ Update this device's sysfs path. """
+        log_method_call(self, self.name, status=self.status)
+        self.sysfsPath = os.path.join("/sys",
+                                      self.sysfsBlockDir,
+                                      self.name)
+        log.debug("%s sysfsPath set to %s" % (self.name, self.sysfsPath))
+
+    @property
+    def formatArgs(self):
+        """ Device-specific arguments to format creation program. """
+        return []
+
+    @property
+    def resizable(self):
+        """ Can this type of device be resized? """
+        return self._resizable
+
+    def notifyKernel(self):
+        """ Send a 'change' uevent to the kernel for this device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            log.debug("not sending change uevent for non-existent device")
+            return
+
+        if not self.status:
+            log.debug("not sending change uevent for inactive device")
+            return
+
+        self.updateSysfsPath()
+        path = os.path.normpath("/sys/%s" % self.sysfsPath)
+        try:
+            notify_kernel(path, action="change")
+        except Exception, e:
+            log.warning("failed to notify kernel of change: %s" % e)
+
+    @property
+    def fstabSpec(self):
+        spec = self.path
+        if self.format and self.format.uuid:
+            spec = "UUID=%s" % self.format.uuid
+        return spec
+
+    def resize(self, intf=None):
+        """ Resize the device.
+
+            New size should already be set.
+        """
+        raise NotImplementedError("resize method not defined for StorageDevice")
+
+    def setup(self, intf=None):
+        """ Open, or set up, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        self.setupParents()
+        for parent in self.parents:
+            parent.format.setup()
+
+    def teardown(self, recursive=None):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        self.format.teardown()
+
+        if recursive:
+            self.teardownParents(recursive=recursive)
+
+    def _getSize(self):
+        """ Get the device's size. """
+        return self._size
+
+    def _setSize(self, newsize):
+        """ Set the device's size to a new value. """
+        # FIXME: this should involve some verification
+        self._size = newsize
+
+    size = property(lambda x: x._getSize(), lambda x, y: x._setSize(y),
+                    doc="The device's size")
+
+    @property
+    def status(self):
+        """ This device's status.
+
+            For now, this should return a boolean:
+                True    the device is open and ready for use
+                False   the device is not open
+        """
+        if not self.exists:
+            return False
+        return os.access(self.path, os.W_OK)
+
+    def _setFormat(self, format):
+        """ Set the Device's format. """
+        if not format:
+            format = getFormat(None, device=self.path)
+        log_method_call(self, self.name, type=format.type,
+                        current=self._format.type, status=self.status)
+        if self.format and self._format.status:
+            # FIXME: self.format.status doesn't mean much
+            raise DeviceError("cannot replace active format")
+
+        self._format = format
+
+    def _getFormat(self):
+        return self._format
+
+    format = property(lambda d: d._getFormat(),
+                      lambda d,f: d._setFormat(f),
+                      doc="The device's formatting.")
+
+    def create(self, intf=None):
+        """ Create the device. """
+        log_method_call(self, self.name, status=self.status)
+        if self.exists:
+            raise DeviceError("device has already been created")
+
+        self.createParents()
+        self.setupParents()
+        self.setup()
+        self.exists = True
+
+    def destroy(self):
+        """ Destroy the device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if not self.isleaf:
+            raise DeviceError("Cannot destroy non-leaf device")
+
+        if self.status:
+            # best effort
+            self.format.destroy()
+
+        self.exists = False
+        for parent in self.parents:
+            parent.removeChild()
+
+
+class DiskDevice(StorageDevice):
+    """ A disk """
+    _type = "disk"
+
+    def __init__(self, device, format=None,
+                 size=None, major=None, minor=None,
+                 sysfsPath='', parents=None):
+        """ Create a DiskDevice instance.
+
+            Arguments:
+
+                device -- the device name (generally a device node's basename)
+
+            Keyword Arguments:
+
+                size -- the device's size (units/format TBD)
+                major -- the device major
+                minor -- the device minor
+                sysfsPath -- sysfs device path
+                format -- a DeviceFormat instance
+                parents -- a list of required Device instances
+                removable -- whether or not this is a removable device
+
+            DiskDevices always exist.
+        """
+        StorageDevice.__init__(self, device, format=format, size=size,
+                               major=major, minor=minor, exists=True,
+                               sysfsPath=sysfsPath, parents=parents)
+
+        self.partedDevice = None
+        self.partedDisk = None
+        self.removable = False
+        if 'parted' in globals().keys():
+            log.debug("looking up parted Device: %s" % self.path)
+            self.partedDevice = parted.Device(path=self.path)
+            if not self.partedDevice:
+                raise DeviceError("cannot find parted device instance")
+            log.debug("creating parted Disk: %s" % self.path)
+            self.partedDisk = parted.Disk(device=self.partedDevice)
+            if not self.partedDisk:
+                raise DeviceError("failed to create parted Disk")
+
+            self.probe()
+
+    #def open(self):
+    #    raise DeviceError, "shit's busted."
+
+    @property
+    def size(self):
+        """ The disk's size in MB """
+        if not self._size:
+            self._size = self.partedDisk.device.getSize()
+        return self._size
+
+    def setPartedDisk(self, disk):
+        log_method_call(self, self.name, disk_path=disk.device.path)
+        self.partedDisk = disk
+
+    def removePartition(self, device):
+        partition = self.partedDisk.getPartitionByPath(device.path)
+        if partition:
+            self.partedDisk.removePartition(partition)
+
+    def probe(self):
+        """ Probe for any missing information about this device.
+
+            pyparted should be able to tell us anything we want to know.
+            size, disklabel type, maybe even partition layout
+        """
+        if  not 'parted' in globals().keys():
+            return
+
+        log_method_call(self, self.name, size=self.size, partedDevice=self.partedDevice)
+        if not self.size:
+            self.size = self.partedDevice.getSize()
+        if not self.diskLabel:
+            log.debug("setting %s diskLabel to %s" % (self.name,
+                                                      self.partedDisk.type))
+            self.diskLabel = self.partedDisk.type
+
+    def create(self, intf=None):
+        """ Create the device. """
+        log_method_call(self, self.name, status=self.status)
+        self.createParents()
+        self.setupParents()
+        self.partedDisk.commit()
+        self.setup()
+
+    def destroy(self):
+        """ Destroy the device. """
+        log_method_call(self, self.name, status=self.status)
+        if self.status
+            self.format.destroy()
+
+        self.partedDisk.deleteAllPartitions()
+        # this is perhaps a separate operation (wiping the disklabel)
+        self.partedDisk.clobber()
+        self.partedDisk.commit()
+        self.teardown()
+
+        for parent in self.parents:
+            parent.removeChild()
+
+    def setup(self, intf=None):
+        """ Open, or set up, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not os.path.exists(self.path):
+            raise DeviceError("device does not exist")
+
+    def teardown(self, recursive=False):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+
+class PartitionDevice(StorageDevice):
+    """ A disk partition.
+
+        On types and flags...
+
+        We don't need to deal with numerical partition types at all.
+
+        The only type we are concerned with is primary/logical/extended.
+
+        Usage specification is accomplished through the use of flags,
+        which we will set according to the partition's format.
+    """
+    _type = "partition"
+    _resizable = True
+
+    def __init__(self, device, format=None,
+                 size=None, grow=False, maxsize=None,
+                 major=None, minor=None, bootable=None,
+                 sysfsPath='', parents=None, exists=None,
+                 partType=None, primary=False):
+        """ Create a PartitionDevice instance.
+
+            Arguments:
+
+                device -- the device name (generally a device node's basename)
+
+            Keyword Arguments:
+
+                exists -- indicates whether this is an existing device
+                format -- the device's format (DeviceFormat instance)
+
+                For existing partitions:
+
+                    parents -- the disk that contains this partition
+                    major -- the device major
+                    minor -- the device minor
+                    sysfsPath -- sysfs device path
+
+                For new partitions:
+
+                    partType -- primary,extended,&c (as parted constant)
+                    grow -- whether or not to grow the partition
+                    maxsize -- max size for growable partitions (in MB)
+                    size -- the device's size (in MB)
+                    bootable -- whether the partition is bootable
+                    parents -- a list of potential containing disks
+        """
+        self.req_disks = []
+        self.req_partType = None
+        self.req_primary = None
+        self.req_grow = None
+        self.req_bootable = None
+        self.req_size = 0
+        self.req_base_size = 0
+        self.req_max_size = 0
+
+        StorageDevice.__init__(self, device, format=format, size=size,
+                               major=major, minor=minor, exists=exists,
+                               sysfsPath=sysfsPath, parents=parents)
+
+        if not exists:
+            # this is a request, not a partition -- it has no parents
+            self.req_disks = self.parents[:]
+            for dev in self.parents:
+                dev.removeChild()
+            self.parents = []
+
+        # FIXME: Validate partType, but only if this is a new partition
+        #        Otherwise, overwrite it with the partition's type.
+        self._partType = None
+        self.partedFlags = {}
+        self._partedPartition = None
+
+        # FIXME: Validate size, but only if this is a new partition.
+        #        For existing partitions we will get the size from
+        #        parted.
+
+        if self.exists and 'parted' in globals().keys():
+            log.debug("looking up parted Partition: %s" % self.path)
+            #self.partedPartition = parted.getPartitionByName(self.path)
+            self._partedPartition = self.disk.partedDisk.getPartitionByPath(self.path)
+            if not self._partedPartition:
+                raise DeviceError("cannot find parted partition instance")
+
+            # collect information about the partition from parted
+            self.probe()
+        else:
+            # XXX It might be worthwhile to create a shit-simple
+            #     PartitionRequest class and pass one to this constructor
+            #     for new partitions.
+            self.req_name = name
+            self.req_partType = partType
+            self.req_primary = primary
+            self.req_max_size = numeric_type(maxsize)
+            self.req_grow = grow
+            self.req_bootable = bootable
+
+            # req_size may be manipulated in the course of partitioning
+            self.req_size = self._size
+
+            # req_base_size will always remain constant
+            self.req_base_size = self._size
+
+    @property
+    def partType(self):
+        """ Get the partition's type (as parted constant). """
+        if self.partedPartition:
+            return self.partedPartition.type
+        else:
+            if self.exists:
+                raise DeviceError("partition exists but has no partedPartition")
+            return self._partType
+
+    @property
+    def isExtended(self):
+        return self.partType & parted.PARTITION_EXTENDED
+
+    @property
+    def isLogical(self):
+        return self.partType & parted.PARTITION_LOGICAL
+
+    @property
+    def isPrimary(self):
+        return self.partType == parted.PARTITION_NORMAL
+
+    @property
+    def isProtected(self):
+        return self.partType & parted.PARTITION_PROTECTED
+
+    @property
+    def getPartedPartition(self):
+        return self._partedPartition
+        log.debug("PartitionDevice %s has %d parents (%s)" % (self.name,
+                                                              len(self.parents),                                                              self.parents))
+        ppart = None
+        if len(self.parents) == 1:
+            if self._partedPartition and \
+               self.disk.partedDisk == self._partedPartition.disk:
+                return self._partedPartition
+
+            log.debug("path is %s ; partitions is %s" % (self.path,
+                                                         [p.path for p in self.disk.partedDisk.partitions]))
+            pdisk = self.disk.partedDisk
+            ppart = pdisk.getPartitionByPath(self.path)
+            self._partedPartition = ppart
+
+        return ppart
+
+    def setPartedPartition(self, partition):
+        """ Set this PartitionDevice's parted Partition instance. """
+        log_method_call(self, self.name)
+        if partition is None:
+            path = None
+        elif isinstance(partition, parted.Partition):
+            path = partition.path
+        else:
+            raise ValueError("partition must be a parted.Partition instance")
+
+        log.debug("device %s new partedPartition %s has path %s" % (self.name,
+                                                                    partition,
+                                                                    path))
+        self._partedPartition = partition
+        self._name = partition.getDeviceNodeName()
+
+    partedPartition = property(lambda d: d.getPartedPartition(),
+                               lambda d,p: d.setPartedPartition(p))
+
+    def dependsOn(self, dep):
+        """ Return True if this device depends on dep. """
+        if dep.type == "partition" and dep.isExtended and self.isLogical:
+            return True
+
+        return Device.dependsOn(self, dep)
+
+    def _setFormat(self, format):
+        """ Set the Device's format. """
+        log_method_call(self, self.name)
+        StorageDevice._setFormat(self, format)
+
+        # now, set the flags on our parted.Partition
+        #if format:
+        #    self.partedPartitions
+
+    def setBootable(self, bootable):
+        """ Set the bootable flag for this partition. """
+        if 'parted' not in globals().keys():
+            return
+
+        if self.partedPartition:
+            if isFlagAvailable(parted.PARTITION_BOOT):
+                if bootable:
+                    self.partedPartition.setFlag(parted.PARTITION_BOOT)
+                else:
+                    self.partedPartition.unsetFlag(parted.PARTITION_BOOT)
+            else:
+                raise DeviceError(_("boot flag not available for this "
+                                    "partition"))
+        else:
+            if self.partType != parted.PARTITION_NORMAL:
+                raise DeviceError(_("boot flag only available to primary "
+                                    "partitions"))
+            else:
+                self.bootable = bootable
+
+    def probe(self):
+        """ Probe for any missing information about this device.
+
+            size, partition type, flags
+        """
+        log_method_call(self, self.name, exists=self.exists)
+        if not self.exists:
+            return
+
+        # build a dict of this partition's parted flags
+        """
+        XXX removed temporarily to make things faster
+        for flag in parted.partitionFlag.keys():
+            if self.partedPartition.isFlagAvailable(flag):
+                self.partedFlags[flag] = self.partedPartition.getFlag(flag)
+
+        if self.partedFlags[parted.PARTITION_BOOT]:
+            self.bootable = True
+        else:
+            self.bootable = False
+        """
+
+        # this is in MB
+        self.size = self.partedPartition.getSize()
+
+        self._partType = self.partedPartition.type
+
+    def create(self, intf=None):
+        """ Create the device. """
+        log_method_call(self, self.name, status=self.status)
+        if self.exists:
+            raise DeviceError("device already exists")
+
+        # first, do the parted commit
+        try:
+            self.disk.create()
+        except DeviceError, e:
+            log.debug("error creating %s: %s" % (self.parents[0].name, e))
+
+        self.setup()
+        self.exists = True
+
+    def destroy(self):
+        """ Destroy the device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if not self.sysfsPath:
+            return
+
+        if not self.isleaf:
+            raise DeviceError("Cannot destroy non-leaf device")
+
+        if self.status:
+            self.format.destroy()
+
+        # now actually tell pyparted to remove the partition
+        # FIXME: need special handling for extended partitions
+        parted.deletePartition(self.partedPartition)
+
+        self.exists = False
+        for parent in self.parents:
+            parent.removeChild()
+
+    def _getSize(self):
+        """ Get the device's size. """
+        if self.partedPartition:
+            # this defaults to MB
+            return self.partedPartition.getSize()
+        else:
+            if self.exists:
+                raise DeviceError("partition exists but has no partedPartition")
+            return self._size
+
+    def _setSize(self, newsize):
+        """ Set the device's size (for resize, not creation).
+
+            Arguments:
+
+                newsize -- the new size (in MB)
+
+        """
+        log_method_call(self, self.name,
+                        status=self.status, size=self._size, newsize=newsize)
+        if not self.exists:
+            raise DeviceError("device does not exist")
+
+        if newsize > self.disk.size:
+            raise ValueError("partition size would exceed disk size")
+
+        # this defaults to MB
+        maxAvailableSize = self.partedPartition.getMaxAvailableSize()
+
+        if newsize > maxAvailableSize:
+            raise ValueError("new size is greater than available space")
+
+         # now convert the size to sectors and update the geometry
+        geometry = self.partedPartition.geometry
+        physicalSectorSize = geometry.device.physicalSectorSize
+
+        new_length = (newsize * (1024 * 1024)) / physicalSectorSize
+        geometry.length = new_length
+
+    def _getDisk(self):
+        """ The disk that contains this partition. """
+        try:
+            disk = self.parents[0]
+        except IndexError:
+            disk = None
+        return disk
+
+    def _setDisk(self, disk):
+        if self.disk:
+            self.disk.removeChild()
+
+        self.parents = [disk]
+        disk.addChild()
+
+    disk = property(lambda p: p._getDisk(), lambda p,d: p._setDisk(d))
+
+
+class DMDevice(StorageDevice):
+    """ A device-mapper device """
+    _type = "dm"
+    devDir = "/dev/mapper"
+
+    def __init__(self, name, format=None, size=None, dmUuid=None,
+                 target=None, exists=None, parents=None, sysfsPath=''):
+        """ Create a DMDevice instance.
+
+            Arguments:
+
+                name -- the device name (generally a device node's basename)
+
+            Keyword Arguments:
+
+                target -- the device-mapper target type (string)
+                size -- the device's size (units/format TBD)
+                dmUuid -- the device's device-mapper UUID
+                sysfsPath -- sysfs device path
+                format -- a DeviceFormat instance
+                parents -- a list of required Device instances
+                exists -- indicates whether this is an existing device
+        """
+        StorageDevice.__init__(self, name, format=format, size=size,
+                               exists=exists,
+                               parents=parents, sysfsPath=sysfsPath)
+        self.target = target
+        self.dmUuid = dmUuid
+
+    def probe(self):
+        """ Probe for any missing information about this device.
+
+            target type, parents?
+        """
+        raise NotImplementedError("probe method not defined for DMDevice")
+
+    @property
+    def fstabSpec(self):
+        """ Return the device specifier for use in /etc/fstab. """
+        return self.path
+
+    def updateSysfsPath(self):
+        """ Update this device's sysfs path. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            dm_node = self.getDMNode()
+            self.sysfsPath = os.path.join("/sys", self.sysfsBlockDir, dm_node)
+        else:
+            self.sysfsPath = None
+
+    #def getTargetType(self):
+    #    return dm.getDmTarget(name=self.name)
+
+    def getDMNode(self):
+        """ Return the dm-X (eg: dm-0) device node for this device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        return dm.dm_node_from_name(self.name)
+        #return block.getDmNodeFromName(self.name)
+
+    @name.setter
+    def setName(self, name):
+        """ Set the device's map name. """
+        log_method_call(self, self.name, status=self.status)
+        if self.status:
+            raise DeviceError("device is active")
+
+        self._name = name
+        #self.sysfsPath = "/dev/disk/by-id/dm-name-%s" % self.name
+
+    def teardown(self, recursive=None):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            self.format.teardown()
+
+        if recursive:
+            self.teardownParents(recursive=recursive)
+
+
+class DMCryptDevice(DMDevice):
+    """ A dm-crypt device """
+    _type = "dm-crypt"
+
+    def __init__(self, name, format=None, size=None, uuid=None,
+                 exists=None, sysfsPath='', parents=None):
+        """ Create a DMCryptDevice instance.
+
+            Arguments:
+
+                name -- the device name (generally a device node's basename)
+
+            Keyword Arguments:
+
+                size -- the device's size (units/format TBD)
+                sysfsPath -- sysfs device path
+                format -- a DeviceFormat instance
+                parents -- a list of required Device instances
+                exists -- indicates whether this is an existing device
+        """
+        DMDevice.__init__(self, name, format=format, size=size,
+                          parents=parents, sysfsPath=sysfsPath,
+                          exists=exists, target="crypt")
+
+class LUKSDevice(DMCryptDevice):
+    """ A mapped LUKS device. """
+    _type = "luks/dm-crypt"
+
+    def __init__(self, name, format=None, size=None, uuid=None,
+                 exists=None, sysfsPath='', parents=None):
+        """ Create a LUKSDevice instance.
+
+            Arguments:
+
+                name -- the device name
+
+            Keyword Arguments:
+
+                size -- the device's size in MB
+                uuid -- the device's UUID
+                sysfsPath -- sysfs device path
+                format -- a DeviceFormat instance
+                parents -- a list of required Device instances
+                exists -- indicates whether this is an existing device
+        """
+        DMCryptDevice.__init__(self, name, format=format, size=size,
+                               parents=parents, sysfsPath=sysfsPath,
+                               uuid=None, exists=exists)
+
+    def create(self, intf=None):
+        """ Create the device. """
+        log_method_call(self, self.name, status=self.status)
+        if self.exists:
+            raise DeviceError("device already exists")
+
+        self.createParents()
+        self.setupParents()
+
+        #if not self.slave.format.exists:
+        #    self.slave.format.create()
+        self.setup()
+        self.exists = True
+
+    def setup(self, intf=None):
+        """ Open, or set up, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        self.slave.setup()
+        self.slave.format.setup()
+
+    def teardown(self, recursive=False):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            self.format.teardown()
+            self.slave.format.teardown()
+
+        if recursive:
+            self.teardownParents(recursive=recursive)
+
+    @property
+    def slave(self):
+        """ This device's backing device. """
+        return self.parents[0]
+
+
+class LVMVolumeGroupDevice(DMDevice):
+    """ An LVM Volume Group
+
+        XXX Maybe this should inherit from StorageDevice instead of
+            DMDevice since there's no actual device.
+    """
+    _type = "lvm vg"
+
+    def __init__(self, name, parents, size=None, free=None,
+                 peSize=None, peCount=None, peFree=None, pvCount=None,
+                 lvNames=[], uuid=None, exists=None, sysfsPath=''):
+        """ Create a LVMVolumeGroupDevice instance.
+
+            Arguments:
+
+                name -- the device name (generally a device node's basename)
+                parents -- a list of physical volumes (StorageDevice)
+
+            Keyword Arguments:
+
+                peSize -- physical extent size (in MB)
+                exists -- indicates whether this is an existing device
+                sysfsPath -- sysfs device path
+
+                For existing VG's only:
+
+                    size -- the VG's size (in MB)
+                    free -- amount of free space in the VG
+                    peFree -- number of free extents
+                    peCount -- total number of extents
+                    pvCount -- number of PVs in this VG
+                    lvNames -- the names of this VG's LVs
+                    uuid -- the VG's UUID
+
+        """
+        self.pvClass = get_device_format_class("lvmpv")
+        if not self.pvClass:
+            raise DeviceError("cannot find 'lvmpv' class")
+
+        if isinstance(parents, list):
+            for dev in parents:
+                if not isinstance(dev.format, self.pvClass):
+                    raise ValueError("constructor requires a list of PVs")
+        elif not isinstance(parents.format, self.pvClass):
+            raise ValueError("constructor requires a list of PVs")
+
+        DMDevice.__init__(self, name, parents=parents,
+                          exists=exists, sysfsPath=sysfsPath)
+
+        self.uuid = uuid
+        self.free = numeric_type(free)
+        self.peSize = numeric_type(peSize)
+        self.peCount = numeric_type(peCount)
+        self.peFree = numeric_type(peFree)
+        self.pvCount = numeric_type(pvCount)
+        self.lvNames = lvNames
+
+        # circular references, here I come
+        self._lvs = []
+
+        # TODO: validate peSize if given
+        if not self.peSize:
+            self.peSize = 4.0   # MB
+
+        #self.probe()
+
+    def probe(self):
+        """ Probe for any information about this device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+    @property
+    def status(self):
+        """ The device's status (True means active). """
+        if not self.exists:
+            return False
+
+        # certainly if any of this VG's LVs are active then so are we
+        for lvName in self.lvNames:
+            lvPath = os.path.normpath("%s-%s" % (self.path, lvName))
+            if os.path.exists(lvPath):
+                return True
+
+        # if any of our PVs are not active then we cannot be
+        for pv in self.pvs:
+            if not pv.status:
+                return False
+
+        # if we are missing some of our PVs we cannot be active
+        if len(self.pvs) != self.pvCount:
+            return False
+
+        return True
+
+    def addDevice(self, device):
+        """ Add a new physical volume device to the volume group.
+
+            XXX This is for use by device probing routines and is not
+                intended for modification of the VG.
+        """
+        log_method_call(self,
+                        self.name,
+                        device=device.name,
+                        status=self.status)
+        if not self.exists:
+            raise DeviceError("device does not exist")
+
+        if not isinstance(device.format, self.pvClass):
+            raise ValueError("addDevice requires a PV arg")
+
+        if self.uuid and device.format.vgUuid != self.uuid:
+            raise ValueError("UUID mismatch")
+
+        if device in self.pvs:
+            raise ValueError("device is already a member of this VG")
+
+        self.parents.append(device)
+        device.addChild()
+
+        # now see if the VG can be activated
+        if len(self.parents) == self.pvCount:
+            self.setup()
+
+    def removeDevice(self, device):
+        """ Remove a physical volume from the volume group.
+
+            This is for cases like clearing of preexisting partitions.
+        """
+        log_method_call(self,
+                        self.name,
+                        device=device.name,
+                        status=self.status)
+        try:
+            self.parents.remove(device)
+        except ValueError, e:
+            raise ValueError("cannot remove non-member PV device from VG")
+
+        device.removeChild()
+
+    def setup(self, intf=None):
+        """ Open, or set up, a device.
+
+            XXX we don't do anything like "vgchange -ay" because we don't
+                want all of the LVs activated, just the VG itself.
+        """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            return
+
+        if len(self.parents) < self.pvCount:
+            raise DeviceError("cannot activate VG with missing PV(s)")
+
+        self.setupParents()
+
+    def teardown(self, recursive=None):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            lvm.vgdeactivate(self.name)
+
+        if recursive:
+            self.teardownParents(recursive=recursive)
+
+    def create(self, intf=None):
+        """ Create the device. """
+        log_method_call(self, self.name, status=self.status)
+        if self.exists:
+            raise DeviceError("device already exists")
+
+        pv_list = []
+        #for pv in self.parents:
+            # This is a little bit different from other devices in that
+            # for VG we need the PVs to be formatted before we can create
+            # the VG.
+        #    pv.create()
+        #    pv.format.create()
+        #    pv_list.append(pv.path)
+        pv_list = [pv.path for pv in self.parents]
+        self.createParents()
+        self.setupParents()
+        lvm.vgcreate(self.name, pv_list, self.peSize)
+        self.notifyKernel()
+        self.exists = True
+        self.setup()
+
+    def destroy(self):
+        """ Destroy the device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        self.teardown()
+
+        lvm.vgremove(self.name)
+        self.notifyKernel()
+        self.exists = False
+        for parent in self.parents:
+            parent.removeChild()
+
+    def reduce(self, pv_list):
+        """ Remove the listed PVs from the VG. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        lvm.vgreduce(self.name, pv_list)
+        # XXX do we need to notify the kernel?
+
+    def _addLogVol(self, lv):
+        """ Add an LV to this VG. """
+        if lv in self._lvs:
+            raise ValueError("lv is already part of this vg")
+
+        # verify we have the space, then add it
+        if lv.size > self.freeSpace:
+            raise DeviceError("new lv is too large to fit in free space")
+
+        self._lvs.append(lv)
+
+    def _removeLogVol(self, lv):
+        """ Remove an LV from this VG. """
+        if not lv in self.lvs:
+            raise ValueError("specified lv is not part of this vg")
+
+        self._lvs.remove(lv)
+
+    def _addPV(self, pv):
+        """ Add a PV to this VG. """
+        if pv in self.pvs:
+            raise ValueError("pv is already part of this vg")
+
+        # for the time being we will not allow vgextend
+        if self.exists:
+            raise DeviceError("cannot add pv to existing vg")
+
+        self.parents.append(pv)
+        pv.addChild()
+
+    def _removePV(self, pv):
+        """ Remove an PV from this VG. """
+        if not pv in self.pvs:
+            raise ValueError("specified pv is not part of this vg")
+
+        # for the time being we will not allow vgreduce
+        if self.exists:
+            raise DeviceError("cannot remove pv from existing vg")
+
+        self.parents.remove(pv)
+        pv.removeChild()
+
+    """ We can't rely on lvm to tell us about our size, free space, &c
+        since we could have modifications queued, unless the VG and all of
+        its PVs already exist.
+
+            -- liblvm may contain support for in-memory devices
+    """
+    @property
+    def isModified(self):
+        """ Return True if the VG has changes queued that LVM is unaware of. """
+        modified = True
+        if self.exists and not filter(lambda d: not d.exists, self.pvs):
+            modified = False
+
+        return modified
+
+    @property
+    def size(self):
+        """ The size of this VG """
+        # TODO: just ask lvm if isModified returns False
+
+        # sum up the sizes of the PVs and align to pesize
+        size = 0
+        for pv in self.pvs:
+            size += self.align(pv.size - pv.format.peStart)
+
+        return size
+
+    @property
+    def extents(self):
+        """ Number of extents in this VG """
+        # TODO: just ask lvm if isModified returns False
+
+        return self.size / self.peSize
+
+    @property
+    def freeSpace(self):
+        """ The amount of free space in this VG (in MB). """
+        # TODO: just ask lvm if isModified returns False
+
+        # total the sizes of any LVs
+        # FIXME: need to account for metadata
+        used = 0
+        for lv in self.lvs:
+            used += self.align(lv.size)
+
+        return self.size - used
+
+    @property
+    def freeExtents(self):
+        """ The number of free extents in this VG. """
+        # TODO: just ask lvm if isModified returns False
+
+        # FIXME: need to account for metadata
+        return self.freeSpace / self.peSize
+
+    def align(self, size):
+        """ Align a size to a multiple of physical extent size. """
+        size = numeric_type(size)
+
+        # we want Kbytes as a float for our math
+        size *= 1024.0
+        pesize = self.peSize * 1024.0
+        return long((math.floor(size / pesize) * pesize) / 1024)
+
+    @property
+    def pvs(self):
+        """ A list of this VG's PVs """
+        return self.parents[:]  # we don't want folks changing our list
+
+    @property
+    def lvs(self):
+        """ A list of this VG's LVs """
+        return self._lvs[:]     # we don't want folks changing our list
+
+
+class LVMLogicalVolumeDevice(DMDevice):
+    """ An LVM Logical Volume """
+    _type = "lvm lv"
+    _resizable = True
+
+    def __init__(self, name, vgdev, size=None, uuid=None,
+                 format=None, exists=None, sysfsPath='',
+                 grow=None, maxsize=None, percent=None):
+        """ Create a LVMLogicalVolumeDevice instance.
+
+            Arguments:
+
+                name -- the device name (generally a device node's basename)
+                vgdev -- volume group (LVMVolumeGroupDevice instance)
+
+            Keyword Arguments:
+
+                size -- the device's size (in MB)
+                uuid -- the device's UUID
+                sysfsPath -- sysfs device path
+                format -- a DeviceFormat instance
+                exists -- indicates whether this is an existing device
+
+                For new (non-existent) LVs only:
+
+                    grow -- whether to grow this LV
+                    maxsize -- maximum size for growable LV (in MB)
+                    percent -- percent of VG space to take
+
+        """
+        if isinstance(vgdev, list):
+            if len(vgdev) != 1:
+                raise ValueError("constructor requires a single LVMVolumeGroupDevice instance")
+            elif not isinstance(vgdev[0], LVMVolumeGroupDevice):
+                raise ValueError("constructor requires a LVMVolumeGroupDevice instance")
+        elif not isinstance(vgdev, LVMVolumeGroupDevice):
+            raise ValueError("constructor requires a LVMVolumeGroupDevice instance")
+        DMDevice.__init__(self, name, size=size, format=format,
+                          sysfsPath=sysfsPath, parents=vgdev,
+                          exists=exists)
+
+        self.uuid = uuid
+
+        self.req_grow = None
+        self.req_max_size = 0
+        self.req_size = 0   
+        self.req_percent = 0
+
+        if not self.exists:
+            self.req_grow = grow
+            self.req_max_size = numeric_type(maxsize)
+            # XXX should we enforce that req_size be pe-aligned?
+            self.req_size = self._size
+            self.req_percent = numeric_type(percent)
+
+        # here we go with the circular references
+        self.vg._addLogVol(self)
+
+    def probe(self):
+        """ Probe for any missing information about this device.
+
+            size
+        """
+        raise NotImplementedError("probe method not defined for StorageDevice")
+
+    @property
+    def vg(self):
+        """ This Logical Volume's Volume Group. """
+        return self.parents[0]
+
+    @property
+    def name(self):
+        """ This device's name. """
+        return "%s-%s" % (self.vg.name, self._name)
+
+    @property
+    def lvname(self):
+        """ The LV's name (not including VG name). """
+        return self._name
+
+    def setup(self, intf=None):
+        """ Open, or set up, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            return
+
+        self.vg.setup()
+        lvm.lvactivate(self.vg.name, self._name)
+
+    def teardown(self, recursive=None):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            self.format.teardown()
+            lvm.lvdeactivate(self.vg.name, self._name)
+
+        if recursive:
+            self.vg.teardown(recursive=recursive)
+
+    def create(self, intf=None):
+        """ Create the device. """
+        log_method_call(self, self.name, status=self.status)
+        if self.exists:
+            raise DeviceError("device already exists")
+
+        self.createParents()
+        self.setupParents()
+
+        # should we use --zero for safety's sake?
+        lvm.lvcreate(self.vg.name, self._name, self.size)
+        self.exists = True
+        self.setup()
+
+    def destroy(self):
+        """ Destroy the device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            self.format.destroy()
+
+        self.teardown()
+        lvm.lvremove(self.vg.name, self._name)
+        self.exists = False
+        for parent in self.parents:
+            parent.removeChild()
+
+    def resize(self, intf=None):
+        # XXX should we set up anything before doing this?
+        # XXX resize format probably, right?
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        self.format.teardown()
+        lvm.lvresize(self.vg.name, self._name, self.size)
+
+
+class MDRaidArrayDevice(StorageDevice):
+    """ An mdraid (Linux RAID) device.
+
+        Since this is derived from StorageDevice, not PartitionDevice, it
+        can be used to represent a partitionable device.
+    """
+    _type = "mdarray"
+
+    def __init__(self, name, level=None, minor=None, size=None,
+                 memberDevices=None, totalDevices=None, bitmap=False,
+                 uuid=None, format=None, exists=None,
+                 parents=None, sysfsPath=''):
+        """ Create a MDRaidArrayDevice instance.
+
+            Arguments:
+
+                name -- the device name (generally a device node's basename)
+
+            Keyword Arguments:
+
+                level -- the device's RAID level (a string, eg: '1' or 'raid1')
+                parents -- list of member devices (StorageDevice instances)
+                size -- the device's size (units/format TBD)
+                uuid -- the device's UUID
+                minor -- the device minor
+                bitmap -- whether to use a bitmap (boolean)
+                sysfsPath -- sysfs device path
+                format -- a DeviceFormat instance
+                exists -- indicates whether this is an existing device
+        """
+        StorageDevice.__init__(self, name, format=format, exists=exists,
+                               minor=minor, size=size,
+                               parents=parents, sysfsPath=sysfsPath)
+        self.level = level
+        self.uuid = uuid
+        self.memberDevices = numeric_type(memberDevices)
+        self.totalDevices = numeric_type(totalDevices)
+        self.sysfsPath = "/devices/virtual/block/%s" % name
+
+        """ FIXME: Bitmap is more complicated than this.
+
+            It can be internal or external. External requires a filename.
+        """
+        self.bitmap = bitmap
+
+        self.formatClass = get_device_format_class("mdmember")
+        if not self.formatClass:
+            raise DeviceError("cannot find class for 'mdmember'")
+
+        #self.probe()
+
+    @property
+    def mdadmConfEntry(self):
+        """ This array's mdadm.conf entry. """
+        if not self.level or self.memberDevices is None or not self.uuid:
+            raise DeviceError("array is not fully defined")
+
+        fmt = "ARRAY level=%s num-devices=%d UUID=%s"
+        return fmt % (self.level, self.memberDevices, self.uuid)
+
+    def _getSpares(self):
+        spares = 0
+        if self.memberDevices is not None:
+            if self.totalDevices is not None:
+                spares = self.totalDevices - self.memberDevices
+            else:
+                spares = self.memberDevices
+                self.totalDevices = self.memberDevices
+        return spares
+
+    def _setSpares(self, spares):
+        # FIXME: this is too simple to be right
+        if self.totalDevices > spares:
+            self.memberDevices = self.totalDevices - spares
+
+    spares = property(_getSpares, _setSpares)
+
+    def probe(self):
+        """ Probe for any missing information about this device.
+
+            I'd like to avoid paying any attention to "Preferred Minor"
+            as it seems problematic.
+        """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        try:
+            self.devices[0].setup()
+        except Exception:
+            return
+
+        info = mdraid.mdexamine(self.devices[0].path)
+        if self.level is None:
+            self.level = info['level']
+        if self.memberDevices is None:
+            self.memberDevices = info['nrDisks']
+        if self.totalDevices is None:
+            self.totalDevices = info['totalDisks']
+        if self.uuid is None:
+            self.uuid = info['uuid']
+        if self.minor is None:
+            self.minor = info['mdMinor']
+
+    @property
+    def fstabSpec(self):
+        return self.path
+
+    def updateSysfsPath(self):
+        """ Update this device's sysfs path. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            self.sysfsPath = os.path.join("/sys",
+                                          self.sysfsBlockDir,
+                                          self.name)
+        else:
+            self.sysfsPath = None
+
+    def addDevice(self, device):
+        """ Add a new member device to the array.
+
+            XXX This is for use when probing devices, not for modification
+                of arrays.
+        """
+        log_method_call(self,
+                        self.name,
+                        device=device.name,
+                        status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if not isinstance(device.format, self.formatClass):
+            raise ValueError("invalid device format for mdraid member")
+
+        if self.uuid and device.format.mdUuid != self.uuid:
+            raise ValueError("cannot add member with non-matching UUID")
+
+        if device in self.devices:
+            raise ValueError("device is already a member of this array")
+
+        # we added it, so now set up the relations
+        self.devices.append(device)
+        device.addChild()
+
+    def removeDevice(self, device):
+        """ Remove a component device from the array.
+
+            XXX This is for use by clearpart, not for reconfiguration.
+        """
+        log_method_call(self,
+                        self.name,
+                        device=device.name,
+                        status=self.status)
+
+        if device not in self.devices:
+            raise ValueError("cannot remove non-member device from array")
+
+        self.devices.remove(device)
+        device.removeChild()
+
+    @property
+    def status(self):
+        """ This device's status.
+
+            For now, this should return a boolean:
+                True    the device is open and ready for use
+                False   the device is not open
+        """
+        # check the status in sysfs
+        status = False
+        if not self.exists:
+            return status
+
+        state_file = "/sys/%s/md/array_state" % self.sysfsPath
+        if os.access(state_file, os.R_OK):
+            state = open(state_file).read().strip()
+            log.debug("%s state is %s" % (self.name, state))
+            if state in ("clean", "active"):
+                status = True
+
+        return status
+
+    @property
+    def degraded(self):
+        """ Return True if the array is running in degraded mode. """
+        rc = False
+        degraded_file = "/sys/%s/md/degraded" % self.sysfsPath
+        if os.access(state_file, os.R_OK):
+            val = open(state_file).read().strip()
+            log.debug("%s degraded is %s" % (self.name, val))
+            if val == "1":
+                rc = True
+
+        return rc
+
+    @property
+    def devices(self):
+        """ Return a list of this array's member device instances. """
+        return self.parents
+
+    def setup(self, intf=None):
+        """ Open, or set up, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            return
+
+        disks = []
+        for member in self.devices:
+            member.setup()
+            disks.append(member.path)
+
+        mdraid.mdactivate(self.path,
+                          members=disks,
+                          super_minor=self.minor,
+                          uuid=self.uuid)
+
+        udev_settle()
+
+    def teardown(self, recursive=None):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            self.format.teardown()
+            mdraid.mddeactivate(self.path)
+
+        if recursive:
+            self.teardownParents(recursive=recursive)
+
+    def create(self, intf=None):
+        """ Create the device. """
+        log_method_call(self, self.name, status=self.status)
+        if self.exists:
+            raise DeviceError("device already exists")
+
+        disks = [disk.path for disk in self.devices]
+        self.createParents()
+        self.setupParents()
+        spares = len(self.devices) - self.memberDevices
+        mdraid.mdcreate(self.path,
+                        self.level,
+                        disks,
+                        spares)
+        self.exists = True
+        # the array is automatically activated upon creation, but...
+        self.setup()
+        udev_settle()
+
+        # FIXME: we need to find our UUID now that the array exists
+
+    @property
+    def formatArgs(self):
+        formatArgs = []
+        if self.format.type == "ext2":
+            if self.level == 5:
+                formatArgs = ['-R',
+                              'stride=%d' % ((self.memberDevices - 1) * 16)]
+            elif self.level == 0:
+                formatArgs = ['-R',
+                              'stride=%d' % (self.memberDevices * 16)]
+
+    def destroy(self):
+        """ Destroy the device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            self.format.destroy()
+
+        self.teardown()
+        # destruction of the formats on members will destroy the array
+        for disk in self.devices:
+            disk.format.destroy()
+
+        self.exists = False
+        for parent in self.parents:
+            parent.removeChild()
+
+
+class DMRaidArrayDevice(DMDevice):
+    """ A dmraid (device-mapper RAID) device """
+    _type = "dm-raid array"
+    _packages = ["dmraid"]
+
+    def __init__(self, name, format=None, size=None,
+                 exists=None, parents=None, sysfsPath=''):
+        """ Create a DMRaidArrayDevice instance.
+
+            Arguments:
+
+                name -- the device name (generally a device node's basename)
+
+            Keyword Arguments:
+
+                parents -- a list of the member devices
+                sysfsPath -- sysfs device path
+                size -- the device's size
+                format -- a DeviceFormat instance
+                exists -- indicates whether this is an existing device
+        """
+        if isinstance(parents, list):
+            for parent in parents:
+                if not parent.format or parent.format.type != "dmraidmember":
+                    raise ValueError("parent devices must contain dmraidmember format")
+        DMDevice.__init__(self, name, format=format, size=size,
+                          parents=parents, sysfsPath=sysfsPath,
+                          exists=exists)
+
+    def probe(self):
+        """ Probe for any missing information about this device.
+
+            size
+        """
+        raise NotImplementedError("probe method not defined for DMRaidArrayDevice")
+
+
+class MultipathDevice(DMDevice):
+    """ A multipath device """
+    _type = "dm-multipath"
+    _packages = ["device-mapper-multipath"]
+
+    def __init__(self, name, format=None, size=None,
+                 exists=None, parents=None, sysfsPath=''):
+        """ Create a MultipathDevice instance.
+
+            Arguments:
+
+                name -- the device name (generally a device node's basename)
+
+            Keyword Arguments:
+
+                sysfsPath -- sysfs device path
+                size -- the device's size
+                format -- a DeviceFormat instance
+                parents -- a list of the backing devices (Device instances)
+                exists -- indicates whether this is an existing device
+        """
+        DMDevice.__init__(self, name, format=format, size=size,
+                          parents=parents, sysfsPath=sysfsPath,
+                          exists=exists)
+
+    def probe(self):
+        """ Probe for any missing information about this device.
+
+            size
+        """
+        raise NotImplementedError("probe method not defined for MultipathDevice")
+
+
+class NoDevice(StorageDevice):
+    """ A nodev device for nodev filesystems like tmpfs. """
+    _type = "nodev"
+
+    def __init__(self, format=None):
+        """ Create a NoDevice instance.
+
+            Arguments:
+
+            Keyword Arguments:
+
+                format -- a DeviceFormat instance
+        """
+        if format:
+            name = format.type
+        else:
+            name = "nodev"
+
+        StorageDevice.__init__(self, name, format=format)
+
+    @property
+    def path(self):
+        """ Device node representing this device. """
+        return self.name
+
+    def probe(self):
+        """ Probe for any missing information about this device. """
+        log_method_call(self, self.name, status=self.status)
+
+    def setup(self, intf=None):
+        """ Open, or set up, a device. """
+        log_method_call(self, self.name, status=self.status)
+
+    def teardown(self, recursive=False):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+
+    def create(self, intf=None):
+        """ Create the device. """
+        log_method_call(self, self.name, status=self.status)
+        self.setupParents()
+
+    def destroy(self):
+        """ Destroy the device. """
+        log_method_call(self, self.name, status=self.status)
+
+
+class FileDevice(StorageDevice):
+    """ A file on a filesystem.
+
+        This exists because of swap files.
+    """
+    _type = "file"
+    devDir = ""
+
+    def __init__(self, path, format=None, size=None,
+                 exists=None, parents=None):
+        """ Create a FileDevice instance.
+
+            Arguments:
+
+                path -- full path to the file
+
+            Keyword Arguments:
+
+                format -- a DeviceFormat instance
+                size -- the file size (units TBD)
+                parents -- a list of required devices (Device instances)
+                exists -- indicates whether this is an existing device
+        """
+        StorageDevice.__init__(self, name, format=format, size=size,
+                               exists=exists, parents=parents)
+
+    def probe(self):
+        """ Probe for any missing information about this device. """
+        pass
+
+    @property
+    def fstabSpec(self):
+        return self.path
+
+    @property
+    def path(self):
+        path = self.name
+        root = ""
+        try:
+            status = self.parents[0].format.status
+        except AttributeError:
+            status = False
+
+        if status: 
+            # this is the actual active mountpoint
+            root = self.parents[0].format._mountpoint
+
+        return os.path.normpath("%s/%s" % (root, path))
+
+    def setup(self):
+        StorageDevice.setup(self)
+        if self.format and self.format.exists and not self.format.status:
+            self.format.device = self.path
+
+        for parent in self.parents:
+            parent.format.setup()
+
+    def teardown(self):
+        StorageDevice.teardown(self)
+        if self.format and self.format.exists and not self.format.status:
+            self.format.device = self.path
+
+    def create(self, intf=None):
+        """ Create the device. """
+        log_method_call(self, self.name, status=self.status)
+        if self.exists:
+            raise DeviceError("device already exists")
+
+        # this only checks that parents exist
+        self.createParents()
+        self.setupParents()
+
+        try:
+            fd = os.open(self.path, os.O_RDWR)
+        except OSError as e:
+            raise DeviceError(e)
+
+        try:
+            buf = '\0' * 1024 * 1024 * self.size
+            os.write(fd, buf)
+        except Exception, e:
+            log.error("error zeroing out %s: %s" % (self.device, e))
+        finally:
+            os.close(fd)
+
+        self.exists = True
+
+    def destroy(self):
+        """ Destroy the device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.status:
+            self.format.destroy()
+
+        os.unlink(self.path)
+        self.exists = False
+        for parent in self.parents:
+            parent.removeChild()
+
+
+class DirectoryDevice(FileDevice):
+    """ A directory on a filesystem.
+
+        This exists because of bind mounts.
+    """
+    _type = "directory"
+
+    def create(self):
+        """ Create the device. """
+        log_method_call(self, self.name, status=self.status)
+        if self.exists:
+            raise DeviceError("device already exists")
+
+        self.createParents()
+        self.setupParents()
+        try:
+            iutil.mkdirChain(self.path)
+        except Exception, e:
+            raise DeviceError, e
+
+        self.exists = True
+
+    def destroy(self):
+        """ Destroy the device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        os.unlink(self.path)
+        self.exists = False
+        for parent in self.parents:
+            parent.removeChild()
+
+
+class iScsiDiskDevice(DiskDevice):
+    """ An iSCSI volume/device/target/???.
+
+        TODO: learn what this is and how we need to use it.
+    """
+    _type = "iscsi"
+
+    def __init__(self, ipaddr, port,
+                 user=None, passwd=None,
+                 user_in=None, passwd_in=None,
+                 major=None, minor=None, size=None,
+                 exists=None, parents=None, sysfsPath=''):
+        name = "iscsi://%s:%s" % (ipaddr, port)
+        DiskDevice.__init__(self, name, size=size,
+                            major=major, minor=minor, exists=exists,
+                            parents=parents, sysfsPath=sysfsPath)
+
+    def probe(self):
+        """ Probe for any missing information about this device. """
+        raise NotImplementedError("probe method not defined for StorageDevice")
+
+
+class OpticalDevice(StorageDevice):
+    """ An optical drive, eg: cdrom, dvd+r, &c.
+
+        XXX Is this useful?
+    """
+    _type = "cdrom"
+
+    def __init__(self, name, major=None, minor=None, exists=None,
+                 format=None, parents=None, sysfsPath=''):
+        StorageDevice.__init__(self, name, format=format,
+                               major=major, minor=minor, exists=True,
+                               parents=parents, sysfsPath=sysfsPath)
+
+    def teardown(self, recursive=None):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        self.format.teardown()
+        if recursive:
+            self.teardownParents(recursive=recursive)
+
+    def mediaPresent(self):
+        """ Return a boolean indicating whether or not the device contains
+            media.
+        """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+    def eject(self):
+        """ Eject the drawer. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+
+class ZFCPDiskDevice(DiskDevice):
+    """ A mainframe ZFCP disk. """
+    _type = "zfcp"
+
+    def __init__(self, name, size=None, major=None, minor=None,
+                 devnum=None, wwpn=None, fcplun=None,
+                 parents=None, sysfsPath=''):
+        self.devnum = devnum
+        self.wwpn = wwpn
+        self.fcplun = fcplun
+        name = "zfcp://%s/%s/%s" % (self.devnum, self.wwpn, self.fcplun)
+        DiskDevice.__init__(self, name, size=size,
+                            major=major, minor=minor,
+                            parents=parents, sysfsPath=sysfsPath)
+
+    def probe(self):
+        """ Probe for any missing information about this device.
+
+            devnum, wwpn, fcplun
+        """
+        raise NotImplementedError("probe method not defined for StorageDevice")
+
+
+class DASDDevice(DiskDevice):
+    """ A mainframe DASD. """
+    _type = "dasd"
+
+    def __init__(self, device, size=None, major=None, minor=None,
+                 parents=None, sysfsPath=''):
+        DiskDevice.__init__(self, device, size=size,
+                            major=major, minor=minor,
+                            parents=parents, sysfsPath=sysfsPath)
+
+    def probe(self):
+        """ Probe for any missing information about this device. """
+        raise NotImplementedError("probe method not defined for StorageDevice")
+
+
+class PRePBootDevice(PartitionDevice):
+    """ A PPC PReP boot partition.
+
+        XXX Would this be better represented by a DeviceFormat class?
+    """
+    _type = "PReP"
+    #_partedFlags = parted.PARTITION_PREP
+
+    def __init__(self, device,
+                 size=None, grow=False, maxsize=None,
+                 major=None, minor=None,
+                 sysfsPath='', parents=None,
+                 exists=None, primary=False):
+        """ Create a PRePBootDevice instance.
+
+            Arguments:
+
+                device -- the device name (generally a device node's basename)
+
+            Keyword Arguments:
+
+                grow -- whether or not to grow the partition (boolean )
+                maxsize -- max size for growable partitions (units TBD)
+                size -- the device's size (units/format TBD)
+                major -- the device major
+                minor -- the device minor
+                sysfsPath -- sysfs device path
+                parents -- a list of required Device instances
+                exists -- indicates whether this is an existing device
+        """
+        PartitionDevice.__init__(self, device, partType=self._partType,
+                                 size=size, grow=grow, maxsize=maxsize,
+                                 major=major, minor=minor,
+                                 sysfsPath=sysfsPath, exists=exists,
+                                 parents=parents, primary=primary)
+
+
+class NFSDevice(StorageDevice):
+    """ An NFS device """
+    _type = "nfs"
+
+    def __init__(self, device, format=None, parents=None):
+        # we could make host/ip, path, &c but will anything use it?
+        StorageDevice.__init__(device, format=format, parents=parents)
+
+    @property
+    def path(self):
+        """ Device node representing this device. """
+        return self.name
+
+    def setup(self, intf=None):
+        """ Open, or set up, a device. """
+        log_method_call(self, self.name, status=self.status)
+
+    def teardown(self, recursive=None):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+
+    def create(self, intf=None):
+        """ Create the device. """
+        log_method_call(self, self.name, status=self.status)
+        self.createParents()
+        self.setupParents()
+
+    def destroy(self):
+        """ Destroy the device. """
+        log_method_call(self, self.name, status=self.status)
+
+
