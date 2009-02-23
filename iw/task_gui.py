@@ -467,9 +467,11 @@ class TaskWindow(InstallWindow):
             # we just set things as default or not; group selection
             # happens after this screen.
             if cb:
-                map(lambda g: self.backend.ayum.comps.return_group(g).default = True, grps)
+                map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
+                                      "default", True), grps)
             else:
-                map(lambda g: self.backend.ayum.comps.return_group(g).default = False, grps)
+                map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
+                                      "default", False), grps)
 
     def _editRepo(self, *args):
         repo = None
