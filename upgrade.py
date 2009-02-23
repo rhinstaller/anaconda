@@ -154,10 +154,10 @@ def findExistingRoots(anaconda, upgradeany = 0):
     return rootparts
 
 def bindMountDevDirectory(instPath):
-     getFormat("bind",
-               device="/dev",
-               mountpoint="/dev",
-               exists=True).mount(chroot=instPath)
+    getFormat("bind",
+              device="/dev",
+              mountpoint="/dev",
+              exists=True).mount(chroot=instPath)
 
 # returns None if no filesystem exist to migrate
 def upgradeMigrateFind(anaconda):
