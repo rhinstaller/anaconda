@@ -26,9 +26,7 @@ import gobject
 import gtk
 
 import gui
-from fsset import *
-from cryptodev import LUKSDevice
-from partRequests import *
+from storage.devices import PartitionDevice
 from partition_ui_helpers_gui import *
 from constants import *
 
@@ -49,13 +47,6 @@ class PartitionEditor:
 	adj = fillmaxszsb.get_adjustment()
 	adj.clamp_page(size, adj.upper)
 	fillmaxszsb.set_adjustment(adj)
-
-    def cylspinchangedCB(self, widget, data):
-	(dev, startcylspin, endcylspin, bycyl_sizelabel) = data
-	startsec = dev.startCylinderToSector(startcylspin.get_value_as_int())
-	endsec = dev.endCylinderToSector(endcylspin.get_value_as_int())
-	cursize = (endsec - startsec)/2048
-	bycyl_sizelabel.set_text("%s" % (int(cursize))) 
 
     def fillmaxszCB(self, widget, spin):
 	spin.set_sensitive(widget.get_active())
@@ -111,150 +102,141 @@ class PartitionEditor:
 
         while 1:
             rc = self.dialog.run()
+            actions = []
 	    
             # user hit cancel, do nothing
             if rc == 2:
                 self.destroy()
                 return None
 
-            if self.origrequest.type == REQUEST_NEW:
+            if not self.origrequest.exists:
                 # read out UI into a partition specification
-                filesystem = self.newfstypeCombo.get_active_value()
-
-                request = copy.copy(self.origrequest)
-                request.fstype = filesystem
-                request.format = True
-
-                if request.fstype.isMountable():
-                    request.mountpoint = self.mountCombo.get_children()[0].get_text()
-                else:
-                    request.mountpoint = None
+                fmt_class = self.newfstypeCombo.get_active_value()
+                # there's nothing about origrequest we care about
+                #request = copy.copy(self.origrequest)
+                mountpoint = self.mountCombo.get_children()[0].get_text()
 
                 if self.primonlycheckbutton.get_active():
-                    primonly = True
+                    primary = True
                 else:
-                    primonly = None
+                    primary = None
 
+                format = fmt_class(mountpoint=mountpoint)
                 if self.lukscb and self.lukscb.get_active():
-                    if not request.encryption:
-                        request.encryption = LUKSDevice(passphrase = self.partitions.encryptionPassphrase, format=1)
+                    luksformat = format
+                    format = getFormat("luks",
+                                       passphrase=self.storage.encryptionPassphrase)
+                    luksdev = LUKSDevice("luks%d" % self.storage.nextID,
+                                         format=luksformat,
+                                         parents=request)
+
+                if self.fixedrb.get_active():
+                    grow = None
                 else:
-                    request.encryption = None
+                    grow = True
 
-                if not self.newbycyl:
-                    if self.fixedrb.get_active():
-                        grow = None
-                    else:
-                        grow = True
+                self.sizespin.update()
 
-                    self.sizespin.update()
-
-                    if self.fillmaxszrb.get_active():
-                        self.fillmaxszsb.update()
-                        maxsize = self.fillmaxszsb.get_value_as_int()
-                    else:
-                        maxsize = None
-
-		    allowdrives = []
-		    model = self.driveview.get_model()
-		    iter = model.get_iter_first()
-		    while iter:
-			val   = model.get_value(iter, 0)
-			drive = model.get_value(iter, 1)
-
-			if val:
-			    allowdrives.append(drive)
-
-                        iter = model.iter_next(iter)
-
-                    if len(allowdrives) == len(self.diskset.disks.keys()):
-                        allowdrives = None
-			
-                    request.size = self.sizespin.get_value_as_int()
-                    request.drive = allowdrives
-                    request.grow = grow
-                    request.primary = primonly
-                    request.maxSizeMB = maxsize
+                if self.fillmaxszrb.get_active():
+                    self.fillmaxszsb.update()
+                    maxsize = self.fillmaxszsb.get_value_as_int()
                 else:
-                    self.startcylspin.update()
-                    self.endcylspin.update()
-                    
-                    request.start = self.startcylspin.get_value_as_int()
-                    request.end = self.endcylspin.get_value_as_int()
-                    request.primary = primonly
+                    maxsize = None
 
-                    if request.end <= request.start:
-                        self.intf.messageWindow(_("Error With Request"),
-                                                _("The end cylinder must be "
-                                                "greater than the start "
-                                                "cylinder."), custom_icon="error")
+                allowdrives = []
+                model = self.driveview.get_model()
+                iter = model.get_iter_first()
+                while iter:
+                    val   = model.get_value(iter, 0)
+                    drive = model.get_value(iter, 1)
 
-                        continue
+                    if val:
+                        allowdrives.append(drive)
 
-		err = request.sanityCheckRequest(self.partitions)
+                    iter = model.iter_next(iter)
+
+                if len(allowdrives) == len(self.storage.disks):
+                    allowdrives = None
+
+                size = self.sizespin.get_value_as_int()
+                disks = []
+                if allowdrives:
+                    for drive in allowdrives:
+                        for disk in self.storage.disks:
+                            if disk.name == drive:
+                                disks.append(disk)
+
+                # TODO: when will we set bootable?
+                request = PartitionDevice("new%d" % self.storage.nextID,
+                                          format=format,
+                                          size=size,
+                                          grow=grow,
+                                          maxsize=maxsize,
+                                          primary=primary,
+                                          parents=disks)
+
+		err = storage.sanityCheckRequest(request)
 		if not err:
-		    err = doUIRAIDLVMChecks(request, self.diskset)
+		    err = doUIRAIDLVMChecks(request, self.storage)
 		    
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err), custom_icon="error")
                     continue
+
+                # we're all set, so create the actions
+                if luksdev:
+                    actions.append(ActionCreateDevice(luksdev))
+                actions.append(ActionCreateDevice(request))
             else:
                 # preexisting partition, just set mount point and format flag
                 request = copy.copy(self.origrequest)
-                request.encryption = copy.deepcopy(self.origrequest.encryption)
-		
-		if self.fsoptionsDict.has_key("formatcb"):
-                    request.format = self.fsoptionsDict["formatcb"].get_active()
-                    if request.format:
-                        request.fstype = self.fsoptionsDict["fstypeCombo"].get_active_value()
-                else:
-                    request.format = 0
+                mountpoint = self.mountCombo.get_children()[0].get_text()
+                if self.fsoptionsDict.has_key("formatcb") and \
+                   self.fsoptionsDict["formatcb"].get_active():
+                    fmt_class = self.fsoptionsDict["fstypeCombo"].get_active_value()
+                    format = fmt_class(mountpoint=mountpoint)
+                    if self.fsoptionsDict.has_key("lukscb") and \
+                       lukscb.get_active() and \
+                       request.format.type != "luks":
+                        luksdev = LUKSDevice("luks%d" % self.storage.nextID,
+                                             format=format,
+                                             parents=request)
+                        actions.append(ActionCreateDevice(luksdev)
+                        format = getFormat("luks",
+                                           device=self.origrequest.path,
+                                           passphrase=self.storage.encryptionPassphrase)
+                    actions.append(ActionCreateFormat(request, format))
 
-		if self.fsoptionsDict.has_key("migratecb"):
-                    request.migrate = self.fsoptionsDict["migratecb"].get_active()
-                    if request.migrate:
-                        request.fstype =self.fsoptionsDict["migfstypeCombo"].get_active_value()
-                else:
-                    request.migrate = 0
+                if self.fsoptionsDict.has_key("migratecb") and \
+                   self.fsoptionsDict["migratecb"].get_active():
+                    format = getFormat(self.fsoptionsDict["migfstypeCombo"].get_active_value(), mountpoint=mountpoint)
+                    # TODO: implement ActionMigrateFormat
+                    #actions.append(ActionMigrateFormat(request, format))
 
-                if self.fsoptionsDict.has_key("resizecb") and self.fsoptionsDict["resizecb"].get_active():
-                    request.targetSize = self.fsoptionsDict["resizesb"].get_value_as_int()
-                else:
-                    request.targetSize = None
+                if self.fsoptionsDict.has_key("resizecb") and \
+                   self.fsoptionsDict["resizecb"].get_active():
+                    size = self.fsoptionsDict["resizesb"].get_value_as_int()
+                    actions.append(ActionResizeDevice(request, size)
+                    if request.format.type != "none":
+                        actions.append(ActionResizeFormat(request, size))
 
-                # set back if we are not formatting or migrating
-		origfstype = self.origrequest.origfstype
-                if not request.format and not request.migrate:
-                    request.fstype = origfstype
-
-                if request.fstype.isMountable():
-                    request.mountpoint =  self.mountCombo.get_children()[0].get_text()
-                else:
-                    request.mountpoint = None
-
-                lukscb = self.fsoptionsDict.get("lukscb")
-                if lukscb and lukscb.get_active():
-                    if not request.encryption:
-                        request.encryption = LUKSDevice(passphrase=self.partitions.encryptionPassphrase, format=1)
-                else:
-                    request.encryption = None
-
-                err = request.sanityCheckRequest(self.partitions)
+                err = self.storage.sanityCheckRequest(request)
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err), custom_icon="error")
                     continue
 
-                if (not request.format and
-                    request.mountpoint and request.formatByDefault()):
+                if request.format.exists and \
+                   getattr(request, "mountpoint", None) and \
+                   self.storage.formatByDefault(request)):
                     if not queryNoFormatPreExisting(self.intf):
                         continue
-		    
-	    # everything ok, fall out of loop
+
+            # everything ok, fall out of loop
 	    break
-            
-	return request
+
+	return actions
 
     def destroy(self):
 	if self.dialog:
@@ -265,8 +247,7 @@ class PartitionEditor:
     def __init__(self, anaconda, parent, origrequest, isNew = 0,
                  restrictfs = None):
         self.anaconda = anaconda
-	self.partitions = self.anaconda.id.partitions
-	self.diskset = self.anaconda.id.diskset
+	self.storage = self.anaconda.id.storage
 	self.intf = self.anaconda.intf
 	self.origrequest = origrequest
 	self.isNew = isNew
@@ -275,10 +256,7 @@ class PartitionEditor:
 	if isNew:
 	    tstr = _("Add Partition")
 	else:
-	    try:
-		tstr = _("Edit Partition: /dev/%s") % (origrequest.device,)
-	    except:
-		tstr = _("Edit Partition")
+	    tstr = _("Edit Partition: %s") % (origrequest.path,)
 	    
         self.dialog = gtk.Dialog(tstr, self.parent)
         gui.addFrame(self.dialog)
@@ -291,24 +269,36 @@ class PartitionEditor:
         maintable.set_col_spacings(5)
         row = 0
 
-        # see if we are creating a floating request or by cylinder
-        if self.origrequest.type == REQUEST_NEW:
-            self.newbycyl = self.origrequest.start != None
+        # if this is a luks device we need to grab info from two devices
+        # to make it seem like one device. wee!
+        if self.origrequest.format.type == "luks":
+            luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
+            fmt_type = luksdev.format.type
+            mountpoint = getattr(luksdev.format, "mountpoint", None)
+            fslabel = getattr(luksdev.format, "label", None)
+            # XXX might need to add migrate stuff here, too
+            usereq = luksdev
+        else:
+            usereq = self.origrequest
 
         # Mount Point entry
 	lbl = createAlignedLabel(_("_Mount Point:"))
         maintable.attach(lbl, 0, 1, row, row + 1)
-        self.mountCombo = createMountPointCombo(origrequest)
+        self.mountCombo = createMountPointCombo(usereq)
 	lbl.set_mnemonic_widget(self.mountCombo)
         maintable.attach(self.mountCombo, 1, 2, row, row + 1)
         row = row + 1
 
         # Partition Type
-        if self.origrequest.type == REQUEST_NEW:
+        if not self.origrequest.format.exists:
 	    lbl = createAlignedLabel(_("File System _Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
 
-            self.newfstypeCombo = createFSTypeMenu(self.origrequest.fstype,
+            if luksdev:
+                usereq = luksdev
+            else:
+                usereq = self.origrequest
+            self.newfstypeCombo = createFSTypeMenu(usereq.format.type,
                                                    fstypechangeCB,
                                                    self.mountCombo,
                                                    availablefstypes = restrictfs)
@@ -320,103 +310,49 @@ class PartitionEditor:
         row = row + 1
 
         # allowable drives
-        if self.origrequest.type == REQUEST_NEW:
-            if not self.newbycyl:
-		lbl = createAlignedLabel(_("Allowable _Drives:"))
-                maintable.attach(lbl, 0, 1, row, row + 1)
+        if not self.origrequest.exists:
+            lbl = createAlignedLabel(_("Allowable _Drives:"))
+            maintable.attach(lbl, 0, 1, row, row + 1)
 
-                self.driveview = createAllowedDrivesList(self.diskset.disks,
-                                                         self.origrequest.drive,
-                                                         selectDrives=False,
-                                                         disallowDrives=[self.anaconda.updateSrc])
-		lbl.set_mnemonic_widget(self.driveview)
-                sw = gtk.ScrolledWindow()
-                sw.add(self.driveview)
-                sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-		sw.set_shadow_type(gtk.SHADOW_IN)
-                maintable.attach(sw, 1, 2, row, row + 1)
-		self.driveview.set_size_request(375, 80)
-            else:
-                maintable.attach(createAlignedLabel(_("Drive:")),
-                                 0, 1, row, row + 1)
-                maintable.attach(createAlignedLabel(origrequest.drive[0]),
-                                 1, 2, row, row + 1)
+            self.driveview = createAllowedDrivesList(self.storage.disks,
+                                                     self.origrequest.req_disks,
+                                                     selectDrives=False,
+                                                     disallowDrives=[self.anaconda.updateSrc])
+            lbl.set_mnemonic_widget(self.driveview)
+            sw = gtk.ScrolledWindow()
+            sw.add(self.driveview)
+            sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+            sw.set_shadow_type(gtk.SHADOW_IN)
+            maintable.attach(sw, 1, 2, row, row + 1)
+            self.driveview.set_size_request(375, 80)
 
             row = row + 1
 
         # original fs label
-        if self.origrequest.type != REQUEST_NEW and self.origrequest.fslabel:
+        if usereq.format.exists and \
+           getattr(usereq.format, "label", None):
             maintable.attach(createAlignedLabel(_("Original File System "
                                                   "Label:")),
                              0, 1, row, row + 1)
-            fslabel = gtk.Label(self.origrequest.fslabel)
+            fslabel = gtk.Label(usereq.format.label)
             maintable.attach(fslabel, 1, 2, row, row + 1)
-
             row = row + 1
 
         # size
-        if self.origrequest.type == REQUEST_NEW:
-            if not self.newbycyl:
-                # Size specification
-		lbl = createAlignedLabel(_("_Size (MB):"))
-                maintable.attach(lbl, 0, 1, row, row + 1)
-                sizeAdj = gtk.Adjustment(value = 1, lower = 1,
-                                         upper = MAX_PART_SIZE, step_incr = 1)
-                self.sizespin = gtk.SpinButton(sizeAdj, digits = 0)
-                self.sizespin.set_property('numeric', True)
+        if not self.origrequest.exists:
+            # Size specification
+            lbl = createAlignedLabel(_("_Size (MB):"))
+            maintable.attach(lbl, 0, 1, row, row + 1)
+            sizeAdj = gtk.Adjustment(value = 1, lower = 1,
+                                     upper = MAX_PART_SIZE, step_incr = 1)
+            self.sizespin = gtk.SpinButton(sizeAdj, digits = 0)
+            self.sizespin.set_property('numeric', True)
 
-                if self.origrequest.size:
-                    self.sizespin.set_value(self.origrequest.size)
+            if self.origrequest.req_size:
+                self.sizespin.set_value(self.origrequest.req_size)
 
-		lbl.set_mnemonic_widget(self.sizespin)
-                maintable.attach(self.sizespin, 1, 2, row, row + 1)
-                bycyl_sizelabel = None
-            else:
-                # XXX need to add partition by size and
-                #     wire in limits between start and end
-                dev = self.diskset.disks[origrequest.drive[0]].dev
-                maintable.attach(createAlignedLabel(_("Size (MB):")),
-                                 0, 1, row, row + 1)
-                bycyl_sizelabel = createAlignedLabel("")
-                maintable.attach(bycyl_sizelabel, 1, 2, row, row + 1)
-                row = row + 1
-
-		lbl = createAlignedLabel(_("_Start Cylinder:"))
-                maintable.attach(lbl, 0, 1, row, row + 1)
-
-                (maxcyl, h, s) = self.diskset.disks[origrequest.drive[0]].device.biosGeometry
-                cylAdj = gtk.Adjustment(value=origrequest.start,
-                                        lower=origrequest.start,
-                                        upper=maxcyl,
-                                        step_incr=1)
-                self.startcylspin = gtk.SpinButton(cylAdj, digits=0)
-                self.startcylspin.set_property('numeric', True)
-		lbl.set_mnemonic_widget(self.startcylspin)
-                maintable.attach(self.startcylspin, 1, 2, row, row + 1)
-                row = row + 1
-                
-                endcylAdj = gtk.Adjustment(value=origrequest.end,
-                                           lower=origrequest.start,
-                                           upper=maxcyl,
-                                           step_incr=1)
-		lbl = createAlignedLabel(_("_End Cylinder:"))		
-                maintable.attach(lbl, 0, 1, row, row + 1)
-                self.endcylspin = gtk.SpinButton(endcylAdj, digits = 0)
-                self.endcylspin.set_property('numeric', True)
-		lbl.set_mnemonic_widget(self.endcylspin)
-                maintable.attach(self.endcylspin, 1, 2, row, row + 1)
-
-                self.startcylspin.connect("value-changed", self.cylspinchangedCB,
-					  (dev, self.startcylspin,
-					   self.endcylspin, bycyl_sizelabel))
-                self.endcylspin.connect("value-changed", self.cylspinchangedCB,
-					(dev, self.startcylspin,
-					 self.endcylspin, bycyl_sizelabel))
-                
-                startsec = dev.startCylinderToSector(origrequest.start)
-                endsec = dev.endCylinderToSector(origrequest.end)
-                cursize = (endsec - startsec)/2048
-                bycyl_sizelabel.set_text("%s" % (int(cursize)))
+            lbl.set_mnemonic_widget(self.sizespin)
+            maintable.attach(self.sizespin, 1, 2, row, row + 1)
         else:
             self.sizespin = None
             
@@ -425,45 +361,43 @@ class PartitionEditor:
         # format/migrate options for pre-existing partitions, as long as they
         # aren't protected (we'd still like to be able to mount them, though)
 	self.fsoptionsDict = {}
-        if self.origrequest.type == REQUEST_PREEXIST and self.origrequest.fstype and not self.origrequest.getProtected():
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo, self.partitions)
+        if self.origrequest.exists and \
+           usereq.format.type != "none" and \
+           not self.storage.isProtected(self.origrequest):
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(usereq, maintable, row, self.mountCombo, self.storage)
 
         # size options
-        if self.origrequest.type == REQUEST_NEW:
-            if not self.newbycyl:
-                (sizeframe, self.fixedrb, self.fillmaxszrb,
-                 self.fillmaxszsb) = self.createSizeOptionsFrame(self.origrequest,
-							    self.fillmaxszCB)
-                self.sizespin.connect("value-changed", self.sizespinchangedCB,
-				      self.fillmaxszsb)
+        if not self.origrequest.exists:
+            (sizeframe, self.fixedrb, self.fillmaxszrb,
+             self.fillmaxszsb) = self.createSizeOptionsFrame(self.origrequest,
+                                                        self.fillmaxszCB)
+            self.sizespin.connect("value-changed", self.sizespinchangedCB,
+                                  self.fillmaxszsb)
 
-                maintable.attach(sizeframe, 0, 2, row, row + 1)
-            else:
-                # XXX need new by cyl options (if any)
-                pass
+            maintable.attach(sizeframe, 0, 2, row, row + 1)
             row = row + 1
         else:
             self.sizeoptiontable = None
 
         # create only as primary
-        if self.origrequest.type == REQUEST_NEW:
+        if not self.origrequest.exists:
             self.primonlycheckbutton = gtk.CheckButton(_("Force to be a _primary "
                                                     "partition"))
             self.primonlycheckbutton.set_active(0)
-            if self.origrequest.primary:
+            if self.origrequest.req_primary:
                 self.primonlycheckbutton.set_active(1)
 
             # only show if we have something other than primary
-            if not self.diskset.onlyPrimaryParts():
+            if self.storage.extendedPartitionsSupported():
                 maintable.attach(self.primonlycheckbutton, 0, 2, row, row+1)
                 row = row + 1
 
         # checkbutton for encryption using dm-crypt/LUKS
-        if self.origrequest.type == REQUEST_NEW:
+        if not self.origrequest.exists:
             self.lukscb = gtk.CheckButton(_("_Encrypt"))
             self.lukscb.set_data("formatstate", 1)
 
-            if self.origrequest.encryption:
+            if self.origrequest.format.type == "luks":
                 self.lukscb.set_active(1)
             else:
                 self.lukscb.set_active(0)

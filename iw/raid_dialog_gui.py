@@ -28,10 +28,7 @@ import gtk
 import datacombo
 
 import gui
-from fsset import *
 from raid import availRaidLevels
-from cryptodev import LUKSDevice
-from partRequests import *
 from partition_ui_helpers_gui import *
 from constants import *
 
@@ -56,18 +53,17 @@ class RaidEditor:
         tempDevList = []
         if not self.isNew:
             # We need this list if we are editing.
-            for id in reqraidpart:
-                tempDevList.append(self.partitions.getRequestByID(id).device)
+            for dev in reqraidpart:
+                tempDevList.append(dev)
 
 	partrow = 0
-	for part, size, used in allraidparts:
-	    partname = "%s" % part
-	    partsize = "%8.0f MB" % size
+	for part in allraidparts:
+	    partname = "%s" % part.name
+	    partsize = "%8.0f MB" % part.size
 
             if self.isNew:
                 partlist.append_row((partname, partsize), False)
             else:
-                # Ask self.partitions what devices to list as selected.
                 if part in tempDevList:
                     #list the partition and put it as selected
                     partlist.append_row((partname, partsize), True)
@@ -117,7 +113,7 @@ class RaidEditor:
 	numparts = sparesb.get_data("numparts")
 	maxspares = raid.get_raid_max_spares(raidlevel, numparts)
 
-	if maxspares > 0 and raidlevel != "RAID0":
+	if maxspares > 0 and raidlevel != "raid0":
 	    adj = sparesb.get_adjustment() 
 	    value = adj.value 
 	    if adj.value > maxspares: 
@@ -145,20 +141,8 @@ class RaidEditor:
 		self.destroy()
 		return None
 
-	    # read out UI into a partition specification
-	    request = copy.copy(self.origrequest)
-            request.encryption = copy.deepcopy(self.origrequest.encryption)
-
-	    # doesn't make sense for RAID device
-            if not self.origrequest.getPreExisting():
-                filesystem = self.fstypeCombo.get_active_value()
-                request.fstype = filesystem
-
-		if request.fstype.isMountable():
-		    request.mountpoint = self.mountCombo.get_children()[0].get_text()
-		else:
-		    request.mountpoint = None
-
+            actions = []
+            luksdev = None
 	    raidmembers = []
 	    model = self.raidlist.get_model()
 	    iter = model.get_iter_first()
@@ -167,82 +151,75 @@ class RaidEditor:
 		part = model.get_value(iter, 1)
 
 		if val:
-		    req = self.partitions.getRequestByDeviceName(part)
-		    raidmembers.append(req.uniqueID)
+		    dev = self.storage.devicetree.getDeviceByName(part)
+		    raidmembers.append(dev)
 
                 iter = model.iter_next(iter)
 
-            if not self.origrequest.getPreExisting():
-                request.raidminor = int(self.minorCombo.get_active_value())
+            if not self.origrequest.exists:
+                # new device
+                fmt_class = self.fstypeCombo.get_active_value()
+		mountpoint = self.mountCombo.get_children()[0].get_text()
+                raidminor = int(self.minorCombo.get_active_value())
 
-                request.raidmembers = raidmembers
                 model = self.levelcombo.get_model()
-                request.raidlevel = model[self.levelcombo.get_active()][0]
+                raidlevel = model[self.levelcombo.get_active()][0]
 
-                if request.raidlevel != "RAID0":
+                if raidlevel != "RAID0":
                     self.sparesb.update()
-                    request.raidspares = self.sparesb.get_value_as_int()
+                    spares = self.sparesb.get_value_as_int()
                 else:
-                    request.raidspares = 0
+                    spares = 0
 
-		if self.formatButton:
-		    request.format = self.formatButton.get_active()
-		else:
-		    request.format = 0
-
-                if self.lukscb and self.lukscb.get_active():
-                    if not request.encryption:
-                        request.encryption = LUKSDevice(passphrase=self.partitions.encryptionPassphrase, format=1)
-                else:
-                    request.encryption = None
+                format = fmt_class(mountpoint=mountpoint)
+                if self.fsoptionsDict.has_key("lukscb") and \
+                   self.fsoptionsDict["lukscb"].get_active() and \
+                   self.origrequest.format.type != "luks":
+                    luksdev = LUKSDevice("luks-%s" % request.name,
+                                         format=format
+                                         parents=self.origrequest)
+                    format = getFormat("luks",
+                                       passphrase=self.storage.encryptionPassphrase)
 	    else:
-		if self.fsoptionsDict.has_key("formatcb"):
-                    request.format = self.fsoptionsDict["formatcb"].get_active()
-                    if request.format:
-                        request.fsystem = self.fsoptionsDict["fstypeCombo"].get_active_value()
-                else:
-                    request.format = 0
+                # existing device
+                fmt_class = self.fsoptionsDict["fstypeCombo"].get_active_value()
+                mountpoint = self.mountCombo.get_children()[0].get_text()
+		if self.fsoptionsDict.has_key("formatcb") and \
+                   self.fsoptionsDict["formatcb"].get_active():
+                    format = fmt_class(mountpoint=mountpoint)
+                    if self.fsoptionsDict.has_key("lukscb") and \
+                       self.fsoptionsDict["lukscb"].get_active() and \
+                       request.format.type != "luks":
+                        luksdev = LUKSDevice("luks-%s" % request.name,
+                                             format=format,
+                                             parents=request)
+                        format = getFormat("luks",
+                                           device=self.origrequest.path,
+                                           passphrase=self.storage.encryptionPassphrase)
 
-		if self.fsoptionsDict.has_key("migratecb"):
-		    request.migrate = self.fsoptionsDict["migratecb"].get_active()
-                    if request.migrate:
-                        request.fsystem = self.fsoptionsDict["migfstypeCombo"].get_active_value()
-                else:
-                    request.migrate = 0
+		if self.fsoptionsDict.has_key("migratecb") and \
+		   self.fsoptionsDict["migratecb"].get_active():
+                    fstype = self.fsoptionsDict["migfstypeCombo"].get_active_value()
 
-                # set back if we are not formatting or migrating
-		origfstype = self.origrequest.origfstype
-                if not request.format and not request.migrate:
-                    request.fstype = origfstype
-
-                if request.fstype.isMountable():
-                    request.mountpoint =  self.mountCombo.get_children()[0].get_text()
-                else:
-                    request.mountpoint = None
-
-                lukscb = self.fsoptionsDict.get("lukscb")
-                if lukscb and lukscb.get_active():
-                    if not request.encryption:
-                        request.encryption = LUKSDevice(passphrase=self.partitions.encryptionPassphrase, format=1)
-                else:
-                    request.encryption = None
-
-	    err = request.sanityCheckRequest(self.partitions)
+	    err = self.storage.sanityCheckRequest(request)
 	    if err:
 		self.intf.messageWindow(_("Error With Request"),
 					"%s" % (err), custom_icon="error")
 		continue
 
-	    if (not request.format and
-		request.mountpoint and request.formatByDefault()):
+	    if request.format.exists and \
+               self.storage.formatByDefault(request):
 		if not queryNoFormatPreExisting(self.intf):
 		    continue
 
 	    # everything ok, break out
 	    break
 
+        actions.append(ActionCreateDevice(self.origrequest))
+        if luksdev:
+            actions.append(ActionCreateDevice(luksdev))
 
-	return request
+	return actions
 
     def destroy(self):
 	if self.dialog:
@@ -250,9 +227,8 @@ class RaidEditor:
 
 	self.dialog = None
 	
-    def __init__(self, partitions, diskset, intf, parent, origrequest, isNew = 0):
-	self.partitions = partitions
-	self.diskset = diskset
+    def __init__(self, storage, intf, parent, origrequest, isNew = 0):
+	self.storage = storage
 	self.origrequest = origrequest
 	self.isNew = isNew
 	self.intf = intf
@@ -263,8 +239,8 @@ class RaidEditor:
 	#
 	# start of editRaidRequest
 	#
-	availraidparts = self.partitions.getAvailRaidPartitions(origrequest,
-								self.diskset)
+        availraidparts = self.storage.unusedMDMembers(array=self.origrequest)
+
 	# if no raid partitions exist, raise an error message and return
 	if len(availraidparts) < 2:
 	    dlg = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
@@ -285,8 +261,8 @@ class RaidEditor:
 	if isNew:
 	    tstr = _("Make RAID Device")
 	else:
-	    try:
-		tstr = _("Edit RAID Device: /dev/md%s") % (origrequest.raidminor,)
+	    if origrequest.minor is not None:
+		tstr = _("Edit RAID Device: %s") % (origrequest.path,)
 	    except:
 		tstr = _("Edit RAID Device")
 		
@@ -313,11 +289,18 @@ class RaidEditor:
         self.lukscb = gtk.CheckButton(_("_Encrypt"))
         self.lukscb.set_data("formatstate", 1)
 
+        if origrequest.format.type == "luks":
+            usedev = self.storage.devicetree.getChildren(origrequest)[0]
+            format = usedev.format
+        else:
+            usedev = origrequest
+            format = origrequest.format
+
 	# Filesystem Type
-        if not origrequest.getPreExisting():
+        if not origrequest.exists:
             lbl = createAlignedLabel(_("_File System Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
-            self.fstypeCombo = createFSTypeMenu(origrequest.fstype,
+            self.fstypeCombo = createFSTypeMenu(format.name,
                                                 fstypechangeCB,
                                                 self.mountCombo,
                                                 ignorefs = ["software RAID", "efi", "PPC PReP Boot", "Apple Bootstrap"])
@@ -327,29 +310,29 @@ class RaidEditor:
         else:
             maintable.attach(createAlignedLabel(_("Original File System Type:")),
                              0, 1, row, row + 1)
-            if origrequest.fstype.getName():
-                self.fstypeCombo = gtk.Label(origrequest.fstype.getName())
+            if format.type:
+                self.fstypeCombo = gtk.Label(format.name)
             else:
                 self.fstypeCombo = gtk.Label(_("Unknown"))
 
             maintable.attach(self.fstypeCombo, 1, 2, row, row + 1)
             row += 1
 
-            if origrequest.fslabel:
+            if getattr(format, "label", None):
                 maintable.attach(createAlignedLabel(_("Original File System "
                                                       "Label:")),
                                  0, 1, row, row + 1)
-                maintable.attach(gtk.Label(origrequest.fslabel), 1, 2, row,
-                                 row + 1)
+                maintable.attach(gtk.Label(format.label),
+                                 1, 2, row, row + 1)
                 row += 1
 
 	# raid minors
 	lbl = createAlignedLabel(_("RAID _Device:"))	
 	maintable.attach(lbl, 0, 1, row, row + 1)
 
-        if not origrequest.getPreExisting():
-            availminors = self.partitions.getAvailableRaidMinors()[:16]
-            reqminor = origrequest.raidminor
+        if not origrequest.exists:
+            availminors = self.storage.unusedMDMinors()[:16]
+            reqminor = origrequest.minor
             if reqminor is not None:
                 availminors.append(reqminor)
 
@@ -357,7 +340,7 @@ class RaidEditor:
             self.minorCombo = self.createRaidMinorMenu(availminors, reqminor)
 	    lbl.set_mnemonic_widget(self.minorCombo)
         else:
-            self.minorCombo = gtk.Label("md%s" %(origrequest.raidminor,))
+            self.minorCombo = gtk.Label("%s" %(origrequest.name,))
 	maintable.attach(self.minorCombo, 1, 2, row, row + 1)
 	row = row + 1
 
@@ -365,16 +348,17 @@ class RaidEditor:
 	lbl = createAlignedLabel(_("RAID _Level:"))
 	maintable.attach(lbl, 0, 1, row, row + 1)
 
-        if not origrequest.getPreExisting():
+        if not origrequest.exists:
             # Create here, pack below
             numparts =  len(availraidparts)
-            if origrequest.raidspares:
-                nspares = origrequest.raidspares
+            if origrequest.spares:
+                nspares = origrequest.spares
             else:
                 nspares = 0
 
-            if origrequest.raidlevel:
-                maxspares = raid.get_raid_max_spares(origrequest.raidlevel, numparts)
+            if origrequest.level:
+                maxspares = raid.get_raid_max_spares(origrequest.level,
+                                                     numparts)
             else:
                 maxspares = 0
 
@@ -389,15 +373,15 @@ class RaidEditor:
                 self.sparesb.set_value(0)
                 self.sparesb.set_sensitive(0)
         else:
-            self.sparesb = gtk.Label(str(origrequest.raidspares))
+            self.sparesb = gtk.Label(str(origrequest.spares))
 
 
-        if not origrequest.getPreExisting():
+        if not origrequest.exists:
             self.levelcombo = self.createRaidLevelMenu(availRaidLevels,
-                                                       origrequest.raidlevel)
+                                                       origrequest.level)
 	    lbl.set_mnemonic_widget(self.levelcombo)
         else:
-            self.levelcombo = gtk.Label(origrequest.raidlevel)
+            self.levelcombo = gtk.Label(origrequest.level)
 
 	maintable.attach(self.levelcombo, 1, 2, row, row + 1)
 	row = row + 1
@@ -408,15 +392,15 @@ class RaidEditor:
 
 	# XXX need to pass in currently used partitions for this device
 	(self.raidlist, sw) = self.createAllowedRaidPartitionsList(availraidparts,
-                                                                   origrequest.raidmembers,
-                                                                   origrequest.getPreExisting())
+                                                                   origrequest.devices,
+                                                                   origrequest.exists)
 
 	lbl.set_mnemonic_widget(self.raidlist)
 	self.raidlist.set_size_request(275, 80)
 	maintable.attach(sw, 1, 2, row, row + 1)
 	row = row + 1
 
-        if origrequest.getPreExisting():
+        if origrequest.exists:
             self.raidlist.set_sensitive(False)
 
 	# number of spares - created widget above
@@ -429,26 +413,26 @@ class RaidEditor:
 	# format or not?
 	self.formatButton = None
 	self.fsoptionsDict = {}
-	if (origrequest.fstype and origrequest.fstype.isFormattable()) and not origrequest.getPreExisting():
+	if not format.exists:
 	    self.formatButton = gtk.CheckButton(_("_Format partition?"))
-	    if origrequest.format == None or origrequest.format != 0:
+	    if not format.type:
 		self.formatButton.set_active(1)
 	    else:
 		self.formatButton.set_active(0)
             # it only makes sense to show this for preexisting RAID
-            if origrequest.getPreExisting():
+            if origrequest.exists:
                 maintable.attach(self.formatButton, 0, 2, row, row + 1)
                 row = row + 1
 
             # checkbutton for encryption using dm-crypt/LUKS
-            if self.origrequest.encryption:
+            if origrequest.format.type == "luks":
                 self.lukscb.set_active(1)
             else:
                 self.lukscb.set_active(0)
             maintable.attach(self.lukscb, 0, 2, row, row + 1)
             row = row + 1
 	else:
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo, self.partitions)
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(usedev, maintable, row, self.mountCombo, self.storage)
 
 	# put main table into dialog
 	dialog.vbox.pack_start(maintable)
@@ -460,7 +444,7 @@ class RaidEditor:
 
 
 class RaidCloneDialog:
-    def createDriveList(self, diskset):
+    def createDriveList(self, disks):
 
 	store = gtk.ListStore(gobject.TYPE_STRING)
         view = gtk.TreeView(store)
@@ -470,12 +454,9 @@ class RaidCloneDialog:
 	sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 	sw.set_shadow_type(gtk.SHADOW_IN)
 
-        drives = diskset.disks.keys()
-        drives.sort()
-
-        for drive in drives:
+        for disk in disks:
             iter = store.append()
-            store.set_value(iter, 0, drive)
+            store.set_value(iter, 0, disk.name)
             
         view.set_property("headers-visible", False)
 
@@ -485,27 +466,18 @@ class RaidCloneDialog:
         return (sw, view)
 
     def getInterestingRequestsForDrive(self, drive):
-        allrequests = self.partitions.getRequestsByDevice(self.diskset, drive)
+        disk = self.storage.devicetree.getDeviceByName(drive)
+        allrequests = self.storage.getDependentDevices(disk)
 
-	if allrequests is None or len(allrequests) == 0:
+	if not allrequests:
 	    return allrequests
 
         # remove extended partitions
         requests = []
         for req in allrequests:
-            try:
-                part = parted.getPartitionByName(req.device)
-            except:
-                part = None
-
-	    if part:
-		if part.type & parted.PARTITION_EXTENDED:
-		    continue
-		elif part.type & parted.PARTITION_FREESPACE:
-		    continue
-		elif part.type & parted.PARTITION_METADATA:
-		    continue
-	    else:
+            if req.type == "partition" and req.isExtended:
+                continue
+	    elif req.type != "partition":
 		continue
 
             requests.append(req)
@@ -525,7 +497,7 @@ class RaidCloneDialog:
             return 1
 
         for req in requests:
-            if not req.fstype or req.fstype.getName() != "software RAID":
+            if req.format.type != "mdmember":
                 self.intf.messageWindow(_("Source Drive Error"),
                                         _("The source drive you selected has "
                                           "partitions which are not of "
@@ -536,21 +508,23 @@ class RaidCloneDialog:
 					custom_icon="error")
                 return 1
 
+        sourceDev = self.storage.devicetree.getDeviceByName(self.sourceDrive)
         for req in requests:
-            if not req.drive or req.drive[0] != self.sourceDrive or len(req.drive) > 1:
+            if not req.req_disks or len(req.req_disks) > 1 or \
+               req.req_disks[0] != self.sourceDrive:
                 self.intf.messageWindow(_("Source Drive Error"),
                                         _("The source drive you selected has "
                                           "partitions which are not "
-                                          "constrained to the drive /dev/%s.\n\n"
+                                          "constrained to the drive %s.\n\n"
                                           "You must remove these partitions "
                                           "or restrict them to this "
                                           "drive "
                                           "before this drive can be cloned. ")
-                                        %(self.sourceDrive,), custom_icon="error")
+                                        %(sourceDev.path,), custom_icon="error")
                 return 1
 
         for req in requests:
-            if self.partitions.isRaidMember(req):
+            if req not in self.storage.unusedMDMembers():
                 self.intf.messageWindow(_("Source Drive Error"),
                                         _("The source drive you selected has "
                                           "software RAID partition(s) which "
@@ -564,6 +538,7 @@ class RaidCloneDialog:
         return 0
 
     def sanityCheckTargetDrives(self):
+        sourceDev = self.storage.devicetree.getDeviceByName(self.sourceDrive)
         if self.targetDrives is None or len(self.targetDrives) < 1:
                 self.intf.messageWindow(_("Target Drive Error"),
                                         _("Please select the target drives "
@@ -572,8 +547,10 @@ class RaidCloneDialog:
 
         if self.sourceDrive in self.targetDrives:
                 self.intf.messageWindow(_("Target Drive Error"),
-                                        _("The source drive /dev/%s cannot be "
-                                          "selected as a target drive as well.") % (self.sourceDrive,), custom_icon="error")
+                                        _("The source drive %s cannot be "
+                                          "selected as a target drive as well.")
+                                        % (self.sourceDev.path,),
+                                        custom_icon="error")
                 return 1
 
         for drive in self.targetDrives:
@@ -581,24 +558,20 @@ class RaidCloneDialog:
 	    if requests is None:
 		continue
 	    
+            targetDev = self.storage.devicetree.getDeviceByName(drive)
             for req in requests:
-                rc = partIntfHelpers.isNotChangable(req, self.partitions)
-
-                # If the partition is protected, we also can't delete it so
-                # specify a reason why.
-                if rc is None and req.getProtected():
-                    rc = _("This partition is holding the data for the hard "
-                           "drive install.")
+                rc = self.storage.deviceImmutable(req)
                 if rc:
                     self.intf.messageWindow(_("Target Drive Error"),
-                                            _("The target drive /dev/%s "
+                                            _("The target drive %s "
                                               "has a partition which cannot "
                                               "be removed for the following "
                                               "reason:\n\n\"%s\"\n\n"
                                               "You must remove this partition "
                                               "before "
                                               "this drive can be a target.") %
-                                            (drive, rc), custom_icon="error")
+                                            (targetDev.path, rc),
+                                            custom_icon="error")
                     return 1
 
         return 0
@@ -609,27 +582,28 @@ class RaidCloneDialog:
         requests = self.getInterestingRequestsForDrive(self.sourceDrive)
 
 	# no requests to clone, bail out
-	if requests is None or len(requests) == 0:
+	if not requests:
 	    return 0
 
 	# now try to clear the target drives
-	for device in self.targetDrives:
-	    rc = doDeletePartitionsByDevice(self.intf, self.partitions,
-					    self.diskset, device,
-					    confirm=0, quiet=1)
+	for devname in self.targetDrives:
+            device = self.storage.devicetree.getDeviceByName(devname)
+            doDeleteDependentDevices(self.intf, self.storage,
+				     device, confirm=0, quiet=1)
 
 	# now clone!
 	for req in requests:
 	    for drive in self.targetDrives:
-		newreq = copy.copy(req)
-		newreq.drive = [drive]
-		newreq.uniqueID = None
-		newreq.device = None
-		newreq.preexist = 0
-		newreq.dev = None
-		self.partitions.addRequest(newreq)
+                # this feels really dirty
+                device = self.storage.devicetree.getDeviceByName(drive)
+                newdev = copy.deepcopy(req)
+                newdev.req_disks = [device]
+                newdev.exists = False
+                newdev.format.exists = False
+                newdev.format.device = None
+                self.storage.createDevice(newdev)
 		
-	return 0
+	return
 	
 
     def targetSelectFunc(self, model, path, iter):
@@ -672,10 +646,10 @@ class RaidCloneDialog:
                 continue
 
 	    # now give them last chance to bail
-	    msgtxt = _("The drive /dev/%s will now be cloned to the "
+	    msgtxt = _("The drive %s will now be cloned to the "
 		       "following drives:\n\n" % (self.sourceDrive,))
 	    for drive in self.targetDrives:
-		msgtxt = msgtxt + "\t" + "/dev/%s" % (drive,)
+		msgtxt = msgtxt + "\t" + "%s" % (drive,)
 
 	    msgtxt = msgtxt + _("\n\nWARNING! ALL DATA ON THE TARGET DRIVES "
 				"WILL BE DESTROYED.")
@@ -708,9 +682,8 @@ class RaidCloneDialog:
 
 	self.dialog = None
 	
-    def __init__(self, partitions, diskset, intf, parent):
-	self.partitions = partitions
-	self.diskset = diskset
+    def __init__(self, storage, intf, parent):
+	self.storage = storage
 	self.intf = intf
 	self.parent = parent
 
@@ -748,7 +721,7 @@ class RaidCloneDialog:
         lbl = gtk.Label(_("Source Drive:"))
         lbl.set_alignment(0.0, 0.0)
         box.pack_start(lbl, padding=5)
-        (sw, self.sourceView) = self.createDriveList(diskset)
+        (sw, self.sourceView) = self.createDriveList(storage.disks)
         selection = self.sourceView.get_selection()
         selection.set_mode(gtk.SELECTION_SINGLE)
         box.pack_start(sw)
@@ -756,7 +729,7 @@ class RaidCloneDialog:
         lbl = gtk.Label(_("Target Drive(s):"))
         lbl.set_alignment(0.0, 0.0)
         box.pack_start(lbl, padding=5)
-        (sw, self.targetView) = self.createDriveList(diskset)
+        (sw, self.targetView) = self.createDriveList(storage.disks)
         selection = self.targetView.get_selection()
         selection.set_mode(gtk.SELECTION_MULTIPLE)
         box.pack_start(sw)

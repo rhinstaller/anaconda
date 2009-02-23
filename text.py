@@ -629,10 +629,6 @@ class InstallInterface:
         # draw the frame after setting up the fallback
         self.drawFrame()
 
-        anaconda.id.fsset.registerMessageWindow(self.messageWindow)
-        anaconda.id.fsset.registerProgressWindow(self.progressWindow)
-        anaconda.id.fsset.registerWaitWindow(self.waitWindow)
-
 	lastrc = INSTALL_OK
 	(step, instance) = anaconda.dispatch.currentStep()
 	while step:

@@ -28,10 +28,9 @@ import datacombo
 import iutil
 
 from constants import *
-from fsset import *
 from partIntfHelpers import *
-from partRequests import *
 from partedUtils import *
+from storage.formats import device_formats, getFormat
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -72,13 +71,23 @@ def createAlignedLabel(text):
 
     return label
 
+defaultMountPoints = ['/', '/boot', '/home', '/tmp', '/usr',
+                      '/var', '/usr/local', '/opt']
+
+if iutil.isS390():
+    # Many s390 have 2G DASDs, we recomment putting /usr/share on its own DASD
+    defaultMountPoints.insert(5, '/usr/share')
+
+if iutil.isEfi():
+    defaultMountPoints.insert(2, '/boot/efi')
+
 def createMountPointCombo(request, excludeMountPoints=[]):
     mountCombo = gtk.combo_box_entry_new_text()
 
     mntptlist = []
-
-    if request.type != REQUEST_NEW and request.fslabel:
-	mntptlist.append(request.fslabel)
+    label = getattr(request.format, "label", None)
+    if request.exists and label.startswith("/"):
+        mntptlist.append(label)
         idx = 0
     
     for p in defaultMountPoints:
@@ -90,9 +99,8 @@ def createMountPointCombo(request, excludeMountPoints=[]):
 
     map(mountCombo.append_text, mntptlist)
 
-    mountpoint = request.mountpoint
-
-    if request.fstype and request.fstype.isMountable():
+    if request.format.type and request.format.mountable:
+        mountpoint = request.format.mountpoint
         mountCombo.set_sensitive(1)
         if mountpoint:
             mountCombo.get_children()[0].set_text(mountpoint)
@@ -107,13 +115,14 @@ def createMountPointCombo(request, excludeMountPoints=[]):
     return mountCombo
 
 def setMntPtComboStateFromType(fstype, mountCombo):
+    format = getFormat(fstype)
     prevmountable = mountCombo.get_data("prevmountable")
     mountpoint = mountCombo.get_data("saved_mntpt")
 
-    if prevmountable and fstype.isMountable():
+    if prevmountable and format.mountable:
         return
 
-    if fstype.isMountable():
+    if format.mountable:
         mountCombo.set_sensitive(1)
         if mountpoint != None:
             mountCombo.get_children()[0].set_text(mountpoint)
@@ -125,7 +134,7 @@ def setMntPtComboStateFromType(fstype, mountCombo):
         mountCombo.get_children()[0].set_text(_("<Not Applicable>"))
         mountCombo.set_sensitive(0)
 
-    mountCombo.set_data("prevmountable", fstype.isMountable())
+    mountCombo.set_data("prevmountable", format.mountable)
 
 def fstypechangeCB(widget, mountCombo):
     fstype = widget.get_active_value()
@@ -134,24 +143,25 @@ def fstypechangeCB(widget, mountCombo):
 def createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=True,
                              disallowDrives=[]):
     drivelist.clear()
-    drives = disks.keys()
-    drives.sort()
-    for drive in drives:
-        size = disks[drive].device.getSize(unit="MB")
+    for disk in disks:
         selected = 0
 
         if selectDrives:
             if reqdrives:
-                if drive in reqdrives:
+                if disk.name in reqdrives:
                     selected = 1
             else:
-                if drive not in disallowDrives:
+                if disk.name not in disallowDrives:
                     selected = 1
 
-        sizestr = "%8.0f MB" % size
-        drivelist.append_row((drive, sizestr, disks[drive].device.model), selected)
+        sizestr = "%8.0f MB" % disk.size
+        # TODO: abstract disk model so we don't have to reach into parted.Disk
+        drivelist.append_row((disk.name,
+                              sizestr,
+                              disk.partedDisk.device.model),
+                             selected)
 
-    if len(disks.keys()) < 2:
+    if len(disks) < 2:
         drivelist.set_sensitive(False)
     else:
         drivelist.set_sensitive(True)
@@ -175,31 +185,33 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
     store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
     fstypecombo = datacombo.DataComboBox(store)
     
-    types = fileSystemTypeGetTypes()
+    types = device_formats.keys()
     if availablefstypes:
         names = availablefstypes
     else:
         names = types.keys()
-    if fstype and fstype.isSupported() and fstype.isFormattable():
+    fs = getFormat(fstype)
+    if fs and fs.supported and fs.formattable:
         default = fstype
     else:
-        default = fileSystemTypeGetDefault()
+        default = get_default_filesystem_type()
         
     names.sort()
     defindex = 0
     i = 0
     for name in names:
-        if not fileSystemTypeGet(name).isSupported():
+        format = getFormat(name)
+        if not format.supported:
             continue
 
         if ignorefs and name in ignorefs:
             continue
         
-        if fileSystemTypeGet(name).isFormattable():
-            fstypecombo.append(name, types[name])
-            if default and default.getName() == name:
+        if format.formattable:
+            fstypecombo.append(name, device_formats[name])
+            if default and default.type == name:
                 defindex = i
-                defismountable = types[name].isMountable()
+                defismountable = format.mountable
             i = i + 1
 
     fstypecombo.set_active(defindex)
@@ -209,7 +221,7 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
 
     if mountCombo:
         mountCombo.set_data("prevmountable",
-                            fstypecombo.get_active_value().isMountable())
+                            fstypecombo.get_active_value()().mountable)
         mountCombo.connect("changed", mountptchangeCB, fstypecombo)
 
     return fstypecombo
@@ -218,7 +230,7 @@ def mountptchangeCB(widget, fstypecombo):
     if iutil.isEfi() and widget.get_children()[0].get_text() == "/boot/efi":
         fstypecombo.set_active_text("efi")
     if widget.get_children()[0].get_text() == "/boot":
-        fstypecombo.set_active_text(fileSystemTypeGetDefaultBoot().getName())
+        fstypecombo.set_active_text(get_default_filesystem_type(boot=True))
 
 def resizeOptionCB(widget, resizesb):
     resizesb.set_sensitive(widget.get_active())
@@ -282,11 +294,11 @@ def noformatCB(widget, data):
 def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
                                   partitions, ignorefs=[]):
     rc = {}
-    ofstype = origrequest.fstype
+    ofstype = origrequest.format.type
 
     formatcb = gtk.CheckButton(label=_("_Format as:"))
     maintable.attach(formatcb, 0, 1, row, row + 1)
-    formatcb.set_active(istruefalse(origrequest.format))
+    formatcb.set_active(istruefalse(origrequest.format.exists))
     rc["formatcb"] = formatcb
 
     fstypeCombo = createFSTypeMenu(ofstype, fstypechangeCB,
@@ -296,8 +308,9 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     row += 1
     rc["fstypeCombo"] = fstypeCombo
 
-    if not formatcb.get_active() and not origrequest.migrate:
-	mountCombo.set_data("prevmountable", ofstype.isMountable())
+    # TODO: sort out fs migration
+    if not formatcb.get_active() and not origrequest.format.migrate:
+	mountCombo.set_data("prevmountable", getFormat(ofstype).mountable)
 
     # this gets added to the table a bit later on
     lukscb = gtk.CheckButton(_("_Encrypt"))
@@ -306,11 +319,12 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
                     (fstypeCombo, mountCombo, ofstype, lukscb))
 
 
-    if origrequest.origfstype.isMigratable():
+    if origrequest.format.migratable:
 	migratecb = gtk.CheckButton(label=_("Mi_grate filesystem to:"))
-        migratecb.set_active(istruefalse(origrequest.migrate))
+        migratecb.set_active(istruefalse(origrequest.format.migrate))
 
-	migtypes = origrequest.origfstype.getMigratableFSTargets()
+        # TODO: unimplemented
+	migtypes = origrequest.format.migrationTargets
 
 	maintable.attach(migratecb, 0, 1, row, row + 1)
 	migfstypeCombo = createFSTypeMenu(ofstype, None, None,
@@ -326,7 +340,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	migratecb = None
 	migfstypeCombo = None
 
-    if origrequest.isResizable(partitions):
+    if origrequest.resizable:
         resizecb = gtk.CheckButton(label=_("_Resize"))
         resizecb.set_active(origrequest.targetSize is not None)
         rc["resizecb"] = resizecb
@@ -337,7 +351,8 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         else:
             value = origrequest.size
 
-        reqlower = origrequest.getMinimumResizeMB(partitions)
+        # TODO: sort out resizing
+        reqlower = origrequest.getMinimumResizeMB(storage)
         requpper = origrequest.getMaximumResizeMB(partitions)
         if not origrequest.format:
             lower = reqlower
@@ -357,7 +372,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 
         formatcb.connect("toggled", formatOptionResizeCB, resizesb)
 
-    if origrequest.encryption:
+    if origrequest.format.type == "luks":
         lukscb.set_active(1)
         lukscb.set_data("encrypted", 1)
     else:

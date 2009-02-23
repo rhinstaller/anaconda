@@ -26,11 +26,8 @@
 
 import string
 from constants import *
-import partedUtils
 import parted
-import fsset
 import iutil
-import partRequests
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -106,331 +103,98 @@ def sanityCheckMountPoint(mntpt, fstype, preexisting, format):
         else:
             return None
     else:
-        if (fstype and fstype.isMountable() and (not preexisting or format)):
+        if (fstype and fstype.mountable and (not preexisting or format)):
             return _("Please specify a mount point for this partition.")
         else:
             # its an existing partition so don't force a mount point
             return None
 
-def isNotChangable(request, requestlist):
-    if request:
-        if requestlist.isRaidMember(request):
-	    parentreq = requestlist.getRaidMemberParent(request)
-	    if parentreq.raidminor is not None:
-		return _("This partition is part of "
-			 "the RAID device /dev/md%s.") % (parentreq.raidminor,)
-	    else:
-		return _("This partition is part of a RAID device.")
-
-	if requestlist.isLVMVolumeGroupMember(request):
-	    parentreq = requestlist.getLVMVolumeGroupMemberParent(request)
-	    if parentreq.volumeGroupName is not None:
-		return _("This partition is part of the "
-			 "LVM volume group '%s'.") % (parentreq.volumeGroupName,)
-	    else:
-		return _("This partition is part of a LVM volume group.")
-
-    return None
-    
-
-def doDeletePartitionByRequest(intf, requestlist, partition,
-                               confirm=1, quiet=0):
+def doDeleteDevice(intf, storage, device, confirm=1, quiet=0):
     """Delete a partition from the request list.
 
     intf is the interface
-    requestlist is the list of requests
-    partition is either the part object or the uniqueID if not a part
+    storage is the storage instance
+    device is the device to delete
     """
-    
-    if partition == None:
+    if not device:
         intf.messageWindow(_("Unable To Delete"),
                            _("You must first select a partition to delete."),
 			   custom_icon="error")
-        return 0
+        return False
 
-    if type(partition) == type("RAID"):
-        device = partition
-    elif partition.type & parted.PARTITION_FREESPACE:
+    reason = storage.deviceImmutable(device)
+    if reason:
         intf.messageWindow(_("Unable To Delete"),
-                           _("You cannot delete free space."),
-			   custom_icon="error")
-        return 0
-    elif partition.type & parted.PARTITION_PROTECTED:
-        # LDL formatted DASDs always have one partition, you'd have to reformat the
-        # DASD in CDL mode to get rid of it
-        intf.messageWindow(_("Unable To Delete"),
-                           _("You cannot delete a partition of a LDL formatted DASD."),
-			   custom_icon="error")
-        return 0
-    else:
-        device = partition.getDeviceNodeName()
+                           reason,
+                           customer_icon="error")
+        return False
 
-    ret = requestlist.containsImmutablePart(partition)
-    if ret:
-        if not quiet:
-            intf.messageWindow(_("Unable To Delete"),
-                               _("You cannot delete this "
-                                 "partition, as it is an extended partition "
-                                 "which contains %s") %(ret),
-			       custom_icon="error")
-        return 0
+    if confirm and not confirmDelete(intf, device):
+        return False
 
-    # see if device is in our partition requests, remove
-    if type(partition) == type("RAID"):
-	request = requestlist.getRequestByID(device)
-    else:
-	request = requestlist.getRequestByDeviceName(device)
-	    
-    if request:
-	state = isNotChangable(request, requestlist)
+    for dep in storage.deviceDeps(device):
+        storage.deleteDevice(dep)
 
-        # If the partition is protected, we also can't delete it so specify a
-        # reason why.
-        if state is None and request.getProtected():
-            state = _("This partition is holding the data for the hard "
-                      "drive install.")
+    storage.deleteDevice(device)
+    return True
 
-        if state:
-            if not quiet:
-                intf.messageWindow(_("Unable To Delete"),
-				   _("You cannot delete this partition:\n\n") + state,
-				   custom_icon="error")
-	    return 0
-
-        if confirm and not confirmDeleteRequest(intf, request):
-            return 0
-
-        if request.getPreExisting():
-            if isinstance(request, partRequests.PartitionSpec):
-                # get the drive
-                drive = partedUtils.get_partition_drive(partition)
-
-                if partition.type & parted.PARTITION_EXTENDED:
-                    requestlist.deleteAllLogicalPartitions(partition)
-
-                delete = partRequests.DeleteSpec(drive,
-                                                 partition.geometry.start,
-                                                 partition.geometry.end)
-                requestlist.addDelete(delete)
-            elif isinstance(request, partRequests.LogicalVolumeRequestSpec):
-                vgreq = requestlist.getRequestByID(request.volumeGroup)
-                delete = partRequests.DeleteLogicalVolumeSpec(request.logicalVolumeName,
-                                                              vgreq.volumeGroupName)
-                requestlist.addDelete(delete)
-            elif isinstance(request, partRequests.VolumeGroupRequestSpec):
-                delete = partRequests.DeleteVolumeGroupSpec(request.volumeGroupName)
-                requestlist.addDelete(delete)
-            # FIXME: do we need to do anything with preexisting raids?
-
-        # now remove the request
-        requestlist.deleteDependentRequests(request)
-        requestlist.removeRequest(request)
-    else: # is this a extended partition we made?
-        if partition.type & parted.PARTITION_EXTENDED:
-            requestlist.deleteAllLogicalPartitions(partition)
-        else:
-            #raise ValueError, "Deleting a non-existent partition"
-            return 0
-
-    del partition
-    return 1
-
-def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
-			       confirm=1, quiet=0):
-    """ Remove all partitions currently on device """
+def doDeleteDependentDevices(intf, storage, device, confirm=1, quiet=0):
+    """ Remove all devices/partitions currently on device """
     if confirm:
 	rc = intf.messageWindow(_("Confirm Delete"),
 				_("You are about to delete all partitions on "
-				  "the device '/dev/%s'.") % (device,),
+				  "the device '%s'.") % (device.path,),
 				type="custom", custom_icon="warning",
 				custom_buttons=[_("Cancel"), _("_Delete")])
 
 	if not rc:
-	    return
+	    return False
 
-    requests = requestlist.getRequestsByDevice(diskset, device)
-    if not requests:
-        return
+    deps = storage.deviceDeps(device)
+    if not deps:
+        # nothing to do
+        return False
 
-    # get list of unique IDs of these requests
-    reqIDs = set()
-    reqparts = {}
+    immmutable = []
+    for dep in deps:
+        if storage.deviceImmutable(dep):
+            immutable.append(dep.path)
+            continue
+        else:
+            storage.deleteDevice(dep)
 
-    for req in requests:
-        for drive in req.drive:
-            part = diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
-
-            if part.type & parted.PARTITION_FREESPACE or \
-               part.type & parted.PARTITION_METADATA or \
-               part.type & parted.PARTITION_PROTECTED:
-                continue
-
-            reqIDs.add(req.uniqueID)
-
-            if reqparts.has_key(req.uniqueID):
-                reqparts[req.uniqueID].append(part)
-            else:
-                reqparts[req.uniqueID] = [ part ]
-
-    reqIDs = list(reqIDs)
-
-    # now go thru and try to delete the unique IDs
-    for id in reqIDs:
-        try:
-            req = requestlist.getRequestByID(id)
-            if req is None:
-                continue
-            for partlist in reqparts[id]:
-                for part in partlist:
-                    rc = doDeletePartitionByRequest(intf, requestlist, part,
-                                                    confirm=0, quiet=1)
-                    if not rc:
-                        pass
-        except:
-            pass
-
-    # see which partitions are left
-    notdeleted = []
-    left_requests = requestlist.getRequestsByDevice(diskset, device)
-    if left_requests:
-        # get list of unique IDs of these requests
-        leftIDs = set()
-
-        for req in left_requests:
-            for drive in req.drive:
-                part = diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
-
-                if part.type & parted.PARTITION_FREESPACE or \
-                   part.type & parted.PARTITION_METADATA or \
-                   part.type & parted.PARTITION_PROTECTED:
-                    continue
-
-                leftIDs.add(req.uniqueID)
-
-        leftIDs = list(leftIDs)
-
-        for id in leftIDs:
-            req = requestlist.getRequestByID(id)
-            notdeleted.append(req)
-
-    # see if we need to report any failures - some were because we removed
-    # an extended partition which contained other members of our delete list
-    outlist = ""
-    for req in notdeleted:
-        newreq = requestlist.getRequestByID(req.uniqueID)
-        if newreq:
-            outlist = outlist + "\t/dev/%s\n" % (newreq.device,)
-
-    if outlist != "" and not quiet:
+    if immutable and not quiet:
+        remaining = "\n\t" + "\n\t".join(immutable) + "\n"
         intf.messageWindow(_("Notice"),
                            _("The following partitions were not deleted "
                              "because they are in use:\n\n%s") % outlist,
 			   custom_icon="warning")
 
-    return 1
-
-
-def doEditPartitionByRequest(intf, requestlist, part):
-    """Edit a partition from the request list.
-
-    intf is the interface
-    requestlist is the list of requests
-    partition is either the part object or the uniqueID if not a part
-    """
-    
-    if part == None:
-        intf.messageWindow(_("Unable To Edit"),
-                           _("You must select a partition to edit"), custom_icon="error")
-
-        return (None, None)
-
-    if type(part) == type("RAID"):
-
-	# see if device is in our partition requests, remove
-        request = requestlist.getRequestByID(int(part))
-	    
-	if request:
-	    state = isNotChangable(request, requestlist)
-	    if state is not None:
-		intf.messageWindow(_("Unable To Edit"), _("You cannot edit this partition:\n\n") + state,
-				   custom_icon="error")
-		return (None, None)
-
-	if request.type == REQUEST_RAID:
-	    return ("RAID", request)
-	elif request.type == REQUEST_VG:
-	    return ("LVMVG", request)
-	elif request.type == REQUEST_LV:
-	    return ("LVMLV", request)
-	else:
-	    return (None, None)
-    elif part.type & parted.PARTITION_FREESPACE:
-        request = partRequests.PartitionSpec(fsset.fileSystemTypeGetDefault(),
-            start = part.geometry.device.startSectorToCylinder(part.geometry.start),
-            end = part.geometry.device.endSectorToCylinder(part.geometry.end),
-            drive = [ partedUtils.get_partition_drive(part) ])
-
-        return ("NEW", request)
-    elif part.type & parted.PARTITION_EXTENDED:
-        return (None, None)
-
-    ret = requestlist.containsImmutablePart(part)
-    if ret:
-        intf.messageWindow(_("Unable To Edit"),
-                           _("You cannot edit this "
-                             "partition, as it is an extended partition "
-                             "which contains %s") %(ret), custom_icon="error")
-        return (None, None)
-
-    name = part.getDeviceNodeName()
-    request = requestlist.getRequestByDeviceName(name)
-    if request:
-	state = isNotChangable(request, requestlist)
-	if state is not None:
-	    intf.messageWindow(_("Unable To Edit"),
-			       _("You cannot edit this partition:\n\n") + state, custom_icon="error")
-	    return (None, None)
-	
-        return ("PARTITION", request)
-    else: # shouldn't ever happen
-        raise ValueError, ("Trying to edit non-existent partition %s"
-                           % (part.getDeviceNodeName(),))
-
+    return True
 
 def checkForSwapNoMatch(anaconda):
     """Check for any partitions of type 0x82 which don't have a swap fs."""
-    diskset = anaconda.id.diskset
-
-    for request in anaconda.id.partitions.requests:
-        if not hasattr(request, "drive") or not request.fstype:
+    for device in anaconda.id.storage.partitions:
+        if not device.exists:
+            # this is only for existing partitions
             continue
 
-        for drive in request.drive:
-            part = diskset.disks[drive].getPartitionByPath("/dev/%s" % request.device)
+        if device.partType & parted.PARTITION_SWAP and \
+           not device.format.type == "swap":
+            rc = anaconda.intf.messageWindow(_("Format as Swap?"),
+                                    _("%s has a partition type of 0x82 "
+                                      "(Linux swap) but does not appear to "
+                                      "be formatted as a Linux swap "
+                                      "partition.\n\n"
+                                      "Would you like to format this "
+                                      "partition as a swap partition?")
+                                    % device.path, type = "yesno",
+                                    custom_icon="question")
+            if rc == 1:
+                format = getFormat("swap", device=device.path)
+                anaconda.id.storage.formatDevice(device, format)
 
-            if (part and (not part.type & parted.PARTITION_FREESPACE)
-                and (part.getFlag(parted.PARTITION_SWAP))
-                and (request.fstype and request.fstype.getName() != "swap")
-                and (not request.format)):
-                rc = anaconda.intf.messageWindow(_("Format as Swap?"),
-                                        _("/dev/%s has a partition type of 0x82 "
-                                          "(Linux swap) but does not appear to "
-                                          "be formatted as a Linux swap "
-                                          "partition.\n\n"
-                                          "Would you like to format this "
-                                          "partition as a swap partition?")
-                                        % (request.device), type = "yesno",
-                                        custom_icon="question")
-                if rc == 1:
-                    request.format = 1
-                    request.fstype = fsset.fileSystemTypeGet("swap")
-                    if request.fstype.getName() == "software RAID":
-                        part.setFlag(parted.PARTITION_RAID)
-                    else:
-                        part.unsetFlag(parted.PARTITION_RAID)
-
-                    partedUtils.set_partition_file_system_type(part,
-                                                               request.fstype)
+    return
 
 def mustHaveSelectedDrive(intf):
     txt =_("You need to select at least one hard drive to install %s.") % (productName,)
@@ -498,63 +262,42 @@ def partitionPreExistFormatWarnings(intf, warnings):
                                 type="yesno", custom_icon="warning")
     return rc
 
-def getPreExistFormatWarnings(partitions, diskset):
-    """Return a list of preexisting partitions being formatted."""
+def getPreExistFormatWarnings(storage):
+    """Return a list of preexisting devices being formatted."""
+    devices = []
+    for device in storage.devicetree.devices.values():
+        if device.exists and not device.format.exists:
+            devices.append(device)
 
-    devs = []
-    for request in partitions.requests:
-        if request.getPreExisting() == 1:
-            devs.append(request.uniqueID)
-
-    devs.sort()
-    
+    devices.sort(key=lambda d: d.name)
     rc = []
-    for dev in devs:
-        request = partitions.getRequestByID(dev)
-        if request.format:
-            if request.fstype.isMountable():
-                mntpt = request.mountpoint
-            else:
-                mntpt = ""
-
-            if isinstance(request, partRequests.PartitionSpec):
-                dev = request.device
-            elif isinstance(request, partRequests.RaidRequestSpec):
-                dev = "md%s" %(request.raidminor,)
-            elif isinstance(request, partRequests.VolumeGroupRequestSpec):
-                dev = request.volumeGroupName
-            elif isinstance(request, partRequests.LogicalVolumeRequestSpec):
-                vgreq = partitions.getRequestByID(request.volumeGroup)
-                dev = "%s/%s" %(vgreq.volumeGroupName,
-                                request.logicalVolumeName)
-
-            rc.append((dev, request.fstype.getName(), mntpt))
-
-    if len(rc) == 0:
-        return None
-    else:
-        return rc
+    for device in devices:
+        rc.append((device.path,
+                   device.format.type,
+                   getattr(device.format, "mountpoint", "")))
+    return rc
             
-def confirmDeleteRequest(intf, request):
-    """Confirm the deletion of a request."""
-    if not request:
+def confirmDelete(intf, device):
+    """Confirm the deletion of a device."""
+    if not device:
 	return
     
-    if request.type == REQUEST_VG:
+    if device.type == "lvmvg":
 	errmsg = (_("You are about to delete the volume group \"%s\"."
                     "\n\nALL logical volumes in this volume group "
-                    "will be lost!") % (request.volumeGroupName,))
-    elif request.type == REQUEST_LV:
+                    "will be lost!") % device.name)
+    elif device.type == "lvmlv":
 	errmsg = (_("You are about to delete the logical volume \"%s\".")
-                  % (request.logicalVolumeName,))
-    elif request.type == REQUEST_RAID:
+                  % (device.name)
+    elif device.type == "mdarray":
 	errmsg = _("You are about to delete a RAID device.")
+    elif device.type == "partition":
+	errmsg = (_("You are about to delete the %s partition.")
+                  % device.path)
     else:
-	if request.device:
-	    errmsg = _("You are about to delete the /dev/%s partition.") % (request.device,)
-	else:
-	    # XXX can this ever happen?
-	    errmsg = _("The partition you selected will be deleted.")
+        # we may want something a little bit prettier than device.type
+        errmsg = (_("You are about to delete the %s %s") % (device.type,
+                                                            device.name))
 
     rc = intf.messageWindow(_("Confirm Delete"), errmsg, type="custom",
 				custom_buttons=[_("Cancel"), _("_Delete")],

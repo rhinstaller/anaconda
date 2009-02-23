@@ -114,10 +114,6 @@ class InstallInterface:
         pass
 
     def run(self, anaconda):
-        anaconda.id.fsset.registerMessageWindow(self.messageWindow)
-        anaconda.id.fsset.registerProgressWindow(self.progressWindow)
-        anaconda.id.fsset.registerWaitWindow(self.waitWindow)        
-
         (step, instance) = anaconda.dispatch.currentStep()
         while step:
             if stepToClasses.has_key(step):
