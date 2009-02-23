@@ -29,7 +29,8 @@ from flags import flags
 import logging
 import shutil
 import time
-import md5, random
+import hashlib
+import random
 import partedUtils
 log = logging.getLogger("anaconda")
 
@@ -104,7 +105,7 @@ def randomIname():
     """Generate a random initiator name the same way as iscsi-iname"""
     
     s = "iqn.1994-05.com.fedora:01."
-    m = md5.md5()
+    m = hashlib.md5()
     u = os.uname()
     for i in u:
         m.update(i)
