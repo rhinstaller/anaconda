@@ -30,12 +30,8 @@ import firewall
 import security
 import timezone
 import desktop
-import fsset
 import bootloader
-import partitions
-import partedUtils
-import iscsi
-import zfcp
+import storage
 import urllib
 import iutil
 import isys
@@ -67,8 +63,6 @@ class InstallData:
 
         self.instClass = None
         self.network = network.Network()
-        self.iscsi = iscsi.iscsi()
-        self.zfcp = zfcp.ZFCP()
         self.firewall = firewall.Firewall()
         self.security = security.Security()
         self.timezone = timezone.Timezone()
@@ -80,10 +74,7 @@ class InstallData:
         self.upgrade = None
         if flags.cmdline.has_key("preupgrade"):
             self.upgrade = True
-        # XXX move fsset and/or diskset into Partitions object?
-        self.fsset.reset()
-        self.diskset = partedUtils.DiskSet(self.anaconda)
-        self.partitions = partitions.Partitions(self.anaconda)
+        self.storage = storage.Storage(self.anaconda)
         self.bootloader = bootloader.getBootloader()
         self.upgradeRoot = None
         self.rootParts = None
@@ -102,19 +93,13 @@ class InstallData:
         if os.path.exists("/dev/live") and \
            stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
             target = os.readlink("/dev/live")
-            self.partitions.protected = [target]
+            self.storage.protectedPartitions = [target]
         elif self.anaconda.methodstr and self.anaconda.methodstr.startswith("hd:"):
             method = self.anaconda.methodstr[3:]
-            device = method.split(":", 3)[0]
+            devspec = method.split(":", 3)[0]
 
-            if device.startswith("LABEL="):
-                dev = isys.getDeviceByToken("LABEL", device[6:])
-            elif device.startswith("UUID="):
-                dev = isys.getDeviceByToken("UUID", device[5:])
-            else:
-                dev = device
-
-            if dev is None:
+            device = storage.resolveDevice(devspec)
+            if device is None:
                 if self.getUpgrade():
                     return
                 else:
@@ -125,10 +110,7 @@ class InstallData:
                         type="custom", custom_buttons = [_("_Exit installer")])
                     sys.exit(1)
 
-            if dev.startswith("/dev/"):
-                dev = dev[5:]
-
-            self.partitions.protected = [dev]
+            self.storage.protectedPartitions = [device.name]
 
     def setInstallProgressClass(self, c):
         self.instProgress = c
@@ -286,7 +268,6 @@ class InstallData:
         if not self.isHeadless:
             self.keyboard.writeKS(f)
             self.network.writeKS(f)
-            self.zfcp.writeKS(f)
 
         if self.rootPassword["isCrypted"]:
             args = " --iscrypted %s" % self.rootPassword["password"]
@@ -312,7 +293,7 @@ class InstallData:
         self.security.writeKS(f)
         self.timezone.writeKS(f)
         self.bootloader.writeKS(f)
-        self.partitions.writeKS(f)
+        self.storage.writeKS(f) # FIXME: unimplemented
 
         if self.backend is not None:
             self.backend.writeKS(f)
@@ -339,6 +320,5 @@ class InstallData:
         self.videocard = None
         self.isHeadless = 0
         self.extraModules = extraModules
-        self.fsset = fsset.FileSystemSet()
 
         self.reset()

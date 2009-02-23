@@ -34,8 +34,9 @@ from packages import setupTimezone
 from packages import setFileCons
 from packages import regKeyScreen
 from packages import writeRegKey
-from partitions import partitionObjectsInitialize
-from partitions import partitioningComplete
+from storage import storageInitialize
+from storage import storageComplete
+from storage.partitioning import doAutoPartition
 from bootloader import writeBootloader, bootloaderSetupChoices
 from flags import flags
 from upgrade import upgradeMountFilesystems, queryUpgradeArch
@@ -71,13 +72,13 @@ installSteps = [
     ("keyboard", ),
     ("betanag", betaNagScreen, ),
     ("regkey", regKeyScreen, ),
+    ("storageinit", storageInitialize, ),
     ("findrootparts", findRootParts, ),
     ("findinstall", ),
     ("network", ),
     ("timezone", ),
     ("accounts", ),
     ("setuptime", setupTimezone, ),
-    ("partitionobjinit", partitionObjectsInitialize, ),
     ("parttype", ),    
     ("autopartitionexecute", doAutoPartition, ),
     ("partition", ),
@@ -88,8 +89,7 @@ installSteps = [
     ("addswap", ),
     ("upgrademigfind", upgradeMigrateFind, ),
     ("upgrademigratefs", ),
-    ("partitiondone", partitioningComplete, ),
-    ("migratefilesystems", doMigrateFilesystems, ),
+    ("storagedone", storageComplete, ),
     ("enablefilesystems", turnOnFilesystems, ),
     ("upgbootloader", ),
     ("bootloadersetup", bootloaderSetupChoices, ),

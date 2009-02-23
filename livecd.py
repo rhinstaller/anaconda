@@ -41,7 +41,6 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import backend
 import isys
 import iutil
-import fsset
 
 import packages
 
@@ -174,16 +173,9 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         osimg = self._getLiveBlockDevice() # the real image
         osfd = os.open(osimg, os.O_RDONLY)
 
-        r = anaconda.id.fsset.getEntryByMountPoint("/")
-        rootfs = r.device.setupDevice()
-        rootfd = os.open(rootfs, os.O_WRONLY)
-
-        # set the rootfs to have the right type.  this lets things work
-        # given ext2 or ext3 (and in the future, ext4)
-        # FIXME: should we try to migrate if there isn't a match?
-        roottype = isys.readFSType(osimg)
-        if roottype is not None:
-            r.fsystem = fsset.fileSystemTypeGet(roottype)
+        rootDevice = anaconda.id.fsset.rootDevice
+        rootDevice.setup()
+        rootfd = os.open(rootDevice.path, os.O_WRONLY)
 
         readamt = 1024 * 1024 * 8 # 8 megs at a time
         size = self._getLiveSize()
@@ -222,6 +214,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         anaconda.id.instProgress = None
 
     def _doFilesystemMangling(self, anaconda):
+        # FIXME: this whole method is a big fucking mess
         log.info("doing post-install fs mangling")
         wait = anaconda.intf.waitWindow(_("Doing post-installation"),
                                         _("Performing post-installation filesystem changes.  This may take several minutes..."))
@@ -233,12 +226,16 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         anaconda.id.fsset.mountFilesystems(anaconda)
 
         # restore the label of / to what we think it is
-        r = anaconda.id.fsset.getEntryByMountPoint("/")
-        anaconda.id.fsset.labelEntry(r, anaconda.rootPath, True)
+        rootDevice = anaconda.id.fsset.rootDevice
+        rootDevice.setup()
         # ensure we have a random UUID on the rootfs
         # FIXME: this should be abstracted per filesystem type
-        iutil.execWithRedirect("tune2fs", ["-U", "random", "/dev/%s" % (r.device.getDevice())],
-                               stdout="/dev/tty5", stderr="/dev/tty5",
+        iutil.execWithRedirect("tune2fs",
+                               ["-U",
+                                "random",
+                                rootDevice.path],
+                               stdout="/dev/tty5",
+                               stderr="/dev/tty5",
                                searchPath = 1)
 
         # for any filesystem that's _not_ on the root, we need to handle
@@ -246,6 +243,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # this is pretty distasteful, but should work with things like
         # having a separate /usr/local
 
+        # XXX wow, what in the hell is going on here?
         # get a list of fsset entries that are relevant
         entries = sorted(filter(lambda e: not e.fsystem.isKernelFS() and \
                                 e.getMountPoint(), anaconda.id.fsset.entries))
@@ -314,13 +312,12 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
     def _resizeRootfs(self, anaconda, win = None):
         log.info("going to do resize")
-        r = anaconda.id.fsset.getEntryByMountPoint("/")        
-        rootdev = r.device.getDevice()
+        rootDevice = anaconda.id.fsset.rootDevice
 
         # FIXME: we'd like to have progress here to give an idea of
         # how long it will take.  or at least, to give an indefinite
         # progress window.  but, not for this time
-        cmd = ["resize2fs", "/dev/%s" %(rootdev,), "-p"]
+        cmd = ["resize2fs", rootDevice.path, "-p"]
         out = open("/dev/tty5", "w")
         proc = subprocess.Popen(cmd, stdout=out, stderr=out)
         rc = proc.poll()
@@ -376,9 +373,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # FIXME: really, this should be in the general sanity checking, but
         # trying to weave that in is a little tricky at present.
         ossize = self._getLiveSizeMB()
-        slash = anaconda.id.partitions.getRequestByMountPoint("/")
-        if slash and \
-           slash.getActualSize(anaconda.id.partitions, anaconda.id.diskset) < ossize:
+        slash = anaconda.id.fsset.rootDevice
+        if slash.size < ossize:
             rc = anaconda.intf.messageWindow(_("Error"),
                                         _("The root filesystem you created is "
                                           "not large enough for this live "
@@ -391,7 +387,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 return DISPATCH_BACK
             else:
                 sys.exit(1)
-        
 
     # package/group selection doesn't apply for this backend
     def groupExists(self, group):

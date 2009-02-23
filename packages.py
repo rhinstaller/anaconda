@@ -107,19 +107,6 @@ def doMigrateFilesystems(anaconda):
         bindMountDevDirectory(anaconda.rootPath)
 
 def turnOnFilesystems(anaconda):
-    def handleResizeError(e, dev):
-        if os.path.exists("/tmp/resize.out"):
-            details = open("/tmp/resize.out", "r").read()
-        else:
-            details = "%s" %(e,)
-        anaconda.intf.detailedMessageWindow(_("Resizing Failed"),
-                                            _("There was an error encountered "
-                                            "resizing the device %s.") %(dev,),
-                                            details,
-                                            type = "custom",
-                                            custom_buttons = [_("_Exit installer")])
-        sys.exit(1)
-
     if anaconda.dir == DISPATCH_BACK:
         log.info("unmounting filesystems")
 	anaconda.id.fsset.umountFilesystems(anaconda.rootPath)
@@ -133,53 +120,87 @@ def turnOnFilesystems(anaconda):
                 iutil.execWithRedirect("swapoff", ["-a"],
                                        stdout = "/dev/tty5", stderr="/dev/tty5",
                                        searchPath = 1)
-            anaconda.id.partitions.doMetaDeletes(anaconda.id.diskset)
-            anaconda.id.fsset.setActive(anaconda.id.diskset, anaconda.id.partitions.requests)
+
             try:
-                anaconda.id.fsset.shrinkFilesystems(anaconda.id.diskset, anaconda.rootPath)
-            except fsset.ResizeError, (e, dev):
-                handleResizeError(e, dev)
+                anaconda.id.storage.processActions(anaconda.intf)
+            except DeviceResizeError as (msg, device):
+                # XXX does this make any sense? do we support resize of
+                #     devices other than partitions?
+                anaconda.intf.detailedMessageWindow(_("Device Resize Failed"),
+                                    _("An error was encountered while "
+                                      "resizing device %s.") % (device,),
+                                    msg,
+                                    type = "custom",
+                                    custom_buttons = [_("_Exit installer")])
+                sys.exit(1)
+            except DeviceCreateError as (msg, device):
+                anaconda.intf.detailedMessageWindow(_("Device Creation Failed"),
+                                    _("An error was encountered while "
+                                      "creating device %s.") % (device,),
+                                    msg,
+                                    type = "custom",
+                                    custom_buttons = [_("_Exit installer")])
+                sys.exit(1)
+            except DeviceDestroyError as (msg, device):
+                anaconda.intf.detailedMessageWindow(_("Device Removal Failed"),
+                                    _("An error was encountered while "
+                                      "removing device %s.") % (device,),
+                                    msg,
+                                    type = "custom",
+                                    custom_buttons = [_("_Exit installer")])
+                sys.exit(1)
+            except DeviceError as (msg, device):
+                anaconda.intf.detailedMessageWindow(_("Device Setup Failed"),
+                                    _("An error was encountered while "
+                                      "setting up device %s.") % (device,),
+                                    msg,
+                                    type = "custom",
+                                    custom_buttons = [_("_Exit installer")])
+                sys.exit(1)
+            except FSResizeError as (msg, device):
+                if os.path.exists("/tmp/resize.out"):
+                    details = open("/tmp/resize.out", "r").read()
+                else:
+                    details = "%s" %(msg,)
+                anaconda.intf.detailedMessageWindow(_("Resizing Failed"),
+                                    _("There was an error encountered while "
+                                    "resizing the device %s.") %(device,),
+                                    details,
+                                    type = "custom",
+                                    custom_buttons = [_("_Exit installer")])
+                sys.exit(1)
+            except FSMigrateError as (msg, device):
+                anaconda.intf.detailedMessageWindow(_("Migration Failed"),
+                                    _("An error was encountered while "
+                                      "migrating filesystem on device %s.")
+                                    % (device,),
+                                    msg,
+                                    type = "custom",
+                                    custom_buttons = [_("_Exit installer")])
+                sys.exit(1)
+            except FormatCreateError as (msg, device):
+                anaconda.intf.detailedMessageWindow(_("Formatting Failed"),
+                                    _("An error was encountered while "
+                                      "formatting device %s.") % (device,),
+                                    msg,
+                                    type = "custom",
+                                    custom_buttons = [_("_Exit installer")])
+                sys.exit(1)
+            except Exception as msg:
+                # catch-all
+                anaconda.intf.detailedMessageWindow(_("Storage Activation Failed"),
+                                    _("An error was encountered while "
+                                      "activating your storage configuration.")
+                                    msg,
+                                    type = "custom",
+                                    custom_buttons = [_("_Exit installer")])
+                sys.exit(1)
 
-            if not anaconda.id.fsset.isActive():
-                anaconda.id.diskset.savePartitions ()
-                # this is somewhat lame, but we seem to be racing with
-                # device node creation sometimes.  so wait for device nodes
-                # to settle
-                time.sleep(1)
-                w = anaconda.intf.waitWindow(_("Activating"), _("Activating new partitions.  Please wait..."))
-                rc = iutil.execWithRedirect("/sbin/udevadm", [ "settle" ],
-                                            stdout = "/dev/tty5",
-                                            stderr = "/dev/tty5",
-                                            searchPath = 1)
-                w.pop()
-
-                anaconda.id.partitions.doEncryptionRetrofits()
-
-                try:
-                    anaconda.id.partitions.doMetaResizes(anaconda.id.diskset)
-                except lvm.LVResizeError, e:
-                    handleResizeError("%s" %(e,), "%s/%s" %(e.vgname, e.lvname))
-            try:
-                anaconda.id.fsset.growFilesystems(anaconda.id.diskset, anaconda.rootPath)
-            except fsset.ResizeError, (e, dev):
-                handleResizeError(e, dev)
-
-            if not anaconda.id.fsset.volumesCreated:
-                try:
-                    anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)
-                except SystemError, e:
-                    log.error("createLogicalVolumes failed with %s", str(e))
-                    anaconda.intf.messageWindow(_("LVM operation failed"),
-                                        str(e)+"\n\n"+_("The installer will now exit..."),
-                                        type="custom", custom_icon="error", custom_buttons=[_("_Reboot")])
-	            sys.exit(0)
-
-            anaconda.id.fsset.formatSwap(anaconda.rootPath)
-            anaconda.id.fsset.turnOnSwap(anaconda.rootPath)
-            anaconda.id.fsset.makeFilesystems(anaconda.rootPath,
-                                              anaconda.backend.skipFormatRoot)
-            anaconda.id.fsset.mountFilesystems(anaconda,0,0,
-                                               anaconda.backend.skipFormatRoot)
+            anaconda.id.fsset.turnOnSwap(anaconda.intf)
+            anaconda.id.storage.fsset.mountFilesystems(anaconda,
+                                                       raiseErrors=False,
+                                                       readOnly=False,
+                                                       skipRoot=anaconda.backend.skipFormatRoot)
 
 def setupTimezone(anaconda):
     # we don't need this on an upgrade or going backwards

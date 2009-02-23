@@ -47,9 +47,9 @@ def doMethodComplete(anaconda):
         isys.ejectCdrom(dev)
 
     mtab = "/dev/root / ext3 ro 0 0\n"
-    for ent in anaconda.id.fsset.entries:
-        if ent.mountpoint == "/":
-            mtab = "/dev/root / %s ro 0 0\n" %(ent.fsystem.name,)
+    rootDevice = anaconda.id.storage.rootDevice
+    if rootDevice:
+        mtab = "/dev/root / %s ro 0 0\n" % rootDevice.format.type
 
     f = open(anaconda.rootPath + "/etc/mtab", "w+")
     f.write(mtab)

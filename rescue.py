@@ -29,8 +29,8 @@ from flags import flags
 import sys
 import os
 import isys
+from storage import mountExistingSystem
 import iutil
-import fsset
 import shutil
 import time
 import network
@@ -101,14 +101,17 @@ class RescueInterface:
 # XXX grub-install is stupid and uses df output to figure out
 # things when installing grub.  make /etc/mtab be at least
 # moderately useful.  
-def makeMtab(instPath, theFsset):
-    child = os.fork()
-    if (not child):
-        os.chroot(instPath)
+def makeMtab(instPath, fsset):
+    try:
         f = open("/etc/mtab", "w+")
-        f.write(theFsset.mtab())
+    except IOError, e:
+        log.info("failed to open /etc/mtab for write: %s" % e)
+        return
+
+    try:
+        f.write(fsset.mtab())
+    finally:
         f.close()
-        os._exit(0)
 
 # make sure they have a resolv.conf in the chroot
 def makeResolvConf(instPath):
@@ -265,17 +268,14 @@ def runRescue(anaconda, instClass):
         else:
             scroll = 0
 
-        partList = []
-        for (drive, fs, relstr, label, uuid) in disks:
-            if label:
-                partList.append("%s (%s)" % (drive, label))
-            else:
-                partList.append(drive)
+        devList = []
+        for (device, relstr) in disks:
+            devList.append(device.path)
 
         (button, choice) = \
             ListboxChoiceWindow(screen, _("System to Rescue"),
-                                _("What partition holds the root partition "
-                                  "of your installation?"), partList,
+                                _("Which device holds the root partition "
+                                  "of your installation?"), devList,
                                 [ _("OK"), _("Exit") ], width = 30,
                                 scroll = scroll, height = height,
                                 help = "multipleroot")
@@ -283,19 +283,15 @@ def runRescue(anaconda, instClass):
         if button == string.lower (_("Exit")):
             root = None
         else:
-            root = disks[choice]
+            root = disks[choice][0]
 
     rootmounted = 0
 
     if root:
         try:
-            fs = fsset.FileSystemSet()
-
-            # only pass first two parts of tuple for root, since third
-            # element is a comment we dont want
-            rc = upgrade.mountRootPartition(anaconda, root[:2], fs,
-                                            allowDirty = 1, warnDirty = 1,
-                                            readOnly = readOnly)
+            rc = mountExistingSystem(anaconda, root,
+                                     allowDirty = 1, warnDirty = 1,
+                                     readOnly = readOnly)
 
             if rc == -1:
                 if anaconda.isKickstart:
@@ -325,7 +321,7 @@ def runRescue(anaconda, instClass):
                 # now turn on swap
                 if not readOnly:
                     try:
-                        fs.turnOnSwap("/")
+                        anaconda.id.storage.fsset.turnOnSwap(anaconda.intf)
                     except:
                         log.error("Error enabling swap")
 
@@ -412,7 +408,7 @@ def runRescue(anaconda, instClass):
     msgStr = ""
 
     if rootmounted and not readOnly:
-        makeMtab(anaconda.rootPath, fs)
+        makeMtab(anaconda.rootPath, anaconda.id.storage.fsset)
         try:
             makeResolvConf(anaconda.rootPath)
         except Exception, e:

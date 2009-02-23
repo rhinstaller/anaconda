@@ -983,11 +983,10 @@ if __name__ == "__main__":
 
     # Skip the disk options in rootpath mode
     if flags.rootpath:
-        anaconda.dispatch.skipStep("partitionobjinit", permanent = 1)
         anaconda.dispatch.skipStep("parttype", permanent = 1)
         anaconda.dispatch.skipStep("autopartitionexecute", permanent = 1)
         anaconda.dispatch.skipStep("partition", permanent = 1)
-        anaconda.dispatch.skipStep("partitiondone", permanent = 1)
+        anaconda.dispatch.skipStep("storagedone", permanent = 1)
         anaconda.dispatch.skipStep("bootloader", permanent = 1)
         anaconda.dispatch.skipStep("bootloaderadvanced", permanent = 1)
         anaconda.dispatch.skipStep("upgbootloader", permanent = 1)

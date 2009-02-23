@@ -585,8 +585,8 @@ class Network:
             # tell NM not to touch the interface(s) actually used for /, but we
             # have no logic to determine that
             if anaconda is not None:
-                rootdev = anaconda.id.fsset.getEntryByMountPoint("/").device
-                if rootdev.isNetdev():
+                rootdev = anaconda.id.storage.fsset.rootDevice
+                if rootdev.isNetdev:
                     f.write("NM_CONTROLLED=no\n")
 
             f.close()

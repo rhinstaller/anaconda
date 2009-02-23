@@ -1293,25 +1293,17 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         elif iutil.isIA64():
             self.selectPackage("elilo")
 
-    def selectFSPackages(self, fsset, diskset):
-        for entry in fsset.entries:
-            map(self.selectPackage, entry.fsystem.getNeededPackages())
-            if entry.device.crypto:
-                self.selectPackage("cryptsetup-luks")
+    def selectFSPackages(self, storage):
+        for device in storage.fsset.devices:
+            # this takes care of device and filesystem packages
+            map(self.selectPackage, device.packages)
 
-        for disk in diskset.disks.keys():
-            if isys.driveIsIscsi(disk):
+        for disk in storage.disks:
+            # FIXME: this should get handled by the above
+            if isys.driveIsIscsi(disk.path):
                 log.info("ensuring iscsi is installed")
                 self.selectPackage("iscsi-initiator-utils")
                 break
-
-        if diskset.__class__.mpList:
-            log.info("ensuring device-mapper-multipath is installed")
-            self.selectPackage("device-mapper-multipath")
-        if diskset.__class__.dmList:
-            log.info("ensuring dmraid is installed")
-            self.selectPackage("dmraid")
-
 
     # anaconda requires several programs on the installed system to complete
     # installation, but we have no guarantees that some of these will be
@@ -1335,7 +1327,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             # New installs only - upgrades will already have all this stuff.
             self.selectBestKernel(anaconda)
             self.selectBootloader()
-            self.selectFSPackages(anaconda.id.fsset, anaconda.id.diskset)
+            self.selectFSPackages(anaconda.id.storage)
             self.selectAnacondaNeeds()
 
         if anaconda.id.getUpgrade():

@@ -96,14 +96,14 @@ class BaseInstallClass(object):
 		 "language",
 		 "keyboard",
 		 "welcome",
+                 "storageinit",
                  "findrootparts",
 		 "betanag",
 		 "installtype",
-                 "partitionobjinit",
                  "parttype",
                  "autopartitionexecute",
                  "partition",
-		 "partitiondone",
+		 "storagedone",
 		 "bootloadersetup",                 
 		 "bootloader",
 		 "network",
@@ -116,7 +116,6 @@ class BaseInstallClass(object):
 		 "confirminstall",
 		 "install",
 		 "enablefilesystems",
-                 "migratefilesystems",
                  "setuptime",
                  "preinstallconfig",
 		 "installpackages",
@@ -188,11 +187,11 @@ class BaseInstallClass(object):
         from backend import AnacondaBackend
         return AnacondaBackend
 
-    def setDefaultPartitioning(self, partitions, clear = CLEARPART_TYPE_LINUX,
+    def setDefaultPartitioning(self, storage, clear = CLEARPART_TYPE_LINUX,
                                doClear = 1, useLVM = True):
         autorequests = [ ("/", None, 1024, None, 1, 1, 1) ]
 
-        bootreq = getAutopartitionBoot(partitions)
+        bootreq = getAutopartitionBoot(storage)
         if bootreq:
             autorequests.extend(bootreq)
 
@@ -200,13 +199,13 @@ class BaseInstallClass(object):
         autorequests.append((None, "swap", minswap, maxswap, 1, 1, 1))
 
         if doClear:
-            partitions.autoClearPartType = clear
-            partitions.autoClearPartDrives = []
+            storage.autoClearPartType = clear
+            storage.autoClearPartDrives = []
 
         if useLVM:
-            partitions.autoPartitionRequests = autoCreateLVMPartitionRequests(autorequests)
+            storage.autoPartitionRequests = autoCreateLVMPartitionRequests(autorequests)
         else:
-            partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)        
+            storage.autoPartitionRequests = autoCreatePartitionRequests(autorequests)        
 
 
     def setInstallData(self, anaconda):

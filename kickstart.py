@@ -24,13 +24,11 @@ import isys
 import os
 import tempfile
 from autopart import *
-from fsset import *
 from flags import flags
 from constants import *
 import sys
 import raid
 import string
-import partRequests
 import urlgrabber.grabber as grabber
 import lvm
 import warnings
@@ -149,8 +147,8 @@ class AutoPart(commands.autopart.F9_AutoPart):
         self.handler.id.instClass.setDefaultPartitioning(self.handler.id, doClear = 0)
 
         if self.encrypted:
-            self.handler.id.partitions.autoEncrypt = True
-            self.handler.id.partitions.encryptionPassphrase = self.passphrase
+            self.handler.id.storage.autoEncrypt = True
+            self.handler.id.storage.encryptionPassphrase = self.passphrase
 
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
         return retval
@@ -181,7 +179,11 @@ class Bootloader(commands.bootloader.F8_Bootloader):
             self.handler.id.bootloader.doUpgradeOnly = 1
 
         if self.driveorder:
-            hds = isys.hardDriveDict().keys()
+            # XXX I don't like that we are supposed to have scanned the
+            #     storage devices already and yet we cannot know about
+            #     ignoredDisks, exclusiveDisks, or iscsi disks before we
+            #     have processed the kickstart config file.
+            hds = [d.name for d in self.handler.id.storage.disks]
             for disk in self.driveorder:
                 if disk not in hds:
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in driveorder command" % disk)
@@ -238,10 +240,10 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
             if disk not in hds:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % disk)
 
-        self.handler.id.partitions.autoClearPartType = self.type
-        self.handler.id.partitions.autoClearPartDrives = self.drives
+        self.handler.id.storage.autoClearPartType = self.type
+        self.handler.id.storage.autoClearPartDrives = self.drives
         if self.initAll:
-            self.handler.id.partitions.reinitializeDisks = self.initAll
+            self.handler.id.storage.reinitializeDisks = self.initAll
 
         return retval
 
@@ -269,15 +271,13 @@ class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
     def parse(self, args):
         retval = commands.ignoredisk.F8_IgnoreDisk.parse(self, args)
 
-        diskset = self.handler.id.diskset
         for drive in self.ignoredisk:
-            if not drive in diskset.skippedDisks:
-                diskset.skippedDisks.append(drive)
+            if not drive in self.handler.id.storage.ignoredDisks:
+                self.handler.id.storage.ignoredDisks.append(drive)
 
-        diskset = self.handler.id.diskset
         for drive in self.onlyuse:
-            if not drive in diskset.exclusiveDisks:
-                diskset.exclusiveDisks.append(drive)
+            if not drive in self.handler.id.storage.exclusiveDisks:
+                self.handler.id.storage.exclusiveDisks.append(drive)
 
         return retval
 
@@ -304,8 +304,6 @@ class Iscsi(commands.iscsi.F10_Iscsi):
             if self.handler.id.iscsi.addTarget(**kwargs):
                 log.info("added iscsi target: %s" %(target.ipaddr,))
 
-        # FIXME: flush the drive dict so we figure drives out again
-        isys.flushDriveDict()
         return retval
 
 class IscsiName(commands.iscsiname.FC6_IscsiName):
@@ -359,7 +357,7 @@ class LogVol(commands.logvol.F9_LogVol):
         except KeyError:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="No volume group exists with the name '%s'.  Specify volume groups before logical volumes." % lvd.vgname)
 
-        for areq in self.handler.id.partitions.autoPartitionRequests:
+        for areq in self.handler.id.storage.autoPartitionRequests:
             if areq.type == REQUEST_LV:
                 if areq.volumeGroup == vgid and areq.logicalVolumeName == lvd.name:
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % lvd.vgname)
@@ -395,8 +393,8 @@ class LogVol(commands.logvol.F9_LogVol):
 
         if lvd.encrypted:
             if lvd.passphrase and \
-               not self.handler.anaconda.id.partitions.encryptionPassphrase:
-                self.handler.anaconda.id.partitions.encryptionPassphrase = lvd.passphrase
+               not self.handler.anaconda.id.storage.encryptionPassphrase:
+                self.handler.anaconda.id.storage.encryptionPassphrase = lvd.passphrase
             request.encryption = cryptodev.LUKSDevice(passphrase=lvd.passphrase, format=lvd.format)
 
         addPartRequest(self.handler.anaconda, request)
@@ -635,7 +633,7 @@ class Partition(commands.partition.F9_Partition):
             request.uniqueID = uniqueID
         if pd.onPart != "":
             request.device = pd.onPart
-            for areq in self.handler.id.partitions.autoPartitionRequests:
+            for areq in self.handler.id.storage.autoPartitionRequests:
                 if areq.device is not None and areq.device == pd.onPart:
                     raise KickstartValueError, formatErrorMsg(self.lineno, "Partition already used")
 
@@ -644,8 +642,8 @@ class Partition(commands.partition.F9_Partition):
 
         if pd.encrypted:
             if pd.passphrase and \
-               not self.handler.anaconda.id.partitions.encryptionPassphrase:
-                self.handler.anaconda.id.partitions.encryptionPassphrase = pd.passphrase
+               not self.handler.anaconda.id.storage.encryptionPassphrase:
+                self.handler.anaconda.id.storage.encryptionPassphrase = pd.passphrase
             request.encryption = cryptodev.LUKSDevice(passphrase=pd.passphrase, format=pd.format)
 
         addPartRequest(self.handler.anaconda, request)
@@ -728,8 +726,8 @@ class Raid(commands.raid.F9_Raid):
 
         if rd.encrypted:
             if rd.passphrase and \
-               not self.handler.anaconda.id.partitions.encryptionPassphrase:
-                self.handler.anaconda.id.partitions.encryptionPassphrase = rd.passphrase
+               not self.handler.anaconda.id.storage.encryptionPassphrase:
+                self.handler.anaconda.id.storage.encryptionPassphrase = rd.passphrase
             request.encryption = cryptodev.LUKSDevice(passphrase=rd.passphrase, format=rd.format)
 
         addPartRequest(self.handler.anaconda, request)
@@ -830,7 +828,7 @@ class XConfig(commands.xconfig.F10_XConfig):
 class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
     def parse(self, args):
         retval = commands.zerombr.FC3_ZeroMbr.parse(self, args)
-        self.handler.id.partitions.zeroMbr = 1
+        self.handler.id.storage.zeroMbr = 1
         return retval
 
 class ZFCP(commands.zfcp.FC3_ZFCP):
@@ -1002,14 +1000,14 @@ class AnacondaKSParser(KickstartParser):
 # else with this mountpoint so that you can use autopart and override /
 def addPartRequest(anaconda, request):
     if not request.mountpoint:
-        anaconda.id.partitions.autoPartitionRequests.append(request)
+        anaconda.id.storage.autoPartitionRequests.append(request)
         return
 
-    for req in anaconda.id.partitions.autoPartitionRequests:
+    for req in anaconda.id.storage.autoPartitionRequests:
         if req.mountpoint and req.mountpoint == request.mountpoint:
-            anaconda.id.partitions.autoPartitionRequests.remove(req)
+            anaconda.id.storage.autoPartitionRequests.remove(req)
             break
-    anaconda.id.partitions.autoPartitionRequests.append(request)            
+    anaconda.id.storage.autoPartitionRequests.append(request)
 
 def processKickstartFile(anaconda, file):
     # make sure our disks are alive
