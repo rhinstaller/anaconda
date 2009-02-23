@@ -350,8 +350,6 @@ def getReleaseString(mountpoint):
                         relVer += a
                     else:
                         break
-
-                    relstr = prod + " " + ver
             except:
                 pass # don't worry, just use the relstr as we have it
 
