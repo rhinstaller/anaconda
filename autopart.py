@@ -534,7 +534,7 @@ def growLogicalVolumes(diskset, requests):
 		    log("considering %s, start size = %s",req.logicalVolumeName, req.getStartSize())
 		    
 		# get remaining free space
-		vgfree = lvm.getVGFreeSpace(vgreq, requests, diskset)
+		vgfree = lvm.getVGFreeSpace(vgreq, requests, diskset) - (2*vgreq.pesize)
 
 #		print "vgfree = ", vgfree
                 if DEBUG_LVM_GROW:
