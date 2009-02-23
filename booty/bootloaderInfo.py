@@ -234,13 +234,6 @@ class BootImages:
         foundDos = 0
         for (dev, type) in diskSet.partitionTypes():
             if type in dosFilesystems and not foundDos and doesDualBoot():
-                import isys
-                import partedUtils
-                
-                part = partedUtils.get_partition_by_name(diskSet.disks, dev)
-                if part.native_type not in partedUtils.dosPartitionTypes:
-                    continue
-
                 try:
                     bootable = checkForBootBlock('/dev/' + dev)
                     devs.append((dev, type))
@@ -254,12 +247,14 @@ class BootImages:
                 # be the correct one to boot with XP using ntfs
                 foundDos = 1
             elif type in ('hfs', 'hfs+') and rhpl.getPPCMachine() == "PMac":
-                import isys
-                import partedUtils
+                import _ped
 
-                part = partedUtils.get_partition_by_name(diskSet.disks, dev)
-                if partedUtils.get_flags(part) != "boot":
-                    devs.append((dev, type))
+                for disk in diskset.disks:
+                    part = disk.getPartitionByPath('/dev/' + dev)
+                    if part:
+                        if not part.getFlag(_ped.PARTITION_BOOT):
+                            devs.append((dev, type))
+                        break
 
         slash = fsset.getEntryByMountPoint('/')
         if not slash or not slash.device or not slash.fsystem:
