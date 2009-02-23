@@ -543,7 +543,7 @@ def findExistingRootDevices(anaconda, upgradeany=False):
         if os.access(anaconda.rootPath + "/etc/fstab", os.R_OK):
             relstr = getReleaseString(anaconda.rootPath)
             if upgradeany or productMatches(relstr, productName):
-                rootDevs.append((device.path, relstr))
+                rootDevs.append((device, relstr))
 
         # this handles unmounting the filesystem
         device.teardown(recursive=True)
@@ -561,7 +561,7 @@ def mountExistingSystem(anaconda, rootDevice,
     else:
         readOnly = ""
 
-    if rootDevice.path in anaconda.id.storage.protectedPartitions and \
+    if rootDevice.name in anaconda.id.storage.protectedPartitions and \
        os.path.ismount("/mnt/isodir"):
         isys.mount("/mnt/isodir",
                    rootPath,
