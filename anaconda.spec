@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.96
+Version: 10.1.1.97
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Feb 23 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.97-1
+- LVM VG size is not same as the device where PV is (jgranado).
+  Resolves: rhbz:#480793
+
 * Wed Feb 4 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.96-1
 - Don't show the root password dialog, make patch work better (msivak).
   Resolves: rhbz:#481597
