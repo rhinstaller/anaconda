@@ -81,9 +81,7 @@ class LVMPhysicalVolume(DeviceFormat):
         """ Create the format. """
         log_method_call(self, device=os.path.basename(self.device),
                         type=self.type, status=self.status)
-        if self.exists:
-            raise PhysicalVolumeError("format already exists")
-
+        DeviceFormat.create(self, *args, **kwargs)
         """ Consider use of -Z|--zero
             -f|--force or -y|--yes may be required
         """

@@ -230,7 +230,8 @@ class ActionCreateFormat(DeviceAction):
         # XXX we should set partition type flag as needed
         #     - or should that be in the CreateDevice action?
         self.device.setup()
-        self.device.format.create(options=self.device.formatArgs)
+        self.device.format.create(device=self.device.path,
+                                  options=self.device.formatArgs)
 
     def cancel(self):
         self.device.format = self.origFormat

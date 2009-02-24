@@ -162,16 +162,16 @@ class DeviceFormat(object):
         self.exists = kwargs.get("exists")
         self.options = kwargs.get("options")
 
-    def setDevice(self, devspec):
+    def _setDevice(self, devspec):
         if devspec and not devspec.startswith("/"):
             raise ValueError("device must be a fully qualified path")
         self._device = devspec
 
-    def getDevice(self):
+    def _getDevice(self):
         return self._device
 
-    device = property(lambda f: f.getDevice(),
-                      lambda f,d: f.setDevice(d),
+    device = property(lambda f: f._getDevice(),
+                      lambda f,d: f._setDevice(d),
                       doc="Full path the device this format occupies")
 
     @property
@@ -212,7 +212,13 @@ class DeviceFormat(object):
     def create(self, *args, **kwargs):
         log_method_call(self, device=os.path.basename(self.device),
                         type=self.type, status=self.status)
-        pass
+        # allow late specification of device path
+        device = kwargs.get("device")
+        if device:
+            self.device = device
+
+        if not os.path.exists(device):
+            raise FormatCreateError("invalid device specification")
 
     def destroy(self, *args, **kwargs):
         log_method_call(self, device=os.path.basename(self.device),
@@ -234,7 +240,19 @@ class DeviceFormat(object):
     def setup(self, *args, **kwargs):
         log_method_call(self, device=os.path.basename(self.device),
                         type=self.type, status=self.status)
-        pass
+        if not self.exists:
+            raise FormatSetupError("format has not been created")
+
+        if self.status:
+            return
+
+        # allow late specification of device path
+        device = kwargs.get("device")
+        if device:
+            self.device = device
+
+        if not os.path.exists(device):
+            raise FormatSetupError("invalid device specification")
 
     def teardown(self, *args, **kwargs):
         log_method_call(self, device=os.path.basename(self.device),

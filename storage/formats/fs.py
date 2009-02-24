@@ -533,6 +533,8 @@ class FS(DeviceFormat):
         if self.exists:
             raise FSError("filesystem already exists")
 
+        DeviceFormat.create(self, *args, **kwargs)
+
         return self.format(*args, **kwargs)
 
     def setup(self, *args, **kwargs):

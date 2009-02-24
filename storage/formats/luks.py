@@ -109,15 +109,10 @@ class LUKS(DeviceFormat):
         """ Open, or set up, the format. """
         log_method_call(self, device=os.path.basename(self.device),
                         type=self.type, status=self.status)
-        if not self.exists:
-            raise LUKSError("format has not been created")
-
         if not self.configured:
             raise LUKSError("luks device not configured")
 
-        if self.status:
-            return
-
+        DeviceFormat.setup(self, *args, **kwargs)
         crypto.luks_open(self.device, self.mapName,
                        passphrase=self.__passphrase,
                        key_file=self._key_file)
@@ -137,12 +132,10 @@ class LUKS(DeviceFormat):
         """ Create the format. """
         log_method_call(self, device=os.path.basename(self.device),
                         type=self.type, status=self.status)
-        if self.exists:
-            raise LUKSError("format already exists")
-
         if not self.configured:
             raise LUKSError("luks device not configured")
 
+        DeviceFormat.create(self, *args, **kwargs)
         crypto.luks_format(self.device,
                          passphrase=self.__passphrase,
                          key_file=self._key_file,

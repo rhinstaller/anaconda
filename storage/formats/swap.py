@@ -108,6 +108,7 @@ class SwapSpace(DeviceFormat):
         if self.status:
             return
 
+        DeviceFormat.setup(self, *args, **kwargs)
         swap.swapon(self.device, priority=self.priority)
 
     def teardown(self, *args, **kwargs):
@@ -130,6 +131,7 @@ class SwapSpace(DeviceFormat):
         if self.status:
             raise SwapSpaceError("device exists and is active")
 
+        DeviceFormat.create(self, *args, **kwargs)
         swap.mkswap(self.device, label=self.label)
 
 
