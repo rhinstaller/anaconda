@@ -32,12 +32,9 @@ import os, sys, string, struct, resource
 
 from product import *
 import exception
-import fsset
 import iutil, isys
-import raid
 import dmraid
 import block
-import lvm
 import inspect
 from flags import flags
 from errors import *
