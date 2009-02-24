@@ -23,18 +23,11 @@
 import os
 import time
 
-import sys
-sys.path.append("formats")
-
-if __name__ == "__main__":
-    import storage_log
-
 import iutil
-from partedUtils import getReleaseString, productMatches
 from errors import *
 from devices import *
 from deviceaction import *
-from deviceformat import getFormat
+from formats import getFormat
 from devicelibs.lvm import safeLvmName
 
 import gettext
@@ -240,7 +233,7 @@ class Storage(object):
         arrays.sort(key=lambda d: d.name)
         return arrays
 
-    @properties
+    @property
     def mdmembers(self):
         """ A list of the MD member devices in the device tree.
 
@@ -508,6 +501,50 @@ class Storage(object):
 
         return tmpname
 
+
+def getReleaseString(mountpoint):
+    relName = None
+    relVer = None
+
+    if os.access(mountpoint + "/etc/redhat-release", os.R_OK):
+        f = open(mountpoint + "/etc/redhat-release", "r")
+        try:
+            lines = f.readlines()
+        except IOError:
+            try:
+                f.close()
+            except:
+                pass
+            return (relName, relVer)
+
+        f.close()
+
+        # return the first line with the newline at the end stripped
+        if len(lines) == 0:
+            return (relName, relVer)
+
+        relstr = string.strip(lines[0][:-1])
+
+        # get the release name and version
+        # assumes that form is something
+        # like "Red Hat Linux release 6.2 (Zoot)"
+        if relstr.find("release") != -1:
+            try:
+                idx = relstr.find("release")
+                relName = relstr[:idx - 1]
+                relVer = ""
+
+                for a in relstr[idx + 8:]:
+                    if a in string.digits + ".":
+                        relVer += a
+                    else:
+                        break
+
+                    relstr = prod + " " + ver
+            except:
+                pass # don't worry, just use the relstr as we have it
+
+    return (relName, relVer)
 
 def findExistingRootDevices(anaconda, upgradeany=False):
     """ Return a list of all root filesystems in the device tree. """
@@ -856,7 +893,7 @@ class FSSet(object):
                                         parents=get_containing_device(devspec),
                                         format=getFormat(fstype,
                                                          device=devspec,
-                                                         exists=True)
+                                                         exists=True),
                                         exists=True)
                 elif fstype == "bind" or "bind" in options:
                     # bind mount... set fstype so later comparison won't
@@ -954,7 +991,7 @@ class FSSet(object):
                                 "which means your system is hibernating. "
                                 "To perform an upgrade, please shut down "
                                 "your system rather than hibernating it.") \
-                              % device.path)
+                              % device.path
                     else:
                         msg = _("The swap device:\n\n     %s\n\n"
                                 "in your /etc/fstab file is currently in "
@@ -963,7 +1000,7 @@ class FSSet(object):
                                 "If you are performing a new install, "
                                 "make sure the installer is set "
                                 "to format all swap devices.") \
-                              % device.path)
+                              % device.path
 
                     intf.messageWindow(_("Error"), msg)
                 sys.exit(0)
@@ -1086,7 +1123,7 @@ class FSSet(object):
         """ Create and activate a swap file under rootPath. """
         filename = "/SWAP"
         count = 0   
-        while os.path.exists("%s/%s" % (rootPath, filename) or \
+        while os.path.exists("%s/%s" % (rootPath, filename)) or \
               self.devicetree.getDeviceByName(filename):
             file = os.path.normpath("%s/%s" % (rootPath, filename))
             count += 1
@@ -1207,17 +1244,14 @@ class FSSet(object):
                 options = device.format.options
             else:
                 mountpoint = device.format.mountpoint
-                options = gettattr(device.format.mountopts
+                options = device.format.mountopts
                 if not mountpoint:
                     log.warning("%s filesystem on %s has no mountpoint" % \
                                                             (fstype,
                                                              device.path))
                     continue
 
-            if not options:
-                # why not, right?
-                options = "defaults"
-
+            options = options or "defaults"
             devspec = device.fstabSpec
             dump = device.format.dump
             if device.format.check and mountpoint == "/":
@@ -1280,8 +1314,8 @@ class FSSet(object):
             ret['boot'] = (bootDev.path, N_("Apple Bootstrap"))
             partitions = self.devicetree.getDevicesByType("partition")
             for (n, device) in enumerate(partitions):
-                if (device.format.type == "hfs" and device.bootable and \
-                    device.path != bootDev.path)):
+                if device.format.type == "hfs" and device.bootable and \
+                    device.path != bootDev.path:
                     ret['boot%d' %(n,)] = (device.path,
                                            N_("Apple Bootstrap"))
         elif (iutil.getPPCMachine() == "pSeries" or
