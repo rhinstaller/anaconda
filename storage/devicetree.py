@@ -22,16 +22,10 @@
 
 import os
 
-import sys
-sys.path.append("formats")
-
-if __name__ == "__main__":
-    import storage_log
-
 from errors import *
 from devices import *
 from deviceaction import *
-from deviceformat import getFormat
+from formats import *
 from udev import *
 
 import gettext
@@ -326,7 +320,7 @@ class DeviceTree(object):
                _action.obj == action.obj:
                 #raise DeviceTreeError("duplicate action for this device")
                 log.debug("cancelling action '%s' in favor of '%s'" % (_action,
-                                                                       action)
+                                                                       action))
                 self.cancelAction(_action)
                 removedAction = _action
                 break
@@ -888,14 +882,16 @@ class DeviceTree(object):
                 uuid = dev.uuid
             except AttributeError:
                 uuid = None
-            elif uuid:
+
+            if uuid:
                 uuids[uuid] = dev
 
             try:
                 uuid = dev.format.uuid
             except AttributeError:
                 uuid = None
-            elif uuid:
+
+            if uuid:
                 uuids[uuid] = dev
 
         return uuids
@@ -924,76 +920,4 @@ class DeviceTree(object):
         return [c for c in self._devices if device in c.parents]
 
 
-def test_tree():
-    try:
-        tree = DeviceTree(ignored_disks=[])
-    except Exception as e:
-        log.error("tree creation failed: %s" % e)
-        raise
-    return tree
-
-def test_fstab(tree):
-    roots = findExistingRoots(tree, keepall=True)
-    print ["%s: %s" % (d.path, d.format.type) for d in roots]
-    rootDev = roots[0]
-    if not rootDev:
-        return
-
-    log.debug("setting up root device %s" % rootDev.path)
-    #rootDev.setup()
-    #rootDev.format.mount(chroot="/mnt/sysimage", mountpoint="/")
-    #fstab = FSTab(tree, chroot="/mnt/sysimage")
-    fsset = FSSet(tree)
-    m
-    #return fstab
-
-if __name__ == "__main__":
-    mode = "tree"
-    if len(sys.argv) == 2:
-        mode = sys.argv[1]
-
-    if mode == "tree":
-        tree = test_tree()
-        if tree is None:
-            sys.exit(1)
-        devices = tree.devices.values()
-        devices.sort(key=lambda d: d.path)
-        for device in devices:
-            fs_string = ""
-            if device.format:
-                fs_string = "%s on " % device.format.type
-            print "%s: %s%s" % (device.path, fs_string, device.typeDescription) 
-    elif mode == "fstab":
-        tree = test_tree()
-        tree.teardownAll()
-        fstab = test_fstab(tree)
-        #print fstab.blkidTab.devices
-        #print fstab.cryptTab.mappings
-        fmt = "%-23s %-23s %-7s %-15s %s %s"
-        for  in fstab.devices:
-            (device, mountpoint, fstype, options, dump, passno) = entry
-            print fmt % (device.fstabSpec(), mountpoint, fstype,
-                         options, dump, passno)
-
-        print
-        print "ORIGINAL:"
-        print fstab.origBuf
-        print
-    elif mode == "actions":
-        print "creating tree..."
-        tree = test_tree()
-
-        # we don't need to actually use any of the devices, so clean up now
-        tree.teardownAll()
-        print "setting up actions..."
-        tree.registerAction(ActionDestroyFormat(tree.getDeviceByName("luks-md0")))
-        tree.registerAction(ActionDestroyDevice(tree.getDeviceByName("luks-md0")))
-        fs = getFormat("ext3", device="/dev/md0", mountpoint="/opt")
-        tree.registerAction(ActionCreateFormat(tree.getDeviceByName("md0"), fs))
-        tree.registerAction(ActionDestroyFormat(tree.getDeviceByName("sda1")))
-        print "processing actions..."
-        tree.processActions(dryRun=True)
-        print "done."
-
-    tree.teardownAll()
 

@@ -24,15 +24,11 @@ import os
 import copy
 from operator import add, sub
 
-# XXX temporary
-import sys
-sys.path.insert(0, "/root/pyparted/src")
-sys.path.insert(1, "/root/pyparted/src/.libs")
 import parted
+from pykickstart.constants import *
 
 from errors import *
 from deviceaction import *
-from pykickstart.constants import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

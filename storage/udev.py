@@ -24,6 +24,7 @@ import os
 import re
 
 import iutil
+from errors import *
 
 import logging
 log = logging.getLogger("storage")

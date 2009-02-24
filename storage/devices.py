@@ -96,22 +96,16 @@ import os
 import math
 
 # device backend modules
-import mdraid
-import lvm
+import devicelibs.mdraid
+import devicelibs.lvm
 #import block
-import dm
-
-# XXX temporary
-import sys
-sys.path.insert(0, "/root/pyparted/src")
-sys.path.insert(1, "/root/pyparted/src/.libs")
-sys.path.append("devicelibs")
+import devicelibs.dm
 import parted
 
 from errors import *
 from iutil import log_method_call, notify_kernel, numeric_type
 from udev import udev_settle
-from deviceformat import get_device_format_class, getFormat
+from formats import get_device_format_class, getFormat
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -365,7 +359,7 @@ class StorageDevice(Device):
         Device.__init__(self, device, parents=parents)
 
         self.uuid = None
-        self.format = None
+        self._format = getFormat(None)
         self._size = numeric_type(size)
         self.major = numeric_type(major)
         self.minor = numeric_type(minor)
@@ -621,7 +615,7 @@ class DiskDevice(StorageDevice):
     def destroy(self):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
-        if self.status
+        if self.status:
             self.format.destroy()
 
         self.partedDisk.deleteAllPartitions()
@@ -1037,8 +1031,7 @@ class DMDevice(StorageDevice):
         return dm.dm_node_from_name(self.name)
         #return block.getDmNodeFromName(self.name)
 
-    @name.setter
-    def setName(self, name):
+    def _setName(self, name):
         """ Set the device's map name. """
         log_method_call(self, self.name, status=self.status)
         if self.status:
@@ -1046,6 +1039,9 @@ class DMDevice(StorageDevice):
 
         self._name = name
         #self.sysfsPath = "/dev/disk/by-id/dm-name-%s" % self.name
+
+    name = property(lambda d: d._name,
+                    lambda d,n: d._setName(n))
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
