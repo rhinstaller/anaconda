@@ -35,7 +35,6 @@ import inspect
 import iutil
 import types
 import bdb
-import partedUtils
 from string import joinfields
 from cPickle import Pickler
 from flags import flags
@@ -183,11 +182,11 @@ class AnacondaExceptionDump:
                      "anaconda.id.instLanguage.tz",
                      "anaconda.id.keyboard._mods._modelDict",
                      "anaconda.id.keyboard.modelDict",
-                     "anaconda.id.partitions.encryptionPassphrase",
+                     "anaconda.id.storage.encryptionPassphrase",
                      "anaconda.id.rootPassword",
                      "anaconda.id.tmpData",
                      "anaconda.intf.icw.buff",
-                     "anaconda.intf.icw.currentWindow.partitions.encryptionPassphrase",
+                     "anaconda.intf.icw.currentWindow.storage.encryptionPassphrase",
                      "anaconda.intf.icw.stockButtons",
                      "dispatch.sack.excludes",
                    ]

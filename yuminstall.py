@@ -1358,14 +1358,16 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
             if not anaconda.id.getUpgrade():
-                usrPart = anaconda.id.partitions.getRequestByMountPoint("/usr")
+                usrPart = None
+                for fs in anaconda.id.storage.devicetree.filesystems:
+                    if fs.mountpoint == "/usr":
+                        usrPart = fs
                 if usrPart is not None:
                     largePart = usrPart
                 else:
-                    largePart = anaconda.id.partitions.getRequestByMountPoint("/")
+                    largePart = anaconda.id.storage.fsset.rootDevice
 
-                if largePart and \
-                   largePart.getActualSize(anaconda.id.partitions, anaconda.id.diskset) < self.totalSize / 1024:
+                if largePart and largePart.size < self.totalSize / 1024:
                     rc = anaconda.intf.messageWindow(_("Error"),
                                             _("Your selected packages require %d MB "
                                               "of free space for installation, but "
@@ -1443,12 +1445,12 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # If there are any protected partitions we want to mount, create their
         # mount points now.
-        protected = anaconda.id.partitions.protectedPartitions()
+        protected = anaconda.id.storage.protectedPartitions()
         if protected:
             for protectedDev in protected:
-                request = anaconda.id.partitions.getRequestByDeviceName(protectedDev)
-                if request and request.mountpoint:
-                    dirList.append(request.mountpoint)
+                request = anaconda.id.storage.devicetree.getDeviceByName(protectedDev)
+                if request and request.format.mountpoint:
+                    dirList.append(request.format.mountpoint)
 
         for i in dirList:
             try:

@@ -27,13 +27,7 @@ import string
 import copy
 import network
 import parted
-import partitions
-from partedUtils import *
 from partIntfHelpers import *
-from partRequests import *
-from fsset import *
-from raid import availRaidLevels
-from autopart import *
 from snack import *
 from constants_text import *
 from constants import *
@@ -73,7 +67,7 @@ class PartitionTypeWindow:
             for (txt, val) in opts:
                 typebox.append(txt, val)
 
-            typebox.setCurrent(anaconda.id.partitions.autoClearPartType)
+            typebox.setCurrent(anaconda.id.storage.clearPartType)
 
             g.add(typebox, 0, 1, (0, 1, 0, 0))
 
@@ -97,13 +91,11 @@ class PartitionTypeWindow:
             screen.pushHelpLine (_("<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"))
 
             # restore the drive list each time
-            disks = anaconda.id.diskset.disks.keys()
-            disks.sort()
-            cleardrives = anaconda.id.partitions.autoClearPartDrives
+            disks = anaconda.id.storage.disks
+            cleardrives = anaconda.id.storage.clearPartDrives
 
             for disk in disks:
-                size = anaconda.id.diskset.disks[disk].device.getSize(unit="MB")
-                model = anaconda.id.diskset.disks[disk].device.model
+                model = disk.partedDisk.device.model
 
                 if not cleardrives or len(cleardrives) < 1:
                     selected = 1
@@ -113,7 +105,7 @@ class PartitionTypeWindow:
                     else:
                         selected = 0
 
-                sizestr = "%8.0f MB" % (size,)
+                sizestr = "%8.0f MB" % (disk.size,)
                 diskdesc = "%6s %s (%s)" % (disk, sizestr, model[:24],)
 
                 drivelist.append(diskdesc, selected = selected)
@@ -133,13 +125,13 @@ class PartitionTypeWindow:
 
             if rc == "F2":
                 if self.addDriveDialog(screen) != INSTALL_BACK:
-                    partitions.partitionObjectsInitialize(anaconda)
+                    anaconda.id.storage.reset()
                 continue
 
             if res == TEXT_BACK_CHECK:
                 return INSTALL_BACK
 
-            if anaconda.id.diskset.checkNoDisks():
+            if anaconda.id.storage.checkNoDisks():
                 continue
 
             if len(sel) < 1:
@@ -147,8 +139,8 @@ class PartitionTypeWindow:
                 continue
 
             anaconda.dispatch.skipStep("autopartitionexecute", skip = 0)
-            anaconda.id.partitions.autoClearPartType = partmethod_ans
-            anaconda.id.partitions.autoClearPartDrives = sel
+            anaconda.id.storage.clearPartType = partmethod_ans
+            anaconda.id.storage.clearPartDrives = sel
             break
 
         # ask to review autopartition layout - but only if it's not custom partitioning
@@ -159,7 +151,7 @@ class PartitionTypeWindow:
 
     def addDriveDialog(self, screen):
         newdrv = []
-        import iscsi
+        from storage import iscsi
         if iscsi.has_iscsi():
             newdrv.append("Add iSCSI target")
         if iutil.isS390():
@@ -204,7 +196,7 @@ class PartitionTypeWindow:
         devnum = entries[0].strip()
         wwpn = entries[1].strip()
         fcplun = entries[2].strip()
-        self.anaconda.id.zfcp.addFCP(devnum, wwpn, fcplun)        
+        self.anaconda.id.storage.zfcp.addFCP(devnum, wwpn, fcplun)
                                         
         return INSTALL_OK
 
@@ -255,8 +247,9 @@ class PartitionTypeWindow:
             raise ValueError, msg
 
         iname = entries[1].strip()
-        if not self.anaconda.id.iscsi.initiatorSet:
-            self.anaconda.id.iscsi.initiator = iname
-        self.anaconda.id.iscsi.addTarget(ip, port, user, pw, user_in, pw_in)
+        if not self.anaconda.id.storage.iscsi.initiatorSet:
+            self.anaconda.id.storage.iscsi.initiator = iname
+        self.anaconda.id.storage.iscsi.addTarget(ip, port, user, pw,
+                                                 user_in, pw_in)
                                         
         return INSTALL_OK

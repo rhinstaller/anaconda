@@ -1188,7 +1188,7 @@ class PartitionWindow(InstallWindow):
 	
 	# see if we have enough free software RAID partitions first
 	# if no raid partitions exist, raise an error message and return
-	availraidparts = self.partitions.unusedMDMembers()
+	availraidparts = self.storage.unusedMDMembers()
 
 	dialog = gtk.Dialog(_("RAID Options"), self.parent)
 	gui.addFrame(dialog)

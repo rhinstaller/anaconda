@@ -352,9 +352,9 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
             value = origrequest.size
 
         # TODO: sort out resizing
-        reqlower = origrequest.getMinimumResizeMB(storage)
-        requpper = origrequest.getMaximumResizeMB(partitions)
-        if not origrequest.format:
+        reqlower = origrequest.minSize
+        requpper = origrequest.maxSize
+        if origrequest.format.exists:
             lower = reqlower
         else:
             lower = 1
@@ -387,17 +387,17 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     return (row, rc)
 
 # do tests we just want in UI for now, not kickstart
-def doUIRAIDLVMChecks(request, diskset):
-    fstype = request.fstype
-    numdrives = len(diskset.disks.keys())
+def doUIRAIDLVMChecks(request, storage):
+    fstype = request.format.name
+    numdrives = len(storage.disks)
     
 ##     if fstype and fstype.getName() == "physical volume (LVM)":
 ## 	if request.grow:
 ## 	    return (_("Partitions of type '%s' must be of fixed size, and "
 ## 		     "cannot be marked to fill to use available space.")) % (fstype.getName(),)
 
-    if fstype and fstype.getName() in ["physical volume (LVM)", "software RAID"]:
-	if numdrives > 1 and (request.drive is None or len(request.drive) > 1):
+    if fstype in ["physical volume (LVM)", "software RAID"]:
+	if numdrives > 1 and (not request.req_disks or len(request.disks) > 1):
 	    return (_("Partitions of type '%s' must be constrained to "
 		      "a single drive.  To do this, select the "
 		      "drive in the 'Allowable Drives' checklist.")) % (fstype.getName(),)

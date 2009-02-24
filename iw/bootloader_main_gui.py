@@ -21,7 +21,6 @@
 
 import gtk
 import gobject
-import partedUtils
 import gui
 from iw_gui import *
 from constants import *
@@ -93,15 +92,13 @@ class MainBootloaderWindow(InstallWindow):
             combo.pack_start(cell, True)
             combo.set_attributes(cell, text = 0)
 
-            keys = disks.keys()
-            keys.sort()
-
-            for d in keys:
-                size = disks[d].device.getSize(unit="MB")
-                m = disks[d].device.model
+            for disk in disks:
+                size = disk.size
+                model = disk.partedDisk.device.model
 
                 i = model.append(None)
-                model[i] = ("%s %8.0f MB %s" %(d, size, m), "%s" %(d,))
+                model[i] = ("%s %8.0f MB %s" %(disk.name, size, model),
+                            "%s" %(disk.name,))
                 if d == active:
                     combo.set_active_iter(i)
 
@@ -113,8 +110,7 @@ class MainBootloaderWindow(InstallWindow):
         dialog.set_transient_for(self.parent)
         dialog.show()
 
-        choices = anaconda.id.fsset.bootloaderChoices(anaconda.id.diskset,
-                                                      self.bl)
+        choices = anaconda.id.storage.fsset.bootloaderChoices(self.bl)
         for t in ("mbr", "boot"):
             if not choices.has_key(t):
                 continue
@@ -136,7 +132,7 @@ class MainBootloaderWindow(InstallWindow):
             lbl = dxml.get_widget("bd%dLabel" %(i,))
             combo.show()
             lbl.show()
-            m = __genStore(combo, anaconda.id.diskset.disks, self.driveorder[i - 1])
+            m = __genStore(combo, anaconda.id.storage.disks, self.driveorder[i - 1])
 
         dxml.get_widget("bd1Combo").connect("changed", __driveChange, dxml, choices)
         __driveChange(dxml.get_widget("bd1Combo"), dxml, choices)
@@ -185,10 +181,10 @@ class MainBootloaderWindow(InstallWindow):
         self.bl = anaconda.id.bootloader
         self.intf = anaconda.intf
 
-        drives = anaconda.id.diskset.disks
+        disks = anaconda.id.storage.disks
         self.driveorder = self.bl.drivelist
         if len(self.driveorder) == 0:
-            self.driveorder = drives.keys()
+            self.driveorder = [d.name for d in disks]
 
         if self.bl.getPassword():
             self.usePass = 1
@@ -206,7 +202,7 @@ class MainBootloaderWindow(InstallWindow):
         else:
             # we don't know what it is yet... if mbr is possible, we want
             # it, else we want the boot dev
-            choices = anaconda.id.fsset.bootloaderChoices(anaconda.id.diskset, self.bl)
+            choices = anaconda.id.storage.fsset.bootloaderChoices(self.bl)
             if choices.has_key('mbr'):
                 self.bldev = choices['mbr'][0]
             else:

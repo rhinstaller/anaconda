@@ -742,7 +742,7 @@ class SaveExceptionWindow:
 
         store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
 
-        dests = anaconda.id.diskset.exceptionDisks(anaconda)
+        dests = anaconda.id.storage.exceptionDisks()
 
         if flags.livecdInstall:
             self.destCombo.remove_text(0)

@@ -1161,24 +1161,26 @@ class FSSet(object):
             device.teardownFormat()
             device.teardown()
 
-    def createSwapFile(self, device, rootPath, size):
+    def createSwapFile(self, rootPath, device, size):
         """ Create and activate a swap file under rootPath. """
         filename = "/SWAP"
-        count = 0   
-        while os.path.exists("%s/%s" % (rootPath, filename)) or \
+        count = 0
+        basedir = os.path.normpath("%s/%s" % (rootPath,
+                                              device.format.mountpoint))
+        while os.path.exists("%s/%s" % (basedir, filename)) or \
               self.devicetree.getDeviceByName(filename):
-            file = os.path.normpath("%s/%s" % (rootPath, filename))
+            file = os.path.normpath("%s/%s" % (basedir, filename))
             count += 1
             filename = "/SWAP-%d" % count
 
         dev = FileDevice(filename,
                          size=size,
-                         parents=self.rootDevice,
+                         parents=[device],
                          format=getFormat("swap", device=filename))
         dev.create()
-        dev.createFormat()
         dev.setup()
-        dev.setupFormat()
+        dev.format.create()
+        dev.format.setup()
         # nasty, nasty
         self.devicetree._addDevice(dev)
 

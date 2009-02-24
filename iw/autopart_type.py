@@ -367,7 +367,7 @@ class PartitionTypeWindow(InstallWindow):
                                      _("Rescanning disks"))
             self.storage.reset()
             createAllowedDrivesStore(self.storage,
-                                     self.partitions.clearPartDrives,
+                                     self.storage.clearPartDrives,
                                      self.drivelist,
                                      disallowDrives=[self.anaconda.updateSrc])
             self._fillBootStore()
@@ -428,7 +428,7 @@ class PartitionTypeWindow(InstallWindow):
         for (txt, val) in opts:
             iter = store.append(None)
             store[iter] = (txt, val)
-            if val == self.partitions.autoClearPartType:
+            if val == self.storage.clearPartType:
                 self.combo.set_active_iter(iter)
 
         if ((self.combo.get_active() == -1) or

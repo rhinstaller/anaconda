@@ -79,14 +79,12 @@ class VolumeGroupEditor:
         """
 	first = 1
         pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
-	for id in pvlist:
+	for pv in pvlist:
             try:
                 pesize = int(self.peCombo.get_active_value())
             except:
                 pesize = 32768
-	    pvreq = self.partitions.getRequestByID(id)
-	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
-            pvsize = lvm.clampPVSize(pvsize, pesize) - int(pesize/1024)
+            pvsize = lvm.clampPVSize(pv.size, pesize) - int(pesize/1024)
 	    if first:
 		minpvsize = pvsize
 		first = 0
@@ -143,7 +141,7 @@ class VolumeGroupEditor:
 	    if not rc:
 		return 0
 
-        # XXX this is very sneaky, just changing the lvs' size attributes
+        # XXX this is very sneaky, just changing the lvs' size attributes.
         #     will we suffer for it? almost certainly.
         for lv in self.logvolreqs:
             osize = lv.size
@@ -803,7 +801,7 @@ class VolumeGroupEditor:
 	availSpaceMB = 0L
 	for pv in pvlist:
             # XXX why the subtraction?
-	    pvsize = lvm.clampSize(pvsize, curpe) - (curpe/1024)
+	    pvsize = lvm.clampSize(pe.size, curpe) - (curpe/1024)
 
 	    # have to clamp pvsize to multiple of PE
 	    availSpaceMB = availSpaceMB + pvsize

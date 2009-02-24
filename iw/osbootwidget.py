@@ -37,7 +37,7 @@ class OSBootWidget:
     def __init__(self, anaconda, parent, blname = None):
         self.bl = anaconda.id.bootloader
         self.fsset = anaconda.id.fsset
-        self.diskset = anaconda.id.diskset
+        self.storage = anaconda.id.storage
         self.parent = parent
         self.intf = anaconda.intf
         if blname is not None:
@@ -153,26 +153,20 @@ class OSBootWidget:
         label = gui.MnemonicLabel(_("_Device"))
         table.attach(label, 0, 1, 2, 3, gtk.FILL, 0, 10)
         if not isRoot:
-            # XXX should potentially abstract this out into a function
-            pedparts = []
-            parts = []
-            disks = self.diskset.disks
-            func = lambda part: (part.active and
-                                 part.getFlag(parted.PARTITION_LVM) != 1 and
-                                 part.getFlag(parted.PARTITION_RAID) != 1)
-            for drive in disks.keys():
-                pedparts.extend(partedUtils.filter_partitions(disks[drive], func))
-            for part in pedparts:
-                parts.append(part.getDeviceNodeName())
-            del pedparts
-            parts.sort()
+            for part in self.storage.partitions:
+                if part.partedPartition.getFlag(parted.PARTITION_LVM) or \
+                   part.partedPartition.getFlag(parted.PARTITION_RAID) or \
+                   not part.active:
+                    continue
+
+                parts.append(part)
 
             deviceCombo = datacombo.DataComboBox()
             defindex = 0
             i = 0
-            for part in  parts:
-                deviceCombo.append("/dev/%s" %(part,), part)
-                if oldDevice and oldDevice == part:
+            for part in parts:
+                deviceCombo.append(part.path, part.name)
+                if oldDevice and oldDevice == part.name:
                     defindex = i
                 i = i + 1
 
@@ -367,8 +361,8 @@ class OSBootWidget:
                 continue
 
 	    isRoot = 0
-	    fsentry = self.fsset.getEntryByDeviceName(dev)
-	    if fsentry and fsentry.getMountPoint() == '/':
+            rootDev = self.storage.fsset.rootDevice
+            if rootDev and rootDev.name == dev:
 		isRoot = 1
 
             iter = self.osStore.append()

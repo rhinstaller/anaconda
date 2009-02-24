@@ -297,24 +297,19 @@ class iscsi(object):
 
         if not flags.test:
             root_drives = [ ]
-            req = anaconda.id.partitions.getRequestByMountPoint("/")
-            root_requests = anaconda.id.partitions.getUnderlyingRequests(req)
-            for req in root_requests:
-                for drive in req.drive:
-                    part = anaconda.id.diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
-                    if part:
-                        break
-                if not part:
-                    continue
-                if drive not in root_drives:
-                    root_drives.append(drive)
+            root = anaconda.id.storage.fsset.rootDevice
+            root_deps = anaconda.id.storage.deviceDeps(root)
+            for dev in root_deps:
+                if dev in anaconda.id.storage.disks and \
+                   dev not in root_drives:
+                    root_drives.append(dev.path)
 
             log.debug("iscsi.write: root_drives: %s" % (string.join(root_drives),))
 
             # set iscsi nodes not used for root to autostart
-            for disk in anaconda.id.diskset.disks.keys():
-                if isys.driveIsIscsi(disk) and not disk in root_drives:
-                    iscsi_make_node_autostart(disk)
+            for disk in anaconda.id.storage.disks:
+                if isys.driveIsIscsi(disk.path) and not disk in root_drives:
+                    iscsi_make_node_autostart(disk.path)
 
             if not os.path.isdir(instPath + "/etc/iscsi"):
                 os.makedirs(instPath + "/etc/iscsi", 0755)

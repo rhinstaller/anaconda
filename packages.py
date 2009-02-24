@@ -255,10 +255,7 @@ def setFileCons(anaconda):
                  "/etc/shadow", "/etc/shadow-", "/etc/gshadow"] + \
                 glob.glob('/etc/dhclient-*.conf')
 
-        vgs = []
-        for entry in anaconda.id.partitions.requests:
-            if isinstance(entry, partRequests.VolumeGroupRequestSpec):
-                vgs.append("/dev/%s" %(entry.volumeGroupName,))
+        vgs = ["/dev/%s" % vg.name for vg in anaconda.id.storage.vgs]
 
         # ugh, this is ugly
         for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log", "/etc/modprobe.d", "/etc/sysconfig" ] + vgs:
