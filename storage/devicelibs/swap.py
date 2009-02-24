@@ -19,11 +19,14 @@
 #
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
+
 import iutil
+
+from ..errors import *
+
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-from errors import *
 
 def mkswap(device, label=''):
     argv = []

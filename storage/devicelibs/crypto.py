@@ -22,7 +22,7 @@
 import os
 
 import iutil
-from errors import *
+from ..errors import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
