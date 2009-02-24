@@ -717,7 +717,7 @@ class PartitionDevice(StorageDevice):
         #        For existing partitions we will get the size from
         #        parted.
 
-        if self.exists and 'parted' in globals().keys():
+        if self.exists:
             log.debug("looking up parted Partition: %s" % self.path)
             #self.partedPartition = parted.getPartitionByName(self.path)
             self._partedPartition = self.disk.partedDisk.getPartitionByPath(self.path)
