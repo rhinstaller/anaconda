@@ -188,15 +188,15 @@ class BaseInstallClass(object):
         return AnacondaBackend
 
     def setDefaultPartitioning(self, storage, clear = CLEARPART_TYPE_LINUX,
-                               doClear = 1, useLVM = True):
-        autorequests = [ ("/", None, 1024, None, 1, 1, 1) ]
+                               doClear = True, useLVM = True):
+        autorequests = [ ("/", None, 1024, None, True, True) ]
 
         bootreq = getAutopartitionBoot(storage)
         if bootreq:
             autorequests.extend(bootreq)
 
         (minswap, maxswap) = iutil.swapSuggestion()
-        autorequests.append((None, "swap", minswap, maxswap, 1, 1, 1))
+        autorequests.append((None, "swap", minswap, maxswap, True, True))
 
         if doClear:
             storage.autoClearPartType = clear
