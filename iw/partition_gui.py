@@ -27,14 +27,11 @@ try:
 except ImportError:
     import gnome.canvas as gnomecanvas
 import pango
-import autopart
 import gui
 import parted
 import string
 import types
-import raid
 from constants import *
-import lvm
 
 from iw_gui import *
 from flags import flags
@@ -44,9 +41,6 @@ import raid_dialog_gui
 import partition_dialog_gui
 
 from partIntfHelpers import *
-from partedUtils import *
-from fsset import *
-from partRequests import *
 from constants import *
 from partition_ui_helpers_gui import *
 
