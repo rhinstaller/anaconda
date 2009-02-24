@@ -22,11 +22,11 @@
 
 import os
 
-from errors import *
 from iutil import log_method_call
-from deviceformat import *
-import swap
-#from parted import PARTITION_SWAP
+from parted import PARTITION_SWAP
+from ..errors import *
+from ..devicelibs import swap
+from . import DeviceFormat, register_device_format
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -39,7 +39,7 @@ class SwapSpace(DeviceFormat):
     """ Swap space """
     _type = "swap"
     _udevTypes = ["swap"]
-    #partedFlags = PARTITION_SWAP
+    partedFlags = PARTITION_SWAP
     _formattable = True                # can be formatted
     _supported = True                  # is supported
     _linuxNative = True                # for clearpart
@@ -88,7 +88,7 @@ class SwapSpace(DeviceFormat):
     def _setOptions(self, opts):
         for (opt, arg) in opts.split(","):
             if opt == "pri":
-                try:
+                self.priority = numeric_type(arg)
                     
     options = property(_getOptions, _setOptions,
                        doc="The swap device's fstab options string")

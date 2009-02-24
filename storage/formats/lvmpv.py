@@ -20,11 +20,11 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
-from errors import *
 from iutil import log_method_call
-from deviceformat import *
-import lvm
-#from parted import PARTITION_LVM
+from parted import PARTITION_LVM
+from ..errors import *
+from ..devicelibs import lvm
+from . import DeviceFormat, register_device_format
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -38,7 +38,7 @@ class LVMPhysicalVolume(DeviceFormat):
     _type = "lvmpv"
     _name = "physical volume (LVM)"
     _udevTypes = ["LVM2_member"]
-    #partedFlags = PARTITION_LVM
+    partedFlags = PARTITION_LVM
     _formattable = True                 # can be formatted
     _supported = True                   # is supported
     _linuxNative = True                 # for clearpart

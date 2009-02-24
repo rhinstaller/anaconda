@@ -29,8 +29,8 @@
 import os
 import isys
 
-from errors import *
-from deviceformat import *
+from ..errors import *
+from . import DeviceFormat, register_device_format
 import iutil
 
 import logging
@@ -396,7 +396,7 @@ class FS(DeviceFormat):
 
         # passed in options override default options
         if not options or not isinstance(options, str):
-            options = ",".join(self.defaultMountOptions))
+            options = ",".join(self.defaultMountOptions)
        
         try: 
             rc = isys.mount(self.device, mountpoint, 

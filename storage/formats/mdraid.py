@@ -22,11 +22,11 @@
 
 import os
 
-from errors import *
 from iutil import log_method_call
-from deviceformat import *
-import mdraid
-#from parted import PARTITION_RAID
+from parted import PARTITION_RAID
+from ..errors import *
+from ..devicelibs import mdraid
+from . import DeviceFormat, register_device_format
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -40,7 +40,7 @@ class MDRaidMember(DeviceFormat):
     _type = "mdmember"
     _name = "software RAID"
     _udevTypes = ["linux_raid_member"]
-    #partedFlags = PARTITION_RAID
+    partedFlags = PARTITION_RAID
     _formattable = True                 # can be formatted
     _supported = True                   # is supported
     _linuxNative = True                 # for clearpart

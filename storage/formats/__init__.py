@@ -22,9 +22,9 @@
 
 import os
 
-from errors import *
 from iutil import notify_kernel, get_sysfs_path_by_name, log_method_call
-from dm import dm_node_from_name
+from ..errors import *
+from ..devicelibs.dm import dm_node_from_name
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -55,7 +55,8 @@ def get_default_filesystem_type(boot=None):
             supported = get_device_format_class(fstype).supported
         except AttributeError:
             supported = None
-        elif supported:
+
+        if supported:
             return fstype
 
     raise DeviceFormatError("None of %s is supported by your kernel" % ",".join(fstypes))
@@ -200,7 +201,6 @@ class DeviceFormat(object):
                 return
         else:
             name = os.path.basename(self.device)
-
 
         path = get_sysfs_path_by_name(name)
         try:

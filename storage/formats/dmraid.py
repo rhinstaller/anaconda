@@ -22,8 +22,8 @@
 
 from iutil import log_method_call
 #from dm import dm_node_from_name
-from errors import *
-from deviceformat import *
+from ..errors import *
+from . import DeviceFormat, register_device_format
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

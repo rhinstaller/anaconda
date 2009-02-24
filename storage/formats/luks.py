@@ -24,10 +24,10 @@
 
 import os
 
-from errors import *
 from iutil import log_method_call
-from deviceformat import *
-import crypto
+from ..errors import *
+from ..devicelibs import crypto
+from . import DeviceFormat, register_device_format
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -39,7 +39,7 @@ log = logging.getLogger("storage")
 class LUKS(DeviceFormat):
     """ A LUKS device. """
     _type = "luks"
-    _name "LUKS"
+    _name = "LUKS"
     _udevTypes = ["crypto_LUKS"]
     _formattable = True                 # can be formatted
     _supported = True                   # is supported
@@ -70,7 +70,7 @@ class LUKS(DeviceFormat):
         self.__passphrase = kwargs.get("passphrase")
         self._key_file = kwargs.get("key_file")
 
-        if not self.mapName:
+        if not self.mapName and self.device:
             self.mapName = "luks-%s" % os.path.basename(self.device)
 
     def _setPassphrase(self, passphrase):
