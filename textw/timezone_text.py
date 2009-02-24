@@ -80,7 +80,9 @@ class TimezoneWindow:
         for tz in timezones:
 	    self.l.append(_(tz), tz)
 
-	self.l.setCurrent(default)
+        # snack raises KeyError if the item doesn't exist in list
+        if default in (tz.replace(' ', '_') for tz in timezones):
+	    self.l.setCurrent(default)
 #	self.l.setCallback(self.updateClock)
         
 	self.c = Checkbox(_("System clock uses UTC"), isOn = asUtc)
