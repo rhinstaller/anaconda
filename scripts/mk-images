@@ -30,7 +30,7 @@ usage () {
 }
 
 DEBUG=""
-BUILDARCH=`uname -m | sed -e 's/i.86/i386/'`
+BUILDARCH=`uname -m`
 BOOTISO="boot.iso"
 
 while [ $# -gt 0 ]; do
@@ -44,7 +44,7 @@ while [ $# -gt 0 ]; do
             shift
         ;;
         --arch)
-            BUILDARCH=`echo $2 | sed -e 's/i.86/i386/'`
+            BUILDARCH=$2
             shift; shift
         ;;
         --imgdir)
