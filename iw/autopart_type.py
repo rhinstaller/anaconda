@@ -23,7 +23,6 @@ import gtk
 import gobject
 import math
 
-import autopart
 from constants import *
 import gui
 from partition_ui_helpers_gui import *
@@ -32,26 +31,25 @@ from netconfig_dialog import NetworkConfigurator
 from iw_gui import *
 from flags import flags
 import network
-import partitions
-import iscsi
+from storage import iscsi
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-def whichToResize(partitions, diskset, intf):
+def whichToResize(storage, intf):
     def getActive(combo):
         act = combo.get_active_iter()
         return combo.get_model().get_value(act, 1)
 
     def comboCB(combo, resizeSB):
         # partition to resize changed, let's update our spinbutton
-        req = getActive(combo)
-        if req.targetSize is not None:
-            value = req.targetSize
+        part = getActive(combo)
+        if part.targetSize is not None:
+            value = part.targetSize
         else:
-            value = req.size
-        reqlower = req.getMinimumResizeMB(partitions)
-        requpper = req.getMaximumResizeMB(partitions)
+            value = part.size
+        reqlower = part.minSize
+        requpper = part.maxSize
 
         adj = resizeSB.get_adjustment()
         adj.lower = reqlower
@@ -72,16 +70,17 @@ def whichToResize(partitions, diskset, intf):
 
     found = False
     biggest = -1
-    for req in partitions.requests:
-        if req.type != REQUEST_PREEXIST:
+    for part in storage.partitions:
+        if not part.exists:
             continue
-        if req.isResizable(partitions):
+
+        if part.resizable:
             i = store.append(None)
-            store[i] = ("%s (%s, %d MB)" %(req.device,
-                                            req.fstype.getName(),
-                                           math.floor(req.size)),
-                        req)
-            if req.targetSize is not None:
+            store[i] = ("%s (%s, %d MB)" %(part.name,
+                                           part.format.name,
+                                           math.floor(part.size)),
+                        part)
+            if part.targetSize is not None:
                 combo.set_active_iter(i)
                 found = True
             else:
@@ -119,7 +118,7 @@ class PartitionTypeWindow(InstallWindow):
         ics.setNextEnabled(True)
 
     def getNext(self):
-        if self.diskset.checkNoDisks():
+        if self.storage.checkNoDisks():
             raise gui.StayOnScreen
         
         active = self.combo.get_active_iter()
@@ -131,7 +130,7 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.skipStep("bootloader", skip = 0)
         else:
             if val == -2:
-                rc = whichToResize(self.partitions, self.diskset, self.intf)
+                rc = whichToResize(self.storage, self.intf)
                 if rc != gtk.RESPONSE_OK:
                     raise gui.StayOnScreen
 
@@ -141,14 +140,14 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.skipStep("autopartitionexecute", skip = 0)
 
             if self.xml.get_widget("encryptButton").get_active():
-                self.partitions.autoEncrypt = True
+                self.storage.encryptedAutoPart = True
             else:
-                self.partitions.encryptionPassphrase = ""
-                self.partitions.retrofitPassphrase = False
-                self.partitions.autoEncrypt = False
+                self.storage.encryptionPassphrase = ""
+                self.storage.retrofitPassphrase = False
+                self.storage.encryptedAutoPart = False
             
-            self.partitions.useAutopartitioning = 1
-            self.partitions.autoClearPartType = val
+            self.storage.doAutoPart = True
+            self.storage.clearPartType = val
 
             allowdrives = []
             model = self.drivelist.get_model()
@@ -160,7 +159,7 @@ class PartitionTypeWindow(InstallWindow):
                 mustHaveSelectedDrive(self.intf)
                 raise gui.StayOnScreen
 
-            self.partitions.autoClearPartDrives = allowdrives
+            self.storage.clearPartDrives = allowdrives
 
             # pop the boot device to be first in the drive list
             defiter = self.bootcombo.get_active_iter()
@@ -239,8 +238,8 @@ class PartitionTypeWindow(InstallWindow):
         # get the initiator name if it exists and don't allow changing
         # once set
         e = dxml.get_widget("iscsiInitiatorEntry")
-        e.set_text(self.anaconda.id.iscsi.initiator)
-        if self.anaconda.id.iscsi.initiatorSet: # this is uglyyyy....
+        e.set_text(self.storage.iscsi.initiator)
+        if self.storage.iscsi.initiatorSet: # this is uglyyyy....
             e.set_sensitive(False)
 
         while 1:
@@ -255,7 +254,7 @@ class PartitionTypeWindow(InstallWindow):
                                         _("You must provide an initiator name."))
                 continue
 
-            self.anaconda.id.iscsi.initiator = initiator
+            self.storage.iscsi.initiator = initiator
 
             target = dxml.get_widget("iscsiAddrEntry").get_text().strip()
             user = dxml.get_widget("userEntry").get_text().strip()
@@ -291,8 +290,8 @@ class PartitionTypeWindow(InstallWindow):
                 continue
 
             try:
-                self.anaconda.id.iscsi.addTarget(ip, port, user, pw, user_in, pw_in,
-                                                 self.intf)
+                self.storage.iscsi.addTarget(ip, port, user, pw,
+                                             user_in, pw_in, self.intf)
             except ValueError, e:
                 self.intf.messageWindow(_("Error"), str(e))
                 continue
@@ -324,7 +323,7 @@ class PartitionTypeWindow(InstallWindow):
             fcplun = dxml.get_widget("fcplunEntry").get_text().strip()
 
             try:
-                self.anaconda.id.zfcp.addFCP(devnum, wwpn, fcplun)
+                self.storage.zfcp.addFCP(devnum, wwpn, fcplun)
             except ValueError, e:
                 self.intf.messageWindow(_("Error"), str(e))
                 continue
@@ -366,9 +365,9 @@ class PartitionTypeWindow(InstallWindow):
         if rc != gtk.RESPONSE_CANCEL:
             w = self.intf.waitWindow(_("Rescanning disks"),
                                      _("Rescanning disks"))
-            partitions.partitionObjectsInitialize(self.anaconda)
-            createAllowedDrivesStore(self.diskset.disks,
-                                     self.partitions.autoClearPartDrives,
+            self.storage.reset()
+            createAllowedDrivesStore(self.storage,
+                                     self.partitions.clearPartDrives,
                                      self.drivelist,
                                      disallowDrives=[self.anaconda.updateSrc])
             self._fillBootStore()
@@ -381,13 +380,15 @@ class PartitionTypeWindow(InstallWindow):
             defaultBoot = self.anaconda.id.bootloader.drivelist[0]
         else:
             defaultBoot = None
-        for disk in self.diskset.disks.values():
-            if not disk.device.path[5:] in self.anaconda.id.bootloader.drivelist:
+        for disk in self.storage.disks:
+            partedDisk = disk.partedDisk
+            if partedDisk.device.path[5:] not in self.anaconda.id.bootloader.drivelist:
                 continue
-            size = disk.device.getSize(unit="MB")
-            dispstr = "%s %8.0f MB %s" %(disk.device.path[5:], size, disk.device.model)
+            size = partedDisk.device.getSize(unit="MB")
+            dispstr = "%s %8.0f MB %s" %(partedDisk.device.path[5:],
+                                         size, partedDisk.device.model)
             i = bootstore.append(None)
-            bootstore[i] = (dispstr, disk.device.path[5:])
+            bootstore[i] = (dispstr, partedDisk.device.path[5:])
             if disk.device.path[5:] == defaultBoot:
                 self.bootcombo.set_active_iter(i)
 
@@ -397,8 +398,7 @@ class PartitionTypeWindow(InstallWindow):
 
     def getScreen(self, anaconda):
         self.anaconda = anaconda
-        self.diskset = anaconda.id.diskset
-        self.partitions = anaconda.id.partitions
+        self.storage = anaconda.id.storage
         self.intf = anaconda.intf
         self.dispatch = anaconda.dispatch
 
@@ -435,8 +435,8 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.stepInSkipList("autopartitionexecute")):
             self.combo.set_active(len(opts) - 1) # yeah, it's a hack
 
-        self.drivelist = createAllowedDrivesList(self.diskset.disks,
-                                                 self.partitions.autoClearPartDrives,
+        self.drivelist = createAllowedDrivesList(self.storage.disks,
+                                                 self.storage.clearPartDrives,
                                                  disallowDrives=[self.anaconda.updateSrc])
         self.drivelist.set_size_request(375, 80)
 
@@ -454,7 +454,7 @@ class PartitionTypeWindow(InstallWindow):
         self.review = not self.dispatch.stepInSkipList("partition")
         self.xml.get_widget("reviewButton").set_active(self.review)
 
-        self.xml.get_widget("encryptButton").set_active(self.partitions.autoEncrypt)
+        self.xml.get_widget("encryptButton").set_active(self.storage.encryptedAutoPart)
 
         active = self.combo.get_active_iter()
         val = self.combo.get_model().get_value(active, 1)
