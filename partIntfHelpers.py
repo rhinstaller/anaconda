@@ -133,9 +133,9 @@ def doDeleteDevice(intf, storage, device, confirm=1, quiet=0):
         return False
 
     for dep in storage.deviceDeps(device):
-        storage.deleteDevice(dep)
+        storage.destroyDevice(dep)
 
-    storage.deleteDevice(device)
+    storage.destroyDevice(device)
     return True
 
 def doDeleteDependentDevices(intf, storage, device, confirm=1, quiet=0):
@@ -161,7 +161,7 @@ def doDeleteDependentDevices(intf, storage, device, confirm=1, quiet=0):
             immutable.append(dep.path)
             continue
         else:
-            storage.deleteDevice(dep)
+            storage.destroyDevice(dep)
 
     if immutable and not quiet:
         remaining = "\n\t" + "\n\t".join(immutable) + "\n"
