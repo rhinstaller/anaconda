@@ -313,50 +313,6 @@ def isLinuxNative(part):
     else:
         return False
 
-def getReleaseString(mountpoint):
-    relName = None
-    relVer = None
-
-    if os.access(mountpoint + "/etc/redhat-release", os.R_OK):
-        f = open(mountpoint + "/etc/redhat-release", "r")
-        try:
-            lines = f.readlines()
-        except IOError:
-            try:
-                f.close()
-            except:
-                pass
-            return (relName, relVer)
-
-        f.close()
-
-        # return the first line with the newline at the end stripped
-        if len(lines) == 0:
-            return (relName, relVer)
-
-        relstr = string.strip(lines[0][:-1])
-
-        # get the release name and version
-        # assumes that form is something
-        # like "Red Hat Linux release 6.2 (Zoot)"
-        if relstr.find("release") != -1:
-            try:
-                idx = relstr.find("release")
-                relName = relstr[:idx - 1]
-                relVer = ""
-
-                for a in relstr[idx + 8:]:
-                    if a in string.digits + ".":
-                        relVer += a
-                    else:
-                        break
-
-                    relstr = prod + " " + ver
-            except:
-                pass # don't worry, just use the relstr as we have it
-
-    return (relName, relVer)
-
 class DiskSet:
     """The disks in the system."""
 
