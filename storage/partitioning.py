@@ -36,29 +36,147 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
+def doAutoPartition(anaconda):
+    if anaconda.dir == DISPATCH_BACK:
+        anaconda.id.storage.reset()
+        return
 
-def clearPartitions(storage, clearPartType=CLEARPART_TYPE_NONE,
-                    clearPartDisks=[]):
+    # do clearpart
+    clearPartitions(anaconda.id.storage)
+
+    # get a list of disks that have at least one free space region of at
+    # least 100MB
+    disks = []
+    for disk in anaconda.id.storage.disks:
+        partedDisk = disk.partedDisk
+        part = disk.partedDisk.getFirstPartition()
+        while part:
+            if not part.type & parted.PARTITION_FREESPACE:
+                continue
+
+            if part.getSize(unit="MB") > 100:
+                disks.append(disk)
+                break
+
+    # create a separate pv partition for each disk with free space
+    pvs = []
+    for disk in disks:
+        part = anaconda.id.storage.newPartition(fmt_type="lvmpv",
+                                                size=1,
+                                                disks=[disk])
+        part.req_grow = True
+        anaconda.id.storage.createDevice(part)
+        pvs.append(part)
+
+    # create a vg containing all of the new pvs
+    vg = anaconda.id.storage.newVG(pvs=pvs)
+    anaconda.id.storage.createDevice(vg)
+
+    # convert storage.autoPartitionRequests into Device instances and
+    # schedule them for creation
+    for request in storage.autoPartitionRequests:
+        (mountpoint, fstype, size, maxsize, grow, asvol) = request
+        if asvol
+            dev = anaconda.id.storage.newLV(vg=vg,
+                                            fmt_type=fstype,
+                                            mountpoint=mountpoint,
+                                            size=size)
+        else:
+            dev = anaconda.id.storage.newPartition(fmt_type=fstype,
+                                                   size=size,
+                                                   disks=disks)
+
+        if grow:
+            dev.req_grow = True
+            if maxsize:
+                dev.req_max_size = maxsize
+
+        # schedule the device for creation
+        anaconda.id.storage.createDevice(dev)
+
+    # make sure preexisting broken lvm/raid configs get out of the way
+
+    # sanity check the individual devices
+    log.warning("not sanity checking devices because I don't know how yet")
+
+    # run the autopart function to allocate partitions, grow, &c
+    try:
+        doPartitioning(anaconda.id.storage)
+    except PartitioningWarning as msg:
+        if not anaconda.isKickstart:
+            anaconda.intf.messageWindow(_("Warnings During Automatic "
+                                          "Partitioning"),
+                           _("Following warnings occurred during automatic "
+                           "partitioning:\n\n%s") % (msg,),
+                           custom_icon='warning')
+        else:
+            log.warning(msg)
+    except PartitioningError as msg:
+        # restore drives to original state
+        anaconda.id.storage.reset()
+        if not anaconda.isKickstart:
+            extra = ""
+            anaconda.dispatch.skipStep("partition", skip = 0)
+        else:
+            extra = _("\n\nPress 'OK' to exit the installer.")
+        anaconda.intf.messageWindow(_("Error Partitioning"),
+               _("Could not allocate requested partitions: \n\n"
+                 "%s.%s") % (msg, extra), custom_icon='error')
+
+        if anaconda.isKickstart:
+            sys.exit(0)
+
+    # sanity check the collection of devices
+    log.warning("not sanity checking storage config because I don't know how yet")
+    # now do a full check of the requests
+    (errors, warnings) = storage.sanityCheck()
+    if warnings:
+        for warning in warnings:
+            log.warning(warning)
+    if errors:
+        errortxt = string.join(errors, '\n')
+        if anaconda.isKickstart:
+            extra = _("\n\nPress 'OK' to exit the installer.")
+        else:
+            extra = _("\n\nPress 'OK' to choose a different partitioning option.")
+
+        anaconda.intf.messageWindow(_("Automatic Partitioning Errors"),
+                           _("The following errors occurred with your "
+                             "partitioning:\n\n%s\n\n"
+                             "This can happen if there is not enough "
+                             "space on your hard drive(s) for the "
+                             "installation. %s")
+                           % (errortxt, extra),
+                           custom_icon='error')
+        #
+        # XXX if in kickstart we reboot
+        #
+        if anaconda.isKickstart:
+            anaconda.intf.messageWindow(_("Unrecoverable Error"),
+                               _("Your system will now be rebooted."))
+            sys.exit(0)
+        return DISPATCH_BACK
+
+
+def clearPartitions(storage):
     """ Clear partitions and dependent devices from disks.
 
         Arguments:
 
-            deviceTree -- a DeviceTree instance
+            storage -- a storage.Storage instance
 
         Keyword arguments:
 
-            clearPartType -- a pykickstart CLEARPART_TYPE_* constant
-            clearPartDisks -- a list of basenames of disks to consider
+            None
 
         NOTES:
 
             - Needs some error handling, especially for the parted bits.
-            - Should use device actions instead of dev.destroy, &c
 
     """
-    if not clearPartType or clearPartType == CLEARPART_TYPE_NONE:
-        # not much to do -- just remove any empty extended partitions
-        removeEmptyExtendedPartitions(deviceTree)
+    if not storage.clearPartType or \
+       storage.clearPartType == CLEARPART_TYPE_NONE:
+        # not much to do
         return
 
     # we are only interested in partitions that physically exist
@@ -70,7 +188,8 @@ def clearPartitions(storage, clearPartType=CLEARPART_TYPE_NONE,
         clear = False   # whether or not we will clear this partition
 
         # if we got a list of disks to clear, make sure this one's on it
-        if clearPartDisks and not part.disk.name in clearPartDisks:
+        if storage.clearPartDisks and \
+           part.disk.name not in storage.clearPartDisks:
             continue
 
         # we don't want to fool with extended partitions, freespace, &c
@@ -103,22 +222,21 @@ def clearPartitions(storage, clearPartType=CLEARPART_TYPE_NONE,
             leaves = [d for d in devices if d.isleaf]
             log.debug("leaves to remove: %s" % ([d.name for d in leaves],))
             for leaf in leaves:
-                action = ActionDestroyDevice(leaf)
-                deviceTree.registerAction(action)
+                storage.destroyDevice(leaf)
                 devices.remove(leaf)
 
-        # XXX can/should this be moved into PartitionDevice?
+        # FIXME: this should be taken care of by DeviceTree.removeDevice
+        #        or Storage.destroyDevice
         part.partedPartition.disk.removePartition(part.partedPartition)
         log.debug("partitions: %s" % [p.getDeviceNodeName() for p in part.partedPartition.disk.partitions])
         disk_name = os.path.basename(part.partedPartition.disk.device.path)
         if disk_name not in disks:
             disks.append(disk_name)
 
-        action = ActionDestroyDevice(part)
-        deviceTree.registerAction(action)
+        storage.destroyDevice(part)
 
     # now remove any empty extended partitions
-    removeEmptyExtendedPartitions(deviceTree)
+    removeEmptyExtendedPartitions(storage)
 
 
 def removeEmptyExtendedPartitions(storage):
@@ -131,7 +249,7 @@ def removeEmptyExtendedPartitions(storage):
             log.debug("removing empty extended partition from %s" % disk.name)
             extended_name = extended.getDeviceNodeName()
             extended = storage.devicetree.getDeviceByName(extended_name)
-            storage.devicetree.registerAction(ActionDestroyDevice(extended))
+            storage.destroyDevice(extended)
             #disk.partedDisk.removePartition(extended.partedPartition)
 
 
@@ -338,7 +456,7 @@ def doPartitioning(storage, exclusiveDisks=[]):
         device = PartitionDevice(extended.getDeviceNodeName(),
                                  parents=disk)
         device.setPartedPartition(extended)
-        storage.addDevice(device)
+        storage.createDevice(device)
 
 def allocatePartitions(disks, partitions):
     """ Allocate partitions based on requested features.
