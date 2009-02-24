@@ -29,6 +29,7 @@ from devices import *
 from deviceaction import *
 from formats import getFormat
 from devicelibs.lvm import safeLvmName
+from udev import udev_trigger
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -42,11 +43,13 @@ def storageInitialize(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return
 
+    # XXX I don't understand why I have to do this
+    udev_trigger(subsystem="block")
     anaconda.storage.reset()
 
 # dispatch.py helper function
 def storageComplete(anaconda):
-    if anaconda.dir == DISPATCH_BACK and anaconda.id.storage.fsset.isActive:
+    if anaconda.dir == DISPATCH_BACK:
         rc = anaconda.intf.messageWindow(_("Installation cannot continue."),
                                 _("The storage configuration you have "
                                   "chosen has already been activated. You "
@@ -136,6 +139,7 @@ class Storage(object):
                                      passphrase=self.encrpytionPassphrase,
                                      luksDict=self._luksDevs)
         self.fsset = FSSet(self.devicetree)
+        self.autoPartitionRequests = []
 
     @property
     def devices(self):
@@ -269,6 +273,19 @@ class Storage(object):
                 raidMinors.remove(array.minor)
         return raidMinors
 
+    @property
+    def swaps(self):
+        """ A list of the swap devices in the device tree.
+
+            This is based on the current state of the device tree and
+            does not necessarily reflect the actual on-disk state of the
+            system's disks.
+        """
+        devices = self.devicetree.devices.values()
+        swaps = [d for d in devices if d.format.type == "swap"]
+        swaps.sort(key=lambda d: d.name)
+        return swaps
+
     def exceptionDisks(self):
         """ Return a list of removable devices to save exceptions to.
 
@@ -391,15 +408,21 @@ class Storage(object):
 
         return LVMVolumeGroupDevice(name, parents=pvs, peSize=peSize)
 
-    def newLV(self, vg, name=None, fmt_type=None, size=None):
+    def newLV(self, vg, name=None, fmt_type=None, size=None,
+              mountpoint=None):
         """ Return a new LVMLogicalVolumeDevice instance. """
         if name and name in [d.name for d in self.devices]:
             raise ValueError("name already in use")
         elif not name:
-            name = self.createSuggestedLVName()
-        return LVMLogicalVolumeDevice(name,
-                                      format=getFormat(fmt_type),
-                                      size=size)
+            if fmt_type == "swap":
+                swap = True
+            else:
+                swap = False
+            name = self.createSuggestedLVName(vg,
+                                              swap=swap,
+                                              mountpoint=mountpoint)
+        format=getFormat(fmt_type, mountpoint=mountpoint),
+        return LVMLogicalVolumeDevice(name, format=format, size=size)
 
     def createDevice(self, device):
         """ Schedule creation of a device.
@@ -410,8 +433,8 @@ class Storage(object):
         action = ActionCreateDevice(device)
         self.devicetree.registerAction(action)
 
-    def deleteDevice(self, device):
-        """ Schedule deletion of a device. """
+    def destroyDevice(self, device):
+        """ Schedule destruction of a device. """
         action = ActionDestroyDevice(device)
         self.devicetree.registerAction(action)
 
@@ -484,22 +507,41 @@ class Storage(object):
 
             return tmpname
 
-    def createSuggestedLVName(self, vg):
-        """Given list of LV requests, come up with a reasonable LV name
-        """
-        i = 0
-        # lv.name is of the form "$VGNAME-$LVNAME" so use lv.lvname instead
-        lnames = [lv.lvname for lv in vg.lvs]
-        while 1:
-            tmpname = "LogVol%02d" % (i,)
-            if tmpname not in lnames:
-                break
+    def createSuggestedLVName(self, vg, swap=None, mountpoint=None):
+        """ Return a suitable, unused name for a new logical volume. """
+        if mountpoint:
+            # try to incorporate the mountpoint into the name
+            if mountpoint == '/':
+                lvtemplate = 'lv_root'
+            else:
+                tmp = safeLvmName(mountpoint)
+                lvtemplate = "lv_%s" % (tmp,)
+        else:
+            if swap:
+                if len(self.swaps):
+                    lvtemplate = "lv_swap%02d" % (len(self.swaps),)
+                else:
+                    lvtemplate = "lv_swap"
+            else:
+                lvtemplate = "LogVol%02d" % (len(vg.lvs),)
 
-            i += 1
-            if i > 99:
-                tmpname = ""
+        return lvtemplate
 
-        return tmpname
+    def sanityCheck(self):
+        """ Run a series of tests to verify the storage configuration. """
+        log.warning("storage.Storage.sanityCheck is unimplemented")
+        return ([], [])
+
+    def checkNoDisks(self):
+        """Check that there are valid disk devices."""
+        if not self.disks:
+            self.anaconda.intf.messageWindow(_("No Drives Found"),
+                               _("An error has occurred - no valid devices were "
+                                 "found on which to create new file systems. "
+                                 "Please check your hardware for the cause "
+                                 "of this problem."))
+            return True
+        return False
 
 
 def getReleaseString(mountpoint):
