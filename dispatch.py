@@ -27,7 +27,6 @@ from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
 from packages import doPostAction
 from packages import copyAnacondaLogs
-from autopart import doAutoPartition
 from packages import firstbootConfiguration
 from packages import betaNagScreen
 from packages import setupTimezone
