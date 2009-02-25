@@ -280,6 +280,9 @@ int devMakeInode(char * devName, char * path) {
         s = strcspn(devName, digits);
         errno = 0;
         minor = strtol(devName+s, &e, 10);
+        /* Silently ignore tape drives 32 and above */
+        if (minor > 31)
+            return 0;
         if (e == devName + s || 
             (errno == ERANGE &&
              (minor == LONG_MIN || minor == LONG_MAX)))
