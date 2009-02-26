@@ -37,6 +37,7 @@ class Platform(object):
        architecture quirks in one place to avoid lots of platform checks
        throughout anaconda."""
     _bootFSType = "ext3"
+    _bootloaderPackage = None
     _diskType = parted.diskType["msdos"]
     _minimumSector = 0
 
@@ -95,6 +96,10 @@ class Platform(object):
             ret["mbr"] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
 
         return ret
+
+    @property
+    def bootloaderPackage(self):
+        return self._bootloaderPackage
 
     def checkBootRequest(self, req, diskset):
         """Perform an architecture-specific check on the boot device.  Not all
@@ -211,10 +216,13 @@ class Alpha(Platform):
         return
 
 class IA64(EFI):
+    _bootloaderPackage = "elilo"
+
     def __init__(self, anaconda):
         EFI.__init__(self, anaconda)
 
 class PPC(Platform):
+    _bootloaderPackage = "yaboot"
     _ppcMachine = iutil.getPPCMachine()
 
     @property
@@ -309,6 +317,8 @@ class NewWorldPPC(PPC):
         return ret
 
 class S390(Platform):
+    _bootloaderPackage = "s390utils"
+
     def __init__(self, anaconda):
         Platform.__init__(self, anaconda)
 
@@ -323,6 +333,7 @@ class Sparc(Platform):
         return start+1
 
 class X86(EFI):
+    _bootloaderPackage = "grub"
     _isEfi = iutil.isEfi()
 
     def __init__(self, anaconda):

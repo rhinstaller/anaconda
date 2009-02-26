@@ -1282,17 +1282,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 log.debug("selecting kernel-devel")
                 self.selectPackage("kernel-devel.%s" % (kpkg.arch,))
 
-    def selectBootloader(self):
-        if iutil.isX86():
-            self.selectPackage("grub")
-        elif iutil.isS390():
-            self.selectPackage("s390utils")
-        elif iutil.isPPC():
-            self.selectPackage("yaboot")
-        # XXX this needs to become grub, and we need an upgrade path...
-        elif iutil.isIA64():
-            self.selectPackage("elilo")
-
     def selectFSPackages(self, storage):
         for device in storage.fsset.devices:
             # this takes care of device and filesystem packages
@@ -1326,6 +1315,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         if not anaconda.id.getUpgrade():
             # New installs only - upgrades will already have all this stuff.
             self.selectBestKernel(anaconda)
+            self.selectPackage(anaconda.platform.bootloaderPackage)
             self.selectBootloader()
             self.selectFSPackages(anaconda.id.storage)
             self.selectAnacondaNeeds()
