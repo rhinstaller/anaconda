@@ -502,6 +502,7 @@ class Anaconda:
         self.rescue = False
         self.updateSrc = None
         self.mediaDevice = None
+        self.platform = None
 
         # *sigh* we still need to be able to write this out
         self.xdriver = None
@@ -633,6 +634,9 @@ if __name__ == "__main__":
 
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
+
+    import platform
+    anaconda.platform = platform.getPlatform(anaconda)
 
     if not iutil.isS390() and os.access("/dev/tty3", os.W_OK):
         logger.addFileHandler ("/dev/tty3", log)
