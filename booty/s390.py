@@ -2,7 +2,7 @@ import os
 
 from bootloaderInfo import *
 import fsset
-import rhpl
+import iutil
 
 class s390BootloaderInfo(bootloaderInfo):
     def getBootloaderConfig(self, instRoot, fsset, bl, kernelList,
@@ -159,7 +159,7 @@ class s390BootloaderInfo(bootloaderInfo):
 
         if not justConfigFile:
             argv = [ "/sbin/zipl" ]
-            rhpl.executil.execWithRedirect(argv[0], argv, root = instRoot,
+            iutil.execWithRedirect(argv[0], argv, root = instRoot,
                                    stdout = "/dev/stdout",
                                    stderr = "/dev/stderr")
             

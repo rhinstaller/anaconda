@@ -72,10 +72,10 @@ class x86BootloaderInfo(efiBootloaderInfo):
             syncDataToDisk(bootDev, "/", instRoot)
 
         # copy the stage files over into /boot
-        rhpl.executil.execWithRedirect( "/sbin/grub-install",
-                                    ["/sbin/grub-install", "--just-copy"],
-                                    stdout = "/dev/tty5", stderr = "/dev/tty5",
-                                    root = instRoot)
+        iutil.execWithRedirect("/sbin/grub-install",
+                               ["/sbin/grub-install", "--just-copy"],
+                               stdout = "/dev/tty5", stderr = "/dev/tty5",
+                               root = instRoot)
 
         # really install the bootloader
         for cmd in cmds:
@@ -90,12 +90,12 @@ class x86BootloaderInfo(efiBootloaderInfo):
             else:
                 syncDataToDisk(bootDev, "/", instRoot)
 
-            rhpl.executil.execWithRedirect('/sbin/grub' ,
-                                    [ "grub",  "--batch", "--no-floppy",
-                                      "--device-map=/boot/grub/device.map" ],
-                                    stdin = p[0],
-                                    stdout = "/dev/tty5", stderr = "/dev/tty5",
-                                    root = instRoot)
+            iutil.execWithRedirect('/sbin/grub' ,
+                                   [ "grub",  "--batch", "--no-floppy",
+                                     "--device-map=/boot/grub/device.map" ],
+                                   stdin = p[0],
+                                   stdout = "/dev/tty5", stderr = "/dev/tty5",
+                                   root = instRoot)
             os.close(p[0])
 
     def installGrub(self, instRoot, bootDevs, grubTarget, grubPath, fsset,

@@ -2,7 +2,6 @@ import os
 
 from bootloaderInfo import *
 import fsset
-import rhpl
 
 class sparcBootloaderInfo(bootloaderInfo):
     def writeSilo(self, instRoot, fsset, bl, kernelList,
@@ -94,11 +93,11 @@ class sparcBootloaderInfo(bootloaderInfo):
             sbinargs += ["-U"]
 
         if not flags.test:
-            rhpl.executil.execWithRedirect(sbinargs[0],
-                                            sbinargs,
-                                            stdout = "/dev/tty5",
-                                            stderr = "/dev/tty5",
-                                            root = instRoot)
+            iutil.execWithRedirect(sbinargs[0],
+                                   sbinargs,
+                                   stdout = "/dev/tty5",
+                                   stderr = "/dev/tty5",
+                                   root = instRoot)
 
         if (not os.access(instRoot + "/etc/silo.conf", os.R_OK) and
             os.access(instRoot + "/boot/etc/silo.conf", os.R_OK)):

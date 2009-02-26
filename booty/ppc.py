@@ -3,6 +3,7 @@ import os
 
 from bootloaderInfo import *
 import fsset
+import iutil
 import rhpl
 
 class ppcBootloaderInfo(bootloaderInfo):
@@ -146,11 +147,11 @@ class ppcBootloaderInfo(bootloaderInfo):
         ybinargs = [ yabootProg, "-f", "-C", cf ]
         
         if not flags.test:
-            rhpl.executil.execWithRedirect(ybinargs[0],
-                                           ybinargs,
-                                           stdout = "/dev/tty5",
-                                           stderr = "/dev/tty5",
-                                           root = instRoot)
+            iutil.execWithRedirect(ybinargs[0],
+                                   ybinargs,
+                                   stdout = "/dev/tty5",
+                                   stderr = "/dev/tty5",
+                                   root = instRoot)
 
         if (not os.access(instRoot + "/etc/yaboot.conf", os.R_OK) and
             os.access(instRoot + "/boot/etc/yaboot.conf", os.R_OK)):

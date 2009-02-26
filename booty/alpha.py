@@ -1,5 +1,5 @@
 import os
-import rhpl.executil
+import iutil
 
 from bootloaderInfo import *
 import fsset
@@ -109,7 +109,7 @@ class alphaBootloaderInfo(bootloaderInfo):
             # to and the second argument is a path to the bootstrap loader
             # file.
             args = ("swriteboot", ("/dev/%s" % wbd), "/boot/bootlx")
-            rhpl.executil.execWithRedirect ('/sbin/swriteboot', args,
+            iutil.execWithRedirect ('/sbin/swriteboot', args,
                                     root = instRoot,
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
@@ -120,7 +120,7 @@ class alphaBootloaderInfo(bootloaderInfo):
             # It's always the boot partition whether it's / or /boot (with
             # the mount point being omitted.)
             args = ("abootconf", ("/dev/%s" % wbd), str (bdpn))
-            rhpl.executil.execWithRedirect ('/sbin/abootconf', args,
+            iutil.execWithRedirect ('/sbin/abootconf', args,
                                     root = instRoot,
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")

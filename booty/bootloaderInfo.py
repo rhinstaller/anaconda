@@ -27,7 +27,6 @@ from copy import copy
 from lilo import LiloConfigFile
 import rhpl
 from rhpl.translate import _, N_
-import rhpl.executil
 
 from flags import flags
 from fsset import getDiskPart
@@ -67,16 +66,16 @@ def syncDataToDisk(dev, mntpt, instRoot = "/"):
 
     # and xfs is even more "special" (#117968)
     if isys.readFSType(dev) == "xfs":
-        rhpl.executil.execWithRedirect( "/usr/sbin/xfs_freeze",
-                                        ["/usr/sbin/xfs_freeze", "-f", mntpt],
-                                        stdout = "/dev/tty5",
-                                        stderr = "/dev/tty5",
-                                        root = instRoot)
-        rhpl.executil.execWithRedirect( "/usr/sbin/xfs_freeze",
-                                        ["/usr/sbin/xfs_freeze", "-u", mntpt],
-                                        stdout = "/dev/tty5",
-                                        stderr = "/dev/tty5",
-                                        root = instRoot)    
+        iutil.execWithRedirect("/usr/sbin/xfs_freeze",
+                               ["/usr/sbin/xfs_freeze", "-f", mntpt],
+                               stdout = "/dev/tty5",
+                               stderr = "/dev/tty5",
+                               root = instRoot)
+        iutil.execWithRedirect("/usr/sbin/xfs_freeze",
+                               ["/usr/sbin/xfs_freeze", "-u", mntpt],
+                               stdout = "/dev/tty5",
+                               stderr = "/dev/tty5",
+                               root = instRoot)    
 
 def rootIsDevice(dev):
     if dev.startswith("LABEL=") or dev.startswith("UUID="):
@@ -589,7 +588,7 @@ class efiBootloaderInfo(bootloaderInfo):
     # XXX wouldn't it be nice to have a real interface to use efibootmgr from?
     def removeOldEfiEntries(self, instRoot):
         p = os.pipe()
-        rhpl.executil.execWithRedirect('/usr/sbin/efibootmgr', ["efibootmgr"],
+        iutil.execWithRedirect('/usr/sbin/efibootmgr', ["efibootmgr"],
                                root = instRoot, stdout = p[1])
         os.close(p[1])
 
@@ -606,7 +605,7 @@ class efiBootloaderInfo(bootloaderInfo):
                 continue
             if string.join(fields[1:], " ") == productName:
                 entry = fields[0][4:8]
-                rhpl.executil.execWithRedirect('/usr/sbin/efibootmgr',
+                iutil.execWithRedirect('/usr/sbin/efibootmgr',
                                        ["efibootmgr", "-b", entry, "-B"],
                                        root = instRoot,
                                        stdout="/dev/tty5", stderr="/dev/tty5")
@@ -636,7 +635,7 @@ class efiBootloaderInfo(bootloaderInfo):
         argv = [ "/usr/sbin/efibootmgr", "-c" , "-w", "-L",
                  productName, "-d", "/dev/%s" % bootdisk,
                  "-p", bootpart, "-l", "\\EFI\\redhat\\" + self.bootloader ]
-        rhpl.executil.execWithRedirect(argv[0], argv, root = instRoot,
+        iutil.execWithRedirect(argv[0], argv, root = instRoot,
                                stdout = "/dev/tty5",
                                stderr = "/dev/tty5")
 
