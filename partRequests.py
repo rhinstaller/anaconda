@@ -762,6 +762,8 @@ class VolumeGroupRequestSpec(RequestSpec):
                 size = pvreq.getActualSize(partitions, diskset)
                 #log("size for pv %s is %s" % (pvid, size))
                 clamped = lvm.clampPVSize(size, self.pesize)
+                if clamped == long(size):
+                    clamped = clamped - (2*self.pesize)
                 log("  got pv.size of %s, clamped to %s" % (size,clamped))
                 #log("  clamped size is %s" % (size,))
                 totalspace = totalspace + clamped
