@@ -114,32 +114,6 @@ def filter_partitions(disk, func):
             rc.append(part)
     return rc
 
-def getDefaultDiskType():
-    """Get the default partition table type for this architecture."""
-    if iutil.isEfi():
-        return parted.diskType["gpt"]
-    elif iutil.isX86():
-        return parted.diskType["msdos"]
-    elif iutil.isS390():
-        # the "default" type is dasd, but we don't really do dasd
-        # formatting with parted and use dasdfmt directly for them
-        # so if we get here, it's an fcp disk and we should write
-        # an msdos partition table (#144199)
-        return parted.diskType["msdos"]
-    elif iutil.isAlpha():
-        return parted.diskType["bsd"]
-    elif iutil.isSparc():
-        return parted.diskType["sun"]
-    elif iutil.isPPC():
-        ppcMachine = iutil.getPPCMachine()
-
-        if ppcMachine == "PMac":
-            return parted.diskType["mac"]
-        else:
-            return parted.diskType["msdos"]
-    else:
-        return parted.diskType["msdos"]
-
 def hasGptLabel(diskset, device):
     disk = diskset.disks[device]
     return disk.type == "gpt"
@@ -153,9 +127,9 @@ def isEfiSystemPartition(part):
             part.fileSystem.type in ("fat16", "fat32") and
             isys.readFSLabel(part.getDeviceNodeName()) != "ANACONDA")
 
-def labelDisk(deviceFile, forceLabelType=None):
+def labelDisk(platform, deviceFile, forceLabelType=None):
     dev = parted.getDevice(deviceFile)
-    label = getDefaultDiskType()
+    label = platform.diskType
 
     if not forceLabelType is None:
         label = forceLabelType
@@ -883,7 +857,7 @@ class DiskSet:
                     dev = parted.getDevice(deviceFile)
                     disk = parted.Disk(device=dev)
                 else:
-                    disk = labelDisk(deviceFile)
+                    disk = labelDisk(self.anaconda.platform, deviceFile)
             except Exception, msg:
                 log.error("parted error: %s" % (msg,))
                 raise
