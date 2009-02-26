@@ -350,25 +350,6 @@ def copyDeviceNode(src, dest):
 
     os.mknod(dest, mode | type, filestat.st_rdev)
 
-## Determine if the hardware supports iSeries storage devices.
-# @return 1 if so, 0 otherwise.
-def hasiSeriesNativeStorage():
-    # this is disgusting and I feel very dirty
-    if not isPPC():
-        return
-
-    f = open("/proc/modules", "r")
-    lines = f.readlines()
-    f.close()
-
-    for line in lines:
-        if line.startswith("ibmsis"):
-            return 1
-        if line.startswith("ipr"):
-            return 1
-
-    return 0
-
 ## Get the PPC machine variety type.
 # @return The PPC machine type, or 0 if not PPC.
 def getPPCMachine():
