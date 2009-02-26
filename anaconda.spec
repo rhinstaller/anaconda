@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.97
+Version: 10.1.1.98
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb 26 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.98-1
+- LVM VG size is not same as the device where PV is (jgranado).
+  Patch in partRequest.py instead of autopart.py.
+  Resolves: rhbz:#480793
+
 * Mon Feb 23 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.97-1
 - LVM VG size is not same as the device where PV is (jgranado).
   Resolves: rhbz:#480793
