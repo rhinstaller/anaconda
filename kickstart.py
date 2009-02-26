@@ -23,7 +23,6 @@ import iutil
 import isys
 import os
 import tempfile
-from autopart import *
 from flags import flags
 from constants import *
 import sys
