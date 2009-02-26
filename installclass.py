@@ -186,11 +186,11 @@ class BaseInstallClass(object):
         from backend import AnacondaBackend
         return AnacondaBackend
 
-    def setDefaultPartitioning(self, storage, clear = CLEARPART_TYPE_LINUX,
-                               doClear = True, useLVM = True):
+    def setDefaultPartitioning(self, storage, platform,
+                               clear = CLEARPART_TYPE_LINUX, doClear = True):
         autorequests = [ ("/", None, 1024, None, True, True) ]
 
-        bootreq = getAutopartitionBoot(storage)
+        bootreq = platform.setDefaultPartitioning()
         if bootreq:
             autorequests.extend(bootreq)
 

@@ -90,6 +90,7 @@ class InstallClass(BaseInstallClass):
         if not anaconda.isKickstart:
             BaseInstallClass.setDefaultPartitioning(self, 
                                                     anaconda.id.storage,
+                                                    anaconda.platform,
                                                     CLEARPART_TYPE_LINUX)
 
     def setSteps(self, anaconda):
