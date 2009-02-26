@@ -9,12 +9,11 @@
 # You should have received a copy of the GNU Library Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-import os.path
-import glob
+import os
+import fnmatch
 import rpm
 import rpmUtils
 import shutil
-import string
 import sys
 import yum
 
@@ -31,7 +30,6 @@ from optparse import OptionParser
 from yum.packageSack import PackageSack
 from yum.packages import PackageObject
 from yuminstall import YumSorter
-import iutil
 
 class PackageOrderer(YumSorter):
 
@@ -88,13 +86,9 @@ def processTransaction(ds):
 
 def printMatchingPkgs(fpattern):
     global processed
+    global packages
 
-    if os.path.isdir("%s/%s/RPMS" % (toppath, product)):
-        matches = glob.glob("%s/%s/RPMS/%s" % (toppath, product, fpattern))
-    elif os.path.isdir("%s/%s" %(toppath, product)):
-        matches = glob.glob("%s/%s/%s" % (toppath, product, fpattern))
-    else:
-        matches = glob.glob("%s/%s" % (toppath, fpattern))
+    matches = fnmatch.filter(packages, fpattern)
 
     for match in matches:
         mname = os.path.basename(match)
@@ -156,6 +150,15 @@ if __name__ == "__main__":
     # Boo.
     if arch == "i386":
         arch = "i686"
+
+    packages = []
+    for dir in ("%s/%s/RPMS" % (toppath, product),
+                "%s/%s" % (toppath, product),
+                toppath):
+        if os.path.isdir(dir):
+            packages = os.listdir(dir)
+            break
+    packages.sort()
 
     # print out kernel related packages first
     printMatchingPkgs("kernel-*")
