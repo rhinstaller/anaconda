@@ -110,7 +110,7 @@ class MainBootloaderWindow(InstallWindow):
         dialog.set_transient_for(self.parent)
         dialog.show()
 
-        choices = anaconda.id.storage.fsset.bootloaderChoices(self.bl)
+        choices = anaconda.platform.bootloaderChoices(self.bl)
         for t in ("mbr", "boot"):
             if not choices.has_key(t):
                 continue
@@ -202,7 +202,7 @@ class MainBootloaderWindow(InstallWindow):
         else:
             # we don't know what it is yet... if mbr is possible, we want
             # it, else we want the boot dev
-            choices = anaconda.id.storage.fsset.bootloaderChoices(self.bl)
+            choices = anaconda.platform.bootloaderChoices(self.bl)
             if choices.has_key('mbr'):
                 self.bldev = choices['mbr'][0]
             else:

@@ -81,7 +81,7 @@ def bootloaderSetupChoices(anaconda):
         if bootPart:
             anaconda.id.bootloader.setDevice(bootPart)
 
-    choices = anaconda.id.storage.fsset.bootloaderChoices(anaconda.id.bootloader)
+    choices = anaconda.platform.bootloaderChoices(anaconda.id.bootloader)
     if not choices and iutil.getPPCMachine() != "iSeries":
 	anaconda.dispatch.skipStep("instbootloader")
     else:
