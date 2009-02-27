@@ -25,7 +25,7 @@ import os
 from errors import *
 from devices import *
 from deviceaction import *
-from formats import *
+import formats
 from udev import *
 
 import gettext
@@ -61,7 +61,7 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
         # the device is already mapped
         raise RuntimeError("device is already mapped")
 
-    if not device.format.configured and passphrase:
+    if not device.format.configured and globalPassphrase:
         # try the given passphrase first
         device.format.passphrase =  globalPassphrase
     
@@ -74,6 +74,7 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
             return (globalPassphrase, False)
     
     buttons = [_("Back"), _("Continue")]
+    passphrase_incorrect = False
     while True:
         if passphrase_incorrect:
             # TODO: add a flag to passphraseEntryWindow to say the last
@@ -99,6 +100,8 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
                 isglobal = None
                 log.info("skipping passphrase for %s" % (device.name,))
                 break
+
+        device.format.passphrase = passphrase
 
         try:
             device.format.setup()
@@ -263,6 +266,7 @@ class DeviceTree(object):
             log.info("executing action: %s" % action)
             if not dryRun:
                 action.execute(intf=self.intf)
+                udev_settle(timeout=10)
 
     def _addDevice(self, newdev):
         """ Add a device to the tree.
@@ -313,38 +317,29 @@ class DeviceTree(object):
             Modifications to the Device instance are handled before we
             get here.
         """
-        removedAction = None
-        for _action in self._actions:
-            if _action.device == action.device and \
-               _action.type == action.type and \
-               _action.obj == action.obj:
-                #raise DeviceTreeError("duplicate action for this device")
-                log.debug("cancelling action '%s' in favor of '%s'" % (_action,
-                                                                       action))
-                self.cancelAction(_action)
-                removedAction = _action
-                break
-
         if (action.isDestroy() or action.isResize() or \
             (action.isCreate() and action.isFormat())) and \
            action.device not in self._devices:
             raise DeviceTreeError("device is not in the tree")
         elif (action.isCreate() and action.isDevice()) and \
-             action.device in self._devices:
-            raise DeviceTreeError("device is already in the tree")
+             (action.device in self._devices or \
+              action.device.path in [d.path for d in self._devices]):
+            # this allows multiple create actions w/o destroy in between;
+            # we will clean it up before processing actions
+            #raise DeviceTreeError("device is already in the tree")
+            self._removeDevice(action.device)
 
         if action.isCreate() and action.isDevice():
             self._addDevice(action.device)
         elif action.isDestroy() and action.isDevice():
             self._removeDevice(action.device)
         elif action.isCreate() and action.isFormat():
-            if isinstance(action.device.format, FS) and \
+            if isinstance(action.device.format, formats.fs.FS) and \
                action.device.format.mountpoint in self.filesystems:
                 raise DeviceTreeError("mountpoint already in use")
 
         log.debug("registered action: %s" % action)
         self._actions.append(action)
-        return removedAction
 
     def cancelAction(self, action):
         """ Cancel a registered action.
@@ -361,6 +356,38 @@ class DeviceTree(object):
         elif action.isDestroy() and action.isDevice():
             # add the device back into the tree
             self._addDevice(action.device)
+
+    def findActions(self, device=None, type=None, object=None):
+        """ Find all actions that match all specified parameters.
+
+            Keyword arguments:
+
+                device -- device to match (Device, or None to match any)
+                type -- action type to match (string, or None to match any)
+                object -- operand type to match (string, or None to match any)
+
+        """
+        if device is None and type is None and object is None:
+            return self._actions[:]
+
+        # convert the string arguments to the types used in actions
+        _type = action_type_from_string(type)
+        _object = action_object_from_string(object)
+
+        actions = []
+        for action in self._actions:
+            if device is not None and action.device != device:
+                continue
+
+            if _type is not None and action.type != _type:
+                continue
+
+            if _object is not None and action.obj != _object:
+                continue
+                
+            actions.append(action)
+
+        return actions
 
     def getDependentDevices(self, dep):
         """ Return a list of devices that depend on dep.
@@ -584,17 +611,14 @@ class DeviceTree(object):
         format = None
         format_type = udev_device_get_format(info)
         label = udev_device_get_label(info)
-        if device and format_type and not device.format:
+        if device and format_type and not device.format.type:
             args = [format_type]
             kwargs = {"uuid": uuid,
                       "label": label,
                       "device": device.path,
                       "exists": True}
 
-            if format_type == "swap":
-                # swap
-                pass
-            elif format_type == "crypto_LUKS":
+            if format_type == "crypto_LUKS":
                 # luks/dmcrypt
                 kwargs["mapName"] = "luks-%s" % uuid
             elif format_type == "linux_raid_member":
@@ -614,7 +638,8 @@ class DeviceTree(object):
                 kwargs["vgUuid"] = udev_device_get_vg_uuid(info)
                 kwargs["peStart"] = udev_device_get_pv_pe_start(info)
 
-            device.format = getFormat(*args, **kwargs)
+            format = formats.getFormat(*args, **kwargs)
+            device.format = format
 
         #
         # now lookup or create any compound devices we have discovered
@@ -637,16 +662,18 @@ class DeviceTree(object):
                         if isglobal and format.status:
                             self.__passphrase = passphrase
 
-                    luks_device = LUKSDevice(device.format.MapName,
+                    luks_device = LUKSDevice(device.format.mapName,
                                              parents=[device],
                                              exists=True)
                     self._addDevice(luks_device)
                     try:
                         luks_device.setup()
-                    except DeviceError as e:
-                        log.info("setup of %s failed: %s" % (map_name, e))
+                    except (LUKSError, CryptoError, DeviceError) as e:
+                        log.info("setup of %s failed: %s" % (format.mapName,
+                                                             e))
                 else:
-                    log.warning("luks device %s already in the tree" % map_name)
+                    log.warning("luks device %s already in the tree"
+                                % format.mapName)
             elif format.type == "mdmember":
                 # either look up or create the array device
                 md_array = self.getDeviceByUuid(format.mdUuid)
@@ -681,15 +708,11 @@ class DeviceTree(object):
                                                  exists=True,
                                                  parents=[device])
                     self._addDevice(md_array)
-                    try:
-                        md_array.setup()
-                    except DeviceError as e:
-                        log.info("setup of %s failed: %s" % (md_array.name, e))
             elif format.type == "dmraidmember":
                 # look up or create the dmraid array
                 pass
             elif format.type == "lvmpv":
-                # lookup/create the VG and LVsA
+                # lookup/create the VG and LVs
                 try:
                     vg_name = udev_device_get_vg_name(info)
                 except KeyError:
@@ -780,7 +803,7 @@ class DeviceTree(object):
                 break
 
             old_devices = new_devices
-            log.debug("devices to scan: %s" % [d['name'] for d in devices])
+            log.info("devices to scan: %s" % [d['name'] for d in devices])
             for dev in devices:
                 self.addUdevDevice(dev)
 
