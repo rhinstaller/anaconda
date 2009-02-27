@@ -520,8 +520,6 @@ class StorageDevice(Device):
             self.format.destroy()
 
         self.exists = False
-        for parent in self.parents:
-            parent.removeChild()
 
 
 class DiskDevice(StorageDevice):
@@ -624,8 +622,6 @@ class DiskDevice(StorageDevice):
         self.partedDisk.commit()
         self.teardown()
 
-        for parent in self.parents:
-            parent.removeChild()
 
     def setup(self, intf=None):
         """ Open, or set up, a device. """
@@ -906,8 +902,6 @@ class PartitionDevice(StorageDevice):
         parted.deletePartition(self.partedPartition)
 
         self.exists = False
-        for parent in self.parents:
-            parent.removeChild()
 
     def _getSize(self):
         """ Get the device's size. """
@@ -1335,7 +1329,6 @@ class LVMVolumeGroupDevice(DMDevice):
         self.createParents()
         self.setupParents()
         lvm.vgcreate(self.name, pv_list, self.peSize)
-        self.notifyKernel()
         self.exists = True
         self.setup()
 
@@ -1350,8 +1343,6 @@ class LVMVolumeGroupDevice(DMDevice):
         lvm.vgremove(self.name)
         self.notifyKernel()
         self.exists = False
-        for parent in self.parents:
-            parent.removeChild()
 
     def reduce(self, pv_list):
         """ Remove the listed PVs from the VG. """
@@ -1610,8 +1601,6 @@ class LVMLogicalVolumeDevice(DMDevice):
         self.teardown()
         lvm.lvremove(self.vg.name, self._name)
         self.exists = False
-        for parent in self.parents:
-            parent.removeChild()
 
     def resize(self, intf=None):
         # XXX should we set up anything before doing this?
@@ -1908,8 +1897,6 @@ class MDRaidArrayDevice(StorageDevice):
             disk.format.destroy()
 
         self.exists = False
-        for parent in self.parents:
-            parent.removeChild()
 
 
 class DMRaidArrayDevice(DMDevice):
@@ -2127,8 +2114,6 @@ class FileDevice(StorageDevice):
 
         os.unlink(self.path)
         self.exists = False
-        for parent in self.parents:
-            parent.removeChild()
 
 
 class DirectoryDevice(FileDevice):
@@ -2161,8 +2146,6 @@ class DirectoryDevice(FileDevice):
 
         os.unlink(self.path)
         self.exists = False
-        for parent in self.parents:
-            parent.removeChild()
 
 
 class iScsiDiskDevice(DiskDevice):
