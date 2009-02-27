@@ -98,7 +98,7 @@ class Storage(object):
         self.ignoredDisks = []
         self.exclusiveDisks = []
         self.doAutoPart = False
-        self._clearPartType = CLEARPART_TYPE_NONE
+        self.clearPartType = CLEARPART_TYPE_NONE
         self.clearPartDisks = []
         self.encryptedAutoPart = False
         self.encryptionPassphrase = None
@@ -115,6 +115,18 @@ class Storage(object):
 
         self._nextID = 0
         self.defaultFSType = get_default_filesystem_type()
+        self.defaultBootFSType = get_default_filesystem_type(boot=True)
+
+        self.devicetree = DeviceTree(intf=self.anaconda.intf,
+                                     ignored=self.ignoredDisks,
+                                     exclusive=self.exclusiveDisks,
+                                     zeroMbr=self.zeroMbr,
+                                     passphrase=self.encryptionPassphrase,
+                                     luksDict=self.__luksDevs)
+        self.fsset = FSSet(self.devicetree)
+
+    def doIt(self):
+        self.devicetree.processActions()
 
     @property
     def nextID(self):
@@ -143,16 +155,19 @@ class Storage(object):
         for device in self.devices:
             if device.format.type == "luks" and device.format.exists:
                 self.__luksDevs[device.format.uuid] = device.format.__passphrase
+
+        w = self.anaconda.intf.waitWindow(_("Finding Devices"),
+                                      _("Finding storage devices..."))
         self.iscsi.startup(self.anaconda.intf)
         self.zfcp.startup()
         self.devicetree = DeviceTree(intf=self.anaconda.intf,
                                      ignored=self.ignoredDisks,
                                      exclusive=self.exclusiveDisks,
                                      zeroMbr=self.zeroMbr,
-                                     passphrase=self.encrpytionPassphrase,
-                                     luksDict=self._luksDevs)
+                                     passphrase=self.encryptionPassphrase,
+                                     luksDict=self.__luksDevs)
         self.fsset = FSSet(self.devicetree)
-        self.autoPartitionRequests = []
+        w.pop()
 
     @property
     def devices(self):
@@ -445,6 +460,8 @@ class Storage(object):
         """
         action = ActionCreateDevice(device)
         self.devicetree.registerAction(action)
+        if device.format.type:
+            self.devicetree.registerAction(ActionCreateFormat(device))
 
     def destroyDevice(self, device):
         """ Schedule destruction of a device. """
@@ -545,6 +562,10 @@ class Storage(object):
         log.warning("storage.Storage.sanityCheck is unimplemented")
         return ([], [])
 
+    def isProtected(self, device):
+        """ Return True is the device is protected. """
+        return device.name in self.protectedPartitions
+
     def checkNoDisks(self):
         """Check that there are valid disk devices."""
         if not self.disks:
@@ -561,43 +582,21 @@ def getReleaseString(mountpoint):
     relName = None
     relVer = None
 
-    if os.access(mountpoint + "/etc/redhat-release", os.R_OK):
-        f = open(mountpoint + "/etc/redhat-release", "r")
-        try:
-            lines = f.readlines()
-        except IOError:
+    filename = "%s/etc/redhat-release" % mountpoint
+    if os.access(filename, os.R_OK):
+        with open(filename) as f:
             try:
-                f.close()
-            except:
-                pass
-            return (relName, relVer)
-
-        f.close()
-
-        # return the first line with the newline at the end stripped
-        if len(lines) == 0:
-            return (relName, relVer)
-
-        relstr = string.strip(lines[0][:-1])
+                relstr = f.readline().strip()
+            except (IOError, AttributeError):
+                relstr = ""
 
         # get the release name and version
         # assumes that form is something
         # like "Red Hat Linux release 6.2 (Zoot)"
-        if relstr.find("release") != -1:
-            try:
-                idx = relstr.find("release")
-                relName = relstr[:idx - 1]
-                relVer = ""
-
-                for a in relstr[idx + 8:]:
-                    if a in string.digits + ".":
-                        relVer += a
-                    else:
-                        break
-
-                    relstr = prod + " " + ver
-            except:
-                pass # don't worry, just use the relstr as we have it
+        (product, sep, version) = relstr.partition(" release ")
+        if sep:
+            relName = product
+            relVer = version.split()[0]
 
     return (relName, relVer)
 
@@ -1238,8 +1237,13 @@ class FSSet(object):
 
     @property
     def migratableDevices(self):
-        """ Return a list of devices whose filesystems can be migrated. """
-        return []   # no migrate for you!!!
+        """ List of devices whose filesystems can be migrated. """
+        migratable = []
+        for device in self.devices:
+            if device.format.migratable and device.format.exists:
+                migratable.append(device)
+
+        return migratable
 
     def write(self, chroot="/"):
         """ write out all config files based on the set of filesystems """
