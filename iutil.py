@@ -41,8 +41,8 @@ log = logging.getLogger("anaconda")
 # @param searchPath Should command be searched for in $PATH?
 # @param root The directory to chroot to before running command.
 # @return The return code of command.
-def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
-                     searchPath = 0, root = '/'):
+def execWithRedirect(command, argv, stdin = None, stdout = None,
+                     stderr = None, searchPath = 0, root = '/'):
     def chroot ():
         os.chroot(root)
 
@@ -50,21 +50,27 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
             raise RuntimeError, command + " can not be run"
 
     argv = list(argv)
-    if type(stdin) == type("string"):
+    if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
             stdin = open(stdin)
         else:
-            stdin = 0
-    if type(stdout) == type("string"):
+            stdin = sys.stdin
+    elif stdin is None or not isinstance(stdin, file):
+        stdin = sys.stdin
+
+    if isinstance(stdout, str):
         stdout = open(stdout, "w")
-    if type(stderr) == type("string"):
+    elif stdout is None or not isinstance(stdout, file):
+        stdout = sys.stdout
+
+    if isinstance(stderr, str):
         stderr = open(stderr, "w")
+    elif stderr is None or not isinstance(stderr, file):
+        stderr = sys.stderr
 
     runningLog = open("/tmp/program.log", "a")
     runningLog.write("Running... %s\n" % ([command] + argv,))
-
-    if stdout is not None and type(stdout) != int:
-        stdout.write("Running... %s\n" %([command] + argv,))
+    stdout.write("Running... %s\n" %([command] + argv,))
 
     try:
         proc = subprocess.Popen([command] + argv, stdin=stdin,
@@ -101,21 +107,25 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 # @param stderr The file descriptor to redirect stderr to.
 # @param root The directory to chroot to before running command.
 # @return The output of command from stdout.
-def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
+def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
     def chroot():
         os.chroot(root)
 
     rc = ""
     argv = list(argv)
 
-    if type(stdin) == type("string"):
+    if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
             stdin = open(stdin)
         else:
-            stdin = 0
+            stdin = sys.stdin
+    elif stdin is None or not isinstance(stdin, file):
+        stdin = sys.stdin
 
-    if type(stderr) == type("string"):
+    if isinstance(stderr, str):
         stderr = open(stderr, "w")
+    elif stderr is None or not isinstance(stderr, file):
+        stderr = sys.stderr
 
     runningLog = open("/tmp/program.log", "a")
     runningLog.write("Running... %s\n" % ([command] + argv,))
@@ -143,23 +153,31 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
 
     return rc
 
-def execWithPulseProgress(command, argv, stdin = 0, stdout = 1, stderr = 2,
-                          progress = None, root = '/'):
+def execWithPulseProgress(command, argv, stdin = None, stdout = None,
+                          stderr = None, progress = None, root = '/'):
     def chroot():
         os.chroot(root)
 
     argv = list(argv)
-    if type(stdin) == type("string"):
+    if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
             stdin = open(stdin)
         else:
-            stdin = 0
-    if type(stdout) == type("string"):
+            stdin = sys.stdin
+    elif stdin is None or not isinstance(stdin, file):
+        stdin = sys.stdin
+
+    if isinstance(stdout, str):
         stdout = open(stdout, "w")
-    if type(stderr) == type("string"):
+    elif stdout is None or not isinstance(stdout, file):
+        stdout = sys.stdout
+
+    if isinstance(stderr, str):
         stderr = open(stderr, "w")
-    if stdout is not None and type(stdout) != int:
-        stdout.write("Running... %s\n" %([command] + argv,))
+    elif stderr is None or not isinstance(stderr, file):
+        stderr = sys.stderr
+
+    stdout.write("Running... %s\n" %([command] + argv,))
 
     p = os.pipe()
     childpid = os.fork()
