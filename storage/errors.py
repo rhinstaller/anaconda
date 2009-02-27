@@ -9,6 +9,9 @@ class DeviceCreateError(DeviceError):
 class DeviceDestroyError(DeviceError):
     pass
 
+class DeviceResizeError(DeviceError):
+    pass
+
 class DeviceSetupError(DeviceError):
     pass
 
@@ -90,6 +93,9 @@ class DeviceActionError(Exception):
 
 # partitioning
 class PartitioningError(Exception):
+    pass
+
+class PartitioningWarning(Exception):
     pass
 
 # udev
