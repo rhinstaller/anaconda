@@ -11,11 +11,12 @@ class s390BootloaderInfo(bootloaderInfo):
         # on upgrade read in the lilo config file
         lilo = LiloConfigFile ()
         self.perms = 0600
-        if os.access (instRoot + self.configfile, os.R_OK):
-            self.perms = os.stat(instRoot + self.configfile)[0] & 0777
-            lilo.read (instRoot + self.configfile)
-            os.rename(instRoot + self.configfile,
-                      instRoot + self.configfile + '.rpmsave')
+        confFile = instRoot + self.configfile
+
+        if os.access (confFile, os.R_OK):
+            self.perms = os.stat(confFile)[0] & 0777
+            lilo.read(confFile)
+            os.rename(confFile, confFile + ".rpmsave")
 
         # Remove any invalid entries that are in the file; we probably
         # just removed those kernels. 

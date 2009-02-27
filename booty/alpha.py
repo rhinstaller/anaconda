@@ -25,12 +25,13 @@ class alphaBootloaderInfo(bootloaderInfo):
 
         bootnotroot = bootDevice != rootDevice
 
+        confFile = instRoot + self.configfile
+
         # If /etc/aboot.conf already exists we rename it
         # /etc/aboot.conf.rpmsave.
-        if os.path.isfile(instRoot + self.configfile):
-            os.rename (instRoot + self.configfile,
-                       instRoot + self.configfile + ".rpmsave")
-        
+        if os.path.isfile(confFile):
+            os.rename (confFile, confFile + ".rpmsave")
+
         # Then we create the necessary files. If the root device isn't
         # the boot device, we create /boot/etc/ where the aboot.conf
         # will live, and we create /etc/aboot.conf as a symlink to it.
@@ -41,7 +42,7 @@ class alphaBootloaderInfo(bootloaderInfo):
 
             # We install the symlink (/etc/aboot.conf has already been
             # renamed in necessary.)
-            os.symlink("../boot" + self.configfile, instRoot + self.configfile)
+            os.symlink("../boot" + self.configfile, confFile)
 
             cfPath = instRoot + "/boot" + self.configfile
             # Kernel path is set to / because a boot partition will
@@ -49,7 +50,7 @@ class alphaBootloaderInfo(bootloaderInfo):
             kernelPath = '/'
         # Otherwise, we just need to create /etc/aboot.conf.
         else:
-            cfPath = instRoot + self.configfile
+            cfPath = confFile
             kernelPath = self.kernelLocation
 
         # If we already have an aboot.conf, rename it

@@ -318,19 +318,18 @@ class bootloaderInfo:
                             chainList, defaultDev):
         images = bl.images.getImages()
 
+        confFile = instRoot + self.configfile
+
         # on upgrade read in the lilo config file
         lilo = LiloConfigFile ()
         self.perms = 0600
-        if os.access (instRoot + self.configfile, os.R_OK):
-            self.perms = os.stat(instRoot + self.configfile)[0] & 0777
-            lilo.read (instRoot + self.configfile)
-            os.rename(instRoot + self.configfile,
-                      instRoot + self.configfile + '.rpmsave')
+        if os.access (confFile, os.R_OK):
+            self.perms = os.stat(confFile)[0] & 0777
+            lilo.read(confFile)
+            os.rename(confFile, confFile + ".rpmsave")
         # if it's an absolute symlink, just get it out of our way
-        elif (os.path.islink(instRoot + self.configfile) and
-              os.readlink(instRoot + self.configfile)[0] == '/'):
-            os.rename(instRoot + self.configfile,
-                      instRoot + self.configfile + '.rpmsave')            
+        elif (os.path.islink(confFile) and os.readlink(confFile)[0] == '/'):
+            os.rename(confFile, confFile + ".rpmsave")
 
         # Remove any invalid entries that are in the file; we probably
         # just removed those kernels. 
