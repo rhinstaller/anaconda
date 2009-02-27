@@ -352,12 +352,6 @@ def setupPythonPath():
             sys.path.insert(1, '/usr/lib/anaconda/textw')
             sys.path.insert(2, '/usr/lib/anaconda/iw')
 
-    if (os.path.exists('booty')):
-        sys.path.append('booty')
-        sys.path.append('booty/edd')
-    else:
-        sys.path.append('/usr/lib/booty')
-
     sys.path.append('/usr/share/system-config-date')
 
 def addPoPath(dir):

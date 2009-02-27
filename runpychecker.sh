@@ -37,7 +37,7 @@ if [ "`tail -c 1 pychecker-false-positives`" == "`echo`" ]; then
   exit 1
 fi
 
-export PYTHONPATH="isys:textw:iw:installclasses:/usr/lib/booty:/usr/share/system-config-date"
+export PYTHONPATH="isys:textw:iw:installclasses:/usr/share/system-config-date"
 
 pychecker --only --limit 1000 \
   --maxlines 500 --maxargs 20 --maxbranches 80 --maxlocals 60 --maxreturns 20 \
@@ -45,7 +45,7 @@ pychecker --only --limit 1000 \
   --no-import --no-miximport --no-pkgimport --no-reimport \
   --no-argsused --no-varargsused --no-override \
   $NON_STRICT_OPTIONS \
-  anaconda anaconda *.py textw/*.py iw/*.py installclasses/*.py isys/*.py | \
+  anaconda anaconda *.py textw/*.py iw/*.py installclasses/*.py isys/*.py booty/*.py booty/*/*.py | \
   egrep -v "`cat $FALSE_POSITIVES | tr '\n' '|'`" > pychecker-log
 
 if [ -s pychecker-log ]; then

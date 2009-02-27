@@ -43,7 +43,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define pythoncryptsetupver 0.0.6
 
 BuildRequires: audit-libs-devel
-BuildRequires: booty
 BuildRequires: bzip2-devel
 BuildRequires: device-mapper-devel >= %{dmver}
 BuildRequires: e2fsprogs-devel >= %{e2fsver}
@@ -84,7 +83,6 @@ Requires: policycoreutils
 Requires: rpm-python >= %{rpmpythonver}
 Requires: comps-extras
 Requires: rhpl >= %{rhplver}
-Requires: booty
 Requires: parted >= %{partedver}
 Requires: pyparted >= %{pypartedver}
 Requires: yum >= %{yumver}
@@ -146,6 +144,7 @@ Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
 Provides: anaconda-runtime = %{version}-%{release}
+Obsoletes: booty
 
 %description
 The anaconda package contains the program which was used to install your 

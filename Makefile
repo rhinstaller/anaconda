@@ -23,7 +23,7 @@ VERSION := $(shell awk '/Version:/ { print $$2 }' anaconda.spec)
 RELEASE := $(shell awk '/Release:/ { print $$2 }' anaconda.spec)
 CVSROOT ?= ${CVSROOT:-$(shell cat CVS/Root 2>/dev/null)}
 
-SUBDIRS = isys loader po \
+SUBDIRS = isys loader po booty \
 	    textw utils scripts bootdisk installclasses \
 	    iw pixmaps command-stubs ui docs
 # fonts aren't on s390/s390x
@@ -40,7 +40,7 @@ ifneq (,$(filter i386 x86_64,$(ARCH)))
 SUBDIRS += gptsync
 endif
 
-PYCHECKERPATH=isys:textw:iw:installclasses:/usr/lib/booty:/usr/share/system-config-date
+PYCHECKERPATH=isys:textw:iw:installclasses:/usr/share/system-config-date
 PYCHECKEROPTS=-F pycheckrc-for-anaconda
 
 CATALOGS = po/anaconda.pot
