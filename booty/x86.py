@@ -98,11 +98,11 @@ class x86BootloaderInfo(efiBootloaderInfo):
                                    root = instRoot)
             os.close(p[0])
 
-    def installGrub(self, instRoot, bootDevs, grubTarget, grubPath, fsset,
+    def installGrub(self, instRoot, bootDevs, grubTarget, grubPath,
                     target, cfPath):
         if iutil.isEfi():
             efiBootloaderInfo.installGrub(self, instRoot, bootDevs, grubTarget,
-                                          grubPath, fsset, target, cfPath)
+                                          grubPath, target, cfPath)
             return
 
         args = "--stage2=/boot/grub/stage2 "
@@ -126,11 +126,11 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
             self.runGrubInstall(instRoot, bootDev, cmds, cfPath)
 
-    def writeGrub(self, instRoot, fsset, bl, kernelList, chainList,
+    def writeGrub(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfigFile):
         
         images = bl.images.getImages()
-        rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
+        rootDev = storage.fsset.mountpoints["/"]
 
         # XXX old config file should be read here for upgrade
 
@@ -160,29 +160,27 @@ class x86BootloaderInfo(efiBootloaderInfo):
         f.write("# Note that you do not have to rerun grub "
                 "after making changes to this file\n")
 
-        bootDev = fsset.getEntryByMountPoint("/boot")
-        grubPath = "/grub"
-        cfPath = "/"
-        if not bootDev:
-            bootDev = fsset.getEntryByMountPoint("/")
+        try:
+            bootDev = storage.fsset.mountpoints["/boot"]
+            grubPath = "/grub"
+            cfPath = "/"
+            f.write("# NOTICE:  You have a /boot partition.  This means "
+                    "that\n")
+            f.write("#          all kernel and initrd paths are relative "
+                    "to /boot/, eg.\n")
+        except KeyError:
+            bootDev = storage.fsset.mountpoints["/"]
             grubPath = "/boot/grub"
             cfPath = "/boot/"
             f.write("# NOTICE:  You do not have a /boot partition.  "
                     "This means that\n")
             f.write("#          all kernel and initrd paths are relative "
                     "to /, eg.\n")            
-        else:
-            f.write("# NOTICE:  You have a /boot partition.  This means "
-                    "that\n")
-            f.write("#          all kernel and initrd paths are relative "
-                    "to /boot/, eg.\n")
 
-        bootDevs = self.getPhysicalDevices(bootDev.device.getDevice())
-        bootDev = bootDev.device.getDevice()
+        bootDevs = self.getPhysicalDevices(bootDev)
         
         f.write('#          root %s\n' % self.grubbyPartitionName(bootDevs[0]))
-        f.write("#          kernel %svmlinuz-version ro "
-                "root=/dev/%s\n" % (cfPath, rootDev))
+        f.write("#          kernel %svmlinuz-version ro root=%s\n" % (cfPath, rootDev.path))
         f.write("#          initrd %sinitrd-version.img\n" % (cfPath))
         f.write("#boot=/dev/%s\n" % (grubTarget))
 
@@ -241,7 +239,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.write('title %s (%s)\n' % (longlabel, version))
             f.write('\troot %s\n' % self.grubbyPartitionName(bootDevs[0]))
 
-            realroot = getRootDevName(initrd, fsset, rootDev, instRoot)
+            realroot = getRootDevName(instRoot+initrd, rootDev.path)
             realroot = " root=%s" %(realroot,)
 
             if version.endswith("xen0") or (version.endswith("xen") and not os.path.exists("/proc/xen")):
@@ -358,7 +356,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         f.close()
             
         if not justConfigFile:
-            self.installGrub(instRoot, bootDevs, grubTarget, grubPath, fsset, \
+            self.installGrub(instRoot, bootDevs, grubTarget, grubPath, \
                              target, cfPath)
 
         return ""
@@ -383,9 +381,9 @@ class x86BootloaderInfo(efiBootloaderInfo):
             return "(%s)" %(self.grubbyDiskName(name))
     
 
-    def getBootloaderConfig(self, instRoot, fsset, bl, kernelList,
+    def getBootloaderConfig(self, instRoot, bl, kernelList,
                             chainList, defaultDev):
-        config = bootloaderInfo.getBootloaderConfig(self, instRoot, fsset,
+        config = bootloaderInfo.getBootloaderConfig(self, instRoot,
                                                     bl, kernelList, chainList,
                                                     defaultDev)
 
@@ -422,7 +420,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
     # this is a hackish function that depends on the way anaconda writes
     # out the grub.conf with a #boot= comment
     # XXX this falls into the category of self.doUpgradeOnly
-    def upgradeGrub(self, instRoot, fsset, bl, kernelList, chainList,
+    def upgradeGrub(self, instRoot, bl, kernelList, chainList,
                     defaultDev, justConfigFile):
         if justConfigFile:
             return ""
@@ -455,21 +453,22 @@ class x86BootloaderInfo(efiBootloaderInfo):
         # more suckage.  grub-install can't work without a valid /etc/mtab
         # so we have to do shenanigans to get updated grub installed...
         # steal some more code above
-        bootDev = fsset.getEntryByMountPoint("/boot")
-        grubPath = "/grub"
-        cfPath = "/"
-        if not bootDev:
-            bootDev = fsset.getEntryByMountPoint("/")
+        try:
+            bootDev = storage.fsset.mountpoints["/boot"]
+            grubPath = "/grub"
+            cfPath = "/"
+        except KeyError:
+            bootDev = storage.fsset.mountpoints["/"]
             grubPath = "/boot/grub"
             cfPath = "/boot/"
 
-        masterBootDev = bootDev.device.getDevice(asBoot = 0)
+        masterBootDev = bootDev
         if masterBootDev[0:2] == 'md':
             rootDevs = checkbootloader.getRaidDisks(masterBootDev, raidLevel=1,
                             stripPart = 0)
         else:
             rootDevs = [masterBootDev]
-            
+
         if theDev[5:7] == 'md':
             stage1Devs = checkbootloader.getRaidDisks(theDev[5:], raidLevel=1)
         else:
@@ -501,8 +500,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             cmds.append(cmd)
         
             if not justConfigFile:
-                self.runGrubInstall(instRoot, bootDev.device.setupDevice(),
-                                    cmds, cfPath)
+                self.runGrubInstall(instRoot, bootDev cmds, cfPath)
  
         return ""
 
@@ -518,7 +516,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
                 f.write("forcelba=0\n")
             f.close()
         
-    def write(self, instRoot, fsset, bl, kernelList, chainList,
+    def write(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfig, intf):
         if self.timeout is None and chainList:
             self.timeout = 5
@@ -526,14 +524,14 @@ class x86BootloaderInfo(efiBootloaderInfo):
         # XXX HACK ALERT - see declaration above
         if self.doUpgradeOnly:
             if self.useGrubVal:
-                self.upgradeGrub(instRoot, fsset, bl, kernelList,
+                self.upgradeGrub(instRoot, bl, kernelList,
                                  chainList, defaultDev, justConfig)
             return        
 
         if len(kernelList) < 1:
             self.noKernelsWarn(intf)
 
-        out = self.writeGrub(instRoot, fsset, bl, kernelList, 
+        out = self.writeGrub(instRoot, bl, kernelList, 
                              chainList, defaultDev,
                              justConfig | (not self.useGrubVal))
 

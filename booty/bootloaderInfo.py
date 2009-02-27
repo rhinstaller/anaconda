@@ -84,19 +84,19 @@ def rootIsDevice(dev):
 
 # hackery to determine if we should do root=LABEL=/ or whatnot
 # as usual, knows too much about anaconda
-def getRootDevName(initrd, fsset, rootDev, instRoot):
-    if not os.access(instRoot + initrd, os.R_OK):
-        return "/dev/%s" % (rootDev,)
+def getRootDevName(initrd, rootDevice):
+    if not os.access(initrd, os.R_OK):
+        return rootDevice.path
 
     try:
-        rootEntry = fsset.getEntryByMountPoint("/")
-        if rootEntry.getUuid() is not None:
-            return "UUID=%s" %(rootEntry.getUuid(),)
-        elif rootEntry.getLabel() is not None and rootEntry.device.doLabel is not None:
-            return "LABEL=%s" %(rootEntry.getLabel(),)
-        return "/dev/%s" %(rootDev,)
+        if rootDevice.uuid:
+            return "UUID=%s" % rootDevice.uuid
+        elif rootDevice.label:
+            return "LABEL=%s" % rootDevice.label
+
+        return rootDevice.path
     except:
-        return "/dev/%s" %(rootDev,)
+        return rootDevice.path
 
 class BootyNoKernelWarning:
     def __init__ (self, value=""):
@@ -221,8 +221,8 @@ class BootImages:
 
 
         if not self.images.has_key(self.default):
-            entry = fsset.getEntryByMountPoint('/')
-            self.default = entry.device.getDevice()
+            device = storage.fsset.mountpoints["/"]
+            self.default = device
             (label, longlabel, type) = self.images[self.default]
             if not label:
                 self.images[self.default] = ("linux", productName, type)
@@ -255,17 +255,18 @@ class BootImages:
                             devs.append((dev, type))
                         break
 
-        slash = fsset.getEntryByMountPoint('/')
-        if not slash or not slash.device or not slash.fsystem:
+        try:
+            rootDevice = storage.fsset.mountpoints["/"]
+        except KeyError:
+            rootDevice = None
+
+        if not rootDevice or not rootDevice.format.bootable:
             raise ValueError, ("Trying to pick boot devices but do not have a "
                                "sane root partition.  Aborting install.")
-        devs.append((slash.device.getDevice(), slash.fsystem.getName()))
 
+        devs.append((rootDevice, rootDevice.format.type))
         devs.sort()
-
         return devs
-
-
 
 class bootloaderInfo:
     def getConfigFileName(self):
@@ -317,12 +318,7 @@ class bootloaderInfo:
     def makeInitrd(self, kernelTag):
         return "/boot/initrd%s.img" % kernelTag
 
-    # XXX need to abstract out the requirement for a fsset to be able
-    # to get it "on the fly" on a running system as well as being able
-    # to get it how we do now from anaconda.  probably by having the
-    # first thing in the chain create a "fsset" object that has the
-    # dictionary of mounted filesystems since that's what we care about
-    def getBootloaderConfig(self, instRoot, fsset, bl, kernelList,
+    def getBootloaderConfig(self, instRoot, bl, kernelList,
                             chainList, defaultDev):
         images = bl.images.getImages()
 
@@ -352,8 +348,9 @@ class bootloaderInfo:
         lilo.addEntry("prompt", replace = 0)
         lilo.addEntry("timeout", self.timeout or "20", replace = 0)
 
-        rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
-        if not rootDev:
+        try:
+            rootDev = storage.fsset.mountpoints["/"]
+        except KeyError:
             raise RuntimeError, "Installing lilo, but there is no root device"
 
         if rootDev == defaultDev:
@@ -382,9 +379,9 @@ class bootloaderInfo:
             sl.addEntry("read-only")
 
             append = "%s" %(self.args.get(),)
-            realroot = getRootDevName(initrd, fsset, rootDev, instRoot)
+            realroot = getRootDevName(instRoot+initrd, rootDev.path)
             if rootIsDevice(realroot):
-                sl.addEntry("root", '/dev/' + rootDev)
+                sl.addEntry("root", rootDev.path)
             else:
                 if len(append) > 0:
                     append = "%s root=%s" %(append,realroot)
@@ -440,10 +437,10 @@ class bootloaderInfo:
 
         return lilo
 
-    def write(self, instRoot, fsset, bl, kernelList, chainList,
+    def write(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfig, intf = None):
         if len(kernelList) >= 1:
-            config = self.getBootloaderConfig(instRoot, fsset, bl,
+            config = self.getBootloaderConfig(instRoot, bl,
                                               kernelList, chainList,
                                               defaultDev)
             config.write(instRoot + self.configfile, perms = self.perms)
@@ -610,10 +607,11 @@ class efiBootloaderInfo(bootloaderInfo):
                                        root = instRoot,
                                        stdout="/dev/tty5", stderr="/dev/tty5")
 
-    def addNewEfiEntry(self, instRoot, fsset):
-        bootdev = fsset.getEntryByMountPoint("/boot/efi").device.getDevice()
-        if not bootdev:
-            bootdev = fsset.getEntryByDeviceName("sda1").device.getDevice()
+    def addNewEfiEntry(self, instRoot):
+        try:
+            bootdev = storage.fsset.mountpoints["/boot/efi"]
+        except KeyError:
+            bootdev = storage.devicetree.getDeviceByName("sda1")
 
         link = "%s%s/%s" % (instRoot, "/etc/", self.configname)
         if not os.access(link, os.R_OK):
@@ -639,12 +637,12 @@ class efiBootloaderInfo(bootloaderInfo):
                                stdout = "/dev/tty5",
                                stderr = "/dev/tty5")
 
-    def installGrub(self, instRoot, bootDevs, grubTarget, grubPath, fsset,
+    def installGrub(self, instRoot, bootDevs, grubTarget, grubPath,
                     target, cfPath):
         if not iutil.isEfi():
             raise EnvironmentError
         self.removeOldEfiEntries(instRoot)
-        self.addNewEfiEntry(instRoot, fsset)
+        self.addNewEfiEntry(instRoot)
 
     def __init__(self, initialize = True):
         if initialize:

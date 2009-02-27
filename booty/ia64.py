@@ -1,9 +1,9 @@
 from bootloaderInfo import *
 
 class ia64BootloaderInfo(efiBootloaderInfo):
-    def getBootloaderConfig(self, instRoot, fsset, bl, kernelList,
+    def getBootloaderConfig(self, instRoot, bl, kernelList,
                             chainList, defaultDev):
-        config = bootloaderInfo.getBootloaderConfig(self, instRoot, fsset,
+        config = bootloaderInfo.getBootloaderConfig(self, instRoot,
                                                     bl, kernelList, chainList,
                                                     defaultDev)
         # altix boxes need relocatable (#120851)
@@ -11,24 +11,24 @@ class ia64BootloaderInfo(efiBootloaderInfo):
 
         return config
             
-    def writeLilo(self, instRoot, fsset, bl, kernelList, 
+    def writeLilo(self, instRoot, bl, kernelList, 
                   chainList, defaultDev, justConfig):
-        config = self.getBootloaderConfig(instRoot, fsset, bl,
+        config = self.getBootloaderConfig(instRoot, bl,
                                           kernelList, chainList, defaultDev)
         config.write(instRoot + self.configfile, perms = 0755)
 
         return ""
         
-    def write(self, instRoot, fsset, bl, kernelList, chainList,
+    def write(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfig, intf):
         if len(kernelList) >= 1:
-            out = self.writeLilo(instRoot, fsset, bl, kernelList, 
+            out = self.writeLilo(instRoot, bl, kernelList, 
                                  chainList, defaultDev, justConfig)
         else:
             self.noKernelsWarn(intf)
 
         self.removeOldEfiEntries(instRoot)
-        self.addNewEfiEntry(instRoot, fsset)
+        self.addNewEfiEntry(instRoot)
 
     def makeInitrd(self, kernelTag):
         return "/boot/efi/EFI/redhat/initrd%s.img" % kernelTag

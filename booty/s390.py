@@ -1,11 +1,10 @@
 import os
 
 from bootloaderInfo import *
-import fsset
 import iutil
 
 class s390BootloaderInfo(bootloaderInfo):
-    def getBootloaderConfig(self, instRoot, fsset, bl, kernelList,
+    def getBootloaderConfig(self, instRoot, bl, kernelList,
                             chainList, defaultDev):
         images = bl.images.getImages()
 
@@ -27,8 +26,9 @@ class s390BootloaderInfo(bootloaderInfo):
             if not os.access(instRoot + sl.getPath(), os.R_OK):
                 lilo.delImage(label)
 
-        rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
-        if not rootDev:
+        try:
+            rootDev = storage.fsset.mountpoints["/"]
+        except KeyError:
             raise RuntimeError, "Installing zipl, but there is no root device"
 
         if rootDev == defaultDev:
@@ -55,8 +55,8 @@ class s390BootloaderInfo(bootloaderInfo):
                             "%sinitrd%s.img" %(self.kernelLocation, kernelTag))
 
             sl.addEntry("read-only")
-            sl.addEntry("root", '/dev/' + rootDev)
-            sl.addEntry("ipldevice", '/dev/' + rootDev[:-1])
+            sl.addEntry("root", rootDev.path)
+            sl.addEntry("ipldevice", rootDev.path[:-1])
 
             if self.args.get():
                 sl.addEntry('append', '"%s"' % self.args.get())
@@ -120,10 +120,10 @@ class s390BootloaderInfo(bootloaderInfo):
         return ""
         
     
-    def writeZipl(self, instRoot, fsset, bl, kernelList, chainList,
+    def writeZipl(self, instRoot, bl, kernelList, chainList,
                   defaultDev, justConfigFile):
         images = bl.images.getImages()
-        rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
+        rootDev = storage.fsset.mountpoints["/"]
         
         cf = '/etc/zipl.conf'
         self.perms = 0600
@@ -149,7 +149,7 @@ class s390BootloaderInfo(bootloaderInfo):
             if os.access (instRoot + initrd, os.R_OK):
                 f.write('\tramdisk=%sinitrd%s.img\n' %(self.kernelLocation,
                                                      kernelTag))
-            realroot = getRootDevName(initrd, fsset, rootDev, instRoot)
+            realroot = getRootDevName(instRoot+initrd, rootDev.path)
             f.write('\tparameters="root=%s' %(realroot,))
             if bl.args.get():
                 f.write(' %s' % (bl.args.get()))
@@ -165,9 +165,9 @@ class s390BootloaderInfo(bootloaderInfo):
             
         return ""
 
-    def write(self, instRoot, fsset, bl, kernelList, chainList,
+    def write(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfig, intf):
-        out = self.writeZipl(instRoot, fsset, bl, kernelList, 
+        out = self.writeZipl(instRoot, bl, kernelList, 
                              chainList, defaultDev,
                              justConfig | (not self.useZiplVal))
         out = self.writeChandevConf(bl, instRoot)

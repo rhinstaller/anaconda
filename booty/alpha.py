@@ -15,14 +15,14 @@ class alphaBootloaderInfo(bootloaderInfo):
         (foo, partitionNumber) = getDiskPart(path)
         return partitionNumber + 1
 
-    def writeAboot(self, instRoot, fsset, bl, kernelList,
+    def writeAboot(self, instRoot, bl, kernelList,
                    chainList, defaultDev, justConfig):
-        # Get bootDevice and rootDevice
-        rootDevice = fsset.getEntryByMountPoint("/").device.getDevice()
-        if fsset.getEntryByMountPoint("/boot"):
-            bootDevice = fsset.getEntryByMountPoint("/boot").device.getDevice()
-        else:
+        rootDevice = storage.fsset.mountpoints["/"]
+        try:
+            bootDevice = storage.fsset.mountpoints["/boot"]
+        except KeyError:
             bootDevice = rootDevice
+
         bootnotroot = bootDevice != rootDevice
 
         # If /etc/aboot.conf already exists we rename it
@@ -66,7 +66,7 @@ class alphaBootloaderInfo(bootloaderInfo):
             f.write ("#         all kernel paths are relative to /boot/\n")
 
         # bpn is the boot partition number.
-        bpn = self.partitionNum(bootDevice)
+        bpn = self.partitionNum(bootDevice.path)
         lines = 0
 
         # We write entries line using the following format:
@@ -84,7 +84,7 @@ class alphaBootloaderInfo(bootloaderInfo):
             if os.path.isfile(instRoot + initrd):
                 f.write(" initrd=%sinitrd%s.img" %(kernelPath, kernelTag))
 
-            realroot = getRootDevName(initrd, fsset, rootDevice, instRoot)
+            realroot = getRootDevName(instRoot+initrd, rootDevice.path)
             f.write(" root=%s" %(realroot,))
 
             args = self.args.get()
@@ -102,8 +102,8 @@ class alphaBootloaderInfo(bootloaderInfo):
             # Now we're ready to write the relevant boot information. wbd
             # is the whole boot device, bdpn is the boot device partition
             # number.
-            wbd = self.wholeDevice (bootDevice)
-            bdpn = self.partitionNum (bootDevice)
+            wbd = self.wholeDevice (bootDevice.path)
+            bdpn = self.partitionNum (bootDevice.path)
 
             # Calling swriteboot. The first argument is the disk to write
             # to and the second argument is a path to the bootstrap loader
@@ -126,12 +126,12 @@ class alphaBootloaderInfo(bootloaderInfo):
                                     stderr = "/dev/tty5")
 
 
-    def write(self, instRoot, fsset, bl, kernelList, chainList,
+    def write(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfig, intf):
         if len(kernelList) < 1:
             self.noKernelsWarn(intf)
 
-        self.writeAboot(instRoot, fsset, bl, kernelList, 
+        self.writeAboot(instRoot, bl, kernelList, 
                         chainList, defaultDev, justConfig)
 
     def __init__(self):
