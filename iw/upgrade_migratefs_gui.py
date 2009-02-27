@@ -24,7 +24,6 @@ from constants import *
 import string
 import isys 
 import iutil
-from fsset import *
 import gtk
 
 import gettext
@@ -34,28 +33,30 @@ class UpgradeMigrateFSWindow (InstallWindow):
     windowTitle = N_("Migrate File Systems")
 
     def getNext (self):
-        for entry in self.migent:
-            entry.setFormat(0)
-            entry.setMigrate(0)
-            entry.fsystem = entry.origfsystem
-
+        # I don't like this but I also don't see a better way right now
         for (cb, entry) in self.cbs:
+            action = self.devicetree.findActions(device=entry,
+                                                 type="migrate")
             if cb.get_active():
-                try:
-                    newfs = entry.fsystem.migratetofs[0]
-                    newfs = fileSystemTypeGet(newfs)
-                except Exception, e:
-                    log.info("failed to get new filesystem type, defaulting to ext3: %s" %(e,))
-                    newfs = fileSystemTypeGet("ext3")
-                entry.setFileSystemType(newfs)
-                entry.setFormat(0)
-                entry.setMigrate(1)
-                
+                if action:
+                    # the migrate action has already been scheduled
+                    continue
+
+                newfs = getFormat(entry.format.migrationTarget)
+                if not newfs:
+                    log.warning("failed to get new filesystem type (%s)"
+                                % entry.format.migrationTarget)
+                    continue
+                action = ActionMigrateFormat(entry)
+                self.devicetree.registerAction(action)
+            elif action:
+                self.devicetree.cancelAction(action)
+
         return None
 
     def getScreen (self, anaconda):
-      
-        self.fsset = anaconda.id.fsset
+        self.devicetree = anaconda.id.storage.devicetree
+        self.fsset = anaconda.id.storage.fsset
         self.migent = self.fsset.getMigratableEntries()
         
         box = gtk.VBox (False, 5)
@@ -79,17 +80,16 @@ class UpgradeMigrateFSWindow (InstallWindow):
         self.cbs = []
         for entry in self.migent:
             # don't allow the user to migrate /boot to ext4 (#439944)
-            if entry.mountpoint == "/boot" and entry.origfsystem.getName() == "ext3":
+            if (getattr(entry.format, "mountpoint", None) == "/boot" and
+                not entry.format.migrate and entry.format.type == "ext3"):
                 continue
-            if entry.fsystem.getName() != entry.origfsystem.getName():
-                migrating = 1
-            else:
-                migrating = 0
             
-            cb = gtk.CheckButton("/dev/%s - %s - %s" % (entry.device.getDevice(),
-                                              entry.origfsystem.getName(),
-                                              entry.mountpoint))
-            cb.set_active(migrating)
+            cb = gtk.CheckButton("%s - %s - %s" % (entry.path,
+                                                   entry.format.name,
+                                                   getattr(entry.format,
+                                                           "mountpoint",
+                                                           None)))
+            cb.set_active(entry.format.migrate)
             cbox.pack_start(cb, False)
 
             self.cbs.append((cb, entry))
