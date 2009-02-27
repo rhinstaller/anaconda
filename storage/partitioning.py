@@ -20,6 +20,7 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
+import sys
 import os
 import copy
 from operator import add, sub
@@ -27,8 +28,11 @@ from operator import add, sub
 import parted
 from pykickstart.constants import *
 
+from constants import *
+
 from errors import *
 from deviceaction import *
+from devices import PartitionDevice
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -37,6 +41,13 @@ import logging
 log = logging.getLogger("storage")
 
 def doAutoPartition(anaconda):
+    log.debug("doAutoPartition(%s)" % anaconda)
+    log.debug("doAutoPart: %s" % anaconda.id.storage.doAutoPart)
+    log.debug("clearPartType: %s" % anaconda.id.storage.clearPartType)
+    log.debug("clearPartDisks: %s" % anaconda.id.storage.clearPartDisks)
+    log.debug("autoPartitionRequests: %s" % anaconda.id.storage.autoPartitionRequests)
+    log.debug("storage.disks: %s" % anaconda.id.storage.disks)
+    log.debug("all names: %s" % [d.name for d in anaconda.id.storage.devicetree.devices.values()])
     if anaconda.dir == DISPATCH_BACK:
         anaconda.id.storage.reset()
         return
@@ -52,11 +63,14 @@ def doAutoPartition(anaconda):
         part = disk.partedDisk.getFirstPartition()
         while part:
             if not part.type & parted.PARTITION_FREESPACE:
+                part = part.nextPartition()
                 continue
 
             if part.getSize(unit="MB") > 100:
                 disks.append(disk)
                 break
+
+            part = part.nextPartition()
 
     # create a separate pv partition for each disk with free space
     pvs = []
@@ -68,28 +82,31 @@ def doAutoPartition(anaconda):
         anaconda.id.storage.createDevice(part)
         pvs.append(part)
 
-    # create a vg containing all of the new pvs
-    vg = anaconda.id.storage.newVG(pvs=pvs)
-    anaconda.id.storage.createDevice(vg)
-
-    # convert storage.autoPartitionRequests into Device instances and
+    #
+    # Convert storage.autoPartitionRequests into Device instances and
     # schedule them for creation
-    for request in storage.autoPartitionRequests:
+    #
+    # First pass is for partitions only. We'll do LVs later.
+    #
+    for request in anaconda.id.storage.autoPartitionRequests:
         (mountpoint, fstype, size, maxsize, grow, asvol) = request
-        if asvol
-            dev = anaconda.id.storage.newLV(vg=vg,
-                                            fmt_type=fstype,
-                                            mountpoint=mountpoint,
-                                            size=size)
-        else:
-            dev = anaconda.id.storage.newPartition(fmt_type=fstype,
-                                                   size=size,
-                                                   disks=disks)
+        if asvol:
+            continue
+
+        if fstype is None:
+            fstype = anaconda.id.storage.defaultFSType
+
+        dev = anaconda.id.storage.newPartition(fmt_type=fstype,
+                                               size=size,
+                                               disks=disks)
 
         if grow:
             dev.req_grow = True
             if maxsize:
                 dev.req_max_size = maxsize
+
+        if mountpoint:
+            dev.format.mountpoint = mountpoint
 
         # schedule the device for creation
         anaconda.id.storage.createDevice(dev)
@@ -99,7 +116,7 @@ def doAutoPartition(anaconda):
     # sanity check the individual devices
     log.warning("not sanity checking devices because I don't know how yet")
 
-    # run the autopart function to allocate partitions, grow, &c
+    # run the autopart function to allocate and grow partitions
     try:
         doPartitioning(anaconda.id.storage)
     except PartitioningWarning as msg:
@@ -126,15 +143,52 @@ def doAutoPartition(anaconda):
         if anaconda.isKickstart:
             sys.exit(0)
 
+    # create a vg containing all of the autopart pvs
+    vg = anaconda.id.storage.newVG(pvs=pvs)
+    anaconda.id.storage.createDevice(vg)
+
+    #
+    # Convert storage.autoPartitionRequests into Device instances and
+    # schedule them for creation.
+    #
+    # Second pass, for LVs only.
+    for request in anaconda.id.storage.autoPartitionRequests:
+        (mountpoint, fstype, size, maxsize, grow, asvol) = request
+        if not asvol:
+            continue
+
+        if fstype is None:
+            fstype = anaconda.id.storage.defaultFSType
+
+        # FIXME: move this to a function and handle exceptions
+        dev = anaconda.id.storage.newLV(vg=vg,
+                                        fmt_type=fstype,
+                                        mountpoint=mountpoint,
+                                        size=size)
+
+        if grow:
+            dev.req_grow = True
+            if maxsize:
+                dev.req_max_size = maxsize
+
+        if mountpoint:
+            dev.format.mountpoint = mountpoint
+
+        # schedule the device for creation
+        anaconda.id.storage.createDevice(dev)
+
+    # grow the new VG and its LVs
+    growLVM(anaconda.id.storage)
+
     # sanity check the collection of devices
     log.warning("not sanity checking storage config because I don't know how yet")
     # now do a full check of the requests
-    (errors, warnings) = storage.sanityCheck()
+    (errors, warnings) = anaconda.id.storage.sanityCheck()
     if warnings:
         for warning in warnings:
             log.warning(warning)
     if errors:
-        errortxt = string.join(errors, '\n')
+        errortxt = "\n".join(errors)
         if anaconda.isKickstart:
             extra = _("\n\nPress 'OK' to exit the installer.")
         else:
@@ -174,8 +228,7 @@ def clearPartitions(storage):
             - Needs some error handling, especially for the parted bits.
 
     """
-    if not storage.clearPartType or \
-       storage.clearPartType == CLEARPART_TYPE_NONE:
+    if storage.clearPartType == CLEARPART_TYPE_NONE:
         # not much to do
         return
 
@@ -197,7 +250,7 @@ def clearPartitions(storage):
                                  parted.PARTITION_LOGICAL):
             continue
 
-        if clearPartType == CLEARPART_TYPE_ALL:
+        if storage.clearPartType == CLEARPART_TYPE_ALL:
             clear = True
         else:
             if part.format and part.format.linuxNative:
@@ -417,7 +470,7 @@ def getBestFreeSpaceRegion(disk, part_type, req_size,
 
     return best_free
 
-def doPartitioning(storage, exclusiveDisks=[]):
+def doPartitioning(storage):
     """ Allocate and grow partitions.
 
         When this function returns without error, all PartitionDevice
@@ -430,16 +483,14 @@ def doPartitioning(storage, exclusiveDisks=[]):
 
             storage -- the Storage instance
 
-        Keyword arguments:
-
-            exclusiveDisks -- a list of basenames of disks to use
-
     """
-    disks = storage.disks
+    disks = [d for d in storage.disks if d.name in storage.clearPartDisks]
     partitions = storage.partitions
-    if exclusiveDisks:
-        # only use specified disks
-        disks = [d for d in disks if d.name in exclusiveDisks]
+
+    # FIXME: isn't there a better place for this to happen?
+    bootDev = storage.fsset.bootDevice
+    if not bootDev.exists:
+        bootDev.req_bootable = True
 
     # FIXME: make sure non-existent partitions have empty parents list
     allocatePartitions(disks, partitions)
@@ -449,13 +500,19 @@ def doPartitioning(storage, exclusiveDisks=[]):
     #             them to the tree now
     for disk in disks:
         extended = disk.partedDisk.getExtendedPartition()
-        if extended.getDeviceNodeName() in [p.name for p in partitions]:
+        if not extended or \
+           extended.getDeviceNodeName() in [p.name for p in partitions]:
             # this extended partition is preexisting
             continue
 
+        # This is a little odd because normally instantiating a partition
+        # that does not exist means leaving self.parents empty and instead
+        # populating self.req_disks. In this case, we need to skip past
+        # that since this partition is already defined.
         device = PartitionDevice(extended.getDeviceNodeName(),
                                  parents=disk)
-        device.setPartedPartition(extended)
+        device.parents = [disk]
+        device.partedPartition = extended
         storage.createDevice(device)
 
 def allocatePartitions(disks, partitions):
@@ -614,7 +671,7 @@ def allocatePartitions(disks, partitions):
                           constraint=disk.device.getConstraint())
 #                          constraint=parted.Constraint(device=disk.device))
         log.debug("created partition %s of %dMB and added it to %s" % (partition.getDeviceNodeName(), partition.getSize(), disk))
-        _part.setPartedPartition(partition)
+        _part.partedPartition = partition
         _part.disk = _disk
 
 
@@ -706,10 +763,10 @@ def growPartitions(disks, partitions):
                     max_grow = (max_sect - sectors)
 
             # don't grow beyond the resident filesystem's max size
-            if part.format and getattr(part.format, 'maxsize', 0):
-                log.debug("format maxsize: %dMB" % part.format.maxsize)
+            if part.format.maxSize > 0:
+                log.debug("format maxsize: %dMB" % part.format.maxSize)
                 # FIXME: round down to nearest cylinder boundary
-                max_sect = (part.format.maxsize * (1024 * 1024)) / sectorSize
+                max_sect = (part.format.maxSize * (1024 * 1024)) / sectorSize
                 if max_sect < sectors + max_grow:
                     max_grow = (max_sect - sectors)
 
@@ -782,10 +839,9 @@ def growPartitions(disks, partitions):
             continue
         part.req_size = part.req_base_size
 
-def growLVM(tree):
+def growLVM(storage):
     """ Grow LVs according to the sizes of the PVs. """
-    vgs = tree.getDevicesByType("lvm vg")
-    for vg in vgs:
+    for vg in storage.vgs:
         total_free = vg.freeSpace
         if not total_free:
             log.debug("vg %s has no free space" % vg.name)
