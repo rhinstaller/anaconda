@@ -863,6 +863,13 @@ class FSSet(object):
         devices.sort(key=lambda d: d.path)
         return devices
 
+    @property
+    def mountpoints(self):
+        filesystems = {}
+        for device in self.devices:
+            if device.format.mountable and device.format.mountpoint:
+                filesystems[device.format.mountpoint] = device
+
     def parseFSTab(self, chroot=""):
         """ parse /etc/fstab
 
