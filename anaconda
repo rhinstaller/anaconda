@@ -170,6 +170,10 @@ def setupPythonUpdates():
 									f),
 			       "/tmp/updates/%s/%s" %(pypkg, f))
 
+    import shutil
+    shutil.copyfile("/tmp/updates/70-anaconda.rules",
+                    "/etc/udev/rules.d/70-anaconda.rules")
+
 def parseOptions():
     def resolution_cb (option, opt_str, value, parser):
         parser.values.runres = value
