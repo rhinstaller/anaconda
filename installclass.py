@@ -188,7 +188,7 @@ class BaseInstallClass(object):
 
     def setDefaultPartitioning(self, storage, platform,
                                clear = CLEARPART_TYPE_LINUX, doClear = True):
-        autorequests = [ ("/", None, 1024, None, True, True) ]
+        autorequests = [ ("/", storage.defaultFSType, 1024, None, True, True) ]
 
         bootreq = platform.setDefaultPartitioning()
         if bootreq:
