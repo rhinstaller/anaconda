@@ -855,6 +855,7 @@ class FSSet(object):
         self.devicetree = devicetree
         self.cryptTab = None
         self.blkidTab = None
+        self.active = False
 
     @property
     def devices(self):
@@ -1170,6 +1171,8 @@ class FSSet(object):
                 log.error("FSError: %s" % msg)
                 sys.exit(0)
 
+        self.active = True
+
     def umountFilesystems(self, instPath, ignoreErrors=True, swapoff=True):
         # XXX if we tracked the /dev bind mount this wouln't be necessary
         if os.path.ismount("%s/dev" % instPath):
@@ -1185,6 +1188,8 @@ class FSSet(object):
 
             device.teardownFormat()
             device.teardown()
+
+        self.active = False
 
     def createSwapFile(self, rootPath, device, size):
         """ Create and activate a swap file under rootPath. """
