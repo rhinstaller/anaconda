@@ -183,14 +183,6 @@ class BootImages:
         # return a copy so users can modify it w/o affecting us
         return copy(self.images)
 
-
-    def setImageLabel(self, dev, label, setLong = 0):
-        orig = self.images[dev]
-        if setLong:
-            self.images[dev] = (orig[0], label, orig[2])
-        else:
-            self.images[dev] = (label, orig[1], orig[2])            
-            
     def setDefault(self, default):
         # default is a device
         self.default = default
@@ -198,62 +190,66 @@ class BootImages:
     def getDefault(self):
         return self.default
 
-    # XXX this has internal anaconda-ish knowledge.  ick 
-    def setup(self, diskSet, fsset):
+    # Construct a dictionary mapping device names to (OS, product, type)
+    # tuples.
+    def setup(self, storage):
         devices = {}
-        devs = self.availableBootDevices(diskSet, fsset)
-        for (dev, type) in devs:
-            devices[dev] = 1
+        bootDevs = self.availableBootDevices(storage)
+
+        for (dev, type) in bootDevs:
+            devices[dev.name] = 1
 
         # These partitions have disappeared
         for dev in self.images.keys():
-            if not devices.has_key(dev): del self.images[dev]
+            if not devices.has_key(dev):
+                del self.images[dev]
 
         # These have appeared
-        for (dev, type) in devs:
-            if not self.images.has_key(dev):
+        for (dev, type) in bootDevs:
+            if not self.images.has_key(dev.name):
                 if type in dosFilesystems and doesDualBoot():
-                    self.images[dev] = ("Other", "Other", type)
+                    self.images[dev.name] = ("Other", "Other", type)
                 elif type in ("hfs", "hfs+") and rhpl.getPPCMachine() == "PMac":
-                    self.images[dev] = ("Other", "Other", type)
+                    self.images[dev.name] = ("Other", "Other", type)
                 else:
-                    self.images[dev] = (None, None, type)
-
+                    self.images[dev.name] = (None, None, type)
 
         if not self.images.has_key(self.default):
-            device = storage.fsset.mountpoints["/"]
-            self.default = device
+            self.default = storage.fsset.rootDevice.name
             (label, longlabel, type) = self.images[self.default]
             if not label:
                 self.images[self.default] = ("linux", productName, type)
 
-    # XXX more internal anaconda knowledge
-    def availableBootDevices(self, diskSet, fsset):
-        devs = []
-        foundDos = 0
-        for (dev, type) in diskSet.partitionTypes():
+    # Return a list of (storage.Device, string) tuples that are bootable
+    # devices.  The string is the type of the device, which is just a string
+    # like "vfat" or "swap" or "lvm".
+    def availableBootDevices(self, storage):
+        import parted
+        retval = []
+        foundDos = False
+
+        for part in [p for p in storage.partitions if p.exists]:
+            # Skip extended, metadata, freespace, etc.
+            if part.partType not in (parted.PARTITION_NORMAL, parted.PARTITION_LOGICAL) or not part.format:
+                continue
+
+            type = part.format.type
+
             if type in dosFilesystems and not foundDos and doesDualBoot():
                 try:
-                    bootable = checkForBootBlock('/dev/' + dev)
-                    devs.append((dev, type))
-                    foundDos = 1
-                except Exception, e:
+                    bootable = checkForBootBlock(part.path)
+                    retval.append((part, type))
+                    foundDos = True
+                except:
                     pass
-            elif ((type == 'ntfs' or type =='hpfs') and not foundDos
-                  and doesDualBoot()):
-                devs.append((dev, type))
+            elif type in ["ntfs", "hpfs"] and not foundDos and doesDualBoot():
+                retval.append((part, type))
                 # maybe questionable, but the first ntfs or fat is likely to
                 # be the correct one to boot with XP using ntfs
-                foundDos = 1
-            elif type in ('hfs', 'hfs+') and rhpl.getPPCMachine() == "PMac":
-                import _ped
-
-                for disk in diskset.disks:
-                    part = disk.getPartitionByPath('/dev/' + dev)
-                    if part:
-                        if not part.getFlag(_ped.PARTITION_BOOT):
-                            devs.append((dev, type))
-                        break
+                foundDos = True
+            elif type in ["hfs", "hfs+"] and rhpl.getPPCMachine() == "PMac":
+                if self.partedFlags[parted.PARTITION_BOOT]:
+                    retval.append((part, type))
 
         try:
             rootDevice = storage.fsset.mountpoints["/"]
@@ -264,9 +260,9 @@ class BootImages:
             raise ValueError, ("Trying to pick boot devices but do not have a "
                                "sane root partition.  Aborting install.")
 
-        devs.append((rootDevice, rootDevice.format.type))
-        devs.sort()
-        return devs
+        retval.append((rootDevice, rootDevice.format.type))
+        retval.sort()
+        return retval
 
 class bootloaderInfo:
     def getConfigFileName(self):
