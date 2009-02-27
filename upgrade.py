@@ -317,6 +317,7 @@ def setSteps(anaconda):
                 "upgrademigfind",
                 "upgrademigratefs",
                 "upgradearchitecture",
+                "enablefilesystems",
                 "upgradecontinue",
                 "reposetup",
                 "upgbootloader",
