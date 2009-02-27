@@ -198,13 +198,10 @@ class BaseInstallClass(object):
         autorequests.append((None, "swap", minswap, maxswap, True, True))
 
         if doClear:
-            storage.autoClearPartType = clear
-            storage.autoClearPartDrives = []
+            storage.clearPartType = clear
+            storage.clearPartDisks = []
 
-        if useLVM:
-            storage.autoPartitionRequests = autoCreateLVMPartitionRequests(autorequests)
-        else:
-            storage.autoPartitionRequests = autoCreatePartitionRequests(autorequests)        
+        storage.autoPartitionRequests = autorequests
 
 
     def setInstallData(self, anaconda):
