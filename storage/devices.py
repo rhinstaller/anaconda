@@ -96,10 +96,10 @@ import os
 import math
 
 # device backend modules
-import devicelibs.mdraid
-import devicelibs.lvm
+from devicelibs import mdraid
+from devicelibs import lvm
 #import block
-import devicelibs.dm
+from devicelibs import dm
 import parted
 
 from errors import *
@@ -359,7 +359,7 @@ class StorageDevice(Device):
         Device.__init__(self, device, parents=parents)
 
         self.uuid = None
-        self._format = getFormat(None)
+        self._format = None
         self._size = numeric_type(size)
         self.major = numeric_type(major)
         self.minor = numeric_type(minor)
@@ -371,6 +371,7 @@ class StorageDevice(Device):
 
         self.format = format
         self.fstabComment = ""
+        self.targetSize = self._size
 
     @property
     def path(self):
@@ -410,7 +411,6 @@ class StorageDevice(Device):
             log.debug("not sending change uevent for inactive device")
             return
 
-        self.updateSysfsPath()
         path = os.path.normpath("/sys/%s" % self.sysfsPath)
         try:
             notify_kernel(path, action="change")
@@ -453,16 +453,28 @@ class StorageDevice(Device):
             self.teardownParents(recursive=recursive)
 
     def _getSize(self):
-        """ Get the device's size. """
-        return self._size
+        """ Get the device's size, accounting for pending changes. """
+        size = self._size
+        if self.resizable and self.targetSize != size:
+            size = self.targetSize
+        return size
 
     def _setSize(self, newsize):
         """ Set the device's size to a new value. """
         # FIXME: this should involve some verification
         self._size = newsize
 
-    size = property(lambda x: x._getSize(), lambda x, y: x._setSize(y),
-                    doc="The device's size")
+    size = property(lambda x: x._getSize(),
+                    #lambda x, y: x._setSize(y),
+                    doc="The device's size, accounting for pending changes")
+
+    @property
+    def currentSize(self):
+        """ The device's actual size. """
+        size = 0
+        if self.exists:
+            size = self._size
+        return size
 
     @property
     def status(self):
@@ -479,10 +491,10 @@ class StorageDevice(Device):
     def _setFormat(self, format):
         """ Set the Device's format. """
         if not format:
-            format = getFormat(None, device=self.path)
+            format = getFormat(None, device=self.path, exists=self.exists)
         log_method_call(self, self.name, type=format.type,
-                        current=self._format.type, status=self.status)
-        if self.format and self._format.status:
+                        current=getattr(self._format, "type", None))
+        if self._format and self._format.status:
             # FIXME: self.format.status doesn't mean much
             raise DeviceError("cannot replace active format")
 
@@ -503,8 +515,8 @@ class StorageDevice(Device):
 
         self.createParents()
         self.setupParents()
-        self.setup()
         self.exists = True
+        self.setup()
 
     def destroy(self):
         """ Destroy the device. """
@@ -520,6 +532,9 @@ class StorageDevice(Device):
             self.format.destroy()
 
         self.exists = False
+        # we already did this in DeviceTree._removeDevice
+        #for parent in self.parents:
+        #    parent.removeChild()
 
 
 class DiskDevice(StorageDevice):
@@ -596,19 +611,18 @@ class DiskDevice(StorageDevice):
 
         log_method_call(self, self.name, size=self.size, partedDevice=self.partedDevice)
         if not self.size:
-            self.size = self.partedDevice.getSize()
+            self._size = self.partedDevice.getSize()
         if not self.diskLabel:
             log.debug("setting %s diskLabel to %s" % (self.name,
                                                       self.partedDisk.type))
             self.diskLabel = self.partedDisk.type
 
-    def create(self, intf=None):
-        """ Create the device. """
+    def commit(self, intf=None):
+        """ Commit changes to the device. """
         log_method_call(self, self.name, status=self.status)
-        self.createParents()
         self.setupParents()
-        self.partedDisk.commit()
         self.setup()
+        self.partedDisk.commit()
 
     def destroy(self):
         """ Destroy the device. """
@@ -641,17 +655,35 @@ class PartitionDevice(StorageDevice):
 
         On types and flags...
 
-        We don't need to deal with numerical partition types at all.
+        We don't need to deal with numerical partition types at all. The
+        only type we are concerned with is primary/logical/extended. Usage
+        specification is accomplished through the use of flags, which we
+        will set according to the partition's format.
 
-        The only type we are concerned with is primary/logical/extended.
 
-        Usage specification is accomplished through the use of flags,
-        which we will set according to the partition's format.
+        On usage of parted...
+
+        We are doing this in a slightly lame way right now. We do all
+        partitioning on the disks' partedDisk instances and update the
+        partitions' partedPartition instances accordingly. What this means
+        is that when the time comes to commit changes, all a
+        PartitionDevice must do to make the changes take effect is make
+        sure self.disk.partedDisk.commit() is called. Probably better
+        would be to work with copies of the parted.Disks during
+        partitioning, save the modified parted.Partitions in the
+        PartitionDevice instances, and call
+        self.disk.partedDisk.deletePartition in destroy and
+        self.disk.partedDisk.addPartition, followed by
+        self.disk.partedDisk.commit() in create.
+
+        OTOH, the upside to the current approach is that both the disks'
+        and the partitions' parted instances are in agreement in
+        reflecting the future layout.
     """
     _type = "partition"
     _resizable = True
 
-    def __init__(self, device, format=None,
+    def __init__(self, name, format=None,
                  size=None, grow=False, maxsize=None,
                  major=None, minor=None, bootable=None,
                  sysfsPath='', parents=None, exists=None,
@@ -660,7 +692,7 @@ class PartitionDevice(StorageDevice):
 
             Arguments:
 
-                device -- the device name (generally a device node's basename)
+                name -- the device name (generally a device node's basename)
 
             Keyword Arguments:
 
@@ -692,7 +724,9 @@ class PartitionDevice(StorageDevice):
         self.req_base_size = 0
         self.req_max_size = 0
 
-        StorageDevice.__init__(self, device, format=format, size=size,
+        self.bootable = False
+
+        StorageDevice.__init__(self, name, format=format, size=size,
                                major=major, minor=minor, exists=exists,
                                sysfsPath=sysfsPath, parents=parents)
 
@@ -742,12 +776,15 @@ class PartitionDevice(StorageDevice):
     @property
     def partType(self):
         """ Get the partition's type (as parted constant). """
-        if self.partedPartition:
-            return self.partedPartition.type
-        else:
-            if self.exists:
-                raise DeviceError("partition exists but has no partedPartition")
-            return self._partType
+        try:
+            ptype = self.partedPartition.type
+        except AttributeError:
+            ptype = self._partType
+
+        if not self.exists and ptype is None:
+            ptype = self.req_partType
+
+        return ptype
 
     @property
     def isExtended(self):
@@ -765,26 +802,19 @@ class PartitionDevice(StorageDevice):
     def isProtected(self):
         return self.partType & parted.PARTITION_PROTECTED
 
-    @property
-    def getPartedPartition(self):
-        return self._partedPartition
-        log.debug("PartitionDevice %s has %d parents (%s)" % (self.name,
-                                                              len(self.parents),                                                              self.parents))
+    def _getPartedPartition(self):
         ppart = None
-        if len(self.parents) == 1:
-            if self._partedPartition and \
-               self.disk.partedDisk == self._partedPartition.disk:
-                return self._partedPartition
-
-            log.debug("path is %s ; partitions is %s" % (self.path,
-                                                         [p.path for p in self.disk.partedDisk.partitions]))
+        if self._partedPartition and self.disk and \
+           self.disk.partedDisk == self._partedPartition.disk:
+                ppart = self._partedPartition
+        elif self.disk:
             pdisk = self.disk.partedDisk
             ppart = pdisk.getPartitionByPath(self.path)
             self._partedPartition = ppart
 
         return ppart
 
-    def setPartedPartition(self, partition):
+    def _setPartedPartition(self, partition):
         """ Set this PartitionDevice's parted Partition instance. """
         log_method_call(self, self.name)
         if partition is None:
@@ -800,8 +830,8 @@ class PartitionDevice(StorageDevice):
         self._partedPartition = partition
         self._name = partition.getDeviceNodeName()
 
-    partedPartition = property(lambda d: d.getPartedPartition(),
-                               lambda d,p: d.setPartedPartition(p))
+    partedPartition = property(lambda d: d._getPartedPartition(),
+                               lambda d,p: d._setPartedPartition(p))
 
     def dependsOn(self, dep):
         """ Return True if this device depends on dep. """
@@ -821,9 +851,6 @@ class PartitionDevice(StorageDevice):
 
     def setBootable(self, bootable):
         """ Set the bootable flag for this partition. """
-        if 'parted' not in globals().keys():
-            return
-
         if self.partedPartition:
             if isFlagAvailable(parted.PARTITION_BOOT):
                 if bootable:
@@ -839,6 +866,38 @@ class PartitionDevice(StorageDevice):
                                     "partitions"))
             else:
                 self.bootable = bootable
+
+    def flagAvailable(self, flag):
+        log_method_call(self, path=self.path, flag=flag,
+                        part=self.partedPartition)
+        if not self.partedPartition:
+            return
+
+        return self.partedPartition.isFlagAvailable(flag)
+
+    def getFlag(self, flag):
+        log_method_call(self, path=self.path, flag=flag,
+                        part=self.partedPartition)
+        if not self.partedPartition or not self.flagAvailable(flag):
+            return
+
+        return self.partedPartition.getFlag(flag)
+
+    def setFlag(self, flag):
+        log_method_call(self, path=self.path, flag=flag,
+                        part=self.partedPartition)
+        if not self.partedPartition or not self.flagAvailable(flag):
+            return
+
+        self.partedPartition.setFlag(flag)
+
+    def unsetFlag(self, flag):
+        log_method_call(self, path=self.path, flag=flag,
+                        part=self.partedPartition)
+        if not self.partedPartition or not self.flagAvailable(flag):
+            return
+
+        self.partedPartition.unsetFlag(flag)
 
     def probe(self):
         """ Probe for any missing information about this device.
@@ -863,7 +922,7 @@ class PartitionDevice(StorageDevice):
         """
 
         # this is in MB
-        self.size = self.partedPartition.getSize()
+        self._size = self.partedPartition.getSize()
 
         self._partType = self.partedPartition.type
 
@@ -873,14 +932,26 @@ class PartitionDevice(StorageDevice):
         if self.exists:
             raise DeviceError("device already exists")
 
-        # first, do the parted commit
-        try:
-            self.disk.create()
-        except DeviceError, e:
-            log.debug("error creating %s: %s" % (self.parents[0].name, e))
+        self.createParents()
+        self.setupParents()
 
-        self.setup()
+        # If we are bootable or our format has a flag it needs set, do
+        # that now.
+        #
+        # FIXME: this should be moved onto a common codepath so that
+        #        flags get set properly for existing partitions as well.
+        #
+        # XXX this may trigger multiple parted.Disk.commit() calls, but
+        #     who cares?
+        if self.format.partedFlag is not None:
+            self.setFlag(self.format.partedFlag)
+
+        if self.bootable:
+            self.setFlag(parted.PARTITION_BOOT)
+
+        self.disk.commit()
         self.exists = True
+        self.setup()
 
     def destroy(self):
         """ Destroy the device. """
@@ -894,24 +965,27 @@ class PartitionDevice(StorageDevice):
         if not self.isleaf:
             raise DeviceError("Cannot destroy non-leaf device")
 
+        self.setupParents()
         if self.status:
             self.format.destroy()
 
-        # now actually tell pyparted to remove the partition
-        # FIXME: need special handling for extended partitions
-        parted.deletePartition(self.partedPartition)
+        # We have already removed the partition from the in-memory
+        # parted.Disk, so there is nothing to do here except make sure
+        # self.disk.partedDisk.commit() gets called.
+        #
+        # We must have faith that there are no erroneous outstanding
+        # changes also queued for the disk.
+        self.disk.commit()
 
         self.exists = False
 
     def _getSize(self):
         """ Get the device's size. """
-        if self.partedPartition:
+        size = self._size
+        if len(self.parents) == 1:
             # this defaults to MB
-            return self.partedPartition.getSize()
-        else:
-            if self.exists:
-                raise DeviceError("partition exists but has no partedPartition")
-            return self._size
+            size = self.partedPartition.getSize()
+        return size
 
     def _setSize(self, newsize):
         """ Set the device's size (for resize, not creation).
@@ -1110,8 +1184,8 @@ class LUKSDevice(DMCryptDevice):
 
         #if not self.slave.format.exists:
         #    self.slave.format.create()
-        self.setup()
         self.exists = True
+        self.setup()
 
     def setup(self, intf=None):
         """ Open, or set up, a device. """
@@ -1220,9 +1294,8 @@ class LVMVolumeGroupDevice(DMDevice):
             return False
 
         # certainly if any of this VG's LVs are active then so are we
-        for lvName in self.lvNames:
-            lvPath = os.path.normpath("%s-%s" % (self.path, lvName))
-            if os.path.exists(lvPath):
+        for lv in self.lvs:
+            if lv.status:
                 return True
 
         # if any of our PVs are not active then we cannot be
@@ -1236,7 +1309,7 @@ class LVMVolumeGroupDevice(DMDevice):
 
         return True
 
-    def addDevice(self, device):
+    def _addDevice(self, device):
         """ Add a new physical volume device to the volume group.
 
             XXX This is for use by device probing routines and is not
@@ -1265,7 +1338,7 @@ class LVMVolumeGroupDevice(DMDevice):
         if len(self.parents) == self.pvCount:
             self.setup()
 
-    def removeDevice(self, device):
+    def _removeDevice(self, device):
         """ Remove a physical volume from the volume group.
 
             This is for cases like clearing of preexisting partitions.
@@ -1359,14 +1432,14 @@ class LVMVolumeGroupDevice(DMDevice):
             raise ValueError("lv is already part of this vg")
 
         # verify we have the space, then add it
-        if lv.size > self.freeSpace:
+        if not lv.exists and lv.size > self.freeSpace:
             raise DeviceError("new lv is too large to fit in free space")
 
         self._lvs.append(lv)
 
     def _removeLogVol(self, lv):
         """ Remove an LV from this VG. """
-        if not lv in self.lvs:
+        if lv not in self.lvs:
             raise ValueError("specified lv is not part of this vg")
 
         self._lvs.remove(lv)
@@ -1734,7 +1807,7 @@ class MDRaidArrayDevice(StorageDevice):
         else:
             self.sysfsPath = None
 
-    def addDevice(self, device):
+    def _addDevice(self, device):
         """ Add a new member device to the array.
 
             XXX This is for use when probing devices, not for modification
@@ -1760,7 +1833,11 @@ class MDRaidArrayDevice(StorageDevice):
         self.devices.append(device)
         device.addChild()
 
-    def removeDevice(self, device):
+        if self.status:
+            device.setup()
+            mdraid.mdadd(device.path)
+
+    def _removeDevice(self, device):
         """ Remove a component device from the array.
 
             XXX This is for use by clearpart, not for reconfiguration.
@@ -2096,8 +2173,8 @@ class FileDevice(StorageDevice):
         try:
             buf = '\0' * 1024 * 1024 * self.size
             os.write(fd, buf)
-        except Exception, e:
-            log.error("error zeroing out %s: %s" % (self.device, e))
+        except (OSError, TypeError) as e:
+            log.error("error writing out %s: %s" % (self.path, e))
         finally:
             os.close(fd)
 
