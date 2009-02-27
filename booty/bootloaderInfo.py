@@ -472,20 +472,9 @@ class bootloaderInfo:
             f.write(" " + arg)
         f.write("\n")
 
-    def createDriveList(self):
-        # create a drive list that we can use for drive mappings
-        # XXX has anaconda internals knowledge
-        import isys
-        drives = isys.hardDriveDict().keys()
-        drives.sort(isys.compareDrives)
-
-        # now filter out all of the drives without media present
-        drives = filter(lambda x: isys.mediaPresent(x), drives)
-
-        return drives
-
     def updateDriveList(self, sortedList=[]):
-        self._drivelist = self.createDriveList()
+        self._drivelist = map(lambda x: x.name, filter(lambda x: isys.mediaPresent(x.name), self.storage.disks))
+        self._drivelist.sort(isys.compareDrives)
 
         # If we're given a sort order, make sure the drives listed in it
         # are put at the head of the drivelist in that order.  All other
