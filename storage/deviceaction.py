@@ -20,10 +20,9 @@
 #
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
-""" action.py
 
-"""
-from devices import StorageDevice
+from devices import StorageDevice, PartitionDevice
+from formats import getFormat
 from errors import *
 
 import gettext
@@ -62,6 +61,32 @@ RESIZE_GROW = 89
 
 resize_strings = {RESIZE_SHRINK: "Shrink",
                   RESIZE_GROW: "Grow"}
+
+def action_type_from_string(type_string):
+    if type_string is None:
+        return None
+
+    for (k,v) in action_strings.items():
+        if v.lower() == type_string.lower():
+            return k
+
+    return resize_type_from_string(type_string)
+
+def action_object_from_string(type_string):
+    if type_string is None:
+        return None
+
+    for (k,v) in object_strings.items():
+        if v.lower() == type_string.lower():
+            return k
+
+def resize_type_from_string(type_string):
+    if type_string is None:
+        return None
+
+    for (k,v) in resize_strings.items():
+        if v.lower() == type_string.lower():
+            return k
 
 class DeviceAction(object):
     """ An action that will be carried out in the future on a Device.
@@ -116,7 +141,7 @@ class DeviceAction(object):
         self.device = device
         #self._backup = deepcopy(device)
 
-    def execute(self):
+    def execute(self, intf=None):
         """ perform the action """
         pass
 
@@ -172,8 +197,8 @@ class ActionCreateDevice(DeviceAction):
         # FIXME: assert device.fs is None
         DeviceAction.__init__(self, device)
 
-    def execute(self):
-        self.device.create()
+    def execute(self, intf=None):
+        self.device.create(intf=intf)
 
 
 class ActionDestroyDevice(DeviceAction):
@@ -185,7 +210,7 @@ class ActionDestroyDevice(DeviceAction):
         # XXX should we insist that device.fs be None?
         DeviceAction.__init__(self, device)
 
-    def execute(self):
+    def execute(self, intf=None):
         self.device.destroy()
 
 
@@ -199,18 +224,18 @@ class ActionResizeDevice(DeviceAction):
             raise ValueError("new size same as old size")
 
         DeviceAction.__init__(self, device)
-        if newsize > device.size:
+        if newsize > device.currentSize:
             self.dir = RESIZE_GROW
         else:
             self.dir = RESIZE_SHRINK
-        self.origsize = device.size
-        self.device.size = newsize
+        self.origsize = device.targetSize
+        self.device.targetSize = newsize
 
-    def execute(self):
-        self.device.resize()
+    def execute(self, intf=None):
+        self.device.resize(intf=intf)
 
     def cancel(self):
-        self.device.size = self.origsize
+        self.device.targetSize = self.origsize
 
 
 class ActionCreateFormat(DeviceAction):
@@ -218,19 +243,21 @@ class ActionCreateFormat(DeviceAction):
     type = ACTION_TYPE_CREATE
     obj = ACTION_OBJECT_FORMAT
 
-    def __init__(self, device, format):
+    def __init__(self, device, format=None):
         DeviceAction.__init__(self, device)
-        # should we insist that device.format be None?
-        # (indicative of ActionDestroyFormat having been instantiated)
-        self.origFormat = device.format
-        self.device.teardownFormat()
-        self.device.format = format
+        if format:
+            self.origFormat = device.format
+            self.device.format.teardown()
+            self.device.format = format
+        else:
+            self.origFormat = getFormat(None)
 
-    def execute(self):
+    def execute(self, intf=None):
         # XXX we should set partition type flag as needed
         #     - or should that be in the CreateDevice action?
         self.device.setup()
-        self.device.format.create(device=self.device.path,
+        self.device.format.create(intf=intf,
+                                  device=self.device.path,
                                   options=self.device.formatArgs)
 
     def cancel(self):
@@ -256,9 +283,8 @@ class ActionDestroyFormat(DeviceAction):
             device.format.teardown()
         self.device.format = None
 
-    def execute(self):
+    def execute(self, intf=None):
         """ wipe the filesystem signature from the device """
-        #self.device.destroyFormat()
         if self.origFormat:
             self.device.setup()
             self.origFormat.destroy()
@@ -281,21 +307,40 @@ class ActionResizeFormat(DeviceAction):
     obj = ACTION_OBJECT_FORMAT
 
     def __init__(self, device, newsize):
-        if device.size == newsize:
+        if device.targetSize == newsize:
             raise ValueError("new size same as old size")
 
         DeviceAction.__init__(self, device)
-        if newsize > device.format.size:
+        if newsize > device.format.currentSize:
             self.dir = RESIZE_GROW
         else:
             self.dir = RESIZE_SHRINK
-        self.device.format.setSize(newsize)
+        self.origSize = self.device.format.targetSize
+        self.device.format.targetSize = newsize
 
-    def execute(self):
-        self.device.format.resize()
+    def execute(self, intf=None):
+        self.device.format.doResize(intf=intf)
 
     def cancel(self):
-        self.device.format.setSize(None)
+        self.device.format.targetSize = self.origSize
+
+class ActionMigrateFormat(DeviceAction):
+    """ An action representing the migration of an existing filesystem. """
+    type = ACTION_TYPE_MIGRATE
+    obj = ACTION_OBJECT_FORMAT
+
+    def __init__(self, device):
+        if not device.format.migratable or not device.format.exists:
+            raise ValueError("device format is not migratable")
+
+        DeviceAction.__init__(self, device)
+        self.device.format.migrate = True
+
+    def execute(self, intf=None):
+        self.device.format.doMigrate(intf=intf)
+
+    def cancel(self):
+        self.device.format.migrate = False
 
 
 
