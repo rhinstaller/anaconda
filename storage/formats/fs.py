@@ -113,16 +113,19 @@ def fsConfigFromFile(config_file):
 
 class FS(DeviceFormat):
     """ Filesystem class. """
-    _type = "filesystem"                 # fs type
-    _name = "Abstract Filesystem Class"  # fs type name
+    _type = "Abstract Filesystem Class"  # fs type name
+    _name = None
     _mkfs = ""                           # mkfs utility
     _resizefs = ""                       # resize utility
     _labelfs = ""                        # labeling utility
     _fsck = ""                           # fs check utility
+    _migratefs = ""                      # fs migration utility
     _defaultFormatOptions = []           # default options passed to mkfs
     _defaultMountOptions = ["defaults"]  # default options passed to mount
     _defaultLabelOptions = []
     _defaultCheckOptions = []
+    _defaultMigrateOptions = []
+    _migrationTarget = None
     lostAndFoundContext = None
 
     def __init__(self, *args, **kwargs):
@@ -149,7 +152,7 @@ class FS(DeviceFormat):
         self.label = kwargs.get("label")
         # filesystem size does not necessarily equal device size
         self._size = kwargs.get("size")
-        self._targetSize = None
+        self._targetSize = self._size
         self._mountpoint = None     # the current mountpoint when mounted
 
     def _setTargetSize(self, newsize):
@@ -176,9 +179,21 @@ class FS(DeviceFormat):
 
     def _getSize(self):
         """ Get this filesystem's size. """
-        return self._size
+        size = self._size
+        if self.resizable and self.targetSize != size:
+            size = self.targetSize
+        return size
 
-    size = property(_getSize, doc="This filesystem's size")
+    size = property(_getSize, doc="This filesystem's size, accounting "
+                                  "for pending changes")
+
+    @property
+    def currentSize(self):
+        """ The filesystem's current actual size. """
+        size = 0
+        if self.exists:
+            size = self._size
+        return size
 
     def _getFormatArgs(self, options=None):
         argv = []
@@ -187,7 +202,7 @@ class FS(DeviceFormat):
         argv.append(self.device)
         return argv
     
-    def format(self, *args, **kwargs):
+    def doFormat(self, *args, **kwargs):
         """ Create the filesystem.
 
             Arguments:
@@ -248,11 +263,47 @@ class FS(DeviceFormat):
         self.exists = True
         self.notifyKernel()
 
+    def doMigrate(self, intf=None):
+        if not self.exists:
+            raise FSError("filesystem has not been created")
+
+        if not self.migratable or not self.migrate:
+            return
+
+        if not os.path.exists(self.device):
+            raise FSError("device does not exist")
+
+        # if journal already exists skip
+        if isys.ext2HasJournal(self.device):
+            log.info("Skipping migration of %s, has a journal already."
+                     % self.device)
+            return
+
+        argv = self._defaultMigrateOptions[:]
+        argv.append(self.device)
+        try:
+            rc = iutil.execWithRedirect(self.migratefsProg,
+                                        argv,
+                                        stdout = "/dev/tty5",
+                                        stderr = "/dev/tty5",
+                                        searchPath = 1)
+        except Exception as e:
+            raise FSMigrateError("filesystem migration failed: %s" % e,
+                                 self.device)
+
+        if rc:
+            raise FSMigrateError("filesystem migration failed: %s" % rc,
+                                 self.device)
+
+        # the other option is to actually replace this instance with an
+        # instance of the new filesystem type.
+        self._type = self.migrationTarget
+
     def _getResizeArgs(self):
         argv = [self.device, self.targetSize]
         return argv
 
-    def resize(self, *args, **kwargs):
+    def doResize(self, *args, **kwargs):
         """ Resize this filesystem to new size @newsize.
 
             Arguments:
@@ -273,9 +324,7 @@ class FS(DeviceFormat):
             # should this instead raise an exception?
             return
 
-        if self.targetSize is None:
-            # FIXME: implement minimum size method/attr and/or checking in
-            #        setter for targetSize property
+        if self.targetSize == self.currentSize:
             return
 
         if not self.resizefsProg:
@@ -284,7 +333,7 @@ class FS(DeviceFormat):
         if not os.path.exists(self.device):
             raise FSResizeError("device does not exist", self.device)
 
-        self.check(intf=intf)
+        self.doCheck(intf=intf)
 
         argv = self._getResizeArgs()
 
@@ -314,17 +363,12 @@ class FS(DeviceFormat):
         self._size = self.targetSize
         self.notifyKernel()
 
-    def getMinimumSize(self):
-        raise NotImplementedError("getMinimumSize")
-        if not self.exists:
-            raise FSError("filesystem does not exist")
-
     def _getCheckArgs(self):
         argv = []
         argv.extend(self.defaultCheckOptions)
         argv.append(self.device)
 
-    def check(self, intf=None):
+    def doCheck(self, intf=None):
         if not self.exists:
             raise FSError("filesystem has not been created")
 
@@ -402,7 +446,7 @@ class FS(DeviceFormat):
 
         # passed in options override default options
         if not options or not isinstance(options, str):
-            options = ",".join(self.defaultMountOptions)
+            options = self.options
        
         try: 
             rc = isys.mount(self.device, mountpoint, 
@@ -491,6 +535,15 @@ class FS(DeviceFormat):
         """ Program used to manage labels for this filesystem type. """
         return self._labelfs
 
+    @property
+    def migratefsProg(self):
+        """ Program used to migrate filesystems of this type. """
+        return self._migratefs
+
+    @property
+    def migrationTarget(self):
+        return self._migrationTarget
+
     def supported(self):
         # we aren't checking for fsck because we shouldn't need it
         for prog in [self.mkfsProg, self.resizefsProg, self.labelfsProg]:
@@ -531,6 +584,47 @@ class FS(DeviceFormat):
         # return a copy to prevent modification
         return self._defaultCheckOptions[:]
 
+    def _getOptions(self):
+        options = ",".join(self.defaultMountOptions)
+        if self.mountopts:
+            # XXX should we clobber or append?
+            options = self.mountopts
+        return options
+
+    def _setOptions(self, options):
+        self.mountopts = options
+
+    options = property(_getOptions, _setOptions)
+
+    @property
+    def migratable(self):
+        """ Can filesystems of this type be migrated? """
+        return (self._migratable and self.migratefsProg and
+                filter(lambda d: os.access("%s/%s" % (d, self.migratefsProg),
+                                           os.X_OK),
+                       os.environ["PATH"].split(":")) and
+                self.migrationTarget)
+
+    def _setMigrate(self, migrate):
+        if not migrate:
+            self._migrate = migrate
+            return
+
+        if self.migratable and self.exists:
+            self._migrate = migrate
+        else:
+            raise ValueError("cannot set migrate on non-migratable filesystem")
+
+    migrate = property(lambda f: f._migrate, lambda f,m: f._setMigrate(m))
+
+    @property
+    def type(self):
+        _type = self._type
+        if self.migrate:
+            _type = self.migrationTarget
+
+        return _type
+
     """ These methods just wrap filesystem-specific methods in more
         generically named methods so filesystems and formatted devices
         like swap and LVM physical volumes can have a common API.
@@ -541,7 +635,7 @@ class FS(DeviceFormat):
 
         DeviceFormat.create(self, *args, **kwargs)
 
-        return self.format(*args, **kwargs)
+        return self.doFormat(*args, **kwargs)
 
     def setup(self, *args, **kwargs):
         """ Mount the filesystem.
@@ -575,36 +669,42 @@ class Ext2FS(FS):
     _resizable = True
     _bootable = True
     _linuxNative = True
-    _maxsize = 8 * 1024 * 1024
-    _minsize = 0
+    _maxSize = 8 * 1024 * 1024
+    _minSize = 0
     _defaultFormatOptions = []
     _defaultMountOptions = ["defaults"]
     _defaultCheckOptions = ["-f", "-p", "-C", "0"]
     _dump = True
     _check = True
+    _migratable = True
+    _migrationTarget = "ext3"
+    _migratefs = "tune2fs"
+    _defaultMigrateOptions = ["-j"]
 
-    def getMinimumSize(self):
-        if not self.exists:
-            raise FSError("filesystem has not been created")
+    @property
+    def minSize(self):
+        """ Minimum size for this filesystem in MB. """
+        size = self._minSize
+        if self.exists:
+            if not os.path.exists(self.device):
+                raise FSError("device does not exist")
 
-        if not os.path.exists(self.device):
-            raise FSError("device does not exist")
+            buf = iutil.execWithCapture(self.resizefsProg,
+                                        ["-P", self.device],
+                                        stderr="/dev/tty5")
+            size = None
+            for line in buf.splitlines():
+                if "minimum size of the filesystem:" not in line:
+                    continue
 
-        buf = iutil.execWithCapture(self.resizefsProg,
-                                    ["-P", self.device],
-                                    stderr="/dev/null")
-        minSize = None
-        for line in buf.splitlines():
-            if "minimum size of the filesystem:" not in line:
-                continue
+                (text, sep, minSize) = line.partition(": ")
 
-            (text, sep, minSize) = line.partition(": ")
-            minSize = int(minSize)
+                size = int(minSize) / 1024.0
 
-        if minSize is None:
-            raise FSError("failed to get minimum fs size")
+            if size is None:
+                raise FSError("failed to get minimum fs size")
 
-        return minSize
+        return size
 
     @property
     def isDirty(self):
@@ -617,6 +717,8 @@ class Ext3FS(Ext2FS):
     """ ext3 filesystem. """
     _type = "ext3"
     _defaultFormatOptions = ["-t", "ext3"]
+    _migrationTarget = "ext4"
+    _defaultMigrateOptions = ["-O", "extents"]
 
 register_device_format(Ext3FS)
 
@@ -626,6 +728,7 @@ class Ext4FS(Ext3FS):
     _type = "ext4"
     _bootable = False
     _defaultFormatOptions = ["-t", "ext4"]
+    _migratable = False
 
 register_device_format(Ext4FS)
 

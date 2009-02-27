@@ -163,6 +163,19 @@ class DeviceFormat(object):
         self.uuid = kwargs.get("uuid")
         self.exists = kwargs.get("exists")
         self.options = kwargs.get("options")
+        self._migrate = False
+
+        # don't worry about existence if this is a DeviceFormat instance
+        #if self.__class__ is DeviceFormat:
+        #    self.exists = True
+
+    def _setOptions(self, options):
+        self._options = options
+
+    def _getOptions(self, options):
+        return self._options
+
+    options = property(_getOptions, _setOptions)
 
     def _setDevice(self, devspec):
         if devspec and not devspec.startswith("/"):
@@ -299,6 +312,15 @@ class DeviceFormat(object):
     def bootable(self):
         """ Is this format type suitable for a boot partition? """
         return self._bootable
+
+    @property
+    def migratable(self):
+        """ Can formats of this type be migrated? """
+        return self_migratable
+
+    @property
+    def migrate(self):
+        return self._migrate
 
     @property
     def linuxNative(self):
