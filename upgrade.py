@@ -31,7 +31,8 @@ import selinux
 from flags import flags
 from constants import *
 from product import productName
-from storage import findExistingRootDevices, FSSet
+from storage import findExistingRootDevices
+from storage import mountExistingSystem
 from storage.formats import getFormat
 
 import rhpl
@@ -134,7 +135,7 @@ def findRootParts(anaconda):
 
     anaconda.id.upgradeRoot = []
     for (dev, label) in anaconda.id.rootParts:
-        anaconda.id.upgradeRoot.append( (dev, fs) )
+        anaconda.id.upgradeRoot.append( (dev, label) )
 
     if anaconda.id.rootParts is not None and len(anaconda.id.rootParts) > 0:
         anaconda.dispatch.skipStep("findinstall", skip = 0)
@@ -151,6 +152,7 @@ def findExistingRoots(anaconda, upgradeany = 0):
             return [(anaconda.rootPath, "")]
         return []
 
+    rootparts = findExistingRootDevices(anaconda, upgradeany=upgradeany)
     return rootparts
 
 def bindMountDevDirectory(instPath):
@@ -161,7 +163,7 @@ def bindMountDevDirectory(instPath):
 
 # returns None if no filesystem exist to migrate
 def upgradeMigrateFind(anaconda):
-    migents = anaconda.id.fsset.getMigratableEntries()
+    migents = anaconda.id.storage.fsset.getMigratableEntries()
     if not migents or len(migents) < 1:
         anaconda.dispatch.skipStep("upgrademigratefs")
     else:
@@ -199,7 +201,7 @@ def upgradeSwapSuggestion(anaconda):
 
     fsList = []
 
-    for device in anaconda.id.fsset.devices:
+    for device in anaconda.id.storage.fsset.devices:
         if not device.format:
             continue
         if device.format.mountable and device.format.linuxNative:

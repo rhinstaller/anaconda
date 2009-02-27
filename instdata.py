@@ -98,7 +98,8 @@ class InstallData:
             method = self.anaconda.methodstr[3:]
             devspec = method.split(":", 3)[0]
 
-            device = storage.resolveDevice(devspec)
+            # XXX might as well move resolveDevice into DeviceTree
+            device = storage.resolveDevice(self.storage.devicetree, devspec)
             if device is None:
                 if self.getUpgrade():
                     return

@@ -29,7 +29,6 @@ import imputil
 import types
 
 from instdata import InstallData
-from autopart import getAutopartitionBoot, autoCreatePartitionRequests, autoCreateLVMPartitionRequests
 
 from constants import *
 from filer import *

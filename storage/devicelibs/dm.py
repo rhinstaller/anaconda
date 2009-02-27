@@ -39,7 +39,7 @@ def name_from_dm_node(dm_node):
                                  ["info", "--columns",
                                   "--noheadings", "-o", "name",
                                   "-j", str(major), "-m", str(minor)],
-                                 stderr="/dev/null")
+                                 stderr="/dev/tty5")
     log.debug("name_from_dm(%s) returning '%s'" % (dm_node, name.strip()))
     return name.strip()
 
@@ -49,7 +49,7 @@ def dm_node_from_name(map_name):
                                     "--noheadings",
                                     "-o", "devno",
                                     map_name],
-                                    stderr="/dev/null")
+                                    stderr="/dev/tty5")
     (major, sep, minor) = devnum.strip().partition(":")
     if not sep:
         raise DMError("dm device does not exist")
@@ -65,7 +65,7 @@ def _get_backing_devnums_from_map(map_name):
                                  "--noheadings",
                                  "-o", "devnos_used",
                                  map_name],
-                                stderr="/dev/null")
+                                stderr="/dev/tty5")
     dev_nums = buf.split()
     for dev_num in dev_nums:
         (major, colon, minor) = dev_num.partition(":")

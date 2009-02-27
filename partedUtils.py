@@ -33,7 +33,6 @@ import os, sys, string, struct, resource
 from product import *
 import exception
 import iutil, isys
-import dmraid
 import block
 import inspect
 from flags import flags

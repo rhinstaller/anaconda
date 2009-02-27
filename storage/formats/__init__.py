@@ -46,9 +46,9 @@ default_fstypes = ("ext4", "ext3", "ext2")
 default_boot_fstypes = ("ext3", "ext2")
 def get_default_filesystem_type(boot=None):
     if boot:
-        fstypes = default_boot_filesystem_types
+        fstypes = default_boot_fstypes
     else:
-        fstypes = default_filesystem_types
+        fstypes = default_fstypes
 
     for fstype in fstypes:
         try:
@@ -136,14 +136,16 @@ class DeviceFormat(object):
     _type = None
     _name = "Unknown"
     _udevTypes = []
+    partedFlags = None
     _formattable = False                # can be formatted
     _supported = False                  # is supported
     _linuxNative = False                # for clearpart
     _packages = []                      # required packages
     _resizable = False                  # can be resized
-    _bootable = False                   # can be used as boot 
-    _maxsize = 0                        # maximum size in MB
-    _minsize = 0                        # minimum size in MB
+    _bootable = False                   # can be used as boot
+    _migratable = False                 # can be migrated
+    _maxSize = 0                        # maximum size in MB
+    _minSize = 0                        # minimum size in MB
     _dump = False
     _check = False
 
@@ -187,19 +189,22 @@ class DeviceFormat(object):
         return self._type
 
     def probe(self):
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
 
     def notifyKernel(self):
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type)
+        if not self.device:
+            return
+
         if self.device.startswith("/dev/mapper/"):
             try:
                 name = dm_node_from_name(os.path.basename(self.device))
             except Exception, e:
                 log.warning("failed to get dm node for %s" % self.device)
                 return
-        else:
+        elif self.device:
             name = os.path.basename(self.device)
 
         path = get_sysfs_path_by_name(name)
@@ -210,18 +215,18 @@ class DeviceFormat(object):
 
 
     def create(self, *args, **kwargs):
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         # allow late specification of device path
         device = kwargs.get("device")
         if device:
             self.device = device
 
-        if not os.path.exists(device):
+        if not os.path.exists(self.device):
             raise FormatCreateError("invalid device specification")
 
     def destroy(self, *args, **kwargs):
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         # zero out the 1MB at the beginning and end of the device in the
         # hope that it will wipe any metadata from filesystems that
@@ -237,9 +242,12 @@ class DeviceFormat(object):
         except Exception, e:
             log.error("error zeroing out %s: %s" % (self.device, e))
 
+        self.exists = False
+
     def setup(self, *args, **kwargs):
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
+
         if not self.exists:
             raise FormatSetupError("format has not been created")
 
@@ -251,19 +259,21 @@ class DeviceFormat(object):
         if device:
             self.device = device
 
-        if not os.path.exists(device):
+        if not self.device or not os.path.exists(self.device):
             raise FormatSetupError("invalid device specification")
 
     def teardown(self, *args, **kwargs):
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         pass
 
     @property
     def status(self):
-        if not self.exists:
-            return False
-        return os.path.exists(self.device)
+        return (self.exists and
+                self.__class__ is not DeviceFormat and
+                isinstance(self.device, str) and
+                self.device and 
+                os.path.exists(self.device))
 
     @property
     def formattable(self):
@@ -311,14 +321,14 @@ class DeviceFormat(object):
         return self._check
 
     @property
-    def maxsize(self):
+    def maxSize(self):
         """ Maximum size (in MB) for this format type. """
-        return self._maxsize
+        return self._maxSize
 
     @property
-    def minsize(self):
+    def minSize(self):
         """ Minimum size (in MB) for this format type. """
-        return self._minsize
+        return self._minSize
 
 
 collect_device_format_classes()

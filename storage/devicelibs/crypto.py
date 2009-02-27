@@ -30,8 +30,8 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 def is_luks(device):
     rc = iutil.execWithRedirect("cryptsetup",
                                 ["isLuks", device],
-                                stdout = "/dev/null",
-                                stderr = "/dev/null",
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5",
                                 searchPath = 1)
     if rc:
         return False
@@ -41,15 +41,15 @@ def is_luks(device):
 def luks_uuid(device):
     uuid = iutil.execWithCapture("cryptsetup",
                                  ["luksUUID", device],
-                                 stderr="/dev/null")
+                                 stderr="/dev/tty5")
     return uuid.strip()
 
 def luks_status(name):
     """0 means active, 1 means inactive (or non-existent)"""
     rc = iutil.execWithRedirect("cryptsetup",
                                 ["status", name],
-                                stdout = "/dev/null",
-                                stderr = "/dev/null",
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5",
                                 searchPath = 1)
     return rc
 
@@ -78,8 +78,8 @@ def luks_format(device,
     rc = iutil.execWithRedirect("cryptsetup",
                                 argv,
                                 stdin = p[0],
-                                stdout = "/dev/null",
-                                stderr = "/dev/null",
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5",
                                 searchPath = 1)
 
     os.close(p[0])
@@ -100,8 +100,8 @@ def luks_open(device, name, passphrase=None, key_file=None):
     rc = iutil.execWithRedirect("cryptsetup",
                                 argv,
                                 stdin = p[0],
-                                stdout = "/dev/null",
-                                stderr = "/dev/null",
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5",
                                 searchPath = 1)
 
     os.close(p[0])
@@ -111,8 +111,8 @@ def luks_open(device, name, passphrase=None, key_file=None):
 def luks_close(name):
     rc = iutil.execWithRedirect("cryptsetup",
                                 ["luksClose", name],
-                                stdout = "/dev/null",
-                                stderr = "/dev/null",
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5",
                                 searchPath = 1)
 
     if rc:
@@ -147,8 +147,8 @@ def luks_add_key(device,
                                  device,
                                  new_key_spec],
                                 stdin = p[0],
-                                stdout = "/dev/null",
-                                stderr = "/dev/null",
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5",
                                 searchPath = 1)
 
     os.close(p[0])
@@ -184,8 +184,8 @@ def luks_remove_key(device,
                                  device,
                                  del_key_spec],
                                 stdin = p[0],
-                                stdout = "/dev/null",
-                                stderr = "/dev/null",
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5",
                                 searchPath = 1)
 
     os.close(p[0])

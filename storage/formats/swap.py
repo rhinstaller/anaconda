@@ -86,8 +86,13 @@ class SwapSpace(DeviceFormat):
         return opts
 
     def _setOptions(self, opts):
-        for (opt, arg) in opts.split(","):
-            if opt == "pri":
+        if not opts:
+            self.priority = None
+            return
+
+        for option in opts.split(","):
+            (opt, equals, arg) = option.partition("=")
+            if equals and opt == "pri":
                 self.priority = numeric_type(arg)
                     
     options = property(_getOptions, _setOptions,
@@ -100,7 +105,7 @@ class SwapSpace(DeviceFormat):
 
     def setup(self, *args, **kwargs):
         """ Open, or set up, a device. """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         if not self.exists:
             raise SwapSpaceError("format has not been created")
@@ -113,7 +118,7 @@ class SwapSpace(DeviceFormat):
 
     def teardown(self, *args, **kwargs):
         """ Close, or tear down, a device. """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         if not self.exists:
             raise SwapSpaceError("format has not been created")
@@ -123,7 +128,7 @@ class SwapSpace(DeviceFormat):
 
     def create(self, *args, **kwargs):
         """ Create the device. """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         if self.exists:
             raise SwapSpaceError("format already exists")
@@ -133,6 +138,7 @@ class SwapSpace(DeviceFormat):
 
         DeviceFormat.create(self, *args, **kwargs)
         swap.mkswap(self.device, label=self.label)
+        self.exists = True
 
 
 register_device_format(SwapSpace)

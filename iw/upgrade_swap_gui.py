@@ -50,9 +50,8 @@ class UpgradeSwapWindow (InstallWindow):
 	selection = self.view.get_selection()
 	(model, iter) = selection.get_selected()
 	if iter:
-	    mnt = model.get_value(iter, 0)
-	    part = model.get_value(iter, 1)
-	    size = int(model.get_value(iter, 2))
+	    dev = model.get_value(iter, 0)
+	    size = model.get_value(iter, 1)
             val = int(self.entry.get_text())
 	else:
 	    raise RuntimeError, "unknown value for upgrade swap location"
@@ -67,7 +66,7 @@ class UpgradeSwapWindow (InstallWindow):
 
         else:
             if flags.setupFilesystems:
-                upgrade.createSwapFile(self.instPath, self.fsset, mnt, val)
+                self.fsset.createSwapFile(self.instPath, dev, val)
             self.dispatch.skipStep("addswap", 1)
                 
         return None
@@ -80,7 +79,7 @@ class UpgradeSwapWindow (InstallWindow):
     
     def getScreen (self, anaconda):
         self.neededSwap = 0
-        self.fsset = anaconda.id.fsset
+        self.fsset = anaconda.id.storage.fsset
         self.instPath = anaconda.rootPath
         self.intf = anaconda.intf
         self.dispatch = anaconda.dispatch
@@ -129,11 +128,10 @@ class UpgradeSwapWindow (InstallWindow):
 				   gobject.TYPE_STRING,
 				   gobject.TYPE_STRING)
 
-        for (mnt, part, size) in fsList:
+        for (dev, size) in fsList:
 	    iter = self.store.append()
-	    self.store.set_value(iter, 0, mnt)
-	    self.store.set_value(iter, 1, part)
-	    self.store.set_value(iter, 2, str(size))
+	    self.store.set_value(iter, 0, dev)
+	    self.store.set_value(iter, 1, str(size))
 
 	self.view=gtk.TreeView(self.store)
         label.set_mnemonic_widget(self.view)

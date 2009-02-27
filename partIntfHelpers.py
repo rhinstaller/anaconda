@@ -28,6 +28,7 @@ import string
 from constants import *
 import parted
 import iutil
+from storage.formats import getFormat
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -155,7 +156,7 @@ def doDeleteDependentDevices(intf, storage, device, confirm=1, quiet=0):
         # nothing to do
         return False
 
-    immmutable = []
+    immutable = []
     for dep in deps:
         if storage.deviceImmutable(dep):
             immutable.append(dep.path)
@@ -164,10 +165,10 @@ def doDeleteDependentDevices(intf, storage, device, confirm=1, quiet=0):
             storage.destroyDevice(dep)
 
     if immutable and not quiet:
-        remaining = "\n\t" + "\n\t".join(immutable) + "\n"
+        remaining = "\t" + "\n\t".join(immutable) + "\n"
         intf.messageWindow(_("Notice"),
                            _("The following partitions were not deleted "
-                             "because they are in use:\n\n%s") % outlist,
+                             "because they are in use:\n\n%s") % remaining,
 			   custom_icon="warning")
 
     return True
@@ -179,7 +180,7 @@ def checkForSwapNoMatch(anaconda):
             # this is only for existing partitions
             continue
 
-        if device.partType & parted.PARTITION_SWAP and \
+        if device.getFlag(parted.PARTITION_SWAP) and \
            not device.format.type == "swap":
             rc = anaconda.intf.messageWindow(_("Format as Swap?"),
                                     _("%s has a partition type of 0x82 "
@@ -288,7 +289,7 @@ def confirmDelete(intf, device):
                     "will be lost!") % device.name)
     elif device.type == "lvmlv":
 	errmsg = (_("You are about to delete the logical volume \"%s\".")
-                  % (device.name)
+                  % device.name)
     elif device.type == "mdarray":
 	errmsg = _("You are about to delete a RAID device.")
     elif device.type == "partition":

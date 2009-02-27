@@ -190,7 +190,7 @@ class UpgradeSwapWindow:
 		else:
 		    screen.popWindow()
                     if flags.setupFilesystems:
-                        upgrade.createSwapFile(anaconda.rootPath, dev, val)
+                        anaconda.id.storage.fsset.createSwapFile(anaconda.rootPath, dev, val)
                     anaconda.dispatch.skipStep("addswap", 1)
 		    return INSTALL_OK
 

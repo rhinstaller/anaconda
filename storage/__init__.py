@@ -22,14 +22,27 @@
 
 import os
 import time
+import stat
+import errno
+import sys
 
+import isys
 import iutil
+from constants import *
+from pykickstart.constants import *
+
+import storage_log
 from errors import *
 from devices import *
+from devicetree import DeviceTree
 from deviceaction import *
 from formats import getFormat
+from formats import get_device_format_class
+from formats import get_default_filesystem_type
 from devicelibs.lvm import safeLvmName
 from udev import udev_trigger
+import iscsi
+import zfcp
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -38,14 +51,14 @@ import logging
 log = logging.getLogger("storage")
 
 def storageInitialize(anaconda):
-    anaconda.storage.shutdown()
+    anaconda.id.storage.shutdown()
 
     if anaconda.dir == DISPATCH_BACK:
         return
 
     # XXX I don't understand why I have to do this
     udev_trigger(subsystem="block")
-    anaconda.storage.reset()
+    anaconda.id.storage.reset()
 
 # dispatch.py helper function
 def storageComplete(anaconda):
@@ -84,13 +97,13 @@ class Storage(object):
         # storage configuration variables
         self.ignoredDisks = []
         self.exclusiveDisks = []
-        self.doAutoPart = None
-        self.clearPartType = None
+        self.doAutoPart = False
+        self._clearPartType = CLEARPART_TYPE_NONE
         self.clearPartDisks = []
-        self.encryptedAutoPart = None
+        self.encryptedAutoPart = False
         self.encryptionPassphrase = None
-        self.encryptionRetrofit = None
-        self.reinitializeDisks = None
+        self.encryptionRetrofit = False
+        self.reinitializeDisks = False
         self.zeroMbr = None
         self.protectedPartitions = []
         self.autoPartitionRequests = []
@@ -111,7 +124,7 @@ class Storage(object):
 
     def shutdown(self):
         try:
-            self.deviceTree.teardownAll()
+            self.devicetree.teardownAll()
         except Exception as e:
             log.error("failure tearing down device tree: %s" % e)
 
@@ -385,7 +398,7 @@ class Storage(object):
         return PartitionDevice("req%d" % self.nextID,
                                format=getFormat(fmt_type),
                                size=size,
-                               parent=disks,
+                               parents=disks,
                                exists=False)
 
     def newMDArray(self, fmt_type=None):
@@ -421,8 +434,8 @@ class Storage(object):
             name = self.createSuggestedLVName(vg,
                                               swap=swap,
                                               mountpoint=mountpoint)
-        format=getFormat(fmt_type, mountpoint=mountpoint),
-        return LVMLogicalVolumeDevice(name, format=format, size=size)
+        format = getFormat(fmt_type, mountpoint=mountpoint)
+        return LVMLogicalVolumeDevice(name, vg, format=format, size=size)
 
     def createDevice(self, device):
         """ Schedule creation of a device.
@@ -620,9 +633,10 @@ def findExistingRootDevices(anaconda, upgradeany=False):
             continue
 
         if os.access(anaconda.rootPath + "/etc/fstab", os.R_OK):
-            relstr = getReleaseString(anaconda.rootPath)
-            if upgradeany or productMatches(relstr, productName):
-                rootDevs.append((device, relstr))
+            (product, version) = getReleaseString(anaconda.rootPath)
+            if upgradeany or \
+               anaconda.id.instClass.productUpgradable(product, version):
+                rootDevs.append((device, "%s %s" % (product, version)))
 
         # this handles unmounting the filesystem
         device.teardown(recursive=True)
@@ -950,8 +964,8 @@ class FSSet(object):
                 else:
                     # nodev filesystem -- preserve or drop completely?
                     format = getFormat(fstype)
-                    if isinstance(format, NoDevFS):
-                        device = NoDevice(fs)
+                    if isinstance(format, get_device_format_class("nodev")):
+                        device = NoDevice(format)
                     else:
                         device = Device(devspec)
 
@@ -1023,7 +1037,7 @@ class FSSet(object):
         for device in self.swapDevices:
             try:
                 device.setup()
-                device.setupFormat()
+                device.format.setup()
             except SuspendError:
                 if intf:
                     if upgrading:
@@ -1067,12 +1081,13 @@ class FSSet(object):
                          skipRoot=False):
         intf = anaconda.intf
         for device in [d for d in self.devices if d.isleaf]:
-            if not device.format.mountable:
+            if not device.format.mountable or not device.format.mountpoint:
                 continue
 
-            if skipRoot and mountpoint == "/":
+            if skipRoot and device.format.mountpoint == "/":
                 continue
 
+            options = device.format.options
             if "noauto" in options.split(","):
                 continue
 
@@ -1086,7 +1101,8 @@ class FSSet(object):
                 options = "%s,%s" % (options, readOnly)
 
             try:
-                device.format.mount(options=options, chroot=anaconda.rootPath)
+                device.format.setup(options=options,
+                                    chroot=anaconda.rootPath)
             except OSError as (num, msg):
                 if intf:
                     if num == errno.EEXIST:
@@ -1097,7 +1113,8 @@ class FSSet(object):
                                              "This is a fatal error and the "
                                              "install cannot continue.\n\n"
                                              "Press <Enter> to exit the "
-                                             "installer.") % (mountpoint,))
+                                             "installer.")
+                                           % (device.format.mountpoint,))
                     else:
                         intf.messageWindow(_("Invalid mount point"),
                                            _("An error occurred when trying "
@@ -1105,8 +1122,8 @@ class FSSet(object):
                                              "a fatal error and the install "
                                              "cannot continue.\n\n"
                                              "Press <Enter> to exit the "
-                                             "installer.") % (mountpoint,
-                                                              msg))
+                                             "installer.")
+                                            % (device.format.mountpoint, msg))
                 log.error("OSError: (%d) %s" % (num, msg) )
                 sys.exit(0)
             except SystemError as (num, msg):
@@ -1119,7 +1136,7 @@ class FSSet(object):
                                              "continue installation, but "
                                              "there may be problems.") %
                                              (device.path,
-                                              mountpoint),
+                                              device.format.mountpoint),
                                              type="custom",
                                              custom_icon="warning",
                                              custom_buttons=[_("_Exit installer"),
@@ -1140,8 +1157,10 @@ class FSSet(object):
                                          "a fatal error and the install "
                                          "cannot continue.\n\n"
                                          "Press <Enter> to exit the "
-                                         "installer.") % (mountpoint,
-                                                          msg))
+                                         "installer.")
+                                        % (device.path,
+                                           device.format.mountpoint,
+                                           msg))
                 log.error("FSError: %s" % msg)
                 sys.exit(0)
 
@@ -1186,7 +1205,7 @@ class FSSet(object):
 
     def mkDevRoot(self, instPath):
         root = self.rootDevice
-        dev = "%s/dev/%s" % (instPath, root.device.getDevice())
+        dev = "%s/%s" % (instPath, root.path)
         if not os.path.exists("%s/dev/root" %(instPath,)) and os.path.exists(dev):
             rdev = os.stat(dev).st_rdev
             os.mknod("%s/dev/root" % (instPath,), stat.S_IFBLK | 0600, rdev)
@@ -1277,7 +1296,7 @@ class FSSet(object):
 #
 """ % time.asctime()
 
-        for device in self.device:
+        for device in self.devices:
             # why the hell do we put swap in the fstab, anyway?
             if not device.format.mountable and device.format.type != "swap":
                 continue

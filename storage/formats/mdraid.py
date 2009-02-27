@@ -66,7 +66,7 @@ class MDRaidMember(DeviceFormat):
 
     def probe(self):
         """ Probe for any missing information about this format. """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         if not self.exists:
             raise MDRaidMemberError("format does not exist")
@@ -81,10 +81,11 @@ class MDRaidMember(DeviceFormat):
         if not self.exists:
             raise MDMemberError("format does not exist")
 
-        if not os.path.access(self.device, os.W_OK):
+        if not os.access(self.device, os.W_OK):
             raise MDMemberError("device path does not exist")
 
-        mdadm.mddestroy(self.device)
+        mdraid.mddestroy(self.device)
+        self.exists = False
 
     @property
     def status(self):

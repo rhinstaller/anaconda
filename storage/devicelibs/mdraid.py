@@ -108,8 +108,8 @@ def mdcreate(device, level, disks, spares=0):
     
     rc = iutil.execWithRedirect("mdadm",
                                 argv,
-                                stderr = "/dev/null",
-                                stdout = "/dev/null",
+                                stderr = "/dev/tty5",
+                                stdout = "/dev/tty5",
                                 searchPath=1)
 
     if rc:
@@ -121,23 +121,21 @@ def mdcreate(device, level, disks, spares=0):
 def mddestroy(device):
     rc = iutil.execWithRedirect("mdadm",
                                 ["--zero-superblock", device],
-                                stderr = "/dev/null",
-                                stdout = "/dev/null",
+                                stderr = "/dev/tty5",
+                                stdout = "/dev/tty5",
                                 searchPath=1)
 
     if rc:
         raise MDRaidError("mddestroy failed for %s" % device)
 
 def mdadd(device):
-    # XXX NOTUSED: mdadm -I is broken and dledford says it should be
-    #              avoided if possible, so we used mdadm -A instead
     rc = iutil.execWithRedirect("mdadm",
                                 ["--incremental", 
                                  "--quiet",
-                                 "--auto=yes",
+                                 "--auto=md",
                                  device],
-                                stderr = "/dev/null",
-                                stdout = "/dev/null",
+                                stderr = "/dev/tty5",
+                                stdout = "/dev/tty5",
                                 searchPath=1)
 
     if rc:
@@ -174,8 +172,8 @@ def mdactivate(device, members=[], super_minor=None, uuid=None):
                                  identifier,
                                  "--auto=md",
                                  "--update=super-minor"],
-                                stderr = "/dev/null",
-                                stdout = "/dev/null",
+                                stderr = "/dev/tty5",
+                                stdout = "/dev/tty5",
                                 searchPath=1)
 
     if filename and os.access(filename, os.R_OK):
@@ -191,8 +189,8 @@ def mdactivate(device, members=[], super_minor=None, uuid=None):
 def mddeactivate(device):
     rc = iutil.execWithRedirect("mdadm",
                                 ["--stop", device],
-                                stderr = "/dev/null",
-                                stdout = "/dev/null",
+                                stderr = "/dev/tty5",
+                                stdout = "/dev/tty5",
                                 searchPath=1)
 
     if rc:
@@ -207,7 +205,7 @@ def mdexamine(device):
     # parsed output format.
     lines = iutil.execWithCapture("mdadm",
                                   ["--examine", device],
-                                  stderr="/dev/null").splitlines()
+                                  stderr="/dev/tty5").splitlines()
 
     info = {
             'major': "-1",

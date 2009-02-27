@@ -107,10 +107,13 @@ class LUKS(DeviceFormat):
 
     def setup(self, *args, **kwargs):
         """ Open, or set up, the format. """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         if not self.configured:
             raise LUKSError("luks device not configured")
+
+        if self.status:
+            return
 
         DeviceFormat.setup(self, *args, **kwargs)
         crypto.luks_open(self.device, self.mapName,
@@ -119,7 +122,7 @@ class LUKS(DeviceFormat):
 
     def teardown(self, *args, **kwargs):
         """ Close, or tear down, the format. """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         if not self.exists:
             raise LUKSError("format has not been created")
@@ -130,7 +133,7 @@ class LUKS(DeviceFormat):
 
     def create(self, *args, **kwargs):
         """ Create the format. """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         if not self.configured:
             raise LUKSError("luks device not configured")
@@ -143,6 +146,7 @@ class LUKS(DeviceFormat):
                          key_size=self.key_size)
 
         self.uuid = crypto.luks_uuid(self.device)
+        self.exists = True
         self.notifyKernel()
 
     @property
@@ -156,7 +160,7 @@ class LUKS(DeviceFormat):
             Add the contents of the specified key file to an available key
             slot in the LUKS header.
         """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status, file=keyfile)
         if not self.exists:
             raise LUKSError("format has not been created")
@@ -172,7 +176,7 @@ class LUKS(DeviceFormat):
             Add the specified passphrase to an available key slot in the
             LUKS header.
         """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         if not self.exists:
             raise LUKSError("format has not been created")
@@ -188,7 +192,7 @@ class LUKS(DeviceFormat):
             Remove key contained in the specified key file from the LUKS
             header.
         """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status, file=keyfile)
         if not self.exists:
             raise LUKSError("format has not been created")
@@ -201,7 +205,7 @@ class LUKS(DeviceFormat):
 
     def removePassphrase(self, passphrase):
         """ Remove the specified passphrase from the LUKS header. """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         if not self.exists:
             raise LUKSError("format has not been created")

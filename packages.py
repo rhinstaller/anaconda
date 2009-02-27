@@ -31,14 +31,13 @@ import time
 import sys
 import string
 import language
-import fsset
-import lvm
 import shutil
 import traceback
 from flags import flags
 from product import *
 from constants import *
 from upgrade import bindMountDevDirectory
+from storage.errors import *
 
 import logging
 log = logging.getLogger("anaconda")
@@ -80,7 +79,7 @@ def copyAnacondaLogs(anaconda):
     log.info("Copying anaconda logs")
     for (fn, dest) in (("/tmp/anaconda.log", "anaconda.log"),
                        ("/tmp/syslog", "anaconda.syslog"),
-                       ("/tmp/X.log", "anaconda.xlog")):
+                       ("/tmp/X.log", "anaconda.xlog", "/tmp/storage.log")):
         if os.access(fn, os.R_OK):
             try:
                 shutil.copyfile(fn, "%s/var/log/%s" %(anaconda.rootPath, dest))

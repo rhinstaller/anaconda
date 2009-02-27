@@ -159,7 +159,7 @@ class PartitionTypeWindow(InstallWindow):
                 mustHaveSelectedDrive(self.intf)
                 raise gui.StayOnScreen
 
-            self.storage.clearPartDrives = allowdrives
+            self.storage.clearPartDisks = allowdrives
 
             # pop the boot device to be first in the drive list
             defiter = self.bootcombo.get_active_iter()
@@ -367,7 +367,7 @@ class PartitionTypeWindow(InstallWindow):
                                      _("Rescanning disks"))
             self.storage.reset()
             createAllowedDrivesStore(self.storage,
-                                     self.storage.clearPartDrives,
+                                     self.storage.clearPartDisks,
                                      self.drivelist,
                                      disallowDrives=[self.anaconda.updateSrc])
             self._fillBootStore()
@@ -436,7 +436,7 @@ class PartitionTypeWindow(InstallWindow):
             self.combo.set_active(len(opts) - 1) # yeah, it's a hack
 
         self.drivelist = createAllowedDrivesList(self.storage.disks,
-                                                 self.storage.clearPartDrives,
+                                                 self.storage.clearPartDisks,
                                                  disallowDrives=[self.anaconda.updateSrc])
         self.drivelist.set_size_request(375, 80)
 

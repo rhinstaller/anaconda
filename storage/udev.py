@@ -53,7 +53,6 @@ def enumerate_block_devices():
     return devices
 
 def udev_get_block_device(sysfs_path):
-    log.debug("getting udev info for %s" % sysfs_path)
     if not os.path.exists(sysfs_path):
         log.debug("%s does not exist" % sysfs_path)
         return None

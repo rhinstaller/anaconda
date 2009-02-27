@@ -23,13 +23,9 @@
 import parted
 import copy
 import string, sys
-import fsset
-import lvm
 import logging
 from anaconda_log import logger, logFile
-import cryptodev
 import partedUtils
-import partRequests
 from constants import *
 from errors import *
 

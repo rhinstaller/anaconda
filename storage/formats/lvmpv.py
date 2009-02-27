@@ -20,6 +20,8 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
+import os
+
 from iutil import log_method_call
 from parted import PARTITION_LVM
 from ..errors import *
@@ -67,7 +69,7 @@ class LVMPhysicalVolume(DeviceFormat):
 
     def probe(self):
         """ Probe for any missing information about this device. """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         if not self.exists:
             raise PhysicalVolumeError("format has not been created")
@@ -79,18 +81,19 @@ class LVMPhysicalVolume(DeviceFormat):
 
     def create(self, *args, **kwargs):
         """ Create the format. """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         DeviceFormat.create(self, *args, **kwargs)
         """ Consider use of -Z|--zero
             -f|--force or -y|--yes may be required
         """
         lvm.pvcreate(self.device)
+        self.exists = True
         self.notifyKernel()
 
     def destroy(self, *args, **kwargs):
         """ Destroy the format. """
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         if not self.exists:
             raise PhysicalVolumeError("format has not been created")
@@ -100,16 +103,14 @@ class LVMPhysicalVolume(DeviceFormat):
 
         # FIXME: verify path exists?
         lvm.pvremove(self.device)
+        self.exists = False
         self.notifyKernel()
 
     @property
     def status(self):
         # XXX hack
-        for d in os.listdir("/dev/mapper"):
-            if d.startswith("%s-" % self.vgName):
-                return True
-        return False
-
+        return (self.exists and self.vgName and
+                os.path.isdir("/dev/mapper/%s" % self.vgName))
 
 register_device_format(LVMPhysicalVolume)
 

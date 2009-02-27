@@ -24,7 +24,6 @@ import string
 from types import *
 from constants import *
 from packages import writeKSConfiguration, turnOnFilesystems
-from packages import doMigrateFilesystems
 from packages import doPostAction
 from packages import copyAnacondaLogs
 from packages import firstbootConfiguration

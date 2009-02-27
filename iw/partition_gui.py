@@ -33,6 +33,7 @@ import string
 import types
 from constants import *
 
+import storage
 from iw_gui import *
 from flags import flags
 
@@ -604,7 +605,7 @@ class PartitionWindow(InstallWindow):
         return rc
         
     def getNext(self):
-        (errors, warnings) = self.storage.sanityCheckAllRequests()
+        (errors, warnings) = self.storage.sanityCheck()
         if errors:
             labelstr1 =  _("The partitioning scheme you requested "
                            "caused the following critical errors.")
@@ -799,15 +800,15 @@ class PartitionWindow(InstallWindow):
             sectorsPerCyl = heads * sectors
 
             part = disk.partedDisk.getFirstPartition()
+            extendedParent = None
             while part:
                 if part.type & parted.PARTITION_METADATA:
                     part = part.nextPartition()
                     continue
 
-                extendedParent = None
                 partName = part.getDeviceNodeName()
                 device = self.storage.devicetree.getDeviceByName(partName)
-                if not device:
+                if not device and not part.type & parted.PARTITION_FREESPACE:
                     raise RuntimeError("can't find partition %s in device"
                                        " tree" % partName)
 
@@ -817,13 +818,13 @@ class PartitionWindow(InstallWindow):
                         continue
 
                 stripe.add(part)
-                if device.isExtended:
+                if device and device.isExtended:
                     if extendedParent:
                         raise RuntimeError, ("can't handle more than "
                                              "one extended partition per disk")
                     extendedParent = self.tree.append(parent)
                     iter = extendedParent
-                elif device.isLogical:
+                elif device and device.isLogical:
                     if not extendedParent:
                         raise RuntimeError, ("crossed logical partition "
                                              "before extended")
@@ -833,20 +834,22 @@ class PartitionWindow(InstallWindow):
                     iter = self.tree.append(parent)
                     self.tree[iter]['IsLeaf'] = True
 
-                if device.format.type == "luks":
+                if device and device.format.type == "luks":
                     # look up the mapped/decrypted device in the tree
                     # the format we care about will be on it
                     dm_dev = self.storage.devicetree.getChildren(device)[0]
                     format = dm_dev.format
-                else:
+                elif device:
                     format = device.format
+                else:
+                    format = None
 
-                if format.mountable and format.mountpoint:
+                if format and format.mountable and format.mountpoint:
                     self.tree[iter]['Mount Point'] = format.mountpoint
                 else:
                     self.tree[iter]['Mount Point'] = ""
 
-		if format.type == "lvmpv":
+		if format and format.type == "lvmpv":
 		    vg = None
                     for _vg in self.storage.vgs:
                         if _vg.dependsOn(part):
@@ -865,15 +868,15 @@ class PartitionWindow(InstallWindow):
                     if device.format.type == "luks" and \
                        not device.format.exists:
                         self.tree[iter]['Format'] = self.lock_pixbuf
-		    elif format.exists:
+		    elif not format.exists:
 			self.tree[iter]['Format'] = self.checkmark_pixbuf
 		
-                if format.type:
+                if format and format.type:
                     self.tree[iter]['IsFormattable'] = device.format.formattable
 
-                if device.isExtended:
+                if device and device.isExtended:
                     ptype = _("Extended")
-                elif format.type == "mdmember":
+                elif format and format.type == "mdmember":
                     ptype = _("software RAID")
                     mds = self.storage.mdarrays
                     array = None
@@ -901,7 +904,7 @@ class PartitionWindow(InstallWindow):
                        not device.format.exists:
 			self.tree[iter]['Format'] = self.lock_pixbuf
                 else:
-                    if format.type:
+                    if format and format.type:
                         ptype = format.name
                     else:
                         ptype = _("None")
@@ -910,7 +913,7 @@ class PartitionWindow(InstallWindow):
                 else:
                     devname = "%s" % device.path
                 self.tree[iter]['Device'] = devname
-                if format.exists and
+                if format and format.exists and \
                    getattr(format, "label", None):
                     self.tree[iter]['Label'] = "%s" % format.label
                 else:
@@ -932,7 +935,8 @@ class PartitionWindow(InstallWindow):
         self.treeView.expand_all()
 
     def treeActivateCB(self, view, path, col):
-        if self.tree.getCurrentPartition():
+        if isinstance(self.tree.getCurrentDevice(),
+                      storage.devices.PartitionDevice):
             self.editCB()
 
     def treeSelectCB(self, selection, *args):
@@ -1028,7 +1032,7 @@ class PartitionWindow(InstallWindow):
     def editCB(self, *args):
         device = self.tree.getCurrentDevice()
         if not device:
-            intf.messageWindow(_("Unable To Edit"),
+            self.intf.messageWindow(_("Unable To Edit"),
                                _("You must select a device to edit"),
                                custom_icon="error")
             return
@@ -1036,8 +1040,8 @@ class PartitionWindow(InstallWindow):
         reason = self.storage.deviceImmutable(device)
         if reason:
             self.intf.messageWindow(_("Unable To Edit"),
-                                    _("You cannot edit this device:\n\n")
-                                    reason,
+                                    _("You cannot edit this device:\n\n%s")
+                                    % reason,
                                     custom_icon="error")
             return
 
@@ -1047,7 +1051,7 @@ class PartitionWindow(InstallWindow):
             self.editLVMVolumeGroup(device)
         elif device.type == "lvmlv":
             self.editLVMVolumeGroup(device)
-        elif device.type = "partition":
+        elif device.type == "partition":
             self.editPartition(device)
 
     # isNew implies that this request has never been successfully used before
@@ -1122,7 +1126,7 @@ class PartitionWindow(InstallWindow):
         # we don't really need to pass in self.storage if we're passing
         # self.anaconda already
         vgeditor = lvm_dialog_gui.VolumeGroupEditor(self.anaconda,
-                                                    self.storage
+                                                    self.storage,
                                                     self.intf,
                                                     self.parent,
                                                     device,
@@ -1161,10 +1165,8 @@ class PartitionWindow(InstallWindow):
 				    custom_icon="error")
 	    return
 
-        request = VolumeGroupRequestSpec(format=True)
         vg = self.storage.newVG()
         self.editLVMVolumeGroup(vg, isNew = 1)
-
 	return
 
     def makeraidCB(self, widget):
@@ -1272,7 +1274,7 @@ class PartitionWindow(InstallWindow):
 	    array = self.storage.newMDArray(fmt_type=self.storage.defaultFSType)
 	    self.editRaidArray(array, isNew=1)
 	else:
-            cloneDialog = raid_dialog_gui.RaidCloneDialog(self.storage
+            cloneDialog = raid_dialog_gui.RaidCloneDialog(self.storage,
                                                           self.intf,
                                                           self.parent)
             if cloneDialog is None:

@@ -758,7 +758,7 @@ class AnacondaYum(YumSorter):
         if len(mkeys) > 1:
             stage2img = "%s/images/install.img" % self.tree
             if self.anaconda.backend.mountInstallImage(self.anaconda, stage2img):
-                self.anaconda.id.fsset.unmountFilesystems(self.anaconda.rootPath)
+                self.anaconda.id.storage.fsset.unmountFilesystems(self.anaconda.rootPath)
                 return DISPATCH_BACK
 
         for i in mkeys:
@@ -1498,11 +1498,11 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             log.warning("no dev package, going to bind mount /dev")
             isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = 1)
             if not upgrade:
-                anaconda.id.fsset.mkDevRoot(anaconda.rootPath)
+                anaconda.id.storage.fsset.mkDevRoot(anaconda.rootPath)
 
         # write out the fstab
         if not upgrade:
-            anaconda.id.fsset.write(anaconda.rootPath)
+            anaconda.id.storage.fsset.write(anaconda.rootPath)
             # rootpath mode doesn't have this file around
             if os.access("/etc/modprobe.d/anaconda", os.R_OK):
                 shutil.copyfile("/etc/modprobe.d/anaconda", 
@@ -1515,7 +1515,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
         f = open(anaconda.rootPath + "/etc/mtab", "w+")
-        f.write(anaconda.id.fsset.mtab())
+        f.write(anaconda.id.storage.fsset.mtab())
         f.close()
 
     def checkSupportedUpgrade(self, anaconda):

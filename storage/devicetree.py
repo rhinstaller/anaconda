@@ -409,7 +409,7 @@ class DeviceTree(object):
         sysfs_path = udev_device_get_sysfs_path(info)
         device = None
 
-        if self.isIgnored(sysfs_path):
+        if self.isIgnored(info):
             log.debug("ignoring %s (%s)" % (name, sysfs_path))
             return
 

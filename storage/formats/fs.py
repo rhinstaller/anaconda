@@ -32,6 +32,10 @@ import isys
 from ..errors import *
 from . import DeviceFormat, register_device_format
 import iutil
+from flags import flags
+
+# is this nasty?
+log_method_call = iutil.log_method_call
 
 import logging
 log = logging.getLogger("storage")
@@ -84,8 +88,8 @@ def fsConfigFromFile(config_file):
             resizable = True
             bootable = True
             linuxNative = True
-            maxsize = 8 * 1024 * 1024
-            minsize = 0
+            maxSize = 8 * 1024 * 1024
+            minSize = 0
             defaultFormatOptions = "-t ext3"
             defaultMountOptions = "defaults"
 
@@ -158,7 +162,7 @@ class FS(DeviceFormat):
             self._targetSize = None
             return
 
-        if not self.minsize < newsize < self.maxsize:
+        if not self.minSize < newsize < self.maxSize:
             raise ValueError("invalid target size request")
 
         self._targetSize = newsize
@@ -205,7 +209,7 @@ class FS(DeviceFormat):
         if self.exists:
             raise FormatCreateError("filesystem already exists", self.device)
 
-        if not self.formattable():
+        if not self.formattable:
             return
 
         if not self.mkfsProg:
@@ -229,7 +233,8 @@ class FS(DeviceFormat):
         try:
             rc = iutil.execWithPulseProgress(self.mkfsProg,
                                              argv,
-                                             stderr="/dev/null",
+                                             stdout="/dev/tty5",
+                                             stderr="/dev/tty5",
                                              progress=w)
         except Exception as e:
             raise FormatCreateError(e, self.device)
@@ -293,7 +298,8 @@ class FS(DeviceFormat):
         try:
             rc = iutil.execWithPulseProgress(self.resizefsProg,
                                              argv,
-                                             stderr="/dev/null",
+                                             stdout="/dev/tty5",
+                                             stderr="/dev/tty5",
                                              progress=w)
         except Exception as e:
             raise FSResizeError(e, self.device)
@@ -338,8 +344,8 @@ class FS(DeviceFormat):
         try:
             rc = iutil.execWithPulseProgress(self.fsckProg,
                                              argv,
-                                             stdout="/dev/null",
-                                             stderr="/dev/null",
+                                             stdout="/dev/tty5",
+                                             stderr="/dev/tty5",
                                              progress = w)
         except Exception as e:
             raise FSError("filesystem check failed: %s" % e)
@@ -413,10 +419,10 @@ class FS(DeviceFormat):
             ret = isys.resetFileContext(mountpoint)
             log.info("set SELinux context for newly mounted filesystem "
                      "root at %s to %s" %(mountpoint, ret))
-            if FS.lostAndFountContext is None:
-                FS.lostAndFoundContext = isys.matchPathContext("/lost+found")
+            if self.lostAndFoundContext is None:
+                self.lostAndFoundContext = isys.matchPathContext("/lost+found")
             isys.setFileContext("%s/lost+found" % mountpoint,
-                                FS.lostAndFoundContext)
+                                self.lostAndFoundContext)
 
         self._mountpoint = mountpoint
 
@@ -458,7 +464,7 @@ class FS(DeviceFormat):
         argv = self._getLabelArgs(label)
         rc = iutil.execWithRedirect(self.labelfsProg,
                                     argv,
-                                    stderr="/dev/null",
+                                    stderr="/dev/tty5",
                                     searchPath=1)
         if rc:
             raise FSError("label failed")
@@ -635,7 +641,7 @@ class FATFS(FS):
     _labelfs = "dosfslabel"
     _fsck = "dosfsck"
     _formattable = True
-    _maxsize = 1024 * 1024
+    _maxSize = 1024 * 1024
     _packages = [ "dosfstools" ]
     _defaultMountOptions = ["umask=0077", "shortname=winnt"]
 
@@ -663,7 +669,7 @@ class BTRFS(FS):
     _dump = True
     _check = True
     _packages = ["btrfs-progs"]
-    _maxsize = 16 * 1024 * 1024
+    _maxSize = 16 * 1024 * 1024
 
     def _getFormatArgs(self, options=None):
         argv = []
@@ -713,7 +719,7 @@ class JFS(FS):
     _defaultFormatOptions = ["-q"]
     _defaultLabelOptions = ["-L"]
     _maxLabelChars = 16
-    _maxsize = 8 * 1024 * 1024
+    _maxSize = 8 * 1024 * 1024
     _formattable = True
     _linuxNative = True
     _supported = False
@@ -731,7 +737,7 @@ class XFS(FS):
     _defaultFormatOptions = ["-f"]
     _defaultLabelOptions = ["-L"]
     _maxLabelChars = 16
-    _maxsize = 16 * 1024 * 1024
+    _maxSize = 16 * 1024 * 1024
     _formattable = True
     _linuxNative = True
     _supported = False
@@ -763,28 +769,35 @@ class NTFS(FS):
     _type = "ntfs"
     _resizefs = "ntfsresize"
     _resizable = True
+    _minSize = 1
     _defaultMountOptions = "defaults"
     #_packages = ["ntfsprogs"]
 
-    def getMinimumSize(self):
-        """Return the minimum filesystem size in megabytes"""
-        if not self.exists:
-            raise FSError("filesystem has not been created")
+    def minSize(self):
+        """ The minimum filesystem size in megabytes. """
+        size = self._minSize
+        if self.exists:
+            minSize = None
+            buf = iutil.execWithCapture(self.resizefsProg,
+                                        ["-m", self.device],
+                                        stderr = "/dev/tty5")
+            for l in buf.split("\n"):
+                if not l.startswith("Minsize"):
+                    continue
+                try:
+                    min = l.split(":")[1].strip()
+                    minSize = int(min) + 250
+                except Exception, e:
+                    minSize = None
+                    log.warning("Unable to parse output for minimum size on %s: %s" %(self.device, e))
 
-        buf = iutil.execWithCapture(self.resizefsProg,
-                                    ["-m", self.device],
-                                    stderr = "/dev/tty5")
-        for l in buf.split("\n"):
-            if not l.startswith("Minsize"):
-                continue
-            try:
-                min = l.split(":")[1].strip()
-                return int(min) + 250
-            except Exception, e:
-                log.warning("Unable to parse output for minimum size on %s: %s" %(self.device, e))
+            if minSize is None:
+                log.warning("Unable to discover minimum size of filesystem "
+                            "on %s" %(self.device,))
+            else:
+                size = minSize
 
-        log.warning("Unable to discover minimum size of filesystem on %s" %(self.device,))
-        return 1
+        return size
 
 register_device_format(NTFS)
 

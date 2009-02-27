@@ -37,7 +37,6 @@ log = logging.getLogger("anaconda")
 
 import booty
 import bootloaderInfo
-from fsset import *
 
 def bootloaderSetupChoices(anaconda):
     if anaconda.dir == DISPATCH_BACK:

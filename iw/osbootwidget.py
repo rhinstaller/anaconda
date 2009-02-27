@@ -23,7 +23,6 @@ import gtk
 import gobject
 import iutil
 import parted
-import partedUtils
 import gui
 import datacombo
 from constants import *
@@ -36,7 +35,6 @@ class OSBootWidget:
     
     def __init__(self, anaconda, parent, blname = None):
         self.bl = anaconda.id.bootloader
-        self.fsset = anaconda.id.fsset
         self.storage = anaconda.id.storage
         self.parent = parent
         self.intf = anaconda.intf

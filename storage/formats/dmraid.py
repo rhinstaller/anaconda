@@ -55,8 +55,8 @@ class DMRaidMember(DeviceFormat):
     _packages = ["dmraid"]              # required packages
     _resizable = False                  # can be resized
     _bootable = False                   # can be used as boot 
-    _maxsize = 0                        # maximum size in MB
-    _minsize = 0                        # minimum size in MB
+    _maxSize = 0                        # maximum size in MB
+    _minSize = 0                        # minimum size in MB
 
     def __init__(self, *args, **kwargs):
         """ Create a DeviceFormat instance.
@@ -75,12 +75,12 @@ class DMRaidMember(DeviceFormat):
         self.raidSet = kwargs.get("raidSet")
 
     def create(self, *args, **kwargs):
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         raise DMRaidMemberError("creation of dmraid members is not supported")
 
     def destroy(self, *args, **kwargs):
-        log_method_call(self, device=os.path.basename(self.device),
+        log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         raise DMRaidMemberError("destruction of dmraid members is not supported")
 

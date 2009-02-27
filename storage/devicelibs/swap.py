@@ -20,6 +20,8 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
+import resource
+
 import iutil
 
 from ..errors import *
@@ -35,8 +37,8 @@ def mkswap(device, label=''):
     argv.append(device)
 
     rc = iutil.execWithRedirect("mkswap", argv,
-                                stderr = "/dev/null",
-                                stdout = "/dev/null",
+                                stderr = "/dev/tty5",
+                                stdout = "/dev/tty5",
                                 searchPath=1)
 
     if rc:
@@ -68,14 +70,14 @@ def swapon(device, priority=None):
             raise SuspendError
 
     argv = []
-    if 0 <= priority <= 32767:
+    if isinstance(priority, int) and 0 <= priority <= 32767:
         argv.extend(["-p", priority])
     argv.append(device)
         
     rc = iutil.execWithRedirect("swapon",
                                 argv,
-                                stderr = "/dev/null",
-                                stdout = "/dev/null",
+                                stderr = "/dev/tty5",
+                                stdout = "/dev/tty5",
                                 searchPath=1)
 
     if rc:
@@ -83,8 +85,8 @@ def swapon(device, priority=None):
 
 def swapoff(device):
     rc = iutil.execWithRedirect("swapoff", [device],
-                                stderr = "/dev/null",
-                                stdout = "/dev/null",
+                                stderr = "/dev/tty5",
+                                stdout = "/dev/tty5",
                                 searchPath=1)
 
     if rc:
