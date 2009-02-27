@@ -30,6 +30,10 @@ import rhpl
 from rhpl.translate import _, N_
 import rhpl.executil
 
+from fsset import getDiskPart
+import iutil
+from product import *
+
 import booty
 import checkbootloader
 
@@ -201,8 +205,7 @@ class BootImages:
             self.default = entry.device.getDevice()
             (label, longlabel, type) = self.images[self.default]
             if not label:
-                self.images[self.default] = ("linux",
-                                             getProductName(), type)
+                self.images[self.default] = ("linux", productName, type)
 
     # XXX more internal anaconda knowledge
     def availableBootDevices(self, diskSet, fsset):
@@ -1134,9 +1137,6 @@ class grubBootloaderInfo(bootloaderInfo):
 
 
 class efiBootloaderInfo(bootloaderInfo):
-    def isEfi(self):
-        return os.access("/sys/firmware/efi", os.R_OK)
-
     def getBootloaderName(self):
         return self._bootloader
     bootloader = property(getBootloaderName, None, None, \
@@ -1160,7 +1160,7 @@ class efiBootloaderInfo(bootloaderInfo):
             fields = string.split(line)
             if len(fields) < 2:
                 continue
-            if string.join(fields[1:], " ") == getProductName():
+            if string.join(fields[1:], " ") == productName:
                 entry = fields[0][4:8]
                 rhpl.executil.execWithRedirect('/usr/sbin/efibootmgr',
                                        ["efibootmgr", "-b", entry, "-B"],
@@ -1190,7 +1190,7 @@ class efiBootloaderInfo(bootloaderInfo):
             bootdisk = bootdisk[:-1]
 
         argv = [ "/usr/sbin/efibootmgr", "-c" , "-w", "-L",
-                 getProductName(), "-d", "/dev/%s" % bootdisk,
+                 productName, "-d", "/dev/%s" % bootdisk,
                  "-p", bootpart, "-l", "\\EFI\\redhat\\" + self.bootloader ]
         rhpl.executil.execWithRedirect(argv[0], argv, root = instRoot,
                                stdout = "/dev/tty5",
@@ -1198,7 +1198,7 @@ class efiBootloaderInfo(bootloaderInfo):
 
     def installGrub(self, instRoot, bootDevs, grubTarget, grubPath, fsset,
                     target, cfPath):
-        if not self.isEfi():
+        if not iutil.isEfi():
             raise EnvironmentError
         self.removeOldEfiEntries(instRoot)
         self.addNewEfiEntry(instRoot, fsset)
@@ -1206,7 +1206,7 @@ class efiBootloaderInfo(bootloaderInfo):
     def __init__(self, initialize = True):
         if initialize:
             bootloaderInfo.__init__(self)
-        if self.isEfi():
+        if iutil.isEfi():
             self._configdir = "/boot/efi/EFI/redhat"
             self._configname = "grub.conf"
             self._bootloader = "grub.efi"
@@ -1674,7 +1674,7 @@ class ppcBootloaderInfo(bootloaderInfo):
         
         f.write("boot=%s\n" %(yabootTarget,))
         f.write("init-message=\"Welcome to %s!\\nHit <TAB> for boot options\"\n\n"
-                %(getProductName(),))
+                % productName)
 
         (name, partNum) = getDiskPart(bootDev)
         partno = partNum + 1 # 1 based
@@ -1970,8 +1970,7 @@ class sparcBootloaderInfo(bootloaderInfo):
         bootDev = bootDev.device.getDevice(asBoot = 1)
 
         f = open(instRoot + mfdir + mf, "w+")
-        f.write("Welcome to %s!\nHit <TAB> for boot options\n\n" % \
-            (getProductName(),))
+        f.write("Welcome to %s!\nHit <TAB> for boot options\n\n" % productName)
         f.close()
         os.chmod(instRoot + mfdir + mf, 0600)
 
@@ -2077,38 +2076,6 @@ class sparcBootloaderInfo(bootloaderInfo):
 ###############
 # end of boot loader objects... these are just some utility functions used
 
-# return (disk, partition number) eg ('hda', 1)
-def getDiskPart(dev):
-    cut = len(dev)
-    if (dev.startswith('rd/') or dev.startswith('ida/') or
-            dev.startswith('cciss/') or dev.startswith('sx8/') or
-            dev.startswith('mapper/')):
-        if dev[-2] == 'p':
-            cut = -1
-        elif dev[-3] == 'p':
-            cut = -2
-    else:
-        if dev[-2] in string.digits:
-            cut = -2
-        elif dev[-1] in string.digits:
-            cut = -1
-
-    name = dev[:cut]
-    
-    # hack off the trailing 'p' from /dev/cciss/*, for example
-    if name[-1] == 'p':
-        for letter in name:
-            if letter not in string.letters and letter != "/":
-                name = name[:-1]
-                break
-
-    if cut < 0:
-        partNum = int(dev[cut:]) - 1
-    else:
-        partNum = None
-
-    return (name, partNum)
-
 def rootIsDevice(dev):
     if dev.startswith("LABEL=") or dev.startswith("UUID="):
         return False
@@ -2129,35 +2096,3 @@ def getRootDevName(initrd, fsset, rootDev, instRoot):
         return "/dev/%s" %(rootDev,)
     except:
         return "/dev/%s" %(rootDev,)
-    
-# returns a product name to use for the boot loader string
-# FIXME: this is based on the stuff from anaconda, but kind of crappy :-/
-def getProductName():
-    # try redhat-release first
-    if os.access("/etc/redhat-release", os.R_OK):
-        f = open("/etc/redhat-release", "r")
-        lines = f.readlines()
-        f.close()
-        for buf in lines:
-            relidx = buf.find(" release")
-            if relidx != -1:
-                return buf[:relidx]
-
-    if os.access("/tmp/product/.buildstamp", os.R_OK):
-        path = "/tmp/product/.buildstamp"
-    elif os.access("/.buildstamp", os.R_OK):
-        path = "/.buildstamp"
-    else:
-        path = None
-
-    if path is not None:
-        f = open(path, "r")
-        lines = f.readlines()
-        f.close()
-        if len(lines) >= 2:
-            return lines[1][:-1]
-
-    # fall back
-    return "Red Hat Linux"
-        
-            

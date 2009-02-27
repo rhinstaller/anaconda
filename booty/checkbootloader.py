@@ -19,45 +19,13 @@ import os
 import string
 import rhpl
 
+from fsset import getDiskPart
+import iutil
+
 grubConfigFile = "/etc/grub.conf"
 liloConfigFile = "/etc/lilo.conf"
 yabootConfigFile = "/etc/yaboot.conf"
 siloConfigFile = "/etc/silo.conf"
-
-
-# XXX: this is cut and pasted directly from booty/bootloaderInfo.py
-# should eventually just go from there
-def getDiskPart(dev):
-    """Return (disk, partition number) tuple for dev"""
-    cut = len(dev)
-    if (dev[:3] == "rd/" or dev[:4] == "ida/" or
-        dev[:6] == "cciss/"):
-        if dev[-2] == 'p':
-            cut = -1
-        elif dev[-3] == 'p':
-            cut = -2
-    else:
-        if dev[-2] in string.digits:
-            cut = -2
-        elif dev[-1] in string.digits:
-            cut = -1
-
-    name = dev[:cut]
-    
-    # hack off the trailing 'p' from /dev/cciss/*, for example
-    if name[-1] == 'p':
-        for letter in name:
-            if letter not in string.letters and letter != "/":
-                name = name[:-1]
-                break
-
-    if cut < 0:
-        partNum = int(dev[cut:]) - 1
-    else:
-        partNum = None
-
-    return (name, partNum)
-
 
 def getRaidDisks(raidDevice, raidLevel=None, stripPart=1):
     rc = []
@@ -140,22 +108,6 @@ def getBootDevList(line):
         rets.append(dev)
     return string.join(rets)
 
-efi = None
-## Determine if the hardware supports EFI.
-# @return True if so, False otherwise.
-def isEfi():
-    global efi
-    if efi is not None:
-        return efi
-
-    efi = False
-    if rhpl.getArch() in ("ia64", "i386", "x86_64"):
-        # XXX need to make sure efivars is loaded...
-        if os.path.exists("/sys/firmware/efi"):
-            efi = True
-
-    return efi
-
 def getBootloaderTypeAndBoot(instRoot = "/"):
     haveGrubConf = 1
     haveLiloConf = 1
@@ -194,7 +146,7 @@ def getBootloaderTypeAndBoot(instRoot = "/"):
             if bootDev is not None:
                 break
 
-        if isEfi():
+        if iutil.isEfi():
             return ("GRUB", bootDev)
 
         if bootDev is not None:
