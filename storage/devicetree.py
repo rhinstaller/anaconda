@@ -249,12 +249,6 @@ class DeviceTree(object):
                 elif y.isDevice() and not x.isDevice():
 		    #log.debug("y is a device")
                     return 1
-		elif x.device.isleaf and not y.device.isleaf:
-		    #log.debug("x is a leaf -- y first")
-                    return 1
-                elif y.device.isleaf and not x.device.isleaf:
-		    #log.debug("y is a leaf -- x first")
-                    return -1
 
 	    #log.debug("no decision")
             return 0
