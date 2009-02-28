@@ -159,18 +159,25 @@ def pvinfo(device):
     if not vals:
         raise LVMError("pvinfo failed for %s" % device)
 
-    info = {'pv_name': vals[0],
-            'vg_name': vals[2],
-            'vg_uuid': vals[3]}
+    # don't raise an exception if pv is not a part of any vg
+    pv_name = vals[0]
+    try:
+        vg_name, vg_uuid = vals[2], vals[3]
+    except IndexError:
+        vg_name, vg_uuid = "", ""
+    
+    info = {'pv_name': pv_name,
+            'vg_name': vg_name,
+            'vg_uuid': vg_uuid}
+
     return info
 
-def vgcreate(vg_name, pvs, pe_size):
+def vgcreate(vg_name, pv_list, pe_size):
     argv = ["vgcreate"]
     if pe_size:
         argv.extend(["-s", "%dM" % pe_size])
-    pv_list = " ".join(pvs)
     argv.append(vg_name)
-    argv.append(pv_list)
+    argv.extend(pv_list)
     rc = iutil.execWithRedirect("lvm",
                                 argv,
                                 stdout = "/dev/tty5",
@@ -190,7 +197,7 @@ def vgremove(vg_name):
         raise LVMError("vgremove failed for %s" % vg_name)
 
 def vgactivate(vg_name):
-    rc = iutil.execWithRedirect("lvm", ["vgchange" "-a", "y", vg_name],
+    rc = iutil.execWithRedirect("lvm", ["vgchange", "-a", "y", vg_name],
                                 stdout = "/dev/tty5",
                                 stderr = "/dev/tty5",
                                 searchPath=1)
@@ -207,8 +214,7 @@ def vgdeactivate(vg_name):
         raise LVMError("vgdeactivate failed for %s" % vg_name)
 
 def vgreduce(vg_name, pv_list):
-    pvs = " ".join(pv_list)
-    rc = iutil.execWithRedirect("lvm", ["vgreduce", vg_name, pvs],
+    rc = iutil.execWithRedirect("lvm", ["vgreduce", vg_name] + pv_list,
                                 stdout = "/dev/tty5",
                                 stderr = "/dev/tty5",
                                 searchPath=1)
@@ -235,9 +241,8 @@ def lvs(vg_name):
     buf = iutil.execWithCapture("lvm",
                                 ["lvs", "--noheadings", "--nosuffix",
                                  "--units", "m", "-o",
-                                 "lv_name,lv_uuid,lv_size"],
+                                 "lv_name,lv_uuid,lv_size", vg_name],
                                 stderr="/dev/tty5")
-
 
     lvs = {}
     for line in buf.splitlines():
@@ -247,6 +252,10 @@ def lvs(vg_name):
         (name, uuid, size) = line.split()
         lvs[name] = {"size": size,
                      "uuid": uuid}
+
+    if not lvs:
+        raise LVMError(_("lvs failed for %s" % vg_name))
+
     return lvs
 
 def lvcreate(vg_name, lv_name, size):
@@ -306,6 +315,4 @@ def lvdeactivate(vg_name, lv_name):
 
     if rc:
         raise LVMError("lvdeactivate failed for %s" % lv_path)
-
-
 

@@ -23,6 +23,7 @@
 import resource
 
 import iutil
+import resource
 
 from ..errors import *
 
@@ -71,7 +72,7 @@ def swapon(device, priority=None):
 
     argv = []
     if isinstance(priority, int) and 0 <= priority <= 32767:
-        argv.extend(["-p", priority])
+        argv.extend(["-p", "%d" % priority])
     argv.append(device)
         
     rc = iutil.execWithRedirect("swapon",
@@ -104,5 +105,4 @@ def swapstatus(device):
             break
 
     return status
-
 
