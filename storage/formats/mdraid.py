@@ -40,7 +40,7 @@ class MDRaidMember(DeviceFormat):
     _type = "mdmember"
     _name = "software RAID"
     _udevTypes = ["linux_raid_member"]
-    partedFlags = PARTITION_RAID
+    partedFlag = PARTITION_RAID
     _formattable = True                 # can be formatted
     _supported = True                   # is supported
     _linuxNative = True                 # for clearpart

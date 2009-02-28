@@ -39,7 +39,7 @@ class SwapSpace(DeviceFormat):
     """ Swap space """
     _type = "swap"
     _udevTypes = ["swap"]
-    partedFlags = PARTITION_SWAP
+    partedFlag = PARTITION_SWAP
     _formattable = True                # can be formatted
     _supported = True                  # is supported
     _linuxNative = True                # for clearpart

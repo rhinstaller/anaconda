@@ -40,7 +40,7 @@ class LVMPhysicalVolume(DeviceFormat):
     _type = "lvmpv"
     _name = "physical volume (LVM)"
     _udevTypes = ["LVM2_member"]
-    partedFlags = PARTITION_LVM
+    partedFlag = PARTITION_LVM
     _formattable = True                 # can be formatted
     _supported = True                   # is supported
     _linuxNative = True                 # for clearpart
