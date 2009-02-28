@@ -118,7 +118,7 @@ def doAutoPartition(anaconda):
 
     # run the autopart function to allocate and grow partitions
     try:
-        doPartitioning(anaconda.id.storage)
+        doPartitioning(anaconda)
     except PartitioningWarning as msg:
         if not anaconda.isKickstart:
             anaconda.intf.messageWindow(_("Warnings During Automatic "
@@ -470,7 +470,7 @@ def getBestFreeSpaceRegion(disk, part_type, req_size,
 
     return best_free
 
-def doPartitioning(storage):
+def doPartitioning(anaconda):
     """ Allocate and grow partitions.
 
         When this function returns without error, all PartitionDevice
@@ -481,14 +481,15 @@ def doPartitioning(storage):
 
         Arguments:
 
-            storage -- the Storage instance
+            anaconda -- what else?
 
     """
+    storage = anaconda.id.storage
     disks = [d for d in storage.disks if d.name in storage.clearPartDisks]
     partitions = storage.partitions
 
     # FIXME: isn't there a better place for this to happen?
-    bootDev = storage.fsset.bootDevice
+    bootDev = anaconda.platform.bootDevice()
     if not bootDev.exists:
         bootDev.req_bootable = True
 
