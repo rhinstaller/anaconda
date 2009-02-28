@@ -185,8 +185,8 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
         os.close(p[0])
         os.dup2(p[1], 1)
         os.dup2(stderr.fileno(), 2)
-        os.dup2(stdin, 0)
-        os.close(stdin)
+        os.dup2(stdin.fileno(), 0)
+        stdin.close()
         os.close(p[1])
         stderr.close()
 
@@ -199,7 +199,7 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
         try:
             s = os.read(p[0], 1)
         except OSError, args:
-            (num, str) = args
+            (num, _str) = args
             if (num != 4):
                 raise IOError, args
 
