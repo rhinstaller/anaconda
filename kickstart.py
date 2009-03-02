@@ -26,14 +26,12 @@ import tempfile
 from flags import flags
 from constants import *
 import sys
-import raid
 import string
 import urlgrabber.grabber as grabber
-import lvm
 import warnings
 import upgrade
 import pykickstart.commands as commands
-import cryptodev
+from storage.devices import *
 import zonetab
 from pykickstart.constants import *
 from pykickstart.errors import *

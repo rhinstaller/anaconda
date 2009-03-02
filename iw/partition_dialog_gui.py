@@ -202,7 +202,7 @@ class PartitionEditor:
                         luksdev = LUKSDevice("luks%d" % self.storage.nextID,
                                              format=format,
                                              parents=request)
-                        actions.append(ActionCreateDevice(luksdev)
+                        actions.append(ActionCreateDevice(luksdev))
                         format = getFormat("luks",
                                            device=self.origrequest.path,
                                            passphrase=self.storage.encryptionPassphrase)
@@ -217,7 +217,7 @@ class PartitionEditor:
                 if self.fsoptionsDict.has_key("resizecb") and \
                    self.fsoptionsDict["resizecb"].get_active():
                     size = self.fsoptionsDict["resizesb"].get_value_as_int()
-                    actions.append(ActionResizeDevice(request, size)
+                    actions.append(ActionResizeDevice(request, size))
                     if request.format.type != "none":
                         actions.append(ActionResizeFormat(request, size))
 
@@ -229,7 +229,7 @@ class PartitionEditor:
 
                 if request.format.exists and \
                    getattr(request, "mountpoint", None) and \
-                   self.storage.formatByDefault(request)):
+                   self.storage.formatByDefault(request):
                     if not queryNoFormatPreExisting(self.intf):
                         continue
 

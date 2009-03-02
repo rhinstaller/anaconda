@@ -28,7 +28,7 @@ import gtk
 import datacombo
 
 import gui
-from raid import availRaidLevels
+from storage.devices import *
 from partition_ui_helpers_gui import *
 from constants import *
 
@@ -176,7 +176,7 @@ class RaidEditor:
                    self.fsoptionsDict["lukscb"].get_active() and \
                    self.origrequest.format.type != "luks":
                     luksdev = LUKSDevice("luks-%s" % request.name,
-                                         format=format
+                                         format=format,
                                          parents=self.origrequest)
                     format = getFormat("luks",
                                        passphrase=self.storage.encryptionPassphrase)
@@ -263,7 +263,7 @@ class RaidEditor:
 	else:
 	    if origrequest.minor is not None:
 		tstr = _("Edit RAID Device: %s") % (origrequest.path,)
-	    except:
+	    else:
 		tstr = _("Edit RAID Device")
 		
 	dialog = gtk.Dialog(tstr, self.parent)
@@ -377,7 +377,7 @@ class RaidEditor:
 
 
         if not origrequest.exists:
-            self.levelcombo = self.createRaidLevelMenu(availRaidLevels,
+            self.levelcombo = self.createRaidLevelMenu(raid_levels,
                                                        origrequest.level)
 	    lbl.set_mnemonic_widget(self.levelcombo)
         else:

@@ -29,7 +29,7 @@ import datacombo
 import gui
 from partition_ui_helpers_gui import *
 from constants import *
-import lvm
+from storage.devices import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -671,7 +671,7 @@ class VolumeGroupEditor:
 
                 if format:
                     actions.append(ActionDestroyFormat(usedev))
-                    actions.append(ActionCreateFormat(usedev, format)
+                    actions.append(ActionCreateFormat(usedev, format))
                     if luksdev:
                         actions.append(ActionCreateDevice(luksdev))
 
