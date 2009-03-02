@@ -104,7 +104,7 @@ def udev_parse_block_entry(buf):
         elif tag == "S":
             dev['symlinks'].append(val)
         elif tag == "E":
-            if val.count("=") > 1 and val.count(" ") > 1:
+            if val.count("=") > 1 and val.count(" ") > 0:
                 # eg: LVM2_LV_NAME when querying the VG for its LVs
                 vars = val.split()
                 vals = []
