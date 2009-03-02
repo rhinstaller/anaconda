@@ -30,7 +30,7 @@ import iutil
 from constants import *
 from partIntfHelpers import *
 from partedUtils import *
-from storage.formats import device_formats, getFormat
+from storage.formats import device_formats, getFormat, get_default_filesystem_type
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -185,11 +185,10 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
     store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
     fstypecombo = datacombo.DataComboBox(store)
     
-    types = device_formats.keys()
     if availablefstypes:
-        names = availablefstypes
+        names = [ availablefstypes ]
     else:
-        names = types.keys()
+        names = device_formats.keys()
     fs = getFormat(fstype)
     if fs and fs.supported and fs.formattable:
         default = fstype
@@ -209,7 +208,7 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
         
         if format.formattable:
             fstypecombo.append(name, device_formats[name])
-            if default and default.type == name:
+            if default == name:
                 defindex = i
                 defismountable = format.mountable
             i = i + 1
@@ -324,7 +323,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         migratecb.set_active(istruefalse(origrequest.format.migrate))
 
         # TODO: unimplemented
-	migtypes = origrequest.format.migrationTargets
+	migtypes = origrequest.format.migrationTarget
 
 	maintable.attach(migratecb, 0, 1, row, row + 1)
 	migfstypeCombo = createFSTypeMenu(ofstype, None, None,

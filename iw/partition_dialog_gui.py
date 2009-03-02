@@ -27,6 +27,7 @@ import gtk
 
 import gui
 from storage.devices import PartitionDevice
+from storage.deviceaction import ActionCreateFormat
 from partition_ui_helpers_gui import *
 from constants import *
 
@@ -190,14 +191,14 @@ class PartitionEditor:
                 actions.append(ActionCreateDevice(request))
             else:
                 # preexisting partition, just set mount point and format flag
-                request = copy.copy(self.origrequest)
+                request = self.origrequest
                 mountpoint = self.mountCombo.get_children()[0].get_text()
                 if self.fsoptionsDict.has_key("formatcb") and \
                    self.fsoptionsDict["formatcb"].get_active():
                     fmt_class = self.fsoptionsDict["fstypeCombo"].get_active_value()
                     format = fmt_class(mountpoint=mountpoint)
                     if self.fsoptionsDict.has_key("lukscb") and \
-                       lukscb.get_active() and \
+                       self.fsoptionsDict["lukscb"].get_active() and \
                        request.format.type != "luks":
                         luksdev = LUKSDevice("luks%d" % self.storage.nextID,
                                              format=format,
