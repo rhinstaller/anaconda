@@ -569,20 +569,16 @@ class DiskDevice(StorageDevice):
         self.partedDevice = None
         self.partedDisk = None
         self.removable = False
-        if 'parted' in globals().keys():
-            log.debug("looking up parted Device: %s" % self.path)
-            self.partedDevice = parted.Device(path=self.path)
-            if not self.partedDevice:
-                raise DeviceError("cannot find parted device instance")
-            log.debug("creating parted Disk: %s" % self.path)
-            self.partedDisk = parted.Disk(device=self.partedDevice)
-            if not self.partedDisk:
-                raise DeviceError("failed to create parted Disk")
+        log.debug("looking up parted Device: %s" % self.path)
+        self.partedDevice = parted.Device(path=self.path)
+        if not self.partedDevice:
+            raise DeviceError("cannot find parted device instance")
+        log.debug("creating parted Disk: %s" % self.path)
+        self.partedDisk = parted.Disk(device=self.partedDevice)
+        if not self.partedDisk:
+            raise DeviceError("failed to create parted Disk")
 
-            self.probe()
-
-    #def open(self):
-    #    raise DeviceError, "shit's busted."
+        self.probe()
 
     @property
     def size(self):
