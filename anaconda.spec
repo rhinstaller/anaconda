@@ -127,7 +127,7 @@ Requires: createrepo >= %{createrepover}
 Requires: squashfs-tools
 Requires: genisoimage >= %{genisoimagever}
 %ifarch %{ix86} x86_64
-Requires: syslinux
+Requires: syslinux >= 3.73
 Requires: makebootfat
 Requires: device-mapper
 %endif
