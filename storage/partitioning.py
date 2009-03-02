@@ -470,7 +470,7 @@ def getBestFreeSpaceRegion(disk, part_type, req_size,
 
     return best_free
 
-def doPartitioning(anaconda):
+def doPartitioning(storage):
     """ Allocate and grow partitions.
 
         When this function returns without error, all PartitionDevice
@@ -481,10 +481,10 @@ def doPartitioning(anaconda):
 
         Arguments:
 
-            anaconda -- what else?
+            storage - Main anaconda Storage instance
 
     """
-    storage = anaconda.id.storage
+    anaconda = storage.anaconda
     disks = [d for d in storage.disks if d.name in storage.clearPartDisks]
     partitions = storage.partitions
 
