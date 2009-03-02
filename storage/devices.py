@@ -477,6 +477,22 @@ class StorageDevice(Device):
         return size
 
     @property
+    def minSize(self):
+        """ The minimum size this device can be. """
+        if self.format.minSize < self.size:
+            return self.format.minSize
+        else:
+            return size
+
+    @property
+    def maxSize(self):
+        """ The maximum size this device can be. """
+        if self.format.maxSize > self.currentSize:
+            return self.currentSize
+        else:
+            return self.format.maxSize
+
+    @property
     def status(self):
         """ This device's status.
 
@@ -1028,6 +1044,17 @@ class PartitionDevice(StorageDevice):
         disk.addChild()
 
     disk = property(lambda p: p._getDisk(), lambda p,d: p._setDisk(d))
+
+    @property
+    def maxSize(self):
+        """ The maximum size this partition can be. """
+        # XXX: this is MB by default
+        max = self.partedPartition.getMaxAvailableSize()
+
+        if self.format.maxSize > max:
+            return max
+        else:
+            return self.format.maxSize
 
 
 class DMDevice(StorageDevice):
