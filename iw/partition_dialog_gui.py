@@ -176,15 +176,6 @@ class PartitionEditor:
                                           primary=primary,
                                           parents=disks)
 
-		err = storage.sanityCheckRequest(request)
-		if not err:
-		    err = doUIRAIDLVMChecks(request, self.storage)
-		    
-                if err:
-                    self.intf.messageWindow(_("Error With Request"),
-                                            "%s" % (err), custom_icon="error")
-                    continue
-
                 # we're all set, so create the actions
                 if luksdev:
                     actions.append(ActionCreateDevice(luksdev))
@@ -221,12 +212,6 @@ class PartitionEditor:
                     actions.append(ActionResizeDevice(request, size))
                     if request.format.type != "none":
                         actions.append(ActionResizeFormat(request, size))
-
-                err = self.storage.sanityCheckRequest(request)
-                if err:
-                    self.intf.messageWindow(_("Error With Request"),
-                                            "%s" % (err), custom_icon="error")
-                    continue
 
                 if request.format.exists and \
                    getattr(request, "mountpoint", None) and \

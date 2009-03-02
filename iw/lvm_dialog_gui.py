@@ -675,17 +675,6 @@ class VolumeGroupEditor:
                     if luksdev:
                         actions.append(ActionCreateDevice(luksdev))
 
-            err = self.storage.sanityCheckRequest(lv,
-                                                  skipMntPtExistCheck=1,
-                                                  pesize=pesize)
-	    if not err:
-		err = self.storage.isMountPointInUse(lv)
-
- 	    if err:
- 		self.intf.messageWindow(_("Error With Request"),
- 					"%s" % (err), custom_icon="error")
- 		continue
-
 	    if usedev.format.exists and format.mountable and \
                self.storage.formatByDefault(usedev) and \
 	       not queryNoFormatPreExisting(self.intf):

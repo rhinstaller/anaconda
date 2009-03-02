@@ -201,12 +201,6 @@ class RaidEditor:
 		   self.fsoptionsDict["migratecb"].get_active():
                     fstype = self.fsoptionsDict["migfstypeCombo"].get_active_value()
 
-	    err = self.storage.sanityCheckRequest(request)
-	    if err:
-		self.intf.messageWindow(_("Error With Request"),
-					"%s" % (err), custom_icon="error")
-		continue
-
 	    if request.format.exists and \
                self.storage.formatByDefault(request):
 		if not queryNoFormatPreExisting(self.intf):
