@@ -316,7 +316,7 @@ class DeviceFormat(object):
     @property
     def migratable(self):
         """ Can formats of this type be migrated? """
-        return self_migratable
+        return self._migratable
 
     @property
     def migrate(self):
