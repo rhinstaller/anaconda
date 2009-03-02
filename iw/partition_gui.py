@@ -44,6 +44,7 @@ import partition_dialog_gui
 from partIntfHelpers import *
 from constants import *
 from partition_ui_helpers_gui import *
+from storage.partitioning import doPartitioning
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -989,7 +990,7 @@ class PartitionWindow(InstallWindow):
         self.tree.clear()
 
         try:
-            autopart.doPartitioning(self.storage)
+            doPartitioning(self.storage)
             rc = 0
         except PartitioningError, msg:
             self.intf.messageWindow(_("Error Partitioning"),
