@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-SYSLINUX=$IMGPATH/usr/lib/syslinux/syslinux-nomtools
+SYSLINUX=$IMGPATH/usr/share/syslinux/syslinux-nomtools
 
 if [ ! -f $SYSLINUX ]; then
   echo "Warning: nomtools syslinux doesn't exist"
@@ -38,7 +38,7 @@ prepareBootTree() {
 
 	if [ -f $IMGPATH/usr/lib/anaconda-runtime/syslinux-vesa-splash.jpg ]; then
 		cp $IMGPATH/usr/lib/anaconda-runtime/syslinux-vesa-splash.jpg $MBD_BOOTTREE/splash.jpg
-		cp $IMGPATH/usr/lib/syslinux/vesamenu.c32 $MBD_BOOTTREE/vesamenu.c32
+		cp $IMGPATH/usr/share/syslinux/vesamenu.c32 $MBD_BOOTTREE/vesamenu.c32
 		sed -i s'/default linux/default vesamenu.c32/g' $MBD_BOOTTREE/syslinux.cfg
 		sed -i 's/prompt 1/#prompt 1/g' $MBD_BOOTTREE/syslinux.cfg
 	elif [ -x $IMGPATH/usr/lib/anaconda-runtime/splashtolss.sh ]; then
@@ -102,12 +102,12 @@ makeBootImages() {
   [ $? = 0 ] || exit 1
 
   if [ "$kernelvers" != "$kernelxen" ] ; then
-    if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
+    if [ -f $IMGPATH/usr/share/syslinux/isolinux.bin ]; then
 	echo "Building isolinux directory"
 	MBD_BOOTTREE=$TOPDESTPATH/isolinux
 	MBD_FSIMAGE=$TOPDESTPATH/images/pxeboot/initrd.img
 	mkdir $MBD_BOOTTREE
-	cp $IMGPATH/usr/lib/syslinux/isolinux.bin $MBD_BOOTTREE/isolinux.bin
+	cp $IMGPATH/usr/share/syslinux/isolinux.bin $MBD_BOOTTREE/isolinux.bin
 
 	prepareBootTree
 

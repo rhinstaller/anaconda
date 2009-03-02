@@ -810,8 +810,8 @@ makemainimage () {
             ERROR=$(du -sk $IMGPATH/usr/lib/anaconda-runtime | awk '{ print $1 }')
             SIZE=$(expr $SIZE - $ERROR)
         fi
-        if [ -d $IMGPATH/usr/lib/syslinux ]; then
-            ERROR=$(du -sk $IMGPATH/usr/lib/syslinux | awk '{ print $1 }')
+        if [ -d $IMGPATH/usr/share/syslinux ]; then
+            ERROR=$(du -sk $IMGPATH/usr/share/syslinux | awk '{ print $1 }')
             SIZE=$(expr $SIZE - $ERROR)
         fi
         dd if=/dev/zero bs=1k count=${SIZE} of=$mmi_tmpimage 2>/dev/null
@@ -821,7 +821,7 @@ makemainimage () {
 
         (cd $IMGPATH; find . |
             fgrep -v "./usr/lib/anaconda-runtime" |
-            fgrep -v "./usr/lib/syslinux"
+            fgrep -v "./usr/share/syslinux"
             cpio -H crc -o) | (cd $mmi_mntpoint; cpio -iumd)
         makeproductfile $mmi_mntpoint
         umount $mmi_mntpoint
