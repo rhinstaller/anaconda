@@ -933,8 +933,6 @@ class NoDevFS(FS):
 
     def __init__(self, *args, **kwargs):
         FS.__init__(self, *args, **kwargs)
-        if self.nodev and not self.device:
-            self.device = self.type
 
     def _deviceCheck(self, devspec):
         pass
