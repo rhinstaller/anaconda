@@ -40,6 +40,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define createrepover 0.4.7
 %define yumutilsver 1.1.11-3
 %define iscsiver 6.2.0.870-3
+%define pythoncryptsetupver 0.0.4
 
 BuildRequires: audit-libs-devel
 BuildRequires: booty
@@ -109,6 +110,7 @@ Requires: authconfig
 Requires: gnome-python2-gtkhtml2
 Requires: system-config-firewall
 Requires: cryptsetup-luks
+Requires: python-cryptsetup >= %{pythoncryptsetupver}
 Requires: mdadm
 Requires: lvm2
 Requires: util-linux-ng
