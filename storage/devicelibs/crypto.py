@@ -46,7 +46,7 @@ def luks_uuid(device):
 def luks_status(name):
     """True means active, False means inactive (or non-existent)"""
     cs = CryptSetup(yesDialog = askyes, logFunc = dolog)
-    return (cs.luksStatus(device)!=None)
+    return cs.luksStatus(name)!=0
 
 def luks_format(device,
                 passphrase=None, key_file=None,
@@ -58,7 +58,7 @@ def luks_format(device,
         key_file = cs.prepare_passphrase_file(passphrase)
         key_file_unlink = True
     elif key_file and os.path.isfile(key_file):
-        argv.append(key_file)
+        pass
     else:
         raise ValueError("luks_format requires either a passphrase or a key file")
 
