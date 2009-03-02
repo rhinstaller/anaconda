@@ -167,7 +167,7 @@ makeEfiImages() {
     if [ "$kernelvers" != "$kernelxen" ]; then
         local grubarch=${efiarch}
         case ${efiarch} in
-            ia32) grubarch=i586 ;;
+            ia32) grubarch=i?86 ;;
             x64) grubarch=x86_64 ;;
         esac
 
