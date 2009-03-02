@@ -86,7 +86,7 @@ def createMountPointCombo(request, excludeMountPoints=[]):
 
     mntptlist = []
     label = getattr(request.format, "label", None)
-    if request.exists and label.startswith("/"):
+    if request.exists and label and label.startswith("/"):
         mntptlist.append(label)
         idx = 0
     
