@@ -389,7 +389,7 @@ class PartitionTypeWindow(InstallWindow):
                                          size, partedDisk.device.model)
             i = bootstore.append(None)
             bootstore[i] = (dispstr, partedDisk.device.path[5:])
-            if disk.device.path[5:] == defaultBoot:
+            if disk.name == defaultBoot:
                 self.bootcombo.set_active_iter(i)
 
         if len(bootstore) <= 1:
