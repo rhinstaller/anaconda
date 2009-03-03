@@ -844,14 +844,14 @@ def growPartitions(disks, partitions):
             # don't grow beyond the request's maximum size
             if part.req_max_size:
                 max_sect = (part.req_max_size * (1024 * 1024)) / sectorSize
-                if constraint.max_size > max_sect:
-                    constraint.max_size = max_sect
+                if constraint.maxSize > max_sect:
+                    constraint.maxSize = max_sect
 
             # don't grow beyond the resident filesystem's max size
             if part.format.maxSize > 0:
                 max_sect = (part.format.maxSize * (1024 * 1024)) / sectorSize
-                if constraint.max_size > max_sect:
-                    constraint.max_size = max_sect
+                if constraint.maxSize > max_sect:
+                    constraint.maxSize = max_sect
 
             disk.partedDisk.maximizePartition(part.partedPartition, constraint)
 
