@@ -867,11 +867,10 @@ class PartitionWindow(InstallWindow):
 		    else:
 			self.tree[iter]['Mount Point'] = ""
 
-                    if device.format.type == "luks" and \
-                       not device.format.exists:
-                        self.tree[iter]['Format'] = self.lock_pixbuf
-		    elif not format.exists:
-			self.tree[iter]['Format'] = self.checkmark_pixbuf
+                if format and format.type == "luks" and not format.exists:
+                    self.tree[iter]['Format'] = self.lock_pixbuf
+                elif format and not format.exists:
+                    self.tree[iter]['Format'] = self.checkmark_pixbuf
 		
                 if format and format.type:
                     self.tree[iter]['IsFormattable'] = device.format.formattable
@@ -967,7 +966,7 @@ class PartitionWindow(InstallWindow):
             devices. This will need some work when that time comes.
         """
         device = self.tree.getCurrentDevice()
-        if getattr(device.partedDisk):
+        if hasattr(device, "partedDisk"):
             if doDeleteDependentDevices(self.intf,
                                         self.storage,
                                         device):
@@ -1069,9 +1068,6 @@ class PartitionWindow(InstallWindow):
 	while 1:
 	    actions = raideditor.run()
 
-	    if not actions:
-		break
-
             for action in actions:
                 # FIXME: this needs to handle exceptions
                 self.storage.devicetree.registerAction(action)
@@ -1100,9 +1096,6 @@ class PartitionWindow(InstallWindow):
 	while 1:
 	    actions = parteditor.run()
 
-	    if not actions:
-	        break
-
             for action in actions:
                 # XXX we should handle exceptions here
                 self.anaconda.id.storage.devicetree.registerAction(action)
@@ -1128,7 +1121,6 @@ class PartitionWindow(InstallWindow):
         # we don't really need to pass in self.storage if we're passing
         # self.anaconda already
         vgeditor = lvm_dialog_gui.VolumeGroupEditor(self.anaconda,
-                                                    self.storage,
                                                     self.intf,
                                                     self.parent,
                                                     device,
@@ -1136,9 +1128,6 @@ class PartitionWindow(InstallWindow):
 	
 	while True:
 	    actions = vgeditor.run()
-
-            if not actions:
-                break
 
             for action in actions:
                 # FIXME: handle exceptions
