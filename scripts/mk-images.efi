@@ -163,7 +163,7 @@ prepareEfiTree() {
     fi
 
     yumdownloader -c ${yumconf} ${artpkg}
-    rpm2cpio ${artpkg} | (cd $KERNELROOT; cpio --quiet -iumd)
+    rpm2cpio ${artpkg}.rpm | (cd $KERNELROOT; cpio --quiet -iumd)
     cp $KERNELROOT/boot/grub/splash.xpm.gz $MBD_BOOTTREE_TMP/EFI/boot/splash.xpm.gz
 }
 
