@@ -118,7 +118,8 @@ def doAutoPartition(anaconda):
 
     # run the autopart function to allocate and grow partitions
     try:
-        doPartitioning(anaconda)
+        doPartitioning(anaconda.id.storage,
+                       exclusiveDisks=anaconda.id.storage.clearPartDisks)
     except PartitioningWarning as msg:
         if not anaconda.isKickstart:
             anaconda.intf.messageWindow(_("Warnings During Automatic "
@@ -470,7 +471,7 @@ def getBestFreeSpaceRegion(disk, part_type, req_size,
 
     return best_free
 
-def doPartitioning(storage):
+def doPartitioning(storage, exclusiveDisks=None):
     """ Allocate and grow partitions.
 
         When this function returns without error, all PartitionDevice
@@ -483,14 +484,21 @@ def doPartitioning(storage):
 
             storage - Main anaconda Storage instance
 
+        Keyword arguments:
+
+            exclusiveDisks -- list of names of disks to use
+
     """
     anaconda = storage.anaconda
-    disks = [d for d in storage.disks if d.name in storage.clearPartDisks]
+    disks = storage.disks
+    if exclusiveDisks:
+        disks = [d for d in disks if d.name in exclusiveDisks]
+
     partitions = storage.partitions
 
     # FIXME: isn't there a better place for this to happen?
     bootDev = anaconda.platform.bootDevice()
-    if not bootDev.exists:
+    if bootDev and not bootDev.exists:
         bootDev.req_bootable = True
 
     # FIXME: make sure non-existent partitions have empty parents list
@@ -712,6 +720,8 @@ def growPartitions(disks, partitions):
     """
     log.debug("growPartitions: disks=%s, partitions=%s" % ([d.name for d in disks], [p.name for p in partitions]))
     all_growable = [p for p in partitions if p.req_grow]
+    if not all_growable:
+        return
 
     # sort requests by base size in decreasing order
     all_growable.sort(key=lambda p: p.req_size, reverse=True)
