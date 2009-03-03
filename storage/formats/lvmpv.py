@@ -87,6 +87,10 @@ class LVMPhysicalVolume(DeviceFormat):
         """ Consider use of -Z|--zero
             -f|--force or -y|--yes may be required
         """
+        # lvm has issues with persistence of metadata, so here comes the
+        # hammer...
+        DeviceFormat.destroy(self, *args, **kwargs)
+
         lvm.pvcreate(self.device)
         self.exists = True
         self.notifyKernel()
