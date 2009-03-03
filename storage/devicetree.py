@@ -198,7 +198,7 @@ class DeviceTree(object):
             dev_actions = self.findActions(device=a.device)
             for rem in dev_actions:
                 end = self._actions.index(loops[-1])
-                if start < self._actions.index(rem) < end:
+                if self._actions.index(rem) < end:
                     self._actions.remove(rem)
 
         # device resize actions
@@ -266,7 +266,7 @@ class DeviceTree(object):
             dev_actions = self.findActions(device=a.device, object="format")
             for rem in dev_actions:
                 end = self._actions.index(loops[-1])
-                if start < self._actions.index(rem) < end:
+                if self._actions.index(rem) < end:
                     self._actions.remove(rem)
 
         # format resize
