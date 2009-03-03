@@ -787,6 +787,15 @@ class BTRFS(FS):
         argv = ["-r", self.targetSize, self.device]
         return argv
 
+    @property
+    def supported(self):
+        """ Is this filesystem a supported type? """
+        supported = self._supported
+        if flags.cmdline.has_key("icantbelieveitsnotbtr"):
+            supported = True
+
+        return supported
+
 register_device_format(BTRFS)
 
 
@@ -828,6 +837,15 @@ class JFS(FS):
     _supported = False
     _dump = True
     _check = True
+
+    @property
+    def supported(self):
+        """ Is this filesystem a supported type? """
+        supported = self._supported
+        if flags.cmdline.has_key("jfs"):
+            supported = True
+
+        return supported
 
 register_device_format(JFS)
 
