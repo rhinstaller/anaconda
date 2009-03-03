@@ -45,6 +45,7 @@ from partIntfHelpers import *
 from constants import *
 from partition_ui_helpers_gui import *
 from storage.partitioning import doPartitioning
+from storage.devicelibs import lvm
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
