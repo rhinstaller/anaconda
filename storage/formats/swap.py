@@ -38,6 +38,7 @@ log = logging.getLogger("storage")
 class SwapSpace(DeviceFormat):
     """ Swap space """
     _type = "swap"
+    _name = None
     _udevTypes = ["swap"]
     partedFlag = PARTITION_SWAP
     _formattable = True                # can be formatted
