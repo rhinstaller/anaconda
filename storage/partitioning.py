@@ -861,6 +861,37 @@ def growPartitions(disks, partitions):
             continue
         part.req_size = part.req_base_size
 
+def lvCompare(lv1, lv2):
+    """ More specifically defined lvs come first.
+
+        < 1 => x < y
+          0 => x == y
+        > 1 => x > y
+    """
+    ret = 0
+
+    # larger requests go to the front of the list
+    ret -= cmp(lv1.size, lv2.size) * 100
+
+    # fixed size requests to the front
+    ret += cmp(lv1.req_grow, lv2.req_grow) * 50
+
+    # potentially larger growable requests go to the front
+    if lv1.req_grow and lv2.req_grow:
+        if not lv1.req_max_size and lv2.req_max_size:
+            ret -= 25
+        elif lv1.req_max_size and not lv2.req_max_size:
+            ret += 25
+        else:
+            ret -= cmp(lv1.req_max_size, lv2.req_max_size) * 25
+
+    if ret > 0:
+        ret = 1
+    elif ret < 0:
+        ret = -1
+
+    return ret
+
 def growLVM(storage):
     """ Grow LVs according to the sizes of the PVs. """
     for vg in storage.vgs:
@@ -869,44 +900,77 @@ def growLVM(storage):
             log.debug("vg %s has no free space" % vg.name)
             continue
 
+        log.debug("vg %s: %dMB free ; lvs: %s" % (vg.name, vg.freeSpace,
+                                                  [l.lvname for l in vg.lvs]))
+
         # figure out how much to grow each LV
         grow_amounts = {}
         lv_total = vg.size - total_free
+        log.debug("used: %dMB ; vg.size: %dMB" % (lv_total, vg.size))
 
         # This first loop is to calculate percentage-based growth
         # amounts. These are based on total free space.
+        lvs = vg.lvs
+        lvs.sort(cmp=lvCompare)
         for lv in lvs:
             if not lv.req_grow or not lv.req_percent:
                 continue
 
-            portion = (lv_req_percent * 0.01)
-            # clamp growth amount to a multiple of vg extent size
-            grow = vg.align(portion * vg.vgFree)
+            portion = (lv.req_percent * 0.01)
+            grow = portion * vg.vgFree
             new_size = lv.req_size + grow
             if lv.req_max_size and new_size > lv.req_max_size:
-                # clamp growth amount to a multiple of vg extent size
-                grow -= align(new_size - lv.req_max_size)
+                grow -= (new_size - lv.req_max_size)
+
+            if lv.format.maxSize and lv.format.maxSize < new_size:
+                grow -= (new_size - lv.format.maxSize)
 
             # clamp growth amount to a multiple of vg extent size
             grow_amounts[lv.name] = vg.align(grow)
             total_free -= grow
+            lv_total += grow
 
         # This second loop is to calculate non-percentage-based growth
         # amounts. These are based on free space remaining after
         # calculating percentage-based growth amounts.
+
+        # keep a tab on space not allocated due to format or requested
+        # maximums -- we'll dole it out to subsequent requests
+        leftover = 0
         for lv in lvs:
+            log.debug("checking lv %s: req_grow: %s ; req_percent: %s"
+                      % (lv.name, lv.req_grow, lv.req_percent))
             if not lv.req_grow or lv.req_percent:
                 continue
 
             portion = float(lv.req_size) / float(lv_total)
-            # clamp growth amount to a multiple of vg extent size
-            grow = vg.align(portion * total_free)
-            new_size = lv.req_size + grow
-            if lv.req_max_size and new_size > lv.req_max_size:
-                # clamp growth amount to a multiple of vg extent size
-                grow -= vg.align(new_size - lv.req_max_size)
+            grow = portion * total_free
+            log.debug("grow is %dMB" % grow)
 
-            grow_amounts[lv.name] = grow
+            todo = lvs[lvs.index(lv):]
+            unallocated = reduce(lambda x,y: x+y,
+                                 [l.req_size for l in todo
+                                  if l.req_grow and not l.req_percent])
+            extra_portion = float(lv.req_size) / float(unallocated)
+            extra = extra_portion * leftover
+            log.debug("%s getting %dMB (%d%%) of %dMB leftover space"
+                      % (lv.name, extra, extra_portion * 100, leftover))
+            leftover -= extra
+            grow += extra
+            log.debug("grow is now %dMB" % grow)
+            max_size = lv.req_size + grow
+            if lv.req_max_size and max_size > lv.req_max_size:
+                max_size = lv.req_max_size
+
+            if lv.format.maxSize and max_size > lv.format.maxSize:
+                max_size = lv.format.maxSize
+
+            log.debug("max size is %dMB" % max_size)
+            max_size = max_size
+            leftover += (lv.req_size + grow) - max_size
+            grow = max_size - lv.req_size
+            log.debug("lv %s gets %dMB" % (lv.name, vg.align(grow)))
+            grow_amounts[lv.name] = vg.align(grow)
 
         if not grow_amounts:
             log.debug("no growable lvs in vg %s" % vg.name)
@@ -916,12 +980,32 @@ def growLVM(storage):
         for lv in lvs:
             if lv.name not in grow_amounts.keys():
                 continue
-            lv.size = new_size
+            lv.size += grow_amounts[lv.name]
 
         # now there shouldn't be any free space left, but if there is we
         # should allocate it to one of the LVs
         vg_free = vg.freeSpace
-        log.debug("vg %s still has %dMB free" % (vg.name, vg_free))
+        log.debug("vg %s has %dMB free" % (vg.name, vg_free))
+        if vg_free:
+            for lv in lvs:
+                if not lv.req_grow:
+                    continue
 
+                if lv.req_max_size and lv.size == lv.req_max_size:
+                    continue
 
+                if lv.format.maxSize and lv.size == lv.format.maxSize:
+                    continue
+
+                # first come, first served
+                projected = lv.size + vg.freeSpace
+                if lv.req_max_size and projected > lv.req_max_size:
+                    projected = lv.req_max_size
+
+                if lv.format.maxSize and projected > lv.format.maxSize:
+                    projected = lv.format.maxSize
+
+                log.debug("giving leftover %dMB to %s" % (projected - lv.size,
+                                                          lv.name))
+                lv.size = projected
 
