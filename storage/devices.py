@@ -1535,19 +1535,21 @@ class LVMVolumeGroupDevice(DMDevice):
         # TODO: just ask lvm if isModified returns False
 
         # total the sizes of any LVs
-        # FIXME: need to account for metadata
         used = 0
+        size = self.size
+        log.debug("%s size is %dMB" % (self.name, size))
         for lv in self.lvs:
+            log.debug("lv %s (%s) uses %dMB" % (lv.name, lv, lv.size))
             used += self.align(lv.size)
 
-        return self.size - used
+        free = self.size - used
+        log.debug("vg %s has %dMB free" % (self.name, free))
+        return free
 
     @property
     def freeExtents(self):
         """ The number of free extents in this VG. """
         # TODO: just ask lvm if isModified returns False
-
-        # FIXME: need to account for metadata
         return self.freeSpace / self.peSize
 
     def align(self, size):
@@ -1634,6 +1636,18 @@ class LVMLogicalVolumeDevice(DMDevice):
             size
         """
         raise NotImplementedError("probe method not defined for StorageDevice")
+
+    def _setSize(self, size):
+        size = self.vg.align(numeric_type(size))
+        log.debug("trying to set lv %s size to %dMB" % (self.name, size))
+        if size <= (self.vg.freeSpace + self._size):
+            self._size = size
+            self.targetSize = size
+        else:
+            log.debug("failed to set size: %dMB short" % (size - (self.vg.freeSpace + self._size),))
+            raise ValueError("not enough free space in volume group")
+
+    size = property(lambda d: d._size, _setSize)
 
     @property
     def vg(self):
