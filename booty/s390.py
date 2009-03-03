@@ -6,8 +6,6 @@ import iutil
 class s390BootloaderInfo(bootloaderInfo):
     def getBootloaderConfig(self, instRoot, bl, kernelList,
                             chainList, defaultDev):
-        images = bl.images.getImages()
-
         # on upgrade read in the lilo config file
         lilo = LiloConfigFile ()
         self.perms = 0600
@@ -120,7 +118,6 @@ class s390BootloaderInfo(bootloaderInfo):
     
     def writeZipl(self, instRoot, bl, kernelList, chainList,
                   defaultDev, justConfigFile):
-        images = bl.images.getImages()
         rootDev = self.storage.fsset.rootDevice
         
         cf = '/etc/zipl.conf'

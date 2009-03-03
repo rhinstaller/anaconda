@@ -128,8 +128,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
     def writeGrub(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfigFile):
-        
-        images = bl.images.getImages()
+
         rootDev = self.storage.fsset.rootDevice
 
         # XXX old config file should be read here for upgrade
