@@ -157,8 +157,13 @@ prepareEfiTree() {
     mv $MBD_BOOTTREE_TMP/EFI/boot/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/boot${efiarch}.efi
     mv $MBD_BOOTTREE_TMP/EFI/boot/grub.conf $MBD_BOOTTREE_TMP/EFI/boot/boot${efiarch}.conf
 
-    yumdownloader -c $yumconf ${brandpkgname}-logos
-    rpm2cpio ${brandpkgname}-logos.noarch.rpm | (cd $KERNELROOT; cpio --quiet -iumd)
+    artpkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" --whatprovides ${brandpkgname}-logos | grep -v generic-logos | head -1)
+    if [ -z "$artpkg" ]; then
+       argpkg="generic-logos"
+    fi
+
+    yumdownloader -c ${yumconf} ${artpkg}
+    rpm2cpio ${artpkg} | (cd $KERNELROOT; cpio --quiet -iumd)
     cp $KERNELROOT/boot/grub/splash.xpm.gz $MBD_BOOTTREE_TMP/EFI/boot/splash.xpm.gz
 }
 
