@@ -28,11 +28,8 @@ class ppcBootloaderInfo(bootloaderInfo):
                 try:
                     device = self.storage.fsset.mountpoints["/boot"]
                 except KeyError:
-                    try:
-                        # Try / if we don't have this we're not going to work
-                        device = self.storage.fsset.mountpoints["/"]
-                    except KeyError:
-                        return retval 
+                    # Try / if we don't have this we're not going to work
+                    device = self.storage.fsset.rootDevice
 
                 retval.append(device.path)
             else:
@@ -54,7 +51,7 @@ class ppcBootloaderInfo(bootloaderInfo):
             if not os.path.isdir(instRoot + "/boot/etc"):
                 os.mkdir(instRoot + "/boot/etc")
         except KeyError:
-            bootDev = self.storage.fsset.mountpoints["/"]
+            bootDevice = self.storage.fsset.rootDevice
 
             cfPath = "/boot"
             cf = "/etc/yaboot.conf"
@@ -107,7 +104,7 @@ class ppcBootloaderInfo(bootloaderInfo):
 
         f.write("\n")
 
-        rootDev = self.storage.fsset.mountpoints["/"]
+        rootDev = self.storage.fsset.rootDevice
 
         for (label, longlabel, version) in kernelList:
             kernelTag = "-" + version

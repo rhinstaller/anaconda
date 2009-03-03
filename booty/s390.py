@@ -27,10 +27,7 @@ class s390BootloaderInfo(bootloaderInfo):
             if not os.access(instRoot + sl.getPath(), os.R_OK):
                 lilo.delImage(label)
 
-        try:
-            rootDev = self.storage.fsset.mountpoints["/"]
-        except KeyError:
-            raise RuntimeError, "Installing zipl, but there is no root device"
+        rootDev = self.storage.fsset.rootDevice
 
         if rootDev == defaultDev:
             lilo.addEntry("default", kernelList[0][0])
@@ -124,7 +121,7 @@ class s390BootloaderInfo(bootloaderInfo):
     def writeZipl(self, instRoot, bl, kernelList, chainList,
                   defaultDev, justConfigFile):
         images = bl.images.getImages()
-        rootDev = self.storage.fsset.mountpoints["/"]
+        rootDev = self.storage.fsset.rootDevice
         
         cf = '/etc/zipl.conf'
         self.perms = 0600

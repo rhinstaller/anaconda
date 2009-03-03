@@ -251,12 +251,9 @@ class BootImages:
                 if self.partedFlags[parted.PARTITION_BOOT]:
                     retval.append((part, type))
 
-        try:
-            rootDevice = storage.fsset.mountpoints["/"]
-        except KeyError:
-            rootDevice = None
+        rootDevice = storage.fsset.rootDevice
 
-        if not rootDevice or not rootDevice.format.bootable:
+        if not rootDevice or not rootDevice.format:
             raise ValueError, ("Trying to pick boot devices but do not have a "
                                "sane root partition.  Aborting install.")
 
@@ -343,10 +340,7 @@ class bootloaderInfo:
         lilo.addEntry("prompt", replace = 0)
         lilo.addEntry("timeout", self.timeout or "20", replace = 0)
 
-        try:
-            rootDev = self.storage.fsset.mountpoints["/"]
-        except KeyError:
-            raise RuntimeError, "Installing lilo, but there is no root device"
+        rootDev = self.storage.fsset.rootDevice
 
         if rootDev == defaultDev:
             lilo.addEntry("default", kernelList[0][0])

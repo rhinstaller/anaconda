@@ -16,7 +16,7 @@ class sparcBootloaderInfo(bootloaderInfo):
             if not os.path.isdir(instRoot + "/boot"):
                 os.mkdir(instRoot + "/boot")
         except KeyError:
-            bootDev = self.storage.fsset.mountpoints["/"]
+            bootDev = self.storage.fsset.rootDevice
 
             cf = "/etc/silo.conf"
             mfdir = '/etc'
@@ -45,7 +45,7 @@ class sparcBootloaderInfo(bootloaderInfo):
         f.write("default=%s\n" % (kernelList[0][0],))
         f.write("\n")
 
-        rootDev = self.storage.fsset.mountpoints["/"]
+        rootDev = self.storage.fsset.rootDevice
 
         for (label, longlabel, version) in kernelList:
             kernelTag = "-" + version

@@ -130,7 +130,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             defaultDev, justConfigFile):
         
         images = bl.images.getImages()
-        rootDev = self.storage.fsset.mountpoints["/"]
+        rootDev = self.storage.fsset.rootDevice
 
         # XXX old config file should be read here for upgrade
 
@@ -169,7 +169,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.write("#          all kernel and initrd paths are relative "
                     "to /boot/, eg.\n")
         except KeyError:
-            bootDev = self.storage.fsset.mountpoints["/"]
+            bootDev = self.storage.fsset.rootDevice
             grubPath = "/boot/grub"
             cfPath = "/boot/"
             f.write("# NOTICE:  You do not have a /boot partition.  "
@@ -458,7 +458,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             grubPath = "/grub"
             cfPath = "/"
         except KeyError:
-            bootDev = self.storage.fsset.mountpoints["/"]
+            bootDev = self.storage.fsset.rootDevice
             grubPath = "/boot/grub"
             cfPath = "/boot/"
 
