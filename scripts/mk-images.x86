@@ -161,7 +161,7 @@ doPostImages() {
         if [ -f isolinux/efiboot.img ]; then
             EFIARGS="-eltorito-alt-boot -e isolinux/efiboot.img -no-emul-boot"
         fi
-        mkisofs -quiet -o $TOPDESTPATH/images/$BOOTISO -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table $EFIARGS -R -J -V "$PRODUCT" -T -graft-points isolinux=$TOPDESTPATH/isolinux images/install.img=$TOPDESTPATH/images/install.img
+        mkisofs -o $TOPDESTPATH/images/$BOOTISO -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table $EFIARGS -R -J -V "$PRODUCT" -T -graft-points isolinux=$TOPDESTPATH/isolinux images/install.img=$TOPDESTPATH/images/install.img
        implantisomd5 $TOPDESTPATH/images/$BOOTISO
     fi
 
