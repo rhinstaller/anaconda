@@ -152,6 +152,162 @@ class DeviceTree(object):
 
         self._populate()
 
+    def pruneActions(self):
+        """ Prune loops and redundant actions from the queue. """
+        # handle device destroy actions
+        actions = self.findActions(type="destroy", object="device")
+        for a in actions:
+            if a not in self._actions:
+                # we may have removed some of the actions in a previous
+                # iteration of this loop
+                continue
+
+            # XXX this may finally necessitate object ids
+            loops = self.findActions(device=a.device,
+                                     type="destroy",
+                                     object="device")
+
+            if len(loops) == 1:
+                continue
+
+            # remove all actions on this device from after the first
+            # destroy up through the last destroy
+            dev_actions = self.findActions(device=a.device)
+            for rem in dev_actions:
+                start = self._actions.index(a)
+                end = self._actions.index(loops[-1])
+                if start < self._actions.index(rem) <= end:
+                    self._actions.remove(rem)
+
+        # device create actions
+        actions = self.findActions(type="create", object="device")
+        for a in actions:
+            if a not in self._actions:
+                # we may have removed some of the actions in a previous
+                # iteration of this loop
+                continue
+
+            loops = self.findActions(device=a.device,
+                                     type="create",
+                                     object="device")
+
+            if len(loops) == 1:
+                continue
+
+            # remove all all actions on this device up to the last create
+            dev_actions = self.findActions(device=a.device)
+            for rem in dev_actions:
+                end = self._actions.index(loops[-1])
+                if start < self._actions.index(rem) < end:
+                    self._actions.remove(rem)
+
+        # device resize actions
+        actions = self.findActions(type="resize", object="device")
+        for a in actions:
+            if a not in self._actions:
+                # we may have removed some of the actions in a previous
+                # iteration of this loop
+                continue
+
+            loops = self.findActions(device=a.device,
+                                     type="resize",
+                                     object="device")
+
+            if len(loops) == 1:
+                continue
+
+            # remove all but the last resize action on this device
+            for rem in loops[:-1]:
+                self._actions.remove(rem)
+
+        # format destroy
+        # XXX I don't think there's a way for these loops to happen
+        actions = self.findActions(type="destroy", object="format")
+        for a in actions:
+            if a not in self._actions:
+                # we may have removed some of the actions in a previous
+                # iteration of this loop
+                continue
+
+            loops = self.findActions(device=a.device,
+                                     type="destroy",
+                                     object="format")
+
+            if len(loops) == 1:
+                continue
+
+            # remove all actions on this device's format from after the
+            # first destroy up through the last destroy
+            dev_actions = self.findActions(device=a.device, object="format")
+            for rem in dev_actions:
+                start = self._actions.index(a)
+                end = self._actions.index(loops[-1])
+                if start < self._actions.index(rem) <= end:
+                    self._actions.remove(rem)
+
+        # format create
+        # XXX I don't think there's a way for these loops to happen
+        actions = self.findActions(type="create", object="format")
+        for a in actions:
+            if a not in self._actions:
+                # we may have removed some of the actions in a previous
+                # iteration of this loop
+                continue
+
+            loops = self.findActions(device=a.device,
+                                     type="create",
+                                     object="format")
+
+            if len(loops) == 1:
+                continue
+
+            # remove all all actions on this device's format up to the last
+            # create
+            dev_actions = self.findActions(device=a.device, object="format")
+            for rem in dev_actions:
+                end = self._actions.index(loops[-1])
+                if start < self._actions.index(rem) < end:
+                    self._actions.remove(rem)
+
+        # format resize
+        actions = self.findActions(type="resize", object="format")
+        for a in actions:
+            if a not in self._actions:
+                # we may have removed some of the actions in a previous
+                # iteration of this loop
+                continue
+
+            loops = self.findActions(device=a.device,
+                                     type="resize",
+                                     object="format")
+
+            if len(loops) == 1:
+                continue
+
+            # remove all but the last resize action on this format
+            for rem in loops[:-1]:
+                self._actions.remove(rem)
+
+        # format migrate
+        # XXX I don't think there's away for these loops to occur
+        actions = self.findActions(type="migrate", object="format")
+        for a in actions:
+            if a not in self._actions:
+                # we may have removed some of the actions in a previous
+                # iteration of this loop
+                continue
+
+            loops = self.findActions(device=a.device,
+                                     type="migrate",
+                                     object="format")
+
+            if len(loops) == 1:
+                continue
+
+            # remove all but the last migrate action on this format
+            for rem in loops[:-1]:
+                self._actions.remove(rem)
+
     def processActions(self, dryRun=None):
         """ Execute all registered actions. """
         def cmpActions(x, y):
@@ -255,6 +411,12 @@ class DeviceTree(object):
 
         # in most cases the actions will already be sorted because of the
         # rules for registration, but let's not rely on that
+        for action in self._actions:
+            log.debug("action: %s" % action)
+        log.debug("pruning action queue...")
+        self.pruneActions()
+        for action in self._actions:
+            log.debug("action: %s" % action)
         self._actions.sort(cmpActions)
         for action in self._actions:
             log.info("executing action: %s" % action)
