@@ -479,10 +479,13 @@ class StorageDevice(Device):
     @property
     def minSize(self):
         """ The minimum size this device can be. """
+        if self.exists:
+            self.setup()
+
         if self.format.minSize < self.size:
             return self.format.minSize
         else:
-            return size
+            return self.size
 
     @property
     def maxSize(self):
@@ -935,6 +938,7 @@ class PartitionDevice(StorageDevice):
 
         # this is in MB
         self._size = self.partedPartition.getSize()
+        self.targetSize = self._size
 
         self._partType = self.partedPartition.type
 
@@ -1244,7 +1248,7 @@ class LVMVolumeGroupDevice(DMDevice):
         XXX Maybe this should inherit from StorageDevice instead of
             DMDevice since there's no actual device.
     """
-    _type = "lvm vg"
+    _type = "lvmvg"
 
     def __init__(self, name, parents, size=None, free=None,
                  peSize=None, peCount=None, peFree=None, pvCount=None,
@@ -1568,7 +1572,7 @@ class LVMVolumeGroupDevice(DMDevice):
 
 class LVMLogicalVolumeDevice(DMDevice):
     """ An LVM Logical Volume """
-    _type = "lvm lv"
+    _type = "lvmlv"
     _resizable = True
 
     def __init__(self, name, vgdev, size=None, uuid=None,
