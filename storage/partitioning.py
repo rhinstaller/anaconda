@@ -707,11 +707,6 @@ def growPartitions(disks, partitions):
         this fails, we begin a rough binary search with a maximum of three
         iterations to settle on a new size.
 
-        TODO: Call disk.maximizePartition for each growable partition that
-              has not been allocated its full share of the free space upon
-              termination of each disk's loop iteration. Any detected
-              maximum size can be specified via a parted Constraint.
-
         Arguments:
 
             disks -- a list of all usable disks (DiskDevice instances)
@@ -840,9 +835,25 @@ def growPartitions(disks, partitions):
                 except PartitioningError, e:
                     raise PartitioningError("failed to grow partitions")
 
-            # TODO: call disk.maximizePartition with max_size as the
-            #       constraint, in case it can grab some more free space
+        # Maximize partitions, we do this after growing all partitions
+        # as some partitions may grow unlimited, and we don't want them
+        # eating up the entire disk when we still need to grow others
+        for part in growable:
+            constraint = parted.Constraint(device=disk.partedDisk.device)
 
+            # don't grow beyond the request's maximum size
+            if part.req_max_size:
+                max_sect = (part.req_max_size * (1024 * 1024)) / sectorSize
+                if constraint.max_size > max_sect:
+                    constraint.max_size = max_sect
+
+            # don't grow beyond the resident filesystem's max size
+            if part.format.maxSize > 0:
+                max_sect = (part.format.maxSize * (1024 * 1024)) / sectorSize
+                if constraint.max_size > max_sect:
+                    constraint.max_size = max_sect
+
+            disk.partedDisk.maximizePartition(part.partedPartition, constraint)
 
     # reset all requests to their original requested size
     for part in partitions:
