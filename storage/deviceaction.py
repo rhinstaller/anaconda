@@ -223,6 +223,9 @@ class ActionResizeDevice(DeviceAction):
         if device.size == newsize:
             raise ValueError("new size same as old size")
 
+        if not device.resizable:
+            raise ValueError("device is not resizable")
+
         DeviceAction.__init__(self, device)
         if newsize > device.currentSize:
             self.dir = RESIZE_GROW
@@ -247,7 +250,8 @@ class ActionCreateFormat(DeviceAction):
         DeviceAction.__init__(self, device)
         if format:
             self.origFormat = device.format
-            self.device.format.teardown()
+            if self.device.format.exists:
+                self.device.format.teardown()
             self.device.format = format
         else:
             self.origFormat = getFormat(None)
@@ -279,7 +283,7 @@ class ActionDestroyFormat(DeviceAction):
     def __init__(self, device):
         DeviceAction.__init__(self, device)
         self.origFormat = device.format
-        if device.format and device.format.status:
+        if device.format.exists:
             device.format.teardown()
         self.device.format = None
 
@@ -319,6 +323,7 @@ class ActionResizeFormat(DeviceAction):
         self.device.format.targetSize = newsize
 
     def execute(self, intf=None):
+        self.device.setup()
         self.device.format.doResize(intf=intf)
 
     def cancel(self):
@@ -337,6 +342,7 @@ class ActionMigrateFormat(DeviceAction):
         self.device.format.migrate = True
 
     def execute(self, intf=None):
+        self.device.setup()
         self.device.format.doMigrate(intf=intf)
 
     def cancel(self):
