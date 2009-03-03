@@ -408,49 +408,94 @@ class Storage(object):
     def deviceDeps(self, device):
         return self.devicetree.getDependentDevices(device)
 
-    def newPartition(self, fmt_type=None, size=None, disks=[]):
+    def newPartition(self, *args, **kwargs):
         """ Return a new PartitionDevice instance for configuring. """
-        return PartitionDevice("req%d" % self.nextID,
-                               format=getFormat(fmt_type),
-                               size=size,
-                               parents=disks,
-                               exists=False)
+        if kwargs.has_key("fmt_type"):
+            kwargs["format"] = getFormat(kwargs["fmt_type"])
+            del kwargs["fmt_type"]
 
-    def newMDArray(self, fmt_type=None):
+        if kwargs.has_key("disks"):
+            parents = kwargs["disks"]
+            del kwargs["disks"]
+
+        if kwargs.has_key("name"):
+            name = kwargs["name"]
+            del kwargs["name"]
+        else:
+            name = "req%d" % self.nextID
+
+        return PartitionDevice(name, *args, **kwargs)
+
+    def newMDArray(self, *args, **kwargs):
         """ Return a new MDRaidArrayDevice instance for configuring. """
-        minor = self.unusedMDMinors[0]
-        return MDRaidArrayDevice("md%d" % minor,
-                                 minor=minor,
-                                 format=getFormat(fmt_type))
+        if kwargs.has_key("fmt_type"):
+            kwargs["format"] = getFormat(kwargs["fmt_type"])
+            del kwargs["fmt_type"]
 
-    def newVG(self, name=None, pvs=[], peSize=None):
+        if kwargs.has_key("minor"):
+            minor = str(kwargs["minor"])
+            del kwargs["minor"]
+        else:
+            kwargs["minor"] = str(self.unusedMDMinors[0])
+
+        if kwargs.has_key("name"):
+            name = kwargs["name"]
+            del kwargs["name"]
+        else:
+            name = "md%s" % kwargs["minor"]
+
+        return MDRaidArrayDevice(name, *args, **kwargs)
+
+    def newVG(self, *args, **kwargs):
         """ Return a new LVMVolumeGroupDevice instance. """
+        if kwargs.has_key("pvs"):
+            pvs = kwargs["pvs"]
+            del kwargs["pvs"]
+
         for pv in pvs:
-            if not pv in self.devices:
+            if pv not in self.devices:
                 raise ValueError("pv is not in the device tree")
 
-        if name and name in [d.name for d in self.devices]:
-            raise ValueError("name already in use")
-        elif not name:
+        if kwargs.has_key("name"):
+            name = kwargs["name"]
+            del kwargs["name"]
+        else:
             name = self.createSuggestedVGName(self.anaconda.id.network)
 
-        return LVMVolumeGroupDevice(name, parents=pvs, peSize=peSize)
-
-    def newLV(self, vg, name=None, fmt_type=None, size=None,
-              mountpoint=None):
-        """ Return a new LVMLogicalVolumeDevice instance. """
-        if name and name in [d.name for d in self.devices]:
+        if name in [d.name for d in self.devices]:
             raise ValueError("name already in use")
-        elif not name:
-            if fmt_type == "swap":
+
+        return LVMVolumeGroupDevice(name, pvs, *args, **kwargs)
+
+    def newLV(self, *args, **kwargs):
+        """ Return a new LVMLogicalVolumeDevice instance. """
+        if kwargs.has_key("vg"):
+            vg = kwargs["vg"]
+            del kwargs["vg"]
+
+        mountpoint = kwargs.get("mountpoint")
+        kwargs.pop("mountpoint", None)
+
+        if kwargs.has_key("fmt_type"):
+            kwargs["format"] = getFormat(kwargs["fmt_type"], mountpoint)
+            del kwargs["fmt_type"]
+
+        if kwargs.has_key("name"):
+            name = kwargs["name"]
+            del kwargs["name"]
+        else:
+            if kwargs.get("format") and kwargs["format"].type == "swap":
                 swap = True
             else:
                 swap = False
             name = self.createSuggestedLVName(vg,
                                               swap=swap,
                                               mountpoint=mountpoint)
-        format = getFormat(fmt_type, mountpoint=mountpoint)
-        return LVMLogicalVolumeDevice(name, vg, format=format, size=size)
+
+        if name in [d.name for d in self.devices]:
+            raise ValueError("name already in use")
+
+        return LVMLogicalVolumeDevice(name, vg, *args, **kwargs)
 
     def createDevice(self, device):
         """ Schedule creation of a device.
