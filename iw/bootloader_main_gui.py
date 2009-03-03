@@ -94,12 +94,12 @@ class MainBootloaderWindow(InstallWindow):
 
             for disk in disks:
                 size = disk.size
-                model = disk.partedDisk.device.model
+                m = disk.partedDisk.device.model
 
                 i = model.append(None)
-                model[i] = ("%s %8.0f MB %s" %(disk.name, size, model),
+                model[i] = ("%s %8.0f MB %s" %(disk.name, size, m),
                             "%s" %(disk.name,))
-                if d == active:
+                if disk == active:
                     combo.set_active_iter(i)
 
             return model
