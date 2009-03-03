@@ -1473,8 +1473,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     except PartitioningError, msg:
         # restore drives to original state
         diskset.refreshDevices()
-        partitions.setProtected(dispatch)
         partitions.setFromDisk(diskset)
+        partitions.setProtected(dispatch)
         if not isKickstart:
             extra = ""
             dispatch.skipStep("partition", skip = 0)
