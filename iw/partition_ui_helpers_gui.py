@@ -114,11 +114,11 @@ def createMountPointCombo(request, excludeMountPoints=[]):
 
     return mountCombo
 
-def setMntPtComboStateFromType(fstype, mountCombo):
-    format = getFormat(fstype)
+def setMntPtComboStateFromType(fmt_class, mountCombo):
     prevmountable = mountCombo.get_data("prevmountable")
     mountpoint = mountCombo.get_data("saved_mntpt")
 
+    format = fmt_class()
     if prevmountable and format.mountable:
         return
 
@@ -180,18 +180,17 @@ def createAllowedDrivesList(disks, reqdrives, selectDrives=True, disallowDrives=
     
 
 # pass in callback for when fs changes because of python scope issues
-def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
+def createFSTypeMenu(format, fstypechangeCB, mountCombo,
                      availablefstypes = None, ignorefs = None):
     store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
     fstypecombo = datacombo.DataComboBox(store)
     
     if availablefstypes:
-        names = [ availablefstypes ]
+        names = availablefstypes
     else:
         names = device_formats.keys()
-    fs = getFormat(fstype)
-    if fs and fs.supported and fs.formattable:
-        default = fstype
+    if format and format.supported and format.formattable:
+        default = format.name
     else:
         default = get_default_filesystem_type()
         
@@ -199,7 +198,9 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
     defindex = 0
     i = 0
     for name in names:
-        format = getFormat(name)
+        # we could avoid instantiating them all if we made a static class
+        # method that does what the supported property does
+        format = device_formats[name]()
         if not format.supported:
             continue
 
@@ -207,7 +208,7 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
             continue
         
         if format.formattable:
-            fstypecombo.append(name, device_formats[name])
+            fstypecombo.append(format.name, device_formats[name])
             if default == name:
                 defindex = i
                 defismountable = format.mountable
@@ -293,11 +294,11 @@ def noformatCB(widget, data):
 def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
                                   partitions, ignorefs=[]):
     rc = {}
-    ofstype = origrequest.format.type
 
+    ofstype = origrequest.format
     formatcb = gtk.CheckButton(label=_("_Format as:"))
     maintable.attach(formatcb, 0, 1, row, row + 1)
-    formatcb.set_active(istruefalse(origrequest.format.exists))
+    formatcb.set_active(istruefalse(not origrequest.format.exists))
     rc["formatcb"] = formatcb
 
     fstypeCombo = createFSTypeMenu(ofstype, fstypechangeCB,
@@ -307,9 +308,8 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     row += 1
     rc["fstypeCombo"] = fstypeCombo
 
-    # TODO: sort out fs migration
     if not formatcb.get_active() and not origrequest.format.migrate:
-	mountCombo.set_data("prevmountable", getFormat(ofstype).mountable)
+	mountCombo.set_data("prevmountable", origrequest.format.mountable)
 
     # this gets added to the table a bit later on
     lukscb = gtk.CheckButton(_("_Encrypt"))
@@ -322,11 +322,11 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	migratecb = gtk.CheckButton(label=_("Mi_grate filesystem to:"))
         migratecb.set_active(istruefalse(origrequest.format.migrate))
 
-        # TODO: unimplemented
-	migtypes = origrequest.format.migrationTarget
+	migtypes = [origrequest.format.migrationTarget]
 
 	maintable.attach(migratecb, 0, 1, row, row + 1)
-	migfstypeCombo = createFSTypeMenu(ofstype, None, None,
+	migfstypeCombo = createFSTypeMenu(ofstype,
+                                          None, None,
                                           availablefstypes = migtypes)
 	migfstypeCombo.set_sensitive(migratecb.get_active())
 	maintable.attach(migfstypeCombo, 1, 2, row, row + 1)
@@ -341,7 +341,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 
     if origrequest.resizable:
         resizecb = gtk.CheckButton(label=_("_Resize"))
-        resizecb.set_active(origrequest.targetSize is not None)
+        resizecb.set_active(origrequest.targetSize != origrequest.currentSize)
         rc["resizecb"] = resizecb
         maintable.attach(resizecb, 0, 1, row, row + 1)
 
@@ -350,7 +350,6 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         else:
             value = origrequest.size
 
-        # TODO: sort out resizing
         reqlower = origrequest.minSize
         requpper = origrequest.maxSize
         if origrequest.format.exists:
