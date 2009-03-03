@@ -83,11 +83,11 @@ class Platform(object):
         if not bootDev:
             return ret
 
-        if bootDev.device.getName() == "RAIDDevice":
-            ret["boot"] = (bootDev.path, N_("RAID Device"))
+        if bootDev.type == "mdarray":
+            ret["boot"] = (bootDev.name, N_("RAID Device"))
             ret["mbr"] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
         else:
-            ret["boot"] = (bootDev.device, N_("First sector of boot partition"))
+            ret["boot"] = (bootDev.name, N_("First sector of boot partition"))
             ret["mbr"] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
 
         return ret
@@ -140,7 +140,7 @@ class EFI(Platform):
         if not bootDev:
             return ret
 
-        ret["boot"] = (bootDev.path, N_("EFI System Partition"))
+        ret["boot"] = (bootDev.name, N_("EFI System Partition"))
         return ret
 
     def checkBootRequest(self, req, diskset):
@@ -246,11 +246,11 @@ class IPSeriesPPC(PPC):
         if not bootDev:
             return ret
 
-        if bootDev.device.getName() == "RAIDDevice":
-            ret["boot"] = (bootDev.path, N_("RAID Device"))
+        if bootDev.type == "mdarray":
+            ret["boot"] = (bootDev.name, N_("RAID Device"))
             ret["mbr"] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
         else:
-            ret["boot"] = (bootDev.device, N_("PPC PReP Boot"))
+            ret["boot"] = (bootDev.name, N_("PPC PReP Boot"))
 
         return ret
 
@@ -295,11 +295,11 @@ class NewWorldPPC(PPC):
         if not bootDev:
             return ret
 
-        if bootDev.device.getName() == "RAIDDevice":
-            ret["boot"] = (bootDev.path, N_("RAID Device"))
+        if bootDev.type == "mdarray":
+            ret["boot"] = (bootDev.name, N_("RAID Device"))
             ret["mbr"] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
         else:
-            ret["boot"] = (bootDev.path, N_("Apple Bootstrap"))
+            ret["boot"] = (bootDev.name, N_("Apple Bootstrap"))
             for (n, device) in enumerate(self.anaconda.id.storage.partitions):
                 if device.format.type == "hfs" and device.bootable and device.path != bootDev.path:
                     ret["boot%d" % n] = (device.path, N_("Apple Bootstrap"))
@@ -355,11 +355,11 @@ class X86(EFI):
         if not bootDev:
             return {}
 
-        if bootDev.device.getName() == "RAIDDevice":
-            ret["boot"] = (bootDev.path, N_("RAID Device"))
+        if bootDev.type == "mdarray":
+            ret["boot"] = (bootDev.name, N_("RAID Device"))
             ret["mbr"] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
         else:
-            ret["boot"] = (bootDev.device, N_("First sector of boot partition"))
+            ret["boot"] = (bootDev.name, N_("First sector of boot partition"))
             ret["mbr"] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
 
         return ret
