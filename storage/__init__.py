@@ -451,6 +451,8 @@ class Storage(object):
         if kwargs.has_key("pvs"):
             pvs = kwargs["pvs"]
             del kwargs["pvs"]
+        else:
+            pvs = []
 
         for pv in pvs:
             if pv not in self.devices:
