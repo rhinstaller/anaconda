@@ -728,6 +728,10 @@ def growPartitions(disks, partitions):
         sectorSize = disk.partedDisk.device.physicalSectorSize
         # get a list of free space regions on the disk
         free = disk.partedDisk.getFreeSpaceRegions()
+        if not free:
+            log.debug("no free space on %s" % disk.name)
+            continue
+
         # sort the free regions in decreasing order of size
         free.sort(key=lambda r: r.length, reverse=True)
         disk_free = reduce(lambda x,y: x + y, [f.length for f in free])
