@@ -29,6 +29,7 @@ import datacombo
 
 import gui
 from storage.devices import *
+from storage.deviceaction import *
 from partition_ui_helpers_gui import *
 from constants import *
 
@@ -131,7 +132,7 @@ class RaidEditor:
 
     def run(self):
 	if self.dialog is None:
-	    return None
+	    return []
 	
 	while 1:
 	    rc = self.dialog.run()
@@ -139,11 +140,12 @@ class RaidEditor:
 	    # user hit cancel, do nothing
 	    if rc == 2:
 		self.destroy()
-		return None
+		return []
 
             actions = []
             luksdev = None
 	    raidmembers = []
+            migrate = None
 	    model = self.raidlist.get_model()
 	    iter = model.get_iter_first()
 	    while iter:
@@ -180,6 +182,17 @@ class RaidEditor:
                                          parents=self.origrequest)
                     format = getFormat("luks",
                                        passphrase=self.storage.encryptionPassphrase)
+                elif self.fsoptionsDict.has_key("lukscb") and \
+                     not self.fsoptionsDict["lukscb"].get_active() and \
+                     self.origrequest.format.type == "luks":
+                    # destroy luks format and mapped device
+                    luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
+                    if luksdev:
+                        actions.append(ActionDestroyFormat(luksdev.format))
+                        actions.append(ActionDestroyDevice(luksdev))
+                        luksdev = None
+                    actions.append(ActionDestroyFormat(request))
+
 	    else:
                 # existing device
                 fmt_class = self.fsoptionsDict["fstypeCombo"].get_active_value()
@@ -196,10 +209,26 @@ class RaidEditor:
                         format = getFormat("luks",
                                            device=self.origrequest.path,
                                            passphrase=self.storage.encryptionPassphrase)
+                    elif self.fsoptionsDict.has_key("lukscb") and \
+                         not self.fsoptionsDict["lukscb"].get_active() and \
+                         request.format.type == "luks":
+                        # destroy luks format and mapped device
+                        luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
+                        if luksdev:
+                            actions.append(ActionDestroyFormat(luksdev.format))
+                            actions.append(ActionDestroyDevice(luksdev))
+                            luksdev = None
+                        actions.append(ActionDestroyFormat(request))
+                elif request.format.mountable:
+                    request.format.mountpoint = mountpoint
 
 		if self.fsoptionsDict.has_key("migratecb") and \
 		   self.fsoptionsDict["migratecb"].get_active():
-                    fstype = self.fsoptionsDict["migfstypeCombo"].get_active_value()
+                    if origrequest.format.type == "luks":
+                        usedev = self.storage.devicetree.getChildren(origrequest)[0]
+                    else:
+                        usedev = origrequest
+                    migrate = True
 
 	    if request.format.exists and \
                self.storage.formatByDefault(request):
@@ -209,9 +238,15 @@ class RaidEditor:
 	    # everything ok, break out
 	    break
 
+        # FIXME: only create a new create action if the device isn't in the tree
         actions.append(ActionCreateDevice(self.origrequest))
+        actions.append(ActionCreateFormat(self.origrequest))
         if luksdev:
             actions.append(ActionCreateDevice(luksdev))
+            actions.append(ActionCreateFormat(luksdev))
+
+        if migrate:
+            actions.append(ActionMigrateFormat(usedev))
 
 	return actions
 
@@ -294,7 +329,7 @@ class RaidEditor:
         if not origrequest.exists:
             lbl = createAlignedLabel(_("_File System Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
-            self.fstypeCombo = createFSTypeMenu(format.name,
+            self.fstypeCombo = createFSTypeMenu(format,
                                                 fstypechangeCB,
                                                 self.mountCombo,
                                                 ignorefs = ["software RAID", "efi", "PPC PReP Boot", "Apple Bootstrap"])
