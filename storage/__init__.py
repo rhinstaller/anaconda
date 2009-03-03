@@ -916,6 +916,7 @@ class FSSet(object):
         for device in self.devices:
             if device.format.mountable and device.format.mountpoint:
                 filesystems[device.format.mountpoint] = device
+        return filesystems
 
     def parseFSTab(self, chroot=""):
         """ parse /etc/fstab
