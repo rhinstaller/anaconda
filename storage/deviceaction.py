@@ -220,7 +220,7 @@ class ActionResizeDevice(DeviceAction):
     obj = ACTION_OBJECT_DEVICE
 
     def __init__(self, device, newsize):
-        if device.size == newsize:
+        if device.currentSize == newsize:
             raise ValueError("new size same as old size")
 
         if not device.resizable:
