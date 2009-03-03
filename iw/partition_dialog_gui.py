@@ -27,7 +27,7 @@ import gtk
 
 import gui
 from storage.devices import PartitionDevice
-from storage.deviceaction import ActionCreateFormat
+from storage.deviceaction import *
 from partition_ui_helpers_gui import *
 from constants import *
 
@@ -78,11 +78,11 @@ class PartitionEditor:
 
 	# default to fixed, turn off max size spinbutton
 	fillmaxszsb.set_sensitive(0)
-	if request.grow:
-	    if request.maxSizeMB != None:
+	if request.req_grow:
+	    if request.req_max_size:
 		fillmaxszrb.set_active(1)
 		fillmaxszsb.set_sensitive(1)
-		fillmaxszsb.set_value(request.maxSizeMB)
+		fillmaxszsb.set_value(request.req_max_size)
 	    else:
 		fillunlimrb.set_active(1)
 	else:
@@ -99,16 +99,17 @@ class PartitionEditor:
 
     def run(self):
 	if self.dialog is None:
-	    return None
+	    return []
 
         while 1:
             rc = self.dialog.run()
             actions = []
+            luksdev = None
 	    
             # user hit cancel, do nothing
             if rc == 2:
                 self.destroy()
-                return None
+                return []
 
             if not self.origrequest.exists:
                 # read out UI into a partition specification
@@ -130,6 +131,15 @@ class PartitionEditor:
                     luksdev = LUKSDevice("luks%d" % self.storage.nextID,
                                          format=luksformat,
                                          parents=request)
+                elif self.lukscb and not self.lukscb.get_active() and \
+                     self.origrequest.format.type == "luks":
+                    # destroy the luks format and the mapped device
+                    luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
+                    if luksdev:
+                        actions.append(ActionDestroyFormat(luksdev.format))
+                        actions.append(ActionDestroyDevice(luksdev))
+                        luksdev = None
+                    actions.append(ActionDestroyFormat(self.origrequest))
 
                 if self.fixedrb.get_active():
                     grow = None
@@ -179,7 +189,9 @@ class PartitionEditor:
                 # we're all set, so create the actions
                 if luksdev:
                     actions.append(ActionCreateDevice(luksdev))
+                    actions.append(ActionCreateFormat(luksdev))
                 actions.append(ActionCreateDevice(request))
+                actions.append(ActionCreateFormat(request))
             else:
                 # preexisting partition, just set mount point and format flag
                 request = self.origrequest
@@ -199,18 +211,18 @@ class PartitionEditor:
                                            device=self.origrequest.path,
                                            passphrase=self.storage.encryptionPassphrase)
                     actions.append(ActionCreateFormat(request, format))
+                elif request.format.mountable:
+                    request.format.mountpoint = mountpoint
 
                 if self.fsoptionsDict.has_key("migratecb") and \
                    self.fsoptionsDict["migratecb"].get_active():
-                    format = getFormat(self.fsoptionsDict["migfstypeCombo"].get_active_value(), mountpoint=mountpoint)
-                    # TODO: implement ActionMigrateFormat
-                    #actions.append(ActionMigrateFormat(request, format))
+                    actions.append(ActionMigrateFormat(request))
 
                 if self.fsoptionsDict.has_key("resizecb") and \
                    self.fsoptionsDict["resizecb"].get_active():
                     size = self.fsoptionsDict["resizesb"].get_value_as_int()
                     actions.append(ActionResizeDevice(request, size))
-                    if request.format.type != "none":
+                    if request.format.type:
                         actions.append(ActionResizeFormat(request, size))
 
                 if request.format.exists and \
@@ -259,12 +271,9 @@ class PartitionEditor:
         # to make it seem like one device. wee!
         if self.origrequest.format.type == "luks":
             luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
-            fmt_type = luksdev.format.type
-            mountpoint = getattr(luksdev.format, "mountpoint", None)
-            fslabel = getattr(luksdev.format, "label", None)
-            # XXX might need to add migrate stuff here, too
             usereq = luksdev
         else:
+            luksdev = None
             usereq = self.origrequest
 
         # Mount Point entry
@@ -280,11 +289,7 @@ class PartitionEditor:
 	    lbl = createAlignedLabel(_("File System _Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
 
-            if luksdev:
-                usereq = luksdev
-            else:
-                usereq = self.origrequest
-            self.newfstypeCombo = createFSTypeMenu(usereq.format.type,
+            self.newfstypeCombo = createFSTypeMenu(usereq.format,
                                                    fstypechangeCB,
                                                    self.mountCombo,
                                                    availablefstypes = restrictfs)
@@ -348,7 +353,6 @@ class PartitionEditor:
         # aren't protected (we'd still like to be able to mount them, though)
 	self.fsoptionsDict = {}
         if self.origrequest.exists and \
-           usereq.format.type != "none" and \
            not self.storage.isProtected(self.origrequest):
 	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(usereq, maintable, row, self.mountCombo, self.storage)
 
