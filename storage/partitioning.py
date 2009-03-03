@@ -58,7 +58,7 @@ def doAutoPartition(anaconda):
     # get a list of disks that have at least one free space region of at
     # least 100MB
     disks = []
-    for disk in anaconda.id.storage.disks:
+    for disk in [d for d in anaconda.id.storage.disks if d.name in anaconda.id.storage.clearPartDisks]:
         partedDisk = disk.partedDisk
         part = disk.partedDisk.getFirstPartition()
         while part:
