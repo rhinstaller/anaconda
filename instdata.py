@@ -30,7 +30,7 @@ import firewall
 import security
 import timezone
 import desktop
-import bootloader
+import booty
 import storage
 import urllib
 import iutil
@@ -75,7 +75,7 @@ class InstallData:
         if flags.cmdline.has_key("preupgrade"):
             self.upgrade = True
         self.storage = storage.Storage(self.anaconda)
-        self.bootloader = bootloader.getBootloader()
+        self.bootloader = booty.getBootloader(self.storage)
         self.upgradeRoot = None
         self.rootParts = None
         self.upgradeSwapInfo = None

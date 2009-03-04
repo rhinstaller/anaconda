@@ -204,10 +204,6 @@ def writeBootloader(anaconda):
 
     dosync()
 
-# return instance of the appropriate bootloader for our arch
-def getBootloader():
-    return booty.getBootloader()
-
 def hasWindows(bl):
     foundWindows = False
     for (k,v) in bl.images.getImages().iteritems():
