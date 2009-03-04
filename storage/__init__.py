@@ -80,7 +80,9 @@ def storageComplete(anaconda):
     for dev in devs:
         if dev.exists:
             existing_luks = True
-            break
+        else:
+            new_luks = True
+
     if (anaconda.id.storage.encryptedAutoPart or new_luks) and \
        not anaconda.id.storage.encryptionPassphrase:
         while True:
