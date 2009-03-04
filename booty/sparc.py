@@ -1,5 +1,6 @@
 import os
 
+from booty import BootyNoKernelWarning
 from bootloaderInfo import *
 
 class sparcBootloaderInfo(bootloaderInfo):
@@ -116,7 +117,7 @@ class sparcBootloaderInfo(bootloaderInfo):
             self.writeSilo(instRoot, bl, kernelList, chainList,
                         defaultDev, justConfig)
         else:
-            self.noKernelsWarn(intf)
+            raise BootyNoKernelWarning
 
     def __init__(self, storage):
         bootloaderInfo.__init__(self, storage)

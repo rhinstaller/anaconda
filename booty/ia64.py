@@ -1,3 +1,4 @@
+from booty import BootyNoKernelWarning
 from bootloaderInfo import *
 
 class ia64BootloaderInfo(efiBootloaderInfo):
@@ -25,7 +26,7 @@ class ia64BootloaderInfo(efiBootloaderInfo):
             out = self.writeLilo(instRoot, bl, kernelList, 
                                  chainList, defaultDev, justConfig)
         else:
-            self.noKernelsWarn(intf)
+            raise BootyNoKernelWarning
 
         self.removeOldEfiEntries(instRoot)
         self.addNewEfiEntry(instRoot)

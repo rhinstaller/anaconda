@@ -1,6 +1,7 @@
 import os
 import iutil
 
+from booty import BootyNoKernelWarning
 from bootloaderInfo import *
 import fsset
 
@@ -130,7 +131,7 @@ class alphaBootloaderInfo(bootloaderInfo):
     def write(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfig, intf):
         if len(kernelList) < 1:
-            self.noKernelsWarn(intf)
+            raise BootyNoKernelWarning
 
         self.writeAboot(instRoot, bl, kernelList, 
                         chainList, defaultDev, justConfig)

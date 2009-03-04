@@ -98,13 +98,6 @@ def getRootDevName(initrd, rootDevice):
     except:
         return rootDevice.path
 
-class BootyNoKernelWarning:
-    def __init__ (self, value=""):
-        self.value = value
-        
-    def __str__ (self):
-        return self.value
-
 class KernelArguments:
 
     def get(self):
@@ -434,16 +427,9 @@ class bootloaderInfo:
                                               defaultDev)
             config.write(instRoot + self.configfile, perms = self.perms)
         else:
-            self.noKernelsWarn(intf)
+            raise booty.BootyNoKernelWarning
 
         return ""
-
-    # XXX in the future we also should do some validation on the config
-    # file that's already there
-    # XXX concept of the intf isn't very well defined outside of anaconda...
-    # probably should just pass back up an error
-    def noKernelsWarn(self, intf):
-        raise BootyNoKernelWarning
 
     def getArgList(self):
         args = []

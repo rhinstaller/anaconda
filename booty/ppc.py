@@ -1,6 +1,7 @@
 import string
 import os
 
+from booty import BootyNoKernelWarning
 from bootloaderInfo import *
 import fsset
 import iutil
@@ -169,7 +170,7 @@ class ppcBootloaderInfo(bootloaderInfo):
             out = self.writeYaboot(instRoot, bl, kernelList, 
                                  chainList, defaultDev, justConfig)
         else:
-            self.noKernelsWarn(intf)
+            raise BootyNoKernelWarning
 
     def __init__(self, storage):
         bootloaderInfo.__init__(self, storage)

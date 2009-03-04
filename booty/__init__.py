@@ -20,6 +20,13 @@ import rhpl
 from bootloaderInfo import *
 from bootloader import *
 
+class BootyNoKernelWarning:
+    def __init__ (self, value=""):
+        self.value = value
+
+    def __str__ (self):
+        return self.value
+
 # return instance of the appropriate bootloader for our arch
 def getBootloader(storage):
     """Get the bootloader info object for your architecture"""

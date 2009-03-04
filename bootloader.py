@@ -193,7 +193,7 @@ def writeBootloader(anaconda):
                                      justConfigFile, anaconda.intf)
 	if not justConfigFile:
 	    w.pop()
-    except bootloaderInfo.BootyNoKernelWarning:
+    except booty.BootyNoKernelWarning:
 	if not justConfigFile:
 	    w.pop()
         if anaconda.intf:

@@ -1,6 +1,7 @@
 import os
 import string
 
+from booty import BootyNoKernelWarning
 from bootloaderInfo import *
 import checkbootloader
 import fsset
@@ -528,7 +529,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             return        
 
         if len(kernelList) < 1:
-            self.noKernelsWarn(intf)
+            raise BootyNoKernelWarning
 
         out = self.writeGrub(instRoot, bl, kernelList, 
                              chainList, defaultDev,
