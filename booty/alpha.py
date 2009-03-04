@@ -86,7 +86,7 @@ class alphaBootloaderInfo(bootloaderInfo):
             if os.path.isfile(instRoot + initrd):
                 f.write(" initrd=%sinitrd%s.img" %(kernelPath, kernelTag))
 
-            realroot = getRootDevName(instRoot+initrd, rootDevice.path)
+            realroot = getRootDevName(instRoot+initrd, rootDevice)
             f.write(" root=%s" %(realroot,))
 
             args = self.args.get()

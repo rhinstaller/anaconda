@@ -171,7 +171,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.write("#          all kernel and initrd paths are relative "
                     "to /, eg.\n")            
 
-        bootDevs = self.getPhysicalDevices(bootDev)
+        bootDevs = self.getPhysicalDevices(bootDev.name)
         
         f.write('#          root %s\n' % self.grubbyPartitionName(bootDevs[0]))
         f.write("#          kernel %svmlinuz-version ro root=%s\n" % (cfPath, rootDev.path))
@@ -233,7 +233,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.write('title %s (%s)\n' % (longlabel, version))
             f.write('\troot %s\n' % self.grubbyPartitionName(bootDevs[0]))
 
-            realroot = getRootDevName(instRoot+initrd, rootDev.path)
+            realroot = getRootDevName(instRoot+initrd, rootDev)
             realroot = " root=%s" %(realroot,)
 
             if version.endswith("xen0") or (version.endswith("xen") and not os.path.exists("/proc/xen")):
@@ -304,7 +304,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         except:
             pass
        
-        for dev in self.getPhysicalDevices(rootDev) + bootDevs:
+        for dev in self.getPhysicalDevices(rootDev.name) + bootDevs:
             usedDevs[dev] = 1
 
         if os.access(instRoot + "/boot/grub/device.map", os.R_OK):

@@ -361,7 +361,7 @@ class bootloaderInfo:
             sl.addEntry("read-only")
 
             append = "%s" %(self.args.get(),)
-            realroot = getRootDevName(instRoot+initrd, rootDev.path)
+            realroot = getRootDevName(instRoot+initrd, rootDev)
             if rootIsDevice(realroot):
                 sl.addEntry("root", rootDev.path)
             else:

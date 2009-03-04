@@ -62,7 +62,7 @@ class sparcBootloaderInfo(bootloaderInfo):
 
             append = "%s" % (self.args.get(),)
 
-            realroot = getRootDevName(instRoot+initrd, rootDev.path)
+            realroot = getRootDevName(instRoot+initrd, rootDev)
             if rootIsDevice(realroot):
                 f.write("\troot=%s\n" % (realroot,))
             else:
