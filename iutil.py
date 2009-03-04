@@ -52,25 +52,31 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     argv = list(argv)
     if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
-            stdin = open(stdin)
+            stdin = os.open(stdin, os.O_RDONLY)
         else:
-            stdin = sys.stdin
+            stdin = sys.stdin.fileno()
+    elif isinstance(stdin, int):
+        pass
     elif stdin is None or not isinstance(stdin, file):
-        stdin = sys.stdin
+        stdin = sys.stdin.fileno()
 
     if isinstance(stdout, str):
-        stdout = open(stdout, "w")
+        stdout = os.open(stdout, os.O_RDWR)
+    elif isinstance(stdout, int):
+        pass
     elif stdout is None or not isinstance(stdout, file):
-        stdout = sys.stdout
+        stdout = sys.stdout.fileno()
 
     if isinstance(stderr, str):
-        stderr = open(stderr, "w")
+        stderr = os.open(stderr, os.O_RDWR)
+    elif isinstance(stderr, int):
+        pass
     elif stderr is None or not isinstance(stderr, file):
-        stderr = sys.stderr
+        stderr = sys.stderr.fileno()
 
     runningLog = open("/tmp/program.log", "a")
     runningLog.write("Running... %s\n" % ([command] + argv,))
-    stdout.write("Running... %s\n" %([command] + argv,))
+    os.write(stdout, "Running... %s\n" %([command] + argv,))
 
     try:
         proc = subprocess.Popen([command] + argv, stdin=stdin,
@@ -81,10 +87,10 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
         while True:
             (outStr, errStr) = proc.communicate()
             if outStr:
-                stdout.write(outStr)
+                os.write(stdout, outStr)
                 runningLog.write(outStr)
             if errStr:
-                stderr.write(errStr)
+                os.write(stderr, errStr)
                 runningLog.write(errStr)
 
             if proc.returncode is not None:
@@ -116,16 +122,20 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
 
     if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
-            stdin = open(stdin)
+            stdin = os.open(stdin, os.O_RDONLY)
         else:
-            stdin = sys.stdin
+            stdin = sys.stdin.fileno()
+    elif isinstance(stdin, int):
+        pass
     elif stdin is None or not isinstance(stdin, file):
-        stdin = sys.stdin
+        stdin = sys.stdin.fileno()
 
     if isinstance(stderr, str):
-        stderr = open(stderr, "w")
+        stderr = os.open(stderr, os.O_RDWR)
+    elif isinstance(stderr, int):
+        pass
     elif stderr is None or not isinstance(stderr, file):
-        stderr = sys.stderr
+        stderr = sys.stderr.fileno()
 
     runningLog = open("/tmp/program.log", "a")
     runningLog.write("Running... %s\n" % ([command] + argv,))
@@ -143,7 +153,7 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
                 rc += outStr
             if errStr:
                 runningLog.write(errStr)
-                stderr.write(errStr)
+                os.write(stderr, errStr)
 
             if proc.returncode is not None:
                 break
@@ -161,34 +171,40 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
     argv = list(argv)
     if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
-            stdin = open(stdin)
+            stdin = os.open(stdin, os.O_RDONLY)
         else:
-            stdin = sys.stdin
+            stdin = sys.stdin.fileno()
+    elif isinstance(stdin, int):
+        pass
     elif stdin is None or not isinstance(stdin, file):
-        stdin = sys.stdin
+        stdin = sys.stdin.fileno()
 
     if isinstance(stdout, str):
-        stdout = open(stdout, "w")
+        stdout = os.open(stdout, os.O_RDWR)
+    elif isinstance(stdout, int):
+        pass
     elif stdout is None or not isinstance(stdout, file):
-        stdout = sys.stdout
+        stdout = sys.stdout.fileno()
 
     if isinstance(stderr, str):
-        stderr = open(stderr, "w")
+        stderr = os.open(stderr, os.O_RDWR)
+    elif isinstance(stderr, int):
+        pass
     elif stderr is None or not isinstance(stderr, file):
-        stderr = sys.stderr
+        stderr = sys.stderr.fileno()
 
-    stdout.write("Running... %s\n" %([command] + argv,))
+    os.write(stdout, "Running... %s\n" %([command] + argv,))
 
     p = os.pipe()
     childpid = os.fork()
     if not childpid:
         os.close(p[0])
         os.dup2(p[1], 1)
-        os.dup2(stderr.fileno(), 2)
-        os.dup2(stdin.fileno(), 0)
-        stdin.close()
+        os.dup2(stderr, 2)
+        os.dup2(stdin, 0)
+        os.close(stdin)
         os.close(p[1])
-        stderr.close()
+        os.close(stderr)
 
         os.execvp(command, [command] + argv)
         os._exit(1)
@@ -203,7 +219,7 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
             if (num != 4):
                 raise IOError, args
 
-        stdout.write(s)
+        os.write(stdout, s)
         if progress: progress.pulse()
 
         if len(s) < 1:
