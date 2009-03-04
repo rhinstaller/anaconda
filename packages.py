@@ -79,7 +79,8 @@ def copyAnacondaLogs(anaconda):
     log.info("Copying anaconda logs")
     for (fn, dest) in (("/tmp/anaconda.log", "anaconda.log"),
                        ("/tmp/syslog", "anaconda.syslog"),
-                       ("/tmp/X.log", "anaconda.xlog", "/tmp/storage.log")):
+                       ("/tmp/X.log", "anaconda.xlog"),
+                       ("/tmp/storage.log", "storage.log")):
         if os.access(fn, os.R_OK):
             try:
                 shutil.copyfile(fn, "%s/var/log/%s" %(anaconda.rootPath, dest))
