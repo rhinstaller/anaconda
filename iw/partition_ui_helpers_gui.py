@@ -250,11 +250,16 @@ def formatOptionResizeCB(widget, resizesb):
         resizesb.set_value(adj.lower)
 
 def formatMigrateOptionCB(widget, data):
+    (sensitive,) = widget.get_properties('sensitive')
+    if not sensitive:
+        return
+
     (combowidget, mntptcombo, ofstype, lukscb, othercombo, othercb) = data
     combowidget.set_sensitive(widget.get_active())
 
     if othercb is not None:
         othercb.set_sensitive(not widget.get_active())
+        othercb.set_active(False)
 
     if othercombo is not None:
         othercombo.set_sensitive(not widget.get_active())
@@ -274,6 +279,9 @@ def formatMigrateOptionCB(widget, data):
         setMntPtComboStateFromType(fstype, mntptcombo)
         combowidget.grab_focus()
     else:
+        if isinstance(ofstype, type(ofstype)):
+            ofstype = type(ofstype)
+
         setMntPtComboStateFromType(ofstype, mntptcombo)
 
 def noformatCB(widget, data):
