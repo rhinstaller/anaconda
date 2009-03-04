@@ -41,25 +41,12 @@ log = logging.getLogger("anaconda")
 class VolumeGroupEditor:
 
     def numAvailableLVSlots(self):
-	return max(0, lvm.MAX_LV_SLOTS - len(self.logvolreqs))
+	return max(0, lvm.MAX_LV_SLOTS - len(self.vg.lvs))
 
-    def computeSpaceValues(self, alt_pvlist=None, usepe=None):
-        # FIXME: stop using this in favor of the vg's methods
-	if usepe is None:
-            pesize = long(self.peCombo.get_active_value()) / 1024.0
-	else:
-	    pesize = long(usepe)
-
-        if alt_pvlist is None:
-            pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
-        else:
-            pvlist = alt_pvlist
-
-        # XXX this should all be computed using self.vg
-	vgsize = self.computeVGSize(pvlist, pesize)
-	vgused = self.computeLVSpaceNeeded(self.vg.lvs)
-	vgfree =  vgsize - vgused
-
+    def computeSpaceValues(self):
+        vgsize = self.vg.size
+        vgfree = self.vg.freeSpace
+        vgused = vgsize - vgfree
 	return (vgsize, vgused, vgfree)
 
     def getPVWastedRatio(self, newpe):
@@ -84,7 +71,9 @@ class VolumeGroupEditor:
             try:
                 pesize = int(self.peCombo.get_active_value())
             except:
-                pesize = 32768
+                pesize = self.vg.peSize
+
+            # FIXME: move this logic into a property of LVMVolumeGroupDevice
             pvsize = lvm.clampPVSize(pv.size, pesize) - int(pesize/1024)
 	    if first:
 		minpvsize = pvsize
@@ -144,7 +133,7 @@ class VolumeGroupEditor:
 
         # XXX this is very sneaky, just changing the lvs' size attributes.
         #     will we suffer for it? almost certainly.
-        for lv in self.logvolreqs:
+        for lv in self.vg.lvs:
             osize = lv.size
             nsize = lvm.clampSize(osize, newpe, roundup=1)
             lv.size = nsize
@@ -216,7 +205,7 @@ class VolumeGroupEditor:
             else:
                 self.updateLogVolStore()
 	else:
-	    maxlv = lvm.getMaxLVSize(curpe)
+	    maxlv = lvm.getMaxLVSize()
 	    for lv in self.vg.lvs:
 		if lv.size > maxlv:
 		    self.intf.messageWindow(_("Not enough space"),
@@ -235,7 +224,7 @@ class VolumeGroupEditor:
         widget.set_data("lastpe", curval)
 	widget.set_data("lastidx", widget.get_active())
 
-        # XXX this is pretty sneaky, too
+        # now actually set the VG's extent size
         self.vg.peSize = curpe
         self.updateAllowedLvmPartitionsList(self.availlvmparts,
 					    self.lvmlist)
@@ -294,24 +283,21 @@ class VolumeGroupEditor:
 	else:
             pvlist.remove(pv)
 
-
-	(availSpaceMB, neededSpaceMB, fspace) = self.computeSpaceValues(alt_pvlist=pvlist)
-	if availSpaceMB < neededSpaceMB:
-	    self.intf.messageWindow(_("Not enough space"),
-				    _("You cannot remove this physical "
-				      "volume because otherwise the "
-				      "volume group will be too small to "
-				      "hold the currently defined logical "
-				      "volumes."), custom_icon="error")
-	    return False
-
-        # XXX this is pretty sneaky
         if val:
             self.vg._addPV(pv)
         else:
-            self.vg._removePV(pv)
+            try:
+                self.vg._removePV(pv)
+            except DeviceError as e:
+                self.intf.messageWindow(_("Not enough space"),
+                                    _("You cannot remove this physical "
+                                      "volume because otherwise the "
+                                      "volume group will be too small to "
+                                      "hold the currently defined logical "
+                                      "volumes."), custom_icon="error")
+                return False
 
-	self.updateVGSpaceLabels(alt_pvlist = pvlist)
+	self.updateVGSpaceLabels()
 	return True
 	
 
@@ -353,6 +339,8 @@ class VolumeGroupEditor:
 
             if include:
                 partlist.append_row((device.name, size_string), selected)
+                if selected:
+                    self.vg._addPV(device)
 
 	return (partlist, sw)
 
@@ -477,14 +465,7 @@ class VolumeGroupEditor:
         row += 1
 
         if not lv.exists:
-            pesize = int(self.peCombo.get_active_value()) / 1024.0
-            (total, used, free) = self.computeSpaceValues(usepe=pesize)
-            maxlv = min(lvm.getMaxLVSize(pesize), free)
-
-            # add in size of current logical volume if it has a size
-            if lv and not isNew:
-                maxlv += lv.size
-
+            maxlv = min(lvm.getMaxLVSize(), lv.size)
             maxlabel = createAlignedLabel(_("(Max size is %s MB)") % (maxlv,))
             maintable.attach(maxlabel, 1, 2, row, row + 1)
 
@@ -569,7 +550,7 @@ class VolumeGroupEditor:
 		used = 0
 		curmntpt = format.mountpoint
 		    
-		for _lv in self.logvolreqs:
+		for _lv in self.vg.lvs:
                     if _lv.format.type == "luks":
                         # XXX this won't work if the lvs haven't been
                         #     added to the tree yet
@@ -615,7 +596,7 @@ class VolumeGroupEditor:
             # check that size specification is within limits
 	    pesize = int(self.peCombo.get_active_value()) / 1024.0
 	    size = lvm.clampSize(size, pesize, roundup=True)
-	    maxlv = lvm.getMaxLVSize(pesize)
+	    maxlv = lvm.getMaxLVSize()
 	    if size > maxlv:
 		self.intf.messageWindow(_("Not enough space"),
 					_("The current requested size "
@@ -751,7 +732,7 @@ class VolumeGroupEditor:
 				      "logical volumes"), custom_icon="error")
 	    return
 	    
-        lv = self.storage.newLV(self.vg,
+        lv = self.storage.newLV(vg=self.vg,
                                 fmt_type=self.storage.defaultFSType,
                                 size=free)
 	self.editLogicalVolume(lv, isNew = 1)
@@ -850,7 +831,7 @@ class VolumeGroupEditor:
 
             mntpt = getattr(usedev.format, "mountpoint", "")
             if lv.lvname:
-                self.logvolstore.set_value(iter, 0, lvname)
+                self.logvolstore.set_value(iter, 0, lv.lvname)
                 
             if usedev.format.type and usedev.format.mountable:
                 self.logvolstore.set_value(iter, 1, mntpt)
@@ -859,13 +840,8 @@ class VolumeGroupEditor:
 
             self.logvolstore.set_value(iter, 2, "%Ld" % (lv.size,))
 
-    def updateVGSpaceLabels(self, alt_pvlist=None):
-	if alt_pvlist == None:
-	    pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
-	else:
-	    pvlist = alt_pvlist
-	    
-        (total, used, free) = self.computeSpaceValues(alt_pvlist=pvlist)
+    def updateVGSpaceLabels(self):
+        (total, used, free) = self.computeSpaceValues()
 
 	self.totalSpaceLabel.set_text("%10.2f MB" % (total,))
 	self.usedSpaceLabel.set_text("%10.2f MB" % (used,))
@@ -900,18 +876,6 @@ class VolumeGroupEditor:
 		return []
 
 	    pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
-	    pesize = int(self.peCombo.get_active_value()) / 1024.0
-	    availSpaceMB = self.computeVGSize(pvlist, pesize)
-	    neededSpaceMB = self.computeLVSpaceNeeded(self.vg.lvs)
-
-	    if neededSpaceMB > availSpaceMB:
-		self.intf.messageWindow(_("Not enough space"),
-					_("The logical volumes you have "
-					  "configured require %d MB, but the "
-					  "volume group only has %d MB.  Please "
-					  "either make the volume group larger "
-					  "or make the logical volume(s) smaller.") % (neededSpaceMB, availSpaceMB), custom_icon="error")
-		continue
 
 	    # check volume name
 	    volname = self.volnameEntry.get_text().strip()
@@ -1009,7 +973,7 @@ class VolumeGroupEditor:
             if not self.isNew:
                 self.volnameEntry.set_text(self.vg.name)
             else:
-                self.volnameEntry.set_text(storage.suggestedVGName(anaconda.id.network))
+                self.volnameEntry.set_text(self.storage.createSuggestedVGName(anaconda.id.network))
         else:
             lbl = createAlignedLabel(_("Volume Group Name:"))
             self.volnameEntry = gtk.Label(self.vg.name)
