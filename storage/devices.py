@@ -282,7 +282,7 @@ class Device(object):
         """
         packages = self._packages
         packages.extend(self.format.packages)
-        for parent in parents:
+        for parent in self.parents:
             for package in parent.packages:
                 if package not in packages:
                     packages.append(package)
