@@ -118,7 +118,7 @@ def get_device_format_class(fmt_type):
     fmt = device_formats.get(fmt_type)
     if not fmt:
         for fmt_class in device_formats.values():
-            if fmt_type == fmt_class.name:
+            if fmt_type and fmt_type == fmt_class._name:
                 fmt = fmt_class
                 break
             elif fmt_type in fmt_class._udevTypes:
