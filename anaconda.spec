@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.98
+Version: 10.1.1.99
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Feb 4 2009 Joel Granados <jgranados@redhat.com> - 10.1.1.99-1
+- We have to first refresh the devices and _then_ set the protected list (msivak).
+  Resolves: rhbz:#461855
+
 * Thu Feb 26 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.98-1
 - LVM VG size is not same as the device where PV is (jgranado).
   Patch in partRequest.py instead of autopart.py.
