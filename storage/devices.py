@@ -555,6 +555,13 @@ class StorageDevice(Device):
         #for parent in self.parents:
         #    parent.removeChild()
 
+    @property
+    def removable(self):
+        devpath = os.path.normpath("/sys/%s" % self.sysfsPath)
+        remfile = os.path.normpath("%s/removable" % devpath)
+        return (self.sysfsPath and os.path.exists(devpath) and
+                os.access(remfile, os.R_OK) and
+                open(remfile).readline().strip() == "1")
 
 class DiskDevice(StorageDevice):
     """ A disk """
