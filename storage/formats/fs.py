@@ -547,6 +547,9 @@ class FS(DeviceFormat):
 
     def supported(self):
         # we aren't checking for fsck because we shouldn't need it
+        if not self._supported:
+            return False
+
         for prog in [self.mkfsProg, self.resizefsProg, self.labelfsProg]:
             if not prog:
                 continue
@@ -801,7 +804,7 @@ class BTRFS(FS):
         """ Is this filesystem a supported type? """
         supported = self._supported
         if flags.cmdline.has_key("icantbelieveitsnotbtr"):
-            supported = True
+            supported = FS.supported(self)
 
         return supported
 
@@ -825,7 +828,7 @@ class GFS2(FS):
         """ Is this filesystem a supported type? """
         supported = self._supported
         if flags.cmdline.has_key("gfs2"):
-            supported = True
+            supported = FS.supported(self)
 
         return supported
 
@@ -852,7 +855,7 @@ class JFS(FS):
         """ Is this filesystem a supported type? """
         supported = self._supported
         if flags.cmdline.has_key("jfs"):
-            supported = True
+            supported = FS.supported(self)
 
         return supported
 
