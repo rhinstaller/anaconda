@@ -28,6 +28,7 @@ import gtk
 import datacombo
 
 import gui
+from storage.devicelibs import mdraid
 from storage.devices import *
 from storage.deviceaction import *
 from partition_ui_helpers_gui import *
@@ -177,7 +178,7 @@ class RaidEditor:
                 if self.fsoptionsDict.has_key("lukscb") and \
                    self.fsoptionsDict["lukscb"].get_active() and \
                    self.origrequest.format.type != "luks":
-                    luksdev = LUKSDevice("luks-%s" % request.name,
+                    luksdev = LUKSDevice("luks-%s" % self.origrequest.name,
                                          format=format,
                                          parents=self.origrequest)
                     format = getFormat("luks",
@@ -191,7 +192,7 @@ class RaidEditor:
                         actions.append(ActionDestroyFormat(luksdev.format))
                         actions.append(ActionDestroyDevice(luksdev))
                         luksdev = None
-                    actions.append(ActionDestroyFormat(request))
+                    actions.append(ActionDestroyFormat(self.origrequest))
 
 	    else:
                 # existing device
@@ -202,25 +203,25 @@ class RaidEditor:
                     format = fmt_class(mountpoint=mountpoint)
                     if self.fsoptionsDict.has_key("lukscb") and \
                        self.fsoptionsDict["lukscb"].get_active() and \
-                       request.format.type != "luks":
-                        luksdev = LUKSDevice("luks-%s" % request.name,
+                       self.origrequest.format.type != "luks":
+                        luksdev = LUKSDevice("luks-%s" % self.origrequest.name,
                                              format=format,
-                                             parents=request)
+                                             parents=self.origrequest)
                         format = getFormat("luks",
                                            device=self.origrequest.path,
                                            passphrase=self.storage.encryptionPassphrase)
                     elif self.fsoptionsDict.has_key("lukscb") and \
                          not self.fsoptionsDict["lukscb"].get_active() and \
-                         request.format.type == "luks":
+                         self.origrequest.format.type == "luks":
                         # destroy luks format and mapped device
                         luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
                         if luksdev:
                             actions.append(ActionDestroyFormat(luksdev.format))
                             actions.append(ActionDestroyDevice(luksdev))
                             luksdev = None
-                        actions.append(ActionDestroyFormat(request))
-                elif request.format.mountable:
-                    request.format.mountpoint = mountpoint
+                        actions.append(ActionDestroyFormat(self.origrequest))
+                elif self.origrequest.format.mountable:
+                    self.origrequest.format.mountpoint = mountpoint
 
 		if self.fsoptionsDict.has_key("migratecb") and \
 		   self.fsoptionsDict["migratecb"].get_active():
@@ -230,17 +231,28 @@ class RaidEditor:
                         usedev = origrequest
                     migrate = True
 
-	    if request.format.exists and \
-               self.storage.formatByDefault(request):
+	    if self.origrequest.format.exists and \
+               self.storage.formatByDefault(self.origrequest):
 		if not queryNoFormatPreExisting(self.intf):
 		    continue
 
 	    # everything ok, break out
 	    break
 
-        # FIXME: only create a new create action if the device isn't in the tree
-        actions.append(ActionCreateDevice(self.origrequest))
-        actions.append(ActionCreateFormat(self.origrequest))
+        if not self.origrequest.exists:
+            members = len(raidmembers) - spares
+            level = int(raidlevel.lower().replace("raid", ""))
+            request = self.storage.newMDArray(minor=raidminor,
+                                              level=level,
+                                              format=format,
+                                              parents=raidmembers,
+                                              memberDevices=members)
+            actions.append(ActionCreateDevice(request))
+            actions.append(ActionCreateFormat(request))
+        elif format:
+            actions.append(ActionCreateFormat(self.origreqest, format))
+
+
         if luksdev:
             actions.append(ActionCreateDevice(luksdev))
             actions.append(ActionCreateFormat(luksdev))
@@ -360,7 +372,7 @@ class RaidEditor:
 	maintable.attach(lbl, 0, 1, row, row + 1)
 
         if not origrequest.exists:
-            availminors = self.storage.unusedMDMinors()[:16]
+            availminors = self.storage.unusedMDMinors[:16]
             reqminor = origrequest.minor
             if reqminor is not None:
                 availminors.append(reqminor)
@@ -406,7 +418,7 @@ class RaidEditor:
 
 
         if not origrequest.exists:
-            self.levelcombo = self.createRaidLevelMenu(raid_levels,
+            self.levelcombo = self.createRaidLevelMenu(mdraid.raid_levels,
                                                        origrequest.level)
 	    lbl.set_mnemonic_widget(self.levelcombo)
         else:
