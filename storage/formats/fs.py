@@ -197,7 +197,8 @@ class FS(DeviceFormat):
 
     def _getFormatArgs(self, options=None):
         argv = []
-        argv.extend(options)
+        if options and isinstance(options, list):
+            argv.extend(options)
         argv.extend(self.defaultFormatOptions)
         argv.append(self.device)
         return argv
@@ -777,7 +778,8 @@ class BTRFS(FS):
 
     def _getFormatArgs(self, options=None):
         argv = []
-        argv.extend(options)
+        if options and isinstance(options, list):
+            argv.extend(options)
         argv.extend(self.defaultFormatArgs)
         if self.fslabel:
             argv.extend(["-L", self.fslabel])
