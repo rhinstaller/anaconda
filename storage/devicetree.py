@@ -417,7 +417,7 @@ class DeviceTree(object):
         self.pruneActions()
         for action in self._actions:
             log.debug("action: %s" % action)
-        self._actions.sort(cmpActions)
+        #self._actions.sort(cmpActions)
         self.teardownAll()
         for action in self._actions:
             log.info("executing action: %s" % action)
@@ -969,7 +969,7 @@ class DeviceTree(object):
         for device in self.leaves:
             try:
                 device.teardown(recursive=True)
-            except DeviceError as e:
+            except (DeviceError, DeviceFormatError) as e:
                 log.info("teardown of %s failed: %s" % (device.name, e))
 
     def setupAll(self):
