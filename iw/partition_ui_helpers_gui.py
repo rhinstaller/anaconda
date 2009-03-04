@@ -30,7 +30,7 @@ import iutil
 from constants import *
 from partIntfHelpers import *
 from partedUtils import *
-from storage.formats import device_formats, getFormat, get_default_filesystem_type
+from storage.formats import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -89,17 +89,18 @@ def createMountPointCombo(request, excludeMountPoints=[]):
     if request.exists and label and label.startswith("/"):
         mntptlist.append(label)
         idx = 0
-    
+
     for p in defaultMountPoints:
-	if p in excludeMountPoints:
-	    continue
-	
-	if not p in mntptlist and (p[0] == "/"):
-	    mntptlist.append(p)
+        if p in excludeMountPoints:
+            continue
+
+        if not p in mntptlist and (p[0] == "/"):
+            mntptlist.append(p)
 
     map(mountCombo.append_text, mntptlist)
 
-    if request.format.type and request.format.mountable:
+    if (request.format.type or request.format.migrate) and \
+       request.format.mountable:
         mountpoint = request.format.mountpoint
         mountCombo.set_sensitive(1)
         if mountpoint:
@@ -248,9 +249,12 @@ def formatOptionResizeCB(widget, resizesb):
     if resizesb.get_value_as_int() < lower:
         resizesb.set_value(adj.lower)
 
-def formatOptionCB(widget, data):
-    (combowidget, mntptcombo, ofstype, lukscb) = data
+def formatMigrateOptionCB(widget, data):
+    (combowidget, mntptcombo, ofstype, lukscb, othercombo, othercb) = data
     combowidget.set_sensitive(widget.get_active())
+    othercb.set_sensitive(not widget.get_active())
+    othercombo.set_sensitive(not widget.get_active())
+
     if lukscb is not None:
         lukscb.set_data("formatstate", widget.get_active())
         if not widget.get_active():
@@ -262,11 +266,11 @@ def formatOptionCB(widget, data):
 
     # inject event for fstype menu
     if widget.get_active():
-	fstype = combowidget.get_active_value()
-	setMntPtComboStateFromType(fstype, mntptcombo)
+        fstype = combowidget.get_active_value()
+        setMntPtComboStateFromType(fstype, mntptcombo)
         combowidget.grab_focus()
     else:
-	setMntPtComboStateFromType(ofstype, mntptcombo)
+        setMntPtComboStateFromType(ofstype, mntptcombo)
 
 def noformatCB(widget, data):
     (combowidget, mntptcombo, ofstype) = data
@@ -274,7 +278,7 @@ def noformatCB(widget, data):
 
     # inject event for fstype menu
     if widget.get_active():
-	setMntPtComboStateFromType(ofstype, mntptcombo)
+        setMntPtComboStateFromType(ofstype, mntptcombo)
 
 
 """ createPreExistFSOptionSection: given inputs for a preexisting partition,
@@ -314,10 +318,6 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     # this gets added to the table a bit later on
     lukscb = gtk.CheckButton(_("_Encrypt"))
 
-    formatcb.connect("toggled", formatOptionCB,
-                    (fstypeCombo, mountCombo, ofstype, lukscb))
-
-
     if origrequest.format.migratable:
 	migratecb = gtk.CheckButton(label=_("Mi_grate filesystem to:"))
         migratecb.set_active(istruefalse(origrequest.format.migrate))
@@ -333,11 +333,16 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	row = row + 1
         rc["migratecb"] = migratecb
         rc["migfstypeCombo"] = migfstypeCombo
-	migratecb.connect("toggled", formatOptionCB,
-                          (migfstypeCombo, mountCombo, ofstype, None))
+	migratecb.connect("toggled", formatMigrateOptionCB,
+                          (migfstypeCombo, mountCombo, ofstype, None,
+                           fstypeCombo, formatcb))
     else:
 	migratecb = None
 	migfstypeCombo = None
+
+    formatcb.connect("toggled", formatMigrateOptionCB,
+                    (fstypeCombo, mountCombo, ofstype, lukscb,
+                     migfstypeCombo, migratecb))
 
     if origrequest.resizable:
         resizecb = gtk.CheckButton(label=_("_Resize"))

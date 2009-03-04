@@ -599,11 +599,12 @@ class FS(DeviceFormat):
     @property
     def migratable(self):
         """ Can filesystems of this type be migrated? """
-        return (self._migratable and self.migratefsProg and
-                filter(lambda d: os.access("%s/%s" % (d, self.migratefsProg),
-                                           os.X_OK),
-                       os.environ["PATH"].split(":")) and
-                self.migrationTarget)
+        return bool(self._migratable and self.migratefsProg and
+                    filter(lambda d: os.access("%s/%s"
+                                               % (d, self.migratefsProg,),
+                                               os.X_OK),
+                           os.environ["PATH"].split(":")) and
+                    self.migrationTarget)
 
     def _setMigrate(self, migrate):
         if not migrate:
