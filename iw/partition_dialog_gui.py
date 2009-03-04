@@ -123,24 +123,6 @@ class PartitionEditor:
                 else:
                     primary = None
 
-                format = fmt_class(mountpoint=mountpoint)
-                if self.lukscb and self.lukscb.get_active():
-                    luksformat = format
-                    format = getFormat("luks",
-                                       passphrase=self.storage.encryptionPassphrase)
-                    luksdev = LUKSDevice("luks%d" % self.storage.nextID,
-                                         format=luksformat,
-                                         parents=request)
-                elif self.lukscb and not self.lukscb.get_active() and \
-                     self.origrequest.format.type == "luks":
-                    # destroy the luks format and the mapped device
-                    luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
-                    if luksdev:
-                        actions.append(ActionDestroyFormat(luksdev.format))
-                        actions.append(ActionDestroyDevice(luksdev))
-                        luksdev = None
-                    actions.append(ActionDestroyFormat(self.origrequest))
-
                 if self.fixedrb.get_active():
                     grow = None
                 else:
@@ -178,20 +160,36 @@ class PartitionEditor:
                                 disks.append(disk)
 
                 # TODO: when will we set bootable?
-                request = PartitionDevice("new%d" % self.storage.nextID,
-                                          format=format,
-                                          size=size,
-                                          grow=grow,
-                                          maxsize=maxsize,
-                                          primary=primary,
-                                          parents=disks)
+                request = self.storage.newPartition(size=size,
+                                                    grow=grow,
+                                                    maxsize=maxsize,
+                                                    primary=primary,
+                                                    parents=disks)
+
+                format = fmt_class(mountpoint=mountpoint)
+                if self.lukscb and self.lukscb.get_active():
+                    luksformat = format
+                    format = getFormat("luks",
+                                       passphrase=self.storage.encryptionPassphrase)
+                    luksdev = LUKSDevice("luks%d" % self.storage.nextID,
+                                         format=luksformat,
+                                         parents=request)
+                elif self.lukscb and not self.lukscb.get_active() and \
+                     self.origrequest.format.type == "luks":
+                    # destroy the luks format and the mapped device
+                    luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
+                    if luksdev:
+                        actions.append(ActionDestroyFormat(luksdev.format))
+                        actions.append(ActionDestroyDevice(luksdev))
+                        luksdev = None
+                    actions.append(ActionDestroyFormat(self.origrequest))
 
                 # we're all set, so create the actions
+                actions.append(ActionCreateDevice(request))
+                actions.append(ActionCreateFormat(request, format))
                 if luksdev:
                     actions.append(ActionCreateDevice(luksdev))
                     actions.append(ActionCreateFormat(luksdev))
-                actions.append(ActionCreateDevice(request))
-                actions.append(ActionCreateFormat(request))
             else:
                 # preexisting partition, just set mount point and format flag
                 request = self.origrequest
@@ -200,17 +198,19 @@ class PartitionEditor:
                    self.fsoptionsDict["formatcb"].get_active():
                     fmt_class = self.fsoptionsDict["fstypeCombo"].get_active_value()
                     format = fmt_class(mountpoint=mountpoint)
+                    luksdev = None
                     if self.fsoptionsDict.has_key("lukscb") and \
                        self.fsoptionsDict["lukscb"].get_active() and \
                        request.format.type != "luks":
                         luksdev = LUKSDevice("luks%d" % self.storage.nextID,
                                              format=format,
                                              parents=request)
-                        actions.append(ActionCreateDevice(luksdev))
                         format = getFormat("luks",
                                            device=self.origrequest.path,
                                            passphrase=self.storage.encryptionPassphrase)
                     actions.append(ActionCreateFormat(request, format))
+                    if luksdev:
+                        actions.append(ActionCreateDevice(luksdev))
                 elif request.format.mountable:
                     request.format.mountpoint = mountpoint
 
