@@ -32,7 +32,7 @@ from constants import *
 
 from errors import *
 from deviceaction import *
-from devices import PartitionDevice
+from devices import PartitionDevice, LUKSDevice
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -73,14 +73,18 @@ def doAutoPartition(anaconda):
             part = part.nextPartition()
 
     # create a separate pv partition for each disk with free space
-    pvs = []
+    devs = []
     for disk in disks:
-        part = anaconda.id.storage.newPartition(fmt_type="lvmpv",
+        if anaconda.id.storage.encryptedAutoPart:
+            fmt_type = "luks"
+        else:
+            fmt_type = "lvmpv"
+        part = anaconda.id.storage.newPartition(fmt_type=fmt_type,
                                                 size=1,
+                                                grow=True,
                                                 disks=[disk])
-        part.req_grow = True
         anaconda.id.storage.createDevice(part)
-        pvs.append(part)
+        devs.append(part)
 
     #
     # Convert storage.autoPartitionRequests into Device instances and
@@ -98,15 +102,10 @@ def doAutoPartition(anaconda):
 
         dev = anaconda.id.storage.newPartition(fmt_type=fstype,
                                                size=size,
+                                               grow=grow,
+                                               maxsize=maxsize,
+                                               mountpoint=mountpoint,
                                                disks=disks)
-
-        if grow:
-            dev.req_grow = True
-            if maxsize:
-                dev.req_max_size = maxsize
-
-        if mountpoint:
-            dev.format.mountpoint = mountpoint
 
         # schedule the device for creation
         anaconda.id.storage.createDevice(dev)
@@ -144,6 +143,18 @@ def doAutoPartition(anaconda):
         if anaconda.isKickstart:
             sys.exit(0)
 
+    if anaconda.id.storage.encryptedAutoPart:
+        pvs = []
+        for dev in devs:
+            pv = LUKSDevice("luks-%s" % dev.name,
+                            format=getFormat("lvmpv", device=dev.path),
+                            size=dev.size,
+                            parents=dev)
+            pvs.append(pv)
+            anaconda.id.storage.createDevice(pv)
+    else:
+        pvs = devs
+
     # create a vg containing all of the autopart pvs
     vg = anaconda.id.storage.newVG(pvs=pvs)
     anaconda.id.storage.createDevice(vg)
@@ -165,15 +176,9 @@ def doAutoPartition(anaconda):
         dev = anaconda.id.storage.newLV(vg=vg,
                                         fmt_type=fstype,
                                         mountpoint=mountpoint,
+                                        grow=grow,
+                                        maxsize=maxsize,
                                         size=size)
-
-        if grow:
-            dev.req_grow = True
-            if maxsize:
-                dev.req_max_size = maxsize
-
-        if mountpoint:
-            dev.format.mountpoint = mountpoint
 
         # schedule the device for creation
         anaconda.id.storage.createDevice(dev)
