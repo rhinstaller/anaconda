@@ -1773,8 +1773,8 @@ class MDRaidArrayDevice(StorageDevice):
                                parents=parents, sysfsPath=sysfsPath)
         self.level = level
         self.uuid = uuid
-        self.memberDevices = numeric_type(memberDevices)
-        self.totalDevices = numeric_type(totalDevices)
+        self._totalDevices = numeric_type(totalDevices)
+        self._memberDevices = numeric_type(memberDevices)
         self.sysfsPath = "/devices/virtual/block/%s" % name
 
         """ FIXME: Bitmap is more complicated than this.
@@ -1797,6 +1797,28 @@ class MDRaidArrayDevice(StorageDevice):
 
         fmt = "ARRAY level=%s num-devices=%d UUID=%s"
         return fmt % (self.level, self.memberDevices, self.uuid)
+
+    @property
+    def totalDevices(self):
+        """ Total number of devices in the array, including spares. """
+        count = len(self.parents)
+        if self.exists:
+            count = self._totalDevices
+        return count
+
+    def _getMemberDevices(self):
+        return self._memberDevices
+
+    def _setMemberDevices(self, number):
+        if not isinstance(number, int):
+            raise ValueError("memberDevices is an integer")
+
+        if number > self.totalDevices:
+            raise ValueError("memberDevices cannot be greater than totalDevices")
+        self._memberDevices = number
+
+    memberDevices = property(_getMemberDevices, _setMemberDevices,
+                             doc="number of member devices")
 
     def _getSpares(self):
         spares = 0
