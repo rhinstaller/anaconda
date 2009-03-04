@@ -26,7 +26,7 @@ import gobject
 import gtk
 
 import gui
-from storage.devices import PartitionDevice
+from storage.devices import PartitionDevice, LUKSDevice
 from storage.deviceaction import *
 from partition_ui_helpers_gui import *
 from constants import *
