@@ -552,9 +552,24 @@ class DeviceTree(object):
             The list includes both direct and indirect dependents.
         """
         dependents = []
+
+        # special handling for extended partitions since the logical
+        # partitions and their deps effectively depend on the extended
+        logicals = []
+        if dep.type == "partition" and dep.isExtended:
+            # collect all of the logicals on the same disk
+            for part in self.getDevicesByType("partition"):
+                if part.isLogical and part.disk == dep.disk:
+                    logicals.append(part)
+
         for device in self.devices.values():
             if device.dependsOn(dep):
                 dependents.append(device)
+            else:
+                for logical in logicals:
+                    if device.dependsOn(logical):
+                        dependents.append(device)
+                        break
 
         return dependents
 
