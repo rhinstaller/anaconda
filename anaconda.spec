@@ -77,7 +77,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Wed Feb 4 2009 Joel Granados <jgranados@redhat.com> - 10.1.1.99-1
+* Wed Mar 4 2009 Joel Granados <jgranados@redhat.com> - 10.1.1.99-1
 - We have to first refresh the devices and _then_ set the protected list (msivak).
   Resolves: rhbz:#461855
 
