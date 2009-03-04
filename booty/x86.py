@@ -517,7 +517,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.close()
         
     def write(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfig, intf):
+            defaultDev, justConfig):
         if self.timeout is None and chainList:
             self.timeout = 5
 

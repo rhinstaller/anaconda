@@ -186,11 +186,9 @@ def writeBootloader(anaconda):
 
     dosync()
     try:
-        anaconda.id.bootloader.write(anaconda.rootPath, anaconda.id.storage,
-                                     anaconda.id.bootloader,
-                                     anaconda.id.instLanguage,
+        anaconda.id.bootloader.write(anaconda.rootPath, anaconda.id.bootloader,
                                      kernelList, otherList, defaultDev,
-                                     justConfigFile, anaconda.intf)
+                                     justConfigFile)
 	if not justConfigFile:
 	    w.pop()
     except booty.BootyNoKernelWarning:

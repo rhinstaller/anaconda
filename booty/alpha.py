@@ -129,7 +129,7 @@ class alphaBootloaderInfo(bootloaderInfo):
 
 
     def write(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfig, intf):
+            defaultDev, justConfig):
         if len(kernelList) < 1:
             raise BootyNoKernelWarning
 

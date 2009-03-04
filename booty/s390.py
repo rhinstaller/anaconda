@@ -161,7 +161,7 @@ class s390BootloaderInfo(bootloaderInfo):
         return ""
 
     def write(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfig, intf):
+            defaultDev, justConfig):
         out = self.writeZipl(instRoot, bl, kernelList, 
                              chainList, defaultDev,
                              justConfig | (not self.useZiplVal))

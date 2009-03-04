@@ -420,7 +420,7 @@ class bootloaderInfo:
         return lilo
 
     def write(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfig, intf = None):
+            defaultDev, justConfig):
         if len(kernelList) >= 1:
             config = self.getBootloaderConfig(instRoot, bl,
                                               kernelList, chainList,

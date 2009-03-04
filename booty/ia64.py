@@ -21,7 +21,7 @@ class ia64BootloaderInfo(efiBootloaderInfo):
         return ""
         
     def write(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfig, intf):
+            defaultDev, justConfig):
         if len(kernelList) >= 1:
             out = self.writeLilo(instRoot, bl, kernelList, 
                                  chainList, defaultDev, justConfig)

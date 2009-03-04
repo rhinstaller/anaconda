@@ -165,7 +165,7 @@ class ppcBootloaderInfo(bootloaderInfo):
         self.password = val
         
     def write(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfig, intf):
+            defaultDev, justConfig):
         if len(kernelList) >= 1:
             out = self.writeYaboot(instRoot, bl, kernelList, 
                                  chainList, defaultDev, justConfig)
