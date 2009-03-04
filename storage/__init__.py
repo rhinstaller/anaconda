@@ -411,16 +411,15 @@ class Storage(object):
     def newPartition(self, *args, **kwargs):
         """ Return a new PartitionDevice instance for configuring. """
         if kwargs.has_key("fmt_type"):
-            kwargs["format"] = getFormat(kwargs["fmt_type"])
-            del kwargs["fmt_type"]
+            kwargs["format"] = getFormat(kwargs.pop("fmt_type"),
+                                         mountpoint=kwargs.pop("mountpoint",
+                                                               None))
 
         if kwargs.has_key("disks"):
-            parents = kwargs["disks"]
-            del kwargs["disks"]
+            parents = kwargs.pop("disks")
 
         if kwargs.has_key("name"):
-            name = kwargs["name"]
-            del kwargs["name"]
+            name = kwargs.pop("name")
         else:
             name = "req%d" % self.nextID
 
@@ -429,18 +428,17 @@ class Storage(object):
     def newMDArray(self, *args, **kwargs):
         """ Return a new MDRaidArrayDevice instance for configuring. """
         if kwargs.has_key("fmt_type"):
-            kwargs["format"] = getFormat(kwargs["fmt_type"])
-            del kwargs["fmt_type"]
+            kwargs["format"] = getFormat(kwargs.pop("fmt_type"),
+                                         mountpoint=kwargs.pop("mountpoint",
+                                                               None))
 
         if kwargs.has_key("minor"):
-            minor = str(kwargs["minor"])
-            del kwargs["minor"]
+            minor = str(kwargs.pop("minor"))
         else:
             kwargs["minor"] = str(self.unusedMDMinors[0])
 
         if kwargs.has_key("name"):
-            name = kwargs["name"]
-            del kwargs["name"]
+            name = kwargs.pop("name")
         else:
             name = "md%s" % kwargs["minor"]
 
@@ -448,19 +446,13 @@ class Storage(object):
 
     def newVG(self, *args, **kwargs):
         """ Return a new LVMVolumeGroupDevice instance. """
-        if kwargs.has_key("pvs"):
-            pvs = kwargs["pvs"]
-            del kwargs["pvs"]
-        else:
-            pvs = []
-
+        pvs = kwargs.pop("pvs", [])
         for pv in pvs:
             if pv not in self.devices:
                 raise ValueError("pv is not in the device tree")
 
         if kwargs.has_key("name"):
-            name = kwargs["name"]
-            del kwargs["name"]
+            name = kwargs.pop("name")
         else:
             name = self.createSuggestedVGName(self.anaconda.id.network)
 
@@ -472,19 +464,15 @@ class Storage(object):
     def newLV(self, *args, **kwargs):
         """ Return a new LVMLogicalVolumeDevice instance. """
         if kwargs.has_key("vg"):
-            vg = kwargs["vg"]
-            del kwargs["vg"]
+            vg = kwargs.pop("vg")
 
-        mountpoint = kwargs.get("mountpoint")
-        kwargs.pop("mountpoint", None)
-
+        mountpoint = kwargs.pop("mountpoint", None)
         if kwargs.has_key("fmt_type"):
-            kwargs["format"] = getFormat(kwargs["fmt_type"], mountpoint)
-            del kwargs["fmt_type"]
+            kwargs["format"] = getFormat(kwargs.pop("fmt_type"),
+                                         mountpoint=mountpoint)
 
         if kwargs.has_key("name"):
-            name = kwargs["name"]
-            del kwargs["name"]
+            name = kwargs.pop("name")
         else:
             if kwargs.get("format") and kwargs["format"].type == "swap":
                 swap = True
@@ -505,8 +493,7 @@ class Storage(object):
             TODO: We could do some things here like assign the next
                   available raid minor if one isn't already set.
         """
-        action = ActionCreateDevice(device)
-        self.devicetree.registerAction(action)
+        self.devicetree.registerAction(ActionCreateDevice(device))
         if device.format.type:
             self.devicetree.registerAction(ActionCreateFormat(device))
 
