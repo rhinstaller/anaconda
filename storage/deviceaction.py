@@ -209,6 +209,8 @@ class ActionDestroyDevice(DeviceAction):
     def __init__(self, device):
         # XXX should we insist that device.fs be None?
         DeviceAction.__init__(self, device)
+        if device.exists:
+            device.teardown()
 
     def execute(self, intf=None):
         self.device.destroy()
@@ -292,6 +294,7 @@ class ActionDestroyFormat(DeviceAction):
         if self.origFormat:
             self.device.setup()
             self.origFormat.destroy()
+            self.device.teardown()
 
     def cancel(self):
         self.device.format = self.origFormat
@@ -347,6 +350,4 @@ class ActionMigrateFormat(DeviceAction):
 
     def cancel(self):
         self.device.format.migrate = False
-
-
 
