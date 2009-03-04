@@ -1200,6 +1200,11 @@ class LUKSDevice(DMCryptDevice):
                                parents=parents, sysfsPath=sysfsPath,
                                uuid=None, exists=exists)
 
+    @property
+    def size(self):
+        # break off 2KB for the LUKS header
+        return float(self.slave.size) - (2.0 / 1024)
+
     def create(self, intf=None):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
@@ -1211,6 +1216,7 @@ class LUKSDevice(DMCryptDevice):
 
         #if not self.slave.format.exists:
         #    self.slave.format.create()
+        self._name = self.slave.format.mapName
         self.exists = True
         self.setup()
 
@@ -1235,6 +1241,11 @@ class LUKSDevice(DMCryptDevice):
 
         if recursive:
             self.teardownParents(recursive=recursive)
+
+    def destroy(self):
+        log_method_call(self, self.name, status=self.status)
+        self.format.teardown()
+        self.teardown()
 
     @property
     def slave(self):
