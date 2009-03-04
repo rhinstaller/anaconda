@@ -80,7 +80,12 @@ class MainBootloaderWindow(InstallWindow):
         def __driveChange(combo, dxml, choices):
             if not choices.has_key("mbr"):
                 return
-            first = combo.get_model()[combo.get_active_iter()][1]
+
+            iter = combo.get_active_iter()
+            if not iter:
+                return
+
+            first = combo.get_model()[iter][1]
             desc = choices["mbr"][1]
             dxml.get_widget("mbrRadio").set_label("%s - /dev/%s" %(desc, first))
             dxml.get_widget("mbrRadio").set_data("bootDevice", first)
