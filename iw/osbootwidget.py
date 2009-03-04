@@ -151,10 +151,12 @@ class OSBootWidget:
         label = gui.MnemonicLabel(_("_Device"))
         table.attach(label, 0, 1, 2, 3, gtk.FILL, 0, 10)
         if not isRoot:
+            parts = []
+
             for part in self.storage.partitions:
                 if part.partedPartition.getFlag(parted.PARTITION_LVM) or \
                    part.partedPartition.getFlag(parted.PARTITION_RAID) or \
-                   not part.active:
+                   not part.partedPartition.active:
                     continue
 
                 parts.append(part)
