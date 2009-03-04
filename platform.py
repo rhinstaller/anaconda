@@ -62,12 +62,7 @@ class Platform(object):
             raise NotImplementedError("bootDevice not implemented for this platform")
 
         mntDict = self._mntDict()
-        bootDev = mntDict.get("/boot", mntDict.get("/"))
-
-        if not bootDev:
-            raise DeviceError("No bootable device found")
-        else:
-            return bootDev
+        return mntDict.get("/boot", mntDict.get("/"))
 
     @property
     def bootFSType(self):
