@@ -126,12 +126,7 @@ class EFI(Platform):
 
     def bootDevice(self):
         mntDict = self._mntDict()
-        bootDev = mntDict.get("/boot/efi")
-
-        if not bootDev:
-            raise DeviceError("No bootable device found")
-        else:
-            return bootDev
+        return mntDict.get("/boot/efi")
 
     def bootloaderChoices(self, bl):
         bootDev = self.bootDevice()
@@ -234,10 +229,7 @@ class IPSeriesPPC(PPC):
                 bootDev = device
                 break
 
-        if not bootDev:
-            raise DeviceError("No bootable device found")
-        else:
-            return bootDev
+        return bootDev
 
     def bootloaderChoices(self, bl):
         ret = {}
@@ -283,10 +275,7 @@ class NewWorldPPC(PPC):
             if device.format.type == "hfs" and device.bootable:
                 bootDev = device
 
-        if not bootDev:
-            raise DeviceError("No bootable device found")
-        else:
-            return bootDev
+        return bootDev
 
     def bootloaderChoices(self, bl):
         ret = {}
