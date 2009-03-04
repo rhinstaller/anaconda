@@ -74,6 +74,41 @@ def storageComplete(anaconda):
             sys.exit(0)
         return DISPATCH_FORWARD
 
+    devs = anaconda.id.storage.devicetree.getDevicesByType("luks/dm-crypt")
+    existing_luks = False
+    new_luks = False
+    for dev in devs:
+        if dev.exists:
+            existing_luks = True
+            break
+    if (anaconda.id.storage.encryptedAutoPart or new_luks) and \
+       not anaconda.id.storage.encryptionPassphrase:
+        while True:
+            (passphrase, retrofit) = anaconda.intf.getLuksPassphrase(preexist=existing_luks)
+            if passphrase:
+                anaconda.id.storage.encryptionPassphrase = passphrase
+                anaconda.id.storage.retrofitPassphrase = retrofit
+                for dev in anaconda.id.storage.devices:
+                    if dev.format.type == "luks" and not dev.format.exists:
+                        dev.format.passphrase = passphrase
+                break
+            else:
+                rc = anaconda.intf.messageWindow(_("Encrypt device?"),
+                            _("You specified block device encryption "
+                              "should be enabled, but you have not "
+                              "supplied a passphrase. If you do not "
+                              "go back and provide a passphrase, "
+                              "block device encryption will be "
+                              "disabled."),
+                              type="custom",
+                              custom_buttons=[_("Back"), _("Continue")],
+                              default=0)
+                if rc == 1:
+                    log.info("user elected to not encrypt any devices.")
+                    undoEncryption(anaconda.id.storage)
+                    anaconda.id.storage.encryptedAutoPart = False
+                    break
+
     if anaconda.isKickstart:
         return
 
@@ -89,6 +124,17 @@ def storageComplete(anaconda):
     if rc == 0:
         return DISPATCH_BACK
 
+def undoEncryption(storage):
+    for device in storage.devicetree.getDevicesByType("luks/dm-crypt"):
+        if device.exists:
+            continue
+
+        slave = device.slave
+        format = device.format
+        storage.devicetree.registerAction(ActionDestroyFormat(device))
+        storage.devicetree.registerAction(ActionDestroyDevice(device))
+        storage.devicetree.registerAction(ActionDestroyFormat(slave))
+        storage.devicetree.registerAction(ActionCreateFormat(slave, format))
 
 class Storage(object):
     def __init__(self, anaconda):
