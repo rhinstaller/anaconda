@@ -80,17 +80,14 @@ class LUKS(DeviceFormat):
     passphrase = property(fset=_setPassphrase)
 
     @property
+    def hasKey(self):
+        return (self.__passphrase or
+                (self._key_file and os.access(self._key_file, os.R_OK)))
+
+    @property
     def configured(self):
         """ To be ready we need a key or passphrase and a map name. """
-        ready = True
-        if not self.__passphrase or \
-           (self._key_file and os.access(self._key_file, os.R_OK)):
-            ready = False
-
-        if not self.mapName:
-            ready = False
-
-        return ready
+        return self.hasKey and self.mapName
 
     @property
     def status(self):
@@ -107,7 +104,7 @@ class LUKS(DeviceFormat):
 
     def setup(self, *args, **kwargs):
         """ Open, or set up, the format. """
-        log_method_call(self, device=self.device,
+        log_method_call(self, device=self.device, mapName=self.mapName,
                         type=self.type, status=self.status)
         if not self.configured:
             raise LUKSError("luks device not configured")
@@ -135,8 +132,8 @@ class LUKS(DeviceFormat):
         """ Create the format. """
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
-        if not self.configured:
-            raise LUKSError("luks device not configured")
+        if not self.hasKey:
+            raise LUKSError("luks device has no key/passphrase")
 
         DeviceFormat.create(self, *args, **kwargs)
         crypto.luks_format(self.device,
@@ -147,7 +144,15 @@ class LUKS(DeviceFormat):
 
         self.uuid = crypto.luks_uuid(self.device)
         self.exists = True
+        self.mapName = "luks-%s" % self.uuid
         self.notifyKernel()
+
+    def destroy(self, *args, **kwargs):
+        """ Create the format. """
+        log_method_call(self, device=self.device,
+                        type=self.type, status=self.status)
+        self.teardown()
+        DeviceFormat.destroy(self, *args, **kwargs)
 
     @property
     def keyFile(self):
