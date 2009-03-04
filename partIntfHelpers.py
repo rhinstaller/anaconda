@@ -127,7 +127,7 @@ def doDeleteDevice(intf, storage, device, confirm=1, quiet=0):
     if reason:
         intf.messageWindow(_("Unable To Delete"),
                            reason,
-                           customer_icon="error")
+                           custom_icon="error")
         return False
 
     if confirm and not confirmDelete(intf, device):
