@@ -1111,8 +1111,10 @@ class FSSet(object):
                 continue
             if device.format.mountpoint:
                 options = device.format.mountopts
-                options = options.replace("defaults,", "")
-                options = options.replace("defaults", "")
+                if options:
+                    options = options.replace("defaults,", "")
+                    options = options.replace("defaults", "")
+
                 if options:
                     options = "rw," + options
                 else:
