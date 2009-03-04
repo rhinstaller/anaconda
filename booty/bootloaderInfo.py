@@ -344,7 +344,7 @@ class bootloaderInfo:
         lilo.addEntry("timeout", self.timeout or "20", replace = 0)
 
         try:
-            rootDev = storage.fsset.mountpoints["/"]
+            rootDev = self.storage.fsset.mountpoints["/"]
         except KeyError:
             raise RuntimeError, "Installing lilo, but there is no root device"
 
@@ -499,7 +499,7 @@ class bootloaderInfo:
         self._drivelist = val
     drivelist = property(_getDriveList, _setDriveList)
 
-    def __init__(self):
+    def __init__(self, storage):
         self.args = KernelArguments()
         self.images = BootImages()
         self.device = None
@@ -513,6 +513,7 @@ class bootloaderInfo:
         self.pure = None
         self.above1024 = 0
         self.timeout = None
+        self.storage = storage
 
         # this has somewhat strange semantics.  if 0, act like a normal
         # "install" case.  if 1, update lilo.conf (since grubby won't do that)
@@ -628,9 +629,12 @@ class efiBootloaderInfo(bootloaderInfo):
         self.removeOldEfiEntries(instRoot)
         self.addNewEfiEntry(instRoot)
 
-    def __init__(self, initialize = True):
+    def __init__(self, storage, initialize = True):
         if initialize:
-            bootloaderInfo.__init__(self)
+            bootloaderInfo.__init__(self, storage)
+        else:
+            self.storage = storage
+
         if iutil.isEfi():
             self._configdir = "/boot/efi/EFI/redhat"
             self._configname = "grub.conf"

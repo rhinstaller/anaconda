@@ -130,7 +130,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             defaultDev, justConfigFile):
         
         images = bl.images.getImages()
-        rootDev = storage.fsset.mountpoints["/"]
+        rootDev = self.storage.fsset.mountpoints["/"]
 
         # XXX old config file should be read here for upgrade
 
@@ -161,7 +161,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
                 "after making changes to this file\n")
 
         try:
-            bootDev = storage.fsset.mountpoints["/boot"]
+            bootDev = self.storage.fsset.mountpoints["/boot"]
             grubPath = "/grub"
             cfPath = "/"
             f.write("# NOTICE:  You have a /boot partition.  This means "
@@ -169,7 +169,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.write("#          all kernel and initrd paths are relative "
                     "to /boot/, eg.\n")
         except KeyError:
-            bootDev = storage.fsset.mountpoints["/"]
+            bootDev = self.storage.fsset.mountpoints["/"]
             grubPath = "/boot/grub"
             cfPath = "/boot/"
             f.write("# NOTICE:  You do not have a /boot partition.  "
@@ -454,11 +454,11 @@ class x86BootloaderInfo(efiBootloaderInfo):
         # so we have to do shenanigans to get updated grub installed...
         # steal some more code above
         try:
-            bootDev = storage.fsset.mountpoints["/boot"]
+            bootDev = self.storage.fsset.mountpoints["/boot"]
             grubPath = "/grub"
             cfPath = "/"
         except KeyError:
-            bootDev = storage.fsset.mountpoints["/"]
+            bootDev = self.storage.fsset.mountpoints["/"]
             grubPath = "/boot/grub"
             cfPath = "/boot/"
 
@@ -500,7 +500,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             cmds.append(cmd)
         
             if not justConfigFile:
-                self.runGrubInstall(instRoot, bootDev cmds, cfPath)
+                self.runGrubInstall(instRoot, bootDev, cmds, cfPath)
  
         return ""
 
@@ -552,9 +552,9 @@ class x86BootloaderInfo(efiBootloaderInfo):
         
         return args
 
-    def __init__(self):
-        bootloaderInfo.__init__(self)
-        efiBootloaderInfo.__init__(self, initialize=False)
+    def __init__(self, storage):
+        bootloaderInfo.__init__(self, storage)
+        efiBootloaderInfo.__init__(self, storage, initialize=False)
 
         self._configdir = "/boot/grub"
         self._configname = "grub.conf"

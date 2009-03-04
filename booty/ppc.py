@@ -7,41 +7,39 @@ import iutil
 import rhpl
 
 class ppcBootloaderInfo(bootloaderInfo):
-    def getBootDevs(self, fs, bl):
-        import fsset
+    def getBootDevs(self, bl):
+        import parted
 
-        devs = []
+        retval = []
         machine = rhpl.getPPCMachine()
 
         if machine == 'pSeries':
-            for entry in fs.entries:
-                if isinstance(entry.fsystem, fsset.prepbootFileSystem) \
-                        and entry.format:
-                    devs.append('/dev/%s' % (entry.device.getDevice(),))
+            for dev in self.storage.fsset.devices:
+                if dev.partedFlags[parted.PARTITION_PREP] and not dev.format.exists:
+                    retval.append(dev.path)
         elif machine == 'PMac':
-            for entry in fs.entries:
-                if isinstance(entry.fsystem, fsset.applebootstrapFileSystem) \
-                        and entry.format:
-                    devs.append('/dev/%s' % (entry.device.getDevice(),))
+            for dev in self.storage.fsset.devices:
+                if dev.format.type == "hfs" and dev.format.bootable and not dev.format.exists:
+                    retval.append(dev.path)
 
-        if len(devs) == 0:
+        if len(retval) == 0:
             # Try to get a boot device; bplan OF understands ext3
             if machine == 'Pegasos' or machine == 'Efika':
                 try:
-                    device = storage.fsset.mountpoints["/boot"]
+                    device = self.storage.fsset.mountpoints["/boot"]
                 except KeyError:
                     try:
                         # Try / if we don't have this we're not going to work
-                        device = storage.fsset.mountpoints["/"]
+                        device = self.storage.fsset.mountpoints["/"]
                     except KeyError:
-                        return devs
+                        return retval 
 
-                devs.append(device.path)
+                retval.append(device.path)
             else:
                 if bl.getDevice():
-                    devs.append("/dev/%s" % bl.getDevice())
-        return devs
+                    retval.append(bl.getDevice().path)
 
+        return retval
 
     def writeYaboot(self, instRoot, bl, kernelList, 
                   chainList, defaultDev, justConfigFile):
@@ -49,14 +47,14 @@ class ppcBootloaderInfo(bootloaderInfo):
         yabootTarget = string.join(self.getBootDevs(bl))
 
         try:
-            bootDev = storage.fsset.mountpoints["/boot"]
+            bootDev = self.storage.fsset.mountpoints["/boot"]
 
             cf = "/boot/etc/yaboot.conf"
             cfPath = ""
             if not os.path.isdir(instRoot + "/boot/etc"):
                 os.mkdir(instRoot + "/boot/etc")
         except KeyError:
-            bootDev = storage.fsset.mountpoints["/"]
+            bootDev = self.storage.fsset.mountpoints["/"]
 
             cfPath = "/boot"
             cf = "/etc/yaboot.conf"
@@ -109,7 +107,7 @@ class ppcBootloaderInfo(bootloaderInfo):
 
         f.write("\n")
 
-        rootDev = storage.fsset.mountpoints["/"]
+        rootDev = self.storage.fsset.mountpoints["/"]
 
         for (label, longlabel, version) in kernelList:
             kernelTag = "-" + version
@@ -176,8 +174,8 @@ class ppcBootloaderInfo(bootloaderInfo):
         else:
             self.noKernelsWarn(intf)
 
-    def __init__(self):
-        bootloaderInfo.__init__(self)
+    def __init__(self, storage):
+        bootloaderInfo.__init__(self, storage)
         self.useYabootVal = 1
         self.kernelLocation = "/boot"
         self.configfile = "/etc/yaboot.conf"

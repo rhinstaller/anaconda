@@ -17,9 +17,9 @@ class alphaBootloaderInfo(bootloaderInfo):
 
     def writeAboot(self, instRoot, bl, kernelList,
                    chainList, defaultDev, justConfig):
-        rootDevice = storage.fsset.mountpoints["/"]
+        rootDevice = self.storage.fsset.mountpoints["/"]
         try:
-            bootDevice = storage.fsset.mountpoints["/boot"]
+            bootDevice = self.storage.fsset.mountpoints["/boot"]
         except KeyError:
             bootDevice = rootDevice
 
@@ -135,8 +135,8 @@ class alphaBootloaderInfo(bootloaderInfo):
         self.writeAboot(instRoot, bl, kernelList, 
                         chainList, defaultDev, justConfig)
 
-    def __init__(self):
-        bootloaderInfo.__init__(self)
+    def __init__(self, storage):
+        bootloaderInfo.__init__(self, storage)
         self.useGrubVal = 0
         self.configfile = "/etc/aboot.conf"
         # self.kernelLocation is already set to what we need.

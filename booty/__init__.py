@@ -21,28 +21,28 @@ from bootloaderInfo import *
 from bootloader import *
 
 # return instance of the appropriate bootloader for our arch
-def getBootloader():
+def getBootloader(storage):
     """Get the bootloader info object for your architecture"""
     if rhpl.getArch() == 'i386':
         import x86
-        return x86.x86BootloaderInfo()
+        return x86.x86BootloaderInfo(storage)
     elif rhpl.getArch() == 'ia64':
         import ia64
-        return ia64.ia64BootloaderInfo()
+        return ia64.ia64BootloaderInfo(storage)
     elif rhpl.getArch() == 's390' or rhpl.getArch() == "s390x":
         import s390
-        return s390.s390BootloaderInfo()
+        return s390.s390BootloaderInfo(storage)
     elif rhpl.getArch() == "alpha":
         import alpha
-        return alpha.alphaBootloaderInfo()
+        return alpha.alphaBootloaderInfo(storage)
     elif rhpl.getArch() == "x86_64":
         import x86
-        return x86.x86BootloaderInfo()
+        return x86.x86BootloaderInfo(storage)
     elif rhpl.getArch() == "ppc":
         import pcc
-        return ppc.ppcBootloaderInfo()
+        return ppc.ppcBootloaderInfo(storage)
     elif rhpl.getArch() == "sparc":
         import sparc
-        return sparc.sparcBootloaderInfo()
+        return sparc.sparcBootloaderInfo(storage)
     else:
-        return bootloaderInfo()
+        return bootloaderInfo(storage)
