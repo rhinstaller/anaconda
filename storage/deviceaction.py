@@ -178,8 +178,8 @@ class DeviceAction(object):
         if self.isResize():
             s += " (%s)" % resize_strings[self.dir]
         if self.isFormat():
-            if self.format:
-                fmt_type = self.format.type
+            if self.device.format:
+                fmt_type = self.device.format.type
             else:
                 fmt_type = None
             s += " %s on" % fmt_type
