@@ -821,7 +821,7 @@ class PartitionDevice(StorageDevice):
         ppart = None
         if self._partedPartition and self.disk and \
            self.disk.partedDisk == self._partedPartition.disk:
-                ppart = self._partedPartition
+            ppart = self._partedPartition
         elif self.disk:
             pdisk = self.disk.partedDisk
             ppart = pdisk.getPartitionByPath(self.path)
@@ -842,8 +842,13 @@ class PartitionDevice(StorageDevice):
         log.debug("device %s new partedPartition %s has path %s" % (self.name,
                                                                     partition,
                                                                     path))
-        self._partedPartition = partition
-        self._name = partition.getDeviceNodeName()
+
+        if partition is None:
+            self._partedPartition = None
+            # no need to clobber our name
+        else:
+            self._partedPartition = partition
+            self._name = partition.getDeviceNodeName()
 
     partedPartition = property(lambda d: d._getPartedPartition(),
                                lambda d,p: d._setPartedPartition(p))
@@ -1041,6 +1046,7 @@ class PartitionDevice(StorageDevice):
         return disk
 
     def _setDisk(self, disk):
+        log_method_call(self, self.name, old=self.disk, new=disk)
         if self.disk:
             self.disk.removeChild()
 
