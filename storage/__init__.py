@@ -481,14 +481,14 @@ class Storage(object):
                                                                None))
 
         if kwargs.has_key("minor"):
-            minor = str(kwargs.pop("minor"))
+            kwargs["minor"] = int(kwargs["minor"])
         else:
-            kwargs["minor"] = str(self.unusedMDMinors[0])
+            kwargs["minor"] = self.unusedMDMinors[0]
 
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
         else:
-            name = "md%s" % kwargs["minor"]
+            name = "md%d" % kwargs["minor"]
 
         return MDRaidArrayDevice(name, *args, **kwargs)
 
