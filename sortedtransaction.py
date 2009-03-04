@@ -50,12 +50,12 @@ class SplitMediaTransactionData(SortableTransactionData):
             return TransactionData.getMembers(self, pkgtup)
         if pkgtup is None:
             returnlist = []
-            for key in self.reqmedia[self.curmedia]:
-                returnlist.extend(self.pkgdict[key])
+            for ele in self.reqmedia[self.curmedia]:
+                returnlist.extend(self.pkgdict[ele])
 
             return returnlist
 
-        if self.reqmedia[self.curmedia].has_key(pkgtup):
+        if pkgtup in self.reqmedia[self.curmedia]:
             return self.pkgdict[pkgtup]
         else:
             return []
