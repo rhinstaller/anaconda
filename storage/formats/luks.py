@@ -42,7 +42,7 @@ class LUKS(DeviceFormat):
     _name = "LUKS"
     _udevTypes = ["crypto_LUKS"]
     _formattable = True                 # can be formatted
-    _supported = True                   # is supported
+    _supported = False                  # is supported
     _linuxNative = True                 # for clearpart
     _packages = ["cryptsetup-luks"]     # required packages
 
