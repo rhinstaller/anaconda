@@ -31,6 +31,7 @@ from rhpl.translate import _, N_
 from flags import flags
 from fsset import getDiskPart
 import iutil
+import isys
 from product import *
 
 import booty
@@ -59,7 +60,6 @@ def checkForBootBlock(device):
 # there's no guarantee that data is written to the disk and grub
 # reads both the filesystem and the disk.  suck.
 def syncDataToDisk(dev, mntpt, instRoot = "/"):
-    import isys
     isys.sync()
     isys.sync()
     isys.sync()
