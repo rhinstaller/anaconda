@@ -867,7 +867,9 @@ class PartitionWindow(InstallWindow):
 		    else:
 			self.tree[iter]['Mount Point'] = ""
 
-                if format and format.type == "luks" and not format.exists:
+                if device and device.format and \
+                   device.format.type == "luks" and \
+                   not device.format.exists:
                     self.tree[iter]['Format'] = self.lock_pixbuf
                 elif format and not format.exists:
                     self.tree[iter]['Format'] = self.checkmark_pixbuf
