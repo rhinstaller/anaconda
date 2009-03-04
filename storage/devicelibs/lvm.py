@@ -31,6 +31,8 @@ from ..errors import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+MAX_LV_SLOTS = 256
+
 def has_lvm():
     has_lvm = False
     for path in os.environ["PATH"].split(":"):
@@ -63,11 +65,8 @@ def getPossiblePhysicalExtents(floor=0):
 
     return possiblePE
 
-def getMaxLVSize(pe):
-    """Given a PE size in KB, returns maximum size (in MB) of a logical volume.
-
-    pe - PE size in KB
-    """
+def getMaxLVSize():
+    """ Return the maximum size (in MB) of a logical volume. """
     if iutil.getArch() in ("x86_64", "ppc64"): #64bit architectures
         return (8*1024*1024*1024*1024) #Max is 8EiB (very large number..)
     else:
