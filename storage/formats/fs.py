@@ -722,6 +722,12 @@ class Ext3FS(Ext2FS):
     _migrationTarget = "ext4"
     _defaultMigrateOptions = ["-O", "extents"]
 
+    @property
+    def migratable(self):
+        """ Can filesystems of this type be migrated? """
+        return (flags.cmdline.has_key("ext4migrate") and
+                Ext2FS.migratable(self))
+
 register_device_format(Ext3FS)
 
 
