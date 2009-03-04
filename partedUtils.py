@@ -223,7 +223,7 @@ def hasProtectedPartitions(drive, anaconda):
         return rc
 
     try:
-        for protected in anaconda.id.partitions.protectedPartitions():
+        for protected in anaconda.id.storage.protectedPartitions:
             if protected.startswith(drive):
                 part = protected[len(drive):]
                 if part[0] == "p":
@@ -584,7 +584,7 @@ class DiskSet:
         drives = self.disks.keys()
         drives.sort()
 
-        protected = self.anaconda.id.partitions.protectedPartitions()
+        protected = self.anaconda.id.storage.protectedPartitions
 
         for drive in drives:
             disk = self.disks[drive]
