@@ -641,13 +641,9 @@ class DiskSet:
 
     def driveList (self):
         """Return the list of drives on the system."""
-        drives = isys.hardDriveDict().keys()
+        drives = map(lambda x: x.name, filter(lambda x: isys.mediaPresent(x.name), self.anaconda.id.storage.disks))
         drives.sort (isys.compareDrives)
         return drives
-
-    def drivesByName (self):
-        """Return a dictionary of the drives on the system."""
-        return isys.hardDriveDict()
 
     def savePartitions (self):
         """Write the partition tables out to the disks."""

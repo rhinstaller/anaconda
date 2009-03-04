@@ -232,7 +232,7 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
 
-        hds = isys.hardDriveDict().keys()
+        hds = map(lambda x: x.name, filter(lambda x: isys.mediaPresent(x.name), self.handler.id.storage.disks))
         for disk in self.drives:
             if disk not in hds:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % disk)
@@ -600,7 +600,7 @@ class Partition(commands.partition.F9_Partition):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition requires a size specification")
         if pd.start != 0 and pd.disk == "":
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition command with start cylinder requires a drive specification")
-        hds = isys.hardDriveDict()
+        hds = map(lambda x: x.name, filter(lambda x: isys.mediaPresent(x.name), self.handler.id.storage.disks))
         if not hds.has_key(pd.disk) and hds.has_key('mapper/'+pd.disk):
             pd.disk = 'mapper/' + pd.disk
         if pd.disk != "" and pd.disk not in hds.keys():
@@ -1010,8 +1010,6 @@ def processKickstartFile(anaconda, file):
     # make sure our disks are alive
     from partedUtils import DiskSet
     ds = DiskSet(anaconda)
-    ds.startMPath()
-    ds.startDmRaid()
 
     # parse the %pre
     ksparser = KickstartPreParser(AnacondaKSHandler(anaconda))
