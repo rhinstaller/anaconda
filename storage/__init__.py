@@ -1511,7 +1511,7 @@ class FSSet(object):
         for array in arrays:
             writeConf = False
             for device in devices:
-                if device == array or devices.dependsOn(array):
+                if device == array or device.dependsOn(array):
                     writeConf = True
                     break
 
