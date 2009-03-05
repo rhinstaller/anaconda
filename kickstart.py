@@ -142,6 +142,7 @@ class AutoPart(commands.autopart.F9_AutoPart):
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
         self.handler.id.instClass.setDefaultPartitioning(self.handler.id.storage, self.handler.anaconda.platform, doClear = 0)
+        self.handler.id.storage.doAutoPart = True
 
         if self.encrypted:
             self.handler.id.storage.autoEncrypt = True
