@@ -1563,10 +1563,6 @@ class FSSet(object):
 
         return conf
 
-    def writeFSTab(self, chroot="/"):
-        """ Write out /etc/fstab. """
-        pass
-
     def fstab (self):
         format = "%-23s %-23s %-7s %-15s %d %d\n"
         fstab = """
