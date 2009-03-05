@@ -527,6 +527,11 @@ class FS(DeviceFormat):
         return self._mkfs
 
     @property
+    def fsckProg(self):
+        """ Program used to check filesystems of this type. """
+        return self._fsck
+
+    @property
     def resizefsProg(self):
         """ Program used to resize filesystems of this type. """
         return self._resizefs
