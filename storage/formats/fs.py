@@ -906,11 +906,15 @@ class NTFS(FS):
     """ ntfs filesystem. """
     _type = "ntfs"
     _resizefs = "ntfsresize"
+    _fsck = "ntfsresize"
     _resizable = True
     _minSize = 1
-    _defaultMountOptions = "defaults"
-    #_packages = ["ntfsprogs"]
+    _maxSize = 16 * 1024 * 1024
+    _defaultMountOptions = ["defaults"]
+    _defaultCheckOptions = ["-c"]
+    _packages = ["ntfsprogs"]
 
+    @property
     def minSize(self):
         """ The minimum filesystem size in megabytes. """
         size = self._minSize
