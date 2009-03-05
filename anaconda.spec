@@ -20,6 +20,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # match the requires versions of things).
 %define dmver 1.02.17-6
 %define gettextver 0.11
+%define genisoimagever 1.1.9-4
 %define intltoolver 0.31.2-3
 %define libnlver 1.0
 %define libselinuxver 1.6
@@ -124,9 +125,9 @@ Requires: zenity
 %endif
 Requires: createrepo >= %{createrepover}
 Requires: squashfs-tools
-Requires: mkisofs
+Requires: genisoimage >= %{genisoimagever}
 %ifarch %{ix86} x86_64
-Requires: syslinux
+Requires: syslinux >= 3.73
 Requires: makebootfat
 Requires: device-mapper
 %endif

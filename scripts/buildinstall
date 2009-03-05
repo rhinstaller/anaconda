@@ -179,6 +179,9 @@ echo "Running buildinstall..."
 
 pushd $BUILDINSTDIR
 BUILDARCH=`repoquery -c $yumconf --qf "%{ARCH}\n" anaconda`
+# This is a crappy implementation but x86 is the only place we currently see
+# BUILDARCH != BASEARCH (e.g. i586 != i386) so it'll suffice.
+BASEARCH=`echo $BUILDARCH | sed -e 's/i.86/i386/'`
 yumdownloader -c $yumconf anaconda || exit 1
 rpm2cpio anaconda*rpm | cpio --quiet -iumd './usr*'
 rm -f anaconda*rpm
@@ -212,11 +215,12 @@ echo "Building images..."
 $UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH $UPDATES --imgdir $TREEDIR/install $yumconf || die "upd-instroot failed"
 
 echo "Writing .treeinfo file..."
-$MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BUILDARCH --outfile=$OUTPUT/.treeinfo
+# NOTE --arch must match MK_IMAGES or the resulting treeinfo will be invalid
+$MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BASEARCH --outfile=$OUTPUT/.treeinfo
 
 # FIXME: need to update mk-images to take the yumconf
 echo "Making images..."
-$MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BUILDARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
+$MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
 
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL"  --outfile=$OUTPUT/.discinfo

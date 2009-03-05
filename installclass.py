@@ -40,7 +40,6 @@ import logging
 log = logging.getLogger("anaconda")
 
 from flags import flags
-from constants import *
 
 class BaseInstallClass(object):
     # default to not being hidden
@@ -113,6 +112,7 @@ class BaseInstallClass(object):
 		 "tasksel",                                  
 		 "postselection",
 		 "confirminstall",
+                 "reipl",
 		 "install",
 		 "enablefilesystems",
                  "setuptime",

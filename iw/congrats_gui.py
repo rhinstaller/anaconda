@@ -20,7 +20,6 @@
 
 import gtk
 import gui
-import iutil
 from iw_gui import *
 from constants import *
 import os
@@ -40,6 +39,8 @@ class CongratulationWindow (InstallWindow):
         # force buttonbar on in case release notes viewer is running
         ics.cw.mainxml.get_widget("buttonBar").set_sensitive(True)
 
+        self.rebootButton = ics.cw.mainxml.get_widget("rebootButton")
+
         # this mucks around a bit, but it's the weird case and it's
         # better than adding a lot of complication to the normal
 	ics.cw.mainxml.get_widget("nextButton").hide()
@@ -47,6 +48,8 @@ class CongratulationWindow (InstallWindow):
             ics.cw.mainxml.get_widget("closeButton").show()
             ics.cw.mainxml.get_widget("closeButton").grab_focus()
         else:
+            self.rebootButton.show()
+            self.rebootButton.grab_focus()
             ics.cw.mainxml.get_widget("rebootButton").show()
             ics.cw.mainxml.get_widget("rebootButton").grab_focus()
 
@@ -66,11 +69,29 @@ class CongratulationWindow (InstallWindow):
 	    a.set_size_request(200, -1)
             hbox.pack_start (a, False, False, 36)
 
-        txt = _("Congratulations, your %s installation is complete.\n\n"
-                "Please reboot to use the installed system.  "
-                "Note that updates may be available to ensure the proper "
-                "functioning of your system and installation of these "
-                "updates is recommended after the reboot.") %(productName,)
+        if iutil.isS390():
+            txt = _("Congratulations, your %s installation is complete.\n\n") % (productName,)
+
+            if not anaconda.canReIPL:
+                self.rebootButton.set_label(_("Shutdown"))
+
+                txt = txt + _("Please shutdown to use the installed system.\n")
+            else:
+                txt = txt + _("Please reboot to use the installed system.\n")
+
+            if not anaconda.reIPLMessage is None:
+                txt = txt + "\n" + anaconda.reIPLMessage + "\n\n"
+
+            txt = txt + _("Note that updates may be available to ensure the proper "
+                          "functioning of your system and installation of these "
+                          "updates is recommended after the reboot.")
+        else:
+            txt = _("Congratulations, your %s installation is complete.\n\n"
+                    "Please reboot to use the installed system.  "
+                    "Note that updates may be available to ensure the proper "
+                    "functioning of your system and installation of these "
+                    "updates is recommended after the reboot.") %(productName,)
+
 	label = gui.WrappingLabel(txt)
         label.set_size_request(250, -1)
 

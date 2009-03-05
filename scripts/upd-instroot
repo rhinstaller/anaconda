@@ -183,8 +183,8 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     reiserfs-utils rhpl rpm rpm-libs rpm-python sed selinux-policy-targeted
     setup slang smc-fonts-meera specspo sqlite synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release taipeifonts tcp_wrappers
-    tzdata udev un-core-fonts-dotum urw-fonts util-linux-ng tightvnc-server
-    tightvnc-server-module vlgothic-fonts
+    tzdata udev un-core-fonts-dotum urw-fonts util-linux-ng tigervnc-server
+    tigervnc-server-module vlgothic-fonts
     wpa_supplicant xkeyboard-config xfsdump xfsprogs xorg-x11 xorg-x11-auth
     xorg-x11-base xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-ethiopic
     xorg-x11-fonts-misc xorg-x11-libs xorg-x11-libs-data xorg-x11-server-utils
@@ -512,7 +512,7 @@ usr/lib/python?.?/site-packages/yum
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
-usr/lib/syslinux
+usr/share/syslinux
 usr/lib/yaboot
 usr/lib/yum-plugins/blacklist.py*
 usr/lib/yum-plugins/fedorakmod.py*

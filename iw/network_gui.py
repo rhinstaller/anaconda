@@ -25,7 +25,6 @@ import string
 from iw_gui import *
 import gui
 import network
-import socket
 
 from constants import *
 import gettext

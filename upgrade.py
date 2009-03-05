@@ -325,6 +325,7 @@ def setSteps(anaconda):
                 "dependencies",
                 "confirmupgrade",
                 "postselection",
+                "reipl",
                 "install",
                 "preinstallconfig",
                 "installpackages",
