@@ -24,6 +24,7 @@ RELEASE := $(shell awk '/Release:/ { print $$2 }' anaconda.spec)
 CVSROOT ?= ${CVSROOT:-$(shell cat CVS/Root 2>/dev/null)}
 
 SUBDIRS = isys loader po booty \
+	    storage storage/formats storage/devicelibs \
 	    textw utils scripts bootdisk installclasses \
 	    iw pixmaps command-stubs ui docs
 # fonts aren't on s390/s390x
@@ -89,6 +90,8 @@ install:
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
 	mkdir -p $(DESTDIR)/$(ANACONDADATADIR)
+
+	install -m 644 70-anaconda.rules $(DESTDIR)/$(RUNTIMEDIR)
 
 	install -m 755 anaconda $(DESTDIR)/usr/sbin/anaconda
 	install -m 755 mini-wm $(DESTDIR)/usr/bin/mini-wm
