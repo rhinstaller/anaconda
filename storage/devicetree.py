@@ -758,7 +758,7 @@ class DeviceTree(object):
                         rc = self.intf.messageWindow(_("Warning"),
                                 _("Error processing drive %s.\n"
                                   "Maybe it needs to be reinitialized."
-                                  "YOU WILL LOSE ALL DATA ON THIS DRIVE!" % (name,)),
+                                  "YOU WILL LOSE ALL DATA ON THIS DRIVE!") % (name,),
                                 type="custom",
                                 custom_buttons = [ _("_Ignore drive"),
                                                    _("_Re-initialize drive") ],
