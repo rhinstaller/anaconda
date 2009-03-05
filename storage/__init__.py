@@ -383,7 +383,11 @@ class Storage(object):
             if not device.removable:
                 continue
 
-            dev = parted.Device(path=device.path)
+            try:
+                dev = parted.Device(path=device.path)
+            except parted.DeviceException:
+                continue
+
             disk = parted.Disk(device=dev)
             for part in disk.partitions:
                 if part.active and \
