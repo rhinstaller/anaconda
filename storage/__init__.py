@@ -1341,7 +1341,10 @@ class FSSet(object):
     def mountFilesystems(self, anaconda, raiseErrors=None, readOnly=None,
                          skipRoot=False):
         intf = anaconda.intf
-        for device in [d for d in self.devices if d.isleaf]:
+        devices = self.mountpoints.values() + self.swapDevices
+        devices.extend([self.devshm, self.devpts, self.sysfs, self.proc])
+        devices.sort(key=lambda d: getattr(d.format, "mountpoint", None))
+        for device in devices:
             if not device.format.mountable or not device.format.mountpoint:
                 continue
 
@@ -1432,10 +1435,11 @@ class FSSet(object):
         if os.path.ismount("%s/dev" % instPath):
             isys.umount("%s/dev" % instPath, removeDir=0)
 
-        # reverse works in place so we take a slice
-        devices = self.devices[:]
+        devices = self.mountpoints.values() + self.swapDevices
+        devices.extend([self.devshm, self.devpts, self.sysfs, self.proc])
+        devices.sort(key=lambda d: getattr(d.format, "mountpoint", None))
         devices.reverse()
-        for device in [d for d in devices if d.isleaf]:
+        for device in devices:
             if not device.format.mountable and \
                (device.format.type != "swap" or swapoff):
                 continue
@@ -1575,8 +1579,8 @@ class FSSet(object):
 #
 """ % time.asctime()
 
-
         devices = self.mountpoints.values() + self.swapDevices
+        devices.extend([self.devshm, self.devpts, self.sysfs, self.proc])
         for device in devices:
             # why the hell do we put swap in the fstab, anyway?
             if not device.format.mountable and device.format.type != "swap":
