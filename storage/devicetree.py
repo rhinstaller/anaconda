@@ -819,7 +819,10 @@ class DeviceTree(object):
                 kwargs["mapName"] = "luks-%s" % uuid
             elif format_type == "linux_raid_member":
                 # mdraid
-                kwargs["mdUuid"] = udev_device_get_md_uuid(info)
+                try:
+                    kwargs["mdUuid"] = udev_device_get_md_uuid(info)
+                except KeyError:
+                    log.debug("mdraid member %s has no md uuid" % name)
             elif format_type == "isw_raid_member":
                 # dmraid
                 # TODO: collect name of containing raidset
@@ -831,8 +834,14 @@ class DeviceTree(object):
                     kwargs["vgName"] = udev_device_get_vg_name(info)
                 except KeyError as e:
                     log.debug("PV %s has no vg_name" % name)
-                kwargs["vgUuid"] = udev_device_get_vg_uuid(info)
-                kwargs["peStart"] = udev_device_get_pv_pe_start(info)
+                try:
+                    kwargs["vgUuid"] = udev_device_get_vg_uuid(info)
+                except KeyError:
+                    log.debug("PV %s has no vg_uuid" % name)
+                try:
+                    kwargs["peStart"] = udev_device_get_pv_pe_start(info)
+                except KeyError:
+                    log.debug("PV %s has no pe_start" % name)
 
             format = formats.getFormat(*args, **kwargs)
             device.format = format
