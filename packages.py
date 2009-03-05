@@ -240,8 +240,6 @@ def setupTimezone(anaconda):
 # FIXME: this is a huge gross hack.  hard coded list of files
 # created by anaconda so that we can not be killed by selinux
 def setFileCons(anaconda):
-    import partRequests
-
     if flags.selinux:
         log.info("setting SELinux contexts for anaconda created files")
 
