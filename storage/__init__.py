@@ -1067,6 +1067,46 @@ class FSSet(object):
         self.cryptTab = None
         self.blkidTab = None
         self.active = False
+        self._tmpfs = None
+        self._sysfs = None
+        self._proc = None
+        self._devshm = None
+
+    @property
+    def sysfs(self):
+        self._sysfs = self.mountpoints.get("/sys")
+        if not self._sysfs:
+            self._sysfs = NoDevice(format=getFormat("sysfs",
+                                                    device="sys",
+                                                    mountpoint="/sys"))
+        return self._sysfs
+
+    @property
+    def devpts(self):
+        self._devpts = self.mountpoints.get("/dev/pts")
+        if not self._devpts:
+            self._devpts = NoDevice(format=getFormat("devpts",
+                                                     device="devpts",
+                                                     mountpoint="/dev/pts"))
+        return self._devpts
+
+    @property
+    def proc(self):
+        self._proc = self.mountpoints.get("/proc")
+        if not self._proc:
+            self._proc = NoDevice(format=getFormat("proc",
+                                                   device="proc",
+                                                   mountpoint="/proc"))
+        return self._proc
+
+    @property
+    def devshm(self):
+        self._devshm = self.mountpoints.get("/dev/shm")
+        if not self._devshm:
+            self._devshm = NoDevice(format=getFormat("tmpfs",
+                                                     device="tmpfs",
+                                                     mountpoint="/dev/shm"))
+        return self._devshm
 
     @property
     def devices(self):
