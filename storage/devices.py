@@ -569,7 +569,7 @@ class DiskDevice(StorageDevice):
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None,
-                 sysfsPath='', parents=None):
+                 sysfsPath='', parents=None, init = False, labeltype = None):
         """ Create a DiskDevice instance.
 
             Arguments:
@@ -586,6 +586,10 @@ class DiskDevice(StorageDevice):
                 parents -- a list of required Device instances
                 removable -- whether or not this is a removable device
 
+                init -- initialize label on this drive
+                labeltype -- type of the label to use during initialization
+
+
             DiskDevices always exist.
         """
         StorageDevice.__init__(self, device, format=format, size=size,
@@ -599,7 +603,10 @@ class DiskDevice(StorageDevice):
         if not self.partedDevice:
             raise DeviceError("cannot find parted device instance")
         log.debug("creating parted Disk: %s" % self.path)
-        self.partedDisk = parted.Disk(device=self.partedDevice)
+        if init:
+            self.partedDisk = parted.freshDisk(device=self.partedDevice, ty = labeltype)
+        else:
+            self.partedDisk = parted.Disk(device=self.partedDevice)
         if not self.partedDisk:
             raise DeviceError("failed to create parted Disk")
 

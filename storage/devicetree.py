@@ -27,6 +27,8 @@ from devices import *
 from deviceaction import *
 import formats
 from udev import *
+import parted
+import platform
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -743,11 +745,33 @@ class DeviceTree(object):
             log.debug("%s is a disk" % name)
             device = self.getDeviceByName(name)
             if device is None:
-                device = DiskDevice(name,
+                try:
+                    device = DiskDevice(name,
                                     major=udev_device_get_major(info),
                                     minor=udev_device_get_minor(info),
                                     sysfsPath=sysfs_path)
-                self._addDevice(device)
+                    self._addDevice(device)
+                except parted.IOException: #drive not initialized?
+                    if not self.intf:
+                        self.ignoredDisks.append(name)
+                    else:
+                        rc = self.intf.messageWindow(_("Warning"),
+                                _("Error processing drive %s.\n"
+                                  "Maybe it needs to be reinitialized."
+                                  "YOU WILL LOSE ALL DATA ON THIS DRIVE!" % (name,)),
+                                type="custom",
+                                custom_buttons = [ _("_Ignore drive"),
+                                                   _("_Re-initialize drive") ],
+                                custom_icon="question")
+                        if rc == 0:
+                            self.ignoredDisks.append(name)
+                        else:
+                            device = DiskDevice(name,
+                                            major=udev_device_get_major(info),
+                                            minor=udev_device_get_minor(info),
+                                            sysfsPath=sysfs_path, init = True,
+                                            labeltype = platform.getPlatform(None).diskType)
+                            self._addDevice(device)
         elif udev_device_is_partition(info):
             log.debug("%s is a partition" % name)
             device = self.getDeviceByName(name)
