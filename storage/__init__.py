@@ -238,7 +238,11 @@ class Storage(object):
             does not necessarily reflect the actual on-disk state of the
             system's disks.
         """
-        disks = self.devicetree.getDevicesByType("disk")
+        disks = []
+        devices = self.devicetree.devices
+        for d in devices:
+            if isinstance(devices[d], DiskDevice):
+                disks.append(devices[d])
         disks.sort(key=lambda d: d.name)
         return disks
 
@@ -250,7 +254,11 @@ class Storage(object):
             does not necessarily reflect the actual on-disk state of the
             system's disks.
         """
-        partitions = self.devicetree.getDevicesByType("partition")
+        partitions = []
+        devices = self.devicetree.devices
+        for d in devices:
+            if isinstance(devices[d], PartitionDevice):
+                partitions.append(devices[d])
         partitions.sort(key=lambda d: d.name)
         return partitions
 
@@ -423,7 +431,7 @@ class Storage(object):
         if device.name in self.protectedPartitions:
             return _("This partition is holding the data for the hard "
                       "drive install.")
-        elif device.type == "partition" and device.isProtected:
+        elif isinstance(device, PartitionDevice) and device.isProtected:
             # LDL formatted DASDs always have one partition, you'd have to
             # reformat the DASD in CDL mode to get rid of it
             return _("You cannot delete a partition of a LDL formatted "
@@ -445,7 +453,7 @@ class Storage(object):
                     else:
                         return _("This device is part of a LVM volume "
                                  "group.")
-        elif device.type == "partition" and device.isExtended:
+        elif isinstance(device, PartitionDevice) and device.isExtended:
             reasons = {}
             for dep in self.deviceDeps(device):
                 reason = self.deviceImmutable(dep)
@@ -473,13 +481,17 @@ class Storage(object):
 
         if kwargs.has_key("disks"):
             parents = kwargs.pop("disks")
+            if isinstance(parents, Device):
+                kwargs["parents"] = [parents]
+            else:
+                kwargs["parents"] = parents
 
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
         else:
             name = "req%d" % self.nextID
 
-        return PartitionDevice(name, *args, **kwargs)
+        return PartitionDeviceFactory(name, *args, **kwargs)
 
     def newMDArray(self, *args, **kwargs):
         """ Return a new MDRaidArrayDevice instance for configuring. """

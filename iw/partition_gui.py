@@ -142,12 +142,12 @@ class DiskStripeSlice:
         if self.partition.type & parted.PARTITION_FREESPACE:
             rc = "Free\n"
         else:
-            rc = "%s\n" % (self.partition.getDeviceNodeName(),)
+            rc = "%s\n" % (self.partition.getDeviceNodeName().split("/")[-1],)
         rc = rc + "%Ld MB" % (self.partition.getSize(unit="MB"),)
         return rc
 
     def getDeviceName(self):
-        return self.partition.getDeviceNodeName()
+        return self.partition.getDeviceNodeName().split("/")[-1]
 
     def update(self):
         disk = self.parent.getDisk()
@@ -808,7 +808,7 @@ class PartitionWindow(InstallWindow):
                     part = part.nextPartition()
                     continue
 
-                partName = part.getDeviceNodeName()
+                partName = part.getDeviceNodeName().split("/")[-1]
                 device = self.storage.devicetree.getDeviceByName(partName)
                 if not device and not part.type & parted.PARTITION_FREESPACE:
                     raise RuntimeError("can't find partition %s in device"
@@ -1054,7 +1054,7 @@ class PartitionWindow(InstallWindow):
             self.editLVMVolumeGroup(device)
         elif device.type == "lvmlv":
             self.editLVMVolumeGroup(device)
-        elif device.type == "partition":
+        elif isinstance(device, storage.devices.PartitionDevice):
             self.editPartition(device)
 
     # isNew implies that this request has never been successfully used before

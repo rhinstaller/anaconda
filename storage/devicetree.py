@@ -21,6 +21,7 @@
 #
 
 import os
+import block
 
 from errors import *
 from devices import *
@@ -458,7 +459,7 @@ class DeviceTree(object):
             raise ValueError("Cannot remove non-leaf device '%s'" % dev.name)
 
         # if this is a partition we need to remove it from the parted.Disk
-        if dev.type == "partition":
+        if isinstance(dev, PartitionDevice):
             dev.disk.removePartition(dev)
 
         self._devices.remove(dev)
@@ -558,9 +559,9 @@ class DeviceTree(object):
         # special handling for extended partitions since the logical
         # partitions and their deps effectively depend on the extended
         logicals = []
-        if dep.type == "partition" and dep.isExtended:
+        if isinstance(dep, PartitionDevice):
             # collect all of the logicals on the same disk
-            for part in self.getDevicesByType("partition"):
+            for part in self.getDevicesByInstance(PartitionDevice):
                 if part.isLogical and part.disk == dep.disk:
                     logicals.append(part)
 
@@ -600,6 +601,13 @@ class DeviceTree(object):
             if ignored == os.path.basename(os.path.dirname(sysfs_path)):
                 # this is a partition on a disk in the ignore list
                 return True
+
+        # Ignore partitions found on the raw disks which are part of a
+        # dmraidset
+        for set in self.getDevicesByType("dm-raid array"):
+            for disk in set.parents:
+                if disk.name == os.path.basename(os.path.dirname(sysfs_path)):
+                    return True
 
         # FIXME: check for virtual devices whose slaves are on the ignore list
 
@@ -666,6 +674,19 @@ class DeviceTree(object):
                                 # the tree, something has gone wrong
                                 log.error("failure scanning device %s" % name)
                                 return
+
+                if device is None and \
+                        udev_device_is_dmraid_partition(info, self):
+                    diskname = udev_device_get_dmraid_partition_disk(info)
+                    disk = self.getDeviceByName(diskname)
+                    device = PartitionDeviceFactory(name, \
+                                           sysfsPath=sysfs_path, \
+                                           major=udev_device_get_major(info), \
+                                           minor=udev_device_get_minor(info), \
+                                           exists=True, \
+                                           parents=[disk])
+                    self._addDevice(device)
+                    #self.ignoredDisks.append(name)
 
                 # if we get here, we found all of the slave devices and
                 # something must be wrong -- if all of the slaves are in
@@ -741,6 +762,17 @@ class DeviceTree(object):
                                        minor=udev_device_get_minor(info),
                                        sysfsPath=sysfs_path)
                 self._addDevice(device)
+        elif udev_device_is_dmraid(info):
+            # This is just temporary as I need to differentiate between the
+            # device that has partitions and device that dont.
+            log.debug("%s is part of a dmraid" % name)
+            device = self.getDeviceByName(name)
+            if device is None:
+                device = StorageDevice(name,
+                                major=udev_device_get_major(info),
+                                minor=udev_device_get_minor(info),
+                                sysfsPath=sysfs_path, exists=True)
+                self._addDevice(device)
         elif udev_device_is_disk(info):
             log.debug("%s is a disk" % name)
             device = self.getDeviceByName(name)
@@ -793,12 +825,12 @@ class DeviceTree(object):
                         log.error("failure scanning device %s" % disk_name)
                         return
 
-                device = PartitionDevice(name,
-                                         sysfsPath=sysfs_path,
-                                         major=udev_device_get_major(info),
-                                         minor=udev_device_get_minor(info),
-                                         exists=True,
-                                         parents=[disk])
+                device = PartitionDeviceFactory(name,
+                                                sysfsPath=sysfs_path,
+                                                major=udev_device_get_major(info),
+                                                minor=udev_device_get_minor(info),
+                                                exists=True,
+                                                parents=[disk])
                 self._addDevice(device)
 
         #
@@ -824,9 +856,8 @@ class DeviceTree(object):
                 except KeyError:
                     log.debug("mdraid member %s has no md uuid" % name)
             elif format_type == "isw_raid_member":
-                # dmraid
-                # TODO: collect name of containing raidset
-                # TODO: implement dmraid member format class
+                # We dont add any new args because we intend to use the same
+                # block.RaidSet object for all the related devices.
                 pass
             elif format_type == "LVM2_member":
                 # lvm
@@ -914,8 +945,38 @@ class DeviceTree(object):
                                                  parents=[device])
                     self._addDevice(md_array)
             elif format.type == "dmraidmember":
-                # look up or create the dmraid array
-                pass
+                major = udev_device_get_major(info)
+                minor = udev_device_get_minor(info)
+                # Have we already created the DMRaidArrayDevice?
+                rs = block.getRaidSetFromRelatedMem(uuid=uuid, name=name,
+                                                    major=major, minor=minor)
+                if rs is None:
+                    # FIXME: Should handle not finding a dmriad dev better
+                    pass
+
+                dm_array = self.getDeviceByName(rs.name)
+                if dm_array is not None:
+                    # We add the new device.
+                    dm_array._addDevice(device)
+                else:
+                    # Activate the Raid set.
+                    rs.activate(mknod=True)
+
+                    # Create the DMRaidArray
+                    dm_array = DMRaidArrayDevice(rs.name,
+                                                 major=major, minor=minor,
+                                                 raidSet=rs,
+                                                 level=rs.level,
+                                                 parents=[device])
+
+                    self._addDevice(dm_array)
+
+                # Use the rs's object on the device.
+                # pyblock can return the memebers of a set and the device has
+                # the attribute to hold it.  But ATM we are not really using it.
+                # Commenting this out until we really need it.
+                #device.format.raidmem = block.getMemFromRaidSet(dm_array,
+                #        major=major, minor=minor, uuid=uuid, name=name)
             elif format.type == "lvmpv":
                 # lookup/create the VG and LVs
                 try:
@@ -1076,6 +1137,9 @@ class DeviceTree(object):
     def getDevicesByType(self, device_type):
         # TODO: expand this to catch device format types
         return [d for d in self._devices if d.type == device_type]
+
+    def getDevicesByInstance(self, device_class):
+        return [d for d in self._devices if isinstance(d, device_class)]
 
     @property
     def devices(self):

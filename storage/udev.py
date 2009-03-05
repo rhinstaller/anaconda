@@ -270,4 +270,37 @@ def udev_device_get_lv_sizes(info):
 
     return [float(s) / 1024 for s in sizes]
 
+def udev_device_is_dmraid(info):
+    # Note that this function does *not* identify raid sets.
+    # Tests to see if device is parto of a dmraid set.
+    # dmraid and mdriad have the same ID_FS_USAGE string,  ID_FS_TYPE has a
+    # string that describes the type of dmraid (isw_raid_member...),  I don't
+    # want to maintain a list and mdraid's ID_FS_TYPE='linux_raid_member', so
+    # dmraid will be everything that is raid and not linux_raid_member
+    if info.has_key("ID_FS_USAGE") and info.has_key("ID_FS_TYPE") and \
+            info["ID_FS_USAGE"] == "raid" and \
+            info["ID_FS_TYPE"] != "linux_raid_member":
+        return True
 
+    return False
+
+def udev_device_get_dmraid_partition_disk(info):
+    try:
+        p_index = info["DM_NAME"].rindex("p")
+    except:
+        return None
+
+    if not info["DM_NAME"][p_index+1:].isdigit():
+        return None
+
+    return info["DM_NAME"][:p_index]
+
+def udev_device_is_dmraid_partition(info, devicetree):
+    diskname = udev_device_get_dmraid_partition_disk(info)
+    dmraid_devices = devicetree.getDevicesByType("dm-raid array")
+
+    for device in dmraid_devices:
+        if diskname == device.name:
+            return True
+
+    return False

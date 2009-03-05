@@ -20,6 +20,8 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
+import block
+
 from iutil import log_method_call
 #from dm import dm_node_from_name
 from ..errors import *
@@ -65,25 +67,34 @@ class DMRaidMember(DeviceFormat):
 
                 device -- path to the underlying device
                 uuid -- this format's UUID
-                raidSet -- the name of the raidset this member belongs to
                 exists -- indicates whether this is an existing format
+
+            On initialization this format is like DeviceFormat
 
         """
         log_method_call(self, *args, **kwargs)
         DeviceFormat.__init__(self, *args, **kwargs)
-        
-        self.raidSet = kwargs.get("raidSet")
+
+        # Initialize the attribute that will hold the block object.
+        self._raidmem = None
+
+    @property
+    def raidmem(self):
+        return self._raidmem
+
+    @raidmem.setter
+    def raidmem(self, raidmem):
+        self._raidmem = raidmem
 
     def create(self, *args, **kwargs):
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
-        raise DMRaidMemberError("creation of dmraid members is not supported")
+        raise DMRaidMemberError("creation of dmraid members is non-sense")
 
     def destroy(self, *args, **kwargs):
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
-        raise DMRaidMemberError("destruction of dmraid members is not supported")
-
+        raise DMRaidMemberError("destruction of dmraid members is non-sense")
 
 register_device_format(DMRaidMember)
 
