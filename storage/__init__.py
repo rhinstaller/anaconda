@@ -1067,6 +1067,41 @@ class FSSet(object):
         self.cryptTab = None
         self.blkidTab = None
         self.active = False
+        self._tmpfs = None
+        self._sysfs = None
+        self._proc = None
+        self._devshm = None
+
+    @property
+    def sysfs(self):
+        self._sysfs = self.mountpoints.get("/sys")
+        if not self._sysfs:
+            self._sysfs = NoDevice(format=getFormat("sysfs", device="/sys")
+        return self._sysfs
+
+    @property
+    def devpts(self):
+        self._devpts = self.mountpoints.get("/dev/pts")
+        if not self._devpts:
+            self._devpts = NoDevice(format=getFormat("devpts",
+                                                     device="/dev/pts")
+        return self._devpts
+
+    @property
+    def proc(self):
+        self._proc = self.mountpoints.get("/proc")
+        if not self._proc:
+            self._proc = NoDevice(format=getFormat("proc",
+                                                   device="/proc")
+        return self._proc
+
+    @property
+    def devshm(self):
+        self._devshm = self.mountpoints.get("/dev/shm")
+        if not self._devshm:
+            self._devshm = NoDevice(format=getFormat("tmpfs",
+                                                     device="/dev/shm")
+        return self._devshm
 
     @property
     def devices(self):
@@ -1301,7 +1336,13 @@ class FSSet(object):
     def mountFilesystems(self, anaconda, raiseErrors=None, readOnly=None,
                          skipRoot=False):
         intf = anaconda.intf
-        for device in [d for d in self.devices if d.isleaf]:
+        devices = self.mountpoints.values() + self.swapDevices
+        devices += self.devshm
+        devices += self.devpts
+        devices += self.sysfs
+        devices += self.proc
+
+        for device in devices:
             if not device.format.mountable or not device.format.mountpoint:
                 continue
 
@@ -1392,10 +1433,13 @@ class FSSet(object):
         if os.path.ismount("%s/dev" % instPath):
             isys.umount("%s/dev" % instPath, removeDir=0)
 
-        # reverse works in place so we take a slice
-        devices = self.devices[:]
+        devices = self.mountpoints.values() + self.swapDevices
+        devices += self.devshm
+        devices += self.devpts
+        devices += self.sysfs
+        devices += self.proc
         devices.reverse()
-        for device in [d for d in devices if d.isleaf]:
+        for device in devices:
             if not device.format.mountable and \
                (device.format.type != "swap" or swapoff):
                 continue
@@ -1523,10 +1567,6 @@ class FSSet(object):
 
         return conf
 
-    def writeFSTab(self, chroot="/"):
-        """ Write out /etc/fstab. """
-        pass
-
     def fstab (self):
         format = "%-23s %-23s %-7s %-15s %d %d\n"
         fstab = """
@@ -1539,8 +1579,11 @@ class FSSet(object):
 #
 """ % time.asctime()
 
-
         devices = self.mountpoints.values() + self.swapDevices
+        devices += self.devshm
+        devices += self.devpts
+        devices += self.sysfs
+        devices += self.proc
         for device in devices:
             # why the hell do we put swap in the fstab, anyway?
             if not device.format.mountable and device.format.type != "swap":
