@@ -23,6 +23,7 @@ import gui
 from iw_gui import *
 from constants import *
 import os
+import platform
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -69,7 +70,7 @@ class CongratulationWindow (InstallWindow):
 	    a.set_size_request(200, -1)
             hbox.pack_start (a, False, False, 36)
 
-        if iutil.isS390():
+        if isinstance(anaconda.platform, platform.S390):
             txt = _("Congratulations, your %s installation is complete.\n\n") % (productName,)
 
             if not anaconda.canReIPL:
