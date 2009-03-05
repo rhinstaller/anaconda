@@ -482,7 +482,7 @@ class StorageDevice(Device):
         if self.exists:
             self.setup()
 
-        if self.format.minSize < self.size:
+        if self.format.minSize:
             return self.format.minSize
         else:
             return self.size
@@ -1072,10 +1072,10 @@ class PartitionDevice(StorageDevice):
     def maxSize(self):
         """ The maximum size this partition can be. """
         # XXX: this is MB by default
-        max = self.partedPartition.getMaxAvailableSize()
+        maxPartSize = self.partedPartition.getMaxAvailableSize()
 
-        if self.format.maxSize > max:
-            return max
+        if self.format.maxSize > maxPartSize:
+            return maxPartSize
         else:
             return self.format.maxSize
 
