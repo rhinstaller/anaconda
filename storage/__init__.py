@@ -951,7 +951,7 @@ class BlkidTab(object):
 
 class CryptTab(object):
     """ Dictionary-like interface to crypttab entries with map name keys """
-    def __init__(self, devicetree, blkidTab=None):
+    def __init__(self, devicetree, blkidTab=None, chroot=""):
         self.devicetree = devicetree
         self.blkidTab = blkidTab
         self.chroot = chroot
@@ -1105,7 +1105,7 @@ class FSSet(object):
             log.info("error parsing blkid.tab: %s" % e)
             blkidTab = None
 
-        cryptTab = CryptTab(self.devicetree, blkidTab=blkidTab)
+        cryptTab = CryptTab(self.devicetree, blkidTab=blkidTab, chroot=chroot)
         try:
             cryptTab.parse(chroot=chroot)
             log.debug("crypttab maps: %s" % cryptTab.mappings.keys())
@@ -1460,17 +1460,17 @@ class FSSet(object):
     def write(self, instPath):
         """ write out all config files based on the set of filesystems """
         # /etc/fstab
-        fstab_path = os.normpath("%s/etc/fstab" % instPath)
+        fstab_path = os.path.normpath("%s/etc/fstab" % instPath)
         fstab = self.fstab()
         open(fstab_path, "w").write(fstab)
 
         # /etc/crypttab
-        crypttab_path = os.normpath("%s/etc/crypttab" % instPath)
+        crypttab_path = os.path.normpath("%s/etc/crypttab" % instPath)
         crypttab = self.crypttab()
         open(crypttab_path, "w").write(crypttab)
 
         # /etc/mdadm.conf
-        mdadm_path = os.normpath("%s/etc/mdadm.conf" % instPath)
+        mdadm_path = os.path.normpath("%s/etc/mdadm.conf" % instPath)
         mdadm_conf = self.mdadmConf()
         open(mdadm_path, "w").write(mdadm_conf)
 

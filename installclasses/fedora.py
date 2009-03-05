@@ -79,6 +79,9 @@ class InstallClass(BaseInstallClass):
             return yuminstall.YumBackend
 
     def productMatches(self, oldprod):
+        if oldprod is None:
+            return False
+
         if oldprod.startswith(productName):
             return True
 
