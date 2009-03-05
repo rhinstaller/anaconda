@@ -444,7 +444,7 @@ class AnacondaYum(YumSorter):
             # we should first check to see if there's a CD/DVD with packages
             # on it, and then default to the mirrorlist URL.  The user can
             # always change the repo with the repo editor later.
-            cdr = scanForMedia(self.tree)
+            cdr = scanForMedia(self.tree, self.anaconda.id.storage)
             if cdr:
                 self.mediagrabber = self.mediaHandler
                 self.anaconda.mediaDevice = cdr

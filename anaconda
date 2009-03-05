@@ -1016,10 +1016,12 @@ if __name__ == "__main__":
         handleException(anaconda, sys.exc_info())
 
     if anaconda.isKickstart and anaconda.id.ksdata.reboot.eject:
-        isys.flushDriveDict()
-        for drive in isys.cdromList():
-            log.info("attempting to eject %s" % drive)
-            isys.ejectCdrom(drive)
+        for drive in anaconda.id.storage.devicetree.devices.values():
+            if drive.type != "cdrom":
+                continue
+
+            log.info("attempting to eject %s" % drive.path)
+            isys.ejectCdrom(drive.path)
 
     del anaconda.intf
 
