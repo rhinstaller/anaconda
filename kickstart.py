@@ -237,8 +237,8 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
             if disk not in hds:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % disk)
 
-        self.handler.id.storage.autoClearPartType = self.type
-        self.handler.id.storage.autoClearPartDrives = self.drives
+        self.handler.id.storage.clearPartType = self.type
+        self.handler.id.storage.clearPartDisks = self.drives
         if self.initAll:
             self.handler.id.storage.reinitializeDisks = self.initAll
 
