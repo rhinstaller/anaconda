@@ -594,7 +594,6 @@ class DiskDevice(StorageDevice):
 
         self.partedDevice = None
         self.partedDisk = None
-        self.removable = False
         log.debug("looking up parted Device: %s" % self.path)
         self.partedDevice = parted.Device(path=self.path)
         if not self.partedDevice:

@@ -696,7 +696,7 @@ class Storage(object):
 
         uses_usb = False
         uses_firewire = False
-        for device in filesystems.values()
+        for device in filesystems.values():
             for disk in usb_disks:
                 if device.dependsOn(disk):
                     uses_usb = True
@@ -739,7 +739,7 @@ class Storage(object):
                             "filesystem.") % boot.format.name)
 
         # vfat /boot is insane.
-        if (boot and boot == rootDevice and boot.format.type == "vfat"):
+        if (boot and boot == root and boot.format.type == "vfat"):
             errors.append(_("Bootable partitions cannot be on an %s "
                             "filesystem.") % boot.format.type)
 
@@ -748,7 +748,7 @@ class Storage(object):
             errors.append(_("Bootable partitions cannot be on an "
                             "encrypted block device"))
 
-        if not swapDevices:
+        if not swaps:
             warnings.append(_("You have not specified a swap partition.  "
                               "Although not strictly required in all cases, "
                               "it will significantly improve performance for "
