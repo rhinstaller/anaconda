@@ -2,9 +2,9 @@ import os
 import string
 
 from booty import BootyNoKernelWarning
+from util import getDiskPart
 from bootloaderInfo import *
 import checkbootloader
-import fsset
 import iutil
 import rhpl
 
@@ -107,7 +107,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         cmds = []
         for bootDev in bootDevs:
             gtPart = self.getMatchingPart(bootDev, grubTarget)
-            gtDisk = self.grubbyPartitionName(fsset.getDiskPart(gtPart)[0])
+            gtDisk = self.grubbyPartitionName(getDiskPart(gtPart)[0])
             bPart = self.grubbyPartitionName(bootDev)
             cmd = "root %s\n" % (bPart,)
 
@@ -316,7 +316,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         devs = usedDevs.keys()
         usedDevs = {}
         for dev in devs:
-            drive = fsset.getDiskPart(dev)[0]
+            drive = getDiskPart(dev)[0]
             if usedDevs.has_key(drive):
                 continue
             usedDevs[drive] = 1
@@ -356,10 +356,10 @@ class x86BootloaderInfo(efiBootloaderInfo):
         return ""
 
     def getMatchingPart(self, bootDev, target):
-        bootName, bootPartNum = fsset.getDiskPart(bootDev)
+        bootName, bootPartNum = getDiskPart(bootDev)
         devices = self.getPhysicalDevices(target)
         for device in devices:
-            name, partNum = fsset.getDiskPart(device)
+            name, partNum = getDiskPart(device)
             if name == bootName:
                 return device
         return devices[0]
@@ -368,7 +368,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         return "hd%d" % self.drivelist.index(name)
 
     def grubbyPartitionName(self, dev):
-        (name, partNum) = fsset.getDiskPart(dev)
+        (name, partNum) = getDiskPart(dev)
         if partNum != None:
             return "(%s,%d)" % (self.grubbyDiskName(name), partNum)
         else:
@@ -478,7 +478,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             grubbyRootPart = self.grubbyPartitionName(rootDevs[0])
 
             for rootDev in rootDevs:
-                testGrubbyRootDev = fsset.getDiskPart(rootDev)[0]
+                testGrubbyRootDev = getDiskPart(rootDev)[0]
                 testGrubbyRootDev = self.grubbyPartitionName(testGrubbyRootDev)
 
                 if grubbyStage1Dev == testGrubbyRootDev:

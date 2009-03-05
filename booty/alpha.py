@@ -3,11 +3,11 @@ import iutil
 
 from booty import BootyNoKernelWarning
 from bootloaderInfo import *
-import fsset
+from util import getDiskPart
 
 class alphaBootloaderInfo(bootloaderInfo):
     def wholeDevice (self, path):
-        (device, foo) = fsset.getDiskPart(path)
+        (device, foo) = getDiskPart(path)
         return device
 
     def partitionNum (self, path):

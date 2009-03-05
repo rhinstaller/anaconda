@@ -2,8 +2,8 @@ import string
 import os
 
 from booty import BootyNoKernelWarning
+from util import getDiskPart
 from bootloaderInfo import *
-import fsset
 import iutil
 import rhpl
 

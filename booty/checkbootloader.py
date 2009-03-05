@@ -19,7 +19,7 @@ import os
 import string
 import rhpl
 
-from fsset import getDiskPart
+from util import getDiskPart
 import iutil
 
 grubConfigFile = "/etc/grub.conf"

@@ -29,13 +29,13 @@ import rhpl
 from rhpl.translate import _, N_
 
 from flags import flags
-from fsset import getDiskPart
 import iutil
 import isys
 from product import *
 
 import booty
 import checkbootloader
+from util import getDiskPart
 
 if rhpl.getArch() not in ("s390", "s390x"):
     import block
