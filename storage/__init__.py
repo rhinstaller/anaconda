@@ -385,10 +385,10 @@ class Storage(object):
 
             try:
                 dev = parted.Device(path=device.path)
-            except parted.DeviceException:
+                disk = parted.Disk(device=dev)
+            except:
                 continue
 
-            disk = parted.Disk(device=dev)
             for part in disk.partitions:
                 if part.active and \
                    not part.getFlag(parted.PARTITION_RAID) and \
