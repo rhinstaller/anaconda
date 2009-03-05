@@ -996,7 +996,7 @@ class CryptTab(object):
 
     def populate(self):
         """ Populate the instance based on the device tree's contents. """
-        for device in self.devicetree:
+        for device in self.devicetree.devices.values():
             # XXX should we put them all in there or just the ones that
             #     are part of a device containing swap or a filesystem?
             #
