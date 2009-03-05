@@ -729,7 +729,7 @@ class Ext3FS(Ext2FS):
     def migratable(self):
         """ Can filesystems of this type be migrated? """
         return (flags.cmdline.has_key("ext4migrate") and
-                Ext2FS.migratable(self))
+                Ext2FS.migratable)
 
 register_device_format(Ext3FS)
 
