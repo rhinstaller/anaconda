@@ -28,7 +28,7 @@ import gtk
 import datacombo
 
 import gui
-from storage.devicelibs import mdraid
+import storage.devicelibs.mdraid
 from storage.devices import *
 from storage.deviceaction import *
 from partition_ui_helpers_gui import *
@@ -418,7 +418,7 @@ class RaidEditor:
 
 
         if not origrequest.exists:
-            self.levelcombo = self.createRaidLevelMenu(mdraid.raid_levels,
+            self.levelcombo = self.createRaidLevelMenu(storage.devicelibs.mdraid.raid_levels,
                                                        origrequest.level)
 	    lbl.set_mnemonic_widget(self.levelcombo)
         else:
