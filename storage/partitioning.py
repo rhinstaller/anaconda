@@ -588,7 +588,6 @@ def allocatePartitions(disks, partitions):
 
         log.debug("allocating partition: %s ; disks: %s ; boot: %s ; primary: %s ; size: %dMB ; grow: %s ; max_size: %s" % (_part.name, req_disks, _part.req_bootable, _part.req_primary, _part.req_size, _part.req_grow, _part.req_max_size))
         free = None
-        use_disk = None
         # loop through disks
         for _disk in req_disks:
             disk = partedDisks[_disk.path]
@@ -604,14 +603,11 @@ def allocatePartitions(disks, partitions):
 
             log.debug("checking freespace on %s" % _disk.name)
 
-            new_part_type = getNextPartitionType(disk)
-            if new_part_type is None:
+            part_type = getNextPartitionType(disk)
+            if part_type is None:
                 # can't allocate any more partitions on this disk
                 log.debug("no free partition slots on %s" % _disk.name)
                 continue
-            else:
-                part_type = new_part_type
-                use_disk = _disk
 
             if _part.req_primary and part_type != parted.PARTITION_NORMAL:
                 # we need a primary slot and none are free on this disk
@@ -647,9 +643,6 @@ def allocatePartitions(disks, partitions):
 
         if free is None:
             raise PartitioningError("not enough free space on disks")
-
-        _disk = use_disk
-        disk = _disk.partedDisk
 
         # create the extended partition if needed
         # TODO: move to a function (disk, free)
