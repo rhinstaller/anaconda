@@ -433,7 +433,7 @@ class Storage(object):
                 if array.dependsOn(device):
                     if array.minor is not None:
                         return _("This device is part of the RAID "
-                                 "device %.") % (array.path,)
+                                 "device %s.") % (array.path,)
                     else:
                         return _("This device is part of a RAID device.")
         elif device.format.type == "lvmpv":
