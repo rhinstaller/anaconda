@@ -2,6 +2,10 @@ import unittest
 import os
 import subprocess
 
+# need to import these first before doing anything
+import anaconda_log
+import upgrade
+
 class TestDevicelibs(unittest.TestCase):
 
     _LOOP_DEVICES = (("/dev/loop0", "/tmp/test-virtdev0"),

@@ -202,8 +202,7 @@ class TestLVM(baseclass.TestDevicelibs):
 
     #def testGetMaxLVSize(self):
         # pass
-        # why do we specify the PE ? not needed...
-        self.assertEqual(lvm.getMaxLVSize(4), 16*1024**2)
+        self.assertEqual(lvm.getMaxLVSize(), 16*1024**2)
 
     #def testSafeLVMName(self):
         # pass
