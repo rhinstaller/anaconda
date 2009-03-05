@@ -300,8 +300,9 @@ class FS(DeviceFormat):
         # instance of the new filesystem type.
         self._type = self.migrationTarget
 
-    def _getResizeArgs(self):
-        argv = [self.device, self.targetSize]
+    @property
+    def resizeArgs(self):
+        argv = [self.device, "%d" % (self.targetSize,)]
         return argv
 
     def doResize(self, *args, **kwargs):
@@ -336,8 +337,6 @@ class FS(DeviceFormat):
 
         self.doCheck(intf=intf)
 
-        argv = self._getResizeArgs()
-
         w = None
         if intf:
             w = intf.progressWindow(_("Resizing"),
@@ -347,7 +346,7 @@ class FS(DeviceFormat):
 
         try:
             rc = iutil.execWithPulseProgress(self.resizefsProg,
-                                             argv,
+                                             self.resizeArgs,
                                              stdout="/dev/tty5",
                                              stderr="/dev/tty5",
                                              progress=w)
@@ -800,8 +799,9 @@ class BTRFS(FS):
         argv.append(self.device)
         return argv
 
-    def _getResizeArgs(self):
-        argv = ["-r", self.targetSize, self.device]
+    @property
+    def resizeArgs(self):
+        argv = ["-r", "%d" % (self.targetSize,), self.device]
         return argv
 
     @property
@@ -940,6 +940,14 @@ class NTFS(FS):
                 size = minSize
 
         return size
+
+    @property
+    def resizeArgs(self):
+        # You must supply at least two '-f' options to ntfsresize or
+        # the proceed question will be presented to you.
+        argv = ["-ff", "-s", "%dM" % (self.targetSize,), self.device]
+        return argv
+
 
 register_device_format(NTFS)
 
