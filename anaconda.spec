@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.23
+Version: 11.5.0.24
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -209,6 +209,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar  4 2009 Dave Lehman <dlehman@redhat.com> - 11.5.0.24-1
+- Storage test day.
+
 * Fri Feb 20 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.23-1
 - Remove old content from utils/ (dcantrell)
 - Ensure request.drive is always a list (#485622) (dcantrell)
