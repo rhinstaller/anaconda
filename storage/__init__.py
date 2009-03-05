@@ -659,6 +659,16 @@ class Storage(object):
             return True
         return False
 
+    def write(self, instPath):
+        self.fsset.write(instPath)
+        self.iscsi.write(instPath, self.anaconda)
+        self.zfcp.write(instPath)
+
+    def writeKS(self, f):
+        log.warning("Storage.writeKS not completely implemented")
+        self.iscsi.writeKS(f)
+        self.zfcp.writeFS(f)
+
 
 def getReleaseString(mountpoint):
     relName = None
@@ -1335,9 +1345,22 @@ class FSSet(object):
 
         return migratable
 
-    def write(self, chroot="/"):
+    def write(self, instPath):
         """ write out all config files based on the set of filesystems """
-        pass
+        # /etc/fstab
+        fstab_path = os.normpath("%s/etc/fstab" % instPath)
+        fstab = self.fstab()
+        open(fstab_path, "w").write(fstab)
+
+        # /etc/crypttab
+        crypttab_path = os.normpath("%s/etc/crypttab" % instPath)
+        crypttab = self.crypttab()
+        open(crypttab_path, "w").write(crypttab)
+
+        # /etc/mdadm.conf
+        mdadm_path = os.normpath("%s/etc/mdadm.conf" % instPath)
+        mdadm_conf = self.mdadmConf()
+        open(mdadm_path, "w").write(mdadm_conf)
 
     def crypttab(self):
         # if we are upgrading, do we want to update crypttab?
@@ -1347,13 +1370,15 @@ class FSSet(object):
             self.cryptTab = CryptTab(self.devicetree)
             self.cryptTab.populate()
 
+        devices = self.mountpoints.values() + self.swapDevices
+
         # prune crypttab -- only mappings required by one or more entries
         for name in self.cryptTab.mappings:
             keep = False
             mapInfo = self.cryptTab[name]
             cryptoDev = mapInfo['device']
-            for device in self.devices:
-                if device.dependsOn(cryptoDev):
+            for device in devices:
+                if device == cryptoDev or device.dependsOn(cryptoDev):
                     keep = True
                     break
 
@@ -1366,15 +1391,13 @@ class FSSet(object):
         """ Return the contents of mdadm.conf. """
         arrays = self.devicetree.getDevicesByType("mdarray")
         conf = ""
+        devices = self.mountpoints.values() + self.swapDevices
         for array in arrays:
             writeConf = False
-            if array in self.devices:
-                writeConf = True
-            else:
-                for device in self.devices:
-                    if device.dependsOn(array):
-                        writeConf = True
-                        break
+            for device in devices:
+                if device == array or devices.dependsOn(array):
+                    writeConf = True
+                    break
 
             if writeConf:
                 conf += array.mdadmConfEntry
@@ -1397,7 +1420,9 @@ class FSSet(object):
 #
 """ % time.asctime()
 
-        for device in self.devices:
+
+        devices = self.mountpoints.values() + self.swapDevices
+        for device in devices:
             # why the hell do we put swap in the fstab, anyway?
             if not device.format.mountable and device.format.type != "swap":
                 continue
