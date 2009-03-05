@@ -40,6 +40,7 @@ from formats import getFormat
 from formats import get_device_format_class
 from formats import get_default_filesystem_type
 from devicelibs.lvm import safeLvmName
+from devicelibs.mdraid import mdRaidBootArches
 from udev import udev_trigger
 import iscsi
 import zfcp
@@ -640,9 +641,120 @@ class Storage(object):
         return lvtemplate
 
     def sanityCheck(self):
-        """ Run a series of tests to verify the storage configuration. """
-        log.warning("storage.Storage.sanityCheck is unimplemented")
-        return ([], [])
+        """ Run a series of tests to verify the storage configuration.
+
+            This function is called at the end of partitioning so that
+            we can make sure you don't have anything silly (like no /,
+            a really small /, etc).  Returns (errors, warnings) where
+            each is a list of strings.
+        """
+        checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 384),
+                      ('/home', 100), ('/boot', 75)]
+        warnings = []
+        errors = []
+
+        filesystems = self.fsset.mountpoints
+        root = self.fsset.rootDevice
+        swaps = self.fsset.swapDevices
+        try:
+            boot = self.anaconda.platform.bootDevice()
+        except DeviceError:
+            boot = None
+
+        if not root:
+            errors.append(_("You have not defined a root partition (/), "
+                            "which is required for installation of %s "
+                            "to continue.") % (productName,))
+
+        if root and root.size < 250:
+            warnings.append(_("Your root partition is less than 250 "
+                              "megabytes which is usually too small to "
+                              "install %s.") % (productName,))
+
+        if (root and
+            root.size < self.anaconda.backend.getMinimumSizeMB("/")):
+            errors.append(_("Your / partition is less than %s "
+                            "megabytes which is lower than recommended "
+                            "for a normal %s install.")
+                          %(self.anaconda.backend.getMinimumSizeMB("/"),
+                            productName))
+
+        for (mount, size) in checkSizes:
+            if mount in filesystems and filesystems[mount].size < size:
+                warnings.append(_("Your %s partition is less than %s "
+                                  "megabytes which is lower than recommended "
+                                  "for a normal %s install.")
+                                %(mount, size, productName))
+
+        usb_disks = []
+        firewire_disks = []
+        for disk in self.disks:
+            if isys.driveUsesModule(disk.name, ["usb-storage", "ub"]):
+                usb_disks.append(disk)
+            elif isys.driveUsesModule(disk.name, ["sbp2", "firewire-sbp2"]):
+                firewire_disks.append(disk)
+
+        uses_usb = False
+        uses_firewire = False
+        for device in filesystems.values()
+            for disk in usb_disks:
+                if device.dependsOn(disk):
+                    uses_usb = True
+                    break
+
+            for disk in firewire_disks:
+                if device.dependsOn(disk):
+                    uses_firewire = True
+                    break
+
+        if uses_usb:
+            warnings.append(_("Installing on a USB device.  This may "
+                              "or may not produce a working system."))
+        if uses_firewire:
+            warnings.append(_("Installing on a FireWire device.  This may "
+                              "or may not produce a working system."))
+
+        if not boot:
+            errors.append(_("You have not created a boot partition."))
+
+        if (boot and boot.type == "mdarray" and
+            boot.level != 1):
+            errors.append(_("Bootable partitions can only be on RAID1 "
+                            "devices."))
+
+        # can't have bootable partition on LV
+        if boot and boot.type == "lvmlv":
+            errors.append(_("Bootable partitions cannot be on a "
+                            "logical volume."))
+
+        # most arches can't have boot on RAID
+        if (boot and boot.type == "mdarray" and
+            iutil.getArch() not in mdRaidBootArches):
+            errors.append(_("Bootable partitions cannot be on a RAID "
+                            "device."))
+
+        # Lots of filesystems types don't support /boot.
+        if boot and not boot.format.bootable:
+            errors.append(_("Bootable partitions cannot be on an %s "
+                            "filesystem.") % boot.format.name)
+
+        # vfat /boot is insane.
+        if (boot and boot == rootDevice and boot.format.type == "vfat"):
+            errors.append(_("Bootable partitions cannot be on an %s "
+                            "filesystem.") % boot.format.type)
+
+        if (boot and filter(lambda d: d.type == "luks/dm-crypt",
+                            self.deviceDeps(boot))):
+            errors.append(_("Bootable partitions cannot be on an "
+                            "encrypted block device"))
+
+        if not swapDevices:
+            warnings.append(_("You have not specified a swap partition.  "
+                              "Although not strictly required in all cases, "
+                              "it will significantly improve performance for "
+                              "most installations."))
+
+        return (errors, warnings)
 
     def isProtected(self, device):
         """ Return True is the device is protected. """

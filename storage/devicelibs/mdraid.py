@@ -28,6 +28,8 @@ from ..errors import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+mdRaidBootArches = ("i386", "x86_64", "ppc")
+
 def getRaidLevels():
     avail = []
     try:

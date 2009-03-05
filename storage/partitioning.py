@@ -502,7 +502,11 @@ def doPartitioning(storage, exclusiveDisks=None):
     partitions = storage.partitions
 
     # FIXME: isn't there a better place for this to happen?
-    bootDev = anaconda.platform.bootDevice()
+    try:
+        bootDev = anaconda.platform.bootDevice()
+    except DeviceError:
+        bootDev = None
+
     if bootDev and not bootDev.exists:
         bootDev.req_bootable = True
 
