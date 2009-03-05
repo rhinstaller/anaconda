@@ -980,9 +980,11 @@ class NoDevFS(FS):
 
     def __init__(self, *args, **kwargs):
         FS.__init__(self, *args, **kwargs)
+        self.exists = True
 
-    def _deviceCheck(self, devspec):
-        pass
+    def _setDevice(self, devspec):
+        self._device = devspec
+
 
 class DevPtsFS(NoDevFS):
     """ devpts filesystem. """
