@@ -366,7 +366,7 @@ class PartitionTypeWindow(InstallWindow):
             w = self.intf.waitWindow(_("Rescanning disks"),
                                      _("Rescanning disks"))
             self.storage.reset()
-            createAllowedDrivesStore(self.storage,
+            createAllowedDrivesStore(self.storage.disks,
                                      self.storage.clearPartDisks,
                                      self.drivelist,
                                      disallowDrives=[self.anaconda.updateSrc])
