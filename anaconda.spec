@@ -41,7 +41,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define createrepover 0.4.7
 %define yumutilsver 1.1.11-3
 %define iscsiver 6.2.0.870-3
-%define pythoncryptsetupver 0.0.6
+%define pythoncryptsetupver 0.0.7
 
 BuildRequires: audit-libs-devel
 BuildRequires: bzip2-devel
