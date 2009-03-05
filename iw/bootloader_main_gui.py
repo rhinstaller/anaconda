@@ -104,7 +104,7 @@ class MainBootloaderWindow(InstallWindow):
                 i = model.append(None)
                 model[i] = ("%s %8.0f MB %s" %(disk.name, size, m),
                             "%s" %(disk.name,))
-                if disk == active:
+                if disk.name == active:
                     combo.set_active_iter(i)
 
             return model
@@ -128,8 +128,7 @@ class MainBootloaderWindow(InstallWindow):
             else:
                 w.set_active(False)
             w.set_data("bootDevice", device)
-            
-        
+
         for i in range(1, 5):
             if len(self.driveorder) < i:
                 break
@@ -160,8 +159,13 @@ class MainBootloaderWindow(InstallWindow):
             for i in range(1, 5):
                 if len(self.driveorder) < i:
                     break
+
                 combo = dxml.get_widget("bd%dCombo" %(i,))
-                act = combo.get_model()[combo.get_active_iter()][1]
+                iter = combo.get_active_iter()
+                if not iter:
+                    continue
+
+                act = combo.get_model()[iter][1]
                 if act not in neworder:
                     neworder.append(act)
             for d in self.driveorder:
