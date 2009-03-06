@@ -62,7 +62,15 @@ def luks_format(device,
     else:
         raise ValueError("luks_format requires either a passphrase or a key file")
 
-    rc = cs.luksFormat(device = device, cipher = cipher, keysize = key_size, keyfile = key_file)
+    #None is not considered as default value and pycryptsetup doesn't accept it
+    #so we need to filter out all Nones
+    kwargs = {}
+    kwargs["device"] = device
+    if   cipher: kwargs["cipher"]  = cipher
+    if key_file: kwargs["keyfile"] = key_file
+    if key_size: kwargs["keysize"] = key_size
+
+    rc = cs.luksFormat(**kwargs)
     if key_file_unlink: os.unlink(key_file)
 
     if rc:
