@@ -3,7 +3,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 11.5.0.24
-Release: 1
+Release: 3
 License: GPLv2+
 Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -41,7 +41,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define createrepover 0.4.7
 %define yumutilsver 1.1.11-3
 %define iscsiver 6.2.0.870-3
-%define pythoncryptsetupver 0.0.7
+%define pythoncryptsetupver 0.0.6
 
 BuildRequires: audit-libs-devel
 BuildRequires: bzip2-devel
@@ -209,6 +209,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar  5 2009 Dave Lehman <dlehman@redhat.com> - 11.5.0.24-3
+- Fix booty's desire to import fsset.
+- Fix attempt to set read-only attr "removable" in DiskDevice.__init__
+
+* Thu Mar 05 2009 Peter Jones <pjones@redhat.com> - 11.5.0.24-2
+- Add EFI boot.iso generation.
+
 * Wed Mar  4 2009 Dave Lehman <dlehman@redhat.com> - 11.5.0.24-1
 - Storage test day.
 
