@@ -2,8 +2,8 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.24
-Release: 3
+Version: 11.5.0.25
+Release: 1
 License: GPLv2+
 Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -209,6 +209,49 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar 05 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.25-1
+- Schedule device destroy actions for partitions last. (dlehman)
+- Pass storage.disks, not storage, to createAllowed.... (#488860) (dlehman)
+- Nodev filesystems always exist. And the device is arbitrary. (dlehman)
+- Include proc, &c filesystems in fstab and FSSet.{mount/umount}Filesystems.
+  (dlehman)
+- Remove FSSet.writeFSTab. That job is handled elsewhere. (dlehman)
+- Add properties to FSSet to provide the nodev entries. (dlehman)
+- Fix incomplete format in Storage.deviceImmutable. (dlehman)
+- Make sure we use the same disk the free space is on. (#488807) (dlehman)
+- Prevent clobbering of name 'mdraid' by qualifying it. (dlehman)
+- Handle unformatted disks and cdroms in Storage.exceptionDisks. (dlehman)
+- Add resizeArgs property for resizable filesystems. (dcantrell)
+- Fill out class NTFS a bit more. (dcantrell)
+- Add fsckProg property to class FS. (dcantrell)
+- Ext2FS.migratable(self) -> Ext2FS.migratable (dcantrell)
+- Fix StorageDevice.minSize() and PartitionDevice.maxSize() (dcantrell)
+- Center resize window on the screen. (dcantrell)
+- Do not raise DeviceError if not bootable device is found. (dcantrell)
+- Do an even more thorough job of ignoring disks libparted doesn't like.
+  (clumens)
+- Fix a couple problems on the "Change device" bootloader dialog. (clumens)
+- Fix a typo when writing out the mdadm config file. (clumens)
+- Remove all uses of isys.cdromList, which no longer exists. (clumens)
+- Check to see if we're on S390 on the congrats screen (#488747). (clumens)
+- Handle non-fatal errors more gracefully in addUdevDevice. (dlehman)
+- partRequests no longer exists, so don't try to import it (#488743).
+  (clumens)
+- When building the exceptionDisks list, skip devices libparted doesn't
+  like. (clumens)
+- Iterate over devicetree.devices.values, not devicetree. (dlehman)
+- Add a get() method to Flags, since it pretends to be a dictionary.
+  (clumens)
+- Stop with the fsset usage. (dlehman)
+- Format message string after translation not before (msivak)
+- We need newer python-cryptsetup because of the default values for cipher
+  and keysize for luskFormat (msivak)
+- If a drive is not initialized, offer reinitialization or ignoring the
+  drive to the user (msivak)
+- More syntax errors / traceback fixes (hdegoede)
+- Fix syntax errors (rvykydal)
+- Implement Storage.sanityCheck, mostly from old partitions code. (dlehman)
+
 * Thu Mar  5 2009 Dave Lehman <dlehman@redhat.com> - 11.5.0.24-3
 - Fix booty's desire to import fsset.
 - Fix attempt to set read-only attr "removable" in DiskDevice.__init__
