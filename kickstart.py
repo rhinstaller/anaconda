@@ -1008,9 +1008,10 @@ def addPartRequest(anaconda, request):
     anaconda.id.storage.autoPartitionRequests.append(request)
 
 def processKickstartFile(anaconda, file):
-    # make sure our disks are alive
-    from partedUtils import DiskSet
-    ds = DiskSet(anaconda)
+    # We need to make sure storage is active before the kickstart file is read.
+    import storage
+    storage.storageInitialize(anaconda)
+    anaconda.dispatch.skipStep("storageinit")
 
     # parse the %pre
     ksparser = KickstartPreParser(AnacondaKSHandler(anaconda))
