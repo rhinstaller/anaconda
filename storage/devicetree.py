@@ -28,8 +28,6 @@ from devices import *
 from deviceaction import *
 import formats
 from udev import *
-import parted
-import platform
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -117,7 +115,26 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
 
     return (passphrase, isglobal)
 
- 
+# Don't really know where to put this.
+def questionInitializeDisk(intf=None, name=None):
+    retVal = False # The less destructive default
+    if not intf or not name:
+        pass
+    else:
+        rc = intf.messageWindow(_("Warning"),
+                _("Error processing drive %s.\n"
+                  "Maybe it needs to be reinitialized."
+                  "YOU WILL LOSE ALL DATA ON THIS DRIVE!") % (name,),
+                type="custom",
+                custom_buttons = [ _("_Ignore drive"),
+                                   _("_Re-initialize drive") ],
+                custom_icon="question")
+        if rc == 0:
+            pass
+        else:
+            retVal = True
+    return retVal
+
 class DeviceTree(object):
     """ A quasi-tree that represents the devices in the system.
 
@@ -778,32 +795,15 @@ class DeviceTree(object):
             device = self.getDeviceByName(name)
             if device is None:
                 try:
+                    cb=lambda:questionInitializeDisk(self.intf, name)
                     device = DiskDevice(name,
                                     major=udev_device_get_major(info),
                                     minor=udev_device_get_minor(info),
-                                    sysfsPath=sysfs_path)
+                                    sysfsPath=sysfs_path,
+                                    initcb=cb)
                     self._addDevice(device)
-                except parted.IOException: #drive not initialized?
-                    if not self.intf:
-                        self.ignoredDisks.append(name)
-                    else:
-                        rc = self.intf.messageWindow(_("Warning"),
-                                _("Error processing drive %s.\n"
-                                  "Maybe it needs to be reinitialized."
-                                  "YOU WILL LOSE ALL DATA ON THIS DRIVE!") % (name,),
-                                type="custom",
-                                custom_buttons = [ _("_Ignore drive"),
-                                                   _("_Re-initialize drive") ],
-                                custom_icon="question")
-                        if rc == 0:
-                            self.ignoredDisks.append(name)
-                        else:
-                            device = DiskDevice(name,
-                                            major=udev_device_get_major(info),
-                                            minor=udev_device_get_minor(info),
-                                            sysfsPath=sysfs_path, init = True,
-                                            labeltype = platform.getPlatform(None).diskType)
-                            self._addDevice(device)
+                except DeviceUserDeniedFormatError: #drive not initialized?
+                    self.ignoredDisks.append(name)
         elif udev_device_is_partition(info):
             log.debug("%s is a partition" % name)
             device = self.getDeviceByName(name)
@@ -954,29 +954,42 @@ class DeviceTree(object):
                     # FIXME: Should handle not finding a dmriad dev better
                     pass
 
-                dm_array = self.getDeviceByName(rs.name)
-                if dm_array is not None:
-                    # We add the new device.
-                    dm_array._addDevice(device)
+                if rs.name in self.ignoredDisks:
+                    # If the rs is being ignored, we should ignore device too.
+                    self.ignoredDisks.append(device.name)
+
                 else:
-                    # Activate the Raid set.
-                    rs.activate(mknod=True)
+                    dm_array = self.getDeviceByName(rs.name)
+                    if dm_array is not None:
+                        # We add the new device.
+                        dm_array._addDevice(device)
+                    else:
+                        # Activate the Raid set.
+                        rs.activate(mknod=True)
 
-                    # Create the DMRaidArray
-                    dm_array = DMRaidArrayDevice(rs.name,
-                                                 major=major, minor=minor,
-                                                 raidSet=rs,
-                                                 level=rs.level,
-                                                 parents=[device])
+                        # Create the DMRaidArray
+                        try:
+                            cb=lambda:questionInitializeDisk(self.intf,rs.name)
+                            dm_array = DMRaidArrayDevice(rs.name,
+                                                         major=major, minor=minor,
+                                                         raidSet=rs,
+                                                         level=rs.level,
+                                                         parents=[device],
+                                                         initcb=cb)
 
-                    self._addDevice(dm_array)
-
-                # Use the rs's object on the device.
-                # pyblock can return the memebers of a set and the device has
-                # the attribute to hold it.  But ATM we are not really using it.
-                # Commenting this out until we really need it.
-                #device.format.raidmem = block.getMemFromRaidSet(dm_array,
-                #        major=major, minor=minor, uuid=uuid, name=name)
+                            self._addDevice(dm_array)
+                            # Use the rs's object on the device.
+                            # pyblock can return the memebers of a set and the
+                            # device has the attribute to hold it.  But ATM we
+                            # are not really using it. Commenting this out until
+                            # we really need it.
+                            #device.format.raidmem = block.getMemFromRaidSet(dm_array,
+                            #        major=major, minor=minor, uuid=uuid, name=name)
+                        except DeviceUserDeniedFormatError:
+                            # We should ignore the dmriad and its components
+                            self.ignoredDisks.append(rs.name)
+                            self.ignoredDisks.append(device.name)
+                            rs.deactivate()
             elif format.type == "lvmpv":
                 # lookup/create the VG and LVs
                 try:

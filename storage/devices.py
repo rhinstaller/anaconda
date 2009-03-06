@@ -101,6 +101,7 @@ from devicelibs import lvm
 #import block
 from devicelibs import dm
 import parted
+import platform
 
 from errors import *
 from iutil import log_method_call, notify_kernel, numeric_type
@@ -636,8 +637,8 @@ class DiskDevice(StorageDevice):
     _type = "disk"
 
     def __init__(self, device, format=None,
-                 size=None, major=None, minor=None,
-                 sysfsPath='', parents=None, init = False, labeltype = None):
+                 size=None, major=None, minor=None, sysfsPath='', \
+                 parents=None, initcb=None):
         """ Create a DiskDevice instance.
 
             Arguments:
@@ -654,8 +655,7 @@ class DiskDevice(StorageDevice):
                 parents -- a list of required Device instances
                 removable -- whether or not this is a removable device
 
-                init -- initialize label on this drive
-                labeltype -- type of the label to use during initialization
+                initcb -- the call back to be used when initiating disk.
 
 
             DiskDevices always exist.
@@ -671,12 +671,15 @@ class DiskDevice(StorageDevice):
         if not self.partedDevice:
             raise DeviceError("cannot find parted device instance")
         log.debug("creating parted Disk: %s" % self.path)
-        if init:
-            self.partedDisk = parted.freshDisk(device=self.partedDevice, ty = labeltype)
-        else:
+        try:
             self.partedDisk = parted.Disk(device=self.partedDevice)
-        if not self.partedDisk:
-            raise DeviceError("failed to create parted Disk")
+        except parted.IOException:
+            # if we have a cb function use it. else an error.
+            if initcb is not None and initcb():
+                self.partedDisk = parted.freshDisk(device=self.partedDevice, \
+                        ty = platform.getPlatform(None).diskType)
+            else:
+                raise DeviceUserDeniedFormatError("User prefered to not format.")
 
         self.probe()
 
@@ -2159,7 +2162,7 @@ class DMRaidArrayDevice(DiskDevice):
     devDir = "/dev/mapper"
 
     def __init__(self, name, raidSet=None, level=None, format=None, size=None,
-                 major=None, minor=None, parents=None, sysfsPath=''):
+                 major=None, minor=None, parents=None, sysfsPath='', initcb=None):
         """ Create a DMRaidArrayDevice instance.
 
             Arguments:
@@ -2180,8 +2183,8 @@ class DMRaidArrayDevice(DiskDevice):
                 if not parent.format or parent.format.type != "dmraidmember":
                     raise ValueError("parent devices must contain dmraidmember format")
         DiskDevice.__init__(self, name, format=format, size=size,
-                            major=major, minor=minor,
-                            parents=parents, sysfsPath=sysfsPath)
+                            major=major, minor=minor, parents=parents,
+                            sysfsPath=sysfsPath, initcb=initcb)
 
         self.formatClass = get_device_format_class("dmraidmember")
         if not self.formatClass:
