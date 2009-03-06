@@ -241,7 +241,7 @@ def clearPartitions(storage):
     # we are only interested in partitions that physically exist
     partitions = [p for p in storage.partitions if p.exists]
     disks = []  # a list of disks from which we've removed partitions
-
+    clearparts = [] # list of partitions we'll remove
     for part in partitions:
         log.debug("clearpart: looking at %s" % part.name)
         clear = False   # whether or not we will clear this partition
@@ -292,6 +292,9 @@ def clearPartitions(storage):
         if disk_name not in disks:
             disks.append(disk_name)
 
+        clearparts.append(part)
+
+    for part in clearparts:
         storage.destroyDevice(part)
 
     # now remove any empty extended partitions
