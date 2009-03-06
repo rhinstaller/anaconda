@@ -101,6 +101,7 @@ from devicelibs import lvm
 #import block
 from devicelibs import dm
 import parted
+import _ped
 import platform
 
 from errors import *
@@ -673,7 +674,7 @@ class DiskDevice(StorageDevice):
         log.debug("creating parted Disk: %s" % self.path)
         try:
             self.partedDisk = parted.Disk(device=self.partedDevice)
-        except parted.IOException:
+        except _ped.DiskLabelException:
             # if we have a cb function use it. else an error.
             if initcb is not None and initcb():
                 self.partedDisk = parted.freshDisk(device=self.partedDevice, \
