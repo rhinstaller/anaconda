@@ -27,7 +27,6 @@ import errno
 import sys
 
 import parted
-import _ped
 
 import isys
 import iutil
@@ -397,7 +396,7 @@ class Storage(object):
             try:
                 dev = parted.Device(path=device.path)
                 disk = parted.Disk(device=dev)
-            except (parted.DeviceException, _ped.DeviceException):
+            except Exception:
                 continue
 
             for part in disk.partitions:
