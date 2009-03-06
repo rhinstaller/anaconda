@@ -277,9 +277,9 @@ def udev_device_is_dmraid(info):
     # string that describes the type of dmraid (isw_raid_member...),  I don't
     # want to maintain a list and mdraid's ID_FS_TYPE='linux_raid_member', so
     # dmraid will be everything that is raid and not linux_raid_member
-    if info.has_key("ID_FS_USAGE") and info.has_key("ID_FS_TYPE") and \
-            info["ID_FS_USAGE"] == "raid" and \
-            info["ID_FS_TYPE"] != "linux_raid_member":
+    from formats.dmraid import DMRaidMember
+    if info.has_key("ID_FS_TYPE") and \
+            info["ID_FS_TYPE"] in DMRaidMember._udevTypes:
         return True
 
     return False

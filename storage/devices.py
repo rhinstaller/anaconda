@@ -2198,12 +2198,6 @@ class DMRaidArrayDevice(DiskDevice):
     def raidSet(self):
         return self._raidSet
 
-    @raidSet.setter
-    def raidSet(self, val):
-        # If we change self._raidSet, parents list will be invalid.
-        # Don't allow the change.
-        pass
-
     def _addDevice(self, device):
         """ Add a new member device to the array.
 

@@ -951,12 +951,15 @@ class DeviceTree(object):
                 rs = block.getRaidSetFromRelatedMem(uuid=uuid, name=name,
                                                     major=major, minor=minor)
                 if rs is None:
-                    # FIXME: Should handle not finding a dmriad dev better
-                    pass
+                    # we ignore the device in the hope that all the devices
+                    # from this set will be ignored.
+                    self.ignoredDisks.append(device.name)
+                    return
 
-                if rs.name in self.ignoredDisks:
+                elif rs.name in self.ignoredDisks:
                     # If the rs is being ignored, we should ignore device too.
                     self.ignoredDisks.append(device.name)
+                    return
 
                 else:
                     dm_array = self.getDeviceByName(rs.name)
