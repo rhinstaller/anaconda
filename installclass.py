@@ -200,6 +200,8 @@ class BaseInstallClass(object):
         if doClear:
             storage.clearPartType = clear
             storage.clearPartDisks = []
+        else:
+            storage.clearPartType = CLEARPART_TYPE_NONE
 
         storage.autoPartitionRequests = autorequests
 
