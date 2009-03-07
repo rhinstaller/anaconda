@@ -616,9 +616,6 @@ def allocatePartitions(disks, partitions):
                 # can't allocate any more partitions on this disk
                 log.debug("no free partition slots on %s" % _disk.name)
                 continue
-            else:
-                part_type = new_part_type
-                use_disk = _disk
 
             if _part.req_primary and part_type != parted.PARTITION_NORMAL:
                 # we need a primary slot and none are free on this disk
@@ -642,7 +639,18 @@ def allocatePartitions(disks, partitions):
                                                   _part.req_size,
                                                   best_free=free,
                                                   boot=_part.req_bootable)
-            else:
+            elif best:
+                if free != best:
+                    # now we know we are choosing a new free space,
+                    # so update the disk and part type
+                    log.debug("updating use_disk to %s (%s), type: %s"
+                                % (_disk, _disk.name, new_part_type))
+                    part_type = new_part_type
+                    use_disk = _disk
+                log.debug("new free: %s (%d-%d / %dMB)" % (best,
+                                                           best.start,
+                                                           best.end,
+                                                           best.getSize()))
                 free = best
 
             if free and _part.req_bootable:
