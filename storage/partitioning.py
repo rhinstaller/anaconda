@@ -52,8 +52,12 @@ def doAutoPartition(anaconda):
         anaconda.id.storage.reset()
         return
 
-    # do clearpart
-    clearPartitions(anaconda.id.storage)
+    if anaconda.id.storage.doAutoPart or anaconda.isKickstart:
+        # kickstart uses clearPartitions even without autopart
+        clearPartitions(anaconda.id.storage)
+
+    if not anaconda.id.storage.doAutoPart:
+        return
 
     # get a list of disks that have at least one free space region of at
     # least 100MB
