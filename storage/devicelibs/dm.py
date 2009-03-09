@@ -22,6 +22,7 @@
 
 import os
 
+import block
 import iutil
 from ..errors import *
 
@@ -32,6 +33,10 @@ import logging
 log = logging.getLogger("storage")
 
 def name_from_dm_node(dm_node):
+    name = block.getNameFromDmNode(dm_node)
+    if name is not None:
+        return name
+
     st = os.stat("/dev/%s" % dm_node)
     major = os.major(st.st_rdev)
     minor = os.minor(st.st_rdev)
@@ -44,6 +49,10 @@ def name_from_dm_node(dm_node):
     return name.strip()
 
 def dm_node_from_name(map_name):
+    dm_node = block.getDmNodeFromName(map_name)
+    if dm_node is not None:
+        return dm_node
+
     devnum = iutil.execWithCapture("dmsetup",
                                    ["info", "--columns",
                                     "--noheadings",

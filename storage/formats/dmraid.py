@@ -23,7 +23,6 @@
 import block
 
 from iutil import log_method_call
-#from dm import dm_node_from_name
 from ..errors import *
 from . import DeviceFormat, register_device_format
 

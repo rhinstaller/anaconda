@@ -712,7 +712,6 @@ class DeviceTree(object):
                 for slave_name in slave_names:
                     # if it's a dm-X name, resolve it to a map name first
                     if slave_name.startswith("dm-"):
-                        #slave_name = block.getNameFromDmNode(slave_name)
                         slave_name = dm.name_from_dm_node(slave_name)
                     slave_dev = self.getDeviceByName(slave_name)
                     if slave_dev:
@@ -766,7 +765,6 @@ class DeviceTree(object):
                 for slave_name in slave_names:
                     # if it's a dm-X name, resolve it to a map name
                     if slave_name.startswith("dm-"):
-                        #slave_name = block.getNameFromDmNode(slave_name)
                         slave_name = dm.name_from_dm_node(slave_name)
                     slave_dev = self.getDeviceByName(slave_name)
                     if slave_dev:

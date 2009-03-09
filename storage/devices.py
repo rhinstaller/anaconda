@@ -98,7 +98,6 @@ import math
 # device backend modules
 from devicelibs import mdraid
 from devicelibs import lvm
-#import block
 from devicelibs import dm
 import parted
 import _ped
@@ -1217,7 +1216,6 @@ class DMDevice(StorageDevice):
             raise DeviceError("device has not been created")
 
         return dm.dm_node_from_name(self.name)
-        #return block.getDmNodeFromName(self.name)
 
     def _setName(self, name):
         """ Set the device's map name. """
