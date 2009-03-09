@@ -7,13 +7,13 @@ from util import getDiskPart
 
 class alphaBootloaderInfo(bootloaderInfo):
     def wholeDevice (self, path):
-        (device, foo) = getDiskPart(path)
+        (device, foo) = getDiskPart(path, self.storage)
         return device
 
     def partitionNum (self, path):
         # getDiskPart returns part numbers 0-based; we need it one based
         # *sigh*
-        (foo, partitionNumber) = getDiskPart(path)
+        (foo, partitionNumber) = getDiskPart(path, self.storage)
         return partitionNumber + 1
 
     def writeAboot(self, instRoot, bl, kernelList,

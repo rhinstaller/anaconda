@@ -1,10 +1,11 @@
 import string
 
-def getDiskPart(dev):
+def getDiskPart(dev, storage):
+    path = storage.devicetree.getDeviceByName(dev).path[5:]
     cut = len(dev)
-    if (dev.startswith('rd/') or dev.startswith('ida/') or
-            dev.startswith('cciss/') or dev.startswith('sx8/') or
-            dev.startswith('mapper/') or dev.startswith('mmcblk')):
+    if (path.startswith('rd/') or path.startswith('ida/') or
+            path.startswith('cciss/') or path.startswith('sx8/') or
+            path.startswith('mapper/') or path.startswith('mmcblk')):
         if dev[-2] == 'p':
             cut = -1
         elif dev[-3] == 'p':

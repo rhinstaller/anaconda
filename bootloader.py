@@ -121,12 +121,12 @@ def writeBootloader(anaconda):
     # now make the upgrade stuff work for kickstart too. ick.
     if anaconda.isKickstart and anaconda.id.bootloader.doUpgradeOnly:
         import checkbootloader
-        (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath)
+        (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.id.storage)
         
         anaconda.id.bootloader.doUpgradeonly = 1
         if bootType == "GRUB":
             anaconda.id.bootloader.useGrubVal = 1
-            anaconda.id.bootloader.setDevice(theDev)
+            anaconda.id.bootloader.setDevice(theDev.split("/")[-1])
         else:
             anaconda.id.bootloader.doUpgradeOnly = 0    
 

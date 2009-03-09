@@ -64,7 +64,7 @@ class ppcBootloaderInfo(bootloaderInfo):
         f.write("init-message=\"Welcome to %s!\\nHit <TAB> for boot options\"\n\n"
                 % productName)
 
-        (name, partNum) = getDiskPart(bootDev)
+        (name, partNum) = getDiskPart(bootDev, self.storage)
         partno = partNum + 1 # 1 based
 
         f.write("partition=%s\n" %(partno,))

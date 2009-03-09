@@ -27,7 +27,7 @@ liloConfigFile = "/etc/lilo.conf"
 yabootConfigFile = "/etc/yaboot.conf"
 siloConfigFile = "/etc/silo.conf"
 
-def getRaidDisks(raidDevice, raidLevel=None, stripPart=1):
+def getRaidDisks(raidDevice, storage, raidLevel=None, stripPart=1):
     rc = []
     if raidLevel is not None:
         try:
@@ -54,7 +54,7 @@ def getRaidDisks(raidDevice, raidLevel=None, stripPart=1):
                 if len(dev) == 0:
                     continue
                 if stripPart:
-                    disk = getDiskPart(dev)[0]
+                    disk = getDiskPart(dev, storage)[0]
                     rc.append(disk)
                 else:
                     rc.append(dev)
@@ -62,7 +62,7 @@ def getRaidDisks(raidDevice, raidLevel=None, stripPart=1):
     return rc
             
 
-def getBootBlock(bootDev, instRoot, seekBlocks=0):
+def getBootBlock(bootDev, instRoot, storage, seekBlocks=0):
     """Get the boot block from bootDev.  Return a 512 byte string."""
     block = " " * 512
     if bootDev is None:
@@ -70,7 +70,7 @@ def getBootBlock(bootDev, instRoot, seekBlocks=0):
 
     # get the devices in the raid device
     if bootDev[5:7] == "md":
-        bootDevs = getRaidDisks(bootDev[5:])
+        bootDevs = getRaidDisks(bootDev[5:], storage)
         bootDevs.sort()
     else:
         bootDevs = [ bootDev[5:] ]
@@ -108,7 +108,7 @@ def getBootDevList(line):
         rets.append(dev)
     return string.join(rets)
 
-def getBootloaderTypeAndBoot(instRoot = "/"):
+def getBootloaderTypeAndBoot(instRoot, storage):
     haveGrubConf = 1
     haveLiloConf = 1
     haveYabootConf = 1
@@ -150,7 +150,7 @@ def getBootloaderTypeAndBoot(instRoot = "/"):
             return ("GRUB", bootDev)
 
         if bootDev is not None:
-            block = getBootBlock(bootDev, instRoot)
+            block = getBootBlock(bootDev, instRoot, storage)
             # XXX I don't like this, but it's what the maintainer suggested :(
             if string.find(block, "GRUB") >= 0:
                 return ("GRUB", bootDev)
@@ -163,7 +163,7 @@ def getBootloaderTypeAndBoot(instRoot = "/"):
                 bootDev = getBootDevString(line)
                 break
 
-        block = getBootBlock(bootDev, instRoot)
+        block = getBootBlock(bootDev, instRoot, storage)
         # this at least is well-defined
         if block[6:10] == "LILO":
             return ("LILO", bootDev)
@@ -200,8 +200,8 @@ def getBootloaderTypeAndBoot(instRoot = "/"):
 
         if bootDev is not None:
             # XXX SILO sucks just like grub.
-            if getDiskPart(bootDev)[1] != 3:
-                block = getBootBlock(bootDev, instRoot, 1)
+            if getDiskPart(bootDev, storage)[1] != 3:
+                block = getBootBlock(bootDev, instRoot, storage, 1)
                 if block[24:28] == "SILO":
                     return ("SILO", bootDev)
 
