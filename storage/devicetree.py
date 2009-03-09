@@ -170,8 +170,6 @@ class DeviceTree(object):
         if luksDict and isinstance(luksDict, dict):
             self.__luksDevs = luksDict
 
-        self._populate()
-
     def pruneActions(self):
         """ Prune loops and redundant actions from the queue. """
         # handle device destroy actions
@@ -1101,7 +1099,7 @@ class DeviceTree(object):
                                 log.info("setup of %s failed: %s" 
                                                     % (lv_device.name, e))
 
-    def _populate(self):
+    def populate(self):
         """ Locate all storage devices. """
         # each iteration scans any devices that have appeared since the
         # previous iteration

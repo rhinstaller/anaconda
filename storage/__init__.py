@@ -167,6 +167,7 @@ class Storage(object):
         self.defaultFSType = get_default_filesystem_type()
         self.defaultBootFSType = get_default_filesystem_type(boot=True)
 
+        # these will both be empty until our reset method gets called
         self.devicetree = DeviceTree(intf=self.anaconda.intf,
                                      ignored=self.ignoredDisks,
                                      exclusive=self.exclusiveDisks,
@@ -216,6 +217,7 @@ class Storage(object):
                                      zeroMbr=self.zeroMbr,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs)
+        self.devicetree.populate()
         self.fsset = FSSet(self.devicetree)
         w.pop()
 
