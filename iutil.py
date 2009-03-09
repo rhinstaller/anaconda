@@ -65,14 +65,14 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
         stdin = sys.stdin.fileno()
 
     if isinstance(stdout, str):
-        stdout = os.open(stdout, os.O_RDWR)
+        stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
     elif isinstance(stdout, int):
         pass
     elif stdout is None or not isinstance(stdout, file):
         stdout = sys.stdout.fileno()
 
     if isinstance(stderr, str):
-        stderr = os.open(stderr, os.O_RDWR)
+        stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
     elif isinstance(stderr, int):
         pass
     elif stderr is None or not isinstance(stderr, file):
@@ -135,7 +135,7 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
         stdin = sys.stdin.fileno()
 
     if isinstance(stderr, str):
-        stderr = os.open(stderr, os.O_RDWR)
+        stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
     elif isinstance(stderr, int):
         pass
     elif stderr is None or not isinstance(stderr, file):
@@ -184,14 +184,14 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
         stdin = sys.stdin.fileno()
 
     if isinstance(stdout, str):
-        stdout = os.open(stdout, os.O_RDWR)
+        stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
     elif isinstance(stdout, int):
         pass
     elif stdout is None or not isinstance(stdout, file):
         stdout = sys.stdout.fileno()
 
     if isinstance(stderr, str):
-        stderr = os.open(stderr, os.O_RDWR)
+        stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
     elif isinstance(stderr, int):
         pass
     elif stderr is None or not isinstance(stderr, file):
