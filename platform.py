@@ -382,7 +382,7 @@ def getPlatform(anaconda):
     elif iutil.isPPC():
         ppcMachine = iutil.getPPCMachine()
 
-        if ppcMachine == "PMac" and iutil.getPPCMacGen() == "NewWorld":
+        if (ppcMachine == "PMac" and iutil.getPPCMacGen() == "NewWorld") or ppcMachine == "PS3":
             return NewWorldPPC(anaconda)
         elif ppcMachine in ["iSeries", "pSeries"]:
             return IPSeriesPPC(anaconda)
