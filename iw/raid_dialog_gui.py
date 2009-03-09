@@ -250,7 +250,7 @@ class RaidEditor:
             actions.append(ActionCreateDevice(request))
             actions.append(ActionCreateFormat(request))
         elif format:
-            actions.append(ActionCreateFormat(self.origreqest, format))
+            actions.append(ActionCreateFormat(self.origrequest, format))
 
 
         if luksdev:
