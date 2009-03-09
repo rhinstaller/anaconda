@@ -40,6 +40,7 @@ class Platform(object):
     _bootloaderPackage = None
     _diskType = parted.diskType["msdos"]
     _minimumSector = 0
+    _supportsMdRaidBoot = False
 
     def __init__(self, anaconda):
         """Creates a new Platform object.  This is basically an abstract class.
@@ -120,6 +121,11 @@ class Platform(object):
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
         return [("/boot", self.bootFSType, 200, None, 0, 0)]
+
+    @property
+    def supportsMdRaidBoot(self):
+        """Does the platform support /boot on MD RAID?"""
+        return self._supportsMdRaidBoot
 
 class EFI(Platform):
     _diskType = parted.diskType["gpt"]
@@ -214,6 +220,7 @@ class IA64(EFI):
 class PPC(Platform):
     _bootloaderPackage = "yaboot"
     _ppcMachine = iutil.getPPCMachine()
+    _supportsMdRaidBoot = True
 
     @property
     def ppcMachine(self):
@@ -319,6 +326,7 @@ class Sparc(Platform):
 class X86(EFI):
     _bootloaderPackage = "grub"
     _isEfi = iutil.isEfi()
+    _supportsMdRaidBoot = True
 
     def __init__(self, anaconda):
         EFI.__init__(self, anaconda)

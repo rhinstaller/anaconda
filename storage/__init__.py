@@ -42,7 +42,6 @@ from formats import getFormat
 from formats import get_device_format_class
 from formats import get_default_filesystem_type
 from devicelibs.lvm import safeLvmName
-from devicelibs.mdraid import mdRaidBootArches
 from udev import udev_trigger
 import iscsi
 import zfcp
@@ -746,8 +745,7 @@ class Storage(object):
                             "logical volume."))
 
         # most arches can't have boot on RAID
-        if (boot and boot.type == "mdarray" and
-            iutil.getArch() not in mdRaidBootArches):
+        if boot and boot.type == "mdarray" and not self.anaconda.platform.supportsMdRaidBoot:
             errors.append(_("Bootable partitions cannot be on a RAID "
                             "device."))
 
