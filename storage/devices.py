@@ -682,6 +682,12 @@ class DiskDevice(StorageDevice):
             else:
                 raise DeviceUserDeniedFormatError("User prefered to not format.")
 
+        # We save the actual state of the disk here. Before the first
+        # modification (addPartition or removePartition) to the partition
+        # table we reset self.partedPartition to this state so we can
+        # perform the modifications one at a time.
+        self._origPartedDisk = self.partedDisk.duplicate()
+
         self.probe()
 
     @property
@@ -691,14 +697,41 @@ class DiskDevice(StorageDevice):
             self._size = self.partedDisk.device.getSize()
         return self._size
 
-    def setPartedDisk(self, disk):
-        log_method_call(self, self.name, disk_path=disk.device.path)
-        self.partedDisk = disk
+    def resetPartedDisk(self):
+        """ Reset parted.Disk to reflect the actual layout of the disk. """
+        log_method_call(self, self.name)
+        self.partedDisk = self._origPartedDisk
 
     def removePartition(self, device):
+        log_method_call(self, self.name, part=device.name)
+        if self.partedDisk != self._origPartedDisk:
+            log.debug("going to reset self.partedDisk to actual state")
+            self.resetPartedDisk()
+
         partition = self.partedDisk.getPartitionByPath(device.path)
         if partition:
             self.partedDisk.removePartition(partition)
+
+    def addPartition(self, device):
+        log_method_call(self, self.name, part=device.name)
+        if self.partedDisk != self._origPartedDisk:
+            log.debug("going to reset self.partedDisk to actual state")
+            self.resetPartedDisk()
+
+        for part in self.partedDisk.partitions:
+            log.debug("disk %s: partition %s has geom %s" % (self.name,
+                                                             part.getDeviceNodeName(),
+                                                             part.geometry))
+
+        geometry = device.partedPartition.geometry
+        # XXX at some point we need to improve precision of non-grow sizes
+        #constraint = parted.Constraint(exactGeom=geometry,
+        #                               device=self.partedDisk.device)
+        partition = parted.Partition(disk=self.partedDisk,
+                                     type=device.partedPartition.type,
+                                     geometry=geometry)
+        self.partedDisk.addPartition(partition,
+                                     constraint=self.partedDisk.device.getConstraint())
 
     def probe(self):
         """ Probe for any missing information about this device.
@@ -759,26 +792,6 @@ class PartitionDevice(StorageDevice):
         only type we are concerned with is primary/logical/extended. Usage
         specification is accomplished through the use of flags, which we
         will set according to the partition's format.
-
-
-        On usage of parted...
-
-        We are doing this in a slightly lame way right now. We do all
-        partitioning on the disks' partedDisk instances and update the
-        partitions' partedPartition instances accordingly. What this means
-        is that when the time comes to commit changes, all a
-        PartitionDevice must do to make the changes take effect is make
-        sure self.disk.partedDisk.commit() is called. Probably better
-        would be to work with copies of the parted.Disks during
-        partitioning, save the modified parted.Partitions in the
-        PartitionDevice instances, and call
-        self.disk.partedDisk.deletePartition in destroy and
-        self.disk.partedDisk.addPartition, followed by
-        self.disk.partedDisk.commit() in create.
-
-        OTOH, the upside to the current approach is that both the disks'
-        and the partitions' parted instances are in agreement in
-        reflecting the future layout.
     """
     _type = "partition"
     _resizable = True
@@ -903,16 +916,11 @@ class PartitionDevice(StorageDevice):
         return self.partType & parted.PARTITION_PROTECTED
 
     def _getPartedPartition(self):
-        ppart = None
-        if self._partedPartition and self.disk and \
-           self.disk.partedDisk == self._partedPartition.disk:
-            ppart = self._partedPartition
-        elif self.disk:
+        if self.disk and not self._partedPartition:
             pdisk = self.disk.partedDisk
-            ppart = pdisk.getPartitionByPath(self.path)
-            self._partedPartition = ppart
+            self._partedPartition = pdisk.getPartitionByPath(self.path)
 
-        return ppart
+        return self._partedPartition
 
     def _setPartedPartition(self, partition):
         """ Set this PartitionDevice's parted Partition instance. """
@@ -949,10 +957,6 @@ class PartitionDevice(StorageDevice):
         """ Set the Device's format. """
         log_method_call(self, self.name)
         StorageDevice._setFormat(self, format)
-
-        # now, set the flags on our parted.Partition
-        #if format:
-        #    self.partedPartitions
 
     def setBootable(self, bootable):
         """ Set the bootable flag for this partition. """
@@ -1013,19 +1017,6 @@ class PartitionDevice(StorageDevice):
         if not self.exists:
             return
 
-        # build a dict of this partition's parted flags
-        """
-        XXX removed temporarily to make things faster
-        for flag in parted.partitionFlag.keys():
-            if self.partedPartition.isFlagAvailable(flag):
-                self.partedFlags[flag] = self.partedPartition.getFlag(flag)
-
-        if self.partedFlags[parted.PARTITION_BOOT]:
-            self.bootable = True
-        else:
-            self.bootable = False
-        """
-
         # this is in MB
         self._size = self.partedPartition.getSize()
         self.targetSize = self._size
@@ -1055,6 +1046,7 @@ class PartitionDevice(StorageDevice):
         if self.bootable:
             self.setFlag(parted.PARTITION_BOOT)
 
+        self.disk.addPartition(self)
         self.disk.commit()
         self.exists = True
         self.setup()
@@ -1075,12 +1067,7 @@ class PartitionDevice(StorageDevice):
         if self.status:
             self.format.destroy()
 
-        # We have already removed the partition from the in-memory
-        # parted.Disk, so there is nothing to do here except make sure
-        # self.disk.partedDisk.commit() gets called.
-        #
-        # We must have faith that there are no erroneous outstanding
-        # changes also queued for the disk.
+        self.disk.removePartition(self)
         self.disk.commit()
 
         self.exists = False

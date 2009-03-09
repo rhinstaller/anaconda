@@ -477,7 +477,7 @@ class DeviceTree(object):
 
         # if this is a partition we need to remove it from the parted.Disk
         if isinstance(dev, PartitionDevice):
-            dev.disk.removePartition(dev)
+            dev.disk.partedDisk.removePartition(dev.partedPartition)
 
         self._devices.remove(dev)
         log.debug("removed %s (%s) from device tree" % (dev.name,
