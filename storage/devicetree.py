@@ -330,114 +330,149 @@ class DeviceTree(object):
 
     def processActions(self, dryRun=None):
         """ Execute all registered actions. """
-        def cmpActions(x, y):
-            """
-                < 1 => x < y
-                  0 => x == y
-                > 1 => x > y
-
-                FIXME: this is unmanageable.
-            """
-	    #log.debug("%s | %s" % (x, y))
-
-            # destroy actions come first
-            if x.isDestroy() and not y.isDestroy():
-		#log.debug("x is destroy -- x first")
-                return -1
-            elif y.isDestroy() and not x.isDestroy():
-		#log.debug("y is destroy -- y first")
-                return 1
-            elif x.isDestroy() and y.isDestroy():
-                # outermost/youngest first
-                if x.device.dependsOn(y.device):
-                    #log.debug("x depends on y -- x first")
-                    return -1
-                elif y.device.dependsOn(x.device):
-                    #log.debug("y depends on x -- y first")
-                    return 1
-                # filesystem destruction must precede device destruction
-                elif x.isFormat() and not y.isFormat():
-		    #log.debug("x is format -- x first")
-                    return -1
-                elif y.isFormat() and not x.isFormat():
-                    #log.debug("y is format -- y first")
-                    return 1
-
-            # resize actions come next
-            if x.isResize() and not y.isResize():
-		#log.debug("x is resize -- x first")
-                return -1
-            elif y.isResize() and not x.isResize():
-	        #log.debug("y is resize -- y first")
-                return 1
-            elif x.isResize() and y.isResize():
-                if x.isGrow() and y.isGrow():
-                    # for grow, devices come first, root down
-                    if x.isDevice() and not y.isDevice():
-                        #log.debug("x is device -- x first")
-                        return -1
-                    elif y.isDevice() and not x.isDevice():
-			#log.debug("y is device -- y first")
-                        return 1
-                    else:
-                        # innermost/oldest first
-                        if x.device.dependsOn(y.device):
-			    #log.debug("x depends on y -- y first")
-                            return 1
-                        elif y.device.dependsOn(x.device):
-		            #log.debug("y depends on x -- x first")
-                            return -1
-                elif x.isShrink() and y.isShrink():
-                    # for shrink, filesystems come first, leaves up
-                    if x.isFormat() and not y.isFormat():
-		        #log.debug("x is format -- x first")
-                        return -1
-                    elif y.isFormat() and not x.isFormat():
-                        #log.debug("y is format -- y first")
-                        return 1
-                    else:
-                        # outermost/youngest first
-                        if x.device.dependsOn(y.device):
-			    #log.debug("x depends on y -- x first")
-                            return -1
-                        elif y.device.dependsOn(x.device):
-                            #log.debug("y depends on x -- y first")
-                            return 1
-                else:
-                    # we don't care about grow action -v- shrink action
-                    # since they should be unrelated
-		    #log.debug("we don't care")
-                    return 0
-
-            # create actions come last
-            if x.isCreate() and y.isCreate():
-                # innermost/oldest first
-                if x.device.dependsOn(y.device):
-		    #log.debug("x depends on y")
-                    return 1
-                elif y.device.dependsOn(x.device):
-		    #log.debug("y depends on x")
-                    return -1
-                # devices first, root down
-                elif x.isDevice() and not y.isDevice():
-		    #log.debug("x is a device")
-                    return -1
-                elif y.isDevice() and not x.isDevice():
-		    #log.debug("y is a device")
-                    return 1
-
-	    #log.debug("no decision")
-            return 0
-
         # in most cases the actions will already be sorted because of the
         # rules for registration, but let's not rely on that
+        def cmpActions(a1, a2):
+            ret = 0
+            if a1.isDestroy() and a2.isDestroy():
+                if a1.device.path == a2.device.path:
+                    # if it's the same device, destroy the format first
+                    if a1.isFormat() and a2.isFormat():
+                        ret = 0
+                    elif a1.isFormat() and not a2.isFormat():
+                        ret = -1
+                    elif not a1.isFormat() and a2.isFormat():
+                        ret = 1
+                elif a1.device.dependsOn(a2.device):
+                    ret = -1
+                elif a2.device.dependsOn(a1.device):
+                    ret = 1
+                # generally destroy partitions after lvs, vgs, &c
+                elif isinstance(a1.device, PartitionDevice) and \
+                     isinstance(a2.device, PartitionDevice):
+                    ret = cmp(a2.device.name, a1.device.name)
+                elif isinstance(a1.device, PartitionDevice) and \
+                     not isinstance(a2.device, DiskDevice):
+                    ret = 1
+                elif isinstance(a2.device, PartitionDevice) and \
+                     not isinstance(a1.device, DiskDevice):
+                    ret = -1
+                else:
+                    ret = cmp(a2.device.name, a1.device.name)
+            elif a1.isDestroy():
+                ret = -1
+            elif a2.isDestroy():
+                ret = 1
+            elif a1.isResize() and a2.isResize():
+                if a1.device.path == a2.device.path:
+                    if a1.obj and a2.obj:
+                        ret = 0
+                    elif a1.isFormat() and not a2.isFormat():
+                        # same path, one device, one format
+                        if a1.isGrow():
+                            ret = 1
+                        else:
+                            ret = -1
+                    elif not a1.isFormat() and a2.isFormat():
+                        # same path, one device, one format
+                        if a1.isGrow():
+                            ret = -1
+                        else:
+                            ret = 1
+                    else:
+                        ret = cmp(a1.device.name, a2.device.name)
+                elif a1.device.dependsOn(a2.device):
+                    if a1.isGrow():
+                        ret = 1
+                    else:
+                        ret = -1
+                elif a2.device.dependsOn(a1.device):
+                    if a1.isGrow():
+                        ret = -1
+                    else:
+                        ret = 1
+                elif isinstance(a1.device, PartitionDevice) and \
+                     isinstance(a2.device, PartitionDevice):
+                    ret = cmp(a1.device.name, a2.device.name)
+                elif isinstance(a1.device, PartitionDevice) and \
+                     not isinstance(a2.device, DiskDevice):
+                    if a1.isGrow():
+                        ret = -1
+                    else:
+                        ret = 1
+                elif isinstance(a2.device, PartitionDevice) and \
+                     not isinstance(a1.device, DiskDevice):
+                    if a2.isGrow():
+                        ret = 1
+                    else:
+                        ret = -1
+                else:
+                    ret = cmp(a1.device.name, a2.device.name)
+            elif a1.isResize():
+                ret = -1
+            elif a2.isResize():
+                ret = 1
+            elif a1.isCreate() and a2.isCreate():
+                if a1.device.path == a2.device.path:
+                    if a1.obj == a2.obj:
+                        ret = 0
+                    if a1.isFormat():
+                        ret = 1
+                    elif a2.isFormat():
+                        ret = -1
+                    else:
+                        ret = cmp(a1.device.name, a2.device.name)
+                elif a1.device.dependsOn(a2.device):
+                    ret = 1
+                elif a2.device.dependsOn(a1.device):
+                    ret = -1
+                # generally create partitions before other device types
+                elif isinstance(a1.device, PartitionDevice) and \
+                     isinstance(a2.device, PartitionDevice):
+                    ret = cmp(a1.device.name, a2.device.name)
+                elif isinstance(a1.device, PartitionDevice) and \
+                     not isinstance(a2.device, DiskDevice):
+                    ret = -1
+                elif isinstance(a2.device, PartitionDevice) and \
+                     not isinstance(a1.device, DiskDevice):
+                    ret = 1
+                else:
+                    ret = cmp(a1.device.name, a2.device.name)
+            elif a1.isCreate():
+                ret = -1
+            elif a2.isCreate():
+                ret = 1
+            elif a1.isMigrate() and a2.isMigrate():
+                if a1.device.path == a2.device.path:
+                    ret = 0
+                elif a1.device.dependsOn(a2.device):
+                    ret = 1
+                elif a2.device.dependsOn(a1.device):
+                    ret = -1
+                elif isinstance(a1.device, PartitionDevice) and \
+                     isinstance(a2.device, PartitionDevice):
+                    ret = cmp(a1.device.name, a2.device.name)
+                else:
+                    ret = cmp(a1.device.name, a2.device.name)
+            else:
+                ret = cmp(a1.device.name, a2.device.name)
+
+            log.debug("cmp: %d -- %s | %s" % (ret, a1, a2))
+            return ret
+
         for action in self._actions:
             log.debug("action: %s" % action)
+
         log.debug("pruning action queue...")
         self.pruneActions()
         for action in self._actions:
             log.debug("action: %s" % action)
-        #self._actions.sort(cmpActions)
+
+        log.debug("sorting actions...")
+        self._actions.sort(cmp=cmpActions)
+        for action in self._actions:
+            log.debug("action: %s" % action)
+
         self.teardownAll()
         for action in self._actions:
             log.info("executing action: %s" % action)
