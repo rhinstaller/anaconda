@@ -28,6 +28,13 @@ from ..errors import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+# raidlevels constants
+RAID10 = 10
+RAID6 = 6
+RAID5 = 5
+RAID1 = 1
+RAID0 = 0
+
 def getRaidLevels():
     avail = []
     try:
@@ -52,51 +59,46 @@ def getRaidLevels():
 
 raid_levels = getRaidLevels()
 
-# FIXME: these functions should be consolidated into one function
-def isRaid10(raidlevel):
-    """Return whether raidlevel is a valid descriptor of RAID10."""
-    return raidlevel in ("RAID10", "10", 10)
+def isRaid(raid, raidlevel):
+    """Return whether raidlevel is a valid descriptor of raid"""
+    raid_descriptors = {RAID10: ("RAID10", "10", 10),
+                        RAID6: ("RAID6", "6", 6),
+                        RAID5: ("RAID5", "5", 5),
+                        RAID1: ("mirror", "RAID1", "1", 1),
+                        RAID0: ("stripe", "RAID0", "0", 0)}
 
-def isRaid6(raidlevel):
-    """Return whether raidlevel is a valid descriptor of RAID6."""
-    return raidlevel in ("RAID6", "6", 6)
-
-def isRaid5(raidlevel):
-    """Return whether raidlevel is a valid descriptor of RAID5."""
-    return raidlevel in ("RAID5", "5", 5)
-
-def isRaid1(raidlevel):
-    """Return whether raidlevel is a valid descriptor of RAID1."""
-    return raidlevel in ("mirror", "RAID1", "1", 1)
-
-def isRaid0(raidlevel):
-    """Return whether raidlevel is a valid descriptor of RAID0."""
-    return raidlevel in ("stripe", "RAID0", "0", 0)
+    if raid in raid_descriptors:
+        return raidlevel in raid_descriptors[raid]
+    else:
+        raise ValueError, "invalid raid level %d" % raid
 
 def get_raid_min_members(raidlevel):
     """Return the minimum number of raid members required for raid level"""
-    if isRaid0(raidlevel):
-        return 2
-    elif isRaid1(raidlevel):
-        return 2
-    elif isRaid5(raidlevel):
-        return 3
-    elif isRaid6(raidlevel):
-        return 4
-    elif isRaid10(raidlevel):
-        return 4
-    else:
-        raise ValueError, "invalid raidlevel in get_raid_min_members"
+    raid_min_members = {RAID10: 2,
+                        RAID6: 4,
+                        RAID5: 3,
+                        RAID1: 2,
+                        RAID0: 2}
+
+    for raid, min_members in raid_min_members.items():
+        if isRaid(raid, raidlevel):
+            return min_members
+
+    raise ValueError, "invalid raid level %d" % raidlevel
 
 def get_raid_max_spares(raidlevel, nummembers):
     """Return the maximum number of raid spares for raidlevel."""
-    if isRaid0(raidlevel):
-        return 0
-    elif isRaid1(raidlevel) or isRaid5(raidlevel) or \
-         isRaid6(raidlevel) or isRaid10(raidlevel):
-        return max(0, nummembers - get_raid_min_members(raidlevel))
-    else:
-        raise ValueError, "invalid raidlevel in get_raid_max_spares"
+    raid_max_spares = {RAID10: lambda: max(0, nummembers - get_raid_min_members(RAID10)),
+                       RAID6: lambda: max(0, nummembers - get_raid_min_members(RAID6)),
+                       RAID5: lambda: max(0, nummembers - get_raid_min_members(RAID5)),
+                       RAID1: lambda: max(0, nummembers - get_raid_min_members(RAID1)),
+                       RAID0: lambda: 0}
+
+    for raid, max_spares_func in raid_max_spares.items():
+        if isRaid(raid, raidlevel):
+            return max_spares_func()
+
+    raise ValueError, "invalid raid level %d" % raidlevel
 
 def mdcreate(device, level, disks, spares=0):
     argv = ["--create", device, "--level", str(level)]
