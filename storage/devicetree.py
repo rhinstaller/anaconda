@@ -183,7 +183,7 @@ class DeviceTree(object):
                 continue
 
             # XXX this may finally necessitate object ids
-            loops = self.findActions(device=a.device,
+            loops = self.findActions(path=a.device.path,
                                      type="destroy",
                                      object="device")
 
@@ -192,7 +192,7 @@ class DeviceTree(object):
 
             # remove all actions on this device from after the first
             # destroy up through the last destroy
-            dev_actions = self.findActions(device=a.device)
+            dev_actions = self.findActions(path=a.device.path)
             for rem in dev_actions:
                 start = self._actions.index(a)
                 end = self._actions.index(loops[-1])
@@ -207,7 +207,7 @@ class DeviceTree(object):
                 # iteration of this loop
                 continue
 
-            loops = self.findActions(device=a.device,
+            loops = self.findActions(path=a.device.path,
                                      type="create",
                                      object="device")
 
@@ -215,7 +215,7 @@ class DeviceTree(object):
                 continue
 
             # remove all all actions on this device up to the last create
-            dev_actions = self.findActions(device=a.device)
+            dev_actions = self.findActions(path=a.device.path)
             for rem in dev_actions:
                 end = self._actions.index(loops[-1])
                 if self._actions.index(rem) < end:
@@ -229,7 +229,7 @@ class DeviceTree(object):
                 # iteration of this loop
                 continue
 
-            loops = self.findActions(device=a.device,
+            loops = self.findActions(path=a.device.path,
                                      type="resize",
                                      object="device")
 
@@ -249,7 +249,7 @@ class DeviceTree(object):
                 # iteration of this loop
                 continue
 
-            loops = self.findActions(device=a.device,
+            loops = self.findActions(path=a.device.path,
                                      type="destroy",
                                      object="format")
 
@@ -258,7 +258,8 @@ class DeviceTree(object):
 
             # remove all actions on this device's format from after the
             # first destroy up through the last destroy
-            dev_actions = self.findActions(device=a.device, object="format")
+            dev_actions = self.findActions(path=a.device.path,
+                                           object="format")
             for rem in dev_actions:
                 start = self._actions.index(a)
                 end = self._actions.index(loops[-1])
@@ -283,7 +284,8 @@ class DeviceTree(object):
 
             # remove all all actions on this device's format up to the last
             # create
-            dev_actions = self.findActions(device=a.device, object="format")
+            dev_actions = self.findActions(path=a.device.path,
+                                           object="format")
             for rem in dev_actions:
                 end = self._actions.index(loops[-1])
                 if self._actions.index(rem) < end:
@@ -297,7 +299,7 @@ class DeviceTree(object):
                 # iteration of this loop
                 continue
 
-            loops = self.findActions(device=a.device,
+            loops = self.findActions(path=a.device.path,
                                      type="resize",
                                      object="format")
 
@@ -317,7 +319,7 @@ class DeviceTree(object):
                 # iteration of this loop
                 continue
 
-            loops = self.findActions(device=a.device,
+            loops = self.findActions(path=a.device.path,
                                      type="migrate",
                                      object="format")
 
@@ -569,7 +571,7 @@ class DeviceTree(object):
             # add the device back into the tree
             self._addDevice(action.device)
 
-    def findActions(self, device=None, type=None, object=None):
+    def findActions(self, device=None, type=None, object=None, path=None):
         """ Find all actions that match all specified parameters.
 
             Keyword arguments:
@@ -577,6 +579,7 @@ class DeviceTree(object):
                 device -- device to match (Device, or None to match any)
                 type -- action type to match (string, or None to match any)
                 object -- operand type to match (string, or None to match any)
+                path -- device path to match (string, or None to match any)
 
         """
         if device is None and type is None and object is None:
@@ -595,6 +598,9 @@ class DeviceTree(object):
                 continue
 
             if _object is not None and action.obj != _object:
+                continue
+
+            if path is not None and action.device.path != path:
                 continue
                 
             actions.append(action)
