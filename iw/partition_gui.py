@@ -976,7 +976,13 @@ class PartitionWindow(InstallWindow):
         elif doDeleteDevice(self.intf,
                             self.storage,
                             device):
-                self.refresh()
+            if isinstance(device, storage.devices.DiskDevice) or \
+               isinstance(device, storage.devices.PartitionDevice):
+                justRedraw = False
+            else:
+                justRedraw = True
+
+            self.refresh(justRedraw=justRedraw)
                 
     def resetCB(self, *args):
         if not confirmResetPartitionState(self.intf):
@@ -987,45 +993,49 @@ class PartitionWindow(InstallWindow):
         self.tree.clear()
         self.populate()
 
-    def refresh(self):
+    def refresh(self, justRedraw=None):
+        log.debug("refresh: justRedraw=%s" % justRedraw)
         self.diskStripeGraph.shutDown()
         self.tree.clear()
 
-        try:
-            doPartitioning(self.storage)
+        if justRedraw:
             rc = 0
-        except PartitioningError, msg:
-            self.intf.messageWindow(_("Error Partitioning"),
-                   _("Could not allocate requested partitions: %s.") % (msg),
-				    custom_icon="error")
-            rc = -1
-        except PartitioningWarning, msg:
-            # XXX somebody other than me should make this look better
-            # XXX this doesn't handle the 'delete /boot partition spec' case
-            #     (it says 'add anyway')
-            dialog = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_WARNING,
-                                       gtk.BUTTONS_NONE,
-                                       _("Warning: %s.") % (msg))
-            gui.addFrame(dialog)
-            button = gtk.Button(_("_Modify Partition"))
-            dialog.add_action_widget(button, 1)
-            button = gtk.Button(_("_Continue"))
-            dialog.add_action_widget(button, 2)
-            dialog.set_position(gtk.WIN_POS_CENTER)
-
-            dialog.show_all()
-            rc = dialog.run()
-            dialog.destroy()
-            
-            if rc == 1:
-                rc = -1
-            else:
+        else:
+            try:
+                doPartitioning(self.storage)
                 rc = 0
-                all_devices = self.storage.devicetree.devices.values()
-                bootDevs = [d for d in all_devices if d.bootable]
-                #if reqs:
-                #    for req in reqs:
-                #        req.ignoreBootConstraints = 1
+            except PartitioningError, msg:
+                self.intf.messageWindow(_("Error Partitioning"),
+                       _("Could not allocate requested partitions: %s.") % (msg),
+                                        custom_icon="error")
+                rc = -1
+            except PartitioningWarning, msg:
+                # XXX somebody other than me should make this look better
+                # XXX this doesn't handle the 'delete /boot partition spec' case
+                #     (it says 'add anyway')
+                dialog = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_WARNING,
+                                           gtk.BUTTONS_NONE,
+                                           _("Warning: %s.") % (msg))
+                gui.addFrame(dialog)
+                button = gtk.Button(_("_Modify Partition"))
+                dialog.add_action_widget(button, 1)
+                button = gtk.Button(_("_Continue"))
+                dialog.add_action_widget(button, 2)
+                dialog.set_position(gtk.WIN_POS_CENTER)
+
+                dialog.show_all()
+                rc = dialog.run()
+                dialog.destroy()
+                
+                if rc == 1:
+                    rc = -1
+                else:
+                    rc = 0
+                    all_devices = self.storage.devicetree.devices.values()
+                    bootDevs = [d for d in all_devices if d.bootable]
+                    #if reqs:
+                    #    for req in reqs:
+                    #        req.ignoreBootConstraints = 1
 
 	if not rc == -1:
 	    self.populate()
@@ -1064,8 +1074,6 @@ class PartitionWindow(InstallWindow):
 						self.parent,
                                                 raiddev,
 						isNew)
-        # is a shallow copy enough?
-	#origpartitions = self.storage.devicetree.copy()
 	
 	while 1:
 	    actions = raideditor.run()
@@ -1074,7 +1082,7 @@ class PartitionWindow(InstallWindow):
                 # FIXME: this needs to handle exceptions
                 self.storage.devicetree.registerAction(action)
 
-	    if self.refresh():
+	    if self.refresh(justRedraw=True):
                 actions.reverse()
                 for action in actions:
                     self.storage.devicetree.cancelAction(action)
@@ -1102,7 +1110,7 @@ class PartitionWindow(InstallWindow):
                 # XXX we should handle exceptions here
                 self.anaconda.id.storage.devicetree.registerAction(action)
 
-            if self.refresh():
+            if self.refresh(justRedraw=not actions):
                 # autopart failed -- cancel the actions and try to get
                 # back to previous state
                 actions.reverse()
@@ -1135,7 +1143,7 @@ class PartitionWindow(InstallWindow):
                 # FIXME: handle exceptions
                 self.storage.devicetree.registerAction(action)
 
-	    if self.refresh():
+	    if self.refresh(justRedraw=True):
                 actions.reverse()
                 for action in actions:
                     self.storage.devicetree.cancelAction(action)
