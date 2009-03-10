@@ -2134,10 +2134,9 @@ class MDRaidArrayDevice(StorageDevice):
             self.format.destroy()
 
         self.teardown()
-        # destruction of the formats on members will destroy the array
-        for disk in self.devices:
-            disk.format.destroy()
 
+        # The destruction of the formatting on the member devices does the
+        # real work, but it isn't our place to do it from here.
         self.exists = False
 
 
