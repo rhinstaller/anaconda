@@ -129,6 +129,7 @@ class Users:
                     self.admin.lockUser(userEnt)
 
                 # Add the user to all the groups they should be part of.
+                grpLst.append(self.admin.lookupGroupByName(name))
                 for grp in grpLst:
                     grp.add(libuser.MEMBERNAME, name)
                     self.admin.modifyGroup(grp)
