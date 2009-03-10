@@ -981,6 +981,7 @@ class NoDevFS(FS):
     def __init__(self, *args, **kwargs):
         FS.__init__(self, *args, **kwargs)
         self.exists = True
+        self.device = self.type
 
     def _setDevice(self, devspec):
         self._device = devspec

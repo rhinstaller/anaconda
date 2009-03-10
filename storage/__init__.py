@@ -1080,14 +1080,13 @@ class FSSet(object):
         self.cryptTab = None
         self.blkidTab = None
         self.active = False
-        self._tmpfs = None
+        self._devpts = None
         self._sysfs = None
         self._proc = None
         self._devshm = None
 
     @property
     def sysfs(self):
-        self._sysfs = self.mountpoints.get("/sys")
         if not self._sysfs:
             self._sysfs = NoDevice(format=getFormat("sysfs",
                                                     device="sys",
@@ -1096,7 +1095,6 @@ class FSSet(object):
 
     @property
     def devpts(self):
-        self._devpts = self.mountpoints.get("/dev/pts")
         if not self._devpts:
             self._devpts = NoDevice(format=getFormat("devpts",
                                                      device="devpts",
@@ -1105,7 +1103,6 @@ class FSSet(object):
 
     @property
     def proc(self):
-        self._proc = self.mountpoints.get("/proc")
         if not self._proc:
             self._proc = NoDevice(format=getFormat("proc",
                                                    device="proc",
@@ -1114,7 +1111,6 @@ class FSSet(object):
 
     @property
     def devshm(self):
-        self._devshm = self.mountpoints.get("/dev/shm")
         if not self._devshm:
             self._devshm = NoDevice(format=getFormat("tmpfs",
                                                      device="tmpfs",
@@ -1233,6 +1229,9 @@ class FSSet(object):
                     device.format = getFormat("bind",
                                               device=device.path,
                                               exists=True)
+                elif mountpoint in ("/proc", "/sys", "/dev/shm", "/dev/pts"):
+                    # drop these now -- we'll recreate later
+                    continue
                 else:
                     # nodev filesystem -- preserve or drop completely?
                     format = getFormat(fstype)
