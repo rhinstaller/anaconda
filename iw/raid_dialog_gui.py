@@ -28,7 +28,7 @@ import gtk
 import datacombo
 
 import gui
-import storage.devicelibs.mdraid
+import storage.devicelibs.mdraid as mdraidlib
 from storage.devices import *
 from storage.deviceaction import *
 from partition_ui_helpers_gui import *
@@ -113,7 +113,7 @@ class RaidEditor:
     def raidlevelchangeCB(self, widget, sparesb):
 	raidlevel = widget.get_model()[widget.get_active()][0]
 	numparts = sparesb.get_data("numparts")
-	maxspares = raid.get_raid_max_spares(raidlevel, numparts)
+	maxspares = mdraidlib.get_raid_max_spares(raidlevel, numparts)
 
 	if maxspares > 0 and raidlevel != "raid0":
 	    adj = sparesb.get_adjustment() 
@@ -398,8 +398,8 @@ class RaidEditor:
                 nspares = 0
 
             if origrequest.level:
-                maxspares = raid.get_raid_max_spares(origrequest.level,
-                                                     numparts)
+                maxspares = mdraidlib.get_raid_max_spares(origrequest.level,
+                                                          numparts)
             else:
                 maxspares = 0
 
@@ -418,7 +418,7 @@ class RaidEditor:
 
 
         if not origrequest.exists:
-            self.levelcombo = self.createRaidLevelMenu(storage.devicelibs.mdraid.raid_levels,
+            self.levelcombo = self.createRaidLevelMenu(mdraidlib.raid_levels,
                                                        origrequest.level)
 	    lbl.set_mnemonic_widget(self.levelcombo)
         else:
