@@ -46,7 +46,7 @@ def getBootloader(storage):
         import x86
         return x86.x86BootloaderInfo(storage)
     elif rhpl.getArch() == "ppc":
-        import pcc
+        import ppc
         return ppc.ppcBootloaderInfo(storage)
     elif rhpl.getArch() == "sparc":
         import sparc
