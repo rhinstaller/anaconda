@@ -473,7 +473,6 @@ class DeviceTree(object):
         for action in self._actions:
             log.debug("action: %s" % action)
 
-        self.teardownAll()
         for action in self._actions:
             log.info("executing action: %s" % action)
             if not dryRun:

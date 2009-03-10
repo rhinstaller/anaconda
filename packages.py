@@ -103,6 +103,7 @@ def turnOnFilesystems(anaconda):
                 iutil.execWithRedirect("swapoff", ["-a"],
                                        stdout = "/dev/tty5", stderr="/dev/tty5",
                                        searchPath = 1)
+            anaconda.id.storage.devicetree.teardownAll()
 
         upgrade_migrate = False
         if anaconda.id.upgrade:
