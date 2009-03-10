@@ -162,13 +162,19 @@ class DeviceTree(object):
         self._actions = []
 
         self.intf = intf
-        self.ignoredDisks = ignored
         self.exclusiveDisks = exclusive
         self.zeroMbr = zeroMbr
         self.__passphrase = passphrase
         self.__luksDevs = {}
         if luksDict and isinstance(luksDict, dict):
             self.__luksDevs = luksDict
+        self._ignoredDisks = []
+        for disk in ignored:
+            self.addIgnoredDisk(disk)
+
+    def addIgnoredDisk(self, disk):
+        self._ignoredDisks.append(disk)
+        lvm.lvm_cc_addFilterRejectRegexp(disk)
 
     def pruneActions(self):
         """ Prune loops and redundant actions from the queue. """
@@ -790,10 +796,10 @@ class DeviceTree(object):
         if not sysfs_path:
             return None
 
-        if name in self.ignoredDisks:
+        if name in self._ignoredDisks:
             return True
 
-        for ignored in self.ignoredDisks:
+        for ignored in self._ignoredDisks:
             if ignored == os.path.basename(os.path.dirname(sysfs_path)):
                 # this is a partition on a disk in the ignore list
                 return True
@@ -883,7 +889,7 @@ class DeviceTree(object):
                     if not device:
                         return
                     self._addDevice(device)
-                    #self.ignoredDisks.append(name)
+                    #self.addIgnoredDisk(name)
 
                 # if we get here, we found all of the slave devices and
                 # something must be wrong -- if all of the slaves are in
@@ -986,7 +992,7 @@ class DeviceTree(object):
                                     initcb=cb)
                     self._addDevice(device)
                 except DeviceUserDeniedFormatError: #drive not initialized?
-                    self.ignoredDisks.append(name)
+                    self.addIgnoredDisk(name)
         elif udev_device_is_partition(info):
             log.debug("%s is a partition" % name)
             device = self.getDeviceByName(name)
@@ -1138,12 +1144,12 @@ class DeviceTree(object):
                 if rs is None:
                     # we ignore the device in the hope that all the devices
                     # from this set will be ignored.
-                    self.ignoredDisks.append(device.name)
+                    self.addIgnoredDisk(device.name)
                     return
 
                 elif rs.name in self.ignoredDisks:
                     # If the rs is being ignored, we should ignore device too.
-                    self.ignoredDisks.append(device.name)
+                    self.addIgnoredDisk(device.name)
                     return
 
                 else:
@@ -1179,8 +1185,8 @@ class DeviceTree(object):
                             #        major=major, minor=minor, uuid=uuid, name=name)
                         except DeviceUserDeniedFormatError:
                             # We should ignore the dmriad and its components
-                            self.ignoredDisks.append(rs.name)
-                            self.ignoredDisks.append(device.name)
+                            self.addIgnoredDisk(rs.name)
+                            self.addIgnoredDisk(device.name)
                             rs.deactivate()
             elif format.type == "lvmpv":
                 # lookup/create the VG and LVs
