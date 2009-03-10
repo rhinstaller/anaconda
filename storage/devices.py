@@ -587,11 +587,13 @@ class StorageDevice(Device):
 
     def _setSize(self, newsize):
         """ Set the device's size to a new value. """
-        # FIXME: this should involve some verification
+        if newsize > self.maxSize:
+            raise DeviceError("device cannot be larger than %s MB" %
+                              (self.maxSize(),))
         self._size = newsize
 
     size = property(lambda x: x._getSize(),
-                    #lambda x, y: x._setSize(y),
+                    lambda x, y: x._setSize(y),
                     doc="The device's size, accounting for pending changes")
 
     @property
