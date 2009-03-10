@@ -40,25 +40,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
-def doAutoPartition(anaconda):
-    log.debug("doAutoPartition(%s)" % anaconda)
-    log.debug("doAutoPart: %s" % anaconda.id.storage.doAutoPart)
-    log.debug("clearPartType: %s" % anaconda.id.storage.clearPartType)
-    log.debug("clearPartDisks: %s" % anaconda.id.storage.clearPartDisks)
-    log.debug("autoPartitionRequests: %s" % anaconda.id.storage.autoPartitionRequests)
-    log.debug("storage.disks: %s" % anaconda.id.storage.disks)
-    log.debug("all names: %s" % [d.name for d in anaconda.id.storage.devicetree.devices.values()])
-    if anaconda.dir == DISPATCH_BACK:
-        anaconda.id.storage.reset()
-        return
-
-    if anaconda.id.storage.doAutoPart or anaconda.isKickstart:
-        # kickstart uses clearPartitions even without autopart
-        clearPartitions(anaconda.id.storage)
-
-    if not anaconda.id.storage.doAutoPart:
-        return
-
+def _createFreeSpacePartitions(anaconda):
     # get a list of disks that have at least one free space region of at
     # least 100MB
     disks = []
@@ -90,6 +72,9 @@ def doAutoPartition(anaconda):
         anaconda.id.storage.createDevice(part)
         devs.append(part)
 
+    return (disks, devs)
+
+def _schedulePartitions(anaconda, disks):
     #
     # Convert storage.autoPartitionRequests into Device instances and
     # schedule them for creation
@@ -115,38 +100,9 @@ def doAutoPartition(anaconda):
         anaconda.id.storage.createDevice(dev)
 
     # make sure preexisting broken lvm/raid configs get out of the way
+    return
 
-    # sanity check the individual devices
-    log.warning("not sanity checking devices because I don't know how yet")
-
-    # run the autopart function to allocate and grow partitions
-    try:
-        doPartitioning(anaconda.id.storage,
-                       exclusiveDisks=anaconda.id.storage.clearPartDisks)
-    except PartitioningWarning as msg:
-        if not anaconda.isKickstart:
-            anaconda.intf.messageWindow(_("Warnings During Automatic "
-                                          "Partitioning"),
-                           _("Following warnings occurred during automatic "
-                           "partitioning:\n\n%s") % (msg,),
-                           custom_icon='warning')
-        else:
-            log.warning(msg)
-    except PartitioningError as msg:
-        # restore drives to original state
-        anaconda.id.storage.reset()
-        if not anaconda.isKickstart:
-            extra = ""
-            anaconda.dispatch.skipStep("partition", skip = 0)
-        else:
-            extra = _("\n\nPress 'OK' to exit the installer.")
-        anaconda.intf.messageWindow(_("Error Partitioning"),
-               _("Could not allocate requested partitions: \n\n"
-                 "%s.%s") % (msg, extra), custom_icon='error')
-
-        if anaconda.isKickstart:
-            sys.exit(0)
-
+def _scheduleLVs(anaconda, devs):
     if anaconda.id.storage.encryptedAutoPart:
         pvs = []
         for dev in devs:
@@ -189,6 +145,63 @@ def doAutoPartition(anaconda):
 
     # grow the new VG and its LVs
     growLVM(anaconda.id.storage)
+
+def doAutoPartition(anaconda):
+    log.debug("doAutoPartition(%s)" % anaconda)
+    log.debug("doAutoPart: %s" % anaconda.id.storage.doAutoPart)
+    log.debug("clearPartType: %s" % anaconda.id.storage.clearPartType)
+    log.debug("clearPartDisks: %s" % anaconda.id.storage.clearPartDisks)
+    log.debug("autoPartitionRequests: %s" % anaconda.id.storage.autoPartitionRequests)
+    log.debug("storage.disks: %s" % anaconda.id.storage.disks)
+    log.debug("all names: %s" % [d.name for d in anaconda.id.storage.devicetree.devices.values()])
+    if anaconda.dir == DISPATCH_BACK:
+        anaconda.id.storage.reset()
+        return
+
+    disks = []
+    devs = []
+
+    if anaconda.id.storage.doAutoPart or anaconda.isKickstart:
+        # kickstart uses clearPartitions even without autopart
+        clearPartitions(anaconda.id.storage)
+
+    if anaconda.id.storage.doAutoPart:
+        (disks, devs) = _createFreeSpacePartitions(anaconda)
+        _schedulePartitions(anaconda, disks)
+
+    # sanity check the individual devices
+    log.warning("not sanity checking devices because I don't know how yet")
+
+    # run the autopart function to allocate and grow partitions
+    try:
+        doPartitioning(anaconda.id.storage,
+                       exclusiveDisks=anaconda.id.storage.clearPartDisks)
+    except PartitioningWarning as msg:
+        if not anaconda.isKickstart:
+            anaconda.intf.messageWindow(_("Warnings During Automatic "
+                                          "Partitioning"),
+                           _("Following warnings occurred during automatic "
+                           "partitioning:\n\n%s") % (msg,),
+                           custom_icon='warning')
+        else:
+            log.warning(msg)
+    except PartitioningError as msg:
+        # restore drives to original state
+        anaconda.id.storage.reset()
+        if not anaconda.isKickstart:
+            extra = ""
+            anaconda.dispatch.skipStep("partition", skip = 0)
+        else:
+            extra = _("\n\nPress 'OK' to exit the installer.")
+        anaconda.intf.messageWindow(_("Error Partitioning"),
+               _("Could not allocate requested partitions: \n\n"
+                 "%s.%s") % (msg, extra), custom_icon='error')
+
+        if anaconda.isKickstart:
+            sys.exit(0)
+
+    if anaconda.id.storage.doAutoPart:
+        _scheduleLVs(anaconda, dev)
 
     # sanity check the collection of devices
     log.warning("not sanity checking storage config because I don't know how yet")
