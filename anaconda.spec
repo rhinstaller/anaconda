@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.25
+Version: 11.5.0.26
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -209,6 +209,37 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 09 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.26-1
+- Move the recursive teardown of all devices out of processActions. (dlehman)
+- Clean up handling of /proc, /sys, /dev/pts, /dev/shm entries. (dlehman)
+- Fix several minor bugs preventing upgrade/rescue mount. (#488946) (dlehman)
+- Only populate the device tree on demand. (dlehman)
+- Prune actions by device based on path, not object-id. (dlehman)
+- Rewrite action sort so it works correctly. (dlehman)
+- Do a separate disk.commit for each partition add/remove. (dlehman)
+- Fix bug keeping track of best free region/type/disk info. (dlehman)
+- Return early if doAutoPart is False, but clearpart first if kickstart.
+  (dlehman)
+- Recognize PS3 as a valid machine type (#489263). (clumens)
+- Move the mdRaidBootArches logic into the platform module. (clumens)
+- stdout and stderr may also need to be created. (clumens)
+- Fix booty for dmraid (hdegoede)
+- It's self.origrequest, not self.origreqest (#489036). (clumens)
+- Added crypto.py unittest; Updated devicelibs tests baseclass.py and lvm.py
+  (mgracik)
+- Start storage before parsing the kickstart file. (clumens)
+- Make sure autopart without any clearpart command will fail. (clumens)
+- Update storage flag on ks autopart (rvykydal)
+- Use correct storage attribute for ks clearpart (rvykydal)
+- Catch the new _ped.DiskLabelException for unrecognized disklabels.
+  (dlehman)
+- Catch all failures from making parted objects in exceptionDisks. (dlehman)
+- various dmraid fixes. (jgranado)
+- Implement the format disk question as a callback. (jgranado)
+- Add dmraid functionality to new storage code. (jgranado)
+- Do not pass None values into nonmandatory arguments, you are screwing the
+  default values.. (msivak)
+
 * Thu Mar 05 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.25-1
 - Schedule device destroy actions for partitions last. (dlehman)
 - Pass storage.disks, not storage, to createAllowed.... (#488860) (dlehman)
