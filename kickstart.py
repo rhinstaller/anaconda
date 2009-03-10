@@ -602,9 +602,9 @@ class Partition(commands.partition.F9_Partition):
         if pd.start != 0 and pd.disk == "":
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition command with start cylinder requires a drive specification")
         hds = map(lambda x: x.name, filter(lambda x: isys.mediaPresent(x.name), self.handler.id.storage.disks))
-        if not hds.has_key(pd.disk) and hds.has_key('mapper/'+pd.disk):
+        if pd.disk not in hds and pd.disk in ('mapper/'+hd for hd in hds):
             pd.disk = 'mapper/' + pd.disk
-        if pd.disk != "" and pd.disk not in hds.keys():
+        if pd.disk not in hds:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % pd.disk)
 
         request = partRequests.PartitionSpec(filesystem,
