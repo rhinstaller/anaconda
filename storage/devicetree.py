@@ -196,6 +196,9 @@ class DeviceTree(object):
                 end = self._actions.index(loops[-1])
                 if start < self._actions.index(rem) <= end:
                     self._actions.remove(rem)
+                    # last destroy action removed
+                    if rem == loops[-1]:
+                        break
 
         # device create actions
         actions = self.findActions(type="create", object="device")
@@ -579,7 +582,7 @@ class DeviceTree(object):
                 path -- device path to match (string, or None to match any)
 
         """
-        if device is None and type is None and object is None:
+        if device is None and type is None and object is None and path is None:
             return self._actions[:]
 
         # convert the string arguments to the types used in actions
