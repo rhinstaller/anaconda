@@ -163,7 +163,7 @@ def bindMountDevDirectory(instPath):
 
 # returns None if no filesystem exist to migrate
 def upgradeMigrateFind(anaconda):
-    migents = anaconda.id.storage.fsset.getMigratableEntries()
+    migents = anaconda.id.storage.fsset.migratableDevices
     if not migents or len(migents) < 1:
         anaconda.dispatch.skipStep("upgrademigratefs")
     else:

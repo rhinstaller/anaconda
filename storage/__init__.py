@@ -32,6 +32,7 @@ import isys
 import iutil
 from constants import *
 from pykickstart.constants import *
+from flags import flags
 
 import storage_log
 from errors import *
@@ -864,10 +865,11 @@ def findExistingRootDevices(anaconda, upgradeany=False):
 
     return rootDevs
 
-def mountExistingSystem(anaconda, rootDevice,
+def mountExistingSystem(anaconda, rootEnt,
                         allowDirty=None, warnDirty=None,
                         readOnly=None):
     """ Mount filesystems specified in rootDevice's /etc/fstab file. """
+    rootDevice = rootEnt[0]
     rootPath = anaconda.rootPath
     fsset = anaconda.id.storage.fsset
     if readOnly:
