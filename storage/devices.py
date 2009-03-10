@@ -723,14 +723,12 @@ class DiskDevice(StorageDevice):
                                                              part.geometry))
 
         geometry = device.partedPartition.geometry
-        # XXX at some point we need to improve precision of non-grow sizes
-        #constraint = parted.Constraint(exactGeom=geometry,
-        #                               device=self.partedDisk.device)
+        constraint = parted.Constraint(exactGeom=geometry)
         partition = parted.Partition(disk=self.partedDisk,
                                      type=device.partedPartition.type,
                                      geometry=geometry)
         self.partedDisk.addPartition(partition,
-                                     constraint=self.partedDisk.device.getConstraint())
+                                     constraint=constraint)
 
     def probe(self):
         """ Probe for any missing information about this device.

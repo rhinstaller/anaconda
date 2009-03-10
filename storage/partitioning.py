@@ -507,6 +507,10 @@ def doPartitioning(storage, exclusiveDisks=None):
         disks = [d for d in disks if d.name in exclusiveDisks]
 
     partitions = storage.partitions
+    for part in partitions:
+        if not part.exists:
+            # start over with flexible-size requests
+            part.req_size = part.req_base_size
 
     # FIXME: isn't there a better place for this to happen?
     try:
@@ -698,18 +702,19 @@ def allocatePartitions(disks, partitions):
 
         # create minimum geometry for this request
         # req_size is in MB
+        sectors_per_track = disk.device.biosGeometry[2]
         length = (_part.req_size * (1024 * 1024)) / sectorSize
         new_geom = parted.Geometry(device=disk.device,
-                                   start=free.start,
+                                   start=max(sectors_per_track, free.start),
                                    length=length)
 
         # create the partition and add it to the disk
         partition = parted.Partition(disk=disk,
                                      type=part_type,
                                      geometry=new_geom)
+        constraint = parted.Constraint(exactGeom=new_geom)
         disk.addPartition(partition=partition,
-                          constraint=disk.device.getConstraint())
-#                          constraint=parted.Constraint(device=disk.device))
+                          constraint=constraint)
         log.debug("created partition %s of %dMB and added it to %s" % (partition.getDeviceNodeName(), partition.getSize(), disk))
 
         # this one sets the name
