@@ -367,6 +367,7 @@ class FS(DeviceFormat):
         argv = []
         argv.extend(self.defaultCheckOptions)
         argv.append(self.device)
+        return argv
 
     def doCheck(self, intf=None):
         if not self.exists:
@@ -387,7 +388,7 @@ class FS(DeviceFormat):
 
         try:
             rc = iutil.execWithPulseProgress(self.fsckProg,
-                                             argv,
+                                             self._getCheckArgs(),
                                              stdout="/dev/tty5",
                                              stderr="/dev/tty5",
                                              progress = w)
