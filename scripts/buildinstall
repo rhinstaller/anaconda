@@ -219,8 +219,9 @@ echo "Writing .treeinfo file..."
 $MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BASEARCH --outfile=$OUTPUT/.treeinfo
 
 # FIXME: need to update mk-images to take the yumconf
-echo "Making images..."
-$MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
+MKIMGCMD="$MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf"
+echo "Making images: $PWD\$ $MKIMGCMD"
+$MKIMGCMD || die "image creation failed"
 
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BASEARCH --discNum="ALL"  --outfile=$OUTPUT/.discinfo

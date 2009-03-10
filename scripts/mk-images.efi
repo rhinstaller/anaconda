@@ -45,6 +45,7 @@ makeefibootdisk()
 
 #makeefibootimage required for EFI bootloader dosfs image
 makeefibootimage() {
+    echo "in makeefibootimage: makeefibootimage $@"
     MBD_FILENAME=""
     KERNELFILE=""
     INITRDFILE=""
@@ -57,8 +58,16 @@ makeefibootimage() {
             KERNELFILE=$2
             shift; shift
             continue
+        elif [ $1 = "--kernelpath" ]; then
+            KERNELPATH=$2
+            shift; shift
+            continue
         elif [ $1 = "--initrd" ]; then
             INITRDFILE=$2
+            shift; shift
+            continue
+        elif [ $1 = "--initrdpath" ]; then
+            INITRDPATH=$2
             shift; shift
             continue
         elif [ $1 = "--imagename" ]; then
@@ -67,10 +76,11 @@ makeefibootimage() {
             continue
         elif [ $1 = "--grubpkg" ]; then
             grubpkg=$2
+            echo "grubpkg=$grubpkg"
             shift; shift
             continue
         fi
-        echo "Unknown option passed to makebootdisk"
+        echo "Unknown option passed to makebootdisk: \"$1\""
         exit 1
     done
 
@@ -111,6 +121,7 @@ makeefibootimage() {
 
 # prepare and build an efiboot.img.
 prepareEfiImage() {
+    echo "in prepareEfiImage"
     prepareEfiTree || return 1
 
     # dynamically calculate the size of the dosfs
@@ -125,47 +136,65 @@ prepareEfiImage() {
 # prepare a directory with the kernel, initrd, and various message files
 # used to populate the efi boot image
 prepareEfiTree() {
-    mkdir -p $MBD_BOOTTREE_TMP/EFI/boot
+    echo "in prepareEfiTree"
+    mkdir -p $MBD_BOOTTREE_TMP/EFI/BOOT
 
-    cp -a $BOOTDISKDIR/* $MBD_BOOTTREE_TMP/EFI/boot/
-    [ -n "$INITRDFILE" ] && cp $INITRDFILE $MBD_BOOTTREE_TMP/EFI/boot/initrd.img
-    [ -n "$KERNELFILE" ] && cp $KERNELFILE $MBD_BOOTTREE_TMP/EFI/boot/vmlinuz
+    cp -av $BOOTDISKDIR/*.conf $MBD_BOOTTREE_TMP/EFI/BOOT/
+    [ -n "$KERNELFILE" ] && cp -av $KERNELFILE $MBD_BOOTTREE_TMP/EFI/BOOT/vmlinuz
+    [ -n "$INITRDFILE" ] && cp -av $INITRDFILE $MBD_BOOTTREE_TMP/EFI/BOOT/initrd.img
+    [ -z "$KERNELPATH" ] && KERNELPATH="/EFI/BOOT/vmlinuz"
+    [ -z "$INITRDPATH" ] && INITRDPATH="/EFI/BOOT/initrd.img"
 
-    sed -i "s/@PRODUCT@/$PRODUCT/g" $MBD_BOOTTREE_TMP/EFI/boot/grub.conf
-    sed -i "s/@VERSION@/$VERSION/g" $MBD_BOOTTREE_TMP/EFI/boot/grub.conf
+    SPLASHPATH="/EFI/BOOT/splash.xpm.gz"
+    sed -e "s/@PRODUCT@/$PRODUCT/g" \
+        -e "s/@VERSION@/$VERSION/g" \
+        -e "s,@KERNELPATH@,$KERNELPATH,g" \
+        -e "s,@INITRDPATH@,$INITRDPATH,g" \
+        -e "s,@SPLASHPATH@,$SPLASHPATH,g" \
+        -i $MBD_BOOTTREE_TMP/EFI/BOOT/grub.conf
 
-    yumdownloader -c $yumconf $grubpkg
+    ydcmd="yumdownloader -c $yumconf $grubpkg"
+    echo "(grubpkg) $ydcmd"
+    $ydcmd
     rpm2cpio $grubpkg.rpm | (cd $KERNELROOT; cpio --quiet -iumd)
-    cp $KERNELROOT/boot/efi/EFI/redhat/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/grub.efi
+    cp -av $KERNELROOT/boot/efi/EFI/redhat/grub.efi $MBD_BOOTTREE_TMP/EFI/BOOT/grub.efi
 
     # The first generation Mactel machines get the bootloader name wrong
     # as per the spec.  Awesome, guys.
     if [ "$efiarch" == "ia32" ]; then
-        cp $MBD_BOOTTREE_TMP/EFI/boot/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/boot.efi
-        cp $MBD_BOOTTREE_TMP/EFI/boot/grub.conf $MBD_BOOTTREE_TMP/EFI/boot/boot.conf
+        cp -av $MBD_BOOTTREE_TMP/EFI/BOOT/grub.efi $MBD_BOOTTREE_TMP/EFI/BOOT/BOOT.efi
+        cp -av $MBD_BOOTTREE_TMP/EFI/BOOT/grub.conf $MBD_BOOTTREE_TMP/EFI/BOOT/BOOT.conf
     fi
 
-    mv $MBD_BOOTTREE_TMP/EFI/boot/grub.efi $MBD_BOOTTREE_TMP/EFI/boot/boot${efiarch}.efi
-    mv $MBD_BOOTTREE_TMP/EFI/boot/grub.conf $MBD_BOOTTREE_TMP/EFI/boot/boot${efiarch}.conf
+    local tmpefiarch=${efiarch}
+    case ${efiarch} in
+        x64) tmpefiarch="X64" ;;
+        ia32) tmpefiarch="IA32" ;;
+    esac
+    mv -v $MBD_BOOTTREE_TMP/EFI/BOOT/grub.efi $MBD_BOOTTREE_TMP/EFI/BOOT/BOOT${tmpefiarch}.efi
+    mv -v $MBD_BOOTTREE_TMP/EFI/BOOT/grub.conf $MBD_BOOTTREE_TMP/EFI/BOOT/BOOT${tmpefiarch}.conf
 
     artpkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" --whatprovides ${brandpkgname}-logos | grep -v generic-logos | head -1)
     if [ -z "$artpkg" ]; then
        argpkg="generic-logos"
     fi
 
-    yumdownloader -c ${yumconf} ${artpkg}
+    ydcmd="yumdownloader -c ${yumconf} ${artpkg}"
+    echo "(artpkg) $ydcmd"
+    $ydcmd
     rpm2cpio ${artpkg}.rpm | (cd $KERNELROOT; cpio --quiet -iumd)
-    cp $KERNELROOT/boot/grub/splash.xpm.gz $MBD_BOOTTREE_TMP/EFI/boot/splash.xpm.gz
+    cp -av $KERNELROOT/boot/grub/splash.xpm.gz $MBD_BOOTTREE_TMP/$SPLASHPATH
 
     # if we don't have a kernel or initrd, we're making a CD image and we need
     # to mirror EFI/ to the cd.
     if [ -z "$KERNELFILE" -a -z "$INITRDFILE" ]; then
         cp -av $MBD_BOOTTREE_TMP/EFI/ $TOPDESTPATH/EFI/
-        rm -f $TOPDESTPATH/EFI/boot/*.efi
+        rm -f $TOPDESTPATH/EFI/BOOT/*.efi
     fi
 }
 
 makeEfiImages() {
+    echo "in makeEfiImages"
     yumconf="$1"
     echo "Making EFI images ($PWD)"
     if [ "$kernelvers" != "$kernelxen" ]; then
@@ -182,9 +211,10 @@ makeEfiImages() {
             return 1
         fi
         echo "Building efiboot.img for ${efiarch}/$KERNELARCH at $TOPDESTPATH/images/efiboot.img"
+	echo "grubpkg: ${grubpkg}"
 
         makeefibootimage \
-            --imagename pxeboot/efiboot.img \
+            --imagename efiboot.img \
             --kernel $TOPDESTPATH/images/pxeboot/vmlinuz \
             --initrd $TOPDESTPATH/images/pxeboot/initrd.img \
             --grubpkg ${grubpkg}
@@ -194,13 +224,16 @@ makeEfiImages() {
             return $ret
         fi
 
-        makeefibootdisk $TOPDESTPATH/images/pxeboot/efiboot.img $TOPDESTPATH/images/efidisk.img
-        [ $ret -eq 0 ] || return $ret
+        makeefibootdisk $TOPDESTPATH/images/efiboot.img $TOPDESTPATH/images/efidisk.img
         local ret=$?
+        [ $ret -eq 0 ] || return $ret
+        rm -vf $TOPDESTPATH/images/efiboot.img
 
         # make a boot image with just boot*.efi in it...
         makeefibootimage \
-            --imagename pxeboot/efiboot.img \
+            --imagename efiboot.img \
+            --kernelpath /images/pxeboot/vmlinuz \
+            --initrdpath /images/pxeboot/initrd.img \
             --grubpkg ${grubpkg}
         local ret=$?
         if [ $ret -ne 0 ]; then

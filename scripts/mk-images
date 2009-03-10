@@ -891,6 +891,7 @@ doPostImages() {
 # this gets overloaded if we're on an EFI-capable arch (... with grub)
 makeEfiImages()
 {
+    echo "Not on an EFI capable machine; skipping EFI images."
     /bin/true
 }
 
