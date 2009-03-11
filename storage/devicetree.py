@@ -758,7 +758,7 @@ class DeviceTree(object):
         if isinstance(dep, PartitionDevice):
             # collect all of the logicals on the same disk
             for part in self.getDevicesByInstance(PartitionDevice):
-                if part.isLogical and part.disk == dep.disk:
+                if part.partType and part.isLogical and part.disk == dep.disk:
                     logicals.append(part)
 
         for device in self.devices.values():
