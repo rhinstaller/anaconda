@@ -513,10 +513,11 @@ class StorageDevice(Device):
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
         log_method_call(self, self.name, status=self.status)
-        if not self.exists:
+        if not self.exists and not recursive:
             raise DeviceError("device has not been created")
 
-        self.format.teardown()
+        if self.status and self.format.exists:
+            self.format.teardown()
 
         if recursive:
             self.teardownParents(recursive=recursive)
@@ -772,12 +773,6 @@ class DiskDevice(StorageDevice):
         log_method_call(self, self.name, status=self.status)
         if not os.path.exists(self.path):
             raise DeviceError("device does not exist")
-
-    def teardown(self, recursive=False):
-        """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
-        if not self.exists:
-            raise DeviceError("device has not been created")
 
 
 class PartitionDevice(StorageDevice):
@@ -1227,18 +1222,6 @@ class DMDevice(StorageDevice):
     name = property(lambda d: d._name,
                     lambda d,n: d._setName(n))
 
-    def teardown(self, recursive=None):
-        """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
-        if not self.exists:
-            raise DeviceError("device has not been created")
-
-        if self.status:
-            self.format.teardown()
-
-        if recursive:
-            self.teardownParents(recursive=recursive)
-
 
 class DMCryptDevice(DMDevice):
     """ A dm-crypt device """
@@ -1321,11 +1304,13 @@ class LUKSDevice(DMCryptDevice):
     def teardown(self, recursive=False):
         """ Close, or tear down, a device. """
         log_method_call(self, self.name, status=self.status)
-        if not self.exists:
+        if not self.exists and not recursive:
             raise DeviceError("device has not been created")
 
-        if self.status:
+        if self.status and self.format.exists:
             self.format.teardown()
+
+        if self.slave.format.exists:
             self.slave.format.teardown()
 
         if recursive:
@@ -1502,7 +1487,7 @@ class LVMVolumeGroupDevice(DMDevice):
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
         log_method_call(self, self.name, status=self.status)
-        if not self.exists:
+        if not self.exists and not recursive:
             raise DeviceError("device has not been created")
 
         if self.status:
@@ -1779,11 +1764,13 @@ class LVMLogicalVolumeDevice(DMDevice):
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
         log_method_call(self, self.name, status=self.status)
-        if not self.exists:
+        if not self.exists and not recursive:
             raise DeviceError("device has not been created")
 
-        if self.status:
+        if self.status and self.format.exists:
             self.format.teardown()
+
+        if self.status:
             lvm.lvdeactivate(self.vg.name, self._name)
 
         if recursive:
@@ -2088,11 +2075,13 @@ class MDRaidArrayDevice(StorageDevice):
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
         log_method_call(self, self.name, status=self.status)
-        if not self.exists:
+        if not self.exists and not recursive:
             raise DeviceError("device has not been created")
 
-        if self.status:
+        if self.status and self.format.exists:
             self.format.teardown()
+
+        if self.status:
             mdraid.mddeactivate(self.path)
 
         if recursive:
@@ -2232,10 +2221,6 @@ class DMRaidArrayDevice(DiskDevice):
 
     def getDMNode(self):
         DMDevice.getDMNode(self)
-
-    def teardown(self, recursive=None):
-        # avoid DiskDevice's overriding of teardown()
-        StorageDevice.teardown(self, recursive)
 
 
 class DMRaidPartitionDevice(PartitionDevice):
@@ -2512,16 +2497,6 @@ class OpticalDevice(StorageDevice):
         StorageDevice.__init__(self, name, format=format,
                                major=major, minor=minor, exists=True,
                                parents=parents, sysfsPath=sysfsPath)
-
-    def teardown(self, recursive=None):
-        """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
-        if not self.exists:
-            raise DeviceError("device has not been created")
-
-        self.format.teardown()
-        if recursive:
-            self.teardownParents(recursive=recursive)
 
     def mediaPresent(self):
         """ Return a boolean indicating whether or not the device contains
