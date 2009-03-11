@@ -1266,6 +1266,8 @@ class DeviceTree(object):
             for dev in devices:
                 self.addUdevDevice(dev)
 
+        self.teardownAll()
+
     def teardownAll(self):
         """ Run teardown methods on all devices. """
         for device in self.leaves:
