@@ -323,8 +323,7 @@ class FS(DeviceFormat):
             raise FSResizeError("filesystem does not exist", self.device)
 
         if not self.resizable:
-            # should this instead raise an exception?
-            return
+            raise FSResizeError("filesystem not resizable", self.device)
 
         if self.targetSize == self.currentSize:
             return
