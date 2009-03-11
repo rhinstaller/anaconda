@@ -147,8 +147,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
     def postAction(self, anaconda):
         self._unmountNonFstabDirs(anaconda)
         try:
-            anaconda.id.fsset.umountFilesystems(anaconda.rootPath,
-                                                swapoff = False)
+            anaconda.id.storage.fsset.umountFilesystems(anaconda.rootPath,
+                                                        swapoff = False)
             os.rmdir(anaconda.rootPath)
         except Exception, e:
             log.error("Unable to unmount filesystems.") 
@@ -158,7 +158,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             self._unmountNonFstabDirs(anaconda)
             return
 
-        anaconda.id.fsset.umountFilesystems(anaconda.rootPath, swapoff = False)
+        anaconda.id.storage.fsset.umountFilesystems(anaconda.rootPath,
+                                                    swapoff = False)
 
     def doInstall(self, anaconda):
         log.info("Preparing to install packages")
@@ -173,7 +174,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         osimg = self._getLiveBlockDevice() # the real image
         osfd = os.open(osimg, os.O_RDONLY)
 
-        rootDevice = anaconda.id.fsset.rootDevice
+        rootDevice = anaconda.id.storage.fsset.rootDevice
         rootDevice.setup()
         rootfd = os.open(rootDevice.path, os.O_WRONLY)
 
@@ -223,10 +224,10 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         self._resizeRootfs(anaconda, wait)
 
         # remount filesystems
-        anaconda.id.fsset.mountFilesystems(anaconda)
+        anaconda.id.storage.fsset.mountFilesystems(anaconda)
 
         # restore the label of / to what we think it is
-        rootDevice = anaconda.id.fsset.rootDevice
+        rootDevice = anaconda.id.storage.fsset.rootDevice
         rootDevice.setup()
         # ensure we have a random UUID on the rootfs
         # FIXME: this should be abstracted per filesystem type
@@ -243,14 +244,10 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # this is pretty distasteful, but should work with things like
         # having a separate /usr/local
 
-        # XXX wow, what in the hell is going on here?
-        # get a list of fsset entries that are relevant
-        entries = sorted(filter(lambda e: not e.fsystem.isKernelFS() and \
-                                e.getMountPoint(), anaconda.id.fsset.entries))
         # now create a tree so that we know what's mounted under where
         fsdict = {"/": []}
-        for entry in entries:
-            tocopy = entry.getMountPoint()
+        for entry in anaconda.id.storage.fsset.mountpoints.itervalues():
+            tocopy = entry.format.mountpoint
             if tocopy.startswith("/mnt") or tocopy == "swap":
                 continue
             keys = sorted(fsdict.keys(), reverse = True)
@@ -266,8 +263,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             if tocopy in copied:
                 continue
             copied.append(tocopy)
-            copied.extend(map(lambda x: x.getMountPoint(), fsdict[tocopy]))
-            entry = anaconda.id.fsset.getEntryByMountPoint(tocopy)
+            copied.extend(map(lambda x: x.format.mountpoint, fsdict[tocopy]))
+            entry = anaconda.id.storage.fsset.mountpoints[tocopy]
 
             # FIXME: all calls to wait.refresh() are kind of a hack... we
             # should do better about not doing blocking things in the
@@ -277,9 +274,9 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
             # unmount subdirs + this one and then remount under /mnt
             for e in fsdict[tocopy] + [entry]:
-                e.umount(anaconda.rootPath)
+                e.format.teardown()
             for e in [entry] + fsdict[tocopy]:
-                e.mount(anaconda.rootPath + "/mnt")                
+                e.format.setup(chroot=anaconda.rootPath + "/mnt")
 
             copytree("%s/%s" %(anaconda.rootPath, tocopy),
                      "%s/mnt/%s" %(anaconda.rootPath, tocopy), True, True,
@@ -289,14 +286,14 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
             # mount it back in the correct place
             for e in fsdict[tocopy] + [entry]:
-                e.umount(anaconda.rootPath + "/mnt")
+                e.format.teardown()
                 try:
                     os.rmdir("%s/mnt/%s" %(anaconda.rootPath,
-                                           e.getMountPoint()))
+                                           e.format.mountpoint))
                 except OSError, e:
                     log.debug("error removing %s" %(tocopy,))
             for e in [entry] + fsdict[tocopy]:                
-                e.mount(anaconda.rootPath)                
+                e.format.setup(chroot=anaconda.rootPath)
 
             wait.refresh()
 
@@ -312,7 +309,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
     def _resizeRootfs(self, anaconda, win = None):
         log.info("going to do resize")
-        rootDevice = anaconda.id.fsset.rootDevice
+        rootDevice = anaconda.id.storage.fsset.rootDevice
 
         # FIXME: we'd like to have progress here to give an idea of
         # how long it will take.  or at least, to give an indefinite
@@ -342,7 +339,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             anaconda.id.desktop.setDefaultRunLevel(5)
 
         # now write out the "real" fstab and mtab
-        anaconda.id.fsset.write(anaconda.rootPath)
+        anaconda.id.storage.write(anaconda.rootPath)
         f = open(anaconda.rootPath + "/etc/mtab", "w+")
         f.write(anaconda.id.fsset.mtab())
         f.close()        
@@ -373,7 +370,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # FIXME: really, this should be in the general sanity checking, but
         # trying to weave that in is a little tricky at present.
         ossize = self._getLiveSizeMB()
-        slash = anaconda.id.fsset.rootDevice
+        slash = anaconda.id.storage.fsset.rootDevice
         if slash.size < ossize:
             rc = anaconda.intf.messageWindow(_("Error"),
                                         _("The root filesystem you created is "

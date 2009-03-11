@@ -1289,7 +1289,10 @@ class FSSet(object):
     def mtab(self):
         format = "%s %s %s %s 0 0\n"
         mtab = ""
-        for device in self.devices:
+        devices = self.mountpoints.values() + self.swapDevices
+        devices.extend([self.devshm, self.devpts, self.sysfs, self.proc])
+        devices.sort(key=lambda d: getattr(d.format, "mountpoint", None))
+        for device in devices:
             if not device.format.status:
                 continue
             if not device.format.mountable:
