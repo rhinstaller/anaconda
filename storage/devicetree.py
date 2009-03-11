@@ -644,7 +644,9 @@ class DeviceTree(object):
             raise ValueError("Cannot remove non-leaf device '%s'" % dev.name)
 
         # if this is a partition we need to remove it from the parted.Disk
-        if isinstance(dev, PartitionDevice):
+        if isinstance(dev, PartitionDevice) and dev.disk is not None:
+            # if this partition hasn't been allocated it could not have
+            # a disk attribute
             dev.disk.partedDisk.removePartition(dev.partedPartition)
 
         self._devices.remove(dev)
