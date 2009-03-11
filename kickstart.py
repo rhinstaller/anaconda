@@ -1013,13 +1013,6 @@ class AnacondaKSHandler(superclass):
         self.permanentSkipSteps = []
         self.skipSteps = []
         self.showSteps = []
-        self.ksRaidMapping = {}
-        self.ksUsedMembers = []
-        self.ksPVMapping = {}
-        self.ksVGMapping = {}
-        # XXX hack to give us a starting point for RAID, LVM, etc unique IDs.
-        self.ksID = 100000
-
         self.anaconda = anaconda
         self.id = self.anaconda.id
 
