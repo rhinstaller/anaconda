@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.99
+Version: 10.1.1.100
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar 11 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.100-1
+- Fix clamping of VG size in case when it is not sufficient for lvm metadata (rvykydal).
+  Resolves: rhbz:#489549
+
 * Wed Mar 4 2009 Joel Granados <jgranados@redhat.com> - 10.1.1.99-1
 - We have to first refresh the devices and _then_ set the protected list (msivak).
   Resolves: rhbz:#461855
