@@ -18,6 +18,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from storage.devices import LUKSDevice
+from storage.devicelibs.lvm import getPossiblePhysicalExtents
+from storage.formats import getFormat
 from storage.partitioning import clearPartitions
 
 from errors import *
@@ -334,74 +337,104 @@ class LogVol(commands.logvol.F9_LogVol):
     def parse(self, args):
         lvd = commands.logvol.F9_LogVol.parse(self, args)
 
-        if lvd.mountpoint == "swap":
-            filesystem = fileSystemTypeGet("swap")
-            lvd.mountpoint = ""
+        storage = self.handler.id.storage
+        devicetree = storage.devicetree
 
+        if lvd.mountpoint == "swap":
+            type = "swap"
+            lvd.mountpoint = ""
             if lvd.recommended:
                 (lvd.size, lvd.maxSizeMB) = iutil.swapSuggestion()
                 lvd.grow = True
         else:
             if lvd.fstype != "":
-                try:
-                    filesystem = fileSystemTypeGet(lvd.fstype)
-                except KeyError:
-                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % lvd.fstype)
+                type = lvd.fstype
             else:
-                filesystem = fileSystemTypeGetDefault()
+                type = storage.defaultFSType
 
-        # sanity check mountpoint
+        # Sanity check mountpoint
         if lvd.mountpoint != "" and lvd.mountpoint[0] != '/':
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point \"%s\" is not valid." % (lvd.mountpoint,))
 
-        try:
-            vgid = self.handler.ksVGMapping[lvd.vgname]
-        except KeyError:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="No volume group exists with the name '%s'.  Specify volume groups before logical volumes." % lvd.vgname)
+        # Check that the VG this LV is a member of has already been specified.
+        vg = devicetree.getDeviceByName(lvd.vgname)
+        if not vg:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="No volume group exists with the name \"%s\".  Specify volume groups before logical volumes." % lvd.vgname)
 
-        for areq in self.handler.id.storage.autoPartitionRequests:
-            if areq.type == REQUEST_LV:
-                if areq.volumeGroup == vgid and areq.logicalVolumeName == lvd.name:
-                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % lvd.vgname)
-            elif areq.type == REQUEST_VG and areq.uniqueID == vgid:
-                # Store a reference to the VG so we can do the PE size check.
-                vg = areq
+        # If this specifies an existing request that we should not format,
+        # quit here after setting up enough information to mount it later.
+        if not lvd.format:
+            if not lvd.name:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="--noformat used without --name")
 
-        if not self.handler.ksVGMapping.has_key(lvd.vgname):
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume specifies a non-existent volume group" % lvd.name)
+            dev = devicetree.getDeviceByName("%s-%s" % (vg.name, lvd.name))
+            if not dev:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting logical volume with the name \"%s\" was found." % lvd.name)
 
-        if lvd.percent == 0 and not lvd.preexist:
-            if lvd.size == 0:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Size required")
-            elif not lvd.grow and lvd.size*1024 < vg.pesize:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume size must be larger than the volume group physical extent size.")
-        elif (lvd.percent <= 0 or lvd.percent > 100) and not lvd.preexist:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100")
+            dev.format.mountpoint = lvd.mountpoint
+            dev.format.mountopts = lvd.fsopts
+            self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            return lvd
 
-        request = partRequests.LogicalVolumeRequestSpec(filesystem,
-                                      format = lvd.format,
-                                      mountpoint = lvd.mountpoint,
-                                      size = lvd.size,
-                                      percent = lvd.percent,
-                                      volgroup = vgid,
-                                      lvname = lvd.name,
-                                      grow = lvd.grow,
-                                      maxSizeMB = lvd.maxSizeMB,
-                                      preexist = lvd.preexist,
-                                      fsprofile = lvd.fsprofile)
+        # Make sure this LV name is not already used in the requested VG.
+        tmp = devicetree.getDeviceByName("%s-%s" % (vg.name, lvd.name))
+        if tmp:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % vg.name)
 
-        if lvd.fsopts != "":
-            request.fsopts = lvd.fsopts
+        # Size specification checks
+        if not lvd.preexist:
+            if lvd.percent == 0:
+                if lvd.size == 0:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Size required")
+                elif not lvd.grow and lvd.size*1024 < vg.peSize:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume size must be larger than the volume group physical extent size.")
+            elif lvd.percent <= 0 or lvd.percent > 100:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100")
+
+        # Now get a format to hold a lot of these extra values.
+        format = getFormat(type,
+                           mountpoint=lvd.mountpoint,
+                           mountopts=lvd.fsopts)
+        if not format:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
+
+        # If we were given a pre-existing LV to create a filesystem on, we need
+        # to verify it and its VG exists and then schedule a new format action
+        # to take place there.  Also, we only support a subset of all the
+        # options on pre-existing LVs.
+        if lvd.preexist:
+            device = devicetree.getDeviceByName("%s-%s" % (vg.name, lvd.name))
+            if not device:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent LV %s in logvol command" % lvd.name)
+
+            devicetree.registerAction(ActionCreateFormat(device, format))
+        else:
+            request = storage.newLV(format=format,
+                                    name=lvd.name,
+                                    vg=vg,
+                                    size=lvd.size,
+                                    grow=lvd.grow,
+                                    maxsize=lvd.maxSizeMB,
+                                    percent=lvd.percent)
+
+            # FIXME: no way to specify an fsprofile right now
+            # if lvd.fsprofile:
+            #     request.format.fsprofile = lvd.fsprofile
+
+            storage.createDevice(request)
 
         if lvd.encrypted:
-            if lvd.passphrase and \
-               not self.handler.anaconda.id.storage.encryptionPassphrase:
-                self.handler.anaconda.id.storage.encryptionPassphrase = lvd.passphrase
-            request.encryption = cryptodev.LUKSDevice(passphrase=lvd.passphrase, format=lvd.format)
+            if lvd.passphrase and not storage.encryptionPassphrase:
+                storage.encryptionPassphrase = lvd.passphrase
 
-        addPartRequest(self.handler.anaconda, request)
+            luksformat = request.format
+            request.format = getFormat("luks", passphrase=lvd.passphrase, device=request.path)
+            luksdev = LUKSDevice("luks%d" % storage.nextID,
+                                 format=luksformat,
+                                 parents=request)
+            storage.createDevice(luksdev)
+
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
-
         return lvd
 
 class Logging(commands.logging.FC6_Logging):
