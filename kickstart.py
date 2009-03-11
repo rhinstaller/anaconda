@@ -565,11 +565,9 @@ class Partition(commands.partition.F9_Partition):
     def parse(self, args):
         pd = commands.partition.F9_Partition.parse(self, args)
 
-        uniqueID = None
-
-        fsopts = ""
-        if pd.fsopts:
-            fsopts = pd.fsopts
+        storage = self.handler.id.storage
+        devicetree = storage.devicetree
+        kwargs = {}
 
         if pd.onbiosdisk != "":
             pd.disk = isys.doGetBiosDisk(pd.onbiosdisk)
@@ -578,7 +576,7 @@ class Partition(commands.partition.F9_Partition):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % pd.onbiosdisk)
 
         if pd.mountpoint == "swap":
-            filesystem = fileSystemTypeGet('swap')
+            type = "swap"
             pd.mountpoint = ""
             if pd.recommended:
                 (pd.size, pd.maxSizeMB) = iutil.swapSuggestion()
@@ -588,102 +586,117 @@ class Partition(commands.partition.F9_Partition):
         elif pd.mountpoint == "None":
             pd.mountpoint = ""
             if pd.fstype:
-                try:
-                    filesystem = fileSystemTypeGet(pd.fstype)
-                except KeyError:
-                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % pd.fstype)
+                type = pd.fstype
             else:
-                filesystem = fileSystemTypeGetDefault()
-        elif pd.mountpoint == 'appleboot':
-            filesystem = fileSystemTypeGet("Apple Bootstrap")
-            pd.mountpoint = ""
-        elif pd.mountpoint == 'prepboot':
-            filesystem = fileSystemTypeGet("PPC PReP Boot")
-            pd.mountpoint = ""
+                type = storage.defaultFSType
+#        elif pd.mountpoint == 'appleboot':
+#            filesystem = fileSystemTypeGet("Apple Bootstrap")
+#            pd.mountpoint = ""
+#        elif pd.mountpoint == 'prepboot':
+#            filesystem = fileSystemTypeGet("PPC PReP Boot")
+#            pd.mountpoint = ""
         elif pd.mountpoint.startswith("raid."):
-            filesystem = fileSystemTypeGet("software RAID")
-            
-            if self.handler.ksRaidMapping.has_key(pd.mountpoint):
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined RAID partition multiple times")
-            
-            # get a sort of hackish id
-            uniqueID = self.handler.ksID
-            self.handler.ksRaidMapping[pd.mountpoint] = uniqueID
-            self.handler.ksID += 1
+            type = "mdmember"
+            kwargs["name"] = pd.mountpoint
+
+            if devicetree.getDeviceByName(kwargs["name"]):
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID partition defined multiple times")
+
             pd.mountpoint = ""
         elif pd.mountpoint.startswith("pv."):
-            filesystem = fileSystemTypeGet("physical volume (LVM)")
+            type = "lvmpv"
+            kwargs["name"] = pd.mountpoint
 
-            if self.handler.ksPVMapping.has_key(pd.mountpoint):
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined PV partition multiple times")
+            if devicetree.getDeviceByName(kwargs["name"]):
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="PV partition defined multiple times")
 
-            # get a sort of hackish id
-            uniqueID = self.handler.ksID
-            self.handler.ksPVMapping[pd.mountpoint] = uniqueID
-            self.handler.ksID += 1
             pd.mountpoint = ""
         elif pd.mountpoint == "/boot/efi":
-            filesystem = fileSystemTypeGet("efi")
-            fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
+            type = "vfat"
+            pd.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
         else:
             if pd.fstype != "":
-                try:
-                    filesystem = fileSystemTypeGet(pd.fstype)
-                except KeyError:
-                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % pd.fstype)
+                type = pd.fstype
             else:
-                filesystem = fileSystemTypeGetDefault()
+                type = storage.defaultFSType
 
-        if pd.size is None and (pd.start == 0 and pd.end == 0) and pd.onPart == "":
+        # If this specified an existing request that we should not format,
+        # quit here after setting up enough information to mount it later.
+        if not pd.format:
+            if not pd.onPart:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="--noformat used without --onpart")
+
+            dev = devicetree.getDeviceByName(pd.onPart)
+            if not dev:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting partition with the name \"%s\" was found." % pd.onPart)
+
+            dev.format.mountpoint = pd.mountpoint
+            dev.format.mountopts = pd.fsopts
+            self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            return pd
+
+        # Size specification checks.
+        if pd.size is None and pd.onPart == "":
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition requires a size specification")
-        if pd.start != 0 and pd.disk == "":
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition command with start cylinder requires a drive specification")
-        hds = map(lambda x: x.name, filter(lambda x: isys.mediaPresent(x.name), self.handler.id.storage.disks))
-        if pd.disk not in hds and pd.disk in ('mapper/'+hd for hd in hds):
-            pd.disk = 'mapper/' + pd.disk
-        if pd.disk not in hds:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % pd.disk)
 
-        request = partRequests.PartitionSpec(filesystem,
-                                             mountpoint = pd.mountpoint,
-                                             format = pd.format,
-                                             fslabel = pd.label,
-                                             fsprofile = pd.fsprofile)
-        
-        if pd.size is not None:
-            request.size = pd.size
-        if pd.start != 0:
-            request.start = pd.start
-        if pd.end != 0:
-            request.end = pd.end
-        if pd.grow:
-            request.grow = pd.grow
-        if pd.maxSizeMB != 0:
-            request.maxSizeMB = pd.maxSizeMB
-        if pd.disk != "":
-            request.drive = [ pd.disk ]
-        if pd.primOnly:
-            request.primary = pd.primOnly
-        if uniqueID:
-            request.uniqueID = uniqueID
-        if pd.onPart != "":
-            request.device = pd.onPart
-            for areq in self.handler.id.storage.autoPartitionRequests:
-                if areq.device is not None and areq.device == pd.onPart:
-                    raise KickstartValueError, formatErrorMsg(self.lineno, "Partition already used")
+        # Now get a format to hold a lot of these extra values.
+        kwargs["format"] = getFormat(type,
+                                     mountpoint=pd.mountpoint,
+                                     label=pd.label,
+                                     mountopts=pd.fsopts)
+        if not kwargs["format"]:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
 
-        if fsopts != "":
-            request.fsopts = fsopts
+        # If we were given a specific disk to create the partition on, verify
+        # that it exists first.  If it doesn't exist, see if it exists with
+        # mapper/ on the front.  If that doesn't exist either, it's an error.
+        if pd.disk:
+            disk = devicetree.getDeviceByName(pd.disk)
+            if not disk:
+                pd.disk = "mapper/" % pd.disk
+                disk = devicetree.getDeviceByName(pd.disk)
+
+                if not disk:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % pd.disk)
+
+            kwargs["disks"] = [disk]
+
+        kwargs["grow"] = pd.grow
+        kwargs["size"] = pd.size
+        kwargs["maxsize"] = pd.maxSizeMB
+        kwargs["primary"] = pd.primOnly
+
+        # If we were given a pre-existing partition to create a filesystem on,
+        # we need to verify it exists and then schedule a new format action to
+        # take place there.  Also, we only support a subset of all the options
+        # on pre-existing partitions.
+        if pd.onPart:
+            device = devicetree.getDeviceByName(pd.onPart)
+            if not device:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent partition %s in partition command" % pd.onPart)
+
+            devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
+        else:
+            request = storage.newPartition(**kwargs)
+
+            # FIXME: no way to specify an fsprofile right now
+            # if pd.fsprofile:
+            #     request.format.fsprofile = pd.fsprofile
+
+            storage.createDevice(request)
 
         if pd.encrypted:
-            if pd.passphrase and \
-               not self.handler.anaconda.id.storage.encryptionPassphrase:
-                self.handler.anaconda.id.storage.encryptionPassphrase = pd.passphrase
-            request.encryption = cryptodev.LUKSDevice(passphrase=pd.passphrase, format=pd.format)
+            if pd.passphrase and not storage.encryptionPassphrase:
+               storage.encryptionPassphrase = pd.passphrase
 
-        addPartRequest(self.handler.anaconda, request)
+            luksformat = request.format
+            request.format = getFormat("luks", passphrase=pd.passphrase, device=request.path)
+            luksdev = LUKSDevice("luks%d" % storage.nextID,
+                                 format=luksformat,
+                                 parents=request)
+            storage.createDevice(luksdev)
+
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
-
         return pd
 
 class Reboot(commands.reboot.FC6_Reboot):
