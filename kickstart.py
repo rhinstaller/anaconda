@@ -708,77 +708,106 @@ class Reboot(commands.reboot.FC6_Reboot):
 class Raid(commands.raid.F9_Raid):
     def parse(self, args):
         rd = commands.raid.F9_Raid.parse(self, args)
+        raidmems = []
 
-        uniqueID = None
+        storage = self.handler.id.storage
+        devicetree = storage.devicetree
+        kwargs = {}
 
         if rd.mountpoint == "swap":
-            filesystem = fileSystemTypeGet('swap')
+            type = "swap"
             rd.mountpoint = ""
         elif rd.mountpoint.startswith("pv."):
-            filesystem = fileSystemTypeGet("physical volume (LVM)")
+            type = "lvmpv"
+            kwargs["name"] = rd.mountpoint
 
-            if self.handler.ksPVMapping.has_key(rd.mountpoint):
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined PV partition multiple times")
+            if devicetree.getDeviceByName(kwargs["name"]):
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="PV partition defined multiple times")
 
-            # get a sort of hackish id
-            uniqueID = self.handler.ksID
-            self.handler.ksPVMapping[rd.mountpoint] = uniqueID
-            self.handler.ksID += 1
             rd.mountpoint = ""
         else:
             if rd.fstype != "":
-                try:
-                    filesystem = fileSystemTypeGet(rd.fstype)
-                except KeyError:
-                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % rd.fstype)
+                type = rd.fstype
             else:
-                filesystem = fileSystemTypeGetDefault()
+                type = storage.defaultFSType
 
-        # sanity check mountpoint
+        # Sanity check mountpoint
         if rd.mountpoint != "" and rd.mountpoint[0] != '/':
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point is not valid.")
 
-        raidmems = []
+        # If this specifies an existing request that we should not format,
+        # quit here after setting up enough information to mount it later.
+        if not rd.format:
+            if not rd.device:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="--noformat used without --device")
 
-        # get the unique ids of each of the raid members
+            dev = devicetree.getDeviceByName(rd.device)
+            if not dev:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting RAID device with the name \"%s\" was found." % rd.device)
+
+            dev.format.mountpoint = lvd.mountpoint
+            dev.format.mountopts = lvd.fsopts
+            self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            return rd
+
+        # Get a list of all the RAID members.
         for member in rd.members:
-            if member not in self.handler.ksRaidMapping.keys():
+            dev = devicetree.getDeviceByName(member)
+            if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % member)
-            if member in self.handler.ksUsedMembers:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use RAID member %s in two or more RAID specifications" % member)
-                
-            raidmems.append(self.handler.ksRaidMapping[member])
-            self.handler.ksUsedMembers.append(member)
 
-        if rd.level == "" and not rd.preexist:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without RAID level")
-        if len(raidmems) == 0 and not rd.preexist:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without any RAID members")
+            raidmems.append(dev)
 
-        request = partRequests.RaidRequestSpec(filesystem,
-                                               mountpoint = rd.mountpoint,
-                                               raidmembers = raidmems,
-                                               raidlevel = rd.level,
-                                               raidspares = rd.spares,
-                                               format = rd.format,
-                                               raidminor = rd.device,
-                                               preexist = rd.preexist,
-                                               fsprofile = rd.fsprofile)
+        if not rd.preexist:
+            if len(raidmems) == 0:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without any RAID members")
 
-        if uniqueID is not None:
-            request.uniqueID = uniqueID
-        if rd.preexist and rd.device != "":
-            request.device = "md%s" % rd.device
-        if rd.fsopts != "":
-            request.fsopts = rd.fsopts
+            if rd.level == "":
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without RAID level")
+
+        # Now get a format to hold a lot of these extra values.
+        kwargs["format"] = getFormat(type,
+                                     mountpoint=rd.mountpoint,
+                                     mountopts=rd.fsopts)
+        if not kwargs["format"]:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
+
+        kwargs["name"] = rd.device
+        kwargs["level"] = rd.level
+        kwargs["parents"] = raidmems
+        kwargs["memberDevices"] = len(raidmems)
+        kwargs["totalDevices"] = kwargs["memberDevices"]+rd.spares
+
+        # If we were given a pre-existing RAID to create a filesystem on,
+        # we need to verify it exists and then schedule a new format action
+        # to take place there.  Also, we only support a subset of all the
+        # options on pre-existing RAIDs.
+        if rd.preexist:
+            device = devicetree.getDeviceByName(rd.name)
+            if not device:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specifeid nonexisted RAID %s in raid command" % rd.name)
+
+            devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
+        else:
+            request = storage.newMDArray(**kwargs)
+
+            # FIXME: no way to specify an fsprofile right now
+            # if pd.fsprofile:
+            #     request.format.fsprofile = pd.fsprofile
+
+            storage.createDevice(request)
 
         if rd.encrypted:
-            if rd.passphrase and \
-               not self.handler.anaconda.id.storage.encryptionPassphrase:
-                self.handler.anaconda.id.storage.encryptionPassphrase = rd.passphrase
-            request.encryption = cryptodev.LUKSDevice(passphrase=rd.passphrase, format=rd.format)
+            if rd.passphrase and not storage.encryptionPassphrase:
+               storage.encryptionPassphrase = rd.passphrase
 
-        addPartRequest(self.handler.anaconda, request)
+            luksformat = request.format
+            request.format = getFormat("luks", passphrase=rd.passphrase, device=request.path)
+            luksdev = LUKSDevice("luks%d" % storage.nextID,
+                                 format=luksformat,
+                                 parents=request)
+            storage.createDevice(luksdev)
+
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
         return rd
 
