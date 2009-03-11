@@ -568,6 +568,10 @@ class Storage(object):
 
     def destroyDevice(self, device):
         """ Schedule destruction of a device. """
+        if device.format.exists:
+            # schedule destruction of any formatting while we're at it
+            self.devicetree.registerAction(ActionDestroyFormat(device))
+
         action = ActionDestroyDevice(device)
         self.devicetree.registerAction(action)
 
