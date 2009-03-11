@@ -998,24 +998,10 @@ class AnacondaKSParser(KickstartParser):
 
         KickstartParser.handleCommand(self, lineno, args)
 
-# this adds a partition to the autopartition list replacing anything
-# else with this mountpoint so that you can use autopart and override /
-def addPartRequest(anaconda, request):
-    if not request.mountpoint:
-        anaconda.id.storage.autoPartitionRequests.append(request)
-        return
-
-    for req in anaconda.id.storage.autoPartitionRequests:
-        if req.mountpoint and req.mountpoint == request.mountpoint:
-            anaconda.id.storage.autoPartitionRequests.remove(req)
-            break
-    anaconda.id.storage.autoPartitionRequests.append(request)
-
 def processKickstartFile(anaconda, file):
     # We need to make sure storage is active before the kickstart file is read.
     import storage
     storage.storageInitialize(anaconda)
-    anaconda.dispatch.skipStep("storageinit")
 
     # parse the %pre
     ksparser = KickstartPreParser(AnacondaKSHandler(anaconda))
@@ -1216,6 +1202,9 @@ def setSteps(anaconda):
     dispatch.skipStep("regkey")
     dispatch.skipStep("installtype")
     dispatch.skipStep("network")
+
+    # Storage is initialized for us right when kickstart processing starts.
+    dispatch.skipStep("storageinit")
 
     # Don't show confirmation screens on non-interactive installs.
     if not interactive:
