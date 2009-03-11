@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.26
+Version: 11.5.0.27
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -209,6 +209,22 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 10 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.27-1
+- Fix action pruning to handle more complex scenarios. (dlehman)
+- Schedule destruction of any existing formatting along with the device.
+  (dlehman)
+- Add a size attribute to mdraid arrays. (dlehman)
+- Speed up partitioning screen redraws by trimming workload where possible.
+  (dlehman)
+- Create partitions with exactly the geometry we calculate. (dlehman)
+- Fix name collision between formats.mdraid and devicelibs.mdraid. (dlehman)
+- Destruction of the member device formatting will be handled elsewhere.
+  (dlehman)
+- Fix a typo (jkeating)
+- Fix pruning between two destroy actions on the same device (rvykydal)
+- Use the pyblock functions when possible. (jgranado)
+- We are searching a list, not a dict now (rvykydal)
+
 * Mon Mar 09 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.26-1
 - Move the recursive teardown of all devices out of processActions. (dlehman)
 - Clean up handling of /proc, /sys, /dev/pts, /dev/shm entries. (dlehman)
