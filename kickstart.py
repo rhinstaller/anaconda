@@ -18,6 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from storage.partitioning import clearPartitions
+
 from errors import *
 import iutil
 import isys
@@ -242,6 +244,8 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
         self.handler.id.storage.clearPartDisks = self.drives
         if self.initAll:
             self.handler.id.storage.reinitializeDisks = self.initAll
+
+        clearPartitions(self.handler.id.storage)
 
         return retval
 
