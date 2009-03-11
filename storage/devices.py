@@ -1879,6 +1879,14 @@ class MDRaidArrayDevice(StorageDevice):
         #self.probe()
 
     @property
+    def size(self):
+        size = None
+        for device in self.devices:
+            if size is None or device.size < size:
+                size = device.size
+        return size
+
+    @property
     def mdadmConfEntry(self):
         """ This array's mdadm.conf entry. """
         if not self.level or self.memberDevices is None or not self.uuid:
