@@ -864,30 +864,51 @@ class VolGroup(commands.volgroup.FC3_VolGroup):
         vgd = commands.volgroup.FC3_VolGroup.parse(self, args)
         pvs = []
 
-        # get the unique ids of each of the physical volumes
+        storage = self.handler.id.storage
+        devicetree = storage.devicetree
+
+        # Get a list of all the physical volume devices that make up this VG.
         for pv in vgd.physvols:
-            if pv not in self.handler.ksPVMapping.keys():
+            dev = devicetree.getDeviceByName(pv)
+            if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in Volume Group specification" % pv)
-            pvs.append(self.handler.ksPVMapping[pv])
+
+            pvs.append(dev)
 
         if len(pvs) == 0 and not vgd.preexist:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group defined without any physical volumes.  Either specify physical volumes or use --useexisting.")
 
-        if vgd.pesize not in lvm.getPossiblePhysicalExtents(floor=1024):
+        if vgd.pesize not in getPossiblePhysicalExtents(floor=1024):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group specified invalid pesize")
 
-        # get a sort of hackish id
-        uniqueID = self.handler.ksID
-        self.handler.ksVGMapping[vgd.vgname] = uniqueID
-        self.handler.ksID += 1
-            
-        request = partRequests.VolumeGroupRequestSpec(vgname = vgd.vgname,
-                                                      physvols = pvs,
-                                                      preexist = vgd.preexist,
-                                                      format = vgd.format,
-                                                      pesize = vgd.pesize)
-        request.uniqueID = uniqueID
-        addPartRequest(self.handler.anaconda, request)
+        # If --noformat was given, there's really nothing to do.
+        if not vgd.format:
+            if not vgd.name:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="--noformat used without giving a name")
+
+            dev = devicetree.getDeviceByName(vgd.name)
+            if not dev:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting VG with the name \"%s\" was found." % vgd.name)
+
+            return vgd
+
+        # If we were given a pre-existing VG to use, we need to verify it
+        # exists and then schedule a new format action to take place there.
+        # Also, we only support a subset of all the options on pre-existing
+        # VGs.
+        if vgd.preexist:
+            device = devicetree.getDeviceByName(vgd.name)
+            if not device:
+                raise KicsktartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent VG %s in volgroup command" % vgd.name)
+
+            devicetree.registerAction(ActionCreateFormat(device))
+        else:
+            request = storage.newVG(pvs=pvs,
+                                    name=vgd.vgname,
+                                    peSize=vgd.pesize/1024.0)
+
+            storage.createDevice(request)
+
         return vgd
 
 class XConfig(commands.xconfig.F10_XConfig):
