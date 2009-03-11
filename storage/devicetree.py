@@ -180,25 +180,53 @@ class DeviceTree(object):
                 # iteration of this loop
                 continue
 
-            # XXX this may finally necessitate object ids
-            loops = self.findActions(path=a.device.path,
-                                     type="destroy",
-                                     object="device")
+            log.debug("action '%s' (%s)" % (a, id(a)))
+            destroys = self.findActions(path=a.device.path,
+                                        type="destroy",
+                                        object="device")
 
-            if len(loops) == 1:
+            creates = self.findActions(path=a.device.path,
+                                       type="create",
+                                       object="device")
+
+            # If the device is not preexisting, we remove all actions up
+            # to and including the last destroy action.
+            # If the device is preexisting, we remove all actions from
+            # after the first destroy action up to and including the last
+            # destroy action.
+            loops = []
+            first_destroy_idx = None
+            first_create_idx = None
+            stop_action = None
+            start = None
+            if len(destroys) > 1:
+                # there are multiple destroy actions for this device
+                loops = destroys
+                first_destroy_idx = self._actions.index(loops[0])
+                start = self._actions.index(a) + 1
+                stop_action = destroys[-1]
+
+            if creates:
+                first_create_idx = self._actions.index(creates[0])
+                if not loops or first_destroy_idx > first_create_idx:
+                    # this device is not preexisting
+                    start = first_create_idx
+                    stop_action = destroys[-1]
+
+            if start is None:
                 continue
 
-            # remove all actions on this device from after the first
-            # destroy up through the last destroy
+            # now we remove all actions on this device between the start
+            # index (into self._actions) and stop_action.
             dev_actions = self.findActions(path=a.device.path)
             for rem in dev_actions:
-                start = self._actions.index(a)
-                end = self._actions.index(loops[-1])
-                if start < self._actions.index(rem) <= end:
+                end = self._actions.index(stop_action)
+                if start <= self._actions.index(rem) <= end:
+                    log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
                     self._actions.remove(rem)
-                    # last destroy action removed
-                    if rem == loops[-1]:
-                        break
+
+                if rem == stop_action:
+                    break
 
         # device create actions
         actions = self.findActions(type="create", object="device")
@@ -208,18 +236,51 @@ class DeviceTree(object):
                 # iteration of this loop
                 continue
 
-            loops = self.findActions(path=a.device.path,
-                                     type="create",
-                                     object="device")
+            log.debug("action '%s' (%s)" % (a, id(a)))
+            creates = self.findActions(path=a.device.path,
+                                       type="create",
+                                       object="device")
 
-            if len(loops) == 1:
+            destroys = self.findActions(path=a.device.path,
+                                        type="destroy",
+                                        object="device")
+
+            # If the device is preexisting, we remove everything between
+            # the first destroy and the last create.
+            # If the device is not preexisting, we remove everything up to
+            # the last create.
+            loops = []
+            first_destroy_idx = None
+            first_create_idx = None
+            stop_action = None
+            start = None
+            if len(creates) > 1:
+                # there are multiple create actions for this device
+                loops = creates
+                first_create_idx = self._actions.index(loops[0])
+                start = 0
+                stop_action = creates[-1]
+
+            if destroys:
+                first_destroy_idx = self._actions.index(destroys[0])
+                if not loops or first_create_idx > first_destroy_idx:
+                    # this device is preexisting
+                    start = first_destroy_idx + 1
+                    stop_action = creates[-1]
+
+            if start is None:
                 continue
 
-            # remove all all actions on this device up to the last create
+            # remove all actions on this from after the first destroy up
+            # to the last create
             dev_actions = self.findActions(path=a.device.path)
             for rem in dev_actions:
-                end = self._actions.index(loops[-1])
-                if self._actions.index(rem) < end:
+                if rem == stop_action:
+                    break
+
+                end = self._actions.index(stop_action)
+                if start <= self._actions.index(rem) < end:
+                    log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
                     self._actions.remove(rem)
 
         # device resize actions
@@ -230,6 +291,7 @@ class DeviceTree(object):
                 # iteration of this loop
                 continue
 
+            log.debug("action '%s' (%s)" % (a, id(a)))
             loops = self.findActions(path=a.device.path,
                                      type="resize",
                                      object="device")
@@ -239,6 +301,7 @@ class DeviceTree(object):
 
             # remove all but the last resize action on this device
             for rem in loops[:-1]:
+                log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
                 self._actions.remove(rem)
 
         # format destroy
@@ -250,22 +313,54 @@ class DeviceTree(object):
                 # iteration of this loop
                 continue
 
-            loops = self.findActions(path=a.device.path,
-                                     type="destroy",
-                                     object="format")
+            log.debug("action '%s' (%s)" % (a, id(a)))
+            destroys = self.findActions(path=a.device.path,
+                                        type="destroy",
+                                        object="format")
 
-            if len(loops) == 1:
+            creates = self.findActions(path=a.device.path,
+                                       type="create",
+                                       object="format")
+
+            # If the format is not preexisting, we remove all actions up
+            # to and including the last destroy action.
+            # If the format is preexisting, we remove all actions from
+            # after the first destroy action up to and including the last
+            # destroy action.
+            loops = []
+            first_destroy_idx = None
+            first_create_idx = None
+            stop_action = None
+            start = None
+            if len(destroys) > 1:
+                # there are multiple destroy actions for this format
+                loops = destroys
+                first_destroy_idx = self._actions.index(loops[0])
+                start = self._actions.index(a) + 1
+                stop_action = destroys[-1]
+
+            if creates:
+                first_create_idx = self._actions.index(creates[0])
+                if not loops or first_destroy_idx > first_create_idx:
+                    # this format is not preexisting
+                    start = first_create_idx
+                    stop_action = destroys[-1]
+
+            if start is None:
                 continue
 
-            # remove all actions on this device's format from after the
-            # first destroy up through the last destroy
+            # now we remove all actions on this device's format between
+            # the start index (into self._actions) and stop_action.
             dev_actions = self.findActions(path=a.device.path,
                                            object="format")
             for rem in dev_actions:
-                start = self._actions.index(a)
-                end = self._actions.index(loops[-1])
-                if start < self._actions.index(rem) <= end:
+                end = self._actions.index(stop_action)
+                if start <= self._actions.index(rem) <= end:
+                    log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
                     self._actions.remove(rem)
+
+                if rem == stop_action:
+                    break
 
         # format create
         # XXX I don't think there's a way for these loops to happen
@@ -276,20 +371,52 @@ class DeviceTree(object):
                 # iteration of this loop
                 continue
 
-            loops = self.findActions(device=a.device,
-                                     type="create",
-                                     object="format")
+            log.debug("action '%s' (%s)" % (a, id(a)))
+            creates = self.findActions(path=a.device.path,
+                                       type="create",
+                                       object="format")
 
-            if len(loops) == 1:
+            destroys = self.findActions(path=a.device.path,
+                                        type="destroy",
+                                        object="format")
+
+            # If the format is preexisting, we remove everything between
+            # the first destroy and the last create.
+            # If the format is not preexisting, we remove everything up to
+            # the last create.
+            loops = []
+            first_destroy_idx = None
+            first_create_idx = None
+            stop_action = None
+            start = None
+            if len(creates) > 1:
+                # there are multiple create actions for this format
+                loops = creates
+                first_create_idx = self._actions.index(loops[0])
+                start = 0
+                stop_action = creates[-1]
+
+            if destroys:
+                first_destroy_idx = self._actions.index(destroys[0])
+                if not loops or first_create_idx > first_destroy_idx:
+                    # this format is preexisting
+                    start = first_destroy_idx + 1
+                    stop_action = creates[-1]
+
+            if start is None:
                 continue
 
-            # remove all all actions on this device's format up to the last
-            # create
+            # remove all actions on this from after the first destroy up
+            # to the last create
             dev_actions = self.findActions(path=a.device.path,
                                            object="format")
             for rem in dev_actions:
-                end = self._actions.index(loops[-1])
-                if self._actions.index(rem) < end:
+                if rem == stop_action:
+                    break
+
+                end = self._actions.index(stop_action)
+                if start <= self._actions.index(rem) < end:
+                    log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
                     self._actions.remove(rem)
 
         # format resize
@@ -300,6 +427,7 @@ class DeviceTree(object):
                 # iteration of this loop
                 continue
 
+            log.debug("action '%s' (%s)" % (a, id(a)))
             loops = self.findActions(path=a.device.path,
                                      type="resize",
                                      object="format")
@@ -309,6 +437,7 @@ class DeviceTree(object):
 
             # remove all but the last resize action on this format
             for rem in loops[:-1]:
+                log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
                 self._actions.remove(rem)
 
         # format migrate
@@ -320,6 +449,7 @@ class DeviceTree(object):
                 # iteration of this loop
                 continue
 
+            log.debug("action '%s' (%s)" % (a, id(a)))
             loops = self.findActions(path=a.device.path,
                                      type="migrate",
                                      object="format")
@@ -329,6 +459,7 @@ class DeviceTree(object):
 
             # remove all but the last migrate action on this format
             for rem in loops[:-1]:
+                log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
                 self._actions.remove(rem)
 
     def processActions(self, dryRun=None):
