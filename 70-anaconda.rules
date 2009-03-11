@@ -22,6 +22,7 @@ ENV{ID_FS_TYPE}=="linux_raid_member", IMPORT{program}="/usr/sbin/mdadm --examine
 
 # probe metadata of LVM2 physical volumes
 ENV{ID_FS_TYPE}=="LVM2_member", IMPORT{program}="/usr/sbin/lvm pvs --units k --nosuffix --nameprefixes --rows --unquoted --noheadings -opv_name,pv_uuid,pv_size,vg_name,vg_uuid,pv_pe_count,pv_pe_alloc_count,pe_start $tempnode"
+ENV{LVM2_VG_NAME}!="?*", GOTO="anaconda_end"
 ENV{ID_FS_TYPE}=="LVM2_member", IMPORT{program}="/usr/sbin/lvm vgs --units k --nosuffix --nameprefixes --rows --unquoted --noheadings -ouuid,size,free,extent_size,extent_count,free_count,pv_count $env{LVM2_VG_NAME}"
 ENV{ID_FS_TYPE}=="LVM2_member", IMPORT{program}="/usr/sbin/lvm lvs  --units k --nosuffix --nameprefixes --rows --unquoted --noheadings -olv_name,lv_uuid,lv_size $env{LVM2_VG_NAME}"
 
