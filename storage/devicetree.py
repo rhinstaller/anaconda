@@ -1174,6 +1174,11 @@ class DeviceTree(object):
                 vg_device = self.getDeviceByName(vg_name)
                 if vg_device:
                     vg_device._addDevice(device)
+                    for lv in vg_device.lvs:
+                        try:
+                            lv.setup()
+                        except DeviceError as e:
+                            log.info("setup of %s failed: %s" % (lv.name, e))
                 else:
                     try:
                         vg_uuid = udev_device_get_vg_uuid(info)
