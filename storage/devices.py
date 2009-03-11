@@ -1024,22 +1024,12 @@ class PartitionDevice(StorageDevice):
         self.createParents()
         self.setupParents()
 
-        # If we are bootable or our format has a flag it needs set, do
-        # that now.
-        #
-        # FIXME: this should be moved onto a common codepath so that
-        #        flags get set properly for existing partitions as well.
-        #
-        # XXX this may trigger multiple parted.Disk.commit() calls, but
-        #     who cares?
-        if self.format.partedFlag is not None:
-            self.setFlag(self.format.partedFlag)
-
-        if self.bootable:
-            self.setFlag(parted.PARTITION_BOOT)
-
         self.disk.addPartition(self)
         self.disk.commit()
+
+        # this will force a lookup on next access, which we want
+        self.partedPartition = None
+
         self.exists = True
         self.setup()
 
