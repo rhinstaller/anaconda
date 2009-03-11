@@ -32,6 +32,7 @@ from iw_gui import *
 from flags import flags
 import network
 from storage import iscsi
+from storage.deviceaction import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -74,11 +75,13 @@ def whichToResize(storage, intf):
         if not part.exists:
             continue
 
-        if part.resizable:
+        # Resize the following storage types:
+        #     resizable filesystem (e.g., ext3 or ntfs) on resizable partition
+        if part.resizable and part.format.resizable:
             i = store.append(None)
             store[i] = ("%s (%s, %d MB)" %(part.name,
                                            part.format.name,
-                                           math.floor(part.size)),
+                                           math.floor(part.format.currentSize)),
                         part)
             if part.targetSize is not None:
                 combo.set_active_iter(i)
@@ -106,10 +109,11 @@ def whichToResize(storage, intf):
         dialog.destroy()
         return rc
 
-    req = getActive(combo)
-    req.targetSize = dxml.get_widget("resizeSB").get_value_as_int()
+    request = getActive(combo)
+    newSize = dxml.get_widget("resizeSB").get_value_as_int()
+    action = ActionResizeFormat(request, newSize)
     dialog.destroy()
-    return rc
+    return (rc, action)
 
 class PartitionTypeWindow(InstallWindow):
     def __init__(self, ics):
@@ -130,8 +134,10 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.skipStep("bootloader", skip = 0)
         else:
             if val == -2:
-                rc = whichToResize(self.storage, self.intf)
-                if rc != gtk.RESPONSE_OK:
+                (rc, action) = whichToResize(self.storage, self.intf)
+                if rc == gtk.RESPONSE_OK:
+                    self.storage.devicetree.registerAction(action)
+                else:
                     raise gui.StayOnScreen
 
                 # we're not going to delete any partitions in the resize case
