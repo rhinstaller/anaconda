@@ -21,6 +21,10 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
+from parted import PARTITION_BOOT
+
+from udev import udev_settle
+
 from devices import StorageDevice, PartitionDevice
 from formats import getFormat
 from errors import *
@@ -259,8 +263,16 @@ class ActionCreateFormat(DeviceAction):
             self.origFormat = getFormat(None)
 
     def execute(self, intf=None):
-        # XXX we should set partition type flag as needed
-        #     - or should that be in the CreateDevice action?
+        if isinstance(self.device, PartitionDevice):
+            if self.format.partedFlag is not None:
+                self.device.setFlag(self.format.partedFlag)
+                self.device.disk.commit()
+
+            if self.device.bootable:
+                self.device.setFlag(PARTITION_BOOT)
+                self.device.disk.commit()
+
+        udev_settle()
         self.device.setup()
         self.device.format.create(intf=intf,
                                   device=self.device.path,
@@ -292,8 +304,17 @@ class ActionDestroyFormat(DeviceAction):
     def execute(self, intf=None):
         """ wipe the filesystem signature from the device """
         if self.origFormat:
+            if isinstance(self.device, PartitionDevice) and \
+               self.origFormat.partedFlag is not None:
+                # unset partition flags and commit
+                self.device.unsetFlag(self.origFormat.partedFlag)
+                self.device.disk.commit()
+
+                udev_settle()
+
             self.device.setup()
             self.origFormat.destroy()
+            udev_settle()
             self.device.teardown()
 
     def cancel(self):
