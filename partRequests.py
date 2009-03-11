@@ -763,7 +763,7 @@ class VolumeGroupRequestSpec(RequestSpec):
                 #log("size for pv %s is %s" % (pvid, size))
                 clamped = lvm.clampPVSize(size, self.pesize)
                 if clamped == long(size):
-                    clamped = clamped - (2*self.pesize)
+                    clamped = clamped - (self.pesize / 1024)
                 log("  got pv.size of %s, clamped to %s" % (size,clamped))
                 #log("  clamped size is %s" % (size,))
                 totalspace = totalspace + clamped
