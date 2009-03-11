@@ -103,7 +103,7 @@ class RescueInterface:
 # moderately useful.  
 def makeMtab(instPath, fsset):
     try:
-        f = open("/etc/mtab", "w+")
+        f = open(instPath + "/etc/mtab", "w+")
     except IOError, e:
         log.info("failed to open /etc/mtab for write: %s" % e)
         return
@@ -254,6 +254,9 @@ def runRescue(anaconda, instClass):
             readOnly = 1
         else:
             readOnly = 0
+
+    import storage
+    storage.storageInitialize(anaconda)
 
     disks = upgrade.findExistingRoots(anaconda, upgradeany = 1)
 
