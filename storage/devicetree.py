@@ -607,6 +607,11 @@ class DeviceTree(object):
         for action in self._actions:
             log.debug("action: %s" % action)
 
+        log.debug("resetting parted disks...")
+        for device in self.devices.itervalues():
+            if isinstance(device, DiskDevice):
+                device.resetPartedDisk()
+
         for action in self._actions:
             log.info("executing action: %s" % action)
             if not dryRun:

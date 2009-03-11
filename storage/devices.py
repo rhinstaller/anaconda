@@ -704,20 +704,12 @@ class DiskDevice(StorageDevice):
 
     def removePartition(self, device):
         log_method_call(self, self.name, part=device.name)
-        if self.partedDisk != self._origPartedDisk:
-            log.debug("going to reset self.partedDisk to actual state")
-            self.resetPartedDisk()
-
         partition = self.partedDisk.getPartitionByPath(device.path)
         if partition:
             self.partedDisk.removePartition(partition)
 
     def addPartition(self, device):
         log_method_call(self, self.name, part=device.name)
-        if self.partedDisk != self._origPartedDisk:
-            log.debug("going to reset self.partedDisk to actual state")
-            self.resetPartedDisk()
-
         for part in self.partedDisk.partitions:
             log.debug("disk %s: partition %s has geom %s" % (self.name,
                                                              part.getDeviceNodeName(),
