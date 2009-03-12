@@ -201,7 +201,7 @@ def doAutoPartition(anaconda):
             sys.exit(0)
 
     if anaconda.id.storage.doAutoPart:
-        _scheduleLVs(anaconda, dev)
+        _scheduleLVs(anaconda, devs)
 
     # sanity check the collection of devices
     log.warning("not sanity checking storage config because I don't know how yet")
