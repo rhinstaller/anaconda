@@ -1463,7 +1463,7 @@ class FSSet(object):
                (device.format.type != "swap" or swapoff):
                 continue
 
-            device.teardownFormat()
+            device.format.teardown()
             device.teardown()
 
         self.active = False
