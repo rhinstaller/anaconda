@@ -341,7 +341,7 @@
 <widget class="GtkDialog" id="resizeDialog">
   <property name="border_width">12</property>
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Which Partition to resize</property>
+  <property name="title" translatable="yes">Volume to Resize</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>
@@ -517,7 +517,7 @@
 	      <child>
 		<widget class="GtkLabel" id="label6">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">&lt;b&gt;Resize _target:&lt;/b&gt;</property>
+		  <property name="label" translatable="yes">&lt;b&gt;Resize _target (in MB):&lt;/b&gt;</property>
 		  <property name="use_underline">True</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
