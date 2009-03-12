@@ -92,7 +92,7 @@ class PartitionTypeWindow:
 
             # restore the drive list each time
             disks = anaconda.id.storage.disks
-            cleardrives = anaconda.id.storage.clearPartDrives
+            cleardrives = anaconda.id.storage.clearPartDisks
 
             for disk in disks:
                 model = disk.partedDisk.device.model
@@ -140,7 +140,7 @@ class PartitionTypeWindow:
 
             anaconda.dispatch.skipStep("autopartitionexecute", skip = 0)
             anaconda.id.storage.clearPartType = partmethod_ans
-            anaconda.id.storage.clearPartDrives = sel
+            anaconda.id.storage.clearPartDisks = sel
             break
 
         # ask to review autopartition layout - but only if it's not custom partitioning
