@@ -173,9 +173,7 @@ def PartitionDeviceFactory(*args, **kwargs):
         parents = kwargs["parents"]
         if isinstance(parents, Device):
             parents = [parents]
-        # we receive a list of parents.  look for the disk that contains the name
-        # if we dont find the name we will return PartitionDevice and let it raise
-        # the exception.
+        # we receive a list of parents.  look for the disk that contains the name.
         for root in roots:
             for parent in parents:
                 path = os.path.join(root,norm_name)
@@ -194,7 +192,8 @@ def PartitionDeviceFactory(*args, **kwargs):
                         return PartitionDevice(*args, **kwargs)
 
         # If we get here, we did not find anything.
-        return PartitionDevice(*args, **kwargs)
+        log.warning("unable to find parted device for %s" % norm_name)
+        return None
 
 class Device(object):
     """ A generic device.

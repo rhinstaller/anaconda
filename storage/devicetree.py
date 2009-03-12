@@ -880,6 +880,8 @@ class DeviceTree(object):
                                            minor=udev_device_get_minor(info), \
                                            exists=True, \
                                            parents=[disk])
+                    if not device:
+                        return
                     self._addDevice(device)
                     #self.ignoredDisks.append(name)
 
@@ -1012,6 +1014,8 @@ class DeviceTree(object):
                                                 minor=udev_device_get_minor(info),
                                                 exists=True,
                                                 parents=[disk])
+                if not device:
+                    return
                 self._addDevice(device)
 
         #
