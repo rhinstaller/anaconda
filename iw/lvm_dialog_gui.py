@@ -888,7 +888,7 @@ class VolumeGroupEditor:
 	    if self.vg:
 		origvname = self.vg.name
 	    else:
-		origname = None
+		origvname = None
 
 	    if origvname != volname:
                 # maybe we should see if _any_ device has this name
@@ -908,8 +908,8 @@ class VolumeGroupEditor:
 
         # pvs, pesize are taken care of in widget callbacks
         # (clickCB, peChangeCB)
-        self.vg.name = volname
         if self.isNew:
+            self.vg.name = volname
             self.actions.insert(0, ActionCreateDevice(self.vg))
 	return self.actions
 
