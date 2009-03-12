@@ -972,7 +972,11 @@ class DeviceTree(object):
             device = self.getDeviceByName(name)
             if device is None:
                 try:
-                    cb=lambda:questionInitializeDisk(self.intf, name)
+                    if self.zeroMbr:
+                        cb = lambda: True
+                    else:
+                        cb = lambda: questionInitializeDisk(self.intf, name)
+
                     device = DiskDevice(name,
                                     major=udev_device_get_major(info),
                                     minor=udev_device_get_minor(info),
@@ -1149,7 +1153,11 @@ class DeviceTree(object):
 
                         # Create the DMRaidArray
                         try:
-                            cb=lambda:questionInitializeDisk(self.intf,rs.name)
+                            if self.zeroMbr:
+                                cb = lambda: True
+                            else:
+                                cb = lambda: questionInitializeDisk(self.intf,
+                                                                    rs.name)
                             dm_array = DMRaidArrayDevice(rs.name,
                                                          major=major, minor=minor,
                                                          raidSet=rs,
