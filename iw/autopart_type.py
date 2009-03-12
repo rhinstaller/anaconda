@@ -45,18 +45,14 @@ def whichToResize(storage, intf):
     def comboCB(combo, resizeSB):
         # partition to resize changed, let's update our spinbutton
         part = getActive(combo)
-        if part.targetSize is not None:
-            value = part.targetSize
-        else:
-            value = part.size
         reqlower = part.minSize
         requpper = part.maxSize
 
         adj = resizeSB.get_adjustment()
         adj.lower = reqlower
         adj.upper = requpper
-        adj.value = value
-        adj.set_value(value)
+        adj.value = reqlower
+        adj.set_value(reqlower)
 
 
     (dxml, dialog) = gui.getGladeWidget("autopart.glade", "resizeDialog")
@@ -69,7 +65,6 @@ def whichToResize(storage, intf):
     combo.set_attributes(crt, text = 0)
     combo.connect("changed", comboCB, dxml.get_widget("resizeSB"))
 
-    found = False
     biggest = -1
     for part in storage.partitions:
         if not part.exists:
@@ -77,20 +72,27 @@ def whichToResize(storage, intf):
 
         # Resize the following storage types:
         #     resizable filesystem (e.g., ext3 or ntfs) on resizable partition
+        #     resizable filesystem on a resizable logical volume
+        entry = None
         if part.resizable and part.format.resizable:
+            entry = ("%s (%s, %d MB)" % (part.name,
+                                         part.format.name,
+                                         math.floor(part.format.size)),
+                     part)
+
+        if entry:
             i = store.append(None)
-            store[i] = ("%s (%s, %d MB)" %(part.name,
-                                           part.format.name,
-                                           math.floor(part.format.currentSize)),
-                        part)
-            if part.targetSize is not None:
-                combo.set_active_iter(i)
-                found = True
+            store[i] = entry
+            combo.set_active_iter(i)
+
+            if biggest == -1:
+                biggest = i
             else:
-                if biggest < 0 or req.size > store.get_value(biggest, 1).size:
+                current = store.get_value(biggest, 1)
+                if part.format.targetSize > current.format.targetSize:
                     biggest = i
 
-    if not found and biggest > 0:
+    if biggest > -1:
         combo.set_active_iter(biggest)
 
     if len(store) == 0:
@@ -100,20 +102,43 @@ def whichToResize(storage, intf):
                              "physical partitions with specific filesystems "
                              "can be resized."),
                              type="warning", custom_icon="error")
-        return gtk.RESPONSE_CANCEL
+        return (gtk.RESPONSE_CANCEL, [])
 
     gui.addFrame(dialog)
     dialog.show_all()
-    rc = dialog.run()
-    if rc != gtk.RESPONSE_OK:
-        dialog.destroy()
-        return rc
+    runResize = True
 
-    request = getActive(combo)
-    newSize = dxml.get_widget("resizeSB").get_value_as_int()
-    action = ActionResizeFormat(request, newSize)
+    while runResize:
+        rc = dialog.run()
+        if rc != gtk.RESPONSE_OK:
+            dialog.destroy()
+            return (rc, [])
+
+        request = getActive(combo)
+        newSize = dxml.get_widget("resizeSB").get_value_as_int()
+        actions = []
+
+        try:
+            actions.append(ActionResizeFormat(request, newSize))
+        except ValueError as e:
+            intf.messageWindow(_("Resize FileSystem Error"),
+                               _("%s: %s") % (request.format.device,
+                                              e.message,),
+                               type="warning", custom_icon="error")
+            continue
+
+        try:
+            actions.append(ActionResizeDevice(request, newSize))
+        except ValueError as e:
+            intf.messageWindow(_("Resize Device Error"),
+                               _("%s: %s") % (request.name, e.message,),
+                               type="warning", custom_icon="error")
+            continue
+
+        runResize = False
+
     dialog.destroy()
-    return (rc, action)
+    return (rc, actions)
 
 class PartitionTypeWindow(InstallWindow):
     def __init__(self, ics):
@@ -134,9 +159,10 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.skipStep("bootloader", skip = 0)
         else:
             if val == -2:
-                (rc, action) = whichToResize(self.storage, self.intf)
+                (rc, actions) = whichToResize(self.storage, self.intf)
                 if rc == gtk.RESPONSE_OK:
-                    self.storage.devicetree.registerAction(action)
+                    for action in actions:
+                        self.storage.devicetree.registerAction(action)
                 else:
                     raise gui.StayOnScreen
 
