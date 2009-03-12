@@ -70,7 +70,9 @@ class LUKS(DeviceFormat):
         self.__passphrase = kwargs.get("passphrase")
         self._key_file = kwargs.get("key_file")
 
-        if not self.mapName and self.device:
+        if not self.mapName and self.exists and self.uuid:
+            self.mapName = "luks-%s" % self.uuid
+        elif not self.mapName and self.device:
             self.mapName = "luks-%s" % os.path.basename(self.device)
 
     def _setPassphrase(self, passphrase):
