@@ -173,7 +173,7 @@ class DeviceFormat(object):
     def _setOptions(self, options):
         self._options = options
 
-    def _getOptions(self, options):
+    def _getOptions(self):
         return self._options
 
     options = property(_getOptions, _setOptions)
