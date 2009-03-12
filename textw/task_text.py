@@ -27,6 +27,5 @@ class TaskWindow:
 
         anaconda.backend.resetPackageSelections()
         anaconda.backend.selectGroup("Core")
-        anaconda.backend.selectGroup("Base")
 
         return INSTALL_OK
