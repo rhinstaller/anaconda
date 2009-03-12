@@ -1039,7 +1039,7 @@ class DeviceTree(object):
 
             if format_type == "crypto_LUKS":
                 # luks/dmcrypt
-                kwargs["mapName"] = "luks-%s" % uuid
+                kwargs["name"] = "luks-%s" % uuid
             elif format_type == "linux_raid_member":
                 # mdraid
                 try:
