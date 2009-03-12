@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.27
+Version: 11.5.0.28
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -209,6 +209,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 11 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.28-1
+- Fix a few bugs in the lvm dialog. (#489022) (dlehman)
+- Modify livecd.py to work with new storage backend. (dlehman)
+- Be explicit about resetting Disks' partedDisk attribute. (#489678)
+  (dlehman)
+- Deactivate devices after we've finished scanning them. (dlehman)
+- Handle the case of removing an unallocated partition from the tree.
+  (dlehman)
+- Try again to set up LVs when we've just added a new PV to the VG. (dlehman)
+- Set partition flags in format create/destroy execute methods. (dlehman)
+- Make sure we use the newly committed parted.Partition after create.
+  (dlehman)
+- Make device teardown methods more resilient. (dlehman)
+- Initialize storage in rescue mode so we can find roots (#488984). (clumens)
+- We also need to pack up the extra args tuple, too. (clumens)
+- doLoggingSetup keeps growing new arguments, so put them into a dict
+  (#489709). (clumens)
+- Fix anaconda udev rules to not require pre-existing device nodes (hdegoede)
+- Hook up 'Shrink current system' dialog to new storage code. (dcantrell)
+- Fix _getCheckArgs() in class FS. (dcantrell)
+
 * Tue Mar 10 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.27-1
 - Fix action pruning to handle more complex scenarios. (dlehman)
 - Schedule destruction of any existing formatting along with the device.
