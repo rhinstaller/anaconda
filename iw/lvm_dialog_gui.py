@@ -339,7 +339,7 @@ class VolumeGroupEditor:
 
             if include:
                 partlist.append_row((device.name, size_string), selected)
-                if selected:
+                if selected and device not in self.vg.pvs:
                     self.vg._addPV(device)
 
 	return (partlist, sw)
@@ -548,7 +548,7 @@ class VolumeGroupEditor:
 	    # yet if we have not hit 'OK' for the volume group creation
 	    if fmt_class().mountable and mountpoint:
 		used = 0
-		curmntpt = format.mountpoint
+		curmntpt = getattr(format, "mountpoint", None)
 		    
 		for _lv in self.vg.lvs:
                     if _lv.format.type == "luks":
