@@ -575,8 +575,7 @@ class AnacondaYum(YumSorter):
         YumSorter.getReposFromConfig(self)
 
     # Override this method so yum doesn't nuke our existing logging config.
-    def doLoggingSetup(self, debuglevel, errorlevel, syslog_indent=None,
-                       syslog_facility=None):
+    def doLoggingSetup(self, *args, **kwargs):
         pass
 
     def doConfigSetup(self, fn='/tmp/anaconda-yum.conf', root='/'):
