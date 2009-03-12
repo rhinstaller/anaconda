@@ -80,7 +80,6 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
 
     runningLog = open("/tmp/program.log", "a")
     runningLog.write("Running... %s\n" % ([command] + argv,))
-    os.write(stdout, "Running... %s\n" %([command] + argv,))
 
     try:
         proc = subprocess.Popen([command] + argv, stdin=stdin,
@@ -197,7 +196,8 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
     elif stderr is None or not isinstance(stderr, file):
         stderr = sys.stderr.fileno()
 
-    os.write(stdout, "Running... %s\n" %([command] + argv,))
+    runningLog = open("/tmp/program.log", "a")
+    runningLog.write("Running... %s\n" % ([command] + argv,))
 
     p = os.pipe()
     childpid = os.fork()
@@ -224,6 +224,7 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
                 raise IOError, args
 
         os.write(stdout, s)
+        runningLog.write(s)
         if progress: progress.pulse()
 
         if len(s) < 1:
