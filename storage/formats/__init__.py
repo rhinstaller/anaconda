@@ -107,7 +107,7 @@ def collect_device_format_classes():
             mod_name = module_file[:-3]
             # imputil is deprecated in python 2.6
             try:
-                globals()[mod_name] = __import__(mod_name)
+                globals()[mod_name] = __import__(mod_name, globals(), locals(), [], -1)
             except ImportError, e:
                 log.debug("import of device format module '%s' failed" % mod_name)
 
