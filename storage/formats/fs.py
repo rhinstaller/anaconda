@@ -193,7 +193,7 @@ class FS(DeviceFormat):
         size = 0
         if self.exists:
             size = self._size
-        return size
+        return float(size)
 
     def _getFormatArgs(self, options=None):
         argv = []
