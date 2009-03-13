@@ -1310,6 +1310,7 @@ class LUKSDevice(DMCryptDevice):
 
         if self.status and self.format.exists:
             self.format.teardown()
+            udev_settle()
 
         if self.slave.format.exists:
             self.slave.format.teardown()
