@@ -1509,9 +1509,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         if not upgrade:
             anaconda.id.fsset.write(anaconda.rootPath)
             # rootpath mode doesn't have this file around
-            if os.access("/etc/modprobe.d/anaconda", os.R_OK):
-                shutil.copyfile("/etc/modprobe.d/anaconda", 
-                                anaconda.rootPath + "/etc/modprobe.d/anaconda")
+            if os.access("/etc/modprobe.d/anaconda.conf", os.R_OK):
+                shutil.copyfile("/etc/modprobe.d/anaconda.conf", 
+                                anaconda.rootPath + "/etc/modprobe.d/anaconda.conf")
             anaconda.id.network.write(instPath=anaconda.rootPath, anaconda=anaconda)
             anaconda.id.iscsi.write(anaconda.rootPath, anaconda)
             anaconda.id.zfcp.write(anaconda.rootPath)
