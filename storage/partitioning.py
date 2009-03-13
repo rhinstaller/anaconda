@@ -167,6 +167,15 @@ def doAutoPartition(anaconda):
 
     if anaconda.id.storage.doAutoPart:
         (disks, devs) = _createFreeSpacePartitions(anaconda)
+
+        if disks == []:
+            anaconda.intf.messageWindow(_("Error Partitioning"),
+                                        _("Could not find enough free space "
+                                          "for automatic partitioning, please "
+                                          "use another partitioning method."),
+                                        custom_icon='error')
+            return DISPATCH_BACK
+
         _schedulePartitions(anaconda, disks)
 
     # sanity check the individual devices
