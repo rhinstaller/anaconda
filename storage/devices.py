@@ -1860,7 +1860,13 @@ class LVMLogicalVolumeDevice(DMDevice):
             lvm.lvdeactivate(self.vg.name, self._name)
 
         if recursive:
-            self.vg.teardown(recursive=recursive)
+            # It's likely that teardown of a VG will fail due to other
+            # LVs being active (filesystems mounted, &c), so don't let
+            # it bring everything down.
+            try:
+                self.vg.teardown(recursive=recursive)
+            except Exception as e:
+                log.debug("vg %s teardown failed; continuing" % self.vg.name)
 
     def create(self, intf=None):
         """ Create the device. """
