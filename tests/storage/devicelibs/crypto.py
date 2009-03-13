@@ -5,9 +5,9 @@ import storage.devicelibs.crypto as crypto
 import tempfile
 import os
 
-class TestCrypto(baseclass.TestDevicelibs):
+class CryptoTestCase(baseclass.DevicelibsTestCase):
 
-    def runTest(self):
+    def testCrypto(self):
         ##
         ## is_luks
         ##
@@ -118,6 +118,9 @@ class TestCrypto(baseclass.TestDevicelibs):
         os.unlink(new_keyfile)
 
 
+def suite():
+    return unittest.TestLoader().loadTestsFromTestCase(CryptoTestCase)
+
+
 if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestCrypto)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    unittest.main()

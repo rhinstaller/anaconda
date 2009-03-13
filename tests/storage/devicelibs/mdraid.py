@@ -4,9 +4,9 @@ import storage.devicelibs.mdraid as mdraid
 
 import time
 
-class TestMDRaid(baseclass.TestDevicelibs):
+class MDRaidTestCase(baseclass.DevicelibsTestCase):
 
-    def testMDRaidStuff(self):
+    def testMDRaid(self):
         ##
         ## getRaidLevels
         ##
@@ -99,7 +99,9 @@ class TestMDRaid(baseclass.TestDevicelibs):
         self.assertRaises(mdraid.MDRaidError, mdraid.mddestroy, "/not/existing/device")
 
 
-if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestMDRaid)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+def suite():
+    return unittest.TestLoader().loadTestsFromTestCase(MDRaidTestCase)
 
+
+if __name__ == "__main__":
+    unittest.main()

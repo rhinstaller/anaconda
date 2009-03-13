@@ -2,9 +2,9 @@ import baseclass
 import unittest
 import storage.devicelibs.swap as swap
 
-class TestSwap(baseclass.TestDevicelibs):
+class SwapTestCase(baseclass.DevicelibsTestCase):
 
-    def runTest(self):
+    def testSwap(self):
         ##
         ## mkswap
         ##
@@ -58,6 +58,9 @@ class TestSwap(baseclass.TestDevicelibs):
         self.assertRaises(swap.SwapError, swap.swapoff, self._LOOP_DEV0)
 
 
+def suite():
+    return unittest.TestLoader().loadTestsFromTestCase(SwapTestCase)
+
+
 if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestSwap)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    unittest.main()

@@ -2,9 +2,9 @@ import baseclass
 import unittest
 import storage.devicelibs.lvm as lvm
 
-class TestLVM(baseclass.TestDevicelibs):
+class LVMTestCase(baseclass.DevicelibsTestCase):
 
-    def testLVMStuff(self):
+    def testLVM(self):
         ##
         ## pvcreate
         ##
@@ -154,7 +154,7 @@ class TestLVM(baseclass.TestDevicelibs):
         self.assertEqual(lvm.has_lvm(), True)
 
         # fail
-        #TODO
+        # TODO
 
         ##
         ## lvremove
@@ -214,15 +214,17 @@ class TestLVM(baseclass.TestDevicelibs):
         self.assertEqual(lvm.clampSize(10, 4, True), 12L)
 
     #def testVGUsedSpace(self):
-        #TODO
+        # TODO
         pass
 
     #def testVGFreeSpace(self):
-        #TODO
+        # TODO
         pass
 
 
-if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestLVM)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+def suite():
+    return unittest.TestLoader().loadTestsFromTestCase(LVMTestCase)
 
+
+if __name__ == "__main__":
+    unittest.main()

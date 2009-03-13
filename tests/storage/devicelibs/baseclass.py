@@ -2,11 +2,44 @@ import unittest
 import os
 import subprocess
 
-# need to import these first before doing anything
-import anaconda_log
-import upgrade
 
-class TestDevicelibs(unittest.TestCase):
+def makeLoopDev(device_name, file_name):
+    proc = subprocess.Popen(["dd", "if=/dev/zero", "of=%s" % file_name,
+                             "bs=1024", "count=102400"],
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    while True:
+        proc.communicate()
+        if proc.returncode is not None:
+            rc = proc.returncode
+            break
+    if rc:
+        raise OSError, "dd failed creating the file %s" % file_name
+
+    proc = subprocess.Popen(["losetup", device_name, file_name],
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    while True:
+        proc.communicate()
+        if proc.returncode is not None:
+            rc = proc.returncode
+            break
+    if rc:
+        raise OSError, "losetup failed setting up the loop device %s" % device_name
+
+def removeLoopDev(device_name, file_name):
+    proc = subprocess.Popen(["losetup", "-d", device_name],
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    while True:
+        proc.communicate()
+        if proc.returncode is not None:
+            rc = proc.returncode
+            break
+    if rc:
+        raise OSError, "losetup failed removing the loop device %s" % device_name
+
+    os.unlink(file_name)
+
+
+class DevicelibsTestCase(unittest.TestCase):
 
     _LOOP_DEVICES = (("/dev/loop0", "/tmp/test-virtdev0"),
                      ("/dev/loop1", "/tmp/test-virtdev1"))
@@ -15,39 +48,8 @@ class TestDevicelibs(unittest.TestCase):
 
     def setUp(self):
         for dev, file in self._LOOP_DEVICES:
-            self.makeLoopDev(dev, file)
+            makeLoopDev(dev, file)
 
     def tearDown(self):
         for dev, file in self._LOOP_DEVICES:
-            self.removeLoopDev(dev, file)
-
-    def makeLoopDev(self, device_name, file_name):
-        proc = subprocess.Popen(["dd", "if=/dev/zero", "of=%s" % file_name, "bs=1024", "count=102400"])
-        while True:
-            proc.communicate()
-            if proc.returncode is not None:
-                rc = proc.returncode
-                break
-        if rc:
-            raise OSError, "dd failed creating the file %s" % file_name
-
-        proc = subprocess.Popen(["losetup", device_name, file_name])
-        while True:
-            proc.communicate()
-            if proc.returncode is not None:
-                rc = proc.returncode
-                break
-        if rc:
-            raise OSError, "losetup failed setting up the loop device %s" % device_name
-
-    def removeLoopDev(self, device_name, file_name):
-        proc = subprocess.Popen(["losetup", "-d", device_name])
-        while True:
-            proc.communicate()
-            if proc.returncode is not None:
-                rc = proc.returncode
-                break
-        if rc:
-            raise OSError, "losetup failed removing the loop device %s" % device_name
-
-        os.remove(file_name)
+            removeLoopDev(dev, file)
