@@ -101,7 +101,7 @@ void mlAddBlacklist(char *module) {
     blacklists = realloc(blacklists, sizeof(*blacklists) * (numblacklists + 1));
     blacklists[numblacklists] = strdup(module);
     numblacklists++;
-    writeModulesConf("/etc/modprobe.d/anaconda");
+    writeModulesConf("/etc/modprobe.d/anaconda.conf");
 }
 
 static void addOption(const char *module, const char *option) {
@@ -225,7 +225,7 @@ static int doLoadModule(const char *module, char ** args) {
             for (i = 0; args[i] ; i++) {
                 addOption(module, args[i]);
             }
-            writeModulesConf("/etc/modprobe.d/anaconda");
+            writeModulesConf("/etc/modprobe.d/anaconda.conf");
         }
         rc = execv("/sbin/modprobe", argv);
         _exit(rc);
@@ -252,7 +252,7 @@ void mlRemoveBlacklist(char *module) {
 void mlInitModuleConfig() {
     readModuleOpts();
     readBlacklist();
-    writeModulesConf("/etc/modprobe.d/anaconda");
+    writeModulesConf("/etc/modprobe.d/anaconda.conf");
 }
 
 /* load a module with a given list of arguments */
