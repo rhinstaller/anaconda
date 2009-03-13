@@ -23,7 +23,7 @@ from snack import *
 from constants_text import *
 from flags import flags
 import string
-import checkbootloader
+from booty import checkbootloader
 
 from constants import *
 import gettext

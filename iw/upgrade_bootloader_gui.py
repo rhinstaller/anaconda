@@ -23,7 +23,7 @@
 from iw_gui import *
 
 import gtk
-import checkbootloader
+from booty import checkbootloader
 
 from constants import *
 import gettext
