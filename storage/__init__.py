@@ -239,7 +239,7 @@ class Storage(object):
     def disks(self):
         """ A list of the disks in the device tree.
 
-            Ignored disks are not included.
+            Ignored disks are not included, as are disks with no media present.
 
             This is based on the current state of the device tree and
             does not necessarily reflect the actual on-disk state of the
@@ -248,7 +248,7 @@ class Storage(object):
         disks = []
         devices = self.devicetree.devices
         for d in devices:
-            if isinstance(devices[d], DiskDevice):
+            if isinstance(devices[d], DiskDevice) and devices[d].mediaPresent:
                 disks.append(devices[d])
         disks.sort(key=lambda d: d.name)
         return disks
@@ -613,7 +613,7 @@ class Storage(object):
 
     def extendedPartitionsSupported(self):
         """ Return whether any disks support extended partitions."""
-        for disk in self.disks:
+        for disk in filter(lambda disk: disk.mediaPresent, self.disks):
             if disk.partedDisk.supportsFeature(parted.DISK_TYPE_EXTENDED):
                 return True
         return False

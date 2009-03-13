@@ -738,28 +738,38 @@ class DiskDevice(StorageDevice):
         self.partedDisk = None
 
         log.debug("looking up parted Device: %s" % self.path)
-        self.partedDevice = parted.Device(path=self.path)
-        if not self.partedDevice:
-            raise DeviceError("cannot find parted device instance")
+
+        # We aren't guaranteed to be able to get a device.  In particular,
+        # built-in USB flash readers show up as devices but do not always
+        # have any media present, so parted won't be able to find a device.
+        try:
+            self.partedDevice = parted.Device(path=self.path)
+        except _ped.DeviceException:
+            pass
 
         log.debug("creating parted Disk: %s" % self.path)
-        if initlabel:
-            self.partedDisk = self.freshPartedDisk()
-        else:
-            try:
-                self.partedDisk = parted.Disk(device=self.partedDevice)
-            except _ped.DiskLabelException:
-                # if we have a cb function use it. else an error.
-                if initcb is not None and initcb():
-                    self.partedDisk = self.freshPartedDisk()
-                else:
-                    raise DeviceUserDeniedFormatError("User prefered to not format.")
+        if self.partedDevice:
+            if initlabel:
+                self.partedDisk = self.fresPartedDisk()
+            else:
+                try:
+                    self.partedDisk = parted.Disk(device=self.partedDevice)
+                except _ped.DiskLabelException:
+                    # if we have a cb function use it. else an error.
+                    if initcb is not None and initcb():
+                        self.partedDisk = parted.freshDisk(device=self.partedDevice, \
+                                ty = platform.getPlatform(None).diskType)
+                    else:
+                        raise DeviceUserDeniedFormatError("User prefered to not format.")
 
         # We save the actual state of the disk here. Before the first
         # modification (addPartition or removePartition) to the partition
         # table we reset self.partedPartition to this state so we can
         # perform the modifications one at a time.
-        self._origPartedDisk = self.partedDisk.duplicate()
+        if self.partedDisk:
+            self._origPartedDisk = self.partedDisk.duplicate()
+        else:
+            self._origPartedDisk = None
 
         self.probe()
 
@@ -777,8 +787,15 @@ class DiskDevice(StorageDevice):
         return parted.freshDisk(device=self.partedDevice, ty=labelType)
 
     @property
+    def mediaPresent(self):
+        return self.partedDevice is not None
+
+    @property
     def size(self):
         """ The disk's size in MB """
+        if not self.mediaPresent:
+            return 0
+
         if not self._size:
             self._size = self.partedDisk.device.getSize()
         return self._size
@@ -790,12 +807,18 @@ class DiskDevice(StorageDevice):
 
     def removePartition(self, device):
         log_method_call(self, self.name, part=device.name)
+        if not self.mediaPresent:
+            raise DeviceError("cannot remove partition from disk %s which has no media" % self.name)
+
         partition = self.partedDisk.getPartitionByPath(device.path)
         if partition:
             self.partedDisk.removePartition(partition)
 
     def addPartition(self, device):
         log_method_call(self, self.name, part=device.name)
+        if not self.mediaPresent:
+            raise DeviceError("cannot add partition to disk %s which has no media" % self.name)
+
         for part in self.partedDisk.partitions:
             log.debug("disk %s: partition %s has geom %s" % (self.name,
                                                              part.getDeviceNodeName(),
@@ -815,7 +838,7 @@ class DiskDevice(StorageDevice):
             pyparted should be able to tell us anything we want to know.
             size, disklabel type, maybe even partition layout
         """
-        if  not 'parted' in globals().keys():
+        if not self.mediaPresent or not 'parted' in globals().keys():
             return
 
         log_method_call(self, self.name, size=self.size, partedDevice=self.partedDevice)
@@ -829,6 +852,9 @@ class DiskDevice(StorageDevice):
     def commit(self, intf=None):
         """ Commit changes to the device. """
         log_method_call(self, self.name, status=self.status)
+        if not self.mediaPresent:
+            raise DeviceError("cannot commit to disk %s which has no media" % self.name)
+
         self.setupParents()
         self.setup()
         self.partedDisk.commit()
@@ -836,6 +862,9 @@ class DiskDevice(StorageDevice):
     def destroy(self):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
+        if not self.mediaPresent:
+            raise DeviceError("cannot destroy disk %s which has no media" % self.name)
+
         if self.status:
             self.format.destroy()
 
