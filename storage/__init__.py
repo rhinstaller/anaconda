@@ -206,7 +206,7 @@ class Storage(object):
         # save passphrases for luks devices so we don't have to reprompt
         for device in self.devices:
             if device.format.type == "luks" and device.format.exists:
-                self.__luksDevs[device.format.uuid] = device.format.__passphrase
+                self.__luksDevs[device.format.uuid] = device.format._LUKS__passphrase
 
         w = self.anaconda.intf.waitWindow(_("Finding Devices"),
                                       _("Finding storage devices..."))
