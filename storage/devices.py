@@ -1867,7 +1867,7 @@ class MDRaidArrayDevice(StorageDevice):
     def totalDevices(self):
         """ Total number of devices in the array, including spares. """
         count = len(self.parents)
-        if self.exists:
+        if not self.exists:
             count = self._totalDevices
         return count
 

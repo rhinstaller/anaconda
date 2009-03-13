@@ -246,6 +246,7 @@ class RaidEditor:
                                               level=level,
                                               format=format,
                                               parents=raidmembers,
+                                              totalDevices=len(raidmembers),
                                               memberDevices=members)
             actions.append(ActionCreateDevice(request))
             actions.append(ActionCreateFormat(request))
