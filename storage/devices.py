@@ -166,11 +166,20 @@ def PartitionDeviceFactory(*args, **kwargs):
     norm_name = args[0].split("/")[-1]
 
     # We look for the disk in /dev.  From PartitionDevice its the [0] one.
-    if (not kwargs.has_key("parents")) or\
-            (kwargs.has_key("exists") and not kwargs["exists"]):
+    if not kwargs.get("exists") and not kwargs.get("parents"): 
         # Cant really choose a good type of class,  default to PartitionDevice
         # This will be considered as a request.
         return PartitionDevice(*args, **kwargs)
+    elif not kwargs.get("exists"):
+        # some requests have a disk specified
+        parents = kwargs["parents"]
+        if isinstance(parents, Device):
+            parents = [parents]
+
+        if isinstance(parents[0], DMRaidArrayDevice):
+            return DMRaidPartitionDevice(*args, **kwargs)
+        else:
+            return PartitionDevice(*args, **kwargs)
     else:
         parents = kwargs["parents"]
         if isinstance(parents, Device):
