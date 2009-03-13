@@ -482,7 +482,17 @@ class StorageDevice(Device):
 
         self.format = format
         self.fstabComment = ""
-        self.targetSize = self._size
+        self._targetSize = self._size
+
+    def _getTargetSize(self):
+        return self._targetSize
+
+    def _setTargetSize(self, newsize):
+        self._targetSize = newsize
+
+    targetSize = property(lambda s: s._getTargetSize(),
+                          lambda s, v: s._setTargetSize(v),
+                          doc="Target size of this device")
 
     def __str__(self):
         s = Device.__str__(self)
@@ -899,6 +909,8 @@ class PartitionDevice(StorageDevice):
 
         self.bootable = False
 
+        self._resize = False
+
         StorageDevice.__init__(self, name, format=format, size=size,
                                major=major, minor=minor, exists=exists,
                                sysfsPath=sysfsPath, parents=parents)
@@ -956,6 +968,30 @@ class PartitionDevice(StorageDevice):
                "primary": self.req_primary,
                "partedPart": self.partedPartition, "disk": self.disk})
         return s
+
+    def _setTargetSize(self, newsize):
+        # a change in the target size means we need to resize the disk
+        # if targetSize is 0, it means we are initializing, so don't jump
+        # the gun and assume we're resizing
+        if newsize != self.targetSize and self.targetSize != 0:
+            self._resize = True
+
+        self._targetSize = newsize
+
+        if self._resize:
+            currentGeom = self.partedPartition.geometry
+            currentDev = currentGeom.device
+            newLen = long(self.targetSize * 1024 * 1024) / currentDev.sectorSize
+            geom = parted.Geometry(device=currentDev,
+                                   start=currentGeom.start,
+                                   length=newLen)
+            constraint = parted.Constraint(exactGeom=geom)
+
+            partedDisk = self.disk.partedDisk
+            partedDisk.setPartitionGeometry(partition=self.partedPartition,
+                                            constraint=constraint,
+                                            start=geom.start, end=geom.end)
+            self.partedPartition = None
 
     @property
     def partType(self):
@@ -1111,6 +1147,16 @@ class PartitionDevice(StorageDevice):
 
         self.exists = True
         self.setup()
+
+    def resize(self, intf=None):
+        """ Resize the device.
+
+            self.targetSize must be set to the new size.
+        """
+        log_method_call(self, self.name, status=self.status)
+
+        if self._resize:
+            self.disk.commit()
 
     def destroy(self):
         """ Destroy the device. """
