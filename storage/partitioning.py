@@ -268,6 +268,10 @@ def clearPartitions(storage):
            part.disk.name not in storage.clearPartDisks:
             continue
 
+        # don't clear partitions holding install media
+        if part.name in storage.protectedPartitions:
+            continue
+
         # we don't want to fool with extended partitions, freespace, &c
         if part.partType not in (parted.PARTITION_NORMAL,
                                  parted.PARTITION_LOGICAL):
