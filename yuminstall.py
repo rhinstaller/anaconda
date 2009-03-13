@@ -342,7 +342,8 @@ class AnacondaYum(YumSorter):
             unmountCD(self.tree, self.anaconda.intf.messageWindow)
             self.currentMedia = None
 
-        isys.ejectCdrom(self.anaconda.mediaDevice)
+        dev = self.anaconda.id.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
+        dev.eject()
 
         while True:
             if self.anaconda.intf:

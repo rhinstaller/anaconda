@@ -381,6 +381,10 @@ class Device(object):
 
         return packages
 
+    @property
+    def mediaPresent(self):
+        return True
+
 
 class NetworkDevice(Device):
     """ A network device """
@@ -2500,6 +2504,7 @@ class OpticalDevice(StorageDevice):
                                major=major, minor=minor, exists=True,
                                parents=parents, sysfsPath=sysfsPath)
 
+    @property
     def mediaPresent(self):
         """ Return a boolean indicating whether or not the device contains
             media.
@@ -2508,11 +2513,36 @@ class OpticalDevice(StorageDevice):
         if not self.exists:
             raise DeviceError("device has not been created")
 
+        try:
+            fd = os.open(self.path, os.O_RDONLY)
+        except OSError as e:
+            # errno 123 = No medium found
+            if e.errno == 123:
+                return False
+            else:
+                return True
+        else:
+            os.close(fd)
+            return True
+
     def eject(self):
         """ Eject the drawer. """
+        import _isys
+
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created")
+
+        # Make a best effort attempt to do the eject.  If it fails, it's not
+        # critical.
+        fd = os.open(self.path, os.O_RDONLY | os.O_NONBLOCK)
+
+        try:
+            _isys.ejectcdrom(fd)
+        except SystemError as e:
+            log.warning("error ejecting cdrom %s: %s" % (device, e))
+
+        os.close(fd)
 
 
 class ZFCPDiskDevice(DiskDevice):

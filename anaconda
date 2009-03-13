@@ -1026,7 +1026,7 @@ if __name__ == "__main__":
                 continue
 
             log.info("attempting to eject %s" % drive.path)
-            isys.ejectCdrom(drive.path)
+            drive.eject()
 
     del anaconda.intf
 

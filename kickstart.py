@@ -238,7 +238,7 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
 
-        hds = map(lambda x: x.name, filter(lambda x: isys.mediaPresent(x.name), self.handler.id.storage.disks))
+        hds = map(lambda x: x.name, filter(lambda dev: dev.mediaPresent, self.handler.id.storage.disks))
         for disk in self.drives:
             if disk not in hds:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % disk)

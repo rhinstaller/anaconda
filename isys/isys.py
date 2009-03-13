@@ -437,22 +437,6 @@ def ext2HasJournal(device):
     hasjournal = _isys.e2hasjournal(device);
     return hasjournal
 
-def ejectCdrom(device):
-    # XXX this should go into storage.devices.OpticalDevice
-    if not os.path.exists(device):
-        device = "/dev/%s" % device
-
-    fd = os.open(device, os.O_RDONLY|os.O_NONBLOCK)
-
-    # this is a best effort
-    try:
-	_isys.ejectcdrom(fd)
-    except SystemError, e:
-        log.warning("error ejecting cdrom (%s): %s" %(device, e))
-	pass
-
-    os.close(fd)
-
 def driveUsesModule(device, modules):
     """Returns true if a drive is using a prticular module.  Only works
        for SCSI devices right now."""
@@ -480,23 +464,6 @@ def driveUsesModule(device, modules):
             except:
                     pass
     return rc
-
-## Check if a removable media drive (CD, USB key, etc.) has media present.
-# @param device The basename of the device node.
-# @return True if media is present in device, False otherwise.
-def mediaPresent(device):
-    # XXX this should go into storage.devices.RemovableDevice or similar
-    try:
-        fd = os.open("/dev/%s" % device, os.O_RDONLY)
-    except OSError, (errno, strerror):
-        # error 123 = No medium found
-        if errno == 123:
-            return False
-        else:
-            return True
-    else:
-        os.close(fd)
-        return True
 
 def driveIsIscsi(device):
     # ewww.  just ewww.
