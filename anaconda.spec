@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.29
+Version: 11.5.0.30
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -209,6 +209,34 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Mar 13 2009 David Lehman <dlehman@redhat.com> - 11.5.0.30-1
+- Fix supportable attribute for cmdline-enabled fstypes. (dlehman)
+- Access private attribute for luks dict. (dlehman)
+- Schedule format create for newly encrypted preexisting partition. (dlehman)
+- Don't traceback if vg.teardown fails in recursive teardown. (dlehman)
+- Schedule format create action for newly encrypted preexisting LV. (dlehman)
+- Make sure we return something other than None for new requests. (dlehman)
+- Add __str__ methods to Device objects. (clumens)
+- Add mediaPresent and eject to the OpticalDevice class. (clumens)
+- Use the right import path for checkbootloader (#490049). (clumens)
+- Rename /etc/modprobe.d/anaconda to /etc/modprobe.d/anaconda.conf (clumens)
+- Don't clear partitions containing the install media. (dlehman)
+- Wait til everyone knows the format/fs is no longer active. (dlehman)
+- Save a copy of the device stack so we can destroy the format. (#489975)
+  (dlehman)
+- Add a deep copy method to Device since we can't just use copy.deepcopy.
+  (dlehman)
+- Fix infinite loops in partition screen populate. (#490051) (dlehman)
+- Default to a name based on the uuid for existing luks mappings. (dlehman)
+- Use the correct keyword for luks map names ('name', not 'mapName').
+  (dlehman)
+- Fix getting of number of total devices of sw raid. (rvykydal)
+- Only select the Core group in text mode (#488754). (clumens)
+- Added test case for devicelib mdraid.py. (mgracik)
+- Add created user to default group created for the user. (rvykydal)
+- Fix editing of existing logical volume. (rvykydal)
+- Add a list that lvm should ignore. (jgranado)
+
 * Thu Mar 12 2009 David Lehman <dlehman@redhat.com> - 11.5.0.29-1
 - Don't create a PartitionDevice for devices that do not exist (#489122).
   (clumens)
