@@ -211,6 +211,7 @@ class PartitionEditor:
                     actions.append(ActionCreateFormat(request, format))
                     if luksdev:
                         actions.append(ActionCreateDevice(luksdev))
+                        actions.append(ActionCreateFormat(luksdev))
                 elif request.format.mountable:
                     request.format.mountpoint = mountpoint
 
