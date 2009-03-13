@@ -817,6 +817,7 @@ class PartitionWindow(InstallWindow):
                 # ignore the tiny < 1 MB partitions (#119479)
                 if part.getSize(unit="MB") <= 1.0:
                     if not part.active or not device.bootable:
+                        part = part.nextPartition()
                         continue
 
                 stripe.add(part)
@@ -863,6 +864,7 @@ class PartitionWindow(InstallWindow):
 			else:
 			    self.tree.appendToHiddenPartitionsList(part)
 			    self.tree.remove(iter)
+                            part = part.nextPartition()
 			    continue
 		    else:
 			self.tree[iter]['Mount Point'] = ""
