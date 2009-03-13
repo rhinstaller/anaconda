@@ -276,6 +276,16 @@ class Device(object):
 
         return new
 
+    def __str__(self):
+        s = ("%(type)s instance (%(id)s) --\n"
+             "  description = %(descr)s  name = %(name)s  status = %(status)s"
+             "  parents = %(parents)s\n"
+             "  kids = %(kids)s\n" %
+             {"type": self.__class__.__name__, "id": "%#x" % id(self),
+              "name": self.name, "parents": self.parents, "kids": self.kids,
+              "descr": self.description, "status": self.status})
+        return s
+
     def removeChild(self):
         log_method_call(self, name=self.name, kids=self.kids)
         self.kids -= 1
@@ -464,6 +474,20 @@ class StorageDevice(Device):
         self.format = format
         self.fstabComment = ""
         self.targetSize = self._size
+
+    def __str__(self):
+        s = Device.__str__(self)
+        s += ("  uuid = %(uuid)s  format = %(format)r  size = %(size)s\n"
+              "  major = %(major)s  minor = %(minor)r  exists = %(exists)s\n"
+              "  sysfs path = %(sysfs)s  label = %(diskLabel)s\n"
+              "  target size = %(targetSize)s  path = %(path)s\n"
+              "  format args = %(formatArgs)s" %
+              {"uuid": self.uuid, "format": self.format, "size": self.size,
+               "major": self.major, "minor": self.minor, "exists": self.exists,
+               "sysfs": self.sysfsPath, "diskLabel": self.diskLabel,
+               "targetSize": self.targetSize, "path": self.path,
+               "formatArgs": self.formatArgs})
+        return s
 
     @property
     def path(self):
@@ -713,6 +737,14 @@ class DiskDevice(StorageDevice):
 
         self.probe()
 
+    def __str__(self):
+        s = StorageDevice.__str__(self)
+        s += ("  removable = %(removable)s  partedDevice = %(partedDevice)r\n"
+              "  partedDisk = %(partedDisk)r" %
+              {"removable": self.removable, "partedDisk": self.partedDisk,
+               "partedDevice": self.partedDevice})
+        return s
+
     @property
     def size(self):
         """ The disk's size in MB """
@@ -892,6 +924,17 @@ class PartitionDevice(StorageDevice):
 
             # req_base_size will always remain constant
             self.req_base_size = self._size
+
+    def __str__(self):
+        s = StorageDevice.__str__(self)
+        s += ("  grow = %(grow)s  max size = %(maxsize)s  bootable = %(bootable)s\n"
+              "  part type = %(partType)s  primary = %(primary)s\n"
+              "  partedPartition = %(partedPart)r  disk = %(disk)r" %
+              {"grow": self.req_grow, "maxsize": self.req_max_size,
+               "bootable": self.bootable, "partType": self.partType,
+               "primary": self.req_primary,
+               "partedPart": self.partedPartition, "disk": self.disk})
+        return s
 
     @property
     def partType(self):
@@ -1180,6 +1223,12 @@ class DMDevice(StorageDevice):
         self.target = target
         self.dmUuid = dmUuid
 
+    def __str__(self):
+        s = StorageDevice.__str__(self)
+        s += ("  target = %(target)s  dmUuid = %(dmUuid)s" %
+              {"target": self.target, "dmUuid": self.dmUuid})
+        return s
+
     def probe(self):
         """ Probe for any missing information about this device.
 
@@ -1398,6 +1447,22 @@ class LVMVolumeGroupDevice(DMDevice):
             self.peSize = 4.0   # MB
 
         #self.probe()
+
+    def __str__(self):
+        s = DMDevice.__str__(self)
+        s += ("  free = %(free)s  PE Size = %(peSize)s  PE Count = %(peCount)s\n"
+              "  PE Free = %(peFree)s  PV Count = %(pvCount)s\n"
+              "  LV Names = %(lvNames)s  modified = %(modified)s\n"
+              "  extents = %(extents)s  free space = %(freeSpace)s\n"
+              "  free extents = %(freeExtents)s\n"
+              "  PVs = %(pvs)s\n"
+              "  LVs = %(lvs)s" %
+              {"free": self.free, "peSize": self.peSize, "peCount": self.peCount,
+               "peFree": self.peFree, "pvCount": self.pvCount,
+               "lvNames": self.lvNames, "modified": self.isModified,
+               "extents": self.extents, "freeSpace": self.freeSpace,
+               "freeExtents": self.freeExtents, "pvs": self.pvs, "lvs": self.lvs})
+        return s
 
     def probe(self):
         """ Probe for any information about this device. """
@@ -1721,6 +1786,12 @@ class LVMLogicalVolumeDevice(DMDevice):
         # here we go with the circular references
         self.vg._addLogVol(self)
 
+    def __str__(self):
+        s = DMDevice.__str__(self)
+        s += ("  VG device = %(vgdev)r  percent = %(percent)s" %
+              {"vgdev": self.vg, "percent": self.req_percent})
+        return s
+
     def probe(self):
         """ Probe for any missing information about this device.
 
@@ -1878,6 +1949,15 @@ class MDRaidArrayDevice(StorageDevice):
             if size is None or device.size < size:
                 size = device.size
         return size
+
+    def __str__(self):
+        s = StorageDevice.__str__(self)
+        s += ("  level = %(level)s  bitmap = %(bitmap)s  spares = %(spares)s\n"
+              "  members = %(memberDevices)s\n"
+              "  total devices = %(totalDevices)s" %
+              {"level": self.level, "bitmap": self.bitmap, "spares": self.spares,
+               "memberDevices": self.memberDevices, "totalDevices": self.totalDevices})
+        return s
 
     @property
     def mdadmConfEntry(self):
@@ -2485,6 +2565,8 @@ class iScsiDiskDevice(DiskDevice):
         DiskDevice.__init__(self, name, size=size,
                             major=major, minor=minor, exists=exists,
                             parents=parents, sysfsPath=sysfsPath)
+    def __str__(self):
+        return "FIXME: Please add iScsiDiskDevice.__str__"
 
     def probe(self):
         """ Probe for any missing information about this device. """
@@ -2559,6 +2641,12 @@ class ZFCPDiskDevice(DiskDevice):
         DiskDevice.__init__(self, name, size=size,
                             major=major, minor=minor,
                             parents=parents, sysfsPath=sysfsPath)
+
+    def __str__(self):
+        s = DiskDevice.__str__(self)
+        s += ("  devnum = %(devnum)s  wwpn = %(wwpn)s  fcplun = %(fcplun)s" %
+              {"devnum": self.devnum, "wwpn": self.wwpn, "fcplun": self.fcplun})
+        return s
 
     def probe(self):
         """ Probe for any missing information about this device.
