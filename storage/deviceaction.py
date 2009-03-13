@@ -21,6 +21,7 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
+import copy
 from parted import PARTITION_BOOT
 
 from udev import udev_settle
@@ -143,7 +144,7 @@ class DeviceAction(object):
         if not isinstance(device, StorageDevice):
             raise ValueError("arg 1 must be a StorageDevice instance")
         self.device = device
-        #self._backup = deepcopy(device)
+
 
     def execute(self, intf=None):
         """ perform the action """
@@ -296,7 +297,12 @@ class ActionDestroyFormat(DeviceAction):
 
     def __init__(self, device):
         DeviceAction.__init__(self, device)
-        self.origFormat = device.format
+        # Save a deep copy of the device stack this format occupies.
+        # This is necessary since the stack of devices and formats
+        # required to get to this format may get yanked out from under
+        # us between now and execute.
+        self._device = copy.deepcopy(device)
+        self.origFormat = self._device.format
         if device.format.exists:
             device.format.teardown()
         self.device.format = None
@@ -309,13 +315,16 @@ class ActionDestroyFormat(DeviceAction):
                 # unset partition flags and commit
                 self.device.unsetFlag(self.origFormat.partedFlag)
                 self.device.disk.commit()
-
                 udev_settle()
 
-            self.device.setup()
+            # set up our copy of the original device stack since the
+            # reference we got may have had any number of things changed
+            # since then (most notably, formats removed by this very
+            # class' constructor)
+            self._device.setup()
             self.origFormat.destroy()
             udev_settle()
-            self.device.teardown()
+            self._device.teardown()
 
     def cancel(self):
         self.device.format = self.origFormat
