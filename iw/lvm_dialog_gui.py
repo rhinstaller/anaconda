@@ -554,7 +554,7 @@ class VolumeGroupEditor:
                     if _lv.format.type == "luks":
                         # XXX this won't work if the lvs haven't been
                         #     added to the tree yet
-                        _usedev = self.tree.getChildren(_lv)[0]
+                        _usedev = self.findLUKSDev(_lv)
                         _format = _usedev.format
                     else:
                         _usedev = _lv
@@ -685,6 +685,7 @@ class VolumeGroupEditor:
                     actions.append(ActionCreateFormat(usedev, format))
                     if luksdev:
                         actions.append(ActionCreateDevice(luksdev))
+                        actions.append(ActionCreateFormat(luksdev))
 
                 if migrate:
                     actions.append(ActionMigrateFormat(usedev))
