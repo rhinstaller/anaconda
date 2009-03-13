@@ -92,8 +92,10 @@
 
 
 """
+
 import os
 import math
+import copy
 
 # device backend modules
 from devicelibs import mdraid
@@ -255,6 +257,24 @@ class Device(object):
 
         for parent in self.parents:
             parent.addChild()
+
+    def __deepcopy__(self, memo):
+        """ Create a deep copy of a Device instance.
+
+            We can't do copy.deepcopy on parted objects, which is okay.
+            For these parted objects, we just do a shallow copy.
+        """
+        new = self.__class__.__new__(self.__class__)
+        memo[id(self)] = new
+        shallow_copy_attrs = ('partedDisk', 'partedDevice',
+                             '_partedPartition', '_origPartedDisk')
+        for (attr, value) in self.__dict__.items():
+            if attr in shallow_copy_attrs:
+                setattr(new, attr, copy.copy(value))
+            else:
+                setattr(new, attr, copy.deepcopy(value, memo))
+
+        return new
 
     def removeChild(self):
         log_method_call(self, name=self.name, kids=self.kids)
