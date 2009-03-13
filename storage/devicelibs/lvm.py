@@ -367,7 +367,7 @@ def lvremove(vg_name, lv_name):
                                 searchPath=1)
 
     if rc:
-        raise LVMError("lvremove failed for %s" % lv_path)
+        raise LVMError("lvremove failed for %s" % lv_name)
 
 def lvresize(vg_name, lv_name, size):
     args = ["lvresize"] + \
@@ -381,7 +381,7 @@ def lvresize(vg_name, lv_name, size):
                                 searchPath=1)
 
     if rc:
-        raise LVMError("lvresize failed for %s" % lv_path)
+        raise LVMError("lvresize failed for %s" % lv_name)
 
 def lvactivate(vg_name, lv_name):
     # see if lvchange accepts paths of the form 'mapper/$vg-$lv'
@@ -394,7 +394,7 @@ def lvactivate(vg_name, lv_name):
                                 stderr = "/dev/tty5",
                                 searchPath=1)
     if rc:
-        raise LVMError("lvactivate failed for %s" % lv_path)
+        raise LVMError("lvactivate failed for %s" % lv_name)
 
 def lvdeactivate(vg_name, lv_name):
     args = ["lvchange", "-a", "n"] + \
@@ -407,5 +407,5 @@ def lvdeactivate(vg_name, lv_name):
                                 searchPath=1)
 
     if rc:
-        raise LVMError("lvdeactivate failed for %s" % lv_path)
+        raise LVMError("lvdeactivate failed for %s" % lv_name)
 
