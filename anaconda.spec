@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.28
+Version: 11.5.0.29
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -209,6 +209,37 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar 12 2009 David Lehman <dlehman@redhat.com> - 11.5.0.29-1
+- Don't create a PartitionDevice for devices that do not exist (#489122).
+  (clumens)
+- A getter doesn't usually take a parameter (#489965). (clumens)
+- Do not write "Running..." to stdout, as that could be tty1. (clumens)
+- Call storage.exceptionDisks, not diskset.exceptionDisks. (#489615)
+  (dlehman)
+- Fix typo. (jgranado)
+- Fix typo. (dlehman)
+- Add udev rules for handling for mdraid arrays. (dlehman)
+- Honor the zerombr kickstart directive. (dlehman)
+- currentSize is expected to be a float, so convert it to one (#489882).
+  (clumens)
+- It's clearPartDisks, not clearPartDrives. (clumens)
+- Get rid of the mappings and ksID as well. (clumens)
+- Make sure the device has a diskType before attempting to check what it is.
+  (clumens)
+- Update the volgroup command to work with the new storage code. (clumens)
+- Update the raid command to work with the new storage code. (clumens)
+- Update the part command to work with the new storage code. (clumens)
+- Update the logvol command to work with the new storage code. (clumens)
+- addPartRequest is no longer needed. (clumens)
+- Don't set default partitioning in every kickstart case. (clumens)
+- Clear partitions before scheduling requests. (clumens)
+- Always go through doAutoPart. (clumens)
+- Format modules import fix (mgracik)
+- Fixed the format modules import (mgracik)
+- Allow overriding the anaconda udev rules from an updates.img (hdegoede)
+- If a pv somehow does not contain a vg_name, do not try to get other vg
+  info (hdegoede)
+
 * Wed Mar 11 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.28-1
 - Fix a few bugs in the lvm dialog. (#489022) (dlehman)
 - Modify livecd.py to work with new storage backend. (dlehman)
