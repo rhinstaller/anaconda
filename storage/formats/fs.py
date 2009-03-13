@@ -550,11 +550,9 @@ class FS(DeviceFormat):
     def migrationTarget(self):
         return self._migrationTarget
 
-    def supported(self):
+    @property
+    def utilsAvailable(self):
         # we aren't checking for fsck because we shouldn't need it
-        if not self._supported:
-            return False
-
         for prog in [self.mkfsProg, self.resizefsProg, self.labelfsProg]:
             if not prog:
                 continue
@@ -564,6 +562,10 @@ class FS(DeviceFormat):
                 return False
 
         return True
+
+    def supported(self):
+        log_method_call(self, supported=self._supported)
+        return self._supported and self.utilsAvailable
 
     @property
     def mountable(self):
@@ -810,7 +812,7 @@ class BTRFS(FS):
         """ Is this filesystem a supported type? """
         supported = self._supported
         if flags.cmdline.has_key("icantbelieveitsnotbtr"):
-            supported = FS.supported(self)
+            supported = self.utilsAvailable
 
         return supported
 
@@ -834,7 +836,7 @@ class GFS2(FS):
         """ Is this filesystem a supported type? """
         supported = self._supported
         if flags.cmdline.has_key("gfs2"):
-            supported = FS.supported(self)
+            supported = self.utilsAvailable
 
         return supported
 
@@ -861,7 +863,7 @@ class JFS(FS):
         """ Is this filesystem a supported type? """
         supported = self._supported
         if flags.cmdline.has_key("jfs"):
-            supported = FS.supported(self)
+            supported = self.utilsAvailable
 
         return supported
 
