@@ -172,6 +172,9 @@ class Storage(object):
         self.devicetree = DeviceTree(intf=self.anaconda.intf,
                                      ignored=self.ignoredDisks,
                                      exclusive=self.exclusiveDisks,
+                                     clear=self.clearPartDisks,
+                                     reinitializeDisks=self.reinitializeDisks,
+                                     protected=self.protectedPartitions,
                                      zeroMbr=self.zeroMbr,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs)
@@ -215,6 +218,9 @@ class Storage(object):
         self.devicetree = DeviceTree(intf=self.anaconda.intf,
                                      ignored=self.ignoredDisks,
                                      exclusive=self.exclusiveDisks,
+                                     clear=self.clearPartDisks,
+                                     reinitializeDisks=self.reinitializeDisks,
+                                     protected=self.protectedPartitions,
                                      zeroMbr=self.zeroMbr,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs)

@@ -22,6 +22,7 @@
 
 import os
 import block
+import re
 
 from errors import *
 from devices import *
@@ -155,15 +156,19 @@ class DeviceTree(object):
         except for resize actions.
     """
 
-    def __init__(self, intf=None, ignored=[], exclusive=[],
-                 zeroMbr=None, passphrase=None, luksDict=None):
+    def __init__(self, intf=None, ignored=[], exclusive=[], clear=[],
+                 zeroMbr=None, reinitializeDisks=None, protected=[],
+                 passphrase=None, luksDict=None):
         # internal data members
         self._devices = []
         self._actions = []
 
         self.intf = intf
         self.exclusiveDisks = exclusive
+        self.clearPartDisks = clear
         self.zeroMbr = zeroMbr
+        self.reinitializeDisks = reinitializeDisks
+        self.protectedPartitions = protected
         self.__passphrase = passphrase
         self.__luksDevs = {}
         if luksDict and isinstance(luksDict, dict):
@@ -985,11 +990,25 @@ class DeviceTree(object):
                     else:
                         cb = lambda: questionInitializeDisk(self.intf, name)
 
+                    # if the disk contains protected partitions we will
+                    # not wipe the disklabel even if clearpart --initlabel
+                    # was specified
+                    if not self.clearPartDisks or name in self.clearPartDisks:
+                        initlabel = self.reinitializeDisks
+
+                        for protected in self.protectedPartitions:
+                            _p = "/sys/%s/%s" % (sysfs_path, protected)
+                            if os.path.exists(os.path.normpath(_p)):
+                                initlabel = False
+                                break
+                    else:
+                        initlabel = False
+
                     device = DiskDevice(name,
                                     major=udev_device_get_major(info),
                                     minor=udev_device_get_minor(info),
                                     sysfsPath=sysfs_path,
-                                    initcb=cb)
+                                    initcb=cb, initlabel=initlabel)
                     self._addDevice(device)
                 except DeviceUserDeniedFormatError: #drive not initialized?
                     self.addIgnoredDisk(name)
@@ -1162,18 +1181,35 @@ class DeviceTree(object):
                         rs.activate(mknod=True)
 
                         # Create the DMRaidArray
+                        if self.zeroMbr:
+                            cb = lambda: True
+                        else:
+                            cb = lambda: questionInitializeDisk(self.intf,
+                                                                rs.name)
+
+                        if not self.clearPartDisks or \
+                           rs.name in self.clearPartDisks:
+                            # if the disk contains protected partitions
+                            # we will not wipe the disklabel even if
+                            # clearpart --initlabel was specified
+                            initlabel = self.reinitializeDisks
+                            for protected in self.protectedPartitions:
+                                disk_name = re.sub(r'p\d+$', protected)
+                                if disk_name != protected and \
+                                   disk_name == rs.name:
+                                    initlabel = False
+                                    break
+                        else:
+                            initlabel = False
+
                         try:
-                            if self.zeroMbr:
-                                cb = lambda: True
-                            else:
-                                cb = lambda: questionInitializeDisk(self.intf,
-                                                                    rs.name)
                             dm_array = DMRaidArrayDevice(rs.name,
-                                                         major=major, minor=minor,
-                                                         raidSet=rs,
-                                                         level=rs.level,
-                                                         parents=[device],
-                                                         initcb=cb)
+                                                    major=major, minor=minor,
+                                                    raidSet=rs,
+                                                    level=rs.level,
+                                                    parents=[device],
+                                                    initcb=cb,
+                                                    initlabel=initlabel)
 
                             self._addDevice(dm_array)
                             # Use the rs's object on the device.

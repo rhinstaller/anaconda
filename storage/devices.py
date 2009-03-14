@@ -695,7 +695,7 @@ class DiskDevice(StorageDevice):
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None, sysfsPath='', \
-                 parents=None, initcb=None):
+                 parents=None, initcb=None, initlabel=None):
         """ Create a DiskDevice instance.
 
             Arguments:
@@ -713,6 +713,7 @@ class DiskDevice(StorageDevice):
                 removable -- whether or not this is a removable device
 
                 initcb -- the call back to be used when initiating disk.
+                initlabel -- whether to start with a fresh disklabel
 
 
             DiskDevices always exist.
@@ -723,20 +724,24 @@ class DiskDevice(StorageDevice):
 
         self.partedDevice = None
         self.partedDisk = None
+
         log.debug("looking up parted Device: %s" % self.path)
         self.partedDevice = parted.Device(path=self.path)
         if not self.partedDevice:
             raise DeviceError("cannot find parted device instance")
+
         log.debug("creating parted Disk: %s" % self.path)
-        try:
-            self.partedDisk = parted.Disk(device=self.partedDevice)
-        except _ped.DiskLabelException:
-            # if we have a cb function use it. else an error.
-            if initcb is not None and initcb():
-                self.partedDisk = parted.freshDisk(device=self.partedDevice, \
-                        ty = platform.getPlatform(None).diskType)
-            else:
-                raise DeviceUserDeniedFormatError("User prefered to not format.")
+        if initlabel:
+            self.partedDisk = self.freshPartedDisk()
+        else:
+            try:
+                self.partedDisk = parted.Disk(device=self.partedDevice)
+            except _ped.DiskLabelException:
+                # if we have a cb function use it. else an error.
+                if initcb is not None and initcb():
+                    self.partedDisk = self.freshPartedDisk()
+                else:
+                    raise DeviceUserDeniedFormatError("User prefered to not format.")
 
         # We save the actual state of the disk here. Before the first
         # modification (addPartition or removePartition) to the partition
@@ -753,6 +758,11 @@ class DiskDevice(StorageDevice):
               {"removable": self.removable, "partedDisk": self.partedDisk,
                "partedDevice": self.partedDevice})
         return s
+
+    def freshPartedDisk(self):
+        log_method_call(self, self.name)
+        labelType = platform.getPlatform(None).diskType
+        return parted.freshDisk(device=self.partedDevice, ty=labelType)
 
     @property
     def size(self):
@@ -2242,8 +2252,9 @@ class DMRaidArrayDevice(DiskDevice):
     _packages = ["dmraid"]
     devDir = "/dev/mapper"
 
-    def __init__(self, name, raidSet=None, level=None, format=None, size=None,
-                 major=None, minor=None, parents=None, sysfsPath='', initcb=None):
+    def __init__(self, name, raidSet=None, level=None, format=None,
+                 size=None, major=None, minor=None, parents=None,
+                 sysfsPath='', initcb=None, initlabel=None):
         """ Create a DMRaidArrayDevice instance.
 
             Arguments:
@@ -2258,6 +2269,9 @@ class DMRaidArrayDevice(DiskDevice):
                 sysfsPath -- sysfs device path
                 size -- the device's size
                 format -- a DeviceFormat instance
+
+                initcb -- the call back to be used when initiating disk.
+                initlabel -- whether to start with a fresh disklabel
         """
         if isinstance(parents, list):
             for parent in parents:
@@ -2265,7 +2279,8 @@ class DMRaidArrayDevice(DiskDevice):
                     raise ValueError("parent devices must contain dmraidmember format")
         DiskDevice.__init__(self, name, format=format, size=size,
                             major=major, minor=minor, parents=parents,
-                            sysfsPath=sysfsPath, initcb=initcb)
+                            sysfsPath=sysfsPath, initcb=initcb,
+                            initlabel=initlabel)
 
         self.formatClass = get_device_format_class("dmraidmember")
         if not self.formatClass:
