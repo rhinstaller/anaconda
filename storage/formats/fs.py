@@ -721,6 +721,11 @@ class Ext2FS(FS):
     def isDirty(self):
         return isys.ext2IsDirty(self.device)
 
+    @property
+    def resizeArgs(self):
+        argv = ["-p", self.device, "%dM" % (self.targetSize,)]
+        return argv
+
 register_device_format(Ext2FS)
 
 
@@ -803,7 +808,7 @@ class BTRFS(FS):
 
     @property
     def resizeArgs(self):
-        argv = ["-r", "%d" % (self.targetSize,), self.device]
+        argv = ["-r", "%dm" % (self.targetSize,), self.device]
         return argv
 
     @property
