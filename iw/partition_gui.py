@@ -718,7 +718,7 @@ class PartitionWindow(InstallWindow):
 			self.tree[iter]['Format'] = self.checkmark_pixbuf
                     self.tree[iter]['IsFormattable'] = format.formattable
 		    self.tree[iter]['IsLeaf'] = True
-		    self.tree[iter]['Type'] = lv.format.name
+		    self.tree[iter]['Type'] = format.name
 		    #self.tree[iter]['Start'] = ""
 		    #self.tree[iter]['End'] = ""
 
