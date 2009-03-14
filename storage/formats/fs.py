@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
+#                    David Cantrell <dcantrell@redhat.com>
 #
 
 """ Filesystem classes for use by anaconda.
@@ -27,6 +28,7 @@
         - bug 472127: allow creation of tmpfs filesystems (/tmp, /var/tmp, &c)
 """
 import os
+import tempfile
 import isys
 
 from ..errors import *
@@ -150,8 +152,12 @@ class FS(DeviceFormat):
         self.mountpoint = kwargs.get("mountpoint")
         self.mountopts = kwargs.get("mountopts")
         self.label = kwargs.get("label")
+
         # filesystem size does not necessarily equal device size
         self._size = kwargs.get("size")
+        if self.exists:
+            self._size = self._getExistingSize()
+
         self._targetSize = self._size
         self._mountpoint = None     # the current mountpoint when mounted
 
@@ -186,6 +192,27 @@ class FS(DeviceFormat):
 
     size = property(_getSize, doc="This filesystem's size, accounting "
                                   "for pending changes")
+
+    def _getExistingSize(self):
+        """ Determine the size of this filesystem.  Filesystem must
+            exist.
+        """
+        size = 0
+
+        if self.mountable:
+            origMountPoint = self._mountpoint
+
+            (f, tmppath) = tempfile.mkdtemp(prefix='getsize', dir='/tmp')
+            self.mount(mountpoint=tmppath)
+            buf = os.statvfs(tmppath)
+            self.unmount()
+            os.rmdir(tmppath)
+
+            self._mountpoint = origMountPoint
+
+            size = (buf.f_frsize * buf.f_blocks) / 1024.0 / 1024.0
+
+        return size
 
     @property
     def currentSize(self):
