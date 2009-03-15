@@ -332,9 +332,11 @@ class RaidEditor:
         self.lukscb.set_data("formatstate", 1)
 
         if origrequest.format.type == "luks":
-            usedev = self.storage.devicetree.getChildren(origrequest)[0]
+            luksdev = self.storage.devicetree.getChildren(origrequest)[0]
+            usedev = luksdev
             format = usedev.format
         else:
+            luksdev = None
             usedev = origrequest
             format = origrequest.format
 
@@ -474,7 +476,7 @@ class RaidEditor:
             maintable.attach(self.lukscb, 0, 2, row, row + 1)
             row = row + 1
 	else:
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(usedev, maintable, row, self.mountCombo, self.storage)
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(origrequest, maintable, row, self.mountCombo, self.storage, luksdev=luksdev)
 
 	# put main table into dialog
 	dialog.vbox.pack_start(maintable)

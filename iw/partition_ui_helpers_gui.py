@@ -308,36 +308,40 @@ def noformatCB(widget, data):
        resizesb      - spinbutton with resize target
 """
 def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
-                                  partitions, ignorefs=[]):
+                                  partitions, ignorefs=[], luksdev=None):
     rc = {}
 
-    ofstype = origrequest.format
+    if luksdev:
+        origfs = luksdev.format
+    else:
+        origfs = origrequest.format
+
     formatcb = gtk.CheckButton(label=_("_Format as:"))
     maintable.attach(formatcb, 0, 1, row, row + 1)
-    formatcb.set_active(istruefalse(not origrequest.format.exists))
+    formatcb.set_active(istruefalse(not origfs.exists))
     rc["formatcb"] = formatcb
 
-    fstypeCombo = createFSTypeMenu(ofstype, fstypechangeCB,
+    fstypeCombo = createFSTypeMenu(origfs, fstypechangeCB,
                                    mountCombo, ignorefs=ignorefs)
     fstypeCombo.set_sensitive(formatcb.get_active())
     maintable.attach(fstypeCombo, 1, 2, row, row + 1)
     row += 1
     rc["fstypeCombo"] = fstypeCombo
 
-    if not formatcb.get_active() and not origrequest.format.migrate:
-	mountCombo.set_data("prevmountable", origrequest.format.mountable)
+    if not formatcb.get_active() and not origfs.migrate:
+	mountCombo.set_data("prevmountable", origfs.mountable)
 
     # this gets added to the table a bit later on
     lukscb = gtk.CheckButton(_("_Encrypt"))
 
-    if origrequest.format.migratable:
+    if origfs.migratable:
 	migratecb = gtk.CheckButton(label=_("Mi_grate filesystem to:"))
-        migratecb.set_active(istruefalse(origrequest.format.migrate))
+        migratecb.set_active(istruefalse(origfs.migrate))
 
-	migtypes = [origrequest.format.migrationTarget]
+	migtypes = [origfs.migrationTarget]
 
 	maintable.attach(migratecb, 0, 1, row, row + 1)
-	migfstypeCombo = createFSTypeMenu(ofstype,
+	migfstypeCombo = createFSTypeMenu(origfs,
                                           None, None,
                                           availablefstypes = migtypes)
 	migfstypeCombo.set_sensitive(migratecb.get_active())
@@ -346,14 +350,14 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         rc["migratecb"] = migratecb
         rc["migfstypeCombo"] = migfstypeCombo
 	migratecb.connect("toggled", formatMigrateOptionCB,
-                          (migfstypeCombo, mountCombo, ofstype, None,
+                          (migfstypeCombo, mountCombo, origfs, None,
                            fstypeCombo, formatcb))
     else:
 	migratecb = None
 	migfstypeCombo = None
 
     formatcb.connect("toggled", formatMigrateOptionCB,
-                    (fstypeCombo, mountCombo, ofstype, lukscb,
+                    (fstypeCombo, mountCombo, origfs, lukscb,
                      migfstypeCombo, migratecb))
 
     if origrequest.resizable:
@@ -369,7 +373,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 
         reqlower = origrequest.minSize
         requpper = origrequest.maxSize
-        if origrequest.format.exists:
+        if origfs.exists:
             lower = reqlower
         else:
             lower = 1
@@ -387,7 +391,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 
         formatcb.connect("toggled", formatOptionResizeCB, resizesb)
 
-    if origrequest.format.type == "luks":
+    if luksdev:
         lukscb.set_active(1)
         lukscb.set_data("encrypted", 1)
     else:

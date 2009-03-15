@@ -366,7 +366,7 @@ class PartitionEditor:
 	self.fsoptionsDict = {}
         if self.origrequest.exists and \
            not self.storage.isProtected(self.origrequest):
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(usereq, maintable, row, self.mountCombo, self.storage)
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo, self.storage, luksdev=luksdev)
 
         # size options
         if not self.origrequest.exists:

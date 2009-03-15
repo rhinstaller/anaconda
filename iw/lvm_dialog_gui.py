@@ -393,9 +393,11 @@ class VolumeGroupEditor:
         row = 0
 
         if lv.format.type == "luks":
-            usedev = self.findLUKSDev(lv)
+            luksdev = self.findLUKSDev(lv)
+            usedev = luksdev
             format = usedev.format
         elif lv:
+            luksdev = None
             usedev = lv
             format = lv.format
 
@@ -471,7 +473,7 @@ class VolumeGroupEditor:
 
 	self.fsoptionsDict = {}
 	if lv.exists:
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(usedev, maintable, row, mountCombo, self.storage, ignorefs = ["software RAID", "physical volume (LVM)", "vfat"])
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(lv, maintable, row, mountCombo, self.storage, ignorefs = ["software RAID", "physical volume (LVM)", "vfat"], luksdev=luksdev)
 
         # checkbutton for encryption using dm-crypt/LUKS
         if not lv.exists:
