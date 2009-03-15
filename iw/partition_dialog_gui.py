@@ -159,15 +159,18 @@ class PartitionEditor:
                             if disk.name == drive:
                                 disks.append(disk)
 
-                # TODO: when will we set bootable?
-                request = self.storage.newPartition(size=size,
-                                                    grow=grow,
-                                                    maxsize=maxsize,
-                                                    primary=primary,
-                                                    parents=disks)
+                if self.isNew:
+                    request = self.storage.newPartition(size=size,
+                                                        grow=grow,
+                                                        maxsize=maxsize,
+                                                        primary=primary,
+                                                        parents=disks)
+                else:
+                    request = self.origrequest
 
                 format = fmt_class(mountpoint=mountpoint)
-                if self.lukscb and self.lukscb.get_active():
+                if self.lukscb and self.lukscb.get_active() and \
+                   request.format.type != "luks":
                     luksformat = format
                     format = getFormat("luks",
                                        passphrase=self.storage.encryptionPassphrase)
@@ -179,13 +182,21 @@ class PartitionEditor:
                     # destroy the luks format and the mapped device
                     luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
                     if luksdev:
-                        actions.append(ActionDestroyFormat(luksdev.format))
+                        actions.append(ActionDestroyFormat(luksdev))
                         actions.append(ActionDestroyDevice(luksdev))
                         luksdev = None
-                    actions.append(ActionDestroyFormat(self.origrequest))
+                    actions.append(ActionDestroyFormat(request))
 
-                # we're all set, so create the actions
-                actions.append(ActionCreateDevice(request))
+                if self.isNew:
+                    # we're all set, so create the actions
+                    actions.append(ActionCreateDevice(request))
+                else:
+                    request.req_size = size
+                    request.req_grow = grow
+                    request.req_max_size = maxsize
+                    request.req_primary = primary
+                    request.req_disks = disks
+
                 actions.append(ActionCreateFormat(request, format))
                 if luksdev:
                     actions.append(ActionCreateDevice(luksdev))
@@ -286,7 +297,7 @@ class PartitionEditor:
         row = row + 1
 
         # Partition Type
-        if not self.origrequest.format.exists:
+        if not self.origrequest.exists:
 	    lbl = createAlignedLabel(_("File System _Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
 
