@@ -87,11 +87,12 @@ install:
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/usr/sbin
 	mkdir -p $(DESTDIR)/etc/rc.d/init.d
+	mkdir -p $(DESTDIR)/lib/udev/rules.d
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
 	mkdir -p $(DESTDIR)/$(ANACONDADATADIR)
 
-	install -m 644 70-anaconda.rules $(DESTDIR)/$(RUNTIMEDIR)
+	install -m 644 70-anaconda.rules $(DESTDIR)/lib/udev/rules.d
 
 	install -m 755 anaconda $(DESTDIR)/usr/sbin/anaconda
 	install -m 755 mini-wm $(DESTDIR)/usr/bin/mini-wm

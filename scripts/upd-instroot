@@ -950,7 +950,6 @@ mv $DEST/usr/sbin/anaconda $DEST/usr/bin/anaconda
 mv $DEST/usr/lib/anaconda-runtime/lib* $DEST/usr/$LIBDIR 2>/dev/null
 
 mv $DEST/etc/yum.repos.d $DEST/etc/anaconda.repos.d
-cp $DEST/usr/lib/anaconda-runtime/70-anaconda.rules $DEST/lib/udev/rules.d/
 
 rm -f $DEST/usr/$LIBDIR/libunicode-lite*
 

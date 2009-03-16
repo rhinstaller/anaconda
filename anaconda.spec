@@ -190,6 +190,7 @@ update-desktop-database &> /dev/null || :
 %doc docs/kickstart-docs.txt
 %doc docs/mediacheck.txt
 %doc docs/anaconda-release-notes.txt
+/lib/udev/rules.d/70-anaconda.rules
 %{_bindir}/mini-wm
 %{_sbindir}/anaconda
 %ifarch i386 i486 i586 i686 x86_64
