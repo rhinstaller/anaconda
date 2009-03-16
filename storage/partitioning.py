@@ -603,6 +603,9 @@ def allocatePartitions(disks, partitions):
     log.debug("removing all non-preexisting from disk(s)")
     for _part in new_partitions:
         if _part.partedPartition:
+            if _part.isExtended:
+                # these get removed last
+                continue
             #_part.disk.partedDisk.removePartition(_part.partedPartition)
             partedDisk = partedDisks[_part.disk.partedDisk.device.path]
             #log.debug("removing part %s (%s) from disk %s (%s)" % (_part.partedPartition.path, [p.path for p in _part.partedPartition.disk.partitions], partedDisk.device.path, [p.path for p in partedDisk.partitions]))
@@ -615,6 +618,10 @@ def allocatePartitions(disks, partitions):
                 partedDisk.removePartition(extended)
 
     for _part in new_partitions:
+        if _part.partedPartition and _part.isExtended:
+            # ignore new extendeds as they are implicit requests
+            continue
+
         # obtain the set of candidate disks
         req_disks = []
         if _part.disk:
