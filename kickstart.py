@@ -855,7 +855,7 @@ class Timezone(commands.timezone.FC6_Timezone):
 
 class Upgrade(commands.upgrade.F11_Upgrade):
     def parse(self, args):
-        retval = commands.upgrade.FC3_Upgrade.parse(self, args)
+        retval = commands.upgrade.F11_Upgrade.parse(self, args)
         self.handler.id.setUpgrade(self.upgrade)
         return retval
 
