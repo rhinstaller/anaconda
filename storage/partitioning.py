@@ -630,13 +630,13 @@ def allocatePartitions(disks, partitions):
         log.debug("allocating partition: %s ; disks: %s ; boot: %s ; primary: %s ; size: %dMB ; grow: %s ; max_size: %s" % (_part.name, req_disks, _part.req_bootable, _part.req_primary, _part.req_size, _part.req_grow, _part.req_max_size))
         free = None
         use_disk = None
+        part_type = None
         # loop through disks
         for _disk in req_disks:
             disk = partedDisks[_disk.path]
             #for p in disk.partitions:
             #    log.debug("disk %s: part %s" % (disk.device.path, p.path))
             sectorSize = disk.device.physicalSectorSize
-            part_type = parted.PARTITION_NORMAL
             best = None
 
             # TODO: On alpha we are supposed to reserve either one or two
@@ -651,36 +651,36 @@ def allocatePartitions(disks, partitions):
                 log.debug("no free partition slots on %s" % _disk.name)
                 continue
 
-            if _part.req_primary and part_type != parted.PARTITION_NORMAL:
+            if _part.req_primary and new_part_type != parted.PARTITION_NORMAL:
                 # we need a primary slot and none are free on this disk
                 log.debug("no primary slots available on %s" % _disk.name)
                 continue
 
             best = getBestFreeSpaceRegion(disk,
-                                          part_type,
+                                          new_part_type,
                                           _part.req_size,
                                           best_free=free,
                                           boot=_part.req_bootable)
             
             if best == free and not _part.req_primary and \
-               part_type == parted.PARTITION_NORMAL:
+               new_part_type == parted.PARTITION_NORMAL:
                 # see if we can do better with a logical partition
                 log.debug("not enough free space for primary -- trying logical")
-                part_type = getNextPartitionType(disk, no_primary=True)
-                if part_type:
-                    free = getBestFreeSpaceRegion(disk,
-                                                  part_type,
+                new_part_type = getNextPartitionType(disk, no_primary=True)
+                if new_part_type:
+                    best = getBestFreeSpaceRegion(disk,
+                                                  new_part_type,
                                                   _part.req_size,
                                                   best_free=free,
                                                   boot=_part.req_bootable)
-            elif best:
-                if free != best:
-                    # now we know we are choosing a new free space,
-                    # so update the disk and part type
-                    log.debug("updating use_disk to %s (%s), type: %s"
-                                % (_disk, _disk.name, new_part_type))
-                    part_type = new_part_type
-                    use_disk = _disk
+
+            if best and free != best:
+                # now we know we are choosing a new free space,
+                # so update the disk and part type
+                log.debug("updating use_disk to %s (%s), type: %s"
+                            % (_disk, _disk.name, new_part_type))
+                part_type = new_part_type
+                use_disk = _disk
                 log.debug("new free: %s (%d-%d / %dMB)" % (best,
                                                            best.start,
                                                            best.end,
