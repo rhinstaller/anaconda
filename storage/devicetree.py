@@ -864,8 +864,10 @@ class DeviceTree(object):
                 for slave_name in slave_names:
                     # if it's a dm-X name, resolve it to a map name first
                     if slave_name.startswith("dm-"):
-                        slave_name = dm.name_from_dm_node(slave_name)
-                    slave_dev = self.getDeviceByName(slave_name)
+                        dev_name = dm.name_from_dm_node(slave_name)
+                    else:
+                        dev_name = slave_name
+                    slave_dev = self.getDeviceByName(dev_name)
                     if slave_dev:
                         slaves.append(slave_dev)
                     else:
@@ -874,12 +876,14 @@ class DeviceTree(object):
                         new_info = udev_get_block_device(os.path.realpath(path))
                         if new_info:
                             self.addUdevDevice(new_info)
-                            device = self.getDeviceByName(name)
-                            if device is None:
-                                # if the current device is still not in
+                            if self.getDeviceByName(dev_name) is None:
+                                # if the current slave is still not in
                                 # the tree, something has gone wrong
-                                log.error("failure scanning device %s" % name)
+                                log.error("failure scanning device %s: could not add slave %s" % (name, dev_name))
                                 return
+
+                # try to get the device again now that we've got all the slaves
+                device = self.getDeviceByName(name)
 
                 if device is None and \
                         udev_device_is_dmraid_partition(info, self):
@@ -919,8 +923,10 @@ class DeviceTree(object):
                 for slave_name in slave_names:
                     # if it's a dm-X name, resolve it to a map name
                     if slave_name.startswith("dm-"):
-                        slave_name = dm.name_from_dm_node(slave_name)
-                    slave_dev = self.getDeviceByName(slave_name)
+                        dev_name = dm.name_from_dm_node(slave_name)
+                    else:
+                        dev_name = slave_name
+                    slave_dev = self.getDeviceByName(dev_name)
                     if slave_dev:
                         slaves.append(slave_dev)
                     else:
@@ -929,12 +935,14 @@ class DeviceTree(object):
                         new_info = udev_get_block_device(os.path.realpath(path))
                         if new_info:
                             self.addUdevDevice(new_info)
-                            device = self.getDeviceByName(name)
-                            if device is None:
-                                # if the current device is still not in
+                            if self.getDeviceByName(dev_name) is None:
+                                # if the current slave is still not in
                                 # the tree, something has gone wrong
-                                log.error("failure scanning device %s" % name)
+                                log.error("failure scanning device %s: could not add slave %s" % (name, dev_name))
                                 return
+
+                # try to get the device again now that we've got all the slaves
+                device = self.getDeviceByName(name)
 
                 # if we get here, we found all of the slave devices and
                 # something must be wrong -- if all of the slaves we in
