@@ -44,7 +44,10 @@ def _createFreeSpacePartitions(anaconda):
     # get a list of disks that have at least one free space region of at
     # least 100MB
     disks = []
-    for disk in [d for d in anaconda.id.storage.disks if d.name in anaconda.id.storage.clearPartDisks]:
+    for disk in anaconda.id.storage.disks:
+        if anaconda.id.storage.clearPartDisks and disk not in anaconda.id.storage.clearPartDisks:
+            continue
+
         partedDisk = disk.partedDisk
         part = disk.partedDisk.getFirstPartition()
         while part:
@@ -161,7 +164,7 @@ def doAutoPartition(anaconda):
     disks = []
     devs = []
 
-    if anaconda.id.storage.doAutoPart or anaconda.isKickstart:
+    if anaconda.id.storage.doAutoPart and not anaconda.isKickstart:
         # kickstart uses clearPartitions even without autopart
         clearPartitions(anaconda.id.storage)
 
