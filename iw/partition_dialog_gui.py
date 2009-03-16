@@ -180,11 +180,15 @@ class PartitionEditor:
                 elif self.lukscb and not self.lukscb.get_active() and \
                      self.origrequest.format.type == "luks":
                     # destroy the luks format and the mapped device
-                    luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
-                    if luksdev:
+                    try:
+                        luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
+                    except IndexError:
+                        pass
+                    else:
                         actions.append(ActionDestroyFormat(luksdev))
                         actions.append(ActionDestroyDevice(luksdev))
                         luksdev = None
+
                     actions.append(ActionDestroyFormat(request))
 
                 if self.isNew:
@@ -282,8 +286,13 @@ class PartitionEditor:
         # if this is a luks device we need to grab info from two devices
         # to make it seem like one device. wee!
         if self.origrequest.format.type == "luks":
-            luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
-            usereq = luksdev
+            try:
+                luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
+            except IndexError:
+                usereq = self.origrequest
+                luksdev = None
+            else:
+                usereq = luksdev
         else:
             luksdev = None
             usereq = self.origrequest

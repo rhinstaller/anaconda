@@ -187,13 +187,16 @@ class RaidEditor:
                      not self.fsoptionsDict["lukscb"].get_active() and \
                      self.origrequest.format.type == "luks":
                     # destroy luks format and mapped device
-                    luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
-                    if luksdev:
+                    try:
+                        luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
+                    except IndexError:
+                        pass
+                    else:
                         actions.append(ActionDestroyFormat(luksdev.format))
                         actions.append(ActionDestroyDevice(luksdev))
                         luksdev = None
-                    actions.append(ActionDestroyFormat(self.origrequest))
 
+                    actions.append(ActionDestroyFormat(self.origrequest))
 	    else:
                 # existing device
                 fmt_class = self.fsoptionsDict["fstypeCombo"].get_active_value()
@@ -214,11 +217,15 @@ class RaidEditor:
                          not self.fsoptionsDict["lukscb"].get_active() and \
                          self.origrequest.format.type == "luks":
                         # destroy luks format and mapped device
-                        luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
-                        if luksdev:
+                        try:
+                            luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
+                        except IndexError:
+                            pass
+                        else:
                             actions.append(ActionDestroyFormat(luksdev.format))
                             actions.append(ActionDestroyDevice(luksdev))
                             luksdev = None
+
                         actions.append(ActionDestroyFormat(self.origrequest))
                 elif self.origrequest.format.mountable:
                     self.origrequest.format.mountpoint = mountpoint
@@ -226,7 +233,10 @@ class RaidEditor:
 		if self.fsoptionsDict.has_key("migratecb") and \
 		   self.fsoptionsDict["migratecb"].get_active():
                     if origrequest.format.type == "luks":
-                        usedev = self.storage.devicetree.getChildren(origrequest)[0]
+                        try:
+                            usedev = self.storage.devicetree.getChildren(origrequest)[0]
+                        except IndexError:
+                            usedev = origrequest
                     else:
                         usedev = origrequest
                     migrate = True
@@ -332,9 +342,15 @@ class RaidEditor:
         self.lukscb.set_data("formatstate", 1)
 
         if origrequest.format.type == "luks":
-            luksdev = self.storage.devicetree.getChildren(origrequest)[0]
-            usedev = luksdev
-            format = usedev.format
+            try:
+                luksdev = self.storage.devicetree.getChildren(origrequest)[0]
+            except IndexError:
+                luksdev = None
+                usedev = origrequest
+                format = origrequest.format
+            else:
+                usedev = luksdev
+                format = usedev.format
         else:
             luksdev = None
             usedev = origrequest

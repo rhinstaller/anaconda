@@ -697,8 +697,12 @@ class PartitionWindow(InstallWindow):
                     if lv.format.type == "luks":
                         # we'll want to grab format info from the mapped
                         # device, not the encrypted one
-                        dm_dev = self.storage.devicetree.getChildren(lv)[0]
-                        format = dm_dev.format
+                        try:
+                            dm_dev = self.storage.devicetree.getChildren(lv)[0]
+                        except IndexError:
+                            format = lv.format
+                        else:
+                            format = dm_dev.format
                     else:
                         format = lv.format
 		    iter = self.tree.append(vgparent)
@@ -732,8 +736,12 @@ class PartitionWindow(InstallWindow):
                 if array.format.type == "luks":
                     # look up the mapped/decrypted device since that's
                     # where we'll find the format we want to display
-                    dm_dev = self.storage.getChildren(array)[0]
-                    format = dm_dev.format
+                    try:
+                        dm_dev = self.storage.getChildren(array)[0]
+                    except IndexError:
+                        format = array.format
+                    else:
+                        format = dm_dev.format
                 else:
                     format = array.format
 
@@ -840,8 +848,12 @@ class PartitionWindow(InstallWindow):
                 if device and device.format.type == "luks":
                     # look up the mapped/decrypted device in the tree
                     # the format we care about will be on it
-                    dm_dev = self.storage.devicetree.getChildren(device)[0]
-                    format = dm_dev.format
+                    try:
+                        dm_dev = self.storage.devicetree.getChildren(device)[0]
+                    except IndexError:
+                        format = device.format
+                    else:
+                        format = dm_dev.format
                 elif device:
                     format = device.format
                 else:

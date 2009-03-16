@@ -1127,12 +1127,14 @@ class DeviceTree(object):
                     luks_device = LUKSDevice(device.format.mapName,
                                              parents=[device],
                                              exists=True)
-                    self._addDevice(luks_device)
                     try:
                         luks_device.setup()
                     except (LUKSError, CryptoError, DeviceError) as e:
                         log.info("setup of %s failed: %s" % (format.mapName,
                                                              e))
+                        device.removeChild()
+                    else:
+                        self._addDevice(luks_device)
                 else:
                     log.warning("luks device %s already in the tree"
                                 % format.mapName)
