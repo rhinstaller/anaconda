@@ -74,7 +74,7 @@ class VolumeGroupEditor:
                 pesize = self.vg.peSize
 
             # FIXME: move this logic into a property of LVMVolumeGroupDevice
-            pvsize = lvm.clampPVSize(pv.size, pesize) - int(pesize/1024)
+            pvsize = lvm.clampSize(pv.size, pesize) - int(pesize/1024)
 	    if first:
 		minpvsize = pvsize
 		first = 0
