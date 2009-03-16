@@ -816,6 +816,13 @@ class DeviceTree(object):
                 if disk.name == os.path.basename(os.path.dirname(sysfs_path)):
                     return True
 
+        # Ignore loop and ram devices, we normally already skip these in
+        # udev.py: enumerate_block_devices(), but we can still end up trying
+        # to add them to the tree when they are slaves of other devices, this
+        # happens for example with the livecd
+        if name.startswith("loop") or name.startswith("ram"):
+            return True
+
         # FIXME: check for virtual devices whose slaves are on the ignore list
 
     def addUdevDevice(self, info):
