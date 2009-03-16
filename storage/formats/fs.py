@@ -155,11 +155,11 @@ class FS(DeviceFormat):
 
         # filesystem size does not necessarily equal device size
         self._size = kwargs.get("size")
+        self._mountpoint = None     # the current mountpoint when mounted
         if self.exists:
             self._size = self._getExistingSize()
 
         self._targetSize = self._size
-        self._mountpoint = None     # the current mountpoint when mounted
 
     def _setTargetSize(self, newsize):
         """ Set a target size for this filesystem. """
