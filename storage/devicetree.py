@@ -1166,7 +1166,7 @@ class DeviceTree(object):
                     self.addIgnoredDisk(device.name)
                     return
 
-                elif rs.name in self.ignoredDisks:
+                elif rs.name in self._ignoredDisks:
                     # If the rs is being ignored, we should ignore device too.
                     self.addIgnoredDisk(device.name)
                     return
