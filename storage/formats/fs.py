@@ -206,7 +206,6 @@ class FS(DeviceFormat):
             self.mount(mountpoint=tmppath)
             buf = os.statvfs(tmppath)
             self.unmount()
-            os.rmdir(tmppath)
 
             self._mountpoint = origMountPoint
 
