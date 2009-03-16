@@ -330,7 +330,7 @@ int ftpOpen(char *host, int family, char *name, char *password,
     /* FTP does not require that USER be followed by PASS.  Anonymous logins
      * in particular do not need any password.
      */
-    if (!strncmp(userReply, "230", 3)) {
+    if (strncmp(userReply, "230", 3) != 0) {
         if ((rc = ftpCommand(sock, NULL, "PASS", password, NULL))) {
             close(sock);
             return rc;
