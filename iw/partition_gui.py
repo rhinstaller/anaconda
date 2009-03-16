@@ -819,7 +819,7 @@ class PartitionWindow(InstallWindow):
                 partName = part.getDeviceNodeName().split("/")[-1]
                 device = self.storage.devicetree.getDeviceByName(partName)
                 if not device and not part.type & parted.PARTITION_FREESPACE:
-                    raise RuntimeError("can't find partition %s in device"
+                    log.debug("can't find partition %s in device"
                                        " tree" % partName)
 
                 # ignore the tiny < 1 MB partitions (#119479)

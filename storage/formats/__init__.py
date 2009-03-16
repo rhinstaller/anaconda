@@ -253,7 +253,12 @@ class DeviceFormat(object):
             os.lseek(fd, -1024 * 1024, 2)
             os.write(fd, buf)
             os.close(fd)
-        except Exception, e:
+        except OSError as e:
+            if getattr(e, "errno", None) == 28: # No space left in device
+                pass
+            else:
+                log.error("error zeroing out %s: %s" % (self.device, e))
+        except Exception as e:
             log.error("error zeroing out %s: %s" % (self.device, e))
 
         self.exists = False

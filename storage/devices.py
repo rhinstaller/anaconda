@@ -1633,9 +1633,15 @@ class LVMVolumeGroupDevice(DMDevice):
 
         self.teardown()
 
-        lvm.vgremove(self.name)
-        self.notifyKernel()
-        self.exists = False
+        # this sometimes fails for some reason.
+        try:
+            lvm.vgreduce(self.name, [], rm=True)
+            lvm.vgremove(self.name)
+        except lvm.LVMErorr:
+            raise DeviceError("Could not completely remove VG %s" % self.name)
+        finally:
+            self.notifyKernel()
+            self.exists = False
 
     def reduce(self, pv_list):
         """ Remove the listed PVs from the VG. """
@@ -1764,6 +1770,13 @@ class LVMVolumeGroupDevice(DMDevice):
         """ A list of this VG's LVs """
         return self._lvs[:]     # we don't want folks changing our list
 
+    @property
+    def complete(self):
+        """Check if the vg has all its pvs in the system
+        Return True if complete.
+        """
+        return len(self.pvs) == self.pvCount or not self.exists
+
 
 class LVMLogicalVolumeDevice(DMDevice):
     """ An LVM Logical Volume """
@@ -1862,6 +1875,11 @@ class LVMLogicalVolumeDevice(DMDevice):
     def lvname(self):
         """ The LV's name (not including VG name). """
         return self._name
+
+    @property
+    def complete(self):
+        """ Test if vg exits and if it has all pvs. """
+        return self.vg.complete
 
     def setup(self, intf=None):
         """ Open, or set up, a device. """

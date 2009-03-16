@@ -136,6 +136,36 @@ def questionInitializeDisk(intf=None, name=None):
             retVal = True
     return retVal
 
+def questionReinitILVM(intf=None, pv_names=None, lv_name=None, vg_name=None):
+    retVal = False # The less destructive default
+    if not intf or not pv_names or (lv_name is None and vg_name is None):
+        pass
+    else:
+        if vg_name is not None:
+            message = "%s Volume Group" % vg_name
+        elif lv_name is not None:
+            message = "%s Logical Volume" % lv_name
+
+
+        rc = intf.messageWindow(_("Warning"),
+                  _("Error processing LVM.\n"
+                    "It seems that there is inconsistent LVM data. "
+                    "(%s) make(s) up %s. "
+                    "You can reinitialize all related PVs, which will "
+                    "erase all LVM metadata. Or ignore, which will "
+                    "preserve contents.")
+                    %(str(pv_names), message),
+                type="custom",
+                custom_buttons = [ _("_Ignore drive(s)"),
+                                   _("_Re-initialize drive(s)") ],
+                custom_icon="question")
+        if rc == 0:
+            pass
+        else:
+            retVal = True # thie means clobber.
+
+    return retVal
+
 class DeviceTree(object):
     """ A quasi-tree that represents the devices in the system.
 
@@ -647,7 +677,7 @@ class DeviceTree(object):
         log.debug("added %s (%s) to device tree" % (newdev.name,
                                                     newdev.type))
 
-    def _removeDevice(self, dev, force=None):
+    def _removeDevice(self, dev, force=None, moddisk=True):
         """ Remove a device from the tree.
 
             Only leaves may be removed.
@@ -660,7 +690,8 @@ class DeviceTree(object):
             raise ValueError("Cannot remove non-leaf device '%s'" % dev.name)
 
         # if this is a partition we need to remove it from the parted.Disk
-        if isinstance(dev, PartitionDevice) and dev.disk is not None:
+        if moddisk and isinstance(dev, PartitionDevice) and \
+                dev.disk is not None:
             # if this partition hasn't been allocated it could not have
             # a disk attribute
             dev.disk.partedDisk.removePartition(dev.partedPartition)
@@ -1323,11 +1354,95 @@ class DeviceTree(object):
                                                                size=lv_size,
                                                                exists=True)
                             self._addDevice(lv_device)
+
                             try:
                                 lv_device.setup()
                             except DeviceError as e:
                                 log.info("setup of %s failed: %s" 
                                                     % (lv_device.name, e))
+
+    def _handleInconsistencies(self, device):
+        def reinitializeVG(vg):
+            # First we remove VG data
+            try:
+                vg.destroy()
+            except DeviceError:
+                # the pvremoves will finish the job.
+                log.debug("There was an error destroying the VG %s." % vg.name)
+                pass
+
+            # remove VG device from list.
+            self._removeDevice(vg)
+
+            for parent in vg.parents:
+                parent.format.destroy()
+
+                # Give the vg the a default format
+                kwargs = {"uuid": parent.uuid,
+                          "label": parent.diskLabel,
+                          "device": parent.path,
+                          "exists": parent.exists}
+                parent.format = formats.getFormat(*[""], **kwargs)
+
+        if device.type == "lvmvg":
+            paths = []
+            for parent in device.parents:
+                paths.append(parent.path)
+
+            # when zeroMbr is true he wont ask.
+            if not device.complete and (self.zeroMbr or \
+                    questionReinitILVM(intf=self.intf, \
+                        vg_name=device.name, pv_names=paths)):
+                reinitializeVG(device)
+
+            elif not device.complete:
+                # The user chose not to reinitialize.
+                # hopefully this will ignore the vg components too.
+                self._removeDevice(vg)
+                lvm.lvm_cc_addFilterRejectRegexp(vg.name)
+                lvm.blacklistVG(vg.name)
+                for parent in vg.parents:
+                    self._removeDevice(parent, moddisk=False)
+                    lvm.lvm_cc_addFilterRejectRegexp(parent.name)
+
+            return
+
+        elif device.type == "lvmlv":
+            # we might have already fixed this.
+            if device not in self._devices or \
+                    device.name in self._ignoredDisks:
+                return
+
+            paths = []
+            for parent in device.vg.parents:
+                paths.append(parent.path)
+
+            if not device.complete and (self.zeroMbr or \
+                questionReinitILVM(intf=self.intf, \
+                    lv_name=device.name, pv_names=paths)):
+
+                # destroy all lvs.
+                for lv in device.vg.lvs:
+                    lv.destroy()
+                    device.vg._removeLogVol(lv)
+                    self._removeDevice(lv)
+
+                reinitializeVG(device.vg)
+
+            elif not device.complete:
+                # ignore all the lvs.
+                for lv in device.vg.lvs:
+                    self._removeDevice(lv)
+                    lvm.lvm_cc_addFilterRejectRegexp(lv.name)
+                # ignore the vg
+                self._removeDevice(device.vg)
+                lvm.lvm_cc_addFilterRejectRegexp(device.vg.name)
+                lvm.blacklistVG(device.vg.name)
+                # ignore all the pvs
+                for parent in device.vg.parents:
+                    self._removeDevice(parent, moddisk=False)
+                    lvm.lvm_cc_addFilterRejectRegexp(parent.name)
+            return
 
     def populate(self):
         """ Locate all storage devices. """
@@ -1357,6 +1472,11 @@ class DeviceTree(object):
             log.info("devices to scan: %s" % [d['name'] for d in devices])
             for dev in devices:
                 self.addUdevDevice(dev)
+
+        # After having the complete tree we make sure that the system
+        # inconsistencies are ignored or resolved.
+        for leaf in self.leaves:
+            self._handleInconsistencies(leaf)
 
         self.teardownAll()
 

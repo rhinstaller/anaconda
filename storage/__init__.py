@@ -632,13 +632,15 @@ class Storage(object):
         else:
             vgtemplate = "VolGroup"
 
-        if vgtemplate not in vgnames:
+        if vgtemplate not in vgnames and \
+                vgtemplate not in lvm.lvm_vg_blacklist:
             return vgtemplate
         else:
             i = 0
             while 1:
                 tmpname = "%s%02d" % (vgtemplate, i,)
-                if not tmpname in vgnames:
+                if not tmpname in vgnames and \
+                        tmpname not in lvm.lvm_vg_blacklist:
                     break
 
                 i += 1

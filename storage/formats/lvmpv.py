@@ -106,7 +106,11 @@ class LVMPhysicalVolume(DeviceFormat):
             raise PhysicalVolumeError("device is active")
 
         # FIXME: verify path exists?
-        lvm.pvremove(self.device)
+        try:
+            lvm.pvremove(self.device)
+        except LVMError:
+            DeviceFormat.destroy(self, *args, **kwargs)
+
         self.exists = False
         self.notifyKernel()
 

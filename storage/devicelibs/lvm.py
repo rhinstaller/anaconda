@@ -73,7 +73,7 @@ def _composeConfig():
 
     if len(rejects) > 0:
         for i in range(len(rejects)):
-            filter_string = filter_string + ("\"r|%s|\", " % rejects[i])
+            filter_string = filter_string + ("\"r|%s|\"," % rejects[i])
 
 
     filter_string = " filter=[%s] " % filter_string.strip(",")
@@ -86,7 +86,7 @@ def _composeConfig():
     # devices_string can have (inside the brackets) "dir", "scan",
     # "preferred_names", "filter", "cache_dir", "write_cache_state",
     # "types", "sysfs_scan", "md_component_detection".  see man lvm.conf.
-    devices_string = " devices { %s } " % (filter_string) # strings can be added
+    devices_string = " devices {%s} " % (filter_string) # strings can be added
     config_string = devices_string # more strings can be added.
     config_args = ["--config", config_string]
 
@@ -98,6 +98,12 @@ def lvm_cc_addFilterRejectRegexp(regexp):
     # compoes config once more.
     _composeConfig()
 # End config_args handling code.
+
+# Names that should not be used int the creation of VGs
+lvm_vg_blacklist = []
+def blacklistVG(name):
+    global lvm_vg_blacklist
+    lvm_vg_blacklist.append(name)
 
 def getPossiblePhysicalExtents(floor=0):
     """Returns a list of integers representing the possible values for
@@ -283,11 +289,18 @@ def vgdeactivate(vg_name):
     if rc:
         raise LVMError("vgdeactivate failed for %s" % vg_name)
 
-def vgreduce(vg_name, pv_list):
-    args = ["vgreduce"] + \
-            config_args + \
-            [vg_name] + \
-            pv_list
+def vgreduce(vg_name, pv_list, rm=False):
+    """ Reduce a VG.
+
+    rm -> with RemoveMissing option.
+    Use pv_list when rm=False, otherwise ignore pv_list and call vgreduce with
+    the --removemissing option.
+    """
+    args = ["vgreduce"]
+    if rm:
+        args.extend(["--removemissing", vg_name])
+    else:
+        args.extend([vg_name] + pv_list)
 
     rc = iutil.execWithRedirect("lvm", args,
                                 stdout = "/dev/tty5",
