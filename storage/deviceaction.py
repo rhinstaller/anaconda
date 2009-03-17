@@ -24,7 +24,7 @@
 import copy
 from parted import PARTITION_BOOT
 
-from udev import udev_settle
+from udev import *
 
 from devices import StorageDevice, PartitionDevice
 from formats import getFormat
@@ -278,6 +278,11 @@ class ActionCreateFormat(DeviceAction):
         self.device.format.create(intf=intf,
                                   device=self.device.path,
                                   options=self.device.formatArgs)
+        # Get the UUID now that the format is created
+        udev_settle()
+        self.device.updateSysfsPath()
+        info = udev_get_block_device("/sys%s" % self.device.sysfsPath)
+        self.device.format.uuid = udev_device_get_uuid(info)
 
     def cancel(self):
         self.device.format = self.origFormat
