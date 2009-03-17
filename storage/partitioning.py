@@ -45,7 +45,8 @@ def _createFreeSpacePartitions(anaconda):
     # least 100MB
     disks = []
     for disk in anaconda.id.storage.disks:
-        if anaconda.id.storage.clearPartDisks and disk not in anaconda.id.storage.clearPartDisks:
+        if anaconda.id.storage.clearPartDisks and \
+           (disk.name not in anaconda.id.storage.clearPartDisks):
             continue
 
         partedDisk = disk.partedDisk
