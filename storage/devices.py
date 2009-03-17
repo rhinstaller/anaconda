@@ -748,10 +748,10 @@ class DiskDevice(StorageDevice):
         except _ped.DeviceException:
             pass
 
-        log.debug("creating parted Disk: %s" % self.path)
         if self.partedDevice:
+            log.debug("creating parted Disk: %s" % self.path)
             if initlabel:
-                self.partedDisk = self.fresPartedDisk()
+                self.partedDisk = self.freshPartedDisk()
             else:
                 try:
                     self.partedDisk = parted.Disk(device=self.partedDevice)
