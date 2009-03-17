@@ -221,7 +221,7 @@ class FS(DeviceFormat):
             size = self._size
         return float(size)
 
-    def _getFormatArgs(self, options=None):
+    def _getFormatOptions(self, options=None):
         argv = []
         if options and isinstance(options, list):
             argv.extend(options)
@@ -263,7 +263,7 @@ class FS(DeviceFormat):
         if not os.path.exists(self.device):
             raise FormatCreateError("device does not exist", self.device)
 
-        argv = self._getFormatArgs(options=options)
+        argv = self._getFormatOptions(options=options)
 
         w = None
         if intf:
@@ -822,11 +822,11 @@ class BTRFS(FS):
     _packages = ["btrfs-progs"]
     _maxSize = 16 * 1024 * 1024
 
-    def _getFormatArgs(self, options=None):
+    def _getFormatOptions(self, options=None):
         argv = []
         if options and isinstance(options, list):
             argv.extend(options)
-        argv.extend(self.defaultFormatArgs)
+        argv.extend(self.defaultFormatOptions)
         if self.fslabel:
             argv.extend(["-L", self.fslabel])
         argv.append(self.device)
