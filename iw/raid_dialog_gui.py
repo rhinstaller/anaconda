@@ -393,7 +393,7 @@ class RaidEditor:
         if not origrequest.exists:
             availminors = self.storage.unusedMDMinors[:16]
             reqminor = origrequest.minor
-            if reqminor is not None:
+            if reqminor is not None and reqminor not in availminors:
                 availminors.append(reqminor)
 
             availminors.sort()
