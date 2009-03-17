@@ -47,7 +47,7 @@ def findIsoImages(path, messageWindow):
 
         try:
             isys.mount("/dev/loop2", "/mnt/cdimage", fstype = "iso9660",
-                       readOnly = 1)
+                       readOnly = True)
             for num in range(1, 10):
                 if os.access("/mnt/cdimage/.discinfo", os.R_OK):
                     f = open("/mnt/cdimage/.discinfo")
@@ -95,7 +95,7 @@ def findIsoImages(path, messageWindow):
 
                     discImages[num] = file
 
-            isys.umount("/mnt/cdimage", removeDir=0)
+            isys.umount("/mnt/cdimage", removeDir=False)
         except SystemError:
             pass
 
@@ -179,7 +179,7 @@ def mountImage(isodir, tree, discnum, messageWindow, discImages={}):
         try:
             isoImage = "%s/%s" % (isodir, discImages[discnum])
             isys.losetup("/dev/loop1", isoImage, readOnly = 1)
-            isys.mount("/dev/loop1", tree, fstype = 'iso9660', readOnly = 1);
+            isys.mount("/dev/loop1", tree, fstype = 'iso9660', readOnly = True);
             break
         except:
             ans = messageWindow(_("Missing ISO 9660 Image"),
@@ -255,7 +255,7 @@ def scanForMedia(tree, storage):
             continue
 
         try:
-            if isys.mount(dev.path, tree, fstype="iso9660", readOnly=1):
+            if isys.mount(dev.path, tree, fstype="iso9660", readOnly=True):
                 continue
         except:
             continue
@@ -270,7 +270,7 @@ def scanForMedia(tree, storage):
 
 def umountImage(tree, currentMedia):
     if currentMedia is not None:
-        isys.umount(tree, removeDir=0)
+        isys.umount(tree, removeDir=False)
         isys.unlosetup("/dev/loop1")
 
 def unmountCD(path, messageWindow):
@@ -279,7 +279,7 @@ def unmountCD(path, messageWindow):
 
     while True:
         try:
-            isys.umount(path, removeDir=0)
+            isys.umount(path, removeDir=False)
             break
         except Exception, e:
             log.error("exception in _unmountCD: %s" %(e,))

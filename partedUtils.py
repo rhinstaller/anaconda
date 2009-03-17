@@ -511,7 +511,8 @@ class DiskSet:
             fs = isys.readFSType(theDev)
             if fs is not None:
                 try:
-                    isys.mount(theDev, self.anaconda.rootPath, fs, readOnly = 1)
+                    isys.mount(theDev, self.anaconda.rootPath, fs,
+                               readOnly = True)
                     found = 1
                 except SystemError:
                     pass
@@ -557,7 +558,8 @@ class DiskSet:
             fs = isys.readFSType(theDev)
             if fs is not None:
                 try:
-                    isys.mount(theDev, self.anaconda.rootPath, fs, readOnly = 1)
+                    isys.mount(theDev, self.anaconda.rootPath, fs,
+                               readOnly = True)
                     found = 1
                 except SystemError:
                     pass

@@ -329,7 +329,7 @@ class AnacondaYum(YumSorter):
         if self.currentMedia is None:
             try:
                 isys.mount(self.anaconda.mediaDevice, self.tree,
-                           fstype="iso9660", readOnly=1)
+                           fstype="iso9660", readOnly=True)
 
                 if verifyMedia(self.tree, discnum, None):
                     self.currentMedia = discnum
@@ -355,7 +355,7 @@ class AnacondaYum(YumSorter):
 
             try:
                 isys.mount(self.anaconda.mediaDevice, self.tree,
-                           fstype = "iso9660", readOnly = 1)
+                           fstype = "iso9660", readOnly = True)
 
                 if verifyMedia(self.tree, discnum, self._timestamp):
                     self.currentMedia = discnum
@@ -432,7 +432,7 @@ class AnacondaYum(YumSorter):
                 # install instead.
                 images = findIsoImages(self.tree, self.anaconda.intf.messageWindow)
                 if images != {}:
-                    isys.umount(self.tree, removeDir=0)
+                    isys.umount(self.tree, removeDir=False)
                     self.anaconda.methodstr = "nfsiso:%s" % m[4:]
                     self.configBaseURL()
                     return
@@ -1367,7 +1367,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         if anaconda.dir == DISPATCH_BACK:
             for d in ("/selinux", "/dev"):
                 try:
-                    isys.umount(anaconda.rootPath + d, removeDir = 0)
+                    isys.umount(anaconda.rootPath + d, removeDir = False)
                 except Exception, e:
                     log.error("unable to unmount %s: %s" %(d, e))
             return
@@ -1458,7 +1458,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             # handling /dev, it gets to be more fun.  so just bind mount the
             # installer /dev
             log.warning("no dev package, going to bind mount /dev")
-            isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = 1)
+            isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = True)
             if not upgrade:
                 anaconda.id.storage.fsset.mkDevRoot(anaconda.rootPath)
 

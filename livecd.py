@@ -140,7 +140,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             dirs.append("/selinux")
         for dir in dirs:
             try:
-                isys.umount("%s/%s" %(anaconda.rootPath,dir), removeDir = 0)
+                isys.umount("%s/%s" %(anaconda.rootPath,dir), removeDir = False)
             except Exception, e:
                 log.error("unable to unmount %s: %s" %(dir, e))
 
@@ -303,7 +303,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 isys.mount("/selinux", anaconda.rootPath + "/selinux", "selinuxfs")
             except Exception, e:
                 log.error("error mounting selinuxfs: %s" %(e,))
-        isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = 1)
+        isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = True)
 
         wait.pop()
 

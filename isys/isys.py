@@ -130,7 +130,7 @@ def ddfile(file, megs, pw = None):
     os.close(fd)
 
 ## Mount a filesystem, similar to the mount system call.
-# @param device The device to mount.  If bindMount is 1, this should be an
+# @param device The device to mount.  If bindMount is True, this should be an
 #               already mounted directory.  Otherwise, it should be a device
 #               name.
 # @param location The path to mount device on.
@@ -141,7 +141,8 @@ def ddfile(file, megs, pw = None):
 # @param bindMount Is this a bind mount?  (see the mount(8) man page)
 # @param remount Are we mounting an already mounted filesystem?
 # @return The return value from the mount system call.
-def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remount = 0, options = "defaults"):
+def mount(device, location, fstype = "ext2", readOnly = False,
+          bindMount = False, remount = False, options = "defaults"):
     flags = None
     location = os.path.normpath(location)
     opts = string.split(options)
@@ -180,7 +181,7 @@ def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remoun
 #             absolute path.
 # @param removeDir Should the mount point be removed after being unmounted?
 # @return The return value from the umount system call.
-def umount(what, removeDir = 1):
+def umount(what, removeDir = True):
     what = os.path.normpath(what)
 
     if not os.path.isdir(what):

@@ -1455,7 +1455,7 @@ class FSSet(object):
     def umountFilesystems(self, instPath, ignoreErrors=True, swapoff=True):
         # XXX if we tracked the /dev bind mount this wouln't be necessary
         if os.path.ismount("%s/dev" % instPath):
-            isys.umount("%s/dev" % instPath, removeDir=0)
+            isys.umount("%s/dev" % instPath, removeDir=False)
 
         devices = self.mountpoints.values() + self.swapDevices
         devices.extend([self.devshm, self.devpts, self.sysfs, self.proc])
