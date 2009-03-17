@@ -46,8 +46,6 @@ except:
 # Note that stage2 copies all files under /sbin to /usr/sbin
 global ISCSID
 ISCSID=""
-global ISCSIADM
-ISCSIADM = ""
 INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
 
 def find_iscsi_files():
@@ -57,20 +55,13 @@ def find_iscsi_files():
             path="%s/iscsid" % (dir,)
             if os.access(path, os.X_OK):
                 ISCSID=path
-    global ISCSIADM
-    if ISCSIADM == "":
-        for dir in ("/usr/sbin", "/tmp/updates", "/mnt/source/RHupdates"):
-            path="%s/iscsiadm" % (dir,)
-            if os.access(path, os.X_OK):
-                ISCSIADM=path
 
 def has_iscsi():
     find_iscsi_files()
-    if ISCSID == "" or ISCSIADM == "" or not has_libiscsi:
+    if ISCSID == "" or not has_libiscsi:
         return False
 
     log.info("ISCSID is %s" % (ISCSID,))
-    log.info("ISCSIADM is %s" % (ISCSIADM,))
 
     # make sure the module is loaded
     if not os.access("/sys/module/iscsi_tcp", os.X_OK):
