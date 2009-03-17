@@ -85,8 +85,10 @@ class AnacondaBackend:
         # the initrd might need iscsi-initiator-utils, and chances are
         # it was not installed yet the first time mkinitrd was run, as
         # mkinitrd does not require it.
-        for disk in anaconda.id.storage.disks:
-            if isys.driveIsIscsi(disk.path):
+        root = anaconda.id.storage.fsset.rootDevice
+        disks = anaconda.id.storage.devicetree.getDevicesByType("iscsi")
+        for disk in disks:
+            if root.dependsOn(disk):
                 has_iscsi_disk = True
                 break
 

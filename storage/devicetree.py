@@ -997,7 +997,16 @@ class DeviceTree(object):
                                 sysfsPath=sysfs_path, exists=True)
                 self._addDevice(device)
         elif udev_device_is_disk(info):
-            log.debug("%s is a disk" % name)
+            kwargs = {}
+            if udev_device_is_iscsi(info):
+                diskType = iScsiDiskDevice
+                kwargs["iscsi_name"]    = udev_device_get_iscsi_name(info)
+                kwargs["iscsi_address"] = udev_device_get_iscsi_address(info)
+                kwargs["iscsi_port"]    = udev_device_get_iscsi_port(info)
+                log.debug("%s is an iscsi disk" % name)
+            else:
+                diskType = DiskDevice
+                log.debug("%s is a disk" % name)
             device = self.getDeviceByName(name)
             if device is None:
                 try:
@@ -1020,11 +1029,11 @@ class DeviceTree(object):
                     else:
                         initlabel = False
 
-                    device = DiskDevice(name,
+                    device = diskType(name,
                                     major=udev_device_get_major(info),
                                     minor=udev_device_get_minor(info),
                                     sysfsPath=sysfs_path,
-                                    initcb=cb, initlabel=initlabel)
+                                    initcb=cb, initlabel=initlabel, **kwargs)
                     self._addDevice(device)
                 except DeviceUserDeniedFormatError: #drive not initialized?
                     self.addIgnoredDisk(name)

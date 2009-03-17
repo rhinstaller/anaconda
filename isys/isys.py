@@ -465,15 +465,6 @@ def driveUsesModule(device, modules):
                     pass
     return rc
 
-def driveIsIscsi(device):
-    # ewww.  just ewww.
-    if not os.path.islink("/sys/block/%s/device" %(device,)):
-        return False
-    target = os.path.realpath("/sys/block/%s/device" %(device,))
-    if re.search("/platform/host[0-9]*/session[0-9]*/target[0-9]*:[0-9]*:[0-9]*/[0-9]*:[0-9]*:[0-9]*:[0-9]*", target) is not None:
-        return True
-    return False
-
 def vtActivate (num):
     if rhpl.getArch() == "s390":
         return

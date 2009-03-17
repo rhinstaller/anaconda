@@ -1287,13 +1287,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             # this takes care of device and filesystem packages
             map(self.selectPackage, device.packages)
 
-        for disk in storage.disks:
-            # FIXME: this should get handled by the above
-            if isys.driveIsIscsi(disk.path):
-                log.info("ensuring iscsi is installed")
-                self.selectPackage("iscsi-initiator-utils")
-                break
-
     # anaconda requires several programs on the installed system to complete
     # installation, but we have no guarantees that some of these will be
     # installed (they could have been removed in kickstart).  So we'll force

@@ -2657,28 +2657,16 @@ class DirectoryDevice(FileDevice):
 
 
 class iScsiDiskDevice(DiskDevice):
-    """ An iSCSI volume/device/target/???.
-
-        TODO: learn what this is and how we need to use it.
-    """
+    """ An iSCSI disk. """
     _type = "iscsi"
+    _packages = ["iscsi-initiator-utils"]
 
-    def __init__(self, ipaddr, port,
-                 user=None, passwd=None,
-                 user_in=None, passwd_in=None,
-                 major=None, minor=None, size=None,
-                 exists=None, parents=None, sysfsPath=''):
-        name = "iscsi://%s:%s" % (ipaddr, port)
-        DiskDevice.__init__(self, name, size=size,
-                            major=major, minor=minor, exists=exists,
-                            parents=parents, sysfsPath=sysfsPath)
-    def __str__(self):
-        return "FIXME: Please add iScsiDiskDevice.__str__"
-
-    def probe(self):
-        """ Probe for any missing information about this device. """
-        raise NotImplementedError("probe method not defined for StorageDevice")
-
+    def __init__(self, device, **kwargs):
+        self.iscsi_name    = kwargs.pop("iscsi_name")
+        self.iscsi_address = kwargs.pop("iscsi_address")
+        self.iscsi_port    = int(kwargs.pop("iscsi_port"))
+        DiskDevice.__init__(self, device, **kwargs)
+        log.debug("created new iscsi disk %s %s:%d" % (self.iscsi_name, self.iscsi_address, self.iscsi_port))
 
 class OpticalDevice(StorageDevice):
     """ An optical drive, eg: cdrom, dvd+r, &c.

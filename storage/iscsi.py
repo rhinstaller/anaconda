@@ -88,19 +88,6 @@ def iscsi_get_node_record(node_settings, record):
 
     return None
 
-# FIXME replace with libiscsi use
-def iscsi_make_node_autostart(disk):
-    sysfs_path = os.path.realpath("/sys/block/%s/device" %(disk,))
-    argv = [ "-m", "session", "-r", sysfs_path ]
-    log.debug("iscsiadm %s" %(string.join(argv),))
-    node_settings = iutil.execWithCapture(ISCSIADM, argv, stderr="/dev/tty5").splitlines()
-    node_name = iscsi_get_node_record(node_settings, "node.name")
-    argv = [ "-m", "node", "-T", node_name, "-o", "update", "-n",
-             "node.startup", "-v", "automatic" ]
-    log.debug("iscsiadm %s" %(string.join(argv),))
-    iutil.execWithRedirect(ISCSIADM, argv,
-                                stdout = "/dev/tty5", stderr="/dev/tty5")
-
 def randomIname():
     """Generate a random initiator name the same way as iscsi-iname"""
     
@@ -297,20 +284,21 @@ class iscsi(object):
             return
 
         if not flags.test:
-            root_drives = [ ]
             root = anaconda.id.storage.fsset.rootDevice
-            root_deps = anaconda.id.storage.deviceDeps(root)
-            for dev in root_deps:
-                if dev in anaconda.id.storage.disks and \
-                   dev not in root_drives:
-                    root_drives.append(dev.path)
+            disks = anaconda.id.storage.devicetree.getDevicesByType("iscsi")
 
-            log.debug("iscsi.write: root_drives: %s" % (string.join(root_drives),))
-
-            # set iscsi nodes not used for root to autostart
-            for disk in anaconda.id.storage.disks:
-                if isys.driveIsIscsi(disk.path) and not disk in root_drives:
-                    iscsi_make_node_autostart(disk.path)
+            # set iscsi nodes to autostart
+            for disk in disks:
+                # devices used for root get started by the initrd
+                if root.dependsOn(disk):
+                    continue
+                # find the iscsi node matching this disk
+                for node in self.nodes:
+                    if node.name    == disk.iscsi_name and \
+                       node.address == disk.iscsi_address and \
+                       node.port    == disk.iscsi_port:
+                        node.setParameter("node.startup", "automatic");
+                        break
 
             if not os.path.isdir(instPath + "/etc/iscsi"):
                 os.makedirs(instPath + "/etc/iscsi", 0755)

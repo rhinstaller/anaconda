@@ -304,3 +304,33 @@ def udev_device_is_dmraid_partition(info, devicetree):
             return True
 
     return False
+
+# iscsi disks have ID_PATH in the form of:
+# ip-${iscsi_address}:${iscsi_port}-iscsi-${iscsi_tgtname}-lun-${lun}
+def udev_device_is_iscsi(info):
+    try:
+        path_components = info["ID_PATH"].split("-")
+
+        if info["ID_BUS"] == "scsi" and len(path_components) >= 6 and \
+           path_components[0] == "ip" and path_components[2] == "iscsi":
+            return True
+    except KeyError:
+        pass
+
+    return False
+
+def udev_device_get_iscsi_name(info):
+    path_components = info["ID_PATH"].split("-")
+
+    # Tricky, the name itself contains atleast 1 - char
+    return "-".join(path_components[3:len(path_components)-2])
+
+def udev_device_get_iscsi_address(info):
+    path_components = info["ID_PATH"].split("-")
+
+    return path_components[1].split(":")[0]
+
+def udev_device_get_iscsi_port(info):
+    path_components = info["ID_PATH"].split("-")
+
+    return path_components[1].split(":")[1]
