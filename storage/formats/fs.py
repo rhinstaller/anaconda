@@ -202,8 +202,8 @@ class FS(DeviceFormat):
         if self.mountable:
             origMountPoint = self._mountpoint
 
-            tmppath = tempfile.mkdtemp(prefix='getsize', dir='/tmp')
-            self.mount(mountpoint=tmppath)
+            tmppath = tempfile.mkdtemp(prefix='getsize-', dir='/tmp')
+            self.mount(mountpoint=tmppath, options="ro")
             buf = os.statvfs(tmppath)
             self.unmount()
 
