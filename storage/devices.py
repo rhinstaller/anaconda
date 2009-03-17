@@ -441,7 +441,7 @@ class StorageDevice(Device):
     """
     _type = "storage device"
     devDir = "/dev"
-    sysfsBlockDir = "/class/block"
+    sysfsBlockDir = "class/block"
     _resizable = False
 
     def __init__(self, device, format=None,
@@ -521,9 +521,8 @@ class StorageDevice(Device):
     def updateSysfsPath(self):
         """ Update this device's sysfs path. """
         log_method_call(self, self.name, status=self.status)
-        self.sysfsPath = os.path.join("/sys",
-                                      self.sysfsBlockDir,
-                                      self.name)
+        path = os.path.join("/sys", self.sysfsBlockDir, self.name)
+        self.sysfsPath = os.path.realpath(path)[4:]
         log.debug("%s sysfsPath set to %s" % (self.name, self.sysfsPath))
 
     @property
@@ -1346,9 +1345,10 @@ class DMDevice(StorageDevice):
 
         if self.status:
             dm_node = self.getDMNode()
-            self.sysfsPath = os.path.join("/sys", self.sysfsBlockDir, dm_node)
+            path = os.path.join("/sys", self.sysfsBlockDir, dm_node)
+            self.sysfsPath = os.path.realpath(path)[4:]
         else:
-            self.sysfsPath = None
+            self.sysfsPath = ''
 
     #def getTargetType(self):
     #    return dm.getDmTarget(name=self.name)
@@ -2148,11 +2148,9 @@ class MDRaidArrayDevice(StorageDevice):
             raise DeviceError("device has not been created")
 
         if self.status:
-            self.sysfsPath = os.path.join("/sys",
-                                          self.sysfsBlockDir,
-                                          self.name)
+            self.sysfsPath = "/devices/virtual/block/%s" % self.name
         else:
-            self.sysfsPath = None
+            self.sysfsPath = ''
 
     def _addDevice(self, device):
         """ Add a new member device to the array.
