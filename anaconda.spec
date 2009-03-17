@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.30
+Version: 11.5.0.31
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -210,6 +210,54 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 16 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.31-1
+- Don't use disk.maximizePartition anymore. (dlehman)
+- Only schedule implicit format destruction if there is formatting to
+  destroy. (dlehman)
+- Reset encryptionPassphrase when we reset the rest of storage. (dlehman)
+- Do not create a LUKSDevice if we do not have a way to map the device.
+  (dlehman)
+- Fix handling of new extended partitions during partition allocation.
+  (dlehman)
+- Fix bug in dependency list for partitions. (dlehman)
+- Fix inconsistency in variable use in search for free space. (dlehman)
+- Check for disk name being in disk.name not in clearPartDisks (dcantrell)
+- Create a Makefile target to generate updates.img automatically. (dcantrell)
+- When creating free space, handle cases other than clearpart --drives=
+  (clumens)
+- Ignore loop and ram devices (hdegoede)
+- devicetree: fix slave addition of incomplete dm / md devices (hdegoede)
+- Catch LVMErrors too when tearing down devices (hdegoede)
+- Install udev rules in /lib/udev/rules.d instead of in runtime dir
+  (hdegoede)
+- Ignore disk devices with missing media (#488800). (clumens)
+- Use correct parse method for the upgrade command (#471232) (wwoods)
+- Fix creation of fs options for preexisting encrypted devices. (dlehman)
+- Fix lots of buggy behavior in the partition dialog. (dlehman)
+- Handle FTP servers that both want and don't want PASS after USER
+  (#490350). (clumens)
+- Fixed the names of the variables for lvm.py functions. (mgracik)
+- editPartitionRequest -> editPartition in iw/partition_gui.py (#490384).
+  (clumens)
+- clampPVSize -> clampSize in lvm.py (#490295). (clumens)
+- Fix the obvious and stupid typo (#490296). (clumens)
+- isys.umount removes mount directory by default (rvykydal)
+- Fix tempfile.mkdtemp call. (rvykydal)
+- Initialize attribute _mountpoint before using it (rvykydal)
+- devicetree.py has _ignoredDisks instead of ignoredDisks. (jgranado)
+- Create separate resize actions for formats and devices. (dcantrell)
+- Use os.statvfs() to get existing filesystem size. (dcantrell)
+- Add resizeArgs for Ext2FS and fix it for BtrFS. (dcantrell)
+- Report when we cannot find any free space partitions. (dcantrell)
+- Improve resizeDialog text. (dcantrell)
+- Raise FSResizeError if filesystem cannot be resized. (dcantrell)
+- Handle resizing when setting targetSize for PartitionDevice (dcantrell)
+- Let users set the size property of StorageDevices. (dcantrell)
+- Add support for kickstart's '--initlabel' option to clearpart. (dlehman)
+- Fix display of LV format type for encrypted LVs. (dlehman)
+- Make paths somewhat flexible so we'll work in normal environments.
+  (dlehman)
+
 * Fri Mar 13 2009 David Lehman <dlehman@redhat.com> - 11.5.0.30-1
 - Fix supportable attribute for cmdline-enabled fstypes. (dlehman)
 - Access private attribute for luks dict. (dlehman)
