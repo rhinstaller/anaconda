@@ -97,7 +97,7 @@ class Platform(object):
     def bootloaderPackage(self):
         return self._bootloaderPackage
 
-    def checkBootRequest(self, req, diskset):
+    def checkBootRequest(self, req):
         """Perform an architecture-specific check on the boot device.  Not all
            platforms may need to do any checks.  Raises an exception if there
            is a problem, or returns True otherwise."""
@@ -144,25 +144,13 @@ class EFI(Platform):
         ret["boot"] = (bootDev.name, N_("EFI System Partition"))
         return ret
 
-    def checkBootRequest(self, req, diskset):
-        if not req.device or not hasattr(req, "drive"):
-            return
-
-        bootPart = None
-        for drive in req.drive:
-            bootPart = diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
-            if bootPart:
-                break
-
-        if not bootPart:
-            return
-
-        if req.mountpoint == "/boot":
-            if not bootPart.fileSystem.type.startswith("ext"):
+    def checkBootRequest(self, req):
+        if req.format.mountpoint == "/boot":
+            if not req.format.type.startswith("ext"):
                 raise FSError("/boot is not ext2")
-            elif req.mountpoint == "/boot/efi":
-                if not bootPart.fileSystem.type.startswith("fat"):
-                    raise FSError("/boot/efi is not vfat")
+        elif req.format.mountpoint == "/boot/efi":
+            if not req.format.type.endswith("fat"):
+                raise FSError("/boot/efi is not vfat")
 
     def setDefaultPartitioning(self):
         ret = Platform.setDefaultPartitioning(self)
@@ -178,20 +166,12 @@ class EFI(Platform):
 class Alpha(Platform):
     _diskType = parted.diskType["bsd"]
 
-    def checkBootRequest(self, req, diskset):
-        if not req.device or not hasattr(req, "drive"):
-            return
+    def checkBootRequest(self, req):
+        disk = req.disk
+        if not disk:
+            raise DeviceError("Boot partition has no disk")
 
-        bootPart = None
-        for drive in req.drive:
-            bootPart = diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
-            if bootPart:
-                break
-
-        if not bootPart:
-            return
-
-        disk = bootPart.disk
+        disk = disk.partedDisk
 
         # Check that we're a BSD disk label
         if not disk.type == self.diskType:
@@ -253,18 +233,13 @@ class IPSeriesPPC(PPC):
 
         return ret
 
-    def checkBootRequest(self, req, diskset):
-        if not req.device or not hasattr(req, "drive"):
-            return
+    def checkBootRequest(self, req):
+        bootPart = getattr(req, "partedPartition", None)
+        if not bootPart:
+            raise DeviceError("Boot partition has no partedPartition")
 
-        bootPart = None
-        for drive in req.drive:
-            bootPart = diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
-            if bootPart and (bootPart.geometry.end * bootPart.geometry.device.sectorSize /
-                             (1024.0 * 1024)) > 4096:
-                raise DeviceError("Boot partition is located too high")
-
-        return
+        if bootPart.geometry.end * bootPart.geometry.device.sectorSize / (1024.0 * 1024) > 4096:
+            raise DeviceError("Boot partition is located too high")
 
     def setDefaultPartitioning(self):
         ret = PPC.setDefaultPartitioning(self)
