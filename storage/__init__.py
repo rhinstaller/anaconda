@@ -614,7 +614,7 @@ class Storage(object):
 
     def extendedPartitionsSupported(self):
         """ Return whether any disks support extended partitions."""
-        for disk in filter(lambda disk: disk.mediaPresent, self.disks):
+        for disk in self.disks:
             if disk.partedDisk.supportsFeature(parted.DISK_TYPE_EXTENDED):
                 return True
         return False

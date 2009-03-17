@@ -641,7 +641,7 @@ class DiskSet:
 
     def driveList (self):
         """Return the list of drives on the system."""
-        drives = map(lambda x: x.name, filter(lambda x: isys.mediaPresent(x.name), self.anaconda.id.storage.disks))
+        drives = map(lambda x: x.name, self.anaconda.id.storage.disks)
         drives.sort (isys.compareDrives)
         return drives
 

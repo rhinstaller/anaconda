@@ -453,7 +453,7 @@ class bootloaderInfo:
         f.write("\n")
 
     def updateDriveList(self, sortedList=[]):
-        self._drivelist = map(lambda x: x.name, filter(lambda dev: dev.mediaPresent, self.storage.disks))
+        self._drivelist = map(lambda x: x.name, self.storage.disks)
         self._drivelist.sort(isys.compareDrives)
 
         # If we're given a sort order, make sure the drives listed in it
