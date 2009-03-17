@@ -169,3 +169,38 @@ bumpver:
 
 install-buildrequires:
 	yum install $$(grep BuildRequires: anaconda.spec | cut -d ' ' -f 2)
+
+# Generate an updates.img based on the changed files since the release
+# was tagged.  Updates are copied to ./updates-img and then the image is
+# created.  By default, the updates subdirectory is removed after the
+# image is made, but if you want to keep it around, run:
+#     make updates.img KEEP=y
+# And since shell is both stupid and amusing, I only match the first
+# character to be a 'y' or 'Y', so you can do:
+#     make updates.img KEEP=yosemite
+# Ahh, shell.
+updates:
+	@if [ ! -d updates-img ]; then \
+		mkdir updates-img ; \
+	fi ; \
+	git diff --stat $(ARCHIVE_TAG) | grep " | " | \
+	grep -v "^\ loader\/" | grep -v "\.spec" | grep -v "Makefile" | \
+	grep -v "^\ po\/" | grep -v "^\ scripts\/" | \
+	while read sourcefile stuff ; do \
+		dn="$$(dirname $$sourcefile)" ; \
+		case $$dn in \
+			installclasses|storage|booty) \
+				cp -a $$dn updates-img ; \
+				find updates-img/$$dn -type f | grep Makefile | xargs rm -f ;; \
+			*) \
+				cp -a $$sourcefile updates-img ;; \
+		esac ; \
+	done ; \
+	cd updates-img ; \
+	echo -n "Creating updates.img..." ; \
+	( find . | cpio -c -o | gzip -9c ) > ../updates.img ; \
+	cd .. ; \
+	keep="$$(echo $(KEEP) | cut -c1 | tr [a-z] [A-Z])" ; \
+	if [ ! "$$keep" = "Y" ]; then \
+		rm -rf updates-imgs ; \
+	fi
