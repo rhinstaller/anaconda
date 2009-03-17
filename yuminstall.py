@@ -1229,58 +1229,38 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 return None
             return pkgs[0]
 
-        foundkernel = False
-        kpkg = getBestKernelByArch("kernel", self.ayum)
-
-        # FIXME: this is a bit of a hack.  we shouldn't hard-code and
-        # instead check by provides.  but alas.
-        for k in ("kernel", "kernel-smp", "kernel-PAE"):
-            if len(self.ayum.tsInfo.matchNaevr(name=k)) > 0:
-                self.selectModulePackages(anaconda, k)
-                foundkernel = True
-
-        if not foundkernel and (isys.smpAvailable() or isys.htavailable()):
+        def selectKernel(pkgname):
             try:
-                ksmp = getBestKernelByArch("kernel-smp", self.ayum)
+                pkg = getBestKernelByArch(pkgname, self.ayum)
             except PackageSackError:
-                ksmp = None
-                log.debug("no kernel-smp package")
+                log.debug("no %s package" % pkgname)
+                return False
 
-            if ksmp and ksmp.returnSimple("arch") == kpkg.returnSimple("arch"):
-                foundkernel = True
-                log.info("selected kernel-smp package for kernel")
-                self.ayum.install(po=ksmp)
-                self.selectModulePackages(anaconda, ksmp.name)
+            if not pkg:
+                return False
 
-                if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
-                    log.debug("selecting kernel-smp-devel")
-                    self.selectPackage("kernel-smp-devel.%s" % (kpkg.arch,))
-
-        if not foundkernel and isys.isPaeAvailable():
-            try:
-                kpae = getBestKernelByArch("kernel-PAE", self.ayum)
-            except PackageSackError:
-                kpae = None
-                log.debug("no kernel-PAE package")
-
-            if kpae and kpae.returnSimple("arch") == kpkg.returnSimple("arch"):
-                foundkernel = True
-                log.info("select kernel-PAE package for kernel")
-                self.ayum.install(po=kpae)
-                self.selectModulePackages(anaconda, kpae.name)
-
-                if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
-                    log.debug("selecting kernel-PAE-devel")
-                    self.selectPackage("kernel-PAE-devel.%s" % (kpkg.arch,))
-
-        if not foundkernel:
-            log.info("selected kernel package for kernel")
-            self.ayum.install(po=kpkg)
-            self.selectModulePackages(anaconda, kpkg.name)
+            log.info("selected %s package for kernel" % pkg.name)
+            self.ayum.install(po=pkg)
+            self.selectModulePackages(anaconda, pkg.name)
 
             if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
-                log.debug("selecting kernel-devel")
-                self.selectPackage("kernel-devel.%s" % (kpkg.arch,))
+                log.debug("selecting %s-devel" % pkg.name)
+                self.selectPackage("%s-devel.%s" % (pkg.name, pkg.arch))
+
+            return True
+
+        foundkernel = False
+
+        if isys.smpAvailable() or isys.htavailable():
+            if selectKernel("kernel-smp"):
+                foundkernel = True
+
+        if not foundkernel and isys.isPaeAvailable():
+            if selectKernel("kernel-PAE"):
+                foundkernel = True
+
+        if not foundkernel:
+            selectKernel("kernel")
 
     def selectFSPackages(self, storage):
         for device in storage.fsset.devices:
