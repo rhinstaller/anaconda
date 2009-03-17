@@ -655,22 +655,14 @@ def isPaeAvailable():
     if not iutil.isX86():
         return isPAE
 
-    try:
-        f = open("/proc/iomem", "r")
-        lines = f.readlines()
-        for line in lines:
-            if line[0].isspace():
-                continue
-            start = line.split(' ')[0].split('-')[0]
-            start = long(start, 16)
+    f = open("/proc/cpuinfo", "r")
+    lines = f.readlines()
+    f.close()
 
-            if start >= 0x100000000L:
-                isPAE = True
-                break
-
-        f.close()
-    except:
-        pass
+    for line in lines:
+        if line.startswith("flags") and line.find("pae") != -1:
+            isPAE = True
+            break
 
     return isPAE
 
