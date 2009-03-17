@@ -262,11 +262,7 @@ class Storage(object):
             does not necessarily reflect the actual on-disk state of the
             system's disks.
         """
-        partitions = []
-        devices = self.devicetree.devices
-        for d in devices:
-            if isinstance(devices[d], PartitionDevice):
-                partitions.append(devices[d])
+        partitions = self.devicetree.getDevicesByInstance(PartitionDevice)
         partitions.sort(key=lambda d: d.name)
         return partitions
 
