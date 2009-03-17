@@ -63,7 +63,7 @@ class RaidEditor:
 	    partname = "%s" % part.name
 	    partsize = "%8.0f MB" % part.size
 
-            if self.isNew:
+            if not self.origrequest.exists:
                 partlist.append_row((partname, partsize), False)
             else:
                 if part in tempDevList:
