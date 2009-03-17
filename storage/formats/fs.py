@@ -594,7 +594,8 @@ class FS(DeviceFormat):
 
     @property
     def mountable(self):
-        return self.type in kernel_filesystems
+        return (self.type in kernel_filesystems) or \
+               (os.access("/sbin/mount.%s" % (self.type,), os.X_OK))
 
     @property
     def defaultFormatOptions(self):
