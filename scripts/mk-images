@@ -598,9 +598,15 @@ makeinitrd() {
     install -m 644 $IMGPATH/etc/nsswitch.conf $MBD_DIR/etc/nsswitch.conf
 
     instbin $IMGPATH /usr/bin/mount $MBD_DIR /sbin/mount
-    instbin $IMGPATH /usr/sbin/mount.nfs $MBD_DIR /sbin/mount.nfs
+    for mountcmd in $IMGPATH/usr/sbin/mount.* ; do
+        cmd="$(basename $mountcmd)"
+        instbin $IMGPATH /usr/sbin/$cmd $MBD_DIR /sbin/$cmd
+    done
     instbin $IMGPATH /usr/bin/umount $MBD_DIR /sbin/umount
-    ln -s mount.nfs $MBD_DIR/sbin/umount.nfs
+    for umountcmd in $IMGPATH/usr/sbin/umount.* ; do
+        cmd="$(basename $umountcmd)"
+        instbin $IMGPATH /usr/sbin/$cmd $MBD_DIR /sbin/$cmd
+    done
 
     instbin $IMGPATH /usr/sbin/udevd $MBD_DIR /sbin/udevd
     instbin $IMGPATH /usr/sbin/udevadm $MBD_DIR /sbin/udevadm
