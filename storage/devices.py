@@ -405,25 +405,26 @@ class Device(object):
         return True
 
 
-class NetworkDevice(Device):
-    """ A network device """
-    _type = "network device"
+class NetworkStorageDevice(object):
+    """ Virtual base class for network backed storage devices """
 
-    def __init__(self, name, parents=None):
-        """ Create a NetworkDevice instance.
+    def __init__(self, host_address):
+        """ Create a NetworkStorage Device instance. Note this class is only
+            to be used as a baseclass and then only with multiple inheritance.
+            The only correct use is:
+            class MyStorageDevice(StorageDevice, NetworkStorageDevice):
+
+            The sole purpose of this class is to:
+            1) Be able to check if a StorageDevice is network backed
+               (using isinstance).
+            2) To be able to get the host address of the host (server) backing
+               the storage.
 
             Arguments:
 
-                name -- the device name (generally an interface name)
-
-            Keyword Arguments:
-
-                parents -- a list of required Device instances
-                description -- a string describing the device
-
+                host_address -- host address of the backing server
         """
-        Device.__init__(self, name, parents=parents)
-        self.active = False
+        self.host_address = host_address
 
 
 class StorageDevice(Device):
@@ -2656,7 +2657,7 @@ class DirectoryDevice(FileDevice):
         self.exists = False
 
 
-class iScsiDiskDevice(DiskDevice):
+class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
     """ An iSCSI disk. """
     _type = "iscsi"
     _packages = ["iscsi-initiator-utils"]
@@ -2666,6 +2667,7 @@ class iScsiDiskDevice(DiskDevice):
         self.iscsi_address = kwargs.pop("iscsi_address")
         self.iscsi_port    = int(kwargs.pop("iscsi_port"))
         DiskDevice.__init__(self, device, **kwargs)
+        NetworkStorageDevice.__init__(self, self.iscsi_address)
         log.debug("created new iscsi disk %s %s:%d" % (self.iscsi_name, self.iscsi_address, self.iscsi_port))
 
 class OpticalDevice(StorageDevice):
@@ -2803,13 +2805,14 @@ class PRePBootDevice(PartitionDevice):
                                  parents=parents, primary=primary)
 
 
-class NFSDevice(StorageDevice):
+class NFSDevice(StorageDevice, NetworkStorageDevice):
     """ An NFS device """
     _type = "nfs"
 
     def __init__(self, device, format=None, parents=None):
         # we could make host/ip, path, &c but will anything use it?
-        StorageDevice.__init__(device, format=format, parents=parents)
+        StorageDevice.__init__(self, device, format=format, parents=parents)
+        NetworkStorageDevice.__init__(self, device.split(":")[0])
 
     @property
     def path(self):
