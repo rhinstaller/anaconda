@@ -932,29 +932,6 @@ def growPartitions(disks, partitions):
                 except PartitioningError, e:
                     raise PartitioningError("failed to grow partitions")
 
-        # Maximize partitions, we do this after growing all partitions
-        # as some partitions may grow unlimited, and we don't want them
-        # eating up the entire disk when we still need to grow others
-        for part in growable:
-            constraint = parted.Constraint(device=disk.partedDisk.device)
-
-            # don't grow beyond the request's maximum size
-            if part.req_max_size:
-                max_sect = (part.req_max_size * (1024 * 1024)) / sectorSize
-                if constraint.maxSize > max_sect:
-                    constraint.maxSize = max_sect
-
-            # don't grow beyond the resident filesystem's max size
-            if part.format.maxSize > 0:
-                max_sect = (part.format.maxSize * (1024 * 1024)) / sectorSize
-                if constraint.maxSize > max_sect:
-                    constraint.maxSize = max_sect
-
-            disk.partedDisk.maximizePartition(part.partedPartition, constraint)
-            log.debug("grew partition %s to %dMB" % (part.name,
-                                                     part.partedPartition.getSize()))
-            log.debug("the disk's copy is %dMB" % disk.partedDisk.getPartitionByPath(part.path).getSize())
-
     # reset all requests to their original requested size
     for part in partitions:
         if part.exists:
