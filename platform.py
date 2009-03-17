@@ -277,10 +277,10 @@ class NewWorldPPC(PPC):
     def bootDevice(self):
         bootDev = None
 
-        for device in self.anaconda.id.storage.devices.values():
+        for part in self.anaconda.id.storage.partitions:
             # XXX do we need to also check the size?
-            if device.format.type == "hfs" and device.bootable:
-                bootDev = device
+            if part.format.type == "hfs" and part.bootable:
+                bootDev = part
 
         return bootDev
 
