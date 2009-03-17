@@ -1382,7 +1382,7 @@ class DeviceTree(object):
 
         return found
 
-    def getDevicebyLabel(self, label):
+    def getDeviceByLabel(self, label):
         found = None
         for device in self._devices:
             _label = getattr(device.format, "label", None)
