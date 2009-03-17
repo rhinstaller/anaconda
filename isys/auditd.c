@@ -48,7 +48,7 @@ static void do_auditd(int fd) {
     sigset_t sigs;
     struct sigaction sa;
     struct pollfd pds = {
-        .events = POLLIN | POLLPRI | POLLERR | POLLHUP | POLLMSG,
+        .events = POLLIN,
         .revents = 0,
         .fd = fd,
     };
@@ -71,13 +71,12 @@ static void do_auditd(int fd) {
     sigdelset(&sigs, SIGHUP);
 
     while (1) {
-        struct timespec timeout = { -1, -1 };
         int retval;
 
         memset(&rep, 0, sizeof(rep));
 
         do {
-            retval = ppoll(&pds, 1, &timeout, &sigs);
+            retval = ppoll(&pds, 1, NULL, &sigs);
         } while (retval == -1 && errno == EINTR && !done);
 
         if (done)
