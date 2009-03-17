@@ -184,14 +184,16 @@ updates:
 		mkdir updates-img ; \
 	fi ; \
 	git diff --stat $(ARCHIVE_TAG) | grep " | " | \
-	grep -v "^\ loader\/" | grep -v "\.spec" | grep -v "Makefile" | \
-	grep -v "^\ po\/" | grep -v "^\ scripts\/" | \
+	grep -v "\.spec" | grep -v "Makefile" | grep -v "\.c\ " | \
 	while read sourcefile stuff ; do \
-		dn="$$(dirname $$sourcefile)" ; \
+		dn="$$(echo $$sourcefile | cut -d '/' -f 1)" ; \
 		case $$dn in \
 			installclasses|storage|booty) \
+				rm -rf updates-img/$$dn ; \
 				cp -a $$dn updates-img ; \
 				find updates-img/$$dn -type f | grep Makefile | xargs rm -f ;; \
+			loader|po|scripts|command-stubs|tests|bootdisk|docs|fonts|utils|gptsync) \
+				continue ;; \
 			*) \
 				cp -a $$sourcefile updates-img ;; \
 		esac ; \
