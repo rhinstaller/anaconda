@@ -89,14 +89,12 @@ def getRootDevName(initrd, rootDevice):
         return rootDevice.path
 
     try:
-        if rootDevice.uuid:
-            return "UUID=%s" % rootDevice.uuid
-        elif rootDevice.label:
-            return "LABEL=%s" % rootDevice.label
-
-        return rootDevice.path
+        if rootDevice.format.uuid:
+            return "UUID=%s" % rootDevice.format.uuid
     except:
-        return rootDevice.path
+        pass
+
+    return rootDevice.path
 
 class KernelArguments:
 
