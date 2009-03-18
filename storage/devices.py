@@ -2517,7 +2517,7 @@ class FileDevice(StorageDevice):
                 parents -- a list of required devices (Device instances)
                 exists -- indicates whether this is an existing device
         """
-        StorageDevice.__init__(self, name, format=format, size=size,
+        StorageDevice.__init__(self, path, format=format, size=size,
                                exists=exists, parents=parents)
 
     def probe(self):
