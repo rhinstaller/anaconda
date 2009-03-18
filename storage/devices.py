@@ -2534,7 +2534,7 @@ class FileDevice(StorageDevice):
         root = ""
         try:
             status = self.parents[0].format.status
-        except AttributeError:
+        except (AttributeError, IndexError):
             status = False
 
         if status: 
