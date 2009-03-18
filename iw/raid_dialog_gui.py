@@ -192,7 +192,7 @@ class RaidEditor:
                     except IndexError:
                         pass
                     else:
-                        actions.append(ActionDestroyFormat(luksdev.format))
+                        actions.append(ActionDestroyFormat(luksdev))
                         actions.append(ActionDestroyDevice(luksdev))
                         luksdev = None
 
@@ -222,7 +222,7 @@ class RaidEditor:
                         except IndexError:
                             pass
                         else:
-                            actions.append(ActionDestroyFormat(luksdev.format))
+                            actions.append(ActionDestroyFormat(luksdev))
                             actions.append(ActionDestroyDevice(luksdev))
                             luksdev = None
 
