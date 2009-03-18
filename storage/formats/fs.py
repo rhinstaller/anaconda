@@ -1051,6 +1051,10 @@ register_device_format(TmpFS)
 class BindFS(FS):
     _type = "bind"
 
+    @property
+    def mountable(self):
+        return True
+
 register_device_format(BindFS)
 
 
