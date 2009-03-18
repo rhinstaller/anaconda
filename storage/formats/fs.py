@@ -453,7 +453,7 @@ class FS(DeviceFormat):
             raise FSError("no mountpoint given")
 
         if self.status:
-            raise FSError("filesystem is already mounted")
+            return
 
         if not isinstance(self, NoDevFS) and not os.path.exists(self.device):
             raise FSError("device %s does not exist" % self.device)
