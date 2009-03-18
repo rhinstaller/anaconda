@@ -737,7 +737,7 @@ class PartitionWindow(InstallWindow):
                     # look up the mapped/decrypted device since that's
                     # where we'll find the format we want to display
                     try:
-                        dm_dev = self.storage.getChildren(array)[0]
+                        dm_dev = self.storage.devicetree.getChildren(array)[0]
                     except IndexError:
                         format = array.format
                     else:
