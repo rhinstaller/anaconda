@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.31
+Version: 11.5.0.32
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -210,6 +210,20 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 17 2009 Jesse Keating <jkeating@redhat.com> - 11.5.0.32-1
+- Typo fix. (clumens)
+- Make platform.checkBootRequest work better and not use diskset anymore. (clumens)
+- Fix a traceback when looking for PS3 boot partitions (#490738). (clumens)
+- FormatArgs -> FormatOptions (#490737). (clumens)
+- Fix ppoll() timeout=infinity usage in auditd (#484721). (pjones)
+- Simplify kernel package selection. (clumens)
+- Look at CPU flags instead of /proc/iomem to determine PAE-ness (#484941). (clumens)
+- Tell NM not to touch interfaces when / is on a network disk (hdegoede)
+- Get iscsi going with the new storage code (hdegoede)
+- Use minihal instead of isys.hardDriveDict in list-harddrives (#488122). (clumens)
+- storage.disks never includes disks without media present. (clumens)
+- Changed the getDevicebyLabel() to getDeviceByLabel() in devicetree.py (mgracik) 
+
 * Mon Mar 16 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.31-1
 - Don't use disk.maximizePartition anymore. (dlehman)
 - Only schedule implicit format destruction if there is formatting to
