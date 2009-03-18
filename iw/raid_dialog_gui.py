@@ -158,11 +158,11 @@ class RaidEditor:
 		    raidmembers.append(dev)
 
                 iter = model.iter_next(iter)
+            mountpoint = self.mountCombo.get_children()[0].get_text()
 
             if not self.origrequest.exists:
                 # new device
                 fmt_class = self.fstypeCombo.get_active_value()
-		mountpoint = self.mountCombo.get_children()[0].get_text()
                 raidminor = int(self.minorCombo.get_active_value())
 
                 model = self.levelcombo.get_model()
@@ -175,17 +175,26 @@ class RaidEditor:
                     spares = 0
 
                 format = fmt_class(mountpoint=mountpoint)
-                if self.fsoptionsDict.has_key("lukscb") and \
-                   self.fsoptionsDict["lukscb"].get_active() and \
-                   self.origrequest.format.type != "luks":
-                    luksdev = LUKSDevice("luks-%s" % self.origrequest.name,
+                members = len(raidmembers) - spares
+                level = int(raidlevel.lower().replace("raid", ""))
+
+                request = self.storage.newMDArray(minor=raidminor,
+                                                  level=level,
+                                                  format=format,
+                                                  parents=raidmembers,
+                                                  totalDevices=len(raidmembers),
+                                                  memberDevices=members)
+
+                if self.lukscb and self.lukscb.get_active() and \
+                   (self.isNew or self.origrequest.format.type != "luks"):
+                    luksdev = LUKSDevice("luks-%s" % request.name,
                                          format=format,
-                                         parents=self.origrequest)
+                                         parents=request)
                     format = getFormat("luks",
                                        passphrase=self.storage.encryptionPassphrase)
-                elif self.fsoptionsDict.has_key("lukscb") and \
-                     not self.fsoptionsDict["lukscb"].get_active() and \
-                     self.origrequest.format.type == "luks":
+                    request.format = format
+                elif self.lukscb and not self.lukscb.get_active() and \
+                     not self.isNew and self.origrequest.format.type == "luks":
                     # destroy luks format and mapped device
                     try:
                         luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
@@ -196,11 +205,20 @@ class RaidEditor:
                         actions.append(ActionDestroyDevice(luksdev))
                         luksdev = None
 
+                    # XXXRV not needed as we destroy origrequest ?
                     actions.append(ActionDestroyFormat(self.origrequest))
+
+                if not self.isNew:
+                    # This may be handled in devicetree.registerAction,
+                    # but not in case when we change minor and thus
+                    # device name/path (at least with current md)
+                    actions.append(ActionDestroyDevice(self.origrequest))
+                actions.append(ActionCreateDevice(request))
+                actions.append(ActionCreateFormat(request))
+            
 	    else:
                 # existing device
                 fmt_class = self.fsoptionsDict["fstypeCombo"].get_active_value()
-                mountpoint = self.mountCombo.get_children()[0].get_text()
 		if self.fsoptionsDict.has_key("formatcb") and \
                    self.fsoptionsDict["formatcb"].get_active():
                     format = fmt_class(mountpoint=mountpoint)
@@ -241,27 +259,16 @@ class RaidEditor:
                         usedev = origrequest
                     migrate = True
 
-	    if self.origrequest.format.exists and \
-               self.storage.formatByDefault(self.origrequest):
-		if not queryNoFormatPreExisting(self.intf):
-		    continue
+                if self.origrequest.format.exists and \
+                   self.storage.formatByDefault(self.origrequest):
+                    if not queryNoFormatPreExisting(self.intf):
+		        continue
+
+                if format:
+                    actions.append(ActionCreateFormat(self.origrequest, format))
 
 	    # everything ok, break out
 	    break
-
-        if not self.origrequest.exists:
-            members = len(raidmembers) - spares
-            level = int(raidlevel.lower().replace("raid", ""))
-            request = self.storage.newMDArray(minor=raidminor,
-                                              level=level,
-                                              format=format,
-                                              parents=raidmembers,
-                                              totalDevices=len(raidmembers),
-                                              memberDevices=members)
-            actions.append(ActionCreateDevice(request))
-            actions.append(ActionCreateFormat(request))
-        elif format:
-            actions.append(ActionCreateFormat(self.origrequest, format))
 
 
         if luksdev:
@@ -329,14 +336,6 @@ class RaidEditor:
 	maintable.set_col_spacings(5)
 	row = 0
 
-	# Mount Point entry
-	lbl = createAlignedLabel(_("_Mount Point:"))
-	maintable.attach(lbl, 0, 1, row, row + 1)
-	self.mountCombo = createMountPointCombo(origrequest)
-	lbl.set_mnemonic_widget(self.mountCombo)
-	maintable.attach(self.mountCombo, 1, 2, row, row + 1)
-	row = row + 1
-
         # we'll maybe add this further down
         self.lukscb = gtk.CheckButton(_("_Encrypt"))
         self.lukscb.set_data("formatstate", 1)
@@ -355,6 +354,14 @@ class RaidEditor:
             luksdev = None
             usedev = origrequest
             format = origrequest.format
+
+	# Mount Point entry
+	lbl = createAlignedLabel(_("_Mount Point:"))
+	maintable.attach(lbl, 0, 1, row, row + 1)
+	self.mountCombo = createMountPointCombo(usedev)
+	lbl.set_mnemonic_widget(self.mountCombo)
+	maintable.attach(self.mountCombo, 1, 2, row, row + 1)
+	row = row + 1
 
 	# Filesystem Type
         if not origrequest.exists:
