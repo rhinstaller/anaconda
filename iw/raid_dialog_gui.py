@@ -185,17 +185,11 @@ class RaidEditor:
                                                   totalDevices=len(raidmembers),
                                                   memberDevices=members)
 
-                if self.lukscb and self.lukscb.get_active() and \
-                   (self.isNew or self.origrequest.format.type != "luks"):
-                    luksdev = LUKSDevice("luks-%s" % request.name,
-                                         format=format,
-                                         parents=request)
-                    format = getFormat("luks",
-                                       passphrase=self.storage.encryptionPassphrase)
-                    request.format = format
-                elif self.lukscb and not self.lukscb.get_active() and \
-                     not self.isNew and self.origrequest.format.type == "luks":
+                # we must destroy luks leaf before original raid request
+                if self.origrequest.format.type == "luks":
+                    # => not self.isNew
                     # destroy luks format and mapped device
+                    # XXX remove catching, it should always succeed
                     try:
                         luksdev = self.storage.devicetree.getChildren(self.origrequest)[0]
                     except IndexError:
@@ -204,6 +198,16 @@ class RaidEditor:
                         actions.append(ActionDestroyFormat(luksdev))
                         actions.append(ActionDestroyDevice(luksdev))
                         luksdev = None
+
+                if self.lukscb and self.lukscb.get_active():
+                    luksdev = LUKSDevice("luks-%s" % request.name,
+                                         format=format,
+                                         parents=request)
+                    format = getFormat("luks",
+                                       passphrase=self.storage.encryptionPassphrase)
+                    request.format = format
+                elif self.lukscb and not self.lukscb.get_active() and \
+                    self.origrequest.format.type == "luks":
 
                     # XXXRV not needed as we destroy origrequest ?
                     actions.append(ActionDestroyFormat(self.origrequest))
