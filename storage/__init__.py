@@ -1603,6 +1603,7 @@ class FSSet(object):
 
         devices = self.mountpoints.values() + self.swapDevices
         devices.extend([self.devshm, self.devpts, self.sysfs, self.proc])
+        netdevs = self.devicetree.getDevicesByInstance(NetworkStorageDevice)
         for device in devices:
             # why the hell do we put swap in the fstab, anyway?
             if not device.format.mountable and device.format.type != "swap":
@@ -1622,6 +1623,13 @@ class FSSet(object):
                     continue
 
             options = options or "defaults"
+            for netdev in netdevs:
+                if device.dependsOn(netdev):
+                    if mountpoint == "/":
+                        options = options + ",_rnetdev"
+                    else:
+                        options = options + ",_netdev"
+                    break
             devspec = device.fstabSpec
             dump = device.format.dump
             if device.format.check and mountpoint == "/":
