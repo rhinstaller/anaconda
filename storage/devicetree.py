@@ -897,16 +897,11 @@ class DeviceTree(object):
                         udev_device_is_dmraid_partition(info, self):
                     diskname = udev_device_get_dmraid_partition_disk(info)
                     disk = self.getDeviceByName(diskname)
-                    device = PartitionDeviceFactory(name, \
-                                           sysfsPath=sysfs_path, \
-                                           major=udev_device_get_major(info), \
-                                           minor=udev_device_get_minor(info), \
-                                           exists=True, \
-                                           parents=[disk])
-                    if not device:
-                        return
+                    device = PartitionDevice(name, sysfsPath=sysfs_path,
+                                             major=udev_device_get_major(info),
+                                             minor=udev_device_get_minor(info),
+                                             exists=True, parents=[disk])
                     self._addDevice(device)
-                    #self.addIgnoredDisk(name)
 
                 # if we get here, we found all of the slave devices and
                 # something must be wrong -- if all of the slaves are in
@@ -1058,14 +1053,18 @@ class DeviceTree(object):
                         log.error("failure scanning device %s" % disk_name)
                         return
 
-                device = PartitionDeviceFactory(name,
-                                                sysfsPath=sysfs_path,
-                                                major=udev_device_get_major(info),
-                                                minor=udev_device_get_minor(info),
-                                                exists=True,
-                                                parents=[disk])
-                if not device:
+                try:
+                    device = PartitionDevice(name, sysfsPath=sysfs_path,
+                                             major=udev_device_get_major(info),
+                                             minor=udev_device_get_minor(info),
+                                             exists=True, parents=[disk])
+                except DeviceError:
+                    # corner case sometime the kernel accepts a partition table
+                    # which gets rejected by parted, in this case we will
+                    # prompt to re-initialize the disk, so simply skip the
+                    # faulty partitions.
                     return
+
                 self._addDevice(device)
 
         #

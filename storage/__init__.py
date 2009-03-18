@@ -495,7 +495,7 @@ class Storage(object):
         else:
             name = "req%d" % self.nextID
 
-        return PartitionDeviceFactory(name, *args, **kwargs)
+        return PartitionDevice(name, *args, **kwargs)
 
     def newMDArray(self, *args, **kwargs):
         """ Return a new MDRaidArrayDevice instance for configuring. """

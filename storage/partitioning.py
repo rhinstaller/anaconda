@@ -32,7 +32,7 @@ from constants import *
 
 from errors import *
 from deviceaction import *
-from devices import PartitionDeviceFactory, LUKSDevice
+from devices import PartitionDevice, LUKSDevice
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -568,8 +568,7 @@ def doPartitioning(storage, exclusiveDisks=None):
         # that does not exist means leaving self.parents empty and instead
         # populating self.req_disks. In this case, we need to skip past
         # that since this partition is already defined.
-        device = PartitionDeviceFactory(extended.getDeviceNodeName(),
-                                 parents=disk)
+        device = PartitionDevice(extended.getDeviceNodeName(), parents=disk)
         device.parents = [disk]
         device.partedPartition = extended
         storage.createDevice(device)

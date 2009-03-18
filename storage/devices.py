@@ -130,81 +130,6 @@ def get_device_majors():
     return majors
 device_majors = get_device_majors()
 
-def PartitionDeviceFactory(*args, **kwargs):
-    """This will decide what PartitionDevice class will be used.
-
-    Arguments:
-
-        name -- the device name (generally a device node's basename)
-
-    Keyword Arguments:
-
-        exists -- indicates whether this is an existing device
-        format -- the device's format (DeviceFormat instance)
-
-        For existing partitions:
-
-            parents -- the disk that contains this partition
-            major -- the device major
-            minor -- the device minor
-            sysfsPath -- sysfs device path
-
-        For new partitions:
-
-            partType -- primary,extended,&c (as parted constant)
-            grow -- whether or not to grow the partition
-            maxsize -- max size for growable partitions (in MB)
-            size -- the device's size (in MB)
-            bootable -- whether the partition is bootable
-            parents -- a list of potential containing disks
-
-    The decision will be made base on finding the disk by name
-    """
-    # FIXME: PRePBootDevice should be here somehow.!!!
-    roots = ["/dev", "/dev/mapper"]
-    # firs lets normalize the name
-    norm_name = args[0].split("/")[-1]
-
-    # We look for the disk in /dev.  From PartitionDevice its the [0] one.
-    if not kwargs.get("exists") and not kwargs.get("parents"): 
-        # Cant really choose a good type of class,  default to PartitionDevice
-        # This will be considered as a request.
-        return PartitionDevice(*args, **kwargs)
-    elif not kwargs.get("exists"):
-        # some requests have a disk specified
-        parents = kwargs["parents"]
-        if isinstance(parents, Device):
-            parents = [parents]
-
-        if isinstance(parents[0], DMRaidArrayDevice):
-            return DMRaidPartitionDevice(*args, **kwargs)
-        else:
-            return PartitionDevice(*args, **kwargs)
-    else:
-        parents = kwargs["parents"]
-        if isinstance(parents, Device):
-            parents = [parents]
-        # we receive a list of parents.  look for the disk that contains the name.
-        for root in roots:
-            for parent in parents:
-                path = os.path.join(root,norm_name)
-                log.debug("looking up parted Partition: %s" % path)
-                part = parent.partedDisk.getPartitionByPath(path)
-                if not part:
-                    continue
-                else:
-                    # we have found a part.  no make the decision based on path
-                    if path.startswith(roots[1]):
-                        #we create a DMPartition
-                        return DMRaidPartitionDevice(*args, **kwargs)
-                    elif path.startswith(roots[0]):
-                        # make sure that the parent is consistent
-                        kwargs["parents"] = [parent]
-                        return PartitionDevice(*args, **kwargs)
-
-        # If we get here, we did not find anything.
-        log.warning("unable to find parted device for %s" % norm_name)
-        return None
 
 class Device(object):
     """ A generic device.
@@ -440,7 +365,7 @@ class StorageDevice(Device):
         should create a filesystem if one has been specified.
     """
     _type = "storage device"
-    devDir = "/dev"
+    _devDir = "/dev"
     sysfsBlockDir = "class/block"
     _resizable = False
 
@@ -512,7 +437,7 @@ class StorageDevice(Device):
     @property
     def path(self):
         """ Device node representing this device. """
-        return "%s/%s" % (self.devDir, self.name)
+        return "%s/%s" % (self._devDir, self.name)
 
     def probe(self):
         """ Probe for any missing information about this device. """
@@ -1023,6 +948,16 @@ class PartitionDevice(StorageDevice):
             self.partedPartition = None
 
     @property
+    def path(self):
+        """ Device node representing this device. """
+        if not self.parents:
+            # Bogus, but code in various places compares devices by path
+            # So we must return something unique
+            return self.name
+
+        return "%s/%s" % (self.parents[0]._devDir, self.name)
+
+    @property
     def partType(self):
         """ Get the partition's type (as parted constant). """
         try:
@@ -1081,6 +1016,20 @@ class PartitionDevice(StorageDevice):
 
     partedPartition = property(lambda d: d._getPartedPartition(),
                                lambda d,p: d._setPartedPartition(p))
+
+    def updateSysfsPath(self):
+        """ Update this device's sysfs path. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.parents:
+            self.sysfsPath = ''
+
+        elif self.parents[0]._devDir == "/dev/mapper":
+            dm_node = dm.dm_node_from_name(self.name)
+            path = os.path.join("/sys", self.sysfsBlockDir, dm_node)
+            self.sysfsPath = os.path.realpath(path)[4:]
+
+        else:
+            StorageDevice.updateSysfsPath(self)
 
     def dependsOn(self, dep):
         """ Return True if this device depends on dep. """
@@ -1265,16 +1214,6 @@ class PartitionDevice(StorageDevice):
 
         self.parents = [disk]
         disk.addChild()
-        if isinstance(disk, DMRaidArrayDevice):
-            # modify the partition so it can look like the DMRaidPartitionDevice.
-
-            self._type = "dmraid partition"
-            self._packages = ["dmraid"]
-            self.devDir = "/dev/mapper"
-            self.updateSysfsPath = DMDevice.updateSysfsPath
-            self.getDMNode = DMDevice.getDMNode
-
-
 
     disk = property(lambda p: p._getDisk(), lambda p,d: p._setDisk(d))
 
@@ -1293,7 +1232,7 @@ class PartitionDevice(StorageDevice):
 class DMDevice(StorageDevice):
     """ A device-mapper device """
     _type = "dm"
-    devDir = "/dev/mapper"
+    _devDir = "/dev/mapper"
 
     def __init__(self, name, format=None, size=None, dmUuid=None,
                  target=None, exists=None, parents=None, sysfsPath=''):
@@ -2326,7 +2265,7 @@ class DMRaidArrayDevice(DiskDevice):
     """ A dmraid (device-mapper RAID) device """
     _type = "dm-raid array"
     _packages = ["dmraid"]
-    devDir = "/dev/mapper"
+    _devDir = "/dev/mapper"
 
     def __init__(self, name, raidSet=None, level=None, format=None,
                  size=None, major=None, minor=None, parents=None,
@@ -2406,30 +2345,18 @@ class DMRaidArrayDevice(DiskDevice):
     def deactivate(self):
         self._raidSet.deactivate()
 
-    # We are more like a disk then a dmdevice, but we are still a dmdevice,
-    # so we need to "inherit" some functions from dmdevice
     def updateSysfsPath(self):
-        DMDevice.updateSysfsPath(self)
+        """ Update this device's sysfs path. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
 
-    def getDMNode(self):
-        DMDevice.getDMNode(self)
-
-
-class DMRaidPartitionDevice(PartitionDevice):
-    """ A disk partition in a dmraid array, identical to a general
-        PartitionDevice, except for the device path and sysfs path
-    """
-    _type = "dmraid partition"
-    _packages = ["dmraid"]
-    devDir = "/dev/mapper"
-
-    # We are more like a partition then a dmdevice, but we are still a dmdevice
-    # so we need to "inherit" some functions from dmdevice
-    def updateSysfsPath(self):
-        DMDevice.updateSysfsPath(self)
-
-    def getDMNode(self):
-        DMDevice.getDMNode(self)
+        if self.status:
+            dm_node = dm.dm_node_from_name(self.name)
+            path = os.path.join("/sys", self.sysfsBlockDir, dm_node)
+            self.sysfsPath = os.path.realpath(path)[4:]
+        else:
+            self.sysfsPath = ''
 
 
 class MultipathDevice(DMDevice):
@@ -2518,7 +2445,7 @@ class FileDevice(StorageDevice):
         This exists because of swap files.
     """
     _type = "file"
-    devDir = ""
+    _devDir = ""
 
     def __init__(self, path, format=None, size=None,
                  exists=None, parents=None):
