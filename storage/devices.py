@@ -1621,6 +1621,7 @@ class LVMVolumeGroupDevice(DMDevice):
         self.createParents()
         self.setupParents()
         lvm.vgcreate(self.name, pv_list, self.peSize)
+        # FIXME set / update self.uuid here
         self.exists = True
         self.setup()
 
@@ -1906,6 +1907,7 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         # should we use --zero for safety's sake?
         lvm.lvcreate(self.vg.name, self._name, self.size)
+        # FIXME set / update self.uuid here
         self.exists = True
         self.setup()
 
