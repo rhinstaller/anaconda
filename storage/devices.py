@@ -2423,17 +2423,6 @@ class DMRaidPartitionDevice(PartitionDevice):
     _packages = ["dmraid"]
     devDir = "/dev/mapper"
 
-    def __init__(self, name, format=None,
-                 size=None, grow=False, maxsize=None,
-                 major=None, minor=None, bootable=None,
-                 sysfsPath='', parents=None, exists=None,
-                 partType=None, primary=False):
-        PartitionDevice.__init__(self, name, format=format, size=size,
-                                 major=major, minor=minor, bootable=bootable,
-                                 sysfsPath=sysfsPath, parents=parents,
-                                 exists=exists, partType=partType,
-                                 primary=primary)
-
     # We are more like a partition then a dmdevice, but we are still a dmdevice
     # so we need to "inherit" some functions from dmdevice
     def updateSysfsPath(self):
