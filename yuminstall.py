@@ -1457,14 +1457,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 except Exception, e:
                     log.error("error mounting selinuxfs: %s" %(e,))
 
-            # we need to have a /dev during install and now that udev is
-            # handling /dev, it gets to be more fun.  so just bind mount the
-            # installer /dev
-            log.warning("no dev package, going to bind mount /dev")
-            isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = True)
-            if not upgrade:
-                anaconda.id.storage.fsset.mkDevRoot(anaconda.rootPath)
-
         # write out the fstab
         if not upgrade:
             anaconda.id.storage.fsset.write(anaconda.rootPath)

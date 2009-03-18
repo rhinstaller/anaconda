@@ -331,12 +331,6 @@ def runRescue(anaconda, instClass):
                     except:
                         log.error("Error enabling swap")
 
-                # now that dev is udev, bind mount the installer dev there
-                isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = True)
-
-                # and /dev/pts
-                isys.mount("/dev/pts", "%s/dev/pts" %(anaconda.rootPath,), bindMount = True)
-
                 # and /selinux too
                 if flags.selinux and os.path.isdir("%s/selinux" %(anaconda.rootPath,)):
                     try:

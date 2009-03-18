@@ -277,8 +277,6 @@ def upgradeMountFilesystems(anaconda):
                 message = message + '\t' + n + '\n'
 	    anaconda.intf.messageWindow(_("Invalid Directories"), message)
 	    sys.exit(0)
-           
-        bindMountDevDirectory(anaconda.rootPath)
     else:
         if not os.access (anaconda.rootPath + "/etc/fstab", os.R_OK):
             anaconda.intf.messageWindow(_("Warning"),

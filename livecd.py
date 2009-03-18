@@ -136,7 +136,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
     def _unmountNonFstabDirs(self, anaconda):
         # unmount things that aren't listed in /etc/fstab.  *sigh*
-        dirs = ["/dev"]
+        dirs = []
         if flags.selinux:
             dirs.append("/selinux")
         for dir in dirs:
@@ -152,13 +152,12 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                                                         swapoff = False)
             os.rmdir(anaconda.rootPath)
         except Exception, e:
-            log.error("Unable to unmount filesystems.") 
+            log.error("Unable to unmount filesystems: %s" % e) 
 
     def doPreInstall(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
             self._unmountNonFstabDirs(anaconda)
             return
-
         anaconda.id.storage.fsset.umountFilesystems(anaconda.rootPath,
                                                     swapoff = False)
 
@@ -312,7 +311,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 isys.mount("/selinux", anaconda.rootPath + "/selinux", "selinuxfs")
             except Exception, e:
                 log.error("error mounting selinuxfs: %s" %(e,))
-        isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = True)
 
         wait.pop()
 
