@@ -1120,6 +1120,7 @@ class FSSet(object):
         self.cryptTab = None
         self.blkidTab = None
         self.active = False
+        self._dev = None
         self._devpts = None
         self._sysfs = None
         self._proc = None
@@ -1132,6 +1133,17 @@ class FSSet(object):
                                                     device="sys",
                                                     mountpoint="/sys"))
         return self._sysfs
+
+    @property
+    def dev(self):
+        if not self._dev:
+            self._dev = DirectoryDevice("/dev", format=getFormat("bind",
+                                                                 device="/dev",
+                                                                 mountpoint="/dev",
+                                                                 exists=True),
+                                        exists=True)
+
+        return self._dev
 
     @property
     def devpts(self):
@@ -1397,8 +1409,9 @@ class FSSet(object):
                          skipRoot=False):
         intf = anaconda.intf
         devices = self.mountpoints.values() + self.swapDevices
-        devices.extend([self.devshm, self.devpts, self.sysfs, self.proc])
+        devices.extend([self.dev, self.devshm, self.devpts, self.sysfs, self.proc])
         devices.sort(key=lambda d: getattr(d.format, "mountpoint", None))
+
         for device in devices:
             if not device.format.mountable or not device.format.mountpoint:
                 continue
@@ -1486,12 +1499,8 @@ class FSSet(object):
         self.active = True
 
     def umountFilesystems(self, instPath, ignoreErrors=True, swapoff=True):
-        # XXX if we tracked the /dev bind mount this wouln't be necessary
-        if os.path.ismount("%s/dev" % instPath):
-            isys.umount("%s/dev" % instPath, removeDir=False)
-
         devices = self.mountpoints.values() + self.swapDevices
-        devices.extend([self.devshm, self.devpts, self.sysfs, self.proc])
+        devices.extend([self.dev, self.devshm, self.devpts, self.sysfs, self.proc])
         devices.sort(key=lambda d: getattr(d.format, "mountpoint", None))
         devices.reverse()
         for device in devices:
