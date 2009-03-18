@@ -939,28 +939,17 @@ class PartitionDevice(StorageDevice):
         return s
 
     def _setTargetSize(self, newsize):
-        # a change in the target size means we need to resize the disk
-        # if targetSize is 0, it means we are initializing, so don't jump
-        # the gun and assume we're resizing
-        if newsize != self.targetSize and self.targetSize != 0:
-            self._resize = True
+        if newsize != self.currentSize:
+            # change this partition's geometry in-memory so that other
+            # partitioning operations can complete (e.g., autopart)
+            self._targetSize = newsize
+            disk = self.disk.partedDisk
 
-        self._targetSize = newsize
-
-        if self._resize:
-            currentGeom = self.partedPartition.geometry
-            currentDev = currentGeom.device
-            newLen = long(self.targetSize * 1024 * 1024) / currentDev.sectorSize
-            geom = parted.Geometry(device=currentDev,
-                                   start=currentGeom.start,
-                                   length=newLen)
-            constraint = parted.Constraint(exactGeom=geom)
-
-            partedDisk = self.disk.partedDisk
-            partedDisk.setPartitionGeometry(partition=self.partedPartition,
-                                            constraint=constraint,
-                                            start=geom.start, end=geom.end)
-            self.partedPartition = None
+            # resize the partition's geometry in memory
+            (constraint, geometry) = self._computeResize(self.partedPartition)
+            disk.setPartitionGeometry(partition=self.partedPartition,
+                                      constraint=constraint,
+                                      start=geometry.start, end=geometry.end)
 
     @property
     def path(self):
@@ -1146,6 +1135,20 @@ class PartitionDevice(StorageDevice):
         self.exists = True
         self.setup()
 
+    def _computeResize(self, partition):
+        log_method_call(self, self.name, status=self.status)
+
+        # compute new size for partition
+        currentGeom = partition.geometry
+        currentDev = currentGeom.device
+        newLen = long(self.targetSize * 1024 * 1024) / currentDev.sectorSize
+        newGeometry = parted.Geometry(device=currentDev,
+                                      start=currentGeom.start,
+                                      length=newLen)
+        constraint = parted.Constraint(exactGeom=newGeometry)
+
+        return (constraint, newGeometry)
+
     def resize(self, intf=None):
         """ Resize the device.
 
@@ -1153,8 +1156,20 @@ class PartitionDevice(StorageDevice):
         """
         log_method_call(self, self.name, status=self.status)
 
-        if self._resize:
+        if self.targetSize != self.currentSize:
+            # partedDisk has been restored to _origPartedDisk, so
+            # recalculate resize geometry because we may have new
+            # partitions on the disk, which could change constraints
+            partition = self.disk.partedDisk.getPartitionByPath(self.path)
+            (constraint, geometry) = self._computeResize(partition)
+
+            self.disk.partedDisk.setPartitionGeometry(partition=partition,
+                                                      constraint=constraint,
+                                                      start=geometry.start,
+                                                      end=geometry.end)
+
             self.disk.commit()
+            self.notifyKernel()
 
     def destroy(self):
         """ Destroy the device. """
