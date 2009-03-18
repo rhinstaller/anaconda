@@ -263,11 +263,11 @@ class iscsi(object):
             f.write("iscsi --ipaddr %s --port %s" %(n.address, n.port))
             auth = n.getAuth()
             if auth:
-                f.write(" --user %s" %(n.username,))
-                f.write(" --password %s" %(n.password,))
+                f.write(" --user %s" % auth.username)
+                f.write(" --password %s" % auth.password)
                 if len(auth.reverse_username):
-                    f.write(" --reverse-user %s" % (n.reverse_username,))
-                    f.write(" --reverse-password %s" % (n.reverse_password,))
+                    f.write(" --reverse-user %s" % auth.reverse_username)
+                    f.write(" --reverse-password %s" % auth.reverse_password)
             f.write("\n")
 
     def write(self, instPath, anaconda):
