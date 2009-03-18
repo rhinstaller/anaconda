@@ -106,7 +106,7 @@ class PartitionTypeWindow:
                         selected = 0
 
                 sizestr = "%8.0f MB" % (disk.size,)
-                diskdesc = "%6s %s (%s)" % (disk, sizestr, model[:24],)
+                diskdesc = "%6s %s (%s)" % (disk.path, sizestr, model[:24],)
 
                 drivelist.append(diskdesc, selected = selected)
 
