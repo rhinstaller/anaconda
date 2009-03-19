@@ -1181,6 +1181,11 @@ class DeviceTree(object):
                                                  uuid=md_uuid,
                                                  exists=True,
                                                  parents=[device])
+                    try:
+                        md_array.setup()
+                    except (DeviceError, MDRaidError) as e:
+                        log.info("setup of md array %s failed: %s"
+                                    % (md_array.name, e))
                     self._addDevice(md_array)
             elif format.type == "dmraidmember":
                 major = udev_device_get_major(info)
