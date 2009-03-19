@@ -159,16 +159,17 @@ class PartitionEditor:
                             if disk.name == drive:
                                 disks.append(disk)
 
+                format = fmt_class(mountpoint=mountpoint)
                 if self.isNew:
                     request = self.storage.newPartition(size=size,
                                                         grow=grow,
                                                         maxsize=maxsize,
                                                         primary=primary,
+                                                        format=format,
                                                         parents=disks)
                 else:
                     request = self.origrequest
 
-                format = fmt_class(mountpoint=mountpoint)
                 if self.lukscb and self.lukscb.get_active() and \
                    request.format.type != "luks":
                     luksformat = format
