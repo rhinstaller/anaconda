@@ -223,6 +223,11 @@ class DeviceTree(object):
                     # this device is not preexisting
                     start = first_create_idx
                     stop_action = destroys[-1]
+            else:
+                # no create actions means this is a preexisting device,
+                # so we prune all actions up through the last destroy.
+                start = 0
+                stop_action = destroys[-1]
 
             if start is None:
                 continue
