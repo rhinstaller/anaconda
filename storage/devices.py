@@ -782,7 +782,22 @@ class DiskDevice(StorageDevice):
 
         self.setupParents()
         self.setup()
-        self.partedDisk.commit()
+
+        # give committing 5 tries, failing that, raise an exception
+        attempt = 1
+        maxTries = 5
+        keepTrying = True
+
+        while keepTrying and (attempt <= maxTries):
+            try:
+                self.partedDisk.commit()
+                keepTrying = False
+            except parted.DiskException as msg:
+                log.warning(msg)
+                attempt += 1
+
+        if keepTrying:
+            raise DeviceError("cannot commit to disk %s after %d attempts" % (self.name, maxTries,))
 
     def destroy(self):
         """ Destroy the device. """
