@@ -508,7 +508,7 @@ class FS(DeviceFormat):
         if not os.path.exists(self._mountpoint):
             raise FSError("mountpoint does not exist")
 
-        rc = isys.umount(self._mountpoint)
+        rc = isys.umount(self._mountpoint, removeDir = False)
         if rc:
             raise FSError("umount failed")
 
