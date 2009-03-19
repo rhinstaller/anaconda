@@ -346,7 +346,6 @@ etc/yum/pluginconf.d/fedorakmod.conf
 etc/yum/pluginconf.d/whiteout.conf
 lib/terminfo
 lib/udev
-sbin/*gfs*
 sbin/arping
 sbin/badblocks
 sbin/btrfsctl
@@ -396,8 +395,6 @@ sbin/mkfs.xfs
 sbin/mkraid
 sbin/mkreiserfs
 sbin/mkswap
-sbin/mount.nfs*
-sbin/mount.ntfs*
 sbin/parted
 sbin/pcmcia-socket-startup
 sbin/pdisk
@@ -410,7 +407,6 @@ sbin/sfdisk
 sbin/silo
 sbin/tune2fs
 sbin/udev*
-sbin/umount.nfs*
 sbin/xfs_repair
 sbin/xfsdump
 sbin/xfsrestore
@@ -738,8 +734,6 @@ sbin/restore
 sbin/rrestore
 sbin/rmmod
 sbin/route
-sbin/mount.cifs
-sbin/umount.cifs
 usr/bin/bunzip2
 usr/bin/bzcat
 usr/bin/bzip2
