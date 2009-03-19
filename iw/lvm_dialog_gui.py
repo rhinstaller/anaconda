@@ -40,12 +40,22 @@ log = logging.getLogger("anaconda")
 
 class VolumeGroupEditor:
 
+    def getTempVG(self):
+        pvs = [copy.deepcopy(pv) for pv in self.pvs]
+        vg = LVMVolumeGroupDevice('tmp-%s' % self.vg.name,
+                                  parents=pvs, peSize=self.peSize)
+        for lv in self.lvs.values():
+            LVMLogicalVolumeDevice(lv['name'], vg, format=lv['format'],
+                                   size=lv['size'], exists=lv['exists'])
+        return vg
+
     def numAvailableLVSlots(self):
-	return max(0, lvm.MAX_LV_SLOTS - len(self.vg.lvs))
+	return max(0, lvm.MAX_LV_SLOTS - len(self.lvs))
 
     def computeSpaceValues(self):
-        vgsize = self.vg.size
-        vgfree = self.vg.freeSpace
+        vg = self.getTempVG()
+        vgsize = vg.size
+        vgfree = vg.freeSpace
         vgused = vgsize - vgfree
 	return (vgsize, vgused, vgfree)
 
@@ -54,7 +64,7 @@ class VolumeGroupEditor:
 
         newpe - (int) new value of PE, in KB
         """
-        pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
+        pvlist = self.getSelectedPhysicalVolumes()
 
 	waste = 0.0
 	for pv in pvlist:
@@ -66,7 +76,7 @@ class VolumeGroupEditor:
         """ finds the smallest PV and returns its size in MB
         """
 	first = 1
-        pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
+        pvlist = self.getSelectedPhysicalVolumes()
 	for pv in pvlist:
             try:
                 pesize = int(self.peCombo.get_active_value())
@@ -90,15 +100,15 @@ class VolumeGroupEditor:
         newpe - (int) new value of PE, in KB
         """
 
-        pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
+        pvlist = self.getSelectedPhysicalVolumes()
         availSpaceMB = self.computeVGSize(pvlist, newpe)
 
 	# see if total space is enough
         oldused = 0
         used = 0
 	resize = 0
-        for lv in self.vg.lvs:
-            osize = lv.size
+        for lv in self.lvs.values():
+            osize = lv['size']
             oldused = oldused + osize
             nsize = lvm.clampSize(osize, newpe, roundup=1)
 	    if nsize != osize:
@@ -131,12 +141,8 @@ class VolumeGroupEditor:
 	    if not rc:
 		return 0
 
-        # XXX this is very sneaky, just changing the lvs' size attributes.
-        #     will we suffer for it? almost certainly.
-        for lv in self.vg.lvs:
-            osize = lv.size
-            nsize = lvm.clampSize(osize, newpe, roundup=1)
-            lv.size = nsize
+        for lv in self.lvs.values():
+            lv['size'] = lvm.clampSize(lv['size'], newpe, roundup=1)
 
         return 1
             
@@ -168,7 +174,7 @@ class VolumeGroupEditor:
             return 0
 
 	# see if new PE will make any PV useless due to overhead
-	if lvm.clampPVSize(maxpvsize, curpe) < curpe:
+	if lvm.clampSize(maxpvsize, curpe) < curpe:
             self.intf.messageWindow(_("Not enough space"),
                                     _("The physical extent size cannot be "
                                       "changed because the value selected "
@@ -206,8 +212,8 @@ class VolumeGroupEditor:
                 self.updateLogVolStore()
 	else:
 	    maxlv = lvm.getMaxLVSize()
-	    for lv in self.vg.lvs:
-		if lv.size > maxlv:
+	    for lv in self.lvs.values():
+		if lv['size'] > maxlv:
 		    self.intf.messageWindow(_("Not enough space"),
 					    _("The physical extent size "
 					      "cannot be changed because the "
@@ -225,9 +231,8 @@ class VolumeGroupEditor:
 	widget.set_data("lastidx", widget.get_active())
 
         # now actually set the VG's extent size
-        self.vg.peSize = curpe
-        self.updateAllowedLvmPartitionsList(self.availlvmparts,
-					    self.lvmlist)
+        self.peSize = curpe
+        self.updateAllowedLvmPartitionsList()
 	self.updateVGSpaceLabels()
 
     def prettyFormatPESize(self, val):
@@ -268,7 +273,7 @@ class VolumeGroupEditor:
 
     def clickCB(self, row, data):
 	model = self.lvmlist.get_model()
-	pvlist = self.getSelectedPhysicalVolumes(model)
+	pvlist = self.getSelectedPhysicalVolumes()
 
 	# get the selected row
 	iter = model.get_iter((string.atoi(data),))
@@ -278,16 +283,12 @@ class VolumeGroupEditor:
 	val      = not model.get_value(iter, 0)
 	partname = model.get_value(iter, 1)
         pv = self.storage.devicetree.getDeviceByName(partname)
-	if val:
-            pvlist.append(pv)
-	else:
-            pvlist.remove(pv)
-
         if val:
-            self.vg._addPV(pv)
+            self.pvs.append(pv)
         else:
+            self.pvs.remove(pv)
             try:
-                self.vg._removePV(pv)
+                vg = self.getTempVG()
             except DeviceError as e:
                 self.intf.messageWindow(_("Not enough space"),
                                     _("You cannot remove this physical "
@@ -295,13 +296,13 @@ class VolumeGroupEditor:
                                       "volume group will be too small to "
                                       "hold the currently defined logical "
                                       "volumes."), custom_icon="error")
+                self.pvs.append(pv)
                 return False
 
 	self.updateVGSpaceLabels()
 	return True
-	
 
-    def createAllowedLvmPartitionsList(self, alllvmparts, vgs):
+    def createAllowedLvmPartitionsList(self):
 	store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 			      gobject.TYPE_STRING,
 			      gobject.TYPE_STRING)
@@ -312,7 +313,8 @@ class VolumeGroupEditor:
 	sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 	sw.set_shadow_type(gtk.SHADOW_IN)
 
-	for device in alllvmparts:
+        origpvs = self.pvs[:]
+	for device in self.availlvmparts:
 	    # clip size to current PE
 	    pesize = int(self.peCombo.get_active_value()) / 1024.0
 	    size = lvm.clampSize(device.size, pesize)
@@ -322,11 +324,11 @@ class VolumeGroupEditor:
 
             # now see if the pv is in use either by a vg in the tree or by
             # the vg we are editing now
-            if device in self.vg.pvs:
+            if device in origpvs:
                 selected = True
                 include = True
             else:
-                for vg in vgs:
+                for vg in self.storage.vgs:
                     if vg.name == self.vg.name:
                         continue
 
@@ -334,25 +336,20 @@ class VolumeGroupEditor:
                         include = False
                         break
 
-                if include and not self.vg.pvs:
+                if include and not origpvs:
                     selected = True
 
             if include:
                 partlist.append_row((device.name, size_string), selected)
-                if selected and device not in self.vg.pvs:
-                    self.vg._addPV(device)
+                if selected and device not in self.pvs:
+                    self.pvs.append(device)
 
 	return (partlist, sw)
 
-    def updateAllowedLvmPartitionsList(self, alllvmparts, partlist):
-	""" update sizes in pv list
-
-	alllvmparts - list of pv from partitions.getAvailLVMPartitions
-	partlist - the checklist containing pv list
-	"""
-
+    def updateAllowedLvmPartitionsList(self):
+	""" update sizes in pv list """
 	row = 0
-	for part in alllvmparts:
+	for part in self.availlvmparts:
 	    size = part.size
 
 	    # clip size to current PE
@@ -360,8 +357,8 @@ class VolumeGroupEditor:
 	    size = lvm.clampSize(size, pesize)
 	    partsize = "%10.2f MB" % size
 
-	    iter = partlist.store.get_iter((int(row),))
-	    partlist.store.set_value(iter, 2, partsize)
+	    iter = self.lvmlist.store.get_iter((int(row),))
+	    self.lvmlist.store.set_value(iter, 2, partsize)
 	    row = row + 1
 	
     def getCurrentLogicalVolume(self):
@@ -370,17 +367,11 @@ class VolumeGroupEditor:
 	return iter
 
     def editLogicalVolume(self, lv, isNew = 0):
-        if not lv:
-            return
-
 	if isNew:
 	    tstr = _("Make Logical Volume")
 	else:
-	    try:
-		tstr = _("Edit Logical Volume: %s") % (lv.name,)
-	    except AttributeError:
-		tstr = _("Edit Logical Volume")
-	    
+	    tstr = _("Edit Logical Volume: %s") % lv['name']
+
         dialog = gtk.Dialog(tstr, self.parent)
         gui.addFrame(dialog)
         dialog.add_button('gtk-cancel', 2)
@@ -392,14 +383,26 @@ class VolumeGroupEditor:
         maintable.set_col_spacings(5)
         row = 0
 
-        if lv.format.type == "luks":
-            luksdev = self.findLUKSDev(lv)
-            usedev = luksdev
-            format = usedev.format
-        elif lv:
-            luksdev = None
-            usedev = lv
-            format = lv.format
+        tempvg = self.getTempVG()
+        templv = None
+        templuks = None
+        usedev = None
+        for _lv in tempvg.lvs:
+            if _lv.lvname == lv['name']:
+                templv = _lv
+                usedev = templv
+                if templv.format.type == "luks":
+                    templuks = LUKSDevice("luks-%s" % lv['name'],
+                                          parents=[templv],
+                                          format=self.luks[lv['name']],
+                                          exists=templv.format.exists)
+                    usedev = templuks
+                break
+
+        if lv['format'].type == "luks":
+            format = self.luks[lv['name']]
+        else:
+            format = lv['format']
 
         lbl = createAlignedLabel(_("_Mount Point:"))
 	maintable.attach(lbl, 0, 1, row,row+1)
@@ -408,13 +411,13 @@ class VolumeGroupEditor:
         maintable.attach(mountCombo, 1, 2, row, row + 1)
         row += 1
 
-        if not format.exists:
+        if not lv['exists']:
             lbl = createAlignedLabel(_("_File System Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
             newfstypeCombo = createFSTypeMenu(format,
                                               fstypechangeCB,
                                               mountCombo,
-                                              ignorefs = ["software RAID", "physical volume (LVM)", "vfat", "efi", "PPC PReP Boot", "Apple Bootstrap"])
+                                              ignorefs = ["software RAID", "physical volume (LVM)", "vfat", "PPC PReP Boot", "hfs"])
             lbl.set_mnemonic_widget(newfstypeCombo)
             maintable.attach(newfstypeCombo, 1, 2, row, row + 1)
             row += 1
@@ -437,49 +440,61 @@ class VolumeGroupEditor:
                                  1, 2, row, row + 1)
                 row += 1
 
-        if not lv.exists:
+        if not lv['exists']:
             lbl = createAlignedLabel(_("_Logical Volume Name:"))
             lvnameEntry = gtk.Entry(32)
             lbl.set_mnemonic_widget(lvnameEntry)
-            if lv and lv.lvname:
-                lvnameEntry.set_text(lv.lvname)
+            if lv['name']:
+                lvnameEntry.set_text(lv['name'])
             else:
-                lvnameEntry.set_text(storage.createSuggestedLVName(self.vg))
+                lvnameEntry.set_text(storage.createSuggestedLVName(self.getTempVG()))
         else:
             lbl = createAlignedLabel(_("Logical Volume Name:"))
-            lvnameEntry = gtk.Label(lv.lvname)
+            lvnameEntry = gtk.Label(lv['name'])
             
         maintable.attach(lbl, 0, 1, row, row + 1)
         maintable.attach(lvnameEntry, 1, 2, row, row + 1)
         row += 1
 
-        if not lv.exists:
+        if not lv['exists']:
             lbl = createAlignedLabel(_("_Size (MB):"))
             sizeEntry = gtk.Entry(16)
             lbl.set_mnemonic_widget(sizeEntry)
-            sizeEntry.set_text("%Ld" % lv.size)
+            sizeEntry.set_text("%Ld" % lv['size'])
         else:
             lbl = createAlignedLabel(_("Size (MB):"))
-            sizeEntry = gtk.Label(str(lv.size))
+            sizeEntry = gtk.Label(str(lv['size']))
             
         maintable.attach(lbl, 0, 1, row, row+1)
         maintable.attach(sizeEntry, 1, 2, row, row + 1)
         row += 1
 
-        if not lv.exists:
-            maxlv = min(lvm.getMaxLVSize(), lv.size)
+        if not lv['exists']:
+            maxlv = min(lvm.getMaxLVSize(), lv['size'])
             maxlabel = createAlignedLabel(_("(Max size is %s MB)") % (maxlv,))
             maintable.attach(maxlabel, 1, 2, row, row + 1)
 
 	self.fsoptionsDict = {}
-	if lv.exists:
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(lv, maintable, row, mountCombo, self.storage, ignorefs = ["software RAID", "physical volume (LVM)", "vfat"], luksdev=luksdev)
+	if lv['exists']:
+            templuks = None
+            reallv = None
+            for _lv in self.vg.lvs:
+                if _lv.lvname == lv['name']:
+                    reallv = _lv
+                    if _lv.format.type == "luks":
+                        try:
+                            templuks = self.storage.devicetree.getChildren(_lv)[0]
+                        except IndexError:
+                            templuks = None
+                    break
+
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(reallv, maintable, row, mountCombo, self.storage, ignorefs = ["software RAID", "physical volume (LVM)", "vfat"], luksdev=templuks)
 
         # checkbutton for encryption using dm-crypt/LUKS
-        if not lv.exists:
+        if not lv['exists']:
             self.lukscb = gtk.CheckButton(_("_Encrypt"))
             self.lukscb.set_data("formatstate", 1)
-            if lv.format.type == "luks":
+            if lv['format'].type == "luks":
                 self.lukscb.set_active(1)
             else:
                 self.lukscb.set_active(0)
@@ -502,15 +517,14 @@ class VolumeGroupEditor:
             targetSize = None
             migrate = None
             format = None
+            newluks = None
 
-            if lv.format.type == "luks":
-                usedev = self.findLUKSDev(lv)
-                format = usedev.format
+            if templv.format.type == "luks":
+                format = self.luks[lv['name']]
             else:
-                usedev = lv
-                format = lv.format
+                format = templv.format
 
-            if not lv.exists:
+            if not templv.exists:
                 fmt_class = newfstypeCombo.get_active_value()
             else:
                 # existing lv
@@ -520,7 +534,7 @@ class VolumeGroupEditor:
 
 	    # validate logical volume name
 	    lvname = lvnameEntry.get_text().strip()
-            if not lv.exists:
+            if not templv.exists:
                 err = sanityCheckLogicalVolumeName(lvname)
                 if err:
                     self.intf.messageWindow(_("Illegal Logical Volume Name"),
@@ -529,11 +543,11 @@ class VolumeGroupEditor:
 
 	    # check that the name is not already in use
 	    used = 0
-	    for _lv in self.vg.lvs:
-		if lvname and lv.lvname == lvname:
+	    for _lv in self.lvs.values():
+		if _lv == lv:
 		    continue
 
-		if lv.lvname == lvname:
+		if _lv['name'] == lvname:
 		    used = 1
 		    break
 
@@ -552,15 +566,11 @@ class VolumeGroupEditor:
 		used = 0
 		curmntpt = getattr(format, "mountpoint", None)
 		    
-		for _lv in self.vg.lvs:
-                    if _lv.format.type == "luks":
-                        # XXX this won't work if the lvs haven't been
-                        #     added to the tree yet
-                        _usedev = self.findLUKSDev(_lv)
-                        _format = _usedev.format
+		for _lv in self.lvs.values():
+                    if _lv['format'].type == "luks":
+                        _format = self.luks[_lv['name']]
                     else:
-                        _usedev = _lv
-                        _format = _lv.format
+                        _format = _lv['format']
 
                     if not _format.mountable or curmntpt and \
 		       _format.mountpoint == curmntpt:
@@ -579,7 +589,7 @@ class VolumeGroupEditor:
 		    continue
 
             # check that size specification is numeric and positive
-            if not lv.exists:
+            if not templv.exists:
                 badsize = 0
                 try:
                     size = long(sizeEntry.get_text())
@@ -593,7 +603,7 @@ class VolumeGroupEditor:
                                               "than 0."), custom_icon="error")
                     continue
             else:
-                size = lv.size
+                size = templv.size
 
             # check that size specification is within limits
 	    pesize = int(self.peCombo.get_active_value()) / 1024.0
@@ -614,93 +624,70 @@ class VolumeGroupEditor:
 
             # Ok -- now we've done all the checks to validate the
             # user-specified parameters. Time to set up the device...
-            if not lv.exists:
-                lv._name = lvname
-                lv.size = size
-                lv.req_grow = False
+            origname = templv.lvname
+            if not templv.exists:
+                templv._name = lvname
+                templv.size = size
                 format = fmt_class(mountpoint=mountpoint)
                 if self.lukscb and self.lukscb.get_active() and \
-                   lv.format.type != "luks":
-                    luksformat = format
+                   templv.format.type != "luks":
+                    newluks = format
                     format = getFormat("luks",
                                        passphrase=self.storage.encryptionPassphrase)
-                    luksdev = LUKSDevice("luks-%s" % lv.name,
-                                         format=luksformat,
-                                         parents=lv)
-                elif self.lukscb and not self.lukscb.get_active() and \
-                     lv.format.type == "luks":
-                    # destroy luks format and mapped device
-                    luksdev = self.findLUKSDev(lv)
-                    if luksdev:
-                        actions.append(ActionDestroyFormat(luksdev.format))
-                        actions.append(ActionDestroyDevice(luksdev))
-                        luksdev = None
-                    actions.append(ActionDestroyFormat(lv))
-
-                if lv.lvname not in self.lvs:
-                    actions.append(ActionCreateDevice(lv))
-                    actions.append(ActionCreateFormat(lv))
-                    self.lvs[lv.lvname] = lv
-
-                if luksdev:
-                    actions.append(ActionCreateDevice(luksdev))
-                    actions.append(ActionCreateFormat(luksdev))
+                templv.format = format
             else:
                 # existing lv
 		if self.fsoptionsDict.has_key("formatcb") and \
                    self.fsoptionsDict["formatcb"].get_active():
                     format = fmt_class(mountpoint=mountpoint)
                     if self.lukscb and self.lukscb.get_active() and \
-                       lv.format.type != "luks":
-                        luksformat = format
+                       templv.format.type != "luks":
+                        newluks = format
                         format = getFormat("luks",
-                                           device=lv.path,
+                                           device=templv.path,
                                            passphrase=self.storage.encryptionPassphrase)
-                        luksdev = LUKSDevice("luks-%s" % lv.name,
-                                             format=luksformat,
-                                             parents=lv)
-                    elif self.lukscb and not self.lukscb.get_active() and \
-                         lv.format.type == "luks":
-                        # destroy luks format and mapped device
-                        luksdev = self.findLUKSDev(lv)
-                        if luksdev:
-                            actions.append(ActionDestroyFormat(luksdev.format))
-                            actions.append(ActionDestroyDevice(luksdev))
-                            luksdev = None
-                        actions.append(ActionDestroyFormat(lv))
-                elif lv.format.mountable:
-                    lv.format.mountpoint = mountpoint
+
+                    templv.format = format
+                elif format.mountable:
+                    templv.format.mountpoint = mountpoint
 
 		if self.fsoptionsDict.has_key("migratecb") and \
 		   self.fsoptionsDict["migratecb"].get_active():
-                    migrate = True
+                    format.migrate = True
 
                 if self.fsoptionsDict.has_key("resizecb") and self.fsoptionsDict["resizecb"].get_active():
                     targetSize = self.fsoptionsDict["resizesb"].get_value_as_int()
-                    actions.append(ActionResizeDevice(lv, targetSize))
-                    if lv.format.type:
-                        actions.append(ActionResizeFormat(lv, targetSize))
+                    templv.targetSize = targetSize
+                    format.targetSize = targetSize
 
+                templv.format = format
 
-                if format:
-                    actions.append(ActionDestroyFormat(usedev))
-                    actions.append(ActionCreateFormat(usedev, format))
-                    if luksdev:
-                        actions.append(ActionCreateDevice(luksdev))
-                        actions.append(ActionCreateFormat(luksdev))
-
-                if migrate:
-                    actions.append(ActionMigrateFormat(usedev))
-
-	    if usedev.format.exists and format.mountable and \
-               self.storage.formatByDefault(usedev) and \
-	       not queryNoFormatPreExisting(self.intf):
+            if format.exists and format.mountable and format.mountpoint:
+                tempdev = StorageDevice('tmp', format=format)
+                if self.storage.formatByDefault(tempdev) and \
+                   not queryNoFormatPreExisting(self.intf):
 		    continue
 
 	    # everything ok
 	    break
 
-        self.actions.extend(actions)
+        if templv.format.type == "luks":
+            if newluks:
+                self.luks[templv.lvname] = newluks
+
+            if self.luks.has_key(origname) and origname != templv.lvname:
+                self.luks[templv.lvname] = self.luks[origname]
+                del self.luks[templv.lvname]
+        elif templv.format.type != "luks" and self.luks.has_key(origname):
+            del self.luks[origname]
+
+        self.lvs[templv.lvname] = {'name': templv.lvname,
+                                   'size': templv.size,
+                                   'format': templv.format,
+                                   'exists': templv.exists}
+        if self.lvs.has_key(origname) and origname != templv.lvname:
+            del self.lvs[origname]
+
         self.updateLogVolStore()
 	self.updateVGSpaceLabels()
         dialog.destroy()
@@ -734,12 +721,15 @@ class VolumeGroupEditor:
 				      "the currently existing "
 				      "logical volumes"), custom_icon="error")
 	    return
-	    
-        lv = self.storage.newLV(vg=self.vg,
-                                fmt_type=self.storage.defaultFSType,
-                                size=free)
-	self.editLogicalVolume(lv, isNew = 1)
-	return
+
+        tempvg = self.getTempVG()
+        name = self.storage.createSuggestedLVName(tempvg)
+        self.lvs[name] = {'name': name,
+                          'size': free,
+                          'format': getFormat(self.storage.defaultFSType),
+                          'exists': False}
+        self.editLogicalVolume(self.lvs[name], isNew = 1)
+        return
 
     def editLogicalVolumeCB(self, widget):
 	self.editCurrentLogicalVolume()
@@ -761,21 +751,20 @@ class VolumeGroupEditor:
 	if not rc:
 	    return
 
-        lv = self.lvs[logvolname]
-        action = ActionDestroyDevice(lv)
-        self.actions.append(action)
-	self.logvolstore.remove(iter)
-	self.updateVGSpaceLabels()
-	return
+        del self.lvs[logvolname]
+        self.logvolstore.remove(iter)
+        self.updateVGSpaceLabels()
+        return
     
     def logvolActivateCb(self, view, path, col):
 	self.editCurrentLogicalVolume()
 
-    def getSelectedPhysicalVolumes(self, model):
-	pv = []
-	next = model.get_iter_first()
-	currow = 0
-	while next is not None:
+    def getSelectedPhysicalVolumes(self):
+        model = self.lvmlist.get_model()
+        pv = []
+        next = model.get_iter_first()
+        currow = 0
+        while next is not None:
 	    iter = next
 	    val      = model.get_value(iter, 0)
 	    partname = model.get_value(iter, 1)
@@ -792,10 +781,10 @@ class VolumeGroupEditor:
     def computeVGSize(self, pvlist, curpe):
 	availSpaceMB = 0L
 	for pv in pvlist:
-            # XXX why the subtraction?
+            # have to clamp pvsize to multiple of PE
+            # XXX why the subtraction? fudging metadata?
 	    pvsize = lvm.clampSize(pv.size, curpe) - (curpe/1024)
 
-	    # have to clamp pvsize to multiple of PE
 	    availSpaceMB = availSpaceMB + pvsize
 
         log.info("computeVGSize: vgsize is %s" % (availSpaceMB,))
@@ -808,40 +797,25 @@ class VolumeGroupEditor:
 
 	return neededSpaceMB
 
-    def findLUKSDev(self, lv):
-        if lv.format.type == "luks":
-            actions = self.actions[:]
-            actions.reverse()
-            usedev = None
-            for action in actions:
-                if action.isCreate() and action.isDevice() and \
-                   action.device.parents == [lv]:
-                    usedev = action.device
-                    break
-            if not usedev:
-                usedev = self.storage.devicetree.getChildren(lv)[0]
-
-            return usedev
-
     def updateLogVolStore(self):
         self.logvolstore.clear()
-        for lv in self.vg.lvs:
+        for lv in self.lvs.values():
             iter = self.logvolstore.append()
-            if lv.format.type == "luks":
-                usedev = self.findLUKSDev(lv)
+            if lv['format'].type == "luks":
+                format = self.luks[lv['name']]
             else:
-                usedev = lv
+                format = lv['format']
 
-            mntpt = getattr(usedev.format, "mountpoint", "")
-            if lv.lvname:
-                self.logvolstore.set_value(iter, 0, lv.lvname)
+            mntpt = getattr(format, "mountpoint", "")
+            if lv['name']:
+                self.logvolstore.set_value(iter, 0, lv['name'])
                 
-            if usedev.format.type and usedev.format.mountable:
+            if format.type and format.mountable:
                 self.logvolstore.set_value(iter, 1, mntpt)
 	    else:
 		self.logvolstore.set_value(iter, 1, "N/A")
 
-            self.logvolstore.set_value(iter, 2, "%Ld" % (lv.size,))
+            self.logvolstore.set_value(iter, 2, "%Ld" % lv['size'])
 
     def updateVGSpaceLabels(self):
         (total, used, free) = self.computeSpaceValues()
@@ -878,7 +852,7 @@ class VolumeGroupEditor:
 		self.destroy()
 		return []
 
-	    pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
+	    pvlist = self.getSelectedPhysicalVolumes()
 
 	    # check volume name
 	    volname = self.volnameEntry.get_text().strip()
@@ -888,10 +862,7 @@ class VolumeGroupEditor:
 					custom_icon="error")
 		continue
 
-	    if self.vg:
-		origvname = self.vg.name
-	    else:
-		origvname = None
+	    origvname = self.vg.name
 
 	    if origvname != volname:
                 # maybe we should see if _any_ device has this name
@@ -909,12 +880,172 @@ class VolumeGroupEditor:
 	    # everything ok
 	    break
 
-        # pvs, pesize are taken care of in widget callbacks
-        # (clickCB, peChangeCB)
-        if self.isNew:
+        # here we have to figure out what all was done and convert it to
+        # devices and actions
+        #
+        # set up the vg with the right pvs
+        # set up the lvs
+        #  set up the lvs' formats
+        #
+        log.debug("finished editing vg")
+        log.debug("pvs: %s" % [p.name for p in self.pvs])
+        log.debug("luks: %s" % self.luks.keys())
+        for lv in self.lvs.itervalues():
+            log.debug("lv %s" % lv)
+            _luks = self.luks.get(lv['name'])
+            if _luks:
+                log.debug("  luks: %s" % _luks)
+
+        actions = []
+        origlvs = self.vg.lvs
+        if not self.vg.exists:
+            log.debug("non-existing vg -- setting up lvs, pvs, name, pesize")
+            # remove all of the lvs
+            for lv in self.vg.lvs:
+                self.vg._removeLogVol(lv)
+
+            # set up the pvs
+            for pv in self.vg.pvs:
+                if pv not in self.pvs:
+                    self.vg._removePV(pv)
+            for pv in self.pvs:
+                if pv not in self.vg.pvs:
+                    self.vg._addPV(pv)
+
             self.vg.name = volname
-            self.actions.insert(0, ActionCreateDevice(self.vg))
-	return self.actions
+            self.vg.pesize = pesize
+
+            if self.isNew:
+                actions = [ActionCreateDevice(self.vg)]
+
+        # Schedule destruction of all non-existing lvs, their formats,
+        # luks devices, &c. Also destroy devices that have been removed.
+        for lv in origlvs:
+            log.debug("old lv %s..." % lv.lvname)
+            if not lv.exists or lv.lvname not in self.lvs or \
+               (not self.lvs[lv.lvname]['exists'] and lv.exists):
+                log.debug("removing lv %s" % lv.lvname)
+                if lv.format.type == "luks":
+                    try:
+                        _luksdev = self.storage.devicetree.getChildren(lv)[0]
+                    except IndexError:
+                        pass
+                    else:
+                        if _luksdev.format.type:
+                            actions.append(ActionDestroyFormat(_luksdev))
+
+                        actions.append(ActionDestroyDevice(_luksdev))
+
+                if lv.format.type:
+                    actions.append(ActionDestroyFormat(lv))
+
+                if lv in self.vg.lvs:
+                    self.vg._removeLogVol(lv)
+
+                actions.append(ActionDestroyDevice(lv))
+
+        # schedule creation of all new lvs, their formats, luks devices, &c
+        tempvg = self.getTempVG()
+        for lv in tempvg.lvs:
+            log.debug("new lv %s" % lv)
+            if not lv.exists:
+                log.debug("creating lv %s" % lv.lvname)
+                # create the device
+                newlv = LVMLogicalVolumeDevice(lv.lvname,
+                                               self.vg,
+                                               size=lv.size)
+                actions.append(ActionCreateDevice(newlv))
+
+                # create the format
+                mountpoint = getattr(lv.format, "mountpoint", None)
+                format = getFormat(lv.format.type,
+                                   mountpoint=mountpoint,
+                                   device=newlv.path)
+                actions.append(ActionCreateFormat(newlv, format))
+
+                if lv.format.type == "luks":
+                    # create the luks device
+                    newluks = LUKSDevice("luks-%s" % newlv.name,
+                                         parents=[newlv])
+                    actions.append(ActionCreateDevice(newluks))
+
+                    # create the luks format
+                    oldfmt = self.luks[lv.lvname]
+                    mountpoint = getattr(oldfmt, "mountpoint", None)
+                    format = getFormat(oldfmt.type,
+                                       mountpoint=mountpoint,
+                                       device=newluks.path)
+                    actions.append(ActionCreateFormat(newluks, format))
+            else:
+                log.debug("lv %s already exists" % lv.lvname)
+                # this lv is preexisting. check for resize and reformat.
+                # first, get the real/original lv
+                origlv = None
+                for _lv in self.vg.lvs:
+                    if _lv.lvname == lv.lvname:
+                        origlv = _lv
+                        break
+
+                if lv.resizable and lv.targetSize != origlv.currentSize:
+                    actions.append(ActionResizeDevice(origlv, lv.targetSize))
+
+                if lv.format.exists:
+                    log.debug("format already exists")
+                    if hasattr(origlv.format, "mountpoint"):
+                        origlv.format.mountpoint = lv.format.mountpoint
+
+                    if lv.format.migratable and lv.format.migrate and \
+                       not origlv.format.migrate:
+                        origlv.format.migrate = lv.format.migrate
+                        actions.append(ActionMigrateFormat(origlv))
+
+                    if lv.format.resizable and \
+                       lv.format.targetSize != lv.format.currentSize:
+                        new_size = lv.format.targetSize
+                        actions.append(ActionResizeFormat(origlv, new_size))
+                elif lv.format.type:
+                    log.debug("new format: %s" % lv.format.type)
+                    # destroy old format and any associated luks devices
+                    if origlv.format.type:
+                        if origlv.format.type == "luks":
+                            # destroy the luks device and its format
+                            try:
+                                _luksdev = self.storage.devicetree.getChildren(origlv)[0]
+                            except IndexError:
+                                pass
+                            else:
+                                if _luksdev.format.type:
+                                    # this is probably unnecessary
+                                    actions.append(ActionDestroyFormat(_luksdev))
+
+                                actions.append(ActionDestroyDevice(_luksdev))
+
+                        actions.append(ActionDestroyFormat(origlv))
+
+                    # create the format
+                    mountpoint = getattr(lv.format, "mountpoint", None)
+                    format = getFormat(lv.format.type,
+                                       mountpoint=mountpoint,
+                                       device=origlv.path)
+                    actions.append(ActionCreateFormat(origlv, format))
+
+                    if lv.format.type == "luks":
+                        # create the luks device
+                        newluks = LUKSDevice("luks-%s" % origlv.name,
+                                             parents=[origlv])
+                        actions.append(ActionCreateDevice(newluks))
+
+                        # create the luks format
+                        tmpfmt = self.luks[lv.lvname]
+                        mountpoint = getattr(tmpfmt, "mountpoint", None)
+                        format = getFormat(tmpfmt.type,
+                                           mountpoint=mountpoint,
+                                           device=newluks.path)
+                        actions.append(ActionCreateFormat(newluks, format))
+                else:
+                    log.debug("no format!?")
+
+	return actions
 
     def destroy(self):
 	if self.dialog:
@@ -922,16 +1053,40 @@ class VolumeGroupEditor:
 	self.dialog = None
 
     def __init__(self, anaconda, intf, parent, vg, isNew = 0):
-	self.storage = anaconda.id.storage
-	self.vg = vg
+        self.storage = anaconda.id.storage
+
+        # the vg instance we were passed
+        self.vg = vg
+        self.peSize = vg.peSize
+        self.pvs = self.vg.pvs[:]
+
+        # a dict of dicts
+        #  keys are lv names
+        #  values are dicts representing the lvs
+        #   name, size, format instance, exists
         self.lvs = {}
-	self.isNew = isNew
-	self.intf = intf
-	self.parent = parent
+
+        # a dict of luks devices
+        #  keys are lv names
+        #  values are formats of the mapped devices
+        self.luks = {}
+
+        self.isNew = isNew
+        self.intf = intf
+        self.parent = parent
         self.actions = []
 
         for lv in self.vg.lvs:
-            self.lvs[lv.lvname] = lv
+            self.lvs[lv.lvname] = {"name": lv.lvname,
+                                   "size": lv.size,
+                                   "format": copy.copy(lv.format),
+                                   "exists": lv.exists}
+
+            if lv.format.type == "luks":
+                try:
+                    self.luks[lv.lvname] = self.storage.devicetree.getChildren(lv)[0].format
+                except IndexError:
+                    self.luks[lv.lvname] = lv.format
 
         self.availlvmparts = self.storage.unusedPVs(vg=vg)
 
@@ -997,7 +1152,7 @@ class VolumeGroupEditor:
         maintable.attach(self.peCombo, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
         row = row + 1
 
-        (self.lvmlist, sw) = self.createAllowedLvmPartitionsList(self.availlvmparts, self.storage.vgs)
+        (self.lvmlist, sw) = self.createAllowedLvmPartitionsList()
         if vg.exists:
             self.lvmlist.set_sensitive(False)
         self.lvmlist.set_size_request(275, 80)
@@ -1065,11 +1220,9 @@ class VolumeGroupEditor:
 		iter = self.logvolstore.append()
 		self.logvolstore.set_value(iter, 0, lv.lvname)
                 if lv.format.type == "luks":
-                    usedev = self.storage.devicetree.getChildren(lv)[0]
-                    format = usedev.format
+                    format = self.storage.devicetree.getChildren(lv)[0].format
                 else:
-                    usedev = lv
-                    format = usedev.format
+                    format = lv.format
 
                 if getattr(format, "mountpoint", None):
 		    self.logvolstore.set_value(iter, 1,
