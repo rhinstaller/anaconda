@@ -29,6 +29,7 @@ import stat
 import shutil
 import time
 import subprocess
+import storage
 
 import selinux
 
@@ -238,6 +239,13 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                                stdout="/dev/tty5",
                                stderr="/dev/tty5",
                                searchPath = 1)
+        # and now set the uuid in the storage layer
+        storage.udev.udev_settle()
+        rootDevice.updateSysfsPath()
+        iutil.notify_kernel("/sys%s" %rootDevice.sysfsPath)
+        info = storage.udev.udev_get_block_device("/sys%s" % rootDevice.sysfsPath)
+        rootDevice.format.uuid = storage.udev.udev_device_get_uuid(info)
+        log.info("reset the rootdev (%s) to have a uuid of %s" %(rootDevice.sysfsPath, rootDevice.format.uuid))
 
         # for any filesystem that's _not_ on the root, we need to handle
         # moving the bits from the livecd -> the real filesystems.
