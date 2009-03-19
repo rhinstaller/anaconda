@@ -341,7 +341,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # now write out the "real" fstab and mtab
         anaconda.id.storage.write(anaconda.rootPath)
         f = open(anaconda.rootPath + "/etc/mtab", "w+")
-        f.write(anaconda.id.fsset.mtab())
+        f.write(anaconda.id.storage.fsset.mtab())
         f.close()        
         
         # copy over the modprobe.conf
