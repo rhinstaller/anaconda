@@ -649,6 +649,7 @@ class Storage(object):
 
     def createSuggestedLVName(self, vg, swap=None, mountpoint=None):
         """ Return a suitable, unused name for a new logical volume. """
+        # FIXME: this is not at all guaranteed to work
         if mountpoint:
             # try to incorporate the mountpoint into the name
             if mountpoint == '/':
@@ -658,12 +659,24 @@ class Storage(object):
                 lvtemplate = "lv_%s" % (tmp,)
         else:
             if swap:
-                if len(self.swaps):
-                    lvtemplate = "lv_swap%02d" % (len(self.swaps),)
+                if len([s for s in self.swaps if s in vg.lvs]):
+                    idx = len([s for s in self.swaps if s in vg.lvs])
+                    while True:
+                        lvtemplate = "lv_swap%02d" % idx
+                        if lvtemplate in [lv.lvname for lv in vg.lvs]:
+                            idx += 1
+                        else:
+                            break
                 else:
                     lvtemplate = "lv_swap"
             else:
-                lvtemplate = "LogVol%02d" % (len(vg.lvs),)
+                idx = len(vg.lvs)
+                while True:
+                    lvtemplate = "LogVol%02d" % idx
+                    if lvtemplate in [l.lvname for l in vg.lvs]:
+                        idx += 1
+                    else:
+                        break
 
         return lvtemplate
 
