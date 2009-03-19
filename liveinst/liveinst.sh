@@ -56,6 +56,8 @@ if [ ! -e /selinux/load ]; then
     ANACONDA="$ANACONDA --noselinux"
 fi
 
+# devkit-disks is now mounting lots of stuff.  for now, let's just try to unmount it all
+umount /media/*
 /sbin/swapoff -a
 /sbin/lvm vgchange -an --ignorelockingfailure
 
