@@ -136,17 +136,18 @@ def writeBootloader(anaconda):
 
     kernelList = []
     otherList = []
-    rootDev = getattr(anaconda.id.storage.fsset.rootDevice, "name", None)
-    defaultDev = anaconda.id.bootloader.images.getDefault()
+    # getDefault needs to return a device, but that's too invasive for now.
+    rootDev = anaconda.id.storage.fsset.rootDevice
+    defaultDev = anaconda.id.storage.devicetree.getDeviceByName(anaconda.id.bootloader.images.getDefault())
 
     kernelLabel = None
     kernelLongLabel = None
 
     for (dev, (label, longlabel, type)) in anaconda.id.bootloader.images.getImages().items():
-        if (dev == rootDev) or (rootDev is None and kernelLabel is None):
+        if (rootDev is None and kernelLabel is None) or (dev == rootDev.name):
 	    kernelLabel = label
             kernelLongLabel = longlabel
-	elif dev == defaultDev:
+	elif dev == defaultDev.name:
 	    otherList = [(label, longlabel, dev)] + otherList
 	else:
 	    otherList.append((label, longlabel, dev))
@@ -175,7 +176,7 @@ def writeBootloader(anaconda):
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
             "# new kernels the default\n")
     # only update the default if we're setting the default to linux (#156678)
-    if rootDev == defaultDev:
+    if rootDev.name == defaultDev.name:
         f.write("UPDATEDEFAULT=yes\n")
     else:
         f.write("UPDATEDEFAULT=no\n")        

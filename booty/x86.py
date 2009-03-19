@@ -184,7 +184,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
         # get the default image to boot... we have to walk and find it
         # since grub indexes by where it is in the config file
-        if defaultDev == rootDev:
+        if defaultDev.name == rootDev.name:
             default = 0
         else:
             # if the default isn't linux, it's the first thing in the

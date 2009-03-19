@@ -333,7 +333,7 @@ class bootloaderInfo:
 
         rootDev = self.storage.fsset.rootDevice
 
-        if rootDev == defaultDev:
+        if rootDev.name == defaultDev.name:
             lilo.addEntry("default", kernelList[0][0])
         else:
             lilo.addEntry("default", chainList[0][0])
