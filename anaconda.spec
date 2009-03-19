@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.32
+Version: 11.5.0.33
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -210,6 +210,47 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar 19 2009 David Lehman <dlehman@redhat.com> - 11.5.0.33-1
+- Rework the lvm dialog. (#490301,#490966,#490681,#489870) (dlehman)
+- Improve chances of uniqueness from Storage.createSuggestedLVName. (dlehman)
+- Fix pruning of destroy actions for preexisting devices. (dlehman)
+- Devices should not be resizable unless they exist. (dlehman)
+- Try to activate an existing md array after adding each member. (dlehman)
+- Indicate filesystem is mountable if we have a mount command. (dcantrell)
+- Mount existing filesystems read-only when getting size. (dcantrell)
+- Fix some errors in the updates target. (dcantrell)
+- Place all mount.* commands in /sbin (dcantrell)
+- Fix error message reading and writing in doPwMount() (dcantrell)
+- Use booleans in isys.mount() and isys.umount() (dcantrell)
+- Add a FIXME comment for setting uuid in VG / LV create (hdegoede)
+- Do not traceback when writing anaconda.ks with iscsi with auth info.
+  (hdegoede)
+- Do not write LV uuid to grub.conf, but the filesystem uuid (hdegoede)
+- If a mountpoint depends on a network disk at _netdev to its fstab options
+  (hdegoede)
+- Do not hang when creating raid array with member having filesystem
+  detected (#490891) (rvykydal)
+- Destroy and create luks child of raid array too when editing in UI.
+  (rvykydal)
+- Editing non-existent raid device by destroying and creating actions
+  (rvykydal)
+- actionDestroyFormat call takes device, not format (rvykydal)
+- Fix getChildren call in partition UI (rvykydal)
+- Fix removing of devices with the same name from	tree when adding
+  create action. (rvykydal)
+- Do not duplicate requested minor number in edit raid UI list. (rvykydal)
+- Offer available partitions when editing non-preexisting raid request.
+  (rvykydal)
+- Don't try to fit the whole StorageDevice.__str__ output into the UI
+  (#490406). (clumens)
+- Make PartitionDevice handle both normal and dmraid partitions (hdegoede)
+- Stop overriding __init__ in DMRaidPartitionDevice (hdegoede)
+- Set format UUID after creating a format (hdegoede)
+- Fix result of updateSysfsPath to be consistent with initial sysfsPath
+  values (hdegoede)
+- Use getDevicesByInstance() for storage.partitions (hdegoede)
+- We no longer use iscsiadm anywhere (hdegoede)
+
 * Tue Mar 17 2009 Jesse Keating <jkeating@redhat.com> - 11.5.0.32-1
 - Typo fix. (clumens)
 - Make platform.checkBootRequest work better and not use diskset anymore. (clumens)
