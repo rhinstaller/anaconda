@@ -149,6 +149,7 @@ class RaidEditor:
             migrate = None
 	    model = self.raidlist.get_model()
 	    iter = model.get_iter_first()
+            format = None
 	    while iter:
 		val   = model.get_value(iter, 0)
 		part = model.get_value(iter, 1)
@@ -254,13 +255,13 @@ class RaidEditor:
 
 		if self.fsoptionsDict.has_key("migratecb") and \
 		   self.fsoptionsDict["migratecb"].get_active():
-                    if origrequest.format.type == "luks":
+                    if self.origrequest.format.type == "luks":
                         try:
-                            usedev = self.storage.devicetree.getChildren(origrequest)[0]
+                            usedev = self.storage.devicetree.getChildren(self.origrequest)[0]
                         except IndexError:
-                            usedev = origrequest
+                            usedev = self.origrequest
                     else:
-                        usedev = origrequest
+                        usedev = self.origrequest
                     migrate = True
 
                 if self.origrequest.format.exists and \
