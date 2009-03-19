@@ -39,11 +39,18 @@ def udev_get_block_devices():
             entries.append(entry)
     return entries
 
+def __is_blacklisted_blockdev(dev_name):
+    """Is this a blockdev we never want for an install?"""
+    if dev_name.startswith("loop") or dev_name.startswith("ram"):
+        return True
+
+    return False
+
 def enumerate_block_devices():
     top_dir = "/sys/class/block"
     devices = []
     for dev_name in os.listdir(top_dir):
-        if dev_name.startswith("loop") or dev_name.startswith("ram"):
+        if __is_blacklisted_blockdev(dev_name):
             continue
         full_path = os.path.join(top_dir, dev_name)
         link_ref = os.readlink(full_path)
