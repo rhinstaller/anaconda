@@ -458,7 +458,7 @@ class StorageDevice(Device):
     @property
     def resizable(self):
         """ Can this type of device be resized? """
-        return self._resizable
+        return self._resizable and self.exists
 
     def notifyKernel(self):
         """ Send a 'change' uevent to the kernel for this device. """
