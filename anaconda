@@ -778,7 +778,16 @@ if __name__ == "__main__":
         if opts.ksfile:
             anaconda.isKickstart = True
             instClass.setInstallData(anaconda)
+
+            #we need waitWindow valid in processKickstartFile. because storage uses it
+            from snack import *
+            screen = SnackScreen()
+            anaconda.intf = rescue.RescueInterface(screen)
+
             kickstart.processKickstartFile(anaconda, opts.ksfile)
+
+            anaconda.intf = None
+            screen.finish()
 
             # command line 'nomount' overrides kickstart /same for vnc/
             anaconda.rescue_mount = not (opts.rescue_nomount or anaconda.id.ksdata.rescue.nomount)

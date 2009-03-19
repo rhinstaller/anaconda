@@ -223,15 +223,15 @@ def runRescue(anaconda, instClass):
 
         sys.exit(0)
 
+    screen = SnackScreen()
+    anaconda.intf = RescueInterface(screen)
+
     if anaconda.isKickstart:
         if anaconda.id.ksdata.rescue and anaconda.id.ksdata.rescue.romount:
             readOnly = 1
         else:
             readOnly = 0
     else:
-        screen = SnackScreen()
-        anaconda.intf = RescueInterface(screen)
-
         # prompt to see if we should try and find root filesystem and mount
         # everything in /etc/fstab on that root
         rc = ButtonChoiceWindow(screen, _("Rescue"),
