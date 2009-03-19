@@ -54,6 +54,13 @@ def __is_blacklisted_blockdev(dev_name):
             log.info("%s looks to be the live device; ignoring" % (dev_name,))
             return True
 
+    if os.path.exists("/sys/class/block/%s/device/model" %(dev_name,)):
+        model = open("/sys/class/block/%s/device/model" %(dev_name,)).read()
+        for bad in ("IBM *STMF KERNEL", "SCEI Flash-5", "DGC LUNZ"):
+            if model.find(bad) != -1:
+                log.info("ignoring %s with model %s" %(dev_name, model))
+                return True
+
     return False
 
 def enumerate_block_devices():
