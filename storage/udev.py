@@ -50,6 +50,8 @@ def __is_blacklisted_blockdev(dev_name):
     if os.path.exists("/dev/live") and \
             stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
         livetarget = os.path.realpath("/dev/live")
+        if livetarget.startswith("/dev"):
+            livetarget = livetarget[5:]
         if livetarget.startswith(dev_name):
             log.info("%s looks to be the live device; ignoring" % (dev_name,))
             return True
