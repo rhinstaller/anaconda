@@ -1658,10 +1658,7 @@ class FSSet(object):
             options = options or "defaults"
             for netdev in netdevs:
                 if device.dependsOn(netdev):
-                    if mountpoint == "/":
-                        options = options + ",_rnetdev"
-                    else:
-                        options = options + ",_netdev"
+                    options = options + ",_netdev"
                     break
             devspec = device.fstabSpec
             dump = device.format.dump
