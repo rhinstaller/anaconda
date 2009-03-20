@@ -538,6 +538,7 @@ def doPartitioning(storage, exclusiveDisks=None):
 
     partitions = storage.partitions
     for part in partitions:
+        part.req_bootable = False
         if not part.exists:
             # start over with flexible-size requests
             part.req_size = part.req_base_size
@@ -548,7 +549,7 @@ def doPartitioning(storage, exclusiveDisks=None):
     except DeviceError:
         bootDev = None
 
-    if bootDev and not bootDev.exists:
+    if bootDev:
         bootDev.req_bootable = True
 
     # FIXME: make sure non-existent partitions have empty parents list

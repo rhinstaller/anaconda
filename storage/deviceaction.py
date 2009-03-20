@@ -269,10 +269,6 @@ class ActionCreateFormat(DeviceAction):
                 self.device.setFlag(self.format.partedFlag)
                 self.device.disk.commit()
 
-            if self.device.bootable:
-                self.device.setFlag(PARTITION_BOOT)
-                self.device.disk.commit()
-
         udev_settle()
         self.device.setup()
         self.device.format.create(intf=intf,

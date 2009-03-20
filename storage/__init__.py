@@ -183,6 +183,16 @@ class Storage(object):
     def doIt(self):
         self.devicetree.processActions()
 
+        # now set the boot partition's flag
+        try:
+            boot = self.anaconda.platform.bootDevice()
+        except DeviceError:
+            boot = None
+        else:
+            if hasattr(boot, "bootable"):
+                boot.bootable = True
+                boot.disk.commit()
+
     @property
     def nextID(self):
         id = self._nextID
