@@ -106,7 +106,7 @@ class PartitionTypeWindow:
                         selected = 0
 
                 sizestr = "%8.0f MB" % (disk.size,)
-                diskdesc = "%6s %s (%s)" % (disk.path, sizestr, model[:24],)
+                diskdesc = "%6s %s (%s)" % (disk.name, sizestr, model[:23],)
 
                 drivelist.append(diskdesc, selected = selected)
 
@@ -139,6 +139,7 @@ class PartitionTypeWindow:
                 continue
 
             anaconda.dispatch.skipStep("autopartitionexecute", skip = 0)
+            anaconda.id.storage.doAutoPart = True
             anaconda.id.storage.clearPartType = partmethod_ans
             anaconda.id.storage.clearPartDisks = sel
             break
