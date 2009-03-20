@@ -235,7 +235,7 @@ class IPSeriesPPC(PPC):
         bootDev = None
 
         # We want the first PReP partition.
-        for device in storage.partitions:
+        for device in self.anaconda.id.storage.partitions:
             if device.partedPartition.getFlag(parted.PARTITION_PREP):
                 bootDev = device
                 break
