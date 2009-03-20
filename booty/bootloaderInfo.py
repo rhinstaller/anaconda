@@ -82,20 +82,6 @@ def rootIsDevice(dev):
         return False
     return True
 
-# hackery to determine if we should do root=LABEL=/ or whatnot
-# as usual, knows too much about anaconda
-def getRootDevName(initrd, rootDevice):
-    if not os.access(initrd, os.R_OK):
-        return rootDevice.path
-
-    try:
-        if rootDevice.format.uuid:
-            return "UUID=%s" % rootDevice.format.uuid
-    except:
-        pass
-
-    return rootDevice.path
-
 class KernelArguments:
 
     def get(self):
@@ -359,7 +345,7 @@ class bootloaderInfo:
             sl.addEntry("read-only")
 
             append = "%s" %(self.args.get(),)
-            realroot = getRootDevName(instRoot+initrd, rootDev)
+            realroot = rootDev.fstabSpec
             if rootIsDevice(realroot):
                 sl.addEntry("root", rootDev.path)
             else:

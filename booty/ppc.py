@@ -121,7 +121,7 @@ class ppcBootloaderInfo(bootloaderInfo):
 
             append = "%s" %(self.args.get(),)
 
-            realroot = getRootDevName(instRoot+initrd, rootDev)
+            realroot = rootDev.fstabSpec
             if rootIsDevice(realroot):
                 f.write("\troot=%s\n" %(realroot,))
             else:

@@ -237,8 +237,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.write('title %s (%s)\n' % (longlabel, version))
             f.write('\troot %s\n' % self.grubbyPartitionName(bootDevs[0]))
 
-            realroot = getRootDevName(instRoot+initrd, rootDev)
-            realroot = " root=%s" %(realroot,)
+            realroot = " root=%s" % rootDev.fstabSpec
 
             if version.endswith("xen0") or (version.endswith("xen") and not os.path.exists("/proc/xen")):
                 # hypervisor case

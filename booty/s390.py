@@ -144,7 +144,7 @@ class s390BootloaderInfo(bootloaderInfo):
             if os.access (instRoot + initrd, os.R_OK):
                 f.write('\tramdisk=%sinitrd%s.img\n' %(self.kernelLocation,
                                                      kernelTag))
-            realroot = getRootDevName(instRoot+initrd, rootDev)
+            realroot = rootDev.fstabSpec
             f.write('\tparameters="root=%s' %(realroot,))
             if bl.args.get():
                 f.write(' %s' % (bl.args.get()))
