@@ -539,7 +539,7 @@ class FS(DeviceFormat):
         if rc:
             raise FSError("label failed")
 
-        self.fslabel = label
+        self.label = label
         self.notifyKernel()
 
     @property
@@ -828,8 +828,8 @@ class BTRFS(FS):
         if options and isinstance(options, list):
             argv.extend(options)
         argv.extend(self.defaultFormatOptions)
-        if self.fslabel:
-            argv.extend(["-L", self.fslabel])
+        if self.label:
+            argv.extend(["-L", self.label])
         argv.append(self.device)
         return argv
 
