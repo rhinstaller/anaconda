@@ -273,7 +273,10 @@ def runRescue(anaconda, instClass):
 
         devList = []
         for (device, relstr) in disks:
-            devList.append(device.path)
+            if getattr(device.format, "label", None):
+                devList.append("%s (%s) - %s" % (device.name, device.format.label, relstr))
+            else:
+                devList.append("%s - %s" % (device.name, relstr))
 
         (button, choice) = \
             ListboxChoiceWindow(screen, _("System to Rescue"),
@@ -286,7 +289,7 @@ def runRescue(anaconda, instClass):
         if button == string.lower (_("Exit")):
             root = None
         else:
-            root = disks[choice][0]
+            root = disks[choice]
 
     rootmounted = 0
 
