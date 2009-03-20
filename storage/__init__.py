@@ -222,22 +222,30 @@ class Storage(object):
             if device.format.type == "luks" and device.format.exists:
                 self.__luksDevs[device.format.uuid] = device.format._LUKS__passphrase
 
-        w = self.anaconda.intf.waitWindow(_("Finding Devices"),
-                                      _("Finding storage devices..."))
-        self.iscsi.startup(self.anaconda.intf)
-        self.zfcp.startup()
-        self.devicetree = DeviceTree(intf=self.anaconda.intf,
-                                     ignored=self.ignoredDisks,
-                                     exclusive=self.exclusiveDisks,
-                                     clear=self.clearPartDisks,
-                                     reinitializeDisks=self.reinitializeDisks,
-                                     protected=self.protectedPartitions,
-                                     zeroMbr=self.zeroMbr,
-                                     passphrase=self.encryptionPassphrase,
-                                     luksDict=self.__luksDevs)
-        self.devicetree.populate()
-        self.fsset = FSSet(self.devicetree)
-        w.pop()
+        try:
+            w = self.anaconda.intf.waitWindow(_("Finding Devices"),
+                                              _("Finding storage devices..."))
+            self.iscsi.startup(self.anaconda.intf)
+            self.zfcp.startup()
+            self.devicetree = DeviceTree(intf=self.anaconda.intf,
+                                         ignored=self.ignoredDisks,
+                                         exclusive=self.exclusiveDisks,
+                                         clear=self.clearPartDisks,
+                                         reinitializeDisks=self.reinitializeDisks,
+                                         protected=self.protectedPartitions,
+                                         zeroMbr=self.zeroMbr,
+                                         passphrase=self.encryptionPassphrase,
+                                         luksDict=self.__luksDevs)
+            self.devicetree.populate()
+            self.fsset = FSSet(self.devicetree)
+            w.pop()
+        except FSError as e:
+            self.anaconda.intf.messageWindow(_("Error"),
+                _("Filesystem error detected, cannot continue."),
+                custom_icon="error")
+            sys.exit(0)
+        finally:
+            w.pop()
 
     @property
     def devices(self):
