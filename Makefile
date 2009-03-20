@@ -185,6 +185,7 @@ updates:
 	fi ; \
 	git diff --stat $(ARCHIVE_TAG) | grep " | " | \
 	grep -v "\.spec" | grep -v "Makefile" | grep -v "\.c\ " | \
+	grep -v "\.h" | grep -v "\.sh" | \
 	while read sourcefile stuff ; do \
 		dn="$$(echo $$sourcefile | cut -d '/' -f 1)" ; \
 		case $$dn in \
