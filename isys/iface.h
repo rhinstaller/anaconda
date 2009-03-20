@@ -46,7 +46,6 @@ enum { IPV6_UNUSED_METHOD, IPV6_AUTO_METHOD, IPV6_DHCP_METHOD,
 
 /* Macros for starting NetworkManager */
 #define NETWORKMANAGER  "/usr/sbin/NetworkManager"
-#define OUTPUT_TERMINAL "/dev/tty5"
 
 /* Per-interface configuration information */
 typedef struct _iface_t {
