@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.33
+Version: 11.5.0.34
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -210,6 +210,34 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar 19 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.34-1
+- Catch FSError when detecting storage, prevent user from continuing.
+  (dcantrell)
+- If we have no error string, place None in the tuple. (dcantrell)
+- Move OUTPUT_TERMINAL definition to isys.h (dcantrell)
+- mount and umount commands are in /sbin now, remove from /usr/sbin
+  (dcantrell)
+- Avoid SIGSEGV in doPwMount() when NULL is last parameter (#491192)
+  (dcantrell)
+- Attempt disk commits 5 times before raising an exception. (dcantrell)
+- Add boot partition size limit properties and size validation method.
+  (dlehman)
+- Make sure boot flag gets set. (#491170) (dlehman)
+- Make bootable a property of PartitionDevice. (dlehman)
+- After setting up our random UUID, inform the storage layer (katzj)
+- Handle system crappyness. (jgranado)
+- Fix up checking for live image backing (katzj)
+- Let's not remove our mountpoints (katzj)
+- Fix writing the default= line in grub.conf (#490756). (clumens)
+- Revert "Fix pruning of destroy actions for preexisting devices." (dlehman)
+- Add more blacklisting (katzj)
+- Blacklist the live image backing device (katzj)
+- Move blockdev blacklisting to be a function (katzj)
+- Inhibit devkit-disks during a live install (katzj)
+- try to unmount everything from /media on live installs (katzj)
+- Fix live installs to not traceback (katzj)
+- Fix New partition in UI (rvykydal)
+
 * Thu Mar 19 2009 David Lehman <dlehman@redhat.com> - 11.5.0.33-1
 - Rework the lvm dialog. (#490301,#490966,#490681,#489870) (dlehman)
 - Improve chances of uniqueness from Storage.createSuggestedLVName. (dlehman)
