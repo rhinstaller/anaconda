@@ -861,7 +861,7 @@ class PartitionDevice(StorageDevice):
         self.req_base_size = 0
         self.req_max_size = 0
 
-        self.bootable = False
+        self._bootable = False
 
         self._resize = False
 
@@ -1043,23 +1043,26 @@ class PartitionDevice(StorageDevice):
         log_method_call(self, self.name)
         StorageDevice._setFormat(self, format)
 
-    def setBootable(self, bootable):
+    def _setBootable(self, bootable):
         """ Set the bootable flag for this partition. """
         if self.partedPartition:
-            if isFlagAvailable(parted.PARTITION_BOOT):
+            if self.flagAvailable(parted.PARTITION_BOOT):
                 if bootable:
-                    self.partedPartition.setFlag(parted.PARTITION_BOOT)
+                    self.setFlag(parted.PARTITION_BOOT)
                 else:
-                    self.partedPartition.unsetFlag(parted.PARTITION_BOOT)
+                    self.unsetFlag(parted.PARTITION_BOOT)
             else:
                 raise DeviceError(_("boot flag not available for this "
                                     "partition"))
+
+            self._bootable = bootable
         else:
-            if self.partType != parted.PARTITION_NORMAL:
-                raise DeviceError(_("boot flag only available to primary "
-                                    "partitions"))
-            else:
-                self.bootable = bootable
+            self.req_bootable = bootable
+
+    def _getBootable(self):
+        return self._bootable or self.req_bootable
+
+    bootable = property(_getBootable, _setBootable)
 
     def flagAvailable(self, flag):
         log_method_call(self, path=self.path, flag=flag,
@@ -1107,6 +1110,8 @@ class PartitionDevice(StorageDevice):
         self.targetSize = self._size
 
         self._partType = self.partedPartition.type
+
+        self._bootable = self.getFlag(parted.PARTITION_BOOT)
 
     def create(self, intf=None):
         """ Create the device. """
