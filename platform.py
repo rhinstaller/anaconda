@@ -41,6 +41,8 @@ class Platform(object):
     _diskType = parted.diskType["msdos"]
     _minimumSector = 0
     _supportsMdRaidBoot = False
+    _minBootPartSize = 50
+    _maxBootPartSize = 0
 
     def __init__(self, anaconda):
         """Creates a new Platform object.  This is basically an abstract class.
@@ -127,8 +129,27 @@ class Platform(object):
         """Does the platform support /boot on MD RAID?"""
         return self._supportsMdRaidBoot
 
+    @property
+    def minBootPartSize(self):
+        return self._minBootPartSize
+
+    @property
+    def maxBootPartSize(self):
+        return self._maxBootPartSize
+
+    def validBootPartSize(self, size):
+        """ Is the given size (in MB) acceptable for a boot device? """
+        if not isinstance(size, int) and not isinstance(size, float):
+            return False
+
+        return ((not self.minBootPartSize or size >= self.minBootPartSize)
+                and
+                (not self.maxBootPartSize or size <= self.maxBootPartSize))
+
 class EFI(Platform):
     _diskType = parted.diskType["gpt"]
+    _minBootPartSize = 50
+    _maxBootPartSize = 256
 
     def bootDevice(self):
         mntDict = self._mntDict()
@@ -157,7 +178,7 @@ class EFI(Platform):
 
         # Only add the EFI partition to the default set if there's not already
         # one on the system.
-        if len(filter(lambda dev: dev.format.type == "efi" and dev.size < 256 and dev.bootable,
+        if len(filter(lambda dev: dev.format.type == "efi" and self.validBootPartSize(dev.size),
                       self.anaconda.id.storage.partitions)) == 0:
             ret.append(("/boot/efi", "efi", 50, 200, 1, 0))
 
@@ -207,6 +228,9 @@ class PPC(Platform):
         return self._ppcMachine
 
 class IPSeriesPPC(PPC):
+    _minBootPartSize = 4
+    _maxBootPartSize = 10
+
     def bootDevice(self):
         bootDev = None
 
@@ -248,13 +272,15 @@ class IPSeriesPPC(PPC):
 
 class NewWorldPPC(PPC):
     _diskType = parted.diskType["mac"]
+    _minBootPartSize = (800.00 / 1024.00)
+    _maxBootPartSize = 1
 
     def bootDevice(self):
         bootDev = None
 
         for part in self.anaconda.id.storage.partitions:
             # XXX do we need to also check the size?
-            if part.format.type == "hfs" and part.bootable:
+            if part.format.type == "hfs" and self.validBootPartSize(part.size):
                 bootDev = part
 
         return bootDev
@@ -339,6 +365,20 @@ class X86(EFI):
     @property
     def isEfi(self):
         return self._isEfi
+
+    @property
+    def maxBootPartSize(self):
+        if self.isEfi:
+            return EFI._maxBootPartSize
+        else:
+            return Platform._maxBootPartSize
+
+    @property
+    def minBootPartSize(self):
+        if self.isEFI:
+            return EFI._minBootPartSize
+        else:
+            return Platform._minBootPartSize
 
     def setDefaultPartitioning(self):
         if self.isEfi:
