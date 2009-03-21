@@ -108,7 +108,7 @@ def turnOnFilesystems(anaconda):
         upgrade_migrate = False
         if anaconda.id.upgrade:
             for d in anaconda.id.storage.fsset.migratableDevices:
-                if d.migrate:
+                if d.format.migrate:
                     upgrade_migrate = True
 
         try:
