@@ -1591,7 +1591,7 @@ class FSSet(object):
         devices = self.mountpoints.values() + self.swapDevices
 
         # prune crypttab -- only mappings required by one or more entries
-        for name in self.cryptTab.mappings:
+        for name in self.cryptTab.mappings.keys():
             keep = False
             mapInfo = self.cryptTab[name]
             cryptoDev = mapInfo['device']
