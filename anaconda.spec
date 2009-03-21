@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.34
+Version: 11.5.0.35
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -210,6 +210,25 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Mar 20 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.35-1
+- Fix traceback in FSSet.crypttab. (#491160) (dlehman)
+- Fix traceback on upgrade. (#491446) (dlehman)
+- Do not include .h and .sh files in updates.img (dcantrell)
+- Make PartitionDevice resize work. (dcantrell)
+- Reset mouse pointer if we find an unreadable disk. (dcantrell)
+- Use label attr instead of non-existent fslabel attr. (#491120) (dlehman)
+- Need to notify the kernel of changes before udev settle (katzj)
+- Revert "mount and umount commands are in /sbin now, remove from /usr/sbin"
+  (dcantrell)
+- Make some fixes to the rescue mode system selection UI (#489973, #489977).
+  (clumens)
+- Fix text mode autopartitioning (#491282). (clumens)
+- Do not use _rnetdev as fstab option for network based / (hdegoede)
+- Make root= line in grub.conf and path spec in fstab consistent (hdegoede)
+- Fix a reference to the partitions list (#491335). (clumens)
+- Do not traceback at the very beginning of rescue mode (msivak)
+- Fix traceback when editing encrypted mdraid device in UI. (rvykydal)
+
 * Thu Mar 19 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.34-1
 - Catch FSError when detecting storage, prevent user from continuing.
   (dcantrell)
