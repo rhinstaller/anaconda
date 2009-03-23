@@ -694,7 +694,10 @@ class AnacondaYum(YumSorter):
             self.currentMedia = None
 
     def urlgrabberFailureCB (self, obj, *args, **kwargs):
-        log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
+        if hasattr(obj, "exception"):
+            log.warning("Try %s/%s for %s failed: %s" % (obj.tries, obj.retry, obj.url, obj.exception))
+        else:
+            log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
 
         if obj.tries == obj.retry:
             return
