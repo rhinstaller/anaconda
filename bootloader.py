@@ -36,7 +36,7 @@ import logging
 log = logging.getLogger("anaconda")
 
 import booty
-from booty import bootloaderInfo
+from booty import bootloaderInfo, checkbootloader
 
 def bootloaderSetupChoices(anaconda):
     if anaconda.dir == DISPATCH_BACK:
@@ -120,7 +120,6 @@ def writeBootloader(anaconda):
 
     # now make the upgrade stuff work for kickstart too. ick.
     if anaconda.isKickstart and anaconda.id.bootloader.doUpgradeOnly:
-        import checkbootloader
         (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.id.storage)
         
         anaconda.id.bootloader.doUpgradeonly = 1
