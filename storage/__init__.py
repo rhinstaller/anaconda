@@ -240,6 +240,9 @@ class Storage(object):
             self.fsset = FSSet(self.devicetree)
             w.pop()
         except FSError as e:
+            if w:
+                w.pop()
+
             self.anaconda.intf.messageWindow(_("Error"),
                 _("Filesystem error detected, cannot continue."),
                 custom_icon="error")

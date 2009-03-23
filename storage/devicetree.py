@@ -122,7 +122,6 @@ def questionInitializeDisk(intf=None, name=None):
     if not intf or not name:
         pass
     else:
-        intf.icw.busyCursorPop()
         rc = intf.messageWindow(_("Warning"),
                 _("Error processing drive %s.\n"
                   "Maybe it needs to be reinitialized."
