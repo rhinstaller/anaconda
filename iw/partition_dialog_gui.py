@@ -238,9 +238,13 @@ class PartitionEditor:
                 if self.fsoptionsDict.has_key("resizecb") and \
                    self.fsoptionsDict["resizecb"].get_active():
                     size = self.fsoptionsDict["resizesb"].get_value_as_int()
-                    actions.append(ActionResizeDevice(request, size))
-                    if request.format.type:
-                        actions.append(ActionResizeFormat(request, size))
+
+                    try:
+                        actions.append(ActionResizeDevice(request, size))
+                        if request.format.type:
+                            actions.append(ActionResizeFormat(request, size))
+                    except ValueError:
+                        pass
 
                 if request.format.exists and \
                    getattr(request, "mountpoint", None) and \
