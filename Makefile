@@ -183,6 +183,7 @@ updates:
 	@if [ ! -d updates-img ]; then \
 		mkdir updates-img ; \
 	fi ; \
+	build_isys="$$(git diff --stat anaconda-11.5.0.35-1 isys | grep " | " | cut -d ' ' -f 2 | egrep "(Makefile|\.h|\.c)$$")" ; \
 	git diff --stat $(ARCHIVE_TAG) | grep " | " | \
 	grep -v "\.spec" | grep -v "Makefile" | grep -v "\.c\ " | \
 	grep -v "\.h" | grep -v "\.sh" | \
@@ -199,11 +200,15 @@ updates:
 				cp -a $$sourcefile updates-img ;; \
 		esac ; \
 	done ; \
+	if [ ! -z "$$build_isys" ]; then \
+		make -C isys ; \
+		cp isys/_isys.so updates-img ; \
+	fi ; \
 	cd updates-img ; \
 	echo -n "Creating updates.img..." ; \
 	( find . | cpio -c -o | gzip -9c ) > ../updates.img ; \
 	cd .. ; \
 	keep="$$(echo $(KEEP) | cut -c1 | tr [a-z] [A-Z])" ; \
 	if [ ! "$$keep" = "Y" ]; then \
-		rm -rf updates-imgs ; \
+		rm -rf updates-img ; \
 	fi
