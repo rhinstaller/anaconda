@@ -73,8 +73,7 @@ def storageInitialize(anaconda):
         method = anaconda.methodstr[3:]
         devspec = method.split(":", 3)[0]
 
-        # XXX might as well move resolveDevice into DeviceTree
-        device = storage.resolveDevice(storage.devicetree, devspec)
+        device = storage.devicetree.resolveDevice(devspec)
         if device is None:
             if self.getUpgrade():
                 return
@@ -1076,9 +1075,8 @@ class CryptTab(object):
                     (name, devspec, keyfile, options) = fields
 
                     # resolve devspec to a device in the tree
-                    device = resolveDevice(self.devicetree,
-                                           devspec,
-                                           blkidTab=self.blkidTab)
+                    device = self.devicetree.resolveDevice(devspec,
+                                                           blkidTab=self.blkidTab)
                     if device:
                         self.mappings[name] = {"device": device,
                                                "keyfile": keyfile,
@@ -1215,10 +1213,9 @@ class FSSet(object):
 
     def _parseOneLine(self, (devspec, mountpoint, fstype, options, dump, passno)):
         # find device in the tree
-        device = resolveDevice(self.devicetree,
-                               devspec,
-                               cryptTab=self.cryptTab,
-                               blkidTab=self.blkidTab)
+        device = self.devicetree.resolveDevice(devspec,
+                                               cryptTab=self.cryptTab,
+                                               blkidTab=self.blkidTab)
         if device:
             # fall through to the bottom of this block
             pass
@@ -1722,76 +1719,3 @@ class FSSet(object):
             fstab = fstab + format % (devspec, mountpoint, fstype,
                                       options, dump, passno)
         return fstab
-
-def resolveDevice(tree, devspec, blkidTab=None, cryptTab=None):
-    # find device in the tree
-    device = None
-    if devspec.startswith("UUID="):
-        # device-by-uuid
-        uuid = devspec.partition("=")[2]
-        device = tree.uuids.get(uuid)
-        if device is None:
-            log.error("failed to resolve device %s" % devspec)
-    elif devspec.startswith("LABEL="):
-        # device-by-label
-        label = devspec.partition("=")[2]
-        device = tree.fslabels.get(label)
-        if device is None:
-            log.error("failed to resolve device %s" % devspec)
-    elif devspec.startswith("/dev/"):
-        # device path
-        device = tree.devices.get(devspec)
-        if device is None:
-            if blkidTab:
-                # try to use the blkid.tab to correlate the device
-                # path with a UUID
-                blkidTabEnt = blkidTab.get(devspec)
-                if blkidTabEnt:
-                    log.debug("found blkid.tab entry for '%s'" % devspec)
-                    uuid = blkidTabEnt.get("UUID")
-                    if uuid:
-                        device = tree.getDeviceByUuid(uuid)
-                        if device:
-                            devstr = device.name
-                        else:
-                            devstr = "None"
-                        log.debug("found device '%s' in tree" % devstr)
-                    if device and device.format and \
-                       device.format.type == "luks":
-                        map_name = device.format.mapName
-                        log.debug("luks device; map name is '%s'" % map_name)
-                        mapped_dev = tree.getDeviceByName(map_name)
-                        if mapped_dev:
-                            device = mapped_dev
-
-            if device is None and cryptTab and \
-               devspec.startswith("/dev/mapper/"):
-                # try to use a dm-crypt mapping name to 
-                # obtain the underlying device, possibly
-                # using blkid.tab
-                cryptTabEnt = cryptTab.get(devspec.split("/")[-1])
-                if cryptTabEnt:
-                    luks_dev = cryptTabEnt['device']
-                    try:
-                        device = tree.getChildren(luks_dev)[0]
-                    except IndexError as e:
-                        pass
-            elif device is None:
-                # dear lvm: can we please have a few more device nodes
-                #           for each logical volume?
-                #           three just doesn't seem like enough.
-                name = devspec[5:]      # strip off leading "/dev/"
-                (vg_name, slash, lv_name) = name.partition("/")
-                if lv_name and not "/" in lv_name:
-                    # looks like we may have one
-                    lv = "%s-%s" % (vg_name, lv_name)
-                    device = tree.getDeviceByName(lv)
-
-    if device:
-        log.debug("resolved '%s' to '%s' (%s)" % (devspec, device.name, device.type))
-    else:
-        log.debug("failed to resolve '%s'" % devspec)
-    return device
-
-
-
