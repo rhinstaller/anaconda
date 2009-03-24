@@ -571,6 +571,9 @@ class Anaconda:
             if not tree.startswith("/"):
                 tree = "/%s" %(tree,)
 
+            if device.startswith("/dev/"):
+                device = device[5:]
+
             self.mediaDevice = device
             self.methodstr = "cdrom://%s" % tree
         else:

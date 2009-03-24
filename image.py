@@ -264,7 +264,7 @@ def scanForMedia(tree, storage):
             isys.umount(tree)
             continue
 
-        return dev.path
+        return dev.name
 
     return None
 
