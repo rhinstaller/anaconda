@@ -322,27 +322,28 @@ class AnacondaYum(YumSorter):
             self._timestamp = f.readline().strip()
             f.close()
 
+        dev = self.anaconda.id.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
+        dev.format.mountpoint = self.tree
+
         # If self.currentMedia is None, then there shouldn't be anything
         # mounted.  Before going further, see if the correct disc is already
         # in the drive.  This saves a useless eject and insert if the user
         # has for some reason already put the disc in the drive.
         if self.currentMedia is None:
             try:
-                isys.mount(self.anaconda.mediaDevice, self.tree,
-                           fstype="iso9660", readOnly=True)
+                dev.format.mount()
 
                 if verifyMedia(self.tree, discnum, None):
                     self.currentMedia = discnum
                     return
 
-                isys.umount(self.tree)
+                dev.format.unmount()
             except:
                 pass
         else:
-            unmountCD(self.tree, self.anaconda.intf.messageWindow)
+            unmountCD(dev, self.anaconda.intf.messageWindow)
             self.currentMedia = None
 
-        dev = self.anaconda.id.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
         dev.eject()
 
         while True:
@@ -354,8 +355,7 @@ class AnacondaYum(YumSorter):
                                                               discnum))
 
             try:
-                isys.mount(self.anaconda.mediaDevice, self.tree,
-                           fstype = "iso9660", readOnly = True)
+                dev.format.mount()
 
                 if verifyMedia(self.tree, discnum, self._timestamp):
                     self.currentMedia = discnum
@@ -364,8 +364,9 @@ class AnacondaYum(YumSorter):
                 self.anaconda.intf.messageWindow(_("Wrong Disc"),
                         _("That's not the correct %s disc.")
                           % (productName,))
-                isys.umount(self.tree)
-                isys.ejectCdrom(self.anaconda.mediaDevice)
+
+                dev.format.unmount()
+                dev.eject()
             except:
                 self.anaconda.intf.messageWindow(_("Error"),
                         _("Unable to access the disc."))

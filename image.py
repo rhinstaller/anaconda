@@ -255,8 +255,7 @@ def scanForMedia(tree, storage):
             continue
 
         try:
-            if isys.mount(dev.path, tree, fstype="iso9660", readOnly=True):
-                continue
+            dev.format.mount(mountpoint=tree)
         except:
             continue
 
@@ -273,13 +272,13 @@ def umountImage(tree, currentMedia):
         isys.umount(tree, removeDir=False)
         isys.unlosetup("/dev/loop1")
 
-def unmountCD(path, messageWindow):
-    if not path:
+def unmountCD(dev, messageWindow):
+    if not dev:
         return
 
     while True:
         try:
-            isys.umount(path, removeDir=False)
+            dev.format.unmount()
             break
         except Exception, e:
             log.error("exception in _unmountCD: %s" %(e,))
@@ -288,7 +287,7 @@ def unmountCD(path, messageWindow):
                             "Please make sure you're not accessing "
                             "%s from the shell on tty2 "
                             "and then click OK to retry.")
-                          % (path,))
+                          % (dev.path,))
 
 def verifyMedia(tree, discnum, timestamp=None):
     if os.access("%s/.discinfo" % tree, os.R_OK):
