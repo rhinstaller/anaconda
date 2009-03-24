@@ -70,7 +70,6 @@ class Flags:
 	self.__dict__['flags']['test'] = 0
 	self.__dict__['flags']['rootpath'] = 0
 	self.__dict__['flags']['livecdInstall'] = 0
-        self.__dict__['flags']['dlabel'] = 0
 	self.__dict__['flags']['ibft'] = 1
 	self.__dict__['flags']['iscsi'] = 0
 	self.__dict__['flags']['serial'] = 0
