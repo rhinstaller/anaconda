@@ -2029,6 +2029,9 @@ class MDRaidArrayDevice(StorageDevice):
             raise DeviceError("cannot find class for 'mdmember'")
 
         #self.probe()
+        if self.exists and self.uuid:
+            open("/etc/mdadm.conf", "a").write("ARRAY %s UUID=%s\n"
+                                                % (self.path, self.uuid))
 
     @property
     def size(self):
@@ -2163,9 +2166,13 @@ class MDRaidArrayDevice(StorageDevice):
         self.devices.append(device)
         device.addChild()
 
-        if self.status:
-            device.setup()
+        device.setup()
+        udev_settle(timeout=10)
+        try:
             mdraid.mdadd(device.path)
+        except MDRaidError as e:
+            log.warning("failed to add member %s to md array %s: %s"
+                        % (device.path, self.path, e))
 
     def _removeDevice(self, device):
         """ Remove a component device from the array.

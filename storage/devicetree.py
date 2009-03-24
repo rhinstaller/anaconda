@@ -1491,6 +1491,10 @@ class DeviceTree(object):
             self._handleInconsistencies(leaf)
 
         self.teardownAll()
+        try:
+            os.unlink("/etc/mdadm.conf")
+        except OSError:
+            log.info("failed to unlink /etc/mdadm.conf")
 
     def teardownAll(self):
         """ Run teardown methods on all devices. """
