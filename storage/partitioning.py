@@ -835,11 +835,41 @@ def growPartitions(disks, partitions):
                 log.debug("growable total is now %d sectors" % disk_total)
 
         # now we loop through the partitions...
+        # this first loop is to identify obvious chunks of free space that
+        # will be left over due to max size
+        leftover = 0
+        limited = {}
+        unlimited_total = 0
         for part in growable:
             # calculate max number of sectors this request can grow
             req_sectors = part.partedPartition.geometry.length
             share = float(req_sectors) / float(disk_total)
             max_grow = (share * disk_free)
+            max_sectors = req_sectors + max_grow
+            limited[part.name] = False
+
+            if part.req_max_size:
+                req_max_sect = (part.req_max_size * (1024 * 1024)) / sectorSize
+                if req_max_sect < max_sectors:
+                    mb = ((max_sectors - req_max_sect) * sectorSize) / (1024*1024)
+
+                    log.debug("adding %dMB to leftovers from %s"
+                                % (mb, part.name))
+                    leftover += (max_sectors - req_max_sect)
+                    limited[part.name] = True
+
+            if not limited[part.name]:
+                unlimited_total += req_sectors
+
+        # now we loop through the partitions...
+        for part in growable:
+            # calculate max number of sectors this request can grow
+            req_sectors = part.partedPartition.geometry.length
+            share = float(req_sectors) / float(disk_total)
+            max_grow = (share * disk_free)
+            if not limited[part.name]:
+                leftover_share = float(req_sectors) / float(unlimited_total)
+                max_grow += leftover_share * leftover
             max_sectors = req_sectors + max_grow
             max_mb = (max_sectors * sectorSize) / (1024 * 1024)
             log.debug("%s: base_size=%dMB, max_size=%sMB" % (part.name,
