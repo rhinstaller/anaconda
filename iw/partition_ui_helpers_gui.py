@@ -349,7 +349,9 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 
     if origrequest.resizable:
         resizecb = gtk.CheckButton(label=_("_Resize"))
-        resizecb.set_active(origrequest.targetSize != origrequest.currentSize)
+        resizecb.set_active(origrequest.resizable and \
+            ((origrequest.targetSize != 0) and \
+             (origrequest.targetSize != origrequest.currentSize)))
         rc["resizecb"] = resizecb
         maintable.attach(resizecb, 0, 1, row, row + 1)
 
