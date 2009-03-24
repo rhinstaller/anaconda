@@ -1018,6 +1018,17 @@ class NFS(FS):
     @property
     def mountable(self):
         return False
+
+    def _setDevice(self, devspec):
+        self._deviceCheck(devspec)
+        self._device = devspec
+
+    def _getDevice(self):
+        return self._device
+
+    device = property(lambda f: f._getDevice(),
+                      lambda f,d: f._setDevice(d),
+                      doc="Full path the device this format occupies")
  
 register_device_format(NFS)
 
