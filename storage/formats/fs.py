@@ -1028,6 +1028,23 @@ class NFSv4(NFS):
 
 register_device_format(NFSv4)
 
+
+class Iso9660FS(FS):
+    """ ISO9660 filesystem. """
+    _type = "iso9660"
+    _formattable = False
+    _supported = True
+    _resizable = False
+    _bootable = False
+    _linuxNative = False
+    _dump = False
+    _check = False
+    _migratable = False
+    _defaultMountOptions = ["ro"]
+
+register_device_format(Iso9660FS)
+
+
 class NoDevFS(FS):
     """ nodev filesystem base class """
     _type = "nodev"
