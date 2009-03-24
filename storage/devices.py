@@ -201,7 +201,8 @@ class Device(object):
         new = self.__class__.__new__(self.__class__)
         memo[id(self)] = new
         shallow_copy_attrs = ('partedDisk', 'partedDevice',
-                             '_partedPartition', '_origPartedDisk')
+                             '_partedPartition', '_origPartedDisk',
+                             '_raidSet')
         for (attr, value) in self.__dict__.items():
             if attr in shallow_copy_attrs:
                 setattr(new, attr, copy.copy(value))
@@ -2403,12 +2404,6 @@ class DMRaidArrayDevice(DiskDevice):
         """ Return a list of this array's member device instances. """
         return self.parents
 
-    def activate(self, mknod=True):
-        self._raidSet.activate(mknod=mknod)
-
-    def deactivate(self):
-        self._raidSet.deactivate()
-
     def updateSysfsPath(self):
         """ Update this device's sysfs path. """
         log_method_call(self, self.name, status=self.status)
@@ -2421,6 +2416,29 @@ class DMRaidArrayDevice(DiskDevice):
             self.sysfsPath = os.path.realpath(path)[4:]
         else:
             self.sysfsPath = ''
+
+    def teardown(self, recursive=None):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        if self.format.exists:
+            self.format.teardown()
+
+        # This call already checks if the set is not active.
+        self._raidSet.deactivate()
+
+    def setup(self, intf=None):
+        """ Open, or set up, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        # This call already checks if the set is active.
+        self._raidSet.activate(mknod=True)
+
+        udev_settle()
 
 
 class MultipathDevice(DMDevice):
