@@ -88,31 +88,6 @@ class InstallData:
         # XXX I still expect this to die when kickstart is the data store.
         self.ksdata = None
 
-        # We don't have install methods anymore, but put things that depend on
-        # the methodstr here.
-        if os.path.exists("/dev/live") and \
-           stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
-            target = os.readlink("/dev/live")
-            self.storage.protectedPartitions = [target]
-        elif self.anaconda.methodstr and self.anaconda.methodstr.startswith("hd:"):
-            method = self.anaconda.methodstr[3:]
-            devspec = method.split(":", 3)[0]
-
-            # XXX might as well move resolveDevice into DeviceTree
-            device = storage.resolveDevice(self.storage.devicetree, devspec)
-            if device is None:
-                if self.getUpgrade():
-                    return
-                else:
-                    self.anaconda.intf.messageWindow(_("Unknown Device"),
-                        _("The installation source given by device %s "
-                          "could not be found.  Please check your "
-                          "parameters and try again.") % device,
-                        type="custom", custom_buttons = [_("_Exit installer")])
-                    sys.exit(1)
-
-            self.storage.protectedPartitions = [device.name]
-
     def setInstallProgressClass(self, c):
         self.instProgress = c
 

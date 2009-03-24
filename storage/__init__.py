@@ -54,14 +54,41 @@ import logging
 log = logging.getLogger("storage")
 
 def storageInitialize(anaconda):
-    anaconda.id.storage.shutdown()
+    storage = anaconda.id.storage
+
+    storage.shutdown()
 
     if anaconda.dir == DISPATCH_BACK:
         return
 
     # XXX I don't understand why I have to do this
     udev_trigger(subsystem="block")
-    anaconda.id.storage.reset()
+
+    # Set up the protected partitions list now.
+    if os.path.exists("/dev/live") and \
+       stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
+        target = os.readlink("/dev/live")
+        storage.protectedPartitions = [target]
+    elif anaconda.methodstr and anaconda.methodstr.startswith("hd:"):
+        method = anaconda.methodstr[3:]
+        devspec = method.split(":", 3)[0]
+
+        # XXX might as well move resolveDevice into DeviceTree
+        device = storage.resolveDevice(storage.devicetree, devspec)
+        if device is None:
+            if self.getUpgrade():
+                return
+            else:
+                anaconda.intf.messageWindow(_("Unknown Device"),
+                    _("The installation source given by device %s "
+                      "could not be found.  Please check your "
+                      "parameters and try again.") % devspec,
+                    type="custom", custom_buttons = [_("_Exit installer")])
+                sys.exit(1)
+
+        storage.protectedPartitions = [device.name]
+
+    storage.reset()
 
 # dispatch.py helper function
 def storageComplete(anaconda):
