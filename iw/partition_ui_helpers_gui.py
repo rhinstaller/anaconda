@@ -279,21 +279,13 @@ def formatMigrateOptionCB(widget, data):
 
         setMntPtComboStateFromType(ofstype, mntptcombo)
 
-def noformatCB(widget, data):
-    (combowidget, mntptcombo, ofstype) = data
-    combowidget.set_sensitive(not widget.get_active())
-
-    # inject event for fstype menu
-    if widget.get_active():
-        setMntPtComboStateFromType(ofstype, mntptcombo)
-
 
 """ createPreExistFSOptionSection: given inputs for a preexisting partition,
     create a section that will provide format and migrate options
 
     Returns the value of row after packing into the maintable,
     and a dictionary consistenting of:
-       noformatcb    - checkbutton for 'format as new fs'
+       formatcb      - checkbutton for 'format as new fs'
        fstype        - part of format fstype menu
        fstypeMenu    - part of format fstype menu
        migratecb     - checkbutton for migrate fs
