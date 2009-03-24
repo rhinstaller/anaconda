@@ -47,6 +47,10 @@ class PPCPRePBoot(DeviceFormat):
         """
         DeviceFormat.__init__(self, *args, **kwargs)
 
+    @property
+    def status(self):
+        return False
+
 
 register_device_format(PPCPRePBoot)
 
