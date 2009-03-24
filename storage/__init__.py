@@ -1213,6 +1213,77 @@ class FSSet(object):
                 filesystems[device.format.mountpoint] = device
         return filesystems
 
+    def _parseOneLine(self, (devspec, mountpoint, fstype, options, dump, passno)):
+        # find device in the tree
+        device = resolveDevice(self.devicetree,
+                               devspec,
+                               cryptTab=self.cryptTab,
+                               blkidTab=self.blkidTab)
+        if device:
+            # fall through to the bottom of this block
+            pass
+        elif devspec.startswith("/dev/loop"):
+            # FIXME: create devices.LoopDevice
+            log.warning("completely ignoring your loop mount")
+        elif ":" in devspec:
+            # NFS -- preserve but otherwise ignore
+            device = NFSDevice(devspec,
+                               format=getFormat(fstype,
+                                                device=devspec),
+                               exists=True)
+        elif devspec.startswith("/") and fstype == "swap":
+            # swap file
+            device = FileDevice(devspec,
+                                parents=get_containing_device(devspec),
+                                format=getFormat(fstype,
+                                                 device=devspec,
+                                                 exists=True),
+                                exists=True)
+        elif fstype == "bind" or "bind" in options:
+            # bind mount... set fstype so later comparison won't
+            # turn up false positives
+            fstype = "bind"
+            device = FileDevice(devspec,
+                                parents=get_containing_device(devspec),
+                                exists=True)
+            device.format = getFormat("bind",
+                                      device=device.path,
+                                      exists=True)
+        elif mountpoint in ("/proc", "/sys", "/dev/shm", "/dev/pts"):
+            # drop these now -- we'll recreate later
+            return None
+        else:
+            # nodev filesystem -- preserve or drop completely?
+            format = getFormat(fstype)
+            if isinstance(format, get_device_format_class("nodev")):
+                device = NoDevice(format)
+            else:
+                device = Device(devspec)
+
+        if device is None:
+            log.error("failed to resolve %s (%s) from fstab" % (devspec,
+                                                                fstype))
+            return None
+
+        # make sure, if we're using a device from the tree, that
+        # the device's format we found matches what's in the fstab
+        fmt = getFormat(fstype, device=device.path)
+        if fmt.type != device.format.type:
+            log.warning("scanned format (%s) differs from fstab "
+                        "format (%s)" % (device.format.type, fstype))
+
+        if device.format.mountable:
+            device.format.mountpoint = mountpoint
+            device.format.mountopts = options
+
+        # is this useful?
+        try:
+            device.format.options = options
+        except AttributeError:
+            pass
+
+        return device
+
     def parseFSTab(self, chroot=""):
         """ parse /etc/fstab
 
@@ -1276,73 +1347,13 @@ class FSSet(object):
 
                 (devspec, mountpoint, fstype, options, dump, passno) = fields
 
-                # find device in the tree
-                device = resolveDevice(self.devicetree,
-                                       devspec,
-                                       cryptTab=cryptTab,
-                                       blkidTab=blkidTab)
-                if device:
-                    # fall through to the bottom of this block
-                    pass
-                elif devspec.startswith("/dev/loop"):
-                    # FIXME: create devices.LoopDevice
-                    log.warning("completely ignoring your loop mount")
-                elif ":" in devspec:
-                    # NFS -- preserve but otherwise ignore
-                    device = NFSDevice(devspec,
-                                       format=getFormat(fstype,
-                                                        device=devspec),
-                                       exists=True)
-                elif devspec.startswith("/") and fstype == "swap":
-                    # swap file
-                    device = FileDevice(devspec,
-                                        parents=get_containing_device(devspec),
-                                        format=getFormat(fstype,
-                                                         device=devspec,
-                                                         exists=True),
-                                        exists=True)
-                elif fstype == "bind" or "bind" in options:
-                    # bind mount... set fstype so later comparison won't
-                    # turn up false positives
-                    fstype = "bind"
-                    device = FileDevice(devspec,
-                                        parents=get_containing_device(devspec),
-                                        exists=True)
-                    device.format = getFormat("bind",
-                                              device=device.path,
-                                              exists=True)
-                elif mountpoint in ("/proc", "/sys", "/dev/shm", "/dev/pts"):
-                    # drop these now -- we'll recreate later
-                    continue
-                else:
-                    # nodev filesystem -- preserve or drop completely?
-                    format = getFormat(fstype)
-                    if isinstance(format, get_device_format_class("nodev")):
-                        device = NoDevice(format)
-                    else:
-                        device = Device(devspec)
-
-                if device is None:
-                    log.error("failed to resolve %s (%s) from fstab" % (devspec,
-                                                                        fstype))
-                    continue
-
-                # make sure, if we're using a device from the tree, that
-                # the device's format we found matches what's in the fstab
-                fmt = getFormat(fstype, device=device.path)
-                if fmt.type != device.format.type:
-                    log.warning("scanned format (%s) differs from fstab "
-                                "format (%s)" % (device.format.type, fstype))
-
-                if device.format.mountable:
-                    device.format.mountpoint = mountpoint
-                    device.format.mountopts = options
-
-                # is this useful?
                 try:
-                    device.format.options = options
-                except AttributeError:
-                    pass
+                    device = self._parseOneLine((devspec, mountpoint, fstype, options, dump, passno))
+                except Exception as e:
+                    raise Exception("fstab entry %s is malformed: %s" % (devspec, e))
+
+                if not device:
+                    continue
 
                 if device not in self.devicetree.devices.values():
                     self.devicetree._addDevice(device)

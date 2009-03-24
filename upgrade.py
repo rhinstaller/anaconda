@@ -234,11 +234,12 @@ def upgradeMountFilesystems(anaconda):
 	    mountExistingSystem(anaconda,
                                 anaconda.id.upgradeRoot[0],
                                 allowDirty = 0)
-        except Exception:
+        except ValueError as e:
+            log.error("Error mounting filesystem: %s" % e)
 	    anaconda.intf.messageWindow(_("Mount failed"),
-		_("One or more of the file systems listed in the "
-		  "/etc/fstab on your Linux system cannot be mounted. "
-		  "Please fix this problem and try to upgrade again."))
+                _("The following error occurred when mounting the file "
+                  "systems listed in /etc/fstab.  Please fix this problem "
+                  "and try to upgrade again.\n%s" % e))
 	    sys.exit(0)
 
 	checkLinks = ( '/etc', '/var', '/var/lib', '/var/lib/rpm',
