@@ -223,7 +223,7 @@ echo "Making images..."
 $MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
 
 echo "Writing .discinfo file"
-$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="ALL"  --outfile=$OUTPUT/.discinfo
+$MK_STAMP --releasestr="$RELEASESTR" --arch=$BASEARCH --discNum="ALL"  --outfile=$OUTPUT/.discinfo
 
 rm -rf $TREEDIR $BUILDINSTDIR
 rm -f $yumconf
