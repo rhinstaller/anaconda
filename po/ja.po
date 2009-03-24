@@ -1,10 +1,10 @@
-# translation of anaconda.master.ja.po to Japanese
+# translation of ja.po to Japanese
 # anaconda/ja.po
 # Copyright (C) 2001 Red Hat, Inc.
 # SATO Satoru <ssato@redhat.com>
 #
 # James Hashida <khashida@redhat.com>, 2002,2003.
-# Noriko Mizumoto <noriko@redhat.com>, 2003, 2004, 2006, 2008.
+# Noriko Mizumoto <noriko@redhat.com>, 2003, 2004, 2006, 2008, 2009.
 # Yoshinari Takaoka <mumumu@mx.edit.ne.jp>, 2004.
 # Tadashi Jokagi <fedora@elf.no-ip.org>, 2004, 2005.
 # Naoki Shigematsu <sigematu@linuxml.net>, 2004.
@@ -15,12 +15,12 @@
 # Makoto Mizukami <mmk9060@aol.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.master.ja\n"
+"Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2008-10-17 14:16+1000\n"
-"Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
-"Language-Team: Japanese <jp@li.org>\n"
+"PO-Revision-Date: 2009-03-24 12:59+1000\n"
+"Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
+"Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1350,8 +1350,8 @@ msgid ""
 "The installation source given by device %s could not be found.  Please check "
 "your parameters and try again."
 msgstr ""
-"デバイス %s で与えられたインストールソースが見付かりません。パラメータをチェックして "
-"もう一度試して下さい。"
+"デバイス %s で与えられたインストールソースが見付かりません。パラメータを"
+"チェックして もう一度試して下さい。"
 
 #: ../iscsi.py:449 ../iscsi.py:450
 msgid "Initializing iSCSI initiator"
@@ -2098,9 +2098,9 @@ msgid ""
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
 msgstr ""
-"暗号化が有効になっているはずのブロックデバイスを指定しています、しかし、パ"
-"スフレーズが供給されていません。戻ってパスフレーズを記入しないとブロックデバ"
-"イスの暗号化は無効になります。"
+"暗号化が有効になっているはずのブロックデバイスを指定しています、しかし、パス"
+"フレーズが供給されていません。戻ってパスフレーズを記入しないとブロックデバイ"
+"スの暗号化は無効になります。"
 
 #: ../partitions.py:133 ../partitions.py:263 ../textw/constants_text.py:52
 #: ../loader/cdinstall.c:438 ../loader/driverdisk.c:246
@@ -2302,8 +2302,8 @@ msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
 msgstr ""
-"ネットワーキングデバイスを始動できません。ネットワーキングはレスキューモードでは "
-"使用できません。"
+"ネットワーキングデバイスを始動できません。ネットワーキングはレスキューモード"
+"では 使用できません。"
 
 #: ../rescue.py:231 ../rescue.py:301 ../rescue.py:312 ../rescue.py:393
 msgid "Rescue"
@@ -6730,8 +6730,8 @@ msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
-"ローカルストレージデバイス\n "
-"ローカルディスク\n"
+"ローカルストレージデバイス\n"
+" ローカルディスク\n"
 "リモートサーバー (scp)"
 
 #: tmp/exnSave.glade.h:6
@@ -6873,8 +6873,8 @@ msgid ""
 "Please name this computer.  The hostname identifies the computer on a "
 "network."
 msgstr ""
-"このコンピュータに命名して下さい。ホスト名はネットワーク上でこのコンピュータを "
-"識別します。"
+"このコンピュータに命名して下さい。ホスト名はネットワーク上でこのコンピュータ"
+"を 識別します。"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
