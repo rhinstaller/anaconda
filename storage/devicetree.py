@@ -1642,7 +1642,7 @@ class DeviceTree(object):
         elif devspec.startswith("LABEL="):
             # device-by-label
             label = devspec.partition("=")[2]
-            device = self.fslabels.get(label)
+            device = self.labels.get(label)
             if device is None:
                 log.error("failed to resolve device %s" % devspec)
         elif devspec.startswith("/dev/"):
