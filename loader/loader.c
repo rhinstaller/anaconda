@@ -930,6 +930,10 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         else if (!strcasecmp(argv[i], "dd") || 
                  !strcasecmp(argv[i], "driverdisk"))
             flags |= LOADER_FLAGS_MODDISK;
+        else if (!strcasecmp(argv[i], "dlabel=on"))
+            flags |= LOADER_FLAGS_AUTOMODDISK;
+        else if (!strcasecmp(argv[i], "dlabel=off"))
+            flags &= ~LOADER_FLAGS_AUTOMODDISK;
         else if (!strcasecmp(argv[i], "rescue"))
             flags |= LOADER_FLAGS_RESCUE;
         else if (!strcasecmp(argv[i], "nopass"))
@@ -1795,7 +1799,11 @@ int main(int argc, char ** argv) {
     int testing = 0;
     int mediacheck = 0;
     char * virtpcon = NULL;
+    
+    struct ddlist *dd, *dditer;
+
     poptContext optCon;
+
     struct poptOption optionTable[] = {
         { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0, NULL, NULL },
         { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0, NULL, NULL },
@@ -1879,6 +1887,12 @@ int main(int argc, char ** argv) {
     flags |= LOADER_FLAGS_NOSHELL | LOADER_FLAGS_NOUSB;
 #endif
 
+    /* XXX if RHEL, enable the AUTODD feature by default,
+     * but we should come with more general way how to control this */
+    if(!strncmp(getProductName(), "Red Hat", 7)){
+        flags |= LOADER_FLAGS_AUTOMODDISK;
+    }
+
     openLog(FL_TESTING(flags));
     if (!FL_TESTING(flags))
         openlog("loader", 0, LOG_LOCAL0);
@@ -1938,6 +1952,22 @@ int main(int argc, char ** argv) {
 
     /* FIXME: this is a bit of a hack */
     loaderData.modInfo = modInfo;
+
+    if(FL_AUTOMODDISK(flags)){
+        logMessage(INFO, "Trying to detect vendor driver discs");
+        dd = findDriverDiskByLabel();
+        dditer = dd;
+        while(dditer){
+            if(loadDriverDiskFromPartition(&loaderData, dditer->device)){
+                logMessage(ERROR, "Automatic driver disk loader failed for %s.", dditer->device);
+            }
+            else{
+                logMessage(INFO, "Automatic driver disk loader succeeded for %s.", dditer->device);
+            }
+            dditer = dditer->next;
+        }
+        ddlist_free(dd);
+    }
 
     if (FL_MODDISK(flags)) {
         startNewt();
@@ -2134,6 +2164,9 @@ int main(int argc, char ** argv) {
 
         tmparg++;
     }
+
+    if (FL_AUTOMODDISK(flags))
+        *argptr++ = "--dlabel";
 
     if (FL_NOIPV4(flags))
         *argptr++ = "--noipv4";
