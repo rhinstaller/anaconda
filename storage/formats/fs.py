@@ -1068,6 +1068,8 @@ class NoDevFS(FS):
     def _setDevice(self, devspec):
         self._device = devspec
 
+register_device_format(NoDevFS)
+
 
 class DevPtsFS(NoDevFS):
     """ devpts filesystem. """
