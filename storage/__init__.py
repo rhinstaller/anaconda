@@ -1109,10 +1109,10 @@ class CryptTab(object):
         crypttab = ""
         for name in self.mappings:
             entry = self[name]
-            crypttab += "%s UUID=%s %s %s" % (name,
-                                              entry['device'].format.uuid,
-                                              entry['keyfile'],
-                                              entry['options'])
+            crypttab += "%s UUID=%s %s %s\n" % (name,
+                                                entry['device'].format.uuid,
+                                                entry['keyfile'],
+                                                entry['options'])
         return crypttab                       
 
     def __getitem__(self, key):
