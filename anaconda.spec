@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.35
+Version: 11.5.0.36
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -210,6 +210,25 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 23 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.36-1
+- Add EFI, Apple Bootstrap, and PPC PReP Boot formats. (dlehman)
+- Remove all implicit calls to self.format.destroy from Device classes.
+  (dlehman)
+- Pop the busy cursor when we're done with the wait window (#491736).
+  (clumens)
+- If the new size and old size are the same, treat as a no-op (#491496).
+  (clumens)
+- Let mountFilesystems handling bind mounting /dev (#490772). (clumens)
+- Not all FileDevices have parents, so don't assume. (clumens)
+- Bind mount formats are mountable. (clumens)
+- If a filesystem is already mounted, don't raise an error. (clumens)
+- Fix a typo calling the superclass's constructor. (clumens)
+- Add a fake device for bind mounting /dev. (clumens)
+- If there was an exception leading to the urlgrabber error, log it.
+  (clumens)
+- Fix the import of checkbootloader (#491574). (clumens)
+- Add a missing import (#491605). (clumens)
+
 * Fri Mar 20 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.35-1
 - Fix traceback in FSSet.crypttab. (#491160) (dlehman)
 - Fix traceback on upgrade. (#491446) (dlehman)
