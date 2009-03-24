@@ -35,11 +35,6 @@ from storage.formats import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-def istruefalse(val):
-    if val is None or not val:
-        return False
-    return True
-
 class WideCheckList(checklist.CheckList):
     def toggled_item(self, data, row):
 
@@ -318,7 +313,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 
     formatcb = gtk.CheckButton(label=_("_Format as:"))
     maintable.attach(formatcb, 0, 1, row, row + 1)
-    formatcb.set_active(istruefalse(not origfs.exists))
+    formatcb.set_active(not origfs.exists)
     rc["formatcb"] = formatcb
 
     fstypeCombo = createFSTypeMenu(origfs, fstypechangeCB,
@@ -336,7 +331,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 
     if origfs.migratable:
 	migratecb = gtk.CheckButton(label=_("Mi_grate filesystem to:"))
-        migratecb.set_active(istruefalse(origfs.migrate))
+        migratecb.set_active(origfs.migrate)
 
 	migtypes = [origfs.migrationTarget]
 
