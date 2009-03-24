@@ -31,7 +31,6 @@ import shutil
 import time
 import hashlib
 import random
-import partedUtils
 log = logging.getLogger("anaconda")
 
 import gettext
