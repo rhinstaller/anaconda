@@ -1140,6 +1140,18 @@ class DeviceTree(object):
                     kwargs["peStart"] = udev_device_get_pv_pe_start(info)
                 except KeyError:
                     log.debug("PV %s has no pe_start" % name)
+            elif format_type == "vfat":
+                # efi magic
+                if isinstance(device, PartitionDevice) and device.bootable:
+                    efi = formats.getFormat("efi")
+                    if efi.minSize <= device.size <= efi.maxSize:
+                        args[0] = "efi"
+            elif format_type == "hfs":
+                # apple bootstrap magic
+                if isinstance(device, PartitionDevice) and device.bootable:
+                    apple = formats.getFormat("appleboot")
+                    if apple.minSize <= device.size <= apple.maxSize:
+                        args[0] = "appleboot"
 
             format = formats.getFormat(*args, **kwargs)
             device.format = format

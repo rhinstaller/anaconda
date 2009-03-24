@@ -170,8 +170,8 @@ class EFI(Platform):
             if not req.format.type.startswith("ext"):
                 raise FSError("/boot is not ext2")
         elif req.format.mountpoint == "/boot/efi":
-            if not req.format.type.endswith("fat"):
-                raise FSError("/boot/efi is not vfat")
+            if req.format.type != "efi":
+                raise FSError("/boot/efi is not efi")
 
     def setDefaultPartitioning(self):
         ret = Platform.setDefaultPartitioning(self)
@@ -236,7 +236,7 @@ class IPSeriesPPC(PPC):
 
         # We want the first PReP partition.
         for device in self.anaconda.id.storage.partitions:
-            if device.partedPartition.getFlag(parted.PARTITION_PREP):
+            if device.format.type == "prepboot":
                 bootDev = device
                 break
 
@@ -279,9 +279,10 @@ class NewWorldPPC(PPC):
         bootDev = None
 
         for part in self.anaconda.id.storage.partitions:
-            # XXX do we need to also check the size?
-            if part.format.type == "hfs" and self.validBootPartSize(part.size):
+            if part.format.type == "appleboot" and self.validBootPartSize(part.size):
                 bootDev = part
+                # if we're only picking one, it might as well be the first
+                break
 
         return bootDev
 
@@ -298,7 +299,7 @@ class NewWorldPPC(PPC):
         else:
             ret["boot"] = (bootDev.name, N_("Apple Bootstrap"))
             for (n, device) in enumerate(self.anaconda.id.storage.partitions):
-                if device.format.type == "hfs" and device.bootable and device.path != bootDev.path:
+                if device.format.type == "appleboot" and device.path != bootDev.path:
                     ret["boot%d" % n] = (device.path, N_("Apple Bootstrap"))
 
         return ret

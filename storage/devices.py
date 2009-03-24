@@ -903,6 +903,10 @@ class PartitionDevice(StorageDevice):
 
             # collect information about the partition from parted
             self.probe()
+            if self.getFlag(parted.PARTITION_PREP):
+                # the only way to identify a PPC PReP Boot partition is to
+                # check the partition type/flags, so do it here.
+                self.format = getFormat("prepboot", device=self.path, exists=True)
         else:
             # XXX It might be worthwhile to create a shit-simple
             #     PartitionRequest class and pass one to this constructor

@@ -417,7 +417,7 @@ class VolumeGroupEditor:
             newfstypeCombo = createFSTypeMenu(format,
                                               fstypechangeCB,
                                               mountCombo,
-                                              ignorefs = ["software RAID", "physical volume (LVM)", "vfat", "PPC PReP Boot", "hfs"])
+                                              ignorefs = ["software RAID", "physical volume (LVM)", "efi", "PPC PReP Boot", "Apple Bootstrap"])
             lbl.set_mnemonic_widget(newfstypeCombo)
             maintable.attach(newfstypeCombo, 1, 2, row, row + 1)
             row += 1

@@ -783,11 +783,7 @@ register_device_format(Ext4FS)
 
 
 class FATFS(FS):
-    """ FAT filesystem.
-
-        XXX Do we want to subclass this for EFI or twiddle bootable based
-            on the platform?
-    """
+    """ FAT filesystem. """
     _type = "vfat"
     _mkfs = "mkdosfs"
     _labelfs = "dosfslabel"
@@ -797,15 +793,23 @@ class FATFS(FS):
     _packages = [ "dosfstools" ]
     _defaultMountOptions = ["umask=0077", "shortname=winnt"]
 
-    @property
-    def bootable(self):
-        retval = self._bootable
-        #if self.type in platform.bootableFSTypes:
-        #    retval = True
-
-        return retval
-
 register_device_format(FATFS)
+
+
+class EFIFS(FATFS):
+    _type = "efi"
+    _name = "EFI System Partition"
+    _minSize = 50
+    _maxSize = 256
+    _bootable = True
+
+    @property
+    def supported(self):
+        import platform
+        return (isinstance(platform.getPlatform(None), platform.EFI)
+                and self.utilsAvailable)
+
+register_device_format(EFIFS)
 
 
 class BTRFS(FS):
@@ -926,6 +930,22 @@ class HFS(FS):
     _formattable = True
 
 register_device_format(HFS)
+
+
+class AppleBootstrapFS(HFS):
+    _type = "appleboot"
+    _name = "Apple Bootstrap"
+    _bootable = True
+    _minSize = 800.00 / 1024.00
+    _maxSize = 1
+
+    @property
+    def supported(self):
+        import platform
+        return (isinstance(platform.getPlatform(None), platform.NewWorldPPC)
+                and self.utilsAvailable)
+
+register_device_format(AppleBootstrapFS)
 
 
 # this doesn't need to be here
