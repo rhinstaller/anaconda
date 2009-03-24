@@ -795,6 +795,9 @@ class DiskDevice(StorageDevice):
         if keepTrying:
             raise DeviceError("cannot commit to disk %s after %d attempts" % (self.name, maxTries,))
 
+        # commit makes the kernel re-scan the partition table
+        udev_settle()
+
     def destroy(self):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
