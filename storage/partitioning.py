@@ -318,9 +318,6 @@ def clearPartitions(storage):
                 storage.destroyDevice(leaf)
                 devices.remove(leaf)
 
-        # FIXME: this should be taken care of by DeviceTree.removeDevice
-        #        or Storage.destroyDevice
-        part.partedPartition.disk.removePartition(part.partedPartition)
         log.debug("partitions: %s" % [p.getDeviceNodeName() for p in part.partedPartition.disk.partitions])
         disk_name = os.path.basename(part.partedPartition.disk.device.path)
         if disk_name not in disks:
