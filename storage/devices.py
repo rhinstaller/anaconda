@@ -609,10 +609,6 @@ class StorageDevice(Device):
         if not self.isleaf:
             raise DeviceError("Cannot destroy non-leaf device")
 
-        if self.status:
-            # best effort
-            self.format.destroy()
-
         self.exists = False
         # we already did this in DeviceTree._removeDevice
         #for parent in self.parents:
@@ -804,9 +800,6 @@ class DiskDevice(StorageDevice):
         log_method_call(self, self.name, status=self.status)
         if not self.mediaPresent:
             raise DeviceError("cannot destroy disk %s which has no media" % self.name)
-
-        if self.status:
-            self.format.destroy()
 
         self.partedDisk.deleteAllPartitions()
         # this is perhaps a separate operation (wiping the disklabel)
@@ -1184,9 +1177,6 @@ class PartitionDevice(StorageDevice):
             raise DeviceError("Cannot destroy non-leaf device")
 
         self.setupParents()
-        if self.status:
-            self.format.destroy()
-
         self.disk.removePartition(self)
         self.disk.commit()
 
@@ -1970,9 +1960,6 @@ class LVMLogicalVolumeDevice(DMDevice):
         if not self.exists:
             raise DeviceError("device has not been created")
 
-        if self.status:
-            self.format.destroy()
-
         self.teardown()
         lvm.lvremove(self.vg.name, self._name)
         self.exists = False
@@ -2306,9 +2293,6 @@ class MDRaidArrayDevice(StorageDevice):
         if not self.exists:
             raise DeviceError("device has not been created")
 
-        if self.status:
-            self.format.destroy()
-
         self.teardown()
 
         # The destruction of the formatting on the member devices does the
@@ -2586,9 +2570,6 @@ class FileDevice(StorageDevice):
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created")
-
-        if self.status:
-            self.format.destroy()
 
         os.unlink(self.path)
         self.exists = False
