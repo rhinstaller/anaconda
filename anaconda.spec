@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.37
+Version: 11.5.0.38
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -210,6 +210,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 25 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.38-1
+- Fix pylint errors in iw/*.py (hdegoede)
+- Rework CryptTab.parse (dlehman).
+- Code fixes of errors shown by pylint (mgracik).
+- Don't underflow on the busy cursor stack. (clumens)
+- "vg" is not valide inside this if. (jgranado)
+- Device is sometimes None. (jgranado)
+- Fix typo. (#492042) (dlehman)
+
 * Tue Mar 24 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.37-1
 - Start with a basic /etc/hosts file (#491634) (dcantrell)
 - Do not flag every existing partition for resize (#491803) (dcantrell)
