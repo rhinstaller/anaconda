@@ -874,8 +874,6 @@ class PartitionDevice(StorageDevice):
 
         self._bootable = False
 
-        self._resize = False
-
         StorageDevice.__init__(self, name, format=format, size=size,
                                major=major, minor=minor, exists=exists,
                                sysfsPath=sysfsPath, parents=parents)
