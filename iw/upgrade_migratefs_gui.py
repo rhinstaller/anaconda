@@ -21,6 +21,8 @@
 
 from iw_gui import *
 from constants import *
+from storage.formats import getFormat
+from storage.deviceaction import ActionMigrateFormat
 import string
 import isys 
 import iutil
@@ -28,6 +30,9 @@ import gtk
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+
+import logging
+log = logging.getLogger("anaconda")
 
 class UpgradeMigrateFSWindow (InstallWindow):		
     windowTitle = N_("Migrate File Systems")

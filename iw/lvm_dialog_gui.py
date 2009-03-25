@@ -447,7 +447,7 @@ class VolumeGroupEditor:
             if lv['name']:
                 lvnameEntry.set_text(lv['name'])
             else:
-                lvnameEntry.set_text(storage.createSuggestedLVName(self.getTempVG()))
+                lvnameEntry.set_text(self.storage.createSuggestedLVName(self.getTempVG()))
         else:
             lbl = createAlignedLabel(_("Logical Volume Name:"))
             lvnameEntry = gtk.Label(lv['name'])

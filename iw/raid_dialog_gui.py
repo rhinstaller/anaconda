@@ -621,7 +621,7 @@ class RaidCloneDialog:
                 self.intf.messageWindow(_("Target Drive Error"),
                                         _("The source drive %s cannot be "
                                           "selected as a target drive as well.")
-                                        % (self.sourceDev.path,),
+                                        % (sourceDev.path,),
                                         custom_icon="error")
                 return 1
 
