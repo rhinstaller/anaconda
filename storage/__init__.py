@@ -1051,33 +1051,32 @@ class CryptTab(object):
         path = "%s/etc/crypttab" % chroot
         log.debug("parsing %s" % path)
         with open(path) as f:
+            if not self.blkidTab:
+                try:
+                    self.blkidTab = BlkidTab(chroot=chroot)
+                    self.blkidTab.parse()
+                except Exception:
+                    self.blkidTab = None
+
             for line in f.readlines():
-                if not self.blkidTab:
-                    try:
-                        self.blkidTab = BlkidTab(chroot=chroot)
-                        self.blkidTab.parse()
-                    except Exception:
-                        self.blkidTab = None
+                (line, pound, comment) = line.partition("#")
+                fields = line.split()
+                if not 2 <= len(fields) <= 4:
+                    continue
+                elif len(fields) == 2:
+                    fields.extend(['none', ''])
+                elif len(fields) == 3:
+                    fields.append('')
 
-                for line in lines:
-                    (line, pound, comment) = line.partition("#")
-                    fields = line.split()
-                    if not 2 <= len(fields) <= 4:
-                        continue
-                    elif len(fields) == 2:
-                        fields.extend(['none', ''])
-                    elif len(fields) == 3:
-                        fields.append('')
+                (name, devspec, keyfile, options) = fields
 
-                    (name, devspec, keyfile, options) = fields
-
-                    # resolve devspec to a device in the tree
-                    device = self.devicetree.resolveDevice(devspec,
-                                                           blkidTab=self.blkidTab)
-                    if device:
-                        self.mappings[name] = {"device": device,
-                                               "keyfile": keyfile,
-                                               "options": options}
+                # resolve devspec to a device in the tree
+                device = self.devicetree.resolveDevice(devspec,
+                                                       blkidTab=self.blkidTab)
+                if device:
+                    self.mappings[name] = {"device": device,
+                                           "keyfile": keyfile,
+                                           "options": options}
 
     def populate(self):
         """ Populate the instance based on the device tree's contents. """
