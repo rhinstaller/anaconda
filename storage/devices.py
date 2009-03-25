@@ -107,7 +107,7 @@ import platform
 
 from errors import *
 from iutil import log_method_call, notify_kernel, numeric_type
-from udev import udev_settle
+from udev import *
 from formats import get_device_format_class, getFormat
 
 import gettext
@@ -2287,8 +2287,9 @@ class MDRaidArrayDevice(StorageDevice):
         # the array is automatically activated upon creation, but...
         self.setup()
         udev_settle()
-
-        # FIXME: we need to find our UUID now that the array exists
+        self.updateSysfsPath()
+        info = udev_get_block_device("/sys%s" % self.sysfsPath)
+        self.uuid = udev_device_get_md_uuid(info)
 
     @property
     def formatArgs(self):
