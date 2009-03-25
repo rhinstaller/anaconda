@@ -648,57 +648,26 @@ class Network:
             f.close()
             shutil.move(newnetwork, destnetwork)
 
-        # /etc/hosts
-        domainname = None
-        if (not instPath) or (not os.path.isfile(instPath + "/etc/hosts")):
-            f = open(instPath + "/etc/hosts", "w")
-
-            log.info("self.hostname = %s", self.hostname)
-
-            # IP address
-            ip = self.lookupHostname()
-            if ip in [ "127.0.0.1", "::1" ]:
-                ip = None
-
-            # fqdn and hostname
-            if "." in self.hostname:
-                fqdn = self.hostname
-                hostname = self.hostname.split('.', 1)[0]
-            else:
-                fqdn = socket.getfqdn(self.hostname)
-                hostname = self.hostname
-
-            if fqdn in [ "localhost.localdomain", "localhost",
-                         "localhost6.localdomain6", "localhost6", hostname ] \
-                         or "." not in fqdn:
-                fqdn = None
-
-            # domainname
-            if fqdn:
-                domainname = fqdn.split('.', 1)[1]
-                if domainname in [ "localdomain", "localdomain6" ]:
-                    domainname = None
-            else:
-                domainname = None
-
-            localline = "localhost.localdomain localhost"
-            if not ip and (hostname and hostname != "localhost"):
-                # add short hostname to 127.0.0.1
-                localline += " " + hostname
-
-            f.write("# Do not remove the following line, or various programs\n")
-            f.write("# that require network functionality will fail.\n")
-            f.write("127.0.0.1\t\t" + localline + "\n")
-            f.write("::1\t\tlocalhost6.localdomain6 localhost6\n")
-
-            if ip and fqdn:
-                # Add an extra entry for ip, fqdn and hostname
-                f.write("%s\t\t%s %s\n" % (ip, fqdn, hostname))
-
-            f.close()
-
         # If the hostname was not looked up, but typed in by the user,
         # domain might not be computed, so do it now.
+        domainname = None
+        if "." in self.hostname:
+            fqdn = self.hostname
+        else:
+            fqdn = socket.getfqdn(self.hostname)
+
+        if fqdn in [ "localhost.localdomain", "localhost",
+                     "localhost6.localdomain6", "localhost6",
+                     self.hostname ] or "." not in fqdn:
+            fqdn = None
+
+        if fqdn:
+            domainname = fqdn.split('.', 1)[1]
+            if domainname in [ "localdomain", "localdomain6" ]:
+                domainname = None
+        else:
+            domainname = None
+
         if self.domains == ["localdomain"] or not self.domains:
             if domainname:
                 self.domains = [domainname]

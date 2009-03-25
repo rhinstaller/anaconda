@@ -251,7 +251,7 @@ def setFileCons(anaconda):
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
                  "/var/log/wtmp", "/var/run/utmp", "/etc/crypttab",
                  "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab",
-                 "/etc/mdadm.conf", "/etc/hosts", "/etc/sysconfig/network",
+                 "/etc/mdadm.conf", "/etc/sysconfig/network",
                  "/etc/udev/rules.d/70-persistent-net.rules",
                  "/root/install.log", "/root/install.log.syslog",
                  "/etc/shadow", "/etc/shadow-", "/etc/gshadow"] + \
