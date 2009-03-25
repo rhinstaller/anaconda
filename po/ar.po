@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: ar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2009-03-20 18:16+0300\n"
+"PO-Revision-Date: 2009-03-25 13:03+0300\n"
 "Last-Translator: Tareq Al Jurf <taljurf.fedora@gmail.com>\n"
 "Language-Team: Arabic <fedora-trans-ar@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "خطأ في معالجة أسطر %%ksappend: %s"
 #: ../anaconda:265 ../anaconda:311
 #, c-format
 msgid "Unknown error processing %%ksappend lines: %s"
-msgstr ""
+msgstr "خطأ مجهول أثناء معالجة اسطر %%ksappend %s"
 
 #: ../anaconda:279 ../anaconda:323 ../cmdline.py:85 ../gui.py:1280
 #: ../text.py:551
@@ -590,7 +590,7 @@ msgstr "معلومات العثرة غير صالحة"
 
 #: ../exception.py:385
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "الرجاء ادخال اسم مستخدم متاح، كلمة مرور، وشرح مختصر عن العثرة."
 
 #: ../exception.py:395
 msgid "Unable To Login"
@@ -600,7 +600,7 @@ msgstr "لا يمكن الولوج"
 #, python-format
 msgid ""
 "There was an error logging into %s using the provided username and password."
-msgstr ""
+msgstr "كان هناك خلل أثناء الدخول إلى %s باستخدام اسم المستخدم وكلمة المرور المعطاة."
 
 #: ../exception.py:433
 msgid "Bug Created"
@@ -712,7 +712,7 @@ msgstr "جهاز RAID"
 
 #: ../fsset.py:1538 ../fsset.py:1544
 msgid "Apple Bootstrap"
-msgstr ""
+msgstr "بادئ آبل"
 
 #: ../fsset.py:1549 ../partitions.py:1288
 msgid "PPC PReP Boot"
@@ -1096,7 +1096,7 @@ msgstr ""
 #: ../gui.py:771
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "Bugzilla (%s)"
 
 #: ../gui.py:801
 msgid "No devices found"
@@ -1199,7 +1199,7 @@ msgstr ""
 
 #: ../image.py:156
 msgid "Couldn't Mount ISO Source"
-msgstr ""
+msgstr "فشل تشغيل مصدر ISO"
 
 #: ../image.py:157
 #, python-format
@@ -1212,7 +1212,7 @@ msgstr ""
 
 #: ../image.py:185
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "صورة ISO 9660 مفقودة"
 
 #: ../image.py:186
 #, python-format
@@ -1905,7 +1905,7 @@ msgstr "تجاهل القرص"
 
 #: ../partedUtils.py:408
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "_أعد تمهيد القرص"
 
 #: ../partedUtils.py:1015
 msgid "Initializing"
@@ -2281,16 +2281,16 @@ msgstr "احفظ"
 
 #: ../text.py:209
 msgid "Save to local disk"
-msgstr ""
+msgstr "احفظ إلى القرص المحلي"
 
 #: ../text.py:210
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "ارسل إلى bugzilla (%s)"
 
 #: ../text.py:211
 msgid "Send to remote server (scp)"
-msgstr ""
+msgstr "ارسل إلى الى الخادم البعيد (scp)"
 
 #: ../text.py:225 ../text.py:238
 msgid "User name"
@@ -2302,7 +2302,7 @@ msgstr "كلمة المرور"
 
 #: ../text.py:229
 msgid "Bug Description"
-msgstr ""
+msgstr "شرح العثرة"
 
 #: ../text.py:242
 msgid "Host (host:port)"
@@ -2340,12 +2340,12 @@ msgstr "تحرير المستودعات غير متوفر في الطور الن
 #: ../text.py:513
 #, python-format
 msgid "Please enter your %(instkey)s"
-msgstr ""
+msgstr "الرجاء ادخال %(instkey)s"
 
 #: ../text.py:530 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "تعدي ادخال %(instkey)s"
 
 #: ../text.py:606 ../loader/lang.c:63 ../loader/loader.c:212
 #, c-format, python-format
@@ -2678,7 +2678,7 @@ msgstr "<b>تثبيت ‪%s‬</b> ‪(%s)‬\n"
 #: ../yuminstall.py:209
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "تم الانتهاء من %s of %s برامج"
 
 #: ../yuminstall.py:219
 msgid "Finishing upgrade"
@@ -2763,7 +2763,7 @@ msgstr "إعادة المحاولة"
 
 #: ../yuminstall.py:683
 msgid "Retrying download..."
-msgstr ""
+msgstr "محاولة اعادة التحميل..."
 
 #: ../yuminstall.py:755
 #, python-format
@@ -2773,7 +2773,7 @@ msgstr "حدث خطأ في تنفيذ العملية للأسباب التالي
 
 #: ../yuminstall.py:790 ../yuminstall.py:791
 msgid "file conflicts"
-msgstr ""
+msgstr "ملفات متخالفة"
 
 #: ../yuminstall.py:792
 msgid "older package(s)"
@@ -2785,7 +2785,7 @@ msgstr "مساحدة القرص غير كافية"
 
 #: ../yuminstall.py:794
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "آينودات غير كافية"
 
 #: ../yuminstall.py:795
 msgid "package conflicts"
@@ -2805,7 +2805,7 @@ msgstr "حزمة لبنية arch مختلفية"
 
 #: ../yuminstall.py:799
 msgid "package for incorrect os"
-msgstr ""
+msgstr "برنامج لنظام تشغيل خاطئ"
 
 #: ../yuminstall.py:813
 msgid "You need more space on the following file systems:\n"
@@ -2961,7 +2961,7 @@ msgstr "الحزم الإختيارية المحددة: %d من %d"
 #: ../iw/GroupSelector.py:443
 #, python-format
 msgid "<i>%s</i>"
-msgstr ""
+msgstr "<i>%s</i>"
 
 #: ../iw/account_gui.py:52
 msgid "Root _Password:"
@@ -2973,7 +2973,7 @@ msgstr "_تأكيد: "
 
 #: ../iw/account_gui.py:97
 msgid "Caps Lock is on."
-msgstr ""
+msgstr "مفتاح Caps Lock يعمل"
 
 #: ../iw/account_gui.py:107 ../iw/account_gui.py:115 ../iw/account_gui.py:122
 #: ../iw/account_gui.py:143 ../textw/userauth_text.py:74
@@ -3027,15 +3027,15 @@ msgstr ""
 #: ../iw/autopart_type.py:183
 msgid ""
 "Do you really want to boot from a disk which is not used for installation?"
-msgstr ""
+msgstr "هل تريد الإقلاع حقا من جهاز لا يستخدم للتنصيب؟"
 
 #: ../iw/autopart_type.py:261
 msgid "Invalid Initiator Name"
-msgstr ""
+msgstr "اسم مدبر غير متاح"
 
 #: ../iw/autopart_type.py:262
 msgid "You must provide an initiator name."
-msgstr ""
+msgstr "عليك اختيار اسم مدبر."
 
 #: ../iw/autopart_type.py:284 ../iw/autopart_type.py:288
 #: ../iw/autopart_type.py:294 ../iw/autopart_type.py:298
@@ -3782,12 +3782,12 @@ msgstr "فرض كونه قسماً أوّليّاً"
 #: ../iw/partition_gui.py:320
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "قرص %s (Geom: %s/%s/%s) (نموذج: %s)"
 
 #: ../iw/partition_gui.py:327
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "قرص %s (%-0.f م.ب) (نموذج: %s)"
 
 #: ../iw/partition_gui.py:372 ../textw/partition_text.py:1424
 msgid "Type"
@@ -4720,7 +4720,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:101
 msgid "No optional packages to select"
-msgstr ""
+msgstr "ليس هناك برامج اختيارية لاختيارها"
 
 #: ../textw/grpselect_text.py:123
 msgid "Package Group Details"
@@ -4755,7 +4755,7 @@ msgstr "استخدام تهيئة IP الديناميكيّة (DHCP)"
 
 #: ../textw/netconfig_text.py:130 ../loader/net.c:493
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "تفعيل دعم IPv4"
 
 #: ../textw/netconfig_text.py:137
 msgid "IPv4 Address:"
@@ -5355,7 +5355,7 @@ msgstr "خادم ويب"
 
 #: ../installclasses/rhel.py:43
 msgid "Red Hat Enterprise Linux"
-msgstr ""
+msgstr "مشروع ريد هات لينوكس"
 
 #: ../installclasses/rhel.py:53
 msgid "Office"
@@ -5371,7 +5371,7 @@ msgstr "خادم ويب"
 
 #: ../installclasses/rhel.py:65
 msgid "Virtualization"
-msgstr ""
+msgstr "محاكاة"
 
 #: ../installclasses/rhel.py:66
 msgid "Clustering"
@@ -5468,12 +5468,12 @@ msgstr ""
 
 #: ../loader/cdinstall.c:331
 msgid "Scanning"
-msgstr ""
+msgstr "جاري التدقيق"
 
 #: ../loader/cdinstall.c:331 ../loader/cdinstall.c:333
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "البحث عن صور نسخ على القرص %s"
 
 #: ../loader/cdinstall.c:428
 #, c-format
@@ -5556,7 +5556,7 @@ msgstr "فشل ضم قرص برنامج التّعريف"
 #: ../loader/driverdisk.c:382
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "قرص السائق غير متاح لهذا الإصدار من %s."
 
 #: ../loader/driverdisk.c:445
 msgid "Manually choose"
@@ -5949,7 +5949,7 @@ msgstr ""
 
 #: ../loader/mediacheck.c:117
 msgid "Success"
-msgstr ""
+msgstr "تمت العملية بنجاح"
 
 #: ../loader/mediacheck.c:118
 msgid ""
@@ -6003,7 +6003,7 @@ msgstr "كان هناك خطأ في تهيئة الشبكة."
 
 #: ../loader/net.c:507
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "مكن دعم IPv6"
 
 #: ../loader/net.c:547
 msgid "Configure TCP/IP"
@@ -6015,15 +6015,15 @@ msgstr "معلومات مفقودة"
 
 #: ../loader/net.c:607
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr ""
+msgstr "عليك اختيار بوتوكول واحد على الأقل )IPv4 أو IPv6("
 
 #: ../loader/net.c:614
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "NFS يستلزم وجود IPv4"
 
 #: ../loader/net.c:615
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "نظام تنصيب NFS يحتاج إلى دعم IPv4."
 
 #: ../loader/net.c:717
 msgid "IPv4 address:"
@@ -6031,7 +6031,7 @@ msgstr "عنوان IPv4:"
 
 #: ../loader/net.c:729 ../loader/net.c:796 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader/net.c:784
 msgid "IPv6 address:"
@@ -6091,11 +6091,11 @@ msgstr "لديك عدّة أجهزة شبكة على هذا النّظام. من
 
 #: ../loader/net.c:1628
 msgid "Identify"
-msgstr ""
+msgstr "حدد"
 
 #: ../loader/net.c:1637
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "تستطيع تحديد الفتحة لـ"
 
 #: ../loader/net.c:1639
 msgid ""
@@ -6105,7 +6105,7 @@ msgstr ""
 
 #: ../loader/net.c:1649
 msgid "Identify NIC"
-msgstr ""
+msgstr "حدد NIC"
 
 #: ../loader/net.c:1662
 msgid "Invalid Duration"
@@ -6113,7 +6113,7 @@ msgstr "مدة زمنية غير صالحة"
 
 #: ../loader/net.c:1663
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "عليك ادخال عدد الثواني على هيئة عدد صحيح بين 1 و 30."
 
 #: ../loader/net.c:1675
 #, c-format
@@ -6261,7 +6261,7 @@ msgstr "تحد_يد كل الحزم الإختيارية"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
-msgstr ""
+msgstr "حوار1"
 
 #: tmp/account.glade.h:2
 msgid "Root Password:"
@@ -6279,11 +6279,11 @@ msgstr "رقم وحدة FCP المنطقي"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "إضافة هدف لiSCSI"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "إبطال _dmraid device"
 
 #: tmp/adddrive.glade.h:6
 msgid "_Add drive"
@@ -6307,12 +6307,15 @@ msgid ""
 "CD/DVD\n"
 "NFS\n"
 "Hard Drive"
-msgstr ""
+msgstr "HTTP/FTP\n"
+"قرص مدمج CD/DVD\n"
+"NFS\n"
+"قرص صلب"
 
 #: tmp/addrepo.glade.h:9
 msgid ""
 "Please provide the configuration information for this software repository."
-msgstr ""
+msgstr "الرجاء اعطاء معلومات التهيئة لهذا البرنامج."
 
 #: tmp/addrepo.glade.h:10
 msgid "Proxy U_RL"
@@ -6352,7 +6355,7 @@ msgstr "_قسم"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "_مسار"
 
 #: tmp/addrepo.glade.h:20
 msgid "_Server"
@@ -6410,7 +6413,7 @@ msgstr "_حدّد الأقراص لاستخدامها لهذا التّثبيت:
 
 #: tmp/blwhere.glade.h:1
 msgid "/boot"
-msgstr ""
+msgstr "/boot"
 
 #: tmp/blwhere.glade.h:2
 msgid "BIOS Drive Order"
@@ -6422,23 +6425,23 @@ msgstr "جهاز مُحمّل الإقلاع"
 
 #: tmp/blwhere.glade.h:4
 msgid "First BIOS drive:"
-msgstr ""
+msgstr "قرص BIOS الأول:"
 
 #: tmp/blwhere.glade.h:5
 msgid "Fourth BIOS drive:"
-msgstr ""
+msgstr "قرص BIOS الرابع:"
 
 #: tmp/blwhere.glade.h:6
 msgid "MBR"
-msgstr ""
+msgstr "MBR"
 
 #: tmp/blwhere.glade.h:7
 msgid "Second BIOS drive:"
-msgstr ""
+msgstr "قرص BIOS الثاني:"
 
 #: tmp/blwhere.glade.h:8
 msgid "Third BIOS drive:"
-msgstr ""
+msgstr "قرص BIOS الثالث:"
 
 #: tmp/blwhere.glade.h:9
 msgid "Where would you like to install the boot loader for your system?"
@@ -6454,11 +6457,11 @@ msgstr "تفاصيل"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "شرح العثرة"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "ملف الوصول"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
@@ -6490,12 +6493,12 @@ msgstr "ا_سم مستخدم"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/instkey.glade.h:4
 #, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr ""
+msgstr "الرجاء ادخل %(instkey)s."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>CHAP _Password:</b>"
@@ -6519,7 +6522,7 @@ msgstr "<b>_عنوان IP للهدف</b>"
 
 #: tmp/iscsi-config.glade.h:6
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>iSCSI اسم مدبر:</b>"
 
 #: tmp/iscsi-config.glade.h:9
 msgid "_Add target"
