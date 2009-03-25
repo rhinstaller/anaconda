@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.36
+Version: 11.5.0.37
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -210,6 +210,39 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 24 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.37-1
+- Start with a basic /etc/hosts file (#491634) (dcantrell)
+- Do not flag every existing partition for resize (#491803) (dcantrell)
+- Remove unused noformatCB() function. (dcantrell)
+- Remove unnecessary istruefalse() function. (dcantrell)
+- Build new _isys.so for updates.img if needed. (dcantrell)
+- Get the UUID of each md array we create. (#491796) (dlehman)
+- Call udev_settle after committing changes to a disk (#491529) (hdegoede)
+- Be a little bit smarter about allocating space to grow parts. (#491761)
+  (dlehman)
+- Check that partition is on the disk before trying to remove it. (#491997)
+  (dlehman)
+- Work around a bug in mdadm incremental assembly. (dlehman)
+- Use the same units (MB) for extent size that we do for everything else.
+  (dlehman)
+- Put line breaks in between crypttab entries. (#491938) (dlehman)
+- Register the NoDevFS class. (clumens)
+- fslabels -> labels. (clumens)
+- NFSDevice does not take exists= as a parameter. (clumens)
+- Override _setDevice and _getDevice in NFS. (clumens)
+- Move resolveDevice into the DeviceTree class. (clumens)
+- Move most of the parseFSTab logic into its own function. (clumens)
+- We don't even use partedUtils in this module. (clumens)
+- PReP formats can never be active. (#491865) (dlehman)
+- Move protectedPartition setup into storageInitialize (#491781). (clumens)
+- Use the mount and unmount methods on OpticalDevice.format now. (clumens)
+- Add a format for ISO9660 filesystems. (clumens)
+- getDeviceByName does not expect the CD device to start with "/dev/"
+  (#491768). (clumens)
+- Write the same arch to .discinfo as iutil.getArch() gives us (#490977).
+  (clumens)
+- Don't remove partitions twice. (jgranado)
+
 * Mon Mar 23 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.36-1
 - Add EFI, Apple Bootstrap, and PPC PReP Boot formats. (dlehman)
 - Remove all implicit calls to self.format.destroy from Device classes.
