@@ -142,22 +142,19 @@ def questionReinitILVM(intf=None, pv_names=None, lv_name=None, vg_name=None):
         pass
     else:
         if vg_name is not None:
-            message = "%s Volume Group" % vg_name
+            message = "Volume Group %s" % vg_name
         elif lv_name is not None:
-            message = "%s Logical Volume" % lv_name
+            message = "Logical Volume %s" % lv_name
 
 
         rc = intf.messageWindow(_("Warning"),
                   _("Error processing LVM.\n"
-                    "It seems that there is inconsistent LVM data. "
-                    "(%s) make(s) up %s. "
-                    "You can reinitialize all related PVs, which will "
-                    "erase all LVM metadata. Or ignore, which will "
-                    "preserve contents.")
-                    %(str(pv_names), message),
+                    "There is inconsistent LVM data on %s.  You can reinitialize "
+                    "all related PVs (%s) which will erase the LVM metadata, or "
+                    "ignore which will preserve the contents." % (message, ", ".join(pv_names))),
                 type="custom",
-                custom_buttons = [ _("_Ignore drive(s)"),
-                                   _("_Re-initialize drive(s)") ],
+                custom_buttons = [ _("_Ignore"),
+                                   _("_Re-initialize") ],
                 custom_icon="question")
         if rc == 0:
             pass
