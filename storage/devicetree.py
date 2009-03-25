@@ -1270,7 +1270,7 @@ class DeviceTree(object):
                             # clearpart --initlabel was specified
                             initlabel = self.reinitializeDisks
                             for protected in self.protectedPartitions:
-                                disk_name = re.sub(r'p\d+$', protected)
+                                disk_name = re.sub(r'p\d+$', '', protected)
                                 if disk_name != protected and \
                                    disk_name == rs.name:
                                     initlabel = False
