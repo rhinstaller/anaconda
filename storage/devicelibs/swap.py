@@ -23,7 +23,7 @@
 import resource
 
 import iutil
-import resource
+import os
 
 from ..errors import *
 

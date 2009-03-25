@@ -28,6 +28,9 @@ from ..errors import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+import logging
+log = logging.getLogger("storage")
+
 # raidlevels constants
 RAID10 = 10
 RAID6 = 6

@@ -69,7 +69,7 @@ class MDRaidMember(DeviceFormat):
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         if not self.exists:
-            raise MDRaidMemberError("format does not exist")
+            raise MDMemberError("format does not exist")
 
         info = mdraid.mdexamine(self.device)
         if self.uuid is None:

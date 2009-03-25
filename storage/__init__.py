@@ -75,7 +75,7 @@ def storageInitialize(anaconda):
 
         device = storage.devicetree.resolveDevice(devspec)
         if device is None:
-            if self.getUpgrade():
+            if anaconda.id.getUpgrade():
                 return
             else:
                 anaconda.intf.messageWindow(_("Unknown Device"),
@@ -455,7 +455,7 @@ class Storage(object):
                    part.fileSystemType in ("ext3", "ext2", "fat16", "fat32"):
                     dests.append(part.path, device.name)
 
-            if not parts:
+            if not disk.partitions:
                 dests.append(device.path, device.name)
 
         return dests
@@ -647,7 +647,7 @@ class Storage(object):
                             return False
                     return True
         elif device.format.type == "swap":
-                return True
+            return True
 
         # be safe for anything else and default to off
         return False
@@ -864,7 +864,7 @@ class Storage(object):
     def writeKS(self, f):
         log.warning("Storage.writeKS not completely implemented")
         self.iscsi.writeKS(f)
-        self.zfcp.writeFS(f)
+        self.zfcp.writeKS(f)
 
 
 def getReleaseString(mountpoint):
@@ -1144,6 +1144,7 @@ class FSSet(object):
         self.devicetree = devicetree
         self.cryptTab = None
         self.blkidTab = None
+        self.origFStab = None
         self.active = False
         self._dev = None
         self._devpts = None

@@ -27,6 +27,7 @@ import re
 import iutil
 
 from ..errors import *
+from constants import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

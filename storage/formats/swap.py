@@ -20,9 +20,7 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
-import os
-
-from iutil import log_method_call
+from iutil import log_method_call, numeric_type
 from parted import PARTITION_SWAP
 from ..errors import *
 from ..devicelibs import swap

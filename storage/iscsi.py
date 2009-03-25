@@ -287,7 +287,7 @@ class iscsi(object):
                     if node.name    == disk.iscsi_name and \
                        node.address == disk.iscsi_address and \
                        node.port    == disk.iscsi_port:
-                        node.setParameter("node.startup", "automatic");
+                        node.setParameter("node.startup", "automatic")
                         break
 
             if not os.path.isdir(instPath + "/etc/iscsi"):
