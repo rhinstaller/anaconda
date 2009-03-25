@@ -264,17 +264,14 @@ class Storage(object):
                                          luksDict=self.__luksDevs)
             self.devicetree.populate()
             self.fsset = FSSet(self.devicetree)
-            w.pop()
         except FSError as e:
-            if w:
-                w.pop()
-
             self.anaconda.intf.messageWindow(_("Error"),
                 _("Filesystem error detected, cannot continue."),
                 custom_icon="error")
             sys.exit(0)
         finally:
-            w.pop()
+            if w:
+                w.pop()
 
     @property
     def devices(self):
