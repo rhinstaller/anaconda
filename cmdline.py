@@ -104,6 +104,20 @@ class InstallInterface:
             while 1:
                 time.sleep(5)
 
+    def passphraseEntryWindow(self, device):
+        print(_("Can't have a question in command line mode!"))
+        print("(passphraseEntryWindow: '%s')" % device.path)
+        # don't exit
+        while 1:
+            time.sleep(5)
+
+    def getLUKSPassphrase(self, passphrase = "", isglobal = False):
+        print(_("Can't have a question in command line mode!"))
+        print("(getLUKSPassphrase)")
+        # don't exit
+        while 1:
+            time.sleep(5)
+
     def exceptionWindow(self, shortText, longTextFile):
         print(shortText)
 
