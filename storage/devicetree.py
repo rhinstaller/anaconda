@@ -1410,10 +1410,10 @@ class DeviceTree(object):
             elif not device.complete:
                 # The user chose not to reinitialize.
                 # hopefully this will ignore the vg components too.
-                self._removeDevice(vg)
-                lvm.lvm_cc_addFilterRejectRegexp(vg.name)
-                lvm.blacklistVG(vg.name)
-                for parent in vg.parents:
+                self._removeDevice(device)
+                lvm.lvm_cc_addFilterRejectRegexp(device.name)
+                lvm.blacklistVG(device.name)
+                for parent in device.parents:
                     self._removeDevice(parent, moddisk=False)
                     lvm.lvm_cc_addFilterRejectRegexp(parent.name)
 
