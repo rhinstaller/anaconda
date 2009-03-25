@@ -1012,7 +1012,7 @@ class NFS(FS):
     _type = "nfs"
 
     def _deviceCheck(self, devspec):
-        if not ":" in devspec:
+        if devspec is not None and ":" not in devspec:
             raise ValueError("device must be of the form <host>:<path>")
 
     @property
