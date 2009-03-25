@@ -137,25 +137,6 @@ def safeLvmName(name):
 
     return tmp
 
-def getVGUsedSpace(vgreq, requests, diskset):
-    vgused = 0
-    for request in requests.requests:
-	if request.type == REQUEST_LV and request.volumeGroup == vgreq.uniqueID:
-	    size = int(request.getActualSize(requests, diskset))
-	    vgused = vgused + size
-
-
-    return vgused
-
-def getVGFreeSpace(vgreq, requests, diskset):
-    raise NotImplementedError
-    used = getVGUsedSpace(vgreq, requests, diskset)
-    log.debug("used space is %s" % (used,))
-    
-    total = vgreq.getActualSize(requests, diskset)
-    log.debug("actual space is %s" % (total,))
-    return total - used
-
 def clampSize(size, pesize, roundup=None):
     if roundup:
         round = math.ceil
