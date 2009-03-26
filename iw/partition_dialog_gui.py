@@ -160,15 +160,19 @@ class PartitionEditor:
                                 disks.append(disk)
 
                 format = fmt_class(mountpoint=mountpoint)
+                weight = self.anaconda.platform.weight(mountpoint=mountpoint,
+                                                       fstype=format.type)
                 if self.isNew:
                     request = self.storage.newPartition(size=size,
                                                         grow=grow,
                                                         maxsize=maxsize,
                                                         primary=primary,
                                                         format=format,
-                                                        parents=disks)
+                                                        parents=disks,
+                                                        weight=weight)
                 else:
                     request = self.origrequest
+                    request.weight = weight
 
                 if self.lukscb and self.lukscb.get_active() and \
                    request.format.type != "luks":
@@ -210,6 +214,7 @@ class PartitionEditor:
                 # preexisting partition, just set mount point and format flag
                 request = self.origrequest
                 mountpoint = self.mountCombo.get_children()[0].get_text()
+
                 if self.fsoptionsDict.has_key("formatcb") and \
                    self.fsoptionsDict["formatcb"].get_active():
                     fmt_class = self.fsoptionsDict["fstypeCombo"].get_active_value()
@@ -230,6 +235,9 @@ class PartitionEditor:
                         actions.append(ActionCreateFormat(luksdev))
                 elif request.format.mountable:
                     request.format.mountpoint = mountpoint
+
+                request.weight = self.anaconda.platform.weight(mountpoint=mountpoint,
+                                                               fstype=request.format.type)
 
                 if self.fsoptionsDict.has_key("migratecb") and \
                    self.fsoptionsDict["migratecb"].get_active():

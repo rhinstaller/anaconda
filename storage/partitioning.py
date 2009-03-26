@@ -86,19 +86,19 @@ def _schedulePartitions(anaconda, disks):
     # First pass is for partitions only. We'll do LVs later.
     #
     for request in anaconda.id.storage.autoPartitionRequests:
-        (mountpoint, fstype, size, maxsize, grow, asvol) = request
-        if asvol:
+        if request.asVol:
             continue
 
-        if fstype is None:
-            fstype = anaconda.id.storage.defaultFSType
+        if request.fstype is None:
+            request.fstype = anaconda.id.storage.defaultFSType
 
-        dev = anaconda.id.storage.newPartition(fmt_type=fstype,
-                                               size=size,
-                                               grow=grow,
-                                               maxsize=maxsize,
-                                               mountpoint=mountpoint,
-                                               disks=disks)
+        dev = anaconda.id.storage.newPartition(fmt_type=request.fstype,
+                                               size=request.size,
+                                               grow=request.grow,
+                                               maxsize=request.maxSize,
+                                               mountpoint=request.mountpoint,
+                                               disks=disks,
+                                               weight=request.weight)
 
         # schedule the device for creation
         anaconda.id.storage.createDevice(dev)
@@ -129,20 +129,19 @@ def _scheduleLVs(anaconda, devs):
     #
     # Second pass, for LVs only.
     for request in anaconda.id.storage.autoPartitionRequests:
-        (mountpoint, fstype, size, maxsize, grow, asvol) = request
-        if not asvol:
+        if not request.asVol:
             continue
 
-        if fstype is None:
-            fstype = anaconda.id.storage.defaultFSType
+        if request.fstype is None:
+            request.fstype = anaconda.id.storage.defaultFSType
 
         # FIXME: move this to a function and handle exceptions
         dev = anaconda.id.storage.newLV(vg=vg,
-                                        fmt_type=fstype,
-                                        mountpoint=mountpoint,
-                                        grow=grow,
-                                        maxsize=maxsize,
-                                        size=size)
+                                        fmt_type=request.fstype,
+                                        mountpoint=request.mountpoint,
+                                        grow=request.grow,
+                                        maxsize=request.maxSize,
+                                        size=request.size)
 
         # schedule the device for creation
         anaconda.id.storage.createDevice(dev)

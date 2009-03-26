@@ -590,12 +590,14 @@ class Partition(commands.partition.F9_Partition):
                 type = pd.fstype
             else:
                 type = storage.defaultFSType
-#        elif pd.mountpoint == 'appleboot':
-#            filesystem = fileSystemTypeGet("Apple Bootstrap")
-#            pd.mountpoint = ""
-#        elif pd.mountpoint == 'prepboot':
-#            filesystem = fileSystemTypeGet("PPC PReP Boot")
-#            pd.mountpoint = ""
+        elif pd.mountpoint == 'appleboot':
+            type = "Apple Bootstrap"
+            pd.mountpoint = ""
+            kwargs["weight"] = self.handler.anaconda.platform.weight(fstype="appleboot")
+        elif pd.mountpoint == 'prepboot':
+            type = "PPC PReP Boot"
+            pd.mountpoint = ""
+            kwargs["weight"] = self.handler.anaconda.platform.weight(fstype="prepboot")
         elif pd.mountpoint.startswith("raid."):
             type = "mdmember"
             kwargs["name"] = pd.mountpoint
@@ -613,8 +615,9 @@ class Partition(commands.partition.F9_Partition):
 
             pd.mountpoint = ""
         elif pd.mountpoint == "/boot/efi":
-            type = "vfat"
+            type = "EFI System Partition"
             pd.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
+            kwargs["weight"] = self.handler.anaconda.platform.weight(fstype="efi")
         else:
             if pd.fstype != "":
                 type = pd.fstype
