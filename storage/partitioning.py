@@ -356,6 +356,12 @@ def partitionCompare(part1, part2):
     """
     ret = 0
 
+    if part1.req_base_weight:
+        ret -= part1.req_base_weight
+
+    if part2.req_base_weight:
+        ret += part2.req_base_weight
+
     # bootable partitions to the front
     ret -= cmp(part1.req_bootable, part2.req_bootable) * 1000
 
