@@ -32,6 +32,7 @@ from instdata import InstallData
 
 from constants import *
 from filer import *
+from storage.partspec import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -188,14 +189,16 @@ class BaseInstallClass(object):
 
     def setDefaultPartitioning(self, storage, platform,
                                clear = CLEARPART_TYPE_LINUX, doClear = True):
-        autorequests = [ ("/", storage.defaultFSType, 1024, None, True, True) ]
+        autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
+                                 size=1024, grow=True, asVol=True)]
 
         bootreq = platform.setDefaultPartitioning()
         if bootreq:
             autorequests.extend(bootreq)
 
         (minswap, maxswap) = iutil.swapSuggestion()
-        autorequests.append((None, "swap", minswap, maxswap, True, True))
+        autorequests.append(PartSpec(fstype="swap", size=minswap, maxSize=maxswap,
+                                     grow=True, asVol=True))
 
         if doClear:
             storage.clearPartType = clear

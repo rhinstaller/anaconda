@@ -24,6 +24,8 @@ import iutil
 import parted
 import storage
 from storage.errors import *
+from storage.formats import *
+from storage.partspec import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -122,7 +124,8 @@ class Platform(object):
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
-        return [("/boot", self.bootFSType, 200, None, 0, 0)]
+        return [PartSpec(mountpoint="/boot", fstype=self.bootFSType, size=200,
+                         weight=self.weight(mountpoint="/boot"))]
 
     @property
     def supportsMdRaidBoot(self):
@@ -145,6 +148,13 @@ class Platform(object):
         return ((not self.minBootPartSize or size >= self.minBootPartSize)
                 and
                 (not self.maxBootPartSize or size <= self.maxBootPartSize))
+
+    def weight(self, fstype=None, mountpoint=None):
+        """ Given an fstype (as a string) or a mountpoint, return an integer
+            for the base sorting weight.  This is used to modify the sort
+            algorithm for partition requests, mainly to make sure bootable
+            partitions and /boot are placed where they need to be."""
+        return 0
 
 class EFI(Platform):
     _diskType = parted.diskType["gpt"]
@@ -180,9 +190,18 @@ class EFI(Platform):
         # one on the system.
         if len(filter(lambda dev: dev.format.type == "efi" and self.validBootPartSize(dev.size),
                       self.anaconda.id.storage.partitions)) == 0:
-            ret.append(("/boot/efi", "efi", 50, 200, 1, 0))
+            ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi", size=20,
+                                maxSize=200, grow=True, weight=self.weight(fstype="efi")))
 
         return ret
+
+    def weight(self, fstype=None, mountpoint=None):
+        if fstype and fstype == "efi" or mountpoint and mountpoint == "/boot/efi":
+            return 5000
+        elif mountpoint and mountpoint == "/boot":
+            return 2000
+        else:
+            return 0
 
 class Alpha(Platform):
     _diskType = parted.diskType["bsd"]
@@ -267,8 +286,17 @@ class IPSeriesPPC(PPC):
 
     def setDefaultPartitioning(self):
         ret = PPC.setDefaultPartitioning(self)
-        ret.insert(0, (None, "PPC PReP Boot", 4, None, 0, 0))
+        ret.append(PartSpec(fstype="PPC PReP Boot", size=4,
+                            weight=self.weight(fstype="prepboot")))
         return ret
+
+    def weight(self, fstype=None, mountpoint=None):
+        if fstype and fstype == "prepboot":
+            return 5000
+        elif mountpoint and mountpoint == "/boot":
+            return 2000
+        else:
+            return 0
 
 class NewWorldPPC(PPC):
     _diskType = parted.diskType["mac"]
@@ -306,8 +334,17 @@ class NewWorldPPC(PPC):
 
     def setDefaultPartitioning(self):
         ret = Platform.setDefaultPartitioning(self)
-        ret.insert(0, (None, "Apple Bootstrap", 1, 1, 0, 0))
+        ret.append(PartSpec(fstype="Apple Bootstrap", size=1, maxSize=1,
+                            weight=self.weight(fstype="appleboot")))
         return ret
+
+    def weight(self, fstype=None, mountpoint=None):
+        if fstype and fstype == "appleboot":
+            return 5000
+        elif mountpoint and mountpoint == "/boot":
+            return 2000
+        else:
+            return 0
 
 class S390(Platform):
     _bootloaderPackage = "s390utils"
