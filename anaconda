@@ -254,83 +254,6 @@ def parseOptions():
 
     return op.parse_args()
 
-def setVNCFromKickstart(opts):
-    from kickstart import KickstartError, VNCHandler
-    from pykickstart.parser import KickstartParser, preprocessKickstart
-
-    global vncS
-
-    try:
-        opts.ksfile = preprocessKickstart(opts.ksfile)
-    except KickstartError, msg:
-        stdoutLog.critical(_("Error processing %%ksappend lines: %s") % msg)
-        sys.exit(1)
-    except Exception, e:
-        stdoutLog.critical(_("Unknown error processing %%ksappend lines: %s") % e)
-        sys.exit(1)
-
-    # now see if they enabled vnc via the kickstart file. Note that command
-    # line options for password, connect host and port override values in
-    # kickstart file
-    handler = VNCHandler()
-    ksparser = KickstartParser(handler, missingIncludeIsFatal=False)
-
-    # We don't have an intf by now so the best we can do is just print the
-    # exception out.
-    try:
-        ksparser.readKickstart(opts.ksfile)
-    except KickstartError, e:
-        print _("The following error was found while parsing your "
-                "kickstart configuration:\n\n%s") % e
-        sys.exit(1)
-
-    if handler.vnc.enabled:
-        flags.usevnc = 1
-
-        if vncS.password == "":
-            vncS.password = handler.vnc.password
-
-        if vncS.vncconnecthost == "":
-            vncS.vncconnecthost = handler.vnc.host
-
-        if vncS.vncconnectport == "":
-            vncS.vncconnectport = handler.vnc.port
-
-    from pykickstart.constants import DISPLAY_MODE_GRAPHICAL
-    if handler.displaymode.displayMode!=None:
-            flags.vncquestion = False
-
-    return handler.vnc
-
-def setRescueModeFromKickstart(opts):
-    from kickstart import KickstartError, RescueHandler
-    from pykickstart.parser import KickstartParser, preprocessKickstart
-
-    try:
-        opts.ksfile = preprocessKickstart(opts.ksfile)
-    except KickstartError, msg:
-        stdoutLog.critical(_("Error processing %%ksappend lines: %s") % msg)
-        sys.exit(1)
-    except Exception, e:
-        stdoutLog.critical(_("Unknown error processing %%ksappend lines: %s") % e)
-        sys.exit(1)
-
-    # now see if they enabled rescue mode via the kickstart file. 
-    handler = RescueHandler()
-    ksparser = KickstartParser(handler, missingIncludeIsFatal=False)
-
-    # We don't have an intf by now so the best we can do is just print the
-    # exception out.
-    try:
-        ksparser.readKickstart(opts.ksfile)
-    except KickstartError, e:
-        print _("The following error was found while parsing your "
-                "kickstart configuration:\n\n%s") % e
-        sys.exit(1)
-
-    # True or False
-    return handler.rescue.rescue
-
 def setupPythonPath():
     # For anaconda in test mode
     if (os.path.exists('isys')):
@@ -765,11 +688,21 @@ if __name__ == "__main__":
         except:
             pass
 
+    # If we were given a kickstart file, do a first processing run looking
+    # for a couple specific commands that'll be useful in setting up the
+    # interface.
+    if opts.ksfile:
+        from kickstart import earlyProcessKickstartFile
+        anaconda.isKickstart = True
+        earlyKS = earlyProcessKickstartFile(anaconda, opts.ksfile)
+    else:
+        earlyKS = None
+
     #
     # must specify install, rescue mode
     #
-    if opts.ksfile and (not opts.rescue):
-        opts.rescue = setRescueModeFromKickstart(opts)
+    if earlyKS and not opts.rescue:
+        opts.rescue = earlyKS.rescue.rescue
 
     if opts.rescue:
         anaconda.rescue = True
@@ -779,7 +712,6 @@ if __name__ == "__main__":
         anaconda.id = instdata.InstallData(anaconda, [], opts.display_mode)
 
         if opts.ksfile:
-            anaconda.isKickstart = True
             instClass.setInstallData(anaconda)
 
             #we need waitWindow valid in processKickstartFile. because storage uses it
@@ -787,7 +719,7 @@ if __name__ == "__main__":
             screen = SnackScreen()
             anaconda.intf = rescue.RescueInterface(screen)
 
-            kickstart.processKickstartFile(anaconda, opts.ksfile)
+            kickstart.processKickstartFile(anaconda, opts.ksfile, earlyKS)
 
             anaconda.intf = None
             screen.finish()
@@ -800,16 +732,22 @@ if __name__ == "__main__":
         # shouldn't get back here
         sys.exit(1)
 
-    #
-    # Here we have a hook to pull in second half of kickstart file via https
-    # if desired.
-    #
     if opts.ksfile:
-        anaconda.isKickstart = True
-        vncksdata = setVNCFromKickstart(opts)
-
-        if vncksdata.enabled:
+        if earlyKS.vnc.enabled:
+            flags.usevnc = 1
             opts.display_mode = 'g'
+
+            if vncS.password == "":
+                vncS.password = earlyKS.vnc.password
+
+            if vncS.vncconnecthost == "":
+                vncS.vncconnecthost = earlyKS.vnc.host
+
+            if vncS.vncconnectport == "":
+                vncS.vncconnectport = earlyKS.vnc.port
+
+        if earlyKS.displaymode.displayMode != None:
+            flags.vncquestion = False
 
     #
     # Determine install method - GUI or TUI
@@ -993,10 +931,10 @@ if __name__ == "__main__":
         anaconda.id.keyboard.activate()
 
     if anaconda.isKickstart:
-        kickstart.processKickstartFile(anaconda, opts.ksfile)
+        kickstart.processKickstartFile(anaconda, opts.ksfile, earlyKS)
         # We need to copy the VNC-related kickstart stuff into the new ksdata
-        anaconda.id.ksdata.vnc(enabled=vncksdata.enabled, host=vncksdata.host,
-                               password=vncksdata.password, port=vncksdata.port)
+        anaconda.id.ksdata.vnc(enabled=earlyKS.vnc.enabled, host=earlyKS.vnc.host,
+                               password=earlyKS.vnc.password, port=earlyKS.vnc.port)
 
     # Skip the disk options in rootpath mode
     if flags.rootpath:

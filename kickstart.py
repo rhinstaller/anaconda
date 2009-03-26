@@ -277,6 +277,12 @@ class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
     def parse(self, args):
         retval = commands.ignoredisk.F8_IgnoreDisk.parse(self, args)
 
+        # If doing the early kickstart processing, we will not yet have
+        # an instdata attribute.  That's okay because we pull the lists
+        # right out of this class instead of the instdata.
+        if not self.handler.id:
+            return retval
+
         for drive in self.ignoredisk:
             if not drive in self.handler.id.storage.ignoredDisks:
                 self.handler.id.storage.ignoredDisks.append(drive)
@@ -1010,6 +1016,8 @@ commandMap = {
 superclass = returnClassForVersion()
 
 class AnacondaKSHandler(superclass):
+    # This handler class processes all kickstart commands.  It is used in the
+    # second parsing pass - when we do all the real work.
     def __init__ (self, anaconda):
         superclass.__init__(self, mapping=commandMap)
         self.packages = AnacondaKSPackages()
@@ -1020,19 +1028,23 @@ class AnacondaKSHandler(superclass):
         self.anaconda = anaconda
         self.id = self.anaconda.id
 
-class VNCHandler(superclass):
-    # We're only interested in the handler for the VNC command and display modes.
-    def __init__(self, anaconda=None):
+class EarlyKSHandler(superclass):
+    # This handler class only processes a couple kickstart commands.  It is
+    # used very early on in anaconda, when we don't yet have an interface
+    # and are looking for (1) what sort of interface we need to set up, and
+    # (2) what to ignore when we initialize storage.
+    def __init__(self, anaconda):
         superclass.__init__(self, mapping=commandMap)
-        self.maskAllExcept(["vnc", "displaymode", "text", "cmdline", "graphical"])
 
-class RescueHandler(superclass):
-    # We're only interested in the handler for the rescue command
-    def __init__(self, anaconda=None):
-        superclass.__init__(self, mapping=commandMap)
-        self.maskAllExcept(["rescue"])
+        self.anaconda = anaconda
+        self.id = self.anaconda.id
+
+        self.maskAllExcept(["vnc", "displaymode", "text", "cmdline",
+                            "graphical", "rescue", "ignoredisk"])
 
 class KickstartPreParser(KickstartParser):
+    # A subclass of KickstartParser that only looks for %pre scripts and
+    # sets them up to be run.  All other scripts and commands are ignored.
     def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
                   missingIncludeIsFatal=True):
         KickstartParser.__init__(self, handler, missingIncludeIsFatal=False)
@@ -1091,11 +1103,32 @@ class AnacondaKSParser(KickstartParser):
 
         KickstartParser.handleCommand(self, lineno, args)
 
-def processKickstartFile(anaconda, file):
-    # We need to make sure storage is active before the kickstart file is read.
-    import storage
-    storage.storageInitialize(anaconda)
+def earlyProcessKickstartFile(anaconda, file):
+    try:
+        file = preprocessKickstart(file)
+    except KickstartError, msg:
+        stdoutLog.critical(_("Error processing %%ksappend lines: %s") % msg)
+        sys.exit(1)
+    except Exception, e:
+        stdoutLog.critical(_("Unknown error processing %%ksappend lines: %s") % e)
+        sys.exit(1)
 
+    handler = EarlyKSHandler(anaconda)
+    ksparser = KickstartParser(handler, missingIncludeIsFatal=False)
+
+    # We don't have an intf by now, so the best we can do is just print the
+    # exception out.
+    try:
+        ksparser.readKickstart(file)
+    except KickstartError, e:
+        print _("The following error was found while parsing your "
+                "kickstart configuration:\n\n%s") % e
+        sys.exit(1)
+
+    # And return the handler object so we can get information out of it.
+    return handler
+
+def processKickstartFile(anaconda, file, earlyKS):
     # parse the %pre
     ksparser = KickstartPreParser(AnacondaKSHandler(anaconda))
 
@@ -1116,6 +1149,15 @@ def processKickstartFile(anaconda, file):
 
     # run %pre scripts
     runPreScripts(anaconda, ksparser.handler.scripts)
+
+    # We need to make sure storage is active before the rest of the kickstart
+    # file is processed.  But before we initialize storage, we have to tell it
+    # which disks to avoid, and we only get that information from the earlier
+    # processing of the kickstart file.
+    import storage
+    anaconda.id.storage.ignoredDisks = earlyKS.ignoredisk.ignoredisk
+    anaconda.id.storage.exclusiveDisks = earlyKS.ignoredisk.onlyuse
+    storage.storageInitialize(anaconda)
 
     # now read the kickstart file for real
     handler = AnacondaKSHandler(anaconda)
