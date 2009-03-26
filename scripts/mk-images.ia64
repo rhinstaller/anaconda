@@ -42,7 +42,7 @@ EOF
 makeBootImages() {
     makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
 	--imagename boot.img \
-	--bootdisksize 24576 \
+	--bootdisksize 25600 \
 	--initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
 			    --initrdsize 13000 \
 			    --loaderbin loader \
