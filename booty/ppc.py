@@ -16,11 +16,11 @@ class ppcBootloaderInfo(bootloaderInfo):
 
         if machine == 'pSeries':
             for dev in self.storage.fsset.devices:
-                if dev.partedFlags[parted.PARTITION_PREP] and not dev.format.exists:
+                if dev.format.type == "prepboot":
                     retval.append(dev.path)
         elif machine == 'PMac':
             for dev in self.storage.fsset.devices:
-                if dev.format.type == "hfs" and dev.format.bootable and not dev.format.exists:
+                if dev.format.type == "hfs" and dev.format.bootable:
                     retval.append(dev.path)
 
         if len(retval) == 0:
