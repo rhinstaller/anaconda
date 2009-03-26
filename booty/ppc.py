@@ -35,7 +35,8 @@ class ppcBootloaderInfo(bootloaderInfo):
                 retval.append(device.path)
             else:
                 if bl.getDevice():
-                    retval.append(bl.getDevice().path)
+                    d = bl.getDevice()
+                    retval.append(self.storage.devicetree.getDeviceByName(d).path)
 
         return retval
 
