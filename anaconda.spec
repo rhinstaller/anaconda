@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.101
+Version: 10.1.1.102
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar 26 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.102-1
+- Fix the size of the vmlinuz images for i386 and ia64 (msivak).
+  Resolves: rhbz:#492331
+
 * Wed Mar 25 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.101-1
 - Add the qla2500 to the table of known modules (msivak).
   Resolves: rhbz:#491982
