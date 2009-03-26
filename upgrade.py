@@ -69,17 +69,24 @@ def guessGuestArch(rootdir):
 
 def isUpgradingArch(anaconda):
     """anaconda -> (bool, oldarch)
-    Check if the upgrade should change architecture of instalation"""
+    Check if the upgrade should change architecture of installation"""
+
+    def compareArch(a, b):
+        import re
+        if re.match("i.86", a) and re.match("i.86", b):
+            return True
+        else
+            return a == b
 
     try:
         rpmplatform = open(anaconda.rootPath+"/etc/rpm/platform").readline().strip()
         rpmarch = rpmplatform[:rpmplatform.index("-")]
-        return rhpl.arch.canonArch!=rpmarch, rpmarch
+        return compareArch(rhpl.arch.canonArch, rpmarch), rpmarch
     except IOError:
         #try some fallback methods
         rpmarch = guessGuestArch(anaconda.rootPath)
         if rpmarch:
-            return rhpl.arch.canonArch!=rpmarch, rpmarch
+            return compareArch(rhpl.arch.canonArch, rpmarch), rpmarch
         else:
             return False, "unknown"
 
