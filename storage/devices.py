@@ -835,7 +835,7 @@ class PartitionDevice(StorageDevice):
                  size=None, grow=False, maxsize=None,
                  major=None, minor=None, bootable=None,
                  sysfsPath='', parents=None, exists=None,
-                 partType=None, primary=False):
+                 partType=None, primary=False, weight=0):
         """ Create a PartitionDevice instance.
 
             Arguments:
@@ -862,6 +862,7 @@ class PartitionDevice(StorageDevice):
                     size -- the device's size (in MB)
                     bootable -- whether the partition is bootable
                     parents -- a list of potential containing disks
+                    weight -- an initial sorting weight to assign
         """
         self.req_disks = []
         self.req_partType = None
@@ -871,6 +872,7 @@ class PartitionDevice(StorageDevice):
         self.req_size = 0
         self.req_base_size = 0
         self.req_max_size = 0
+        self.req_base_weight = 0
 
         self._bootable = False
 
@@ -924,6 +926,8 @@ class PartitionDevice(StorageDevice):
 
             # req_base_size will always remain constant
             self.req_base_size = self._size
+
+            self.req_base_weight = weight
 
     def __str__(self):
         s = StorageDevice.__str__(self)
@@ -1018,6 +1022,15 @@ class PartitionDevice(StorageDevice):
 
     partedPartition = property(lambda d: d._getPartedPartition(),
                                lambda d,p: d._setPartedPartition(p))
+
+    def _getWeight(self):
+        return self.req_base_weight
+
+    def _setWeight(self, weight):
+        self.req_base_weight = weight
+
+    weight = property(lambda d: d._getWeight(),
+                      lambda d,w: d._setWeight(w))
 
     def updateSysfsPath(self):
         """ Update this device's sysfs path. """
