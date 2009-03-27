@@ -1231,72 +1231,73 @@ class DeviceTree(object):
                 major = udev_device_get_major(info)
                 minor = udev_device_get_minor(info)
                 # Have we already created the DMRaidArrayDevice?
-                rs = block.getRaidSetFromRelatedMem(uuid=uuid, name=name,
+                rss = block.getRaidSetFromRelatedMem(uuid=uuid, name=name,
                                                     major=major, minor=minor)
-                if rs is None:
+                if len(rss) == 0:
                     # we ignore the device in the hope that all the devices
                     # from this set will be ignored.
                     self.addIgnoredDisk(device.name)
                     return
 
-                elif rs.name in self._ignoredDisks:
-                    # If the rs is being ignored, we should ignore device too.
-                    self.addIgnoredDisk(device.name)
-                    return
+                for rs in rss:
+                    if rs.name in self._ignoredDisks:
+                        # If the rs is being ignored, we should ignore device too.
+                        self.addIgnoredDisk(device.name)
+                        return
 
-                else:
-                    dm_array = self.getDeviceByName(rs.name)
-                    if dm_array is not None:
-                        # We add the new device.
-                        dm_array._addDevice(device)
                     else:
-                        # Activate the Raid set.
-                        rs.activate(mknod=True)
-
-                        # Create the DMRaidArray
-                        if self.zeroMbr:
-                            cb = lambda: True
+                        dm_array = self.getDeviceByName(rs.name)
+                        if dm_array is not None:
+                            # We add the new device.
+                            dm_array._addDevice(device)
                         else:
-                            cb = lambda: questionInitializeDisk(self.intf,
-                                                                rs.name)
+                            # Activate the Raid set.
+                            rs.activate(mknod=True)
 
-                        if not self.clearPartDisks or \
-                           rs.name in self.clearPartDisks:
-                            # if the disk contains protected partitions
-                            # we will not wipe the disklabel even if
-                            # clearpart --initlabel was specified
-                            initlabel = self.reinitializeDisks
-                            for protected in self.protectedPartitions:
-                                disk_name = re.sub(r'p\d+$', '', protected)
-                                if disk_name != protected and \
-                                   disk_name == rs.name:
-                                    initlabel = False
-                                    break
-                        else:
-                            initlabel = False
+                            # Create the DMRaidArray
+                            if self.zeroMbr:
+                                cb = lambda: True
+                            else:
+                                cb = lambda: questionInitializeDisk(self.intf,
+                                                                    rs.name)
 
-                        try:
-                            dm_array = DMRaidArrayDevice(rs.name,
-                                                    major=major, minor=minor,
-                                                    raidSet=rs,
-                                                    level=rs.level,
-                                                    parents=[device],
-                                                    initcb=cb,
-                                                    initlabel=initlabel)
+                            if not self.clearPartDisks or \
+                               rs.name in self.clearPartDisks:
+                                # if the disk contains protected partitions
+                                # we will not wipe the disklabel even if
+                                # clearpart --initlabel was specified
+                                initlabel = self.reinitializeDisks
+                                for protected in self.protectedPartitions:
+                                    disk_name = re.sub(r'p\d+$', '', protected)
+                                    if disk_name != protected and \
+                                       disk_name == rs.name:
+                                        initlabel = False
+                                        break
+                            else:
+                                initlabel = False
 
-                            self._addDevice(dm_array)
-                            # Use the rs's object on the device.
-                            # pyblock can return the memebers of a set and the
-                            # device has the attribute to hold it.  But ATM we
-                            # are not really using it. Commenting this out until
-                            # we really need it.
-                            #device.format.raidmem = block.getMemFromRaidSet(dm_array,
-                            #        major=major, minor=minor, uuid=uuid, name=name)
-                        except DeviceUserDeniedFormatError:
-                            # We should ignore the dmriad and its components
-                            self.addIgnoredDisk(rs.name)
-                            self.addIgnoredDisk(device.name)
-                            rs.deactivate()
+                            try:
+                                dm_array = DMRaidArrayDevice(rs.name,
+                                                        major=major, minor=minor,
+                                                        raidSet=rs,
+                                                        level=rs.level,
+                                                        parents=[device],
+                                                        initcb=cb,
+                                                        initlabel=initlabel)
+
+                                self._addDevice(dm_array)
+                                # Use the rs's object on the device.
+                                # pyblock can return the memebers of a set and the
+                                # device has the attribute to hold it.  But ATM we
+                                # are not really using it. Commenting this out until
+                                # we really need it.
+                                #device.format.raidmem = block.getMemFromRaidSet(dm_array,
+                                #        major=major, minor=minor, uuid=uuid, name=name)
+                            except DeviceUserDeniedFormatError:
+                                # We should ignore the dmriad and its components
+                                self.addIgnoredDisk(rs.name)
+                                self.addIgnoredDisk(device.name)
+                                rs.deactivate()
             elif format.type == "lvmpv":
                 # lookup/create the VG and LVs
                 try:
