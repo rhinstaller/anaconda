@@ -141,6 +141,7 @@ Requires: NetworkManager >= %{nmver}
 Requires: dhclient
 Requires: dhcpv6-client
 Requires: anaconda-yum-plugins
+Requires: libselinux-python >= %{libselinuxver}
 Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
