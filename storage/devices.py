@@ -2684,7 +2684,7 @@ class OpticalDevice(StorageDevice):
         try:
             _isys.ejectcdrom(fd)
         except SystemError as e:
-            log.warning("error ejecting cdrom %s: %s" % (device, e))
+            log.warning("error ejecting cdrom %s: %s" % (self.name, e))
 
         os.close(fd)
 
