@@ -245,6 +245,7 @@ def doAutoPartition(anaconda):
             anaconda.intf.messageWindow(_("Unrecoverable Error"),
                                _("Your system will now be rebooted."))
             sys.exit(0)
+        anaconda.id.storage.reset()
         return DISPATCH_BACK
 
 
