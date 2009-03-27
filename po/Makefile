@@ -16,7 +16,7 @@ DESKTOPFILES = ../liveinst/*.desktop.in
 INTLFILES = $(GLADEFILES) $(DESKTOPFILES)
 
 PYPOTFILES = ../anaconda ../*.py ../iw/*.py ../textw/*.py \
-           ../installclasses/*.py
+           ../installclasses/*.py ../storage/*.py ../storage/*/*.py
 
 CPOTFILES = ../loader/*.c 
 
