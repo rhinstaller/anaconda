@@ -157,35 +157,15 @@ def mdactivate(device, members=[], super_minor=None, uuid=None):
     else:
         identifier = ""
 
-    filename = None
-    if members:
-        from tempfile import mkstemp
-        (fd, filename) = mkstemp(prefix="%s_devices." % device,
-                                     dir="/tmp",
-                                     text=True)
-        os.write(fd, "DEVICE %s\n" % " ".join(members))
-        config_arg = "--config=%s" % filename
-        os.close(fd)
-        del mkstemp
-    else:
-        config_arg = ""
-
     rc = iutil.execWithRedirect("mdadm",
                                 ["--assemble",
-                                 config_arg,
                                  device,
                                  identifier,
                                  "--auto=md",
-                                 "--update=super-minor"],
+                                 "--update=super-minor"] + members,
                                 stderr = "/dev/tty5",
                                 stdout = "/dev/tty5",
                                 searchPath=1)
-
-    if filename and os.access(filename, os.R_OK):
-        try:
-            os.unlink(filename)
-        except OSError, e:
-            log.debug("unlink of %s failed: %s" % (filename, e))
 
     if rc:
         raise MDRaidError("mdactivate failed for %s" % device)
