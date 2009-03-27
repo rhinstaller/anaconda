@@ -158,11 +158,16 @@ __EOT__
 doPostImages() {
     if [ -n "$BOOTISO" ]; then
         EFIARGS=""
-        if [ -f isolinux/efiboot.img ]; then
+        EFIGRAFT=""
+        if [ -f $TOPDESTPATH/images/pxeboot/efiboot.img ]; then
+            cp $TOPDESTPATH/images/pxeboot/efiboot.img $TOPDESTPATH/isolinux/efiboot.img
             EFIARGS="-eltorito-alt-boot -e isolinux/efiboot.img -no-emul-boot"
+            EFIGRAFT="EFI/boot=$TOPDESTPATH/EFI/boot"
         fi
-        mkisofs -o $TOPDESTPATH/images/$BOOTISO -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table $EFIARGS -R -J -V "$PRODUCT" -T -graft-points isolinux=$TOPDESTPATH/isolinux images/install.img=$TOPDESTPATH/images/install.img
-       implantisomd5 $TOPDESTPATH/images/$BOOTISO
+        BIOSARGS="-b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table"
+        echo $PWD:\$ mkisofs -o $TOPDESTPATH/images/$BOOTISO $BIOSARGS $EFIARGS -R -J -V "$PRODUCT" -T -graft-points isolinux=$TOPDESTPATH/isolinux images/install.img=$TOPDESTPATH/images/install.img $EFIGRAFT
+        mkisofs -o $TOPDESTPATH/images/$BOOTISO $BIOSARGS $EFIARGS -R -J -V "$PRODUCT" -T -graft-points isolinux=$TOPDESTPATH/isolinux images/install.img=$TOPDESTPATH/images/install.img $EFIGRAFT
+        implantisomd5 $TOPDESTPATH/images/$BOOTISO
     fi
 
 }

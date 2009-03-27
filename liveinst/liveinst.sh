@@ -56,10 +56,14 @@ if [ ! -e /selinux/load ]; then
     ANACONDA="$ANACONDA --noselinux"
 fi
 
+# devkit-disks is now mounting lots of stuff.  for now, let's just try to unmount it all
+umount /media/*
 /sbin/swapoff -a
 /sbin/lvm vgchange -an --ignorelockingfailure
 
-if [ -x /usr/bin/hal-lock -a -e /var/lock/subsys/haldaemon ]; then
+if [ -x /usr/bin/devkit-disks ]; then
+    /usr/bin/devkit-disks --inhibit -- /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA $*"
+elif [ -x /usr/bin/hal-lock -a -e /var/lock/subsys/haldaemon ]; then
     /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA $*"
 else
     $ANACONDA $*

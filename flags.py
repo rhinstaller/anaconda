@@ -36,6 +36,12 @@ class Flags:
 	else:
 	    raise AttributeError, attr
 
+    def get(self, attr, val=None):
+        if self.__dict__['flags'].has_key(attr):
+            return self.__dict__['flags'][attr]
+        else:
+            return val
+
     def createCmdlineDict(self):
         cmdlineDict = {}
         cmdline = open("/proc/cmdline", "r").read().strip()

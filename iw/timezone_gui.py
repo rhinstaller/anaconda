@@ -29,7 +29,7 @@ import sys
 
 from timezone_map_gui import TimezoneMap, Enum
 from iw_gui import *
-from bootloaderInfo import dosFilesystems
+from booty.bootloaderInfo import dosFilesystems
 from bootloader import hasWindows
 
 from constants import *

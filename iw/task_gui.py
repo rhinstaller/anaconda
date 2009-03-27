@@ -268,7 +268,7 @@ class RepoEditor:
         return True
 
     def _applyMedia(self, repo):
-        cdr = scanForMedia(self.anaconda.backend.ayum.tree)
+        cdr = scanForMedia(self.anaconda.backend.ayum.tree, self.anaconda.id.storage)
         if not cdr:
             self.intf.messageWindow(_("No Media Found"),
                                     _("No installation media was found. "
@@ -393,7 +393,7 @@ class RepoMethodstrEditor(RepoEditor):
         return repourl
 
     def _applyMedia(self):
-        cdr = scanForMedia(self.anaconda.backend.ayum.tree)
+        cdr = scanForMedia(self.anaconda.backend.ayum.tree, self.anaconda.id.storage)
         if not cdr:
             self.intf.messageWindow(_("No Media Found"),
                                     _("No installation media was found. "

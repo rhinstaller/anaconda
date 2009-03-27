@@ -29,7 +29,6 @@ import imputil
 import types
 
 from instdata import InstallData
-from autopart import getAutopartitionBoot, autoCreatePartitionRequests, autoCreateLVMPartitionRequests
 
 from constants import *
 from filer import *
@@ -95,14 +94,14 @@ class BaseInstallClass(object):
 		 "language",
 		 "keyboard",
 		 "welcome",
+                 "storageinit",
                  "findrootparts",
 		 "betanag",
 		 "installtype",
-                 "partitionobjinit",
                  "parttype",
                  "autopartitionexecute",
                  "partition",
-		 "partitiondone",
+		 "storagedone",
 		 "bootloadersetup",                 
 		 "bootloader",
 		 "network",
@@ -116,7 +115,6 @@ class BaseInstallClass(object):
                  "reipl",
 		 "install",
 		 "enablefilesystems",
-                 "migratefilesystems",
                  "setuptime",
                  "preinstallconfig",
 		 "installpackages",
@@ -188,25 +186,24 @@ class BaseInstallClass(object):
         from backend import AnacondaBackend
         return AnacondaBackend
 
-    def setDefaultPartitioning(self, partitions, clear = CLEARPART_TYPE_LINUX,
-                               doClear = 1, useLVM = True):
-        autorequests = [ ("/", None, 1024, None, 1, 1, 1) ]
+    def setDefaultPartitioning(self, storage, platform,
+                               clear = CLEARPART_TYPE_LINUX, doClear = True):
+        autorequests = [ ("/", storage.defaultFSType, 1024, None, True, True) ]
 
-        bootreq = getAutopartitionBoot(partitions)
+        bootreq = platform.setDefaultPartitioning()
         if bootreq:
             autorequests.extend(bootreq)
 
         (minswap, maxswap) = iutil.swapSuggestion()
-        autorequests.append((None, "swap", minswap, maxswap, 1, 1, 1))
+        autorequests.append((None, "swap", minswap, maxswap, True, True))
 
         if doClear:
-            partitions.autoClearPartType = clear
-            partitions.autoClearPartDrives = []
-
-        if useLVM:
-            partitions.autoPartitionRequests = autoCreateLVMPartitionRequests(autorequests)
+            storage.clearPartType = clear
+            storage.clearPartDisks = []
         else:
-            partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)        
+            storage.clearPartType = CLEARPART_TYPE_NONE
+
+        storage.autoPartitionRequests = autorequests
 
 
     def setInstallData(self, anaconda):

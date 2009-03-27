@@ -53,25 +53,25 @@ makeefibootimage() {
     MBD_BOOTTREE=${TMPDIR:-/tmp}/makebootdisk.tree.$$
     MBD_BOOTTREE_TMP=$MBD_BOOTTREE'_tmp'
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
-    if [ $1 = "--kernel" ]; then
-        KERNELFILE=$2
-        shift; shift
-        continue
-    elif [ $1 = "--initrd" ]; then
-        INITRDFILE=$2
-        shift; shift
-        continue
-    elif [ $1 = "--imagename" ]; then
-        MBD_FILENAME=$IMAGEPATH/$2
-        shift; shift
-        continue
-    elif [ $1 = "--grubpkg" ]; then
-        grubpkg=$2
-        shift; shift
-        continue
-    fi
-    echo "Unknown option passed to makebootdisk"
-    exit 1
+        if [ $1 = "--kernel" ]; then
+            KERNELFILE=$2
+            shift; shift
+            continue
+        elif [ $1 = "--initrd" ]; then
+            INITRDFILE=$2
+            shift; shift
+            continue
+        elif [ $1 = "--imagename" ]; then
+            MBD_FILENAME=$IMAGEPATH/$2
+            shift; shift
+            continue
+        elif [ $1 = "--grubpkg" ]; then
+            grubpkg=$2
+            shift; shift
+            continue
+        fi
+        echo "Unknown option passed to makebootdisk"
+        exit 1
     done
 
     if [ -z "$MBD_FILENAME" ]; then
@@ -79,15 +79,6 @@ makeefibootimage() {
         exit 1
     fi
 
-    if [ -z "$KERNELFILE" ]; then
-        echo "No kernel file passed"
-        exit 1
-    fi
-
-    if [ -z "$INITRDFILE" ]; then
-        echo "No initrd file passed"
-        exit 1
-    fi
     MBD_FSIMAGE="$INITRDFILE"
 
     mkdir -p $MBD_BOOTTREE
@@ -110,7 +101,7 @@ makeefibootimage() {
 
     mkdir -p `dirname $MBD_FILENAME`
     rm -rf $MBD_TMPIMAGE $MBD_MNTPOINT $MBD_BOOTTREE
-    if [ -z "$INITRDFILE" ]; then
+    if [ -z "$INITRDFILE" -a -n "$MBD_FSIMAGE" ]; then
         rm -f $MBD_FSIMAGE
     fi
 
@@ -137,8 +128,8 @@ prepareEfiTree() {
     mkdir -p $MBD_BOOTTREE_TMP/EFI/boot
 
     cp -a $BOOTDISKDIR/* $MBD_BOOTTREE_TMP/EFI/boot/
-    cp $INITRDFILE $MBD_BOOTTREE_TMP/EFI/boot/initrd.img
-    cp $KERNELFILE $MBD_BOOTTREE_TMP/EFI/boot/vmlinuz
+    [ -n "$INITRDFILE" ] && cp $INITRDFILE $MBD_BOOTTREE_TMP/EFI/boot/initrd.img
+    [ -n "$KERNELFILE" ] && cp $KERNELFILE $MBD_BOOTTREE_TMP/EFI/boot/vmlinuz
 
     sed -i "s/@PRODUCT@/$PRODUCT/g" $MBD_BOOTTREE_TMP/EFI/boot/grub.conf
     sed -i "s/@VERSION@/$VERSION/g" $MBD_BOOTTREE_TMP/EFI/boot/grub.conf
@@ -165,10 +156,18 @@ prepareEfiTree() {
     yumdownloader -c ${yumconf} ${artpkg}
     rpm2cpio ${artpkg}.rpm | (cd $KERNELROOT; cpio --quiet -iumd)
     cp $KERNELROOT/boot/grub/splash.xpm.gz $MBD_BOOTTREE_TMP/EFI/boot/splash.xpm.gz
+
+    # if we don't have a kernel or initrd, we're making a CD image and we need
+    # to mirror EFI/ to the cd.
+    if [ -z "$KERNELFILE" -a -z "$INITRDFILE" ]; then
+        cp -av $MBD_BOOTTREE_TMP/EFI/ $TOPDESTPATH/EFI/
+        rm -f $TOPDESTPATH/EFI/boot/*.efi
+    fi
 }
 
 makeEfiImages() {
     yumconf="$1"
+    echo "Making EFI images ($PWD)"
     if [ "$kernelvers" != "$kernelxen" ]; then
         local grubarch=${efiarch}
         case ${efiarch} in
@@ -190,10 +189,24 @@ makeEfiImages() {
             --initrd $TOPDESTPATH/images/pxeboot/initrd.img \
             --grubpkg ${grubpkg}
         local ret=$?
-        [ $ret -eq 0 ] || return $ret
+        if [ $ret -ne 0 ]; then
+            echo "makeefibootimage (1) failed" >&2
+            return $ret
+        fi
 
         makeefibootdisk $TOPDESTPATH/images/pxeboot/efiboot.img $TOPDESTPATH/images/efidisk.img
-        return $?
+        [ $ret -eq 0 ] || return $ret
+        local ret=$?
+
+        # make a boot image with just boot*.efi in it...
+        makeefibootimage \
+            --imagename pxeboot/efiboot.img \
+            --grubpkg ${grubpkg}
+        local ret=$?
+        if [ $ret -ne 0 ]; then
+            echo "makeefibootimage (2) failed" >&2
+        fi
+        return $ret
     fi
-    return 1
+    return 0
 }

@@ -47,7 +47,7 @@ def findIsoImages(path, messageWindow):
 
         try:
             isys.mount("/dev/loop2", "/mnt/cdimage", fstype = "iso9660",
-                       readOnly = 1)
+                       readOnly = True)
             for num in range(1, 10):
                 if os.access("/mnt/cdimage/.discinfo", os.R_OK):
                     f = open("/mnt/cdimage/.discinfo")
@@ -95,7 +95,7 @@ def findIsoImages(path, messageWindow):
 
                     discImages[num] = file
 
-            isys.umount("/mnt/cdimage", removeDir=0)
+            isys.umount("/mnt/cdimage", removeDir=False)
         except SystemError:
             pass
 
@@ -179,7 +179,7 @@ def mountImage(isodir, tree, discnum, messageWindow, discImages={}):
         try:
             isoImage = "%s/%s" % (isodir, discImages[discnum])
             isys.losetup("/dev/loop1", isoImage, readOnly = 1)
-            isys.mount("/dev/loop1", tree, fstype = 'iso9660', readOnly = 1);
+            isys.mount("/dev/loop1", tree, fstype = 'iso9660', readOnly = True);
             break
         except:
             ans = messageWindow(_("Missing ISO 9660 Image"),
@@ -249,13 +249,13 @@ def presentRequiredMediaMessage(anaconda):
 
 # Find an attached CD/DVD drive with media in it that contains packages,
 # and return that device name.
-def scanForMedia(tree):
-    drive = None
+def scanForMedia(tree, storage):
+    for dev in storage.devicetree.devices.values():
+        if dev.type != "cdrom":
+            continue
 
-    for cdr in map(lambda d: "/dev/%s" % d, isys.cdromList()):
         try:
-            if isys.mount(cdr, tree, fstype="iso9660", readOnly=1):
-                continue
+            dev.format.mount(mountpoint=tree)
         except:
             continue
 
@@ -263,23 +263,22 @@ def scanForMedia(tree):
             isys.umount(tree)
             continue
 
-        drive = cdr
-        break
+        return dev.name
 
-    return drive
+    return None
 
 def umountImage(tree, currentMedia):
     if currentMedia is not None:
-        isys.umount(tree, removeDir=0)
+        isys.umount(tree, removeDir=False)
         isys.unlosetup("/dev/loop1")
 
-def unmountCD(path, messageWindow):
-    if not path:
+def unmountCD(dev, messageWindow):
+    if not dev:
         return
 
     while True:
         try:
-            isys.umount(path, removeDir=0)
+            dev.format.unmount()
             break
         except Exception, e:
             log.error("exception in _unmountCD: %s" %(e,))
@@ -288,7 +287,7 @@ def unmountCD(path, messageWindow):
                             "Please make sure you're not accessing "
                             "%s from the shell on tty2 "
                             "and then click OK to retry.")
-                          % (path,))
+                          % (dev.path,))
 
 def verifyMedia(tree, discnum, timestamp=None):
     if os.access("%s/.discinfo" % tree, os.R_OK):

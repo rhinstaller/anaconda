@@ -23,7 +23,8 @@ VERSION := $(shell awk '/Version:/ { print $$2 }' anaconda.spec)
 RELEASE := $(shell awk '/Release:/ { print $$2 }' anaconda.spec)
 CVSROOT ?= ${CVSROOT:-$(shell cat CVS/Root 2>/dev/null)}
 
-SUBDIRS = isys loader po \
+SUBDIRS = isys loader po booty \
+	    storage storage/formats storage/devicelibs \
 	    textw utils scripts bootdisk installclasses \
 	    iw pixmaps command-stubs ui docs
 # fonts aren't on s390/s390x
@@ -40,7 +41,7 @@ ifneq (,$(filter i386 x86_64,$(ARCH)))
 SUBDIRS += gptsync
 endif
 
-PYCHECKERPATH=isys:textw:iw:installclasses:/usr/lib/booty:/usr/share/system-config-date
+PYCHECKERPATH=isys:textw:iw:installclasses:/usr/share/system-config-date
 PYCHECKEROPTS=-F pycheckrc-for-anaconda
 
 CATALOGS = po/anaconda.pot
@@ -86,9 +87,12 @@ install:
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/usr/sbin
 	mkdir -p $(DESTDIR)/etc/rc.d/init.d
+	mkdir -p $(DESTDIR)/lib/udev/rules.d
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
 	mkdir -p $(DESTDIR)/$(ANACONDADATADIR)
+
+	install -m 644 70-anaconda.rules $(DESTDIR)/lib/udev/rules.d
 
 	install -m 755 anaconda $(DESTDIR)/usr/sbin/anaconda
 	install -m 755 mini-wm $(DESTDIR)/usr/bin/mini-wm
@@ -134,7 +138,7 @@ src: archive
 	@rm -f anaconda-$(VERSION).tar.bz2
 
 pycheck:
-	PYTHONPATH=$(PYCHECKERPATH) pychecker $(PYCHECKEROPTS) *.py textw/*.py iw/*.py installclasses/*.py | grep -v "__init__() not called" 
+	PYTHONPATH=$(PYCHECKERPATH) pychecker $(PYCHECKEROPTS) *.py textw/*.py iw/*.py installclasses/*.py storage/*.py | grep -v "__init__() not called"
 
 pycheck-file:
 	PYTHONPATH=.:$(PYCHECKERPATH) pychecker $(PYCHECKEROPTS) $(CHECK) | grep -v "__init__() not called" 
@@ -165,3 +169,46 @@ bumpver:
 
 install-buildrequires:
 	yum install $$(grep BuildRequires: anaconda.spec | cut -d ' ' -f 2)
+
+# Generate an updates.img based on the changed files since the release
+# was tagged.  Updates are copied to ./updates-img and then the image is
+# created.  By default, the updates subdirectory is removed after the
+# image is made, but if you want to keep it around, run:
+#     make updates.img KEEP=y
+# And since shell is both stupid and amusing, I only match the first
+# character to be a 'y' or 'Y', so you can do:
+#     make updates.img KEEP=yosemite
+# Ahh, shell.
+updates:
+	@if [ ! -d updates-img ]; then \
+		mkdir updates-img ; \
+	fi ; \
+	build_isys="$$(git diff --stat anaconda-11.5.0.35-1 isys | grep " | " | cut -d ' ' -f 2 | egrep "(Makefile|\.h|\.c)$$")" ; \
+	git diff --stat $(ARCHIVE_TAG) | grep " | " | \
+	grep -v "\.spec" | grep -v "Makefile" | grep -v "\.c\ " | \
+	grep -v "\.h" | grep -v "\.sh" | \
+	while read sourcefile stuff ; do \
+		dn="$$(echo $$sourcefile | cut -d '/' -f 1)" ; \
+		case $$dn in \
+			installclasses|storage|booty) \
+				rm -rf updates-img/$$dn ; \
+				cp -a $$dn updates-img ; \
+				find updates-img/$$dn -type f | grep Makefile | xargs rm -f ;; \
+			loader|po|scripts|command-stubs|tests|bootdisk|docs|fonts|utils|gptsync) \
+				continue ;; \
+			*) \
+				cp -a $$sourcefile updates-img ;; \
+		esac ; \
+	done ; \
+	if [ ! -z "$$build_isys" ]; then \
+		make -C isys ; \
+		cp isys/_isys.so updates-img ; \
+	fi ; \
+	cd updates-img ; \
+	echo -n "Creating updates.img..." ; \
+	( find . | cpio -c -o | gzip -9c ) > ../updates.img ; \
+	cd .. ; \
+	keep="$$(echo $(KEEP) | cut -c1 | tr [a-z] [A-Z])" ; \
+	if [ ! "$$keep" = "Y" ]; then \
+		rm -rf updates-img ; \
+	fi

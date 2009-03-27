@@ -147,8 +147,10 @@ int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
     close(pipefd[1]);
 
     if (err != NULL) {
-        rc = readFD(pipefd[0], err);
-        rc = write(programLogFD, err, 4096);
+        if (*err != NULL) {
+            rc = readFD(pipefd[0], err);
+            rc = write(programLogFD, *err, 4096);
+        }
     }
 
     close(pipefd[0]);

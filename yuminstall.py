@@ -322,27 +322,29 @@ class AnacondaYum(YumSorter):
             self._timestamp = f.readline().strip()
             f.close()
 
+        dev = self.anaconda.id.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
+        dev.format.mountpoint = self.tree
+
         # If self.currentMedia is None, then there shouldn't be anything
         # mounted.  Before going further, see if the correct disc is already
         # in the drive.  This saves a useless eject and insert if the user
         # has for some reason already put the disc in the drive.
         if self.currentMedia is None:
             try:
-                isys.mount(self.anaconda.mediaDevice, self.tree,
-                           fstype="iso9660", readOnly=1)
+                dev.format.mount()
 
                 if verifyMedia(self.tree, discnum, None):
                     self.currentMedia = discnum
                     return
 
-                isys.umount(self.tree)
+                dev.format.unmount()
             except:
                 pass
         else:
-            unmountCD(self.tree, self.anaconda.intf.messageWindow)
+            unmountCD(dev, self.anaconda.intf.messageWindow)
             self.currentMedia = None
 
-        isys.ejectCdrom(self.anaconda.mediaDevice)
+        dev.eject()
 
         while True:
             if self.anaconda.intf:
@@ -353,8 +355,7 @@ class AnacondaYum(YumSorter):
                                                               discnum))
 
             try:
-                isys.mount(self.anaconda.mediaDevice, self.tree,
-                           fstype = "iso9660", readOnly = 1)
+                dev.format.mount()
 
                 if verifyMedia(self.tree, discnum, self._timestamp):
                     self.currentMedia = discnum
@@ -363,8 +364,9 @@ class AnacondaYum(YumSorter):
                 self.anaconda.intf.messageWindow(_("Wrong Disc"),
                         _("That's not the correct %s disc.")
                           % (productName,))
-                isys.umount(self.tree)
-                isys.ejectCdrom(self.anaconda.mediaDevice)
+
+                dev.format.unmount()
+                dev.eject()
             except:
                 self.anaconda.intf.messageWindow(_("Error"),
                         _("Unable to access the disc."))
@@ -431,7 +433,7 @@ class AnacondaYum(YumSorter):
                 # install instead.
                 images = findIsoImages(self.tree, self.anaconda.intf.messageWindow)
                 if images != {}:
-                    isys.umount(self.tree, removeDir=0)
+                    isys.umount(self.tree, removeDir=False)
                     self.anaconda.methodstr = "nfsiso:%s" % m[4:]
                     self.configBaseURL()
                     return
@@ -444,7 +446,7 @@ class AnacondaYum(YumSorter):
             # we should first check to see if there's a CD/DVD with packages
             # on it, and then default to the mirrorlist URL.  The user can
             # always change the repo with the repo editor later.
-            cdr = scanForMedia(self.tree)
+            cdr = scanForMedia(self.tree, self.anaconda.id.storage)
             if cdr:
                 self.mediagrabber = self.mediaHandler
                 self.anaconda.mediaDevice = cdr
@@ -693,7 +695,10 @@ class AnacondaYum(YumSorter):
             self.currentMedia = None
 
     def urlgrabberFailureCB (self, obj, *args, **kwargs):
-        log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
+        if hasattr(obj, "exception"):
+            log.warning("Try %s/%s for %s failed: %s" % (obj.tries, obj.retry, obj.url, obj.exception))
+        else:
+            log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
 
         if obj.tries == obj.retry:
             return
@@ -757,7 +762,7 @@ class AnacondaYum(YumSorter):
         if len(mkeys) > 1:
             stage2img = "%s/images/install.img" % self.tree
             if self.anaconda.backend.mountInstallImage(self.anaconda, stage2img):
-                self.anaconda.id.fsset.unmountFilesystems(self.anaconda.rootPath)
+                self.anaconda.id.storage.fsset.unmountFilesystems(self.anaconda.rootPath)
                 return DISPATCH_BACK
 
         for i in mkeys:
@@ -1228,89 +1233,43 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 return None
             return pkgs[0]
 
-        foundkernel = False
-        kpkg = getBestKernelByArch("kernel", self.ayum)
-
-        # FIXME: this is a bit of a hack.  we shouldn't hard-code and
-        # instead check by provides.  but alas.
-        for k in ("kernel", "kernel-smp", "kernel-PAE"):
-            if len(self.ayum.tsInfo.matchNaevr(name=k)) > 0:
-                self.selectModulePackages(anaconda, k)
-                foundkernel = True
-
-        if not foundkernel and (isys.smpAvailable() or isys.htavailable()):
+        def selectKernel(pkgname):
             try:
-                ksmp = getBestKernelByArch("kernel-smp", self.ayum)
+                pkg = getBestKernelByArch(pkgname, self.ayum)
             except PackageSackError:
-                ksmp = None
-                log.debug("no kernel-smp package")
+                log.debug("no %s package" % pkgname)
+                return False
 
-            if ksmp and ksmp.returnSimple("arch") == kpkg.returnSimple("arch"):
-                foundkernel = True
-                log.info("selected kernel-smp package for kernel")
-                self.ayum.install(po=ksmp)
-                self.selectModulePackages(anaconda, ksmp.name)
+            if not pkg:
+                return False
 
-                if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
-                    log.debug("selecting kernel-smp-devel")
-                    self.selectPackage("kernel-smp-devel.%s" % (kpkg.arch,))
-
-        if not foundkernel and isys.isPaeAvailable():
-            try:
-                kpae = getBestKernelByArch("kernel-PAE", self.ayum)
-            except PackageSackError:
-                kpae = None
-                log.debug("no kernel-PAE package")
-
-            if kpae and kpae.returnSimple("arch") == kpkg.returnSimple("arch"):
-                foundkernel = True
-                log.info("select kernel-PAE package for kernel")
-                self.ayum.install(po=kpae)
-                self.selectModulePackages(anaconda, kpae.name)
-
-                if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
-                    log.debug("selecting kernel-PAE-devel")
-                    self.selectPackage("kernel-PAE-devel.%s" % (kpkg.arch,))
-
-        if not foundkernel:
-            log.info("selected kernel package for kernel")
-            self.ayum.install(po=kpkg)
-            self.selectModulePackages(anaconda, kpkg.name)
+            log.info("selected %s package for kernel" % pkg.name)
+            self.ayum.install(po=pkg)
+            self.selectModulePackages(anaconda, pkg.name)
 
             if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
-                log.debug("selecting kernel-devel")
-                self.selectPackage("kernel-devel.%s" % (kpkg.arch,))
+                log.debug("selecting %s-devel" % pkg.name)
+                self.selectPackage("%s-devel.%s" % (pkg.name, pkg.arch))
 
-    def selectBootloader(self):
-        if iutil.isX86():
-            self.selectPackage("grub")
-        elif iutil.isS390():
-            self.selectPackage("s390utils")
-        elif iutil.isPPC():
-            self.selectPackage("yaboot")
-        # XXX this needs to become grub, and we need an upgrade path...
-        elif iutil.isIA64():
-            self.selectPackage("elilo")
+            return True
 
-    def selectFSPackages(self, fsset, diskset):
-        for entry in fsset.entries:
-            map(self.selectPackage, entry.fsystem.getNeededPackages())
-            if entry.device.crypto:
-                self.selectPackage("cryptsetup-luks")
+        foundkernel = False
 
-        for disk in diskset.disks.keys():
-            if isys.driveIsIscsi(disk):
-                log.info("ensuring iscsi is installed")
-                self.selectPackage("iscsi-initiator-utils")
-                break
+        if isys.smpAvailable() or isys.htavailable():
+            if selectKernel("kernel-smp"):
+                foundkernel = True
 
-        if diskset.__class__.mpList:
-            log.info("ensuring device-mapper-multipath is installed")
-            self.selectPackage("device-mapper-multipath")
-        if diskset.__class__.dmList:
-            log.info("ensuring dmraid is installed")
-            self.selectPackage("dmraid")
+        if not foundkernel and isys.isPaeAvailable():
+            if selectKernel("kernel-PAE"):
+                foundkernel = True
 
+        if not foundkernel:
+            selectKernel("kernel")
+
+    def selectFSPackages(self, storage):
+        for device in storage.fsset.devices:
+            # this takes care of device and filesystem packages
+            map(self.selectPackage, device.packages)
 
     # anaconda requires several programs on the installed system to complete
     # installation, but we have no guarantees that some of these will be
@@ -1333,8 +1292,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         if not anaconda.id.getUpgrade():
             # New installs only - upgrades will already have all this stuff.
             self.selectBestKernel(anaconda)
-            self.selectBootloader()
-            self.selectFSPackages(anaconda.id.fsset, anaconda.id.diskset)
+            self.selectPackage(anaconda.platform.bootloaderPackage)
+            self.selectFSPackages(anaconda.id.storage)
             self.selectAnacondaNeeds()
 
         if anaconda.id.getUpgrade():
@@ -1365,14 +1324,16 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
             if not anaconda.id.getUpgrade():
-                usrPart = anaconda.id.partitions.getRequestByMountPoint("/usr")
+                usrPart = None
+                for fs in anaconda.id.storage.devicetree.filesystems:
+                    if fs.mountpoint == "/usr":
+                        usrPart = fs
                 if usrPart is not None:
                     largePart = usrPart
                 else:
-                    largePart = anaconda.id.partitions.getRequestByMountPoint("/")
+                    largePart = anaconda.id.storage.fsset.rootDevice
 
-                if largePart and \
-                   largePart.getActualSize(anaconda.id.partitions, anaconda.id.diskset) < self.totalSize / 1024:
+                if largePart and largePart.size < self.totalSize / 1024:
                     rc = anaconda.intf.messageWindow(_("Error"),
                                             _("Your selected packages require %d MB "
                                               "of free space for installation, but "
@@ -1410,7 +1371,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         if anaconda.dir == DISPATCH_BACK:
             for d in ("/selinux", "/dev"):
                 try:
-                    isys.umount(anaconda.rootPath + d, removeDir = 0)
+                    isys.umount(anaconda.rootPath + d, removeDir = False)
                 except Exception, e:
                     log.error("unable to unmount %s: %s" %(d, e))
             return
@@ -1450,12 +1411,12 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # If there are any protected partitions we want to mount, create their
         # mount points now.
-        protected = anaconda.id.partitions.protectedPartitions()
+        protected = anaconda.id.storage.protectedPartitions
         if protected:
             for protectedDev in protected:
-                request = anaconda.id.partitions.getRequestByDeviceName(protectedDev)
-                if request and request.mountpoint:
-                    dirList.append(request.mountpoint)
+                request = anaconda.id.storage.devicetree.getDeviceByName(protectedDev)
+                if request and request.format.mountpoint:
+                    dirList.append(request.format.mountpoint)
 
         for i in dirList:
             try:
@@ -1497,30 +1458,21 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 except Exception, e:
                     log.error("error mounting selinuxfs: %s" %(e,))
 
-            # we need to have a /dev during install and now that udev is
-            # handling /dev, it gets to be more fun.  so just bind mount the
-            # installer /dev
-            log.warning("no dev package, going to bind mount /dev")
-            isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = 1)
-            if not upgrade:
-                anaconda.id.fsset.mkDevRoot(anaconda.rootPath)
-
         # write out the fstab
         if not upgrade:
-            anaconda.id.fsset.write(anaconda.rootPath)
+            anaconda.id.storage.fsset.write(anaconda.rootPath)
             # rootpath mode doesn't have this file around
             if os.access("/etc/modprobe.d/anaconda.conf", os.R_OK):
                 shutil.copyfile("/etc/modprobe.d/anaconda.conf", 
                                 anaconda.rootPath + "/etc/modprobe.d/anaconda.conf")
             anaconda.id.network.write(instPath=anaconda.rootPath, anaconda=anaconda)
-            anaconda.id.iscsi.write(anaconda.rootPath, anaconda)
-            anaconda.id.zfcp.write(anaconda.rootPath)
+            anaconda.id.storage.write(anaconda.rootPath)
             if not anaconda.id.isHeadless:
                 anaconda.id.keyboard.write(anaconda.rootPath)
 
         # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
         f = open(anaconda.rootPath + "/etc/mtab", "w+")
-        f.write(anaconda.id.fsset.mtab())
+        f.write(anaconda.id.storage.fsset.mtab())
         f.close()
 
     def checkSupportedUpgrade(self, anaconda):

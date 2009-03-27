@@ -581,13 +581,17 @@ class Network:
                 f.write("MTU=%s\n" % dev.get('MTU'))
 
             # tell NetworkManager not to touch any interfaces used during
-            # installation when / is on a network device. Ideally we would only
-            # tell NM not to touch the interface(s) actually used for /, but we
-            # have no logic to determine that
+            # installation when / is on a network backed device.
             if anaconda is not None:
-                rootdev = anaconda.id.fsset.getEntryByMountPoint("/").device
-                if rootdev.isNetdev():
-                    f.write("NM_CONTROLLED=no\n")
+                import storage
+                rootdev = anaconda.id.storage.fsset.rootDevice
+                # FIXME: use device.host_address to only add "NM_CONTROLLED=no"
+                # for interfaces actually used enroute to the device
+                for d in anaconda.id.storage.devices:
+                    if rootdev.dependsOn(d) and isinstance(d,
+                                        storage.devices.NetworkStorageDevice):
+                        f.write("NM_CONTROLLED=no\n")
+                        break
 
             f.close()
             os.chmod(newifcfg, 0644)

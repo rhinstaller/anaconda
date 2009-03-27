@@ -291,7 +291,14 @@ static PyObject * doMount(PyObject * s, PyObject * args) {
         PyObject *tuple = PyTuple_New(2);
 
         PyTuple_SetItem(tuple, 0, PyInt_FromLong(rc));
-        PyTuple_SetItem(tuple, 1, PyString_FromString(err));
+
+        if (err == NULL) {
+            Py_INCREF(Py_None);
+            PyTuple_SetItem(tuple, 1, Py_None);
+        } else {
+            PyTuple_SetItem(tuple, 1, PyString_FromString(err));
+        }
+
         PyErr_SetObject(PyExc_SystemError, tuple);
     }
 

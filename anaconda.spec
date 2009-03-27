@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.23
+Version: 11.5.0.38
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -41,9 +41,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define createrepover 0.4.7
 %define yumutilsver 1.1.11-3
 %define iscsiver 6.2.0.870-3
+%define pythoncryptsetupver 0.0.6
 
 BuildRequires: audit-libs-devel
-BuildRequires: booty
 BuildRequires: bzip2-devel
 BuildRequires: device-mapper-devel >= %{dmver}
 BuildRequires: e2fsprogs-devel >= %{e2fsver}
@@ -84,7 +84,6 @@ Requires: policycoreutils
 Requires: rpm-python >= %{rpmpythonver}
 Requires: comps-extras
 Requires: rhpl >= %{rhplver}
-Requires: booty
 Requires: parted >= %{partedver}
 Requires: pyparted >= %{pypartedver}
 Requires: yum >= %{yumver}
@@ -110,6 +109,7 @@ Requires: authconfig
 Requires: gnome-python2-gtkhtml2
 Requires: system-config-firewall
 Requires: cryptsetup-luks
+Requires: python-cryptsetup >= %{pythoncryptsetupver}
 Requires: mdadm
 Requires: lvm2
 Requires: util-linux-ng
@@ -145,6 +145,7 @@ Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
 Provides: anaconda-runtime = %{version}-%{release}
+Obsoletes: booty
 
 %description
 The anaconda package contains the program which was used to install your 
@@ -189,6 +190,7 @@ update-desktop-database &> /dev/null || :
 %doc docs/kickstart-docs.txt
 %doc docs/mediacheck.txt
 %doc docs/anaconda-release-notes.txt
+/lib/udev/rules.d/70-anaconda.rules
 %{_bindir}/mini-wm
 %{_sbindir}/anaconda
 %ifarch i386 i486 i586 i686 x86_64
@@ -208,6 +210,397 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 25 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.38-1
+- Fix pylint errors in iw/*.py (hdegoede)
+- Rework CryptTab.parse (dlehman).
+- Code fixes of errors shown by pylint (mgracik).
+- Don't underflow on the busy cursor stack. (clumens)
+- "vg" is not valide inside this if. (jgranado)
+- Device is sometimes None. (jgranado)
+- Fix typo. (#492042) (dlehman)
+
+* Tue Mar 24 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.37-1
+- Start with a basic /etc/hosts file (#491634) (dcantrell)
+- Do not flag every existing partition for resize (#491803) (dcantrell)
+- Remove unused noformatCB() function. (dcantrell)
+- Remove unnecessary istruefalse() function. (dcantrell)
+- Build new _isys.so for updates.img if needed. (dcantrell)
+- Get the UUID of each md array we create. (#491796) (dlehman)
+- Call udev_settle after committing changes to a disk (#491529) (hdegoede)
+- Be a little bit smarter about allocating space to grow parts. (#491761)
+  (dlehman)
+- Check that partition is on the disk before trying to remove it. (#491997)
+  (dlehman)
+- Work around a bug in mdadm incremental assembly. (dlehman)
+- Use the same units (MB) for extent size that we do for everything else.
+  (dlehman)
+- Put line breaks in between crypttab entries. (#491938) (dlehman)
+- Register the NoDevFS class. (clumens)
+- fslabels -> labels. (clumens)
+- NFSDevice does not take exists= as a parameter. (clumens)
+- Override _setDevice and _getDevice in NFS. (clumens)
+- Move resolveDevice into the DeviceTree class. (clumens)
+- Move most of the parseFSTab logic into its own function. (clumens)
+- We don't even use partedUtils in this module. (clumens)
+- PReP formats can never be active. (#491865) (dlehman)
+- Move protectedPartition setup into storageInitialize (#491781). (clumens)
+- Use the mount and unmount methods on OpticalDevice.format now. (clumens)
+- Add a format for ISO9660 filesystems. (clumens)
+- getDeviceByName does not expect the CD device to start with "/dev/"
+  (#491768). (clumens)
+- Write the same arch to .discinfo as iutil.getArch() gives us (#490977).
+  (clumens)
+- Don't remove partitions twice. (jgranado)
+
+* Mon Mar 23 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.36-1
+- Add EFI, Apple Bootstrap, and PPC PReP Boot formats. (dlehman)
+- Remove all implicit calls to self.format.destroy from Device classes.
+  (dlehman)
+- Pop the busy cursor when we're done with the wait window (#491736).
+  (clumens)
+- If the new size and old size are the same, treat as a no-op (#491496).
+  (clumens)
+- Let mountFilesystems handling bind mounting /dev (#490772). (clumens)
+- Not all FileDevices have parents, so don't assume. (clumens)
+- Bind mount formats are mountable. (clumens)
+- If a filesystem is already mounted, don't raise an error. (clumens)
+- Fix a typo calling the superclass's constructor. (clumens)
+- Add a fake device for bind mounting /dev. (clumens)
+- If there was an exception leading to the urlgrabber error, log it.
+  (clumens)
+- Fix the import of checkbootloader (#491574). (clumens)
+- Add a missing import (#491605). (clumens)
+
+* Fri Mar 20 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.35-1
+- Fix traceback in FSSet.crypttab. (#491160) (dlehman)
+- Fix traceback on upgrade. (#491446) (dlehman)
+- Do not include .h and .sh files in updates.img (dcantrell)
+- Make PartitionDevice resize work. (dcantrell)
+- Reset mouse pointer if we find an unreadable disk. (dcantrell)
+- Use label attr instead of non-existent fslabel attr. (#491120) (dlehman)
+- Need to notify the kernel of changes before udev settle (katzj)
+- Revert "mount and umount commands are in /sbin now, remove from /usr/sbin"
+  (dcantrell)
+- Make some fixes to the rescue mode system selection UI (#489973, #489977).
+  (clumens)
+- Fix text mode autopartitioning (#491282). (clumens)
+- Do not use _rnetdev as fstab option for network based / (hdegoede)
+- Make root= line in grub.conf and path spec in fstab consistent (hdegoede)
+- Fix a reference to the partitions list (#491335). (clumens)
+- Do not traceback at the very beginning of rescue mode (msivak)
+- Fix traceback when editing encrypted mdraid device in UI. (rvykydal)
+
+* Thu Mar 19 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.34-1
+- Catch FSError when detecting storage, prevent user from continuing.
+  (dcantrell)
+- If we have no error string, place None in the tuple. (dcantrell)
+- Move OUTPUT_TERMINAL definition to isys.h (dcantrell)
+- mount and umount commands are in /sbin now, remove from /usr/sbin
+  (dcantrell)
+- Avoid SIGSEGV in doPwMount() when NULL is last parameter (#491192)
+  (dcantrell)
+- Attempt disk commits 5 times before raising an exception. (dcantrell)
+- Add boot partition size limit properties and size validation method.
+  (dlehman)
+- Make sure boot flag gets set. (#491170) (dlehman)
+- Make bootable a property of PartitionDevice. (dlehman)
+- After setting up our random UUID, inform the storage layer (katzj)
+- Handle system crappyness. (jgranado)
+- Fix up checking for live image backing (katzj)
+- Let's not remove our mountpoints (katzj)
+- Fix writing the default= line in grub.conf (#490756). (clumens)
+- Revert "Fix pruning of destroy actions for preexisting devices." (dlehman)
+- Add more blacklisting (katzj)
+- Blacklist the live image backing device (katzj)
+- Move blockdev blacklisting to be a function (katzj)
+- Inhibit devkit-disks during a live install (katzj)
+- try to unmount everything from /media on live installs (katzj)
+- Fix live installs to not traceback (katzj)
+- Fix New partition in UI (rvykydal)
+
+* Thu Mar 19 2009 David Lehman <dlehman@redhat.com> - 11.5.0.33-1
+- Rework the lvm dialog. (#490301,#490966,#490681,#489870) (dlehman)
+- Improve chances of uniqueness from Storage.createSuggestedLVName. (dlehman)
+- Fix pruning of destroy actions for preexisting devices. (dlehman)
+- Devices should not be resizable unless they exist. (dlehman)
+- Try to activate an existing md array after adding each member. (dlehman)
+- Indicate filesystem is mountable if we have a mount command. (dcantrell)
+- Mount existing filesystems read-only when getting size. (dcantrell)
+- Fix some errors in the updates target. (dcantrell)
+- Place all mount.* commands in /sbin (dcantrell)
+- Fix error message reading and writing in doPwMount() (dcantrell)
+- Use booleans in isys.mount() and isys.umount() (dcantrell)
+- Add a FIXME comment for setting uuid in VG / LV create (hdegoede)
+- Do not traceback when writing anaconda.ks with iscsi with auth info.
+  (hdegoede)
+- Do not write LV uuid to grub.conf, but the filesystem uuid (hdegoede)
+- If a mountpoint depends on a network disk at _netdev to its fstab options
+  (hdegoede)
+- Do not hang when creating raid array with member having filesystem
+  detected (#490891) (rvykydal)
+- Destroy and create luks child of raid array too when editing in UI.
+  (rvykydal)
+- Editing non-existent raid device by destroying and creating actions
+  (rvykydal)
+- actionDestroyFormat call takes device, not format (rvykydal)
+- Fix getChildren call in partition UI (rvykydal)
+- Fix removing of devices with the same name from	tree when adding
+  create action. (rvykydal)
+- Do not duplicate requested minor number in edit raid UI list. (rvykydal)
+- Offer available partitions when editing non-preexisting raid request.
+  (rvykydal)
+- Don't try to fit the whole StorageDevice.__str__ output into the UI
+  (#490406). (clumens)
+- Make PartitionDevice handle both normal and dmraid partitions (hdegoede)
+- Stop overriding __init__ in DMRaidPartitionDevice (hdegoede)
+- Set format UUID after creating a format (hdegoede)
+- Fix result of updateSysfsPath to be consistent with initial sysfsPath
+  values (hdegoede)
+- Use getDevicesByInstance() for storage.partitions (hdegoede)
+- We no longer use iscsiadm anywhere (hdegoede)
+
+* Tue Mar 17 2009 Jesse Keating <jkeating@redhat.com> - 11.5.0.32-1
+- Typo fix. (clumens)
+- Make platform.checkBootRequest work better and not use diskset anymore. (clumens)
+- Fix a traceback when looking for PS3 boot partitions (#490738). (clumens)
+- FormatArgs -> FormatOptions (#490737). (clumens)
+- Fix ppoll() timeout=infinity usage in auditd (#484721). (pjones)
+- Simplify kernel package selection. (clumens)
+- Look at CPU flags instead of /proc/iomem to determine PAE-ness (#484941). (clumens)
+- Tell NM not to touch interfaces when / is on a network disk (hdegoede)
+- Get iscsi going with the new storage code (hdegoede)
+- Use minihal instead of isys.hardDriveDict in list-harddrives (#488122). (clumens)
+- storage.disks never includes disks without media present. (clumens)
+- Changed the getDevicebyLabel() to getDeviceByLabel() in devicetree.py (mgracik) 
+
+* Mon Mar 16 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.31-1
+- Don't use disk.maximizePartition anymore. (dlehman)
+- Only schedule implicit format destruction if there is formatting to
+  destroy. (dlehman)
+- Reset encryptionPassphrase when we reset the rest of storage. (dlehman)
+- Do not create a LUKSDevice if we do not have a way to map the device.
+  (dlehman)
+- Fix handling of new extended partitions during partition allocation.
+  (dlehman)
+- Fix bug in dependency list for partitions. (dlehman)
+- Fix inconsistency in variable use in search for free space. (dlehman)
+- Check for disk name being in disk.name not in clearPartDisks (dcantrell)
+- Create a Makefile target to generate updates.img automatically. (dcantrell)
+- When creating free space, handle cases other than clearpart --drives=
+  (clumens)
+- Ignore loop and ram devices (hdegoede)
+- devicetree: fix slave addition of incomplete dm / md devices (hdegoede)
+- Catch LVMErrors too when tearing down devices (hdegoede)
+- Install udev rules in /lib/udev/rules.d instead of in runtime dir
+  (hdegoede)
+- Ignore disk devices with missing media (#488800). (clumens)
+- Use correct parse method for the upgrade command (#471232) (wwoods)
+- Fix creation of fs options for preexisting encrypted devices. (dlehman)
+- Fix lots of buggy behavior in the partition dialog. (dlehman)
+- Handle FTP servers that both want and don't want PASS after USER
+  (#490350). (clumens)
+- Fixed the names of the variables for lvm.py functions. (mgracik)
+- editPartitionRequest -> editPartition in iw/partition_gui.py (#490384).
+  (clumens)
+- clampPVSize -> clampSize in lvm.py (#490295). (clumens)
+- Fix the obvious and stupid typo (#490296). (clumens)
+- isys.umount removes mount directory by default (rvykydal)
+- Fix tempfile.mkdtemp call. (rvykydal)
+- Initialize attribute _mountpoint before using it (rvykydal)
+- devicetree.py has _ignoredDisks instead of ignoredDisks. (jgranado)
+- Create separate resize actions for formats and devices. (dcantrell)
+- Use os.statvfs() to get existing filesystem size. (dcantrell)
+- Add resizeArgs for Ext2FS and fix it for BtrFS. (dcantrell)
+- Report when we cannot find any free space partitions. (dcantrell)
+- Improve resizeDialog text. (dcantrell)
+- Raise FSResizeError if filesystem cannot be resized. (dcantrell)
+- Handle resizing when setting targetSize for PartitionDevice (dcantrell)
+- Let users set the size property of StorageDevices. (dcantrell)
+- Add support for kickstart's '--initlabel' option to clearpart. (dlehman)
+- Fix display of LV format type for encrypted LVs. (dlehman)
+- Make paths somewhat flexible so we'll work in normal environments.
+  (dlehman)
+
+* Fri Mar 13 2009 David Lehman <dlehman@redhat.com> - 11.5.0.30-1
+- Fix supportable attribute for cmdline-enabled fstypes. (dlehman)
+- Access private attribute for luks dict. (dlehman)
+- Schedule format create for newly encrypted preexisting partition. (dlehman)
+- Don't traceback if vg.teardown fails in recursive teardown. (dlehman)
+- Schedule format create action for newly encrypted preexisting LV. (dlehman)
+- Make sure we return something other than None for new requests. (dlehman)
+- Add __str__ methods to Device objects. (clumens)
+- Add mediaPresent and eject to the OpticalDevice class. (clumens)
+- Use the right import path for checkbootloader (#490049). (clumens)
+- Rename /etc/modprobe.d/anaconda to /etc/modprobe.d/anaconda.conf (clumens)
+- Don't clear partitions containing the install media. (dlehman)
+- Wait til everyone knows the format/fs is no longer active. (dlehman)
+- Save a copy of the device stack so we can destroy the format. (#489975)
+  (dlehman)
+- Add a deep copy method to Device since we can't just use copy.deepcopy.
+  (dlehman)
+- Fix infinite loops in partition screen populate. (#490051) (dlehman)
+- Default to a name based on the uuid for existing luks mappings. (dlehman)
+- Use the correct keyword for luks map names ('name', not 'mapName').
+  (dlehman)
+- Fix getting of number of total devices of sw raid. (rvykydal)
+- Only select the Core group in text mode (#488754). (clumens)
+- Added test case for devicelib mdraid.py. (mgracik)
+- Add created user to default group created for the user. (rvykydal)
+- Fix editing of existing logical volume. (rvykydal)
+- Add a list that lvm should ignore. (jgranado)
+
+* Thu Mar 12 2009 David Lehman <dlehman@redhat.com> - 11.5.0.29-1
+- Don't create a PartitionDevice for devices that do not exist (#489122).
+  (clumens)
+- A getter doesn't usually take a parameter (#489965). (clumens)
+- Do not write "Running..." to stdout, as that could be tty1. (clumens)
+- Call storage.exceptionDisks, not diskset.exceptionDisks. (#489615)
+  (dlehman)
+- Fix typo. (jgranado)
+- Fix typo. (dlehman)
+- Add udev rules for handling for mdraid arrays. (dlehman)
+- Honor the zerombr kickstart directive. (dlehman)
+- currentSize is expected to be a float, so convert it to one (#489882).
+  (clumens)
+- It's clearPartDisks, not clearPartDrives. (clumens)
+- Get rid of the mappings and ksID as well. (clumens)
+- Make sure the device has a diskType before attempting to check what it is.
+  (clumens)
+- Update the volgroup command to work with the new storage code. (clumens)
+- Update the raid command to work with the new storage code. (clumens)
+- Update the part command to work with the new storage code. (clumens)
+- Update the logvol command to work with the new storage code. (clumens)
+- addPartRequest is no longer needed. (clumens)
+- Don't set default partitioning in every kickstart case. (clumens)
+- Clear partitions before scheduling requests. (clumens)
+- Always go through doAutoPart. (clumens)
+- Format modules import fix (mgracik)
+- Fixed the format modules import (mgracik)
+- Allow overriding the anaconda udev rules from an updates.img (hdegoede)
+- If a pv somehow does not contain a vg_name, do not try to get other vg
+  info (hdegoede)
+
+* Wed Mar 11 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.28-1
+- Fix a few bugs in the lvm dialog. (#489022) (dlehman)
+- Modify livecd.py to work with new storage backend. (dlehman)
+- Be explicit about resetting Disks' partedDisk attribute. (#489678)
+  (dlehman)
+- Deactivate devices after we've finished scanning them. (dlehman)
+- Handle the case of removing an unallocated partition from the tree.
+  (dlehman)
+- Try again to set up LVs when we've just added a new PV to the VG. (dlehman)
+- Set partition flags in format create/destroy execute methods. (dlehman)
+- Make sure we use the newly committed parted.Partition after create.
+  (dlehman)
+- Make device teardown methods more resilient. (dlehman)
+- Initialize storage in rescue mode so we can find roots (#488984). (clumens)
+- We also need to pack up the extra args tuple, too. (clumens)
+- doLoggingSetup keeps growing new arguments, so put them into a dict
+  (#489709). (clumens)
+- Fix anaconda udev rules to not require pre-existing device nodes (hdegoede)
+- Hook up 'Shrink current system' dialog to new storage code. (dcantrell)
+- Fix _getCheckArgs() in class FS. (dcantrell)
+
+* Tue Mar 10 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.27-1
+- Fix action pruning to handle more complex scenarios. (dlehman)
+- Schedule destruction of any existing formatting along with the device.
+  (dlehman)
+- Add a size attribute to mdraid arrays. (dlehman)
+- Speed up partitioning screen redraws by trimming workload where possible.
+  (dlehman)
+- Create partitions with exactly the geometry we calculate. (dlehman)
+- Fix name collision between formats.mdraid and devicelibs.mdraid. (dlehman)
+- Destruction of the member device formatting will be handled elsewhere.
+  (dlehman)
+- Fix a typo (jkeating)
+- Fix pruning between two destroy actions on the same device (rvykydal)
+- Use the pyblock functions when possible. (jgranado)
+- We are searching a list, not a dict now (rvykydal)
+
+* Mon Mar 09 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.26-1
+- Move the recursive teardown of all devices out of processActions. (dlehman)
+- Clean up handling of /proc, /sys, /dev/pts, /dev/shm entries. (dlehman)
+- Fix several minor bugs preventing upgrade/rescue mount. (#488946) (dlehman)
+- Only populate the device tree on demand. (dlehman)
+- Prune actions by device based on path, not object-id. (dlehman)
+- Rewrite action sort so it works correctly. (dlehman)
+- Do a separate disk.commit for each partition add/remove. (dlehman)
+- Fix bug keeping track of best free region/type/disk info. (dlehman)
+- Return early if doAutoPart is False, but clearpart first if kickstart.
+  (dlehman)
+- Recognize PS3 as a valid machine type (#489263). (clumens)
+- Move the mdRaidBootArches logic into the platform module. (clumens)
+- stdout and stderr may also need to be created. (clumens)
+- Fix booty for dmraid (hdegoede)
+- It's self.origrequest, not self.origreqest (#489036). (clumens)
+- Added crypto.py unittest; Updated devicelibs tests baseclass.py and lvm.py
+  (mgracik)
+- Start storage before parsing the kickstart file. (clumens)
+- Make sure autopart without any clearpart command will fail. (clumens)
+- Update storage flag on ks autopart (rvykydal)
+- Use correct storage attribute for ks clearpart (rvykydal)
+- Catch the new _ped.DiskLabelException for unrecognized disklabels.
+  (dlehman)
+- Catch all failures from making parted objects in exceptionDisks. (dlehman)
+- various dmraid fixes. (jgranado)
+- Implement the format disk question as a callback. (jgranado)
+- Add dmraid functionality to new storage code. (jgranado)
+- Do not pass None values into nonmandatory arguments, you are screwing the
+  default values.. (msivak)
+
+* Thu Mar 05 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.25-1
+- Schedule device destroy actions for partitions last. (dlehman)
+- Pass storage.disks, not storage, to createAllowed.... (#488860) (dlehman)
+- Nodev filesystems always exist. And the device is arbitrary. (dlehman)
+- Include proc, &c filesystems in fstab and FSSet.{mount/umount}Filesystems.
+  (dlehman)
+- Remove FSSet.writeFSTab. That job is handled elsewhere. (dlehman)
+- Add properties to FSSet to provide the nodev entries. (dlehman)
+- Fix incomplete format in Storage.deviceImmutable. (dlehman)
+- Make sure we use the same disk the free space is on. (#488807) (dlehman)
+- Prevent clobbering of name 'mdraid' by qualifying it. (dlehman)
+- Handle unformatted disks and cdroms in Storage.exceptionDisks. (dlehman)
+- Add resizeArgs property for resizable filesystems. (dcantrell)
+- Fill out class NTFS a bit more. (dcantrell)
+- Add fsckProg property to class FS. (dcantrell)
+- Ext2FS.migratable(self) -> Ext2FS.migratable (dcantrell)
+- Fix StorageDevice.minSize() and PartitionDevice.maxSize() (dcantrell)
+- Center resize window on the screen. (dcantrell)
+- Do not raise DeviceError if not bootable device is found. (dcantrell)
+- Do an even more thorough job of ignoring disks libparted doesn't like.
+  (clumens)
+- Fix a couple problems on the "Change device" bootloader dialog. (clumens)
+- Fix a typo when writing out the mdadm config file. (clumens)
+- Remove all uses of isys.cdromList, which no longer exists. (clumens)
+- Check to see if we're on S390 on the congrats screen (#488747). (clumens)
+- Handle non-fatal errors more gracefully in addUdevDevice. (dlehman)
+- partRequests no longer exists, so don't try to import it (#488743).
+  (clumens)
+- When building the exceptionDisks list, skip devices libparted doesn't
+  like. (clumens)
+- Iterate over devicetree.devices.values, not devicetree. (dlehman)
+- Add a get() method to Flags, since it pretends to be a dictionary.
+  (clumens)
+- Stop with the fsset usage. (dlehman)
+- Format message string after translation not before (msivak)
+- We need newer python-cryptsetup because of the default values for cipher
+  and keysize for luskFormat (msivak)
+- If a drive is not initialized, offer reinitialization or ignoring the
+  drive to the user (msivak)
+- More syntax errors / traceback fixes (hdegoede)
+- Fix syntax errors (rvykydal)
+- Implement Storage.sanityCheck, mostly from old partitions code. (dlehman)
+
+* Thu Mar  5 2009 Dave Lehman <dlehman@redhat.com> - 11.5.0.24-3
+- Fix booty's desire to import fsset.
+- Fix attempt to set read-only attr "removable" in DiskDevice.__init__
+
+* Thu Mar 05 2009 Peter Jones <pjones@redhat.com> - 11.5.0.24-2
+- Add EFI boot.iso generation.
+
+* Wed Mar  4 2009 Dave Lehman <dlehman@redhat.com> - 11.5.0.24-1
+- Storage test day.
+
 * Fri Feb 20 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.23-1
 - Remove old content from utils/ (dcantrell)
 - Ensure request.drive is always a list (#485622) (dcantrell)

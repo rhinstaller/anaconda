@@ -50,6 +50,7 @@
 #include <nm-ip4-config.h>
 #include <nm-setting-ip4-config.h>
 
+#include "isys.h"
 #include "iface.h"
 #include "str.h"
 

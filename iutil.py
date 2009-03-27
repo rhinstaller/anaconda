@@ -24,6 +24,7 @@ import os, string, stat, sys
 import signal
 import os.path
 from errno import *
+import inspect
 import rhpl
 import warnings
 import subprocess
@@ -44,8 +45,8 @@ log = logging.getLogger("anaconda")
 # @param searchPath Should command be searched for in $PATH?
 # @param root The directory to chroot to before running command.
 # @return The return code of command.
-def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
-                     searchPath = 0, root = '/'):
+def execWithRedirect(command, argv, stdin = None, stdout = None,
+                     stderr = None, searchPath = 0, root = '/'):
     def chroot ():
         os.chroot(root)
 
@@ -53,21 +54,32 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
             raise RuntimeError, command + " can not be run"
 
     argv = list(argv)
-    if type(stdin) == type("string"):
+    if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
-            stdin = open(stdin)
+            stdin = os.open(stdin, os.O_RDONLY)
         else:
-            stdin = 0
-    if type(stdout) == type("string"):
-        stdout = open(stdout, "w")
-    if type(stderr) == type("string"):
-        stderr = open(stderr, "w")
+            stdin = sys.stdin.fileno()
+    elif isinstance(stdin, int):
+        pass
+    elif stdin is None or not isinstance(stdin, file):
+        stdin = sys.stdin.fileno()
+
+    if isinstance(stdout, str):
+        stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
+    elif isinstance(stdout, int):
+        pass
+    elif stdout is None or not isinstance(stdout, file):
+        stdout = sys.stdout.fileno()
+
+    if isinstance(stderr, str):
+        stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
+    elif isinstance(stderr, int):
+        pass
+    elif stderr is None or not isinstance(stderr, file):
+        stderr = sys.stderr.fileno()
 
     runningLog = open("/tmp/program.log", "a")
     runningLog.write("Running... %s\n" % ([command] + argv,))
-
-    if stdout is not None and type(stdout) != int:
-        stdout.write("Running... %s\n" %([command] + argv,))
 
     try:
         proc = subprocess.Popen([command] + argv, stdin=stdin,
@@ -78,10 +90,10 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
         while True:
             (outStr, errStr) = proc.communicate()
             if outStr:
-                stdout.write(outStr)
+                os.write(stdout, outStr)
                 runningLog.write(outStr)
             if errStr:
-                stderr.write(errStr)
+                os.write(stderr, errStr)
                 runningLog.write(errStr)
 
             if proc.returncode is not None:
@@ -104,21 +116,29 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 # @param stderr The file descriptor to redirect stderr to.
 # @param root The directory to chroot to before running command.
 # @return The output of command from stdout.
-def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
+def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
     def chroot():
         os.chroot(root)
 
     rc = ""
     argv = list(argv)
 
-    if type(stdin) == type("string"):
+    if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
-            stdin = open(stdin)
+            stdin = os.open(stdin, os.O_RDONLY)
         else:
-            stdin = 0
+            stdin = sys.stdin.fileno()
+    elif isinstance(stdin, int):
+        pass
+    elif stdin is None or not isinstance(stdin, file):
+        stdin = sys.stdin.fileno()
 
-    if type(stderr) == type("string"):
-        stderr = open(stderr, "w")
+    if isinstance(stderr, str):
+        stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
+    elif isinstance(stderr, int):
+        pass
+    elif stderr is None or not isinstance(stderr, file):
+        stderr = sys.stderr.fileno()
 
     runningLog = open("/tmp/program.log", "a")
     runningLog.write("Running... %s\n" % ([command] + argv,))
@@ -136,7 +156,7 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
                 rc += outStr
             if errStr:
                 runningLog.write(errStr)
-                stderr.write(errStr)
+                os.write(stderr, errStr)
 
             if proc.returncode is not None:
                 break
@@ -146,34 +166,49 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
 
     return rc
 
-def execWithPulseProgress(command, argv, stdin = 0, stdout = 1, stderr = 2,
-                          progress = None, root = '/'):
+def execWithPulseProgress(command, argv, stdin = None, stdout = None,
+                          stderr = None, progress = None, root = '/'):
     def chroot():
         os.chroot(root)
 
     argv = list(argv)
-    if type(stdin) == type("string"):
+    if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
-            stdin = open(stdin)
+            stdin = os.open(stdin, os.O_RDONLY)
         else:
-            stdin = 0
-    if type(stdout) == type("string"):
-        stdout = open(stdout, "w")
-    if type(stderr) == type("string"):
-        stderr = open(stderr, "w")
-    if stdout is not None and type(stdout) != int:
-        stdout.write("Running... %s\n" %([command] + argv,))
+            stdin = sys.stdin.fileno()
+    elif isinstance(stdin, int):
+        pass
+    elif stdin is None or not isinstance(stdin, file):
+        stdin = sys.stdin.fileno()
+
+    if isinstance(stdout, str):
+        stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
+    elif isinstance(stdout, int):
+        pass
+    elif stdout is None or not isinstance(stdout, file):
+        stdout = sys.stdout.fileno()
+
+    if isinstance(stderr, str):
+        stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
+    elif isinstance(stderr, int):
+        pass
+    elif stderr is None or not isinstance(stderr, file):
+        stderr = sys.stderr.fileno()
+
+    runningLog = open("/tmp/program.log", "a")
+    runningLog.write("Running... %s\n" % ([command] + argv,))
 
     p = os.pipe()
     childpid = os.fork()
     if not childpid:
         os.close(p[0])
         os.dup2(p[1], 1)
-        os.dup2(stderr.fileno(), 2)
+        os.dup2(stderr, 2)
         os.dup2(stdin, 0)
         os.close(stdin)
         os.close(p[1])
-        stderr.close()
+        os.close(stderr)
 
         os.execvp(command, [command] + argv)
         os._exit(1)
@@ -184,11 +219,12 @@ def execWithPulseProgress(command, argv, stdin = 0, stdout = 1, stderr = 2,
         try:
             s = os.read(p[0], 1)
         except OSError, args:
-            (num, str) = args
+            (num, _str) = args
             if (num != 4):
                 raise IOError, args
 
-        stdout.write(s)
+        os.write(stdout, s)
+        runningLog.write(s)
         if progress: progress.pulse()
 
         if len(s) < 1:
@@ -334,25 +370,6 @@ def copyDeviceNode(src, dest):
         raise RuntimeError, "Tried to copy %s which isn't a device node" % (src,)
 
     os.mknod(dest, mode | type, filestat.st_rdev)
-
-## Determine if the hardware supports iSeries storage devices.
-# @return 1 if so, 0 otherwise.
-def hasiSeriesNativeStorage():
-    # this is disgusting and I feel very dirty
-    if not isPPC():
-        return
-
-    f = open("/proc/modules", "r")
-    lines = f.readlines()
-    f.close()
-
-    for line in lines:
-        if line.startswith("ibmsis"):
-            return 1
-        if line.startswith("ipr"):
-            return 1
-
-    return 0
 
 ## Get the PPC machine variety type.
 # @return The PPC machine type, or 0 if not PPC.
@@ -665,6 +682,55 @@ def strip_markup(text):
             r += c
     return r.encode("utf-8")
 
+def notify_kernel(path, action="change"):
+    """ Signal the kernel that the specified device has changed. """
+    log.debug("notifying kernel of '%s' event on device %s" % (action, path))
+    path = os.path.join(path, "uevent")
+    if not path.startswith("/sys/") or not os.access(path, os.W_OK):
+        log.debug("sysfs path '%s' invalid" % path)
+        raise ValueError("invalid sysfs path")
+
+    f = open(path, "a")
+    f.write("%s\n" % action)
+    f.close()
+
+def get_sysfs_path_by_name(dev_name, class_name="block"):
+    dev_name = os.path.basename(dev_name)
+    sysfs_class_dir = "/sys/class/%s" % class_name
+    dev_path = os.path.join(sysfs_class_dir, dev_name)
+    if os.path.exists(dev_path):
+        return dev_path
+
+def log_method_call(d, *args, **kwargs):
+    classname = d.__class__.__name__
+    methodname = inspect.stack()[1][3]
+    fmt = "%s.%s:"
+    fmt_args = [classname, methodname]
+    for arg in args:
+        fmt += " %s ;"
+        fmt_args.append(arg)
+
+    for k, v in kwargs.items():
+        fmt += " %s: %s ;"
+        fmt_args.extend([k, v])
+
+    log.debug(fmt % tuple(fmt_args))
+
+def numeric_type(num):
+    """ Verify that a value is given as a numeric data type.
+
+        Return the number if the type is sensible or raise ValueError
+        if not.
+    """
+    if num is None:
+        num = 0
+    elif not (isinstance(num, int) or \
+              isinstance(num, long) or \
+              isinstance(num, float)):
+        raise ValueError("value (%s) must be either a number or None" % num)
+
+    return num
+
 def writeReiplMethod(reipl_path, reipl_type):
     filename = "%s/reipl_type" % (reipl_path,)
 
@@ -841,3 +907,4 @@ def reIPL(anaconda, loader_pid):
     # the final return is either None if reipl configuration worked (=> reboot),
     # or a two-item list with errorMessage and rebootInstr (=> shutdown)
     return message
+

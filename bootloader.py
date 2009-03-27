@@ -36,8 +36,7 @@ import logging
 log = logging.getLogger("anaconda")
 
 import booty
-import bootloaderInfo
-from fsset import *
+from booty import bootloaderInfo, checkbootloader
 
 def bootloaderSetupChoices(anaconda):
     if anaconda.dir == DISPATCH_BACK:
@@ -60,49 +59,36 @@ def bootloaderSetupChoices(anaconda):
         anaconda.id.bootloader.updateDriveList(pref)
 
     if iutil.isEfi() and not anaconda.id.bootloader.device:
-        drives = anaconda.id.diskset.disks.keys()
-        drives.sort()
         bootPart = None
-        for drive in drives:
-            disk = anaconda.id.diskset.disks[drive]
-            for part in disk.partitions:
-                if part.active and partedUtils.isEfiSystemPartition(part):
-                    bootPart = part.getDeviceNodeName()
+        partitions = anaconda.id.storage.partitions
+        for part in partitions:
+            if part.partedPartition.active and \
+               partedUtils.isEfiSystemPartition(part.partedPartition):
+                    bootPart = part.name
                     break
-            if bootPart:
-                break
         if bootPart:
             anaconda.id.bootloader.setDevice(bootPart)
-            dev = Device()
-            dev.device = bootPart
-            anaconda.id.fsset.add(FileSystemSetEntry(dev, None, fileSystemTypeGet("efi")))
 
 # iSeries bootloader on upgrades
     if iutil.getPPCMachine() == "iSeries" and not anaconda.id.bootloader.device:
-        drives = anaconda.id.diskset.disks.keys()
-        drives.sort()
         bootPart = None
-        for drive in drives:
-            disk = anaconda.id.diskset.disks[drive]
-            for part in disk.partitions:
-                if part.active and part.getFlag(parted.PARTITION_PREP):
-                    bootPart = part.getDeviceNodeName()
-                    break
-            if bootPart:
+        partitions = anaconda.id.storage.partitions
+        for part in partitions:
+            if part.partedPartition.active and \
+               part.partedPartition.getFlag(parted.PARTITION_PREP):
+                bootPart = part.name
                 break
         if bootPart:
             anaconda.id.bootloader.setDevice(bootPart)
-            dev = Device()
-            dev.device = bootPart
-            anaconda.id.fsset.add(FileSystemSetEntry(dev, None, fileSystemTypeGet("PPC PReP Boot")))
 
-    choices = anaconda.id.fsset.bootloaderChoices(anaconda.id.diskset, anaconda.id.bootloader)
+    choices = anaconda.platform.bootloaderChoices(anaconda.id.bootloader)
     if not choices and iutil.getPPCMachine() != "iSeries":
 	anaconda.dispatch.skipStep("instbootloader")
     else:
 	anaconda.dispatch.skipStep("instbootloader", skip = 0)
 
-    anaconda.id.bootloader.images.setup(anaconda.id.diskset, anaconda.id.fsset)
+    # FIXME: ...
+    anaconda.id.bootloader.images.setup(anaconda.id.storage)
 
     if anaconda.id.bootloader.defaultDevice != None and choices:
         keys = choices.keys()
@@ -134,13 +120,12 @@ def writeBootloader(anaconda):
 
     # now make the upgrade stuff work for kickstart too. ick.
     if anaconda.isKickstart and anaconda.id.bootloader.doUpgradeOnly:
-        import checkbootloader
-        (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath)
+        (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.id.storage)
         
         anaconda.id.bootloader.doUpgradeonly = 1
         if bootType == "GRUB":
             anaconda.id.bootloader.useGrubVal = 1
-            anaconda.id.bootloader.setDevice(theDev)
+            anaconda.id.bootloader.setDevice(theDev.split("/")[-1])
         else:
             anaconda.id.bootloader.doUpgradeOnly = 0    
 
@@ -150,21 +135,18 @@ def writeBootloader(anaconda):
 
     kernelList = []
     otherList = []
-    root = anaconda.id.fsset.getEntryByMountPoint('/')
-    if root:
-        rootDev = root.device.getDevice()
-    else:
-        rootDev = None
-    defaultDev = anaconda.id.bootloader.images.getDefault()
+    # getDefault needs to return a device, but that's too invasive for now.
+    rootDev = anaconda.id.storage.fsset.rootDevice
+    defaultDev = anaconda.id.storage.devicetree.getDeviceByName(anaconda.id.bootloader.images.getDefault())
 
     kernelLabel = None
     kernelLongLabel = None
 
     for (dev, (label, longlabel, type)) in anaconda.id.bootloader.images.getImages().items():
-        if (dev == rootDev) or (rootDev is None and kernelLabel is None):
+        if (rootDev is None and kernelLabel is None) or (dev == rootDev.name):
 	    kernelLabel = label
             kernelLongLabel = longlabel
-	elif dev == defaultDev:
+	elif dev == defaultDev.name:
 	    otherList = [(label, longlabel, dev)] + otherList
 	else:
 	    otherList.append((label, longlabel, dev))
@@ -193,7 +175,7 @@ def writeBootloader(anaconda):
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
             "# new kernels the default\n")
     # only update the default if we're setting the default to linux (#156678)
-    if rootDev == defaultDev:
+    if rootDev.name == defaultDev.name:
         f.write("UPDATEDEFAULT=yes\n")
     else:
         f.write("UPDATEDEFAULT=no\n")        
@@ -204,12 +186,12 @@ def writeBootloader(anaconda):
 
     dosync()
     try:
-        anaconda.id.bootloader.write(anaconda.rootPath, anaconda.id.fsset, anaconda.id.bootloader,
-                                     anaconda.id.instLanguage, kernelList, otherList, defaultDev,
-                                     justConfigFile, anaconda.intf)
+        anaconda.id.bootloader.write(anaconda.rootPath, anaconda.id.bootloader,
+                                     kernelList, otherList, defaultDev,
+                                     justConfigFile)
 	if not justConfigFile:
 	    w.pop()
-    except bootloaderInfo.BootyNoKernelWarning:
+    except booty.BootyNoKernelWarning:
 	if not justConfigFile:
 	    w.pop()
         if anaconda.intf:
@@ -219,10 +201,6 @@ def writeBootloader(anaconda):
                                  "will not be changed."))
 
     dosync()
-
-# return instance of the appropriate bootloader for our arch
-def getBootloader():
-    return booty.getBootloader()
 
 def hasWindows(bl):
     foundWindows = False

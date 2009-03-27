@@ -32,12 +32,8 @@ import os, sys, string, struct, resource
 
 from product import *
 import exception
-import fsset
 import iutil, isys
-import raid
-import dmraid
 import block
-import lvm
 import inspect
 from flags import flags
 from errors import *
@@ -118,32 +114,6 @@ def filter_partitions(disk, func):
             rc.append(part)
     return rc
 
-def getDefaultDiskType():
-    """Get the default partition table type for this architecture."""
-    if iutil.isEfi():
-        return parted.diskType["gpt"]
-    elif iutil.isX86():
-        return parted.diskType["msdos"]
-    elif iutil.isS390():
-        # the "default" type is dasd, but we don't really do dasd
-        # formatting with parted and use dasdfmt directly for them
-        # so if we get here, it's an fcp disk and we should write
-        # an msdos partition table (#144199)
-        return parted.diskType["msdos"]
-    elif iutil.isAlpha():
-        return parted.diskType["bsd"]
-    elif iutil.isSparc():
-        return parted.diskType["sun"]
-    elif iutil.isPPC():
-        ppcMachine = iutil.getPPCMachine()
-
-        if ppcMachine == "PMac":
-            return parted.diskType["mac"]
-        else:
-            return parted.diskType["msdos"]
-    else:
-        return parted.diskType["msdos"]
-
 def hasGptLabel(diskset, device):
     disk = diskset.disks[device]
     return disk.type == "gpt"
@@ -157,9 +127,9 @@ def isEfiSystemPartition(part):
             part.fileSystem.type in ("fat16", "fat32") and
             isys.readFSLabel(part.getDeviceNodeName()) != "ANACONDA")
 
-def labelDisk(deviceFile, forceLabelType=None):
+def labelDisk(platform, deviceFile, forceLabelType=None):
     dev = parted.getDevice(deviceFile)
-    label = getDefaultDiskType()
+    label = platform.diskType
 
     if not forceLabelType is None:
         label = forceLabelType
@@ -253,7 +223,7 @@ def hasProtectedPartitions(drive, anaconda):
         return rc
 
     try:
-        for protected in anaconda.id.partitions.protectedPartitions():
+        for protected in anaconda.id.storage.protectedPartitions:
             if protected.startswith(drive):
                 part = protected[len(drive):]
                 if part[0] == "p":
@@ -312,48 +282,6 @@ def isLinuxNative(part):
         return True
     else:
         return False
-
-def getReleaseString(mountpoint):
-    relName = None
-    relVer = None
-
-    if os.access(mountpoint + "/etc/redhat-release", os.R_OK):
-        f = open(mountpoint + "/etc/redhat-release", "r")
-        try:
-            lines = f.readlines()
-        except IOError:
-            try:
-                f.close()
-            except:
-                pass
-            return (relName, relVer)
-
-        f.close()
-
-        # return the first line with the newline at the end stripped
-        if len(lines) == 0:
-            return (relName, relVer)
-
-        relstr = string.strip(lines[0][:-1])
-
-        # get the release name and version
-        # assumes that form is something
-        # like "Red Hat Linux release 6.2 (Zoot)"
-        if relstr.find("release") != -1:
-            try:
-                idx = relstr.find("release")
-                relName = relstr[:idx - 1]
-                relVer = ""
-
-                for a in relstr[idx + 8:]:
-                    if a in string.digits + ".":
-                        relVer += a
-                    else:
-                        break
-            except:
-                pass # don't worry, just use the relstr as we have it
-
-    return (relName, relVer)
 
 class DiskSet:
     """The disks in the system."""
@@ -583,7 +511,8 @@ class DiskSet:
             fs = isys.readFSType(theDev)
             if fs is not None:
                 try:
-                    isys.mount(theDev, self.anaconda.rootPath, fs, readOnly = 1)
+                    isys.mount(theDev, self.anaconda.rootPath, fs,
+                               readOnly = True)
                     found = 1
                 except SystemError:
                     pass
@@ -629,7 +558,8 @@ class DiskSet:
             fs = isys.readFSType(theDev)
             if fs is not None:
                 try:
-                    isys.mount(theDev, self.anaconda.rootPath, fs, readOnly = 1)
+                    isys.mount(theDev, self.anaconda.rootPath, fs,
+                               readOnly = True)
                     found = 1
                 except SystemError:
                     pass
@@ -656,7 +586,7 @@ class DiskSet:
         drives = self.disks.keys()
         drives.sort()
 
-        protected = self.anaconda.id.partitions.protectedPartitions()
+        protected = self.anaconda.id.storage.protectedPartitions
 
         for drive in drives:
             disk = self.disks[drive]
@@ -713,13 +643,9 @@ class DiskSet:
 
     def driveList (self):
         """Return the list of drives on the system."""
-        drives = isys.hardDriveDict().keys()
+        drives = map(lambda x: x.name, self.anaconda.id.storage.disks)
         drives.sort (isys.compareDrives)
         return drives
-
-    def drivesByName (self):
-        """Return a dictionary of the drives on the system."""
-        return isys.hardDriveDict()
 
     def savePartitions (self):
         """Write the partition tables out to the disks."""
@@ -929,7 +855,7 @@ class DiskSet:
                     dev = parted.getDevice(deviceFile)
                     disk = parted.Disk(device=dev)
                 else:
-                    disk = labelDisk(deviceFile)
+                    disk = labelDisk(self.anaconda.platform, deviceFile)
             except Exception, msg:
                 log.error("parted error: %s" % (msg,))
                 raise

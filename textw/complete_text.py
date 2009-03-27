@@ -22,6 +22,7 @@ from snack import *
 from constants_text import *
 from constants import *
 import gettext
+import platform
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class FinishedWindow:
@@ -34,7 +35,7 @@ class FinishedWindow:
 
         screen.pushHelpLine (string.center(bottomstr, screen.width))
 
-        if iutil.isS390():
+        if isinstance(anaconda.platform, platform.S390):
             txt = _("Congratulations, your %s installation is complete.\n\n") % (productName,)
 
             if not anaconda.canReIPL:

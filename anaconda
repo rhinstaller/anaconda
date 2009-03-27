@@ -170,6 +170,11 @@ def setupPythonUpdates():
 									f),
 			       "/tmp/updates/%s/%s" %(pypkg, f))
 
+    if os.access("/tmp/updates/70-anaconda.rules", os.R_OK):
+        import shutil
+        shutil.copyfile("/tmp/updates/70-anaconda.rules",
+                        "/etc/udev/rules.d/70-anaconda.rules")
+
 def parseOptions():
     def resolution_cb (option, opt_str, value, parser):
         parser.values.runres = value
@@ -348,12 +353,6 @@ def setupPythonPath():
             sys.path.insert(1, '/usr/lib/anaconda/textw')
             sys.path.insert(2, '/usr/lib/anaconda/iw')
 
-    if (os.path.exists('booty')):
-        sys.path.append('booty')
-        sys.path.append('booty/edd')
-    else:
-        sys.path.append('/usr/lib/booty')
-
     sys.path.append('/usr/share/system-config-date')
 
 def addPoPath(dir):
@@ -498,6 +497,7 @@ class Anaconda:
         self.rescue = False
         self.updateSrc = None
         self.mediaDevice = None
+        self.platform = None
         self.canReIPL = False
         self.reIPLMessage = None
 
@@ -570,6 +570,9 @@ class Anaconda:
             if not tree.startswith("/"):
                 tree = "/%s" %(tree,)
 
+            if device.startswith("/dev/"):
+                device = device[5:]
+
             self.mediaDevice = device
             self.methodstr = "cdrom://%s" % tree
         else:
@@ -631,6 +634,9 @@ if __name__ == "__main__":
 
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
+
+    import platform
+    anaconda.platform = platform.getPlatform(anaconda)
 
     if not iutil.isS390() and os.access("/dev/tty3", os.W_OK):
         logger.addFileHandler ("/dev/tty3", log)
@@ -775,7 +781,16 @@ if __name__ == "__main__":
         if opts.ksfile:
             anaconda.isKickstart = True
             instClass.setInstallData(anaconda)
+
+            #we need waitWindow valid in processKickstartFile. because storage uses it
+            from snack import *
+            screen = SnackScreen()
+            anaconda.intf = rescue.RescueInterface(screen)
+
             kickstart.processKickstartFile(anaconda, opts.ksfile)
+
+            anaconda.intf = None
+            screen.finish()
 
             # command line 'nomount' overrides kickstart /same for vnc/
             anaconda.rescue_mount = not (opts.rescue_nomount or anaconda.id.ksdata.rescue.nomount)
@@ -985,11 +1000,10 @@ if __name__ == "__main__":
 
     # Skip the disk options in rootpath mode
     if flags.rootpath:
-        anaconda.dispatch.skipStep("partitionobjinit", permanent = 1)
         anaconda.dispatch.skipStep("parttype", permanent = 1)
         anaconda.dispatch.skipStep("autopartitionexecute", permanent = 1)
         anaconda.dispatch.skipStep("partition", permanent = 1)
-        anaconda.dispatch.skipStep("partitiondone", permanent = 1)
+        anaconda.dispatch.skipStep("storagedone", permanent = 1)
         anaconda.dispatch.skipStep("bootloader", permanent = 1)
         anaconda.dispatch.skipStep("bootloaderadvanced", permanent = 1)
         anaconda.dispatch.skipStep("upgbootloader", permanent = 1)
@@ -1019,10 +1033,12 @@ if __name__ == "__main__":
         handleException(anaconda, sys.exc_info())
 
     if anaconda.isKickstart and anaconda.id.ksdata.reboot.eject:
-        isys.flushDriveDict()
-        for drive in isys.cdromList():
-            log.info("attempting to eject %s" % drive)
-            isys.ejectCdrom(drive)
+        for drive in anaconda.id.storage.devicetree.devices.values():
+            if drive.type != "cdrom":
+                continue
+
+            log.info("attempting to eject %s" % drive.path)
+            drive.eject()
 
     del anaconda.intf
 

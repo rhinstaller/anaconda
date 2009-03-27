@@ -23,7 +23,7 @@
 from iw_gui import *
 
 import gtk
-import checkbootloader
+from booty import checkbootloader
 
 from constants import *
 import gettext
@@ -61,7 +61,7 @@ class UpgradeBootloaderWindow (InstallWindow):
                 self.bl.useGrubVal = 1
             else:
                 self.bl.useGrubVal = 0
-            self.bl.setDevice(self.bootDev)
+            self.bl.setDevice(self.bootDev.split("/")[-1])
 
     def _newToLibata(self, rootPath):
         # NOTE: any changes here need to be done in upgrade_bootloader_text too
@@ -117,7 +117,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         newToLibata = self._newToLibata(anaconda.rootPath)
 
         (self.type, self.bootDev) = \
-                    checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath)
+                    checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.id.storage)
 
         self.update_radio = gtk.RadioButton(None, _("_Update boot loader configuration"))
         updatestr = _("This will update your current boot loader.")

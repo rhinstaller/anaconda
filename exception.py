@@ -35,7 +35,6 @@ import inspect
 import iutil
 import types
 import bdb
-import partedUtils
 from string import joinfields
 from cPickle import Pickler
 from flags import flags
@@ -183,11 +182,11 @@ class AnacondaExceptionDump:
                      "anaconda.id.instLanguage.tz",
                      "anaconda.id.keyboard._mods._modelDict",
                      "anaconda.id.keyboard.modelDict",
-                     "anaconda.id.partitions.encryptionPassphrase",
+                     "anaconda.id.storage.encryptionPassphrase",
                      "anaconda.id.rootPassword",
                      "anaconda.id.tmpData",
                      "anaconda.intf.icw.buff",
-                     "anaconda.intf.icw.currentWindow.partitions.encryptionPassphrase",
+                     "anaconda.intf.icw.currentWindow.storage.encryptionPassphrase",
                      "anaconda.intf.icw.stockButtons",
                      "dispatch.sack.excludes",
                    ]
@@ -223,7 +222,7 @@ class AnacondaExceptionDump:
 
         for file in ("/tmp/syslog", "/tmp/anaconda.log",
                      "/tmp/lvmout", "/tmp/resize.out",
-                     "/tmp/program.log",
+                     "/tmp/program.log", "/tmp/storage.log",
                      anaconda.rootPath + "/root/install.log",
                      anaconda.rootPath + "/root/upgrade.log"):
             try:

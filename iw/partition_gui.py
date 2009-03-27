@@ -27,15 +27,13 @@ try:
 except ImportError:
     import gnome.canvas as gnomecanvas
 import pango
-import autopart
 import gui
 import parted
 import string
 import types
-import raid
 from constants import *
-import lvm
 
+import storage
 from iw_gui import *
 from flags import flags
 
@@ -44,10 +42,10 @@ import raid_dialog_gui
 import partition_dialog_gui
 
 from partIntfHelpers import *
-from partedUtils import *
-from fsset import *
-from partRequests import *
+from constants import *
 from partition_ui_helpers_gui import *
+from storage.partitioning import doPartitioning
+from storage.devicelibs import lvm
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -98,7 +96,7 @@ class DiskStripeSlice:
             if event.button == 1:
                 self.parent.selectSlice(self.partition, 1)
         elif event.type == gtk.gdk._2BUTTON_PRESS:
-            self.editCb()
+            self.editCB()
                 
         return True
 
@@ -144,12 +142,12 @@ class DiskStripeSlice:
         if self.partition.type & parted.PARTITION_FREESPACE:
             rc = "Free\n"
         else:
-            rc = "%s\n" % (self.partition.getDeviceNodeName(),)
+            rc = "%s\n" % (self.partition.getDeviceNodeName().split("/")[-1],)
         rc = rc + "%Ld MB" % (self.partition.getSize(unit="MB"),)
         return rc
 
     def getDeviceName(self):
-        return self.partition.getDeviceNodeName()
+        return self.partition.getDeviceNodeName().split("/")[-1]
 
     def update(self):
         disk = self.parent.getDisk()
@@ -182,12 +180,12 @@ class DiskStripeSlice:
                       clip_width=xlength-1, clip_height=yheight-1)
         self.hideOrShowText()
        
-    def __init__(self, parent, partition, treeView, editCb):
+    def __init__(self, parent, partition, treeView, editCB):
         self.text = None
         self.partition = partition
         self.parent = parent
         self.treeView = treeView
-        self.editCb = editCb
+        self.editCB = editCB
         pgroup = parent.getGroup()
 
         self.group = pgroup.add(gnomecanvas.CanvasGroup)
@@ -198,14 +196,14 @@ class DiskStripeSlice:
         self.update()
 
 class DiskStripe:
-    def __init__(self, drive, disk, group, tree, editCb):
+    def __init__(self, drive, disk, group, tree, editCB):
         self.disk = disk
         self.group = group
         self.tree = tree
         self.drive = drive
         self.slices = []
         self.hash = {}
-        self.editCb = editCb
+        self.editCB = editCB
         self.selected = None
 
         # XXX hack but will work for now
@@ -259,17 +257,17 @@ class DiskStripe:
         self.selected = None
     
     def add(self, partition):
-        stripe = DiskStripeSlice(self, partition, self.tree, self.editCb)
+        stripe = DiskStripeSlice(self, partition, self.tree, self.editCB)
         self.slices.append(stripe)
         self.hash[partition] = stripe
 
 class DiskStripeGraph:
-    def __init__(self, tree, editCb):
+    def __init__(self, tree, editCB):
         self.canvas = gnomecanvas.Canvas()
         self.diskStripes = []
         self.textlabels = []
         self.tree = tree
-        self.editCb = editCb
+        self.editCB = editCB
         self.next_ypos = 0.0
 
     def __del__(self):
@@ -334,7 +332,7 @@ class DiskStripeGraph:
         self.textlabels.append(text)
         group = self.canvas.root().add(gnomecanvas.CanvasGroup,
                                        x=0, y=yoff+textheight)
-        stripe = DiskStripe(drive, disk, group, self.tree, self.editCb)
+        stripe = DiskStripe(drive, disk, group, self.tree, self.editCB)
         self.diskStripes.append(stripe)
         self.next_ypos = self.next_ypos + STRIPE_HEIGHT+textheight+10
         return stripe
@@ -371,8 +369,6 @@ class DiskTreeModel(gtk.TreeStore):
 #              (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, isLeaf),
               (N_("Format"), gobject.TYPE_OBJECT, 0.5, 0, isFormattable),
               (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, 0),
-              (N_("Start"), gobject.TYPE_STRING, 1.0, 0, 1),
-              (N_("End"), gobject.TYPE_STRING, 1.0, 0, 1),
 	      ("", gobject.TYPE_STRING, 0.0, 0, 0),
               # the following must be the last two
               ("IsLeaf", gobject.TYPE_BOOLEAN, 0.0, 1, 0),
@@ -487,25 +483,7 @@ class DiskTreeModel(gtk.TreeStore):
                     # not found the partition
                     raise RuntimeError, "could not find partition"
 
-    """ returns partition 'id' of current selection in tree """
-    def getCurrentPartition(self):
-        selection = self.view.get_selection()
-        model, iter = selection.get_selected()
-        if not iter:
-            return None
-
-        pyobject = self.titleSlot['PyObject']
-	try:
-            val = self.get_value(iter, pyobject)
-            if type(val) == type("/dev/"):
-                if val[:5] == '/dev/':
-                    return None
-
-            return val
-        except:
-            return None
-
-    """ Return name of current selected drive (if a drive is highlighted) """
+    """ Return the device representing the current selection """
     def getCurrentDevice(self):
         selection = self.view.get_selection()
         model, iter = selection.get_selected()
@@ -515,12 +493,10 @@ class DiskTreeModel(gtk.TreeStore):
         pyobject = self.titleSlot['PyObject']
 	try:
             val = self.get_value(iter, pyobject)
-            if type(val) == type("/dev/"):
-                if val[:5] == '/dev/':
-                    return val
-            return None
-        except:
-            return None
+        except Exception:
+            val = None
+
+        return val
 
     def resetSelection(self):
         pass
@@ -631,8 +607,7 @@ class PartitionWindow(InstallWindow):
         return rc
         
     def getNext(self):
-        (errors, warnings) = self.partitions.sanityCheckAllRequests(self.diskset)
-
+        (errors, warnings) = self.storage.sanityCheck()
         if errors:
             labelstr1 =  _("The partitioning scheme you requested "
                            "caused the following critical errors.")
@@ -648,6 +623,7 @@ class PartitionWindow(InstallWindow):
             raise gui.StayOnScreen
         
         if warnings:
+            # "storage configuration"
             labelstr1 = _("The partitioning scheme you requested "
                           "generated the following warnings.")
             labelstr2 = _("Would you like to continue with "
@@ -662,8 +638,7 @@ class PartitionWindow(InstallWindow):
             if rc != 1:
                 raise gui.StayOnScreen
 
-        formatWarnings = getPreExistFormatWarnings(self.partitions,
-                                                   self.diskset)
+        formatWarnings = getPreExistFormatWarnings(self.storage)
         if formatWarnings:
             labelstr1 = _("The following pre-existing partitions have been "
                           "selected to be formatted, destroying all data.")
@@ -675,7 +650,7 @@ class PartitionWindow(InstallWindow):
             commentstr = ""
             for (dev, type, mntpt) in formatWarnings:
                 commentstr = commentstr + \
-                        "/dev/%s         %s         %s\n" % (dev,type,mntpt)
+                        "%s         %s         %s\n" % (dev,type,mntpt)
 
             rc = self.presentPartitioningComments(_("Format Warnings"),
                                                   labelstr1, labelstr2,
@@ -694,161 +669,173 @@ class PartitionWindow(InstallWindow):
 
     def getPrev(self):
         self.diskStripeGraph.shutDown()
-        self.diskset.refreshDevices()
-        self.partitions.setFromDisk(self.diskset)
+        self.storage.reset()
         self.tree.clear()
         del self.parent
         return None
 
-    def getShortFSTypeName(self, name):
-	if name == "physical volume (LVM)":
-	    return "LVM PV"
-
-	return name
-    
     def populate(self, initial = 0):
-
-        drives = self.diskset.disks.keys()
-        drives.sort()
-
         self.tree.resetSelection()
 
 	self.tree.clearHiddenPartitionsList()
 
 	# first do LVM
-        lvmrequests = self.partitions.getLVMRequests()
-        if lvmrequests:
+        vgs = self.storage.vgs
+        if vgs:
 	    lvmparent = self.tree.append(None)
 	    self.tree[lvmparent]['Device'] = _("LVM Volume Groups")
-            for vgname in lvmrequests.keys():
-		vgrequest = self.partitions.getRequestByVolumeGroupName(vgname)
-		rsize = vgrequest.getActualSize(self.partitions, self.diskset)
+            for vg in vgs:
+		rsize = vg.size
 
                 vgparent = self.tree.append(lvmparent)
-		self.tree[vgparent]['Device'] = "%s" % (vgname,)
-                if vgrequest and vgrequest.type != REQUEST_NEW and vgrequest.fslabel:
-                    self.tree[vgparent]['Label'] = "%s" % (vgrequest.fslabel,)
-                else:
-                    self.tree[vgparent]['Label'] = ""
+		self.tree[vgparent]['Device'] = "%s" % vg.name
+                self.tree[vgparent]['Label'] = ""
 		self.tree[vgparent]['Mount Point'] = ""
-		self.tree[vgparent]['Start'] = ""
-		self.tree[vgparent]['End'] = ""
 		self.tree[vgparent]['Size (MB)'] = "%Ld" % (rsize,)
-                self.tree[vgparent]['PyObject'] = str(vgrequest.uniqueID)
-		for lvrequest in lvmrequests[vgname]:
+                self.tree[vgparent]['PyObject'] = vg
+		for lv in vg.lvs:
+                    if lv.format.type == "luks":
+                        # we'll want to grab format info from the mapped
+                        # device, not the encrypted one
+                        try:
+                            dm_dev = self.storage.devicetree.getChildren(lv)[0]
+                        except IndexError:
+                            format = lv.format
+                        else:
+                            format = dm_dev.format
+                    else:
+                        format = lv.format
 		    iter = self.tree.append(vgparent)
-		    self.tree[iter]['Device'] = lvrequest.logicalVolumeName
-		    if lvrequest.fstype and lvrequest.mountpoint:
-			self.tree[iter]['Mount Point'] = lvrequest.mountpoint
+		    self.tree[iter]['Device'] = lv.lvname
+		    if format.mountable and format.mountpoint:
+			self.tree[iter]['Mount Point'] = format.mountpoint
 		    else:
 			self.tree[iter]['Mount Point'] = ""
-		    self.tree[iter]['Size (MB)'] = "%Ld" % (lvrequest.getActualSize(self.partitions, self.diskset, True),)
-		    self.tree[iter]['PyObject'] = str(lvrequest.uniqueID)
+		    self.tree[iter]['Size (MB)'] = "%Ld" % lv.size
+		    self.tree[iter]['PyObject'] = vg
 		
-                    ptype = lvrequest.fstype.getName()
-                    if lvrequest.isEncrypted(self.partitions, True) and lvrequest.format:
+                    if lv.format.type == "luks" and not lv.format.exists:
+                        # we're creating the LUKS header
 			self.tree[iter]['Format'] = self.lock_pixbuf
-                    elif lvrequest.format:
+                    elif not format.exists:
+                        # we're creating a format on the device
 			self.tree[iter]['Format'] = self.checkmark_pixbuf
-                    self.tree[iter]['IsFormattable'] = lvrequest.fstype.isFormattable()
+                    self.tree[iter]['IsFormattable'] = format.formattable
 		    self.tree[iter]['IsLeaf'] = True
-		    self.tree[iter]['Type'] = ptype
-		    self.tree[iter]['Start'] = ""
-		    self.tree[iter]['End'] = ""
+		    self.tree[iter]['Type'] = format.name
+		    #self.tree[iter]['Start'] = ""
+		    #self.tree[iter]['End'] = ""
 
         # handle RAID next
-        raidrequests = self.partitions.getRaidRequests()
-        if raidrequests:
+        mdarrays = self.storage.mdarrays
+        if mdarrays:
 	    raidparent = self.tree.append(None)
 	    self.tree[raidparent]['Device'] = _("RAID Devices")
-            for request in raidrequests:
+            for array in mdarrays:
 		mntpt = None
-		if request and request.fstype and request.fstype.getName() == "physical volume (LVM)":
-		    vgreq = self.partitions.getLVMVolumeGroupMemberParent(request)
-		    if vgreq and vgreq.volumeGroupName:
-			if self.show_uneditable:
-			    mntpt = vgreq.volumeGroupName
-			else:
-			    self.tree.appendToHiddenPartitionsList(str(request.uniqueID))
-			    continue
+                if array.format.type == "luks":
+                    # look up the mapped/decrypted device since that's
+                    # where we'll find the format we want to display
+                    try:
+                        dm_dev = self.storage.devicetree.getChildren(array)[0]
+                    except IndexError:
+                        format = array.format
+                    else:
+                        format = dm_dev.format
+                else:
+                    format = array.format
+
+                if format.type == "lvmpv":
+                    vg = None
+		    for _vg in self.storage.vgs:
+                        if _vg.dependsOn(array):
+                            vg = _vg
+                            break
+                    if vg and self.show_uneditable:
+                        mntpt = vg.name
+                    elif vg:
+                        self.tree.appendToHiddenPartitionsList(array.path)
+                        continue
 		    else:
 			mntpt = ""
+                elif format.mountable and format.mountpoint:
+                    mntpt = format.mountpoint
 
                 iter = self.tree.append(raidparent)
 		if mntpt:
                     self.tree[iter]["Mount Point"] = mntpt
+                else:
+                    self.tree[iter]["Mount Point"] = ""
 		    
-                if request and request.mountpoint:
-                    self.tree[iter]["Mount Point"] = request.mountpoint
-		    
-                if request.fstype:
-                    ptype = self.getShortFSTypeName(request.fstype.getName())
-
-                    if request.isEncrypted(self.partitions, True) and request.format:
+                if format.type:
+                    ptype = format.name
+                    if array.format.type == "luks" and \
+                       not array.format.exists:
 			self.tree[iter]['Format'] = self.lock_pixbuf
-                    elif request.format:
+                    elif not format.exists:
                         self.tree[iter]['Format'] = self.checkmark_pixbuf
-                    self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
+                    self.tree[iter]['IsFormattable'] = format.formattable
                 else:
                     ptype = _("None")
                     self.tree[iter]['IsFormattable'] = False
 
-		try:
-		    device = "/dev/md%d" % (request.raidminor,)
-		except:
+		if array.minor is not None:
+		    device = "%s" % array.path
+		else:
 		    device = "Auto"
 		    
                 self.tree[iter]['IsLeaf'] = True
                 self.tree[iter]['Device'] = device
-                if request and request.type != REQUEST_NEW and request.fslabel:
-                    self.tree[iter]['Label'] = "%s" % (request.fslabel,)
+                if array.format.exists and getattr(format, "label", None):
+                    self.tree[iter]['Label'] = "%s" % format.label
                 else:
                     self.tree[iter]['Label'] = ""
                 self.tree[iter]['Type'] = ptype
-                self.tree[iter]['Start'] = ""
-                self.tree[iter]['End'] = ""
-                self.tree[iter]['Size (MB)'] = "%Ld" % (request.getActualSize(self.partitions, self.diskset),)
-                self.tree[iter]['PyObject'] = str(request.uniqueID)
+                self.tree[iter]['Size (MB)'] = "%Ld" % array.size
+                self.tree[iter]['PyObject'] = array
 
 	# now normal partitions
+        disks = self.storage.disks
 	drvparent = self.tree.append(None)
 	self.tree[drvparent]['Device'] = _("Hard Drives")
-        for drive in drives:
-            disk = self.diskset.disks[drive]
-
+        for disk in disks:
             # add a disk stripe to the graph
-            stripe = self.diskStripeGraph.add(drive, disk)
+            stripe = self.diskStripeGraph.add(disk.name, disk.partedDisk)
 
             # add a parent node to the tree
             parent = self.tree.append(drvparent)
-            self.tree[parent]['Device'] = '/dev/%s' % (drive,)
-            self.tree[parent]['PyObject'] = str('/dev/%s' % (drive,))
-            (cylinders, heads, sectors) = disk.device.biosGeometry
+            self.tree[parent]['Device'] = "%s" % disk.path
+            self.tree[parent]['PyObject'] = disk
+            (cylinders, heads, sectors) = disk.partedDisk.device.biosGeometry
             sectorsPerCyl = heads * sectors
 
+            part = disk.partedDisk.getFirstPartition()
             extendedParent = None
-            part = disk.getFirstPartition()
             while part:
                 if part.type & parted.PARTITION_METADATA:
                     part = part.nextPartition()
                     continue
+
+                partName = part.getDeviceNodeName().split("/")[-1]
+                device = self.storage.devicetree.getDeviceByName(partName)
+                if not device and not part.type & parted.PARTITION_FREESPACE:
+                    log.debug("can't find partition %s in device"
+                                       " tree" % partName)
+
                 # ignore the tiny < 1 MB partitions (#119479)
                 if part.getSize(unit="MB") <= 1.0:
-                    if not part.active or not part.getFlag(parted.PARTITION_BOOT):
+                    if not part.active or not device.bootable:
                         part = part.nextPartition()
                         continue
 
                 stripe.add(part)
-                device = part.getDeviceNodeName()
-                request = self.partitions.getRequestByDeviceName(device)
-
-                if part.type == parted.PARTITION_EXTENDED:
+                if device and device.isExtended:
                     if extendedParent:
                         raise RuntimeError, ("can't handle more than "
                                              "one extended partition per disk")
                     extendedParent = self.tree.append(parent)
                     iter = extendedParent
-                elif part.type & parted.PARTITION_LOGICAL:
+                elif device and device.isLogical:
                     if not extendedParent:
                         raise RuntimeError, ("crossed logical partition "
                                              "before extended")
@@ -858,43 +845,68 @@ class PartitionWindow(InstallWindow):
                     iter = self.tree.append(parent)
                     self.tree[iter]['IsLeaf'] = True
 
-                if request and request.mountpoint:
-                    self.tree[iter]['Mount Point'] = request.mountpoint
+                if device and device.format.type == "luks":
+                    # look up the mapped/decrypted device in the tree
+                    # the format we care about will be on it
+                    try:
+                        dm_dev = self.storage.devicetree.getChildren(device)[0]
+                    except IndexError:
+                        format = device.format
+                    else:
+                        format = dm_dev.format
+                elif device:
+                    format = device.format
+                else:
+                    format = None
+
+                if format and format.mountable and format.mountpoint:
+                    self.tree[iter]['Mount Point'] = format.mountpoint
                 else:
                     self.tree[iter]['Mount Point'] = ""
 
-		if request and request.fstype and request.fstype.getName() == "physical volume (LVM)":
-		    vgreq = self.partitions.getLVMVolumeGroupMemberParent(request)
-		    if vgreq and vgreq.volumeGroupName:
+		if format and format.type == "lvmpv":
+		    vg = None
+                    for _vg in self.storage.vgs:
+                        if _vg.dependsOn(part):
+                            vg = _vg
+                            break
+		    if vg and vg.name:
 			if self.show_uneditable:
-			    self.tree[iter]['Mount Point'] = vgreq.volumeGroupName
+			    self.tree[iter]['Mount Point'] = vg.name
 			else:
 			    self.tree.appendToHiddenPartitionsList(part)
 			    self.tree.remove(iter)
+                            part = part.nextPartition()
 			    continue
 		    else:
 			self.tree[iter]['Mount Point'] = ""
 
-                    if request.isEncrypted(self.partitions, True) and request.format:
-                        self.tree[iter]['Format'] = self.lock_pixbuf
-		    elif request.format:
-			self.tree[iter]['Format'] = self.checkmark_pixbuf
+                if device and device.format and \
+                   device.format.type == "luks" and \
+                   not device.format.exists:
+                    self.tree[iter]['Format'] = self.lock_pixbuf
+                elif format and not format.exists:
+                    self.tree[iter]['Format'] = self.checkmark_pixbuf
 		
-                if request and request.fstype:
-                    self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
+                if format and format.type:
+                    self.tree[iter]['IsFormattable'] = device.format.formattable
 
-                if part.type & parted.PARTITION_FREESPACE:
-                    ptype = _("Free space")
-                elif part.type == parted.PARTITION_EXTENDED:
+                if device and device.isExtended:
                     ptype = _("Extended")
-                elif part.getFlag(parted.PARTITION_RAID) == 1:
+                elif format and format.type == "mdmember":
                     ptype = _("software RAID")
-		    parreq = self.partitions.getRaidMemberParent(request)
-		    if parreq:
+                    mds = self.storage.mdarrays
+                    array = None
+                    for _array in mds:
+                        if _array.dependsOn(device):
+                            array = _array
+                            break
+		    if array:
 			if self.show_uneditable:
-			    try:
-				mddevice = "/dev/md%d" % (parreq.raidminor,)
-			    except:
+                            if array.minor is not None:
+                                mddevice = "%s" % array.path
+                            else:
+                                mddevice = "Auto"
 				mddevice = "Auto"
 			    self.tree[iter]['Mount Point'] = mddevice
 			else:
@@ -905,48 +917,33 @@ class PartitionWindow(InstallWindow):
 		    else:
 			self.tree[iter]['Mount Point'] = ""
 
-                    if request and request.isEncrypted(self.partitions, True) and request.format:
+                    if device.format.type == "luks" and \
+                       not device.format.exists:
 			self.tree[iter]['Format'] = self.lock_pixbuf
-                elif part.fileSystem:
-                    if request and request.fstype != None:
-                        ptype = self.getShortFSTypeName(request.fstype.getName())
-                        if ptype == "foreign":
-                            ptype = map_foreign_to_fsname(part)
-                    else:
-                        ptype = part.fileSystem.type
-
-                    if request and request.isEncrypted(self.partitions, True) and request.format:
-			self.tree[iter]['Format'] = self.lock_pixbuf
-                    elif request and request.format:
-			self.tree[iter]['Format'] = self.checkmark_pixbuf
                 else:
-                    if request and request.fstype != None:
-                        ptype = self.getShortFSTypeName(request.fstype.getName())
-
-                        if ptype == "foreign":
-                            ptype = map_foreign_to_fsname(part)
+                    if format and format.type:
+                        ptype = format.name
                     else:
                         ptype = _("None")
                 if part.type & parted.PARTITION_FREESPACE:
                     devname = _("Free")
                 else:
-                    devname = '/dev/%s' % (device,)
+                    devname = "%s" % device.path
                 self.tree[iter]['Device'] = devname
-                if request and request.type != REQUEST_NEW and request.fslabel:
-                    self.tree[iter]['Label'] = "%s" % (request.fslabel,)
+                if format and format.exists and \
+                   getattr(format, "label", None):
+                    self.tree[iter]['Label'] = "%s" % format.label
                 else:
                     self.tree[iter]['Label'] = ""
 
                 self.tree[iter]['Type'] = ptype
-                self.tree[iter]['Start'] = str(disk.device.startSectorToCylinder(part.geometry.start))
-                self.tree[iter]['End'] = str(disk.device.endSectorToCylinder(part.geometry.end))
                 size = part.getSize(unit="MB")
                 if size < 1.0:
                     sizestr = "< 1"
                 else:
                     sizestr = "%Ld" % (size)
                 self.tree[iter]['Size (MB)'] = sizestr
-                self.tree[iter]['PyObject'] = part
+                self.tree[iter]['PyObject'] = device
 
                 part = part.nextPartition()
 
@@ -954,149 +951,155 @@ class PartitionWindow(InstallWindow):
         apply(canvas.set_scroll_region, canvas.root().get_bounds())
         self.treeView.expand_all()
 
-    def treeActivateCb(self, view, path, col):
-        if self.tree.getCurrentPartition():
-            self.editCb()
+    def treeActivateCB(self, view, path, col):
+        if isinstance(self.tree.getCurrentDevice(),
+                      storage.devices.PartitionDevice):
+            self.editCB()
 
-    def treeSelectCb(self, selection, *args):
+    def treeSelectCB(self, selection, *args):
         model, iter = selection.get_selected()
         if not iter:
             return
-        partition = model[iter]['PyObject']
-        if partition:
+        device = model[iter]['PyObject']
+        if device:
+            # PyObject is always a Device but not always a PartitionDevice
+            try:
+                partition = device.partedPartition
+            except AttributeError:
+                return
+
             self.diskStripeGraph.selectSlice(partition)
 
     def newCB(self, widget):
-        request = NewPartitionSpec(fileSystemTypeGetDefault(), size = 200)
+        device = self.storage.newPartition(fmt_type=self.storage.defaultFSType,
+                                           size=200)
+        self.editPartition(device, isNew=1)
 
-        self.editPartitionRequest(request, isNew = 1)
-
-    def deleteCb(self, widget):
-        curselection = self.tree.getCurrentPartition()
-
-        if curselection:
-            if doDeletePartitionByRequest(self.intf, self.partitions, curselection):
+    def deleteCB(self, widget):
+        """ Right now we can say that if the device is partitioned we
+            want to delete all of the devices it contains. At some point
+            we will want to support creation and removal of partitionable
+            devices. This will need some work when that time comes.
+        """
+        device = self.tree.getCurrentDevice()
+        if hasattr(device, "partedDisk"):
+            if doDeleteDependentDevices(self.intf,
+                                        self.storage,
+                                        device):
                 self.refresh()
-        else:
-            curdevice = self.tree.getCurrentDevice()
-            if curdevice and len(curdevice) > 5:
-                if doDeletePartitionsByDevice(self.intf, self.partitions, self.diskset, curdevice[5:]):
-                    self.refresh()
-                else:
-                    return
+        elif doDeleteDevice(self.intf,
+                            self.storage,
+                            device):
+            if isinstance(device, storage.devices.DiskDevice) or \
+               isinstance(device, storage.devices.PartitionDevice):
+                justRedraw = False
+            else:
+                justRedraw = True
+
+            self.refresh(justRedraw=justRedraw)
                 
-    def resetCb(self, *args):
+    def resetCB(self, *args):
         if not confirmResetPartitionState(self.intf):
             return
         
         self.diskStripeGraph.shutDown()
-        self.diskset.refreshDevices()
-        self.partitions.setFromDisk(self.diskset)
+        self.storage.reset()
         self.tree.clear()
         self.populate()
 
-    def refresh(self):
+    def refresh(self, justRedraw=None):
+        log.debug("refresh: justRedraw=%s" % justRedraw)
         self.diskStripeGraph.shutDown()
         self.tree.clear()
 
-	# XXXX - Backup some info which doPartitioning munges if it fails
-	origInfoDict = {}
-	for request in self.partitions.requests:
-	    try:
-		origInfoDict[request.uniqueID] = (request.requestSize, request.currentDrive)
-	    except:
-		pass
-
-        try:
-            autopart.doPartitioning(self.diskset, self.partitions)
+        if justRedraw:
             rc = 0
-        except PartitioningError, msg:
-	    try:
-		for request in self.partitions.requests:
-		    if request.uniqueID in origInfoDict.keys():
-			(request.requestSize, request.currentDrive) = origInfoDict[request.uniqueID]
-	    except:
-		log.error("Failed to restore original info")
-
-            self.intf.messageWindow(_("Error Partitioning"),
-                   _("Could not allocate requested partitions: %s.") % (msg),
-				    custom_icon="error")
-            rc = -1
-        except PartitioningWarning, msg:
-            # XXX somebody other than me should make this look better
-            # XXX this doesn't handle the 'delete /boot partition spec' case
-            #     (it says 'add anyway')
-            dialog = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_WARNING,
-                                       gtk.BUTTONS_NONE,
-                                       _("Warning: %s.") % (msg))
-            gui.addFrame(dialog)
-            button = gtk.Button(_("_Modify Partition"))
-            dialog.add_action_widget(button, 1)
-            button = gtk.Button(_("_Continue"))
-            dialog.add_action_widget(button, 2)
-            dialog.set_position(gtk.WIN_POS_CENTER)
-
-            dialog.show_all()
-            rc = dialog.run()
-            dialog.destroy()
-            
-            if rc == 1:
-                rc = -1
-            else:
+        else:
+            try:
+                doPartitioning(self.storage)
                 rc = 0
-                reqs = self.partitions.getBootableRequest()
-                if reqs:
-                    for req in reqs:
-                        req.ignoreBootConstraints = 1
+            except PartitioningError, msg:
+                self.intf.messageWindow(_("Error Partitioning"),
+                       _("Could not allocate requested partitions: %s.") % (msg),
+                                        custom_icon="error")
+                rc = -1
+            except PartitioningWarning, msg:
+                # XXX somebody other than me should make this look better
+                # XXX this doesn't handle the 'delete /boot partition spec' case
+                #     (it says 'add anyway')
+                dialog = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_WARNING,
+                                           gtk.BUTTONS_NONE,
+                                           _("Warning: %s.") % (msg))
+                gui.addFrame(dialog)
+                button = gtk.Button(_("_Modify Partition"))
+                dialog.add_action_widget(button, 1)
+                button = gtk.Button(_("_Continue"))
+                dialog.add_action_widget(button, 2)
+                dialog.set_position(gtk.WIN_POS_CENTER)
+
+                dialog.show_all()
+                rc = dialog.run()
+                dialog.destroy()
+                
+                if rc == 1:
+                    rc = -1
+                else:
+                    rc = 0
+                    all_devices = self.storage.devicetree.devices.values()
+                    bootDevs = [d for d in all_devices if d.bootable]
+                    #if reqs:
+                    #    for req in reqs:
+                    #        req.ignoreBootConstraints = 1
 
 	if not rc == -1:
 	    self.populate()
 
         return rc
 
-    def editCb(self, *args):
-        part = self.tree.getCurrentPartition()
+    def editCB(self, *args):
+        device = self.tree.getCurrentDevice()
+        if not device:
+            self.intf.messageWindow(_("Unable To Edit"),
+                               _("You must select a device to edit"),
+                               custom_icon="error")
+            return
 
-        (type, request) = doEditPartitionByRequest(self.intf, self.partitions,
-                                                   part)
-        if request:
-            if type == "RAID":
-                self.editRaidRequest(request)
-	    elif type == "LVMVG":
-		self.editLVMVolumeGroup(request)
-	    elif type == "LVMLV":
-		vgrequest = self.partitions.getRequestByID(request.volumeGroup)
-		self.editLVMVolumeGroup(vgrequest)
-            elif type == "NEW":
-		self.editPartitionRequest(request, isNew = 1)
-            else:
-                self.editPartitionRequest(request)
+        reason = self.storage.deviceImmutable(device)
+        if reason:
+            self.intf.messageWindow(_("Unable To Edit"),
+                                    _("You cannot edit this device:\n\n%s")
+                                    % reason,
+                                    custom_icon="error")
+            return
+
+        if device.type == "mdarray":
+            self.editRaidArray(device)
+        elif device.type == "lvmvg":
+            self.editLVMVolumeGroup(device)
+        elif device.type == "lvmlv":
+            self.editLVMVolumeGroup(device)
+        elif isinstance(device, storage.devices.PartitionDevice):
+            self.editPartition(device)
 
     # isNew implies that this request has never been successfully used before
-    def editRaidRequest(self, raidrequest, isNew = 0):
-	raideditor = raid_dialog_gui.RaidEditor(self.partitions,
-						     self.diskset, self.intf,
-						     self.parent, raidrequest,
-						     isNew)
-	origpartitions = self.partitions.copy()
+    def editRaidArray(self, raiddev, isNew = 0):
+	raideditor = raid_dialog_gui.RaidEditor(self.storage,
+						self.intf,
+						self.parent,
+                                                raiddev,
+						isNew)
 	
 	while 1:
-	    request = raideditor.run()
+	    actions = raideditor.run()
 
-	    if request is None:
-		return
+            for action in actions:
+                # FIXME: this needs to handle exceptions
+                self.storage.devicetree.registerAction(action)
 
-	    if not isNew:
-		self.partitions.removeRequest(raidrequest)
-                if raidrequest.getPreExisting():
-                    delete = partRequests.DeleteRAIDSpec(raidrequest.raidminor)
-                    self.partitions.addDelete(delete)
-
-	    self.partitions.addRequest(request)
-
-	    if self.refresh():
-		if not isNew:
-		    self.partitions = origpartitions.copy()
+	    if self.refresh(justRedraw=True):
+                actions.reverse()
+                for action in actions:
+                    self.storage.devicetree.cancelAction(action)
                     if self.refresh():
                         raise RuntimeError, ("Returning partitions to state "
                                              "prior to RAID edit failed")
@@ -1107,29 +1110,27 @@ class PartitionWindow(InstallWindow):
 	raideditor.destroy()		
 
 
-    def editPartitionRequest(self, origrequest, isNew = 0, restrictfs = None):
+    def editPartition(self, device, isNew = 0, restrictfs = None):
 	parteditor = partition_dialog_gui.PartitionEditor(self.anaconda,
 							  self.parent,
-							  origrequest,
+							  device,
 							  isNew = isNew,
                                                           restrictfs = restrictfs)
 
 	while 1:
-	    request = parteditor.run()
+	    actions = parteditor.run()
 
-	    if request is None:
-		return 0
+            for action in actions:
+                # XXX we should handle exceptions here
+                self.anaconda.id.storage.devicetree.registerAction(action)
 
-            if not isNew:
-                self.partitions.removeRequest(origrequest)
+            if self.refresh(justRedraw=not actions):
+                # autopart failed -- cancel the actions and try to get
+                # back to previous state
+                actions.reverse()
+                for action in actions:
+                    self.anaconda.id.storage.devicetree.cancelAction(action)
 
-            self.partitions.addRequest(request)
-            if self.refresh():
-                # the add failed; remove what we just added and put
-                # back what was there if we removed it
-                self.partitions.removeRequest(request)
-                if not isNew:
-                    self.partitions.addRequest(origrequest)
                 if self.refresh():
                     # this worked before and doesn't now...
                     raise RuntimeError, ("Returning partitions to state "
@@ -1140,66 +1141,30 @@ class PartitionWindow(InstallWindow):
 	parteditor.destroy()
 	return 1
 
-    def editLVMVolumeGroup(self, origvgrequest, isNew = 0):
-	vgeditor = lvm_dialog_gui.VolumeGroupEditor(self.anaconda,
-						    self.partitions,
-						    self.diskset,
-						    self.intf, self.parent,
-						    origvgrequest, isNew)
+    def editLVMVolumeGroup(self, device, isNew = 0):
+        # we don't really need to pass in self.storage if we're passing
+        # self.anaconda already
+        vgeditor = lvm_dialog_gui.VolumeGroupEditor(self.anaconda,
+                                                    self.intf,
+                                                    self.parent,
+                                                    device,
+                                                    isNew)
 	
-	origpartitions = self.partitions.copy()
-	origvolreqs = origpartitions.getLVMLVForVG(origvgrequest)
+	while True:
+	    actions = vgeditor.run()
 
-	while (1):
-	    rc = vgeditor.run()
+            for action in actions:
+                # FIXME: handle exceptions
+                self.storage.devicetree.registerAction(action)
 
-	    #
-	    # return code is either None or a tuple containing
-	    # volume group request and logical volume requests
-	    #
-	    if rc is None:
-		return
+	    if self.refresh(justRedraw=True):
+                actions.reverse()
+                for action in actions:
+                    self.storage.devicetree.cancelAction(action)
 
-	    (vgrequest, logvolreqs) = rc
-
-	    # first add the volume group
-	    if not isNew:
-                # if an lv was preexisting and isn't in the new lv requests,
-                # we need to add a delete for it.  
-                for lv in origvolreqs:
-                    if not lv.getPreExisting():
-                        continue
-                    found = 0
-                    for newlv in logvolreqs:
-                        if (newlv.getPreExisting() and
-                            newlv.logicalVolumeName == lv.logicalVolumeName):
-                            found = 1
-                            break
-                    if found == 0:
-                        delete = partRequests.DeleteLogicalVolumeSpec(lv.logicalVolumeName,
-                                                                      origvgrequest.volumeGroupName)
-                        self.partitions.addDelete(delete)
-                        
-		for lv in origvolreqs:
-		    self.partitions.removeRequest(lv)
-
-		self.partitions.removeRequest(origvgrequest)
-
-	    vgID = self.partitions.addRequest(vgrequest)
-
-	    # now add the logical volumes
-	    for lv in logvolreqs:
-		lv.volumeGroup = vgID
-                if not lv.getPreExisting():
-                    lv.format = 1
-		self.partitions.addRequest(lv)
-
-	    if self.refresh():
-		if not isNew:
-		    self.partitions = origpartitions.copy()
-		    if self.refresh():
-			raise RuntimeError, ("Returning partitions to state "
-					     "prior to edit failed")
+                if self.refresh():
+                    raise RuntimeError, ("Returning partitions to state "
+                                         "prior to edit failed")
 		continue
 	    else:
 		break
@@ -1207,31 +1172,27 @@ class PartitionWindow(InstallWindow):
 	vgeditor.destroy()
 
 
-
     def makeLvmCB(self, widget):
-	if (not fileSystemTypeGet('physical volume (LVM)').isSupported() or
-            not lvm.has_lvm()):
+        if not getFormat("lvmpv").supported or not lvm.has_lvm():
 	    self.intf.messageWindow(_("Not supported"),
 				    _("LVM is NOT supported on "
 				      "this platform."), type="ok",
 				    custom_icon="error")
 	    return
 
-        request = VolumeGroupRequestSpec(format=True)
-        self.editLVMVolumeGroup(request, isNew = 1)
-
+        vg = self.storage.newVG()
+        self.editLVMVolumeGroup(vg, isNew = 1)
 	return
 
     def makeraidCB(self, widget):
-
-	if not fileSystemTypeGet('software RAID').isSupported():
+        if not getFormat("software RAID").supported:
 	    self.intf.messageWindow(_("Not supported"),
 				    _("Software RAID is NOT supported on "
 				      "this platform."), type="ok",
 				    custom_icon="error")
 	    return
 
-	availminors = self.partitions.getAvailableRaidMinors()
+	availminors = self.storage.unusedMDMinors
 	if len(availminors) < 1:
 	    self.intf.messageWindow(_("No RAID minor device numbers available"),
 				    _("A software RAID device cannot "
@@ -1244,9 +1205,7 @@ class PartitionWindow(InstallWindow):
 	
 	# see if we have enough free software RAID partitions first
 	# if no raid partitions exist, raise an error message and return
-	request = RaidRequestSpec(fileSystemTypeGetDefault())
-	availraidparts = self.partitions.getAvailRaidPartitions(request,
-								self.diskset)
+	availraidparts = self.storage.unusedMDMembers()
 
 	dialog = gtk.Dialog(_("RAID Options"), self.parent)
 	gui.addFrame(dialog)
@@ -1299,7 +1258,7 @@ class PartitionWindow(InstallWindow):
         createRAIDpart.set_active(1)
         doRAIDclone.set_sensitive(0)
         createRAIDdev.set_sensitive(0)
-        if len(availraidparts) > 0 and len(self.diskset.disks.keys()) > 1:
+        if len(availraidparts) > 0 and len(self.storage.disks) > 1:
             doRAIDclone.set_sensitive(1)
 
         if len(availraidparts) > 1:
@@ -1321,13 +1280,16 @@ class PartitionWindow(InstallWindow):
 
 	# see which option they choose
 	if createRAIDpart.get_active():
-	    rdrequest = NewPartitionSpec(fileSystemTypeGet("software RAID"), size = 200)
-	    rc = self.editPartitionRequest(rdrequest, isNew = 1, restrictfs=["software RAID"])
+            member = self.storage.newPartition(fmt_type="software RAID",
+                                               size=200)
+	    rc = self.editPartition(member,
+                                    isNew = 1,
+                                    restrictfs=["software RAID"])
 	elif createRAIDdev.get_active():
-	    self.editRaidRequest(request, isNew=1)
+	    array = self.storage.newMDArray(fmt_type=self.storage.defaultFSType)
+	    self.editRaidArray(array, isNew=1)
 	else:
-            cloneDialog = raid_dialog_gui.RaidCloneDialog(self.partitions,
-                                                          self.diskset,
+            cloneDialog = raid_dialog_gui.RaidCloneDialog(self.storage,
                                                           self.intf,
                                                           self.parent)
             if cloneDialog is None:
@@ -1337,16 +1299,12 @@ class PartitionWindow(InstallWindow):
 					custom_icon="error")
                 return
             
-            while 1:
-                rc = cloneDialog.run()
+            if cloneDialog.run():
+                self.refresh()
 
-		if rc:
-		    self.refresh()
-		    
-                cloneDialog.destroy()
-		return
+            cloneDialog.destroy()
+	    return
 
-	    
     def viewButtonCB(self, widget):
 	self.show_uneditable = not widget.get_active()
         self.diskStripeGraph.shutDown()
@@ -1355,13 +1313,9 @@ class PartitionWindow(InstallWindow):
 
     def getScreen(self, anaconda):
         self.anaconda = anaconda
-        self.fsset = anaconda.id.fsset
-        self.diskset = anaconda.id.diskset
+        self.storage = anaconda.id.storage
         self.intf = anaconda.intf
         
-        self.diskset.openDevices()
-        self.partitions = anaconda.id.partitions
-
 	self.show_uneditable = 1
 
         checkForSwapNoMatch(anaconda)
@@ -1375,9 +1329,9 @@ class PartitionWindow(InstallWindow):
         buttonBox.set_layout(gtk.BUTTONBOX_SPREAD)
 
         ops = ((_("Ne_w"), self.newCB),
-               (_("_Edit"), self.editCb),
-               (_("_Delete"), self.deleteCb),
-               (_("Re_set"), self.resetCb),
+               (_("_Edit"), self.editCB),
+               (_("_Delete"), self.deleteCB),
+               (_("Re_set"), self.resetCB),
                (_("R_AID"), self.makeraidCB),
                (_("_LVM"), self.makeLvmCB))
         
@@ -1388,12 +1342,12 @@ class PartitionWindow(InstallWindow):
 
         self.tree = DiskTreeModel()
         self.treeView = self.tree.getTreeView()
-        self.treeView.connect('row-activated', self.treeActivateCb)
+        self.treeView.connect('row-activated', self.treeActivateCB)
         self.treeViewSelection = self.treeView.get_selection()
-        self.treeViewSelection.connect("changed", self.treeSelectCb)
+        self.treeViewSelection.connect("changed", self.treeSelectCB)
 
         # set up the canvas
-        self.diskStripeGraph = DiskStripeGraph(self.tree, self.editCb)
+        self.diskStripeGraph = DiskStripeGraph(self.tree, self.editCB)
         
         # do the initial population of the tree and the graph
         self.populate(initial = 1)

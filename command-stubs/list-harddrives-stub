@@ -2,7 +2,7 @@
 #
 # scan system for harddrives and output device name/size
 #
-# Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2007, 2009  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,42 +18,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
 import sys
-
-# for testing
-if (os.path.exists('isys')):
-    sys.path.append('isys')
 
 sys.path.append('/usr/lib/anaconda')
 
-import anaconda_log
-import parted
-import partedUtils
-import isys
+import minihal
 
-drives = isys.hardDriveDict()
+lst = []
 
-driveList = drives.keys()
-driveList.sort()
+for drive in minihal.get_devices_by_type("volume"):
+    if not drive.has_key("device") or not drive.has_key("volume.size"):
+        continue
 
-for drive in driveList:
-    if not isys.mediaPresent(drive):
-	continue
+    lst.append("%s %s" % (drive["device"], drive["volume_size"]/(1024*1024)))
 
-    # try to open and get size
-    skip = 0
-    deviceFile =  "/dev/%s" % (drive,)
-
-    try:
-	dev = parted.PedDevice.get(deviceFile)
-    except:
-	skip = 1
-
-    if skip:
-	continue
-
-    sizeMB = (float(dev.heads * dev.cylinders * dev.sectors) / (1024 * 1024)
-		            * dev.sectorSize)
-
-    print drive, sizeMB
+lst.sort()
+for entry in lst:
+    print lst

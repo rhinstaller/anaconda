@@ -29,6 +29,7 @@ import stat
 import shutil
 import time
 import subprocess
+import storage
 
 import selinux
 
@@ -41,7 +42,6 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import backend
 import isys
 import iutil
-import fsset
 
 import packages
 
@@ -136,30 +136,30 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
     def _unmountNonFstabDirs(self, anaconda):
         # unmount things that aren't listed in /etc/fstab.  *sigh*
-        dirs = ["/dev"]
+        dirs = []
         if flags.selinux:
             dirs.append("/selinux")
         for dir in dirs:
             try:
-                isys.umount("%s/%s" %(anaconda.rootPath,dir), removeDir = 0)
+                isys.umount("%s/%s" %(anaconda.rootPath,dir), removeDir = False)
             except Exception, e:
                 log.error("unable to unmount %s: %s" %(dir, e))
 
     def postAction(self, anaconda):
         self._unmountNonFstabDirs(anaconda)
         try:
-            anaconda.id.fsset.umountFilesystems(anaconda.rootPath,
-                                                swapoff = False)
+            anaconda.id.storage.fsset.umountFilesystems(anaconda.rootPath,
+                                                        swapoff = False)
             os.rmdir(anaconda.rootPath)
         except Exception, e:
-            log.error("Unable to unmount filesystems.") 
+            log.error("Unable to unmount filesystems: %s" % e) 
 
     def doPreInstall(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
             self._unmountNonFstabDirs(anaconda)
             return
-
-        anaconda.id.fsset.umountFilesystems(anaconda.rootPath, swapoff = False)
+        anaconda.id.storage.fsset.umountFilesystems(anaconda.rootPath,
+                                                    swapoff = False)
 
     def doInstall(self, anaconda):
         log.info("Preparing to install packages")
@@ -174,16 +174,9 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         osimg = self._getLiveBlockDevice() # the real image
         osfd = os.open(osimg, os.O_RDONLY)
 
-        r = anaconda.id.fsset.getEntryByMountPoint("/")
-        rootfs = r.device.setupDevice()
-        rootfd = os.open(rootfs, os.O_WRONLY)
-
-        # set the rootfs to have the right type.  this lets things work
-        # given ext2 or ext3 (and in the future, ext4)
-        # FIXME: should we try to migrate if there isn't a match?
-        roottype = isys.readFSType(osimg)
-        if roottype is not None:
-            r.fsystem = fsset.fileSystemTypeGet(roottype)
+        rootDevice = anaconda.id.storage.fsset.rootDevice
+        rootDevice.setup()
+        rootfd = os.open(rootDevice.path, os.O_WRONLY)
 
         readamt = 1024 * 1024 * 8 # 8 megs at a time
         size = self._getLiveSize()
@@ -222,6 +215,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         anaconda.id.instProgress = None
 
     def _doFilesystemMangling(self, anaconda):
+        # FIXME: this whole method is a big fucking mess
         log.info("doing post-install fs mangling")
         wait = anaconda.intf.waitWindow(_("Doing post-installation"),
                                         _("Performing post-installation filesystem changes.  This may take several minutes..."))
@@ -230,29 +224,38 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         self._resizeRootfs(anaconda, wait)
 
         # remount filesystems
-        anaconda.id.fsset.mountFilesystems(anaconda)
+        anaconda.id.storage.fsset.mountFilesystems(anaconda)
 
         # restore the label of / to what we think it is
-        r = anaconda.id.fsset.getEntryByMountPoint("/")
-        anaconda.id.fsset.labelEntry(r, anaconda.rootPath, True)
+        rootDevice = anaconda.id.storage.fsset.rootDevice
+        rootDevice.setup()
         # ensure we have a random UUID on the rootfs
         # FIXME: this should be abstracted per filesystem type
-        iutil.execWithRedirect("tune2fs", ["-U", "random", "/dev/%s" % (r.device.getDevice())],
-                               stdout="/dev/tty5", stderr="/dev/tty5",
+        iutil.execWithRedirect("tune2fs",
+                               ["-U",
+                                "random",
+                                rootDevice.path],
+                               stdout="/dev/tty5",
+                               stderr="/dev/tty5",
                                searchPath = 1)
+        # and now set the uuid in the storage layer
+        rootDevice.updateSysfsPath()
+        iutil.notify_kernel("/sys%s" %rootDevice.sysfsPath)
+        storage.udev.udev_settle()
+        rootDevice.updateSysfsPath()
+        info = storage.udev.udev_get_block_device("/sys%s" % rootDevice.sysfsPath)
+        rootDevice.format.uuid = storage.udev.udev_device_get_uuid(info)
+        log.info("reset the rootdev (%s) to have a uuid of %s" %(rootDevice.sysfsPath, rootDevice.format.uuid))
 
         # for any filesystem that's _not_ on the root, we need to handle
         # moving the bits from the livecd -> the real filesystems.
         # this is pretty distasteful, but should work with things like
         # having a separate /usr/local
 
-        # get a list of fsset entries that are relevant
-        entries = sorted(filter(lambda e: not e.fsystem.isKernelFS() and \
-                                e.getMountPoint(), anaconda.id.fsset.entries))
         # now create a tree so that we know what's mounted under where
         fsdict = {"/": []}
-        for entry in entries:
-            tocopy = entry.getMountPoint()
+        for entry in anaconda.id.storage.fsset.mountpoints.itervalues():
+            tocopy = entry.format.mountpoint
             if tocopy.startswith("/mnt") or tocopy == "swap":
                 continue
             keys = sorted(fsdict.keys(), reverse = True)
@@ -268,8 +271,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             if tocopy in copied:
                 continue
             copied.append(tocopy)
-            copied.extend(map(lambda x: x.getMountPoint(), fsdict[tocopy]))
-            entry = anaconda.id.fsset.getEntryByMountPoint(tocopy)
+            copied.extend(map(lambda x: x.format.mountpoint, fsdict[tocopy]))
+            entry = anaconda.id.storage.fsset.mountpoints[tocopy]
 
             # FIXME: all calls to wait.refresh() are kind of a hack... we
             # should do better about not doing blocking things in the
@@ -279,9 +282,9 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
             # unmount subdirs + this one and then remount under /mnt
             for e in fsdict[tocopy] + [entry]:
-                e.umount(anaconda.rootPath)
+                e.format.teardown()
             for e in [entry] + fsdict[tocopy]:
-                e.mount(anaconda.rootPath + "/mnt")                
+                e.format.setup(chroot=anaconda.rootPath + "/mnt")
 
             copytree("%s/%s" %(anaconda.rootPath, tocopy),
                      "%s/mnt/%s" %(anaconda.rootPath, tocopy), True, True,
@@ -291,14 +294,14 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
             # mount it back in the correct place
             for e in fsdict[tocopy] + [entry]:
-                e.umount(anaconda.rootPath + "/mnt")
+                e.format.teardown()
                 try:
                     os.rmdir("%s/mnt/%s" %(anaconda.rootPath,
-                                           e.getMountPoint()))
+                                           e.format.mountpoint))
                 except OSError, e:
                     log.debug("error removing %s" %(tocopy,))
             for e in [entry] + fsdict[tocopy]:                
-                e.mount(anaconda.rootPath)                
+                e.format.setup(chroot=anaconda.rootPath)
 
             wait.refresh()
 
@@ -308,19 +311,17 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 isys.mount("/selinux", anaconda.rootPath + "/selinux", "selinuxfs")
             except Exception, e:
                 log.error("error mounting selinuxfs: %s" %(e,))
-        isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = 1)
 
         wait.pop()
 
     def _resizeRootfs(self, anaconda, win = None):
         log.info("going to do resize")
-        r = anaconda.id.fsset.getEntryByMountPoint("/")        
-        rootdev = r.device.getDevice()
+        rootDevice = anaconda.id.storage.fsset.rootDevice
 
         # FIXME: we'd like to have progress here to give an idea of
         # how long it will take.  or at least, to give an indefinite
         # progress window.  but, not for this time
-        cmd = ["resize2fs", "/dev/%s" %(rootdev,), "-p"]
+        cmd = ["resize2fs", rootDevice.path, "-p"]
         out = open("/dev/tty5", "w")
         proc = subprocess.Popen(cmd, stdout=out, stderr=out)
         rc = proc.poll()
@@ -345,9 +346,9 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             anaconda.id.desktop.setDefaultRunLevel(5)
 
         # now write out the "real" fstab and mtab
-        anaconda.id.fsset.write(anaconda.rootPath)
+        anaconda.id.storage.write(anaconda.rootPath)
         f = open(anaconda.rootPath + "/etc/mtab", "w+")
-        f.write(anaconda.id.fsset.mtab())
+        f.write(anaconda.id.storage.fsset.mtab())
         f.close()        
         
         # copy over the modprobe.conf
@@ -376,9 +377,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # FIXME: really, this should be in the general sanity checking, but
         # trying to weave that in is a little tricky at present.
         ossize = self._getLiveSizeMB()
-        slash = anaconda.id.partitions.getRequestByMountPoint("/")
-        if slash and \
-           slash.getActualSize(anaconda.id.partitions, anaconda.id.diskset) < ossize:
+        slash = anaconda.id.storage.fsset.rootDevice
+        if slash.size < ossize:
             rc = anaconda.intf.messageWindow(_("Error"),
                                         _("The root filesystem you created is "
                                           "not large enough for this live "
@@ -391,7 +391,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 return DISPATCH_BACK
             else:
                 sys.exit(1)
-        
 
     # package/group selection doesn't apply for this backend
     def groupExists(self, group):

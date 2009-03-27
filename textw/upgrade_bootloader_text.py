@@ -23,7 +23,7 @@ from snack import *
 from constants_text import *
 from flags import flags
 import string
-import checkbootloader
+from booty import checkbootloader
 
 from constants import *
 import gettext
@@ -86,7 +86,7 @@ class UpgradeBootloaderWindow:
 
         newToLibata = self._ideToLibata(anaconda.rootPath)
         (self.type, self.bootDev) = \
-                    checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath)
+                    checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.id.storage)
 
         blradio = RadioGroup()
 
@@ -173,7 +173,7 @@ class UpgradeBootloaderWindow:
                     self.bl.useGrubVal = 1
                 else:
                     self.bl.useGrubVal = 0
-                self.bl.setDevice(self.bootDev)
+                self.bl.setDevice(self.bootDev.split("/")[-1])
 
 
 

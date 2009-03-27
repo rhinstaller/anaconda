@@ -28,6 +28,8 @@
 #define EARLY_SWAP_RAM		270000
 #endif
 
+#define OUTPUT_TERMINAL "/dev/tty5"
+
 int insmod(char * modName, char * path, char ** args);
 int rmmod(char * modName);
 

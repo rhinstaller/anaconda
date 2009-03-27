@@ -741,7 +741,7 @@ class SaveExceptionWindow:
 
         store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
 
-        dests = anaconda.id.diskset.exceptionDisks(anaconda)
+        dests = anaconda.id.storage.exceptionDisks()
 
         if flags.livecdInstall:
             self.destCombo.remove_text(0)
@@ -751,7 +751,7 @@ class SaveExceptionWindow:
         elif len(dests) > 0:
             for d in dests:
                 iter = store.append(None)
-                store[iter] = ("/dev/%s" % d[0], "/dev/%s - %s" % (d[0], d[1]))
+                store[iter] = (d[0], "%s - %s" % (d[0], d[1]))
 
             self.diskCombo.set_model(store)
             self.diskCombo.set_active(0)
@@ -1265,10 +1265,6 @@ class InstallInterface:
         # XXX x_already_set is a hack
         if anaconda.id.keyboard and not anaconda.id.x_already_set:
             anaconda.id.keyboard.activate()
-
-        anaconda.id.fsset.registerMessageWindow(self.messageWindow)
-        anaconda.id.fsset.registerProgressWindow(self.progressWindow)
-        anaconda.id.fsset.registerWaitWindow(self.waitWindow)
 
         self.icw = InstallControlWindow (self.anaconda)
         self.icw.run (self.runres)

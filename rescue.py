@@ -29,8 +29,8 @@ from flags import flags
 import sys
 import os
 import isys
+from storage import mountExistingSystem
 import iutil
-import fsset
 import shutil
 import time
 import network
@@ -101,14 +101,17 @@ class RescueInterface:
 # XXX grub-install is stupid and uses df output to figure out
 # things when installing grub.  make /etc/mtab be at least
 # moderately useful.  
-def makeMtab(instPath, theFsset):
-    child = os.fork()
-    if (not child):
-        os.chroot(instPath)
-        f = open("/etc/mtab", "w+")
-        f.write(theFsset.mtab())
+def makeMtab(instPath, fsset):
+    try:
+        f = open(instPath + "/etc/mtab", "w+")
+    except IOError, e:
+        log.info("failed to open /etc/mtab for write: %s" % e)
+        return
+
+    try:
+        f.write(fsset.mtab())
+    finally:
         f.close()
-        os._exit(0)
 
 # make sure they have a resolv.conf in the chroot
 def makeResolvConf(instPath):
@@ -220,15 +223,15 @@ def runRescue(anaconda, instClass):
 
         sys.exit(0)
 
+    screen = SnackScreen()
+    anaconda.intf = RescueInterface(screen)
+
     if anaconda.isKickstart:
         if anaconda.id.ksdata.rescue and anaconda.id.ksdata.rescue.romount:
             readOnly = 1
         else:
             readOnly = 0
     else:
-        screen = SnackScreen()
-        anaconda.intf = RescueInterface(screen)
-
         # prompt to see if we should try and find root filesystem and mount
         # everything in /etc/fstab on that root
         rc = ButtonChoiceWindow(screen, _("Rescue"),
@@ -252,6 +255,9 @@ def runRescue(anaconda, instClass):
         else:
             readOnly = 0
 
+    import storage
+    storage.storageInitialize(anaconda)
+
     disks = upgrade.findExistingRoots(anaconda, upgradeany = 1)
 
     if not disks:
@@ -265,17 +271,17 @@ def runRescue(anaconda, instClass):
         else:
             scroll = 0
 
-        partList = []
-        for (drive, fs, relstr, label, uuid) in disks:
-            if label:
-                partList.append("%s (%s)" % (drive, label))
+        devList = []
+        for (device, relstr) in disks:
+            if getattr(device.format, "label", None):
+                devList.append("%s (%s) - %s" % (device.name, device.format.label, relstr))
             else:
-                partList.append(drive)
+                devList.append("%s - %s" % (device.name, relstr))
 
         (button, choice) = \
             ListboxChoiceWindow(screen, _("System to Rescue"),
-                                _("What partition holds the root partition "
-                                  "of your installation?"), partList,
+                                _("Which device holds the root partition "
+                                  "of your installation?"), devList,
                                 [ _("OK"), _("Exit") ], width = 30,
                                 scroll = scroll, height = height,
                                 help = "multipleroot")
@@ -289,13 +295,9 @@ def runRescue(anaconda, instClass):
 
     if root:
         try:
-            fs = fsset.FileSystemSet()
-
-            # only pass first two parts of tuple for root, since third
-            # element is a comment we dont want
-            rc = upgrade.mountRootPartition(anaconda, root[:2], fs,
-                                            allowDirty = 1, warnDirty = 1,
-                                            readOnly = readOnly)
+            rc = mountExistingSystem(anaconda, root,
+                                     allowDirty = 1, warnDirty = 1,
+                                     readOnly = readOnly)
 
             if rc == -1:
                 if anaconda.isKickstart:
@@ -325,15 +327,9 @@ def runRescue(anaconda, instClass):
                 # now turn on swap
                 if not readOnly:
                     try:
-                        fs.turnOnSwap("/")
+                        anaconda.id.storage.fsset.turnOnSwap(anaconda.intf)
                     except:
                         log.error("Error enabling swap")
-
-                # now that dev is udev, bind mount the installer dev there
-                isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = 1)
-
-                # and /dev/pts
-                isys.mount("/dev/pts", "%s/dev/pts" %(anaconda.rootPath,), bindMount = 1)
 
                 # and /selinux too
                 if flags.selinux and os.path.isdir("%s/selinux" %(anaconda.rootPath,)):
@@ -412,7 +408,7 @@ def runRescue(anaconda, instClass):
     msgStr = ""
 
     if rootmounted and not readOnly:
-        makeMtab(anaconda.rootPath, fs)
+        makeMtab(anaconda.rootPath, anaconda.id.storage.fsset)
         try:
             makeResolvConf(anaconda.rootPath)
         except Exception, e:

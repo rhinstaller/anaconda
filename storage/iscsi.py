@@ -31,7 +31,6 @@ import shutil
 import time
 import hashlib
 import random
-import partedUtils
 log = logging.getLogger("anaconda")
 
 import gettext
@@ -46,8 +45,6 @@ except:
 # Note that stage2 copies all files under /sbin to /usr/sbin
 global ISCSID
 ISCSID=""
-global ISCSIADM
-ISCSIADM = ""
 INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
 
 def find_iscsi_files():
@@ -57,20 +54,13 @@ def find_iscsi_files():
             path="%s/iscsid" % (dir,)
             if os.access(path, os.X_OK):
                 ISCSID=path
-    global ISCSIADM
-    if ISCSIADM == "":
-        for dir in ("/usr/sbin", "/tmp/updates", "/mnt/source/RHupdates"):
-            path="%s/iscsiadm" % (dir,)
-            if os.access(path, os.X_OK):
-                ISCSIADM=path
 
 def has_iscsi():
     find_iscsi_files()
-    if ISCSID == "" or ISCSIADM == "" or not has_libiscsi:
+    if ISCSID == "" or not has_libiscsi:
         return False
 
     log.info("ISCSID is %s" % (ISCSID,))
-    log.info("ISCSIADM is %s" % (ISCSIADM,))
 
     # make sure the module is loaded
     if not os.access("/sys/module/iscsi_tcp", os.X_OK):
@@ -87,19 +77,6 @@ def iscsi_get_node_record(node_settings, record):
             break
 
     return None
-
-# FIXME replace with libiscsi use
-def iscsi_make_node_autostart(disk):
-    sysfs_path = os.path.realpath("/sys/block/%s/device" %(disk,))
-    argv = [ "-m", "session", "-r", sysfs_path ]
-    log.debug("iscsiadm %s" %(string.join(argv),))
-    node_settings = iutil.execWithCapture(ISCSIADM, argv, stderr="/dev/tty5").splitlines()
-    node_name = iscsi_get_node_record(node_settings, "node.name")
-    argv = [ "-m", "node", "-T", node_name, "-o", "update", "-n",
-             "node.startup", "-v", "automatic" ]
-    log.debug("iscsiadm %s" %(string.join(argv),))
-    iutil.execWithRedirect(ISCSIADM, argv,
-                                stdout = "/dev/tty5", stderr="/dev/tty5")
 
 def randomIname():
     """Generate a random initiator name the same way as iscsi-iname"""
@@ -285,11 +262,11 @@ class iscsi(object):
             f.write("iscsi --ipaddr %s --port %s" %(n.address, n.port))
             auth = n.getAuth()
             if auth:
-                f.write(" --user %s" %(n.username,))
-                f.write(" --password %s" %(n.password,))
+                f.write(" --user %s" % auth.username)
+                f.write(" --password %s" % auth.password)
                 if len(auth.reverse_username):
-                    f.write(" --reverse-user %s" % (n.reverse_username,))
-                    f.write(" --reverse-password %s" % (n.reverse_password,))
+                    f.write(" --reverse-user %s" % auth.reverse_username)
+                    f.write(" --reverse-password %s" % auth.reverse_password)
             f.write("\n")
 
     def write(self, instPath, anaconda):
@@ -297,25 +274,21 @@ class iscsi(object):
             return
 
         if not flags.test:
-            root_drives = [ ]
-            req = anaconda.id.partitions.getRequestByMountPoint("/")
-            root_requests = anaconda.id.partitions.getUnderlyingRequests(req)
-            for req in root_requests:
-                for drive in req.drive:
-                    part = anaconda.id.diskset.disks[drive].getPartitionByPath("/dev/%s" % req.device)
-                    if part:
-                        break
-                if not part:
+            root = anaconda.id.storage.fsset.rootDevice
+            disks = anaconda.id.storage.devicetree.getDevicesByType("iscsi")
+
+            # set iscsi nodes to autostart
+            for disk in disks:
+                # devices used for root get started by the initrd
+                if root.dependsOn(disk):
                     continue
-                if drive not in root_drives:
-                    root_drives.append(drive)
-
-            log.debug("iscsi.write: root_drives: %s" % (string.join(root_drives),))
-
-            # set iscsi nodes not used for root to autostart
-            for disk in anaconda.id.diskset.disks.keys():
-                if isys.driveIsIscsi(disk) and not disk in root_drives:
-                    iscsi_make_node_autostart(disk)
+                # find the iscsi node matching this disk
+                for node in self.nodes:
+                    if node.name    == disk.iscsi_name and \
+                       node.address == disk.iscsi_address and \
+                       node.port    == disk.iscsi_port:
+                        node.setParameter("node.startup", "automatic")
+                        break
 
             if not os.path.isdir(instPath + "/etc/iscsi"):
                 os.makedirs(instPath + "/etc/iscsi", 0755)

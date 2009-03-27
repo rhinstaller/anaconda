@@ -22,7 +22,6 @@ import iutil
 import upgrade
 from constants_text import *
 from snack import *
-from fsset import *
 from flags import flags
 from constants import *
 
@@ -32,7 +31,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, anaconda):
       
-        migent = anaconda.id.fsset.getMigratableEntries()
+        migent = anaconda.id.storage.fsset.getMigratableEntries()
 
 	g = GridFormHelp(screen, _("Migrate File Systems"), "upmigfs", 1, 4)
 
@@ -48,15 +47,17 @@ class UpgradeMigrateFSWindow:
 	g.add(tb, 0, 0, anchorLeft = 1, padding = (0, 0, 0, 1))
 
         partlist = CheckboxTree(height=4, scroll=1)
-        for entry in migent:
-            if entry.fsystem.getName() != entry.origfsystem.getName():
-                migrating = 1
+        for device in migent:
+            if not device.format.exists:
+                migrating = True
             else:
-                migrating = 0
+                migrating = False
 
-            partlist.append("/dev/%s - %s - %s" % (entry.device.getDevice(),
-                                              entry.origfsystem.getName(),
-                                              entry.mountpoint), entry, migrating)
+            # FIXME: the fstype at least will be wrong here
+            partlist.append("%s - %s - %s" % (device.path,
+                                              device.format.type,
+                                              device.format.mountpoint),
+                                              device, migrating)
             
 	g.add(partlist, 0, 1, padding = (0, 0, 0, 1))
         
@@ -74,29 +75,26 @@ class UpgradeMigrateFSWindow:
 		return INSTALL_BACK
 
             # reset
-            for entry in migent:
-                entry.setFormat(0)
-                entry.setMigrate(0)
-                entry.fsystem = entry.origfsystem
+            # XXX the way to do this is by scheduling and cancelling actions
+            #for entry in migent:
+            #    entry.setFormat(0)
+            #    entry.setMigrate(0)
+            #    entry.fsystem = entry.origfsystem
 
             for entry in partlist.getSelection():
                 try:
-                    newfs = entry.fsystem.migratetofs[0]
-                    newfs = fileSystemTypeGet(newfs)
+                    newfs = getFormat(entry.format.migratetofs[0])
                 except Exception, e:
                     log.info("failed to get new filesystem type, defaulting to ext3: %s" %(e,))
-                    newfs = fileSystemTypeGet("ext3")
-                entry.setFileSystemType(newfs)
-                entry.setFormat(0)
-                entry.setMigrate(1)
-
+                    newfs = getFormat("ext3")
+                    anaconda.id.storage.migrateFormat(entry, newfs)
 
             screen.popWindow()
             return INSTALL_OK
 
 class UpgradeSwapWindow:
     def __call__ (self, screen, anaconda):
-	(fsList, suggSize, suggMntPoint) = anaconda.id.upgradeSwapInfo
+	(fsList, suggSize, suggDev) = anaconda.id.upgradeSwapInfo
 
         ramDetected = iutil.memInstalled()/1024
 
@@ -121,10 +119,13 @@ class UpgradeSwapWindow:
 			_("Partition"), _("Free Space")))
 
 	count = 0
-	for (mnt, part, size) in fsList:
-	    listbox.append("%-25s /dev/%-10s %6dMB" % (mnt, part, size), count)
+	for (device, size) in fsList:
+	    listbox.append("%-25s %-15s %6dMB" % (device.format.mountpoint,
+                                                  device.path,
+                                                  size),
+                                                  count)
 
-	    if (mnt == suggMntPoint):
+	    if (device == suggDev):
 		listbox.setCurrent(count)
 
 	    count = count + 1
@@ -176,7 +177,7 @@ class UpgradeSwapWindow:
                                      "valid number."))
 
 	    if type(val) == type(1):
-		(mnt, part, size) = fsList[listbox.current()]
+		(dev, size) = fsList[listbox.current()]
 		if size < (val + 16):
 		    anaconda.intf.messageWindow(_("Error"),
                                        _("There is not enough space on the "
@@ -189,7 +190,7 @@ class UpgradeSwapWindow:
 		else:
 		    screen.popWindow()
                     if flags.setupFilesystems:
-                        upgrade.createSwapFile(anaconda.rootPath, anaconda.id.fsset, mnt, val)
+                        anaconda.id.storage.fsset.createSwapFile(anaconda.rootPath, dev, val)
                     anaconda.dispatch.skipStep("addswap", 1)
 		    return INSTALL_OK
 
@@ -212,12 +213,8 @@ class UpgradeExamineWindow:
         else:
             default = 0
 
-        for (drive, fs, desc, label, uuid) in parts:
-	    if drive[:5] != "/dev/":
-		devname = "/dev/" + drive
-	    else:
-		devname = drive
-            partList.append("%s (%s)" %(desc, drive))
+        for (device, desc) in parts:
+            partList.append("%s (%s)" %(desc, device.path))
 
         (button, choice) =  ListboxChoiceWindow(screen, _("System to Upgrade"),
                             _("There seem to be one or more existing Linux installations "

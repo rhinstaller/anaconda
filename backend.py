@@ -85,8 +85,10 @@ class AnacondaBackend:
         # the initrd might need iscsi-initiator-utils, and chances are
         # it was not installed yet the first time mkinitrd was run, as
         # mkinitrd does not require it.
-        for disk in anaconda.id.diskset.disks.keys():
-            if isys.driveIsIscsi(disk):
+        root = anaconda.id.storage.fsset.rootDevice
+        disks = anaconda.id.storage.devicetree.getDevicesByType("iscsi")
+        for disk in disks:
+            if root.dependsOn(disk):
                 has_iscsi_disk = True
                 break
 
@@ -156,8 +158,9 @@ class AnacondaBackend:
         if not anaconda.mediaDevice or not os.path.exists(installimg):
             return
 
+        free = anaconda.id.storage.fsset.fsFreeSpace(anaconda.rootPath)
         self._loopbackFile = "%s%s/rhinstall-install.img" % (anaconda.rootPath,
-                             anaconda.id.fsset.filesystemSpace(anaconda.rootPath)[0][0])
+                                                             free[0][0])
 
         try:
             win = anaconda.intf.waitWindow(_("Copying File"),

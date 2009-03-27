@@ -26,14 +26,14 @@ import iutil
 import time
 import sys
 import os.path
-import partedUtils
 import string
 import selinux
-import lvm
 from flags import flags
-from fsset import *
 from constants import *
 from product import productName
+from storage import findExistingRootDevices
+from storage import mountExistingSystem
+from storage.formats import getFormat
 
 import rhpl
 import rhpl.arch
@@ -134,11 +134,8 @@ def findRootParts(anaconda):
         root_device=anaconda.id.ksdata.upgrade.root_device
 
     anaconda.id.upgradeRoot = []
-    for (dev, fs, meta, label, uuid) in anaconda.id.rootParts:
-        if (root_device is not None) and ((dev == root_device) or (("UUID=%s" % uuid) == root_device) or (("LABEL=%s" % label) == root_device)):
-            anaconda.id.upgradeRoot.append( (dev, fs) )
-        else:
-            anaconda.id.upgradeRoot.append( (dev, fs) )
+    for (dev, label) in anaconda.id.rootParts:
+        anaconda.id.upgradeRoot.append( (dev, label) )
 
     if anaconda.id.rootParts is not None and len(anaconda.id.rootParts) > 0:
         anaconda.dispatch.skipStep("findinstall", skip = 0)
@@ -149,115 +146,24 @@ def findRootParts(anaconda):
         anaconda.dispatch.skipStep("installtype", skip = 0)
 
 def findExistingRoots(anaconda, upgradeany = 0):
-    # make ibft configured iscsi disks available
-    anaconda.id.iscsi.startup(anaconda.intf)
-
     if not flags.setupFilesystems:
         (prod, ver) = partedUtils.getReleaseString (anaconda.rootPath)
         if flags.cmdline.has_key("upgradeany") or upgradeany == 1 or anaconda.id.instClass.productUpgradable(prod, ver):
-            return [(anaconda.rootPath, 'ext2', "")]
+            return [(anaconda.rootPath, "")]
         return []
 
-    anaconda.id.diskset.openDevices()
-    anaconda.id.partitions.getEncryptedDevices(anaconda.id.diskset)
-    rootparts = anaconda.id.diskset.findExistingRootPartitions(upgradeany = upgradeany)
-
-    # close the devices to make sure we don't leave things sitting open 
-    anaconda.id.diskset.closeDevices()
-
-    # this is a hack... need to clear the skipped disk list after this
-    partedUtils.DiskSet.skippedDisks = []
-    partedUtils.DiskSet.exclusiveDisks = []
-
+    rootparts = findExistingRootDevices(anaconda, upgradeany=upgradeany)
     return rootparts
 
-def getDirtyDevString(dirtyDevs):
-    ret = ""
-    for dev in dirtyDevs:
-        if dev != "loop":
-            ret = "/dev/%s\n" % (dev,)
-        else:
-            ret = "%s\n" % (dev,)
-    return ret
-
-def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
-		       warnDirty = 0, readOnly = 0):
-    (root, rootFs) = rootInfo
-    bindMount = 0
-
-    encryptedDevices = anaconda.id.partitions.encryptedDevices
-    diskset = partedUtils.DiskSet(anaconda)
-    diskset.openDevices()
-    for cryptoDev in encryptedDevices.values():
-        cryptoDev.openDevice()
-    diskset.startMPath()
-    diskset.startDmRaid()
-    diskset.startMdRaid()
-    for cryptoDev in encryptedDevices.values():
-        cryptoDev.openDevice()
-    lvm.vgscan()
-    lvm.vgactivate()
-    for cryptoDev in encryptedDevices.values():
-        cryptoDev.openDevice()
-
-    if root in anaconda.id.partitions.protectedPartitions() and os.path.ismount("/mnt/isodir"):
-        root = "/mnt/isodir"
-        bindMount = 1
-
-    log.info("going to mount %s on %s as %s" %(root, anaconda.rootPath, rootFs))
-    isys.mount(root, anaconda.rootPath, rootFs, bindMount=bindMount)
-
-    oldfsset.reset()
-    newfsset = readFstab(anaconda)
-
-    for entry in newfsset.entries:
-        oldfsset.add(entry)
-
-    if not bindMount:
-        isys.umount(anaconda.rootPath)
-
-    dirtyDevs = oldfsset.hasDirtyFilesystems(anaconda.rootPath)
-    if not allowDirty and dirtyDevs != []:
-        lvm.vgdeactivate()
-        diskset.stopMdRaid()
-        diskset.stopDmRaid()
-        diskset.stopMPath()
-        anaconda.intf.messageWindow(_("Dirty File Systems"),
-                           _("The following file systems for your Linux system "
-                             "were not unmounted cleanly.  Please boot your "
-                             "Linux installation, let the file systems be "
-                             "checked and shut down cleanly to upgrade.\n"
-                             "%s" %(getDirtyDevString(dirtyDevs),)))
-        sys.exit(0)
-    elif warnDirty and dirtyDevs != []:
-        rc = anaconda.intf.messageWindow(_("Dirty File Systems"),
-                                _("The following file systems for your Linux "
-                                  "system were not unmounted cleanly.  Would "
-                                  "you like to mount them anyway?\n"
-                                  "%s" % (getDirtyDevString(dirtyDevs,))),
-                                type = "yesno")
-        if rc == 0:
-            return -1
-
-    if flags.setupFilesystems:
-        for dev, crypto in encryptedDevices.items():
-            if crypto.openDevice():
-                log.error("failed to open encrypted device %s" % (dev,))
-
-        oldfsset.mountFilesystems(anaconda, readOnly = readOnly,
-                                  skiprootfs = bindMount)
-
-    rootEntry = oldfsset.getEntryByMountPoint("/")
-    if (not rootEntry or not rootEntry.fsystem or not rootEntry.fsystem.isMountable()):
-        raise RuntimeError, "/etc/fstab did not list a fstype for the root partition which we support"
-
 def bindMountDevDirectory(instPath):
-    fs = fileSystemTypeGet("bind")
-    fs.mount("/dev", "/dev", bindMount=1, instroot=instPath)
+    getFormat("bind",
+              device="/dev",
+              mountpoint="/dev",
+              exists=True).mount(chroot=instPath)
 
 # returns None if no filesystem exist to migrate
 def upgradeMigrateFind(anaconda):
-    migents = anaconda.id.fsset.getMigratableEntries()
+    migents = anaconda.id.storage.fsset.migratableDevices
     if not migents or len(migents) < 1:
         anaconda.dispatch.skipStep("upgrademigratefs")
     else:
@@ -295,13 +201,15 @@ def upgradeSwapSuggestion(anaconda):
 
     fsList = []
 
-    for entry in anaconda.id.fsset.entries:
-        if entry.fsystem.getName() in getUsableLinuxFs():
-            if flags.setupFilesystems and not entry.isMounted():
+    for device in anaconda.id.storage.fsset.devices:
+        if not device.format:
+            continue
+        if device.format.mountable and device.format.linuxNative:
+            if flags.setupFilesystems and not device.format.status:
                 continue
-            space = isys.pathSpaceAvailable(anaconda.rootPath + entry.mountpoint)
+            space = isys.pathSpaceAvailable(anaconda.rootPath + device.format.mountpoint)
             if space > 16:
-                info = (entry.mountpoint, entry.device.getDevice(), space)
+                info = (device, space)
                 fsList.append(info)
 
     suggestion = mem * 2 - swap
@@ -311,57 +219,11 @@ def upgradeSwapSuggestion(anaconda):
         suggestion = 32
     suggSize = 0
     suggMnt = None
-    for (mnt, part, size) in fsList:
+    for (device, size) in fsList:
 	if (size > suggSize) and (size > (suggestion + 100)):
-	    suggMnt = mnt
+	    suggDev = device
 
-    anaconda.id.upgradeSwapInfo = (fsList, suggestion, suggMnt)
-
-def swapfileExists(swapname):
-    try:
-        os.lstat(swapname)
-	return 1
-    except:
-	return 0
-
-def createSwapFile(instPath, theFsset, mntPoint, size):
-    fstabPath = instPath + "/etc/fstab"
-    prefix = ""
-
-    if mntPoint != "/":
-        file = mntPoint + "/SWAP"
-    else:
-        file = "/SWAP"
-
-    swapFileDict = {}
-    for entry in theFsset.entries:
-        if entry.fsystem.getName() == "swap":
-            swapFileDict[entry.device.getName()] = 1
-        
-    count = 0
-    while (swapfileExists(instPath + file) or 
-	   swapFileDict.has_key(file)):
-	count = count + 1
-	tmpFile = "/SWAP-%d" % (count)
-        if mntPoint != "/":
-            file = mntPoint + tmpFile
-        else:
-            file = tmpFile
-
-    device = SwapFileDevice(file)
-    device.setSize(size)
-    fsystem = fileSystemTypeGet("swap")
-    entry = FileSystemSetEntry(device, "swap", fsystem)
-    entry.setFormat(1)
-    theFsset.add(entry)
-    theFsset.formatEntry(entry, instPath)
-    theFsset.turnOnSwap(instPath, upgrading=True)
-
-    # XXX generalize fstab modification
-    f = open(fstabPath, "a")
-    format = "%-23s %-23s %-7s %-15s %d %d\n";
-    f.write(format % (prefix + file, "swap", "swap", "defaults", 0, 0))
-    f.close()
+    anaconda.id.upgradeSwapInfo = (fsList, suggestion, suggDev)
 
 # XXX handle going backwards
 def upgradeMountFilesystems(anaconda):
@@ -369,21 +231,31 @@ def upgradeMountFilesystems(anaconda):
 
     if flags.setupFilesystems:
 	try:
-	    mountRootPartition(anaconda, anaconda.id.upgradeRoot[0], anaconda.id.fsset,
-                               allowDirty = 0)
-        except SystemError:
+	    mountExistingSystem(anaconda,
+                                anaconda.id.upgradeRoot[0],
+                                allowDirty = 0)
+        except ValueError as e:
+            log.error("Error mounting filesystem: %s" % e)
 	    anaconda.intf.messageWindow(_("Mount failed"),
-		_("One or more of the file systems listed in the "
-		  "/etc/fstab on your Linux system cannot be mounted. "
-		  "Please fix this problem and try to upgrade again."))
+                _("The following error occurred when mounting the file "
+                  "systems listed in /etc/fstab.  Please fix this problem "
+                  "and try to upgrade again.\n%s" % e))
 	    sys.exit(0)
-        except RuntimeError:
-            anaconda.intf.messageWindow(_("Mount failed"),
-		_("One or more of the file systems listed in the "
-                  "/etc/fstab of your Linux system are inconsistent and "
-                  "cannot be mounted.  Please fix this problem and try to "
-                  "upgrade again."))
-            sys.exit(0)
+        except IndexError as e:
+            # The upgrade root is search earlier but we give the message here.
+            log.debug("No upgrade root was fond.")
+            rc = anaconda.intf.messageWindow(_("Upgrade root not found"),
+                    _("The root for the previously installed system was not "
+                      "found.  You can exit installer or backtrack to choose "
+                      "installation instead of upgrade."),
+                type="custom",
+                custom_buttons = [ _("_Back"),
+                                   _("_Exit installer") ],
+                custom_icon="question")
+            if rc == 0:
+                return DISPATCH_BACK
+            elif rc == 1:
+                sys.exit(0)
 
 	checkLinks = ( '/etc', '/var', '/var/lib', '/var/lib/rpm',
 		       '/boot', '/tmp', '/var/tmp', '/root',
@@ -421,8 +293,6 @@ def upgradeMountFilesystems(anaconda):
                 message = message + '\t' + n + '\n'
 	    anaconda.intf.messageWindow(_("Invalid Directories"), message)
 	    sys.exit(0)
-           
-        bindMountDevDirectory(anaconda.rootPath)
     else:
         if not os.access (anaconda.rootPath + "/etc/fstab", os.R_OK):
             anaconda.intf.messageWindow(_("Warning"),
@@ -430,15 +300,11 @@ def upgradeMountFilesystems(anaconda):
                                         % (anaconda.rootPath + "/etc/fstab",),
                                         type="ok")
             return DISPATCH_BACK
-            
-	newfsset = readFstab(anaconda)
-        for entry in newfsset.entries:
-            anaconda.id.fsset.add(entry)
+
+        anaconda.id.storage.fsset.parseFSTab(chroot=anaconda.rootPath)
     if flags.setupFilesystems:
-        if iutil.isPPC():
-            anaconda.id.fsset.formatSwap(anaconda.rootPath, forceFormat=True)
-        anaconda.id.fsset.turnOnSwap(anaconda.rootPath, upgrading=True)
-        anaconda.id.fsset.mkDevRoot(anaconda.rootPath)
+        anaconda.id.storage.fsset.turnOnSwap(upgrading=True)
+        anaconda.id.storage.fsset.mkDevRoot(anaconda.rootPath)
 
     # if they've been booting with selinux disabled, then we should
     # disable it during the install as well (#242510)
@@ -458,13 +324,14 @@ def setSteps(anaconda):
                 "keyboard",
                 "welcome",
                 "installtype",
+                "storageinit",
                 "findrootparts",
                 "findinstall",
-                "partitionobjinit",
                 "upgrademount",
                 "upgrademigfind",
                 "upgrademigratefs",
                 "upgradearchitecture",
+                "enablefilesystems",
                 "upgradecontinue",
                 "reposetup",
                 "upgbootloader",
@@ -474,7 +341,6 @@ def setSteps(anaconda):
                 "postselection",
                 "reipl",
                 "install",
-                "migratefilesystems",
                 "preinstallconfig",
                 "installpackages",
                 "postinstallconfig",

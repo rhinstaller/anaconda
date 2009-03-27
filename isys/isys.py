@@ -59,7 +59,6 @@ NM_STATE_CONNECTED = 3
 NM_STATE_DISCONNECTED = 4
 
 mountCount = {}
-raidCount = {}
 
 MIN_RAM = _isys.MIN_RAM
 MIN_GUI_RAM = _isys.MIN_GUI_RAM
@@ -71,194 +70,12 @@ EARLY_SWAP_RAM = _isys.EARLY_SWAP_RAM
 def pathSpaceAvailable(path):
     return _isys.devSpaceFree(path)
 
-mdadmOutput = "/tmp/mdadmout"
-
-## An error occured when running mdadm.
-class MdadmError(Exception):
-    ## The constructor.
-    # @param args The arguments passed to the mdadm command.
-    # @param name The the name of the RAID device used in the mdadm command.
-    def __init__(self, args, name=None):
-        self.args = args
-        self.name = name
-        self.log = self.getCmdOutput()
-
-    ## Get the output of the last mdadm command run.
-    # @return The formatted output of the mdadm command which caused an error.
-    def getCmdOutput(self):
-        f = open(mdadmOutput, "r")
-        lines = reduce(lambda x,y: x + [string.strip(y),], f.readlines(), [])
-        lines = string.join(reduce(lambda x,y: x + ["   %s" % (y,)], \
-                                    lines, []), "\n")
-        return lines
-
-    def __str__(self):
-        s = ""
-        if not self.name is None:
-            s = " for device %s" % (self.name,)
-        command = "mdadm " + string.join(self.args, " ")
-        return "'%s' failed%s\nLog:\n%s" % (command, s, self.log)
-
-def _mdadm(*args):
-    try:
-        lines = iutil.execWithCapture("mdadm", args, stderr = mdadmOutput)
-        lines = string.split(lines, '\n')
-        lines = reduce(lambda x,y: x + [y.strip(),], lines, [])
-        return lines
-    except:
-        raise MdadmError, args
-
-def _getRaidInfo(drive):
-    log.info("mdadm -E %s" % (drive,))
-    try:
-        lines = _mdadm("-E", drive)
-    except MdadmError:
-        ei = sys.exc_info()
-        ei[1].name = drive
-        raise ei[0], ei[1], ei[2]
-
-    info = {
-            'major': "-1",
-            'minor': "-1",
-            'uuid' : "",
-            'level': -1,
-            'nrDisks': -1,
-            'totalDisks': -1,
-            'mdMinor': -1,
-        }
-
-    for line in lines:
-        vals = string.split(string.strip(line), ' : ')
-        if len(vals) != 2:
-            continue
-        if vals[0] == "Version":
-            vals = string.split(vals[1], ".")
-            info['major'] = vals[0]
-            info['minor'] = vals[1]
-        elif vals[0] == "UUID":
-            info['uuid'] = vals[1]
-        elif vals[0] == "Raid Level":
-            info['level'] = int(vals[1][4:])
-        elif vals[0] == "Raid Devices":
-            info['nrDisks'] = int(vals[1])
-        elif vals[0] == "Total Devices":
-            info['totalDisks'] = int(vals[1])
-        elif vals[0] == "Preferred Minor":
-            info['mdMinor'] = int(vals[1])
-        else:
-            continue
-
-    if info['uuid'] == "":
-        raise ValueError, info
-
-    return info
-
-def _stopRaid(mdDevice):
-    log.info("mdadm --stop %s" % (mdDevice,))
-    try:
-        _mdadm("--stop", mdDevice)
-    except MdadmError:
-        ei = sys.exc_info()
-        ei[1].name = mdDevice
-        raise ei[0], ei[1], ei[2]
-
-def raidstop(mdDevice):
-    log.info("stopping raid device %s" %(mdDevice,))
-    if raidCount.has_key (mdDevice):
-        if raidCount[mdDevice] > 1:
-            raidCount[mdDevice] = raidCount[mdDevice] - 1
-            return
-        del raidCount[mdDevice]
-
-    devInode = "/dev/%s" % mdDevice
-
-    try:
-        _stopRaid(devInode)
-    except:
-        pass
-
-def _startRaid(mdDevice, mdMinor, uuid):
-    log.info("mdadm -A --uuid=%s --super-minor=%s %s" % (uuid, mdMinor, mdDevice))
-    try:
-        _mdadm("-A", "--uuid=%s" % (uuid,), "--super-minor=%s" % (mdMinor,), \
-                mdDevice)
-    except MdadmError:
-        ei = sys.exc_info()
-        ei[1].name = mdDevice
-        raise ei[0], ei[1], ei[2]
-
-def raidstart(mdDevice, aMember):
-    log.info("starting raid device %s" %(mdDevice,))
-    if raidCount.has_key(mdDevice) and raidCount[mdDevice]:
-	raidCount[mdDevice] = raidCount[mdDevice] + 1
-	return
-
-    raidCount[mdDevice] = 1
-
-    mdInode = "/dev/%s" % mdDevice
-    mbrInode = "/dev/%s" % aMember
-
-    if os.path.exists(mdInode):
-        minor = os.minor(os.stat(mdInode).st_rdev)
-    else:
-        minor = int(mdDevice[2:])
-    try:
-        info = _getRaidInfo(mbrInode)
-        if info.has_key('mdMinor'):
-            minor = info['mdMinor']
-        _startRaid(mdInode, minor, info['uuid'])
-    except:
-        pass
-
-## Remove the superblock from a RAID device.
-# @param device The complete path to the RAID device name to wipe.
-def wipeRaidSB(device):
-    try:
-        fd = os.open(device, os.O_WRONLY)
-    except OSError, e:
-        log.warning("error wiping raid device superblock for %s: %s", device, e)
-        return
-
-    try:
-        _isys.wiperaidsb(fd)
-    finally:
-        os.close(fd)
-    return
-
-## Get the raw superblock from a RAID device.
-# @param The basename of a RAID device to check.  This device node does not
-#        need to exist to begin with.
-# @return A RAID superblock in its raw on-disk format.
-def raidsb(mdDevice):
-    return raidsbFromDevice("/dev/%s" % mdDevice)
-
-## Get the superblock from a RAID device.
-# @param The full path to a RAID device name to check.  This device node must
-#        already exist.
-# @return A tuple of the contents of the RAID superblock, or ValueError on
-#         error.
-def raidsbFromDevice(device):
-    try:
-        info = _getRaidInfo(device)
-        return (info['major'], info['minor'], info['uuid'], info['level'],
-                info['nrDisks'], info['totalDisks'], info['mdMinor'])
-    except:
-        raise ValueError
-
-def getRaidChunkFromDevice(device):
-    fd = os.open(device, os.O_RDONLY)
-    rc = 64
-    try:
-        rc = _isys.getraidchunk(fd)
-    finally:
-        os.close(fd)
-    return rc
-
 ## Set up an already existing device node to be used as a loopback device.
 # @param device The full path to a device node to set up as a loopback device.
 # @param file The file to mount as loopback on device.
 # @param readOnly Should this loopback device be used read-only?
 def losetup(device, file, readOnly = 0):
+    # FIXME: implement this as a storage.devices.Device subclass
     if readOnly:
 	mode = os.O_RDONLY
     else:
@@ -272,6 +89,7 @@ def losetup(device, file, readOnly = 0):
         os.close(targ)
 
 def lochangefd(device, file):
+    # FIXME: implement this as a storage.devices.Device subclass
     loop = os.open(device, os.O_RDONLY)
     targ = os.open(file, os.O_RDONLY)
     try:
@@ -283,6 +101,7 @@ def lochangefd(device, file):
 ## Disable a previously setup loopback device.
 # @param device The full path to an existing loopback device node.
 def unlosetup(device):
+    # FIXME: implement this as a storage.devices.Device subclass
     loop = os.open(device, os.O_RDONLY)
     try:
         _isys.unlosetup(loop)
@@ -311,7 +130,7 @@ def ddfile(file, megs, pw = None):
     os.close(fd)
 
 ## Mount a filesystem, similar to the mount system call.
-# @param device The device to mount.  If bindMount is 1, this should be an
+# @param device The device to mount.  If bindMount is True, this should be an
 #               already mounted directory.  Otherwise, it should be a device
 #               name.
 # @param location The path to mount device on.
@@ -322,7 +141,8 @@ def ddfile(file, megs, pw = None):
 # @param bindMount Is this a bind mount?  (see the mount(8) man page)
 # @param remount Are we mounting an already mounted filesystem?
 # @return The return value from the mount system call.
-def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remount = 0, options = "defaults"):
+def mount(device, location, fstype = "ext2", readOnly = False,
+          bindMount = False, remount = False, options = "defaults"):
     flags = None
     location = os.path.normpath(location)
     opts = string.split(options)
@@ -361,7 +181,7 @@ def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remoun
 #             absolute path.
 # @param removeDir Should the mount point be removed after being unmounted?
 # @return The return value from the umount system call.
-def umount(what, removeDir = 1):
+def umount(what, removeDir = True):
     what = os.path.normpath(what)
 
     if not os.path.isdir(what):
@@ -406,175 +226,6 @@ def swapon (path):
 #               from rhpl.KeyboardModels.
 def loadKeymap(keymap):
     return _isys.loadKeymap (keymap)
-
-cachedDrives = None
-
-## Clear the drive dict cache.
-# This method clears the drive dict cache.  If the drive state changes (by
-# loading and unloading modules, attaching removable devices, etc.) then this
-# function must be called before any of the *DriveDict or *DriveList functions.
-# If not, those functions will return information that does not reflect the
-# current machine state.
-def flushDriveDict():
-    global cachedDrives
-    cachedDrives = None
-
-def driveDict(klassArg):
-    import parted
-    global cachedDrives
-    if cachedDrives is None:
-        new = {}
-        for dev in minihal.get_devices_by_type("storage"):
-            if dev['device'] is None: # none devices make no sense
-                continue
-
-            device = dev['device'].replace('/dev/','')
-            # we can't actually use the sg devices, so ignore them
-            if device.startswith("sg"):
-                log.info("ignoring sg device %s" %(device,))
-                continue
-
-            # we can't actually use the st devices, so ignore them
-            if device.startswith("st"):
-                log.info("ignoring st device %s" %(device,))
-                continue
-
-            # we want to ignore md devices as they're not hard disks in our pov
-            if device.startswith("md"):
-                continue
-
-            if dev['storage.drive_type'] != 'disk':
-                new[device] = dev
-                continue
-            try:
-                if not mediaPresent (device):
-                    new[device] = dev
-                    continue
-
-                # blacklist the device which the live image is running from
-                # installing over that is almost certainly the wrong
-                # thing to do.
-                if os.path.exists("/dev/live") and \
-                       stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
-                    livetarget = os.path.realpath("/dev/live")
-                    if livetarget.startswith(dev['device']):
-                        log.info("%s looks to be the live device; ignoring" % (device,))
-                        continue
-
-                if device.startswith("sd"):
-                    peddev = parted.getDevice(dev['device'])
-                    model = peddev.model
-
-                    # blacklist *STMF on power5 iSeries boxes
-                    if iutil.isPPC() and \
-                            model.find("IBM *STMF KERNEL") != -1:
-                        log.info("%s looks like STMF, ignoring" % (device,))
-                        del peddev
-                        continue
-
-                    # blacklist PS3 flash 
-                    if iutil.isPPC() and \
-                            model.find("SCEI Flash-5") != -1:
-                        log.info("%s looks like PS3 flash, ignoring" % \
-                            (device,))
-                        del peddev
-                        continue
-
-                    # blacklist DGC/EMC LUNs for which we have no ACL.
-                    # We should be ignoring LUN_Z for all vendors, but I
-                    # don't know how (if) other vendors encode this into
-                    # the model info.
-                    #
-                    # XXX I need to work some SCC2 LUN mode page detection
-                    # into libbdevid, and then this should use that instead.
-                    # -- pjones
-                    if str(peddev.model) == "DGC LUNZ":
-                        log.info("%s looks like a LUN_Z device, ignoring" % \
-                            (device,))
-                        del peddev
-                        continue
-
-                    del peddev
-                new[device] = dev
-            except Exception, e:
-                log.debug("exception checking disk blacklist on %s: %s" % \
-                    (device, e))
-        cachedDrives = new
-
-    ret = {}
-    for key,dev in cachedDrives.items():
-        # XXX these devices should have deviceclass attributes.  Or they
-        # should all be subclasses in a device tree and we should be able
-        # to use isinstance on all of them.  Not both.
-        if isinstance(dev, block.MultiPath) or isinstance(dev, block.RaidSet):
-            if klassArg == "disk":
-                ret[key] = dev
-        elif dev['storage.drive_type'] == klassArg:
-            ret[key] = dev
-    return ret
-
-## Get all the hard drives attached to the system.
-# This method queries the drive dict cache for all hard drives.  If the cache
-# is empty, this will cause all disk devices to be probed.  If the status of
-# the devices has changed, flushDriveDict must be called first.
-#
-# @see flushDriveDict
-# @see driveDict
-# @return A dict of all the hard drive descriptions, keyed on device name.
-def hardDriveDict():
-    ret = {}
-    dict = driveDict("disk")
-    for item in dict.keys():
-        try:
-            ret[item] = dict[item]['description']
-        except AttributeError:
-            ret[item] = ""
-    return ret
-
-## Get all the removable drives attached to the system.
-# This method queries the drive dict cache for all removable drives.  If the cache
-# is empty, this will cause all disk devices to be probed.  If the status of
-# the devices has changed, flushDriveDict must be run called first.
-#
-# @see flushDriveDict
-# @see driveDict
-# @return A dict of all the removable drive descriptions, keyed on device name.
-def removableDriveDict():
-    ret = {}
-    dict = driveDict("disk")
-    for item in dict.keys():
-        if dict[item]['storage.removable'] != 0:
-            try:
-                ret[item] = dict[item]['description']
-            except AttributeError:
-                ret[item] = ""
-    return ret
-
-## Get all CD/DVD drives attached to the system.
-# This method queries the drive dict cache for all hard drives.  If the cache
-# is empty, this will cause all disk devices to be probed.  If the status of
-# the devices has changed, flushDriveDict must be called first.
-#
-# @see flushDriveDict
-# @see driveDict
-# @return A sorted list of all the CD/DVD drives, without any leading /dev/.
-def cdromList():
-    list = driveDict("cdrom").keys()
-    list.sort()
-    return list
-
-## Get all tape drives attached to the system.
-# This method queries the drive dict cache for all hard drives.  If the cache
-# is empty, this will cause all disk devices to be probed.  If the status of
-# the devices has changed, flushDriveDict must be called first.
-#
-# @see flushDriveDict
-# @see driveDict
-# @return A sorted list of all the tape drives, without any leading /dev/.
-def tapeDriveList():
-    list = driveDict("tape").keys()
-    list.sort()
-    return list
 
 def getDasdPorts():
     return _isys.getDasdPorts()
@@ -787,21 +438,6 @@ def ext2HasJournal(device):
     hasjournal = _isys.e2hasjournal(device);
     return hasjournal
 
-def ejectCdrom(device):
-    if not os.path.exists(device):
-        device = "/dev/%s" % device
-
-    fd = os.open(device, os.O_RDONLY|os.O_NONBLOCK)
-
-    # this is a best effort
-    try:
-	_isys.ejectcdrom(fd)
-    except SystemError, e:
-        log.warning("error ejecting cdrom (%s): %s" %(device, e))
-	pass
-
-    os.close(fd)
-
 def driveUsesModule(device, modules):
     """Returns true if a drive is using a prticular module.  Only works
        for SCSI devices right now."""
@@ -829,31 +465,6 @@ def driveUsesModule(device, modules):
             except:
                     pass
     return rc
-
-## Check if a removable media drive (CD, USB key, etc.) has media present.
-# @param device The basename of the device node.
-# @return True if media is present in device, False otherwise.
-def mediaPresent(device):
-    try:
-        fd = os.open("/dev/%s" % device, os.O_RDONLY)
-    except OSError, (errno, strerror):
-        # error 123 = No medium found
-        if errno == 123:
-            return False
-        else:
-            return True
-    else:
-        os.close(fd)
-        return True
-
-def driveIsIscsi(device):
-    # ewww.  just ewww.
-    if not os.path.islink("/sys/block/%s/device" %(device,)):
-        return False
-    target = os.path.realpath("/sys/block/%s/device" %(device,))
-    if re.search("/platform/host[0-9]*/session[0-9]*/target[0-9]*:[0-9]*:[0-9]*/[0-9]*:[0-9]*:[0-9]*:[0-9]*", target) is not None:
-        return True
-    return False
 
 def vtActivate (num):
     if rhpl.getArch() == "s390":
@@ -1045,22 +656,14 @@ def isPaeAvailable():
     if not iutil.isX86():
         return isPAE
 
-    try:
-        f = open("/proc/iomem", "r")
-        lines = f.readlines()
-        for line in lines:
-            if line[0].isspace():
-                continue
-            start = line.split(' ')[0].split('-')[0]
-            start = long(start, 16)
+    f = open("/proc/cpuinfo", "r")
+    lines = f.readlines()
+    f.close()
 
-            if start >= 0x100000000L:
-                isPAE = True
-                break
-
-        f.close()
-    except:
-        pass
+    for line in lines:
+        if line.startswith("flags") and line.find("pae") != -1:
+            isPAE = True
+            break
 
     return isPAE
 
