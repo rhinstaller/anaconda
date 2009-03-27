@@ -1791,6 +1791,15 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
         logMessage(WARNING, "wanted netdev with link, but none present.  prompting");
     }
 
+    if (FL_CMDLINE(flags)) {
+        fprintf(stderr, "No way to determine which NIC to use, and cannot "
+                        "prompt in cmdline\nmode.  Halting.\n");
+        fprintf(stderr, "Please use the ksdevice= parameter to specify the "
+                        "device name (e.g., eth0)\n or the MAC address of "
+                        "the NIC to use for installation.\n");
+        exit(1);
+    }
+
     startNewt();
 
     if (max > 70)
