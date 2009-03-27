@@ -413,7 +413,7 @@ class X86(EFI):
 
     @property
     def minBootPartSize(self):
-        if self.isEFI:
+        if self.isEfi:
             return EFI._minBootPartSize
         else:
             return Platform._minBootPartSize
