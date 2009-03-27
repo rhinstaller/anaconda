@@ -1749,7 +1749,7 @@ class LVMVolumeGroupDevice(DMDevice):
         # sum up the sizes of the PVs and align to pesize
         size = 0
         for pv in self.pvs:
-            size += self.align(pv.size - pv.format.peStart)
+            size += max(0, self.align(pv.size - pv.format.peStart))
 
         return size
 
