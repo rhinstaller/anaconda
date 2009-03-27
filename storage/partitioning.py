@@ -147,8 +147,6 @@ def _scheduleLVs(anaconda, devs):
         # schedule the device for creation
         anaconda.id.storage.createDevice(dev)
 
-    # grow the new VG and its LVs
-    growLVM(anaconda.id.storage)
 
 def doAutoPartition(anaconda):
     log.debug("doAutoPartition(%s)" % anaconda)
@@ -215,6 +213,9 @@ def doAutoPartition(anaconda):
 
     if anaconda.id.storage.doAutoPart:
         _scheduleLVs(anaconda, devs)
+
+    # grow LVs
+    growLVM(anaconda.id.storage)
 
     # sanity check the collection of devices
     log.warning("not sanity checking storage config because I don't know how yet")
