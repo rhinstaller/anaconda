@@ -2070,7 +2070,7 @@ class MDRaidArrayDevice(StorageDevice):
     @property
     def mdadmConfEntry(self):
         """ This array's mdadm.conf entry. """
-        if not self.level or self.memberDevices is None or not self.uuid:
+        if self.level is None or self.memberDevices is None or not self.uuid:
             raise DeviceError("array is not fully defined")
 
         fmt = "ARRAY level=%s num-devices=%d UUID=%s"
