@@ -588,6 +588,7 @@ class FS(DeviceFormat):
 
         return True
 
+    @property
     def supported(self):
         log_method_call(self, supported=self._supported)
         return self._supported and self.utilsAvailable
@@ -806,8 +807,10 @@ class EFIFS(FATFS):
     @property
     def supported(self):
         import platform
-        return (isinstance(platform.getPlatform(None), platform.EFI)
-                and self.utilsAvailable)
+        p = platform.getPlatform(None)
+        return (isinstance(p, platform.EFI) and
+                p.isEfi and
+                self.utilsAvailable)
 
 register_device_format(EFIFS)
 

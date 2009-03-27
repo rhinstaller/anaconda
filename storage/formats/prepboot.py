@@ -51,6 +51,11 @@ class PPCPRePBoot(DeviceFormat):
     def status(self):
         return False
 
+    @property
+    def supported(self):
+        import platform
+        return isinstance(platform.getPlatform(None), platform.IPSeriesPPC)
+
 
 register_device_format(PPCPRePBoot)
 
