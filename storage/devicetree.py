@@ -24,8 +24,6 @@ import os
 import block
 import re
 
-from pykickstart.constants import *
-
 from errors import *
 from devices import *
 from deviceaction import *
@@ -190,14 +188,13 @@ class DeviceTree(object):
 
     def __init__(self, intf=None, ignored=[], exclusive=[], clear=[],
                  zeroMbr=None, reinitializeDisks=None, protected=[],
-                 clearpart=None, passphrase=None, luksDict=None):
+                 passphrase=None, luksDict=None):
         # internal data members
         self._devices = []
         self._actions = []
 
         self.intf = intf
         self.exclusiveDisks = exclusive
-        self.clearPartType = clearpart
         self.clearPartDisks = clear
         self.zeroMbr = zeroMbr
         self.reinitializeDisks = reinitializeDisks
@@ -1158,18 +1155,6 @@ class DeviceTree(object):
 
             format = formats.getFormat(*args, **kwargs)
             device.format = format
-
-        if self.clearPartType in (CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL):
-            if not self.clearPartDisks:
-                # we're clearing all disks
-                return
-
-            for disk in self.clearPartDisks:
-                # if this device is going to be cleared we don't need to
-                # continue messing with it
-                dev = self.getDeviceByName(disk)
-                if dev and dev == device or device.dependsOn(dev):
-                    return
 
         #
         # now lookup or create any compound devices we have discovered
