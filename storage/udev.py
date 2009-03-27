@@ -32,7 +32,7 @@ log = logging.getLogger("storage")
 
 
 def udev_get_block_devices():
-    udev_settle(timeout=2)
+    udev_settle(timeout=30)
     entries = []
     for path in enumerate_block_devices():
         entry = udev_get_block_device(path)
