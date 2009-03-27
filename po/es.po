@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-27 20:25-0300\n"
+"PO-Revision-Date: 2009-03-27 20:44-0300\n"
 "Last-Translator: Domingo Becker <domingobecker@gmail.com>\n"
 "Language-Team: Fedora Spanish <fedora-trans-es@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1197,14 +1197,14 @@ msgid "Required Install Media"
 msgstr "Medio de instalación requerido"
 
 #: ../image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %s %s discs:\n"
 "\n"
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Los programas que ha seleccionado para instalar requerirán los siguientes CDs:\n"
+"Los programas que ha seleccionado para instalar requerirán los siguientes %s %s discos:\n"
 "\n"
 "%s\n"
 "Por favor téngalos listos antes de seguir con la instalación. Si necesita abortar la instalación y salir por favor seleccione \"Reiniciar\"."
@@ -1288,14 +1288,14 @@ msgid "Error: Could not set %s as reIPL device (%s)"
 msgstr "Error: No se pudo poner a %s como el dispositivo reIPL (%s)"
 
 #: ../iutil.py:787
-#, fuzzy, python-format
+#, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr "No se pudo reiniciar el cliente"
+msgstr "Error: No se pudo resetear loadparm (%s)"
 
 #: ../iutil.py:796
-#, fuzzy, python-format
+#, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr "No se pudo reiniciar el cliente"
+msgstr "Advertencia: No se pudo resetear parm (%s)"
 
 #: ../iutil.py:806
 #, python-format
@@ -1388,9 +1388,8 @@ msgstr "_Abortar"
 # ../gui.py:113 ../text.py:285
 #: ../kickstart.py:1213
 #: ../kickstart.py:1252
-#, fuzzy
 msgid "_Ignore All"
-msgstr "_Ignorar todo"
+msgstr "_Ignorar Todo"
 
 # ../loader/net.c:404
 # ../loader/net.c:404
@@ -1501,45 +1500,41 @@ msgstr "'%s' no es una dirección IP válida."
 # ../loader/urls.c:103
 # ../loader/urls.c:103
 #: ../packages.py:122
-#, fuzzy
 msgid "Device Resize Failed"
-msgstr "Falló la (re)creación del nodo-i de cambio de tamaño: %m."
+msgstr "Falló el Cambio de Tamaño"
 
 #: ../packages.py:123
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while resizing device %s."
-msgstr "Ha ocurrido un error al cambiar el tamaño de %s. "
+msgstr "Ha ocurrido un error al cambiar el tamaño del dispositivo %s. "
 
 # ../upgrade.py:214
 #: ../packages.py:130
-#, fuzzy
 msgid "Device Creation Failed"
-msgstr "Error en la creación de la tubería"
+msgstr "Falló la Creación del Dispositivo"
 
 #: ../packages.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while creating device %s."
-msgstr "Ha ocurrido un error al cambiar el tamaño de %s. "
+msgstr "Ha ocurrido un error al crear el dispositivo %s. "
 
 #: ../packages.py:138
-#, fuzzy
 msgid "Device Removal Failed"
-msgstr "Falló al adjuntar dispositivo desde %s"
+msgstr "Falló la Eliminación del Dispositivo"
 
 #: ../packages.py:139
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while removing device %s."
-msgstr "Ha ocurrido un error al cambiar el tamaño de %s. "
+msgstr "Ha ocurrido un error al cambiar el eliminar el dispositivo %s. "
 
 #: ../packages.py:146
-#, fuzzy
 msgid "Device Setup Failed"
-msgstr "Configurar un dispositivo nuevo"
+msgstr "Falló la Configuración del Dispositivo"
 
 #: ../packages.py:147
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "Ha ocurrido un error al cambiar el tamaño de %s. "
+msgstr "Ha ocurrido un error al configurar el dispositivo %s. "
 
 # ../loader/urls.c:103
 # ../loader/urls.c:103
@@ -1549,46 +1544,39 @@ msgid "Resizing Failed"
 msgstr "Redimensionamiento Fallido"
 
 #: ../packages.py:159
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
-msgstr "Ha ocurrido un error al cambiar el tamaño de %s. "
+msgstr "Ha ocurrido un error al cambiar el tamaño el dispositivo %s. "
 
 # ../upgrade.py:214
 #: ../packages.py:166
-#, fuzzy
 msgid "Migration Failed"
-msgstr "Error en bifurcación de proceso (fork)"
+msgstr "Falló la Migración"
 
 #: ../packages.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "Ha ocurrido un error al cambiar el tamaño de %s. "
+msgstr "Ha ocurrido un error al migrar el sistema de archivo en el dispositivo %s. "
 
 # ../fsset.py:1369
 # ../fsset.py:1453
 # ../fsset.py:1488
 #: ../packages.py:175
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "Error en bifurcación de proceso (fork)"
+msgstr "Falló el Formateo"
 
 #: ../packages.py:176
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "Ha ocurrido un error al cambiar el tamaño de %s. "
+msgstr "Ha ocurrido un error al formatear el dispositivo %s. "
 
 #: ../packages.py:184
-#, fuzzy
 msgid "Storage Activation Failed"
-msgstr "Falló la ejecución del comando '%s'"
+msgstr "Falló la Activación del Almacenaje"
 
 #: ../packages.py:185
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
-msgstr ""
-"Se encontró el error siguiente durante el análisis de su configuración kickstart:\n"
-"\n"
-"%s"
+msgstr "Se encontró un error al activar la configuración de su almacenaje."
 
 # ../loader/net.c:277
 # ../loader/net.c:277
@@ -1769,9 +1757,9 @@ msgstr "Confirmar la eliminización"
 # ../partitioning.py:1571
 # ../partitioning.py:1574
 #: ../partIntfHelpers.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "Está a punto de borrar todas las particiones en el dispositivo '/dev/%s."
+msgstr "Está a punto de borrar todas las particiones del dispositivo '%s'."
 
 # ../iw/partition_gui.py:1515
 # ../iw/partition_gui.py:1517
@@ -1815,13 +1803,13 @@ msgstr "¿Formatear como swap?"
 
 # ../partitioning.py:1770
 #: ../partIntfHelpers.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s tiene una partición de tipo 0x82 (Linux Swap) pero no parece estar formateada como tal.\n"
+"%s tiene una partición de tipo 0x82 (Linux Swap) pero no parece estar formateada como tal.\n"
 "\n"
 "¿Le gustaría formatear esta partición como una partición swap?"
 
@@ -1958,17 +1946,17 @@ msgstr "Está a punto de borrar un dispositivo RAID."
 # ../partitioning.py:1571
 # ../partitioning.py:1574
 #: ../partIntfHelpers.py:296
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "Está a punto de borrar la partición /dev/%s."
+msgstr "Está a punto de borrar la partición %s."
 
 # ../partitioning.py:1551
 # ../partitioning.py:1571
 # ../partitioning.py:1574
 #: ../partIntfHelpers.py:300
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "Está a punto de borrar un dispositivo RAID."
+msgstr "Está a punto de borrar el %s %s"
 
 # ../partitioning.py:1561
 # ../partitioning.py:1581
@@ -2260,9 +2248,8 @@ msgstr "Sistema a rescatar"
 # ../rescue.py:128 ../textw/upgrade_text.py:208
 # ../rescue.py:128 ../textw/upgrade_text.py:209
 #: ../rescue.py:283
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "¿Qué partición contiene la partición root de su instalación?"
+msgstr "¿Qué dispositivo contiene la partición root de su instalación?"
 
 # ../iw/congrats_gui.py:27 ../iw/congrats_gui.py:77 ../rescue.py:130
 # ../rescue.py:134
@@ -2548,11 +2535,13 @@ msgstr "Montaje fallado"
 # ../upgrade.py:215
 # ../upgrade.py:215
 #: ../upgrade.py:240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
-msgstr "Uno o más sistemas de ficheros de la lista de /etc/fstab no han podido ser montados. Trate de resolver el problema e intente la actualización de nuevo."
+msgstr ""
+"El siguiente error ocurrió al montar los sistemas de archivo listados en /etc/fstab. Por favor, resuelva el problema e intente la actualización de nuevo.\n"
+"%s"
 
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
@@ -2564,9 +2553,8 @@ msgstr "Uno o más sistemas de ficheros de la lista de /etc/fstab no han podido 
 # ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
 # ../textw/bootloader_text.py:286 ../textw/bootloader_text.py:372
 #: ../upgrade.py:247
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "Directorio de ayuda \"%s\" no encontrado."
+msgstr "Raiz de actualización no encontrada"
 
 #: ../upgrade.py:248
 msgid "The root for the previously installed system was not found.  You can exit installer or backtrack to choose installation instead of upgrade."
@@ -3312,20 +3300,18 @@ msgstr "No hay particiones disponibles para redimensionar. Solo las particiones 
 # ../fsset.py:1454
 # ../fsset.py:1489
 #: ../iw/autopart_type.py:124
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "Error al obtener la información del sistema de archivos: %s"
+msgstr "Error de cambio de tamaño del Sistema de Archivo"
 
 #: ../iw/autopart_type.py:125
 #: ../iw/autopart_type.py:134
-#, fuzzy, python-format
+#, python-format
 msgid "%s: %s"
 msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:133
-#, fuzzy
 msgid "Resize Device Error"
-msgstr "Ocurrió un error al cerrar el dispositivo %s"
+msgstr "Error al Cambiar de Tamaño el Dispositivo"
 
 #: ../iw/autopart_type.py:208
 msgid "Do you really want to boot from a disk which is not used for installation?"
@@ -3357,31 +3343,25 @@ msgstr "Error con los datos"
 
 #: ../iw/autopart_type.py:398
 #: ../iw/autopart_type.py:399
-#, fuzzy
 msgid "Rescanning disks"
-msgstr ""
-"\n"
-"Se están sincronizando los discos.\n"
+msgstr "Reexaminando discos"
 
 # ../gui.py:113 ../text.py:284
 # ../gui.py:113 ../text.py:284
 # ../gui.py:113 ../text.py:285
 #: ../iw/autopart_type.py:452
 #: ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "Ubicación de la nueva unidad"
+msgstr "Usar el disco entero"
 
 #: ../iw/autopart_type.py:453
 #: ../textw/partition_text.py:64
-#, fuzzy
 msgid "Replace existing Linux system"
-msgstr "El sistema contenedor de Linux LXC"
+msgstr "Reemplazar el sistema Linux existente"
 
 #: ../iw/autopart_type.py:454
-#, fuzzy
 msgid "Shrink current system"
-msgstr "No se pudo achicar el tamaño de memoria actual (MemorySize)."
+msgstr "Achicar el sistema actual"
 
 # ../iw/partition_gui.py:642 ../textw/partition_text.py:75
 # ../textw/partition_text.py:114
@@ -3391,9 +3371,8 @@ msgstr "No se pudo achicar el tamaño de memoria actual (MemorySize)."
 # ../textw/partition_text.py:114
 #: ../iw/autopart_type.py:455
 #: ../textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "Espacio libre (MB)"
+msgstr "Usar el espacio libre"
 
 #: ../iw/autopart_type.py:456
 msgid "Create custom layout"
@@ -3517,36 +3496,28 @@ msgstr "Enhorabuena"
 
 #: ../iw/congrats_gui.py:74
 #: ../textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
-"Enhorabuena, su instalación de %s ha finalizado.\n"
+"Felicitaciones, su instalación de %s ha finalizado.\n"
 "\n"
-"%s%s"
 
 #: ../iw/congrats_gui.py:77
 #: ../textw/complete_text.py:42
-#, fuzzy
 msgid "Shutdown"
 msgstr "Apagar"
 
 #: ../iw/congrats_gui.py:79
 #: ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr ""
-"Por favor, reinicie el sistema para usar el sistema instalado.\n"
-"\n"
+msgstr "Por favor, apague el sistema para usar el sistema instalado.\n"
 
 #: ../iw/congrats_gui.py:81
 #: ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr ""
-"Por favor, reinicie el sistema para usar el sistema instalado.\n"
-"\n"
+msgstr "Por favor, reinicie el sistema para usar el sistema instalado.\n"
 
 #: ../iw/congrats_gui.py:86
 #: ../textw/complete_text.py:51
@@ -4034,14 +4005,13 @@ msgid "A value is required for the field %s."
 msgstr "Es necesario un valor para el campo %s."
 
 #: ../iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "Se ha producido un error al copiar las pantallas."
+msgstr "Se ha producido un error al levantar la placa de red %s."
 
 #: ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "Error al configurar su dispositivo de red."
+msgstr "Error al Configurar la Red."
 
 # ../loader/net.c:413 ../loader/net.c:738
 # ../loader/net.c:413 ../loader/net.c:738
@@ -4320,9 +4290,9 @@ msgstr "Añadir partición"
 # ../iw/partition_gui.py:845 ../textw/partition_text.py:540
 # ../iw/partition_gui.py:846 ../textw/partition_text.py:541
 #: ../iw/partition_dialog_gui.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: %s"
-msgstr "Modificar una partición"
+msgstr "Editar Partición: %s"
 
 # ../iw/partition_gui.py:868 ../textw/partition_text.py:603
 # ../iw/partition_gui.py:870 ../textw/partition_text.py:603
@@ -4535,22 +4505,22 @@ msgstr "Ha sido imposible modificarla"
 # ../partitioning.py:1683
 # ../partitioning.py:1686
 #: ../iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
-msgstr "Seleccione una partición a modificar"
+msgstr "Debe seleccione un dispositivo a editar"
 
 # ../partitioning.py:1551
 # ../partitioning.py:1571
 # ../partitioning.py:1574
 #: ../iw/partition_gui.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
 "%s"
 msgstr ""
-"No puede modificar esta partición:\n"
+"No puede editar este dispositivo:\n"
 "\n"
+"%s"
 
 # ../comps/comps-master:555
 #: ../iw/partition_gui.py:1177
@@ -4743,9 +4713,9 @@ msgstr "Crear un dispositivo RAID"
 # ../iw/partition_gui.py:1315 ../textw/partition_text.py:796
 # ../iw/partition_gui.py:1321 ../textw/partition_text.py:806
 #: ../iw/raid_dialog_gui.py:329
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "Modificar un dispositivo RAID"
+msgstr "Editar dispositivo RAID: %s"
 
 # ../iw/partition_gui.py:1313 ../textw/partition_text.py:796
 # ../iw/partition_gui.py:1315 ../textw/partition_text.py:796
@@ -4811,13 +4781,13 @@ msgstr ""
 "Estas particiones tendrán que ser eliminadas antes de que la unidad pueda ser clonada."
 
 #: ../iw/raid_dialog_gui.py:588
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to the drive %s.\n"
 "\n"
 "You must remove these partitions or restrict them to this drive before this drive can be cloned. "
 msgstr ""
-"La unidad fuente seleccionada posee particiones que no son contenidas en la unidad /dev/%s.\n"
+"La unidad fuente seleccionada posee particiones que no están contenidas en la unidad %s.\n"
 "\n"
 "Debe eliminar estas particiones o restringirlas a esta unidad antes que éste disco pueda ser clonado."
 
