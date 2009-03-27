@@ -1,5 +1,4 @@
 # Finnish translation of Anaconda.
-#
 # Updated by Tomi Kajala <tomi@iki.fi>, 2000, 2001.
 # Raimo Koski <rk@raimokoski.com>, 1998, 2002, 2003.
 # Lauri Nurmi <lanurmi@iki.fi>, 2004-2007.
@@ -10,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-13 10:57-0400\n"
-"PO-Revision-Date: 2009-02-01 00:58+0200\n"
+"PO-Revision-Date: 2009-03-27 16:50+0200\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
@@ -261,7 +260,7 @@ msgid ""
 msgstr ""
 "Osion %s paikallistaminen kohdetta %s varten epäonnistui.\n"
 "\n"
-"Lopeta asennin painamalla OK."
+"Lopeta asennusohjelma painamalla OK."
 
 # ../autopart.py:856
 #: ../autopart.py:1321
@@ -456,7 +455,7 @@ msgstr "Poista tämän järjestelmän kaikki Linux-osiot"
 # ../autopart.py:977
 #: ../autopart.py:1725
 msgid "Keep all partitions and use existing free space"
-msgstr "Säilytä kaikki osiot ja käytä olemassaoleva vapaa tila"
+msgstr "Säilytä kaikki osiot ja käytä olemassa oleva vapaa tila"
 
 # ../packages.py:522
 #: ../backend.py:130
@@ -588,7 +587,7 @@ msgstr ""
 #: ../yuminstall.py:847 ../yuminstall.py:987 ../yuminstall.py:1047
 #: ../yuminstall.py:1283 ../yuminstall.py:1318
 msgid "_Exit installer"
-msgstr "_Lopeta asennin"
+msgstr "_Lopeta asennusohjelma"
 
 # ../rescue.py:99
 #: ../bootloader.py:49 ../fsset.py:1978 ../image.py:92 ../image.py:253
@@ -756,7 +755,7 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
-"Näiden tietojen perusteella on jo tehty vikailmoitus. Tilsi on lisätty CC-"
+"Näiden tietojen perusteella on jo tehty vikailmoitus. Tilisi on lisätty CC-"
 "listalle ja virheenjäljitystiedot on lisätty kommenttina. Voit lisätä "
 "tietoja seuraavaan vikailmoitukseen:\n"
 "\n"
@@ -773,7 +772,8 @@ msgid ""
 "Your system's state has been successfully written to the disk. The installer "
 "will now exit."
 msgstr ""
-"Järjestelmän tilan kirjoitus levylle onnistui. Asennusohjelma lopetetaan nyt."
+"Järjestelmän tilan kirjoitus levylle onnistui. Asennusohjelma lopetetaan "
+"nyt."
 
 # ../exception.py:214
 #: ../exception.py:482 ../exception.py:499 ../exception.py:522
@@ -803,7 +803,7 @@ msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
 msgstr ""
-"Järjestelmän tila on kirjoitettu etäkoneelle onnistuneesti. Asennin "
+"Järjestelmän tila on kirjoitettu etäkoneelle onnistuneesti. Asennusohjelma "
 "suljetaan nyt."
 
 #: ../exception.py:523
@@ -911,8 +911,8 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"on version 0 Linux-sivutusosio. Jos haluat käyttää tätä laitetta, formatoi "
-"se version 1 Linux-sivutusosioksi. Jos ohitat tämän, asennusohjelma jättää "
+"on version 0 Linux-sivutusosio. Jos haluat käyttää tätä laitetta, alusta se "
+"version 1 Linux-sivutusosioksi. Jos ohitat tämän, asennusohjelma jättää "
 "osion huomiotta asennuksen aikana."
 
 # ../iw/partition_gui.py:1545
@@ -1113,8 +1113,8 @@ msgid ""
 msgstr ""
 "Virhe liitettäessä laitetta %s kohtaan %s: %s\n"
 "\n"
-"Laitteet tiedostossa /etc/fstab pitäisi määrittää nimiöllä (label) tai UUID:"
-"llä, ei laitenimellä.\n"
+"Laitteet tiedostossa /etc/fstab pitäisi määrittää nimiöllä (label) tai "
+"UUID:llä, ei laitenimellä.\n"
 "\n"
 "Poistu asennusohjelmasta painamalla OK."
 
@@ -1214,8 +1214,8 @@ msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
-"Näyttökaapausta tallennettaessa tapahtui virhe. Jos tämä tapahtui pakettien "
-"asennusksen aikana, voit joutua yrittämään useasti ennen kuin tallennus "
+"Näyttökaappausta tallennettaessa tapahtui virhe. Jos tämä tapahtui pakettien "
+"asennuksen aikana, voit joutua yrittämään useasti ennen kuin tallennus "
 "onnistuu."
 
 # ../gui.py:108 ../text.py:280
@@ -1331,7 +1331,7 @@ msgstr "_Vianjäljitys"
 # ../packages.py:653
 #: ../gui.py:1080 ../gui.py:1082 ../gui.py:1493 ../livecd.py:113
 msgid "Exit installer"
-msgstr "Lopeta asennin"
+msgstr "Lopeta asennusohjelma"
 
 # ../text.py:266 ../text.py:267
 #: ../gui.py:1082 ../text.py:293 ../text.py:301
@@ -1598,7 +1598,7 @@ msgid ""
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 "Olet valinnut paketin ”%s” asennettavaksi. Sitä ei kuitenkaan löydy. "
-"Halautko jatkaa vai keskeyttää asennuksen?"
+"Haluatko jatkaa vai keskeyttää asennuksen?"
 
 # ../iw/partition_gui.py:1528
 #: ../kickstart.py:1112 ../kickstart.py:1150
@@ -1628,7 +1628,8 @@ msgstr "Levykuvaa ei löydy"
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
-"Annettu sijainti ei ole kelvollinen %s-live-CD asennuslähteenä käytettäväksi."
+"Annettu sijainti ei ole kelvollinen %s-live-CD asennuslähteenä "
+"käytettäväksi."
 
 # ../image.py:63
 #: ../livecd.py:171
@@ -1680,7 +1681,8 @@ msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
 msgstr ""
-"Konenimen ensimmäinen merkki on oltava kirjain väliltä ”a-z”, ”A-Z” tai ”0-9”"
+"Konenimen ensimmäinen merkki on oltava kirjain väliltä ”a-z”, ”A-Z” tai "
+"”0-9”"
 
 #: ../network.py:67
 msgid ""
@@ -1890,7 +1892,7 @@ msgstr "Vapaata tilaa ei voi poistaa."
 # ../partitioning.py:1588
 #: ../partIntfHelpers.py:162
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr "Et voi poistaa LDL-alusetettua DASD-osiota."
+msgstr "Et voi poistaa LDL-alustettua DASD-osiota."
 
 # ../partitioning.py:1718
 #: ../partIntfHelpers.py:172
@@ -2149,8 +2151,8 @@ msgstr "Liitospiste %s täytyy alustaa live-CD-asennusten aikana."
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
-"Liitospiste on virheellinen. Hakemiston %s pitää sijaita /-"
-"tiedostojärjestelmässä."
+"Liitospiste on virheellinen. Hakemiston %s pitää sijaita "
+"/-tiedostojärjestelmässä."
 
 # ../partitioning.py:379
 #: ../partRequests.py:287
@@ -2495,8 +2497,8 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"%s-osiosi koko on alle %s megatavua, joka on vähemmän kuin normaalille %s -"
-"asennukselle suositellaan."
+"%s-osiosi koko on alle %s megatavua, joka on vähemmän kuin normaalille %s "
+"-asennukselle suositellaan."
 
 #: ../partitions.py:1330
 msgid ""
@@ -2553,7 +2555,8 @@ msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"Olet valinnut yli 32 sivutuslaitetta. %sn ydin tukee vain 32 sivutuslaitetta."
+"Olet valinnut yli 32 sivutuslaitetta. %sn ydin tukee vain 32 "
+"sivutuslaitetta."
 
 # ../partitioning.py:622
 #: ../partitions.py:1391
@@ -2777,7 +2780,7 @@ msgstr "Salalause salattua laitetta varten"
 #: ../text.py:336
 msgid "Also add this passphrase to all existing encrypted devices"
 msgstr ""
-"Lisää tämä salalause myös kaikkiin olemassaoleviin salattuihin laitteisiin"
+"Lisää tämä salalause myös kaikkiin olemassa oleviin salattuihin laitteisiin"
 
 # ../textw/userauth_text.py:129
 #: ../text.py:367
@@ -2851,8 +2854,8 @@ msgid ""
 "is for %s architecture. \n"
 "\n"
 msgstr ""
-"On valittu päivitys %s-arkkitehtuurille, mutta asennettu järjestelmä on %s-"
-"arkkitehtuurilla. \n"
+"On valittu päivitys %s-arkkitehtuurille, mutta asennettu järjestelmä on %"
+"s-arkkitehtuurilla. \n"
 "\n"
 
 # ../iw/partition_gui.py:998
@@ -2948,7 +2951,7 @@ msgstr ""
 
 #: ../upgrade.py:395
 msgid "Absolute Symlinks"
-msgstr "Absoluuttiset symbooliset linkit"
+msgstr "Absoluuttiset symboliset linkit"
 
 # ../upgrade.py:229
 #: ../upgrade.py:406
@@ -3424,7 +3427,7 @@ msgid ""
 "do not have enough available.  You can change your selections or exit the "
 "installer."
 msgstr ""
-"Valitut paketit vaativat %d MT vapaata tilaa, mutta tarpeeksi tilaa ei ole "
+"Valitut paketit vaativat %d Mt vapaata tilaa, mutta tarpeeksi tilaa ei ole "
 "vapaana. Voit muuttaa valintoja tai poistua asennusohjelmasta."
 
 # ../iw/partition_gui.py:1528
@@ -3653,7 +3656,7 @@ msgstr "Poista valittujen asemien Linux-osiot ja luo oletusosiot."
 #: ../iw/autopart_type.py:442
 msgid "Resize existing partition and create default layout in free space"
 msgstr ""
-"Muuta olemassaolevan osion kokoa ja käytä vapaa tila oletusosioiden "
+"Muuta olemassa olevan osion kokoa ja käytä vapaa tila oletusosioiden "
 "luomiseen."
 
 #: ../iw/autopart_type.py:443 ../textw/partition_text.py:1520
@@ -4989,7 +4992,7 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
-"Levyn määrittelyjen kopiontityökalu\n"
+"Levyn määrittelyjen kopiointityökalu\n"
 "\n"
 "Voit vähentää merkittävästi RAID-laitteiden määrittelyn vaivaa kopioimalla "
 "määrittelyt. Tavoite on määritellä ensin lähdelevy halutusti ja kopioida "
@@ -5378,7 +5381,7 @@ msgid ""
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
 "Et ole valinnut mitään käynnistyslatainta asennettavaksi. Käynnistyslataimen "
-"asentaminen on hyvin suositeltavaa lukuunottamatta erikoistapauksia. "
+"asentaminen on hyvin suositeltavaa lukuun ottamatta erikoistapauksia. "
 "Käynnistyslatain on lähes aina välttämätön edellytys sille, että kone "
 "voidaan käynnistää Linuxiin suoraan kiintolevyltä.\n"
 "\n"
@@ -5549,8 +5552,8 @@ msgstr ""
 "Saat tietoa saatavilla olevista päivityksistä ja korjauksista osoitteesta "
 "http://www.redhat.com/errata/.\n"
 "\n"
-"Järjestelmän käytöstä on lisää tietoa %s -käyttöoppaassa osoitteessa http://"
-"www.redhat.com/docs/."
+"Järjestelmän käytöstä on lisää tietoa %s -käyttöoppaassa osoitteessa "
+"http://www.redhat.com/docs/."
 
 # ../textw/complete_text.py:35 ../textw/complete_text.py:56
 # ../textw/complete_text.py:71
@@ -6045,8 +6048,8 @@ msgid ""
 msgstr ""
 "zSeries-sarjan koneet voivat käyttää teollisuusstandardin mukaisia SCSI-"
 "laitteita kuitukanavan (FCP) kautta. Jokainen laite tarvitsee 16-bittisen "
-"laitenumeron, 64-bittisen \"maailmanlaajuisen porttinimen\" (WWPN) sekä 64-"
-"bittisen FCP LUN:in."
+"laitenumeron, 64-bittisen \"maailmanlaajuisen porttinimen\" (WWPN) sekä "
+"64-bittisen FCP LUN:in."
 
 # ../iw/bootloader_gui.py:326
 #: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:7
@@ -6378,8 +6381,8 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
-"Jos et löydä asennusnumeroa (Installation Number), katso osoite http://www."
-"redhat.com/apps/support/in.html.\n"
+"Jos et löydä asennusnumeroa (Installation Number), katso osoite "
+"http://www.redhat.com/apps/support/in.html.\n"
 "\n"
 "Jos ohitat tämän vaiheen:\n"
 "* Et välttämättä saa käyttöösi kaikkia tilaukseesi kuuluvia paketteja.\n"
@@ -6409,8 +6412,8 @@ msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
 msgstr ""
-"Valits  \"%s\" tarkastaaksesi asemassa olevan levyn, tai \"%s\" poistaaksesi sen "
-"ja syöttääksesi toisen levyn testausta varten."
+"Valitse  \"%s\" tarkastaaksesi asemassa olevan levyn, tai \"%s\" poistaaksesi "
+"sen ja syöttääksesi toisen levyn testausta varten."
 
 #: ../loader/cdinstall.c:199
 #, c-format
@@ -6424,8 +6427,8 @@ msgstr ""
 "Jos haluat tarkastaa lisää levyjä, syötä seuraava levy ja valitse \"%s\". "
 "Jokaisen levyn tarkastaminen ei ole välttämätöntä, mutta erittäin "
 "suositeltavaa. Levyt tulisi tarkastaa ennen ensimmäistä käyttökertaa. Kun ne "
-"ovat kerran läpäisseet tarkastuksen, ei ole välttämätöntä tarkastaa jokaista "
-"levyä ennen seuraavaa käyttökertaa."
+"ovat kerran läpäisseet tarkastuksen, ei ole välttämätöntä tarkastaa "
+"jokaista levyä ennen seuraavaa käyttökertaa."
 
 # ../loader/loader.c:968
 #: ../loader/cdinstall.c:220
@@ -6479,8 +6482,8 @@ msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"%sn levyä ei löydy mistään CD-ROM-asemasta. Laita %sn levy asemaan ja paina %"
-"s yrittääksesi uudelleen."
+"%sn levyä ei löydy mistään CD-ROM-asemasta. Laita %sn levy asemaan ja paina "
+"%s yrittääksesi uudelleen."
 
 # ../partitioning.py:1493
 #: ../loader/cdinstall.c:437
@@ -6595,7 +6598,7 @@ msgstr "Ajurilevyke"
 # ../loader/devices.c:232
 #: ../loader/driverdisk.c:486
 msgid "Do you have a driver disk?"
-msgstr "Onko Teillä ajurilevyke?"
+msgstr "Onko sinulla ajurilevyke?"
 
 # ../loader/devices.c:532
 #: ../loader/driverdisk.c:495
@@ -6712,7 +6715,8 @@ msgid ""
 "to configure additional devices."
 msgstr ""
 "Mikä osio ja sillä oleva hakemisto sisältää %s-asennuskuvan? Jos käyttämäsi "
-"levyasema ei näy tässä luettelossa, määrittele lisää laitteita painamalla F2."
+"levyasema ei näy tässä luettelossa, määrittele lisää laitteita painamalla "
+"F2."
 
 # ../loader/loader.c:845
 #: ../loader/hdinstall.c:273
@@ -6949,7 +6953,7 @@ msgid ""
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 "Tälle asennustyypille tarvittavia laitteita ei löytynyt. Haluatko "
-"manuualisesti valita ajurin tai käyttää ajurilevykettä?"
+"manuaalisesti valita ajurin tai käyttää ajurilevykettä?"
 
 #: ../loader/loader.c:1679
 msgid "The following devices have been found on your system."
@@ -7080,8 +7084,8 @@ msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
-"Etuliitteen on oltava väliltä 1-32 IPv4-verkoille tai väliltä 1-128 IPv6-"
-"verkoille"
+"Etuliitteen on oltava väliltä 1-32 IPv4-verkoille tai väliltä 1-128 "
+"IPv6-verkoille"
 
 # ../textw/userauth_text.py:22
 #: ../loader/net.c:409 ../loader/net.c:463
@@ -7145,8 +7149,8 @@ msgid ""
 msgstr ""
 "Syötä IPv4- ja/tai IPv6-osoite ja etuliite (osoite / etuliite). IPv4:lle "
 "hyväksytään neliosainen aliverkon peite tai CIDR-tyylinen merkintätapa. "
-"Yhdyskäytävä- ja nimipalvelinkenttien täytyy olla kelvollisia IPv4- tai IPv6-"
-"osoitteita."
+"Yhdyskäytävä- ja nimipalvelinkenttien täytyy olla kelvollisia IPv4- tai "
+"IPv6-osoitteita."
 
 # ../textw/silo_text.py:39 ../textw/silo_text.py:112
 # ../textw/silo_text.py:224
@@ -7182,7 +7186,7 @@ msgstr "Virheellinen parametri kickstartin network-komennolle %s: %s"
 #: ../loader/net.c:1438
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "Epäkelpo käynnistysprotokolla %s network-käskyssä"
+msgstr "Virheellinen käynnistysprotokolla %s network-käskyssä"
 
 # ../iw/network_gui.py:252
 #: ../loader/net.c:1509
@@ -7726,7 +7730,7 @@ msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
 msgstr ""
-"Lisää tämä salalause myös kaikkiin olemassaoleviin salattuihin laitteisiin "
+"Lisää tämä salalause myös kaikkiin olemassa oleviin salattuihin laitteisiin "
 "käynnistyksen nopeuttamiseksi"
 
 #: tmp/lukspassphrase.glade.h:2
@@ -8047,7 +8051,7 @@ msgstr "serbia(latinalaiset aakkoset)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr "Sinhalin kielituki"
+msgstr "singaleesi"
 
 #. generated from lang-table
 msgid "Slovak"
