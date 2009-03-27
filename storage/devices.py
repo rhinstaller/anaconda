@@ -1674,7 +1674,8 @@ class LVMVolumeGroupDevice(DMDevice):
         if not self.exists:
             raise DeviceError("device has not been created")
 
-        self.teardown()
+        # set up the pvs since lvm needs access to them to do the vgremove
+        self.setupParents()
 
         # this sometimes fails for some reason.
         try:
@@ -1979,6 +1980,8 @@ class LVMLogicalVolumeDevice(DMDevice):
             raise DeviceError("device has not been created")
 
         self.teardown()
+        # set up the vg's pvs so lvm can remove the lv
+        self.vg.setupParents()
         lvm.lvremove(self.vg.name, self._name)
         self.exists = False
 
