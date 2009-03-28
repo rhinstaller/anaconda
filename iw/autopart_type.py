@@ -37,42 +37,40 @@ from storage.deviceaction import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-def whichToResize(storage, intf):
+def whichToShrink(storage, intf):
     def getActive(combo):
         act = combo.get_active_iter()
         return combo.get_model().get_value(act, 1)
 
-    def comboCB(combo, resizeSB):
+    def comboCB(combo, shrinkSB):
         # partition to resize changed, let's update our spinbutton
-        part = getActive(combo)
-        reqlower = part.minSize
-        requpper = part.maxSize
+        newSize = shrinkSB.get_value_as_int()
 
-        adj = resizeSB.get_adjustment()
+        part = getActive(combo)
+        reqlower = long(math.ceil(part.format.minSize))
+        requpper = long(math.floor(part.format.currentSize))
+
+        adj = shrinkSB.get_adjustment()
         adj.lower = reqlower
         adj.upper = requpper
-        adj.value = reqlower
         adj.set_value(reqlower)
 
 
-    (dxml, dialog) = gui.getGladeWidget("autopart.glade", "resizeDialog")
+    (dxml, dialog) = gui.getGladeWidget("autopart.glade", "shrinkDialog")
 
     store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
-    combo = dxml.get_widget("resizePartCombo")
+    combo = dxml.get_widget("shrinkPartCombo")
     combo.set_model(store)
     crt = gtk.CellRendererText()
     combo.pack_start(crt, True)
     combo.set_attributes(crt, text = 0)
-    combo.connect("changed", comboCB, dxml.get_widget("resizeSB"))
+    combo.connect("changed", comboCB, dxml.get_widget("shrinkSB"))
 
     biggest = -1
     for part in storage.partitions:
         if not part.exists:
             continue
 
-        # Resize the following storage types:
-        #     resizable filesystem (e.g., ext3 or ntfs) on resizable partition
-        #     resizable filesystem on a resizable logical volume
         entry = None
         if part.resizable and part.format.resizable:
             entry = ("%s (%s, %d MB)" % (part.name,
@@ -115,7 +113,7 @@ def whichToResize(storage, intf):
             return (rc, [])
 
         request = getActive(combo)
-        newSize = dxml.get_widget("resizeSB").get_value_as_int()
+        newSize = dxml.get_widget("shrinkSB").get_value_as_int()
         actions = []
 
         try:
@@ -159,7 +157,7 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.skipStep("bootloader", skip = 0)
         else:
             if val == -2:
-                (rc, actions) = whichToResize(self.storage, self.intf)
+                (rc, actions) = whichToShrink(self.storage, self.intf)
                 if rc == gtk.RESPONSE_OK:
                     for action in actions:
                         self.storage.devicetree.registerAction(action)
