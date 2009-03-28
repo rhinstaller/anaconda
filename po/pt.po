@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-28 13:31+0100\n"
+"PO-Revision-Date: 2009-03-28 16:41+0100\n"
 "Last-Translator: Rui Gouveia <rui.gouveia@globaltek.pt>\n"
 "Language-Team: pt <fedora-trans-pt@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1113,55 +1113,48 @@ msgid "An error was encountered while removing device %s."
 msgstr "Ocorreu um erro ao tentar remover o dispositivo %s."
 
 #: ../packages.py:146
-#, fuzzy
 msgid "Device Setup Failed"
-msgstr "Configurar Novo Dispositivo"
+msgstr "Configuração do Dispositivo Falhou"
 
 #: ../packages.py:147
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "Ocorreu um erro ao tentar dimensionar o dispositivo %s."
+msgstr "Ocorreu um erro ao tentar configurar o dispositivo %s."
 
 #: ../packages.py:158
 msgid "Resizing Failed"
 msgstr "O Dimensionamento Falhou"
 
 #: ../packages.py:159
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr "Ocorreu um erro ao tentar dimensionar o dispositivo %s."
 
 #: ../packages.py:166
-#, fuzzy
 msgid "Migration Failed"
-msgstr "retirada de armadura falhou: %s\n"
+msgstr "A Migração Falhou"
 
 #: ../packages.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "Ocorreu um erro ao tentar dimensionar o dispositivo %s."
+msgstr "Ocorreu um erro ao migrar sistema de ficheiros no dispositivo %s."
 
 #: ../packages.py:175
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "retirada de armadura falhou: %s\n"
+msgstr "Formatação Falhou"
 
 #: ../packages.py:176
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "Ocorreu um erro ao tentar dimensionar o dispositivo %s."
+msgstr "Ocorreu um erro ao formatar dispositivo %s."
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
 msgstr "A activação do dispositivo de armazenamento falhou"
 
 #: ../packages.py:185
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
-msgstr ""
-"Foi encontrado o seguinte erro ao processar a sua configuração do 'kickstart':\n"
-"\n"
-"%s"
+msgstr "Ocorreu um erro ao activar a configuração do dispositivo de armazenamento."
 
 #: ../packages.py:353
 msgid "Invalid Key"
@@ -1276,9 +1269,9 @@ msgid "Confirm Delete"
 msgstr "Confirmar Remoção"
 
 #: ../partIntfHelpers.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "Está prestes a apagar todas as partições do dispositivo '/dev/%s'."
+msgstr "Está prestes a apagar todas as partições do dispositivo '%s'."
 
 #: ../partIntfHelpers.py:149
 #: ../partIntfHelpers.py:304
@@ -1309,15 +1302,15 @@ msgid "Format as Swap?"
 msgstr "Formatar para Paginação ('swap')?"
 
 #: ../partIntfHelpers.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"O /dev/%s contém uma partição do tipo 0x82 (paginação de Linux), mas esta não parece estar formatada como uma partição de paginação ('swap').\n"
+"O dispositivo %s contém uma partição do tipo 0x82 (Linux swap), mas esta não parece estar formatada como uma partição swap.\n"
 "\n"
-"Deseja formatar esta partição para paginação?"
+"Deseja formatar esta partição como uma paginação swap?"
 
 #: ../partIntfHelpers.py:201
 #, python-format
@@ -1410,14 +1403,14 @@ msgid "You are about to delete a RAID device."
 msgstr "Está prestes a apagar um dispositivo RAID."
 
 #: ../partIntfHelpers.py:296
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "Está prestes a apagar a partição /dev/%s."
+msgstr "Está prestes a apagar a partição %s."
 
 #: ../partIntfHelpers.py:300
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "Tem a certeza que deseja apagar %s?"
+msgstr "Esta prestes a apagar o %s %s"
 
 #: ../partIntfHelpers.py:311
 msgid "Confirm Reset"
@@ -1610,9 +1603,8 @@ msgid "System to Rescue"
 msgstr "Sistema a Recuperar"
 
 #: ../rescue.py:283
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "Em que partição está o directório root de sua máquina?"
+msgstr "Que dispositivo tem a partição root da sua instalação?"
 
 #: ../rescue.py:285
 #: ../rescue.py:289
@@ -1820,16 +1812,17 @@ msgid "Mount failed"
 msgstr "Montagem falhou"
 
 #: ../upgrade.py:240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
-msgstr "Um ou mais dos sistemas de ficheiros listados no ficheiro /etc/fstab do seu sistema Linux não pode ser montado. Corrija este problema e tente novamente a actualização."
+msgstr ""
+"O erro seguinte aconteceu ao montar os sistemas de ficheiros listados em /etc/fstab.  Por favor, corrija este problema e tente novamente a actualização.\n"
+"%s"
 
 #: ../upgrade.py:247
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "Actualizar a Configuração do Gestor de Arranque"
+msgstr ""
 
 #: ../upgrade.py:248
 msgid "The root for the previously installed system was not found.  You can exit installer or backtrack to choose installation instead of upgrade."
@@ -2395,20 +2388,18 @@ msgid "No partitions are available to resize.  Only physical partitions with spe
 msgstr "Não existem partições para dimensionar. Só é possível dimensionar partições físicas, desde que tenham determinados sistemas de ficheiros"
 
 #: ../iw/autopart_type.py:124
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "Erro ao obter a informação do sistema de ficheiros: %s"
+msgstr "Erro ao dimensionar sistema de ficheiros"
 
 #: ../iw/autopart_type.py:125
 #: ../iw/autopart_type.py:134
-#, fuzzy, python-format
+#, python-format
 msgid "%s: %s"
 msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:133
-#, fuzzy
 msgid "Resize Device Error"
-msgstr "Erro ao fechar dispositivo %s"
+msgstr "Erro ao dimensionar dispositivo"
 
 #: ../iw/autopart_type.py:208
 msgid "Do you really want to boot from a disk which is not used for installation?"
@@ -2434,9 +2425,8 @@ msgstr "Formatar disquetes"
 
 #: ../iw/autopart_type.py:452
 #: ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "_Ignorar a unidade"
+msgstr "Utilizar a unidade inteira"
 
 #: ../iw/autopart_type.py:453
 #: ../textw/partition_text.py:64
@@ -2444,15 +2434,13 @@ msgid "Replace existing Linux system"
 msgstr "Substituir sistema Linux existente"
 
 #: ../iw/autopart_type.py:454
-#, fuzzy
 msgid "Shrink current system"
-msgstr "_Encriptar o sistema"
+msgstr "Encolher sistema actual"
 
 #: ../iw/autopart_type.py:455
 #: ../textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "Espaço Livre (MB)"
+msgstr "Utilizar espaço livre"
 
 #: ../iw/autopart_type.py:456
 msgid "Create custom layout"
@@ -2525,18 +2513,16 @@ msgstr "Parabéns"
 
 #: ../iw/congrats_gui.py:74
 #: ../textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "Parabéns, a instalação de %s está concluída.\n"
 "\n"
-"%s%s"
 
 #: ../iw/congrats_gui.py:77
 #: ../textw/complete_text.py:42
-#, fuzzy
 msgid "Shutdown"
 msgstr "Desligar"
 
@@ -3080,9 +3066,9 @@ msgid "Add Partition"
 msgstr "Adicionar Partição"
 
 #: ../iw/partition_dialog_gui.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: %s"
-msgstr "Editar Partição"
+msgstr "Editar Partição: %s"
 
 #: ../iw/partition_dialog_gui.py:315
 msgid "File System _Type:"
@@ -4226,7 +4212,7 @@ msgstr "A procurar dispositivos de armazenamento..."
 
 #: ../storage/__init__.py:269
 msgid "Filesystem error detected, cannot continue."
-msgstr ""
+msgstr "Detectados erros no sistema de ficheiros. Impossível continuar."
 
 #: ../storage/__init__.py:480
 msgid "This partition is holding the data for the hard drive install."
@@ -4453,11 +4439,8 @@ msgstr ""
 "Carregue em <Enter> para sair do instalador."
 
 #: ../storage/devices.py:1059
-#, fuzzy
 msgid "boot flag not available for this partition"
-msgstr ""
-"Não pode apagar esta partição:\n"
-"\n"
+msgstr "Esta partição não está marcada como sendo de arranque"
 
 #: ../storage/devicetree.py:87
 msgid "Confirm"
@@ -4489,20 +4472,17 @@ msgid ""
 msgstr ""
 
 #: ../storage/devicetree.py:159
-#, fuzzy
 msgid "_Ignore drive(s)"
 msgstr "_Ignorar a unidade"
 
 #: ../storage/devicetree.py:160
-#, fuzzy
 msgid "_Re-initialize drive(s)"
 msgstr "_Reiniciar a unidade"
 
 #: ../storage/iscsi.py:98
 #: ../storage/iscsi.py:99
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "A carregar o controlador SCSI"
+msgstr "A analisar nós iSCSI"
 
 #: ../storage/iscsi.py:172
 #: ../storage/iscsi.py:173
@@ -4510,14 +4490,12 @@ msgid "Initializing iSCSI initiator"
 msgstr "A inicializar o iniciador de iSCSI"
 
 #: ../storage/iscsi.py:208
-#, fuzzy
 msgid "iSCSI not available"
-msgstr "Informação indisponível"
+msgstr "iSCSI não disponível"
 
 #: ../storage/iscsi.py:210
-#, fuzzy
 msgid "No initiator name set"
-msgstr "Nome do Iniciador iSCSI"
+msgstr "Nome do Iniciador iSCSI não configurado"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
@@ -4627,14 +4605,14 @@ msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Não indicou um LUN FCP ou o número é inválido."
 
 #: ../storage/devicelibs/lvm.py:326
-#, fuzzy, python-format
+#, python-format
 msgid "vginfo failed for %s"
-msgstr "Autenticação falhou para %s.\n"
+msgstr "vginfo falhou para %s."
 
 #: ../storage/devicelibs/lvm.py:354
-#, fuzzy, python-format
+#, python-format
 msgid "lvs failed for %s"
-msgstr "Autenticação falhou para %s.\n"
+msgstr "lvs falhou para %s"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
@@ -4649,9 +4627,9 @@ msgid "Formatting"
 msgstr "Formatando"
 
 #: ../storage/formats/fs.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s..."
-msgstr "A criar sistema de ficheiros no disco..."
+msgstr "A criar sistema de ficheiros em %s..."
 
 #: ../storage/formats/fs.py:367
 msgid "Resizing"
@@ -5509,9 +5487,8 @@ msgid "Please provide the configuration information for this software repository
 msgstr "Por favor, indique a informação de configuração deste repositório de 'software'."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Servidor (máquina:porto)"
+msgstr "U_RL do Proxy (máquina:porto)"
 
 #: tmp/addrepo.glade.h:11
 msgid "Proxy pass_word"
@@ -5562,18 +5539,16 @@ msgid "_Next"
 msgstr "Segui_nte"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "<b>Dimensionar o des_tino:</b>"
+msgstr "<b>Dimensionar o des_tino (em MB):</b>"
 
 #: tmp/autopart.glade.h:3
 msgid "Re_view and modify partitioning layout"
 msgstr "Re_ver e modificar a disposição das partições"
 
 #: tmp/autopart.glade.h:4
-#, fuzzy
 msgid "Volume to Resize"
-msgstr "Redimensionar para o tamanho do vídeo"
+msgstr "Volume a Redimensionar"
 
 #: tmp/autopart.glade.h:5
 msgid "What drive would you like to _boot this installation from?"
@@ -5957,9 +5932,8 @@ msgid "Macedonian"
 msgstr "Macedónio"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
-msgstr "maithili"
+msgstr "Maithili"
 
 #. generated from lang-table
 msgid "Malay"
@@ -5974,14 +5948,12 @@ msgid "Marathi"
 msgstr "Marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
 msgstr "Nepali"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(BokmÃ¥l)"
-msgstr "Norueguês"
+msgstr "Norueguês (BokmÃ¥l)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
@@ -6048,7 +6020,6 @@ msgid "Swedish"
 msgstr "Sueco"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
 msgstr "Tajik"
 
