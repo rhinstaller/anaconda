@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2008-10-16 10:40+0200\n"
+"PO-Revision-Date: 2009-03-28 10:40+0200\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -59,12 +59,11 @@ msgid "Press <enter> for a shell"
 msgstr "Premeu <retorn> per a la línia d'ordres"
 
 #: ../anaconda:458
-#, fuzzy
 msgid "Fatal Error"
-msgstr "Error"
+msgstr "Error greu"
 
 #: ../anaconda:459
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You do not have enough RAM to install %s on this machine.\n"
 "\n"
@@ -129,6 +128,9 @@ msgid ""
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
+"El mode de text proporciona un conjunt limitat d'opcions d'instal·lació. No "
+"us permet especificar la disposició de les particions ni la selecció de "
+"paquets. Preferiu fer servir el mode VNC?"
 
 #: ../anaconda:852
 msgid "Install class forcing text mode installation"
@@ -145,11 +147,11 @@ msgstr "No s'ha establert la variable DISPLAY, s'iniciarà el mode text."
 
 #: ../anaconda:1047
 msgid "reipl configuration successful => reboot"
-msgstr ""
+msgstr "s'ha configurat reipl correctament => reinicia"
 
 #: ../anaconda:1050
 msgid "reipl configuration failed => halt"
-msgstr ""
+msgstr "ha fallat la configuració de reipl => atura"
 
 #: ../backend.py:144
 #, python-format
@@ -287,7 +289,6 @@ msgid "In progress...   "
 msgstr "En progrés...   "
 
 #: ../cmdline.py:98
-#, fuzzy
 msgid "Can't have a question in command line mode!"
 msgstr "No es poden fer preguntes en mode de línia d'ordres"
 
@@ -692,7 +693,7 @@ msgid "Required Install Media"
 msgstr "Medi d'instal·lació requerit"
 
 #: ../image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %s %s "
 "discs:\n"
@@ -701,7 +702,8 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"El programari que heu seleccionat per instal·lar requereix els següents CD:\n"
+"El programari que heu seleccionat per instal·lar requereix els següents discos "
+"de %s %s:\n"
 "\n"
 "%s\n"
 "Tingueu-los a punt abans de continuar amb la instal·lació. Si heu de "
@@ -730,37 +732,37 @@ msgstr "Instal·la al sistema"
 #: ../iutil.py:740
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Error: en obrir, no es pot establir el mètode reIPL a %s (%s: %s)"
 
 #: ../iutil.py:748
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Error: en escriure, no es pot establir el mètode reIPL a %s (%s: %s)"
 
 #: ../iutil.py:755
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Error: en tancar, no es pot establir el mètode reIPL a %s (%s: %s)"
 
 #: ../iutil.py:765 ../iutil.py:817
 #, python-format
 msgid "Error: %s splits into %s but not like we expect"
-msgstr ""
+msgstr "Error: %s es reparteix en %s, però no com ens esperàvem"
 
 #: ../iutil.py:778
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr ""
+msgstr "Error: no s'ha pogut establir %s com a dispositiu reIPL (%s)"
 
 #: ../iutil.py:787
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
+msgstr "Error: no s'ha pogut reiniciar loadparam (%s)"
 
 #: ../iutil.py:796
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr ""
+msgstr "Avís: no s'ha pogut reiniciar els paràmetres (%s)"
 
 #: ../iutil.py:806
 #, python-format
@@ -768,21 +770,24 @@ msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
+"Després d'apagar, realitzeu un IPL manual des del dispositiu DASD %s per a "
+"continuar la instal·lació"
 
 #: ../iutil.py:834
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "S'ha produït un error en llegir la propietat FCP %s per a reIPL (%s)"
 
 #: ../iutil.py:847
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "S'ha produït un error en escriure la propietat FCP %s per a reIPL (%s)"
 
 #: ../iutil.py:860
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "S'ha produït un error en escriure la propietat FCP predeterminada %s "
+"per a reIPL (%s)"
 
 #: ../iutil.py:870
 #, python-format
@@ -796,18 +801,20 @@ msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
+"Després de l'aturada, realitzaeu un IPL manual des del dispositiu que contingui "
+"/boot per continuar la instal·lació"
 
 #: ../iutil.py:887
 msgid "Could not get information for mount point /boot or /"
-msgstr ""
+msgstr "No s'ha pogut obtenir la informació per al punt de muntatge /boot o /"
 
 #: ../iutil.py:897
 msgid "Error determining mount point type"
-msgstr ""
+msgstr "S'ha produït un error en determinar el tipus de punt de muntatge"
 
 #: ../iutil.py:901
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
-msgstr ""
+msgstr "El punt de muntatge /boot o / està a un disc que no coneixem"
 
 # FIXME (josep)
 #: ../kickstart.py:96
@@ -856,9 +863,8 @@ msgid "_Abort"
 msgstr "_Anul·la"
 
 #: ../kickstart.py:1213 ../kickstart.py:1252
-#, fuzzy
 msgid "_Ignore All"
-msgstr "Omet"
+msgstr "_Ignora-ho tot"
 
 #: ../kickstart.py:1243
 msgid "Missing Group"
@@ -880,6 +886,9 @@ msgid ""
 "prompt for.  Please add the following sections and try again:\n"
 "%s"
 msgstr ""
+"Al vostre fitxer kickstart manca informació necessària que l'anaconda no "
+"pot preguntar. Afegiu les següents seccions i proveu de nou:\n"
+"%s"
 
 #: ../livecd.py:108
 msgid "Unable to find image"
@@ -974,87 +983,80 @@ msgid "'%s' is an invalid IP address."
 msgstr "«%s» no és una adreça IP vàlida."
 
 #: ../packages.py:122
-#, fuzzy
 msgid "Device Resize Failed"
-msgstr "No s'ha pogut canviar la mida"
+msgstr "No s'ha pogut canviar la mida del dispositiu"
 
 #: ../packages.py:123
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while resizing device %s."
 msgstr "S'ha produït un error en canviar la mida del dispositiu %s."
 
 #: ../packages.py:130
-#, fuzzy
 msgid "Device Creation Failed"
-msgstr "Fitxer destí"
+msgstr "Ha fallat la creació del dispositiu"
 
 #: ../packages.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while creating device %s."
-msgstr "S'ha produït un error en canviar la mida del dispositiu %s."
+msgstr "S'ha produït un error en crear el dispositiu %s."
 
 #: ../packages.py:138
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "Ha fallat la supressió del dispositiu"
 
 #: ../packages.py:139
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while removing device %s."
 msgstr "S'ha produït un error en canviar la mida del dispositiu %s."
 
 #: ../packages.py:146
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "Ha fallat la configuració del dispositiu"
 
 #: ../packages.py:147
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "S'ha produït un error en canviar la mida del dispositiu %s."
+msgstr "S'ha produït un error en configurar el dispositiu %s."
 
 #: ../packages.py:158
 msgid "Resizing Failed"
 msgstr "No s'ha pogut canviar la mida"
 
 #: ../packages.py:159
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr "S'ha produït un error en canviar la mida del dispositiu %s."
 
 #: ../packages.py:166
-#, fuzzy
 msgid "Migration Failed"
-msgstr "L'operació de l'LVM ha fallat"
+msgstr "Ha fallat la migració"
 
 #: ../packages.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "S'ha produït un error en canviar la mida del dispositiu %s."
+msgstr "S'ha produït un error en migrar el sistema de fitxers al dispositiu %s."
 
 #: ../packages.py:175
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "S'està formatant"
+msgstr "Ha fallat la formatació"
 
 #: ../packages.py:176
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "S'ha produït un error en canviar la mida del dispositiu %s."
+msgstr "S'ha produït un error en formatar el dispositiu %s."
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
-msgstr ""
+msgstr "Ha fallat l'activació de l'emmagatzematge"
 
 #: ../packages.py:185
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
 msgstr ""
-"S'ha trobat el següent error en analitzar la configuració del kickstart:\n"
-"\n"
-"%s"
+"S'ha trobat el següent error en activar la configuració de l'emmagatzematge."
 
 #: ../packages.py:353
 msgid "Invalid Key"
-msgstr "La klau no és vàlida"
+msgstr "La clau no és vàlida"
 
 #: ../packages.py:354
 msgid "The key you entered is invalid."
@@ -1175,9 +1177,9 @@ msgid "Confirm Delete"
 msgstr "Confirmeu supressió"
 
 #: ../partIntfHelpers.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "Se suprimiran totes les particions del dispositiu '/dev/%s'."
+msgstr "Se suprimiran totes les particions del dispositiu '%s'."
 
 #: ../partIntfHelpers.py:149 ../partIntfHelpers.py:304
 #: ../iw/lvm_dialog_gui.py:750 ../iw/lvm_dialog_gui.py:1261
@@ -1205,14 +1207,14 @@ msgid "Format as Swap?"
 msgstr "Voleu formatar-la com a memòria d'intercanvi?"
 
 #: ../partIntfHelpers.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s té una partició del tipus 0x82 (memòria d'intercanvi Linux) però no "
+"%s té una partició del tipus 0x82 (memòria d'intercanvi Linux) però no "
 "sembla que estigui formatada com a partició de memòria d'intercanvi.\n"
 "\n"
 "Voleu formatar aquesta partició com a memòria d'intercanvi?"
@@ -1329,18 +1331,18 @@ msgid "You are about to delete a RAID device."
 msgstr "S'eliminarà un dispositiu RAID."
 
 #: ../partIntfHelpers.py:296
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "S'eliminarà la partició /dev/%s."
+msgstr "S'eliminarà la partició %s."
 
 #: ../partIntfHelpers.py:300
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "S'eliminarà la partició /dev/%s."
+msgstr "S'eliminarà la partició %s %s."
 
 #: ../partIntfHelpers.py:311
 msgid "Confirm Reset"
-msgstr "Confirmeu reiniciació"
+msgstr "Confirmeu reinici"
 
 #: ../partIntfHelpers.py:312
 msgid ""
@@ -1548,9 +1550,8 @@ msgid "System to Rescue"
 msgstr "Sistema per rescatar"
 
 #: ../rescue.py:283
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "Quina partició conté el directori arrel de la instal·lació?"
+msgstr "Quin dispositiu conté la partició arrel de la instal·lació?"
 
 #: ../rescue.py:285 ../rescue.py:289 ../text.py:664 ../text.py:666
 msgid "Exit"
@@ -1771,19 +1772,21 @@ msgid ""
 "fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
 msgstr ""
-"No s'ha pogut muntar un o més dels sistemes de fitxers llistat a /etc/fstab "
-"del sistema Linux. Resoleu el problema i intenteu actualitzar de nou."
+"No s'ha pogut muntar un o més dels sistemes de fitxers llistats a /etc/fstab. "
+"Resoleu el problema i intenteu actualitzar de nou.\n"
 
 #: ../upgrade.py:247
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "Actualitza la configuració del carregador de l'arrencada"
+msgstr "No s'ha trobat l'arrel per a l'actualització"
 
 #: ../upgrade.py:248
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
 msgstr ""
+"No s'ha trobat l'arrel del sistema instal·lat anteriorment. Podeu sortir "
+"de l'instal·lador o tornar enrere per escollir la instal·lació en comptes "
+"de l'actualització."
 
 #: ../upgrade.py:271
 msgid ""
@@ -2192,6 +2195,8 @@ msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
+"Alguns dels vostres repositoris necessiten accés per xarxa, però s'ha produït "
+"un error en habilitar la xarxa en el sistema."
 
 #: ../yuminstall.py:1057
 msgid ""
@@ -2394,18 +2399,17 @@ msgstr ""
 "amb certs sistemes de fitxers ho admeten."
 
 #: ../iw/autopart_type.py:124
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "S'està canviant la mida del sistema de fitxers a %s..."
+msgstr "Error en canviar la mida del sistema de fitxers"
 
 #: ../iw/autopart_type.py:125 ../iw/autopart_type.py:134
 #, python-format
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:133
 msgid "Resize Device Error"
-msgstr ""
+msgstr "Error en canviar la mida del dispositiu"
 
 #: ../iw/autopart_type.py:208
 msgid ""
@@ -2428,26 +2432,23 @@ msgstr "Error amb les dades"
 
 #: ../iw/autopart_type.py:398 ../iw/autopart_type.py:399
 msgid "Rescanning disks"
-msgstr ""
+msgstr "Reescaneig de discs"
 
 #: ../iw/autopart_type.py:452 ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "Omet la un_itat"
+msgstr "Emprat tota la unitat"
 
 #: ../iw/autopart_type.py:453 ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "Reemplaça el sistema Linux existent"
 
 #: ../iw/autopart_type.py:454
-#, fuzzy
 msgid "Shrink current system"
-msgstr "_Xifra el sistema"
+msgstr "Encongei el sistema actual"
 
 #: ../iw/autopart_type.py:455 ../textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "No hi ha espai lliure"
+msgstr "Usa espai lliure"
 
 #: ../iw/autopart_type.py:456
 msgid "Create custom layout"
@@ -2529,38 +2530,36 @@ msgid "Congratulations"
 msgstr "Felicitats"
 
 #: ../iw/congrats_gui.py:74 ../textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "Enhorabona, s'ha completat la instal·lació de %s.\n"
 "\n"
-"%s%s"
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "Apagueu"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
 msgstr ""
-"Reinicieu el sistema per usar el sistema que heu instal·lat.\n"
-"\n"
+"Apagueu per usar el sistema que heu instal·lat.\n"
 
 #: ../iw/congrats_gui.py:81 ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
 msgstr ""
-"Reinicieu el sistema per usar el sistema que heu instal·lat.\n"
-"\n"
+"Reinicieu per usar el sistema que heu instal·lat.\n"
 
 #: ../iw/congrats_gui.py:86 ../textw/complete_text.py:51
 msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
 msgstr ""
+"Poden haver actualitzacions disponibles per a assegurar el bon funcionament "
+"del vostre sistema. Es recomana la instal·lació de les actualitzacions "
+"després del reinici."
 
 #: ../iw/congrats_gui.py:90 ../textw/complete_text.py:55
 #, python-format
@@ -2571,6 +2570,12 @@ msgid ""
 "available to ensure the proper functioning of your system and installation "
 "of these updates is recommended after the reboot."
 msgstr ""
+"Enhorabona, s'ha completat la instal·lació de %s.\n"
+"\n"
+"Reinicieu ara per fer servir el sistema instal·lat. "
+"Poden haver actualitzacions disponibles per a assegurar el bon funcionament "
+"del vostre sistema. Es recomana la instal·lació de les actualitzacions "
+"després del reinici."
 
 #: ../iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -2810,7 +2815,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:708
 msgid "No free slots"
-msgstr "No hi ha ranures lliures"
+msgstr "No hi ha zones lliures"
 
 #: ../iw/lvm_dialog_gui.py:709
 #, python-format
