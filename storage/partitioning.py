@@ -187,6 +187,12 @@ def doAutoPartition(anaconda):
     try:
         doPartitioning(anaconda.id.storage,
                        exclusiveDisks=anaconda.id.storage.clearPartDisks)
+
+        if anaconda.id.storage.doAutoPart:
+            _scheduleLVs(anaconda, devs)
+
+        # grow LVs
+        growLVM(anaconda.id.storage)
     except PartitioningWarning as msg:
         if not anaconda.isKickstart:
             anaconda.intf.messageWindow(_("Warnings During Automatic "
@@ -210,12 +216,6 @@ def doAutoPartition(anaconda):
 
         if anaconda.isKickstart:
             sys.exit(0)
-
-    if anaconda.id.storage.doAutoPart:
-        _scheduleLVs(anaconda, devs)
-
-    # grow LVs
-    growLVM(anaconda.id.storage)
 
     # sanity check the collection of devices
     log.warning("not sanity checking storage config because I don't know how yet")
