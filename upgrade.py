@@ -75,7 +75,7 @@ def isUpgradingArch(anaconda):
         import re
         if re.match("i.86", a) and re.match("i.86", b):
             return True
-        else
+        else:
             return a == b
 
     try:
