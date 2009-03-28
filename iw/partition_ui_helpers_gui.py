@@ -256,8 +256,8 @@ def formatMigrateOptionCB(widget, data):
         othercb.set_sensitive(not widget.get_active())
         othercb.set_active(False)
 
-    if othercombo is not None:
-        othercombo.set_sensitive(not widget.get_active())
+        if othercombo is not None:
+            othercombo.set_sensitive(othercb.get_active())
 
     if lukscb is not None:
         lukscb.set_data("formatstate", widget.get_active())
