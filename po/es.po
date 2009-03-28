@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-27 20:44-0300\n"
+"PO-Revision-Date: 2009-03-27 21:05-0300\n"
 "Last-Translator: Domingo Becker <domingobecker@gmail.com>\n"
 "Language-Team: Fedora Spanish <fedora-trans-es@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -4815,12 +4815,12 @@ msgid "Please select the target drives for the clone operation."
 msgstr "Por favor seleccione las unidades en cuestión para la operación de clonización."
 
 #: ../iw/raid_dialog_gui.py:622
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "La unidad fuente /dev/%s no puede ser seleccionada como unidad en cuestión."
+msgstr "La unidad fuente %s no puede ser seleccionada como unidad destino al mismo tiempo."
 
 #: ../iw/raid_dialog_gui.py:638
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the following reason:\n"
 "\n"
@@ -4828,11 +4828,11 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"La unidad destino /dev/%s posee una partición que no puede ser eliminada por el motivo siguiente:\n"
+"La unidad destino %s posee una partición que no puede ser eliminada por el motivo siguiente:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Esta partición debe ser eliminada antes de que esa unidad pueda ser la escogida."
+"Esta partición debe ser eliminada antes de que esta unidad pueda ser la elegida."
 
 # ../loader/devices.c:533
 # ../loader/devices.c:533
@@ -4842,11 +4842,13 @@ msgid "Please select a source drive."
 msgstr "Por favor seleccione una unidad de fuente."
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
-msgstr "La unidad /dev/%s será clonada con las siguientes unidades:\n"
+msgstr ""
+"La unidad %s será clonada con las siguientes unidades:\n"
+"\n"
 
 #: ../iw/raid_dialog_gui.py:726
 msgid ""
@@ -5239,9 +5241,8 @@ msgstr "No existe espacio suficiente en el dispositivo que ha seleccionado para 
 
 #: ../iw/welcome_gui.py:56
 #: ../textw/welcome_text.py:36
-#, fuzzy
 msgid "Network Install Required"
-msgstr "Medio de instalación requerido"
+msgstr "Se Requiere Instalación de Red"
 
 #: ../iw/welcome_gui.py:57
 #: ../textw/welcome_text.py:37
@@ -5252,9 +5253,8 @@ msgstr "Su fuente de instalación es una ubicación de red, pero no se detectaro
 # ../packages.py:646
 # ../packages.py:647
 #: ../iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "Instalador del paquete"
+msgstr "&Salir del Instalador"
 
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
@@ -5486,9 +5486,9 @@ msgid "Error configuring network device"
 msgstr "Error al configurar su dispositivo de red."
 
 #: ../textw/netconfig_text.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "Error al configurar su dispositivo de red."
+msgstr "Error al configurar su dispositivo de red %s"
 
 # ../textw/partition_text.py:966
 # ../textw/partition_text.py:966
@@ -5499,9 +5499,8 @@ msgstr "Tipo de particionamiento"
 
 #: ../textw/partition_text.py:60
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Installation requires partitioning of your hard drive.  The default layout is suitable for most users.  Select what space to use and which drives to use as the install target. You can also choose to create your own custom layout."
-msgstr "La instalación requiere la partición de su disco duro. El diseño por defecto es razonable para la mayoría de los usuarios. Puede elegir éste o crear su diseño propio."
+msgstr "La instalación requiere la partición de su disco duro. El diseño predeterminado es razonable para la mayoría de los usuarios. Puede elegir éste y sobre cuáles discos como destino de instalación. También puede elegir crear su diseño propio."
 
 # ../iw/partition_gui.py:1667 ../textw/partition_text.py:1075
 # ../iw/partition_gui.py:1669 ../textw/partition_text.py:1075
@@ -5891,9 +5890,8 @@ msgstr "No se puede continuar con la instalación"
 # ../partitioning.py:1732
 # ../partitioning.py:1730
 #: ../storage/__init__.py:96
-#, fuzzy
 msgid "The storage configuration you have chosen has already been activated. You can no longer return to the disk editing screen. Would you like to continue with the installation process?"
-msgstr "Las opciones de particionamiento que escogió han sido activadas. No puede volver a la pantalla de modificadión del disco. ¿Desea continuar con el proceso de instalación?"
+msgstr "Las opciones de almacenamiento elegidas han sido activadas. No puede volver a la pantalla de modificadión del disco. ¿Desea continuar con el proceso de instalación?"
 
 #: ../storage/__init__.py:127
 msgid "Encrypt device?"
@@ -5907,9 +5905,8 @@ msgstr "Especificó que la encriptación del dispositivo de bloque debe estar ac
 # ../iw/partition_gui.py:1031
 # ../iw/partition_gui.py:1032
 #: ../storage/__init__.py:146
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "Se está escribiendo la tabla de particiones en el disco..."
+msgstr "Escribiendo la configuración de almacenamiento en el disco"
 
 #: ../storage/__init__.py:147
 msgid "The partitioning options you have selected will now be written to disk.  Any data on deleted or reformatted partitions will be lost."
@@ -5954,19 +5951,16 @@ msgstr "_Guardar cambios al disco"
 # ../iw/progress_gui.py:28
 # ../iw/progress_gui.py:28
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "Todos los dispositivos %s"
+msgstr "Buscando Dispositivos"
 
 #: ../storage/__init__.py:253
-#, fuzzy
 msgid "Finding storage devices..."
-msgstr "falta información de los dispositivos"
+msgstr "Buscando dispositivos de almacenamiento..."
 
 #: ../storage/__init__.py:269
-#, fuzzy
 msgid "Filesystem error detected, cannot continue."
-msgstr "ERROR: se ha detectado una condición de error fatal, no se puede continuar "
+msgstr "Se ha detectado un error en el sistema de archivos, no se puede continuar."
 
 # ../partitioning.py:1624
 # ../partitioning.py:1644
@@ -5986,33 +5980,31 @@ msgstr "No puede borrar una partición de un DASD formateado a LDL."
 # ../partitioning.py:1719
 # ../partitioning.py:1717
 #: ../storage/__init__.py:491
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "Esta partición forma parte del dispositivo RAID."
+msgstr "Esta unidad forma parte del dispositivo RAID %s."
 
 # ../partitioning.py:1699
 # ../partitioning.py:1719
 # ../partitioning.py:1717
 #: ../storage/__init__.py:494
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "Esta partición forma parte del dispositivo RAID."
+msgstr "Este dispositivo es parte de un dispositivo RAID."
 
 # ../partitioning.py:1631
 # ../partitioning.py:1651
 # ../partitioning.py:1654
 #: ../storage/__init__.py:499
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "Esta partición forma parte del grupo de volumen LVM."
+msgstr "Este dispositivo es parte del grupo de volumen LVM '%s'."
 
 # ../partitioning.py:1631
 # ../partitioning.py:1651
 # ../partitioning.py:1654
 #: ../storage/__init__.py:502
-#, fuzzy
 msgid "This device is part of a LVM volume group."
-msgstr "Esta partición forma parte del grupo de volumen LVM."
+msgstr "Este dispositivo es parte de un grupo de volumen LVM."
 
 #: ../storage/__init__.py:511
 msgid ""
@@ -6042,9 +6034,9 @@ msgstr "Su partición root posee menos de 250 megabytes, tamaño que habitualmen
 # ../partitioning.py:579
 # ../partitioning.py:582
 #: ../storage/__init__.py:762
-#, fuzzy, python-format
+#, python-format
 msgid "Your / partition is less than %s megabytes which is lower than recommended for a normal %s install."
-msgstr "Su partición %s es de menos de %s megabytes, que es menos de lo que se recomienda en una instalación %s normal."
+msgstr "Su partición / es de menos de %s megabytes, que es menos de lo que se recomienda en una instalación %s normal."
 
 # ../partitioning.py:564
 # ../partitioning.py:579
@@ -6063,11 +6055,8 @@ msgid "Installing on a FireWire device.  This may or may not produce a working s
 msgstr "Instalando en un dispositivo FireWire. Esto puedo o no crear un sistema funcional."
 
 #: ../storage/__init__.py:804
-#, fuzzy
 msgid "You have not created a boot partition."
-msgstr ""
-"\n"
-"La partición de inicio no existe.\n"
+msgstr "No ha creado una partición de arranque."
 
 # ../partitioning.py:506 ../partitioning.py:587
 # ../partitioning.py:521 ../partitioning.py:602
@@ -6147,7 +6136,7 @@ msgstr ""
 "%s"
 
 #: ../storage/__init__.py:1406
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -6157,12 +6146,12 @@ msgid ""
 msgstr ""
 "El dispositivo swap:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"en su archivo /etc/fstab está siendo actualmente usado como una partición de suspensión de software, lo cual quiere decir que su sistema está hibernando. Para ejecutar una actualización, por favor apague su sistema en vez de suspenderlo."
+"en su archivo /etc/fstab está siendo actualmente usado como una partición suspendida por software, lo cual quiere decir que su sistema está hibernando. Para realizar una actualización, por favor, apague su sistema en vez de hibernarlo."
 
 #: ../storage/__init__.py:1414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -6172,15 +6161,15 @@ msgid ""
 msgstr ""
 "El dispositivo swap:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"en su archivo /etc/fstab está siendo actualmente usado como una partición de suspensión de software, lo cual quiere decir que su sistema está hibernando. Si está ejecutando una nueva instalación, asegúrese de configurar el instalador para que formatee todas las particiones swap."
+"en su archivo /etc/fstab está siendo actualmente usado como una partición de suspensión por software, lo cual quiere decir que su sistema está hibernando. Si está realizando una nueva instalación, asegúrese de configurar el instalador para que formatee todas las particiones swap."
 
 # ../fsset.py:734
 # ../fsset.py:771
 # ../fsset.py:803
 #: ../storage/__init__.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -6192,13 +6181,14 @@ msgstr ""
 "\n"
 "El /etc/fstab en su partición de actualización no hace referencia a una partición swap válida.\n"
 "\n"
+"\n"
 "Presione Aceptar para salir del instalador."
 
 # ../fsset.py:734
 # ../fsset.py:771
 # ../fsset.py:803
 #: ../storage/__init__.py:1434
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -6208,7 +6198,7 @@ msgid ""
 msgstr ""
 "Error al habilitar el dispositivo swap %s: %s\n"
 "\n"
-"Es probable que el error se deba a que esta partición swap no ha sido inicializada\n"
+"Es probable que el error se deba a que esta partición swap no ha sido inicializada.\n"
 "\n"
 "Presione Aceptar para salir del instalador."
 
@@ -6265,25 +6255,22 @@ msgstr "Ocurrió un error cuando se montaba el dispositivo %s como %s. Puede con
 # ../fsset.py:900
 # ../fsset.py:932
 #: ../storage/__init__.py:1521
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Se ha producido un error al intentar crear %s: %s.  Este es un error fatal, y la instalación no puede continuar.\n"
+"Se ha producido un error al montar el dispositivo %s como %s: %s.  Este es un error fatal, y la instalación no puede continuar.\n"
 "\n"
-"Pulse <Intro> para salir del instalador."
+"Presione <Intro> para salir del instalador."
 
 # ../partitioning.py:1551
 # ../partitioning.py:1571
 # ../partitioning.py:1574
 #: ../storage/devices.py:1059
-#, fuzzy
 msgid "boot flag not available for this partition"
-msgstr ""
-"No puede borrar esta partición:\n"
-"\n"
+msgstr "Marca de arranque no disponible en esta partición"
 
 # ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
 # ../textw/bootloader_text.py:385
@@ -6328,23 +6315,20 @@ msgstr ""
 # ../gui.py:113 ../text.py:284
 # ../gui.py:113 ../text.py:285
 #: ../storage/devicetree.py:159
-#, fuzzy
 msgid "_Ignore drive(s)"
-msgstr "_Ignorar unidad"
+msgstr "_Ignorar unidad(es)"
 
 #: ../storage/devicetree.py:160
-#, fuzzy
 msgid "_Re-initialize drive(s)"
-msgstr "_Reinicializar el dispositivo"
+msgstr "_Reinicializar unidad(es)"
 
 # ../loader/windows.c:46
 # ../loader/windows.c:46
 # ../loader/windows.c:46
 #: ../storage/iscsi.py:98
 #: ../storage/iscsi.py:99
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "Iniciando demonio iSCSI: "
+msgstr "Examinando nodos iSCSI"
 
 # ../loader/cdrom.c:89
 # ../loader/cdrom.c:89
@@ -6355,19 +6339,16 @@ msgid "Initializing iSCSI initiator"
 msgstr "Inicializando iniciador iSCSI"
 
 #: ../storage/iscsi.py:208
-#, fuzzy
 msgid "iSCSI not available"
-msgstr "Protocolo no disponible"
+msgstr "iSCSI no disponible"
 
 #: ../storage/iscsi.py:210
-#, fuzzy
 msgid "No initiator name set"
-msgstr "       alternatives --set <name> <path>\n"
+msgstr "No se puso el nombre del iniciador"
 
 #: ../storage/iscsi.py:224
-#, fuzzy
 msgid "No iSCSI nodes discovered"
-msgstr "se encontraron nodos sin memoria liberada"
+msgstr "No se encontraron nodos iSCSI"
 
 #: ../storage/iscsi.py:227
 #: ../storage/iscsi.py:228
@@ -6489,23 +6470,22 @@ msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "No ha especificado un FCP LUN  o el número es inválido."
 
 #: ../storage/devicelibs/lvm.py:326
-#, fuzzy, python-format
+#, python-format
 msgid "vginfo failed for %s"
-msgstr "Autentificación fallida para %s.\n"
+msgstr "vginfo falló para %s"
 
 #: ../storage/devicelibs/lvm.py:354
-#, fuzzy, python-format
+#, python-format
 msgid "lvs failed for %s"
-msgstr "Autentificación fallida para %s.\n"
+msgstr "lvs falló para %s"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
 msgstr "attr dict debe incluir un tipo"
 
 #: ../storage/formats/fs.py:111
-#, fuzzy
 msgid "filesystem configuration missing a type"
-msgstr "Falta el tipo de relación del predicado"
+msgstr "Falta un tipo en la configuración del sistema de archivo"
 
 # ../fsset.py:1369
 # ../fsset.py:1453
@@ -6518,9 +6498,9 @@ msgstr "Formateo"
 # ../fsset.py:145
 # ../fsset.py:146
 #: ../storage/formats/fs.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s..."
-msgstr "Chequeando el sistema de archivo en %s..."
+msgstr "Creando el sistema de archivo en %s..."
 
 # ../loader/urls.c:103
 # ../loader/urls.c:103
@@ -7792,9 +7772,8 @@ msgid "Please provide the configuration information for this software repository
 msgstr "Por favor provea la información de configuración para este repositorio de software."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Equipo:puerto de la compartición DAAP:"
+msgstr "U_RL del Proxy (equipo:puerto)"
 
 # ../textw/userauth_text.py:21
 # ../textw/userauth_text.py:22
@@ -7878,18 +7857,16 @@ msgid "_Next"
 msgstr "_Siguiente"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "Ejecutar apagar (shutdown) en el dominio destino."
+msgstr "<b>Redimensionar des_tino (en MB):</b>"
 
 #: tmp/autopart.glade.h:3
 msgid "Re_view and modify partitioning layout"
 msgstr "Re_vise y modifique la capa de particiones"
 
 #: tmp/autopart.glade.h:4
-#, fuzzy
 msgid "Volume to Resize"
-msgstr "mientras se intentaba modificar el tamaño %s"
+msgstr "Volumen a Redimensionar"
 
 # ../iw/language_gui.py:49 ../textw/language_text.py:44
 # ../iw/language_gui.py:49 ../textw/language_text.py:39
@@ -8390,7 +8367,6 @@ msgid "Macedonian"
 msgstr "Macedonio"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
 msgstr "Maithili"
 
@@ -8407,7 +8383,6 @@ msgid "Marathi"
 msgstr "Marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
 msgstr "Nepalés"
 
@@ -8489,7 +8464,6 @@ msgid "Swedish"
 msgstr "Sueco"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
 msgstr "Tajiko"
 
