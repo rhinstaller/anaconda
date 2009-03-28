@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-28 16:41+0100\n"
+"PO-Revision-Date: 2009-03-28 19:41+0100\n"
 "Last-Translator: Rui Gouveia <rui.gouveia@globaltek.pt>\n"
 "Language-Team: pt <fedora-trans-pt@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -2419,9 +2419,8 @@ msgstr "Erro nos Dados"
 
 #: ../iw/autopart_type.py:398
 #: ../iw/autopart_type.py:399
-#, fuzzy
 msgid "Rescanning disks"
-msgstr "Formatar disquetes"
+msgstr "A analisar discos"
 
 #: ../iw/autopart_type.py:452
 #: ../textw/partition_text.py:63
@@ -2528,19 +2527,13 @@ msgstr "Desligar"
 
 #: ../iw/congrats_gui.py:79
 #: ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr ""
-"Por favor, arranque o computador para usar o sistema instalado.\n"
-"\n"
+msgstr "Por favor, desligue o computador para utilizar o sistema instalado.\n"
 
 #: ../iw/congrats_gui.py:81
 #: ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr ""
-"Por favor, arranque o computador para usar o sistema instalado.\n"
-"\n"
+msgstr "Por favor, reinicie o computador para utilizar o sistema instalado.\n"
 
 #: ../iw/congrats_gui.py:86
 #: ../textw/complete_text.py:51
@@ -2900,12 +2893,11 @@ msgid "A value is required for the field %s."
 msgstr "É necessário inserir um valor no campo \"%s\"."
 
 #: ../iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "Ocorreu um erro ao copiar as capturas de ecrã."
+msgstr "Ocorreu um erro ao tentar activar o interface de rede %s."
 
 #: ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
 msgstr "Erro ao configurar o dispositivo de rede"
 
@@ -3200,19 +3192,19 @@ msgid "Unable To Edit"
 msgstr "Não é Possível Editar"
 
 #: ../iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
-msgstr "Deve escolher a partição a editar"
+msgstr "Deve seleccionar um dispositivo para editar"
 
 #: ../iw/partition_gui.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
 "%s"
 msgstr ""
-"Não é possível editar esta partição:\n"
+"Não pode editar este dispositivo:\n"
 "\n"
+"%s"
 
 #: ../iw/partition_gui.py:1177
 #: ../iw/partition_gui.py:1189
@@ -3350,9 +3342,9 @@ msgid "Make RAID Device"
 msgstr "Criar um Dispositivo RAID"
 
 #: ../iw/raid_dialog_gui.py:329
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "Editar o Dispositivo RAID"
+msgstr "Editar Dispositivo RAID: %s"
 
 #: ../iw/raid_dialog_gui.py:331
 msgid "Edit RAID Device"
@@ -3400,15 +3392,15 @@ msgstr ""
 "Estas partições terão de ser removidas antes desta unidade ser copiada."
 
 #: ../iw/raid_dialog_gui.py:588
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to the drive %s.\n"
 "\n"
 "You must remove these partitions or restrict them to this drive before this drive can be cloned. "
 msgstr ""
-"O dispositivo de origem seleccionado tem partições que não se restringem ao dispositivo /dev/%s.\n"
+"A unidade de origem seleccionada tem partições que não se restringem à unidade %s.\n"
 "\n"
-"Estas partições terão de ser movidas ou restringidas a esta unidade antes de ela poder ser copiada."
+"Estas partições terão de ser removidas ou restringidas a esta unidade antes de ela poder ser clonada."
 
 #: ../iw/raid_dialog_gui.py:601
 msgid ""
@@ -3431,12 +3423,12 @@ msgid "Please select the target drives for the clone operation."
 msgstr "Por favor seleccione os discos de destino para a operação de cópia."
 
 #: ../iw/raid_dialog_gui.py:622
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "O dispositivo de origem /dev/%s não pode ser seleccionado como destino também."
+msgstr "A unidade de origem %s não pode ser seleccionado também como unidade de destino."
 
 #: ../iw/raid_dialog_gui.py:638
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the following reason:\n"
 "\n"
@@ -3444,23 +3436,23 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"O dispositivo de destino /dev/%s tem uma partição que não pode ser removida pela seguinte razão:\n"
+"A unidade de destino %s tem uma partição que não pode ser removida pela seguinte razão:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Esta partição tem de ser removida antes de esta unidade poder ser o destino."
+"Esta partição tem de ser removida antes desta unidade poder ser o destino."
 
 #: ../iw/raid_dialog_gui.py:701
 msgid "Please select a source drive."
 msgstr "Por favor seleccione o disco de origem."
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"O disco /dev/%s vai agora ser clonado para os seguintes discos:\n"
+"A unidade %s vai agora ser clonada para as seguintes unidades:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:726
@@ -3730,9 +3722,8 @@ msgstr "Não há espaço suficiente no dispositivo que seleccionou para a parti�
 
 #: ../iw/welcome_gui.py:56
 #: ../textw/welcome_text.py:36
-#, fuzzy
 msgid "Network Install Required"
-msgstr "CDs Necessários para a Instalação"
+msgstr "É Necessária Instalação por Rede"
 
 #: ../iw/welcome_gui.py:57
 #: ../textw/welcome_text.py:37
@@ -3740,9 +3731,8 @@ msgid "Your installation source is set to a network location, but no netork devi
 msgstr ""
 
 #: ../iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "Instalador de Tema"
+msgstr "_Sair do Instalador"
 
 #: ../iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -3892,9 +3882,9 @@ msgid "Error configuring network device"
 msgstr "Erro ao configurar o dispositivo de rede"
 
 #: ../textw/netconfig_text.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "Erro ao configurar o dispositivo de rede"
+msgstr "Erro ao configurar o dispositivo de rede %s"
 
 #: ../textw/partition_text.py:58
 msgid "Partitioning Type"
@@ -3902,9 +3892,8 @@ msgstr "Tipo de Particionamento"
 
 #: ../textw/partition_text.py:60
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Installation requires partitioning of your hard drive.  The default layout is suitable for most users.  Select what space to use and which drives to use as the install target. You can also choose to create your own custom layout."
-msgstr "A instalação necessita de particionar o seu disco rígido. Por omissão, é escolhida uma disposição de partições razoável para a maioria dos utilizadores. Poderá então optar por usar esta ou criar a sua."
+msgstr "A instalação necessita de particionar o seu disco rígido.  A disposição por omissão é adequada para a grande maioria dos utilizadores.  Seleccione que espaço utilizar e que unidades utilizar para o destino da instalação.  Também pode escolher criar a sua disposição personalizada."
 
 #: ../textw/partition_text.py:76
 msgid "Which drive(s) do you want to use for this installation?"
@@ -4172,9 +4161,8 @@ msgid "Installation cannot continue."
 msgstr "O instalador não pode continuar."
 
 #: ../storage/__init__.py:96
-#, fuzzy
 msgid "The storage configuration you have chosen has already been activated. You can no longer return to the disk editing screen. Would you like to continue with the installation process?"
-msgstr "As opções de particionamento que escolheu já foram activadas. Não pode voltar ao ecrã de edição de discos. Quer continuar com o processo de instalação?"
+msgstr "As opções de armazenamento que escolheu já foram activadas. Já não pode voltar ao ecrã de edição de discos. Deseja continuar com o processo de instalação?"
 
 #: ../storage/__init__.py:127
 msgid "Encrypt device?"
@@ -4185,9 +4173,8 @@ msgid "You specified block device encryption should be enabled, but you have not
 msgstr "Indicou que a encriptação do dispositivo deveria ser activada, mas não indicou qualquer frase-senha. Se não voltar atrás e indicar uma frase-senha, a encriptação será desactivada."
 
 #: ../storage/__init__.py:146
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "A guardar os dados das partições no disco"
+msgstr "A gravar a configuração de armazenamento no disco"
 
 #: ../storage/__init__.py:147
 msgid "The partitioning options you have selected will now be written to disk.  Any data on deleted or reformatted partitions will be lost."
@@ -4202,9 +4189,8 @@ msgid "_Write changes to disk"
 msgstr "Gravar as alterações _no disco"
 
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "D_ispositivos de Entrada..."
+msgstr "A Procurar Dispositivos"
 
 #: ../storage/__init__.py:253
 msgid "Finding storage devices..."
@@ -4223,22 +4209,20 @@ msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Não pode apagar uma partição de um DASD formatado com LDL."
 
 #: ../storage/__init__.py:491
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "Esta partição faz parte de um dispositivo RAID."
+msgstr "Esta partição faz parte do dispositivo RAID %s."
 
 #: ../storage/__init__.py:494
-#, fuzzy
 msgid "This device is part of a RAID device."
 msgstr "Esta partição faz parte de um dispositivo RAID."
 
 #: ../storage/__init__.py:499
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "Esta partição faz parte de um grupo de volumes LVM."
+msgstr "Esta partição faz parte do grupo de volumes LVM '%s'."
 
 #: ../storage/__init__.py:502
-#, fuzzy
 msgid "This device is part of a LVM volume group."
 msgstr "Esta partição faz parte de um grupo de volumes LVM."
 
@@ -4259,9 +4243,9 @@ msgid "Your root partition is less than 250 megabytes which is usually too small
 msgstr "A sua partição raiz tem menos do que 250 MB, o que significa que provavelmente é demasiado pequena para instalar o %s."
 
 #: ../storage/__init__.py:762
-#, fuzzy, python-format
+#, python-format
 msgid "Your / partition is less than %s megabytes which is lower than recommended for a normal %s install."
-msgstr "A partição %s tem menos do que %s MB, o qual é um tamanho inferior ao recomendado para uma instalação normal de %s."
+msgstr "A partição / tem menos do que %s MB, o qual é um tamanho inferior ao recomendado para uma instalação normal de %s."
 
 #: ../storage/__init__.py:770
 #, python-format
@@ -4277,9 +4261,8 @@ msgid "Installing on a FireWire device.  This may or may not produce a working s
 msgstr "A instalação irá para um dispositivo FireWire. Poderá produzir um sistema funcional ou não."
 
 #: ../storage/__init__.py:804
-#, fuzzy
 msgid "You have not created a boot partition."
-msgstr "Deve criar um partição de arranque PPC PReP."
+msgstr "Ainda não criou uma partição de arranque."
 
 #: ../storage/__init__.py:808
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -4331,7 +4314,7 @@ msgstr ""
 "%s"
 
 #: ../storage/__init__.py:1406
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4339,14 +4322,14 @@ msgid ""
 "\n"
 "in your /etc/fstab file is currently in use as a software suspend device, which means your system is hibernating. To perform an upgrade, please shut down your system rather than hibernating it."
 msgstr ""
-"O dispositivo de memória virtual:\n"
+"O dispositivo swap:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"do seu ficheiro /etc/fstab está a ser usado de momento como uma partição de suspensão por 'software', o que significa que o seu sistema está em hibernação. Para efectuar uma actualização, desligue por favor o seu sistema em vez de o hibernar."
+"do seu ficheiro /etc/fstab está a ser utilizado de momento como uma partição de suspensão por software, o que significa que o seu sistema está em hibernação. Para efectuar uma actualização, desligue por favor o seu sistema em vez de o hibernar."
 
 #: ../storage/__init__.py:1414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4354,14 +4337,14 @@ msgid ""
 "\n"
 "in your /etc/fstab file is currently in use as a software suspend device, which means your system is hibernating. If you are performing a new install, make sure the installer is set to format all swap devices."
 msgstr ""
-"O dispositivo de memória virtual:\n"
+"O dispositivo swap:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"do seu ficheiro /etc/fstab está a ser usado de momento como uma partição de suspensão por 'software', o que significa que o seu sistema está em hibernação. Se for fazer uma instalação de novo, garanta que o instalador está configurado para formatar todas as partições de memória virtual."
+"do seu ficheiro /etc/fstab está a ser utilizado de momento como uma partição de suspensão por software, o que significa que o seu sistema está em hibernação. Se está a fazer uma nova instalação, garanta que o instalador está configurado para formatar todas as partições swap."
 
 #: ../storage/__init__.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4369,14 +4352,14 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"Erro ao activar o dispositivo de memória virtual %s: %s\n"
+"Erro ao activar o dispositivo swap %s: %s\n"
 "\n"
-"O ficheiro /etc/fstab na partição a actualizar não referência um dispositivo válido de paginação.\n"
+"O ficheiro /etc/fstab na partição a actualizar não referência um dispositivo válido de swap.\n"
 "\n"
 "Carregue em OK para sair do instalador"
 
 #: ../storage/__init__.py:1434
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4384,9 +4367,9 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Erro ao inicializar o dispositivo de paginação %s: %s\n"
+"Erro ao activar o dispositivo swap %s: %s\n"
 "\n"
-"Provavelmente isto significa que a partição de paginação  não foi inicializada.\n"
+"Isto significa, provavelmente, que a partição swap não foi inicializada.\n"
 "\n"
 "Carregue em OK para sair do instalador."
 
@@ -4428,13 +4411,13 @@ msgid "An error occurred mounting device %s as %s.  You may continue installatio
 msgstr "Ocorreu um erro ao montar o dispositivo %s em %s.  Poderá continuar a instalação, mas poderão ocorrer problemas."
 
 #: ../storage/__init__.py:1521
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Ocorreu um erro ao tentar criar o %s: %s. Este erro é fatal, e a instalação não pode continuar.\n"
+"Ocorreu um erro ao tentar montar o dispositivo %s como %s: %s. Este erro é fatal, e a instalação não pode continuar.\n"
 "\n"
 "Carregue em <Enter> para sair do instalador."
 
