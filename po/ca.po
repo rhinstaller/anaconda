@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-28 10:40+0200\n"
+"PO-Revision-Date: 2009-03-29 10:40+0200\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +68,10 @@ msgid ""
 "You do not have enough RAM to install %s on this machine.\n"
 "\n"
 "Press <return> to reboot your system.\n"
-msgstr "Aquest ordinador no té prou memòria RAM per a instal·lar-hi %s."
+msgstr ""
+"No teniu prou memòria RAM per a instal·lar %s en aquesta màquina.\n"
+"\n"
+"Premeu <tecla de retorn> per a reiniciar el sistema.\n"
 
 #: ../anaconda:464 ../rescue.py:285 ../rescue.py:311 ../rescue.py:324
 #: ../rescue.py:397 ../rescue.py:406 ../text.py:694
@@ -1766,7 +1769,7 @@ msgid "Mount failed"
 msgstr "No s'ha pogut muntar"
 
 #: ../upgrade.py:240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
 "fstab.  Please fix this problem and try to upgrade again.\n"
@@ -1774,6 +1777,7 @@ msgid ""
 msgstr ""
 "No s'ha pogut muntar un o més dels sistemes de fitxers llistats a /etc/fstab. "
 "Resoleu el problema i intenteu actualitzar de nou.\n"
+"%s"
 
 #: ../upgrade.py:247
 msgid "Upgrade root not found"
@@ -2959,14 +2963,13 @@ msgid "A value is required for the field %s."
 msgstr "Es requereix un valor per al camp %s."
 
 #: ../iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "S'ha produït un error en copiar la captura de pantalla."
+msgstr "S'ha produït un error en intentar activar la interfície de xarxa %s."
 
 #: ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "S'ha produït un error en configurar la interfície de xarxa"
+msgstr "S'ha produït un error en configurar la xarxa"
 
 #: ../iw/netconfig_dialog.py:237
 msgid "Dynamic IP"
@@ -3125,9 +3128,9 @@ msgid "Add Partition"
 msgstr "Afegeix partició"
 
 #: ../iw/partition_dialog_gui.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: %s"
-msgstr "Edita la partició /dev/%s"
+msgstr "Edita la partició: %s"
 
 #: ../iw/partition_dialog_gui.py:315
 msgid "File System _Type:"
@@ -3261,19 +3264,19 @@ msgid "Unable To Edit"
 msgstr "No s'ha pogut editar"
 
 #: ../iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
-msgstr "Heu de seleccionar una partició per editar"
+msgstr "Heu de seleccionar una unitat a editar"
 
 #: ../iw/partition_gui.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
 "%s"
 msgstr ""
-"No podeu editar aquesta partició:\n"
+"No podeu editar aquesta unitat:\n"
 "\n"
+"%s"
 
 #: ../iw/partition_gui.py:1177 ../iw/partition_gui.py:1189
 msgid "Not supported"
@@ -3429,9 +3432,9 @@ msgid "Make RAID Device"
 msgstr "Fes un dispositiu RAID"
 
 #: ../iw/raid_dialog_gui.py:329
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "Edita el dispositiu RAID"
+msgstr "Edita el dispositiu RAID: %s"
 
 #: ../iw/raid_dialog_gui.py:331
 msgid "Edit RAID Device"
@@ -3483,7 +3486,7 @@ msgstr ""
 "S'han de suprimir aquestes particions per a poder clonar la unitat."
 
 #: ../iw/raid_dialog_gui.py:588
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive %s.\n"
@@ -3492,7 +3495,7 @@ msgid ""
 "drive can be cloned. "
 msgstr ""
 "La unitat origen seleccionada té particions que no estan restringides a la "
-"unitat /dev/%s.\n"
+"unitat %s.\n"
 "\n"
 "S'han de suprimir les particions o restringir-les a aquesta unitat abans que "
 "es pugui clonar aquesta unitat. "
@@ -3519,12 +3522,12 @@ msgid "Please select the target drives for the clone operation."
 msgstr "Seleccioneu les unitats destí per a la operació de clonat."
 
 #: ../iw/raid_dialog_gui.py:622
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "No es pot seleccionar la unitat origen /dev/%s com a unitat destí."
+msgstr "No es pot seleccionar la unitat origen %s també com a unitat destí."
 
 #: ../iw/raid_dialog_gui.py:638
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3533,7 +3536,7 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"La unitat de destí /dev/%s té una partició que no es pot suprimir perl "
+"La unitat de destí %s té una partició que no es pot suprimir pel "
 "següent motiu:\n"
 "\n"
 "«%s»\n"
@@ -3545,12 +3548,12 @@ msgid "Please select a source drive."
 msgstr "Seleccioneu una unitat origen."
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Es clonarà el dispositiu /dev/%s a les següents unitats:\n"
+"Es clonarà el dispositiu %s a les següents unitats:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:726
@@ -3874,7 +3877,7 @@ msgstr ""
 
 #: ../iw/welcome_gui.py:56 ../textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "Es requereix instal·lar per xarxa"
 
 #: ../iw/welcome_gui.py:57 ../textw/welcome_text.py:37
 msgid ""
@@ -3883,11 +3886,14 @@ msgid ""
 "full DVD, full CD set, or do not pass a repo= parameter that specifies a "
 "network source."
 msgstr ""
+"La vostra font d'instal·lació està establerta a una ubicació de xarxa, però "
+"no s'han trobat dispositius en el vostre sistema. Per evitar una instal·lació "
+"en xarxa, arrenqueu amb tot el DVD o tots els CD, o no indiqueu el paràmetre "
+"repo= que especifica una font de xarxa."
 
 #: ../iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "Surt de l'instal·lador"
+msgstr "Surt de l'_instal·lador"
 
 #: ../iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -4029,25 +4035,25 @@ msgid "Error configuring network device"
 msgstr "S'ha produït un error en configurar la interfície de xarxa"
 
 #: ../textw/netconfig_text.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "S'ha produït un error en configurar la interfície de xarxa: "
+msgstr "S'ha produït un error en configurar el dispositiu de xarxa %s"
 
 #: ../textw/partition_text.py:58
 msgid "Partitioning Type"
 msgstr "Tipus de particionat"
 
 #: ../textw/partition_text.py:60 tmp/autopart.glade.h:2
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
 "use as the install target. You can also choose to create your own custom "
 "layout."
 msgstr ""
-"La instal·lació requereix que es parteixi el disc. Per defecte, es fa un "
-"esquema de particions que funciona per a la majoria d'usuaris. Podeu "
-"utilitzar aquest esquema o crear-ne un de nou."
+"La instal·lació requereix que es parteixi el disc dur. Per defecte, es fa un "
+"esquema de particions vàlid per a la majoria d'usuaris. Seleccioneu quin "
+"espai fer servir i quines unitats com a destí d'instal·lació. També podeu "
+"escollir crear la vostra disposició personalitzada."
 
 #: ../textw/partition_text.py:76
 msgid "Which drive(s) do you want to use for this installation?"
@@ -4304,7 +4310,7 @@ msgstr "Virtualització"
 # FIXME FIXME FIXME (josep)
 #: ../installclasses/rhel.py:67
 msgid "Clustering"
-msgstr "Clusterització"
+msgstr "Clústers"
 
 #: ../installclasses/rhel.py:68
 msgid "Storage Clustering"
@@ -4364,13 +4370,12 @@ msgid "Installation cannot continue."
 msgstr "La instal·lació no pot continuar."
 
 #: ../storage/__init__.py:96
-#, fuzzy
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"S'han activat les opcions de partició que heu escollit. Ja no podeu tornar a "
+"S'han activat les opcions d'emmagatzematge que heu escollit. Ja no podeu tornar a "
 "la pantalla d'edició del disc. Voleu continuar amb el procés d'instal·lació?"
 
 #: ../storage/__init__.py:127
@@ -4388,9 +4393,8 @@ msgstr ""
 "una frase de pas, el xifratge de dispositius de blocs serà deshabilitat."
 
 #: ../storage/__init__.py:146
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "S'està escrivint les particions a disc"
+msgstr "S'està escrivint la configuració d'emmagatzematge a disc"
 
 #: ../storage/__init__.py:147
 msgid ""
@@ -4409,17 +4413,16 @@ msgid "_Write changes to disk"
 msgstr "Escriu els _canvis al disc"
 
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "Manca un dispositiu"
+msgstr "Cerca dispositius"
 
 #: ../storage/__init__.py:253
 msgid "Finding storage devices..."
-msgstr ""
+msgstr "Cerca dispositius d'emmagatzematge..."
 
 #: ../storage/__init__.py:269
 msgid "Filesystem error detected, cannot continue."
-msgstr ""
+msgstr "S'ha detectat un error en el sistema de fitxers, no es pot continuar."
 
 #: ../storage/__init__.py:480
 msgid "This partition is holding the data for the hard drive install."
@@ -4430,24 +4433,22 @@ msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "No podeu suprimir una partició d'un DASD formatat amb format LDL."
 
 #: ../storage/__init__.py:491
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "Aquesta partició és part del dispositiu RAID /dev/md%s."
+msgstr "Aquest dispositiu és part del dispositiu RAID %s."
 
 #: ../storage/__init__.py:494
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "Aquesta partició és part d'un dispositiu RAID."
+msgstr "Aquest dispositiu és part d'un dispositiu RAID."
 
 #: ../storage/__init__.py:499
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "Aquesta partició és part del grup de volum LVM '%s'."
+msgstr "Aquest dispositiu és part del grup de volum LVM '%s'."
 
 #: ../storage/__init__.py:502
-#, fuzzy
 msgid "This device is part of a LVM volume group."
-msgstr "Aquesta partició és part d'un grup de volum LVM."
+msgstr "Aquest dispositiu és part d'un grup de volum LVM."
 
 #: ../storage/__init__.py:511
 msgid ""
@@ -4455,6 +4456,9 @@ msgid ""
 "cannot be deleted:\n"
 "\n"
 msgstr ""
+"Aquest dispositiu és una partició estesa que conté particions lògiques que "
+"no es poden suprimir:\n"
+"\n"
 
 #: ../storage/__init__.py:751
 #, python-format
@@ -4475,12 +4479,12 @@ msgstr ""
 "hi %s."
 
 #: ../storage/__init__.py:762
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"La partició %s té menys de %s MB, menor que la recomanada per a una "
+"La partició / té menys de %s MB, menor que la recomanada per a una "
 "instal·lació normal de %s."
 
 #: ../storage/__init__.py:770
@@ -4508,9 +4512,8 @@ msgstr ""
 "funcionarà."
 
 #: ../storage/__init__.py:804
-#, fuzzy
 msgid "You have not created a boot partition."
-msgstr "Heu de crear una partició d'arrencada PPC PReP."
+msgstr "No heu creat una partició d'arrencada."
 
 #: ../storage/__init__.py:808
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -4571,7 +4574,7 @@ msgstr ""
 "%s"
 
 #: ../storage/__init__.py:1406
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4583,7 +4586,7 @@ msgid ""
 msgstr ""
 "El dispositiu d'intercanvi:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
 "al vostre fitxer /etc/fstab s'està fent servir com a partició de suspensió "
 "del programari, el que significa que el vostre sistema està aturat "
@@ -4591,7 +4594,7 @@ msgstr ""
 "comptes d'aturar-lo temporalment."
 
 #: ../storage/__init__.py:1414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4605,13 +4608,13 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"al vostre fitxer /etc/fstab s'està fent servir com a partició per a "
-"l'aturada temporal, que vol dir que el vostre sistema està hibernant. Si "
+"al vostre fitxer /etc/fstab s'està fent servir com a dispositiu per a "
+"suspensió de programari, per tant el vostre sistema està hibernant. Si "
 "esteu fent una nova instal·lació, assegureu-vos que l'instal·lador està "
 "configurat per formatar totes les particions d'intercanvi."
 
 #: ../storage/__init__.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4628,7 +4631,7 @@ msgstr ""
 "Premeu «D'acord» per a sortir de l'instal·lador."
 
 #: ../storage/__init__.py:1434
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4687,24 +4690,22 @@ msgstr ""
 "continuar amb la instal·lació, poden haver-hi més problemes."
 
 #: ../storage/__init__.py:1521
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"S'ha produït un error en intentar crear %s: %s. Aquest és un error fatal i "
+"S'ha produït un error en muntar el dispositiu %s com a %s: %s. Aquest és un error fatal i "
 "la instal·lació no pot continuar.\n"
 "\n"
 "Premeu <tecla de retorn> per a sortir de l'instal·lador."
 
 #: ../storage/devices.py:1059
-#, fuzzy
 msgid "boot flag not available for this partition"
 msgstr ""
-"No podeu suprimir aquesta partició:\n"
-"\n"
+"marcador d'arrencada no disponible per a aquesta partició"
 
 #: ../storage/devicetree.py:87
 msgid "Confirm"
@@ -4729,6 +4730,8 @@ msgid ""
 "Error processing drive %s.\n"
 "Maybe it needs to be reinitialized.YOU WILL LOSE ALL DATA ON THIS DRIVE!"
 msgstr ""
+"S'ha produït un error en processar el dispositiu %s.\n"
+"Potser cal reinicialitzar-lo. Perdreu totes les dades de la unitat!"
 
 #: ../storage/devicetree.py:151
 #, python-format
@@ -4740,19 +4743,16 @@ msgid ""
 msgstr ""
 
 #: ../storage/devicetree.py:159
-#, fuzzy
 msgid "_Ignore drive(s)"
-msgstr "Omet la un_itat"
+msgstr "Omet les un_itats"
 
 #: ../storage/devicetree.py:160
-#, fuzzy
 msgid "_Re-initialize drive(s)"
-msgstr "_Reinicialitza la unitat"
+msgstr "_Reinicialitza les unitats"
 
 #: ../storage/iscsi.py:98 ../storage/iscsi.py:99
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "S'està carregant el controlador SCSI"
+msgstr "S'està escanejant els nodes iSCSI"
 
 #: ../storage/iscsi.py:172 ../storage/iscsi.py:173
 msgid "Initializing iSCSI initiator"
@@ -4760,34 +4760,35 @@ msgstr "S'està inicialitzant l'iniciador iSCSI"
 
 #: ../storage/iscsi.py:208
 msgid "iSCSI not available"
-msgstr ""
+msgstr "iSCSI no disponible"
 
 #: ../storage/iscsi.py:210
-#, fuzzy
 msgid "No initiator name set"
-msgstr "Nom de l'inicialitzador iSCSI"
+msgstr "Sense nom d'iniciador"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "No s'han descobert nodes iSCSI"
 
 #: ../storage/iscsi.py:227 ../storage/iscsi.py:228
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "Entrant en nodes iSCSI"
 
 #: ../storage/iscsi.py:250
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "No s'han trobat nous nodes iSCSI"
 
 #: ../storage/iscsi.py:253
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "No s'ha pogut entrar a cap dels nodes descoberts"
 
 #: ../storage/partitioning.py:175
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
+"No s'ha trobat prou espai lliure per al particionat automàtic. Feu "
+"servir un altre mètode."
 
 #: ../storage/partitioning.py:192
 msgid "Warnings During Automatic Partitioning"
@@ -4880,29 +4881,29 @@ msgstr "No heu indicat cap FCP LUN, o aquest no és vàlid."
 #: ../storage/devicelibs/lvm.py:326
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "vginfo ha fallat per a %s"
 
 #: ../storage/devicelibs/lvm.py:354
 #, python-format
 msgid "lvs failed for %s"
-msgstr ""
+msgstr "lvs ha fallat per a %s"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "l'atribut dict ha d'incloure un tipus"
 
 #: ../storage/formats/fs.py:111
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "manca un tipus a la configuració del sistema de fitxers"
 
 #: ../storage/formats/fs.py:270
 msgid "Formatting"
 msgstr "S'està formatant"
 
 #: ../storage/formats/fs.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s..."
-msgstr "S'està verificant el sistema de fitxers a %s..."
+msgstr "S'està creant el sistema de fitxers a %s..."
 
 #: ../storage/formats/fs.py:367
 msgid "Resizing"
@@ -5888,9 +5889,8 @@ msgstr ""
 "programari."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Adreça (adreça:port)"
+msgstr "U_RL servidor intermediari (adreça:port)"
 
 #: tmp/addrepo.glade.h:11
 msgid "Proxy pass_word"
@@ -5941,9 +5941,8 @@ msgid "_Next"
 msgstr "Següe_nt"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "<b>Dispositiu a _modificar:</b>"
+msgstr "<b>Canvia _mida fins a (MB):</b>"
 
 #: tmp/autopart.glade.h:3
 msgid "Re_view and modify partitioning layout"
@@ -5951,7 +5950,7 @@ msgstr "Re_visa i modifica l'esquema de particions"
 
 #: tmp/autopart.glade.h:4
 msgid "Volume to Resize"
-msgstr ""
+msgstr "Volum a redimensionar"
 
 #: tmp/autopart.glade.h:5
 msgid "What drive would you like to _boot this installation from?"
@@ -6363,9 +6362,8 @@ msgid "Macedonian"
 msgstr "Macedoni"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
-msgstr "Marathi"
+msgstr ""
 
 #. generated from lang-table
 msgid "Malay"
@@ -6380,9 +6378,8 @@ msgid "Marathi"
 msgstr "Marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
-msgstr "Bengalí"
+msgstr "Nepalès"
 
 #. generated from lang-table
 msgid "Norwegian(Bokmål)"
@@ -6453,9 +6450,8 @@ msgid "Swedish"
 msgstr "Suec"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
-msgstr "Tàmil"
+msgstr "Tadjik"
 
 #. generated from lang-table
 msgid "Tamil"
