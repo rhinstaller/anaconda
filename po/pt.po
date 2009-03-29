@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-28 19:41+0100\n"
+"PO-Revision-Date: 2009-03-29 19:29+0100\n"
 "Last-Translator: Rui Gouveia <rui.gouveia@globaltek.pt>\n"
 "Language-Team: pt <fedora-trans-pt@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -236,7 +236,7 @@ msgstr "Deseja utilizar VNC?"
 
 #: ../anaconda:824
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
-msgstr ""
+msgstr "O modo de texto disponibiliza apenas um conjunto limitado de opções de instalação.  Não permite criar uma disposição de partições personalizada, nem permite seleccionar pacotes.  Deseja utilizar modo VNC em vez do modo de texto?"
 
 #: ../anaconda:852
 msgid "Install class forcing text mode installation"
@@ -1822,7 +1822,7 @@ msgstr ""
 
 #: ../upgrade.py:247
 msgid "Upgrade root not found"
-msgstr ""
+msgstr "A raiz de actualização não foi encontrada"
 
 #: ../upgrade.py:248
 msgid "The root for the previously installed system was not found.  You can exit installer or backtrack to choose installation instead of upgrade."
@@ -2538,7 +2538,7 @@ msgstr "Por favor, reinicie o computador para utilizar o sistema instalado.\n"
 #: ../iw/congrats_gui.py:86
 #: ../textw/complete_text.py:51
 msgid "Note that updates may be available to ensure the proper functioning of your system and installation of these updates is recommended after the reboot."
-msgstr ""
+msgstr "Note que podem estar disponíveis actualizações para garantir o correcto funcionamento do seu sistema, e a instalação destas actualizações é recomendada depois de reiniciar o sistema."
 
 #: ../iw/congrats_gui.py:90
 #: ../textw/complete_text.py:55
@@ -2548,6 +2548,9 @@ msgid ""
 "\n"
 "Please reboot to use the installed system.  Note that updates may be available to ensure the proper functioning of your system and installation of these updates is recommended after the reboot."
 msgstr ""
+"Parabéns, a sua instalação %s está concluída.\n"
+"\n"
+"Por favor, reinicie para utilizar o sistema instalado.  Note que podem estar disponíveis actualizações para garantir o correcto funcionamento do seu sistema, e a instalação destas actualizações é recomendada depois de reiniciar o sistema."
 
 #: ../iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -3728,7 +3731,7 @@ msgstr "É Necessária Instalação por Rede"
 #: ../iw/welcome_gui.py:57
 #: ../textw/welcome_text.py:37
 msgid "Your installation source is set to a network location, but no netork devices were found on your system.  To avoid a network installation, boot with the full DVD, full CD set, or do not pass a repo= parameter that specifies a network source."
-msgstr ""
+msgstr "As fontes da sua instalação estão configuradas para uma localização em rede, mas não foram encontrados dispositivos de rede no seu sistema.  Para evitar uma instalação por rede, arranque com o DVD, conjunto completo de CDs, ou não defina o parametro repo= que especifica fontes em rede."
 
 #: ../iw/welcome_gui.py:67
 msgid "E_xit Installer"
@@ -4231,6 +4234,8 @@ msgid ""
 "This device is an extended partition which contains logical partitions that cannot be deleted:\n"
 "\n"
 msgstr ""
+"Este dispositivo é uma partição estendida que contêm partições lógicas que não podem ser removidas.\n"
+"\n"
 
 #: ../storage/__init__.py:751
 #, python-format
@@ -4446,6 +4451,8 @@ msgid ""
 "Error processing drive %s.\n"
 "Maybe it needs to be reinitialized.YOU WILL LOSE ALL DATA ON THIS DRIVE!"
 msgstr ""
+"Erro ao processar a unidade %s.\n"
+"Talvez precise de ser reinicializada. VOCÊ PERDERÁ TODOS OS DADOS NESTA UNIDADE!"
 
 #: ../storage/devicetree.py:151
 #, python-format
@@ -4453,6 +4460,8 @@ msgid ""
 "Error processing LVM.\n"
 "It seems that there is inconsistent LVM data. (%s) make(s) up %s. You can reinitialize all related PVs, which will erase all LVM metadata. Or ignore, which will preserve contents."
 msgstr ""
+"Erro ao processar LVM.\n"
+"Parece que existem dados LVM inconsistentes (%s) perfazendo %s. Você pode reiniciar todos os PVs relacionados, o que irá apagar todos os dados LVM. Ou ignorar, preservando os conteúdos."
 
 #: ../storage/devicetree.py:159
 msgid "_Ignore drive(s)"
@@ -4482,24 +4491,24 @@ msgstr "Nome do Iniciador iSCSI não configurado"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "Não foram encontrados nós iSCSI"
 
 #: ../storage/iscsi.py:227
 #: ../storage/iscsi.py:228
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "A iniciar sessão nos nós iSCSI"
 
 #: ../storage/iscsi.py:250
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "Não foram encontrados novos nós iSCCI"
 
 #: ../storage/iscsi.py:253
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "Não foi possível iniciar sessão em nenhum dos nós descobertos"
 
 #: ../storage/partitioning.py:175
 msgid "Could not find enough free space for automatic partitioning, please use another partitioning method."
-msgstr ""
+msgstr "Não foi possível encontrar espaço livre suficiente para particionamento automático, por favor, utilize outro método de particionamento."
 
 #: ../storage/partitioning.py:192
 msgid "Warnings During Automatic Partitioning"
@@ -4599,11 +4608,11 @@ msgstr "lvs falhou para %s"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "Atributo do dicionário tem de incluir um tipo"
 
 #: ../storage/formats/fs.py:111
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "Falta um tipo na configuração do sistema de ficheiros"
 
 #: ../storage/formats/fs.py:270
 msgid "Formatting"
