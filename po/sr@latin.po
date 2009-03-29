@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2008-10-19 13:52+0100\n"
+"PO-Revision-Date: 2009-03-29 16:23+0100\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora-trans-sr@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -46,17 +46,19 @@ msgid "Press <enter> for a shell"
 msgstr "Pritisnite <enter> za ljusku"
 
 #: ../anaconda:458
-#, fuzzy
 msgid "Fatal Error"
-msgstr "Greška"
+msgstr "Kobna greška"
 
 #: ../anaconda:459
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You do not have enough RAM to install %s on this machine.\n"
 "\n"
 "Press <return> to reboot your system.\n"
-msgstr "Nemate dovoljno RAM-a za instalaciju %sa na ovoj mašini"
+msgstr ""
+"Nemate dovoljno RAM-a za instalaciju %sa na ovoj mašini.\n"
+"\n"
+"Pritisnite <return> za ponovno pokretanje sistema.\n"
 
 #: ../anaconda:464 ../rescue.py:285 ../rescue.py:311 ../rescue.py:324
 #: ../rescue.py:397 ../rescue.py:406 ../text.py:694
@@ -116,6 +118,9 @@ msgid ""
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
+"Tekstualni režim pruža ograničeni skup opcija za instalaciju.  Ne dopušta "
+"vam da odredite svoj nacrt podele diska niti izbor paketa.  Da li biste "
+"želeli da umesto upotrebite VNC režim?"
 
 #: ../anaconda:852
 msgid "Install class forcing text mode installation"
@@ -131,11 +136,11 @@ msgstr "DISPLAY promenljiva nije postavljena. Pokrećem tekstualni režim!"
 
 #: ../anaconda:1047
 msgid "reipl configuration successful => reboot"
-msgstr ""
+msgstr "reipl podešavanje je uspelo => pokrećem ponovo"
 
 #: ../anaconda:1050
 msgid "reipl configuration failed => halt"
-msgstr ""
+msgstr "reipl podešavanje nije uspelo => obustavljam"
 
 #: ../backend.py:144
 #, python-format
@@ -273,7 +278,6 @@ msgid "In progress...   "
 msgstr "U toku...        "
 
 #: ../cmdline.py:98
-#, fuzzy
 msgid "Can't have a question in command line mode!"
 msgstr "Ne mogu da primim pitanje u komandnom režimu!"
 
@@ -675,7 +679,7 @@ msgid "Required Install Media"
 msgstr "Zahtevani instalacioni medijumi"
 
 #: ../image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %s %s "
 "discs:\n"
@@ -684,7 +688,7 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Softver koji ste izabrali za instalaciju zahteva sledeće diskove:\n"
+"Softver koji ste izabrali za instalaciju zahteva sledeće %s %s diskove:\n"
 "\n"
 "%s\n"
 "Molim da ih pripremite pre nastavka instalacije.  Ako morate da odustanete "
@@ -713,37 +717,39 @@ msgstr "Instaliraj na sistem"
 #: ../iutil.py:740
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Greška: Pri otvaranju, ne mogu da postavim reIPL metodu na %s (%s: %s)"
 
 #: ../iutil.py:748
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
 msgstr ""
+"Greška: Pri upisivanju, ne mogu da postavim reIPL metodu na %s (%s: %s)"
 
 #: ../iutil.py:755
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
 msgstr ""
+"Greška: Pri zatvaranju, ne mogu da postavim reIPL metodu na %s (%s: %s)"
 
 #: ../iutil.py:765 ../iutil.py:817
 #, python-format
 msgid "Error: %s splits into %s but not like we expect"
-msgstr ""
+msgstr "Greška: %s se odvaja u %s ali ne kako smo očekivali"
 
 #: ../iutil.py:778
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr ""
+msgstr "Greška: Ne mogu da postavim %s kao reIPL uređaj (%s)"
 
 #: ../iutil.py:787
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
+msgstr "Greška: Ne mogu da poništim loadparm (%s)"
 
 #: ../iutil.py:796
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr ""
+msgstr "Greška: Ne mogu da poništim parm (%s)"
 
 #: ../iutil.py:806
 #, python-format
@@ -751,21 +757,23 @@ msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
+"Nakon gašenja, izvedite IPL ručno sa DASD uređaja %s radi nastavka "
+"instalacije"
 
 #: ../iutil.py:834
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Greška: čitanje FCP svojstva %s za reIPL (%s)"
 
 #: ../iutil.py:847
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Greška: upis FCP svojstva %s za reIPL (%s)"
 
 #: ../iutil.py:860
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Greška: upis podrazumevanog FCP svojstva %s za reIPL (%s)"
 
 #: ../iutil.py:870
 #, python-format
@@ -773,24 +781,28 @@ msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
+"Nakon gašenja, izvedite IPL ručno sa FCP %(device)s uz WWPN %(wwpn)s i LUN %"
+"(lun)s radi nastavka instalacije"
 
 #: ../iutil.py:877
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
+"Nakon gašenja, izvedite IPL ručno sa uređaja koji sada sadrži /boot radi "
+"nastavka instalacije"
 
 #: ../iutil.py:887
 msgid "Could not get information for mount point /boot or /"
-msgstr ""
+msgstr "Ne mogu da pribavim podatke za /boot ili / tačku montiranja"
 
 #: ../iutil.py:897
 msgid "Error determining mount point type"
-msgstr ""
+msgstr "Greška pri određivanju vrste tačke montiranja"
 
 #: ../iutil.py:901
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
-msgstr ""
+msgstr "/boot ili / tačka montiranja je na disku sa koji nam nije poznat"
 
 #: ../kickstart.py:96
 #, python-format
@@ -837,9 +849,8 @@ msgid "_Abort"
 msgstr "Pre_kini"
 
 #: ../kickstart.py:1213 ../kickstart.py:1252
-#, fuzzy
 msgid "_Ignore All"
-msgstr "Zanemari"
+msgstr "Zanemar_i sve"
 
 #: ../kickstart.py:1243
 msgid "Missing Group"
@@ -861,6 +872,9 @@ msgid ""
 "prompt for.  Please add the following sections and try again:\n"
 "%s"
 msgstr ""
+"Vašoj kickstart datoteci nedostaju neophodni podaci za koje anaconda ne može "
+"da priupita.  Dodajte sledeće odeljke i pokušajte ponovo:\n"
+"%s"
 
 #: ../livecd.py:108
 msgid "Unable to find image"
@@ -888,7 +902,7 @@ msgstr ""
 "Došlo je do greške pri instalaciji živog otiska na čvrsti disk.  Ovo može "
 "biti zbog lošeg medijuma.  Proverite instalacioni medijum.\n"
 "\n"
-"Ako izađete, sistem može ostati u nekonzistentnom stanju koje će zahtevati "
+"Ako izađete, sistem može ostati u nedoslednom stanju koje će zahtevati "
 "ponovnu instalaciju."
 
 #: ../livecd.py:220
@@ -951,83 +965,75 @@ msgid "'%s' is an invalid IP address."
 msgstr "„%s“ nije ispravna IP adresa."
 
 #: ../packages.py:122
-#, fuzzy
 msgid "Device Resize Failed"
-msgstr "Promena veličine nije uspela"
+msgstr "Promena veličine uređaja nije uspela"
 
 #: ../packages.py:123
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while resizing device %s."
 msgstr "Došlo je do greške pri promeni veličine uređaja %s."
 
 #: ../packages.py:130
-#, fuzzy
 msgid "Device Creation Failed"
-msgstr "Ciljna datoteka"
+msgstr "Pravljenje uređaja nije uspelo"
 
 #: ../packages.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while creating device %s."
-msgstr "Došlo je do greške pri promeni veličine uređaja %s."
+msgstr "Došlo je do greške pri pravljenju uređaja %s."
 
 #: ../packages.py:138
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "Uklanjanje uređaja nije uspelo"
 
 #: ../packages.py:139
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while removing device %s."
-msgstr "Došlo je do greške pri promeni veličine uređaja %s."
+msgstr "Došlo je do greške pri uklanjanju uređaja %s."
 
 #: ../packages.py:146
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "Postavka uređaja nije uspela"
 
 #: ../packages.py:147
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "Došlo je do greške pri promeni veličine uređaja %s."
+msgstr "Došlo je do greške pri postavljanju uređaja %s."
 
 #: ../packages.py:158
 msgid "Resizing Failed"
 msgstr "Promena veličine nije uspela"
 
 #: ../packages.py:159
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr "Došlo je do greške pri promeni veličine uređaja %s."
 
 #: ../packages.py:166
-#, fuzzy
 msgid "Migration Failed"
-msgstr "LVM operacija nije uspela"
+msgstr "Preseljenje nije uspelo"
 
 #: ../packages.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "Došlo je do greške pri promeni veličine uređaja %s."
+msgstr "Došlo je do greške pri selidbi sistema datoteka na uređaju %s."
 
 #: ../packages.py:175
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "Formatiram"
+msgstr "Formatiranje nije uspelo"
 
 #: ../packages.py:176
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "Došlo je do greške pri promeni veličine uređaja %s."
+msgstr "Došlo je do greške pri formatiranju uređaja %s."
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
-msgstr ""
+msgstr "Aktiviranje skladišta nije uspelo"
 
 #: ../packages.py:185
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
-msgstr ""
-"Pronađena je sledeća greška pri tumačenju kickstart podešavanja:\n"
-"\n"
-"%s"
+msgstr "Došlo je do greške pri aktiviranju podešavanja skladišta."
 
 #: ../packages.py:353
 msgid "Invalid Key"
@@ -1152,9 +1158,9 @@ msgid "Confirm Delete"
 msgstr "Potvrdite brisanje"
 
 #: ../partIntfHelpers.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "Spremate se da obrišete sve particije na uređaju „/dev/%s“."
+msgstr "Spremate se da obrišete sve particije na uređaju „%s“."
 
 #: ../partIntfHelpers.py:149 ../partIntfHelpers.py:304
 #: ../iw/lvm_dialog_gui.py:750 ../iw/lvm_dialog_gui.py:1261
@@ -1182,15 +1188,15 @@ msgid "Format as Swap?"
 msgstr "Formatirati kao svap?"
 
 #: ../partIntfHelpers.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s ima 0x82 (Linux swap) vrstu particije ali ne izgleda da je "
-"formatirana kao Linux swap particija.\n"
+"%s ima 0x82 (Linux swap) vrstu particije ali ne izgleda da je formatirana "
+"kao Linux swap particija.\n"
 "\n"
 "Želite li da formatirate ovu particiju kao svap particiju?"
 
@@ -1304,14 +1310,14 @@ msgid "You are about to delete a RAID device."
 msgstr "Spremate se da obrišete RAID uređaj."
 
 #: ../partIntfHelpers.py:296
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "Spremate se da obrišete /dev/%s particiju."
+msgstr "Spremate se da obrišete particiju %s."
 
 #: ../partIntfHelpers.py:300
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "Spremate se da obrišete /dev/%s particiju."
+msgstr "Spremate se da obrišete %s %s"
 
 #: ../partIntfHelpers.py:311
 msgid "Confirm Reset"
@@ -1522,9 +1528,8 @@ msgid "System to Rescue"
 msgstr "Sistem za spašavanje"
 
 #: ../rescue.py:283
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "Koja particija sadrži korensku particiju vaše instalacije?"
+msgstr "Koji uređaj sadrži korensku particiju vaše instalacije?"
 
 #: ../rescue.py:285 ../rescue.py:289 ../text.py:664 ../text.py:666
 msgid "Exit"
@@ -1738,26 +1743,27 @@ msgid "Mount failed"
 msgstr "Montiranje nije uspelo"
 
 #: ../upgrade.py:240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
 "fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
 msgstr ""
-"Jedan ili više sistema datoteka navedenih u /etc/fstab Linux sistema ne može "
-"da bude montirano. Molim ispravite ovaj problem i pokušajte nadgradnju "
-"ponovo."
+"Došlo je do sledeće greške pri montiranju sistema datoteka navedenih u /etc/"
+"fstab. Molim ispravite ovaj problem i pokušajte nadgradnju ponovo.\n"
+"%s"
 
 #: ../upgrade.py:247
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "Nadgradi podešavanja pokretačkog programa"
+msgstr "Nije pronađen koren nadgradnje"
 
 #: ../upgrade.py:248
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
 msgstr ""
+"Koren prethodno instaliranog sistema nije pronađen.  Možete izaći iz "
+"instalatera ili se vratiti unazad da izaberete instalaciju umesto nadgradnje."
 
 #: ../upgrade.py:271
 msgid ""
@@ -2075,7 +2081,7 @@ msgstr ""
 "Datoteka %s ne može da se otvori.  Ovo je zbog odsutne datoteke, iskvarenog "
 "paketa ili iskvarenog medijuma.  Molim proverite da li drvo instalacije.\n"
 "\n"
-"Ako izađete, sistem može ostati u nekonzistentnom stanju koje će verovatno "
+"Ako izađete, sistem može ostati u nedoslednom stanju koje će verovatno "
 "zahtevati ponovnu instalaciju.\n"
 "\n"
 
@@ -2161,6 +2167,8 @@ msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
+"Neke od vaših riznica softvera zahtevaju umrežavanje, ali je došlo do greške "
+"pri uključivanju mreže na sistemu."
 
 #: ../yuminstall.py:1057
 msgid ""
@@ -2354,18 +2362,17 @@ msgstr ""
 "sa određenim sistemima datoteka može promeniti veličina."
 
 #: ../iw/autopart_type.py:124
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "Menjam veličinu sistema datoteka na %s..."
+msgstr "Greška pri promeni veličine sistema datoteka"
 
 #: ../iw/autopart_type.py:125 ../iw/autopart_type.py:134
 #, python-format
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:133
 msgid "Resize Device Error"
-msgstr ""
+msgstr "Greška pri promeni veličine uređaja"
 
 #: ../iw/autopart_type.py:208
 msgid ""
@@ -2388,26 +2395,23 @@ msgstr "Greška sa podacima"
 
 #: ../iw/autopart_type.py:398 ../iw/autopart_type.py:399
 msgid "Rescanning disks"
-msgstr ""
+msgstr "Pretražujem diskove ponovo"
 
 #: ../iw/autopart_type.py:452 ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "_Zanemari disk"
+msgstr "Upotrebi ceo disk"
 
 #: ../iw/autopart_type.py:453 ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "Zameni postojeći Linux sistem"
 
 #: ../iw/autopart_type.py:454
-#, fuzzy
 msgid "Shrink current system"
-msgstr "_Šifruj sistem"
+msgstr "Smanji tekući sistem"
 
 #: ../iw/autopart_type.py:455 ../textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "Nema slobodnog prostora"
+msgstr "Upotrebi slobodan prostor"
 
 #: ../iw/autopart_type.py:456
 msgid "Create custom layout"
@@ -2488,38 +2492,34 @@ msgid "Congratulations"
 msgstr "Čestitamo"
 
 #: ../iw/congrats_gui.py:74 ../textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "Čestitamo, vaša %s instalacija je završena.\n"
 "\n"
-"%s%s"
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "Ugasi"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr ""
-"Pokrenite sistem ponovo kako biste koristili instalirani sistem.\n"
-"\n"
+msgstr "Ugasite sistem kako biste upotrebili instalirani sistem.\n"
 
 #: ../iw/congrats_gui.py:81 ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr ""
-"Pokrenite sistem ponovo kako biste koristili instalirani sistem.\n"
-"\n"
+msgstr "Pokrenite sistem ponovo kako biste upotrebili instalirani sistem.\n"
 
 #: ../iw/congrats_gui.py:86 ../textw/complete_text.py:51
 msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
 msgstr ""
+"Primite k znanju da mogu biti dostupna ažuriranja koja osiguravaju pravilan "
+"rad sistema i da se instalacija ovih ažuriranja preporučuje nakon ponovnog "
+"pokretanja."
 
 #: ../iw/congrats_gui.py:90 ../textw/complete_text.py:55
 #, python-format
@@ -2530,6 +2530,12 @@ msgid ""
 "available to ensure the proper functioning of your system and installation "
 "of these updates is recommended after the reboot."
 msgstr ""
+"Čestitamo, vaša %s instalacija je završena.\n"
+"\n"
+"Da biste upotrebili instalirani sistem pokrenite ga ponovo.  Primite k "
+"znanju da mogu biti dostupna ažuriranja koja osiguravaju pravilan rad "
+"sistema i da se instalacija ovih ažuriranja preporučuje nakon ponovnog "
+"pokretanja."
 
 #: ../iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -2912,14 +2918,13 @@ msgid "A value is required for the field %s."
 msgstr "Neophodna je vrednost za polje %s."
 
 #: ../iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "Došlo je do greške pri umnožavanju snimaka ekrana."
+msgstr "Došlo je do greške pri pokušaju podizanja mrežne sprege %s."
 
 #: ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "Došlo je do greške pri podešavanju mrežnog uređaja"
+msgstr "Greške pri podešavanju mreže"
 
 #: ../iw/netconfig_dialog.py:237
 msgid "Dynamic IP"
@@ -3075,9 +3080,9 @@ msgid "Add Partition"
 msgstr "Dodaj particiju"
 
 #: ../iw/partition_dialog_gui.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: %s"
-msgstr "Uredi particiju: /dev/%s"
+msgstr "Uredi particiju: %s"
 
 #: ../iw/partition_dialog_gui.py:315
 msgid "File System _Type:"
@@ -3209,19 +3214,19 @@ msgid "Unable To Edit"
 msgstr "Ne mogu da uredim"
 
 #: ../iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
-msgstr "Morate da izaberete particiju za uređivanje"
+msgstr "Morate da izaberete uređaj za uređivanje"
 
 #: ../iw/partition_gui.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
 "%s"
 msgstr ""
-"Ne možete urediti ovu particiju:\n"
+"Ne možete urediti ovaj uređaj:\n"
 "\n"
+"%s"
 
 #: ../iw/partition_gui.py:1177 ../iw/partition_gui.py:1189
 msgid "Not supported"
@@ -3377,9 +3382,9 @@ msgid "Make RAID Device"
 msgstr "Napravi RAID uređaj"
 
 #: ../iw/raid_dialog_gui.py:329
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "Uredi RAID uređaj"
+msgstr "Uredi RAID uređaj: %s"
 
 #: ../iw/raid_dialog_gui.py:331
 msgid "Edit RAID Device"
@@ -3432,7 +3437,7 @@ msgstr ""
 "Morate ukloniti ove particije pre nego što ovaj disk može da se klonira."
 
 #: ../iw/raid_dialog_gui.py:588
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive %s.\n"
@@ -3440,10 +3445,10 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"Izabrani izvorni disk ima particije koje nisu ograničene na disk /dev/%s.\n"
+"Izabrani izvorni disk ima particije koje nisu ograničene na disk %s.\n"
 "\n"
-"Morate ukloniti ove particije ili ograničiti na ovaj disk pre nego što ovaj "
-"disk može da se klonira. "
+"Morate ukloniti ove particije ili ih ograničiti na ovaj disk pre nego što "
+"ovaj disk može da se klonira. "
 
 #: ../iw/raid_dialog_gui.py:601
 msgid ""
@@ -3467,12 +3472,12 @@ msgid "Please select the target drives for the clone operation."
 msgstr "Molim izaberite ciljne diskove za postupak kloniranja."
 
 #: ../iw/raid_dialog_gui.py:622
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "Izvorni disk /dev/%s ne može da bude takođe izabran kao i ciljni disk."
+msgstr "Izvorni disk %s ne može da bude takođe izabran kao i ciljni disk."
 
 #: ../iw/raid_dialog_gui.py:638
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3481,7 +3486,7 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"Ciljni disk /dev/%s ima particiju koja ne može da bude uklonjena iz sledećeg "
+"Ciljni disk %s ima particiju koja ne može da bude uklonjena iz sledećeg "
 "razloga:\n"
 "\n"
 "„%s“\n"
@@ -3493,12 +3498,12 @@ msgid "Please select a source drive."
 msgstr "Molim izaberite ciljni disk."
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Disk /dev/%s će sada biti kloniran na sledeće diskove:\n"
+"Disk %s će sada biti kloniran na sledeće diskove:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:726
@@ -3817,7 +3822,7 @@ msgstr ""
 
 #: ../iw/welcome_gui.py:56 ../textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "Neophodna je mrežna instalacija"
 
 #: ../iw/welcome_gui.py:57 ../textw/welcome_text.py:37
 msgid ""
@@ -3826,11 +3831,14 @@ msgid ""
 "full DVD, full CD set, or do not pass a repo= parameter that specifies a "
 "network source."
 msgstr ""
+"Vaš izvor instalacije je postavljen kao mrežna lokacija, ali nisu pronađeni "
+"mrežni uređaji na sistemu.  Da biste izbegli mrežnu instalaciju, pokrenite "
+"sistem sa punim DVD-om, punim skupom CD-a, ili nemojte prosleđivati "
+"parametar repo= koji određuje mrežni izvor."
 
 #: ../iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "Izlaz iz instalatera"
+msgstr "I_zlaz iz instalatera"
 
 #: ../iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -3861,7 +3869,7 @@ msgstr ""
 "Korena particija će biti ona koju ste prethodno izabrali u postavci "
 "particija.\n"
 "\n"
-"Jezgro upotrebljavano za pokretanje mašine će biti ono koje se podrazumevano "
+"Jezgro upotrebljeno za pokretanje mašine će biti ono koje se podrazumevano "
 "instalira.\n"
 "\n"
 "Ako kasnije hoćete da vršite izmene nakon instalacije, slobodno izmenite "
@@ -3973,16 +3981,15 @@ msgid "Error configuring network device"
 msgstr "Došlo je do greške pri podešavanju mrežnog uređaja"
 
 #: ../textw/netconfig_text.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "Došlo je do greške pri podešavanju mrežnog uređaja"
+msgstr "Greška pri podešavanju mrežnog uređaja %s"
 
 #: ../textw/partition_text.py:58
 msgid "Partitioning Type"
 msgstr "Vrsta podele diska"
 
 #: ../textw/partition_text.py:60 tmp/autopart.glade.h:2
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
@@ -3990,8 +3997,9 @@ msgid ""
 "layout."
 msgstr ""
 "Instalacija zahteva podelu vašeg diska na particije.  Podrazumevani nacrt je "
-"opravdan za većinu korisnika.  Možete izabrati da ga upotrebite, ili da "
-"napravite svoj."
+"prikladan za većinu korisnika.  Izaberite koji prostor treba upotrebiti i "
+"koje diskove treba upotrebiti kao cilj instalacije.  Možete takođe izabrati "
+"da napravite svoj prilagođeni nacrt."
 
 #: ../textw/partition_text.py:76
 msgid "Which drive(s) do you want to use for this installation?"
@@ -4302,14 +4310,13 @@ msgid "Installation cannot continue."
 msgstr "Instalacija se ne može nastaviti."
 
 #: ../storage/__init__.py:96
-#, fuzzy
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"Opcije podele diska koje ste odabrali su već u dejstvu. Više ne možete da se "
-"vratite na ekran za uređivanje diska. Želite li da nastavite sa procesom "
+"Podešavanja skladišta koje ste odabrali su već u dejstvu. Više ne možete da "
+"se vratite na ekran za uređivanje diska. Želite li da nastavite sa procesom "
 "instalacije?"
 
 #: ../storage/__init__.py:127
@@ -4327,9 +4334,8 @@ msgstr ""
 "šifrovanje blok uređaja%s će biti isključeno."
 
 #: ../storage/__init__.py:146
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "Upisujem particije na disk"
+msgstr "Upisujem podešavanja skladišta na disk"
 
 #: ../storage/__init__.py:147
 msgid ""
@@ -4349,17 +4355,16 @@ msgid "_Write changes to disk"
 msgstr "U_piši izmene na disk"
 
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "Nedostaje uređaj"
+msgstr "Pronalazim uređaje"
 
 #: ../storage/__init__.py:253
 msgid "Finding storage devices..."
-msgstr ""
+msgstr "Pronalazim skladišne uređaje..."
 
 #: ../storage/__init__.py:269
 msgid "Filesystem error detected, cannot continue."
-msgstr ""
+msgstr "Otkrivena je greška kod sistema datoteka, ne mogu da nastavim."
 
 #: ../storage/__init__.py:480
 msgid "This partition is holding the data for the hard drive install."
@@ -4370,24 +4375,22 @@ msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Ne možete obrisati particiju LDL formatiranog DASD-a."
 
 #: ../storage/__init__.py:491
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "Ova particija je deo /dev/md%s RAID uređaja."
+msgstr "Ovaj uređaj je deo RAID uređaja %s."
 
 #: ../storage/__init__.py:494
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "Ova particija je deo RAID uređaja."
+msgstr "Ovaj uređaj je deo RAID uređaja."
 
 #: ../storage/__init__.py:499
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "Ova particija je deo „%s“ LVM disk grupe."
+msgstr "Ovaj uređaj je deo LVM disk grupe „%s“."
 
 #: ../storage/__init__.py:502
-#, fuzzy
 msgid "This device is part of a LVM volume group."
-msgstr "Ova particija je deo LVM disk grupe."
+msgstr "Ovaj uređaj je deo LVM disk grupe."
 
 #: ../storage/__init__.py:511
 msgid ""
@@ -4395,6 +4398,9 @@ msgid ""
 "cannot be deleted:\n"
 "\n"
 msgstr ""
+"Ovaj uređaj je proširena particija koja sadrži logičke particije koje se ne "
+"mogu brisati:\n"
+"\n"
 
 #: ../storage/__init__.py:751
 #, python-format
@@ -4415,13 +4421,13 @@ msgstr ""
 "instalaciju."
 
 #: ../storage/__init__.py:762
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"Vaša %s particija je manja od %s megabajta, što je manje nego preporučljivo "
-"za redovnu %s instalaciju."
+"Vaša / particija je manja od %s megabajta, što je manje od preporučenog za "
+"redovnu %s instalaciju."
 
 #: ../storage/__init__.py:770
 #, python-format
@@ -4448,9 +4454,8 @@ msgstr ""
 "radnom stanju."
 
 #: ../storage/__init__.py:804
-#, fuzzy
 msgid "You have not created a boot partition."
-msgstr "Morate napraviti PPC PReP pokretačku particiju."
+msgstr "Niste napravili pokretačku particiju."
 
 #: ../storage/__init__.py:808
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -4510,7 +4515,7 @@ msgstr ""
 "%s"
 
 #: ../storage/__init__.py:1406
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4522,14 +4527,14 @@ msgid ""
 msgstr ""
 "Svap uređaj:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"u vašoj /etc/fstab datoteci se trenutno koristi kao particija za softverski "
+"se u vašoj /etc/fstab datoteci trenutno koristi kao particija za softverski "
 "prekid, što znači da se vaš sistem uspavljuje. Da biste obavili nadgradnju, "
 "ugasite sistem umesto da ga uspavljujete."
 
 #: ../storage/__init__.py:1414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4541,14 +4546,14 @@ msgid ""
 msgstr ""
 "Svap uređaj:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"u /etc/fstab datoteci se trenutno koristi kao particija za softverski "
+"se u /etc/fstab datoteci trenutno koristi kao particija za softverski "
 "prekid, što znači da se sistem uspavljuje. Ako vršite novu instalaciju, "
 "potvrdite da je instalater podešen za formatiranje svih svap particija."
 
 #: ../storage/__init__.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4559,13 +4564,12 @@ msgid ""
 msgstr ""
 "Greška pri uključivanju svap uređaja %s: %s\n"
 "\n"
-"/etc/fstab na particiji za nadgradnju ne ukazuje na ispravnu svap "
-"particiju.\n"
+"/etc/fstab na particiji za nadgradnju ne ukazuje na ispravan svap uređaj.\n"
 "\n"
 "Pritisnite „U redu“ za izlazak iz instalatera."
 
 #: ../storage/__init__.py:1434
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4575,7 +4579,7 @@ msgid ""
 msgstr ""
 "Greška pri uključivanju svap uređaja %s: %s\n"
 "\n"
-"Ovo najverovatnije znači da svap particija nije bila inicijalizovana.\n"
+"Ovo najverovatnije znači da svap uređaj nije bio inicijalizovan.\n"
 "\n"
 "Pritisnite „U redu“ za izlazak iz instalatera."
 
@@ -4623,24 +4627,21 @@ msgstr ""
 "nastavite instalaciju, ali su mogući problemi."
 
 #: ../storage/__init__.py:1521
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Došlo je do greške pri pokušaju pravljenja %s: %s.  Ovo je kobna greška, i "
+"Došlo je do greške pri montiranju uređaja %s kao %s. Ovo je kobna greška i "
 "instalacija ne može da se nastavi.\n"
 "\n"
 "Pritisnite <Enter> za izlazak iz instalatera."
 
 #: ../storage/devices.py:1059
-#, fuzzy
 msgid "boot flag not available for this partition"
-msgstr ""
-"Ne možete obrisati ovu particiju:\n"
-"\n"
+msgstr "pokretačka oznaka nije dostupna za ovu particiju"
 
 #: ../storage/devicetree.py:87
 msgid "Confirm"
@@ -4665,6 +4666,9 @@ msgid ""
 "Error processing drive %s.\n"
 "Maybe it needs to be reinitialized.YOU WILL LOSE ALL DATA ON THIS DRIVE!"
 msgstr ""
+"Greška pri obradi diska %s.\n"
+"Možda ga je potrebno ponovo inicijalizovati. IZGUBIĆETE SVE PODATKE NA OVOM "
+"DISKU!"
 
 #: ../storage/devicetree.py:151
 #, python-format
@@ -4674,21 +4678,22 @@ msgid ""
 "reinitialize all related PVs, which will erase all LVM metadata. Or ignore, "
 "which will preserve contents."
 msgstr ""
+"Greška pri LVM obradi.\n"
+"Izgleda da postoje nedosledni LVM podaci. (%s) sačinjava(ju) %s. Možete "
+"ponovo inicijalizovati sve fizičke diskove, što će obrisati sve LVM "
+"metapodatke. Ili zanemariti, što će očuvati sadržaj."
 
 #: ../storage/devicetree.py:159
-#, fuzzy
 msgid "_Ignore drive(s)"
-msgstr "_Zanemari disk"
+msgstr "Zanemar_i disk(ove)"
 
 #: ../storage/devicetree.py:160
-#, fuzzy
 msgid "_Re-initialize drive(s)"
-msgstr "Pono_vo inicijalizuj disk"
+msgstr "Pono_vo inicijalizuj disk(ove)"
 
 #: ../storage/iscsi.py:98 ../storage/iscsi.py:99
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "Učitavam upravljački program za SCSI"
+msgstr "Pretražujem iSCSI čvorove"
 
 #: ../storage/iscsi.py:172 ../storage/iscsi.py:173
 msgid "Initializing iSCSI initiator"
@@ -4696,34 +4701,35 @@ msgstr "Inicijalizujem iSCSI začetnika"
 
 #: ../storage/iscsi.py:208
 msgid "iSCSI not available"
-msgstr ""
+msgstr "iSCSI nije dostupan"
 
 #: ../storage/iscsi.py:210
-#, fuzzy
 msgid "No initiator name set"
-msgstr "Ime iSCSI začetnika"
+msgstr "Ime začetnika nije postavljeno"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "Nisu otkriveni iSCSI čvorovi"
 
 #: ../storage/iscsi.py:227 ../storage/iscsi.py:228
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "Prijavljujem se na iSCSI čvorove"
 
 #: ../storage/iscsi.py:250
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "Nisu otkriveni novi iSCSI čvorovi"
 
 #: ../storage/iscsi.py:253
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "Ne mogu da se prijavim ni na jedan od otkrivenih čvorova"
 
 #: ../storage/partitioning.py:175
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
+"Ne mogu da pronađem dovoljno slobodnog prostora za samostalnu podelu diska, "
+"upotrebite drugi metod za podelu diska."
 
 #: ../storage/partitioning.py:192
 msgid "Warnings During Automatic Partitioning"
@@ -4815,29 +4821,29 @@ msgstr "Niste naveli FCP LUN ili broj nije ispravan."
 #: ../storage/devicelibs/lvm.py:326
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "vginfo neuspeh za %s"
 
 #: ../storage/devicelibs/lvm.py:354
 #, python-format
 msgid "lvs failed for %s"
-msgstr ""
+msgstr "lvs neuspeh za %s"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "rečnik svojstava mora sadržati vrstu"
 
 #: ../storage/formats/fs.py:111
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "podešavanju sistema datoteka nedostaje vrsta"
 
 #: ../storage/formats/fs.py:270
 msgid "Formatting"
 msgstr "Formatiram"
 
 #: ../storage/formats/fs.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s..."
-msgstr "Proveravam sistem datoteka /dev/%s..."
+msgstr "Pravim sistem datoteka na %s..."
 
 #: ../storage/formats/fs.py:367
 msgid "Resizing"
@@ -4943,7 +4949,7 @@ msgstr "Disk nije pronađen"
 
 #: ../loader/cdinstall.c:518
 msgid "Cannot find kickstart file on CDROM."
-msgstr "Ne mogu da pronađem kickstart datoteku na CD-ROM-u."
+msgstr "Ne mogu da pronađem kickstart datoteku na CDROM-u."
 
 #: ../loader/copy.c:51 ../loader/method.c:280
 #, c-format
@@ -5813,9 +5819,8 @@ msgid ""
 msgstr "Navedite podatke o podešavanju za ovu riznicu softvera."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Domaćin (domaćin:port)"
+msgstr "U_RL proksija (domaćin:port)"
 
 #: tmp/addrepo.glade.h:11
 msgid "Proxy pass_word"
@@ -5866,9 +5871,8 @@ msgid "_Next"
 msgstr "_Sledeći"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "<b>_Cilj promene veličine:</b>"
+msgstr "<b>_Cilj promene veličine (u MB):</b>"
 
 #: tmp/autopart.glade.h:3
 msgid "Re_view and modify partitioning layout"
@@ -5876,7 +5880,7 @@ msgstr "Preg_ledaj i promeni nacrt particija"
 
 #: tmp/autopart.glade.h:4
 msgid "Volume to Resize"
-msgstr ""
+msgstr "Disk za promenu veličine"
 
 #: tmp/autopart.glade.h:5
 msgid "What drive would you like to _boot this installation from?"
@@ -6287,9 +6291,8 @@ msgid "Macedonian"
 msgstr "makedonski"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
-msgstr "maratski"
+msgstr "maithili"
 
 #. generated from lang-table
 msgid "Malay"
@@ -6304,9 +6307,8 @@ msgid "Marathi"
 msgstr "maratski"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
-msgstr "bengalski"
+msgstr "nepalski"
 
 #. generated from lang-table
 msgid "Norwegian(Bokmål)"
@@ -6377,9 +6379,8 @@ msgid "Swedish"
 msgstr "švedski"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
-msgstr "tamilski"
+msgstr "tadžikistanski"
 
 #. generated from lang-table
 msgid "Tamil"
