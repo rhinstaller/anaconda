@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2008-10-14 00:58+0200\n"
+"PO-Revision-Date: 2009-03-29 01:50+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,17 +51,19 @@ msgid "Press <enter> for a shell"
 msgstr "Naciśnij <enter>, aby uzyskać powłokę"
 
 #: ../anaconda:458
-#, fuzzy
 msgid "Fatal Error"
-msgstr "Błąd"
+msgstr "Krytyczny błąd"
 
 #: ../anaconda:459
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You do not have enough RAM to install %s on this machine.\n"
 "\n"
 "Press <return> to reboot your system.\n"
-msgstr "Masz za mało RAM-u, aby zainstalować system %s na tym komputerze."
+msgstr ""
+"Masz za mało pamięci RAM, aby zainstalować system %s na tym komputerze.\n"
+"\n"
+"Naciśnij <return>, aby ponownie uruchomić system.\n"
 
 #: ../anaconda:464 ../rescue.py:285 ../rescue.py:311 ../rescue.py:324
 #: ../rescue.py:397 ../rescue.py:406 ../text.py:694
@@ -104,7 +106,7 @@ msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
-"Nie ma wystarczającej ilości RAM-u, aby użyć instalatora graficznego. "
+"Nie ma wystarczającej ilości pamięci RAM, aby użyć instalatora graficznego. "
 "Uruchamianie trybu tekstowego."
 
 #: ../anaconda:534
@@ -121,6 +123,9 @@ msgid ""
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
+"Tryb tekstowy dostarcza ograniczony zestaw opcji instalacji. Nie pozwala na "
+"podanie własnego układu partycjonowania ani wyboru pakietów. Czy chcesz "
+"zamiast tego użyć trybu VNC?"
 
 #: ../anaconda:852
 msgid "Install class forcing text mode installation"
@@ -137,11 +142,11 @@ msgstr "Zmienna DISPLAY nie jest ustawiona. Uruchamianie trybu tekstowego!"
 
 #: ../anaconda:1047
 msgid "reipl configuration successful => reboot"
-msgstr ""
+msgstr "pomyślna konfiguracja reIPL => uruchom ponownie"
 
 #: ../anaconda:1050
 msgid "reipl configuration failed => halt"
-msgstr ""
+msgstr "konfiguracja reIPL nie powiodła się => wyłącz"
 
 #: ../backend.py:144
 #, python-format
@@ -276,10 +281,9 @@ msgstr "Zakończono"
 
 #: ../cmdline.py:63
 msgid "In progress...   "
-msgstr "W trakcie wykonywania... "
+msgstr "W trakcie wykonywania...   "
 
 #: ../cmdline.py:98
-#, fuzzy
 msgid "Can't have a question in command line mode!"
 msgstr "Nie można korzystać ze znaku zapytania w trybie wiersza poleceń!"
 
@@ -493,7 +497,7 @@ msgstr ""
 
 #: ../gui.py:546 ../text.py:500
 msgid "Installation Key"
-msgstr "klucz instalacji"
+msgstr "Klucz instalacji"
 
 #: ../gui.py:617 ../text.py:308
 msgid ""
@@ -682,7 +686,7 @@ msgid "Required Install Media"
 msgstr "Wymagany nośnik instalacji"
 
 #: ../image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %s %s "
 "discs:\n"
@@ -691,11 +695,11 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Wybrane oprogramowanie wymaga następujących płyt:\n"
+"Oprogramowanie wybrane do zainstalowania wymaga następujących płyt %s %s:\n"
 "\n"
 "%s\n"
-"Przygotuj je przed przejściem do dalszego etapu instalacji. Jeśli chcesz "
-"przerwać instalację i zakończyć, wybierz \"Uruchom ponownie\"."
+"Przygotuj je przed kontynuowaniem instalacji. Jeśli chcesz przerwać "
+"instalację i zakończyć, wybierz \"Uruchom ponownie\"."
 
 #: ../image.py:248 ../livecd.py:388 ../packages.py:382 ../packages.py:433
 #: ../packages.py:436 ../upgrade.py:252 ../yuminstall.py:783
@@ -719,37 +723,38 @@ msgstr "Zainstaluj w systemie"
 #: ../iutil.py:740
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Błąd: nie można ustawić metody reIPL na %s (%s: %s) podczas otwierania"
 
 #: ../iutil.py:748
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
 msgstr ""
+"Błąd: nie można ustawić metody reIPL na %s (%s: %s) podczas zapisywania"
 
 #: ../iutil.py:755
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Błąd: nie można ustawić metody reIPL na %s (%s: %s) podczas zamykania"
 
 #: ../iutil.py:765 ../iutil.py:817
 #, python-format
 msgid "Error: %s splits into %s but not like we expect"
-msgstr ""
+msgstr "Błąd: %s rozdziela się na %s, ale nie w oczekiwany sposób"
 
 #: ../iutil.py:778
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr ""
+msgstr "Błąd: nie można ustawić %s jako urządzenie reIPL (%s)"
 
 #: ../iutil.py:787
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
+msgstr "Błąd: nie można przywrócić loadparm (%s)"
 
 #: ../iutil.py:796
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr ""
+msgstr "Ostrzeżenie: nie można przywrócić parm (%s)"
 
 #: ../iutil.py:806
 #, python-format
@@ -757,21 +762,23 @@ msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
+"Po wyłączeniu ręcznie wykonaj IPL z urządzenia DASD %s, aby kontynuować "
+"instalację"
 
 #: ../iutil.py:834
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Błąd: odczytywanie właściwości FCP %s dla reIPL (%s)"
 
 #: ../iutil.py:847
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Błąd: zapisywanie właściwości FCP %s dla reIPL (%s)"
 
 #: ../iutil.py:860
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Błąd: zapisywanie domyślnej właściwości FCP %s dla reIPL (%s)"
 
 #: ../iutil.py:870
 #, python-format
@@ -779,24 +786,28 @@ msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
+"Po wyłączeniu ręcznie wykonaj IPL z FCP %(device)s za pomocą WWPN %(wwpn)s i "
+"LUN %(lun)s, aby kontynuować instalację"
 
 #: ../iutil.py:877
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
+"Po wyłączeniu ręcznie wykonaj IPL z urządzenia, które teraz zawiera /boot, "
+"aby kontynuować instalację"
 
 #: ../iutil.py:887
 msgid "Could not get information for mount point /boot or /"
-msgstr ""
+msgstr "Nie można uzyskać informacji dla punktu montowania /boot lub /"
 
 #: ../iutil.py:897
 msgid "Error determining mount point type"
-msgstr ""
+msgstr "Błąd podczas ustalania typu punktu montowania"
 
 #: ../iutil.py:901
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
-msgstr ""
+msgstr "Punkt montowania /boot lub / jest na nieznanym dysku"
 
 #: ../kickstart.py:96
 #, python-format
@@ -843,9 +854,8 @@ msgid "_Abort"
 msgstr "_Przerwij"
 
 #: ../kickstart.py:1213 ../kickstart.py:1252
-#, fuzzy
 msgid "_Ignore All"
-msgstr "Zignoruj"
+msgstr "Z_ignoruj wszystko"
 
 #: ../kickstart.py:1243
 msgid "Missing Group"
@@ -867,6 +877,9 @@ msgid ""
 "prompt for.  Please add the following sections and try again:\n"
 "%s"
 msgstr ""
+"Brak pliku kickstart z wymaganymi informacjami, o które anaconda nie może "
+"poprosić. Dodaj następujące sekcje i spróbuj ponownie:\n"
+"%s"
 
 #: ../livecd.py:108
 msgid "Unable to find image"
@@ -947,7 +960,7 @@ msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"Adresy IP muszą zawierać cztery liczby od 0 do 255 oddzielone kropkami."
+"Adresy IPv4 muszą zawierać cztery liczby od 0 do 255 oddzielone kropkami."
 
 #: ../network.py:185
 #, python-format
@@ -960,83 +973,75 @@ msgid "'%s' is an invalid IP address."
 msgstr "\"%s\" nie jest prawidłowym adresem IP."
 
 #: ../packages.py:122
-#, fuzzy
 msgid "Device Resize Failed"
-msgstr "Zmienienie rozmiaru nie powiodło się"
+msgstr "Zmienienie rozmiaru urządzenia nie powiodło się"
 
 #: ../packages.py:123
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while resizing device %s."
 msgstr "Podczas zmieniania rozmiaru urządzenia %s wystąpił błąd."
 
 #: ../packages.py:130
-#, fuzzy
 msgid "Device Creation Failed"
-msgstr "Plik docelowy"
+msgstr "Utworzenie urządzenia nie powiodło się"
 
 #: ../packages.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while creating device %s."
-msgstr "Podczas zmieniania rozmiaru urządzenia %s wystąpił błąd."
+msgstr "Podczas tworzenia urządzenia %s wystąpił błąd."
 
 #: ../packages.py:138
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "Usunięcie urządzenia nie powiodło się"
 
 #: ../packages.py:139
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while removing device %s."
-msgstr "Podczas zmieniania rozmiaru urządzenia %s wystąpił błąd."
+msgstr "Podczas usuwania urządzenia %s wystąpił błąd."
 
 #: ../packages.py:146
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "Ustawienie urządzenia nie powiodło się"
 
 #: ../packages.py:147
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "Podczas zmieniania rozmiaru urządzenia %s wystąpił błąd."
+msgstr "Podczas ustawiania urządzenia %s wystąpił błąd."
 
 #: ../packages.py:158
 msgid "Resizing Failed"
 msgstr "Zmienienie rozmiaru nie powiodło się"
 
 #: ../packages.py:159
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr "Podczas zmieniania rozmiaru urządzenia %s wystąpił błąd."
 
 #: ../packages.py:166
-#, fuzzy
 msgid "Migration Failed"
-msgstr "Operacja LVM nie powiodła się"
+msgstr "Migracja nie powiodła się"
 
 #: ../packages.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "Podczas zmieniania rozmiaru urządzenia %s wystąpił błąd."
+msgstr "Podczas migrowania systemu plików na urządzeniu %s wystąpił błąd."
 
 #: ../packages.py:175
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "Formatowanie"
+msgstr "Formatowanie nie powiodło się"
 
 #: ../packages.py:176
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "Podczas zmieniania rozmiaru urządzenia %s wystąpił błąd."
+msgstr "Podczas formatowania urządzenia %s wystąpił błąd."
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
-msgstr ""
+msgstr "Aktywacja pamięci masowej nie powiodła się"
 
 #: ../packages.py:185
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
-msgstr ""
-"Znaleziono następujący błąd podczas analizowania konfiguracji kickstart:\n"
-"\n"
-"%s"
+msgstr "Podczas aktywowania konfiguracji pamięci masowej wystąpił błąd."
 
 #: ../packages.py:353
 msgid "Invalid Key"
@@ -1161,10 +1166,9 @@ msgid "Confirm Delete"
 msgstr "Potwierdź usunięcie"
 
 #: ../partIntfHelpers.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr ""
-"Za chwilę zostaną usunięte wszystkie partycje z urządzenia \"/dev/%s\"."
+msgstr "Za chwilę zostaną usunięte wszystkie partycje na urządzeniu \"%s\"."
 
 #: ../partIntfHelpers.py:149 ../partIntfHelpers.py:304
 #: ../iw/lvm_dialog_gui.py:750 ../iw/lvm_dialog_gui.py:1261
@@ -1192,14 +1196,14 @@ msgid "Format as Swap?"
 msgstr "Sformatować jako partycję wymiany?"
 
 #: ../partIntfHelpers.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s zawiera partycję typu 0x82 (linuksowa przestrzeń wymiany), ale nie "
+"%s zawiera partycję typu 0x82 (linuksowa przestrzeń wymiany), ale nie "
 "wygląda ona na sformatowaną jako partycja wymiany Linuksa.\n"
 "\n"
 "Czy chcesz sformatować tę partycję jako partycję wymiany?"
@@ -1280,8 +1284,8 @@ msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"Następujące wcześniej istniejące partycje zostały wybrane do sformatowania. "
-"Spowoduje to usunięcie wszystkich danych."
+"Następujące wcześniej istniejące partycje zostały wybrane do sformatowania, "
+"co usunie wszystkie dane."
 
 #: ../partIntfHelpers.py:255
 msgid ""
@@ -1316,14 +1320,14 @@ msgid "You are about to delete a RAID device."
 msgstr "Za chwilę zostanie usunięte urządzenie RAID."
 
 #: ../partIntfHelpers.py:296
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "Za chwilę zostanie usunięta partycja /dev/%s."
+msgstr "Za chwilę zostanie usunięta partycja %s."
 
 #: ../partIntfHelpers.py:300
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "Za chwilę zostanie usunięta partycja /dev/%s."
+msgstr "Za chwilę zostanie usunięte %s %s"
 
 #: ../partIntfHelpers.py:311
 msgid "Confirm Reset"
@@ -1533,9 +1537,8 @@ msgid "System to Rescue"
 msgstr "System do ratowania"
 
 #: ../rescue.py:283
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "Która partycja zawiera partycję root instalacji?"
+msgstr "Które urządzenie zawiera partycję root instalacji?"
 
 #: ../rescue.py:285 ../rescue.py:289 ../text.py:664 ../text.py:666
 msgid "Exit"
@@ -1741,7 +1744,7 @@ msgid ""
 msgstr ""
 "Systemy plików z instalacją Linuksa wybrane do zaktualizowania zostały już "
 "zamontowane. Od tego momentu nie będzie możliwości wycofania się z podjętych "
-"decyzji.\n"
+"decyzji. \n"
 "\n"
 
 #: ../upgrade.py:118
@@ -1753,26 +1756,27 @@ msgid "Mount failed"
 msgstr "Montowanie nie powiodło się"
 
 #: ../upgrade.py:240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
 "fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
 msgstr ""
-"Co najmniej jeden z systemów plików wymienionych w /etc/fstab systemu nie "
-"może zostać zamontowany. Napraw problem i ponownie spróbuj zaktualizować "
-"system."
+"Wystąpił następujący błąd podczas montowania systemów plików z listy z pliku "
+"/etc/fstab. Napraw ten problem i ponownie spróbuj zaktualizować system.\n"
+"%s"
 
 #: ../upgrade.py:247
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "Zaktualizuj konfiguracji programu startowego"
+msgstr "Nie znaleziono roota aktualizacji"
 
 #: ../upgrade.py:248
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
 msgstr ""
+"Nie znaleziono roota poprzednio zainstalowanego systemu. Można wyłączyć "
+"instalator lub cofnąć się, aby wybrać instalację zamiast aktualizacji."
 
 #: ../upgrade.py:271
 msgid ""
@@ -1872,7 +1876,7 @@ msgstr ""
 "Wybrano połączenie z nasłuchującym programem vncviewer. \n"
 "Nie wymaga to ustawienia hasła. Jeśli ustawisz hasło, \n"
 "zostanie użyte w przypadku, gdy połączenie się z \n"
-"programem vncviewer nie powiedzie się.\n"
+"programem vncviewer nie powiedzie się\n"
 "\n"
 
 #: ../vnc.py:245
@@ -2176,6 +2180,8 @@ msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
+"Niektóre z repozytoriów oprogramowania wymagają sieci, ale wystąpił błąd "
+"podczas włączania sieci w systemie."
 
 #: ../yuminstall.py:1057
 msgid ""
@@ -2369,18 +2375,17 @@ msgstr ""
 "partycje z określonymi systemami plików."
 
 #: ../iw/autopart_type.py:124
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "Zmienianie rozmiaru systemu plików na %s..."
+msgstr "Błąd podczas zmieniania rozmiaru systemu plików"
 
 #: ../iw/autopart_type.py:125 ../iw/autopart_type.py:134
 #, python-format
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:133
 msgid "Resize Device Error"
-msgstr ""
+msgstr "Błąd podczas zmieniania rozmiaru urządzenia"
 
 #: ../iw/autopart_type.py:208
 msgid ""
@@ -2402,26 +2407,23 @@ msgstr "Błąd danych"
 
 #: ../iw/autopart_type.py:398 ../iw/autopart_type.py:399
 msgid "Rescanning disks"
-msgstr ""
+msgstr "Ponowne skanowanie dysków"
 
 #: ../iw/autopart_type.py:452 ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "Z_ignoruj dysk"
+msgstr "Użyj cały dysk"
 
 #: ../iw/autopart_type.py:453 ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "Zastąp istniejący system linuksowy"
 
 #: ../iw/autopart_type.py:454
-#, fuzzy
 msgid "Shrink current system"
-msgstr "Zaszyfruj syst_em"
+msgstr "Zmniejsz obecny system"
 
 #: ../iw/autopart_type.py:455 ../textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "Brak wolnego miejsca"
+msgstr "Użyj wolne miejsce"
 
 #: ../iw/autopart_type.py:456
 msgid "Create custom layout"
@@ -2491,7 +2493,7 @@ msgstr "Konfiguracja programu startowego"
 #: ../iw/bootloader_main_gui.py:221
 #, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "Zainstaluj program startowy na /dev/%s."
+msgstr "Za_instaluj program startowy na /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:227
 msgid "_Change device"
@@ -2502,38 +2504,34 @@ msgid "Congratulations"
 msgstr "Gratulacje"
 
 #: ../iw/congrats_gui.py:74 ../textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "Gratulacje, instalacja systemu %s została zakończona.\n"
 "\n"
-"%s%s"
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "Wyłącz"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr ""
-"Uruchom ponownie komputer, aby użyć zainstalowany system.\n"
-"\n"
+msgstr "Wyłącz komputer, aby użyć zainstalowany system.\n"
 
 #: ../iw/congrats_gui.py:81 ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr ""
-"Uruchom ponownie komputer, aby użyć zainstalowany system.\n"
-"\n"
+msgstr "Uruchom ponownie komputer, aby użyć zainstalowany system.\n"
 
 #: ../iw/congrats_gui.py:86 ../textw/complete_text.py:51
 msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
 msgstr ""
+"Zauważ, że aktualizacje mogą być dostępne, aby zapewnić właściwe "
+"funkcjonowanie systemu, a ich instalacja jest zalecana po ponownym "
+"uruchomieniu."
 
 #: ../iw/congrats_gui.py:90 ../textw/complete_text.py:55
 #, python-format
@@ -2544,6 +2542,11 @@ msgid ""
 "available to ensure the proper functioning of your system and installation "
 "of these updates is recommended after the reboot."
 msgstr ""
+"Gratulacje, instalacja systemu %s została zakończona.\n"
+"\n"
+"Uruchom ponownie komputer, aby użyć zainstalowany system. Zauważ, że "
+"aktualizacje mogą być dostępne, aby zapewnić właściwe funkcjonowanie "
+"systemu, a ich instalacja jest zalecana po ponownym uruchomieniu."
 
 #: ../iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -2929,23 +2932,22 @@ msgid "A value is required for the field %s."
 msgstr "W pole %s musisz wpisać wartość."
 
 #: ../iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "Wystąpił błąd podczas kopiowania zrzutów ekranu."
+msgstr "Wystąpił błąd podczas próby podniesienia interfejsu sieciowego %s."
 
 #: ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "Błąd podczas konfigurowania urządzenia sieciowego"
+msgstr "Błąd podczas konfigurowania sieci"
 
 #: ../iw/netconfig_dialog.py:237
 msgid "Dynamic IP"
-msgstr "Dynamiczny IP"
+msgstr "Dynamiczny adres IP"
 
 #: ../iw/netconfig_dialog.py:238
 #, python-format
 msgid "Sending request for IP information for %s..."
-msgstr "Wysyłanie żądania informacji IP do %s..."
+msgstr "Wysyłanie żądania informacji o IP do %s..."
 
 #: ../iw/netconfig_dialog.py:253 ../iw/netconfig_dialog.py:256
 #: ../textw/netconfig_text.py:214 ../textw/netconfig_text.py:217
@@ -3092,9 +3094,9 @@ msgid "Add Partition"
 msgstr "Dodaj partycję"
 
 #: ../iw/partition_dialog_gui.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: %s"
-msgstr "Edytuj partycję: /dev/%s"
+msgstr "Edytuj partycję: %s"
 
 #: ../iw/partition_dialog_gui.py:315
 msgid "File System _Type:"
@@ -3225,22 +3227,22 @@ msgstr "Ostrzeżenie: %s."
 
 #: ../iw/partition_gui.py:1062 ../iw/partition_gui.py:1069
 msgid "Unable To Edit"
-msgstr "Nie można modyfikować"
+msgstr "Nie można zmodyfikować"
 
 #: ../iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
-msgstr "Musisz wybrać partycję do modyfikacji"
+msgstr "Musisz wybrać urządzenie do modyfikacji"
 
 #: ../iw/partition_gui.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
 "%s"
 msgstr ""
-"Nie można modyfikować tej partycji:\n"
+"Nie można zmodyfikować tego urządzenia:\n"
 "\n"
+"%s"
 
 #: ../iw/partition_gui.py:1177 ../iw/partition_gui.py:1189
 msgid "Not supported"
@@ -3396,9 +3398,9 @@ msgid "Make RAID Device"
 msgstr "Utwórz urządzenie RAID"
 
 #: ../iw/raid_dialog_gui.py:329
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "Edytuj urządzenie RAID"
+msgstr "Edytuj urządzenie RAID: %s"
 
 #: ../iw/raid_dialog_gui.py:331
 msgid "Edit RAID Device"
@@ -3450,7 +3452,7 @@ msgstr ""
 "Musisz usunąć te partycje przed klonowaniem dysku. "
 
 #: ../iw/raid_dialog_gui.py:588
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive %s.\n"
@@ -3458,8 +3460,8 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"Wybrany dysk źródłowy zawiera partycje, które nie są ograniczone do napędu /"
-"dev/%s.\n"
+"Wybrany dysk źródłowy zawiera partycje, które nie są ograniczone do dysku "
+"%s.\n"
 "\n"
 "Musisz usunąć te partycje lub ograniczyć je do tego dysku przed klonowaniem "
 "dysku. "
@@ -3486,12 +3488,12 @@ msgid "Please select the target drives for the clone operation."
 msgstr "Wybierz dyski docelowe dla operacji klonowania."
 
 #: ../iw/raid_dialog_gui.py:622
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "Dysk źródłowy /dev/%s nie może być jednocześnie dyskiem docelowym."
+msgstr "Dysk źródłowy %s nie może być jednocześnie dyskiem docelowym."
 
 #: ../iw/raid_dialog_gui.py:638
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3500,24 +3502,24 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"Dysk docelowy /dev/%s zawiera partycję, której nie można usunąć z "
-"następującego powodu:\n"
+"Dysk docelowy %s zawiera partycję, której nie można usunąć z następującego "
+"powodu:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Musisz usunąć tę partycję przed wykorzystaniem tego dysku jako docelowego."
+"Musisz usunąć tę partycję przed użyciem tego dysku jako docelowego."
 
 #: ../iw/raid_dialog_gui.py:701
 msgid "Please select a source drive."
 msgstr "Wybierz dysk źródłowy."
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Dysk /dev/%s zostanie sklonowany na następujące dyski:\n"
+"Dysk %s zostanie sklonowany na następujące dyski:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:726
@@ -3766,9 +3768,9 @@ msgid ""
 msgstr ""
 "Współczesne jądra (2.4 lub nowsze) wymagają znacznie większej przestrzeni "
 "wymiany niż wcześniejsze wersje, do dwóch razy więcej przestrzeni wymiany "
-"niż pamięci operacyjnej systemu. Obecnie jest skonfigurowane %dMB "
-"przestrzeni wymiany, ale można teraz utworzyć dodatkowy obszar wymiany na "
-"jednym z systemów plików."
+"niż pamięci RAM systemu. Obecnie jest skonfigurowane %dMB przestrzeni "
+"wymiany, ale można teraz utworzyć dodatkowy obszar wymiany na jednym z "
+"systemów plików."
 
 #: ../iw/upgrade_swap_gui.py:101
 #, python-format
@@ -3779,7 +3781,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Instalator wykrył %s MB RAM-u.\n"
+"Instalator wykrył %s MB pamięci RAM.\n"
 
 #: ../iw/upgrade_swap_gui.py:113
 msgid "I _want to create a swap file"
@@ -3834,7 +3836,7 @@ msgstr ""
 
 #: ../iw/welcome_gui.py:56 ../textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "Wymagana jest instalacja sieciowa"
 
 #: ../iw/welcome_gui.py:57 ../textw/welcome_text.py:37
 msgid ""
@@ -3843,11 +3845,14 @@ msgid ""
 "full DVD, full CD set, or do not pass a repo= parameter that specifies a "
 "network source."
 msgstr ""
+"Źródło instalacji jest ustawione na położenie sieciowe, ale nie znaleziono "
+"urządzeń sieciowych w systemie. Aby uniknąć instalacji sieciowej, uruchom za "
+"pomocą pełnej płyty DVD, pełnego zestawu płyt CD lub przekaż parametr repo=, "
+"który podaje źródło sieciowe."
 
 #: ../iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "Zakończ instalator"
+msgstr "Za_kończ instalator"
 
 #: ../iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -3929,7 +3934,7 @@ msgstr "Jaki jest model klawiatury podłączonej do komputera?"
 #: ../textw/netconfig_text.py:41
 #, python-format
 msgid "A value is required for the field %s"
-msgstr "W polu %s wymagana jest wartość."
+msgstr "W polu %s wymagana jest wartość"
 
 #: ../textw/netconfig_text.py:86 tmp/netconfig.glade.h:9
 msgid "Enable network interface"
@@ -3988,25 +3993,24 @@ msgid "Error configuring network device"
 msgstr "Błąd podczas konfigurowania urządzenia sieciowego"
 
 #: ../textw/netconfig_text.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "Błąd podczas konfigurowania urządzenia sieciowego"
+msgstr "Błąd podczas konfigurowania urządzenia sieciowego %s"
 
 #: ../textw/partition_text.py:58
 msgid "Partitioning Type"
 msgstr "Typ partycjonowania"
 
 #: ../textw/partition_text.py:60 tmp/autopart.glade.h:2
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
 "use as the install target. You can also choose to create your own custom "
 "layout."
 msgstr ""
-"Instalacja wymaga partycjonowania dysku twardego. Domyślny układ "
-"partycjonowania jest odpowiedni dla większości użytkowników. Możesz go "
-"wybrać lub utworzyć swój."
+"Instalacja wymaga partycjonowania dysku twardego. Domyślny układ jest "
+"odpowiedni dla większości użytkowników. Wybierz, które miejsce i dysk chcesz "
+"użyć jako cel instalacji. Można także wybrać utworzenie własnego układu."
 
 #: ../textw/partition_text.py:76
 msgid "Which drive(s) do you want to use for this installation?"
@@ -4122,7 +4126,7 @@ msgstr "Wolna przestrzeń"
 
 #: ../textw/upgrade_text.py:137
 msgid "RAM detected (MB):"
-msgstr "Wykryty RAM (MB):"
+msgstr "Wykryta pamięć RAM (MB):"
 
 #: ../textw/upgrade_text.py:140
 msgid "Suggested size (MB):"
@@ -4170,7 +4174,7 @@ msgid ""
 "not make a typing mistake. "
 msgstr ""
 "Wybierz hasło roota. Musisz podać je dwa razy, aby upewnić się, że nie "
-"popełniono błędu podczas pisania."
+"popełniono błędu podczas pisania. "
 
 #: ../textw/userauth_text.py:67
 msgid "The root password must be at least 6 characters long."
@@ -4317,14 +4321,14 @@ msgid "Installation cannot continue."
 msgstr "Instalacja nie może być kontynuowana."
 
 #: ../storage/__init__.py:96
-#, fuzzy
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"Wybrane opcje partycjonowania zostały uaktywnione. Nie można już wrócić do "
-"ekranu modyfikowania dysku. Czy chcesz kontynuować instalację?"
+"Wybrana konfiguracja pamięci masowej została już aktywowana. Nie można już "
+"wrócić do ekranu modyfikowania dysku. Czy chcesz kontynuować proces "
+"instalacji?"
 
 #: ../storage/__init__.py:127
 msgid "Encrypt device?"
@@ -4341,9 +4345,8 @@ msgstr ""
 "szyfrowanie urządzenia blokowego zostanie wyłączone."
 
 #: ../storage/__init__.py:146
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "Zapisywanie partycjonowania na dysku"
+msgstr "Zapisywanie konfiguracji pamięci podręcznej na dysku"
 
 #: ../storage/__init__.py:147
 msgid ""
@@ -4362,17 +4365,16 @@ msgid "_Write changes to disk"
 msgstr "_Zapisz zmiany na dysk"
 
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "Brakujące urządzenie"
+msgstr "Wyszukiwanie urządzeń"
 
 #: ../storage/__init__.py:253
 msgid "Finding storage devices..."
-msgstr ""
+msgstr "Wyszukiwanie urządzeń pamięci masowej..."
 
 #: ../storage/__init__.py:269
 msgid "Filesystem error detected, cannot continue."
-msgstr ""
+msgstr "Wykryto błąd systemu plików, nie można kontynuować."
 
 #: ../storage/__init__.py:480
 msgid "This partition is holding the data for the hard drive install."
@@ -4385,24 +4387,22 @@ msgstr ""
 "metodą LDL."
 
 #: ../storage/__init__.py:491
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "Ta partycja jest częścią urządzenia RAID /dev/md%s."
+msgstr "Te urządzenie jest częścią urządzenia RAID %s."
 
 #: ../storage/__init__.py:494
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "Ta partycja jest częścią urządzenia RAID."
+msgstr "Te urządzenie jest częścią urządzenia RAID."
 
 #: ../storage/__init__.py:499
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "Ta partycja jest częścią grupy woluminów LVM \"%s\"."
+msgstr "Te urządzenie jest częścią grupy woluminów LVM \"%s\"."
 
 #: ../storage/__init__.py:502
-#, fuzzy
 msgid "This device is part of a LVM volume group."
-msgstr "Ta partycja jest częścią grupy woluminów LVM."
+msgstr "Te urządzenie jest częścią grupy woluminów LVM."
 
 #: ../storage/__init__.py:511
 msgid ""
@@ -4410,6 +4410,9 @@ msgid ""
 "cannot be deleted:\n"
 "\n"
 msgstr ""
+"Te urządzenie jest rozszerzoną partycją, zawierającą partycji logiczne, "
+"których nie można usunąć:\n"
+"\n"
 
 #: ../storage/__init__.py:751
 #, python-format
@@ -4430,13 +4433,13 @@ msgstr ""
 "zainstalować system %s."
 
 #: ../storage/__init__.py:762
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"Partycja %s ma mniej niż %s megabajtów, czyli mniej niż jest zalecane do "
-"zwykłej instalacji systemu %s."
+"Partycja / ma mniej niż %s megabajtów, czyli mniej niż jest zalecane do "
+"normalnej instalacji systemu %s."
 
 #: ../storage/__init__.py:770
 #, python-format
@@ -4463,9 +4466,8 @@ msgstr ""
 "działający system."
 
 #: ../storage/__init__.py:804
-#, fuzzy
 msgid "You have not created a boot partition."
-msgstr "Musisz utworzyć partycję startową PPC PReP."
+msgstr "Nie utworzono partycji startowej."
 
 #: ../storage/__init__.py:808
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -4526,7 +4528,7 @@ msgstr ""
 "%s"
 
 #: ../storage/__init__.py:1406
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4538,14 +4540,14 @@ msgid ""
 msgstr ""
 "Urządzenie wymiany:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"w pliku /etc/fstab jest aktualnie użyty jako partycja wstrzymania "
-"systemowego, co oznacza, że system jest w stanie hibernacji. Aby "
-"przeprowadzić aktualizację, wyłącz system zamiast hibernować go."
+"w pliku /etc/fstab jest aktualnie użyty jako urządzenie programowego "
+"wstrzymania, co oznacza że system jest w stanie hibernacji. Aby wykonać "
+"aktualizację, wyłącz system zamiast hibernować go."
 
 #: ../storage/__init__.py:1414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4557,15 +4559,15 @@ msgid ""
 msgstr ""
 "Urządzenie wymiany:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"w pliku /etc/fstab jest aktualnie użyte jako partycja wstrzymania systemu, "
-"co oznacza, że system jest w stanie hibernacji. Aby przeprowadzić nową "
-"instalację, upewnij się, że instalator jest ustawiony tak, aby sformatować "
-"wszystkie partycje wymiany."
+"w pliku /etc/fstab jest aktualnie użyte jako urządzenie programowego "
+"wstrzymania, co oznacza że system jest w stanie hibernacji. Aby wykonać nową "
+"instalację, upewnij się że instalator jest ustawiony tak, aby sformatować "
+"wszystkie urządzenia wymiany."
 
 #: ../storage/__init__.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4576,13 +4578,13 @@ msgid ""
 msgstr ""
 "Błąd podczas włączania urządzenia wymiany %s: %s\n"
 "\n"
-"Plik /etc/fstab na aktualizowanej partycji nie wskazuje na prawidłową "
-"partycję wymiany.\n"
+"Plik /etc/fstab na aktualizowanej partycji nie wskazuje na prawidłowe "
+"urządzenie wymiany.\n"
 "\n"
-"Naciśnij OK, aby zakończyć instalator."
+"Naciśnij OK, aby zakończyć instalator"
 
 #: ../storage/__init__.py:1434
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4592,7 +4594,8 @@ msgid ""
 msgstr ""
 "Błąd podczas włączania urządzenia wymiany %s: %s\n"
 "\n"
-"Prawdopodobnie ta partycja wymiany nie została zainicjowana.\n"
+"Najprawdopodobniej oznacza to, że urządzenie wymiany nie zostało "
+"zainicjowane.\n"
 "\n"
 "Naciśnij OK, aby zakończyć instalator."
 
@@ -4640,24 +4643,21 @@ msgstr ""
 "instalację, ale mogą wystąpić problemy."
 
 #: ../storage/__init__.py:1521
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Podczas próby utworzenia %s wystąpił błąd: %s. Jest to błąd krytyczny i "
-"instalacja nie może być kontynuowana.\n"
+"Podczas montowania urządzenia %s jako %s wystąpił błąd: %s. Jest to błąd "
+"krytyczny i instalacja nie może być kontynuowana.\n"
 "\n"
 "Naciśnij <Enter>, aby zakończyć instalator."
 
 #: ../storage/devices.py:1059
-#, fuzzy
 msgid "boot flag not available for this partition"
-msgstr ""
-"Nie można usunąć tej partycji:\n"
-"\n"
+msgstr "flaga uruchamiania nie jest dostępna dla tej partycji"
 
 #: ../storage/devicetree.py:87
 msgid "Confirm"
@@ -4682,6 +4682,9 @@ msgid ""
 "Error processing drive %s.\n"
 "Maybe it needs to be reinitialized.YOU WILL LOSE ALL DATA ON THIS DRIVE!"
 msgstr ""
+"Błąd podczas przetwarzania dysku %s.\n"
+"Być może musi zostać ponownie zainicjowany. WSZYSTKIE DANE NA TYM DYSKU "
+"ZOSTANĄ UTRACONE!"
 
 #: ../storage/devicetree.py:151
 #, python-format
@@ -4691,21 +4694,22 @@ msgid ""
 "reinitialize all related PVs, which will erase all LVM metadata. Or ignore, "
 "which will preserve contents."
 msgstr ""
+"Błąd podczas przetwarzania LVM.\n"
+"Wydaje się, że istnieją niespójne dane LVM. (%s) tworzy %s. Można ponownie "
+"zainicjować wszystkie związane woluminy fizyczne, co usunie wszystkie "
+"metadane LVM. Można także zignorować, co zachowa zawartość."
 
 #: ../storage/devicetree.py:159
-#, fuzzy
 msgid "_Ignore drive(s)"
-msgstr "Z_ignoruj dysk"
+msgstr "Z_ignoruj dyski"
 
 #: ../storage/devicetree.py:160
-#, fuzzy
 msgid "_Re-initialize drive(s)"
-msgstr "_Ponownie zainicjuj dysk"
+msgstr "_Ponownie zainicjuj dyski"
 
 #: ../storage/iscsi.py:98 ../storage/iscsi.py:99
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "Wczytywanie sterownika SCSI"
+msgstr "Skanowanie węzłów iSCSI"
 
 #: ../storage/iscsi.py:172 ../storage/iscsi.py:173
 msgid "Initializing iSCSI initiator"
@@ -4713,34 +4717,35 @@ msgstr "Inicjowanie inicjatora iSCSI"
 
 #: ../storage/iscsi.py:208
 msgid "iSCSI not available"
-msgstr ""
+msgstr "iSCSI nie jest dostępne"
 
 #: ../storage/iscsi.py:210
-#, fuzzy
 msgid "No initiator name set"
-msgstr "Nazwa inicjatora iSCSI"
+msgstr "Nie ustawiono nazwy inicjatora"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "Nie wykryto węzłów iSCSI"
 
 #: ../storage/iscsi.py:227 ../storage/iscsi.py:228
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "Logowanie do węzłów iSCSI"
 
 #: ../storage/iscsi.py:250
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "Nie wykryto nowych węzłów iSCSI"
 
 #: ../storage/iscsi.py:253
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "Nie można zalogować się do żadnego wykrytego węzła"
 
 #: ../storage/partitioning.py:175
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
+"Nie można znaleźć wystarczającej ilości wolnego miejsca na automatyczne "
+"partycjonowanie, użyj innej metody partycjonowania."
 
 #: ../storage/partitioning.py:192
 msgid "Warnings During Automatic Partitioning"
@@ -4777,7 +4782,7 @@ msgid ""
 msgstr ""
 "Nie można przydzielić wybranych partycji: \n"
 "\n"
-"%s.%s "
+"%s.%s"
 
 #: ../storage/partitioning.py:232
 msgid ""
@@ -4833,29 +4838,29 @@ msgstr "Nie podano FCP LUN lub podany numer jest nieprawidłowy."
 #: ../storage/devicelibs/lvm.py:326
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "wykonanie vginfo dla %s nie powiodło się"
 
 #: ../storage/devicelibs/lvm.py:354
 #, python-format
 msgid "lvs failed for %s"
-msgstr ""
+msgstr "wykonanie lvs dla %s nie powiodło się"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "słownik atrybutów musi zawierać typ"
 
 #: ../storage/formats/fs.py:111
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "brak typu w konfiguracji systemu plików"
 
 #: ../storage/formats/fs.py:270
 msgid "Formatting"
 msgstr "Formatowanie"
 
 #: ../storage/formats/fs.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s..."
-msgstr "Sprawdzanie systemów plików na %s..."
+msgstr "Tworzenie systemu plików na %s..."
 
 #: ../storage/formats/fs.py:367
 msgid "Resizing"
@@ -5317,7 +5322,7 @@ msgstr "Błąd podczas pobierania obrazu aktualizacyjnego"
 #: ../loader/loader.c:1196
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr "Masz za mało RAM-u, aby zainstalować system %s na tym komputerze."
+msgstr "Masz za mało pamięci RAM, aby zainstalować system %s na tym komputerze."
 
 #: ../loader/loader.c:1253
 msgid "Media Detected"
@@ -5390,7 +5395,7 @@ msgstr "Dodaj urządzenie"
 #: ../loader/loader.c:1850
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "loader został już uruchomiony. Uruchamianie powłoki.\n"
+msgstr "program wczytujący został już uruchomiony. Uruchamianie powłoki.\n"
 
 #: ../loader/loader.c:2224
 #, c-format
@@ -5486,7 +5491,7 @@ msgid ""
 "IPv6 networks"
 msgstr ""
 "Przedrostek musi być między 1 a 32 dla sieci IPv4 lub między 1 a 128 dla "
-"sieci IPv6."
+"sieci IPv6"
 
 #: ../loader/net.c:454 ../loader/net.c:510
 msgid "Network Error"
@@ -5832,9 +5837,8 @@ msgid ""
 msgstr "Podaj informacje o konfiguracji dla tego repozytorium oprogramowania."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Komputer (komputer:port)"
+msgstr "Adres U_RL pośrednika (komputer:port)"
 
 #: tmp/addrepo.glade.h:11
 msgid "Proxy pass_word"
@@ -5885,9 +5889,8 @@ msgid "_Next"
 msgstr "_Dalej"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "<b>Zmień rozmiar _celu:</b>"
+msgstr "<b>Zmień rozmiar _celu (w MB):</b>"
 
 #: tmp/autopart.glade.h:3
 msgid "Re_view and modify partitioning layout"
@@ -5895,7 +5898,7 @@ msgstr "_Przejrzyj i zmodyfikuj układ partycjonowania"
 
 #: tmp/autopart.glade.h:4
 msgid "Volume to Resize"
-msgstr ""
+msgstr "Wolumin do zmienienia rozmiaru"
 
 #: tmp/autopart.glade.h:5
 msgid "What drive would you like to _boot this installation from?"
@@ -6209,11 +6212,11 @@ msgstr "kataloński"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "chiński uproszczony"
+msgstr "chiński (uproszczony)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "chiński tradycyjny"
+msgstr "chiński (tradycyjny)"
 
 #. generated from lang-table
 msgid "Croatian"
@@ -6304,9 +6307,8 @@ msgid "Macedonian"
 msgstr "macedoński"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
-msgstr "marathi"
+msgstr "maithili"
 
 #. generated from lang-table
 msgid "Malay"
@@ -6321,9 +6323,8 @@ msgid "Marathi"
 msgstr "marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
-msgstr "bengalski"
+msgstr "nepalski"
 
 #. generated from lang-table
 msgid "Norwegian(Bokmål)"
@@ -6331,11 +6332,11 @@ msgstr "norweski (bokmål)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
-msgstr "północny sotho"
+msgstr "północne sotho"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr "oriya"
+msgstr "orija"
 
 #. generated from lang-table
 msgid "Persian"
@@ -6371,7 +6372,7 @@ msgstr "serbski"
 
 #. generated from lang-table
 msgid "Serbian(Latin)"
-msgstr "serbski (latin)"
+msgstr "serbski (alfabet łaciński)"
 
 #. generated from lang-table
 msgid "Sinhala"
@@ -6394,9 +6395,8 @@ msgid "Swedish"
 msgstr "szwedzki"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
-msgstr "tamilski"
+msgstr "tadżycki"
 
 #. generated from lang-table
 msgid "Tamil"
