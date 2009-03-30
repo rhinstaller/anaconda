@@ -129,13 +129,6 @@ class DiskStripeSlice:
             return "cornsilk2"
         return "cornsilk1"
 
-    def hideOrShowText(self):
-        return
-        if self.box.get_bounds()[2] < self.text.get_bounds()[2]:
-            self.text.hide()
-        else:
-            self.text.show()
-
     def sliceText(self):
         if self.partition.type & parted.PARTITION_EXTENDED:
             return ""
@@ -178,7 +171,6 @@ class DiskStripeSlice:
                       fill_color='black',
                       anchor=gtk.ANCHOR_NW, clip=True,
                       clip_width=xlength-1, clip_height=yheight-1)
-        self.hideOrShowText()
        
     def __init__(self, parent, partition, treeView, editCB):
         self.text = None
@@ -483,8 +475,8 @@ class DiskTreeModel(gtk.TreeStore):
                     # not found the partition
                     raise RuntimeError, "could not find partition"
 
-    """ Return the device representing the current selection """
     def getCurrentDevice(self):
+        """ Return the device representing the current selection """
         selection = self.view.get_selection()
         model, iter = selection.get_selected()
         if not iter:

@@ -280,22 +280,22 @@ def formatMigrateOptionCB(widget, data):
         setMntPtComboStateFromType(ofstype, mntptcombo)
 
 
-""" createPreExistFSOptionSection: given inputs for a preexisting partition,
-    create a section that will provide format and migrate options
-
-    Returns the value of row after packing into the maintable,
-    and a dictionary consistenting of:
-       formatcb      - checkbutton for 'format as new fs'
-       fstype        - part of format fstype menu
-       fstypeMenu    - part of format fstype menu
-       migratecb     - checkbutton for migrate fs
-       migfstypeMenu - menu for migrate fs types
-       lukscb        - checkbutton for 'encrypt using LUKS/dm-crypt'
-       resizecb      - checkbutton for 'resize fs'
-       resizesb      - spinbutton with resize target
-"""
 def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
                                   partitions, ignorefs=[], luksdev=None):
+    """ createPreExistFSOptionSection: given inputs for a preexisting partition,
+        create a section that will provide format and migrate options
+
+        Returns the value of row after packing into the maintable,
+        and a dictionary consistenting of:
+           formatcb      - checkbutton for 'format as new fs'
+           fstype        - part of format fstype menu
+           fstypeMenu    - part of format fstype menu
+           migratecb     - checkbutton for migrate fs
+           migfstypeMenu - menu for migrate fs types
+           lukscb        - checkbutton for 'encrypt using LUKS/dm-crypt'
+           resizecb      - checkbutton for 'resize fs'
+           resizesb      - spinbutton with resize target
+    """
     rc = {}
 
     if luksdev:

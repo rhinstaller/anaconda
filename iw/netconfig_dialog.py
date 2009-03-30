@@ -27,7 +27,6 @@ from constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-import gui
 import network
 import isys
 
