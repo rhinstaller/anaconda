@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-30 23:02+0300\n"
+"PO-Revision-Date: 2009-03-30 23:12+0300\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
@@ -1125,13 +1125,13 @@ msgstr ""
 #: ../network.py:185
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "”%s” ei ole kelvollinen IPv6-osoite."
+msgstr "\"%s\" ei ole kelvollinen IPv6-osoite."
 
 # ../loader/urls.c:248
 #: ../network.py:187
 #, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "”%s” on epäkelpo IP-osoite."
+msgstr "\"%s\" on epäkelpo IP-osoite."
 
 # ../loader/urls.c:103
 #: ../packages.py:122
@@ -1737,10 +1737,10 @@ msgid ""
 msgstr ""
 "Pelastusympäristö yrittää nyt löytää Linux-asennuksen ja liittää sen "
 "hakemistoon %s. Sen jälkeen voit tehdä järjestelmään tarvittavat muutokset. "
-"Jos haluat käynnistää tämän vaiheen, valitse ”Jatka”. Voit valita osioidesi "
-"liittämisen kirjoitussuojattuna valitsemalla ”Vain luku”\n"
+"Jos haluat käynnistää tämän vaiheen, valitse \"Jatka\". Voit valita osioidesi "
+"liittämisen kirjoitussuojattuna valitsemalla \"Vain luku\"\n"
 "\n"
-"Jos tämä prosessi jostain syystä epäonnistuu, voit valita ”Ohita”, jolloin "
+"Jos tämä prosessi jostain syystä epäonnistuu, voit valita \"Ohita\", jolloin "
 "tämä vaihe ohitetaan ja pääset suoraan komentoriville.\n"
 "\n"
 
@@ -3292,7 +3292,7 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
-"Kentän ”%s” arvoa muunnettaessa tapahtui virhe:\n"
+"Kentän \"%s\" arvoa muunnettaessa tapahtui virhe:\n"
 "%s"
 
 # ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
