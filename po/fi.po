@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-27 16:50+0200\n"
+"PO-Revision-Date: 2009-03-30 23:02+0300\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
-"Language-Team: Finnish <laatu@lokalisointi.org>\n"
+"Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -61,19 +61,20 @@ msgstr "Paina <enter> päästäksesi komentoriville"
 # ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:292
 # ../upgrade.py:304
 #: ../anaconda:458
-#, fuzzy
 msgid "Fatal Error"
-msgstr "Virhe"
+msgstr "Vakava virhe"
 
 # ../loader/loader.c:2524
 #: ../anaconda:459
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You do not have enough RAM to install %s on this machine.\n"
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
-"Tässä koneessa ei ole tarpeeksi keskusmuistia, jotta %s voitaisiin asentaa."
+"Tässä koneessa ei ole tarpeeksi keskusmuistia, jotta %s voitaisiin asentaa.\n"
+"\n"
+"Paina Enter järjestelmän käynnistämiseksi uudelleen.\n"
 
 # ../anaconda:332 ../gui.py:111 ../iw/account_gui.py:150
 # ../iw/account_gui.py:161 ../iw/partition_gui.py:496
@@ -165,6 +166,9 @@ msgid ""
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
+"Tekstitilassa vain osa asennusvalinnoista on käytettävissä. Siinä ei voi "
+"määrittää osiointijärjestelyä tai pakettivalintoja. Käytetäänkö tekstitilan "
+"sijasta VNC-tilaa?"
 
 #: ../anaconda:852
 msgid "Install class forcing text mode installation"
@@ -181,11 +185,11 @@ msgstr "DISPLAY-muuttujaa ei ole asetettu. Käynnistetään tekstitila!"
 
 #: ../anaconda:1047
 msgid "reipl configuration successful => reboot"
-msgstr ""
+msgstr "reipl-asetusten teko onnistui => käynnistetään uudelleen"
 
 #: ../anaconda:1050
 msgid "reipl configuration failed => halt"
-msgstr ""
+msgstr "reipl-asetusten teko epäonnistui => sammutetaan"
 
 # ../packages.py:522
 #: ../backend.py:144
@@ -364,7 +368,6 @@ msgstr "Edistyminen...   "
 
 # Broken msgid!
 #: ../cmdline.py:98
-#, fuzzy
 msgid "Can't have a question in command line mode!"
 msgstr "Ei kysymyksiä komentorivitilassa!"
 
@@ -827,7 +830,7 @@ msgid "Required Install Media"
 msgstr "Tarvittava asennusmedia"
 
 #: ../image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %s %s "
 "discs:\n"
@@ -836,7 +839,7 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Asennettavaksi merkityt ohjelmat tarvitsevat seuraavat levyt.\n"
+"Asennettavaksi merkityt ohjelmat tarvitsevat seuraavat %s %s -levyt:\n"
 "\n"
 "%s\n"
 "Jatka asennusta vasta kun nämä levyt ovat saatavilla. Jos haluat keskeyttää "
@@ -874,36 +877,39 @@ msgstr "Asenna järjestelmä"
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
 msgstr ""
+"Virhe: Avauksen yhteydessä ei voida asettaa reIPL-menetelmää %s (%s: %s)"
 
 #: ../iutil.py:748
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
 msgstr ""
+"Virhe: Kirjoituksen yhteydessä ei voida asettaa reIPL-menetelmää %s (%s: %s)"
 
 #: ../iutil.py:755
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
 msgstr ""
+"Virhe: Sulkemisen yhteydessä ei voida asettaa reIPL-menetelmää %s (%s: %s)"
 
 #: ../iutil.py:765 ../iutil.py:817
 #, python-format
 msgid "Error: %s splits into %s but not like we expect"
-msgstr ""
+msgstr "Virhe: %s jakautuu %s, mutta ei siten kuten odotetaan"
 
 #: ../iutil.py:778
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr ""
+msgstr "Virhe: Laitetta %s ei voida asettaa reIPL-laitteeksi (%s)"
 
 #: ../iutil.py:787
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
+msgstr "Virhe: Loadparmia ei voitu palauttaa alkutilaan (%s)"
 
 #: ../iutil.py:796
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr ""
+msgstr "Varoitus: Parmia ei voitu palauttaa alkutilaan (%s)"
 
 #: ../iutil.py:806
 #, python-format
@@ -911,21 +917,23 @@ msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
+"Tee sammutuksen jälkeen manuaalinen IPL DASD-laitteelta %s asennuksen "
+"jatkamiseksi"
 
 #: ../iutil.py:834
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Virhe luettaessa FCP-ominaisuutta %s reIPL:lle (%s)"
 
 #: ../iutil.py:847
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Virhe kirjoitettaessa FCP-ominaisuutta %s reIPL:lle (%s)"
 
 #: ../iutil.py:860
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Virhe kirjoitettaessa FCP-oletusominaisuutta %s reIPL:lle (%s)"
 
 #: ../iutil.py:870
 #, python-format
@@ -933,24 +941,28 @@ msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
+"Tee sammutuksen jälkeen manuaalinen IPL FCP-laitteelta %(device)s WWPN:llä %"
+"(wwpn)s ja LUN:llä %(lun)s asennuksen jatkamiseksi"
 
 #: ../iutil.py:877
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
+"Tee sammutuksen jälkeen manuaalinen IPL laitteelta, joka nyt sisältää /boot-"
+"liitospisteen asennuksen jatkamiseksi"
 
 #: ../iutil.py:887
 msgid "Could not get information for mount point /boot or /"
-msgstr ""
+msgstr "Ei voitu saada tietoja liitospisteestä /boot tai /"
 
 #: ../iutil.py:897
 msgid "Error determining mount point type"
-msgstr ""
+msgstr "Virhe liitospistetyypin määrittämisessä"
 
 #: ../iutil.py:901
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
-msgstr ""
+msgstr "/boot- tai /-osion liitospiste on levyllä, jota ei tunneta"
 
 #: ../kickstart.py:96
 #, python-format
@@ -1000,9 +1012,8 @@ msgstr "_Keskeytä"
 
 # ../gui.py:113 ../text.py:285
 #: ../kickstart.py:1213 ../kickstart.py:1252
-#, fuzzy
 msgid "_Ignore All"
-msgstr "Jätä huomiotta"
+msgstr "_Ohita kaikki"
 
 # ../loader/net.c:404
 #: ../kickstart.py:1243
@@ -1025,6 +1036,9 @@ msgid ""
 "prompt for.  Please add the following sections and try again:\n"
 "%s"
 msgstr ""
+"Kickstart-tiedostosta puuttuu pakollista tietoa, jota anaconda ei voi "
+"kysellä. Lisää seuraavat osiot ja yritä uudelleen:\n"
+"%s"
 
 #: ../livecd.py:108
 msgid "Unable to find image"
@@ -1121,43 +1135,41 @@ msgstr "”%s” on epäkelpo IP-osoite."
 
 # ../loader/urls.c:103
 #: ../packages.py:122
-#, fuzzy
 msgid "Device Resize Failed"
-msgstr "Koon muuttaminen epäonnistui"
+msgstr "Laitteen koon muuttaminen epäonnistui"
 
 #: ../packages.py:123
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while resizing device %s."
 msgstr "Laitteen %s koon muuttamisessa tapahtui virhe."
 
 # ../upgrade.py:213
 #: ../packages.py:130
-#, fuzzy
 msgid "Device Creation Failed"
-msgstr "Kohdetiedosto"
+msgstr "Laitteen luominen epäonnistui"
 
 #: ../packages.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while creating device %s."
-msgstr "Laitteen %s koon muuttamisessa tapahtui virhe."
+msgstr "Laitetta %s luotaessa tapahtui virhe."
 
 #: ../packages.py:138
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "Laitteen poistaminen epäonnistui"
 
 #: ../packages.py:139
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while removing device %s."
-msgstr "Laitteen %s koon muuttamisessa tapahtui virhe."
+msgstr "Laitteen %s poistamisessa tapahtui virhe."
 
 #: ../packages.py:146
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "Laitteen asettaminen epäonnistui"
 
 #: ../packages.py:147
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "Laitteen %s koon muuttamisessa tapahtui virhe."
+msgstr "Laitteen %s asettamisessa tapahtui virhe."
 
 # ../loader/urls.c:103
 #: ../packages.py:158
@@ -1165,43 +1177,37 @@ msgid "Resizing Failed"
 msgstr "Koon muuttaminen epäonnistui"
 
 #: ../packages.py:159
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr "Laitteen %s koon muuttamisessa tapahtui virhe."
 
 # ../upgrade.py:213
 #: ../packages.py:166
-#, fuzzy
 msgid "Migration Failed"
-msgstr "LVM-toiminto epäonnistui"
+msgstr "Siirto epäonnistui"
 
 #: ../packages.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "Laitteen %s koon muuttamisessa tapahtui virhe."
+msgstr "Laitteen %s tiedostojärjestelmän siirtämisessä tapahtui virhe."
 
 # ../fsset.py:1495
 #: ../packages.py:175
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "Alustetaan"
+msgstr "Alustus epäonnistui"
 
 #: ../packages.py:176
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "Laitteen %s koon muuttamisessa tapahtui virhe."
+msgstr "Laitetta %s alustettaessa tapahtui virhe."
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
-msgstr ""
+msgstr "Tallennustilan aktivointi epäonnistui"
 
 #: ../packages.py:185
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
-msgstr ""
-"Kickstart-asetuksia jäsennettäessä löytyi seuraava virhe:\n"
-"\n"
-"%s"
+msgstr "Tallennustila-kokoonpanoa aktivoitaessa tapahtui virhe."
 
 # ../loader/net.c:277
 #: ../packages.py:353
@@ -1344,9 +1350,9 @@ msgstr "Vahvista poisto"
 
 # ../partitioning.py:1584
 #: ../partIntfHelpers.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "Olet poistamassa kaikki osiot laitteelta /dev/%s."
+msgstr "Olet poistamassa kaikki osiot laitteelta ”%s”."
 
 # ../iw/partition_gui.py:1527
 #: ../partIntfHelpers.py:149 ../partIntfHelpers.py:304
@@ -1377,15 +1383,15 @@ msgstr "Alustetaanko sivutusosioksi?"
 
 # ../partitioning.py:1780
 #: ../partIntfHelpers.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"Osion /dev/%s tyyppi on 0x82 (Linux-sivutusosio), mutta näyttää siltä, ettei "
-"sitä ole alustettu Linux-sivutusosioksi.\n"
+"Osion %s tyyppi on 0x82 (Linux-sivutusosio), mutta näyttää siltä, ettei sitä "
+"ole alustettu Linux-sivutusosioksi.\n"
 "\n"
 "Haluatko alustaa tämän osion sivutusosioksi?"
 
@@ -1510,15 +1516,15 @@ msgstr "Olet poistamassa RAID-laitteen."
 
 # ../partitioning.py:1584
 #: ../partIntfHelpers.py:296
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "Olet poistamassa osion /dev/%s."
+msgstr "Olet poistamassa osion %s."
 
 # ../partitioning.py:1584
 #: ../partIntfHelpers.py:300
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "Olet poistamassa osion /dev/%s."
+msgstr "Olet poistamassa laitetta %s %s"
 
 # ../partitioning.py:1594
 #: ../partIntfHelpers.py:311
@@ -1757,9 +1763,8 @@ msgstr "Pelastettava järjestelmä"
 
 # ../rescue.py:128 ../textw/upgrade_text.py:209
 #: ../rescue.py:283
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "Mikä osio on järjestelmän juuriosio?"
+msgstr "Millä laitteella on asennuksen juuriosio?"
 
 # ../iw/congrats_gui.py:28 ../iw/congrats_gui.py:85 ../rescue.py:130
 # ../rescue.py:134
@@ -2002,26 +2007,28 @@ msgstr "Liittäminen epäonnistui"
 
 # ../upgrade.py:214
 #: ../upgrade.py:240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
 "fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
 msgstr ""
-"Yhtä tai useampaa /etc/fstab-tiedostossa lueteltua tiedostojärjestelmää ei "
-"voida liittää. Korjaa tämä ongelma ja yritä päivitystä uudelleen."
+"Seuraava virhe tapahtui liitettäessä /etc/fstab-tiedostossa lueteltuja "
+"tiedostojärjestelmiä. Korjaa tämä ongelma ja yritä päivitystä uudelleen.\n"
+"%s"
 
 # ../textw/confirm_text.py:32
 #: ../upgrade.py:247
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "Päivitys alkaa"
+msgstr "Päivityksen juuriosiota ei löytynyt"
 
 #: ../upgrade.py:248
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
 msgstr ""
+"Aiemmin asennetun järjestelmän juuriosiota ei löytynyt. Voit poistua "
+"asennusohjelmasta tai mennä alkuun ja valita asennuksen päivityksen sijasta."
 
 # ../upgrade.py:229
 #: ../upgrade.py:271
@@ -2461,6 +2468,8 @@ msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
+"Jotkut ohjelmistojen asennuslähteistä vaativat verkkoyhteyttä, mutta verkon "
+"käyttöönotossa oli ongelmia."
 
 #: ../yuminstall.py:1057
 msgid ""
@@ -2675,18 +2684,17 @@ msgstr ""
 
 # ../fsset.py:1496
 #: ../iw/autopart_type.py:124
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "Muutetaan osion %s tiedostojärjestelmän kokoa..."
+msgstr "Virhe tiedostojärjestelmän koon muuttamisessa"
 
 #: ../iw/autopart_type.py:125 ../iw/autopart_type.py:134
-#, fuzzy, python-format
+#, python-format
 msgid "%s: %s"
-msgstr "%s, %s"
+msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:133
 msgid "Resize Device Error"
-msgstr ""
+msgstr "Virhe laitteen koon muuttamisessa"
 
 #: ../iw/autopart_type.py:208
 msgid ""
@@ -2713,30 +2721,27 @@ msgstr "Virheellinen data"
 
 #: ../iw/autopart_type.py:398 ../iw/autopart_type.py:399
 msgid "Rescanning disks"
-msgstr ""
+msgstr "Etsitään levyt uudelleen"
 
 # ../gui.py:113 ../text.py:285
 #: ../iw/autopart_type.py:452 ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "_Jätä asema huomiotta"
+msgstr "Käytä koko levyä"
 
 #: ../iw/autopart_type.py:453 ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "Korvaa olemassa oleva Linux-järjestelmä"
 
 #: ../iw/autopart_type.py:454
-#, fuzzy
 msgid "Shrink current system"
-msgstr "_Salaa järjestelmä"
+msgstr "Pienennä nykyisen järjestelmän kokoa"
 
 #
 # ../iw/partition_gui.py:642 ../textw/partition_text.py:75
 # ../textw/partition_text.py:114
 #: ../iw/autopart_type.py:455 ../textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "Ei vapaata tilaa"
+msgstr "Käytä vapaata tilaa"
 
 #: ../iw/autopart_type.py:456
 msgid "Create custom layout"
@@ -2834,38 +2839,34 @@ msgid "Congratulations"
 msgstr "Onnittelut"
 
 #: ../iw/congrats_gui.py:74 ../textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "Onnittelut, %s -asennus on valmis.\n"
 "\n"
-"%s%s"
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "Sammuta"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr ""
-"Käynnistä järjestelmä uudelleen asennetun järjestelmän käyttämiseksi.\n"
-"\n"
+msgstr "Sammuta käyttääksesi asennettua järjestelmää.\n"
 
 #: ../iw/congrats_gui.py:81 ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr ""
-"Käynnistä järjestelmä uudelleen asennetun järjestelmän käyttämiseksi.\n"
-"\n"
+msgstr "Käynnistä uudelleen käyttääksesi asennettua järjestelmää.\n"
 
 #: ../iw/congrats_gui.py:86 ../textw/complete_text.py:51
 msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
 msgstr ""
+"Huomaa että järjestelmän toimintaa parantavia päivityksiä saattaa olla "
+"saatavilla ja niiden asentaminen uudelleenkäynnistyksen jälkeen on "
+"suositeltavaa."
 
 #: ../iw/congrats_gui.py:90 ../textw/complete_text.py:55
 #, python-format
@@ -2876,6 +2877,11 @@ msgid ""
 "available to ensure the proper functioning of your system and installation "
 "of these updates is recommended after the reboot."
 msgstr ""
+"Onnittelut, %s -asennus on valmis.\n"
+"\n"
+"Käynnistä uudelleen käyttääksesi asennettua järjestelmää. Huomaa että "
+"järjestelmän toimintaa parantavia päivityksiä saattaa olla saatavilla ja "
+"niiden asentaminen uudelleenkäynnistyksen jälkeen on suositeltavaa."
 
 # ../iw/examine_gui.py:23
 #: ../iw/examine_gui.py:37
@@ -3304,14 +3310,13 @@ msgid "A value is required for the field %s."
 msgstr "Kenttään %s pitää syöttää arvo."
 
 #: ../iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "Näyttökaappausta kopioitaessa tapahtui virhe."
+msgstr "Verkkoliitäntää %s käynnistettäessä tapahtui virhe."
 
 #: ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "Virhe verkkolaitteen asetuksia tehdessä"
+msgstr "Virhe verkkoasetuksia tehtäessä"
 
 # ../loader/net.c:413 ../loader/net.c:738
 #: ../iw/netconfig_dialog.py:237
@@ -3508,9 +3513,9 @@ msgstr "Lisää osio"
 
 #
 #: ../iw/partition_dialog_gui.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: %s"
-msgstr "Muokkaa osiota: /dev/%s"
+msgstr "Muokkaa osiota: %s"
 
 # ../iw/partition_gui.py:871 ../textw/partition_text.py:604
 #: ../iw/partition_dialog_gui.py:315
@@ -3669,19 +3674,19 @@ msgstr "Muokkaus ei onnistunut"
 
 # ../partitioning.py:1696
 #: ../iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
 msgstr "Valitse muokattava osio"
 
 #: ../iw/partition_gui.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
 "%s"
 msgstr ""
-"Osiota ei voi muokata:\n"
+"Tätä osiota ei voi muokata:\n"
 "\n"
+"%s"
 
 #: ../iw/partition_gui.py:1177 ../iw/partition_gui.py:1189
 msgid "Not supported"
@@ -3854,9 +3859,9 @@ msgstr "Luo RAID-laite"
 
 # ../iw/partition_gui.py:1323 ../textw/partition_text.py:806
 #: ../iw/raid_dialog_gui.py:329
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "Muokkaa RAID-laitetta"
+msgstr "Muokkaa RAID-laitetta: %s"
 
 # ../iw/partition_gui.py:1323 ../textw/partition_text.py:806
 #: ../iw/raid_dialog_gui.py:331
@@ -3913,7 +3918,7 @@ msgstr ""
 "Nämä osiot on poistettava, jotta määrittelyt voidaan kopioida."
 
 #: ../iw/raid_dialog_gui.py:588
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive %s.\n"
@@ -3921,10 +3926,10 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"Lähdelevyllä on osioita, jotka eivät rajoitu laitteelle /dev/%s.\n"
+"Valitulla lähdelevyllä on osioita, jotka eivät rajoitu laitteelle %s.\n"
 "\n"
 "Nämä osiot on joko poistettava tai rajoitettava tälle levylle ennen kuin "
-"levyn määrittelyt voidaan kopioida."
+"levy voidaan kopioida."
 
 #: ../iw/raid_dialog_gui.py:601
 msgid ""
@@ -3949,12 +3954,12 @@ msgid "Please select the target drives for the clone operation."
 msgstr "Valitse kopioinnin kohdelevyt."
 
 #: ../iw/raid_dialog_gui.py:622
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "Lähdelevyä /dev/%s ei voi valita myös kohteeksi."
+msgstr "Lähdelevyä %s ei voi valita myös kohteeksi."
 
 #: ../iw/raid_dialog_gui.py:638
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3963,7 +3968,7 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"Kohdelevyllä /dev/%s on osio, jota ei voida poistaa seuraavasta syystä:\n"
+"Kohdelevyllä %s on osio, jota ei voida poistaa seuraavasta syystä:\n"
 "\n"
 "”%s”\n"
 "\n"
@@ -3975,12 +3980,12 @@ msgid "Please select a source drive."
 msgstr "Valitse lähdelevy."
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Levyn /dev/%s määrittelyt kopioidaan seuraaville levyille:\n"
+"Levy %s kopioidaan seuraaville levyille:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:726
@@ -4334,7 +4339,7 @@ msgstr "Sivutusosioksi valitulla laitteella ei ole tarpeeksi tilaa."
 
 #: ../iw/welcome_gui.py:56 ../textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "Verkkoasennus on pakollinen"
 
 #: ../iw/welcome_gui.py:57 ../textw/welcome_text.py:37
 msgid ""
@@ -4343,12 +4348,15 @@ msgid ""
 "full DVD, full CD set, or do not pass a repo= parameter that specifies a "
 "network source."
 msgstr ""
+"Asennuslähde on asetettu verkkosijainniksi, mutta järjestelmästä ei löytynyt "
+"verkkolaitteita. Verkkoasennuksen välttämiseksi käynnistä täydeltä DVD:ltä, "
+"täydeltä CD-joukolta tai älä anna asennusohjelmalle repo=-parametria, joka "
+"määrittää verkkolähteen."
 
 # ../packages.py:653
 #: ../iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "Lopeta asennusohjelma"
+msgstr "_Lopeta asennusohjelma"
 
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
@@ -4516,9 +4524,9 @@ msgid "Error configuring network device"
 msgstr "Virhe verkkolaitteen asetuksia tehdessä"
 
 #: ../textw/netconfig_text.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "Virhe verkkolaitteen asetuksia tehdessä: "
+msgstr "Virhe verkkolaitteen %s asetuksia tehtäessä"
 
 # ../iw/bootloader_gui.py:354 ../iw/silo_gui.py:263
 # ../textw/bootloader_text.py:267 ../textw/silo_text.py:207
@@ -4527,15 +4535,15 @@ msgid "Partitioning Type"
 msgstr "Osioinnin tyyppi"
 
 #: ../textw/partition_text.py:60 tmp/autopart.glade.h:2
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
 "use as the install target. You can also choose to create your own custom "
 "layout."
 msgstr ""
-"Asennus vaatii kiintolevyn osioinnin.  Oletuksena valitaan osiointi joka on "
-"järkevä useimmille käyttäjille.  Voit käyttää sitä tai tehdä osioinnin itse."
+"Asennus vaatii kiintolevyn osioinnin. Oletuksena valitaan osiointi joka on "
+"järkevä useimmille käyttäjille. Valitse mitä tilaa ja asemia käytetään "
+"asennuksen kohteena. Voit myös tehdä osiointiasettelun itse."
 
 # ../iw/partition_gui.py:1679 ../textw/partition_text.py:1088
 #: ../textw/partition_text.py:76
@@ -4887,13 +4895,12 @@ msgstr "Asennusta ei voida jatkaa."
 
 # ../partitioning.py:1740
 #: ../storage/__init__.py:96
-#, fuzzy
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"Valitsemasi osiointimäärittelyt on jo toteutettu. Et voi enää palata "
+"Valitsemasi levytila-asetukset on jo toteutettu. Et voi enää palata "
 "levynmuokkausruutuun. Haluatko jatkaa asennusprosessia?"
 
 #: ../storage/__init__.py:127
@@ -4912,9 +4919,8 @@ msgstr ""
 
 # ../iw/partition_gui.py:1032
 #: ../storage/__init__.py:146
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "Kirjoitetaan osiointi levylle"
+msgstr "Kirjoitetaan levytila-asetukset levylle..."
 
 #: ../storage/__init__.py:147
 msgid ""
@@ -4943,17 +4949,16 @@ msgstr "_Kirjoita muutokset levylle"
 
 # ../iw/progress_gui.py:28
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "Puuttuva laite"
+msgstr "Etsitään laitteita"
 
 #: ../storage/__init__.py:253
 msgid "Finding storage devices..."
-msgstr ""
+msgstr "Etsitään tallennuslaitteita..."
 
 #: ../storage/__init__.py:269
 msgid "Filesystem error detected, cannot continue."
-msgstr ""
+msgstr "Tiedostojärjestelmävirhe, ei voida jatkaa."
 
 # ../partitioning.py:1657
 #: ../storage/__init__.py:480
@@ -4969,25 +4974,23 @@ msgstr "Et voi poistaa LDL-alustettua DASD-osiota."
 
 # ../partitioning.py:1727
 #: ../storage/__init__.py:491
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "Tämä osio on osa RAID-laitetta /dev/md%s."
+msgstr "Tämä laite on osa RAID-laitetta %s."
 
 # ../partitioning.py:1727
 #: ../storage/__init__.py:494
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "Tämä osio on osa RAID-laitetta."
+msgstr "Tämä laite on osa RAID-laitetta."
 
 #: ../storage/__init__.py:499
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "Tämä osio on osa taltioryhmää ”%s”."
+msgstr "Tämä laite on osa LVM-taltioryhmää ”%s”."
 
 #: ../storage/__init__.py:502
-#, fuzzy
 msgid "This device is part of a LVM volume group."
-msgstr "Tämä osio on osa taltioryhmää."
+msgstr "Tämä laite on osa LVM-taltioryhmää."
 
 #: ../storage/__init__.py:511
 msgid ""
@@ -4995,6 +4998,9 @@ msgid ""
 "cannot be deleted:\n"
 "\n"
 msgstr ""
+"Tämä laite on laajennettu osio, joka sisältää loogisia osioita, joita ei "
+"voida poistaa:\n"
+"\n"
 
 # ../partitioning.py:566
 #: ../storage/__init__.py:751
@@ -5018,12 +5024,12 @@ msgstr ""
 
 # ../partitioning.py:582
 #: ../storage/__init__.py:762
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"%s-osiosi koko on alle %s megatavua, joka on vähemmän kuin normaalille %s -"
+"/-osion koko on alle %s megatavua, joka on vähemmän kuin normaalille %s -"
 "asennukselle suositellaan."
 
 # ../partitioning.py:582
@@ -5049,9 +5055,8 @@ msgstr ""
 "FireWire-laitteelle·asennettu·järjestelmä·ei·välttämättä·tule·toimimaan."
 
 #: ../storage/__init__.py:804
-#, fuzzy
 msgid "You have not created a boot partition."
-msgstr "On luotava PPC PReP -käynnistysosio."
+msgstr "Käynnistysosiota ei ole luotu."
 
 # ../partitioning.py:524 ../partitioning.py:605
 #: ../storage/__init__.py:808
@@ -5121,7 +5126,7 @@ msgstr ""
 "%s"
 
 #: ../storage/__init__.py:1406
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -5133,14 +5138,14 @@ msgid ""
 msgstr ""
 "Sivutuslaite:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"/etc/fstab -tiedostossa on käytössä software suspend -osiona, eli "
+"/etc/fstab-tiedostossa on käytössä software suspend -laitteena, eli "
 "järjestelmä on lepotilassa. Tehdäksesi päivityksen, sammuta järjestelmä, älä "
 "jätä sitä lepotilaan."
 
 #: ../storage/__init__.py:1414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -5152,15 +5157,15 @@ msgid ""
 msgstr ""
 "Sivutuslaite:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"/etc/fstab -tiedostossa on käytössä software suspend -osiona, eli "
+"/etc/fstab-tiedostossa on käytössä software suspend -laitteena, eli "
 "järjestelmä on lepotilassa. Jos olet tekemässä uutta asennusta, varmista "
 "että asennusohjelma on asetettu alustamaan kaikki sivutusosiot."
 
 # ../fsset.py:810
 #: ../storage/__init__.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -5171,13 +5176,14 @@ msgid ""
 msgstr ""
 "Virhe otettaessa käyttöön sivutuslaitetta %s: %s\n"
 "\n"
-"Päivitysosion /etc/fstab-tiedosto ei viittaa kelvolliseen sivutusosioon.\n"
+"Päivitysosion /etc/fstab-tiedosto ei viittaa kelvolliseen "
+"sivutuslaitteeseen.\n"
 "\n"
 "Poistu asennusohjelmasta painamalla OK."
 
 # ../fsset.py:810
 #: ../storage/__init__.py:1434
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -5187,7 +5193,7 @@ msgid ""
 msgstr ""
 "Virhe otettaessa käyttöön sivutuslaitetta %s: %s\n"
 "\n"
-"Tämä johtuu luultavasti siitä, ettei sivutusosiota ole alustettu.\n"
+"Tämä johtuu luultavasti siitä, ettei sivutuslaitetta ole alustettu.\n"
 "\n"
 "Poistu asennusohjelmasta painamalla OK."
 
@@ -5235,30 +5241,27 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
-"Virhe liitettäessä laitetta %s kohtaan %s.  Voit jatkaa asennusta, mutta "
-"siinä voi olla ongelmia."
+"Virhe liitettäessä laitetta %s liitospisteeseen %s. Voit jatkaa asennusta, "
+"mutta siinä voi olla ongelmia."
 
 # ../fsset.py:939
 #: ../storage/__init__.py:1521
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Virhe tapahtui, kun yritettiin luoda %s: %s. Virhe on vakava, eikä asennusta "
-"voida jatkaa.\n"
+"Virhe liitettäessä laitetta %s liitospisteeseen %s: %s. Virhe on vakava, "
+"eikä asennusta voida jatkaa.\n"
 "\n"
 "Poistu asennusohjelmasta painamalla Enteriä."
 
 # ../partitioning.py:1588
 #: ../storage/devices.py:1059
-#, fuzzy
 msgid "boot flag not available for this partition"
-msgstr ""
-"Tätä osiota ei voida poistaa:\n"
-"\n"
+msgstr "Tätä osiota ei voida asettaa käynnistyväksi"
 
 # ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
 # ../textw/bootloader_text.py:395
@@ -5285,6 +5288,8 @@ msgid ""
 "Error processing drive %s.\n"
 "Maybe it needs to be reinitialized.YOU WILL LOSE ALL DATA ON THIS DRIVE!"
 msgstr ""
+"Virhe käsiteltäessä laitetta %s.\n"
+"Laite on ehkä alustettava uudelleen. KAIKKI LAITTEELLA OLEVA DATA MENETETÄÄN!"
 
 #: ../storage/devicetree.py:151
 #, python-format
@@ -5294,23 +5299,25 @@ msgid ""
 "reinitialize all related PVs, which will erase all LVM metadata. Or ignore, "
 "which will preserve contents."
 msgstr ""
+"Virhe käsiteltäessä LVM:ää.\n"
+"Näyttää siltä, että LVM-tiedot ovat epäyhtenäiset. (%s) muodostaa %s. Voit "
+"alustaa kaikki tähän liittyvät fyysiset taltiot uudelleen, jolloin "
+"poistetaan kaikki LVM-metadata, tai voit ohittaa tämän, jolloin LVM:n "
+"sisältö säilytetään."
 
 # ../gui.py:113 ../text.py:285
 #: ../storage/devicetree.py:159
-#, fuzzy
 msgid "_Ignore drive(s)"
-msgstr "_Jätä asema huomiotta"
+msgstr "_Ohita levy(t)"
 
 #: ../storage/devicetree.py:160
-#, fuzzy
 msgid "_Re-initialize drive(s)"
-msgstr "_Alusta levy"
+msgstr "_Alusta levy(t) uudelleen"
 
 # ../loader/windows.c:46
 #: ../storage/iscsi.py:98 ../storage/iscsi.py:99
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "Ladataan SCSI-ajuria"
+msgstr "Etsitään iSCSI-solmuja"
 
 #: ../storage/iscsi.py:172 ../storage/iscsi.py:173
 msgid "Initializing iSCSI initiator"
@@ -5318,36 +5325,36 @@ msgstr "Alustetaan iSCSI-asiakaslaite"
 
 # ../text.py:175
 #: ../storage/iscsi.py:208
-#, fuzzy
 msgid "iSCSI not available"
-msgstr "Ohjetta ei ole saatavilla"
+msgstr "iSCSI ei ole käytettävissä"
 
 #: ../storage/iscsi.py:210
-#, fuzzy
 msgid "No initiator name set"
-msgstr "iSCSI-asiakaslaitteen _nimi"
+msgstr "Asiakaslaitteen nimeä ei ole asetettu"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "Yhtään iSCSI-solmua ei löytynyt"
 
 #: ../storage/iscsi.py:227 ../storage/iscsi.py:228
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "Kirjaudutaan iSCSI-solmuihin"
 
 #: ../storage/iscsi.py:250
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "Uusi iSCSI-solmuja ei löytynyt"
 
 #: ../storage/iscsi.py:253
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "Mihinkään löydetyistä solmuista ei voitu kirjautua"
 
 #: ../storage/partitioning.py:175
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
+"Automaattista osiointia varten ei ole riittävästi vapaata tilaa. Käytä "
+"toista osiointimenetelmää."
 
 # ../autopart.py:900
 #: ../storage/partitioning.py:192
@@ -5444,20 +5451,20 @@ msgstr "Et ole määritellyt FCP LUN -arvoa, tai arvo on virheellinen."
 #: ../storage/devicelibs/lvm.py:326
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "vginfo-komento epäonnistui taltioryhmälle %s"
 
 #: ../storage/devicelibs/lvm.py:354
 #, python-format
 msgid "lvs failed for %s"
-msgstr ""
+msgstr "lvs-komento epäonnistui taltioryhmälle %s"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "attribuuttina saatavan python-dictin on sisällettävä tyyppi"
 
 #: ../storage/formats/fs.py:111
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "tiedostojärjestelmäasetuksista puuttuu tyyppi"
 
 # ../fsset.py:1495
 #: ../storage/formats/fs.py:270
@@ -5466,9 +5473,9 @@ msgstr "Alustetaan"
 
 # ../fsset.py:146
 #: ../storage/formats/fs.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s..."
-msgstr "Tarkistetaan tiedostojärjestelmää osiolla %s..."
+msgstr "Luodaan tiedostojärjestelmä laitteelle %s..."
 
 # ../loader/urls.c:103
 #: ../storage/formats/fs.py:367
@@ -6573,9 +6580,8 @@ msgid ""
 msgstr "Anna tämän asennuslähteen asetustiedot."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Kone (kone:portti)"
+msgstr "Välityspalvelimen osoite (kone:portti)"
 
 # ../textw/userauth_text.py:22
 #: tmp/addrepo.glade.h:11
@@ -6637,9 +6643,8 @@ msgid "_Next"
 msgstr "_Seuraava"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "<b>_Tavoitekoko:</b>"
+msgstr "<b>Koon muutoksen tavoite (megatavuissa):</b>"
 
 #: tmp/autopart.glade.h:3
 msgid "Re_view and modify partitioning layout"
@@ -6647,7 +6652,7 @@ msgstr "Ta_rkastele ja muuta osiointia"
 
 #: tmp/autopart.glade.h:4
 msgid "Volume to Resize"
-msgstr ""
+msgstr "Taltio jonka kokoa muutetaan"
 
 # ../iw/language_gui.py:49 ../textw/language_text.py:39
 #: tmp/autopart.glade.h:5
@@ -7097,9 +7102,8 @@ msgid "Macedonian"
 msgstr "makedonia"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
-msgstr "marathi"
+msgstr "maithili"
 
 #. generated from lang-table
 msgid "Malay"
@@ -7114,9 +7118,8 @@ msgid "Marathi"
 msgstr "marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
-msgstr "bengali"
+msgstr "nepali"
 
 #. generated from lang-table
 msgid "Norwegian(Bokmål)"
@@ -7188,9 +7191,8 @@ msgid "Swedish"
 msgstr "ruotsi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
-msgstr "tamili"
+msgstr "tadžikki"
 
 #. generated from lang-table
 msgid "Tamil"
