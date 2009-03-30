@@ -692,9 +692,8 @@ if __name__ == "__main__":
     # for a couple specific commands that'll be useful in setting up the
     # interface.
     if opts.ksfile:
-        from kickstart import earlyProcessKickstartFile
         anaconda.isKickstart = True
-        earlyKS = earlyProcessKickstartFile(anaconda, opts.ksfile)
+        earlyKS = kickstart.earlyCommandPass(anaconda, opts.ksfile)
     else:
         earlyKS = None
 
@@ -719,7 +718,8 @@ if __name__ == "__main__":
             screen = SnackScreen()
             anaconda.intf = rescue.RescueInterface(screen)
 
-            kickstart.processKickstartFile(anaconda, opts.ksfile, earlyKS)
+            kickstart.preScriptPass(anaconda, opts.ksfile)
+            kickstart.fullCommandPass(anaconda, opts.ksfile, earlyKS)
 
             anaconda.intf = None
             screen.finish()
@@ -931,7 +931,8 @@ if __name__ == "__main__":
         anaconda.id.keyboard.activate()
 
     if anaconda.isKickstart:
-        kickstart.processKickstartFile(anaconda, opts.ksfile, earlyKS)
+        kickstart.preScriptPass(anaconda, opts.ksfile)
+        kickstart.fullCommandPass(anaconda, opts.ksfile, earlyKS)
         # We need to copy the VNC-related kickstart stuff into the new ksdata
         anaconda.id.ksdata.vnc(enabled=earlyKS.vnc.enabled, host=earlyKS.vnc.host,
                                password=earlyKS.vnc.password, port=earlyKS.vnc.port)

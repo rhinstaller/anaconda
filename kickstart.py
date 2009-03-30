@@ -1042,7 +1042,7 @@ class EarlyKSHandler(superclass):
         self.maskAllExcept(["vnc", "displaymode", "text", "cmdline",
                             "graphical", "rescue", "ignoredisk"])
 
-class KickstartPreParser(KickstartParser):
+class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
     # sets them up to be run.  All other scripts and commands are ignored.
     def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
@@ -1103,7 +1103,35 @@ class AnacondaKSParser(KickstartParser):
 
         KickstartParser.handleCommand(self, lineno, args)
 
-def earlyProcessKickstartFile(anaconda, file):
+def preScriptPass(anaconda, file):
+    # The second pass through kickstart file processing - look for %pre scripts
+    # and run them.  This must come in a separate pass in case a script
+    # generates an included file that has commands for later.
+    ksparser = AnacondaPreParser(AnacondaKSHandler(anaconda))
+
+    try:
+        ksparser.readKickstart(file)
+    except IOError, e:
+        if anaconda.intf:
+            anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % e.filename)
+            sys.exit(0)
+        else:
+            raise
+    except KickstartError, e:
+       if anaconda.intf:
+           anaconda.intf.kickstartErrorWindow(e.__str__())
+           sys.exit(0)
+       else:
+           raise
+
+    # run %pre scripts
+    runPreScripts(anaconda, ksparser.handler.scripts)
+
+def earlyCommandPass(anaconda, file):
+    # The first pass through kickstart file processing - look for the subset
+    # of commands listed in EarlyKSHandler and set attributes based on those.
+    # This has to be a separate pass because it needs to take place before
+    # anaconda even knows what interface to run.
     try:
         file = preprocessKickstart(file)
     except KickstartError, msg:
@@ -1128,28 +1156,7 @@ def earlyProcessKickstartFile(anaconda, file):
     # And return the handler object so we can get information out of it.
     return handler
 
-def processKickstartFile(anaconda, file, earlyKS):
-    # parse the %pre
-    ksparser = KickstartPreParser(AnacondaKSHandler(anaconda))
-
-    try:
-        ksparser.readKickstart(file)
-    except IOError, e:
-        if anaconda.intf:
-            anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % e.filename)
-            sys.exit(0)
-        else:
-            raise
-    except KickstartError, e:
-       if anaconda.intf:
-           anaconda.intf.kickstartErrorWindow(e.__str__())
-           sys.exit(0)
-       else:
-           raise
-
-    # run %pre scripts
-    runPreScripts(anaconda, ksparser.handler.scripts)
-
+def fullCommandPass(anaconda, file, earlyKS):
     # We need to make sure storage is active before the rest of the kickstart
     # file is processed.  But before we initialize storage, we have to tell it
     # which disks to avoid, and we only get that information from the earlier
@@ -1159,7 +1166,6 @@ def processKickstartFile(anaconda, file, earlyKS):
     anaconda.id.storage.exclusiveDisks = earlyKS.ignoredisk.onlyuse
     storage.storageInitialize(anaconda)
 
-    # now read the kickstart file for real
     handler = AnacondaKSHandler(anaconda)
     ksparser = AnacondaKSParser(handler)
 
