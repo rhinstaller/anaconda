@@ -21,7 +21,6 @@
 #
 
 import os
-import re
 import stat
 
 import iutil
@@ -170,9 +169,8 @@ def udev_trigger(subsystem=None):
     iutil.execWithRedirect("udevadm", argv, stderr="/dev/null", searchPath=1)
 
 
-""" These are functions for retrieving specific pieces of information from
-    udev database entries.
-"""
+# These are functions for retrieving specific pieces of information from
+# udev database entries.
 def udev_device_get_name(udev_info):
     """ Return the best name for a device based on the udev db data. """
     return udev_info.get("DM_NAME", udev_info["name"])
@@ -313,7 +311,7 @@ def udev_device_is_dmraid(info):
 def udev_device_get_dmraid_partition_disk(info):
     try:
         p_index = info["DM_NAME"].rindex("p")
-    except:
+    except (KeyError, AttributeError, ValueError):
         return None
 
     if not info["DM_NAME"][p_index+1:].isdigit():

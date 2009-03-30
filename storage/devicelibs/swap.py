@@ -52,15 +52,16 @@ def swapon(device, priority=None):
         num = pagesize
     else:
         num = 2048
+
     try:
         fd = os.open(device, os.O_RDONLY)
         buf = os.read(fd, num)
-    except:
+    except OSError:
         pass
     finally:
         try:
             os.close(fd)
-        except:
+        except (OSError, UnboundLocalError):
             pass
 
     if buf is not None and len(buf) == pagesize:

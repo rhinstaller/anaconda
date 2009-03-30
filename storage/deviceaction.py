@@ -22,7 +22,6 @@
 #
 
 import copy
-from parted import PARTITION_BOOT
 
 from udev import *
 
@@ -37,10 +36,8 @@ import logging
 log = logging.getLogger("storage")
 
 
-""" The values are just hints as to the ordering.
-
-    Eg: fsmod and devmod ordering depends on the mod (shrink -v- grow)
-"""
+# The values are just hints as to the ordering.
+# Eg: fsmod and devmod ordering depends on the mod (shrink -v- grow)
 ACTION_TYPE_NONE = 0
 ACTION_TYPE_DESTROY = 1000
 ACTION_TYPE_RESIZE = 500

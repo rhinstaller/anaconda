@@ -42,7 +42,7 @@ def getRaidLevels():
     avail = []
     try:
         f = open("/proc/mdstat", "r")
-    except:
+    except IOError:
         pass
     else:
         for l in f.readlines():

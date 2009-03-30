@@ -1,5 +1,4 @@
 # iutil.py stubs
-import sys
 import os
 
 import logging

@@ -20,8 +20,6 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
-import block
-
 from iutil import log_method_call
 from ..errors import *
 from . import DeviceFormat, register_device_format

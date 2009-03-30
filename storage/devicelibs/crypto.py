@@ -23,7 +23,6 @@
 import os
 from pycryptsetup import CryptSetup
 
-import iutil
 from ..errors import *
 
 import gettext

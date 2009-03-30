@@ -284,7 +284,6 @@ class DeviceFormat(object):
     def teardown(self, *args, **kwargs):
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
-        pass
 
     @property
     def status(self):

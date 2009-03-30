@@ -21,9 +21,6 @@
 
 import string
 import os
-import iutil
-import isys
-import shutil
 from constants import *
 
 import gettext
@@ -94,7 +91,7 @@ class ZFCPDevice:
         try:
             int(hex, 16)
             return True
-        except:
+        except TypeError:
             return False
 
     def checkValidDevice(self, id):
@@ -184,7 +181,7 @@ class ZFCP:
     def readConfig(self):
         try:
             f = open("/tmp/fcpconfig", "r")
-        except:
+        except IOError:
             log.info("no /tmp/fcpconfig; not configuring zfcp")
             return
 
