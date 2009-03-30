@@ -1284,7 +1284,7 @@ class PartitionWindow(InstallWindow):
                                                size=200)
 	    rc = self.editPartition(member,
                                     isNew = 1,
-                                    restrictfs=["software RAID"])
+                                    restrictfs=["mdmember"])
 	elif createRAIDdev.get_active():
 	    array = self.storage.newMDArray(fmt_type=self.storage.defaultFSType)
 	    self.editRaidArray(array, isNew=1)
