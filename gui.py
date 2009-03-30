@@ -466,6 +466,7 @@ class WaitWindow:
         addFrame(self.window, showtitle = 0)
         self.window.show_all()
         rootPushBusyCursor()
+        self.refresh()
 
     def refresh(self):
         processEvents()
@@ -504,6 +505,7 @@ class ProgressWindow:
         addFrame(self.window, showtitle = 0)
         self.window.show_all ()
         rootPushBusyCursor()
+        self.refresh()
 
     def refresh(self):
         processEvents()
