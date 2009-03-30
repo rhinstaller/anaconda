@@ -398,6 +398,9 @@ def runRescue(anaconda, instClass):
     else:
         if anaconda.isKickstart:
             log.info("No Linux partitions found")
+            screen.finish()
+            print(_("You don't have any Linux partitions.  Rebooting.\n"))
+            sys.exit(0)
         else:
             ButtonChoiceWindow(screen, _("Rescue Mode"),
                                _("You don't have any Linux partitions. Press "
