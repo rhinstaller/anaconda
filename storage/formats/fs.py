@@ -663,10 +663,9 @@ class FS(DeviceFormat):
 
         return _type
 
-    """ These methods just wrap filesystem-specific methods in more
-        generically named methods so filesystems and formatted devices
-        like swap and LVM physical volumes can have a common API.
-    """
+    # These methods just wrap filesystem-specific methods in more
+    # generically named methods so filesystems and formatted devices
+    # like swap and LVM physical volumes can have a common API.
     def create(self, *args, **kwargs):
         if self.exists:
             raise FSError("filesystem already exists")

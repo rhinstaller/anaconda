@@ -74,7 +74,6 @@ class LVMPhysicalVolume(DeviceFormat):
         if not self.exists:
             raise PhysicalVolumeError("format has not been created")
 
-        pass
         #info = lvm.pvinfo(self.device)
         #self.vgName = info['vg_name']
         #self.vgUuid = info['vg_uuid']
@@ -84,9 +83,9 @@ class LVMPhysicalVolume(DeviceFormat):
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         DeviceFormat.create(self, *args, **kwargs)
-        """ Consider use of -Z|--zero
-            -f|--force or -y|--yes may be required
-        """
+        # Consider use of -Z|--zero
+        # -f|--force or -y|--yes may be required
+
         # lvm has issues with persistence of metadata, so here comes the
         # hammer...
         DeviceFormat.destroy(self, *args, **kwargs)

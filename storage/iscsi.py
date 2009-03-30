@@ -20,11 +20,7 @@
 
 from constants import *
 import os
-import errno
-import string
-import signal
 import iutil
-import isys
 from flags import flags
 import logging
 import shutil
@@ -39,11 +35,10 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 has_libiscsi = True
 try:
     import libiscsi
-except:
+except ImportError:
     has_libiscsi = False
 
 # Note that stage2 copies all files under /sbin to /usr/sbin
-global ISCSID
 ISCSID=""
 INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
 
@@ -141,19 +136,19 @@ class iscsi(object):
             return
 
         try:
-             found_nodes = libiscsi.discover_firmware()
+            found_nodes = libiscsi.discover_firmware()
         except:
-             # an exception here means there is no ibft firmware, just return
-             return
+            # an exception here means there is no ibft firmware, just return
+            return
 
         for node in found_nodes:
             try:
-                 node.login()
-                 self.nodes.append(node)
+                node.login()
+                self.nodes.append(node)
             except:
-                 # FIXME, what to do when we cannot log in to a firmware
-                 # provided node ??
-                 pass
+                # FIXME, what to do when we cannot log in to a firmware
+                # provided node ??
+                pass
 
         stabilize(intf)
 
@@ -234,14 +229,14 @@ class iscsi(object):
 
             found = found + 1
             try:
-                 if (authinfo):
-                     node.setAuth(authinfo)
-                 node.login()
-                 self.nodes.append(node)
-                 logged_in = logged_in + 1
+                if (authinfo):
+                    node.setAuth(authinfo)
+                node.login()
+                self.nodes.append(node)
+                logged_in = logged_in + 1
             except:
-                 # some nodes may require different credentials
-                 pass
+                # some nodes may require different credentials
+                pass
 
         if intf:
             w.pop()

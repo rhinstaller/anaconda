@@ -1381,7 +1381,6 @@ class DeviceTree(object):
             except DeviceError:
                 # the pvremoves will finish the job.
                 log.debug("There was an error destroying the VG %s." % vg.name)
-                pass
 
             # remove VG device from list.
             self._removeDevice(vg)

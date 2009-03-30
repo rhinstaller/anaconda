@@ -22,7 +22,6 @@
 
 import sys
 import os
-import copy
 from operator import add, sub
 
 import parted

@@ -18,9 +18,6 @@ class DeviceSetupError(DeviceError):
 class DeviceTeardownError(DeviceError):
     pass
 
-class DeviceResizeError(DeviceError):
-    pass
-
 class DeviceUserDeniedFormatError(DeviceError):
     pass
 
