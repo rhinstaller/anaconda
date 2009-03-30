@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-30 23:12+0300\n"
+"PO-Revision-Date: 2009-03-30 23:19+0300\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
@@ -575,7 +575,7 @@ msgstr "Tallennetaan näyttökaappausta"
 #: ../gui.py:162
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "Kuvakaappaus tallennettiin nimellä ”%s”."
+msgstr "Kuvakaappaus tallennettiin nimellä \"%s\"."
 
 #: ../gui.py:165
 msgid "Error Saving Screenshot"
@@ -803,7 +803,7 @@ msgid ""
 msgstr ""
 "Lähdelaitetta %s liitettäessä tapahtui virhe. Näin voi käydä, jos ISO-"
 "levykuvat ovat edistyneellä tallennuslaitteella, kuten LVM tai RAID, tai "
-"osion liittämisessä oli ongelmia. Valitse ”Poistu” keskeyttääksesi "
+"osion liittämisessä oli ongelmia. Valitse \"Poistu\" keskeyttääksesi "
 "asennuksen."
 
 #: ../image.py:185
@@ -843,7 +843,7 @@ msgstr ""
 "\n"
 "%s\n"
 "Jatka asennusta vasta kun nämä levyt ovat saatavilla. Jos haluat keskeyttää "
-"asennuksen ja poistua asennusohjelmasta, valitse ”Käynnistä uudelleen”."
+"asennuksen ja poistua asennusohjelmasta, valitse \"Käynnistä uudelleen\"."
 
 # ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
 # ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:608
@@ -1002,7 +1002,7 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"Olet valinnut paketin ”%s” asennettavaksi. Sitä ei kuitenkaan löydy. "
+"Olet valinnut paketin \"%s\" asennettavaksi. Sitä ei kuitenkaan löydy. "
 "Haluatko jatkaa vai keskeyttää asennuksen?"
 
 # ../iw/partition_gui.py:1528
@@ -1026,7 +1026,7 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"Valitsit ryhmän ”%s” asennettavaksi. Sitä ei kuitenkaan löydy. Haluatko "
+"Valitsit ryhmän \"%s\" asennettavaksi. Sitä ei kuitenkaan löydy. Haluatko "
 "jatkaa vai keskeyttää asennuksen?"
 
 #: ../kickstart.py:1350
@@ -1101,12 +1101,12 @@ msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
 msgstr ""
-"Konenimen ensimmäinen merkki on oltava kirjain väliltä ”a-z”, ”A-Z” tai ”0-9”"
+"Konenimen ensimmäinen merkki on oltava kirjain väliltä \"a-z\", \"A-Z\" tai \"0-9\""
 
 #: ../network.py:69
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr "Konenimessä saa käyttää vain merkkejä ”a-z”, ”A-Z”, ”0-9”, ”-” tai ”.”"
+msgstr "Konenimessä saa käyttää vain merkkejä \"a-z\", \"A-Z\", \"0-9\", \"-\" tai \".\""
 
 # ../iw/network_gui.py:194
 #: ../network.py:178
@@ -1264,7 +1264,7 @@ msgstr ""
 "\n"
 "   %s\n"
 "\n"
-"ja lähetä raportti koskien pakettia ”%s”.\n"
+"ja lähetä raportti koskien pakettia \"%s\".\n"
 
 # ../gui.py:791
 #: ../packages.py:428
@@ -1292,7 +1292,7 @@ msgid ""
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
 "Virhe - taltioryhmän nimessä on epäkelpoja merkkejä tai välilyöntejä. "
-"Sallittuja merkkejä ovat kirjaimet, numerot, ”.” ja ”_”."
+"Sallittuja merkkejä ovat kirjaimet, numerot, \".\" ja \"_\"."
 
 # ../iw/account_gui.py:192
 #: ../partIntfHelpers.py:63
@@ -1314,7 +1314,7 @@ msgid ""
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
 "Virhe - taltioryhmän nimessä on epäkelpoja merkkejä tai välilyöntejä.  "
-"Sallittuja merkkejä ovat kirjaimet, numerot, ”.” ja ”_”."
+"Sallittuja merkkejä ovat kirjaimet, numerot, \".\" ja \"_\"."
 
 # ../partitioning.py:353
 #: ../partIntfHelpers.py:101
@@ -1323,8 +1323,8 @@ msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Liitospiste %s ei kelpaa. Liitospisteiden pitää alkaa merkillä ”/” ja "
-"sisältää tulostuvia merkkejä, ei välejä. Ne eivät saa loppua ”/”-merkkiin."
+"Liitospiste %s ei kelpaa. Liitospisteiden pitää alkaa merkillä \"/\" ja "
+"sisältää tulostuvia merkkejä, ei välejä. Ne eivät saa loppua \"/\"-merkkiin."
 
 # ../partitioning.py:360
 #: ../partIntfHelpers.py:108
@@ -1352,7 +1352,7 @@ msgstr "Vahvista poisto"
 #: ../partIntfHelpers.py:146
 #, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "Olet poistamassa kaikki osiot laitteelta ”%s”."
+msgstr "Olet poistamassa kaikki osiot laitteelta \"%s\"."
 
 # ../iw/partition_gui.py:1527
 #: ../partIntfHelpers.py:149 ../partIntfHelpers.py:304
@@ -1484,7 +1484,7 @@ msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"Valitse ”kyllä”, jos haluat jatkaa ja alustaa nämä osiot. Valitse ”ei”, jos "
+"Valitse \"kyllä\", jos haluat jatkaa ja alustaa nämä osiot. Valitse \"ei\", jos "
 "haluat palata muuttamaan näitä asetuksia."
 
 # ../partitioning.py:1860
@@ -1499,7 +1499,7 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
-"Olet poistamassa taltioryhmää ”%s”.\n"
+"Olet poistamassa taltioryhmää \"%s\".\n"
 "\n"
 "KAIKKI taltioryhmän taltiot poistetaan!"
 
@@ -1507,7 +1507,7 @@ msgstr ""
 #: ../partIntfHelpers.py:291
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr "Olet poistamassa taltioryhmän ”%s”."
+msgstr "Olet poistamassa taltioryhmän \"%s\"."
 
 # ../partitioning.py:1581
 #: ../partIntfHelpers.py:294
@@ -3107,7 +3107,7 @@ msgstr "Virheellinen loogisen taltion nimi"
 #: ../iw/lvm_dialog_gui.py:556
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "Looginen taltio ”%s” on jo käytössä. Valitse toinen laite."
+msgstr "Looginen taltio \"%s\" on jo käytössä. Valitse toinen laite."
 
 # ../iw/partition_gui.py:1545 ../iw/upgrade_swap_gui.py:123
 # ../packages.py:588 ../packages.py:608 ../textw/upgrade_text.py:106
@@ -3119,7 +3119,7 @@ msgstr "Liitospiste on käytössä"
 #: ../iw/lvm_dialog_gui.py:585
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr "Liitospiste ”%s” on jo käytössä. Valitse jokin muu liitospiste."
+msgstr "Liitospiste \"%s\" on jo käytössä. Valitse jokin muu liitospiste."
 
 #
 # ../textw/packages_text.py:116
@@ -3173,7 +3173,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:748
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
-msgstr "Haluatko varmasti poistaa loogisen taltion ”%s”?"
+msgstr "Haluatko varmasti poistaa loogisen taltion \"%s\"?"
 
 # ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
 #: ../iw/lvm_dialog_gui.py:861
@@ -3188,7 +3188,7 @@ msgstr "Käytössä oleva nimi"
 #: ../iw/lvm_dialog_gui.py:871
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr "Taltioryhmän nimi ”%s” on jo käytössä. Valitse jokin muu."
+msgstr "Taltioryhmän nimi \"%s\" on jo käytössä. Valitse jokin muu."
 
 #: ../iw/lvm_dialog_gui.py:1095
 msgid "Not enough physical volumes"
@@ -3204,8 +3204,8 @@ msgid ""
 msgstr ""
 "Vähintään yksi käyttämätön osio tarvitaan taltioryhmän luontiin.\n"
 "\n"
-"Luo osio tai RAID-laite ja aseta sen tyypiksi ”fyysinen taltio (LVM)” ja "
-"valitse ”LVM” uudelleen."
+"Luo osio tai RAID-laite ja aseta sen tyypiksi \"fyysinen taltio (LVM)\" ja "
+"valitse \"LVM\" uudelleen."
 
 #: ../iw/lvm_dialog_gui.py:1107
 msgid "Make LVM Volume Group"
@@ -3382,7 +3382,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Konenimi ”%s” ei kelpaa seuraavasta syystä:\n"
+"Konenimi \"%s\" ei kelpaa seuraavasta syystä:\n"
 "\n"
 "%s"
 
@@ -3744,7 +3744,7 @@ msgid ""
 "\n"
 msgstr ""
 "Ennen kuin voit määritellä RAID-laitteita, pitää ensin määritellä vähintään "
-"kaksi osiota, joiden tyypiksi tulee ”Ohjelmistopohjainen RAID”. Sen jälkeen "
+"kaksi osiota, joiden tyypiksi tulee \"Ohjelmistopohjainen RAID\". Sen jälkeen "
 "voit luoda RAID-laitteen, joka voidaan alustaa ja liittää.\n"
 "\n"
 
@@ -3830,8 +3830,8 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"%s-tyypin osiot on rajoitettava yhdelle levylle. Valitse levy ”Sallitut "
-"levyt” -listasta."
+"%s-tyypin osiot on rajoitettava yhdelle levylle. Valitse levy \"Sallitut "
+"levyt\" -listasta."
 
 # ../iw/progress_gui.py:28
 #: ../iw/progress_gui.py:37
@@ -3849,8 +3849,8 @@ msgstr ""
 "RAID-laitteen luomiseksi tarvitaan vähintään kaksi käyttämätöntä\n"
 "ohjelmisto-RAID-osiota.\n"
 "\n"
-"Luo ensin vähintään kaksi osiota, joiden tyypiksi on valittava ”ohjelmisto-"
-"RAID”, ja valitse sitten ”RAID” uudelleen."
+"Luo ensin vähintään kaksi osiota, joiden tyypiksi on valittava \"ohjelmisto-"
+"RAID\", ja valitse sitten \"RAID\" uudelleen."
 
 # ../iw/partition_gui.py:1323 ../textw/partition_text.py:806
 #: ../iw/raid_dialog_gui.py:326 ../iw/raid_dialog_gui.py:763
@@ -3899,7 +3899,7 @@ msgid ""
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
 "Lähdelevyllä ei ole osioita, joiden määrittelyjä voitaisiin kopioida. Luo "
-"ensin osioita, joiden tyyppi on ”ohjelmisto-RAID”."
+"ensin osioita, joiden tyyppi on \"ohjelmisto-RAID\"."
 
 #: ../iw/raid_dialog_gui.py:567 ../iw/raid_dialog_gui.py:573
 #: ../iw/raid_dialog_gui.py:587 ../iw/raid_dialog_gui.py:600
@@ -3913,7 +3913,7 @@ msgid ""
 "\n"
 "You must remove these partitions before this drive can be cloned. "
 msgstr ""
-"Lähdelevyllä on osioita, joiden tyyppi ei ole ”ohjelmisto-RAID”.\n"
+"Lähdelevyllä on osioita, joiden tyyppi ei ole \"ohjelmisto-RAID\".\n"
 "\n"
 "Nämä osiot on poistettava, jotta määrittelyt voidaan kopioida."
 
@@ -3970,7 +3970,7 @@ msgid ""
 msgstr ""
 "Kohdelevyllä %s on osio, jota ei voida poistaa seuraavasta syystä:\n"
 "\n"
-"”%s”\n"
+"\"%s\"\n"
 "\n"
 "Tämä osio on poistettava ennen kuin tämä levy voi olla kohde."
 
@@ -4986,7 +4986,7 @@ msgstr "Tämä laite on osa RAID-laitetta."
 #: ../storage/__init__.py:499
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "Tämä laite on osa LVM-taltioryhmää ”%s”."
+msgstr "Tämä laite on osa LVM-taltioryhmää \"%s\"."
 
 #: ../storage/__init__.py:502
 msgid "This device is part of a LVM volume group."
