@@ -225,7 +225,7 @@ class BootImages:
                 # be the correct one to boot with XP using ntfs
                 foundDos = True
             elif type in ["hfs", "hfs+"] and rhpl.getPPCMachine() == "PMac":
-                if self.partedFlags[parted.PARTITION_BOOT]:
+                if part.bootable:
                     retval.append((part, type))
 
         rootDevice = storage.fsset.rootDevice
