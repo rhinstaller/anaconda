@@ -1324,14 +1324,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
             if not anaconda.id.getUpgrade():
-                usrPart = None
-                for fs in anaconda.id.storage.devicetree.filesystems:
-                    if fs.mountpoint == "/usr":
-                        usrPart = fs
-                if usrPart is not None:
-                    largePart = usrPart
-                else:
-                    largePart = anaconda.id.storage.fsset.rootDevice
+                largePart = anaconda.id.storage.fsset.mountpoints.get("/usr", anaconda.id.storage.fsset.rootDevice)
 
                 if largePart and largePart.size < self.totalSize / 1024:
                     rc = anaconda.intf.messageWindow(_("Error"),
