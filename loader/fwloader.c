@@ -209,7 +209,7 @@ static int get_netlink_msg(struct fw_loader *fwl, struct uevent *uevent)
         size = sizeof (buffer) - 1;
     buffer[size] = '\0';
 
-    len = (strcspn)(buffer, "@");
+    len = strcspn(buffer, "@");
     if (!buffer[len])
         return -1;
 

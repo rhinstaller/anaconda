@@ -63,7 +63,7 @@ int copyDirectory(char * from, char * to, void (*warnFn)(char *),
 
     errno = 0;
     while ((ent = readdir(dir))) {
-        if (!(strcmp)(ent->d_name, ".") || !(strcmp)(ent->d_name, ".."))
+        if (!strcmp(ent->d_name, ".") || !strcmp(ent->d_name, ".."))
            continue;
 
         sprintf(filespec, "%s/%s", from, ent->d_name);

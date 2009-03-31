@@ -86,7 +86,7 @@ static void cidrCallback(newtComponent co, void * dptr) {
             abort();
         }
 
-        if ((strcmp)(data->ipv4, ""))
+        if (strcmp(data->ipv4, ""))
             upper = 32;
 #ifdef ENABLE_IPV6
     } else if (co == data->cidr6Entry) {

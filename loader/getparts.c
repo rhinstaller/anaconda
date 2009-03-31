@@ -94,7 +94,7 @@ char **getPartitionsList(char * disk) {
 			break;
 		} else if (toknum == 2) {
 		    /* if size is exactly 1 then ignore it as an extended */
-		    if (!(strcmp)(b, "1"))
+		    if (!strcmp(b, "1"))
 			break;
 		} else if (toknum == 3) {
 		    /* this should be the partition name */

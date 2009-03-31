@@ -2082,7 +2082,7 @@ int main(int argc, char ** argv) {
 
     path = getenv("PATH");
     while (path && path[0]) {
-        int n = (strcspn)(path, ":");
+        int n = strcspn(path, ":");
         char c, *binpath;
 
         c = path[n];
