@@ -1681,7 +1681,7 @@ class LVMVolumeGroupDevice(DMDevice):
         try:
             lvm.vgreduce(self.name, [], rm=True)
             lvm.vgremove(self.name)
-        except lvm.LVMErorr:
+        except lvm.LVMError:
             raise DeviceError("Could not completely remove VG %s" % self.name)
         finally:
             self.notifyKernel()
@@ -1738,12 +1738,12 @@ class LVMVolumeGroupDevice(DMDevice):
         self.parents.remove(pv)
         pv.removeChild()
 
-    """ We can't rely on lvm to tell us about our size, free space, &c
-        since we could have modifications queued, unless the VG and all of
-        its PVs already exist.
+    # We can't rely on lvm to tell us about our size, free space, &c
+    # since we could have modifications queued, unless the VG and all of
+    # its PVs already exist.
+    #
+    #        -- liblvm may contain support for in-memory devices
 
-            -- liblvm may contain support for in-memory devices
-    """
     @property
     def isModified(self):
         """ Return True if the VG has changes queued that LVM is unaware of. """
@@ -2035,10 +2035,8 @@ class MDRaidArrayDevice(StorageDevice):
         self._memberDevices = numeric_type(memberDevices)
         self.sysfsPath = "/devices/virtual/block/%s" % name
 
-        """ FIXME: Bitmap is more complicated than this.
-
-            It can be internal or external. External requires a filename.
-        """
+        # FIXME: Bitmap is more complicated than this.
+        # It can be internal or external. External requires a filename.
         self.bitmap = bitmap
 
         self.formatClass = get_device_format_class("mdmember")
@@ -2234,8 +2232,8 @@ class MDRaidArrayDevice(StorageDevice):
         """ Return True if the array is running in degraded mode. """
         rc = False
         degraded_file = "/sys/%s/md/degraded" % self.sysfsPath
-        if os.access(state_file, os.R_OK):
-            val = open(state_file).read().strip()
+        if os.access(degraded_file, os.R_OK):
+            val = open(degraded_file).read().strip()
             log.debug("%s degraded is %s" % (self.name, val))
             if val == "1":
                 rc = True
