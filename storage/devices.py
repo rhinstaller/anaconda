@@ -2765,43 +2765,6 @@ class DASDDevice(DiskDevice):
         raise NotImplementedError("probe method not defined for StorageDevice")
 
 
-class PRePBootDevice(PartitionDevice):
-    """ A PPC PReP boot partition.
-
-        XXX Would this be better represented by a DeviceFormat class?
-    """
-    _type = "PReP"
-    #_partedFlags = parted.PARTITION_PREP
-
-    def __init__(self, device,
-                 size=None, grow=False, maxsize=None,
-                 major=None, minor=None,
-                 sysfsPath='', parents=None,
-                 exists=None, primary=False):
-        """ Create a PRePBootDevice instance.
-
-            Arguments:
-
-                device -- the device name (generally a device node's basename)
-
-            Keyword Arguments:
-
-                grow -- whether or not to grow the partition (boolean )
-                maxsize -- max size for growable partitions (units TBD)
-                size -- the device's size (units/format TBD)
-                major -- the device major
-                minor -- the device minor
-                sysfsPath -- sysfs device path
-                parents -- a list of required Device instances
-                exists -- indicates whether this is an existing device
-        """
-        PartitionDevice.__init__(self, device, partType=self._partType,
-                                 size=size, grow=grow, maxsize=maxsize,
-                                 major=major, minor=minor,
-                                 sysfsPath=sysfsPath, exists=exists,
-                                 parents=parents, primary=primary)
-
-
 class NFSDevice(StorageDevice, NetworkStorageDevice):
     """ An NFS device """
     _type = "nfs"
