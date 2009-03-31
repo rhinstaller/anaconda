@@ -136,7 +136,7 @@ static char * getLoginName(char * login, struct iurlinfo *ui) {
 char *convertUIToURL(struct iurlinfo *ui) {
     char *login, *finalPrefix, *url, *p;
 
-    if (!strcmp(ui->prefix, "/"))
+    if (!(strcmp)(ui->prefix, "/"))
 	finalPrefix = "/.";
     else
 	finalPrefix = ui->prefix;

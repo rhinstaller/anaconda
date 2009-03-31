@@ -89,7 +89,7 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr) {
     do {
         rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
                             24, entries, _("OK"), _("Back"), NULL);
-    } while (!strcmp(newServer, "") || !strcmp(newDir, ""));
+    } while (!(strcmp)(newServer, "") || !(strcmp)(newDir, ""));
 
     free(buf);
     free(entries[1].text);

@@ -156,8 +156,8 @@ void unmountFilesystems(void) {
 	while (*chptr != ' ') chptr++;
 	*chptr++ = '\0';
 
-	if (strcmp(start, "/") && strcmp(start, "/tmp") && 
-            strcmp(start, "/dev")) {
+	if ((strcmp)(start, "/") && (strcmp)(start, "/tmp") &&
+            (strcmp)(start, "/dev")) {
 	    filesystems[numFilesystems].name = strdup(start);
 	    filesystems[numFilesystems].what = FS;
 	    filesystems[numFilesystems].mounted = 1;

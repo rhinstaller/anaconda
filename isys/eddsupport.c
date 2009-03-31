@@ -168,7 +168,7 @@ static int mapBiosDisks(struct device** devices,const char *path) {
     }
 
     while ((entry = readdir(dirHandle)) != NULL) {
-        if(!strncmp(entry->d_name,".",1) || !strncmp(entry->d_name,"..",2)) {
+        if(!(strncmp)(entry->d_name,".",1) || !(strncmp)(entry->d_name,"..",2)) {
             continue;
         }
         ret = sscanf((entry->d_name+9), "%x", &biosNum);

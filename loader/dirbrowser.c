@@ -83,9 +83,9 @@ static char ** get_file_list(char * dirname,
     files = malloc(numfiles * sizeof(char *));
 
     while ((entry = readdir(dir))) {
-        if ((strlen(entry->d_name) == 1) && !strncmp(entry->d_name, ".", 1))
+        if ((strlen(entry->d_name) == 1) && !(strncmp)(entry->d_name, ".", 1))
             continue;
-        if ((strlen(entry->d_name) == 2) && !strncmp(entry->d_name, "..", 2))
+        if ((strlen(entry->d_name) == 2) && !(strncmp)(entry->d_name, "..", 2))
             continue;
         if (filterfunc && filterfunc(dirname, entry))
             continue;
