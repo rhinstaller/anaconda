@@ -11,13 +11,13 @@ msgstr ""
 "Project-Id-Version: anaconda master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2008-10-15 20:23+0200\n"
+"PO-Revision-Date: 2009-03-31 08:19+0200\n"
 "Last-Translator: Sulyok Péter <peti@fedoraproject.org>\n"
 "Language-Team: Hungarian <Hungarian <fedora-trans-hu@redhat.com>>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
 
 #: ../anaconda:266 ../anaconda:312
 #, python-format
@@ -46,17 +46,19 @@ msgid "Press <enter> for a shell"
 msgstr "Parancsértelmezőért nyomjon <Enter>-t"
 
 #: ../anaconda:458
-#, fuzzy
 msgid "Fatal Error"
-msgstr "Hiba"
+msgstr "Végzetes hiba"
 
 #: ../anaconda:459
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You do not have enough RAM to install %s on this machine.\n"
 "\n"
 "Press <return> to reboot your system.\n"
-msgstr "Nincs elég memória ebben a gépben %s telepítéséhez."
+msgstr ""
+"Nincs elég RAM a gépben %s telepítéséhez.\n"
+"\n"
+"Nyomjon <Enter>-t, hogy újrainduljon a rendszer.\n"
 
 #: ../anaconda:464 ../rescue.py:285 ../rescue.py:311 ../rescue.py:324
 #: ../rescue.py:397 ../rescue.py:406 ../text.py:694
@@ -272,7 +274,6 @@ msgid "In progress...   "
 msgstr "Folyamatban...   "
 
 #: ../cmdline.py:98
-#, fuzzy
 msgid "Can't have a question in command line mode!"
 msgstr "Nem lehet kérdezni parancssoros módban!"
 
@@ -668,7 +669,7 @@ msgid "Required Install Media"
 msgstr "Szükséges telepítő adathordozók"
 
 #: ../image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %s %s "
 "discs:\n"
@@ -677,11 +678,12 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"A kiválasztott szoftverek telepítéséhez a következő lemezek szükségesek:\n"
+"A kiválasztott szoftverek telepítéséhez a következő %s %s lemezek \n"
+"szükségesek:\n"
 "\n"
 "%s\n"
-"Kérem készítse elő őket a telepítés megkezdése előtt.  Ha meg kell "
-"szakítania a telepítést, nyomjon „Újraindítás” gombot."
+"Kérem készítse elő őket, mielőtt folytatná a telepítést.  Ha meg kell "
+"szakítania a telepítést, válassza az „Újraindítás” gombot."
 
 #: ../image.py:248 ../livecd.py:388 ../packages.py:382 ../packages.py:433
 #: ../packages.py:436 ../upgrade.py:252 ../yuminstall.py:783
@@ -830,9 +832,8 @@ msgid "_Abort"
 msgstr "_Megszakítás"
 
 #: ../kickstart.py:1213 ../kickstart.py:1252
-#, fuzzy
 msgid "_Ignore All"
-msgstr "Mellőzés"
+msgstr "_Mindegyik mellőzése"
 
 #: ../kickstart.py:1243
 msgid "Missing Group"
@@ -943,83 +944,75 @@ msgid "'%s' is an invalid IP address."
 msgstr "„%s” érvénytelen IP cím."
 
 #: ../packages.py:122
-#, fuzzy
 msgid "Device Resize Failed"
-msgstr "Átméretezés elbukott"
+msgstr "Az átméretezés elbukott"
 
 #: ../packages.py:123
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while resizing device %s."
 msgstr "%s eszközt átméretezvén hiba történt."
 
 #: ../packages.py:130
-#, fuzzy
 msgid "Device Creation Failed"
-msgstr "Cél fájl"
+msgstr "Eszköz teremtés elbukott"
 
 #: ../packages.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while creating device %s."
-msgstr "%s eszközt átméretezvén hiba történt."
+msgstr "%s eszközt megteremtvén hiba történt."
 
 #: ../packages.py:138
 msgid "Device Removal Failed"
 msgstr ""
 
 #: ../packages.py:139
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while removing device %s."
-msgstr "%s eszközt átméretezvén hiba történt."
+msgstr "%s eszközt eltávolítván hiba történt."
 
 #: ../packages.py:146
 msgid "Device Setup Failed"
 msgstr ""
 
 #: ../packages.py:147
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "%s eszközt átméretezvén hiba történt."
+msgstr "%s eszközt beállítván hiba történt."
 
 #: ../packages.py:158
 msgid "Resizing Failed"
 msgstr "Átméretezés elbukott"
 
 #: ../packages.py:159
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr "%s eszközt átméretezvén hiba történt."
 
 #: ../packages.py:166
-#, fuzzy
 msgid "Migration Failed"
-msgstr "LVM művelet elbukott"
+msgstr "A mozgatás elbukott"
 
 #: ../packages.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "%s eszközt átméretezvén hiba történt."
+msgstr "A fájlrendszert átmozgatván %s eszközön hiba történt."
 
 #: ../packages.py:175
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "Kialakítás"
+msgstr "A kialakítás elbukott"
 
 #: ../packages.py:176
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "%s eszközt átméretezvén hiba történt."
+msgstr "%s eszközt alakítván hiba történt."
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
 msgstr ""
 
 #: ../packages.py:185
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
-msgstr ""
-"A kickstart beállítást értelmezvén a következő hiba merült fel:\n"
-"\n"
-"%s"
+msgstr "Hiba történt a tároló beállítást érvényesítvén."
 
 #: ../packages.py:353
 msgid "Invalid Key"
@@ -1143,9 +1136,9 @@ msgid "Confirm Delete"
 msgstr "Törlés megerősítése"
 
 #: ../partIntfHelpers.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "A „/dev/%s” eszközön található minden részt törölni fogja."
+msgstr "„%s” eszközön minden részt törölni fog."
 
 #: ../partIntfHelpers.py:149 ../partIntfHelpers.py:304
 #: ../iw/lvm_dialog_gui.py:750 ../iw/lvm_dialog_gui.py:1261
@@ -1173,17 +1166,17 @@ msgid "Format as Swap?"
 msgstr "Lapozó kialakítása?"
 
 #: ../partIntfHelpers.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s rész típusa 0x82 (Linux, lapozó), de úgy tűnik, az nincs "
-"kialakítva.\n"
+"%s rész típusa 0x82 (Linux lapozó), de úgy tűnik, nem "
+"aszerint alakították ki.\n"
 "\n"
-"Szeretne lapozót kialakítani e részen?"
+"Szeretne itt lapozó részt kialakítani?"
 
 #: ../partIntfHelpers.py:201
 #, python-format
@@ -1294,14 +1287,14 @@ msgid "You are about to delete a RAID device."
 msgstr "RAID eszköz törlésére készül."
 
 #: ../partIntfHelpers.py:296
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "/dev/%s rész törlésére készül."
+msgstr "%s rész törlésére készül."
 
 #: ../partIntfHelpers.py:300
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "/dev/%s rész törlésére készül."
+msgstr "%s %s törlésére készül."
 
 #: ../partIntfHelpers.py:311
 msgid "Confirm Reset"
@@ -1511,7 +1504,6 @@ msgid "System to Rescue"
 msgstr "Mentendő rendszer"
 
 #: ../rescue.py:283
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
 msgstr "Melyik rész tartalmazza a meglévő rendszer gyökerét?"
 
@@ -1724,20 +1716,19 @@ msgid "Mount failed"
 msgstr "Becsatolás elbukott"
 
 #: ../upgrade.py:240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
 "fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
 msgstr ""
-"Az /etc/fstab fájlban felsorolt részek közül legalább egyet nem lehet "
-"becsatolni. Kérem javítsa ki a hibát, majd próbálja meg újra a "
-"felfejlesztést."
+"Az /etc/fstab fájlban felsorolt részeket becsatolván a következő hiba "
+"történt.  Kérem javítsa ki a hibát, majd próbálja újra a felfejlesztést.\n"
+"%s"
 
 #: ../upgrade.py:247
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "Rendszerbetöltő beállítások felfejlesztése"
+msgstr "Nincs felfejlesztő gyökér"
 
 #: ../upgrade.py:248
 msgid ""
@@ -2337,9 +2328,8 @@ msgstr ""
 "részeket lehet átméretezni."
 
 #: ../iw/autopart_type.py:124
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "Fájlrendszer átméretezése %s részen…"
+msgstr "Fájlrendszer átméretezés hiba"
 
 #: ../iw/autopart_type.py:125 ../iw/autopart_type.py:134
 #, python-format
@@ -2374,23 +2364,20 @@ msgid "Rescanning disks"
 msgstr ""
 
 #: ../iw/autopart_type.py:452 ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "Eszköz _mellőzése"
+msgstr "Teljes eszköz használata"
 
 #: ../iw/autopart_type.py:453 ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
 msgstr ""
 
 #: ../iw/autopart_type.py:454
-#, fuzzy
 msgid "Shrink current system"
-msgstr "Rendszer _titkosítása"
+msgstr "Rendszer összehúzása"
 
 #: ../iw/autopart_type.py:455 ../textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "Nincs szabad hely"
+msgstr "Szabad hely használata"
 
 #: ../iw/autopart_type.py:456
 msgid "Create custom layout"
@@ -2471,32 +2458,26 @@ msgid "Congratulations"
 msgstr "Gratulálok"
 
 #: ../iw/congrats_gui.py:74 ../textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "Gratulálok! %s telepítése kész.\n"
 "\n"
-"%s%s"
+""
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
 msgstr ""
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr ""
-"Kérem indítsa újra a rendszert, hogy a telepített rendszert használja.\n"
-"\n"
+msgstr "Kérem állítsa le a rendszert, hogy a telepített rendszert használja.\n"
 
 #: ../iw/congrats_gui.py:81 ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr ""
-"Kérem indítsa újra a rendszert, hogy a telepített rendszert használja.\n"
-"\n"
+msgstr "Kérem indítsa újra a rendszert, hogy a telepített rendszert használja.\n"
 
 #: ../iw/congrats_gui.py:86 ../textw/complete_text.py:51
 msgid ""
@@ -2894,14 +2875,13 @@ msgid "A value is required for the field %s."
 msgstr "Meg kell adni egy értéket „%s” mezőnek."
 
 #: ../iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "A képernyőképeket átmásolván hiba történt."
+msgstr "%s hálózati csatolót bekapcsolván hiba történt."
 
 #: ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "Hiba történt a hálózati eszköz beállítása közben."
+msgstr "Hálózat beállítás hiba"
 
 #: ../iw/netconfig_dialog.py:237
 msgid "Dynamic IP"
@@ -3057,9 +3037,9 @@ msgid "Add Partition"
 msgstr "Rész hozzáadása"
 
 #: ../iw/partition_dialog_gui.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: %s"
-msgstr "Rész szerkesztése: /dev/%s"
+msgstr "%s rész szerkesztése"
 
 #: ../iw/partition_dialog_gui.py:315
 msgid "File System _Type:"
@@ -3192,12 +3172,11 @@ msgid "Unable To Edit"
 msgstr "Nem lehet szerkeszteni"
 
 #: ../iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
-msgstr "Ki kell választani a szerkeszteni kívánt részt"
+msgstr "Ki kell választani a szerkeszteni kívánt eszközt"
 
 #: ../iw/partition_gui.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
@@ -3205,6 +3184,7 @@ msgid ""
 msgstr ""
 "E rész nem szerkeszthető:\n"
 "\n"
+"%s"
 
 #: ../iw/partition_gui.py:1177 ../iw/partition_gui.py:1189
 msgid "Not supported"
@@ -3362,9 +3342,9 @@ msgid "Make RAID Device"
 msgstr "RAID eszköz teremtése"
 
 #: ../iw/raid_dialog_gui.py:329
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "RAID eszköz szerkesztése"
+msgstr "%s RAID eszköz szerkesztése"
 
 #: ../iw/raid_dialog_gui.py:331
 msgid "Edit RAID Device"
@@ -3416,7 +3396,7 @@ msgstr ""
 "Az eszköz másolása csak e részek eltávolítása után lehetséges. "
 
 #: ../iw/raid_dialog_gui.py:588
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive %s.\n"
@@ -3424,11 +3404,11 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"A kijelölt forrás eszközön van olyan rész, ami nem csak a /dev/%s eszközre "
+"A kijelölt forrás eszközön van olyan rész, ami nem csak %s eszközre "
 "korlátozódik.\n"
 "\n"
-"E részeket el kell távolítani vagy erre az eszközre kell korlátozni ahhoz, "
-"hogy a meghajtó másolható legyen. "
+"E részeket el kell távolítani, vagy erre az eszközre kell korlátozni ahhoz, "
+"hogy az eszköz másolható legyen. "
 
 #: ../iw/raid_dialog_gui.py:601
 msgid ""
@@ -3452,12 +3432,12 @@ msgid "Please select the target drives for the clone operation."
 msgstr "Válasszon cél eszközöket a másolás művelethez."
 
 #: ../iw/raid_dialog_gui.py:622
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "A /dev/%s forrás eszköz nem választható ki cél eszköznek is."
+msgstr "%s forrás eszköz nem választható ki cél eszköznek is egyszerre."
 
 #: ../iw/raid_dialog_gui.py:638
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3466,7 +3446,7 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"A /dev/%s cél eszköz tartalmaz egy olyan részt, ami a következő okból nem "
+"A %s cél eszköz tartalmaz olyan részt, ami a következő okból nem "
 "távolítható el:\n"
 "\n"
 "„%s”\n"
@@ -3478,12 +3458,12 @@ msgid "Please select a source drive."
 msgstr "Válasszon forrás eszközt."
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"A /dev/%s eszközt a következő eszközökre másolom:\n"
+"A %s eszközt a következő eszközökre másolom:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:726
@@ -3809,9 +3789,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "Kilépés a telepítőből"
+msgstr "_Kilépés a telepítőből"
 
 #: ../iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -3952,16 +3931,15 @@ msgid "Error configuring network device"
 msgstr "Hiba történt a hálózati eszköz beállítása közben."
 
 #: ../textw/netconfig_text.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "Hiba a hálózati eszközt beállítván: "
+msgstr "%s hálózati eszközt beállítván hiba történt"
 
 #: ../textw/partition_text.py:58
 msgid "Partitioning Type"
 msgstr "Felosztás típusa"
 
 #: ../textw/partition_text.py:60 tmp/autopart.glade.h:2
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
@@ -3969,8 +3947,9 @@ msgid ""
 "layout."
 msgstr ""
 "A telepítés a merevlemez felosztását igényli.  Az alapértelmezett felosztás "
-"megfelel a legtöbb használónak.  Ezt is választhatja, illetve ön is "
-"csinálhat egyet."
+"megfelel a legtöbb használónak.  Válassza ki, mely helyet használjuk, és "
+"mely eszközökre telepítsünk. Választhatja azt is, hogy csinál egy saját "
+"egyedi felosztást."
 
 #: ../textw/partition_text.py:76
 msgid "Which drive(s) do you want to use for this installation?"
@@ -4280,7 +4259,6 @@ msgid "Installation cannot continue."
 msgstr "A telepítés nem folytatható."
 
 #: ../storage/__init__.py:96
-#, fuzzy
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -4304,7 +4282,6 @@ msgstr ""
 "titkosítást letiltom."
 
 #: ../storage/__init__.py:146
-#, fuzzy
 msgid "Writing storage configuration to disk"
 msgstr "Felosztás lemezre írása"
 
@@ -4325,9 +4302,8 @@ msgid "_Write changes to disk"
 msgstr "Vált_ozások lemezre írása"
 
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "Hiányzó eszköz"
+msgstr "Eszközök keresése"
 
 #: ../storage/__init__.py:253
 msgid "Finding storage devices..."
@@ -4346,22 +4322,20 @@ msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "LDL DASD részt nem lehet törölni."
 
 #: ../storage/__init__.py:491
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "E rész a /dev/md%s RAID eszközhöz tartozik."
+msgstr "E rész a %s RAID eszközhöz tartozik."
 
 #: ../storage/__init__.py:494
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "Ez a rész egy RAID eszközhöz tartozik."
+msgstr "E rész egy RAID eszközhöz tartozik."
 
 #: ../storage/__init__.py:499
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "E rész „%s” LVM kötet csoporthoz tartozik."
+msgstr "Ez az eszköz „%s” LVM kötet csoporthoz tartozik."
 
 #: ../storage/__init__.py:502
-#, fuzzy
 msgid "This device is part of a LVM volume group."
 msgstr "E rész egy LVM kötetcsoporthoz tartozik."
 
@@ -4389,12 +4363,12 @@ msgstr ""
 "telepítéséhez."
 
 #: ../storage/__init__.py:762
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"%s rész kisebb %s megabájtnál, ami kevesebb, mint a normál %s telepítésre "
+"A rész kisebb %s megabájtnál, ami kevesebb, mint a normál %s telepítésre "
 "ajánlott minimum."
 
 #: ../storage/__init__.py:770
@@ -4422,9 +4396,8 @@ msgstr ""
 "eredményezhet."
 
 #: ../storage/__init__.py:804
-#, fuzzy
 msgid "You have not created a boot partition."
-msgstr "PPC PReP részt kell csinálni."
+msgstr "Nincs rendszerindító rész."
 
 #: ../storage/__init__.py:808
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -4484,7 +4457,7 @@ msgstr ""
 "%s"
 
 #: ../storage/__init__.py:1406
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4494,9 +4467,7 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
-"A\n"
-"\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
 "lapozó eszközt az /etc/fstab fájl szerint jelenleg szoftveres "
 "felfüggesztéshez használják, ami annyit jelent, hogy a rendszer hibernált "
@@ -4504,7 +4475,7 @@ msgstr ""
 "ne hibernálja."
 
 #: ../storage/__init__.py:1414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4514,17 +4485,15 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to format all swap devices."
 msgstr ""
-"A\n"
-"\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
 "lapozó eszközt az /etc/fstab fájl szerint jelenleg szoftveres "
 "felfüggesztéshez használják, ami annyit jelent, hogy a rendszer hibernált "
-"állapotban van. Ha új telepítést végez, bizonyosodjon meg arról, hogy a "
-"telepítő kialakítja az összes lapozó területet."
+"állapotban van. Ha új telepítést végez, győződjön meg arról, hogy a "
+"telepítő újra alakítja az összes lapozó területet."
 
 #: ../storage/__init__.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4533,15 +4502,15 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"Hiba történt %s lapozó eszköz engedélyezésekor: %s\n"
+"Hiba történt %s lapozó eszközt engedélyezvén: %s\n"
 "\n"
-"A feljejlesztendő részen levő /etc/fstab fájl nem hivatkozik érvényes lapozó "
+"A felfejlesztendő részen levő /etc/fstab fájl nem hivatkozik érvényes lapozó "
 "területre.\n"
 "\n"
 "Nyomjon OK-t, hogy kilépjen a telepítőből."
 
 #: ../storage/__init__.py:1434
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4599,24 +4568,21 @@ msgstr ""
 "de további hibák léphetnek fel."
 
 #: ../storage/__init__.py:1521
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s megteremtését megkísérelvén hiba történt: %s.  Ez végzetes hiba. A "
-"telepítés nem folytatható.\n"
+"%s eszközt %s típusú részként becsatolván hiba történt: %s. "
+"Ez végzetes hiba. A telepítés nem folytatható.\n"
 "\n"
 "Nyomjon <Enter>-t, hogy kilépjen a telepítőből."
 
 #: ../storage/devices.py:1059
-#, fuzzy
 msgid "boot flag not available for this partition"
-msgstr ""
-"Ez a rész nem törölhető:\n"
-"\n"
+msgstr "nem lehet rendszerindító jelzés e részhez"
 
 #: ../storage/devicetree.py:87
 msgid "Confirm"
@@ -4652,19 +4618,16 @@ msgid ""
 msgstr ""
 
 #: ../storage/devicetree.py:159
-#, fuzzy
 msgid "_Ignore drive(s)"
-msgstr "Eszköz _mellőzése"
+msgstr "Eszköz(ök) _mellőzése"
 
 #: ../storage/devicetree.py:160
-#, fuzzy
 msgid "_Re-initialize drive(s)"
-msgstr "Eszköz új_rainicializálása"
+msgstr "Eszköz(ök) új_ra inicializálása"
 
 #: ../storage/iscsi.py:98 ../storage/iscsi.py:99
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "SCSI vezérlő betöltése"
+msgstr "SCSI elemek lekérése"
 
 #: ../storage/iscsi.py:172 ../storage/iscsi.py:173
 msgid "Initializing iSCSI initiator"
@@ -4675,9 +4638,8 @@ msgid "iSCSI not available"
 msgstr ""
 
 #: ../storage/iscsi.py:210
-#, fuzzy
 msgid "No initiator name set"
-msgstr "iSCSI kezdeményező neve"
+msgstr "Nincs kezdeményező név beállítva"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
@@ -4811,9 +4773,9 @@ msgid "Formatting"
 msgstr "Kialakítás"
 
 #: ../storage/formats/fs.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s..."
-msgstr "Fájlrendszer ellenőrzése %s részen…"
+msgstr "Fájlrendszer teremtése %s részen…"
 
 #: ../storage/formats/fs.py:367
 msgid "Resizing"
@@ -5795,9 +5757,8 @@ msgid ""
 msgstr "Kérem, adja meg beállítás információkat e szoftver tárolóhoz."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Gazda (gazda:kapu)"
+msgstr "Átjátszó URL (gazda:kapu)"
 
 #: tmp/addrepo.glade.h:11
 msgid "Proxy pass_word"
@@ -5848,9 +5809,8 @@ msgid "_Next"
 msgstr "_Tovább"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "<b>_Cél átméretezése:</b>"
+msgstr "<b>_Cél átméretezése (MB-ban):</b>"
 
 #: tmp/autopart.glade.h:3
 msgid "Re_view and modify partitioning layout"
@@ -6270,9 +6230,8 @@ msgid "Macedonian"
 msgstr "macedón"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
-msgstr "marati (India)"
+msgstr "majtili (India/Nepál)"
 
 #. generated from lang-table
 msgid "Malay"
@@ -6287,9 +6246,8 @@ msgid "Marathi"
 msgstr "marati (India)"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
-msgstr "bengáli"
+msgstr "nepáli"
 
 #. generated from lang-table
 msgid "Norwegian(Bokmål)"
@@ -6360,9 +6318,8 @@ msgid "Swedish"
 msgstr "svéd"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
-msgstr "tamil (India/Sri Lanka)"
+msgstr "tadzsik"
 
 #. generated from lang-table
 msgid "Tamil"
@@ -6391,3 +6348,4 @@ msgstr "velszi"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zulu (Dél-Afrika)"
+
