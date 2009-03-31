@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.102
+Version: 10.1.1.103
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 31 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.103-1
+- libwrap is now located in /LIBDIR/libwrap (msivak).
+  Resolves: rhbz:#493005
+
 * Thu Mar 26 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.102-1
 - Fix the size of the vmlinuz images for i386 and ia64 (msivak).
   Resolves: rhbz:#492331
