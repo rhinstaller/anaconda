@@ -465,7 +465,7 @@ etc/security/limits.conf
 etc/security/pam_env.conf
 lib/security
 $LIBDIR/security/pam_*
-usr/$LIBDIR/libwrap.so*
+$LIBDIR/libwrap.so*
 usr/X11R6/$LIBDIR/libXmuu.so*
 usr/X11R6/$LIBDIR/libX11.so*
 usr/X11R6/$LIBDIR/libXext.so*
@@ -618,7 +618,7 @@ usr/$LIBDIR/libpng.so.3*
 usr/$LIBDIR/libpng12.so*
 usr/$LIBDIR/libreadline*
 usr/$LIBDIR/libstdc++.so.*
-usr/$LIBDIR/libwrap*
+$LIBDIR/libwrap*
 usr/lib/locale/*
 usr/$LIBDIR/pango/*
 usr/$LIBDIR/python?.?/site-packages/gtk*/gtk/*
