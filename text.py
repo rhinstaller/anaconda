@@ -242,7 +242,11 @@ class SaveExceptionWindow:
         toplevel.add(scpGrid, 0, 5, (0, 0, 0, 1))
         toplevel.add(buttons, 0, 6, growx=1)
 
-        dests = self.anaconda.id.storage.exceptionDisks()
+        try:
+            dests = self.anaconda.id.storage.exceptionDisks()
+        except Exception as e:
+            log.error("Error when probing exception disks: %s" % e)
+            dests = []
 
         if len(dests) > 0:
             for (dev, desc) in dests:

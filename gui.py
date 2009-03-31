@@ -743,7 +743,11 @@ class SaveExceptionWindow:
 
         store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
 
-        dests = anaconda.id.storage.exceptionDisks()
+        try:
+            dests = anaconda.id.storage.exceptionDisks()
+        except Exception as e:
+            log.error("Error when probing exception disks: %s" % e)
+            dests = []
 
         if flags.livecdInstall:
             self.destCombo.remove_text(0)
