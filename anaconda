@@ -674,7 +674,7 @@ if __name__ == "__main__":
     if iutil.isS390():
         opts.isHeadless = True
 
-    if not flags.test and not flags.rootpath:
+    if not flags.test and not flags.rootpath and not flags.livecdInstall:
     	isys.auditDaemon()
 
     users.createLuserConf(anaconda.rootPath)
