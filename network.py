@@ -140,6 +140,9 @@ class NetworkDevice(SimpleConfigFile):
         else:
             forceOffOnBoot = 0
 
+        if self.get('USEIPV6'):
+            forceOffOnBoot = 0
+
         onBootWritten = 0
         for key in keys:
             if key in ("USEIPV4", "USEIPV6"): # XXX: these are per-device, but not written out
@@ -537,8 +540,6 @@ class Network:
 
             if dev.get("useIPv6"):
                 useIPv6 = "yes"
-            else:
-                useIPv6 = "no"
 
         # /etc/sysconfig/network
         f = open(instPath + "/etc/sysconfig/network", "w")
