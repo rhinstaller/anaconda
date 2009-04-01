@@ -95,7 +95,7 @@ class PartitionTypeWindow:
             cleardrives = anaconda.id.storage.clearPartDisks
 
             for disk in disks:
-                model = disk.partedDisk.device.model
+                model = disk.model
 
                 if not cleardrives or len(cleardrives) < 1:
                     selected = 1

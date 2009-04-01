@@ -713,6 +713,10 @@ class DiskDevice(StorageDevice):
         return self.partedDevice is not None
 
     @property
+    def model(self):
+        return getattr(self.partedDevice, "model", None)
+
+    @property
     def size(self):
         """ The disk's size in MB """
         if not self.mediaPresent:

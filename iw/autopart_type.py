@@ -413,7 +413,7 @@ class PartitionTypeWindow(InstallWindow):
         for disk in self.storage.disks:
             if disk.name not in self.anaconda.id.bootloader.drivelist:
                 continue
-            dispstr = "%s %8.0f MB %s" %(disk.name, disk.size, disk.partedDisk.device.model)
+            dispstr = "%s %8.0f MB %s" %(disk.name, disk.size, disk.model)
             i = bootstore.append(None)
             bootstore[i] = (dispstr, disk.name)
             if disk.name == defaultBoot:

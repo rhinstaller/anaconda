@@ -154,10 +154,9 @@ def createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=True,
                     selected = 1
 
         sizestr = "%8.0f MB" % disk.size
-        # TODO: abstract disk model so we don't have to reach into parted.Disk
         drivelist.append_row((disk.name,
                               sizestr,
-                              disk.partedDisk.device.model),
+                              disk.model),
                              selected)
 
     if len(disks) < 2:
