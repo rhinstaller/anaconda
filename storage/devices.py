@@ -1707,7 +1707,10 @@ class LVMVolumeGroupDevice(DMDevice):
             raise ValueError("lv is already part of this vg")
 
         # verify we have the space, then add it
-        if not lv.exists and lv.size > self.freeSpace:
+        # do not verify for growing vg (because of ks)
+        if not lv.exists and \
+           not [pv for pv in self.pvs if pv.req_grow] and \
+           lv.size > self.freeSpace:
             raise DeviceError("new lv is too large to fit in free space")
 
         self._lvs.append(lv)
