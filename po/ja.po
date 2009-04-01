@@ -1,4 +1,4 @@
-# translation of ja.po to Japanese
+# translation of anaconda.po to Japanese
 # anaconda/ja.po
 # Copyright (C) 2001 Red Hat, Inc.
 # SATO Satoru <ssato@redhat.com>
@@ -11,16 +11,16 @@
 # Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004, 2005, 2006.
 # Kiyoto James Hashida <khashida@redhat.com>, 2006, 2007.
 # Hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>, 2007.
-# Kiyoto Hashida <khashida@redhat.com>, 2007, 2008.
+# Kiyoto Hashida <khashida@redhat.com>, 2007, 2008, 2009.
 # Makoto Mizukami <mmk9060@aol.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: ja\n"
+"Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-24 12:59+1000\n"
-"Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
-"Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
+"PO-Revision-Date: 2009-04-01 18:14+1000\n"
+"Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
+"Language-Team: Japanese <jp@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -124,6 +124,9 @@ msgid ""
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
+"テキストモードは限定的なインストールオプションのセットを提供します。好みの "
+"パーティション設定やパッケージ選択の指定がありません。代わりに VNC モードを "
+"使用しますか？"
 
 #: ../anaconda:852
 msgid "Install class forcing text mode installation"
@@ -131,8 +134,7 @@ msgstr "テキストモードインストールを強制するインストール
 
 #: ../anaconda:871
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"グラフィカルインストールは使用できません...テキストモードを起動中です。"
+msgstr "グラフィカルインストールは使用できません...テキストモードを起動中です。"
 
 #: ../anaconda:879
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -140,11 +142,11 @@ msgstr "DISPLAY 変数がセットされていません。テキストモード�
 
 #: ../anaconda:1047
 msgid "reipl configuration successful => reboot"
-msgstr ""
+msgstr "reipl 設定が正常に終了しました => 再起動します"
 
 #: ../anaconda:1050
 msgid "reipl configuration failed => halt"
-msgstr ""
+msgstr "reipl 設定が失敗しました => 停止します"
 
 #: ../backend.py:144
 #, python-format
@@ -356,8 +358,7 @@ msgstr "ログインできません"
 
 #: ../exception.py:425
 #, python-format
-msgid ""
-"There was an error logging into %s using the provided username and password."
+msgid "There was an error logging into %s using the provided username and password."
 msgstr ""
 "提示されたユーザー名とパスワードを使用した %s へのログインにエラーが発生しま"
 "した。"
@@ -408,8 +409,7 @@ msgstr "dump が書き込まれました"
 msgid ""
 "Your system's state has been successfully written to the disk. The installer "
 "will now exit."
-msgstr ""
-"システム状態のディスク書き込みに成功しました。インストーラを終了します。"
+msgstr "システム状態のディスク書き込みに成功しました。インストーラを終了します。"
 
 #: ../exception.py:511 ../exception.py:528 ../exception.py:551
 msgid "Dump Not Written"
@@ -706,7 +706,7 @@ msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"ディスク をアンマウント中にエラーが発生しました。tty2 のシェルから %s にアク"
+"ディスクをアンマウント中にエラーが発生しました。tty2 のシェルから %s にアク"
 "セスしていないことを確認してから [OK] をクリックして再試行してください。"
 
 #: ../installclass.py:71
@@ -716,37 +716,37 @@ msgstr "システム上にインストール"
 #: ../iutil.py:740
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "エラー: 開く時に、reIPL メソッドを %s (%s: %s) にセットできません"
 
 #: ../iutil.py:748
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "エラー: 書き込みで、reIPL メソッドを %s (%s: %s) にセットできません"
 
 #: ../iutil.py:755
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "エラー: 閉じる時、reIPL メソッドを %s (%s: %s) にセットできません"
 
 #: ../iutil.py:765 ../iutil.py:817
 #, python-format
 msgid "Error: %s splits into %s but not like we expect"
-msgstr ""
+msgstr "エラー: %s は %s に分れますが、期待どおりではありません"
 
 #: ../iutil.py:778
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr ""
+msgstr "エラー: %s を reIPL デバイス (%s) としてセットできません"
 
 #: ../iutil.py:787
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
+msgstr "エラー: loadparm (%s) をリセットできません"
 
 #: ../iutil.py:796
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr ""
+msgstr "警告: parm (%s) をリセットできません"
 
 #: ../iutil.py:806
 #, python-format
@@ -754,21 +754,23 @@ msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
+"シャットダウンの後に、DASD デバイス %s から手動で IPL を実行してインストールを "
+"継続してください"
 
 #: ../iutil.py:834
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "エラー: reIPL (%s) の FCP プロパティ %s 読み込み"
 
 #: ../iutil.py:847
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "エラー: reIPL (%s) の FCP プロパティ %s の書き込み"
 
 #: ../iutil.py:860
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "エラー: reIPL (%s) のデフォルト FCP プロパティ %s の書き込み"
 
 #: ../iutil.py:870
 #, python-format
@@ -776,24 +778,28 @@ msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
+"シャットダウンの後に、WWPN %(wwpn)s と LUN %(lun)sを使用して FCP %(device)s "
+"から手動で IPL を実行して、インストールを継続して下さい"
 
 #: ../iutil.py:877
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
+"シャットダウンの後に、今 /boot を収納しているデバイスから手動で IPL を実行して、 "
+"インストールを継続して下さい"
 
 #: ../iutil.py:887
 msgid "Could not get information for mount point /boot or /"
-msgstr ""
+msgstr "マウントポイント /boot 又は / に関する情報を取得できません"
 
 #: ../iutil.py:897
 msgid "Error determining mount point type"
-msgstr ""
+msgstr "マウントポイントのタイプ決定でエラー"
 
 #: ../iutil.py:901
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
-msgstr ""
+msgstr "マウントポイント /boot 又は / が熟知していないディスク上にあります"
 
 #: ../kickstart.py:96
 #, python-format
@@ -803,8 +809,7 @@ msgid ""
 "Press the OK button to exit the installer."
 msgstr ""
 "キックスタートスクリプトの %s 行目の処理中にエラーが発生しました。%s 内の出力"
-"を調査した方が良いでしょう。致命的なエラーの為、インストールは中止されま"
-"す。\n"
+"を調査した方が良いでしょう。致命的なエラーの為、インストールは中止されます。"
 "OK を押すとインストーラーを終了します。"
 
 #: ../kickstart.py:111 ../kickstart.py:113
@@ -865,6 +870,9 @@ msgid ""
 "prompt for.  Please add the following sections and try again:\n"
 "%s"
 msgstr ""
+"使用中のキックスタートファイルは必要情報を欠いており、これはアナコンダが "
+"催促できないものです。 以下のセクションを追加して再試行して下さい:\n"
+"%s"
 
 #: ../livecd.py:108
 msgid "Unable to find image"
@@ -872,8 +880,7 @@ msgstr "イメージを検出できません。"
 
 #: ../livecd.py:109
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 "与えられた場所は、インストールソースとして使用するための有効な %s ライブ ディ"
 "スク ではありません。"
@@ -930,8 +937,7 @@ msgstr ""
 "ば なりません。"
 
 #: ../network.py:69
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
 "ホスト名には 「a-z」、 「A-Z」、 「0-9」、「-」、 「.」以外の文字は使用できま"
 "せん。"
@@ -980,7 +986,7 @@ msgstr "%s のリサイズ中にエラーが発生しました。"
 
 #: ../packages.py:138
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "デバイスの取り出しに失敗 "
 
 #: ../packages.py:139
 #, fuzzy, python-format
@@ -989,7 +995,7 @@ msgstr "%s のリサイズ中にエラーが発生しました。"
 
 #: ../packages.py:146
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "デバイスのセットアップに失敗"
 
 #: ../packages.py:147
 #, fuzzy, python-format
@@ -1027,7 +1033,7 @@ msgstr "%s のリサイズ中にエラーが発生しました。"
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
-msgstr ""
+msgstr "ストレージアクティベーションに失敗"
 
 #: ../packages.py:185
 #, fuzzy
@@ -1162,8 +1168,7 @@ msgstr "削除の確認"
 #: ../partIntfHelpers.py:146
 #, fuzzy, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr ""
-"デバイス 「/dev/%s」上のすべてのパーティションを削除しようとしています。"
+msgstr "デバイス 「/dev/%s」上のすべてのパーティションを削除しようとしています。"
 
 #: ../partIntfHelpers.py:149 ../partIntfHelpers.py:304
 #: ../iw/lvm_dialog_gui.py:750 ../iw/lvm_dialog_gui.py:1261
@@ -1328,8 +1333,7 @@ msgid "Confirm Reset"
 msgstr "リセットの確認"
 
 #: ../partIntfHelpers.py:312
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "本当に、パーティションテーブル設定をリセットして元の状態に戻しますか?"
 
 #: ../partedUtils.py:108 ../iw/partition_gui.py:779 ../iw/partition_gui.py:927
@@ -1723,8 +1727,7 @@ msgstr ""
 #: ../upgrade.py:97
 #, python-format
 msgid "Would you like to upgrade  the installed system to the %s architecture?"
-msgstr ""
-"インストールされたシステムを、%s アーキテクチャにアップグレードしますか?"
+msgstr "インストールされたシステムを、%s アーキテクチャにアップグレードしますか?"
 
 #: ../upgrade.py:114
 msgid ""
@@ -1756,15 +1759,17 @@ msgstr ""
 "ください。"
 
 #: ../upgrade.py:247
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "ブートローダー設定のアップグレード"
+msgstr "アップグレード root が見付かりません"
 
 #: ../upgrade.py:248
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
 msgstr ""
+"以前にインストールされたシステムの root が見付かりません。インストーラを "
+"終了するか、又はアップグレードの代わりにインストールを選択するために戻る "
+"ことが出来ます。"
 
 #: ../upgrade.py:271
 msgid ""
@@ -2097,8 +2102,7 @@ msgstr "ダウンロードの再試行中..."
 
 #: ../yuminstall.py:780
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "トランザクションの実行中に次のような理由でエラーが発生しました。%s\n"
 
 #: ../yuminstall.py:815 ../yuminstall.py:816
@@ -2166,6 +2170,8 @@ msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
+"ソフトウェアレポジトリの一部はネットワークを必要とします。しかし、使用中の "
+"システムでネットワークの有効化にエラーが発生しました。"
 
 #: ../yuminstall.py:1057
 msgid ""
@@ -2346,8 +2352,7 @@ msgstr ""
 "本当にこのパスワードを使いますか?"
 
 #: ../iw/account_gui.py:145 ../textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "要求されたパスワードには、パスワードに使用できない非 ASCII 文字が含まれていま"
 "す。"
@@ -2361,24 +2366,21 @@ msgstr ""
 "トされた、物理パーティションのみリサイズできます。"
 
 #: ../iw/autopart_type.py:124
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "ファイルシステム %s のリサイズ中..."
+msgstr "ファイルシステムリサイズエラー"
 
 #: ../iw/autopart_type.py:125 ../iw/autopart_type.py:134
 #, python-format
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:133
 msgid "Resize Device Error"
-msgstr ""
+msgstr "デバイスリサイズエラー"
 
 #: ../iw/autopart_type.py:208
-msgid ""
-"Do you really want to boot from a disk which is not used for installation?"
-msgstr ""
-"本当にインストール用に使用されていないディスクからシステムをブートしますか?"
+msgid "Do you really want to boot from a disk which is not used for installation?"
+msgstr "本当にインストール用に使用されていないディスクからシステムをブートしますか?"
 
 #: ../iw/autopart_type.py:285
 msgid "Invalid Initiator Name"
@@ -2394,16 +2396,15 @@ msgstr "データにエラー発生"
 
 #: ../iw/autopart_type.py:398 ../iw/autopart_type.py:399
 msgid "Rescanning disks"
-msgstr ""
+msgstr "ディスクを再スキャン中"
 
 #: ../iw/autopart_type.py:452 ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "ドライブを無視(_I)"
+msgstr "ドライブ全域を使用"
 
 #: ../iw/autopart_type.py:453 ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "既存の Linux システムを入れ替え"
 
 #: ../iw/autopart_type.py:454
 #, fuzzy
@@ -2506,7 +2507,7 @@ msgstr ""
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "シャットダウン"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
 #, fuzzy
@@ -2516,17 +2517,16 @@ msgstr ""
 "再起動して下さい。\n"
 
 #: ../iw/congrats_gui.py:81 ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr ""
-"インストールが終了したシステムを使用するには、システムを \n"
-"再起動して下さい。\n"
+msgstr "インストール済のシステムを使用するには再起動して下さい。\n"
 
 #: ../iw/congrats_gui.py:86 ../textw/complete_text.py:51
 msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
 msgstr ""
+"ご使用のシステムの正常な機能を確実にするために更新が利用できる可能性があり、 "
+"再起動の後にこの更新が推奨されることに注意して下さい。"
 
 #: ../iw/congrats_gui.py:90 ../textw/complete_text.py:55
 #, python-format
@@ -2537,6 +2537,11 @@ msgid ""
 "available to ensure the proper functioning of your system and installation "
 "of these updates is recommended after the reboot."
 msgstr ""
+"おめでとうございます。%s のインストールが完了しました。\n"
+"\n"
+"インストールしたシステムを使用するために再起動して下さい。ご使用の "
+"システムの正常な機能を確実にするために更新が利用できる可能性が "
+"あり、再起動の後にこの更新が推奨されます。"
 
 #: ../iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -2740,8 +2745,7 @@ msgstr "不適切な論理ボリューム名"
 #: ../iw/lvm_dialog_gui.py:556
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
+msgstr "論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
 
 #: ../iw/lvm_dialog_gui.py:584
 msgid "Mount point in use"
@@ -3137,17 +3141,13 @@ msgid "Partitioning"
 msgstr "パーティション設定"
 
 #: ../iw/partition_gui.py:612
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
-msgstr ""
-"あなたが要求したパーティション設定案は以下の重大なエラーを起こしました。"
+msgid "The partitioning scheme you requested caused the following critical errors."
+msgstr "あなたが要求したパーティション設定案は以下の重大なエラーを起こしました。"
 
 #: ../iw/partition_gui.py:614
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
-msgstr ""
-"%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
+msgid "You must correct these errors before you continue your installation of %s."
+msgstr "%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
 
 #: ../iw/partition_gui.py:620
 msgid "Partitioning Errors"
@@ -3482,8 +3482,7 @@ msgstr "クローン作成を行うターゲットドライブを選択してく
 #: ../iw/raid_dialog_gui.py:622
 #, fuzzy, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr ""
-"ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
+msgstr "ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
 
 #: ../iw/raid_dialog_gui.py:638
 #, fuzzy, python-format
@@ -3622,8 +3621,7 @@ msgstr "無効なリポジトリ URL です。"
 
 #: ../iw/task_gui.py:251 ../iw/task_gui.py:389
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr ""
-"リポジトリには、HTTP, HTTPS, または FTP の URL を入力する必要があります。"
+msgstr "リポジトリには、HTTP, HTTPS, または FTP の URL を入力する必要があります。"
 
 #: ../iw/task_gui.py:273 ../iw/task_gui.py:398
 msgid "No Media Found"
@@ -3695,8 +3693,7 @@ msgstr "インストーラーは現在システムで使用中のブートロー
 
 #: ../iw/upgrade_bootloader_gui.py:137 ../textw/upgrade_bootloader_text.py:120
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "インストーラーが現在 %s にインストールされている %s ブートローダーを検出しま"
 "した。"
@@ -3827,13 +3824,12 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap ファイルは 1 MB から 2000 MB の間の容量にしてください。"
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:183
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "swap パーティション用に選択したデバイスには十分な領域がありません。"
 
 #: ../iw/welcome_gui.py:56 ../textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "ネットワークのインストールが必要"
 
 #: ../iw/welcome_gui.py:57 ../textw/welcome_text.py:37
 msgid ""
@@ -3842,11 +3838,14 @@ msgid ""
 "full DVD, full CD set, or do not pass a repo= parameter that specifies a "
 "network source."
 msgstr ""
+"インストールのソースがネットワークの位置に設定してありますが、システム上に "
+"ネットワークデバイスが見当たりません。ネットワークインストールを避けるには、 "
+"完全な DVD か完全な CD セットで起動しますが、その場合、ネットワークソースを "
+"指定してしまう repo= parameter を押さないで下さい。"
 
 #: ../iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "インストーラーを終了する"
+msgstr "インストーラーを終了(_X)"
 
 #: ../iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -4369,16 +4368,15 @@ msgstr "欠如パッケージ"
 
 #: ../storage/__init__.py:253
 msgid "Finding storage devices..."
-msgstr ""
+msgstr "ストレージデバイスを検索中..."
 
 #: ../storage/__init__.py:269
 msgid "Filesystem error detected, cannot continue."
-msgstr ""
+msgstr "ファイルシステムエラー発見。継続できません。"
 
 #: ../storage/__init__.py:480
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"このパーティションはハードドライブインストール用のデータを保有しています。"
+msgstr "このパーティションはハードドライブインストール用のデータを保有しています。"
 
 #: ../storage/__init__.py:485
 msgid "You cannot delete a partition of a LDL formatted DASD."
@@ -4410,6 +4408,9 @@ msgid ""
 "cannot be deleted:\n"
 "\n"
 msgstr ""
+"このデバイスは拡張パーティションです。この中の論理パーティションは先に "
+"削除できません:\n"
+"\n"
 
 #: ../storage/__init__.py:751
 #, python-format
@@ -4448,8 +4449,7 @@ msgstr ""
 "量には不足しています。"
 
 #: ../storage/__init__.py:797
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB デバイス上にインストールしています。稼動するシステムが作成されることもあ"
 "りますが、されないこともあります。"
@@ -4482,8 +4482,7 @@ msgstr "起動可能なパーティションを RAID デバイス上に作成す
 #: ../storage/__init__.py:823 ../storage/__init__.py:828
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr ""
-"起動可能なパーティションを、ファイルシステム %s に作成することはできません。"
+msgstr "起動可能なパーティションを、ファイルシステム %s に作成することはできません。"
 
 #: ../storage/__init__.py:833
 msgid "Bootable partitions cannot be on an encrypted block device"
@@ -4684,6 +4683,8 @@ msgid ""
 "Error processing drive %s.\n"
 "Maybe it needs to be reinitialized.YOU WILL LOSE ALL DATA ON THIS DRIVE!"
 msgstr ""
+"デバイス %s のプロセス中にエラー発生。\n"
+"再初期化が必要かも知れません。その場合このデバイス上の全てのデータが消失します。"
 
 #: ../storage/devicetree.py:151
 #, python-format
@@ -4693,6 +4694,10 @@ msgid ""
 "reinitialize all related PVs, which will erase all LVM metadata. Or ignore, "
 "which will preserve contents."
 msgstr ""
+"LVM をプロセス中にエラー発生。\n"
+"一貫性のない LVM データが存在するようです。(%s) は %s を構成します。 "
+"全ての関連した PV を再初期化できますが、そうすると全ての LVM メタデータが "
+"消失します。又は無視するとコンテンツを保存します。"
 
 #: ../storage/devicetree.py:159
 #, fuzzy
@@ -4715,7 +4720,7 @@ msgstr "iSCSI イニシエーターの初期化中"
 
 #: ../storage/iscsi.py:208
 msgid "iSCSI not available"
-msgstr ""
+msgstr "iSCSI は使用できません"
 
 #: ../storage/iscsi.py:210
 #, fuzzy
@@ -4724,25 +4729,27 @@ msgstr "iSCSI イニシエーター名"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "iSCSI ノードが見付かりません"
 
 #: ../storage/iscsi.py:227 ../storage/iscsi.py:228
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "iSCSI ノードにログイン中"
 
 #: ../storage/iscsi.py:250
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "新しい iSCSI ノードは見付かりません"
 
 #: ../storage/iscsi.py:253
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "見付かったノードのいずれにもログインできませんでした"
 
 #: ../storage/partitioning.py:175
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
+"自動パーティション設定用に十分な空き領域が見付かりません。別の "
+"パーティションメソッドを使用して下さい。"
 
 #: ../storage/partitioning.py:192
 msgid "Warnings During Automatic Partitioning"
@@ -4834,20 +4841,20 @@ msgstr "FCP FUN を指定していないか、番号が無効です。"
 #: ../storage/devicelibs/lvm.py:326
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "%s 用の vginfo に失敗"
 
 #: ../storage/devicelibs/lvm.py:354
 #, python-format
 msgid "lvs failed for %s"
-msgstr ""
+msgstr "%s 用の lvs に失敗"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "attr dict はタイプを含む必要があります"
 
 #: ../storage/formats/fs.py:111
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "ファイルシステム設定にタイプがありません。"
 
 #: ../storage/formats/fs.py:270
 msgid "Formatting"
@@ -5084,8 +5091,7 @@ msgstr "キックスタートの元となるドライバーディスクが不明
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"キックスタートのドライバーディスクコマンドに不正な引数が指定されました: %s %s"
+msgstr "キックスタートのドライバーディスクコマンドに不正な引数が指定されました: %s %s"
 
 #: ../loader/driverselect.c:67
 #, c-format
@@ -5146,8 +5152,7 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
+msgstr "このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
 
 #: ../loader/hdinstall.c:246
 #, c-format
@@ -5238,8 +5243,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%s (%s 用)へようこそ - レスキューモード"
 
 #: ../loader/lang.c:65 ../loader/loader.c:226
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> 項目間の移動 | <Space> 選択 | <F12> 次の画面 "
 
 #: ../loader/lang.c:375
@@ -5392,14 +5396,12 @@ msgstr "ローダーはすでに実行されています。シェルの起動中
 #: ../loader/loader.c:2224
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
-msgstr ""
-"anaconda %s を %s レスキューモードで実行中 - しばらくお待ちください...\n"
+msgstr "anaconda %s を %s レスキューモードで実行中 - しばらくお待ちください...\n"
 
 #: ../loader/loader.c:2226
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr ""
-"anaconda %s・%s システムインストーラーを実行中 - しばらくお待ちください...\n"
+msgstr "anaconda %s・%s システムインストーラーを実行中 - しばらくお待ちください...\n"
 
 #: ../loader/mediacheck.c:46
 #, c-format
@@ -5552,16 +5554,14 @@ msgid "Missing Information"
 msgstr "情報が不足しています"
 
 #: ../loader/net.c:1087
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "有効な IPv4 アドレスとネットマスクまたは CIDR プレフィックスの両方を入力する"
 "必要があります。"
 
 #: ../loader/net.c:1094
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr ""
-"有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
+msgstr "有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
 
 #: ../loader/net.c:1542
 #, c-format
@@ -5700,10 +5700,8 @@ msgstr "取り込み中"
 
 #: ../loader/urls.c:295
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
-msgstr ""
-"%s のインストールイメージを含んでいるサーバーの URL を入力してください。"
+msgid "Please enter the URL containing the %s installation image on your server."
+msgstr "%s のインストールイメージを含んでいるサーバーの URL を入力してください。"
 
 #: ../loader/urls.c:321
 msgid "URL Setup"
@@ -5826,8 +5824,7 @@ msgstr ""
 "Hard Drive"
 
 #: tmp/addrepo.glade.h:9
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr "このソフトウェアレポジトリの設定情報を入力してください。"
 
 #: tmp/addrepo.glade.h:10
@@ -5884,9 +5881,8 @@ msgid "_Next"
 msgstr "次(_N)"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "<b>リサイズの対象:</b>"
+msgstr "<b>リサイズの対象（MB）(_T):</b>"
 
 #: tmp/autopart.glade.h:3
 msgid "Re_view and modify partitioning layout"
@@ -5894,15 +5890,14 @@ msgstr "パーティションレイアウトの再確認と変更(_V)"
 
 #: tmp/autopart.glade.h:4
 msgid "Volume to Resize"
-msgstr ""
+msgstr "リサイズするボリューム"
 
 #: tmp/autopart.glade.h:5
 msgid "What drive would you like to _boot this installation from?"
 msgstr "このインストールを起動するドライブ (_B):"
 
 #: tmp/autopart.glade.h:6
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
+msgid "Which partition would you like to resize to make room for your installation?"
 msgstr ""
 "インストール用の空き容量を作るために、サイズを変更するパーティションを選択し"
 "てください。"
@@ -6131,8 +6126,7 @@ msgstr "後でカスタマイズする(_l)"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"ソフトウェアのインストールに使用する予定の追加リポジトリを選択してください。"
+msgstr "ソフトウェアのインストールに使用する予定の追加リポジトリを選択してください。"
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6306,9 +6300,8 @@ msgid "Macedonian"
 msgstr "マケドニア語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
-msgstr "マラーティー語"
+msgstr "マイティリー語"
 
 #. generated from lang-table
 msgid "Malay"
@@ -6323,9 +6316,8 @@ msgid "Marathi"
 msgstr "マラーティー語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
-msgstr "ベンガル語"
+msgstr "ネパール語"
 
 #. generated from lang-table
 msgid "Norwegian(Bokmål)"
@@ -6396,9 +6388,8 @@ msgid "Swedish"
 msgstr "スウェーデン語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
-msgstr "タミル語"
+msgstr "タジク語"
 
 #. generated from lang-table
 msgid "Tamil"
@@ -6427,3 +6418,4 @@ msgstr "ウェールズ語"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "ズールー語"
+
