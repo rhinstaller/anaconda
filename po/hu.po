@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: anaconda master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-31 08:19+0200\n"
+"PO-Revision-Date: 2009-04-01 08:03+0200\n"
 "Last-Translator: Sulyok Péter <peti@fedoraproject.org>\n"
 "Language-Team: Hungarian <Hungarian <fedora-trans-hu@redhat.com>>\n"
 "MIME-Version: 1.0\n"
@@ -118,6 +118,9 @@ msgid ""
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
+"A szöveges mód lekorlátozott telepítés opciókat kínál.  Nem engedi meg "
+"a saját merevlemez felosztást vagy a csomagok kiválogatását.  Kívánja "
+"inkább a VNC módot használni?"
 
 #: ../anaconda:852
 msgid "Install class forcing text mode installation"
@@ -137,7 +140,7 @@ msgstr ""
 
 #: ../anaconda:1050
 msgid "reipl configuration failed => halt"
-msgstr ""
+msgstr "reipl beállítás elbukott => leállás"
 
 #: ../backend.py:144
 #, python-format
@@ -708,37 +711,37 @@ msgstr "Telepítés a rendszerre"
 #: ../iutil.py:740
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Hiba: Nyitáskor nem lehet reIPL eljárást a következőre állítani: %s (%s: %s)"
 
 #: ../iutil.py:748
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Hiba: Íráskor nem lehet reIPL eljárást a következőre állítani: %s (%s: %s)"
 
 #: ../iutil.py:755
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Hiba: Záráskor nem lehet reIPL eljárást a következőre állítani: %s (%s: %s)"
 
 #: ../iutil.py:765 ../iutil.py:817
 #, python-format
 msgid "Error: %s splits into %s but not like we expect"
-msgstr ""
+msgstr "Hiba: %s szétválik %s-re, de nem úgy, ahogy várjuk"
 
 #: ../iutil.py:778
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr ""
+msgstr "Hiba: Nem lehet %s eszközt reIPL-nek beállítani (%s)"
 
 #: ../iutil.py:787
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
+msgstr "Hiba: Nem lehet loadparmot törölni (%s)"
 
 #: ../iutil.py:796
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr ""
+msgstr "Figyelem: Nem lehet parmot törölni (%s)"
 
 #: ../iutil.py:806
 #, python-format
@@ -746,21 +749,23 @@ msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
+"Leállás után, kérem kézivezérléssel végezze el az IPL-t %s DASD eszközről, "
+"hogy folytassa a telepítést"
 
 #: ../iutil.py:834
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Hiba: %s FCP tulajdonságot reIPL számára beolvasván (%s)"
 
 #: ../iutil.py:847
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Hiba: %s FCP tulajdonságot reIPL számára kiírván (%s)"
 
 #: ../iutil.py:860
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Hiba: %s FCP gyári tulajdonságot reIPL számára kiírván (%s)"
 
 #: ../iutil.py:870
 #, python-format
