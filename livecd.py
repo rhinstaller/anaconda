@@ -112,6 +112,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                                custom_icon="error",
                                custom_buttons=[_("Exit installer")])
             sys.exit(0)
+        self.rootFsType = isys.readFSType(self.osimg)
 
     def _getLiveBlockDevice(self):
         return os.path.normpath(self.osimg)

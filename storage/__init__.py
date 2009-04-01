@@ -765,6 +765,15 @@ class Storage(object):
                           %(self.anaconda.backend.getMinimumSizeMB("/"),
                             productName))
 
+        # livecds have to have the rootfs type match up
+        if (root and
+            self.anaconda.backend.rootFsType and
+            root.format.type != self.anaconda.backend.rootFsType):
+            errors.append(_("Your / partition does not match the "
+                            "the live image you are installing from.  "
+                            "It must be formatted as %s.")
+                          % (self.anaconda.backend.rootFsType,))
+
         for (mount, size) in checkSizes:
             if mount in filesystems and filesystems[mount].size < size:
                 warnings.append(_("Your %s partition is less than %s "
