@@ -1292,7 +1292,6 @@ class DeviceTree(object):
                             dm_array = DMRaidArrayDevice(rs.name,
                                                     major=major, minor=minor,
                                                     raidSet=rs,
-                                                    level=rs.level,
                                                     parents=[device],
                                                     initcb=cb,
                                                     initlabel=initlabel)

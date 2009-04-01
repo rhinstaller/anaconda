@@ -2333,7 +2333,7 @@ class DMRaidArrayDevice(DiskDevice):
     _packages = ["dmraid"]
     _devDir = "/dev/mapper"
 
-    def __init__(self, name, raidSet=None, level=None, format=None,
+    def __init__(self, name, raidSet=None, format=None,
                  size=None, major=None, minor=None, parents=None,
                  sysfsPath='', initcb=None, initlabel=None):
         """ Create a DMRaidArrayDevice instance.
@@ -2345,7 +2345,6 @@ class DMRaidArrayDevice(DiskDevice):
             Keyword Arguments:
 
                 raidSet -- the RaidSet object from block
-                level -- the type of dmraid
                 parents -- a list of the member devices
                 sysfsPath -- sysfs device path
                 size -- the device's size
@@ -2369,7 +2368,6 @@ class DMRaidArrayDevice(DiskDevice):
 
 
         self._raidSet = raidSet
-        self._level = level
 
     @property
     def raidSet(self):
