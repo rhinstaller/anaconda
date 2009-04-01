@@ -214,27 +214,51 @@ class PartitionEditor:
                 # preexisting partition, just set mount point and format flag
                 request = self.origrequest
                 mountpoint = self.mountCombo.get_children()[0].get_text()
+                devicetree = self.anaconda.id.storage.devicetree
 
-                if self.fsoptionsDict.has_key("formatcb") and \
-                   self.fsoptionsDict["formatcb"].get_active():
-                    fmt_class = self.fsoptionsDict["fstypeCombo"].get_active_value()
-                    format = fmt_class(mountpoint=mountpoint)
-                    luksdev = None
-                    if self.fsoptionsDict.has_key("lukscb") and \
-                       self.fsoptionsDict["lukscb"].get_active() and \
-                       request.format.type != "luks":
-                        luksdev = LUKSDevice("luks%d" % self.storage.nextID,
-                                             format=format,
-                                             parents=request)
-                        format = getFormat("luks",
-                                           device=self.origrequest.path,
-                                           passphrase=self.storage.encryptionPassphrase)
-                    actions.append(ActionCreateFormat(request, format))
-                    if luksdev:
-                        actions.append(ActionCreateDevice(luksdev))
-                        actions.append(ActionCreateFormat(luksdev))
-                elif request.format.mountable:
-                    request.format.mountpoint = mountpoint
+                if self.fsoptionsDict.has_key("formatcb"):
+                   if self.fsoptionsDict["formatcb"].get_active():
+                       fmt_class = self.fsoptionsDict["fstypeCombo"].get_active_value()
+
+                       # carry over exists, migrate, size, and device
+                       # necessary for partition editor UI
+                       try:
+                           format = fmt_class(mountpoint=mountpoint,
+                                              exists=request.format.exists,
+                                              migrate=request.format.migrate,
+                                              size=request.format.size,
+                                              device=request.format.device)
+                       except AttributeError:
+                           format = fmt_class(mountpoint=mountpoint,
+                                              exists=request.format.exists,
+                                              migrate=request.format.migrate,
+                                              device=request.format.device)
+
+                       luksdev = None
+                       if self.fsoptionsDict.has_key("lukscb") and \
+                          self.fsoptionsDict["lukscb"].get_active() and \
+                          request.format.type != "luks":
+                           luksdev = LUKSDevice("luks%d" % self.storage.nextID,
+                                                format=format,
+                                                parents=request)
+                           format = getFormat("luks",
+                                              device=self.origrequest.path,
+                                              passphrase=self.storage.encryptionPassphrase)
+                       actions.append(ActionCreateFormat(request, format))
+                       if luksdev:
+                           actions.append(ActionCreateDevice(luksdev))
+                           actions.append(ActionCreateFormat(luksdev))
+                   elif not self.fsoptionsDict["formatcb"].get_active():
+                       creates = devicetree.findActions(type="create",
+                                                        object="format",
+                                                        path=request.format.device)
+                       for action in creates:
+                           devicetree.cancelAction(action)
+
+                       request.format.exists = True
+
+                       if request.format.mountable:
+                           request.format.mountpoint = mountpoint
 
                 request.weight = self.anaconda.platform.weight(mountpoint=mountpoint,
                                                                fstype=request.format.type)

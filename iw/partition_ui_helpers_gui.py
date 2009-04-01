@@ -35,6 +35,9 @@ from storage.formats import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+FLAG_FORMAT = 1
+FLAG_MIGRATE = 2
+
 class WideCheckList(checklist.CheckList):
     def toggled_item(self, data, row):
 
@@ -231,7 +234,9 @@ def mountptchangeCB(widget, fstypecombo):
 def resizeOptionCB(widget, resizesb):
     resizesb.set_sensitive(widget.get_active())
 
-def formatOptionResizeCB(widget, resizesb):
+def formatOptionResizeCB(widget, data):
+    (resizesb, fmt) = data
+
     if widget.get_active():
         lower = 1
     else:
@@ -249,8 +254,17 @@ def formatMigrateOptionCB(widget, data):
     if not sensitive:
         return
 
-    (combowidget, mntptcombo, ofstype, lukscb, othercombo, othercb) = data
+    (combowidget, mntptcombo, fs, lukscb, othercombo, othercb, flag) = data
     combowidget.set_sensitive(widget.get_active())
+
+    if flag == FLAG_FORMAT:
+        fs.exists = not widget.get_active()
+
+        if fs.migratable and fs.exists:
+            fs.migrate = False
+    elif flag == FLAG_MIGRATE:
+        fs.exists = True
+        fs.migrate = widget.get_active()
 
     if othercb is not None:
         othercb.set_sensitive(not widget.get_active())
@@ -264,9 +278,9 @@ def formatMigrateOptionCB(widget, data):
         if not widget.get_active():
             # set "Encrypt" checkbutton to match partition's initial state
             lukscb.set_active(lukscb.get_data("encrypted"))
-            lukscb.set_sensitive(0)
+            lukscb.set_sensitive(False)
         else:
-            lukscb.set_sensitive(1)
+            lukscb.set_sensitive(True)
 
     # inject event for fstype menu
     if widget.get_active():
@@ -274,10 +288,10 @@ def formatMigrateOptionCB(widget, data):
         setMntPtComboStateFromType(fstype, mntptcombo)
         combowidget.grab_focus()
     else:
-        if isinstance(ofstype, type(ofstype)):
-            ofstype = type(ofstype)
+        if isinstance(fs, type(fs)):
+            fs = type(fs)
 
-        setMntPtComboStateFromType(ofstype, mntptcombo)
+        setMntPtComboStateFromType(fs, mntptcombo)
 
 
 def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
@@ -303,55 +317,63 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     else:
         origfs = origrequest.format
 
-    formatcb = gtk.CheckButton(label=_("_Format as:"))
-    maintable.attach(formatcb, 0, 1, row, row + 1)
-    formatcb.set_active(not origfs.exists)
-    rc["formatcb"] = formatcb
+    if origfs.formattable:
+        formatcb = gtk.CheckButton(label=_("_Format as:"))
+        maintable.attach(formatcb, 0, 1, row, row + 1)
+        formatcb.set_active(origfs.formattable and not origfs.exists)
+        rc["formatcb"] = formatcb
 
-    fstypeCombo = createFSTypeMenu(origfs, fstypechangeCB,
-                                   mountCombo, ignorefs=ignorefs)
-    fstypeCombo.set_sensitive(formatcb.get_active())
-    maintable.attach(fstypeCombo, 1, 2, row, row + 1)
-    row += 1
-    rc["fstypeCombo"] = fstypeCombo
+        fstypeCombo = createFSTypeMenu(origfs, fstypechangeCB,
+                                       mountCombo, ignorefs=ignorefs)
+        fstypeCombo.set_sensitive(formatcb.get_active())
+        maintable.attach(fstypeCombo, 1, 2, row, row + 1)
+        row += 1
+        rc["fstypeCombo"] = fstypeCombo
+    else:
+        formatcb = None
+        fstypeCombo = None
 
     if not formatcb.get_active() and not origfs.migrate:
-	mountCombo.set_data("prevmountable", origfs.mountable)
+        mountCombo.set_data("prevmountable", origfs.mountable)
 
     # this gets added to the table a bit later on
     lukscb = gtk.CheckButton(_("_Encrypt"))
 
     if origfs.migratable:
-	migratecb = gtk.CheckButton(label=_("Mi_grate filesystem to:"))
-        migratecb.set_active(origfs.migrate)
+        migratecb = gtk.CheckButton(label=_("Mi_grate filesystem to:"))
+        if formatcb is not None:
+            migratecb.set_active(origfs.migrate and (not formatcb.get_active()))
+        else:
+            migratecb.set_active(origfs.migrate)
 
-	migtypes = [origfs.migrationTarget]
+        migtypes = [origfs.migrationTarget]
 
-	maintable.attach(migratecb, 0, 1, row, row + 1)
-	migfstypeCombo = createFSTypeMenu(origfs,
+        maintable.attach(migratecb, 0, 1, row, row + 1)
+        migfstypeCombo = createFSTypeMenu(origfs,
                                           None, None,
                                           availablefstypes = migtypes)
-	migfstypeCombo.set_sensitive(migratecb.get_active())
-	maintable.attach(migfstypeCombo, 1, 2, row, row + 1)
-	row = row + 1
+        migfstypeCombo.set_sensitive(migratecb.get_active())
+        maintable.attach(migfstypeCombo, 1, 2, row, row + 1)
+        row = row + 1
         rc["migratecb"] = migratecb
         rc["migfstypeCombo"] = migfstypeCombo
-	migratecb.connect("toggled", formatMigrateOptionCB,
+        migratecb.connect("toggled", formatMigrateOptionCB,
                           (migfstypeCombo, mountCombo, origfs, None,
-                           fstypeCombo, formatcb))
+                           fstypeCombo, formatcb, FLAG_MIGRATE))
     else:
-	migratecb = None
-	migfstypeCombo = None
+        migratecb = None
+        migfstypeCombo = None
 
-    formatcb.connect("toggled", formatMigrateOptionCB,
-                    (fstypeCombo, mountCombo, origfs, lukscb,
-                     migfstypeCombo, migratecb))
+    if formatcb:
+        formatcb.connect("toggled", formatMigrateOptionCB,
+                         (fstypeCombo, mountCombo, origfs, lukscb,
+                          migfstypeCombo, migratecb, FLAG_FORMAT))
 
     if origrequest.resizable:
         resizecb = gtk.CheckButton(label=_("_Resize"))
-        resizecb.set_active(origrequest.resizable and \
-            ((origrequest.targetSize != 0) and \
-             (origrequest.targetSize != origrequest.currentSize)))
+        resizecb.set_active(origfs.resizable and \
+                            (origfs.currentSize != origfs.targetSize) and \
+                            (origfs.currentSize != 0))
         rc["resizecb"] = resizecb
         maintable.attach(resizecb, 0, 1, row, row + 1)
 
@@ -378,7 +400,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         resizeOptionCB(resizecb, resizesb)
         row = row + 1
 
-        formatcb.connect("toggled", formatOptionResizeCB, resizesb)
+        formatcb.connect("toggled", formatOptionResizeCB, (resizesb, origfs))
 
     if luksdev:
         lukscb.set_active(1)
