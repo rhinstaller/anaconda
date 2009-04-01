@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-29 19:29+0100\n"
+"PO-Revision-Date: 2009-04-01 01:48+0100\n"
 "Last-Translator: Rui Gouveia <rui.gouveia@globaltek.pt>\n"
 "Language-Team: pt <fedora-trans-pt@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -252,11 +252,11 @@ msgstr "A variável DISPLAY não está definida. A iniciar o modo de texto!"
 
 #: ../anaconda:1047
 msgid "reipl configuration successful => reboot"
-msgstr ""
+msgstr "configuração reipl efectuada com sucesso => reiniciar"
 
 #: ../anaconda:1050
 msgid "reipl configuration failed => halt"
-msgstr ""
+msgstr "configuração reipl falhou => desligar"
 
 #: ../backend.py:144
 #, python-format
@@ -885,67 +885,67 @@ msgstr "Instalar no Sistema"
 #: ../iutil.py:740
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Erro: Ao abrir, não foi possível definir método reIPL para %s (%s: %s)"
 
 #: ../iutil.py:748
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Erro: Ao escrever, não foi possível definir método reIPL para %s (%s: %s)"
 
 #: ../iutil.py:755
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Erro: Ao fechar, não foi possível definir método reIPL para %s (%s: %s)"
 
 #: ../iutil.py:765
 #: ../iutil.py:817
 #, python-format
 msgid "Error: %s splits into %s but not like we expect"
-msgstr ""
+msgstr "Erro: %s divide-se em %s, mas não como era esperado"
 
 #: ../iutil.py:778
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr ""
+msgstr "Erro: Não foi possível definir %s como um dispositivo reIPL (%s)"
 
 #: ../iutil.py:787
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
+msgstr "Erro: Não foi possível redefinir loadparm (%s)"
 
 #: ../iutil.py:796
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr ""
+msgstr "Aviso: Não foi possível redefinir parm (%s)"
 
 #: ../iutil.py:806
 #, python-format
 msgid "After shutdown, please perform a manual IPL from DASD device %s to continue installation"
-msgstr ""
+msgstr "Depois de desligar, por favor efectue um IPL manual a partir do dispositivo DASD %s para continuar a instalação"
 
 #: ../iutil.py:834
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Erro: a ler propriedade FCP %s para reIPL (%s)"
 
 #: ../iutil.py:847
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Erro: a escrever propriedade FCP %s para reIPL (%s)"
 
 #: ../iutil.py:860
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Erro: a escrever propriedade FCP por omissão %s para reIPL (%s)"
 
 #: ../iutil.py:870
 #, python-format
 msgid "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %(wwpn)s and LUN %(lun)s to continue installation"
-msgstr ""
+msgstr "Depois de desligar, por favor efectue um IPL manual a partir de FCP %(device)s com WWPN %(wwpn)s e LUN %(lun)s, para continuar a instalação"
 
 #: ../iutil.py:877
 msgid "After shutdown, please perform a manual IPL from the device now containing /boot to continue installation"
-msgstr ""
+msgstr "Depois de desligar, por favor efectue um IPL manual a partir do dispositivo que agora contém /boot, para continuar a instalação"
 
 #: ../iutil.py:887
 msgid "Could not get information for mount point /boot or /"
