@@ -43,7 +43,7 @@ from formats import getFormat
 from formats import get_device_format_class
 from formats import get_default_filesystem_type
 from devicelibs.lvm import safeLvmName
-from udev import udev_trigger
+from udev import *
 import iscsi
 import zfcp
 
@@ -69,12 +69,32 @@ def storageInitialize(anaconda):
        stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
         target = os.readlink("/dev/live")
         storage.protectedPartitions = [target]
+        storage.reset()
     elif anaconda.methodstr and anaconda.methodstr.startswith("hd:"):
         method = anaconda.methodstr[3:]
         devspec = method.split(":", 3)[0]
 
-        device = storage.devicetree.resolveDevice(devspec)
-        if device is None:
+        for entry in udev_get_block_devices():
+            if devspec.startswith("LABEL=") and udev_device_get_label(entry) == devspec[6:]:
+                storage.protectedPartitions = [udev_device_get_name(entry)]
+                break
+            elif devspec.startswith("UUID=") and udev_device_get_uuid(entry) == devspec[5:]:
+                storage.protectedPartitions = [udev_device_get_name(entry)]
+                break
+            else:
+                if devspec.startswith("/dev/"):
+                    dev = devspec[5:]
+                else:
+                    dev = devspec
+
+                name = udev_device_get_name(entry)
+                if name == dev:
+                    storage.protectedPartitions = [name]
+                    break
+
+        storage.reset()
+
+        if not storage.protectedPartitions or not storage.devicetree.getDeviceByName(storage.protectedPartitions[0]):
             if anaconda.id.getUpgrade():
                 return
             else:
@@ -84,10 +104,8 @@ def storageInitialize(anaconda):
                       "parameters and try again.") % devspec,
                     type="custom", custom_buttons = [_("_Exit installer")])
                 sys.exit(1)
-
-        storage.protectedPartitions = [device.name]
-
-    storage.reset()
+    else:
+        storage.reset()
 
 # dispatch.py helper function
 def storageComplete(anaconda):
