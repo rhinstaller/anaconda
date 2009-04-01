@@ -566,6 +566,9 @@ class Partition(commands.partition.F9_Partition):
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID partition defined multiple times")
 
+            # store "raid." alias for other ks partitioning commands
+            if pd.onPart:
+                self.handler.onPart[kwargs["name"]] = pd.onPart
             pd.mountpoint = ""
         elif pd.mountpoint.startswith("pv."):
             type = "lvmpv"
@@ -574,6 +577,9 @@ class Partition(commands.partition.F9_Partition):
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="PV partition defined multiple times")
 
+            # store "pv." alias for other ks partitioning commands
+            if pd.onPart:
+                self.handler.onPart[kwargs["name"]] = pd.onPart
             pd.mountpoint = ""
         elif pd.mountpoint == "/boot/efi":
             type = "EFI System Partition"
@@ -719,6 +725,8 @@ class Raid(commands.raid.F9_Raid):
 
         # Get a list of all the RAID members.
         for member in rd.members:
+            # if member is using --onpart, use original device
+            member = self.handler.onPart.get(member, member)
             dev = devicetree.getDeviceByName(member)
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % member)
@@ -838,6 +846,8 @@ class VolGroup(commands.volgroup.FC3_VolGroup):
 
         # Get a list of all the physical volume devices that make up this VG.
         for pv in vgd.physvols:
+            # if pv is using --onpart, use original device
+            pv = self.handler.onPart.get(pv, pv)
             dev = devicetree.getDeviceByName(pv)
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in Volume Group specification" % pv)
@@ -852,12 +862,12 @@ class VolGroup(commands.volgroup.FC3_VolGroup):
 
         # If --noformat was given, there's really nothing to do.
         if not vgd.format:
-            if not vgd.name:
+            if not vgd.vgname:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="--noformat used without giving a name")
 
-            dev = devicetree.getDeviceByName(vgd.name)
+            dev = devicetree.getDeviceByName(vgd.vgname)
             if not dev:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting VG with the name \"%s\" was found." % vgd.name)
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting VG with the name \"%s\" was found." % vgd.vgname)
 
             return vgd
 
@@ -866,9 +876,9 @@ class VolGroup(commands.volgroup.FC3_VolGroup):
         # Also, we only support a subset of all the options on pre-existing
         # VGs.
         if vgd.preexist:
-            device = devicetree.getDeviceByName(vgd.name)
+            device = devicetree.getDeviceByName(vgd.vgname)
             if not device:
-                raise KicsktartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent VG %s in volgroup command" % vgd.name)
+                raise KicsktartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent VG %s in volgroup command" % vgd.vgname)
 
             devicetree.registerAction(ActionCreateFormat(device))
         else:
@@ -986,6 +996,7 @@ class AnacondaKSHandler(superclass):
         self.showSteps = []
         self.anaconda = anaconda
         self.id = self.anaconda.id
+        self.onPart = {}
 
 class EarlyKSHandler(superclass):
     # This handler class only processes a couple kickstart commands.  It is
