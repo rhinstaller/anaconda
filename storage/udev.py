@@ -41,7 +41,7 @@ def udev_get_block_devices():
 
 def __is_blacklisted_blockdev(dev_name):
     """Is this a blockdev we never want for an install?"""
-    if dev_name.startswith("loop") or dev_name.startswith("ram"):
+    if dev_name.startswith("loop") or dev_name.startswith("ram") or dev_name.startswith("fd"):
         return True
     # FIXME: the backing dev for the live image can't be used as an
     # install target.  note that this is a little bit of a hack 
