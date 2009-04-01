@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.38
+Version: 11.5.0.39
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,75 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Apr 01 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.39-1
+- Prevent sensitive information in kickstart files from ending up in
+  tracebacks. (clumens)
+- It's 2009, let's ignore floppy drives now (#493338, #493377). (clumens)
+- Remove DmRaidArrayDevice level attribute (#493293) (hdegoede)
+- get_containing_device takes two arguments (#493266). (clumens)
+- Fix the check for if there's enough space available on / and /usr
+  (#492614). (clumens)
+- Fix testing if a PPC partition is bootable (#492726). (clumens)
+- Look for a PReP "partition" by examining the format, not the flags
+  (#492426). (clumens)
+- Fix a few more pylint warnings and errors in storage/* (hdegoede)
+- Fix some pylint warnings in iw/*.py (hdegoede)
+- Don't start our audit daemon with the livecd installer (katzj)
+- If there's a problem finding removable disks, disable save-to-disk.
+  (clumens)
+- Move %%pre processing to much earlier in the install process. (clumens)
+- If there are no installs to rescue via kickstart, display an error.
+  (clumens)
+- Add an early kickstart processing pass. (clumens)
+- Fixes of errors shown by pylint that didn't get into the beta build.
+  (mgracik)
+- Adjust the dmraid ignoring logic. (jgranado)
+- Reference the format by type, not name.(#492596) (jgranado)
+- Sending translation for Chinese (Simplified) (leahliu)
+- Increase udev_settle timeout in udev_get_block_devices. (#492049) (dlehman)
+- Fix check for fully defined md array when raidlevel is 0. (#491796)
+  (dlehman)
+- Fix a typo ('isEFI' should be 'isEfi'). (dlehman)
+- Make sure the pvs are set up before doing lvremove or vgremove. (dlehman)
+- Don't write out md member devices to a config file for assemble. (dlehman)
+- Fix the supported property of filesystems and prepboot format. (dlehman)
+- Return early from doAutoPartition if partition allocation fails. (dlehman)
+- Reset storage instance if autopart fails. (#492158) (dlehman)
+- Assign weights to partition requests when doing manual or kickstart
+  installs. (clumens)
+- Refresh windows immediately to make sure they appear. (clumens)
+- Fix problem with format and migrate combo box activation. (dcantrell)
+- Fix typo in upgrade.py (dcantrell)
+- Move _scheduleLVs and growLVM calls to be inside try/except (dcantrell)
+- Correct bounds checking problems in 'Shrink current system' (dcantrell)
+- Require libselinux-python (#489107) (dcantrell)
+- Do not prompt for NIC selection in cmdline mode (#492586) (dcantrell)
+- Do not write /etc/hosts since setup owns that now (#491808) (dcantrell)
+- Remove unused self._resize variable. (dcantrell)
+- Having 2 raidsets in the same group of devs is possible. (jgranado)
+- getDevice returns a string.  Use that to look up the device object
+  (#492465). (clumens)
+- Take into account i386->i586 when warning on upgrade arch mismatch.
+  (clumens)
+- Remove unused getVG{Free,Used}Space methods. (clumens)
+- We can no longer display Russian correctly in text mode (#491394).
+  (clumens)
+- Clean up the reinitialize LVM warning message (#491888). (clumens)
+- Update translation files (#484784). (clumens)
+- Include the storage directory when building the .po files. (clumens)
+- Merge commit 'origin/anaconda-storage-branch' (clumens)
+- Keep VG size property non-negative (rvykydal)
+- Grow LVs for kickstart requests too (rvykydal)
+- Handle not finding the upgrade root gracefully. (jgranado)
+- Use self.name to report that we could not eject cd. (jgranado)
+- Fix ppoll() timeout=infinity usage in auditd (#484721). (pjones)
+- Use correct parse method for the upgrade command (#471232) (wwoods)
+- Rename /etc/modprobe.d/anaconda to /etc/modprobe.d/anaconda.conf (clumens)
+- Handle FTP servers that both want and don't want PASS after USER
+  (#490350). (clumens)
+- Only select the Core group in text mode (#488754). (clumens)
+- Add created user to default group created for the user. (rvykydal)
+
 * Wed Mar 25 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.38-1
 - Fix pylint errors in iw/*.py (hdegoede)
 - Rework CryptTab.parse (dlehman).
