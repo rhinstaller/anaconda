@@ -1227,7 +1227,7 @@ class FSSet(object):
         elif devspec.startswith("/") and fstype == "swap":
             # swap file
             device = FileDevice(devspec,
-                                parents=get_containing_device(devspec),
+                                parents=get_containing_device(devspec, self.devicetree),
                                 format=getFormat(fstype,
                                                  device=devspec,
                                                  exists=True),
@@ -1237,7 +1237,7 @@ class FSSet(object):
             # turn up false positives
             fstype = "bind"
             device = FileDevice(devspec,
-                                parents=get_containing_device(devspec),
+                                parents=get_containing_device(devspec, self.devicetree),
                                 exists=True)
             device.format = getFormat("bind",
                                       device=device.path,
