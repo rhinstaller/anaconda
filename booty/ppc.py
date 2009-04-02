@@ -53,7 +53,7 @@ class ppcBootloaderInfo(bootloaderInfo):
             if not os.path.isdir(instRoot + "/boot/etc"):
                 os.mkdir(instRoot + "/boot/etc")
         except KeyError:
-            bootDevice = self.storage.fsset.rootDevice
+            bootDev = self.storage.fsset.rootDevice
 
             cfPath = "/boot"
             cf = "/etc/yaboot.conf"
@@ -65,11 +65,7 @@ class ppcBootloaderInfo(bootloaderInfo):
         f.write("init-message=\"Welcome to %s!\\nHit <TAB> for boot options\"\n\n"
                 % productName)
 
-        (name, partNum) = getDiskPart(bootDev, self.storage)
-        partno = partNum + 1 # 1 based
-
-        f.write("partition=%s\n" %(partno,))
-
+        f.write("partition=%s\n" % bootDev.partedPartition.number)
         f.write("timeout=%s\n" % (self.timeout or 80))
         f.write("install=/usr/lib/yaboot/yaboot\n")
         f.write("delay=5\n")
