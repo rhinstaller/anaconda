@@ -127,7 +127,7 @@ archive-no-tag:
 	@rm -rf anaconda-$(VERSION)
 
 scratch:
-	$(MAKE) ARCHIVE_TAG=master archive-no-tag
+	$(MAKE) ARCHIVE_TAG=HEAD archive-no-tag
 
 archive:
 	@make tag
