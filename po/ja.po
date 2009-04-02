@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-04-01 18:14+1000\n"
+"PO-Revision-Date: 2009-04-02 11:36+1000\n"
 "Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -54,17 +54,19 @@ msgid "Press <enter> for a shell"
 msgstr "シェルを起動するには、<enter> を押してください。"
 
 #: ../anaconda:458
-#, fuzzy
 msgid "Fatal Error"
-msgstr "エラー"
+msgstr "致命的なエラー"
 
 #: ../anaconda:459
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You do not have enough RAM to install %s on this machine.\n"
 "\n"
 "Press <return> to reboot your system.\n"
-msgstr "このマシンには %s のインストールに十分な RAM がありません。"
+msgstr ""
+"このマシンには %s のインストールに十分な RAM がありません。\n"
+"\n"
+"<return> を押してシステムを再起動して下さい。\n"
 
 #: ../anaconda:464 ../rescue.py:285 ../rescue.py:311 ../rescue.py:324
 #: ../rescue.py:397 ../rescue.py:406 ../text.py:694
@@ -282,9 +284,8 @@ msgid "In progress...   "
 msgstr "進捗中...   "
 
 #: ../cmdline.py:98
-#, fuzzy
 msgid "Can't have a question in command line mode!"
-msgstr "コマンドラインモードには質問はありません。"
+msgstr "コマンドラインモードでは質問は置けません!"
 
 #: ../constants.py:74
 msgid ""
@@ -679,7 +680,7 @@ msgid "Required Install Media"
 msgstr "必要なインストールメディア"
 
 #: ../image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %s %s "
 "discs:\n"
@@ -688,10 +689,11 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"選択したソフトウェアをインストールするには次の ディスク が必要です。\n"
+"選択したソフトウェアをインストールするには次の %s %s ディスクが "
+"必要です:\\n"
 "\n"
 "%s\n"
-"インストールを続行する前にこれらの ディスク を用意してください。インストール"
+"インストールを続行する前にこれらのディスクを用意してください。インストール"
 "を中止して操作を終了する必要がある場合は「再起動」を選択します。"
 
 #: ../image.py:248 ../livecd.py:388 ../packages.py:382 ../packages.py:433
@@ -846,9 +848,8 @@ msgid "_Abort"
 msgstr "中止(_A)"
 
 #: ../kickstart.py:1213 ../kickstart.py:1252
-#, fuzzy
 msgid "_Ignore All"
-msgstr "無視"
+msgstr "全てを無視 (_I)"
 
 #: ../kickstart.py:1243
 msgid "Missing Group"
@@ -965,83 +966,75 @@ msgid "'%s' is an invalid IP address."
 msgstr "'%s' は、有効な IP アドレスではありません。"
 
 #: ../packages.py:122
-#, fuzzy
 msgid "Device Resize Failed"
-msgstr "リサイズに失敗"
+msgstr "デバイスのリサイズに失敗"
 
 #: ../packages.py:123
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while resizing device %s."
-msgstr "%s のリサイズ中にエラーが発生しました。"
+msgstr "デバイス %s のリサイズ中にエラーが発生しました。"
 
 #: ../packages.py:130
-#, fuzzy
 msgid "Device Creation Failed"
-msgstr "送信先ファイル"
+msgstr "デバイスの作成に失敗"
 
 #: ../packages.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while creating device %s."
-msgstr "%s のリサイズ中にエラーが発生しました。"
+msgstr "デバイス %s の作成中にエラーが発生しました。"
 
 #: ../packages.py:138
 msgid "Device Removal Failed"
 msgstr "デバイスの取り出しに失敗 "
 
 #: ../packages.py:139
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while removing device %s."
-msgstr "%s のリサイズ中にエラーが発生しました。"
+msgstr "デバイス %s の削除中にエラーが発生しました。"
 
 #: ../packages.py:146
 msgid "Device Setup Failed"
 msgstr "デバイスのセットアップに失敗"
 
 #: ../packages.py:147
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "%s のリサイズ中にエラーが発生しました。"
+msgstr "デバイス %s のセットアップ中にエラーが発生しました。"
 
 #: ../packages.py:158
 msgid "Resizing Failed"
 msgstr "リサイズに失敗"
 
 #: ../packages.py:159
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
-msgstr "%s のリサイズ中にエラーが発生しました。"
+msgstr "デバイス %s のリサイズ中にエラーが発生しました。"
 
 #: ../packages.py:166
-#, fuzzy
 msgid "Migration Failed"
-msgstr "LVM の操作に失敗しました。"
+msgstr "移行に失敗しました。"
 
 #: ../packages.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "%s のリサイズ中にエラーが発生しました。"
+msgstr "デバイス %s 上のファイルシステムを移行中にエラーが発生しました。"
 
 #: ../packages.py:175
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "フォーマット中"
+msgstr "フォーマットが失敗"
 
 #: ../packages.py:176
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "%s のリサイズ中にエラーが発生しました。"
+msgstr "デバイス %s のフォーマット中にエラーが発生しました。"
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
 msgstr "ストレージアクティベーションに失敗"
 
 #: ../packages.py:185
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
-msgstr ""
-"キックスタート設定の解析中に次のエラーが見つかりました。\n"
-"\n"
-"%s"
+msgstr "使用ストレージの設定をアクティベート中にエラーが発生しました。"
 
 #: ../packages.py:353
 msgid "Invalid Key"
@@ -1166,9 +1159,9 @@ msgid "Confirm Delete"
 msgstr "削除の確認"
 
 #: ../partIntfHelpers.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "デバイス 「/dev/%s」上のすべてのパーティションを削除しようとしています。"
+msgstr "デバイス %s 上のすべてのパーティションを削除しようとしています。"
 
 #: ../partIntfHelpers.py:149 ../partIntfHelpers.py:304
 #: ../iw/lvm_dialog_gui.py:750 ../iw/lvm_dialog_gui.py:1261
@@ -1196,14 +1189,14 @@ msgid "Format as Swap?"
 msgstr "swap としてフォーマットしますか?"
 
 #: ../partIntfHelpers.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s にはタイプ 0x82 (Linux swap) のパーティションがありますが、Linux "
+"%s にはタイプ 0x82 (Linux swap) のパーティションがありますが、Linux "
 "swap パーティションとしてフォーマットされるようには表示されていません。\n"
 "\n"
 "このパーティションを swap パーティションとしてフォーマットしますか?"
@@ -1319,14 +1312,14 @@ msgid "You are about to delete a RAID device."
 msgstr "RAID デバイスを削除しようとしています。"
 
 #: ../partIntfHelpers.py:296
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "/dev/%s パーティションを削除しようとしています。"
+msgstr "%s パーティションを削除しようとしています。"
 
 #: ../partIntfHelpers.py:300
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "/dev/%s パーティションを削除しようとしています。"
+msgstr "%s %s を削除しようとしています。"
 
 #: ../partIntfHelpers.py:311
 msgid "Confirm Reset"
@@ -1534,11 +1527,8 @@ msgid "System to Rescue"
 msgstr "レスキュー対象システム"
 
 #: ../rescue.py:283
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr ""
-"インストールの root パーティションを格納しているパーティションを指定してくだ"
-"さい。"
+msgstr "どのデバイスにインストールの root パーティションを置きますか？"
 
 #: ../rescue.py:285 ../rescue.py:289 ../text.py:664 ../text.py:666
 msgid "Exit"
@@ -1748,15 +1738,15 @@ msgid "Mount failed"
 msgstr "マウントに失敗しました"
 
 #: ../upgrade.py:240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
 "fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
 msgstr ""
-"ご使用の Linux システムの /etc/fstab に記載されたひとつまたは複数のファイルシ"
-"ステムがマウントできません。この問題を解決してからアップグレードをやり直して"
-"ください。"
+"/etc/fstab に一覧表示されたファイルシステムをマウント中に以下のエラーが "
+"発生しました。この問題を解決してから再度アップグレードをして下さい\n"
+"%s"
 
 #: ../upgrade.py:247
 msgid "Upgrade root not found"
@@ -2407,14 +2397,12 @@ msgid "Replace existing Linux system"
 msgstr "既存の Linux システムを入れ替え"
 
 #: ../iw/autopart_type.py:454
-#, fuzzy
 msgid "Shrink current system"
-msgstr "システムを暗号化する (_E)"
+msgstr "現在のシステムを縮小"
 
 #: ../iw/autopart_type.py:455 ../textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "空き領域はありません"
+msgstr "空き領域を使用"
 
 #: ../iw/autopart_type.py:456
 msgid "Create custom layout"
@@ -2496,25 +2484,21 @@ msgid "Congratulations"
 msgstr "おめでとうございます"
 
 #: ../iw/congrats_gui.py:74 ../textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "おめでとうございます。 %s のインストールは完了しました。\n"
 "\n"
-"%s%s"
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
 msgstr "シャットダウン"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr ""
-"インストールが終了したシステムを使用するには、システムを \n"
-"再起動して下さい。\n"
+msgstr "インストールしたシステムを使用するにはシャットダウンして下さい \n"
 
 #: ../iw/congrats_gui.py:81 ../textw/complete_text.py:46
 msgid "Please reboot to use the installed system.\n"
@@ -2923,14 +2907,13 @@ msgid "A value is required for the field %s."
 msgstr "フィールド %s には値が必要です。"
 
 #: ../iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "スクリーンショットのコピー中にエラーが発生しました。"
+msgstr "%s ネットワークインターフェイスを起動中にエラーが発生しました。"
 
 #: ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "ネットワークデバイス設定中にエラー発生"
+msgstr "ネットワーク設定中にエラー発生"
 
 #: ../iw/netconfig_dialog.py:237
 msgid "Dynamic IP"
@@ -3086,9 +3069,9 @@ msgid "Add Partition"
 msgstr "パーティションの追加"
 
 #: ../iw/partition_dialog_gui.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: %s"
-msgstr "パーティションの編集: /dev/%s"
+msgstr "パーティションの編集: %s"
 
 #: ../iw/partition_dialog_gui.py:315
 msgid "File System _Type:"
@@ -3217,19 +3200,19 @@ msgid "Unable To Edit"
 msgstr "編集できません"
 
 #: ../iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
-msgstr "編集するパーティションを選択してください"
+msgstr "編集するパーティションを選択します"
 
 #: ../iw/partition_gui.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
 "%s"
 msgstr ""
-"このパーティションは編集できません:\n"
+"このデバイスは編集できません:\n"
 "\n"
+"%s"
 
 #: ../iw/partition_gui.py:1177 ../iw/partition_gui.py:1189
 msgid "Not supported"
@@ -3387,9 +3370,9 @@ msgid "Make RAID Device"
 msgstr "RAID デバイスの作成"
 
 #: ../iw/raid_dialog_gui.py:329
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "RAID デバイスの編集"
+msgstr "RAID デバイスの編集: %s"
 
 #: ../iw/raid_dialog_gui.py:331
 msgid "Edit RAID Device"
@@ -3443,7 +3426,7 @@ msgstr ""
 "ん。"
 
 #: ../iw/raid_dialog_gui.py:588
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive %s.\n"
@@ -3451,7 +3434,7 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"選択されたソースドライブにはドライブ /dev/%s に入っていないパーティションがあ"
+"選択されたソースドライブにはドライブ %s に入っていないパーティションがあ"
 "ります。\n"
 "\n"
 "これらのパーティションを削除するか、このドライブに制限しないと、このドライブ"
@@ -3480,12 +3463,12 @@ msgid "Please select the target drives for the clone operation."
 msgstr "クローン作成を行うターゲットドライブを選択してください。"
 
 #: ../iw/raid_dialog_gui.py:622
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
+msgstr "ソースドライブ %s は、同時にターゲットドライブとして選択できません。"
 
 #: ../iw/raid_dialog_gui.py:638
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3494,25 +3477,24 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"ターゲットドライブ /dev/%s には、次の理由で削除できないパーティションがありま"
-"す。\n"
+"ターゲットドライブ %s には、次の理由で削除できないパーティションが "
+"あります。\n"
 " \n"
 "\"%s\"\n"
 "\n"
-"このドライブをターゲットにする前に、このパーティションを削除する必要がありま"
-"す。"
+"このドライブをターゲットにする前に、このパーティションを削除する必要があります。"
 
 #: ../iw/raid_dialog_gui.py:701
 msgid "Please select a source drive."
 msgstr "ソースドライブを選択してください。"
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"ドライブ /dev/%s が次のドライブに対してクローン作成されます。\n"
+"ドライブ %s が次のドライブに対してクローン作成されます。\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:726
@@ -3988,25 +3970,25 @@ msgid "Error configuring network device"
 msgstr "ネットワークデバイス設定中にエラー発生"
 
 #: ../textw/netconfig_text.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "ネットワークデバイス設定中にエラー発生"
+msgstr "ネットワークデバイス %s の設定中にエラー発生"
 
 #: ../textw/partition_text.py:58
 msgid "Partitioning Type"
 msgstr "パーティションタイプ"
 
 #: ../textw/partition_text.py:60 tmp/autopart.glade.h:2
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
 "use as the install target. You can also choose to create your own custom "
 "layout."
 msgstr ""
-"インストールには、ハードドライブのパーティション設定が必要です。デフォルトで"
-"は、ほとんどのユーザーに適しているパーティション設定のレイアウトが選択されま"
-"す。デフォルトのレイアウトを選択するか、独自のレイアウトを作成します。"
+"インストールにはハードドライブのパーティション設定が必要です。デフォルトの"
+"レイアウトはほとんどのユーザーに適しています。使用する領域と使用するドライブを "
+"インストールのターゲットとして選択します。また独自のカスタムレイアウトの作成も "
+"選択できます。"
 
 #: ../textw/partition_text.py:76
 msgid "Which drive(s) do you want to use for this installation?"
@@ -4317,14 +4299,13 @@ msgid "Installation cannot continue."
 msgstr "インストールを続行できません。"
 
 #: ../storage/__init__.py:96
-#, fuzzy
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"指定されたパーティション設定オプションは既に選択されています。ここからディス"
-"ク編集画面に戻ることはできません。インストールを続けますか?"
+"選択されたストレージ設定は既にアクティベートされています。ここからディス"
+"ク編集画面に戻ることはできません。インストールプロセスを続けますか?"
 
 #: ../storage/__init__.py:127
 msgid "Encrypt device?"
@@ -4341,9 +4322,8 @@ msgstr ""
 "スの暗号化は無効になります。"
 
 #: ../storage/__init__.py:146
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "パーティション設定をディスクに書き込み中"
+msgstr "ストレージ設定をディスクに書き込み中"
 
 #: ../storage/__init__.py:147
 msgid ""
@@ -4362,9 +4342,8 @@ msgid "_Write changes to disk"
 msgstr "変更をディスクに書き込む (_W)"
 
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "欠如パッケージ"
+msgstr "デバイスを検索中"
 
 #: ../storage/__init__.py:253
 msgid "Finding storage devices..."
@@ -4383,24 +4362,22 @@ msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "DASD 形式でフォーマットされた LDL パーティションは削除できません。"
 
 #: ../storage/__init__.py:491
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "このパーティションは RAID デバイス /dev/md%s の一部です。"
+msgstr "このデバイスは RAID デバイス %s の一部です。"
 
 #: ../storage/__init__.py:494
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "このパーティションは RAID デバイスの一部です。"
+msgstr "このデバイスは RAID デバイスの一部です。"
 
 #: ../storage/__init__.py:499
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "このパーティションは LVM ボリュームグループ 「%s」 の一部です。"
+msgstr "このデバイスは LVM ボリュームグループ %s の一部です。"
 
 #: ../storage/__init__.py:502
-#, fuzzy
 msgid "This device is part of a LVM volume group."
-msgstr "このパーティションは LVM ボリュームグループの一部です。"
+msgstr "このデバイスは LVM ボリュームグループの一部です。"
 
 #: ../storage/__init__.py:511
 msgid ""
@@ -4431,13 +4408,13 @@ msgstr ""
 "小さすぎます。"
 
 #: ../storage/__init__.py:762
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"%s パーティションの容量が %s MB未満であり、通常の %s のインストールでの推奨容"
-"量には不足しています。"
+"ご使用の  /  パーティションは %s メガバイト以下であり、これは通常の %s "
+"インストールに推奨できるサイズに足りません。"
 
 #: ../storage/__init__.py:770
 #, python-format
@@ -4463,9 +4440,8 @@ msgstr ""
 "もありますが、されないこともあります。"
 
 #: ../storage/__init__.py:804
-#, fuzzy
 msgid "You have not created a boot partition."
-msgstr "PPC PReP Boot パーティションを作成しなくてはなりません。"
+msgstr "Boot パーティションが作成されていません。"
 
 #: ../storage/__init__.py:808
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -4527,7 +4503,7 @@ msgstr ""
 "%s"
 
 #: ../storage/__init__.py:1406
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4537,16 +4513,16 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
-" swap デバイス:\n"
+"/etc/fstab ファイル内の swap デバイス:\n"
 "\n"
-"     /etc/fstab ファイル内の /dev/%s\n"
+"      %s\n"
 "\n"
-"は現在、ソフトウェアサスペンドパーティションとして使用されており、これはシス"
+"は現在、ソフトウェアサスペンドデバイスとして使用されており、これはシス"
 "テムがハイバネート状態であることを意味します。アップグレードを実行するには、"
 "システムをハイバネートするのではなく、シャットダウンしてください。"
 
 #: ../storage/__init__.py:1414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4556,17 +4532,17 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to format all swap devices."
 msgstr ""
-" /etc/fstab ファイル内の swap デバイス:\n"
+"/etc/fstab ファイル内の swap デバイス:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"は現在、ソフトウェアサスペンドパーティションとして使用されており、これはシス"
+"は現在、ソフトウェアサスペンドデバイスとして使用されており、これはシス"
 "テムがハイバネート状態であることを意味します。新規のインストールを実行してい"
 "る場合は、インストーラーがすべての swap パーティションをフォーマットするよう"
 "設定されていることを確認してください。"
 
 #: ../storage/__init__.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4575,15 +4551,15 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"スワップデバイス %s を有効にしている際にエラーが発生しました: %s\n"
+"スワップデバイス %s を有効にしている際にエラー発生: %s\n"
 "\n"
-"アップグレードしたパーティションの /etc/fstab が有効な スワップパーティション"
-"を定義していません。\n"
+"アップグレードパーティションの /etc/fstab が有効なスワップデバイス"
+"を参照していません。\n"
 "\n"
 "OK を押してインストーラを終了してください。"
 
 #: ../storage/__init__.py:1434
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4591,11 +4567,11 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-" swap デバイス %s を有効にしている際にエラー発生: %s\n"
+"swap デバイス %s を有効にしている際にエラー発生: %s\n"
 "\n"
-"swap パーティションが初期化されていない可能性があります。\n"
+"この swap デバイスが初期化されていない可能性があります。\n"
 "\n"
-"[OK] を押してインストーラを終了してください。"
+"OK を押してインストーラを終了してください。"
 
 #: ../storage/__init__.py:1475 ../storage/__init__.py:1485
 msgid "Invalid mount point"
@@ -4641,24 +4617,21 @@ msgstr ""
 "続行できますが、問題が生じる場合があります。"
 
 #: ../storage/__init__.py:1521
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s を作成中にエラーが発生しました: %s。致命的なエラーとなるためインストールを"
-"続行できません。\n"
+"デバイス %s を %s としてマウント中にエラーが発生しました: %s。 "
+"致命的なエラーとなるためインストールを続行できません。\n"
 "\n"
 "<Enter> を押してインストーラを終了してください。"
 
 #: ../storage/devices.py:1059
-#, fuzzy
 msgid "boot flag not available for this partition"
-msgstr ""
-"このパーティションは削除できません:\n"
-"\n"
+msgstr "このパーティションにはブートフラグが使用できません"
 
 #: ../storage/devicetree.py:87
 msgid "Confirm"
@@ -4700,19 +4673,16 @@ msgstr ""
 "消失します。又は無視するとコンテンツを保存します。"
 
 #: ../storage/devicetree.py:159
-#, fuzzy
 msgid "_Ignore drive(s)"
-msgstr "ドライブを無視(_I)"
+msgstr "ドライブを無視 (_I)"
 
 #: ../storage/devicetree.py:160
-#, fuzzy
 msgid "_Re-initialize drive(s)"
 msgstr "ドライブの再初期化 (_R)"
 
 #: ../storage/iscsi.py:98 ../storage/iscsi.py:99
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "SCSI ドライバーを読み込み中"
+msgstr "iSCSI ノードをスキャン中"
 
 #: ../storage/iscsi.py:172 ../storage/iscsi.py:173
 msgid "Initializing iSCSI initiator"
@@ -4723,9 +4693,8 @@ msgid "iSCSI not available"
 msgstr "iSCSI は使用できません"
 
 #: ../storage/iscsi.py:210
-#, fuzzy
 msgid "No initiator name set"
-msgstr "iSCSI イニシエーター名"
+msgstr "イニシエーター名がありません"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
@@ -4861,9 +4830,9 @@ msgid "Formatting"
 msgstr "フォーマット中"
 
 #: ../storage/formats/fs.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s..."
-msgstr "/dev/%s のファイルシステムを検査中..."
+msgstr "%s 上にファイルシステムを作成中..."
 
 #: ../storage/formats/fs.py:367
 msgid "Resizing"
@@ -5828,9 +5797,8 @@ msgid "Please provide the configuration information for this software repository
 msgstr "このソフトウェアレポジトリの設定情報を入力してください。"
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "ホスト (ホスト:ポート)"
+msgstr "プロキシ U_RL (ホスト:ポート)"
 
 #: tmp/addrepo.glade.h:11
 msgid "Proxy pass_word"
