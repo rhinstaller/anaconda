@@ -10,13 +10,13 @@
 # Waika Liu <wliu@redhat.com>, 2005.
 # Walter Cheuk <wwycheuk@netvigator.com>, 2005-2006.
 # Walter Cheuk <wwycheuk@gmail.com>, 2006.
-# Terry Chuang <tchuang@redhat.com>, 2008.
+# Terry Chuang <tchuang@redhat.com>, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2008-10-21 10:35+1000\n"
+"PO-Revision-Date: 2009-04-02 11:51+1000\n"
 "Last-Translator: Terry Chuang <tchuang@redhat.com>\n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -52,17 +52,19 @@ msgid "Press <enter> for a shell"
 msgstr "按下 <enter> 以啟動命令列"
 
 #: ../anaconda:458
-#, fuzzy
 msgid "Fatal Error"
-msgstr "錯誤"
+msgstr "嚴重錯誤"
 
 #: ../anaconda:459
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You do not have enough RAM to install %s on this machine.\n"
 "\n"
 "Press <return> to reboot your system.\n"
-msgstr "本機器沒有足夠的記憶體可供安裝 %s。"
+msgstr ""
+"您沒有足夠的記憶體在此機器上安裝 %s。\n"
+"\n"
+"請按下 <return> 來重新啟動您的系統。\n"
 
 #: ../anaconda:464 ../rescue.py:285 ../rescue.py:311 ../rescue.py:324
 #: ../rescue.py:397 ../rescue.py:406 ../text.py:694
@@ -119,7 +121,7 @@ msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
-msgstr ""
+msgstr "文字模式提供了一組安裝選項。它不允許您指定您自己的分割區格式或套件選擇。您是否希望使用 VNC 模式來代替？"
 
 #: ../anaconda:852
 msgid "Install class forcing text mode installation"
@@ -135,11 +137,11 @@ msgstr "DISPLAY 變數並未設定。啟動文字模式！"
 
 #: ../anaconda:1047
 msgid "reipl configuration successful => reboot"
-msgstr ""
+msgstr "reipl 配置成功 => 重新啟動"
 
 #: ../anaconda:1050
 msgid "reipl configuration failed => halt"
-msgstr ""
+msgstr "reipl 配置失敗 => 停滯"
 
 #: ../backend.py:144
 #, python-format
@@ -270,9 +272,8 @@ msgid "In progress...   "
 msgstr "正在進行...   "
 
 #: ../cmdline.py:98
-#, fuzzy
 msgid "Can't have a question in command line mode!"
-msgstr "在命令列模式中不能輸入問題！"
+msgstr "在指令列模式中不能輸入問題！"
 
 #: ../constants.py:74
 msgid ""
@@ -344,8 +345,7 @@ msgstr "無法登入"
 
 #: ../exception.py:425
 #, python-format
-msgid ""
-"There was an error logging into %s using the provided username and password."
+msgid "There was an error logging into %s using the provided username and password."
 msgstr "使用提供的用戶名稱和密碼來登錄 %s 時發生了錯誤。"
 
 #: ../exception.py:462
@@ -649,7 +649,7 @@ msgid "Required Install Media"
 msgstr "需要的安裝媒體"
 
 #: ../image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %s %s "
 "discs:\n"
@@ -658,11 +658,11 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"您所選取要安裝的軟體需要下列的光碟片：\n"
+"您所選取要安裝的軟體需要下列的 %s %s "
+"光碟片：\n"
 "\n"
 "%s\n"
-"請在開始安裝之前準備好這些光碟片。假如您需要放棄安裝並且重新開機，請選擇「重"
-"新開機」。"
+"請在開始安裝之前準備好這些光碟片。假如您需要放棄安裝並且重新開機，請選擇「重新開機」。"
 
 #: ../image.py:248 ../livecd.py:388 ../packages.py:382 ../packages.py:433
 #: ../packages.py:436 ../upgrade.py:252 ../yuminstall.py:783
@@ -686,84 +686,84 @@ msgstr "安裝到系統"
 #: ../iutil.py:740
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "錯誤：開啟時無法將 reIPL 模式設為 %s (%s: %s)"
 
 #: ../iutil.py:748
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "錯誤：寫入時無法將 reIPL 模式設為 %s (%s: %s)"
 
 #: ../iutil.py:755
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "錯誤：關閉時無法將 reIPL 模式設為 %s (%s: %s)"
 
 #: ../iutil.py:765 ../iutil.py:817
 #, python-format
 msgid "Error: %s splits into %s but not like we expect"
-msgstr ""
+msgstr "錯誤：%s 劃分為 %s 不過和我們所預期的不同"
 
 #: ../iutil.py:778
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr ""
+msgstr "錯誤：無法將 %s 設為 relPL 裝置（%s）"
 
 #: ../iutil.py:787
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
+msgstr "錯誤：無法重新啟動 loadparm（%s）"
 
 #: ../iutil.py:796
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr ""
+msgstr "警告：無法重新啟用 parm（%s）"
 
 #: ../iutil.py:806
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
-msgstr ""
+msgstr "關閉之後，請由 DASD 裝置 %s 進行手動式的 IPL 以繼續進行安裝程序"
 
 #: ../iutil.py:834
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "錯誤：讀取 relPL 的 FCP 內容 %s（%s）"
 
 #: ../iutil.py:847
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "錯誤：寫入 relPL 的 FCP 內容 %s（%s）"
 
 #: ../iutil.py:860
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "錯誤：寫入 relPL（%s）的預設 FCP 內容 %s"
 
 #: ../iutil.py:870
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
-msgstr ""
+msgstr "關閉後，請由 FCP %(device)s 搭配 WWPN %(wwpn)s 和 LUN %(lun)s 來進行手動式的 IPL 以繼續進行安裝程序"
 
 #: ../iutil.py:877
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
-msgstr ""
+msgstr "關閉後，請由包含著 /boot 的裝置來進行手動式的 IPL 以繼續進行安裝程序"
 
 #: ../iutil.py:887
 msgid "Could not get information for mount point /boot or /"
-msgstr ""
+msgstr "無法取得有關於掛載點 /boot 或 / 的相關資訊"
 
 #: ../iutil.py:897
 msgid "Error determining mount point type"
-msgstr ""
+msgstr "錯誤判斷了掛載點類型"
 
 #: ../iutil.py:901
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
-msgstr ""
+msgstr "掛載點 /boot 或 / 位於一個我們不熟悉的磁碟上"
 
 #: ../kickstart.py:96
 #, python-format
@@ -807,9 +807,8 @@ msgid "_Abort"
 msgstr "放棄（_A）"
 
 #: ../kickstart.py:1213 ../kickstart.py:1252
-#, fuzzy
 msgid "_Ignore All"
-msgstr "忽略"
+msgstr "忽略全部（_I）"
 
 #: ../kickstart.py:1243
 msgid "Missing Group"
@@ -829,6 +828,8 @@ msgid ""
 "prompt for.  Please add the following sections and try again:\n"
 "%s"
 msgstr ""
+"您的 kickstart 檔案缺少了必要的資訊，anaconda 無法提示這項資訊。請附加下列部份並重新嘗試：\n"
+"%s"
 
 #: ../livecd.py:108
 msgid "Unable to find image"
@@ -836,8 +837,7 @@ msgstr "找不到安裝映像檔"
 
 #: ../livecd.py:109
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr "提供的位置並非可使用來作為安裝來源的有效 %s live CD。"
 
 #: ../livecd.py:171
@@ -885,8 +885,7 @@ msgid ""
 msgstr "主機名稱必須以「a-z」、「A-Z」或「0-9」等有效字元作為起始"
 
 #: ../network.py:69
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "主機名稱只能包含「a-z」、「A-Z」、「0-9」、「-」或「.」等字元"
 
 #: ../network.py:178
@@ -910,83 +909,75 @@ msgid "'%s' is an invalid IP address."
 msgstr "「%s」是個無效的 IP 位址。"
 
 #: ../packages.py:122
-#, fuzzy
 msgid "Device Resize Failed"
-msgstr "重設大小失敗"
+msgstr "裝置重設大小失敗"
 
 #: ../packages.py:123
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while resizing device %s."
-msgstr "重設 %s 裝置的大小時發生錯誤。"
+msgstr "重設裝置 %s 的大小時發生了錯誤。"
 
 #: ../packages.py:130
-#, fuzzy
 msgid "Device Creation Failed"
-msgstr "目的地檔案"
+msgstr "裝置建立失敗"
 
 #: ../packages.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while creating device %s."
-msgstr "重設 %s 裝置的大小時發生錯誤。"
+msgstr "建立裝置 %s 時發生了錯誤。"
 
 #: ../packages.py:138
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "裝置移除失敗"
 
 #: ../packages.py:139
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while removing device %s."
-msgstr "重設 %s 裝置的大小時發生錯誤。"
+msgstr "移除裝置 %s 時發生了錯誤。"
 
 #: ../packages.py:146
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "裝置設定失敗"
 
 #: ../packages.py:147
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "重設 %s 裝置的大小時發生錯誤。"
+msgstr "設定裝置 %s 時發生了錯誤。"
 
 #: ../packages.py:158
 msgid "Resizing Failed"
 msgstr "重設大小失敗"
 
 #: ../packages.py:159
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
-msgstr "重設 %s 裝置的大小時發生錯誤。"
+msgstr "重設裝置 %s 的大小時發生了錯誤。"
 
 #: ../packages.py:166
-#, fuzzy
 msgid "Migration Failed"
-msgstr "LVM 作業失敗"
+msgstr "遷移失敗"
 
 #: ../packages.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "重設 %s 裝置的大小時發生錯誤。"
+msgstr "遷移裝置 %s 上的檔案系統時發生了錯誤。"
 
 #: ../packages.py:175
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "正在格式化"
+msgstr "格式化失敗"
 
 #: ../packages.py:176
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "重設 %s 裝置的大小時發生錯誤。"
+msgstr "格式化裝置 %s 時發生了錯誤。"
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
-msgstr ""
+msgstr "儲存裝置啟用失敗"
 
 #: ../packages.py:185
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
-msgstr ""
-"解析 kickstart 設定時發生錯誤：\n"
-"\n"
-"%s"
+msgstr "啟用您的儲存裝置配置時發生了錯誤。"
 
 #: ../packages.py:353
 msgid "Invalid Key"
@@ -1109,9 +1100,9 @@ msgid "Confirm Delete"
 msgstr "確認刪除"
 
 #: ../partIntfHelpers.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "您將要刪除「/dev/%s」裝置上的所有分割區。"
+msgstr "您即將刪除裝置 '%s' 上的所有分割區。"
 
 #: ../partIntfHelpers.py:149 ../partIntfHelpers.py:304
 #: ../iw/lvm_dialog_gui.py:750 ../iw/lvm_dialog_gui.py:1261
@@ -1139,16 +1130,16 @@ msgid "Format as Swap?"
 msgstr "要格式化成 Swap 分割區嗎？"
 
 #: ../partIntfHelpers.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s 的分割區類型為 0x82（Linux swap），但尚未格式化。\n"
+"%s 的分割區類型為 0x82（Linux swap），但尚未格式化為 Linux swap 分割區。\n"
 "\n"
-"您想要將之格式化成 swap 分割區嗎？"
+"您希望將此分割區格式化為 swap 分割區嗎？"
 
 #: ../partIntfHelpers.py:201
 #, python-format
@@ -1246,29 +1237,28 @@ msgstr ""
 #: ../partIntfHelpers.py:291
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr "您將要刪除邏輯卷冊「%s」。"
+msgstr "您即將要刪除邏輯卷冊「%s」。"
 
 #: ../partIntfHelpers.py:294
 msgid "You are about to delete a RAID device."
-msgstr "您將要刪除一個 RAID 裝置。"
+msgstr "您即將要刪除一個 RAID 裝置。"
 
 #: ../partIntfHelpers.py:296
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "您將要刪除 /dev/%s 分割區。"
+msgstr "您即將要刪除 %s 分割區。"
 
 #: ../partIntfHelpers.py:300
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "您將要刪除 /dev/%s 分割區。"
+msgstr "您即將要刪除 %s /%s"
 
 #: ../partIntfHelpers.py:311
 msgid "Confirm Reset"
 msgstr "確認還原"
 
 #: ../partIntfHelpers.py:312
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "您確定要將磁碟分割表重設至原來的狀態？"
 
 #: ../partedUtils.py:108 ../iw/partition_gui.py:779 ../iw/partition_gui.py:927
@@ -1307,7 +1297,7 @@ msgstr ""
 
 #: ../partedUtils.py:209 ../storage/devicetree.py:130
 msgid "_Ignore drive"
-msgstr "忽略硬碟（_I）"
+msgstr "忽略磁碟（_I）"
 
 #: ../partedUtils.py:210 ../storage/devicetree.py:131
 msgid "_Re-initialize drive"
@@ -1459,9 +1449,8 @@ msgid "System to Rescue"
 msgstr "要救援的系統"
 
 #: ../rescue.py:283
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "您的 Linux 安裝在那一個分割區呢？"
+msgstr "哪個裝置持有您的 root 分割區呢？"
 
 #: ../rescue.py:285 ../rescue.py:289 ../text.py:664 ../text.py:666
 msgid "Exit"
@@ -1667,25 +1656,24 @@ msgid "Mount failed"
 msgstr "掛載失敗"
 
 #: ../upgrade.py:240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
 "fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
 msgstr ""
-"一個或多個列在 /etc/fstab 中的檔案系統無法掛載到您的 Linux 系統上。請修正這個"
-"問題並試著再升級一次。"
+"當掛載列在 /etc/fstab 中的檔案系統時發生了下列錯誤。請修正這個問題並嘗試再升級一次。\n"
+"%s"
 
 #: ../upgrade.py:247
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "升級開機管理程式設定"
+msgstr "找不到升級的 root"
 
 #: ../upgrade.py:248
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
-msgstr ""
+msgstr "找不到先前安裝的系統的 root。您可退出安裝程式或是退回並選擇安裝而不是升級。"
 
 #: ../upgrade.py:271
 msgid ""
@@ -1838,8 +1826,7 @@ msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
-"密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
+msgstr "密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
 
 #: ../vnc.py:286 ../vnc.py:381 ../textw/userauth_text.py:47
 msgid "Password:"
@@ -2012,8 +1999,7 @@ msgstr "正在重新嘗試下載..."
 
 #: ../yuminstall.py:780
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "由於下列原因，您的傳輸發生了錯誤：%s\n"
 
 #: ../yuminstall.py:815 ../yuminstall.py:816
@@ -2080,7 +2066,7 @@ msgstr "執行傳輸時發生錯誤"
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
-msgstr ""
+msgstr "您的一些軟體庫需要網路作業，不過在您的系統上啟用網路時發生了一項錯誤。"
 
 #: ../yuminstall.py:1057
 msgid ""
@@ -2252,8 +2238,7 @@ msgstr ""
 "您是否希望繼續使用這組密碼？"
 
 #: ../iw/account_gui.py:145 ../textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "所要求的密碼含有非 ASCII 的字元，這些字元不允許使用在密碼上。"
 
 #: ../iw/autopart_type.py:101
@@ -2263,22 +2248,20 @@ msgid ""
 msgstr "沒有可變更大小的分割區。只有含有特定檔案系統的實體分割區可改變大小。"
 
 #: ../iw/autopart_type.py:124
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "正在重設 %s 上的檔案系統大小..."
+msgstr "重設檔案系統大小時發生了錯誤"
 
 #: ../iw/autopart_type.py:125 ../iw/autopart_type.py:134
 #, python-format
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:133
 msgid "Resize Device Error"
-msgstr ""
+msgstr "重設裝置大小時發生了錯誤"
 
 #: ../iw/autopart_type.py:208
-msgid ""
-"Do you really want to boot from a disk which is not used for installation?"
+msgid "Do you really want to boot from a disk which is not used for installation?"
 msgstr "您是否希望由一個非安裝用的磁碟來進行開機？"
 
 #: ../iw/autopart_type.py:285
@@ -2295,26 +2278,23 @@ msgstr "資料錯誤"
 
 #: ../iw/autopart_type.py:398 ../iw/autopart_type.py:399
 msgid "Rescanning disks"
-msgstr ""
+msgstr "正在重新掃描磁碟"
 
 #: ../iw/autopart_type.py:452 ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "忽略硬碟（_I）"
+msgstr "使用整個磁碟"
 
 #: ../iw/autopart_type.py:453 ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "替換掉現有的 Linux 系統"
 
 #: ../iw/autopart_type.py:454
-#, fuzzy
 msgid "Shrink current system"
-msgstr "加密系統（_E）"
+msgstr "縮小目前的系統"
 
 #: ../iw/autopart_type.py:455 ../textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "沒有剩餘空間"
+msgstr "使用可用空間"
 
 #: ../iw/autopart_type.py:456
 msgid "Create custom layout"
@@ -2392,38 +2372,31 @@ msgid "Congratulations"
 msgstr "恭喜您"
 
 #: ../iw/congrats_gui.py:74 ../textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "恭喜您，您的 %s 安裝已完成。\n"
 "\n"
-"%s%s"
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "關閉"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr ""
-"請重新啟動系統來使用已安裝的系統。\n"
-"\n"
+msgstr "請進行關閉以使用已安裝的系統。\n"
 
 #: ../iw/congrats_gui.py:81 ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr ""
-"請重新啟動系統來使用已安裝的系統。\n"
-"\n"
+msgstr "請重新啟動系統來使用已安裝的系統。\n"
 
 #: ../iw/congrats_gui.py:86 ../textw/complete_text.py:51
 msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
-msgstr ""
+msgstr "請注意，可能會有可用的更新以確保您的系統可正常運作，我們建議您在重新啟動系統後安裝這些更新。"
 
 #: ../iw/congrats_gui.py:90 ../textw/complete_text.py:55
 #, python-format
@@ -2434,6 +2407,9 @@ msgid ""
 "available to ensure the proper functioning of your system and installation "
 "of these updates is recommended after the reboot."
 msgstr ""
+"恭喜您，您的 %s 的安裝程序已完成。\n"
+"\n"
+"請重新啟動系統以使用安裝的系統。請注意，可能會有可用的更新以確保您的系統可正常運作，我們建議您在重新啟動系統後安裝這些更新。"
 
 #: ../iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -2545,8 +2521,7 @@ msgstr "太小"
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr ""
-"這個實體容量數值的變更將會浪費在卷冊群組中一或更多的實體卷冊上相當大的空間。"
+msgstr "這個實體容量數值的變更將會浪費在卷冊群組中一或更多的實體卷冊上相當大的空間。"
 
 #: ../iw/lvm_dialog_gui.py:218
 #, python-format
@@ -2808,14 +2783,13 @@ msgid "A value is required for the field %s."
 msgstr "欄位「%s」需要一個數值。"
 
 #: ../iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "複製螢幕截圖時發生錯誤。"
+msgstr "啟用 %s 網路介面時發生了一項錯誤。"
 
 #: ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "設定網路裝置時發生錯誤"
+msgstr "設定網路時發生了錯誤"
 
 #: ../iw/netconfig_dialog.py:237
 msgid "Dynamic IP"
@@ -2969,9 +2943,9 @@ msgid "Add Partition"
 msgstr "新增分割區"
 
 #: ../iw/partition_dialog_gui.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: %s"
-msgstr "編輯分割區：/dev/%s"
+msgstr "編輯分割區：%s"
 
 #: ../iw/partition_dialog_gui.py:315
 msgid "File System _Type:"
@@ -3024,14 +2998,12 @@ msgid "Partitioning"
 msgstr "設定分割區"
 
 #: ../iw/partition_gui.py:612
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "您所進行的分割區設定造成了下列重大錯誤。"
 
 #: ../iw/partition_gui.py:614
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "在您繼續安裝 %s 之前，您必須先更正這些錯誤。"
 
 #: ../iw/partition_gui.py:620
@@ -3102,19 +3074,19 @@ msgid "Unable To Edit"
 msgstr "無法編輯"
 
 #: ../iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
-msgstr "您必須選擇要編輯的分割區"
+msgstr "您必須選擇欲編輯的裝置"
 
 #: ../iw/partition_gui.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
 "%s"
 msgstr ""
-"您無法編輯這個分割區：\n"
+"您無法編輯這個裝置：\n"
 "\n"
+"%s"
 
 #: ../iw/partition_gui.py:1177 ../iw/partition_gui.py:1189
 msgid "Not supported"
@@ -3136,8 +3108,7 @@ msgstr "找不到 RAID 鏡像（minor）裝置的號碼"
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
-"無法建立軟體 RAID 裝置，因為所有的 RAID 鏡像（minor）裝置號碼都已經被使用了。"
+msgstr "無法建立軟體 RAID 裝置，因為所有的 RAID 鏡像（minor）裝置號碼都已經被使用了。"
 
 #: ../iw/partition_gui.py:1210
 msgid "RAID Options"
@@ -3265,9 +3236,9 @@ msgid "Make RAID Device"
 msgstr "建立 RAID 裝置"
 
 #: ../iw/raid_dialog_gui.py:329
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "編輯 RAID 裝置"
+msgstr "編輯 RAID 裝置：%s"
 
 #: ../iw/raid_dialog_gui.py:331
 msgid "Edit RAID Device"
@@ -3318,7 +3289,7 @@ msgstr ""
 "在做磁碟複製之前，您必須先移除這些分割區。"
 
 #: ../iw/raid_dialog_gui.py:588
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive %s.\n"
@@ -3326,9 +3297,9 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"您所選取的來源磁碟含有不限於磁碟 /dev/%s 的分割區。\n"
+"您所選取的來源磁碟含有不限於磁碟 %s 的分割區。\n"
 "\n"
-"在做磁碟複製之前，這些分割區必須先移除或將之限於這個磁碟。"
+"在做磁碟複製之前，這些分割區必須先被移除或將之限於這個磁碟。"
 
 #: ../iw/raid_dialog_gui.py:601
 msgid ""
@@ -3344,19 +3315,19 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:615 ../iw/raid_dialog_gui.py:621
 #: ../iw/raid_dialog_gui.py:637
 msgid "Target Drive Error"
-msgstr "目的磁碟錯誤"
+msgstr "目標磁碟錯誤"
 
 #: ../iw/raid_dialog_gui.py:616
 msgid "Please select the target drives for the clone operation."
-msgstr "請選擇複製操作的目的磁碟。"
+msgstr "請選擇複製操作的目標磁碟。"
 
 #: ../iw/raid_dialog_gui.py:622
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "來源磁碟 /dev/%s 不能同時被選取為目的磁碟。"
+msgstr "來源磁碟 %s 不能同時被選取為目標磁碟。"
 
 #: ../iw/raid_dialog_gui.py:638
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3365,23 +3336,23 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"因為下列的原因，目的磁碟 /dev/%s 有一個分割區無法移除：\n"
+"基於下列原因，目標磁碟 %s 有一個分割區無法移除：\n"
 "\n"
 "「%s」\n"
 "\n"
-"若要這個磁碟作為目的磁碟，您必須移除此分割區。"
+"若要這個磁碟作為目標磁碟，您必須移除此分割區。"
 
 #: ../iw/raid_dialog_gui.py:701
 msgid "Please select a source drive."
 msgstr "請選擇一個來源磁碟。"
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"磁碟 /dev/%s 現在將會被複製到下列的磁碟：\n"
+"磁碟 %s 現在將會被複製到下列的磁碟：\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:726
@@ -3392,7 +3363,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"警告！ 目的磁碟上的所有資料將會被摧毀。"
+"警告！ 目標磁碟上的所有資料將會被摧毀。"
 
 #: ../iw/raid_dialog_gui.py:729
 msgid "Final Warning"
@@ -3404,7 +3375,7 @@ msgstr "複製磁碟"
 
 #: ../iw/raid_dialog_gui.py:740
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr "清除目的磁碟時發生錯誤。磁碟複製失敗。"
+msgstr "清除目標磁碟時發生錯誤。磁碟複製失敗。"
 
 #: ../iw/raid_dialog_gui.py:773
 msgid ""
@@ -3430,7 +3401,7 @@ msgstr ""
 "請注意：來源磁碟的分割區必須限制只存放在該磁碟上，而且只能含有未使用的軟體 "
 "RAID 分割區。其他分割區類型則不被允許。\n"
 "\n"
-"在目的磁碟上的所有資料將會完全被摧毀。"
+"在目標磁碟上的所有資料將會完全被摧毀。"
 
 #: ../iw/raid_dialog_gui.py:793
 msgid "Source Drive:"
@@ -3438,7 +3409,7 @@ msgstr "來源磁碟："
 
 #: ../iw/raid_dialog_gui.py:801
 msgid "Target Drive(s):"
-msgstr "目的磁碟："
+msgstr "目標磁碟："
 
 #: ../iw/raid_dialog_gui.py:809
 msgid "Drives"
@@ -3551,8 +3522,7 @@ msgstr "安裝程式偵測不到目前在您系統使用的開機管理程式。
 
 #: ../iw/upgrade_bootloader_gui.py:137 ../textw/upgrade_bootloader_text.py:120
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "安裝程式偵測到 %s 開機管理程式已安裝在 %s。"
 
 #: ../iw/upgrade_bootloader_gui.py:141
@@ -3676,13 +3646,12 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap 檔案的大小必須介於 1 至 2000 MB 之間。"
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:183
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "您所選擇的裝置空間不足以建立 swap 分割區。"
 
 #: ../iw/welcome_gui.py:56 ../textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "需要網路安裝"
 
 #: ../iw/welcome_gui.py:57 ../textw/welcome_text.py:37
 msgid ""
@@ -3690,12 +3659,11 @@ msgid ""
 "were found on your system.  To avoid a network installation, boot with the "
 "full DVD, full CD set, or do not pass a repo= parameter that specifies a "
 "network source."
-msgstr ""
+msgstr "您的安裝來源已設為一個網路位置，不過您的系統上找不到網路裝置。若要避免網路安裝，請透過完整的 DVD、CD 組來開機，或是不要傳送一個指定網路來源的 repo= 參數。"
 
 #: ../iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "退出安裝程式"
+msgstr "退出安裝程式（_x）"
 
 #: ../iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -3832,24 +3800,21 @@ msgid "Error configuring network device"
 msgstr "設定網路裝置時發生錯誤"
 
 #: ../textw/netconfig_text.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "設定網路裝置時發生錯誤"
+msgstr "設定網路裝置 %s 時發生錯誤"
 
 #: ../textw/partition_text.py:58
 msgid "Partitioning Type"
 msgstr "分割類型"
 
 #: ../textw/partition_text.py:60 tmp/autopart.glade.h:2
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
 "use as the install target. You can also choose to create your own custom "
 "layout."
-msgstr ""
-"安裝過程需要重新分割您的硬碟。預設分割區適用於大部份使用者。您可以選擇使用這"
-"預設分割模式，或自行建立。"
+msgstr "安裝過程需要分割您的硬碟。預設分割格式適用於大部份的使用者。請選擇欲使用的空間和作為安裝目標的磁碟。您亦可選擇建立您自己的自訂格式。"
 
 #: ../textw/partition_text.py:76
 msgid "Which drive(s) do you want to use for this installation?"
@@ -3890,7 +3855,7 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-"要使用 iSCSI 磁碟機，您必須提供已經為您的主機設定好的 iSCSI 目的位址與 iSCSI "
+"要使用 iSCSI 磁碟機，您必須提供已經為您的主機設定好的 iSCSI 目標位址與 iSCSI "
 "起始名稱。"
 
 #: ../textw/partition_text.py:215
@@ -4054,8 +4019,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
-msgstr ""
-"%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些額外項目呢？"
+msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些額外項目呢？"
 
 #: ../installclasses/fedora.py:49
 msgid "Office and Productivity"
@@ -4145,13 +4109,11 @@ msgid "Installation cannot continue."
 msgstr "安裝無法繼續。"
 
 #: ../storage/__init__.py:96
-#, fuzzy
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr ""
-"您選擇的磁碟分割選項已經啟動了。您無法再回到磁碟編輯視窗。您想要繼續安裝嗎？"
+msgstr "您所選擇的儲存裝置配置已經啟用了。您無法再回到磁碟編輯畫面。您想要繼續進行安裝程序嗎？"
 
 #: ../storage/__init__.py:127
 msgid "Encrypt device?"
@@ -4167,9 +4129,8 @@ msgstr ""
 "的話，區塊裝置加密將會被停用。"
 
 #: ../storage/__init__.py:146
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "將分割區寫至磁碟"
+msgstr "將儲存裝置配置寫至磁碟"
 
 #: ../storage/__init__.py:147
 msgid ""
@@ -4188,45 +4149,42 @@ msgid "_Write changes to disk"
 msgstr "將變更寫至磁碟（_W）"
 
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "裝置遺失"
+msgstr "尋找裝置"
 
 #: ../storage/__init__.py:253
 msgid "Finding storage devices..."
-msgstr ""
+msgstr "正在尋找儲存裝置..."
 
 #: ../storage/__init__.py:269
 msgid "Filesystem error detected, cannot continue."
-msgstr ""
+msgstr "已偵測到檔案系統錯誤，無法繼續進行。"
 
 #: ../storage/__init__.py:480
 msgid "This partition is holding the data for the hard drive install."
-msgstr "這個分割區包含了硬碟安裝時要用到的資料。"
+msgstr "此分割區包含了硬碟安裝時要用到的資料。"
 
 #: ../storage/__init__.py:485
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "您無法刪除 LDL 格式化的 DASD 的分割區。"
 
 #: ../storage/__init__.py:491
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "這個分割區是 RAID 裝置 /dev/md%s 的一部份。"
+msgstr "此裝置為 RAID 裝置 %s 的一部份。"
 
 #: ../storage/__init__.py:494
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "這個分割區是 RAID 裝置的一部份。"
+msgstr "此裝置為 RAID 裝置的一部份。"
 
 #: ../storage/__init__.py:499
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "這個分割區是 LVM 卷冊群組 '%s' 的一部份。"
+msgstr "此裝置為 LVM 卷冊群組 '%s' 的一部份。"
 
 #: ../storage/__init__.py:502
-#, fuzzy
 msgid "This device is part of a LVM volume group."
-msgstr "這個分割區是 LVM 卷冊群組的一部份。"
+msgstr "此裝置為 LVM 卷冊群組的一部份。"
 
 #: ../storage/__init__.py:511
 msgid ""
@@ -4234,6 +4192,8 @@ msgid ""
 "cannot be deleted:\n"
 "\n"
 msgstr ""
+"此裝置是個延伸的分割區，它包含了無法刪除的邏輯分割區：\n"
+"\n"
 
 #: ../storage/__init__.py:751
 #, python-format
@@ -4250,22 +4210,21 @@ msgid ""
 msgstr "您的 root 分割區小於 250 MB，空間太小不足以安裝 %s。"
 
 #: ../storage/__init__.py:762
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
-msgstr "你的 %s 分割區小於 %s MB，比正常安裝 %s 的建議值還要小。"
+msgstr "你的 / 分割區小於 %s MB，這比正常安裝 %s 的建議值還要小。"
 
 #: ../storage/__init__.py:770
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
-msgstr "你的 %s 分割區小於 %s MB，比正常安裝 %s 的建議值還要小。"
+msgstr "你的 %s 分割區小於 %s MB，這比正常安裝 %s 的建議值還要小。"
 
 #: ../storage/__init__.py:797
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr "安裝至 USB 裝置上。安裝後的系統可能會、也可能不會正常運作。"
 
 #: ../storage/__init__.py:800
@@ -4275,9 +4234,8 @@ msgid ""
 msgstr "安裝至火線（Firewire）裝置上。安裝後的系統可能會、也可能不會正常運作。"
 
 #: ../storage/__init__.py:804
-#, fuzzy
 msgid "You have not created a boot partition."
-msgstr "您必須建立一個 PPC PReP 的開機分割區。"
+msgstr "您還未建立一個 boot 分割區。"
 
 #: ../storage/__init__.py:808
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -4335,7 +4293,7 @@ msgstr ""
 "%s"
 
 #: ../storage/__init__.py:1406
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4347,13 +4305,13 @@ msgid ""
 msgstr ""
 "Swap 裝置：\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"目前您使用的 /etc/fstab 檔案中，這裝置是軟體中止的分割區，這表示您的系統正在"
-"休眠中。要進行升級，請關閉您的電腦，而不是使其處於休眠狀態中。"
+"這個在您 /etc/fstab 檔案中的裝置目前正被使用來作為軟體中止裝置，這表示您的系統正在"
+"休眠中。若要進行升級，請關閉您的系統，而不是使其處於休眠狀態中。"
 
 #: ../storage/__init__.py:1414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4365,14 +4323,13 @@ msgid ""
 msgstr ""
 "Swap 裝置：\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"目前您使用的 /etc/fstab 檔案中，這裝置是軟體中止的分割區，這表示您的系統正在"
-"休眠中。若您希望進行全新的安裝，請確定安裝程式已被設為會對所有 swap 分割區進"
-"行格式化。"
+"這個在您 /etc/fstab 檔案中的裝置目前正被使用來作為軟體中止裝置，這表示您的系統正在"
+"休眠中。若您正要進行全新的安裝，請確認安裝程式已被設為會將所有 swap 裝置格式化。"
 
 #: ../storage/__init__.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4383,12 +4340,12 @@ msgid ""
 msgstr ""
 "啟動 swap 裝置 %s 時發生了錯誤：%s\n"
 "\n"
-"您升級後的分割區上的 /etc/fstab 並沒有參照到可用的 swap 分割區。\n"
+"您升級分割區上的 /etc/fstab 並沒有參照可用的 swap 裝置。\n"
 "\n"
 "請按下「確定」來退出安裝程式。"
 
 #: ../storage/__init__.py:1434
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4398,7 +4355,7 @@ msgid ""
 msgstr ""
 "啟動 swap 裝置 %s 時發生了錯誤：%s\n"
 "\n"
-"很有可能是因為此 swap 分割區尚未被初始化。\n"
+"很有可能是因為此 swap 裝置尚未被初始化。\n"
 "\n"
 "請按下「確定」來退出安裝程式。"
 
@@ -4443,23 +4400,20 @@ msgid ""
 msgstr "將裝置 %s 掛載為 %s 時發生錯誤。您可以繼續安裝，但可能會產生一些問題。"
 
 #: ../storage/__init__.py:1521
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"嘗試建立 %s 時發生錯誤：%s。這是個嚴重錯誤，安裝無法繼續。\n"
+"將裝置 %s 掛載為 %s 的時候發生了錯誤：%s。這是項嚴重錯誤，安裝程序無法繼續進行。\n"
 "\n"
 "請按下 <Enter> 鍵來退出安裝程式。"
 
 #: ../storage/devices.py:1059
-#, fuzzy
 msgid "boot flag not available for this partition"
-msgstr ""
-"您無法刪除這個分割區：\n"
-"\n"
+msgstr "此分割區無法使用 boot flag"
 
 #: ../storage/devicetree.py:87
 msgid "Confirm"
@@ -4483,6 +4437,8 @@ msgid ""
 "Error processing drive %s.\n"
 "Maybe it needs to be reinitialized.YOU WILL LOSE ALL DATA ON THIS DRIVE!"
 msgstr ""
+"處理磁碟 %s 時發生了錯誤。\n"
+"它可能需要被重新初始化。您將失去該磁碟上的所有資料！"
 
 #: ../storage/devicetree.py:151
 #, python-format
@@ -4492,21 +4448,20 @@ msgid ""
 "reinitialize all related PVs, which will erase all LVM metadata. Or ignore, "
 "which will preserve contents."
 msgstr ""
+"處理 LVM 時發生了錯誤。\n"
+"LVM 資料看似不一致。(%s) 會構成 %s。您可重新初始化所有相關的 PV，這將會清除掉所有的 LVM metadata。或是您可忽略，這會將內容保留住。"
 
 #: ../storage/devicetree.py:159
-#, fuzzy
 msgid "_Ignore drive(s)"
-msgstr "忽略硬碟（_I）"
+msgstr "忽略磁碟（_I）"
 
 #: ../storage/devicetree.py:160
-#, fuzzy
 msgid "_Re-initialize drive(s)"
-msgstr "格式化磁碟（_R）"
+msgstr "重新初始化磁碟（_R）"
 
 #: ../storage/iscsi.py:98 ../storage/iscsi.py:99
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "正在載入 SCSI 驅動程式"
+msgstr "正在掃描 iSCSI 節點"
 
 #: ../storage/iscsi.py:172 ../storage/iscsi.py:173
 msgid "Initializing iSCSI initiator"
@@ -4514,34 +4469,33 @@ msgstr "正在初始化 iSCSI initiator"
 
 #: ../storage/iscsi.py:208
 msgid "iSCSI not available"
-msgstr ""
+msgstr "iSCSI 無法使用"
 
 #: ../storage/iscsi.py:210
-#, fuzzy
 msgid "No initiator name set"
-msgstr "iSCSI 起始名稱"
+msgstr "未設置起始名稱"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "沒有發現 iSCSI 節點"
 
 #: ../storage/iscsi.py:227 ../storage/iscsi.py:228
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "登入 iSCSI 節點"
 
 #: ../storage/iscsi.py:250
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "沒有找到新的 iSCSI 節點"
 
 #: ../storage/iscsi.py:253
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "無法登入至任何發現的節點中"
 
 #: ../storage/partitioning.py:175
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
-msgstr ""
+msgstr "找不到可用於自動分割的足夠空間，請使用另一種分割方式。"
 
 #: ../storage/partitioning.py:192
 msgid "Warnings During Automatic Partitioning"
@@ -4632,29 +4586,29 @@ msgstr "您尚未指定 FCP LUN，或該號碼無效"
 #: ../storage/devicelibs/lvm.py:326
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "%s 的 vginfo 已失敗"
 
 #: ../storage/devicelibs/lvm.py:354
 #, python-format
 msgid "lvs failed for %s"
-msgstr ""
+msgstr "%s 的 lvs 已失敗"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "attr dict 必須包含一個類型"
 
 #: ../storage/formats/fs.py:111
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "檔案系統配置缺少了類型"
 
 #: ../storage/formats/fs.py:270
 msgid "Formatting"
 msgstr "正在格式化"
 
 #: ../storage/formats/fs.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s..."
-msgstr "正在檢查 %s 上的檔案系統..."
+msgstr "正在 %s 上建立檔案系統..."
 
 #: ../storage/formats/fs.py:367
 msgid "Resizing"
@@ -5017,8 +4971,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "歡迎使用 %s 的 %s - 救援模式"
 
 #: ../loader/lang.c:65 ../loader/loader.c:226
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "      <Tab>/<Alt-Tab> 移動游標 | <Space> 選取 | <F12> 下一個畫面"
 
 #: ../loader/lang.c:375
@@ -5191,8 +5144,7 @@ msgstr "正在檢查媒體..."
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr ""
-"無法從主卷冊描述中讀取磁碟數值。這也許表示在建立此磁碟時沒有加上檢測值資訊。"
+msgstr "無法從主卷冊描述中讀取磁碟數值。這也許表示在建立此磁碟時沒有加上檢測值資訊。"
 
 #: ../loader/mediacheck.c:93
 msgid ""
@@ -5317,8 +5269,7 @@ msgid "Missing Information"
 msgstr "資訊不足"
 
 #: ../loader/net.c:1087
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "您必須輸入有效的 IPv4 位址及網路遮罩或 CIDR 前置字元。"
 
 #: ../loader/net.c:1094
@@ -5460,8 +5411,7 @@ msgstr "正在擷取資訊"
 
 #: ../loader/urls.c:295
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
+msgid "Please enter the URL containing the %s installation image on your server."
 msgstr "請輸入包含著您伺服器上的 %s 安裝映像檔的 URL。"
 
 #: ../loader/urls.c:321
@@ -5582,14 +5532,12 @@ msgstr ""
 "Hard Drive"
 
 #: tmp/addrepo.glade.h:9
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr "請提供此軟體庫的配置資訊。"
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "主機（host:port）"
+msgstr "主機 URL（host:port）（_R）"
 
 #: tmp/addrepo.glade.h:11
 msgid "Proxy pass_word"
@@ -5640,9 +5588,8 @@ msgid "_Next"
 msgstr "下一步（_N）"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "<b>重設目的地大小（_t）：</b>"
+msgstr "<b>重設目的地大小，單位為 MB（_t）：</b>"
 
 #: tmp/autopart.glade.h:3
 msgid "Re_view and modify partitioning layout"
@@ -5650,15 +5597,14 @@ msgstr "檢視並修改分割區（_v）"
 
 #: tmp/autopart.glade.h:4
 msgid "Volume to Resize"
-msgstr ""
+msgstr "需重設大小的卷冊"
 
 #: tmp/autopart.glade.h:5
 msgid "What drive would you like to _boot this installation from?"
 msgstr "你希望由哪個磁碟來啟動此安裝？（_b）"
 
 #: tmp/autopart.glade.h:6
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
+msgid "Which partition would you like to resize to make room for your installation?"
 msgstr "您希望重設哪個分割區的大小以便空出空間來進行安裝？"
 
 #: tmp/autopart.glade.h:7
@@ -5887,8 +5833,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
-msgstr ""
-"%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
+msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -6049,9 +5994,8 @@ msgid "Macedonian"
 msgstr "馬其頓語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
-msgstr "馬拉地語"
+msgstr "彌濕羅語"
 
 #. generated from lang-table
 msgid "Malay"
@@ -6066,9 +6010,8 @@ msgid "Marathi"
 msgstr "馬拉地語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
-msgstr "孟加拉語"
+msgstr "尼泊爾語"
 
 #. generated from lang-table
 msgid "Norwegian(Bokmål)"
@@ -6139,9 +6082,8 @@ msgid "Swedish"
 msgstr "瑞典語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
-msgstr "泰米爾語"
+msgstr "塔吉克語"
 
 #. generated from lang-table
 msgid "Tamil"
@@ -6170,3 +6112,4 @@ msgstr "威爾斯語"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "祖魯語"
+
