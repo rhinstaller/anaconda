@@ -1275,10 +1275,11 @@ class FSSet(object):
         else:
             # nodev filesystem -- preserve or drop completely?
             format = getFormat(fstype)
-            if isinstance(format, get_device_format_class("nodev")):
+            if devspec == "none" or \
+               isinstance(format, get_device_format_class("nodev")):
                 device = NoDevice(format)
             else:
-                device = Device(devspec)
+                device = StorageDevice(devspec)
 
         if device is None:
             log.error("failed to resolve %s (%s) from fstab" % (devspec,
