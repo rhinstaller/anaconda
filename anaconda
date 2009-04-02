@@ -423,7 +423,7 @@ def checkMemory(opts):
 
     # override display mode if machine cannot nicely run X
     if not flags.test:
-        if iutil.memInstalled() < isys.MIN_GUI_RAM:
+        if opts.display_mode not in ('t', 'c') and iutil.memInstalled() < isys.MIN_GUI_RAM:
             stdoutLog.warning(_("You do not have enough RAM to use the graphical "
                                 "installer.  Starting text mode."))
             opts.display_mode = 't'
@@ -840,7 +840,7 @@ if __name__ == "__main__":
     # now determine if we're going to run in GUI or TUI mode
     #
     # if no X server, we have to use text mode
-    if not (flags.test or flags.rootpath) and (rhpl.getArch() != "s390" and not os.access("/mnt/runtime/usr/bin/Xorg", os.X_OK)):
+    if opts.display_mode == 'g' and not (flags.test or flags.rootpath) and (rhpl.getArch() != "s390" and not os.access("/mnt/runtime/usr/bin/Xorg", os.X_OK)):
          stdoutLog.warning(_("Graphical installation not available...  "
                              "Starting text mode."))
          time.sleep(2)
