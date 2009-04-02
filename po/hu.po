@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: anaconda master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-04-01 08:03+0200\n"
+"PO-Revision-Date: 2009-04-02 07:19+0200\n"
 "Last-Translator: Sulyok Péter <peti@fedoraproject.org>\n"
 "Language-Team: Hungarian <Hungarian <fedora-trans-hu@redhat.com>>\n"
 "MIME-Version: 1.0\n"
@@ -136,7 +136,7 @@ msgstr "DISPLAY változó nincs beállítva. Indulás szöveges módban!"
 
 #: ../anaconda:1047
 msgid "reipl configuration successful => reboot"
-msgstr ""
+msgstr "sikeres reipl beállítás => újraindulás"
 
 #: ../anaconda:1050
 msgid "reipl configuration failed => halt"
@@ -773,24 +773,28 @@ msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
+"Leállás után, a telepítés folytatásához kérem végezze el kézivezérléssel az IPL-t "
+"FCP %(device)s eszközről WWPN %(wwpn)s és LUN %(lun)s tulajdonságokkal"
 
 #: ../iutil.py:877
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
+"Leállás után, a telepítés folytatásához kérem végezzen IPL-t kézivezérléssel "
+"a /boot eszközéről"
 
 #: ../iutil.py:887
 msgid "Could not get information for mount point /boot or /"
-msgstr ""
+msgstr "A /boot vagy a / csatolási pontról nem kaptam adatokat"
 
 #: ../iutil.py:897
 msgid "Error determining mount point type"
-msgstr ""
+msgstr "Hiba a csatolási pont típusát meghatározván"
 
 #: ../iutil.py:901
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
-msgstr ""
+msgstr "A / vagy a /boot csatolási pont számunkra ismeretlen lemezen van"
 
 #: ../kickstart.py:96
 #, python-format
@@ -860,6 +864,9 @@ msgid ""
 "prompt for.  Please add the following sections and try again:\n"
 "%s"
 msgstr ""
+"A kickstart fájlból olyan adat hiányzik, amit a telepítő nem tud bekérni."
+"  Kérem adja hozzá a következő szakaszokat, majd próbálja újra:\n"
+"%s"
 
 #: ../livecd.py:108
 msgid "Unable to find image"
@@ -968,7 +975,7 @@ msgstr "%s eszközt megteremtvén hiba történt."
 
 #: ../packages.py:138
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "Eszköz eltávolítás bukott"
 
 #: ../packages.py:139
 #, python-format
@@ -977,7 +984,7 @@ msgstr "%s eszközt eltávolítván hiba történt."
 
 #: ../packages.py:146
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "Eszköz beállítás bukott"
 
 #: ../packages.py:147
 #, python-format
@@ -1013,7 +1020,7 @@ msgstr "%s eszközt alakítván hiba történt."
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
-msgstr ""
+msgstr "Tárolóeszköz bekapcsolása bukott"
 
 #: ../packages.py:185
 msgid "An error was encountered while activating your storage configuration."
@@ -1740,6 +1747,8 @@ msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
 msgstr ""
+"Az előző rendszer gyökerét nem találtam.  Kiléphet a telepítőből, "
+"vagy visszaléphet, hogy a telepítést válassza a felfejlesztés helyett."
 
 #: ../upgrade.py:271
 msgid ""
@@ -2142,6 +2151,8 @@ msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
+"Néhány szoftver tárolóhoz hálózat kell, de a hálózatot "
+"engedélyezvén hiba történt ."
 
 #: ../yuminstall.py:1057
 msgid ""
@@ -2339,11 +2350,11 @@ msgstr "Fájlrendszer átméretezés hiba"
 #: ../iw/autopart_type.py:125 ../iw/autopart_type.py:134
 #, python-format
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:133
 msgid "Resize Device Error"
-msgstr ""
+msgstr "Eszköz átméretezés hiba"
 
 #: ../iw/autopart_type.py:208
 msgid ""
@@ -2366,7 +2377,7 @@ msgstr "Adathiba"
 
 #: ../iw/autopart_type.py:398 ../iw/autopart_type.py:399
 msgid "Rescanning disks"
-msgstr ""
+msgstr "Lemezek lekérdezése ismét"
 
 #: ../iw/autopart_type.py:452 ../textw/partition_text.py:63
 msgid "Use entire drive"
@@ -2374,7 +2385,7 @@ msgstr "Teljes eszköz használata"
 
 #: ../iw/autopart_type.py:453 ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "Meglévő Linux rendszer lecserélése"
 
 #: ../iw/autopart_type.py:454
 msgid "Shrink current system"
@@ -2474,7 +2485,7 @@ msgstr ""
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "Leállítás"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
 msgid "Please shutdown to use the installed system.\n"
@@ -2489,6 +2500,8 @@ msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
 msgstr ""
+"Vegye észre, hogy a rendszer hibátlan működésének biztosításához "
+"frissítések lehetnek elérhetők, amiket ajánlunk az újraindulás után."
 
 #: ../iw/congrats_gui.py:90 ../textw/complete_text.py:55
 #, python-format
