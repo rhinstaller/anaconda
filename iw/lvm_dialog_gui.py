@@ -470,7 +470,7 @@ class VolumeGroupEditor:
         row += 1
 
         if not lv['exists']:
-            maxlv = min(lvm.getMaxLVSize(), lv['size'])
+            maxlv = min(lvm.getMaxLVSize(), lv['size'] + tempvg.freeSpace)
             maxlabel = createAlignedLabel(_("(Max size is %s MB)") % (maxlv,))
             maintable.attach(maxlabel, 1, 2, row, row + 1)
 
