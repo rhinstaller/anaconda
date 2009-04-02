@@ -3,7 +3,11 @@
 # Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 #
 # ----------------------------------------------------
-# device - apparaat, partitie, opstelling (voor RAID)
+# device - [apparaat, partitie, opstelling (voor RAID)] 
+# device -> zoveel mogelijk als het echte apparaat (bv schijf, kaart) vertalen, 
+#               anders device laten, apparaat is lang niet altijd wenselijk (te veel variatie), 
+#               partitie is in veel gevallen een onjuiste (namelijk te beperkte: partitie is de body van het 
+#               device, maar niet het totale device zelf) vertaling.
 # alloceren - toewijzen
 # driver - stuurprogramma
 # root altijd met kleine letters schrijven (dus geen Root)
@@ -17,7 +21,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-31 17:18+0200\n"
+"PO-Revision-Date: 2009-04-02 14:53+0200\n"
 "Last-Translator: R.E. van der Luit <nippur@fedoraproject.org>\n"
 "Language-Team: Dutch <nippur@fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -1018,9 +1022,9 @@ msgid "Resizing Failed"
 msgstr "Aanpassen van de grootte is mislukt"
 
 #: ../packages.py:159
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
-msgstr "Er was een fout bij het aanpassen van de grootte van het apparaat %s."
+msgstr "Er was een fout bij het aanpassen van de grootte van het device %s."
 
 #: ../packages.py:166
 msgid "Migration Failed"
@@ -1042,11 +1046,11 @@ msgstr "Er was een fout bij het formatteren van device %s."
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
-msgstr "Storage Activation Mislukt"
+msgstr "Opslag activering mislukt"
 
 #: ../packages.py:185
 msgid "An error was encountered while activating your storage configuration."
-msgstr "Een fout is opgetreden tijdens het activeren van uw storage configuratie."
+msgstr "Een fout is opgetreden tijdens het activeren van uw opslag configuratie."
 
 #: ../packages.py:353
 msgid "Invalid Key"
@@ -1200,17 +1204,17 @@ msgid "Format as Swap?"
 msgstr "Formatteren als wisselgeheugen?"
 
 #: ../partIntfHelpers.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s is van partitietype 0x82 (Linux wisselgeheugen) maar lijkt nog niet "
-"geformatteerd te zijn als een Linux wisselgeheugenpartitie.\n"
+"%s is van partitietype 0x82 (Linux swap) maar lijkt nog niet "
+"geformatteerd te zijn als een Linux swappartitie.\n"
 "\n"
-"Wilt u deze partitie formatteren als een wisselgeheugenpartitie?"
+"Wilt u deze partitie formatteren als een swappartitie?"
 
 #: ../partIntfHelpers.py:201
 #, python-format
@@ -1325,14 +1329,14 @@ msgid "You are about to delete a RAID device."
 msgstr "U staat op het punt een RAID-opstelling te verwijderen."
 
 #: ../partIntfHelpers.py:296
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "U staat op het punt de partitie /dev/%s te verwijderen."
+msgstr "U staat op het punt partitie %s te verwijderen."
 
 #: ../partIntfHelpers.py:300
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "U staat op het punt de partitie /dev/%s te verwijderen."
+msgstr "U staat op het punt %s %s te verwijderen."
 
 #: ../partIntfHelpers.py:311
 msgid "Confirm Reset"
@@ -1548,9 +1552,8 @@ msgid "System to Rescue"
 msgstr "Te herstellen systeem"
 
 #: ../rescue.py:283
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "Welke partitie bevat de root-partitie van uw installatie?"
+msgstr "Welke schijf bevat de root-partitie van uw installatie?"
 
 #: ../rescue.py:285 ../rescue.py:289 ../text.py:664 ../text.py:666
 msgid "Exit"
@@ -1764,26 +1767,24 @@ msgid "Mount failed"
 msgstr "Aankoppelen is mislukt"
 
 #: ../upgrade.py:240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
 "fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
 msgstr ""
-"Een of meer bestandssystemen die op uw Linux-systeem in /etc/fstab worden "
-"opgesomd kunnen niet worden aangekoppeld. Herstel dit probleem en probeer de "
-"upgrade opnieuw."
+"De hierna genoemde fout trad op bij het aankoppelen van de bestandsystemen genoemd in /etc/fstab; herstel dit probleem en probeer de upgrade opnieuw:\n"
+"%s"
 
 #: ../upgrade.py:247
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "Bootloader-configuratie vernieuwen"
+msgstr "Upgrade root niet gevonden"
 
 #: ../upgrade.py:248
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
-msgstr ""
+msgstr "De root voor het eerder geïnstalleerde systeem werd niet gevonden.  U kunt de installatie verlaten of terugbladeren en de optie installeren kiezen in plaats van upgraden."
 
 #: ../upgrade.py:271
 msgid ""
@@ -2193,7 +2194,7 @@ msgstr "Fout bij het uitvoeren van transactie"
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
-msgstr ""
+msgstr "Voor sommige van uw software repositories is een internetverbinding noodzakelijk, maar er trad een probleem op met het inschakelen van deze verbinding op uw systeem."
 
 #: ../yuminstall.py:1057
 msgid ""
@@ -2393,18 +2394,17 @@ msgstr ""
 # Bestandssysteem / wordt nu geformatteerd
 # Misschien ook nog aanhalingstekens gebruiken?
 #: ../iw/autopart_type.py:124
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "Aanpassen van de grootte van het bestandssysteem op %s..."
+msgstr "Fout bij aanpassen van de grootte van het bestandsysteem"
 
 #: ../iw/autopart_type.py:125 ../iw/autopart_type.py:134
 #, python-format
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:133
 msgid "Resize Device Error"
-msgstr ""
+msgstr "Fout bij aanpassen grootte device"
 
 #: ../iw/autopart_type.py:208
 msgid "Do you really want to boot from a disk which is not used for installation?"
@@ -2426,26 +2426,23 @@ msgstr "Fout met gegevens"
 
 #: ../iw/autopart_type.py:398 ../iw/autopart_type.py:399
 msgid "Rescanning disks"
-msgstr ""
+msgstr "Herscannen schijven"
 
 #: ../iw/autopart_type.py:452 ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "_Negeer station"
+msgstr "Gebruik de gehele schijf"
 
 #: ../iw/autopart_type.py:453 ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "Vervang bestaand Linux systeem"
 
 #: ../iw/autopart_type.py:454
-#, fuzzy
 msgid "Shrink current system"
-msgstr "Systeem _versleutelen"
+msgstr "Verklein huidig systeem"
 
 #: ../iw/autopart_type.py:455 ../textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "Geen vrije ruimte"
+msgstr "Gebruik vrije ruimte"
 
 #: ../iw/autopart_type.py:456
 msgid "Create custom layout"
@@ -2527,38 +2524,31 @@ msgid "Congratulations"
 msgstr "Gefeliciteerd"
 
 #: ../iw/congrats_gui.py:74 ../textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "Gefeliciteerd, uw %s installatie is voltooid.\n"
 "\n"
-"%s%s"
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "Afsluiten"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr ""
-"Herstart het systeem om gebruik te maken van het geïnstalleerde systeem.\n"
-"\n"
+msgstr "Herstart het systeem om gebruik te maken van het geïnstalleerde systeem.\n"
 
 #: ../iw/congrats_gui.py:81 ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr ""
-"Herstart het systeem om gebruik te maken van het geïnstalleerde systeem.\n"
-"\n"
+msgstr "Herstart het systeem om gebruik te maken van het geïnstalleerde systeem.\n"
 
 #: ../iw/congrats_gui.py:86 ../textw/complete_text.py:51
 msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
-msgstr ""
+msgstr "Merk op dat updates beschikbaar kunnen zijn om een goed functioneren van uw systeem te waarborgen. Installatie van deze upgrades na rebooten wordt aangeraden."
 
 #: ../iw/congrats_gui.py:90 ../textw/complete_text.py:55
 #, python-format
@@ -2569,6 +2559,9 @@ msgid ""
 "available to ensure the proper functioning of your system and installation "
 "of these updates is recommended after the reboot."
 msgstr ""
+"Gefeliciteerd, uw %s installatie is voltooid.\n"
+"\n"
+"Reboot om uw geïnstalleerde systeem te gebruiken. Merk op dat updates beschikbaar kunnen zijn om een goed functioneren van uw systeem te waarborgen. Installatie van deze upgrades na rebooten wordt aangeraden."
 
 #: ../iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -2961,14 +2954,13 @@ msgid "A value is required for the field %s."
 msgstr "Voor het veld %s is een waarde vereist."
 
 #: ../iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "Er is een fout opgetreden bij het kopiëren van de schermafdrukken."
+msgstr "Er is een fout opgetreden bij het activeren van netwerkinterface %s."
 
 #: ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "Fout bij het configureren van netwerkapparaat"
+msgstr "Fout bij het configureren van het netwerk"
 
 #: ../iw/netconfig_dialog.py:237
 msgid "Dynamic IP"
@@ -3127,9 +3119,9 @@ msgid "Add Partition"
 msgstr "Partitie toevoegen"
 
 #: ../iw/partition_dialog_gui.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: %s"
-msgstr "Partitie: /dev/%s bewerken"
+msgstr "Partitie: %s bewerken"
 
 #: ../iw/partition_dialog_gui.py:315
 msgid "File System _Type:"
@@ -3264,19 +3256,19 @@ msgid "Unable To Edit"
 msgstr "Niet in staat te bewerken"
 
 #: ../iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
-msgstr "De te bewerken partitie moet eerst worden geselecteerd"
+msgstr "De te bewerken device moet eerst worden geselecteerd"
 
 #: ../iw/partition_gui.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
 "%s"
 msgstr ""
-"U kunt deze partitie niet bewerken:\n"
+"U kunt dit device niet bewerken:\n"
 "\n"
+"%s"
 
 #: ../iw/partition_gui.py:1177 ../iw/partition_gui.py:1189
 msgid "Not supported"
@@ -3434,9 +3426,9 @@ msgid "Make RAID Device"
 msgstr "RAID-opstelling maken"
 
 #: ../iw/raid_dialog_gui.py:329
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "RAID-opstelling bewerken"
+msgstr "RAID-opstelling %s bewerken"
 
 #: ../iw/raid_dialog_gui.py:331
 msgid "Edit RAID Device"
@@ -3489,7 +3481,7 @@ msgstr ""
 "U moet deze partities verwijderen voordat dit station kan worden gekloond. "
 
 #: ../iw/raid_dialog_gui.py:588
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive %s.\n"
@@ -3498,7 +3490,7 @@ msgid ""
 "drive can be cloned. "
 msgstr ""
 "Het bronstation dat u hebt geselecteerd bevat partities die niet beperkt "
-"zijn tot het station /dev/%s.\n"
+"zijn tot het station %s.\n"
 "\n"
 "U moet deze partities verwijderen of beperken tot dit station voordat dit "
 "station kan worden gekloond. "
@@ -3525,14 +3517,14 @@ msgid "Please select the target drives for the clone operation."
 msgstr "Selecteer de doelstations voor de kloonbewerking."
 
 #: ../iw/raid_dialog_gui.py:622
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
 msgstr ""
-"Het bronstation /dev/%s kan niet tegelijkertijd als doelstation worden "
+"Het bronstation %s kan niet tegelijkertijd als doelstation worden "
 "geselecteerd."
 
 #: ../iw/raid_dialog_gui.py:638
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3541,7 +3533,7 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"Het doelstation /dev/%s heeft een partitie die niet kan worden verwijderd om "
+"Het doelstation %s heeft een partitie die niet kan worden verwijderd om "
 "de volgende reden:\n"
 "\n"
 "\"%s\"\n"
@@ -3554,12 +3546,12 @@ msgid "Please select a source drive."
 msgstr "Selecteer een bronstation."
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Het station /dev/%s zal nu worden gekloond naar de volgende stations:\n"
+"Het station %s zal nu worden gekloond naar de volgende stations:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:726
@@ -3880,7 +3872,7 @@ msgstr ""
 
 #: ../iw/welcome_gui.py:56 ../textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "Netwerkinstallatie noodzakelijk"
 
 #: ../iw/welcome_gui.py:57 ../textw/welcome_text.py:37
 msgid ""
@@ -3888,13 +3880,12 @@ msgid ""
 "were found on your system.  To avoid a network installation, boot with the "
 "full DVD, full CD set, or do not pass a repo= parameter that specifies a "
 "network source."
-msgstr ""
+msgstr "Uw installatiebron wijst naar een netwerklocatie, maar er is geen netwerkapparaat op uw systeem gevonden. Om een netwerkinstallatie te vermijden, boot met de volledige DVD, volledige CD-set of gebruik geen repo-parameter die verwijst naar een netwerkbron."
 
 # Grafische of Tekst installatie
 #: ../iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "Installatieprogramma afsluiten"
+msgstr "_Installatieprogramma afsluiten"
 
 #: ../iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -4038,16 +4029,15 @@ msgid "Error configuring network device"
 msgstr "Fout bij het configureren van netwerkapparaat"
 
 #: ../textw/netconfig_text.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "Fout bij het configureren van netwerkapparaat"
+msgstr "Fout bij het configureren van netwerkapparaat %s"
 
 #: ../textw/partition_text.py:58
 msgid "Partitioning Type"
 msgstr "Partitioneringstype"
 
 #: ../textw/partition_text.py:60 tmp/autopart.glade.h:2
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
@@ -4055,8 +4045,7 @@ msgid ""
 "layout."
 msgstr ""
 "Installatie vereist partitionering van uw harde schijf. De standaard "
-"partitieopmaak is geschikt voor de meeste gebruikers. U kunt ervoor kiezen "
-"om deze te gebruiken of om er zelf een aan te maken."
+"partitieopmaak is voor de meeste gebruikers geschikt. Selecteer de te gebruiken ruimte en welke schijven moeten worden gebruikt als installatiedoel. U kunt er ook voor kiezen een eigen indeling te maken."
 
 #: ../textw/partition_text.py:76
 msgid "Which drive(s) do you want to use for this installation?"
@@ -4369,13 +4358,12 @@ msgid "Installation cannot continue."
 msgstr "Installatie kan niet doorgaan."
 
 #: ../storage/__init__.py:96
-#, fuzzy
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"De partitioneringsopties die u hebt gekozen zijn reeds geactiveerd. U kunt "
+"De opslag configuratie die u hebt gekozen is reeds geactiveerd. U kunt "
 "niet meer teruggaan naar het scherm waarin de harde schijf kan worden "
 "bewerkt. Wilt u verder gaan met het installatieproces?"
 
@@ -4394,9 +4382,8 @@ msgstr ""
 "zal blokapparaatversleuteling worden uitgezet."
 
 #: ../storage/__init__.py:146
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "Schrijven van partitionering naar schijf"
+msgstr "Schrijven van opslag configuratie naar schijf"
 
 #: ../storage/__init__.py:147
 msgid ""
@@ -4416,17 +4403,16 @@ msgid "_Write changes to disk"
 msgstr "Veranderingen naar schijf _schrijven"
 
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "Ontbrekend apparaat"
+msgstr "Opsporen apparaten"
 
 #: ../storage/__init__.py:253
 msgid "Finding storage devices..."
-msgstr ""
+msgstr "Opsporen opslagapparaten"
 
 #: ../storage/__init__.py:269
 msgid "Filesystem error detected, cannot continue."
-msgstr ""
+msgstr "Bestandsysteemfout opgetreden, kan niet verder."
 
 #: ../storage/__init__.py:480
 msgid "This partition is holding the data for the hard drive install."
@@ -4437,24 +4423,22 @@ msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "U kunt geen partitie verwijderen van een LDL geformatteerde DASD."
 
 #: ../storage/__init__.py:491
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "Deze partitie is onderdeel van de RAID-opstelling /dev/md%s."
+msgstr "Deze partitie is onderdeel van de RAID-opstelling %s."
 
 #: ../storage/__init__.py:494
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "Deze partitie is onderdeel van een RAID-opstelling."
+msgstr "Dit device is onderdeel van een RAID-opstelling."
 
 #: ../storage/__init__.py:499
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "Deze partitie is onderdeel van de LVM volume group '%s'."
+msgstr "Dit device is onderdeel van de LVM volume groep '%s'."
 
 #: ../storage/__init__.py:502
-#, fuzzy
 msgid "This device is part of a LVM volume group."
-msgstr "Deze partitie is onderdeel van een LVM volume group."
+msgstr "Dit device is onderdeel van een LVM volume group."
 
 #: ../storage/__init__.py:511
 msgid ""
@@ -4462,6 +4446,8 @@ msgid ""
 "cannot be deleted:\n"
 "\n"
 msgstr ""
+"Dit device wordt gevormd door een extended partitie waarop zich logische partities bevinden die niet verwijderd kunnen worden:\n"
+"\n"
 
 #: ../storage/__init__.py:751
 #, python-format
@@ -4482,12 +4468,12 @@ msgstr ""
 "s te installeren."
 
 #: ../storage/__init__.py:762
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"Uw %s partitie is minder dan %s megabyte; wat kleiner is dan aanbevolen voor "
+"Uw / partitie is minder dan %s megabyte; wat kleiner is dan aanbevolen voor "
 "een normale %s installatie."
 
 #: ../storage/__init__.py:770
@@ -4512,9 +4498,8 @@ msgstr ""
 "opleveren."
 
 #: ../storage/__init__.py:804
-#, fuzzy
 msgid "You have not created a boot partition."
-msgstr "U moet een PPC PReP opstartpartitie aanmaken."
+msgstr "U hebt geen boot-partitie aangemaakt."
 
 #: ../storage/__init__.py:808
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -4575,7 +4560,7 @@ msgstr ""
 "%s"
 
 #: ../storage/__init__.py:1406
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4585,17 +4570,17 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
-"Het wisselgeheugenapparaat:\n"
+"Het swapdevice:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
 "in uw /etc/fstab bestand is momenteel in gebruik als een software-suspend "
-"partitie. Dit houdt in dat uw systeem zich in een slaapstand bevindt. Om een "
+"partitie. Dit houdt in dat uw systeem zich thans in een slaapstand bevindt. Om een "
 "upgrade uit te voeren dient u het systeem uit te zetten in plaats van het "
 "systeem in een slaapstand te brengen."
 
 #: ../storage/__init__.py:1414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4605,17 +4590,17 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to format all swap devices."
 msgstr ""
-"Het wisselgeheugenapparaat:\n"
+"Het swapdevice:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
 "in uw /etc/fstab bestand is momenteel in gebruik als een software-suspend "
-"partitie. Dit houdt in dat uw systeem zich in een slaapstand bevindt. Als u "
+"partitie. Dit houdt in dat uw systeem zich thans in een slaapstand bevindt. Als u "
 "een nieuwe installatie uitvoert dient u ervoor te zorgen dat het "
-"installatieprogramma alle wisselgeheugenpartities zal formatteren."
+"installatieprogramma elk swapdevice zal formatteren."
 
 #: ../storage/__init__.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4624,15 +4609,15 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"Fout bij het aanzetten van wisselgeheugenapparaat %s: %s\n"
+"Fout bij het activeren van swapdevice %s: %s\n"
 "\n"
 "Het /etc/fstab bestand op de partitie waarvan u wilt upgraden heeft geen "
-"verwijzing naar een geldige wisselgeheugenpartitie.\n"
+"verwijzing naar een geldige swapdevice.\n"
 "\n"
 "Druk op OK om het installatieprogramma af te sluiten"
 
 #: ../storage/__init__.py:1434
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4640,9 +4625,9 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Fout bij het aanzetten van wisselgeheugenapparaat %s: %s\n"
+"Fout bij het activeren van swapdevice %s: %s\n"
 "\n"
-"Dit betekent waarschijnlijk dat deze wisselgeheugenpartitie niet "
+"Dit betekent waarschijnlijk dat dit swapdevice niet "
 "geïnitialiseerd is.\n"
 "\n"
 "Druk op OK om het installatieprogramma af te sluiten."
@@ -4692,24 +4677,21 @@ msgstr ""
 "verder gaan met de installatie, maar er kunnen problemen optreden."
 
 #: ../storage/__init__.py:1521
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Er is een fout opgetreden bij het maken van %s: %s.  Dit is een ernstige "
-"fout en de installatie zal worden afgebroken.\n"
+"Er is een fout opgetreden bij het aankoppelen van %s als %s: %s.  Dit is een fatale "
+"fout waardoor de installatie helaas zal moeten worden afgebroken.\n"
 "\n"
 "Druk op <Enter> om het installatieprogramma af te sluiten."
 
 #: ../storage/devices.py:1059
-#, fuzzy
 msgid "boot flag not available for this partition"
-msgstr ""
-"U kunt deze partitie niet verwijderen:\n"
-"\n"
+msgstr "boot flag is voor deze partitie niet beschikbaar"
 
 #: ../storage/devicetree.py:87
 msgid "Confirm"
@@ -4735,6 +4717,8 @@ msgid ""
 "Error processing drive %s.\n"
 "Maybe it needs to be reinitialized.YOU WILL LOSE ALL DATA ON THIS DRIVE!"
 msgstr ""
+"Fout bij verwerken van station %s./n "
+"Misschien dient deze te worden gereïnitialiseerd. U ZULT DAN ALLE DATA OP DEZE SCHIJF GAAN VERLIEZEN!"
 
 #: ../storage/devicetree.py:151
 #, python-format
@@ -4744,21 +4728,20 @@ msgid ""
 "reinitialize all related PVs, which will erase all LVM metadata. Or ignore, "
 "which will preserve contents."
 msgstr ""
+"Fout in verwerken LVM.\n"
+"Lijkt er op dat er inconsistente LVM data aanwezig is.  (%s) leidt tot %s. U kunt alle gerelateerde PVs reïnitialiseren, wat alle LVM metadata zal wissen. Of negeren, wat de inhoud zal behouden."
 
 #: ../storage/devicetree.py:159
-#, fuzzy
 msgid "_Ignore drive(s)"
-msgstr "_Negeer station"
+msgstr "_Negeer station(s)"
 
 #: ../storage/devicetree.py:160
-#, fuzzy
 msgid "_Re-initialize drive(s)"
-msgstr "Station _opnieuw initialiseren"
+msgstr "Station(s) _opnieuw initialiseren"
 
 #: ../storage/iscsi.py:98 ../storage/iscsi.py:99
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "SCSI-stuurprogramma wordt geladen"
+msgstr "Scannen van iSCSI nodes"
 
 #: ../storage/iscsi.py:172 ../storage/iscsi.py:173
 msgid "Initializing iSCSI initiator"
@@ -4766,34 +4749,33 @@ msgstr "Initialiseren van iSCSI-initiator"
 
 #: ../storage/iscsi.py:208
 msgid "iSCSI not available"
-msgstr ""
+msgstr "iSCSI niet beschikbaar"
 
 #: ../storage/iscsi.py:210
-#, fuzzy
 msgid "No initiator name set"
-msgstr "iSCSI-initiator naam"
+msgstr "Geen initiator naam gezet"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "Geen iSCSI nodes ontdekt"
 
 #: ../storage/iscsi.py:227 ../storage/iscsi.py:228
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "Logging in de iSCSI nodes"
 
 #: ../storage/iscsi.py:250
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "Geen nieuwe iSCSI nodes ontdekt"
 
 #: ../storage/iscsi.py:253
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "Kon in geen enkele ontdekte node inloggen"
 
 #: ../storage/partitioning.py:175
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
-msgstr ""
+msgstr "Kon niet genoeg vrije ruimte ontdekken om automagisch te partitioneren, gebruikt u alstublieft een andere partitioneringsmethode."
 
 #: ../storage/partitioning.py:192
 msgid "Warnings During Automatic Partitioning"
@@ -4885,29 +4867,29 @@ msgstr "U hebt geen FCP LUN opgegeven of het nummer is ongeldig."
 #: ../storage/devicelibs/lvm.py:326
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "vginfo mislukt voor %s"
 
 #: ../storage/devicelibs/lvm.py:354
 #, python-format
 msgid "lvs failed for %s"
-msgstr ""
+msgstr "lvs mislukt voor %s"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "attr dict dient een type te bevatten"
 
 #: ../storage/formats/fs.py:111
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "configuratie bestandsysteem mist een type"
 
 #: ../storage/formats/fs.py:270
 msgid "Formatting"
 msgstr "Bezig met formatteren"
 
 #: ../storage/formats/fs.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s..."
-msgstr "Controleren van het bestandssysteem op %s..."
+msgstr "Maken van bestandsysteem op %s..."
 
 #: ../storage/formats/fs.py:367
 msgid "Resizing"
@@ -5892,9 +5874,8 @@ msgid "Please provide the configuration information for this software repository
 msgstr "Geef de configuratie-informatie op voor deze software-repository."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Host (host:poort)"
+msgstr "Proxy U_RL (host:port)"
 
 #: tmp/addrepo.glade.h:11
 msgid "Proxy pass_word"
@@ -5946,9 +5927,8 @@ msgid "_Next"
 msgstr "_Volgende"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "<b>Grootte aanpassen van _doel:</b>"
+msgstr "<b>Grootte aanpassen van _doel (in Mb):</b>"
 
 #: tmp/autopart.glade.h:3
 msgid "Re_view and modify partitioning layout"
@@ -5956,7 +5936,7 @@ msgstr "De partitieopmaak herzien en _aanpassen"
 
 #: tmp/autopart.glade.h:4
 msgid "Volume to Resize"
-msgstr ""
+msgstr "Volume om grootte van aan te passen"
 
 #: tmp/autopart.glade.h:5
 msgid "What drive would you like to _boot this installation from?"
@@ -6367,9 +6347,8 @@ msgid "Macedonian"
 msgstr "Macedonisch"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
-msgstr "Marathi"
+msgstr "Maithili"
 
 #. generated from lang-table
 msgid "Malay"
@@ -6381,12 +6360,11 @@ msgstr "Malayalam"
 
 #. generated from lang-table
 msgid "Marathi"
-msgstr "Marathi"
+msgstr "Marathisch"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
-msgstr "Bengaals"
+msgstr "Nepalees"
 
 #. generated from lang-table
 msgid "Norwegian(Bokmål)"
@@ -6460,9 +6438,8 @@ msgid "Swedish"
 msgstr "Zweeds"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
-msgstr "Tamil"
+msgstr "Tajik"
 
 #. generated from lang-table
 msgid "Tamil"
