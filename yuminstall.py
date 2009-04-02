@@ -691,7 +691,9 @@ class AnacondaYum(YumSorter):
                                                        len(grab.mirrors)))
 
         if self.currentMedia:
-            unmountCD(self.tree, self.anaconda.intf.messageWindow)
+            dev = self.anaconda.id.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
+            dev.format.mountpoint = self.tree
+            unmountCD(dev, self.anaconda.intf.messageWindow)
             self.currentMedia = None
 
     def urlgrabberFailureCB (self, obj, *args, **kwargs):
