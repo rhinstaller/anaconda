@@ -1788,7 +1788,7 @@ class LVMVolumeGroupDevice(DMDevice):
         log.debug("%s size is %dMB" % (self.name, size))
         for lv in self.lvs:
             log.debug("lv %s (%s) uses %dMB" % (lv.name, lv, lv.size))
-            used += self.align(lv.size)
+            used += self.align(lv.size, roundup=True)
 
         free = self.size - used
         log.debug("vg %s has %dMB free" % (self.name, free))
@@ -1800,14 +1800,19 @@ class LVMVolumeGroupDevice(DMDevice):
         # TODO: just ask lvm if isModified returns False
         return self.freeSpace / self.peSize
 
-    def align(self, size):
+    def align(self, size, roundup=None):
         """ Align a size to a multiple of physical extent size. """
         size = numeric_type(size)
+
+        if roundup:
+            round = math.ceil
+        else:
+            round = math.floor
 
         # we want Kbytes as a float for our math
         size *= 1024.0
         pesize = self.peSize * 1024.0
-        return long((math.floor(size / pesize) * pesize) / 1024)
+        return long((round(size / pesize) * pesize) / 1024)
 
     @property
     def pvs(self):
