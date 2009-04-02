@@ -72,7 +72,6 @@ extern int h_errno;
 #include "net.h"
 
 static int ftpCheckResponse(int sock, char ** str);
-static int ftpCommand(int sock, char * command, ...);
 static int getHostAddress(const char * host, void * address, int family);
 
 static int ftpCheckResponse(int sock, char ** str) {
@@ -165,7 +164,7 @@ static int ftpCheckResponse(int sock, char ** str) {
     return 0;
 }
 
-int ftpCommand(int sock, char * command, ...) {
+static int ftpCommand(int sock, char **response, char * command, ...) {
     va_list ap;
     int len;
     char * s;
@@ -202,7 +201,7 @@ int ftpCommand(int sock, char * command, ...) {
         return FTPERR_SERVER_IO_ERROR;
     }
 
-    if ((rc = ftpCheckResponse(sock, NULL)))
+    if ((rc = ftpCheckResponse(sock, response)))
         return rc;
 
     return 0;
@@ -254,6 +253,7 @@ int ftpOpen(char *host, int family, char *name, char *password,
     struct passwd * pw;
     char * buf;
     int rc = 0;
+    char *userReply;
 
     if (port < 0) port = IPPORT_FTP;
 
@@ -321,17 +321,22 @@ int ftpOpen(char *host, int family, char *name, char *password,
         return rc;     
     }
 
-    if ((rc = ftpCommand(sock, "USER", name, NULL))) {
+    if ((rc = ftpCommand(sock, &userReply, "USER", name, NULL))) {
         close(sock);
         return rc;
     }
 
-    if ((rc = ftpCommand(sock, "PASS", password, NULL))) {
-        close(sock);
-        return rc;
+    /* FTP does not require that USER be followed by PASS.  Anonymous logins
+     * in particular do not need any password.
+     */
+    if (strncmp(userReply, "230", 3) != 0) {
+        if ((rc = ftpCommand(sock, NULL, "PASS", password, NULL))) {
+            close(sock);
+            return rc;
+        }
     }
 
-    if ((rc = ftpCommand(sock, "TYPE", "I", NULL))) {
+    if ((rc = ftpCommand(sock, NULL, "TYPE", "I", NULL))) {
         close(sock);
         return rc;
     }
