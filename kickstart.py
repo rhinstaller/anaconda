@@ -347,6 +347,8 @@ class LogVol(commands.logvol.F9_LogVol):
         storage = self.handler.id.storage
         devicetree = storage.devicetree
 
+        storage.doAutoPart = False
+
         if lvd.mountpoint == "swap":
             type = "swap"
             lvd.mountpoint = ""
@@ -576,6 +578,8 @@ class Partition(commands.partition.F9_Partition):
         devicetree = storage.devicetree
         kwargs = {}
 
+        storage.doAutoPart = False
+
         if pd.onbiosdisk != "":
             pd.disk = isys.doGetBiosDisk(pd.onbiosdisk)
 
@@ -723,6 +727,8 @@ class Raid(commands.raid.F9_Raid):
         storage = self.handler.id.storage
         devicetree = storage.devicetree
         kwargs = {}
+
+        storage.doAutoPart = False
 
         if rd.mountpoint == "swap":
             type = "swap"
@@ -876,6 +882,8 @@ class VolGroup(commands.volgroup.FC3_VolGroup):
 
         storage = self.handler.id.storage
         devicetree = storage.devicetree
+
+        storage.doAutoPart = False
 
         # Get a list of all the physical volume devices that make up this VG.
         for pv in vgd.physvols:

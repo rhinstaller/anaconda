@@ -161,8 +161,7 @@ def doAutoPartition(anaconda):
     disks = []
     devs = []
 
-    if anaconda.id.storage.doAutoPart and not anaconda.isKickstart:
-        # kickstart uses clearPartitions even without autopart
+    if anaconda.id.storage.doAutoPart:
         clearPartitions(anaconda.id.storage)
 
     if anaconda.id.storage.doAutoPart:
