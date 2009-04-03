@@ -183,7 +183,7 @@ updates:
 	@if [ ! -d updates-img ]; then \
 		mkdir updates-img ; \
 	fi ; \
-	build_isys="$$(git diff --stat anaconda-11.5.0.35-1 isys | grep " | " | cut -d ' ' -f 2 | egrep "(Makefile|\.h|\.c)$$")" ; \
+	build_isys="$$(git diff --stat $(ARCHIVE_TAG) isys | grep " | " | cut -d ' ' -f 2 | egrep "(Makefile|\.h|\.c)$$")" ; \
 	git diff --stat $(ARCHIVE_TAG) | grep " | " | \
 	grep -v "\.spec" | grep -v "Makefile" | grep -v "\.c\ " | \
 	grep -v "\.h" | grep -v "\.sh" | \
