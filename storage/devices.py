@@ -524,6 +524,7 @@ class StorageDevice(Device):
 
         if self.status and self.format.exists:
             self.format.teardown()
+            udev_settle(timeout=10)
 
         if recursive:
             self.teardownParents(recursive=recursive)
@@ -1450,10 +1451,11 @@ class LUKSDevice(DMCryptDevice):
 
         if self.status and self.format.exists:
             self.format.teardown()
-            udev_settle()
+            udev_settle(timeout=10)
 
         if self.slave.format.exists:
             self.slave.format.teardown()
+            udev_settle(timeout=10)
 
         if recursive:
             self.teardownParents(recursive=recursive)
@@ -1461,6 +1463,7 @@ class LUKSDevice(DMCryptDevice):
     def destroy(self):
         log_method_call(self, self.name, status=self.status)
         self.format.teardown()
+        udev_settle(timeout=10)
         self.teardown()
 
     @property
@@ -1958,6 +1961,7 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         if self.status and self.format.exists:
             self.format.teardown()
+            udev_settle(timeout=10)
 
         if self.status:
             lvm.lvdeactivate(self.vg.name, self._name)
@@ -2006,6 +2010,7 @@ class LVMLogicalVolumeDevice(DMDevice):
             raise DeviceError("device has not been created")
 
         self.format.teardown()
+        udev_settle(timeout=10)
         lvm.lvresize(self.vg.name, self._name, self.size)
 
 
@@ -2298,6 +2303,7 @@ class MDRaidArrayDevice(StorageDevice):
 
         if self.status and self.format.exists:
             self.format.teardown()
+            udev_settle(timeout=10)
 
         if self.status:
             mdraid.mddeactivate(self.path)
@@ -2448,6 +2454,7 @@ class DMRaidArrayDevice(DiskDevice):
 
         if self.format.exists:
             self.format.teardown()
+            udev_settle(timeout=10)
 
         # This call already checks if the set is not active.
         self._raidSet.deactivate()
