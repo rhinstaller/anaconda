@@ -200,7 +200,7 @@ class Device(object):
         """
         new = self.__class__.__new__(self.__class__)
         memo[id(self)] = new
-        shallow_copy_attrs = ('partedDisk', 'partedDevice',
+        shallow_copy_attrs = ('partedDisk', '_partedDevice',
                              '_partedPartition', '_origPartedDisk',
                              '_raidSet')
         for (attr, value) in self.__dict__.items():
@@ -411,6 +411,24 @@ class StorageDevice(Device):
         self.fstabComment = ""
         self._targetSize = self._size
 
+        self._partedDevice = None
+
+    @property
+    def partedDevice(self):
+        if self.exists and self.status and not self._partedDevice:
+            log.debug("looking up parted Device: %s" % self.path)
+
+            # We aren't guaranteed to be able to get a device.  In
+            # particular, built-in USB flash readers show up as devices but
+            # do not always have any media present, so parted won't be able
+            # to find a device.
+            try:
+                self._partedDevice = parted.Device(path=self.path)
+            except _ped.DeviceException:
+                pass
+
+        return self._partedDevice
+
     def _getTargetSize(self):
         return self._targetSize
 
@@ -439,10 +457,6 @@ class StorageDevice(Device):
     def path(self):
         """ Device node representing this device. """
         return "%s/%s" % (self._devDir, self.name)
-
-    def probe(self):
-        """ Probe for any missing information about this device. """
-        raise NotImplementedError("probe method not defined for StorageDevice")
 
     def updateSysfsPath(self):
         """ Update this device's sysfs path. """
@@ -515,10 +529,17 @@ class StorageDevice(Device):
             self.teardownParents(recursive=recursive)
 
     def _getSize(self):
-        """ Get the device's size, accounting for pending changes. """
+        """ Get the device's size in MB, accounting for pending changes. """
+        if self.exists and not self.mediaPresent:
+            return 0
+
+        if self.exists and self.partedDevice:
+            self._size = self.currentSize
+
         size = self._size
-        if self.resizable and self.targetSize != size:
+        if self.exists and self.resizable and self.targetSize != size:
             size = self.targetSize
+
         return size
 
     def _setSize(self, newsize):
@@ -530,13 +551,15 @@ class StorageDevice(Device):
 
     size = property(lambda x: x._getSize(),
                     lambda x, y: x._setSize(y),
-                    doc="The device's size, accounting for pending changes")
+                    doc="The device's size in MB, accounting for pending changes")
 
     @property
     def currentSize(self):
         """ The device's actual size. """
         size = 0
-        if self.exists:
+        if self.exists and self.partedDevice:
+            size = self.partedDevice.getSize()
+        elif self.exists:
             size = self._size
         return size
 
@@ -656,18 +679,9 @@ class DiskDevice(StorageDevice):
                                major=major, minor=minor, exists=True,
                                sysfsPath=sysfsPath, parents=parents)
 
-        self.partedDevice = None
         self.partedDisk = None
 
         log.debug("looking up parted Device: %s" % self.path)
-
-        # We aren't guaranteed to be able to get a device.  In particular,
-        # built-in USB flash readers show up as devices but do not always
-        # have any media present, so parted won't be able to find a device.
-        try:
-            self.partedDevice = parted.Device(path=self.path)
-        except _ped.DeviceException:
-            pass
 
         if self.partedDevice:
             log.debug("creating parted Disk: %s" % self.path)
@@ -693,8 +707,6 @@ class DiskDevice(StorageDevice):
         else:
             self._origPartedDisk = None
 
-        self.probe()
-
     def __str__(self):
         s = StorageDevice.__str__(self)
         s += ("  removable = %(removable)s  partedDevice = %(partedDevice)r\n"
@@ -719,12 +731,8 @@ class DiskDevice(StorageDevice):
     @property
     def size(self):
         """ The disk's size in MB """
-        if not self.mediaPresent:
-            return 0
-
-        if not self._size:
-            self._size = self.partedDisk.device.getSize()
-        return self._size
+        return super(DiskDevice, self).size
+    #size = property(StorageDevice._getSize)
 
     def resetPartedDisk(self):
         """ Reset parted.Disk to reflect the actual layout of the disk. """
@@ -764,12 +772,7 @@ class DiskDevice(StorageDevice):
             pyparted should be able to tell us anything we want to know.
             size, disklabel type, maybe even partition layout
         """
-        if not self.mediaPresent or not 'parted' in globals().keys():
-            return
-
         log_method_call(self, self.name, size=self.size, partedDevice=self.partedDevice)
-        if not self.size:
-            self._size = self.partedDevice.getSize()
         if not self.diskLabel:
             log.debug("setting %s diskLabel to %s" % (self.name,
                                                       self.partedDisk.type))
@@ -1312,13 +1315,6 @@ class DMDevice(StorageDevice):
               {"target": self.target, "dmUuid": self.dmUuid})
         return s
 
-    def probe(self):
-        """ Probe for any missing information about this device.
-
-            target type, parents?
-        """
-        raise NotImplementedError("probe method not defined for DMDevice")
-
     @property
     def fstabSpec(self):
         """ Return the device specifier for use in /etc/fstab. """
@@ -1412,8 +1408,11 @@ class LUKSDevice(DMCryptDevice):
 
     @property
     def size(self):
-        # break off 2KB for the LUKS header
-        return float(self.slave.size) - (2.0 / 1024)
+        size = super(LUKSDevice, self).size
+        if not size:
+            # break off 2KB for the LUKS header
+            size = float(self.slave.size) - (2.0 / 1024)
+        return size
 
     def create(self, intf=None):
         """ Create the device. """
@@ -1438,6 +1437,10 @@ class LUKSDevice(DMCryptDevice):
 
         self.slave.setup()
         self.slave.format.setup()
+
+        # we always probe since the device may not be set up when we want
+        # information about it
+        self._size = self.currentSize
 
     def teardown(self, recursive=False):
         """ Close, or tear down, a device. """
@@ -1899,13 +1902,6 @@ class LVMLogicalVolumeDevice(DMDevice):
               {"vgdev": self.vg, "percent": self.req_percent})
         return s
 
-    def probe(self):
-        """ Probe for any missing information about this device.
-
-            size
-        """
-        raise NotImplementedError("probe method not defined for StorageDevice")
-
     def _setSize(self, size):
         size = self.vg.align(numeric_type(size))
         log.debug("trying to set lv %s size to %dMB" % (self.name, size))
@@ -1916,7 +1912,7 @@ class LVMLogicalVolumeDevice(DMDevice):
             log.debug("failed to set size: %dMB short" % (size - (self.vg.freeSpace + self._size),))
             raise ValueError("not enough free space in volume group")
 
-    size = property(lambda d: d._size, _setSize)
+    size = property(StorageDevice._getSize, _setSize)
 
     @property
     def vg(self):
@@ -1949,6 +1945,10 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         self.vg.setup()
         lvm.lvactivate(self.vg.name, self._name)
+
+        # we always probe since the device may not be set up when we want
+        # information about it
+        self._size = self.currentSize
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
@@ -2056,8 +2056,9 @@ class MDRaidArrayDevice(StorageDevice):
         if not self.formatClass:
             raise DeviceError("cannot find class for 'mdmember'")
 
-        #self.probe()
         if self.exists and self.uuid:
+            # this is a hack to work around mdadm's insistence on giving
+            # really high minors to arrays it has no config entry for
             open("/etc/mdadm.conf", "a").write("ARRAY %s UUID=%s\n"
                                                 % (self.path, self.uuid))
 
@@ -2067,6 +2068,7 @@ class MDRaidArrayDevice(StorageDevice):
         for device in self.devices:
             if size is None or device.size < size:
                 size = device.size
+
         return size
 
     def __str__(self):
@@ -2202,6 +2204,11 @@ class MDRaidArrayDevice(StorageDevice):
             log.warning("failed to add member %s to md array %s: %s"
                         % (device.path, self.path, e))
 
+        if self.status:
+            # we always probe since the device may not be set up when we want
+            # information about it
+            self._size = self.currentSize
+
     def _removeDevice(self, device):
         """ Remove a component device from the array.
 
@@ -2278,6 +2285,10 @@ class MDRaidArrayDevice(StorageDevice):
                           uuid=self.uuid)
 
         udev_settle()
+
+        # we always probe since the device may not be set up when we want
+        # information about it
+        self._size = self.currentSize
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
@@ -2452,6 +2463,10 @@ class DMRaidArrayDevice(DiskDevice):
 
         udev_settle()
 
+        # we always probe since the device may not be set up when we want
+        # information about it
+        self._size = self.currentSize
+
 
 class MultipathDevice(DMDevice):
     """ A multipath device """
@@ -2477,13 +2492,6 @@ class MultipathDevice(DMDevice):
         DMDevice.__init__(self, name, format=format, size=size,
                           parents=parents, sysfsPath=sysfsPath,
                           exists=exists)
-
-    def probe(self):
-        """ Probe for any missing information about this device.
-
-            size
-        """
-        raise NotImplementedError("probe method not defined for MultipathDevice")
 
 
 class NoDevice(StorageDevice):
@@ -2675,6 +2683,7 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
         NetworkStorageDevice.__init__(self, self.iscsi_address)
         log.debug("created new iscsi disk %s %s:%d" % (self.iscsi_name, self.iscsi_address, self.iscsi_port))
 
+
 class OpticalDevice(StorageDevice):
     """ An optical drive, eg: cdrom, dvd+r, &c.
 
@@ -2750,13 +2759,6 @@ class ZFCPDiskDevice(DiskDevice):
               {"devnum": self.devnum, "wwpn": self.wwpn, "fcplun": self.fcplun})
         return s
 
-    def probe(self):
-        """ Probe for any missing information about this device.
-
-            devnum, wwpn, fcplun
-        """
-        raise NotImplementedError("probe method not defined for StorageDevice")
-
 
 class DASDDevice(DiskDevice):
     """ A mainframe DASD. """
@@ -2767,10 +2769,6 @@ class DASDDevice(DiskDevice):
         DiskDevice.__init__(self, device, size=size,
                             major=major, minor=minor,
                             parents=parents, sysfsPath=sysfsPath)
-
-    def probe(self):
-        """ Probe for any missing information about this device. """
-        raise NotImplementedError("probe method not defined for StorageDevice")
 
 
 class NFSDevice(StorageDevice, NetworkStorageDevice):
