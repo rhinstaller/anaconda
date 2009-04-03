@@ -139,9 +139,6 @@ class DiskStripeSlice:
         rc = rc + "%Ld MB" % (self.partition.getSize(unit="MB"),)
         return rc
 
-    def getDeviceName(self):
-        return self.partition.getDeviceNodeName().split("/")[-1]
-
     def update(self):
         disk = self.parent.getDisk()
         (cylinders, heads, sectors) = disk.device.biosGeometry

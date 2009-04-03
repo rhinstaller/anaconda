@@ -24,6 +24,7 @@ from constants_text import *
 from flags import flags
 import string
 from booty import checkbootloader
+from storage.devices import devicePathToName
 
 from constants import *
 import gettext
@@ -173,7 +174,7 @@ class UpgradeBootloaderWindow:
                     self.bl.useGrubVal = 1
                 else:
                     self.bl.useGrubVal = 0
-                self.bl.setDevice(self.bootDev.split("/")[-1])
+                self.bl.setDevice(devicePathToName(self.bootDev))
 
 
 

@@ -24,6 +24,7 @@ from iw_gui import *
 
 import gtk
 from booty import checkbootloader
+from storage.devices import devicePathToName
 
 from constants import *
 import gettext
@@ -61,7 +62,7 @@ class UpgradeBootloaderWindow (InstallWindow):
                 self.bl.useGrubVal = 1
             else:
                 self.bl.useGrubVal = 0
-            self.bl.setDevice(self.bootDev.split("/")[-1])
+            self.bl.setDevice(devicePathToName(self.bootDev))
 
     def _newToLibata(self, rootPath):
         # NOTE: any changes here need to be done in upgrade_bootloader_text too

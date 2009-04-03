@@ -28,6 +28,7 @@ import iutil
 import string
 from flags import flags
 from constants import *
+from storage.devices import devicePathToName
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -125,7 +126,7 @@ def writeBootloader(anaconda):
         anaconda.id.bootloader.doUpgradeonly = 1
         if bootType == "GRUB":
             anaconda.id.bootloader.useGrubVal = 1
-            anaconda.id.bootloader.setDevice(theDev.split("/")[-1])
+            anaconda.id.bootloader.setDevice(devicePathToName(theDev))
         else:
             anaconda.id.bootloader.doUpgradeOnly = 0    
 

@@ -81,16 +81,9 @@ def storageInitialize(anaconda):
             elif devspec.startswith("UUID=") and udev_device_get_uuid(entry) == devspec[5:]:
                 storage.protectedPartitions = [udev_device_get_name(entry)]
                 break
-            else:
-                if devspec.startswith("/dev/"):
-                    dev = devspec[5:]
-                else:
-                    dev = devspec
-
-                name = udev_device_get_name(entry)
-                if name == dev:
-                    storage.protectedPartitions = [name]
-                    break
+            elif udev_device_get_name(entry) == devicePathToName(devspec):
+                storage.protectedPartitions = [udev_device_get_name(entry)]
+                break
 
         storage.reset()
 

@@ -131,6 +131,18 @@ def get_device_majors():
 device_majors = get_device_majors()
 
 
+def devicePathToName(devicePath):
+    if devicePath.startswith("/dev/"):
+        name = devicePath[5:]
+    else:
+        name = devicePath
+
+    if name.startswith("mapper/"):
+        name = name[7:]
+
+    return name
+
+
 class Device(object):
     """ A generic device.
 
@@ -461,7 +473,8 @@ class StorageDevice(Device):
     def updateSysfsPath(self):
         """ Update this device's sysfs path. """
         log_method_call(self, self.name, status=self.status)
-        path = os.path.join("/sys", self.sysfsBlockDir, self.name)
+        sysfsName = self.name.replace("/", "!")
+        path = os.path.join("/sys", self.sysfsBlockDir, sysfsName)
         self.sysfsPath = os.path.realpath(path)[4:]
         log.debug("%s sysfsPath set to %s" % (self.name, self.sysfsPath))
 
@@ -1027,7 +1040,7 @@ class PartitionDevice(StorageDevice):
             # no need to clobber our name
         else:
             self._partedPartition = partition
-            self._name = partition.getDeviceNodeName().split("/")[-1]
+            self._name = devicePathToName(partition.getDeviceNodeName())
 
     partedPartition = property(lambda d: d._getPartedPartition(),
                                lambda d,p: d._setPartedPartition(p))
