@@ -300,25 +300,15 @@ class DiskStripeGraph:
                 return stripe.getDisk()
 
     def add(self, drive, disk):
-#        yoff = len(self.diskStripes) * (STRIPE_HEIGHT + 5)
         yoff = self.next_ypos
         text = self.canvas.root().add(gnomecanvas.CanvasText,
                                       x=0.0, y=yoff,
                                       font="sans",
                                       size_points=9)
-	show_geometry = 0
-	if show_geometry:
-	    (cylinders, heads, sectors) = disk.device.biosGeometry
-	    drivetext = _("Drive %s (Geom: %s/%s/%s) "
-			 "(Model: %s)") % ('/dev/' + drive,
-					   cylinders, heads, sectors,
-					   disk.device.model)
-	else:
-	    drivetext = _("Drive %s (%-0.f MB) "
-			 "(Model: %s)") % ('/dev/' + drive,
-					   disk.device.getSize(unit="MB"),
-					   disk.device.model)
-
+        drivetext = _("Drive %s (%-0.f MB) "
+                     "(Model: %s)") % ('/dev/' + drive,
+                                       disk.device.getSize(unit="MB"),
+                                       disk.device.model)
 
         text.set(text=drivetext, fill_color='black', anchor=gtk.ANCHOR_NW,
                  weight=pango.WEIGHT_BOLD)
