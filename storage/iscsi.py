@@ -62,17 +62,6 @@ def has_iscsi():
         return False
     return True
 
-def iscsi_get_node_record(node_settings, record):
-    for line in node_settings:
-        if line.startswith(record):
-            words = line.split(" = ")
-            if len(words) == 2:
-                return words[1]
-            # should never happen but better safe then sorry
-            break
-
-    return None
-
 def randomIname():
     """Generate a random initiator name the same way as iscsi-iname"""
     
