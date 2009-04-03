@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.39
+Version: 11.5.0.40
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,30 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Apr 02 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.40-1
+- Don't let device names affect action order in general case. (dlehman)
+- Round up when aligning to pesize for space used. (#493656) (dlehman)
+- Improve handling for various nodev filesystems in fstab. (#493685,
+  #493202) (dlehman)
+- Present the correct max lv size in the dialog. (dlehman)
+- Use the head of the current branch, not master, for scratch archives.
+  (dlehman)
+- Make a top level StorageError that all others are based on. (dlehman)
+- Remove unused PRePDevice class. (dlehman)
+- Make the disk model an attribute of DiskDevice. (dlehman)
+- Handle format actions in cancelAction() (dcantrell)
+- Fix format check box for pre-existing partitions (#491675) (dcantrell)
+- Remove temporary directory used in _getExistingSize() (dcantrell)
+- Activate storage before looking up the hdiso source drive (#491781).
+  (clumens)
+- Remove isys.getDeviceByToken since it is no longer used. (clumens)
+- Don't allow the rootfs on live installs to not match (#493206, #492727)
+  (katzj)
+- Create setup and teardown functs for dmraid devs. (jgranado)
+- put xfs back where it belongs (sandeen)
+- Fix up the other caller of unmountCD to pass in a device (#493537).
+  (clumens)
+
 * Wed Apr 01 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.39-1
 - Prevent sensitive information in kickstart files from ending up in
   tracebacks. (clumens)
