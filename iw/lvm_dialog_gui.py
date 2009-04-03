@@ -627,7 +627,19 @@ class VolumeGroupEditor:
             origname = templv.lvname
             if not templv.exists:
                 templv._name = lvname
-                templv.size = size
+                try:
+                    templv.size = size
+                except ValueError:
+                    self.intf.messageWindow(_("Not enough space"),
+                                            _("The logical volumes you have "
+                                              "configured require %d MB, but the "
+                                              "volume group only has %d MB.  Please "
+                                              "either make the volume group larger "
+                                              "or make the logical volume(s) smaller.")
+                                              % (size, tempvg.size),
+                                            custom_icon="error")
+		    continue
+
                 format = fmt_class(mountpoint=mountpoint)
                 if self.lukscb and self.lukscb.get_active() and \
                    templv.format.type != "luks":
