@@ -170,9 +170,9 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg liblbxutil libnl
     libpixman libpng libselinux libselinux-python libsemanage
     libsemanage-python libsepol libstdc++ libtermcap libthai libuser
-    libuser-python libvolume_id libxcb libxkbfile libxml2 lohit-fonts-bengali
-    lohit-fonts-gujarati lohit-fonts-hindi lohit-fonts-kannada lohit-fonts-maithili
-    lohit-fonts-oriya lohit-fonts-punjabi lohit-fonts-tamil lohit-fonts-telugu
+    libuser-python libvolume_id libxcb libxkbfile libxml2 lklug-fonts lohit-bengali-fonts
+    lohit-gujarati-fonts lohit-hindi-fonts lohit-kannada-fonts lohit-maithili-fonts
+    lohit-oriya-fonts lohit-punjabi-fonts lohit-tamil-fonts lohit-telugu-fonts
     lvm2 madan-fonts mdadm
     mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
     newt newt-python nfs-utils nspr nss ntfs-3g pam pango parted pciutils pcre
@@ -181,7 +181,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     python-elementtree python-libs python-pyblock python-sqlite
     python-urlgrabber pyxf86config raidtools readline redhat-artwork
     reiserfs-utils rhpl rpm rpm-libs rpm-python sed selinux-policy-targeted
-    setup slang smc-fonts-meera specspo sqlite synaptics system-config-date
+    setup slang smc-meera-fonts specspo sqlite synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release taipeifonts tcp_wrappers
     tzdata udev un-core-fonts-dotum urw-fonts util-linux-ng tigervnc-server
     tigervnc-server-module vlgothic-fonts
@@ -580,6 +580,7 @@ usr/share/fonts/*/lohit_or.ttf
 usr/share/fonts/*/lohit_pa.ttf
 usr/share/fonts/*/lohit_ta.ttf
 usr/share/fonts/*/lohit_te.ttf
+usr/share/fonts/*/lklug.ttf
 usr/share/fonts/cjkunifonts-uming/uming*.ttc
 usr/share/fonts/dejavu/DejaVuSans-Bold.ttf
 usr/share/fonts/dejavu/DejaVuSans.ttf
