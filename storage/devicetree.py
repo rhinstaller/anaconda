@@ -530,7 +530,7 @@ class DeviceTree(object):
                      not isinstance(a1.device, DiskDevice):
                     ret = -1
                 else:
-                    ret = cmp(a2.device.name, a1.device.name)
+                    ret = 0
             elif a1.isDestroy():
                 ret = -1
             elif a2.isDestroy():
@@ -579,7 +579,7 @@ class DeviceTree(object):
                     else:
                         ret = -1
                 else:
-                    ret = cmp(a1.device.name, a2.device.name)
+                    ret = 0
             elif a1.isResize():
                 ret = -1
             elif a2.isResize():
@@ -593,7 +593,7 @@ class DeviceTree(object):
                     elif a2.isFormat():
                         ret = -1
                     else:
-                        ret = cmp(a1.device.name, a2.device.name)
+                        ret = 0
                 elif a1.device.dependsOn(a2.device):
                     ret = 1
                 elif a2.device.dependsOn(a1.device):
@@ -609,7 +609,7 @@ class DeviceTree(object):
                      not isinstance(a1.device, DiskDevice):
                     ret = 1
                 else:
-                    ret = cmp(a1.device.name, a2.device.name)
+                    ret = 0
             elif a1.isCreate():
                 ret = -1
             elif a2.isCreate():
@@ -627,7 +627,7 @@ class DeviceTree(object):
                 else:
                     ret = cmp(a1.device.name, a2.device.name)
             else:
-                ret = cmp(a1.device.name, a2.device.name)
+                ret = 0
 
             log.debug("cmp: %d -- %s | %s" % (ret, a1, a2))
             return ret
