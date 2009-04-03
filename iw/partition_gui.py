@@ -150,8 +150,14 @@ class DiskStripeSlice:
         else:
             width = CANVAS_WIDTH_640
 
+        # If it's a very, very small partition then there's no point in trying
+        # cut off a piece of the parent disk's stripe for it.
+        if totalSectors == 0:
+            return
+
         xoffset = self.partition.geometry.start / totalSectors * width
         xlength = self.partition.geometry.length / totalSectors * width
+
         if self.partition.type & parted.PARTITION_LOGICAL:
             yoffset = 0.0 + LOGICAL_INSET
             yheight = STRIPE_HEIGHT - (LOGICAL_INSET * 2)
