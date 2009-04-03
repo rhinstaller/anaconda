@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: anaconda master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-04-02 07:19+0200\n"
+"PO-Revision-Date: 2009-04-03 06:50+0200\n"
 "Last-Translator: Sulyok Péter <peti@fedoraproject.org>\n"
 "Language-Team: Hungarian <Hungarian <fedora-trans-hu@redhat.com>>\n"
 "MIME-Version: 1.0\n"
@@ -2512,6 +2512,11 @@ msgid ""
 "available to ensure the proper functioning of your system and installation "
 "of these updates is recommended after the reboot."
 msgstr ""
+"Végeztünk %s telepítésével. Gratulálok!\n"
+"\n"
+"Kérem indítson újra, hogy a telepített rendszert használja.  Vegye észre, "
+"hogy frissítések lehetnek elérhetők a rendszer megfelelő működéséhez, "
+"és ezek telepítése ajánlott az újraindulás után."
 
 #: ../iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -3796,7 +3801,7 @@ msgstr "Nincs elég hely az eszközön a lapozó rész megteremtésére."
 
 #: ../iw/welcome_gui.py:56 ../textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "Hálózat telepítés szükséges"
 
 #: ../iw/welcome_gui.py:57 ../textw/welcome_text.py:37
 msgid ""
@@ -3805,6 +3810,10 @@ msgid ""
 "full DVD, full CD set, or do not pass a repo= parameter that specifies a "
 "network source."
 msgstr ""
+"A telepítés forrását hálózati helyre állította, de nem találtam hálózat "
+"eszközt a rendszerben.  A hálózatos telepítést elkerülendő indítson "
+"újra a teljes DVD vagy CD készlettel, vagy ne adjon meg hálózati "
+"forrást megjelölő repo= paramétert."
 
 #: ../iw/welcome_gui.py:67
 msgid "E_xit Installer"
@@ -4325,11 +4334,11 @@ msgstr "Eszközök keresése"
 
 #: ../storage/__init__.py:253
 msgid "Finding storage devices..."
-msgstr ""
+msgstr "Tároló eszközök keresése…"
 
 #: ../storage/__init__.py:269
 msgid "Filesystem error detected, cannot continue."
-msgstr ""
+msgstr "Fájlrendszer hibát észleltem, nem lehet továbblépni."
 
 #: ../storage/__init__.py:480
 msgid "This partition is holding the data for the hard drive install."
@@ -4363,6 +4372,9 @@ msgid ""
 "cannot be deleted:\n"
 "\n"
 msgstr ""
+"Ez az eszköz olyan kiterjesztett rész, ami nem törölhető logikai részeket "
+"tartalmaz:\n"
+"\n"
 
 #: ../storage/__init__.py:751
 #, python-format
@@ -4625,6 +4637,8 @@ msgid ""
 "Error processing drive %s.\n"
 "Maybe it needs to be reinitialized.YOU WILL LOSE ALL DATA ON THIS DRIVE!"
 msgstr ""
+"%s eszközt feldolgozván hiba történt.\n"
+"Talán újra kellene alakítani. MINDEN ADAT EL FOG VESZNI AZ ESZKÖZÖN!"
 
 #: ../storage/devicetree.py:151
 #, python-format
@@ -4634,6 +4648,10 @@ msgid ""
 "reinitialize all related PVs, which will erase all LVM metadata. Or ignore, "
 "which will preserve contents."
 msgstr ""
+"LVM-et feldolgozván hiba történt.\n"
+"Úgy tűnik ellentmondásos LVM adatok vannak. (%s) alkot %s-t. Újra "
+"lehet alakítani minden kapcsolódó PV-t (fizikai kötetet), ami minden "
+"LVM leíró adatot töröl. Vagy kihagyja megőrizvén a tartalmat."
 
 #: ../storage/devicetree.py:159
 msgid "_Ignore drive(s)"
@@ -4653,7 +4671,7 @@ msgstr "Az iSCSI kezdeményező inicializálása"
 
 #: ../storage/iscsi.py:208
 msgid "iSCSI not available"
-msgstr ""
+msgstr "iSCSI nem érhető el"
 
 #: ../storage/iscsi.py:210
 msgid "No initiator name set"
@@ -4661,25 +4679,27 @@ msgstr "Nincs kezdeményező név beállítva"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "Nem találtam iSCSI elemeket"
 
 #: ../storage/iscsi.py:227 ../storage/iscsi.py:228
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "Bejelentkezés iSCSI elembe"
 
 #: ../storage/iscsi.py:250
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "Nem találtam új iSCSI elemeket"
 
 #: ../storage/iscsi.py:253
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "Nem tudtam bejelentkezni egyik felfedezett elembe sem"
 
 #: ../storage/partitioning.py:175
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
+"Nem találtam elég szabad helyet önműködő felosztáshoz. Kérem "
+"használjon más eljárást a felosztásra."
 
 #: ../storage/partitioning.py:192
 msgid "Warnings During Automatic Partitioning"
@@ -4771,20 +4791,20 @@ msgstr "Nem adott meg FCP LUN számot, vagy a szám érvénytelen."
 #: ../storage/devicelibs/lvm.py:326
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "vginfo elbukott %s eszközre"
 
 #: ../storage/devicelibs/lvm.py:354
 #, python-format
 msgid "lvs failed for %s"
-msgstr ""
+msgstr "lvs elbukott %s eszközre"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "attr paraméterben meg kell adni a típust"
 
 #: ../storage/formats/fs.py:111
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "fájlrendszer beállításból hiányzik a típus"
 
 #: ../storage/formats/fs.py:270
 msgid "Formatting"
@@ -5836,7 +5856,7 @@ msgstr "Felosztás felül_vizsgálata és megváltoztatása"
 
 #: tmp/autopart.glade.h:4
 msgid "Volume to Resize"
-msgstr ""
+msgstr "Átméretezendő kötet"
 
 #: tmp/autopart.glade.h:5
 msgid "What drive would you like to _boot this installation from?"
