@@ -741,7 +741,9 @@ class Ext2FS(FS):
                 size = int(minSize) / 1024.0
 
             if size is None:
-                raise FSError("failed to get minimum fs size")
+                log.warning("failed to get minimum size for %s filesystem "
+                            "on %s" % (self.type, self.device))
+                size = self._minSize
 
         return size
 
