@@ -764,11 +764,21 @@ def allocatePartitions(disks, partitions):
                                    start=max(sectors_per_track, free.start),
                                    length=length)
 
+        # create maximum and minimum geometries for constraint
+        start = max(0 , free.start - 1)
+        max_geom = parted.Geometry(device=disk.device,
+                                   start=start,
+                                   length=min(length + 1, disk.device.length - start))
+        min_geom = parted.Geometry(device=disk.device,
+                                   start=free.start + 1,
+                                   length=length-1)
+
+
         # create the partition and add it to the disk
         partition = parted.Partition(disk=disk,
                                      type=part_type,
                                      geometry=new_geom)
-        constraint = parted.Constraint(exactGeom=new_geom)
+        constraint = parted.Constraint(maxGeom=max_geom, minGeom=min_geom)
         disk.addPartition(partition=partition,
                           constraint=constraint)
         log.debug("created partition %s of %dMB and added it to %s" %
