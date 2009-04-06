@@ -749,10 +749,7 @@ class Ext2FS(FS):
     def minSize(self):
         """ Minimum size for this filesystem in MB. """
         size = self._minSize
-        if self.exists:
-            if not os.path.exists(self.device):
-                raise FSError("device does not exist")
-
+        if self.exists and os.path.exists(self.device):
             buf = iutil.execWithCapture(self.resizefsProg,
                                         ["-P", self.device],
                                         stderr="/dev/tty5")
@@ -1012,7 +1009,7 @@ class NTFS(FS):
     def minSize(self):
         """ The minimum filesystem size in megabytes. """
         size = self._minSize
-        if self.exists:
+        if self.exists and os.path.exists(self.device):
             minSize = None
             buf = iutil.execWithCapture(self.resizefsProg,
                                         ["-m", self.device],
