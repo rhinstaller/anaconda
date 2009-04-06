@@ -31,7 +31,7 @@ from constants import *
 
 from errors import *
 from deviceaction import *
-from devices import PartitionDevice, LUKSDevice
+from devices import PartitionDevice, LUKSDevice, devicePathToName
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -564,8 +564,11 @@ def doPartitioning(storage, exclusiveDisks=None):
     #             them to the tree now
     for disk in disks:
         extended = disk.partedDisk.getExtendedPartition()
-        if not extended or \
-           extended.getDeviceNodeName() in [p.name for p in partitions]:
+        if not extended:
+            continue
+
+        extendedName = devicePathToName(extended.getDeviceNodeName())
+        if extendedName in [p.name for p in partitions]:
             # this extended partition is preexisting
             continue
 
@@ -573,7 +576,7 @@ def doPartitioning(storage, exclusiveDisks=None):
         # that does not exist means leaving self.parents empty and instead
         # populating self.req_disks. In this case, we need to skip past
         # that since this partition is already defined.
-        device = PartitionDevice(extended.getDeviceNodeName(), parents=disk)
+        device = PartitionDevice(extendedName, parents=disk)
         device.parents = [disk]
         device.partedPartition = extended
         storage.createDevice(device)
