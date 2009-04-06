@@ -1033,7 +1033,7 @@ class PartitionDevice(StorageDevice):
 
         if partition is None:
             self._partedPartition = None
-            # no need to clobber our name
+            self._name = self.req_name
         else:
             self._partedPartition = partition
             self._name = devicePathToName(partition.getDeviceNodeName())
