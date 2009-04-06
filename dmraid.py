@@ -34,7 +34,6 @@ if not _bdModulePath in oldPath:
     block.setBdevidPath(_bdModulePath + oldPath)
 del oldPath
 
-import partedUtils
 import raid
 from flags import flags
 
@@ -227,14 +226,6 @@ def get_raid_max_spares(raidlevel, nummembers):
 def register_raid_device(dmname, newdevices, newlevel, newnumActive):
     """Register a new RAID device in the dmlist."""
     raise NotImplementedError
-
-def lookup_raid_device(dmname):
-    """Return the requested RAID device information."""
-    for rs, parent, devices, level, nrDisks, totalDisks in \
-            partedUtils.DiskSet.dmList:
-        if dmname == rs.name:
-            return (rs.name, devices, level, totalDisks)
-    raise KeyError, "dm device not found"
 
 def scanForMPath(drives):
     log.debug("scanning for multipath on drives %s" % (drives,))
