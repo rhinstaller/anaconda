@@ -1015,10 +1015,6 @@ class PartitionDevice(StorageDevice):
         return self.partType & parted.PARTITION_PROTECTED
 
     def _getPartedPartition(self):
-        if self.disk and not self._partedPartition:
-            pdisk = self.disk.partedDisk
-            self._partedPartition = pdisk.getPartitionByPath(self.path)
-
         return self._partedPartition
 
     def _setPartedPartition(self, partition):
@@ -1162,8 +1158,7 @@ class PartitionDevice(StorageDevice):
         self.disk.addPartition(self)
         self.disk.commit()
 
-        # this will force a lookup on next access, which we want
-        self.partedPartition = None
+        self.partedPartition = self.disk.partedDisk.getPartitionByPath(self.path)
 
         self.exists = True
         self.setup()

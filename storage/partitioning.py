@@ -613,10 +613,10 @@ def allocatePartitions(disks, partitions):
             #_part.disk.partedDisk.removePartition(_part.partedPartition)
             partedDisk = partedDisks[_part.disk.partedDisk.device.path]
             #log.debug("removing part %s (%s) from disk %s (%s)" % (_part.partedPartition.path, [p.path for p in _part.partedPartition.disk.partitions], partedDisk.device.path, [p.path for p in partedDisk.partitions]))
-            if not partedDisk.getPartitionByPath(_part.path):
-                continue
 
             partedDisk.removePartition(_part.partedPartition)
+            _part.partedPartition = None
+
             # remove empty extended so it doesn't interfere
             extended = partedDisk.getExtendedPartition()
             if extended and not partedDisk.getLogicalPartitions():
