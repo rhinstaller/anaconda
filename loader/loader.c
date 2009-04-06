@@ -1919,7 +1919,7 @@ int main(int argc, char ** argv) {
     if (isVioConsole())
         setenv("TERM", "vt100", 1);
 
-    mlLoadModuleSet("cramfs:vfat:nfs:floppy:edd:pcspkr:squashfs:ext4:ext2:iscsi_tcp:iscsi_ibft");
+    mlLoadModuleSet("cramfs:floppy:edd:pcspkr:squashfs:iscsi_tcp:iscsi_ibft");
 
 #ifdef ENABLE_IPV6
     if (!FL_NOIPV6(flags))
@@ -2071,7 +2071,7 @@ int main(int argc, char ** argv) {
     stop_fw_loader(&loaderData);
     start_fw_loader(&loaderData);
 
-    mlLoadModuleSet("raid0:raid1:raid5:raid6:raid456:raid10:linear:fat:msdos:gfs2:reiserfs:jfs:xfs:btrfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-crypt:cbc:sha256:lrw:xts");
+    mlLoadModuleSet("raid0:raid1:raid5:raid6:raid456:raid10:linear:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-crypt:cbc:sha256:lrw:xts");
 
     if (!access("/mnt/runtime/usr/lib/libunicode-lite.so.1", R_OK))
         setenv("LD_PRELOAD", "/mnt/runtime/usr/lib/libunicode-lite.so.1", 1);

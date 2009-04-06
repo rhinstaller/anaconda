@@ -118,6 +118,7 @@ class FS(DeviceFormat):
     _type = "Abstract Filesystem Class"  # fs type name
     _name = None
     _mkfs = ""                           # mkfs utility
+    _modules = []                        # kernel modules required for support
     _resizefs = ""                       # resize utility
     _labelfs = ""                        # labeling utility
     _fsck = ""                           # fs check utility
@@ -160,6 +161,9 @@ class FS(DeviceFormat):
             self._size = self._getExistingSize()
 
         self._targetSize = self._size
+
+        if self.supported:
+            self.loadModule()
 
     def _setTargetSize(self, newsize):
         """ Set a target size for this filesystem. """
@@ -426,6 +430,26 @@ class FS(DeviceFormat):
 
         if rc >= 4:
             raise FSError("filesystem check failed: %s" % rc)
+
+    def loadModule(self):
+        """Load whatever kernel module is required to support this filesystem."""
+        if not self._modules or self.type in kernel_filesystems:
+            return
+
+        for module in self._modules:
+            try:
+                rc = iutil.execWithRedirect("modprobe", [module],
+                                            stdout="/dev/tty5", stderr="/dev/tty5",
+                                            searchPath=1)
+            except Exception as e:
+                log.error("Could not load kernel module %s: %s" % (module, e))
+                self._supported = False
+                return
+
+            if rc:
+                log.error("Could not load kernel module %s" % module)
+                self._supported = False
+                return
 
     def mount(self, *args, **kwargs):
         """ Mount this filesystem.
@@ -699,6 +723,7 @@ class Ext2FS(FS):
     """ ext2 filesystem. """
     _type = "ext2"
     _mkfs = "mke2fs"
+    _modules = ["ext2"]
     _resizefs = "resize2fs"
     _labelfs = "e2label"
     _fsck = "e2fsck"
@@ -764,6 +789,7 @@ class Ext3FS(Ext2FS):
     _type = "ext3"
     _defaultFormatOptions = ["-t", "ext3"]
     _migrationTarget = "ext4"
+    _modules = ["ext3"]
     _defaultMigrateOptions = ["-O", "extents"]
 
     @property
@@ -781,6 +807,7 @@ class Ext4FS(Ext3FS):
     _bootable = False
     _defaultFormatOptions = ["-t", "ext4"]
     _migratable = False
+    _modules = ["ext4"]
 
 register_device_format(Ext4FS)
 
@@ -789,6 +816,7 @@ class FATFS(FS):
     """ FAT filesystem. """
     _type = "vfat"
     _mkfs = "mkdosfs"
+    _modules = ["vfat"]
     _labelfs = "dosfslabel"
     _fsck = "dosfsck"
     _formattable = True
@@ -801,6 +829,7 @@ register_device_format(FATFS)
 
 class EFIFS(FATFS):
     _type = "efi"
+    _modules = ["vfat"]
     _name = "EFI System Partition"
     _minSize = 50
     _maxSize = 256
@@ -821,6 +850,7 @@ class BTRFS(FS):
     """ btrfs filesystem """
     _type = "btrfs"
     _mkfs = "mkfs.btrfs"
+    _modules = ["btrfs"]
     _resizefs = "btrfsctl"
     _formattable = True
     _linuxNative = True
@@ -863,6 +893,7 @@ class GFS2(FS):
     """ gfs2 filesystem. """
     _type = "gfs2"
     _mkfs = "mkfs.gfs2"
+    _modules = ["dlm", "gfs2"]
     _formattable = True
     _defaultFormatOptions = ["-j", "1", "-p", "lock_nolock", "-O"]
     _linuxNative = True
@@ -887,6 +918,7 @@ class JFS(FS):
     """ JFS filesystem """
     _type = "jfs"
     _mkfs = "mkfs.jfs"
+    _modules = ["jfs"]
     _labelfs = "jfs_tune"
     _defaultFormatOptions = ["-q"]
     _defaultLabelOptions = ["-L"]
@@ -914,6 +946,7 @@ class XFS(FS):
     """ XFS filesystem """
     _type = "xfs"
     _mkfs = "mkfs.xfs"
+    _modules = ["xfs"]
     _labelfs = "xfs_admin"
     _defaultFormatOptions = ["-f"]
     _defaultLabelOptions = ["-L"]
@@ -932,6 +965,7 @@ register_device_format(XFS)
 class HFS(FS):
     _type = "hfs"
     _mkfs = "hformat"
+    _modules = ["hfs"]
     _formattable = True
 
 register_device_format(HFS)
@@ -956,6 +990,7 @@ register_device_format(AppleBootstrapFS)
 # this doesn't need to be here
 class HFSPlus(FS):
     _type = "hfs+"
+    _modules = ["hfsplus"]
     _udevTypes = ["hfsplus"]
 
 register_device_format(HFSPlus)
@@ -1015,6 +1050,7 @@ register_device_format(NTFS)
 class NFS(FS):
     """ NFS filesystem. """
     _type = "nfs"
+    _modules = ["nfs"]
 
     def _deviceCheck(self, devspec):
         if devspec is not None and ":" not in devspec:
@@ -1041,6 +1077,7 @@ register_device_format(NFS)
 class NFSv4(NFS):
     """ NFSv4 filesystem. """
     _type = "nfs4"
+    _modules = ["nfs4"]
 
 register_device_format(NFSv4)
 

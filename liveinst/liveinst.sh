@@ -32,7 +32,7 @@ if [ ! -b $LIVE_BLOCK ]; then
 fi
 
 # load modules that would get loaded by the loader... (#230945)
-for i in raid0 raid1 raid5 raid6 raid456 raid10 fat msdos gfs2 reiserfs ext2 ext3 ext4 jfs xfs btrfs dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat dm-crypt cbc sha256 lrw xts ; do /sbin/modprobe $i 2>/dev/null ; done
+for i in raid0 raid1 raid5 raid6 raid456 raid10 dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat dm-crypt cbc sha256 lrw xts ; do /sbin/modprobe $i 2>/dev/null ; done
 
 export ANACONDA_PRODUCTNAME=$( cat /etc/system-release | cut -d ' ' -f 1 )
 export ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.*([0-9]+) *\(.*$/\1/' )
