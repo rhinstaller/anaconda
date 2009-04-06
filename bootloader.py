@@ -22,7 +22,7 @@
 #
 
 import isys
-import partedUtils
+import parted
 import os, sys
 import iutil
 import string
@@ -38,6 +38,15 @@ log = logging.getLogger("anaconda")
 
 import booty
 from booty import bootloaderInfo, checkbootloader
+
+def isEfiSystemPartition(part):
+    if not part.active:
+        return False
+    return (part.disk.type == "gpt" and
+            part.name == "EFI System Partition" and
+            part.getFlag(parted.PARTITION_BOOT) and
+            part.fileSystem.type in ("fat16", "fat32") and
+            isys.readFSLabel(part.getDeviceNodeName()) != "ANACONDA")
 
 def bootloaderSetupChoices(anaconda):
     if anaconda.dir == DISPATCH_BACK:
@@ -63,10 +72,9 @@ def bootloaderSetupChoices(anaconda):
         bootPart = None
         partitions = anaconda.id.storage.partitions
         for part in partitions:
-            if part.partedPartition.active and \
-               partedUtils.isEfiSystemPartition(part.partedPartition):
-                    bootPart = part.name
-                    break
+            if part.partedPartition.active and isEfiSystemPartition(part.partedPartition):
+                bootPart = part.name
+                break
         if bootPart:
             anaconda.id.bootloader.setDevice(bootPart)
 
