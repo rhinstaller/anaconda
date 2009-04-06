@@ -14,9 +14,6 @@ setattr
 ^minihal.py:[0-9]*: Object \(hal\) has no attribute \(FindDeviceByCapability\)$
 ^(.*isys/isys.py|network.py):[0-9]*: Object \(.*_iface\) has no attribute \(Get.*\)$
 ^network.py:[0-9]*: Object \(.*props\) has no attribute \(Get\)$
-^partedUtils.py:[0-9]*: No module attribute \(__dict__\) found$
-^partedUtils.py:[0-9]*: No module attribute \(DEVICE_SX8\) found$
-^partedUtils.py:[0-9]*: Object \(productUpgrades\) has no attribute \(has_key\)$
 ^kickstart.py:[0-9]*: No global \(fileSystemTypeGet.*\) found$
 ^kickstart.py:[0-9]*: Object \(kwargs\) has no attribute \(update\)$
 ^upgrade.py:[0-9]*: No global \(getUsableLinuxFs\) found$
