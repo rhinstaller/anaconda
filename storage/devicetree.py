@@ -692,6 +692,11 @@ class DeviceTree(object):
                 dev.disk is not None:
             # if this partition hasn't been allocated it could not have
             # a disk attribute
+            if dev.partedPartition.type == parted.PARTITION_EXTENDED and \
+                    len(dev.disk.partedDisk.getLogicalPartitions()) > 0:
+                raise ValueError("Cannot remove extended partition %s.  "
+                        "Logical partitions present." % dev.name)
+
             dev.disk.partedDisk.removePartition(dev.partedPartition)
 
         self._devices.remove(dev)
