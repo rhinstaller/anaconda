@@ -173,6 +173,14 @@ def undoEncryption(storage):
 
         slave = device.slave
         format = device.format
+
+        # set any devices that depended on the luks device to now depend on
+        # the former slave device
+        for child in storage.devicetree.getChildren(device):
+            child.parents.remove(device)
+            device.removeChild()
+            child.parents.append(slave)
+
         storage.devicetree.registerAction(ActionDestroyFormat(device))
         storage.devicetree.registerAction(ActionDestroyDevice(device))
         storage.devicetree.registerAction(ActionDestroyFormat(slave))
