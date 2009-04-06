@@ -29,6 +29,7 @@ from devices import *
 from deviceaction import *
 import formats
 from udev import *
+from iutil import log_method_call
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -860,18 +861,255 @@ class DeviceTree(object):
 
         # FIXME: check for virtual devices whose slaves are on the ignore list
 
-    def addUdevDevice(self, info):
-        # FIXME: this should be broken up into more discrete chunks
+    def addUdevDMDevice(self, info):
         name = udev_device_get_name(info)
+        log_method_call(self, name=name)
         uuid = udev_device_get_uuid(info)
         sysfs_path = udev_device_get_sysfs_path(info)
         device = None
+
+        for dmdev in self.devices.values():
+            if not isinstance(dmdev, DMDevice):
+                continue
+
+            try:
+                # there is a device in the tree already with the same
+                # major/minor as this one but with a different name
+                # XXX this is kind of racy
+                if dmdev.getDMNode() == os.path.basename(sysfs_path):
+                    # XXX should we take the name already in use?
+                    device = dmdev
+                    break
+            except DMError:
+                # This is a little lame, but the VG device is a DMDevice
+                # and it won't have a dm node. At any rate, this is not
+                # important enough to crash the install.
+                log.debug("failed to find dm node for %s" % dmdev.name)
+                continue
+
+        if device is None:
+            # we couldn't find it, so create it
+            # first, get a list of the slave devs and look them up
+            slaves = []
+            dir = os.path.normpath("/sys/%s/slaves" % sysfs_path)
+            slave_names = os.listdir(dir)
+            for slave_name in slave_names:
+                # if it's a dm-X name, resolve it to a map name first
+                if slave_name.startswith("dm-"):
+                    dev_name = dm.name_from_dm_node(slave_name)
+                else:
+                    dev_name = slave_name
+                slave_dev = self.getDeviceByName(dev_name)
+                if slave_dev:
+                    slaves.append(slave_dev)
+                else:
+                    # we haven't scanned the slave yet, so do it now
+                    path = os.path.normpath("%s/%s" % (dir, slave_name))
+                    new_info = udev_get_block_device(os.path.realpath(path))
+                    if new_info:
+                        self.addUdevDevice(new_info)
+                        if self.getDeviceByName(dev_name) is None:
+                            # if the current slave is still not in
+                            # the tree, something has gone wrong
+                            log.error("failure scanning device %s: could not add slave %s" % (name, dev_name))
+                            return
+
+            # try to get the device again now that we've got all the slaves
+            device = self.getDeviceByName(name)
+
+            if device is None and \
+                    udev_device_is_dmraid_partition(info, self):
+                diskname = udev_device_get_dmraid_partition_disk(info)
+                disk = self.getDeviceByName(diskname)
+                device = PartitionDevice(name, sysfsPath=sysfs_path,
+                                         major=udev_device_get_major(info),
+                                         minor=udev_device_get_minor(info),
+                                         exists=True, parents=[disk])
+                # DWL FIXME: call self.addUdevPartitionDevice here instead
+                self._addDevice(device)
+
+            # if we get here, we found all of the slave devices and
+            # something must be wrong -- if all of the slaves are in
+            # the tree, this device should be as well
+            if device is None:
+                log.warning("using generic DM device for %s" % name)
+                device = DMDevice(name, exists=True, parents=slaves)
+                self._addDevice(device)
+
+        return device
+
+    def addUdevMDDevice(self, info):
+        name = udev_device_get_name(info)
+        log_method_call(self, name=name)
+        uuid = udev_device_get_uuid(info)
+        sysfs_path = udev_device_get_sysfs_path(info)
+        device = None
+
+        slaves = []
+        dir = os.path.normpath("/sys/%s/slaves" % sysfs_path)
+        slave_names = os.listdir(dir)
+        for slave_name in slave_names:
+            # if it's a dm-X name, resolve it to a map name
+            if slave_name.startswith("dm-"):
+                dev_name = dm.name_from_dm_node(slave_name)
+            else:
+                dev_name = slave_name
+            slave_dev = self.getDeviceByName(dev_name)
+            if slave_dev:
+                slaves.append(slave_dev)
+            else:
+                # we haven't scanned the slave yet, so do it now
+                path = os.path.normpath("%s/%s" % (dir, slave_name))
+                new_info = udev_get_block_device(os.path.realpath(path))
+                if new_info:
+                    self.addUdevDevice(new_info)
+                    if self.getDeviceByName(dev_name) is None:
+                        # if the current slave is still not in
+                        # the tree, something has gone wrong
+                        log.error("failure scanning device %s: could not add slave %s" % (name, dev_name))
+                        return
+
+        # try to get the device again now that we've got all the slaves
+        device = self.getDeviceByName(name)
+
+        # if we get here, we found all of the slave devices and
+        # something must be wrong -- if all of the slaves we in
+        # the tree, this device should be as well
+        if device is None:
+            log.warning("using MD RAID device for %s" % name)
+            try:
+                # level is reported as, eg: "raid1"
+                md_level = udev_device_get_md_level(info)
+                md_devices = int(udev_device_get_md_devices(info))
+                md_uuid = udev_device_get_md_uuid(info)
+            except (KeyError, IndexError, ValueError) as e:
+                log.warning("invalid data for %s: %s" % (name, e))
+                return
+
+            device = MDRaidArrayDevice(name,
+                                       level=md_level,
+                                       memberDevices=md_devices,
+                                       uuid=md_uuid,
+                                       exists=True,
+                                       parents=slaves)
+            self._addDevice(device)
+
+        return device
+
+    def addUdevPartitionDevice(self, info):
+        name = udev_device_get_name(info)
+        log_method_call(self, name=name)
+        uuid = udev_device_get_uuid(info)
+        sysfs_path = udev_device_get_sysfs_path(info)
+        device = None
+
+        disk_name = os.path.basename(os.path.dirname(sysfs_path))
+        disk = self.getDeviceByName(disk_name)
+
+        if disk is None:
+            # create a device instance for the disk
+            path = os.path.dirname(os.path.realpath(sysfs_path))
+            new_info = udev_get_block_device(path)
+            if new_info:
+                self.addUdevDevice(new_info)
+                disk = self.getDeviceByName(disk_name)
+
+            if disk is None:
+                # if the current device is still not in
+                # the tree, something has gone wrong
+                log.error("failure scanning device %s" % disk_name)
+                return
+
+        try:
+            device = PartitionDevice(name, sysfsPath=sysfs_path,
+                                     major=udev_device_get_major(info),
+                                     minor=udev_device_get_minor(info),
+                                     exists=True, parents=[disk])
+        except DeviceError:
+            # corner case sometime the kernel accepts a partition table
+            # which gets rejected by parted, in this case we will
+            # prompt to re-initialize the disk, so simply skip the
+            # faulty partitions.
+            return
+
+        self._addDevice(device)
+        return device
+
+    def addUdevDiskDevice(self, info):
+        name = udev_device_get_name(info)
+        log_method_call(self, name=name)
+        uuid = udev_device_get_uuid(info)
+        sysfs_path = udev_device_get_sysfs_path(info)
+        device = None
+
+        kwargs = {}
+        if udev_device_is_iscsi(info):
+            diskType = iScsiDiskDevice
+            kwargs["iscsi_name"]    = udev_device_get_iscsi_name(info)
+            kwargs["iscsi_address"] = udev_device_get_iscsi_address(info)
+            kwargs["iscsi_port"]    = udev_device_get_iscsi_port(info)
+            log.debug("%s is an iscsi disk" % name)
+        else:
+            diskType = DiskDevice
+            log.debug("%s is a disk" % name)
+
+        if self.zeroMbr:
+            cb = lambda: True
+        else:
+            cb = lambda: questionInitializeDisk(self.intf, name)
+
+        # if the disk contains protected partitions we will
+        # not wipe the disklabel even if clearpart --initlabel
+        # was specified
+        if not self.clearPartDisks or name in self.clearPartDisks:
+            initlabel = self.reinitializeDisks
+
+            for protected in self.protectedPartitions:
+                _p = "/sys/%s/%s" % (sysfs_path, protected)
+                if os.path.exists(os.path.normpath(_p)):
+                    initlabel = False
+                    break
+        else:
+            initlabel = False
+
+        try:
+            device = diskType(name,
+                              major=udev_device_get_major(info),
+                              minor=udev_device_get_minor(info),
+                              sysfsPath=sysfs_path,
+                              initcb=cb, initlabel=initlabel, **kwargs)
+        except DeviceUserDeniedFormatError: #drive not initialized?
+            self.addIgnoredDisk(name)
+            return
+
+        self._addDevice(device)
+        return device
+
+    def addUdevOpticalDevice(self, info):
+        log_method_call(self)
+        # XXX should this be RemovableDevice instead?
+        #
+        # Looks like if it has ID_INSTANCE=0:1 we can ignore it.
+        device = OpticalDevice(udev_device_get_name(info),
+                               major=udev_device_get_major(info),
+                               minor=udev_device_get_minor(info),
+                               sysfsPath=udev_device_get_sysfs_path(info))
+        self._addDevice(device)
+        return device
+
+    def addUdevDevice(self, info):
+        # FIXME: this should be broken up into more discrete chunks
+        name = udev_device_get_name(info)
+        log_method_call(self, name=name)
+        uuid = udev_device_get_uuid(info)
+        sysfs_path = udev_device_get_sysfs_path(info)
 
         if self.isIgnored(info):
             log.debug("ignoring %s (%s)" % (name, sysfs_path))
             return
 
         log.debug("scanning %s (%s)..." % (name, sysfs_path))
+        device = self.getDeviceByName(name)
 
         #
         # The first step is to either look up or create the device
@@ -879,146 +1117,31 @@ class DeviceTree(object):
         if udev_device_is_dm(info):
             log.debug("%s is a device-mapper device" % name)
             # try to look up the device
-            device = self.getDeviceByName(name)
             if device is None and uuid:
                 # try to find the device by uuid
                 device = self.getDeviceByUuid(uuid)
 
             if device is None:
-                for dmdev in self.devices:
-                    if not isinstance(dmdev, DMDevice):
-                        continue
-
-                    # there is a device in the tree already with the same
-                    # major/minor as this one but with a different name
-                    # XXX this is kind of racy
-                    if dmdev.getDMNode() == os.path.basename(sysfs_path):
-                        # XXX should we take the name already in use?
-                        device = dmdev
-                        break
-
-            if device is None:
-                # we couldn't find it, so create it
-                # first, get a list of the slave devs and look them up
-                slaves = []
-                dir = os.path.normpath("/sys/%s/slaves" % sysfs_path)
-                slave_names = os.listdir(dir)
-                for slave_name in slave_names:
-                    # if it's a dm-X name, resolve it to a map name first
-                    if slave_name.startswith("dm-"):
-                        dev_name = dm.name_from_dm_node(slave_name)
-                    else:
-                        dev_name = slave_name
-                    slave_dev = self.getDeviceByName(dev_name)
-                    if slave_dev:
-                        slaves.append(slave_dev)
-                    else:
-                        # we haven't scanned the slave yet, so do it now
-                        path = os.path.normpath("%s/%s" % (dir, slave_name))
-                        new_info = udev_get_block_device(os.path.realpath(path))
-                        if new_info:
-                            self.addUdevDevice(new_info)
-                            if self.getDeviceByName(dev_name) is None:
-                                # if the current slave is still not in
-                                # the tree, something has gone wrong
-                                log.error("failure scanning device %s: could not add slave %s" % (name, dev_name))
-                                return
-
-                # try to get the device again now that we've got all the slaves
-                device = self.getDeviceByName(name)
-
-                if device is None and \
-                        udev_device_is_dmraid_partition(info, self):
-                    diskname = udev_device_get_dmraid_partition_disk(info)
-                    disk = self.getDeviceByName(diskname)
-                    device = PartitionDevice(name, sysfsPath=sysfs_path,
-                                             major=udev_device_get_major(info),
-                                             minor=udev_device_get_minor(info),
-                                             exists=True, parents=[disk])
-                    self._addDevice(device)
-
-                # if we get here, we found all of the slave devices and
-                # something must be wrong -- if all of the slaves are in
-                # the tree, this device should be as well
-                if device is None:
-                    log.warning("using generic DM device for %s" % name)
-                    device = DMDevice(name, exists=True, parents=slaves)
-                    self._addDevice(device)
+                device = self.addUdevDMDevice(info)
         elif udev_device_is_md(info):
             log.debug("%s is an md device" % name)
-            # try to look up the device
-            device = self.getDeviceByName(name)
             if device is None and uuid:
                 # try to find the device by uuid
                 device = self.getDeviceByUuid(uuid)
 
             if device is None:
-                # we didn't find a device instance, so we will create one
-                slaves = []
-                dir = os.path.normpath("/sys/%s/slaves" % sysfs_path)
-                slave_names = os.listdir(dir)
-                for slave_name in slave_names:
-                    # if it's a dm-X name, resolve it to a map name
-                    if slave_name.startswith("dm-"):
-                        dev_name = dm.name_from_dm_node(slave_name)
-                    else:
-                        dev_name = slave_name
-                    slave_dev = self.getDeviceByName(dev_name)
-                    if slave_dev:
-                        slaves.append(slave_dev)
-                    else:
-                        # we haven't scanned the slave yet, so do it now
-                        path = os.path.normpath("%s/%s" % (dir, slave_name))
-                        new_info = udev_get_block_device(os.path.realpath(path))
-                        if new_info:
-                            self.addUdevDevice(new_info)
-                            if self.getDeviceByName(dev_name) is None:
-                                # if the current slave is still not in
-                                # the tree, something has gone wrong
-                                log.error("failure scanning device %s: could not add slave %s" % (name, dev_name))
-                                return
-
-                # try to get the device again now that we've got all the slaves
-                device = self.getDeviceByName(name)
-
-                # if we get here, we found all of the slave devices and
-                # something must be wrong -- if all of the slaves we in
-                # the tree, this device should be as well
-                if device is None:
-                    log.warning("using MD RAID device for %s" % name)
-                    try:
-                        # level is reported as, eg: "raid1"
-                        md_level = udev_device_get_md_level(info)
-                        md_devices = int(udev_device_get_md_devices(info))
-                        md_uuid = udev_device_get_md_uuid(info)
-                    except (KeyError, IndexError, ValueError) as e:
-                        log.warning("invalid data for %s: %s" % (name, e))
-                        return
-
-                    device = MDRaidArrayDevice(name,
-                                               level=md_level,
-                                               memberDevices=md_devices,
-                                               uuid=md_uuid,
-                                               exists=True,
-                                               parents=slaves)
-                    self._addDevice(device)
+                device = self.addUdevMDDevice(info)
         elif udev_device_is_cdrom(info):
             log.debug("%s is a cdrom" % name)
-            device = self.getDeviceByName(name)
             if device is None:
-                # XXX should this be RemovableDevice instead?
-                #
-                # Looks like if it has ID_INSTANCE=0:1 we can ignore it.
-                device = OpticalDevice(name,
-                                       major=udev_device_get_major(info),
-                                       minor=udev_device_get_minor(info),
-                                       sysfsPath=sysfs_path)
-                self._addDevice(device)
+                device = self.addUdevOpticalDevice(info)
         elif udev_device_is_dmraid(info):
-            # This is just temporary as I need to differentiate between the
-            # device that has partitions and device that dont.
+            # This is special handling to avoid the "unrecognized disklabel"
+            # code since dmraid member disks won't have a disklabel. We
+            # use a StorageDevice because DiskDevices need disklabels.
+            # Quite lame, but it doesn't matter much since we won't use
+            # the StorageDevice instances for anything.
             log.debug("%s is part of a dmraid" % name)
-            device = self.getDeviceByName(name)
             if device is None:
                 device = StorageDevice(name,
                                 major=udev_device_get_major(info),
@@ -1026,366 +1149,326 @@ class DeviceTree(object):
                                 sysfsPath=sysfs_path, exists=True)
                 self._addDevice(device)
         elif udev_device_is_disk(info):
-            kwargs = {}
-            if udev_device_is_iscsi(info):
-                diskType = iScsiDiskDevice
-                kwargs["iscsi_name"]    = udev_device_get_iscsi_name(info)
-                kwargs["iscsi_address"] = udev_device_get_iscsi_address(info)
-                kwargs["iscsi_port"]    = udev_device_get_iscsi_port(info)
-                log.debug("%s is an iscsi disk" % name)
-            else:
-                diskType = DiskDevice
-                log.debug("%s is a disk" % name)
-            device = self.getDeviceByName(name)
             if device is None:
-                try:
-                    if self.zeroMbr:
-                        cb = lambda: True
-                    else:
-                        cb = lambda: questionInitializeDisk(self.intf, name)
-
-                    # if the disk contains protected partitions we will
-                    # not wipe the disklabel even if clearpart --initlabel
-                    # was specified
-                    if not self.clearPartDisks or name in self.clearPartDisks:
-                        initlabel = self.reinitializeDisks
-
-                        for protected in self.protectedPartitions:
-                            _p = "/sys/%s/%s" % (sysfs_path, protected)
-                            if os.path.exists(os.path.normpath(_p)):
-                                initlabel = False
-                                break
-                    else:
-                        initlabel = False
-
-                    device = diskType(name,
-                                    major=udev_device_get_major(info),
-                                    minor=udev_device_get_minor(info),
-                                    sysfsPath=sysfs_path,
-                                    initcb=cb, initlabel=initlabel, **kwargs)
-                    self._addDevice(device)
-                except DeviceUserDeniedFormatError: #drive not initialized?
-                    self.addIgnoredDisk(name)
+                device = self.addUdevDiskDevice(info)
         elif udev_device_is_partition(info):
             log.debug("%s is a partition" % name)
-            device = self.getDeviceByName(name)
             if device is None:
-                disk_name = os.path.basename(os.path.dirname(sysfs_path))
-                disk = self.getDeviceByName(disk_name)
+                device = self.addUdevPartitionDevice(info)
 
-                if disk is None:
-                    # create a device instance for the disk
-                    path = os.path.dirname(os.path.realpath(sysfs_path))
-                    new_info = udev_get_block_device(path)
-                    if new_info:
-                        self.addUdevDevice(new_info)
-                        disk = self.getDeviceByName(disk_name)
+        # now handle the device's formatting
+        self.handleUdevDeviceFormat(info, device)
 
-                    if disk is None:
-                        # if the current device is still not in
-                        # the tree, something has gone wrong
-                        log.error("failure scanning device %s" % disk_name)
-                        return
+    def handleUdevLUKSFormat(self, info, device):
+        log_method_call(self, name=device.name, type=device.format.type)
+        if not device.format.uuid:
+            log.info("luks device %s has no uuid" % device.path)
+            return
 
+        # look up or create the mapped device
+        if not self.getDeviceByName(device.format.mapName):
+            passphrase = self.__luksDevs.get(device.format.uuid)
+            if passphrase:
+                device.format.passphrase = passphrase
+            else:
+                (passphrase, isglobal) = getLUKSPassphrase(self.intf,
+                                                    device,
+                                                    self.__passphrase)
+                if isglobal and device.format.status:
+                    self.__passphrase = passphrase
+
+            luks_device = LUKSDevice(device.format.mapName,
+                                     parents=[device],
+                                     exists=True)
+            try:
+                luks_device.setup()
+            except (LUKSError, CryptoError, DeviceError) as e:
+                log.info("setup of %s failed: %s" % (device.format.mapName,
+                                                     e))
+                device.removeChild()
+            else:
+                self._addDevice(luks_device)
+        else:
+            log.warning("luks device %s already in the tree"
+                        % device.format.mapName)
+
+    def handleUdevLVMPVFormat(self, info, device):
+        log_method_call(self, name=device.name, type=device.format.type)
+        # lookup/create the VG and LVs
+        try:
+            vg_name = udev_device_get_vg_name(info)
+        except KeyError:
+            # no vg name means no vg -- we're done with this pv
+            return
+
+        vg_device = self.getDeviceByName(vg_name)
+        if vg_device:
+            vg_device._addDevice(device)
+            for lv in vg_device.lvs:
                 try:
-                    device = PartitionDevice(name, sysfsPath=sysfs_path,
-                                             major=udev_device_get_major(info),
-                                             minor=udev_device_get_minor(info),
-                                             exists=True, parents=[disk])
-                except DeviceError:
-                    # corner case sometime the kernel accepts a partition table
-                    # which gets rejected by parted, in this case we will
-                    # prompt to re-initialize the disk, so simply skip the
-                    # faulty partitions.
-                    return
+                    lv.setup()
+                except DeviceError as e:
+                    log.info("setup of %s failed: %s" % (lv.name, e))
+        else:
+            try:
+                vg_uuid = udev_device_get_vg_uuid(info)
+                vg_size = udev_device_get_vg_size(info)
+                vg_free = udev_device_get_vg_free(info)
+                pe_size = udev_device_get_vg_extent_size(info)
+                pe_count = udev_device_get_vg_extent_count(info)
+                pe_free = udev_device_get_vg_free_extents(info)
+                pv_count = udev_device_get_vg_pv_count(info)
+            except (KeyError, ValueError) as e:
+                log.warning("invalid data for %s: %s" % (name, e))
+                return
 
-                self._addDevice(device)
-
-        #
-        # now set the format
-        #
-        format = None
-        format_type = udev_device_get_format(info)
-        label = udev_device_get_label(info)
-        if device and format_type and not device.format.type:
-            args = [format_type]
-            kwargs = {"uuid": uuid,
-                      "label": label,
-                      "device": device.path,
-                      "exists": True}
-
-            if format_type == "crypto_LUKS":
-                # luks/dmcrypt
-                kwargs["name"] = "luks-%s" % uuid
-            elif format_type == "linux_raid_member":
-                # mdraid
-                try:
-                    kwargs["mdUuid"] = udev_device_get_md_uuid(info)
-                except KeyError:
-                    log.debug("mdraid member %s has no md uuid" % name)
-            elif format_type == "isw_raid_member":
-                # We dont add any new args because we intend to use the same
-                # block.RaidSet object for all the related devices.
-                pass
-            elif format_type == "LVM2_member":
-                # lvm
-                try:
-                    kwargs["vgName"] = udev_device_get_vg_name(info)
-                except KeyError as e:
-                    log.debug("PV %s has no vg_name" % name)
-                try:
-                    kwargs["vgUuid"] = udev_device_get_vg_uuid(info)
-                except KeyError:
-                    log.debug("PV %s has no vg_uuid" % name)
-                try:
-                    kwargs["peStart"] = udev_device_get_pv_pe_start(info)
-                except KeyError:
-                    log.debug("PV %s has no pe_start" % name)
-            elif format_type == "vfat":
-                # efi magic
-                if isinstance(device, PartitionDevice) and device.bootable:
-                    efi = formats.getFormat("efi")
-                    if efi.minSize <= device.size <= efi.maxSize:
-                        args[0] = "efi"
-            elif format_type == "hfs":
-                # apple bootstrap magic
-                if isinstance(device, PartitionDevice) and device.bootable:
-                    apple = formats.getFormat("appleboot")
-                    if apple.minSize <= device.size <= apple.maxSize:
-                        args[0] = "appleboot"
-
-            format = formats.getFormat(*args, **kwargs)
-            device.format = format
-
-        #
-        # now lookup or create any compound devices we have discovered
-        #        
-        if format:
-            if format.type == "luks":
-                if not format.uuid:
-                    log.info("luks device %s has no uuid" % device.path)
-                    return
-
-                # look up or create the mapped device
-                if not self.getDeviceByName(device.format.mapName):
-                    passphrase = self.__luksDevs.get(format.uuid)
-                    if passphrase:
-                        format.passphrase = passphrase
-                    else:
-                        (passphrase, isglobal) = getLUKSPassphrase(self.intf,
-                                                            device,
-                                                            self.__passphrase)
-                        if isglobal and format.status:
-                            self.__passphrase = passphrase
-
-                    luks_device = LUKSDevice(device.format.mapName,
-                                             parents=[device],
+            vg_device = LVMVolumeGroupDevice(vg_name,
+                                             device,
+                                             uuid=vg_uuid,
+                                             size=vg_size,
+                                             free=vg_free,
+                                             peSize=pe_size,
+                                             peCount=pe_count,
+                                             peFree=pe_free,
+                                             pvCount=pv_count,
                                              exists=True)
+            self._addDevice(vg_device)
+
+            try:
+                lv_names = udev_device_get_lv_names(info)
+                lv_uuids = udev_device_get_lv_uuids(info)
+                lv_sizes = udev_device_get_lv_sizes(info)
+            except KeyError as e:
+                log.warning("invalid data for %s: %s" % (name, e))
+                return
+
+            if not lv_names:
+                log.debug("no LVs listed for VG %s" % name)
+                return
+
+            lvs = []
+            for (index, lv_name) in enumerate(lv_names):
+                name = "%s-%s" % (vg_name, lv_name)
+                lv_dev = self.getDeviceByName(name)
+                if lv_dev is None:
+                    lv_uuid = lv_uuids[index]
+                    lv_size = lv_sizes[index]
+                    lv_device = LVMLogicalVolumeDevice(lv_name,
+                                                       vg_device,
+                                                       uuid=lv_uuid,
+                                                       size=lv_size,
+                                                       exists=True)
+                    self._addDevice(lv_device)
+
                     try:
-                        luks_device.setup()
-                    except (LUKSError, CryptoError, DeviceError) as e:
-                        log.info("setup of %s failed: %s" % (format.mapName,
-                                                             e))
-                        device.removeChild()
-                    else:
-                        self._addDevice(luks_device)
+                        lv_device.setup()
+                    except DeviceError as e:
+                        log.info("setup of %s failed: %s"
+                                            % (lv_device.name, e))
+
+    def handleUdevMDMemberFormat(self, info, device):
+        log_method_call(self, name=device.name, type=device.format.type)
+        # either look up or create the array device
+        name = udev_device_get_name(info)
+        sysfs_path = udev_device_get_sysfs_path(info)
+
+        md_array = self.getDeviceByUuid(device.format.mdUuid)
+        if device.format.mdUuid and md_array:
+            md_array._addDevice(device)
+        else:
+            # create the array with just this one member
+            # FIXME: why does this exact block appear twice?
+            try:
+                # level is reported as, eg: "raid1"
+                md_level = udev_device_get_md_level(info)
+                md_devices = int(udev_device_get_md_devices(info))
+                md_uuid = udev_device_get_md_uuid(info)
+            except (KeyError, ValueError) as e:
+                log.warning("invalid data for %s: %s" % (name, e))
+                return
+
+            # find the first unused minor
+            minor = 0
+            while True:
+                if self.getDeviceByName("md%d" % minor):
+                    minor += 1
                 else:
-                    log.warning("luks device %s already in the tree"
-                                % format.mapName)
-            elif format.type == "mdmember":
-                # either look up or create the array device
-                md_array = self.getDeviceByUuid(format.mdUuid)
-                if format.mdUuid and md_array:
-                    md_array._addDevice(device)
+                    break
+
+            md_name = "md%d" % minor
+            md_array = MDRaidArrayDevice(md_name,
+                                         level=md_level,
+                                         minor=minor,
+                                         memberDevices=md_devices,
+                                         uuid=md_uuid,
+                                         sysfsPath=sysfs_path,
+                                         exists=True,
+                                         parents=[device])
+            try:
+                md_array.setup()
+            except (DeviceError, MDRaidError) as e:
+                log.info("setup of md array %s failed: %s"
+                            % (md_array.name, e))
+            self._addDevice(md_array)
+
+    def handleUdevDMRaidMemberFormat(self, info, device):
+        log_method_call(self, name=device.name, type=device.format.type)
+        name = udev_device_get_name(info)
+        sysfs_path = udev_device_get_sysfs_path(info)
+        uuid = udev_device_get_uuid(info)
+        major = udev_device_get_major(info)
+        minor = udev_device_get_minor(info)
+
+        def _all_ignored(rss):
+            retval = True
+            for rs in rss:
+                if rs.name not in self._ignoredDisks:
+                    retval = False
+                    break
+            return retval
+
+        # Have we already created the DMRaidArrayDevice?
+        rss = block.getRaidSetFromRelatedMem(uuid=uuid, name=name,
+                                            major=major, minor=minor)
+        if len(rss) == 0:
+            # we ignore the device in the hope that all the devices
+            # from this set will be ignored.
+            # FIXME: Can we reformat a raid device?
+            self.addIgnoredDisk(device.name)
+            return
+
+        # We ignore the device if all the rss are in self._ignoredDisks
+        if _all_ignored(rss):
+            self.addIgnoredDisk(device.name)
+            return
+
+        for rs in rss:
+            dm_array = self.getDeviceByName(rs.name)
+            if dm_array is not None:
+                # We add the new device.
+                dm_array._addDevice(device)
+            else:
+                # Activate the Raid set.
+                rs.activate(mknod=True)
+
+                # Create the DMRaidArray
+                if self.zeroMbr:
+                    cb = lambda: True
                 else:
-                    # create the array with just this one member
-                    # FIXME: why does this exact block appear twice?
-                    try:
-                        # level is reported as, eg: "raid1"
-                        md_level = udev_device_get_md_level(info)
-                        md_devices = int(udev_device_get_md_devices(info))
-                        md_uuid = udev_device_get_md_uuid(info)
-                    except (KeyError, ValueError) as e:
-                        log.warning("invalid data for %s: %s" % (name, e))
-                        return
+                    cb = lambda: questionInitializeDisk(self.intf,
+                                                        rs.name)
 
-                    # find the first unused minor
-                    minor = 0
-                    while True:
-                        if self.getDeviceByName("md%d" % minor):
-                            minor += 1
-                        else:
-                            break
-
-                    md_name = "md%d" % minor
-                    md_array = MDRaidArrayDevice(md_name,
-                                                 level=md_level,
-                                                 minor=minor,
-                                                 memberDevices=md_devices,
-                                                 uuid=md_uuid,
-                                                 exists=True,
-                                                 parents=[device])
-                    try:
-                        md_array.setup()
-                    except (DeviceError, MDRaidError) as e:
-                        log.info("setup of md array %s failed: %s"
-                                    % (md_array.name, e))
-                    self._addDevice(md_array)
-            elif format.type == "dmraidmember":
-                def _all_ignored(rss):
-                    retval = True
-                    for rs in rss:
-                        if rs.name not in self._ignoredDisks:
-                            retval = False
-                            break
-                    return retval
-
-                major = udev_device_get_major(info)
-                minor = udev_device_get_minor(info)
-                rss = block.getRaidSetFromRelatedMem(uuid=uuid, name=name,
-                                                    major=major, minor=minor)
-                if len(rss) == 0:
-                    # we ignore the device in the hope that all the devices
-                    # from this set will be ignored.
-                    # FIXME: Can we reformat a raid device?
-                    self.addIgnoredDisk(device.name)
-                    return
-
-                # We ignore the device if all the rss are in self._ignoredDisks
-                if _all_ignored(rss):
-                    self.addIgnoredDisk(device.name)
-                    return
-
-
-                for rs in rss:
-                    if rs.name in self._ignoredDisks:
-                        continue
-
-                    # Have we already created the DMRaidArrayDevice?
-                    dm_array = self.getDeviceByName(rs.name)
-                    if dm_array is not None:
-                        # We add the new device.
-                        dm_array._addDevice(device)
-                    else:
-                        # Activate the Raid set.
-                        rs.activate(mknod=True)
-
-                        # Create the DMRaidArray
-                        if self.zeroMbr:
-                            cb = lambda: True
-                        else:
-                            cb = lambda: questionInitializeDisk(self.intf,
-                                                                rs.name)
-
-                        if not self.clearPartDisks or \
-                           rs.name in self.clearPartDisks:
-                            # if the disk contains protected partitions
-                            # we will not wipe the disklabel even if
-                            # clearpart --initlabel was specified
-                            initlabel = self.reinitializeDisks
-                            for protected in self.protectedPartitions:
-                                disk_name = re.sub(r'p\d+$', '', protected)
-                                if disk_name != protected and \
-                                   disk_name == rs.name:
-                                    initlabel = False
-                                    break
-                        else:
+                # Create the DMRaidArray
+                if not self.clearPartDisks or \
+                   rs.name in self.clearPartDisks:
+                    # if the disk contains protected partitions
+                    # we will not wipe the disklabel even if
+                    # clearpart --initlabel was specified
+                    initlabel = self.reinitializeDisks
+                    for protected in self.protectedPartitions:
+                        disk_name = re.sub(r'p\d+$', '', protected)
+                        if disk_name != protected and \
+                           disk_name == rs.name:
                             initlabel = False
+                            break
 
-                        try:
-                            dm_array = DMRaidArrayDevice(rs.name,
-                                                    major=major, minor=minor,
-                                                    raidSet=rs,
-                                                    parents=[device],
-                                                    initcb=cb,
-                                                    initlabel=initlabel)
-
-                            self._addDevice(dm_array)
-                            # Use the rs's object on the device.
-                            # pyblock can return the memebers of a set and the
-                            # device has the attribute to hold it.  But ATM we
-                            # are not really using it. Commenting this out until
-                            # we really need it.
-                            #device.format.raidmem = block.getMemFromRaidSet(dm_array,
-                            #        major=major, minor=minor, uuid=uuid, name=name)
-                        except DeviceUserDeniedFormatError:
-                            # We should ignore the dmriad and its components
-                            self.addIgnoredDisk(rs.name)
-                            if _all_ignored(rss):
-                                self.addIgnoredDisk(device.name)
-                            rs.deactivate()
-            elif format.type == "lvmpv":
-                # lookup/create the VG and LVs
                 try:
-                    vg_name = udev_device_get_vg_name(info)
-                except KeyError:
-                    # no vg name means no vg -- we're done with this pv
-                    return
+                    dm_array = DMRaidArrayDevice(rs.name,
+                                                 raidSet=rs,
+                                                 parents=[device],
+                                                 initcb=cb,
+                                                 initlabel=initlabel)
 
-                vg_device = self.getDeviceByName(vg_name)
-                if vg_device:
-                    vg_device._addDevice(device)
-                    for lv in vg_device.lvs:
-                        try:
-                            lv.setup()
-                        except DeviceError as e:
-                            log.info("setup of %s failed: %s" % (lv.name, e))
-                else:
-                    try:
-                        vg_uuid = udev_device_get_vg_uuid(info)
-                        vg_size = udev_device_get_vg_size(info)
-                        vg_free = udev_device_get_vg_free(info)
-                        pe_size = udev_device_get_vg_extent_size(info)
-                        pe_count = udev_device_get_vg_extent_count(info)
-                        pe_free = udev_device_get_vg_free_extents(info)
-                        pv_count = udev_device_get_vg_pv_count(info)
-                    except (KeyError, ValueError) as e:
-                        log.warning("invalid data for %s: %s" % (name, e))
-                        return
+                    self._addDevice(dm_array)
+                    # Use the rs's object on the device.
+                    # pyblock can return the memebers of a set and the
+                    # device has the attribute to hold it.  But ATM we
+                    # are not really using it. Commenting this out until
+                    # we really need it.
+                    #device.format.raidmem = block.getMemFromRaidSet(dm_array,
+                    #        major=major, minor=minor, uuid=uuid, name=name)
+                except DeviceUserDeniedFormatError:
+                    # We should ignore the dmraid and its components
+                    self.addIgnoredDisk(rs.name)
+                    if _all_ignored(rss):
+                        self.addIgnoredDisk(device.name)
+                    rs.deactivate()
 
-                    vg_device = LVMVolumeGroupDevice(vg_name,
-                                                     device,
-                                                     uuid=vg_uuid,
-                                                     size=vg_size,
-                                                     free=vg_free,
-                                                     peSize=pe_size,
-                                                     peCount=pe_count,
-                                                     peFree=pe_free,
-                                                     pvCount=pv_count,
-                                                     exists=True)
-                    self._addDevice(vg_device)
+    def handleUdevDeviceFormat(self, info, device):
+        log_method_call(self, name=getattr(device, "name", None))
+        log.debug("%s" % info)
+        name = udev_device_get_name(info)
+        sysfs_path = udev_device_get_sysfs_path(info)
+        uuid = udev_device_get_uuid(info)
+        label = udev_device_get_label(info)
+        format_type = udev_device_get_format(info)
 
-                    try:
-                        lv_names = udev_device_get_lv_names(info)
-                        lv_uuids = udev_device_get_lv_uuids(info)
-                        lv_sizes = udev_device_get_lv_sizes(info)
-                    except KeyError as e:
-                        log.warning("invalid data for %s: %s" % (name, e))
-                        return
+        log.debug("type is '%s'" % format_type)
 
-                    if not lv_names:
-                        log.debug("no LVs listed for VG %s" % name)
-                        return
+        format = None
+        if (not device) or (not format_type) or device.format.type:
+            # this device has no formatting or it has already been set up
+            # FIXME: this probably needs something special for disklabels
+            log.debug("bailing")
+            return
 
-                    lvs = []
-                    for (index, lv_name) in enumerate(lv_names):
-                        name = "%s-%s" % (vg_name, lv_name)
-                        lv_dev = self.getDeviceByName(name)
-                        if lv_dev is None:
-                            lv_uuid = lv_uuids[index]
-                            lv_size = lv_sizes[index]
-                            lv_device = LVMLogicalVolumeDevice(lv_name,
-                                                               vg_device,
-                                                               uuid=lv_uuid,
-                                                               size=lv_size,
-                                                               exists=True)
-                            self._addDevice(lv_device)
+        # set up the common arguments for the format constructor
+        args = [format_type]
+        kwargs = {"uuid": uuid,
+                  "label": label,
+                  "device": device.path,
+                  "exists": True}
 
-                            try:
-                                lv_device.setup()
-                            except DeviceError as e:
-                                log.info("setup of %s failed: %s" 
-                                                    % (lv_device.name, e))
+        # set up type-specific arguments for the format constructor
+        if format_type == "crypto_LUKS":
+            # luks/dmcrypt
+            kwargs["name"] = "luks-%s" % uuid
+        elif format_type == "linux_raid_member":
+            # mdraid
+            try:
+                kwargs["mdUuid"] = udev_device_get_md_uuid(info)
+            except KeyError:
+                log.debug("mdraid member %s has no md uuid" % name)
+        elif format_type == "LVM2_member":
+            # lvm
+            try:
+                kwargs["vgName"] = udev_device_get_vg_name(info)
+            except KeyError as e:
+                log.debug("PV %s has no vg_name" % name)
+            try:
+                kwargs["vgUuid"] = udev_device_get_vg_uuid(info)
+            except KeyError:
+                log.debug("PV %s has no vg_uuid" % name)
+            try:
+                kwargs["peStart"] = udev_device_get_pv_pe_start(info)
+            except KeyError:
+                log.debug("PV %s has no pe_start" % name)
+        elif format_type == "vfat":
+            # efi magic
+            if isinstance(device, PartitionDevice) and device.bootable:
+                efi = formats.getFormat("efi")
+                if efi.minSize <= device.size <= efi.maxSize:
+                    args[0] = "efi"
+        elif format_type == "hfs":
+            # apple bootstrap magic
+            if isinstance(device, PartitionDevice) and device.bootable:
+                apple = formats.getFormat("appleboot")
+                if apple.minSize <= device.size <= apple.maxSize:
+                    args[0] = "appleboot"
+
+        device.format = formats.getFormat(*args, **kwargs)
+
+        #
+        # now do any special handling required for the device's format
+        #
+        if device.format.type == "luks":
+            self.handleUdevLUKSFormat(info, device)
+        elif device.format.type == "mdmember":
+            self.handleUdevMDMemberFormat(info, device)
+        elif device.format.type == "dmraidmember":
+            self.handleUdevDMRaidMemberFormat(info, device)
+        elif device.format.type == "lvmpv":
+            self.handleUdevLVMPVFormat(info, device)
 
     def _handleInconsistencies(self, device):
         def reinitializeVG(vg):
