@@ -515,60 +515,11 @@ class Network(commands.network.F8_Network):
 
 class MultiPath(commands.multipath.FC6_MultiPath):
     def parse(self, args):
-        mpath = commands.multipath.FC6_MultiPath.parse(self, args)
-
-        from partedUtils import DiskSet
-        ds = DiskSet(self.handler.anaconda)
-        ds.startMPath()
-
-        log.debug("Searching for mpath '%s'" % (mpath.name,))
-        for mp in DiskSet.mpList or []:
-            it = True
-            for dev in mpath.devices:
-                dev = dev.split('/')[-1]
-                log.debug("mpath '%s' has members %s" % (mp.name, list(mp.members)))
-                if not dev in mp.members:
-                    log.debug("mpath '%s' does not have device %s, skipping" \
-                        % (mp.name, dev))
-                    it = False
-            if it:
-                log.debug("found mpath '%s', changing name to %s" \
-                    % (mp.name, mpath.name))
-                newname = mpath.name
-                ds.renameMPath(mp, newname)
-                return mpath
-
-        ds.startMPath()
-        return mpath
+        raise NotImplementedError("The multipath kickstart command is not currently supported")
 
 class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
-        raid = commands.dmraid.FC6_DmRaid.parse(self, args)
-
-        from partedUtils import DiskSet
-        ds = DiskSet(self.handler.anaconda)
-        ds.startDmRaid()
-
-        log.debug("Searching for dmraid '%s'" % (raid.name,))
-        for rs in DiskSet.dmList or []:
-            it = True
-            for dev in raid.devices:
-                dev = dev.split('/')[-1]
-                log.debug("dmraid '%s' has members %s" % (rs.name, list(rs.members)))
-                if not dev in rs.members:
-                    log.debug("dmraid '%s' does not have device %s, skipping" \
-                        % (rs.name, dev))
-                    it = False
-            if it:
-                log.debug("found dmraid '%s', changing name to %s" \
-                    % (rs.name, raid.name))
-                # why doesn't rs.name go through the setter here?
-                newname = raid.name
-                ds.renameDmRaid(rs, newname)
-                return raid
-
-        ds.startDmRaid()
-        return raid
+        raise NotImplementedError("The dmraid kickstart command is not currently supported")
 
 class Partition(commands.partition.F9_Partition):
     def parse(self, args):
