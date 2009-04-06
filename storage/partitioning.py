@@ -570,8 +570,11 @@ def doPartitioning(storage, exclusiveDisks=None):
             continue
 
         extendedName = devicePathToName(extended.getDeviceNodeName())
-        if extendedName in [p.name for p in partitions]:
-            # this extended partition is preexisting
+        device = storage.devicetree.getDeviceByName(extendedName)
+        if device:
+            if not device.exists:
+                # created by us, update partedPartition
+                device.partedPartition = extended
             continue
 
         # This is a little odd because normally instantiating a partition
