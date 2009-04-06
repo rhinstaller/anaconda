@@ -168,7 +168,7 @@ def mount(device, location, fstype = "ext2", readOnly = False,
 
     flags = ",".join(opts)
 
-    log.debug("isys.py:mount()- going to mount %s on %s with options %s" %(device, location, flags))
+    log.debug("isys.py:mount()- going to mount %s on %s as %s with options %s" %(device, location, fstype, flags))
     rc = _isys.mount(fstype, device, location, flags)
 
     if not rc:
