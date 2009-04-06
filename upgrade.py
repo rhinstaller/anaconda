@@ -31,7 +31,7 @@ import selinux
 from flags import flags
 from constants import *
 from product import productName
-from storage import findExistingRootDevices
+from storage import findExistingRootDevices, getReleaseString
 from storage import mountExistingSystem
 from storage.formats import getFormat
 
@@ -154,7 +154,7 @@ def findRootParts(anaconda):
 
 def findExistingRoots(anaconda, upgradeany = 0):
     if not flags.setupFilesystems:
-        (prod, ver) = partedUtils.getReleaseString (anaconda.rootPath)
+        (prod, ver) = getReleaseString (anaconda.rootPath)
         if flags.cmdline.has_key("upgradeany") or upgradeany == 1 or anaconda.id.instClass.productUpgradable(prod, ver):
             return [(anaconda.rootPath, "")]
         return []
