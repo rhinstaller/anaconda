@@ -491,7 +491,7 @@ class bootloaderInfo:
         if flags.serial != 0:
             options = ""
             device = ""
-            console = flags.get("console", "")
+            console = flags.cmdline.get("console", "")
 
             # the options are everything after the comma
             comma = console.find(",")
