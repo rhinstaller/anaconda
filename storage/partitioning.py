@@ -341,7 +341,7 @@ def removeEmptyExtendedPartitions(storage):
         log.debug("extended is %s ; logicals is %s" % (extended, [p.getDeviceNodeName() for p in logical_parts]))
         if extended and not logical_parts:
             log.debug("removing empty extended partition from %s" % disk.name)
-            extended_name = extended.getDeviceNodeName()
+            extended_name = devicePathToName(extended.getDeviceNodeName())
             extended = storage.devicetree.getDeviceByName(extended_name)
             storage.destroyDevice(extended)
             #disk.partedDisk.removePartition(extended.partedPartition)
