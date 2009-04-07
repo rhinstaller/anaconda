@@ -1,16 +1,17 @@
 # Swedish translation of anaconda.
-# Copyright © 2006, 2008 Free Software Foundation
+# Copyright © 2006, 2008, 2009 Free Software Foundation
 # Magnus Larsson <fedoratrans@gmail.com>, 2007, 2008.
-# Göran Uddeborg <goeran@uddeborg.se>, 2008.
+# Göran Uddeborg <goeran@uddeborg.se>, 2008, 2009.
 #
+# $Version$
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2008-10-23 19:56-0500\n"
-"Last-Translator: Magnus Larsson <fedoratrans@gmail.com>\n"
+"PO-Revision-Date: 2009-04-07 12:45+0200\n"
+"Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,18 +45,19 @@ msgid "Press <enter> for a shell"
 msgstr "Tryck <retur> för ett skal"
 
 #: ../anaconda:458
-#, fuzzy
 msgid "Fatal Error"
-msgstr "Fel"
+msgstr "Ödestigert fel"
 
 #: ../anaconda:459
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You do not have enough RAM to install %s on this machine.\n"
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
-"Du har inte tillräckligt med minne för att installera %s på denna maskin."
+"Du har inte tillräckligt med minne för att installera %s på denna maskin.\n"
+"\n"
+"Tryck <retur> för att starta om ditt system.\n"
 
 #: ../anaconda:464 ../rescue.py:285 ../rescue.py:311 ../rescue.py:324
 #: ../rescue.py:397 ../rescue.py:406 ../text.py:694
@@ -114,7 +116,7 @@ msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
-msgstr ""
+msgstr "Textläge ger ett begränsat antal installationsalternativ.  Det tillåter inte att du anger din egen partitioneringsuppdelning eller ditt eget paketval.  Skulle du vilja använda VNC-läge istället?"
 
 #: ../anaconda:852
 msgid "Install class forcing text mode installation"
@@ -130,11 +132,11 @@ msgstr "DISPLAY-variabeln är inte satt. Startar textläge!"
 
 #: ../anaconda:1047
 msgid "reipl configuration successful => reboot"
-msgstr ""
+msgstr "reipl-konfigurationen lyckades => starta om"
 
 #: ../anaconda:1050
 msgid "reipl configuration failed => halt"
-msgstr ""
+msgstr "reipl-konfigurationen misslyckades => stanna"
 
 #: ../backend.py:144
 #, python-format
@@ -272,7 +274,6 @@ msgid "In progress...   "
 msgstr "Pågår...   "
 
 #: ../cmdline.py:98
-#, fuzzy
 msgid "Can't have a question in command line mode!"
 msgstr "Kan inte ha en fråga i kommandoradsläge!"
 
@@ -678,7 +679,7 @@ msgid "Required Install Media"
 msgstr "Nödvändiga installationsmedia"
 
 #: ../image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %s %s "
 "discs:\n"
@@ -687,11 +688,10 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Programvaran du har valt att installera kommer att kräva följande skivor:\n"
+"Programvaran du har valt att installera kommer att kräva följande %s %s skivor:\n"
 "\n"
 "%s\n"
-"Ha dessa tillhands innan du fortsätter med installationen. Om du måste "
-"avbryta installationen och starta om bör du välja \"Starta om\"."
+"Ha dessa till hands innan du fortsätter med installationen. Om du måste avbryta installationen och avsluta, välj \"Starta om\"."
 
 #: ../image.py:248 ../livecd.py:388 ../packages.py:382 ../packages.py:433
 #: ../packages.py:436 ../upgrade.py:252 ../yuminstall.py:783
@@ -716,84 +716,84 @@ msgstr "Installera på system"
 #: ../iutil.py:740
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Fel: Vid öppning, kan inte ställa in reIPL-metod till %s (%s: %s)"
 
 #: ../iutil.py:748
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Fel: Vid skrivning, kan inte ställa in reIPL-metod till %s (%s: %s)"
 
 #: ../iutil.py:755
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Fel: Vid stängning, kan inte ställa in reIPL-metod till %s (%s: %s)"
 
 #: ../iutil.py:765 ../iutil.py:817
 #, python-format
 msgid "Error: %s splits into %s but not like we expect"
-msgstr ""
+msgstr "Fel: %s delas i %s men inte som vi förväntade"
 
 #: ../iutil.py:778
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr ""
+msgstr "Fel: Kunde inte ställa in %s som en reIPL-enhet (%s)"
 
 #: ../iutil.py:787
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
+msgstr "Fel: Kunde inte iterställa loadparm (%s)"
 
 #: ../iutil.py:796
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr ""
+msgstr "Varning: Kunde inte återställa parm (%s)"
 
 #: ../iutil.py:806
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
-msgstr ""
+msgstr "Utför efter avstängning en manuell IPL från DASD-enhet %s för att fortsätta installationen"
 
 #: ../iutil.py:834
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Fel: vid läsning av FCP-egenskap %s för reIPL (%s)"
 
 #: ../iutil.py:847
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Fel: vid skrivning av FCP-egenskap %s för reIPL (%s)"
 
 #: ../iutil.py:860
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Fel: vid skrivning av standard-FCP-egenskap %s för reIPL (%s)"
 
 #: ../iutil.py:870
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
-msgstr ""
+msgstr "Utför efter avstängning en manuell IPL från FCP %(device)s med WWPN %(wwpn)s och LUN %(lun)s för att fortsätta installationen"
 
 #: ../iutil.py:877
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
-msgstr ""
+msgstr "Utför efter avstängning en manuell IPL enheten som nu innehåller /boot för att fortsätta installationen"
 
 #: ../iutil.py:887
 msgid "Could not get information for mount point /boot or /"
-msgstr ""
+msgstr "Kunde inte hämta information för monteringspunkt /boot eller /"
 
 #: ../iutil.py:897
 msgid "Error determining mount point type"
-msgstr ""
+msgstr "Fel när typ av monteringspunkt avgjordes"
 
 #: ../iutil.py:901
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
-msgstr ""
+msgstr "Monteringspunkten /boot eller / är på en disk som vi inte känner till"
 
 #: ../kickstart.py:96
 #, python-format
@@ -842,9 +842,8 @@ msgid "_Abort"
 msgstr "_Avbryt"
 
 #: ../kickstart.py:1213 ../kickstart.py:1252
-#, fuzzy
 msgid "_Ignore All"
-msgstr "Ignorera"
+msgstr "Ignorera alla"
 
 #: ../kickstart.py:1243
 msgid "Missing Group"
@@ -866,6 +865,8 @@ msgid ""
 "prompt for.  Please add the following sections and try again:\n"
 "%s"
 msgstr ""
+"Din kickstart-fil saknar nödvändig information som anaconda inte kan fråga efter.  Lägg till följande sektioner och försök igen:\n"
+"%s"
 
 #: ../livecd.py:108
 msgid "Unable to find image"
@@ -960,83 +961,75 @@ msgid "'%s' is an invalid IP address."
 msgstr "'%s' är ingen giltig IP-adress."
 
 #: ../packages.py:122
-#, fuzzy
 msgid "Device Resize Failed"
-msgstr "Misslyckades ändra storlek"
+msgstr "Misslyckades ändra storlek på enhet"
 
 #: ../packages.py:123
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while resizing device %s."
-msgstr "Ett fel inträffade vid ändring av storlek på enhet %s."
+msgstr "Ett fel dök upp vid ändring av storlek på enhet %s."
 
 #: ../packages.py:130
-#, fuzzy
 msgid "Device Creation Failed"
-msgstr "Destinationsfil"
+msgstr "Misslyckades skapa enhet"
 
 #: ../packages.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while creating device %s."
-msgstr "Ett fel inträffade vid ändring av storlek på enhet %s."
+msgstr "Ett fel dök upp när enhet %s skapades."
 
 #: ../packages.py:138
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "Misslyckades att ta bort enhet"
 
 #: ../packages.py:139
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while removing device %s."
-msgstr "Ett fel inträffade vid ändring av storlek på enhet %s."
+msgstr "Ett fel dök upp när enhet %s togs bort."
 
 #: ../packages.py:146
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "Misslyckades att ställa in enhet"
 
 #: ../packages.py:147
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "Ett fel inträffade vid ändring av storlek på enhet %s."
+msgstr "Ett fel dök upp när enhet %s ställdes in."
 
 #: ../packages.py:158
 msgid "Resizing Failed"
 msgstr "Misslyckades ändra storlek"
 
 #: ../packages.py:159
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
-msgstr "Ett fel inträffade vid ändring av storlek på enhet %s."
+msgstr "Ett fel dök upp när storleken på enhet %s ändrades."
 
 #: ../packages.py:166
-#, fuzzy
 msgid "Migration Failed"
-msgstr "LVM-operation misslyckades"
+msgstr "Migrering misslyckades"
 
 #: ../packages.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "Ett fel inträffade vid ändring av storlek på enhet %s."
+msgstr "Ett fel dök upp vid när filsystement på enhet %s migrerades."
 
 #: ../packages.py:175
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "Formaterar"
+msgstr "Formatering misslyckades"
 
 #: ../packages.py:176
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "Ett fel inträffade vid ändring av storlek på enhet %s."
+msgstr "Ett fel dök upp när enhet %s formaterades."
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
-msgstr ""
+msgstr "Aktiveringen av lagring misslyckades"
 
 #: ../packages.py:185
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
-msgstr ""
-"Följande fel upptäcktes vid tolkning av din kickstart-konfiguration:\n"
-"\n"
-"%s"
+msgstr "Ett fel dök upp vid aktivering av din lagringskonfiguration."
 
 #: ../packages.py:353
 msgid "Invalid Key"
@@ -1161,9 +1154,9 @@ msgid "Confirm Delete"
 msgstr "Bekräfta borttagning"
 
 #: ../partIntfHelpers.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "Du är på väg att ta bort alla partitioner på enheten \"/dev/%s\"."
+msgstr "Du är på väg att ta bort alla partitioner på enheten \"%s\"."
 
 #: ../partIntfHelpers.py:149 ../partIntfHelpers.py:304
 #: ../iw/lvm_dialog_gui.py:750 ../iw/lvm_dialog_gui.py:1261
@@ -1191,15 +1184,14 @@ msgid "Format as Swap?"
 msgstr "Formatera som växlingspartition?"
 
 #: ../partIntfHelpers.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s har en partitionstyp som är 0x82 (Linux swap), men den verkar inte "
-"vara formaterad som en Linux-växlingspartition.\n"
+"%s har en partitionstyp som är 0x82 (Linux swap), men den verkar inte vara formaterad som en Linux-växlingspartition.\n"
 "\n"
 "Vill du formatera denna partition som en växlingspartition?"
 
@@ -1314,14 +1306,14 @@ msgid "You are about to delete a RAID device."
 msgstr "Du är på väg att ta bort en RAID-enhet."
 
 #: ../partIntfHelpers.py:296
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "Du är på väg att ta bort partitionen /dev/%s."
+msgstr "Du är på väg att ta bort partitionen %s."
 
 #: ../partIntfHelpers.py:300
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "Du är på väg att ta bort partitionen /dev/%s."
+msgstr "Du är på väg att ta bort %s %s"
 
 #: ../partIntfHelpers.py:311
 msgid "Confirm Reset"
@@ -1536,9 +1528,8 @@ msgid "System to Rescue"
 msgstr "System att rädda"
 
 #: ../rescue.py:283
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "Vilken partition innehåller rotpartitionen i din installation?"
+msgstr "Vilken enhet innehåller rotpartitionen i din installation?"
 
 #: ../rescue.py:285 ../rescue.py:289 ../text.py:664 ../text.py:666
 msgid "Exit"
@@ -1752,26 +1743,24 @@ msgid "Mount failed"
 msgstr "Montering misslyckades"
 
 #: ../upgrade.py:240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
 "fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
 msgstr ""
-"Ett eller flera av de filsystem som finns med i /etc/fstab på ditt "
-"Linuxsystem kan inte monteras. Var vänlig och åtgärda detta problem och "
-"prova sedan att uppgradera igen."
+"Följande fel uppstod när filsystem som finns med i /etc/fstab monterades.  Åtgärda detta problem och försök att uppgradera igen.\n"
+"%s"
 
 #: ../upgrade.py:247
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "Uppgradera konfiguration av startprogram"
+msgstr "Uppgraderingsrott hittades inte"
 
 #: ../upgrade.py:248
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
-msgstr ""
+msgstr "Roten till det tidigare installerade systemet hittades inte.  Du kan avbryta installeraren eller gå tillbaka och välja installation istället för uppgradering."
 
 #: ../upgrade.py:271
 msgid ""
@@ -2173,7 +2162,7 @@ msgstr "Fel när transaktion kördes"
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
-msgstr ""
+msgstr "En del av dina programvaruförråd kräver nätverk, men ett fel uppstod vid aktiveringen av nätverket på ditt system."
 
 #: ../yuminstall.py:1057
 msgid ""
@@ -2377,18 +2366,17 @@ msgstr ""
 "partitioner med vissa filsystem går att storleksändra."
 
 #: ../iw/autopart_type.py:124
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "Ändrar storlek på filsystemet på %s ..."
+msgstr "Fel vid ändring av storlek på filsystemet"
 
 #: ../iw/autopart_type.py:125 ../iw/autopart_type.py:134
 #, python-format
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:133
 msgid "Resize Device Error"
-msgstr ""
+msgstr "Fel vid storleksändring av enhet"
 
 #: ../iw/autopart_type.py:208
 msgid ""
@@ -2410,26 +2398,23 @@ msgstr "Fel med data"
 
 #: ../iw/autopart_type.py:398 ../iw/autopart_type.py:399
 msgid "Rescanning disks"
-msgstr ""
+msgstr "Läser igenom diskar igen"
 
 #: ../iw/autopart_type.py:452 ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "_Ignorera enhet"
+msgstr "Använd hela enheten"
 
 #: ../iw/autopart_type.py:453 ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "Ersätter existerande Linuxsystem"
 
 #: ../iw/autopart_type.py:454
-#, fuzzy
 msgid "Shrink current system"
-msgstr "_Kryptera systemet"
+msgstr "Krymp det aktuella systemet"
 
 #: ../iw/autopart_type.py:455 ../textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "Inget ledigt utrymme"
+msgstr "Använd ledigt utrymme"
 
 #: ../iw/autopart_type.py:456
 msgid "Create custom layout"
@@ -2510,38 +2495,29 @@ msgid "Congratulations"
 msgstr "Gratulerar"
 
 #: ../iw/congrats_gui.py:74 ../textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
-msgstr ""
-"Gratulerar, din installation av %s är färdig.\n"
-"\n"
-"%s%s"
+msgstr "Gratulerar, din installation av %s är färdig.\n\n"
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "Stäng av"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr ""
-"Starta om systemet för att använda det installerade systemet.\n"
-"\n"
+msgstr "Stäng av för att använda det installerade systemet.\n"
 
 #: ../iw/congrats_gui.py:81 ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr ""
-"Starta om systemet för att använda det installerade systemet.\n"
-"\n"
+msgstr "Starta för att använda det installerade systemet.\n"
 
 #: ../iw/congrats_gui.py:86 ../textw/complete_text.py:51
 msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
-msgstr ""
+msgstr "Observera att det kan finnas uppdateringar tillgängliga för att se till att ditt system fungerar ordentligt och installation av dessa uppdateringar rekommenderas efter omstarten."
 
 #: ../iw/congrats_gui.py:90 ../textw/complete_text.py:55
 #, python-format
@@ -2552,6 +2528,9 @@ msgid ""
 "available to ensure the proper functioning of your system and installation "
 "of these updates is recommended after the reboot."
 msgstr ""
+"Gratulerar, din installation av %s är klar.\n"
+"\n"
+"Starta om för att använda det installerade systemet.  Observera att det kan finnas uppdateringar tillgängliga för att se till att ditt system fungerar ordentligt och installation av dessa uppdateringar rekommenderas efter omstarten."
 
 #: ../iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -2935,14 +2914,13 @@ msgid "A value is required for the field %s."
 msgstr "Ett värde krävs i fältet \"%s\"."
 
 #: ../iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "Ett fel inträffade vid kopiering av skärmdumparna."
+msgstr "Ett fel inträffade vid försök att ta upp nätverksgränssnittet %s."
 
 #: ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "Fel vid konfigurering av nätverksenhet"
+msgstr "Fel vid konfigurering av nätverk"
 
 #: ../iw/netconfig_dialog.py:237
 msgid "Dynamic IP"
@@ -3098,9 +3076,9 @@ msgid "Add Partition"
 msgstr "Lägg till partition"
 
 #: ../iw/partition_dialog_gui.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: %s"
-msgstr "Redigera partition: /dev/%s"
+msgstr "Redigera partition: %s"
 
 #: ../iw/partition_dialog_gui.py:315
 msgid "File System _Type:"
@@ -3232,19 +3210,19 @@ msgid "Unable To Edit"
 msgstr "Kan inte redigera"
 
 #: ../iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
-msgstr "Du måste välja en partition att redigera"
+msgstr "Du måste välja en enhet att redigera"
 
 #: ../iw/partition_gui.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
 "%s"
 msgstr ""
-"Du kan inte redigera denna partition:\n"
+"Du kan inte redigera denna enhet:\n"
 "\n"
+"%s"
 
 #: ../iw/partition_gui.py:1177 ../iw/partition_gui.py:1189
 msgid "Not supported"
@@ -3400,9 +3378,9 @@ msgid "Make RAID Device"
 msgstr "Skapa RAID-enhet"
 
 #: ../iw/raid_dialog_gui.py:329
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "Redigera RAID-enhet"
+msgstr "Redigera RAID-enhet: %s"
 
 #: ../iw/raid_dialog_gui.py:331
 msgid "Edit RAID Device"
@@ -3454,7 +3432,7 @@ msgstr ""
 "Du måste ta bort dessa partitioner innan hårddisken kan klonas. "
 
 #: ../iw/raid_dialog_gui.py:588
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive %s.\n"
@@ -3462,11 +3440,9 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"Källhårddisken du valt har partitioner som inte begränsas till enhetens /dev/"
-"%s.\n"
+"Källhårddisken du valt har partitioner som inte begränsas till enheten %s.\n"
 "\n"
-"Du måste ta bort dessa partitioner eller begränsa dem till denna enhet innan "
-"hårddisken kan klonas. "
+"Du måste ta bort dessa partitioner eller begränsa dem till denna enhet innan hårddisken kan klonas. "
 
 #: ../iw/raid_dialog_gui.py:601
 msgid ""
@@ -3490,12 +3466,12 @@ msgid "Please select the target drives for the clone operation."
 msgstr "Välj målhårddiskarna för kloningsåtgärden."
 
 #: ../iw/raid_dialog_gui.py:622
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "Källhårddisken /dev/%s kan inte även väljas som en målhårddisk."
+msgstr "Källhårddisken %s kan inte även väljas som en målhårddisk också."
 
 #: ../iw/raid_dialog_gui.py:638
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3504,25 +3480,22 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"Målhårddisken /dev/%s har en partition som av följande skäl inte kan tas "
-"bort:\n"
+"Målhårddisken %s har en partition som av följande skäl inte kan tas bort:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Du måste ta bort denna partition innan hårddisken kan vara ett mål."
+"Du måste ta bort denna partition innan denna hårddisk kan vara ett mål."
 
 #: ../iw/raid_dialog_gui.py:701
 msgid "Please select a source drive."
 msgstr "Välj en källenhet."
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
-msgstr ""
-"Hårddisken /dev/%s kommer nu att klonas till följande hårddiskar:\n"
-"\n"
+msgstr "Hårddisken %s kommer nu att klonas till följande hårddiskar:\n\n"
 
 #: ../iw/raid_dialog_gui.py:726
 msgid ""
@@ -3845,7 +3818,7 @@ msgstr ""
 
 #: ../iw/welcome_gui.py:56 ../textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "Nätverksinstallation krävs"
 
 #: ../iw/welcome_gui.py:57 ../textw/welcome_text.py:37
 msgid ""
@@ -3853,12 +3826,11 @@ msgid ""
 "were found on your system.  To avoid a network installation, boot with the "
 "full DVD, full CD set, or do not pass a repo= parameter that specifies a "
 "network source."
-msgstr ""
+msgstr "Din angivna installationsskälla är en nätverksplats, men ingen nätverksenhet hittades på ditt system.  Starta för att undvika nätverksinstallation med en full DVD, full CD-uppsättning eller skicka inte en parameter repo= som anger en nätverkskälla."
 
 #: ../iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "Avsluta installationsprogram"
+msgstr "_Avsluta installationsprogram"
 
 #: ../iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -4001,25 +3973,21 @@ msgid "Error configuring network device"
 msgstr "Fel vid konfigurering av nätverksenhet"
 
 #: ../textw/netconfig_text.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "Fel vid konfigurering av nätverksenhet: "
+msgstr "Fel vid konfigurering av nätverksenhet %s"
 
 #: ../textw/partition_text.py:58
 msgid "Partitioning Type"
 msgstr "Partitioneringstyp"
 
 #: ../textw/partition_text.py:60 tmp/autopart.glade.h:2
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
 "use as the install target. You can also choose to create your own custom "
 "layout."
-msgstr ""
-"Installationen kräver partitionering av din hårddisk. Som standard väljs en "
-"partitioneringslayout som är vettig för de flesta användare. Du kan välja "
-"att antingen använda denna eller att skapa din egen."
+msgstr "Installationen kräver partitionering av din hårddisk.  Som standard väljs en partitioneringslayout som passar de flesta användare.  Välj det utrymme och de hårddiskar som skall användas som installationsmål.  Du kan också välja att skapa din egen anpassade layout."
 
 #: ../textw/partition_text.py:76
 msgid "Which drive(s) do you want to use for this installation?"
@@ -4331,15 +4299,11 @@ msgid "Installation cannot continue."
 msgstr "Installationen kan inte fortsätta."
 
 #: ../storage/__init__.py:96
-#, fuzzy
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr ""
-"Partitioneringsalternativen du har valt har redan aktiverats. Du kan inte "
-"längre gå tillbaka till diskredigeringsskärmen. Vill du fortsätta med "
-"installationen?"
+msgstr "Lagringkonfigurationen du har valt har redan aktiverats.  Du kan inte längre gå tillbaka till diskredigeringsskärmen.  Vill du fortsätta med installationsprocessen?"
 
 #: ../storage/__init__.py:127
 msgid "Encrypt device?"
@@ -4356,9 +4320,8 @@ msgstr ""
 "kryptering av blockenheter vara inaktiverad."
 
 #: ../storage/__init__.py:146
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "Skriver partitionering till disk"
+msgstr "Skriver lagringskonfiguration till disk"
 
 #: ../storage/__init__.py:147
 msgid ""
@@ -4378,17 +4341,16 @@ msgid "_Write changes to disk"
 msgstr "_Skriv ändringar till disk"
 
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "Enhet saknas"
+msgstr "Letar efter enheter"
 
 #: ../storage/__init__.py:253
 msgid "Finding storage devices..."
-msgstr ""
+msgstr "Letar efter lagringsenheter..."
 
 #: ../storage/__init__.py:269
 msgid "Filesystem error detected, cannot continue."
-msgstr ""
+msgstr "Filsystemsfel upptäckt, kan inte fortsätta."
 
 #: ../storage/__init__.py:480
 msgid "This partition is holding the data for the hard drive install."
@@ -4399,31 +4361,29 @@ msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Du kan inte ta bort en partition på en LDL-formaterad DASD."
 
 #: ../storage/__init__.py:491
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "Denna partition är en del av RAID-enheten /dev/md%s."
+msgstr "Denna partition är en del av RAID-enheten %s."
 
 #: ../storage/__init__.py:494
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "Denna partition är en del av en RAID-enhet."
+msgstr "Denna enhet är en del av en RAID-enhet."
 
 #: ../storage/__init__.py:499
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "Denna partition är en del av LVM-volymgruppen \"%s\"."
+msgstr "Denna enhet är en del av LVM-volymgruppen \"%s\"."
 
 #: ../storage/__init__.py:502
-#, fuzzy
 msgid "This device is part of a LVM volume group."
-msgstr "Denna partition är en del av en LVM-volymgrupp."
+msgstr "Denna enhet är en del av en LVM-volymgrupp."
 
 #: ../storage/__init__.py:511
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
 "\n"
-msgstr ""
+msgstr "Denna enhet är en utökad partition som innehåller logiska partitioner som inte kan tas bort:\n\n"
 
 #: ../storage/__init__.py:751
 #, python-format
@@ -4444,13 +4404,11 @@ msgstr ""
 "att installera %s."
 
 #: ../storage/__init__.py:762
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
-msgstr ""
-"Din %s-partition är mindre än %s megabyte vilket är mindre än rekommenderat "
-"för en normal installation av %s."
+msgstr "Din /-partition är mindre än %s megabyte vilket är mindre än rekommenderat för en normal installation av %s."
 
 #: ../storage/__init__.py:770
 #, python-format
@@ -4477,9 +4435,8 @@ msgstr ""
 "det är inte säkert."
 
 #: ../storage/__init__.py:804
-#, fuzzy
 msgid "You have not created a boot partition."
-msgstr "Du måste skapa en PPC PReP-startpartition."
+msgstr "Du har inte skapat en startpartition."
 
 #: ../storage/__init__.py:808
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -4540,7 +4497,7 @@ msgstr ""
 "%s"
 
 #: ../storage/__init__.py:1406
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4552,15 +4509,12 @@ msgid ""
 msgstr ""
 "Växlingsenheten:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"i din /etc/fstab-fil används för tillfället som en partition för "
-"programvarususpendering, vilket innebär att ditt system är i viloläge. För "
-"att utföra en uppgradering bör du stänga ner ditt system istället för att "
-"försätta det i viloläge."
+"i din /etc/fstab-fil används för tillfället som en enhet för programvarususpendering, vilket innebär att ditt system är i viloläge.  För att utföra en uppgradering behöver du stänga av ditt system istället för att försätta det i viloläge."
 
 #: ../storage/__init__.py:1414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4572,15 +4526,12 @@ msgid ""
 msgstr ""
 "Växlingsenheten:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
-"i din /etc/fstab-fil används för tillfället som en partition för "
-"programvarususpendering, vilket innebär att ditt system är i viloläge. Om du "
-"utför en nyinstallation bör du se till att installationsprogrammet är "
-"inställt att formatera alla växlingspartitioner."
+"i din /etc/fstab-fil används för tillfället som en enhet för programvarususpendering, vilket innebär att ditt system är i viloläge.  Om du utför en nyinstallation bör du se till att installationsprogrammet är inställt att formatera alla växlingspartitioner."
 
 #: ../storage/__init__.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4591,13 +4542,12 @@ msgid ""
 msgstr ""
 "Fel vid aktivering av växlingsenhet %s: %s\n"
 "\n"
-"Filen /etc/fstab på din uppgraderingspartition refererar inte till en giltig "
-"växlingspartition.\n"
+"/etc/fstab på din uppgraderingspartition refererar inte till en giltig växlingenhet.\n"
 "\n"
 "Tryck OK för att avsluta installationsprogrammet."
 
 #: ../storage/__init__.py:1434
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4607,7 +4557,7 @@ msgid ""
 msgstr ""
 "Fel vid aktivering av växlingsenheten %s: %s\n"
 "\n"
-"Detta betyder med största sannolikhet att partitionen inte har initierats.\n"
+"Detta betyder med största sannolikhet att enheten inte har initierats.\n"
 "\n"
 "Tryck OK för att avsluta installationsprogrammet."
 
@@ -4656,24 +4606,20 @@ msgstr ""
 "installationen men det kan bli problem."
 
 #: ../storage/__init__.py:1521
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Ett fel inträffade vid försöket att skapa %s: %s. Detta problem är "
-"ödesdigert och installationsprogrammet kan inte fortsätta.\n"
+"Ett fel inträffade vid montering av enhet %s som %s: %s.  Detta är ett ödesdigert fel och installationen kan inte fortsätta.\n"
 "\n"
 "Tryck <Retur> för att för att avsluta installationsprogrammet."
 
 #: ../storage/devices.py:1059
-#, fuzzy
 msgid "boot flag not available for this partition"
-msgstr ""
-"Du kan inte ta bort denna partition:\n"
-"\n"
+msgstr "startflaggan är inte tillgänglig för denna partition"
 
 #: ../storage/devicetree.py:87
 msgid "Confirm"
@@ -4698,6 +4644,8 @@ msgid ""
 "Error processing drive %s.\n"
 "Maybe it needs to be reinitialized.YOU WILL LOSE ALL DATA ON THIS DRIVE!"
 msgstr ""
+"Fel vid bearbetning av enhet %s.\n"
+"Den kanske behöver intieras om.  DU KOMMER FÖRLORA ALL DATA PÅ DENNA ENHET!"
 
 #: ../storage/devicetree.py:151
 #, python-format
@@ -4707,21 +4655,20 @@ msgid ""
 "reinitialize all related PVs, which will erase all LVM metadata. Or ignore, "
 "which will preserve contents."
 msgstr ""
+"Fel vid bearbetning av LVM.\n"
+"Det verkar som det finns inkonsistenta LVM-data.  (%s) utgöra %s.  Du kan ominitiera alla relaterade PV, vilket kommer att radera all LVM-metadata.  Eller ignoreara, vilket kommer att bevara innehållet."
 
 #: ../storage/devicetree.py:159
-#, fuzzy
 msgid "_Ignore drive(s)"
-msgstr "_Ignorera enhet"
+msgstr "_Ignorera disk"
 
 #: ../storage/devicetree.py:160
-#, fuzzy
 msgid "_Re-initialize drive(s)"
-msgstr "_Återinitiera enhet"
+msgstr "_Återinitiera disk"
 
 #: ../storage/iscsi.py:98 ../storage/iscsi.py:99
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "Läser in SCSI-drivrutin"
+msgstr "Söker SCSI-noder"
 
 #: ../storage/iscsi.py:172 ../storage/iscsi.py:173
 msgid "Initializing iSCSI initiator"
@@ -4729,34 +4676,33 @@ msgstr "Initierar iSCSI initierare"
 
 #: ../storage/iscsi.py:208
 msgid "iSCSI not available"
-msgstr ""
+msgstr "iSCSI inte tillgängligt"
 
 #: ../storage/iscsi.py:210
-#, fuzzy
 msgid "No initiator name set"
-msgstr "iSCSI-initierarnamn"
+msgstr "Inget initierarnamn satt"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "Inga iSCSI-noder upptäckta"
 
 #: ../storage/iscsi.py:227 ../storage/iscsi.py:228
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "Loggar in på iSCSI-noder"
 
 #: ../storage/iscsi.py:250
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "Inga nya iSCSI-noder upptäcktes"
 
 #: ../storage/iscsi.py:253
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "Kunde inte logga in till någon av de upptäckta noderna"
 
 #: ../storage/partitioning.py:175
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
-msgstr ""
+msgstr "Kunde inte hitta tillräckligt med utrymme för automatisk partitionering, använd en annan partitioneringsmetod."
 
 #: ../storage/partitioning.py:192
 msgid "Warnings During Automatic Partitioning"
@@ -4850,29 +4796,29 @@ msgstr "Du har inte angivit ett FCP-LUN eller så är numret ogiltigt."
 #: ../storage/devicelibs/lvm.py:326
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "vginfo misslyckades för %s"
 
 #: ../storage/devicelibs/lvm.py:354
 #, python-format
 msgid "lvs failed for %s"
-msgstr ""
+msgstr "lvs misslyckades för %s"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "attr dict måste inkludera en typ"
 
 #: ../storage/formats/fs.py:111
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "filsystemskonfigurationen saknar en typ"
 
 #: ../storage/formats/fs.py:270
 msgid "Formatting"
 msgstr "Formaterar"
 
 #: ../storage/formats/fs.py:271
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s..."
-msgstr "Kontrollerar filsystem på %s ..."
+msgstr "Skapar filsystem på %s ..."
 
 #: ../storage/formats/fs.py:367
 msgid "Resizing"
@@ -5854,9 +5800,8 @@ msgid ""
 msgstr "Ange konfigurationsinformationen för detta programvaruförråd."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Värd (värd:port)"
+msgstr "Proxy-U_RL (värd:port)"
 
 #: tmp/addrepo.glade.h:11
 msgid "Proxy pass_word"
@@ -5907,9 +5852,8 @@ msgid "_Next"
 msgstr "_Nästa"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "<b>_Mål för storleksändring:</b>"
+msgstr "<b>_Mål för storleksändring (i MB):</b>"
 
 #: tmp/autopart.glade.h:3
 msgid "Re_view and modify partitioning layout"
@@ -5917,7 +5861,7 @@ msgstr "_Granska och ändra partitioneringslayouten"
 
 #: tmp/autopart.glade.h:4
 msgid "Volume to Resize"
-msgstr ""
+msgstr "Volym att storleksändra"
 
 #: tmp/autopart.glade.h:5
 msgid "What drive would you like to _boot this installation from?"
@@ -6326,9 +6270,8 @@ msgid "Macedonian"
 msgstr "Makedonska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
-msgstr "Marathi"
+msgstr "Maithili"
 
 #. generated from lang-table
 msgid "Malay"
@@ -6343,9 +6286,8 @@ msgid "Marathi"
 msgstr "Marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
-msgstr "Bengali"
+msgstr "Nepali"
 
 #. generated from lang-table
 msgid "Norwegian(Bokmål)"
@@ -6416,9 +6358,8 @@ msgid "Swedish"
 msgstr "Svenska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
-msgstr "Tamil"
+msgstr "Tadzjikiska "
 
 #. generated from lang-table
 msgid "Tamil"
