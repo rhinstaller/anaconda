@@ -98,6 +98,11 @@ def lvm_cc_addFilterRejectRegexp(regexp):
 
     # compoes config once more.
     _composeConfig()
+
+def lvm_cc_resetFilter():
+    global config_args_data
+    config_args_data["filterRejects"] = []
+    config_args_data["filterAccepts"] = []
 # End config_args handling code.
 
 # Names that should not be used int the creation of VGs

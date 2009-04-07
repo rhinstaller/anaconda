@@ -204,6 +204,7 @@ class DeviceTree(object):
         self._ignoredDisks = []
         for disk in ignored:
             self.addIgnoredDisk(disk)
+        lvm.lvm_cc_resetFilter()
 
     def addIgnoredDisk(self, disk):
         self._ignoredDisks.append(disk)
