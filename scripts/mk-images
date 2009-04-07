@@ -354,31 +354,42 @@ instbin() {
     DIR=$3
     DEST=$4
 
-    install -s -m 755 $ROOT/$BIN $DIR/$DEST
-    get_dso_deps $ROOT "$BIN"
-    local DEPS="$DSO_DEPS"
-    mkdir -p $DIR/$LIBDIR
+    iself="$(file $ROOT/$BIN | grep ELF | grep executable)"
 
-    for x in $DEPS ; do
-        cp -Lfp $ROOT/$x $DIR/$LIBDIR
-    done
+    if [ -l $ROOT/$BIN ]; then
+        cp -a $ROOT/$BIN $DIR/$DEST
+    else
+        if [ -z "$iself" ]; then
+            install -m 755 $ROOT/$BIN $DIR/$DEST
+        else
+            install -s -m 755 $ROOT/$BIN $DIR/$DEST
 
-    pushd $DIR/$LIBDIR
-    if [ -f ld-linux.so.2 -a ! -L ld-linux.so.2 ]; then
-        rm -f ld-linux.so.2
-        linker="$(ls -1 ld-*.*.*.so)"
-        if [ -z "$linker" ]; then
-            linker="$(ls -1 ld-*.*.so)"
+            get_dso_deps $ROOT "$BIN"
+            local DEPS="$DSO_DEPS"
+            mkdir -p $DIR/$LIBDIR
+
+            for x in $DEPS ; do
+                cp -Lfp $ROOT/$x $DIR/$LIBDIR
+            done
+
+            pushd $DIR/$LIBDIR
+            if [ -f ld-linux.so.2 -a ! -L ld-linux.so.2 ]; then
+                rm -f ld-linux.so.2
+                linker="$(ls -1 ld-*.*.*.so)"
+                if [ -z "$linker" ]; then
+                    linker="$(ls -1 ld-*.*.so)"
+                fi
+                found=$(echo $linker | wc -l)
+                if [ $found -ne 1 ]; then
+                    echo "Found too many dynamic linkers:" >&2
+                    echo $linker >&2
+                    exit 1
+                fi
+                ln -s $linker ld-linux.so.2
+            fi
+            popd
         fi
-        found=$(echo $linker | wc -l)
-        if [ $found -ne 1 ]; then
-            echo "Found too many dynamic linkers:" >&2
-            echo $linker >&2
-            exit 1
-        fi
-        ln -s $linker ld-linux.so.2
     fi
-    popd
 }
 
 setupShellEnvironment() {
