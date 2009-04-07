@@ -472,13 +472,15 @@ def getBestFreeSpaceRegion(disk, part_type, req_size,
             best_free -- current best free region for this partition
 
     """
-    log.debug("getBestFreeSpaceRegion: disk=%s part_type=%d req_size=%dMB boot=%s best=%s" % (disk.device.path, part_type, req_size, boot, best_free))
+    log.debug("getBestFreeSpaceRegion: disk=%s part_type=%d req_size=%dMB boot=%s best=%s" %
+            (disk.device.path, part_type, req_size, boot, best_free))
     extended = disk.getExtendedPartition()
     for _range in disk.getFreeSpaceRegions():
         if extended:
             # find out if there is any overlap between this region and the
             # extended partition
-            log.debug("looking for intersection between extended (%d-%d) and free (%d-%d)" % (extended.geometry.start, extended.geometry.end, _range.start, _range.end))
+            log.debug("looking for intersection between extended (%d-%d) and free (%d-%d)" %
+                    (extended.geometry.start, extended.geometry.end, _range.start, _range.end))
 
             # parted.Geometry.overlapsWith can handle this
             try:
@@ -615,7 +617,11 @@ def allocatePartitions(disks, partitions):
                 continue
             #_part.disk.partedDisk.removePartition(_part.partedPartition)
             partedDisk = partedDisks[_part.disk.partedDisk.device.path]
-            #log.debug("removing part %s (%s) from disk %s (%s)" % (_part.partedPartition.path, [p.path for p in _part.partedPartition.disk.partitions], partedDisk.device.path, [p.path for p in partedDisk.partitions]))
+            #log.debug("removing part %s (%s) from disk %s (%s)" %
+            #          (_part.partedPartition.path,
+            #           [p.path for p in _part.partedPartition.disk.partitions],
+            #           partedDisk.device.path,
+            #           [p.path for p in partedDisk.partitions]))
 
             partedDisk.removePartition(_part.partedPartition)
             _part.partedPartition = None
@@ -644,7 +650,10 @@ def allocatePartitions(disks, partitions):
             # no disks specified means any disk will do
             req_disks = disks
 
-        log.debug("allocating partition: %s ; disks: %s ; boot: %s ; primary: %s ; size: %dMB ; grow: %s ; max_size: %s" % (_part.name, req_disks, _part.req_bootable, _part.req_primary, _part.req_size, _part.req_grow, _part.req_max_size))
+        log.debug("allocating partition: %s ; disks: %s ; boot: %s ; "
+                  "primary: %s ; size: %dMB ; grow: %s ; max_size: %s" %
+                  (_part.name, req_disks, _part.req_bootable, _part.req_primary,
+                   _part.req_size, _part.req_grow, _part.req_max_size))
         free = None
         use_disk = None
         part_type = None
@@ -678,7 +687,7 @@ def allocatePartitions(disks, partitions):
                                           _part.req_size,
                                           best_free=free,
                                           boot=_part.req_bootable)
-            
+
             if best == free and not _part.req_primary and \
                new_part_type == parted.PARTITION_NORMAL:
                 # see if we can do better with a logical partition
@@ -762,7 +771,8 @@ def allocatePartitions(disks, partitions):
         constraint = parted.Constraint(exactGeom=new_geom)
         disk.addPartition(partition=partition,
                           constraint=constraint)
-        log.debug("created partition %s of %dMB and added it to %s" % (partition.getDeviceNodeName(), partition.getSize(), disk))
+        log.debug("created partition %s of %dMB and added it to %s" %
+                (partition.getDeviceNodeName(), partition.getSize(), disk))
 
         # this one sets the name
         _part.partedPartition = partition
@@ -801,7 +811,8 @@ def growPartitions(disks, partitions):
             partitions -- a list of all partitions (PartitionDevice
                           instances)
     """
-    log.debug("growPartitions: disks=%s, partitions=%s" % ([d.name for d in disks], [p.name for p in partitions]))
+    log.debug("growPartitions: disks=%s, partitions=%s" %
+            ([d.name for d in disks], [p.name for p in partitions]))
     all_growable = [p for p in partitions if p.req_grow]
     if not all_growable:
         return
@@ -882,17 +893,14 @@ def growPartitions(disks, partitions):
                 max_grow += leftover_share * leftover
             max_sectors = req_sectors + max_grow
             max_mb = (max_sectors * sectorSize) / (1024 * 1024)
-            log.debug("%s: base_size=%dMB, max_size=%sMB" % (part.name,
-                                                             part.req_base_size,
-                                                             part.req_max_size))
-            log.debug("%s: current_size=%dMB (%d sectors)" % (part.name,
-                                                              part.partedPartition.getSize(),
-                                                              part.partedPartition.geometry.length))
-            log.debug("%s: %dMB (%d sectors, or %d%% of %d)" % (part.name,
-                                                                max_mb,
-                                                                max_sectors,
-                                                                share * 100,
-                                                                disk_free))
+
+            log.debug("%s: base_size=%dMB, max_size=%sMB" %
+                    (part.name, part.req_base_size,  part.req_max_size))
+            log.debug("%s: current_size=%dMB (%d sectors)" %
+                    (part.name, part.partedPartition.getSize(),
+                        part.partedPartition.geometry.length))
+            log.debug("%s: %dMB (%d sectors, or %d%% of %d)" %
+                    (part.name, max_mb, max_sectors, share * 100, disk_free))
 
             log.debug("checking constraints on max size...")
             # don't grow beyond the request's maximum size
@@ -915,7 +923,8 @@ def growPartitions(disks, partitions):
 
             # we can only grow as much as the largest free region on the disk
             if free[0].length < max_grow:
-                log.debug("largest free region: %d sectors (%dMB)" % (free[0].length, free[0].getSize()))
+                log.debug("largest free region: %d sectors (%dMB)" %
+                        (free[0].length, free[0].getSize()))
                 # FIXME: round down to nearest cylinder boundary
                 max_grow = free[0].length
                 max_sectors = req_sectors + max_grow
