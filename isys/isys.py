@@ -308,14 +308,23 @@ def doGetBiosDisk(mbrSig):
 
 handleSegv = _isys.handleSegv
 
-biosdisks = {}
-for d in range(80, 80 + 15):
-    disk = doGetBiosDisk("%d" %(d,))
-    #print("biosdisk of %s is %s" %(d, disk))
-    if disk is not None:
-        biosdisks[disk] = d
 
 def compareDrives(first, second):
+    from storage.devicelibs.dm import dm_node_from_name
+
+    biosdisks = {}
+    for d in range(80, 80 + 15):
+        disk = doGetBiosDisk("%d" %(d,))
+        #print("biosdisk of %s is %s" %(d, disk))
+        if disk is not None:
+            biosdisks[disk] = d
+
+    # convert /dev/mapper/foo -> /dev/dm-#, as that is what is in biosdisks
+    if os.access("/dev/mapper/%s" % first, os.F_OK):
+        first = dm_node_from_name(first)
+    if os.access("/dev/mapper/%s" % second, os.F_OK):
+        second = dm_node_from_name(second)
+
     if biosdisks.has_key(first) and biosdisks.has_key(second):
         one = biosdisks[first]
         two = biosdisks[second]
@@ -323,6 +332,12 @@ def compareDrives(first, second):
             return -1
         elif (one > two):
             return 1
+
+    # if one is in the BIOS and the other not prefer the one in the BIOS
+    if biosdisks.has_key(first):
+        return -1
+    if biosdisks.has_key(second):
+        return 1
 
     if first.startswith("hd"):
         type1 = 0

@@ -106,8 +106,10 @@ static struct device ** createDiskList(){
 
 static int readDiskSig(char *device, uint32_t *disksig) {
     int fd, rc;
+    char devnodeName[64];
 
-    fd = open(device, O_RDONLY);
+    snprintf(devnodeName, sizeof(devnodeName), "/dev/%s", device);
+    fd = open(devnodeName, O_RDONLY);
     if (fd < 0) {
 #ifdef STANDALONE 
         fprintf(stderr, "Error opening device %s: %s\n ", device, 
@@ -147,7 +149,7 @@ static int mapBiosDisks(struct device** devices,const char *path) {
     char * sigFileName;
     uint32_t mbrSig, biosNum, currentSig;
     struct device **currentDev, **foundDisk;
-    int i, rc, ret;
+    int i, rc, ret, dm_nr, highest_dm;
 
     dirHandle = opendir(path);
     if(!dirHandle){
@@ -176,22 +178,41 @@ static int mapBiosDisks(struct device** devices,const char *path) {
         sigFileName = malloc(strlen(path) + strlen(entry->d_name) + 20);
         sprintf(sigFileName, "%s/%s/%s", path, entry->d_name, SIG_FILE);
         if (readMbrSig(sigFileName, &mbrSig) == 0) {
-            for (currentDev = devices, i = 0, foundDisk=NULL;
-                    (*currentDev) != NULL && i<2;
+            for (currentDev = devices, i = 0, foundDisk=NULL, highest_dm=-1;
+                    (*currentDev) != NULL;
                     currentDev++) {
                 if (!(*currentDev)->device)
                     continue;
 
                 if ((rc=readDiskSig((*currentDev)->device, &currentSig)) < 0) {
-                    if (rc == -ENOMEDIUM)
+                    if (rc == -ENOMEDIUM || rc == -ENXIO)
                         continue;
                     closedir(dirHandle);
                     return 0;
                 } 
 
                 if (mbrSig == currentSig) {
-                    foundDisk=currentDev;
+                    /* When we have a fakeraid setup we will find multiple hits
+                       a number for the raw disks (1 when striping, 2 when
+                       mirroring, more with raid on raid like raid 01 or 10)
+                       and a number for the dm devices (normally only one dm
+                       device will match, but more with raid on raid).
+                       Since with raid on raid the last dm device created
+                       will be the top layer raid, we want the highest matching
+                       dm device. */
+                    if (!strncmp((*currentDev)->device, "dm-", 3) &&
+                         sscanf((*currentDev)->device+3, "%d", &dm_nr) == 1) {
+                        if (dm_nr > highest_dm) {
+                            highest_dm = dm_nr;
+                            foundDisk=currentDev;
+                            i = 1;
+                        }
+                    } else if (!foundDisk ||
+                               strncmp((*foundDisk)->device, "dm-", 3)) {
+                        printf("using non dm device %s\n", (*currentDev)->device);
+                        foundDisk=currentDev;
                         i++;
+                    }
                 }
             }
 
