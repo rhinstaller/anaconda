@@ -542,6 +542,9 @@ def doPartitioning(storage, exclusiveDisks=None):
     if exclusiveDisks:
         disks = [d for d in disks if d.name in exclusiveDisks]
 
+    for disk in disks:
+        disk.setup()
+
     partitions = storage.partitions
     for part in partitions:
         part.req_bootable = False

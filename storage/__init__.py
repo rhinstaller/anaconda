@@ -163,6 +163,11 @@ def storageComplete(anaconda):
                                 custom_buttons=[_("Go _back"),
                                                 _("_Write changes to disk")],
                                 default = 0)
+
+    # Make sure that all is down, even the disks that we setup after popluate.
+    for disk in anaconda.id.storage.disks:
+        disk.teardown()
+
     if rc == 0:
         return DISPATCH_BACK
 
