@@ -773,8 +773,6 @@ if __name__ == "__main__":
 
     if opts.debug:
         flags.debug = True
-        import pdb
-        pdb.set_trace()
 
     import instdata
 
