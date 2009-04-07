@@ -448,6 +448,8 @@ class Storage(object):
                    available for the purpose of storing the exception
                    report.
         """
+        self.reset()
+
         dests = []
         for device in self.devices:
             if not device.removable:
