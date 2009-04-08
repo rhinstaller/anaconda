@@ -1,7 +1,7 @@
 /*
  * isys.c
  *
- * Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 2007, 2008, 2009  Red Hat, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,6 @@
 #undef dev_t
 #define dev_t dev_t
 #include <sys/ioctl.h>
-#include <sys/mount.h>
 #include <sys/stat.h>
 #include <sys/sysmacros.h>
 #include <sys/time.h>
@@ -262,13 +261,33 @@ static PyObject * doLoSetup(PyObject * s, PyObject * args) {
 }
 
 static PyObject * doUMount(PyObject * s, PyObject * args) {
-    char * fs;
+    char *err = NULL, *mntpoint = NULL;
+    int rc;
 
-    if (!PyArg_ParseTuple(args, "s", &fs)) return NULL;
+    if (!PyArg_ParseTuple(args, "s", &mntpoint)) {
+        return NULL;
+    }
 
-    if (umount(fs)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
+    rc = doPwUmount(mntpoint, &err);
+    if (rc == IMOUNT_ERR_ERRNO) {
+        PyErr_SetFromErrno(PyExc_SystemError);
+    } else if (rc) {
+        PyObject *tuple = PyTuple_New(2);
+
+        PyTuple_SetItem(tuple, 0, PyInt_FromLong(rc));
+
+        if (err == NULL) {
+            Py_INCREF(Py_None);
+            PyTuple_SetItem(tuple, 1, Py_None);
+        } else {
+            PyTuple_SetItem(tuple, 1, PyString_FromString(err));
+        }
+
+        PyErr_SetObject(PyExc_SystemError, tuple);
+    }
+
+    if (rc) {
+        return NULL;
     }
 
     Py_INCREF(Py_None);
