@@ -92,6 +92,9 @@ class MDRaidMember(DeviceFormat):
         # XXX hack -- we don't have a nice way to see if the array is active
         return False
 
+    def writeKS(self, f):
+        f.write("raid.%s" % self.mdUuid)
+
 
 register_device_format(MDRaidMember)
 

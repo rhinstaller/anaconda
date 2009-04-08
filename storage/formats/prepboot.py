@@ -56,6 +56,9 @@ class PPCPRePBoot(DeviceFormat):
         import platform
         return isinstance(platform.getPlatform(None), platform.IPSeriesPPC)
 
+    def writeKS(self, f):
+        f.write("prepboot --fstype=%s" % self.type)
+
 
 register_device_format(PPCPRePBoot)
 

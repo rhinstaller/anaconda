@@ -723,7 +723,7 @@ class FS(DeviceFormat):
     def setup(self, *args, **kwargs):
         """ Mount the filesystem.
 
-            THe filesystem will be mounted at the directory indicated by
+            The filesystem will be mounted at the directory indicated by
             self.mountpoint.
         """
         return self.mount(**kwargs)
@@ -737,6 +737,9 @@ class FS(DeviceFormat):
         if not self.exists:
             return False
         return self._mountpoint is not None
+
+    def writeKS(self, f):
+        f.write("%s --fstype=%s" % (self.mountpoint, self.type))
 
 
 class Ext2FS(FS):
@@ -1044,6 +1047,9 @@ class AppleBootstrapFS(HFS):
         return (isinstance(platform.getPlatform(None), platform.NewWorldPPC)
                 and self.utilsAvailable)
 
+    def writeKS(self, f):
+        f.write("appleboot --fstype=%s" % self.type)
+
 register_device_format(AppleBootstrapFS)
 
 
@@ -1159,6 +1165,9 @@ class Iso9660FS(FS):
     _migratable = False
     _defaultMountOptions = ["ro"]
 
+    def writeKS(self, f):
+        return
+
 register_device_format(Iso9660FS)
 
 
@@ -1176,6 +1185,9 @@ class NoDevFS(FS):
 
     def _getExistingSize(self):
         pass
+
+    def writeKS(self, f):
+        return
 
 register_device_format(NoDevFS)
 
@@ -1216,6 +1228,9 @@ class BindFS(FS):
 
     def _getExistingSize(self):
         pass
+
+    def writeKS(self, f):
+        return
 
 register_device_format(BindFS)
 

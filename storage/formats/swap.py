@@ -142,6 +142,9 @@ class SwapSpace(DeviceFormat):
         swap.mkswap(self.device, label=self.label)
         self.exists = True
 
+    def writeKS(self, f):
+        f.write("swap")
+
 
 register_device_format(SwapSpace)
 

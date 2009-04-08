@@ -364,6 +364,9 @@ class DeviceFormat(object):
         """ Minimum size (in MB) for this format type. """
         return self._minSize
 
+    def writeKS(self, f):
+        return
+
 
 collect_device_format_classes()
 
