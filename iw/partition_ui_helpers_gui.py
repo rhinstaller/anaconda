@@ -29,7 +29,6 @@ import iutil
 
 from constants import *
 from partIntfHelpers import *
-from partedUtils import *
 from storage.formats import *
 
 import gettext
