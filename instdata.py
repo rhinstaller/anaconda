@@ -269,8 +269,7 @@ class InstallData:
         self.security.writeKS(f)
         self.timezone.writeKS(f)
         self.bootloader.writeKS(f)
-        self.storage.iscsi.writeKS(f)
-        self.storage.zfcp.writeKS(f)
+        self.storage.writeKS(f)
 
         if self.backend is not None:
             self.backend.writeKS(f)

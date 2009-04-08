@@ -950,6 +950,50 @@ class Storage(object):
 
     def writeKS(self, f):
         log.warning("Storage.writeKS not completely implemented")
+        f.write("# The following is the partition information you requested\n")
+        f.write("# Note that any partitions you deleted are not expressed\n")
+        f.write("# here so unless you clear all partitions first, this is\n")
+        f.write("# not guaranteed to work\n")
+
+        # clearpart
+        if self.clearPartType == CLEARPART_TYPE_NONE:
+            args = ["--none"]
+        elif self.clearPartType == CLEARPART_TYPE_LINUX:
+            args = ["--linux"]
+        else:
+            args = ["--all"]
+
+        if self.clearPartDisks:
+            args += ["--drives=%s" % ",".join(self.clearPartDisks)]
+        if self.reinitializeDisks:
+            args += ["--initlabel"]
+
+        f.write("#clearpart %s\n" % " ".join(args))
+
+        # ignoredisks
+        if self.ignoredDisks:
+            f.write("#ignoredisk --drives=%s\n" % ",".join(self.ignoredDisks))
+        elif self.exclusiveDisks:
+            f.write("#ignoredisk --only-use=%s\n" % ",".join(self.exclusiveDisks))
+
+        # the various partitioning commands
+        dict = {}
+        ordering = []
+        actions = filter(lambda x: x.device.format.type != "luks",
+                         self.devicetree.findActions(type="create"))
+
+        for action in actions:
+            if dict.has_key(action.device.path):
+                dict[action.device.path].append(action)
+            else:
+                dict[action.device.path] = [action]
+                ordering.append(action.device.path)
+
+        for path in ordering:
+            for device in map(lambda x: x.device, dict[path]):
+                device.writeKS(f)
+                f.write("\n")
+
         self.iscsi.writeKS(f)
         self.zfcp.writeKS(f)
 
