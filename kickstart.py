@@ -680,6 +680,7 @@ class Raid(commands.raid.F9_Raid):
     def parse(self, args):
         rd = commands.raid.F9_Raid.parse(self, args)
         raidmems = []
+        devicename = "md%d" % rd.device
 
         storage = self.handler.id.storage
         devicetree = storage.devicetree
@@ -711,12 +712,12 @@ class Raid(commands.raid.F9_Raid):
         # If this specifies an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
         if not rd.format:
-            if not rd.device:
+            if not devicename:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="--noformat used without --device")
 
-            dev = devicetree.getDeviceByName(rd.device)
+            dev = devicetree.getDeviceByName(devicename)
             if not dev:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting RAID device with the name \"%s\" was found." % rd.device)
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting RAID device with the name \"%s\" was found." % devicename)
 
             dev.format.mountpoint = lvd.mountpoint
             dev.format.mountopts = lvd.fsopts
@@ -747,8 +748,8 @@ class Raid(commands.raid.F9_Raid):
         if not kwargs["format"]:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
 
-        kwargs["name"] = rd.device
-        kwargs["level"] = rd.level
+        kwargs["name"] = devicename
+        kwargs["level"] = rd.level.lower()
         kwargs["parents"] = raidmems
         kwargs["memberDevices"] = len(raidmems)
         kwargs["totalDevices"] = kwargs["memberDevices"]+rd.spares

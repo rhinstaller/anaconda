@@ -104,7 +104,7 @@ def get_raid_max_spares(raidlevel, nummembers):
     raise ValueError, "invalid raid level %d" % raidlevel
 
 def mdcreate(device, level, disks, spares=0):
-    argv = ["--create", device, "--run", "--level", str(level)]
+    argv = ["--create", device, "--run", "--level=%s" % level]
     raid_devs = len(disks) - spares
     argv.append("--raid-devices=%d" % raid_devs)
     if spares:
