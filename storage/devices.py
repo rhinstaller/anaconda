@@ -233,6 +233,9 @@ class Device(object):
               "descr": self.description, "status": self.status})
         return s
 
+    def writeKS(self, f, s=None):
+        return
+
     def removeChild(self):
         log_method_call(self, name=self.name, kids=self.kids)
         self.kids -= 1
@@ -959,6 +962,27 @@ class PartitionDevice(StorageDevice):
                "partedPart": self.partedPartition, "disk": self.disk})
         return s
 
+    def writeKS(self, f, s=None):
+        args = []
+
+        if self.isExtended:
+            return
+
+        if self.req_grow:
+            args.append("--grow")
+        if self.req_max_size:
+            args.append("--maxsize=%s" % self.req_max_size)
+        if self.req_primary:
+            args.append("--asprimary")
+        if self.req_size:
+            args.append("--size=%s" % self.req_size)
+
+        f.write("#part ")
+        self.format.writeKS(f)
+        f.write(" %s" % " ".join(args))
+        if s:
+            f.write(" %s" % s)
+
     def _setTargetSize(self, newsize):
         if newsize != self.currentSize:
             # change this partition's geometry in-memory so that other
@@ -1424,6 +1448,12 @@ class LUKSDevice(DMCryptDevice):
                                parents=parents, sysfsPath=sysfsPath,
                                uuid=None, exists=exists)
 
+    def writeKS(self, f, s=None):
+        self.slave.writeKS(f)
+        self.format.writeKS(f)
+        if s:
+            f.write(" %s" % s)
+
     @property
     def size(self):
         if not self.exists or not self.partedDevice:
@@ -1571,6 +1601,17 @@ class LVMVolumeGroupDevice(DMDevice):
                "extents": self.extents, "freeSpace": self.freeSpace,
                "freeExtents": self.freeExtents, "pvs": self.pvs, "lvs": self.lvs})
         return s
+
+    def writeKS(self, f, s=None):
+        args = ["--pesize=%s" % self.peSize]
+        pvs = []
+
+        for pv in self.pvs:
+            pvs.append("pv.%s" % pv.format.uuid)
+
+        f.write("#volgroup %s %s %s" % (self.name, " ".join(args), " ".join(pvs)))
+        if s:
+            f.write(" %s" % s)
 
     def probe(self):
         """ Probe for any information about this device. """
@@ -1938,6 +1979,27 @@ class LVMLogicalVolumeDevice(DMDevice):
               {"vgdev": self.vg, "percent": self.req_percent})
         return s
 
+    def writeKS(self, f, s=None):
+        args = ["--name=%s" % self.lvname,
+                "--vgname=%s" % self.vg.name]
+
+        if self.req_grow:
+            args.extend(["--grow", "--size=%s" % self.req_size])
+
+            if self.req_max_size > 0:
+                args.append("--maxsize=%s" % self.req_max_size)
+        else:
+            if self.req_percent > 0:
+                args.append("--percent=%s" % self.req_percent)
+            elif self.req_size > 0:
+                args.append("--size=%s" % self.req_size)
+
+        f.write("#logvol ")
+        self.format.writeKS(f)
+        f.write(" %s" % " ".join(args))
+        if s:
+            f.write(" %s" % s)
+
     def _setSize(self, size):
         size = self.vg.align(numeric_type(size))
         log.debug("trying to set lv %s size to %dMB" % (self.name, size))
@@ -2170,6 +2232,24 @@ class MDRaidArrayDevice(StorageDevice):
               {"level": self.level, "bitmap": self.bitmap, "spares": self.spares,
                "memberDevices": self.memberDevices, "totalDevices": self.totalDevices})
         return s
+
+    def writeKS(self, f, s=None):
+        args = ["--level=%s" % self.level,
+                "--device=%s" % self.name]
+        mems = []
+
+        if self.spares > 0:
+            args.append("--spares=%s" % self.spares)
+
+        for mem in self.parents:
+            mems.append("raid.%s" % mem.format.uuid)
+
+        f.write("#raid ")
+        self.format.writeKS(f)
+        f.write(" %s" % " ".join(args))
+        f.write(" %s" % " ".join(mems))
+        if s:
+            f.write(" %s" % s)
 
     @property
     def mdadmConfEntry(self):
