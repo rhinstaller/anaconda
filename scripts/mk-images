@@ -293,7 +293,15 @@ makemoduletree() {
     echo "Copying required firmware..."
     find $MMB_DIR/lib/modules/ -name *.ko | while read module ; do
         for fw in $(modinfo -F firmware $module); do
-            cp $KERNELROOT/lib/firmware/$fw $MBD_DIR/firmware
+            dest=$MBD_DIR/firmware/$fw
+            destdir=$(dirname $dest)
+
+            # Some firmware files are expected to be in their own directories.
+            if [ ! -d $destdir ]; then
+                mkdir -p $destdir
+            fi
+
+            cp $KERNELROOT/lib/firmware/$fw $dest
         done
     done
 
