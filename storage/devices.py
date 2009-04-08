@@ -1030,13 +1030,8 @@ class PartitionDevice(StorageDevice):
         log.debug("device %s new partedPartition %s has path %s" % (self.name,
                                                                     partition,
                                                                     path))
-
-        if partition is None:
-            self._partedPartition = None
-            self._name = self.req_name
-        else:
-            self._partedPartition = partition
-            self._name = devicePathToName(partition.getDeviceNodeName())
+        self._partedPartition = partition
+        self.updateName()
 
     partedPartition = property(lambda d: d._getPartedPartition(),
                                lambda d,p: d._setPartedPartition(p))
@@ -1063,6 +1058,13 @@ class PartitionDevice(StorageDevice):
 
         else:
             StorageDevice.updateSysfsPath(self)
+
+    def updateName(self):
+        if self.partedPartition is None:
+            self._name = self.req_name
+        else:
+            self._name = \
+                devicePathToName(self.partedPartition.getDeviceNodeName())
 
     def dependsOn(self, dep):
         """ Return True if this device depends on dep. """
